@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7B0DA677D7
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 16:31:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.919317.1323806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C6C1A677FC
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 16:35:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.919363.1323857 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuYuO-0001P1-O8; Tue, 18 Mar 2025 15:31:12 +0000
+	id 1tuYyS-0004lP-LV; Tue, 18 Mar 2025 15:35:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 919317.1323806; Tue, 18 Mar 2025 15:31:12 +0000
+Received: by outflank-mailman (output) from mailman id 919363.1323857; Tue, 18 Mar 2025 15:35:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuYuO-0001MT-LQ; Tue, 18 Mar 2025 15:31:12 +0000
-Received: by outflank-mailman (input) for mailman id 919317;
- Tue, 18 Mar 2025 15:31:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tuYyS-0004jx-IP; Tue, 18 Mar 2025 15:35:24 +0000
+Received: by outflank-mailman (input) for mailman id 919363;
+ Tue, 18 Mar 2025 15:35:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mYbn=WF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tuYuM-0001ML-NR
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 15:31:10 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 03ca8a20-040e-11f0-9899-31a8f345e629;
- Tue, 18 Mar 2025 16:31:08 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5e5b572e45cso10991678a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 08:31:08 -0700 (PDT)
+ id 1tuYyR-0004jr-U4
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 15:35:23 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9b436743-040e-11f0-9abb-95dc52dad729;
+ Tue, 18 Mar 2025 16:35:23 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5e34f4e89so10389368a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 08:35:23 -0700 (PDT)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 4fb4d7f45d1cf-5e816ad3937sm8247932a12.49.2025.03.18.08.31.07
+ a640c23a62f3a-ac3147e9ab1sm874281966b.52.2025.03.18.08.35.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Mar 2025 08:31:08 -0700 (PDT)
+ Tue, 18 Mar 2025 08:35:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,85 +44,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03ca8a20-040e-11f0-9899-31a8f345e629
+X-Inumbo-ID: 9b436743-040e-11f0-9abb-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742311868; x=1742916668; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=K0TCyUw42Drct+CIBpJPNucYKzAypB6tbAMuyvXz2II=;
-        b=nHQIZZ2yL5sFWiD6PGzyl3IPM43xYFyyc9Q7Tpp/K9L04IjLAzUTtNYZPC4JNkAmkx
-         +ccI30jf5Z9IM3U7etJYE/0r/0dp1jmYfDYhIZ3tQng870MAJ3iA+eijH0ZbpSWQARI0
-         Ek9zAKlqfOpfuyD/+sFUp9gddleIsYwyESxoU=
+        d=citrix.com; s=google; t=1742312122; x=1742916922; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=VbA/TOPKax/2KC9AZ0lOBx+5I41+mJzHDuasx5LoO88=;
+        b=GonxgzbcWQJJBgKAsYbdNfiV0o6cSu+NKXjY7Pw+QbP0+GQLAAcaKiASCBhT11vEe4
+         yfuUlPf3EgZ6uZ2DIHna8EW/fg8HHEEc/bVgetuqEtCBB9uvxGSsQr8wsXoK1S7swUUI
+         JsTUGQLS7fH+hGIrCh5sf1UCXpRgnDmRzEDak=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742311868; x=1742916668;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=K0TCyUw42Drct+CIBpJPNucYKzAypB6tbAMuyvXz2II=;
-        b=S9q4IyRk2vjqbWsoTT3fg1jw0l4lWiQBvPoEQ+lO3/OrXld33gY4SHSQhAm2pjRkMu
-         ZPStb72Khg8Sd67KyytFeZIJjAsYWUElCEVAb9dG5N8xb8kV++J2dr8qO4pTaqR3E9Oz
-         AVtOu3vff+fluS4Z6ic9iA2r1cZ7qiYcZ5VAShmBdr6jIHQFwlaxxQ66dovagDmdWXuy
-         1LQV9m/eh0zoyI+T8uzUITOJnEXdjMnWrHaIG4SnbUJqLEHDs2qpGsJNvTnImVrBeIGy
-         PsCFnayNCYg2R/tHoiIDnYinRe9RSxMqY6H1ykYYo1y9aVFE62tjD+9B4n4+p5XZawd2
-         1Abg==
-X-Forwarded-Encrypted: i=1; AJvYcCVsPgCHBJD+ADW3YJCYTl6rB3K56ErmZoP5tsIOkYHPoC+J5DQvttX6NdcoPCxLlUWgfxKrd7SD1is=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwIz3bhTkxGu+L6/xDCoi19b0uduc7/AHiYXy6XrQoAVBdrYY81
-	V/9j510ldv1UJcoKc2uC3R3vL5hi3LHpbUBecR+D/amGlvkAFRZHMxFRFI2nkZA=
-X-Gm-Gg: ASbGnctig0rwyDon3VOqXkcAsmZt+yi4DYVFZpqbWkeplcsDpgP0k1ZJx5EkOlPgdso
-	TBTa9hTqSLiaCbQTeQMgKTNXU/m9YmXwBWgacncfLZwpFrmhgG3vQElAtd8yR/6aoYZCCCa+Oz3
-	G6UPcHL7QD5Ukv5emF1xnwmTB9Ofhal5yRohHNEOcWg6NKDz/zej5dOIfU7FL/s1oK0oKp2GyYN
-	IB4W9yXK2XtvwbZDNCIoIMKBQatk5v1hwLzt1N8FSHbcRbk2sdbjqrVkgJ6ESUVPjjul5TnNUuU
-	62zZ+c4Xck4fJcRAntz+CSjhlT1tunlrG/B1sToohSwB7ydsqzZngBY=
-X-Google-Smtp-Source: AGHT+IFcXXF3/Unqvr9paJVcRVvtSOWg/095m5lxNtfARfO6cyFetbZ8tMsDPr54HcJXVDoHnUofpQ==
-X-Received: by 2002:a05:6402:2551:b0:5e7:b015:c636 with SMTP id 4fb4d7f45d1cf-5e89f24f212mr18065104a12.6.1742311868381;
-        Tue, 18 Mar 2025 08:31:08 -0700 (PDT)
-Date: Tue, 18 Mar 2025 16:31:07 +0100
+        d=1e100.net; s=20230601; t=1742312122; x=1742916922;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VbA/TOPKax/2KC9AZ0lOBx+5I41+mJzHDuasx5LoO88=;
+        b=Eyq3DZwuAuixM5iuIgJJ2tZFAYDul/gPqPqqycSsMBwQ3vguf3L81W6ic0hMSPLAuT
+         IFnWlxOaJFW8OQzupnT/SCWzibBiwNH8a7cV3lcr967cBDJIx3K8Pvb1Lg1CTRncxr6O
+         eBuvkX2r9QIj9huYeO7SxG+O3+zeiyDdmOHiP4iP3KQrFFJcIdbhPRZN//N1rGuY/K0U
+         DF6r12OmGZltFWIuo2vMEzqBDjtc5pr657XLO9HRhZbP4PlWUX4xfVuWvWn56On2f7/I
+         ZsRImnMxIQrzI8/9N9uVbqZuYCVVgmSH2/3FcduFF2Zwu4kjM3CdWA9XnXcZ6AdpucHu
+         XmbA==
+X-Forwarded-Encrypted: i=1; AJvYcCWIXL5dWffbhA4gWq7HehfATsFFXQoi9xB664cYwvUg81VZkFkMrO28I1crVVIfI5xkoTb9DyvYLPY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx6TH1Zx0+EmKIpGk7RnUrKfKjad2eAzlG+Jc/hsHIua6bH2Ewc
+	geEVBKggz7F4MwcRAQJm1LVl4TZF75NMCITOPNaqd2hsDmFdHaZbB3qrde+f7pOGXiMxZgd88Lo
+	3
+X-Gm-Gg: ASbGncvIhVQJy0u51+gR3gEeuzX5KttiWfqQwP3yFuYCE3r4qEPgShZ5p7B6XjmFrae
+	lDG4I8GuTxKJjFjTY1RtO+FEqT/VA/8+ySHdJdhsknkFxPysNpx3LxeHQlEclvhxwdHTJztMMjr
+	S8a5cVpE6YO65pYB/RuoC5/bdn8LgvDDrZGffDMnpD+6gA7bQfeDvvTcIKNyGU1+Clw8PxUk5qs
+	HCxWD+BmLlniMEkD7p9rIqUy5/7XljOOrrXK8WkH1zU0Izh/KKYQzclDhxQtKgC9riKimQ8XKvq
+	Hjbhgqi+5dUumWS3J7l0YV9qCUeUX8GqpD/KSwaAMu8YCueMZZRYQxQ=
+X-Google-Smtp-Source: AGHT+IHrhzjwOVCjw0zKLuy+yunJiyB2bcJv9CI8B+CSe1WIwOpGsHhvaeLuoEOK38iOTCNnLUP1vQ==
+X-Received: by 2002:a17:906:da8c:b0:ac3:991:a631 with SMTP id a640c23a62f3a-ac38d448f16mr510192966b.34.1742312122199;
+        Tue, 18 Mar 2025 08:35:22 -0700 (PDT)
+Date: Tue, 18 Mar 2025 16:35:21 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 2/5] x86/vga: fix mapping of the VGA text buffer
-Message-ID: <Z9mRu3JCwgffgEKd@macbook.local>
+Subject: Re: [PATCH v2 3/5] x86/xlat: fix UB pointer arithmetic in
+ COMPAT_ARG_XLAT_VIRT_BASE
+Message-ID: <Z9mSub1DgzoP71-v@macbook.local>
 References: <20250318091904.52903-1-roger.pau@citrix.com>
- <20250318091904.52903-3-roger.pau@citrix.com>
- <cc882f93-b5d0-45ad-bb2a-1c6b9455509b@citrix.com>
- <f2fa59b3-83cd-41e4-a921-5c6eaa89e759@suse.com>
+ <20250318091904.52903-4-roger.pau@citrix.com>
+ <8ad59d67-02f8-415c-93a0-2361e920c017@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f2fa59b3-83cd-41e4-a921-5c6eaa89e759@suse.com>
+In-Reply-To: <8ad59d67-02f8-415c-93a0-2361e920c017@suse.com>
 
-On Tue, Mar 18, 2025 at 03:28:32PM +0100, Jan Beulich wrote:
-> On 18.03.2025 14:11, Andrew Cooper wrote:
-> > On 18/03/2025 9:19 am, Roger Pau Monne wrote:
-> >> The call to ioremap_wc() in video_init() will always fail, because
-> >> video_init() is called ahead of vm_init_type(), and so the underlying
-> >> __vmap() call will fail to allocate the linear address space.
-> >>
-> >> Fix by reverting to the previous behavior and using ioremap() for the VGA
-> >> text buffer.
-> >>
-> >> Fixes: 81d195c6c0e2 ('x86: introduce ioremap_wc()')
-> >> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > 
-> > This is somewhat ugly.
-> > 
-> > ioremap() isn't really any better than ioremap_wc(); this only works
-> > because plain ioremap() has a special case for the bottom 1M where it
-> > does nothing and exits.
+On Tue, Mar 18, 2025 at 03:33:03PM +0100, Jan Beulich wrote:
+> On 18.03.2025 10:19, Roger Pau Monne wrote:
+> > --- a/xen/arch/x86/include/asm/x86_64/uaccess.h
+> > +++ b/xen/arch/x86/include/asm/x86_64/uaccess.h
+> > @@ -9,9 +9,9 @@
+> >   * a secondary mapping installed, which needs to be used for such accesses in
+> >   * the PV case, and will also be used for HVM to avoid extra conditionals.
+> >   */
+> > -#define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current) + \
+> > -                                   (PERDOMAIN_ALT_VIRT_START - \
+> > -                                    PERDOMAIN_VIRT_START))
+> > +#define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current) - \
+> > +                                   (PERDOMAIN_VIRT_START - \
+> > +                                    PERDOMAIN_ALT_VIRT_START))
 > 
-> And this is exactly why I screwed up back then. Imo we would be better
-> off moving to using __va() directly here. Otherwise the same mistake
-> could be made again by someone (perhaps even me) noticing the less
-> efficient ioremap(), when ioremap_wc() really would be wanted.
+> Aren't we then (still) dependent on ordering between PERDOMAIN_VIRT_START
+> and PERDOMAIN_ALT_VIRT_START? Would
+> 
+> #define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current) - \
+>                                    PERDOMAIN_VIRT_START + \
+>                                    PERDOMAIN_ALT_VIRT_START)
+> 
+> perhaps be less fragile?
 
-I can switch to using __va(), that's fine.  I guess we should then
-remove the special casing for the low 1MB in ioremap()?
+PERDOMAIN_{ALT_,}VIRT_START are unsigned long, so this might work.
+
+Note however that even with your suggestion we are still dependant on
+ARG_XLAT_START(v) > PERDOMAIN_ALT_VIRT_START, or else the '-' won't
+work.  I think I prefer my proposed version, because it's clear that
+PERDOMAIN_VIRT_START, ARG_XLAT_START(current) >
+PERDOMAIN_ALT_VIRT_START.  With your suggestion that's not obvious.
 
 Thanks, Roger.
 
