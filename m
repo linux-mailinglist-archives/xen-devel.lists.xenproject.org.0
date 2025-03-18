@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA6E4A6712D
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 11:25:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.918899.1323514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7634CA671B8
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 11:46:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.918913.1323525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuU8g-00082S-7S; Tue, 18 Mar 2025 10:25:38 +0000
+	id 1tuUSH-0004Mp-Qb; Tue, 18 Mar 2025 10:45:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 918899.1323514; Tue, 18 Mar 2025 10:25:38 +0000
+Received: by outflank-mailman (output) from mailman id 918913.1323525; Tue, 18 Mar 2025 10:45:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuU8g-00080o-4R; Tue, 18 Mar 2025 10:25:38 +0000
-Received: by outflank-mailman (input) for mailman id 918899;
- Tue, 18 Mar 2025 10:25:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tuUSH-0004K4-Ms; Tue, 18 Mar 2025 10:45:53 +0000
+Received: by outflank-mailman (input) for mailman id 918913;
+ Tue, 18 Mar 2025 10:45:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b9yH=WF=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1tuU8f-00080i-9T
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 10:25:37 +0000
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [2607:f8b0:4864:20::22e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 540a8301-03e3-11f0-9aba-95dc52dad729;
- Tue, 18 Mar 2025 11:25:36 +0100 (CET)
-Received: by mail-oi1-x22e.google.com with SMTP id
- 5614622812f47-3fa6c54cdb2so3837935b6e.3
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 03:25:36 -0700 (PDT)
+ <SRS0=mYbn=WF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tuUSG-0004Jy-7p
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 10:45:52 +0000
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [2607:f8b0:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2437cd69-03e6-11f0-9899-31a8f345e629;
+ Tue, 18 Mar 2025 11:45:44 +0100 (CET)
+Received: by mail-pl1-x62f.google.com with SMTP id
+ d9443c01a7336-2239c066347so112540795ad.2
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 03:45:44 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d2e1a72fcca58-737116b13aasm9202112b3a.169.2025.03.18.03.45.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Mar 2025 03:45:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,96 +44,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 540a8301-03e3-11f0-9aba-95dc52dad729
+X-Inumbo-ID: 2437cd69-03e6-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1742293534; x=1742898334; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4Q3GxsQGWIvzfFjxsMvTXyevofE6hPWTBtK5jwd0F3U=;
-        b=GB1ZYnArax1GTNP/hESRzJvgQhqtToai9pxsQ30z393pw4Veny8VxIwyoedc64XgEM
-         Gj42BVyxxtNg8+/5C8t1Gxmwv818usqF6V8DV9iXbRMgwgDXTPWOaZ5W6TCQEOaVn3YJ
-         C9bYbb+p3G7Irn24xIiNyQBsQyhRmN8R/mVRY=
+        d=citrix.com; s=google; t=1742294743; x=1742899543; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=BBLNeRl2TaqvkMzblnukNT37RWB/3hIwtQTOg/wpViw=;
+        b=BMADqaGxQXtTbwFwayRBNRfrgeBbXiF9nA2U+1NJbZ6GcJCAVyXjzQ2TclO1H8f/So
+         34kdf6FQknTYU8eRemZ+oJg+2henk1t5DVWZpzBIFrVJJAt7rL82EPCfc+Iu0JyEfzae
+         lZpfF618NjL/3abuAJSKPqWe5IwStoc5UQdnE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742293534; x=1742898334;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4Q3GxsQGWIvzfFjxsMvTXyevofE6hPWTBtK5jwd0F3U=;
-        b=al+cQTdx21QpsrHKfV6WI9E3TmpMEKvpOBSkQkBv7o0NZ0x2wOXTO3NuGkalnNXYjE
-         TOwX6Bnchxm7j36RcBo9g13J5NNWI1WHvrWkRLrfVH9zLkxSE/RlqH4Z47vy59EiAfv3
-         pNRgRuYwpQbY1SEERyJTR6G+wqRMmTMeL4mk9HNdWClIb0Ls0xnqcqq8aKpgfAx9A3yj
-         w1Z1zgUbQffen28vnviSzLarCT0ZU6QGI29BH9hhGNB7J+4Z8cJxODGnsgB8zI+smhQV
-         M591QIidpzV0Pj5TamU5sh2tieAQiL/hemc3xeMBzzteuU9Phc9sgmcm+pR02bhRuktp
-         tpEg==
-X-Gm-Message-State: AOJu0YxPVaixfik3BCWGfhBbMFodhIicGAvICiLMoww9m6h8Hmf6uATt
-	vH5CiJ+GvgWvqSGFbWiqIPFro5aw2E6h5/x/y7u7npekGTTK4nRQxpQyV7lpACEiFrZxR7ORaX9
-	ujFymw8RWa3D9Q9q9SBKr11vHE62tinkwU8kbICnZaj+qgAeT
-X-Gm-Gg: ASbGncsgCsiO8t+dBfD6UO8H5ggZTklt2QgE2BfnLj+GxfCUqSHGoygXRWkzV9Gt3hH
-	TRoDbunpSFvEt2T17vjaZ2tdokbJ9LcfBj05XHzyAqne83CJJiaA1Y89Jnyks/aOCVowOCySyS5
-	aVTNm50S/Gzwcw6S46hIYx23A=
-X-Google-Smtp-Source: AGHT+IEDIj8kRVC1XCh+uiSqERG2j3yw8teBeP/OzwYpmKshfLhSxkx07aR2yEwMvF8cVHbFYgtrV6ANCAh7AtBdWaA=
-X-Received: by 2002:a05:6808:1487:b0:3f3:f90b:f1b9 with SMTP id
- 5614622812f47-3fdebccff3bmr8025361b6e.0.1742293534594; Tue, 18 Mar 2025
- 03:25:34 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1742294743; x=1742899543;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=BBLNeRl2TaqvkMzblnukNT37RWB/3hIwtQTOg/wpViw=;
+        b=H+IlPj0DyWgYSWK6pOvhjfnnffZyz/6nXmSyTSNUuMZwThccwxOnlX2RU2abvP9No4
+         Jzju+zWofsXrRxxDWKPNND9asitQBvQRv3bsxwm1NTK2FRR27Baj4S12WSYPEfG2WTMv
+         mix7Xv1LXRfwGOtZC9RAaPq+M4WzEibho27BDNQaAo1sDK4w1dgAeObnbGLQJM2e8Dq1
+         hjDCCLEY4RY1ww8uKwwk3CdBCa2onJfBL7w1qgO3RaUSlo3Uqw/kZY/48Q7YQlXW8thL
+         V4nDc0yvFVCvQayJn3FrhYU3mPmF6GuD56vhI6YA9cBbyrMGlKPd+KuMWrALQo3cdn7V
+         0VuA==
+X-Forwarded-Encrypted: i=1; AJvYcCU00tILTDUnSiGO7cYp1Z8wqD5GDxh0SKksgjCZabFd4XnuW3BfUbknt2tL9RQIIgyuqdRELCRMV+k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxeToerOziE7mr/30b5H7f1DNbKGVAgnRcvOXHmlYwF4lSlRVYp
+	gWTRSnpU5iTsSaL24unUhcvzOl8hVL/9+b+aCXTWhcA61YDvg+IwBy/PrnCwMs8=
+X-Gm-Gg: ASbGncthn55JYRbdyW4s7vVGp7ANY9X+TYPrzfNOYEuzvLRZE5cSNdphljVyb4ERFs4
+	LbkLanYQwSlX50YLXZFQ9AxD0NuH9FockGPaspMthWIJ1AiOZpk1flFKq2yq0LIBkDuO3FEmuoW
+	8XxKU5Cd5QUHsHoxhdxo3tRL+vffV9SYsx2pkk5FXYpxNeFHSmE0C4E2LQT/eI0jaZlbp71Sp+Z
+	tuaHotpdHOTSs/gsaVciOd/TxfPnzR92VDH1jhUVY1UQSnD7cU46NiSQCn+crs3FqK7vKeMgBZB
+	Art4TpaeVqlt3L5IxeSDa26q6wkBmE5pbHhPcv+0pRjTHhqMYA==
+X-Google-Smtp-Source: AGHT+IF4xdK2a2ipc83l9oSiAV3Z4GupYjs0fhBrNMpGLRLH5HmjdD+nb9VvjTmPktofrTp6/SFz3A==
+X-Received: by 2002:a05:6a00:1888:b0:736:2d84:74da with SMTP id d2e1a72fcca58-7372239835dmr16512364b3a.10.1742294742626;
+        Tue, 18 Mar 2025 03:45:42 -0700 (PDT)
+Date: Tue, 18 Mar 2025 11:45:37 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] x86/msi: always propagate MSI writes when not in active
+ system mode
+Message-ID: <Z9lO0b7LkCFwmJZv@macbook.local>
+References: <20250318082945.52019-1-roger.pau@citrix.com>
+ <38076c0d-8e1a-4d16-b22c-b1db9460ed1c@suse.com>
+ <Z9k0tL30_yLuj5kM@macbook.local>
+ <2eabb7bc-0dca-4426-a6ee-49a6ef8968db@suse.com>
 MIME-Version: 1.0
-References: <20250228152100.23105-1-frediano.ziglio@cloud.com> <20250304132253.23955-1-frediano.ziglio@cloud.com>
-In-Reply-To: <20250304132253.23955-1-frediano.ziglio@cloud.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 18 Mar 2025 10:25:23 +0000
-X-Gm-Features: AQ5f1Jplf7bBX9JnRJkhzukIbl7tpVlIvJyaE9mw7Xy_MuQaLSjbtePzgkfDXE4
-Message-ID: <CACHz=ZiwCVKdaL-wCV4gpyoyv=25nt8d8+gc4vA5Hs1XOacsuw@mail.gmail.com>
-Subject: Re: [PATCH v2] docs: Add some details on XenServer PCI devices
-To: xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2eabb7bc-0dca-4426-a6ee-49a6ef8968db@suse.com>
 
-On Tue, Mar 4, 2025 at 1:23=E2=80=AFPM Frediano Ziglio
-<frediano.ziglio@cloud.com> wrote:
->
-> Describe the usage of devices 5853:0002 and 5853:C000.
->
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
-> Changes since v1:
-> - address minor comments
-> ---
->  docs/man/xen-pci-device-reservations.7.pod | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/docs/man/xen-pci-device-reservations.7.pod b/docs/man/xen-pc=
-i-device-reservations.7.pod
-> index 9ddf3a18ad..adc325069c 100644
-> --- a/docs/man/xen-pci-device-reservations.7.pod
-> +++ b/docs/man/xen-pci-device-reservations.7.pod
-> @@ -10,6 +10,9 @@ use of this is with device ID 0x0001 to advertise the X=
-en Platform PCI
->  device - the presence of this virtual device enables a guest Operating
->  System (subject to the availability of suitable drivers) to make use of
->  paravirtualisation features such as disk and network devices etc.
-> +XenServer, for Windows machines, may present Xen Platform device with de=
-vice
-> +ID 0x0002 instead of 0x0001. Device 0x0001 and 0x0002 should be mutually
-> +exclusive.
->
->  Some Xen vendors wish to provide alternative and/or additional guest dri=
-vers
->  that can bind to virtual devices[1]. This may be done using the Xen PCI
-> @@ -86,4 +89,8 @@ and unplug protocol.
->  libxl provides support for creation of a single additional xen-pvdevice.
->  See the vendor_device parameter in xl.cfg(5).
->
-> +XenServer might present a xen-pvdevice device with ID 0xC000.
-> +Such device is a placeholder for Windows update usage and is always expo=
-sed
-> +in conjunction with a Xen Platform PCI device, usually with ID 0x0002
-> +
->  =3Dback
+On Tue, Mar 18, 2025 at 11:14:59AM +0100, Jan Beulich wrote:
+> On 18.03.2025 09:54, Roger Pau Monné wrote:
+> > On Tue, Mar 18, 2025 at 09:36:37AM +0100, Jan Beulich wrote:
+> >> On 18.03.2025 09:29, Roger Pau Monne wrote:
+> >>> --- a/xen/drivers/passthrough/amd/iommu_intr.c
+> >>> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
+> >>> @@ -546,7 +546,7 @@ int cf_check amd_iommu_msi_msg_update_ire(
+> >>>      rc = update_intremap_entry_from_msi_msg(iommu, bdf, nr,
+> >>>                                              &msi_desc->remap_index,
+> >>>                                              msg, &data);
+> >>> -    if ( rc > 0 )
+> >>> +    if ( rc >= 0 )
+> >>>      {
+> >>>          for ( i = 1; i < nr; ++i )
+> >>>              msi_desc[i].remap_index = msi_desc->remap_index + i;
+> >>
+> >> I understand that Marek's testing has made clear that this change is needed,
+> >> yet I don't understand it. If we didn't allocate a new index, why would we
+> >> need to update in-memory state, when memory is preserved across S3?
+> > 
+> > Is this always the case for device memory? (iow: contents of the BARs
+> > and possibly the PCI config space?)
+> 
+> Of course not. But msi_desc[] is in RAM.
 
-Any additional comment?
+Sorry, I think I didn't understand your earlier question, and hence
+the reply I provided didn't make any sense to you.
 
-Frediano
+> >> (This
+> >> lack of understanding on my part is why I didn't associate the last
+> >> paragraph of the description with this extra change, when you first sent it
+> >> in this shape on the original thread.)
+> > 
+> > At least for the AMD IOMMU driver it seems to be expected.  See how
+> > amd_iommu_resume() performs a pair of disable_iommu() and
+> > enable_iommu() calls, and in the enable_iommu() function there's a
+> > call to set_{msi,x2apic}_affinity() that's expected to (re)set the
+> > interrupts.  Or at least that would be my understanding.
+> > 
+> > This change reverts the behavior to what it used to be prior to
+> > 8e60d47cf011 for the suspend and resume paths.  I'm afraid I don't
+> > have a sensible way to test changes in that area, so I cannot
+> > investigate much.
+> 
+> So how did you end up considering this may have been the reason for the
+> failure Marek was still seeing with the earlier form of the patch? I'm
+> simply hesitant to ack something that I don't understand at all.
+
+Oh, I think I know what you are missing, and it's because it's out of
+patch context.  The adjusted chunk in amd_iommu_msi_msg_update_ire()
+does:
+
+    if ( rc >= 0 )
+    {
+        for ( i = 1; i < nr; ++i )
+            msi_desc[i].remap_index = msi_desc->remap_index + i;
+        msg->data = data;
+    }
+
+Note how it sets msg->data, as otherwise the field won't be properly
+set, and hence the caller propagating the contents of `msg` to the
+registers would be incorrect.
+
+The change forces msg->data to be correctly set when returning either
+0 or 1, so that propagation to the hardware can be done in both
+cases.  Previously the contents of msg->data where only correct when
+returning 1 on AMD.
+
+Hope this makes more sense, sorry for not understanding your question
+initially.
+
+Thanks, Roger.
 
