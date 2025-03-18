@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2923A67B48
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 18:46:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.919704.1324088 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BF50A67B62
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 18:51:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.919716.1324099 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tub0t-0004SM-OE; Tue, 18 Mar 2025 17:46:03 +0000
+	id 1tub5T-0006B0-9g; Tue, 18 Mar 2025 17:50:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 919704.1324088; Tue, 18 Mar 2025 17:46:03 +0000
+Received: by outflank-mailman (output) from mailman id 919716.1324099; Tue, 18 Mar 2025 17:50:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tub0t-0004Qs-Lc; Tue, 18 Mar 2025 17:46:03 +0000
-Received: by outflank-mailman (input) for mailman id 919704;
- Tue, 18 Mar 2025 17:46:02 +0000
+	id 1tub5T-00069T-6A; Tue, 18 Mar 2025 17:50:47 +0000
+Received: by outflank-mailman (input) for mailman id 919716;
+ Tue, 18 Mar 2025 17:50:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0H9a=WF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tub0s-0004QY-8W
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 17:46:02 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ <SRS0=mYbn=WF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tub5S-00068S-AZ
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 17:50:46 +0000
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [2607:f8b0:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id db2e127a-0420-11f0-9abb-95dc52dad729;
- Tue, 18 Mar 2025 18:46:01 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43cf848528aso30087565e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 10:46:01 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d1ffb627csm140808165e9.5.2025.03.18.10.46.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Mar 2025 10:46:00 -0700 (PDT)
+ id 837e5f59-0421-11f0-9abb-95dc52dad729;
+ Tue, 18 Mar 2025 18:50:44 +0100 (CET)
+Received: by mail-pl1-x636.google.com with SMTP id
+ d9443c01a7336-2255003f4c6so107324125ad.0
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 10:50:44 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d2e1a72fcca58-73711578d15sm9894171b3a.82.2025.03.18.10.50.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Mar 2025 10:50:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +44,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db2e127a-0420-11f0-9abb-95dc52dad729
+X-Inumbo-ID: 837e5f59-0421-11f0-9abb-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742319961; x=1742924761; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wQXA2GDGReC2bJp2CCt8ooyzuAjyPY35ctQvdguzg1k=;
-        b=lyaNZ2uu8XrZvMe5CDSb/aBKJUgr+BibG9YtgU1XQA0P7SRo6HE2ZbmBzKA/3kKpWz
-         EnypvHObFo7QA2hX4NKtOsXf+rSdjdGhyb4wQOLT4ChjujSiHuayYFo6bvff6UAKJV8H
-         TtGCyvqltoFapvq2REffKX0pM+bwNi9HBgcL0=
+        d=citrix.com; s=google; t=1742320243; x=1742925043; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=p0ZC3IBzZzaYzqfmFXtE+Vo/yyQqO+VOl8Gf/emR9pg=;
+        b=iIt0/i+Xp8osBkcnAJHUki0Tq0VlR/clz/g76vzCXVHj4JkeQUdeU+Sd1ky82k0+9y
+         dVTZ8Qe42QmKgJ3Me1P+W4+fcGU7s6C3FAPEFsuRt3o6pTtIVrK2+SS700/Qm6jMA+H8
+         aog60EBC0lrTXbLbKWKMjSru3hPw7CCBUGPiQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742319961; x=1742924761;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wQXA2GDGReC2bJp2CCt8ooyzuAjyPY35ctQvdguzg1k=;
-        b=Ktzo8HHGMcv9beCgonZYaiW4af7iV25rQNOzl2kQGvuNdj/7I9aGuOcffuyCh7t4Hu
-         4lp3Q2z5DNkXFKI82R8zUnxrOv0ghQPiuYHSrS7Hg7PBjUk/GtMJVd2KwySlfRnDKHLz
-         PYAZ5H9Vph1EzLzKZ5JvHrJfjT7suZ7bmsUqcoLdqJnTl2/B+hbdR46ldfWCzeY1Vs3x
-         jXJDyOEKqEarZCK2rrkhPRSxhi8QUd6VKxxj1/cHQJYXU/CJUcFcXcMvD4X17Lzs+xa5
-         iZhMJ30vrGy/qxqiuhhKU87kmhrWMZ2O2f57LDKeRXTroG6r9UBIy/5U3q7nEytGJj50
-         hWDg==
-X-Forwarded-Encrypted: i=1; AJvYcCV4Ub+qlVeeC2oX3VIqbDYijQSvSJToT93CmRUfSJQ/alrKAx1MfdKAk2eEVHqUVcAxTxDwUyi+al8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzJq6U/5gpkJDGaobKlCwe5PdwG8t2Ug6hLfi7yMwZBq3FilPy1
-	LE+/mGxdRMAB8Nx+TIuGdfW4ZiKrglIs64ZCIMg7SLOgDSYnW24J6L9VTcnw+kQ=
-X-Gm-Gg: ASbGncuDHtzQ/PwGfOpB8cE5jRvbzb5AccQGRnN6ZQ6SPVI95Nw/npnMmIvPDnbykOi
-	MZ+aHN77/8/SdCIkH5hm0WWbEue+fMdbzmZkysuGtytKuY/gGtlXPy51WfP7EoSo8cZtuyzzvkp
-	zP3HrvZafj44Mm4IoCBPIMttAvJypSIeZqvAsNf+yuFymkH9mLszdYwMIHAwzeRD90CWdrmPe8F
-	otAS2cE+Ty4girPzSigKFkn7Ez7mXqipltnKaNcljR97gbtAt41tKv3bFKHlmpzV2Ul4WmdkRtI
-	8f1PVTnsB6vLAk6NZa+4GXzBG8rbG3gr4z2XmZeoHb4cxusxbkefibZOacl9Vkd2aJ8affuzwbo
-	eCUIRfTvU
-X-Google-Smtp-Source: AGHT+IFCwKVk77OGfDfjgCBTY1RI+M+Y2DmdgxpZcnpfPzYLDKFwhh8OpKdRBNmt9x+B6g8spcolHg==
-X-Received: by 2002:a05:600c:4f52:b0:43b:c0fa:f9cd with SMTP id 5b1f17b1804b1-43d3b980b4cmr39072295e9.7.1742319960663;
-        Tue, 18 Mar 2025 10:46:00 -0700 (PDT)
-Message-ID: <92fa6eaf-4e52-446c-8f0d-36ee63decd8c@citrix.com>
-Date: Tue, 18 Mar 2025 17:45:59 +0000
+        d=1e100.net; s=20230601; t=1742320243; x=1742925043;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=p0ZC3IBzZzaYzqfmFXtE+Vo/yyQqO+VOl8Gf/emR9pg=;
+        b=EGOJqOqrB4S4fw69ScXcu5XgQjqvY+OBnnm365evyMv3dWbROqn+YERPXKturHqf4b
+         ihxV5z4BOv0NIUcIXZ3882mnMQPwGgPIoj6HvA3IbMnsQeg8RVRihpP4IAP+ZwsX1zho
+         YMGnXy3fy9cESJJ0X1cCg/ADje7hmMJJTbPLGEDTXMjffAUEUOutrxDrN9QVZhyMDhIa
+         /Do6gsp39J45RUnwBWORCU41U+Vsu2gcxeqle4KycNp4/0XEXa/QD5NDS+TeRIWG5bPE
+         5EzVNI2molJ+U+GD0WPW3SaL5JBTwY1cqUBH6rv36DFmfDET/xS8FgUwFbQvozfWFajU
+         rLwg==
+X-Forwarded-Encrypted: i=1; AJvYcCW6DXLJlrIcpNBT8Tcp+XKxHzRwBIFeL1S+8ygkXif9SJGVXHh+DtVBpkbHwt4YGAfDyDdq77h2T7c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwZxH/SDSqcJqZBYv0Ml9uTGKO/993I3rHbMdptQYggFgh+BGIC
+	okw19/EXUBb+VAyULSqpuPEg8AZYr3WxUlQB4s6QOzt4ug8ONqE44UK9NbIRZ8Y=
+X-Gm-Gg: ASbGncv4JfxDL1tQ++jt/aFe6JV8bTYa+z5G5VvLK29Q3/gCVLXeomXwayGDpPBBP5Y
+	L3nuweRPXamQhwvJJV6aUgN/73nJzF4mwTwZAXC5GZq6eI5oXtGWn8j6WOHM9Ms2Bhsu4jnZeRV
+	JOxqD0Uw7tMOfvTHgNVpgjS8nLdkPnUgJfyC/nuk18Pz546OjPiQkpDf/mRIzJwWmha298ml4mw
+	Y/hKw/TgUOitQfVLdxk6xgCa4hHpMnyGRdALf4CL4UdIc8z2k4M73679WuAZeVn5i1SiFI822wY
+	6Z/xDnWTRd6dm0T8XxXMOHDE3SKmtwcn9IH2QZDPHssFi/Zdzg==
+X-Google-Smtp-Source: AGHT+IGpt86ZMGbP+avm1GF8clF4Xs+B6jpjJ4xwM7+OGRPPBhRNcoCtmj2iqJY4XCP3Y1Y8fNt3iw==
+X-Received: by 2002:a05:6a21:1644:b0:1ee:e2ac:5159 with SMTP id adf61e73a8af0-1f5c1201d48mr26369133637.19.1742320242958;
+        Tue, 18 Mar 2025 10:50:42 -0700 (PDT)
+Date: Tue, 18 Mar 2025 18:50:37 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 3/5] x86/xlat: fix UB pointer arithmetic in
+ COMPAT_ARG_XLAT_VIRT_BASE
+Message-ID: <Z9mybWM1a-9nvm-n@macbook.local>
+References: <20250318091904.52903-1-roger.pau@citrix.com>
+ <20250318091904.52903-4-roger.pau@citrix.com>
+ <8ad59d67-02f8-415c-93a0-2361e920c017@suse.com>
+ <Z9mSub1DgzoP71-v@macbook.local>
+ <06e00c30-90d4-42a1-a1d7-fadd63b9377e@suse.com>
+ <Z9mjsLFkCCxMR84Z@macbook.local>
+ <1e37eb58-21a0-49a1-b7fe-9c950b32e2e6@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] x86/mkelf32: account for offset when detecting note
- segment placement
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
-References: <20250318173547.59475-1-roger.pau@citrix.com>
- <20250318173547.59475-3-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250318173547.59475-3-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <1e37eb58-21a0-49a1-b7fe-9c950b32e2e6@suse.com>
 
-On 18/03/2025 5:35 pm, Roger Pau Monne wrote:
-> mkelf32 attempt to check that the program header defined NOTE segment falls
-> inside of the LOAD segment, as the build-id should be loaded for Xen at
-> runtime to check.
->
-> However the current code doesn't take into account the LOAD program header
-> segment offset when calculating overlap with the NOTE segment.  This
-> results in incorrect detection, and the following build error:
->
-> arch/x86/boot/mkelf32 --notes xen-syms ./.xen.elf32 0x200000 \
->                `nm xen-syms | sed -ne 's/^\([^ ]*\) . __2M_rwdata_end$/0x\1/p'`
-> Expected .note section within .text section!
-> Offset 4244776 not within 2910364!
->
-> When xen-syms has the following program headers:
->
-> Program Header:
->     LOAD off    0x0000000000200000 vaddr 0xffff82d040200000 paddr 0x0000000000200000 align 2**21
->          filesz 0x00000000002c689c memsz 0x00000000003f7e20 flags rwx
->     NOTE off    0x000000000040c528 vaddr 0xffff82d04040c528 paddr 0x000000000040c528 align 2**2
->          filesz 0x0000000000000024 memsz 0x0000000000000024 flags r--
->
-> Account for the program header offset of the LOAD segment when checking
-> whether the NOTE segments is contained within.
->
-> Fixes: a353cab905af ('build_id: Provide ld-embedded build-ids')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On Tue, Mar 18, 2025 at 06:01:46PM +0100, Jan Beulich wrote:
+> On 18.03.2025 17:47, Roger Pau Monné wrote:
+> > On Tue, Mar 18, 2025 at 04:50:58PM +0100, Jan Beulich wrote:
+> >> On 18.03.2025 16:35, Roger Pau Monné wrote:
+> >>> On Tue, Mar 18, 2025 at 03:33:03PM +0100, Jan Beulich wrote:
+> >>>> On 18.03.2025 10:19, Roger Pau Monne wrote:
+> >>>>> --- a/xen/arch/x86/include/asm/x86_64/uaccess.h
+> >>>>> +++ b/xen/arch/x86/include/asm/x86_64/uaccess.h
+> >>>>> @@ -9,9 +9,9 @@
+> >>>>>   * a secondary mapping installed, which needs to be used for such accesses in
+> >>>>>   * the PV case, and will also be used for HVM to avoid extra conditionals.
+> >>>>>   */
+> >>>>> -#define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current) + \
+> >>>>> -                                   (PERDOMAIN_ALT_VIRT_START - \
+> >>>>> -                                    PERDOMAIN_VIRT_START))
+> >>>>> +#define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current) - \
+> >>>>> +                                   (PERDOMAIN_VIRT_START - \
+> >>>>> +                                    PERDOMAIN_ALT_VIRT_START))
+> >>>>
+> >>>> Aren't we then (still) dependent on ordering between PERDOMAIN_VIRT_START
+> >>>> and PERDOMAIN_ALT_VIRT_START? Would
+> >>>>
+> >>>> #define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current) - \
+> >>>>                                    PERDOMAIN_VIRT_START + \
+> >>>>                                    PERDOMAIN_ALT_VIRT_START)
+> >>>>
+> >>>> perhaps be less fragile?
+> >>>
+> >>> PERDOMAIN_{ALT_,}VIRT_START are unsigned long, so this might work.
+> >>>
+> >>> Note however that even with your suggestion we are still dependant on
+> >>> ARG_XLAT_START(v) > PERDOMAIN_ALT_VIRT_START, or else the '-' won't
+> >>> work.  I think I prefer my proposed version, because it's clear that
+> >>> PERDOMAIN_VIRT_START, ARG_XLAT_START(current) >
+> >>> PERDOMAIN_ALT_VIRT_START.
+> >>
+> >> What makes that clear? Can't we move PERDOMAIN_ALT_VIRT_START pretty
+> >> much at will?
+> > 
+> > We would need to adjust the calculations here again, if
+> > PERDOMAIN_ALT_VIRT_START > PERDOMAIN_VIRT_START the subtraction would
+> > lead to an underflow, and would also be UB pointer arithmetic?
+> 
+> With
+> 
+> #define ARG_XLAT_VIRT_START      PERDOMAIN_VIRT_SLOT(2)
+> 
+> I can't see how subtracting PERDOMAIN_VIRT_START could lead to an underflow.
+> The idea of the expression suggested is to first subtract the area base (no
+> underflow) and then add the other area's base (no overflow).
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Oh, right, I was reading it wrong sorry, somehow I was (still) seeing
+a pair of braces around PERDOMAIN_VIRT_START +
+PERDOMAIN_ALT_VIRT_START when there are none.  Yes, I will adjust to
+your suggestion.
+
+Thanks, Roger.
 
