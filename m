@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A04F4A67027
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 10:46:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.918834.1323464 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93458A67032
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 10:48:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.918845.1323474 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuTWE-0004qu-DR; Tue, 18 Mar 2025 09:45:54 +0000
+	id 1tuTYL-0005R9-OO; Tue, 18 Mar 2025 09:48:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 918834.1323464; Tue, 18 Mar 2025 09:45:54 +0000
+Received: by outflank-mailman (output) from mailman id 918845.1323474; Tue, 18 Mar 2025 09:48:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuTWE-0004ot-Am; Tue, 18 Mar 2025 09:45:54 +0000
-Received: by outflank-mailman (input) for mailman id 918834;
- Tue, 18 Mar 2025 09:45:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tuTYL-0005PL-Lb; Tue, 18 Mar 2025 09:48:05 +0000
+Received: by outflank-mailman (input) for mailman id 918845;
+ Tue, 18 Mar 2025 09:48:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mYbn=WF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tuTWD-0004oc-Ae
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 09:45:53 +0000
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [2607:f8b0:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c779cddd-03dd-11f0-9aba-95dc52dad729;
- Tue, 18 Mar 2025 10:45:52 +0100 (CET)
-Received: by mail-pl1-x629.google.com with SMTP id
- d9443c01a7336-22580c9ee0aso92462885ad.2
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 02:45:52 -0700 (PDT)
+ id 1tuTYK-0005PD-Ij
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 09:48:04 +0000
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [2607:f8b0:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 14f0756b-03de-11f0-9899-31a8f345e629;
+ Tue, 18 Mar 2025 10:48:02 +0100 (CET)
+Received: by mail-pl1-x636.google.com with SMTP id
+ d9443c01a7336-225b5448519so100068065ad.0
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 02:48:02 -0700 (PDT)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- d9443c01a7336-225c6ba6a08sm89745875ad.154.2025.03.18.02.45.49
+ d9443c01a7336-225c6bbe771sm90231275ad.186.2025.03.18.02.47.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Mar 2025 02:45:50 -0700 (PDT)
+ Tue, 18 Mar 2025 02:48:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,76 +44,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c779cddd-03dd-11f0-9aba-95dc52dad729
+X-Inumbo-ID: 14f0756b-03de-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742291151; x=1742895951; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1742291281; x=1742896081; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=kcJfDp1kubcY99CAFEQZKIb2NzMfq+WAAe4yqKYHOCc=;
-        b=RnkXSIZhxawmSxZ/bMfWDcoCSbnwBu+EUfjsGKuJ64Ukv5DZTmJFWY9rfKkiYRG1VD
-         hljFuvjMu3jcgAmOIrrxUwPulaKKr8q1gh4yb3Tfe+4gJl051JZe6s0ziw06XbL0wOAl
-         ZaaVIlUgRiDbwUiUa66fQRgyJOiQykvFrQ+/E=
+        bh=fdcUEyAX0rb/OD+Y5h1IpeqQ9dAZ73cbGc1KKaed2gU=;
+        b=nefR122Z090BUV0Bg/U2dTTi9U8PSn2ocn56CqWqO4pX+eaQu69h1UpH8ku6OspgWQ
+         9YMXyTMC5c3iyjZlEE9hOV5FHzig5cFSm6/1fO8IFzOBdAM9lUFkc9RQjECxP4SxvuXV
+         juQEPIRCUDmAlgFc3Lgaa5aHRdDUC6CHn1NYw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742291151; x=1742895951;
+        d=1e100.net; s=20230601; t=1742291281; x=1742896081;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kcJfDp1kubcY99CAFEQZKIb2NzMfq+WAAe4yqKYHOCc=;
-        b=CbKtGo55fw04Bq1uAJnLjGpus16dPZcDofhpFuP/kzQdgCui+t1VIfLMRJfFyLT2Ch
-         HGvM1PJA6g1ux38F7ntu0/GRQd7AjrU2WchWF5bjJv9oR11e9JBQcPMWd8n5LpfKhWxD
-         5d8zIAZJ9uIVnN+mNxgAZ6Gz3wzEIykJnA2sXjXwpxpKJKnVGe6jv++kQxFe7bbD59Nf
-         LqPE2pTWz0zFJUEVAXCAbLQwl0GCjs8NCcKRQ1yEPo7nwkkhWvso+4uZEwuyC667ZoG5
-         Pgvgt74e3JxeJzKY+Y5aaPo6NSKEGx9MbSTAryQB2mEkyfDTiIwE7rZvCjHph8pZguaJ
-         kzfg==
-X-Gm-Message-State: AOJu0YyFS06BzYmlPNdMxyKM9euLSzQRjW35bzDELsA4rwYBvJdBrLiw
-	6pLPAwf+jNp26Aum0mfFmLEy8rfwCTyZTJ6atDbgIQqmiGDa/pqydvcYsdkTCyo=
-X-Gm-Gg: ASbGncuKbj3gKxLgaxejEbGbPBv45JU4K+Iwtx0FE/tNhjOXX3YS/btXn2A2NvDDdyL
-	a0DY8/LtgqsZvHzHR+u/yrGLXwGmkBfPOJYwGYQ7YYPYytcCHSnRIIk2e3E6R8Bz2qFcX1IrPgH
-	eKEQbzgJ+69yh5pjrzWpMGKnGg9cfni7RXqU1C3X46RZWd7+osVHU43rsw4ZD1cTEbhqukxSUOn
-	ehGkxaumHu3odWH0ygbMVEwWln3ms1IXpwptMUcD0oGWxgLFhbZxLBai46sEAXDKaB6F4htUJM4
-	kHI1peUJZ2WPeC/dF/S2Kj+5sZD+8NpKZ2qWPquTKrdy1wn386vhFIscyTan3/j/KQ==
-X-Google-Smtp-Source: AGHT+IHMCrjVI4/vxH0M4gpQacxLSnTx/w+Szvmxya4Gremt9U+7HyFU4Dxy1/3nFa3sL7LvgQeClw==
-X-Received: by 2002:a17:903:1b27:b0:224:5b4:b3b9 with SMTP id d9443c01a7336-225e0af57d2mr181181745ad.33.1742291151114;
-        Tue, 18 Mar 2025 02:45:51 -0700 (PDT)
-Date: Tue, 18 Mar 2025 10:45:46 +0100
+        bh=fdcUEyAX0rb/OD+Y5h1IpeqQ9dAZ73cbGc1KKaed2gU=;
+        b=o3tUkv//CJI2AX7UB4mm7K4xzlKlEoB5lJxdRiz7nNhh0BpY/R1IxwP1l88ZDQDbAh
+         COk3HL92qg/DPJDHA2UqXMANuITkXEQYdoI436sLaNfehrYMdoGcDPNEdMsCZihOJ+9A
+         w9rcRPIry8tqfiWdIWOtWqhMauArWo79OMmbdDgNSz6S8pFtmgZDTZjmgaAUhq7jw4Tz
+         CJ53S1ic/9bz1Vio07wFW3ue1eNZ3OX5Rige1rTmi6rOdHXUIUztf3Uz4RJUxkWbBjui
+         BE36K91mcwW1Z04uzEYs7QwiuF2bZ50F2gNrRmi+zKaQeDa9rFXRrMnlDMZ16sFa2Nht
+         8+wA==
+X-Gm-Message-State: AOJu0YwOq/hZW/HhqSuvMsl6jkPhuB/UCg9uar4RAET8StdClDWjD78+
+	as2bFut5QVycMAQBGYpzgRSgEAbBJ0ezjp63XzO0WUCQVYtjX5qwsuCI7JU/nRE=
+X-Gm-Gg: ASbGncsywyZwtqNVRL4Prcrw+Kc8+BWWkpDz2fMhvtzESNOZtYTesl/lAWuObvgzqmF
+	a7hpAwdJBzcoYuX7yGSgUySKp5lfodz6nS+HXVAXD1U9MvG/UfwzhLOwMxUcLSRt4FtkqJK5Q3x
+	yOKFvIUF/eInPADM8TzZLF/05GuaZ2rRBWP7N+27M6KMkXX921IqmKBtvSLJNo6ApPOFEN4X668
+	e3Flx0xOfcz2KGlBnuziO981J1T3sBGjYslitloQCz8qvhGFLBHL+/l9UZeFzWBFkWia0Ld8auC
+	fZx/sm+RrfvLZLsWGJ7zosqbsubOO74tKpMxWjlSB0J6OrQJGqwJWWw=
+X-Google-Smtp-Source: AGHT+IFTRBU6RaQa/nxXXzoI7eaFRG9KULOaOjnta0Zvly3+mXgayq2wc6qFnI15GqHzjLGS8mdBVA==
+X-Received: by 2002:a17:903:fa6:b0:224:194c:694c with SMTP id d9443c01a7336-225e0a8f166mr199582625ad.28.1742291281186;
+        Tue, 18 Mar 2025 02:48:01 -0700 (PDT)
+Date: Tue, 18 Mar 2025 10:47:56 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH 7/8] automation/console.exp: do not assume expect is
- always at /usr/bin/
-Message-ID: <Z9lAylFTyLA5SIzU@macbook.local>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>
+Subject: Re: [PATCH 8/8] automation/cirrus-ci: add smoke tests for the
+ FreeBSD builds
+Message-ID: <Z9lBTCXN_Jb1XsSh@macbook.local>
 References: <20250317121616.40687-1-roger.pau@citrix.com>
- <20250317121616.40687-8-roger.pau@citrix.com>
- <alpine.DEB.2.22.394.2503171647450.3477110@ubuntu-linux-20-04-desktop>
+ <20250317121616.40687-9-roger.pau@citrix.com>
+ <alpine.DEB.2.22.394.2503171708070.3477110@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <alpine.DEB.2.22.394.2503171647450.3477110@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2503171708070.3477110@ubuntu-linux-20-04-desktop>
 
-On Mon, Mar 17, 2025 at 04:48:05PM -0700, Stefano Stabellini wrote:
+On Mon, Mar 17, 2025 at 05:09:25PM -0700, Stefano Stabellini wrote:
 > On Mon, 17 Mar 2025, Roger Pau Monne wrote:
-> > Instead use env to find the location of expect.
-> > 
-> > Additionally do not use the -f flag, as it's only meaningful when passing
-> > arguments on the command line, which we never do for console.exp.  From the
-> > expect 5.45.4 man page:
-> > 
-> > > The -f flag prefaces a file from which to read commands from.  The flag
-> > > itself is optional as it is only useful when using the #! notation (see
-> > > above), so  that other arguments may be supplied on the command line.
+> > Introduce a basic set of smoke tests using the XTF selftest image, and run
+> > them on QEMU.  Use the matrix keyword to create a different task for each
+> > XTF flavor on each FreeBSD build.
 > > 
 > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> > I've used the current version of FreeBSD to run the tests, but it might be
+> > safer to use the latest production (release) version instead.
 > 
-> Do you have a link to a successful Gitlab and Cirrus CI?
+> It is better to avoid using "current" (I called it "latest" in my
+> previous email) if it is rolling. Otherwise, it is OK.
 
-Yes.  They are here:
+Yes, will adjust to use production instead of current and resend the
+tail of the series.
 
-https://cirrus-ci.com/build/4981406134173696
-https://gitlab.com/xen-project/people/royger/xen/-/pipelines/1719913362
+> Other than that, it is great.
 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Thanks.  Afterwards I would like to add a specific UBSAN enabled
+build, and do some more testing with it.  I found clang UBSAN more
+complete than gcc (specially with the UB pointer arithmetic checks).
 
-Thanks, Roger.
+Roger.
 
