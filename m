@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DBCBA6765A
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 15:28:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.919191.1323696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F19FA67675
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 15:33:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.919201.1323707 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuXvo-0007IQ-Vt; Tue, 18 Mar 2025 14:28:36 +0000
+	id 1tuY0B-0001KJ-Fi; Tue, 18 Mar 2025 14:33:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 919191.1323696; Tue, 18 Mar 2025 14:28:36 +0000
+Received: by outflank-mailman (output) from mailman id 919201.1323707; Tue, 18 Mar 2025 14:33:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuXvo-0007Fw-Sz; Tue, 18 Mar 2025 14:28:36 +0000
-Received: by outflank-mailman (input) for mailman id 919191;
- Tue, 18 Mar 2025 14:28:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tuY0B-0001Hj-D2; Tue, 18 Mar 2025 14:33:07 +0000
+Received: by outflank-mailman (input) for mailman id 919201;
+ Tue, 18 Mar 2025 14:33:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kmRG=WF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuXvn-0007Fq-Qb
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 14:28:35 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45a61c47-0405-11f0-9899-31a8f345e629;
- Tue, 18 Mar 2025 15:28:34 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-394780e98easo3702318f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 07:28:34 -0700 (PDT)
+ id 1tuY09-0001Hd-Kk
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 14:33:05 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e6ee4548-0405-11f0-9abb-95dc52dad729;
+ Tue, 18 Mar 2025 15:33:04 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43690d4605dso23772325e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 07:33:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c7df320csm18130208f8f.7.2025.03.18.07.28.32
+ 5b1f17b1804b1-43d1ffc49adsm136305095e9.24.2025.03.18.07.33.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Mar 2025 07:28:33 -0700 (PDT)
+ Tue, 18 Mar 2025 07:33:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45a61c47-0405-11f0-9899-31a8f345e629
+X-Inumbo-ID: e6ee4548-0405-11f0-9abb-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742308113; x=1742912913; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742308384; x=1742913184; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oxAO9WA/MT3f5NW0dbU+3avgxxhHs0NR1TtjyEKL1aQ=;
-        b=UoFuOskF0np/7ID6qV/n7juzTOLsXV6goXVcFq3U+Kuhe+6EUbJ0RrIyOF1xJJUWSh
-         wVet84Q22A6yTfhP4J+lais6utww1SDKxfW2u5yl9NZ9dACFxJUI+sVvHquOgsoeYVX5
-         HXn7fgCbP84o0KaacBL/cIZ93RfAvsap0ppBP0ZHly7YyuqQcpIBXT93IDsLVFUdljRI
-         Z3HU0UeoX3UsarID968n3UGI5CPcapCGjZy5OP+qWudQuBuQTnF7pVcQf+i08k0Ms7vN
-         QtEJhPfd9QoS/smwaDi2qLa0+xi95F+eDh4ls+REtZ9KdUJfln9ajTpA0KXFA1a6Dcs5
-         7XPg==
+        bh=kWA9quwjiUDcW9ulgdIQlkas+iF8cjFY2kUNlW5151U=;
+        b=Muz1AAZzrSpg3q/IYeeFoGPIsxUOISiaIArWxpWbVimGE139H2WzvalkN2kCgi/9KB
+         q0GGtHuClXn7fhrfBou28tr+uuQuZf1MYaNnb2VHByyv+UIfrOjHUcXy5bjY1yvF+Lso
+         xa7fZlIUqmlmS6bHr+G9wZu/5GENwZMdYbbq8GAGUIgVpAlBVhnTiMm1bsNamIuGVb8d
+         funb4CapxmSNymwoMfTxeMTxe/zfOBKVZgdalZ/8/AeOwgicoCnyHcPLARKrNEcu5BFt
+         jgLFFED0Ktxf7fxSCqQTqVyPgnv8LkawhLDazszERgRpHLbydPHkj3l9wYhHgEpAXla3
+         YksQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742308113; x=1742912913;
+        d=1e100.net; s=20230601; t=1742308384; x=1742913184;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oxAO9WA/MT3f5NW0dbU+3avgxxhHs0NR1TtjyEKL1aQ=;
-        b=k+yG22z/NVE86ouq0+sRj629yH1aDqyEaac4PYkrtuoilVt9W8tkDqjCZRueKhPDji
-         5z48ga1HeaCdc9Ndju/8o94FrA2+qGWZz7RkEGUJEuaZRTyuTbKHhIcw2aWszXcHWYeH
-         LallsJKuHWdblZtCrplOxTzdhIEMeBVnGJQFdCaidw3v8fob7sMmak1QBlcM+DhKHtnf
-         kuyaXf0i3zLgN5J4OvsLOQsByAW7dvFlQYdUAYHPNTDlQs6cD01gTjBb03LHuiRXM/Fp
-         r9DUgik40MG1lkjrZ1Zybaj/GgmprCv5vaME/Nz0NLE5awMhg0FHlx0JKi8n0RQd+og1
-         BRlg==
-X-Forwarded-Encrypted: i=1; AJvYcCX/Qwa++SZ042HZ3tzI299BFEOOyCBZDKBWrwbnu9YVPRkoJkZ1gip2KF+qeeSzxRV4+fEw3q06VdM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YynxGIw8GuDRm1C6nCG7nypTsYIVQUk4bH2RZJl1J8npxkJqELt
-	qW3JrtTigz46ZIUJAAzt3stC2JNh4jHrDMvtztSsmBNlCJXVuNdT1SJTIBQMKg==
-X-Gm-Gg: ASbGncubTR/IXw1EHEi4l8OBVONNikZVAQASeqBniarhvwvWj2LSKJ8lzVIJ6YKZMrC
-	c9UtPG1fBWkQTeUQxs/5QzkprdO0kYkE9jsDT4TREPfojeu364915oggSscj0cfR/+xaUepVunx
-	HJ56PHB2IFjCkdf7s2iLRSoFuwoKbfjH1spK0/2gM9LUyQ7C6AfUCLfOJGZoqkm2+vPdWIPfe/j
-	osq93d0sIGmXsV/5EmiEduxZCeu2BujYnJwW1bbGUkLXb/R2DWtEIAY2XB9p7bm9HtzM8eAoSzc
-	x290ed/6pS1TNqns3V9IB+LeSIEvvs80HLiOeAxCYCfFhK1dKf95hMQypxWTTfAiTNG2SXpfDXP
-	HnIIQA11ZFbk5QHD471fl9b93j2UPhA==
-X-Google-Smtp-Source: AGHT+IG9/9mTU/hjQ5vBUxFN/7erS67GiMzwbFnSiCNHnG5KNyPTzwqgUZdW/MVuXsENtx0op0isEg==
-X-Received: by 2002:a05:6000:4025:b0:391:43cb:43e6 with SMTP id ffacd0b85a97d-3996b4a1ee6mr4128169f8f.51.1742308113439;
-        Tue, 18 Mar 2025 07:28:33 -0700 (PDT)
-Message-ID: <f2fa59b3-83cd-41e4-a921-5c6eaa89e759@suse.com>
-Date: Tue, 18 Mar 2025 15:28:32 +0100
+        bh=kWA9quwjiUDcW9ulgdIQlkas+iF8cjFY2kUNlW5151U=;
+        b=aaD0PcjD18Ig0yJxJeITKEK2bNktne/C440LQ8d6Yr9FnP1YkVRh4NcSFr97sTuzmB
+         CbuPEK8dFgCvxcSmnv0Yifg9mC7mlvMg0N/mnnZM6qo6aTV0+EJJ5YU2Ng0ij1hUr+QV
+         sq41N139z8ni5ExmVG347oVEF3+z5MkNnjb9fMPUMUMCxLKBexfXnp8FJ5ZFl2vSFYp9
+         xdIkUz3yk53nZU1dSxL7n2mP+k7el2+SlYXjsLahoa47f9R2nfqT+vY25Mg0LD2R2Rpa
+         FDaHGdW+ReeS9cupW7Ukux/90V/zf+6xFEv60+dkWAG7DMl/fFKULSPanLoxZKBua456
+         TbBw==
+X-Forwarded-Encrypted: i=1; AJvYcCUTfEOaxk0frKpvgL1qTF2kggeiiDNnK6+Rbli7Tg2F07iz5fVpioux9TsNMQ00wMh4s1OuutQSGWU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzRkJM3LZbabM+3KB2iaLUkpurBenxp/zKUcO9xN1Utvlqrlm7t
+	S64eYi+YRxnEkDI/xPVyD7Tg+IZakZwpeZ20cOcvRigD3YuWHbb7HZbgYxxyMg==
+X-Gm-Gg: ASbGnct4LnGDwF6T6R0+NzHQDI/SnsF0XfXHcZMM5vOZI+ywPMZHOCHgTm/BO1SiYyD
+	sM72lWfhjA5DrKZNH5yf103xc736S4kBzirc9gQXlku0OefHJ5yaEdhX+mT2N82ec7w19JZh+MB
+	GDMiuzOhZRPLB31jHHkL9+UQLyRpvaYMnELTvBd+wPpmb9+xM55cs7SMGaw1NyVLZGPq8iyenBH
+	2AS5hX7C6kp3IpuCqUdgJ0udsFsogCuQ/gJJdZK35Vh8Vbk3Z1LHLep2/qrEhJO22lfata/Vymm
+	yrlRt9sS26e2Nmv+i/xTJgBK9YRimzpHdcWAiPAM2Xlc1tPDFfVqid2JjPQHsRouWBeLTR83qnD
+	TUtri/zBKxwSABZ30yfTQd+KpEkdHbgqfKj7WX3Qn
+X-Google-Smtp-Source: AGHT+IGkJuB50FQ1ML+79WLrtKnaAQ23boMZNTXDYbiJtcEk2gCHwmMGDDvHA6omFZoKcxq9w5yDlQ==
+X-Received: by 2002:a05:600c:3d14:b0:43d:45a:8fca with SMTP id 5b1f17b1804b1-43d3ba3ce0emr29811245e9.30.1742308384020;
+        Tue, 18 Mar 2025 07:33:04 -0700 (PDT)
+Message-ID: <8ad59d67-02f8-415c-93a0-2361e920c017@suse.com>
+Date: Tue, 18 Mar 2025 15:33:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] x86/vga: fix mapping of the VGA text buffer
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 3/5] x86/xlat: fix UB pointer arithmetic in
+ COMPAT_ARG_XLAT_VIRT_BASE
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20250318091904.52903-1-roger.pau@citrix.com>
- <20250318091904.52903-3-roger.pau@citrix.com>
- <cc882f93-b5d0-45ad-bb2a-1c6b9455509b@citrix.com>
+ <20250318091904.52903-4-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,33 +118,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cc882f93-b5d0-45ad-bb2a-1c6b9455509b@citrix.com>
+In-Reply-To: <20250318091904.52903-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 18.03.2025 14:11, Andrew Cooper wrote:
-> On 18/03/2025 9:19 am, Roger Pau Monne wrote:
->> The call to ioremap_wc() in video_init() will always fail, because
->> video_init() is called ahead of vm_init_type(), and so the underlying
->> __vmap() call will fail to allocate the linear address space.
->>
->> Fix by reverting to the previous behavior and using ioremap() for the VGA
->> text buffer.
->>
->> Fixes: 81d195c6c0e2 ('x86: introduce ioremap_wc()')
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> This is somewhat ugly.
-> 
-> ioremap() isn't really any better than ioremap_wc(); this only works
-> because plain ioremap() has a special case for the bottom 1M where it
-> does nothing and exits.
+On 18.03.2025 10:19, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/include/asm/x86_64/uaccess.h
+> +++ b/xen/arch/x86/include/asm/x86_64/uaccess.h
+> @@ -9,9 +9,9 @@
+>   * a secondary mapping installed, which needs to be used for such accesses in
+>   * the PV case, and will also be used for HVM to avoid extra conditionals.
+>   */
+> -#define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current) + \
+> -                                   (PERDOMAIN_ALT_VIRT_START - \
+> -                                    PERDOMAIN_VIRT_START))
+> +#define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current) - \
+> +                                   (PERDOMAIN_VIRT_START - \
+> +                                    PERDOMAIN_ALT_VIRT_START))
 
-And this is exactly why I screwed up back then. Imo we would be better
-off moving to using __va() directly here. Otherwise the same mistake
-could be made again by someone (perhaps even me) noticing the less
-efficient ioremap(), when ioremap_wc() really would be wanted.
+Aren't we then (still) dependent on ordering between PERDOMAIN_VIRT_START
+and PERDOMAIN_ALT_VIRT_START? Would
+
+#define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current) - \
+                                   PERDOMAIN_VIRT_START + \
+                                   PERDOMAIN_ALT_VIRT_START)
+
+perhaps be less fragile?
 
 Jan
-
 
