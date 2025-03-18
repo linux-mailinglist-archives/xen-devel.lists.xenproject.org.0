@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6806DA66F07
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 09:50:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.918654.1323301 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55DE8A66F14
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 09:54:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.918672.1323311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuSeu-0001bB-1a; Tue, 18 Mar 2025 08:50:48 +0000
+	id 1tuSiG-00039Y-Fp; Tue, 18 Mar 2025 08:54:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 918654.1323301; Tue, 18 Mar 2025 08:50:48 +0000
+Received: by outflank-mailman (output) from mailman id 918672.1323311; Tue, 18 Mar 2025 08:54:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuSet-0001Z1-UJ; Tue, 18 Mar 2025 08:50:47 +0000
-Received: by outflank-mailman (input) for mailman id 918654;
- Tue, 18 Mar 2025 08:50:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kmRG=WF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuSet-0001Yv-6p
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 08:50:47 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 149086b3-03d6-11f0-9899-31a8f345e629;
- Tue, 18 Mar 2025 09:50:45 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-ac2c663a3daso408675866b.2
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 01:50:45 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3147efb0csm814435366b.65.2025.03.18.01.50.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Mar 2025 01:50:44 -0700 (PDT)
+	id 1tuSiG-00036w-Cu; Tue, 18 Mar 2025 08:54:16 +0000
+Received: by outflank-mailman (input) for mailman id 918672;
+ Tue, 18 Mar 2025 08:54:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mYbn=WF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tuSiF-00036q-1R
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 08:54:15 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 90e198dc-03d6-11f0-9aba-95dc52dad729;
+ Tue, 18 Mar 2025 09:54:13 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43cf848528aso24867925e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 01:54:14 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-395cb7ebe3csm17777084f8f.99.2025.03.18.01.54.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Mar 2025 01:54:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +44,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 149086b3-03d6-11f0-9899-31a8f345e629
+X-Inumbo-ID: 90e198dc-03d6-11f0-9aba-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742287845; x=1742892645; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=s2UB2+otQI+HBnU90fAci1OhkPqPUjZu9QxdJKxhTCQ=;
-        b=R1DDIEK8G1N6lQeW5fYAa/KFWJIowQ3Gd9MOUcQ3jrEPr23MvvsdQc911B7cJ3JX41
-         MBHN8luf7WSI2ArJBTsBzFi9NJ9+6Ng2eA/s+zS+09xUT8b69Y0UhKmgLkHbuzPsp/f2
-         ot0gJ3kCQ1waMFl4RO58GqBUubiduUhgFav/rGntoh4WkUgzC/2RuK9ZQSTz/BhQ5eUM
-         2BhukzsgoSdydMDyQzjE7WDxosgKaW9lyO0fzdLDT41Z0svAuLtf+g8L473co7YyH5wX
-         0/IchL954pA1a61jKO3Ad/NMxsnOdgQHa6OHWvysrORHCSrcKlz0xVy96o2xyuD9F/eu
-         A1pA==
+        d=citrix.com; s=google; t=1742288053; x=1742892853; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=IHoSelJhWGi3NtZe+OuN1bSso73DgMjMxoyxsvYlaN4=;
+        b=Vxgp3yNZ/cxKxUswaSWfvG66zEnngEIQSArmoP7sDQgxviQuSVRKJY+pBf+E/+LUm0
+         k9nuYA4ZKlbRQs4HtrpJIKMTKOfz9egWPXk2eedUwsWOp3gVZUQFodptFD6VXRqYCMi5
+         ByvVqLdVgdhB97frBmPfGvTSC82MvpQEUnkr4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742287845; x=1742892645;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1742288053; x=1742892853;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=s2UB2+otQI+HBnU90fAci1OhkPqPUjZu9QxdJKxhTCQ=;
-        b=hyx1gFA8ffqHjCD7RqGl/aBMN77s+btOMv/SKmTfDAXMe/1JYGLIEv6Y+HQad/n+QI
-         QI3KUD2NMqaLmNcvLFavAClH5kQqbg8g+SvRhbFNiHXVGNDDx5fIKHB/x/jv9VeQVT8z
-         9W2dcpvlOC/J/x8a9cAhBMEoZ93g+ChRz/VSByxKC5N4ZOKEvr2mOYOlXwuGyztkvaWX
-         QgOTv+xs6Lemdsi3ahuU16kYUM1ev1OWmr3C2ksY5m+nt0dF0xQyloMEi4mWOBGBrHKN
-         nPdgx7e7zwCxWOdt5+MO8IXDZGpK3mkty2wzkTskrwHVKaeqx7vs7+EtRoB937JKsJEp
-         Otog==
-X-Forwarded-Encrypted: i=1; AJvYcCUqiOLTD9YTqai+VU5p4gi8t+SyagQIpDP2mt7uVmphO18H9mVLFwNqr/crSYeUBD7YA3sVLxyOu5M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwTzFKvNV60w9zcAHgxeBv/3XxtU/qJ0rSY66fR99iCnpCw4Hz2
-	X707Xn+jvfUeqd6iqYI389LcHDvNFyOpqGi9LoiKeRJvjphZ0AP3w4jdIdSO/g==
-X-Gm-Gg: ASbGncvXXU/JY940rCtxjnVf8koZW7+xSsXCPTgthIujPBiB036rM/3QJaVA1ORFZXn
-	i1BsUwuAuq0HbS8Kqy2H4Js0yTQBvnpSxWH3scumW1CCq4HpGmHJ3T3Q6KXGkwMDXajVE5UYhn1
-	hU8PZ1V+Zh/bvkV85KOQPaX6/1h6KxdvR8KXP3onCIKGEhhkOkzE/8MQaInv5oNvIPhlTKvjweM
-	DvIsJaIn8sXZpwuJNlFTJIc6MDRjiesBnWva1mxLv0Eo9BhNeYmFFh6zOuKNNUniK282nXPlbsE
-	VuZA/zYT9zMLszS121wwzyQJHmZ1RRAJgB1ibWV/OB7/odLozO/k+KLVpyAqZccRxar7o8tOBns
-	NtP8UKoK1gcs77SeJozJIR/XtoxRKUA==
-X-Google-Smtp-Source: AGHT+IG+t5ZXjLwjJyM4UnPJRMexXs8huwdlDJ/rrvbMjW3ejIPeM9WhoJUrp2AOr4oy9pLHF6HlKA==
-X-Received: by 2002:a17:907:7d89:b0:ac2:9683:ad2c with SMTP id a640c23a62f3a-ac3304a3a56mr1469362766b.57.1742287844662;
-        Tue, 18 Mar 2025 01:50:44 -0700 (PDT)
-Message-ID: <cb1ecd64-d528-4a6f-8333-bce66589a13b@suse.com>
-Date: Tue, 18 Mar 2025 09:50:41 +0100
+        bh=IHoSelJhWGi3NtZe+OuN1bSso73DgMjMxoyxsvYlaN4=;
+        b=utvTxPmd9AWnRSqobJl0rN2McJgufOpcNl8qtiWV9Os/4qNtBiyB7q3ld7jLO7Q9TW
+         hwi6NPsS40EC5LL2klSa5UVVwj1ZSVYaRArjHKjSgrVjReXVVH7UIhpMgj/Y91QudhY/
+         cf7sSenBxlIbGQdXuEQauHkl4Ph0sce3w0QFI4FYa4hwjX/yRAXkGEqNSDLxL7fKEJ7L
+         qB+kRIV6i/p7pa2d6s8v6/bvc0UFEzvvR+XkpSlxxQ0eWnq0tFBxNiYWDiEa2NPx/PBo
+         vDfRs3xDEJV3XgwTdMoJcTy2CsZ89RTxi1E3J5P26aVJEtwjvwTsRJqgV6o+KI6fJCL3
+         P9sw==
+X-Forwarded-Encrypted: i=1; AJvYcCV2MMvUv2QHNNExmkqlCAtGkoL9TdLAjNfThk96ieX0h6O/4DRs22dWu74rsW5bLYrvIMAl/0TYIHo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy5FpIW9MXBGWC5D5G4wK5HE5Sftf+TihItR9VA1y6+sBBzVozn
+	iDfMJPTFYoO6UV1w1hSFnVcfu51tM8VBjRp9ZTG0BDsmmVExI0ByWEzrDoGTe6TWWkf2n34deR4
+	h
+X-Gm-Gg: ASbGncuDOE1ryAnsyuvUaRfvcICfvLOwTm1srNF/HelJDxEgT6ZKr2HO0R0LHQXcZwH
+	3lPqqoDAdZ3UXDCksZm1rR56L6YyLckW6Tf4Boxd2ILxsAzTJIgzsnhcXZ4NqzJNJ/knRiOfUrv
+	B8aXpl5iTUUnkoFVdgqWfInD/AtxJgIA40rLRfr0A0i3okc+6NpEFgiMgYNr9/1FWXAFajqcQxd
+	wOyk8/aeQI1LotRl1GTrcBkIONsjzP8RjG3d4ii7WjP9vyU8AOyyjHXDqxvZyGiRozijt94A3Pr
+	Bm8E0imvywIOwnIBbsF7tWincbZsszFTviugbPBPheOfzC7qYg==
+X-Google-Smtp-Source: AGHT+IFOZUBhGERXTYxWV1pGs52QINJ6o6RbZaaVyXOM7wTX+J4/p0z1lR1ItLa+WAXPX3mXNezlEw==
+X-Received: by 2002:a05:600c:354a:b0:439:9e13:2dd7 with SMTP id 5b1f17b1804b1-43d3b951e34mr10766995e9.2.1742288053486;
+        Tue, 18 Mar 2025 01:54:13 -0700 (PDT)
+Date: Tue, 18 Mar 2025 09:54:12 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] x86/msi: always propagate MSI writes when not in active
+ system mode
+Message-ID: <Z9k0tL30_yLuj5kM@macbook.local>
+References: <20250318082945.52019-1-roger.pau@citrix.com>
+ <38076c0d-8e1a-4d16-b22c-b1db9460ed1c@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/msi: always propagate MSI register writes from
- __setup_msi_irq()
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250318084725.52261-1-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250318084725.52261-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <38076c0d-8e1a-4d16-b22c-b1db9460ed1c@suse.com>
 
-On 18.03.2025 09:47, Roger Pau Monne wrote:
-> After 8e60d47cf011 writes from __setup_msi_irq() will no longer be
-> propagated to the MSI registers if the IOMMU IRTE was already allocated.
-> Given the purpose of __setup_msi_irq() is MSI initialization, always
-> propagate the write to the hardware, regardless of whether the IRTE was
-> already allocated.
+On Tue, Mar 18, 2025 at 09:36:37AM +0100, Jan Beulich wrote:
+> On 18.03.2025 09:29, Roger Pau Monne wrote:
+> > --- a/xen/drivers/passthrough/amd/iommu_intr.c
+> > +++ b/xen/drivers/passthrough/amd/iommu_intr.c
+> > @@ -546,7 +546,7 @@ int cf_check amd_iommu_msi_msg_update_ire(
+> >      rc = update_intremap_entry_from_msi_msg(iommu, bdf, nr,
+> >                                              &msi_desc->remap_index,
+> >                                              msg, &data);
+> > -    if ( rc > 0 )
+> > +    if ( rc >= 0 )
+> >      {
+> >          for ( i = 1; i < nr; ++i )
+> >              msi_desc[i].remap_index = msi_desc->remap_index + i;
 > 
-> No functional change expected, as the write should always be propagated in
-> __setup_msi_irq(), but make it explicit on the write_msi_msg() call.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> I understand that Marek's testing has made clear that this change is needed,
+> yet I don't understand it. If we didn't allocate a new index, why would we
+> need to update in-memory state, when memory is preserved across S3?
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Is this always the case for device memory? (iow: contents of the BARs
+and possibly the PCI config space?)
 
+> (This
+> lack of understanding on my part is why I didn't associate the last
+> paragraph of the description with this extra change, when you first sent it
+> in this shape on the original thread.)
 
+At least for the AMD IOMMU driver it seems to be expected.  See how
+amd_iommu_resume() performs a pair of disable_iommu() and
+enable_iommu() calls, and in the enable_iommu() function there's a
+call to set_{msi,x2apic}_affinity() that's expected to (re)set the
+interrupts.  Or at least that would be my understanding.
+
+This change reverts the behavior to what it used to be prior to
+8e60d47cf011 for the suspend and resume paths.  I'm afraid I don't
+have a sensible way to test changes in that area, so I cannot
+investigate much.
+
+Thanks, Roger.
 
