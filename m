@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AECFA6744E
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 13:51:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.919042.1323588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C6DBA67450
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 13:51:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.919052.1323597 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuWOR-0006vk-TU; Tue, 18 Mar 2025 12:50:03 +0000
+	id 1tuWPg-0000EN-5v; Tue, 18 Mar 2025 12:51:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 919042.1323588; Tue, 18 Mar 2025 12:50:03 +0000
+Received: by outflank-mailman (output) from mailman id 919052.1323597; Tue, 18 Mar 2025 12:51:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuWOR-0006rI-Pj; Tue, 18 Mar 2025 12:50:03 +0000
-Received: by outflank-mailman (input) for mailman id 919042;
- Tue, 18 Mar 2025 12:50:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tuWPg-0000Cv-31; Tue, 18 Mar 2025 12:51:20 +0000
+Received: by outflank-mailman (input) for mailman id 919052;
+ Tue, 18 Mar 2025 12:51:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0H9a=WF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tuWOQ-0006Tr-Rx
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 12:50:02 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 804df199-03f7-11f0-9899-31a8f345e629;
- Tue, 18 Mar 2025 13:49:59 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3914bc3e01aso3703532f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 05:49:59 -0700 (PDT)
+ id 1tuWPe-0007mp-S8
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 12:51:18 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id af51b806-03f7-11f0-9abb-95dc52dad729;
+ Tue, 18 Mar 2025 13:51:18 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3912d2c89ecso5133179f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 05:51:18 -0700 (PDT)
 Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c8975b09sm18355260f8f.57.2025.03.18.05.49.58
+ ffacd0b85a97d-395c7df34eesm18309321f8f.18.2025.03.18.05.51.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Mar 2025 05:49:58 -0700 (PDT)
+ Tue, 18 Mar 2025 05:51:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 804df199-03f7-11f0-9899-31a8f345e629
+X-Inumbo-ID: af51b806-03f7-11f0-9abb-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742302199; x=1742906999; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1742302278; x=1742907078; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=77qlMTpFH9efyykDCh26lXgviWVT8+TXn4EzPk6otMU=;
-        b=WhCD+DOvsUU8AxUpdm068oAFBcRR5XYK5Nxfl8Vn1Zum97Jn1AlOQePud9SzOxWxOA
-         MmPNxsEIKV/f4os7oRJbGJ6AKqWTUxVEXGuo6WCJB182qJaX1+7SJpheulW6egatraKo
-         l7VfeDlOncGdLLcOtYwKql4mdpIuevCm757N8=
+        bh=45335+bau0P1jQuO1YgY3jzW2XCzRmSU3orhuFozqiA=;
+        b=LTViwAOLgY0t/FsX8RXRcW7JvGDfXIa1CZ7e0SN4p3DTsRxdrEuvdTf7jVIrIIutWa
+         5JFzrkHN6VoOAE6NYbRVFiqkVUjkgqsHPlONKhicNjyMDuOObp/f4QMQoWAMna8zWmoC
+         QNb3UexfhHNHLRmVrQtfBUdSjdKQIbRGNyMjg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742302199; x=1742906999;
+        d=1e100.net; s=20230601; t=1742302278; x=1742907078;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=77qlMTpFH9efyykDCh26lXgviWVT8+TXn4EzPk6otMU=;
-        b=NvL4jkzdKEcBSeIXzOE94eAy5/RaT+Y375F9Jx8zHNZYOt1MmdFsOI/ds42vMb/Uo7
-         f8UHa0OMdAdq8Gc6Eun9QPVQVaj560R66gojSYRaGWzequu07J/Mo32+a7qjjM5v26qT
-         lmNT4NnRwriXEsEJO7WY9fYpHF7vTCOun/dKoaDDmNKvY32oiF2TPtj49O4s/DX6RevG
-         SEwwAetHkg491G0kw1QQtNfBzB3vRyplYt8jBMO8QY+481uzTTYva6mDddSJBlphhMYT
-         lSgR/ZJR6u7y0VIyWALhfUHDmIh0MtJwb/in9YVDhrq0N8XbAizUltVh21dbu9z+14vW
-         7M8A==
-X-Forwarded-Encrypted: i=1; AJvYcCWZ+H81heMpFmrUh6Wu8CS7+MA+N5WtJyZx6sSeQvk06a3oy8yC2s3pjkFQbvJITAQB4Xr9HTk/lcc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YySNb2oMulVlOQR8Nt77H7IZYrxnBLAUPcwZ78Qv5mjkJNEy7Uh
-	Z+vtNS4rLOuJPEBC4WCezQS9YwckkXfRZlJkFCBDzMwu/ETSwLtm7h1VA33AWnQ=
-X-Gm-Gg: ASbGncsWAd2xlwv4Hr6Cuf6tGTPmmNqwUefp4T0yMQBGu8QX9Zp8sh7jYXHYnPavpCc
-	diHVcN5o80InwtPvNioLc5vDXqTvOsLHZKAg1vCjQqHhkBAF95sBtdmV72cw9EbXjBcRbRLkxkI
-	XVsy6HqdmON/0XpQkaR/BpU/Y3o4gXL6AeCoEiYo3jhxs3BjdmuAv+zG+/ZwMNgo8+UeDO57jmH
-	AISa68Jg5dI/8dZJnHjzSruic7CVOUWF0L3p8vGKoALRFbwi/zUVZIA7FImibzk17rgfrWocsdP
-	by+1nf+oBdSCcyiTyXNRuAVWCwxlvEBMp/xO8gUuUK74ONFAKyUjjxO6HnR8XlZX9Q3a4v1Ndqw
-	hQ8JxwRzG
-X-Google-Smtp-Source: AGHT+IFjMUib/3TosJRHFufizNfj6egYA/Gh0g3tB8+0TNbuDD0GI0ccozS62tNw/zWfHboWlkTL0Q==
-X-Received: by 2002:a5d:6da6:0:b0:391:10c5:d1ab with SMTP id ffacd0b85a97d-3971d13383bmr17158371f8f.5.1742302198812;
-        Tue, 18 Mar 2025 05:49:58 -0700 (PDT)
-Message-ID: <9525c542-4e19-4dee-a29f-05fd42297663@citrix.com>
-Date: Tue, 18 Mar 2025 12:49:57 +0000
+        bh=45335+bau0P1jQuO1YgY3jzW2XCzRmSU3orhuFozqiA=;
+        b=esJMzt3YH7CsK5FIto7OdaF2GzgaSriQENHk7Pvd87nJsb2pBi4EFh43R7vGFDWAIu
+         gSBD0DF/JgzYCPWOOYmT7HSPQqIarYaPfUebangjATSX94jYxFAlsxxN5mUgAHQZLju2
+         bynlTpBMLQXXThE5DHXpMbcxTwJiYGaKYpxmVq+U0MTUxNfYOghmkbC/L5EX/R/zP0op
+         1f2PdG5PKZT8tby7DmDAj3XCJTwzgF00Kb9TetHMYtaQfDrE4BbXpMUE1toYOvpGiEjM
+         e6E1nKRA8ZUZInFEoEJ8NcoeSHq7OaYwwN7cAx3afXNGMZmrY1aSNY95WJkZWVmwg8WY
+         eqwg==
+X-Forwarded-Encrypted: i=1; AJvYcCX/3CGNKvyR1GthwtvS/QprGYQS9Cgiu0z7fRah2swN9kPOcBxBvWyOIa6VScwl0TQxnddHxNkU8p4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy1GG0V9wG2JI+E8G6MzOreFa672RBQkoJ8Gd9qP8H3r298D2op
+	S5swpTRHg4vcp6Xyj6X5ElWVE7veiyvoF7JK6BLBqfAGSAFfFqrd024v8VxkvLGn+SK5JhDi8Pc
+	S
+X-Gm-Gg: ASbGnctMF9DIlkUA72t09/veNjcL61cG3YmNVXweEyvcvO0V3c7dd5f+kzZzJyhpPhN
+	vRB3DHuXdlyNv1bzX/JlrK9UhDRpUdk6ft/2ZQOPEEbgPWxSOc9ag/3JW2GGzqqOz7/rka6e6Fo
+	nkHKVlrV/s2+cPfRSHijl71e34xvtAsvV0jlFUZXXygDgprRM3BM7tjbo0H9tOXMKfhPkT0G5du
+	DVeSPAk/5pRQx/Gzvnk2m7wxM6y+HEHv2lauKVEqXqM9naeBS1CxlD4S/O2MWq530uavv7THO3z
+	CF4fRE9l32kG1yytSKd4NWnoGkj2PXwCSXqpNPhgJGHxVeLTZynAFNaPJlVwXTNTX8c+glVUbRy
+	66mwitfAV
+X-Google-Smtp-Source: AGHT+IFgboO0rOf6DXR0tyRVZPK4XYn8rgZ9FEcThhYR2JIqwJaT1MDhlXY9hwtRkVTkt2RscqRenA==
+X-Received: by 2002:a05:6000:178c:b0:399:6d26:7752 with SMTP id ffacd0b85a97d-3996d26781dmr2395599f8f.38.1742302277525;
+        Tue, 18 Mar 2025 05:51:17 -0700 (PDT)
+Message-ID: <d3925807-72a8-4844-b3ca-380ff2a381b1@citrix.com>
+Date: Tue, 18 Mar 2025 12:51:16 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] x86/wait: prevent duplicated assembly labels
+Subject: Re: [PATCH v2 3/5] x86/xlat: fix UB pointer arithmetic in
+ COMPAT_ARG_XLAT_VIRT_BASE
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>
 References: <20250318091904.52903-1-roger.pau@citrix.com>
- <20250318091904.52903-2-roger.pau@citrix.com>
+ <20250318091904.52903-4-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,41 +136,29 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250318091904.52903-2-roger.pau@citrix.com>
+In-Reply-To: <20250318091904.52903-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 18/03/2025 9:19 am, Roger Pau Monne wrote:
-> When enabling UBSAN with clang, the following error is triggered during the
-> build:
+> UBSAN complains with:
 >
-> common/wait.c:154:9: error: symbol '.L_wq_resume' is already defined
->   154 |         "push %%rbx; push %%rbp; push %%r12;"
->       |         ^
-> <inline asm>:1:121: note: instantiated into assembly here
->     1 |         push %rbx; push %rbp; push %r12;push %r13; push %r14; push %r15;sub %esp,%ecx;cmp $4096, %ecx;ja .L_skip;mov %rsp,%rsi;.L_wq_resume: rep movsb;mov %rsp,%rsi;.L_skip:pop %r15; pop %r14; pop %r13;pop %r12; pop %rbp; pop %rbx
->       |                                                                                                                                ^
-> common/wait.c:154:9: error: symbol '.L_skip' is already defined
->   154 |         "push %%rbx; push %%rbp; push %%r12;"
->       |         ^
-> <inline asm>:1:159: note: instantiated into assembly here
->     1 |         push %rbx; push %rbp; push %r12;push %r13; push %r14; push %r15;sub %esp,%ecx;cmp $4096, %ecx;ja .L_skip;mov %rsp,%rsi;.L_wq_resume: rep movsb;mov %rsp,%rsi;.L_skip:pop %r15; pop %r14; pop %r13;pop %r12; pop %rbp; pop %rbx
->       |                                                                                                                                                                      ^
-> 2 errors generated.
+> UBSAN: Undefined behaviour in common/compat/memory.c:90:9
+> pointer operation overflowed ffff820080000000 to 0000020080000000
+> [...]
+> Xen call trace:
+>    [<ffff82d040303882>] R common/ubsan/ubsan.c#ubsan_epilogue+0xa/0xc0
+>    [<ffff82d040304cc3>] F lib/xxhash64.c#__ubsan_handle_pointer_overflow+0xcb/0x100
+>    [<ffff82d0402a6359>] F lib/xxhash64.c#compat_memory_op+0xf1/0x4d20
+>    [<ffff82d04041545d>] F lib/xxhash64.c#hvm_memory_op+0x55/0xe0
+>    [<ffff82d040416280>] F lib/xxhash64.c#hvm_hypercall+0xae8/0x21b0
+>    [<ffff82d0403b25ca>] F lib/xxhash64.c#svm_vmexit_handler+0x1252/0x2450
+>    [<ffff82d0402049c0>] F lib/xxhash64.c#svm_stgi_label+0x5/0x15
 >
-> The inline assembly block in __prepare_to_wait() is duplicated, thus
-> leading to multiple definitions of the otherwise unique labels inside the
-> assembly block.  GCC extended-asm documentation notes the possibility of
-> duplicating asm blocks:
+> Adjust the calculations in COMPAT_ARG_XLAT_VIRT_BASE to subtract from the
+> per-domain area to obtain the mirrored linear address in the 4th slot,
+> instead of overflowing the per-domain linear address.
 >
->> Under certain circumstances, GCC may duplicate (or remove duplicates of)
->> your assembly code when optimizing. This can lead to unexpected duplicate
->> symbol errors during compilation if your asm code defines symbols or
->> labels. Using ‘%=’ (see AssemblerTemplate) may help resolve this problem.
-> Workaround the issue by latching esp to a local variable, this prevents
-> clang duplicating the inline asm blocks.
->
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
