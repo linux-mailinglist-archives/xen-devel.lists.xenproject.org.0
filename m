@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CBDDA67842
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 16:48:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.919450.1323893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9492A6784B
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 16:49:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.919461.1323903 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuZAX-0000uy-97; Tue, 18 Mar 2025 15:47:53 +0000
+	id 1tuZCA-0001Rf-K1; Tue, 18 Mar 2025 15:49:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 919450.1323893; Tue, 18 Mar 2025 15:47:53 +0000
+Received: by outflank-mailman (output) from mailman id 919461.1323903; Tue, 18 Mar 2025 15:49:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuZAX-0000sU-6N; Tue, 18 Mar 2025 15:47:53 +0000
-Received: by outflank-mailman (input) for mailman id 919450;
- Tue, 18 Mar 2025 15:47:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tuZCA-0001Ob-Gm; Tue, 18 Mar 2025 15:49:34 +0000
+Received: by outflank-mailman (input) for mailman id 919461;
+ Tue, 18 Mar 2025 15:49:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kmRG=WF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuZAV-0000sO-Gb
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 15:47:51 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5830397c-0410-11f0-9899-31a8f345e629;
- Tue, 18 Mar 2025 16:47:49 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3913d129c1aso4667729f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 08:47:49 -0700 (PDT)
+ id 1tuZC9-0001OT-SX
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 15:49:33 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 95c40d8a-0410-11f0-9abb-95dc52dad729;
+ Tue, 18 Mar 2025 16:49:32 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43cf680d351so19525945e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 08:49:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c888152dsm18203326f8f.48.2025.03.18.08.47.48
+ ffacd0b85a97d-395c7df320csm18319266f8f.7.2025.03.18.08.49.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Mar 2025 08:47:48 -0700 (PDT)
+ Tue, 18 Mar 2025 08:49:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5830397c-0410-11f0-9899-31a8f345e629
+X-Inumbo-ID: 95c40d8a-0410-11f0-9abb-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742312869; x=1742917669; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742312972; x=1742917772; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xvFP1VOQ0uJ3OoXJHEUvYPg0Uqb03b0gd96RBDNksgM=;
-        b=aFJ3tVBrzxLZvjT70PA9NbLsFQPGvHK8qua7S15udTW4tt4djN6AEBqWMM6yCp6GaK
-         uiDOcN1HuVWzwhaBJ03yl++q8xULavvKq6kXWbb7BqE0T7oTY+iyQa2zzNUTLxqnB/E9
-         bS6PwUko4VvC7xloqO5NMveF5R3fAN3emmVMQt1BahWkjR5JcrhQ5iLFjuuGILa9RAYW
-         WvO4CH0oFkiwmlU9UsRoY9xWXe0mV8dKFmfmvLHTs+rVwU37Tr3jPdQE9mkKKaCrZ6tF
-         QUlASsfkqGc5sKG8GeINdKEJ3tWewH43HHHCTGldGo6rU5rBmGzZpNkFlZZBaKqEtGBO
-         AGDQ==
+        bh=8vFv0hB8RegVmIY/Y+dmetmqzUdJsxXaL+cchkdgGkk=;
+        b=VuFGv28eN2fr3AN2PUGWGdHO8eXNqDUO7nAU7NC7Ldv1yJjGpisX888H6YQG66PcFy
+         gHtn5xJ4o7OCydlKx2BWiKLufPvLaTRHv+rEAFei8vgeVywoI8e1ErZGqXKFH2W8tw2G
+         g2jS1i/3VMeMyASlyN9gUuAV34JN3LCJ5+UAJb87t+SzeRJ66Ppw2Ej0DcfoZNINexXH
+         cou0qYOtlPDQlhWoGqC4EingOHQNKdLCzmwmHmH5qmMEUMCGDGNK5CQ7z+98IyBd4wJP
+         S4z5Gnc0N67d+lMA3GShXL14dVgSq4E1GSKg58m0GZiDUWBpO1suBndDOz1EPIuz5WSZ
+         9h+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742312869; x=1742917669;
+        d=1e100.net; s=20230601; t=1742312972; x=1742917772;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xvFP1VOQ0uJ3OoXJHEUvYPg0Uqb03b0gd96RBDNksgM=;
-        b=LLg6jgH254umZLUv/3BIa32IBuJwB0DmEZhBV6tRCOvVLsiEkarvp9mZsNI6I/9VEN
-         fr93rW7Yrq3uAf+3W6bVg6JlK/6E7bbvYR+wB+lxaT7YWWbexbYxFUEaRkx5KPVpd5WK
-         IbqmNFbs4bwN/qfRz+4TvDxnvL9sTp7G85D82MkrGu9rJ2Weuo9F1qLD67rOtgBXyHDB
-         +aCM8uS9VL4p68LD6uHBO0CCajF1Oknnvv/eJi0kYIhXkNX8rNABRoBVPg/rSqP+1z5r
-         kndwhCbqrOjUUQUkNftHQA5oY0KFOlQol8OUDzOr6eEgW2HavPEPcD5H6Tklf3NyfLGk
-         5W9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVcwnIr9dZvFzgVfC2oBu+o/E507JjHq7el57jYPs9uQLQCpg4JaqZO++BDapKcq19bBT0q625oU78=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyY3YmsbzcevKp8XvbNRFFt/yApP7ILvLOeX2A5RS1Nede97m7p
-	5/g0Qs5O+l0tyiPtp+gLZoorJKYBSf1wtqiWx3dCBCThj9YQ39q1YzUR0kfebQ==
-X-Gm-Gg: ASbGncuPH8UvlDr6u8HZTGCIDUhC1ig7BxK3711O8HKTiGQHkWMJLaUUk8/bOpReNAD
-	Es5Y4LxvNkdSb2LYoUy+mdk/Xot7Uz/JR53//agpFYDb0ZEuhmEbAh6Q+ddrHj4ov+zAOPOwyx5
-	pOnVUI/SlurzHqL3ujss+fk9E2ylYJ36I9lbJoe/BTTYmroAWqpET7u/bL7WuQLJBI1O7O4JIiE
-	CI7eYAHK2mDdrqAIIBUnlVHRlpABhWtvmcTMQ53dUfEru5TYaZDl3ZCNiVnhSCOhkWJPDvtN52F
-	YL+wW61I/mjI1TAGNvOVBt/H9e9ccQrBuTqk3XlV4SKs5wAHzqrslRgqOAjWgljAmbKoOKuCbNv
-	PVRh20LoHbG0CMFpHJaKMfuQvRCr0k8s57x14wh6a
-X-Google-Smtp-Source: AGHT+IE2FsX+ai/N/HxGyKmS6yM/CfSX+9ICe0NwwGDvmKimh7Uei4qoXpnJxugOLnRiBYOTV0wwvA==
-X-Received: by 2002:a05:6000:18ab:b0:38d:dc03:a3d6 with SMTP id ffacd0b85a97d-3996ba46aeemr3654770f8f.4.1742312869042;
-        Tue, 18 Mar 2025 08:47:49 -0700 (PDT)
-Message-ID: <699ce0e4-93bb-484a-8ffa-881adaa9ccd5@suse.com>
-Date: Tue, 18 Mar 2025 16:47:48 +0100
+        bh=8vFv0hB8RegVmIY/Y+dmetmqzUdJsxXaL+cchkdgGkk=;
+        b=YhBUn8e74HHVPikeAjAIVrW59stQp3py11TE0wf8zflPZeqDhQFRBvyOPOMu1kWJev
+         3batqtmySrAJFxm4YD8CJcaEEmE4+MEHoYq9qkv9id5vDOmFBLnSBPvUGMhN6+JxTFxi
+         bd01eJ5D8TUAiyXwMFBFEG8PKlY0/tKKo6VgzooAVLbTEZZU+jNgfmwoCWHncxngMf8s
+         sF+1uNL/RNWDPPA62xXT4X/giAjLG/jBStEYz9v7t3bcNV1Sm8fIv3ENcllsn13App3b
+         8z/b+lJ6P7gLqPsVUXWrO91sVj1S7a/OKBaZiXwrh+VZvnjwxKOvnxYh89FNB07B9a29
+         +2PQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWmw1yRnKqsjlyTwatO+P5Uf2Hp7skWYllxvidRWPmKWFZ15PiiMDBrrdnljawX5VorTvRTqwP8qQg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyRmlmtb2nBB7IV0ltuUXqlZJLUKmLu/sFiU1TWRgivq2jLYvI0
+	4+l/Ms/6cbtwsSQ/wobhM++YKrQJ72PepVGLgrNJSbgSxOXcYLKVTFDwaSJh7g==
+X-Gm-Gg: ASbGncu395p6tEHpivZzdhkGk+QegAkfPIHPNvAKnWVIOxLnTaaah5AxFRtDP5sDkhq
+	VSAx6xwz5daPZM4kDn22p6j7F6m6yx18KCzqmK3vVK8pyGxwgsfuCNjzjWaQV8XRN/n5JbOUCFB
+	jUMdyFApB6HW8oG9QZIhrSIVmOsgBsUfSajaiN8SXNVqGSLhXbjB2foT7ahgA0/GOCozqtDN22W
+	Ixhvlgde6gS3CixHYaSGXSYzTGibYfvxSQJjFeQFFwhJkS6dY4ZuF7awSjVQNt83tCpt5CgN46Y
+	FdATjf8Moud7GzbI8Sli5rD7kioV77pMIQdVoGCp+xix7yz/4bKDbYPWsKTCapVJ0VhkE2sE9x8
+	Vs10qssMT2zt9nT5kSXOQuhnOuUH4a939/RcAxreT
+X-Google-Smtp-Source: AGHT+IGnlqL320Ve3m4QvufVQcMrZxf5/XsfK8AqfCVt6uLqre0iUCCBea6i0DTTVCRv5ndJCcxfFw==
+X-Received: by 2002:a05:6000:1868:b0:38d:b52d:e11c with SMTP id ffacd0b85a97d-3996b94b920mr3230505f8f.15.1742312972203;
+        Tue, 18 Mar 2025 08:49:32 -0700 (PDT)
+Message-ID: <749b27a6-3079-438e-980f-14d0eb5241b9@suse.com>
+Date: Tue, 18 Mar 2025 16:49:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arinc653: move next_switch_time access under lock
-To: Nathan Studer <Nathan.Studer@dornerworks.com>
-Cc: Stewart Hildebrand <stewart@stew.dk>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <d8c08c22-ee70-4c06-8fcd-ad44fc0dc58f@suse.com>
- <SA1P110MB1629AA9DFAFE89C65248401DF4DEA@SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM>
+Subject: Re: [PATCH v2 2/5] x86/vga: fix mapping of the VGA text buffer
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250318091904.52903-1-roger.pau@citrix.com>
+ <20250318091904.52903-3-roger.pau@citrix.com>
+ <cc882f93-b5d0-45ad-bb2a-1c6b9455509b@citrix.com>
+ <f2fa59b3-83cd-41e4-a921-5c6eaa89e759@suse.com>
+ <Z9mRu3JCwgffgEKd@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,41 +123,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <SA1P110MB1629AA9DFAFE89C65248401DF4DEA@SA1P110MB1629.NAMP110.PROD.OUTLOOK.COM>
+In-Reply-To: <Z9mRu3JCwgffgEKd@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18.03.2025 16:39, Nathan Studer wrote:
+On 18.03.2025 16:31, Roger Pau Monné wrote:
+> On Tue, Mar 18, 2025 at 03:28:32PM +0100, Jan Beulich wrote:
+>> On 18.03.2025 14:11, Andrew Cooper wrote:
+>>> On 18/03/2025 9:19 am, Roger Pau Monne wrote:
+>>>> The call to ioremap_wc() in video_init() will always fail, because
+>>>> video_init() is called ahead of vm_init_type(), and so the underlying
+>>>> __vmap() call will fail to allocate the linear address space.
+>>>>
+>>>> Fix by reverting to the previous behavior and using ioremap() for the VGA
+>>>> text buffer.
+>>>>
+>>>> Fixes: 81d195c6c0e2 ('x86: introduce ioremap_wc()')
+>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>
+>>> This is somewhat ugly.
+>>>
+>>> ioremap() isn't really any better than ioremap_wc(); this only works
+>>> because plain ioremap() has a special case for the bottom 1M where it
+>>> does nothing and exits.
+>>
+>> And this is exactly why I screwed up back then. Imo we would be better
+>> off moving to using __va() directly here. Otherwise the same mistake
+>> could be made again by someone (perhaps even me) noticing the less
+>> efficient ioremap(), when ioremap_wc() really would be wanted.
 > 
-> On 17/03/25 05:31, Jan Beulich wrote:
->> Even before its recent movement to the scheduler's private data structure it looks
->> to have been wrong to update the field under lock, but then read it with the lock
->> no longer held.
->>
->> Coverity-ID: 1644500
->> Fixes: 9f0c658baedc ("arinc: add cpu-pool support to scheduler")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> The Fixes: tag references where the locking was added; I can't exclude there was
->> an issue here already before that.
->>
->> --- a/xen/common/sched/arinc653.c
->> +++ b/xen/common/sched/arinc653.c
->> @@ -579,6 +579,9 @@ a653sched_do_schedule(
->>       */
->>      BUG_ON(now >= sched_priv->next_major_frame);
->>
->> +    prev->next_time = sched_priv->next_switch_time - now;
->> +
->> +    /* Return the amount of time the next domain has to run. */
-> 
-> This could be pushed up to immediately after next_switch_time is set, but here is
-> good enough.  However, did you mean to put the comment after the assignment
-> separated by whitespace?
+> I can switch to using __va(), that's fine.  I guess we should then
+> remove the special casing for the low 1MB in ioremap()?
 
-Oops, no, certainly not. It was meant to go ahead of the assignment.
-I must have been benighted ... Moved locally.
+I'm not sure we can - DMI and ACPI might use that, and who knows what
+else. But of course if you're sure nothing depends on that anymore ...
 
 Jan
-
 
