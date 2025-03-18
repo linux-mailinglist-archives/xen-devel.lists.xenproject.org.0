@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7410A66358
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 01:07:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.918320.1323020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56F46A66359
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 01:08:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.918330.1323031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuKUR-00052Q-TS; Tue, 18 Mar 2025 00:07:27 +0000
+	id 1tuKUt-0005Yl-5l; Tue, 18 Mar 2025 00:07:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 918320.1323020; Tue, 18 Mar 2025 00:07:27 +0000
+Received: by outflank-mailman (output) from mailman id 918330.1323031; Tue, 18 Mar 2025 00:07:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuKUR-00050r-Qo; Tue, 18 Mar 2025 00:07:27 +0000
-Received: by outflank-mailman (input) for mailman id 918320;
- Tue, 18 Mar 2025 00:07:27 +0000
+	id 1tuKUt-0005W2-2g; Tue, 18 Mar 2025 00:07:55 +0000
+Received: by outflank-mailman (input) for mailman id 918330;
+ Tue, 18 Mar 2025 00:07:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gc9A=WF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tuKUQ-0004UM-V8
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 00:07:26 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ id 1tuKUr-0004UM-Pj
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 00:07:53 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f87ff8b4-038c-11f0-9899-31a8f345e629;
- Tue, 18 Mar 2025 01:07:25 +0100 (CET)
+ id 0843b888-038d-11f0-9899-31a8f345e629;
+ Tue, 18 Mar 2025 01:07:52 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id F0960A48E2A;
- Tue, 18 Mar 2025 00:01:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47C4BC4CEE3;
- Tue, 18 Mar 2025 00:07:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id B55AA5C4C99;
+ Tue, 18 Mar 2025 00:05:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E639C4CEE3;
+ Tue, 18 Mar 2025 00:07:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f87ff8b4-038c-11f0-9899-31a8f345e629
+X-Inumbo-ID: 0843b888-038d-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1742256444;
-	bh=IkNf/7jFibqBs98R00JvpkiTS3lC5OYbU4V/hDzdXdg=;
+	s=k20201202; t=1742256470;
+	bh=XgvzmOQZwGqLHE9uHOqssSJSYDFvLoYi80pJox50fSg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=cKb5nXtrBi/pSCxGVCMbqyyaWf1YSyOQMtIL9npDuTI3wflKlBBvOCDzqNVfA+l4e
-	 jR8bAqYixLqGJdHRQnFjuAp+j/oztuKM4I9OP/eMMobxKE3n6F1CRkTl7fq49JeepR
-	 SJQUqMr/ZFMYsFjBZjkXx1wnds9RSWuv6TFz/ZS2h4v72ocoeRiihQzxWOYG+vRK9n
-	 RJJRK55CtvEBNYDumEN5OClC6sryhW0Sok/+3dbbblpyJ6BzrsU9g7bW2HMnf1uAYV
-	 CvklrWpUXbIs/gCaqqap2Fhw/KZdejSRIgvjZib8xf7YYl1IFGDuuhHhmXuQAjvgWd
-	 YeXPN6n3RXGUQ==
-Date: Mon, 17 Mar 2025 17:07:22 -0700 (PDT)
+	b=r6a7d2Amr/JPQqKSLab9YrHW/LAAhoY6sbTCehIhYWkSJ3hEfYaJKr3p8oLvmJfRj
+	 9vywY4188Gc680R8ZnpLro/RfUr2nfFFy4rwTxDiGDO4ZHl26r0HOibRhhXbF4cVMM
+	 6H4x2RzKie/4wrFCRQkgqLSNQbNiXmsSRA+ngjNtScLj8G/xo3dPxHeSuKcm9T436y
+	 ZqsaAkxlfM1Q/Z1okMAAFX6AhW6frgdgVakenfVjcGSChCj9LlFMJD/S6NTvBo/AtX
+	 +HzaxiJHocXk2YyH0Q92OZDo1YFdR0bP6YWZepfgPEUFK99ubQOTC8qK1bIdVKEQ2/
+	 98uXkOkfByz1Q==
+Date: Mon, 17 Mar 2025 17:07:48 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Roger Pau Monne <roger.pau@citrix.com>
@@ -60,78 +60,27 @@ cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
     Anthony PERARD <anthony.perard@vates.tech>, 
     Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
     Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 5/8] automation/cirrus-ci: build XTF
-In-Reply-To: <20250317121616.40687-6-roger.pau@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2503171706570.3477110@ubuntu-linux-20-04-desktop>
-References: <20250317121616.40687-1-roger.pau@citrix.com> <20250317121616.40687-6-roger.pau@citrix.com>
+Subject: Re: [PATCH 6/8] automation/cirrus-ci: store XTF and Xen build
+ artifacts
+In-Reply-To: <20250317121616.40687-7-roger.pau@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2503171707410.3477110@ubuntu-linux-20-04-desktop>
+References: <20250317121616.40687-1-roger.pau@citrix.com> <20250317121616.40687-7-roger.pau@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1804076220-1742256444=:3477110"
+Content-Type: multipart/mixed; boundary="8323329-443327160-1742256470=:3477110"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1804076220-1742256444=:3477110
+--8323329-443327160-1742256470=:3477110
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
 On Mon, 17 Mar 2025, Roger Pau Monne wrote:
-> In preparation for using the XTF selftests to smoke test the FreeBSD based
-> Xen builds.
+> In preparation for adding some smoke tests that will consume those outputs.
 > 
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> I've used the current version of FreeBSD to build XTF, but it might be
-> safer to use the latest production (release) version instead.
 
-Yes, I think so, especially as the latest is a rolling distro?
-
-
-> ---
->  .cirrus.yml | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
-> 
-> diff --git a/.cirrus.yml b/.cirrus.yml
-> index bda4dbe86a7c..d8a322acd54c 100644
-> --- a/.cirrus.yml
-> +++ b/.cirrus.yml
-> @@ -12,6 +12,12 @@ freebsd_template: &FREEBSD_ENV
->      CIRRUS_CLONE_DEPTH: 1
->      CIRRUS_LOG_TIMESTAMP: true
->  
-> +freebsd_template_latest: &FREEBSD_ENV_LATEST
-> +  << : *FREEBSD_VERSIONS
-> +  freebsd_instance:
-> +    image_family: $FREEBSD_15
-> +  << : *FREEBSD_ENV
-> +
->  freebsd_configure_artifacts: &FREEBSD_CONFIGURE_ARTIFACTS
->    always:
->      rename_script:
-> @@ -82,3 +88,21 @@ task:
->  
->    build_script:
->      - gmake -j`sysctl -n hw.ncpu` build-xen clang=y
-> +
-> +task:
-> +  name: 'FreeBSD: XTF build'
-> +  alias: xtf
-> +
-> +  << : *FREEBSD_ENV_LATEST
-> +
-> +  clone_script:
-> +    - pkg install -y git
-> +    - git clone --depth 1 https://xenbits.xen.org/git-http/xtf.git
-> +
-> +  install_script: pkg install -y gmake
-> +
-> +  build_script:
-> +    - cd xtf
-> +    - cc --version
-> +    - git rev-parse HEAD
-> +    - gmake -j`sysctl -n hw.ncpu` LLVM=y
-> -- 
-> 2.48.1
-> 
---8323329-1804076220-1742256444=:3477110--
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+--8323329-443327160-1742256470=:3477110--
 
