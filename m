@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739E4A67686
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 15:37:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.919213.1323717 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29206A6772A
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 16:02:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.919229.1323726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuY3n-0001r7-VJ; Tue, 18 Mar 2025 14:36:51 +0000
+	id 1tuYSM-0008Np-0I; Tue, 18 Mar 2025 15:02:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 919213.1323717; Tue, 18 Mar 2025 14:36:51 +0000
+Received: by outflank-mailman (output) from mailman id 919229.1323726; Tue, 18 Mar 2025 15:02:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuY3n-0001pf-Rx; Tue, 18 Mar 2025 14:36:51 +0000
-Received: by outflank-mailman (input) for mailman id 919213;
- Tue, 18 Mar 2025 14:36:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tuYSL-0008MP-Tm; Tue, 18 Mar 2025 15:02:13 +0000
+Received: by outflank-mailman (input) for mailman id 919229;
+ Tue, 18 Mar 2025 15:02:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kmRG=WF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuY3m-0001pZ-Hj
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 14:36:50 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6ba4b228-0406-11f0-9899-31a8f345e629;
- Tue, 18 Mar 2025 15:36:47 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-4394a823036so32099615e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 07:36:47 -0700 (PDT)
+ id 1tuYSK-0008MJ-D1
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 15:02:12 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f7c455f5-0409-11f0-9abb-95dc52dad729;
+ Tue, 18 Mar 2025 16:02:10 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43cec5cd73bso23139605e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 08:02:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d1fe6a567sm137998835e9.40.2025.03.18.07.36.46
+ 5b1f17b1804b1-43d1ffbcf95sm136147635e9.14.2025.03.18.08.02.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Mar 2025 07:36:46 -0700 (PDT)
+ Tue, 18 Mar 2025 08:02:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ba4b228-0406-11f0-9899-31a8f345e629
+X-Inumbo-ID: f7c455f5-0409-11f0-9abb-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742308607; x=1742913407; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742310130; x=1742914930; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Br9rLwKELT1xjtZZD5MgEqN0eZiLv7lzGSAKZ3snQXw=;
-        b=RwAxy31UMHn6CylNhSouLFXGjfu6hs4+FE79hIkFpgFn5Kyrv1gTvc9leL4stVuj1t
-         +8cCzZ6W5h28AcmouhajkzIE5RAfefMx1510orRJ888xyHD2VRsD3A3qz8gqUNEQDAfE
-         hz9eL1kvHpJZK2PFh/FPgN8VYiWTqAtdZv6N3fl3yOt2WEq4C/7PdidX/zUIu2tNrpLk
-         izuYW1EMSBEoaduXgUC/mjoVOOZAEl9yQTu2ErE6zBimtujWa9CG6i7+OSixd7Cjfk7/
-         1PTVBTlFrpUcYel+sg8clgquk5lfwUU6W1SWIIfRanWtR+VRib8cmrZNOPKYQD7kUU3T
-         setQ==
+        bh=EIubS6EtiriuwxSgeX+x7q8A70caDeqJNsyP13BwunQ=;
+        b=BEU6YOwMoJDCgdjeVub8ZEJ3EzzneqwLiE9RCDiF1iC54eR8lLFJbXhp93K8cuEGo6
+         t3bsAeLXixxm42+iXI2Rs/NgsbhcjkV+Nlqq+u/EJic1VoHdGgh+uBF4THIDWzLZIlP5
+         wWQByFfhylG6wM2oi6tsA2DvvoirxK2dZVopirrN6fdHAyP5htfO8GLdojGpOXYvr2EP
+         gHDbMXJEKNlN1fYeb3urhCPo+CCDN3cmETWx1w4ps+EtomWP75YhHKSUndnKtZ0HEQZT
+         xexRmtAKJFJa+bFcBLHVDD2V9++mxXCJWZYubiisRU+MMPjHNxVHbQ2PUOU9ECQfSSrd
+         ptdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742308607; x=1742913407;
+        d=1e100.net; s=20230601; t=1742310130; x=1742914930;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Br9rLwKELT1xjtZZD5MgEqN0eZiLv7lzGSAKZ3snQXw=;
-        b=ncGIT6kJVaXrL2QPJ0twG2A9RKfxhemMph9ULMuYwq+CS095cnGH1X6zsNva8V1sc/
-         eWmxuubcv3akWAsWebQQO2KFT5RLdOhvx4sogUPWZT/f6o/lZUMEvxjQXxIoeh8bNIbU
-         sM06CJqXCTfUJ7y9UuSgSBTJZxWHGMQj7VP7pZm8hZjmztPEWRjETySJI0hDD5mI4OXN
-         4IX2DUVhRSPK1H1PVXiLGeOIGkWRrF7l6dzmJTSRF/QNWDZPxYDxCN00MDNfe3Q0VHUZ
-         De15pGm8NleEGk0RbaqKEYMj3Hdz9+AYePPuFZtmN0mp/ERxwcJJY/nfWbhVlvD4f8IN
-         vnPg==
-X-Forwarded-Encrypted: i=1; AJvYcCXSwowPaERCHjl5Tm6qeQOfMfRcq8PLhaThS3KESPhA1JwwNqHmn2V8En3LtPGDvwj9FcnAN+FGMhk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw+fcPwVJpVbSxchNK9Wb8DmAmlC7yH2gtTxMhQx+ANxMVqMn/2
-	304hSIyZ+2buXGcKcs74ej6fJ2//1CxYvAmCpFCl9Yhlq+KMxk3PYAr2CGNATA==
-X-Gm-Gg: ASbGncs2w5XNnlwfHD4EDGxv3VinakrvOGOH6p81cz470iXlmK4oSk+E3CHzpn/ywyz
-	XZ6sBzN+MRugfvwMrMf3neqbEzjNyDmN5OMKy3QOEWtEF8rY384HHfLfaPgap87w/asflquuCt7
-	xDHdeaExXEFhdv+n3piDb0rXSlYLJzXPvitrb8YcC5/wHBMMQaUJP54WjaI3L53HWwAOdD94kQW
-	SHQdUXqrRR7KvhygcEbZFh3uSt8aPJMsPtvW1q+sg1tU/JWzfKSQcQlSw5HJPuQWkuvZ2ZSv6a/
-	7VxLaz+RKoJYDEyQA3+UCf9MxAgaZTcl33hh1x7G5Qt+YNj0pYZDX43lSgbn9ORVNGLjM5SmmXZ
-	XTgjGKrBjUzgR+MJ8QPvYEurKdN6XOQ==
-X-Google-Smtp-Source: AGHT+IFLQPzHNGLhyga5/bgAbxVRrDEl7KPANhKUeZ0CMteXuZCUrkG/d3a+2wP/ct1SOJQej92Aiw==
-X-Received: by 2002:a05:600c:4f52:b0:43b:c0fa:f9cd with SMTP id 5b1f17b1804b1-43d3b980b4cmr30125635e9.7.1742308606612;
-        Tue, 18 Mar 2025 07:36:46 -0700 (PDT)
-Message-ID: <a8f43182-a101-4e5a-ad25-97e3a41853fd@suse.com>
-Date: Tue, 18 Mar 2025 15:36:45 +0100
+        bh=EIubS6EtiriuwxSgeX+x7q8A70caDeqJNsyP13BwunQ=;
+        b=UDt2gogIm8Z5jK/uIJgoSw5nzdTQ6R6UQ6Z5rMoJPg8KLI/khZJpcxwUbYoH9kmVLn
+         M7TSCY6Rt+dWo4dhi7YmgnVVovedVDDLVLDO7dJE/iTXdtjkYFGqKrT/TuOJQiclQd4I
+         QlfMrojsj1qgMUg1poLRUJT0vU00cabi6FiC39XuUIN9ZMlFjRSuuE/8z+MvDJRTW9AI
+         NYcu3rPWQt7LWuFh50ZMq2/0wdFMZzOMLfQBI0ihTlMlJRLdt0X1+rtJTG7CzKzYrRYg
+         j5a2DzcRzETzlamSjyCW9sBOcMl551jXWSNnS4X6BLeBRuMipgvJMIeWt4+zzajpRXL+
+         NWkQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU5Q8bULspR+rztvryltg95aJMxtSQ2W3gRgyKkehkSFEyEBxv8O8jFRFQIBDvj+Y/bWkFyNZNmw9U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywsn636ayIQh1p32vGI/4q8Cu4W3NXjnW+hEZiBJTPtymlq6G1m
+	qi+A5rkYwrrdr1LxPxwtTyezbQRi3DPo19rgYTI500JJIwA5TB+Vr/wBN+aJwNumtVU+qlJTHsg
+	=
+X-Gm-Gg: ASbGncss9fYF6Z+3Tlv209SVhNsvINaGLFfGo3DNzwa19A5yw4vDJMKd9vqg/1ULssq
+	ypAP1uemYRp+LXNyJO/bqqwWabrwLxRpB3PihqPAmjmIu3OvOUrW2p1j3DFcm03pO9WKlIWu2KQ
+	Ug8rK5ju656Fb9g4nyLRjckr6zrHbKUH90EpxnulqMwUtREFc3X2SZPu9Z5hMI3EnG8jf0CAX4j
+	2OwdlmcP1zFzmQsmub5wGLd9AaG0hYnTxvrouQhrN0RHESP4SbTyfg1gHZ52vhXeBDHdrSauNNH
+	u76xtlvU3vkFnBnTcO/pBBMkARSRSGCo+tdMf3+Dv1K7ocubreKiLEN8ZwsfczSbEt1djwdPt/7
+	x8z3oK3LFsKjKX2cgMSjUdirIvupt95C1zQjx0Pru
+X-Google-Smtp-Source: AGHT+IGc57EIevF9EoMf/TMvg4wNUuaBW45VB7X/HVvrHOGJe1LZVxlcjfgZKtKQLvMthgC/ptoWGA==
+X-Received: by 2002:a05:600c:1da6:b0:43c:f5e4:895e with SMTP id 5b1f17b1804b1-43d3b9504camr19886735e9.1.1742310124163;
+        Tue, 18 Mar 2025 08:02:04 -0700 (PDT)
+Message-ID: <278790ec-32f9-4ae4-a9ae-6eac5900023f@suse.com>
+Date: Tue, 18 Mar 2025 16:02:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] x86/shadow: fix UB pointer arithmetic in
- sh_mfn_is_a_page_table()
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-Cc: Tim Deegan <tim@xen.org>, xen-devel@lists.xenproject.org
-References: <20250318091904.52903-1-roger.pau@citrix.com>
- <20250318091904.52903-5-roger.pau@citrix.com>
- <1871a0ff-5766-4707-8791-c20279c12fd9@citrix.com>
+Subject: Re: [PATCH 1/4] x86/traps: Move cpu_init() out of trap_init()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250317192023.568432-1-andrew.cooper3@citrix.com>
+ <20250317192023.568432-2-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,44 +119,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1871a0ff-5766-4707-8791-c20279c12fd9@citrix.com>
+In-Reply-To: <20250317192023.568432-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 18.03.2025 13:53, Andrew Cooper wrote:
-> On 18/03/2025 9:19 am, Roger Pau Monne wrote:
->> UBSAN complains with:
->>
->> UBSAN: Undefined behaviour in arch/x86/mm/shadow/private.h:515:30
->> pointer operation overflowed ffff82e000000000 to ffff82dfffffffe0
->> [...]
->> Xen call trace:
->>    [<ffff82d040303882>] R common/ubsan/ubsan.c#ubsan_epilogue+0xa/0xc0
->>    [<ffff82d040304cc3>] F lib/xxhash64.c#__ubsan_handle_pointer_overflow+0xcb/0x100
->>    [<ffff82d040471c5d>] F arch/x86/mm/shadow/guest_2.c#sh_page_fault__guest_2+0x1e350
->>    [<ffff82d0403b216b>] F lib/xxhash64.c#svm_vmexit_handler+0xdf3/0x2450
->>    [<ffff82d0402049c0>] F lib/xxhash64.c#svm_stgi_label+0x5/0x15
+On 17.03.2025 20:20, Andrew Cooper wrote:
+> cpu_init() doesn't particularly belong in trap_init().  This brings the BSP
+> more in line with the APs.
 > 
-> Something is definitely wonky in this backtrace.
+> No functional change.
 > 
->>
->> Fix by moving the call to mfn_to_page() after the check of whether the
->> passed gmfn is valid.  This avoid the call to mfn_to_page() with an
->> INVALID_MFN parameter.
->>
->> While there make the page local variable const, it's not modified by the
->> function.
->>
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Whatever is wonky in the backtrace isn't related to this patch, so
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, but the backtrace
-> does want fixing.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Right, but the fix may need to be in the tool chain. I'd be curious what
-the symbol table looks like that this was created from. Roger, was this
-linked with GNU ld or LLVM? Are the filename anomalies also visible in
-the corresponding xen-syms.map?
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
