@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ED96A680D5
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 00:40:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.919983.1324309 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9AF8A680D6
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 00:42:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920008.1324319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tugYH-0001jn-L4; Tue, 18 Mar 2025 23:40:53 +0000
+	id 1tugZY-0002dp-T5; Tue, 18 Mar 2025 23:42:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 919983.1324309; Tue, 18 Mar 2025 23:40:53 +0000
+Received: by outflank-mailman (output) from mailman id 920008.1324319; Tue, 18 Mar 2025 23:42:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tugYH-0001hD-H9; Tue, 18 Mar 2025 23:40:53 +0000
-Received: by outflank-mailman (input) for mailman id 919983;
- Tue, 18 Mar 2025 23:40:51 +0000
+	id 1tugZY-0002c0-QM; Tue, 18 Mar 2025 23:42:12 +0000
+Received: by outflank-mailman (input) for mailman id 920008;
+ Tue, 18 Mar 2025 23:42:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gc9A=WF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tugYF-0001ZU-Pz
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 23:40:51 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [2604:1380:45d1:ec00::3])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6c752056-0452-11f0-9abc-95dc52dad729;
- Wed, 19 Mar 2025 00:40:50 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 37F7EA48EFE;
- Tue, 18 Mar 2025 23:35:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C25FC4CEDD;
- Tue, 18 Mar 2025 23:40:48 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6oY5=WF=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1tugZX-0002bl-84
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 23:42:11 +0000
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
+ [79.135.106.30]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9c2aca53-0452-11f0-9abc-95dc52dad729;
+ Wed, 19 Mar 2025 00:42:10 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,99 +36,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c752056-0452-11f0-9abc-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1742341249;
-	bh=deL/onrfoVZsdhrm0u6AY3vrwa6Fo0KcjW7Cbt2wdeQ=;
-	h=Date:From:To:cc:Subject:From;
-	b=GjbEpTQ7YWH46u2+CaTC1FrA9kXYFCWs9BiivaCZIx2OaCLU/3OJSkaGgs5PNGQ3h
-	 BzY3aiZnBLd2THAeS3xdM7zWX9cDH8bCSNojr8+msd1KvMOkgLHay4Cbt7H3rk/zp3
-	 EGwy9wwri1P42Zk0Iv62TZyY7XqPDPcI8adMbBskkqkYFkn2GJZ4J8jb0OdHoN74I9
-	 rZdDnH2LvDifUkRFO1+2fysDyrtp/I4MqlbdkwYIgxhPb19eYwcub3DRz5OWfftwFM
-	 i2hNZy6UPbY/Oeoakuo9+KjyM3kweYekdcleUvlCoEk7Y3/d+i1/se8plohL9uFzEp
-	 mXVozEGo7eGXw==
-Date: Tue, 18 Mar 2025 16:40:42 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: xen-devel@lists.xenproject.org
-cc: sstabellini@kernel.org, andrew.cooper3@citrix.com, michal.orzel@amd.com, 
-    jbeulich@suse.com, julien@xen.org, roger.pau@citrix.com, 
-    Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [PATCH] xen: add kconfig for event_fifo
-Message-ID: <alpine.DEB.2.22.394.2503181637100.2000798@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 9c2aca53-0452-11f0-9abc-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1742341329; x=1742600529;
+	bh=JrSdvzSEUxyTewevb+betpChh8cxYIYjakB/ObSAfiA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=FvOCfKtCcO8a50IrmzyEngytIMEWGbZVmqPhoDM2F+rPSM6zCxFDiEX9RBKX0PF9v
+	 kZXBThMqcrt4nRgq66BEtQ13OEwoa8dZXz7J7RyWErqnQJlNG0H0TbMSCgY1l8NyKQ
+	 9KwjYI+gv0ANjV1VrYsgK8niPE7mdiqeVp7GznOYC+51X9hoHKZKKrRjb6GWw2+N8i
+	 GlJrf626VJc8hipMoFU3+yJSAoof83vtvKa15/kzvG5owJK/nGFR5p0WvLQDOHO7xP
+	 gtSXFA5dnn+6r+QfkC6JkncBVT0GDGkOM0MLq+V+JhIiHsru6kg1yr0SKEG4vKC4Qm
+	 +3VqRhMpjScaQ==
+Date: Tue, 18 Mar 2025 23:42:05 +0000
+To: Jan Beulich <jbeulich@suse.com>
+From: Denis Mukhin <dmkhn@proton.me>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 3/3] x86/irq: introduce APIC_VECTOR_VALID
+Message-ID: <P0RTWUo-6LQ6iOwO0spC7MdM4uH2YFasy5sN79HSXCtMXeYJaWQpVBzQL-6OWiOj8fDpmG35rwYcYBH-f48qraysWnADsmJL9sAWAoKISic=@proton.me>
+In-Reply-To: <c14f9eef-1bb8-4259-a3f4-44c739ed3258@suse.com>
+References: <20250315010033.2917197-1-dmukhin@ford.com> <20250315010033.2917197-4-dmukhin@ford.com> <c14f9eef-1bb8-4259-a3f4-44c739ed3258@suse.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: ecf2dd5ed57dc7d86045d978fe776b32ebc83303
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Evtchn fifos are not needed on smaller systems; the older interface is
-lightweight and sufficient. Make it possible to disable evtchn fifo.
+On Monday, March 17th, 2025 at 1:30 AM, Jan Beulich <jbeulich@suse.com> wro=
+te:
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>
+>
+> On 15.03.2025 02:00, dmkhn@proton.me wrote:
+>
+> > Add new symbol APIC_VECTOR_VALID to replace open-coded value 16 in
+> > LAPIC and virtual LAPIC code.
+>
+>
+> First a good name is needed to make such a change. APIC_VECTOR_VALID
+> could imo be the name of a predicate macro, but it can't be a mere
+> number.
 
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index a6aa2c5c14..14d82923c5 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -23,6 +23,16 @@ config GRANT_TABLE
- 
- 	  If unsure, say Y.
- 
-+config EVTCHN_FIFO
-+	bool "Event Channel Fifo support" if EXPERT
-+	default y
-+	help
-+	  The Event channel Fifo extends support for event channels
-+	  beyond 1024 event channels for 32-bit guests and 4096 for
-+	  64-bit guests.
-+
-+	  If unsure, say Y.
-+
- config PDX_COMPRESSION
- 	bool "PDX (Page inDeX) compression" if EXPERT && !X86 && !RISCV
- 	default ARM || PPC
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index ac23120d7d..9da8a7244d 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -13,7 +13,7 @@ obj-$(CONFIG_IOREQ_SERVER) += dm.o
- obj-y += domain.o
- obj-y += event_2l.o
- obj-y += event_channel.o
--obj-y += event_fifo.o
-+obj-$(CONFIG_EVTCHN_FIFO) += event_fifo.o
- obj-$(CONFIG_GRANT_TABLE) += grant_table.o
- obj-y += guestcopy.o
- obj-y += gzip/
-diff --git a/xen/common/event_channel.h b/xen/common/event_channel.h
-index 45219ca67c..a778ae775b 100644
---- a/xen/common/event_channel.h
-+++ b/xen/common/event_channel.h
-@@ -45,12 +45,27 @@ void evtchn_2l_init(struct domain *d);
- 
- /* FIFO */
- 
-+#ifdef CONFIG_EVTCHN_FIFO
- struct evtchn_init_control;
- struct evtchn_expand_array;
- 
- int evtchn_fifo_init_control(struct evtchn_init_control *init_control);
- int evtchn_fifo_expand_array(const struct evtchn_expand_array *expand_array);
- void evtchn_fifo_destroy(struct domain *d);
-+#else
-+static inline int evtchn_fifo_init_control(struct evtchn_init_control *init_control)
-+{
-+    return -EOPNOTSUPP;
-+}
-+static inline int evtchn_fifo_expand_array(const struct evtchn_expand_array *expand_array)
-+{
-+    return -EOPNOTSUPP;
-+}
-+static inline void evtchn_fifo_destroy(struct domain *d)
-+{
-+    return;
-+}
-+#endif /* CONFIG_EVTCHN_FIFO */
- 
- /*
-  * Local variables:
+Do you think something like
+
+  #define APIC_VECTOR_VALID_START 16
+  #define APIC_VECTOR_VALID_END   255
+
+will be satisfactory names to use?
+
+>
+> Then ...
+>
+> > --- a/xen/arch/x86/cpu/mcheck/mce_intel.c
+> > +++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
+> > @@ -136,7 +136,7 @@ static void intel_init_thermal(struct cpuinfo_x86 *=
+c)
+> > * is required to set the same value for all threads/cores).
+> > */
+> > if ( (val & APIC_DM_MASK) !=3D APIC_DM_FIXED
+> > - || (val & APIC_VECTOR_MASK) > 0xf )
+> > + || (val & APIC_VECTOR_MASK) > APIC_VECTOR_VALID )
+>
+>
+> ... care needs to be taken that replacements are done such that the
+> "no functional change" claim is actually correct. (The 0xf, i.e. 15,
+> is replaced by 16 here. I didn't check if there are other similar
+> issues.)
+
+My bad.
+Thanks for the catch.
+
+>
+> > --- a/xen/arch/x86/include/asm/apicdef.h
+> > +++ b/xen/arch/x86/include/asm/apicdef.h
+> > @@ -78,6 +78,7 @@
+> > #define APIC_DM_STARTUP 0x00600
+> > #define APIC_DM_EXTINT 0x00700
+> > #define APIC_VECTOR_MASK 0x000FF
+> > +#define APIC_VECTOR_VALID (16)
+> > #define APIC_ICR2 0x310
+>
+>
+> Nit: No real need for parentheses here; adjacent #define-s don't have
+> any, so it's a little hard to see why you added them.
+
+My understanding was MISRA requires parentheses around expressions resultin=
+g
+from the expansion of a macro.
+After double checking, such requirement only applicable to macros w/ parame=
+ters.
+
+>
+> Jan
 
