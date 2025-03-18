@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F6E1A66F88
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 10:19:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.918731.1323394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 359E8A66F8A
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 10:19:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.918732.1323405 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuT6X-0001jc-T2; Tue, 18 Mar 2025 09:19:21 +0000
+	id 1tuT6Z-000205-4u; Tue, 18 Mar 2025 09:19:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 918731.1323394; Tue, 18 Mar 2025 09:19:21 +0000
+Received: by outflank-mailman (output) from mailman id 918732.1323405; Tue, 18 Mar 2025 09:19:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuT6X-0001iG-Pb; Tue, 18 Mar 2025 09:19:21 +0000
-Received: by outflank-mailman (input) for mailman id 918731;
- Tue, 18 Mar 2025 09:19:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tuT6Z-0001xZ-1E; Tue, 18 Mar 2025 09:19:23 +0000
+Received: by outflank-mailman (input) for mailman id 918732;
+ Tue, 18 Mar 2025 09:19:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mYbn=WF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tuT6V-0001Er-Sr
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 09:19:19 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12263b2a-03da-11f0-9aba-95dc52dad729;
- Tue, 18 Mar 2025 10:19:19 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3914bc3e01aso3543019f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 02:19:19 -0700 (PDT)
+ id 1tuT6Y-0001pb-Dj
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 09:19:22 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 12f21450-03da-11f0-9899-31a8f345e629;
+ Tue, 18 Mar 2025 10:19:20 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-39141ffa9fcso4565944f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 02:19:20 -0700 (PDT)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-395c83b6b43sm17746582f8f.35.2025.03.18.02.19.17
+ ffacd0b85a97d-395cb7ea197sm17267527f8f.84.2025.03.18.02.19.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Mar 2025 02:19:18 -0700 (PDT)
+ Tue, 18 Mar 2025 02:19:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,47 +44,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12263b2a-03da-11f0-9aba-95dc52dad729
+X-Inumbo-ID: 12f21450-03da-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742289558; x=1742894358; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1742289560; x=1742894360; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YuDcf9Cv9x3i1U+A49P9TQaxoQRqLFIPfBAq0blwaPE=;
-        b=QLwngdLGpw5wRhuRoOAW9Ie9ZF0iwB62KyCJ0lkSMIRuVUKnH7Xus3RvpRGJULxJ9s
-         7v2dtcoEAyWATa0t2skWcuWbjlD91pEMMpDajWg75pxl9iZHMVF2/hiWEkV7Hcziufm/
-         7JuhD2bRkWQba4DHZfL0FGvm2/y/1F8kYLSgo=
+        bh=uvu5eIZtMQ2sjDw7pRYIO1mjfh/0Xg7gt34ETQV6Y38=;
+        b=RAznACR7A6JqGxfEt0mjEomlqUYjy6MnmbRpaavvVuJasGZdMYlLlEIVM1niI5PR7q
+         BmVE5UTywNDkObFiBDMimC13mikoJ9Bx/CBDzt2sSnndDIu+zzFxArSFeM0DyhZJh82f
+         ZVO1bukoqOlNLroYfQe+hE4Ucyzv/teggYmZA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742289558; x=1742894358;
+        d=1e100.net; s=20230601; t=1742289560; x=1742894360;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=YuDcf9Cv9x3i1U+A49P9TQaxoQRqLFIPfBAq0blwaPE=;
-        b=Qs0OcSNnz+aUK06UHjVu3KVXrZaJOFQsM3PIg08W3hoNxPNUCeL2+aPtGAsevQ+4TQ
-         1tdTgNasY4Co6QtOqpbG5h1EB9KNIlgz7ui9D5NM06TVh6U0v9nr/REBCjZhHOjdEmBI
-         rppZTK1YJ+50rWDPkuef7N2qOCZXyf6ayYJ/Zs0D1KMiGHd9hX3M33Ct99JusLT0POO3
-         NxGOp32MhJbxRSAenVhOPrPUu1v+PbVlUzzXe8Aly7pv6+cq0T+RWx4Sv8HsS3p+nZw4
-         YlaKsrGC8tYxN60BI4tZCqnAxujLuPhNSb89oeCxKy2gq9ZsgA6+c7e/uHkMNHlVZNQF
-         Mwlg==
-X-Gm-Message-State: AOJu0YzT2lAJGKYYRxacUEhl/Hvu+ETFBejQ7FWyH9mhHLceLX7Dmyp2
-	BlsXmPpmWJzdFJ5oRZK1XjOwCExf2BtWfW71oMA+5uL21QgSjUdAgNZPoKe/FF+go+umw+gguTI
+        bh=uvu5eIZtMQ2sjDw7pRYIO1mjfh/0Xg7gt34ETQV6Y38=;
+        b=O5yPR7U3sKRhM3hq61pArvIJNdnfWL5b9jb0a8p/uJpbgSCWWwOo3bvsVyGYurHQsp
+         YPZDfl4NSmsMnI7fSEm/7MhUxpuzgn/xiFR3yTWCjbOGJT8eIGUM7OmTzAN9x8GNoF4z
+         XCtB+uyBol8Q69OMbaMcKNXFMI+L5jHqZ21QT7Sv3/cA9Z0+9HMcp0NzHREYyoH0ke1j
+         tBSrK5zjIleMXOVko/1jojrkfKeTriKxsXApuE81KE/mXGJE4sWqOiaTccFBbnzyzG+A
+         aO/fx8NpGV0iXNoG4jI32Irv5w6M4XY92f8r1ePkp0vPBTdQoW5Xa44/SlFES5SrDS2e
+         JwSw==
+X-Gm-Message-State: AOJu0YxdgesyWxzHbxgzAFDwuR1nmYEkwrzbykJ14dJaCR9v760wXvlD
+	zvTulKadlNQltGWJYWLFbIoFwONXKvVbouMsE7sjvW5jOvyF4nesVLBqX9++cHrpHUnjoxrCFR7
 	h
-X-Gm-Gg: ASbGncvhKsQsdXu9Tg42E8DL4BAG0aVuStZOif7NmP6DVNdmHJz7p73NHEEicg4zTYx
-	L/pBVXOQxltXxrcfOd5dHm26qd1BR6weobGUJyNR2LXMu3V7JjIjGFUGMfy3b9ISZL/QeQl0LGO
-	nI75/wetvqhPCi7X1LDZwAnIcAdtSphEwQNssSkBbohLIGNG8GLJvOb18TGcPLawZ5ECsk58Yqf
-	hZ8+enC/e3AHZnL8GmoZpGfmPXKvfNgquBMaGbCky1lZDODMtuyhu85ehqDSqM45iHz3z1pvHxM
-	ODu0k3L/yIU472oAt6kNianYX8J5paV1a5B6qylUvOQjSTaBhw==
-X-Google-Smtp-Source: AGHT+IGZhmwKpQwnvPKnE1JfFtguTAnacOSX1U3j5ss9YEvo5SJPno3RZX52vQX8KS78wbMIjF0zZA==
-X-Received: by 2002:a05:6000:2c8:b0:390:eebc:6f32 with SMTP id ffacd0b85a97d-3971f7f9affmr19335621f8f.48.1742289558626;
-        Tue, 18 Mar 2025 02:19:18 -0700 (PDT)
+X-Gm-Gg: ASbGncs9b5Insx9/NDUwiu2R6RtTKkNItfqxVs+i9tjoIREBm5BVS2yYPIf1NLR5tsE
+	xPxUm8ljzP2i1tlddY2HpswwZf9oqjhq1gQ3NVVZbMukhhXRcyVzcbOPgtyz31ruiu9YjJk2Ogr
+	SH3Bd0sy3OWhgFZ1GKNhcUF5G12suhW+OEWO+lGpSOdz1UMirdUpqHOjI0lVlCFfI/j3TOqLyoN
+	XlUIc6ISyKRarw/1Pi7TT66T6glrTAxpPHZ1Oqby/x8MSmEmK5xJVDhCO+8CyTB/fv3ZoeJsLsT
+	714qCmAKXm5U/XKWqtKnoiAlmldUbGduxs58/dYvZ31tpocaKg==
+X-Google-Smtp-Source: AGHT+IGZoxRERBI2o5PdcYEf0GTFklKZscfnxI6ptTAwbkD0XhjdjMKBMAO21xu5GZUvgQ2Sxr70gg==
+X-Received: by 2002:a05:6000:4023:b0:391:487f:2828 with SMTP id ffacd0b85a97d-3996b445302mr2703349f8f.10.1742289559732;
+        Tue, 18 Mar 2025 02:19:19 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2 3/5] x86/xlat: fix UB pointer arithmetic in COMPAT_ARG_XLAT_VIRT_BASE
-Date: Tue, 18 Mar 2025 10:19:02 +0100
-Message-ID: <20250318091904.52903-4-roger.pau@citrix.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Tim Deegan <tim@xen.org>
+Subject: [PATCH v2 4/5] x86/shadow: fix UB pointer arithmetic in sh_mfn_is_a_page_table()
+Date: Tue, 18 Mar 2025 10:19:03 +0100
+Message-ID: <20250318091904.52903-5-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250318091904.52903-1-roger.pau@citrix.com>
 References: <20250318091904.52903-1-roger.pau@citrix.com>
@@ -94,47 +95,51 @@ Content-Transfer-Encoding: 8bit
 
 UBSAN complains with:
 
-UBSAN: Undefined behaviour in common/compat/memory.c:90:9
-pointer operation overflowed ffff820080000000 to 0000020080000000
+UBSAN: Undefined behaviour in arch/x86/mm/shadow/private.h:515:30
+pointer operation overflowed ffff82e000000000 to ffff82dfffffffe0
 [...]
 Xen call trace:
    [<ffff82d040303882>] R common/ubsan/ubsan.c#ubsan_epilogue+0xa/0xc0
    [<ffff82d040304cc3>] F lib/xxhash64.c#__ubsan_handle_pointer_overflow+0xcb/0x100
-   [<ffff82d0402a6359>] F lib/xxhash64.c#compat_memory_op+0xf1/0x4d20
-   [<ffff82d04041545d>] F lib/xxhash64.c#hvm_memory_op+0x55/0xe0
-   [<ffff82d040416280>] F lib/xxhash64.c#hvm_hypercall+0xae8/0x21b0
-   [<ffff82d0403b25ca>] F lib/xxhash64.c#svm_vmexit_handler+0x1252/0x2450
+   [<ffff82d040471c5d>] F arch/x86/mm/shadow/guest_2.c#sh_page_fault__guest_2+0x1e350
+   [<ffff82d0403b216b>] F lib/xxhash64.c#svm_vmexit_handler+0xdf3/0x2450
    [<ffff82d0402049c0>] F lib/xxhash64.c#svm_stgi_label+0x5/0x15
 
-Adjust the calculations in COMPAT_ARG_XLAT_VIRT_BASE to subtract from the
-per-domain area to obtain the mirrored linear address in the 4th slot,
-instead of overflowing the per-domain linear address.
+Fix by moving the call to mfn_to_page() after the check of whether the
+passed gmfn is valid.  This avoid the call to mfn_to_page() with an
+INVALID_MFN parameter.
+
+While there make the page local variable const, it's not modified by the
+function.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v1:
  - New in this version.
 ---
- xen/arch/x86/include/asm/x86_64/uaccess.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ xen/arch/x86/mm/shadow/private.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/include/asm/x86_64/uaccess.h b/xen/arch/x86/include/asm/x86_64/uaccess.h
-index c6fa3fd381bc..f933707e109f 100644
---- a/xen/arch/x86/include/asm/x86_64/uaccess.h
-+++ b/xen/arch/x86/include/asm/x86_64/uaccess.h
-@@ -9,9 +9,9 @@
-  * a secondary mapping installed, which needs to be used for such accesses in
-  * the PV case, and will also be used for HVM to avoid extra conditionals.
-  */
--#define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current) + \
--                                   (PERDOMAIN_ALT_VIRT_START - \
--                                    PERDOMAIN_VIRT_START))
-+#define COMPAT_ARG_XLAT_VIRT_BASE ((void *)ARG_XLAT_START(current) - \
-+                                   (PERDOMAIN_VIRT_START - \
-+                                    PERDOMAIN_ALT_VIRT_START))
- #define COMPAT_ARG_XLAT_SIZE      (2*PAGE_SIZE)
- struct vcpu;
- int setup_compat_arg_xlat(struct vcpu *v);
+diff --git a/xen/arch/x86/mm/shadow/private.h b/xen/arch/x86/mm/shadow/private.h
+index a5fc3a7676eb..cef9dbef2e77 100644
+--- a/xen/arch/x86/mm/shadow/private.h
++++ b/xen/arch/x86/mm/shadow/private.h
+@@ -512,13 +512,14 @@ static inline unsigned long __backpointer(const struct page_info *sp)
+ static inline int
+ sh_mfn_is_a_page_table(mfn_t gmfn)
+ {
+-    struct page_info *page = mfn_to_page(gmfn);
++    const struct page_info *page;
+     struct domain *owner;
+     unsigned long type_info;
+ 
+     if ( !mfn_valid(gmfn) )
+         return 0;
+ 
++    page = mfn_to_page(gmfn);
+     owner = page_get_owner(page);
+     if ( owner && shadow_mode_refcounts(owner)
+          && (page->count_info & PGC_shadowed_pt) )
 -- 
 2.48.1
 
