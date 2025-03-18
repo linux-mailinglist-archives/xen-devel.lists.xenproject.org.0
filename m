@@ -2,37 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7E75A677C2
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 16:29:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.919306.1323797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5939A677E0
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 16:32:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.919330.1323817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuYsZ-0007pO-DV; Tue, 18 Mar 2025 15:29:19 +0000
+	id 1tuYv6-0002W2-3U; Tue, 18 Mar 2025 15:31:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 919306.1323797; Tue, 18 Mar 2025 15:29:19 +0000
+Received: by outflank-mailman (output) from mailman id 919330.1323817; Tue, 18 Mar 2025 15:31:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuYsZ-0007ma-AI; Tue, 18 Mar 2025 15:29:19 +0000
-Received: by outflank-mailman (input) for mailman id 919306;
- Tue, 18 Mar 2025 15:29:18 +0000
+	id 1tuYv6-0002Tk-0f; Tue, 18 Mar 2025 15:31:56 +0000
+Received: by outflank-mailman (input) for mailman id 919330;
+ Tue, 18 Mar 2025 15:31:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mYbn=WF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tuYsY-0007mU-3S
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 15:29:18 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ <SRS0=5Po+=WF=gmail.com=sultanovandriy@srs-se1.protection.inumbo.net>)
+ id 1tuYv4-0001ML-La
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 15:31:54 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0a9b7b4-040d-11f0-9899-31a8f345e629;
- Tue, 18 Mar 2025 16:29:16 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-ac2a089fbbdso1010598466b.1
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 08:29:16 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-ac3146af05esm872384166b.16.2025.03.18.08.29.14
+ id 1e045549-040e-11f0-9899-31a8f345e629;
+ Tue, 18 Mar 2025 16:31:53 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-43690d4605dso24629455e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 08:31:52 -0700 (PDT)
+Received: from localhost.localdomain
+ (cpc92320-cmbg19-2-0-cust1786.5-4.cable.virginm.net. [82.13.70.251])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d1ffbcf12sm135384415e9.12.2025.03.18.08.31.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Mar 2025 08:29:14 -0700 (PDT)
+ Tue, 18 Mar 2025 08:31:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,102 +46,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0a9b7b4-040d-11f0-9899-31a8f345e629
+X-Inumbo-ID: 1e045549-040e-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742311756; x=1742916556; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=es6Ez7FrEsyu7asoq1qxn+Djsr19u/lSAV+H/2guTGw=;
-        b=MJ29K5MdeWcmqUEYsT5v9DaDNJoxVBfUuwzRoehc5h46/hp2FG79NnpUGLIvmFFVzv
-         4b4VCCwwNftV+MxgSewnRgUbEK/KKa6CWKqMDw5fIpFWnS10xcDAz2wb1RmASbchDMC+
-         kGJrtDE4YYOEb4M2w21nIdlXSA8vdxJLQRmY0=
+        d=gmail.com; s=20230601; t=1742311911; x=1742916711; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vw1XEvQqqiDg0JMXVUL6A2260HDubm8QJFwLoLdM56o=;
+        b=XSvoDD8owYlBXCzjwk6i/7cnefVnzJSOIlPf2iF2qobAaW80RGr29sBKGhaFntj1c0
+         JvtsiPsSsuzm+TDdYz9o0MAABBb0Esx0B1y9iEh4LH9z6Svvh3Cbo/ZNPdllSrIjdA42
+         0k54URgFQlMCZNv5rAt7P8VOEq6B8iY/rOjX084sM14mwNU9AUoecp7g+nolS1KCKPKp
+         u72lFHz0E++ZNFrj5CbQVJyW0JD4AVgMXR16ngaG/0IAXcGE7y/JYlP/gNzO5thMJTCe
+         IATi+HA60UhK4HzfiuK83QSUIjmP42kdDzykrjGLIODxv9TTI2YZmQTzAZn/A26ws42a
+         I/QA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742311756; x=1742916556;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=es6Ez7FrEsyu7asoq1qxn+Djsr19u/lSAV+H/2guTGw=;
-        b=FvDl+jCBgNWtKIWjeky9390PjN8MaaJk/bB7dFgTKGbj3INJ1t6C9amb0hsSSYktR4
-         2iijavZXiacBi4fsMLHYeBgKGEwr/aGkrijpd9A1oF6VkodMXDT8/WDRm9QnBfhBZKsI
-         /hqOo2qbza4IMbIRaDxX32IFPJcIRfHaPtYQtAIapf7aeE7IZQwOfij0ADKWNd9C4FL4
-         BuPcxGygVglAlKQRsjfy3ecRxWyVHH5PZxK+2d+gvV0kgcvuNePoxvvE9ut83IltNKN5
-         u6D3EibJPrRcv3Z92t87pBnV5PQ39nga20HqKO90KxspQI+gphEA94nYSSbOMfPjIFWH
-         cnAQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUPg0d/dm5UP5YspOrKtmsHttejJDRym/l8viyUBP+bkfaubp2mQp+AazlkaVE/91PzwGu3kV8z/os=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzqCqB2/TrzfjVbx0rdAz7MM2UQcX6+uFgD91Ia5q+CIyMP+wa1
-	ckWLSmWNr4KG6wfZxPN+nCFhLbEV0SbabJwGCWCSqO92PIk/FCfIW9g9Dzg9p/pL7fTOeksIGkv
-	3
-X-Gm-Gg: ASbGncveUGFTPSHfawB1WDu5p+tnjgDiQD0DTC2qBdTF9ItNYTbIOGpm38X7Dtl31WI
-	F+NbjINrHdrz0/P9YIKpXCJG2Yoa82VVbZL1YRZXoMJU5wxolc1Mx/S/IWanDFy0lLg0px/qOrR
-	gYQLIOWrQI24vjUovmdMhWFYu5I4qAgejIu7/tqgp1ZJyCB302cRJHAiCaaWg/mCKXhNKpc9U7h
-	vIXK2WWbxgZN8yeT5yseIKsB0OwmmpWQuvMlzbE+4Zr2aOqAbPFT9JAhi+dFuTgyjVTnmCTweDV
-	HCkQyWdYiCrfTF9vvE0InkPQO34tfTvx51R97qwqK1jdsP9dwoCc8/U=
-X-Google-Smtp-Source: AGHT+IGAOxj7EnL+AkhdV/ZM2QlNm6mbcS4NHX/p5IJbIRPpX7oz+m6NoHVPPCLZzZM1zSa96F/AEA==
-X-Received: by 2002:a17:907:72cb:b0:ac1:edc5:d73b with SMTP id a640c23a62f3a-ac38f744041mr375723966b.8.1742311755075;
-        Tue, 18 Mar 2025 08:29:15 -0700 (PDT)
-Date: Tue, 18 Mar 2025 16:29:13 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 4/5] x86/shadow: fix UB pointer arithmetic in
- sh_mfn_is_a_page_table()
-Message-ID: <Z9mRSc7PKQIY9whY@macbook.local>
-References: <20250318091904.52903-1-roger.pau@citrix.com>
- <20250318091904.52903-5-roger.pau@citrix.com>
- <1871a0ff-5766-4707-8791-c20279c12fd9@citrix.com>
- <a8f43182-a101-4e5a-ad25-97e3a41853fd@suse.com>
+        d=1e100.net; s=20230601; t=1742311911; x=1742916711;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vw1XEvQqqiDg0JMXVUL6A2260HDubm8QJFwLoLdM56o=;
+        b=W4QDhy5s5fe0cZubm0itCsLWLWNoQ1QZ1ABSIUNsIoBb+Zmu0OIwSzqINOaWW/QpiA
+         1yiOscAn3DqMlEC22g6NbCAALj4c1SJWTUuunI9nWxc/8qjvGz+vAtktZbiH93xvDvu1
+         RTBWumfygM6dqDO/RvocSbiwLYHrJnj0C9E8yHigGekeoffYOGB+oZS2EIS9r8yBNvKd
+         1AaQlJ4oci6VBzucX5ivfz+c+ddg5DmltIMKq8aaW+IBJNjZJ1rvLenodasc+iMiRXxG
+         ChOpNNgE9MWmZ3htOX9X7VgNzJn+EHOmwVxssr5tromuz1n/YdNmyNW23hFnDsxf4nIa
+         kCew==
+X-Gm-Message-State: AOJu0Yzi/AT2uXJB093a15Q7c0OaPaN7xDcTEPtb3tTo4bkpbaY1PUqN
+	AMHruMq7MGGIoQMbT9nVArvcQJRSeBprtZKkqcXOPjtVLrYsEdvyRcadHs6q
+X-Gm-Gg: ASbGnctOrIRIstv2mAUvA5qcExicvrLd8v43mwQi16jRZQJWMgWDTkYILW6gZVJOFe5
+	4/QLYLwmy4tszYJe4kpWy6uHLZOaf7Ep47rAOqfv/96aImvlDBm1EhfZjb8bRCA2uSvuAi4QnEy
+	zBw6IEXCjjAwvnv8I+d8BVtLa/9Un24dHs9X+PUzxWPmsu/sq0tAfn1sK34aLQPDnjS91RXoH1W
+	nMDmq1GVujHlJFEEmuQXJdjgIfMyamJ7hlSm5zYJLVy3O49wUkzUG1bmCs+i16ifhxgigAAfAYR
+	gUmVABzBpCNlzl2LNELtUe9RsFxNHgdi7gsFYsXTx7CF6x7nyosS4NnYAEVspciSociTNifeV6A
+	F9qe/UGLthWQoB8d0nodvWFAGF5lMVijwYOSM43smm1WO
+X-Google-Smtp-Source: AGHT+IGMIkjb1IOTp53py0mI8LradF/uhXmHgrI80aAfDJCzr5QVROPhYS8DAi0uOT6dqq9CX5fmMA==
+X-Received: by 2002:a05:600c:8486:b0:43d:4e9:27f3 with SMTP id 5b1f17b1804b1-43d3b98e682mr27662165e9.9.1742311911117;
+        Tue, 18 Mar 2025 08:31:51 -0700 (PDT)
+From: Andrii Sultanov <sultanovandriy@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrii Sultanov <sultanovandriy@gmail.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v3 0/3] drivers: Simplify handling of pci_sbdf_t in passthrough/amd
+Date: Tue, 18 Mar 2025 15:30:20 +0000
+Message-ID: <cover.1742311401.git.sultanovandriy@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <a8f43182-a101-4e5a-ad25-97e3a41853fd@suse.com>
 
-On Tue, Mar 18, 2025 at 03:36:45PM +0100, Jan Beulich wrote:
-> On 18.03.2025 13:53, Andrew Cooper wrote:
-> > On 18/03/2025 9:19 am, Roger Pau Monne wrote:
-> >> UBSAN complains with:
-> >>
-> >> UBSAN: Undefined behaviour in arch/x86/mm/shadow/private.h:515:30
-> >> pointer operation overflowed ffff82e000000000 to ffff82dfffffffe0
-> >> [...]
-> >> Xen call trace:
-> >>    [<ffff82d040303882>] R common/ubsan/ubsan.c#ubsan_epilogue+0xa/0xc0
-> >>    [<ffff82d040304cc3>] F lib/xxhash64.c#__ubsan_handle_pointer_overflow+0xcb/0x100
-> >>    [<ffff82d040471c5d>] F arch/x86/mm/shadow/guest_2.c#sh_page_fault__guest_2+0x1e350
-> >>    [<ffff82d0403b216b>] F lib/xxhash64.c#svm_vmexit_handler+0xdf3/0x2450
-> >>    [<ffff82d0402049c0>] F lib/xxhash64.c#svm_stgi_label+0x5/0x15
-> > 
-> > Something is definitely wonky in this backtrace.
-> > 
-> >>
-> >> Fix by moving the call to mfn_to_page() after the check of whether the
-> >> passed gmfn is valid.  This avoid the call to mfn_to_page() with an
-> >> INVALID_MFN parameter.
-> >>
-> >> While there make the page local variable const, it's not modified by the
-> >> function.
-> >>
-> >> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > 
-> > Whatever is wonky in the backtrace isn't related to this patch, so
-> > Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, but the backtrace
-> > does want fixing.
-> 
-> Right, but the fix may need to be in the tool chain. I'd be curious what
-> the symbol table looks like that this was created from. Roger, was this
-> linked with GNU ld or LLVM? Are the filename anomalies also visible in
-> the corresponding xen-syms.map?
+Step-by-step, use pci_sbdf_t directly where appropriate instead of
+handling seg and bdf separately. This removes conversions, reduces code
+size and simplifies code in general.
 
-It's with LLVM LD, it's this issue:
+Andrii Sultanov (3):
+  drivers: Change amd_iommu struct to contain pci_sbdf_t, simplify code
+  drivers: Change find_iommu_for_device function to take pci_sbdf_t,
+    simplify code
+  drivers: Make ioapic_sbdf and hpet_sbdf contain pci_sbdf_t
 
-https://lore.kernel.org/xen-devel/20220505142137.51306-1-roger.pau@citrix.com/
+ xen/drivers/passthrough/amd/iommu.h         | 11 +--
+ xen/drivers/passthrough/amd/iommu_acpi.c    | 56 +++++++--------
+ xen/drivers/passthrough/amd/iommu_cmd.c     | 10 +--
+ xen/drivers/passthrough/amd/iommu_detect.c  | 18 ++---
+ xen/drivers/passthrough/amd/iommu_init.c    | 39 +++++------
+ xen/drivers/passthrough/amd/iommu_intr.c    | 76 ++++++++++-----------
+ xen/drivers/passthrough/amd/iommu_map.c     |  8 +--
+ xen/drivers/passthrough/amd/pci_amd_iommu.c | 50 +++++++-------
+ 8 files changed, 132 insertions(+), 136 deletions(-)
 
-I need to refresh that patch and resend.
+-- 
+2.49.0
 
-Sorry, I got so used to those wonky filenames in the backtraces that I
-no longer notice.
-
-Thanks, Roger.
 
