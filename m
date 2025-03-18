@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F496A67CAD
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 20:06:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.919795.1324158 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91AF6A67CEE
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 20:17:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.919809.1324169 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tucFy-0000tx-P0; Tue, 18 Mar 2025 19:05:42 +0000
+	id 1tucR5-0003NS-Pa; Tue, 18 Mar 2025 19:17:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 919795.1324158; Tue, 18 Mar 2025 19:05:42 +0000
+Received: by outflank-mailman (output) from mailman id 919809.1324169; Tue, 18 Mar 2025 19:17:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tucFy-0000rw-MA; Tue, 18 Mar 2025 19:05:42 +0000
-Received: by outflank-mailman (input) for mailman id 919795;
- Tue, 18 Mar 2025 19:05:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tucR5-0003Lj-Le; Tue, 18 Mar 2025 19:17:11 +0000
+Received: by outflank-mailman (input) for mailman id 919809;
+ Tue, 18 Mar 2025 19:17:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b9yH=WF=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1tucFx-0000rX-7E
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 19:05:41 +0000
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
- [2607:f8b0:4864:20::c2e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fac24aee-042b-11f0-9abb-95dc52dad729;
- Tue, 18 Mar 2025 20:05:39 +0100 (CET)
-Received: by mail-oo1-xc2e.google.com with SMTP id
- 006d021491bc7-601b1132110so2849248eaf.3
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 12:05:39 -0700 (PDT)
+ <SRS0=0H9a=WF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tucR3-0003Ld-Q6
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 19:17:09 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 952fee75-042d-11f0-9899-31a8f345e629;
+ Tue, 18 Mar 2025 20:17:07 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43cf034d4abso39675605e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 12:17:07 -0700 (PDT)
+Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3978ef9a23bsm14672088f8f.15.2025.03.18.12.17.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Mar 2025 12:17:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,214 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fac24aee-042b-11f0-9abb-95dc52dad729
+X-Inumbo-ID: 952fee75-042d-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1742324738; x=1742929538; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=M/KksLPTlwCHnKfA1GLXVQzfwBspJLeaMmBzwPwoVpg=;
-        b=Pp9OhHaqn7Jw079cUTFkpc2l+rgnEbZvIpEo3ZkjSISSKNvNF1FCcIgcIOgfwybE4R
-         QPGNvMvK+Sl3j0o/iNyLIfEBbEJYSFhb237/AFljlzdxV3Q+S7qUkqAkzHDfiquylTxe
-         EXcgG25TBaraf4kZ701OhKnBVqZ+ftC1w4llU=
+        d=citrix.com; s=google; t=1742325427; x=1742930227; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=S0c/7n/H61TTzgIlncaD6HT/y21YR1OXdIve57iZ7a0=;
+        b=JchdUb1xtO6M+BJFKGHJ840Aa7ey8EtlectHBVS1BN8rMtUnPe/OsCikA6zOyJODjB
+         kZ4gxGA3wvxLJifDmdtnxXpZNnNla7+9gLxrCRHgZzSJnn3sxHCdQHJC8Lv29qnkXk4B
+         av/iRBEb+Zdk3/x5QhQswZe4oD8JdP820MRDA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742324738; x=1742929538;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=M/KksLPTlwCHnKfA1GLXVQzfwBspJLeaMmBzwPwoVpg=;
-        b=mpf7jQw0w9ZkKCXFfxkhaFdOXqkR/lZAUx856k9rTLicLXC5wvjgvLOg7U7P9cQ8VA
-         Ex0n7vdhWLT/XDTR3Szgbb9MI+5wXs+zcnNluc7hOFwU3uM+PFfMT9oGIU3iSawGuZV/
-         meY/lbH+600169v0Az0A6VmwD9vNryapplQPjBWwULl0jeMe4Mj2xglk6ez5e681MZVi
-         yxVh4W8ydtF+gun0WzCJayXBQdCR1UahIEmVj2fn/dCxYFrSmd+n4K9yYQRjYLSn1Fem
-         TcushQ4lr1gYkNkpT27ucsOP1D7uSli2GYHRe01dDUbm7PZpGOaQk0x/D2AYKsh6aPKA
-         sOCw==
-X-Gm-Message-State: AOJu0Yw/irM1TziNpAejxWOkzcMsI4B1wBe6H+eif/EOl4OjUmFcdEWi
-	G233HAQRiRDy7cCBcGum+gRbzKmuUwUOnRJJPEyG0g89fLb3cliVt+YXv50oG9s0jkbRrexllgK
-	SS7Ii21hXl1vP9U6BJyt+YP8YbFje02RwVKDQWw==
-X-Gm-Gg: ASbGnctOuD4Y8ui5EkAMJfOFsjIj2vUbfQcmXwuVXcONHLcydW5WNBMvNYo1FxdDCWM
-	PWjwiDMOYrFs6erh1XDwavOwNUtkWMAi6xz5+R2C0ORM+m2jBcj28mML2ZYmOHE+bYyFkZc69LG
-	ifHPY7IUjDFAr8FC3yERtgup4=
-X-Google-Smtp-Source: AGHT+IFqlwP/M+NdKrO9tjZOFkoJKlRMh1JNJSIX5OYf8uWCX5Wuq8aYQI8IK1FVu69LM2jEIFCujvHQ+94yvlHgqa4=
-X-Received: by 2002:a05:6820:a00d:b0:601:af96:36eb with SMTP id
- 006d021491bc7-6021cce5efamr155872eaf.4.1742324737891; Tue, 18 Mar 2025
- 12:05:37 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1742325427; x=1742930227;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=S0c/7n/H61TTzgIlncaD6HT/y21YR1OXdIve57iZ7a0=;
+        b=CqhE+HIpoJly8qC71j8H2diCPs5dCp0Qeo626dn66486022x11gb1Nx5B+DlRFHJCH
+         VqWTj5Ew3ZErN8yxteJn+jGFhMl/+8kQMd60tz87GXJFuVXXNZ+tfM7vC3XZxo8MAdGL
+         bsmrQgMJhKSjNPkxyqktvlXAuXJwTE9rLQ7iEzBlYwQBt3wYBclsEnlOxUbBVXSrPQ8y
+         F46uYh45fG45oYN+SFD9eDQtxZvsb/OqDvgdCanjYwn2Qa5LItVjxHgb7s4M67n+T35I
+         QIPR6i2iPgJQxrNlHX0sMWX8TExBxhsDDNlDs61Z1hQBBsONQKr9VUPLm4UQWqo2QXRd
+         dAUQ==
+X-Gm-Message-State: AOJu0Yz2hHn5FA8fEwr5lA865Np3feRNyyNwM6u5+oiPEQljlQtKB1YG
+	rcUrUBS+txUqQfaBT0r883k3CLPW3SGnb9y6xCYWVx31D+spIz7sfZ0v7VgjGS0=
+X-Gm-Gg: ASbGncue3mGBto3+7S1qyM/KkjdOXK2EdpS0cotnffXXded7UPpmcB0brhuhOd8IFXc
+	B0e5regKx9exZp9jnNjonzZg54BaTK94Jv0KUZvvvyM/lofsUqlPc5+Lz/t7Mq6rues3ckpWcPr
+	uQSUhgnzZb43DwGv3oFClAjOQmrOVcfj6qMTF7x3fVUlU+zvPgoyfxLX68p0GFQDHlmNB0pSAs8
+	cUAXDRiIghaKPvTA1wDte14sxDzLQQfm9cA4lP0wLo0iZ8y/CeMib0HK9E3kYoxk6GKIqTEvP73
+	JkuH1GwzpgZYvsQDEKHtDh3lN+mzqisS/Cu4CfXlOLcJk8e5VxtIQOWYCq/qvL6qBRvK5xo9cLp
+	CcoMWhLolDCzcdfvuWdQ=
+X-Google-Smtp-Source: AGHT+IFyXRHo1Y9Rvk5y1LcDGl1Wvf13E/R6ETL4ojQ6vmVoh+otNxgK4opUpPEyyyL2FBYjw0LEVw==
+X-Received: by 2002:a05:600c:4506:b0:43b:cbe2:ec03 with SMTP id 5b1f17b1804b1-43d3b9f711fmr25851875e9.27.1742325426531;
+        Tue, 18 Mar 2025 12:17:06 -0700 (PDT)
+Message-ID: <6a827f94-2c9f-4441-b98c-ed7349b39865@citrix.com>
+Date: Tue, 18 Mar 2025 19:17:05 +0000
 MIME-Version: 1.0
-References: <20250318173547.59475-1-roger.pau@citrix.com> <20250318173547.59475-5-roger.pau@citrix.com>
-In-Reply-To: <20250318173547.59475-5-roger.pau@citrix.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 18 Mar 2025 19:05:26 +0000
-X-Gm-Features: AQ5f1JpysMeuAuSBpmNXDH_trxlQLcsNneW2-y25le-uJHsT8S4Vf5JDFp2m8No
-Message-ID: <CACHz=Zhyn54-w=dysFXwwzhdnL4RVnadKoT+hx7hR42_VrY2oA@mail.gmail.com>
-Subject: Re: [PATCH 4/7] x86/boot: apply trampoline relocations at destination position
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, 
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/7] x86/boot: apply trampoline relocations at destination
+ position
+To: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20250318173547.59475-1-roger.pau@citrix.com>
+ <20250318173547.59475-5-roger.pau@citrix.com>
+ <CACHz=Zhyn54-w=dysFXwwzhdnL4RVnadKoT+hx7hR42_VrY2oA@mail.gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <CACHz=Zhyn54-w=dysFXwwzhdnL4RVnadKoT+hx7hR42_VrY2oA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Mar 18, 2025 at 5:36=E2=80=AFPM Roger Pau Monne <roger.pau@citrix.c=
-om> wrote:
->
-> Change the order relocations are applied.  Currently the trampoline is
-> patched for relocations before being copied to the low 1MB region.  Chang=
-e
-> the order and instead copy the trampoline first to the low 1MB region and
-> then apply the relocations.
->
-> This will allow making .init.text section read-only (so read and execute
-> permissions only), which is relevant when Xen is built as a PE image.
->
+On 18/03/2025 7:05 pm, Frediano Ziglio wrote:
+> On Tue, Mar 18, 2025 at 5:36 PM Roger Pau Monne <roger.pau@citrix.com> wrote:
+>> Change the order relocations are applied.  Currently the trampoline is
+>> patched for relocations before being copied to the low 1MB region.  Change
+>> the order and instead copy the trampoline first to the low 1MB region and
+>> then apply the relocations.
+>>
+>> This will allow making .init.text section read-only (so read and execute
+>> permissions only), which is relevant when Xen is built as a PE image.
+>>
+> This change is not enough to make the section read-only, some other
+> code writes directly into the trampoline at the not-relocated
+> position.
+> But this improves the situation.
+> The code looks fine, I'll try the code if it passes some tests I did.
 
-This change is not enough to make the section read-only, some other
-code writes directly into the trampoline at the not-relocated
-position.
-But this improves the situation.
-The code looks fine, I'll try the code if it passes some tests I did.
+Which other writes are there?
 
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> ---
->  xen/arch/x86/boot/build32.lds.S      |  1 +
->  xen/arch/x86/boot/head.S             |  6 +++---
->  xen/arch/x86/boot/reloc-trampoline.c | 16 ++++++++--------
->  xen/arch/x86/efi/efi-boot.h          | 15 ++++++---------
->  4 files changed, 18 insertions(+), 20 deletions(-)
->
-> diff --git a/xen/arch/x86/boot/build32.lds.S b/xen/arch/x86/boot/build32.=
-lds.S
-> index 1e59732edd6e..92dc320b7380 100644
-> --- a/xen/arch/x86/boot/build32.lds.S
-> +++ b/xen/arch/x86/boot/build32.lds.S
-> @@ -50,6 +50,7 @@ SECTIONS
->          DECLARE_IMPORT(__trampoline_seg_start);
->          DECLARE_IMPORT(__trampoline_seg_stop);
->          DECLARE_IMPORT(trampoline_phys);
-> +        DECLARE_IMPORT(trampoline_start);
->          DECLARE_IMPORT(boot_vid_info);
->          . =3D . + GAP;
->          *(.text)
-> diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-> index 59a2b5005cf6..3f81b21b5a7f 100644
-> --- a/xen/arch/x86/boot/head.S
-> +++ b/xen/arch/x86/boot/head.S
-> @@ -679,9 +679,6 @@ trampoline_setup:
->          shr     $PAGE_SHIFT, %ecx                /* %ecx =3D Slot to wri=
-te */
->          mov     %edx, sym_offs(l1_bootmap)(%esi, %ecx, 8)
->
-> -        /* Apply relocations to bootstrap trampoline. */
-> -        call    reloc_trampoline32
-> -
->          /* Do not parse command line on EFI platform here. */
->          cmpb    $0, sym_esi(efi_platform)
->          jnz     1f
-> @@ -709,6 +706,9 @@ trampoline_setup:
->          mov     $((trampoline_end - trampoline_start) / 4),%ecx
->          rep movsl
->
-> +        /* Apply relocations to bootstrap trampoline. */
-> +        call    reloc_trampoline32
-> +
->          /* Jump into the relocated trampoline. */
->          lret
->
-> diff --git a/xen/arch/x86/boot/reloc-trampoline.c b/xen/arch/x86/boot/rel=
-oc-trampoline.c
-> index e35e7c78aa86..ac54aef14eaf 100644
-> --- a/xen/arch/x86/boot/reloc-trampoline.c
-> +++ b/xen/arch/x86/boot/reloc-trampoline.c
-> @@ -20,19 +20,19 @@ void reloc_trampoline64(void)
->      uint32_t phys =3D trampoline_phys;
->      const int32_t *trampoline_ptr;
->
-> -    /*
-> -     * Apply relocations to trampoline.
-> -     *
-> -     * This modifies the trampoline in place within Xen, so that it will
-> -     * operate correctly when copied into place.
-> -     */
-> +    /* Apply relocations to trampoline after copy to destination. */
-> +#define RELA_TARGET(ptr, bits) \
-> +    *(uint ## bits ## _t *)(phys + *ptr + (long)ptr - (long)trampoline_s=
-tart)
-> +
->      for ( trampoline_ptr =3D __trampoline_rel_start;
->            trampoline_ptr < __trampoline_rel_stop;
->            ++trampoline_ptr )
-> -        *(uint32_t *)(*trampoline_ptr + (long)trampoline_ptr) +=3D phys;
-> +        RELA_TARGET(trampoline_ptr, 32) +=3D phys;
->
->      for ( trampoline_ptr =3D __trampoline_seg_start;
->            trampoline_ptr < __trampoline_seg_stop;
->            ++trampoline_ptr )
-> -        *(uint16_t *)(*trampoline_ptr + (long)trampoline_ptr) =3D phys >=
-> 4;
-> +        RELA_TARGET(trampoline_ptr, 16) =3D phys >> 4;
-> +
-> +#undef RELA_TARGET
->  }
-> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-> index 1d8902a9a724..e4ed8639b9ac 100644
-> --- a/xen/arch/x86/efi/efi-boot.h
-> +++ b/xen/arch/x86/efi/efi-boot.h
-> @@ -105,10 +105,8 @@ static void __init efi_arch_relocate_image(unsigned =
-long delta)
->      }
->  }
->
-> -static void __init relocate_trampoline(unsigned long phys)
-> +static void __init relocate_trampoline(void)
->  {
-> -    trampoline_phys =3D phys;
-> -
->      if ( !efi_enabled(EFI_LOADER) )
->          return;
->
-> @@ -213,6 +211,8 @@ static void __init efi_arch_process_memory_map(EFI_SY=
-STEM_TABLE *SystemTable,
->          }
->      }
->
-> +    if ( !trampoline_phys )
-> +        trampoline_phys =3D cfg.addr;
->  }
->
->  static void *__init efi_arch_allocate_mmap_buffer(UINTN map_size)
-> @@ -223,11 +223,7 @@ static void *__init efi_arch_allocate_mmap_buffer(UI=
-NTN map_size)
->  static void __init efi_arch_pre_exit_boot(void)
->  {
->      if ( !trampoline_phys )
-> -    {
-> -        if ( !cfg.addr )
-> -            blexit(L"No memory for trampoline");
-> -        relocate_trampoline(cfg.addr);
-> -    }
-> +        blexit(L"No memory for trampoline");
->  }
->
->  static void __init noreturn efi_arch_post_exit_boot(void)
-> @@ -236,6 +232,7 @@ static void __init noreturn efi_arch_post_exit_boot(v=
-oid)
->
->      efi_arch_relocate_image(__XEN_VIRT_START - xen_phys_start);
->      memcpy(_p(trampoline_phys), trampoline_start, cfg.size);
-> +    relocate_trampoline();
->
->      /*
->       * We're in physical mode right now (i.e. identity map), so a regula=
-r
-> @@ -638,7 +635,7 @@ static void __init efi_arch_memory_setup(void)
->      status =3D efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
->                                     PFN_UP(cfg.size), &cfg.addr);
->      if ( status =3D=3D EFI_SUCCESS )
-> -        relocate_trampoline(cfg.addr);
-> +        trampoline_phys =3D cfg.addr;
->      else
->      {
->          cfg.addr =3D 0;
+Strictly speaking it only matters for writes while we're still on the
+EFI BS pagetables, because they're the only ones which enforce R/O on .init.
 
-Frediano
+The moment we drop into 32bit (the MB2+EFI path) or get into __start_xen
+(all paths), writes into either trampoline should work.
+
+There are definitely bits of logic which depend on the trampoline being
+placed, and ideally wouldn't, but they're quite easy to find now with
+bootsym().
+
+There's also definitely bits of logic which have temporaries in the
+trampoline which shouldn't be there, and now that some of the
+Hyperlaunch prep work is in place, can be moved out relatively easily.
+
+~Andrew
 
