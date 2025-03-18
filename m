@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50A52A67DE1
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 21:14:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.919847.1324198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4A81A67FD7
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Mar 2025 23:35:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.919868.1324208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tudKV-0008Pe-C6; Tue, 18 Mar 2025 20:14:27 +0000
+	id 1tufVs-0001B1-PR; Tue, 18 Mar 2025 22:34:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 919847.1324198; Tue, 18 Mar 2025 20:14:27 +0000
+Received: by outflank-mailman (output) from mailman id 919868.1324208; Tue, 18 Mar 2025 22:34:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tudKV-0008Nx-9V; Tue, 18 Mar 2025 20:14:27 +0000
-Received: by outflank-mailman (input) for mailman id 919847;
- Tue, 18 Mar 2025 20:14:25 +0000
+	id 1tufVs-00018l-MY; Tue, 18 Mar 2025 22:34:20 +0000
+Received: by outflank-mailman (input) for mailman id 919868;
+ Tue, 18 Mar 2025 22:34:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0H9a=WF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tudKT-0008Np-NJ
- for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 20:14:25 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ <SRS0=gc9A=WF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tufVr-00018f-7J
+ for xen-devel@lists.xenproject.org; Tue, 18 Mar 2025 22:34:19 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 961a7443-0435-11f0-9abc-95dc52dad729;
- Tue, 18 Mar 2025 21:14:24 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-39727fe912cso1658230f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 18 Mar 2025 13:14:24 -0700 (PDT)
-Received: from [192.168.1.10] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c8975b34sm19225648f8f.55.2025.03.18.13.14.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Mar 2025 13:14:23 -0700 (PDT)
+ id 203261c9-0449-11f0-9abc-95dc52dad729;
+ Tue, 18 Mar 2025 23:34:17 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 57B956159C;
+ Tue, 18 Mar 2025 22:34:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87406C4CEDD;
+ Tue, 18 Mar 2025 22:34:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,148 +41,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 961a7443-0435-11f0-9abc-95dc52dad729
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742328864; x=1742933664; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Opdw5ocR687G6F6WwBTRM6aIEe2FdqNl1nXAkKIt/eY=;
-        b=QWqm0xACok9kltO84un1ZgL86J9IhStSnph1tTaA3O/jrcWmguMPKEYSnXpVPkvSHE
-         Bb4qq8KWvXqHhWESvDtUf5KwgW+2DCKIH3AXeZm43/RzaYpBsdezYKGkmMdev1RIwyCf
-         y6Cpa4giHrjGIJMbsYFbZNyDVSIA7z5vHqt0g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742328864; x=1742933664;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Opdw5ocR687G6F6WwBTRM6aIEe2FdqNl1nXAkKIt/eY=;
-        b=Oqkw4oHydKurGpPyDZWCk9Cv3nJNSrlplHZx84cvvkcCfV8jSUG/aAHwoh8jjdIPT7
-         eE7fpnRM0OJKGgk59h6bg4cTjIzvqBtKsYKICNGU/04CRv7WYI8kFo5A8Tozp7tHarS4
-         ZYlGDW9tI5EUncp07N3LXdRDnOVvhGBiXbF8KQb2PPp9ircx70tWJMjD6GCq9SvtBoTR
-         nNbAUdHSiH9LPuDy6+L5mxUs1jintK9zAY+rC6feo1Y4nsROMYv1Md+Gr7CllD26yfQF
-         FNdd4yDif1EDgCUoJlZzX9gzaLTNCKKnzmvZO1U+Qqd40ZnPPPQGpxuzR5oYQcrSFFs4
-         NT9g==
-X-Forwarded-Encrypted: i=1; AJvYcCXkg5zYJJ/RQkp4abAUZt67R81YcfYwz2P4KdFpOlJ5+mhVngeK06+Atv0popfP+gjv0cafzWHS+/U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwQFdBnN/sVOAteZNAsnBuwKimuLuESNUTJ2iQIaVvIuZZN9pxB
-	0OMzoKubTLZVmwMVHIFrUrLuokD3fOKTgodbvAmYd3YuVXd1c98D6NVIQR5GkE4=
-X-Gm-Gg: ASbGncudfzl3a+8ne3tgKY22LQvJsdkwZUM3zEtURXuXKmPgO0awhlX4EFMRVZT4IYI
-	JAVsSk+BwYwBe/6hRwO6vRyydrCqQylbkuYZEU/CcqzexQC3+2ub26Aa5N6hiGjVYkY0ryA18OY
-	e0nkrH9KouiPVqHXTsp8yY9hXmYbrUsYgVm5er/bdoSGe5lR8ikDZhatE6urRH07GktYrtnpZQZ
-	9SImza1UsHKw8kKeXi33KQknksS7cFCW+03GLggrVSZFWlglMQl/Ks16s/dXJ9D1us56PDpd1KX
-	cL9lyeLccKtBHxIPpfUHppJCGqPGm7zGM9aRN2wEpxOGMtjF5v3bd1otL37F+Jmcrc1goegcsXn
-	aAKr0aGrc
-X-Google-Smtp-Source: AGHT+IH4Fy9Dqc5o8b3YsO6KXHJ5QGCZUs7xi1wPEysFtuB1rOBgmPYJrq0JswXXCgqQ+j1otOix2g==
-X-Received: by 2002:a05:6000:156b:b0:391:412b:e23f with SMTP id ffacd0b85a97d-399739c7b8bmr159815f8f.15.1742328864251;
-        Tue, 18 Mar 2025 13:14:24 -0700 (PDT)
-Message-ID: <ad70b8a0-93e8-4aa8-a529-a83a5ac831d9@citrix.com>
-Date: Tue, 18 Mar 2025 20:14:23 +0000
+X-Inumbo-ID: 203261c9-0449-11f0-9abc-95dc52dad729
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1742337256;
+	bh=Dd9GoETCYGs+epNWIKK8O1R25a3y1klevYiElX3k6nA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=G+HAgJencfwByo4dE7SsI6bq6vXTABjEf3oDsxNermHiSf2tc44bvuSOoRN+jrRG6
+	 omL5jZ/XC1tcbjRM9fd226fg/B9G58+XZ6HAigDb6IkIydUIPffV7WutMbgZfApyk1
+	 zjAN6prG0fGpFzIpuDVwHb2XuKgJzHgYoI3LHV8jMqPhVJWstMN4EOxPEig62Z45yx
+	 U+rarsp/6Zar+S1VoXHXtgnXJHZzww/BhJtF1A4SPM1xw/lbIHj8cq7kaFTOELvT9V
+	 0bp4f59LmmFb9HWLAm5AZViKyvhTBPL6N1eTyf3xRkgpaZccUNdjDzASdpGuDbYtSg
+	 i7EoK4ouzd23Q==
+Date: Tue, 18 Mar 2025 15:34:13 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+    xen-devel@lists.xenproject.org, Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH 15/23] xen/xsm: Add XSM_HW_PRIV
+In-Reply-To: <bc8505f5-0712-4661-b6af-8d8f96a1ea2b@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2503181533590.3477110@ubuntu-linux-20-04-desktop>
+References: <20250306220343.203047-1-jason.andryuk@amd.com> <20250306220343.203047-16-jason.andryuk@amd.com> <095042a0-94c1-4f86-b6df-836a7107efa2@suse.com> <a6bd6175-32fb-4da5-b70d-70e8dabadf66@amd.com> <alpine.DEB.2.22.394.2503171653220.3477110@ubuntu-linux-20-04-desktop>
+ <bc8505f5-0712-4661-b6af-8d8f96a1ea2b@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] x86/boot: apply trampoline relocations at destination
- position
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-References: <20250318173547.59475-1-roger.pau@citrix.com>
- <20250318173547.59475-5-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250318173547.59475-5-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 18/03/2025 5:35 pm, Roger Pau Monne wrote:
-> diff --git a/xen/arch/x86/boot/reloc-trampoline.c b/xen/arch/x86/boot/reloc-trampoline.c
-> index e35e7c78aa86..ac54aef14eaf 100644
-> --- a/xen/arch/x86/boot/reloc-trampoline.c
-> +++ b/xen/arch/x86/boot/reloc-trampoline.c
-> @@ -20,19 +20,19 @@ void reloc_trampoline64(void)
->      uint32_t phys = trampoline_phys;
->      const int32_t *trampoline_ptr;
->  
-> -    /*
-> -     * Apply relocations to trampoline.
-> -     *
-> -     * This modifies the trampoline in place within Xen, so that it will
-> -     * operate correctly when copied into place.
-> -     */
-> +    /* Apply relocations to trampoline after copy to destination. */
+On Tue, 18 Mar 2025, Jan Beulich wrote:
+> On 18.03.2025 00:55, Stefano Stabellini wrote:
+> > On Mon, 17 Mar 2025, Jason Andryuk wrote:
+> >> On 2025-03-17 10:22, Jan Beulich wrote:
+> >>> On 06.03.2025 23:03, Jason Andryuk wrote:
+> >>>> --- a/xen/include/xsm/dummy.h
+> >>>> +++ b/xen/include/xsm/dummy.h
+> >>>> @@ -95,7 +95,11 @@ static always_inline int xsm_default_action(
+> >>>>               return 0;
+> >>>>           fallthrough;
+> >>>>       case XSM_PRIV:
+> >>>> -        if ( is_control_domain(src) )
+> >>>> +    case XSM_HW_PRIV:
+> >>>> +        if ( is_control_domain(src) && action != XSM_HW_PRIV )
+> >>>> +            return 0;
+> >>>> +        if ( is_hardware_domain(src) &&
+> >>>> +             (action == XSM_HW_PRIV || action == XSM_DM_PRIV) )
+> >>>>               return 0;
+> >>>>           return -EPERM;
+> >>>
+> >>> Hmm. Isn't DM_PRIV a property applying to the control domain (besides
+> >>> any stub domains), but not the hardware one?
+> >>
+> >> I ran QEMU in hardware domain to provide devices to a domU.  I thought QEMU
+> >> would better run in hardware domain than control domain.
+> > 
+> > Leaving stubdoms aside, QEMU has to run in the hardware domain because
+> > the hardware domain is less privileged. QEMU can be attacked or affected
+> > by the guest so it is undesirable to run QEMU in the control domain
+> > which is highly privileged, and considered highly secure / safe.
+> 
+> Yet having access to the hardware, hwdom can likely also do about anything
+> to the system. IOW I'd consider this "highly privileged" too, just not from
+> a pure software perspective. If you want a secure / safe environment, I
+> fear you won't get around using further (stub?) domain(s) to run qemu in.
 
-I think this needs expanding on a bit.
+Traditionally, from an upstream Xen Project perspective, it is important
+to support as many hardware platforms as possible. The goal is to
+provide the best possible out-of-the-box experience, including support
+for devices like the Raspberry Pi 4 (RPi4), which has certain quirks and
+limited IOMMU support.  
 
-The relocations in __trampoline_*_{start,stop} relate to the trampoline
-as it lives compiled into Xen, but we're applying them to the trampoline
-already copied into low memory.
+However, when considering safety (similar concepts also apply to
+security) it is necessary to write down assumptions. One key assumption
+is that the system includes an IOMMU and that all DMA-capable devices
+are protected by it.  
 
-> +#define RELA_TARGET(ptr, bits) \
-> +    *(uint ## bits ## _t *)(phys + *ptr + (long)ptr - (long)trampoline_start)
-> +
->      for ( trampoline_ptr = __trampoline_rel_start;
->            trampoline_ptr < __trampoline_rel_stop;
->            ++trampoline_ptr )
-> -        *(uint32_t *)(*trampoline_ptr + (long)trampoline_ptr) += phys;
-> +        RELA_TARGET(trampoline_ptr, 32) += phys;
->  
->      for ( trampoline_ptr = __trampoline_seg_start;
->            trampoline_ptr < __trampoline_seg_stop;
->            ++trampoline_ptr )
-> -        *(uint16_t *)(*trampoline_ptr + (long)trampoline_ptr) = phys >> 4;
-> +        RELA_TARGET(trampoline_ptr, 16) = phys >> 4;
-> +
-> +#undef RELA_TARGET
+There are boards, such as the RPi4, that do not meet these assumptions.
+While Xen can and should run on such hardware, the level of flexibility
+in configuring safe environments on these boards will be limited.  
 
-I have a patch renaming trampoline_ptr to just ptr, on the grounds of
-verbosity.  I'm not sure if it want's to go in ahead, merged with, or
-after this patch.
-
-Also, encoding bits in RELA_TARGET() isn't terribly nice.  What's wrong
-with keeping the casts as-are, and having RELA_TARGET() only taking ptr?
-
-~Andrew
+For example, on the RPi4, I would not recommend to run QEMU in an unsafe
+hardware domaini because the hardware domain will end up having control
+over unprotected DMA-capable devices that can be used to harm the
+system. However, it will be possible to run QEMU in an unsafe hardware
+domains on platforms were all DMA-capable devices that can harm the
+system are IOMMU protected, such as Xilinx MPSoC when configured
+correctly.
 
