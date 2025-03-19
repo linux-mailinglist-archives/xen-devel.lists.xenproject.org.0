@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5D6CA69505
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 17:31:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920947.1324989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A18A9A69584
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 17:54:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920963.1324999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuwK9-0007z9-22; Wed, 19 Mar 2025 16:31:21 +0000
+	id 1tuwfq-0003uA-QR; Wed, 19 Mar 2025 16:53:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920947.1324989; Wed, 19 Mar 2025 16:31:21 +0000
+Received: by outflank-mailman (output) from mailman id 920963.1324999; Wed, 19 Mar 2025 16:53:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuwK8-0007xT-Un; Wed, 19 Mar 2025 16:31:20 +0000
-Received: by outflank-mailman (input) for mailman id 920947;
- Wed, 19 Mar 2025 16:31:19 +0000
+	id 1tuwfq-0003sh-NX; Wed, 19 Mar 2025 16:53:46 +0000
+Received: by outflank-mailman (input) for mailman id 920963;
+ Wed, 19 Mar 2025 16:53:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GTXv=WG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tuwK7-0007xI-1K
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 16:31:19 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1tuwfq-0003sb-6b
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 16:53:46 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 956cfdcf-04df-11f0-9ea0-5ba50f476ded;
- Wed, 19 Mar 2025 17:31:18 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-ac2aeada833so192307866b.0
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 09:31:18 -0700 (PDT)
+ id b7c2ac72-04e2-11f0-9ea0-5ba50f476ded;
+ Wed, 19 Mar 2025 17:53:44 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5e8274a74so11326637a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 09:53:44 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
  [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac314a40eadsm1024294766b.138.2025.03.19.09.31.16
+ a640c23a62f3a-ac314a47f0bsm1024445666b.157.2025.03.19.09.53.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 09:31:16 -0700 (PDT)
+ Wed, 19 Mar 2025 09:53:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,133 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 956cfdcf-04df-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: b7c2ac72-04e2-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1742401877; x=1743006677; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1742403223; x=1743008023; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Y+t3QfeCPe9OWpyIRU1FczRT4gPwFi8oV3jm6C+nIN4=;
-        b=FmQjkNC1Na0IoHoXyzk+OrWN/+V3z77zWk8OYNIqEYyaziets3pSlZ+09xArdHo867
-         ESZDXc9JtCnPa8u4QpwhIfQpkFOq/C/D5FJBpvQebgCREMyjZ13rJnxOo1GQyRjHX5ph
-         DD0BuNlspJPevw9XbtDtB35qK7FZCSA5sVClCjMmqLfWeUpCDhszD6isthCt3OwVctAc
-         9O9VtJTWke0i6pc6VgGZvTM15WIZxiRF/V1C20PGVMnG7TfnIAW8VBjVxHgjOjrPJdVZ
-         74KZjl6QZoqqxmJtku1W6H+OLOX75M6biY2Yn/jBfeR3exIBioFyLMk760kuPAFVrL+E
-         vZ6w==
+        bh=f5PeJ+e9975EId6gmH/yMDfslg3LOwlUCnoQdj1JzPE=;
+        b=Jp7qMo15LcTqIm/4xVy6YAPHv2/pMLwVTsyK+0ytgPLt9tM2XOYSLVshdHvJ8DOnAr
+         oG9FvdP/0mPq9WhbhStU5vjJDOXagIXKN8Ap1YL7WTCYAHWNEy0l+gh3zg1jpgZ2BlXW
+         8GMO17dHNKF8ykbzFV0f7l+H/9zPSLEFMM19qfylHwWqqmuk6AC3p3OyKda9xknF48L/
+         YNpXxrEisGXJtoZsnKC3xPT1VFgCaHpJvbytwlfZXIsOUgFxLl18q2JWu0S1IEZaM7R8
+         KOTGAaYNoW7a8MIED2H04ARhQ384KmiqYhUBUxETOIHoUjQy7fE1ZknO0giJL/HeFP1j
+         TFmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742401877; x=1743006677;
+        d=1e100.net; s=20230601; t=1742403223; x=1743008023;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=Y+t3QfeCPe9OWpyIRU1FczRT4gPwFi8oV3jm6C+nIN4=;
-        b=bNBCcl8TvD8QnbJO3zMngY3d35PIdSZItOx8Dut/LweZWwbJV3oAVYmmADu1tlNJyl
-         KwSkIHfwSXQvOk9CS/UvNnIenYYFrWDZrNv6tPUKqHhg0Lk5fMSdHpmnetk07ujgoend
-         UybZ8N4/MSDYUk90hmIYAj+8sK8jXiy2T9IRYcZ9eiWq7HsLUqka1gaue5zFlU3p8LEj
-         0AoFI7W5dJUKP7oZbWrAlVtAV+nx1nrvPNUd54YSzKASDJQWl49vaWsB9jQxNvVWO5YC
-         m+UMflel5d18ChaQcq3xbENurflk0cRMFNW3vsMni6bPclywSpToGVJQhtYhLYD046cu
-         dJRQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU2nB/NDZRjpao22fsqUt0V75K81qUYvUrSgP24C0fDWkQxhgzlnz3QB5bIFvrrR7nCoam13bYrcJs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzCryIZlqWTiH6sCpUUY35PF11UtCmXlAePwNCxfGxAqHxDTKix
-	FGZHx5E0OIPrEJTzVlH037poiGK14WjKiqlHcGMBul+HSUiGA8su
-X-Gm-Gg: ASbGncvUnV5qPOokabo8ytnvBtRCzOsQIwugagAf8MISksg0sO0AsdUnxoS9jbmPVN6
-	bro2WdnsRE3ZrrEIvdVFQe5LRUhzkNLMEPmWLRVVVBzmyf71udgMlwMZe8Hztm225kLZTNP+UZj
-	763r3/Rvd9gxjvTY5vK32WjWZZizvNemSl4rlroEGuh63QrD5VAn0wNoCD4becvKquuZ8S7jeoX
-	LREnUf9cI+QkPy+mlWms8nkQ5Wi8fJIixyCEaYAx6Wn4qsqbNsIo21Ndx2fry+uRsJXuxrkvrxp
-	Sly+lqZvCq3uMKlbQqoXJS05SomJ1Nu7hyVNjXOX1Qfdv9azLGNYvKvt8/B1YgVBLk4dBtpb4F0
-	Pc70SRx0rpm7yysUfEM0fyCW8+281sVI=
-X-Google-Smtp-Source: AGHT+IHIyIRZoOher4NxZwDzuAF+TSHesQ6SZ3ZqveigPDVKTwLUQks0VQfU1RKqRSDw/s7pGwROlA==
-X-Received: by 2002:a17:907:a58b:b0:ac2:9a4:700b with SMTP id a640c23a62f3a-ac3cdbe7da3mr21270866b.16.1742401877074;
-        Wed, 19 Mar 2025 09:31:17 -0700 (PDT)
+        bh=f5PeJ+e9975EId6gmH/yMDfslg3LOwlUCnoQdj1JzPE=;
+        b=lGj2mmnE42szfV4BnSnenoPEoCWSxPf5dy7w9SWR2mf0OJz5BxOvQbBOeiPXEwSq9E
+         zv+QV2jYFqH0BX+URFf5hbkty6LKIZPQNWkaoOJszfeeyQrFTny8eXrrNnvKPCUBDrWN
+         EoRCj5DJXWJDFnCWKuhiNfpnEBaPcmxP2tLfuo0G6JxD3bXaOMReZ0m0gwU7tdq79t0D
+         zS+eOaOByvhJsNQNMiuOV0mA1gtjbp6ABeG/aJrS/iDnn4uwnF8za9vltcW7Ps+IF8ox
+         cAeg1kTGAXBuLKI5TCvGv2AY1TTRCS/SCS51yDiPtLwB5kOemVtAbaB3GNzwg98QcLqV
+         9s0Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXaWiZQO2F0k52FjyW6WW3YHrTLu0+peaWs3ZrajMLY74iapPSRh2sQW7mY5tsHcesqi6tK9IprPtM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx3JvOKCte3qrt5MM869M+y+p2UG0tcS/dt1r3Hj7nxrG6Oj7+4
+	gnapehq4WhXIubzr9N/bJACw+MLXS8kdoYLM/P9ob1f2AFzLLgc8
+X-Gm-Gg: ASbGncsIyMM2A54Kokvy/BfcBeXzGnHMUiX+rMPdB1jlyAHXDsGtLqPE5VWVg0wGbMZ
+	dhDDpY+M9ALH9CqTRs1nj0RdRgCnqCObvYKhxwbr5+PdH28RZ1Nv6dby6ZmRx1OHTqBosZmBZtJ
+	FLCT1GiMupmlpiOCQ5kPo/vy/2hD1w8UfR+HnO3hMI7wbd//2OT8eejI587tmYlL0dJksLU00uW
+	w9TrniY0v2ePU6oNX3jPSFNpWSOK7TL2lEjkVD6GH31TCZRdozu/sF2CATZEO/3fDjhxyjHqUfF
+	5RD45sWdJ0lgiLu5pwknM8+o8aPwHEBHhtDCTWNxow8w12yP0l9QL3/9H6cNcy1hzhWpANCktU3
+	DnN0vSssLd6TShdNeaZuCDIot2e49apE=
+X-Google-Smtp-Source: AGHT+IG9aah3rqDSaP7vAOmS9diIPIibsa2PoufhDPkEoi5O/WWup5l9gOCTB6r41mIiC/kjYkgY/g==
+X-Received: by 2002:a17:907:2ce2:b0:ac1:791c:1532 with SMTP id a640c23a62f3a-ac3b7f79733mr364120566b.51.1742403222588;
+        Wed, 19 Mar 2025 09:53:42 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------txHr0TffMXjD4Y555X3JuzY4"
-Message-ID: <136cf1c5-d1e5-471d-b560-51632b444e41@gmail.com>
-Date: Wed, 19 Mar 2025 17:31:15 +0100
+ boundary="------------MsIy0UqQ2CQW2m000Ifuigc0"
+Message-ID: <cb51a830-9db2-4543-b180-22f4c412c812@gmail.com>
+Date: Wed, 19 Mar 2025 17:53:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/7] xen: introduce Kconfig ARCH_PAGING_MEMPOOL
-To: Jan Beulich <jbeulich@suse.com>, Luca Fancellu <luca.fancellu@arm.com>
-Cc: Penny Zheng <Penny.Zheng@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Wei Chen <wei.chen@arm.com>,
- xen-devel@lists.xenproject.org
-References: <20250317200727.798696-1-luca.fancellu@arm.com>
- <20250317200727.798696-7-luca.fancellu@arm.com>
- <85ba02a9-f9f9-4141-85be-a9a2d431e450@gmail.com>
- <26583ecf-4057-46b1-8f87-f4589d7bec17@suse.com>
+Subject: Re: [PATCH v1 2/4] automation: select APLIC and IMSIC to handle both
+ wired interrupts and MSIs
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <3152c755e31367370f3e1d955253a9d4fc095f68.1741709885.git.oleksii.kurochko@gmail.com>
+ <31ee47c8906f13869e085e442b285d7ca6202023.1741709885.git.oleksii.kurochko@gmail.com>
+ <1edd3466-e999-4cfc-99e8-e701581806a2@citrix.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <26583ecf-4057-46b1-8f87-f4589d7bec17@suse.com>
+In-Reply-To: <1edd3466-e999-4cfc-99e8-e701581806a2@citrix.com>
 
 This is a multi-part message in MIME format.
---------------txHr0TffMXjD4Y555X3JuzY4
+--------------MsIy0UqQ2CQW2m000Ifuigc0
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 3/19/25 12:35 PM, Jan Beulich wrote:
-> On 18.03.2025 14:05, Oleksii Kurochko wrote:
->> On 3/17/25 9:07 PM, Luca Fancellu wrote:
->>> From: Penny Zheng<Penny.Zheng@arm.com>
->>>
->>> ARM MPU system doesn't need to use paging memory pool, as MPU memory
->>> mapping table at most takes only one 4KB page, which is enough to
->>> manage the maximum 255 MPU memory regions, for all EL2 stage 1
->>> translation and EL1 stage 2 translation.
->>>
->>> Introduce ARCH_PAGING_MEMPOOL Kconfig common symbol, selected for Arm
->>> MMU systems, x86 and RISC-V.
->>>
->>> Wrap the code inside 'construct_domU' that deal with p2m paging
->>> allocation in a new function 'domain_p2m_set_allocation', protected
->>> by ARCH_PAGING_MEMPOOL, this is done in this way to prevent polluting
->>> the former function with #ifdefs and improve readability
->>>
->>> Introduce arch_{get,set}_paging_mempool_size stubs for architecture
->>> with !ARCH_PAGING_MEMPOOL.
->>>
->>> Remove 'struct paging_domain' from Arm 'struct arch_domain' when the
->>> field is not required.
->>>
->>> Signed-off-by: Penny Zheng<penny.zheng@arm.com>
->>> Signed-off-by: Wei Chen<wei.chen@arm.com>
->>> Signed-off-by: Luca Fancellu<luca.fancellu@arm.com>
->>> ---
->>> v3 changes:
->>>    - Introduced ARCH_PAGING_MEMPOOL instead of HAS_PAGING_MEMPOOL
->>> v2 changes:
->>>    - make Kconfig HAS_PAGING_MEMPOOL common
->>>    - protect also "xen,domain-p2m-mem-mb" reading with HAS_PAGING_MEMPOOL
->>>    - do not define p2m_teardown{_allocation} in this patch
->>>    - change commit message
->>> ---
->>>    xen/arch/arm/Kconfig              |  1 +
->>>    xen/arch/arm/dom0less-build.c     | 74 ++++++++++++++++++++-----------
->>>    xen/arch/arm/include/asm/domain.h |  2 +
->>>    xen/arch/riscv/Kconfig            |  1 +
->>>    xen/arch/x86/Kconfig              |  1 +
->>>    xen/common/Kconfig                |  3 ++
->>>    xen/include/xen/domain.h          | 17 +++++++
->>>    7 files changed, 73 insertions(+), 26 deletions(-)
->> For RISC-V:
->>    Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-> Mind me asking then why RISC-V needs this at this point? The stubs surely
-> were added to address some build issue, not because they are actively
-> meaningful?
+On 3/17/25 8:40 PM, Andrew Cooper wrote:
+> On 11/03/2025 4:19 pm, Oleksii Kurochko wrote:
+>> By default, the `aia` option is set to "none" which selects the SiFive PLIC for
+>> handling wired interrupts. However, since PLIC is now considered obsolete and
+>> will not be supported by Xen now, APLIC and IMSIC are selected instead to manage
+>> both wired interrupts and MSIs.
+>>
+>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+> Acked-by: Andrew Cooper<andrew.cooper3@citrix.com>
 
-Only because we have stubs and not to have redefinition compilation 
-error. And, yes, they are not actively meaningful now, at least. I am 
-okay with not enabling of this config for RISC-V but then seems to me we 
-have to drop stubs in riscv/stubs.c. ~ Oleksii
+Thanks!
 
---------------txHr0TffMXjD4Y555X3JuzY4
+>
+> Presumably the version of QEMU we use is happy with this?
+
+Before sending the patch series I ran the pipeline:
+   https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/1711201897
+
+And based on the source code of Qemu the support of AIA should be present from 7.0.0:
+```
+$ git tag --contains 28d8c281200f20a060c456c81fd1564f3d119fda
+staging-mjt-test
+trivial-patches-pull-request
+v7.0.0
+v7.0.0-rc0
+v7.0.0-rc1
+v7.0.0-rc2
+v7.0.0-rc3
+v7.0.0-rc4
+v7.1.0
+...
+```
+
+And in Xen's GitLab CI it is used 7.2.11:
+```
+$ CONTAINER_NO_PULL=1 CONTAINER=bookworm-riscv64 ./automation/scripts/containerize
+*** Launching container ...
+user@6a1d1f0077fe:/build$ qemu-system-riscv64 --version
+QEMU emulator version 7.2.11 (Debian 1:7.2+dfsg-7+deb12u6)
+Copyright (c) 2003-2022 Fabrice Bellard and the QEMU Project developers
+```
+
+~ Oleksii
+
+--------------MsIy0UqQ2CQW2m000Ifuigc0
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -183,87 +162,61 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 3/19/25 12:35 PM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 3/17/25 8:40 PM, Andrew Cooper
+      wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:26583ecf-4057-46b1-8f87-f4589d7bec17@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 18.03.2025 14:05, Oleksii Kurochko wrote:
+      cite="mid:1edd3466-e999-4cfc-99e8-e701581806a2@citrix.com">
+      <pre wrap="" class="moz-quote-pre">On 11/03/2025 4:19 pm, Oleksii Kurochko wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 3/17/25 9:07 PM, Luca Fancellu wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">From: Penny Zheng<a class="moz-txt-link-rfc2396E" href="mailto:Penny.Zheng@arm.com">&lt;Penny.Zheng@arm.com&gt;</a>
+        <pre wrap="" class="moz-quote-pre">By default, the `aia` option is set to "none" which selects the SiFive PLIC for
+handling wired interrupts. However, since PLIC is now considered obsolete and
+will not be supported by Xen now, APLIC and IMSIC are selected instead to manage
+both wired interrupts and MSIs.
 
-ARM MPU system doesn't need to use paging memory pool, as MPU memory
-mapping table at most takes only one 4KB page, which is enough to
-manage the maximum 255 MPU memory regions, for all EL2 stage 1
-translation and EL1 stage 2 translation.
-
-Introduce ARCH_PAGING_MEMPOOL Kconfig common symbol, selected for Arm
-MMU systems, x86 and RISC-V.
-
-Wrap the code inside 'construct_domU' that deal with p2m paging
-allocation in a new function 'domain_p2m_set_allocation', protected
-by ARCH_PAGING_MEMPOOL, this is done in this way to prevent polluting
-the former function with #ifdefs and improve readability
-
-Introduce arch_{get,set}_paging_mempool_size stubs for architecture
-with !ARCH_PAGING_MEMPOOL.
-
-Remove 'struct paging_domain' from Arm 'struct arch_domain' when the
-field is not required.
-
-Signed-off-by: Penny Zheng<a class="moz-txt-link-rfc2396E" href="mailto:penny.zheng@arm.com">&lt;penny.zheng@arm.com&gt;</a>
-Signed-off-by: Wei Chen<a class="moz-txt-link-rfc2396E" href="mailto:wei.chen@arm.com">&lt;wei.chen@arm.com&gt;</a>
-Signed-off-by: Luca Fancellu<a class="moz-txt-link-rfc2396E" href="mailto:luca.fancellu@arm.com">&lt;luca.fancellu@arm.com&gt;</a>
----
-v3 changes:
-  - Introduced ARCH_PAGING_MEMPOOL instead of HAS_PAGING_MEMPOOL
-v2 changes:
-  - make Kconfig HAS_PAGING_MEMPOOL common
-  - protect also "xen,domain-p2m-mem-mb" reading with HAS_PAGING_MEMPOOL
-  - do not define p2m_teardown{_allocation} in this patch
-  - change commit message
----
-  xen/arch/arm/Kconfig              |  1 +
-  xen/arch/arm/dom0less-build.c     | 74 ++++++++++++++++++++-----------
-  xen/arch/arm/include/asm/domain.h |  2 +
-  xen/arch/riscv/Kconfig            |  1 +
-  xen/arch/x86/Kconfig              |  1 +
-  xen/common/Kconfig                |  3 ++
-  xen/include/xen/domain.h          | 17 +++++++
-  7 files changed, 73 insertions(+), 26 deletions(-)
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-For RISC-V:
-  Reviewed-by: Oleksii Kurochko<a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-Mind me asking then why RISC-V needs this at this point? The stubs surely
-were added to address some build issue, not because they are actively
-meaningful?</pre>
+Acked-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a></pre>
     </blockquote>
-    <pre><span class="add"
-style="font-size: 13px; font-family: monospace; background: rgb(255, 255, 255);">Only because we have stubs and not to have redefinition compilation error.
-And, yes, they are not actively meaningful now, at least.
+    <pre>Thanks!</pre>
+    <blockquote type="cite"
+      cite="mid:1edd3466-e999-4cfc-99e8-e701581806a2@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
 
-I am okay with not enabling of this config for RISC-V but then seems to me
-we have to drop stubs in riscv/stubs.c.
+Presumably the version of QEMU we use is happy with this?</pre>
+    </blockquote>
+    <pre>Before sending the patch series I ran the pipeline:
+  <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/1711201897">https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/1711201897</a>
 
-~ Oleksii
+And based on the source code of Qemu the support of AIA should be present from 7.0.0:
+```
+$ git tag --contains 28d8c281200f20a060c456c81fd1564f3d119fda
+staging-mjt-test
+trivial-patches-pull-request
+v7.0.0
+v7.0.0-rc0
+v7.0.0-rc1
+v7.0.0-rc2
+v7.0.0-rc3
+v7.0.0-rc4
+v7.1.0
+...
+```
 
-
-</span><span class="add"
-style="font-size: 13px; font-family: monospace; background: rgb(255, 255, 255);">
-
-</span><span class="add"
-style="font-size: 13px; font-family: monospace; background: rgb(255, 255, 255);"></span></pre>
+And in Xen's GitLab CI it is used 7.2.11:
+```
+$ CONTAINER_NO_PULL=1 CONTAINER=bookworm-riscv64 ./automation/scripts/containerize 
+*** Launching container ...   
+user@6a1d1f0077fe:/build$ qemu-system-riscv64 --version
+QEMU emulator version 7.2.11 (Debian 1:7.2+dfsg-7+deb12u6)
+Copyright (c) 2003-2022 Fabrice Bellard and the QEMU Project developers
+```</pre>
+    <pre>~ Oleksii</pre>
   </body>
 </html>
 
---------------txHr0TffMXjD4Y555X3JuzY4--
+--------------MsIy0UqQ2CQW2m000Ifuigc0--
 
