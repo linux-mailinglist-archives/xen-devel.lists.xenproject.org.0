@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02B44A68B40
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 12:22:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920298.1324509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC007A68B60
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 12:24:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920308.1324518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1turUj-0001ls-Bh; Wed, 19 Mar 2025 11:21:57 +0000
+	id 1turWs-0002Ku-NP; Wed, 19 Mar 2025 11:24:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920298.1324509; Wed, 19 Mar 2025 11:21:57 +0000
+Received: by outflank-mailman (output) from mailman id 920308.1324518; Wed, 19 Mar 2025 11:24:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1turUj-0001jR-8e; Wed, 19 Mar 2025 11:21:57 +0000
-Received: by outflank-mailman (input) for mailman id 920298;
- Wed, 19 Mar 2025 11:21:56 +0000
+	id 1turWs-0002IA-Kd; Wed, 19 Mar 2025 11:24:10 +0000
+Received: by outflank-mailman (input) for mailman id 920308;
+ Wed, 19 Mar 2025 11:24:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBEQ=WG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1turUi-0001jE-6X
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 11:21:56 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1turWr-0002I4-96
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 11:24:09 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5cedb4fa-04b4-11f0-9ea0-5ba50f476ded;
- Wed, 19 Mar 2025 12:21:55 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3914aba1ce4so5450592f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 04:21:55 -0700 (PDT)
+ id ac6c4a86-04b4-11f0-9ea0-5ba50f476ded;
+ Wed, 19 Mar 2025 12:24:08 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-39143200ddaso4245395f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 04:24:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb7ea16csm20521287f8f.82.2025.03.19.04.21.53
+ 5b1f17b1804b1-43d440ed4cbsm15956525e9.34.2025.03.19.04.24.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 04:21:54 -0700 (PDT)
+ Wed, 19 Mar 2025 04:24:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5cedb4fa-04b4-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: ac6c4a86-04b4-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742383314; x=1742988114; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742383448; x=1742988248; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=sGPrnd2vlmGT8n0QXBe/mY/Eqv5A0o5rjVNbOyp76hI=;
-        b=C1NP3LpSjuiJIzMFkymRjzWSijthFMkMtLbm8DvfD864mAuX6cfHpCCCdQ2LEVVvzL
-         TyEXkHyUFLcBc5z+L+gTGFq/43UKHrXLWepkMoBFleYRTDJxDcdSWMH6Tzc9ZhnyRr4X
-         a5DpfGJ7tsYyTO1BbFw2NHngTgMXJ5ZJmJLqLYbvSvyNaamVQEXlDiKGcXbrRouepqOX
-         F+tLhT/4Mzdw5Vf/YJ/xCypU9U4yQgzg/A1u+npP9TXEGvEt0cFYZi6bE5cnHyo3vjYM
-         l6T9y44Y+5VFjcBoYkV4UoVoNJV0yNRUXF+S1YjQ8M36SVyrRYh1JuGJan+tgm0WIV7D
-         b+nQ==
+        bh=8lJcoUHWqnM3NSVKjJ6tVIHs9P0zRrAN19d3SqBB1EE=;
+        b=XE9sUgT0uyxLZtsDqU6sL9fAGNiu2rSe+ddqP47Lk8jemiz4/HPRu19F9+ZqIBhzwd
+         NBAkzX0pOROBia6gPdyL6wQ01Kd+JqTxvxz69JVZ6BUhS17vIyQYrMfYCvrE/3F3hNgH
+         MxMJ2AVJkWFGgQ/BGmAT1FVtWByo1rotF9GIsP4+8uLGJ+IAUTrWW6sbQyTEgFbkXbjv
+         Mi6/4S+YaxebZdhW3CKpPRQAR+p5jtledflpoG1crD+ZVwXfzV1Tu3B79dTPj88Tku4I
+         QZ1TENGmFl3ZlRRrAUUV9eUnamvZ4gwESBTq5c8Jp+J4KX/mICLsqMaUZmljG9oRrWsa
+         xv/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742383314; x=1742988114;
+        d=1e100.net; s=20230601; t=1742383448; x=1742988248;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sGPrnd2vlmGT8n0QXBe/mY/Eqv5A0o5rjVNbOyp76hI=;
-        b=P3pj67Vknaj3n8LyJ9l1KlxWhnjJFk7SaQx1YCSduujiWsFZsArRzF5KfOrl38qJS/
-         wUFOIKXpxCp3IMBl2pM72PaaDShHEFjuB90D9pBqBG0LMMEvKPAoCTAR7eRPO0iEJWSh
-         V9TjeElAN7TFDe8EiMH2Fyie99NMlyjqGs3XT5Q/kWpEACS7KzuIA+7+etGJta8bE///
-         gd8S5JpUQIVCFtXlxPgaFeaVBl/lvlztaxQU7jhou9FBDoPLTwnLHDEk3W/yMpX5RYhC
-         pzIDpdofs5iFUKbtHLjXh1TF5J0tSKnM4c6bM2hb9FCNgab1NyHymVAKQTWG6fHybHdV
-         BSkg==
-X-Gm-Message-State: AOJu0YyKg3KNj+gqzFUbGpzmRuiSXj8dSAxiVk7dAUy9v0d5jUo6zw5Q
-	XI252swaXPLauQ2H5Af0Ejhp42Hu50gqHZa95FqmYWphHI6/GOmPFvfHMKM1YxC+/qg9NYeoykk
+        bh=8lJcoUHWqnM3NSVKjJ6tVIHs9P0zRrAN19d3SqBB1EE=;
+        b=PuWocpfOdqZx7I7JyHNZ54Cg0aTZtG9i6fk1jBQvkWcsZxzThmiJmaymlvbJuh+8ks
+         +nMutHHvNTfwaqxfoCBpJI7ILhroU+HeEDj9bVKkSTuQjjOkTkt9MvbpbI62CHieGW7/
+         RWr/KllrffNf0Hn+03v4ATTYrcPQNBhqP++CdS3tfMlh1gDULIN2pQ/0yfZujbcDLETl
+         31R5ATt3332m7UB95CrDVHN6Pk2rsm3kOrHYIHaUXsSxVdkJ7r7fgGKeiP7ZKjiq3ppM
+         E9tu50+2temUIYcrHvUGsg3+jRXtmDyPcWkTYVvNCeigDnPNqjtPqpYHWRfXdCGQUtNf
+         NUKQ==
+X-Gm-Message-State: AOJu0YzgZXMt31RvKeWMk1fRqsQRuamBhwHwtMmBPGPkriZYzG13JzGF
+	CZqIPNHdl739H96G90W68xaAwCWJh+/Hn5vrhUbIhoBpR4glzRf5swyl4IoNOWKLQbPs/96nZrU
 	=
-X-Gm-Gg: ASbGncsxBiJjyMsEtuEYigiGQvk+2gYc6yY4Y1iGcwMCNxAloefMbKTi/9W858PThhz
-	3xR0mH9mONzdMo++HM/2CPoY4aHViyeGXETbgrDhttpkS3i390FUBgIacbye9ZOiatigh0YwQZE
-	mEOUSWTXYvkcFRwagyepbto92w+fsVXCiHeoUWD+n3aXnt+VA5hErS9/vAvJaTpdbal3jl+DHqA
-	dxU9tkef6uVSIuCj39Vq9EravOghx5Iu9fMrY2GtsGOEUtrjXfgTyVBgWoOBH5s3NESq/tR4hBf
-	LJfZ5BcJ2GmB6uGMYSMSubwLDkH5ktlxj9k1plYcJy8TlizH206O1zX21l3qtw2yziFLNSoHh3R
-	Bgojithindq7q9B3OQOHSFgGPUmFShxSdRhHO95US
-X-Google-Smtp-Source: AGHT+IFPIeRQN5d9q9BWej1prbAiPkyqlR+auSP68+OL2lYHPyz9Z/QiYn2yJDqIqGlFlFCg1E/u3g==
-X-Received: by 2002:a05:6000:1848:b0:38f:4acd:975c with SMTP id ffacd0b85a97d-399739cab88mr1823771f8f.27.1742383314426;
-        Wed, 19 Mar 2025 04:21:54 -0700 (PDT)
-Message-ID: <f346b510-dbd1-431a-ad35-3f1b8fe76c58@suse.com>
-Date: Wed, 19 Mar 2025 12:21:53 +0100
+X-Gm-Gg: ASbGncuhBbN389isc2g21AdGdXbTN2FyGo0WrwHHNvcvJdntJ2xCA3b/YbN2uAShb6S
+	03RLbcKjVlJv4e+pOiA72P+Uhz+qNTGRgILfgSBtX4mVFr1+C+q7L1szGSXn9UaA7q+fq5jqR1M
+	FPIJEqgpW7QtT+wb487o3MQkTizfJ6mG9SfAwKksp9zeOgvoApcDbrMf7Fr5bmRXL8LjNmn5L+n
+	/5RTMI7JOrQwCDNKEEmcaph9SSIsKF7ZmHny6YVnGvocozccuaJoESnGJO5JkEAqxy+vKfFjFUT
+	aDZEVmXsG62NcUgqW9U//mM6XtvtihiOQI0w+zuJlnt9Pan6+s3XVJrAhHknr8Sqi8XsUy8p5wP
+	rJQLSFst4YoYWI4eqo6EkQ6M/dps/UA==
+X-Google-Smtp-Source: AGHT+IHSOyG6pieQTICne3Nq9cq4lLzDGUFvGMppWIdEGBoXRo7PtXGHkjKGdprU86ytC0bv+/QC3w==
+X-Received: by 2002:a05:6000:1a87:b0:390:fbba:e65e with SMTP id ffacd0b85a97d-399739db618mr1899265f8f.32.1742383447690;
+        Wed, 19 Mar 2025 04:24:07 -0700 (PDT)
+Message-ID: <190ea0fe-887b-44dc-bf05-db154f26a03d@suse.com>
+Date: Wed, 19 Mar 2025 12:24:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Daniel Smith <dpsmith@apertussolutions.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/setup: correct off-by-1 in module mapping
+Subject: [PATCH] x86/cpu: Validate CPUID leaf 0x2 EDX output
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -119,22 +118,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-If a module's length is an exact multiple of PAGE_SIZE, the 2nd argument
-passed to set_pdx_range() would be one larger than intended. Use
-PFN_{UP,DOWN}() there instead.
+From: Ahmed S. Darwish <darwi@linutronix.de>
 
-Fixes: cd7cc5320bb2 ("x86/boot: add start and size fields to struct boot_module")
+CPUID leaf 0x2 emits one-byte descriptors in its four output registers
+EAX, EBX, ECX, and EDX.  For these descriptors to be valid, the most
+significant bit (MSB) of each register must be clear.
+
+Leaf 0x2 parsing at intel.c only validated the MSBs of EAX, EBX, and
+ECX, but left EDX unchecked.
+
+Validate EDX's most-significant bit as well.
+
+Fixes: 1aa6feb63bfd ("Port CPU setup code from Linux 2.6")
+Signed-off-by: Ahmed S. Darwish <darwi@linutronix.de>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Link: https://lore.kernel.org/r/20250304085152.51092-3-darwi@linutronix.de
+
+Use ARRAY_SIZE() though.
+
+Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 1881148215c6
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+I wasn't really convinced that we strictly need f6bdaab79ee4 ("x86/cpu:
+Properly parse CPUID leaf 0x2 TLB descriptor 0x63") as well. Thoughts?
 
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1730,7 +1730,7 @@ void asmlinkage __init noreturn __start_
-     {
-         unsigned long s = bi->mods[i].start, l = bi->mods[i].size;
+--- a/xen/arch/x86/cpu/intel_cacheinfo.c
++++ b/xen/arch/x86/cpu/intel_cacheinfo.c
+@@ -186,7 +186,7 @@ void init_intel_cacheinfo(struct cpuinfo
+ 			cpuid(2, &regs[0], &regs[1], &regs[2], &regs[3]);
  
--        set_pdx_range(paddr_to_pfn(s), paddr_to_pfn(s + l) + 1);
-+        set_pdx_range(PFN_DOWN(s), PFN_UP(s + l));
-         map_pages_to_xen((unsigned long)maddr_to_virt(s), maddr_to_mfn(s),
-                          PFN_UP(l), PAGE_HYPERVISOR);
-     }
+ 			/* If bit 31 is set, this is an unknown format */
+-			for ( j = 0 ; j < 3 ; j++ ) {
++			for ( j = 0; j < ARRAY_SIZE(regs); j++ ) {
+ 				if ( regs[j] >> 31 )
+ 					regs[j] = 0;
+ 			}
 
