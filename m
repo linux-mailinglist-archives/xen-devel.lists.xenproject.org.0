@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51E48A688D5
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 10:55:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920178.1324420 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16081A68911
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 11:07:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920189.1324429 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuq8P-0003Jm-Fs; Wed, 19 Mar 2025 09:54:49 +0000
+	id 1tuqKo-0005yQ-I6; Wed, 19 Mar 2025 10:07:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920178.1324420; Wed, 19 Mar 2025 09:54:49 +0000
+Received: by outflank-mailman (output) from mailman id 920189.1324429; Wed, 19 Mar 2025 10:07:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuq8P-0003Ge-CY; Wed, 19 Mar 2025 09:54:49 +0000
-Received: by outflank-mailman (input) for mailman id 920178;
- Wed, 19 Mar 2025 09:54:47 +0000
+	id 1tuqKo-0005wg-FQ; Wed, 19 Mar 2025 10:07:38 +0000
+Received: by outflank-mailman (input) for mailman id 920189;
+ Wed, 19 Mar 2025 10:07:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBEQ=WG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuq8N-0003GY-Nv
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 09:54:47 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1tuqKn-0005wa-77
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 10:07:37 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ff8c6a4-04a8-11f0-9899-31a8f345e629;
- Wed, 19 Mar 2025 10:54:45 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43ce70f9afbso40933285e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 02:54:45 -0700 (PDT)
+ id fa94612f-04a9-11f0-9899-31a8f345e629;
+ Wed, 19 Mar 2025 11:07:35 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43ce71582e9so29448625e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 03:07:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c7df33d7sm21140141f8f.17.2025.03.19.02.54.44
+ 5b1f17b1804b1-43d440ed5e0sm13843015e9.37.2025.03.19.03.07.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 02:54:44 -0700 (PDT)
+ Wed, 19 Mar 2025 03:07:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ff8c6a4-04a8-11f0-9899-31a8f345e629
+X-Inumbo-ID: fa94612f-04a9-11f0-9899-31a8f345e629
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742378085; x=1742982885; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742378854; x=1742983654; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rCf9DMTn01EOhcQqVSSAmsgPbeYjZnhDqgHwo56Z5Gw=;
-        b=gZI36xJ2HamYXElEpH4MR7kwbiyL5/xtzVerIyKTfaXcdhAQ9BmkjoqF3k4Jh8LA9K
-         WZIGj/Y19RB1q1MC9GThWdq0HUuEE9QZGdXz6sFzCaUnE/5ckPYcGWoYe10y1EiZrZbI
-         Ho2KLKLn0cQZNXPJj94QSTR4zhUpaRgyOEzHrnBCHeECBkomtik97yxRaHlmpv/KZEdB
-         4fns5FEIQXgy7EFEIvlt3l76UAm+I1CHE7ae2tz5/x02h2zQoGJIsG0Tpv88uOGbITib
-         CcHfFDBPTsB7tbFoO9TDdH/CI0kZinopIzqjuk458u89oRBmYB7BCW24CdfzRUiTa1uD
-         P1/g==
+        bh=TAn8XyJUemtOAA6Tfdyg0/k5/rkjdPdT+UHRvrWrxxM=;
+        b=L5jduZfNmP06CnTJzuq0IG285bG7wr1YPnKUWkpHq1B8tUuVWGSxSsSxicXlm8BGrL
+         E29erhqoJZqP8lQZibkZmZS6W4d8FQghqS74Kyz9EZUmyyMSgrMnbuUsgyaPLOBT8JQV
+         iIHrUmeyvYkR8RvLY4OhoU6Qf/WhEAijRDj7tfL03lgBoKYIntBvgzrlvlQ7UJEq5Hmo
+         J/rxVShGyb6VrbzeThXG3lwgZ0T5VCFR5RChDtdjPPS+6KrqM6AN6GWjBy21OeslKEKm
+         Ib7O6J0M8WiGF4CobDO+pBxL9HKONRcURQCL+IHDJsZJSucqY3AggajKraDYx/Rvy/hs
+         qRqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742378085; x=1742982885;
+        d=1e100.net; s=20230601; t=1742378854; x=1742983654;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rCf9DMTn01EOhcQqVSSAmsgPbeYjZnhDqgHwo56Z5Gw=;
-        b=U94owI7ghCm5G48tWsS/CdfKEFLlqT68LUnZI+mw82E6nysGwBM3ofKBraT7tqKjnX
-         hRrtMGtFe84eHmtUtDiqcgHBvhI/fLJKMuR08+kMVYbn5xScCoJUStvrs0OaZF4+Qon+
-         7C/wwM1JUWU8qbJDkjJpwtCsuZcKj+COWcmI2T7mrbovL+O6Bfs8abKE3w0ywkB2YJIS
-         wjBd91VamYL9qz+x10hPQC68nXkyPk86i4cbmKDMwNDSaf2ntbRvcA/cY+P3FaGnJCfI
-         vHasnFCS+QjA6UAxSNhtcLe/xUqgK5LZeVJXGKIc1RFB8W+x19NKhSO4V3tCs7cm+rCF
-         ZN+A==
-X-Forwarded-Encrypted: i=1; AJvYcCUD/SJ/98zkf2Dww47Z/9FwHGo6nrInSubNYAStsn4V5skfP6DhIIkGQPoeymBZFXWha0WFasxB4Bs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxFFpy6fKWUo5QZo12u++WoaOuVqlsITdKlfrjyXCMw7qrowEQf
-	+qRkfeco6xiIu0jR39M48O6/VDmXRKeg02u1qhid/jSJCVlDqJabVkrwQSU8Gg==
-X-Gm-Gg: ASbGncuGVQmWTUMn02rVLu39MVxKl4mLZJ5cJtbIN7Pl0AkyDoeLzlX0Wd98LXWIsN+
-	0JJLBJA24TfeQMwh95Yp52Rzja9S4ZHzuGYV4PqLi54NSuAbzyKj2y5xMkhoCMa/G77PxNbjp0X
-	7DkyQxpG4wgdZK5ePfQyoCj37x/Ky+PjkmNHFPrGv/LbTcEqHx5usTn1OKbyfY0h35M9xytFeM0
-	vf9eZekbv71MbtvS6RPH323b9/1qyZJrdigeMP0gVokymeWCM9nrK32jWAyVccd1RxepPLF5gcm
-	ZZBPsxgIrnH3ypZlMeSlmfAuM08/6kfaOAWYvKUUK+w68wQoPeDunDgxtjs8bD10WENuXAqrQaZ
-	k51fZJ61PtfzJzCSTApkYsutyql+Q7A==
-X-Google-Smtp-Source: AGHT+IH/FRjyLdoQuwiaBQLMf2XtBW+qVSFoArTlSHhyhNTN2UB7rdClovG3ZMP/pbhLXlTK45AcxQ==
-X-Received: by 2002:a05:6000:1fa6:b0:391:4743:6de4 with SMTP id ffacd0b85a97d-39973b416admr1216939f8f.50.1742378085006;
-        Wed, 19 Mar 2025 02:54:45 -0700 (PDT)
-Message-ID: <ad1bd470-1efa-4019-89ac-386bb05dd44d@suse.com>
-Date: Wed, 19 Mar 2025 10:54:43 +0100
+        bh=TAn8XyJUemtOAA6Tfdyg0/k5/rkjdPdT+UHRvrWrxxM=;
+        b=hESyU/6YgONj7UxU3Ug680KjTGT7H8cNWrDGAdu44IOJsIszxAFO4tx0tREh50SFcB
+         otdN4hKDq6aT/h4aGuofg8wDcHuvcldjvgSx1QBoMa1GVdpNrc1qmzfH2DwAUxAhGlhi
+         lKz+Rac7ew0LRoR26eZIhyKYp2tgaUrkpWBzgv9fUmn1puVZ3ogozxYjgKCkVNKh2qZS
+         e71gJctaFz9GuZofsormI5jTpjYxueBy21n6D+3W6t6o2QKD4+RdbUpLURuV9lgbA+Zx
+         HBEOxJ6oXhwNuMQKuucqfIJ9v1F6Ychpj5ffhDZvqXi2hw6fQZED8lwj5p1fegOtkSAz
+         YYKA==
+X-Forwarded-Encrypted: i=1; AJvYcCVrlyC/JxomhyEBwYZIuM8yQ3AfEkiFmGrpfWjTuayYIaopBevsvG25w4giYivmtP52BE9yi/E2OmM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVs0pm7JfX24QAWZmNanfcMW4nw5kpf56Ny4AkCklU65qoY32v
+	1vNBvkTr/8fSLsbj3Qcu3d0CE6d90pOtmf5pJbKszIc5XxkDDoQz13Fs+aDiDcoPdOAkWsm0z7E
+	=
+X-Gm-Gg: ASbGncvfyHMEj3uHAMwrtbRwOQUS92tEEJGVML+pvJtAfmp0s4j4NMAAuFYBj5rbyzn
+	n1i6g4rqIjbBzFwsZGBJYzu7A91k2RleMr92tTF83drGWEk8bMSSevDf/9QUkDcjWS+pPgEkxVs
+	hWUVmovMbPvVfq65SkmdvXrP2u82QYw1bvVED/uVHcXDktAgfqhhmiyVCDt4H0RmJP+GP6ECcGU
+	H6l5qvhgCa0irAzzBwnDUOEY3DAbXvC21Q8UUi7As1im5TpV7k5CKP1NANTxUbvYZYfHLvmIXfX
+	z64UDC7nsy9TSrORocgMuTTyq5VWL0TEUeVEAMUFm4TiWG43jwUF1Q7zbSxKFtR+gVxMyhFr5L9
+	EWp4iuH5jc3uWqdi8Z19/K06RX3lqZQ==
+X-Google-Smtp-Source: AGHT+IGBASeIK1yPjh9iLkU+tmafUGUTQtXVWe4G5tcnCXntRWxRT39e4UuskYxp1hdAZyANq1qDpw==
+X-Received: by 2002:a05:600c:5488:b0:43c:f70a:2af0 with SMTP id 5b1f17b1804b1-43d437f360dmr21883795e9.16.1742378854411;
+        Wed, 19 Mar 2025 03:07:34 -0700 (PDT)
+Message-ID: <1dce6993-09d7-4f04-8ccc-908a0a4cc10f@suse.com>
+Date: Wed, 19 Mar 2025 11:07:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: simplify bitmap_to_xenctl_bitmap for little endian
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, michal.orzel@amd.com, julien@xen.org,
- roger.pau@citrix.com, bertrand.marquis@arm.com,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2503182002160.2000798@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH 2/7] x86/mkelf32: account for offset when detecting note
+ segment placement
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250318173547.59475-1-roger.pau@citrix.com>
+ <20250318173547.59475-3-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,52 +119,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2503182002160.2000798@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20250318173547.59475-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.03.2025 04:03, Stefano Stabellini wrote:
-> --- a/xen/common/bitmap.c
-> +++ b/xen/common/bitmap.c
-> @@ -384,21 +384,26 @@ int bitmap_to_xenctl_bitmap(struct xenctl_bitmap *xenctl_bitmap,
->      uint8_t zero = 0;
->      int err = 0;
->      unsigned int xen_bytes = DIV_ROUND_UP(nbits, BITS_PER_BYTE);
-> -    uint8_t *bytemap = xmalloc_array(uint8_t, xen_bytes);
-> -
-> -    if ( !bytemap )
-> -        return -ENOMEM;
-> +    uint8_t *bytemap = (uint8_t *)bitmap;
+On 18.03.2025 18:35, Roger Pau Monne wrote:
+> mkelf32 attempt to check that the program header defined NOTE segment falls
+> inside of the LOAD segment, as the build-id should be loaded for Xen at
+> runtime to check.
+> 
+> However the current code doesn't take into account the LOAD program header
+> segment offset when calculating overlap with the NOTE segment.  This
+> results in incorrect detection, and the following build error:
+> 
+> arch/x86/boot/mkelf32 --notes xen-syms ./.xen.elf32 0x200000 \
+>                `nm xen-syms | sed -ne 's/^\([^ ]*\) . __2M_rwdata_end$/0x\1/p'`
+> Expected .note section within .text section!
+> Offset 4244776 not within 2910364!
 
-Not only Misra dislikes casting away of const-ness.
+Not your fault, but: Such printing of decimal numbers is of course very
+unhelpful when ...
 
->      guest_bytes = DIV_ROUND_UP(xenctl_bitmap->nr_bits, BITS_PER_BYTE);
->      copy_bytes  = min(guest_bytes, xen_bytes);
+> When xen-syms has the following program headers:
+> 
+> Program Header:
+>     LOAD off    0x0000000000200000 vaddr 0xffff82d040200000 paddr 0x0000000000200000 align 2**21
+>          filesz 0x00000000002c689c memsz 0x00000000003f7e20 flags rwx
+>     NOTE off    0x000000000040c528 vaddr 0xffff82d04040c528 paddr 0x000000000040c528 align 2**2
+>          filesz 0x0000000000000024 memsz 0x0000000000000024 flags r--
+
+... any half-way sane tool prints such values in hex.
+
+> --- a/xen/arch/x86/boot/mkelf32.c
+> +++ b/xen/arch/x86/boot/mkelf32.c
+> @@ -358,7 +358,8 @@ int main(int argc, char **argv)
+>          note_sz = in64_phdr.p_memsz;
+>          note_base = in64_phdr.p_vaddr - note_base;
 >  
-> -    bitmap_long_to_byte(bytemap, bitmap, nbits);
-> +    if ( IS_ENABLED(__BIG_ENDIAN) )
-> +    {
-> +        bytemap = xmalloc_array(uint8_t, xen_bytes);
-> +        if ( !bytemap )
-> +            return -ENOMEM;
-> +
-> +        bitmap_long_to_byte(bytemap, bitmap, nbits);
-> +    }
+> -        if ( in64_phdr.p_offset > dat_siz || offset > in64_phdr.p_offset )
+> +        if ( in64_phdr.p_offset > (offset + dat_siz) ||
+> +             offset > in64_phdr.p_offset )
 
-Where did the clamp_last_byte() go in the little-endian case?
+This is an improvement, so fine to go in with Andrew's ack, but it still
+doesn't match what the error message suggests is wanted: This checks only
+whether .note starts after .text or ends before .text. A partial overlap,
+which isn't okay either aiui, would go through fine.
 
->      if ( copy_bytes &&
->           copy_to_guest(xenctl_bitmap->bitmap, bytemap, copy_bytes) )
->          err = -EFAULT;
->  
-> -    xfree(bytemap);
-> +    if ( IS_ENABLED(__BIG_ENDIAN) )
-> +        xfree(bytemap);
->  
->      for ( i = copy_bytes; !err && i < guest_bytes; i++ )
->          if ( copy_to_guest_offset(xenctl_bitmap->bitmap, i, &zero, 1) )
-
-What about xenctl_bitmap_to_bitmap()?
+Oh, and - even in your change there's an off-by-1: You mean >= in the lhs
+of the ||.
 
 Jan
 
