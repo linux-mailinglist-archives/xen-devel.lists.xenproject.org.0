@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E870A699D3
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 20:53:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.921099.1325097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB76AA699D4
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 20:53:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.921110.1325108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuzSl-0000iR-Qq; Wed, 19 Mar 2025 19:52:27 +0000
+	id 1tuzTw-0001EC-3v; Wed, 19 Mar 2025 19:53:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 921099.1325097; Wed, 19 Mar 2025 19:52:27 +0000
+Received: by outflank-mailman (output) from mailman id 921110.1325108; Wed, 19 Mar 2025 19:53:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuzSl-0000gQ-Nx; Wed, 19 Mar 2025 19:52:27 +0000
-Received: by outflank-mailman (input) for mailman id 921099;
- Wed, 19 Mar 2025 19:52:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tuzTw-0001C7-0d; Wed, 19 Mar 2025 19:53:40 +0000
+Received: by outflank-mailman (input) for mailman id 921110;
+ Wed, 19 Mar 2025 19:53:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mgHu=WG=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tuzSi-0000gJ-S3
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 19:52:26 +0000
-Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
- [185.70.40.133]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id abec4f6f-04fb-11f0-9ffa-bf95429c2676;
- Wed, 19 Mar 2025 20:52:21 +0100 (CET)
+ id 1tuzTu-0001C1-Vc
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 19:53:38 +0000
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
+ [109.224.244.16]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d8c7a671-04fb-11f0-9ea0-5ba50f476ded;
+ Wed, 19 Mar 2025 20:53:37 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,121 +36,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: abec4f6f-04fb-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: d8c7a671-04fb-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1742413940; x=1742673140;
-	bh=oQ+ebqmHQPg2Ej7WSbUSoqIIIp4Cb1iNKBatjjPI8v8=;
+	s=protonmail; t=1742414015; x=1742673215;
+	bh=PFT8pXTOxJO/sHlDDc61wc+pKJ/WuLGsg+bJb5+LTlk=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=Y8VehL7XJvk4mfFJZbddN2/OFr+3CIx0GXLcAHbQ6dTdFJ6AIfKEH8fps8XJOLZYy
-	 ywlPhzwDCpvdGxKb3FLJzILW71m3Ay1ZpyTPrich0nLNYu9pCrnLtWvJfYojN0hDlW
-	 dlMgAPEZ9sT6UeDTP/8LAaN5Yo92rXr+tVtavjXsElL9cTq2gcmDpDOe1JBkKxQHaD
-	 gtr0Ehw44HmHOk+bJ0NR/hh3XVoj3bNhglfqcX+tf+boyOlrOvNywRaHVpsyaiSluN
-	 nnsIuh8Qz1/NU0N+sMYOzhp//Vi5LMKGJA4Qjp04empyAG4A3RxlPXNQgG06Ma+bts
-	 nQoXCspdNZFCw==
-Date: Wed, 19 Mar 2025 19:52:14 +0000
+	b=LUIQ/AB9a07/b0nW63+D/P9+1NkPLCax789Qqq8Znrj64Wx/kTU1Qi9DvOcBFfWFX
+	 1E4XJWWXEYs2THL+ewLiveV7JF1ZUekpfaXG2IhewZmR6UzAWfSh2XDXVdjmq7+P5U
+	 Gi5hbFadCjXVXXLcki/Bd8C3SuctVszjKHENhCmIEYCn2ObCBWNfd9ujwmaOuCYv2Q
+	 Kh0aqVkx85IYy9nKiwLwdDKhG5u/mofyeDU9IR/14nWn1T/UMC9UTDyd7UpRDy4cSA
+	 +qMDQQKCPv6iGYth7fI8yuGsWCdnkZTZLEw+ic1VkUI9U2hP9V1pVOOrDh9HDxypTt
+	 KgfgM2SqfJCfg==
+Date: Wed, 19 Mar 2025 19:53:29 +0000
 To: xen-devel@lists.xenproject.org
 From: Denis Mukhin <dmkhn@proton.me>
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: Re: [PATCH v1 0/8] xen/console: cleanup console input switch logic
-Message-ID: <LjHBVVon45WUi3x9m82YirIv4G283_RHtMZmIeruG51WIbK_rduU9YzuEqAf1EaPo5CafFr1hJFc6w-HW0pISILMq3SkADABP43LwEOqbWU=@proton.me>
-In-Reply-To: <20250318233617.849903-1-dmukhin@ford.com>
-References: <20250318233617.849903-1-dmukhin@ford.com>
+Subject: Re: [PATCH v1 7/8] xen/console: introduce console_set_focus()
+Message-ID: <ghk1LVqSlfRNlEVBf6gQ3AdtBxBBtVSHp_Q69C-vkC1y5wexc4AF-SYXzRIFOaIhnIFZsuAorjAWCRqDDsyb-x0mcVzn2fFS-KWzd3qaW-U=@proton.me>
+In-Reply-To: <20250318233617.849903-8-dmukhin@ford.com>
+References: <20250318233617.849903-1-dmukhin@ford.com> <20250318233617.849903-8-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 0903348d78abf3bf5f5adb6d37ed51a4b244e12e
+X-Pm-Message-ID: 76d81558da395123b5065b01ce82aeb69592c4a8
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tuesday, March 18th, 2025 at 4:36 PM, dmkhn@proton.me <dmkhn@proton.me> =
+On Tuesday, March 18th, 2025 at 4:37 PM, dmkhn@proton.me <dmkhn@proton.me> =
 wrote:
 
 >=20
 >=20
-> Currently, on x86, console input can be rotated in round-robin manner
-> only between dom0, PV shim, and Xen itself. On Arm the input rotation
-> can include domUs with vpl011.
+> Switch console_focus address space from integers mapped to domain IDs to
+> direct domain IDs, simplifying the console input switching code.
 >=20
-> The patch series introduces the concept of "console focus", which is
-> defined as the ID of the domain that currently owns the physical console
-> input.
+> Introduce console_set_focus() to set the console owner domain identifier.
 >=20
-> The patch series originates from the NS16550 UART emulator series [1]
-> for x86, which requires ability to switch physical console input to a
-> PVH/HVM domain with an emulated UART.
+> Signed-off-by: Denis Mukhin dmukhin@ford.com
 >=20
-> The main idea is introducing a per-domain permission flag that is set
-> during domain initialization and used by the console driver to switch
-> the input across permitted domains.
+> ---
+> xen/drivers/char/console.c | 81 ++++++++++++++++----------------------
+> 1 file changed, 34 insertions(+), 47 deletions(-)
 >=20
-> Patch 0 removes all the trailing white spaces in the console driver code.
+> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> index 3d538510f4..0e2349a868 100644
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -462,14 +462,12 @@ static void cf_check dump_console_ring_key(unsigned=
+ char key)
 >=20
-> Patch 1 introduces a new domain permission flag to mark ownership of the
-> console input for the console driver.
+> /*
+> * CTRL-<switch_char> changes input direction, rotating among Xen, Dom0,
 >=20
-> Patches 2-4 prepare console driver to allow console input rotation
-> across multiple domains based on the new permission flag.
+> - * and the DomUs started from Xen at boot.
+> + * and the DomUs.
+> /
+> #define switch_code (opt_conswitch[0]-'a'+1)
 >=20
-> Patches 5-6 perform mechanical renames to fit the usage in the code.
+> / Console owner domain identifier. /
+> -static unsigned int __read_mostly console_focus =3D 0;
+> -
+> -#define max_console_rx (domid_top + 1)
+> +static domid_t __read_mostly console_focus =3D DOMID_XEN;
 >=20
-> Patch 7 cleans up the console input switch logic.
+> static struct domain console_get_domain_by_id(domid_t domid)
+> {
+> @@ -488,9 +486,7 @@ static struct domain console_get_domain_by_id(domid_t=
+ domid)
 >=20
-> Patch 8 simplifies the existing vUART code by using newly introduced APIs=
-.
+> struct domain console_get_domain(void)
+> {
+> - if ( console_focus =3D=3D 0 )
+> - return NULL;
+> - return console_get_domain_by_id(console_focus - 1);
+> + return console_get_domain_by_id(console_focus);
+> }
+>=20
+> void console_put_domain(struct domain d)
+> @@ -508,42 +504,41 @@ static bool console_check_focus_by_id(domid_t domid=
+)
+> return !!d;
+> }
+>=20
+> -static void console_switch_focus(void)
+> +static int console_set_focus(domid_t domid)
+> {
+> - unsigned int next_rx =3D console_focus;
+> + if ( domid =3D=3D DOMID_XEN )
+> + printk(" Serial input to Xen");
+> + else if ( console_check_focus_by_id(domid) )
+> + printk("* Serial input to DOM%u", domid);
+> + else
+> + return -ENOENT;
+>=20
+> - /*
+> - * Rotate among Xen, dom0 and boot-time created domUs while skipping
+> - * switching serial input to non existing domains.
+> - */
+> - for ( ; ; )
+> - {
+> - domid_t domid;
+> -
+> - if ( next_rx++ >=3D max_console_rx )
+>=20
+> - {
+> - console_focus =3D 0;
+> - printk("*** Serial input to Xen");
+> - break;
+> - }
+> -
+> - if ( consoled_is_enabled() && next_rx =3D=3D 1 )
+> - domid =3D get_initial_domain_id();
+> - else
+> - domid =3D next_rx - 1;
+> -
+> - if ( console_check_focus_by_id(domid) )
+> - {
+> - console_focus =3D next_rx;
+> - printk("*** Serial input to DOM%u", domid);
+> - break;
+> - }
+> - }
+> + console_focus =3D domid;
+>=20
+> if ( switch_code )
+> printk(" (type 'CTRL-%c' three times to switch input)",
+> opt_conswitch[0]);
+> printk("\n");
+> +
+> + return 0;
+> +}
+> +
+> +/*
+> + * Switch console focus.
+> + * Rotates input focus among Xen, dom0 and boot-time created domUs while
+> + * skipping switching serial input to non existing domains.
+> + */
+> +static void console_switch_focus(void)
+> +{
+> + const domid_t n =3D domid_top + 1;
+> + domid_t i =3D ( console_focus =3D=3D DOMID_XEN )
+> + ? get_initial_domain_id() : console_focus + 1;
+> +
+> + for ( ; i < n; i++ )
+> + if ( !console_set_focus(i) )
+> + return;
+> +
+> + console_set_focus(DOMID_XEN);
+> }
+>=20
+> static void __serial_rx(char c)
+> @@ -551,7 +546,7 @@ static void __serial_rx(char c)
+> struct domain d;
+> int rc =3D 0;
+>=20
+> - if ( console_focus =3D=3D 0 )
+> + if ( console_focus =3D=3D DOMID_XEN )
+> return handle_keypress(c, false);
+>=20
+> d =3D console_get_domain();
+> @@ -1141,14 +1136,6 @@ void __init console_endboot(void)
+>=20
+> video_endboot();
+>=20
+> - /
+> - * If user specifies so, we fool the switch routine to redirect input
+> - * straight back to Xen. I use this convoluted method so we still print
+> - * a useful 'how to switch' message.
+> - /
+> - if ( opt_conswitch[1] =3D=3D 'x' )
+> - console_focus =3D max_console_rx;
+> -
+> register_keyhandler('w', dump_console_ring_key,
+> "synchronously dump console ring buffer (dmesg)", 0);
+> register_irq_keyhandler('+', &do_inc_thresh,
+> @@ -1158,8 +1145,8 @@ void __init console_endboot(void)
+> register_irq_keyhandler('G', &do_toggle_guest,
+> "toggle host/guest log level adjustment", 0);
+>=20
+> - / Serial input is directed to DOM0 by default. */
+> - console_switch_focus();
+> + if ( opt_conswitch[1] !=3D 'x' )
+> + console_set_focus( get_initial_domain_id() );
 
-Corrected series explanation:
+Forgot to drop extra spaces around the function parameter.
 
-Patch 1 removes all the trailing white spaces in the console driver code.
-
-Patch 2 introduces a new domain permission flag to mark ownership of the
-console input for the console driver.
-=20
-Patches 3, 4 prepare console driver to allow console input rotation
-across multiple domains based on the new permission flag.
-
-Patches 5, 6 perform mechanical renames to fit the usage in the code.
-=20
-Patch 7 cleans up the console input switch logic.
-
-Patch 8 simplifies the existing vUART code by using newly introduced APIs.
-
-
+> }
 >=20
-> CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/1723361=
-248
->=20
-> [1]: https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-0-c5d3=
-6b31d66c@ford.com/
->=20
-> Denis Mukhin (8):
-> xen/console: fix trailing whitespaces
-> xen/console: introduce console input permission
-> xen/domain: introduce domid_top
-> xen/domain: introduce domid_alloc()
-> xen/console: rename switch_serial_input() to console_switch_focus()
-> xen/console: rename console_rx to console_focus
-> xen/console: introduce console_set_focus()
-> xen/console: introduce console_get_focus()
->=20
-> xen/arch/arm/dom0less-build.c | 15 ++-
-> xen/arch/arm/domain_build.c | 19 +++-
-> xen/arch/arm/include/asm/setup.h | 2 -
-> xen/arch/arm/setup.c | 2 -
-> xen/arch/arm/vpl011.c | 7 +-
-> xen/arch/ppc/include/asm/setup.h | 2 -
-> xen/arch/riscv/include/asm/setup.h | 2 -
-> xen/arch/x86/include/asm/setup.h | 2 -
-> xen/arch/x86/pv/shim.c | 2 +
-> xen/common/domain.c | 5 +
-> xen/common/domctl.c | 71 +++++++++------
-> xen/common/kernel.c | 8 ++
-> xen/drivers/char/console.c | 142 +++++++++++++++++------------
-> xen/include/xen/console.h | 3 +-
-> xen/include/xen/domain.h | 5 +
-> xen/include/xen/sched.h | 8 +-
-> 16 files changed, 180 insertions(+), 115 deletions(-)
->=20
+> int __init console_has(const char *device)
 > --
 > 2.34.1
 
