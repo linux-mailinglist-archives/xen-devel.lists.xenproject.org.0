@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66CF3A68E54
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 14:56:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920705.1324789 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 908FEA68E58
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 14:58:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920713.1324799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tutuH-0000px-Lx; Wed, 19 Mar 2025 13:56:29 +0000
+	id 1tutvt-0001Ok-2A; Wed, 19 Mar 2025 13:58:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920705.1324789; Wed, 19 Mar 2025 13:56:29 +0000
+Received: by outflank-mailman (output) from mailman id 920713.1324799; Wed, 19 Mar 2025 13:58:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tutuH-0000oU-JK; Wed, 19 Mar 2025 13:56:29 +0000
-Received: by outflank-mailman (input) for mailman id 920705;
- Wed, 19 Mar 2025 13:56:28 +0000
+	id 1tutvs-0001ME-UX; Wed, 19 Mar 2025 13:58:08 +0000
+Received: by outflank-mailman (input) for mailman id 920713;
+ Wed, 19 Mar 2025 13:58:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aWIU=WG=bounce.vates.tech=bounce-md_30504962.67dacd06.v1-2f0177316d44479db463c4be9dedb200@srs-se1.protection.inumbo.net>)
- id 1tutuG-0000oH-4w
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 13:56:28 +0000
-Received: from mail136-29.atl41.mandrillapp.com
- (mail136-29.atl41.mandrillapp.com [198.2.136.29])
+ <SRS0=xiIg=WG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tutvq-0001M8-VI
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 13:58:07 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f17410b5-04c9-11f0-9ffa-bf95429c2676;
- Wed, 19 Mar 2025 14:56:24 +0100 (CET)
-Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail136-29.atl41.mandrillapp.com (Mailchimp) with ESMTP id
- 4ZHqxf691Qz6CQ32B
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 13:56:22 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 2f0177316d44479db463c4be9dedb200; Wed, 19 Mar 2025 13:56:22 +0000
+ id 2db56ca7-04ca-11f0-9ffa-bf95429c2676;
+ Wed, 19 Mar 2025 14:58:04 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43cf628cb14so5324315e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 06:58:04 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-395c7df413esm20631255f8f.20.2025.03.19.06.58.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Mar 2025 06:58:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,64 +44,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f17410b5-04c9-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1742392582; x=1742662582;
-	bh=S2HwWyjFnN9+yZcO348glRXKWzLF/ORVGltfzHFXYyc=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=Lex6L7WK8EEbR6akLulITdTMm0D1b7Gm9EMi7jFmB2iADeLwcY9vhOi7cqs9BDQbI
-	 vC5aHzf9Dy2tCvdRscoTXLGJBM92IiiB88Pt4pfdA16sqVrZrMjHu6dQoTbeH5TTqU
-	 ze8XBb8jhC2jMulhuxYk5pfrY+73+fP7FViVt7zJmQM8nKYv6NXXlwLqBJ+So4WeRg
-	 uPZIWXRs6KDCIa/xv/eg77rq59E/OlCXkLAbEvcaTTg3JDLDWAhYqT//fZeIi9RQsp
-	 e6HgqHE7e2SvFFWh5uEuR+QRpmc9DSCWg2OUQBdku2bNPVwdV82ybYqTyPVt2jvtx/
-	 TrC0zE8WNG0JA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1742392582; x=1742653082; i=anthony.perard@vates.tech;
-	bh=S2HwWyjFnN9+yZcO348glRXKWzLF/ORVGltfzHFXYyc=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=IUSOiq607XgXlY6pcpJNCwdlhwubCr1aBqiA1yLKgy4lB8sUXSe8y6U4LKPS9I2UX
-	 7+P+s4pK5ewfPfnTu5L77uEqhim3y52j0FeocIsldb+H9hCknn6TNzj/D1u7coQbuC
-	 DeMxACGuyUhM1ThfRDRrEGXcuoQGEvrzoHcvmrDlf7UwkBZhbMUmESqaYTGDJPDWg/
-	 qTt9RfRlbZPrtw89CFZVV8UdrItMilc/QZALyJ8S8flmJhkASs9WpHMGGFtDaT19TI
-	 yN01FvUae4qxg8pE6NQboxeylh1lI4vrYiL7n4I4wl6vg4A84ZDPCzEfjHRTVvmoWc
-	 RisXW6TR680sw==
-From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v6=2013/18]=20system/xen:=20remove=20inline=20stubs?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1742392581417
-To: "Pierrick Bouvier" <pierrick.bouvier@linaro.org>
-Cc: qemu-devel@nongnu.org, "Paul Durrant" <paul@xen.org>, xen-devel@lists.xenproject.org, "David Hildenbrand" <david@redhat.com>, "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, qemu-riscv@nongnu.org, "Liu Zhiwei" <zhiwei_liu@linux.alibaba.com>, "Paolo Bonzini" <pbonzini@redhat.com>, "Harsh Prateek Bora" <harshpb@linux.ibm.com>, alex.bennee@linaro.org, manos.pitsidianakis@linaro.org, "Daniel Henrique Barboza" <danielhb413@gmail.com>, "Richard Henderson" <richard.henderson@linaro.org>, "Alistair Francis" <alistair.francis@wdc.com>, qemu-ppc@nongnu.org, "=?utf-8?Q?Philippe=20Mathieu-Daud=C3=A9?=" <philmd@linaro.org>, "Weiwei Li" <liwei1518@gmail.com>, kvm@vger.kernel.org, "Palmer Dabbelt" <palmer@dabbelt.com>, "Peter Xu" <peterx@redhat.com>, "Yoshinori Sato" <ysato@users.sourceforge.jp>, "Stefano Stabellini" <sstabellini@kernel.org>, "Nicholas Piggin" <npiggin@gmail.com>
-Message-Id: <Z9rNBFsWR39czUGQ@l14>
-References: <20250317183417.285700-1-pierrick.bouvier@linaro.org> <20250317183417.285700-14-pierrick.bouvier@linaro.org>
-In-Reply-To: <20250317183417.285700-14-pierrick.bouvier@linaro.org>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.2f0177316d44479db463c4be9dedb200?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250319:md
-Date: Wed, 19 Mar 2025 13:56:22 +0000
+X-Inumbo-ID: 2db56ca7-04ca-11f0-9ffa-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1742392684; x=1742997484; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=rKtd2t8952PTcuVOLwmHDgbG6L5yW0pG/+1vL9SJGDQ=;
+        b=apXQ5Roz6Bu7fo9K8YxD5dT60MBuMVEwtFwt/TeqSxnEUm2KAlWVS9gzfP8GAmqVDU
+         WlBYlBWTYC/HAptqG+WT8Yv73cIdmBDs2E7yeXurOJPaGB7IACvkUtXgeCto9VjXjw3L
+         UBQpN2c9Pcn76/Ly714WrJRHU11g/Y4Lxs8wI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742392684; x=1742997484;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=rKtd2t8952PTcuVOLwmHDgbG6L5yW0pG/+1vL9SJGDQ=;
+        b=uhgAk4pVkMlPf2+kEvbQZF6vwGeyd44HODfpuRgFFjaWvrd3fEiHTprIMumh/08wpJ
+         wJaPAvLChdo6VcIHoZT+sY3N2iLOF0pRDyjM88Q9G/sjRGSngNiEmYZpt/QzUpL2WK8g
+         qHeN2BwzCUqzzIps9yNSFdqEfQNdKgzefC63d7/NAmnImSPegZRP4ntNj6TPgeMG0YTg
+         QFBLR7k+EdcqPKN79uU8c+GYMjSrZwxQe6vVrWSLACJaeSw+XAb+k1vIL9oC7QLdTGM/
+         Njja2y2H0pmKNAaXzYo8PN11lq3zKFxu0po08Zr0mgWedYP52iJ/7dghA4bLZBv7ff8i
+         BQRw==
+X-Gm-Message-State: AOJu0YyFwmzJpj7DZHTfXqB15TeGI+4gs+vEylCiIhb8OevhOJSI2BN2
+	dK/R1H/qKED54Ak05p2Ds6o5nyIAWv5fUIr7VTuOhZveJGte2PLkGAgMMm3CAJg=
+X-Gm-Gg: ASbGncuc43vUaAeIhw/7+he2cLQWTCeg+xi1XyiB+DJvRp3cwGZSA1koQo/arNOL93+
+	4niAd22dZtMfspG3+QtgoL9+3S/2Xe/FS4+TfeXXCZiGv5lYK/Xg6WNKTgS0mPRd0I4QBCAoW7L
+	QKCjc3JvbYqXDdsCnn2I0ClnUuwoXRbTJrTh9Q+EEvfrUsvDVsRlDsne3+GcpFM8o+kg4Kh+WI2
+	lgUFYVVdRXxJV3VbPBbMP9GtJno8eUCmmnI3C6gjR9wWx9AzaPM6hLJJk4+Axw39Hc73nVCT+XF
+	KXJZJCt9StJK/6ccIxu4L+0gJzudAyovoVa2HMzJdemSVbEUWgcpFOBINA6K
+X-Google-Smtp-Source: AGHT+IGFe/jeaXxH+X4tCUX1vVBAvmULEQ6lRb57Lrvcrvp0B1eijVGHPZgUg0GGxWntK4Nc/vg7CQ==
+X-Received: by 2002:a05:600c:1c23:b0:43b:ca8c:fca3 with SMTP id 5b1f17b1804b1-43d4309c349mr25340085e9.11.1742392683952;
+        Wed, 19 Mar 2025 06:58:03 -0700 (PDT)
+Date: Wed, 19 Mar 2025 14:58:02 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Daniel Smith <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH] x86/setup: correct off-by-1 in module mapping
+Message-ID: <Z9rNaqX-awNOJwSk@macbook.local>
+References: <f346b510-dbd1-431a-ad35-3f1b8fe76c58@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f346b510-dbd1-431a-ad35-3f1b8fe76c58@suse.com>
 
-On Mon, Mar 17, 2025 at 11:34:12AM -0700, Pierrick Bouvier wrote:
-> Reviewed-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
-> Signed-off-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
+On Wed, Mar 19, 2025 at 12:21:53PM +0100, Jan Beulich wrote:
+> If a module's length is an exact multiple of PAGE_SIZE, the 2nd argument
+> passed to set_pdx_range() would be one larger than intended. Use
+> PFN_{UP,DOWN}() there instead.
+> 
+> Fixes: cd7cc5320bb2 ("x86/boot: add start and size fields to struct boot_module")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Thanks,
-
--- 
-
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Thanks, Roger.
 
