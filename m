@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1BA7A68C3D
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 12:59:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920373.1324569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04A69A68C42
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 13:01:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920387.1324579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tus4R-0003Ms-8H; Wed, 19 Mar 2025 11:58:51 +0000
+	id 1tus6H-00053K-Rx; Wed, 19 Mar 2025 12:00:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920373.1324569; Wed, 19 Mar 2025 11:58:51 +0000
+Received: by outflank-mailman (output) from mailman id 920387.1324579; Wed, 19 Mar 2025 12:00:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tus4R-0003KF-58; Wed, 19 Mar 2025 11:58:51 +0000
-Received: by outflank-mailman (input) for mailman id 920373;
- Wed, 19 Mar 2025 11:58:49 +0000
+	id 1tus6H-00050n-Ox; Wed, 19 Mar 2025 12:00:45 +0000
+Received: by outflank-mailman (input) for mailman id 920387;
+ Wed, 19 Mar 2025 12:00:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WMzd=WG=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tus4P-0003K9-HM
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 11:58:49 +0000
-Received: from fhigh-b7-smtp.messagingengine.com
- (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+ <SRS0=jwTt=WG=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tus6G-0004qj-A7
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 12:00:44 +0000
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [2607:f8b0:4864:20::234])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 83cb52ad-04b9-11f0-9ea0-5ba50f476ded;
- Wed, 19 Mar 2025 12:58:48 +0100 (CET)
-Received: from phl-compute-05.internal (phl-compute-05.phl.internal
- [10.202.2.45])
- by mailfhigh.stl.internal (Postfix) with ESMTP id C946D25401A2;
- Wed, 19 Mar 2025 07:58:46 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-05.internal (MEProxy); Wed, 19 Mar 2025 07:58:47 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 19 Mar 2025 07:58:44 -0400 (EDT)
+ id c883ebe8-04b9-11f0-9ea0-5ba50f476ded;
+ Wed, 19 Mar 2025 13:00:43 +0100 (CET)
+Received: by mail-oi1-x234.google.com with SMTP id
+ 5614622812f47-3feaedb531dso123774b6e.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 05:00:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +40,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83cb52ad-04b9-11f0-9ea0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1742385526;
-	 x=1742471926; bh=u9HByR81iDQ5nJqrj0d8iVu/KDGH4EKBh5gSfD6d4tg=; b=
-	K6Yi0X7D+oZjJDjtZ5TAwp/4KcRgVvJmsza9XZQsvW39DpIMsgUsm4wNtTvTvWhd
-	up6l5RoPbTPx8agb8ZOnmSWDL5pWogbL4it0T+UfdfFaczoeaHou7iNYXE0cSoiP
-	WmTBRMZn2HWjVUyWRImYcWdnyb4V9c+cLS4o6r0f2T72pPgmrfJoJZdvX7u1XB5b
-	4VF/c9Ovop+6j2K/DVLTwMqaX3BwyUNIhaanMmxagohpC3G0zloRdeMe3c3dvPn9
-	9e2e6xOM2ERu0eznqcItMoaOuTNHL+DHQ2ByPJ7P6QgjsxqsixzIeXhYTixVKArf
-	ujxtDAELXI+zh85OhYDp6Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1742385526; x=1742471926; bh=u9HByR81iDQ5nJqrj0d8iVu/KDGH4EKBh5g
-	SfD6d4tg=; b=o+tpaJm2KwVP5TYtX5ya5zsFQges2hOUAjLspJoyuqTFj8cBsy/
-	4IQoPh4D1HfOvzQRbNIVReAq9g23cTIgXJgvWUpgghf7nmgpLg7mskMsAiY0sdKX
-	yYFLIstbpuPb9DfUyS6K2WDO7siVTxOXYucxoJ3XcSQt/enYjK+ZZuD50n0gELgA
-	Sn2q1iGZR3Ph2iDeHqOk+XahxwmKoWOQMLiKYmtAl3j7/xsCpfMew6tRrM8oh9VY
-	uKn0ZBrZGRiu01PMFCl5QdcxsAGqZqRLJpp75LMi8Fo+2jEiPjPdEkOk7ScBDG4p
-	RBABLQTXFJrG+er+FAb5zqhHvsXnsybcqMg==
-X-ME-Sender: <xms:drHaZzOQAY66-ErwEE9WV4gTmMHPrdlqyXRT0Za28aPJa46VC-HwsQ>
-    <xme:drHaZ99TMk-hICNkwjqmOQPwIUiqaEbPFUnoBYFlKe0lU4f9ImYS0X_rhgAnSSC1q
-    p5inARWCs1e4g>
-X-ME-Received: <xmr:drHaZyRovJqOEho6mlpzVmDsRIeEixjQ93_cgNMMTaTu30Y1ykszr3hluElNDYsn4dVGeBgfqO_yjf5z_vpSG1GSATVDjiJqQg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddugeehvdekucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
-    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
-    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
-    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
-    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-    dpnhgspghrtghpthhtohepledpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgs
-    vghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopehfrhgvuggvrhhitgdrphhivg
-    hrrhgvthesqhhusggvshdqohhsrdhorhhgpdhrtghpthhtoheprghnthhhohhnhidrphgv
-    rhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvg
-    hrfeestghithhrihigrdgtohhmpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlsegr
-    mhgurdgtohhmpdhrtghpthhtohepjhhulhhivghnseigvghnrdhorhhgpdhrtghpthhtoh
-    eprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepshhsthgrsggv
-    lhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepgigvnhdquggvvhgvlheslh
-    hishhtshdrgigvnhhprhhojhgvtghtrdhorhhg
-X-ME-Proxy: <xmx:drHaZ3sb3KWdLT1e5YiU64qIUMxXgtTC3T5-Bb9_uRJJkk3Pisxcjw>
-    <xmx:drHaZ7f5D5vamiF-NS6ySDgNfp2NnFfo5tbxYpGsCAc8NgOD1p_fjg>
-    <xmx:drHaZz1ZwsfZSQyaAzAX4iTY35rl_pepxm5gYe3e94r_pwE5NQbeBw>
-    <xmx:drHaZ39exkYn247BIjpr8WQqtNicRL7SVvojmySptnp2c6SKWCYrsQ>
-    <xmx:drHaZ_4Q64WzoZi2uqyXc4Io3yuR520oc-KZh9NRsTqnA7xcHHbAMpw7>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 19 Mar 2025 12:58:41 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?utf-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?= <frederic.pierret@qubes-os.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 2/2] Strip build path directories in tools, xen and
- xen/arch/x86
-Message-ID: <Z9qxcRtap-k-wW8B@mail-itl>
-References: <cover.a5cb9c3a17249fc067ab501818c3a3e6c7c229cf.1742317309.git-series.marmarek@invisiblethingslab.com>
- <0370c0eb1fd9ac00acab016792132fa0b943d384.1742317309.git-series.marmarek@invisiblethingslab.com>
- <017d5c41-d4ea-4d91-b6ec-b4660e7325ae@suse.com>
- <e112ecca-b891-4c23-ace1-8128e586cb94@suse.com>
+X-Inumbo-ID: c883ebe8-04b9-11f0-9ea0-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1742385642; x=1742990442; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PZTyndYufa/LfKPDq0tE2/Oykkyzj9F95XRC4kLnyDE=;
+        b=dl4RPA6IDNyr1Cc3vMHmVm1fDJRmxiki6pUHcBaXiM+R//hG15aOaWsNhhyT9u7sv9
+         hCtsF/GhJNPWAE/Miq5vZGqehAaon6LBXMFHJVcfbWKE9CFXj7N9TlFmSfhncPynLDeQ
+         JOtAuCWujQbuNs3K1USdm2GoGBP7RZvoS5K1I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742385642; x=1742990442;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=PZTyndYufa/LfKPDq0tE2/Oykkyzj9F95XRC4kLnyDE=;
+        b=PIElyxVVS3Q4q7m9jL7H50Mo3so9tVNCjFQ0UCE5exTiKD38CVEUNP7ZaCXKsbwcve
+         Xnqfl0e9caIN3jIxXk5U5Po8hXCYe0t+D2e9da+bosbjCXQtSjsK9lOKUrb6i4Vx7ou+
+         gzD1hs9rV9k+AEDckr0L7GEfvCfD0fu8kbfrvPEmDSKyF9mI7VYK1ddGtrtAGgT4pGU8
+         4vNMLwB/pqfluep4pvOJpUkO4xQn2GBwnxy7zcelr2VYEY21XfcsDOKcBwyandB5u0NY
+         3CDztQj8pW85pObE5vpHuJYcf5Si4YWq3uTilrg6WbyaQDPWyFJYexCNrHVk4Nj/E0Fu
+         3Oww==
+X-Gm-Message-State: AOJu0Yw061Zs7Z9nJSi7P1k0BIFlyxB4e1F3Hn63wdwqv0yZ6xuainso
+	ZZw/kiep53jZVBKKLR7YFGHZg0CjTJ/sLCmmgC/PLsiiKef/fTAyEphHQeNHLtRUwyWcWH2Uq3U
+	HDUrHA9RfETSZZJl2ZyShQPgixx80H9YlGDdYVg==
+X-Gm-Gg: ASbGncu7A9UsiQ2VsCehEOpE0y4CKPdpoxDfgOTVpqWA5i5TYQ/5MRC5ePKhLG51Ji/
+	a/wN1y2NaXnVl/pwpGX49BzqMncxEZJsGBes5fdP30MU+1Dx5sygOUcNexeeqCi3H6IJzZeJlid
+	xO03G24vcFrj2g2C+gAPEVnATdjw==
+X-Google-Smtp-Source: AGHT+IEnLedfrakI2e7FKIRhyv+bhjPFKXqHPbHj0gpOnlZZZwt/MXXjGnQZgJmwdITlbN/lSKmVFgudwz6A8mtkoa0=
+X-Received: by 2002:a05:6808:14d4:b0:3f8:b73b:682f with SMTP id
+ 5614622812f47-3fead57dfb2mr1587602b6e.1.1742385642162; Wed, 19 Mar 2025
+ 05:00:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="PpeQ3rwt4y1oLfY/"
-Content-Disposition: inline
-In-Reply-To: <e112ecca-b891-4c23-ace1-8128e586cb94@suse.com>
-
-
---PpeQ3rwt4y1oLfY/
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20250318173547.59475-1-roger.pau@citrix.com> <20250318173547.59475-5-roger.pau@citrix.com>
+ <CACHz=Zhyn54-w=dysFXwwzhdnL4RVnadKoT+hx7hR42_VrY2oA@mail.gmail.com>
+In-Reply-To: <CACHz=Zhyn54-w=dysFXwwzhdnL4RVnadKoT+hx7hR42_VrY2oA@mail.gmail.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Wed, 19 Mar 2025 12:00:31 +0000
+X-Gm-Features: AQ5f1JpbD3HLn63DmeeqLB8HYQlBxjeL8EHIBtGVhR3uKn7zBvzT8B9iK_WUmKY
+Message-ID: <CACHz=ZiuTn2M6Pq6-Ft9VwmRvEMaqSNvsHQV+fkdsANGhD-+1A@mail.gmail.com>
+Subject: Re: [PATCH 4/7] x86/boot: apply trampoline relocations at destination position
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, 
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 19 Mar 2025 12:58:41 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?utf-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?= <frederic.pierret@qubes-os.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 2/2] Strip build path directories in tools, xen and
- xen/arch/x86
 
-On Wed, Mar 19, 2025 at 10:43:12AM +0100, Jan Beulich wrote:
-> On 19.03.2025 10:15, Jan Beulich wrote:
-> > On 18.03.2025 18:01, Marek Marczykowski-G=C3=B3recki wrote:
-> >> --- a/xen/Makefile
-> >> +++ b/xen/Makefile
-> >> @@ -411,6 +411,8 @@ ifneq ($(CONFIG_CC_IS_CLANG),y)
-> >>  CFLAGS +=3D -Wa,--strip-local-absolute
-> >>  endif
-> >> =20
-> >> +$(call cc-option-add CFLAGS,CC,-ffile-prefix-map=3D$(XEN_ROOT)=3D.)
-> >=20
-> > This is lacking a comma:
-> >=20
-> > $(call cc-option-add,CFLAGS,CC,-ffile-prefix-map=3D$(XEN_ROOT)=3D.)
->=20
-> And then, having tried the correct form (seeing the option then is passed
-> to the compiler), I can't spot any difference in the resulting
-> xen-syms.map. There were a few absolute paths there before (for
-> arch/x86/x86_64/kexec_reloc.S and arch/x86/acpi/wakeup_prot.S), and the
-> exact same ones are present afterwards.
+On Tue, Mar 18, 2025 at 7:05=E2=80=AFPM Frediano Ziglio
+<frediano.ziglio@cloud.com> wrote:
+>
+> On Tue, Mar 18, 2025 at 5:36=E2=80=AFPM Roger Pau Monne <roger.pau@citrix=
+.com> wrote:
+> >
+> > Change the order relocations are applied.  Currently the trampoline is
+> > patched for relocations before being copied to the low 1MB region.  Cha=
+nge
+> > the order and instead copy the trampoline first to the low 1MB region a=
+nd
+> > then apply the relocations.
+> >
+> > This will allow making .init.text section read-only (so read and execut=
+e
+> > permissions only), which is relevant when Xen is built as a PE image.
+> >
+>
+> This change is not enough to make the section read-only, some other
+> code writes directly into the trampoline at the not-relocated
+> position.
+> But this improves the situation.
+> The code looks fine, I'll try the code if it passes some tests I did.
+>
 
-I'm not sure about xen-syms.map, it's about build path included in
-xen-syms. It appears at least once in .debug_str and once in
-=2Edebug_line_str.
+Works!
 
-But also, I see the patch lost a chunk during rebase (from before
-4.17...), that adjusts XEN_ROOT to use $(realpath ...). That's the part
-even mentioned in the commit message...
+Reviewed-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-I'll send v2 shortly.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---PpeQ3rwt4y1oLfY/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmfasXEACgkQ24/THMrX
-1yzfvwf+KcnWvIBvOv56Zedo/f7glcwzBgDpu0IdzqQr5jKBK9FfTSFmgYSuowVh
-13Sph/rIOq4skRo+2wU5kKSgW8Z4GuhegOmrxlIpIXIHhlmlY5THqeQ1dh1KfAa8
-j1WveGyqZoH5mudHsshUd9PEZx6RYwLzQNp3QqKaXktx+psDw3i2qFJG0F9xQzMr
-uadyW0RtqMTQxsQSx3C/UK21l4+cMUk8aG51LlksX94F/4jkQTyvwQkjXHRea2Jn
-3fCRcAeLhf5lV1ByabwJix/8WINzglRkwnEs7lEmUlVd5RYLo4CyNC9HOCcdeG3S
-El1J33fNgubF7LcOX1lXAW98QFFkYA==
-=A6S1
------END PGP SIGNATURE-----
-
---PpeQ3rwt4y1oLfY/--
+Frediano
 
