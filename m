@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A800A68D0F
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 13:39:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920610.1324729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84878A68D14
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 13:41:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920621.1324740 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tushv-00055L-84; Wed, 19 Mar 2025 12:39:39 +0000
+	id 1tusjD-0006pW-Hd; Wed, 19 Mar 2025 12:40:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920610.1324729; Wed, 19 Mar 2025 12:39:39 +0000
+Received: by outflank-mailman (output) from mailman id 920621.1324740; Wed, 19 Mar 2025 12:40:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tushv-00053P-4v; Wed, 19 Mar 2025 12:39:39 +0000
-Received: by outflank-mailman (input) for mailman id 920610;
- Wed, 19 Mar 2025 12:39:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tusjD-0006mu-Dl; Wed, 19 Mar 2025 12:40:59 +0000
+Received: by outflank-mailman (input) for mailman id 920621;
+ Wed, 19 Mar 2025 12:40:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBEQ=WG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tusht-00053J-UY
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 12:39:37 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 37027ff5-04bf-11f0-9ffa-bf95429c2676;
- Wed, 19 Mar 2025 13:39:35 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3913d45a148so5871241f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 05:39:35 -0700 (PDT)
+ id 1tusjB-0006mm-TZ
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 12:40:57 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 675b5904-04bf-11f0-9ea0-5ba50f476ded;
+ Wed, 19 Mar 2025 13:40:57 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3913d45a148so5872831f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 05:40:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c7df35bdsm20371104f8f.5.2025.03.19.05.39.34
+ ffacd0b85a97d-395c7df413esm20457085f8f.20.2025.03.19.05.40.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 05:39:34 -0700 (PDT)
+ Wed, 19 Mar 2025 05:40:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37027ff5-04bf-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 675b5904-04bf-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742387975; x=1742992775; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742388056; x=1742992856; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kN+0a/vLw66V9O/wcMOPIJOzf7SRbJBB0gmD3W7EMgg=;
-        b=EnEoF1XRHdbWK1H9+T6ifBfjQHev5X16JKi3APYy6tZ2NtfM0XyaY97dlyJQUXrr1D
-         UcCnGFn/r/u70uB96CbrFgs4BXnpBhotTXW4JUJVjUEKGhfefeCg9B6WeVuG0hpM8X+J
-         2U9sIgOYY+ooyHzJlFYgxQcxdXI0t15BQNcXXi8sJ1IU8wQJRjzpBczNHsYfqo66X7a3
-         cAe6tdoHAXm1RFzmPTk87O9TDl9C6IeGdEUKsWCNip+iWLJLsuHX5XD1Z8OOj7XqqcW9
-         P72ixPf28hPI4ucngX7RAEPpXFRYL+/JxXYAB727PnSCST2V0rLCza6nRrL5EcNEKW8K
-         uDfw==
+        bh=1ADrKtkmrbb4yXil4M1R24B7CmmSgxM0Dukn9aN6UYc=;
+        b=VpkJT3MBmTYin5pIX9bWJEZSUnybZBlRm1WiS8BUe7U6NSK5sOx7JzhPylzEY9z9/d
+         uWTQ8xEv4iqexhi3ac5C10GGFL5TEiaZYTzuRHU3LI38c0xLEkS/YogOHM9Oys/gFYzU
+         Ds3uRHXvFHLIPRg7Za1iErUx+tbJAuEqTw8Svf3Y0FPVj22CodgLAdJrloT51XLqj5AH
+         LdBXosdHAC8f+/4cLocrujyn9q6/xyIEWu6JstUaMXWTMpWdjX7wpplYd75yAYkcb5XO
+         zxSjzXe1x99NDpbgYwcfhjqnn90e+2psbD+QZGIA4Ft1B6crlGiWA388qGIh1MwuoBdA
+         hGpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742387975; x=1742992775;
+        d=1e100.net; s=20230601; t=1742388056; x=1742992856;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kN+0a/vLw66V9O/wcMOPIJOzf7SRbJBB0gmD3W7EMgg=;
-        b=BuxkoHG48+Ytjs0VT+9nCAqUi2lY9j2NBQYFVdduOGr7b1oBaVTbxGG9112zm5eKv7
-         +aNGt0HQ9akePtxc7lR2VqIscEFsDjBnlouAQkdgnJl6oWlmY5g4TLe/Pt9HkAlbQntN
-         30EQJaGGfPU/L7+FHrHhNpUQ0SHnCr+CLrfPri5P0roDmKtAZPtbqSHQQS4H4WHqV6+N
-         gtGzu2jiU8uOZNr1OgzFU9TWEIkun/dYoka9y20vPx0Ntd9sfDCIs8EcW/AKc3OY0lf3
-         iZvhtiY37Uuc65v+EgIatO5RRBk8QoTowPuv9fo5y4fAeAxCemCzbUu3JKRAlkcK4CUk
-         ejRQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVYcE+0qoj+4BshYmZLsqs1NN+OajUVtfhq7xKj1d4XhQ3dvnP0d1qix6shFksvzsMFbA24BvlBDhE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyecrwRXco4M9i46vO8xqmZjEobPZCNBfRdduXHFt3DR2FRLzdl
-	G4vCeOS2y8oPG7L3MB1FHT3haao+BBvFJScnqRjgaassUx3HKQt/uv9U2/jo6w==
-X-Gm-Gg: ASbGnctdhMhhWtLXPT+yNJ/Pb7Lg5Et4tV1QOudB8ztPGB7+dZYE23az0oHz4ed3vP5
-	Xjr7Qzf5bKyuhFl+GOFkwkGx5kAwttsUOQ+5P3bBZJmyYsy8XWl7PKrm1n+wrfMFjxcnN4Q8SOl
-	pKDhtiIRm8qhjl8BN47qqyknh6Ymcz/B87lbZ8KJO7nuVbe1fLLaTeKZaW7QJT9JO+cMlvJmUfE
-	Wwth+Y9bJjA9sDHB6TeuMa6yLCzOO9iluXk1f/075d6BKlDGvyp2wDXSAtV+HSzuZIhi/mkdoJ6
-	/HXVgTiewThN0+HqRMbaKht05WdWgD0cghtX4jv7cSM/i+gF9cad8y2BIaHK3H6xNiS+CZE15hu
-	QNAjkFgJgWh/57Ar0iB1BCSPBFU38Q9xZyQ7HUTMd
-X-Google-Smtp-Source: AGHT+IFDg28Gj1x4GD0A+rR9Wx4+4D3KtGLpRoFuJqdTgNEedwf5Csir2L3Mj1bE0UOmAP0S9ucP6Q==
-X-Received: by 2002:a05:6000:1547:b0:390:e7c1:59c0 with SMTP id ffacd0b85a97d-399739cab50mr1949419f8f.26.1742387975157;
-        Wed, 19 Mar 2025 05:39:35 -0700 (PDT)
-Message-ID: <182e6183-8a61-4c03-902c-ab75b69cdd4f@suse.com>
-Date: Wed, 19 Mar 2025 13:39:34 +0100
+        bh=1ADrKtkmrbb4yXil4M1R24B7CmmSgxM0Dukn9aN6UYc=;
+        b=VxC46SweHjtiBzh58xbdVPkqSUeZ9VoyV4mJmL/DK/GTBKN8jT5RlZuGYJs0q3OYC5
+         CxMzpqIIdofw7qPOMFZyd5NUrNaQnks0WTJtF7pzjEUjWbfPqP5t/OS6n2c9B0YcAtAs
+         sT7xIA5C/0Fnitea3a6m3sWqISO5RUAe4wVx9+sSYZNACsU0LbnuGHlmdN3/zQKbZnFk
+         hfyKJ2I4di65Q2hklHrOJKR559W/On25118nEA3/gGG9v1fmloo3zWUkx4Hsyp8+8kXo
+         jye3gpN0hcQK8oAdZRjtPjxE+iKFZousLw68KjH34AQua8UFt2mpxaqnv6rhD87G8SJc
+         ALOg==
+X-Gm-Message-State: AOJu0YwjaRVPC/h2K0Nm8euAqmhURpMlCLE9fuQGvZ7H8/w5V8m+Fase
+	v/e69BaqEa7epX20qMkN7+NXe5BLvIEQb4H8c9Gv1PosxBDwd2t8yCtIxKMXNg==
+X-Gm-Gg: ASbGncvLe0vrXu4HajsJBR5pwVoXQErpFf9bXcT9WBEvLTZmwQdZKJ+brP/zYIuxixG
+	QLG6iVdtrZ0AatWQZQ+Z79fhlS6aKyR0t8JVKzWPCG1deFSooNFU9zbWNaBBWAKSlt3hreFXyRl
+	0Q2CPiUmBg5yy0ARYs0ZN+9UDiVcVvaEvF2HEQfA0RDZnhgnBKNTUnyMVlu+6qXTdQdvYjKEORy
+	wJRuShvW/U4428LKeLUKZ7SDrNmJIO1Flv8xB9THs1FA4v7MmZgSpCF66VEcZXi7TI9shGtJxAZ
+	xP5Ghvf09/SOIvglNxRBY+VQ9VG5dSlvOIx0Vg7qIT+s06r7mfVrNJ3sjUxOr/+zomeKGAoz5yD
+	pqmOmWhHhuzof1Fjnk0IdxI2GjLeHqajZbu7Po24U
+X-Google-Smtp-Source: AGHT+IEWg1JpvkGatTmrRpQkHzxF/kfYAcvyRKPD3kHmNsWxpdvYgJont8f1/hqCj+WHHsFl0wQAJw==
+X-Received: by 2002:a5d:5888:0:b0:391:2932:e67b with SMTP id ffacd0b85a97d-39973afa2ddmr3543931f8f.35.1742388056219;
+        Wed, 19 Mar 2025 05:40:56 -0700 (PDT)
+Message-ID: <b396cdb8-8a5e-448f-b574-1cfc797356d2@suse.com>
+Date: Wed, 19 Mar 2025 13:40:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/PVH: account for module command line length
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jandryuk@gmail.com>
-References: <730d8143-8cda-49da-a48a-3b82c2b77c9d@suse.com>
- <5b959741-2e51-4576-9219-df495d0e30be@citrix.com>
+Subject: Re: [PATCH] x86/setup: correct off-by-1 in module mapping
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>
+References: <f346b510-dbd1-431a-ad35-3f1b8fe76c58@suse.com>
+ <Z9q1Zv9IEJOCycan@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,97 +118,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5b959741-2e51-4576-9219-df495d0e30be@citrix.com>
+In-Reply-To: <Z9q1Zv9IEJOCycan@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19.03.2025 13:12, Andrew Cooper wrote:
-> On 19/03/2025 11:18 am, Jan Beulich wrote:
->> As per observation in practice, initrd->cmdline_pa is not normally zero.
->> Hence so far we always appended at least one byte. That alone may
->> already render insufficient the "allocation" made by find_memory().
->> Things would be worse when there's actually a (perhaps long) command
->> line.
+On 19.03.2025 13:15, Roger Pau Monné wrote:
+> On Wed, Mar 19, 2025 at 12:21:53PM +0100, Jan Beulich wrote:
+>> If a module's length is an exact multiple of PAGE_SIZE, the 2nd argument
+>> passed to set_pdx_range() would be one larger than intended. Use
+>> PFN_{UP,DOWN}() there instead.
 >>
->> Skip setup when the command line is empty. Amend the "allocation" size
->> by padding and actual size of module command line.
->>
->> Fixes: 0ecb8eb09f9f ("x86/pvh: pass module command line to dom0")
+>> Fixes: cd7cc5320bb2 ("x86/boot: add start and size fields to struct boot_module")
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >>
->> --- a/xen/arch/x86/hvm/dom0_build.c
->> +++ b/xen/arch/x86/hvm/dom0_build.c
->> @@ -712,7 +712,15 @@ static int __init pvh_load_kernel(
->>       * simplify it.
->>       */
->>      last_addr = find_memory(d, &elf, sizeof(start_info) +
->> -                            (initrd ? ROUNDUP(initrd_len, PAGE_SIZE) +
->> +                            (initrd ? ROUNDUP(ROUNDUP(initrd_len,
->> +                                                      elf_64bit(&elf) ? 8 : 4) +
->> +                                              (initrd->cmdline_pa &&
->> +                                               strlen(__va(initrd->
->> +                                                           cmdline_pa))
->> +                                               ? strlen(__va(initrd->
->> +                                                             cmdline_pa)) + 1
->> +                                               : 0),
->> +                                              PAGE_SIZE) +
->>                                        sizeof(mod)
->>                                      : 0) +
->>                              (cmdline ? ROUNDUP(strlen(cmdline) + 1,
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -1730,7 +1730,7 @@ void asmlinkage __init noreturn __start_
+>>      {
+>>          unsigned long s = bi->mods[i].start, l = bi->mods[i].size;
+>>  
+>> -        set_pdx_range(paddr_to_pfn(s), paddr_to_pfn(s + l) + 1);
+>> +        set_pdx_range(PFN_DOWN(s), PFN_UP(s + l));
 > 
-> This piece of logic was already bad, but this is rather worse.
-> 
-> One patch I made while doing the boot module work is:
-> 
-> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
-> index 6a4453103a9a..7292ddd07276 100644
-> --- a/xen/arch/x86/hvm/dom0_build.c
-> +++ b/xen/arch/x86/hvm/dom0_build.c
-> @@ -654,6 +654,7 @@ static int __init pvh_load_kernel(
->      const char *cmdline = image->cmdline_pa ? __va(image->cmdline_pa) :
-> NULL;
->      struct elf_binary elf;
->      struct elf_dom_parms parms;
-> +    size_t metadata_len;
->      paddr_t last_addr;
->      struct hvm_start_info start_info = { 0 };
->      struct hvm_modlist_entry mod = { 0 };
-> @@ -711,13 +712,16 @@ static int __init pvh_load_kernel(
->       * split into smaller allocations, done as a single region in order to
->       * simplify it.
->       */
-> -    last_addr = find_memory(d, &elf, sizeof(start_info) +
-> -                            (initrd ? ROUNDUP(initrd_len, PAGE_SIZE) +
-> -                                      sizeof(mod)
-> -                                    : 0) +
-> -                            (cmdline ? ROUNDUP(strlen(cmdline) + 1,
-> -                                               elf_64bit(&elf) ? 8 : 4)
-> -                                     : 0));
-> +    metadata_len = sizeof(start_info);
-> +
-> +    if ( initrd )
-> +        metadata_len += sizeof(mod) + ROUNDUP(initrd_len, PAGE_SIZE);
-> +
-> +    if ( cmdline )
-> +        metadata_len += ROUNDUP(strlen(cmdline) + 1,
-> +                                elf_64bit(&elf) ? 8 : 4);
-> +
-> +    last_addr = find_memory(d, &elf, metadata_len);
->      if ( last_addr == INVALID_PADDR )
->      {
->          printk("Unable to find a memory region to load initrd and
-> metadata\n");
-> 
-> 
-> which I think I ought to submit as a prerequisite to this, after which
-> your logic squashed on the RHS now becomes an expansion of the `if (
-> initrd )`.
+> Is the set_pdx_range() provided smfn, emfn range inclusive?
 
-Yes please.
+No, it's exclusive at the end. See all other uses in this file.
 
-Another thing I was considering to put in a local variable is the
-repeated "elf_64bit(&elf) ? 8 : 4". If that sounds okay, I can make that
-a(nother) pre-patch to mine.
+>>          map_pages_to_xen((unsigned long)maddr_to_virt(s), maddr_to_mfn(s),
+>>                           PFN_UP(l), PAGE_HYPERVISOR);
+> 
+> Isn't this line also bogus, as there's no guarantee that the start
+> address is aligned to PAGE_SIZE?  And hence the length should take
+> into account a possible page offset of s?
+
+See Andrew's reply.
 
 Jan
 
