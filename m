@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF4EEA68BC2
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 12:35:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920321.1324528 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75F42A68BD4
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 12:37:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920335.1324539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1turhT-00053b-Lf; Wed, 19 Mar 2025 11:35:07 +0000
+	id 1turjT-0005ch-3l; Wed, 19 Mar 2025 11:37:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920321.1324528; Wed, 19 Mar 2025 11:35:07 +0000
+Received: by outflank-mailman (output) from mailman id 920335.1324539; Wed, 19 Mar 2025 11:37:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1turhT-000511-J6; Wed, 19 Mar 2025 11:35:07 +0000
-Received: by outflank-mailman (input) for mailman id 920321;
- Wed, 19 Mar 2025 11:35:05 +0000
+	id 1turjT-0005ay-0x; Wed, 19 Mar 2025 11:37:11 +0000
+Received: by outflank-mailman (input) for mailman id 920335;
+ Wed, 19 Mar 2025 11:37:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bBEQ=WG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1turhR-00050v-Fy
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 11:35:05 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WMzd=WG=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1turjQ-0005as-V2
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 11:37:09 +0000
+Received: from fout-b7-smtp.messagingengine.com
+ (fout-b7-smtp.messagingengine.com [202.12.124.150])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32bd2f16-04b6-11f0-9ea0-5ba50f476ded;
- Wed, 19 Mar 2025 12:35:03 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3913958ebf2so5531310f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 04:35:03 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb318a75sm20920672f8f.76.2025.03.19.04.35.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 04:35:02 -0700 (PDT)
+ id 7c6ea45d-04b6-11f0-9ea0-5ba50f476ded;
+ Wed, 19 Mar 2025 12:37:07 +0100 (CET)
+Received: from phl-compute-10.internal (phl-compute-10.phl.internal
+ [10.202.2.50])
+ by mailfout.stl.internal (Postfix) with ESMTP id F287E1140125;
+ Wed, 19 Mar 2025 07:37:05 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-10.internal (MEProxy); Wed, 19 Mar 2025 07:37:06 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 19 Mar 2025 07:37:03 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,146 +45,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32bd2f16-04b6-11f0-9ea0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742384102; x=1742988902; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3e80ZX37VPH423lbWmAyR7GmOamaBIBXY0/wwar3b8A=;
-        b=NFXecSoOIXdwNqiGA6oAhm9Hb0nLgC/dyvfM2jfIC6k6gorQcjb8kX6EPfDLPytBCg
-         TOJmLPocZeYkkKWofC0vboK6i1TZ9JIccNgDTqzUUeNMbEZyQ80/v/hh/Ygspvnz4QKS
-         yjbffp0YbE3akKf5YRcCb/YkkNbnXD+q+IkHeOmSI7tSBoU9EedVZePvWrw02Q+6LtV4
-         jcHIi/e0IOmC2d60qAbqcOGL9/Ag6UNM6qWFkY14shCN7DGLpYaZz7qHSgySHUS7p671
-         iv6LkAKDYFcKxUV2hyMVboyHszEWCvNpf4gwIP6C/i3ZSCcfSg5vsdwxJgIGOy1MJ0+K
-         K7wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742384102; x=1742988902;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3e80ZX37VPH423lbWmAyR7GmOamaBIBXY0/wwar3b8A=;
-        b=BhpvkiksDmEuEhEUO1QlbSg0SrhMBq3lbRnvS8uTB42mDoQMz+s9SDu6usxc+O7REW
-         DBBKL8+FFSZn7qopgvPfrMjbZ8qPKf69b7QXpUA3320v8f/tAK1HrVaPYdDCG12mRoL2
-         EB++U9DlaChMT+aS0ajCVvpZW6ADFsln2wB9ZY3dpp+XAStK4xKyQOApM8pZ93oYwKDh
-         GNyfreoAx/TvIst8jDYkgaDNM/KqqBiZlY/a+Kg9bmIi3UlMT/DtwUVJB1/V3AX8DlaO
-         JYF5cxC3gKqq8oCCUZqV2YURyV1NR82UG3r5uSdy/s4qnWzRkKcwhZRI907NsAmPFNQC
-         aLFA==
-X-Forwarded-Encrypted: i=1; AJvYcCWXALpfPrzmWozN6Jdn/SvQHCc7N5wh+nR281EH2SaS46ivQgVH3KkQOKg+wkAQK8S2IhM1NTYIe+0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzvm7o3rKr53AmkBXGxCvAgOhwNNCXO7mDmxnU70iNkaSZPs+2N
-	eY4e51zOxjF514ER1RWJgzReCw35qtAogPuhvbqBajj0Pqj/mf8VyuEwSr3ESQ==
-X-Gm-Gg: ASbGncsuGbLEPDD657stFvxP+n81DUj5OfUhvIT27Rq5daAHCfltHLxNFpPr3pbvLUN
-	m6tMU8/DxjOXsIZ17Y9RFYX0y/F/LsYhm9bqFOEQFqvTt+BBeTxnK5DumLkX3DLtiWJ0Flr3oN3
-	UQCdlstdcjtjGDssdTgi1NkDCAILzW/af74Mb6dxnVJkN5ysFmhfJ+cfEiUWTljUF2HtrX9DCN5
-	OXXeG+1/DbRFsQ0IVXTLYzn/MvU/oShzJng8s2E6OMxONBJEdCViMajQPiOhgmGoSyMzkRGqDA6
-	wknyyqcqkmK24SEatei3arcKFmRcSmHbhY0o6in5wSWGM/CRoKl7uDqk9i0C7RPC773novh/THQ
-	lehXXWTrSyOdPVHzdvYrXru06DbBGV8DFXWrIw732
-X-Google-Smtp-Source: AGHT+IHsXkcA0HGIVyWr8643o14xfnNzBD6JTSsYAner3ABpfjGb+H4zXjWZgXOnoRzEAbggtSQUIg==
-X-Received: by 2002:a05:6000:1a87:b0:391:48d4:bd02 with SMTP id ffacd0b85a97d-399739d7c73mr1788074f8f.29.1742384102476;
-        Wed, 19 Mar 2025 04:35:02 -0700 (PDT)
-Message-ID: <26583ecf-4057-46b1-8f87-f4589d7bec17@suse.com>
-Date: Wed, 19 Mar 2025 12:35:01 +0100
+X-Inumbo-ID: 7c6ea45d-04b6-11f0-9ea0-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1742384225;
+	 x=1742470625; bh=4XjR/awIjrCmPOUbTJnzCC2e1Oxrp1Uw7mt2U4dPdsM=; b=
+	nQG7Gy6ggM6hQ75KMYWm2rWvvE7uNXQBT9aP+gghWwHIBJfkJaa18Y+MhPJN4ObO
+	SoSo7Rrp70yf4d8bCboMApel+ZDx07DgB0kvlJxXkF49uqolG4rh0XFsi6YLrfHc
+	R95axIeemVyh6dPGmQNnuoxC8ZGRDHsSzTqP3SJa4knzXmtsAWApxXDlvIpai68z
+	TZpBM4/kE8+fSccB9xeVC+pfu20RkHov40Xb5+FGgiL7bL0hTPfjzVbKFj6F7JTY
+	tuQ7RSOoRaOz0Z9KPtodKzR+3EDOUoCTlZXK/IqXKTBkXcGMHbyTgaJ0vPy5hh+J
+	JtQ62qclvd4jYumMQTEOMg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1742384225; x=1742470625; bh=4XjR/awIjrCmPOUbTJnzCC2e1Oxrp1Uw7mt
+	2U4dPdsM=; b=JED9zCRAmVhzNJm9c1HRq9eKPBqmr/m5yDfXq16SC2dlKCcMKtD
+	QZWKge9F3+lO03MlSXKDDwE8QRE04fTOt8Jtbwj82WRAv5KabLq4vNERX1Je+SWV
+	BG4lo4jxAqOcL4ZLLw1U+VGtHxwOEFVKF2B5bOd+RuPFMVhjQViVvnB0vVv3pXpy
+	5ZlBK7/t9RwKXlvdDWBDdSCDP4akT90SkkUPFaZPcMQiwDdLQx43IEd8mVkqBIBj
+	SayaEiY7A1MUAAxVU6PuuXEqihbqGpve6eRq3V9SfdJG1TFu83rUcjj43M8kAU0o
+	+WnN84hrVax9KxVTtfdV5yOBForXrp7XT5w==
+X-ME-Sender: <xms:YazaZw2cVWeEvUbzt_baRsechg-iWYag0EIAs89_exNtb5gC6CRh9g>
+    <xme:YazaZ7E7mVNHkk3QTScxUIe_9LWXVjymhnJyFiPUZ7R8YSZzQEH13f0qMo6Tzn4ue
+    gGIAAQ7a5BEJQ>
+X-ME-Received: <xmr:YazaZ47Ia8D5nb5B7N66W8VMPy8i8dWlmMigKnkhPrRbmWMIRnHZSBvigk56DgKGtI_OJBNHnbhcjNoHrY3qoTTC3VQFmDnBzA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddugeehvdefucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
+    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
+    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+    dpnhgspghrtghpthhtohepledpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghn
+    thhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtthhopeigvghnqd
+    guvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopehf
+    rhgvuggvrhhitgdrphhivghrrhgvthesqhhusggvshdqohhsrdhorhhgpdhrtghpthhtoh
+    eprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopehm
+    ihgthhgrlhdrohhriigvlhesrghmugdrtghomhdprhgtphhtthhopehjsggvuhhlihgthh
+    esshhushgvrdgtohhmpdhrtghpthhtohepjhhulhhivghnseigvghnrdhorhhgpdhrtghp
+    thhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepshhsth
+    grsggvlhhlihhniheskhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:YazaZ51k3w_vUVWBStK2jdszW34UziBJzRoE8tNadax3ULWWjI3xMA>
+    <xmx:YazaZzGpgpm0NBPCgF4xk2TqFHNH6QvrMVtcMBrw0dyLYkptD2Hbbw>
+    <xmx:YazaZy-strjRcoZ3_h7y7B1gir9r7i25Z9cnpfc56-ivKHHSG3pjng>
+    <xmx:YazaZ4kba7S6u879lXdVp8nTmOMjuex4s8H2K35mTDObCJSzH1RYbA>
+    <xmx:YazaZ6Dmulp0uAnFA4CjmlT_93X8GlB3MwKsugNZxlQZZm3XQgAOHp09>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 19 Mar 2025 12:36:59 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: xen-devel@lists.xenproject.org,
+	=?utf-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?= <frederic.pierret@qubes-os.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v1 1/2] docs/xen-headers: use alphabetical sorting for
+ @incontents
+Message-ID: <Z9qsXYnPNPY_Xelo@mail-itl>
+References: <cover.a5cb9c3a17249fc067ab501818c3a3e6c7c229cf.1742317309.git-series.marmarek@invisiblethingslab.com>
+ <09f34b27d576d1067cc38eaa202aebebb0478cff.1742317309.git-series.marmarek@invisiblethingslab.com>
+ <Z9qoQ4wwfWZ7ID2T@l14>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/7] xen: introduce Kconfig ARCH_PAGING_MEMPOOL
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Luca Fancellu <luca.fancellu@arm.com>
-Cc: Penny Zheng <Penny.Zheng@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Wei Chen <wei.chen@arm.com>,
- xen-devel@lists.xenproject.org
-References: <20250317200727.798696-1-luca.fancellu@arm.com>
- <20250317200727.798696-7-luca.fancellu@arm.com>
- <85ba02a9-f9f9-4141-85be-a9a2d431e450@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <85ba02a9-f9f9-4141-85be-a9a2d431e450@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="QcjF9klx31Auu4sN"
+Content-Disposition: inline
+In-Reply-To: <Z9qoQ4wwfWZ7ID2T@l14>
 
-On 18.03.2025 14:05, Oleksii Kurochko wrote:
-> 
-> On 3/17/25 9:07 PM, Luca Fancellu wrote:
->> From: Penny Zheng<Penny.Zheng@arm.com>
->>
->> ARM MPU system doesn't need to use paging memory pool, as MPU memory
->> mapping table at most takes only one 4KB page, which is enough to
->> manage the maximum 255 MPU memory regions, for all EL2 stage 1
->> translation and EL1 stage 2 translation.
->>
->> Introduce ARCH_PAGING_MEMPOOL Kconfig common symbol, selected for Arm
->> MMU systems, x86 and RISC-V.
->>
->> Wrap the code inside 'construct_domU' that deal with p2m paging
->> allocation in a new function 'domain_p2m_set_allocation', protected
->> by ARCH_PAGING_MEMPOOL, this is done in this way to prevent polluting
->> the former function with #ifdefs and improve readability
->>
->> Introduce arch_{get,set}_paging_mempool_size stubs for architecture
->> with !ARCH_PAGING_MEMPOOL.
->>
->> Remove 'struct paging_domain' from Arm 'struct arch_domain' when the
->> field is not required.
->>
->> Signed-off-by: Penny Zheng<penny.zheng@arm.com>
->> Signed-off-by: Wei Chen<wei.chen@arm.com>
->> Signed-off-by: Luca Fancellu<luca.fancellu@arm.com>
->> ---
->> v3 changes:
->>   - Introduced ARCH_PAGING_MEMPOOL instead of HAS_PAGING_MEMPOOL
->> v2 changes:
->>   - make Kconfig HAS_PAGING_MEMPOOL common
->>   - protect also "xen,domain-p2m-mem-mb" reading with HAS_PAGING_MEMPOOL
->>   - do not define p2m_teardown{_allocation} in this patch
->>   - change commit message
->> ---
->>   xen/arch/arm/Kconfig              |  1 +
->>   xen/arch/arm/dom0less-build.c     | 74 ++++++++++++++++++++-----------
->>   xen/arch/arm/include/asm/domain.h |  2 +
->>   xen/arch/riscv/Kconfig            |  1 +
->>   xen/arch/x86/Kconfig              |  1 +
->>   xen/common/Kconfig                |  3 ++
->>   xen/include/xen/domain.h          | 17 +++++++
->>   7 files changed, 73 insertions(+), 26 deletions(-)
-> 
-> For RISC-V:
->   Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-Mind me asking then why RISC-V needs this at this point? The stubs surely
-were added to address some build issue, not because they are actively
-meaningful?
+--QcjF9klx31Auu4sN
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 19 Mar 2025 12:36:59 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: xen-devel@lists.xenproject.org,
+	=?utf-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?= <frederic.pierret@qubes-os.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v1 1/2] docs/xen-headers: use alphabetical sorting for
+ @incontents
 
-Jan
+On Wed, Mar 19, 2025 at 11:19:33AM +0000, Anthony PERARD wrote:
+> On Tue, Mar 18, 2025 at 06:01:56PM +0100, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > From: Fr=C3=A9d=C3=A9ric Pierret (fepitre) <frederic.pierret@qubes-os.o=
+rg>
+> >
+> > It makes the build reproducible with fileordering flags
+> >
+> > Signed-off-by: Fr=C3=A9d=C3=A9ric Pierret (fepitre) <frederic.pierret@q=
+ubes-os.org>
+> > ---
+> >  docs/xen-headers | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/docs/xen-headers b/docs/xen-headers
+> > index 8c434d77e20e..98ffe814500b 100755
+> > --- a/docs/xen-headers
+> > +++ b/docs/xen-headers
+> > @@ -331,7 +331,7 @@ sub output_index () {
+> >  <h2>Starting points</h2>
+> >  <ul>
+> >  END
+> > -    foreach my $ic (sort { $a->{Seq} <=3D> $b->{Seq} or $a->{Title} cm=
+p $b->{Title} } @incontents) {
+> > +    foreach my $ic (sort { $a->{Href} cmp $b->{Href} } @incontents) {
+>=20
+> Why is `Seq` been ignored? As I understand, the index is supposed to use
+> it as first ordering key.
+>=20
+> Comment in that same file:
+>     #  extra syntax:
+>     #   `incontents <seq> <shortname> <anchor text html>...
+>     #                              make a table of contents entry; they
+>     #                              will be sorted by increasing seq, and
+>     #                              shortname will be used as the anchor t=
+arget
+>=20
+> Also, we already have a fix for reproducible build:
+>     e18dadc5b709 ("docs: use predictable ordering in generated documentat=
+ion")
+>=20
+> Would it be enough to replace `Title` by `Href` for the second sorting
+> key instead?
+
+Hmm, right. It looks like this may be not needed anymore, as long as
+title is unique (it looks like it is right now).
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--QcjF9klx31Auu4sN
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmfarF0ACgkQ24/THMrX
+1yw6UggAjDk07hF00s+dkNFEiysIIy8Ew8IUYmKB2loQWQ4qYE0s/N2mA0KCDRJY
+Jvf9e5ywqtdOVdqiTtnFUtnBVAFjcjAEmQ0snQ0Ya2GZY97uM4lBGnb6lKCiusgr
+34OtEkXKWpbw9Qqzr0YkC0VPtGglGMofAqWKGVkgE89AEr6fPUsfpm6P25U7OIem
+VXMnCdOzNJrCwdGg6KyqjzyMkRt2MViDe+1siYC0gzUsuicb99w169dHpsDfQZH6
+KfU5cb4eP3xWn6xo9HCsc+tvSjhgxNl40AOrVD3s5TRNTFd1BV5c0B6wrsnCNMpU
+HW7JYDllVj7U8h1DyQ9eIKbid65GiQ==
+=CCtw
+-----END PGP SIGNATURE-----
+
+--QcjF9klx31Auu4sN--
 
