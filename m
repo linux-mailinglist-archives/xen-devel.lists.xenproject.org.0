@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF7B9A689D1
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 11:40:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920233.1324459 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C5CCA689F0
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 11:47:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920246.1324469 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuqq7-0005My-Es; Wed, 19 Mar 2025 10:39:59 +0000
+	id 1tuqwN-0007yI-45; Wed, 19 Mar 2025 10:46:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920233.1324459; Wed, 19 Mar 2025 10:39:59 +0000
+Received: by outflank-mailman (output) from mailman id 920246.1324469; Wed, 19 Mar 2025 10:46:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuqq7-0005Kl-Bk; Wed, 19 Mar 2025 10:39:59 +0000
-Received: by outflank-mailman (input) for mailman id 920233;
- Wed, 19 Mar 2025 10:39:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tuqwN-0007vU-12; Wed, 19 Mar 2025 10:46:27 +0000
+Received: by outflank-mailman (input) for mailman id 920246;
+ Wed, 19 Mar 2025 10:46:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBEQ=WG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuqq6-0005Kf-0E
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 10:39:58 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f337492-04ae-11f0-9ffa-bf95429c2676;
- Wed, 19 Mar 2025 11:39:56 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3912d2c89ecso6055639f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 03:39:55 -0700 (PDT)
+ id 1tuqwM-0007vO-0T
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 10:46:26 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 66f77f4d-04af-11f0-9ea0-5ba50f476ded;
+ Wed, 19 Mar 2025 11:46:25 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3913fdd0120so3552833f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 03:46:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3996d998545sm4496675f8f.34.2025.03.19.03.39.54
+ ffacd0b85a97d-395c82c249csm20215008f8f.21.2025.03.19.03.46.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 03:39:54 -0700 (PDT)
+ Wed, 19 Mar 2025 03:46:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f337492-04ae-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 66f77f4d-04af-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742380795; x=1742985595; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6o8eMnNEU91mAqF3t/D+u0YZYgwW08FFjsMXlU+9VPo=;
-        b=eMi/mKmOORlCLUL/+NQAFc/j5rnq3Akc2h8ADUTWzQlShLTOcEIb2NUg92f5hW8wzi
-         hgkbMakrSIJfIiNqbg4Y5w8PH7xMeQfEqDGybN52h6sFXilZsR16dhprYsNOkJr+VBm5
-         0f0S3KfMmrJeypfH50ctLN+66lRZ1I3OwiEdPSkxIEwLeQXyv9K00yUxIhNm/A7/eBSV
-         Llo97qbmlKqb/s34Kq2k7pLUp4H8+0nBihBMeP2Vkfy5kUE20wRygwBD1+Pl2kWO70B2
-         9jVZpTzuveMUEmv8jK1pP03c12Kv535yqa7L6y4l7qFN6ajCyLlEgCp3TTFVpVOh4BER
-         mGNA==
+        d=suse.com; s=google; t=1742381184; x=1742985984; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Lj2KzgTX9J4nlnRoJMx44xMinjBuaoBGVzEIuYIfPco=;
+        b=bcT6gWaSocGeiDhaLhHDyA1T1e5jXE4RQ/l+DRKsEzpc4UXTMCavOwpvc/gTyQE4jV
+         xXfCunlVqeV/HXQMERPNaUZZne9HgeaenHlAxWl56RmH8EDu+TsMvVyGUY1M6+HRoLfe
+         qWsjOpYrOhyKpA6LI65+uSrO++laJEyU8X7yRx/8YHHAAj2FlpAT7GHefskDv/2BYD1z
+         gME6r4hybxHefrVIs6sd6Ff89u5RMtZo8VoKAnf5hioNE15p2mycAJpzyt0c0mLKZFSw
+         pqHoF3sjTqMUZXHNtEGWQbXXxhixhhAgZNlLHSUrcLyCMP66+AChf1JjXw5hdv4827QM
+         nMoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742380795; x=1742985595;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6o8eMnNEU91mAqF3t/D+u0YZYgwW08FFjsMXlU+9VPo=;
-        b=Swxa2MiSWjYyhYUsoqVM1r32E4+Wa00/QdVTDSJ4QW5/T9qLn87EwXrgGVyehvzHmU
-         TEoe3tREiMJI+Iz08VjPttujkcTppseA76r7wemt6R0eVlDNr/y3CjKt2mkmu1LFJQc3
-         o8tciYUWh1d+nRWqLmD1bHSrm5sx5Is9HHw4dVwO04BWSA6p7poYgxRa7qwju7aTGOPX
-         a28eZxozs9Vno5x4S0P7w9m3pTVG7Emmi39mM1MWZg2gp3RjARXjBBmHNoesMGfM5nyU
-         2CoZen+uxXmlpZSZ44ko5TnY2SQ8l69Z+Q66Yx2erwPSGKdL95oFdGhQ5oCvsC0REGzX
-         X2Gw==
-X-Forwarded-Encrypted: i=1; AJvYcCWpWzW0CggjEa9s/admJpMDl6gOo/TweJt527wRZ0/Iw/eOmWA0mtAEUph5hXJuVShyms0XruUY7aA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw6ZCQOWrj3L+vVQgflJV4xPVOFBhmpO2uM09iFeTfpf3iW7uZ0
-	aZlED7D56Pv8mbLekvHhqs3sLmI83xm/MiFE9kB8+dDyYsJxjEXTQI4oN7IVRg==
-X-Gm-Gg: ASbGnctu2kURnEuJxfEBBJOlqmpW99xCbJ2WitxQM2aFZJpR6RklBOag2JVlHZNlW5a
-	hj20OFbmtZ4YdoqXctZX5Xo8ZCe5aZwO1Cruo+eqSvHyf0yZXcGbcEhnQAxwRedtfLsw5knuozE
-	fMrFuCAWqvp+0Rt9l8PNHJqnQkl9HpVAyk2gZtVmFylMnP4Ql/KFtVnWh1sU152+inXQ9OqPIMD
-	WUsnD8zq3n1vUpJEK5BUkoTSa99JKSD4Fz6vGoDWgfqtbwTpFqX5dQla/uxftdB48Vv8wx+1qvz
-	CFIb7ZxjDt5OEi81X6Io4r174uHjjrdZS4pgcqRZ+rlso0qeEPLwjppRfERwjYwJe94szrhfTgF
-	GJzMoF0nlkWoDuOgnxOol7TUFC6dHXLevLWROaZaV
-X-Google-Smtp-Source: AGHT+IG9i51GlTb942C5ihsmogIc9jwtGqVhW1nvYyc1zEeQFwX7HwO+FHBl026kMNQgLvBQXIrZnw==
-X-Received: by 2002:a05:6000:2b03:b0:390:fe4b:70b9 with SMTP id ffacd0b85a97d-399739d482fmr1705354f8f.21.1742380794749;
-        Wed, 19 Mar 2025 03:39:54 -0700 (PDT)
-Message-ID: <388596f8-02fa-4d95-a35d-4e0c44a70c16@suse.com>
-Date: Wed, 19 Mar 2025 11:39:53 +0100
+        d=1e100.net; s=20230601; t=1742381184; x=1742985984;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Lj2KzgTX9J4nlnRoJMx44xMinjBuaoBGVzEIuYIfPco=;
+        b=ZxJ/+p1pxWqY3e4KOdqJGnQHwnc4Z1l6OPCJ+9ws4xqGCLepULqQ7QIqwmygTQ9czG
+         UFeAZDxwmTKg3P0r0e6tmleW9Q0XY6HOoHOPVkE1gtsFOkNpUdubFuN23zPT0h5nT6Kj
+         4HdBKYYu+gsqnr+T4BxbGR2FZW9gKICChTiNkuGj1ZxQylluT3d0TbHEclelaZH4Q5X8
+         peQzttC+xe0BvZf/q8YI5cW5ajrv3V/q8ekrglKFeAnlbRMdKT7UCpKu21pqmQXSg8yh
+         Og1LrZQqf5MpNLvR/RFmXygZAaWsp4f+vSihn+sO58yhwy3s2CB5moPdtwlgbGY1cTKy
+         6FUg==
+X-Forwarded-Encrypted: i=1; AJvYcCXF8gzDpCCZCtdQnc5VpD1t94QmDtZ379jCDmDA6xfJu/y8m8pAcjlKan+cyzfCkGUlVFJhOasGHhU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxSIgfICGip/sUMxiDGTuW5AKaTpkPYRr0YIPFZbOZbNNUU/doL
+	X1AGBnmzwiCR9PQQXX8bw98UCtFK0ayXlxJlx4rntDupCw4iSHPkQJhcX+qBlQ==
+X-Gm-Gg: ASbGncspIAEpSIkzMW+VkY6ME0sZRzPt1nNkPcCFqzD1fm0T22nTX/hcv7xx1T+XKBh
+	TNWd1X2yA7cvDgjkzetxqcztMz6gRjemTeAt44IgYrBRSUjX0Y+080PmzEh/NQs33zU8SKcE56m
+	nUWmnqJ+Uvxsss3PMQWylM1cBAenQcp1TFKio6dIZ3ZiWSGYoUdLJ4SJvYlZArWbBAGkk5QG+hv
+	bfHmhgQBRz7NDWS5j/c7jf5gQr2E2rgt0vGU8JuRs4joprmuGXg9a+6ffTb/wrbX4gYQWD/03+e
+	tOBW2Zr9FhLJD8F/8IC7XydzXeHDYVnTLTOxNax8/FuajtZ8D0i10SMI0Yb1LgypT1fJUUKUx5t
+	nYrGt1rx+EtZpRL3c3OxYh9GCq9I3yA==
+X-Google-Smtp-Source: AGHT+IGNuf6/nrxEztrLrxR4m18P4zuoCs5y3UcY7FqgYRk4YRngDQn8Eu1BnCzICoZV+V/mytfF6w==
+X-Received: by 2002:a05:6000:381:b0:391:3cb7:d441 with SMTP id ffacd0b85a97d-39973af23c0mr1698805f8f.25.1742381183690;
+        Wed, 19 Mar 2025 03:46:23 -0700 (PDT)
+Message-ID: <27ebf169-ab63-4def-a98b-751ae1758293@suse.com>
+Date: Wed, 19 Mar 2025 11:46:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] x86/efi: do not merge all .init sections
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250318173547.59475-1-roger.pau@citrix.com>
- <20250318173547.59475-7-roger.pau@citrix.com>
-Content-Language: en-US
+Subject: Re: [PATCH 5/7] x86/mkreloc: remove warning about relocations to RO
+ section
 From: Jan Beulich <jbeulich@suse.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250318173547.59475-1-roger.pau@citrix.com>
+ <20250318173547.59475-6-roger.pau@citrix.com>
+ <a3c70637-b354-40f4-9a67-9d2aa7bcdcb0@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,44 +122,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250318173547.59475-7-roger.pau@citrix.com>
+In-Reply-To: <a3c70637-b354-40f4-9a67-9d2aa7bcdcb0@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.03.2025 18:35, Roger Pau Monne wrote:
-> As a result of relocations now being applied after the trampoline has been
-> copied into the low 1MB region, there's no need for a single .init section
-> that's writable, as .init.text is no longer modified.
-
-This builds on the confusion of the two different types of relocations that
-started in the previous patch. The change here may be okay once that other
-aspect was clarified; the description would need extending then, though, to
-cover both kinds or relocations.
-
-> Remove the bodge and fallback to the layout used by ELF images with an
-> .init.text and .init.data section.
+On 19.03.2025 11:32, Jan Beulich wrote:
+> On 18.03.2025 18:35, Roger Pau Monne wrote:
+>> Relocations are now applied after having moved the trampoline,
 > 
-> The resulting PE sections are:
-> 
-> Sections:
-> Idx Name          Size      VMA               LMA               File off  Algn
->   0 .text         0019072c  ffff82d040200000  ffff82d040200000  00000440  2**4
->                   CONTENTS, ALLOC, LOAD, READONLY, CODE
->   1 .rodata       000884c8  ffff82d040400000  ffff82d040400000  00190b80  2**2
->                   CONTENTS, ALLOC, LOAD, DATA
->   2 .buildid      00000035  ffff82d0404884c8  ffff82d0404884c8  00219060  2**2
->                   CONTENTS, ALLOC, LOAD, READONLY, DATA
->   3 .init.text    00052866  ffff82d040600000  ffff82d040600000  002190a0  2**2
->                   CONTENTS, ALLOC, LOAD, READONLY, CODE
->   4 .init.data    00059730  ffff82d040658000  ffff82d040658000  0026b920  2**2
->                   CONTENTS, ALLOC, LOAD, DATA
-> [...]
+> That's two entirely different sets of relocations, isn't it? What we generate
+> here is what is to be encoded in the PE binary's .reloc section, for the PE
+> loader to process. And for us to then process again once we move Xen back to
+> its linked position (by virtue of leaving physical mode). Therefore what
+> matters here is whether these relocations are still carried out while on the
+> page tables to boot loader created, or when already on page tables we control.
+> In the former case any relocation to a non-writable section would be liable
+> to fault when applied.
 
-Just to mention it, also because Demi raised concern: This will leave us
-with yet more sections with long names. We may want to consider to e.g. use
-.init.t and .init.d instead. (Of course there's nothing we can really do
-about the various .debug_* sections, as those can only be identified by
-name. The only option I see there is to strip the binary.)
+And yes - both calls to efi_arch_relocate_image() are ahead of switching page
+tables. The first call is benign - no writes occur there. The second call
+would cause #PF though for any relocs applied to .text or .rodata or .init.text
+or whatever else is non-writable.
 
 Jan
 
