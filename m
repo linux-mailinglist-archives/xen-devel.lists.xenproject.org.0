@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A533CA69A11
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 21:15:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.921123.1325117 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5836A69A51
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 21:42:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.921140.1325128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuzp3-0005UQ-Pr; Wed, 19 Mar 2025 20:15:29 +0000
+	id 1tv0Eu-0003G8-SM; Wed, 19 Mar 2025 20:42:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 921123.1325117; Wed, 19 Mar 2025 20:15:29 +0000
+Received: by outflank-mailman (output) from mailman id 921140.1325128; Wed, 19 Mar 2025 20:42:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuzp3-0005Rs-NH; Wed, 19 Mar 2025 20:15:29 +0000
-Received: by outflank-mailman (input) for mailman id 921123;
- Wed, 19 Mar 2025 20:15:28 +0000
+	id 1tv0Eu-0003EU-O5; Wed, 19 Mar 2025 20:42:12 +0000
+Received: by outflank-mailman (input) for mailman id 921140;
+ Wed, 19 Mar 2025 20:42:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F/Ds=WG=linaro.org=pierrick.bouvier@srs-se1.protection.inumbo.net>)
- id 1tuzp2-0005Rm-MI
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 20:15:28 +0000
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [2607:f8b0:4864:20::102d])
+ <SRS0=Pxv1=WG=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1tv0Et-0003EH-3k
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 20:42:11 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e571a07d-04fe-11f0-9ea0-5ba50f476ded;
- Wed, 19 Mar 2025 21:15:27 +0100 (CET)
-Received: by mail-pj1-x102d.google.com with SMTP id
- 98e67ed59e1d1-3011737dda0so87773a91.1
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 13:15:27 -0700 (PDT)
-Received: from [192.168.1.67] ([38.39.164.180])
+ id a0d24f70-0502-11f0-9ea0-5ba50f476ded;
+ Wed, 19 Mar 2025 21:42:09 +0100 (CET)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5497e7bf2e0so136294e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 13:42:09 -0700 (PDT)
+Received: from [192.168.0.110] ([91.123.153.246])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-301bf5b80b5sm2116351a91.38.2025.03.19.13.15.24
+ 2adb3069b0e04-549ba864e75sm2106449e87.124.2025.03.19.13.42.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 13:15:25 -0700 (PDT)
+ Wed, 19 Mar 2025 13:42:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,77 +45,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e571a07d-04fe-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: a0d24f70-0502-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1742415326; x=1743020126; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=gmail.com; s=20230601; t=1742416929; x=1743021729; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=jjJvlOnU49s+Zbb8733WbLiCItr7uaYdoO51OudCE6k=;
-        b=StbmPQZgnaFHQmcz19sxbSAzwC4Bqko1Nr2Djedeo4lK/oNiBSBrRCI7ydFukovl/7
-         gF03JMoO/L9LeaXKhhw3J4MRvk22hZNwJusnKrNmWX0LcHNyqG7Zzb2ezHEJ6968cIEl
-         tffsCFAkbBgxRJ53CEdjQdaCd6XWnPvr6pa23yq6a10LXjpcJP6MQLNZGk07DvD8Cskw
-         M4O3+LRmFhxbgx3AjOva2295QHhA9uoB6zTyfVqpb+m/sugfxltcRFH7n9ZqVkheXM1L
-         rFVGMfYsY/WJZ9fM8lALddYcVdFTTX9NkhNqJ6N1vYcpgMBlaffsGA+7ulVyJLdfHvPF
-         DqTQ==
+        bh=wLyoW/A7SqabDu9WlhQnDpbyTUIaJSU29WSZq1CHiVE=;
+        b=bUEG0up2gt8EklKOyhWhfqHMmaPp1XVexldF2RvIFdQH1VA8Oh5V++kWBk1NOBtYXk
+         VK6AMNO8nOE7+42+KwlpuhJLb7EpaUVpbRuXfG1PNNmqwpClU/LdvEyjT7NPtXuf6Mu8
+         DU2jgg8BazFNbfvO4Irs4Ec8z9mHhIUi4LGcnaktKalxzE7tpd/AH/nhrZ4Ej/A2YQqr
+         4NaecP8IcAT/fhQ2zisIsR0tMzi5G2nPdTJmAdgXGeB8RRMeRz4LG/yNhXg6nEu0qz5K
+         A8YEng3TNDjZTrdvnn8WBe1KqRnDkS7SrbqrGtKihp1VH2GVSjSX51fbEkQkz1EbFbw+
+         7K7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742415326; x=1743020126;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1742416929; x=1743021729;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jjJvlOnU49s+Zbb8733WbLiCItr7uaYdoO51OudCE6k=;
-        b=nYAY7zrWJR16VlnNhC55LDg7Gms6zKKkbzjWPIwtgLQeTHxW8PDTiZHaY3rz2To/u5
-         2WQ9pKmcH5016xqGOhpIzt7KZ1w5kN+5nrFe0DQZsTv8KvQpeqLVFvtuIutwmGystpJC
-         zYGodRxO5dolNQIfpyIq2TdjLUz6cnUJupYqHlqsQcPuK6LfBVGG849npLsqxrzRZUE0
-         nq9RQGWxFeFXO/SN4Q9wCAl5wqoIaKgDQUzZp+U0q3Oe3KUv/YWlgDvteZ2Q/z95DEaX
-         7G1ti5LMcCrVp/iguYnXRbZ1HcP03OnhdRxCDgZdOd1Hoh84JuNFHq829M9W53WtbWwD
-         Ylbg==
-X-Forwarded-Encrypted: i=1; AJvYcCUjxOpRgcgSSNge/usfj9LOxnWo7uqF7GrdgzW9uBXZGzlEyVaLKorhvksLmg0OHX+TlszT64fRa3g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx4dUq4imxRAEzVMOWFNdDTCvd4d7MFoZZFsrT3T8HpungOn9Hf
-	z2NbA0Ayn4yyVcEodF5Bnn7+F7gXIgx3cZ0UXmn5EHBgNOPTnkDVuf46X70yWJY=
-X-Gm-Gg: ASbGncsdmzRxBRRjlPnWrtH5qp8xqwPQ5e10iO+JESpXA4KPAiG3znEqEL0MmAy2ADI
-	VlQTNZROB/fM7rBEW6aptl7fuFgymzZhAEzu3g1Sa7kzi9KIxqwADcXz/WYR/4uuewSbDlJrSH8
-	+NoFhhatVuhDTK/eUBboM9F2xYj0jVBBzjThtQicHjDXoHyTlHxyOLovfWxyt6dqtl2ZvSmz9Fx
-	4Xml7HkxPv7Exmzc0s+WkFwKlFeVR1IFekODSzFXI29vSGuqCMla6ANyPVNZmhsBmQ3JPbldz+1
-	5AbEMRnmwBZdsQLaqcnk4oBIvNbBamLFQzY48pvPY2hspgKN42IfrCH6QQ==
-X-Google-Smtp-Source: AGHT+IG/qfPdy626hThIYa/RsoZd8+ixXNZ5S+14ncTQSUR3/THRotw28A4RHNR31RiMxmmch69q8w==
-X-Received: by 2002:a17:90b:1a88:b0:2ff:7331:18bc with SMTP id 98e67ed59e1d1-301be202b7fmr5479737a91.26.1742415325934;
-        Wed, 19 Mar 2025 13:15:25 -0700 (PDT)
-Message-ID: <9c48029e-1921-447e-8b38-4b171dce1210@linaro.org>
-Date: Wed, 19 Mar 2025 13:15:24 -0700
+        bh=wLyoW/A7SqabDu9WlhQnDpbyTUIaJSU29WSZq1CHiVE=;
+        b=fpCPwpXOKni1K61opNlob9Ii9D18Ogg3J31nq3sWvWG6is6xvvJmeXlM70Tg+yghj4
+         MzPP4hjrGisQ9CG6xBNQI9QRrx9nAJGjJQQtmhbRF8hngJdYH9rARKgWXCHW4/gdCTfe
+         tA/7GjIMXRsy0KdJNQrhdFYU4kiCvWWijsz7scIL3ajZOeg6vurJl/TdhT6Zr9zEgjxC
+         2PH+g864Ch23U2DAGlLwFUuao3zFCyC2a999dlPCVBLNMp6Jvama6u4cWMHUjNm+Hz5i
+         XQrBm18oIsBycMmnhna5PnW7XAODiWSU/GBUMkFK99Xe4p/lG0Ri+9lAHW+GasMxWyxu
+         p/tQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX/PWV+7qAKDva9TZ+sfYgbqzOhxOA4RfUkNMaMl6W+XZ0eDai2jaAGd8pounN29YwNhkxvHBR6eOs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwmHf5Me0uH5kP0UxjlimuZu3v6IuB1ahgilcPRM57evBn1mGUu
+	HVwXk6d/WgZYFjWc6kUyuOfBny10j9N+Kxf84nP/cYPSXLz77rE5
+X-Gm-Gg: ASbGnctPdZDtJF2fbIa43YMJJWruy4ofV82msDcAZFCCjG0us8mdNCVlbi+kKN2ZbOQ
+	zz0y9YvHSLdzp4Ko/esh06nPb4yB5uWXg4g3jLI3yYJwp9DY8HJVucuyUZWpbi2k/yyAtATFLtU
+	iXML2mk0DtnrG0RuZ0/zBf6lubxZxX1O2YQ7t2BsMgssM82pjEoTC+dKwoN7YQ15uYES3jgwjDf
+	5+flhwRsZ3mqIKZEgijGuPpHLdUch0/LRGZvwz92ALstmr6UtjdmjqFUbcagJ3bJxFdXqa4R97P
+	SkMLDCl+8T6HyfQqYsf6ai5s4NlsUs0hquBFyjlW0AMfZ3HmXqzqLUDHeIHd
+X-Google-Smtp-Source: AGHT+IE5y8rVgBmHdINEqHPYYSCQ6/sJA1tox3T2J+KmS9FPKdebkYE5eIRwArvimsV/MJpQjL24ZQ==
+X-Received: by 2002:a05:6512:3da8:b0:549:5822:c334 with SMTP id 2adb3069b0e04-54acb21db2bmr1671995e87.52.1742416928607;
+        Wed, 19 Mar 2025 13:42:08 -0700 (PDT)
+Message-ID: <0f54652b-3af2-4d52-b3a1-76a5dbeddb14@gmail.com>
+Date: Wed, 19 Mar 2025 22:42:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 13/18] system/xen: remove inline stubs
-Content-Language: en-US
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: qemu-devel@nongnu.org, Paul Durrant <paul@xen.org>,
- xen-devel@lists.xenproject.org, David Hildenbrand <david@redhat.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, qemu-riscv@nongnu.org,
- Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Harsh Prateek Bora <harshpb@linux.ibm.com>, alex.bennee@linaro.org,
- manos.pitsidianakis@linaro.org,
- Daniel Henrique Barboza <danielhb413@gmail.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Alistair Francis <alistair.francis@wdc.com>, qemu-ppc@nongnu.org,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Weiwei Li <liwei1518@gmail.com>, kvm@vger.kernel.org,
- Palmer Dabbelt <palmer@dabbelt.com>, Peter Xu <peterx@redhat.com>,
- Yoshinori Sato <ysato@users.sourceforge.jp>,
+Subject: Re: [PATCH 2/2] xen/dm: arm: Introduce inject_msi2 DM op
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Nicholas Piggin <npiggin@gmail.com>
-References: <20250317183417.285700-1-pierrick.bouvier@linaro.org>
- <20250317183417.285700-14-pierrick.bouvier@linaro.org> <Z9rNBFsWR39czUGQ@l14>
-From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
-In-Reply-To: <Z9rNBFsWR39czUGQ@l14>
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Mykyta Poturai <Mykyta_Poturai@epam.com>
+References: <cover.1705066642.git.mykyta_poturai@epam.com>
+ <6c551b03796fbf091b22fcde96d894cd5308ff91.1705066642.git.mykyta_poturai@epam.com>
+ <1793f158-ed83-46f9-be12-68c5ce86e4c4@suse.com>
+ <495906c3-9937-4b54-ae3a-8e8ad2b9814f@epam.com>
+ <a738e3d9-bfd3-46be-8f66-cbbe4353f93a@suse.com>
+ <7b3a5232-c17e-49d8-8719-a42745144338@epam.com>
+ <65f0072f-33c0-4436-8e34-3544d25c9568@suse.com>
+ <19d8224a-04e0-45bb-9471-abeb684e9cad@epam.com>
+ <7f523597-cf70-4673-b4a2-fac602253a9e@suse.com>
+Content-Language: en-US
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <7f523597-cf70-4673-b4a2-fac602253a9e@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
 
-T24gMy8xOS8yNSAwNjo1NiwgQW50aG9ueSBQRVJBUkQgd3JvdGU6DQo+IE9uIE1vbiwgTWFy
-IDE3LCAyMDI1IGF0IDExOjM0OjEyQU0gLTA3MDAsIFBpZXJyaWNrIEJvdXZpZXIgd3JvdGU6
-DQo+PiBSZXZpZXdlZC1ieTogUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgPHBoaWxtZEBsaW5h
-cm8ub3JnPg0KPj4gU2lnbmVkLW9mZi1ieTogUGllcnJpY2sgQm91dmllciA8cGllcnJpY2su
-Ym91dmllckBsaW5hcm8ub3JnPg0KPiANCg0KVGhpcyB3YXMgYSBiYWQgY29weS1wYXN0ZSwg
-dGhhbmtzLg0KDQo+IFJldmlld2VkLWJ5OiBBbnRob255IFBFUkFSRCA8YW50aG9ueS5wZXJh
-cmRAdmF0ZXMudGVjaD4NCj4gDQo+IFRoYW5rcywNCj4gDQoNCg==
+
+
+On 19.03.25 14:37, Jan Beulich wrote:
+
+Hello Jan, all.
+
+
+> On 19.03.2025 13:05, Mykyta Poturai wrote:
+>> On 18.03.25 16:26, Jan Beulich wrote:
+>>> On 18.03.2025 14:31, Mykyta Poturai wrote:
+>>>> On 18.03.25 12:11, Jan Beulich wrote:
+>>>>> On 18.03.2025 10:10, Mykyta Poturai wrote:
+>>>>>> On 15.01.24 11:35, Jan Beulich wrote:
+>>>>>>> On 14.01.2024 11:01, Mykyta Poturai wrote:
+>>>>>>>> --- a/xen/include/public/hvm/dm_op.h
+>>>>>>>> +++ b/xen/include/public/hvm/dm_op.h
+>>>>>>>> @@ -444,6 +444,17 @@ struct xen_dm_op_nr_vcpus {
+>>>>>>>>      };
+>>>>>>>>      typedef struct xen_dm_op_nr_vcpus xen_dm_op_nr_vcpus_t;
+>>>>>>>>
+>>>>>>>> +#define XEN_DMOP_inject_msi2 21
+>>>>>>>> +#define XEN_DMOP_MSI_SOURCE_ID_VALID (1u << 0)
+>>>>>>>> +
+>>>>>>>> +struct xen_dm_op_inject_msi2 {
+>>>>>>>> +    uint64_aligned_t addr;
+>>>>>>>> +    uint32_t data;
+>>>>>>>> +    uint32_t source_id; /* PCI SBDF */
+>>>>>>>
+>>>>>>> Since the comment says SBDF (not BDF), how are multiple segments handled
+>>>>>>> here? At least on x86 (VT-d and V-i) source IDs are only 16 bits iirc,
+>>>>>>> and are local to the respective segment. It would feel wrong to use a
+>>>>>>> 32-bit quantity there; IOW I'd rather see this as being two 16-bit fields
+>>>>>>> (segment and source_id).
+>>>>>>
+>>>>>> I'm planning on resuming this series in the near future and want to
+>>>>>> clarify the DM op interface.
+>>>>>>
+>>>>>> Wouldn't it be better to keep things consistent and use
+>>>>>> XEN_DMOP_PCI_SBDF as it's done in xen_dm_op_ioreq_server_range? Also
+>>>>>> with this, the value can be easily casted to pci_sbdf_t later and split
+>>>>>> to segment and BDF if needed.
+>>>>>
+>>>>> The essence of my earlier comment is: Naming, contents, and comments need
+>>>>> to be in sync.
+>>>>>
+>>>>> I question though that "casting to pci_sbdf_t" is technically possible.
+>>>>> Nor am I convinced that it would be desirable to do so if it was possible
+>>>>> (or if "casting" was intended to mean something else than what this is in
+>>>>> C). See my recent comments on some of Andrii's patches [1][2].
+>>>>>
+>>>>> Jan
+>>>>>
+>>>>> [1] https://lists.xen.org/archives/html/xen-devel/2025-03/msg01294.html
+>>>>> [2] https://lists.xen.org/archives/html/xen-devel/2025-03/msg01301.html
+>>>>
+>>>> Would something like this be okay then?
+>>>>
+>>>> struct xen_dm_op_inject_msi2 {
+>>>>        /* IN - MSI data (lower 32 bits) */
+>>>>        uint32_t data;
+>>>>        /* IN - ITS devid of the device triggering the interrupt */
+>>>>        uint32_t source_id;
+>>>>        uint32_t flags;
+>>>>        uint32_t pad;
+>>>>        /* IN - MSI address */
+>>>>        uint64_aligned_t addr;
+>>>> };
+>>>>
+>>>> Added padding and explained source_id purpose better.
+>>>
+>>> I fear the comment is far from making clear what layout source_id is to
+>>> have, hence also leaving open whether a segment number is included there.
+>>> Of course the issue here may be that I have no clue what "ITS devid"
+>>> means or implies. What is clear is that "ITS devid" is meaningless on
+>>> x86, for example.
+>>
+>> ITS devid is implementation defined. Its size is also implementation
+>> defined but up to 32 bits.
+>>
+>> Quotes from Arm Base System Architecture[1]:
+>>   > The system designer assigns a requester a unique StreamID to device
+>> traffic input to the SMMU.
+>>   > If a requester is a bridge from a different interconnect with an
+>> originator ID, like a PCIe RequesterID, and devices on that interconnect
+>> might need to send MSIs, the originator ID is used to generate a
+>> DeviceID. The function to generate the DeviceID should be an identity or
+>> a simple offset.
+>>
+>> On the Xen's side it is used as an offset into the ITS translation
+>> tables and is sourced from msi-map nodes in the device tree.
+>>
+>> Practically for PCI the requester ID is usually the SBDF. Where the
+>> segment is used to find the host bridge node that contains the msi-map
+>> node with defined offsets but it is also included as part of an id.
+>> That's why it was originally called SBDF in the comment. I don't know if
+>> there is a better way to describe what it is concisely in the comments.
+> 
+> If this is to be usable for other architectures too, it may need to be
+> a union to put there. With appropriate comments for each member.
+
+
+If I got correctly what is wrote in current thread (and in RFC version 
+where it was an attempt to create just Arm64's counterpart of 
+XEN_DMOP_inject_msi), my understanding (maybe not precise/correct, since 
+I am not quite familiar with x86 details) that we would need something 
+like that:
+
+
+/*
+  * XEN_DMOP_inject_msi2: An enhanced version of the sub-ob to inject an MSI
+  *                       for an emulated device, which allows specifying
+  *                       the ID of the device triggering the MSI 
+(source ID).
+  *
+  * The source ID is specified by a pair of <segment> and <source_id>.
+  * If <flags> does not contain XEN_DMOP_MSI_SOURCE_ID_VALID then source ID
+  * is invalid and should be ignored.
+  */
+#define XEN_DMOP_inject_msi 21
+
+struct xen_dm_op_inject_msi2 {
+      /* IN - MSI data */
+      uint32_t data;
+      /* IN - next two fields form an ID of the device triggering the MSI */
+      uint16_t segment; /* The segment number */
+      uint16_t source_id; /* The source ID that is local to segment (PCI 
+BDF) */
+      /* IN - types of source ID */
+      uint32_t flags;
+#define XEN_DMOP_MSI_SOURCE_ID_VALID (1u << 0)
+      uint32_t pad;
+      /* IN - MSI address */
+      uint64_aligned_t addr;
+};
+
+
+This is arch agnostic sub-op without the (obvious) specifics of the 
+underlying MSI controller. The sub-ob, I hope, will be suitable on both 
+Arm64 soon (segment + source_id provide vSBDF, then it will possible to 
+locate vITS and devid) and on x86 in future (for the vIOMMU needs).
+
+Would you be ok with that in general? Please share you opinion.
+
+
+> 
+> Jan
+> 
 
