@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5836A69A51
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 21:42:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.921140.1325128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D98E7A69A77
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 22:01:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.921164.1325138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tv0Eu-0003G8-SM; Wed, 19 Mar 2025 20:42:12 +0000
+	id 1tv0Wf-0006vL-Ew; Wed, 19 Mar 2025 21:00:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 921140.1325128; Wed, 19 Mar 2025 20:42:12 +0000
+Received: by outflank-mailman (output) from mailman id 921164.1325138; Wed, 19 Mar 2025 21:00:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tv0Eu-0003EU-O5; Wed, 19 Mar 2025 20:42:12 +0000
-Received: by outflank-mailman (input) for mailman id 921140;
- Wed, 19 Mar 2025 20:42:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tv0Wf-0006sw-B8; Wed, 19 Mar 2025 21:00:33 +0000
+Received: by outflank-mailman (input) for mailman id 921164;
+ Wed, 19 Mar 2025 21:00:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Pxv1=WG=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1tv0Et-0003EH-3k
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 20:42:11 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a0d24f70-0502-11f0-9ea0-5ba50f476ded;
- Wed, 19 Mar 2025 21:42:09 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-5497e7bf2e0so136294e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 13:42:09 -0700 (PDT)
-Received: from [192.168.0.110] ([91.123.153.246])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-549ba864e75sm2106449e87.124.2025.03.19.13.42.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 13:42:07 -0700 (PDT)
+ <SRS0=1XZm=WG=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1tv0We-0006sn-Bh
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 21:00:32 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20622.outbound.protection.outlook.com
+ [2a01:111:f403:2413::622])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2fce585e-0505-11f0-9ffa-bf95429c2676;
+ Wed, 19 Mar 2025 22:00:29 +0100 (CET)
+Received: from BLAPR03CA0113.namprd03.prod.outlook.com (2603:10b6:208:32a::28)
+ by PH7PR12MB5998.namprd12.prod.outlook.com (2603:10b6:510:1da::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.34; Wed, 19 Mar
+ 2025 21:00:24 +0000
+Received: from BN2PEPF0000449E.namprd02.prod.outlook.com
+ (2603:10b6:208:32a:cafe::d2) by BLAPR03CA0113.outlook.office365.com
+ (2603:10b6:208:32a::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.34 via Frontend Transport; Wed,
+ 19 Mar 2025 21:00:24 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF0000449E.mail.protection.outlook.com (10.167.243.149) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Wed, 19 Mar 2025 21:00:23 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 19 Mar
+ 2025 16:00:23 -0500
+Received: from [172.17.183.194] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 19 Mar 2025 16:00:22 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,218 +59,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0d24f70-0502-11f0-9ea0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1742416929; x=1743021729; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=wLyoW/A7SqabDu9WlhQnDpbyTUIaJSU29WSZq1CHiVE=;
-        b=bUEG0up2gt8EklKOyhWhfqHMmaPp1XVexldF2RvIFdQH1VA8Oh5V++kWBk1NOBtYXk
-         VK6AMNO8nOE7+42+KwlpuhJLb7EpaUVpbRuXfG1PNNmqwpClU/LdvEyjT7NPtXuf6Mu8
-         DU2jgg8BazFNbfvO4Irs4Ec8z9mHhIUi4LGcnaktKalxzE7tpd/AH/nhrZ4Ej/A2YQqr
-         4NaecP8IcAT/fhQ2zisIsR0tMzi5G2nPdTJmAdgXGeB8RRMeRz4LG/yNhXg6nEu0qz5K
-         A8YEng3TNDjZTrdvnn8WBe1KqRnDkS7SrbqrGtKihp1VH2GVSjSX51fbEkQkz1EbFbw+
-         7K7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742416929; x=1743021729;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wLyoW/A7SqabDu9WlhQnDpbyTUIaJSU29WSZq1CHiVE=;
-        b=fpCPwpXOKni1K61opNlob9Ii9D18Ogg3J31nq3sWvWG6is6xvvJmeXlM70Tg+yghj4
-         MzPP4hjrGisQ9CG6xBNQI9QRrx9nAJGjJQQtmhbRF8hngJdYH9rARKgWXCHW4/gdCTfe
-         tA/7GjIMXRsy0KdJNQrhdFYU4kiCvWWijsz7scIL3ajZOeg6vurJl/TdhT6Zr9zEgjxC
-         2PH+g864Ch23U2DAGlLwFUuao3zFCyC2a999dlPCVBLNMp6Jvama6u4cWMHUjNm+Hz5i
-         XQrBm18oIsBycMmnhna5PnW7XAODiWSU/GBUMkFK99Xe4p/lG0Ri+9lAHW+GasMxWyxu
-         p/tQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX/PWV+7qAKDva9TZ+sfYgbqzOhxOA4RfUkNMaMl6W+XZ0eDai2jaAGd8pounN29YwNhkxvHBR6eOs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwmHf5Me0uH5kP0UxjlimuZu3v6IuB1ahgilcPRM57evBn1mGUu
-	HVwXk6d/WgZYFjWc6kUyuOfBny10j9N+Kxf84nP/cYPSXLz77rE5
-X-Gm-Gg: ASbGnctPdZDtJF2fbIa43YMJJWruy4ofV82msDcAZFCCjG0us8mdNCVlbi+kKN2ZbOQ
-	zz0y9YvHSLdzp4Ko/esh06nPb4yB5uWXg4g3jLI3yYJwp9DY8HJVucuyUZWpbi2k/yyAtATFLtU
-	iXML2mk0DtnrG0RuZ0/zBf6lubxZxX1O2YQ7t2BsMgssM82pjEoTC+dKwoN7YQ15uYES3jgwjDf
-	5+flhwRsZ3mqIKZEgijGuPpHLdUch0/LRGZvwz92ALstmr6UtjdmjqFUbcagJ3bJxFdXqa4R97P
-	SkMLDCl+8T6HyfQqYsf6ai5s4NlsUs0hquBFyjlW0AMfZ3HmXqzqLUDHeIHd
-X-Google-Smtp-Source: AGHT+IE5y8rVgBmHdINEqHPYYSCQ6/sJA1tox3T2J+KmS9FPKdebkYE5eIRwArvimsV/MJpQjL24ZQ==
-X-Received: by 2002:a05:6512:3da8:b0:549:5822:c334 with SMTP id 2adb3069b0e04-54acb21db2bmr1671995e87.52.1742416928607;
-        Wed, 19 Mar 2025 13:42:08 -0700 (PDT)
-Message-ID: <0f54652b-3af2-4d52-b3a1-76a5dbeddb14@gmail.com>
-Date: Wed, 19 Mar 2025 22:42:04 +0200
+X-Inumbo-ID: 2fce585e-0505-11f0-9ffa-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YSzIhfbSjc0CWAQUbiu1r8mB/fSpFSayqN/pItKeimVsI+7DzYKuF/pm0ww+FAAgwmNZuGKH9f0d/6S2KsZRFlF6MKFzsoWdrz5SjhqsjVQ9B1J02SNhCZcouoaa04XdPn/EEbvpDaN1m0kq6y2bPN43vgrzUUv7W/h5J7NV20hXL9Lj1miqsyGoj/bPJLhC6fj/h8kUEFXYiM9Dnn6Lq/BwCMjO9HLA4thRN8LoZgEWIX9hmE1SgIDx5G8R84E/rC68PRzFT2ImGLRbzW2SNNo3b5L4PVDSsxdoI0QYyka4f4/BhKvk2vYqFzBOV8ZtFUDD31pEXgYIxdl11ZFixw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3bgh4E+ItHHg/+K4yT0RvVp7gaPJ1C6RvwzeLly09b8=;
+ b=qLVS2JB3bAYwOYfqsITG2FP4owwVs+ahp1nq2J57BK2qlOE8p9Ehe73NPlu4kUcoCDH6pd/b/UXVJZgBZTdP6kd3X86DdhqGUzZVxek1GXLrNU6orz6hplzxMrSovWxbuCcgwsxJ5h770QL3VfLxNJ9lf4UNi/IRjSu5FNlWpgDtiaYsskU6Vh/FzDlyFXom6xGFBi0uTyu5MnnpeTAQAcAk2k19L4Zd5jp6wwi7BEKWvvGfEqjgNLXJG/uBSHFU2SMvV+gFotmWEeACHwF1xuY0MroxTRm/mhzqd0nYEdbExEjnBHjAF5ryHEXfKHsb7qdKG2YYFMqXJneBk9ZVfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3bgh4E+ItHHg/+K4yT0RvVp7gaPJ1C6RvwzeLly09b8=;
+ b=hBBLLwxukqdC2ugugiVMXCH/QyM33ZH32xxIFNDLHg2yRRYQt36kYqRiuFKZPOdkhbANiuEWDalI1o/ZrK/IEYKzKrY58a2RDuIdUlX2faJD0HvhwlqYrmstHHvyGlWDcBZASE1LxDq5ivem1Inle4hBOiGB3ufgfwrzNAadsf0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <f231aebe-aa6a-4321-b7b5-dcf7b1014eec@amd.com>
+Date: Wed, 19 Mar 2025 17:00:25 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/dm: arm: Introduce inject_msi2 DM op
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Mykyta Poturai <Mykyta_Poturai@epam.com>
-References: <cover.1705066642.git.mykyta_poturai@epam.com>
- <6c551b03796fbf091b22fcde96d894cd5308ff91.1705066642.git.mykyta_poturai@epam.com>
- <1793f158-ed83-46f9-be12-68c5ce86e4c4@suse.com>
- <495906c3-9937-4b54-ae3a-8e8ad2b9814f@epam.com>
- <a738e3d9-bfd3-46be-8f66-cbbe4353f93a@suse.com>
- <7b3a5232-c17e-49d8-8719-a42745144338@epam.com>
- <65f0072f-33c0-4436-8e34-3544d25c9568@suse.com>
- <19d8224a-04e0-45bb-9471-abeb684e9cad@epam.com>
- <7f523597-cf70-4673-b4a2-fac602253a9e@suse.com>
+Subject: Re: [PATCH v17 1/2] xen/arm: translate virtual PCI bus topology for
+ guests
+To: <xen-devel@lists.xenproject.org>
+CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	"Bertrand Marquis" <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Jiqian Chen
+	<Jiqian.Chen@amd.com>, Mykyta Poturai <Mykyta_Poturai@epam.com>
+References: <20250311201330.365499-1-stewart.hildebrand@amd.com>
+ <20250311201330.365499-2-stewart.hildebrand@amd.com>
 Content-Language: en-US
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <7f523597-cf70-4673-b4a2-fac602253a9e@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <20250311201330.365499-2-stewart.hildebrand@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449E:EE_|PH7PR12MB5998:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc027b44-140b-4c9d-1d25-08dd67291153
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?eFk0UWY1c2M1cWZra1ovTnR5cE9Ob29nZURXWFVYV3A1bzB2QW1CVExhdU5k?=
+ =?utf-8?B?NFdlYm5UUktRWmQrUVBFQ21kOGw2MUZ3RllSRkRQUyt0UWNlenlOZ1Z1cTVr?=
+ =?utf-8?B?enNqVkh3WlhJeHV3Y1poSHVST3d2WWY4N0I3LzdZU0JUeFRrWlkvejBOVUJX?=
+ =?utf-8?B?b1VYY3Bya1VicDRIVnhid3hMR0ZFbUVVUXB1UjcyRG0zSTJPNlF2S1JrOE5s?=
+ =?utf-8?B?QlBuQ010ZkZqWWI5ZW9DdDlWdEJTZmEwaWZNazRUNVZWMjBJb1dOd05qVHE4?=
+ =?utf-8?B?Yzd1VTZpSDBvNXc4WGtLVVZDMGFTMEFMbzE2enNrSWh3bVZOMHNORW51eU90?=
+ =?utf-8?B?WENodWJxVGd0TDdSVEQ2dFB6aTNxNW9OZlJ4ajJSd3JjTDBxS1pCd3VaU2p5?=
+ =?utf-8?B?SkdRbzNJREdVQllJcFhtYWRUM20yV1E5WC83WEQ2MFRGZUpRdFlZU3IyM21X?=
+ =?utf-8?B?N1VwRzZpOVZaTWVIbDUxV0lCZGx3VTVBZGlLVlpjeGo4R2QwaG9ZUUdMM2dq?=
+ =?utf-8?B?REp4WFM5WGplZ2pZOGd1VWVLSnpPN1NEK0YrVWhLbGRsYXlIUDFIM1RnVy9I?=
+ =?utf-8?B?V0ZLRTFWTmRDb0RLUk42cU1NYk9YL2Q1QjNueWFWd0s2RktLSWZwdmU2VzdX?=
+ =?utf-8?B?V1ZsZ2Z4QlJ5bGp6N3BRT0lFd0c5RDN2WEZhU0I2MEhQMnd4aTM5VWQ1WUVJ?=
+ =?utf-8?B?QjRJYmtNaFdrUElrNFl4dHBhZUE1K0dQYWZjN1Q5Y1NPU0lCL0pIRURKWWR2?=
+ =?utf-8?B?b2FnaVcxamYyS2FzeFpuSUdiYlRsalk2Y2pMY3lmTTh6MnBzVFFvdjBwZkpB?=
+ =?utf-8?B?TnkwNXBrZGo4Sy9XMXU4bGFNdWRtU2R4NDlQaHlsQWIyd29BYWlCcGtWS0x4?=
+ =?utf-8?B?bjJUZE5UOExVWkYzNSs3OHhGK3FwZjVPS1RGcFRuWVJYU2NZN3c4aHhSaFd4?=
+ =?utf-8?B?T0VJd0Q0RDZLVElzbW1scHF1aXcrcTNmdmYvWTRwc1J3RTdlUXlpeTRoSmx0?=
+ =?utf-8?B?WnorcnQyTC9yb1pSMXIwN084SmNKekI2VmtUeGZwQ016SWRJTnFHcjhIQ0hG?=
+ =?utf-8?B?NGhyS202eFB1Rzl4eFZpSmFxMUtPUG1MMEozTzBXRU9lb2JtM2h3MDhzSTZM?=
+ =?utf-8?B?RkEzcnJiSGRJSktwZDBjaGVPZ2RKcUdSVHF0ZlRudDBtdUVOQXNXdU1iMkVM?=
+ =?utf-8?B?K0NRbWpybGJTWWNpd1dCbEFTZEluQzVTbUJoSHVUNmVsVGZSajVJWkdiS3hr?=
+ =?utf-8?B?UmxyeGxSR3RiaVZpdXNldzJneC91cnd4SkpaTWVKSTJPZG8xMU5sK2lrUEs3?=
+ =?utf-8?B?QlFvOTJLVzNneHd0TDZPU0RqcEgwdUVvWE5sTGp3alErTUVUbEhmSnRMQ01y?=
+ =?utf-8?B?WE1VQTF1ZGRNUkp6K05zUkx1K1h0eE1DUmQ0R3dzaGxzK1V6T05tTGV6MWhU?=
+ =?utf-8?B?UFFsNjR0Z2IwejMrdUlKaFlhYk5BTklTRFNwd0ZGcVhVLzRLQi9pSTcyTEE5?=
+ =?utf-8?B?Z2F4bnZtVyt6OWcralV6NVhaWFd2Q2pMSGRsUmNZL3JuSkEzL3pmSnZJNHEy?=
+ =?utf-8?B?VzY3amNYZW0yRVdocCtXR1VreTN0RFdLdTM3UUFZMGdZYjc1QVJHaTJwRFlV?=
+ =?utf-8?B?c1htS2x5V2NCTlYvWkpobWZRS1NiU21VMFMwU3JJR0FKNWJNUHEvbk8rbXl6?=
+ =?utf-8?B?ZXMrMlV6Z1QzL0x5L1hUcVZxc3U0ZWVZeXk4ZXRsbGEyK0VmaUFMc1krVXBp?=
+ =?utf-8?B?d3hIN3FaT3lqS3dWM210UTdydFR1b25jZ2l0UnVXc0NPTU9hOEx0bDlLUnlm?=
+ =?utf-8?B?b2ltamRjcGVuRGVPVlBDY3FjVzNRZzhyZUp3em1wSHZqRmwyUEEvN25lY3py?=
+ =?utf-8?B?enV5em00U3lvdXhsNWtJMXZneGp2bEhtRXc0RjZqNTYrLzhkbitvdjV5RW84?=
+ =?utf-8?B?bHI1a0YydzdkRXkyUzJmMGt4ZzZucXcvcyt1WW1aTEs3MWE2UzNxK1pmTCtS?=
+ =?utf-8?Q?xZbcmysqLmS5yL1/pbQ+CkaUoNlzik=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2025 21:00:23.8145
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc027b44-140b-4c9d-1d25-08dd67291153
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000449E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5998
 
+On 3/11/25 16:13, Stewart Hildebrand wrote:
+> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+> index 807401b2eaa2..e355329913ef 100644
+> --- a/xen/include/xen/vpci.h
+> +++ b/xen/include/xen/vpci.h
+> @@ -311,6 +311,18 @@ static inline int __must_check vpci_reset_device(struct pci_dev *pdev)
+>      return vpci_assign_device(pdev);
+>  }
+>  
+> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+> +bool vpci_translate_virtual_device(struct domain *d, pci_sbdf_t *sbdf);
+> +#else
+> +static inline bool vpci_translate_virtual_device(struct domain *d,
+> +                                                 pci_sbdf_t *sbdf)
+> +{
+> +    ASSERT_UNREACHABLE();
 
+Unfortunately this leads to a warning in the vpci test suite:
 
-On 19.03.25 14:37, Jan Beulich wrote:
+In file included from emul.h:88,
+                 from vpci.c:18:
+vpci.h: In function ‘vpci_translate_virtual_device’:
+vpci.h:317:5: warning: implicit declaration of function ‘ASSERT_UNREACHABLE’ [-Wimplicit-function-declaration]
+  317 |     ASSERT_UNREACHABLE();
+      |     ^~~~~~~~~~~~~~~~~~
 
-Hello Jan, all.
+... which can be fixed by doing:
 
+--- a/tools/tests/vpci/emul.h
++++ b/tools/tests/vpci/emul.h
+@@ -85,6 +85,10 @@ typedef union {
+ } pci_sbdf_t;
+ 
+ #define CONFIG_HAS_VPCI
++
++#define BUG() assert(0)
++#define ASSERT_UNREACHABLE() assert(0)
++
+ #include "vpci.h"
+ 
+ #define __hwdom_init
+@@ -112,9 +116,6 @@ typedef union {
+ 
+ #define PCI_CFG_SPACE_EXP_SIZE 4096
+ 
+-#define BUG() assert(0)
+-#define ASSERT_UNREACHABLE() assert(0)
+-
+ #endif
+ 
+ /*
 
-> On 19.03.2025 13:05, Mykyta Poturai wrote:
->> On 18.03.25 16:26, Jan Beulich wrote:
->>> On 18.03.2025 14:31, Mykyta Poturai wrote:
->>>> On 18.03.25 12:11, Jan Beulich wrote:
->>>>> On 18.03.2025 10:10, Mykyta Poturai wrote:
->>>>>> On 15.01.24 11:35, Jan Beulich wrote:
->>>>>>> On 14.01.2024 11:01, Mykyta Poturai wrote:
->>>>>>>> --- a/xen/include/public/hvm/dm_op.h
->>>>>>>> +++ b/xen/include/public/hvm/dm_op.h
->>>>>>>> @@ -444,6 +444,17 @@ struct xen_dm_op_nr_vcpus {
->>>>>>>>      };
->>>>>>>>      typedef struct xen_dm_op_nr_vcpus xen_dm_op_nr_vcpus_t;
->>>>>>>>
->>>>>>>> +#define XEN_DMOP_inject_msi2 21
->>>>>>>> +#define XEN_DMOP_MSI_SOURCE_ID_VALID (1u << 0)
->>>>>>>> +
->>>>>>>> +struct xen_dm_op_inject_msi2 {
->>>>>>>> +    uint64_aligned_t addr;
->>>>>>>> +    uint32_t data;
->>>>>>>> +    uint32_t source_id; /* PCI SBDF */
->>>>>>>
->>>>>>> Since the comment says SBDF (not BDF), how are multiple segments handled
->>>>>>> here? At least on x86 (VT-d and V-i) source IDs are only 16 bits iirc,
->>>>>>> and are local to the respective segment. It would feel wrong to use a
->>>>>>> 32-bit quantity there; IOW I'd rather see this as being two 16-bit fields
->>>>>>> (segment and source_id).
->>>>>>
->>>>>> I'm planning on resuming this series in the near future and want to
->>>>>> clarify the DM op interface.
->>>>>>
->>>>>> Wouldn't it be better to keep things consistent and use
->>>>>> XEN_DMOP_PCI_SBDF as it's done in xen_dm_op_ioreq_server_range? Also
->>>>>> with this, the value can be easily casted to pci_sbdf_t later and split
->>>>>> to segment and BDF if needed.
->>>>>
->>>>> The essence of my earlier comment is: Naming, contents, and comments need
->>>>> to be in sync.
->>>>>
->>>>> I question though that "casting to pci_sbdf_t" is technically possible.
->>>>> Nor am I convinced that it would be desirable to do so if it was possible
->>>>> (or if "casting" was intended to mean something else than what this is in
->>>>> C). See my recent comments on some of Andrii's patches [1][2].
->>>>>
->>>>> Jan
->>>>>
->>>>> [1] https://lists.xen.org/archives/html/xen-devel/2025-03/msg01294.html
->>>>> [2] https://lists.xen.org/archives/html/xen-devel/2025-03/msg01301.html
->>>>
->>>> Would something like this be okay then?
->>>>
->>>> struct xen_dm_op_inject_msi2 {
->>>>        /* IN - MSI data (lower 32 bits) */
->>>>        uint32_t data;
->>>>        /* IN - ITS devid of the device triggering the interrupt */
->>>>        uint32_t source_id;
->>>>        uint32_t flags;
->>>>        uint32_t pad;
->>>>        /* IN - MSI address */
->>>>        uint64_aligned_t addr;
->>>> };
->>>>
->>>> Added padding and explained source_id purpose better.
->>>
->>> I fear the comment is far from making clear what layout source_id is to
->>> have, hence also leaving open whether a segment number is included there.
->>> Of course the issue here may be that I have no clue what "ITS devid"
->>> means or implies. What is clear is that "ITS devid" is meaningless on
->>> x86, for example.
->>
->> ITS devid is implementation defined. Its size is also implementation
->> defined but up to 32 bits.
->>
->> Quotes from Arm Base System Architecture[1]:
->>   > The system designer assigns a requester a unique StreamID to device
->> traffic input to the SMMU.
->>   > If a requester is a bridge from a different interconnect with an
->> originator ID, like a PCIe RequesterID, and devices on that interconnect
->> might need to send MSIs, the originator ID is used to generate a
->> DeviceID. The function to generate the DeviceID should be an identity or
->> a simple offset.
->>
->> On the Xen's side it is used as an offset into the ITS translation
->> tables and is sourced from msi-map nodes in the device tree.
->>
->> Practically for PCI the requester ID is usually the SBDF. Where the
->> segment is used to find the host bridge node that contains the msi-map
->> node with defined offsets but it is also included as part of an id.
->> That's why it was originally called SBDF in the comment. I don't know if
->> there is a better way to describe what it is concisely in the comments.
-> 
-> If this is to be usable for other architectures too, it may need to be
-> a union to put there. With appropriate comments for each member.
-
-
-If I got correctly what is wrote in current thread (and in RFC version 
-where it was an attempt to create just Arm64's counterpart of 
-XEN_DMOP_inject_msi), my understanding (maybe not precise/correct, since 
-I am not quite familiar with x86 details) that we would need something 
-like that:
-
-
-/*
-  * XEN_DMOP_inject_msi2: An enhanced version of the sub-ob to inject an MSI
-  *                       for an emulated device, which allows specifying
-  *                       the ID of the device triggering the MSI 
-(source ID).
-  *
-  * The source ID is specified by a pair of <segment> and <source_id>.
-  * If <flags> does not contain XEN_DMOP_MSI_SOURCE_ID_VALID then source ID
-  * is invalid and should be ignored.
-  */
-#define XEN_DMOP_inject_msi 21
-
-struct xen_dm_op_inject_msi2 {
-      /* IN - MSI data */
-      uint32_t data;
-      /* IN - next two fields form an ID of the device triggering the MSI */
-      uint16_t segment; /* The segment number */
-      uint16_t source_id; /* The source ID that is local to segment (PCI 
-BDF) */
-      /* IN - types of source ID */
-      uint32_t flags;
-#define XEN_DMOP_MSI_SOURCE_ID_VALID (1u << 0)
-      uint32_t pad;
-      /* IN - MSI address */
-      uint64_aligned_t addr;
-};
-
-
-This is arch agnostic sub-op without the (obvious) specifics of the 
-underlying MSI controller. The sub-ob, I hope, will be suitable on both 
-Arm64 soon (segment + source_id provide vSBDF, then it will possible to 
-locate vITS and devid) and on x86 in future (for the vIOMMU needs).
-
-Would you be ok with that in general? Please share you opinion.
-
-
-> 
-> Jan
-> 
+I'll send v18...
 
