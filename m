@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 685C8A68F01
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 15:26:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920789.1324848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C92EA68F16
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 15:29:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920802.1324859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuuNQ-0001mk-0V; Wed, 19 Mar 2025 14:26:36 +0000
+	id 1tuuQI-0002Pi-IV; Wed, 19 Mar 2025 14:29:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920789.1324848; Wed, 19 Mar 2025 14:26:35 +0000
+Received: by outflank-mailman (output) from mailman id 920802.1324859; Wed, 19 Mar 2025 14:29:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuuNP-0001lK-U2; Wed, 19 Mar 2025 14:26:35 +0000
-Received: by outflank-mailman (input) for mailman id 920789;
- Wed, 19 Mar 2025 14:26:34 +0000
+	id 1tuuQI-0002Np-FT; Wed, 19 Mar 2025 14:29:34 +0000
+Received: by outflank-mailman (input) for mailman id 920802;
+ Wed, 19 Mar 2025 14:29:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBEQ=WG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuuNO-0001kD-Nr
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 14:26:34 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1tuuQG-0002NT-O6
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 14:29:32 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 27e667ad-04ce-11f0-9ffa-bf95429c2676;
- Wed, 19 Mar 2025 15:26:32 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43ce71582e9so31880265e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 07:26:32 -0700 (PDT)
+ id 92280bd7-04ce-11f0-9ffa-bf95429c2676;
+ Wed, 19 Mar 2025 15:29:31 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43cebe06e9eso33315505e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 07:29:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d43f331dasm20713295e9.8.2025.03.19.07.26.31
+ 5b1f17b1804b1-43d43fdeb6esm20456365e9.31.2025.03.19.07.29.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 07:26:31 -0700 (PDT)
+ Wed, 19 Mar 2025 07:29:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27e667ad-04ce-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 92280bd7-04ce-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742394392; x=1742999192; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742394570; x=1742999370; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8PQnakvylZY9QpVX/EMz9QUNknaDAdPSzQ1ITE4XWD4=;
-        b=F43TjAJfNeHqeESW6k2UjSnSzl5gl0W3kLeNR1+gModCTXKgkGEDIwwa7kbJp28yJD
-         kskA3AEzxUNVp8MA24AEBE8CFdy98u6ai4aXBOQah8HUuVvJ+JgvDVWjkfJS0fZyF3H+
-         U37BvnU4YqeWZSZqj+lJsP6lhdBOehqtr91KEdX6wbDcktzSoksN8Mzrj94skrcdfCEv
-         sTxI6Xri2QUu9xNEhfOR/67my10V5N0RGjvJKrcKqZaXmTXSZqSjbKZPTbp6bRFIYtOd
-         HlnUlsQJmHEzVN7op1GocoZ2VlTrNYuPnrsRW5M7SK2LVhWEyAraOWIh+UPwIEoHbUgp
-         5x0Q==
+        bh=9chD1AXAcocFm5UVDi2Gr5S/mJL+Pr0m8lUaZ6dNcoE=;
+        b=K5sg0Pigv3hw7ENknke3sFGtli9eCKAY96nakl6eGbr+yhGBuHDwyJUa8cUI4cYyLG
+         3mOiP/OGhOGVtc/ku8BHpj9JIjFCYLzZrHpP3rgVozNRS8OoPDPjXzn+cAFyDYsQ7fKZ
+         X6MRWGSqgigKa0kO39tlCAKHuJPL1ccLN9v2Cjwa1tYxm6jEy7q6+TXXMN/+NoDindV+
+         3VEj5UDK6uUNkWlTGDhBVnMJLtaD3lro89PVGkuzAzxEFEKrSHyQkpdSSZanQtERCx9p
+         h0WOBjSSUpxiyBsQLyvmq+bC5Tar4Q77cJCM/8q/ayobtPEW9k3PNXhU9PzbjXZbrD3D
+         twVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742394392; x=1742999192;
+        d=1e100.net; s=20230601; t=1742394570; x=1742999370;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8PQnakvylZY9QpVX/EMz9QUNknaDAdPSzQ1ITE4XWD4=;
-        b=lkywI1Ybb2fu2AxfT15vhMeAbwSuefEG9qXmHDyXSqys+WhNYpwDjepB3Vc2ebzLOo
-         NTnYLtCVX3xV8S2OIOkVMp18dWq9a177PEG4XxnlEneoKENCAs9Ic0dffjKwXGjqZXCZ
-         rGaA6pZBo6PV1g/X4W/GX1R8re7l9NehDkLKgT9OgN57fHZtq+m6/Qf5nxawjCL1bAiK
-         VS18dOtYNpAUu4m3FBkQ33gYwVBLZcrOikmK47YnSBkRbZAmKFHPL2lj7CHeg8tgl0fk
-         K+4ZH85V4u4jxap7WD3V/CyrEZ2wC/197qcRx//NOHAHBEDabX7Rwql04M/8Gxjn7RRT
-         vdVQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV+XsiNwMoe+4ZCnaPAmRVDnmEkiwcRenPdCTbJtNt6IzrmkssVFiraATH7h/r2HkdWMzX13gLbe80=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzeyz44hl6tPHjzrpO+/MD+zyUIIuLeQ95OMYkYVyVBM6nAYW9b
-	3vrRRDPrak7augs1sXjUXE7QEvgAk5NUQZEt9B4sFewXg0DTC/Z9XuXjQUI2dQ==
-X-Gm-Gg: ASbGnctCfLz1YZfK0XVWduB6s+DPrD9+TrTllQdzW0bzRIH0p/jQEbW3au62UW+UYw9
-	5o1Ge0hRTtxyS0vxMvgtkhOxRJhLPIGXn0h+EwEuC1tl31ODbOe+wF3XV3JcSL81YiDwWZ5OZQn
-	OiA5NFI6LbWIscqncMergLWQZPUI6/M24BTN/Cl2uH0ylWRyIzQ89T8CTX9lCawByCertCwEMEZ
-	UGsxZlqi3q2V08Uw5+igtChkEE/I6mNTLYhLBHap0q5DONQSqszb9lbAoYvhQEQ6FsPk54I0hZF
-	zU/DB1r76Ejy/lukCXahUm0n2UiMKKC7BXukHz3HKcW1TRAU+hU3NATkG4CEP0nwE7Zd3kj9pTK
-	j30kklmOHKIB/ktTjK+USxAzJ7qs7yg==
-X-Google-Smtp-Source: AGHT+IGEXUEB8qV65f7YQewcr+nmy8V/wIzan7cmRHdC1B8io9XKxRCPf8Gz2V9BiAqSi1yQqQnRcA==
-X-Received: by 2002:a05:600c:3b10:b0:43c:fd72:f028 with SMTP id 5b1f17b1804b1-43d4384e93fmr25344335e9.29.1742394392232;
-        Wed, 19 Mar 2025 07:26:32 -0700 (PDT)
-Message-ID: <2f3548cf-a6dd-41e2-8a35-cab1bda0e923@suse.com>
-Date: Wed, 19 Mar 2025 15:26:31 +0100
+        bh=9chD1AXAcocFm5UVDi2Gr5S/mJL+Pr0m8lUaZ6dNcoE=;
+        b=TCNRX6cjECexWz7p3MRflScPz+PyWywM+fuKUFRyN2v9d2C5vvIE+OK/cPACHR/iuP
+         4OW6CBG9DeXIC8pWm4TZ1jRJLz4wKcIl4L/lG0eLJ27psQrH21c+NDWfFyAbfvQuNuY8
+         a1RFXKN5CKXnoStjewxTzy49c/pFcVdFNcQ4id5rg+Z24S4TVKzC08Gq0U4/YEnKKvF4
+         y+vY5lGrfCc/IJB7LLlMvztdtmOaDo5IZT+D+Ib+mp987z/KHX0uT8xXy3ZpIcC7Zss7
+         JcUrbSkzlOwMQpiIvPO6p65Bj/DBSfx3GUW2Bj3Dp57donrytrFUGkglKffKnFJEkLn6
+         AKEA==
+X-Forwarded-Encrypted: i=1; AJvYcCUdzcKlkOWJGFr5Qh4WeFvtVeSWDNGKOdA3b0VxEullDJCvq/1OkGd5eUQFFYpTu1PSoVy6MqojwkE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzH6elZ4msc7nhxSPu3vOpGvRoQcIl15Ea16s64FITcnbSlpd7z
+	vNbpPzu16F4zeMzvYLNghbhzC0WpOHlMSS+PS1nPm3dTW1IEf9yCx6q2d5vm+tYKZ9K4wOInx8E
+	=
+X-Gm-Gg: ASbGncuJuW6rZSd1DC66nasl6PJQkdcq+F8RRYQMOSk0c3jttHgjI43iVAplX4Vm8qu
+	3HZ1N8ypiil1majLLl5+YGEDyuEUhkn8j/o5o+7piiDOzO0NntpwVOVZBCiNSKSgBkXDMXi0Vrb
+	bQNyn6EF1wPRgswsYrFoVScJ9BjnFQsTZByxUsG/7S+cqe6YGv7lS84xXbbTAhHnyPY0aQPEE7m
+	Q8SrxV0Td3llg2Lw9kPfzHlLgKTwjl+3pgpcXe98oKrTq/wrafYO3pni/Chu5vFGgs2Q8DJsJ2F
+	/Hz8Z+SU0bdP2kfcO/SrrBJbfUlRamjwG1a1w+jbV71dvm2qwuU9XW5zL4dLYG0maHXUGZvpPbO
+	EvgTKRylpSFgSAd8Wt+nfYWPxDEQ8lQ==
+X-Google-Smtp-Source: AGHT+IFsxTgL+bKmE0gwr0Yb0P+6nsMiFF0YBFBZmG6RGM/0xTkklJYFabNZiG0efbaZHsev/j0Jgw==
+X-Received: by 2002:a05:600c:3b07:b0:43b:cf12:2ca5 with SMTP id 5b1f17b1804b1-43d4378d067mr22324505e9.8.1742394570414;
+        Wed, 19 Mar 2025 07:29:30 -0700 (PDT)
+Message-ID: <79bf742f-d472-4744-afda-1b47bd88f04d@suse.com>
+Date: Wed, 19 Mar 2025 15:29:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] Strip build path directories in tools, xen and
- xen/arch/x86
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: =?UTF-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?=
- <frederic.pierret@qubes-os.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.a5cb9c3a17249fc067ab501818c3a3e6c7c229cf.1742317309.git-series.marmarek@invisiblethingslab.com>
- <0370c0eb1fd9ac00acab016792132fa0b943d384.1742317309.git-series.marmarek@invisiblethingslab.com>
- <017d5c41-d4ea-4d91-b6ec-b4660e7325ae@suse.com>
- <e112ecca-b891-4c23-ace1-8128e586cb94@suse.com> <Z9qxcRtap-k-wW8B@mail-itl>
- <943644a3-45f2-46ef-a54b-6dd0bc6171ed@suse.com> <Z9rJUWCARMQYqNXr@mail-itl>
+Subject: Re: [PATCH] x86/mm: Fix IS_ALIGNED() check in IS_LnE_ALIGNED()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250319142011.138250-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,80 +119,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z9rJUWCARMQYqNXr@mail-itl>
+In-Reply-To: <20250319142011.138250-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19.03.2025 14:40, Marek Marczykowski-Górecki wrote:
-> On Wed, Mar 19, 2025 at 01:43:59PM +0100, Jan Beulich wrote:
->> On 19.03.2025 12:58, Marek Marczykowski-Górecki wrote:
->>> On Wed, Mar 19, 2025 at 10:43:12AM +0100, Jan Beulich wrote:
->>>> On 19.03.2025 10:15, Jan Beulich wrote:
->>>>> On 18.03.2025 18:01, Marek Marczykowski-Górecki wrote:
->>>>>> --- a/xen/Makefile
->>>>>> +++ b/xen/Makefile
->>>>>> @@ -411,6 +411,8 @@ ifneq ($(CONFIG_CC_IS_CLANG),y)
->>>>>>  CFLAGS += -Wa,--strip-local-absolute
->>>>>>  endif
->>>>>>  
->>>>>> +$(call cc-option-add CFLAGS,CC,-ffile-prefix-map=$(XEN_ROOT)=.)
->>>>>
->>>>> This is lacking a comma:
->>>>>
->>>>> $(call cc-option-add,CFLAGS,CC,-ffile-prefix-map=$(XEN_ROOT)=.)
->>>>
->>>> And then, having tried the correct form (seeing the option then is passed
->>>> to the compiler), I can't spot any difference in the resulting
->>>> xen-syms.map. There were a few absolute paths there before (for
->>>> arch/x86/x86_64/kexec_reloc.S and arch/x86/acpi/wakeup_prot.S), and the
->>>> exact same ones are present afterwards.
->>>
->>> I'm not sure about xen-syms.map, it's about build path included in
->>> xen-syms. It appears at least once in .debug_str and once in
->>> .debug_line_str.
->>
->> In which case -fdebug-prefix-map= may suffice, which is available on
->> more compiler versions? And then only if DEBUG_INFO=y?
-> 
-> Oh, and xen.efi is full of build path. Binary on plain staging has 790
-> occurrences. But there, -fdebug-prefix-map= also helps.
-> 
-> But also I don't think -fdebug-prefix-map= will be enough for tools, it
-> looks like at least libxl has build path embedded in .rodata too.
+On 19.03.2025 15:20, Andrew Cooper wrote:
+> The current CI failures happen to be a latent bug triggered by a narrow set of
+> properties of the initrd, which CI encountered by chance.
 
-And _all_ of them go away with -ffile-prefix-map=?
+Plus properties of the host memory map.
 
->>> But also, I see the patch lost a chunk during rebase (from before
->>> 4.17...), that adjusts XEN_ROOT to use $(realpath ...). That's the part
->>> even mentioned in the commit message...
->>>
->>> I'll send v2 shortly.
->>
->> Provided there's actually a need. I was in fact wondering whether this
->> was known to have significant effect prior to Anthony's work to make
->> out-of-tree builds possible (plus less related adjustments), but may
->> have lost most of its functionality since then (yet was still carried
->> forward for all the time).
+> One step during boot involves constructing directmap mappings for modules.
+> With some probing at the point of creation, it is observed that there's a 4k
+> mapping missing towards the end of the initrd.
 > 
-> There are clearly some build path embedding left. And
-> -ffile-prefix-map=/-fdebug-prefix-map= doesn't work correctly with
-> XEN_ROOT having xen/.. at the end.
-> BTW, would it be acceptable to have this?
+>   (XEN) === Mapped Mod1 [0000000394001000, 00000003be1ff6dc] to Directmap
+>   (XEN) Probing paddr 394001000, va ffff830394001000
+>   (XEN) Probing paddr 3be1ff6db, va ffff8303be1ff6db
+>   (XEN) Probing paddr 3bdffffff, va ffff8303bdffffff
+>   (XEN) Probing paddr 3be001000, va ffff8303be001000
+>   (XEN) Probing paddr 3be000000, va ffff8303be000000
+>   (XEN) Early fatal page fault at e008:ffff82d04032014c (cr2=ffff8303be000000, ec=0000)
 > 
->     $(call cc-option-add,CFLAGS,CC,-fdebug-prefix-map=$(realpath $(XEN_ROOT))=.)
+> The conditions for this bug appear to be map_pages_to_xen() call with a non-2M
+> aligned start address, some number of full 2M pages, then a tail needing 4k
+> pages.
 > 
-> It may be less efficient (if make doesn't cache result),
+> Anyway, the condition for spotting superpage boundaries in map_pages_to_xen()
+> is wrong.  The IS_ALIGNED() macro expects a power of two for the alignment
+> argument, and subtracts 1 itself.
+> 
+> Fixing this causes the failing case to now boot.
+> 
+> Fixes: 97fb6fcf26e8 ("x86/mm: introduce helpers to detect super page alignment")
+> Debugged-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-What do you mean here? Variable evaluation depends solely on how we
-use variables. I don't think there's any caching make does on its own?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-As to $(realpath ...) - make 3.80 doesn't support that. We do provide a
-fallback, but for that you need to use $(call realpath,...).
+> Judging by how IS_ALIGNED() is wrong, I think the pre-condition might be
+> exactly 4k past a 2M boundary, not just simply a non-2M boundary.
+
+That's the understanding I have gained, yes.
+
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -5505,7 +5505,7 @@ int map_pages_to_xen(
+>                                                                  \
+>      ASSERT(!mfn_eq(m_, INVALID_MFN));                           \
+>      IS_ALIGNED(PFN_DOWN(v) | mfn_x(m_),                         \
+> -               (1UL << (PAGETABLE_ORDER * ((n) - 1))) - 1);     \
+> +               (1UL << (PAGETABLE_ORDER * ((n) - 1))));         \
+
+Can we also get rid of the now unnecessary outermost pair of parentheses
+of that operand, please? Imo any reduction in parentheses in constructs
+like this helps readability.
 
 Jan
-
-> but helps
-> especially in tools, where XEN_ROOT is set in _a lot_ of places.
-> 
-
 
