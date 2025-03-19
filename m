@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC007A68B60
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 12:24:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920308.1324518 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF4EEA68BC2
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 12:35:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920321.1324528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1turWs-0002Ku-NP; Wed, 19 Mar 2025 11:24:10 +0000
+	id 1turhT-00053b-Lf; Wed, 19 Mar 2025 11:35:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920308.1324518; Wed, 19 Mar 2025 11:24:10 +0000
+Received: by outflank-mailman (output) from mailman id 920321.1324528; Wed, 19 Mar 2025 11:35:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1turWs-0002IA-Kd; Wed, 19 Mar 2025 11:24:10 +0000
-Received: by outflank-mailman (input) for mailman id 920308;
- Wed, 19 Mar 2025 11:24:09 +0000
+	id 1turhT-000511-J6; Wed, 19 Mar 2025 11:35:07 +0000
+Received: by outflank-mailman (input) for mailman id 920321;
+ Wed, 19 Mar 2025 11:35:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBEQ=WG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1turWr-0002I4-96
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 11:24:09 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1turhR-00050v-Fy
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 11:35:05 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ac6c4a86-04b4-11f0-9ea0-5ba50f476ded;
- Wed, 19 Mar 2025 12:24:08 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-39143200ddaso4245395f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 04:24:08 -0700 (PDT)
+ id 32bd2f16-04b6-11f0-9ea0-5ba50f476ded;
+ Wed, 19 Mar 2025 12:35:03 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3913958ebf2so5531310f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 04:35:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d440ed4cbsm15956525e9.34.2025.03.19.04.24.07
+ ffacd0b85a97d-395cb318a75sm20920672f8f.76.2025.03.19.04.35.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 04:24:07 -0700 (PDT)
+ Wed, 19 Mar 2025 04:35:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac6c4a86-04b4-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: 32bd2f16-04b6-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742383448; x=1742988248; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=8lJcoUHWqnM3NSVKjJ6tVIHs9P0zRrAN19d3SqBB1EE=;
-        b=XE9sUgT0uyxLZtsDqU6sL9fAGNiu2rSe+ddqP47Lk8jemiz4/HPRu19F9+ZqIBhzwd
-         NBAkzX0pOROBia6gPdyL6wQ01Kd+JqTxvxz69JVZ6BUhS17vIyQYrMfYCvrE/3F3hNgH
-         MxMJ2AVJkWFGgQ/BGmAT1FVtWByo1rotF9GIsP4+8uLGJ+IAUTrWW6sbQyTEgFbkXbjv
-         Mi6/4S+YaxebZdhW3CKpPRQAR+p5jtledflpoG1crD+ZVwXfzV1Tu3B79dTPj88Tku4I
-         QZ1TENGmFl3ZlRRrAUUV9eUnamvZ4gwESBTq5c8Jp+J4KX/mICLsqMaUZmljG9oRrWsa
-         xv/Q==
+        d=suse.com; s=google; t=1742384102; x=1742988902; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3e80ZX37VPH423lbWmAyR7GmOamaBIBXY0/wwar3b8A=;
+        b=NFXecSoOIXdwNqiGA6oAhm9Hb0nLgC/dyvfM2jfIC6k6gorQcjb8kX6EPfDLPytBCg
+         TOJmLPocZeYkkKWofC0vboK6i1TZ9JIccNgDTqzUUeNMbEZyQ80/v/hh/Ygspvnz4QKS
+         yjbffp0YbE3akKf5YRcCb/YkkNbnXD+q+IkHeOmSI7tSBoU9EedVZePvWrw02Q+6LtV4
+         jcHIi/e0IOmC2d60qAbqcOGL9/Ag6UNM6qWFkY14shCN7DGLpYaZz7qHSgySHUS7p671
+         iv6LkAKDYFcKxUV2hyMVboyHszEWCvNpf4gwIP6C/i3ZSCcfSg5vsdwxJgIGOy1MJ0+K
+         K7wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742383448; x=1742988248;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8lJcoUHWqnM3NSVKjJ6tVIHs9P0zRrAN19d3SqBB1EE=;
-        b=PuWocpfOdqZx7I7JyHNZ54Cg0aTZtG9i6fk1jBQvkWcsZxzThmiJmaymlvbJuh+8ks
-         +nMutHHvNTfwaqxfoCBpJI7ILhroU+HeEDj9bVKkSTuQjjOkTkt9MvbpbI62CHieGW7/
-         RWr/KllrffNf0Hn+03v4ATTYrcPQNBhqP++CdS3tfMlh1gDULIN2pQ/0yfZujbcDLETl
-         31R5ATt3332m7UB95CrDVHN6Pk2rsm3kOrHYIHaUXsSxVdkJ7r7fgGKeiP7ZKjiq3ppM
-         E9tu50+2temUIYcrHvUGsg3+jRXtmDyPcWkTYVvNCeigDnPNqjtPqpYHWRfXdCGQUtNf
-         NUKQ==
-X-Gm-Message-State: AOJu0YzgZXMt31RvKeWMk1fRqsQRuamBhwHwtMmBPGPkriZYzG13JzGF
-	CZqIPNHdl739H96G90W68xaAwCWJh+/Hn5vrhUbIhoBpR4glzRf5swyl4IoNOWKLQbPs/96nZrU
-	=
-X-Gm-Gg: ASbGncuhBbN389isc2g21AdGdXbTN2FyGo0WrwHHNvcvJdntJ2xCA3b/YbN2uAShb6S
-	03RLbcKjVlJv4e+pOiA72P+Uhz+qNTGRgILfgSBtX4mVFr1+C+q7L1szGSXn9UaA7q+fq5jqR1M
-	FPIJEqgpW7QtT+wb487o3MQkTizfJ6mG9SfAwKksp9zeOgvoApcDbrMf7Fr5bmRXL8LjNmn5L+n
-	/5RTMI7JOrQwCDNKEEmcaph9SSIsKF7ZmHny6YVnGvocozccuaJoESnGJO5JkEAqxy+vKfFjFUT
-	aDZEVmXsG62NcUgqW9U//mM6XtvtihiOQI0w+zuJlnt9Pan6+s3XVJrAhHknr8Sqi8XsUy8p5wP
-	rJQLSFst4YoYWI4eqo6EkQ6M/dps/UA==
-X-Google-Smtp-Source: AGHT+IHSOyG6pieQTICne3Nq9cq4lLzDGUFvGMppWIdEGBoXRo7PtXGHkjKGdprU86ytC0bv+/QC3w==
-X-Received: by 2002:a05:6000:1a87:b0:390:fbba:e65e with SMTP id ffacd0b85a97d-399739db618mr1899265f8f.32.1742383447690;
-        Wed, 19 Mar 2025 04:24:07 -0700 (PDT)
-Message-ID: <190ea0fe-887b-44dc-bf05-db154f26a03d@suse.com>
-Date: Wed, 19 Mar 2025 12:24:06 +0100
+        d=1e100.net; s=20230601; t=1742384102; x=1742988902;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3e80ZX37VPH423lbWmAyR7GmOamaBIBXY0/wwar3b8A=;
+        b=BhpvkiksDmEuEhEUO1QlbSg0SrhMBq3lbRnvS8uTB42mDoQMz+s9SDu6usxc+O7REW
+         DBBKL8+FFSZn7qopgvPfrMjbZ8qPKf69b7QXpUA3320v8f/tAK1HrVaPYdDCG12mRoL2
+         EB++U9DlaChMT+aS0ajCVvpZW6ADFsln2wB9ZY3dpp+XAStK4xKyQOApM8pZ93oYwKDh
+         GNyfreoAx/TvIst8jDYkgaDNM/KqqBiZlY/a+Kg9bmIi3UlMT/DtwUVJB1/V3AX8DlaO
+         JYF5cxC3gKqq8oCCUZqV2YURyV1NR82UG3r5uSdy/s4qnWzRkKcwhZRI907NsAmPFNQC
+         aLFA==
+X-Forwarded-Encrypted: i=1; AJvYcCWXALpfPrzmWozN6Jdn/SvQHCc7N5wh+nR281EH2SaS46ivQgVH3KkQOKg+wkAQK8S2IhM1NTYIe+0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzvm7o3rKr53AmkBXGxCvAgOhwNNCXO7mDmxnU70iNkaSZPs+2N
+	eY4e51zOxjF514ER1RWJgzReCw35qtAogPuhvbqBajj0Pqj/mf8VyuEwSr3ESQ==
+X-Gm-Gg: ASbGncsuGbLEPDD657stFvxP+n81DUj5OfUhvIT27Rq5daAHCfltHLxNFpPr3pbvLUN
+	m6tMU8/DxjOXsIZ17Y9RFYX0y/F/LsYhm9bqFOEQFqvTt+BBeTxnK5DumLkX3DLtiWJ0Flr3oN3
+	UQCdlstdcjtjGDssdTgi1NkDCAILzW/af74Mb6dxnVJkN5ysFmhfJ+cfEiUWTljUF2HtrX9DCN5
+	OXXeG+1/DbRFsQ0IVXTLYzn/MvU/oShzJng8s2E6OMxONBJEdCViMajQPiOhgmGoSyMzkRGqDA6
+	wknyyqcqkmK24SEatei3arcKFmRcSmHbhY0o6in5wSWGM/CRoKl7uDqk9i0C7RPC773novh/THQ
+	lehXXWTrSyOdPVHzdvYrXru06DbBGV8DFXWrIw732
+X-Google-Smtp-Source: AGHT+IHsXkcA0HGIVyWr8643o14xfnNzBD6JTSsYAner3ABpfjGb+H4zXjWZgXOnoRzEAbggtSQUIg==
+X-Received: by 2002:a05:6000:1a87:b0:391:48d4:bd02 with SMTP id ffacd0b85a97d-399739d7c73mr1788074f8f.29.1742384102476;
+        Wed, 19 Mar 2025 04:35:02 -0700 (PDT)
+Message-ID: <26583ecf-4057-46b1-8f87-f4589d7bec17@suse.com>
+Date: Wed, 19 Mar 2025 12:35:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/7] xen: introduce Kconfig ARCH_PAGING_MEMPOOL
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Luca Fancellu <luca.fancellu@arm.com>
+Cc: Penny Zheng <Penny.Zheng@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Wei Chen <wei.chen@arm.com>,
+ xen-devel@lists.xenproject.org
+References: <20250317200727.798696-1-luca.fancellu@arm.com>
+ <20250317200727.798696-7-luca.fancellu@arm.com>
+ <85ba02a9-f9f9-4141-85be-a9a2d431e450@gmail.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/cpu: Validate CPUID leaf 0x2 EDX output
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,42 +130,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <85ba02a9-f9f9-4141-85be-a9a2d431e450@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-From: Ahmed S. Darwish <darwi@linutronix.de>
+On 18.03.2025 14:05, Oleksii Kurochko wrote:
+> 
+> On 3/17/25 9:07 PM, Luca Fancellu wrote:
+>> From: Penny Zheng<Penny.Zheng@arm.com>
+>>
+>> ARM MPU system doesn't need to use paging memory pool, as MPU memory
+>> mapping table at most takes only one 4KB page, which is enough to
+>> manage the maximum 255 MPU memory regions, for all EL2 stage 1
+>> translation and EL1 stage 2 translation.
+>>
+>> Introduce ARCH_PAGING_MEMPOOL Kconfig common symbol, selected for Arm
+>> MMU systems, x86 and RISC-V.
+>>
+>> Wrap the code inside 'construct_domU' that deal with p2m paging
+>> allocation in a new function 'domain_p2m_set_allocation', protected
+>> by ARCH_PAGING_MEMPOOL, this is done in this way to prevent polluting
+>> the former function with #ifdefs and improve readability
+>>
+>> Introduce arch_{get,set}_paging_mempool_size stubs for architecture
+>> with !ARCH_PAGING_MEMPOOL.
+>>
+>> Remove 'struct paging_domain' from Arm 'struct arch_domain' when the
+>> field is not required.
+>>
+>> Signed-off-by: Penny Zheng<penny.zheng@arm.com>
+>> Signed-off-by: Wei Chen<wei.chen@arm.com>
+>> Signed-off-by: Luca Fancellu<luca.fancellu@arm.com>
+>> ---
+>> v3 changes:
+>>   - Introduced ARCH_PAGING_MEMPOOL instead of HAS_PAGING_MEMPOOL
+>> v2 changes:
+>>   - make Kconfig HAS_PAGING_MEMPOOL common
+>>   - protect also "xen,domain-p2m-mem-mb" reading with HAS_PAGING_MEMPOOL
+>>   - do not define p2m_teardown{_allocation} in this patch
+>>   - change commit message
+>> ---
+>>   xen/arch/arm/Kconfig              |  1 +
+>>   xen/arch/arm/dom0less-build.c     | 74 ++++++++++++++++++++-----------
+>>   xen/arch/arm/include/asm/domain.h |  2 +
+>>   xen/arch/riscv/Kconfig            |  1 +
+>>   xen/arch/x86/Kconfig              |  1 +
+>>   xen/common/Kconfig                |  3 ++
+>>   xen/include/xen/domain.h          | 17 +++++++
+>>   7 files changed, 73 insertions(+), 26 deletions(-)
+> 
+> For RISC-V:
+>   Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-CPUID leaf 0x2 emits one-byte descriptors in its four output registers
-EAX, EBX, ECX, and EDX.  For these descriptors to be valid, the most
-significant bit (MSB) of each register must be clear.
+Mind me asking then why RISC-V needs this at this point? The stubs surely
+were added to address some build issue, not because they are actively
+meaningful?
 
-Leaf 0x2 parsing at intel.c only validated the MSBs of EAX, EBX, and
-ECX, but left EDX unchecked.
-
-Validate EDX's most-significant bit as well.
-
-Fixes: 1aa6feb63bfd ("Port CPU setup code from Linux 2.6")
-Signed-off-by: Ahmed S. Darwish <darwi@linutronix.de>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Link: https://lore.kernel.org/r/20250304085152.51092-3-darwi@linutronix.de
-
-Use ARRAY_SIZE() though.
-
-Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 1881148215c6
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-I wasn't really convinced that we strictly need f6bdaab79ee4 ("x86/cpu:
-Properly parse CPUID leaf 0x2 TLB descriptor 0x63") as well. Thoughts?
-
---- a/xen/arch/x86/cpu/intel_cacheinfo.c
-+++ b/xen/arch/x86/cpu/intel_cacheinfo.c
-@@ -186,7 +186,7 @@ void init_intel_cacheinfo(struct cpuinfo
- 			cpuid(2, &regs[0], &regs[1], &regs[2], &regs[3]);
- 
- 			/* If bit 31 is set, this is an unknown format */
--			for ( j = 0 ; j < 3 ; j++ ) {
-+			for ( j = 0; j < ARRAY_SIZE(regs); j++ ) {
- 				if ( regs[j] >> 31 )
- 					regs[j] = 0;
- 			}
+Jan
 
