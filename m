@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6A21A6899C
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 11:32:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920222.1324448 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF7B9A689D1
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 11:40:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920233.1324459 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuqib-0004iB-Ms; Wed, 19 Mar 2025 10:32:13 +0000
+	id 1tuqq7-0005My-Es; Wed, 19 Mar 2025 10:39:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920222.1324448; Wed, 19 Mar 2025 10:32:13 +0000
+Received: by outflank-mailman (output) from mailman id 920233.1324459; Wed, 19 Mar 2025 10:39:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuqib-0004gQ-KG; Wed, 19 Mar 2025 10:32:13 +0000
-Received: by outflank-mailman (input) for mailman id 920222;
- Wed, 19 Mar 2025 10:32:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tuqq7-0005Kl-Bk; Wed, 19 Mar 2025 10:39:59 +0000
+Received: by outflank-mailman (input) for mailman id 920233;
+ Wed, 19 Mar 2025 10:39:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBEQ=WG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tuqia-0004gK-Sy
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 10:32:12 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 697c9599-04ad-11f0-9abc-95dc52dad729;
- Wed, 19 Mar 2025 11:32:11 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-43bb6b0b898so43318295e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 03:32:09 -0700 (PDT)
+ id 1tuqq6-0005Kf-0E
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 10:39:58 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7f337492-04ae-11f0-9ffa-bf95429c2676;
+ Wed, 19 Mar 2025 11:39:56 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3912d2c89ecso6055639f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 03:39:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d43f55c3dsm14757445e9.23.2025.03.19.03.32.08
+ ffacd0b85a97d-3996d998545sm4496675f8f.34.2025.03.19.03.39.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 03:32:08 -0700 (PDT)
+ Wed, 19 Mar 2025 03:39:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 697c9599-04ad-11f0-9abc-95dc52dad729
+X-Inumbo-ID: 7f337492-04ae-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742380329; x=1742985129; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742380795; x=1742985595; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BBRFFO8agptcsJuTX2gy+p2VorgxsZWzyeM33kaoC3U=;
-        b=JoIMHSardXSTbabTBFabg0xJed31o70qGb3DtPtKDpxqGQ8TuGHVS/2v84xaRzvLrR
-         aMAMakL8e+Sw2nlff7xGSwSDc1E8/WyhywZvqYiIWxBynPfGiv5TuC43GBbDEo0tyKHt
-         W64KRHk5sWOPjRk7k9o+X6OTvGbCAAL7S7QpxO5NmaO5cdpycBME2fVvc4XVMs2BCWBs
-         0XCi6KDJcX8eVuPeij7VXnR0pwLTFaLPjVKy2U11xPhSHPL6dKVgZujWF0FsV5aE70f6
-         2mRcB1MREqUo8/IbYvrL8x6Gk9AksSYHnVPeBTpH22R+rkFHY8dVAX0eRIIXNMbU7XNW
-         BktQ==
+        bh=6o8eMnNEU91mAqF3t/D+u0YZYgwW08FFjsMXlU+9VPo=;
+        b=eMi/mKmOORlCLUL/+NQAFc/j5rnq3Akc2h8ADUTWzQlShLTOcEIb2NUg92f5hW8wzi
+         hgkbMakrSIJfIiNqbg4Y5w8PH7xMeQfEqDGybN52h6sFXilZsR16dhprYsNOkJr+VBm5
+         0f0S3KfMmrJeypfH50ctLN+66lRZ1I3OwiEdPSkxIEwLeQXyv9K00yUxIhNm/A7/eBSV
+         Llo97qbmlKqb/s34Kq2k7pLUp4H8+0nBihBMeP2Vkfy5kUE20wRygwBD1+Pl2kWO70B2
+         9jVZpTzuveMUEmv8jK1pP03c12Kv535yqa7L6y4l7qFN6ajCyLlEgCp3TTFVpVOh4BER
+         mGNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742380329; x=1742985129;
+        d=1e100.net; s=20230601; t=1742380795; x=1742985595;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BBRFFO8agptcsJuTX2gy+p2VorgxsZWzyeM33kaoC3U=;
-        b=G6XBGOjOKMMuMhfS5/PkmqkQnpX2qujdhfjQKGI/R7XAji7NgYhYV1U4/Tw9VwFeMv
-         Mll5qP3Qa3lKpzM6NgzQ9CgOrIXadb6vdr9zwjmUyueY2ddvx65MWDX9r2fK3ojQ5Ygz
-         k0q39ieMEgBV6ZpOICbE+lrQA8w0oyjkERcxdogN+BTMPi9ZaRO5y/2IdAUEzr9oJXj1
-         UYeg9PrSToTEpv9THhMjpfn1GZNKmzJKUrk8AQYao5b9zi1rBxfg5JD3Jjqy2sRGebfm
-         BfWsFDbXFxoeIbl/pCWYSsA1yS+OwoaqUECwJN7OOwzAFIl19rPvbs8nS04l44HSfdV1
-         IM7g==
-X-Forwarded-Encrypted: i=1; AJvYcCUWEGDOhZDZhBzgTSos6O79J/PM03JZ0Rl9osvsm5TKe+2AQJKw6nPtNDbiZYYh7aQrPh5emPX5zek=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzbQ97Z45ygo1+4mpVbZlUNQgGYCKIGyncQ/Cu1H/VI/OGcI+6L
-	xBGdl29kylIkl4NdfmWR9D9LH4Ow06+2XDdcAj5ONBgsxdMd6Yu79mCFGfKZVmh+1RBcfxBTgkw
-	=
-X-Gm-Gg: ASbGnctW6Bad2X3b1SZO3EVIvlMKX+ytyIfwrHONivZJj4xiOxCHbBeWBsRa25rfR6p
-	vYbJjssgcWGidRXGGLgxlr9HW/WWwOG1GUBtNLvYgoSRblxN9U8mRo3S26Qc0OByrcHdHc1wZ0C
-	EBBS4jTBeJzFoPZJetC5US+c3igM9qd4mnfxKh2gi2MuxWyeEEsv2HJ5fv1DifYzfhAsKF/WBam
-	sMa/8uJ0AuIFu+zkEXqp39kvrlif1LCWucivwjzGF4SYJACcpgClLvcXdEK4a2DCJSlhKtvlcx1
-	pYoA0hAYo2wXf6BJF21RzMsEsJNusy/8PazlOP54nw44GQYHM9nhjaHlXyxFfyZTBqEUS42lKLH
-	qFxd2c7838oO8Xb11xEseob5cQglYRQ==
-X-Google-Smtp-Source: AGHT+IFVMSg2U5FhhGngbR/qm0jZ2AulvgZtFYBwFYWM5wAqQS25QY7D3G95u11wdVsMHZXAaMhjyw==
-X-Received: by 2002:a05:600c:3503:b0:43b:c284:5bc2 with SMTP id 5b1f17b1804b1-43d436c84edmr15208135e9.0.1742380328882;
-        Wed, 19 Mar 2025 03:32:08 -0700 (PDT)
-Message-ID: <a3c70637-b354-40f4-9a67-9d2aa7bcdcb0@suse.com>
-Date: Wed, 19 Mar 2025 11:32:07 +0100
+        bh=6o8eMnNEU91mAqF3t/D+u0YZYgwW08FFjsMXlU+9VPo=;
+        b=Swxa2MiSWjYyhYUsoqVM1r32E4+Wa00/QdVTDSJ4QW5/T9qLn87EwXrgGVyehvzHmU
+         TEoe3tREiMJI+Iz08VjPttujkcTppseA76r7wemt6R0eVlDNr/y3CjKt2mkmu1LFJQc3
+         o8tciYUWh1d+nRWqLmD1bHSrm5sx5Is9HHw4dVwO04BWSA6p7poYgxRa7qwju7aTGOPX
+         a28eZxozs9Vno5x4S0P7w9m3pTVG7Emmi39mM1MWZg2gp3RjARXjBBmHNoesMGfM5nyU
+         2CoZen+uxXmlpZSZ44ko5TnY2SQ8l69Z+Q66Yx2erwPSGKdL95oFdGhQ5oCvsC0REGzX
+         X2Gw==
+X-Forwarded-Encrypted: i=1; AJvYcCWpWzW0CggjEa9s/admJpMDl6gOo/TweJt527wRZ0/Iw/eOmWA0mtAEUph5hXJuVShyms0XruUY7aA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw6ZCQOWrj3L+vVQgflJV4xPVOFBhmpO2uM09iFeTfpf3iW7uZ0
+	aZlED7D56Pv8mbLekvHhqs3sLmI83xm/MiFE9kB8+dDyYsJxjEXTQI4oN7IVRg==
+X-Gm-Gg: ASbGnctu2kURnEuJxfEBBJOlqmpW99xCbJ2WitxQM2aFZJpR6RklBOag2JVlHZNlW5a
+	hj20OFbmtZ4YdoqXctZX5Xo8ZCe5aZwO1Cruo+eqSvHyf0yZXcGbcEhnQAxwRedtfLsw5knuozE
+	fMrFuCAWqvp+0Rt9l8PNHJqnQkl9HpVAyk2gZtVmFylMnP4Ql/KFtVnWh1sU152+inXQ9OqPIMD
+	WUsnD8zq3n1vUpJEK5BUkoTSa99JKSD4Fz6vGoDWgfqtbwTpFqX5dQla/uxftdB48Vv8wx+1qvz
+	CFIb7ZxjDt5OEi81X6Io4r174uHjjrdZS4pgcqRZ+rlso0qeEPLwjppRfERwjYwJe94szrhfTgF
+	GJzMoF0nlkWoDuOgnxOol7TUFC6dHXLevLWROaZaV
+X-Google-Smtp-Source: AGHT+IG9i51GlTb942C5ihsmogIc9jwtGqVhW1nvYyc1zEeQFwX7HwO+FHBl026kMNQgLvBQXIrZnw==
+X-Received: by 2002:a05:6000:2b03:b0:390:fe4b:70b9 with SMTP id ffacd0b85a97d-399739d482fmr1705354f8f.21.1742380794749;
+        Wed, 19 Mar 2025 03:39:54 -0700 (PDT)
+Message-ID: <388596f8-02fa-4d95-a35d-4e0c44a70c16@suse.com>
+Date: Wed, 19 Mar 2025 11:39:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] x86/mkreloc: remove warning about relocations to RO
- section
+Subject: Re: [PATCH 6/7] x86/efi: do not merge all .init sections
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20250318173547.59475-1-roger.pau@citrix.com>
- <20250318173547.59475-6-roger.pau@citrix.com>
+ <20250318173547.59475-7-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,21 +117,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250318173547.59475-6-roger.pau@citrix.com>
+In-Reply-To: <20250318173547.59475-7-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 18.03.2025 18:35, Roger Pau Monne wrote:
-> Relocations are now applied after having moved the trampoline,
+> As a result of relocations now being applied after the trampoline has been
+> copied into the low 1MB region, there's no need for a single .init section
+> that's writable, as .init.text is no longer modified.
 
-That's two entirely different sets of relocations, isn't it? What we generate
-here is what is to be encoded in the PE binary's .reloc section, for the PE
-loader to process. And for us to then process again once we move Xen back to
-its linked position (by virtue of leaving physical mode). Therefore what
-matters here is whether these relocations are still carried out while on the
-page tables to boot loader created, or when already on page tables we control.
-In the former case any relocation to a non-writable section would be liable
-to fault when applied.
+This builds on the confusion of the two different types of relocations that
+started in the previous patch. The change here may be okay once that other
+aspect was clarified; the description would need extending then, though, to
+cover both kinds or relocations.
+
+> Remove the bodge and fallback to the layout used by ELF images with an
+> .init.text and .init.data section.
+> 
+> The resulting PE sections are:
+> 
+> Sections:
+> Idx Name          Size      VMA               LMA               File off  Algn
+>   0 .text         0019072c  ffff82d040200000  ffff82d040200000  00000440  2**4
+>                   CONTENTS, ALLOC, LOAD, READONLY, CODE
+>   1 .rodata       000884c8  ffff82d040400000  ffff82d040400000  00190b80  2**2
+>                   CONTENTS, ALLOC, LOAD, DATA
+>   2 .buildid      00000035  ffff82d0404884c8  ffff82d0404884c8  00219060  2**2
+>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+>   3 .init.text    00052866  ffff82d040600000  ffff82d040600000  002190a0  2**2
+>                   CONTENTS, ALLOC, LOAD, READONLY, CODE
+>   4 .init.data    00059730  ffff82d040658000  ffff82d040658000  0026b920  2**2
+>                   CONTENTS, ALLOC, LOAD, DATA
+> [...]
+
+Just to mention it, also because Demi raised concern: This will leave us
+with yet more sections with long names. We may want to consider to e.g. use
+.init.t and .init.d instead. (Of course there's nothing we can really do
+about the various .debug_* sections, as those can only be identified by
+name. The only option I see there is to strip the binary.)
 
 Jan
 
