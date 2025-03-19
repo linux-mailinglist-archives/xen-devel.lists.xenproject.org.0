@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7B19A6886F
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 10:44:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920147.1324399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A01ABA6887E
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 10:45:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920160.1324408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tupxI-0000B7-6w; Wed, 19 Mar 2025 09:43:20 +0000
+	id 1tupzf-0000lx-Kn; Wed, 19 Mar 2025 09:45:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920147.1324399; Wed, 19 Mar 2025 09:43:20 +0000
+Received: by outflank-mailman (output) from mailman id 920160.1324408; Wed, 19 Mar 2025 09:45:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tupxI-00008O-2Y; Wed, 19 Mar 2025 09:43:20 +0000
-Received: by outflank-mailman (input) for mailman id 920147;
- Wed, 19 Mar 2025 09:43:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tupzf-0000jE-ID; Wed, 19 Mar 2025 09:45:47 +0000
+Received: by outflank-mailman (input) for mailman id 920160;
+ Wed, 19 Mar 2025 09:45:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBEQ=WG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tupxF-00008G-V0
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 09:43:17 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 93d68d5e-04a6-11f0-9899-31a8f345e629;
- Wed, 19 Mar 2025 10:43:14 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3913fdd003bso248061f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 02:43:14 -0700 (PDT)
+ id 1tupze-0000j8-4b
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 09:45:46 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ed75085c-04a6-11f0-9abc-95dc52dad729;
+ Wed, 19 Mar 2025 10:45:45 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-39133f709f5so4062946f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 02:45:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb40fab8sm21096836f8f.63.2025.03.19.02.43.13
+ ffacd0b85a97d-395c83b6a5esm20150701f8f.27.2025.03.19.02.45.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 02:43:13 -0700 (PDT)
+ Wed, 19 Mar 2025 02:45:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93d68d5e-04a6-11f0-9899-31a8f345e629
+X-Inumbo-ID: ed75085c-04a6-11f0-9abc-95dc52dad729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742377393; x=1742982193; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Db7gOvKWMYfbxAPDocka8V40rBvFYh3qXq/n//nWdvI=;
-        b=Lxqbsc1dpPeEbH3Trm1anA74Dt2buvJH5wFIOYwED0dbo3SL829nnI9m5oTNpl1Xsu
-         AnFlOtLK8J0+NK2mZo1N2s1rx6FRefSNqwSKb0YAh6Y5zZZCh/GPXNY2oF5v6reRUMkf
-         p3T+JoabrSEkE11qA8hpTscUfygv67L8CKGxOTGwiklLQoLZgInYt3/Kcf7jumfywTTM
-         +wRGRYU5Bz1pDBY4I7L/faxmAmrI1lTRkspBoN1jWvgJQNalA7qjTN0rNhVo3TLhcOs0
-         e1+2qla06wtjEIxSb6KvCIbjFOtVMvBFNakF8Awi0vHrQpzSNpg0cV/ukMqlRqh64P9n
-         RIPg==
+        d=suse.com; s=google; t=1742377544; x=1742982344; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=5Qp5aAcW45C8er8t3oU0lY8OXH3+F/cQVC96xD1rk/0=;
+        b=N4LdZ9QvGgaFFaSnfY6GI61Oje9B126lqDqqbEnUAdtRRlyM0pqN0BKR6QYBX5YCcX
+         q3t/l79QykzioHWJCRcDkoR/ght+ChzpsKjB3fXxQ+fyiOEQ+nS7yuPexjRzqgpk6jLk
+         H5tuZ8up1lgiatw3fpP6A8+6iauSN9IDkGREl5KO5/g7zWSkPcT0VFp1AGiGMSTen9Yz
+         A0jEqudX6DF8GQHw/8X3QRwmV9LfoQG6LGgz96X9coVW5AGTItOwHyCwAvf07uxstAB0
+         AKVuKGz/YfckfEL6Wy+Oxf4pXHI068MvCsyyLEDNq14r524m2pyFOWtiTl4xfzwmLEgR
+         RJFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742377393; x=1742982193;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Db7gOvKWMYfbxAPDocka8V40rBvFYh3qXq/n//nWdvI=;
-        b=kdtxRhZv4PdlN7qtA+20NnPiix6jAnZNVTfWIvTq9p6+kdmwZ84hXWwypoEdqTW91a
-         qJ5a0pbSNnBh1esFbdrbOTNuqA7uKazWns4dKVzTaAi9xpYIxgtmJv/cgMsyKb9Galr2
-         olqdkJTMG6ixEz8gghkeItrxYFlFsv/yztsDQFdYn8sMdk6w/vjyOKfYWdDKSxxskmqj
-         KemyVkYT3ak23r/zJtyehE6/6YCL/UVm5PcEefVLKn9MIn9ANqnU49TqF2wqYUdB7rgF
-         gvf6hgHTGtX8lAP5u4/njpoXeotop2KwXFdfgj3QI0dKoiY5LEk/gK/ObP9wisLp6kOn
-         tdag==
-X-Forwarded-Encrypted: i=1; AJvYcCU+tMMFFNn3NsXQmVqmXJSR2bupvgLbInCZb1L3d7PQUtx8zSSQHy/Tc/aLEL6ZMzDNK5uEhArua6c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzZercLswTDwMkjxYHwt3m7Gl7H34t43CyyKgV7Ze7z584OouRa
-	iDfS/SFjlsfxZeb0+V4VwaHlSjzW2szl5q0hpe0VvMbe86/hkeNZjDuvhqyCQQ==
-X-Gm-Gg: ASbGncvZ3QUtQJzB9Rhu15LgjEdpl2CTob2uzlc4BfoVrwFEL9VrkqCNDV8hfECWPSB
-	KIIgZayDFzXKEJdK6DDMTkn+3RIq4YrCSz2XHLH2WziRLmnHtCoS1BVhYSpdNjv74ulj7Q1YTES
-	NXvErKWIgjrBMsozdjL/F9+qOu4UNj9gDsJ6tSV0SKDAaNHhp2hN6/mwBhMiz/c/ldLc7ToTtSV
-	/0BKj5XJd5BLc2ss1cWjOeqy9JHvniq/uOwWpMauQFCNob2mdQ6I+LUGRDLFgwGxbP9Wp5nf6pW
-	MuFMv68dPqeD8i1PU1x3CX8y23HKPG6N9qCfoZCYZnsfXTojpymQFoDKsagUgGcuJqsH4ijnr52
-	GPOtLxvMkY8cxCu2mOO7mhVol/B53bLmIWewX5axL
-X-Google-Smtp-Source: AGHT+IGzx74EM8rMzc/EDjNWHtPhVWwfTPfWprRkbqf0GVm15QnY6V1lSQBJeF6Xhwcz+8UhgfDntw==
-X-Received: by 2002:a5d:64e7:0:b0:390:f0ff:2c10 with SMTP id ffacd0b85a97d-3996bb774d9mr5944096f8f.19.1742377393600;
-        Wed, 19 Mar 2025 02:43:13 -0700 (PDT)
-Message-ID: <e112ecca-b891-4c23-ace1-8128e586cb94@suse.com>
-Date: Wed, 19 Mar 2025 10:43:12 +0100
+        d=1e100.net; s=20230601; t=1742377544; x=1742982344;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5Qp5aAcW45C8er8t3oU0lY8OXH3+F/cQVC96xD1rk/0=;
+        b=pu3C+Jx7KBjahxpywlPNKF335oEq5LihGMk9iXMeg786WZtnypF/ZgJnwZZlhKiEt2
+         jRNTNR/W5Ta37aICPvKB+nVHw4LM2rjgkP+9n791o/nZxwWfycqPAsGZJfYhWCcN3UOP
+         2U7Xo+Ixg7bzOATUaqcgPtq3YdRH0W+ywMOe6ClWMnw9CgidijRk2dZggvmLuiyzXzmF
+         OdyL0rm7KxXEKnLolyKAG0SA1FiLhjIFGtYbUSj7VcZWsISpTkXYNsXVi/Te9mS0tO1q
+         14vDpfIsSdw4LL7BXyhyfOcuxkJA9VL02n+BkcHfBszc4l99tviygIIF922fhbe6F0G2
+         V6dw==
+X-Forwarded-Encrypted: i=1; AJvYcCV61T+SJz44l4NdMI6xhp+aNjBTQXcIYJMyUfq7YL2DhCmDjyL3yc5G+tINwmOxtLgDjdyyTsxE+OU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YylJ8hODgDsiTlFTy66lXehgYD0Jmsui+7BG4sv2ObnTeSNp/zV
+	QP/mUQ6gUoL7p8XLOXy+UdXWU1Lia0I7RtxUOAQ8sS1L3Dty81U+CRvdc3axdg==
+X-Gm-Gg: ASbGncuJPbc0aCgW10zqv4NvXCPMIq/6Wq+94R4yl1zZvY56uQq7G871kC5x80y+0yD
+	ZLVC6H5WkyGNUCv2cqohCqEo7R66MFrSvGdd7WkhTvfFqivBEvbMVXpfQKZ5vSbe72WI+8f8uNC
+	safhwPNPl8SHZHs9yOjB+oKtw7gxvHbtdeMBg7LfTb92HNNX0kt1CYT9coHv3uf/cCQlsfXUwdD
+	hPO8Whsr4yzGNxcOy2Lk4wMqzV2OBC691990tVybV5TA0kIfkN/ePFagHMYJobXxU91SnhinT9i
+	AMiTaoELcWyAFzZ11c2DSPgA6ClTCpCRLAEtwS2/lBU7B8WgmF3nPxcDFRKi1lQ0IQOiKeFxROd
+	JJhGKIikZ/ntjvNJ2nq9iqbWZDPaa1g==
+X-Google-Smtp-Source: AGHT+IHVHkzyeLEpjSdQk2FUqi2A2N6eT4pdpoSGpxsSahm4/AZUlCvt9FPjygm0U6aamCjrKSOHVg==
+X-Received: by 2002:a5d:6d8e:0:b0:391:3998:2660 with SMTP id ffacd0b85a97d-399739b5714mr1142079f8f.7.1742377543956;
+        Wed, 19 Mar 2025 02:45:43 -0700 (PDT)
+Message-ID: <68f1aa06-4e00-4b53-9c99-4097c1b80529@suse.com>
+Date: Wed, 19 Mar 2025 10:45:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] Strip build path directories in tools, xen and
- xen/arch/x86
-From: Jan Beulich <jbeulich@suse.com>
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- =?UTF-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?=
- <frederic.pierret@qubes-os.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.a5cb9c3a17249fc067ab501818c3a3e6c7c229cf.1742317309.git-series.marmarek@invisiblethingslab.com>
- <0370c0eb1fd9ac00acab016792132fa0b943d384.1742317309.git-series.marmarek@invisiblethingslab.com>
- <017d5c41-d4ea-4d91-b6ec-b4660e7325ae@suse.com>
+Subject: Re: [PATCH v1 1/8] xen/console: fix trailing whitespaces
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250318233617.849903-1-dmukhin@ford.com>
+ <20250318233617.849903-2-dmukhin@ford.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -126,32 +119,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <017d5c41-d4ea-4d91-b6ec-b4660e7325ae@suse.com>
+In-Reply-To: <20250318233617.849903-2-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 19.03.2025 10:15, Jan Beulich wrote:
-> On 18.03.2025 18:01, Marek Marczykowski-Górecki wrote:
->> --- a/xen/Makefile
->> +++ b/xen/Makefile
->> @@ -411,6 +411,8 @@ ifneq ($(CONFIG_CC_IS_CLANG),y)
->>  CFLAGS += -Wa,--strip-local-absolute
->>  endif
->>  
->> +$(call cc-option-add CFLAGS,CC,-ffile-prefix-map=$(XEN_ROOT)=.)
+On 19.03.2025 00:36, dmkhn@proton.me wrote:
+> Remove trailing whitespaces in the console driver.
 > 
-> This is lacking a comma:
+> No functional change.
 > 
-> $(call cc-option-add,CFLAGS,CC,-ffile-prefix-map=$(XEN_ROOT)=.)
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-And then, having tried the correct form (seeing the option then is passed
-to the compiler), I can't spot any difference in the resulting
-xen-syms.map. There were a few absolute paths there before (for
-arch/x86/x86_64/kexec_reloc.S and arch/x86/acpi/wakeup_prot.S), and the
-exact same ones are present afterwards.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-I've tried this with both an in-tree build and an out-of-tree one. Under
-what (extra?) conditions would a behavioral change to be expected?
 
-Jan
 
