@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD438A68D1D
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 13:44:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920638.1324748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A08CA68D22
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 13:46:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920648.1324759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tusmB-0008Uf-U3; Wed, 19 Mar 2025 12:44:03 +0000
+	id 1tuso5-0000aZ-Aq; Wed, 19 Mar 2025 12:46:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920638.1324748; Wed, 19 Mar 2025 12:44:03 +0000
+Received: by outflank-mailman (output) from mailman id 920648.1324759; Wed, 19 Mar 2025 12:46:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tusmB-0008SA-RS; Wed, 19 Mar 2025 12:44:03 +0000
-Received: by outflank-mailman (input) for mailman id 920638;
- Wed, 19 Mar 2025 12:44:02 +0000
+	id 1tuso5-0000Z5-5t; Wed, 19 Mar 2025 12:46:01 +0000
+Received: by outflank-mailman (input) for mailman id 920648;
+ Wed, 19 Mar 2025 12:45:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBEQ=WG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tusmA-0008S4-OW
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 12:44:02 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1tuso3-0000Yx-4N
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 12:45:59 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d58c0105-04bf-11f0-9ea0-5ba50f476ded;
- Wed, 19 Mar 2025 13:44:01 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-399676b7c41so2031875f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 05:44:01 -0700 (PDT)
+ id 1ae39902-04c0-11f0-9ea0-5ba50f476ded;
+ Wed, 19 Mar 2025 13:45:58 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43d2d952eb1so29504505e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 05:45:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c83b6a27sm21132642f8f.31.2025.03.19.05.44.00
+ 5b1f17b1804b1-43d43f33242sm18186415e9.5.2025.03.19.05.45.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 05:44:00 -0700 (PDT)
+ Wed, 19 Mar 2025 05:45:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d58c0105-04bf-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: 1ae39902-04c0-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742388241; x=1742993041; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742388357; x=1742993157; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yJ4e6qa87ymp6LxqwsVQ80Gh1M37qT/yMZeETXVj4YU=;
-        b=OlObKHe0FCdaijfYVWU80huIPkRl3iZU/GWThXWA59n1OFJhZrEfjTCmALGoW8sW18
-         o/YIWv33qfralw3zrPoyVRZsMwzXfo9y7bwW68Jtp5Z6pj52LNw5kx120kBwLunjTZih
-         aeQGhZYh+ZFWzpo8qNyZ8eihGHKt54tNNn2RDYTvt4WJ49LvQ6RB/i19JU31IMB46T2f
-         x3YEB2ZNfen4A5Reb+PH1MgicH9hl2c7vkeGCFq5rd2BMiV4NteXAPDWmYnOUTcVMaja
-         3Kz5JbA3vjQzrTBm/+O0jas4JH0Eeik4i4EY+PG7NeSnx2A4xV1+4nuGq+rNLLQWZVNt
-         dxdA==
+        bh=3rl34ryBNNb9JNRDevjRvklFEDVjEpS9pBa6d449dGM=;
+        b=aWG5t7CquuN0IDTA/FKaanqwI4jcqklBw9N/X9ZLCo0OrVvgwCOWtW4xkq47lOqwQv
+         AdYIgWfe8aWi5UxDZ2S2xUiQ2lKwFucZqiYchnIhlRQgDGQ6Oci76u6Y8yNe9jd/3VIW
+         Ir0Ocm8mslqxdjPA9lgjPOuWQGqNxTL2KHAtD1ne/qRg76VdetXh/EaBSesCXjO92Oo8
+         2tWYxnATeBhrqAlUVjC/PkmWP01ozE1r6CS1A6Dcvr0oji/TT8/h6xvoQ+AIXwukf3Ho
+         sxUmRBc61Uz7ZCuA3MzGp4dTDU41Bu0onozis6lYwvFmXoHUk/leWtE7w5h73t33lpHg
+         Dstg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742388241; x=1742993041;
+        d=1e100.net; s=20230601; t=1742388357; x=1742993157;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yJ4e6qa87ymp6LxqwsVQ80Gh1M37qT/yMZeETXVj4YU=;
-        b=WEk5ylObTumlB5Xac0fLccU48de19tW1RcCDK+nTUbqaR+9UnLDXfkAINnUoBQwl63
-         ghID4FhCbb2tMvO7Mn4irzp83/DBgPhqxYAAUb6LpFq7axEjaJNlc7V3nnqdFNORkL5g
-         B7AJO+nM8DMC6m4qOy18TpfOUS609sMBTDisPNRISJ3emVwhU84BuZOVm9Nu9R/56lgP
-         MHwje3yYFws7E+w+5lfCB0LWFD3Jp4nPOdE8EX7O9AJ+laHWBcnHCneeQm4gOoikXPb+
-         oAhJe7XgBXBApTHLvpExh0kT83ZYYn0JnCxxK9kKIGLM8QR4iwZRIAfBCe7J9BLcPs7M
-         c9vQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWtP68xekRrhMHFvUS0vqsb3wWmIRvAYGAyg6pYvUICMyFHPDinC1w6Uoj5Y5AeElwhdzfI4hpwxuQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwpQV2eGxuAUmGl2mrZBw+NKp/+Bv80by5W3sOdNxIWfQnHEQAX
-	w3/J45Zt6xs3ShQ3mgFcEML8700xYmjeULDl4O7x7GgUwa4JCNVk3CkryqWTVA==
-X-Gm-Gg: ASbGnct3a8n97AVAazWYWbZ5caLGbxUjtw3cBM9xU3LqzRWdvyEksXF1eL4E5nbwOai
-	4sV00eVeyWEI9ZcC0c6DgCps2xjoegFJuENYylvouBC5s0Lr7g5ApCAIF4kNZTwBSMTTg5MMYgB
-	diRkjjrsB8rcpmVWzUD3j1F9HwGGAgpBWDpqye2N0UWdgfU7BhE+ClA0SX1i6QmcvOzgreV9Sox
-	GdoRjqvpAaqhzRgp7dfuUWpeb1vipLaHkxAeZMF5ra0neF0VinQJEBUQG9CV3cuvbPGYQVlcB+w
-	tssBmjAlwpT6TN60apooidS6f5Q3zsB4/Ix8q/FgbMYjI43vc3OcTf014ld1u3aiusQImAskHuK
-	nPjBdSI4ADfUZm24U9OmpKcS7K96nBw==
-X-Google-Smtp-Source: AGHT+IE5RNO8pTANcjAX8Ky1NJs9vZylrPoh3wUe+0IjRVsbKqlnlAY1ds5ggbqIqsvPOR5og2bGtw==
-X-Received: by 2002:a05:6000:23c1:b0:391:40bd:6222 with SMTP id ffacd0b85a97d-399739c2185mr1529163f8f.22.1742388241135;
-        Wed, 19 Mar 2025 05:44:01 -0700 (PDT)
-Message-ID: <943644a3-45f2-46ef-a54b-6dd0bc6171ed@suse.com>
-Date: Wed, 19 Mar 2025 13:43:59 +0100
+        bh=3rl34ryBNNb9JNRDevjRvklFEDVjEpS9pBa6d449dGM=;
+        b=fNNu3XUy5RhfzNkwaiFsDEXlzZaw2D2xxXNd1/TjrSwj5MBC9kitDCgb8wNPtVgjXL
+         D3luo6rdz4wQZ3EbpOkwCfNMQv+Jej+lR6Yosf0ieClRlCaCqcTp2f4j/fhcap8BpswL
+         vzzXkwJESH7n7tpB/LYEXkJzA/sQPrzDS8rdB+yTrYm47MXh0Kln6hCz4JCBDH/B/jSN
+         62EHGIZPJu+uAedbFEn49K+9HspeuKv01cA0qAz9OiPXAi22vfLf8ihmXNPh5ztKuvC6
+         ossgFA2w35hqkrn6cqYaXjNF5HAPFa68Ba4UoT5tJZ63Dr6EKRtPklAY/n9CLWOLWLMz
+         CUHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUuxtxEzBwb1/WSSpqodFuu0Spa3X1d/4xkBlLgvqQfDeJotqHOTzAg2hmzTfaKr8ooyoWr8OkcOjI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywr5WQaLyEit6Utf1hBR6jV1/a7be/oF75SjtXmBJFqRshEsRT+
+	Xem7iIW9u8ByusUgWVeswgparo/yjrCnfOs2beCZlqKY9qMKYp2tkwbHUzhOyQ==
+X-Gm-Gg: ASbGncslFvFquTBDNktQGy1Jd8QFCfp9eFzOs7E4FMfclOb/My62Vu44ahe58Mn6Bx1
+	wRzNu5avRBbck/M/1on7wR/wc7WHfDcviRsyX9EsGGdwtq8kZkU2InFd6ET+CAaV9fGxcgW8OeC
+	+jx+gghj/ahwD1aoImlPRdubSkwsC+pr2E5spIt0e687OiJUsj9ckJfRwm9gryg40w+WALRqPbM
+	34CS6VlMQ4i0w8Reh06kSnGExG+TtB5GLd+9cK3r0LiIR7AqoWeg5RKfwj3mBKNnDsXH8/1L3Xd
+	SgsO86PgnSAKbHQ00SfDesUDiC8jWqzindBfeDflYzFoaLyYz9gGpeSipfglqbsl1BLtlV/eGHT
+	r+kFSxOOa7hb1+vyIuO8JYsxLYASBaw==
+X-Google-Smtp-Source: AGHT+IEwFn957NGbM37K0Jd9LJCScYatWfqYE6mqqTl9r9+zLCmi/W3o9JQzuZZQkFCayxqAsmy8bA==
+X-Received: by 2002:a05:600c:4f86:b0:43d:42b:e186 with SMTP id 5b1f17b1804b1-43d4378b49bmr19840805e9.8.1742388357463;
+        Wed, 19 Mar 2025 05:45:57 -0700 (PDT)
+Message-ID: <bbd59084-096b-4d5c-b66b-438a398859a0@suse.com>
+Date: Wed, 19 Mar 2025 13:45:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] Strip build path directories in tools, xen and
- xen/arch/x86
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: =?UTF-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?=
- <frederic.pierret@qubes-os.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH 01/16] iommu: Add checks before calling iommu
+ suspend/resume
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Mykyta Poturai <mykyta_poturai@epam.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.a5cb9c3a17249fc067ab501818c3a3e6c7c229cf.1742317309.git-series.marmarek@invisiblethingslab.com>
- <0370c0eb1fd9ac00acab016792132fa0b943d384.1742317309.git-series.marmarek@invisiblethingslab.com>
- <017d5c41-d4ea-4d91-b6ec-b4660e7325ae@suse.com>
- <e112ecca-b891-4c23-ace1-8128e586cb94@suse.com> <Z9qxcRtap-k-wW8B@mail-itl>
+ Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org
+References: <cover.1741164138.git.xakep.amatop@gmail.com>
+ <5694f2b73e808ebdc5d5b60a31cfad2b24f0e9d8.1741164138.git.xakep.amatop@gmail.com>
+ <2caf2bc0-d915-413e-ac76-cc70f9010ebe@suse.com>
+ <CAGeoDV8=F1suS+0DJAV4uOh1vtMWwV41wwqDx9115t004BWvRw@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,50 +122,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z9qxcRtap-k-wW8B@mail-itl>
+In-Reply-To: <CAGeoDV8=F1suS+0DJAV4uOh1vtMWwV41wwqDx9115t004BWvRw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19.03.2025 12:58, Marek Marczykowski-Górecki wrote:
-> On Wed, Mar 19, 2025 at 10:43:12AM +0100, Jan Beulich wrote:
->> On 19.03.2025 10:15, Jan Beulich wrote:
->>> On 18.03.2025 18:01, Marek Marczykowski-Górecki wrote:
->>>> --- a/xen/Makefile
->>>> +++ b/xen/Makefile
->>>> @@ -411,6 +411,8 @@ ifneq ($(CONFIG_CC_IS_CLANG),y)
->>>>  CFLAGS += -Wa,--strip-local-absolute
->>>>  endif
->>>>  
->>>> +$(call cc-option-add CFLAGS,CC,-ffile-prefix-map=$(XEN_ROOT)=.)
->>>
->>> This is lacking a comma:
->>>
->>> $(call cc-option-add,CFLAGS,CC,-ffile-prefix-map=$(XEN_ROOT)=.)
+On 19.03.2025 13:01, Mykola Kvach wrote:
+> Hi,
+> 
+> On Wed, Mar 5, 2025 at 6:45 PM Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> And then, having tried the correct form (seeing the option then is passed
->> to the compiler), I can't spot any difference in the resulting
->> xen-syms.map. There were a few absolute paths there before (for
->> arch/x86/x86_64/kexec_reloc.S and arch/x86/acpi/wakeup_prot.S), and the
->> exact same ones are present afterwards.
+>> On 05.03.2025 10:11, Mykola Kvach wrote:
+>>> --- a/xen/drivers/passthrough/iommu.c
+>>> +++ b/xen/drivers/passthrough/iommu.c
+>>> @@ -613,7 +613,7 @@ int __init iommu_setup(void)
+>>>
+>>>  int iommu_suspend(void)
+>>>  {
+>>> -    if ( iommu_enabled )
+>>> +    if ( iommu_enabled && iommu_get_ops() && iommu_get_ops()->suspend )
+>>>          return iommu_call(iommu_get_ops(), suspend);
+>>>
+>>>      return 0;
+>>> @@ -621,7 +621,7 @@ int iommu_suspend(void)
+>>>
+>>>  void iommu_resume(void)
+>>>  {
+>>> -    if ( iommu_enabled )
+>>> +    if ( iommu_enabled && iommu_get_ops() && iommu_get_ops()->resume )
+>>>          iommu_vcall(iommu_get_ops(), resume);
+>>>  }
+>>
+>> When iommu_enabled is true, surely iommu_get_ops() is required to return
+>> non-NULL?
 > 
-> I'm not sure about xen-syms.map, it's about build path included in
-> xen-syms. It appears at least once in .debug_str and once in
-> .debug_line_str.
+> As far as I can see, in some cases, the handler is still checked even
+> if iommu_enabled
+> is true, such as in the case of the iommu_quiesce call.
 
-In which case -fdebug-prefix-map= may suffice, which is available on
-more compiler versions? And then only if DEBUG_INFO=y?
+You say "handler" and also refer to a case where the handler is checked.
+My comment was about the bare iommu_get_ops() though.
 
-> But also, I see the patch lost a chunk during rebase (from before
-> 4.17...), that adjusts XEN_ROOT to use $(realpath ...). That's the part
-> even mentioned in the commit message...
-> 
-> I'll send v2 shortly.
+> However, it
+> might be better to drop
+> this patch from the current patch series or add a patch that
+> introduces the handlers.
 
-Provided there's actually a need. I was in fact wondering whether this
-was known to have significant effect prior to Anthony's work to make
-out-of-tree builds possible (plus less related adjustments), but may
-have lost most of its functionality since then (yet was still carried
-forward for all the time).
+Only if they're not merely stubs.
 
 Jan
 
