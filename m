@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB76AA699D4
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 20:53:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.921110.1325108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A533CA69A11
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 21:15:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.921123.1325117 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuzTw-0001EC-3v; Wed, 19 Mar 2025 19:53:40 +0000
+	id 1tuzp3-0005UQ-Pr; Wed, 19 Mar 2025 20:15:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 921110.1325108; Wed, 19 Mar 2025 19:53:40 +0000
+Received: by outflank-mailman (output) from mailman id 921123.1325117; Wed, 19 Mar 2025 20:15:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuzTw-0001C7-0d; Wed, 19 Mar 2025 19:53:40 +0000
-Received: by outflank-mailman (input) for mailman id 921110;
- Wed, 19 Mar 2025 19:53:39 +0000
+	id 1tuzp3-0005Rs-NH; Wed, 19 Mar 2025 20:15:29 +0000
+Received: by outflank-mailman (input) for mailman id 921123;
+ Wed, 19 Mar 2025 20:15:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mgHu=WG=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tuzTu-0001C1-Vc
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 19:53:38 +0000
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
- [109.224.244.16]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d8c7a671-04fb-11f0-9ea0-5ba50f476ded;
- Wed, 19 Mar 2025 20:53:37 +0100 (CET)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=F/Ds=WG=linaro.org=pierrick.bouvier@srs-se1.protection.inumbo.net>)
+ id 1tuzp2-0005Rm-MI
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 20:15:28 +0000
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [2607:f8b0:4864:20::102d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e571a07d-04fe-11f0-9ea0-5ba50f476ded;
+ Wed, 19 Mar 2025 21:15:27 +0100 (CET)
+Received: by mail-pj1-x102d.google.com with SMTP id
+ 98e67ed59e1d1-3011737dda0so87773a91.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 13:15:27 -0700 (PDT)
+Received: from [192.168.1.67] ([38.39.164.180])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-301bf5b80b5sm2116351a91.38.2025.03.19.13.15.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Mar 2025 13:15:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,195 +45,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8c7a671-04fb-11f0-9ea0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1742414015; x=1742673215;
-	bh=PFT8pXTOxJO/sHlDDc61wc+pKJ/WuLGsg+bJb5+LTlk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=LUIQ/AB9a07/b0nW63+D/P9+1NkPLCax789Qqq8Znrj64Wx/kTU1Qi9DvOcBFfWFX
-	 1E4XJWWXEYs2THL+ewLiveV7JF1ZUekpfaXG2IhewZmR6UzAWfSh2XDXVdjmq7+P5U
-	 Gi5hbFadCjXVXXLcki/Bd8C3SuctVszjKHENhCmIEYCn2ObCBWNfd9ujwmaOuCYv2Q
-	 Kh0aqVkx85IYy9nKiwLwdDKhG5u/mofyeDU9IR/14nWn1T/UMC9UTDyd7UpRDy4cSA
-	 +qMDQQKCPv6iGYth7fI8yuGsWCdnkZTZLEw+ic1VkUI9U2hP9V1pVOOrDh9HDxypTt
-	 KgfgM2SqfJCfg==
-Date: Wed, 19 Mar 2025 19:53:29 +0000
-To: xen-devel@lists.xenproject.org
-From: Denis Mukhin <dmkhn@proton.me>
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: Re: [PATCH v1 7/8] xen/console: introduce console_set_focus()
-Message-ID: <ghk1LVqSlfRNlEVBf6gQ3AdtBxBBtVSHp_Q69C-vkC1y5wexc4AF-SYXzRIFOaIhnIFZsuAorjAWCRqDDsyb-x0mcVzn2fFS-KWzd3qaW-U=@proton.me>
-In-Reply-To: <20250318233617.849903-8-dmukhin@ford.com>
-References: <20250318233617.849903-1-dmukhin@ford.com> <20250318233617.849903-8-dmukhin@ford.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 76d81558da395123b5065b01ce82aeb69592c4a8
+X-Inumbo-ID: e571a07d-04fe-11f0-9ea0-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1742415326; x=1743020126; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jjJvlOnU49s+Zbb8733WbLiCItr7uaYdoO51OudCE6k=;
+        b=StbmPQZgnaFHQmcz19sxbSAzwC4Bqko1Nr2Djedeo4lK/oNiBSBrRCI7ydFukovl/7
+         gF03JMoO/L9LeaXKhhw3J4MRvk22hZNwJusnKrNmWX0LcHNyqG7Zzb2ezHEJ6968cIEl
+         tffsCFAkbBgxRJ53CEdjQdaCd6XWnPvr6pa23yq6a10LXjpcJP6MQLNZGk07DvD8Cskw
+         M4O3+LRmFhxbgx3AjOva2295QHhA9uoB6zTyfVqpb+m/sugfxltcRFH7n9ZqVkheXM1L
+         rFVGMfYsY/WJZ9fM8lALddYcVdFTTX9NkhNqJ6N1vYcpgMBlaffsGA+7ulVyJLdfHvPF
+         DqTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742415326; x=1743020126;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=jjJvlOnU49s+Zbb8733WbLiCItr7uaYdoO51OudCE6k=;
+        b=nYAY7zrWJR16VlnNhC55LDg7Gms6zKKkbzjWPIwtgLQeTHxW8PDTiZHaY3rz2To/u5
+         2WQ9pKmcH5016xqGOhpIzt7KZ1w5kN+5nrFe0DQZsTv8KvQpeqLVFvtuIutwmGystpJC
+         zYGodRxO5dolNQIfpyIq2TdjLUz6cnUJupYqHlqsQcPuK6LfBVGG849npLsqxrzRZUE0
+         nq9RQGWxFeFXO/SN4Q9wCAl5wqoIaKgDQUzZp+U0q3Oe3KUv/YWlgDvteZ2Q/z95DEaX
+         7G1ti5LMcCrVp/iguYnXRbZ1HcP03OnhdRxCDgZdOd1Hoh84JuNFHq829M9W53WtbWwD
+         Ylbg==
+X-Forwarded-Encrypted: i=1; AJvYcCUjxOpRgcgSSNge/usfj9LOxnWo7uqF7GrdgzW9uBXZGzlEyVaLKorhvksLmg0OHX+TlszT64fRa3g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx4dUq4imxRAEzVMOWFNdDTCvd4d7MFoZZFsrT3T8HpungOn9Hf
+	z2NbA0Ayn4yyVcEodF5Bnn7+F7gXIgx3cZ0UXmn5EHBgNOPTnkDVuf46X70yWJY=
+X-Gm-Gg: ASbGncsdmzRxBRRjlPnWrtH5qp8xqwPQ5e10iO+JESpXA4KPAiG3znEqEL0MmAy2ADI
+	VlQTNZROB/fM7rBEW6aptl7fuFgymzZhAEzu3g1Sa7kzi9KIxqwADcXz/WYR/4uuewSbDlJrSH8
+	+NoFhhatVuhDTK/eUBboM9F2xYj0jVBBzjThtQicHjDXoHyTlHxyOLovfWxyt6dqtl2ZvSmz9Fx
+	4Xml7HkxPv7Exmzc0s+WkFwKlFeVR1IFekODSzFXI29vSGuqCMla6ANyPVNZmhsBmQ3JPbldz+1
+	5AbEMRnmwBZdsQLaqcnk4oBIvNbBamLFQzY48pvPY2hspgKN42IfrCH6QQ==
+X-Google-Smtp-Source: AGHT+IG/qfPdy626hThIYa/RsoZd8+ixXNZ5S+14ncTQSUR3/THRotw28A4RHNR31RiMxmmch69q8w==
+X-Received: by 2002:a17:90b:1a88:b0:2ff:7331:18bc with SMTP id 98e67ed59e1d1-301be202b7fmr5479737a91.26.1742415325934;
+        Wed, 19 Mar 2025 13:15:25 -0700 (PDT)
+Message-ID: <9c48029e-1921-447e-8b38-4b171dce1210@linaro.org>
+Date: Wed, 19 Mar 2025 13:15:24 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 13/18] system/xen: remove inline stubs
+Content-Language: en-US
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: qemu-devel@nongnu.org, Paul Durrant <paul@xen.org>,
+ xen-devel@lists.xenproject.org, David Hildenbrand <david@redhat.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, qemu-riscv@nongnu.org,
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>, alex.bennee@linaro.org,
+ manos.pitsidianakis@linaro.org,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Alistair Francis <alistair.francis@wdc.com>, qemu-ppc@nongnu.org,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Weiwei Li <liwei1518@gmail.com>, kvm@vger.kernel.org,
+ Palmer Dabbelt <palmer@dabbelt.com>, Peter Xu <peterx@redhat.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Nicholas Piggin <npiggin@gmail.com>
+References: <20250317183417.285700-1-pierrick.bouvier@linaro.org>
+ <20250317183417.285700-14-pierrick.bouvier@linaro.org> <Z9rNBFsWR39czUGQ@l14>
+From: Pierrick Bouvier <pierrick.bouvier@linaro.org>
+In-Reply-To: <Z9rNBFsWR39czUGQ@l14>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-On Tuesday, March 18th, 2025 at 4:37 PM, dmkhn@proton.me <dmkhn@proton.me> =
-wrote:
-
->=20
->=20
-> Switch console_focus address space from integers mapped to domain IDs to
-> direct domain IDs, simplifying the console input switching code.
->=20
-> Introduce console_set_focus() to set the console owner domain identifier.
->=20
-> Signed-off-by: Denis Mukhin dmukhin@ford.com
->=20
-> ---
-> xen/drivers/char/console.c | 81 ++++++++++++++++----------------------
-> 1 file changed, 34 insertions(+), 47 deletions(-)
->=20
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index 3d538510f4..0e2349a868 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -462,14 +462,12 @@ static void cf_check dump_console_ring_key(unsigned=
- char key)
->=20
-> /*
-> * CTRL-<switch_char> changes input direction, rotating among Xen, Dom0,
->=20
-> - * and the DomUs started from Xen at boot.
-> + * and the DomUs.
-> /
-> #define switch_code (opt_conswitch[0]-'a'+1)
->=20
-> / Console owner domain identifier. /
-> -static unsigned int __read_mostly console_focus =3D 0;
-> -
-> -#define max_console_rx (domid_top + 1)
-> +static domid_t __read_mostly console_focus =3D DOMID_XEN;
->=20
-> static struct domain console_get_domain_by_id(domid_t domid)
-> {
-> @@ -488,9 +486,7 @@ static struct domain console_get_domain_by_id(domid_t=
- domid)
->=20
-> struct domain console_get_domain(void)
-> {
-> - if ( console_focus =3D=3D 0 )
-> - return NULL;
-> - return console_get_domain_by_id(console_focus - 1);
-> + return console_get_domain_by_id(console_focus);
-> }
->=20
-> void console_put_domain(struct domain d)
-> @@ -508,42 +504,41 @@ static bool console_check_focus_by_id(domid_t domid=
-)
-> return !!d;
-> }
->=20
-> -static void console_switch_focus(void)
-> +static int console_set_focus(domid_t domid)
-> {
-> - unsigned int next_rx =3D console_focus;
-> + if ( domid =3D=3D DOMID_XEN )
-> + printk(" Serial input to Xen");
-> + else if ( console_check_focus_by_id(domid) )
-> + printk("* Serial input to DOM%u", domid);
-> + else
-> + return -ENOENT;
->=20
-> - /*
-> - * Rotate among Xen, dom0 and boot-time created domUs while skipping
-> - * switching serial input to non existing domains.
-> - */
-> - for ( ; ; )
-> - {
-> - domid_t domid;
-> -
-> - if ( next_rx++ >=3D max_console_rx )
->=20
-> - {
-> - console_focus =3D 0;
-> - printk("*** Serial input to Xen");
-> - break;
-> - }
-> -
-> - if ( consoled_is_enabled() && next_rx =3D=3D 1 )
-> - domid =3D get_initial_domain_id();
-> - else
-> - domid =3D next_rx - 1;
-> -
-> - if ( console_check_focus_by_id(domid) )
-> - {
-> - console_focus =3D next_rx;
-> - printk("*** Serial input to DOM%u", domid);
-> - break;
-> - }
-> - }
-> + console_focus =3D domid;
->=20
-> if ( switch_code )
-> printk(" (type 'CTRL-%c' three times to switch input)",
-> opt_conswitch[0]);
-> printk("\n");
-> +
-> + return 0;
-> +}
-> +
-> +/*
-> + * Switch console focus.
-> + * Rotates input focus among Xen, dom0 and boot-time created domUs while
-> + * skipping switching serial input to non existing domains.
-> + */
-> +static void console_switch_focus(void)
-> +{
-> + const domid_t n =3D domid_top + 1;
-> + domid_t i =3D ( console_focus =3D=3D DOMID_XEN )
-> + ? get_initial_domain_id() : console_focus + 1;
-> +
-> + for ( ; i < n; i++ )
-> + if ( !console_set_focus(i) )
-> + return;
-> +
-> + console_set_focus(DOMID_XEN);
-> }
->=20
-> static void __serial_rx(char c)
-> @@ -551,7 +546,7 @@ static void __serial_rx(char c)
-> struct domain d;
-> int rc =3D 0;
->=20
-> - if ( console_focus =3D=3D 0 )
-> + if ( console_focus =3D=3D DOMID_XEN )
-> return handle_keypress(c, false);
->=20
-> d =3D console_get_domain();
-> @@ -1141,14 +1136,6 @@ void __init console_endboot(void)
->=20
-> video_endboot();
->=20
-> - /
-> - * If user specifies so, we fool the switch routine to redirect input
-> - * straight back to Xen. I use this convoluted method so we still print
-> - * a useful 'how to switch' message.
-> - /
-> - if ( opt_conswitch[1] =3D=3D 'x' )
-> - console_focus =3D max_console_rx;
-> -
-> register_keyhandler('w', dump_console_ring_key,
-> "synchronously dump console ring buffer (dmesg)", 0);
-> register_irq_keyhandler('+', &do_inc_thresh,
-> @@ -1158,8 +1145,8 @@ void __init console_endboot(void)
-> register_irq_keyhandler('G', &do_toggle_guest,
-> "toggle host/guest log level adjustment", 0);
->=20
-> - / Serial input is directed to DOM0 by default. */
-> - console_switch_focus();
-> + if ( opt_conswitch[1] !=3D 'x' )
-> + console_set_focus( get_initial_domain_id() );
-
-Forgot to drop extra spaces around the function parameter.
-
-> }
->=20
-> int __init console_has(const char *device)
-> --
-> 2.34.1
+T24gMy8xOS8yNSAwNjo1NiwgQW50aG9ueSBQRVJBUkQgd3JvdGU6DQo+IE9uIE1vbiwgTWFy
+IDE3LCAyMDI1IGF0IDExOjM0OjEyQU0gLTA3MDAsIFBpZXJyaWNrIEJvdXZpZXIgd3JvdGU6
+DQo+PiBSZXZpZXdlZC1ieTogUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgPHBoaWxtZEBsaW5h
+cm8ub3JnPg0KPj4gU2lnbmVkLW9mZi1ieTogUGllcnJpY2sgQm91dmllciA8cGllcnJpY2su
+Ym91dmllckBsaW5hcm8ub3JnPg0KPiANCg0KVGhpcyB3YXMgYSBiYWQgY29weS1wYXN0ZSwg
+dGhhbmtzLg0KDQo+IFJldmlld2VkLWJ5OiBBbnRob255IFBFUkFSRCA8YW50aG9ueS5wZXJh
+cmRAdmF0ZXMudGVjaD4NCj4gDQo+IFRoYW5rcywNCj4gDQoNCg==
 
