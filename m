@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B93EBA68EBD
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 15:17:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920756.1324829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47FC4A68ED5
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 15:20:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920770.1324839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuuDz-00074x-1I; Wed, 19 Mar 2025 14:16:51 +0000
+	id 1tuuHJ-00008e-EQ; Wed, 19 Mar 2025 14:20:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920756.1324829; Wed, 19 Mar 2025 14:16:51 +0000
+Received: by outflank-mailman (output) from mailman id 920770.1324839; Wed, 19 Mar 2025 14:20:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuuDy-00073V-UB; Wed, 19 Mar 2025 14:16:50 +0000
-Received: by outflank-mailman (input) for mailman id 920756;
- Wed, 19 Mar 2025 14:16:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tuuHJ-000061-Ay; Wed, 19 Mar 2025 14:20:17 +0000
+Received: by outflank-mailman (input) for mailman id 920770;
+ Wed, 19 Mar 2025 14:20:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xiIg=WG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tuuDx-00073P-CP
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 14:16:49 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cb0b4957-04cc-11f0-9ea0-5ba50f476ded;
- Wed, 19 Mar 2025 15:16:47 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-39141ffa9fcso6011913f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 07:16:47 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-395c82c23ffsm20710718f8f.22.2025.03.19.07.16.45
+ <SRS0=zx04=WG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tuuHI-00005u-Cn
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 14:20:16 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4649611d-04cd-11f0-9ffa-bf95429c2676;
+ Wed, 19 Mar 2025 15:20:14 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43948021a45so46765045e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 07:20:14 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c8975d65sm21447498f8f.56.2025.03.19.07.20.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Mar 2025 07:16:45 -0700 (PDT)
+ Wed, 19 Mar 2025 07:20:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,122 +45,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb0b4957-04cc-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: 4649611d-04cd-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742393807; x=1742998607; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=syUcGlh1+48HodplrOQn4hV7HLvSUJfciWptysj8SAo=;
-        b=aa4mYfQutEiX7u0Oui7kjdrgJV2pscalpYAUoSF23+dwcwa8gXgEP4rFpceTyzmBpL
-         tgL8J68d7nG7W/ezxJe6qUUdvqtnfFtUPanCqs4yjEBssnBbWS0J1OKs46dAisIprnFK
-         E9q0czoJ1THpDgZ3xm7SqYFUhEE9SD+EbjNE4=
+        d=citrix.com; s=google; t=1742394013; x=1742998813; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=k5VQt4TTAhReF/aDl6NDQTaWB1uAxS1E5Bh8ibv0maM=;
+        b=Y5rP97KRJzKo3C2fqPDU6HMMn17RNJaeQthJ5VVUx8hB7rHXsIiGlfC+tpWZGGT7h3
+         UguO7qv7BQAQPqL8q5rotumoY3d6p+WQhK41fIQBY8HTK0SZ+aXodbfI5aHlA687Mimt
+         SVgRIRsp7qh4ZML06lGxp12srKlRYpoeSwHAg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742393807; x=1742998607;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=syUcGlh1+48HodplrOQn4hV7HLvSUJfciWptysj8SAo=;
-        b=YtSekTEqZgC1i9p5h9wWROky0gn5cU1rBnGLvOUw8XRqQL4yn7pQqJ4TWDEEcPbt8V
-         wuqjYEaGttovGqT5NmaZmtK4suc5YteEe/q6c+AteyTeMn8TeEm4L3pQGsGy3EHlUNW1
-         ZfD4K2yT0XPwGGpBw5gf5SkVsIM/7zDubD2wXGQfbE6JDKMTM1mRvEsoLIcoMF4jUSWR
-         04t+FX5w3u88734pC1Lwxr5ztFNJc4hEPC4v5Mro+5+ied0p0Y4UrWD8sezcSy4Tgspf
-         6PLUUo1GIGaMX5rM6dGjF2WI48Bwy2pjQORl6RnvRaiwSQsLZwcNZ2Bi9e4/i69lr4/1
-         9S+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXT725AsB+AswOUvFsySiMryxOc79oenvTUqNneJueshOuZuvIkbZg1BW1bTCOPYFN6ROeveIbVGWE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YySf+Qrvs33+UuhAQO6rHqOcXqYXgWGTbtOB7a+4h3nNNQ7doGE
-	n+jcuenZAbeyWBuwpbhNQL2e21gTFHHGFs9PStNWQT36Me7GsxLepWSJWRN3dVc=
-X-Gm-Gg: ASbGncvZkccgpaidRXFO2zarArbtbIfJZKN8YaRGoHW069qtB0X210IUTFuLzh3ok6H
-	cMMIcxBKVcJ9u9yUopuA0WWwcNFw+ARvT2XZo7+GtopPAIW9bJFLMKke7W/B5lpS2z5HOvIRkS3
-	B4qenMIvrVBvYbcxFxRDvI7Up51ONyrYJftMXLwkullziLb0hUcHFdQzYRETTJY7PCmMPAIEnTN
-	Ioyll3fMt9DuJmqaun5OOt2wIY5mmu5b/ak0XHSInJGamNpXbaeMgryXRNfFMTJvr1r/RNlx/9R
-	s1W3VYvCyKtQioySEMof0B3xu+i1Z+NH4L/XC0ItO0AQXNlqOicfarw=
-X-Google-Smtp-Source: AGHT+IG1yMM0PUXizVzizKFTtc1vXOY7qJAWgLeTGtbLOc1AOB+kKXNzbZo0kmrI8wsgfp726MZBhA==
-X-Received: by 2002:a5d:64c5:0:b0:390:e62e:f31f with SMTP id ffacd0b85a97d-399739b4353mr2210927f8f.3.1742393806332;
-        Wed, 19 Mar 2025 07:16:46 -0700 (PDT)
-Date: Wed, 19 Mar 2025 15:16:45 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
+        d=1e100.net; s=20230601; t=1742394013; x=1742998813;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=k5VQt4TTAhReF/aDl6NDQTaWB1uAxS1E5Bh8ibv0maM=;
+        b=TkuN6ilKkkoj4DZgB73kTAcMkmDeX14Vlg5sUPy6oLRWn7Dtl/siU5QBChUkjGyMwc
+         tBfJO5Vy7RqtiI51XNFvs+QGY95Z9P8c4B+mckRhXdj6OfMROzyLgirMVZhRieq9dh54
+         ZQl1liX5tDiqtTHnKeAKcjOtna5v0YTE8RRkBCPpd3co0pYvR+v2yAhMoMg2nc4+gXg9
+         Wr04hHBPbgcWiPZzw5bvJ8auWRb7ajdQWNFxq/GweT+b9WPSKmshcW8efJnxL4fdC9hv
+         f9V2Z7s1SQrUFkiPSyy7qFQEqNrbZRYcBvZOgEjrex0uNQeIPlEDA2MpBwkLUNhyZ7hO
+         KEtA==
+X-Gm-Message-State: AOJu0YycudRc2kJH7czXkr/VxEd3M5lzPk4OaB9uSDmsZE2PKHEp2wN/
+	tE6RezrFlGuhpUB4m6Z1HluU2ByXahJ7EtP1cFcUk4nqYZcZiUNuQr13ZFt2u49m/4SKGxaB6No
+	3
+X-Gm-Gg: ASbGncvZjNiKgZjCy/f02osezZxyA3R+YVNe7Toc3k2XpPw942JkaSPt+rerymSZ1OA
+	NTjtrAuTlN5zfk9BAabz+CcQfasGsUGovQTRqEV7AsUbscjt35GfSCCJVU6wXsYwkUbYBYemWfK
+	FyBEwH2/udt2nL28fVwyVK07ihYFpNxsvCNTu3s/q20qBgFx6bld9dPzPANAQeC0t1yeihD49v6
+	x/FRzrhzsAGWMKPdBdEo5/Jo08bdqmObDw7ftzTVO3ClISzvmGoXFp3Jbqu+huMZVpp6HIwsQHL
+	whF1i8aaU91BS1ltfJ73486CWhU384q2saFfMZDzb8l4olEJnk4WrcolJih/IjNb6wePOrI51rH
+	VlDtrcNeMbwJkwh5nihcehi2yKULy
+X-Google-Smtp-Source: AGHT+IFwFmcMHUGn7gnfLLlw1gjXuPD4HkDHDh7dmOyJ3FzB+gApzgKzfUsSxabQmrO0yo+Rk0BB5w==
+X-Received: by 2002:a5d:598d:0:b0:391:3291:e416 with SMTP id ffacd0b85a97d-399739c5a72mr2901332f8f.19.1742394013450;
+        Wed, 19 Mar 2025 07:20:13 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/7] x86/mkelf32: account for offset when detecting note
- segment placement
-Message-ID: <Z9rRzRQnHLtUOpQs@macbook.local>
-References: <20250318173547.59475-1-roger.pau@citrix.com>
- <20250318173547.59475-3-roger.pau@citrix.com>
- <1dce6993-09d7-4f04-8ccc-908a0a4cc10f@suse.com>
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/mm: Fix IS_ALIGNED() check in IS_LnE_ALIGNED()
+Date: Wed, 19 Mar 2025 14:20:11 +0000
+Message-Id: <20250319142011.138250-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1dce6993-09d7-4f04-8ccc-908a0a4cc10f@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Mar 19, 2025 at 11:07:33AM +0100, Jan Beulich wrote:
-> On 18.03.2025 18:35, Roger Pau Monne wrote:
-> > mkelf32 attempt to check that the program header defined NOTE segment falls
-> > inside of the LOAD segment, as the build-id should be loaded for Xen at
-> > runtime to check.
-> > 
-> > However the current code doesn't take into account the LOAD program header
-> > segment offset when calculating overlap with the NOTE segment.  This
-> > results in incorrect detection, and the following build error:
-> > 
-> > arch/x86/boot/mkelf32 --notes xen-syms ./.xen.elf32 0x200000 \
-> >                `nm xen-syms | sed -ne 's/^\([^ ]*\) . __2M_rwdata_end$/0x\1/p'`
-> > Expected .note section within .text section!
-> > Offset 4244776 not within 2910364!
-> 
-> Not your fault, but: Such printing of decimal numbers is of course very
-> unhelpful when ...
-> 
-> > When xen-syms has the following program headers:
-> > 
-> > Program Header:
-> >     LOAD off    0x0000000000200000 vaddr 0xffff82d040200000 paddr 0x0000000000200000 align 2**21
-> >          filesz 0x00000000002c689c memsz 0x00000000003f7e20 flags rwx
-> >     NOTE off    0x000000000040c528 vaddr 0xffff82d04040c528 paddr 0x000000000040c528 align 2**2
-> >          filesz 0x0000000000000024 memsz 0x0000000000000024 flags r--
-> 
-> ... any half-way sane tool prints such values in hex.
-> 
-> > --- a/xen/arch/x86/boot/mkelf32.c
-> > +++ b/xen/arch/x86/boot/mkelf32.c
-> > @@ -358,7 +358,8 @@ int main(int argc, char **argv)
-> >          note_sz = in64_phdr.p_memsz;
-> >          note_base = in64_phdr.p_vaddr - note_base;
-> >  
-> > -        if ( in64_phdr.p_offset > dat_siz || offset > in64_phdr.p_offset )
-> > +        if ( in64_phdr.p_offset > (offset + dat_siz) ||
-> > +             offset > in64_phdr.p_offset )
-> 
-> This is an improvement, so fine to go in with Andrew's ack, but it still
-> doesn't match what the error message suggests is wanted: This checks only
-> whether .note starts after .text or ends before .text. A partial overlap,
-> which isn't okay either aiui, would go through fine.
-> 
-> Oh, and - even in your change there's an off-by-1: You mean >= in the lhs
-> of the ||.
+The current CI failures happen to be a latent bug triggered by a narrow set of
+properties of the initrd, which CI encountered by chance.
 
-Hm, I see, it would be better as:
+One step during boot involves constructing directmap mappings for modules.
+With some probing at the point of creation, it is observed that there's a 4k
+mapping missing towards the end of the initrd.
 
-diff --git a/xen/arch/x86/boot/mkelf32.c b/xen/arch/x86/boot/mkelf32.c
-index 5f9e7e440e84..f0f406687cea 100644
---- a/xen/arch/x86/boot/mkelf32.c
-+++ b/xen/arch/x86/boot/mkelf32.c
-@@ -358,11 +358,13 @@ int main(int argc, char **argv)
-         note_sz = in64_phdr.p_memsz;
-         note_base = in64_phdr.p_vaddr - note_base;
- 
--        if ( in64_phdr.p_offset > dat_siz || offset > in64_phdr.p_offset )
-+        if ( in64_phdr.p_offset < offset ||
-+             in64_phdr.p_offset + in64_phdr.p_filesz > offset + dat_siz )
-         {
-             fprintf(stderr, "Expected .note section within .text section!\n" \
--                    "Offset %"PRId64" not within %d!\n",
--                    in64_phdr.p_offset, dat_siz);
-+                    ".note: [%"PRIx64", %"PRIx64") .text: [%x, %x)\n",
-+                    in64_phdr.p_offset, in64_phdr.p_offset + in64_phdr.p_filesz,
-+                    offset, offset + dat_siz);
-             return 1;
-         }
-         /* Gets us the absolute offset within the .text section. */
+  (XEN) === Mapped Mod1 [0000000394001000, 00000003be1ff6dc] to Directmap
+  (XEN) Probing paddr 394001000, va ffff830394001000
+  (XEN) Probing paddr 3be1ff6db, va ffff8303be1ff6db
+  (XEN) Probing paddr 3bdffffff, va ffff8303bdffffff
+  (XEN) Probing paddr 3be001000, va ffff8303be001000
+  (XEN) Probing paddr 3be000000, va ffff8303be000000
+  (XEN) Early fatal page fault at e008:ffff82d04032014c (cr2=ffff8303be000000, ec=0000)
+
+The conditions for this bug appear to be map_pages_to_xen() call with a non-2M
+aligned start address, some number of full 2M pages, then a tail needing 4k
+pages.
+
+Anyway, the condition for spotting superpage boundaries in map_pages_to_xen()
+is wrong.  The IS_ALIGNED() macro expects a power of two for the alignment
+argument, and subtracts 1 itself.
+
+Fixing this causes the failing case to now boot.
+
+Fixes: 97fb6fcf26e8 ("x86/mm: introduce helpers to detect super page alignment")
+Debugged-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+
+Judging by how IS_ALIGNED() is wrong, I think the pre-condition might be
+exactly 4k past a 2M boundary, not just simply a non-2M boundary.
+---
+ xen/arch/x86/mm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index 03b8319f7a9d..e0793ad3462b 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -5505,7 +5505,7 @@ int map_pages_to_xen(
+                                                                 \
+     ASSERT(!mfn_eq(m_, INVALID_MFN));                           \
+     IS_ALIGNED(PFN_DOWN(v) | mfn_x(m_),                         \
+-               (1UL << (PAGETABLE_ORDER * ((n) - 1))) - 1);     \
++               (1UL << (PAGETABLE_ORDER * ((n) - 1))));         \
+ })
+ #define IS_L2E_ALIGNED(v, m) IS_LnE_ALIGNED(v, m, 2)
+ #define IS_L3E_ALIGNED(v, m) IS_LnE_ALIGNED(v, m, 3)
+
+base-commit: 77be740e8182fa6b31291a8ae983d253187e9b50
+-- 
+2.39.5
 
 
