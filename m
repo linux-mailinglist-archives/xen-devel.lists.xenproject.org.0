@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41470A68C80
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 13:12:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920468.1324629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3849A68C4A
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 13:02:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920427.1324599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tusGr-0002XU-LL; Wed, 19 Mar 2025 12:11:41 +0000
+	id 1tus7s-0006sY-Dv; Wed, 19 Mar 2025 12:02:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920468.1324629; Wed, 19 Mar 2025 12:11:41 +0000
+Received: by outflank-mailman (output) from mailman id 920427.1324599; Wed, 19 Mar 2025 12:02:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tusGr-0002Uv-IO; Wed, 19 Mar 2025 12:11:41 +0000
-Received: by outflank-mailman (input) for mailman id 920468;
- Wed, 19 Mar 2025 12:11:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tus7s-0006qL-9c; Wed, 19 Mar 2025 12:02:24 +0000
+Received: by outflank-mailman (input) for mailman id 920427;
+ Wed, 19 Mar 2025 12:02:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eFby=WG=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1tus7I-0004qj-6l
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 12:01:48 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ef3613fd-04b9-11f0-9ea0-5ba50f476ded;
- Wed, 19 Mar 2025 13:01:47 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-54963160818so8067935e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 05:01:47 -0700 (PDT)
+ id 1tus7r-0004x6-4g
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 12:02:23 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 02c82838-04ba-11f0-9ffa-bf95429c2676;
+ Wed, 19 Mar 2025 13:02:20 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5e6f4b3ebe5so11467579a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 05:02:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,96 +40,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef3613fd-04b9-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: 02c82838-04ba-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1742385707; x=1742990507; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1742385740; x=1742990540; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pVmeo6Y0RDkn1EjaWXin4s++GEMsr3bFGu5VWGkSJV0=;
-        b=CfA6g7qAMjCeD5enGJ6Lia4MnDZL/z6AheE36goFsS2trfqZ4J1LkaRGM4qc50SFq+
-         I2p/gwi/YLwaCy3zKkcBtrUN78gMbTdJ7VsxMotq/Ao6gdEndH7WzKC60pJUhuwmPH1u
-         QncgKpqbj/Fy9gNAfFa1sHwKJz8w9qPgGhtyZhq67zBc6tDX0f6jEWzM+abjBvbboEIt
-         HUE4JokfiKbDHJCACWRHi5r7B40RxP8dwhWqRQDpK+azNW94/ybQp9/88+Cv8cdTDzp8
-         VWpSEGP7bXUFcXw+q9LpxC75txbBZ5sfW2ITH/lWkRXSwt6yoGeex1/x4J3LKV7YythO
-         ne+Q==
+        bh=2aLktUL8XH1NtG5p0p9N1SM0eGtBNzkMXPm5gqw9Wnc=;
+        b=WMUU/Wn/6r2A4nRD/ksXhaFtnBoxeCSVIiqK5KFqh7N7Aqe00SPhUVBgo2OzuLM/3t
+         KTi9axAXTBT57zUPOn6kDJ8F+YVXajcbr/Qxd7R4jRSaVfY8+tANYs90lz6P87kPfMWu
+         U2lwa/rjwRhJHJ+u2kHWEUul+n2u9jIigCyTPj8OO6fi5Jbpn1JCqdhFxWyxPe7U6CVh
+         tOxQM5duG9jc69EKxV9XjwXloaiEyj2QjSC63IwHQjMpZV/8ocT85z5/UddRq4UHuywi
+         sxpvlsaNQ4YfXqYg/QagmAvJy3z8Je4+ecMpGiPhMaEjff/oVz2wjovVDWFQAZXqTdTG
+         qiBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742385707; x=1742990507;
+        d=1e100.net; s=20230601; t=1742385740; x=1742990540;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=pVmeo6Y0RDkn1EjaWXin4s++GEMsr3bFGu5VWGkSJV0=;
-        b=TMvTaW2qnbY+97RsqAfFjBtnIpRKkcWghosClp5/B6IZDDOkB/Lqc5GnxhtkbQ1Hpa
-         yMvLuMXK7leoSmGoMtVNpH5ieLe3AerLBouL417y2oOVEtzBmNhCIDYvIPp1cTWQmOlC
-         fSlqJ4vu0BmnKa43zeDHC070mYdc83gxCNqq3j5x6mGz/0nQgpqW7KcWuoddOr90CAW5
-         FIyEJPduqeVOzA4MIn7hKE20ZfVMV+62Qsh35/XVgYrkd4k//lWXU9DKNd5SGKXVJht1
-         vg220Qu8AtbDeuQDMqOyHhPP2O5d8ur0uKMMc2tgB3dlXPNKCIEEf+0LImLTZzJwul/X
-         Gf7A==
-X-Forwarded-Encrypted: i=1; AJvYcCUz3VL6Lkv6n0RIxwZzCZh6tsusm2arrPmKDDuKenjAxdEBVgyBQbTUjoJI4hqX1nH0oI2sEa4jOpM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyeK9K4JWGFJhq2rhW/2G09taFYfoU1quHjJzTNJ2eCu45GjpEd
-	K7W+HaukoyoCe48x0gXyx2/5853z7ngZ21LcBK23sbFE82t3vtx+9NOODITgq1UxHg1WLKgLyuT
-	6zqGcj03Hh9iLbGrb5GQvBNE0Jjw=
-X-Gm-Gg: ASbGnctlxOVkyNRF9HlrLB3ZrhpZzrRQWl1654LwtjVo2bWjidwLEjEYk8yGEpAv3Pj
-	0ZB+2vrdgnDlXRgNO0Ev4stp6/aJxDGkCYp6MXSRn9FHjsH/pth88E1A7BIZas7mYMCdAYOFfO2
-	XJy9xpQhfxgHvkv6OrbfQ4Fm3s
-X-Google-Smtp-Source: AGHT+IFCJoAYVIL+bf3id137lhB7Kyr3FgOLAUdCRwi6SN0rrw4yd9nFp4R38SAFTjIxeHPeNGC+gwdBhIxo2S9OJ/k=
-X-Received: by 2002:a05:6512:1246:b0:549:b1c1:4d76 with SMTP id
- 2adb3069b0e04-54acb19d0eemr825937e87.5.1742385706753; Wed, 19 Mar 2025
- 05:01:46 -0700 (PDT)
+        bh=2aLktUL8XH1NtG5p0p9N1SM0eGtBNzkMXPm5gqw9Wnc=;
+        b=Y81nLQ1ZE4MsOzx0WS85KjdK3B9vqzD757aV1tDONHHzN0OPGxPWASB79P5nHLnn/W
+         eOb/xu3osa5RR+yjrkwSsEhdo3Ur/1J3l82PD8N5h+ZOS3TjSZnQBc+ZzC2DfzYhztnZ
+         nLG0ZuDlHuzQ06/ZGk96fh79KG2a82VinsS5u8AXy/W9HAWdKYOK0cKV/ISVWr90mHlI
+         82VTelRPaWgsbie3T6PCKciFgMiwbMnq+gscN7vEGS/jYRHxnokuX7bl5P0PA6mRHrB6
+         BE7smLpAx1FbycEmnr0JvIGGTjjysiBqKiTcHY2mVE7MD/ubXI74ObxN3rdvFyIcF8TO
+         sRhQ==
+X-Gm-Message-State: AOJu0YzYZj5UQyPZ1qetH0fdqjMjuQIltAumkBHvicJXjrFi7L6m+Hiq
+	sPw6gnZPC6UolEiQmniw6clfcR/2H77mSeU1bSW5xUIEQlYmcuE0RjibEUEo+D60rYvAOT0vBTU
+	/7wQq5mkffjlAMOMwqf5H2iw12qcLEg==
+X-Gm-Gg: ASbGncsUrltsG3xuYlfSGQymfkHNrI+FIU3umZYIDUQj7nDIEtWj7++xkNYq0Cosw4v
+	pfPw4msodTMyvVvZSUvKbQl0M37Vd1kTVqvf3v3rYQc1JqbyH3ivllMngEgTuQgQ2hjRU7drN/m
+	jTjT2B2uciWMAjvc0Y0wK5d27d
+X-Google-Smtp-Source: AGHT+IFv+XZxKMbkrmHovlREgxwI58/GdI/jym8EA6M8ee6l3+qG5YTs89cfy1lpmF5KgxkbW13EO9ayiBo03OEhAdw=
+X-Received: by 2002:a05:6402:84c:b0:5e6:17df:118 with SMTP id
+ 4fb4d7f45d1cf-5eb80fcea7dmr1873351a12.31.1742385739691; Wed, 19 Mar 2025
+ 05:02:19 -0700 (PDT)
 MIME-Version: 1.0
 References: <cover.1741164138.git.xakep.amatop@gmail.com> <5694f2b73e808ebdc5d5b60a31cfad2b24f0e9d8.1741164138.git.xakep.amatop@gmail.com>
- <2caf2bc0-d915-413e-ac76-cc70f9010ebe@suse.com>
-In-Reply-To: <2caf2bc0-d915-413e-ac76-cc70f9010ebe@suse.com>
+ <27398a82-ecc9-4b4c-b140-2d68de666675@xen.org>
+In-Reply-To: <27398a82-ecc9-4b4c-b140-2d68de666675@xen.org>
 From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Wed, 19 Mar 2025 14:01:35 +0200
-X-Gm-Features: AQ5f1JoQDUSsdTP8oue3-Ptopnn2D-xmiHXoo30rrDI_IZeL8TfQkOLBEMQd2wc
-Message-ID: <CAGeoDV8=F1suS+0DJAV4uOh1vtMWwV41wwqDx9115t004BWvRw@mail.gmail.com>
+Date: Wed, 19 Mar 2025 14:02:06 +0200
+X-Gm-Features: AQ5f1JpsGW7khTf2UtzNoES6Ws0KSXYXIgIw9NqVPZb_PQbl8kK3zu-nxx9aA10
+Message-ID: <CAGeoDV-mM6VK0HCLcwX+-WMf2rVjRBKjZ4iz-puEcZeJZ-59MQ@mail.gmail.com>
 Subject: Re: [PATCH 01/16] iommu: Add checks before calling iommu suspend/resume
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Mykyta Poturai <mykyta_poturai@epam.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, Mykyta Poturai <mykyta_poturai@epam.com>, 
+	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Mykola Kvach <mykola_kvach@epam.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi,
 
-On Wed, Mar 5, 2025 at 6:45=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
+On Tue, Mar 11, 2025 at 10:28=E2=80=AFPM Julien Grall <julien@xen.org> wrot=
 e:
 >
-> On 05.03.2025 10:11, Mykola Kvach wrote:
-> > --- a/xen/drivers/passthrough/iommu.c
-> > +++ b/xen/drivers/passthrough/iommu.c
-> > @@ -613,7 +613,7 @@ int __init iommu_setup(void)
-> >
-> >  int iommu_suspend(void)
-> >  {
-> > -    if ( iommu_enabled )
-> > +    if ( iommu_enabled && iommu_get_ops() && iommu_get_ops()->suspend =
-)
-> >          return iommu_call(iommu_get_ops(), suspend);
-> >
-> >      return 0;
-> > @@ -621,7 +621,7 @@ int iommu_suspend(void)
-> >
-> >  void iommu_resume(void)
-> >  {
-> > -    if ( iommu_enabled )
-> > +    if ( iommu_enabled && iommu_get_ops() && iommu_get_ops()->resume )
-> >          iommu_vcall(iommu_get_ops(), resume);
-> >  }
+> Hi,
 >
-> When iommu_enabled is true, surely iommu_get_ops() is required to return
-> non-NULL?
+> On 05/03/2025 09:11, Mykola Kvach wrote:
+> > From: Mykyta Poturai <mykyta_poturai@epam.com>
+> >
+> > These functions may be unimplemented, so check that they exist before
+> > calling to prevent crashes.
+>
+> Looking at the cover letter, I see you wrote the following:
+>
+> "Add suspend/resume handlers to IOMMU drivers (there aren=E2=80=99t any
+> problems with the current implementation because the domains used for
+> test are thin, and this patch series implements only the very basic
+> logic)"
+>
+> which I read as this patch is a temporary hack until we implement IOMMU.
+> Is that correct? If so, can you tag it as HACK and move to the end to
+> end up to merge it?
 
-As far as I can see, in some cases, the handler is still checked even
-if iommu_enabled
-is true, such as in the case of the iommu_quiesce call. However, it
-might be better to drop
-this patch from the current patch series or add a patch that
-introduces the handlers.
+Yes, you're right=E2=80=94if we have handlers for suspend/resume in the IOM=
+MU driver,
+we don't need this patch at all. However, if we drop the iommu_suspend/resu=
+me
+calls from the system suspend, this commit becomes unnecessary, even within
+this patch series.
 
 >
-> Jan
+> Cheers,
+>
+> --
+> Julien Grall
+>
 
 Best regards,
 Mykola
