@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19865A68D0B
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 13:38:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920597.1324719 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A800A68D0F
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 13:39:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920610.1324729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tusg5-0004Sy-On; Wed, 19 Mar 2025 12:37:45 +0000
+	id 1tushv-00055L-84; Wed, 19 Mar 2025 12:39:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920597.1324719; Wed, 19 Mar 2025 12:37:45 +0000
+Received: by outflank-mailman (output) from mailman id 920610.1324729; Wed, 19 Mar 2025 12:39:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tusg5-0004R3-Lb; Wed, 19 Mar 2025 12:37:45 +0000
-Received: by outflank-mailman (input) for mailman id 920597;
- Wed, 19 Mar 2025 12:37:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tushv-00053P-4v; Wed, 19 Mar 2025 12:39:39 +0000
+Received: by outflank-mailman (input) for mailman id 920610;
+ Wed, 19 Mar 2025 12:39:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBEQ=WG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tusg3-0004Qw-J6
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 12:37:43 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f310e88a-04be-11f0-9ea0-5ba50f476ded;
- Wed, 19 Mar 2025 13:37:41 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43cfdc2c8c9so26607095e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 05:37:41 -0700 (PDT)
+ id 1tusht-00053J-UY
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 12:39:37 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 37027ff5-04bf-11f0-9ffa-bf95429c2676;
+ Wed, 19 Mar 2025 13:39:35 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3913d45a148so5871241f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 05:39:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d440ed4b8sm17528015e9.35.2025.03.19.05.37.40
+ ffacd0b85a97d-395c7df35bdsm20371104f8f.5.2025.03.19.05.39.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 05:37:40 -0700 (PDT)
+ Wed, 19 Mar 2025 05:39:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f310e88a-04be-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: 37027ff5-04bf-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742387861; x=1742992661; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742387975; x=1742992775; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zW8AAiLvPavScJHF7PGuNOQ3Ob33s0PgoQWxY98nWgA=;
-        b=Qnr4/jlwO04tarrmgr8QGUJup2g0IoFYi/4xmm0sw9R/Rq55k+CckfLaGeqoSPhGgC
-         nlblSilIHqpwjiMFT4bYVQyyljQAG02pKOAxxzN/LU8WXXdxJRG8orX3XhCSMOMBgqpj
-         bkvcOPICbsYwkplPRZcyqZZf7/zBc77by3LEGqlZFwTx+1JTIWv2Vzszx5Lbitg7CIEO
-         Y27e67YOzauxhh02GmlPRxWguvbod73azQcZXzlBnDTGEVx9mwv9vSWGAvAOzPTEUqp1
-         LlqOpChhHgvYVv09eWYe/oup5CuR6leXGW/8bnEDTguXDEBwX/14mLHCak/b+itm7xkb
-         sg0g==
+        bh=kN+0a/vLw66V9O/wcMOPIJOzf7SRbJBB0gmD3W7EMgg=;
+        b=EnEoF1XRHdbWK1H9+T6ifBfjQHev5X16JKi3APYy6tZ2NtfM0XyaY97dlyJQUXrr1D
+         UcCnGFn/r/u70uB96CbrFgs4BXnpBhotTXW4JUJVjUEKGhfefeCg9B6WeVuG0hpM8X+J
+         2U9sIgOYY+ooyHzJlFYgxQcxdXI0t15BQNcXXi8sJ1IU8wQJRjzpBczNHsYfqo66X7a3
+         cAe6tdoHAXm1RFzmPTk87O9TDl9C6IeGdEUKsWCNip+iWLJLsuHX5XD1Z8OOj7XqqcW9
+         P72ixPf28hPI4ucngX7RAEPpXFRYL+/JxXYAB727PnSCST2V0rLCza6nRrL5EcNEKW8K
+         uDfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742387861; x=1742992661;
+        d=1e100.net; s=20230601; t=1742387975; x=1742992775;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zW8AAiLvPavScJHF7PGuNOQ3Ob33s0PgoQWxY98nWgA=;
-        b=MPva9HRsxAOGQEqWcss+0hPH78V2MEiu07Bn1R8nJT00CvEGLuz/LP2URZyKutFhZX
-         UvPo8FlzgU6fMj/2Ma4Kbloljj2hqk/fnf4uPbgSxPfUaUUP7SV/beVT0iZ/gNDhihTm
-         vHepik+L2oX0UdkmRaT8mL5ZrUGm67+TtwxgZTIaR9Jcc7PFDOPyFZX98SuO0jFDMO/w
-         aV1NuyjVmmjqD9XbZbPHRIbmMkfjGyru5GWrPLEnPe/AgoXWi3k6RFKcH0C3gG3/OvHa
-         j2opZ+Ls6yOm2E+OeMsS9TfoOivj5Q+AWm6sH98N51+H7fuC1UO+mLzePwjerdz/1BoL
-         ww6A==
-X-Forwarded-Encrypted: i=1; AJvYcCVxeN4f3WD3e0PGk+HPcxCy8N64Q/4WPFlUU5Y9sR/hXCPJbKZlnkerjKT19qdMIcRsaKlue5cRG4c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxbQhh6ixOjYY8zO8OgX/PXheh0cngGdIdclwx8bGs/mFvJndsc
-	Znd0f4io+YRNWRzy6sIKINmhdhETtE69bXZDIR2InUhWJLvkENyCURE2k8uyPw==
-X-Gm-Gg: ASbGncvOaIkc7z1RVlBjQm+2fUm+3P2PaHYWwjr8OXlP8w+cNZKReQgpls+1vZiVGUq
-	9V0xZmge9Amlq+uxZNRTEQPJgE9pD8quA/1m3ibp4pCgDBBauXyXmvaC4CWOT08knFyoGXrdQps
-	+KOyqdjP5GuyWQk6E+6zgy0ZbqVRDpUQYPqgRaWhd3Hl3SObAln+wjEIfTwOz56SxiStlrDqI++
-	WXaIbSBPEjz6MSv/l2wJd09aFO2Q0iiyTByqng5peRN1ncf3iSb+TjL4IY38lc5LGga5RdocT2L
-	8Uys4R/hwvrJCvdOamSCuxsX6eipXZou1GlIzMEeaU48/YrsYNE0nNhQPZH5efCF56rkusKbt8f
-	ZltaRmvDdsefS7LSGLOj1J40cOZoGNg==
-X-Google-Smtp-Source: AGHT+IEzCRgBlX4h1SZamsrR0Zm72O6X+0kg96UfPGMP1vbOiA0hzNCYGE6+5caIdw5DZe6uLjfcPA==
-X-Received: by 2002:a05:600c:1da1:b0:43c:fe15:41d4 with SMTP id 5b1f17b1804b1-43d437c3379mr25580095e9.18.1742387861128;
-        Wed, 19 Mar 2025 05:37:41 -0700 (PDT)
-Message-ID: <7f523597-cf70-4673-b4a2-fac602253a9e@suse.com>
-Date: Wed, 19 Mar 2025 13:37:39 +0100
+        bh=kN+0a/vLw66V9O/wcMOPIJOzf7SRbJBB0gmD3W7EMgg=;
+        b=BuxkoHG48+Ytjs0VT+9nCAqUi2lY9j2NBQYFVdduOGr7b1oBaVTbxGG9112zm5eKv7
+         +aNGt0HQ9akePtxc7lR2VqIscEFsDjBnlouAQkdgnJl6oWlmY5g4TLe/Pt9HkAlbQntN
+         30EQJaGGfPU/L7+FHrHhNpUQ0SHnCr+CLrfPri5P0roDmKtAZPtbqSHQQS4H4WHqV6+N
+         gtGzu2jiU8uOZNr1OgzFU9TWEIkun/dYoka9y20vPx0Ntd9sfDCIs8EcW/AKc3OY0lf3
+         iZvhtiY37Uuc65v+EgIatO5RRBk8QoTowPuv9fo5y4fAeAxCemCzbUu3JKRAlkcK4CUk
+         ejRQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVYcE+0qoj+4BshYmZLsqs1NN+OajUVtfhq7xKj1d4XhQ3dvnP0d1qix6shFksvzsMFbA24BvlBDhE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyecrwRXco4M9i46vO8xqmZjEobPZCNBfRdduXHFt3DR2FRLzdl
+	G4vCeOS2y8oPG7L3MB1FHT3haao+BBvFJScnqRjgaassUx3HKQt/uv9U2/jo6w==
+X-Gm-Gg: ASbGnctdhMhhWtLXPT+yNJ/Pb7Lg5Et4tV1QOudB8ztPGB7+dZYE23az0oHz4ed3vP5
+	Xjr7Qzf5bKyuhFl+GOFkwkGx5kAwttsUOQ+5P3bBZJmyYsy8XWl7PKrm1n+wrfMFjxcnN4Q8SOl
+	pKDhtiIRm8qhjl8BN47qqyknh6Ymcz/B87lbZ8KJO7nuVbe1fLLaTeKZaW7QJT9JO+cMlvJmUfE
+	Wwth+Y9bJjA9sDHB6TeuMa6yLCzOO9iluXk1f/075d6BKlDGvyp2wDXSAtV+HSzuZIhi/mkdoJ6
+	/HXVgTiewThN0+HqRMbaKht05WdWgD0cghtX4jv7cSM/i+gF9cad8y2BIaHK3H6xNiS+CZE15hu
+	QNAjkFgJgWh/57Ar0iB1BCSPBFU38Q9xZyQ7HUTMd
+X-Google-Smtp-Source: AGHT+IFDg28Gj1x4GD0A+rR9Wx4+4D3KtGLpRoFuJqdTgNEedwf5Csir2L3Mj1bE0UOmAP0S9ucP6Q==
+X-Received: by 2002:a05:6000:1547:b0:390:e7c1:59c0 with SMTP id ffacd0b85a97d-399739cab50mr1949419f8f.26.1742387975157;
+        Wed, 19 Mar 2025 05:39:35 -0700 (PDT)
+Message-ID: <182e6183-8a61-4c03-902c-ab75b69cdd4f@suse.com>
+Date: Wed, 19 Mar 2025 13:39:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/dm: arm: Introduce inject_msi2 DM op
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>
-References: <cover.1705066642.git.mykyta_poturai@epam.com>
- <6c551b03796fbf091b22fcde96d894cd5308ff91.1705066642.git.mykyta_poturai@epam.com>
- <1793f158-ed83-46f9-be12-68c5ce86e4c4@suse.com>
- <495906c3-9937-4b54-ae3a-8e8ad2b9814f@epam.com>
- <a738e3d9-bfd3-46be-8f66-cbbe4353f93a@suse.com>
- <7b3a5232-c17e-49d8-8719-a42745144338@epam.com>
- <65f0072f-33c0-4436-8e34-3544d25c9568@suse.com>
- <19d8224a-04e0-45bb-9471-abeb684e9cad@epam.com>
+Subject: Re: [PATCH] x86/PVH: account for module command line length
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jandryuk@gmail.com>
+References: <730d8143-8cda-49da-a48a-3b82c2b77c9d@suse.com>
+ <5b959741-2e51-4576-9219-df495d0e30be@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,102 +119,97 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <19d8224a-04e0-45bb-9471-abeb684e9cad@epam.com>
+In-Reply-To: <5b959741-2e51-4576-9219-df495d0e30be@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19.03.2025 13:05, Mykyta Poturai wrote:
-> On 18.03.25 16:26, Jan Beulich wrote:
->> On 18.03.2025 14:31, Mykyta Poturai wrote:
->>> On 18.03.25 12:11, Jan Beulich wrote:
->>>> On 18.03.2025 10:10, Mykyta Poturai wrote:
->>>>> On 15.01.24 11:35, Jan Beulich wrote:
->>>>>> On 14.01.2024 11:01, Mykyta Poturai wrote:
->>>>>>> --- a/xen/include/public/hvm/dm_op.h
->>>>>>> +++ b/xen/include/public/hvm/dm_op.h
->>>>>>> @@ -444,6 +444,17 @@ struct xen_dm_op_nr_vcpus {
->>>>>>>     };
->>>>>>>     typedef struct xen_dm_op_nr_vcpus xen_dm_op_nr_vcpus_t;
->>>>>>>
->>>>>>> +#define XEN_DMOP_inject_msi2 21
->>>>>>> +#define XEN_DMOP_MSI_SOURCE_ID_VALID (1u << 0)
->>>>>>> +
->>>>>>> +struct xen_dm_op_inject_msi2 {
->>>>>>> +    uint64_aligned_t addr;
->>>>>>> +    uint32_t data;
->>>>>>> +    uint32_t source_id; /* PCI SBDF */
->>>>>>
->>>>>> Since the comment says SBDF (not BDF), how are multiple segments handled
->>>>>> here? At least on x86 (VT-d and V-i) source IDs are only 16 bits iirc,
->>>>>> and are local to the respective segment. It would feel wrong to use a
->>>>>> 32-bit quantity there; IOW I'd rather see this as being two 16-bit fields
->>>>>> (segment and source_id).
->>>>>
->>>>> I'm planning on resuming this series in the near future and want to
->>>>> clarify the DM op interface.
->>>>>
->>>>> Wouldn't it be better to keep things consistent and use
->>>>> XEN_DMOP_PCI_SBDF as it's done in xen_dm_op_ioreq_server_range? Also
->>>>> with this, the value can be easily casted to pci_sbdf_t later and split
->>>>> to segment and BDF if needed.
->>>>
->>>> The essence of my earlier comment is: Naming, contents, and comments need
->>>> to be in sync.
->>>>
->>>> I question though that "casting to pci_sbdf_t" is technically possible.
->>>> Nor am I convinced that it would be desirable to do so if it was possible
->>>> (or if "casting" was intended to mean something else than what this is in
->>>> C). See my recent comments on some of Andrii's patches [1][2].
->>>>
->>>> Jan
->>>>
->>>> [1] https://lists.xen.org/archives/html/xen-devel/2025-03/msg01294.html
->>>> [2] https://lists.xen.org/archives/html/xen-devel/2025-03/msg01301.html
->>>
->>> Would something like this be okay then?
->>>
->>> struct xen_dm_op_inject_msi2 {
->>>       /* IN - MSI data (lower 32 bits) */
->>>       uint32_t data;
->>>       /* IN - ITS devid of the device triggering the interrupt */
->>>       uint32_t source_id;
->>>       uint32_t flags;
->>>       uint32_t pad;
->>>       /* IN - MSI address */
->>>       uint64_aligned_t addr;
->>> };
->>>
->>> Added padding and explained source_id purpose better.
+On 19.03.2025 13:12, Andrew Cooper wrote:
+> On 19/03/2025 11:18 am, Jan Beulich wrote:
+>> As per observation in practice, initrd->cmdline_pa is not normally zero.
+>> Hence so far we always appended at least one byte. That alone may
+>> already render insufficient the "allocation" made by find_memory().
+>> Things would be worse when there's actually a (perhaps long) command
+>> line.
 >>
->> I fear the comment is far from making clear what layout source_id is to
->> have, hence also leaving open whether a segment number is included there.
->> Of course the issue here may be that I have no clue what "ITS devid"
->> means or implies. What is clear is that "ITS devid" is meaningless on
->> x86, for example.
+>> Skip setup when the command line is empty. Amend the "allocation" size
+>> by padding and actual size of module command line.
+>>
+>> Fixes: 0ecb8eb09f9f ("x86/pvh: pass module command line to dom0")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/xen/arch/x86/hvm/dom0_build.c
+>> +++ b/xen/arch/x86/hvm/dom0_build.c
+>> @@ -712,7 +712,15 @@ static int __init pvh_load_kernel(
+>>       * simplify it.
+>>       */
+>>      last_addr = find_memory(d, &elf, sizeof(start_info) +
+>> -                            (initrd ? ROUNDUP(initrd_len, PAGE_SIZE) +
+>> +                            (initrd ? ROUNDUP(ROUNDUP(initrd_len,
+>> +                                                      elf_64bit(&elf) ? 8 : 4) +
+>> +                                              (initrd->cmdline_pa &&
+>> +                                               strlen(__va(initrd->
+>> +                                                           cmdline_pa))
+>> +                                               ? strlen(__va(initrd->
+>> +                                                             cmdline_pa)) + 1
+>> +                                               : 0),
+>> +                                              PAGE_SIZE) +
+>>                                        sizeof(mod)
+>>                                      : 0) +
+>>                              (cmdline ? ROUNDUP(strlen(cmdline) + 1,
 > 
-> ITS devid is implementation defined. Its size is also implementation
-> defined but up to 32 bits.
+> This piece of logic was already bad, but this is rather worse.
 > 
-> Quotes from Arm Base System Architecture[1]:
->  > The system designer assigns a requester a unique StreamID to device
-> traffic input to the SMMU.
->  > If a requester is a bridge from a different interconnect with an
-> originator ID, like a PCIe RequesterID, and devices on that interconnect
-> might need to send MSIs, the originator ID is used to generate a
-> DeviceID. The function to generate the DeviceID should be an identity or
-> a simple offset.
+> One patch I made while doing the boot module work is:
 > 
-> On the Xen's side it is used as an offset into the ITS translation
-> tables and is sourced from msi-map nodes in the device tree.
+> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+> index 6a4453103a9a..7292ddd07276 100644
+> --- a/xen/arch/x86/hvm/dom0_build.c
+> +++ b/xen/arch/x86/hvm/dom0_build.c
+> @@ -654,6 +654,7 @@ static int __init pvh_load_kernel(
+>      const char *cmdline = image->cmdline_pa ? __va(image->cmdline_pa) :
+> NULL;
+>      struct elf_binary elf;
+>      struct elf_dom_parms parms;
+> +    size_t metadata_len;
+>      paddr_t last_addr;
+>      struct hvm_start_info start_info = { 0 };
+>      struct hvm_modlist_entry mod = { 0 };
+> @@ -711,13 +712,16 @@ static int __init pvh_load_kernel(
+>       * split into smaller allocations, done as a single region in order to
+>       * simplify it.
+>       */
+> -    last_addr = find_memory(d, &elf, sizeof(start_info) +
+> -                            (initrd ? ROUNDUP(initrd_len, PAGE_SIZE) +
+> -                                      sizeof(mod)
+> -                                    : 0) +
+> -                            (cmdline ? ROUNDUP(strlen(cmdline) + 1,
+> -                                               elf_64bit(&elf) ? 8 : 4)
+> -                                     : 0));
+> +    metadata_len = sizeof(start_info);
+> +
+> +    if ( initrd )
+> +        metadata_len += sizeof(mod) + ROUNDUP(initrd_len, PAGE_SIZE);
+> +
+> +    if ( cmdline )
+> +        metadata_len += ROUNDUP(strlen(cmdline) + 1,
+> +                                elf_64bit(&elf) ? 8 : 4);
+> +
+> +    last_addr = find_memory(d, &elf, metadata_len);
+>      if ( last_addr == INVALID_PADDR )
+>      {
+>          printk("Unable to find a memory region to load initrd and
+> metadata\n");
 > 
-> Practically for PCI the requester ID is usually the SBDF. Where the
-> segment is used to find the host bridge node that contains the msi-map
-> node with defined offsets but it is also included as part of an id.
-> That's why it was originally called SBDF in the comment. I don't know if
-> there is a better way to describe what it is concisely in the comments.
+> 
+> which I think I ought to submit as a prerequisite to this, after which
+> your logic squashed on the RHS now becomes an expansion of the `if (
+> initrd )`.
 
-If this is to be usable for other architectures too, it may need to be
-a union to put there. With appropriate comments for each member.
+Yes please.
+
+Another thing I was considering to put in a local variable is the
+repeated "elf_64bit(&elf) ? 8 : 4". If that sounds okay, I can make that
+a(nother) pre-patch to mine.
 
 Jan
 
