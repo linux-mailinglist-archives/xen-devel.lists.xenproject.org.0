@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22D45A69670
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 18:29:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.921062.1325080 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E870A699D3
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 20:53:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.921099.1325097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuxEM-0005SP-Un; Wed, 19 Mar 2025 17:29:26 +0000
+	id 1tuzSl-0000iR-Qq; Wed, 19 Mar 2025 19:52:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 921062.1325080; Wed, 19 Mar 2025 17:29:26 +0000
+Received: by outflank-mailman (output) from mailman id 921099.1325097; Wed, 19 Mar 2025 19:52:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tuxEM-0005QQ-S6; Wed, 19 Mar 2025 17:29:26 +0000
-Received: by outflank-mailman (input) for mailman id 921062;
- Wed, 19 Mar 2025 17:29:25 +0000
+	id 1tuzSl-0000gQ-Nx; Wed, 19 Mar 2025 19:52:27 +0000
+Received: by outflank-mailman (input) for mailman id 921099;
+ Wed, 19 Mar 2025 19:52:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GTXv=WG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tuxEL-0005QK-F7
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 17:29:25 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b2eed6f6-04e7-11f0-9ffa-bf95429c2676;
- Wed, 19 Mar 2025 18:29:23 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5e66407963fso3675038a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 10:29:23 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3146aea93sm1035357966b.30.2025.03.19.10.29.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 10:29:22 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mgHu=WG=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1tuzSi-0000gJ-S3
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 19:52:26 +0000
+Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch
+ [185.70.40.133]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id abec4f6f-04fb-11f0-9ffa-bf95429c2676;
+ Wed, 19 Mar 2025 20:52:21 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,169 +36,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2eed6f6-04e7-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1742405363; x=1743010163; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pudLsqeZLxi1HoAYMVDh8cu9PXi+IgoGbpoMKfUdjdw=;
-        b=cUMpFze5aER3Gdh/2+ReTV5goMQlKVJsiF7UTpKIYs5SFNxSHfh5iyvFhmS5pGwav2
-         YgRL1Jw+qMwofeyyZdzr2INwHLyuIPFUO0+i6G0FjKRff/eNiyG2v3Jhr6UkMsFWomB6
-         RqOqWSgUGeSEb8Hne9A1vsu+77eR1gxItPzZ3WB7Fyh0NDmMw69SmZjkUIresB4r5dBW
-         3RGMx4yB/ZSdSVKpDxEhNZHIiJuOP6yRzhVtIipU4J6wXEEwcGNRMifGUsXYljLrnS1W
-         s0tVdAhQYfBbyVj48cKRzStw87PqOPp8u4UNOFosdJ4fXbq59xJqSKNOLiTlcJJtigj+
-         AGBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742405363; x=1743010163;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=pudLsqeZLxi1HoAYMVDh8cu9PXi+IgoGbpoMKfUdjdw=;
-        b=aY0aHO6YbtD6RcigC7dwPUy+T6KMR3xIkEsdhiu3xTy2ttOzs3kJBi0K3k/oLT+QGG
-         guGmtHn8TeDJng80IvPmVudhsW+Kmvzn2WDBor594vobLeIJszmO4kmZi376G9THIOBj
-         OBD9YRTv0pWfRPinjpd/WzWOqPhsofK9MYmv3laQyYr+Yf2KteTDFYRkYQ92wz6uXKHW
-         7YXngN1gsMq/l1bV3s5KqOHQ5rKbhE594PeKMJZHpNVs6nEuUp00PDZIqrwv0odAL7SS
-         +p48bimSMLHKrulh0u2FUK5Y2UWXcTILDYkrBkIPuSCOHbEXQx/Fl16h/xqr3ibcBm5w
-         COjg==
-X-Forwarded-Encrypted: i=1; AJvYcCVjsX+0Svx0P7DQCc1iNYPjKl4OfpvJPvYLay5zltSAEDOdDAOr/swL/TwBpPZyRNmBDRFHgZ5Zub8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxvMz+O3iKXwjPvj/rLJdw7AuI3kHdZ4fXZglOYQowt70rDUPVX
-	+YzK7F5VQFXkdjz3GiaOIuxQp4KeSHjIveOsL0vtTjCgIgbNfkd9
-X-Gm-Gg: ASbGncvi9MiLUhSkP1vk8dq+nk8HaV+3lUtRCDTFQ6nl57TEZgAtghW6Ics6YlUOXVn
-	6gk8O3AvUz7GWPIvY40PZOySa7ckX8Z1UZBKb/ekYpyVEfWucXdPjZbIdgPW+Ukqwck6F6z8wRJ
-	uTtc9VKLMxv3o2+wViem0rYngWnboxGpU9EmPFs8Dcnu2lETHxTgwPEzQAgAjlYAi+Fxdz1qSDN
-	tcZGf6JvlrHXmP/pM13IbJokKuhq/fsnyIwyqH/ZK0/LLQ/bVZC4z/wfTC3ug0L+oeOaG9MTeuS
-	HYaz20C38jLsvDCKAEEAb+lD/DX7Ft5pHGWAOZs8DdH+A6vj1uESwWoQTuqSgUVuW7gGIdbEdlO
-	KMydPH0dAnOfn8iuONycwJucRbZFjNYQ=
-X-Google-Smtp-Source: AGHT+IEs31iUjMqY9FFuLCSzOsXYBTyiERl+6DtIHN+GyJ92m2hVePiVR22XH+x6bktiECYVU57p+g==
-X-Received: by 2002:a17:907:7da7:b0:ac2:7d72:c2ab with SMTP id a640c23a62f3a-ac3ce189338mr34039866b.47.1742405362767;
-        Wed, 19 Mar 2025 10:29:22 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------OOimcDJQSSm04A8Kg6mY87ch"
-Message-ID: <27dc3481-1f48-46c5-a827-e0a44c17686d@gmail.com>
-Date: Wed, 19 Mar 2025 18:29:21 +0100
+X-Inumbo-ID: abec4f6f-04fb-11f0-9ffa-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1742413940; x=1742673140;
+	bh=oQ+ebqmHQPg2Ej7WSbUSoqIIIp4Cb1iNKBatjjPI8v8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=Y8VehL7XJvk4mfFJZbddN2/OFr+3CIx0GXLcAHbQ6dTdFJ6AIfKEH8fps8XJOLZYy
+	 ywlPhzwDCpvdGxKb3FLJzILW71m3Ay1ZpyTPrich0nLNYu9pCrnLtWvJfYojN0hDlW
+	 dlMgAPEZ9sT6UeDTP/8LAaN5Yo92rXr+tVtavjXsElL9cTq2gcmDpDOe1JBkKxQHaD
+	 gtr0Ehw44HmHOk+bJ0NR/hh3XVoj3bNhglfqcX+tf+boyOlrOvNywRaHVpsyaiSluN
+	 nnsIuh8Qz1/NU0N+sMYOzhp//Vi5LMKGJA4Qjp04empyAG4A3RxlPXNQgG06Ma+bts
+	 nQoXCspdNZFCw==
+Date: Wed, 19 Mar 2025 19:52:14 +0000
+To: xen-devel@lists.xenproject.org
+From: Denis Mukhin <dmkhn@proton.me>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: Re: [PATCH v1 0/8] xen/console: cleanup console input switch logic
+Message-ID: <LjHBVVon45WUi3x9m82YirIv4G283_RHtMZmIeruG51WIbK_rduU9YzuEqAf1EaPo5CafFr1hJFc6w-HW0pISILMq3SkADABP43LwEOqbWU=@proton.me>
+In-Reply-To: <20250318233617.849903-1-dmukhin@ford.com>
+References: <20250318233617.849903-1-dmukhin@ford.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 0903348d78abf3bf5f5adb6d37ed51a4b244e12e
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/4] xen/riscv: introduce preinit_xen_time()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <3152c755e31367370f3e1d955253a9d4fc095f68.1741709885.git.oleksii.kurochko@gmail.com>
- <f633e10b-2bde-4574-ab87-fec5a2a52b07@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <f633e10b-2bde-4574-ab87-fec5a2a52b07@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-This is a multi-part message in MIME format.
---------------OOimcDJQSSm04A8Kg6mY87ch
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On Tuesday, March 18th, 2025 at 4:36 PM, dmkhn@proton.me <dmkhn@proton.me> =
+wrote:
+
+>=20
+>=20
+> Currently, on x86, console input can be rotated in round-robin manner
+> only between dom0, PV shim, and Xen itself. On Arm the input rotation
+> can include domUs with vpl011.
+>=20
+> The patch series introduces the concept of "console focus", which is
+> defined as the ID of the domain that currently owns the physical console
+> input.
+>=20
+> The patch series originates from the NS16550 UART emulator series [1]
+> for x86, which requires ability to switch physical console input to a
+> PVH/HVM domain with an emulated UART.
+>=20
+> The main idea is introducing a per-domain permission flag that is set
+> during domain initialization and used by the console driver to switch
+> the input across permitted domains.
+>=20
+> Patch 0 removes all the trailing white spaces in the console driver code.
+>=20
+> Patch 1 introduces a new domain permission flag to mark ownership of the
+> console input for the console driver.
+>=20
+> Patches 2-4 prepare console driver to allow console input rotation
+> across multiple domains based on the new permission flag.
+>=20
+> Patches 5-6 perform mechanical renames to fit the usage in the code.
+>=20
+> Patch 7 cleans up the console input switch logic.
+>=20
+> Patch 8 simplifies the existing vUART code by using newly introduced APIs=
+.
+
+Corrected series explanation:
+
+Patch 1 removes all the trailing white spaces in the console driver code.
+
+Patch 2 introduces a new domain permission flag to mark ownership of the
+console input for the console driver.
+=20
+Patches 3, 4 prepare console driver to allow console input rotation
+across multiple domains based on the new permission flag.
+
+Patches 5, 6 perform mechanical renames to fit the usage in the code.
+=20
+Patch 7 cleans up the console input switch logic.
+
+Patch 8 simplifies the existing vUART code by using newly introduced APIs.
 
 
-On 3/17/25 4:24 PM, Jan Beulich wrote:
-> On 11.03.2025 17:19, Oleksii Kurochko wrote:
->> --- /dev/null
->> +++ b/xen/arch/riscv/time.c
->> @@ -0,0 +1,38 @@
->> +#include <xen/device_tree.h>
->> +#include <xen/init.h>
->> +#include <xen/lib.h>
->> +#include <xen/sections.h>
->> +
->> +unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
->> +unsigned long __read_mostly boot_count;
-> Why not also __ro_after_init? And what is this variable actually needed
-> for? Common code doesn't use it, so a better name (describing what it
-> really holds) might be desirable, even if this then means not being in
-> sync with Arm code.
-
-To calculate more accurate amount of time since boot.
-I think it can be __ro_after_init as it is going to be initialized once.
-
->
-> Furthermore, I can't spot a declaration of this variable. Was it meant
-> to be static?
-
-It is going to be used for vtimer functionality and in repogram_timer()
-so it can't be static.
-
-I will add a declaration to asm/time.h:
-```
-   /* Counter value at boot time */
-   extern uint64_t boot_count;
-```
-
-Thanks.
-
-~ Oleksii
-
---------------OOimcDJQSSm04A8Kg6mY87ch
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 3/17/25 4:24 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:f633e10b-2bde-4574-ab87-fec5a2a52b07@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 11.03.2025 17:19, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- /dev/null
-+++ b/xen/arch/riscv/time.c
-@@ -0,0 +1,38 @@
-+#include &lt;xen/device_tree.h&gt;
-+#include &lt;xen/init.h&gt;
-+#include &lt;xen/lib.h&gt;
-+#include &lt;xen/sections.h&gt;
-+
-+unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
-+unsigned long __read_mostly boot_count;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Why not also __ro_after_init? And what is this variable actually needed
-for? Common code doesn't use it, so a better name (describing what it
-really holds) might be desirable, even if this then means not being in
-sync with Arm code.</pre>
-    </blockquote>
-    <pre>To calculate more accurate amount of time since boot.
-I think it can be __ro_after_init as it is going to be initialized once.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:f633e10b-2bde-4574-ab87-fec5a2a52b07@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-Furthermore, I can't spot a declaration of this variable. Was it meant
-to be static?</pre>
-    </blockquote>
-    <pre>It is going to be used for vtimer functionality and in repogram_timer()
-so it can't be static.
-
-I will add a declaration to asm/time.h:
-```
-  /* Counter value at boot time */
-  extern uint64_t boot_count;
-```
-
-Thanks.
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------OOimcDJQSSm04A8Kg6mY87ch--
+>=20
+> CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/1723361=
+248
+>=20
+> [1]: https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-0-c5d3=
+6b31d66c@ford.com/
+>=20
+> Denis Mukhin (8):
+> xen/console: fix trailing whitespaces
+> xen/console: introduce console input permission
+> xen/domain: introduce domid_top
+> xen/domain: introduce domid_alloc()
+> xen/console: rename switch_serial_input() to console_switch_focus()
+> xen/console: rename console_rx to console_focus
+> xen/console: introduce console_set_focus()
+> xen/console: introduce console_get_focus()
+>=20
+> xen/arch/arm/dom0less-build.c | 15 ++-
+> xen/arch/arm/domain_build.c | 19 +++-
+> xen/arch/arm/include/asm/setup.h | 2 -
+> xen/arch/arm/setup.c | 2 -
+> xen/arch/arm/vpl011.c | 7 +-
+> xen/arch/ppc/include/asm/setup.h | 2 -
+> xen/arch/riscv/include/asm/setup.h | 2 -
+> xen/arch/x86/include/asm/setup.h | 2 -
+> xen/arch/x86/pv/shim.c | 2 +
+> xen/common/domain.c | 5 +
+> xen/common/domctl.c | 71 +++++++++------
+> xen/common/kernel.c | 8 ++
+> xen/drivers/char/console.c | 142 +++++++++++++++++------------
+> xen/include/xen/console.h | 3 +-
+> xen/include/xen/domain.h | 5 +
+> xen/include/xen/sched.h | 8 +-
+> 16 files changed, 180 insertions(+), 115 deletions(-)
+>=20
+> --
+> 2.34.1
 
