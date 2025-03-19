@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7FD2A68A06
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 11:53:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.920258.1324478 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 659A8A68B22
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Mar 2025 12:18:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.920274.1324490 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tur3A-0002C3-PW; Wed, 19 Mar 2025 10:53:28 +0000
+	id 1turR0-00079G-Mr; Wed, 19 Mar 2025 11:18:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 920258.1324478; Wed, 19 Mar 2025 10:53:28 +0000
+Received: by outflank-mailman (output) from mailman id 920274.1324490; Wed, 19 Mar 2025 11:18:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tur3A-00029L-Mv; Wed, 19 Mar 2025 10:53:28 +0000
-Received: by outflank-mailman (input) for mailman id 920258;
- Wed, 19 Mar 2025 10:53:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1turR0-00076F-JK; Wed, 19 Mar 2025 11:18:06 +0000
+Received: by outflank-mailman (input) for mailman id 920274;
+ Wed, 19 Mar 2025 11:18:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bBEQ=WG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tur39-00029F-FV
- for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 10:53:27 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 61f18dcd-04b0-11f0-9ffa-bf95429c2676;
- Wed, 19 Mar 2025 11:53:25 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3912d2c89ecso6068061f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 03:53:25 -0700 (PDT)
+ id 1turQy-000769-Ri
+ for xen-devel@lists.xenproject.org; Wed, 19 Mar 2025 11:18:04 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d2d87bd5-04b3-11f0-9ea0-5ba50f476ded;
+ Wed, 19 Mar 2025 12:18:03 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4393dc02b78so29253595e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Mar 2025 04:18:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb40cdafsm20792641f8f.62.2025.03.19.03.53.24
+ 5b1f17b1804b1-43d4453227dsm15598075e9.40.2025.03.19.04.18.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Mar 2025 03:53:24 -0700 (PDT)
+ Wed, 19 Mar 2025 04:18:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61f18dcd-04b0-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: d2d87bd5-04b3-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742381605; x=1742986405; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OXTMbzfbmdZ2YJ78GbE53eMp5htfQKVJu2BQW5atGEQ=;
-        b=Pc8wRJPyJGGDsYuFXkQ6aKXk4TKObNNQm/c0bhPVuWpupzM6xUhtgYASht98DHtA9/
-         jYNmj0gf4B7KWh1qT1Q+gCzmPNHGjrI9BOtuMGddiczkYeplOdzt4FuxLEDUEZAhOrFR
-         IQy6zTgBvfSZO15nR9EPu32ynN/4YLp75fy7dpw/r5ZKERHfVkMsY4+mK+dDttMQCdDQ
-         m/lcyqFScdExsRAMQMPGfRa8Qf83Wh3VP+5h13nzb28/RsTG51K5+mLkmpWs+YwI7Gyo
-         62QlXMtMXKuqeqmiDWTZSwQjOjNVN/k/+oD1rkwW14Y3oic6PGaqI4Ay2HnORqjYKO36
-         Oq+Q==
+        d=suse.com; s=google; t=1742383083; x=1742987883; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nJPOZclbjSgxgc7yTSWYoEITrHjsgTLSTZISf6b28RQ=;
+        b=JxKf1pClZEnyhP4tH1/CBYxadMJXHf0VvSw1QVVGwupDWuTeopjdJ1xRK6UEE1m35Y
+         4vtObLS1ir+Qe8Hupfn0OOpCJhtfeCm61H5JPKlVC+0886G6UT9WX9NeJ6RRVgP8QPFp
+         WcV9YA0rtrZRqEXaPQqAMf4CgUC1nIn6oUHbrb7iEoGxrFbWvAZ3dhxmeFu83Vhn48E/
+         GGIlcYIewfOrE/BFzxswbHwGKvuXDwjSjAyg/UD9a4VppuNMdq2SpddbnQpQ7J92C+zj
+         LRcHmeDZQ8JwFg77ULUxvR5IYTdBlZCIcCN6OAka2+WHIwII+Yx6GpvjgEbV9LkkFK4b
+         JVmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742381605; x=1742986405;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OXTMbzfbmdZ2YJ78GbE53eMp5htfQKVJu2BQW5atGEQ=;
-        b=j34YtJyohkIIJuCXoNPjDmBwtjAM1r+hgEmN+/r8TfWW3v57OIK2a2jeXv5YyhbnF7
-         2PkuDsO2CCKDnRm06adakkZYK8IexgQfYyK5X64G8YhXFzTsCSlbZHqcow9jHx0Iw0XA
-         BX+syKOwC8ksedUr2cFLsByOlL60qcyYCv4maWinBMJ5iOD4ABvThbAMuasYW7lME8mq
-         yReCa6zCQsJjJsvse+nITQpA8A5tIpHeeDvzG+hGNC0RLKIfuGGyd3QgqjG/gr/q9gtd
-         FhgAEwTfDq7pBhjjL04pp5EceF6gQ+u+F+KWWNlQ8wcHgSR4N7zVNXAdlht5buDmItna
-         Cz6Q==
-X-Forwarded-Encrypted: i=1; AJvYcCU7NSaMPih6QOUP82WHU6NQ31QH1gOlM21BasjkTVa19l+62Q2RafAEx76j7JQg1VhsJGFBL9o5raY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz+50c5O5Vi5ixEZWI7DaymbrVjhV3mrJoSIc8Of31P796EOOse
-	F1KRYqQLeDmsPPSfPsR4WhBbwomWSTUC0qgUqui8fchuy9WYFiZgdh/JJlwUcg==
-X-Gm-Gg: ASbGncsjCivDR0YzXCq8rWAV0qYVmC357YQh0Cczs1U4vjSqrBEnUdmP1VR+3sboA55
-	sasbvXrRFZPmX7ClBpWai0p++obWTJOxq9I5fVrC+BDKckf4Y57RTWn898NzbiguZ2DszcJxTVu
-	Gk+8PKsqNyFSHnPVvXY2DybZFntHq5KRevReGr/haw2mYpo4jqxic8K1umDm55TgvOKGX55kLfS
-	eqG5IaZt2RyvT1lROoeUzVN6DLxrc8oVXlcL0X+hig4xKOx503UgJa84ozh4bsmfXpPPO4XdwhB
-	5sNLRX8Ea50oY1Of0fUezhiCxejKAuw7o7xs6oDDD0QKc/tY3xDRhZmxQKCiv+YjyKsadFda/Qv
-	orchQbBtPxLhdlE7+rmpYdG+Y+NiFZA==
-X-Google-Smtp-Source: AGHT+IHG9M8dsl8a/5c2iKf4DeCxc3e4x9TGKI98uvWc4FeHEIm/jafTgU4rUUMSFPaMxy0PQD7T1w==
-X-Received: by 2002:a05:6000:18ac:b0:391:2d61:4561 with SMTP id ffacd0b85a97d-399739b9cd3mr1758535f8f.6.1742381604692;
-        Wed, 19 Mar 2025 03:53:24 -0700 (PDT)
-Message-ID: <11da3dfc-9370-469f-9616-6ed1fc883425@suse.com>
-Date: Wed, 19 Mar 2025 11:53:23 +0100
+        d=1e100.net; s=20230601; t=1742383083; x=1742987883;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=nJPOZclbjSgxgc7yTSWYoEITrHjsgTLSTZISf6b28RQ=;
+        b=ksnf3fru/NGPkQNfQs6Nfrvv/79InRsQblI3iyjjR7DpbLmH16iBue3Y7y+kYCpsDB
+         iKZGKkFQlQ0QayekcnE9gXfjRkorzQGowE0S78xjjgE3qsR7U1odx2FRETSwgZt+mJXy
+         608OEPkGuiHg6c8RHzIXW/5kjp7GRWspo577A8/4H7slM2TuTW0mE0KAZ5TJxRgO1Nai
+         5RmFdWyRsq8o2CBgPGiescgdHmtxkBXf6Pz8a5maa7xhM35lJLo2V8q5hB/P95BnVmwF
+         8FD9EaE35QqRmoK4+PcNOyOfbggwLO2vB/k7UsyJ5LxS/ZVsmhhhuGXVuudsWMuX8NP5
+         GsEQ==
+X-Gm-Message-State: AOJu0Yz1ByBETwDm0ZVyh7MY8CioNmcKDddNbWcp0fS785yWdBFMonzI
+	XFj7VfaPjRqA0rzTd85FmPLiqR6zrC4H430VbWj2fKw5jI32Iocxx8Va2MQTHebdQ+7PP/87XyQ
+	=
+X-Gm-Gg: ASbGncuRbZT2Jbqd1NCCZHV5IDaw2dexLibjHqO5GXoBtL9JH//2OreAFz8G+iwG9fB
+	TrKqix8r+aio86VtGiMBDQUJ4J4jRflgQTnm7o+ZI/xbppS0ut4JNuDEjrU1KAPCroyTikToYax
+	fGnD0iKxDjGj0CRcUeHgU4yr+bkLoadNhu5yJy0RbIS3P8v/THRCB3s8Fxt9xAO0DW+SaHKB4HK
+	5GGIVX5PHIVFb2xEp8fVdQn6JgcEJXbTeaa9XJsFE6osFYW5mGM3itCXAuNdoc87yZ2NgKtEDf0
+	oPMkBnONWLnnv7kqWHk36luNY8yEoFULFACELlP8/CVLQa2xvsXSwKdLCTfF0utY26ZuKl40SUG
+	ubhaSPXjpA3xIMak/taovaKM13vjeyA==
+X-Google-Smtp-Source: AGHT+IHosA9DLXwEIyHGDtuTd2Ak31mqs67yWFvlumPS8cdMoZwYc6pB1Y1jXZHmNmD3motywj9NRw==
+X-Received: by 2002:a05:600c:1911:b0:43c:fd2b:823a with SMTP id 5b1f17b1804b1-43d438103f4mr14330845e9.24.1742383082612;
+        Wed, 19 Mar 2025 04:18:02 -0700 (PDT)
+Message-ID: <730d8143-8cda-49da-a48a-3b82c2b77c9d@suse.com>
+Date: Wed, 19 Mar 2025 12:18:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] x86/mkreloc: remove warning about relocations to RO
- section
-From: Jan Beulich <jbeulich@suse.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250318173547.59475-1-roger.pau@citrix.com>
- <20250318173547.59475-6-roger.pau@citrix.com>
- <a3c70637-b354-40f4-9a67-9d2aa7bcdcb0@suse.com>
- <27ebf169-ab63-4def-a98b-751ae1758293@suse.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jandryuk@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/PVH: account for module command line length
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -123,31 +116,65 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <27ebf169-ab63-4def-a98b-751ae1758293@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.03.2025 11:46, Jan Beulich wrote:
-> On 19.03.2025 11:32, Jan Beulich wrote:
->> On 18.03.2025 18:35, Roger Pau Monne wrote:
->>> Relocations are now applied after having moved the trampoline,
->>
->> That's two entirely different sets of relocations, isn't it? What we generate
->> here is what is to be encoded in the PE binary's .reloc section, for the PE
->> loader to process. And for us to then process again once we move Xen back to
->> its linked position (by virtue of leaving physical mode). Therefore what
->> matters here is whether these relocations are still carried out while on the
->> page tables to boot loader created, or when already on page tables we control.
->> In the former case any relocation to a non-writable section would be liable
->> to fault when applied.
-> 
-> And yes - both calls to efi_arch_relocate_image() are ahead of switching page
-> tables. The first call is benign - no writes occur there. The second call
-> would cause #PF though for any relocs applied to .text or .rodata or .init.text
-> or whatever else is non-writable.
+As per observation in practice, initrd->cmdline_pa is not normally zero.
+Hence so far we always appended at least one byte. That alone may
+already render insufficient the "allocation" made by find_memory().
+Things would be worse when there's actually a (perhaps long) command
+line.
 
-Ah, no - .rodata is unaffected, due to it being writable as a result of also
-containing all .data.ro_after_init contributions.
+Skip setup when the command line is empty. Amend the "allocation" size
+by padding and actual size of module command line.
 
-Jan
+Fixes: 0ecb8eb09f9f ("x86/pvh: pass module command line to dom0")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+--- a/xen/arch/x86/hvm/dom0_build.c
++++ b/xen/arch/x86/hvm/dom0_build.c
+@@ -712,7 +712,15 @@ static int __init pvh_load_kernel(
+      * simplify it.
+      */
+     last_addr = find_memory(d, &elf, sizeof(start_info) +
+-                            (initrd ? ROUNDUP(initrd_len, PAGE_SIZE) +
++                            (initrd ? ROUNDUP(ROUNDUP(initrd_len,
++                                                      elf_64bit(&elf) ? 8 : 4) +
++                                              (initrd->cmdline_pa &&
++                                               strlen(__va(initrd->
++                                                           cmdline_pa))
++                                               ? strlen(__va(initrd->
++                                                             cmdline_pa)) + 1
++                                               : 0),
++                                              PAGE_SIZE) +
+                                       sizeof(mod)
+                                     : 0) +
+                             (cmdline ? ROUNDUP(strlen(cmdline) + 1,
+@@ -740,16 +748,19 @@ static int __init pvh_load_kernel(
+         if ( initrd->cmdline_pa )
+         {
+             char *str = __va(initrd->cmdline_pa);
+-            size_t len = strlen(str) + 1;
++            size_t len = strlen(str);
+ 
+-            rc = hvm_copy_to_guest_phys(last_addr, str, len, v);
+-            if ( rc )
++            if ( len++ )
+             {
+-                printk("Unable to copy module command line\n");
+-                return rc;
++                rc = hvm_copy_to_guest_phys(last_addr, str, len, v);
++                if ( rc )
++                {
++                    printk("Unable to copy module command line\n");
++                    return rc;
++                }
++                mod.cmdline_paddr = last_addr;
++                last_addr += len;
+             }
+-            mod.cmdline_paddr = last_addr;
+-            last_addr += len;
+         }
+         last_addr = ROUNDUP(last_addr, PAGE_SIZE);
+     }
 
