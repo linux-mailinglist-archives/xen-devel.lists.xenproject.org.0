@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76AEBA6A175
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 09:35:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.921457.1325298 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFEE3A6A1B5
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 09:47:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.921478.1325308 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvBMO-0002fF-Re; Thu, 20 Mar 2025 08:34:40 +0000
+	id 1tvBYE-0005MK-TN; Thu, 20 Mar 2025 08:46:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 921457.1325298; Thu, 20 Mar 2025 08:34:40 +0000
+Received: by outflank-mailman (output) from mailman id 921478.1325308; Thu, 20 Mar 2025 08:46:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvBMO-0002dm-Nk; Thu, 20 Mar 2025 08:34:40 +0000
-Received: by outflank-mailman (input) for mailman id 921457;
- Thu, 20 Mar 2025 08:34:39 +0000
+	id 1tvBYE-0005Kn-Qf; Thu, 20 Mar 2025 08:46:54 +0000
+Received: by outflank-mailman (input) for mailman id 921478;
+ Thu, 20 Mar 2025 08:46:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tvBMN-0002dg-94
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 08:34:39 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1tvBYC-0005Kh-QN
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 08:46:52 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 28d9dd00-0566-11f0-9ea0-5ba50f476ded;
- Thu, 20 Mar 2025 09:34:38 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43cebe06e9eso3043925e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 01:34:38 -0700 (PDT)
+ id dda5343b-0567-11f0-9ea0-5ba50f476ded;
+ Thu, 20 Mar 2025 09:46:50 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3965c995151so240097f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 01:46:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d43f47ba7sm41005515e9.16.2025.03.20.01.34.36
+ ffacd0b85a97d-395c8881539sm22713361f8f.46.2025.03.20.01.46.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 01:34:36 -0700 (PDT)
+ Thu, 20 Mar 2025 01:46:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28d9dd00-0566-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: dda5343b-0567-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742459677; x=1743064477; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742460410; x=1743065210; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9yYDfcuioVZUSfXGaxCa/LgS5HF46sQaujNzkA05Onw=;
-        b=G3affWnNvr+iMBARRogy1gubwKkcrM5ZIyNfkETmU+b/AZGv8njFU6gxqTfgHzMi0m
-         7RWnpaoIxLRkAlK6MuK0FuRl/Y4tH6yeKrbgAWGwDY5JRuZnIeRHEHUBtPWgzsqhPgKi
-         Y+dlrL8dCIYbcr6PQCHFo4nqVBc5D7kx6M/piMeGoHvI/onQYMi8qWhErOyFcvHDCoJr
-         JdmjWnRx7GctlSllRisf2ZQsjqvCidqQuaaG+E6Mb9KhAJ1vFGF1Yd1uO7VdzlDRnLhy
-         6odyZlZ6FCc/KBAAWOiLAXUz92KEcOftOlzAwynNZ88JwcuRDhhUBfu8YMuoCiry9p8p
-         eI+Q==
+        bh=bDNTI3hOaCvuuAVoUZzvEqzOgI7RZ3yM1B3ixcqdrIU=;
+        b=CRPAELTRDMtFmGkd0p+lm+Pc1MZrYsLlsZWPDE2tiaLOoFf0UUUxlgszwpP0ZLLifS
+         LvXEOJ3KSN27uPc0rS1nL/Szn6HZJbJnh3F83KOTJyFtwos3wx0F+3ZmQsQKxEkcb6JP
+         u7LakYfKx1xKl75L7e9N8qu35qj90Ado6tl3ISItgdrfHh72Km01UwkezRbmCuqDryil
+         zkUFI6LbcaWhgKtiMYjDg37BrfUxRt3h/T7uKY78BhOBR9gYIb6q0Grdc51A28Imee5B
+         2enJ5SDNsZecJaqGMrv/iq/f7LPRA47/xsq5qVH3EptP7jqM/qO9TdZytACp9PDKJWxO
+         iKUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742459677; x=1743064477;
+        d=1e100.net; s=20230601; t=1742460410; x=1743065210;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9yYDfcuioVZUSfXGaxCa/LgS5HF46sQaujNzkA05Onw=;
-        b=ljUUTsLIKvNTa3vUi/3Ucdjrh9iU7kUFKt9V6+3QXBdX3d+11Xvv7c+aS1cbkd+L+q
-         MIOSC0CTjns6BLpRiqX0p1tZETeQe/s8AgI5iwew5+1fL8+pMdmhSeWuUZl8eksR/L2S
-         FF6Gqc1Fv9wdEwXKZcdk8EOLSYmCsXah3Fp/zOf4mMDnUt6PxLEOrZxAqbQjjgRFFuv9
-         QXYIeUUaBI6+jDwwKnze4vwmyov1YSPB5TwMoEzLX3RgRNXQkNPRs4pMroEsFi8izEVV
-         tVCAN3dZ9U6blkX4qFYxQnqeLrlqzgUEcaSJJCr3hB0uxIPyB4fwo+0GqEo74jZIeev2
-         buAA==
-X-Forwarded-Encrypted: i=1; AJvYcCXXNArCN02YltJN6GC3fP5YxIjloGQpZTYLydr0OKwbaFOdafYQuGGygG1VHUUo0R4RUuKiF8lkxGg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyaGTZTwXzgd7Yq46x5B0byW6eff3DSpVa3+e6uW756OqUeWV55
-	zHCZoku7Do0YMCIAbrvWmrT+d0wtoPKS3N5W0sBGj5jQy/bC7cg5bBZ/tFCusQ==
-X-Gm-Gg: ASbGncvNz9Go3dHc5HZg828HFh4BX6VpJ9RaTTc9oyoyjBjHbgh1z5UvsJmX3MT2+T6
-	sXUbMEiL4ZnDnHdcFVHrl1c5Pta+ImsReoQOgIdyOI40SJ+u7NsuVfpSRYpFs5cJei2GXhNcqza
-	tDEVtspvk7QB44ufiwTOykuTsFMuOyoK5DsiHUhmgfsA7VPIowi1MKBO6SC5Pwbj/UM0d+g5jRp
-	s//AVD5HWANBW+HOFb1A2X2aF9n2xQCC09R1xKLw0GUmp6EDQhO2KhdY/M6RDb4RYNQHfbvJoWX
-	ZZxgw27SWc6e8j66h8CDw22QzAt7hLWozp3YowSC048TtFaoEyIkGBqQMzyrAUDzaK0esEqFO1Z
-	msg/CtpQRJEu8SiAX1AKHvhrbTv785nEoD699AEel
-X-Google-Smtp-Source: AGHT+IFDBotZj3WTZfS3zTosdLuTqA18vKBNrasejTocYrmsoaNWrGTQwVsXeErxSgaka3BIl4Ov6w==
-X-Received: by 2002:a05:600c:1ca1:b0:43c:ea1a:720a with SMTP id 5b1f17b1804b1-43d46b5a82fmr31571845e9.1.1742459677318;
-        Thu, 20 Mar 2025 01:34:37 -0700 (PDT)
-Message-ID: <0da7c7dd-bfbc-4e41-98ed-6e98793e6f50@suse.com>
-Date: Thu, 20 Mar 2025 09:34:35 +0100
+        bh=bDNTI3hOaCvuuAVoUZzvEqzOgI7RZ3yM1B3ixcqdrIU=;
+        b=keYSCeDoXagxDyY0IVSyOTAeKTbyPLsH/Nk9pIwbtUR7WkuZR7yis5CzEi/hoWSkg8
+         rFk6jg1wrB+tTU9bgP7iAAQM2fMhwH+CHHm37la5SbtnOZa9olEzMGmUgHhYxdC39+XO
+         ZAVSoJhbl4LnkZhnUseD7X55PV2tCgUrasGTQaS/k+3Tm0EXELKOuq4urExCv3Vglpgk
+         8nnSfoxGRZ7kVk65H/yEoyQNiaO0Nk1NvYfPWyon1+bhP3/L0n2V1GC77ujvQeNCvX8T
+         L/KxCbIPWAzQRF8tsTFKhTm86oUXA2Rv7cVIbvw8dDmXodaeBzbXPFECbURZ7IYxmcc1
+         bZ9g==
+X-Forwarded-Encrypted: i=1; AJvYcCXkW4GG2URt7abW+vkG4nr01B+rcohjqAC1UGiboaH3V7TiOuDDsyoCoohgCWgLAbUOt7PBZG2LlZA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz+cO8f2XbeTz+QMX48ws5wJfiqhd6EDkoZfzvIbLqgKoP7qUII
+	7/7Yw1RIISMiUVHaiTagniK2iPe5Kz2uLfRI7M7bMtCq/oYfSdeX3fvpmFMY+g==
+X-Gm-Gg: ASbGncupEQxM9UPTdYCkFwFgFRmBRoZPHiUMH/W98gc5bEvq5shUbf/NyOeoPa7POlj
+	VY+69/J8Iu4hnKsNHowvD0NcT4xcLLbvyFj2D3P4n9BpejhFlzvcz8I7O0q8s/zjtT4DW9KPIKW
+	ynhfDk0GLCe0IELWFkUIPcFnqC+qefwxFLy7ZN9jNbyiu9icCWJSHMnF+pXTXkQM6x7ZTFjsxTs
+	akZ9J3G2R8ROrb3g+HG+sT71jbFeIpY8PBbdXgKt1bPU0eg9DtSHCXoVH4MoLgzqz7W/7OuOeMI
+	RUZBfEKHOsPL0EkRpJ/XMuFlRnfCks7RLzYIWLNwCHNvQP/iEYBsjusW6ofPiZ/jxCohz1cvFjj
+	oimqIUV55DGVNpNss41r8TJwz41r3RA==
+X-Google-Smtp-Source: AGHT+IETvJkaV8jovugjlFnbGluOQspo/xhILLDtqXfBIknQBW5IqoBQGEjP6MyLNtD1xIQh1twrAg==
+X-Received: by 2002:a5d:6d06:0:b0:391:30b9:556c with SMTP id ffacd0b85a97d-399739becc7mr6822420f8f.21.1742460410096;
+        Thu, 20 Mar 2025 01:46:50 -0700 (PDT)
+Message-ID: <318177c1-8bb9-4d30-81a0-6636183f2571@suse.com>
+Date: Thu, 20 Mar 2025 09:46:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] x86/mkreloc: remove warning about relocations to RO
- section
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250318173547.59475-1-roger.pau@citrix.com>
- <20250318173547.59475-6-roger.pau@citrix.com>
- <a3c70637-b354-40f4-9a67-9d2aa7bcdcb0@suse.com>
- <27ebf169-ab63-4def-a98b-751ae1758293@suse.com>
- <Z9vOc5I828aV49rI@macbook.local>
+Subject: Re: [PATCH v1 03/19] xen/sysctl: wrap around XEN_SYSCTL_readconsole
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250312040632.2853485-1-Penny.Zheng@amd.com>
+ <20250312040632.2853485-4-Penny.Zheng@amd.com>
+ <D8F4G80E0LHU.5GHN1ZVVNHYB@cloud.com>
+ <IA1PR12MB8467691D93E223033398DCBCE1D82@IA1PR12MB8467.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,47 +127,94 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z9vOc5I828aV49rI@macbook.local>
+In-Reply-To: <IA1PR12MB8467691D93E223033398DCBCE1D82@IA1PR12MB8467.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 20.03.2025 09:14, Roger Pau Monné wrote:
-> On Wed, Mar 19, 2025 at 11:46:22AM +0100, Jan Beulich wrote:
->> On 19.03.2025 11:32, Jan Beulich wrote:
->>> On 18.03.2025 18:35, Roger Pau Monne wrote:
->>>> Relocations are now applied after having moved the trampoline,
->>>
->>> That's two entirely different sets of relocations, isn't it? 
-> 
-> Right, this is the plain .reloc, while the trampoline one is
-> .trampoline_{rel,seg}
-> 
->>> What we generate
->>> here is what is to be encoded in the PE binary's .reloc section, for the PE
->>> loader to process. And for us to then process again once we move Xen back to
->>> its linked position (by virtue of leaving physical mode). Therefore what
->>> matters here is whether these relocations are still carried out while on the
->>> page tables to boot loader created, or when already on page tables we control.
->>> In the former case any relocation to a non-writable section would be liable
->>> to fault when applied.
+On 20.03.2025 09:02, Penny, Zheng wrote:
+>> -----Original Message-----
+>> From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+>> Sent: Thursday, March 13, 2025 8:03 PM
 >>
->> And yes - both calls to efi_arch_relocate_image() are ahead of switching page
->> tables. The first call is benign - no writes occur there. The second call
->> would cause #PF though for any relocs applied to .text or .rodata or .init.text
->> or whatever else is non-writable.
+>> Ok, so readconsole is done here. I see how if you're also removing the console
+>> handler for the sysctl that's a bit unwiledly to do in one go.
+>>
+>> I think my earlier remarks still hold in terms of removal of else branches of ifdefs.
+>>
+>> On Wed Mar 12, 2025 at 4:06 AM GMT, Penny Zheng wrote:
+>>> The following functions is to deal with XEN_SYSCTL_readconsole sub-op,
+>>> and shall be wrapped:
+>>> - xsm_readconsole
+>>> - read_console_ring
+>>>
+>>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+>>> ---
+>>>  xen/drivers/char/console.c |  2 ++
+>>>  xen/include/xen/console.h  |  8 ++++++++
+>>>  xen/include/xsm/dummy.h    | 11 ++++++++---
+>>>  xen/include/xsm/xsm.h      | 11 ++++++++---
+>>>  xen/xsm/dummy.c            |  2 +-
+>>>  xen/xsm/flask/hooks.c      |  4 ++--
+>>>  6 files changed, 29 insertions(+), 9 deletions(-)
+>>>
+>>> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+>>> index 2f028c5d44..6e4f3c4659 100644
+>>> --- a/xen/drivers/char/console.c
+>>> +++ b/xen/drivers/char/console.c
+>>> @@ -336,6 +336,7 @@ static void conring_puts(const char *str, size_t len)
+>>>          conringc = conringp - conring_size;  }
+>>>
+>>> +#ifdef CONFIG_SYSCTL
+>>>  long read_console_ring(struct xen_sysctl_readconsole *op)  {
+>>>      XEN_GUEST_HANDLE_PARAM(char) str; @@ -378,6 +379,7 @@ long
+>>> read_console_ring(struct xen_sysctl_readconsole *op)
+>>>
+>>>      return 0;
+>>>  }
+>>> +#endif /* CONFIG_SYSCTL */
+>>>
+>>>
+>>>  /*
+>>> diff --git a/xen/include/xen/console.h b/xen/include/xen/console.h
+>>> index 83cbc9fbda..e7d5063d82 100644
+>>> --- a/xen/include/xen/console.h
+>>> +++ b/xen/include/xen/console.h
+>>> @@ -7,12 +7,20 @@
+>>>  #ifndef __CONSOLE_H__
+>>>  #define __CONSOLE_H__
+>>>
+>>> +#include <xen/errno.h>
+>>>  #include <xen/inttypes.h>
+>>>  #include <xen/ctype.h>
+>>>  #include <public/xen.h>
+>>>
+>>>  struct xen_sysctl_readconsole;
+>>
+>> That forward declaration should probably be inside the ifdef
+>>
+>>> +#ifdef CONFIG_SYSCTL
+>>>  long read_console_ring(struct xen_sysctl_readconsole *op);
+>>> +#else
+>>> +static inline long read_console_ring(struct xen_sysctl_readconsole
+>>> +*op) {
+>>> +    return -EOPNOTSUPP;
+>>> +}
+>>> +#endif
+>>
+>> This is only called from sysctl.c, which will be compiled out. Why is the else
+>> needed?
+>>
 > 
-> I wonder how this worked then, as I've tested with the xen.efi smoke
-> test in gitlab CI.  Maybe ovmf doesn't acknowledge the RX sections and
-> unconditionally sets all mappings as writable?
+> Because I wrapped the sysctl.c in the last commit.
+> If removing the else condition here, the compilation will fail on this commit.
+> So either I add #ifdef into read_console_ring function body, or in the last commit,
+> I draw back all these unnecessary else conditions, or combine all commits into one
+> Any preference? Or any other suggestion?
 
-Possible. And that would be in line with the mode being call "physical mode":
-There are no permissions to enforce there. It just so happens that x86-64
-requires paging to be enabled to be able to run 64-bit code.
-
-My experience with OVMF has been that it's hard to find where certain code
-lives. Perhaps I should try whether I can find respective code there. Then
-again if I find nothing, there wouldn't be any guarantee that I merely didn't
-spot the right place.
+Munging everything in a single commit may yield unwieldily big a result. Transiently
+adding #ifdef in sysctl.c would seem like the cleanest approach to me. In the final
+commit it'll (hopefully) be obvious enough then why all of the #ifdef-s are dropped
+again.
 
 Jan
 
