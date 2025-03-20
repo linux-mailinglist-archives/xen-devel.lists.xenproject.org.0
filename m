@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93843A6AB62
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 17:47:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.922976.1326739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4A7CA6AB84
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 17:55:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.922990.1326749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvJ2a-0007Gb-3n; Thu, 20 Mar 2025 16:46:44 +0000
+	id 1tvJAT-0001Z7-S8; Thu, 20 Mar 2025 16:54:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 922976.1326739; Thu, 20 Mar 2025 16:46:44 +0000
+Received: by outflank-mailman (output) from mailman id 922990.1326749; Thu, 20 Mar 2025 16:54:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvJ2a-0007EW-18; Thu, 20 Mar 2025 16:46:44 +0000
-Received: by outflank-mailman (input) for mailman id 922976;
- Thu, 20 Mar 2025 16:46:42 +0000
+	id 1tvJAT-0001Wl-Ox; Thu, 20 Mar 2025 16:54:53 +0000
+Received: by outflank-mailman (input) for mailman id 922990;
+ Thu, 20 Mar 2025 16:54:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gs4t=WH=bounce.vates.tech=bounce-md_30504962.67dc466f.v1-fadaaee4b8b34f67b425c65aab174710@srs-se1.protection.inumbo.net>)
- id 1tvJ2Y-0007EO-Ie
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 16:46:42 +0000
-Received: from mail134-16.atl141.mandrillapp.com
- (mail134-16.atl141.mandrillapp.com [198.2.134.16])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tvJAR-0001WQ-Ss
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 16:54:51 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e558248f-05aa-11f0-9ea0-5ba50f476ded;
- Thu, 20 Mar 2025 17:46:40 +0100 (CET)
-Received: from pmta10.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail134-16.atl141.mandrillapp.com (Mailchimp) with ESMTP id
- 4ZJWgg1qw9zB5p4tX
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 16:46:39 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- fadaaee4b8b34f67b425c65aab174710; Thu, 20 Mar 2025 16:46:39 +0000
+ id 0a0dbc2b-05ac-11f0-9ea0-5ba50f476ded;
+ Thu, 20 Mar 2025 17:54:51 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43cfe63c592so10725845e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 09:54:51 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3997f9e674fsm85949f8f.80.2025.03.20.09.54.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Mar 2025 09:54:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,120 +45,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e558248f-05aa-11f0-9ea0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1742489199; x=1742759199;
-	bh=8Xo+x/2C9t1vWpO4HSebgj6NrkPdkEj6wnV4ktQ7KDA=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=nn2CBv1HOUaVy1ySHRhCIuaLecYU3uiZRyn7IQrA0ZZAcByy6jrgxED4X4aUT22S0
-	 t1PEqodg7ORDWNejVPpfrHLeWqLeGNaJjdN+FdyPDAeeFnwyxlMlo5MQ52O7DmTo9N
-	 Z0qo1ImrBkOV27t37xbX7mgv109UE/kR6Ujfc8+5xvmIJnQcD1w8vquKqpnIE+3FvL
-	 Resln1+IhwsCYlBmIEXcBoXu3C8fmamY4BOKZfupTqrAp3lbdv2R9O1NlMEnDiyrz1
-	 B9wSwJyLCti6J7C82BGpWi3sDP53LJ9eTDxhcZKixQtYL/xrH/PMRBhr32MZwadWuI
-	 /OX2JsdcrHUtA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1742489199; x=1742749699; i=anthony.perard@vates.tech;
-	bh=8Xo+x/2C9t1vWpO4HSebgj6NrkPdkEj6wnV4ktQ7KDA=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=Cfpfw3YKLncNAwUsPKYJPBJBwDHiOYO+sY2Z5TkoOfbHk5RMJjsRYld+rDjorDCjp
-	 rSO992ozNe69Smyg4o3SjsQA0FNdN551ghQYXZIjgDYsnIStn6JPr8vn3cFMO11bri
-	 3+Q88c8uXtuEUHDEEFC7aLCtEHDZS9AZ8J3gfVxiuTRZ3CAO+hg8MtHM3JHiMaZvRX
-	 /cJ09rqY7vQ+dlWm5hId5D8wG8YxBqv5uWY8JA4ZdGwJwltIC3PvjsJUF3WUtdTKc4
-	 DRXK6t2CSchSyuG+pYfgDUZrxN1x0YzBtD+IQOOOuOkQrVWlQw+WHhe/1uqm5y8oGR
-	 ahb9idtnOOm9g==
-From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH]=20tools/arm:=20Fix=20nr=5Fspis=20handling=20v2?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1742489197873
-To: "Michal Orzel" <michal.orzel@amd.com>
-Cc: xen-devel@lists.xenproject.org, "Juergen Gross" <jgross@suse.com>, "Luca Fancellu" <luca.fancellu@arm.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Julien Grall" <julien@xen.org>, "Bertrand Marquis" <bertrand.marquis@arm.com>
-Message-Id: <Z9xGbTYJG6s6Wvl0@l14>
-References: <20250318090013.100823-1-michal.orzel@amd.com>
-In-Reply-To: <20250318090013.100823-1-michal.orzel@amd.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.fadaaee4b8b34f67b425c65aab174710?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250320:md
-Date: Thu, 20 Mar 2025 16:46:39 +0000
+X-Inumbo-ID: 0a0dbc2b-05ac-11f0-9ea0-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1742489690; x=1743094490; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=mDahdlLwwNWp6sjOyBhZm0Y2eOf+FS2Q234jNIGFcEo=;
+        b=ctdpZ+jnTyhWRdZF3JenslaAHdfxw5fTHWlObHHYSvB6xvtCdSQHUdBuf4OGswrZx2
+         2GPkQjS3VF1mbCTYdn6hPyxjokV1Oo4dIDUTGYhIFeWPcp/IxxyfjP5sCg3Ez6gkSpGu
+         x9q87ohPFRidHODjAkNfbxddXHcAQc3osL1li2ks+G9o9uO3rkmZunj2JSRzRtELBJeA
+         0+xWKIJKmdqPpfUK+d6E5pckDXWaYDV0BgatkODkFug4sNjoA2nqF/zyFpvRuTJsFXC0
+         ggAz+H4h6ECJ7eklqGs1fm5/ET7myfL7R0ZbfUGRt9g3RuoJ3g0RkrB/u4q1SnMXzMMg
+         uLww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742489690; x=1743094490;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mDahdlLwwNWp6sjOyBhZm0Y2eOf+FS2Q234jNIGFcEo=;
+        b=idrmKIEZ3r2/qLmzX74dgS16Xy1LJW5kd5v5j/wrvHyHGNTC4iZZNi0bdf4xt/A6AQ
+         gOEJQ91JLWiOlsQ/nhwdubLM8mjjRqRro+91GZXS7C2GJrmnxCN2NFoiySJUgcYfQYCH
+         GVjKwQ9iVhpEiR1V9aAGGOCWMt0GIqbDnUlvqmzAP/dNCZpa07/J9Ixu7lCFQU0ZU+bD
+         BFHkBxLCEB7dEyhbZeqKE5GAMACQA9ydfq89QuSKV0Ag0SmQwCDq8U2l7G4kArJq/cGo
+         odAIgcEUhs6pECuew9S3b5O6gsOE8P2uCdrZzrmcRlgKKEJeyx99iWBZJW9MXtI+Wxfz
+         dLdw==
+X-Forwarded-Encrypted: i=1; AJvYcCX5zvJGbfh9ly3nax765Xp2+yBVzVvj8MRunNBZxRlcR40KNizWQg0DBB+cCWFQaJjrWCp9xBge8Aw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxnBl4KEvCAbe5OP+22ueTBh5PdunmJnA631j7D+nWgKczpVW/f
+	uBQ9Tw3gjpwRUqeCQirFmQFnzA3JhX/5H9fuDRLSaXP6eM6FB3exJwblhheoIQ==
+X-Gm-Gg: ASbGncsUDpTbe33b0uhv1/GW3bpEyoHbkJTNbug1KTySVD0VMqmSggDdObOwfs/p1zf
+	pyiECXIjhy0wC3g1ccujfa+/uYzyEJMaUkGoEeZbhAOksB4mmvUmgVQoj4ZF5xMOPD8GJOovlkS
+	3QhTIgReCAUB3dX/beMA+ch0yVqOf2dJOqge91WO5IyZ2JWq2/iTLEds2SGBV3BmOIl4w2pj8Uc
+	ln74fuDI/0tGHOtDOsijY2/427wvkLYvveWu5XYBYuYoSZsaeD6+aUacTzaJyz1VhqWgFqUiBCR
+	KLt3vz+wwMVyEQoQnmYiaX/2klIwImEfmf7icIGf0eN0Z7ko+XeAkrPn/Oi/g+Ncntn8Og2VY6j
+	eqcHqs9hnou0kxAry5iQSpPTZmC9LPw==
+X-Google-Smtp-Source: AGHT+IFfImnSY7ahjtAw+MHBEn9zcbvP8m2xsGraO9+7eyFJpdjtGk5OhBoTyzGbxLySiDgJQGLaHw==
+X-Received: by 2002:a5d:64a7:0:b0:385:fc70:7f6 with SMTP id ffacd0b85a97d-3997f8f832cmr171477f8f.7.1742489690370;
+        Thu, 20 Mar 2025 09:54:50 -0700 (PDT)
+Message-ID: <646ad800-c01d-4971-ad89-842745a21f2f@suse.com>
+Date: Thu, 20 Mar 2025 17:54:49 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen: add kconfig for event_fifo
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: andrew.cooper3@citrix.com, michal.orzel@amd.com, julien@xen.org,
+ roger.pau@citrix.com, Bertrand Marquis <bertrand.marquis@arm.com>,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2503181637100.2000798@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2503181637100.2000798@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Tue, Mar 18, 2025 at 10:00:13AM +0100, Michal Orzel wrote:
-> We are missing a way to detect whether a user provided a value for
-> nr_spis equal to 0 or did not provide any value (default is also 0) which
-> can cause issues when calculated nr_spis is > 0 and the value from domain
-> config is 0. Fix it by setting default value for nr_spis to UINT32_MAX
-> (max supported nr of SPIs is 960 anyway).
+On 19.03.2025 00:40, Stefano Stabellini wrote:
+> Evtchn fifos are not needed on smaller systems; the older interface is
+> lightweight and sufficient. Make it possible to disable evtchn fifo.
 > 
-> Fixes: 55d62b8d4636 ("tools/arm: Reject configuration with incorrect nr_spis value")
-> Reported-by: Luca Fancellu <luca.fancellu@arm.com>
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> ---
->  tools/libs/light/libxl_arm.c     | 7 ++++---
->  tools/libs/light/libxl_types.idl | 2 +-
->  2 files changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-> index 2d895408cac3..5bb5bac61def 100644
-> --- a/tools/libs/light/libxl_arm.c
-> +++ b/tools/libs/light/libxl_arm.c
-> @@ -84,7 +84,7 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->                                        libxl_domain_config *d_config,
->                                        struct xen_domctl_createdomain *config)
->  {
-> -    uint32_t nr_spis = 0;
-> +    uint32_t nr_spis = 0, cfg_nr_spis = d_config->b_info.arch_arm.nr_spis;
->      unsigned int i;
->      uint32_t vuart_irq, virtio_irq = 0;
->      bool vuart_enabled = false, virtio_enabled = false;
-> @@ -181,13 +181,14 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->  
->      LOG(DEBUG, "Configure the domain");
->  
-> -    if (nr_spis > d_config->b_info.arch_arm.nr_spis) {
-> +    /* We use UINT32_MAX to denote if a user provided a value or not */
-> +    if ((cfg_nr_spis != UINT32_MAX) && (nr_spis > cfg_nr_spis)) {
->          LOG(ERROR, "Provided nr_spis value is too small (minimum required %u)\n",
->              nr_spis);
->          return ERROR_FAIL;
->      }
->  
-> -    config->arch.nr_spis = max(nr_spis, d_config->b_info.arch_arm.nr_spis);
-> +    config->arch.nr_spis = (cfg_nr_spis != UINT32_MAX) ? cfg_nr_spis : nr_spis;
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
-Could you try to check only once if there is a user provided value for
-nr_spis?
+Let me ask a more general question, before considering whether to ack:
+When kconfig was introduced into Xen, the expectation was (iirc) that
+we wouldn't grow its use to the fine grained granularity that it has
+been having in Linux. The more build-time controls we have, the harder
+it is to know whether a certain piece of code was actually included in
+a build someone, say, reports a problem with. Are we knowingly moving
+away from that earlier position? evtchn_fifo.c isn't actually that
+much code to exclude, after all ...
 
->      LOG(DEBUG, " - Allocate %u SPIs", config->arch.nr_spis);
->  
->      switch (d_config->b_info.arch_arm.gic_version) {
-> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-> index bd4b8721ff19..129c00ce929c 100644
-> --- a/tools/libs/light/libxl_types.idl
-> +++ b/tools/libs/light/libxl_types.idl
-> @@ -723,7 +723,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
->      ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
->                                 ("vuart", libxl_vuart_type),
->                                 ("sve_vl", libxl_sve_type),
-> -                               ("nr_spis", uint32),
-> +                               ("nr_spis", uint32, {'init_val': 'UINT32_MAX'}),
-
-Could you introduce something like LIBXL_NR_SPIS_DEFAULT in libxl.h
-instead? (Like we have LIBXL_MAX_GRANT_DEFAULT or LIBXL_MEMKB_DEFAULT)
-
-Thanks,
-
--- 
-
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+Jan
 
