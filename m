@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FFC0A6A6DF
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 14:08:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.922028.1325931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F35B1A6A77D
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 14:46:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.922053.1325942 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvFcp-0004Uf-QT; Thu, 20 Mar 2025 13:07:55 +0000
+	id 1tvGCw-0004ON-Ek; Thu, 20 Mar 2025 13:45:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 922028.1325931; Thu, 20 Mar 2025 13:07:55 +0000
+Received: by outflank-mailman (output) from mailman id 922053.1325942; Thu, 20 Mar 2025 13:45:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvFcp-0004Rr-Nm; Thu, 20 Mar 2025 13:07:55 +0000
-Received: by outflank-mailman (input) for mailman id 922028;
- Thu, 20 Mar 2025 13:07:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KE28=WH=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1tvFco-0004Rl-Oa
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 13:07:54 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 555181cf-058c-11f0-9ea0-5ba50f476ded;
- Thu, 20 Mar 2025 14:07:53 +0100 (CET)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-547bcef2f96so1034173e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 06:07:53 -0700 (PDT)
-Received: from [10.17.76.224] (ll-74.141.223.85.sovam.net.ua. [85.223.141.74])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-549ba86507csm2217896e87.120.2025.03.20.06.07.50
+	id 1tvGCw-0004MS-BB; Thu, 20 Mar 2025 13:45:14 +0000
+Received: by outflank-mailman (input) for mailman id 922053;
+ Thu, 20 Mar 2025 13:45:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tvGCu-0004Ll-KK
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 13:45:12 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8ae6f856-0591-11f0-9ffa-bf95429c2676;
+ Thu, 20 Mar 2025 14:45:11 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-39141ffa9fcso695945f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 06:45:11 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-395c7df339asm23558493f8f.3.2025.03.20.06.45.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 06:07:51 -0700 (PDT)
+ Thu, 20 Mar 2025 06:45:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,244 +45,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 555181cf-058c-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: 8ae6f856-0591-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1742476073; x=1743080873; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=hFL38tYOMAGFkTuQyKobvF8QCwuTFhE4nWOXO7hJtdA=;
-        b=C9t60HxXxiXgs8VDVAWFMFxtttYSKEuyxBRXWcxK9EUkYLLb+YHv7eiTfwz/F44GGz
-         rZlQsCSJt9Zf9rmTSFHY1VfgaWO1ar3oCSTAKKMVL6K5FuhAuBd3se3kn0jV2DzurV3j
-         lFo6O2GuiyoYlU+HKsO4c8TCOAJsYiO5GOhGuqVaquHv4gygupWpKb6I/dqYqZ9kaAag
-         JLTU28wb/vQXr79o1ZWvQaFnt5C6wbUYxnRLTeipzphssSD6T2trz1xsWXiAbMDc4H6b
-         /y032TyZJPmKYD7pJFvEiMmxBWfXUf5anE5WCSqmvwiChmj+DJS91Pogw4YO0dlZkDpc
-         M6ag==
+        d=suse.com; s=google; t=1742478310; x=1743083110; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FagdEAnJg8/2m5qmwT7Lhx+0rk880BCemP1xM7z1ZqU=;
+        b=NWpUGYOKQ2Dl9I7xxDHdMhSoyV/A0tHwdJbe3u207Tcu2hJe0J7f0Ryg2tHjoJK2yT
+         A5YAyejgIXmNmgf27LkKN/qR4pzu4pKiY42uZAYjmzDCe5BjYLK3YVOOnJg/65WupGNN
+         60jgOMQwj6zc9SydfWckHhD+cK+ARfqbMrPInfdu0AlsF3qrpYmRgc31z5AE1Nnx8OjF
+         SgNtSFCmnuOnMZ4m9R1AFOHw6ntexM2w8nRiTaC/Hr/nRLu6rwpG6rBCbnJZF1Kn06Ig
+         1Hyub3t+hCFFF5Ddf+vBYiHjiZCvHwIdH40tHbtqL4Srvd7cky2DkOFrqxJdPCOd5EaI
+         N9xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742476073; x=1743080873;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hFL38tYOMAGFkTuQyKobvF8QCwuTFhE4nWOXO7hJtdA=;
-        b=ECf1YLJC+5fTfShGVyu3p5oB7TgSYsky0Rpr6/bN8GbGezWVazAXV8VPYuVK5zVbyT
-         +5V1+3iUwWUGYwR/2bqgHV5d3JyeoD4s1dFMmsI5zXoE3B6K0EDCqiUB1wn+/WicdswR
-         nM0s9202DT8woeuKjSoFktGRB+P4/CE0kleJdmGjJ7qfZZAZb4O4DYWwSIMUSuDDNLJ8
-         0StV+GL5APJKIbHK0uUac+1XhnEKWo3hkYK8OkF37GrX/BOKxS83T9x+GPghOaAle+A9
-         NdacmtBYxiFyHoTNM4s9ItysX2q6mPnhDWsSqwASxzoeY8vaMoi/4MEdAdtuKdTxDlKV
-         keIg==
-X-Forwarded-Encrypted: i=1; AJvYcCXkqfbYHL928eMqe8fJ7J7UHboey5hansfo7UKjJcr0nHmykoecbuyPrhjoRphF+oR6YFjcTZMZxfg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyykViBZQwCVbVH8w76W74Yh27vUvu92D5Ho2GHkk+0kcFTozQC
-	s1QaGBSytzZnjUr/nAbsQGxfdX5eYsSftEsyEhxKst9rG5D6yuTD
-X-Gm-Gg: ASbGnctbluFzd/aqb9KJRTda0fuxeel4nF4shPIn/ULFkp98aHWZqENiriJmKElsF4n
-	8rPSA2/swee8TMF1RDxCnv2Ur6CpoIW+5YqNG0b+As9Y0JppDFhi7EQeJ/+U7OPbNW3DSmL9O5S
-	OVIcKCdk96gaXd9FoKOtkYLhQbxLE1xwFEBODpdlhYFq1lDYv2BY65PojiDvi3FppLSyIXCH9Q4
-	XX2VGw7BPmqLC8myUSnhBraMsgrp/2SFXNPIosEEyKQIZOG6DVflgRmCOm6VuntjdDsGQHXTs40
-	AacKwU8ckgtIEeIqz4IVlY/By5HYn60+E1vWPj8Tfe1KD8gN93vzcnER9cZ5XeHui2waW0BY/4s
-	mhQ==
-X-Google-Smtp-Source: AGHT+IFIY0Xgnmjd3Kjd2qniqdI1VGjW3QnfMzsMYTdaAS0xEh7IlJpOSWpoKWdOREbuOGq2F8HSNQ==
-X-Received: by 2002:a05:6512:ea5:b0:549:8cbb:5443 with SMTP id 2adb3069b0e04-54acb224221mr2065143e87.47.1742476072115;
-        Thu, 20 Mar 2025 06:07:52 -0700 (PDT)
-Message-ID: <deafe2cc-df6c-42d3-9639-abd7b41ede69@gmail.com>
-Date: Thu, 20 Mar 2025 15:07:49 +0200
+        d=1e100.net; s=20230601; t=1742478310; x=1743083110;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FagdEAnJg8/2m5qmwT7Lhx+0rk880BCemP1xM7z1ZqU=;
+        b=KSMGLZRgoK/MGgaQlLGL5EuR//knic7qEMyH+5L442hAzce05er6YajUtkO8ebx747
+         wMH6VyG2gGiRqNAUmO9iNPxGOSTJRZX0hjbs5qI71Z8/DgKHsbOz4jurXhQC3pIiSqcQ
+         fwtRaSBwW8on5UCJdmqSEdUd5FCoX+m0kig/skROFQ7OitdgveOYOEbtEjQTJqjYB/br
+         Jz7ofYMjzcFmmyMPyEfrvafY8NSca40BhOB/9uJTHv9xptWP8T7ea/v5PsToKUwDkMDL
+         GTgz27AIZs9rkghmdiCIqKmLZl+wiXQ0XLyazcVt/+PkD2NlHDWL9bRCTUjjHeUvIVUZ
+         3BUA==
+X-Forwarded-Encrypted: i=1; AJvYcCXzO9QF1M0D1Fkq0XkoWglDFMtsY8yXt8yPeI6mCiGnLLQs3mslR4gG+x2uGj+T7Z/yjrDUF5I1dYY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzktYNAG/T+zzya/xDQBcaWomb+VR61HHdXedT1/IxXXxzwjkDE
+	QKe+vFvQjePkhhY0rIByCKHD9KRzCxoo89B05pHyKFLbDPAdYT+linXqJe2hqA==
+X-Gm-Gg: ASbGncuRj2Cn1+RfLPuafaTQsgSRJ+0LSb08pAzrUafIZd2UuQInk1yVlc/LC/29ZMa
+	H0o15bFtl7rb4i32M33qOylJxK/uV6wBDp+pkaMrPXbdDb6csoy7V3ExzlxQ0EwvKEyhTLCqNc5
+	w6uAoMpdhSk19dbjsCVEVUQmQMGzll8kA+GqEJ5lKc/mmR3kIR/1J1c3DM6XB0feIukqA26wqRt
+	Fz2ZTdlKY8UWdbB4cQdW3RJ6SWExrWEiQcsaiggBLnz1+ULHL3fD4uhGANIR6S16QGNS8QFhvvg
+	fumB61iWXPkMo3RmU0Rl0+O8M23SHO69ehIeZXk8NigsdYIpcMT+oAO5zH8S6ZvOUas+CmeKI0+
+	h3kZrKvUrnFWqrsBlhbVpui3/XPyovQ==
+X-Google-Smtp-Source: AGHT+IHN7yQbpy1NcvZT4kMTNBnPWgqhX3c31EFkDZEx58rzmnT/eO8+T0DKjy4dSP4NIq60tGwkug==
+X-Received: by 2002:a05:6000:1a8d:b0:391:23e6:f08c with SMTP id ffacd0b85a97d-39973b0576cmr6534539f8f.47.1742478310193;
+        Thu, 20 Mar 2025 06:45:10 -0700 (PDT)
+Message-ID: <36ab0870-52ad-476a-ae9c-20ea8ea46066@suse.com>
+Date: Thu, 20 Mar 2025 14:45:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/dm: arm: Introduce inject_msi2 DM op
-To: Jan Beulich <jbeulich@suse.com>, Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>
-References: <cover.1705066642.git.mykyta_poturai@epam.com>
- <6c551b03796fbf091b22fcde96d894cd5308ff91.1705066642.git.mykyta_poturai@epam.com>
- <1793f158-ed83-46f9-be12-68c5ce86e4c4@suse.com>
- <495906c3-9937-4b54-ae3a-8e8ad2b9814f@epam.com>
- <a738e3d9-bfd3-46be-8f66-cbbe4353f93a@suse.com>
- <7b3a5232-c17e-49d8-8719-a42745144338@epam.com>
- <65f0072f-33c0-4436-8e34-3544d25c9568@suse.com>
- <19d8224a-04e0-45bb-9471-abeb684e9cad@epam.com>
- <7f523597-cf70-4673-b4a2-fac602253a9e@suse.com>
- <0f54652b-3af2-4d52-b3a1-76a5dbeddb14@gmail.com>
- <432b0b6e-2e89-4e95-8237-811e5e55517b@suse.com>
+Subject: Re: [PATCH] process/release: mention MAINTAINER adjustments
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <6cc3adc1-5d54-4880-b3f3-2f688c2f39fa@suse.com>
+ <b11d8525-13b4-40a0-8e33-b37c7e0d85a2@citrix.com>
 Content-Language: en-US
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <432b0b6e-2e89-4e95-8237-811e5e55517b@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <b11d8525-13b4-40a0-8e33-b37c7e0d85a2@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 20.03.25 09:30, Jan Beulich wrote:
-
-Hello Jan, Mykyta, all
-
-
-> On 19.03.2025 21:42, Oleksandr Tyshchenko wrote:
->> On 19.03.25 14:37, Jan Beulich wrote:
->>> On 19.03.2025 13:05, Mykyta Poturai wrote:
->>>> On 18.03.25 16:26, Jan Beulich wrote:
->>>>> On 18.03.2025 14:31, Mykyta Poturai wrote:
->>>>>> On 18.03.25 12:11, Jan Beulich wrote:
->>>>>>> On 18.03.2025 10:10, Mykyta Poturai wrote:
->>>>>>>> On 15.01.24 11:35, Jan Beulich wrote:
->>>>>>>>> On 14.01.2024 11:01, Mykyta Poturai wrote:
->>>>>>>>>> --- a/xen/include/public/hvm/dm_op.h
->>>>>>>>>> +++ b/xen/include/public/hvm/dm_op.h
->>>>>>>>>> @@ -444,6 +444,17 @@ struct xen_dm_op_nr_vcpus {
->>>>>>>>>>       };
->>>>>>>>>>       typedef struct xen_dm_op_nr_vcpus xen_dm_op_nr_vcpus_t;
->>>>>>>>>>
->>>>>>>>>> +#define XEN_DMOP_inject_msi2 21
->>>>>>>>>> +#define XEN_DMOP_MSI_SOURCE_ID_VALID (1u << 0)
->>>>>>>>>> +
->>>>>>>>>> +struct xen_dm_op_inject_msi2 {
->>>>>>>>>> +    uint64_aligned_t addr;
->>>>>>>>>> +    uint32_t data;
->>>>>>>>>> +    uint32_t source_id; /* PCI SBDF */
->>>>>>>>>
->>>>>>>>> Since the comment says SBDF (not BDF), how are multiple segments handled
->>>>>>>>> here? At least on x86 (VT-d and V-i) source IDs are only 16 bits iirc,
->>>>>>>>> and are local to the respective segment. It would feel wrong to use a
->>>>>>>>> 32-bit quantity there; IOW I'd rather see this as being two 16-bit fields
->>>>>>>>> (segment and source_id).
->>>>>>>>
->>>>>>>> I'm planning on resuming this series in the near future and want to
->>>>>>>> clarify the DM op interface.
->>>>>>>>
->>>>>>>> Wouldn't it be better to keep things consistent and use
->>>>>>>> XEN_DMOP_PCI_SBDF as it's done in xen_dm_op_ioreq_server_range? Also
->>>>>>>> with this, the value can be easily casted to pci_sbdf_t later and split
->>>>>>>> to segment and BDF if needed.
->>>>>>>
->>>>>>> The essence of my earlier comment is: Naming, contents, and comments need
->>>>>>> to be in sync.
->>>>>>>
->>>>>>> I question though that "casting to pci_sbdf_t" is technically possible.
->>>>>>> Nor am I convinced that it would be desirable to do so if it was possible
->>>>>>> (or if "casting" was intended to mean something else than what this is in
->>>>>>> C). See my recent comments on some of Andrii's patches [1][2].
->>>>>>>
->>>>>>> Jan
->>>>>>>
->>>>>>> [1] https://lists.xen.org/archives/html/xen-devel/2025-03/msg01294.html
->>>>>>> [2] https://lists.xen.org/archives/html/xen-devel/2025-03/msg01301.html
->>>>>>
->>>>>> Would something like this be okay then?
->>>>>>
->>>>>> struct xen_dm_op_inject_msi2 {
->>>>>>         /* IN - MSI data (lower 32 bits) */
->>>>>>         uint32_t data;
->>>>>>         /* IN - ITS devid of the device triggering the interrupt */
->>>>>>         uint32_t source_id;
->>>>>>         uint32_t flags;
->>>>>>         uint32_t pad;
->>>>>>         /* IN - MSI address */
->>>>>>         uint64_aligned_t addr;
->>>>>> };
->>>>>>
->>>>>> Added padding and explained source_id purpose better.
->>>>>
->>>>> I fear the comment is far from making clear what layout source_id is to
->>>>> have, hence also leaving open whether a segment number is included there.
->>>>> Of course the issue here may be that I have no clue what "ITS devid"
->>>>> means or implies. What is clear is that "ITS devid" is meaningless on
->>>>> x86, for example.
->>>>
->>>> ITS devid is implementation defined. Its size is also implementation
->>>> defined but up to 32 bits.
->>>>
->>>> Quotes from Arm Base System Architecture[1]:
->>>>    > The system designer assigns a requester a unique StreamID to device
->>>> traffic input to the SMMU.
->>>>    > If a requester is a bridge from a different interconnect with an
->>>> originator ID, like a PCIe RequesterID, and devices on that interconnect
->>>> might need to send MSIs, the originator ID is used to generate a
->>>> DeviceID. The function to generate the DeviceID should be an identity or
->>>> a simple offset.
->>>>
->>>> On the Xen's side it is used as an offset into the ITS translation
->>>> tables and is sourced from msi-map nodes in the device tree.
->>>>
->>>> Practically for PCI the requester ID is usually the SBDF. Where the
->>>> segment is used to find the host bridge node that contains the msi-map
->>>> node with defined offsets but it is also included as part of an id.
->>>> That's why it was originally called SBDF in the comment. I don't know if
->>>> there is a better way to describe what it is concisely in the comments.
->>>
->>> If this is to be usable for other architectures too, it may need to be
->>> a union to put there. With appropriate comments for each member.
+On 20.03.2025 13:47, Andrew Cooper wrote:
+> On 20/03/2025 12:12 pm, Jan Beulich wrote:
+>> For many major releases I've been updating ./MAINTAINERS _after_ the
+>> respective branch was handed over to me. That update, however, is
+>> relevant not only from the .1 minor release onwards, but right from the
+>> .0 release. Hence it ought to be done as one of the last things before
+>> tagging the tree for the new major release.
 >>
+>> See the seemingly unrelated parts (as far as the commit subject goes) of
+>> e.g. 9d465658b405 ("update Xen version to 4.20.1-pre") for an example.
 >>
->> If I got correctly what is wrote in current thread (and in RFC version
->> where it was an attempt to create just Arm64's counterpart of
->> XEN_DMOP_inject_msi), my understanding (maybe not precise/correct, since
->> I am not quite familiar with x86 details) that we would need something
->> like that:
->>
->>
->> /*
->>    * XEN_DMOP_inject_msi2: An enhanced version of the sub-ob to inject an MSI
->>    *                       for an emulated device, which allows specifying
->>    *                       the ID of the device triggering the MSI
->> (source ID).
->>    *
->>    * The source ID is specified by a pair of <segment> and <source_id>.
->>    * If <flags> does not contain XEN_DMOP_MSI_SOURCE_ID_VALID then source ID
->>    * is invalid and should be ignored.
->>    */
->> #define XEN_DMOP_inject_msi 21
->>
->> struct xen_dm_op_inject_msi2 {
->>        /* IN - MSI data */
->>        uint32_t data;
->>        /* IN - next two fields form an ID of the device triggering the MSI */
->>        uint16_t segment; /* The segment number */
->>        uint16_t source_id; /* The source ID that is local to segment (PCI
->> BDF) */
->>        /* IN - types of source ID */
->>        uint32_t flags;
->> #define XEN_DMOP_MSI_SOURCE_ID_VALID (1u << 0)
->>        uint32_t pad;
->>        /* IN - MSI address */
->>        uint64_aligned_t addr;
->> };
->>
->>
->> This is arch agnostic sub-op without the (obvious) specifics of the
->> underlying MSI controller. The sub-ob, I hope, will be suitable on both
->> Arm64 soon (segment + source_id provide vSBDF, then it will possible to
->> locate vITS and devid) and on x86 in future (for the vIOMMU needs).
->>
->> Would you be ok with that in general? Please share you opinion.
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> As can also be seen from the referenced commit, the document already
+>> saying "drop any references to the specific commits, e.g. date or title"
+>> hasn't been honored in recent releases, at least as far as
+>> QEMU_TRADITIONAL_REVISION goes.
 > 
-> Yes, this looks plausible.
-
-Jan, thanks
-
-
-  In the context of things like VMD (using
-> software established segment numbers wider than 16 bits) I wonder
-> though whether we wouldn't better make segment and source ID 32-bit
-> fields from the beginning.
-
-Keeping in mind that dm_op hypercall is stable and segment can be >= 
-0x10000, probably yes, makes sense to use 32-bit from the very beginning.
-
-
-  Out-of-range values would of course need
-> rejecting then.
-
-yes, sure
-
-***
-
-Mykyta, are you ok with the proposed adjustments to the sub-op structure?
-
-
+> Oh, lovely.  I wasn't even aware there was a necessary change like
+> this.  Also, I haven't made as much progress rewriting the checklist as
+> I would have liked, so it is probably best to insert into this doc for now.
 > 
-> Jan
+> The qemu-trad comments I think we can just strip out of staging.  We
+> don't have equivalent comments for the other trees.
+
+Right, I was wondering what else might be stale there. Yet then I wanted
+to focus on just the one issue that ran into repeatedly.
+
+> I'm not sure if it's useful to delete the check-in policy.  I think the
+> note at the top listing the backport maintainers is good enough.
+
+If everyone agrees it should stay there, so be it. So far no-one complained
+that is got dropped from stable trees. Personally I find it too verbose for
+stable; an abridged version would do. Yet it's pretty rare that stable-only
+patches are submitted in the first place. Plus the entire contents of
+MAINTAINERS is frequently stale on stable branches anyway, so one needs to
+go to the master branch one anyway for up-to-date information.
+
+Jan
 
