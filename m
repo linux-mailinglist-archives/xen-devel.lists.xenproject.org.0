@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0940DA6AA0E
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 16:38:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.922682.1326550 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 301D7A6AA24
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 16:43:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.922702.1326559 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvHyj-00035u-S2; Thu, 20 Mar 2025 15:38:41 +0000
+	id 1tvI34-0005wx-Bd; Thu, 20 Mar 2025 15:43:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 922682.1326550; Thu, 20 Mar 2025 15:38:41 +0000
+Received: by outflank-mailman (output) from mailman id 922702.1326559; Thu, 20 Mar 2025 15:43:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvHyj-00034R-P8; Thu, 20 Mar 2025 15:38:41 +0000
-Received: by outflank-mailman (input) for mailman id 922682;
- Thu, 20 Mar 2025 15:38:40 +0000
+	id 1tvI34-0005ty-8z; Thu, 20 Mar 2025 15:43:10 +0000
+Received: by outflank-mailman (input) for mailman id 922702;
+ Thu, 20 Mar 2025 15:43:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tvHyi-00033h-Hn
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 15:38:40 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1tvI32-0005tc-MH
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 15:43:08 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 64a44a44-05a1-11f0-9ffa-bf95429c2676;
- Thu, 20 Mar 2025 16:38:38 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43cfecdd8b2so8125385e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 08:38:38 -0700 (PDT)
+ id 044ffc0a-05a2-11f0-9ffa-bf95429c2676;
+ Thu, 20 Mar 2025 16:43:06 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43d04dc73b7so10734175e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 08:43:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d43f55750sm53304375e9.21.2025.03.20.08.38.37
+ 5b1f17b1804b1-43d3ae04a94sm40729935e9.0.2025.03.20.08.43.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 08:38:37 -0700 (PDT)
+ Thu, 20 Mar 2025 08:43:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64a44a44-05a1-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 044ffc0a-05a2-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742485118; x=1743089918; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742485386; x=1743090186; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=E0Lci+ECUilnN130JGQy/jV/GSrjNp8lwsMlq7ZZ150=;
-        b=JJ7C7om9gws0GAXh5VYsVIliTB9vRF/l18ky3m7Lyz5dSBTIC9umn49Rqrn7cYEYN7
-         W1eilZv4FmMxzFePSL8/L73eF0gc8J8CWLW8wYExkYjhR1drr7xlxufkk536O8c1yqGl
-         kr1oD9R802F5pJCWPunozWo1+si+tmgxwptNsXMlFSTOOcI5FyTkhHbEnkj1CygjE5Eg
-         JLkQZWZ0fMuG+cOWyEgcqKdy7PxtOOBKoYgH2y2jwsKOV4XN+VJ5HfmZxO/SQvuVqk1Z
-         0PdRCBnJLUz+RD4OqzQVTsMzLrt2UvloYH6qDy47jvrP6ovUFBTkENDotn8dJWkUiiAZ
-         Ovuw==
+        bh=FrT5ug9Rmu5na7Br3xiwXHNr9C5YNZojXjZI9+IL39E=;
+        b=RT6I/660jh7wV3sweWKWOOdbAY0ZTjakV4mvRoX2+NcAseVoaurISkRSbsLfsn2Uvn
+         gbOo6uNXIfPkzmXeyJ4QkX2FYalGaIhw42cKP3i6VYj642QYvebPAKIF5Sj/PVxc/LiJ
+         kUK1FrdxUW6Qzr8kHxiDOab9cfKj7kvaFFrbbm7DR/kO/hdZ1Ky2zKM4zPQGSLy56LPQ
+         un13Uy0q6iy73i7qsDSCKmI9LVRi5r2SsSg8FkxvEtFizlL9hmT68XUQLRu9jlF2M+WT
+         ufAa0yBBuJZhwY1UMSNyLsOigHKBvwGCTqAO4CMlRH2G2C4U1bha8DqzcOXbsH0axywy
+         B5vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742485118; x=1743089918;
+        d=1e100.net; s=20230601; t=1742485386; x=1743090186;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=E0Lci+ECUilnN130JGQy/jV/GSrjNp8lwsMlq7ZZ150=;
-        b=Zi0BQnLGp6K/Sd0zDCN9I2GAI36pJBfrNixSta2xpZ6SRCZqp1nC1HMyKMQR7luU7n
-         vNrZwMV7krib6njJ02WRqnQkGQ9Jx9WitEjacxvG/IZiqVzTKrVv5zFZDPm9xHogGYKR
-         8k1eFfl5MmvKN7uj3dlcEkzz8vEzL7YSh3gDtPtX6KeW+AfbS5uSzeczIy8Tpp+1G6Sm
-         wngbi0YOHZB7aiPOlwVYpL6FCznqiLas6+Qu867xGnvOV5PEKfMPa3MSvsgV46aUGaNk
-         itbEasXmuam1Ah/DJhkHHtLaqjWPzKLxYgYe2rubetgySxir84lVDDbFYqGj1zNCk3nC
-         Gndw==
-X-Forwarded-Encrypted: i=1; AJvYcCXy72L4iQXOXlB2NfaED6h22G3GSKBVgMRyuQVBhIiye9MPlKtEYwml2bfcBYav/wsCjHttYNvlwLg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxxnJeSJyIKgm4X4REJ0vlFrFs/9Ak9ExjWkLthn155O2IRdH4q
-	5RbFX7u1mHDuBbuAR+/6o/0SJP7mGkhs30C/A5h0U+yEj8Wu+rkYUbUn8CbTUw==
-X-Gm-Gg: ASbGncsun+tT8NHr+gC3LwcGN87j+UHJGD2u3yqRjy7+0/hdKbhchpfT0+WFNNvYRyt
-	34J+l+M4A+7t1sG1YBCveZt7pOlwoHAJY3RDgtAISd3EARsRlzc0cG7ozXh5W7/d1dXo/6Z6Xm6
-	D8wyybXBX68hNzY1MpGAtLSjYSl7UBiGUpiAE/JCuC0wr65faZEc+IrE/hQ7KwoE5LjX4itRcZV
-	prmICjp+cLkgl9WvqPFYEi5JYiBtn74QRb9DEGmhkdWzcU2iEmHtTQzc0AGLP1NlCSfLCi4vVdw
-	w2NpTPdoqOGD6H0+U2FRF/0rpHTGO1hrVydjYctkd+E6rQQQdu9RbN1beQHPP5ogQVybkoit4aJ
-	z5WTv2gpTUFACGd0hKCFmQDfry9l04670ROsIhNTg
-X-Google-Smtp-Source: AGHT+IFsnJyVxtUWIf6hr4zEEimZ+UMjG5EBAW4/Jf4WNMg3qE2kK3IWR4ZtelwR6DYrxUuOnTuOvg==
-X-Received: by 2002:a05:600c:1f8b:b0:43c:fdbe:43be with SMTP id 5b1f17b1804b1-43d495abc53mr26314395e9.27.1742485117925;
-        Thu, 20 Mar 2025 08:38:37 -0700 (PDT)
-Message-ID: <4c3820ef-9d4b-4968-88c9-b6210de80b46@suse.com>
-Date: Thu, 20 Mar 2025 16:38:36 +0100
+        bh=FrT5ug9Rmu5na7Br3xiwXHNr9C5YNZojXjZI9+IL39E=;
+        b=LKu+giT+y7cyK4uYkEuhjQ1drzSTDLc7/zXSIZeJV2Q1MplhKctTLpdLuNI26/vcVQ
+         CzGjzZc878LyPRlQ0HV7kykKHhxamwdwuKi68XOcB1hTyKANHxxlu3pv72FUa6LaxHnU
+         zRlPlwOekacgQnHuJu1CEmXE+ZMTDEGvZR+CE0SLCR0hqK+voH0gfIjR85nad+gMeq3G
+         G2lGpg7MWQHYdQxNc1xNI5ngDb407Sd3j63aeHIB4/l3EgSywzcF+PSZLy3N5IBsqWfa
+         flTAuNl/SgNk12rKKS3HcQ8xV5LzaKPNpk/bCIiP71cC9qObxThZokEZYUfJedmvmy+3
+         H6wA==
+X-Forwarded-Encrypted: i=1; AJvYcCUjiRjvB/eq+GUenv3Poqem1Saq3M0wmVCY8rNA8uI478DgM5hF3RtbPNW5Ync1fD2gtmHYKpNzCow=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwojwWl7A/rsZeg+7dTjeJirvDUwGg1gtAFZMC7Bv6EHd9Su2GK
+	OupwEFHP/aXJMupOufPGmTiLT+x/c+TtlS6SRYHt1WpULpiaXRRFh+7QC+qA0A==
+X-Gm-Gg: ASbGncuDZTqXEFrnJZeUF4LcI+f4j3H0PKFEMbJuCc/eGMTBnR4zsH19goat4rg/HtE
+	IfG6vWrm174zweGAI8ApQKPoYzsAAPXT05+x1jUrRc9n2bky9lqrF93iAttvKZM3gYwLL8IyGNT
+	IThv6Dg+0domgiuNpll25vO+Q7TuUfN563o+Ew187MigLC+YO5bIUzscF0O/vAW8OZci135YFWT
+	8CTfAMMjDSD22FyBbkv7DAaE/wuif0bR1XPZCI6aUz+doDglArwoChh/pfpCQZpXX3wSq7o4Svt
+	as0DZpDprbWNwO8PL+DSmfGiz8p8BEtTAh1CUyt4WxOmnwfzTgMfe1tY1h0xGU+glMzN0Iv2AZH
+	IZ0VCNuewdAAodv4cxN04qt6T15AV7g==
+X-Google-Smtp-Source: AGHT+IFAbaJJWcQym+Pik1Vl080f4HyBryrGXBU+UIN3M20A4wC9QBW6o/eQuMOI59VnKGVIiqCOwA==
+X-Received: by 2002:a05:600c:5248:b0:43d:aed:f7d0 with SMTP id 5b1f17b1804b1-43d495aba92mr30429585e9.28.1742485385846;
+        Thu, 20 Mar 2025 08:43:05 -0700 (PDT)
+Message-ID: <0d0197b1-61d2-48ef-94a9-d2fbf1d7d073@suse.com>
+Date: Thu, 20 Mar 2025 16:43:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1 3/4] x86:hvm: guard calls to nestedhvm routines
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH 2/3] Xen: Update compiler checks
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1742465624.git.Sergiy_Kibrik@epam.com>
- <bd3edffaee9ecdccfbf35f70bf502a1fa00f36de.1742465624.git.Sergiy_Kibrik@epam.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250320153241.43809-1-andrew.cooper3@citrix.com>
+ <20250320153241.43809-3-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,41 +122,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bd3edffaee9ecdccfbf35f70bf502a1fa00f36de.1742465624.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <20250320153241.43809-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.03.2025 11:38, Sergiy Kibrik wrote:
-> Check whether nested HVM is enabled for domain before calling nestedhvm_vcpu_*()
-> and other not already guarded nestedhvm functions.
-> 
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> ---
->  xen/arch/x86/hvm/hvm.c      | 6 ++++--
->  xen/arch/x86/hvm/svm/asid.c | 2 +-
->  xen/arch/x86/hvm/svm/svm.c  | 6 +++---
->  3 files changed, 8 insertions(+), 6 deletions(-)
+On 20.03.2025 16:32, Andrew Cooper wrote:
+> --- a/xen/include/xen/compiler.h
+> +++ b/xen/include/xen/compiler.h
+> @@ -1,18 +1,10 @@
+>  #ifndef __LINUX_COMPILER_H
+>  #define __LINUX_COMPILER_H
+>  
+> -#if !defined(__GNUC__) || (__GNUC__ < 4)
+> -#error Sorry, your compiler is too old/not recognized.
+> -#elif CONFIG_CC_IS_GCC
+> -# if defined(CONFIG_ARM_32) && CONFIG_GCC_VERSION < 40900
+> -#  error Sorry, your version of GCC is too old - please use 4.9 or newer.
+> -# elif defined(CONFIG_ARM_64) && CONFIG_GCC_VERSION < 50100
+> -/*
+> - * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63293
+> - * https://lore.kernel.org/r/20210107111841.GN1551@shell.armlinux.org.uk
+> - */
+> -#  error Sorry, your version of GCC is too old - please use 5.1 or newer.
+> -# endif
+> +#if CONFIG_CC_IS_GCC && CONFIG_GCC_VERSION < 50100
+> +# error Sorry, your version of GCC is too old - please use 5.1 or newer
+> +#elif CONFIG_CC_IS_CLANG && CONFIG_CLANG_VERSION < 110000
+> +# error Sorry, your version of Clang is too old - please use 11 or newer
+>  #endif
 
-Afaics common and VMX code have quite a few more references to
-nestedhvm_vcpu_in_guestmode(), without nestedhvm_enabled(). Are they all
-fine to keep as is, while the respective adjustments here are strictly
-necessary? In fact I wonder whether (a) nestedhvm_vcpu_in_guestmode()
-couldn't be made constant-false when nested is build-time disabled,
-which ought to eliminate the need for those changes below. Or whether
-(b) nestedhvm_vcpu_in_guestmode() wouldn't better include a
-nestedhvm_enabled() check.
-
-> --- a/xen/arch/x86/hvm/svm/asid.c
-> +++ b/xen/arch/x86/hvm/svm/asid.c
-> @@ -30,7 +30,7 @@ void svm_asid_handle_vmrun(void)
->      struct vcpu *curr = current;
->      struct vmcb_struct *vmcb = curr->arch.hvm.svm.vmcb;
->      struct hvm_vcpu_asid *p_asid =
-> -        nestedhvm_vcpu_in_guestmode(curr)
-> +        ( nestedhvm_enabled(curr->domain) && nestedhvm_vcpu_in_guestmode(curr) )
-
-Nit: No blanks inside parentheses like these. (There's no real need for
-parentheses here in the first place.)
+While the Arm special cases can now indeed go away, shouldn't a RISC-V one
+appear instead, seeing what ./README says?
 
 Jan
 
