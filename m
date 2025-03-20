@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95D90A6A3C0
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 11:33:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.921658.1325448 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 305BEA6A3C4
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 11:34:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.921673.1325458 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvDD0-0001HR-6E; Thu, 20 Mar 2025 10:33:06 +0000
+	id 1tvDE4-0001uH-EC; Thu, 20 Mar 2025 10:34:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 921658.1325448; Thu, 20 Mar 2025 10:33:06 +0000
+Received: by outflank-mailman (output) from mailman id 921673.1325458; Thu, 20 Mar 2025 10:34:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvDD0-0001Fg-2J; Thu, 20 Mar 2025 10:33:06 +0000
-Received: by outflank-mailman (input) for mailman id 921658;
- Thu, 20 Mar 2025 10:33:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tvDCy-0000nL-Mi
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 10:33:04 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b3ce18e3-0576-11f0-9ffa-bf95429c2676;
- Thu, 20 Mar 2025 11:33:03 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-43cfe63c592so6211015e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 03:33:03 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb40cdd0sm23489418f8f.77.2025.03.20.03.33.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 03:33:02 -0700 (PDT)
+	id 1tvDE4-0001re-AM; Thu, 20 Mar 2025 10:34:12 +0000
+Received: by outflank-mailman (input) for mailman id 921673;
+ Thu, 20 Mar 2025 10:34:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fVbL=WH=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1tvDE2-0001rW-Vf
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 10:34:10 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dbc49140-0576-11f0-9ea0-5ba50f476ded;
+ Thu, 20 Mar 2025 11:34:10 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-54ad1e75f49so422632e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 03:34:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,121 +40,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3ce18e3-0576-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: dbc49140-0576-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742466782; x=1743071582; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=eQVazOJlWberGa7NQsP+2uxAiCJL+ke5FVATRNPr0UE=;
-        b=N0dWPAfxx+0BiMqgcqYe7tKSFYk90CtDgXe7xyeTt/Koc29fpujNpQe8WUgo2kxSMa
-         hMc2yTkVxrvKGOdgPXoqHa9xbzi88Qe52Bb3KYHiHkO1FEvkgOjefu0nKCru9LEqI4ky
-         dpXNwnpYD+ini3H7e1mMAS31+1qLHhj0AKJJSvZWRpkw14jToWt2SqozZ95JEZs7/7bd
-         8h72u58DVFgCXCqR9iqitBiuBw2mG18peJIAHK6QtzTydLGwQAbuaLK41Lba4YRf5mnw
-         E+jkY2h2T0sS4eWpTKnPRuS4jhrW6ErvTuBCC3E/lkpW03GdogZ8kmffu2n2nDTnXodp
-         65hQ==
+        d=gmail.com; s=20230601; t=1742466849; x=1743071649; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=O+sdNEvkgyfxZGH4q2UckX89IcUSg62K0ZvWWRSUPUU=;
+        b=T6WXSTqpqraKMO1EN+zDUSPQ3geNxijM+QghXYeLQmnpwhVceuETkoofpRQNXrNnCR
+         iohUhSECuzJkGHKrdjE/cUy6YX3pFwL7nRkCedkSR+NuIeUYUY09h+ATjEugyr5buO8T
+         tC11xIhTaWJOOOPhdjos6DpjqlpM8U/qyTvMIS/e2y3CD0QeVV5rjo683FSTEEAR89x8
+         +pT1Sn6uipQQk2kOFD0bQYplHL6on/9H9XytIslWra8Etk8hcJr7RCk3+EWwhPyjwpbc
+         XYUqp5hY6hIVUjjSsRCcC4qRxM1M8DfMolPP4+gxby+zI05dxFBjJLeRjVK+K3kpvIrz
+         dT+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742466782; x=1743071582;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=eQVazOJlWberGa7NQsP+2uxAiCJL+ke5FVATRNPr0UE=;
-        b=Fi3Z77jQ+Z/lSxKETnxpf+6G/3Lb47kAs2wJJ455Ik9zlFBrIbnP8IUne094peEW3Z
-         SkeyKXVaVc4/oyORWHqk0526G1UA675SsybO3yY5d8UQwZqK7vaqZNv6xZJK4zJi5S/h
-         UPfktbS+qnVcxlk1kMsV9/2yJrHNLkHWPomRczXRHR1R7Dz8iZFp5ScTMH0rDWCJcK1I
-         nXGQwRt8qqe/P55mED3vaFbGiMYbKjHeLMFXyFw/bKPydu0gB040snUwsOdc/QdAzWpD
-         wz5woIRaIdb7R1ARXzZ90pkSuVo1iI40k6xDy41ZeI6oBlmXyAEqkOi3e3EvKMej/x0H
-         TI0Q==
-X-Forwarded-Encrypted: i=1; AJvYcCX9e8kKmks5LFByxMVp0md0SpC6mNJQg/pvEeIp4TVnjecC1B7MHYQtGIFTQiAZ5HXmb1yLb3DaYhs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/ZKmAumIfpTRT7JBm1QWdoPRyMxPwwItjQ6hweBmA53Ip89o/
-	g367wsy/K3Of/kn2hhHSU+36JL7T9i58jlheq1ThAyVjbFxsl2L8Jb27xGMRyg==
-X-Gm-Gg: ASbGnct7rTun3esJPacdH50fa7ZagJkzjM6addRUqdhMWlsGVgBKfoVpaeStz3re3Ud
-	AxRgrb+sgVEuEBdCJPLLtvKkC1mDTarbuoNgAAIQRKqm2yf8ZR/gRki33a1IgH+5zWHZguWxguq
-	2hM4PopL8l7BdCd//wBFls8KuJtg2eEqsMBD4bAhlyEjgTqVTzA7QTlX8YAkRFaL2atSo4TAMd0
-	xK1u5IlENmyuDRS241hJu1mPPkFDMgoOZ0sAaQuGNng7TybQesfsbrPQk/4d3vd3NPhUtWVvsqr
-	TvgnoaoTr59T92dHZadk3adKfV8/yZX4NbiMHOgvKGdPecheRPpZwY1QfCDrWoKds7glVnY42dL
-	c09bYRGhEa/os/Gk83+tAKKkkStS+/g==
-X-Google-Smtp-Source: AGHT+IFa4BgTQzkO6ClckzVQvn7CXXNMQfUktt0xJSLv+0sFvc11SONO0l43BlTmfNLFlW1iVNYOMA==
-X-Received: by 2002:a05:6000:21c6:b0:391:1923:5a91 with SMTP id ffacd0b85a97d-399795e07d1mr1930920f8f.55.1742466782452;
-        Thu, 20 Mar 2025 03:33:02 -0700 (PDT)
-Message-ID: <6f28f284-25b9-4a28-a6ee-8588647801cd@suse.com>
-Date: Thu, 20 Mar 2025 11:33:00 +0100
+        d=1e100.net; s=20230601; t=1742466849; x=1743071649;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=O+sdNEvkgyfxZGH4q2UckX89IcUSg62K0ZvWWRSUPUU=;
+        b=oDLf5ojHFnndTicEtZBK8/6E9nmkVMlrfatucSlpLBCaxBzOVlgNsTQQN14QOcpszU
+         usnNQ5u3T8gKMMmHIS+EZGPNb+VjouZGITZTzh+BTg3VmW2FftRDFhMdlgVSdo8VO+WT
+         HDtpqodvjNlCUzV4Jhb2gAQFbaVEAooRBIZPqi92xqNQrLfM+sTEj2YObxYkSylw/n1z
+         VHMKbqBS+iU7rJc0KJGILQ4hoQQTDKMnhPCwY0M+dqJ5Wfv8E/UMzXGzsenQHmReDbHh
+         c0gFGGaAEIaWMNta/O4c1tgqtCPJdzF97eII8uLLtPNx67jL/fJGTUmTdu6GnGIL9RTy
+         eO6Q==
+X-Gm-Message-State: AOJu0YyuJcPJX0hWLu/kwGo53713mMaaiiZxlNAMcXIfACSRExzWzKgW
+	OPdAnUPGNZXklPzWC7Lw088rBiNqNm6hQO73mRFpEMEexoh7zm+lBAEQHivMJTsvLzCkkJZKc6g
+	1YCAO/Th4rmzMAML/l+dKQUBldrA=
+X-Gm-Gg: ASbGnctvFbbJvhYC/U5bJHH4uvfeAB00ui1OdmGDzeTqGYvO9D2tI88+h627HmpekGN
+	4wkDlBuxkW7c412ZGCdMYZ8i2z/EZfmCZ0d02sqyGtqixGLzo6qIUileY8Jhl6+ntOWstwrobHY
+	YReRo1TYYNet3MWPzS6pyOFBNqpSU+CFNeR+Y=
+X-Google-Smtp-Source: AGHT+IFT6fa3wRQ4C6/cNQQ6bF8/9CWjteB8TxoUlM3aJGEmEUjkvxz7A6yNdYLOnLR87atKP3zImvlYpYnhGhScFRg=
+X-Received: by 2002:a05:6512:3e06:b0:549:86c8:1132 with SMTP id
+ 2adb3069b0e04-54acb1bf0abmr2434614e87.17.1742466849056; Thu, 20 Mar 2025
+ 03:34:09 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/16] xen/arm: introduce a separate struct for watchdog
- timers
-From: Jan Beulich <jbeulich@suse.com>
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <gwd@xenproject.org>, Mykyta Poturai
- <mykyta_poturai@epam.com>, Mykola Kvach <mykola_kvach@epam.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1741164138.git.xakep.amatop@gmail.com>
- <18a8a86ca0c1b884278d635fb18b3b53e062f10e.1741164138.git.xakep.amatop@gmail.com>
- <ddbf31ae-5877-4df2-a6c7-8b0251ce2b01@suse.com>
- <CAGeoDV_h9vgyKyk_kH4XwsoWiJN0dx2UY+N0JAezUknGk9ez3g@mail.gmail.com>
- <7a1e9fdc-c1ec-449c-bf49-70bbc8e9c352@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7a1e9fdc-c1ec-449c-bf49-70bbc8e9c352@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1741164138.git.xakep.amatop@gmail.com> <18a8a86ca0c1b884278d635fb18b3b53e062f10e.1741164138.git.xakep.amatop@gmail.com>
+ <257d612f-62ec-4507-8e18-f8e10fb20975@epam.com>
+In-Reply-To: <257d612f-62ec-4507-8e18-f8e10fb20975@epam.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Thu, 20 Mar 2025 12:33:58 +0200
+X-Gm-Features: AQ5f1JrESIrJMlqf5dV3na82IhzdW4N876Q4U89SoW924y2pqVzGOfEFOeYS6e8
+Message-ID: <CAGeoDV-mgNhK7XuGcnE9sc56ZF1UG-Nfzkr0RqAme-V-9k1JKA@mail.gmail.com>
+Subject: Re: [PATCH 03/16] xen/arm: introduce a separate struct for watchdog timers
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Mirela Simonovic <mirela.simonovic@aggios.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Dario Faggioli <dfaggioli@suse.com>, 
+	Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>, 
+	Mykyta Poturai <mykyta_poturai@epam.com>, Mykola Kvach <mykola_kvach@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 20.03.2025 11:31, Jan Beulich wrote:
-> On 20.03.2025 11:25, Mykola Kvach wrote:
->> On Thu, Mar 13, 2025 at 5:27 PM Jan Beulich <jbeulich@suse.com> wrote:
->>> On 05.03.2025 10:11, Mykola Kvach wrote:
->>>> From: Mirela Simonovic <mirela.simonovic@aggios.com>
->>>>
->>>> Introduce a separate struct for watchdog timers. It is needed to properly
->>>> implement the suspend/resume actions for the watchdog timers. To be able
->>>> to restart watchdog timer after suspend we need to remember their
->>>> frequency somewhere. To not bloat the struct timer a new struct
->>>> watchdog_timer is introduced, containing the original timer and the last
->>>> set timeout.
->>>>
->>>> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
->>>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
->>>
->>> A From: with no corresponding S-o-b: is potentially problematic. You also
->>> can't simply add one with her agreement, though.
->>
->> Thank you for pointing that out! I'll revisit all commits and add the missing
->> Signed-off-by tags in the next version of patch series.
-> 
-> Ftaod - you may not add anyone's S-o-b without their agreement.
+Hi,
 
-Oh, and it would help if you could avoid submitting patches with invalid
-email addresses in Cc:. Everyone replying will then experience delivery
-failures.
+On Wed, Mar 19, 2025 at 6:14=E2=80=AFPM Grygorii Strashko
+<grygorii_strashko@epam.com> wrote:
+>
+>
+>
+> On 05.03.25 11:11, Mykola Kvach wrote:
+> > From: Mirela Simonovic <mirela.simonovic@aggios.com>
+> >
+> > Introduce a separate struct for watchdog timers. It is needed to proper=
+ly
+> > implement the suspend/resume actions for the watchdog timers. To be abl=
+e
+> > to restart watchdog timer after suspend we need to remember their
+> > frequency somewhere. To not bloat the struct timer a new struct
+> > watchdog_timer is introduced, containing the original timer and the las=
+t
+> > set timeout.
+> >
+> > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> > This commit was introduced in patch series V2.
+> > ---
+> >   xen/common/keyhandler.c    |  2 +-
+> >   xen/common/sched/core.c    | 11 ++++++-----
+> >   xen/include/xen/sched.h    |  3 ++-
+> >   xen/include/xen/watchdog.h |  6 ++++++
+> >   4 files changed, 15 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
+> > index 0bb842ec00..caf614c0c2 100644
+> > --- a/xen/common/keyhandler.c
+> > +++ b/xen/common/keyhandler.c
+> > @@ -305,7 +305,7 @@ static void cf_check dump_domains(unsigned char key=
+)
+> >           for ( i =3D 0 ; i < NR_DOMAIN_WATCHDOG_TIMERS; i++ )
+> >               if ( test_bit(i, &d->watchdog_inuse_map) )
+> >                   printk("    watchdog %d expires in %d seconds\n",
+> > -                       i, (u32)((d->watchdog_timer[i].expires - NOW())=
+ >> 30));
+> > +                       i, (u32)((d->watchdog_timer[i].timer.expires - =
+NOW()) >> 30));
+>
+> I'd like to propose to add watchdog API wrapper here, like
+>
+> watchdog_domain_expires_sec(d,id)
+>
+> or
+>
+> watchdog_domain_dump(d)
+>
+> and so hide implementation internals.
 
-Jan
+It was already proposed by Jan Beulich. I'll do it.
+
+>
+> >
+> >           arch_dump_domain_info(d);
+> >
+> > diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+> > index d6296d99fd..b1c6b6b9fa 100644
+> > --- a/xen/common/sched/core.c
+> > +++ b/xen/common/sched/core.c
+> > @@ -1556,7 +1556,8 @@ static long domain_watchdog(struct domain *d, uin=
+t32_t id, uint32_t timeout)
+> >           {
+> >               if ( test_and_set_bit(id, &d->watchdog_inuse_map) )
+> >                   continue;
+> > -            set_timer(&d->watchdog_timer[id], NOW() + SECONDS(timeout)=
+);
+> > +            d->watchdog_timer[id].timeout =3D timeout;
+> > +            set_timer(&d->watchdog_timer[id].timer, NOW() + SECONDS(ti=
+meout));
+> >               break;
+> >           }
+> >           spin_unlock(&d->watchdog_lock);
+> > @@ -1572,12 +1573,12 @@ static long domain_watchdog(struct domain *d, u=
+int32_t id, uint32_t timeout)
+> >
+> >       if ( timeout =3D=3D 0 )
+> >       {
+> > -        stop_timer(&d->watchdog_timer[id]);
+> > +        stop_timer(&d->watchdog_timer[id].timer);
+> >           clear_bit(id, &d->watchdog_inuse_map);
+> >       }
+> >       else
+> >       {
+> > -        set_timer(&d->watchdog_timer[id], NOW() + SECONDS(timeout));
+> > +        set_timer(&d->watchdog_timer[id].timer, NOW() + SECONDS(timeou=
+t));
+> >       }
+> >
+> >       spin_unlock(&d->watchdog_lock);
+> > @@ -1593,7 +1594,7 @@ void watchdog_domain_init(struct domain *d)
+> >       d->watchdog_inuse_map =3D 0;
+> >
+> >       for ( i =3D 0; i < NR_DOMAIN_WATCHDOG_TIMERS; i++ )
+> > -        init_timer(&d->watchdog_timer[i], domain_watchdog_timeout, d, =
+0);
+> > +        init_timer(&d->watchdog_timer[i].timer, domain_watchdog_timeou=
+t, d, 0);
+> >   }
+> >
+> >   void watchdog_domain_destroy(struct domain *d)
+> > @@ -1601,7 +1602,7 @@ void watchdog_domain_destroy(struct domain *d)
+> >       unsigned int i;
+> >
+> >       for ( i =3D 0; i < NR_DOMAIN_WATCHDOG_TIMERS; i++ )
+> > -        kill_timer(&d->watchdog_timer[i]);
+> > +        kill_timer(&d->watchdog_timer[i].timer);
+> >   }
+> >
+> >   /*
+> > diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> > index 177784e6da..d0d10612ce 100644
+> > --- a/xen/include/xen/sched.h
+> > +++ b/xen/include/xen/sched.h
+> > @@ -24,6 +24,7 @@
+> >   #include <asm/current.h>
+> >   #include <xen/vpci.h>
+> >   #include <xen/wait.h>
+> > +#include <xen/watchdog.h>
+> >   #include <public/xen.h>
+> >   #include <public/domctl.h>
+> >   #include <public/sysctl.h>
+>
+> I think struct watchdog_timer (or whatever you going to add) need to be m=
+oved in sched.h
+> because...
+>
+> > @@ -569,7 +570,7 @@ struct domain
+> >   #define NR_DOMAIN_WATCHDOG_TIMERS 2
+> >       spinlock_t watchdog_lock;
+> >       uint32_t watchdog_inuse_map;
+> > -    struct timer watchdog_timer[NR_DOMAIN_WATCHDOG_TIMERS];
+> > +    struct watchdog_timer watchdog_timer[NR_DOMAIN_WATCHDOG_TIMERS];
+> >
+> >       struct rcu_head rcu;
+> >
+> > diff --git a/xen/include/xen/watchdog.h b/xen/include/xen/watchdog.h
+> > index 4c2840bd91..2b7169632d 100644
+> > --- a/xen/include/xen/watchdog.h
+> > +++ b/xen/include/xen/watchdog.h
+> > @@ -8,6 +8,12 @@
+> >   #define __XEN_WATCHDOG_H__
+> >
+> >   #include <xen/types.h>
+> > +#include <xen/timer.h>
+>
+> ...this interface is not related to domain's watchdogs.
+>  From x86 code, it seems like some sort of HW watchdog used to check pCPU=
+s state
+> and not domains/vcpu. And it's Not enabled for Arm now.
+
+Sorry, but maybe I missed something. However, this struct and the
+previous watchdog timer
+are used as fields of the domain struct and correspond to a particular
+domain. Also, take a look
+at some functions where the watchdog timer field is used: domain_watchdog,
+watchdog_domain_init, and watchdog_domain_destroy.
+I see a direct connection with a domain..
+
+>
+> > +
+> > +struct watchdog_timer {
+> > +    struct timer timer;
+> > +    uint32_t timeout;
+> > +};
+> >
+> >   #ifdef CONFIG_WATCHDOG
+> >
+
+Best regards,
+Mykola
 
