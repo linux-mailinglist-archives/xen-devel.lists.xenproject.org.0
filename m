@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9FDFA6A3DC
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 11:39:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.921726.1325498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 569E3A6A3E1
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 11:41:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.921740.1325509 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvDJD-00046X-Lr; Thu, 20 Mar 2025 10:39:31 +0000
+	id 1tvDKX-0005ov-3h; Thu, 20 Mar 2025 10:40:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 921726.1325498; Thu, 20 Mar 2025 10:39:31 +0000
+Received: by outflank-mailman (output) from mailman id 921740.1325509; Thu, 20 Mar 2025 10:40:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvDJD-00043a-I2; Thu, 20 Mar 2025 10:39:31 +0000
-Received: by outflank-mailman (input) for mailman id 921726;
- Thu, 20 Mar 2025 10:39:30 +0000
+	id 1tvDKW-0005nL-WD; Thu, 20 Mar 2025 10:40:53 +0000
+Received: by outflank-mailman (input) for mailman id 921740;
+ Thu, 20 Mar 2025 10:40:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vaXX=WH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tvDJC-0003oU-Ht
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 10:39:30 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ <SRS0=5Eqg=WH=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1tvDKV-0005lS-JJ
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 10:40:51 +0000
+Received: from fforwardh-b4-smtp.messagingengine.com
+ (fforwardh-b4-smtp.messagingengine.com [202.12.124.199])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 99d5e451-0577-11f0-9ffa-bf95429c2676;
- Thu, 20 Mar 2025 11:39:29 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43d0359b1fcso3794145e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 03:39:29 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d43f6bf09sm44640845e9.26.2025.03.20.03.39.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 03:39:27 -0700 (PDT)
+ id c81987bd-0577-11f0-9ffa-bf95429c2676;
+ Thu, 20 Mar 2025 11:40:47 +0100 (CET)
+Received: from phl-compute-01.internal (phl-compute-01.phl.internal
+ [10.202.2.41])
+ by mailfforwardh.stl.internal (Postfix) with ESMTP id 1A8E51740240;
+ Thu, 20 Mar 2025 06:40:46 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+ by phl-compute-01.internal (MEProxy); Thu, 20 Mar 2025 06:40:46 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 20 Mar 2025 06:40:45 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,173 +45,325 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99d5e451-0577-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742467168; x=1743071968; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kEQibdfx57irddpcsnyXU4WxyFvZtkyG06d+LDZQ/5k=;
-        b=iqimM/VUsZ1uYr+867RBXSQMIg3bIx11edi35zSm58AHZzl6yt/K+T/7a1dbXn3hX5
-         Ne/LK0jKSeJ190DK+rgvhILygXQILJlyGb8fGrHgjiWF0UDvu5f5AFZkd998FbZ99pac
-         BlnLS9QHyn1LZ8yu+PZKwLqpDIC7fcarJmpJE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742467168; x=1743071968;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kEQibdfx57irddpcsnyXU4WxyFvZtkyG06d+LDZQ/5k=;
-        b=FThsALcoURv7kzWTvu3H183Q3uVKKfjwRPoLK6M7v8QS7c6lhIlZxOyRHeLojLaHtU
-         OvnTzpWQuN7YEZN9CGH3cpgPUn5Fg3WQgAOePDTlaS/Dh4mmQT+9vF5roMoLYVvJ2UEr
-         RolL3/xSsrMPtsIiHHUKMtH7AROPyPT8wcIvBg+ASS/5gDKjmNv5MtyOUYupzz5EyyKw
-         5dE0x7S71uTJNunmjs7fWBbn7rVwP1+d4dGKpM4LX17RlzazuTDijK46YLsxy5NnplXG
-         VsYJYC0dZiIBc5EKGYFtHtRa+gYXzzQFcVscktJNJVqzg8yMojkhvK9BN9Dfdz+aqgY4
-         aXIw==
-X-Forwarded-Encrypted: i=1; AJvYcCWaF/UefmSfTc3WvoI9jOuvMKEmtfDCzO+vAaYxtgs9qM7ZS/fmRYzFYebaTSedVz4SPgtc1jz4K+k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxLwORuZ7Ne/w834pdk6PrOjO11qwBynB0MrB3o8/7uRtQfYs2c
-	JQFzyns8LQpbca2QiYfClcXUQ8ecYtlIvQUCLkqoupAqnvNy9t2raCEsFk598BM=
-X-Gm-Gg: ASbGncsC/3BKGljtzKOU4/ro6FDHYAhIMWMUsZozGyZH7Hmb36pimOE3BZL7F/5C0qH
-	5NXxtt31jmURYNseUZmO+cU47zJ+5U7MQwP3clEdGpYi27KMHinwL/HNqWPqlOzfaLiM7h5nisE
-	ga5P4yk4yWtGVlxBRdIa8Oaq+an5K2w+zY6omptDyQC5cniEfsqa/3xYlqux179KlBYkkCKtTj/
-	ONZm+9KpCqGtReEX7oB+FhvFtFqdKzaqCNt1cDZWVVHTe2hzlnBdfYf3Z8hN1dOXroTw+FvVMsE
-	IX6GNcMh8clwQGgRzH84T4Q8zmp49lbTutmRsOVUPHVQhYFUGM+0H7SxLG5yZWhe9vARAafkUxf
-	8GT5W/MqOTw==
-X-Google-Smtp-Source: AGHT+IHlIGjbg4G/APzTVfmO8z+9M/ejau88dtN5Wa/Glzk8PawATExDNuSv1c5kC+U1y2MrzOwqPg==
-X-Received: by 2002:a05:600c:81b:b0:439:873a:1114 with SMTP id 5b1f17b1804b1-43d49171dfamr15575255e9.6.1742467168348;
-        Thu, 20 Mar 2025 03:39:28 -0700 (PDT)
-Message-ID: <545dcd10-2cff-4f31-be7d-004ad36eeb34@citrix.com>
-Date: Thu, 20 Mar 2025 10:39:27 +0000
+X-Inumbo-ID: c81987bd-0577-11f0-9ffa-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm1; t=1742467245; x=1742553645; bh=Z
+	FBqzfTuIOcXKUcH4af4gFZfF5sz9uMBXXpfzTunwhs=; b=o0juFXLIxSaLe8GMX
+	UJ6ZgDYUqJUMd5erKY5fZKzUAfc/GGPpN39veW1sleHIEqd39bGyYuT5PQdrFPUi
+	ehBGf8qQad8hipCwB3AZ2PdPs1wLc/klw63cpbaHkaQgraBJ/6bDpEpSDNoRI+CS
+	3Sf3jpzTl88YkAonJKjAN3qE14WAMirVXzJgrsyDSE3NiKXFToaaAvxcYpqEInN4
+	IllasQ6wgVtouUHvglk8I4dHWcSdO72Xs1Zc9ezKuU2URQwJopV90RI9nqo4QDZ9
+	ML+Ph4d8k2PSixQ8YOqbgrbNjJihQp4Gg5H4h0e9kFLjw9dNMYqO5ThtggQMrrP+
+	4AGhw==
+X-ME-Sender: <xms:rfDbZ4Nh9_xrDX0nk4sTO4ogn7u1Cyol-apJPWi7N_O1tn5InOhn6A>
+    <xme:rfDbZ-9Sqr0V8RZh6c5EMFopcRMAuEl-Tq4u6auOFlFyePfqFk2odi_jtXFgAPJcs
+    jdhH3K4b28xISkcXAU>
+X-ME-Received: <xmr:rfDbZ_RhvHViYKIsp6yrle8EJsaDOpgvi6ubMT71T3qitQ-bpvrDHrHdHeTdANOvxo8jeHIUuhw2WxV2QqvhRAAClBLaOu-4K_z4VwNdGdeO3w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddugeejleelucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhgggfestdekredtredt
+    tdenucfhrhhomhepufgvrhhgihihucfmihgsrhhikhcuoefuvghrghhihigpmfhisghrih
+    hksegvphgrmhdrtghomheqnecuggftrfgrthhtvghrnhephfevveeuieeljefhkedugeeh
+    leeugefgfffhjefhvdeitdethfettdeitefgheevnecuffhomhgrihhnpegvnhhtrhihrd
+    hssgenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehs
+    rghkihgssegurghrkhhsthgrrhdrshhithgvpdhnsggprhgtphhtthhopeeipdhmohguvg
+    epshhmthhpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghn
+    phhrohhjvggtthdrohhrghdprhgtphhtthhopehsvghrghhihigpkhhisghrihhksegvph
+    grmhdrtghomhdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhmpdhrtghp
+    thhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtth
+    hopehrohhgvghrrdhprghusegtihhtrhhigidrtghomhdprhgtphhtthhopehsshhtrggs
+    vghllhhinhhisehkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:rfDbZwtZCosLXB0jIu9LOrPqgaoh3IS4wPdEBhI2vQ_lKezIAeqO1g>
+    <xmx:rfDbZweQz1v4OnAwzYT996nDFBYIFJ9Uv-lfLNYjIfBHVXwEQg6O4w>
+    <xmx:rfDbZ005IewNJq-G3MvRHotvZDnr7pBqPBPdy6ePkW4jiwiqboTm0Q>
+    <xmx:rfDbZ08lOm9ezFUIYEXxCOyzDEgVfahDtdxJ3GkZZZjQ30xmE9gBdQ>
+    <xmx:rfDbZ3-py4gE4K5K9f0i9sil256aKW_0RMha6nf0udOTOWGyYiV-mg>
+    <xmx:rfDbZ1FsU-HQ7rlAQwbezL6xl5spjHQMcwv7w8gp9OHB0JF6qQ8WDOLZfNQX>
+Feedback-ID: i7f3fb726:Fastmail
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+To: xen-devel@lists.xenproject.org
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v1 4/4] x86:hvm: make nestedhvm support optional
+Date: Thu, 20 Mar 2025 12:40:43 +0200
+Message-Id: <e4f77564313d20ad4f3b94bde0672250f7d99bb4.1742465624.git.Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1742465624.git.Sergiy_Kibrik@epam.com>
+References: <cover.1742465624.git.Sergiy_Kibrik@epam.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] x86/PVH: account for module command line length
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jandryuk@gmail.com>
-References: <577ddc98-fdbb-48af-9c7e-1a411383516b@suse.com>
- <9bdc10ba-8572-46b3-a39e-e011e97d1e85@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <9bdc10ba-8572-46b3-a39e-e011e97d1e85@suse.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20/03/2025 9:28 am, Jan Beulich wrote:
-> As per observation in practice, initrd->cmdline_pa is not normally zero.
-> Hence so far we always appended at least one byte. That alone may
-> already render insufficient the "allocation" made by find_memory().
-> Things would be worse when there's actually a (perhaps long) command
-> line.
->
-> Skip setup when the command line is empty. Amend the "allocation" size
-> by padding and actual size of module command line. Along these lines
-> also skip initrd setup when the initrd is zero size.
->
-> Fixes: 0ecb8eb09f9f ("x86/pvh: pass module command line to dom0")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v2: Use elf_round_up(). Introduce initrd_cmdline local. Re-base.
->
-> --- a/xen/arch/x86/hvm/dom0_build.c
-> +++ b/xen/arch/x86/hvm/dom0_build.c
-> @@ -652,9 +652,10 @@ static int __init pvh_load_kernel(
->      unsigned long image_len = image->size;
->      unsigned long initrd_len = initrd ? initrd->size : 0;
->      const char *cmdline = image->cmdline_pa ? __va(image->cmdline_pa) : NULL;
-> +    const char *initrd_cmdline = NULL;
->      struct elf_binary elf;
->      struct elf_dom_parms parms;
-> -    size_t extra_space;
-> +    size_t extra_space = 0;
->      paddr_t last_addr;
->      struct hvm_start_info start_info = { 0 };
->      struct hvm_modlist_entry mod = { 0 };
-> @@ -712,10 +713,23 @@ static int __init pvh_load_kernel(
->       * split into smaller allocations, done as a single region in order to
->       * simplify it.
->       */
-> -    extra_space = sizeof(start_info);
-> +    if ( initrd_len )
-> +    {
-> +        extra_space = elf_round_up(&elf, initrd_len);
-> +
-> +        if ( initrd->cmdline_pa )
-> +        {
-> +            initrd_cmdline = __va(initrd->cmdline_pa);
-> +            if ( !*initrd_cmdline )
-> +                initrd_cmdline = NULL;
-> +        }
-> +        if ( initrd_cmdline )
-> +            extra_space += strlen(initrd_cmdline) + 1;
-> +
-> +        extra_space = ROUNDUP(extra_space, PAGE_SIZE) + sizeof(mod);
-> +    }
->  
-> -    if ( initrd )
-> -        extra_space += sizeof(mod) + ROUNDUP(initrd_len, PAGE_SIZE);
-> +    extra_space += sizeof(start_info);
->  
+Introduce NESTEDHVM config option that controls nested virtualization in both
+SVM & VMX code. The option is for reduction of dead code on systems that
+aren't intended to run in nested mode.
 
-This is rather ugly.  I could rearrange the original patch, but the main
-issue is "extra_space = elf_round_up(&elf, initrd_len);" and that trick
-works exactly once in the function, seeing as it clobbers the running total.
+Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+---
+ xen/arch/x86/Kconfig                     |  5 +++++
+ xen/arch/x86/hvm/Makefile                |  2 +-
+ xen/arch/x86/hvm/svm/Makefile            |  2 +-
+ xen/arch/x86/hvm/svm/entry.S             |  2 ++
+ xen/arch/x86/hvm/svm/svm.c               |  4 ++++
+ xen/arch/x86/hvm/vmx/Makefile            |  2 +-
+ xen/arch/x86/hvm/vmx/entry.S             |  2 ++
+ xen/arch/x86/hvm/vmx/vmcs.c              |  8 +++++---
+ xen/arch/x86/hvm/vmx/vmx.c               | 10 +++++++++-
+ xen/arch/x86/include/asm/hvm/nestedhvm.h | 10 +++++++++-
+ 10 files changed, 39 insertions(+), 8 deletions(-)
 
-IMO it would be better to have a local initrd_space variable, with an
-"extra_space += ROUNDUP(initrd_space ...)", at which point the logic
-(and therefore the diff) becomes rather more simple.
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 6e41bc0fb4..bc140d8b77 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -144,6 +144,11 @@ config INTEL_VMX
+ 	  If your system includes a processor with Intel VT-x support, say Y.
+ 	  If in doubt, say Y.
+ 
++config NESTEDHVM
++	bool "Support nested virtualization" if EXPERT
++	depends on HVM
++	default y
++
+ config XEN_SHSTK
+ 	bool "Supervisor Shadow Stacks"
+ 	depends on HAS_AS_CET_SS
+diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
+index 4c1fa5c6c2..c80b209296 100644
+--- a/xen/arch/x86/hvm/Makefile
++++ b/xen/arch/x86/hvm/Makefile
+@@ -17,7 +17,7 @@ obj-y += ioreq.o
+ obj-y += irq.o
+ obj-y += monitor.o
+ obj-y += mtrr.o
+-obj-y += nestedhvm.o
++obj-$(CONFIG_NESTEDHVM) += nestedhvm.o
+ obj-y += pmtimer.o
+ obj-y += quirks.o
+ obj-y += rtc.o
+diff --git a/xen/arch/x86/hvm/svm/Makefile b/xen/arch/x86/hvm/svm/Makefile
+index 760d2954da..4b45ca050f 100644
+--- a/xen/arch/x86/hvm/svm/Makefile
++++ b/xen/arch/x86/hvm/svm/Makefile
+@@ -2,7 +2,7 @@ obj-y += asid.o
+ obj-y += emulate.o
+ obj-bin-y += entry.o
+ obj-y += intr.o
+-obj-y += nestedsvm.o
++obj-$(CONFIG_NESTEDHVM) += nestedsvm.o
+ obj-y += svm.o
+ obj-y += svmdebug.o
+ obj-y += vmcb.o
+diff --git a/xen/arch/x86/hvm/svm/entry.S b/xen/arch/x86/hvm/svm/entry.S
+index 91edb33459..62ebe1198b 100644
+--- a/xen/arch/x86/hvm/svm/entry.S
++++ b/xen/arch/x86/hvm/svm/entry.S
+@@ -28,7 +28,9 @@ FUNC(svm_asm_do_resume)
+         GET_CURRENT(bx)
+ .Lsvm_do_resume:
+         call svm_intr_assist
++#ifdef CONFIG_NESTEDHVM
+         call nsvm_vcpu_switch
++#endif
+         ASSERT_NOT_IN_ATOMIC
+ 
+         mov  VCPU_processor(%rbx),%eax
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index d7d91427fd..b678fb46aa 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -2460,6 +2460,7 @@ static struct hvm_function_table __initdata_cf_clobber svm_function_table = {
+     .set_descriptor_access_exiting = svm_set_descriptor_access_exiting,
+     .get_insn_bytes       = svm_get_insn_bytes,
+ 
++#ifdef CONFIG_NESTEDHVM
+     .nhvm_vcpu_initialise = nsvm_vcpu_initialise,
+     .nhvm_vcpu_destroy = nsvm_vcpu_destroy,
+     .nhvm_vcpu_reset = nsvm_vcpu_reset,
+@@ -2469,6 +2470,7 @@ static struct hvm_function_table __initdata_cf_clobber svm_function_table = {
+     .nhvm_vmcx_hap_enabled = nsvm_vmcb_hap_enabled,
+     .nhvm_intr_blocked = nsvm_intr_blocked,
+     .nhvm_hap_walk_L1_p2m = nsvm_hap_walk_L1_p2m,
++#endif
+ 
+     .get_reg = svm_get_reg,
+     .set_reg = svm_set_reg,
+@@ -2991,12 +2993,14 @@ void asmlinkage svm_vmexit_handler(void)
+     case VMEXIT_VMSAVE:
+         svm_vmexit_do_vmsave(vmcb, regs, v, regs->rax);
+         break;
++#ifdef CONFIG_NESTEDHVM
+     case VMEXIT_STGI:
+         svm_vmexit_do_stgi(regs, v);
+         break;
+     case VMEXIT_CLGI:
+         svm_vmexit_do_clgi(regs, v);
+         break;
++#endif
+ 
+     case VMEXIT_XSETBV:
+         if ( vmcb_get_cpl(vmcb) )
+diff --git a/xen/arch/x86/hvm/vmx/Makefile b/xen/arch/x86/hvm/vmx/Makefile
+index 04a29ce59d..6588b58889 100644
+--- a/xen/arch/x86/hvm/vmx/Makefile
++++ b/xen/arch/x86/hvm/vmx/Makefile
+@@ -3,4 +3,4 @@ obj-y += intr.o
+ obj-y += realmode.o
+ obj-y += vmcs.o
+ obj-y += vmx.o
+-obj-y += vvmx.o
++obj-$(CONFIG_NESTEDHVM) += vvmx.o
+diff --git a/xen/arch/x86/hvm/vmx/entry.S b/xen/arch/x86/hvm/vmx/entry.S
+index 6aaeb28a5b..ed4db38733 100644
+--- a/xen/arch/x86/hvm/vmx/entry.S
++++ b/xen/arch/x86/hvm/vmx/entry.S
+@@ -86,7 +86,9 @@ FUNC(vmx_asm_vmexit_handler)
+ 
+ .Lvmx_do_vmentry:
+         call vmx_intr_assist
++#ifdef CONFIG_NESTEDHVM
+         call nvmx_switch_guest
++#endif
+         ASSERT_NOT_IN_ATOMIC
+ 
+         mov  VCPU_processor(%rbx),%eax
+diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+index 0ba65becec..8d7f714a04 100644
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -674,7 +674,7 @@ int cf_check vmx_cpu_up_prepare(unsigned int cpu)
+      * If nvmx_cpu_up_prepare() failed, do not return failure and just fallback
+      * to legacy mode for vvmcs synchronization.
+      */
+-    if ( nvmx_cpu_up_prepare(cpu) != 0 )
++    if ( IS_ENABLED(CONFIG_NESTEDHVM) && nvmx_cpu_up_prepare(cpu) != 0 )
+         printk("CPU%d: Could not allocate virtual VMCS buffer.\n", cpu);
+ 
+     if ( per_cpu(vmxon_region, cpu) )
+@@ -685,7 +685,8 @@ int cf_check vmx_cpu_up_prepare(unsigned int cpu)
+         return 0;
+ 
+     printk("CPU%d: Could not allocate host VMCS\n", cpu);
+-    nvmx_cpu_dead(cpu);
++    if ( IS_ENABLED(CONFIG_NESTEDHVM) )
++        nvmx_cpu_dead(cpu);
+     return -ENOMEM;
+ }
+ 
+@@ -693,7 +694,8 @@ void cf_check vmx_cpu_dead(unsigned int cpu)
+ {
+     vmx_free_vmcs(per_cpu(vmxon_region, cpu));
+     per_cpu(vmxon_region, cpu) = 0;
+-    nvmx_cpu_dead(cpu);
++    if ( IS_ENABLED(CONFIG_NESTEDHVM) )
++        nvmx_cpu_dead(cpu);
+     vmx_pi_desc_fixup(cpu);
+ }
+ 
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 4883bd823d..ed68195445 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -1959,6 +1959,7 @@ static void nvmx_enqueue_n2_exceptions(struct vcpu *v,
+                  nvmx->intr.intr_info, nvmx->intr.error_code);
+ }
+ 
++#ifdef CONFIG_NESTEDHVM
+ static int cf_check nvmx_vmexit_event(
+     struct vcpu *v, const struct x86_event *event)
+ {
+@@ -1966,6 +1967,7 @@ static int cf_check nvmx_vmexit_event(
+                                hvm_intsrc_none);
+     return NESTEDHVM_VMEXIT_DONE;
+ }
++#endif
+ 
+ static void __vmx_inject_exception(int trap, int type, int error_code)
+ {
+@@ -2851,6 +2853,7 @@ static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
+     .handle_cd            = vmx_handle_cd,
+     .set_info_guest       = vmx_set_info_guest,
+     .set_rdtsc_exiting    = vmx_set_rdtsc_exiting,
++#ifdef CONFIG_NESTEDHVM
+     .nhvm_vcpu_initialise = nvmx_vcpu_initialise,
+     .nhvm_vcpu_destroy    = nvmx_vcpu_destroy,
+     .nhvm_vcpu_reset      = nvmx_vcpu_reset,
+@@ -2860,8 +2863,9 @@ static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
+     .nhvm_vcpu_vmexit_event = nvmx_vmexit_event,
+     .nhvm_intr_blocked    = nvmx_intr_blocked,
+     .nhvm_domain_relinquish_resources = nvmx_domain_relinquish_resources,
+-    .update_vlapic_mode = vmx_vlapic_msr_changed,
+     .nhvm_hap_walk_L1_p2m = nvmx_hap_walk_L1_p2m,
++#endif
++    .update_vlapic_mode = vmx_vlapic_msr_changed,
+     .enable_msr_interception = vmx_enable_msr_interception,
+     .altp2m_vcpu_update_p2m = vmx_vcpu_update_eptp,
+     .altp2m_vcpu_update_vmfunc_ve = vmx_vcpu_update_vmfunc_ve,
+@@ -3465,10 +3469,12 @@ static int cf_check vmx_msr_read_intercept(
+         __vmread(GUEST_IA32_DEBUGCTL, msr_content);
+         break;
+ 
++#ifdef CONFIG_NESTEDHVM
+     case MSR_IA32_VMX_BASIC...MSR_IA32_VMX_VMFUNC:
+         if ( !nvmx_msr_read_intercept(msr, msr_content) )
+             goto gp_fault;
+         break;
++#endif
+     case MSR_IA32_MISC_ENABLE:
+         rdmsrl(MSR_IA32_MISC_ENABLE, *msr_content);
+         /* Debug Trace Store is not supported. */
+@@ -4631,6 +4637,7 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
+         }
+         break;
+ 
++#ifdef CONFIG_NESTEDHVM
+     case EXIT_REASON_VMXOFF:
+     case EXIT_REASON_VMXON:
+     case EXIT_REASON_VMCLEAR:
+@@ -4645,6 +4652,7 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
+         if ( nvmx_handle_vmx_insn(regs, exit_reason) == X86EMUL_OKAY )
+             update_guest_eip();
+         break;
++#endif
+ 
+     case EXIT_REASON_VMFUNC:
+         if ( vmx_vmfunc_intercept(regs) != X86EMUL_OKAY )
+diff --git a/xen/arch/x86/include/asm/hvm/nestedhvm.h b/xen/arch/x86/include/asm/hvm/nestedhvm.h
+index ea2c1bc328..1703eaafde 100644
+--- a/xen/arch/x86/include/asm/hvm/nestedhvm.h
++++ b/xen/arch/x86/include/asm/hvm/nestedhvm.h
+@@ -25,14 +25,22 @@ enum nestedhvm_vmexits {
+ /* Nested HVM on/off per domain */
+ static inline bool nestedhvm_enabled(const struct domain *d)
+ {
+-    return IS_ENABLED(CONFIG_HVM) && (d->options & XEN_DOMCTL_CDF_nested_virt);
++    return IS_ENABLED(CONFIG_NESTEDHVM) &&
++           (d->options & XEN_DOMCTL_CDF_nested_virt);
+ }
+ 
+ /* Nested VCPU */
+ int nestedhvm_vcpu_initialise(struct vcpu *v);
+ void nestedhvm_vcpu_destroy(struct vcpu *v);
+ void nestedhvm_vcpu_reset(struct vcpu *v);
++#ifdef CONFIG_NESTEDHVM
+ bool nestedhvm_vcpu_in_guestmode(struct vcpu *v);
++#else
++static inline bool nestedhvm_vcpu_in_guestmode(struct vcpu *v)
++{
++    return false;
++}
++#endif
+ #define nestedhvm_vcpu_enter_guestmode(v) \
+     vcpu_nestedhvm(v).nv_guestmode = 1
+ #define nestedhvm_vcpu_exit_guestmode(v)  \
+-- 
+2.25.1
 
-
-There is a change in behaviour.  You mention empty initrds in the commit
-message, but it is possible to have an empty initrd with a non-empty
-cmdline.  Previously we would have passed that on, whereas now we dont.
-
-I suspect we probably don't care.  cmdlines on secondary modules are
-rare to begin with, but I just want to make sure we've considered the
-possibility.
-
-~Andrew
 
