@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7EC1A6A293
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 10:28:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.921527.1325348 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7399A6A295
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 10:28:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.921534.1325358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvCC5-00078w-Id; Thu, 20 Mar 2025 09:28:05 +0000
+	id 1tvCCP-0007cI-Pf; Thu, 20 Mar 2025 09:28:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 921527.1325348; Thu, 20 Mar 2025 09:28:05 +0000
+Received: by outflank-mailman (output) from mailman id 921534.1325358; Thu, 20 Mar 2025 09:28:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvCC5-00077M-F4; Thu, 20 Mar 2025 09:28:05 +0000
-Received: by outflank-mailman (input) for mailman id 921527;
- Thu, 20 Mar 2025 09:28:04 +0000
+	id 1tvCCP-0007ZP-Mn; Thu, 20 Mar 2025 09:28:25 +0000
+Received: by outflank-mailman (input) for mailman id 921534;
+ Thu, 20 Mar 2025 09:28:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tvCC4-0006dm-11
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 09:28:04 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1tvCCO-0006dm-FW
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 09:28:24 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9ed253d4-056d-11f0-9ffa-bf95429c2676;
- Thu, 20 Mar 2025 10:28:02 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3965c995151so264207f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 02:28:02 -0700 (PDT)
+ id ab089b54-056d-11f0-9ffa-bf95429c2676;
+ Thu, 20 Mar 2025 10:28:23 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-43d0359b1fcso3242605e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 02:28:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997d508c1esm438589f8f.93.2025.03.20.02.28.01
+ 5b1f17b1804b1-43d4aafde63sm13470285e9.6.2025.03.20.02.28.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 02:28:01 -0700 (PDT)
+ Thu, 20 Mar 2025 02:28:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ed253d4-056d-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: ab089b54-056d-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742462882; x=1743067682; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742462902; x=1743067702; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TDEhA7DZ9wsCfgW9f+m0HXZi4nwIFRLtsU3Cna1jSkc=;
-        b=HOSKXGtVRVYuDMhAvnPVTYBmsLzltCt7KdvYGzgWhjAMOKnCI1+ipgIGo7Y12qORJm
-         ShAdGgB5eopJeiP25+nSCCk7t/nKZmFp6GuA9gG5mqcGGxwOHbdVRHvSQNpKjpyYOKUT
-         87qCUxTlVTpJL0gQNRqCqDKw4BPEzVOXOUYRFd1b+QrGptQurUyOX+5PObvwa9WKiEzA
-         sjClxZBODePgBUlRd5y+lPeWvaIlFjzDCkMzsV42sptecW2nnHgkQxEJacSMMP7T5ADa
-         gUwIqOzeAMWP5DhPHSDo87qNce3O2VwWCERHOIr8kMW0GTzoSi6xEG8v9D+ABDuGinvG
-         Y7GA==
+        bh=LR4q00Qu7pVr1t1WkpZ6J3edBbbtA7hEJhI3V8nsuD0=;
+        b=T05opnJ/viRpH7ifR8Oe0dcyhlZLGf4nj9bTeSyBSb9I+LxjEE5+WbVZmdIL1fPr8S
+         mZlslS3wM/w9CT/49moL/vzJUvNfkipAjGjxoqGw1W3RcxlLLeE9xh2tktPdbpRGDjfc
+         OOI46il8XYPlZaFtdkneTToajF3JwlZqwbAyuLec2pfoTDxaTAF2oI+Ubeg7Z1mL9aC1
+         nOy94v1ikwV3L6bKrSSd8I9yJn4Vw63UlCkGZMivgG2x48c+bPdOFxKlVAhpy4xQxr3q
+         yOjVK+mcx+PWDFloYErVjR0nw3xp0cH93bojYjiWaNzewaANcaMAMhO333V44PXeBbLI
+         5d2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742462882; x=1743067682;
+        d=1e100.net; s=20230601; t=1742462902; x=1743067702;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=TDEhA7DZ9wsCfgW9f+m0HXZi4nwIFRLtsU3Cna1jSkc=;
-        b=mrm+4ht1uUwzF3uT8jJeXlU4kn1pVLdnTxdKS6iq9RiyVi78LuOcmgRSyN0A6qTsN9
-         J1kmLS9yEvuOC7xvrtxQM5AivYNDl0p+PcidBmftHPleGEojqwQbGg4QMUxIlGShCy0A
-         qq28k3Z5MK4khsL+VR/A2uWslseDHYWmZ3WvU7IlrNKGqgx6/UujB/XUq/P0EsfwyUsj
-         NMi1n2LuJRKbMwSrrsAJU3zSCe/0WI3cxkm8Djx1gKoTKsYS4VVKk2iwtmVVEWds1I0H
-         pPXx6yp2blft45plKVVizKpfQxO9UiE5SbgWuqxkt5jEvOtLnqfvFWH0lZlBWbiKyGZC
-         xn/g==
-X-Gm-Message-State: AOJu0Yyv8C/YSoywLKAaA5jDDKXaxfK+ElHMehz3cTJBboc4xBY0ttdv
-	mnzxSs8gObUN03ULwdrV8YlyOTpnGDxcOCLOjHx6IQPObxvDnUocCC0Ydl17oXuAkibFT/57Inc
+        bh=LR4q00Qu7pVr1t1WkpZ6J3edBbbtA7hEJhI3V8nsuD0=;
+        b=o/8j4+8ca+uEOK0NB3StWcZ/OKyQbeTBTakqZ4Tv7vQQAXXKfYIlwQbYI/5QFubDdr
+         h+fPrx3jnYKeFw6CaUQpWf69J2HLDeA5xoe3cA84ydyCuvZO38Bz9oHg+iM8ZAYH+Qhu
+         C2F3ysHDv0zh4B9xHmn2RW8ZoCjaL/7vo6o6bib4w2LY8BvKnQwBLB4cTJbXiCy1LyAR
+         eCBrsuG97+szlaTXqSpvGqrbpAekglP3O6S2hIhs0P0l3+DLbiuEVU53an1AZJw33fPa
+         VkLpOr9qhHRfFicAR25a6zyEwvqsNL5uqyhv/eUuEcM8Romw8UgNvk8XdxYdYM+NkxBJ
+         Ovrg==
+X-Gm-Message-State: AOJu0YzdIDbKGR06KU1ozKQkuGjJF5l9blCa2AcB33u4emb+hu5LHc+q
+	FBSrIx679usCNRngZb38Zul7tUreRkH1yyQ9ji492hWrRlQqY39Mf8mm2KJacpOQbddSZJ0BCKc
 	=
-X-Gm-Gg: ASbGncsiHw5A/crwwp0ZSS/YlVhZlzqvvIxfaup3TXPdwXvNxZB2//0APA186dp9o9p
-	TUfZmOo/szFhKxVjLOn9XYA5/O/UiDDpEgZ2de8G5cJFCgqjvCQtJa14R6TQvX5GYjm9CgfrbPa
-	JOxtM5w9XdyCCk9EspImMOMK6AIkV1j/STTBcz15nuHpGwpyTIgYUla7zkuqmz0lE3VWP62rlSs
-	FEZnkfgr9N/hPeSAJrx9P3jzly04VOBorJubEH4jwjWZFS34rYXukpqdDEHkS7k6cFvIQ/owM7R
-	4CsmfjDL1fTMIWaw9BHBHLrFLHMmJXaPHPNYXWJ+ux1FZ5dF3oxPHEcDZLC42lytdYIE3Hj0tvm
-	AZdKVDMqoiw3WLXpAYoN28Fa8FnYDPQ==
-X-Google-Smtp-Source: AGHT+IHpOo2QrLKtozaa1FuNH54R8XMCO3pCkUQe9y8ycYm3yQqAk3wW+/dObFamET+6nzxzTfFrMA==
-X-Received: by 2002:a5d:47c8:0:b0:38a:88ac:f115 with SMTP id ffacd0b85a97d-39973af8e00mr4274468f8f.34.1742462881712;
-        Thu, 20 Mar 2025 02:28:01 -0700 (PDT)
-Message-ID: <b1b94660-da2f-48ad-a1b6-10cb52e559f6@suse.com>
-Date: Thu, 20 Mar 2025 10:28:00 +0100
+X-Gm-Gg: ASbGncs/4sNrCZ8xDxcLrp+68E2qts8N86mMqAguSvzt2vN5L2bPKWVRrz6ttRDVSMj
+	XNUllqDztBjawsy4puaFTxf/PKAM22gPnc3RXW8oM+UV8x6UkKsr9vTTfJymcNy8Ermat8vCZiK
+	0MkTLsR8Jnzau6HKTU38XLYmlz5odyiOJWBNPXMYSLC8238pKVVGU70GEizg9d9jqNVapPKz9Ig
+	Peoa4CYYbwLeoBCktuRC1y3qw7rAAXkDRcNZKh7wyxVMOIeiTqsJMMsrWHUa/Gv0CvD9OQkVbdD
+	meUhVazZJtz3gKwM/8RVUeQVN3gI3pHtdCuO/tNyQi9rc6kyse3Fxsrt5aQG7YjjVjzYYtk3lsV
+	ryenNUNrs/7BSdzTBA2dzBD8boPqTy8uTvQM824kX
+X-Google-Smtp-Source: AGHT+IHfGhO9NUAVrd6ex6WE5OU5jqSxXmjhTnLHT1vgjSDyM3MJ3l1SrYia3+omJmWZ8fPaEEC8mw==
+X-Received: by 2002:a05:600c:3659:b0:43c:ec72:3daf with SMTP id 5b1f17b1804b1-43d491bf814mr17909295e9.14.1742462902110;
+        Thu, 20 Mar 2025 02:28:22 -0700 (PDT)
+Message-ID: <9bdc10ba-8572-46b3-a39e-e011e97d1e85@suse.com>
+Date: Thu, 20 Mar 2025 10:28:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 1/2] x86/PVH: don't open-code elf_round_up()
+Subject: [PATCH v2 2/2] x86/PVH: account for module command line length
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -122,42 +122,95 @@ In-Reply-To: <577ddc98-fdbb-48af-9c7e-1a411383516b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+As per observation in practice, initrd->cmdline_pa is not normally zero.
+Hence so far we always appended at least one byte. That alone may
+already render insufficient the "allocation" made by find_memory().
+Things would be worse when there's actually a (perhaps long) command
+line.
+
+Skip setup when the command line is empty. Amend the "allocation" size
+by padding and actual size of module command line. Along these lines
+also skip initrd setup when the initrd is zero size.
+
+Fixes: 0ecb8eb09f9f ("x86/pvh: pass module command line to dom0")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-I was wondering whether in elf_round_up() itself we might better use
-ROUNDUP().
----
-v2: New.
+v2: Use elf_round_up(). Introduce initrd_cmdline local. Re-base.
 
 --- a/xen/arch/x86/hvm/dom0_build.c
 +++ b/xen/arch/x86/hvm/dom0_build.c
-@@ -718,8 +718,7 @@ static int __init pvh_load_kernel(
-         extra_space += sizeof(mod) + ROUNDUP(initrd_len, PAGE_SIZE);
+@@ -652,9 +652,10 @@ static int __init pvh_load_kernel(
+     unsigned long image_len = image->size;
+     unsigned long initrd_len = initrd ? initrd->size : 0;
+     const char *cmdline = image->cmdline_pa ? __va(image->cmdline_pa) : NULL;
++    const char *initrd_cmdline = NULL;
+     struct elf_binary elf;
+     struct elf_dom_parms parms;
+-    size_t extra_space;
++    size_t extra_space = 0;
+     paddr_t last_addr;
+     struct hvm_start_info start_info = { 0 };
+     struct hvm_modlist_entry mod = { 0 };
+@@ -712,10 +713,23 @@ static int __init pvh_load_kernel(
+      * split into smaller allocations, done as a single region in order to
+      * simplify it.
+      */
+-    extra_space = sizeof(start_info);
++    if ( initrd_len )
++    {
++        extra_space = elf_round_up(&elf, initrd_len);
++
++        if ( initrd->cmdline_pa )
++        {
++            initrd_cmdline = __va(initrd->cmdline_pa);
++            if ( !*initrd_cmdline )
++                initrd_cmdline = NULL;
++        }
++        if ( initrd_cmdline )
++            extra_space += strlen(initrd_cmdline) + 1;
++
++        extra_space = ROUNDUP(extra_space, PAGE_SIZE) + sizeof(mod);
++    }
+ 
+-    if ( initrd )
+-        extra_space += sizeof(mod) + ROUNDUP(initrd_len, PAGE_SIZE);
++    extra_space += sizeof(start_info);
  
      if ( cmdline )
--        extra_space += ROUNDUP(strlen(cmdline) + 1,
--                               elf_64bit(&elf) ? 8 : 4);
-+        extra_space += elf_round_up(&elf, strlen(cmdline) + 1);
+         extra_space += elf_round_up(&elf, strlen(cmdline) + 1);
+@@ -727,7 +741,7 @@ static int __init pvh_load_kernel(
+         return -ENOMEM;
+     }
  
-     last_addr = find_memory(d, &elf, extra_space);
-     if ( last_addr == INVALID_PADDR )
-@@ -740,7 +739,7 @@ static int __init pvh_load_kernel(
- 
+-    if ( initrd != NULL )
++    if ( initrd_len )
+     {
+         rc = hvm_copy_to_guest_phys(last_addr, __va(initrd->start),
+                                     initrd_len, v);
+@@ -740,12 +754,11 @@ static int __init pvh_load_kernel(
          mod.paddr = last_addr;
          mod.size = initrd_len;
--        last_addr += ROUNDUP(initrd_len, elf_64bit(&elf) ? 8 : 4);
-+        last_addr += elf_round_up(&elf, initrd_len);
-         if ( initrd->cmdline_pa )
+         last_addr += elf_round_up(&elf, initrd_len);
+-        if ( initrd->cmdline_pa )
++        if ( initrd_cmdline )
          {
-             char *str = __va(initrd->cmdline_pa);
-@@ -774,7 +773,7 @@ static int __init pvh_load_kernel(
-          * Round up to 32/64 bits (depending on the guest kernel bitness) so
-          * the modlist/start_info is aligned.
+-            char *str = __va(initrd->cmdline_pa);
+-            size_t len = strlen(str) + 1;
++            size_t len = strlen(initrd_cmdline) + 1;
+ 
+-            rc = hvm_copy_to_guest_phys(last_addr, str, len, v);
++            rc = hvm_copy_to_guest_phys(last_addr, initrd_cmdline, len, v);
+             if ( rc )
+             {
+                 printk("Unable to copy module command line\n");
+@@ -775,7 +788,7 @@ static int __init pvh_load_kernel(
           */
--        last_addr += ROUNDUP(strlen(cmdline) + 1, elf_64bit(&elf) ? 8 : 4);
-+        last_addr += elf_round_up(&elf, strlen(cmdline) + 1);
+         last_addr += elf_round_up(&elf, strlen(cmdline) + 1);
      }
-     if ( initrd != NULL )
+-    if ( initrd != NULL )
++    if ( initrd_len )
      {
+         rc = hvm_copy_to_guest_phys(last_addr, &mod, sizeof(mod), v);
+         if ( rc )
 
 
