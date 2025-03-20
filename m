@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53970A6A985
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 16:17:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.922489.1326400 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D30ACA6A987
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 16:18:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.922504.1326410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvHdy-0006V9-BQ; Thu, 20 Mar 2025 15:17:14 +0000
+	id 1tvHfD-00076e-OS; Thu, 20 Mar 2025 15:18:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 922489.1326400; Thu, 20 Mar 2025 15:17:14 +0000
+Received: by outflank-mailman (output) from mailman id 922504.1326410; Thu, 20 Mar 2025 15:18:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvHdy-0006Th-8O; Thu, 20 Mar 2025 15:17:14 +0000
-Received: by outflank-mailman (input) for mailman id 922489;
- Thu, 20 Mar 2025 15:17:12 +0000
+	id 1tvHfD-00074R-LM; Thu, 20 Mar 2025 15:18:31 +0000
+Received: by outflank-mailman (input) for mailman id 922504;
+ Thu, 20 Mar 2025 15:18:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W2V2=WH=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tvHdw-0006Tb-GG
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 15:17:12 +0000
-Received: from fhigh-b8-smtp.messagingengine.com
- (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+ <SRS0=51pQ=WH=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1tvHfB-00074J-O4
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 15:18:29 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 64ad83ca-059e-11f0-9ea0-5ba50f476ded;
- Thu, 20 Mar 2025 16:17:10 +0100 (CET)
-Received: from phl-compute-09.internal (phl-compute-09.phl.internal
- [10.202.2.49])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 683C42540189;
- Thu, 20 Mar 2025 11:17:09 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-09.internal (MEProxy); Thu, 20 Mar 2025 11:17:09 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 20 Mar 2025 11:17:07 -0400 (EDT)
+ id 937964f3-059e-11f0-9ea0-5ba50f476ded;
+ Thu, 20 Mar 2025 16:18:28 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5e61375c108so1252372a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 08:18:28 -0700 (PDT)
+Received: from localhost ([46.149.103.14]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5e816ad3909sm10432334a12.56.2025.03.20.08.18.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Mar 2025 08:18:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,199 +44,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64ad83ca-059e-11f0-9ea0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1742483829;
-	 x=1742570229; bh=JFjPC7UuvrmpO6kvEFfFIsFr34AFX1dkwhwYtXWoUVk=; b=
-	sEj0tXep/WJlUOgv68MKwAEJJYGu84EazD2MGy+N2AJCRwuwIwjGdeIVXEkkLmnm
-	uxywzYtnHt3qnwxf5SGPxXeStZbGTFrOro4BmWNoflOBIbvL6+058SJ9GD/2ynFs
-	GuFezWTrfwmYHZBIdCmkdEeggWBaigQw5jBwuED4PFS+A3RZMgkd6kzlm6QLhiL9
-	7EOOuCXAyHGEj2aKO9kqfKL2hINheo1pNU+yiXbNGDNiUvaOHkM2JmJb4bYTMKaG
-	10lVz+rQKzesYthSN5Ho9X3dksu+MWMWMa2P/5d4w/N4kH0RmLV95kKw1t7nknH3
-	fkV4700Yej11fYrXBOf5Ag==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1742483829; x=1742570229; bh=JFjPC7UuvrmpO6kvEFfFIsFr34AFX1dkwhw
-	YtXWoUVk=; b=K2rbdYc2veEpPajBDxOeAI1b7/1erddJuLZGi/Kt+o0GNoZSGSZ
-	R88++wEX8UD8V1d1lS+GeNnCvq3k9yMbjeF6fxiBNgXjfZBNbCtWRks8taFtHXty
-	mygVb6BAp+7SdvpDhCfjT7R3U3EhooSAvQt7Fbo3s/TUTCLghrgNNvFhxwUJc0HI
-	fdPWQGcOyneFFfVDdMU7jeLt8HXFCLgKf146XYZb9GI0WeNfdNMFOKWlo9VE/owq
-	pXfYj9arpwSQDKt9JeGntBMqOCHEb4EPUGJidgfbgm9gtMkcAAzty5ZASImDlhXa
-	5K04cUDLjCapfFZ+hiEuSoZuGq9pM/zeM1A==
-X-ME-Sender: <xms:dDHcZyVuq_bAow3PIa-23Mifi7F22LhXbsMYGv5TE0iPkoBZNOqPgA>
-    <xme:dDHcZ-k_BfQsgc-XC4U26-dsvNTsvpHxHSO70aeAmIWcBwu65jlIxHaXP8icoFYMo
-    2pflszl8zUqNg>
-X-ME-Received: <xmr:dDHcZ2bk042rbUKXRfaMPp0mJpwDWB8A7D8iZglAEH4uDGd3yucrnOOCvTmWKprtOHQMW0a1vRSQLqCey0dDKlgoBQKq9xq6vg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddugeekheehucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
-    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
-    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
-    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
-    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-    dpnhgspghrtghpthhtohepledpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghn
-    thhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtthhopehjsggvuh
-    hlihgthhesshhushgvrdgtohhmpdhrtghpthhtohepfhhrvgguvghrihgtrdhpihgvrhhr
-    vghtsehquhgsvghsqdhoshdrohhrghdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvg
-    hrfeestghithhrihigrdgtohhmpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlsegr
-    mhgurdgtohhmpdhrtghpthhtohepjhhulhhivghnseigvghnrdhorhhgpdhrtghpthhtoh
-    eprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepshhsthgrsggv
-    lhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepgigvnhdquggvvhgvlheslh
-    hishhtshdrgigvnhhprhhojhgvtghtrdhorhhg
-X-ME-Proxy: <xmx:dDHcZ5VPVwlMejemV1vF3N6Vy8jQbTgHLt7ieo691rcdOGlz0iObRw>
-    <xmx:dDHcZ8mETDthmyxTp4rN6BgT6khdZNYH_PO-X1ptVkVTYsP8GHrN4g>
-    <xmx:dDHcZ-e7EzeBTKccLsShaxfB2w0cqnLaGfvdwH8gwglYokFrBm0E7A>
-    <xmx:dDHcZ-EcyislxaCC1XceMgYGKVgp7uHXhSZ87CxYNHP6GFmI3bb7bA>
-    <xmx:dTHcZ5h_YxrRRBEBiL8j2MjOzH13hMYx4dekJZJf7MZ9pFrL8-noSBQx>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 20 Mar 2025 16:17:04 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	=?utf-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?= <frederic.pierret@qubes-os.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 2/2] Strip build path directories in tools, xen and
- xen/arch/x86
-Message-ID: <Z9wxcYapF5eno29b@mail-itl>
-References: <017d5c41-d4ea-4d91-b6ec-b4660e7325ae@suse.com>
- <e112ecca-b891-4c23-ace1-8128e586cb94@suse.com>
- <Z9qxcRtap-k-wW8B@mail-itl>
- <943644a3-45f2-46ef-a54b-6dd0bc6171ed@suse.com>
- <Z9rJUWCARMQYqNXr@mail-itl>
- <Z9vrc1Xvm5OEy8rM@l14>
- <Z9wPVGd0fEsbaO_s@mail-itl>
- <a9831a95-2828-4b46-8cae-58b2c531f507@suse.com>
- <Z9wfKB0vdngn3xXX@mail-itl>
- <Z9wnzRbwb3HQaSMu@l14>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="fbynnOhQxpl+hxud"
-Content-Disposition: inline
-In-Reply-To: <Z9wnzRbwb3HQaSMu@l14>
-
-
---fbynnOhQxpl+hxud
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: 937964f3-059e-11f0-9ea0-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1742483908; x=1743088708; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SD96jxNXAQO0g9kZUha17xBFzZOHRjY92/yOwnciPso=;
+        b=JxXUU7CGHiLUQShtokIDGdJM3zanIw8JHMjETNb/Gh4QlUB+Ua5dNm8LYmcbV/2LYk
+         0KowCRGlmu0TZGmzsgFKhd5+yiw9pavc/tK6vxxNjQBfg11Jff8uCYKe/KFVL1CdzY3Y
+         NMzOEYqDQqeZ5t2oB+fLVAGb6DZVBkUhUwcuU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742483908; x=1743088708;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=SD96jxNXAQO0g9kZUha17xBFzZOHRjY92/yOwnciPso=;
+        b=KGB/nxELJeYt0qTOcmZj7ymQhz7PXBmKWIUFUNWdlw6oJ3NO6pGYywHc3c5SdSTfu9
+         ImnFQHyDGksgQRpZ0P8tS21sUCQK6Ykc13J1dDAfrHCgzQAvL5LQG7aF3Ix9eM+1ep2Q
+         V3Ble611PYCd/THt47PEbD0FVN3MMuMHqP+43F5Msv/ID9KWmck6TuHc8okMD/bu6JuB
+         q5BhBbr1/3FOG2ANtPphq0ALmfm4H7KhvYDqOxYSAero/WJWuw/tICr943KokeXBrxjB
+         M5DyYpfX49hxld9c0luN0cnXP0RkMKFgiG7HHD4z3iMSuDjrbTePmI9x9ZwT+I9ISAyB
+         ie1g==
+X-Gm-Message-State: AOJu0YxNxDcxkUQBr8UmeJ/cwsMPIq2JyeJFyJoDDYcHGeWHy8OUujCU
+	FxCaUNDC22sNmLfWVJlbJ8y52ipnGI854rBhfoTrRw/e5mKdSmBZvN75gOLDZgwUeIroRqc7lTw
+	r
+X-Gm-Gg: ASbGncu6xZ9WUfDyPwHr0jYkn5j6mYTpZRqn/zQIOVct162/1886iKPSOnSEs7hmPxe
+	NPtyJV2NJ3NeA6RuZssde/cW7aD3r0XX9zhdAzAy72GvPubinLGpuMCSJuO0gvG1iTW9UocL9y2
+	ev1LfPtaMQteip5Crha3n1retwEa/2FHMA0+DZjtFZHwevL+89ILozrSbgcm94gtbYj5UsLYhDl
+	pwZ5krGWVlhRdfaAJaTBHHTTrOTHl/EB+8cdal9tiBsIApydPdbrsLZahprwYFYjpgieYSTsyyY
+	kzKDYCed6zFKKEYWJSe/q0uS8q5jNZfOs+1DclZ2W3pTLa68RU0=
+X-Google-Smtp-Source: AGHT+IGRjCGpf4EV6MW02FOczrhMFhUvPnbmuJwfVZScirflPMTkke+10A3wYQcxzX+KCbgcbY6Q3A==
+X-Received: by 2002:a05:6402:4025:b0:5eb:ca97:4565 with SMTP id 4fb4d7f45d1cf-5ebca97456emr392510a12.19.1742483907932;
+        Thu, 20 Mar 2025 08:18:27 -0700 (PDT)
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 20 Mar 2025 16:17:04 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	=?utf-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?= <frederic.pierret@qubes-os.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 2/2] Strip build path directories in tools, xen and
- xen/arch/x86
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 20 Mar 2025 15:18:26 +0000
+Message-Id: <D8L6ZRL4CIUK.FGKVDP8TJAGU@cloud.com>
+Cc: "Xen-devel" <xen-devel@lists.xenproject.org>, "Jan Beulich"
+ <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>,
+ =?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>
+Subject: Re: [PATCH v1] x86: make Viridian support optional
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: "Sergiy Kibrik" <sergiy_kibrik@epam.com>
+X-Mailer: aerc 0.18.2
+References: <20250317071919.3766976-1-Sergiy_Kibrik@epam.com>
+ <CAFi36o263XOQbTpSGDcM3PmpY+MwodHi1tOXDp3W60N0n9b9YA@mail.gmail.com>
+ <93e98ebb-4679-4c34-a5af-f105e89c7304@epam.com>
+In-Reply-To: <93e98ebb-4679-4c34-a5af-f105e89c7304@epam.com>
 
-On Thu, Mar 20, 2025 at 02:35:59PM +0000, Anthony PERARD wrote:
-> On Thu, Mar 20, 2025 at 02:59:04PM +0100, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > On Thu, Mar 20, 2025 at 02:49:27PM +0100, Jan Beulich wrote:
-> > > On 20.03.2025 13:51, Marek Marczykowski-G=C3=B3recki wrote:
-> > > > On Thu, Mar 20, 2025 at 10:18:28AM +0000, Anthony PERARD wrote:
-> > > >> On Wed, Mar 19, 2025 at 02:40:33PM +0100, Marek Marczykowski-G=C3=
-=B3recki wrote:
-> > > >>> There are clearly some build path embedding left. And
-> > > >>> -ffile-prefix-map=3D/-fdebug-prefix-map=3D doesn't work correctly=
- with
-> > > >>> XEN_ROOT having xen/.. at the end.
-> > > >>> BTW, would it be acceptable to have this?
-> > > >>>
-> > > >>>     $(call cc-option-add,CFLAGS,CC,-fdebug-prefix-map=3D$(realpat=
-h $(XEN_ROOT))=3D.)
-> > > >>
-> > > >> Hi,
-> > > >>
-> > > >> Could you avoid using $(XEN_ROOT) in hypervisor build system? (It'=
-s fine
-> > > >> in "tools/"). In "xen/", there's a few variables you can use if th=
-ey are
-> > > >> needed: $(abs_objtree) $(abs_srctree) for absolutes path, and $(sr=
-ctree)
-> > > >> $(objtree) for relative path. That also should avoid the need to u=
-se
-> > > >> $(realpath ).
-> > > >
-> > > > XEN_ROOT is literally "$(abs_srctree)/..". And I need to resolve it=
- to
-> > > > not have /.. for prefix-map to work correctly. Would it be better t=
-o use
-> > > > literal $(realpath $(abs_srctree)/..)? Or use just $(abs_srctree) a=
-nd
-> > > > have paths in debug symbols relative to hypervisor source dir, inst=
-ead
-> > > > of xen repo root? I'm not sure if that wouldn't confuse some tools.=
-=2E.
-> > >
-> > > abs_srctree being computed using realpath, can't we replace
-> > >
-> > > export XEN_ROOT :=3D $(abs_srctree)/..
-> > >
-> > > by something as simpl{e,istic} as
-> > >
-> > > export XEN_ROOT :=3D $(patsubst %/xen,%,$(abs_srctree))
-> > >
-> > > ?
+On Thu Mar 20, 2025 at 9:39 AM GMT, Sergiy Kibrik wrote:
+> hi Alejandro,
+>
+> 17.03.25 11:19, Alejandro Vallejo:
+> [..]
+> >      =C2=A0endif
+> >=20
+> >     +config HVM_VIRIDIAN
+> >     +=C2=A0 =C2=A0 =C2=A0 =C2=A0bool "Viridian enlightenments support" =
+if EXPERT
+> >     +=C2=A0 =C2=A0 =C2=A0 =C2=A0depends on HVM
+> >     +=C2=A0 =C2=A0 =C2=A0 =C2=A0default y
+> >     +
+> >=20
+> >=20
+> >=20
+> > I don't see why this should be gated by EXPERT, provided a
+> > suitable (now absent) help message was to exist explaining
+> > what it does in plain simple words.
+>
+> The option is intended primarily for fine-tuned systems optimized for=20
+> particular platform and mode of operation. As for generic systems (e.g.=
+=20
+> distributions) whey wouldn't want to disable it anyway.
+
+
+
+> >=20
+> > For the title, I'd say it needs to properly state it refers to
+> > enlightenments for guests, rather than enlightenments for
+> > Xen itself when running under Hyper-V. As it is, it sounds
+> > ambiguous (Maybe "Hyper-V enlighnments for guests"?).
 > >
-> > That works too. It's slightly less robust, but I don't expect "xen"
-> > directory to be renamed, so shouldn't be an issue. I'll leave also a
-> > comment there why not /.. .
->=20
-> I don't think $(XEN_ROOT) is present in the binaries produce by the
-> hypervisor's build system. There's only a few use if that variable: to
-> load some makefile, to execute makefile that build xsm policy and to
-> generate cpuid-autogen.h. Otherwise I don't think the compile have this
-> path in the command line. What is going to be in the binary is
-> $(abs_srctree), which you can replace by "./xen" if you want; which mean
-> it doesn't matter if the directory is renamed or not. You might want to
-> also take care of $(abs_objtree) which seems to also be in `xen-syms`
-> when doing out-of-tree build.
+>
+> Agree, "Hyper-V enlighnments for guests" is better title.
+> As for help message, would the one below be sufficient?:
+>
+>   help
+>     Support optimizations for Hyper-V guests such as faster hypercalls,
+>     efficient timer and interrupt handling, and enhanced paravirtualized
+>     I/O. This is to improve performance and compatibility of Windows VMs.
+>
+>     If unsure, say Y.
 
-So, you suggest to do -fdebug-prefix-map=3D$(abs_srctree)=3D./xen ? That
-appears to work for in-tree builds too.
-But now I actually tested how it looks with out-of-tree builds, and
-indeed $(abs_objtree) is embedded there too. Adding
--fdebug-prefix-map=3D$(abs_objtree)=3D./xen appears to help for this. But,
--fdebug-prefix-map doesn't help with abs_srctree in out-of-tree builds
-for some reason. -ffile-prefix-map does. And so does -fdebug-prefix-map
-+ -fmacro-prefix-map. Is there any preference which one to use? It
-appears as -fmacro-prefix-map and -ffile-prefix-map have the same
-availability in both GCC (8) and Clang (10).
+Sounds good enough to me.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+>
+>
+> > On a personal nitpicky preference note, I'd say HVM_VIRIDIAN sounds
+> > rather redundant, and I think just VIRIDIAN works just as well
+> > while being shorter.
+> >
+>
+> this is rather to highlight the fact that the code is part of HVM=20
+> support, a bit of self-documenting
+>
+> [..]
 
---fbynnOhQxpl+hxud
-Content-Type: application/pgp-signature; name="signature.asc"
+That's fair enough.
 
------BEGIN PGP SIGNATURE-----
+> >     diff --git a/xen/arch/x86/include/asm/hvm/vcpu.h
+> >     b/xen/arch/x86/include/asm/hvm/vcpu.h
+> >     index 196fed6d5d..bac35ec47a 100644
+> >     --- a/xen/arch/x86/include/asm/hvm/vcpu.h
+> >     +++ b/xen/arch/x86/include/asm/hvm/vcpu.h
+> >     @@ -171,8 +171,9 @@ struct hvm_vcpu {
+> >=20
+> >      =C2=A0 =C2=A0 =C2=A0/* Pending hw/sw interrupt (.vector =3D -1 mea=
+ns nothing
+> >     pending). */
+> >      =C2=A0 =C2=A0 =C2=A0struct x86_event=C2=A0 =C2=A0 =C2=A0inject_eve=
+nt;
+> >     -
+> >     +#ifdef CONFIG_HVM_VIRIDIAN
+> >      =C2=A0 =C2=A0 =C2=A0struct viridian_vcpu *viridian;
+> >     +#endif
+> >      =C2=A0};
+> >=20
+> >      =C2=A0#endif /* __ASM_X86_HVM_VCPU_H__ */
+> >=20
+> >=20
+> > nit: I suspect the code would be far less cluttered with "if=20
+> > viridian..." if the
+> > init/deinit/etc functions had dummy versions of those functions when
+> > !HVM_VIRIDIAN in the header.
+> >=20
+>
+> as Jan explained some time ago [1] it's preferable to compile as much as=
+=20
+> possible in all build configuration. Besides most of calls to viridian=20
+> code are already guarded by is_viridian_domain() & not actually require=
+=20
+> stubs.
+>
+>   -Sergiy
+>
+> [1]=20
+> https://lore.kernel.org/xen-devel/36708a3f-2664-4b04-9f5d-f115d362d100@su=
+se.com/
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmfcMXEACgkQ24/THMrX
-1yyQtgf/Rkj/YixjwoGFAbxdC+VJwf7LVAru/wx+XO+qPACLZ7PBZODGIdfEGo4P
-eKe0woOFM0CrM5bBkxyAmKjurlo2ZhAyuPIfRGjcRSP6ezBs8Gid2MoNKGI7BDgI
-7HARzKtlqdaqY/WX4AJCZm39spuQvqwzLnIyeowaox7ITVw5ZRwnVjwardMn/9Kq
-Gs/PJ2igbP1gB0zm33/ZrCkxJXOyKH1SqqLyUbyGdVALY7DDPLvfgMvgel+pC45V
-SJv3CODUK8v8uLSDZ0y8KdqZx8e+TEcJ1EEgM3bn5jJNNG9LfleGzNfE3g/6mzzv
-0XShTReCbWMquHWhspnYkXpLtkKxFA==
-=zhjn
------END PGP SIGNATURE-----
+That answer seems to state a preference for...
 
---fbynnOhQxpl+hxud--
+    if ( foo_enabled() )
+        rc =3D foo();
+
+... against...
+
+    #ifdef CONFIG_FOO
+    rc =3D foo();
+    #endif
+
+... where foo() in the header looks like...
+
+    #ifdef CONFIG_FOO
+    int foo(void);
+    #else /* CONFIG_FOO */
+    static inline int foo(void)
+    {
+        return /*some-error*/;
+    }
+    #endif /* CONFIG_FOO */
+
+But that's not what's going on here, I think? I didn't initially notice the
+subtlety of the change. On more careful look, it seems to rely on the compi=
+ler
+doing dead-code-elimination. The functions missing in the linking stage don=
+'t
+cause a compile-time error because the conditionals are completely gone by
+then. Neat as it is, it sounds a bit fragile. Can we really rely on this
+behaviour not changing? Furthermore, does MISRA have views about having dea=
+d
+code calls to unimplemented functions?
+
+If dummy functions are warranted, my point stands. Why not make them return
+"0", rather than some errno to avoid the conditionals to begin with? If the=
+y
+aren't, then I'm just making a racket over nothing and feel free to ignore =
+me
+:)
+
+FTAOD, this is more of a question to the maintainers than anything else. Is
+exploiting dead-code elimination in order to avoid dummy functions somethin=
+g we
+want to do moving forward?
+
+Cheers,
+Alejandro
 
