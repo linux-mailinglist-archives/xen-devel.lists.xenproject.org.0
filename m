@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F35B1A6A77D
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 14:46:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.922053.1325942 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA0EAA6A789
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 14:49:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.922066.1325951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvGCw-0004ON-Ek; Thu, 20 Mar 2025 13:45:14 +0000
+	id 1tvGH8-0004xH-T3; Thu, 20 Mar 2025 13:49:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 922053.1325942; Thu, 20 Mar 2025 13:45:14 +0000
+Received: by outflank-mailman (output) from mailman id 922066.1325951; Thu, 20 Mar 2025 13:49:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvGCw-0004MS-BB; Thu, 20 Mar 2025 13:45:14 +0000
-Received: by outflank-mailman (input) for mailman id 922053;
- Thu, 20 Mar 2025 13:45:12 +0000
+	id 1tvGH8-0004vW-QL; Thu, 20 Mar 2025 13:49:34 +0000
+Received: by outflank-mailman (input) for mailman id 922066;
+ Thu, 20 Mar 2025 13:49:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tvGCu-0004Ll-KK
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 13:45:12 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1tvGH6-0004vM-Pu
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 13:49:32 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8ae6f856-0591-11f0-9ffa-bf95429c2676;
- Thu, 20 Mar 2025 14:45:11 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-39141ffa9fcso695945f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 06:45:11 -0700 (PDT)
+ id 2535dd54-0592-11f0-9ffa-bf95429c2676;
+ Thu, 20 Mar 2025 14:49:29 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-39727fe912cso285456f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 06:49:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c7df339asm23558493f8f.3.2025.03.20.06.45.09
+ ffacd0b85a97d-3974d771160sm20213098f8f.19.2025.03.20.06.49.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 06:45:09 -0700 (PDT)
+ Thu, 20 Mar 2025 06:49:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ae6f856-0591-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 2535dd54-0592-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742478310; x=1743083110; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742478569; x=1743083369; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FagdEAnJg8/2m5qmwT7Lhx+0rk880BCemP1xM7z1ZqU=;
-        b=NWpUGYOKQ2Dl9I7xxDHdMhSoyV/A0tHwdJbe3u207Tcu2hJe0J7f0Ryg2tHjoJK2yT
-         A5YAyejgIXmNmgf27LkKN/qR4pzu4pKiY42uZAYjmzDCe5BjYLK3YVOOnJg/65WupGNN
-         60jgOMQwj6zc9SydfWckHhD+cK+ARfqbMrPInfdu0AlsF3qrpYmRgc31z5AE1Nnx8OjF
-         SgNtSFCmnuOnMZ4m9R1AFOHw6ntexM2w8nRiTaC/Hr/nRLu6rwpG6rBCbnJZF1Kn06Ig
-         1Hyub3t+hCFFF5Ddf+vBYiHjiZCvHwIdH40tHbtqL4Srvd7cky2DkOFrqxJdPCOd5EaI
-         N9xA==
+        bh=wpOt68E1lgyrOleU/OEtaNvyljzyMPWAWbkPgHE7DY8=;
+        b=geeF4Ekj6d9lO1u6mODjoCfvFigJ3Q1y7rqs1IFQ6Hc0zfNtLIw9XrdjC6NtBynH/e
+         u8lSqRBoPMHoxzETbWforRFyU8HFIpcSsKgUXCwts3e++QzL0opLrIzD4HfVq6pJ3uvG
+         9hDBUH/vr1MTQO38o86wt+ChVK42XVBkQUk02GYpDPFfGX27jbn2Y/rATt7sozPCS/5R
+         5X96Tjbgv2soW9bVOzaE/tzyGAc5nO2ozksn1Hi8BYAGXwFApHB1qFjcxaXAMkxnORBq
+         XsCOEJnkBEMLfl2sXJPAT7x7fZiWHqp4KWN6BbXnNjx5lcE6oqMVqVCUJaFqF7LPWOk2
+         pH7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742478310; x=1743083110;
+        d=1e100.net; s=20230601; t=1742478569; x=1743083369;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FagdEAnJg8/2m5qmwT7Lhx+0rk880BCemP1xM7z1ZqU=;
-        b=KSMGLZRgoK/MGgaQlLGL5EuR//knic7qEMyH+5L442hAzce05er6YajUtkO8ebx747
-         wMH6VyG2gGiRqNAUmO9iNPxGOSTJRZX0hjbs5qI71Z8/DgKHsbOz4jurXhQC3pIiSqcQ
-         fwtRaSBwW8on5UCJdmqSEdUd5FCoX+m0kig/skROFQ7OitdgveOYOEbtEjQTJqjYB/br
-         Jz7ofYMjzcFmmyMPyEfrvafY8NSca40BhOB/9uJTHv9xptWP8T7ea/v5PsToKUwDkMDL
-         GTgz27AIZs9rkghmdiCIqKmLZl+wiXQ0XLyazcVt/+PkD2NlHDWL9bRCTUjjHeUvIVUZ
-         3BUA==
-X-Forwarded-Encrypted: i=1; AJvYcCXzO9QF1M0D1Fkq0XkoWglDFMtsY8yXt8yPeI6mCiGnLLQs3mslR4gG+x2uGj+T7Z/yjrDUF5I1dYY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzktYNAG/T+zzya/xDQBcaWomb+VR61HHdXedT1/IxXXxzwjkDE
-	QKe+vFvQjePkhhY0rIByCKHD9KRzCxoo89B05pHyKFLbDPAdYT+linXqJe2hqA==
-X-Gm-Gg: ASbGncuRj2Cn1+RfLPuafaTQsgSRJ+0LSb08pAzrUafIZd2UuQInk1yVlc/LC/29ZMa
-	H0o15bFtl7rb4i32M33qOylJxK/uV6wBDp+pkaMrPXbdDb6csoy7V3ExzlxQ0EwvKEyhTLCqNc5
-	w6uAoMpdhSk19dbjsCVEVUQmQMGzll8kA+GqEJ5lKc/mmR3kIR/1J1c3DM6XB0feIukqA26wqRt
-	Fz2ZTdlKY8UWdbB4cQdW3RJ6SWExrWEiQcsaiggBLnz1+ULHL3fD4uhGANIR6S16QGNS8QFhvvg
-	fumB61iWXPkMo3RmU0Rl0+O8M23SHO69ehIeZXk8NigsdYIpcMT+oAO5zH8S6ZvOUas+CmeKI0+
-	h3kZrKvUrnFWqrsBlhbVpui3/XPyovQ==
-X-Google-Smtp-Source: AGHT+IHN7yQbpy1NcvZT4kMTNBnPWgqhX3c31EFkDZEx58rzmnT/eO8+T0DKjy4dSP4NIq60tGwkug==
-X-Received: by 2002:a05:6000:1a8d:b0:391:23e6:f08c with SMTP id ffacd0b85a97d-39973b0576cmr6534539f8f.47.1742478310193;
-        Thu, 20 Mar 2025 06:45:10 -0700 (PDT)
-Message-ID: <36ab0870-52ad-476a-ae9c-20ea8ea46066@suse.com>
-Date: Thu, 20 Mar 2025 14:45:08 +0100
+        bh=wpOt68E1lgyrOleU/OEtaNvyljzyMPWAWbkPgHE7DY8=;
+        b=wz2A7FX0d57mq0MTP87hRNsJfDI3fb1gL/zqsu9Hr1a1a6O/H+5ibO0b3d+WvKqLEr
+         93/2aVBY7iXGwWHjkZlBN2dZbxRKx6OtibIB/KlpTb3qZ5v7onwvMcrWfh4YQbcZwVHH
+         ROSZv16iskuwohfVUe9P2fmUtEKEJzpyBZVi6BXV/JH1oVb5Iva6lK6gjx7tJBpzjNfj
+         mXylZf3IB/2lkTljEBS8ANmnFBLCO+72UM77Zi5Cb31nSCKNBihrB1XL7CFE51PSSG1+
+         YeTGP+GxAB5TYIcXeAlfnewA/rVksU2XtaZL8xEoCsLahd/WIbzkJRbdJww4W6EgyvOi
+         SLoQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUxxRMC7/X0/jbSgL9fQcDag5HVSjX2DOarHEBmgXiiK6qLst8k+8o3PcaTlAFnIxdJBvJkoGUwaR8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxTR3HDiVFlimFrTpPXFcI8++xoMYMGvPf+fqWEP9cLaPgYSEo6
+	A6GwGxXFCpWF+L/MrgyhyL7CtraIcVQ2ymFP0lK1NjPbmrKBpddUTz6zvVSFWw==
+X-Gm-Gg: ASbGncvS2LRGJxBeGOKFgsNIZgkGsoZkClVdUyYL1G9hUMCPX9GIq3KwHGJgk1BGINO
+	Ba2zYaDrOfxA61kUdYmIO9HZPKFKCLNFEGw7BtiodapmCNp4edGK0sXt3QhvTJ+9Bp/m2ySfpwm
+	hBSgQGopldw3L3gpYXIGzeCOjBpf8P8vKtRG1DbuLZWzIUYU9lsy+UB1r5umuvzMrsoEJmuJWDs
+	xHASb+ENPvaO38pwtD+IBKceiRPCJ5zqv+pbkxjOiW5J3FHrKyuhdWfNpw39mQaz4m4w8hb4MF1
+	pLae3UIu8vgTZHaanSMVkYsX2MnLlzsgabZWzxRzOBC6SlkDy9bFkS2Xgg1q8KJAJXQBnPGStTt
+	7XS8s6XHvxZA74bPQDJ9VeqUQFEwMSQ==
+X-Google-Smtp-Source: AGHT+IFuIKbiFzfQoSqrVg4GIMBdiU0pg78CPQ8Em8ZZXNXT1GkYQwekz930c7IH2NvMLg6C5bsoMQ==
+X-Received: by 2002:a5d:6489:0:b0:390:f6aa:4e80 with SMTP id ffacd0b85a97d-39973b449bdmr8830645f8f.53.1742478569069;
+        Thu, 20 Mar 2025 06:49:29 -0700 (PDT)
+Message-ID: <a9831a95-2828-4b46-8cae-58b2c531f507@suse.com>
+Date: Thu, 20 Mar 2025 14:49:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] process/release: mention MAINTAINER adjustments
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <6cc3adc1-5d54-4880-b3f3-2f688c2f39fa@suse.com>
- <b11d8525-13b4-40a0-8e33-b37c7e0d85a2@citrix.com>
+Subject: Re: [PATCH v1 2/2] Strip build path directories in tools, xen and
+ xen/arch/x86
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: =?UTF-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?=
+ <frederic.pierret@qubes-os.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Anthony PERARD <anthony.perard@vates.tech>
+References: <cover.a5cb9c3a17249fc067ab501818c3a3e6c7c229cf.1742317309.git-series.marmarek@invisiblethingslab.com>
+ <0370c0eb1fd9ac00acab016792132fa0b943d384.1742317309.git-series.marmarek@invisiblethingslab.com>
+ <017d5c41-d4ea-4d91-b6ec-b4660e7325ae@suse.com>
+ <e112ecca-b891-4c23-ace1-8128e586cb94@suse.com> <Z9qxcRtap-k-wW8B@mail-itl>
+ <943644a3-45f2-46ef-a54b-6dd0bc6171ed@suse.com> <Z9rJUWCARMQYqNXr@mail-itl>
+ <Z9vrc1Xvm5OEy8rM@l14> <Z9wPVGd0fEsbaO_s@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,47 +128,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b11d8525-13b4-40a0-8e33-b37c7e0d85a2@citrix.com>
+In-Reply-To: <Z9wPVGd0fEsbaO_s@mail-itl>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20.03.2025 13:47, Andrew Cooper wrote:
-> On 20/03/2025 12:12 pm, Jan Beulich wrote:
->> For many major releases I've been updating ./MAINTAINERS _after_ the
->> respective branch was handed over to me. That update, however, is
->> relevant not only from the .1 minor release onwards, but right from the
->> .0 release. Hence it ought to be done as one of the last things before
->> tagging the tree for the new major release.
+On 20.03.2025 13:51, Marek Marczykowski-Górecki wrote:
+> On Thu, Mar 20, 2025 at 10:18:28AM +0000, Anthony PERARD wrote:
+>> On Wed, Mar 19, 2025 at 02:40:33PM +0100, Marek Marczykowski-Górecki wrote:
+>>> There are clearly some build path embedding left. And
+>>> -ffile-prefix-map=/-fdebug-prefix-map= doesn't work correctly with
+>>> XEN_ROOT having xen/.. at the end.
+>>> BTW, would it be acceptable to have this?
+>>>
+>>>     $(call cc-option-add,CFLAGS,CC,-fdebug-prefix-map=$(realpath $(XEN_ROOT))=.)
 >>
->> See the seemingly unrelated parts (as far as the commit subject goes) of
->> e.g. 9d465658b405 ("update Xen version to 4.20.1-pre") for an example.
+>> Hi,
 >>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> As can also be seen from the referenced commit, the document already
->> saying "drop any references to the specific commits, e.g. date or title"
->> hasn't been honored in recent releases, at least as far as
->> QEMU_TRADITIONAL_REVISION goes.
+>> Could you avoid using $(XEN_ROOT) in hypervisor build system? (It's fine
+>> in "tools/"). In "xen/", there's a few variables you can use if they are
+>> needed: $(abs_objtree) $(abs_srctree) for absolutes path, and $(srctree)
+>> $(objtree) for relative path. That also should avoid the need to use
+>> $(realpath ).
 > 
-> Oh, lovely.  I wasn't even aware there was a necessary change like
-> this.  Also, I haven't made as much progress rewriting the checklist as
-> I would have liked, so it is probably best to insert into this doc for now.
-> 
-> The qemu-trad comments I think we can just strip out of staging.  We
-> don't have equivalent comments for the other trees.
+> XEN_ROOT is literally "$(abs_srctree)/..". And I need to resolve it to
+> not have /.. for prefix-map to work correctly. Would it be better to use
+> literal $(realpath $(abs_srctree)/..)? Or use just $(abs_srctree) and
+> have paths in debug symbols relative to hypervisor source dir, instead
+> of xen repo root? I'm not sure if that wouldn't confuse some tools...
 
-Right, I was wondering what else might be stale there. Yet then I wanted
-to focus on just the one issue that ran into repeatedly.
+abs_srctree being computed using realpath, can't we replace
 
-> I'm not sure if it's useful to delete the check-in policy.  I think the
-> note at the top listing the backport maintainers is good enough.
+export XEN_ROOT := $(abs_srctree)/..
 
-If everyone agrees it should stay there, so be it. So far no-one complained
-that is got dropped from stable trees. Personally I find it too verbose for
-stable; an abridged version would do. Yet it's pretty rare that stable-only
-patches are submitted in the first place. Plus the entire contents of
-MAINTAINERS is frequently stale on stable branches anyway, so one needs to
-go to the master branch one anyway for up-to-date information.
+by something as simpl{e,istic} as
+
+export XEN_ROOT := $(patsubst %/xen,%,$(abs_srctree))
+
+?
 
 Jan
 
