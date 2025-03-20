@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 105C0A6A079
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 08:32:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.921338.1325197 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B444BA6A081
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 08:36:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.921355.1325207 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvAON-0001Dk-Hg; Thu, 20 Mar 2025 07:32:39 +0000
+	id 1tvASJ-0001s7-2c; Thu, 20 Mar 2025 07:36:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 921338.1325197; Thu, 20 Mar 2025 07:32:39 +0000
+Received: by outflank-mailman (output) from mailman id 921355.1325207; Thu, 20 Mar 2025 07:36:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvAON-0001B7-EC; Thu, 20 Mar 2025 07:32:39 +0000
-Received: by outflank-mailman (input) for mailman id 921338;
- Thu, 20 Mar 2025 07:32:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tvASI-0001qf-W4; Thu, 20 Mar 2025 07:36:42 +0000
+Received: by outflank-mailman (input) for mailman id 921355;
+ Thu, 20 Mar 2025 07:36:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tvAOM-0001B1-09
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 07:32:38 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f063e0d-055d-11f0-9ea0-5ba50f476ded;
- Thu, 20 Mar 2025 08:32:37 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-390cf7458f5so291874f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 00:32:37 -0700 (PDT)
+ id 1tvASI-0001qZ-Hv
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 07:36:42 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 102003ed-055e-11f0-9ffa-bf95429c2676;
+ Thu, 20 Mar 2025 08:36:40 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43cebe06e9eso2682725e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 00:36:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395c7df3419sm22546668f8f.9.2025.03.20.00.32.35
+ ffacd0b85a97d-395c7df385bsm22678415f8f.4.2025.03.20.00.36.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 00:32:36 -0700 (PDT)
+ Thu, 20 Mar 2025 00:36:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,68 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f063e0d-055d-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: 102003ed-055e-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742455956; x=1743060756; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742456200; x=1743061000; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0PrpLYKtG2eN6Fux3I0VfD6QJYz5CFN2HjNxawIJ8v4=;
-        b=T4q97mkAVVQL4DHxkYRQlAyY8lK1CAVt5Cvp2ZZKIOdd3BXgk3u8Q0rl1VcNwPbrWh
-         RLHJ9/dyC5lE2rsWsqiGhlT4/7oK6NwnOZu1AzHjpB+WEWOVHbfLbqsYCcW9jX3wTp4L
-         2XR5JFJBLoVrBKbxAde3R/KjRA4L+LZm49Cy5xxrAnQbG8EKEWOEdXQmtrnVk2c+EwIU
-         LJnhpI1wGrj47k9Smce0mS4SkL4+SYaTUW5/zAqRsasNzJ3KxBsHfkoiTGoXqFU2R7tH
-         OFshm/u5MwZGhiBNiyzcFVeBNEG23OAoQMNhN+4oOKUCnErLaIJS+Ioyw3UEU0VXEgQ+
-         HOkA==
+        bh=Wfv/ZNcx5p2eqD491bJHqt0Y0XP1RyuxRwcFrFdmgUA=;
+        b=MB/eYIt4Sn1bmmvdxCnNKWsYWeYhxuUgUpgS/tQcYqqzPvqtyNOtxzYHdqKOayGrfd
+         GBtXQqcvSXLTfRibNSycjrRt3QHC11dlRrouiEDsyz3Rh+8yddCYJFgeq3SGe4Ug3BBW
+         jRld4DqE9AeLAyNNLJXkCmSzUrR6v/bq4uSwYr1kimeu+dLAMXB6BJJUmsKzDVSEuNTj
+         iYxSU5nR0rU23nWBcnZ8sekmPVbnzBZnsJ7DEgaDv3+xvxyGqOzObqUg/z+IVQerS08f
+         kCj+IFler21Y/KcJVzYHNFNW6E7lDQBfM3L7sa/M19fGF0qauN6T+l9YVJND4jL1NvWV
+         CujQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742455956; x=1743060756;
+        d=1e100.net; s=20230601; t=1742456200; x=1743061000;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0PrpLYKtG2eN6Fux3I0VfD6QJYz5CFN2HjNxawIJ8v4=;
-        b=hLv9l//REgS9Ky2ZDefa/npL6Bgz4TyA4FzHHSivMKptWt1iHnnKHpZ2VwCc+37l2q
-         TgjMbP2GZYWvGI7oQEx5xmIIbu3A7C5uG9pU3BxyqF3ZD82yZd1NN4mQZtJyzQ7X4xky
-         KITat1zAumqiSCeXQQ38iIhJX2Q3VkjTg7blNtjb7vxulAf97Jgluuwb/c1B8vThD0MX
-         LRy3QOvWbHqLBD7bg3r4Qxne14tM4D3l4tPkLQKElKJ3eD5oBsn2rzKFs/mME9KDO/t2
-         uoCfLj+HQPUiEs5/0xe/vQwovX0giPzNjEOy3mu3YCc7buFCYGGqDywlu8TlpbifO67y
-         quAg==
-X-Forwarded-Encrypted: i=1; AJvYcCXUGDH+guOdfkO+zGKbY+auaSZ1fO9XujP7ftEu+0NtSwdxIq+k4BaAUakzEi31vi1njZqxamOtvtg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxMnau3PBQWdp8O0HmtB/BHSOb/TB2rJnEu8YVdk8rqEvkjehH8
-	hN4yla4OvJJh3mwumNaJzDIa0DsMfWyMg/8imeBexNx8Omz2q9+xaS/qsncpUg==
-X-Gm-Gg: ASbGncui3zLKWVqgQzcKzNiMcmxwr0aJPtEUksqF/rFfyB4J1H+mLaVG5JDzX4PS2cm
-	ckL7kiRaJCEes4BSDUqmEjGI/DSlB4PdLmPoGuOmyZq4hfBosns1/13En9I5rZ7vJXNm+KDhC+Y
-	PhG/0EyLdF0U5+FiuiFb6fF9bAOjAMdOAu3VtUf64hxrNm4fKxkm2gu4P7SSUW7gc/AdTkJxuQU
-	lKvbQs4jBF0DwIF9Yn3+r0IqOUJVyrswecdP04Sby1f9UorTuw4C/5M8hB4qzY0bN59sh6n6XdR
-	f9PE5Llkv+gC8f1q5HY5aIQ1/e8f1W67IMQ8N053aCJWJu2b74CdqZEjqUV6oCluPNKghfXsia+
-	6UgTG3Cu7xz0ZNIzs6a3e7X43pMxTyQ==
-X-Google-Smtp-Source: AGHT+IGhWDutLodgpgY51XxhYzp2g+zVBRqkXJCnrrEeuC88U6XQaN9OJD/81i5q7lD/H988k32v0Q==
-X-Received: by 2002:a05:6000:1565:b0:391:2c67:798f with SMTP id ffacd0b85a97d-39973afad05mr5699618f8f.41.1742455956459;
-        Thu, 20 Mar 2025 00:32:36 -0700 (PDT)
-Message-ID: <94865aea-043b-4f52-adb8-d2d78dba293b@suse.com>
-Date: Thu, 20 Mar 2025 08:32:35 +0100
+        bh=Wfv/ZNcx5p2eqD491bJHqt0Y0XP1RyuxRwcFrFdmgUA=;
+        b=P+n3CSwiOPlFcIyaj8Of0hzzv80fte3ZhcgCbs6rIEJ8ZD1e0ZNwUEwhphBGILxKRp
+         sMWtYsA+k9Lau00Tmo8dnZdeSVczZnkBF6WdRvW1RXHM+Gw1u/xlNYU3zRKxURgNYQkP
+         BIJ3hBOVnjYpAnOs6HdRZh8Nxoq+jVgrMwv/ebjTv00d9eystuIiLcNEVwYs3VKVZ0Or
+         NiQeINnTMH9TR0sK4mbsbFVWEByF1t4UGHvPSVypCwF+ky6DPbaIhKk4h8f/CZMvTDAE
+         vugV4EKFlbOY76a+y56AyX4ovcDYvv66ng2lieRyGEAGz5hpTABoa0o3luF9CN1WGmAg
+         RLjg==
+X-Forwarded-Encrypted: i=1; AJvYcCUg6Ct24/HE/M/2MnknfQz2ie4E/AnZstuG46r16Pow7+omsGKz/KLBG1vq59xjQ5NOdq8e21mz3jY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz+36uCse5DjNpL9j4LClfctvJ/QRIDR+MQSEhKWkxA4pp05ViM
+	kDqknbPtnCWDUR+O+Mdc0g7quIL3MwwkXPxiFjCwsIHhm7+btNuUyqhqEPYiwg==
+X-Gm-Gg: ASbGnctoQtWqd564j+IAVIjzEHdv8lbs4FBQWyujhsSG3q5kZHQswNFI10FQuRqAXC5
+	yGSy05ZvSpK3ptS8UhrtyB502v0bRx7Q2ky2LL4Mj0pZsO/lQCN0vJcGSKd31L9nMYT/8X/VmSu
+	7AICIawi6FgX539+pexjssXcKqLxRGJsMd2wGYtdiTvzHLgCUkYQNJnCO+oKMkfvDZ65RNgyS8E
+	YCquzuPUvODAHBzCJcM+o+FN/orGWRDf/krgc5Mte9sLqXlPu94jePL5sYa5tOYXY2kcg4sv6dj
+	DjoARalMthkNK1AE44uFBOx5/kurGvmOmmAf9T7fXHgQhPwb2KXjVcQV8vCRiQym/EaFS+G79OM
+	rA+RSkyXuJ0p5HCj8GPMMBlVs3Gm/ZQ==
+X-Google-Smtp-Source: AGHT+IFl9Wur7m+SB+BKuBtSs3xxhUSveDycfuS1QB4orz022zG1F+bYJfipML3fGdUVjOA4PFt+rg==
+X-Received: by 2002:a05:6000:1844:b0:391:31c8:ba58 with SMTP id ffacd0b85a97d-399739b64fcmr5002290f8f.10.1742456199860;
+        Thu, 20 Mar 2025 00:36:39 -0700 (PDT)
+Message-ID: <630f216a-10fa-4828-a64e-651dd7f70242@suse.com>
+Date: Thu, 20 Mar 2025 08:36:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/7] xen: introduce Kconfig ARCH_PAGING_MEMPOOL
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Luca Fancellu <luca.fancellu@arm.com>
-Cc: Penny Zheng <Penny.Zheng@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alistair Francis <alistair.francis@wdc.com>,
+Subject: Re: [PATCH v1 1/4] xen/riscv: introduce preinit_xen_time()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Wei Chen <wei.chen@arm.com>,
- xen-devel@lists.xenproject.org
-References: <20250317200727.798696-1-luca.fancellu@arm.com>
- <20250317200727.798696-7-luca.fancellu@arm.com>
- <85ba02a9-f9f9-4141-85be-a9a2d431e450@gmail.com>
- <26583ecf-4057-46b1-8f87-f4589d7bec17@suse.com>
- <136cf1c5-d1e5-471d-b560-51632b444e41@gmail.com>
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <3152c755e31367370f3e1d955253a9d4fc095f68.1741709885.git.oleksii.kurochko@gmail.com>
+ <f633e10b-2bde-4574-ab87-fec5a2a52b07@suse.com>
+ <27dc3481-1f48-46c5-a827-e0a44c17686d@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,69 +124,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <136cf1c5-d1e5-471d-b560-51632b444e41@gmail.com>
+In-Reply-To: <27dc3481-1f48-46c5-a827-e0a44c17686d@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.03.2025 17:31, Oleksii Kurochko wrote:
+On 19.03.2025 18:29, Oleksii Kurochko wrote:
 > 
-> On 3/19/25 12:35 PM, Jan Beulich wrote:
->> On 18.03.2025 14:05, Oleksii Kurochko wrote:
->>> On 3/17/25 9:07 PM, Luca Fancellu wrote:
->>>> From: Penny Zheng<Penny.Zheng@arm.com>
->>>>
->>>> ARM MPU system doesn't need to use paging memory pool, as MPU memory
->>>> mapping table at most takes only one 4KB page, which is enough to
->>>> manage the maximum 255 MPU memory regions, for all EL2 stage 1
->>>> translation and EL1 stage 2 translation.
->>>>
->>>> Introduce ARCH_PAGING_MEMPOOL Kconfig common symbol, selected for Arm
->>>> MMU systems, x86 and RISC-V.
->>>>
->>>> Wrap the code inside 'construct_domU' that deal with p2m paging
->>>> allocation in a new function 'domain_p2m_set_allocation', protected
->>>> by ARCH_PAGING_MEMPOOL, this is done in this way to prevent polluting
->>>> the former function with #ifdefs and improve readability
->>>>
->>>> Introduce arch_{get,set}_paging_mempool_size stubs for architecture
->>>> with !ARCH_PAGING_MEMPOOL.
->>>>
->>>> Remove 'struct paging_domain' from Arm 'struct arch_domain' when the
->>>> field is not required.
->>>>
->>>> Signed-off-by: Penny Zheng<penny.zheng@arm.com>
->>>> Signed-off-by: Wei Chen<wei.chen@arm.com>
->>>> Signed-off-by: Luca Fancellu<luca.fancellu@arm.com>
->>>> ---
->>>> v3 changes:
->>>>    - Introduced ARCH_PAGING_MEMPOOL instead of HAS_PAGING_MEMPOOL
->>>> v2 changes:
->>>>    - make Kconfig HAS_PAGING_MEMPOOL common
->>>>    - protect also "xen,domain-p2m-mem-mb" reading with HAS_PAGING_MEMPOOL
->>>>    - do not define p2m_teardown{_allocation} in this patch
->>>>    - change commit message
->>>> ---
->>>>    xen/arch/arm/Kconfig              |  1 +
->>>>    xen/arch/arm/dom0less-build.c     | 74 ++++++++++++++++++++-----------
->>>>    xen/arch/arm/include/asm/domain.h |  2 +
->>>>    xen/arch/riscv/Kconfig            |  1 +
->>>>    xen/arch/x86/Kconfig              |  1 +
->>>>    xen/common/Kconfig                |  3 ++
->>>>    xen/include/xen/domain.h          | 17 +++++++
->>>>    7 files changed, 73 insertions(+), 26 deletions(-)
->>> For RISC-V:
->>>    Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->> Mind me asking then why RISC-V needs this at this point? The stubs surely
->> were added to address some build issue, not because they are actively
->> meaningful?
+> On 3/17/25 4:24 PM, Jan Beulich wrote:
+>> On 11.03.2025 17:19, Oleksii Kurochko wrote:
+>>> --- /dev/null
+>>> +++ b/xen/arch/riscv/time.c
+>>> @@ -0,0 +1,38 @@
+>>> +#include <xen/device_tree.h>
+>>> +#include <xen/init.h>
+>>> +#include <xen/lib.h>
+>>> +#include <xen/sections.h>
+>>> +
+>>> +unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
+>>> +unsigned long __read_mostly boot_count;
+>> Why not also __ro_after_init? And what is this variable actually needed
+>> for? Common code doesn't use it, so a better name (describing what it
+>> really holds) might be desirable, even if this then means not being in
+>> sync with Arm code.
 > 
-> Only because we have stubs and not to have redefinition compilation 
-> error. And, yes, they are not actively meaningful now, at least. I am 
-> okay with not enabling of this config for RISC-V but then seems to me we 
-> have to drop stubs in riscv/stubs.c. ~ Oleksii
+> To calculate more accurate amount of time since boot.
 
-Well, I don't think it's "have to", but I agree that dropping them would
-make sense then (and be desirable).
+Okay. But how does the name of the variable reflect that? I.e. what it
+is that the count of is being stored? The only meaning I could associate
+to a variable of this name is the number of boot cycles a system went
+through. I.e. nothing that an OS (or hypervisor) would normally count.
 
 Jan
+
+> I think it can be __ro_after_init as it is going to be initialized once.
+> 
+>>
+>> Furthermore, I can't spot a declaration of this variable. Was it meant
+>> to be static?
+> 
+> It is going to be used for vtimer functionality and in repogram_timer()
+> so it can't be static.
+> 
+> I will add a declaration to asm/time.h:
+> ```
+>    /* Counter value at boot time */
+>    extern uint64_t boot_count;
+> ```
+> 
+> Thanks.
+> 
+> ~ Oleksii
+> 
+
 
