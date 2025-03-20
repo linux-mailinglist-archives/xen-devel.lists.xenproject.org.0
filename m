@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92F42A6AA90
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 17:05:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.922875.1326679 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC898A6AAAF
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 17:09:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.922903.1326690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvIOH-0001jl-UX; Thu, 20 Mar 2025 16:05:05 +0000
+	id 1tvISL-00030K-EX; Thu, 20 Mar 2025 16:09:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 922875.1326679; Thu, 20 Mar 2025 16:05:05 +0000
+Received: by outflank-mailman (output) from mailman id 922903.1326690; Thu, 20 Mar 2025 16:09:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvIOH-0001iH-Rm; Thu, 20 Mar 2025 16:05:05 +0000
-Received: by outflank-mailman (input) for mailman id 922875;
- Thu, 20 Mar 2025 16:05:04 +0000
+	id 1tvISL-0002xf-BT; Thu, 20 Mar 2025 16:09:17 +0000
+Received: by outflank-mailman (input) for mailman id 922903;
+ Thu, 20 Mar 2025 16:09:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tvIOG-00019L-E3
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 16:05:04 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1tvISK-0002xZ-HQ
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 16:09:16 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 155ae143-05a5-11f0-9ea0-5ba50f476ded;
- Thu, 20 Mar 2025 17:05:03 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43d04dc73b7so11011345e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 09:05:03 -0700 (PDT)
+ id ab722ca6-05a5-11f0-9ea0-5ba50f476ded;
+ Thu, 20 Mar 2025 17:09:15 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-39141ffa9fcso908622f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 09:09:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d4fcea6ecsm2029985e9.5.2025.03.20.09.05.02
+ ffacd0b85a97d-395cb40cdafsm24363185f8f.62.2025.03.20.09.09.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 09:05:02 -0700 (PDT)
+ Thu, 20 Mar 2025 09:09:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 155ae143-05a5-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: ab722ca6-05a5-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742486703; x=1743091503; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742486955; x=1743091755; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7jKzLz6cZ0LjVB8OQSlICDzQ/aoAWhMFdeZ8tZJAuIA=;
-        b=Qr+EK7KHsU9MHNrZknIoJ87nftwmTTGqsBttUMrT+4JvdVIyfa3vymrNipEXZc4iDL
-         k6fMBtoTDpYgwCvR1NZaRdqdozTPlhNE4wZcRLURdEBgw3mS+1gR4+76vfZwvRcVidhP
-         HO5kmBMbwhDbrfQ6xly8M9js91U8P5/I3Tpr5WeaVmjp5iidcXDY7AlMBr/iQu7RkcJz
-         9bLHy8Oeux8xuei86K3G4hOYhYPAP9GYLfJt8tb1/zkWwMTcMzcyCtx5fNUbxSOKh4XP
-         xcmm19H71/Mdaa9xRPwHYIdsSx4NpJ7ImQmelIeGmWwqNZU+QU9/0AAxEQ3XdO3VBxI9
-         PPsg==
+        bh=qMxiv7I5TV04aLDAey/zrgsmZWa6wv4XsIdFP79JxMw=;
+        b=F6b6s2VQzfVsXvRhRjiwHdzgbqCiDZNRjL1MdlL8hBZw4uLCCLZSbdkNDbJuXor5OK
+         c2M5/cIQVs6pKQWXeHL/xLhpyOxKH2oiyNmj4F82OFHqaG+xzjkjvWgrXwRqo4Efi8TX
+         lxu3oDZjWP4gjS+QnuScRmEcBTr2xnh11wynuRxwQAajRN4xhFW4bk3G6qhGc8s9ZUZn
+         7dyNnKFCfACmCmeMlxjJECpmehMTd5cfOiiARLZhIScAPIgnrPbfo1i87ai6ksxXF2gr
+         14SazDxc46joL4y5qSGZ5UzeWU9QJ7VwY4XUWdeVH7AxNlcPP6cBN35dwunEzrAIyhuY
+         XWwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742486703; x=1743091503;
+        d=1e100.net; s=20230601; t=1742486955; x=1743091755;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7jKzLz6cZ0LjVB8OQSlICDzQ/aoAWhMFdeZ8tZJAuIA=;
-        b=s1IJJbfps6r4j+2OgdRrDKrijAgywiSfUZYSkKYGFcUD449Za6k15WtoIkYGiuwsBV
-         Ul8Eap0hv5ZBFagbmUd9W8v9/GBzfI3WFhKWuPr/SrakgXU2105y5V88hIqGIaLaesIc
-         XFHku7H2O7CHyxZdohVwi38t7wD10AxLqSc7TYyMQ8HljMlNVvTWbeSMMGwbZsx2zgNG
-         e3D1i+SKRv0elc8kct/j1sW8G1abithGF27z6LD8sjm5uOCMouUxv17BAhVEpEonCUaa
-         gEkCIyZL/ivHDPI5gba5PbRCrbSzjKo8W6Ya592Qug/fD9zw1JUolac1kLbE1kbBmjoB
-         lmsA==
-X-Forwarded-Encrypted: i=1; AJvYcCWH9n/7+9oI/yDVmitTBFuMsiZpSjsQRexuoxzqraiKQNCHSwBRInJefPgyKbXy2mKwKbi6t9vaa7k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwpHrgS+IxQMIb9pX8M2ijij0UObFw6VhG442N7fbcDcjSEOo0C
-	fgVnVZwC1MrEcM+7kdOj3PPdsUiwHDtdhi78MGC/PjYJLUHCkBfXSzBhAnINfQ==
-X-Gm-Gg: ASbGnct+9KwKyBxBT2yp7Ma0JWs1bpB2Qv8NR08r00KZpceUe+ft+AKmH947rS7kK/t
-	So3+GBRSqQ14DOaR51I13WPI67O2yHvGV6FsEXQnHsYhMZjz8VHtXg5B8FuNGczz/SQzyQzQU7i
-	rAtEqL89BKwEYmLO5oATgrV02hthVl//FSWBTGDtEYHLyfIIf3A45N9axsNZSHtuwS+UXvCG9re
-	DnhCQ3tnTH+S6RymKTIVFM9UUec8sPERW4qe4gMRKnko1z3TAnMcL6ixKgSKazogxgsKpuJVjrY
-	Chm43oAQiLbFg9MGdi6fU/qEZBgPaSjYwnwMoiChp8cfDUBLZE2g9SRV946EzdIKNf212ufeUPq
-	I98iW39qc1e3xg1oc3tfpTka9drMBpeifRu1YpTuT
-X-Google-Smtp-Source: AGHT+IFhQ607hPjnSzl6pW23sPNxQBmVu0TSmGRAPjoP76Y/WXutBX3zyz3j66Ho+6pem6bdvbI8ng==
-X-Received: by 2002:a05:600c:3508:b0:43c:f513:9585 with SMTP id 5b1f17b1804b1-43d49547751mr30045865e9.13.1742486702851;
-        Thu, 20 Mar 2025 09:05:02 -0700 (PDT)
-Message-ID: <1807d7d5-0f4e-4a8d-8acf-d4ca9fe7329b@suse.com>
-Date: Thu, 20 Mar 2025 17:05:01 +0100
+        bh=qMxiv7I5TV04aLDAey/zrgsmZWa6wv4XsIdFP79JxMw=;
+        b=Y1m8xnDmXm/SwNaJvf10emks2avJLJe1sL0KBXamjs5tX8xlcFQtDb+ZJp+tERe/mL
+         n+xN3FxslifBMHradMoBoEGBxYW/pQoCwxdCUhUFWw19xvGAvcyHqC1eZzH9WQAeiuhH
+         fZNg0GByCZ24oUwwR7A6ap4RxZKmxGayX3JjcIhiiE+uv890dq9G1cV3z3VAJ8bJ5Cqe
+         8sd5CocpjkXnuP+I4NilsK+fQcSP5qck1GtMarEaFzg/Rncb8zLOb8dbareYO4ToDeyT
+         0QqBEHXk/LqSoN600nr47GXQV6ZsPcFeRHZJ4dmKYjuVPeOqXsk2urawqFpnVmexFBz3
+         dhpA==
+X-Forwarded-Encrypted: i=1; AJvYcCWfQgK7CCLD6+O1CESOy7k/MpQiyOvWuozFvwQeln9bX8c/j7l2v+jfHMDhbWPD8QpgsEDJBDkYTh0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz12E05gPW/FlVR8by72kluaDkxJG9eBGkW6tl9No320nmlZFFB
+	Q8xYcGyuwih27sW64+470BY2OZRWOti/b4TaZqJoaZiErmWn8IfYMaSog15YJg==
+X-Gm-Gg: ASbGncvGMdM9ZVVatBpl28aM24tMuLwTecDhekL/xs2XjurgpYCk8FbyuVhGzLJm22X
+	pSvQIl+cLNzUpTpy2TCP/qidbDtfKSdQV7gud2xxUYHLUvvJFWiqlJ8PuWmQDuXnNkzZ7H+t1ow
+	bA8b08rzYeGUqO7AWnySKw5m6fI5bnc3MPLdTjNxwxqlwCEmH81CL6wleT18XPFpBewhObZR0Xz
+	wHOy4BU9uqtkGO6mtruLQh0yzQP4ay2glQDJwaMpRQY49Od6ZMEvLa342hjhWd13iMBI3zM+P9K
+	qbIZWnFVaaQlHm1OodXTARHp7dKDsf4rL/CPgyLeZpZzQL3n5ZO6A+MTelNXg8sD5ap9Ldw/L3w
+	adN6rdrDcGdOLqA/8zhQJT2VhX69Fww==
+X-Google-Smtp-Source: AGHT+IFnkph5dyYhc499kj7lsObXyZzL7Tb2W2GFQYRBTl0+1sYW60DRh4YjkOxTr1wit/LeDZ4gmg==
+X-Received: by 2002:a05:6000:188f:b0:390:f902:f961 with SMTP id ffacd0b85a97d-3997f94179fmr60487f8f.45.1742486953527;
+        Thu, 20 Mar 2025 09:09:13 -0700 (PDT)
+Message-ID: <19a66aaa-e3e8-43be-a988-14586c2fd71b@suse.com>
+Date: Thu, 20 Mar 2025 17:09:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] drivers: Change amd_iommu struct to contain
- pci_sbdf_t, simplify code
-To: Andrii Sultanov <sultanovandriy@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v1 2/2] Strip build path directories in tools, xen and
+ xen/arch/x86
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?=
+ <frederic.pierret@qubes-os.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1742311401.git.sultanovandriy@gmail.com>
- <0d578d1bd063f5d58f3dbaf2ab0e21143333a50e.1742311401.git.sultanovandriy@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <Z9rJUWCARMQYqNXr@mail-itl> <Z9vrc1Xvm5OEy8rM@l14>
+ <Z9wPVGd0fEsbaO_s@mail-itl> <a9831a95-2828-4b46-8cae-58b2c531f507@suse.com>
+ <Z9wfKB0vdngn3xXX@mail-itl> <Z9wnzRbwb3HQaSMu@l14>
+ <Z9wxcYapF5eno29b@mail-itl> <7698a70a-db0a-4d5d-b5ad-8c0636bc5a33@suse.com>
+ <Z9w1BLntGv4ksws0@mail-itl> <fb116d7e-e678-4ac9-920a-de7e5b227417@suse.com>
+ <Z9w7PPEbF1STQNBt@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,230 +128,114 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0d578d1bd063f5d58f3dbaf2ab0e21143333a50e.1742311401.git.sultanovandriy@gmail.com>
+In-Reply-To: <Z9w7PPEbF1STQNBt@mail-itl>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18.03.2025 16:30, Andrii Sultanov wrote:
-> Following on from 250d87dc3ff9 ("x86/msi: Change __msi_set_enable() to
-> take pci_sbdf_t"), struct amd_iommu has its seg and bdf fields
-> backwards with relation to pci_sbdf_t.
-
-This being backwards isn't relevant anymore, is it?
-
-> Instead of regenerating sbdf_t
-> from seg+bdf, make the struct contain pci_sbdf_t directly, which simplifies
-> code.
+On 20.03.2025 16:58, Marek Marczykowski-Górecki wrote:
+> On Thu, Mar 20, 2025 at 04:48:02PM +0100, Jan Beulich wrote:
+>> On 20.03.2025 16:32, Marek Marczykowski-Górecki wrote:
+>>> On Thu, Mar 20, 2025 at 04:21:18PM +0100, Jan Beulich wrote:
+>>>> On 20.03.2025 16:17, Marek Marczykowski-Górecki wrote:
+>>>>> On Thu, Mar 20, 2025 at 02:35:59PM +0000, Anthony PERARD wrote:
+>>>>>> On Thu, Mar 20, 2025 at 02:59:04PM +0100, Marek Marczykowski-Górecki wrote:
+>>>>>>> On Thu, Mar 20, 2025 at 02:49:27PM +0100, Jan Beulich wrote:
+>>>>>>>> On 20.03.2025 13:51, Marek Marczykowski-Górecki wrote:
+>>>>>>>>> On Thu, Mar 20, 2025 at 10:18:28AM +0000, Anthony PERARD wrote:
+>>>>>>>>>> On Wed, Mar 19, 2025 at 02:40:33PM +0100, Marek Marczykowski-Górecki wrote:
+>>>>>>>>>>> There are clearly some build path embedding left. And
+>>>>>>>>>>> -ffile-prefix-map=/-fdebug-prefix-map= doesn't work correctly with
+>>>>>>>>>>> XEN_ROOT having xen/.. at the end.
+>>>>>>>>>>> BTW, would it be acceptable to have this?
+>>>>>>>>>>>
+>>>>>>>>>>>     $(call cc-option-add,CFLAGS,CC,-fdebug-prefix-map=$(realpath $(XEN_ROOT))=.)
+>>>>>>>>>>
+>>>>>>>>>> Hi,
+>>>>>>>>>>
+>>>>>>>>>> Could you avoid using $(XEN_ROOT) in hypervisor build system? (It's fine
+>>>>>>>>>> in "tools/"). In "xen/", there's a few variables you can use if they are
+>>>>>>>>>> needed: $(abs_objtree) $(abs_srctree) for absolutes path, and $(srctree)
+>>>>>>>>>> $(objtree) for relative path. That also should avoid the need to use
+>>>>>>>>>> $(realpath ).
+>>>>>>>>>
+>>>>>>>>> XEN_ROOT is literally "$(abs_srctree)/..". And I need to resolve it to
+>>>>>>>>> not have /.. for prefix-map to work correctly. Would it be better to use
+>>>>>>>>> literal $(realpath $(abs_srctree)/..)? Or use just $(abs_srctree) and
+>>>>>>>>> have paths in debug symbols relative to hypervisor source dir, instead
+>>>>>>>>> of xen repo root? I'm not sure if that wouldn't confuse some tools...
+>>>>>>>>
+>>>>>>>> abs_srctree being computed using realpath, can't we replace
+>>>>>>>>
+>>>>>>>> export XEN_ROOT := $(abs_srctree)/..
+>>>>>>>>
+>>>>>>>> by something as simpl{e,istic} as
+>>>>>>>>
+>>>>>>>> export XEN_ROOT := $(patsubst %/xen,%,$(abs_srctree))
+>>>>>>>>
+>>>>>>>> ?
+>>>>>>>
+>>>>>>> That works too. It's slightly less robust, but I don't expect "xen"
+>>>>>>> directory to be renamed, so shouldn't be an issue. I'll leave also a
+>>>>>>> comment there why not /.. .
+>>>>>>
+>>>>>> I don't think $(XEN_ROOT) is present in the binaries produce by the
+>>>>>> hypervisor's build system. There's only a few use if that variable: to
+>>>>>> load some makefile, to execute makefile that build xsm policy and to
+>>>>>> generate cpuid-autogen.h. Otherwise I don't think the compile have this
+>>>>>> path in the command line. What is going to be in the binary is
+>>>>>> $(abs_srctree), which you can replace by "./xen" if you want; which mean
+>>>>>> it doesn't matter if the directory is renamed or not. You might want to
+>>>>>> also take care of $(abs_objtree) which seems to also be in `xen-syms`
+>>>>>> when doing out-of-tree build.
+>>>>>
+>>>>> So, you suggest to do -fdebug-prefix-map=$(abs_srctree)=./xen ? That
+>>>>> appears to work for in-tree builds too.
+>>>>
+>>>> And why ./xen (question to Anthony)? Just . is quite fine, isn't it?
+>>>
+>>> It makes paths in debug symbols relative to xen/ subdir, not the
+>>> repository root. I'm not sure if that is a problem, but it may be for
+>>> some tools.
+>>
+>> Yet especially in the symbol table (and hence in strack traces) that's
+>> unnecessary extra space it takes up.
+>>
+>>>>> But now I actually tested how it looks with out-of-tree builds, and
+>>>>> indeed $(abs_objtree) is embedded there too. Adding
+>>>>> -fdebug-prefix-map=$(abs_objtree)=./xen appears to help for this. But,
+>>>>> -fdebug-prefix-map doesn't help with abs_srctree in out-of-tree builds
+>>>>> for some reason. -ffile-prefix-map does. And so does -fdebug-prefix-map
+>>>>> + -fmacro-prefix-map. Is there any preference which one to use? It
+>>>>> appears as -fmacro-prefix-map and -ffile-prefix-map have the same
+>>>>> availability in both GCC (8) and Clang (10).
+>>>>
+>>>> Then the simpler -ffile-prefix-map is better, imo. Question then is
+>>>> whether any of the options is actually needed at all for in-tree builds.
+>>>
+>>> Yes, without any of those options, both xen-syms and xen.efi contain
+>>> full source path.
+>>
+>> Even in builds without debug info? 
 > 
-> I've avoided aliasing pci_sbdf_t's fields here, so all the usages of
-> amd_iommu->seg|bdf dropped down a namespace to amd_iommu->sbdf.seg|bdf
-> and required renaming.
+> For in-tree build without debug info, it appears no. But with debug
+> info, something is needed even for in-tree build.
+> And BTW, IIUC out-of-tree builds will become relevant even for in-tree
+> build at some point, due to pvshim.
 
-Is this really meant to be part of the description? Feels like it was more
-meant to be a remark in the post-commit-message area.
+That hasn't happened yet because it's not quite straightforward to arrange
+for.
 
-> Bloat-o-meter reports:
-> add/remove: 0/0 grow/shrink: 6/11 up/down: 135/-327 (-192)
-> Function                                     old     new   delta
-> _einittext                                 22028   22092     +64
-> amd_iommu_prepare                            853     897     +44
-> _hvm_dpci_msi_eoi                            157     168     +11
-> __mon_lengths                               2928    2936      +8
-> _invalidate_all_devices                      133     138      +5
-> amd_iommu_get_reserved_device_memory         521     524      +3
-> amd_iommu_domain_destroy                      46      43      -3
-> build_info                                   752     744      -8
-> amd_iommu_add_device                         856     844     -12
-> amd_iommu_msi_enable                          33      20     -13
-> update_intremap_entry_from_msi_msg           879     859     -20
-> amd_iommu_get_supported_ivhd_type             86      54     -32
-> amd_iommu_detect_one_acpi                    918     886     -32
-> iterate_ivrs_mappings                        169     129     -40
-> flush_command_buffer                         460     417     -43
-> set_iommu_interrupt_handler                  421     377     -44
-> enable_iommu                                1745    1665     -80
+>> Imo a goal ought to be to specify the
+>> weakest possible of these options for any particular build mode. I.e.
+>> possibly -ffile-prefix-map= for out of tree builds, else
+>> -fdebug-prefix-map= when DEBUG_INFO=y, else nothing (if possible).
 > 
-> Resolves: https://gitlab.com/xen-project/xen/-/issues/198
-> 
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Andrii Sultanov <sultanovandriy@gmail.com>
-> 
-> ---
-> Changes in V3:
-> * Dropped the union with seg+bdf/pci_sbdf_t to avoid aliasing, renamed
->   all users appropriately
-> 
-> Changes in V2:
-> * Split single commit into several patches
-> * Added the commit title of the referenced patch
-> * Dropped brackets around &(iommu->sbdf) and &(sbdf)
-> ---
->  xen/drivers/passthrough/amd/iommu.h         |  4 +--
->  xen/drivers/passthrough/amd/iommu_acpi.c    | 16 +++++-----
->  xen/drivers/passthrough/amd/iommu_cmd.c     |  8 ++---
->  xen/drivers/passthrough/amd/iommu_detect.c  | 18 +++++------
->  xen/drivers/passthrough/amd/iommu_init.c    | 35 ++++++++++-----------
->  xen/drivers/passthrough/amd/iommu_intr.c    | 26 +++++++--------
->  xen/drivers/passthrough/amd/iommu_map.c     |  6 ++--
->  xen/drivers/passthrough/amd/pci_amd_iommu.c | 22 ++++++-------
->  8 files changed, 66 insertions(+), 69 deletions(-)
-> 
-> diff --git a/xen/drivers/passthrough/amd/iommu.h b/xen/drivers/passthrough/amd/iommu.h
-> index 00e81b4b2a..ba541f7943 100644
-> --- a/xen/drivers/passthrough/amd/iommu.h
-> +++ b/xen/drivers/passthrough/amd/iommu.h
-> @@ -77,8 +77,8 @@ struct amd_iommu {
->      struct list_head list;
->      spinlock_t lock; /* protect iommu */
->  
-> -    u16 seg;
-> -    u16 bdf;
-> +    pci_sbdf_t sbdf;
-> +
->      struct msi_desc msi;
->  
->      u16 cap_offset;
-> diff --git a/xen/drivers/passthrough/amd/iommu_acpi.c b/xen/drivers/passthrough/amd/iommu_acpi.c
-> index 5bdbfb5ba8..025d9be40f 100644
-> --- a/xen/drivers/passthrough/amd/iommu_acpi.c
-> +++ b/xen/drivers/passthrough/amd/iommu_acpi.c
-> @@ -58,7 +58,7 @@ static void __init add_ivrs_mapping_entry(
->      uint16_t bdf, uint16_t alias_id, uint8_t flags, unsigned int ext_flags,
->      bool alloc_irt, struct amd_iommu *iommu)
->  {
-> -    struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(iommu->seg);
-> +    struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(iommu->sbdf.seg);
->  
->      ASSERT( ivrs_mappings != NULL );
->  
-> @@ -70,7 +70,7 @@ static void __init add_ivrs_mapping_entry(
->      ivrs_mappings[bdf].device_flags = flags;
->  
->      /* Don't map an IOMMU by itself. */
-> -    if ( iommu->bdf == bdf )
-> +    if ( iommu->sbdf.bdf == bdf )
->          return;
->  
->      /* Allocate interrupt remapping table if needed. */
-> @@ -96,7 +96,7 @@ static void __init add_ivrs_mapping_entry(
->  
->              if ( !ivrs_mappings[alias_id].intremap_table )
->                  panic("No memory for %pp's IRT\n",
-> -                      &PCI_SBDF(iommu->seg, alias_id));
-> +                      &PCI_SBDF(iommu->sbdf.seg, alias_id));
->          }
->      }
->  
-> @@ -112,7 +112,7 @@ static struct amd_iommu * __init find_iommu_from_bdf_cap(
->      struct amd_iommu *iommu;
->  
->      for_each_amd_iommu ( iommu )
-> -        if ( (iommu->seg == seg) && (iommu->bdf == bdf) &&
-> +        if ( (iommu->sbdf.seg == seg) && (iommu->sbdf.bdf == bdf) &&
->               (iommu->cap_offset == cap_offset) )
->              return iommu;
->  
-> @@ -297,13 +297,13 @@ static int __init register_range_for_iommu_devices(
->      /* reserve unity-mapped page entries for devices */
->      for ( bdf = rc = 0; !rc && bdf < ivrs_bdf_entries; bdf++ )
->      {
-> -        if ( iommu != find_iommu_for_device(iommu->seg, bdf) )
-> +        if ( iommu != find_iommu_for_device(iommu->sbdf.seg, bdf) )
->              continue;
->  
-> -        req = get_ivrs_mappings(iommu->seg)[bdf].dte_requestor_id;
-> -        rc = reserve_unity_map_for_device(iommu->seg, bdf, base, length,
-> +        req = get_ivrs_mappings(iommu->sbdf.seg)[bdf].dte_requestor_id;
-> +        rc = reserve_unity_map_for_device(iommu->sbdf.seg, bdf, base, length,
->                                            iw, ir, false) ?:
-> -             reserve_unity_map_for_device(iommu->seg, req, base, length,
-> +             reserve_unity_map_for_device(iommu->sbdf.seg, req, base, length,
->                                            iw, ir, false);
->      }
->  
-> diff --git a/xen/drivers/passthrough/amd/iommu_cmd.c b/xen/drivers/passthrough/amd/iommu_cmd.c
-> index 83c525b84f..4defa0a44d 100644
-> --- a/xen/drivers/passthrough/amd/iommu_cmd.c
-> +++ b/xen/drivers/passthrough/amd/iommu_cmd.c
-> @@ -40,7 +40,7 @@ static void send_iommu_command(struct amd_iommu *iommu,
->                       IOMMU_RING_BUFFER_PTR_MASK) )
->      {
->          printk_once(XENLOG_ERR "AMD IOMMU %pp: no cmd slot available\n",
-> -                    &PCI_SBDF(iommu->seg, iommu->bdf));
-> +                    &PCI_SBDF(iommu->sbdf.seg, iommu->sbdf.bdf));
+> Is it? I don't really see why making the selection overly complex if the
+> option is supported (and cc-option-add covers that case).
 
-Simply &iommu->sbdf? Much like you do e.g. ...
-
-> @@ -85,7 +85,7 @@ static void flush_command_buffer(struct amd_iommu *iommu,
->              threshold |= threshold << 1;
->              printk(XENLOG_WARNING
->                     "AMD IOMMU %pp: %scompletion wait taking too long\n",
-> -                   &PCI_SBDF(iommu->seg, iommu->bdf),
-> +                   &iommu->sbdf,
-
-... here?
-
-> --- a/xen/drivers/passthrough/amd/iommu_detect.c
-> +++ b/xen/drivers/passthrough/amd/iommu_detect.c
-> @@ -162,8 +162,8 @@ int __init amd_iommu_detect_one_acpi(
->      spin_lock_init(&iommu->lock);
->      INIT_LIST_HEAD(&iommu->ats_devices);
->  
-> -    iommu->seg = ivhd_block->pci_segment_group;
-> -    iommu->bdf = ivhd_block->header.device_id;
-> +    iommu->sbdf.seg = ivhd_block->pci_segment_group;
-> +    iommu->sbdf.bdf = ivhd_block->header.device_id;
-
-Could this now be done in a single assignment, using PCI_SBDF()?
-
-> @@ -500,7 +500,7 @@ static struct amd_iommu *_find_iommu_for_device(int seg, int bdf)
->      struct amd_iommu *iommu;
->  
->      for_each_amd_iommu ( iommu )
-> -        if ( iommu->seg == seg && iommu->bdf == bdf )
-> +        if ( iommu->sbdf.seg == seg && iommu->sbdf.bdf == bdf )
->              return NULL;
-
-Similarly here making a local sbdf up front would allow the two comparisons
-to be folded.
-
-> --- a/xen/drivers/passthrough/amd/iommu_map.c
-> +++ b/xen/drivers/passthrough/amd/iommu_map.c
-> @@ -558,14 +558,14 @@ void amd_iommu_print_entries(const struct amd_iommu *iommu, unsigned int dev_id,
->  
->      if ( !dt[dev_id].tv )
->      {
-> -        printk("%pp: no root\n", &PCI_SBDF(iommu->seg, dev_id));
-> +        printk("%pp: no root\n", &PCI_SBDF(iommu->sbdf.seg, dev_id));
->          return;
->      }
->  
->      pt_mfn = _mfn(dt[dev_id].pt_root);
->      level = dt[dev_id].paging_mode;
->      printk("%pp root @ %"PRI_mfn" (%u levels) dfn=%"PRI_dfn"\n",
-> -           &PCI_SBDF(iommu->seg, dev_id), mfn_x(pt_mfn), level, dfn_x(dfn));
-> +           &PCI_SBDF(iommu->sbdf.seg, dev_id), mfn_x(pt_mfn), level, dfn_x(dfn));
->  
->      while ( level )
->      {
-> @@ -730,7 +730,7 @@ int cf_check amd_iommu_get_reserved_device_memory(
->               * the same alias ID.
->               */
->              if ( bdf != req && ivrs_mappings[req].iommu &&
-> -                 func(0, 0, PCI_SBDF(seg, req).sbdf, ctxt) )
-> +                 func(0, 0, sbdf.sbdf, ctxt) )
-
-sbdf was initialized from PCI_SBDF(seg, bdf), not PCI_SBDF(seg, req), so this
-looks wrong to me.
-
-> @@ -578,7 +578,7 @@ static int cf_check amd_iommu_add_device(u8 devfn, struct pci_dev *pdev)
->          return -EINVAL;
->  
->      for_each_amd_iommu(iommu)
-> -        if ( pdev->seg == iommu->seg && pdev->sbdf.bdf == iommu->bdf )
-> +        if ( pdev->seg == iommu->sbdf.seg && pdev->sbdf.bdf == iommu->sbdf.bdf )
-
-Fold the two comparisons into one again?
+Yes, cc-option-add might cover the case where nothing is needed. But the
+two options mentioned have appeared in gcc at different versions. People
+using e.g. gcc7 may still benefit from -fdebug-prefix-map=.
 
 Jan
 
