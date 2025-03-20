@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5833AA6ABAD
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 18:07:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.923007.1326760 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3C84A6ABFD
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 18:29:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.923023.1326770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvJLq-0004Gs-25; Thu, 20 Mar 2025 17:06:38 +0000
+	id 1tvJhh-0000RK-S8; Thu, 20 Mar 2025 17:29:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 923007.1326760; Thu, 20 Mar 2025 17:06:38 +0000
+Received: by outflank-mailman (output) from mailman id 923023.1326770; Thu, 20 Mar 2025 17:29:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvJLp-0004Eh-UC; Thu, 20 Mar 2025 17:06:37 +0000
-Received: by outflank-mailman (input) for mailman id 923007;
- Thu, 20 Mar 2025 17:06:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tvJhh-0000Po-Oe; Thu, 20 Mar 2025 17:29:13 +0000
+Received: by outflank-mailman (input) for mailman id 923023;
+ Thu, 20 Mar 2025 17:29:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m8Tk=WH=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1tvJLo-0004Eb-6E
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 17:06:36 +0000
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
- [2607:f8b0:4864:20::c2e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ad21c7d9-05ad-11f0-9ea0-5ba50f476ded;
- Thu, 20 Mar 2025 18:06:34 +0100 (CET)
-Received: by mail-oo1-xc2e.google.com with SMTP id
- 006d021491bc7-601a4e037a5so458431eaf.3
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 10:06:34 -0700 (PDT)
+ <SRS0=W2V2=WH=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1tvJhg-0000Pi-Hv
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 17:29:12 +0000
+Received: from fhigh-b1-smtp.messagingengine.com
+ (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d4ae5079-05b0-11f0-9ffa-bf95429c2676;
+ Thu, 20 Mar 2025 18:29:10 +0100 (CET)
+Received: from phl-compute-02.internal (phl-compute-02.phl.internal
+ [10.202.2.42])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 1464D2540146;
+ Thu, 20 Mar 2025 13:29:08 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Thu, 20 Mar 2025 13:29:08 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 20 Mar 2025 13:29:05 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,424 +45,266 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad21c7d9-05ad-11f0-9ea0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1742490393; x=1743095193; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8bQL6Zz3D9KDT3Qy2M9uO4aY5bskm/L9ymbQKXCeOTI=;
-        b=vnfNAoezFaDK7wnPGMSnvRwTzzzwAL+fa6h69Gt1amcUwN9MMgpnJf+P0pxF4MaGJO
-         aywyX9Qh5DVND/eYA6vaxeIM4Ni1aKcOksxq/9qA6kLXFdi8wnoiCiw6xOqILngEtHkr
-         oyaQZwFUHMucJprfrmw7jB1KUonmOtiKlK9t2bYpXsOIK+D0BwD08y3iIX58gLPCBXhC
-         Z4Y1kQ4YbG6HnjCChDgW9Wz7pIJyhgaildPbQ1aezL858yR04VuE2kCTA4PhAyDsEnUn
-         qC2pNK3zasq3d/p8L/K523GbNMA0dW/vL3WhJYKX8UGuIOMH4B0LQ+pAtF57hr/VaZNN
-         jJgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742490393; x=1743095193;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=8bQL6Zz3D9KDT3Qy2M9uO4aY5bskm/L9ymbQKXCeOTI=;
-        b=PtGCXdEV76kfrnGGgY9AIRtNgIuPZlbIvnrdZL5pqUDlxz+4+tpCNi5TsuIkJhR4G+
-         7EqnZWP5XaW9Oj9awH+zkWfHwCToTxfkqZl8+XoKs+sFn4xABgO6k/FIaU6cB+pAX47v
-         /gXc2a6hIow8dVqUljessNncL1+cWgo39tk8ofWogrQFnD4EoXLHsFfjQ5JpV7edsYAp
-         bR4i41BQuoA2tu/4Lr89cGTGniuPPN1QAAlReNLR+j91onCX8rzpHxvaGLiFDQ2RxPUP
-         RQHvfoQagwCnGZQVsHv9F2tyt8emiujnnO/cGVhOhFTRHRrKLb88AAGKkq66WU6+F+TY
-         6B/Q==
-X-Gm-Message-State: AOJu0Yy5p4Jl2szeXDGnc6EjKxhAjNbOIYTBZz6M3NSyMyeSeMnZMi7d
-	gPiU+LitXWAJ/201Eb+NvVxPKCz6Y5hc7Q9RDlEVz7ljT9XY6MLztDm64oW89atIzvNM+ZmSB4a
-	VXkBzbFkXU6IY2CrYr+A+lIJB/LqkPc6px++WNg==
-X-Gm-Gg: ASbGnctivP8cJf5Rb+K1v82ZLxuXDEsR0uJSv/+CBnp1mVKp7fAZrnqeGYE6uo7YzMu
-	CylAqsE5hRA7MPeMAvLBKzA2GSl3Ry0ErxBjoJaUQmmadMqj484BjyjdGEDwt/0FwC1jW4xjfdQ
-	6l2DYEGEBMsOm18poTOWNgp9/8YYc=
-X-Google-Smtp-Source: AGHT+IHHSlUsAxcuSGWLr2uUHMzZSFq7zjo1NIdUhNcq2ux7950YpyjM0wghyH+CekqJU17xcC3oBgtJ50toNsLd5E4=
-X-Received: by 2002:a05:6870:2c89:b0:29e:29ac:5ade with SMTP id
- 586e51a60fabf-2c78054ab05mr231936fac.35.1742490393146; Thu, 20 Mar 2025
- 10:06:33 -0700 (PDT)
+X-Inumbo-ID: d4ae5079-05b0-11f0-9ffa-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1742491747;
+	 x=1742578147; bh=dP6EDAIzxBmMqsd8P5v8c+8bUHQbplQJJ+arzKRHh7A=; b=
+	nt35H4wnYXEcBMTfpBuz5zpNMfpeecq7+v2h9USWsXiB+31sueynQGayNfGg7Ath
+	N38YGo9ZcAHy8gEkHH73Iufa9tZ6BCby2bZ2U48sICZXtMbKM6iI/WMuKwLrp/TA
+	9fabV4PDD/OgYbPbyrtskt2nAczdtvg1UdgvpqwDtYF6xbX/DCBDJYvxEpbyHYZg
+	tSBrlTRLZ5gnytz+XqWsI/rOpAZdlEOfzVqU6bB3XfMKtyR+cSO/7BPbxSXx7KLm
+	Bbzor/+om3vOvlenj5lekIB/+8FybJGJLbWX+5RXzzKPYQgXwbFk3q5TElx7kQva
+	N7/vNAynUj9yrPDjJzA2Hw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1742491747; x=1742578147; bh=dP6EDAIzxBmMqsd8P5v8c+8bUHQbplQJJ+a
+	rzKRHh7A=; b=ab5AIeO3/zoaOfH5PTkNPFuaoACZxg80bqHavqjIf63talb68gq
+	l8t37C2oZqXdkAykRh9gMz/yzgYK81NXDtspviGRe6eJx1Werfjj5lhBvzZQ5k9A
+	RqXLyIZReqEUgardyHsae4smr/n/OYXrIzjWy1ObMZt1WvCqKqzV3fTxjpWto4DR
+	+ZatuRsBY6WZ4JdWKhMxkEc+kYws3Z3ZKzwxjA8gcgh3pxO6bJF2mkhTQEm1lJMn
+	M7BQS0D92FsnfsQa/ro6VJ8r+iQE3eLBo3xJifGLc0BEMkmQUZOwToW3J5GmDEmx
+	Euqrp2ODb7sU9t1WbKisdiZTYXi6huh8Bdw==
+X-ME-Sender: <xms:Y1DcZ_748cyHclG5yF3CBR6treqlVB9BjNhP-cbW4DMUNhlyxksDfw>
+    <xme:Y1DcZ05U2b4q_KUXKUl1KBSsCG3RsmAhrJGurr4at47gFatALfQRRhOxR-VlWODX-
+    l0EdzAg8l-FIg>
+X-ME-Received: <xmr:Y1DcZ2dRj9dw9llumsvNI0TNl6thNFXIKMzDSBgwsRje_14U1Tr9tZsGRSMEndQzcmvdLO52W6Mi5xtCwNaPPOgPBfL1opb0qw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddugeekkeduucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
+    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
+    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+    dpnhgspghrtghpthhtohepledpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgs
+    vghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrg
+    hrugesvhgrthgvshdrthgvtghhpdhrtghpthhtohepfhhrvgguvghrihgtrdhpihgvrhhr
+    vghtsehquhgsvghsqdhoshdrohhrghdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvg
+    hrfeestghithhrihigrdgtohhmpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlsegr
+    mhgurdgtohhmpdhrtghpthhtohepjhhulhhivghnseigvghnrdhorhhgpdhrtghpthhtoh
+    eprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepshhsthgrsggv
+    lhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepgigvnhdquggvvhgvlheslh
+    hishhtshdrgigvnhhprhhojhgvtghtrdhorhhg
+X-ME-Proxy: <xmx:Y1DcZwKf_yyFWmaPdFCewHmD0id6settzGcwsNRIK9MG8VHiUtBMHw>
+    <xmx:Y1DcZzJEzl8EXLMXLGV0yWK_ovpI0VnG6aav4zEaXf8_qAoFkfG0wQ>
+    <xmx:Y1DcZ5yRFtdXSLzrZljXa4oxKdmdrqwpAJjqiNoita9g_ieLA-1gGA>
+    <xmx:Y1DcZ_K429ETctpnkjjeef_zh6eNm_xAjzCT1ozGAUXZNdQFsHze9Q>
+    <xmx:Y1DcZ0WEIlYVgqyYt0J4ENTuzxtpT2OdIzlaFS_7Zg0DUZEkLW2pJZ-q>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 20 Mar 2025 18:29:03 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+	=?utf-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?= <frederic.pierret@qubes-os.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 2/2] Strip build path directories in tools, xen and
+ xen/arch/x86
+Message-ID: <Z9xQYKa1UOXw6u3J@mail-itl>
+References: <Z9wPVGd0fEsbaO_s@mail-itl>
+ <a9831a95-2828-4b46-8cae-58b2c531f507@suse.com>
+ <Z9wfKB0vdngn3xXX@mail-itl>
+ <Z9wnzRbwb3HQaSMu@l14>
+ <Z9wxcYapF5eno29b@mail-itl>
+ <7698a70a-db0a-4d5d-b5ad-8c0636bc5a33@suse.com>
+ <Z9w1BLntGv4ksws0@mail-itl>
+ <fb116d7e-e678-4ac9-920a-de7e5b227417@suse.com>
+ <Z9w7PPEbF1STQNBt@mail-itl>
+ <19a66aaa-e3e8-43be-a988-14586c2fd71b@suse.com>
 MIME-Version: 1.0
-References: <cover.1741617888.git.bertrand.marquis@arm.com>
- <75ffd7378e75fb1a07584c1b178600bbfb348425.1741617888.git.bertrand.marquis@arm.com>
- <CAHUa44FhHz25oHB6bv+NJrf+21N-8HFvMW7JR04NM9JkpKLabg@mail.gmail.com> <794A37F9-9F8A-45D3-9D27-D2C536BADC4F@arm.com>
-In-Reply-To: <794A37F9-9F8A-45D3-9D27-D2C536BADC4F@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Thu, 20 Mar 2025 18:06:21 +0100
-X-Gm-Features: AQ5f1JoZVIRXuiEK8zla1EH_FmSvfVTLv5Io2VZJDHLzAE387SCaKXYa_6gi5fg
-Message-ID: <CAHUa44E6Sw5zmXtik8bCgD_WFQkcDsfKa7vDV2bXBRHp8c70_w@mail.gmail.com>
-Subject: Re: [PATCH v2 2/5] xen/arm: ffa: Introduce VM to VM support
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="H0U/lCevOfb54q/S"
+Content-Disposition: inline
+In-Reply-To: <19a66aaa-e3e8-43be-a988-14586c2fd71b@suse.com>
+
+
+--H0U/lCevOfb54q/S
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 20 Mar 2025 18:29:03 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+	=?utf-8?Q?Fr=C3=A9d=C3=A9ric_Pierret_=28fepitre=29?= <frederic.pierret@qubes-os.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 2/2] Strip build path directories in tools, xen and
+ xen/arch/x86
 
-Hi,
+On Thu, Mar 20, 2025 at 05:09:12PM +0100, Jan Beulich wrote:
+> On 20.03.2025 16:58, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Thu, Mar 20, 2025 at 04:48:02PM +0100, Jan Beulich wrote:
+> >> On 20.03.2025 16:32, Marek Marczykowski-G=C3=B3recki wrote:
+> >>> On Thu, Mar 20, 2025 at 04:21:18PM +0100, Jan Beulich wrote:
+> >>>> On 20.03.2025 16:17, Marek Marczykowski-G=C3=B3recki wrote:
+> >>>>> On Thu, Mar 20, 2025 at 02:35:59PM +0000, Anthony PERARD wrote:
+> >>>>>> On Thu, Mar 20, 2025 at 02:59:04PM +0100, Marek Marczykowski-G=C3=
+=B3recki wrote:
+> >>>>>>> On Thu, Mar 20, 2025 at 02:49:27PM +0100, Jan Beulich wrote:
+> >>>>>>>> On 20.03.2025 13:51, Marek Marczykowski-G=C3=B3recki wrote:
+> >>>>>>>>> On Thu, Mar 20, 2025 at 10:18:28AM +0000, Anthony PERARD wrote:
+> >>>>>>>>>> On Wed, Mar 19, 2025 at 02:40:33PM +0100, Marek Marczykowski-G=
+=C3=B3recki wrote:
+> >>>>>>>>>>> There are clearly some build path embedding left. And
+> >>>>>>>>>>> -ffile-prefix-map=3D/-fdebug-prefix-map=3D doesn't work corre=
+ctly with
+> >>>>>>>>>>> XEN_ROOT having xen/.. at the end.
+> >>>>>>>>>>> BTW, would it be acceptable to have this?
+> >>>>>>>>>>>
+> >>>>>>>>>>>     $(call cc-option-add,CFLAGS,CC,-fdebug-prefix-map=3D$(rea=
+lpath $(XEN_ROOT))=3D.)
+> >>>>>>>>>>
+> >>>>>>>>>> Hi,
+> >>>>>>>>>>
+> >>>>>>>>>> Could you avoid using $(XEN_ROOT) in hypervisor build system? =
+(It's fine
+> >>>>>>>>>> in "tools/"). In "xen/", there's a few variables you can use i=
+f they are
+> >>>>>>>>>> needed: $(abs_objtree) $(abs_srctree) for absolutes path, and =
+$(srctree)
+> >>>>>>>>>> $(objtree) for relative path. That also should avoid the need =
+to use
+> >>>>>>>>>> $(realpath ).
+> >>>>>>>>>
+> >>>>>>>>> XEN_ROOT is literally "$(abs_srctree)/..". And I need to resolv=
+e it to
+> >>>>>>>>> not have /.. for prefix-map to work correctly. Would it be bett=
+er to use
+> >>>>>>>>> literal $(realpath $(abs_srctree)/..)? Or use just $(abs_srctre=
+e) and
+> >>>>>>>>> have paths in debug symbols relative to hypervisor source dir, =
+instead
+> >>>>>>>>> of xen repo root? I'm not sure if that wouldn't confuse some to=
+ols...
+> >>>>>>>>
+> >>>>>>>> abs_srctree being computed using realpath, can't we replace
+> >>>>>>>>
+> >>>>>>>> export XEN_ROOT :=3D $(abs_srctree)/..
+> >>>>>>>>
+> >>>>>>>> by something as simpl{e,istic} as
+> >>>>>>>>
+> >>>>>>>> export XEN_ROOT :=3D $(patsubst %/xen,%,$(abs_srctree))
+> >>>>>>>>
+> >>>>>>>> ?
+> >>>>>>>
+> >>>>>>> That works too. It's slightly less robust, but I don't expect "xe=
+n"
+> >>>>>>> directory to be renamed, so shouldn't be an issue. I'll leave als=
+o a
+> >>>>>>> comment there why not /.. .
+> >>>>>>
+> >>>>>> I don't think $(XEN_ROOT) is present in the binaries produce by the
+> >>>>>> hypervisor's build system. There's only a few use if that variable=
+: to
+> >>>>>> load some makefile, to execute makefile that build xsm policy and =
+to
+> >>>>>> generate cpuid-autogen.h. Otherwise I don't think the compile have=
+ this
+> >>>>>> path in the command line. What is going to be in the binary is
+> >>>>>> $(abs_srctree), which you can replace by "./xen" if you want; whic=
+h mean
+> >>>>>> it doesn't matter if the directory is renamed or not. You might wa=
+nt to
+> >>>>>> also take care of $(abs_objtree) which seems to also be in `xen-sy=
+ms`
+> >>>>>> when doing out-of-tree build.
+> >>>>>
+> >>>>> So, you suggest to do -fdebug-prefix-map=3D$(abs_srctree)=3D./xen ?=
+ That
+> >>>>> appears to work for in-tree builds too.
+> >>>>
+> >>>> And why ./xen (question to Anthony)? Just . is quite fine, isn't it?
+> >>>
+> >>> It makes paths in debug symbols relative to xen/ subdir, not the
+> >>> repository root. I'm not sure if that is a problem, but it may be for
+> >>> some tools.
+> >>
+> >> Yet especially in the symbol table (and hence in strack traces) that's
+> >> unnecessary extra space it takes up.
+> >>
+> >>>>> But now I actually tested how it looks with out-of-tree builds, and
+> >>>>> indeed $(abs_objtree) is embedded there too. Adding
+> >>>>> -fdebug-prefix-map=3D$(abs_objtree)=3D./xen appears to help for thi=
+s. But,
+> >>>>> -fdebug-prefix-map doesn't help with abs_srctree in out-of-tree bui=
+lds
+> >>>>> for some reason. -ffile-prefix-map does. And so does -fdebug-prefix=
+-map
+> >>>>> + -fmacro-prefix-map. Is there any preference which one to use? It
+> >>>>> appears as -fmacro-prefix-map and -ffile-prefix-map have the same
+> >>>>> availability in both GCC (8) and Clang (10).
+> >>>>
+> >>>> Then the simpler -ffile-prefix-map is better, imo. Question then is
+> >>>> whether any of the options is actually needed at all for in-tree bui=
+lds.
+> >>>
+> >>> Yes, without any of those options, both xen-syms and xen.efi contain
+> >>> full source path.
+> >>
+> >> Even in builds without debug info?=20
+> >=20
+> > For in-tree build without debug info, it appears no. But with debug
+> > info, something is needed even for in-tree build.
+> > And BTW, IIUC out-of-tree builds will become relevant even for in-tree
+> > build at some point, due to pvshim.
+>=20
+> That hasn't happened yet because it's not quite straightforward to arrange
+> for.
 
-On Thu, Mar 20, 2025 at 4:47=E2=80=AFPM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
->
-> Hi Jens,
->
-> Thanks a lot for the review.
->
-> > On 20 Mar 2025, at 15:20, Jens Wiklander <jens.wiklander@linaro.org> wr=
-ote:
-> >
-> > Hi Bertrand,
-> >
-> > On Mon, Mar 10, 2025 at 3:51=E2=80=AFPM Bertrand Marquis
-> > <bertrand.marquis@arm.com> wrote:
-> >>
-> >> Create a CONFIG_FFA_VM_TO_VM parameter to activate FFA communication
-> >> between VMs.
-> >> When activated list VMs in the system with FF-A support in part_info_g=
-et.
-> >>
-> >> WARNING: There is no filtering for now and all VMs are listed !!
-> >>
-> >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> >> ---
-> >> Changes in v2:
-> >> - Switch ifdef to IS_ENABLED
-> >> - dom was not switched to d as requested by Jan because there is alrea=
-dy
-> >>  a variable d pointing to the current domain and it must not be
-> >>  shadowed.
-> >> ---
-> >> xen/arch/arm/tee/Kconfig        |  11 +++
-> >> xen/arch/arm/tee/ffa_partinfo.c | 144 +++++++++++++++++++++++++-------
-> >> xen/arch/arm/tee/ffa_private.h  |  12 +++
-> >> 3 files changed, 137 insertions(+), 30 deletions(-)
-> >>
-> >> diff --git a/xen/arch/arm/tee/Kconfig b/xen/arch/arm/tee/Kconfig
-> >> index c5b0f88d7522..88a4c4c99154 100644
-> >> --- a/xen/arch/arm/tee/Kconfig
-> >> +++ b/xen/arch/arm/tee/Kconfig
-> >> @@ -28,5 +28,16 @@ config FFA
-> >>
-> >>          [1] https://developer.arm.com/documentation/den0077/latest
-> >>
-> >> +config FFA_VM_TO_VM
-> >> +    bool "Enable FF-A between VMs (UNSUPPORTED)" if UNSUPPORTED
-> >> +    default n
-> >> +    depends on FFA
-> >> +    help
-> >> +      This option enables to use FF-A between VMs.
-> >> +      This is experimental and there is no access control so any
-> >> +      guest can communicate with any other guest.
-> >> +
-> >> +      If unsure, say N.
-> >> +
-> >> endmenu
-> >>
-> >> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_pa=
-rtinfo.c
-> >> index c0510ceb8338..7af1eca2d0c4 100644
-> >> --- a/xen/arch/arm/tee/ffa_partinfo.c
-> >> +++ b/xen/arch/arm/tee/ffa_partinfo.c
-> >> @@ -77,7 +77,23 @@ void ffa_handle_partition_info_get(struct cpu_user_=
-regs *regs)
-> >>     };
-> >>     uint32_t src_size, dst_size;
-> >>     void *dst_buf;
-> >> -    uint32_t ffa_sp_count =3D 0;
-> >> +    uint32_t ffa_vm_count =3D 0, ffa_sp_count =3D 0;
-> >> +
-> >
-> > This function is getting quite large and it's hard to follow the
-> > different lock states. How about splitting it into various helper
-> > functions?
->
-> Yes I agree.
-> I will try to find a good way to split this in smaller chunks.
->
-> >
-> >> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> >> +    {
-> >> +        struct domain *dom;
-> >> +
-> >> +        /* Count the number of VM with FF-A support */
-> >
-> > Why do we need this now? Isn't it enough to count them below when we
-> > fill in dst_buf?
->
-> We need it in 3 places in the code after:
-> - to return the number of endpoint in case the flag is set (see final ret=
-urn)
-> - to check that there is enough space in the RX buffer
-> - to prevent going through the list of domains if none is to be listed an=
-yway
+Sure, but if it will happen at some point, even users doing in-tree
+build would benefit from options that normally would be relevant only
+for out-of-tree builds. So, it's IMO valuable to attempt make
+out-of-tree builds reproducible too.
 
-Got it, thanks. The first point is important, the others are
-essentially optimizations.
+> >> Imo a goal ought to be to specify the
+> >> weakest possible of these options for any particular build mode. I.e.
+> >> possibly -ffile-prefix-map=3D for out of tree builds, else
+> >> -fdebug-prefix-map=3D when DEBUG_INFO=3Dy, else nothing (if possible).
+> >=20
+> > Is it? I don't really see why making the selection overly complex if the
+> > option is supported (and cc-option-add covers that case).
+>=20
+> Yes, cc-option-add might cover the case where nothing is needed. But the
+> two options mentioned have appeared in gcc at different versions. People
+> using e.g. gcc7 may still benefit from -fdebug-prefix-map=3D.
 
->
-> >
-> >> +        rcu_read_lock(&domlist_read_lock);
-> >> +        for_each_domain( dom )
-> >> +        {
-> >> +            struct ffa_ctx *vm =3D dom->arch.tee;
-> >> +
-> >> +            if (dom !=3D d && vm !=3D NULL && vm->guest_vers !=3D 0)
-> >> +                ffa_vm_count++;
-> >> +        }
-> >> +        rcu_read_unlock(&domlist_read_lock);
-> >> +    }
-> >>
-> >>     /*
-> >>      * If the guest is v1.0, he does not get back the entry size so we=
- must
-> >> @@ -127,33 +143,38 @@ void ffa_handle_partition_info_get(struct cpu_us=
-er_regs *regs)
-> >>
-> >>     dst_buf =3D ctx->rx;
-> >>
-> >> -    if ( !ffa_rx )
-> >> +    /* If not supported, we have ffa_sp_count=3D0 */
-> >> +    if ( ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
-> >>     {
-> >> -        ret =3D FFA_RET_DENIED;
-> >> -        goto out_rx_release;
-> >> -    }
-> >> +        if ( !ffa_rx )
-> >> +        {
-> >> +            ret =3D FFA_RET_DENIED;
-> >> +            goto out_rx_release;
-> >> +        }
-> >>
-> >> -    spin_lock(&ffa_rx_buffer_lock);
-> >> +        spin_lock(&ffa_rx_buffer_lock);
-> >>
-> >> -    ret =3D ffa_partition_info_get(uuid, 0, &ffa_sp_count, &src_size)=
-;
-> >> +        ret =3D ffa_partition_info_get(uuid, 0, &ffa_sp_count, &src_s=
-ize);
-> >>
-> >> -    if ( ret )
-> >> -        goto out_rx_hyp_unlock;
-> >> +        if ( ret )
-> >> +            goto out_rx_hyp_unlock;
-> >>
-> >> -    /*
-> >> -     * ffa_partition_info_get() succeeded so we now own the RX buffer=
- we
-> >> -     * share with the SPMC. We must give it back using ffa_hyp_rx_rel=
-ease()
-> >> -     * once we've copied the content.
-> >> -     */
-> >> +        /*
-> >> +         * ffa_partition_info_get() succeeded so we now own the RX bu=
-ffer we
-> >> +         * share with the SPMC. We must give it back using ffa_hyp_rx=
-_release()
-> >> +         * once we've copied the content.
-> >> +         */
-> >>
-> >> -    /* we cannot have a size smaller than 1.0 structure */
-> >> -    if ( src_size < sizeof(struct ffa_partition_info_1_0) )
-> >> -    {
-> >> -        ret =3D FFA_RET_NOT_SUPPORTED;
-> >> -        goto out_rx_hyp_release;
-> >> +        /* we cannot have a size smaller than 1.0 structure */
-> >> +        if ( src_size < sizeof(struct ffa_partition_info_1_0) )
-> >> +        {
-> >> +            ret =3D FFA_RET_NOT_SUPPORTED;
-> >> +            goto out_rx_hyp_release;
-> >> +        }
-> >>     }
-> >>
-> >> -    if ( ctx->page_count * FFA_PAGE_SIZE < ffa_sp_count * dst_size )
-> >> +    if ( ctx->page_count * FFA_PAGE_SIZE <
-> >> +         (ffa_sp_count + ffa_vm_count) * dst_size )
-> >>     {
-> >>         ret =3D FFA_RET_NO_MEMORY;
-> >>         goto out_rx_hyp_release;
-> >> @@ -182,25 +203,88 @@ void ffa_handle_partition_info_get(struct cpu_us=
-er_regs *regs)
-> >>         }
-> >>     }
-> >>
-> >> +    if ( ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
-> >> +    {
-> >> +        ffa_hyp_rx_release();
-> >> +        spin_unlock(&ffa_rx_buffer_lock);
-> >> +    }
-> >> +
-> >> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && ffa_vm_count )
-> >> +    {
-> >> +        struct domain *dom;
-> >> +        uint32_t curr =3D 0;
-> >> +
-> >> +        /* add the VM informations if any */
-> >> +        rcu_read_lock(&domlist_read_lock);
-> >> +        for_each_domain( dom )
-> >> +        {
-> >> +            struct ffa_ctx *vm =3D dom->arch.tee;
-> >> +
-> >> +            /*
-> >> +             * we do not add the VM calling to the list and only VMs =
-with
-> >> +             * FF-A support
-> >> +             */
-> >> +            if (dom !=3D d && vm !=3D NULL && vm->guest_vers !=3D 0)
-> >> +            {
-> >> +                /*
-> >> +                 * We do not have UUID info for VMs so use
-> >> +                 * the 1.0 structure so that we set UUIDs to
-> >> +                 * zero using memset
-> >> +                 */
-> >> +                struct ffa_partition_info_1_0 srcvm;
-> >> +
-> >> +                if ( curr =3D=3D ffa_vm_count )
-> >> +                {
-> >> +                    /*
-> >> +                     * The number of domains changed since we counted=
- them, we
-> >> +                     * can add new ones if there is enough space in t=
-he
-> >> +                     * destination buffer so check it or go out with =
-an error.
-> >> +                     */
-> >
-> > Why do we care if the number has changed? If it fits, all is good
-> > anyway and we're also updating ffa_vm_count with curr after the loop.
->
-> Well this is exactly the point here, we check if we have enough space to
-> return the data with the new domains and if not we return an error.
->
-> The point here is to make sure that if there are more domains than when
-> we counted first we check that we have enough size and the update at the
-> end is to handle the case where we have actually less domains than when
-> we counted first.
->
-> If the number has changed we only care because we need to make sure
-> we have enough space and because we need to return the right number
-> to the caller.
->
-> Please tell me how you would like me to change this because I do not
-> understand what I should modify here.
+That sounds like an argument to use -fdebug-prefix-map=3D +
+-fmacro-prefix-map (with separate cc-option-add), instead of just
+-ffile-prefix-map. I'm fine with that.
 
-I was thinking something like:
-        for_each_domain( dom )
-        {
-            struct ffa_ctx *vm =3D dom->arch.tee;
 
-            if (dom !=3D d && vm !=3D NULL && vm->guest_vers !=3D 0)
-            {
-                ...
-                ffa_vm_count++;
-                if ( ctx->page_count * FFA_PAGE_SIZE <
-                     (ffa_sp_count + ffa_vm_count) * dst_size )
-                    ... error out
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-                ... copy data
-                dst_buf +=3D dst_size;
-            }
-        }
+--H0U/lCevOfb54q/S
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Cheers,
-Jens
+-----BEGIN PGP SIGNATURE-----
 
->
-> Cheers
-> Bertrand
->
-> >
-> > Cheers,
-> > Jens
-> >
-> >> +                    ffa_vm_count++;
-> >> +                    if ( ctx->page_count * FFA_PAGE_SIZE <
-> >> +                         (ffa_sp_count + ffa_vm_count) * dst_size )
-> >> +                    {
-> >> +                        ret =3D FFA_RET_NO_MEMORY;
-> >> +                        rcu_read_unlock(&domlist_read_lock);
-> >> +                        goto out_rx_release;
-> >> +                    }
-> >> +                }
-> >> +
-> >> +                srcvm.id =3D ffa_get_vm_id(dom);
-> >> +                srcvm.execution_context =3D dom->max_vcpus;
-> >> +                srcvm.partition_properties =3D FFA_PART_VM_PROP;
-> >> +                if ( is_64bit_domain(dom) )
-> >> +                    srcvm.partition_properties |=3D FFA_PART_PROP_AAR=
-CH64_STATE;
-> >> +
-> >> +                memcpy(dst_buf, &srcvm, MIN(sizeof(srcvm), dst_size))=
-;
-> >> +
-> >> +                if ( dst_size > sizeof(srcvm) )
-> >> +                    memset(dst_buf + sizeof(srcvm), 0,
-> >> +                           dst_size - sizeof(srcvm));
-> >> +
-> >> +                dst_buf +=3D dst_size;
-> >> +                curr++;
-> >> +            }
-> >> +        }
-> >> +        rcu_read_unlock(&domlist_read_lock);
-> >> +
-> >> +        /* the number of domains could have reduce since the initial =
-count */
-> >> +        ffa_vm_count =3D curr;
-> >> +    }
-> >> +
-> >> +    goto out;
-> >> +
-> >> out_rx_hyp_release:
-> >>     ffa_hyp_rx_release();
-> >> out_rx_hyp_unlock:
-> >>     spin_unlock(&ffa_rx_buffer_lock);
-> >> out_rx_release:
-> >> -    /*
-> >> -     * The calling VM RX buffer only contains data to be used by the =
-VM if the
-> >> -     * call was successful, in which case the VM has to release the b=
-uffer
-> >> -     * once it has used the data.
-> >> -     * If something went wrong during the call, we have to release th=
-e RX
-> >> -     * buffer back to the SPMC as the VM will not do it.
-> >> -     */
-> >> -    if ( ret !=3D FFA_RET_OK )
-> >> -        ffa_rx_release(d);
-> >> +    ffa_rx_release(d);
-> >> out:
-> >>     if ( ret )
-> >>         ffa_set_regs_error(regs, ret);
-> >>     else
-> >> -        ffa_set_regs_success(regs, ffa_sp_count, dst_size);
-> >> +        ffa_set_regs_success(regs, ffa_sp_count + ffa_vm_count, dst_s=
-ize);
-> >> }
-> >>
-> >> static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
-> >> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_pri=
-vate.h
-> >> index c4cd65538908..bd6877d8c632 100644
-> >> --- a/xen/arch/arm/tee/ffa_private.h
-> >> +++ b/xen/arch/arm/tee/ffa_private.h
-> >> @@ -187,6 +187,18 @@
-> >>  */
-> >> #define FFA_PARTITION_INFO_GET_COUNT_FLAG BIT(0, U)
-> >>
-> >> +/*
-> >> + * Partition properties we give for a normal world VM:
-> >> + * - can send direct message but not receive them
-> >> + * - can handle indirect messages
-> >> + * - can receive notifications
-> >> + * 32/64 bit flag is set depending on the VM
-> >> + */
-> >> +#define FFA_PART_VM_PROP    (FFA_PART_PROP_DIRECT_REQ_SEND | \
-> >> +                             FFA_PART_PROP_INDIRECT_MSGS | \
-> >> +                             FFA_PART_PROP_RECV_NOTIF | \
-> >> +                             FFA_PART_PROP_IS_PE_ID)
-> >> +
-> >> /* Flags used in calls to FFA_NOTIFICATION_GET interface  */
-> >> #define FFA_NOTIF_FLAG_BITMAP_SP        BIT(0, U)
-> >> #define FFA_NOTIF_FLAG_BITMAP_VM        BIT(1, U)
-> >> --
-> >> 2.47.1
->
->
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmfcUGAACgkQ24/THMrX
+1yxp7wgAhLN4w0m9qRAdctDJRAUmsETl0cnHcKpeedwtf0/zIb2PF97yBN/+Wzm8
+CXa+w0azRvnyKutVhsmT/SXLyiY1jgoxP4ipzbdehUyk0IiluuequEWsYLMoVJjq
+gGDU17P/p2Hg3sE6zlg+TFj3SE40Q+4y/Emk7IHDxXm/AGXXNgP21yOpfWAD8HFL
+VDFm7L9CNAGc2rkW2LsyfAXRotNshWMqRMHB2tzPpsasKaiTKsPXgYJdJrc1ir+u
+t7Itg70VUR5zF6F27nJFVUwa4O0jRbzaERGTstNsILdo+4tf2McQNjmcy5X81ZPa
+j28Bc/Z8DwUcsJoaH3qi/AwwaEsbhQ==
+=T6fb
+-----END PGP SIGNATURE-----
+
+--H0U/lCevOfb54q/S--
 
