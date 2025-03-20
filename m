@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 166EDA6AAF5
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 17:22:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.922944.1326720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 195A5A6AB14
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 17:30:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.922961.1326729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvIea-0000j5-1l; Thu, 20 Mar 2025 16:21:56 +0000
+	id 1tvIn1-00034y-QU; Thu, 20 Mar 2025 16:30:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 922944.1326720; Thu, 20 Mar 2025 16:21:56 +0000
+Received: by outflank-mailman (output) from mailman id 922961.1326729; Thu, 20 Mar 2025 16:30:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvIeZ-0000hJ-V0; Thu, 20 Mar 2025 16:21:55 +0000
-Received: by outflank-mailman (input) for mailman id 922944;
- Thu, 20 Mar 2025 16:21:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5hxt=WH=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1tvIeY-0000hD-8D
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 16:21:54 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6ea8a778-05a7-11f0-9ffa-bf95429c2676;
- Thu, 20 Mar 2025 17:21:52 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-ac2bb7ca40bso230274366b.3
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 09:21:52 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-ac3efd5e92fsm5223566b.174.2025.03.20.09.21.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 09:21:51 -0700 (PDT)
+	id 1tvIn1-00033W-Ni; Thu, 20 Mar 2025 16:30:39 +0000
+Received: by outflank-mailman (input) for mailman id 922961;
+ Thu, 20 Mar 2025 16:30:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tvIn1-00031v-3P
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 16:30:39 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a7fc11f0-05a8-11f0-9ea0-5ba50f476ded;
+ Thu, 20 Mar 2025 17:30:38 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43d0359b1fcso7154595e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 09:30:38 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d43d7c6a5sm53814765e9.0.2025.03.20.09.30.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Mar 2025 09:30:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,103 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ea8a778-05a7-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: a7fc11f0-05a8-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742487712; x=1743092512; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=WsSHdLKubVh1IMGmcvj7Aq0XahJ/1yi7vqSiFBPiWOE=;
-        b=fC70wkG3jzuqWhjrSkpyaMdQrNKcM3H4MJeSyMEh+y2GAtKd7uN2Uyq1eiRp9Qle4W
-         QE/cmJYony3Iu6NWkORl3rln7niJF/MYU8b/9m4kZmTm9us8muRM4GHj7AA8oA6S4GWq
-         WRwHLB/nLYmP04j2KKIORkkK9KiQXCCsoYALc=
+        d=suse.com; s=google; t=1742488237; x=1743093037; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=9arEcsyUwNweg+1ut258dh0gVt//NeJ0etYGStJfBO4=;
+        b=axDJQcEiSGcAKVABqYDlxV6pXw6D3qUqOPqy0MH3kj/0/smdAYnLQnhuCUwlKqs8AN
+         7udZnwmncoRLp2PM90KNfVy/rBUxCjrACLlX4NJ4kQIca/Vc91gBhuf2YzTqOJ5lccqz
+         NSHoXU9c4CV6hjd7ZuszGtiYVX2C3oV35pHPa3qmGPl1QIHtmzTAjQI7Iajyli02bxcF
+         frVOX9aIkjxWuH4ikHHS00pkrr1idStkEA/JQeWg5Ad8Ibim2JrX8eI3/MBgNIM2vL0W
+         MNTEi9piB42G15vpY5Iq57FPz3V/ZUqHk9FwWxL3bcFKwH9p1NH6DrN9G9LjRXGgjZ1Q
+         04ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742487712; x=1743092512;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WsSHdLKubVh1IMGmcvj7Aq0XahJ/1yi7vqSiFBPiWOE=;
-        b=DxMNB92G29LDXSxuEbZ3yec/LDXJap4v8tdTASYXdlOjFeCqiVj6HbSYXvp/TYeoij
-         uMKE7VexA0SH4o38xbVW/xFLTLcRWWCZ062tMbO+ELSF0iUUTc6sPNI0WN+d9wym641g
-         AWTTe0+O3sh+xbAUR1E5rg2s+AUlaFLI21cKGOVf8jugZVkrcKHENiOfoT23OuhPPC3m
-         ZCoOoHhoRWgs+ZJLJeMfdFgd7BzTiwMWn7IgzJJkpD+C1hWit4JSx5jE+0QqQKEonoOJ
-         MV9XDCu2jtc3GOuGKPzIzcQJeO88fNzDSB4GJRFNPJusgUNALpkVtuKs+1dg4TRaOOgv
-         3eow==
-X-Forwarded-Encrypted: i=1; AJvYcCWqCr3Lnir6XYCiTefjXK2PzVhJxnPt7AA9gbiEgunWESxmfY4Zv+HQVhy8XgfQZikxQ7hoB9cb8j4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw5Pga8exOSamULeN6nIJmMbVl1I3sSAz/OGOhEldYJ4hekirVz
-	l3XIHWyyg5SqcnLzH6Ph1R8Wb5P87N2atQpxe2dyCOykORAdqofufKkrtJ/VplI=
-X-Gm-Gg: ASbGncs4w4DkKNL5J22Z5X7L7ZMrNBWG1EQwJHmwIXxlbPokQRbDQF0caLfpiHSq4nc
-	tDxNZrDm+3Zi54J5H8nAQvdSYDQXOK8cfD6+++nBlCMwZ9gerjBG6jMddJk+DvYBCS+SnoUaKEx
-	n4brZxlGL2Sj3/BWti6m/PbDr/MmgNcZCe2ly8T1fJoR4M/TOS/K/LUzG7b0V+rDzfo0Ui3wWtn
-	yEoH58KIPyY9rx6HLJVHuT9qE9PbOutRVSPrIgQq9US6JeUhDP6q6xmHYUbROvxdyWZB0AB0teb
-	epICPJ4vuHCAOkoPjsEvM7pfVS6AR0B/8bKiPoFcCltq2TYZgLhsiL4=
-X-Google-Smtp-Source: AGHT+IGWh2pEgle/irg0C/CUM00/xQIommVW2MZdhgOZpOyebwdp0vHY/RtGkExib7V2R/tNv0BCZw==
-X-Received: by 2002:a17:907:86ac:b0:ac2:8faa:e037 with SMTP id a640c23a62f3a-ac3b8068789mr753209266b.57.1742487711611;
-        Thu, 20 Mar 2025 09:21:51 -0700 (PDT)
-Date: Thu, 20 Mar 2025 17:21:50 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Nirmal Patel <nirmal.patel@linux.intel.com>,
-	Bjorn Helgaas <helgaas@kernel.org>
-Cc: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 0/3] xen: Fix usage of devices behind a VMD bridge
-Message-ID: <Z9xAnusUbAiAHT7s@macbook.local>
-References: <20250219092059.90850-1-roger.pau@citrix.com>
- <Z8lhR2DSsB8P6L96@macbook.local>
+        d=1e100.net; s=20230601; t=1742488237; x=1743093037;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9arEcsyUwNweg+1ut258dh0gVt//NeJ0etYGStJfBO4=;
+        b=pSYvUH4G8yU7zqphYqpYvQlKZagox/HqbKYkHy/9xjWBp9CjhdI9vtRNASsf3axKom
+         BJQKQ/03ocQUmoShzFx3D6ExSoWiLibL5wlHn07j0fjva7WYsb+hInC14tJGnfMBZ49i
+         HaBXGGJCAwz/WnC/LrtF7L3l4VRsHgu6TrFJLxnIGLEgs+Qo+vd3a7Rrps7F/C3MHw5O
+         +N0tbTYsMdzmVWE6BD7TScUL3eaZxSb+zqQasROMVs1oJQN/DQZLSw7QDNBecmmtX6mG
+         lweu+0VdL/LN7Zrthgxiqs+dVTn9dEUC/m7yZGNvATFpARu7a+021NywAqD+11OLc3HZ
+         z6+w==
+X-Forwarded-Encrypted: i=1; AJvYcCURmyYiYbFLu/M9Dcuz+WAqA+wJVukvZ82E9uyifmlFDoEmDOdz+Ytz2eiA5h0gDKM+vddqBeR8Aes=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxhvaYlw8olDTMwgjG0FzchOyRPCzXjKLZDepMF8Ko4dhrsScGw
+	i3YoJeM3it5jK4iK0VLJHHGj6lBzlPo8ubAOh4nkGPjlD6MggRgqfl0hFMYGyQ==
+X-Gm-Gg: ASbGncuCj6YS2MaM8PZOqY+setpTV56rmAjIgoNqkJmnZeJylK6TJyoj9pUBK20icL1
+	rWlXkdeVdYpdS3kQSADctzwGMBBUnZxZssteItp79olQ7sjAFm2vFJsfNQo6EyadY2V9VEeH6Jw
+	okUO7tkAcBn/RJv442oU6q28YCklZvvewBGM3GxiSWEKz+yJDLIrglqvxyvuvTizJ38H8nGfRs5
+	LaXqu5nRhfvVQx+TQNmC4jjL46ZYOEhilJDIta/xnulud64rZnveZhcZXJgcA00tSw1PsYnJeuu
+	9pN5FcNZtBFX2a2GTztkET2dqVKL//CjgSGMcJ13vQndPNqSVf0ucYZpcIF10uIZy33PBc+enId
+	QQxvOxL9r/9qo7GkJvNbHgGRd6WRO/Q==
+X-Google-Smtp-Source: AGHT+IHB2Q7IZJ7r4FQVKA9VqRQ/nL5V1+PBAxgSyD+P+9oXJKPWhvO7KtjonOwUWpLyT946+oRyjQ==
+X-Received: by 2002:a05:600c:4448:b0:43b:bfa7:c7d with SMTP id 5b1f17b1804b1-43d4915e47emr49560815e9.2.1742488237405;
+        Thu, 20 Mar 2025 09:30:37 -0700 (PDT)
+Message-ID: <a8ea3ca1-8207-408c-b75b-30c2f5daf9fb@suse.com>
+Date: Thu, 20 Mar 2025 17:30:36 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Z8lhR2DSsB8P6L96@macbook.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] drivers: Make ioapic_sbdf and hpet_sbdf contain
+ pci_sbdf_t
+To: Andrii Sultanov <sultanovandriy@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1742311401.git.sultanovandriy@gmail.com>
+ <06e7126700f1bd8a0db5199209a275cf2b1e09f2.1742311401.git.sultanovandriy@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <06e7126700f1bd8a0db5199209a275cf2b1e09f2.1742311401.git.sultanovandriy@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Ping x2?
+On 18.03.2025 16:30, Andrii Sultanov wrote:
+> --- a/xen/drivers/passthrough/amd/iommu_acpi.c
+> +++ b/xen/drivers/passthrough/amd/iommu_acpi.c
+> @@ -707,8 +707,8 @@ static int __init cf_check parse_ivrs_ioapic(const char *str)
+>          }
+>      }
+>  
+> -    ioapic_sbdf[idx].bdf = PCI_BDF(bus, dev, func);
+> -    ioapic_sbdf[idx].seg = seg;
+> +    ioapic_sbdf[idx].sbdf.bdf = PCI_BDF(bus, dev, func);
+> +    ioapic_sbdf[idx].sbdf.seg = seg;
 
-Thanks, Roger.
+Use PCI_SBDF() and a single assignment?
 
-On Thu, Mar 06, 2025 at 09:48:07AM +0100, Roger Pau Monné wrote:
-> Hello,
-> 
-> I've attempted to ping Nirmal directly on the VMD patch, but got no
-> reply so far.
-> 
-> First version of this series was posted on 10/01, yet there hasn't
-> been any feedback from Nirmal.  Would it be possible to merge this
-> without Nirmal Ack due to timeout?
-> 
-> It's not even a new feature, just a bugfix that allows running with
-> VMD devices when using Xen.
-> 
-> Thanks, Roger.
-> 
-> On Wed, Feb 19, 2025 at 10:20:54AM +0100, Roger Pau Monne wrote:
-> > Hello,
-> > 
-> > The following series should fix the usage of devices behind a VMD bridge
-> > when running Linux as a Xen PV hardware domain (dom0).  I've only been
-> > able to test PV. I think PVH should also work but I don't have hardware
-> > capable of testing it right now.
-> > 
-> > I don't expect the first two patches to be problematic, the last patch
-> > is likely to be more controversial.  I've tested it internally and
-> > didn't see any issues, but my testing of PV mode is mostly limited to
-> > dom0.
-> > 
-> > Thanks, Roger.
-> > 
-> > Roger Pau Monne (3):
-> >   xen/pci: Do not register devices with segments >= 0x10000
-> >   PCI: vmd: Disable MSI remapping bypass under Xen
-> >   PCI/MSI: Convert pci_msi_ignore_mask to per MSI domain flag
-> > 
-> >  arch/x86/pci/xen.c           |  8 ++------
-> >  drivers/pci/controller/vmd.c | 20 +++++++++++++++++++
-> >  drivers/pci/msi/msi.c        | 37 ++++++++++++++++++++----------------
-> >  drivers/xen/pci.c            | 32 +++++++++++++++++++++++++++++++
-> >  include/linux/msi.h          |  3 ++-
-> >  kernel/irq/msi.c             |  2 +-
-> >  6 files changed, 78 insertions(+), 24 deletions(-)
-> > 
-> > -- 
-> > 2.46.0
-> > 
+> @@ -734,8 +734,8 @@ static int __init cf_check parse_ivrs_hpet(const char *str)
+>          return -EINVAL;
+>  
+>      hpet_sbdf.id = id;
+> -    hpet_sbdf.bdf = PCI_BDF(bus, dev, func);
+> -    hpet_sbdf.seg = seg;
+> +    hpet_sbdf.sbdf.bdf = PCI_BDF(bus, dev, func);
+> +    hpet_sbdf.sbdf.seg = seg;
+
+Same here? And apparently similar for most/all further changes in the changes
+to this file?
+
+Jan
 
