@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A44EA6AA82
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 17:01:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.922842.1326659 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92F42A6AA90
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 17:05:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.922875.1326679 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvIKz-0008AE-5R; Thu, 20 Mar 2025 16:01:41 +0000
+	id 1tvIOH-0001jl-UX; Thu, 20 Mar 2025 16:05:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 922842.1326659; Thu, 20 Mar 2025 16:01:41 +0000
+Received: by outflank-mailman (output) from mailman id 922875.1326679; Thu, 20 Mar 2025 16:05:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvIKz-00087x-2m; Thu, 20 Mar 2025 16:01:41 +0000
-Received: by outflank-mailman (input) for mailman id 922842;
- Thu, 20 Mar 2025 16:01:39 +0000
+	id 1tvIOH-0001iH-Rm; Thu, 20 Mar 2025 16:05:05 +0000
+Received: by outflank-mailman (input) for mailman id 922875;
+ Thu, 20 Mar 2025 16:05:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vaXX=WH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tvIKx-00087p-ST
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 16:01:39 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tvIOG-00019L-E3
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 16:05:04 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b8152f9-05a4-11f0-9ea0-5ba50f476ded;
- Thu, 20 Mar 2025 17:01:39 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-43cf05f0c3eso6989235e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 09:01:39 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d46edba08sm43918815e9.18.2025.03.20.09.01.37
+ id 155ae143-05a5-11f0-9ea0-5ba50f476ded;
+ Thu, 20 Mar 2025 17:05:03 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43d04dc73b7so11011345e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 09:05:03 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d4fcea6ecsm2029985e9.5.2025.03.20.09.05.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 09:01:37 -0700 (PDT)
+ Thu, 20 Mar 2025 09:05:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,261 +45,305 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b8152f9-05a4-11f0-9ea0-5ba50f476ded
+X-Inumbo-ID: 155ae143-05a5-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742486498; x=1743091298; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742486703; x=1743091503; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/QAGOtgVtywff/ttmjmtkxl+ELqSOOpLhcIJcP6dUn0=;
-        b=HzvKoKdejHgpM5i8bQB93mYpDE/qR0zIO1fYJQdckPCkDrnC3fyorUC5l7X4f9SwOo
-         t7fjNRnlLG4I3OOY5fAvL2WqRF06anvntlnM13ya1UEb85z0Se2fuR/GQFTdzKqEGB8/
-         GqSkfmMqn3OXcTN3SFb1k8Du0ZjG4ppnBc598=
+        bh=7jKzLz6cZ0LjVB8OQSlICDzQ/aoAWhMFdeZ8tZJAuIA=;
+        b=Qr+EK7KHsU9MHNrZknIoJ87nftwmTTGqsBttUMrT+4JvdVIyfa3vymrNipEXZc4iDL
+         k6fMBtoTDpYgwCvR1NZaRdqdozTPlhNE4wZcRLURdEBgw3mS+1gR4+76vfZwvRcVidhP
+         HO5kmBMbwhDbrfQ6xly8M9js91U8P5/I3Tpr5WeaVmjp5iidcXDY7AlMBr/iQu7RkcJz
+         9bLHy8Oeux8xuei86K3G4hOYhYPAP9GYLfJt8tb1/zkWwMTcMzcyCtx5fNUbxSOKh4XP
+         xcmm19H71/Mdaa9xRPwHYIdsSx4NpJ7ImQmelIeGmWwqNZU+QU9/0AAxEQ3XdO3VBxI9
+         PPsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742486498; x=1743091298;
+        d=1e100.net; s=20230601; t=1742486703; x=1743091503;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/QAGOtgVtywff/ttmjmtkxl+ELqSOOpLhcIJcP6dUn0=;
-        b=LeazEpemmhRxGJ9xfmPmRPIxc2lfj+tsJCW8GlZgg6i5zS1X9KBi6hTZaCPveb0JjM
-         Eo/63P4ZMVY7ioxlow9MXr5ae1dQvXCXi4HBkvWFzPLhts7kHyGIUaplH15qjcnmcABC
-         as2saLcT5DAPd5eaVEx8UXdnU0Xf2jQIWG3CvynfQR++RGzQF9E4X4NRYU6cH8+j5NK8
-         6AjftXsUIzU4X8zxLUzxlmH1Nmwuj6j5GirllQIpTvg5mGfUST2EUHgo9MUyHS+vEAuc
-         cgT3Qz1cMWAgEFdE5cwrqEDX4SUNnnOSfQncLBph2+Aqlry2WXdRFTSwTNpIDkcG5eAy
-         nDGA==
-X-Gm-Message-State: AOJu0Yx/bj8QIBq2PGb4K1wl6wn+YMRJV27f5+f3XHH34baRvKzdjdjC
-	G7t6h+msVcrumsEqoq48lUbitFF2siHuaHjMrry8djHDCOHsPea7OyA7DRovfS6k/mFPfVGIK8O
-	y
-X-Gm-Gg: ASbGnctS8rVBZPQYqdPyqTp5GTR4XbpfkjPgkqyRhGRGiiF2n1SvL/6v20AV5TdlMMf
-	CbXK8mZKF0WZTU0qtSt//cMXfmUCFIQTb3YAYYhxFAeZqZiGXXIIFC1UBPYF5TmNs19hXEcG69R
-	K3CQQ90f5KBwiTG+a40ITkRLNV4kiXmtLXdW++CpQQj9UzinjIO8PZ22lhq9+xDgxquIhVED+AV
-	+kKFz47SIm+pm5bGspfQciBRRQ5obzG4sVyTPHY+eDlNjlM/lOBSTh1KE49mbHCv7e+QvajgxFE
-	wocox704PTjd6+im6eP6NixCMfvT+UukWc3UpQ0sEFhFmBaWywOhPYWLqPLGPKb109YOyNqnADO
-	Rl1F1zjVvKg==
-X-Google-Smtp-Source: AGHT+IHoE0h9SrCLr/i8IWHoPpjrCwwWBg0cr+ZDJLMpBAQKFGmfKr9XuhS0UTFFazRX+nO9IKCqug==
-X-Received: by 2002:a05:600c:1d8b:b0:43d:160:cd97 with SMTP id 5b1f17b1804b1-43d495a42d4mr35530735e9.25.1742486498057;
-        Thu, 20 Mar 2025 09:01:38 -0700 (PDT)
-Message-ID: <ef8fbae6-e231-4348-843b-bf84eaf0ef52@citrix.com>
-Date: Thu, 20 Mar 2025 16:01:36 +0000
+        bh=7jKzLz6cZ0LjVB8OQSlICDzQ/aoAWhMFdeZ8tZJAuIA=;
+        b=s1IJJbfps6r4j+2OgdRrDKrijAgywiSfUZYSkKYGFcUD449Za6k15WtoIkYGiuwsBV
+         Ul8Eap0hv5ZBFagbmUd9W8v9/GBzfI3WFhKWuPr/SrakgXU2105y5V88hIqGIaLaesIc
+         XFHku7H2O7CHyxZdohVwi38t7wD10AxLqSc7TYyMQ8HljMlNVvTWbeSMMGwbZsx2zgNG
+         e3D1i+SKRv0elc8kct/j1sW8G1abithGF27z6LD8sjm5uOCMouUxv17BAhVEpEonCUaa
+         gEkCIyZL/ivHDPI5gba5PbRCrbSzjKo8W6Ya592Qug/fD9zw1JUolac1kLbE1kbBmjoB
+         lmsA==
+X-Forwarded-Encrypted: i=1; AJvYcCWH9n/7+9oI/yDVmitTBFuMsiZpSjsQRexuoxzqraiKQNCHSwBRInJefPgyKbXy2mKwKbi6t9vaa7k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwpHrgS+IxQMIb9pX8M2ijij0UObFw6VhG442N7fbcDcjSEOo0C
+	fgVnVZwC1MrEcM+7kdOj3PPdsUiwHDtdhi78MGC/PjYJLUHCkBfXSzBhAnINfQ==
+X-Gm-Gg: ASbGnct+9KwKyBxBT2yp7Ma0JWs1bpB2Qv8NR08r00KZpceUe+ft+AKmH947rS7kK/t
+	So3+GBRSqQ14DOaR51I13WPI67O2yHvGV6FsEXQnHsYhMZjz8VHtXg5B8FuNGczz/SQzyQzQU7i
+	rAtEqL89BKwEYmLO5oATgrV02hthVl//FSWBTGDtEYHLyfIIf3A45N9axsNZSHtuwS+UXvCG9re
+	DnhCQ3tnTH+S6RymKTIVFM9UUec8sPERW4qe4gMRKnko1z3TAnMcL6ixKgSKazogxgsKpuJVjrY
+	Chm43oAQiLbFg9MGdi6fU/qEZBgPaSjYwnwMoiChp8cfDUBLZE2g9SRV946EzdIKNf212ufeUPq
+	I98iW39qc1e3xg1oc3tfpTka9drMBpeifRu1YpTuT
+X-Google-Smtp-Source: AGHT+IFhQ607hPjnSzl6pW23sPNxQBmVu0TSmGRAPjoP76Y/WXutBX3zyz3j66Ho+6pem6bdvbI8ng==
+X-Received: by 2002:a05:600c:3508:b0:43c:f513:9585 with SMTP id 5b1f17b1804b1-43d49547751mr30045865e9.13.1742486702851;
+        Thu, 20 Mar 2025 09:05:02 -0700 (PDT)
+Message-ID: <1807d7d5-0f4e-4a8d-8acf-d4ca9fe7329b@suse.com>
+Date: Thu, 20 Mar 2025 17:05:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] CI: Update build tests based on new minimum toolchain
- requirements
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20250320155908.43885-1-andrew.cooper3@citrix.com>
- <20250320155908.43885-2-andrew.cooper3@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250320155908.43885-2-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v3 1/3] drivers: Change amd_iommu struct to contain
+ pci_sbdf_t, simplify code
+To: Andrii Sultanov <sultanovandriy@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1742311401.git.sultanovandriy@gmail.com>
+ <0d578d1bd063f5d58f3dbaf2ab0e21143333a50e.1742311401.git.sultanovandriy@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <0d578d1bd063f5d58f3dbaf2ab0e21143333a50e.1742311401.git.sultanovandriy@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Test, to try and figure out what inumbo is choking on.
+On 18.03.2025 16:30, Andrii Sultanov wrote:
+> Following on from 250d87dc3ff9 ("x86/msi: Change __msi_set_enable() to
+> take pci_sbdf_t"), struct amd_iommu has its seg and bdf fields
+> backwards with relation to pci_sbdf_t.
 
-~Andrew
+This being backwards isn't relevant anymore, is it?
 
-On 20/03/2025 3:59 pm, Andrew Cooper wrote:
-> Drop CentOS 7 entirely.  It's way to old now.
->
-> Ubuntu 22.04 is the oldest Ubuntu with a suitable version of Clang, so swap
-> the 16.04 clang builds for 22.04.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Instead of regenerating sbdf_t
+> from seg+bdf, make the struct contain pci_sbdf_t directly, which simplifies
+> code.
+> 
+> I've avoided aliasing pci_sbdf_t's fields here, so all the usages of
+> amd_iommu->seg|bdf dropped down a namespace to amd_iommu->sbdf.seg|bdf
+> and required renaming.
+
+Is this really meant to be part of the description? Feels like it was more
+meant to be a remark in the post-commit-message area.
+
+> Bloat-o-meter reports:
+> add/remove: 0/0 grow/shrink: 6/11 up/down: 135/-327 (-192)
+> Function                                     old     new   delta
+> _einittext                                 22028   22092     +64
+> amd_iommu_prepare                            853     897     +44
+> _hvm_dpci_msi_eoi                            157     168     +11
+> __mon_lengths                               2928    2936      +8
+> _invalidate_all_devices                      133     138      +5
+> amd_iommu_get_reserved_device_memory         521     524      +3
+> amd_iommu_domain_destroy                      46      43      -3
+> build_info                                   752     744      -8
+> amd_iommu_add_device                         856     844     -12
+> amd_iommu_msi_enable                          33      20     -13
+> update_intremap_entry_from_msi_msg           879     859     -20
+> amd_iommu_get_supported_ivhd_type             86      54     -32
+> amd_iommu_detect_one_acpi                    918     886     -32
+> iterate_ivrs_mappings                        169     129     -40
+> flush_command_buffer                         460     417     -43
+> set_iommu_interrupt_handler                  421     377     -44
+> enable_iommu                                1745    1665     -80
+> 
+> Resolves: https://gitlab.com/xen-project/xen/-/issues/198
+> 
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Andrii Sultanov <sultanovandriy@gmail.com>
+> 
 > ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Julien Grall <julien@xen.org>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Changes in V3:
+> * Dropped the union with seg+bdf/pci_sbdf_t to avoid aliasing, renamed
+>   all users appropriately
+> 
+> Changes in V2:
+> * Split single commit into several patches
+> * Added the commit title of the referenced patch
+> * Dropped brackets around &(iommu->sbdf) and &(sbdf)
 > ---
->  automation/build/centos/7.dockerfile | 72 ----------------------------
->  automation/gitlab-ci/build.yaml      | 30 ++++--------
->  2 files changed, 10 insertions(+), 92 deletions(-)
->  delete mode 100644 automation/build/centos/7.dockerfile
->
-> diff --git a/automation/build/centos/7.dockerfile b/automation/build/centos/7.dockerfile
-> deleted file mode 100644
-> index f41dda732084..000000000000
-> --- a/automation/build/centos/7.dockerfile
-> +++ /dev/null
-> @@ -1,72 +0,0 @@
-> -# syntax=docker/dockerfile:1
-> -FROM --platform=linux/amd64 centos:7
-> -LABEL maintainer.name="The Xen Project" \
-> -      maintainer.email="xen-devel@lists.xenproject.org"
-> -
-> -RUN mkdir /build
-> -WORKDIR /build
-> -
-> -RUN <<EOF
-> -    set -e
-> -
-> -    # Fix up Yum config now that mirror.centos.org doesn't exist
-> -    sed -e 's/mirror.centos.org/vault.centos.org/g' \
-> -        -e 's/^#.*baseurl=https\?/baseurl=https/g' \
-> -        -e 's/^mirrorlist=https\?/#mirrorlist=https/g' \
-> -        -i /etc/yum.repos.d/*.repo
-> -
-> -    # Add the EPEL repo to get dev86
-> -    yum -y install epel-release
-> -
-> -    # Update everything (Base container is out of date)
-> -    yum -y update
-> -
-> -    DEPS=(
-> -        # Xen
-> -        binutils
-> -        gcc
-> -        make
-> -        python
-> -        # Kconfig
-> -        bison
-> -        flex
-> -        # Flask
-> -        checkpolicy
-> -
-> -        # Tools (general)
-> -        git
-> -        gzip
-> -        patch
-> -        perl
-> -        pkgconfig
-> -        wget
-> -        # libxenguest dombuilder
-> -        bzip2-devel
-> -        lz4-devel
-> -        lzo-devel
-> -        xz-devel
-> -        zlib-devel
-> -        zstd-devel
-> -        # libacpi
-> -        acpica-tools
-> -        # libxl
-> -        libuuid-devel
-> -        yajl-devel
-> -        # RomBIOS
-> -        dev86
-> -        # Header Check
-> -        gcc-c++
-> -        # xentop
-> -        ncurses-devel
-> -        # Python bindings
-> -        python-devel
-> -
-> -        # Stubdom download/extract
-> -        bzip2
-> -    )
-> -
-> -    yum -y install "${DEPS[@]}"
-> -
-> -    yum clean all
-> -    rm -rf /var/cache/yum
-> -EOF
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index f633068c312b..2513908b059b 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -545,16 +545,6 @@ archlinux-gcc-debug:
->      CONTAINER: archlinux:current
->    allow_failure: true
+>  xen/drivers/passthrough/amd/iommu.h         |  4 +--
+>  xen/drivers/passthrough/amd/iommu_acpi.c    | 16 +++++-----
+>  xen/drivers/passthrough/amd/iommu_cmd.c     |  8 ++---
+>  xen/drivers/passthrough/amd/iommu_detect.c  | 18 +++++------
+>  xen/drivers/passthrough/amd/iommu_init.c    | 35 ++++++++++-----------
+>  xen/drivers/passthrough/amd/iommu_intr.c    | 26 +++++++--------
+>  xen/drivers/passthrough/amd/iommu_map.c     |  6 ++--
+>  xen/drivers/passthrough/amd/pci_amd_iommu.c | 22 ++++++-------
+>  8 files changed, 66 insertions(+), 69 deletions(-)
+> 
+> diff --git a/xen/drivers/passthrough/amd/iommu.h b/xen/drivers/passthrough/amd/iommu.h
+> index 00e81b4b2a..ba541f7943 100644
+> --- a/xen/drivers/passthrough/amd/iommu.h
+> +++ b/xen/drivers/passthrough/amd/iommu.h
+> @@ -77,8 +77,8 @@ struct amd_iommu {
+>      struct list_head list;
+>      spinlock_t lock; /* protect iommu */
 >  
-> -centos-7-gcc:
-> -  extends: .gcc-x86-64-build
-> -  variables:
-> -    CONTAINER: centos:7
-> -
-> -centos-7-gcc-debug:
-> -  extends: .gcc-x86-64-build-debug
-> -  variables:
-> -    CONTAINER: centos:7
-> -
->  debian-12-x86_64-gcc-ibt:
->    extends: .gcc-x86-64-build
->    variables:
-> @@ -607,16 +597,6 @@ fedora-41-x86_64-gcc-debug:
->    variables:
->      CONTAINER: fedora:41-x86_64
->  
-> -ubuntu-16.04-x86_64-clang:
-> -  extends: .clang-x86-64-build
-> -  variables:
-> -    CONTAINER: ubuntu:16.04-x86_64
-> -
-> -ubuntu-16.04-x86_64-clang-debug:
-> -  extends: .clang-x86-64-build-debug
-> -  variables:
-> -    CONTAINER: ubuntu:16.04-x86_64
-> -
->  ubuntu-16.04-x86_64-gcc:
->    extends: .gcc-x86-64-build
->    variables:
-> @@ -637,6 +617,16 @@ ubuntu-20.04-x86_64-gcc:
->    variables:
->      CONTAINER: ubuntu:20.04-x86_64
->  
-> +ubuntu-22.04-x86_64-clang:
-> +  extends: .clang-x86-64-build
-> +  variables:
-> +    CONTAINER: ubuntu:22.04-x86_64
+> -    u16 seg;
+> -    u16 bdf;
+> +    pci_sbdf_t sbdf;
 > +
-> +ubuntu-22.04-x86_64-clang-debug:
-> +  extends: .clang-x86-64-build-debug
-> +  variables:
-> +    CONTAINER: ubuntu:22.04-x86_64
-> +
->  ubuntu-22.04-x86_64-gcc:
->    extends: .gcc-x86-64-build
->    variables:
+>      struct msi_desc msi;
+>  
+>      u16 cap_offset;
+> diff --git a/xen/drivers/passthrough/amd/iommu_acpi.c b/xen/drivers/passthrough/amd/iommu_acpi.c
+> index 5bdbfb5ba8..025d9be40f 100644
+> --- a/xen/drivers/passthrough/amd/iommu_acpi.c
+> +++ b/xen/drivers/passthrough/amd/iommu_acpi.c
+> @@ -58,7 +58,7 @@ static void __init add_ivrs_mapping_entry(
+>      uint16_t bdf, uint16_t alias_id, uint8_t flags, unsigned int ext_flags,
+>      bool alloc_irt, struct amd_iommu *iommu)
+>  {
+> -    struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(iommu->seg);
+> +    struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(iommu->sbdf.seg);
+>  
+>      ASSERT( ivrs_mappings != NULL );
+>  
+> @@ -70,7 +70,7 @@ static void __init add_ivrs_mapping_entry(
+>      ivrs_mappings[bdf].device_flags = flags;
+>  
+>      /* Don't map an IOMMU by itself. */
+> -    if ( iommu->bdf == bdf )
+> +    if ( iommu->sbdf.bdf == bdf )
+>          return;
+>  
+>      /* Allocate interrupt remapping table if needed. */
+> @@ -96,7 +96,7 @@ static void __init add_ivrs_mapping_entry(
+>  
+>              if ( !ivrs_mappings[alias_id].intremap_table )
+>                  panic("No memory for %pp's IRT\n",
+> -                      &PCI_SBDF(iommu->seg, alias_id));
+> +                      &PCI_SBDF(iommu->sbdf.seg, alias_id));
+>          }
+>      }
+>  
+> @@ -112,7 +112,7 @@ static struct amd_iommu * __init find_iommu_from_bdf_cap(
+>      struct amd_iommu *iommu;
+>  
+>      for_each_amd_iommu ( iommu )
+> -        if ( (iommu->seg == seg) && (iommu->bdf == bdf) &&
+> +        if ( (iommu->sbdf.seg == seg) && (iommu->sbdf.bdf == bdf) &&
+>               (iommu->cap_offset == cap_offset) )
+>              return iommu;
+>  
+> @@ -297,13 +297,13 @@ static int __init register_range_for_iommu_devices(
+>      /* reserve unity-mapped page entries for devices */
+>      for ( bdf = rc = 0; !rc && bdf < ivrs_bdf_entries; bdf++ )
+>      {
+> -        if ( iommu != find_iommu_for_device(iommu->seg, bdf) )
+> +        if ( iommu != find_iommu_for_device(iommu->sbdf.seg, bdf) )
+>              continue;
+>  
+> -        req = get_ivrs_mappings(iommu->seg)[bdf].dte_requestor_id;
+> -        rc = reserve_unity_map_for_device(iommu->seg, bdf, base, length,
+> +        req = get_ivrs_mappings(iommu->sbdf.seg)[bdf].dte_requestor_id;
+> +        rc = reserve_unity_map_for_device(iommu->sbdf.seg, bdf, base, length,
+>                                            iw, ir, false) ?:
+> -             reserve_unity_map_for_device(iommu->seg, req, base, length,
+> +             reserve_unity_map_for_device(iommu->sbdf.seg, req, base, length,
+>                                            iw, ir, false);
+>      }
+>  
+> diff --git a/xen/drivers/passthrough/amd/iommu_cmd.c b/xen/drivers/passthrough/amd/iommu_cmd.c
+> index 83c525b84f..4defa0a44d 100644
+> --- a/xen/drivers/passthrough/amd/iommu_cmd.c
+> +++ b/xen/drivers/passthrough/amd/iommu_cmd.c
+> @@ -40,7 +40,7 @@ static void send_iommu_command(struct amd_iommu *iommu,
+>                       IOMMU_RING_BUFFER_PTR_MASK) )
+>      {
+>          printk_once(XENLOG_ERR "AMD IOMMU %pp: no cmd slot available\n",
+> -                    &PCI_SBDF(iommu->seg, iommu->bdf));
+> +                    &PCI_SBDF(iommu->sbdf.seg, iommu->sbdf.bdf));
 
+Simply &iommu->sbdf? Much like you do e.g. ...
+
+> @@ -85,7 +85,7 @@ static void flush_command_buffer(struct amd_iommu *iommu,
+>              threshold |= threshold << 1;
+>              printk(XENLOG_WARNING
+>                     "AMD IOMMU %pp: %scompletion wait taking too long\n",
+> -                   &PCI_SBDF(iommu->seg, iommu->bdf),
+> +                   &iommu->sbdf,
+
+... here?
+
+> --- a/xen/drivers/passthrough/amd/iommu_detect.c
+> +++ b/xen/drivers/passthrough/amd/iommu_detect.c
+> @@ -162,8 +162,8 @@ int __init amd_iommu_detect_one_acpi(
+>      spin_lock_init(&iommu->lock);
+>      INIT_LIST_HEAD(&iommu->ats_devices);
+>  
+> -    iommu->seg = ivhd_block->pci_segment_group;
+> -    iommu->bdf = ivhd_block->header.device_id;
+> +    iommu->sbdf.seg = ivhd_block->pci_segment_group;
+> +    iommu->sbdf.bdf = ivhd_block->header.device_id;
+
+Could this now be done in a single assignment, using PCI_SBDF()?
+
+> @@ -500,7 +500,7 @@ static struct amd_iommu *_find_iommu_for_device(int seg, int bdf)
+>      struct amd_iommu *iommu;
+>  
+>      for_each_amd_iommu ( iommu )
+> -        if ( iommu->seg == seg && iommu->bdf == bdf )
+> +        if ( iommu->sbdf.seg == seg && iommu->sbdf.bdf == bdf )
+>              return NULL;
+
+Similarly here making a local sbdf up front would allow the two comparisons
+to be folded.
+
+> --- a/xen/drivers/passthrough/amd/iommu_map.c
+> +++ b/xen/drivers/passthrough/amd/iommu_map.c
+> @@ -558,14 +558,14 @@ void amd_iommu_print_entries(const struct amd_iommu *iommu, unsigned int dev_id,
+>  
+>      if ( !dt[dev_id].tv )
+>      {
+> -        printk("%pp: no root\n", &PCI_SBDF(iommu->seg, dev_id));
+> +        printk("%pp: no root\n", &PCI_SBDF(iommu->sbdf.seg, dev_id));
+>          return;
+>      }
+>  
+>      pt_mfn = _mfn(dt[dev_id].pt_root);
+>      level = dt[dev_id].paging_mode;
+>      printk("%pp root @ %"PRI_mfn" (%u levels) dfn=%"PRI_dfn"\n",
+> -           &PCI_SBDF(iommu->seg, dev_id), mfn_x(pt_mfn), level, dfn_x(dfn));
+> +           &PCI_SBDF(iommu->sbdf.seg, dev_id), mfn_x(pt_mfn), level, dfn_x(dfn));
+>  
+>      while ( level )
+>      {
+> @@ -730,7 +730,7 @@ int cf_check amd_iommu_get_reserved_device_memory(
+>               * the same alias ID.
+>               */
+>              if ( bdf != req && ivrs_mappings[req].iommu &&
+> -                 func(0, 0, PCI_SBDF(seg, req).sbdf, ctxt) )
+> +                 func(0, 0, sbdf.sbdf, ctxt) )
+
+sbdf was initialized from PCI_SBDF(seg, bdf), not PCI_SBDF(seg, req), so this
+looks wrong to me.
+
+> @@ -578,7 +578,7 @@ static int cf_check amd_iommu_add_device(u8 devfn, struct pci_dev *pdev)
+>          return -EINVAL;
+>  
+>      for_each_amd_iommu(iommu)
+> -        if ( pdev->seg == iommu->seg && pdev->sbdf.bdf == iommu->bdf )
+> +        if ( pdev->seg == iommu->sbdf.seg && pdev->sbdf.bdf == iommu->sbdf.bdf )
+
+Fold the two comparisons into one again?
+
+Jan
 
