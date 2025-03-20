@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A033AA6A8D7
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 15:43:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.922336.1326187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75134A6A8E5
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 15:45:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.922355.1326226 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvH7S-0001bb-20; Thu, 20 Mar 2025 14:43:38 +0000
+	id 1tvH8t-0002QL-L6; Thu, 20 Mar 2025 14:45:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 922336.1326187; Thu, 20 Mar 2025 14:43:38 +0000
+Received: by outflank-mailman (output) from mailman id 922355.1326226; Thu, 20 Mar 2025 14:45:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvH7R-0001Zx-Va; Thu, 20 Mar 2025 14:43:37 +0000
-Received: by outflank-mailman (input) for mailman id 922336;
- Thu, 20 Mar 2025 14:43:36 +0000
+	id 1tvH8t-0002OE-IM; Thu, 20 Mar 2025 14:45:07 +0000
+Received: by outflank-mailman (input) for mailman id 922355;
+ Thu, 20 Mar 2025 14:45:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tvH7Q-0001Zp-En
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 14:43:36 +0000
+ (envelope-from <julien@xen.org>) id 1tvH8s-0002Ns-4L
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 14:45:06 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tvH7K-00F20k-2O;
- Thu, 20 Mar 2025 14:43:30 +0000
+ (envelope-from <julien@xen.org>) id 1tvH8s-00F230-0L;
+ Thu, 20 Mar 2025 14:45:05 +0000
 Received: from [2a02:8012:3a1:0:699c:37d:6a29:da07]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tvH7K-00BKEN-11;
- Thu, 20 Mar 2025 14:43:30 +0000
+ (envelope-from <julien@xen.org>) id 1tvH8r-00BKRl-2L;
+ Thu, 20 Mar 2025 14:45:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,68 +42,45 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=m930N92ftJa67I2/qZmEKZ4lwgy+5J2QE9o/rlmgI9Q=; b=E9NqT8IrxXoAjqYnM6YONdYa83
-	EzEHe7W7rjS1+lrqAU3hm7JScpfJURQDGBmAuU59mfHoipFKnzbG+dMCI67Wnvw78oJLZ6bxMw/kY
-	WIWKQkLRn+Qf48n0WnCLzsbZ+eycst9RQgoetr+soKa7nIiAYw5EASlvQr+1UprFtsZs=;
-Message-ID: <e004d9cf-a663-4383-8318-8510c51c0ae9@xen.org>
-Date: Thu, 20 Mar 2025 14:43:28 +0000
+	bh=R36igSLcbrrx09luuvdrI/SdpUkeGGN1O10hoHft04U=; b=CM/mDt8hhtCbIZ8HA8CQ5c9pAP
+	OrmNB5zwCuWMvex7DNT/2Wufmn5V04TapwzvYk0ZP4E20OOnR623NvzRq6U7fYgESylw7X4ecFkc+
+	tnCdQsHNnK7Gedy346IkLiBHAXZXR/k737Rbyq7h5QzyLsEPVldxRM4oYGqIW2cfyah0=;
+Message-ID: <918fcee9-3f8a-4c52-9d78-ba15faab36d1@xen.org>
+Date: Thu, 20 Mar 2025 14:45:04 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] process/release: mention MAINTAINER adjustments
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+ <roger.pau@citrix.com>
 References: <6cc3adc1-5d54-4880-b3f3-2f688c2f39fa@suse.com>
- <b11d8525-13b4-40a0-8e33-b37c7e0d85a2@citrix.com>
- <36ab0870-52ad-476a-ae9c-20ea8ea46066@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <36ab0870-52ad-476a-ae9c-20ea8ea46066@suse.com>
+In-Reply-To: <6cc3adc1-5d54-4880-b3f3-2f688c2f39fa@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 Hi Jan,
 
-On 20/03/2025 13:45, Jan Beulich wrote:
-> On 20.03.2025 13:47, Andrew Cooper wrote:
->> On 20/03/2025 12:12 pm, Jan Beulich wrote:
->>> For many major releases I've been updating ./MAINTAINERS _after_ the
->>> respective branch was handed over to me. That update, however, is
->>> relevant not only from the .1 minor release onwards, but right from the
->>> .0 release. Hence it ought to be done as one of the last things before
->>> tagging the tree for the new major release.
->>>
->>> See the seemingly unrelated parts (as far as the commit subject goes) of
->>> e.g. 9d465658b405 ("update Xen version to 4.20.1-pre") for an example.
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>> ---
->>> As can also be seen from the referenced commit, the document already
->>> saying "drop any references to the specific commits, e.g. date or title"
->>> hasn't been honored in recent releases, at least as far as
->>> QEMU_TRADITIONAL_REVISION goes.
->>
->> Oh, lovely.  I wasn't even aware there was a necessary change like
->> this.  Also, I haven't made as much progress rewriting the checklist as
->> I would have liked, so it is probably best to insert into this doc for now.
->>
->> The qemu-trad comments I think we can just strip out of staging.  We
->> don't have equivalent comments for the other trees.
+On 20/03/2025 12:12, Jan Beulich wrote:
+> For many major releases I've been updating ./MAINTAINERS _after_ the
+> respective branch was handed over to me. That update, however, is
+> relevant not only from the .1 minor release onwards, but right from the
+> .0 release. Hence it ought to be done as one of the last things before
+> tagging the tree for the new major release.
 > 
-> Right, I was wondering what else might be stale there.
+> See the seemingly unrelated parts (as far as the commit subject goes) of
+> e.g. 9d465658b405 ("update Xen version to 4.20.1-pre") for an example.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-There are a few more things [1] that are still waiting for a review... I 
-think there might be other from Andrew as well which needs to be 
-respinned/committed.
-
-Although, I don't think we had one for QEMU trad.
+Acked-by: Julien Grall <jgrall@amazon.com>
 
 Cheers,
-
-[1] https://lore.kernel.org/xen-devel/20241206194025.31662-3-julien@xen.org/
 
 -- 
 Julien Grall
