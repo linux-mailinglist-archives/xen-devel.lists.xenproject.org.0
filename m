@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41DDAA6A42F
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 11:54:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.921794.1325538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1152EA6A462
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 12:00:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.921808.1325556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvDXQ-0002no-NN; Thu, 20 Mar 2025 10:54:12 +0000
+	id 1tvDdZ-0004Qq-ET; Thu, 20 Mar 2025 11:00:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 921794.1325538; Thu, 20 Mar 2025 10:54:12 +0000
+Received: by outflank-mailman (output) from mailman id 921808.1325556; Thu, 20 Mar 2025 11:00:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvDXQ-0002lZ-K6; Thu, 20 Mar 2025 10:54:12 +0000
-Received: by outflank-mailman (input) for mailman id 921794;
- Thu, 20 Mar 2025 10:54:11 +0000
+	id 1tvDdZ-0004O4-BY; Thu, 20 Mar 2025 11:00:33 +0000
+Received: by outflank-mailman (input) for mailman id 921808;
+ Thu, 20 Mar 2025 11:00:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vaXX=WH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tvDXP-0002lR-8s
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 10:54:11 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1tvDdY-0004Mq-3B
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 11:00:32 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a68a1b97-0579-11f0-9ffa-bf95429c2676;
- Thu, 20 Mar 2025 11:54:09 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-43ce71582e9so4005025e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 03:54:09 -0700 (PDT)
+ id 8977b10a-057a-11f0-9ffa-bf95429c2676;
+ Thu, 20 Mar 2025 12:00:30 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43d0359b1fcso3954695e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 04:00:30 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d43fdeb79sm44871365e9.25.2025.03.20.03.54.08
+ 5b1f17b1804b1-43d46edba08sm35981085e9.18.2025.03.20.04.00.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 03:54:08 -0700 (PDT)
+ Thu, 20 Mar 2025 04:00:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a68a1b97-0579-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 8977b10a-057a-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742468049; x=1743072849; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1742468429; x=1743073229; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=o+zFUBr4CbCtQ2nVLVMw60Fkngad+/MA1WN+quCl/ks=;
-        b=IEmxpMYcm8qZrt73JSkUf4tSxOhUQ97rNBJPu6GbJkI1nSIe0Dcl8VZqoBPDAvhnzh
-         SoZ9wZ1GowNLrXnRk0XtkJTEm45OHFrgu8/0L0Hy/sgiuu/fYTxJtBCLqKEF1wxtqyFE
-         fADVt7QlOuPQPe5oSBE6aZ7UnIO7iuU0sHVHM=
+        bh=g/PR67tITghIVXyqsJ/8hTjYfegg8MPh74Q7CTMEOjs=;
+        b=dWy6fcjwyzhu2dOHZuPfKbKl6Jc6xuZbYDopDM4/etaAFIyBU11Oedl/ncydv2VK0T
+         d7QVgBxCQxLGDBXOJxSY+p3uJ89f7so/dbZ6J1YcggqOkPXLMLTn6klHHXuxn+DWEE+8
+         z9ei+G0+DwBLbFq304dHMS6l1El+6WAbibntM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742468049; x=1743072849;
+        d=1e100.net; s=20230601; t=1742468429; x=1743073229;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=o+zFUBr4CbCtQ2nVLVMw60Fkngad+/MA1WN+quCl/ks=;
-        b=T35MZaXeB579POsP/2xwp5gU8i7pI8v5FoCCLW6NRpZPPfZHaYjkvZNsJtJVeYsSSX
-         v6M47/7bYE4oCvikWDs51sq5JqfMklGY9rFDax87BksQhF+uYYWJRpDXacAVl7ZOMfEd
-         BydLGn+dqGahuhYauC/prjksQj4Pnx0MFqBRLTPqoU5XWKx3AqUFtSvcVfvckPZdazhU
-         kxYh0SpubE7EN0nDrvOiesuv39TKrIwApB8WisiON3sfiYWzFr//eNKLcXCaObLCeWLU
-         fBj+n0odDb4hFcAeMxXFIS0tPl+XHtJjg014IxfW/FlBdNH4aHFSfNSM/8ta9toVKJ56
-         WS2w==
-X-Forwarded-Encrypted: i=1; AJvYcCWugqDuK1xwt77GiyGuodC9t28pyOkWqTqffydhn3c5/g+MgzolI9dkluOFuT6YfL+0YGwcF3vtfCU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyGoQfBM/bgCOB4A5o8ZQa1FGnGg9n7wmVFitx3wl4GcJkR1KBL
-	fkQY35EnUC6SvjU2nfNBDbNh1TKgEU6az5YGs93TprBs3SzFtXbdZcXNiSCfFQQ=
-X-Gm-Gg: ASbGncsmFfpoW7vwTH61rZ/A6IjIs4vKmjWeyOof/vfx+Njc2Ipwve02UhIvLLLqpoP
-	5LCcI+u+HX3i1EIHWRv76o7rHzWsUo2lw4HYDmkpFFSPVCMZHBJ03S8d/371qOZpf6AjYrXP7qf
-	vvhS2iZnPQ2s1EG6VwJHwMkxpF8Dbz4iGplUmBguK+SpbeHQ28ItVjkYc8aVBsuuozroKgyCyGB
-	MgyUD4LSsvKczBwZL6sYLrW/mfIf3CJW04g1pMnYWnirt6pGUPC7J/vrMlqnJ6ELF4VZkgjA0mZ
-	Jny2gcANBsl+PqsUouRO/8BiNjBrROcOgbFreQrQdxZ/8KuUAD6mwuZy5G9B3kMYKKNBoOsYiBs
-	v3pVBNIzpeA==
-X-Google-Smtp-Source: AGHT+IG+0KzXiIqLT7USnQOk8wOoufTa9dj0+DHjLHGsak2XrSbQYPUd8XU1svSgXM7vVMqiyoyxoQ==
-X-Received: by 2002:a05:600c:5117:b0:43d:2313:7b4a with SMTP id 5b1f17b1804b1-43d495095ebmr26393875e9.3.1742468048699;
-        Thu, 20 Mar 2025 03:54:08 -0700 (PDT)
-Message-ID: <a12bdfea-f3a7-4e21-9bc5-519a0912c781@citrix.com>
-Date: Thu, 20 Mar 2025 10:54:07 +0000
+        bh=g/PR67tITghIVXyqsJ/8hTjYfegg8MPh74Q7CTMEOjs=;
+        b=WzWBP6/VehGfV+/4gu6up8X+pkbF6gptRVIuR1ydxR6b1/omQfJRDoNaSZZcTw+zL/
+         BHAGfEmQ9YcNz5Zp42kkm3jsk0Agfk0RuTpKdLWsnPScktJKtBO0vHYkeCkKqRe6H+fR
+         HVJ7w4LDfIrji/RqG1NKvJeNOmNZIHw/3GIsuHlXD++5NuRx2YwnJCBIPOAHzs1JA54V
+         g3ApNVE97pCHmvPuocv2qgOO64dySYo2NDONTKUuCD6zyphFzosjsTcE88rxKmB3KQLD
+         yAX1A1JP2TaTD83b0TD/NNB7/3tsKAqyHR7uia/zioeGaYC3X47hYJQekgSl/bJdw0K4
+         EzIw==
+X-Forwarded-Encrypted: i=1; AJvYcCUIb08FgjpjnJJzPLE6p4DDDLZqOQ2LUY0rsRJJO1bR4IUk6XGGCQo0qiZs1LkmcJQHSqH8fMwM0w8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwTsDydYu/u3MeSL+JjIhvxKvg9hALUtQpBd7I7VDLFhq4eTM30
+	66HSBtGHwLMH1EDJ5QnQIh0UfY9/G1KaKI5IgS/VBroq0OGW08WstVgqT1Tkycxx+T2q/qhptFc
+	w
+X-Gm-Gg: ASbGncto01+5aFJP51vT1Pii4WLhxDFZNz3ZqrSQAi38pURhD7Hi4Q3ixcHV3OCWQw5
+	rEWYeHoHxnSew6b06UeNnTySN8B8Kw+9nQ0BWOQP1WEjd25KvccybDCl+eDC/hvviNk81ZFJY/3
+	mMIpp741JzhWUQdJGonKNK+HACOrMpe3b4vVZuCUXWv9zS3M5nF3C5UDeVRKzRjKmnZTaG0dv7c
+	ugmc91AIaqiUFjtigDAGesPk85HK/7FFZpSijOR7GNO9TWcSLEHqLmdesIomjzt5qg1hQ7OFWqh
+	ZftD23nRejh9agxbS5Q8DKb4220u3YP9AVG4TtHVgVhn58gbbA8VjEwF/3WbqweIaBh7qf8bqO+
+	OBoedJYSeNg==
+X-Google-Smtp-Source: AGHT+IHa32jWjYHtMEjuRLNar5rDIgSAZrPD9Ooww8euBBbKKGYVc3kEvrZgCl3240kjLayhc4BwMw==
+X-Received: by 2002:a05:600c:4e8c:b0:439:4b23:9e8e with SMTP id 5b1f17b1804b1-43d4916673emr26835235e9.3.1742468429285;
+        Thu, 20 Mar 2025 04:00:29 -0700 (PDT)
+Message-ID: <e5dcb56f-58d3-4141-ab67-92a690310007@citrix.com>
+Date: Thu, 20 Mar 2025 11:00:28 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1 4/4] x86:hvm: make nestedhvm support optional
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1742465624.git.Sergiy_Kibrik@epam.com>
- <e4f77564313d20ad4f3b94bde0672250f7d99bb4.1742465624.git.Sergiy_Kibrik@epam.com>
+Subject: Re: [PATCH 5/7] x86/mkreloc: remove warning about relocations to RO
+ section
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20250318173547.59475-1-roger.pau@citrix.com>
+ <20250318173547.59475-6-roger.pau@citrix.com>
+ <a3c70637-b354-40f4-9a67-9d2aa7bcdcb0@suse.com>
+ <27ebf169-ab63-4def-a98b-751ae1758293@suse.com>
+ <Z9vOc5I828aV49rI@macbook.local>
+ <0da7c7dd-bfbc-4e41-98ed-6e98793e6f50@suse.com>
+ <3bec51cf-e3db-4f1b-ac24-4686e2498fde@suse.com>
+ <1903e4c2-6a2c-47f1-a5dd-28f13cc87da2@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,24 +145,36 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e4f77564313d20ad4f3b94bde0672250f7d99bb4.1742465624.git.Sergiy_Kibrik@epam.com>
+In-Reply-To: <1903e4c2-6a2c-47f1-a5dd-28f13cc87da2@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20/03/2025 10:40 am, Sergiy Kibrik wrote:
-> Introduce NESTEDHVM config option that controls nested virtualization in both
-> SVM & VMX code. The option is for reduction of dead code on systems that
-> aren't intended to run in nested mode.
->
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+On 20/03/2025 10:18 am, Jan Beulich wrote:
+> On 20.03.2025 10:53, Jan Beulich wrote:
+>> On 20.03.2025 09:34, Jan Beulich wrote:
+>>> On 20.03.2025 09:14, Roger Pau Monné wrote:
+>>>> I wonder how this worked then, as I've tested with the xen.efi smoke
+>>>> test in gitlab CI.  Maybe ovmf doesn't acknowledge the RX sections and
+>>>> unconditionally sets all mappings as writable?
+>>> Possible. And that would be in line with the mode being call "physical mode":
+>>> There are no permissions to enforce there. It just so happens that x86-64
+>>> requires paging to be enabled to be able to run 64-bit code.
+>>>
+>>> My experience with OVMF has been that it's hard to find where certain code
+>>> lives. Perhaps I should try whether I can find respective code there. Then
+>>> again if I find nothing, there wouldn't be any guarantee that I merely didn't
+>>> spot the right place.
+>> All I can find is BaseTools/Source/C/Common/BasePeCoff.c:PeCoffLoaderLoadImage(),
+>> which doesn't look to care about section flags at all.
+> And then there is at least one duplicate thereof elsewhere, or something very
+> close to a duplicate. In addition I meanwhile found ProtectUefiImage(), yet
+> it's unclear (to me) under what conditions execution would make it there. Plus
+> it leading to SetUefiImageMemoryAttributes() leaves open where
+> gCpu->SetMemoryAttributes() is implemented. I can spot some Arm and RISC-V code
+> with respective names (albeit in distinct places), and MTRR functionality with
+> names along these lines. None of these can be it.
 
-I know you're trying to remove unused code, but you're #ifdef-ing out
-non-dead code which reachable by guests.
-
-You cannot #ifdef out any of the VMExit or MSR handling.  They still
-need handling if the guest does them, and falling to defaults doesn't
-work.  e.g. we'll now crash the VM if it executes an STGI instruction,
-rather than injecting #UD.
+https://www.kraxel.org/blog/2023/12/uefi-nx-linux-boot/
 
 ~Andrew
 
