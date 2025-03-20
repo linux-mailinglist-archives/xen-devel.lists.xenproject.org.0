@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94FFEA6A292
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 10:27:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.921519.1325338 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7EC1A6A293
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 10:28:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.921527.1325348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvCBM-0006fz-AJ; Thu, 20 Mar 2025 09:27:20 +0000
+	id 1tvCC5-00078w-Id; Thu, 20 Mar 2025 09:28:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 921519.1325338; Thu, 20 Mar 2025 09:27:20 +0000
+Received: by outflank-mailman (output) from mailman id 921527.1325348; Thu, 20 Mar 2025 09:28:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvCBM-0006ds-7E; Thu, 20 Mar 2025 09:27:20 +0000
-Received: by outflank-mailman (input) for mailman id 921519;
- Thu, 20 Mar 2025 09:27:18 +0000
+	id 1tvCC5-00077M-F4; Thu, 20 Mar 2025 09:28:05 +0000
+Received: by outflank-mailman (input) for mailman id 921527;
+ Thu, 20 Mar 2025 09:28:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tvCBK-0006dm-JM
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 09:27:18 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1tvCC4-0006dm-11
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 09:28:04 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 83579041-056d-11f0-9ffa-bf95429c2676;
- Thu, 20 Mar 2025 10:27:16 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3913b539aabso249639f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 02:27:16 -0700 (PDT)
+ id 9ed253d4-056d-11f0-9ffa-bf95429c2676;
+ Thu, 20 Mar 2025 10:28:02 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3965c995151so264207f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 02:28:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-395cb318af0sm23333663f8f.73.2025.03.20.02.27.15
+ ffacd0b85a97d-3997d508c1esm438589f8f.93.2025.03.20.02.28.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 02:27:15 -0700 (PDT)
+ Thu, 20 Mar 2025 02:28:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83579041-056d-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 9ed253d4-056d-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742462836; x=1743067636; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=X8AMsHBAclsHj9q1bohgg1i5ETIgom7sk+KCnDHZOS4=;
-        b=aD4Poqg0cmitycuQ+eMMU0r/F7ZCA62jrmQe6v4o7qfnOknC3HUjZEwhQURI6BG+0V
-         S5tjJE/lfxPTu2FM6xeP6Wly8DF+DRSYGJGd1KNy1WFtjwMSt8byE3nhH8tr+mEgJutk
-         xGzGCaj9KFBtNDt2nhK0OxO6/naxqc9EH+aqIekJthc2Rleghx7MguAMObv3M26F2cwD
-         5IP6yJrYHXq22wN23IU/Xe9VQFLSZKzaTQD3UEMfTjtEFHG9AnyzuxUJ31tbtQpUu5/x
-         PG/RS5qUf5/8y7rOPqx6QIrgezeNd8//TuKL5q5sM1AAqdnt/XM6vm9wxSGuXtdPozfs
-         Ni2w==
+        d=suse.com; s=google; t=1742462882; x=1743067682; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TDEhA7DZ9wsCfgW9f+m0HXZi4nwIFRLtsU3Cna1jSkc=;
+        b=HOSKXGtVRVYuDMhAvnPVTYBmsLzltCt7KdvYGzgWhjAMOKnCI1+ipgIGo7Y12qORJm
+         ShAdGgB5eopJeiP25+nSCCk7t/nKZmFp6GuA9gG5mqcGGxwOHbdVRHvSQNpKjpyYOKUT
+         87qCUxTlVTpJL0gQNRqCqDKw4BPEzVOXOUYRFd1b+QrGptQurUyOX+5PObvwa9WKiEzA
+         sjClxZBODePgBUlRd5y+lPeWvaIlFjzDCkMzsV42sptecW2nnHgkQxEJacSMMP7T5ADa
+         gUwIqOzeAMWP5DhPHSDo87qNce3O2VwWCERHOIr8kMW0GTzoSi6xEG8v9D+ABDuGinvG
+         Y7GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742462836; x=1743067636;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=X8AMsHBAclsHj9q1bohgg1i5ETIgom7sk+KCnDHZOS4=;
-        b=hDYAXMpS6iH006hrhAedEpHi1Av4CMkl0MMRzeR6i+uIGMSFm4WNxTPpmhBViZsoGH
-         TJ80mBg6JInmlP8ZeIb8fsWUrFx6n5SAT88jiEzcqFlaHEI0H4pRKkks68N8JHpDdJKq
-         jEWAx8DbU5IBsrK9J3S5b/wmrXAPhOVd3GxPDXwwBsCWeZlcdVGt5RH5rqAQ3X49yia6
-         l38miCvJdJw2NpqCs57i2HGxKiEGCupZNdoWelpbWHKwJGzlP/ifWyJqeIvw3Tm+UtYD
-         5Zp+WP1TicwV53CwtiamiIDFK2UM27w5Ma0MQDUlEdWoTnQJ5I6Vmkq5lHAXfb5kBux/
-         WdmQ==
-X-Gm-Message-State: AOJu0Yx6VeRN6chEc30J8ozI55cLKuDJON7FjHyAQdWTcTbKbY0SBXpP
-	oorjJ59GrEPn2SUlg5M97rxaQoUcTZpF1qbTV8hVkaG1dpcuxNl6Tu0CLtRwNo0nu8lBOy9Orlc
+        d=1e100.net; s=20230601; t=1742462882; x=1743067682;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=TDEhA7DZ9wsCfgW9f+m0HXZi4nwIFRLtsU3Cna1jSkc=;
+        b=mrm+4ht1uUwzF3uT8jJeXlU4kn1pVLdnTxdKS6iq9RiyVi78LuOcmgRSyN0A6qTsN9
+         J1kmLS9yEvuOC7xvrtxQM5AivYNDl0p+PcidBmftHPleGEojqwQbGg4QMUxIlGShCy0A
+         qq28k3Z5MK4khsL+VR/A2uWslseDHYWmZ3WvU7IlrNKGqgx6/UujB/XUq/P0EsfwyUsj
+         NMi1n2LuJRKbMwSrrsAJU3zSCe/0WI3cxkm8Djx1gKoTKsYS4VVKk2iwtmVVEWds1I0H
+         pPXx6yp2blft45plKVVizKpfQxO9UiE5SbgWuqxkt5jEvOtLnqfvFWH0lZlBWbiKyGZC
+         xn/g==
+X-Gm-Message-State: AOJu0Yyv8C/YSoywLKAaA5jDDKXaxfK+ElHMehz3cTJBboc4xBY0ttdv
+	mnzxSs8gObUN03ULwdrV8YlyOTpnGDxcOCLOjHx6IQPObxvDnUocCC0Ydl17oXuAkibFT/57Inc
 	=
-X-Gm-Gg: ASbGncsYxkPe4qsenCRmyajWCPOBBNereUyYnCJaHNMjHDEYLsP2SmjL17C5HBgzIgz
-	fckotabcUjidIvBlApa6zxBfkMnuUFwO16fCGbwo24wpaaB1UPUPQxe4EMrqPftNqwTaTlOVdy9
-	yk57kIoTkm9f+u4+Zmqyc0ScYyERjJBrPJtarFEaYP7O3t0QfKsebgmKDYcPKqy6ulnHOxgHr4N
-	cyfKHh+KsiWou3WIYVlbVBhkkub7CsSCLqmbCAvOkW+tmcnFCkr7Ym4UefhMfo4+Bm7MkF3+zRs
-	ixSTnG46XjupPt2rco6MIE2+KRI3r68QazyCiV2Xsx1gDe5RsUgzpRf4xVoje+FEkconRvYHIko
-	+GPxvBQHA541GpTgQeOohX8Enn30r8w==
-X-Google-Smtp-Source: AGHT+IEF24/R7z78JjQyynOehBHw6S0m11IKGprZw+zmO/LPLaehesPAFvC9WMOGUyGL3tpNwEE5mA==
-X-Received: by 2002:a05:6000:1549:b0:391:31f2:b99e with SMTP id ffacd0b85a97d-399739b4089mr4965937f8f.2.1742462835667;
-        Thu, 20 Mar 2025 02:27:15 -0700 (PDT)
-Message-ID: <577ddc98-fdbb-48af-9c7e-1a411383516b@suse.com>
-Date: Thu, 20 Mar 2025 10:27:14 +0100
+X-Gm-Gg: ASbGncsiHw5A/crwwp0ZSS/YlVhZlzqvvIxfaup3TXPdwXvNxZB2//0APA186dp9o9p
+	TUfZmOo/szFhKxVjLOn9XYA5/O/UiDDpEgZ2de8G5cJFCgqjvCQtJa14R6TQvX5GYjm9CgfrbPa
+	JOxtM5w9XdyCCk9EspImMOMK6AIkV1j/STTBcz15nuHpGwpyTIgYUla7zkuqmz0lE3VWP62rlSs
+	FEZnkfgr9N/hPeSAJrx9P3jzly04VOBorJubEH4jwjWZFS34rYXukpqdDEHkS7k6cFvIQ/owM7R
+	4CsmfjDL1fTMIWaw9BHBHLrFLHMmJXaPHPNYXWJ+ux1FZ5dF3oxPHEcDZLC42lytdYIE3Hj0tvm
+	AZdKVDMqoiw3WLXpAYoN28Fa8FnYDPQ==
+X-Google-Smtp-Source: AGHT+IHpOo2QrLKtozaa1FuNH54R8XMCO3pCkUQe9y8ycYm3yQqAk3wW+/dObFamET+6nzxzTfFrMA==
+X-Received: by 2002:a5d:47c8:0:b0:38a:88ac:f115 with SMTP id ffacd0b85a97d-39973af8e00mr4274468f8f.34.1742462881712;
+        Thu, 20 Mar 2025 02:28:01 -0700 (PDT)
+Message-ID: <b1b94660-da2f-48ad-a1b6-10cb52e559f6@suse.com>
+Date: Thu, 20 Mar 2025 10:28:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+Subject: [PATCH v2 1/2] x86/PVH: don't open-code elf_round_up()
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Jason Andryuk <jandryuk@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2 0/2] x86/PVH: initial space allocation
+References: <577ddc98-fdbb-48af-9c7e-1a411383516b@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,14 +118,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <577ddc98-fdbb-48af-9c7e-1a411383516b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Going on top of "x86/boot: Simplify the expression for extra allocation
-space", first some tidying and then a bug fix.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+I was wondering whether in elf_round_up() itself we might better use
+ROUNDUP().
+---
+v2: New.
 
-1: don't open-code elf_round_up()
-2: account for module command line length
+--- a/xen/arch/x86/hvm/dom0_build.c
++++ b/xen/arch/x86/hvm/dom0_build.c
+@@ -718,8 +718,7 @@ static int __init pvh_load_kernel(
+         extra_space += sizeof(mod) + ROUNDUP(initrd_len, PAGE_SIZE);
+ 
+     if ( cmdline )
+-        extra_space += ROUNDUP(strlen(cmdline) + 1,
+-                               elf_64bit(&elf) ? 8 : 4);
++        extra_space += elf_round_up(&elf, strlen(cmdline) + 1);
+ 
+     last_addr = find_memory(d, &elf, extra_space);
+     if ( last_addr == INVALID_PADDR )
+@@ -740,7 +739,7 @@ static int __init pvh_load_kernel(
+ 
+         mod.paddr = last_addr;
+         mod.size = initrd_len;
+-        last_addr += ROUNDUP(initrd_len, elf_64bit(&elf) ? 8 : 4);
++        last_addr += elf_round_up(&elf, initrd_len);
+         if ( initrd->cmdline_pa )
+         {
+             char *str = __va(initrd->cmdline_pa);
+@@ -774,7 +773,7 @@ static int __init pvh_load_kernel(
+          * Round up to 32/64 bits (depending on the guest kernel bitness) so
+          * the modlist/start_info is aligned.
+          */
+-        last_addr += ROUNDUP(strlen(cmdline) + 1, elf_64bit(&elf) ? 8 : 4);
++        last_addr += elf_round_up(&elf, strlen(cmdline) + 1);
+     }
+     if ( initrd != NULL )
+     {
 
-Jan
 
