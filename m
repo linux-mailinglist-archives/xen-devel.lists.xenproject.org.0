@@ -2,52 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94F96A6A894
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 15:32:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.922216.1326123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9128A6A89D
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 15:33:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.922234.1326134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvGwi-0003td-Om; Thu, 20 Mar 2025 14:32:32 +0000
+	id 1tvGxm-0004ZM-2k; Thu, 20 Mar 2025 14:33:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 922216.1326123; Thu, 20 Mar 2025 14:32:32 +0000
+Received: by outflank-mailman (output) from mailman id 922234.1326134; Thu, 20 Mar 2025 14:33:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvGwi-0003rF-MB; Thu, 20 Mar 2025 14:32:32 +0000
-Received: by outflank-mailman (input) for mailman id 922216;
- Thu, 20 Mar 2025 14:32:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tvGxl-0004X4-Vi; Thu, 20 Mar 2025 14:33:37 +0000
+Received: by outflank-mailman (input) for mailman id 922234;
+ Thu, 20 Mar 2025 14:33:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cJiu=WH=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tvGwh-0003df-6Q
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 14:32:31 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20608.outbound.protection.outlook.com
- [2a01:111:f403:2415::608])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 254b0ad8-0598-11f0-9ffa-bf95429c2676;
- Thu, 20 Mar 2025 15:32:28 +0100 (CET)
-Received: from BYAPR21CA0021.namprd21.prod.outlook.com (2603:10b6:a03:114::31)
- by CY8PR12MB7612.namprd12.prod.outlook.com (2603:10b6:930:9c::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.33; Thu, 20 Mar
- 2025 14:32:24 +0000
-Received: from SJ1PEPF00001CE5.namprd03.prod.outlook.com
- (2603:10b6:a03:114:cafe::80) by BYAPR21CA0021.outlook.office365.com
- (2603:10b6:a03:114::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8583.8 via Frontend Transport; Thu,
- 20 Mar 2025 14:32:24 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ1PEPF00001CE5.mail.protection.outlook.com (10.167.242.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Thu, 20 Mar 2025 14:32:24 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 20 Mar
- 2025 09:32:23 -0500
-Received: from [172.24.79.67] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 20 Mar 2025 09:32:22 -0500
+ <SRS0=nziT=WH=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tvGxk-0004Wu-UO
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 14:33:37 +0000
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [2607:f8b0:4864:20::c2d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4e03dd82-0598-11f0-9ea0-5ba50f476ded;
+ Thu, 20 Mar 2025 15:33:35 +0100 (CET)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ 006d021491bc7-5f89aa7a101so384405eaf.2
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 07:33:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,113 +40,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 254b0ad8-0598-11f0-9ffa-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M+vX3Cj4Zfi7OdkbPnvaejObmxon1oVmv5MbDiKaG9s5aXE2TK7X+WFsqPIEDZymmgay29nAX4uH+xvEC77qcxSxHXs3paHIgnMJa0DdfobTBUMfuuyNluBc9moojO5X1wQbYPYxsqRLwW7PnfgrTf5+ODiz1HxmuF276QYi+16EaC24ZT9I4MSN8TYzusOK7AT8MgfYkb9AgOWKgnyFzvF1IOiZ1UtBvC47U83X0fgGhnpMwPNjIF7lWfRxAWfVqLclnvz9nu9yykybo+60rDr4f7iqBpGxz28A5AGjtNLn+b4dGvoSYXkLLQcPJh56le+dLSbTLpERbdwGabXr+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oym/vjI4zTqLxIyTBUdgzlM8RFBRNdUGdIJPCa5fGac=;
- b=LmXd8uLo5jSWzL01nSBzwFUaak/VJDmzs1UL3DkQ+5asaWnd7PElfFOL9o6RrqpJhPhe+6pFyb75OCnH4X79Z+Vr1QBHDVvkYpXYdVqNZxRKH7mCxI6GJ9GinmWKHqifYSzQVn/f/vG++t97eVMdpaOfi5dSc8rEcVw/w+7YyyC0fK4xLxy7KzZwvQJ1+Yhr0pvu61SDc3r/euwyTSjunmcJfyG1pDAa1ax1tt2FJ5v6ISu41nEWuEqFlKopvGFpczLyvl1RszneVR7iMomD2UQJeQKdkT8gayWxJjgg48Be82FUBM1rtVNVjMp37kK+RsXJc9nIHHYjhEhWri66qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oym/vjI4zTqLxIyTBUdgzlM8RFBRNdUGdIJPCa5fGac=;
- b=5j+FjBnpvdpiCi6TsiM7Md9BLQX4LAmKbiKIt3SaaJMzMNYyv1UnOIxvn6eh3eqrm+GeukDI2dDAcs6xGvsoxoFPFvFrKxMi3Qf9mwEyATbuLCb31WK0C17gibnCOzPPlfd/d/w7QmH4sFcmbxpE1feTsJuCSUEbM/6/fe+dchs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <2e1b2f16-4fa5-4e72-9cdf-50da8b8f9ab7@amd.com>
-Date: Thu, 20 Mar 2025 10:32:17 -0400
+X-Inumbo-ID: 4e03dd82-0598-11f0-9ea0-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1742481214; x=1743086014; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=w6rTRdyFjGndtKneW/jhqg7ELR/v6zFkQDG6ph5VDo4=;
+        b=Go6ilj0XJbFAJW3nUt6E1fLgl1nawNv30C3ybZ+kMLdVWUF9+0W1YwlKBMQXL+q6/U
+         aWot5QvWwEaYRfsA957/+pA5i0XPyii+FEXeMBixdjbgWLRqys8Xkox3gx4309SwNOvz
+         Re9j2NOeKG3GoOy0C55c48uHwHi3KfFP6m1NA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742481214; x=1743086014;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=w6rTRdyFjGndtKneW/jhqg7ELR/v6zFkQDG6ph5VDo4=;
+        b=b57wLCLfnWJ8uVHwN8bzj00WkbBk9aCwOYOqeEczkFM7Yehl4WOnBkkYL38EQd4zaA
+         3P4pLnxcFgDkqCmfE4LyifrM7LYNZzbKtCf8u5EhicuDq63SEDakHkmCqJfbJZtXVU5S
+         yxAJV0Z+vWuMc8cEiqnn7KseLSvfkNZ3ZlZAmw01LlPyWGOoaH4X+iJLgB0QqhaDxw/k
+         xlIUvYEMtaetPunr3p3nfALklt0jvQ2Im3D21Os9vwfiiU9Xa2Gi5lftV2/lEY1b/oRz
+         zRo2eXa5i9f5b0GxO8VUX3M0y8ie+ZdNzLYwVBXKf3us6s3EyidS/3N2ocKNJqNC7/JJ
+         aNAg==
+X-Forwarded-Encrypted: i=1; AJvYcCX5SgPFdsSb655Kqd1shDOhaFsGycAZSKwNbRqQwlmbV1kACfCpM9SAGrbCso1lLbihKepKwWeCQOE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwmeZkFzSunqTPMVgJA3kIUfusrmBvaqZZ6Mr57uYeU21Zbps+5
+	rU9Q8Dt2gZLApYq+sVR7jmEiIYx3vzbLp2VZE9w6WLOpMAUz2FPrfHHykG8i9smDO9pskvZUlM7
+	W/LuVjrBQfuYONWYwv06KYc5KB5JHB5ZUBRdjVw==
+X-Gm-Gg: ASbGncvRAJTnn5CoRo4r1rbBXzSpDZzCH7xZRGM40UlTQf1ltrmXOdRHIQrZYVDbPJc
+	KR4MPWmrT1B0k2d27gl77mRrRW2p/y8ZlZop55tmn4rw6+wAhDhJukckuA1qmJ3e7Pn95EUhlFw
+	3F+jsbjQ/C8rKVCmZMAi3MVnFp5w==
+X-Google-Smtp-Source: AGHT+IHeU3WBCyUTgIBXPPZIVCEBPlc83/bN/qbFujRhQ72vwAeokSw4Wo6HG7SNaHZQMty5oqEz87l1zVJcuHHNPx0=
+X-Received: by 2002:a05:6820:22a7:b0:601:a677:d121 with SMTP id
+ 006d021491bc7-6021e351212mr3766127eaf.2.1742481214267; Thu, 20 Mar 2025
+ 07:33:34 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [MINI-OS PATCH 2/2] 9pfs: add lseek file operation hook
-To: Juergen Gross <jgross@suse.com>, <minios-devel@lists.xenproject.org>,
-	<xen-devel@lists.xenproject.org>
-CC: <samuel.thibault@ens-lyon.org>
-References: <20250320074924.8080-1-jgross@suse.com>
- <20250320074924.8080-3-jgross@suse.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20250320074924.8080-3-jgross@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE5:EE_|CY8PR12MB7612:EE_
-X-MS-Office365-Filtering-Correlation-Id: 318e42b8-7fa4-446f-7d2d-08dd67bc0811
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MmpSRVFMVHNxN1pWZFovWmRmK2x6TkdnR3VIK2owSVByVDcvMDRuRk1wdTFY?=
- =?utf-8?B?RDI2V1RwRkd1MUpiQjF3RGdDenZYaEZiamZmNEVMQzFuemEwLzhnbWNNcEpz?=
- =?utf-8?B?bWRsTEE2S3hUSVgzSTZDTWpMbW1ZS2pDbmhOU2dpOXYxekZDWkY4Q1dYbW9n?=
- =?utf-8?B?dFRHMkhnUkJEbks0UXdLa1BsSmIxakxQV1MyTmJ6OGZpckJxQTVUNkNITUJS?=
- =?utf-8?B?TkFja2R0RS8vOVo4RUQ2bkRRaXdPTHZzdG1KODl2UWl0eVN1T3hLS0dtdHY2?=
- =?utf-8?B?ZXJhaGNvcXRINFBOdDduTWplMlZOSTV0TDFHMVk1dC9wZHhDQTlUdytnTUFD?=
- =?utf-8?B?ZjIrejRnT0REeDFOWVVwb2EvYXNuSjdKRGJ2ZHR2Mkg3aHRkRXkyR01HZ3Vr?=
- =?utf-8?B?cHB6NkJXK3RXdkJUdG84Q3IyeWNEK3FwR01rNWMxR05JZjRhN1N2dTQvenVH?=
- =?utf-8?B?bUZSUkRyUHFmSDlIVVpJNlJTTERzMVBIbFhYRUdWclpVczJiVW9qbUl0Ukky?=
- =?utf-8?B?UWRab3lSUTl1MnlmRHBkb0s4ZGRSRVlQZ08xRkxNUnhZdE1CQ1J5NjIrUVJC?=
- =?utf-8?B?K0oxZjZCK242RkhrTjJPaGwvVVQ3VW9aN3hKNFZLR1BvUndJWlJPR2FJUEUy?=
- =?utf-8?B?aTV3aDU1OVJmdDNYRFVob2ZJTkdtMWl6WG1HcitzZjJ6cUtiTis5em9ybGx6?=
- =?utf-8?B?UnhOQnBORlp4dGFjQWt6Ulg2bFB3a2dsQk9yU2dZM045cFhsbklpRTJEM3pt?=
- =?utf-8?B?eEgrNGlGZXpCbytpMUZOZnAwMC9vc1lOS2g3R2daM29rMlE1QkMrWW5hajRK?=
- =?utf-8?B?ZDhZalcxZHA2OEt6ZXFacXdlZ1paSHF6Y0JxQUdheWxFL2FOZThpZzc4WVlL?=
- =?utf-8?B?SEtEdXpkSldBdGhINmlLWVBGaXZSRERlWUFRTVlVaG52L0VtcDhNU0ZKbCtJ?=
- =?utf-8?B?a2o4TlM2VDVFdEt5OUVZaWxjQXZvZmRFT3V4WExmd2RpM1ZxQk9XQmJYNFlq?=
- =?utf-8?B?TlUxb2V2ZzVRcFExWFNpMU9HYmowU0RxUU05T0VZQ1JEdnk2N0ZyNWl6Sjcx?=
- =?utf-8?B?VzRaNFp2Yjl5T2k4OFFTa1E5QVN4NE5OV1lDSitMUEQwaDdFWjgraUsrY0Z1?=
- =?utf-8?B?TUk2b1pybUZ6SndpNlhnL2pXNkZFNlJodng0YVRRTzRTMUtJbDBBKzhRZkps?=
- =?utf-8?B?Y0JQMGFPZWtpVDJieHpBcmgzWVRHeUJyeVJ1MzZxdVZUNWZ3Ym9Rc1JRRE1O?=
- =?utf-8?B?V0xCanY1SXRHZFR3cS9qQzYwK1RKTDhSeUxCY3NmZjB4blBMb0tLN28wVU93?=
- =?utf-8?B?N0hkVmhuYkthcWVkclJMTUZjTHlGeUlCREZMRFY4WTAvblNrYWVGTXpqRnRr?=
- =?utf-8?B?OTR5bjVWWDI5ZDVGd3NDZno3YlRUM3cwZUhEeTZQc0IwYUV6c1lITmRzUHBq?=
- =?utf-8?B?T2haL1hrcCs1QlJyeDdDenZ2UFZHWVpZWDFzZ0l4V0xaT1N2amZDTk83eHUw?=
- =?utf-8?B?UTNDQjAzaWgwSzZOaXZ0WVVtTU41MXNRbll5cDFFMUF6WlNrVXpoM05ZYVRh?=
- =?utf-8?B?eEJxRXdkaTdoT3JYaG1IVm14WEFxbEYySUJPNzZxOFplM1prM3VXWEZLMlJ6?=
- =?utf-8?B?cU1xck8xUldCZmJQaVJIVUJYbUExbTdJUXJaaWlVYkwrWG14MUJrMVFnSmRl?=
- =?utf-8?B?UkFxSVp1YTNmUm0yakRTY0haSSs5TW5iNlBpNXNCWjVYSm4vc05sSXRZeU1L?=
- =?utf-8?B?MEkrS3VLY1ZrdDhaMFZvRktDWnpEaHJTdEtTRE9NallmTjl0ZWNNVXl0elZI?=
- =?utf-8?B?aW5aUnF4YnBGV3RuZmxzVktBOHNaeGthNXhVRm1jZDZDU3JhaUpCcXEvbGpF?=
- =?utf-8?B?L1JDUExualViQ3BaL1NyekxRU0FOWFNPZDhCUXh2cUkvS2g1aXVlSElaVjcr?=
- =?utf-8?B?RE5KZWFVeHFQMURYOGdRRjZieWZDR092ajdueURYVXQrTDVpY0xIWkNQNTQw?=
- =?utf-8?B?ZHNLeGtXRW93PT0=?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2025 14:32:24.2104
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 318e42b8-7fa4-446f-7d2d-08dd67bc0811
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CE5.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7612
+References: <20250217162659.151232-1-frediano.ziglio@cloud.com>
+ <Z7jf_YojU9tQ1Or7@mail-itl> <CACHz=Zierjby+_Q93dFeO5mjMG1aiSpyHvDshRK6=ZHY5bH-6A@mail.gmail.com>
+ <Z7xxQHVdSGwig4hb@mail-itl> <CACHz=ZgHxvCJQyJe_NJFh3YYcuW0sey+qcOEv0O-XxC8daTo+A@mail.gmail.com>
+ <Z79jhZ_BGEC6DYl4@mail-itl> <086f7e05-2cab-4a53-8ecb-dff7421e38bc@suse.com> <CACHz=ZjtjMyv5OmUT8dNHAzqrw5c7ij58quo1SuDc2ZBSjQRmw@mail.gmail.com>
+In-Reply-To: <CACHz=ZjtjMyv5OmUT8dNHAzqrw5c7ij58quo1SuDc2ZBSjQRmw@mail.gmail.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Thu, 20 Mar 2025 14:33:23 +0000
+X-Gm-Features: AQ5f1JpNY1Yald9Gt377hfv9WFdb2vOj-5ToZB7GgvuDItt6ICfKMv5xO7eG_jo
+Message-ID: <CACHz=ZjLq8vVLtLL40DjcLV5wwxyatLdy4g3rq1ifSVcnATr8g@mail.gmail.com>
+Subject: Re: [PATCH v6] Avoid crash calling PrintErrMesg from efi_multiboot2
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	xen-devel@lists.xenproject.org, 
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2025-03-20 03:49, Juergen Gross wrote:
-> Add a file operations lseek hook to the 9pfs frontend. Just use the
-> lseek_default() implementation.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+On Thu, Mar 6, 2025 at 3:02=E2=80=AFPM Frediano Ziglio
+<frediano.ziglio@cloud.com> wrote:
+>
+> On Thu, Mar 6, 2025 at 2:26=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wr=
+ote:
+> >
+> > On 26.02.2025 19:54, Marek Marczykowski-G=C3=B3recki wrote:
+> > > On Mon, Feb 24, 2025 at 02:31:00PM +0000, Frediano Ziglio wrote:
+> > >> On Mon, Feb 24, 2025 at 1:16=E2=80=AFPM Marek Marczykowski-G=C3=B3re=
+cki
+> > >> <marmarek@invisiblethingslab.com> wrote:
+> > >>>
+> > >>> On Mon, Feb 24, 2025 at 12:57:13PM +0000, Frediano Ziglio wrote:
+> > >>>> On Fri, Feb 21, 2025 at 8:20=E2=80=AFPM Marek Marczykowski-G=C3=B3=
+recki
+> > >>>> <marmarek@invisiblethingslab.com> wrote:
+> > >>>>>
+> > >>>>> On Mon, Feb 17, 2025 at 04:26:59PM +0000, Frediano Ziglio wrote:
+> > >>>>>> Although code is compiled with -fpic option data is not position
+> > >>>>>> independent. This causes data pointer to become invalid if
+> > >>>>>> code is not relocated properly which is what happens for
+> > >>>>>> efi_multiboot2 which is called by multiboot entry code.
+> > >>>>>>
+> > >>>>>> Code tested adding
+> > >>>>>>    PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
+> > >>>>>> in efi_multiboot2 before calling efi_arch_edd (this function
+> > >>>>>> can potentially call PrintErrMesg).
+> > >>>>>>
+> > >>>>>> Before the patch (XenServer installation on Qemu, xen replaced
+> > >>>>>> with vanilla xen.gz):
+> > >>>>>>   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+> > >>>>>>   Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  =
+CPU Apic ID - 00000000 !!!!
+> > >>>>>>   ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:=
+0 SGX:0
+> > >>>>>>   RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 0000=
+000000210246
+> > >>>>>>   RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 0000000=
+000000010
+> > >>>>>>   RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 0000000=
+07FF0C210
+> > >>>>>>   RSI  - FFFF82D040467CE8, RDI - 0000000000000000
+> > >>>>>>   R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 0000000=
+000000000
+> > >>>>>>   R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 0000000=
+07FF0C1B8
+> > >>>>>>   R14  - 000000007EA33328, R15 - 000000007EA332D8
+> > >>>>>>   DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000=
+000000030
+> > >>>>>>   GS   - 0000000000000030, SS  - 0000000000000030
+> > >>>>>>   CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 0000000=
+07FC01000
+> > >>>>>>   CR4  - 0000000000000668, CR8 - 0000000000000000
+> > >>>>>>   DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000=
+000000000
+> > >>>>>>   DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000=
+000000400
+> > >>>>>>   GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000=
+000
+> > >>>>>>   IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000=
+000
+> > >>>>>>   FXSAVE_STATE - 000000007FF0BDE0
+> > >>>>>>   !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=
+=3D000000007EE20000, EntryPoint=3D000000007EE23935) !!!!
+> > >>>>>>
+> > >>>>>> After the patch:
+> > >>>>>>   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+> > >>>>>>   Test message: Buffer too small
+> > >>>>>>   BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AA=
+EA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+> > >>>>>>   BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-A=
+AEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+> > >>>>>>
+> > >>>>>> This partially rollback commit 00d5d5ce23e6.
+> > >>>>>>
+> > >>>>>> Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for E=
+FI platforms")
+> > >>>>>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> > >>>>>
+> > >>>>> I tried testing this patch, but it seems I cannot reproduce the o=
+riginal
+> > >>>>> failure...
+> > >>>>>
+> > >>>>> I did as the commit message suggests here:
+> > >>>>> https://gitlab.com/xen-project/people/marmarek/xen/-/commit/ca3d6=
+911c448eb886990f33d4380b5646617a982
+> > >>>>>
+> > >>>>> With blexit() in PrintErrMesg(), it went back to the bootloader, =
+so I'm
+> > >>>>> sure this code path was reached. But with blexit() commented out,=
+ Xen
+> > >>>>> started correctly both with and without this patch... The branch =
+I used
+> > >>>>> is here:
+> > >>>>> https://gitlab.com/xen-project/people/marmarek/xen/-/commits/auto=
+mation-tests?ref_type=3Dheads
+> > >>>>>
+> > >>>>> Are there some extra condition to reproduce the issue? Maybe it d=
+epends
+> > >>>>> on the compiler version? I guess I can try also on QEMU, but base=
+d on
+> > >>>>> the description, I would expect it to crash in any case.
+> > >>>>>
+> > >>>>
+> > >>>> Did you see the correct message in both cases?
+> > >>>> Did you use Grub or direct EFI?
+> > >>>>
+> > >>>> With Grub and without this patch you won't see the message, with g=
+rub
+> > >>>> with the patch you see the correct message.
+> > >>>
+> > >>> I did use grub, and I didn't see the message indeed.
+> > >>> But in the case it was supposed to crash (with added PrintErrMesg()=
+,
+> > >>> commented out blexit and without your patch) it did _not_ crashed a=
+nd
+> > >>> continued to normal boot. Is that #PF non-fatal here?
+> > >>>
+> > >>
+> > >> Hi,
+> > >>    I tried again with my test environment.
+> > >> Added the PrintErrMesg line before efi_arch_edd call, I got a #PF, i=
+n
+> > >> my case the system hangs. With the fix patch machine is rebooting an=
+d
+> > >> I can see the message in the logs.
+> > >> I'm trying with Xen starting inside Qemu, EFI firmware, xen.gz
+> > >> compiled as ELF file. Host system is an Ubuntu 22.04.5 LTS. Gcc is
+> > >> version 11.4.
+> > >
+> > > My test was wrong, commenting out blexit made "mesg" variable unused.
+> > > After fixing that, I can reproduce it on both QEMU and real hardware:
+> > > without your patch it crashes and with your patch it works just fine.
+> > > While there may be more places with similar issue, this patch clearly
+> > > improves the situation, so:
+> > >
+> > > Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsla=
+b.com>
+> >
+> > This had to be reverted, for breaking the build with old Clang. See the
+> > respective Matrix conversation.
+> >
+> > Jan
+> >
+>
+> To sum up the failure is:
+>
+>     clang: error: unknown argument: '-fno-jump-tables'
+>
 
-lseek_default adjusts file->offset, and read_9pfs()/write_9pfs() are 
-already using that.
+Now that the minimum clang version supports this option, can this
+change be applied?
 
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-
-Regards,
-Jason
+Frediano
 
