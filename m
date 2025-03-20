@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 177B6A6A86D
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 15:26:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.922161.1326079 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69AE8A6A878
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Mar 2025 15:28:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.922177.1326087 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvGqr-0007vg-9X; Thu, 20 Mar 2025 14:26:29 +0000
+	id 1tvGt6-00006J-Nf; Thu, 20 Mar 2025 14:28:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 922161.1326079; Thu, 20 Mar 2025 14:26:29 +0000
+Received: by outflank-mailman (output) from mailman id 922177.1326087; Thu, 20 Mar 2025 14:28:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvGqr-0007sa-5i; Thu, 20 Mar 2025 14:26:29 +0000
-Received: by outflank-mailman (input) for mailman id 922161;
- Thu, 20 Mar 2025 14:26:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G4gr=WH=linaro.org=linus.walleij@srs-se1.protection.inumbo.net>)
- id 1tvGqp-0007sM-Q5
- for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 14:26:27 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4e609983-0597-11f0-9ffa-bf95429c2676;
- Thu, 20 Mar 2025 15:26:26 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-5497590ffbbso991706e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 07:26:26 -0700 (PDT)
-Received: from Fecusia.lan (c-92-34-223-1.bbcust.telenor.se. [92.34.223.1])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-549ba8a9201sm2216816e87.250.2025.03.20.07.26.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Mar 2025 07:26:24 -0700 (PDT)
+	id 1tvGt6-0008Vp-Ko; Thu, 20 Mar 2025 14:28:48 +0000
+Received: by outflank-mailman (input) for mailman id 922177;
+ Thu, 20 Mar 2025 14:28:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=B8C5=WH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tvGt5-0008Vj-3M
+ for xen-devel@lists.xenproject.org; Thu, 20 Mar 2025 14:28:47 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a19ac0b3-0597-11f0-9ea0-5ba50f476ded;
+ Thu, 20 Mar 2025 15:28:46 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3913d45a148so727050f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 07:28:46 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d43f55c99sm50948935e9.24.2025.03.20.07.28.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Mar 2025 07:28:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +45,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e609983-0597-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: a19ac0b3-0597-11f0-9ea0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1742480786; x=1743085586; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XvoMtFQu/5mLGfm/YlEYZey6eEGMtp23wegCaBbXJv4=;
-        b=lQDOKy5uKb17/Ey1SKQ7kCtGdmLpMMH4Ad87cPy7nubl+zLDdBIr+DEwfGiTZhivUh
-         GGWwsld/e6bCbWdKzDZ8DE126Ib/XGrH/3RVNqPJtcMlo+vTYCe/WxvRPryaawCbpJOl
-         0moyijVWVNavkkkOBIZQQWz0xmd2MhEmkOvnjXbGNSIOXV419AprZORKvErXiM5CFrUS
-         q24dl4s7wkIhwDfXo4s/ZpSLRhKTb7JObW2MiFUvbowzTt9ruw8SwFgE8Ut83b8f9jyT
-         f84Oa7wbaWEImWJlOXoq+c+lPbpc1DfiLSbLRoGmCv7iN21JXzc2k5mIjL86fxM3a13F
-         YlDw==
+        d=suse.com; s=google; t=1742480925; x=1743085725; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=cdx2m9LqzoiNWzhkOoBPZfLMpnbrwdRplBZHmpwIuKw=;
+        b=TuDyQHUvLG/yCIqRF1ThD0ov/mCkuBiCoKlpwqHPSwjVYV6Fzx3O509RzpiYudTgBw
+         LhQZujfC/r7CMAJnp1Cqia/PE0yNaf3xz/DxzOA//SynB3eRS9Ecz5F1Z0QoDfZGOLOA
+         DNRDnOlv6czXOE7a70QObhkzsyFNcXzPoS+bMgvGLfzUjEkzku83VdUIwx1cSj7mPJfE
+         REpuAhsdfSiek9ECUMC61jLJ0yP1YqP31ymnuN7G3C3Vp9ZduGRuzjaGI0no7a9x7vhU
+         N4Vdpr2xMtQa+XOyhpsjuqkSKHTtJhCrjhUg6h2esVC/I4zb875yyWqnz/Kxu5VeBuh4
+         6sdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742480786; x=1743085586;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=XvoMtFQu/5mLGfm/YlEYZey6eEGMtp23wegCaBbXJv4=;
-        b=FIXeeg6RuyTU7jxBi0tGH6nNNXM4+w01MI2/C/8/mz56ChCvvBXQbSVcaNmTv8dRpe
-         Vfm4knt9i0qP2yrtHg0znRnCY8q1nklWf7imNkMGjJb+83SXBi7/K90OMahBCYkSVQ9B
-         XiJCIKEdCfuWswhgaIavD1i0JdgxI+qbyarLtKl9jDfuzOgWfOq378JRDHCpXq1+ePea
-         KEeT7xPShz3MOnXmlI35Y+Gg7/KNsKrqVOnudubDAbIvtaK6IXRKNyZEys9X+o1vcUh9
-         h1y6M+0yT/xIOPaAAlx91bQG1Fm9oVS69oGuol3pro+ZjCmh8jCIu15M1wE1LCxAThll
-         SlmA==
-X-Forwarded-Encrypted: i=1; AJvYcCUVGfhcjGznnE2Cb78d5yNM4aAxQGo0fi9GjAzCubvh3BqQUjP4aclDiaj7A/AQcBjUmwBxJma0wsA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyABPpLbmodd6+oi2JjK30z1TOz7riADEm8yS5eA9MqD9QRWQJj
-	k3h6lvZWHjLNhXqN288cCcDoHq3rnvSukKLd1b6xUtki3m0LCDbfOH35jZnOGEw=
-X-Gm-Gg: ASbGncv0thZFxhDTFr4CHuUAs37BHtQp73c1EOlon+1cnRI+QrFu741bkBeXsJ5yR2t
-	PAw2mEtXXTdVUDBlwQRupAbpDHGuU2QEe2Es/WvzyZvCkSFMF1o2YrHqHZLFVk/REh129K9gDka
-	Uwd9xNuOOs/+qReOgX5X29FLTJ5SwPrC2GlY6cfvYb940Li9ApJwd9Ndm6SF6x5WHI5aDID6jXR
-	/bYITp+rtV+SgUa2/xiNUxdbO9dm8ExeFK1D4ZXWFWeIR8qJ+luoYh0vFZbx/snwK3oLySt1iO2
-	ptTnvfA5T1mV7/H3RQgIlPSXzWxlCFEUJJU+A7Nit38tSISxhfc0KBpTngTijBKN3vYEl6DrYYH
-	CfJjI
-X-Google-Smtp-Source: AGHT+IGJdiwH3GLesSTdhfruK4DZmmmGPbFFRhIvLmZNGlq+ysSxYFDz9Vi7Dj6qQxxwk7XjYXZifg==
-X-Received: by 2002:a05:6512:1153:b0:545:d70:1d0e with SMTP id 2adb3069b0e04-54ad061ba69mr1646599e87.3.1742480785393;
-        Thu, 20 Mar 2025 07:26:25 -0700 (PDT)
-From: Linus Walleij <linus.walleij@linaro.org>
-To: catalin.marinas@arm.com,
-	will@kernel.org,
-	oleg@redhat.com,
-	sstabellini@kernel.org,
-	tglx@linutronix.de,
-	peterz@infradead.org,
-	luto@kernel.org,
-	mingo@redhat.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kees@kernel.org,
-	aliceryhl@google.com,
-	ojeda@kernel.org,
-	samitolvanen@google.com,
-	masahiroy@kernel.org,
-	rppt@kernel.org,
-	xur@google.com,
-	paulmck@kernel.org,
-	arnd@arndb.de,
-	mark.rutland@arm.com,
-	puranjay@kernel.org,
-	broonie@kernel.org,
-	mbenes@suse.cz,
-	sudeep.holla@arm.com,
-	guohanjun@huawei.com,
-	prarit@redhat.com,
-	liuwei09@cestc.cn,
-	Jonathan.Cameron@huawei.com,
-	dwmw@amazon.co.uk,
-	kristina.martsenko@arm.com,
-	liaochang1@huawei.com,
-	ptosi@google.com,
-	thiago.bauermann@linaro.org,
-	kevin.brodsky@arm.com,
-	Dave.Martin@arm.com,
-	joey.gouly@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	xen-devel@lists.xenproject.org
-Cc: ruanjinjie@huawei.com,
-	Linus Walleij <linus.walleij@linaro.org>
-Subject: Re: [PATCH -next v6 1/8] entry: Split generic entry into generic exception and syscall entry
-Date: Thu, 20 Mar 2025 15:26:12 +0100
-Message-ID: <20250320142612.396250-1-linus.walleij@linaro.org>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250213130007.1418890-2-ruanjinjie@huawei.com>
-References: <20250213130007.1418890-2-ruanjinjie@huawei.com>
+        d=1e100.net; s=20230601; t=1742480925; x=1743085725;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cdx2m9LqzoiNWzhkOoBPZfLMpnbrwdRplBZHmpwIuKw=;
+        b=tN+Rj5IHpjphqMchNe1g8Xf/vSdjFA/QfKN6OxuFLeYpkrsHoxnFYyueaNGFwb3A7+
+         f4iBFqqURF6YNBWrnSaKCRgBNaepYCp/B1W6Yn55aniR0iTihkWgYlWmsaHKKlIdlzq4
+         l45r9/AhPoG6gWX2D2MkmrL+OMUBdF0zG0tOyZZpq0YF6uBY3++2fJJnoneKbtiqoowI
+         8Bo859zXqEA0gchTtXc6S/i6b/gk253COcVrUoh5hyDFDT+SBiX0cbcT140asnuzi+qW
+         h9WVbcp776qKqm/aHFtCJ+1in001nA3/VlJLgsH6ra0RRNJ9bxkPP/eW3oPfKaNF00jF
+         LFdQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWVdgVlxiWgSVa12clfuX7sgRFz5LsbAd/mmbwWavtGF/B45+m0q0YKnA+y6RsffaKV2kvYuLA+bYM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxrDaHACQmr1v49am4SqSRMB8aed9VzyJAJbYTv0C+GvQeg6Ve7
+	qjc/WPE2jGMvXVknnYojhwvTbpYGfyvUG75thk2Du3nwykbCIo6VoRwQl02HKQ==
+X-Gm-Gg: ASbGncvInDwRpXQCWzxcH2P5MgD9bfQ/EYSEPkv5fWp+OjrZNPwng1eu+haohow3PbB
+	pR7CUU8AM2ZyPRY9vAkymIrrlzUJuhkKyq5F1zSsgB0+xyfO3OWpPodMUVoYVkY8b23Llld2s51
+	GM0k/FLx397hiTCtuEt1XIBF2vVwtHkU7TSc+seDL1vnyMQDUXxBsLcmiEkv0potTlmFJzSjiu7
+	KYsAqOdKBid3sSXCq9zPvB/j/4v5FwGxF3eLWrTz7sPZB5vJeEdgBFiOowmKYtRYMRPeme7iY6k
+	DP7iMcvr/X3N2D9qceOlOCeAk+nPL3599LdslY2zFwDfd/3ZIlGqYTKZnxxB6dc/Bf3t6yAjgOj
+	GfrvFjJx/CaUlsK2JfFRI++GBvIiOTQ==
+X-Google-Smtp-Source: AGHT+IHK14HVfnDSnobjLaM0iJ7TMWkWHhcx9aD+TUczYLe3vtwcmGQa+QjwOraGWzdhLceByBElQw==
+X-Received: by 2002:a5d:5848:0:b0:391:2995:5ef2 with SMTP id ffacd0b85a97d-399795d8beamr2509020f8f.37.1742480925267;
+        Thu, 20 Mar 2025 07:28:45 -0700 (PDT)
+Message-ID: <487d57c1-fcea-4cac-bf2e-53fab739bbc5@suse.com>
+Date: Thu, 20 Mar 2025 15:28:44 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v1 2/4] x86:svm: rename svm/nestedhvm.h ->
+ svm/nestedsvm.h
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1742465624.git.Sergiy_Kibrik@epam.com>
+ <ad1cc03c3544235426b73e3779edb36653f25287.1742465624.git.Sergiy_Kibrik@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ad1cc03c3544235426b73e3779edb36653f25287.1742465624.git.Sergiy_Kibrik@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> Currently CONFIG_GENERIC_ENTRY enables both the generic exception
-> entry logic and the generic syscall entry logic, which are otherwise
-> loosely coupled.
->
-> Introduce separate config options for these so that archtiectures can
-> select the two independently. This will make it easier for
-> architectures to migrate to generic entry code.
->
-> Suggested-by: Mark Rutland <mark.rutland@arm.com>
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+On 20.03.2025 11:36, Sergiy Kibrik wrote:
+> This is private header for SVM code, comment in header and file's changelog
+> suggest that intended name was svm/nestedsvm.h, so perhaps a small mistake here.
+> 
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> ---
+>  xen/arch/x86/hvm/svm/intr.c                       | 2 +-
+>  xen/arch/x86/hvm/svm/{nestedhvm.h => nestedsvm.h} | 0
+>  xen/arch/x86/hvm/svm/svm.c                        | 2 +-
+>  3 files changed, 2 insertions(+), 2 deletions(-)
+>  rename xen/arch/x86/hvm/svm/{nestedhvm.h => nestedsvm.h} (100%)
 
-If the generic entry maintainer (hi Thomas) thinks this patch is
-OK it would be nice to have it applied because it will also make
-the ARM32 transition to generic entry easier as we can work on
-exception and syscall entry each in isolation.
+Yet then, if already we rename it, why not to just svm/nested.h?
 
-Acked-by: Linus Walleij <linus.walleij@linaro.org>
-
-Yours,
-Linus Walleij
+Jan
 
