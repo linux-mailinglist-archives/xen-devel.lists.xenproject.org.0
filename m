@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CE4CA6B4A6
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 07:52:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.923348.1326886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48D01A6B515
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 08:32:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.923360.1326896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvWF7-0007YH-TQ; Fri, 21 Mar 2025 06:52:33 +0000
+	id 1tvWrg-0007Ho-RD; Fri, 21 Mar 2025 07:32:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 923348.1326886; Fri, 21 Mar 2025 06:52:33 +0000
+Received: by outflank-mailman (output) from mailman id 923360.1326896; Fri, 21 Mar 2025 07:32:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvWF7-0007W9-QQ; Fri, 21 Mar 2025 06:52:33 +0000
-Received: by outflank-mailman (input) for mailman id 923348;
- Fri, 21 Mar 2025 06:52:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tvWrg-0007F7-O2; Fri, 21 Mar 2025 07:32:24 +0000
+Received: by outflank-mailman (input) for mailman id 923360;
+ Fri, 21 Mar 2025 07:32:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z6G0=WI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tvWF6-0007W0-Gz
- for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 06:52:32 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f927b8d-0621-11f0-9ea1-5ba50f476ded;
- Fri, 21 Mar 2025 07:52:31 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-38a25d4b9d4so768512f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 20 Mar 2025 23:52:31 -0700 (PDT)
+ id 1tvWrg-0007F1-0N
+ for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 07:32:24 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a04aec5d-0626-11f0-9ffa-bf95429c2676;
+ Fri, 21 Mar 2025 08:32:21 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-390e3b3d3f4so962849f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 00:32:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9a31a7sm1534605f8f.23.2025.03.20.23.52.30
+ ffacd0b85a97d-3997f9e6450sm1614814f8f.70.2025.03.21.00.32.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Mar 2025 23:52:30 -0700 (PDT)
+ Fri, 21 Mar 2025 00:32:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f927b8d-0621-11f0-9ea1-5ba50f476ded
+X-Inumbo-ID: a04aec5d-0626-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742539951; x=1743144751; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742542341; x=1743147141; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oFBVHx9ww6oNU9A9k2GSmApwKYbwXdRL1usCo8RhrhQ=;
-        b=F+/iDquKqZqjz03UvbZV8tR97ps8GAnVdSsLyQnx/9h9YCZAtldB6iDczw886QlnxK
-         mvSFfQICQyDoM9xtqJmW9jY6Ks7nNJOqE8HZFOnbKBPgv2yIuBrmt9AQpdyd/Sfcr7vN
-         Kx19bcyv+sfMR2TxvLU87Xx7bjjVkC6SJNGCjACIOE4SrSg8TPZz090XsdrC/7vku9ZG
-         KXjoP+plN1KCZvxw2A8dwn347oZr0RHRLyYoEz7Dxs6eTyJzjby+JAsDZTv430LOTrGV
-         Ms+EtMEMsE6VPgfuI2x96noNN5Od8hiJa16nfP9/KQvo3XH4w3/sldT/NwsLaJ2mBC+Y
-         lbrQ==
+        bh=ydoh6TK36mdQb4Y362sVcQIU7fJb2rErrQh0V8h4DX8=;
+        b=FfkI6hVA8iKH61od9JkCFNmSlNUhhu0fAR6E582LS1A20jOKQB7C50M3aPSuT8m9z8
+         yGylXeXNgY809JbqqGi6MCEPw2pBtuGMgqHrWKPNXOpxfVtBvQdUQpdK1vuaQwdlWOz8
+         eW9u+dfR+Eo2/mlMX9+pN9wxCjlS5MeU9VSFqOxJRbBNHvgNBhk/gJJ/OPPFDC3GIMXM
+         Sk2V0RO1Wi5il9EDD31ZSFHeXMSOdh6XSWTuOps+Dqd5AfgHC62gt9pDKBpS5U5vjib5
+         zUMnRsR4rmqw0eB+SeIJ1jRq3lsFxnEZtz2gl2x43bIOVlDQwLO/X3hyJSrKMr6o/ll7
+         owSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742539951; x=1743144751;
+        d=1e100.net; s=20230601; t=1742542341; x=1743147141;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oFBVHx9ww6oNU9A9k2GSmApwKYbwXdRL1usCo8RhrhQ=;
-        b=Cbl11oWfcwXfJZJ30Bfjm/p/gwi+VB9KB/czlf/QBi+uuR75jqJq2uQLxsHhA3gQy4
-         OFSrz362JlCC9khkAthVPSsbwzmu0r9EY/gRplYXx+fWucU+pYXO3PI699PSWjz1stbU
-         K2HKKSdsvcJkcP4ajgqcZlpkOLaG5Zn/7TYCX5OVr4/s6AvvP9xU7AN3q9Ob9KLgQjdg
-         LK/3sQsYRsqcUdB3wOgHCMERUZUadaN9Gx3olIm8t70NgZG+yyaRK3GpnPyBMX5mGGEP
-         IfovzuwhZqUamfk/eBDyT0gniTjG6jBGy0VmvqniZjrifUdlmBYPm9HzVYLYsvyA2k45
-         LXAA==
-X-Forwarded-Encrypted: i=1; AJvYcCWYmgxqXwn74hA4TzLxMzL2V2fDL7w39vsbA04To4mlsl45qpNBJ9LyVHGpR89c8P6K/IlP6lVEwvM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYyCvk+21uyIP+kF5+4Pos83fl9AHOEqw2B4lIpB6ibGsBC3qS
-	DXf8C5Jidlh8oJsVcLvzYin7YtTSJaGp9bldyjNWKxTq/vX9mnFalWWssmj/Eg==
-X-Gm-Gg: ASbGnct57Uu8WeGxygt9KnsAPLOmzDo5b7LBMg3tG1npwYjVKCFoVszcNOncFnNs2Qt
-	a60oA+kLZh8NCzeRUL3OGvsirD1GGkBSvOCvkKrapSvM/gGRhp+xo+bz+N7QG5y7OpI9u/Gx7fb
-	jxBacnDXrgFFp04KYjecple4Jciln1WJegVF9jdDPO0HpRXlBBibpBDqVvsbKamH94sTvdVA4Tk
-	ztseHpFufr4DnD3XhMq83Bzc+TvvSOkcINqf7OepfycXNiT1IP9DTEbfx2haDCkxSEiKaGcztXx
-	5nF3gDvVfmCyVqUaBb1vK/avERlgq8rmT3oeceg3GN5BEsda2AkgFUd0DzQ6mwlWdbbU4SrEflL
-	2ghJQmNJSpa3qEwzyARkAqTdb9Pdacg==
-X-Google-Smtp-Source: AGHT+IEat8PQc+HKfLEcTs9pgU3vrU60xjZgWybvO3nZuAL+vmFJK3LoOhncKLJA0dDevspYNXPf0g==
-X-Received: by 2002:a05:6000:42c8:b0:391:4873:7943 with SMTP id ffacd0b85a97d-3997f92901emr1338767f8f.32.1742539950916;
-        Thu, 20 Mar 2025 23:52:30 -0700 (PDT)
-Message-ID: <c2923773-ae95-4baa-a441-6bedc25be32f@suse.com>
-Date: Fri, 21 Mar 2025 07:52:29 +0100
+        bh=ydoh6TK36mdQb4Y362sVcQIU7fJb2rErrQh0V8h4DX8=;
+        b=JFkUayuNApJwPTTgOWQT/63elM1xCU55o1vj/aPX7MPEKPXvtZLj0UNNqeaLfJecOt
+         0bfjZID/dJpTqeIU4GHGRCfsUMyoNyDGSoiqZPTsTR+2xF5hBskzSMb9TS+T6bb2lCcz
+         P/NE0bweRklzkGIggKNvx462chpNqNFFm0a+AAEF7jJBjjWpK94meWmyC+heW9OcCjFX
+         G0iwh/CRznnbQofafE41xnvDUWbOpT3BThCucJP6kOtH1QKlAatZR+DTMribmQCFFqod
+         LnJPdxsAtKrEDiDG3CZuBlXIhwXvHIrcgWjfPbvFRU8JrDDWUu5XtsJn7L8HUCBySCfA
+         QkVw==
+X-Forwarded-Encrypted: i=1; AJvYcCXzyCKtmG0pt8FV+fq1MJdi4i62JGc8giz/IP1Vnb4Lwn9XjQ6vNGgzsWbvg05R+xaBRTr505X+e7s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwF2bTT3tG4BQZrHio6xlqUPMbezTYSV4ZOxjlKitlwu/ExdhBQ
+	EAt75Jv5DEFnNlZyAtmL7of2T6TRe/pKoLJmwZzioKwfaamyPY4EK8BoXQ9ZUg==
+X-Gm-Gg: ASbGncvt19JBTlZPuSjUFo7rxZkM7BPT5sKUpMDDcISvOvVjdWSM8Tfufj+LhiQFFBO
+	CCBG/8/d9vHhuTpJ1EIMBxGajY2x62tP5oaK58oQCUJTSQy2Ea3Flj6gRA8Z2puiaeA+8AZA5CC
+	cLvXVuEmg++x9ZtJB9UPsXIreSzmGIFiGV9Jw0sIFLqYTCGZBhyfge0mY07gZJSaaiUi8s+NtrV
+	z5c7pvf6AbxxwRHDhIhPloXPzPfsHcDBqDZkb2tww474EEuD8mKjg/ESaZijKvFPsNngcqcXDQQ
+	IdKG/Rlv4BsBwXV8T3fsU8coGyVT1cpjZQ80PXol3F0rEc4rAO2oS2QSsl7273eARYkrzUUmgtg
+	mo/LOy/VZRYXW5lepUTwqCBOMBZ642Q==
+X-Google-Smtp-Source: AGHT+IGfNK0dwYmICAGa9QKqAncQ1ULOnwm2nisMX2bQeiN7d9cc+MlJL9UhDKwSLmIoBMYkJbF8Vw==
+X-Received: by 2002:a05:6000:178c:b0:391:48f7:bd8a with SMTP id ffacd0b85a97d-3997f908c46mr1482357f8f.30.1742542341212;
+        Fri, 21 Mar 2025 00:32:21 -0700 (PDT)
+Message-ID: <f1222c54-5a21-4266-bff1-292d12154b2d@suse.com>
+Date: Fri, 21 Mar 2025 08:32:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] x86/traps: Introduce early_traps_init() and simplify
- setup
+Subject: Re: [PATCH v2 4/4] x86/traps: Introduce early_traps_init() and
+ simplify setup
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250317192023.568432-1-andrew.cooper3@citrix.com>
- <20250317192023.568432-5-andrew.cooper3@citrix.com>
- <801007e0-2c02-48f8-856d-8f06eb698fb5@suse.com>
- <29d645e3-f8ae-4f55-8371-aa67da295ff8@citrix.com>
+References: <20250317192023.568432-5-andrew.cooper3@citrix.com>
+ <20250320201732.84094-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,29 +119,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <29d645e3-f8ae-4f55-8371-aa67da295ff8@citrix.com>
+In-Reply-To: <20250320201732.84094-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 20.03.2025 18:56, Andrew Cooper wrote:
-> On 18/03/2025 3:26 pm, Jan Beulich wrote:
->> The sole dependency is percpu_init_areas(),
->> which runs - as even visible from patch context here - ahead of
->> early_traps_init().
+On 20.03.2025 21:17, Andrew Cooper wrote:
+> Something I overlooked when last cleaning up exception handling is that a TSS
+> is not necessary if IST isn't configured, and IST isn't necessary until we're
+> running guest code.
 > 
-> percpu_init_areas() isn't even a dependency.  Notice how it only starts
-> from CPU1.  CPU0 (which is what this_cpu() refers to in both of these
-> functions) is correct (i.e. 0) at build time.
+> Introduce early_traps_init(), and rearrange the existing logic between this
+> and traps_init() later on boot, to allow defering TSS and IST setup.
+> 
+> In early_traps_init(), load the IDT and invalidate TR/LDTR; this sufficient
+> system-table setup to make exception handling work.  The setup of the BSPs
+> per-cpu variables stay early too; they're used on certain error paths.
+> 
+> Move load_system_tables() later into traps_init().  Note that it already
+> contains enable_each_ist(), so the call is simply dropped.
+> 
+> This removes some complexity prior to having exception support, and lays the
+> groundwork to not even allocate a TSS when using FRED.
+> 
+> No practical change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Oh, right.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> I still intend to remove percpu_init_areas().  It's all build-time
-> constant; it just needs doing by the assembler, rather than the
-> compiler, as (-(long)__per_cpu_start) is not an integer constant expression.
 
-Except that this value also cannot be expressed by a relocation, afaict,
-so the assembler would choke when trying to write the object file. (Same
-for x86'es alternative initializer.)
-
-Jan
 
