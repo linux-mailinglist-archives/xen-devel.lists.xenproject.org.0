@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D78ADA6BEF4
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 17:01:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.924254.1327544 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE74CA6BF92
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 17:18:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.924275.1327553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tveof-00014r-Cc; Fri, 21 Mar 2025 16:01:49 +0000
+	id 1tvf4M-0003kK-M5; Fri, 21 Mar 2025 16:18:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 924254.1327544; Fri, 21 Mar 2025 16:01:49 +0000
+Received: by outflank-mailman (output) from mailman id 924275.1327553; Fri, 21 Mar 2025 16:18:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tveof-000128-9k; Fri, 21 Mar 2025 16:01:49 +0000
-Received: by outflank-mailman (input) for mailman id 924254;
- Fri, 21 Mar 2025 16:01:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tvf4M-0003iR-J9; Fri, 21 Mar 2025 16:18:02 +0000
+Received: by outflank-mailman (input) for mailman id 924275;
+ Fri, 21 Mar 2025 16:18:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1tcq=WI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tveoe-000122-7z
- for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 16:01:48 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cac5146a-066d-11f0-9ea1-5ba50f476ded;
- Fri, 21 Mar 2025 17:01:47 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-39727fe912cso837395f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 09:01:47 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f995423sm2684464f8f.20.2025.03.21.09.01.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Mar 2025 09:01:45 -0700 (PDT)
+ <SRS0=lMoj=WI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tvf4L-0003iL-I8
+ for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 16:18:01 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f62aff11-066f-11f0-9ffa-bf95429c2676;
+ Fri, 21 Mar 2025 17:17:19 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5e6f4b3ebe5so3727508a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 09:17:19 -0700 (PDT)
+Received: from fedora.. (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5ebccfb4471sm1596006a12.47.2025.03.21.09.17.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Mar 2025 09:17:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,221 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cac5146a-066d-11f0-9ea1-5ba50f476ded
+X-Inumbo-ID: f62aff11-066f-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742572907; x=1743177707; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cysste13bfccSTnoc0kpZHpSKLeW95jO3mqyfHCpIS8=;
-        b=jk+75KDYxGZelIrCQJcMof5bVtJNTmO9iXn3qyFa2wzoY5EK6VAP14Hhh5bnp85O2s
-         zh79zr91nLaO3jqZxtxKtu5+6PlNKiLfaggTF0W6yD9QLx9nLSSv7Pqj/ovH1QJyvZMk
-         wqI+XPVxvvFm4NExF2NKtd/kFvY5/EnYzf4X8=
+        d=gmail.com; s=20230601; t=1742573838; x=1743178638; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=SZzyajWiW/Z/3tgYFJ64xmugqH4ILb34Uv95ykdmDZA=;
+        b=FmG/jzqwQRD+EGqHVALAvEvhLr8RIDWfGX1z1x/Ca5Es0BLiSDQqZ5S2hi2tU3/weo
+         QB42/V665dCKYCvdIrjukBsgXtXk8jFMTQ8VQwlEtlBfnrja4ZE3sanwqMLKmPqtXIMF
+         MNgD/DWI0+JJaKKfQ6huUFsjWBW80Rw5k7GVmGjSavPSGm0BXu+ZtX1csbmsupqbWCI2
+         6WApGLy0uCc76XX7cF8CbZcztBRzcKhzhiRNtD1niPXN0CUUXbj+hAgNHGhL6NHzYsIT
+         kiAkv0mR2Bcqb9HnJ3clflyx8+a05uzqWw8JO6FaZKWkYIcsf50rP438AVQc/3TMn33d
+         irVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742572907; x=1743177707;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cysste13bfccSTnoc0kpZHpSKLeW95jO3mqyfHCpIS8=;
-        b=rx8fKez1PLKuPY7szVsXNvBzGsHp+VqNxAHi3eTBcFxdrUCeWsGnJEBLkFhbdimlYp
-         naNs+ak/yLhNELNbVX/jx/+eaxdZQ8P9s9CZSx2FU1+fG3531eGOI49ice6r/zvabyiS
-         ues5v6x9MVqcE5Dj4XNXXHaNTMtf1zkbz2Vth5Lcx5jh4Y0E8nTalSqmPgJnUiMfxl/q
-         JIgatduFSujCvHil2xuMmo7hnHJ2+x+qcOm8o4aq5vAfwxh42hIXbVzV7rSu0vblHoi9
-         O489x+mlf9lay1l8j0r76HS2uPM9UCQzpWPxUqSMJLvr9Qku+HEsvl69SetVU4X6axBD
-         SdeQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU/ODbBnfdS/V2cpSQD8/QM4I0oCCnTAOsKHZF2zo+8XX0oLgBLL77xgvKJOnx1PuGMpv96AlefzeY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy17BwJ5e7nt80uEtORlXHz20XwH1VjKjSO4Ebq0YeWrsumj7xR
-	jWxB6A1qn2t3K+1xjJ54fhoIUSV4pAbqPeLkhqPwdUs49TF1tuVJf0Qf5rtJe6T0nNOSQ7dFQnc
-	r
-X-Gm-Gg: ASbGnct3NIsfLb0Vweh7RDq50LtvQc08ehWRiPDYycSeJQrZjdXRZAvm8/MFmQCUqnK
-	/pX1s0pFV7SbofteGdekuqw0ZSbj+F3lHBDaNTI25tR1tI86h85hIMv/7ZZEc6s2DRC1tCM+sPO
-	GoNiTtmC1uun2B+nvgKuk50gvTkAFy+oVrvKIH+TsLJQJ4k3Vx+cxcXDDQ6KeU3c/AWAOC6sfoN
-	RTU127KmTdOCMjpC2j0ZoEatsb8yy14BOZ9IxWoIhmO7v2p3prZsoU1x4VKcXSRYQv1Zq930s+8
-	DuH9ukqwAE6Mz4W89ZpYTrG1uW0o6mzx1mexDqG/oUNIbLejsZoBAWmwJlOJ8JUIPyfQhRLtwPR
-	0DIoAX04tJA==
-X-Google-Smtp-Source: AGHT+IEmx39GD6Xel0I+OOsZHaLeKTzjt6unvx8EW4gA6ruw+Ac+y2kgC1Ft+8pO/u57C0e0GLObkA==
-X-Received: by 2002:a5d:64e3:0:b0:391:3f64:ed00 with SMTP id ffacd0b85a97d-3997f903a7fmr3358235f8f.26.1742572906408;
-        Fri, 21 Mar 2025 09:01:46 -0700 (PDT)
-Message-ID: <9385c155-eb01-4247-8bf5-6e0758f79749@citrix.com>
-Date: Fri, 21 Mar 2025 16:01:45 +0000
+        d=1e100.net; s=20230601; t=1742573838; x=1743178638;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SZzyajWiW/Z/3tgYFJ64xmugqH4ILb34Uv95ykdmDZA=;
+        b=E/Ja0yQGZBrUGILSd54l5z4bqU2QxBESm1WnSSSwdPu0GXqvF20wwZymkzJ3wGzQOu
+         2YQq8d9TX5uI/V7abnC/1EMVGONb+/8txExoLg/kLNLUOEq9QkchGP6UzXqvH7wIhcXo
+         mMjEVs95uJF7JwOD+wbPbRYNsh7yxG/8NRCPDcnXq2hmPbuXodMG9ziyIfRLkfJrvESz
+         uzuZUCP8JfyqzFpNe1C13OmnPh9l2Ej+QTnYVebtsHwE5RUlFXREdfK9ESwK9xcKufof
+         Ifqsx6dnDfyML51ultAsPRiBzVLMLYmR27isE3/EeefSVwkoTfdU0VaAtFnxEUXZ9ARv
+         M7sg==
+X-Gm-Message-State: AOJu0YzJmZo0M+QIW8EwxAUKqYdtiycOR2U4H0BSUB5toXatKRGuB6Mr
+	e9lYYl3INEGSWfomzPExJ6pKSibCYbIRUPnG9YTCfkpSFV1y2m4lzeCr4Q==
+X-Gm-Gg: ASbGncvwqD2CvQDNBuiASnebelBcfJ5PPeFnNY3gNZElz2b6W/Le8Kfzs/Vn4ELa/KE
+	/eeLLpfRkUIoQ0ZbPQNpVBNosguON3vmewUxptbQbIN55+304jFM0kQtECcAUaM/6Q9SLXkz5fS
+	XSHQNO0DrK1KRJJjRlPsYcf5eObxd6Gks0mEnmDgnMiWh8bEScPuGOfuE4j1RSOj5z8gvf40wIc
+	segGiam6pJglWjRWSG1zbynu3FYHgHHeaR/BmLuYbSjiN1sfW30KpLzbjv1I1oqTjfWaqQnblUV
+	YcmGs+okBL+41BjG+4bn62629ITgST616UPxGZvhFQkf+p4QQg5n4h4Nw1u+heBcbxxFYebAyki
+	Cv2ppokz/duPow1Qjf+orlRJO
+X-Google-Smtp-Source: AGHT+IFrXfezooAuRdb8t6XIiQhwniKeEYXtqShxtBBudT5xqNcQ0D5dk+xycWqKI7n+SAqQXl/Low==
+X-Received: by 2002:a05:6402:3584:b0:5e8:bf2b:a5ab with SMTP id 4fb4d7f45d1cf-5ebcd4f3852mr3605725a12.25.1742573837878;
+        Fri, 21 Mar 2025 09:17:17 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Milan Djokic <milandjokic1995@gmail.com>,
+	Slavisa Petrovic <Slavisa.Petrovic@rt-rk.com>
+Subject: [PATCH v2] xen/riscv: add H extenstion to -march
+Date: Fri, 21 Mar 2025 17:17:14 +0100
+Message-ID: <0a072ab36b54ea7c4f9a6f94465fb7b79f9f49b2.1742573085.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] x86/domctl: Stop using XLAT_cpu_user_regs()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250311211043.3629696-1-andrew.cooper3@citrix.com>
- <20250311211043.3629696-6-andrew.cooper3@citrix.com>
- <703471bf-d5e7-4f97-b17e-61dffdcb828d@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <703471bf-d5e7-4f97-b17e-61dffdcb828d@suse.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 17/03/2025 11:38 am, Jan Beulich wrote:
-> On 11.03.2025 22:10, Andrew Cooper wrote:
->> In order to support FRED, we're going to have to remove the {ds..gs} fields
->> from struct cpu_user_regs, meaning that it is going to have to become a
->> different type to the structure embedded in vcpu_guest_context_u.
->>
->> In both arch_{get,set}_info_guest(), expand the memcpy()/XLAT_cpu_user_regs()
->> to copy the fields individually.  This will allow us to eventually make them
->> different types.
->>
->> No practical change.  The compat cases are identical, while the non-compat
->> cases no longer copy _pad fields.
-> That's fine for "set", but potentially not for "get": Someone simply doing
-> memcmp() on two pieces of output might then break.
+H provides additional instructions and CSRs that control the new stage of
+address translation and support hosting a guest OS in virtual S-mode
+(VS-mode).
 
-It's not a fastpath, and I'm not looking to not break things, but I was
-expecting it to be safe.
+According to the Unprivileged Architecture (version 20240411) specification:
+```
+Table 74 summarizes the standardized extension names. The table also defines
+the canonical order in which extension names must appear in the name string,
+with top-to-bottom in table indicating first-to-last in the name string, e.g.,
+RV32IMACV is legal, whereas RV32IMAVC is not.
+```
+According to Table 74, the h extension is placed last in the one-letter
+extensions name part of the ISA string.
 
-The pad fields for cs (inc saved_upcall_mask) and ss get lost on the
-first exit-from-guest, and the pad fields for the data segment get lost
-on the first schedule.
+`h` is a standalone extension based on the patch [1] but it wasn't so
+before.
+As the minimal supported GCC version to build Xen for RISC-V is 12.2.0,
+and for that version it will be needed to encode H extensions instructions
+explicitly by checking if __risv_h is defined.
 
-So while there is a change here, I don't think it's anything that
-current code could plausibly be relying on.
+[1] https://github.com/gcc-mirror/gcc/commit/0cd11d301013af50a3fae0694c909952e94e20d5#diff-d6f7db0db31bfb339b01bec450f1b905381eb4730cc5ab2b2794971e34647d64R148
 
-Furthermore, when we get rid of the vm86 fields, we don't even store the
-pad fields anywhere in Xen, so they're going, one way or another, by the
-end of the series.
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+Changes in v2:
+ - Update the commit message.
+ - Use check-extension macros to verify that 'H' extension is available.
+   
+   Also it works for clang.
+   I verified this by compiling Xen with Clang-17 (the minimal necessary
+   version for Xen, as RISC-V64 support for Clang starts from 17.0.0:
+   f873029386("[BOLT] Add minimal RISC-V 64-bit support")).
+   The changes can be found here:
+   https://paste.vates.tech/?015af79b1e7413e6#3fsRb4QbjYDPseK7FU8wbaCWbsuu8xhANUmuChCfDoFD
+---
+ docs/misc/riscv/booting.txt | 4 ++++
+ xen/arch/riscv/arch.mk      | 6 ++++--
+ xen/arch/riscv/cpufeature.c | 1 +
+ 3 files changed, 9 insertions(+), 2 deletions(-)
 
-Finally, disaggregation or not, this is an unstable interface so we do
-have some wiggle room.
+diff --git a/docs/misc/riscv/booting.txt b/docs/misc/riscv/booting.txt
+index cb4d79f12c..3a8474a27d 100644
+--- a/docs/misc/riscv/booting.txt
++++ b/docs/misc/riscv/booting.txt
+@@ -3,6 +3,10 @@ System requirements
+ 
+ The following extensions are expected to be supported by a system on which
+ Xen is run:
++- H:
++  Provides additional instructions and CSRs that control the new stage of
++  address translation and support hosting a guest OS in virtual S-mode
++  (VS-mode).
+ - Zbb:
+   RISC-V doesn't have a CLZ instruction in the base ISA.
+   As a consequence, __builtin_ffs() emits a library call to ffs() on GCC,
+diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+index 236ea7c8a6..f29ad332c1 100644
+--- a/xen/arch/riscv/arch.mk
++++ b/xen/arch/riscv/arch.mk
+@@ -9,7 +9,6 @@ riscv-abi-$(CONFIG_RISCV_64) := -mabi=lp64
+ riscv-march-$(CONFIG_RISCV_64) := rv64
+ riscv-march-y += ima
+ riscv-march-$(CONFIG_RISCV_ISA_C) += c
+-riscv-march-y += _zicsr_zifencei_zbb
+ 
+ riscv-generic-flags := $(riscv-abi-y) -march=$(subst $(space),,$(riscv-march-y))
+ 
+@@ -25,10 +24,13 @@ $(eval $(1) := \
+ 	$(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
+ endef
+ 
++h-insn := "hfence.gvma"
++$(call check-extension,h)
++
+ zihintpause-insn := "pause"
+ $(call check-extension,zihintpause)
+ 
+-extensions := $(zihintpause)
++extensions := $(h) $(zihintpause) _zicsr_zifencei_zbb
+ 
+ extensions := $(subst $(space),,$(extensions))
+ 
+diff --git a/xen/arch/riscv/cpufeature.c b/xen/arch/riscv/cpufeature.c
+index bf09aa1170..5aafab0f49 100644
+--- a/xen/arch/riscv/cpufeature.c
++++ b/xen/arch/riscv/cpufeature.c
+@@ -146,6 +146,7 @@ static const struct riscv_isa_ext_data __initconst required_extensions[] = {
+ #ifdef CONFIG_RISCV_ISA_C
+     RISCV_ISA_EXT_DATA(c),
+ #endif
++    RISCV_ISA_EXT_DATA(h),
+     RISCV_ISA_EXT_DATA(zicsr),
+     RISCV_ISA_EXT_DATA(zifencei),
+     RISCV_ISA_EXT_DATA(zihintpause),
+-- 
+2.48.1
 
-I guess I should discuss this more in the commit message?
-
->
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->>
->> Should we really be copying error_code/entry_vector?  They're already listed
->> as explicitly private fields, and I don't think anything good can come of
->> providing/consuming them.
-> I don't see a reason why we'd need to copy them in arch_set_info_guest();
-> arch_set_info_hvm_guest() doesn't copy them either. For
-> arch_get_info_guest() it's less clear - toolstack components may have
-> grown a dependency on them (e.g. introspection?), so I'd err on the side
-> of retaining prior behavior. (Of course there's then the corner case of
-> someone calling "get" right after "set", expecting the two fields to come
-> back unchanged.)
-
-Introspection doesn't use this interface.  Regs are sent in the ring,
-and don't contain these fields either.
-
-Also, for HVM guests, we set the vmexit rsp to &error_code so we only
-push the GPRs, without the IRET frame above it.
-
-These fields, (inc saved_upcall_mask) have different behaviours under
-FRED.  I don't think we can get away without them changing, and for
-these at least, they were clearly marked as internal.
-
->
->> @@ -1204,7 +1223,26 @@ int arch_set_info_guest(
->>  #ifdef CONFIG_COMPAT
->>      else
->>      {
->> -        XLAT_cpu_user_regs(&v->arch.user_regs, &c.cmp->user_regs);
->> +        v->arch.user_regs.ebx               = c.cmp->user_regs.ebx;
->> +        v->arch.user_regs.ecx               = c.cmp->user_regs.ecx;
->> +        v->arch.user_regs.edx               = c.cmp->user_regs.edx;
->> +        v->arch.user_regs.esi               = c.cmp->user_regs.esi;
->> +        v->arch.user_regs.edi               = c.cmp->user_regs.edi;
->> +        v->arch.user_regs.ebp               = c.cmp->user_regs.ebp;
->> +        v->arch.user_regs.eax               = c.cmp->user_regs.eax;
->> +        v->arch.user_regs.error_code        = c.cmp->user_regs.error_code;
->> +        v->arch.user_regs.entry_vector      = c.cmp->user_regs.entry_vector;
->> +        v->arch.user_regs.eip               = c.cmp->user_regs.eip;
->> +        v->arch.user_regs.cs                = c.cmp->user_regs.cs;
->> +        v->arch.user_regs.saved_upcall_mask = c.cmp->user_regs.saved_upcall_mask;
->> +        v->arch.user_regs.eflags            = c.cmp->user_regs.eflags;
->> +        v->arch.user_regs.esp               = c.cmp->user_regs.esp;
->> +        v->arch.user_regs.ss                = c.cmp->user_regs.ss;
->> +        v->arch.user_regs.es                = c.cmp->user_regs.es;
->> +        v->arch.user_regs.ds                = c.cmp->user_regs.ds;
->> +        v->arch.user_regs.fs                = c.cmp->user_regs.fs;
->> +        v->arch.user_regs.gs                = c.cmp->user_regs.gs;
-> Just to mention it (there's no change in behavior here afaict): Us writing
-> only half of the register fields looks like a latent (but perhaps only
-> theoretical) problem to me. A dis-aggregated toolstack may set 64-bit PV
-> context, then toggle address size, then set 32-bit context. That'll leave
-> the high halves of respective fields non-zero. I didn't check whether any
-> badness could result from that, as for the time being
-> XEN_DOMCTL_set_address_size isn't marked dis-aggregation-safe, and hence
-> this at least isn't of immediate concern.
-
-Hmm, gnarly.  The naive way to do 64-bit set, toggle, 32-bit set doesn't
-work, because set of either bitness involves:
-
-    cr3_page = get_page_from_mfn(cr3_mfn, d);
-
-while toggle requires no memory in the domain, owing to the different
-typeref rules.
-
-But, because the hypercall isn't atomic, you can make a 64-bit set which
-intentionally fails later (e.g. bad vm_assist setting), at which point
-the switch will work too.
-
-Breaking the switch vs no-memory limitation has been on my wishlist
-(probably never going to happen), to break the a-priori dependency which
-prevents pvgrub64 from booting a 32bit guest, which in turn is the major
-reason why pygrub is still the incumbent.
-
-Stale high bits will be lost when we schedule the vCPU, because of how
-RESTORE_ALL currently works, although I still intend to switch to plain
-pop's because that is a fastpath.
-
-
-Either way, I think it would be prudent to zero v->arch.user_regs in a
-prep patch and backport that.
-
-~Andrew
 
