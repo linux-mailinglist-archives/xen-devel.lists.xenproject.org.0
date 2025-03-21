@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E4F1A6BC48
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 15:00:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.924050.1327396 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76913A6BC49
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 15:00:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.924052.1327406 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvcuz-000105-Lj; Fri, 21 Mar 2025 14:00:13 +0000
+	id 1tvcvB-0001ID-Ta; Fri, 21 Mar 2025 14:00:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 924050.1327396; Fri, 21 Mar 2025 14:00:13 +0000
+Received: by outflank-mailman (output) from mailman id 924052.1327406; Fri, 21 Mar 2025 14:00:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvcuz-0000yc-Ik; Fri, 21 Mar 2025 14:00:13 +0000
-Received: by outflank-mailman (input) for mailman id 924050;
- Fri, 21 Mar 2025 14:00:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Z6G0=WI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tvcuy-0000yW-3A
- for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 14:00:12 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cd3e765e-065c-11f0-9ffa-bf95429c2676;
- Fri, 21 Mar 2025 15:00:10 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-abf3d64849dso353516566b.3
- for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 07:00:10 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3efd8f2bdsm157130866b.176.2025.03.21.07.00.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Mar 2025 07:00:08 -0700 (PDT)
+	id 1tvcvB-0001GC-Q7; Fri, 21 Mar 2025 14:00:25 +0000
+Received: by outflank-mailman (input) for mailman id 924052;
+ Fri, 21 Mar 2025 14:00:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IQbR=WI=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1tvcvA-0001FD-4w
+ for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 14:00:24 +0000
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
+ [2607:f8b0:4864:20::c2e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d4378e87-065c-11f0-9ea1-5ba50f476ded;
+ Fri, 21 Mar 2025 15:00:22 +0100 (CET)
+Received: by mail-oo1-xc2e.google.com with SMTP id
+ 006d021491bc7-601ad30bc0cso1843425eaf.0
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 07:00:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,147 +40,522 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd3e765e-065c-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: d4378e87-065c-11f0-9ea1-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742565609; x=1743170409; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lLvYNPQA9azFT/6Vo3mW7SBCkS4bIANKdIYsnSATkGo=;
-        b=DpbZFpKQc5ldgHTsulbfDUfOs0j5+9QrpyWCrHLvvBoyXwMxOtVbQk50VM3kHgrhiR
-         d1+Ay1Ia+ZB8DwRamrhFqVIe2WzC5LX5OS6+ZO6B80jv5PH2FZL/zwY8AFMdMQ1S4Vwm
-         AKzrZgAGnUFt3vagTKyk7LAVj7Ow34VR73opK0JfFY2+9uzDS/+yV5hLdLHFGCQWj7Mw
-         SoGBgy0hBmk96JqQCP9e6lRCo8bjVhF3jRVgwBsiT4mnKvYilpxZ1qmsF2imv4RM06rP
-         uDL6JaiJFWffvlIaQ5kCnCw5kKPk1lKJ9YkEFm85nTxeWGMYMHAH2gpwmE+df5cDluWl
-         DNQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742565609; x=1743170409;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1742565621; x=1743170421; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lLvYNPQA9azFT/6Vo3mW7SBCkS4bIANKdIYsnSATkGo=;
-        b=TKNBDdPeBQtLyKFCRnSUu3UniSl7qQsVI3a9v2MgUrXY45277IWHWlfOLYFKE3l9t0
-         TvSx3ltP2uK6szJ9mTonlZbeZ+i53taZjxU54m3hRHWMF7kimmekA7w3GPw+m7X7BE34
-         1MrWm4ou/1LhOuLQ+BXBgj0gzAHPGawqVz2WdGBmA0VUdkZKzjbEHs6puuPOH+xgqax4
-         nLYQQQQFF9xbOkn6kuh/uhfBIjNfCWTnaRAS/g3Sbjwrn3rZ7MKUHGMbA4ASAhiWRvBD
-         qVtEJe12Pe4lQN/+X+dbm8mUr54kHzrwiDWgo3MdD0CfZVBk4eswhccBpSNmwVj2op+P
-         xzWA==
-X-Forwarded-Encrypted: i=1; AJvYcCXDCxjAYw6UY73r9o5lT8TKb0pxCMiYeb4QbMXWosZ1JpZwOXAcj28FTSAecVw9hJ1gGDxfCEFHYFg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxIJYv1FTONep0q61Rg/zt7G+Fuc+HONQmsUAK+WLnm1Dk0HkR1
-	+aao4Rvn4VnPhzeuFt7Gs8IEvmkWAw8atzH0+YhS621tyJwwAa1xpXBmAa97LQ==
-X-Gm-Gg: ASbGncu/dxZruOGrjnFDK9jzTY4WWpYAsCA7Su041HrAODxu+vO4JXWQe9xsbA/w7i/
-	Nl+gk3q9/KPmO+hZS52Ye3mtxGQybHCJ0CEVswN57OdmwHmPQYtDVNaKfPIPJ+rgTsfIie/VK7/
-	XhK4uUE8KXf0wywJ+JeecGjYdnyTHK8AvE8okESK1Vxter+MDkfDute9lPyPaGgguFuXQ/BKiVS
-	yT7C7wq6wvNIea8Zq4Uq3MWknifFK96VXGZ4cnmHfum0TYVkGJ0bXtsMoZUjXmX+a27UwF3V5PX
-	N9QMjPeU/AbBEo8qSo9HcHWN19JxFNI/1loflNXEna6LnPBRQtt2e8A7hw1hVxwqtdi0a/r9GeY
-	Y9Tfx+42KM8mLomHJOtuJvdNPswNTqw==
-X-Google-Smtp-Source: AGHT+IER8Ab8A9rZogN5my0VmUvWks7kuzX9W47aIIvi3E81ZKSZY4a5l0QhoH7BBx8/GhCcvV2tgw==
-X-Received: by 2002:a17:907:7f8c:b0:ac3:cad2:9e53 with SMTP id a640c23a62f3a-ac3f28053b3mr387428166b.55.1742565609295;
-        Fri, 21 Mar 2025 07:00:09 -0700 (PDT)
-Message-ID: <f214bbcc-6cac-4623-9027-ab77351dc2a9@suse.com>
-Date: Fri, 21 Mar 2025 15:00:06 +0100
+        bh=mZ9ixmm422uNLNbAJGx1/wGmNvySrezgfzzhP9Jlnck=;
+        b=JXZ0NXLXrUjRFdX773omNPj25b7s9FCQcr0HwoiTM7OcTfU65A8Evx7ja5/y6wYRyr
+         hrsa+kHTa0pH+D7C8dhkOqvwOS89+KJC08WP30rzzftY+/WtPOi5xul2WqnJs+4kz/Ki
+         84F9R8sZq/ghiZAL+Fry1vVQh5CHxJ3FHkNUBh41HXUXchAvZiMYwt8w1ar5TDtuf6vE
+         XuVchTMnDNYZEs60JZcpmm43CDpBrAB4+TPGTpOmgOQs6rTm8AkXqWYEgAU9FZZJmjgg
+         pia+9fWmKaPQVQvz2GZQ/AOZXOiBcMIV2ofa1wYwQpkxmJJS0LFCLdX6/6uLDY2tqFEZ
+         iASg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742565621; x=1743170421;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=mZ9ixmm422uNLNbAJGx1/wGmNvySrezgfzzhP9Jlnck=;
+        b=pbKLE/K49z2EsdXp727FhYMwIWcBVMzIQb2LWhLCmrxZL3yDRmC0MdoMigOwf94AW4
+         KiOEfnY67Hve4zpiko4N6UbLKqlMkezpSlJ7lf6McbZaEe9DD+eB1c+ADpRkOpy/LfcZ
+         Ne194CwJAbPcbaalJ+Npb/ikkDA1kEfosRgUlXl2QsorKDpaPsq9lb1G5/Rd7WfXUOno
+         uFhp11Nqs3x/ea1oBptG0m7ZM7ZZixcbutPzpCluMq0724TIyFdijcxA+jsoDVQ5dYVe
+         A5/HasFwdOBP5Eu3jW4x5ELzt8hwtipFFXl8ChP6NZekDNMXckxRET49nsQXfBjWlReR
+         pnXA==
+X-Gm-Message-State: AOJu0YwvGML/kDdsJWFgHI3VgbKoe75AhnpsenFKZzFfDSrY4FO81QHc
+	n3n+nxAyQpBUust1QWx0q8fkwosVwg8ps2iS74tncD+9YaJUtNTvjA20R6uhkKN7COaq5dlx+Ca
+	5/w+T3YDIGjT6W3TOAapCdZYSbe9htW8Uv9WGBA==
+X-Gm-Gg: ASbGnct9yvQED5KtMr+whunwnQnMopOhyK0H00MdHxjiBDM8AzoTv1pA9P+VEsJMjRt
+	aqb1azVp2kg6QLuV/XFCMNrpSmDmF+0IDicpt45fX3LSmUS/cy8gSkS1eZSLH7y9yFPiqol6pio
+	Z7Vu+79HeV5dpn+L/s4DOy8mf6tLMWYJ6CWkv0NQ==
+X-Google-Smtp-Source: AGHT+IFvSaewo/HjJPRyQ8yhkEjbXlPSKtQ41VgxPXf2KmbYbj3jRE0onHGZusvJLHjby5duQs3Ff7hTgmUcpqlpr1U=
+X-Received: by 2002:a05:6870:8307:b0:297:683:8b5b with SMTP id
+ 586e51a60fabf-2c760b98905mr5321315fac.10.1742565620617; Fri, 21 Mar 2025
+ 07:00:20 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/16] xen/arm: Introduce system suspend config option
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Mykyta Poturai <mykyta_poturai@epam.com>, xen-devel@lists.xenproject.org
-References: <cover.1741164138.git.xakep.amatop@gmail.com>
- <28da91c2859e0226585951ea3d6e7017b402ec0b.1741164138.git.xakep.amatop@gmail.com>
- <6eddbd26-88ca-4d0c-b56a-4e7abcc3933b@suse.com>
- <CAGeoDV_AU+UhkH6Pb4UhM-j+Z-VSbaoGDAg6gZqVjSAUSGURUQ@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAGeoDV_AU+UhkH6Pb4UhM-j+Z-VSbaoGDAg6gZqVjSAUSGURUQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1741617888.git.bertrand.marquis@arm.com>
+ <400fdd82de6e61e8e7598a120bb0bbe2c354ab72.1741617888.git.bertrand.marquis@arm.com>
+ <CAHUa44FW02v4_6pTiGqcWrFMLqdayuUF5pXM8cfKusOXHC7Jyw@mail.gmail.com>
+ <7B45963D-8908-420C-89ED-15769357779C@arm.com> <CAHUa44HumXeMR66Pu4xMODHms4PiM7+ANmPB1tG+UO9BpGDpLQ@mail.gmail.com>
+ <783A9243-EBA6-40CC-A0A7-4DD9E8AFE57F@arm.com>
+In-Reply-To: <783A9243-EBA6-40CC-A0A7-4DD9E8AFE57F@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Fri, 21 Mar 2025 15:00:08 +0100
+X-Gm-Features: AQ5f1JqRC9vkcO2xJQqo5GpBscOz9aRyEcMQ1LsQJ6SDNQ3xLmoKFIp9UEHAzV8
+Message-ID: <CAHUa44Hm3Uv31LEEruBu-APCkkD2wwQew4UcUcqqgk+4_Tug9w@mail.gmail.com>
+Subject: Re: [PATCH v2 5/5] xen/arm: ffa: Enable VM to VM without firmware
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 21.03.2025 10:49, Mykola Kvach wrote:
-> Hi,
-> 
-> On Thu, Mar 13, 2025 at 5:37 PM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 05.03.2025 10:11, Mykola Kvach wrote:
->>> --- a/xen/arch/arm/Kconfig
->>> +++ b/xen/arch/arm/Kconfig
->>> @@ -475,6 +475,17 @@ config ARM64_HARDEN_BRANCH_PREDICTOR
->>>  config ARM32_HARDEN_BRANCH_PREDICTOR
->>>      def_bool y if ARM_32 && HARDEN_BRANCH_PREDICTOR
->>>
->>> +config SYSTEM_SUSPEND
->>> +     bool "System suspend support"
->>> +     default y
->>> +     depends on ARM_64
->>> +     help
->>> +       This option enables the system suspend support. This is the
->>> +       mechanism that allows the system to be suspended to RAM and
->>> +       later resumed.
->>> +
->>> +       If unsure, say Y.
->>
->> I wonder if something like this makes sense to place in an arch-specific
-> 
-> Maybe it makes sense, but only if we are not planning to cover
-> suspend/resume related code for x86 as well.
-> 
->> Kconfig. It's also not becoming clear here why only Arm64 would permit it.
-> 
-> If I understand your comment correctly, you’re suggesting that we
-> could use this for x86 as well.
+Hi Bertrand,
 
-Or PPC / RISC-V once they progress enough.
+On Fri, Mar 21, 2025 at 2:47=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 21 Mar 2025, at 11:09, Jens Wiklander <jens.wiklander@linaro.org> wr=
+ote:
+> >
+> > Hi,
+> >
+> > On Fri, Mar 21, 2025 at 10:25=E2=80=AFAM Bertrand Marquis
+> > <Bertrand.Marquis@arm.com> wrote:
+> >>
+> >> Hi Jens,
+> >>
+> >>> On 21 Mar 2025, at 09:55, Jens Wiklander <jens.wiklander@linaro.org> =
+wrote:
+> >>>
+> >>> Hi Bertrand,
+> >>>
+> >>> On Mon, Mar 10, 2025 at 3:51=E2=80=AFPM Bertrand Marquis
+> >>> <bertrand.marquis@arm.com> wrote:
+> >>>>
+> >>>> When VM to VM support is activated and there is no suitable FF-A sup=
+port
+> >>>> in the firmware, enable FF-A support for VMs to allow using it for V=
+M to
+> >>>> VM communications.
+> >>>> If there is Optee running in the secure world and using the non FF-A
+> >>>
+> >>> It's spelled OP-TEE in text, and optee or OPTEE in identifiers.
+> >>
+> >> ack
+> >>
+> >>>
+> >>>> communication system, having CONFIG_FFA_VM_TO_VM could be non functi=
+onal
+> >>>> (if optee is probed first) or Optee could be non functional (if FF-A=
+ is
+> >>>> probed first) so it is not recommended to activate the configuration
+> >>>> option for such systems.
+> >>>>
+> >>>> To make buffer full notification work between VMs when there is not
+> >>>
+> >>> s/not/no/
+> >>
+> >> ack
+> >>
+> >>>
+> >>>> firmware, rework the notification handling and modify the global fla=
+g to
+> >>>> only be used as check for firmware notification support instead.
+> >>>>
+> >>>> Modify part_info_get to return the list of VMs when there is no firm=
+ware
+> >>>> support.
+> >>>>
+> >>>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> >>>> ---
+> >>>> Changes in v2:
+> >>>> - replace ifdef with IS_ENABLED when possible
+> >>>> ---
+> >>>> xen/arch/arm/tee/ffa.c          |  12 +++-
+> >>>> xen/arch/arm/tee/ffa_notif.c    | 114 ++++++++++++++++--------------=
+--
+> >>>> xen/arch/arm/tee/ffa_partinfo.c |   3 +-
+> >>>> 3 files changed, 69 insertions(+), 60 deletions(-)
+> >>>>
+> >>>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >>>> index 3bbdd7168a6b..f6582d2e855a 100644
+> >>>> --- a/xen/arch/arm/tee/ffa.c
+> >>>> +++ b/xen/arch/arm/tee/ffa.c
+> >>>> @@ -324,8 +324,9 @@ static int ffa_domain_init(struct domain *d)
+> >>>>    struct ffa_ctx *ctx;
+> >>>>    int ret;
+> >>>>
+> >>>> -    if ( !ffa_fw_version )
+> >>>> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !ffa_fw_version )
+> >>>>        return -ENODEV;
+> >>>> +
+> >>>>    /*
+> >>>>     * We are using the domain_id + 1 as the FF-A ID for VMs as FF-A =
+ID 0 is
+> >>>>     * reserved for the hypervisor and we only support secure endpoin=
+ts using
+> >>>> @@ -549,6 +550,15 @@ err_no_fw:
+> >>>>    bitmap_zero(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
+> >>>>    printk(XENLOG_WARNING "ARM FF-A No firmware support\n");
+> >>>>
+> >>>> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+> >>>> +    {
+> >>>> +        INIT_LIST_HEAD(&ffa_teardown_head);
+> >>>> +        init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback=
+, NULL, 0);
+> >>>> +
+> >>>> +        printk(XENLOG_INFO "ARM FF-A only available between VMs\n")=
+;
+> >>>> +        return true;
+> >>>> +    }
+> >>>> +
+> >>>>    return false;
+> >>>> }
+> >>>>
+> >>>> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_not=
+if.c
+> >>>> index d19aa5c5bef6..0673e53a9def 100644
+> >>>> --- a/xen/arch/arm/tee/ffa_notif.c
+> >>>> +++ b/xen/arch/arm/tee/ffa_notif.c
+> >>>> @@ -16,7 +16,7 @@
+> >>>>
+> >>>> #include "ffa_private.h"
+> >>>>
+> >>>> -static bool __ro_after_init notif_enabled;
+> >>>> +static bool __ro_after_init fw_notif_enabled;
+> >>>> static unsigned int __ro_after_init notif_sri_irq;
+> >>>>
+> >>>> int ffa_handle_notification_bind(struct cpu_user_regs *regs)
+> >>>> @@ -27,21 +27,17 @@ int ffa_handle_notification_bind(struct cpu_user=
+_regs *regs)
+> >>>>    uint32_t bitmap_lo =3D get_user_reg(regs, 3);
+> >>>>    uint32_t bitmap_hi =3D get_user_reg(regs, 4);
+> >>>>
+> >>>> -    if ( !notif_enabled )
+> >>>> -        return FFA_RET_NOT_SUPPORTED;
+> >>>> -
+> >>>>    if ( (src_dst & 0xFFFFU) !=3D ffa_get_vm_id(d) )
+> >>>>        return FFA_RET_INVALID_PARAMETERS;
+> >>>>
+> >>>>    if ( flags )    /* Only global notifications are supported */
+> >>>>        return FFA_RET_DENIED;
+> >>>>
+> >>>> -    /*
+> >>>> -     * We only support notifications from SP so no need to check th=
+e sender
+> >>>> -     * endpoint ID, the SPMC will take care of that for us.
+> >>>> -     */
+> >>>> -    return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags, b=
+itmap_lo,
+> >>>> -                           bitmap_hi);
+> >>>> +    if ( FFA_ID_IS_SECURE(src_dst>>16) && fw_notif_enabled )
+> >>>
+> >>> Please add space before and after '>>', here and in the function belo=
+w
+> >>> in this patch.
+> >>
+> >> ack
+> >>
+> >>>
+> >>>> +        return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flag=
+s,
+> >>>> +                               bitmap_lo, bitmap_hi);
+> >>>> +
+> >>>> +    return FFA_RET_NOT_SUPPORTED;
+> >>>> }
+> >>>>
+> >>>> int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
+> >>>> @@ -51,32 +47,34 @@ int ffa_handle_notification_unbind(struct cpu_us=
+er_regs *regs)
+> >>>>    uint32_t bitmap_lo =3D get_user_reg(regs, 3);
+> >>>>    uint32_t bitmap_hi =3D get_user_reg(regs, 4);
+> >>>>
+> >>>> -    if ( !notif_enabled )
+> >>>> -        return FFA_RET_NOT_SUPPORTED;
+> >>>> -
+> >>>>    if ( (src_dst & 0xFFFFU) !=3D ffa_get_vm_id(d) )
+> >>>>        return FFA_RET_INVALID_PARAMETERS;
+> >>>>
+> >>>> -    /*
+> >>>> -     * We only support notifications from SP so no need to check th=
+e
+> >>>> -     * destination endpoint ID, the SPMC will take care of that for=
+ us.
+> >>>> -     */
+> >>>> -    return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bi=
+tmap_lo,
+> >>>> -                            bitmap_hi);
+> >>>> +    if ( FFA_ID_IS_SECURE(src_dst>>16) && fw_notif_enabled )
+> >>>> +        return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0=
+, bitmap_lo,
+> >>>> +                                bitmap_hi);
+> >>>> +
+> >>>> +    return FFA_RET_NOT_SUPPORTED;
+> >>>> }
+> >>>>
+> >>>> void ffa_handle_notification_info_get(struct cpu_user_regs *regs)
+> >>>> {
+> >>>>    struct domain *d =3D current->domain;
+> >>>>    struct ffa_ctx *ctx =3D d->arch.tee;
+> >>>> +    bool notif_pending =3D false;
+> >>>>
+> >>>> -    if ( !notif_enabled )
+> >>>> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
+> >>>>    {
+> >>>>        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+> >>>>        return;
+> >>>>    }
+> >>>>
+> >>>> -    if ( test_and_clear_bool(ctx->notif.secure_pending) )
+> >>>> +    notif_pending =3D ctx->notif.secure_pending;
+> >>>> +#ifdef CONFIG_FFA_VM_TO_VM
+> >>>> +    notif_pending |=3D ctx->notif.buff_full_pending;
+> >>>> +#endif
+> >>>
+> >>> Shouldn't ctx->notif.secure_pending and ctx->notif.secure_pending be
+> >>> cleared also, like:
+> >>> notif_pending =3D test_and_clear_bool(ctx->notif.secure_pending) ||
+> >>>               test_and_clear_bool(ctx->notif.buff_full_pending);
+> >>
+> >> Notification info get is returning who has pending notification but on=
+ly
+> >> notification get should erase pending notifications.
+> >
+> > FFA_NOTIFICATION_INFO_GET can return a "More pending notifications
+> > flag" in w2/x2 to inform the caller that it should call
+> > FFA_NOTIFICATION_INFO_GET again to get the remaining receiver
+> > endpoints. How can the ABI know where to resume the next time if the
+> > previous pending receivers aren't cleared?
+>
+> I just checked the specification and you are right.
+> It is explicitly saying that "Information about pending notifications is
+> returned only once".
+>
+> >
+> > The more pending notifications flag will not be needed here as we're
+> > dealing with a single endpoint at a time so it might be more of a
+> > philosophical question. I don't think it causes problems for the guest
+> > to keep secure_pending unchanged for FFA_NOTIFICATION_INFO_GET, but we
+> > should mention the changed behaviour in the commit message.
+> >
+>
+> I agree I should discard the secure_pending flag in the implementation bu=
+t
+> I need to find a solution for the buffer full notification as I still nee=
+d to signal
+> it in notification get even if notification info get was called.
+>
+> I will do the following:
+> - change secure_pending into pending_notif.
+> - set pending_notif when current secure_pending is set
+> - set pending_notif and buff_full_pending on indirect message
+> - clean pending_notif in notif_info_get
+> - clean pending_notif and buff_full in notif_get
+>
+> Do you agree this is the right path ?
 
-> However, in that case, we would need
-> to make a lot of changes in other places that are not related to this
-> patch series, which is specifically focused on adding suspend/resume
-> support for Arm64. I believe that is outside the scope of this patch
-> series.
+Yes, this is the way. :-)
 
-Considering that - give or take bugs - S3 is working on x86, I'm not
-sure what lots of changes you're thinking of. In fact ...
+Cheers,
+Jens
 
-> However, this config was requested in one of the previous
-> patch series. The primary reason for adding this config was to reduce
-> the binary size for platforms where it isn’t used. I also think it can
-> be useful for debugging purposes, such as for identifying regressions.
-
-... that's what I'd see as a (future) option on x86 as well. 
-
-> As for Arm32, it’s not supported at the moment, but I hope support
-> will be added in the future.
-
-Which is another data point towards this wanting to move to common
-code, with a per-arch-selected HAVE_* as dependency. To cover that it's
-always-on for x86, an ..._ALWAYS_ON setting may want introducing as
-well (or some shorthand approach to limit [future] churn).
-
-Jan
+>
+> Cheers
+> Bertrand
+>
+> > Cheers,
+> > Jens
+> >
+> >>
+> >>>
+> >>>> +
+> >>>> +    if ( notif_pending )
+> >>>>    {
+> >>>>        /* A pending global notification for the guest */
+> >>>>        ffa_set_regs(regs, FFA_SUCCESS_64, 0,
+> >>>> @@ -103,7 +101,7 @@ void ffa_handle_notification_get(struct cpu_user=
+_regs *regs)
+> >>>>    uint32_t w6 =3D 0;
+> >>>>    uint32_t w7 =3D 0;
+> >>>>
+> >>>> -    if ( !notif_enabled )
+> >>>> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
+> >>>>    {
+> >>>>        ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+> >>>>        return;
+> >>>> @@ -115,7 +113,8 @@ void ffa_handle_notification_get(struct cpu_user=
+_regs *regs)
+> >>>>        return;
+> >>>>    }
+> >>>>
+> >>>> -    if ( flags & ( FFA_NOTIF_FLAG_BITMAP_SP | FFA_NOTIF_FLAG_BITMAP=
+_SPM ) )
+> >>>> +    if ( fw_notif_enabled && (flags & ( FFA_NOTIF_FLAG_BITMAP_SP
+> >>>> +                                        | FFA_NOTIF_FLAG_BITMAP_SPM=
+ )) )
+> >>>
+> >>> Please end the previous line with the '|' operator.
+> >>
+> >> ack
+> >>
+> >>>
+> >>>>    {
+> >>>>        struct arm_smccc_1_2_regs arg =3D {
+> >>>>            .a0 =3D FFA_NOTIFICATION_GET,
+> >>>> @@ -170,15 +169,14 @@ int ffa_handle_notification_set(struct cpu_use=
+r_regs *regs)
+> >>>>    uint32_t bitmap_lo =3D get_user_reg(regs, 3);
+> >>>>    uint32_t bitmap_hi =3D get_user_reg(regs, 4);
+> >>>>
+> >>>> -    if ( !notif_enabled )
+> >>>> -        return FFA_RET_NOT_SUPPORTED;
+> >>>> -
+> >>>>    if ( (src_dst >> 16) !=3D ffa_get_vm_id(d) )
+> >>>>        return FFA_RET_INVALID_PARAMETERS;
+> >>>>
+> >>>> -    /* Let the SPMC check the destination of the notification */
+> >>>> -    return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bi=
+tmap_lo,
+> >>>> -                           bitmap_hi);
+> >>>> +    if ( FFA_ID_IS_SECURE(src_dst>>16) && fw_notif_enabled )
+> >>>> +        return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags=
+, bitmap_lo,
+> >>>> +                               bitmap_hi);
+> >>>> +
+> >>>> +    return FFA_RET_NOT_SUPPORTED;
+> >>>> }
+> >>>>
+> >>>> #ifdef CONFIG_FFA_VM_TO_VM
+> >>>> @@ -190,7 +188,7 @@ void ffa_raise_rx_buffer_full(struct domain *d)
+> >>>>        return;
+> >>>>
+> >>>>    if ( !test_and_set_bool(ctx->notif.buff_full_pending) )
+> >>>> -        vgic_inject_irq(d, d->vcpu[0], notif_sri_irq, true);
+> >>>> +        vgic_inject_irq(d, d->vcpu[0], GUEST_FFA_NOTIF_PEND_INTR_ID=
+, true);
+> >>>
+> >>> Please move this to the patch "xen/arm: ffa: Add buffer full
+> >>> notification support"
+> >>
+> >> Ack
+> >>
+> >>>
+> >>>> }
+> >>>> #endif
+> >>>>
+> >>>> @@ -363,7 +361,7 @@ void ffa_notif_init_interrupt(void)
+> >>>> {
+> >>>>    int ret;
+> >>>>
+> >>>> -    if ( notif_enabled && notif_sri_irq < NR_GIC_SGI )
+> >>>> +    if ( fw_notif_enabled && notif_sri_irq < NR_GIC_SGI )
+> >>>>    {
+> >>>>        /*
+> >>>>         * An error here is unlikely since the primary CPU has alread=
+y
+> >>>> @@ -394,41 +392,41 @@ void ffa_notif_init(void)
+> >>>>    int ret;
+> >>>>
+> >>>>    /* Only enable fw notification if all ABIs we need are supported =
+*/
+> >>>> -    if ( !(ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
+> >>>> -           ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
+> >>>> -           ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
+> >>>> -           ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64)) )
+> >>>> -        return;
+> >>>> -
+> >>>> -    arm_smccc_1_2_smc(&arg, &resp);
+> >>>> -    if ( resp.a0 !=3D FFA_SUCCESS_32 )
+> >>>> -        return;
+> >>>> -
+> >>>> -    irq =3D resp.a2;
+> >>>> -    notif_sri_irq =3D irq;
+> >>>> -    if ( irq >=3D NR_GIC_SGI )
+> >>>> -        irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
+> >>>> -    ret =3D request_irq(irq, 0, notif_irq_handler, "FF-A notif", NU=
+LL);
+> >>>> -    if ( ret )
+> >>>> +    if ( ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
+> >>>> +         ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
+> >>>> +         ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
+> >>>> +         ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64) )
+> >>>>    {
+> >>>> -        printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d=
+\n",
+> >>>> -               irq, ret);
+> >>>> -        return;
+> >>>> -    }
+> >>>> +        arm_smccc_1_2_smc(&arg, &resp);
+> >>>> +        if ( resp.a0 !=3D FFA_SUCCESS_32 )
+> >>>> +            return;
+> >>>>
+> >>>> -    notif_enabled =3D true;
+> >>>> +        irq =3D resp.a2;
+> >>>> +        notif_sri_irq =3D irq;
+> >>>> +        if ( irq >=3D NR_GIC_SGI )
+> >>>> +            irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
+> >>>> +        ret =3D request_irq(irq, 0, notif_irq_handler, "FF-A notif"=
+, NULL);
+> >>>> +        if ( ret )
+> >>>> +        {
+> >>>> +            printk(XENLOG_ERR "ffa: request_irq irq %u failed: erro=
+r %d\n",
+> >>>> +                   irq, ret);
+> >>>> +            return;
+> >>>> +        }
+> >>>> +        fw_notif_enabled =3D true;
+> >>>> +    }
+> >>>> }
+> >>>>
+> >>>> int ffa_notif_domain_init(struct domain *d)
+> >>>> {
+> >>>>    int32_t res;
+> >>>>
+> >>>> -    if ( !notif_enabled )
+> >>>> -        return 0;
+> >>>> +    if ( fw_notif_enabled )
+> >>>> +    {
+> >>>>
+> >>>> -    res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max=
+_vcpus);
+> >>>> -    if ( res )
+> >>>> -        return -ENOMEM;
+> >>>> +        res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d-=
+>max_vcpus);
+> >>>> +        if ( res )
+> >>>> +            return -ENOMEM;
+> >>>> +    }
+> >>>>
+> >>>>    return 0;
+> >>>> }
+> >>>> @@ -439,6 +437,6 @@ void ffa_notif_domain_destroy(struct domain *d)
+> >>>>     * Call bitmap_destroy even if bitmap create failed as the SPMC w=
+ill
+> >>>>     * return a DENIED error that we will ignore.
+> >>>>     */
+> >>>> -    if ( notif_enabled )
+> >>>> +    if ( fw_notif_enabled )
+> >>>>        ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
+> >>>> }
+> >>>> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_=
+partinfo.c
+> >>>> index 7af1eca2d0c4..291396c8f635 100644
+> >>>> --- a/xen/arch/arm/tee/ffa_partinfo.c
+> >>>> +++ b/xen/arch/arm/tee/ffa_partinfo.c
+> >>>> @@ -130,7 +130,8 @@ void ffa_handle_partition_info_get(struct cpu_us=
+er_regs *regs)
+> >>>>        goto out;
+> >>>>    }
+> >>>>
+> >>>> -    if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
+> >>>> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) &&
+> >>>
+> >>> Doesn't this belong in the patch "xen/arm: ffa: Introduce VM to VM su=
+pport"?
+> >>> And wouldn't ffa_vm_count make more sense?
+> >>
+> >> ack. I will modify that and fold it into the VM to VM support patch.
+> >>
+> >> Cheers
+> >> Bertrand
+> >>
+> >>>
+> >>> Cheers,
+> >>> Jens
+> >>>
+> >>>> +         !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
+> >>>>    {
+> >>>>        /* Just give an empty partition list to the caller */
+> >>>>        ret =3D FFA_RET_OK;
+> >>>> --
+> >>>> 2.47.1
+>
+>
 
