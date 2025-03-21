@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DF97A6BC0A
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 14:52:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.924018.1327372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48F88A6BC23
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 14:54:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.924034.1327386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvcn2-00079E-H9; Fri, 21 Mar 2025 13:52:00 +0000
+	id 1tvcpW-0007oi-V7; Fri, 21 Mar 2025 13:54:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 924018.1327372; Fri, 21 Mar 2025 13:52:00 +0000
+Received: by outflank-mailman (output) from mailman id 924034.1327386; Fri, 21 Mar 2025 13:54:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvcn2-00077l-Dq; Fri, 21 Mar 2025 13:52:00 +0000
-Received: by outflank-mailman (input) for mailman id 924018;
- Fri, 21 Mar 2025 13:51:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tvcpW-0007lZ-S7; Fri, 21 Mar 2025 13:54:34 +0000
+Received: by outflank-mailman (input) for mailman id 924034;
+ Fri, 21 Mar 2025 13:54:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z6G0=WI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tvcn0-00077a-GL
- for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 13:51:58 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a7634917-065b-11f0-9ea1-5ba50f476ded;
- Fri, 21 Mar 2025 14:51:57 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43d0c18e84eso9614935e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 06:51:57 -0700 (PDT)
+ id 1tvcpV-0007lK-Dl
+ for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 13:54:33 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 036bc144-065c-11f0-9ffa-bf95429c2676;
+ Fri, 21 Mar 2025 14:54:31 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3996af42857so2045272f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 06:54:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d4fdbd348sm27340395e9.39.2025.03.21.06.51.55
+ ffacd0b85a97d-3997f9b4ce9sm2472443f8f.53.2025.03.21.06.54.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Mar 2025 06:51:55 -0700 (PDT)
+ Fri, 21 Mar 2025 06:54:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7634917-065b-11f0-9ea1-5ba50f476ded
+X-Inumbo-ID: 036bc144-065c-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742565116; x=1743169916; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742565271; x=1743170071; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qv0VQ+NUrVd0gQgaN8Z4ekYOSShVij+HdMBj/Qw1Kz0=;
-        b=XjRpNiukUqZsV+Q2yiGN3Z1ViqjDQ2hAv32gwE934C6hO2AWoiw1zDYo0mmPURA2AZ
-         oz7iCxMB54MuyNBtsiTDavpazYMzH+m1i+Yj/YqJDE93X09PaD0jjK5In84EbuzMkj6z
-         XFXNEo4sbvmyoiiXfZksExcUWJOUMkmfL4I0gBH4Js92SDNrJkY7EUFR09vbMXXnaGaz
-         x/3YRwyW6xck/32NKQzyvTSZihtTYkP8Ris8aj3mwY0pX3zJKZgpdiFYTwnPgq69Lu3Y
-         gpKPwzk/SMypOTlTaZJudtnuAhCUiVBy1RIJAyP6zOyuT61McPdRlyRli4bkGnUD8ZKD
-         EfKg==
+        bh=s0dHYabbBCmUA+FL5/nGfB/zmKf8mJVb9iNPYow5cxY=;
+        b=fIi4mXYZorM6lMWTuqiBAOs64SWlp6gLB4p978LrFA1lVXtOT8L4rMmXbrX97fuBEz
+         3I7/mEDXh7TUPCzxCQxtf4pvTZpuxKpFBrZGaL/vz0+Fs4wzYfbst9QHdGHctvZTj+fc
+         Hdid4Ok8U7vFSvXVEQhn5vG5Tb2PnNZdd9UYmPDcEy930MrKD/D2MTBmAObCdDWnFBfs
+         4E+rD9bbvY6MQXFG7JZUfB7ntoRSom72JBCnQjbgrdReP6XduERVNISTZtHBXdUIV7uP
+         I3NeUBLa6DSkL0avWsrtuQpBk5OShvSMV4IaltYQ1u0VwpoL5nsDiswD9N5RcTfWLBoi
+         uz/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742565116; x=1743169916;
+        d=1e100.net; s=20230601; t=1742565271; x=1743170071;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qv0VQ+NUrVd0gQgaN8Z4ekYOSShVij+HdMBj/Qw1Kz0=;
-        b=ZWym3hUs3baTXgIV4ajSDpIjJCi5FGmBHW0I7etSApHmvLQHtFQCBOg3dDruVS12yl
-         XyrUP1/9t6tu0rumXVDG5KhFDs/rs/7Iek8jG9nz0nP2P6ysdrZMvuNRFP+tCi5vj2P2
-         NG9db2q3e3w8j8gF/hi5D6jFN74j32/LZh1S5KeJgjd/REoVohSt8NsDED988znZJGkS
-         7rzrAiC81ijFUhxVzVDpZmeXm+zAkN+Jk4BCHi7t9BVCMw7oenNkGhzdyVhX33gfdL/m
-         TqhELpWHDMQaAw05/hTJbCUE2hwyPTVzrP/dj0b3VUN1AaaveOkxUOxYFd51Pd3PiuTT
-         epGg==
-X-Forwarded-Encrypted: i=1; AJvYcCVrUVxgGdbDy6zzOEDjff2ac6HNgx5luOmG6fL5Q71jAZKIxSO6Kcy9n6a1CqWkYJ9KYtR/llJD1i8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxXb5Sj+B+9iseKXn271JlSkvYBPkSl8N2ehEcISY2LxP8D7o5z
-	sdA6XgXCu/DgXi0vOiya2VxAwrmpY6NTlBDpyZSYM0dAG0qDSZgGAGGeYmsFM0RvdE8gGnYxaLI
-	=
-X-Gm-Gg: ASbGncsXNJvLeTa1xvNz9wmm9gLfnjVBwNsmGG1a2m02Agm/O5r0IpcNV0UykFdvnpJ
-	T9g5akrYoYm5jQFr8Yxz25+J26yy/A0CxV27svglUILsI586PL5gmKBZZoYuqdhi4E6Nl9bt/Jx
-	Iv1V6QPDfr4QWCCGCEJABtf/w929iXH+sJyCJ3RDSGKffqTnn5OvKkXQnKz04OLG0htU6VKhN93
-	pHzzIy7Rr+KkY3RPJFLA4jJnkJ1EWByiwqB3AsarqLyUCR/1KfymXSHK9wS7D76KuMMrZXbGhqR
-	i33HfAkMV7+w4MFtAS1ML4NmhAmq/xKlN055aPVdavBF9rdAEN9bMqH28hnUEVtrBbnYaPCOvW1
-	lLm0NgYiHog4j3z8mkQWsphRZJy3lTw==
-X-Google-Smtp-Source: AGHT+IGwJffDMk+z7JvUdeRZoNZ59XP81EO+sdu/u5/S5aDDUPhtnVThTTbOkHKxcDKxzEDF2b0Gew==
-X-Received: by 2002:a05:600c:1989:b0:43c:fc04:6d34 with SMTP id 5b1f17b1804b1-43d50a318aamr28553245e9.20.1742565116109;
-        Fri, 21 Mar 2025 06:51:56 -0700 (PDT)
-Message-ID: <e616cf59-bcb6-478d-87b5-f35a51ce1dda@suse.com>
-Date: Fri, 21 Mar 2025 14:51:54 +0100
+        bh=s0dHYabbBCmUA+FL5/nGfB/zmKf8mJVb9iNPYow5cxY=;
+        b=R2m46Mk8s0IaTjIFa9QAk3g7Ems6Ts3N2NDEsjGF581w03EYbKxAl2mF1k9Em3r+dC
+         6Ars7g/yz8RGhta6GbvbE5wEy44L0VOAf4kXg0PXObsdGel7+UiGOSRIXw668Sg07+CQ
+         8zACZxT1CSHqio3XWcJxBKgos5wPC5V02GeQfCVfNAL/m/MCVxa2lG8md5yvCcHTAD7E
+         TcIcK1Rv81d9myihzOY6EPZ0IeQyJCgMyNLFC+LGsRL5SwOb+WnJ043CuQlryINdmdPw
+         h6Hmt7OHLj8UYJjakWZmgyfTvC3dASg1/rlynllq8TmY6rvUehQiNFFr2JPrUH8gynCV
+         NWcg==
+X-Forwarded-Encrypted: i=1; AJvYcCUhvrx28wbKj1Ib5ZLDSLxTusSjkREa0fReJLUZ/tNgj6Y4kI8/oMRtVAXrWZpB/12la83LGUt7Os0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw5AapUMQ70LqO0pMX6Ul9GL8mroJGYNgMJERMcXbvJhnuWkKnB
+	9xrHIqzIuRBICQ9w8m+m0KV+LspCzl47ezLOWOJilLUJgM20zI4WxYj9mHyAGQ==
+X-Gm-Gg: ASbGncvZlns/r6OhZoVDQu8URYNU3WSu7SQx5NepB/dXgJX322UgZzkr49rb70xj+qH
+	ll/4dgTIS/9tWMhci+tXlcfqtmyeXeHT78nOIgddBMPWSQ8HkZQnaoLnfCDT7AjPSOCCyCkFRmi
+	pc/VMKYR+nSiw6k9ZoFgiIme6JtPMc7taHCeXv2TTKP77KyWh2Iivu9ckltwoA13lBwdEaRWzY0
+	7UjkAGEmEdpWlLGrPfbYd9EMV/cxmLqimlUL0qoFEtji+bm6Gg2j3JnCk/JbeIQGqIH4kti7RWu
+	pTXKWychEvlqegpdpAJp5fxdR+CuZCjief767S+GO+nZH3nOYBDyumj+n68sBaybp0K7JTA8APR
+	FN5q1ZU3Emp8PO27Mt2zlSZ+BomeJQg==
+X-Google-Smtp-Source: AGHT+IE6h0VU10/V+Gxi6bm1JgQkr0uySubfImjRGlRbej+QrSDFXrdbheZ3BwK05fUrOLmhKVMP4w==
+X-Received: by 2002:a5d:6c63:0:b0:390:f116:d220 with SMTP id ffacd0b85a97d-3997f9103dcmr2541431f8f.17.1742565270657;
+        Fri, 21 Mar 2025 06:54:30 -0700 (PDT)
+Message-ID: <6f8b385a-447e-42c3-b942-ba4e9271de11@suse.com>
+Date: Fri, 21 Mar 2025 14:54:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [MINI-OS PATCH 03/12] add elf.h
-To: Juergen Gross <jgross@suse.com>
-Cc: samuel.thibault@ens-lyon.org, minios-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org
-References: <20250321092451.17309-1-jgross@suse.com>
- <20250321092451.17309-4-jgross@suse.com>
+Subject: Re: [PATCH 05/16] xen/percpu: don't initialize percpu on resume
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Mykyta Poturai <mykyta_poturai@epam.com>,
+ Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org,
+ =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Julien Grall <julien@xen.org>
+References: <cover.1741164138.git.xakep.amatop@gmail.com>
+ <e44b56f18fe5e1c7f1d6cd9d33ba84cf0e26b440.1741164138.git.xakep.amatop@gmail.com>
+ <c5ccb703-45eb-4fb1-842c-75317354afad@xen.org>
+ <e8ddc992-a092-46d8-8c87-6b3c516fe464@suse.com>
+ <32989e14-4754-427d-8347-73fc83a8bd62@suse.com>
+ <08cf29e4-8029-4c3b-bb32-f84bcb6d3678@suse.com>
+ <CAGeoDV_sq-BuYF0fp8KByzit6CySgn_1X3VnL2jXBdoGDnNsDA@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,373 +129,80 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250321092451.17309-4-jgross@suse.com>
+In-Reply-To: <CAGeoDV_sq-BuYF0fp8KByzit6CySgn_1X3VnL2jXBdoGDnNsDA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 21.03.2025 10:24, Juergen Gross wrote:
-> Add some definitions for accessing an ELF file. Only the file header
-> and the program header are needed.
+On 21.03.2025 10:48, Mykola Kvach wrote:
+> Hi,
 > 
-> The main source for those are elfstructs.h and libelf.h from the Xen
-> tree. The license boiler plate of those files is being kept in the
-> resulting header file.
+> On Thu, Mar 13, 2025 at 6:20 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 13.03.2025 17:05, Jürgen Groß wrote:
+>>> On 13.03.25 16:54, Jan Beulich wrote:
+>>>> On 11.03.2025 21:59, Julien Grall wrote:
+>>>>> On 05/03/2025 09:11, Mykola Kvach wrote:
+>>>>>> Invocation of the CPU_UP_PREPARE notification
+>>>>>> on ARM64 during resume causes a crash:
+>>>>>>
+>>>>>> (XEN) [  315.807606] Error bringing CPU1 up: -16
+>>>>>> (XEN) [  315.811926] Xen BUG at common/cpu.c:258
+>>>>>> [...]
+>>>>>> (XEN) [  316.142765] Xen call trace:
+>>>>>> (XEN) [  316.146048]    [<00000a0000202264>] enable_nonboot_cpus+0x128/0x1ac (PC)
+>>>>>> (XEN) [  316.153219]    [<00000a000020225c>] enable_nonboot_cpus+0x120/0x1ac (LR)
+>>>>>> (XEN) [  316.160391]    [<00000a0000278180>] suspend.c#system_suspend+0x4c/0x1a0
+>>>>>> (XEN) [  316.167476]    [<00000a0000206b70>] domain.c#continue_hypercall_tasklet_handler+0x54/0xd0
+>>>>>> (XEN) [  316.176117]    [<00000a0000226538>] tasklet.c#do_tasklet_work+0xb8/0x100
+>>>>>> (XEN) [  316.183288]    [<00000a0000226920>] do_tasklet+0x68/0xb0
+>>>>>> (XEN) [  316.189077]    [<00000a000026e120>] domain.c#idle_loop+0x7c/0x194
+>>>>>> (XEN) [  316.195644]    [<00000a0000277638>] shutdown.c#halt_this_cpu+0/0x14
+>>>>>> (XEN) [  316.202383]    [<0000000000000008>] 0000000000000008
+>>>>>>
+>>>>>> Freeing per-CPU areas and setting __per_cpu_offset to INVALID_PERCPU_AREA
+>>>>>> only occur when !park_offline_cpus and system_state is not SYS_STATE_suspend.
+>>>>>> On ARM64, park_offline_cpus is always false, so setting __per_cpu_offset to
+>>>>>> INVALID_PERCPU_AREA depends solely on the system state.
+>>>>>>
+>>>>>> If the system is suspended, this area is not freed, and during resume, an error
+>>>>>> occurs in init_percpu_area, causing a crash because INVALID_PERCPU_AREA is not
+>>>>>> set and park_offline_cpus remains 0:
+>>>>>>
+>>>>>>       if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
+>>>>>>           return park_offline_cpus ? 0 : -EBUSY;
+>>>>>>
+>>>>>> It appears that the same crash can occur on x86 if park_offline_cpus is set
+>>>>>> to 0 during Xen suspend.
+>>>>>
+>>>>> I am rather confused. Looking at the x86 code, it seems
+>>>>> park_offline_cpus is cleared for AMD platforms. So are you saying the
+>>>>> suspend/resume doesn't work on AMD?
+>>>>
+>>>> Right now I can't see how it would work there. I've asked Marek for clarification
+>>>> as to their users using S3 only on Intel hardware.
+>>>
+>>> Seems as if this issue has been introduced with commit f75780d26b2f
+>>> ("xen: move per-cpu area management into common code"). Before that
+>>> on x86 there was just:
+>>>
+>>>      if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
+>>>          return 0;
+>>>
+>>> in init_percpu_area().
+>>
+>> Ah yes. Mykola, can you then please address this by adjusting init_percpu_area(),
+> 
+> Do I understand correctly that I should move the system_state check
+> inside init_percpu_area?
 
-Maybe the copying was a bit too literal.
+Well, I can only say as much as: To me this looks like it's the best thing you
+can do, given how the code is structured right now.
 
-> --- /dev/null
-> +++ b/include/elf.h
-> @@ -0,0 +1,340 @@
-> +#ifndef __ELF_H__
-> +#define __ELF_H__
-> +/*
-> + * Copyright (c) 1995, 1996 Erik Theisen.  All rights reserved.
-> + *
-> + * Redistribution and use in source and binary forms, with or without
-> + * modification, are permitted provided that the following conditions
-> + * are met:
-> + * 1. Redistributions of source code must retain the above copyright
-> + *    notice, this list of conditions and the following disclaimer.
-> + * 2. Redistributions in binary form must reproduce the above copyright
-> + *    notice, this list of conditions and the following disclaimer in the
-> + *    documentation and/or other materials provided with the distribution.
-> + * 3. The name of the author may not be used to endorse or promote products
-> + *    derived from this software without specific prior written permission
-> + *
-> + * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
-> + * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-> + * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-> + * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
-> + * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
-> + * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-> + * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-> + * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-> + * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-> + * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-> + */
-> +
-> +#include <stdbool.h>
-> +#include <mini-os/types.h>
-> +
-> +typedef uint32_t    Elf32_Addr;  /* Unsigned program address */
-> +typedef uint32_t    Elf32_Off;   /* Unsigned file offset */
-> +typedef uint16_t    Elf32_Half;  /* Unsigned medium integer */
-> +typedef uint32_t    Elf32_Word;  /* Unsigned large integer */
-> +
-> +typedef uint64_t    Elf64_Addr;
-> +typedef uint64_t    Elf64_Off;
-> +typedef uint16_t    Elf64_Half;
-> +typedef uint32_t    Elf64_Word;
-> +typedef uint64_t    Elf64_Xword;
-> +
-> +/* Unique build id string format when using --build-id. */
-> +#define NT_GNU_BUILD_ID 3
-> +
-> +/*
-> + * e_ident[] identification indexes
-> + * See http://www.caldera.com/developers/gabi/2000-07-17/ch4.eheader.html
-> + */
-> +#define EI_MAG0        0         /* file ID */
-> +#define EI_MAG1        1         /* file ID */
-> +#define EI_MAG2        2         /* file ID */
-> +#define EI_MAG3        3         /* file ID */
-> +#define EI_CLASS       4         /* file class */
-> +#define EI_DATA        5         /* data encoding */
-> +#define EI_VERSION     6         /* ELF header version */
-> +#define EI_OSABI       7         /* OS/ABI ID */
-> +#define EI_ABIVERSION  8         /* ABI version */
-> +#define EI_PAD         9         /* start of pad bytes */
-> +#define EI_NIDENT     16         /* Size of e_ident[] */
-> +
-> +/* e_ident[] magic number */
-> +#define ELFMAG0        0x7f      /* e_ident[EI_MAG0] */
-> +#define ELFMAG1        'E'       /* e_ident[EI_MAG1] */
-> +#define ELFMAG2        'L'       /* e_ident[EI_MAG2] */
-> +#define ELFMAG3        'F'       /* e_ident[EI_MAG3] */
-> +#define ELFMAG         "\177ELF" /* magic */
-> +#define SELFMAG        4         /* size of magic */
-> +
-> +/* e_ident[] file class */
-> +#define ELFCLASSNONE   0         /* invalid */
-> +#define ELFCLASS32     1         /* 32-bit objs */
-> +#define ELFCLASS64     2         /* 64-bit objs */
-> +#define ELFCLASSNUM    3         /* number of classes */
-> +
-> +/* e_ident[] data encoding */
-> +#define ELFDATANONE    0         /* invalid */
-> +#define ELFDATA2LSB    1         /* Little-Endian */
-> +#define ELFDATA2MSB    2         /* Big-Endian */
-> +#define ELFDATANUM     3         /* number of data encode defines */
-> +
-> +/* e_ident[] Operating System/ABI */
-> +#define ELFOSABI_SYSV         0  /* UNIX System V ABI */
-> +#define ELFOSABI_NONE         0  /* Same as ELFOSABI_SYSV */
-> +#define ELFOSABI_HPUX         1  /* HP-UX operating system */
-> +#define ELFOSABI_NETBSD       2  /* NetBSD */
-> +#define ELFOSABI_LINUX        3  /* GNU/Linux */
-> +#define ELFOSABI_HURD         4  /* GNU/Hurd */
-> +#define ELFOSABI_86OPEN       5  /* 86Open common IA32 ABI */
-> +#define ELFOSABI_SOLARIS      6  /* Solaris */
-> +#define ELFOSABI_MONTEREY     7  /* Monterey */
-> +#define ELFOSABI_IRIX         8  /* IRIX */
-> +#define ELFOSABI_FREEBSD      9  /* FreeBSD */
-> +#define ELFOSABI_TRU64       10  /* TRU64 UNIX */
-> +#define ELFOSABI_MODESTO     11  /* Novell Modesto */
-> +#define ELFOSABI_OPENBSD     12  /* OpenBSD */
-> +#define ELFOSABI_ARM         97  /* ARM */
-> +#define ELFOSABI_STANDALONE 255  /* Standalone (embedded) application */
+>> adding a Fixes: tag to reference the commit above?
+> 
+> Sure! Should I send it as a separate patch to speed up its merging?
 
-While I'm happy to see Modesto mentioned in yet another places, I don't
-think you need the majority of these?
-
-> +/* e_ident */
-> +#define IS_ELF(ehdr) ((ehdr).e_ident[EI_MAG0] == ELFMAG0 && \
-> +                      (ehdr).e_ident[EI_MAG1] == ELFMAG1 && \
-> +                      (ehdr).e_ident[EI_MAG2] == ELFMAG2 && \
-> +                      (ehdr).e_ident[EI_MAG3] == ELFMAG3)
-> +
-> +/* e_flags */
-> +#define EF_ARM_EABI_MASK    0xff000000
-> +#define EF_ARM_EABI_UNKNOWN 0x00000000
-> +#define EF_ARM_EABI_VER1    0x01000000
-> +#define EF_ARM_EABI_VER2    0x02000000
-> +#define EF_ARM_EABI_VER3    0x03000000
-> +#define EF_ARM_EABI_VER4    0x04000000
-> +#define EF_ARM_EABI_VER5    0x05000000
-> +
-> +/* ELF Header */
-> +typedef struct {
-> +    unsigned char e_ident[EI_NIDENT]; /* ELF Identification */
-> +    Elf32_Half    e_type;        /* object file type */
-> +    Elf32_Half    e_machine;     /* machine */
-> +    Elf32_Word    e_version;     /* object file version */
-> +    Elf32_Addr    e_entry;       /* virtual entry point */
-> +    Elf32_Off     e_phoff;       /* program header table offset */
-> +    Elf32_Off     e_shoff;       /* section header table offset */
-> +    Elf32_Word    e_flags;       /* processor-specific flags */
-> +    Elf32_Half    e_ehsize;      /* ELF header size */
-> +    Elf32_Half    e_phentsize;   /* program header entry size */
-> +    Elf32_Half    e_phnum;       /* number of program header entries */
-> +    Elf32_Half    e_shentsize;   /* section header entry size */
-> +    Elf32_Half    e_shnum;       /* number of section header entries */
-> +    Elf32_Half    e_shstrndx;    /* section header table's "section
-> +                                    header string table" entry offset */
-> +} Elf32_Ehdr;
-> +
-> +typedef struct {
-> +    unsigned char e_ident[EI_NIDENT]; /* Id bytes */
-> +    Elf64_Half    e_type;        /* file type */
-> +    Elf64_Half    e_machine;     /* machine type */
-> +    Elf64_Word    e_version;     /* version number */
-> +    Elf64_Addr    e_entry;       /* entry point */
-> +    Elf64_Off     e_phoff;       /* Program hdr offset */
-> +    Elf64_Off     e_shoff;       /* Section hdr offset */
-> +    Elf64_Word    e_flags;       /* Processor flags */
-> +    Elf64_Half    e_ehsize;      /* sizeof ehdr */
-> +    Elf64_Half    e_phentsize;   /* Program header entry size */
-> +    Elf64_Half    e_phnum;       /* Number of program headers */
-> +    Elf64_Half    e_shentsize;   /* Section header entry size */
-> +    Elf64_Half    e_shnum;       /* Number of section headers */
-> +    Elf64_Half    e_shstrndx;    /* String table index */
-> +} Elf64_Ehdr;
-> +
-> +/* e_type */
-> +#define ET_NONE      0           /* No file type */
-> +#define ET_REL       1           /* relocatable file */
-> +#define ET_EXEC      2           /* executable file */
-> +#define ET_DYN       3           /* shared object file */
-> +#define ET_CORE      4           /* core file */
-> +#define ET_NUM       5           /* number of types */
-> +#define ET_LOPROC    0xff00      /* reserved range for processor */
-> +#define ET_HIPROC    0xffff      /*   specific e_type */
-> +
-> +/* e_machine */
-> +#define EM_NONE      0           /* No Machine */
-> +#define EM_M32       1           /* AT&T WE 32100 */
-> +#define EM_SPARC     2           /* SPARC */
-> +#define EM_386       3           /* Intel 80386 */
-> +#define EM_68K       4           /* Motorola 68000 */
-> +#define EM_88K       5           /* Motorola 88000 */
-> +#define EM_486       6           /* Intel 80486 - unused? */
-> +#define EM_860       7           /* Intel 80860 */
-> +#define EM_MIPS      8           /* MIPS R3000 Big-Endian only */
-> +/*
-> + * Don't know if EM_MIPS_RS4_BE,
-> + * EM_SPARC64, EM_PARISC,
-> + * or EM_PPC are ABI compliant
-> + */
-> +#define EM_MIPS_RS4_BE 10        /* MIPS R4000 Big-Endian */
-> +#define EM_SPARC64     11        /* SPARC v9 64-bit unoffical */
-> +#define EM_PARISC      15        /* HPPA */
-> +#define EM_SPARC32PLUS 18        /* Enhanced instruction set SPARC */
-> +#define EM_PPC         20        /* PowerPC */
-> +#define EM_PPC64       21        /* PowerPC 64-bit */
-> +#define EM_ARM         40        /* Advanced RISC Machines ARM */
-> +#define EM_ALPHA       41        /* DEC ALPHA */
-> +#define EM_SPARCV9     43        /* SPARC version 9 */
-> +#define EM_ALPHA_EXP   0x9026    /* DEC ALPHA */
-> +#define EM_IA_64       50        /* Intel Merced */
-> +#define EM_X86_64      62        /* AMD x86-64 architecture */
-> +#define EM_VAX         75        /* DEC VAX */
-> +#define EM_AARCH64    183        /* ARM 64-bit */
-
-Here I similarly think some stripping down might help. Doing so would then
-also permit to leave out the comment in the middle.
-
-> +/* Version */
-> +#define EV_NONE      0           /* Invalid */
-> +#define EV_CURRENT   1           /* Current */
-> +#define EV_NUM       2           /* number of versions */
-> +
-> +/* Program Header */
-> +typedef struct {
-> +    Elf32_Word    p_type;        /* segment type */
-> +    Elf32_Off     p_offset;      /* segment offset */
-> +    Elf32_Addr    p_vaddr;       /* virtual address of segment */
-> +    Elf32_Addr    p_paddr;       /* physical address - ignored? */
-> +    Elf32_Word    p_filesz;      /* number of bytes in file for seg. */
-> +    Elf32_Word    p_memsz;       /* number of bytes in mem. for seg. */
-> +    Elf32_Word    p_flags;       /* flags */
-> +    Elf32_Word    p_align;       /* memory alignment */
-> +} Elf32_Phdr;
-> +
-> +typedef struct {
-> +    Elf64_Word    p_type;        /* entry type */
-> +    Elf64_Word    p_flags;       /* flags */
-> +    Elf64_Off     p_offset;      /* offset */
-> +    Elf64_Addr    p_vaddr;       /* virtual address */
-> +    Elf64_Addr    p_paddr;       /* physical address */
-> +    Elf64_Xword   p_filesz;      /* file size */
-> +    Elf64_Xword   p_memsz;       /* memory size */
-> +    Elf64_Xword   p_align;       /* memory & file alignment */
-> +} Elf64_Phdr;
-> +
-> +/* Segment types - p_type */
-> +#define PT_NULL      0           /* unused */
-> +#define PT_LOAD      1           /* loadable segment */
-> +#define PT_DYNAMIC   2           /* dynamic linking section */
-> +#define PT_INTERP    3           /* the RTLD */
-> +#define PT_NOTE      4           /* auxiliary information */
-> +#define PT_SHLIB     5           /* reserved - purpose undefined */
-> +#define PT_PHDR      6           /* program header */
-> +#define PT_NUM       7           /* Number of segment types */
-> +#define PT_LOPROC    0x70000000  /* reserved range for processor */
-> +#define PT_HIPROC    0x7fffffff  /*  specific segment types */
-> +
-> +/* Segment flags - p_flags */
-> +#define PF_X         0x1        /* Executable */
-> +#define PF_W         0x2        /* Writable */
-> +#define PF_R         0x4        /* Readable */
-> +#define PF_MASKPROC  0xf0000000 /* reserved bits for processor */
-> +                                /*  specific segment flags */
-> +
-> +/* Section Header */
-> +typedef struct {
-> +    Elf32_Word    sh_name;      /* name - index into section header
-> +                                   string table section */
-> +    Elf32_Word    sh_type;      /* type */
-> +    Elf32_Word    sh_flags;     /* flags */
-> +    Elf32_Addr    sh_addr;      /* address */
-> +    Elf32_Off     sh_offset;    /* file offset */
-> +    Elf32_Word    sh_size;      /* section size */
-> +    Elf32_Word    sh_link;      /* section header table index link */
-> +    Elf32_Word    sh_info;      /* extra information */
-> +    Elf32_Word    sh_addralign; /* address alignment */
-> +    Elf32_Word    sh_entsize;   /* section entry size */
-> +} Elf32_Shdr;
-> +
-> +typedef struct {
-> +    Elf64_Word    sh_name;      /* section name */
-> +    Elf64_Word    sh_type;      /* section type */
-> +    Elf64_Xword   sh_flags;     /* section flags */
-> +    Elf64_Addr    sh_addr;      /* virtual address */
-> +    Elf64_Off     sh_offset;    /* file offset */
-> +    Elf64_Xword   sh_size;      /* section size */
-> +    Elf64_Word    sh_link;      /* link to another */
-> +    Elf64_Word    sh_info;      /* misc info */
-> +    Elf64_Xword   sh_addralign; /* memory alignment */
-> +    Elf64_Xword   sh_entsize;   /* table entry size */
-> +} Elf64_Shdr;
-> +
-> +/* sh_type */
-> +#define SHT_NULL        0       /* inactive */
-> +#define SHT_PROGBITS    1       /* program defined information */
-> +#define SHT_SYMTAB      2       /* symbol table section */
-> +#define SHT_STRTAB      3       /* string table section */
-> +#define SHT_RELA        4       /* relocation section with addends*/
-> +#define SHT_HASH        5       /* symbol hash table section */
-> +#define SHT_DYNAMIC     6       /* dynamic section */
-> +#define SHT_NOTE        7       /* note section */
-> +#define SHT_NOBITS      8       /* no space section */
-> +#define SHT_REL         9       /* relation section without addends */
-> +#define SHT_SHLIB      10       /* reserved - purpose unknown */
-> +#define SHT_DYNSYM     11       /* dynamic symbol table section */
-> +#define SHT_NUM        12       /* number of section types */
-> +
-> +/* Note definitions */
-> +typedef struct {
-> +    Elf32_Word namesz;
-> +    Elf32_Word descsz;
-> +    Elf32_Word type;
-> +    char data[];
-> +} Elf32_Note;
-> +
-> +typedef struct {
-> +    Elf64_Word namesz;
-> +    Elf64_Word descsz;
-> +    Elf64_Word type;
-> +    char data[];
-> +} Elf64_Note;
-> +
-> +/* Abstraction layer for handling 32- and 64-bit ELF files. */
-> +
-> +typedef union {
-> +    Elf32_Ehdr e32;
-> +    Elf64_Ehdr e64;
-> +} elf_ehdr;
-> +
-> +static inline bool elf_is_32bit(elf_ehdr *ehdr)
-> +{
-> +    return ehdr->e32.e_ident[EI_CLASS] == ELFCLASS32;
-> +}
-> +
-> +static inline bool elf_is_64bit(elf_ehdr *ehdr)
-> +{
-> +    return ehdr->e32.e_ident[EI_CLASS] == ELFCLASS64;
-> +}
-> +
-> +#define ehdr_val(ehdr, elem) (elf_is_32bit(ehdr) ? (ehdr)->e32.elem : (ehdr)->e64.elem)
-> +
-> +typedef union {
-> +    Elf32_Phdr e32;
-> +    Elf64_Phdr e64;
-> +} elf_phdr;
-> +
-> +#define phdr_val(ehdr, phdr, elem) (elf_is_32bit(ehdr) ? (phdr)->e32.elem : (phdr)->e64.elem)
-> +
-> +typedef union {
-> +    Elf32_Shdr e32;
-> +    Elf64_Shdr e64;
-> +} elf_shdr;
-> +
-> +#define shdr_val(ehdr, shdr, elem) (elf_is_32bit(ehdr) ? (shdr)->e32.elem : (shdr)->e64.elem)
-> +
-> +typedef union {
-> +    Elf32_Note e32;
-> +    Elf64_Note e64;
-> +} elf_note;
-> +
-> +#define note_val(ehdr, note, elem) (elf_is_32bit(ehdr) ? (note)->e32.elem : (note)->e64.elem)
-> +
-> +static inline void *elf_ptr_add(void *ptr, unsigned long add)
-> +{
-> +    return (char *)ptr + add;
-
-You can omit the cast here, can't you?
-
-You're the maintainer, so you'll know how many of the comments you want to
-address. Either way:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Doing so may indeed help.
 
 Jan
 
