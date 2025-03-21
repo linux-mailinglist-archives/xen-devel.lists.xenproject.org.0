@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FC7FA6C670
-	for <lists+xen-devel@lfdr.de>; Sat, 22 Mar 2025 00:34:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.924678.1327785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837D1A6CA2F
+	for <lists+xen-devel@lfdr.de>; Sat, 22 Mar 2025 13:52:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.924403.1327795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvlsX-0002oi-6d; Fri, 21 Mar 2025 23:34:17 +0000
+	id 1tvyJN-00044K-El; Sat, 22 Mar 2025 12:50:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 924678.1327785; Fri, 21 Mar 2025 23:34:17 +0000
+Received: by outflank-mailman (output) from mailman id 924403.1327795; Sat, 22 Mar 2025 12:50:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvlsX-0002mh-3r; Fri, 21 Mar 2025 23:34:17 +0000
-Received: by outflank-mailman (input) for mailman id 924678;
- Fri, 21 Mar 2025 23:34:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tvlsV-0002mb-5w
- for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 23:34:15 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tvlsS-00HIAP-0w;
- Fri, 21 Mar 2025 23:34:12 +0000
-Received: from [2a02:8012:3a1:0:d473:3eed:4e56:a8b]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tvlsR-00FN6c-2p;
- Fri, 21 Mar 2025 23:34:11 +0000
+	id 1tvyJN-00041m-Ay; Sat, 22 Mar 2025 12:50:49 +0000
+Received: by outflank-mailman (input) for mailman id 924403;
+ Fri, 21 Mar 2025 19:10:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=su4e=WI=srs.euronap.de=SRS1=HXwZ=home.tangomaris.de==DDDU=WI=sl.nospam.tangomaris.de=xen-mailinglist@srs-se1.protection.inumbo.net>)
+ id 1tvhl5-0008Qe-CI
+ for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 19:10:19 +0000
+Received: from mail.euronap.de (mail.euronap.de [84.38.78.210])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1fd8b465-0688-11f0-9ffa-bf95429c2676;
+ Fri, 21 Mar 2025 20:10:17 +0100 (CET)
+Received: from home.tangomaris.de
+ (ip-130-180-058-238.um40.pools.vodafone-ip.de [130.180.58.238])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail.euronap.de (Postfix) with ESMTPSA id 4ZKBpw0lrVz6tcS
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 20:10:16 +0100 (CET)
+Received: from [192.168.222.26] (ip-109-091-129-157.um37.pools.vodafone-ip.de
+ [109.91.129.157])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by gw.tangomaris.de (Postfix) with ESMTPSA id 4ZKBpv1NKsz3wrR
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 20:10:15 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,51 +50,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=eeMEf3p/slSL7nc0B+FICe+pSUqyAIkq8B5EyRFziYc=; b=VFrjJaMeZ7tsTwocHKG5vgqZoL
-	bwD/83xjIiPYQJQbsCyVZeJY7VEWUFX/WuUBUFO5uHm7iry0Il0SmQhC3XbSjCdEkFPvb+uhE8uLA
-	WU+dyeSmHryKJBetRtinvP8Cv+aF2HMFvwMskDMRVNzGmU4VEr4R2nuIedFScgG4zIS0=;
-Message-ID: <1a27885a-ec07-4716-8e62-9c4bb25ca1cb@xen.org>
-Date: Fri, 21 Mar 2025 23:34:09 +0000
+X-Inumbo-ID: 1fd8b465-0688-11f0-9ffa-bf95429c2676
+Message-ID: <f06ad622-4bb7-4a7d-9d11-a3c1456a4aa1@sl.nospam.tangomaris.de>
+Date: Fri, 21 Mar 2025 20:10:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2] xen: add libafl-qemu fuzzer support
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <gwd@xenproject.org>
-References: <20250315003544.1101488-1-volodymyr_babchuk@epam.com>
- <alpine.DEB.2.22.394.2503211517130.2325679@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2503211517130.2325679@ubuntu-linux-20-04-desktop>
+To: xen-devel@lists.xenproject.org
+Content-Language: de-CH
+From: Shen Long <xen-mailinglist@sl.nospam.tangomaris.de>
+Subject: VIF network definition does not work with backend=domnet
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Stefano,
+Hello,
 
-On 21/03/2025 22:32, Stefano Stabellini wrote:
-> As discussed, please add a wrapper with an empty implementation in the
-> regular case and the call to libafl_qemu_end when the fuzzer is enabled.
-> So that here it becomes just something like:
-> 
->    fuzzer_success();
+I use XEN on a gentoo home-lab/home-network server. I installed the Dom0 
+with gentoo with a dedicated network card. I gave a spare network card 
+on the machine to a dedicated network driver domain which also runs gentoo.
 
-I was thinking the same when reviewing the code. It would make the code 
-a bit more readable. We would also want fuzzer_failure(). Both would 
-need to be implemented in a common header.
+Now i discovered an issue with the VIF spec for new domUs.
 
-Cheers,
+Following problem. If i start a domu with a vif spec to connect to a 
+backend domu it does fail with an error.
+If i omit the vif spec, create the domu and immediately attach a network 
+card with xl network-attach backend=netbackend it works.
 
--- 
-Julien Grall
+Here's the netbackend.cfg, if i may forgot something:
 
+ > name = "netbackend"
+ > builder = "hvm"
+ > vcpus = 4
+ > memory = 4096
+ > pci = [ '03:00.0' ]
+ > disk = [ 'phy:/dev/mapper/xenhost-netbackend,xvda,w' ]
+ > netif="yes"
+ > usbdevice = [ "tablet" ]
+ > serial = "pty"
+ > on_poweroff = "destroy"
+ > on_reboot = "restart"
+ > on_crash = "restart"
+
+My backend have several bridge-networks configured with associated 
+network-vlans on my physical interface.
+- home
+- dmz
+- foo
+- infra
+
+Here the test.cfg domu which "works":
+
+name = "test"
+builder = "hvm"
+vcpus = 1
+memory = 4096
+#vif = [ 'backend=netbackend,bridge=dmz' ]
+disk = [ 'file:/isos/systemrescue-11.03-amd64.iso,hda:cdrom,r' ]
+usbdevice = [ "tablet" ]
+serial = "pty"
+on_poweroff = "destroy"
+on_reboot = "restart"
+on_crash = "restart"
+
+It does not have a proper disk yet, because testing.
+The Problem is, if i remove the hash from the vif spec, i get this error 
+on `xl create test.cfg`:
+
+# xl create /etc/xen/domuconfig/test.cnf
+Parsing config from /etc/xen/domuconfig/test.cnf
+libxl: error: libxl_dm.c:3157:device_model_spawn_outcome: Domain 
+89:domain 89 device model: spawn failed (rc=-3)
+libxl: error: libxl_dm.c:3377:device_model_postconfig_done: Domain 
+89:Post DM startup configs failed, rc=-3
+libxl: error: libxl_create.c:1937:domcreate_devmodel_started: Domain 
+89:device model did not start: -3
+libxl: error: libxl_aoutils.c:646:libxl__kill_xs_path: Device Model 
+already exited
+libxl: error: libxl_xshelp.c:206:libxl__xs_read_mandatory: xenstore read 
+failed: `/libxl/89/type': No such file or directory
+libxl: warning: libxl_dom.c:49:libxl__domain_type: unable to get domain 
+type for domid=89, assuming HVM
+libxl: error: libxl_domain.c:1616:domain_destroy_domid_cb: Domain 
+89:xc_domain_destroy failed: No such process
+libxl: error: libxl_domain.c:1133:domain_destroy_callback: Domain 
+89:Unable to destroy guest
+libxl: error: libxl_domain.c:1060:domain_destroy_cb: Domain 
+89:Destruction of domain failed
+
+As mentioned, i can comment out the vif spec and attach a network card 
+with `xl network-attach test bridge=dmz backend=netbackend` which works 
+perfectly fine. But i dont want to do it manually but instead use the 
+auto feature to start my netbackend and have a little wait function in 
+my xendomains init which does wait for netbackend to become available. 
+To autostart all the systems when something failed.
+
+Do i have an error in my setup or overlooked something?
+Do you need more information to help here?
+Do we have a proper bug in this scenario?
+Or is it not implemented in that way, a missing feature or do i overlook 
+something?
+
+Best regards
+Shen Long
 
