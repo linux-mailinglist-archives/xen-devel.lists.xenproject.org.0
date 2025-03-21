@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F91CA6BDFD
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 16:11:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.924175.1327499 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1074A6BE6A
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 16:39:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.924207.1327511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tve1b-0004Pa-NF; Fri, 21 Mar 2025 15:11:07 +0000
+	id 1tveSI-0001BE-W8; Fri, 21 Mar 2025 15:38:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 924175.1327499; Fri, 21 Mar 2025 15:11:07 +0000
+Received: by outflank-mailman (output) from mailman id 924207.1327511; Fri, 21 Mar 2025 15:38:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tve1b-0004NH-Jy; Fri, 21 Mar 2025 15:11:07 +0000
-Received: by outflank-mailman (input) for mailman id 924175;
- Fri, 21 Mar 2025 15:11:06 +0000
+	id 1tveSI-000186-SY; Fri, 21 Mar 2025 15:38:42 +0000
+Received: by outflank-mailman (input) for mailman id 924207;
+ Fri, 21 Mar 2025 15:38:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1tcq=WI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tve1Z-0004Gn-VR
- for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 15:11:06 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ <SRS0=jx71=WI=desiato.srs.infradead.org=BATV+37f7f3dffb3293675570+7880+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1tveSG-00016w-B7
+ for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 15:38:40 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b56624bc-0666-11f0-9ea1-5ba50f476ded;
- Fri, 21 Mar 2025 16:11:05 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-39133f709f5so1146997f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 08:11:05 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9eff79sm2610955f8f.95.2025.03.21.08.11.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Mar 2025 08:11:03 -0700 (PDT)
+ id 8e418e1e-066a-11f0-9ea1-5ba50f476ded;
+ Fri, 21 Mar 2025 16:38:37 +0100 (CET)
+Received: from [172.31.31.145] (helo=u09cd745991455d.ant.amazon.com)
+ by desiato.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
+ id 1tveRn-00000004RSj-0sdp; Fri, 21 Mar 2025 15:38:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,231 +40,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b56624bc-0666-11f0-9ea1-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742569864; x=1743174664; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tofR+EzlLBERbXMDgebHl5oSm5e1SaQKVDubItKsMck=;
-        b=tg6HBsnW65F4OfHPNuJ19VDrMWJnTNoSn3sSEUMEUgaaT3CjqInAOxqHFFDD16FojX
-         S0sBeYrlZQ9qG3JBDip+MAu4CdcF+R8h4sEuQc145Ib5AqAKpcuDrT7GvsH+tCjm6KrQ
-         UHhScDeqRu/GZULU5848pxAPVIWScJrwnbgTk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742569864; x=1743174664;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tofR+EzlLBERbXMDgebHl5oSm5e1SaQKVDubItKsMck=;
-        b=rBPuZyxLyCsj+AbkdZxgid8OQQiiEKLstLjiw+pPO3aWUVHPIND90RNj/BbRq46hZ3
-         SnMinPS+vSAGOoAmjXSjpVq6suCFq/UB5q1VitdQImhtu/lWS864p5/tRYoRZNQnP3IS
-         XBrwfW1IvkFX6mIcQg7bmWik2ZmWFwqP1aiJHwEmA3mfwUvKNjSzR2Aa7hNDkiqzeZ+v
-         pEZXsxGnCwlEAJzstcEKMKrV3l8dZXLcMUcE9kVAmQifKJ7NRX0JW1lGQwXPlfVL5TFH
-         Sgoc7ZuJ14IVdUI0jGmFgMhy5/pPbGa6NPFGYh6HWglheRACYs3mIUdLhzgBEuf2ufgN
-         FJmw==
-X-Forwarded-Encrypted: i=1; AJvYcCUqa2MYseAktrEIractwuhQlrXNGVVilw2RZYB4gki0DeoijafiV9jyF9BYuc48CZ83SG3jJUMrFZc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwJJjgp1BvFdE31vm4zbE2jmmMkXGD+nORE9lNzs7eArtbqg4Bx
-	t/vlbtcp3OBxfn3yXMX/b9SzfaP3K9+bYzYLDwgiQKD1IlCwDoidxeqsFzeRdCM=
-X-Gm-Gg: ASbGncsbrcyXHxJxFkN2xXqJTPHj0vKHPoTYNAr1NArp3DFkWOJmYjHA52bDb9eKQFu
-	vSlVdq1Yl92wyHZs8FexPeujXUa2fvHh8ksC6/FdJL5RR9TQeZXW9qU7kWQcj44OeCSMpjGvCxl
-	mEGDIBmLzvsH459Y0lDPisHYlCDrMW1/LDJG7IXykDOz8SV8wZc9GDfX0T8zPMytmFo9CcwK0nt
-	hqzm6l9RCD2X+yIJooEtw5px1Q9+yQDCo/jTk4aDvMLoWTEjif2MNfeBTUI3OttWFKbXqQlEkBW
-	+9TTTF/OTxdIcApBCBOyAA/vjLaybnCp3T/QG3IjUcJtuMZDyXMop6RnJuMvpJEefzqh/cdK9my
-	ulcBb0ZiF+A==
-X-Google-Smtp-Source: AGHT+IFtz85B20a+gxf2q1l3Dkt+gnZevaCv0a93wZ/JaK9txY7RQYFa+R/2AMboFwN5V2rpnsoJJw==
-X-Received: by 2002:a05:6000:4012:b0:391:4674:b10f with SMTP id ffacd0b85a97d-3997f92d312mr3503752f8f.36.1742569863970;
-        Fri, 21 Mar 2025 08:11:03 -0700 (PDT)
-Message-ID: <eaaf2aef-129a-45ce-b5e7-ae884c2385f3@citrix.com>
-Date: Fri, 21 Mar 2025 15:11:02 +0000
+X-Inumbo-ID: 8e418e1e-066a-11f0-9ea1-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Hur8klx0pto+bVUCorbe/IOiYL8Zq5fllI2zEDHUVww=; b=GJ+56TiPzAKgxjiUsu7mauybOy
+	n24fB07NZDlX1YLn/Tm3/N4fCjcNUQ9q0RU0sWYbKxHDHcjS49KGgsk2x5WIo4STNXFjF72GtZZpm
+	SmI61QXnTy2B0XeRn/xEReTWMAQ/b/53pzI5qCM0c8RBpEruAa+8A6+Ix6kvZ6n+TAq3+1cxhSwfM
+	O5/74zfEWktOgo18tPoPahIDx4gSX2d0mNRyW6SYmt5eFF1bCXEpsggXvv6AGz9qdAS7bCY5KNges
+	9SM9ftchBzqBmx35e5D9/mlfno/oC1Xu2k+dxzZDQ8u1EeE8nkQaMzN0i65R/q1YQ0ZVhXIQV2uwm
+	ISYDgY0g==;
+Message-ID: <979b6a34ca5724ced1d4871b58bf227065d7da57.camel@infradead.org>
+Subject: Using Restricted DMA for virtio-pci
+From: David Woodhouse <dwmw2@infradead.org>
+To: Claire Chang <tientzu@chromium.org>, Rob Herring <robh+dt@kernel.org>, 
+ mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, Will Deacon
+ <will@kernel.org>,  Frank Rowand <frowand.list@gmail.com>, Konrad Rzeszutek
+ Wilk <konrad.wilk@oracle.com>,  boris.ostrovsky@oracle.com,
+ jgross@suse.com, Christoph Hellwig <hch@lst.de>,  Marek Szyprowski
+ <m.szyprowski@samsung.com>
+Cc: heikki.krogerus@linux.intel.com, peterz@infradead.org, 
+ benh@kernel.crashing.org, grant.likely@arm.com, paulus@samba.org,
+ mingo@kernel.org,  sstabellini@kernel.org, Saravana Kannan
+ <saravanak@google.com>,  xypron.glpk@gmx.de, "Rafael J . Wysocki"
+ <rafael.j.wysocki@intel.com>,  Bartosz Golaszewski
+ <bgolaszewski@baylibre.com>, xen-devel@lists.xenproject.org, Thierry Reding
+ <treding@nvidia.com>,  linux-devicetree <devicetree@vger.kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, Nicolas Boichat <drinkcat@chromium.org>, 
+ Dan Williams <dan.j.williams@intel.com>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Greg KH <gregkh@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, Jim
+ Quinlan <james.quinlan@broadcom.com>,  Robin Murphy <robin.murphy@arm.com>,
+ hch@infradead.org, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang
+ <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio
+ =?ISO-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+ virtualization@lists.linux.dev, graf@amazon.de
+Date: Fri, 21 Mar 2025 15:38:10 +0000
+In-Reply-To: <20210209062131.2300005-1-tientzu@chromium.org>
+References: <20210209062131.2300005-1-tientzu@chromium.org>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-juy7yf7MhQovyScjrs78"
+User-Agent: Evolution 3.52.3-0ubuntu1 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] x86/public: Split the struct cpu_user_regs type
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250311211043.3629696-1-andrew.cooper3@citrix.com>
- <20250311211043.3629696-8-andrew.cooper3@citrix.com>
- <8edba542-9844-409e-bbf0-5ff1c9287a10@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <8edba542-9844-409e-bbf0-5ff1c9287a10@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Bad-Reply: References and In-Reply-To but no 'Re:' in Subject.
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-On 17/03/2025 12:15 pm, Jan Beulich wrote:
-> On 11.03.2025 22:10, Andrew Cooper wrote:
->> In order to support FRED, we're going to have to remove the {ds..gs} fields
->> from struct cpu_user_regs, meaning that it is going to have to become a
->> different type to the structure embedded in vcpu_guest_context_u.
->>
->> struct cpu_user_regs is a name used in common Xen code (i.e. needs to stay
->> using this name), so renaming the public struct to be guest_user_regs in Xen's
->> view only.
->>
->> Introduce a brand hew cpu-user-regs.h, currently containing a duplicate
->> structure.  This removes the need for current.h to include public/xen.h, and
->> highlights a case where the emulator was picking up cpu_user_regs
->> transitively.
->>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Thanks.
+--=-juy7yf7MhQovyScjrs78
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->> cpu_user_regs_t and the guest handle don't seem to be used anywhere.  I'm
->> tempted to exclude them from Xen builds.
-> I concur. We can always re-expose them should they be needed somewhere.
+On Tue, 2021-02-09 at 14:21 +0800, Claire Chang wrote:
+> This series implements mitigations for lack of DMA access control on
+> systems without an IOMMU, which could result in the DMA accessing the
+> system memory at unexpected times and/or unexpected addresses, possibly
+> leading to data leakage or corruption.
 
-It's actually a little ugly to do.
+Replying to an ancient (2021) thread which has already been merged...
 
-#ifdef __XEN__
-#undef cpu_user_regs
-#else
-typedef struct cpu_user_regs cpu_user_regs_t;
-DEFINE_XEN_GUEST_HANDLE(cpu_user_regs_t);
-#endif
+I'd like to be able to use this facility for virtio devices.
 
-and I don't particularly like it, given the complexity of #ifdef-ary
-around it.  Thoughts?
+Virtio already has a complicated relationship with the DMA API, because
+there were a bunch of early VMM bugs where the virtio devices where
+magically exempted from IOMMU protection, but the VMM lied to the guest
+and claimed they weren't.
 
->
->> --- /dev/null
->> +++ b/xen/arch/x86/include/asm/cpu-user-regs.h
->> @@ -0,0 +1,69 @@
->> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->> +#ifndef X86_CPU_USER_REGS_H
->> +#define X86_CPU_USER_REGS_H
->> +
->> +#define DECL_REG_LOHI(which) union { \
->> +    uint64_t r ## which ## x; \
->> +    uint32_t e ## which ## x; \
->> +    uint16_t which ## x; \
->> +    struct { \
->> +        uint8_t which ## l; \
->> +        uint8_t which ## h; \
->> +    }; \
->> +}
->> +#define DECL_REG_LO8(name) union { \
->> +    uint64_t r ## name; \
->> +    uint32_t e ## name; \
->> +    uint16_t name; \
->> +    uint8_t name ## l; \
->> +}
->> +#define DECL_REG_LO16(name) union { \
->> +    uint64_t r ## name; \
->> +    uint32_t e ## name; \
->> +    uint16_t name; \
->> +}
->> +#define DECL_REG_HI(num) union { \
->> +    uint64_t r ## num; \
->> +    uint32_t r ## num ## d; \
->> +    uint16_t r ## num ## w; \
->> +    uint8_t r ## num ## b; \
->> +}
-> Can we try to avoid repeating these here? The #undef-s in the public header are
-> to keep external consumers' namespaces reasonably tidy. In Xen, since we don't
-> otherwise use identifiers of these names, can't we simply #ifdef-out those
-> #undef-s, and then not re-introduce the same (less the two underscores) here?
-> Granted we then need to include the public header here, but I think that's a
-> fair price to pay to avoid the redundancy.
+With the advent of confidential computing, and the VMM (or whatever's
+emulating the virtio device) not being *allowed* to arbitrarily access
+all of the guest's memory, the DMA API becomes necessary again.
 
-Breaking the connection between asm/current.h and public/xen.h is very
-important IMO.  Right now, the public interface/types/defines are in
-every TU, and they absolutely shouldn't be.
+Either a virtual IOMMU needs to determine which guest memory the VMM
+may access, or the DMA API is wrappers around operations which
+share/unshare (or unencrypt/encrypt) the memory in question.
 
-Sadly, the compiler isn't happy when including public/xen.h after
-asm/current.h, hence the dropping of the underscores.
+All of which is complicated and slow, if we're looking at a minimal
+privileged hypervisor stub like pKVM which enforces the lack of guest
+memory access from VMM.
 
-I did have half a mind to expand them fully.  I find them unintuitive,
-but I also didn't think I'd successfully argue that change in.
+I'm thinking of defining a new type of virtio-pci device which cannot
+do DMA to arbitrary system memory. Instead it has an additional memory
+BAR which is used as a SWIOTLB for bounce buffering.
 
-I'm not terribly fussed how we do this, but I really do want to reduce
-the header tangle.
+The driver for it would look much like the existing virtio-pci device
+except that it would register the restricted-dma region first (and thus
+the swiotlb dma_ops), and then just go through the rest of the setup
+like any other virtio device.
 
->
->> +struct cpu_user_regs
->> +{
->> +    DECL_REG_HI(15);
->> +    DECL_REG_HI(14);
->> +    DECL_REG_HI(13);
->> +    DECL_REG_HI(12);
->> +    DECL_REG_LO8(bp);
->> +    DECL_REG_LOHI(b);
->> +    DECL_REG_HI(11);
->> +    DECL_REG_HI(10);
->> +    DECL_REG_HI(9);
->> +    DECL_REG_HI(8);
->> +    DECL_REG_LOHI(a);
->> +    DECL_REG_LOHI(c);
->> +    DECL_REG_LOHI(d);
->> +    DECL_REG_LO8(si);
->> +    DECL_REG_LO8(di);
->> +    uint32_t error_code;
->> +    uint32_t entry_vector;
->> +    DECL_REG_LO16(ip);
->> +    uint16_t cs, _pad0[1];
->> +    uint8_t  saved_upcall_mask;
->> +    uint8_t  _pad1[3];
->> +    DECL_REG_LO16(flags); /* rflags.IF == !saved_upcall_mask */
->> +    DECL_REG_LO8(sp);
->> +    uint16_t ss, _pad2[3];
->> +    uint16_t es, _pad3[3];
->> +    uint16_t ds, _pad4[3];
->> +    uint16_t fs, _pad5[3];
->> +    uint16_t gs, _pad6[3];
-> I had to peek ahead at the last patch to figure why you introduce these 4 fields
-> (plus their padding) here, just to remove them again. Personally I think it would
-> be neater if both were folded; nevertheless I'd like to leave this entirely to
-> you.
+That seems like it ought to be fairly simple, and seems like a
+reasonable way to allow an untrusted VMM to provide virtio devices with
+restricted DMA access.
 
-While both patches are reasonably small, I think it's important for
-bisection to keep them separate.  They're both complex in separate ways.
+While I start actually doing the typing... does anyone want to start
+yelling at me now? Christoph? mst? :)
 
-~Andrew
+--=-juy7yf7MhQovyScjrs78
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
+ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
+MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
+a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
+jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
+GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
+aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
+nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
+8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
+IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
+KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
+BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
+QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
+QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
+ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
+/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
+uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
+xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
+W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
+c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
+VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
+NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
+DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
+sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
+w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
+i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
+kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
+0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
+ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
+blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
+hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
+VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
+HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
+ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
+AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
+cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
+cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
+AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
+aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
+hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
+iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
+8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
+JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
+xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
+EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
+B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
+MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
+KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
+Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
+nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
+WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
+W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
+nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
+g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
+9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
+9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
+sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
+a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
+ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
+AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
+dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
+MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
+YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
+4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
+6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
+QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
+nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
+MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
+VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
+ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDMyMTE1Mzgx
+MFowLwYJKoZIhvcNAQkEMSIEIMzvwGuFYEJKRSxHmKkMCVguzCHBQvnALBRSFyGrJ+lSMGQGCSsG
+AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
+cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
+VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
+cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIABPLb9Ua6E+xF
+1PrDaifxo/h6OjqZLGpZw733yaNekHxYptLTBxvHls/2AgI8UHAHHvKQZdd6ynqTN+qpeCIexM9D
+MIH4YePRqfwhrxjhFXYyyih3mjPUAxCaIYYx4jsU8D7AE/Ygt+aBhfeASwf4+rmAkQDEUNkSbhg6
+WVTbtlv86IkRo75QTEVXj4SmDKmcm9ttI466rqronnKP98XviA7id3g4Y1pOJZifQbWHAPCdmfk9
+qXJzqVdTHGkdr2a7ls5FprsYwVNWYFz1UBEJO2Na/8OV6OiCamx8TdkiLmOFPVlJVgQp7q7SgETd
+zjjO0hrnURu0NzmSAY7bsFyyYvCOSNIvm8CokF4Cw/7HGZMrPtc6IMWw4SC/qMdsP2ElOe0HBuud
+VbR5Rwi4Uym01UjlPFKgr3a/lIOHoBqWzVHjc3ofkF42mK3RPJxLH6opdzRsOs5Rf5ES/fsIrRHl
+g4Yosbn8bbqHIcL2ptkQrLz3LITDLgjj2XoZG+8n6rZOIgOTWN8+3q/gVNSRfzdG4xb+Rk17bOZT
+f5HMxL6CBKtzXFfc0q1+4sn7/8CylM6H8d1IyryNX/TJ/uaMR3U2sTi0ip+m6Ml+oeGT++3vBxoP
+YBVLthLg02Sc2fz52dRY9pYdxNHe7xOSRvtiO0q/wGsOzVPbkd8zKt4VW5T9bq8AAAAAAAA=
+
+
+--=-juy7yf7MhQovyScjrs78--
 
