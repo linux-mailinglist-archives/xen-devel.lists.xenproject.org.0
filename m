@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D5EAA6BFAE
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 17:20:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.924286.1327564 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A527A6BFCA
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 17:25:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.924301.1327574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvf70-0006Cn-01; Fri, 21 Mar 2025 16:20:46 +0000
+	id 1tvfB3-0006rk-KT; Fri, 21 Mar 2025 16:24:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 924286.1327564; Fri, 21 Mar 2025 16:20:45 +0000
+Received: by outflank-mailman (output) from mailman id 924301.1327574; Fri, 21 Mar 2025 16:24:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvf6z-0006Ac-So; Fri, 21 Mar 2025 16:20:45 +0000
-Received: by outflank-mailman (input) for mailman id 924286;
- Fri, 21 Mar 2025 16:20:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tvfB3-0006pV-H8; Fri, 21 Mar 2025 16:24:57 +0000
+Received: by outflank-mailman (input) for mailman id 924301;
+ Fri, 21 Mar 2025 16:24:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lMoj=WI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tvf6y-0006AW-5j
- for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 16:20:44 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ee78acc-0670-11f0-9ea1-5ba50f476ded;
- Fri, 21 Mar 2025 17:20:43 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-ac28e66c0e1so333450966b.0
- for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 09:20:41 -0700 (PDT)
+ id 1tvfB2-0006pP-5F
+ for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 16:24:56 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0568f5c5-0671-11f0-9ffa-bf95429c2676;
+ Fri, 21 Mar 2025 17:24:54 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5c9662131so3302218a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 09:24:54 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
  [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3efb6483fsm178055366b.112.2025.03.21.09.20.39
+ 4fb4d7f45d1cf-5ebcd0df994sm1548828a12.70.2025.03.21.09.24.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Mar 2025 09:20:39 -0700 (PDT)
+ Fri, 21 Mar 2025 09:24:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ee78acc-0670-11f0-9ea1-5ba50f476ded
+X-Inumbo-ID: 0568f5c5-0671-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1742574041; x=1743178841; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1742574293; x=1743179093; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3N8BHOXtSgZFGOoLKVMk6q1cjSMenxrnzi9YbHAVyro=;
-        b=MXGPUH0vNhpDoNLhcSUQhTRkmvifYuD1RpNAG5P9kCiXshM1XgQZe+IgXYNt4+2Oa6
-         hWC7E/YHnEpIf4W6N/IgHbSPc7gqSlQdXpOu8g85v22cykyMxRbtYzvvo3/AWrb7vRep
-         JEHd4fGpxUkli5BS2fbG5HmYL8uFxUw5Zd30q8QFiAKmuBuQ5zTlXDzVf9hLMHNp1eoO
-         c44y6prOfOU4HzbOEkqJX2XUuwLit7lrrXohz3RphzsoBpFsgPt5Bdvjv5A++S6nbY+q
-         3MNq9O+y4Tz8JZgrkriedW4MTxUUnykdJmEGPdFUDhA8Mf69RmomybCbxCSqjtgeMptc
-         f4Vw==
+        bh=+OQEvtD/NMliw+TTK29g8C9huW7Rn6jdGBTLDZsNsaw=;
+        b=cNLfagM8wKiHu8+vWwE+7Pz88yWuTNZnzEIKK6SwnxzitIVsTcrRQgcYBbcnGFyhW5
+         fvcPG3yacB+nwM1aok6tTrXaHIAQPOcfFcHmdCz17NHkRFmOd4KKF8WggUuI/Q8/yRe3
+         UqO/fvDT7oTNFzO2J9DZM+cYuwk3hGNLl1c1TDzqpx8K8cmSvBvVv1Ko6gZziIxco9DM
+         Yzq9NcbNGowZxaWnKvO9oVewBPiFZz+aKqhHHcKT+xeZmUGQAIzpxWp2UXtclmo/hJHk
+         Yh4Sl9KwKf2i3sPQhq5uBQC/0VB8BQRsA7mjSMV8AQaOzBYBbAnXzOeQIAsfXa+9lkQa
+         eqjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742574041; x=1743178841;
+        d=1e100.net; s=20230601; t=1742574293; x=1743179093;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=3N8BHOXtSgZFGOoLKVMk6q1cjSMenxrnzi9YbHAVyro=;
-        b=rfKm60yA3cQTvExR1/1VauQUiDKiPrUY+PQs9tvW7+AYyUEfnN5FrGH38g+28Aio0b
-         b7oK8xstou74cLxyu3/V0gDVCmnOKHIXM2oM0uRDKnLZdDNxHBYN8Wbc2hjcG10oQVCL
-         oEeLjuy3yIkYg1r/DDyObpMjx32lm6GRITRqnGngBh4+kjOYCVMiyj0RVn9xFkhS+s7x
-         Fv9xPTgGx7PSVWYXJtcuputFcRxs+CRM0qr7ujafIrIinQGVsvm+VSPwaplarrYJRx0u
-         XdGPL2dpAvO5rNPxSBiIYL0mHMbpbpD/cfutmo8owhiSLgEQ6z3hbDZnEUQGapC8zYIH
-         /9yw==
-X-Forwarded-Encrypted: i=1; AJvYcCUVK625c4p5X+9xHIhBjzZStwZObAs1G9agy8JeRUUZuMkxiLwQvwcJ5OO4M4PwZopb3v1ENfzYVBY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzyN9TbRp7HbKMa4e4jiRpIsE63PzbCRhMNb4QhRk0Yp6+3h5BF
-	rgLwDhf6vDUFMCS1ZUY/SfjFAp8IfdmKVM+MByW0RX2HEbYDjzGB
-X-Gm-Gg: ASbGncsUeyCNJzIJA6DBWLCBwW3nko8feP/XURB9E2wcSF8lXyJMrwpr4iIU1xKiCz4
-	wU6oemcnVWGJD68mZ/bN+bk+PUjYvmDq0EJap/ZrGWBNighyxjigNS3UpOwDvRBpQqsYZ8JNBcz
-	w5HL9/J13wDeiSrRY6JZ90FhJtW+78NMDI7K/AKwkKIVo3z2TrpP8X13gePlV0vEKwAOF4ALhap
-	kTz+Kgqk5PzU0Rp0u4Yub39AkAkUUbAlpraGOHn2L/53sijpWF0iVGHx1HSOov3O5jKJQ6W/T/w
-	3WBtdF7Cwt2bLK6wblDhbMVNBMdUbJN9NaHtrERz6fV6kBkKgqYnq975f9h55Mzfrul1X34AF9i
-	t40z8QC0So7zWvzKDXTec
-X-Google-Smtp-Source: AGHT+IGjZEWpVywPGgDP/69Vp73vCs7JnDpiv0WsNs8fSpmH6t76Zuqf/WUsJ2qQsdEoG71EQnz1CA==
-X-Received: by 2002:a17:907:968b:b0:ac2:912d:5a80 with SMTP id a640c23a62f3a-ac3f20b6561mr368276766b.5.1742574040060;
-        Fri, 21 Mar 2025 09:20:40 -0700 (PDT)
+        bh=+OQEvtD/NMliw+TTK29g8C9huW7Rn6jdGBTLDZsNsaw=;
+        b=m7Y9VCdE1Llldg0qF9c3dwjRDZ9nZo6gRYz9FCeEE1WR0ddDS99VwRDFHcjxpxBRLa
+         kM2FeE2EFqcwJG5DOGJhaCwbQjPvr99M6czRNWAE4g1D/CBpZLBSTRDU/ueC7abIQRvm
+         rALzbsWZQPtLtTh0qozeV9/QEidVgPuPl3gIV9CwAYpd3OlqwNnovwM+xdWyRgTbAGzN
+         YgpcOhb+pYf7eEpU8gBecazTcbLbcqZEqueNShyBI/yy+pn+X1Yb0H8+I5SD/sl2+pT/
+         XJOO6A03+18/qbcTzZxB/nfE9jNgAaCJI/AIDc6U6Y8GV1+ASjYTvlmDhHDTxMSKbQ6U
+         MONQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXvfy1tDjWsVe/5DkXvFNolcw/PIGD6GDFenYfk9joZlShX2RUxRqr3kuh86yhjlRg0QD6+LeMXU+0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy9uNA1l8pDag5BRKEa/tTL0SwUSZpve8s7SxyEkMtREqItyRJc
+	38QE0V/9iMdCKioNqcIyz1Ziw78TZ7t3MNOEKGyFdHsBDUlIIzUd
+X-Gm-Gg: ASbGncsH1mRaBRvmU23U6VtsaWhTQshEtk+DDk4IeIkf+kkOYoegyEjS5JaN3995Kdz
+	MwAWZMrSlmgWSYxq/I0DXkMNvGPsJhZp7MCuDDL13bBpwNFoD6ywQIah6+SH1IvOi3G2Q98y6O7
+	nRH904DZbr9mueswUShPr+rrTMhBCNzw9lP5+VdP6BoDBRiPO5UUwaOEfStYXZojRxbCcKP8PX3
+	6/lPz1kwR/3N+NxHbhofVGjwQTlBtbA0wuPAGlQIrDGJVAj6Rt4P22VD4t5L71qFeHb8vKc9gGp
+	8YzmALR3xcZxALGQujpsBL5duMWLoGJwckhtjwZQeQBmTVMg2eewO7FQOWU5UEV+lvaLF0PY7aj
+	RMkXNqOw2KypTSyf9UJZZ
+X-Google-Smtp-Source: AGHT+IHEeG7re/vgBuNG/VPOTU+SAuYGkz10lZWaZtjzDL6J9BaKBliSOPkya3ixQUO0lGJxYEVSZA==
+X-Received: by 2002:a17:906:dc89:b0:ac3:eb29:2aed with SMTP id a640c23a62f3a-ac3f210904emr378724566b.16.1742574293051;
+        Fri, 21 Mar 2025 09:24:53 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------sqElReutriTsddI4K9AZ2cHo"
-Message-ID: <ebe15fc1-e3e0-44f7-a5b7-6546df272c50@gmail.com>
-Date: Fri, 21 Mar 2025 17:20:39 +0100
+ boundary="------------5F638A8gnnTXrNuVrdp0epDN"
+Message-ID: <c901f573-97dc-4ad0-9974-847fc58a0d44@gmail.com>
+Date: Fri, 21 Mar 2025 17:24:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 3/3] CHANGELOG: Minimum toolchain requirements
@@ -95,19 +95,19 @@ Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250320153241.43809-1-andrew.cooper3@citrix.com>
- <20250320153241.43809-4-andrew.cooper3@citrix.com>
+References: <20250320155908.43885-1-andrew.cooper3@citrix.com>
+ <20250320155908.43885-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20250320153241.43809-4-andrew.cooper3@citrix.com>
+In-Reply-To: <20250320155908.43885-4-andrew.cooper3@citrix.com>
 
 This is a multi-part message in MIME format.
---------------sqElReutriTsddI4K9AZ2cHo
+--------------5F638A8gnnTXrNuVrdp0epDN
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
-On 3/20/25 4:32 PM, Andrew Cooper wrote:
+On 3/20/25 4:59 PM, Andrew Cooper wrote:
 > Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
 > ---
 > CC: Anthony PERARD<anthony.perard@vates.tech>
@@ -133,13 +133,21 @@ On 3/20/25 4:32 PM, Andrew Cooper wrote:
 > +   - GCC 5.1 and Binutils 2.25, or
 > +   - Clang/LLVM 11
 
-I think we have to specify here for which architectures as RISC-V support different minimal versions.
+I think we want here to specify for which architectures it was done as RISC-V, for example, uses
+different versions:
+  - GCC 12.2 or later
+  - GNU Binutils 2.39 or later
+And for clang the version will be 17 as:
+   f873029386dd415cd9caa78f600a593d9570c9ae("[BOLT] Add minimal RISC-V 64-bit support")
+   $ git tag --contains f873029386dd415cd9caa78f600a593d9570c9ae
+     llvmorg-17.0.0
+   ...
+I have some patch to build Xen RISC-V using clang-17 but I haven't sent to upstream yet as I am not
+really sure that if we need (or why we need) clang support just from the start.
 
+~ Oleksii
 
->   
->   ### Added
->    - On x86:
---------------sqElReutriTsddI4K9AZ2cHo
+--------------5F638A8gnnTXrNuVrdp0epDN
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -151,11 +159,11 @@ Content-Transfer-Encoding: 8bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 3/20/25 4:32 PM, Andrew Cooper
+    <div class="moz-cite-prefix">On 3/20/25 4:59 PM, Andrew Cooper
       wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:20250320153241.43809-4-andrew.cooper3@citrix.com">
+      cite="mid:20250320155908.43885-4-andrew.cooper3@citrix.com">
       <pre wrap="" class="moz-quote-pre">Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
 ---
 CC: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
@@ -181,19 +189,21 @@ index 9a5919585d43..4e333e608a96 100644
 +   - GCC 5.1 and Binutils 2.25, or
 +   - Clang/LLVM 11</pre>
     </blockquote>
-    <pre>I think we have to specify here for which architectures as RISC-V support different minimal versions.</pre>
-    <p><br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:20250320153241.43809-4-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
- 
- ### Added
-  - On x86:
+    <pre>I think we want here to specify for which architectures it was done as RISC-V, for example, uses
+different versions:
+ - GCC 12.2 or later
+ - GNU Binutils 2.39 or later
+And for clang the version will be 17 as:
+  f873029386dd415cd9caa78f600a593d9570c9ae("[BOLT] Add minimal RISC-V 64-bit support")
+  $ git tag --contains f873029386dd415cd9caa78f600a593d9570c9ae
+    llvmorg-17.0.0
+  ...
+I have some patch to build Xen RISC-V using clang-17 but I haven't sent to upstream yet as I am not
+really sure that if we need (or why we need) clang support just from the start.
 </pre>
-    </blockquote>
+    <pre>~ Oleksii</pre>
   </body>
 </html>
 
---------------sqElReutriTsddI4K9AZ2cHo--
+--------------5F638A8gnnTXrNuVrdp0epDN--
 
