@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48F88A6BC23
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 14:54:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.924034.1327386 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E4F1A6BC48
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 15:00:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.924050.1327396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvcpW-0007oi-V7; Fri, 21 Mar 2025 13:54:34 +0000
+	id 1tvcuz-000105-Lj; Fri, 21 Mar 2025 14:00:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 924034.1327386; Fri, 21 Mar 2025 13:54:34 +0000
+Received: by outflank-mailman (output) from mailman id 924050.1327396; Fri, 21 Mar 2025 14:00:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvcpW-0007lZ-S7; Fri, 21 Mar 2025 13:54:34 +0000
-Received: by outflank-mailman (input) for mailman id 924034;
- Fri, 21 Mar 2025 13:54:33 +0000
+	id 1tvcuz-0000yc-Ik; Fri, 21 Mar 2025 14:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 924050;
+ Fri, 21 Mar 2025 14:00:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z6G0=WI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tvcpV-0007lK-Dl
- for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 13:54:33 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1tvcuy-0000yW-3A
+ for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 14:00:12 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 036bc144-065c-11f0-9ffa-bf95429c2676;
- Fri, 21 Mar 2025 14:54:31 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3996af42857so2045272f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 06:54:31 -0700 (PDT)
+ id cd3e765e-065c-11f0-9ffa-bf95429c2676;
+ Fri, 21 Mar 2025 15:00:10 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-abf3d64849dso353516566b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 07:00:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9b4ce9sm2472443f8f.53.2025.03.21.06.54.29
+ a640c23a62f3a-ac3efd8f2bdsm157130866b.176.2025.03.21.07.00.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Mar 2025 06:54:30 -0700 (PDT)
+ Fri, 21 Mar 2025 07:00:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 036bc144-065c-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: cd3e765e-065c-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742565271; x=1743170071; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742565609; x=1743170409; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=s0dHYabbBCmUA+FL5/nGfB/zmKf8mJVb9iNPYow5cxY=;
-        b=fIi4mXYZorM6lMWTuqiBAOs64SWlp6gLB4p978LrFA1lVXtOT8L4rMmXbrX97fuBEz
-         3I7/mEDXh7TUPCzxCQxtf4pvTZpuxKpFBrZGaL/vz0+Fs4wzYfbst9QHdGHctvZTj+fc
-         Hdid4Ok8U7vFSvXVEQhn5vG5Tb2PnNZdd9UYmPDcEy930MrKD/D2MTBmAObCdDWnFBfs
-         4E+rD9bbvY6MQXFG7JZUfB7ntoRSom72JBCnQjbgrdReP6XduERVNISTZtHBXdUIV7uP
-         I3NeUBLa6DSkL0avWsrtuQpBk5OShvSMV4IaltYQ1u0VwpoL5nsDiswD9N5RcTfWLBoi
-         uz/w==
+        bh=lLvYNPQA9azFT/6Vo3mW7SBCkS4bIANKdIYsnSATkGo=;
+        b=DpbZFpKQc5ldgHTsulbfDUfOs0j5+9QrpyWCrHLvvBoyXwMxOtVbQk50VM3kHgrhiR
+         d1+Ay1Ia+ZB8DwRamrhFqVIe2WzC5LX5OS6+ZO6B80jv5PH2FZL/zwY8AFMdMQ1S4Vwm
+         AKzrZgAGnUFt3vagTKyk7LAVj7Ow34VR73opK0JfFY2+9uzDS/+yV5hLdLHFGCQWj7Mw
+         SoGBgy0hBmk96JqQCP9e6lRCo8bjVhF3jRVgwBsiT4mnKvYilpxZ1qmsF2imv4RM06rP
+         uDL6JaiJFWffvlIaQ5kCnCw5kKPk1lKJ9YkEFm85nTxeWGMYMHAH2gpwmE+df5cDluWl
+         DNQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742565271; x=1743170071;
+        d=1e100.net; s=20230601; t=1742565609; x=1743170409;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=s0dHYabbBCmUA+FL5/nGfB/zmKf8mJVb9iNPYow5cxY=;
-        b=R2m46Mk8s0IaTjIFa9QAk3g7Ems6Ts3N2NDEsjGF581w03EYbKxAl2mF1k9Em3r+dC
-         6Ars7g/yz8RGhta6GbvbE5wEy44L0VOAf4kXg0PXObsdGel7+UiGOSRIXw668Sg07+CQ
-         8zACZxT1CSHqio3XWcJxBKgos5wPC5V02GeQfCVfNAL/m/MCVxa2lG8md5yvCcHTAD7E
-         TcIcK1Rv81d9myihzOY6EPZ0IeQyJCgMyNLFC+LGsRL5SwOb+WnJ043CuQlryINdmdPw
-         h6Hmt7OHLj8UYJjakWZmgyfTvC3dASg1/rlynllq8TmY6rvUehQiNFFr2JPrUH8gynCV
-         NWcg==
-X-Forwarded-Encrypted: i=1; AJvYcCUhvrx28wbKj1Ib5ZLDSLxTusSjkREa0fReJLUZ/tNgj6Y4kI8/oMRtVAXrWZpB/12la83LGUt7Os0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw5AapUMQ70LqO0pMX6Ul9GL8mroJGYNgMJERMcXbvJhnuWkKnB
-	9xrHIqzIuRBICQ9w8m+m0KV+LspCzl47ezLOWOJilLUJgM20zI4WxYj9mHyAGQ==
-X-Gm-Gg: ASbGncvZlns/r6OhZoVDQu8URYNU3WSu7SQx5NepB/dXgJX322UgZzkr49rb70xj+qH
-	ll/4dgTIS/9tWMhci+tXlcfqtmyeXeHT78nOIgddBMPWSQ8HkZQnaoLnfCDT7AjPSOCCyCkFRmi
-	pc/VMKYR+nSiw6k9ZoFgiIme6JtPMc7taHCeXv2TTKP77KyWh2Iivu9ckltwoA13lBwdEaRWzY0
-	7UjkAGEmEdpWlLGrPfbYd9EMV/cxmLqimlUL0qoFEtji+bm6Gg2j3JnCk/JbeIQGqIH4kti7RWu
-	pTXKWychEvlqegpdpAJp5fxdR+CuZCjief767S+GO+nZH3nOYBDyumj+n68sBaybp0K7JTA8APR
-	FN5q1ZU3Emp8PO27Mt2zlSZ+BomeJQg==
-X-Google-Smtp-Source: AGHT+IE6h0VU10/V+Gxi6bm1JgQkr0uySubfImjRGlRbej+QrSDFXrdbheZ3BwK05fUrOLmhKVMP4w==
-X-Received: by 2002:a5d:6c63:0:b0:390:f116:d220 with SMTP id ffacd0b85a97d-3997f9103dcmr2541431f8f.17.1742565270657;
-        Fri, 21 Mar 2025 06:54:30 -0700 (PDT)
-Message-ID: <6f8b385a-447e-42c3-b942-ba4e9271de11@suse.com>
-Date: Fri, 21 Mar 2025 14:54:29 +0100
+        bh=lLvYNPQA9azFT/6Vo3mW7SBCkS4bIANKdIYsnSATkGo=;
+        b=TKNBDdPeBQtLyKFCRnSUu3UniSl7qQsVI3a9v2MgUrXY45277IWHWlfOLYFKE3l9t0
+         TvSx3ltP2uK6szJ9mTonlZbeZ+i53taZjxU54m3hRHWMF7kimmekA7w3GPw+m7X7BE34
+         1MrWm4ou/1LhOuLQ+BXBgj0gzAHPGawqVz2WdGBmA0VUdkZKzjbEHs6puuPOH+xgqax4
+         nLYQQQQFF9xbOkn6kuh/uhfBIjNfCWTnaRAS/g3Sbjwrn3rZ7MKUHGMbA4ASAhiWRvBD
+         qVtEJe12Pe4lQN/+X+dbm8mUr54kHzrwiDWgo3MdD0CfZVBk4eswhccBpSNmwVj2op+P
+         xzWA==
+X-Forwarded-Encrypted: i=1; AJvYcCXDCxjAYw6UY73r9o5lT8TKb0pxCMiYeb4QbMXWosZ1JpZwOXAcj28FTSAecVw9hJ1gGDxfCEFHYFg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxIJYv1FTONep0q61Rg/zt7G+Fuc+HONQmsUAK+WLnm1Dk0HkR1
+	+aao4Rvn4VnPhzeuFt7Gs8IEvmkWAw8atzH0+YhS621tyJwwAa1xpXBmAa97LQ==
+X-Gm-Gg: ASbGncu/dxZruOGrjnFDK9jzTY4WWpYAsCA7Su041HrAODxu+vO4JXWQe9xsbA/w7i/
+	Nl+gk3q9/KPmO+hZS52Ye3mtxGQybHCJ0CEVswN57OdmwHmPQYtDVNaKfPIPJ+rgTsfIie/VK7/
+	XhK4uUE8KXf0wywJ+JeecGjYdnyTHK8AvE8okESK1Vxter+MDkfDute9lPyPaGgguFuXQ/BKiVS
+	yT7C7wq6wvNIea8Zq4Uq3MWknifFK96VXGZ4cnmHfum0TYVkGJ0bXtsMoZUjXmX+a27UwF3V5PX
+	N9QMjPeU/AbBEo8qSo9HcHWN19JxFNI/1loflNXEna6LnPBRQtt2e8A7hw1hVxwqtdi0a/r9GeY
+	Y9Tfx+42KM8mLomHJOtuJvdNPswNTqw==
+X-Google-Smtp-Source: AGHT+IER8Ab8A9rZogN5my0VmUvWks7kuzX9W47aIIvi3E81ZKSZY4a5l0QhoH7BBx8/GhCcvV2tgw==
+X-Received: by 2002:a17:907:7f8c:b0:ac3:cad2:9e53 with SMTP id a640c23a62f3a-ac3f28053b3mr387428166b.55.1742565609295;
+        Fri, 21 Mar 2025 07:00:09 -0700 (PDT)
+Message-ID: <f214bbcc-6cac-4623-9027-ab77351dc2a9@suse.com>
+Date: Fri, 21 Mar 2025 15:00:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/16] xen/percpu: don't initialize percpu on resume
+Subject: Re: [PATCH 06/16] xen/arm: Introduce system suspend config option
 To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Mykyta Poturai <mykyta_poturai@epam.com>,
- Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Julien Grall <julien@xen.org>
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Mykyta Poturai <mykyta_poturai@epam.com>, xen-devel@lists.xenproject.org
 References: <cover.1741164138.git.xakep.amatop@gmail.com>
- <e44b56f18fe5e1c7f1d6cd9d33ba84cf0e26b440.1741164138.git.xakep.amatop@gmail.com>
- <c5ccb703-45eb-4fb1-842c-75317354afad@xen.org>
- <e8ddc992-a092-46d8-8c87-6b3c516fe464@suse.com>
- <32989e14-4754-427d-8347-73fc83a8bd62@suse.com>
- <08cf29e4-8029-4c3b-bb32-f84bcb6d3678@suse.com>
- <CAGeoDV_sq-BuYF0fp8KByzit6CySgn_1X3VnL2jXBdoGDnNsDA@mail.gmail.com>
+ <28da91c2859e0226585951ea3d6e7017b402ec0b.1741164138.git.xakep.amatop@gmail.com>
+ <6eddbd26-88ca-4d0c-b56a-4e7abcc3933b@suse.com>
+ <CAGeoDV_AU+UhkH6Pb4UhM-j+Z-VSbaoGDAg6gZqVjSAUSGURUQ@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,80 +124,68 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAGeoDV_sq-BuYF0fp8KByzit6CySgn_1X3VnL2jXBdoGDnNsDA@mail.gmail.com>
+In-Reply-To: <CAGeoDV_AU+UhkH6Pb4UhM-j+Z-VSbaoGDAg6gZqVjSAUSGURUQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21.03.2025 10:48, Mykola Kvach wrote:
+On 21.03.2025 10:49, Mykola Kvach wrote:
 > Hi,
 > 
-> On Thu, Mar 13, 2025 at 6:20 PM Jan Beulich <jbeulich@suse.com> wrote:
+> On Thu, Mar 13, 2025 at 5:37 PM Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> On 13.03.2025 17:05, Jürgen Groß wrote:
->>> On 13.03.25 16:54, Jan Beulich wrote:
->>>> On 11.03.2025 21:59, Julien Grall wrote:
->>>>> On 05/03/2025 09:11, Mykola Kvach wrote:
->>>>>> Invocation of the CPU_UP_PREPARE notification
->>>>>> on ARM64 during resume causes a crash:
->>>>>>
->>>>>> (XEN) [  315.807606] Error bringing CPU1 up: -16
->>>>>> (XEN) [  315.811926] Xen BUG at common/cpu.c:258
->>>>>> [...]
->>>>>> (XEN) [  316.142765] Xen call trace:
->>>>>> (XEN) [  316.146048]    [<00000a0000202264>] enable_nonboot_cpus+0x128/0x1ac (PC)
->>>>>> (XEN) [  316.153219]    [<00000a000020225c>] enable_nonboot_cpus+0x120/0x1ac (LR)
->>>>>> (XEN) [  316.160391]    [<00000a0000278180>] suspend.c#system_suspend+0x4c/0x1a0
->>>>>> (XEN) [  316.167476]    [<00000a0000206b70>] domain.c#continue_hypercall_tasklet_handler+0x54/0xd0
->>>>>> (XEN) [  316.176117]    [<00000a0000226538>] tasklet.c#do_tasklet_work+0xb8/0x100
->>>>>> (XEN) [  316.183288]    [<00000a0000226920>] do_tasklet+0x68/0xb0
->>>>>> (XEN) [  316.189077]    [<00000a000026e120>] domain.c#idle_loop+0x7c/0x194
->>>>>> (XEN) [  316.195644]    [<00000a0000277638>] shutdown.c#halt_this_cpu+0/0x14
->>>>>> (XEN) [  316.202383]    [<0000000000000008>] 0000000000000008
->>>>>>
->>>>>> Freeing per-CPU areas and setting __per_cpu_offset to INVALID_PERCPU_AREA
->>>>>> only occur when !park_offline_cpus and system_state is not SYS_STATE_suspend.
->>>>>> On ARM64, park_offline_cpus is always false, so setting __per_cpu_offset to
->>>>>> INVALID_PERCPU_AREA depends solely on the system state.
->>>>>>
->>>>>> If the system is suspended, this area is not freed, and during resume, an error
->>>>>> occurs in init_percpu_area, causing a crash because INVALID_PERCPU_AREA is not
->>>>>> set and park_offline_cpus remains 0:
->>>>>>
->>>>>>       if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
->>>>>>           return park_offline_cpus ? 0 : -EBUSY;
->>>>>>
->>>>>> It appears that the same crash can occur on x86 if park_offline_cpus is set
->>>>>> to 0 during Xen suspend.
->>>>>
->>>>> I am rather confused. Looking at the x86 code, it seems
->>>>> park_offline_cpus is cleared for AMD platforms. So are you saying the
->>>>> suspend/resume doesn't work on AMD?
->>>>
->>>> Right now I can't see how it would work there. I've asked Marek for clarification
->>>> as to their users using S3 only on Intel hardware.
+>> On 05.03.2025 10:11, Mykola Kvach wrote:
+>>> --- a/xen/arch/arm/Kconfig
+>>> +++ b/xen/arch/arm/Kconfig
+>>> @@ -475,6 +475,17 @@ config ARM64_HARDEN_BRANCH_PREDICTOR
+>>>  config ARM32_HARDEN_BRANCH_PREDICTOR
+>>>      def_bool y if ARM_32 && HARDEN_BRANCH_PREDICTOR
 >>>
->>> Seems as if this issue has been introduced with commit f75780d26b2f
->>> ("xen: move per-cpu area management into common code"). Before that
->>> on x86 there was just:
->>>
->>>      if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
->>>          return 0;
->>>
->>> in init_percpu_area().
+>>> +config SYSTEM_SUSPEND
+>>> +     bool "System suspend support"
+>>> +     default y
+>>> +     depends on ARM_64
+>>> +     help
+>>> +       This option enables the system suspend support. This is the
+>>> +       mechanism that allows the system to be suspended to RAM and
+>>> +       later resumed.
+>>> +
+>>> +       If unsure, say Y.
 >>
->> Ah yes. Mykola, can you then please address this by adjusting init_percpu_area(),
+>> I wonder if something like this makes sense to place in an arch-specific
 > 
-> Do I understand correctly that I should move the system_state check
-> inside init_percpu_area?
-
-Well, I can only say as much as: To me this looks like it's the best thing you
-can do, given how the code is structured right now.
-
->> adding a Fixes: tag to reference the commit above?
+> Maybe it makes sense, but only if we are not planning to cover
+> suspend/resume related code for x86 as well.
 > 
-> Sure! Should I send it as a separate patch to speed up its merging?
+>> Kconfig. It's also not becoming clear here why only Arm64 would permit it.
+> 
+> If I understand your comment correctly, you’re suggesting that we
+> could use this for x86 as well.
 
-Doing so may indeed help.
+Or PPC / RISC-V once they progress enough.
+
+> However, in that case, we would need
+> to make a lot of changes in other places that are not related to this
+> patch series, which is specifically focused on adding suspend/resume
+> support for Arm64. I believe that is outside the scope of this patch
+> series.
+
+Considering that - give or take bugs - S3 is working on x86, I'm not
+sure what lots of changes you're thinking of. In fact ...
+
+> However, this config was requested in one of the previous
+> patch series. The primary reason for adding this config was to reduce
+> the binary size for platforms where it isn’t used. I also think it can
+> be useful for debugging purposes, such as for identifying regressions.
+
+... that's what I'd see as a (future) option on x86 as well. 
+
+> As for Arm32, it’s not supported at the moment, but I hope support
+> will be added in the future.
+
+Which is another data point towards this wanting to move to common
+code, with a per-arch-selected HAVE_* as dependency. To cover that it's
+always-on for x86, an ..._ALWAYS_ON setting may want introducing as
+well (or some shorthand approach to limit [future] churn).
 
 Jan
 
