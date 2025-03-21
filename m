@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADEA7A6C622
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 23:58:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.924628.1327746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B31D2A6C644
+	for <lists+xen-devel@lfdr.de>; Sat, 22 Mar 2025 00:10:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.924643.1327755 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvlJ0-0000kv-Q9; Fri, 21 Mar 2025 22:57:34 +0000
+	id 1tvlUk-0003Tz-QR; Fri, 21 Mar 2025 23:09:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 924628.1327746; Fri, 21 Mar 2025 22:57:34 +0000
+Received: by outflank-mailman (output) from mailman id 924643.1327755; Fri, 21 Mar 2025 23:09:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvlJ0-0000j9-NK; Fri, 21 Mar 2025 22:57:34 +0000
-Received: by outflank-mailman (input) for mailman id 924628;
- Fri, 21 Mar 2025 22:57:32 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tvlIy-0000j3-Sv
- for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 22:57:32 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tvlIu-00HHLe-1j;
- Fri, 21 Mar 2025 22:57:28 +0000
-Received: from [2a02:8012:3a1:0:d473:3eed:4e56:a8b]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tvlIu-00FKav-0G;
- Fri, 21 Mar 2025 22:57:28 +0000
+	id 1tvlUk-0003Rr-Ni; Fri, 21 Mar 2025 23:09:42 +0000
+Received: by outflank-mailman (input) for mailman id 924643;
+ Fri, 21 Mar 2025 23:09:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1L9V=WI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tvlUj-0003Qy-B1
+ for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 23:09:41 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org
+ [2600:3c04:e001:324:0:1991:8:25])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8707150f-06a9-11f0-9ffa-bf95429c2676;
+ Sat, 22 Mar 2025 00:09:24 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3296360008;
+ Fri, 21 Mar 2025 23:09:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3348C4CEE3;
+ Fri, 21 Mar 2025 23:09:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,76 +42,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Mbe5/muYVoZIYjVpjb4z6k0z8D9I/XAaYCkKhGQxO8c=; b=zzWK/8/EM9uBln3kQVFhoVB30l
-	jalavIdFajqb67mOOAm96jZ6QUFPGVLYO7QigRH0V3JqwMkogxEbtofzOpvKCJB7arO5lX8iL4+UT
-	KAAWIr9jpKz3x29XP1hkG7Si7ogIfMnEfWb3IchJZaBV8hIz72pkwsdJCkX3o349U2HQ=;
-Message-ID: <b79b8ab9-def7-4ac1-b51d-82e9566f9134@xen.org>
-Date: Fri, 21 Mar 2025 22:57:25 +0000
+X-Inumbo-ID: 8707150f-06a9-11f0-9ffa-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1742598562;
+	bh=tOk3JdmqnS+4cgf2DjM3JEYyKK6c0sGOfN6pcwpKGLI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=TYzPIgVdM/UBpyEHaLbesLZZz5jOGFa4cZxqQiiuqf0bNzRV5rRXqA+z49b4x0Lta
+	 JDTi4/+7KYSgWbsk6QmOr1w0P2ZLfJsCmHsIORS5sxrM1ZIzylzGoS08R51adcqZIL
+	 Xkt1UXVEXaK1clD74rnn0UUjZrVaii/ZtYNIaj5D0JRR+udabfz/6OlsQzgjvm3hFJ
+	 SOjIWdw9tAfipo6TkaqwF7PhN6iTqGS/PwQq9NJI2yt+5Tl65lxFf537mbM3SNVJrX
+	 uiMA+nD6PXzFw0oeGC/So0Ci002TEs+JwtyNFos9hNv2IcsV9mxlT28JT+M9Jjx7SI
+	 HpKYAIZW+MJHg==
+Date: Fri, 21 Mar 2025 16:09:19 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
+    michal.orzel@amd.com, julien@xen.org, roger.pau@citrix.com, 
+    bertrand.marquis@arm.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen: simplify bitmap_to_xenctl_bitmap for little
+ endian
+In-Reply-To: <8297406e-b281-4783-9238-d6326db3fa15@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2503211607200.2325679@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2503182002160.2000798@ubuntu-linux-20-04-desktop> <ad1bd470-1efa-4019-89ac-386bb05dd44d@suse.com> <alpine.DEB.2.22.394.2503191754480.2325679@ubuntu-linux-20-04-desktop> <8297406e-b281-4783-9238-d6326db3fa15@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2] xen: add libafl-qemu fuzzer support
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <gwd@xenproject.org>
-References: <20250315003544.1101488-1-volodymyr_babchuk@epam.com>
- <alpine.DEB.2.22.394.2503211517130.2325679@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2503211517130.2325679@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Stefano, Volodymyr,
-
-On 21/03/2025 22:32, Stefano Stabellini wrote:
->> diff --git a/xen/arch/arm/psci.c b/xen/arch/arm/psci.c
->> index b6860a7760..c7a51a1144 100644
->> --- a/xen/arch/arm/psci.c
->> +++ b/xen/arch/arm/psci.c
->> @@ -17,6 +17,7 @@
->>   #include <asm/cpufeature.h>
->>   #include <asm/psci.h>
->>   #include <asm/acpi.h>
->> +#include <asm/libafl_qemu.h>
->>   
->>   /*
->>    * While a 64-bit OS can make calls with SMC32 calling conventions, for
->> @@ -49,6 +50,10 @@ int call_psci_cpu_on(int cpu)
->>   
->>   void call_psci_cpu_off(void)
->>   {
->> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
->> +    libafl_qemu_end(LIBAFL_QEMU_END_OK);
->> +#endif
+On Thu, 20 Mar 2025, Jan Beulich wrote:
+> On 20.03.2025 01:57, Stefano Stabellini wrote:
+> > On Wed, 19 Mar 2025, Jan Beulich wrote:
+> >> What about xenctl_bitmap_to_bitmap()?
+> >  
+> > Let me see first if I managed to handle bitmap_to_xenctl_bitmap well.
 > 
-> As discussed, please add a wrapper with an empty implementation in the
-> regular case and the call to libafl_qemu_end when the fuzzer is enabled.
-> So that here it becomes just something like:
-> 
->    fuzzer_success();
-> 
-> Other than that, the code changes to Xen look OK to me
+> Well, the code looks correct to me, but the description now has gone
+> stale. I also wonder whether with that extra restriction the optimization
+> is then actually worth it. Just one further nit:
 
-I am a bit surprised this was resent without addressing the licensing 
-issue pointed out by Andrew [1] (I don't see a reply). And if there is 
-no issue, then I would have a least expected a mention in the commit 
-message why this is ok.
+Hi Jan, you make a good point. I tried to come up with a better
+approach. What do you think of this?
 
-Cheers,
 
-[1] https://lore.kernel.org/ae2dbe98-57cf-4aba-bc48-6d7212cfc859@citrix.com
-
--- 
-Julien Grall
-
+diff --git a/xen/common/bitmap.c b/xen/common/bitmap.c
+index 3da63a32a6..2f448693c3 100644
+--- a/xen/common/bitmap.c
++++ b/xen/common/bitmap.c
+@@ -52,7 +52,7 @@ static void clamp_last_byte(uint8_t *bp, unsigned int nbits)
+ 	unsigned int remainder = nbits % 8;
+ 
+ 	if (remainder)
+-		bp[nbits/8] &= (1U << remainder) - 1;
++		*bp &= (1U << remainder) - 1;
+ }
+ 
+ int __bitmap_empty(const unsigned long *bitmap, unsigned int bits)
+@@ -338,7 +338,6 @@ static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp,
+ 			nbits -= 8;
+ 		}
+ 	}
+-	clamp_last_byte(bp, nbits);
+ }
+ 
+ static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp,
+@@ -363,7 +362,6 @@ static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp,
+ 				unsigned int nbits)
+ {
+ 	memcpy(bp, lp, DIV_ROUND_UP(nbits, BITS_PER_BYTE));
+-	clamp_last_byte(bp, nbits);
+ }
+ 
+ static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp,
+@@ -384,21 +382,40 @@ int bitmap_to_xenctl_bitmap(struct xenctl_bitmap *xenctl_bitmap,
+     uint8_t zero = 0;
+     int err = 0;
+     unsigned int xen_bytes = DIV_ROUND_UP(nbits, BITS_PER_BYTE);
+-    uint8_t *bytemap = xmalloc_array(uint8_t, xen_bytes);
+-
+-    if ( !bytemap )
+-        return -ENOMEM;
++    uint8_t last;
+ 
+     guest_bytes = DIV_ROUND_UP(xenctl_bitmap->nr_bits, BITS_PER_BYTE);
+     copy_bytes  = min(guest_bytes, xen_bytes);
+ 
+-    bitmap_long_to_byte(bytemap, bitmap, nbits);
++    if ( IS_ENABLED(__BIG_ENDIAN) )
++    {
++        uint8_t *bytemap = xmalloc_array(uint8_t, xen_bytes);
+ 
+-    if ( copy_bytes &&
+-         copy_to_guest(xenctl_bitmap->bitmap, bytemap, copy_bytes) )
+-        err = -EFAULT;
++        if ( !bytemap )
++            return -ENOMEM;
+ 
+-    xfree(bytemap);
++        bitmap_long_to_byte(bytemap, bitmap, nbits);
++        last = bytemap[nbits/8];
++
++        if ( copy_bytes &&
++             copy_to_guest(xenctl_bitmap->bitmap, bytemap, copy_bytes - 1) )
++            err = -EFAULT;
++
++        xfree(bytemap);
++    }
++    else
++    {
++        const uint8_t *bytemap = (const uint8_t *)bitmap;
++        last = bytemap[nbits/8];
++
++        if ( copy_bytes &&
++             copy_to_guest(xenctl_bitmap->bitmap, bytemap, copy_bytes - 1) )
++            err = -EFAULT;
++    }
++
++    clamp_last_byte(&last, nbits);
++    if ( copy_to_guest_offset(xenctl_bitmap->bitmap, copy_bytes - 1, &last, 1) )
++        err = -EFAULT;
+ 
+     for ( i = copy_bytes; !err && i < guest_bytes; i++ )
+         if ( copy_to_guest_offset(xenctl_bitmap->bitmap, i, &zero, 1) )
 
