@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC22CA6C2B8
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 19:43:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.924387.1327614 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1052A6C4E8
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 22:16:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.924470.1327640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvhKX-0002pg-PC; Fri, 21 Mar 2025 18:42:53 +0000
+	id 1tvjhl-00086B-J6; Fri, 21 Mar 2025 21:15:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 924387.1327614; Fri, 21 Mar 2025 18:42:53 +0000
+Received: by outflank-mailman (output) from mailman id 924470.1327640; Fri, 21 Mar 2025 21:15:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvhKX-0002mY-MC; Fri, 21 Mar 2025 18:42:53 +0000
-Received: by outflank-mailman (input) for mailman id 924387;
- Fri, 21 Mar 2025 18:42:51 +0000
+	id 1tvjhl-00084j-GU; Fri, 21 Mar 2025 21:15:01 +0000
+Received: by outflank-mailman (input) for mailman id 924470;
+ Fri, 21 Mar 2025 21:15:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jx71=WI=desiato.srs.infradead.org=BATV+37f7f3dffb3293675570+7880+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1tvhKT-0002mS-RS
- for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 18:42:51 +0000
-Received: from desiato.infradead.org (desiato.infradead.org
- [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ <SRS0=1L9V=WI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tvjhk-00084d-I4
+ for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 21:15:00 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 488d758d-0684-11f0-9ffa-bf95429c2676;
- Fri, 21 Mar 2025 19:42:47 +0100 (CET)
-Received: from [172.31.31.145] (helo=u09cd745991455d.ant.amazon.com)
- by desiato.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
- id 1tvhK0-00000004VRm-4BjR; Fri, 21 Mar 2025 18:42:21 +0000
+ id 88f42ad1-0699-11f0-9ffa-bf95429c2676;
+ Fri, 21 Mar 2025 22:14:55 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id D78C55C2C81;
+ Fri, 21 Mar 2025 21:12:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D33C4CEE3;
+ Fri, 21 Mar 2025 21:14:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,237 +41,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 488d758d-0684-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=6p9/xCFwuiZLdlnx3CHna7SmFJBXvkdGfKbhrFQIG0k=; b=ZM2XwXtAnlCfsKo0XNxstP2jSG
-	U865vPXju9/sBv+RnSL1oLUhFaTt2GFwko2fe13ZTxN5XgbKStRgAAR78S0c8riUBjLDHxGGFTN5Q
-	IQA4Yi+4+rZ1VNApBOPqo7TyG2AJozAp9crvsFlBasJmN1P5+A7mtenETUUxqwfBL+zH+cZmbIYLr
-	z7cSt9GR1dDsUHs+EJK9M+UxkQ6+mlITOdRL0A3LxKgHPzuJ5TZVQYJ/rn2uCfWHQp3OCwzyzp8bt
-	Ww29Q/jlsLm3WtWuqretBM4DoH7lfYgqvIceQ+Kh7p6DoVlSSAYtY5sYDJJFhZ6ik+JXg10G+yCzE
-	Wt0j8Uxw==;
-Message-ID: <d1382a6ee959f22dc5f6628d8648af77f4702418.camel@infradead.org>
-Subject: Re: Using Restricted DMA for virtio-pci
-From: David Woodhouse <dwmw2@infradead.org>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Claire Chang <tientzu@chromium.org>, Rob Herring <robh+dt@kernel.org>, 
- mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>, Will Deacon
- <will@kernel.org>,  Frank Rowand <frowand.list@gmail.com>, Konrad Rzeszutek
- Wilk <konrad.wilk@oracle.com>,  boris.ostrovsky@oracle.com,
- jgross@suse.com, Christoph Hellwig <hch@lst.de>,  Marek Szyprowski
- <m.szyprowski@samsung.com>, heikki.krogerus@linux.intel.com,
- peterz@infradead.org,  benh@kernel.crashing.org, grant.likely@arm.com,
- paulus@samba.org, mingo@kernel.org,  sstabellini@kernel.org, Saravana
- Kannan <saravanak@google.com>,  xypron.glpk@gmx.de, "Rafael J . Wysocki"
- <rafael.j.wysocki@intel.com>,  Bartosz Golaszewski
- <bgolaszewski@baylibre.com>, xen-devel@lists.xenproject.org, Thierry Reding
- <treding@nvidia.com>,  linux-devicetree <devicetree@vger.kernel.org>,
- linuxppc-dev@lists.ozlabs.org, Nicolas Boichat <drinkcat@chromium.org>, 
- Dan Williams <dan.j.williams@intel.com>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Greg KH <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>, Jim
- Quinlan <james.quinlan@broadcom.com>,  Robin Murphy <robin.murphy@arm.com>,
- hch@infradead.org, Jason Wang <jasowang@redhat.com>, Xuan Zhuo
- <xuanzhuo@linux.alibaba.com>, Eugenio =?ISO-8859-1?Q?P=E9rez?=
- <eperezma@redhat.com>, virtualization@lists.linux.dev, graf@amazon.de
-Date: Fri, 21 Mar 2025 18:42:20 +0000
-In-Reply-To: <20250321142947-mutt-send-email-mst@kernel.org>
-References: <20210209062131.2300005-1-tientzu@chromium.org>
-	 <979b6a34ca5724ced1d4871b58bf227065d7da57.camel@infradead.org>
-	 <20250321142947-mutt-send-email-mst@kernel.org>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-9um69C3QOUe8WBwkTdXa"
-User-Agent: Evolution 3.52.3-0ubuntu1 
+X-Inumbo-ID: 88f42ad1-0699-11f0-9ffa-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1742591693;
+	bh=nry6RGOj3t+aA0Ynv6iUcP6rOyy3pCCnM3x8AElWick=;
+	h=Date:From:To:cc:Subject:From;
+	b=OLD3B88CRZea6+z8T2IFhLbWFV3C/LHAY4nNYpuhUMl+BAmU64nEwYPZXjl9LfsMH
+	 N4ooz8D5lJbTx1HrsoIyUyhb8xKOXCCbJEAj+bGFD/ym/JzKCJ4DC28k+EIP6QGdfL
+	 cy1aWO82UK4i53oy3dhw2zeaNeO8CFFegBxnWEILtKuQikzlDlW2K1ANAtdGAJMOqO
+	 /1BR0pBBtphPhgUKfy4orvxrhs0AHh/M6zsso9BpL9h+S6PcS23fTN+STVM4UTlyu1
+	 H0LjyJ8FM4c+B7oeLQqNovw6usWrw13hbRLvIW81hU/12awTzEYyQ/3XT3dvr7JsjP
+	 K69FzfjWxHj7Q==
+Date: Fri, 21 Mar 2025 14:14:51 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: xen-devel@lists.xenproject.org
+cc: sstabellini@kernel.org, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm/efi: merge neighboring banks
+Message-ID: <alpine.DEB.2.22.394.2503211403040.2325679@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=US-ASCII
 
+When booting from U-Boot bootefi, there can be a high number of
+neighboring RAM banks. See for example:
 
---=-9um69C3QOUe8WBwkTdXa
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+(XEN) RAM: 0000000000000000 - 0000000000bfffff
+(XEN) RAM: 0000000000c00000 - 0000000000c00fff
+(XEN) RAM: 0000000000c01000 - 0000000000dfffff
+(XEN) RAM: 0000000000e00000 - 000000000279dfff
+(XEN) RAM: 000000000279e000 - 00000000029fffff
+(XEN) RAM: 0000000002a00000 - 0000000008379fff
+(XEN) RAM: 000000000837a000 - 00000000083fffff
+(XEN) RAM: 0000000008400000 - 0000000008518fff
+(XEN) RAM: 0000000008519000 - 00000000085fffff
+(XEN) RAM: 0000000008600000 - 0000000008613fff
+(XEN) RAM: 0000000008614000 - 00000000097fffff
+(XEN) RAM: 0000000009800000 - 00000000098a7fff
+(XEN) RAM: 00000000098a8000 - 0000000009dfffff
+(XEN) RAM: 0000000009e00000 - 0000000009ea7fff
+(XEN) RAM: 0000000009ea8000 - 000000001fffffff
+(XEN) RAM: 0000000020000000 - 000000002007ffff
+(XEN) RAM: 0000000020080000 - 0000000077b17fff
+(XEN) RAM: 0000000077b19000 - 0000000077b2bfff
+(XEN) RAM: 0000000077b2c000 - 0000000077c8dfff
+(XEN) RAM: 0000000077c8e000 - 0000000077c91fff
+(XEN) RAM: 0000000077ca7000 - 0000000077caafff
+(XEN) RAM: 0000000077cac000 - 0000000077caefff
+(XEN) RAM: 0000000077cd0000 - 0000000077cd2fff
+(XEN) RAM: 0000000077cd4000 - 0000000077cd7fff
+(XEN) RAM: 0000000077cd8000 - 000000007bd07fff
+(XEN) RAM: 000000007bd09000 - 000000007fd5ffff
+(XEN) RAM: 000000007fd70000 - 000000007fefffff
+(XEN) RAM: 0000000800000000 - 000000087fffffff
 
-On Fri, 2025-03-21 at 14:32 -0400, Michael S. Tsirkin wrote:
-> On Fri, Mar 21, 2025 at 03:38:10PM +0000, David Woodhouse wrote:
-> > On Tue, 2021-02-09 at 14:21 +0800, Claire Chang wrote:
-> > > This series implements mitigations for lack of DMA access control on
-> > > systems without an IOMMU, which could result in the DMA accessing the
-> > > system memory at unexpected times and/or unexpected addresses, possib=
-ly
-> > > leading to data leakage or corruption.
-> >=20
-> > Replying to an ancient (2021) thread which has already been merged...
-> >=20
-> > I'd like to be able to use this facility for virtio devices.
-> >=20
-> > Virtio already has a complicated relationship with the DMA API, because
-> > there were a bunch of early VMM bugs where the virtio devices where
-> > magically exempted from IOMMU protection, but the VMM lied to the guest
-> > and claimed they weren't.
-> >=20
-> > With the advent of confidential computing, and the VMM (or whatever's
-> > emulating the virtio device) not being *allowed* to arbitrarily access
-> > all of the guest's memory, the DMA API becomes necessary again.
-> >=20
-> > Either a virtual IOMMU needs to determine which guest memory the VMM
-> > may access, or the DMA API is wrappers around operations which
-> > share/unshare (or unencrypt/encrypt) the memory in question.
-> >=20
-> > All of which is complicated and slow, if we're looking at a minimal
-> > privileged hypervisor stub like pKVM which enforces the lack of guest
-> > memory access from VMM.
-> >=20
-> > I'm thinking of defining a new type of virtio-pci device which cannot
-> > do DMA to arbitrary system memory. Instead it has an additional memory
-> > BAR which is used as a SWIOTLB for bounce buffering.
-> >=20
-> > The driver for it would look much like the existing virtio-pci device
-> > except that it would register the restricted-dma region first (and thus
-> > the swiotlb dma_ops), and then just go through the rest of the setup
-> > like any other virtio device.
-> >=20
-> > That seems like it ought to be fairly simple, and seems like a
-> > reasonable way to allow an untrusted VMM to provide virtio devices with
-> > restricted DMA access.
-> >=20
-> > While I start actually doing the typing... does anyone want to start
-> > yelling at me now? Christoph? mst? :)
->=20
->=20
-> I don't mind as such (though I don't understand completely), but since
-> this is changing the device anyway, I am a bit confused why you can't
-> just set the VIRTIO_F_ACCESS_PLATFORM feature bit?=C2=A0 This forces DMA =
-API
-> which will DTRT for you, will it not?
+It is undesirable to keep them separate, as this approach consumes more
+resources.
 
-That would be necessary but not sufficient. The question is *what* does
-the DMA API do?
+Additionally, Xen does not currently support boot modules that span
+multiple banks: at least one of the regions get freed twice. The first
+time from setup_mm->populate_boot_allocator, then again from
+discard_initial_modules->fw_unreserved_regions. With a high number of
+banks, it can be difficult to arrange the boot modules in a way that
+avoids spanning across multiple banks.
 
-For a real passthrough PCI device, perhaps we'd have a vIOMMU exposed
-to the guest so that it can do real protection with two-stage page
-tables (IOVA=E2=86=92GPA under control of the guest, GPA=E2=86=92HPA under =
-control of
-the hypervisor). For that to work in the pKVM model though, you'd need
-pKVM to be talking the guest's stage1 I/O page tables to see if a given
-access from the VMM ought to be permitted?
+This small patch merges neighboring regions, to make dealing with them
+more efficient, and to make it easier to load boot modules. The patch
+also takes the opportunity to check and discard duplicates.
 
-Or for confidential guests there could be DMA ops which are an
-'enlightenment'; a hypercall into pKVM to share/unshare pages so that
-the VMM can actually access them, or SEV-SNP guests might mark pages
-unencrypted to have the same effect with hardware protection.
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
-Doing any of those dynamically to allow the VMM to access buffers in
-arbitrary guest memory (when it wouldn't normally have access to
-arbitrary guest memory) is complex and doesn't perform very well. And
-exposes a full 4KiB page for any byte that needs to be made available.
-
-Thus the idea of having a fixed range of memory to use for a SWIOTLB,
-which is fairly much what the restricted DMA setup is all about.
-
-We're just proposing that we build it in to a virtio-pci device model,
-which automatically uses the extra memory BAR instead of the
-restricted-dma-pool DT node.
-
-It's basically just allowing us to expose through PCI, what I believe
-we can already do for virtio in DT.
-
---=-9um69C3QOUe8WBwkTdXa
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
-ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
-MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
-a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
-jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
-GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
-aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
-nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
-8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
-IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
-KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
-BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
-QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
-QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
-ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
-/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
-uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
-xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
-W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
-c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
-VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
-NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
-DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
-sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
-w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
-i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
-kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
-0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
-ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
-blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
-hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
-VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
-HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
-ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
-AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
-cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
-cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
-AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
-aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
-hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
-iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
-8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
-JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
-xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
-EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
-B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
-MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
-KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
-Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
-nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
-WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
-W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
-nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
-g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
-9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
-9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
-sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
-a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
-ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
-AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
-dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
-MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
-YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
-4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
-6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
-QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
-nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
-MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
-VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDMyMTE4NDIy
-MFowLwYJKoZIhvcNAQkEMSIEIGcyYTz0b1vuiH1kWWxvYDxf5DNV/dQ7A75n0iBOd8eNMGQGCSsG
-AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
-cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
-VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
-cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIARn19baiF2SH2
-Qb9UeIoovp68Lz+c9QM1LVM2qfpB5Vd0Mo6gccUM+8DiDyJMxYXZYd+Ib/AHhooSjCJ7Vd+x1jd/
-eE2BveuRvzQsn0gH191zw8awf3fPMrbOk3llDZYRVLcacd7BN4nPbidbrJoba0bd+Jae2M/3XhTl
-3HaAW+ipsj4grnoF8FHOYmjFh1S1ck7PIW6ktorhKEm172YFUTt2cX/R6v+CBBdCOxLtolCNEAFW
-hXXC+4TAFIm4oOHe739VwqO5ZmeggeWlRL9obSOFMKFoSKP0oE/Uad1ix97JVg0Q1rtKNONJOr5B
-XSKJ94cbE6IidFlzqYP+yCv4MnkcV5FAI3Rqbsn4lHPBQDkE455yrBp0B4p0D4pVh2if7/EDc1rm
-UBXYoQaZCOeKwmmI6oP1OSRG1NVAy6ocmiVmdMoSERlcn4xl91AdRWa4VYi8zku3lBXBMc+P3015
-DJUkXfrC+CPC+xcubKPvGF8gEOm0eQquHCBVzBnkp+BFkoAYyjAwZ44Qj2OCSacwvkEnqVmFO3BZ
-HopfPoXAIL3bQEYPdQMQ0xN945VVQvkv0cAfQShC7INrjhQSVFFN5FkLEXhcdDDEYdajiVk4KP3I
-Q3tytvpDIY7DQy7Ps1tS5IPFaTquT8yBCWN7DBonmrigS/kpax+uh53Ph5AVDcQAAAAAAAA=
-
-
---=-9um69C3QOUe8WBwkTdXa--
+diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+index a80a5a7ab3..f6f23ed5b2 100644
+--- a/xen/arch/arm/efi/efi-boot.h
++++ b/xen/arch/arm/efi/efi-boot.h
+@@ -163,6 +163,20 @@ static bool __init meminfo_add_bank(struct membanks *mem,
+     struct membank *bank;
+     paddr_t start = desc->PhysicalStart;
+     paddr_t size = desc->NumberOfPages * EFI_PAGE_SIZE;
++    int j;
++
++    for ( j = 0; j < mem->nr_banks; j++ )
++    {
++        if ( mem->bank[j].start == start && mem->bank[j].size == size )
++        {
++            return true;
++        }
++        else if ( mem->bank[j].start + mem->bank[j].size == start )
++        {
++            mem->bank[j].size += size;
++            return true;
++        }
++    }
+ 
+     if ( mem->nr_banks >= mem->max_banks )
+         return false;
 
