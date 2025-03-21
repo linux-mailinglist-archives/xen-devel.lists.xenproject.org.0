@@ -2,38 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65B3DA6C105
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 18:14:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.924336.1327594 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5CC0A6C277
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 19:34:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.924375.1327604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvfwa-0001JX-D4; Fri, 21 Mar 2025 17:14:04 +0000
+	id 1tvhAi-0000Oj-RX; Fri, 21 Mar 2025 18:32:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 924336.1327594; Fri, 21 Mar 2025 17:14:04 +0000
+Received: by outflank-mailman (output) from mailman id 924375.1327604; Fri, 21 Mar 2025 18:32:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvfwa-0001Gx-9g; Fri, 21 Mar 2025 17:14:04 +0000
-Received: by outflank-mailman (input) for mailman id 924336;
- Fri, 21 Mar 2025 17:14:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1tcq=WI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tvfwY-0001Gr-W1
- for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 17:14:03 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e0ad373b-0677-11f0-9ffa-bf95429c2676;
- Fri, 21 Mar 2025 18:13:59 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-391342fc0b5so1926893f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 10:13:59 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9e6445sm2867009f8f.71.2025.03.21.10.13.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Mar 2025 10:13:57 -0700 (PDT)
+	id 1tvhAi-0000Lf-Oh; Fri, 21 Mar 2025 18:32:44 +0000
+Received: by outflank-mailman (input) for mailman id 924375;
+ Fri, 21 Mar 2025 18:32:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2CaU=WI=redhat.com=mst@srs-se1.protection.inumbo.net>)
+ id 1tvhAh-0000Km-2k
+ for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 18:32:43 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id de3066b6-0682-11f0-9ea1-5ba50f476ded;
+ Fri, 21 Mar 2025 19:32:40 +0100 (CET)
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-342-oxMLxNEKOAOUat-bxS_r3Q-1; Fri, 21 Mar 2025 14:32:36 -0400
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2265a09dbfcso57935775ad.0
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 11:32:35 -0700 (PDT)
+Received: from redhat.com ([195.133.138.172]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-7390618e08esm2305706b3a.169.2025.03.21.11.32.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Mar 2025 11:32:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +48,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0ad373b-0677-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742577238; x=1743182038; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vk6O7ozv1aYzizJ5s07kHhP05YRSGM/PxJJVxFluRZg=;
-        b=Lnj3o+zSwAdy4Z4GeqOtbdoPjATAGTFltfrqmiYUtOjSGIO9KNepe6u6guuDZnnjkb
-         uubf81X/J/j725GsmZ2Oy/faU63sDv+Wm6pKk+XvCjkt1EBtDKCAG2BRKsYyPYaMpP1P
-         7j5kap80Ghjp/hOu5YfLXQzsK+G03XczG3QrQ=
+X-Inumbo-ID: de3066b6-0682-11f0-9ea1-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1742581959;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x6Pr4yNEy0Ee63hyTGb7eb9xdvxKn8eEKjzFLCkdY+o=;
+	b=cqtKHcL0PW4P4bDHZj5OiSm7JNbeNB6MWAwmK6GpRxCkpIMrIBM3eJi7EMXcmlPzo/oAUK
+	us372Kahttso9hSoZ7Tz7jLwrzANeoiBVgwQFhFkBQRTrKcbUyQE5uK4JIvz2b5f49WU2T
+	eMciUF7mEi1w4jQg1bM19nFqRis7Stw=
+X-MC-Unique: oxMLxNEKOAOUat-bxS_r3Q-1
+X-Mimecast-MFC-AGG-ID: oxMLxNEKOAOUat-bxS_r3Q_1742581955
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742577238; x=1743182038;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1742581955; x=1743186755;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vk6O7ozv1aYzizJ5s07kHhP05YRSGM/PxJJVxFluRZg=;
-        b=IF2gRs3J4tufbEdmls1YM8EVR7rp7gX373YrtwOiWEwT+zH7ZIw9iu9XpaqPU5RzHS
-         Qk9e52RTnoldb5qNDce5Wsqi5d0HF1PJsegCdgVggyNNRRBPnHv3+4MkD+5mv/s06lTR
-         wD+dfiVNnGY9LjBw0nNpkPge2nyVXTTMiNpRYeJr1VDvCmceUgwQ6tPkk0Lnd62ZQpLU
-         rhs9G+fRAWgCKoOR8jUcxMHDKTvfMxlHHFYOA8PdAga3/g2eBvNUwyGhAN44gq7S23zT
-         MCYOAzQlXC5JW1uw/iq1cIgaZn7pjnX3QgZ0Qo/sxjMS1AZ7h+Q7YH2oxCspKxreM3kK
-         isyw==
-X-Forwarded-Encrypted: i=1; AJvYcCUgSthnlL9Wdj3nmq5+yTN2WrHOFftUpJNihTihr5x7olUqBRVycKTzuoVyW0NBvp+cZ4+9jB5SXK0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxD/HKBi2j/qEWOly0avXn74GmOlo0StyrP5itPKHJE4W8tgENz
-	uF+AlINeVycL7XweAtUXASpxPJHuyJtPxyUqNL3FOCZ8TQuBomPqJHZdNjM+hdOlSG3rrqba48j
-	G
-X-Gm-Gg: ASbGncu0RSlUQDWJzRx1ILhA1OhtWb8D6myJo2nXaSGCyH0B0oD93JrkRLKqi/S7AMm
-	NuIGhuMZI/LB5P3BnzG3QCkp+LiicZKjjFzN1NHl8l4rCadPJud7NGSYqeEd3jLV4x+MnjMnJ6o
-	GjmvxjzmxMKeapNzMVv8MriwsNZTGVPbpE8H6vDE4uitO1uSXQu32atpV66qOl1eLKV9ssVAVxE
-	uKvAk2MviBLzUNoYKavFkGVwRogEBE9nF0DswEL/9QZXm0PEil5H4JweN/rhk/e4HPLGX4hCcFH
-	C5EeMwZqCyDupxwkNM6aISXf73ci+lLAYFym+e5xQ8Km3M7UAQKKLtzo1641o2g4GWUBjGbQxLJ
-	WmTw5jY3qvQ==
-X-Google-Smtp-Source: AGHT+IGmEVkfVRfdcUU2D5zBX/SWwz3pvIeU7A3B7N2Y7ikX2E3PNwaUXX5GHmucS/FGQ0OZ/P0Uag==
-X-Received: by 2002:a5d:6483:0:b0:399:6dd9:9f40 with SMTP id ffacd0b85a97d-3997f8f8c67mr4302104f8f.9.1742577238408;
-        Fri, 21 Mar 2025 10:13:58 -0700 (PDT)
-Message-ID: <4777d8e9-b4d9-45d2-82be-beb1af82283f@citrix.com>
-Date: Fri, 21 Mar 2025 17:13:57 +0000
+        bh=x6Pr4yNEy0Ee63hyTGb7eb9xdvxKn8eEKjzFLCkdY+o=;
+        b=vbJcE5/E+EPvoSnMW+6cgzjzjybKu1UJRHVV7pFgK9iWRNlcxIU+lGQ4Xjyy1iy5Cc
+         bHyD46OWi/Q4fi+UZMmhyl4NK/8h/s+hjUmwKP90+qhxKBVM7fg3ikLvJ9TYFDdOSnp7
+         Xd1dBNRqq1S/HqsxCm/r61TnZ2s/rnDCmCdcEHRJBZtznVpVUtE5of+W3KX6lRoqDzm8
+         scdvgO0mTj/SkzioHMNIDhGadm4po2b9SvKYl4oddPEugD8y7Jlno0OKkvBXPSfp91yl
+         cAgC6/KUYneBv7R85XMKz5Y1S2vtgnyOapg/VR88PibSkuWes/+Ay6amBDLcXFuZCQSw
+         6lfg==
+X-Forwarded-Encrypted: i=1; AJvYcCXwcbF8PA0H0167FW18wQCoYxhc6ij/w8BCt3WOzE4HvMyjzV9T8o91HrYk3IzahK2TXF1+ziDyCcs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxE9rMjLmzSBPbJG77XkVQ0WLWMVrzFmFZjxatvmX8UXdtOsOpB
+	WcW5NgMN2fKcM8yH5BBpX7ZPPijiVV2pBahhwRsjuSs9gFkT/Tza2xytbHoLLKHJHEHPNW8xX/q
+	VpocwOFd15k6bsUYIMqzFmhScAsvDdwscNpOFiCx5CE4vKHP/0s/kMpRkgESdX19P
+X-Gm-Gg: ASbGncsFPG984D6tfRVUJw/3gPim7lo7IKorEmkEX+7dNVzSqCugwC/nBUYuOSTpWF2
+	f0Iqrpq+mobTTJ/U6n5wSfOZULp2ToE4UJmfi9ZhrhHHuLrLKkHKKoxn/64UeL+dr9TkxVB/b4r
+	OlLSf/b1B4mDIpoV93zPX2cDCmMYcK/MOisSZrhQSGVoPqdqdaFBV0U58/nwhL6vvHOcRx4i6cM
+	7NaDRD4/xBYwWZmqVCt4EuOkPmoHBI9cU73wzCddCx1rrL0bZ3M+9l4/BHortBstrQ9CWa7sWv4
+	+3CPmwjm
+X-Received: by 2002:a05:6a00:3d49:b0:736:592e:795f with SMTP id d2e1a72fcca58-7390598e637mr6094586b3a.9.1742581954600;
+        Fri, 21 Mar 2025 11:32:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHgvI4Fq7PhyVG2/6UfPhY7tEePZCtkHS/CCaoQm+lEN40XhsJxvkXhRtIdT7ONaz8I8Nvvbw==
+X-Received: by 2002:a05:6a00:3d49:b0:736:592e:795f with SMTP id d2e1a72fcca58-7390598e637mr6094532b3a.9.1742581953971;
+        Fri, 21 Mar 2025 11:32:33 -0700 (PDT)
+Date: Fri, 21 Mar 2025 14:32:24 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: Claire Chang <tientzu@chromium.org>, Rob Herring <robh+dt@kernel.org>,
+	mpe@ellerman.id.au, Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	boris.ostrovsky@oracle.com, jgross@suse.com,
+	Christoph Hellwig <hch@lst.de>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	heikki.krogerus@linux.intel.com, peterz@infradead.org,
+	benh@kernel.crashing.org, grant.likely@arm.com, paulus@samba.org,
+	mingo@kernel.org, sstabellini@kernel.org,
+	Saravana Kannan <saravanak@google.com>, xypron.glpk@gmx.de,
+	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+	Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+	xen-devel@lists.xenproject.org, Thierry Reding <treding@nvidia.com>,
+	linux-devicetree <devicetree@vger.kernel.org>,
+	linuxppc-dev@lists.ozlabs.org,
+	Nicolas Boichat <drinkcat@chromium.org>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	lkml <linux-kernel@vger.kernel.org>,
+	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+	Jim Quinlan <james.quinlan@broadcom.com>,
+	Robin Murphy <robin.murphy@arm.com>, hch@infradead.org,
+	Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	virtualization@lists.linux.dev, graf@amazon.de
+Subject: Re: Using Restricted DMA for virtio-pci
+Message-ID: <20250321142947-mutt-send-email-mst@kernel.org>
+References: <20210209062131.2300005-1-tientzu@chromium.org>
+ <979b6a34ca5724ced1d4871b58bf227065d7da57.camel@infradead.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] x86/domctl: Stop using XLAT_cpu_user_regs()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250311211043.3629696-1-andrew.cooper3@citrix.com>
- <20250311211043.3629696-6-andrew.cooper3@citrix.com>
- <1cd10c63-4e86-45fa-b4b3-cb750ad9f39b@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <1cd10c63-4e86-45fa-b4b3-cb750ad9f39b@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <979b6a34ca5724ced1d4871b58bf227065d7da57.camel@infradead.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: W85IP__Q0jVmKvZzH9c1MNE_TfJQQIOmxkIf1XbENZo_1742581955
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 17/03/2025 11:42 am, Jan Beulich wrote:
-> On 11.03.2025 22:10, Andrew Cooper wrote:
->> --- a/xen/include/xlat.lst
->> +++ b/xen/include/xlat.lst
->> @@ -34,8 +34,6 @@
->>  ?	pmu_intel_ctxt			arch-x86/pmu.h
->>  ?	pmu_regs			arch-x86/pmu.h
->>  
->> -!	cpu_user_regs			arch-x86/xen-@arch@.h
-> Maybe worthwhile to keep the line, just switching ! to #, in order to
-> indicate the type isn't accidentally missing here?
+On Fri, Mar 21, 2025 at 03:38:10PM +0000, David Woodhouse wrote:
+> On Tue, 2021-02-09 at 14:21 +0800, Claire Chang wrote:
+> > This series implements mitigations for lack of DMA access control on
+> > systems without an IOMMU, which could result in the DMA accessing the
+> > system memory at unexpected times and/or unexpected addresses, possibly
+> > leading to data leakage or corruption.
+> 
+> Replying to an ancient (2021) thread which has already been merged...
+> 
+> I'd like to be able to use this facility for virtio devices.
+> 
+> Virtio already has a complicated relationship with the DMA API, because
+> there were a bunch of early VMM bugs where the virtio devices where
+> magically exempted from IOMMU protection, but the VMM lied to the guest
+> and claimed they weren't.
+> 
+> With the advent of confidential computing, and the VMM (or whatever's
+> emulating the virtio device) not being *allowed* to arbitrarily access
+> all of the guest's memory, the DMA API becomes necessary again.
+> 
+> Either a virtual IOMMU needs to determine which guest memory the VMM
+> may access, or the DMA API is wrappers around operations which
+> share/unshare (or unencrypt/encrypt) the memory in question.
+> 
+> All of which is complicated and slow, if we're looking at a minimal
+> privileged hypervisor stub like pKVM which enforces the lack of guest
+> memory access from VMM.
+> 
+> I'm thinking of defining a new type of virtio-pci device which cannot
+> do DMA to arbitrary system memory. Instead it has an additional memory
+> BAR which is used as a SWIOTLB for bounce buffering.
+> 
+> The driver for it would look much like the existing virtio-pci device
+> except that it would register the restricted-dma region first (and thus
+> the swiotlb dma_ops), and then just go through the rest of the setup
+> like any other virtio device.
+> 
+> That seems like it ought to be fairly simple, and seems like a
+> reasonable way to allow an untrusted VMM to provide virtio devices with
+> restricted DMA access.
+> 
+> While I start actually doing the typing... does anyone want to start
+> yelling at me now? Christoph? mst? :)
 
-Is it really worth it?  That's a new semantic to an opaque
-domain-specific-language, and this file only ever gets looked at when
-something is broken.
 
-~Andrew
+I don't mind as such (though I don't understand completely), but since
+this is changing the device anyway, I am a bit confused why you can't
+just set the VIRTIO_F_ACCESS_PLATFORM feature bit?  This forces DMA API
+which will DTRT for you, will it not?
+
+-- 
+MST
+
 
