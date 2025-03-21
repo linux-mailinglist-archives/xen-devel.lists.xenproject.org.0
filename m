@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ED9AA6B882
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 11:10:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.923856.1327253 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A3CBA6B8CC
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Mar 2025 11:33:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.923876.1327262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvZJk-0005g6-Rc; Fri, 21 Mar 2025 10:09:32 +0000
+	id 1tvZgf-0005Nn-Lf; Fri, 21 Mar 2025 10:33:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 923856.1327253; Fri, 21 Mar 2025 10:09:32 +0000
+Received: by outflank-mailman (output) from mailman id 923876.1327262; Fri, 21 Mar 2025 10:33:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tvZJk-0005cy-NA; Fri, 21 Mar 2025 10:09:32 +0000
-Received: by outflank-mailman (input) for mailman id 923856;
- Fri, 21 Mar 2025 10:09:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tvZgf-0005MC-I2; Fri, 21 Mar 2025 10:33:13 +0000
+Received: by outflank-mailman (input) for mailman id 923876;
+ Fri, 21 Mar 2025 10:33:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IQbR=WI=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1tvZJj-0005cq-23
- for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 10:09:31 +0000
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [2001:4860:4864:20::34])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92d19f3b-063c-11f0-9ffa-bf95429c2676;
- Fri, 21 Mar 2025 11:09:28 +0100 (CET)
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-2c2504fa876so457031fac.0
- for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 03:09:28 -0700 (PDT)
+ <SRS0=eQBi=WI=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1tvZge-0005M6-3X
+ for xen-devel@lists.xenproject.org; Fri, 21 Mar 2025 10:33:12 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e2ed5376-063f-11f0-9ea1-5ba50f476ded;
+ Fri, 21 Mar 2025 11:33:11 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-39133f709f5so955000f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Mar 2025 03:33:11 -0700 (PDT)
+Received: from localhost.localdomain (172.74.6.51.dyn.plus.net. [51.6.74.172])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3997f99540bsm1974477f8f.2.2025.03.21.03.33.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Mar 2025 03:33:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,473 +45,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92d19f3b-063c-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: e2ed5376-063f-11f0-9ea1-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1742551767; x=1743156567; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=k3k6NJua43cQSXE4tgZjOlNKYWsReREj/xZSQ3Lj4Po=;
-        b=Neb42/hz3b9VJq0SHVLGsvLYBfKY3zHjvB83fWOo1ayRriWgKHSnwEb0MWNjPcCwPz
-         2aySPpo6K7Kc/GwAtfCwprRsqlZygxtfEKERnkOIpgoJy8bKTvMOtD466NJeAMS9uzdu
-         i+AdlH2ySfYg0wpz04CEtM1BL1s7J35JuDVexjPdpBllt6dZnMaISDHMSeJ7pmURHjy+
-         7T79xGuVEE22ifD4jR5pywK7rQh/5MCckYw+Ee+8zOhbUlGWDBMejxb7MhHDRlKh2lDi
-         Qj9g3RD7ykfjl3luYVwWv4TmDHlD4pB1rIAvyV0gX4t6/5Cg2so1wXjvlDZuD3ijJ4ua
-         uZpw==
+        d=cloud.com; s=cloud; t=1742553190; x=1743157990; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=R1d4V/U0d0LLs6AOMxSAHlCx6VjugkBgivvzziy+VgU=;
+        b=cTEiqR6iGOXmFVRz3sqCHUdT5WvQe8RPA0HK6TxG5iZtSqUNUcAjYbsCfoAXq2nN/5
+         D4ivC02lC3YIaRRoBn8q/YD5t6gMx2X3HtBZHxoCdIWt9xZXHLivJx0OsXG26engOxkR
+         NR5/t1FEug9eFWsAc9CrtlsE/TLRB1nGEYbxY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742551767; x=1743156567;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=k3k6NJua43cQSXE4tgZjOlNKYWsReREj/xZSQ3Lj4Po=;
-        b=lzlgS4fKYGQkGJZxN86uhusiQUadK3h3OMO/8/To+kMtMsN9st1DoGrs72RJbRXW4K
-         u5+CH3laPko8PRHkb1s4VlfTItIfLO+MOM8yhZ2SMZRKBHOFGiqu1irQ7I5YeqAUob+w
-         npLASxpuSbtjVbeh2Q6LR5TObgAQnHWx7UcwAzhKLtzgJnRP2Z8WwNwD4Jl2qcBYD4v0
-         2aJKrVQEiISwAqMbM3O0/0ZzpML6F/O62Hb11sFUTv1dCKiiJLc+fas436X0cRRocdeV
-         6n65BBnCCFLOrpY8sAbZaYy0SSHKlbbeOPFR15/YgMYcGsej9EYHiTqG62VDuxrsVHuS
-         b3NA==
-X-Gm-Message-State: AOJu0YwtETPHf6WiXYnjr7WpfU3+UOglsMxSW/LEG3KQpJb0EDKRpEfb
-	+NLVhRk+4HVXweoq1g8KGC8K6+k3+668V8saqmv4MNAzeuEGY1ATxixORunwDR368VWfibY1nHD
-	FuKmgSqhV5+cFJO0qROfEbizVkVzhDUBHQjcBVA==
-X-Gm-Gg: ASbGncs3bGezfzQgHzYA021Fx6w3kLPpF2m7B4Sz3jbBckBs5ZDaJG3zP2wY1s4Os8h
-	hwQcEnjLtfWJJceGnqURA8VfZSPYwZGL5t7HMljyCmHaYQ77VuOLQH+2BZGOKGL/o3Lg1+XMDfs
-	oL7/KT5Ybwe2YvGWOROc90p9boAa0=
-X-Google-Smtp-Source: AGHT+IGIRoCpBtqWi7OdhWZrXhEfQvAos4NWwhdlmbzU+pTn232OCPGE4GTHN7TSh4110w/a/3RGcjCt39NPR+LY/t4=
-X-Received: by 2002:a05:6870:498a:b0:297:c04:9191 with SMTP id
- 586e51a60fabf-2c780202280mr1769778fac.3.1742551767018; Fri, 21 Mar 2025
- 03:09:27 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1742553190; x=1743157990;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=R1d4V/U0d0LLs6AOMxSAHlCx6VjugkBgivvzziy+VgU=;
+        b=YHvB/89M4/uYvE8InDOJqkuQADbf+NQUn2X1BYOl5nU/d20rSWTLGjsuxd8mN1TJfy
+         SCWahomjNJIDkUqSLGqE6IplsPzGpCP+WDA4DNVeVcT01wh/79CovRPSdzeN/IV7bFNN
+         0x7VnKT3izzumh4L2OVhCuPVDxdfrkqLy+DqtH+r68ebIGJxSivgQLPcDozwA4R54J9G
+         ZgaCaF9p+G0EYhdYIQtzsAA41vg/50+Gi4DKXMublBZfvNCknK+zoPzEcLdXFr0B3yrI
+         /ENbyQyM+8qaK04nJqCjevvHcYvhlA0C5Shb0n0CPvIm+pGl4EduHtvRpjURV82gJJ8F
+         3uvw==
+X-Gm-Message-State: AOJu0YynXorqA/hwbH2i6rt1y0lgvwxdDJjF/Ca+OuKUMYNcS93YQj7Z
+	93LeVnB8Dr6aaSvsQwmiIzLzHhaftskZNO8tDQ1wtEfuPRFncCvqWIuQc3NmlL0Npgcg/oWQ45T
+	w
+X-Gm-Gg: ASbGncsUkw4zOweieYoG4L1pl2jGwpTYRomQJvuyr4a9EHMWHKPZbecOWqRrDCXgGcg
+	9B4+Jngp3KSVB7CcOgkEGcfLBKYyDlwY60rqbd+v4ficYfzGBs/tO0lotUferv00Q06tyULz+Y+
+	SaawccotrOl0ypplUOCZT2FteyZNa4g/47Gzjugk4qYxUY/XbAkFGmIJOZ9YRJc4p516Ya2JMUn
+	FVr3qG3YK7/8HEtxPj0gpnY6gP7pdH/hz4ODOr5aLrk7OiCrR5lY0iwBEURy2R8Gk/OokR0So8M
+	IKmZqqGttdhTBWIJuaGCsDOoEbkQutSw5AFGQZRU/JZBk8rdjv3Tz3iZgAEXXQVwgrnFDYqWfSR
+	ylFwAzP662w==
+X-Google-Smtp-Source: AGHT+IH+0LDstO6mEbGjqCIvBA/9Wqy0xn4kADNfl1OGzY4tAEnk9p5gASMQe0Ybif2VzRQ1H8KgHA==
+X-Received: by 2002:a5d:6483:0:b0:399:71d4:a2 with SMTP id ffacd0b85a97d-3997f8fa242mr2782286f8f.14.1742553189987;
+        Fri, 21 Mar 2025 03:33:09 -0700 (PDT)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH v7] Avoid crash calling PrintErrMesg from efi_multiboot2
+Date: Fri, 21 Mar 2025 10:32:58 +0000
+Message-ID: <20250321103258.37425-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <cover.1741617888.git.bertrand.marquis@arm.com>
- <400fdd82de6e61e8e7598a120bb0bbe2c354ab72.1741617888.git.bertrand.marquis@arm.com>
- <CAHUa44FW02v4_6pTiGqcWrFMLqdayuUF5pXM8cfKusOXHC7Jyw@mail.gmail.com> <7B45963D-8908-420C-89ED-15769357779C@arm.com>
-In-Reply-To: <7B45963D-8908-420C-89ED-15769357779C@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Fri, 21 Mar 2025 11:09:15 +0100
-X-Gm-Features: AQ5f1JpI10vpuiYYM6ERvFWF9gxNJAvkB-erkp6XbAm8DOkt04pJ9NY4yrgScNE
-Message-ID: <CAHUa44HumXeMR66Pu4xMODHms4PiM7+ANmPB1tG+UO9BpGDpLQ@mail.gmail.com>
-Subject: Re: [PATCH v2 5/5] xen/arm: ffa: Enable VM to VM without firmware
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Although code is compiled with -fpic option data is not position
+independent. This causes data pointer to become invalid if
+code is not relocated properly which is what happens for
+efi_multiboot2 which is called by multiboot entry code.
 
-On Fri, Mar 21, 2025 at 10:25=E2=80=AFAM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
->
-> Hi Jens,
->
-> > On 21 Mar 2025, at 09:55, Jens Wiklander <jens.wiklander@linaro.org> wr=
-ote:
-> >
-> > Hi Bertrand,
-> >
-> > On Mon, Mar 10, 2025 at 3:51=E2=80=AFPM Bertrand Marquis
-> > <bertrand.marquis@arm.com> wrote:
-> >>
-> >> When VM to VM support is activated and there is no suitable FF-A suppo=
-rt
-> >> in the firmware, enable FF-A support for VMs to allow using it for VM =
-to
-> >> VM communications.
-> >> If there is Optee running in the secure world and using the non FF-A
-> >
-> > It's spelled OP-TEE in text, and optee or OPTEE in identifiers.
->
-> ack
->
-> >
-> >> communication system, having CONFIG_FFA_VM_TO_VM could be non function=
-al
-> >> (if optee is probed first) or Optee could be non functional (if FF-A i=
-s
-> >> probed first) so it is not recommended to activate the configuration
-> >> option for such systems.
-> >>
-> >> To make buffer full notification work between VMs when there is not
-> >
-> > s/not/no/
->
-> ack
->
-> >
-> >> firmware, rework the notification handling and modify the global flag =
-to
-> >> only be used as check for firmware notification support instead.
-> >>
-> >> Modify part_info_get to return the list of VMs when there is no firmwa=
-re
-> >> support.
-> >>
-> >> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> >> ---
-> >> Changes in v2:
-> >> - replace ifdef with IS_ENABLED when possible
-> >> ---
-> >> xen/arch/arm/tee/ffa.c          |  12 +++-
-> >> xen/arch/arm/tee/ffa_notif.c    | 114 ++++++++++++++++----------------
-> >> xen/arch/arm/tee/ffa_partinfo.c |   3 +-
-> >> 3 files changed, 69 insertions(+), 60 deletions(-)
-> >>
-> >> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> >> index 3bbdd7168a6b..f6582d2e855a 100644
-> >> --- a/xen/arch/arm/tee/ffa.c
-> >> +++ b/xen/arch/arm/tee/ffa.c
-> >> @@ -324,8 +324,9 @@ static int ffa_domain_init(struct domain *d)
-> >>     struct ffa_ctx *ctx;
-> >>     int ret;
-> >>
-> >> -    if ( !ffa_fw_version )
-> >> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !ffa_fw_version )
-> >>         return -ENODEV;
-> >> +
-> >>     /*
-> >>      * We are using the domain_id + 1 as the FF-A ID for VMs as FF-A I=
-D 0 is
-> >>      * reserved for the hypervisor and we only support secure endpoint=
-s using
-> >> @@ -549,6 +550,15 @@ err_no_fw:
-> >>     bitmap_zero(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
-> >>     printk(XENLOG_WARNING "ARM FF-A No firmware support\n");
-> >>
-> >> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> >> +    {
-> >> +        INIT_LIST_HEAD(&ffa_teardown_head);
-> >> +        init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, =
-NULL, 0);
-> >> +
-> >> +        printk(XENLOG_INFO "ARM FF-A only available between VMs\n");
-> >> +        return true;
-> >> +    }
-> >> +
-> >>     return false;
-> >> }
-> >>
-> >> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif=
-.c
-> >> index d19aa5c5bef6..0673e53a9def 100644
-> >> --- a/xen/arch/arm/tee/ffa_notif.c
-> >> +++ b/xen/arch/arm/tee/ffa_notif.c
-> >> @@ -16,7 +16,7 @@
-> >>
-> >> #include "ffa_private.h"
-> >>
-> >> -static bool __ro_after_init notif_enabled;
-> >> +static bool __ro_after_init fw_notif_enabled;
-> >> static unsigned int __ro_after_init notif_sri_irq;
-> >>
-> >> int ffa_handle_notification_bind(struct cpu_user_regs *regs)
-> >> @@ -27,21 +27,17 @@ int ffa_handle_notification_bind(struct cpu_user_r=
-egs *regs)
-> >>     uint32_t bitmap_lo =3D get_user_reg(regs, 3);
-> >>     uint32_t bitmap_hi =3D get_user_reg(regs, 4);
-> >>
-> >> -    if ( !notif_enabled )
-> >> -        return FFA_RET_NOT_SUPPORTED;
-> >> -
-> >>     if ( (src_dst & 0xFFFFU) !=3D ffa_get_vm_id(d) )
-> >>         return FFA_RET_INVALID_PARAMETERS;
-> >>
-> >>     if ( flags )    /* Only global notifications are supported */
-> >>         return FFA_RET_DENIED;
-> >>
-> >> -    /*
-> >> -     * We only support notifications from SP so no need to check the =
-sender
-> >> -     * endpoint ID, the SPMC will take care of that for us.
-> >> -     */
-> >> -    return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags, bit=
-map_lo,
-> >> -                           bitmap_hi);
-> >> +    if ( FFA_ID_IS_SECURE(src_dst>>16) && fw_notif_enabled )
-> >
-> > Please add space before and after '>>', here and in the function below
-> > in this patch.
->
-> ack
->
-> >
-> >> +        return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags,
-> >> +                               bitmap_lo, bitmap_hi);
-> >> +
-> >> +    return FFA_RET_NOT_SUPPORTED;
-> >> }
-> >>
-> >> int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
-> >> @@ -51,32 +47,34 @@ int ffa_handle_notification_unbind(struct cpu_user=
-_regs *regs)
-> >>     uint32_t bitmap_lo =3D get_user_reg(regs, 3);
-> >>     uint32_t bitmap_hi =3D get_user_reg(regs, 4);
-> >>
-> >> -    if ( !notif_enabled )
-> >> -        return FFA_RET_NOT_SUPPORTED;
-> >> -
-> >>     if ( (src_dst & 0xFFFFU) !=3D ffa_get_vm_id(d) )
-> >>         return FFA_RET_INVALID_PARAMETERS;
-> >>
-> >> -    /*
-> >> -     * We only support notifications from SP so no need to check the
-> >> -     * destination endpoint ID, the SPMC will take care of that for u=
-s.
-> >> -     */
-> >> -    return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bitm=
-ap_lo,
-> >> -                            bitmap_hi);
-> >> +    if ( FFA_ID_IS_SECURE(src_dst>>16) && fw_notif_enabled )
-> >> +        return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, =
-bitmap_lo,
-> >> +                                bitmap_hi);
-> >> +
-> >> +    return FFA_RET_NOT_SUPPORTED;
-> >> }
-> >>
-> >> void ffa_handle_notification_info_get(struct cpu_user_regs *regs)
-> >> {
-> >>     struct domain *d =3D current->domain;
-> >>     struct ffa_ctx *ctx =3D d->arch.tee;
-> >> +    bool notif_pending =3D false;
-> >>
-> >> -    if ( !notif_enabled )
-> >> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
-> >>     {
-> >>         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> >>         return;
-> >>     }
-> >>
-> >> -    if ( test_and_clear_bool(ctx->notif.secure_pending) )
-> >> +    notif_pending =3D ctx->notif.secure_pending;
-> >> +#ifdef CONFIG_FFA_VM_TO_VM
-> >> +    notif_pending |=3D ctx->notif.buff_full_pending;
-> >> +#endif
-> >
-> > Shouldn't ctx->notif.secure_pending and ctx->notif.secure_pending be
-> > cleared also, like:
-> > notif_pending =3D test_and_clear_bool(ctx->notif.secure_pending) ||
-> >                test_and_clear_bool(ctx->notif.buff_full_pending);
->
-> Notification info get is returning who has pending notification but only
-> notification get should erase pending notifications.
+Code tested adding
+   PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
+in efi_multiboot2 before calling efi_arch_edd (this function
+can potentially call PrintErrMesg).
 
-FFA_NOTIFICATION_INFO_GET can return a "More pending notifications
-flag" in w2/x2 to inform the caller that it should call
-FFA_NOTIFICATION_INFO_GET again to get the remaining receiver
-endpoints. How can the ABI know where to resume the next time if the
-previous pending receivers aren't cleared?
+Before the patch (XenServer installation on Qemu, xen replaced
+with vanilla xen.gz):
+  Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+  Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Apic ID - 00000000 !!!!
+  ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
+  RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 0000000000210246
+  RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 0000000000000010
+  RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 000000007FF0C210
+  RSI  - FFFF82D040467CE8, RDI - 0000000000000000
+  R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 0000000000000000
+  R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 000000007FF0C1B8
+  R14  - 000000007EA33328, R15 - 000000007EA332D8
+  DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000000000030
+  GS   - 0000000000000030, SS  - 0000000000000030
+  CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 000000007FC01000
+  CR4  - 0000000000000668, CR8 - 0000000000000000
+  DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000000000000
+  DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000000000400
+  GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000000
+  IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000000
+  FXSAVE_STATE - 000000007FF0BDE0
+  !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=000000007EE20000, EntryPoint=000000007EE23935) !!!!
 
-The more pending notifications flag will not be needed here as we're
-dealing with a single endpoint at a time so it might be more of a
-philosophical question. I don't think it causes problems for the guest
-to keep secure_pending unchanged for FFA_NOTIFICATION_INFO_GET, but we
-should mention the changed behaviour in the commit message.
+After the patch:
+  Booting `XenServer (Serial)'Booting `XenServer (Serial)'
+  Test message: Buffer too small
+  BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
+  BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
 
-Cheers,
-Jens
+This partially rollback commit 00d5d5ce23e6.
 
->
-> >
-> >> +
-> >> +    if ( notif_pending )
-> >>     {
-> >>         /* A pending global notification for the guest */
-> >>         ffa_set_regs(regs, FFA_SUCCESS_64, 0,
-> >> @@ -103,7 +101,7 @@ void ffa_handle_notification_get(struct cpu_user_r=
-egs *regs)
-> >>     uint32_t w6 =3D 0;
-> >>     uint32_t w7 =3D 0;
-> >>
-> >> -    if ( !notif_enabled )
-> >> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
-> >>     {
-> >>         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> >>         return;
-> >> @@ -115,7 +113,8 @@ void ffa_handle_notification_get(struct cpu_user_r=
-egs *regs)
-> >>         return;
-> >>     }
-> >>
-> >> -    if ( flags & ( FFA_NOTIF_FLAG_BITMAP_SP | FFA_NOTIF_FLAG_BITMAP_S=
-PM ) )
-> >> +    if ( fw_notif_enabled && (flags & ( FFA_NOTIF_FLAG_BITMAP_SP
-> >> +                                        | FFA_NOTIF_FLAG_BITMAP_SPM )=
-) )
-> >
-> > Please end the previous line with the '|' operator.
->
-> ack
->
-> >
-> >>     {
-> >>         struct arm_smccc_1_2_regs arg =3D {
-> >>             .a0 =3D FFA_NOTIFICATION_GET,
-> >> @@ -170,15 +169,14 @@ int ffa_handle_notification_set(struct cpu_user_=
-regs *regs)
-> >>     uint32_t bitmap_lo =3D get_user_reg(regs, 3);
-> >>     uint32_t bitmap_hi =3D get_user_reg(regs, 4);
-> >>
-> >> -    if ( !notif_enabled )
-> >> -        return FFA_RET_NOT_SUPPORTED;
-> >> -
-> >>     if ( (src_dst >> 16) !=3D ffa_get_vm_id(d) )
-> >>         return FFA_RET_INVALID_PARAMETERS;
-> >>
-> >> -    /* Let the SPMC check the destination of the notification */
-> >> -    return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bitm=
-ap_lo,
-> >> -                           bitmap_hi);
-> >> +    if ( FFA_ID_IS_SECURE(src_dst>>16) && fw_notif_enabled )
-> >> +        return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, =
-bitmap_lo,
-> >> +                               bitmap_hi);
-> >> +
-> >> +    return FFA_RET_NOT_SUPPORTED;
-> >> }
-> >>
-> >> #ifdef CONFIG_FFA_VM_TO_VM
-> >> @@ -190,7 +188,7 @@ void ffa_raise_rx_buffer_full(struct domain *d)
-> >>         return;
-> >>
-> >>     if ( !test_and_set_bool(ctx->notif.buff_full_pending) )
-> >> -        vgic_inject_irq(d, d->vcpu[0], notif_sri_irq, true);
-> >> +        vgic_inject_irq(d, d->vcpu[0], GUEST_FFA_NOTIF_PEND_INTR_ID, =
-true);
-> >
-> > Please move this to the patch "xen/arm: ffa: Add buffer full
-> > notification support"
->
-> Ack
->
-> >
-> >> }
-> >> #endif
-> >>
-> >> @@ -363,7 +361,7 @@ void ffa_notif_init_interrupt(void)
-> >> {
-> >>     int ret;
-> >>
-> >> -    if ( notif_enabled && notif_sri_irq < NR_GIC_SGI )
-> >> +    if ( fw_notif_enabled && notif_sri_irq < NR_GIC_SGI )
-> >>     {
-> >>         /*
-> >>          * An error here is unlikely since the primary CPU has already
-> >> @@ -394,41 +392,41 @@ void ffa_notif_init(void)
-> >>     int ret;
-> >>
-> >>     /* Only enable fw notification if all ABIs we need are supported *=
-/
-> >> -    if ( !(ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
-> >> -           ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
-> >> -           ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
-> >> -           ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64)) )
-> >> -        return;
-> >> -
-> >> -    arm_smccc_1_2_smc(&arg, &resp);
-> >> -    if ( resp.a0 !=3D FFA_SUCCESS_32 )
-> >> -        return;
-> >> -
-> >> -    irq =3D resp.a2;
-> >> -    notif_sri_irq =3D irq;
-> >> -    if ( irq >=3D NR_GIC_SGI )
-> >> -        irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
-> >> -    ret =3D request_irq(irq, 0, notif_irq_handler, "FF-A notif", NULL=
-);
-> >> -    if ( ret )
-> >> +    if ( ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
-> >> +         ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
-> >> +         ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
-> >> +         ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64) )
-> >>     {
-> >> -        printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n=
-",
-> >> -               irq, ret);
-> >> -        return;
-> >> -    }
-> >> +        arm_smccc_1_2_smc(&arg, &resp);
-> >> +        if ( resp.a0 !=3D FFA_SUCCESS_32 )
-> >> +            return;
-> >>
-> >> -    notif_enabled =3D true;
-> >> +        irq =3D resp.a2;
-> >> +        notif_sri_irq =3D irq;
-> >> +        if ( irq >=3D NR_GIC_SGI )
-> >> +            irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
-> >> +        ret =3D request_irq(irq, 0, notif_irq_handler, "FF-A notif", =
-NULL);
-> >> +        if ( ret )
-> >> +        {
-> >> +            printk(XENLOG_ERR "ffa: request_irq irq %u failed: error =
-%d\n",
-> >> +                   irq, ret);
-> >> +            return;
-> >> +        }
-> >> +        fw_notif_enabled =3D true;
-> >> +    }
-> >> }
-> >>
-> >> int ffa_notif_domain_init(struct domain *d)
-> >> {
-> >>     int32_t res;
-> >>
-> >> -    if ( !notif_enabled )
-> >> -        return 0;
-> >> +    if ( fw_notif_enabled )
-> >> +    {
-> >>
-> >> -    res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_v=
-cpus);
-> >> -    if ( res )
-> >> -        return -ENOMEM;
-> >> +        res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d->m=
-ax_vcpus);
-> >> +        if ( res )
-> >> +            return -ENOMEM;
-> >> +    }
-> >>
-> >>     return 0;
-> >> }
-> >> @@ -439,6 +437,6 @@ void ffa_notif_domain_destroy(struct domain *d)
-> >>      * Call bitmap_destroy even if bitmap create failed as the SPMC wi=
-ll
-> >>      * return a DENIED error that we will ignore.
-> >>      */
-> >> -    if ( notif_enabled )
-> >> +    if ( fw_notif_enabled )
-> >>         ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
-> >> }
-> >> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_pa=
-rtinfo.c
-> >> index 7af1eca2d0c4..291396c8f635 100644
-> >> --- a/xen/arch/arm/tee/ffa_partinfo.c
-> >> +++ b/xen/arch/arm/tee/ffa_partinfo.c
-> >> @@ -130,7 +130,8 @@ void ffa_handle_partition_info_get(struct cpu_user=
-_regs *regs)
-> >>         goto out;
-> >>     }
-> >>
-> >> -    if ( !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
-> >> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) &&
-> >
-> > Doesn't this belong in the patch "xen/arm: ffa: Introduce VM to VM supp=
-ort"?
-> > And wouldn't ffa_vm_count make more sense?
->
-> ack. I will modify that and fold it into the VM to VM support patch.
->
-> Cheers
-> Bertrand
->
-> >
-> > Cheers,
-> > Jens
-> >
-> >> +         !ffa_fw_supports_fid(FFA_PARTITION_INFO_GET) )
-> >>     {
-> >>         /* Just give an empty partition list to the caller */
-> >>         ret =3D FFA_RET_OK;
-> >> --
-> >> 2.47.1
->
->
+Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI platforms")
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+Changes since v1:
+- added "Fixes:" tag;
+- fixed cast style change.
+
+Changes since v2:
+- wrap long line.
+
+Changes since v3:
+- fixed "Fixes:" tag.
+
+Changes since v4:
+- use switch instead of tables.
+
+Changes since v5:
+- added -fno-jump-tables option.
+
+Changes since v6:
+- rebased.
+---
+ xen/common/efi/boot.c        | 58 ++++++++++++++++++++++++------------
+ xen/common/efi/efi-common.mk |  1 +
+ 2 files changed, 40 insertions(+), 19 deletions(-)
+
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index efbec00af9..143b5681ba 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -287,33 +287,53 @@ static bool __init match_guid(const EFI_GUID *guid1, const EFI_GUID *guid2)
+ /* generic routine for printing error messages */
+ static void __init PrintErrMesg(const CHAR16 *mesg, EFI_STATUS ErrCode)
+ {
+-    static const CHAR16* const ErrCodeToStr[] __initconstrel = {
+-        [~EFI_ERROR_MASK & EFI_NOT_FOUND]           = L"Not found",
+-        [~EFI_ERROR_MASK & EFI_NO_MEDIA]            = L"The device has no media",
+-        [~EFI_ERROR_MASK & EFI_MEDIA_CHANGED]       = L"Media changed",
+-        [~EFI_ERROR_MASK & EFI_DEVICE_ERROR]        = L"Device error",
+-        [~EFI_ERROR_MASK & EFI_VOLUME_CORRUPTED]    = L"Volume corrupted",
+-        [~EFI_ERROR_MASK & EFI_ACCESS_DENIED]       = L"Access denied",
+-        [~EFI_ERROR_MASK & EFI_OUT_OF_RESOURCES]    = L"Out of resources",
+-        [~EFI_ERROR_MASK & EFI_VOLUME_FULL]         = L"Volume is full",
+-        [~EFI_ERROR_MASK & EFI_SECURITY_VIOLATION]  = L"Security violation",
+-        [~EFI_ERROR_MASK & EFI_CRC_ERROR]           = L"CRC error",
+-        [~EFI_ERROR_MASK & EFI_COMPROMISED_DATA]    = L"Compromised data",
+-        [~EFI_ERROR_MASK & EFI_BUFFER_TOO_SMALL]    = L"Buffer too small",
+-    };
+-    EFI_STATUS ErrIdx = ErrCode & ~EFI_ERROR_MASK;
+-
+     StdOut = StdErr;
+     PrintErr(mesg);
+     PrintErr(L": ");
+ 
+-    if( (ErrIdx < ARRAY_SIZE(ErrCodeToStr)) && ErrCodeToStr[ErrIdx] )
+-        mesg = ErrCodeToStr[ErrIdx];
+-    else
++    switch (ErrCode)
+     {
++    case EFI_NOT_FOUND:
++        mesg = L"Not found";
++        break;
++    case EFI_NO_MEDIA:
++        mesg = L"The device has no media";
++        break;
++    case EFI_MEDIA_CHANGED:
++        mesg = L"Media changed";
++        break;
++    case EFI_DEVICE_ERROR:
++        mesg = L"Device error";
++        break;
++    case EFI_VOLUME_CORRUPTED:
++        mesg = L"Volume corrupted";
++        break;
++    case EFI_ACCESS_DENIED:
++        mesg = L"Access denied";
++        break;
++    case EFI_OUT_OF_RESOURCES:
++        mesg = L"Out of resources";
++        break;
++    case EFI_VOLUME_FULL:
++        mesg = L"Volume is full";
++        break;
++    case EFI_SECURITY_VIOLATION:
++        mesg = L"Security violation";
++        break;
++    case EFI_CRC_ERROR:
++        mesg = L"CRC error";
++        break;
++    case EFI_COMPROMISED_DATA:
++        mesg = L"Compromised data";
++        break;
++    case EFI_BUFFER_TOO_SMALL:
++        mesg = L"Buffer too small";
++        break;
++    default:
+         PrintErr(L"ErrCode: ");
+         DisplayUint(ErrCode, 0);
+         mesg = NULL;
++        break;
+     }
+     blexit(mesg);
+ }
+diff --git a/xen/common/efi/efi-common.mk b/xen/common/efi/efi-common.mk
+index 23cafcf20c..06b1c19674 100644
+--- a/xen/common/efi/efi-common.mk
++++ b/xen/common/efi/efi-common.mk
+@@ -2,6 +2,7 @@ EFIOBJ-y := boot.init.o pe.init.o ebmalloc.o runtime.o
+ EFIOBJ-$(CONFIG_COMPAT) += compat.o
+ 
+ CFLAGS-y += -fshort-wchar
++CFLAGS-y += -fno-jump-tables
+ CFLAGS-y += -iquote $(srctree)/common/efi
+ CFLAGS-y += -iquote $(srcdir)
+ 
+-- 
+2.43.0
+
 
