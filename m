@@ -2,45 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7DFFA6CEAF
-	for <lists+xen-devel@lfdr.de>; Sun, 23 Mar 2025 11:27:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.924953.1327878 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACC0DA6CFD3
+	for <lists+xen-devel@lfdr.de>; Sun, 23 Mar 2025 15:58:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.925019.1327905 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twIXE-0002SE-Uv; Sun, 23 Mar 2025 10:26:28 +0000
+	id 1twMl0-0004mV-54; Sun, 23 Mar 2025 14:56:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 924953.1327878; Sun, 23 Mar 2025 10:26:28 +0000
+Received: by outflank-mailman (output) from mailman id 925019.1327905; Sun, 23 Mar 2025 14:56:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twIXE-0002Pz-RO; Sun, 23 Mar 2025 10:26:28 +0000
-Received: by outflank-mailman (input) for mailman id 924953;
- Sun, 23 Mar 2025 10:26:27 +0000
+	id 1twMl0-0004jb-1W; Sun, 23 Mar 2025 14:56:58 +0000
+Received: by outflank-mailman (input) for mailman id 925019;
+ Sun, 23 Mar 2025 14:56:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VYxF=WK=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1twIXC-0002Pt-VZ
- for xen-devel@lists.xenproject.org; Sun, 23 Mar 2025 10:26:27 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=b6FT=WK=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1twMky-0004jC-NY
+ for xen-devel@lists.xenproject.org; Sun, 23 Mar 2025 14:56:56 +0000
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [2607:f8b0:4864:20::b36])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 428040ad-07d1-11f0-9ffa-bf95429c2676;
- Sun, 23 Mar 2025 11:26:19 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E797B1F394;
- Sun, 23 Mar 2025 10:26:18 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B65391339F;
- Sun, 23 Mar 2025 10:26:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id gG2OKsrh32fKCAAAD6G6ig
- (envelope-from <jgross@suse.com>); Sun, 23 Mar 2025 10:26:18 +0000
+ id 0de23d4f-07f7-11f0-9ffa-bf95429c2676;
+ Sun, 23 Mar 2025 15:56:52 +0100 (CET)
+Received: by mail-yb1-xb36.google.com with SMTP id
+ 3f1490d57ef6-e5dc299deb4so3217375276.1
+ for <xen-devel@lists.xenproject.org>; Sun, 23 Mar 2025 07:56:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,117 +40,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 428040ad-07d1-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1742725579; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=vuTT4KLfDEEyriyjSo0++a0zL0aCOp328WDIfaFymuM=;
-	b=BATVp5K/TS4P4BkKJnzj5fklOiaxJMxn7rpS8+Q0MhLgmdfe/epJCOSp16WVBXJ5CoFYnk
-	fkR3CtaRNxeVsOhVh5igW+GKBxPoW7n5KRNmrQh/2I1nShJtmwtzcSr9BgxxRjiGl6U1pi
-	jkz9+++xEdfbJ8xJ/1WnNM2mJbayfZo=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=Hb0C4ZDT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1742725578; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=vuTT4KLfDEEyriyjSo0++a0zL0aCOp328WDIfaFymuM=;
-	b=Hb0C4ZDTx3dmF0arj0pSP0JMDDCv86578ocSgC9IgNcKPPStmknSu2TIjtBZA9F8Ayj1ku
-	wEN7Myn2KMwjiQFuyPKGV1O2uP5bJFvTqzH9+SrypKKbRwmbU/aKO8r8IVnUTxQHK8dUQc
-	um+Wi1uSjqm82o8LPXQzwHxRiZ1fYnQ=
-From: Juergen Gross <jgross@suse.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	sstabellini@kernel.org
-Subject: [GIT PULL] xen: branch for v6.15-rc1
-Date: Sun, 23 Mar 2025 11:26:18 +0100
-Message-ID: <20250323102618.29516-1-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: 0de23d4f-07f7-11f0-9ffa-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1742741811; x=1743346611; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=U8DKcStIvaxLyy9Yz9mrc7ut/cxNfr85Fb8dAkds4bM=;
+        b=VPK8ZvvWwg/8MNheGC5ze3qggWZko5m2Qc5evakZlDs8hh16saG82ctaNYCYDWpqxp
+         F5RyEyuDh9aj5qoLyiTrGWKnzmeH6hpmSGLPxdsExygfR+hE858sAEZNr+TdMj4KkAP3
+         AbWSGKmc9UghNk/fhxIppl5CSJBh1cFM9wS8ogShqdZSD7BJvmkPYXDrHsVCqYC7182X
+         qcOgnIKdejovQxaMk6DAET4ZaqxapIAVxiokf7oe8wLMiC3hIsTbSSgCtwcTgaalvnl8
+         8tPXwJgjTub9sK/kxlhzhOAxloYJRtOg4PEfH7j5fFFdcmopJBjfEjhF+T4d+09OwMXU
+         kMJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742741811; x=1743346611;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=U8DKcStIvaxLyy9Yz9mrc7ut/cxNfr85Fb8dAkds4bM=;
+        b=oijE95SvLDs3AQcjH3sQ7E8DO++P5bJSKNQH6Iw2y3B2IlUtkjESyRLD8ctWKFwJVn
+         EGYQbOTfBnVnrYTClnDa4TgEwrwm7vTbchQDB0nuPkFg6B59tZaNVbqYE2MPmu5i4a/t
+         4U87hLZ1kgGEKiNpZqC+wJZNOr6weHoSmy0DateBgH/bWJZQShas8+ZEpNFG64LUpSuO
+         a2kO5sBYZGT70XQRqwNSI8S/c8dxFCXDIVCS7PoavElfC2nyJa1eGlbVFTIMKVHIt4VS
+         CYKhL+6A9gR6TKGdgIwlbrzu9+nDHGDMOtUEkgHeRXwsf640CKr4L47OJHmlpmSm9akp
+         Wmgw==
+X-Gm-Message-State: AOJu0YzYrT04ZiW5kLvll19QUgodLokYFrqmrWDiM8Wen2I5F0n/ZUKR
+	7FZxJgw3k7kGAUc8trtisVj8N/gnuZkAIHPowq8W6Pd/T+83hyNH7yT0vm062Gk9rvYjC4gj3nF
+	s8YRP9ibbSrM+HnHC7xq1WyXypatUvSk6
+X-Gm-Gg: ASbGncshqaGmL58zJ+A4a4ENSrzM9R7s2xX1Y/dBg1qx7zcX1L0yrme3ssjYYhTTrvO
+	ggJWA4hn0LJARSe1wz7+o1NaYAQplo8ND6kapXdDbZbPlDo7sCEhxZCviKdUUF4IRx/7leGamYY
+	mF84/dORjJtMrV5Mq3IfFeEkE=
+X-Google-Smtp-Source: AGHT+IGR+mKCdRNvJ+NVjaFqlhFkz3i1X6s+djSQ5yTsu2pqDQH/9yXHybIQic9OOl1FGniPhbObBXHofyvI7gwi7x4=
+X-Received: by 2002:a05:6902:228f:b0:e63:ebc9:656 with SMTP id
+ 3f1490d57ef6-e66a4fa21e2mr11152540276.35.1742741811373; Sun, 23 Mar 2025
+ 07:56:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: E797B1F394
-X-Spam-Score: -3.01
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_NONE(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCPT_COUNT_THREE(0.00)[4];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
-X-Spam-Level: 
+References: <f06ad622-4bb7-4a7d-9d11-a3c1456a4aa1@sl.nospam.tangomaris.de>
+In-Reply-To: <f06ad622-4bb7-4a7d-9d11-a3c1456a4aa1@sl.nospam.tangomaris.de>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Sun, 23 Mar 2025 10:56:40 -0400
+X-Gm-Features: AQ5f1Jq55d6g3bXO4qccMqA50zeqozVu2Rq-9DEYUBZzHwVoMgPGkycU2VCnu90
+Message-ID: <CAKf6xptiqnwcsc8q8nFk_XBGjP392o4kvLjc3_GzgaO_XpyJoA@mail.gmail.com>
+Subject: Re: VIF network definition does not work with backend=domnet
+To: Shen Long <xen-mailinglist@sl.nospam.tangomaris.de>
+Cc: xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Linus,
+On Sat, Mar 22, 2025 at 8:51=E2=80=AFAM Shen Long
+<xen-mailinglist@sl.nospam.tangomaris.de> wrote:
+>
+> Hello,
 
-Please git pull the following tag:
+Hi Shen,
 
- git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.15-rc1-tag
+> Here the test.cfg domu which "works":
+>
+> name =3D "test"
+> builder =3D "hvm"
+> vcpus =3D 1
+> memory =3D 4096
+> #vif =3D [ 'backend=3Dnetbackend,bridge=3Ddmz' ]
 
-xen: branch for v6.15-rc1
+Try:
+vif =3D [ 'backend=3Dnetbackend,bridge=3Ddmz,type=3Dvif' ]
 
-It contains:
+This will give "test" just a PV nic (and not an emulated nic).
 
-- A cleanup patch removing an used function.
+> disk =3D [ 'file:/isos/systemrescue-11.03-amd64.iso,hda:cdrom,r' ]
+> usbdevice =3D [ "tablet" ]
+> serial =3D "pty"
+> on_poweroff =3D "destroy"
+> on_reboot =3D "restart"
+> on_crash =3D "restart"
+>
+> It does not have a proper disk yet, because testing.
+> The Problem is, if i remove the hash from the vif spec, i get this error
+> on `xl create test.cfg`:
+>
+> # xl create /etc/xen/domuconfig/test.cnf
+> Parsing config from /etc/xen/domuconfig/test.cnf
+> libxl: error: libxl_dm.c:3157:device_model_spawn_outcome: Domain
+> 89:domain 89 device model: spawn failed (rc=3D-3)
 
-- A patch adding support for a XenServer specific virtual PCI device.
+/var/log/xen/qemu-dm-test.log probably reports an error about bridge
+dmz not existing.
 
-- A patch fixing the handling of a sparse Xen hypervisor symbol table.
+qemu runs in dom0, but your bridge "dmz" is in the driver domain,
+"netbackend".  By using type=3Dvif, xl skips creating the emulated nic
+with qemu.  I think `xl network-attach` uses type=3Dvif by default,
+which also avoids the emulated nic issue.
 
-- A patch avoiding warnings when building the kernel with gcc 15.
-
-- A series fixing usage of devices behind a VMD bridge when running as
-  a Xen PV dom0.
-
-
-Thanks.
-
-Juergen
-
- arch/x86/pci/xen.c                 |  8 ++------
- drivers/pci/controller/vmd.c       | 20 ++++++++++++++++++++
- drivers/pci/msi/msi.c              | 37 +++++++++++++++++++++----------------
- drivers/xen/pci.c                  | 32 ++++++++++++++++++++++++++++++++
- drivers/xen/platform-pci.c         |  4 ++++
- drivers/xen/xen-pciback/pci_stub.c | 20 --------------------
- drivers/xen/xen-pciback/pciback.h  |  2 --
- drivers/xen/xenfs/xensyms.c        |  4 ++--
- include/linux/msi.h                |  3 ++-
- include/xen/interface/xen-mca.h    |  2 +-
- kernel/irq/msi.c                   |  2 +-
- 11 files changed, 85 insertions(+), 49 deletions(-)
-
-Dr. David Alan Gilbert (1):
-      xen/pciback: Remove unused pcistub_get_pci_dev
-
-Frediano Ziglio (1):
-      xen: Add support for XenServer 6.1 platform device
-
-Jan Beulich (1):
-      xenfs/xensyms: respect hypervisor's "next" indication
-
-Kees Cook (1):
-      xen/mcelog: Add __nonstring annotations for unterminated strings
-
-Roger Pau Monne (3):
-      xen/pci: Do not register devices with segments >= 0x10000
-      PCI: vmd: Disable MSI remapping bypass under Xen
-      PCI/MSI: Convert pci_msi_ignore_mask to per MSI domain flag
+Regards,
+Jason
 
