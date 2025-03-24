@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 536D3A6DBC2
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 14:39:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.925531.1328398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 121D8A6DBD7
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 14:43:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.925541.1328408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twi10-0000vN-0o; Mon, 24 Mar 2025 13:38:54 +0000
+	id 1twi57-0003jm-F9; Mon, 24 Mar 2025 13:43:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 925531.1328398; Mon, 24 Mar 2025 13:38:53 +0000
+Received: by outflank-mailman (output) from mailman id 925541.1328408; Mon, 24 Mar 2025 13:43:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twi0z-0000se-TL; Mon, 24 Mar 2025 13:38:53 +0000
-Received: by outflank-mailman (input) for mailman id 925531;
- Mon, 24 Mar 2025 13:38:52 +0000
+	id 1twi57-0003h2-BR; Mon, 24 Mar 2025 13:43:09 +0000
+Received: by outflank-mailman (input) for mailman id 925541;
+ Mon, 24 Mar 2025 13:43:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R/zo=WL=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1twi0y-0000KT-3s
- for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 13:38:52 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=sMR0=WL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1twi55-0003gq-TW
+ for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 13:43:07 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 522a7f9c-08b5-11f0-9ea2-5ba50f476ded;
- Mon, 24 Mar 2025 14:38:51 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 3ED244EF5CF4;
- Mon, 24 Mar 2025 14:38:50 +0100 (CET)
+ id eaac303b-08b5-11f0-9ea2-5ba50f476ded;
+ Mon, 24 Mar 2025 14:43:06 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43cf0d787eeso47614625e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 06:43:06 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d43fdaca8sm174465445e9.28.2025.03.24.06.43.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Mar 2025 06:43:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,142 +45,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 522a7f9c-08b5-11f0-9ea2-5ba50f476ded
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1742823530;
-	b=J+8s0KGKMzoLwGIRx1bf4t/QuiWX01e5HRlHwIbAlJF6APGtgicpZiFq7ATE1zHi1EbJ
-	 Lgr41xkQ/LQ3MWT4Oc+uqX+aMOCXsXIqeGt19P5D1XOAqDzotekgz5vJ73q5Egvhk34Hg
-	 QclhVldc0QLS0Ml0XOTMnyAHtg7d3WkMl12uN/c4nwketYYlqrItQIHhb/MNqG49Wnz42
-	 4r3h3Lalwt5QS4hdpuFmqp096RJHTaDYFoqCYhGprJMS+/VKVjB3a8bU35t1MVHcnrj5w
-	 Jnz9AvK1zePwEXuA28tu0098k7zXcMCiqAk+izpLrJgtWbyrZ+P4tgWyzT6Bz6zPclQGb
-	 OxwOvV+I4MZGzCiY87gZLTe4UF7DBPFZGM+A/rkjuTbzHqzgVFUUHrlzTbNinK1cTzhpn
-	 3Ca7rruYoDeSJaCXRfRJFbPB4ybqyWjpw5cWxhlDXcBVFUf4C+GN+nHZUWdI5GBxjcmKF
-	 7vp1AvPVmpS0LAOK/B5g0rYG5dUuUNXfFosdM92Jp63N8ajHzCwbNcbN5vWk6ar6au/ci
-	 NgrKgRYB/l7sfJfzJpMMtVGF9To4SYetDLdSiog5/ZrXo1fu9XGXlnMaa5v+C3hDAB25A
-	 zTvYR3DYSkUZ73qZtcoVxBeByT5tI1662U9AdGlEemWoJxKPS1heWRMksfN50UE=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1742823530;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=fg4AdSp/4w4ePwGukNfy4BDqKs2+tU4sYzE8mqw+324=;
-	b=ZIj4/E8hQwFKQUXMqJ7GP7f9P0yjvm/DyBvKVHiWxPQ77E/xxletkbZ4SiEEdiIXpa8V
-	 TBNNQs/Z2awcSyVvtStRv3ghf8dtFPRIN4iJ1bLuGouONix1/wHFJUK5ZAEACIforBaMp
-	 MFJEiY9ZmZ4Nyn7OW/AYxYWjQpyYyWbLdio59SQ18J8om8Q2KPWTA12p1hNtQZ8BK30pd
-	 /BxitcXAZ6tWTD61PNWnaox5jpwCjp6+CVhA7pk178PL0bGO0zj5VZlR2cIoGLhWKtZml
-	 9CPcGI6187xLFkhQhQHlwoIHWG+svfDzlkxUou83+rpGMIIB2bcDt9McuoP/KNgXkka5A
-	 XRcxChxaz7ImYbQ/rRvN5wjVvaefIpen3sPkZh3kk6EvMikHP4F2beUsiJQqSLdlZJJdR
-	 UkaeKJKRnX/y4WiNLKnjLM3vtK9xMZcEdQqiroImU4IyMXhAXTrJsLuFMX2AxQRMma1Cp
-	 cs/nc8TtgLkxZiLiwKXpG3lnzlxbMOescVuFLd2G96IUpMFZB/SaJcxEx7OQYPUkIIoXe
-	 IBWvv2szCMqszp7xdNHYSGsIADyPx0gqeolL6fMW4l/DpElTBia4c7T1GGo+EeDiUChuR
-	 VqvVeYThvuCeRWEV1CV7HmFfx57Ri8SDpkOQepHROSufKp1ZDMCysdBr2dBKYyI=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1742823530; bh=EbThDq6ZA63KLKd23KuwjaDqoXdROo2VWFj8zyzRKxU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Y3d/6y06X9K8NeedmHGfHeJOxYEdtJFouDnI0KwIBFSiLNg3W0RM4U5FEBaEZw2Rd
-	 ZHEBzrvUqcAt7UqhgnA1YEdqo9sOvUHlHEcRVj1agucqX4AByDjL9h/7xu0CeS/vuP
-	 h07oR+oTKPcql1f/WpYO0GagL/rsw3ComIliIyqocTWH+Lu5BcoUaXJltFA1jkr6Dg
-	 cvtdiSiWaNq897+qjEUdR2psuUCK5H/12O5xDzIxLHr5+hPEvv2yyW3Qzho7JZyWx3
-	 LZXdYqqcM0eNr0juQLqV/fElrJDjBvX8Hnjqq8o/fm1WIpPUTlvh99WQqrijfDCBGO
-	 USBz28F8+teyg==
+X-Inumbo-ID: eaac303b-08b5-11f0-9ea2-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1742823786; x=1743428586; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=G4DNB1dx5ifmTN1sxouxw1mh0EjUJheHnd10f2QIf6w=;
+        b=FUIlKnTLkDIMZaOjg+aE3mGO12UAX5fTaliolLf5CJwwGQs6RBWM64GNY4LrahmKyZ
+         Gy2zk0q+uNgL4W2p0Xf/fuLMnwDH4i1aLJ2zrA8L8I8k8t6QO1iFJUBkz2XD1oRFH0yF
+         +PLJV0PrqCpSw6vDV9djEOjIsamcOa1EeGaEg+EO7ixPbrZPCie1PQbdLC0LMNk6f+NE
+         J0kGx+jxlLdQG70t9CGfTWSOI1JZKmQY6OOewb96hGA9avUZ76pBCRThWG6ZiZR6ZX3U
+         6JK+w2KbHhRrTsWytSgm1pdu45l2WC5tOZ7Nb8NbFLyamsmL+3mRrBnPi55Bn+TeqDvA
+         Yc+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742823786; x=1743428586;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=G4DNB1dx5ifmTN1sxouxw1mh0EjUJheHnd10f2QIf6w=;
+        b=RKLR9LebyCKK1wFMQeQk7fTTx7JJRhI9GofdDEvINMwMptYEYc/o+sc0WjMznozyr1
+         eh3L4gVe+Q+UKyH11tmSjjC5Km/8/CH6QDavvILgX+g9RjdBGJMUo0tOKYPvL3T26/wK
+         qKPD4/d1Zj2OGPOqEkXUulVL3Wzj/5dkLRAr0CaYqN91DBsueRNsvhmdRI1Oh6wmAcqu
+         xbXucNQVVguGUdSAazpfZuMV6Cy6Dh++Jrx3oMlgwQUQ+JoWNa361Cq9zpoNll/befdI
+         u1OxkWVzDDf1Z7j3dhvC7yNIakOqTEG5/fY7ygLzvaq2OfQ2fL4TslLkF6/CK5Isdjhq
+         qgOw==
+X-Forwarded-Encrypted: i=1; AJvYcCXBIWdJ22LRJY2YgKxaaD07bevbfdgugQ5eXByBrmgw7Ll0tMBRjdUq5Wg0EYg4t/Rq9wvoK/isnss=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzofhSE0Y0veKqC5ClMJ4NVTQ+xVFc++0q/5Crowp0d5cqmF12z
+	PN13w+aV6fxZZ9GoP/lyruDaP33Z4Sl8t90a6tAVCF3F1aYqF/96f4kWaXqr6A==
+X-Gm-Gg: ASbGncub5qAjzrZ4qr6dINjJ3GEa4mG0ES6g2J9AFwqCRW7YLmLSkTqO4lGcrZGSqpQ
+	1HjTyGJwgsz5XcmC30mqi0BMIandlWn+aQIXR6IeTao+FGL974OK39nko4xuFKCvfcHk2aF+SUu
+	0hF44uyXWrvYJbBoXgqyabX2kPo63/vqap1iszdszMdf2dOJR1/JSRullBbyz1cbFiXkW6ImWaN
+	NIEuBZHD5iTsm84b9PBt4EQtetwzsKVQ2hjVJ5DKPVfBuuPduZXACNPOlUPY78C4mvJRDzuwcH8
+	K+JntunWne5sGE9cnLfWvdjSOuZbavuxSh1HrqNQ7IvYERFeHlLfbdvIRu2XpzW9Ga7KBF/xmNy
+	E3WA/4WcF01pDptoMsWM2d7CgHp7aKA==
+X-Google-Smtp-Source: AGHT+IEssfSEl8076fXpSwmMPHs7d9uCssoqUygGifnGP/f+i3wfjJGQBy2ZkftfJkuDmVYB8yjJvQ==
+X-Received: by 2002:a05:600c:5021:b0:43c:ea1a:720c with SMTP id 5b1f17b1804b1-43d509f6307mr139336885e9.18.1742823786206;
+        Mon, 24 Mar 2025 06:43:06 -0700 (PDT)
+Message-ID: <3e2b42fa-a685-4f16-9fd9-094060b1c60d@suse.com>
+Date: Mon, 24 Mar 2025 14:43:04 +0100
 MIME-Version: 1.0
-Date: Mon, 24 Mar 2025 14:38:50 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v7 1/3] xen: common: add ability to enable stack protector
-In-Reply-To: <a4231eb6-b195-4ce0-b9ca-bdf928a21fbd@suse.com>
-References: <20250318023234.1210659-1-volodymyr_babchuk@epam.com>
- <20250318023234.1210659-2-volodymyr_babchuk@epam.com>
- <a4231eb6-b195-4ce0-b9ca-bdf928a21fbd@suse.com>
-Message-ID: <f2c3de2c6fff3f9d7e5186c06cd4f31a@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3 1/7] xen/arm: add generic SCI subsystem
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Roger Pau Monne <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
+ <jgross@suse.com>, Grygorii Strashko <grygorii_strashko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Grygorii Strashko <gragst.linux@gmail.com>
+References: <20250311111618.1850927-1-grygorii_strashko@epam.com>
+ <20250311111618.1850927-2-grygorii_strashko@epam.com>
+ <6a0a3b3d-9bbd-49da-a37c-eb1cbad94cc1@suse.com>
+ <5190f71c-4a93-4f66-91d0-aec43a97ddab@epam.com>
+ <15bea88c-8294-4164-83df-7ccdb61f9697@suse.com>
+ <b1593e57-bb34-4aa4-b282-0f2de001c598@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <b1593e57-bb34-4aa4-b282-0f2de001c598@epam.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2025-03-24 13:50, Jan Beulich wrote:
-> On 18.03.2025 03:34, Volodymyr Babchuk wrote:
->> Both GCC and Clang support -fstack-protector feature, which add stack
->> canaries to functions where stack corruption is possible. This patch
->> makes general preparations to enable this feature on different
->> supported architectures:
->> 
->>  - Added CONFIG_HAS_STACK_PROTECTOR option so each architecture
->>    can enable this feature individually
->>  - Added user-selectable CONFIG_STACK_PROTECTOR option
->>  - Implemented code that sets up random stack canary and a basic
->>    handler for stack protector failures
->> 
->> Stack guard value is initialized in two phases:
->> 
->> 1. Pre-defined randomly-selected value.
->> 
->> 2. Own implementation linear congruent random number generator. It
->> relies on get_cycles() being available very early. If get_cycles()
->> returns zero, it would leave pre-defined value from the previous
->> step.
-
-[...]
-
->> +void asmlinkage __stack_chk_fail(void)
+On 24.03.2025 14:11, Oleksii Moisieiev wrote:
+> Hi Jan,
 > 
-> The use of asmlinkage here comes close to an abuse: The Misra deviation 
-> is
-> about C code called from assembly code only. This isn't the case here; 
-> instead
-> it's a function that the compiler generates calls to without source 
-> code
-> explicitly saying so.
+> On 24/03/2025 12:05, Jan Beulich wrote:
+>> On 24.03.2025 10:00, Oleksii Moisieiev wrote:
+>>> Hi Jan,
+>>>
+>>> Let me answer one of your comment. Please see below:
+>>>
+>>> On 11/03/2025 13:43, Jan Beulich wrote:
+>>>> On 11.03.2025 12:16, Grygorii Strashko wrote:
+>>>>> --- a/MAINTAINERS
+>>>>> +++ b/MAINTAINERS
+>>>>> @@ -526,6 +526,12 @@ S:	Supported
+>>>>>    F:	xen/arch/arm/include/asm/tee/
+>>> [snip]
+>>>>> --- a/xen/include/public/arch-arm.h
+>>>>> +++ b/xen/include/public/arch-arm.h
+>>>>> @@ -327,6 +327,8 @@ DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
+>>>>>    #define XEN_DOMCTL_CONFIG_TEE_OPTEE     1
+>>>>>    #define XEN_DOMCTL_CONFIG_TEE_FFA       2
+>>>>>    
+>>>>> +#define XEN_DOMCTL_CONFIG_ARM_SCI_NONE      0
+>>>>> +
+>>>>>    struct xen_arch_domainconfig {
+>>>>>        /* IN/OUT */
+>>>>>        uint8_t gic_version;
+>>>>> @@ -350,6 +352,8 @@ struct xen_arch_domainconfig {
+>>>>>         *
+>>>>>         */
+>>>>>        uint32_t clock_frequency;
+>>>>> +    /* IN */
+>>>>> +    uint8_t arm_sci_type;
+>>>>>    };
+>>>> You're not re-using a pre-existing padding field, so I don't see how you
+>>>> can get away without bumping XEN_DOMCTL_INTERFACE_VERSION.
+>>> We are reusing an existing padding field in xen_domctl, which is defined
+>>> as pad[128].
+>>>
+>>> The xen_arch_domainconfig structure is a part of the following domctl
+>>> structures:
+>>>
+>>> - xen_domctl_createdomain
+>>>
+>>> - xen_domctl_getdomaininfo
+>>>
+>>> These structures are included in the union within xen_domctl, which
+>>> defines pad[128] for padding.
+>> Except that "an existing padding field" means a field which isn't just
+>> there in space, but is also checked to be zero right now. That is, new
+>> code setting the field to non-zero needs to properly get an error
+>> indicator back from an older hypervisor.
 > 
-> This imo wants approving from the Misra side as well, and even if 
-> approved
-> likely requires a justifying code comment.
+> I completely agree with you that XEN_DOMCTL_INTERFACE_VERSION should be 
+> incremented
 > 
-
-Here my suggestion would be an explicit deviation via a code comment, as 
-described in [1], to describe the motivation of introducing such 
-definition without a declaration. Moreover, asmlinkage is only relevant 
-for the missing declaration, but is not effective for other rules. It is 
-probably appropriate to mark the function "noreturn" as well, given its 
-purpose.
-
-[1] 
-https://gitlab.com/xen-project/xen/-/blob/staging/docs/misra/documenting-violations.rst
-
->> --- /dev/null
->> +++ b/xen/include/xen/stack-protector.h
->> @@ -0,0 +1,39 @@
->> +#ifndef __XEN_STACK_PROTECTOR_H__
->> +#define __XEN_STACK_PROTECTOR_H__
->> +
->> +extern unsigned long __stack_chk_guard;
->> +
->> +/*
->> + * This function should be called from a C function that escapes 
->> stack
->> + * canary tracking (by calling reset_stack_and_jump() for example).
->> + */
->> +static always_inline void boot_stack_chk_guard_setup(void)
->> +{
->> +#ifdef CONFIG_STACK_PROTECTOR
->> +
->> +	/*
+> before the changes are merged. I just wanted to point out that we do not 
+> exceed the size of the xen_domctl padding. If you are okay with the 
+> fields we have added, then XEN_DOMCTL_INTERFACE_VERSION will be updated 
+> in the next patch series.
 > 
-> Nit: Hard tab slipped in.
+>> but is also checked to be zero right now.
 > 
-> Jan
+> Just out of curiosity, I have one more question: I couldn't find the 
+> check you've mentioned. Could you point me to where Xen or
+> the toolstack checks the domctl structure for 0? I would greatly 
+> appreciate it if you could show me.
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+There's no such check here (as far as I'm aware), hence why the interface
+version bump is necessary. There are _other_ padding fields which do have
+appropriate checks, and hence could be assigned purpose without bumping
+the interface version.
+
+Jan
 
