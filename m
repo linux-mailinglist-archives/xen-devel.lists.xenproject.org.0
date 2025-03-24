@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E333A6D900
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 12:18:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.925367.1328233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 086CCA6D920
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 12:26:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.925384.1328248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twfp2-00055E-RZ; Mon, 24 Mar 2025 11:18:24 +0000
+	id 1twfwI-0007su-L4; Mon, 24 Mar 2025 11:25:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 925367.1328233; Mon, 24 Mar 2025 11:18:24 +0000
+Received: by outflank-mailman (output) from mailman id 925384.1328248; Mon, 24 Mar 2025 11:25:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twfp2-00052i-OI; Mon, 24 Mar 2025 11:18:24 +0000
-Received: by outflank-mailman (input) for mailman id 925367;
- Mon, 24 Mar 2025 11:18:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1twfwI-0007qY-IJ; Mon, 24 Mar 2025 11:25:54 +0000
+Received: by outflank-mailman (input) for mailman id 925384;
+ Mon, 24 Mar 2025 11:25:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mc85=WL=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1twfp0-00052W-Sk
- for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 11:18:22 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b12b9e96-08a1-11f0-9ffa-bf95429c2676;
- Mon, 24 Mar 2025 12:18:20 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-abf3d64849dso701611766b.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 04:18:20 -0700 (PDT)
-Received: from ?IPV6:2003:e5:873d:1a00:8e99:ce06:aa4a:2e7b?
- (p200300e5873d1a008e99ce06aa4a2e7b.dip0.t-ipconnect.de.
- [2003:e5:873d:1a00:8e99:ce06:aa4a:2e7b])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3ef8675a9sm657615266b.28.2025.03.24.04.18.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Mar 2025 04:18:19 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1twfwG-0007qS-B2
+ for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 11:25:52 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1twfwG-005XB5-0i;
+ Mon, 24 Mar 2025 11:25:51 +0000
+Received: from [2a02:8012:3a1:0:c427:8b54:5bca:1d39]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1twfwF-00BA6H-2H;
+ Mon, 24 Mar 2025 11:25:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,258 +39,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b12b9e96-08a1-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742815100; x=1743419900; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=M/aD0jqqsiGXVDg4jgzyO6tncFjvnQC7Tk3Evr0Dzxs=;
-        b=Fvr28KxD4ITlkw3Fj04lAupbn8LMVId043Eepf4WjBiE/hOxLc+PJFfYfYRbWxHs1X
-         gJnOxnDKwE1WCBitYOiUlggioTzqmTck65ngO5RU0u+hcDTBrc2PiL9M2Cl5Wc5e3cY8
-         jhkT8pW7r6FZ6hIv4/Y7HYW6D3xT0zvfLSBUaMeCF5cik0N6nqNdNE7u3Mv9XczLjTp9
-         P14tzrhZ5Gc3w65ykMGKOa0Vyn+9TaCuuxzeMYshz14tmZTubpcsIuI8TG8IkKcLth/z
-         ahORfeT1hFYwJNyLrPSwnhDylZ49nU46gM/7bHSWwFYrRJHIqF0biNj94xKNM1LFg0QG
-         8FDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742815100; x=1743419900;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=M/aD0jqqsiGXVDg4jgzyO6tncFjvnQC7Tk3Evr0Dzxs=;
-        b=S6gAn0CJwZWHLNM6JjOoT0CCXkjA37uZ3aZe9VbXB0LYgkd/ip98pugrVZxRy4LKTM
-         j2lRJIy1Q3107vKF9M35CxMr56ifvOfWZ9q/H1wMgp9EwxJaGXZ7s4SXova3jk3FdU8H
-         XxF4qjyyhvSWxAJ3x/NucJn8nLW/mqE/YLdB0BAeg3gq6Nw3ZzTqY2H82HC2CPMgCfdf
-         p9vrcVRrOdfm579dzQIFQn12dt7q2ydt9+Yxf/myvwM+m1vYNvCxqJbcUWHgABWE+4mi
-         5Hq39KRxkDLKxTV1C5dtPF0l+3eGGylf4VINQH5EwJoAjUHWzfNlercb3byqusye1xuv
-         CdqA==
-X-Forwarded-Encrypted: i=1; AJvYcCWnWOVbI0ztxBdPn9Y+pb/COMnDCfwt0zHmQYS5VcRgT2NaftP1nGeH1aHhVLAR0LSBh5l4MDSqlGw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxnk1b5kjTT7KVXwMi8/1P7erp/uCX9unwbN1C96iSD/Z6bz516
-	ZFJl7sQsqYW5sL6gjmMIDXGJ2tKexk1KGqsYpleOzGfDO6TY2h0NWRnhtxE7AWU=
-X-Gm-Gg: ASbGncvRIHl99ebHum/FOaV0KATW5p+m8c6MYFZ2wfqEFmiCd8evtkOv+WdEPSkjc6a
-	+cxYb6EfreW+9QtLxWMYZDlVcqsWleQAyh9T4CTLdQPYb+slOj1fUkkMVXjMlLKsnr4GDMvSvea
-	JwLjJUexdwKu3G2PiWLk9zVdIQ3eAJ8Z17to8elwDy6UjvIRnfBY9c/8S4oMBfAtLdAkfyan3Gn
-	+L6NzO6ELlRUYKzG3x6xxzOHHp261q2os6mIQi74rYepRfzDS6TmJh5mWuOZOKH96Qm+XVEDNsa
-	EiSmnH2dsR0gR+scdgdvBB8XQcn+Fj3yu7vDQk63qDZbkat1rxJl7IfpHN5rjgvOwXzKYrW1bbH
-	SlysEYDtG6emD192m3DLaL4tAULhDAW9oz0brrPdf92u9xNjCq0YptHAxaEZE9FErNs9l4A==
-X-Google-Smtp-Source: AGHT+IGQqLX9WqN5pq9/5m9ht3nL/oNNGecIcBTfHjbistTUweg0GSoFCLbMCLeIyUdL9BLqJ2vV5w==
-X-Received: by 2002:a17:907:bc8b:b0:ac4:4cd:c26c with SMTP id a640c23a62f3a-ac404cdc6eamr915901666b.35.1742815099829;
-        Mon, 24 Mar 2025 04:18:19 -0700 (PDT)
-Message-ID: <2fa05dd3-c5ae-4e72-b42d-260433590187@suse.com>
-Date: Mon, 24 Mar 2025 12:18:18 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=M8ObZlBiiodlTZMN7j15ifaTDduw5QtJVVLX+572fEM=; b=pKpxLoP3NWEdf2JSaVMApT4Pii
+	dZ1Lrsg/eLODzUr1sjNMINidrxBb7QtD5uzJRIb87KfKhzWpdNeCbexq+7xoeIl/1CnD8Alyri+hg
+	x5kCfaIUuYE59/VOsQGT3RfUg80swlphfcQlUOdKe0M1TF7rwCW9PYCQ3EQRB8sdYsaY=;
+Message-ID: <d7469d5a-080f-44b3-81c8-9d79cab58c7a@xen.org>
+Date: Mon, 24 Mar 2025 11:25:49 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [MINI-OS PATCH v2 1/2] 9pfs: add fstat file operation hook
-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Jan Beulich <jbeulich@suse.com>, minios-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org, Jason Andryuk <jason.andryuk@amd.com>
-References: <20250321093145.17882-1-jgross@suse.com>
- <20250321093145.17882-2-jgross@suse.com> <Z99PXOXocyuZtf_X@begin>
- <79a51a80-7723-4f58-b0ea-25f73d4fd796@suse.com>
- <abce7ac0-21bd-409c-bc4c-f08d04a5a5d1@suse.com> <Z-E0TUu_LWkXt-wI@begin>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <Z-E0TUu_LWkXt-wI@begin>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------93VhOJVDM4Aui2kdG0uWoMhH"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------93VhOJVDM4Aui2kdG0uWoMhH
-Content-Type: multipart/mixed; boundary="------------sWzNZouI0XYebMzUCklyKNWW";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Jan Beulich <jbeulich@suse.com>, minios-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org, Jason Andryuk <jason.andryuk@amd.com>
-Message-ID: <2fa05dd3-c5ae-4e72-b42d-260433590187@suse.com>
-Subject: Re: [MINI-OS PATCH v2 1/2] 9pfs: add fstat file operation hook
-References: <20250321093145.17882-1-jgross@suse.com>
- <20250321093145.17882-2-jgross@suse.com> <Z99PXOXocyuZtf_X@begin>
- <79a51a80-7723-4f58-b0ea-25f73d4fd796@suse.com>
- <abce7ac0-21bd-409c-bc4c-f08d04a5a5d1@suse.com> <Z-E0TUu_LWkXt-wI@begin>
-In-Reply-To: <Z-E0TUu_LWkXt-wI@begin>
-Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
- ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
- Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
- pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
- tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
- OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
- v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
- 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
- jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
- DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
- Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
- dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
- AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
-
---------------sWzNZouI0XYebMzUCklyKNWW
-Content-Type: multipart/mixed; boundary="------------x2sEk6Xx3DBccBIYmmETXiO5"
-
---------------x2sEk6Xx3DBccBIYmmETXiO5
+Subject: Re: [PATCH] xen/arm/efi: merge neighboring banks
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <alpine.DEB.2.22.394.2503211403040.2325679@ubuntu-linux-20-04-desktop>
+ <85ac456a-ae11-4a04-8d73-dfafba04de98@xen.org>
+ <alpine.DEB.2.22.394.2503211534080.2325679@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2503211534080.2325679@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
 
-T24gMjQuMDMuMjUgMTE6MzAsIFNhbXVlbCBUaGliYXVsdCB3cm90ZToNCj4gSmFuIEJldWxp
-Y2gsIGxlIGx1bi4gMjQgbWFycyAyMDI1IDExOjIxOjQ4ICswMTAwLCBhIGVjcml0Og0KPj4g
-T24gMjMuMDMuMjAyNSAxNTo1NywgSsO8cmdlbiBHcm/DnyB3cm90ZToNCj4+PiBPbiAyMy4w
-My4yNSAwMTowMSwgU2FtdWVsIFRoaWJhdWx0IHdyb3RlOg0KPj4+PiBKdWVyZ2VuIEdyb3Nz
-LCBsZSB2ZW4uIDIxIG1hcnMgMjAyNSAxMDozMTo0NCArMDEwMCwgYSBlY3JpdDoNCj4+Pj4+
-IEFkZCBhIGZpbGUgb3BlcmF0aW9ucyBmc3RhdCBob29rIHRvIHRoZSA5cGZzIGZyb250ZW5k
-Lg0KPj4+Pj4NCj4+Pj4+IFNpZ25lZC1vZmYtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0Bz
-dXNlLmNvbT4NCj4+Pj4+IFJldmlld2VkLWJ5OiBKYXNvbiBBbmRyeXVrIDxqYXNvbi5hbmRy
-eXVrQGFtZC5jb20+DQo+Pj4+PiAtLS0NCj4+Pj4+IFYyOg0KPj4+Pj4gLSBvciBmaWxlIGFj
-Y2VzcyBtb2RlIGludG8gc3RfbW9kZSAoSmFzb24gQW5kcnl1aykNCj4+Pj4+IC0tLQ0KPj4+
-Pj4gICAgOXBmcm9udC5jIHwgMjkgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4+
-Pj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCAyOSBpbnNlcnRpb25zKCspDQo+Pj4+Pg0KPj4+Pj4g
-ZGlmZiAtLWdpdCBhLzlwZnJvbnQuYyBiLzlwZnJvbnQuYw0KPj4+Pj4gaW5kZXggMTc0MWQ2
-MDAuLjcyNTdhMDdlIDEwMDY0NA0KPj4+Pj4gLS0tIGEvOXBmcm9udC5jDQo+Pj4+PiArKysg
-Yi85cGZyb250LmMNCj4+Pj4+IEBAIC04NSw2ICs4NSw4IEBAIHN0cnVjdCBmaWxlXzlwZnMg
-ew0KPj4+Pj4gICAgDQo+Pj4+PiAgICAjZGVmaW5lIFA5X1FJRF9TSVpFICAgIDEzDQo+Pj4+
-PiAgICANCj4+Pj4+ICsjZGVmaW5lIFFJRF9UWVBFX0RJUiAgIDB4ODAgICAgIC8qIEFwcGxp
-ZXMgdG8gcWlkWzBdLiAqLw0KPj4+Pj4gKw0KPj4+Pj4gICAgc3RydWN0IHA5X2hlYWRlciB7
-DQo+Pj4+PiAgICAgICAgdWludDMyX3Qgc2l6ZTsNCj4+Pj4+ICAgICAgICB1aW50OF90IGNt
-ZDsNCj4+Pj4+IEBAIC05NTAsNiArOTUyLDMyIEBAIHN0YXRpYyBpbnQgd3JpdGVfOXBmcyhz
-dHJ1Y3QgZmlsZSAqZmlsZSwgY29uc3Qgdm9pZCAqYnVmLCBzaXplX3QgbmJ5dGVzKQ0KPj4+
-Pj4gICAgICAgIHJldHVybiByZXQ7DQo+Pj4+PiAgICB9DQo+Pj4+PiAgICANCj4+Pj4+ICtz
-dGF0aWMgaW50IGZzdGF0XzlwZnMoc3RydWN0IGZpbGUgKmZpbGUsIHN0cnVjdCBzdGF0ICpi
-dWYpDQo+Pj4+PiArew0KPj4+Pj4gKyAgICBzdHJ1Y3QgZmlsZV85cGZzICpmOXBmcyA9IGZp
-bGUtPmZpbGVkYXRhOw0KPj4+Pj4gKyAgICBzdHJ1Y3QgcDlfc3RhdCBzdGF0Ow0KPj4+Pj4g
-KyAgICBpbnQgcmV0Ow0KPj4+Pj4gKw0KPj4+Pj4gKyAgICByZXQgPSBwOV9zdGF0KGY5cGZz
-LT5kZXYsIGY5cGZzLT5maWQsICZzdGF0KTsNCj4+Pj4+ICsgICAgaWYgKCByZXQgKQ0KPj4+
-Pj4gKyAgICB7DQo+Pj4+PiArICAgICAgICBlcnJubyA9IEVJTzsNCj4+Pj4+ICsgICAgICAg
-IHJldHVybiAtMTsNCj4+Pj4+ICsgICAgfQ0KPj4+Pj4gKw0KPj4+Pj4gKyAgICBidWYtPnN0
-X21vZGUgPSAoc3RhdC5xaWRbMF0gPT0gUUlEX1RZUEVfRElSKSA/IFNfSUZESVIgOiBTX0lG
-UkVHOw0KPj4+Pj4gKyAgICBidWYtPnN0X21vZGUgfD0gc3RhdC5tb2RlICYgMDc3NzsNCj4+
-Pj4+ICsgICAgYnVmLT5zdF9hdGltZSA9IHN0YXQuYXRpbWU7DQo+Pj4+PiArICAgIGJ1Zi0+
-c3RfbXRpbWUgPSBzdGF0Lm10aW1lOw0KPj4+Pg0KPj4+PiBTaG91bGQgd2UgcGVyaGFwcyBh
-bHNvIGZpbGwgc3RfY3RpbWU/IExlYXZpbmcgaXQgYXQgMCBjb3VsZCBzdXJwcmlzZQ0KPj4+
-PiBvdGhlciBzb2Z0d2FyZSBsYXllcnMuDQo+Pj4NCj4+PiBJIGNhbiBzZXQgaXQgdG8gdGhl
-IHNhbWUgdmFsdWUgYXMgc3RfbXRpbWUuDQo+Pg0KPj4gTWF5YmUgdGhlIHNtYWxsZXIgb2Yg
-YXRpbWUgYW5kIG10aW1lPw0KPiANCj4gVGhhdCdkIGJlIGJldHRlciwgeWVzLg0KDQpBY2Nv
-cmRpbmcgdG8gdGhlIHJlZmVyZW5jZXMgSSBjb3VsZCBmaW5kIGN0aW1lIGlzIGNoYW5nZWQg
-d2hlbmV2ZXINCmVpdGhlciBmaWxlIGNvbnRlbnRzIE9SIGZpbGUgc3RhdHVzICh1aWQsIGdp
-ZCwgcGVybWlzc2lvbnMpIGFyZQ0KbW9kaWZpZWQuIFNvIHVzaW5nIHRoZSBzYW1lIHZhbHVl
-IGFzIG10aW1lIHNlZW1zIGFwcHJvcHJpYXRlLg0KDQoNCkp1ZXJnZW4NCg==
---------------x2sEk6Xx3DBccBIYmmETXiO5
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Hi Stefano,
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 21/03/2025 23:11, Stefano Stabellini wrote:
+> On Fri, 21 Mar 2025, Julien Grall wrote:
+>> Hi Stefano,
+>>
+>> On 21/03/2025 21:14, Stefano Stabellini wrote:
+>>> When booting from U-Boot bootefi, there can be a high number of
+>>> neighboring RAM banks. See for example:
+>>>
+>>> (XEN) RAM: 0000000000000000 - 0000000000bfffff
+>>> (XEN) RAM: 0000000000c00000 - 0000000000c00fff
+>>> (XEN) RAM: 0000000000c01000 - 0000000000dfffff
+>>> (XEN) RAM: 0000000000e00000 - 000000000279dfff
+>>> (XEN) RAM: 000000000279e000 - 00000000029fffff
+>>> (XEN) RAM: 0000000002a00000 - 0000000008379fff
+>>> (XEN) RAM: 000000000837a000 - 00000000083fffff
+>>> (XEN) RAM: 0000000008400000 - 0000000008518fff
+>>> (XEN) RAM: 0000000008519000 - 00000000085fffff
+>>> (XEN) RAM: 0000000008600000 - 0000000008613fff
+>>> (XEN) RAM: 0000000008614000 - 00000000097fffff
+>>> (XEN) RAM: 0000000009800000 - 00000000098a7fff
+>>> (XEN) RAM: 00000000098a8000 - 0000000009dfffff
+>>> (XEN) RAM: 0000000009e00000 - 0000000009ea7fff
+>>> (XEN) RAM: 0000000009ea8000 - 000000001fffffff
+>>> (XEN) RAM: 0000000020000000 - 000000002007ffff
+>>> (XEN) RAM: 0000000020080000 - 0000000077b17fff
+>>> (XEN) RAM: 0000000077b19000 - 0000000077b2bfff
+>>> (XEN) RAM: 0000000077b2c000 - 0000000077c8dfff
+>>> (XEN) RAM: 0000000077c8e000 - 0000000077c91fff
+>>> (XEN) RAM: 0000000077ca7000 - 0000000077caafff
+>>> (XEN) RAM: 0000000077cac000 - 0000000077caefff
+>>> (XEN) RAM: 0000000077cd0000 - 0000000077cd2fff
+>>> (XEN) RAM: 0000000077cd4000 - 0000000077cd7fff
+>>> (XEN) RAM: 0000000077cd8000 - 000000007bd07fff
+>>> (XEN) RAM: 000000007bd09000 - 000000007fd5ffff
+>>> (XEN) RAM: 000000007fd70000 - 000000007fefffff
+>>> (XEN) RAM: 0000000800000000 - 000000087fffffff
+>>>
+>>> It is undesirable to keep them separate, as this approach consumes more
+>>> resources.
+>>
+>> What resources? This is pre-allocated static array in the binary. They are
+>> also dropped after init. The more interesting argument is...
+>>
+>>>
+>>> Additionally, Xen does not currently support boot modules that span
+>>> multiple banks: at least one of the regions get freed twice. The first
+>>> time from setup_mm->populate_boot_allocator, then again from
+>>> discard_initial_modules->fw_unreserved_regions. With a high number of
+>>> banks, it can be difficult to arrange the boot modules in a way that
+>>> avoids spanning across multiple banks.
+>>
+>> ... this one. Although, I find weird that U-boot would create tons of banks.
+>> Have you considered to ask them what's going on?
+>>
+>> Also, what about the cases where U-boot is not booting Xen without UEFI? Why
+>> is this not a problem? Asking just in case the merge should happen in code
+>> common rather than in UEFI.
+> 
+> I was also curious so I printed all the Types (desc->Type) for each EFI
+> region, see below the results.
+> 
+> DEBUG start=0x0 type=0x7
+> DEBUG start=0xc00000 type=0x4
+> DEBUG start=0xc01000 type=0x7
+> DEBUG start=0xe00000 type=0x4
+> DEBUG start=0x279e000 type=0x7
+> DEBUG start=0x2a00000 type=0x4
+> DEBUG start=0x837a000 type=0x7
+> DEBUG start=0x8400000 type=0x4
+> DEBUG start=0x8519000 type=0x7
+> DEBUG start=0x8600000 type=0x4
+> DEBUG start=0x8614000 type=0x7
+> DEBUG start=0x9800000 type=0x4
+> DEBUG start=0x98a8000 type=0x7
+> DEBUG start=0x9e00000 type=0x4
+> DEBUG start=0x9ea8000 type=0x7
+> DEBUG start=0x20000000 type=0x4
+> DEBUG start=0x20080000 type=0x7
+> DEBUG start=0x77b19000 type=0x2
+> DEBUG start=0x77b2c000 type=0x1
+> DEBUG start=0x77c8e000 type=0x4
+> DEBUG start=0x77ca7000 type=0x4
+> DEBUG start=0x77cac000 type=0x4
+> DEBUG start=0x77cd0000 type=0x4
+> DEBUG start=0x77cd4000 type=0x4
+> DEBUG start=0x77cd8000 type=0x3
+> DEBUG start=0x7bd09000 type=0x3
+> DEBUG start=0x7fd70000 type=0x3
+> DEBUG start=0x800000000 type=0x4
+> 
+> Looking at EFI_MEMORY_TYPE, 0x4 should be EfiBootServicesData and 0x7
+> should be EfiConventionalMemory. So the reason why there are so many
+> neighboring regions is that they are of different EFI types. There are
+> very many EfiBootServicesData regions, and by the time interesting Xen
+> code runs, BootServices are not available anymore, so they can be
+> reused. But they are still counted separately from the EFI point of
+> view. This cannot happen with the non-EFI boot as there are no
+> EfiBootServicesData regions.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+Thnks for checking. In which case, I am fine with the current placement 
+of the check.
 
---------------x2sEk6Xx3DBccBIYmmETXiO5--
+> 
+>   
+>>> This small patch merges neighboring regions, to make dealing with them
+>>> more efficient, and to make it easier to load boot modules.
+>>
+>> While I understand the value for this, I ...
+>>
+>>> The patch
+>>> also takes the opportunity to check and discard duplicates.
+>>
+>> don't understand why we need to check for duplicates. This also doesn't
+>> properly work for a few reasons:
+>>    * This doesn't cover partial overlap
+>>    * This would not work if an entry was merged with another previously
+>>
+>> So I think the code to check duplicates should be removed. If you are
+>> concerned about overlap, then it would be better to enable check_reserved
+>> just drop the code. If you are concerned about to detect and warn/panic.
+> 
+> Thanks Julien. No, I am not concerned about duplicates, I thought I
+> would add check since I was at it. I am totally fine removing it.
+> 
+>   
+>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>>>
+>>> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+>>> index a80a5a7ab3..f6f23ed5b2 100644
+>>> --- a/xen/arch/arm/efi/efi-boot.h
+>>> +++ b/xen/arch/arm/efi/efi-boot.h
+>>> @@ -163,6 +163,20 @@ static bool __init meminfo_add_bank(struct membanks
+>>> *mem,
+>>>        struct membank *bank;
+>>>        paddr_t start = desc->PhysicalStart;
+>>>        paddr_t size = desc->NumberOfPages * EFI_PAGE_SIZE;
+>>> +    int j;
+>>
+>> nr_banks is an "unsigned int". So this should be the same type.
+> 
+> Thank you, good point
+> 
+>>> +
+>>> +    for ( j = 0; j < mem->nr_banks; j++ )
+>>> +    {
+>>> +        if ( mem->bank[j].start == start && mem->bank[j].size == size )
+>>> +        {
+>>> +            return true;
+>>> +        }
+>>> +        else if ( mem->bank[j].start + mem->bank[j].size == start )
+>>
+>> Please add some parentheses to make it more obvious that you checking (a + b)
+>> == size.
+> 
+> Sure I can do that
+> 
+> 
+>>> +        {
+>>> +            mem->bank[j].size += size;
+>>> +            return true;
+>>> +        }
+>>> +    }
+>>>          if ( mem->nr_banks >= mem->max_banks )
+>>>            return false;
+>>
+>> Cheers,
+>>
+>> -- 
+>> Julien Grall
+>>
 
---------------sWzNZouI0XYebMzUCklyKNWW--
+Cheers,
 
---------------93VhOJVDM4Aui2kdG0uWoMhH
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+-- 
+Julien Grall
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmfhP3oFAwAAAAAACgkQsN6d1ii/Ey/n
-hQf+OO6Q3UPo9Z+MUOHsC0v80drmqVbHddPOdqSjQJKzoVnqxLhBcLi2oy8p2GQU/A/wvWIS3XP0
-cQ0s4cRzacoOwLq6SGQlI/ms0OUF93mdGD4KjWy9MsSkoDvWOuMQp3du6qK9m3U90gkm85C3PI2N
-QE2W2WLokobgz0CaM48D+ozYjfNzdoYllwaJQTYOsz6aSy6WNIHi/yBnrLB+Aa6cs367guuAHA+t
-QR6u9Ev/dyZO2+6L5bIdrsNum1u3VIybHboSa5UiTHSM/OvJREZXyk3Uz38OewlQD+yTiUnsu6Cf
-a/oF8f1fSv/PiIhbR/loWmNxcz/sEo8AEUlJIOj//w==
-=DpCV
------END PGP SIGNATURE-----
-
---------------93VhOJVDM4Aui2kdG0uWoMhH--
 
