@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 876D1A6DA24
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 13:32:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.925434.1328308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B1BDA6DA31
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 13:36:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.925443.1328317 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twgxW-0008RV-96; Mon, 24 Mar 2025 12:31:14 +0000
+	id 1twh2l-0000f2-P1; Mon, 24 Mar 2025 12:36:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 925434.1328308; Mon, 24 Mar 2025 12:31:14 +0000
+Received: by outflank-mailman (output) from mailman id 925443.1328317; Mon, 24 Mar 2025 12:36:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twgxW-0008Ov-6A; Mon, 24 Mar 2025 12:31:14 +0000
-Received: by outflank-mailman (input) for mailman id 925434;
- Mon, 24 Mar 2025 12:31:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1twh2l-0000d4-MR; Mon, 24 Mar 2025 12:36:39 +0000
+Received: by outflank-mailman (input) for mailman id 925443;
+ Mon, 24 Mar 2025 12:36:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sMR0=WL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1twgxU-00089E-QL
- for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 12:31:12 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dcb8da1e-08ab-11f0-9ffa-bf95429c2676;
- Mon, 24 Mar 2025 13:31:08 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-43ce70f9afbso43254015e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 05:31:08 -0700 (PDT)
+ id 1twh2k-0000cy-OI
+ for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 12:36:38 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a0b0cfb4-08ac-11f0-9ea2-5ba50f476ded;
+ Mon, 24 Mar 2025 13:36:37 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-43d07ca6a80so20583125e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 05:36:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d43f556basm168839265e9.17.2025.03.24.05.31.01
+ ffacd0b85a97d-3997f995611sm11026558f8f.15.2025.03.24.05.36.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Mar 2025 05:31:02 -0700 (PDT)
+ Mon, 24 Mar 2025 05:36:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dcb8da1e-08ab-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: a0b0cfb4-08ac-11f0-9ea2-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742819468; x=1743424268; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742819797; x=1743424597; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MmRtv56kJhQ2WUp98xo/bq1KVgQgxz4c+qV8GZhf0c0=;
-        b=QSUHLDVY1HDNPrge/JZbKPOrTbq6pDozgr30Bd52uy9yfIkLO5CYAB4AdyL0O9OPua
-         nL0Em5XPjb7xtxy0PtGLMYWZBFhTVgV1UX7w47F2lPgb/S91QaTU650M+6uwluZr6+2Z
-         TZlRFFy7yWC2SYNcq4OT92GZX9vQv992YJxKzxrQVX8297jIHdcHGDJu5g3X4rautxn2
-         LA5JVu95XVPM4gGzDPptYmDxNvNswNGM9IB7A3DKO3CvMfh/Uh6mgLOncZ1R8FFOTvkT
-         7fHNaf8Ch3B9MIpZpxjsUD0nqz9zJIO52rD1Z2TRV9wWb0W/tngO1CkW50XAVBN/KEtI
-         qlLQ==
+        bh=i2QPEFEj8na11C7CiVUp1zsnwI7vmYPI81WeNKe9qAc=;
+        b=bEN2tZ5xjlnfP6RDM2nmqYeg2TsAun21nwTk+wLZPBtJwI6eOMKo0B9TRV9u9+y837
+         KtE/xAOrP1XkeyJZUfFE1dH8Z0NdrHzsn00rkC3ICg4F1FlrKzFmCDL9ta3Kk4sQgBoG
+         h5Qe6AUqQFjOyYalXQiHipEhQ5qfysqsJP3sZGa1V5ZfmrlmMhjMXuRlLjgDHjye+Tz9
+         5G9AmRhmB6FzX2+om4Od4UV5UOQokNziOD4KsAMuR6l5OE2fRFEzW/ReVe6DxibTduVl
+         4bZJx8vrYBXtK4kgGAzuq8sO4Zvrt66rPYtQRoCR5fvVRyctC5mFufl80mTrjtHWUa9y
+         39Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742819468; x=1743424268;
+        d=1e100.net; s=20230601; t=1742819797; x=1743424597;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MmRtv56kJhQ2WUp98xo/bq1KVgQgxz4c+qV8GZhf0c0=;
-        b=mWsTCJntOfuKmS8rGNrZBiBMKgmsuLkw8RYsPRVkQpfsOTko2RpHYY+8JKQIwJbpD4
-         YStABVsrql2GmxBoHSlk0+GKLTmxNMFRPIqxw3vS7eIJALNHdOHzaaq0fldVGxvEpxvL
-         H+cJIACWJ6AtS0D1L0cytPgjjHL/6lPuM9tL4ldR4beBGQ0MM9/Rx7U5+xzyafAJm9y8
-         mOOIuwR3cIgcTpm+EvyfVe/OM2wXy8+CX0NkI82LLaASJRD1MKuJyeAOCkmkfuDAFUo9
-         fFHGLMv7uonHZVUyvxq74PiR5SfYcDBl2YIV5QMBtbRU1NYqZ8P0QVZwPPKdVm1Xbj93
-         tE2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXpiNATHbtkUD0vDoI75yK+kYxRbyVFi6WnQt9X/cj2bUMrURhDCnQfQmYVUsr1yhbiQH0KKXyjeTw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyal03gr3fFMXCu1vUpVaYjyDyou1fUGbI1aZxNaT7dN3gpvTVe
-	BocoMRDPx2q//7XSnQRzcxYEhD1L14JURY45z9eWYAL3q/m3SU/lWxrWazTdWQ==
-X-Gm-Gg: ASbGncsolKA7qVHs7210rUpZ107+7fZ7EM5LU/HGiwOpaYI5mzeC71nJV0hziMJ8Wd5
-	j4AlFrAHZdZCKxKtS1eqru45BWRIxF1qd6Arn4zD+VL8zzyHiW7qf+8ghxUFM8zj8BsYFZlKna8
-	Tc4RhwXfqZDN/oT1kYrBmT5m8HEETGbAHzDacFXwMiWPNcGdidUZAEPkkwubqWJ7O+0L6dVFkgq
-	DYV7bEc1zo3N00xq+pXoLKUhi3H9TT7zRuw/1ij/I/VaeFWcNB5kQEWiQc7dA+fFljuwDyrK6mB
-	F6zls7P+Vf0cuZ20EhVrClj6M5Hbzb2eZPxTrOCB3X4meCWHY2oDE9F2xBa+C0+qY+E82WpTOOn
-	GBOjzy8knXVdZkd+yNb9bavo9eF21BqfO8y1gxAqX
-X-Google-Smtp-Source: AGHT+IHOTfwfDTRkF9QMdqUL3RVYin4VlyrTOae9QT9KK8WX+P24OmHq52u7hr1UemNAOpncHKLAgg==
-X-Received: by 2002:a05:600c:1548:b0:43c:fb5b:84d8 with SMTP id 5b1f17b1804b1-43d509f2ebemr125900505e9.16.1742819462804;
-        Mon, 24 Mar 2025 05:31:02 -0700 (PDT)
-Message-ID: <c9c7c8e2-d441-4a1a-a658-98dfe0a98ed8@suse.com>
-Date: Mon, 24 Mar 2025 13:31:01 +0100
+        bh=i2QPEFEj8na11C7CiVUp1zsnwI7vmYPI81WeNKe9qAc=;
+        b=liozHPEnUDeFntHh1zddUqdBhbAKmwodzKfZh9sXm6bD9hKqKQvXNooynrLHLE4xtV
+         DEQ4vFhd1F3oOTqk3Iy6p8krH/6bn3bWhSG5hGNfuZW1Mtxxr5Hhre3ofZESHDQo7dtM
+         7AxgPI/EpJmzbFNgYHous6jy6V38HtwswV4D2IG5fJt3A843ZJCnBMuduUhCMtGFRTmo
+         iyDSsZUFFWQ8dHJZVT4y+2bW+ZTXeDrF1SmGq0sg8Ll3kzLsGiG5NIT3UFvfGJOup0ef
+         GUo1l5PfE2fWIBB2+MtINAEPxHI18r99k3MA1tztDVnVLw4y7OLG/2XmT54una0IjJtf
+         K/4w==
+X-Forwarded-Encrypted: i=1; AJvYcCW0LFD/U0W8EFgnr5Bwupau/4J6nA+KgPEc5ugvihFsapuTOj0TK8dZVWgBipvKxN6THlkOoUm/YKU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzOdwObaEmJfZ1O17FZe5aiGJZeGkakzk+H1iylkFQfTiv+BgH7
+	u9pvtKQsE4qsfC7wre+XN5J3vmqSrpMLAmwIQ2LYOv31KE1FACmj7+RzmAUZnQ==
+X-Gm-Gg: ASbGncuxIY6UVrWGkza3d5RIVzKdq9/biiqbdcAD7JV3pe1tzgboAqkFsVX4Uu653I1
+	Okfv3O1Lud7vYdAW/CUQRfpQTxl84UzB+m6lmbfP0ewj18ganNs1/xiXZFqkOja6w82dDrTrasJ
+	9+rWN8KVEQnRWfc39B+RuMP8uiua9c6nbG6gWJVTkMlOQvas1hLrRyZP/XqBACyD7Jg9i+BSUIs
+	3ie7zIhosWvQreyEeTEXQvx9q46kB4VfVr5E3p0xEY6YsEj7ctk1SHSxTNaW242gp7uHA3HRhLU
+	+UXopAQg4uEs0NFS4IBfF8DOfBk7Ay9h6ScW5MNFvjwU/UeYXbbVj9AwjkFTJrfNzk1CULaOs9X
+	v5CZnZ4FrmZ8JfJ0p5vcYZyYmk+7d7g==
+X-Google-Smtp-Source: AGHT+IFKDtkClCWzXrSjVLXdxdoV/LwefxqvZSITCYgWSGwRraZYtkvIh01GJU3FNThxCd88SYxkSg==
+X-Received: by 2002:a05:6000:156f:b0:391:ffc:2413 with SMTP id ffacd0b85a97d-3997f92d5ccmr14406322f8f.40.1742819796487;
+        Mon, 24 Mar 2025 05:36:36 -0700 (PDT)
+Message-ID: <e24ec8f4-3320-4978-8deb-cefc3380a0ed@suse.com>
+Date: Mon, 24 Mar 2025 13:36:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/riscv: add H extenstion to -march
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Milan Djokic <milandjokic1995@gmail.com>,
- Slavisa Petrovic <Slavisa.Petrovic@rt-rk.com>, xen-devel@lists.xenproject.org
-References: <0a072ab36b54ea7c4f9a6f94465fb7b79f9f49b2.1742573085.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v2] x86/irq: introduce APIC_VECTOR_VALID()
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250320230339.3897874-1-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,43 +118,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0a072ab36b54ea7c4f9a6f94465fb7b79f9f49b2.1742573085.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20250320230339.3897874-1-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21.03.2025 17:17, Oleksii Kurochko wrote:
-> H provides additional instructions and CSRs that control the new stage of
-> address translation and support hosting a guest OS in virtual S-mode
-> (VS-mode).
+On 21.03.2025 00:05, dmkhn@proton.me wrote:
+> Add new macro APIC_VECTOR_VALID() to validate the interrupt vector
+> range as per [1]. This macro replaces hardcoded checks against the
+> open-coded value 16 in LAPIC and virtual LAPIC code and simplifies
+> the code a bit.
 > 
-> According to the Unprivileged Architecture (version 20240411) specification:
-> ```
-> Table 74 summarizes the standardized extension names. The table also defines
-> the canonical order in which extension names must appear in the name string,
-> with top-to-bottom in table indicating first-to-last in the name string, e.g.,
-> RV32IMACV is legal, whereas RV32IMAVC is not.
-> ```
-> According to Table 74, the h extension is placed last in the one-letter
-> extensions name part of the ISA string.
+> [1] Intel SDM volume 3A
+>     Chapter "ADVANCED PROGRAMMABLE INTERRUPT CONTROLLER"
+>     Section "Valid Interrupt Vectors"
 > 
-> `h` is a standalone extension based on the patch [1] but it wasn't so
-> before.
-> As the minimal supported GCC version to build Xen for RISC-V is 12.2.0,
-> and for that version it will be needed to encode H extensions instructions
-> explicitly by checking if __risv_h is defined.
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-Leaving aside the typo, what is this about? There's no use of __riscv_h in
-the patch here, and ...
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with ...
 
-> @@ -25,10 +24,13 @@ $(eval $(1) := \
->  	$(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
->  endef
->  
-> +h-insn := "hfence.gvma"
-> +$(call check-extension,h)
+> --- a/xen/arch/x86/include/asm/apicdef.h
+> +++ b/xen/arch/x86/include/asm/apicdef.h
+> @@ -78,6 +78,7 @@
+>  #define			APIC_DM_STARTUP		0x00600
+>  #define			APIC_DM_EXTINT		0x00700
+>  #define			APIC_VECTOR_MASK	0x000FF
+> +#define			APIC_VECTOR_VALID(x)	(((x) & APIC_VECTOR_MASK) >= 16)
 
-... this, if it fails, will not have any effect on the build right now
-afaics.
+... line length restrictions respected here. I'll see about taking care of
+this while committing, provided other x86 maintainers wouldn't prefer this
+to not go in in the first place (so I'll also give it another day or two).
 
 Jan
 
