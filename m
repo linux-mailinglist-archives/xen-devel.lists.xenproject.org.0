@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82870A6D7F5
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 11:02:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.925222.1328096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5F5A6D80D
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 11:05:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.925230.1328106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twecK-00089U-Gc; Mon, 24 Mar 2025 10:01:12 +0000
+	id 1twegh-0000H0-1e; Mon, 24 Mar 2025 10:05:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 925222.1328096; Mon, 24 Mar 2025 10:01:12 +0000
+Received: by outflank-mailman (output) from mailman id 925230.1328106; Mon, 24 Mar 2025 10:05:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twecK-00086M-Du; Mon, 24 Mar 2025 10:01:12 +0000
-Received: by outflank-mailman (input) for mailman id 925222;
- Mon, 24 Mar 2025 10:01:10 +0000
+	id 1twegg-0000Dt-UU; Mon, 24 Mar 2025 10:05:42 +0000
+Received: by outflank-mailman (input) for mailman id 925230;
+ Mon, 24 Mar 2025 10:05:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sMR0=WL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1twecI-00086G-Sx
- for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 10:01:10 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1twegf-0000Dn-Dy
+ for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 10:05:41 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e8774381-0896-11f0-9ea2-5ba50f476ded;
- Mon, 24 Mar 2025 11:01:08 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-39ac56756f6so323231f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 03:01:08 -0700 (PDT)
+ id 8a60022d-0897-11f0-9ea2-5ba50f476ded;
+ Mon, 24 Mar 2025 11:05:40 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-43948021a45so33894825e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 03:05:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39ac3ce3dd1sm1998912f8f.88.2025.03.24.03.01.07
+ ffacd0b85a97d-39abe4971b0sm5435434f8f.26.2025.03.24.03.05.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Mar 2025 03:01:07 -0700 (PDT)
+ Mon, 24 Mar 2025 03:05:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8774381-0896-11f0-9ea2-5ba50f476ded
+X-Inumbo-ID: 8a60022d-0897-11f0-9ea2-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742810468; x=1743415268; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742810740; x=1743415540; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GFpdikgwLmY0D/jjnJ6ueShRTFb72hZmDZqDiGCR3cg=;
-        b=RQBVWkWyxspzyUhuafnnG8mjqc+0b7oLDj9WXHUjqFw1D0QPmxxI+OS4dD3mrX5Cl0
-         lmCzBj6oGEhSpgjHsvKb5US6sKqoMvk1jWB8W0HJ/l5rLuXwIsgf0wKRVRd+UnffSTzA
-         DJVA/H2c3FFDERjw6IN2nebfZswSC7cOGN3woaHH7UT2O+yhLE05NytjZiG7Wu43oFhe
-         FwFXT9QTTXXWkic5OimpUJ5/xvKGnFp9kYSaQJD+UgpoTTREAQnZjNTMXgA+/RT4+9fu
-         XFjoABNJzR44Xdm8FdcY9ywu7/J1CV8F+84ievAcRxqfo73rBDFQsSo9tK8j9k1hqxyS
-         M0qw==
+        bh=+T1CBCpEzt7baE3PVBi+epotLIQuQty1Zn29FAgx9so=;
+        b=bH6gJUfZiC/ZWd/x/PT+bQchTFKAKlJGXOQyqsGEQlkK9lLWtoSFdC+WdzrHm9C4oM
+         UyLQl4HAtzYrcD6WgxJwpVIk4FMuJj4DnrC6iltWe39W08nH3xtGe4iXBoS2ZtiwOql0
+         Ko5jPf3PVvP9yzFa/Xf/qu+nfB5EALSbxfOqX3kfPq977d3qAxRB9KGU//RclQIoqwJN
+         NNAkLh73r0mk8MVkhKLfOz6hbHuMnxYKxfpwCUCS9QWpIkWvvfkIua4QzWlGBQzK2MIK
+         9mx5kwaN713FXiFVxmcSmdD6M5/W+DCSCmrAcJjtrgwhoMMhfTOQMLeY701DB/zA4y5H
+         he2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742810468; x=1743415268;
+        d=1e100.net; s=20230601; t=1742810740; x=1743415540;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GFpdikgwLmY0D/jjnJ6ueShRTFb72hZmDZqDiGCR3cg=;
-        b=KqNca3rOMtKBNVp4sh9Z7Uo4SACgBevBJRq+qhf9gdUkC3uvKaUi+GzRzYqGFXF+5d
-         n5avdnlmdp22DkPl82bFmde06JwW87WIu+WWm9I7EwgSy0kHCwalRtNo/mkdmlJPvj5N
-         tHdrL3gL2dC1T+x3MotGldIz6wY3Epke6qspfi6Ne9wKrMqEuKtiYkT2fPrIVFEyawUM
-         8UC8Zih479T5mGsU86Ps63pqTnH8O3sf+mp/eP+l4sLGP4w9stOvxOYO9tyEkXpHGAeE
-         /OxyDUTi2eVvQGEMjKERRLvBCWr7mk3JoGeE6f8SyH4Nv7Mls/gKUiPxg6JTk36W2eZH
-         b0sQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVLPVHvGXW4j0riiYEBt/AWCmqsNnWLftRP4kT1mm96fngZ0oCiVke0lCawnJvFcdl8fRDSZ2jX/Cw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxM/BWY75NcTpEk6eEqEoeKN6Nc/jSeaXLbWxdzb6lEc6pnYpdf
-	Jl8rMG66XybiGbl0MdJZ/pr6RcoA5oz//aiiui6aHaWcVrkz7T/YIyVw+BmtjA==
-X-Gm-Gg: ASbGncsirVMt/1a0DbTtkryMjX7lQk3lDApmOdBEbiXx/io2Z89WT2s31w0w+V9aoJs
-	8TYm2xhWnp/S4KEmE3YWTXkK90/eg47BgKeV2PwehnCh+nkfHzAR0UODmw17aLDWXYnqcxuN4sy
-	Bc4OwzU6EzfesvRwtaARj6CE2fwDKH7N2CvuzTRlXWv2EjR9MW27fG2oqifD77Rm3BjeHyTB8Qi
-	aJUtiP4oktZuJ7A9g18qAVZVfOn8b9Xp8YWr1BNl4+8wLKa9GiKvHHaVwMAtj3XTAiz8+A0u9Qr
-	RNyRI70WLmHbOwvXZ+WPgorq2YzzjRnQEoBPjk/Peto4KYPvl0YpknB8F1B1xpJhPuxtOfZ/xnx
-	WM7t6oAU0Nas2a1qVZgYGy21qU/kjOA==
-X-Google-Smtp-Source: AGHT+IHzvZInTwLg4wRJ+Vh7yzYmIulJNvivPy+ypqPeivhvWnYqjL6y4ABDnr1/okEzK8WbFO5BSw==
-X-Received: by 2002:a05:6000:4108:b0:38c:3f12:64be with SMTP id ffacd0b85a97d-3997f9366c7mr11092964f8f.35.1742810468130;
-        Mon, 24 Mar 2025 03:01:08 -0700 (PDT)
-Message-ID: <cd63949e-841c-4ed8-8dda-9160f759afa3@suse.com>
-Date: Mon, 24 Mar 2025 11:01:06 +0100
+        bh=+T1CBCpEzt7baE3PVBi+epotLIQuQty1Zn29FAgx9so=;
+        b=mYgjxMnBHEk2+pyEbNAwL/FUiSjgB20Pvltl7m51qHY0M2s5HN7/PQCco6KAPESsFc
+         n1mB4KXpv3HGOWBzN81lKN9scBediiH+/oakOK/RWE6lq1GYEeNO9DyvBoswBPdlfCVT
+         Pu+FMgyvL5QYmEx8MgHqlTHgm+6voA2wmlgweGaSQZKFRpmobm/4YPvZ0wHwRPgkREQR
+         /KnMdUoiDoVpcpHtDVc8e8bYDiTB6NX8UffBSST5ypUxrbGuh1IidaUvbfaG7PlR42gd
+         Sg1+Z5uSZqx9IEwVtklzBnRWYt/l0xTR3OhmeJui7UktFysLGRCGcVpck6yvB/bAs7Kl
+         dQqg==
+X-Forwarded-Encrypted: i=1; AJvYcCVTksjrsn7sliYGbemSqCL7W12FMdwYYKux4bmt084u3a58Vx0ya1nvAQfx6zwbC2uEbESJ3/xj32U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz/wXAGa3mEk0BjlWi+eJ6E0nfIx+/6cUwvpoJKVMT7FAg7BuKN
+	gd5DmGb5032pew9EWaaiW//Qfwo8lXrJb+5xbpBoOwhim9UE1W0YmcVflg719w==
+X-Gm-Gg: ASbGncvKDYbJbPZSWRmPJKZp7d/v3SQiwAWRhYQ81l3Gu5b7GNEYkw1oAFzHuCT8n7v
+	pfdkYuQRejEUnV8Og+RD+x6F4BsoEALiYuYLqIxhV8Hs+p3kr4iMwhZ9GpACBIKXvIDU5/7478g
+	m+iksrQSBtXIS/pei89e9MyBDbACedRHzlZlIz8mDvj0e4AZJBgW5C04rVLkERphaJNsFbVwdEj
+	Q77WVBss7EmDwfj5abNxaxToFlRtqcneTpK3Iyr5u57FJXTUiaactc8lffHOaliVL4vj9q7ghut
+	HYj8OA28RAt7c8kJxfN/7cI86OK9IPE565+dyYgtyqpvTk/5V5OybVmWqAzl9ZVlKunq7HeyCj3
+	WA4TLkari+9tw3aKBTal0nooFmVvgtQ==
+X-Google-Smtp-Source: AGHT+IEMtxsesm5bKZq94y9c1CZnqKeM47GZYNKhy98LWfhSj+6bN+w26fdu/cOucy2x9E/dO59+Wg==
+X-Received: by 2002:a05:600c:1989:b0:43c:ebc4:36a5 with SMTP id 5b1f17b1804b1-43d509e9dd0mr104557845e9.7.1742810739805;
+        Mon, 24 Mar 2025 03:05:39 -0700 (PDT)
+Message-ID: <15bea88c-8294-4164-83df-7ccdb61f9697@suse.com>
+Date: Mon, 24 Mar 2025 11:05:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] x86/domctl: Stop using XLAT_cpu_user_regs()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250311211043.3629696-1-andrew.cooper3@citrix.com>
- <20250311211043.3629696-6-andrew.cooper3@citrix.com>
- <703471bf-d5e7-4f97-b17e-61dffdcb828d@suse.com>
- <9385c155-eb01-4247-8bf5-6e0758f79749@citrix.com>
+Subject: Re: [RFC PATCH v3 1/7] xen/arm: add generic SCI subsystem
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Roger Pau Monne <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
+ <jgross@suse.com>, Grygorii Strashko <grygorii_strashko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Grygorii Strashko <gragst.linux@gmail.com>
+References: <20250311111618.1850927-1-grygorii_strashko@epam.com>
+ <20250311111618.1850927-2-grygorii_strashko@epam.com>
+ <6a0a3b3d-9bbd-49da-a37c-eb1cbad94cc1@suse.com>
+ <5190f71c-4a93-4f66-91d0-aec43a97ddab@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,81 +127,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9385c155-eb01-4247-8bf5-6e0758f79749@citrix.com>
+In-Reply-To: <5190f71c-4a93-4f66-91d0-aec43a97ddab@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 21.03.2025 17:01, Andrew Cooper wrote:
-> On 17/03/2025 11:38 am, Jan Beulich wrote:
->> On 11.03.2025 22:10, Andrew Cooper wrote:
->>> In order to support FRED, we're going to have to remove the {ds..gs} fields
->>> from struct cpu_user_regs, meaning that it is going to have to become a
->>> different type to the structure embedded in vcpu_guest_context_u.
->>>
->>> In both arch_{get,set}_info_guest(), expand the memcpy()/XLAT_cpu_user_regs()
->>> to copy the fields individually.  This will allow us to eventually make them
->>> different types.
->>>
->>> No practical change.  The compat cases are identical, while the non-compat
->>> cases no longer copy _pad fields.
->> That's fine for "set", but potentially not for "get": Someone simply doing
->> memcmp() on two pieces of output might then break.
+On 24.03.2025 10:00, Oleksii Moisieiev wrote:
+> Hi Jan,
 > 
-> It's not a fastpath, and I'm not looking to not break things, but I was
-> expecting it to be safe.
+> Let me answer one of your comment. Please see below:
 > 
-> The pad fields for cs (inc saved_upcall_mask) and ss get lost on the
-> first exit-from-guest, and the pad fields for the data segment get lost
-> on the first schedule.
+> On 11/03/2025 13:43, Jan Beulich wrote:
+>> On 11.03.2025 12:16, Grygorii Strashko wrote:
+>>> --- a/MAINTAINERS
+>>> +++ b/MAINTAINERS
+>>> @@ -526,6 +526,12 @@ S:	Supported
+>>>   F:	xen/arch/arm/include/asm/tee/
+> [snip]
+>>> --- a/xen/include/public/arch-arm.h
+>>> +++ b/xen/include/public/arch-arm.h
+>>> @@ -327,6 +327,8 @@ DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
+>>>   #define XEN_DOMCTL_CONFIG_TEE_OPTEE     1
+>>>   #define XEN_DOMCTL_CONFIG_TEE_FFA       2
+>>>   
+>>> +#define XEN_DOMCTL_CONFIG_ARM_SCI_NONE      0
+>>> +
+>>>   struct xen_arch_domainconfig {
+>>>       /* IN/OUT */
+>>>       uint8_t gic_version;
+>>> @@ -350,6 +352,8 @@ struct xen_arch_domainconfig {
+>>>        *
+>>>        */
+>>>       uint32_t clock_frequency;
+>>> +    /* IN */
+>>> +    uint8_t arm_sci_type;
+>>>   };
+>> You're not re-using a pre-existing padding field, so I don't see how you
+>> can get away without bumping XEN_DOMCTL_INTERFACE_VERSION.
+> 
+> We are reusing an existing padding field in xen_domctl, which is defined 
+> as pad[128].
+> 
+> The xen_arch_domainconfig structure is a part of the following domctl 
+> structures:
+> 
+> - xen_domctl_createdomain
+> 
+> - xen_domctl_getdomaininfo
+> 
+> These structures are included in the union within xen_domctl, which 
+> defines pad[128] for padding.
 
-Are they? If these fields on the stack are only every written with zero
-(which aiui they are), all vCPU-s would properly observe zero in the
-padding fields.
-
-> So while there is a change here, I don't think it's anything that
-> current code could plausibly be relying on.
-> 
-> Furthermore, when we get rid of the vm86 fields, we don't even store the
-> pad fields anywhere in Xen, so they're going, one way or another, by the
-> end of the series.
-> 
-> Finally, disaggregation or not, this is an unstable interface so we do
-> have some wiggle room.
-> 
-> I guess I should discuss this more in the commit message?
-
-Yes, if you continue to be convinced that dropping of their copying is
-fine, the justification of that would be very desirable to have in the
-description.
-
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Jan Beulich <JBeulich@suse.com>
->>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>
->>> Should we really be copying error_code/entry_vector?  They're already listed
->>> as explicitly private fields, and I don't think anything good can come of
->>> providing/consuming them.
->> I don't see a reason why we'd need to copy them in arch_set_info_guest();
->> arch_set_info_hvm_guest() doesn't copy them either. For
->> arch_get_info_guest() it's less clear - toolstack components may have
->> grown a dependency on them (e.g. introspection?), so I'd err on the side
->> of retaining prior behavior. (Of course there's then the corner case of
->> someone calling "get" right after "set", expecting the two fields to come
->> back unchanged.)
-> 
-> Introspection doesn't use this interface.  Regs are sent in the ring,
-> and don't contain these fields either.
-> 
-> Also, for HVM guests, we set the vmexit rsp to &error_code so we only
-> push the GPRs, without the IRET frame above it.
-> 
-> These fields, (inc saved_upcall_mask) have different behaviours under
-> FRED.  I don't think we can get away without them changing, and for
-> these at least, they were clearly marked as internal.
-
-And you're reasonably convinced that in a tool like xenctx it couldn't
-make sense to dump such simply for informational purposes?
+Except that "an existing padding field" means a field which isn't just
+there in space, but is also checked to be zero right now. That is, new
+code setting the field to non-zero needs to properly get an error
+indicator back from an older hypervisor.
 
 Jan
 
