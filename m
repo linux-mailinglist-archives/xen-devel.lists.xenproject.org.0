@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E348A6D7D6
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 10:47:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.925202.1328076 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6003FA6D7DC
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 10:53:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.925214.1328086 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tweP8-00032i-28; Mon, 24 Mar 2025 09:47:34 +0000
+	id 1tweUs-0005Ze-Ol; Mon, 24 Mar 2025 09:53:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 925202.1328076; Mon, 24 Mar 2025 09:47:34 +0000
+Received: by outflank-mailman (output) from mailman id 925214.1328086; Mon, 24 Mar 2025 09:53:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tweP7-0002zk-U8; Mon, 24 Mar 2025 09:47:33 +0000
-Received: by outflank-mailman (input) for mailman id 925202;
- Mon, 24 Mar 2025 09:47:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tweUs-0005X4-Lg; Mon, 24 Mar 2025 09:53:30 +0000
+Received: by outflank-mailman (input) for mailman id 925214;
+ Mon, 24 Mar 2025 09:53:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sMR0=WL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tweP7-0002ze-12
- for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 09:47:33 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 00d14cc6-0895-11f0-9ffa-bf95429c2676;
- Mon, 24 Mar 2025 10:47:30 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43cf848528aso34761555e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 02:47:30 -0700 (PDT)
+ id 1tweUr-0005Ww-CL
+ for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 09:53:29 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d5fa22d8-0895-11f0-9ea2-5ba50f476ded;
+ Mon, 24 Mar 2025 10:53:28 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43cfb6e9031so37813695e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 02:53:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d4fceafb7sm117663685e9.1.2025.03.24.02.47.29
+ 5b1f17b1804b1-43d43f3328bsm165679375e9.1.2025.03.24.02.53.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Mar 2025 02:47:29 -0700 (PDT)
+ Mon, 24 Mar 2025 02:53:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00d14cc6-0895-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: d5fa22d8-0895-11f0-9ea2-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742809650; x=1743414450; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742810008; x=1743414808; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=eP2rFkH0VqSJEG5SKtL8l4OL0xSxnIb7jOADq52p4Qk=;
-        b=AbcR26UuoDB1UIz/7378OhHH68iQlWRM/eZcB26erohc65eidfzNnqTqNgJe/3Xhmw
-         e36zgejeTmd8QnopY1C+xHPXkpTN7+vXZAXYUR/B5xN12qBacsCZnIgs+5yn9fEUMz/L
-         M3a+C7WCR/VUR6rGy9R+bRwQZS/kH9BBVPLvJ/KbpLZ+16Op/tmAn+ZMYumUjvPfKgNJ
-         3wUSLDvhMN/2eQDEbOD3S2O3WbrpXieGgx/KwrpktOcuY0smCpRx/YHEodCS0gzA+Z30
-         dsibt69k/chhYaYn5yCTXBj6WDi9XqvlmBapQ2rms9SsAfFf5ee8On3QB2TCV7Z5zhb2
-         fqIg==
+        bh=USW37UorfVaQ4MHJmy0qUR9R6V4zM42MPM0ZTcWvUfM=;
+        b=dVF3gwp1PIe+ygaSPSnFGvjqjqx+Wz7Ir4g1whnFIxowzJevG0tFC6aQATlpfAp6I5
+         KqXDvmkYHhjzjvtOzuPsKi+rvMH3QtHrhG43y8gmHxI0IYiZ7AQQgjTohgIYQwZHmhGn
+         qilktIE62yLTuxFl0y2GbhhL8ZIN21e7mqQqZKEj9ReEw/FQVs4Hs2fMSC1H7GJKLiW4
+         9keGTCLvVT1dhrQ/dJC3HTHOYIJ8zLtAokWQHeXmnRsqH3vokQAQhmFLMZtPAAq66KBY
+         CcQGa/51o2le6/YoPZF1SEHkcv829TOY3hxAqU33XbKwDDNEBIRIBGcHRkK7sJyrcADq
+         9oQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742809650; x=1743414450;
+        d=1e100.net; s=20230601; t=1742810008; x=1743414808;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eP2rFkH0VqSJEG5SKtL8l4OL0xSxnIb7jOADq52p4Qk=;
-        b=sjcRJpRIT8lYVwjZ84xPYGCbgWbPWsJ1h+vE1+9AAJQ+0Ery3o7pvr+yabWfTLZ6d7
-         9uaMnO0mE9P+kHCoLQN/H91rLFC7FR0g/aXn5H+CLkFOR9gcNwHfscf+EHaeQTceOsrs
-         IINcp4X3TtaxtJ4G4Jq3BpS4IvW768Sf5zqwLrqRu1E1BoVQNkO9OIdAsj86tv6oiUv5
-         u4cNk+/C5MqX55qISO7tAvjn6kEkdf0UTrl+1ohVqxjEkMwE9bKJt7Tp3TQVwkkDHac4
-         3zWf0356cqvpLZTA7wtoB5/FOOKw4IfMCkR3PPvud+rWvIZjjU4ZkkzvYq64YFz9FgKg
-         NsdA==
-X-Gm-Message-State: AOJu0YzwuZqjD3HjdU5w8+jzlRaO8QEl+EWCLZiMGBl+hEOmOBKNAF4N
-	tlRSFu0IEZSO0tqHXRDeN2xlIUQutmG7TGpRiUtf4jaLTqyyVI6mtS+QZXsvLA==
-X-Gm-Gg: ASbGnctSfU3oB16pR8x+5IR1Af8Hj5qRd2Rt4nohrsxCbJH/U2a28H72Kgztb1v6e7B
-	yVZEBaTO80Rzb8ycwVmwhkfVgAQhB+Up4XoYUvSsbnKqEUFtf5y/wFfxa4s/Jc9AFHZhXLtOe2I
-	DpGB8AbUYD1La8ZrDTCVYbd/NBLHBcSrUXmnMUMWU5wAmlNP6hWL1FqhdJyT0FXBiGGM+QW3/fM
-	xjK2JNZWYxRxbLWVsQRsao7/E7TOUI3Ki+ZDVEVntKJ7t0PjYrrPJQQtXznnTJyRPQGHmy+NVHZ
-	kyP4RCD4agKIKRtBydyyf27ptKhA8E5R6NqqjScBIRbLbG7F/JjPy1RYcpZ23bO0W7R73CLGFbr
-	BvS3bps4SLcvq85OfoqMMsyLPpRWC1Q==
-X-Google-Smtp-Source: AGHT+IFkqvBFhYQsIjF6IYX4xUrjNaoNgwzQl44VzeTnUXGjajFImZ9CovyEycxjrjs7EuHAiF/FZQ==
-X-Received: by 2002:a05:600c:4e56:b0:43d:fa:1f9a with SMTP id 5b1f17b1804b1-43d50a36910mr113269365e9.30.1742809649971;
-        Mon, 24 Mar 2025 02:47:29 -0700 (PDT)
-Message-ID: <fdbb0485-ec42-41c2-8fa5-d0560e0a10a4@suse.com>
-Date: Mon, 24 Mar 2025 10:47:29 +0100
+        bh=USW37UorfVaQ4MHJmy0qUR9R6V4zM42MPM0ZTcWvUfM=;
+        b=Yyp826SwBYQ/xwT73e77ar2OZpTSLL+Bi61/9fxjtXK2juz3QRoxqEPYLJXOhcke40
+         QqcdthA4y/TrNGD8+zLq9SzfFCI9/j8Oh/w6gM9bMfuSXgHx/MU+GNiDTyHEYNsbbpbL
+         yA1N5H5p9wyHwnfoMqDbxmfML+lxafMnUEieG7hCSX/pvEos5H0ACbEKoRBeuieeWJeL
+         zBcSdDuqM4nTBBGNkdlpCLo67n0tAsT0RV5ScDZhBYSfGdJmQ7+4bPB9tjHLTZFgI2af
+         Vf1IsoZLp9jHPQOM69u3dKSa3eHnRacjOBzP6oLLGYLgAl1lTcvLvDMQ6JrDK0wtBafd
+         mGJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXuWjI6LnFu2D21mQdBAF+JdvI7TfZjaTAXBOwrewN+5N5NlvIhVBjSOlvSCw0n8UxI+49Z/Mml12A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZcNbRLML/0ODpeqUsjl9arawE9+jBdT5LwEuNAYtyce9TdIbi
+	MyVCtnLgTGyAb2pDZ/HUhQjyc6QYfEzGA3Xv14ZNUjzjGyRknyu+/I6FPxF/Mw==
+X-Gm-Gg: ASbGncvmhB3pFke9yNjXHB88ia3/nSmeeyyHrUw+nwKLNzhLz46j/ThPGjwLghoYZaW
+	ms5enLZeVu2DWU+jILkJly9X3dFsFF5ZOnMCu0PwUo05QfR1t/w9odAn8zcPKdJ1t3K3GJ1WazX
+	JXCj1Xz1dKaWNFNRxjbuRycpQdH3gcfFBu0CvrpjkQjAKotC094s0UVLxE5uERGe+EtgJxFbPdW
+	G47RXzIMGhjPRfF2ezq5dlrWPiU4/yaDpArJfWJkhNgKjgV7ETnSJ5jecxbaJ6As4yrXIi42MAZ
+	Reo/7ky+MHW6awso2K9ytfNbd0i83OcRU9PtGQOAigvvGumkT8UjEaGoSlGT5sA5L/CJLiun03N
+	xmBH0MvFiB4XVvrF0e1FAfmAYLXHHNQ==
+X-Google-Smtp-Source: AGHT+IHLiu+ey3sv2T3DwCaQz6L1XNIV5+QrpbiCB7d/UmETnLsV41pZZnn3o03zQ2NyrZ2Nk+Rbdg==
+X-Received: by 2002:a05:600c:3550:b0:43d:1b74:e89a with SMTP id 5b1f17b1804b1-43d566d1ce9mr89539425e9.9.1742810007608;
+        Mon, 24 Mar 2025 02:53:27 -0700 (PDT)
+Message-ID: <3438cfe6-72c9-4c0d-b9a2-c46a8a8b9794@suse.com>
+Date: Mon, 24 Mar 2025 10:53:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] x86/public: Split the struct cpu_user_regs type
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 5/8] x86/domctl: Stop using XLAT_cpu_user_regs()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250311211043.3629696-1-andrew.cooper3@citrix.com>
- <20250311211043.3629696-8-andrew.cooper3@citrix.com>
- <8edba542-9844-409e-bbf0-5ff1c9287a10@suse.com>
- <eaaf2aef-129a-45ce-b5e7-ae884c2385f3@citrix.com>
+ <20250311211043.3629696-6-andrew.cooper3@citrix.com>
+ <1cd10c63-4e86-45fa-b4b3-cb750ad9f39b@suse.com>
+ <4777d8e9-b4d9-45d2-82be-beb1af82283f@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,110 +120,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <eaaf2aef-129a-45ce-b5e7-ae884c2385f3@citrix.com>
+In-Reply-To: <4777d8e9-b4d9-45d2-82be-beb1af82283f@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21.03.2025 16:11, Andrew Cooper wrote:
-> On 17/03/2025 12:15 pm, Jan Beulich wrote:
+On 21.03.2025 18:13, Andrew Cooper wrote:
+> On 17/03/2025 11:42 am, Jan Beulich wrote:
 >> On 11.03.2025 22:10, Andrew Cooper wrote:
->>> In order to support FRED, we're going to have to remove the {ds..gs} fields
->>> from struct cpu_user_regs, meaning that it is going to have to become a
->>> different type to the structure embedded in vcpu_guest_context_u.
->>>
->>> struct cpu_user_regs is a name used in common Xen code (i.e. needs to stay
->>> using this name), so renaming the public struct to be guest_user_regs in Xen's
->>> view only.
->>>
->>> Introduce a brand hew cpu-user-regs.h, currently containing a duplicate
->>> structure.  This removes the need for current.h to include public/xen.h, and
->>> highlights a case where the emulator was picking up cpu_user_regs
->>> transitively.
->>>
->>> No functional change.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>> --- a/xen/include/xlat.lst
+>>> +++ b/xen/include/xlat.lst
+>>> @@ -34,8 +34,6 @@
+>>>  ?	pmu_intel_ctxt			arch-x86/pmu.h
+>>>  ?	pmu_regs			arch-x86/pmu.h
+>>>  
+>>> -!	cpu_user_regs			arch-x86/xen-@arch@.h
+>> Maybe worthwhile to keep the line, just switching ! to #, in order to
+>> indicate the type isn't accidentally missing here?
 > 
-> Thanks.
-> 
->>> cpu_user_regs_t and the guest handle don't seem to be used anywhere.  I'm
->>> tempted to exclude them from Xen builds.
->> I concur. We can always re-expose them should they be needed somewhere.
-> 
-> It's actually a little ugly to do.
-> 
-> #ifdef __XEN__
-> #undef cpu_user_regs
-> #else
-> typedef struct cpu_user_regs cpu_user_regs_t;
-> DEFINE_XEN_GUEST_HANDLE(cpu_user_regs_t);
-> #endif
-> 
-> and I don't particularly like it, given the complexity of #ifdef-ary
-> around it.  Thoughts?
+> Is it really worth it?  That's a new semantic to an opaque
+> domain-specific-language, and this file only ever gets looked at when
+> something is broken.
 
-It's not really pretty, but I'd be okay with this.
-
->>> --- /dev/null
->>> +++ b/xen/arch/x86/include/asm/cpu-user-regs.h
->>> @@ -0,0 +1,69 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->>> +#ifndef X86_CPU_USER_REGS_H
->>> +#define X86_CPU_USER_REGS_H
->>> +
->>> +#define DECL_REG_LOHI(which) union { \
->>> +    uint64_t r ## which ## x; \
->>> +    uint32_t e ## which ## x; \
->>> +    uint16_t which ## x; \
->>> +    struct { \
->>> +        uint8_t which ## l; \
->>> +        uint8_t which ## h; \
->>> +    }; \
->>> +}
->>> +#define DECL_REG_LO8(name) union { \
->>> +    uint64_t r ## name; \
->>> +    uint32_t e ## name; \
->>> +    uint16_t name; \
->>> +    uint8_t name ## l; \
->>> +}
->>> +#define DECL_REG_LO16(name) union { \
->>> +    uint64_t r ## name; \
->>> +    uint32_t e ## name; \
->>> +    uint16_t name; \
->>> +}
->>> +#define DECL_REG_HI(num) union { \
->>> +    uint64_t r ## num; \
->>> +    uint32_t r ## num ## d; \
->>> +    uint16_t r ## num ## w; \
->>> +    uint8_t r ## num ## b; \
->>> +}
->> Can we try to avoid repeating these here? The #undef-s in the public header are
->> to keep external consumers' namespaces reasonably tidy. In Xen, since we don't
->> otherwise use identifiers of these names, can't we simply #ifdef-out those
->> #undef-s, and then not re-introduce the same (less the two underscores) here?
->> Granted we then need to include the public header here, but I think that's a
->> fair price to pay to avoid the redundancy.
-> 
-> Breaking the connection between asm/current.h and public/xen.h is very
-> important IMO.  Right now, the public interface/types/defines are in
-> every TU, and they absolutely shouldn't be.
-
-Hmm, that's a good point. Nevertheless I wonder if we still couldn't avoid the
-unhelpful redundancy. E.g. by introducing a separate, small public header with
-just these. Which we'd then pull in here as well.
-
-> Sadly, the compiler isn't happy when including public/xen.h after
-> asm/current.h, hence the dropping of the underscores.
-
-Even if the ones here are #undef-ed after use?
-
-> I did have half a mind to expand them fully.  I find them unintuitive,
-> but I also didn't think I'd successfully argue that change in.
-
-Roger - do you have an opinion here? I like these wrappers, yet then I also
-understand this is code that's pretty unlikely to ever change again. Hence
-fully expanding them is an option.
+True. Yet how else would we distinguish accidentally missing from deliberately
+omitted?
 
 Jan
 
