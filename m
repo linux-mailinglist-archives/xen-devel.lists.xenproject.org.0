@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBEEBA6D787
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 10:35:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.925193.1328066 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E348A6D7D6
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 10:47:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.925202.1328076 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tweD2-0000Sr-Ve; Mon, 24 Mar 2025 09:35:04 +0000
+	id 1tweP8-00032i-28; Mon, 24 Mar 2025 09:47:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 925193.1328066; Mon, 24 Mar 2025 09:35:04 +0000
+Received: by outflank-mailman (output) from mailman id 925202.1328076; Mon, 24 Mar 2025 09:47:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tweD2-0000QT-Sm; Mon, 24 Mar 2025 09:35:04 +0000
-Received: by outflank-mailman (input) for mailman id 925193;
- Mon, 24 Mar 2025 09:35:03 +0000
+	id 1tweP7-0002zk-U8; Mon, 24 Mar 2025 09:47:33 +0000
+Received: by outflank-mailman (input) for mailman id 925202;
+ Mon, 24 Mar 2025 09:47:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=sMR0=WL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tweD1-0000QN-PR
- for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 09:35:03 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1tweP7-0002ze-12
+ for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 09:47:33 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4262535e-0893-11f0-9ffa-bf95429c2676;
- Mon, 24 Mar 2025 10:35:01 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3914aba1ce4so3472444f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 02:35:01 -0700 (PDT)
+ id 00d14cc6-0895-11f0-9ffa-bf95429c2676;
+ Mon, 24 Mar 2025 10:47:30 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43cf848528aso34761555e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 02:47:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9a345fsm10286040f8f.24.2025.03.24.02.35.00
+ 5b1f17b1804b1-43d4fceafb7sm117663685e9.1.2025.03.24.02.47.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Mar 2025 02:35:00 -0700 (PDT)
+ Mon, 24 Mar 2025 02:47:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4262535e-0893-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 00d14cc6-0895-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742808901; x=1743413701; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742809650; x=1743414450; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dbVI0X70i4oDNJjK6zaSI2pSBXpL2weMFJnXvcyV4XY=;
-        b=VRrT5Rs9aek1tXlyoA4xG73p0ogWpbu6tUDjT9W2v2jGZHEsJEIpg/W5SNyEoVfyZ0
-         zcU3Lxn1jonCOkAqCd0fB3E4ItsLGd5C1OBdUDjtL/reBdTMcjfT9QRqSiBdA7DC+yUP
-         s9uYgj9/K0azKbE3UdMCGrfyzhjTIau0mfFH3+tzeZY/oqVSnS6EKEs4cxTbk16ujxDU
-         rNvVqU5uHpIpojCPKQ1sd1MPQL2PgVwmf6YLgJPnuEY52RMPa7NF0atQikEOCDSkNmYD
-         dKe7Xmsn6ZKxf2zs1ddowlhGbllxDzgcZPzZMu+EEL9BdHPjd4PtTW+2zCbKtYoA89cD
-         araA==
+        bh=eP2rFkH0VqSJEG5SKtL8l4OL0xSxnIb7jOADq52p4Qk=;
+        b=AbcR26UuoDB1UIz/7378OhHH68iQlWRM/eZcB26erohc65eidfzNnqTqNgJe/3Xhmw
+         e36zgejeTmd8QnopY1C+xHPXkpTN7+vXZAXYUR/B5xN12qBacsCZnIgs+5yn9fEUMz/L
+         M3a+C7WCR/VUR6rGy9R+bRwQZS/kH9BBVPLvJ/KbpLZ+16Op/tmAn+ZMYumUjvPfKgNJ
+         3wUSLDvhMN/2eQDEbOD3S2O3WbrpXieGgx/KwrpktOcuY0smCpRx/YHEodCS0gzA+Z30
+         dsibt69k/chhYaYn5yCTXBj6WDi9XqvlmBapQ2rms9SsAfFf5ee8On3QB2TCV7Z5zhb2
+         fqIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742808901; x=1743413701;
+        d=1e100.net; s=20230601; t=1742809650; x=1743414450;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dbVI0X70i4oDNJjK6zaSI2pSBXpL2weMFJnXvcyV4XY=;
-        b=oJGIUKUcbpihZbrqFAYnIQMkBbO3DhpyRYbI4CKHyIdmzzmwdMPpoKMisxDTv1Q+Uh
-         umvCEVJOVwBGA8kVcVoXPNb/ygVEn1GMKIs76d0PdkF7g5Vp70TqNoPwSIl0BS9vbCGz
-         GeYRAHzH4LLi6iFIADOECKmGdXEiUDHYkVUuvn9oUi6NV0oT7koDRLw6w9BjphAS/Rfb
-         bTWcyVChF+IgbywW+bSsJS43NDp/cRP6lapVnfkei8A1LlSfW38pz3Ygtl/RDEV4O9NB
-         qWY1MniC7pPYH65X4jQ583V54DRUVPENIwGQzL+Z1EcLTa90jDyO0yRdYyTZ5wDj1awe
-         zKKA==
-X-Forwarded-Encrypted: i=1; AJvYcCUxv1WfQqkTBksyn5XajV2/WIQWy0I0M++714/ZsehQKtVQ7VtqfBmjuAx/zHM8mARYlLhG6cINVOM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwVBu5f7vWvEmXUwdT+ksLKBrUzfORYXB6LeR6+B9WzIWqOqIFn
-	95FRnlqfuRSt6jqiSiZwGTcB9yvytD8RwDCdAc8AIaotSlUsMMTG6Frb/7xcig==
-X-Gm-Gg: ASbGncv4z64Unl9yqhXCdczgBM1bVxWEoOh4oyZpb9GIqLCrBLve7oZ90mzDpXQCBuN
-	0W1tZ7ltngDffv9+CrUncsrBAhgDg4kLNxBJsgVkaZQyjGs1T+ZKmmup1Bd0VdIq+WefpE0bfQD
-	UwyLnmbG+tVpRFU1wCdt/rhtu9IPtEDAXfRXo7ZmMfVhiynTvoSBYTMYR71wqE1Nimaq4eU2GUX
-	gDo1hoSPVNzIh8ZGSKETKEH3I0IWWvxIxl544uZ6A7R7D4IIPfgVDyUU7qAcWQ9sNBSiPoVUhCd
-	Ot+mpf840vNKPFCmcbrropy8deyLI5lz4TRwVlh8WBMRTm0XhU23wq4Pn33exyv5LOFFj0V86Fb
-	fpfWTUPf9y1DIKTj9EP7MyEOYmvuvRw==
-X-Google-Smtp-Source: AGHT+IGsGTJaaUs5qghVP1/OgMH/OfFA+F/d24WvyPW9lpskWEbLWc6b42rw1soDyy6UAw+b0FJ7pw==
-X-Received: by 2002:a05:6000:2cf:b0:38b:d7d2:12f6 with SMTP id ffacd0b85a97d-3997f8f789emr9342982f8f.2.1742808901006;
-        Mon, 24 Mar 2025 02:35:01 -0700 (PDT)
-Message-ID: <59cdc84c-6e5a-4752-b09a-945d05badd91@suse.com>
-Date: Mon, 24 Mar 2025 10:35:02 +0100
+        bh=eP2rFkH0VqSJEG5SKtL8l4OL0xSxnIb7jOADq52p4Qk=;
+        b=sjcRJpRIT8lYVwjZ84xPYGCbgWbPWsJ1h+vE1+9AAJQ+0Ery3o7pvr+yabWfTLZ6d7
+         9uaMnO0mE9P+kHCoLQN/H91rLFC7FR0g/aXn5H+CLkFOR9gcNwHfscf+EHaeQTceOsrs
+         IINcp4X3TtaxtJ4G4Jq3BpS4IvW768Sf5zqwLrqRu1E1BoVQNkO9OIdAsj86tv6oiUv5
+         u4cNk+/C5MqX55qISO7tAvjn6kEkdf0UTrl+1ohVqxjEkMwE9bKJt7Tp3TQVwkkDHac4
+         3zWf0356cqvpLZTA7wtoB5/FOOKw4IfMCkR3PPvud+rWvIZjjU4ZkkzvYq64YFz9FgKg
+         NsdA==
+X-Gm-Message-State: AOJu0YzwuZqjD3HjdU5w8+jzlRaO8QEl+EWCLZiMGBl+hEOmOBKNAF4N
+	tlRSFu0IEZSO0tqHXRDeN2xlIUQutmG7TGpRiUtf4jaLTqyyVI6mtS+QZXsvLA==
+X-Gm-Gg: ASbGnctSfU3oB16pR8x+5IR1Af8Hj5qRd2Rt4nohrsxCbJH/U2a28H72Kgztb1v6e7B
+	yVZEBaTO80Rzb8ycwVmwhkfVgAQhB+Up4XoYUvSsbnKqEUFtf5y/wFfxa4s/Jc9AFHZhXLtOe2I
+	DpGB8AbUYD1La8ZrDTCVYbd/NBLHBcSrUXmnMUMWU5wAmlNP6hWL1FqhdJyT0FXBiGGM+QW3/fM
+	xjK2JNZWYxRxbLWVsQRsao7/E7TOUI3Ki+ZDVEVntKJ7t0PjYrrPJQQtXznnTJyRPQGHmy+NVHZ
+	kyP4RCD4agKIKRtBydyyf27ptKhA8E5R6NqqjScBIRbLbG7F/JjPy1RYcpZ23bO0W7R73CLGFbr
+	BvS3bps4SLcvq85OfoqMMsyLPpRWC1Q==
+X-Google-Smtp-Source: AGHT+IFkqvBFhYQsIjF6IYX4xUrjNaoNgwzQl44VzeTnUXGjajFImZ9CovyEycxjrjs7EuHAiF/FZQ==
+X-Received: by 2002:a05:600c:4e56:b0:43d:fa:1f9a with SMTP id 5b1f17b1804b1-43d50a36910mr113269365e9.30.1742809649971;
+        Mon, 24 Mar 2025 02:47:29 -0700 (PDT)
+Message-ID: <fdbb0485-ec42-41c2-8fa5-d0560e0a10a4@suse.com>
+Date: Mon, 24 Mar 2025 10:47:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: simplify bitmap_to_xenctl_bitmap for little endian
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, michal.orzel@amd.com, julien@xen.org,
- roger.pau@citrix.com, bertrand.marquis@arm.com,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2503182002160.2000798@ubuntu-linux-20-04-desktop>
- <ad1bd470-1efa-4019-89ac-386bb05dd44d@suse.com>
- <alpine.DEB.2.22.394.2503191754480.2325679@ubuntu-linux-20-04-desktop>
- <8297406e-b281-4783-9238-d6326db3fa15@suse.com>
- <alpine.DEB.2.22.394.2503211607200.2325679@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH 7/8] x86/public: Split the struct cpu_user_regs type
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250311211043.3629696-1-andrew.cooper3@citrix.com>
+ <20250311211043.3629696-8-andrew.cooper3@citrix.com>
+ <8edba542-9844-409e-bbf0-5ff1c9287a10@suse.com>
+ <eaaf2aef-129a-45ce-b5e7-ae884c2385f3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,115 +119,110 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2503211607200.2325679@ubuntu-linux-20-04-desktop>
+In-Reply-To: <eaaf2aef-129a-45ce-b5e7-ae884c2385f3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22.03.2025 00:09, Stefano Stabellini wrote:
-> On Thu, 20 Mar 2025, Jan Beulich wrote:
->> On 20.03.2025 01:57, Stefano Stabellini wrote:
->>> On Wed, 19 Mar 2025, Jan Beulich wrote:
->>>> What about xenctl_bitmap_to_bitmap()?
->>>  
->>> Let me see first if I managed to handle bitmap_to_xenctl_bitmap well.
->>
->> Well, the code looks correct to me, but the description now has gone
->> stale. I also wonder whether with that extra restriction the optimization
->> is then actually worth it. Just one further nit:
+On 21.03.2025 16:11, Andrew Cooper wrote:
+> On 17/03/2025 12:15 pm, Jan Beulich wrote:
+>> On 11.03.2025 22:10, Andrew Cooper wrote:
+>>> In order to support FRED, we're going to have to remove the {ds..gs} fields
+>>> from struct cpu_user_regs, meaning that it is going to have to become a
+>>> different type to the structure embedded in vcpu_guest_context_u.
+>>>
+>>> struct cpu_user_regs is a name used in common Xen code (i.e. needs to stay
+>>> using this name), so renaming the public struct to be guest_user_regs in Xen's
+>>> view only.
+>>>
+>>> Introduce a brand hew cpu-user-regs.h, currently containing a duplicate
+>>> structure.  This removes the need for current.h to include public/xen.h, and
+>>> highlights a case where the emulator was picking up cpu_user_regs
+>>> transitively.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Hi Jan, you make a good point. I tried to come up with a better
-> approach. What do you think of this?
+> Thanks.
 > 
+>>> cpu_user_regs_t and the guest handle don't seem to be used anywhere.  I'm
+>>> tempted to exclude them from Xen builds.
+>> I concur. We can always re-expose them should they be needed somewhere.
 > 
-> diff --git a/xen/common/bitmap.c b/xen/common/bitmap.c
-> index 3da63a32a6..2f448693c3 100644
-> --- a/xen/common/bitmap.c
-> +++ b/xen/common/bitmap.c
-> @@ -52,7 +52,7 @@ static void clamp_last_byte(uint8_t *bp, unsigned int nbits)
->  	unsigned int remainder = nbits % 8;
->  
->  	if (remainder)
-> -		bp[nbits/8] &= (1U << remainder) - 1;
-> +		*bp &= (1U << remainder) - 1;
->  }
->  
->  int __bitmap_empty(const unsigned long *bitmap, unsigned int bits)
-> @@ -338,7 +338,6 @@ static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp,
->  			nbits -= 8;
->  		}
->  	}
-> -	clamp_last_byte(bp, nbits);
->  }
->  
->  static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp,
-> @@ -363,7 +362,6 @@ static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp,
->  				unsigned int nbits)
->  {
->  	memcpy(bp, lp, DIV_ROUND_UP(nbits, BITS_PER_BYTE));
-> -	clamp_last_byte(bp, nbits);
->  }
->  
->  static void bitmap_byte_to_long(unsigned long *lp, const uint8_t *bp,
-> @@ -384,21 +382,40 @@ int bitmap_to_xenctl_bitmap(struct xenctl_bitmap *xenctl_bitmap,
->      uint8_t zero = 0;
->      int err = 0;
->      unsigned int xen_bytes = DIV_ROUND_UP(nbits, BITS_PER_BYTE);
-> -    uint8_t *bytemap = xmalloc_array(uint8_t, xen_bytes);
-> -
-> -    if ( !bytemap )
-> -        return -ENOMEM;
-> +    uint8_t last;
->  
->      guest_bytes = DIV_ROUND_UP(xenctl_bitmap->nr_bits, BITS_PER_BYTE);
->      copy_bytes  = min(guest_bytes, xen_bytes);
->  
-> -    bitmap_long_to_byte(bytemap, bitmap, nbits);
-> +    if ( IS_ENABLED(__BIG_ENDIAN) )
-> +    {
-> +        uint8_t *bytemap = xmalloc_array(uint8_t, xen_bytes);
->  
-> -    if ( copy_bytes &&
-> -         copy_to_guest(xenctl_bitmap->bitmap, bytemap, copy_bytes) )
-> -        err = -EFAULT;
-> +        if ( !bytemap )
-> +            return -ENOMEM;
->  
-> -    xfree(bytemap);
-> +        bitmap_long_to_byte(bytemap, bitmap, nbits);
-> +        last = bytemap[nbits/8];
+> It's actually a little ugly to do.
+> 
+> #ifdef __XEN__
+> #undef cpu_user_regs
+> #else
+> typedef struct cpu_user_regs cpu_user_regs_t;
+> DEFINE_XEN_GUEST_HANDLE(cpu_user_regs_t);
+> #endif
+> 
+> and I don't particularly like it, given the complexity of #ifdef-ary
+> around it.  Thoughts?
 
-Same style nit as before.
+It's not really pretty, but I'd be okay with this.
 
-> +        if ( copy_bytes &&
+>>> --- /dev/null
+>>> +++ b/xen/arch/x86/include/asm/cpu-user-regs.h
+>>> @@ -0,0 +1,69 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>>> +#ifndef X86_CPU_USER_REGS_H
+>>> +#define X86_CPU_USER_REGS_H
+>>> +
+>>> +#define DECL_REG_LOHI(which) union { \
+>>> +    uint64_t r ## which ## x; \
+>>> +    uint32_t e ## which ## x; \
+>>> +    uint16_t which ## x; \
+>>> +    struct { \
+>>> +        uint8_t which ## l; \
+>>> +        uint8_t which ## h; \
+>>> +    }; \
+>>> +}
+>>> +#define DECL_REG_LO8(name) union { \
+>>> +    uint64_t r ## name; \
+>>> +    uint32_t e ## name; \
+>>> +    uint16_t name; \
+>>> +    uint8_t name ## l; \
+>>> +}
+>>> +#define DECL_REG_LO16(name) union { \
+>>> +    uint64_t r ## name; \
+>>> +    uint32_t e ## name; \
+>>> +    uint16_t name; \
+>>> +}
+>>> +#define DECL_REG_HI(num) union { \
+>>> +    uint64_t r ## num; \
+>>> +    uint32_t r ## num ## d; \
+>>> +    uint16_t r ## num ## w; \
+>>> +    uint8_t r ## num ## b; \
+>>> +}
+>> Can we try to avoid repeating these here? The #undef-s in the public header are
+>> to keep external consumers' namespaces reasonably tidy. In Xen, since we don't
+>> otherwise use identifiers of these names, can't we simply #ifdef-out those
+>> #undef-s, and then not re-introduce the same (less the two underscores) here?
+>> Granted we then need to include the public header here, but I think that's a
+>> fair price to pay to avoid the redundancy.
+> 
+> Breaking the connection between asm/current.h and public/xen.h is very
+> important IMO.  Right now, the public interface/types/defines are in
+> every TU, and they absolutely shouldn't be.
 
-copy_bytes > 1
+Hmm, that's a good point. Nevertheless I wonder if we still couldn't avoid the
+unhelpful redundancy. E.g. by introducing a separate, small public header with
+just these. Which we'd then pull in here as well.
 
-> +             copy_to_guest(xenctl_bitmap->bitmap, bytemap, copy_bytes - 1) )
-> +            err = -EFAULT;
-> +
-> +        xfree(bytemap);
-> +    }
-> +    else
-> +    {
-> +        const uint8_t *bytemap = (const uint8_t *)bitmap;
-> +        last = bytemap[nbits/8];
-> +
-> +        if ( copy_bytes &&
-> +             copy_to_guest(xenctl_bitmap->bitmap, bytemap, copy_bytes - 1) )
-> +            err = -EFAULT;
+> Sadly, the compiler isn't happy when including public/xen.h after
+> asm/current.h, hence the dropping of the underscores.
 
-The two identical instances would imo better stay common, even if this may
-require another function-scope variable (to invoke xfree() on after the
-copy-out).
+Even if the ones here are #undef-ed after use?
 
-> +    }
-> +
-> +    clamp_last_byte(&last, nbits);
-> +    if ( copy_to_guest_offset(xenctl_bitmap->bitmap, copy_bytes - 1, &last, 1) )
-> +        err = -EFAULT;
+> I did have half a mind to expand them fully.  I find them unintuitive,
+> but I also didn't think I'd successfully argue that change in.
 
-Careful here in particular when copy_bytes == 0.
+Roger - do you have an opinion here? I like these wrappers, yet then I also
+understand this is code that's pretty unlikely to ever change again. Hence
+fully expanding them is an option.
 
 Jan
-
 
