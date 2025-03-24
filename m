@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAF6CA6DBFB
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 14:47:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.925562.1328432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33AAAA6DC1B
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 14:51:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.925572.1328442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twi9a-0004ud-Bo; Mon, 24 Mar 2025 13:47:46 +0000
+	id 1twiD7-0006p0-Pc; Mon, 24 Mar 2025 13:51:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 925562.1328432; Mon, 24 Mar 2025 13:47:46 +0000
+Received: by outflank-mailman (output) from mailman id 925572.1328442; Mon, 24 Mar 2025 13:51:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twi9a-0004tA-8t; Mon, 24 Mar 2025 13:47:46 +0000
-Received: by outflank-mailman (input) for mailman id 925562;
- Mon, 24 Mar 2025 13:47:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1twiD7-0006nY-N4; Mon, 24 Mar 2025 13:51:25 +0000
+Received: by outflank-mailman (input) for mailman id 925572;
+ Mon, 24 Mar 2025 13:51:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jtpT=WL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1twi9Y-0004t4-RL
- for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 13:47:44 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f99153f-08b6-11f0-9ea2-5ba50f476ded;
- Mon, 24 Mar 2025 14:47:43 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-ac34257295dso918615866b.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 06:47:43 -0700 (PDT)
-Received: from [10.81.43.157] ([46.149.103.11])
+ id 1twiD5-0006nR-SW
+ for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 13:51:23 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 11c0a6f5-08b7-11f0-9ffa-bf95429c2676;
+ Mon, 24 Mar 2025 14:51:22 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-ac3fcf5ab0dso423128866b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 06:51:22 -0700 (PDT)
+Received: from [10.81.43.157] ([46.149.103.13])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3ef868748sm682036366b.12.2025.03.24.06.47.42
+ a640c23a62f3a-ac3efb64895sm675311166b.113.2025.03.24.06.51.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Mar 2025 06:47:42 -0700 (PDT)
+ Mon, 24 Mar 2025 06:51:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f99153f-08b6-11f0-9ea2-5ba50f476ded
+X-Inumbo-ID: 11c0a6f5-08b7-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742824063; x=1743428863; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1742824281; x=1743429081; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PYWhK+Ex47SMavhFpp9SRe6/vGCrKC7CP5C3EwJn098=;
-        b=tGIxKJQki7lFK3SaZmtpp1PcnhUt4m+38VU+OWjyA833PWUM3Q0lRqOB5MZ3l0ZXIb
-         VEYSK/+pJ2VVUUZF4irlqpaPQMDX0wCb6Q5kvbeuX0GuGi89O/WkWs6jqRUw9Qazc/uY
-         rDbUiODFkDwi2khxOzMz4w0BjN4MzDmJ0z0GA=
+        bh=jnJLIrKjfDEdu6JvAt5qo9/EkSvuY2OFElmNaSvA5go=;
+        b=sBd7RElBEAFcCZtHPc3H+yNQwynuQcY8ExL1+1flFxbBljm/Kd/mAZVbJ+7bhqy7ZI
+         HdsomhfkY3qfbyhU9gHkxize6Gnhs/FfOIstx1RG2f2ZJAq1/OS8axhNEuktZrkl+UYk
+         08L3RfKkVjfg2s28c/flAdT5wKOsYW/Ox9bMw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742824063; x=1743428863;
+        d=1e100.net; s=20230601; t=1742824281; x=1743429081;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PYWhK+Ex47SMavhFpp9SRe6/vGCrKC7CP5C3EwJn098=;
-        b=Nx3PLX2u00OlkLDXaH216s8UmFoAMkj8QSf5ka6RdzQEIBQifAlrf1AbShnDEknzMe
-         AksWXMa4QmuyqlhLAGyHvinyIfEZwYnMR2OkN+GWExZ4lxUnjcbpHfr1QYMvcO55wyGY
-         So0tHtdCRF/f7zbbEUQGMbZpVhI1Yge+JPeX9JrQAKYzlBfNFAmAtizXCdECpxdVGWYG
-         CpKdsy73iYTN5dByHiLsV3ChWlp9KDMcIJRAmATQgDr5c8nuTiSH4Z68EBcBdGlQFET1
-         byrKXkU+kLFaIIe/jNl/9HEVpmLf67u85fTHsnIwKp8RwCpyAzPFSjn111owihWNL0yq
-         AP0A==
-X-Forwarded-Encrypted: i=1; AJvYcCVRkeT2i4GVXsuF9A+85GyajXCHVSYL+Yll1Es/sLIPEvVV6D1uLATJW0t9aqgJ1btZbHlmOIgdZBc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz3wMmjFambJ6Ra2DdNkRavRa79JpRG2+i0V+V5fxmIncXalQMb
-	aX1eeA9SBwnV8KeyFVA9qIKdHCb2tCdfd/kFfGkJfQIL+8lcRq7GJrkxPTAWO4w=
-X-Gm-Gg: ASbGncv6sxG4UzBsOA8A5hXYYrdB+Skvh2BvSVos3PesjxNrqSk5Z5hI1ksZABS7FEX
-	qWVsPocy3Co+phnPlemvMHcS2c2swvfEVfLJmw6DjClqFfUSu4FkUshQE+i0YO0IqVitFtp6zRz
-	UeRAhy7CzVxYRNZ57Ipw3zTypSONociWkYpKa9bpyUbDTcHHblKdKCO28YpN1ZFYEVsiID5t5k/
-	Qz8fHDR6XHWPZY9NytW+A26+wWdAwDulVu/0BnZHb4F1gQXGPmINW44MLTho0+TDpVXPY1V35mw
-	BdclLjPiA5Smf/cg/o4I8xdns3SQhr5BPgTYV0BBNqE/Bo1f5IGmLms=
-X-Google-Smtp-Source: AGHT+IGUl0xRjqL8zvc0uKfAn6rj4BEV2Ub+fmwIpt5dlvs/u4qz6AwK5wzrBQ1aD1jtI9qDWHc7ww==
-X-Received: by 2002:a17:907:1c21:b0:abf:6389:6d19 with SMTP id a640c23a62f3a-ac3f226757amr1015698466b.15.1742824062971;
-        Mon, 24 Mar 2025 06:47:42 -0700 (PDT)
-Message-ID: <38d2e43d-8dd6-4e9b-9126-8eee5fefbe26@citrix.com>
-Date: Mon, 24 Mar 2025 13:47:41 +0000
+        bh=jnJLIrKjfDEdu6JvAt5qo9/EkSvuY2OFElmNaSvA5go=;
+        b=WEQZGdKxB7m+t5AsqzrKemdpMeDwXJRLWF6JpoifQlL+qKwBqWB89AtCUQzFc1O20H
+         CyxBefLNSZeveDxEhBgSpmAD8ttCGUwToj/1E7n8dQRicgqZyFFVsjWiavd16AO2nNSn
+         oajoFpXEPYZp8wQk78+ftVsfWo1iSsxxJYwG5S+JHW4WVEv2v1iHJU+QbpA6MDDr3lJo
+         MByoRwf8Kxf6gpmZpfEgBCyfAm8oNxfACn4Ab6qthWiPiuFbK6MD4YmzDr3zRhB7Sq8l
+         mXEK7lOXIHPQ/mnZsU5mkO8l+jrjdbVC8nMmQbUhA5VcuZlz6VmfJ5IvG9Il2YrW34qO
+         +58w==
+X-Gm-Message-State: AOJu0Yxw0TFjVrm25ru5nTL7RpxfA3EUdQy+JOWM5WOsGLGBI9L44MPn
+	iuo3OnMXSIe8nt7qYvHy2t2IT/yba3PgtTldsFksU2fJcHs+Zs9I0eDRj0XEMkckVOd48fGbpXR
+	ApaY=
+X-Gm-Gg: ASbGnctJgBVYa4g5vo26eMSXEWUE4uTmPSqKoBQvzhDAubrtzbXQ/nVD+V6lE6Oq/Ed
+	fvHDjwG+UkQhW4u6rTJ3ClaQdgUEET8bPSl3nhJa6LcnmBuefdCpOlyCcBXlsiuRU/9tH+ajIpz
+	9TbuIgzd74UfpC5VeetiqIHZEPqBqmwfSfsiey95XAwxhGHqClqF60v2tvItNqGPFncxvwcK1r3
+	uswsgJI/+qm6jKfCx3osPJGgA3QJBzGdVFLsIubH0+P2/oylCRqmNKV83X4sdbfFB8nSPLA8ek/
+	vDeFbMnbFZE5H2yeV7PgW6qISGUnWCGo0BLgpBt30RWTtvxAfyXFBT4=
+X-Google-Smtp-Source: AGHT+IEQdMjmVBE/jvJcqEQQFnt8b9Gj0MiQrtVdnZ54jyocGIji8p+kC5LZN1ParemKsjq5gl4kGw==
+X-Received: by 2002:a17:906:f59d:b0:ac1:daba:c6c with SMTP id a640c23a62f3a-ac3f22a0c6amr1225624466b.24.1742824281033;
+        Mon, 24 Mar 2025 06:51:21 -0700 (PDT)
+Message-ID: <7b16c87d-f2af-451e-a58f-36461a697ad7@citrix.com>
+Date: Mon, 24 Mar 2025 13:51:16 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2] x86/irq: introduce APIC_VECTOR_VALID()
-To: Jan Beulich <jbeulich@suse.com>, dmkhn@proton.me
-Cc: anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
- roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com,
- xen-devel@lists.xenproject.org
+To: xen-devel@lists.xenproject.org, dmkhn@proton.me
+Cc: anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com
 References: <20250320230339.3897874-1-dmukhin@ford.com>
- <e24ec8f4-3320-4978-8deb-cefc3380a0ed@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,37 +134,30 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e24ec8f4-3320-4978-8deb-cefc3380a0ed@suse.com>
+In-Reply-To: <20250320230339.3897874-1-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 24/03/2025 12:36 pm, Jan Beulich wrote:
-> On 21.03.2025 00:05, dmkhn@proton.me wrote:
->> Add new macro APIC_VECTOR_VALID() to validate the interrupt vector
->> range as per [1]. This macro replaces hardcoded checks against the
->> open-coded value 16 in LAPIC and virtual LAPIC code and simplifies
->> the code a bit.
->>
->> [1] Intel SDM volume 3A
->>     Chapter "ADVANCED PROGRAMMABLE INTERRUPT CONTROLLER"
->>     Section "Valid Interrupt Vectors"
->>
->> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> with ...
+On 20/03/2025 11:05 pm, dmkhn@proton.me wrote:
+> Add new macro APIC_VECTOR_VALID() to validate the interrupt vector
+> range as per [1]. This macro replaces hardcoded checks against the
+> open-coded value 16 in LAPIC and virtual LAPIC code and simplifies
+> the code a bit.
 >
->> --- a/xen/arch/x86/include/asm/apicdef.h
->> +++ b/xen/arch/x86/include/asm/apicdef.h
->> @@ -78,6 +78,7 @@
->>  #define			APIC_DM_STARTUP		0x00600
->>  #define			APIC_DM_EXTINT		0x00700
->>  #define			APIC_VECTOR_MASK	0x000FF
->> +#define			APIC_VECTOR_VALID(x)	(((x) & APIC_VECTOR_MASK) >= 16)
-> ... line length restrictions respected here. I'll see about taking care of
-> this while committing, provided other x86 maintainers wouldn't prefer this
-> to not go in in the first place (so I'll also give it another day or two).
+> [1] Intel SDM volume 3A
+>     Chapter "ADVANCED PROGRAMMABLE INTERRUPT CONTROLLER"
+>     Section "Valid Interrupt Vectors"
+>
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-I'm ok with this change.  Unlike v1, it's meaningful in context.
+Would it be possible to adjust your git configuration so committer is
+set to Denis Mukhin <dmukhin@ford.com> ?
+
+Right now, it takes manual fixup to prevent your commits going in as
+authored by dmkhn@proton.me, and one already slipped through. 
+https://xenbits.xen.org/gitweb/?p=xen.git&a=search&h=refs%2Fheads%2Fstaging&st=author&s=dmkhn%40proton.me
+
+Thanks,
 
 ~Andrew
 
