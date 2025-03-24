@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 086CCA6D920
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 12:26:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.925384.1328248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB025A6D922
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 12:26:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.925392.1328262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twfwI-0007su-L4; Mon, 24 Mar 2025 11:25:54 +0000
+	id 1twfwp-0008N2-Vy; Mon, 24 Mar 2025 11:26:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 925384.1328248; Mon, 24 Mar 2025 11:25:54 +0000
+Received: by outflank-mailman (output) from mailman id 925392.1328262; Mon, 24 Mar 2025 11:26:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twfwI-0007qY-IJ; Mon, 24 Mar 2025 11:25:54 +0000
-Received: by outflank-mailman (input) for mailman id 925384;
- Mon, 24 Mar 2025 11:25:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1twfwp-0008Kl-Sg; Mon, 24 Mar 2025 11:26:27 +0000
+Received: by outflank-mailman (input) for mailman id 925392;
+ Mon, 24 Mar 2025 11:26:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1twfwG-0007qS-B2
- for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 11:25:52 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1twfwG-005XB5-0i;
- Mon, 24 Mar 2025 11:25:51 +0000
-Received: from [2a02:8012:3a1:0:c427:8b54:5bca:1d39]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1twfwF-00BA6H-2H;
- Mon, 24 Mar 2025 11:25:51 +0000
+ (envelope-from <SRS0=sMR0=WL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1twfwo-00086T-PH
+ for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 11:26:26 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d1ca1cba-08a2-11f0-9ffa-bf95429c2676;
+ Mon, 24 Mar 2025 12:26:24 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43cfecdd8b2so34019635e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 04:26:24 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d440ed4d9sm169361705e9.33.2025.03.24.04.26.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Mar 2025 04:26:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,207 +45,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=M8ObZlBiiodlTZMN7j15ifaTDduw5QtJVVLX+572fEM=; b=pKpxLoP3NWEdf2JSaVMApT4Pii
-	dZ1Lrsg/eLODzUr1sjNMINidrxBb7QtD5uzJRIb87KfKhzWpdNeCbexq+7xoeIl/1CnD8Alyri+hg
-	x5kCfaIUuYE59/VOsQGT3RfUg80swlphfcQlUOdKe0M1TF7rwCW9PYCQ3EQRB8sdYsaY=;
-Message-ID: <d7469d5a-080f-44b3-81c8-9d79cab58c7a@xen.org>
-Date: Mon, 24 Mar 2025 11:25:49 +0000
+X-Inumbo-ID: d1ca1cba-08a2-11f0-9ffa-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1742815584; x=1743420384; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=IL+D97LwqZy6NUkik4VWtwwtkvEltgXEbuNKczi+Dqs=;
+        b=KYOfmJAC0BtKoDTfEkXcsrQjk4sEkvob0coW8sRNN5O1mFWUWMKPXFik2MmYzyHaWR
+         9sx+bhrvtC7t3qeo3B8QJ9APtFz2k2gXS8Tn9mqZ/7uYbxpZQ+ATDismv9AWJaDiRQVS
+         0ex2my9eC14h7y9nmHKOlRbMZ7OuSUhpo8cReF46l+K/Fkk2jt1pdMIbqZ3d/RHLj+/F
+         WwKY6k3XHEXSQcjwIldhOI0D80QvztxhmQSgbrfjlJPSL0JDyIubJQH1XaGZD+JSTngA
+         hTSDhYfamA7mT1g59ikaSfioqg2Ysn3vluyTbmJkiMqLJ/S63m4gZDMvcAuQldqA18vR
+         gMqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742815584; x=1743420384;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=IL+D97LwqZy6NUkik4VWtwwtkvEltgXEbuNKczi+Dqs=;
+        b=S7fAnBGizYtQqaXrS6/yjAMyIYW8fw2uxQ7UU5TKaUgA2k6y+DMABuZ17TVPbSIGx1
+         693EoZUcKLwj7SZGT/t3ZTq+wNED7X3SgVlRgwR4ug7RFrEH7KB8D0BwpL4hYnB9j/o0
+         LPf76L2+gnfcZ0fi4XbwYYVbH2FYb/MKrMi6ipzpB3ujzERU2iHYWB2KJc6bsJzNp4de
+         OjxOPDozahbU7oLyJkr0owSltmi5zw/YLfHRKDucR+1Yg8oMBK56K2952TySzCe6IT5B
+         otwPobRJfA1IEmZ7H+4efbswbVtUG2NvgNlwtf1t5WpVRdtGJUqlhj+d43CtN0Z30Vgj
+         0MGA==
+X-Forwarded-Encrypted: i=1; AJvYcCWDowO2kIFqRIs985o3KCjbqNcBn34fNciCdLeJU7z4nQkYj2twIBtpikECilOeEUGNSfRY3cvyYGs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzpxwOkEcdyaAc92HWUSPmG1Uq/vF2LhYO/K77ZzKFACfjn3qQZ
+	BA0zhjFgC1pA4nTjGv9Cjo7bqyNO/7Xdp/eSwAs7i2AlPPpYndPUsGeaeanR7A==
+X-Gm-Gg: ASbGnctu/36/UtVK+Ye5w1RlXK9T/9gf1cdoRnMM9t6Uh9i3GwDa2d+wYY9ZmGGmWgH
+	pMXdNxS4CroCTSp/vYGO+DmHdGbPFyUK6666jx9JcedMemqfTmhtQv5EAVu6y5XHNyuUGCYm35E
+	1yid0UPbtHsjieijB7CR14ymo0ak7GKl/5OlOQKSLHU8E9+1d1HRuskbK+LG+yGel/rS7OfNF0O
+	DuaNSRqJjbISxEOfZWuha3f0YDySwL5M50QTt3Qh7iPh+l7PJUAAVKhoVLVapT35d/9TB3UzsUb
+	bmRJMXAiGxjs4XTI1shR6RGlGpXnCwxzJAti3g1ycs3x2ivGGaJWrhiPkuiFizP8gJuPogA87ir
+	zdFg4SHuBgremUxUQwcBnEBmZavmuzw==
+X-Google-Smtp-Source: AGHT+IHAtT277OXKvAGGh+haK75uTP/GgvDWP4wBXrPc3QDY18CpD1rovHV4ERw49cqpk/qXrbOQOw==
+X-Received: by 2002:a05:600c:1ca4:b0:43c:fbbf:7bf1 with SMTP id 5b1f17b1804b1-43d50a3a75bmr122470185e9.30.1742815583998;
+        Mon, 24 Mar 2025 04:26:23 -0700 (PDT)
+Message-ID: <28e23122-6cfd-464d-99f4-4ac45b8b79d0@suse.com>
+Date: Mon, 24 Mar 2025 12:26:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm/efi: merge neighboring banks
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <alpine.DEB.2.22.394.2503211403040.2325679@ubuntu-linux-20-04-desktop>
- <85ac456a-ae11-4a04-8d73-dfafba04de98@xen.org>
- <alpine.DEB.2.22.394.2503211534080.2325679@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2503211534080.2325679@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [MINI-OS PATCH v2 1/2] 9pfs: add fstat file operation hook
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+References: <20250321093145.17882-1-jgross@suse.com>
+ <20250321093145.17882-2-jgross@suse.com> <Z99PXOXocyuZtf_X@begin>
+ <79a51a80-7723-4f58-b0ea-25f73d4fd796@suse.com>
+ <abce7ac0-21bd-409c-bc4c-f08d04a5a5d1@suse.com> <Z-E0TUu_LWkXt-wI@begin>
+ <2fa05dd3-c5ae-4e72-b42d-260433590187@suse.com>
+Content-Language: en-US
+Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+ Jason Andryuk <jason.andryuk@amd.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <2fa05dd3-c5ae-4e72-b42d-260433590187@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Stefano,
-
-On 21/03/2025 23:11, Stefano Stabellini wrote:
-> On Fri, 21 Mar 2025, Julien Grall wrote:
->> Hi Stefano,
->>
->> On 21/03/2025 21:14, Stefano Stabellini wrote:
->>> When booting from U-Boot bootefi, there can be a high number of
->>> neighboring RAM banks. See for example:
+On 24.03.2025 12:18, Jürgen Groß wrote:
+> On 24.03.25 11:30, Samuel Thibault wrote:
+>> Jan Beulich, le lun. 24 mars 2025 11:21:48 +0100, a ecrit:
+>>> On 23.03.2025 15:57, Jürgen Groß wrote:
+>>>> On 23.03.25 01:01, Samuel Thibault wrote:
+>>>>> Juergen Gross, le ven. 21 mars 2025 10:31:44 +0100, a ecrit:
+>>>>>> Add a file operations fstat hook to the 9pfs frontend.
+>>>>>>
+>>>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>>>> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+>>>>>> ---
+>>>>>> V2:
+>>>>>> - or file access mode into st_mode (Jason Andryuk)
+>>>>>> ---
+>>>>>>    9pfront.c | 29 +++++++++++++++++++++++++++++
+>>>>>>    1 file changed, 29 insertions(+)
+>>>>>>
+>>>>>> diff --git a/9pfront.c b/9pfront.c
+>>>>>> index 1741d600..7257a07e 100644
+>>>>>> --- a/9pfront.c
+>>>>>> +++ b/9pfront.c
+>>>>>> @@ -85,6 +85,8 @@ struct file_9pfs {
+>>>>>>    
+>>>>>>    #define P9_QID_SIZE    13
+>>>>>>    
+>>>>>> +#define QID_TYPE_DIR   0x80     /* Applies to qid[0]. */
+>>>>>> +
+>>>>>>    struct p9_header {
+>>>>>>        uint32_t size;
+>>>>>>        uint8_t cmd;
+>>>>>> @@ -950,6 +952,32 @@ static int write_9pfs(struct file *file, const void *buf, size_t nbytes)
+>>>>>>        return ret;
+>>>>>>    }
+>>>>>>    
+>>>>>> +static int fstat_9pfs(struct file *file, struct stat *buf)
+>>>>>> +{
+>>>>>> +    struct file_9pfs *f9pfs = file->filedata;
+>>>>>> +    struct p9_stat stat;
+>>>>>> +    int ret;
+>>>>>> +
+>>>>>> +    ret = p9_stat(f9pfs->dev, f9pfs->fid, &stat);
+>>>>>> +    if ( ret )
+>>>>>> +    {
+>>>>>> +        errno = EIO;
+>>>>>> +        return -1;
+>>>>>> +    }
+>>>>>> +
+>>>>>> +    buf->st_mode = (stat.qid[0] == QID_TYPE_DIR) ? S_IFDIR : S_IFREG;
+>>>>>> +    buf->st_mode |= stat.mode & 0777;
+>>>>>> +    buf->st_atime = stat.atime;
+>>>>>> +    buf->st_mtime = stat.mtime;
+>>>>>
+>>>>> Should we perhaps also fill st_ctime? Leaving it at 0 could surprise
+>>>>> other software layers.
+>>>>
+>>>> I can set it to the same value as st_mtime.
 >>>
->>> (XEN) RAM: 0000000000000000 - 0000000000bfffff
->>> (XEN) RAM: 0000000000c00000 - 0000000000c00fff
->>> (XEN) RAM: 0000000000c01000 - 0000000000dfffff
->>> (XEN) RAM: 0000000000e00000 - 000000000279dfff
->>> (XEN) RAM: 000000000279e000 - 00000000029fffff
->>> (XEN) RAM: 0000000002a00000 - 0000000008379fff
->>> (XEN) RAM: 000000000837a000 - 00000000083fffff
->>> (XEN) RAM: 0000000008400000 - 0000000008518fff
->>> (XEN) RAM: 0000000008519000 - 00000000085fffff
->>> (XEN) RAM: 0000000008600000 - 0000000008613fff
->>> (XEN) RAM: 0000000008614000 - 00000000097fffff
->>> (XEN) RAM: 0000000009800000 - 00000000098a7fff
->>> (XEN) RAM: 00000000098a8000 - 0000000009dfffff
->>> (XEN) RAM: 0000000009e00000 - 0000000009ea7fff
->>> (XEN) RAM: 0000000009ea8000 - 000000001fffffff
->>> (XEN) RAM: 0000000020000000 - 000000002007ffff
->>> (XEN) RAM: 0000000020080000 - 0000000077b17fff
->>> (XEN) RAM: 0000000077b19000 - 0000000077b2bfff
->>> (XEN) RAM: 0000000077b2c000 - 0000000077c8dfff
->>> (XEN) RAM: 0000000077c8e000 - 0000000077c91fff
->>> (XEN) RAM: 0000000077ca7000 - 0000000077caafff
->>> (XEN) RAM: 0000000077cac000 - 0000000077caefff
->>> (XEN) RAM: 0000000077cd0000 - 0000000077cd2fff
->>> (XEN) RAM: 0000000077cd4000 - 0000000077cd7fff
->>> (XEN) RAM: 0000000077cd8000 - 000000007bd07fff
->>> (XEN) RAM: 000000007bd09000 - 000000007fd5ffff
->>> (XEN) RAM: 000000007fd70000 - 000000007fefffff
->>> (XEN) RAM: 0000000800000000 - 000000087fffffff
->>>
->>> It is undesirable to keep them separate, as this approach consumes more
->>> resources.
+>>> Maybe the smaller of atime and mtime?
 >>
->> What resources? This is pre-allocated static array in the binary. They are
->> also dropped after init. The more interesting argument is...
->>
->>>
->>> Additionally, Xen does not currently support boot modules that span
->>> multiple banks: at least one of the regions get freed twice. The first
->>> time from setup_mm->populate_boot_allocator, then again from
->>> discard_initial_modules->fw_unreserved_regions. With a high number of
->>> banks, it can be difficult to arrange the boot modules in a way that
->>> avoids spanning across multiple banks.
->>
->> ... this one. Although, I find weird that U-boot would create tons of banks.
->> Have you considered to ask them what's going on?
->>
->> Also, what about the cases where U-boot is not booting Xen without UEFI? Why
->> is this not a problem? Asking just in case the merge should happen in code
->> common rather than in UEFI.
+>> That'd be better, yes.
 > 
-> I was also curious so I printed all the Types (desc->Type) for each EFI
-> region, see below the results.
-> 
-> DEBUG start=0x0 type=0x7
-> DEBUG start=0xc00000 type=0x4
-> DEBUG start=0xc01000 type=0x7
-> DEBUG start=0xe00000 type=0x4
-> DEBUG start=0x279e000 type=0x7
-> DEBUG start=0x2a00000 type=0x4
-> DEBUG start=0x837a000 type=0x7
-> DEBUG start=0x8400000 type=0x4
-> DEBUG start=0x8519000 type=0x7
-> DEBUG start=0x8600000 type=0x4
-> DEBUG start=0x8614000 type=0x7
-> DEBUG start=0x9800000 type=0x4
-> DEBUG start=0x98a8000 type=0x7
-> DEBUG start=0x9e00000 type=0x4
-> DEBUG start=0x9ea8000 type=0x7
-> DEBUG start=0x20000000 type=0x4
-> DEBUG start=0x20080000 type=0x7
-> DEBUG start=0x77b19000 type=0x2
-> DEBUG start=0x77b2c000 type=0x1
-> DEBUG start=0x77c8e000 type=0x4
-> DEBUG start=0x77ca7000 type=0x4
-> DEBUG start=0x77cac000 type=0x4
-> DEBUG start=0x77cd0000 type=0x4
-> DEBUG start=0x77cd4000 type=0x4
-> DEBUG start=0x77cd8000 type=0x3
-> DEBUG start=0x7bd09000 type=0x3
-> DEBUG start=0x7fd70000 type=0x3
-> DEBUG start=0x800000000 type=0x4
-> 
-> Looking at EFI_MEMORY_TYPE, 0x4 should be EfiBootServicesData and 0x7
-> should be EfiConventionalMemory. So the reason why there are so many
-> neighboring regions is that they are of different EFI types. There are
-> very many EfiBootServicesData regions, and by the time interesting Xen
-> code runs, BootServices are not available anymore, so they can be
-> reused. But they are still counted separately from the EFI point of
-> view. This cannot happen with the non-EFI boot as there are no
-> EfiBootServicesData regions.
+> According to the references I could find ctime is changed whenever
+> either file contents OR file status (uid, gid, permissions) are
+> modified. So using the same value as mtime seems appropriate.
 
-Thnks for checking. In which case, I am fine with the current placement 
-of the check.
+Hmm, yes, one always learns something new. Having come from the DOS/Windows
+world originally, 'c' in the name to me only ever could stand for "create".
+When really, as you say, it's "change". I'm sorry for introducing confusion
+here.
 
-> 
->   
->>> This small patch merges neighboring regions, to make dealing with them
->>> more efficient, and to make it easier to load boot modules.
->>
->> While I understand the value for this, I ...
->>
->>> The patch
->>> also takes the opportunity to check and discard duplicates.
->>
->> don't understand why we need to check for duplicates. This also doesn't
->> properly work for a few reasons:
->>    * This doesn't cover partial overlap
->>    * This would not work if an entry was merged with another previously
->>
->> So I think the code to check duplicates should be removed. If you are
->> concerned about overlap, then it would be better to enable check_reserved
->> just drop the code. If you are concerned about to detect and warn/panic.
-> 
-> Thanks Julien. No, I am not concerned about duplicates, I thought I
-> would add check since I was at it. I am totally fine removing it.
-> 
->   
->>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->>>
->>> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
->>> index a80a5a7ab3..f6f23ed5b2 100644
->>> --- a/xen/arch/arm/efi/efi-boot.h
->>> +++ b/xen/arch/arm/efi/efi-boot.h
->>> @@ -163,6 +163,20 @@ static bool __init meminfo_add_bank(struct membanks
->>> *mem,
->>>        struct membank *bank;
->>>        paddr_t start = desc->PhysicalStart;
->>>        paddr_t size = desc->NumberOfPages * EFI_PAGE_SIZE;
->>> +    int j;
->>
->> nr_banks is an "unsigned int". So this should be the same type.
-> 
-> Thank you, good point
-> 
->>> +
->>> +    for ( j = 0; j < mem->nr_banks; j++ )
->>> +    {
->>> +        if ( mem->bank[j].start == start && mem->bank[j].size == size )
->>> +        {
->>> +            return true;
->>> +        }
->>> +        else if ( mem->bank[j].start + mem->bank[j].size == start )
->>
->> Please add some parentheses to make it more obvious that you checking (a + b)
->> == size.
-> 
-> Sure I can do that
-> 
-> 
->>> +        {
->>> +            mem->bank[j].size += size;
->>> +            return true;
->>> +        }
->>> +    }
->>>          if ( mem->nr_banks >= mem->max_banks )
->>>            return false;
->>
->> Cheers,
->>
->> -- 
->> Julien Grall
->>
-
-Cheers,
-
--- 
-Julien Grall
-
+Jan
 
