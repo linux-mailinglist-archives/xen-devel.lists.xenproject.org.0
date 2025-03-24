@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D779A6E192
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 18:52:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.925946.1328815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1362A6E23D
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Mar 2025 19:25:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.925955.1328825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twly3-0004Px-Lj; Mon, 24 Mar 2025 17:52:07 +0000
+	id 1twmTY-0002cv-1X; Mon, 24 Mar 2025 18:24:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 925946.1328815; Mon, 24 Mar 2025 17:52:07 +0000
+Received: by outflank-mailman (output) from mailman id 925955.1328825; Mon, 24 Mar 2025 18:24:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twly3-0004N3-IH; Mon, 24 Mar 2025 17:52:07 +0000
-Received: by outflank-mailman (input) for mailman id 925946;
- Mon, 24 Mar 2025 17:52:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1twmTX-0002a8-UV; Mon, 24 Mar 2025 18:24:39 +0000
+Received: by outflank-mailman (input) for mailman id 925955;
+ Mon, 24 Mar 2025 18:24:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oa5Q=WL=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1twly2-0004Mu-9Q
- for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 17:52:06 +0000
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [2607:f8b0:4864:20::1033])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b05a8120-08d8-11f0-9ffa-bf95429c2676;
- Mon, 24 Mar 2025 18:52:02 +0100 (CET)
-Received: by mail-pj1-x1033.google.com with SMTP id
- 98e67ed59e1d1-2ff6e91cff5so8093236a91.2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 10:52:02 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 98e67ed59e1d1-3030f806fb9sm8458911a91.45.2025.03.24.10.51.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Mar 2025 10:51:59 -0700 (PDT)
+ <SRS0=jtpT=WL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1twmTW-0002a0-Cr
+ for xen-devel@lists.xenproject.org; Mon, 24 Mar 2025 18:24:38 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3df48ca7-08dd-11f0-9ea2-5ba50f476ded;
+ Mon, 24 Mar 2025 19:24:37 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5e66407963fso8406280a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Mar 2025 11:24:37 -0700 (PDT)
+Received: from [10.81.43.157] ([46.149.103.8])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5ebcd0dfb33sm6486122a12.68.2025.03.24.11.24.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Mar 2025 11:24:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,219 +45,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b05a8120-08d8-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 3df48ca7-08dd-11f0-9ea2-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742838721; x=1743443521; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=CNWzWAcgP5osgtlC/YKpdqjJe9Mr06cqx1fXZbFGTuc=;
-        b=tR4xhYWz+9AXDLCVGsxIUXkKR5HYdIaUOa78Bw7ny4T9S3dDNpY9Z4Di17xDfQo2T0
-         aH3/GbJlJzxFtTWfM7TE5xgIAk5av+jVve/jUKg6dJr2hScgI6wbbZlUWJEBtvb9RnVA
-         K6sHEY153WyluZGX/BW0dvhSPCgGuy6GsKk3o=
+        d=citrix.com; s=google; t=1742840676; x=1743445476; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fmfTGaU4qWrkMM7zMF85OgI9e1HIGXGAW1TTXQ2BA8s=;
+        b=fMKiquI9Im14MCupjBw++8uq5nY4/ezQ2bmosJqdVl2KiaRgOGl0pDXWyj6PsClS2w
+         AQgwcPaVHMKTlg6wwPenMj6U3PcrNlylrIsX3M/989clwvv4SKve4z6UI+oFl4C/xRfL
+         Y0P0rCNuHhIs9RYCdYHtFVAVGKL2xsNiti7Co=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742838721; x=1743443521;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=CNWzWAcgP5osgtlC/YKpdqjJe9Mr06cqx1fXZbFGTuc=;
-        b=dFyioWWgpDW8hgdBS69zLp/BhIRLC3kDtxoEXdSMugXNEs8DDcmL5fdwRBzNJrWXYI
-         /ee2b9LDDxWPvU9wMjtgVn5p+kJJxo8Nh6psvHYpu3u6aeSfeMY9I1k1KHZPyoueoKWh
-         3rpGuEcvDu3b7V+NFQwCLUOWiGDYUIDPSAY8YuUjaDnzGy0sVeDzn4/MrDLr2SkldHTL
-         9MmVM6Hbv6n7bMRGYaZFMKcUguKaDMmAg0HNNlgXkTRNY3LXP0Q5Wh7QbR5Y+UF7nE/y
-         K4pq7MEG88gYP5lRqDi94ViPJVGQUgymSNKfpmlBHN40cgAjoQQi4yL7bbsueI3AOb5C
-         FFcA==
-X-Forwarded-Encrypted: i=1; AJvYcCUa+j8ZYB9jt1Gg4YzEV2QgQ2rs9zcg3rF7HmS7ZRjl6yiWCDqIRz/KojtnTeHUzQwQC2s+WJDWwk8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx3ZOyftV/6+XdKy+i0l3XFjSO/6tFoGrJG/kYcA1Stdc0mKoUI
-	WEb+8cOY4ViK7gMeafcBMjgAFDgIjannHNTWWveVW5HvEDBliNu/azZl6q4nCNk=
-X-Gm-Gg: ASbGncsVqxWnjksvgQ8vZp0ScF2HoZhZf9MD5g9VU9F9ZqjremaZl9YuDOTgMp8SVyE
-	4AXMcDPA9gtRc1CnAdyCSJtCiZ/kcKuBd7VlDTYqwWNIGyB+UKTRKaNZhJhjGaioNcKoQ0Y9C8U
-	4UohUeMzXZcW2mTWubMvNqYG8U1PNFBq7wj17dt/N1hCdVsplInmx8StegsTcPHpcDIzGdZ19Ho
-	FxUXmpYRLRcI1fuoqjHTVZKUwj4p3zNm3vrp+uJyFAMrT5fumRLKcdVq3taBIlVLYPtU7f7stOA
-	1xDdiA7+uOA7f6wkQtQSRctM7CZ50VSN9/C75yGeJ6EU8eYtTbIPe6WkdGFZ
-X-Google-Smtp-Source: AGHT+IFyWUJjrXu1IsyCVjHhL289CPz98eVvVSsMjLEg+OjduUCs1rADwPTvWVrkRcJWj9d2Uk4q2g==
-X-Received: by 2002:a17:90b:2647:b0:2ee:d7d3:3019 with SMTP id 98e67ed59e1d1-3030fe95343mr26877301a91.12.1742838720394;
-        Mon, 24 Mar 2025 10:52:00 -0700 (PDT)
-Date: Mon, 24 Mar 2025 18:51:54 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Daniel Gomez <da.gomez@kernel.org>
-Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Bjorn Helgaas <helgaas@kernel.org>, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Bjorn Helgaas <bhelgaas@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH v3 3/3] PCI/MSI: Convert pci_msi_ignore_mask to per MSI
- domain flag
-Message-ID: <Z-GbuiIYEdqVRsHj@macbook.local>
-References: <20250320210741.GA1099701@bhelgaas>
- <846c80f8-b80f-49fd-8a50-3fe8a473b8ec@suse.com>
- <qn7fzggcj6qe6r6gdbwcz23pzdz2jx64aldccmsuheabhmjgrt@tawf5nfwuvw7>
+        d=1e100.net; s=20230601; t=1742840676; x=1743445476;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fmfTGaU4qWrkMM7zMF85OgI9e1HIGXGAW1TTXQ2BA8s=;
+        b=tn1VjIxzip/8uvKTEMQ039a8YUwwGwdxo2/7+gzreSUoQ64aUTsC22UX6RVGWN6GUb
+         O09qa/bjh7zt4OS5MKcLMVNmz7nDTkbc7Iw+/kXYExKAZDWLypalVqu9VLyDtx5eDgRw
+         FbPJpv8vn3nVQeJBeXY26OCLEsFPwBjg+MyyHzyBUqKX6qYSfdhgz8RmVTi+98MaLOQB
+         CEEzzx7B/wMNnXRElRJP5lWlfPYLvshElAfrdNiZ8Gk0jD8LzVF4pk0JH/eWg6fGansN
+         u2cE7VK1/5tRfvrwbXHSnB59CzFkqSqMMe3yBaxihd/rxl4BwpPuW+eMUqH+Lo5WKF7U
+         JZXA==
+X-Forwarded-Encrypted: i=1; AJvYcCVgdEX3hMwPuoegNWYEVQdUFRLZl25KF+KtcPrpsuLp46pcUWt0Jo6HeJmRzZqGu5FAo+EwjgUXhzI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzso+NrfQkh1VINx+X+gTJEVr/bGZh4OaBSPe0c1aV2FqIgAWWW
+	FEOw5AonTFSdKlnqYqxv2r9519EO/v1voYZNygMh98odghKDTQSPSeTqEWjqN25xVniN4nQi42t
+	dXtY=
+X-Gm-Gg: ASbGncu/aE/dq3LhurVRcm6piRbhaBJoGWGX07frjhprT3P8suyNOuMPH8u/+H+7Ake
+	b5Xy7P+GssdGs6BSb8AQ4HF0LYdYA2HbT2NzUBbvcmQsCbgLRw2zYBLtsSU5mKEUVwPePa+MUby
+	ZkJ+CMGGm/XebdTwKQoLdvyCSXuiATrIeIWRQ6CXIwnmEo1p9U5LuS5+g+4orD0y0ldxqFp6rBJ
+	KXdTXMKv+d0Gkpv8vAiZCiEexf6Gabz3k2MLfGit5jYXTkqjPsHNB0ZkkLmw0b6NSIxzGTckfSP
+	Ggoi708tWwA1uBSNW9TMs5d2cEq1EwpaTJELsMeMFFps5XwPqBbjeg==
+X-Google-Smtp-Source: AGHT+IFtHeSvVkCtn71Pltz22+B3XXbVehd9dRSgERAG1nzKmLf6LI5y+e2b+aubXvaM0+d5aZhmiw==
+X-Received: by 2002:a05:6402:510b:b0:5e0:82a0:50ab with SMTP id 4fb4d7f45d1cf-5ebcd519938mr12104455a12.27.1742840676351;
+        Mon, 24 Mar 2025 11:24:36 -0700 (PDT)
+Message-ID: <6a039bc7-429d-4473-8a92-e5693dfd3fd9@citrix.com>
+Date: Mon, 24 Mar 2025 18:24:35 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] x86/PVH: account for module command line length
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Jason Andryuk <jandryuk@gmail.com>
+References: <110f0966-0b89-48d6-b1b3-abae93802c19@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <110f0966-0b89-48d6-b1b3-abae93802c19@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <qn7fzggcj6qe6r6gdbwcz23pzdz2jx64aldccmsuheabhmjgrt@tawf5nfwuvw7>
 
-On Mon, Mar 24, 2025 at 03:29:46PM +0100, Daniel Gomez wrote:
-> 
-> Hi,
-> 
-> On Fri, Mar 21, 2025 at 09:00:09AM +0100, Jürgen Groß wrote:
-> > On 20.03.25 22:07, Bjorn Helgaas wrote:
-> > > On Wed, Feb 19, 2025 at 10:20:57AM +0100, Roger Pau Monne wrote:
-> > > > Setting pci_msi_ignore_mask inhibits the toggling of the mask bit for both
-> > > > MSI and MSI-X entries globally, regardless of the IRQ chip they are using.
-> > > > Only Xen sets the pci_msi_ignore_mask when routing physical interrupts over
-> > > > event channels, to prevent PCI code from attempting to toggle the maskbit,
-> > > > as it's Xen that controls the bit.
-> > > > 
-> > > > However, the pci_msi_ignore_mask being global will affect devices that use
-> > > > MSI interrupts but are not routing those interrupts over event channels
-> > > > (not using the Xen pIRQ chip).  One example is devices behind a VMD PCI
-> > > > bridge.  In that scenario the VMD bridge configures MSI(-X) using the
-> > > > normal IRQ chip (the pIRQ one in the Xen case), and devices behind the
-> > > > bridge configure the MSI entries using indexes into the VMD bridge MSI
-> > > > table.  The VMD bridge then demultiplexes such interrupts and delivers to
-> > > > the destination device(s).  Having pci_msi_ignore_mask set in that scenario
-> > > > prevents (un)masking of MSI entries for devices behind the VMD bridge.
-> > > > 
-> > > > Move the signaling of no entry masking into the MSI domain flags, as that
-> > > > allows setting it on a per-domain basis.  Set it for the Xen MSI domain
-> > > > that uses the pIRQ chip, while leaving it unset for the rest of the
-> > > > cases.
-> > > > 
-> > > > Remove pci_msi_ignore_mask at once, since it was only used by Xen code, and
-> > > > with Xen dropping usage the variable is unneeded.
-> > > > 
-> > > > This fixes using devices behind a VMD bridge on Xen PV hardware domains.
-> > > > 
-> > > > Albeit Devices behind a VMD bridge are not known to Xen, that doesn't mean
-> > > > Linux cannot use them.  By inhibiting the usage of
-> > > > VMD_FEAT_CAN_BYPASS_MSI_REMAP and the removal of the pci_msi_ignore_mask
-> > > > bodge devices behind a VMD bridge do work fine when use from a Linux Xen
-> > > > hardware domain.  That's the whole point of the series.
-> > > > 
-> > > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > > > Reviewed-by: Thomas Gleixner <tglx@linutronix.de>
-> > > > Acked-by: Juergen Gross <jgross@suse.com>
-> > > 
-> > > Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-> > > 
-> > > I assume you'll merge this series via the Xen tree.  Let me know if
-> > > otherwise.
-> > 
-> > I've pushed the series to the linux-next branch of the Xen tree.
-> > 
-> > 
-> > Juergen
-> 
-> This patch landed in latest next-20250324 tag causing this crash:
-> 
-> [    0.753426] BUG: kernel NULL pointer dereference, address: 0000000000000002
-> [    0.753921] #PF: supervisor read access in kernel mode
-> [    0.754286] #PF: error_code(0x0000) - not-present page
-> [    0.754656] PGD 0 P4D 0
-> [    0.754842] Oops: Oops: 0000 [#1]
-> [    0.755080] CPU: 0 UID: 0 PID: 1 Comm: swapper Not tainted 6.14.0-rc7-next-20250324 #1 NONE
-> [    0.755691] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> [    0.756349] RIP: 0010:msix_prepare_msi_desc+0x39/0x80
-> [    0.756390] Code: 20 c7 46 04 01 00 00 00 8b 56 4c 89 d0 0d 01 01 00 00 66 89 46 4c 8b 8f 64 02 00 00 89 4e 50 48 8b 8f 70 06 00 00 48 89 4e 58 <41> f6 40 02 40 75 2a c1 ea 02 bf 80 00 00 00 21 fa 25 7f ff ff ff
-> [    0.756390] RSP: 0000:ffff8881002a76e0 EFLAGS: 00010202
-> [    0.756390] RAX: 0000000000000101 RBX: ffff88810074d000 RCX: ffffc9000002e000
-> [    0.756390] RDX: 0000000000000000 RSI: ffff8881002a7710 RDI: ffff88810074d000
-> [    0.756390] RBP: ffff8881002a7710 R08: 0000000000000000 R09: ffff8881002a76b4
-> [    0.756390] R10: 000000701000c001 R11: ffffffff82a3dc01 R12: 0000000000000000
-> [    0.756390] R13: 0000000000000005 R14: 0000000000000000 R15: 0000000000000002
-> [    0.756390] FS:  0000000000000000(0000) GS:0000000000000000(0000) knlGS:0000000000000000
-> [    0.756390] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    0.756390] CR2: 0000000000000002 CR3: 0000000002a3d001 CR4: 00000000003706b0
-> [    0.756390] Call Trace:
-> [    0.756390]  <TASK>
-> [    0.756390]  ? __die_body+0x1b/0x60
-> [    0.756390]  ? page_fault_oops+0x2d0/0x310
-> [    0.756390]  ? exc_page_fault+0x59/0xc0
-> [    0.756390]  ? asm_exc_page_fault+0x22/0x30
-> [    0.756390]  ? msix_prepare_msi_desc+0x39/0x80
-> [    0.756390]  ? msix_capability_init+0x172/0x2c0
-> [    0.756390]  ? __pci_enable_msix_range+0x1a8/0x1d0
-> [    0.756390]  ? pci_alloc_irq_vectors_affinity+0x7c/0xf0
-> [    0.756390]  ? vp_find_vqs_msix+0x187/0x400
-> [    0.756390]  ? vp_find_vqs+0x2f/0x250
-> [    0.756390]  ? snprintf+0x3e/0x50
-> [    0.756390]  ? vp_modern_find_vqs+0x13/0x60
-> [    0.756390]  ? init_vq+0x184/0x1e0
-> [    0.756390]  ? vp_get_status+0x20/0x20
-> [    0.756390]  ? virtblk_probe+0xeb/0x8d0
-> [    0.756390]  ? __kernfs_new_node+0x122/0x160
-> [    0.756390]  ? vp_get_status+0x20/0x20
-> [    0.756390]  ? virtio_dev_probe+0x171/0x1c0
-> [    0.756390]  ? really_probe+0xc2/0x240
-> [    0.756390]  ? driver_probe_device+0x1d/0x70
-> [    0.756390]  ? __driver_attach+0x96/0xe0
-> [    0.756390]  ? driver_attach+0x20/0x20
-> [    0.756390]  ? bus_for_each_dev+0x7b/0xb0
-> [    0.756390]  ? bus_add_driver+0xe6/0x200
-> [    0.756390]  ? driver_register+0x5e/0xf0
-> [    0.756390]  ? virtio_blk_init+0x4d/0x90
-> [    0.756390]  ? add_boot_memory_block+0x90/0x90
-> [    0.756390]  ? do_one_initcall+0xe2/0x250
-> [    0.756390]  ? xas_store+0x4b/0x4b0
-> [    0.756390]  ? number+0x13b/0x260
-> [    0.756390]  ? ida_alloc_range+0x36a/0x3b0
-> [    0.756390]  ? parameq+0x13/0x90
-> [    0.756390]  ? parse_args+0x10f/0x2a0
-> [    0.756390]  ? do_initcall_level+0x83/0xb0
-> [    0.756390]  ? do_initcalls+0x43/0x70
-> [    0.756390]  ? rest_init+0x80/0x80
-> [    0.756390]  ? kernel_init_freeable+0x70/0xb0
-> [    0.756390]  ? kernel_init+0x16/0x110
-> [    0.756390]  ? ret_from_fork+0x30/0x40
-> [    0.756390]  ? rest_init+0x80/0x80
-> [    0.756390]  ? ret_from_fork_asm+0x11/0x20
-> [    0.756390]  </TASK>
-> [    0.756390] Modules linked in:
-> [    0.756390] CR2: 0000000000000002
-> [    0.756390] ---[ end trace 0000000000000000 ]---
-> [    0.756390] RIP: 0010:msix_prepare_msi_desc+0x39/0x80
-> [    0.756390] Code: 20 c7 46 04 01 00 00 00 8b 56 4c 89 d0 0d 01 01 00 00 66 89 46 4c 8b 8f 64 02 00 00 89 4e 50 48 8b 8f 70 06 00 00 48 89 4e 58 <41> f6 40 02 40 75 2a c1 ea 02 bf 80 00 00 00 21 fa 25 7f ff ff ff
-> [    0.756390] RSP: 0000:ffff8881002a76e0 EFLAGS: 00010202
-> [    0.756390] RAX: 0000000000000101 RBX: ffff88810074d000 RCX: ffffc9000002e000
-> [    0.756390] RDX: 0000000000000000 RSI: ffff8881002a7710 RDI: ffff88810074d000
-> [    0.756390] RBP: ffff8881002a7710 R08: 0000000000000000 R09: ffff8881002a76b4
-> [    0.756390] R10: 000000701000c001 R11: ffffffff82a3dc01 R12: 0000000000000000
-> [    0.756390] R13: 0000000000000005 R14: 0000000000000000 R15: 0000000000000002
-> [    0.756390] FS:  0000000000000000(0000) GS:0000000000000000(0000) knlGS:0000000000000000
-> [    0.756390] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    0.756390] CR2: 0000000000000002 CR3: 0000000002a3d001 CR4: 00000000003706b0
-> [    0.756390] note: swapper[1] exited with irqs disabled
-> [    0.782774] Kernel panic - not syncing: Attempted to kill init! exitcode=0x00000009
-> [    0.783560] Kernel Offset: disabled
-> [    0.783909] ---[ end Kernel panic - not syncing: Attempted to kill init! exitcode=0x00000009 ]---
-> 
-> 
-> msix_prepare_msi_desc+0x39/0x80:
-> msix_prepare_msi_desc at drivers/pci/msi/msi.c:616
->  611            desc->nvec_used                         = 1;
->  612            desc->pci.msi_attrib.is_msix            = 1;
->  613            desc->pci.msi_attrib.is_64              = 1;
->  614            desc->pci.msi_attrib.default_irq        = dev->irq;
->  615            desc->pci.mask_base                     = dev->msix_base;
-> >616<           desc->pci.msi_attrib.can_mask           = !(info->flags & MSI_FLAG_NO_MASK) &&
->  617                                                      !desc->pci.msi_attrib.is_virtual;
->  618
->  619            if (desc->pci.msi_attrib.can_mask) {
->  620                    void __iomem *addr = pci_msix_desc_addr(desc);
->  621
-> 
-> Reverting patch 3 fixes the issue.
+On 24/03/2025 12:03 pm, Jan Beulich wrote:
+> As per observation in practice, initrd->cmdline_pa is not normally zero.
+> Hence so far we always appended at least one byte. That alone may
+> already render insufficient the "allocation" made by find_memory().
+> Things would be worse when there's actually a (perhaps long) command
+> line.
+>
+> Skip setup when the command line is empty. Amend the "allocation" size
+> by padding and actual size of module command line. Along these lines
+> also skip initrd setup when the initrd is zero size.
+>
+> Fixes: 0ecb8eb09f9f ("x86/pvh: pass module command line to dom0")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v3: Permit empty initrd with non-empty module command line again.
+> v2: Use elf_round_up(). Introduce initrd_cmdline local. Re-base.
 
-Thanks for the report and sorry for the breakage.  Do you have a QEMU
-command line I can use to try to reproduce this locally?
+I wasn't making a request to support an empty module with a non-empty
+cmdline.
 
-Will work on a patch ASAP.
+That's a nonsense configuration; it's almost certainly an error
+elsewhere, rather than an intended configuration.
 
-Regards, Roger.
+I was simply requesting that the implications are considered, and
+discussed, rather than silently dropping.
+
+We ought to exclude such cases centrally, rather than locally in the PVH
+path.
+
+>
+> --- a/xen/arch/x86/hvm/dom0_build.c
+> +++ b/xen/arch/x86/hvm/dom0_build.c
+> @@ -652,9 +652,10 @@ static int __init pvh_load_kernel(
+>      unsigned long image_len = image->size;
+>      unsigned long initrd_len = initrd ? initrd->size : 0;
+>      const char *cmdline = image->cmdline_pa ? __va(image->cmdline_pa) : NULL;
+> +    const char *initrd_cmdline = NULL;
+>      struct elf_binary elf;
+>      struct elf_dom_parms parms;
+> -    size_t extra_space;
+> +    size_t extra_space = 0;
+>      paddr_t last_addr;
+>      struct hvm_start_info start_info = { 0 };
+>      struct hvm_modlist_entry mod = { 0 };
+> @@ -712,10 +713,26 @@ static int __init pvh_load_kernel(
+>       * split into smaller allocations, done as a single region in order to
+>       * simplify it.
+>       */
+> -    extra_space = sizeof(start_info);
+> -
+>      if ( initrd )
+> -        extra_space += sizeof(mod) + ROUNDUP(initrd_len, PAGE_SIZE);
+> +    {
+> +        extra_space = elf_round_up(&elf, initrd_len);
+
+I'm going to insist on not doing this.  For the sake of anyone (else)
+trying to follow this logic.
+
+You're trading increased cognitive complexity of the logic to avoid
+using one local variable.
+
+~Andrew
 
