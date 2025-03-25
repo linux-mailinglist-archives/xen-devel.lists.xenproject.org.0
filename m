@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DDADA6EA42
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 08:18:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926044.1328895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C432CA6EA41
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 08:18:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926052.1328905 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twyXD-0003UI-QM; Tue, 25 Mar 2025 07:17:15 +0000
+	id 1twyYB-0003xY-1t; Tue, 25 Mar 2025 07:18:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926044.1328895; Tue, 25 Mar 2025 07:17:15 +0000
+Received: by outflank-mailman (output) from mailman id 926052.1328905; Tue, 25 Mar 2025 07:18:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twyXD-0003Rx-MM; Tue, 25 Mar 2025 07:17:15 +0000
-Received: by outflank-mailman (input) for mailman id 926044;
- Tue, 25 Mar 2025 07:17:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1twyYA-0003vt-V7; Tue, 25 Mar 2025 07:18:14 +0000
+Received: by outflank-mailman (input) for mailman id 926052;
+ Tue, 25 Mar 2025 07:18:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RPpQ=WM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1twyXC-0003Rr-04
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 07:17:14 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 289da184-0949-11f0-9ffa-bf95429c2676;
- Tue, 25 Mar 2025 08:17:06 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5e60cfef9cfso7829475a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 00:17:06 -0700 (PDT)
+ id 1twyY9-0003oz-L5
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 07:18:13 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5011c108-0949-11f0-9ea3-5ba50f476ded;
+ Tue, 25 Mar 2025 08:18:13 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-ac25d2b2354so874099466b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 00:18:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3efbdecedsm811809466b.140.2025.03.25.00.17.04
+ 4fb4d7f45d1cf-5ebccfae4casm7176205a12.34.2025.03.25.00.18.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Mar 2025 00:17:05 -0700 (PDT)
+ Tue, 25 Mar 2025 00:18:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 289da184-0949-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 5011c108-0949-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742887026; x=1743491826; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742887092; x=1743491892; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=mrNWs8DEDKZTnfvrHKbcO5s7JbNIoUh/ZnTwRdW9r5Q=;
-        b=Zw3+rw/LivASr8ad2gWvIzQpWrows3+i9+NkGzjxZRrKK8d7jJdvHW6j2Ju9RfKwqj
-         v702oDSkvTcogmijfYkYxNnvX9ils/vGxl8GAPgjUVZcgpBHwEQMYk69yyimL8GaBMZy
-         7ugnI55TENOKDBOQTLNuQedk0soZ2MqwLlbyVsMJNp5NTMq5Ht1bmZSFziOg1v5+g4Yh
-         ySiNKs1RvgJa6d8W8z404FqNpykMm42rQtNgJx6dnyXiwwK6e8w0/HzIhGuVhG89syeK
-         qKYJCHQASRTqdWvzG0HubkmScBq6yXMzIg2a1HZxJBvJ1LXZEnSN1jff67CjQ6Dgy5ll
-         j4cg==
+        bh=YzGPiON2y3NiZ52lxi6U1xktGB3tDjpAH9Qs2LgO9NA=;
+        b=PTlFyUA6/Vt4R3gq0ZWJ5hsF9XHzvd4DgpNOkCtqmADYXUNT5s2ic+7CE8hrF0DQ7e
+         sN7NCT1E7UnnTFgDO+VdXBejDmi6X+xdGWxtuipgMd2to23LzcRuHJJuZO2yuTLAJ/wB
+         lDfFcpJEaqDLWbMiJ8qqByZ6phbdmo8NAjL3yNMPC9d+fZAQNBA7cmyhVwr+fJ3L1IDd
+         DyU5/nZvHlR9OC5nPsppJd/0r2/WYUorVyBBEdqTEyjultlrwiQhRq4MTNgYjv7cC1L0
+         v2LPWQwrp44n5YY1TmxCEKZamDHZazqFPRw+ryxYVfiswOyYA9fkpqgVtRtWJQjm1K4M
+         9qCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742887026; x=1743491826;
+        d=1e100.net; s=20230601; t=1742887092; x=1743491892;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mrNWs8DEDKZTnfvrHKbcO5s7JbNIoUh/ZnTwRdW9r5Q=;
-        b=GGmq4W5nZ3qM4py/GnvoG/vJpdVNm/pwp87Qihebs7dbgwLRP1ODcau6+pshkjwpCP
-         8Rbvi5oCrUHxFbV/2XNYchrYje1Do3Ha1wSDpb70bDi+jEOarOIQCccwVZaEf8DIqMuy
-         l7Y2sdNKinMAsmPJ0E2necClexyNfiPnO/o4bBa8Sg051rreBCZSmxNdY6h999o2Cjb1
-         BlFsuARj7lt0xSnhqjjndIRJD0tGWVagbwNSeWSMv0r4PttVbEjw11eSTg/Q9LbEbtQe
-         RLLMO/2N+frsDE0GbtoBpleE1cdHUTzCSb1bP/2tS9+R49YW8YBAOnfj/fg1qvdw4tsS
-         lNaQ==
-X-Gm-Message-State: AOJu0YzIEwsn+RWjt/gc0fM8c6VKku5z/8y5J7oy9ak+EE8BPxa7PWOd
-	5LNFPGWuooEOULMi1w1XbJeIQnJl9Vtz+m8f5bF8Vum8c7NZ23ndozqYBy4Ti4ixJ/33QCcU1gE
+        bh=YzGPiON2y3NiZ52lxi6U1xktGB3tDjpAH9Qs2LgO9NA=;
+        b=LtN6h/hMY0GrYpSrvYHyBC56ANtg1hkHQkjLKGZ2caoJLHmJGXezNXY670tgVXdvOT
+         wohorJz/af8VeCNN5MeI0LeH8mr0YZ+f9y5UXX4H2bhfJsLbGLZ+61xsmduZ3QGKPDYS
+         sVmg69xfuPfse8fGTyBzlEmvRHvPx2xUvZtM1EtinWCilLm29T61CgFMm7l6wIxX/iaz
+         m3fFdJp+BrR+LF4zcJ0nlSOF4ah70QjCERFpo1aXsGYdQbDIP2WrzwatSwosZ0qLqUb4
+         Hum9b2KxS47dGOCT2/5IGNCJq8+UbKyW10etTOtfjuSzphryERk7hhLMZZnNUYEv7AjL
+         u6Rw==
+X-Gm-Message-State: AOJu0Yzc3KsmjwV/Auc0HJhk+b+IQ6tpSt23VqUyZqKbAeAU2gv8DpSA
+	dmopsXaAlqlKF9V3JYlMjL8Gvm1J/7yfkiIL0mu5dl6dh4E8DqQDT8kCN1Cu9jBvW0hhfKF1R2c
 	=
-X-Gm-Gg: ASbGncvnSe9g5dtvhVbHJl9i/1+r6bW1j9IHkt36Fv+yorQpEQfxvDQLFSw7h0WBNRY
-	3zcoKy3lzMim41Yu1JtEsNEOxvkBDLwmvOzqESi9iLmO/VLvv6PWG0W9V87kH6hlumMfcz6QmMz
-	OlEqLwBETyQhjYuIb5mAkSgGCPO9S0vd2ubSAmQAU7tsMZPiVF+UDOrfBALCT5YOmZBcHvZEkOt
-	u4hBSP7Jn3H19erwQ+ufmKT5g/dkA/kVdEm1YOlENXQZ6+0ywHJyMkAeaMhHIqODEVW4ZrNvO1o
-	+AuaW+lf9yc/THKo5ITfc7TEb918/IQ04pHUMjAhEWpwW1u+UI/jLx/ANCRr7tP85mCBgQERs/p
-	C/8cTwx5IDqSs5zNUKIh4+lMyRcobKn2o5T9fwSaW
-X-Google-Smtp-Source: AGHT+IEXgJSm1XCe90dyGmboSwglGpk6T6Y46xrO3dCQutFdixpUAPWbE23WzAoF16/RjdqtLg/a1Q==
-X-Received: by 2002:a17:907:f50a:b0:ac3:f494:c0a2 with SMTP id a640c23a62f3a-ac3f494c0d0mr1573554966b.13.1742887026195;
-        Tue, 25 Mar 2025 00:17:06 -0700 (PDT)
-Message-ID: <b590b590-764a-4dfe-9e13-975122790329@suse.com>
-Date: Tue, 25 Mar 2025 08:17:04 +0100
+X-Gm-Gg: ASbGncuxdwRFGcR//qJ9DHRqAQFUh8KZvOKJgzIwkNTelNIWNVZh+zor8D3bRtpJSv7
+	xMSYhd4tggQuBhX5B4bnK+G92HHIoXBaBtqP+LgYpy51egosj26z4RpjMBIFCROMrU8M2M2S8pX
+	LjAxcKLouaxW/I4zR7UZAJVFfYnWZTSWq8ZUWgmxAMRZODAcMpdRYa7JqzmEc0g20gPj1a+Qf8F
+	7x14vIMLpPWJ7mYH0tbB1YufVu5RiIzxx9fgoe+1QMEXTaPBG/7O1lXnIpf+Z9xKTPGyPcuj0P2
+	EcAGqTOysf8FelMm0Rlr4Y7jOtz63s/ioT9zh87IhHYXBiK9pgfzl4ugIeVPS9sSjnzjsUg4gSQ
+	ZpTf6VEaDUnhFYa7oWSmNR0TOvCI5sA==
+X-Google-Smtp-Source: AGHT+IEv8s73LJM73w8ATxo5vSKKAoViAtCvuRZEV3R0iOGROJFQjstw3rIzoJhAqFfkaHXnavrxHQ==
+X-Received: by 2002:a17:907:97c2:b0:ac6:ba92:79c9 with SMTP id a640c23a62f3a-ac6ba927fdbmr208490266b.18.1742887092412;
+        Tue, 25 Mar 2025 00:18:12 -0700 (PDT)
+Message-ID: <edecdda9-4728-4c65-9f31-76c912a433d7@suse.com>
+Date: Tue, 25 Mar 2025 08:18:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -91,8 +91,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] x86/P2M: synchronize fast and slow paths of
- p2m_get_page_from_gfn()
+Subject: [PATCH] x86/CPU: don't hard-code MTRR availability
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -119,128 +118,21 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Handling of both grants and foreign pages was different between the two
-paths.
+In particular if we're running virtualized, the underlying hypervisor
+(which may be another Xen) may not surface MTRRs, and offer PAT only.
 
-While permitting access to grants would be desirable, doing so would
-require more involved handling; undo that for the time being. In
-particular the page reference obtained would prevent the owning domain
-from changing e.g. the page's type (after the grantee has released the
-last reference of the grant). Instead perhaps another reference on the
-grant would need obtaining. Which in turn would require determining
-which grant that was.
-
-Foreign pages in any event need permitting on both paths.
-
-Introduce a helper function to be used on both paths, such that
-respective checking differs in just the extra "to be unshared" condition
-on the fast path.
-
-While there adjust the sanity check for foreign pages: Don't leak the
-reference on release builds when on a debug build the assertion would
-have triggered. (Thanks to Roger for the suggestion.)
-
-Fixes: 80ea7af17269 ("x86/mm: Introduce get_page_from_gfn()")
-Fixes: 50fe6e737059 ("pvh dom0: add and remove foreign pages")
-Fixes: cbbca7be4aaa ("x86/p2m: make p2m_get_page_from_gfn() handle grant case correctly")
+Fixes: 5a281883cdc3 ("Hardcode many cpu features for x86/64 -- we know 64-bit")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: Have helper take const struct domain *.
 
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -328,12 +328,46 @@ void p2m_put_gfn(struct p2m_domain *p2m,
-     gfn_unlock(p2m, gfn_x(gfn), 0);
- }
- 
-+static struct page_info *get_page_from_mfn_and_type(
-+    const struct domain *d, mfn_t mfn, p2m_type_t t)
-+{
-+    struct page_info *page;
-+
-+    if ( !mfn_valid(mfn) )
-+        return NULL;
-+
-+    page = mfn_to_page(mfn);
-+
-+    if ( p2m_is_ram(t) )
-+    {
-+        if ( p2m_is_shared(t) )
-+            d = dom_cow;
-+
-+        if ( get_page(page, d) )
-+            return page;
-+    }
-+    else if ( unlikely(p2m_is_foreign(t)) )
-+    {
-+        const struct domain *fdom = page_get_owner_and_reference(page);
-+
-+        if ( fdom )
-+        {
-+            if ( likely(fdom != d) )
-+                return page;
-+            ASSERT_UNREACHABLE();
-+            put_page(page);
-+        }
-+    }
-+
-+    return NULL;
-+}
-+
- /* Atomically look up a GFN and take a reference count on the backing page. */
- struct page_info *p2m_get_page_from_gfn(
-     struct p2m_domain *p2m, gfn_t gfn,
-     p2m_type_t *t, p2m_access_t *a, p2m_query_t q)
- {
--    struct page_info *page = NULL;
-+    struct page_info *page;
-     p2m_access_t _a;
-     p2m_type_t _t;
-     mfn_t mfn;
-@@ -347,26 +381,9 @@ struct page_info *p2m_get_page_from_gfn(
-         /* Fast path: look up and get out */
-         p2m_read_lock(p2m);
-         mfn = p2m_get_gfn_type_access(p2m, gfn, t, a, 0, NULL, 0);
--        if ( p2m_is_any_ram(*t) && mfn_valid(mfn)
--             && !((q & P2M_UNSHARE) && p2m_is_shared(*t)) )
--        {
--            page = mfn_to_page(mfn);
--            if ( unlikely(p2m_is_foreign(*t)) || unlikely(p2m_is_grant(*t)) )
--            {
--                struct domain *fdom = page_get_owner_and_reference(page);
--
--                ASSERT(!p2m_is_foreign(*t) || fdom != p2m->domain);
--                if ( fdom == NULL )
--                    page = NULL;
--            }
--            else
--            {
--                struct domain *d = !p2m_is_shared(*t) ? p2m->domain : dom_cow;
--
--                if ( !get_page(page, d) )
--                    page = NULL;
--            }
--        }
-+        page = !(q & P2M_UNSHARE) || !p2m_is_shared(*t)
-+               ? get_page_from_mfn_and_type(p2m->domain, mfn, *t)
-+               : NULL;
-         p2m_read_unlock(p2m);
- 
-         if ( page )
-@@ -380,14 +397,7 @@ struct page_info *p2m_get_page_from_gfn(
- 
-     /* Slow path: take the write lock and do fixups */
-     mfn = get_gfn_type_access(p2m, gfn_x(gfn), t, a, q, NULL);
--    if ( p2m_is_ram(*t) && mfn_valid(mfn) )
--    {
--        struct domain *d = !p2m_is_shared(*t) ? p2m->domain : dom_cow;
--
--        page = mfn_to_page(mfn);
--        if ( !get_page(page, d) )
--            page = NULL;
--    }
-+    page = get_page_from_mfn_and_type(p2m->domain, mfn, *t);
-     put_gfn(p2m->domain, gfn_x(gfn));
- 
-     return page;
+--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+@@ -70,7 +70,7 @@ static inline bool boot_cpu_has(unsigned
+ #define cpu_has_pse             1
+ #define cpu_has_apic            boot_cpu_has(X86_FEATURE_APIC)
+ #define cpu_has_sep             boot_cpu_has(X86_FEATURE_SEP)
+-#define cpu_has_mtrr            1
++#define cpu_has_mtrr            boot_cpu_has(X86_FEATURE_MTRR)
+ #define cpu_has_pge             1
+ #define cpu_has_pse36           boot_cpu_has(X86_FEATURE_PSE36)
+ #define cpu_has_clflush         boot_cpu_has(X86_FEATURE_CLFLUSH)
 
