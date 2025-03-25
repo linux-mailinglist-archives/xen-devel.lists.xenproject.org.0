@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 334F9A6F229
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 12:26:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926353.1329201 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FA3EA6F3CC
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 12:30:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926365.1329210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx2QH-0004lb-8X; Tue, 25 Mar 2025 11:26:21 +0000
+	id 1tx2UD-0006FW-QF; Tue, 25 Mar 2025 11:30:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926353.1329201; Tue, 25 Mar 2025 11:26:21 +0000
+Received: by outflank-mailman (output) from mailman id 926365.1329210; Tue, 25 Mar 2025 11:30:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx2QH-0004iV-5r; Tue, 25 Mar 2025 11:26:21 +0000
-Received: by outflank-mailman (input) for mailman id 926353;
- Tue, 25 Mar 2025 11:26:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RPpQ=WM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tx2QG-0004iP-Id
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 11:26:20 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f44d544d-096b-11f0-9ea3-5ba50f476ded;
- Tue, 25 Mar 2025 12:26:11 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-390f5f48eafso3013786f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 04:26:11 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9a6326sm13182295f8f.29.2025.03.25.04.26.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Mar 2025 04:26:10 -0700 (PDT)
+	id 1tx2UD-0006D8-Mc; Tue, 25 Mar 2025 11:30:25 +0000
+Received: by outflank-mailman (input) for mailman id 926365;
+ Tue, 25 Mar 2025 11:30:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uFHn=WM=epam.com=Oleksandr_Tyshchenko@srs-se1.protection.inumbo.net>)
+ id 1tx2UB-0006D2-Sg
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 11:30:24 +0000
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazlp170120003.outbound.protection.outlook.com
+ [2a01:111:f403:c200::3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8758cedf-096c-11f0-9ffa-bf95429c2676;
+ Tue, 25 Mar 2025 12:30:18 +0100 (CET)
+Received: from PR3PR03MB6412.eurprd03.prod.outlook.com (2603:10a6:102:7d::8)
+ by PAXPR03MB7999.eurprd03.prod.outlook.com (2603:10a6:102:21e::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Tue, 25 Mar
+ 2025 11:30:15 +0000
+Received: from PR3PR03MB6412.eurprd03.prod.outlook.com
+ ([fe80::2887:9068:38f6:8340]) by PR3PR03MB6412.eurprd03.prod.outlook.com
+ ([fe80::2887:9068:38f6:8340%7]) with mapi id 15.20.8534.040; Tue, 25 Mar 2025
+ 11:30:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,261 +47,351 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f44d544d-096b-11f0-9ea3-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742901971; x=1743506771; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3n/0A6DHe08JAM+YkjkdZ4ppo385+DzHaRomhH8+NBc=;
-        b=eiM1Yg9bGRQBKHtvuZsnTfhyVndOJaTu35D4pwESrHyMQwFPNpOaHZY6kLNmTPpCOL
-         W7ZaUfpErdDccv0xnUrD+qv3nc8ua41IQuarw9Z3fJGf8iA23bE43KUAdQ/YFJiIbHr7
-         55z9w1san9f0pi4LA315S92GYckLx5IvEDw71ekO9RxhdJAgXeLTQsd8EmMEaWQUrFKz
-         1N85xcCZPIxiDlIxyhy0T0DcyE3JBx5r4obfTZtWMSGw+bc3qplCsopIX4swK/57Omwh
-         zK1rA2PkznXvV8r69XDTsCPdkCi2LU+CcJyOaJkTvEDVP/etkGbqQHk13Z71f9r2XEHB
-         2K6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742901971; x=1743506771;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3n/0A6DHe08JAM+YkjkdZ4ppo385+DzHaRomhH8+NBc=;
-        b=IxYjLjkqnpBqSiaKQJVkZdGu5uHHO4niGFo2vB2xdtNG9q6z7NpYO4TxN1DfdvSGOJ
-         cPdSUUOM1FIZe3wvQlEgNliMokiIbZcHGxV+Jns4v96rOsn86auqLPCAHIntFi/EXPtZ
-         Kcls2TG6AwyhuTxxiodxFRG+1sxXHijmUvDaJIv3C8ZJchpRKQSF8qqzw9pz6C63HnGl
-         xSKPszJnVws1FYBBe5R1h6VIAYhn9PtnW5l1pJ5ZM66esl0dmkzdIzb/FkMBkeZLl5if
-         NGC/pdLB5B2uC4nL3yeF4KUdXIIesGxz9L+WntC3RirGN9OTHJWLK6V8UEvEzMfvWlsL
-         FKFQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVNjo1txhkrb2cksgtxhGq2zr0EQirkeEa/32qKADKOEzmPxD8wE3DaH6J+LP+7OEA37XMwuMeoi1E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzVqstcz8dtijwNMCA48/2D5/E+uj7p0ABC9JGejEr+47yvCHkN
-	mkWRu6S6L+J3vRmXdxOngt6JOs+s3JtDpUf3A/LZxoJEhN4Sn3BZbrynqldwooyMvyOioKOETo8
-	=
-X-Gm-Gg: ASbGncu1M2pxAgEXSbCJ6W0c/tpI19dEMsxesEtZPqr0+sQQB8gSIurFAyrMvrJDDbN
-	MIqY52+BBd1EliDVdKJWYbg6hTjiow/Rd50qBL+gYVQFnm2hrnqzSsfOxGYBHKoBG0T8ApMIxMj
-	K5NYvFsRcNhfNs024V4KRbEfk41CHC4+3ICeXGZ1iGwDJ6l2eoD+4HGC2W+U64yxM73EO9y9LW8
-	6XHaU7wv6DbLsHLX0pEwWFwlLj5/2Xv6O0VKm5Mi8Y5N5fFQaX4a5dt4DteDS27hh/HGqoV6SOc
-	GSH1uFoQ9sLwhfiW+EiMAVaTf4LstycxZJyitXppiE9mrodqnJB1zKNjQSYNPCennrCTjviaPWe
-	Bi50uTTg2BH7zZvUT3sEJpfoRfG0V4A==
-X-Google-Smtp-Source: AGHT+IG7ziVF0+CB0kmm2k4CJ+f0QJ2nxbB/GX8MakcNMgc+eBb0lUIumqzeJR3XOwp99Jfk9ldO5g==
-X-Received: by 2002:a5d:648b:0:b0:391:4763:2a with SMTP id ffacd0b85a97d-3997f937afbmr15822151f8f.47.1742901970783;
-        Tue, 25 Mar 2025 04:26:10 -0700 (PDT)
-Message-ID: <6f5a81d7-c650-46d2-b667-6b7c3bc54c41@suse.com>
-Date: Tue, 25 Mar 2025 12:26:09 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 14/15] xen/xenpm: Adapt cpu frequency monitor in xenpm
-To: Penny Zheng <Penny.Zheng@amd.com>, Jason Andryuk <jandryuk@gmail.com>,
- Anthony PERARD <anthony.perard@vates.tech>
-Cc: ray.huang@amd.com, Juergen Gross <jgross@suse.com>,
- xen-devel@lists.xenproject.org
-References: <20250306083949.1503385-1-Penny.Zheng@amd.com>
- <20250306083949.1503385-15-Penny.Zheng@amd.com>
+X-Inumbo-ID: 8758cedf-096c-11f0-9ffa-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CwgJXTdcc3bSJ9Ldk+HQ1SCWXqJ85JIxythW+KqVsgcpPUNeRWBQYg3XPTE/5Wq+sxxHoTJKvwIkiOOuS58Y37Kn27XY0v5VMDFYFQPQupFDcSFx8lZIKHt5FSgZPGGCxSLMJ+f4p/3NytpS3IiW45mH6QEzXrHtVqVJ28xusCtumjYUkpegVozjMRRMIAZff/aN1Vj1QEFlLxqHaJt3Z8G90SyJiom8osEmEyNYGGBdlxtY1q7/Q1k1eJMZ5C3O4kzSSO0Z3PN1nzcrazbJK0GW35kLvXpjCfoYQ67R8QR47HLNj8hHjEWu0fXsQOVJ13h5m6YnYID5mJKpoTPPtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v1xVWBhIyB1zYZ4W4+MNstvj6SC91Kwn/Qzovo6iCtY=;
+ b=WKXnPJHz5JanrP5fUwVSNHYX2LqlhVhjhxCJDBfKsGJyXGn7SMRziR7JOUdzeL9nA1Ohd6G03+r2JE6YavV3JIn2J2elaYpuSXwScutDugUEYMSNHxlREk/OL2jr7XnW/0GJDdUotteOPrhsgi6XjDSCfOuehE2VMULuqsyNyphVIASd6ciGXc84bEQ2DMXzl/oGn7c1kM+kiSa5b7AIKRxYpOfr/lANGEA/A/v/PvkpylwHf5FZsv4hor7Ksqj7y4FsjtZsMgRNlFzz9ylXDV/5TOSGwKkdLTciH9vyrJf24EcCz2rYoKceFgos8RYoLYoTxAoY3kFsIY11AajXcg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v1xVWBhIyB1zYZ4W4+MNstvj6SC91Kwn/Qzovo6iCtY=;
+ b=WT1Te/WcEquvlVpP4iq68JnL3wcji7NfYpSRolKxtbiTZN9OASth22qkcpmjsNRO7XOXAoDoKLKU6qg1TUmAQxeYtSmvpkiqt6VWrrXrQ9JFxU4YAw4s9lfEvbsFwOuIvC/sM79n94pKlb1CiTJ407RwJ0nonCahLbkpYBNYWXFwE7J55IfBr0j/H6FvVaE0QITg3JacaBCq909SoNbm+8ZD+8ETgzxgzMmDViK8iSd3FTIP+AaV5WinVkcHyPvttuJf2pVYCguMaRfBTE1F0l8U7V1GSlO0tav9DLSmUN9yqS/XwqLGzfBZVdguQJOp82JGc8rmpBv32uUonjspeg==
+From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>
+Subject: [RFC PATCH] xen/device-tree: Switch back to dt_unreserved_regions()
+ in boot allocator
+Thread-Topic: [RFC PATCH] xen/device-tree: Switch back to
+ dt_unreserved_regions() in boot allocator
+Thread-Index: AQHbnXlHnsoSPQvjtUi5zku8ytw1yA==
+Date: Tue, 25 Mar 2025 11:30:14 +0000
+Message-ID: <20250325113014.1945518-1-oleksandr_tyshchenko@epam.com>
+Accept-Language: en-US, ru-RU
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250306083949.1503385-15-Penny.Zheng@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PR3PR03MB6412:EE_|PAXPR03MB7999:EE_
+x-ms-office365-filtering-correlation-id: e4a2b349-8d6c-4a53-2e9f-08dd6b9069b3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?UOiIRuqXZO2+v3SKM6WNo8kvklepT1WwwrFah5RQDzwzhlF+2NRyyADEZ/?=
+ =?iso-8859-1?Q?z5+4ggC4y3etre2a6qfnpJeE1/MtYRcZ5qIWNE9hNDDoqWjfaoEaRGz2aV?=
+ =?iso-8859-1?Q?GDx+WljJsd4MycFMpq3Ij/m6nhcM2xBm/TzAKclf7voABCa/POUVEHrX0Z?=
+ =?iso-8859-1?Q?jBfFftuWYy9b/wA9XiZROztHS6i6l6VOQDFKVvybZd20n0/dSzILl4N24t?=
+ =?iso-8859-1?Q?UVIHALVPufsZeg1g+/w/F66JR9Q0jg/qgDXaiaHAL8Y2cwjwWuQoOj0luc?=
+ =?iso-8859-1?Q?1M8A2cW4cDdbFHffQ1QvNgf+hIS8jc/QSJ2pHsnbb64EH/D9pT1+Vo0rcw?=
+ =?iso-8859-1?Q?ch3Eu9Zngz+fD12Zj9xHnTW/l+OUo/FogGt3+DDg5ayPo8b6JJ0kakiWKv?=
+ =?iso-8859-1?Q?hkCc1/bEL8lXNRmsOqF6L/Zubs5j+9yl1XaFVvYF8uTF2KRHGeqJ6OdzYy?=
+ =?iso-8859-1?Q?XzmOvKJboTVZM0stZJ8QjaPy82ClY3o46XKfAzZU2jXC9AzC2youpLLrpi?=
+ =?iso-8859-1?Q?h/ufyw/rSGo9NpqCx954lnfvFG1FTUhvItUoOybrM1TfNxKtd2HyBCv6M2?=
+ =?iso-8859-1?Q?BnoGeSoNHZIVvdtfKaP+yEdhCGJjkJ033Rs+D2Y/Wobb34J7XqgR4nJUYU?=
+ =?iso-8859-1?Q?CDhz5TRZeLr1hrLy4Z/miCwtHzYH48N2dcfFVVmXXhYONZdhdnzu/Wv72i?=
+ =?iso-8859-1?Q?rWaPXWX5syMGAzAkKj/O56oZFpxEuV91nHdYf3jNZCB3G5r/hQBtPwUS/j?=
+ =?iso-8859-1?Q?+5sYuoNZpxk6d9GwZ5teNytf9KSzFF548q8eqODQ0ySQvG3CBhhUX3rX4s?=
+ =?iso-8859-1?Q?WfnLeFMF/OV/MR4Qv7G/bipiuxHUKabJJibJ11/yIVmH1Dx776Sk+70Iwu?=
+ =?iso-8859-1?Q?at/OwbD9iLw8S1/5GIhw+03iqGTX+XPChjgxGKkr3rEkrTjKjcX9fmjoAZ?=
+ =?iso-8859-1?Q?JqWVuKB74ngWqfCPBy2jaPn2+8X3EVB4yxzjRqalAIAp9g6VhFSvtOaJ+g?=
+ =?iso-8859-1?Q?b7flvHgsK3WeNRtPBddQdQDDOtmRww4CMo43D1+JoAc/Uo0sjnjF2qigaU?=
+ =?iso-8859-1?Q?GUpIqDqY1hEsApHNqv9/lsyFUQCAT9KQY0AWluvJukeGSKeUDMb4+RPeY4?=
+ =?iso-8859-1?Q?mv2xWXDahvIN0KIr8dG6952hvKaDdpyUWTepMXZxr/qyb6Au1M4yT4hgv7?=
+ =?iso-8859-1?Q?V58H7U0V+c69P2NrGNt0oC3wzHaMP0WAvW2Vf2fpFPQEIHA4FPNjjpg0nE?=
+ =?iso-8859-1?Q?VeOHOiuscPkpUeiWWb/mcF/kbXaXIm1ZD67TMoy6hUn6ixGYvV7CZhNx6n?=
+ =?iso-8859-1?Q?aBatjGPlYcOB7OuGTXwFKMfOUaimA1+5zsbF+SvsUiGQzaq5T0eoD70hGu?=
+ =?iso-8859-1?Q?pM0kwQD6BBd67gyKzFyuAJZwAtg40RQrxz3WJjIGbq68W7RcNJts8NZal0?=
+ =?iso-8859-1?Q?gWt9UEd602f+W6z1NZHKxAXHdo7MzQA1TTwSboq9T5w5qxrp/6tgbtvGpt?=
+ =?iso-8859-1?Q?uDI/H5hpXQfZfs6at3q1dIaV8VgqNZ7g+qUsv3TV+pwe7RYi/F+RM7P2+U?=
+ =?iso-8859-1?Q?Otxvvfg=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR03MB6412.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?Y7r6iQ2MBTXdn8THnzUA2X3kRgUwz/cLNW4nJeQ5WWFrZ9nPoPVm7WJKAW?=
+ =?iso-8859-1?Q?WPMAVOsfifayWGKqRMBQY/dLTh0xfoXmm0eb4A7pYjVbuHaCnA2uWWY46k?=
+ =?iso-8859-1?Q?+gqpeWtt45/JS7F90Jsb+WSASR17/MPL8vvk95959tbIjVHtTQ7t+Na9F8?=
+ =?iso-8859-1?Q?hNmGQAAR1RFVLQLRtyG562la2/l+WvZ2fesp4tTDZCocTnj+fmZtgiQ7Eb?=
+ =?iso-8859-1?Q?hmj906ra8LiiOBbbViI/r09ooSkHFtXLT61Zxm7r5x7UV1w7l+qXi1xeUK?=
+ =?iso-8859-1?Q?5P5yvRpQRYKemmNOJN2VUjUt2VgbLhC6U/3C54ZgI19MANME44c7ETK6Gd?=
+ =?iso-8859-1?Q?jn7fAYhN3s07ayNdKUtMLWBWMDw9cFvtoUG1w4uDD/ALM7e9Ip6BlyGDlH?=
+ =?iso-8859-1?Q?3p36j2AuGzYpAycK0h6efgTjX3H57MEGa5mEZwW93KHZMEsZadOtrceLLl?=
+ =?iso-8859-1?Q?eAh68S1LpuUxlDX+hISK2JmMVsJvE3AACjipm8/0bwAMD5yh8Jgt3RoOMO?=
+ =?iso-8859-1?Q?38/wxrYh0F9Rp7TujwzXhAWxgJAm6cBTl4nkrellm2ozcBL9bfUh0AYff/?=
+ =?iso-8859-1?Q?baHs1txbbptpj+aXbF/HxiIJ/bCurv0arvht7ucYQdY6U1SbT5eRQ2/D3b?=
+ =?iso-8859-1?Q?V6DBHZniWFJn0PMN7RcjOqt8oUp/U8/M6b0L4Z2/2rrBv2ZvzmVOmbYVge?=
+ =?iso-8859-1?Q?NNA1bTl80k4s7bXV1KvLUPRaXLeVv2qoOyLG3tvS8s2y5SfKNla2/sXHuh?=
+ =?iso-8859-1?Q?AXNo70+A7pbsRIUBrHLoZ4jz0PWX+F6PS57dtZ8X6gbhj+DczjY71mVgYv?=
+ =?iso-8859-1?Q?UxMMPTFe51auSd7+rl4BogfnFoJOqHbopoH0tC8TcGbue6eHFyo0Lg5vS7?=
+ =?iso-8859-1?Q?kWIPiom+1kPEcRi1CFyBuigNaHOnUhvl5k1oCZpAN4Hr1sFkfnQXEjCsvs?=
+ =?iso-8859-1?Q?0GySwPCMuvhgYtuKea3670Oyn5ggOLSToFzrMkruC9IT76ks3dkf+ngJRd?=
+ =?iso-8859-1?Q?X7GL0thlU0EeoACdX6aUEbcgmwzcUJN0+7A9g5osgWiVQRrDKGln5tjKnq?=
+ =?iso-8859-1?Q?CrIWWPtqvw0plOXyTn+M4csZUNL+aAAslMiReyZnKaFuWnfuHeiNq7Iwuz?=
+ =?iso-8859-1?Q?blHm0dlus7kcmxTrZQHUeNoJNnGPb9w+pCGvjquRKYmXjfU/OknVG9On4H?=
+ =?iso-8859-1?Q?k4fri+W01G1Pv3unHOU1XE0mZpR5ekre8AkiP/MZUNnrj/4rIHj3eYb3oo?=
+ =?iso-8859-1?Q?tlvYjQ+EEpQtPEn8mBNfHSWPg1ahueTzIkK2CW2auG9kNH36Fty6/9v/BU?=
+ =?iso-8859-1?Q?nZ/CeyBq1u239jWV71pHSS0wnY1xr40Adt8wZQrWKJrSA1kgUA36WFnc+d?=
+ =?iso-8859-1?Q?vQwXAX4rJqFu2tjW2Z2AGuQsC5GCscjEIo13JmgM7EIkmkPMXDcB+SFBfb?=
+ =?iso-8859-1?Q?yF4LntFSQrzlsdw4YmTRRryKnKjA/jx61vGXFxx48KNos4j+6DxlpX2pyD?=
+ =?iso-8859-1?Q?wy02NmkTCHI7rFI0NcieEOaVnJfYvK8gn3900OIghGie/NigqGqQskxCCY?=
+ =?iso-8859-1?Q?+MD4tIn9FoxXZDo8Dk1SjblzvLwlM7L+ulOpNyqasTCd5ngRdGZe270VCB?=
+ =?iso-8859-1?Q?N0MS77xwSPvRKfmQSGpqENV3BndU3R2cUCQR9NslhYY3+oADYqlSzJ5Bo/?=
+ =?iso-8859-1?Q?exQhCFd2xV2gZ/n8oYs=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PR3PR03MB6412.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4a2b349-8d6c-4a53-2e9f-08dd6b9069b3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2025 11:30:14.8740
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7oksyXl95INCrITkON0GGGiGfaPBYVam9LmLFexoHsyysxLx/d0mrB9FJKyK7Ivs6wcFhh4Mg+e9jDzIkMwGl/zXDz3xH7WfGdtdL//+WgE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR03MB7999
 
-On 06.03.2025 09:39, Penny Zheng wrote:
-> Make `xenpm get-cpureq-para/set-cpufreq-para` available in CPPC mode.
-> --- a/tools/libs/ctrl/xc_pm.c
-> +++ b/tools/libs/ctrl/xc_pm.c
-> @@ -214,13 +214,12 @@ int xc_get_cpufreq_para(xc_interface *xch, int cpuid,
->  			 user_para->gov_num * CPUFREQ_NAME_LEN * sizeof(char), XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
->  
->      bool has_num = user_para->cpu_num &&
-> -                     user_para->freq_num &&
->                       user_para->gov_num;
->  
->      if ( has_num )
+On the device-tree-based Arm64 system, if Xen is built with
+CONFIG_ACPI=3Dy, CONFIG_STATIC_MEMORY=3Dy, and the static memory range
+is provided in the host device tree, the BUG is triggered in
+common/page_alloc.c during Xen's early boot. The BUG occurs when
+the first page from the static range is fed to the domain
+sub-allocator and finally ends up in mark_page_free().
+The pg->count_info & PGC_state is not in the state that
+the code expects to see there.
 
-Something looks wrong here already before your patch: With how has_num is set
-and with this conditional, ...
+The problem is that the static range gets mistakenly unreserved
+in populate_boot_allocator() and reaches init_boot_pages().
+This happens since by the time the populate_boot_allocator()
+is executed, the evaluated in fw_unreserved_regions()
+an acpi_disabled variable is still false (CONFIG_ACPI=3Dy) and
+dt_unreserved_regions() which should simply skip that static range
+does not get called. The acpi_disabled will be set to the actual
+value later on in acpi_boot_table_init().
 
->      {
->          if ( (!user_para->affected_cpus)                    ||
-> -             (!user_para->scaling_available_frequencies)    ||
-> +             (user_para->freq_num && !user_para->scaling_available_frequencies)    ||
->               (user_para->gov_num && !user_para->scaling_available_governors) )
+To avoid unreserving the whole region (including potential reserved
+memory ranges such as static memory) open code fw_unreserved_regions()
+and add a comment.
 
-... this ->gov_num check, ...
+Another solution could be to call acpi_boot_table_init() before
+setup_mm() in Arm64's start_xen().
 
->          {
->              errno = EINVAL;
-> @@ -228,14 +227,16 @@ int xc_get_cpufreq_para(xc_interface *xch, int cpuid,
->          }
->          if ( xc_hypercall_bounce_pre(xch, affected_cpus) )
->              goto unlock_1;
-> -        if ( xc_hypercall_bounce_pre(xch, scaling_available_frequencies) )
-> +        if ( user_para->freq_num &&
-> +             xc_hypercall_bounce_pre(xch, scaling_available_frequencies) )
->              goto unlock_2;
->          if ( user_para->gov_num &&
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+The RFC since I am not sure whether the description is precise
+and the fix is correct.
 
-... this one, and ...
+Below the dump, w/o and w/ the fix applied. I also added prints
+for the processed memory ranges with "OT:" for the visibility:
 
->               xc_hypercall_bounce_pre(xch, scaling_available_governors) )
->              goto unlock_3;
->  
->          set_xen_guest_handle(sys_para->affected_cpus, affected_cpus);
-> -        set_xen_guest_handle(sys_para->scaling_available_frequencies, scaling_available_frequencies);
-> +        if ( user_para->freq_num )
-> +            set_xen_guest_handle(sys_para->scaling_available_frequencies, scaling_available_frequencies);
+********************
 
-(Nit: Yet another overly long line. It was too long already before, yes, but
- that's no excuse to make it even longer.  The more that there is better
- formatting right in context below.)
+- UART enabled -
+- Boot CPU booting -
+- Current EL 0000000000000008 -
+- Initialize CPU -
+- Turning on paging -
+- Paging turned on -
+- Zero BSS -
+- Ready -
+(XEN) Checking for initrd in /chosen
+(XEN) Checking for "xen,static-mem" in domain node
+(XEN) RAM: 0000000040000000 - 00000000bfffffff
+(XEN)=20
+(XEN) MODULE[0]: 0000000043200000 - 0000000043343fff Xen        =20
+(XEN) MODULE[1]: 0000000043400000 - 0000000043402fff Device Tree=20
+(XEN) MODULE[2]: 0000000042e00000 - 0000000043111f82 Ramdisk    =20
+(XEN) MODULE[3]: 0000000040400000 - 0000000042cfffff Kernel     =20
+(XEN)  RESVD[0]: 0000000050000000 - 000000005fffffff
+(XEN)=20
+(XEN) CMDLINE[0000000040400000]:domU0 console=3DttyAMA0
+(XEN)=20
+(XEN) Command line: console=3Ddtuart conswitch=3Dax
+(XEN) OT: populate_boot_allocator[475] s 0x40000000 e 0x40400000
+(XEN) OT: init_boot_pages[358]         s 0x40000000 e 0x40400000 <<<
+(XEN) OT: populate_boot_allocator[475] s 0x42d00000 e 0x42e00000
+(XEN) OT: init_boot_pages[358]         s 0x42d00000 e 0x42e00000 <<<
+(XEN) OT: populate_boot_allocator[475] s 0x43111f83 e 0x43200000
+(XEN) OT: init_boot_pages[358]         s 0x43111f83 e 0x43200000 <<<
+(XEN) OT: populate_boot_allocator[475] s 0x43344000 e 0x43400000
+(XEN) OT: init_boot_pages[358]         s 0x43344000 e 0x43400000 <<<
+(XEN) OT: populate_boot_allocator[475] s 0x43403000 e 0xc0000000
+(XEN) OT: init_boot_pages[358]         s 0x43403000 e 0xc0000000 <<<
+(XEN) pg MFN 50000 c=3D0x2180000000000000 o=3D0 v=3D0 t=3D0
+(XEN) Xen BUG at common/page_alloc.c:1474
+(XEN) ----[ Xen-4.21-unstable  arm64  debug=3Dy  Not tainted ]----
+(XEN) CPU:    0
+(XEN) PC:     00000a0000222ec0 page_alloc.c#mark_page_free+0xe8/0xf0
+(XEN) LR:     00000a0000222ec0
+(XEN) SP:     00000a0000307d10
+(XEN) CPSR:   00000000600003c9 MODE:64-bit EL2h (Hypervisor, handler)
+(XEN)      X0: 00000a0000310040  X1: 0000000000000001  X2: 0000000000000000
+(XEN)      X3: 0000000000000000  X4: 0000000000000000  X5: 0000000000000000
+(XEN)      X6: 0000000000000000  X7: fefefefefefeff09  X8: 7f7f7f7f7f7f7f7f
+(XEN)      X9: 0000000000000080 X10: 7f7f7f7f7f7f7f7f X11: 0101010101010101
+(XEN)     X12: 0000000000000008 X13: 0000000000000020 X14: 0000000000000001
+(XEN)     X15: 00000a0000a00000 X16: 00000000bff3b8fc X17: 0000000000000000
+(XEN)     X18: 00000000beebbdb0 X19: 0000000000050000 X20: 00000a0800380000
+(XEN)     X21: 0000000000000010 X22: 00000000000be000 X23: 00000a0800380000
+(XEN)     X24: 0000000000000000 X25: 0000000000060000 X26: 0000000000000001
+(XEN)     X27: 00000a00002991c8 X28: fffff5f800000000  FP: 00000a0000307d10
+(XEN)=20
+(XEN)   VTCR_EL2: 0000000000000000
+(XEN)  VTTBR_EL2: 0000000000000000
+(XEN)=20
+(XEN)  SCTLR_EL2: 0000000030cd183d
+(XEN)    HCR_EL2: 0000000000000038
+(XEN)  TTBR0_EL2: 0000000043321000
+(XEN)=20
+(XEN)    ESR_EL2: 00000000f2000001
+(XEN)  HPFAR_EL2: 0000000000000000
+(XEN)    FAR_EL2: 0000000000000000
+(XEN)=20
+(XEN) Xen stack trace from sp=3D00000a0000307d10:
+(XEN)    00000a0000307d20 00000a0000224154 00000a0000307d90 00000a00002261a=
+0
+(XEN)    0000000000000010 00000a0000312d38 0000000000050000 00000000000be00=
+0
+(XEN)    000000000007abfd 00000a0000298ca0 00000a0000298000 000000000000001=
+2
+(XEN)    0000000000000040 0000000000000000 00000a00002a5170 000100000000001=
+3
+(XEN)    00000a0000307e20 00000a00002ab2c4 00000a00002e5430 00000a00002e53f=
+0
+(XEN)    00000a0000298ca0 00000a0000299000 00000a0000298000 00000a000029800=
+0
+(XEN)    00000000bffbb6d0 0000000000000000 00000000bfefeccc 00000000beed7ee=
+0
+(XEN)    0000000100000014 00000a08000b60a8 0000000000000000 000000000007abf=
+d
+(XEN)    0000000001ad9f58 00000a0000312d88 00000a0000307e60 00000a00002c62b=
+c
+(XEN)    0000000043400000 00000a0000c01c28 00000a0000312000 000000000000300=
+0
+(XEN)    00000a0000a00000 00000000beed7eb8 00000000bedbb730 00000a00002001a=
+4
+(XEN)    0000000043200000 fffff60043000000 0000000043400000 000000000000000=
+3
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000000=
+0
+(XEN)    0000000000000000 0000000000000000
+(XEN) Xen call trace:
+(XEN)    [<00000a0000222ec0>] page_alloc.c#mark_page_free+0xe8/0xf0 (PC)
+(XEN)    [<00000a0000222ec0>] page_alloc.c#mark_page_free+0xe8/0xf0 (LR)
+(XEN)    [<00000a0000224154>] page_alloc.c#free_heap_pages+0x10c/0x528
+(XEN)    [<00000a00002261a0>] page_alloc.c#init_heap_pages+0x47c/0x678
+(XEN)    [<00000a00002ab2c4>] end_boot_allocator+0x184/0x1b8
+(XEN)    [<00000a00002c62bc>] start_xen+0x134/0x9ec
+(XEN)    [<00000a00002001a4>] head.o#primary_switched+0x4/0x24
+(XEN)=20
+(XEN)=20
+(XEN) ****************************************
+(XEN) Panic on CPU 0:
+(XEN) Xen BUG at common/page_alloc.c:1474
+(XEN) ****************************************
+(XEN)=20
+(XEN) Reboot in five seconds...
 
->          if ( user_para->gov_num )
 
-... this one are all dead code. Jason? I expect the has_num variable simply
-wants dropping altogether, thus correcting the earlier anomaly and getting
-the intended new behavior at the same time.
+********************
 
->              set_xen_guest_handle(sys_para->scaling_available_governors,
->                                   scaling_available_governors);
+- UART enabled -
+- Boot CPU booting -
+- Current EL 0000000000000008 -
+- Initialize CPU -
+- Turning on paging -
+- Paging turned on -
+- Zero BSS -
+- Ready -
+(XEN) Checking for initrd in /chosen
+(XEN) Checking for "xen,static-mem" in domain node
+(XEN) RAM: 0000000040000000 - 00000000bfffffff
+(XEN)=20
+(XEN) MODULE[0]: 0000000043200000 - 0000000043343fff Xen        =20
+(XEN) MODULE[1]: 0000000043400000 - 0000000043402fff Device Tree=20
+(XEN) MODULE[2]: 0000000042e00000 - 0000000043111f8f Ramdisk    =20
+(XEN) MODULE[3]: 0000000040400000 - 0000000042cfffff Kernel     =20
+(XEN)  RESVD[0]: 0000000050000000 - 000000005fffffff
+(XEN)=20
+(XEN) CMDLINE[0000000040400000]:domU0 console=3DttyAMA0
+(XEN)=20
+(XEN) Command line: console=3Ddtuart conswitch=3Dax
+(XEN) OT: populate_boot_allocator[475] s 0x40000000 e 0x40400000
+(XEN) OT: dt_unreserved_regions[50]    s 0x40000000 e 0x40400000
+(XEN) OT: init_boot_pages[358]         s 0x40000000 e 0x40400000 <<<
+(XEN) OT: populate_boot_allocator[475] s 0x42d00000 e 0x42e00000
+(XEN) OT: dt_unreserved_regions[50]    s 0x42d00000 e 0x42e00000
+(XEN) OT: init_boot_pages[358]         s 0x42d00000 e 0x42e00000 <<<
+(XEN) OT: populate_boot_allocator[475] s 0x43111f90 e 0x43200000
+(XEN) OT: dt_unreserved_regions[50]    s 0x43111f90 e 0x43200000
+(XEN) OT: init_boot_pages[358]         s 0x43111f90 e 0x43200000 <<<
+(XEN) OT: populate_boot_allocator[475] s 0x43344000 e 0x43400000
+(XEN) OT: dt_unreserved_regions[50]    s 0x43344000 e 0x43400000
+(XEN) OT: init_boot_pages[358]         s 0x43344000 e 0x43400000 <<<
+(XEN) OT: populate_boot_allocator[475] s 0x43403000 e 0xc0000000
+(XEN) OT: dt_unreserved_regions[50]    s 0x43403000 e 0xc0000000
+(XEN) OT: dt_unreserved_regions[50]    s 0x60000000 e 0xc0000000
+(XEN) OT: init_boot_pages[358]         s 0x60000000 e 0xc0000000 <<<
+(XEN) OT: dt_unreserved_regions[50]    s 0x43403000 e 0x50000000
+(XEN) OT: init_boot_pages[358]         s 0x43403000 e 0x50000000 <<<
+(XEN) Domain heap initialised
+(XEN) Booting using Device Tree
+---
+ xen/common/device-tree/bootinfo.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-This is the piece of context I'm referring to in the nit above.
-
-> @@ -301,7 +302,8 @@ unlock_4:
->      if ( user_para->gov_num )
->          xc_hypercall_bounce_post(xch, scaling_available_governors);
->  unlock_3:
-> -    xc_hypercall_bounce_post(xch, scaling_available_frequencies);
-> +    if ( user_para->freq_num )
-> +        xc_hypercall_bounce_post(xch, scaling_available_frequencies);
->  unlock_2:
->      xc_hypercall_bounce_post(xch, affected_cpus);
->  unlock_1:
-
-I'm also puzzled by the function's inconsistent return value - Anthony,
-can you explain / spot why things are the way they are?
-
-> --- a/tools/misc/xenpm.c
-> +++ b/tools/misc/xenpm.c
-> @@ -539,7 +539,7 @@ static void signal_int_handler(int signo)
->                          res / 1000000UL, 100UL * res / (double)sum_px[i]);
->              }
->          }
-> -        if ( px_cap && avgfreq[i] )
-> +        if ( avgfreq[i] )
->              printf("  Avg freq\t%d\tKHz\n", avgfreq[i]);
->      }
-
-I wonder whether this shouldn't be an independent change (which then
-could go in rather sooner).
-
-> @@ -926,7 +926,8 @@ static int show_cpufreq_para_by_cpuid(xc_interface *xc_handle, int cpuid)
->              ret = -ENOMEM;
->              goto out;
->          }
-> -        if (!(p_cpufreq->scaling_available_frequencies =
-> +        if (p_cpufreq->freq_num &&
-> +            !(p_cpufreq->scaling_available_frequencies =
->                malloc(p_cpufreq->freq_num * sizeof(uint32_t))))
->          {
->              fprintf(stderr,
-
-Can someone explain to me how the pre-existing logic here works? All
-three ->*_num start out as zero. Hence respective allocations (of zero
-size) may conceivably return NULL (the behavior there is implementation
-defined after all). Yet then we'd bail from the loop, and hence from the
-function. IOW adding a ->freq_num check and also a ->cpu_num one (along
-with the ->gov_num one that apparently was added during HWP development)
-would once again look like an independent (latent) bugfix to me.
-
-> --- a/xen/drivers/acpi/pmstat.c
-> +++ b/xen/drivers/acpi/pmstat.c
-> @@ -202,7 +202,7 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
->      pmpt = processor_pminfo[op->cpuid];
->      policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
->  
-> -    if ( !pmpt || !pmpt->perf.states ||
-> +    if ( !pmpt || ((pmpt->init & XEN_PX_INIT) && !pmpt->perf.states) ||
->           !policy || !policy->governor )
->          return -EINVAL;
-
-Wouldn't this change better belong in the earlier patch, where the code
-in context of the last hunk below was adjusted?
-
-> @@ -229,17 +229,20 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
->      if ( ret )
->          return ret;
->  
-> -    if ( !(scaling_available_frequencies =
-> -           xzalloc_array(uint32_t, op->u.get_para.freq_num)) )
-> -        return -ENOMEM;
-> -    for ( i = 0; i < op->u.get_para.freq_num; i++ )
-> -        scaling_available_frequencies[i] =
-> -                        pmpt->perf.states[i].core_frequency * 1000;
-> -    ret = copy_to_guest(op->u.get_para.scaling_available_frequencies,
-> -                   scaling_available_frequencies, op->u.get_para.freq_num);
-> -    xfree(scaling_available_frequencies);
-> -    if ( ret )
-> -        return ret;
-> +    if ( op->u.get_para.freq_num )
-> +    {
-> +        if ( !(scaling_available_frequencies =
-> +               xzalloc_array(uint32_t, op->u.get_para.freq_num)) )
-> +            return -ENOMEM;
-> +        for ( i = 0; i < op->u.get_para.freq_num; i++ )
-> +            scaling_available_frequencies[i] =
-> +                            pmpt->perf.states[i].core_frequency * 1000;
-
-Nit: Indentation was bogus here and ...
-
-> +        ret = copy_to_guest(op->u.get_para.scaling_available_frequencies,
-> +                    scaling_available_frequencies, op->u.get_para.freq_num);
-
-... here before, and sadly continues to be bogus now.
-
-> +        xfree(scaling_available_frequencies);
-> +        if ( ret )
-> +            return ret;
-> +    }
-
-While (beyond the nit above) I'm okay with this simple change, I think the
-code here would benefit from folding the two allocations into one. There
-simply is no reason to pay the price of the allocation overhead twice, when
-we need a uint32_t[max(.cpu_num, .freq_num)] array anyway. That way the
-churn introduced here would then also be smaller.
-
-> @@ -465,7 +468,8 @@ int do_pm_op(struct xen_sysctl_pm_op *op)
->      switch ( op->cmd & PM_PARA_CATEGORY_MASK )
->      {
->      case CPUFREQ_PARA:
-> -        if ( !(xen_processor_pmbits & XEN_PROCESSOR_PM_PX) )
-> +        if ( !(xen_processor_pmbits & (XEN_PROCESSOR_PM_PX |
-> +                                       XEN_PROCESSOR_PM_CPPC)) )
->              return -ENODEV;
->          if ( !pmpt || !(pmpt->init & (XEN_PX_INIT | XEN_CPPC_INIT)) )
->              return -EINVAL;
-
-(This is the hunk I'm referring to further up.)
-
-Jan
+diff --git a/xen/common/device-tree/bootinfo.c b/xen/common/device-tree/boo=
+tinfo.c
+index 76d652c0de..e250801d89 100644
+--- a/xen/common/device-tree/bootinfo.c
++++ b/xen/common/device-tree/bootinfo.c
+@@ -464,7 +464,13 @@ void __init populate_boot_allocator(void)
+             }
+ #endif
+=20
+-            fw_unreserved_regions(s, e, init_boot_pages, 0);
++            /*
++             * At this point we do not know yet if we are running on ACPI
++             * system. To avoid unreserving the whole region (including
++             * potential reserved memory ranges such as static memory) ope=
+n code
++             * fw_unreserved_regions().
++             */
++            dt_unreserved_regions(s, e, init_boot_pages, 0);
+             s =3D n;
+         }
+     }
+--=20
+2.34.1
 
