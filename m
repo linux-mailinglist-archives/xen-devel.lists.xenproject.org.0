@@ -2,45 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39AD4A6EC5A
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 10:18:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926153.1329017 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ADF3A6EC5D
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 10:21:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926164.1329027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx0Py-0001ko-GJ; Tue, 25 Mar 2025 09:17:54 +0000
+	id 1tx0Sl-0003cG-Ui; Tue, 25 Mar 2025 09:20:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926153.1329017; Tue, 25 Mar 2025 09:17:54 +0000
+Received: by outflank-mailman (output) from mailman id 926164.1329027; Tue, 25 Mar 2025 09:20:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx0Py-0001iX-Bm; Tue, 25 Mar 2025 09:17:54 +0000
-Received: by outflank-mailman (input) for mailman id 926153;
- Tue, 25 Mar 2025 09:17:53 +0000
+	id 1tx0Sl-0003ah-Ra; Tue, 25 Mar 2025 09:20:47 +0000
+Received: by outflank-mailman (input) for mailman id 926164;
+ Tue, 25 Mar 2025 09:20:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DLt0=WM=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1tx0Pw-0001iR-PF
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 09:17:52 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6Gn6=WM=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1tx0Sk-0003ab-GN
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 09:20:46 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0666eafc-095a-11f0-9ea3-5ba50f476ded;
- Tue, 25 Mar 2025 10:17:51 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 23D3D1F391;
- Tue, 25 Mar 2025 09:17:50 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C3E21137AC;
- Tue, 25 Mar 2025 09:17:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id wkc/Lr104mcdMQAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 25 Mar 2025 09:17:49 +0000
+ id 6e185323-095a-11f0-9ea3-5ba50f476ded;
+ Tue, 25 Mar 2025 10:20:45 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,293 +36,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0666eafc-095a-11f0-9ea3-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1742894270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=4ohdQZqOQq5GIQAz9o4rR0el+wRDKuajTFKtdu7KNqE=;
-	b=REScFLu924Pu2P7CPzZ+BEk71yWbdNKAfXnGoUGE53gYai7uc0mbOXhbPlK4GnNbwvyMwX
-	24aVgs7RJpfDBSbu5vT2M75Pt/fHO619kFazeHhcVj1XcrWYMtnLv7/dZky/socL5F9b+3
-	YVEdWK9eUQDw6C03U7CDqWQXCEvak5g=
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1742894270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=4ohdQZqOQq5GIQAz9o4rR0el+wRDKuajTFKtdu7KNqE=;
-	b=REScFLu924Pu2P7CPzZ+BEk71yWbdNKAfXnGoUGE53gYai7uc0mbOXhbPlK4GnNbwvyMwX
-	24aVgs7RJpfDBSbu5vT2M75Pt/fHO619kFazeHhcVj1XcrWYMtnLv7/dZky/socL5F9b+3
-	YVEdWK9eUQDw6C03U7CDqWQXCEvak5g=
-Message-ID: <85aa1047-b045-4004-9306-b40e8c5fa6d9@suse.com>
-Date: Tue, 25 Mar 2025 10:17:49 +0100
+X-Inumbo-ID: 6e185323-095a-11f0-9ea3-5ba50f476ded
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1742894444;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6QvtzpcrlTMKTUsjszgMNWd7fXMOiNd5xLGAalHbQxs=;
+	b=QOMdMxBg1H6zgb4zHcPB1haB9iffsGBim2vaQ+wyuLnndP3GSVmNhSBK1BDHNzMC0bw+KH
+	bu5oPJgsY+8KP7kuf2E1GEoXz7F177RB1NwKP9oNcMrvbgtNXu8ec86guIvUjV9Pwxfn8T
+	MsvOpI/FScQCmlAc6V4eAMrDcMIat+JT875w2Qwv0Di/KbD70St7t6p1Tmas025hQwmYMk
+	KP/rx2VRvJulCVkBFlKX+K9ZC577BUecmANqid1qZl8HzahbLxSxiXQXZlS0+Rt0WD7p0D
+	mdiyvkFo+Nsqn3UWBaX+PgrlrQKIklwQE1hRo60h9BkEADvDHTV/93Gz+5z3Vg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1742894444;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6QvtzpcrlTMKTUsjszgMNWd7fXMOiNd5xLGAalHbQxs=;
+	b=SOSpKoaX7xhFOLAifQ1TBb5ORu4whJgBUD7Q62S3Xx2HgifaxTW+BNkbmo2amiYsibbnEW
+	lxyc9UwshXqbQWAQ==
+To: Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>, Daniel Gomez
+ <da.gomez@kernel.org>
+Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Bjorn Helgaas
+ <helgaas@kernel.org>,
+ linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>, Ingo
+ Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
+ <hpa@zytor.com>
+Subject: Re: [PATCH v3 3/3] PCI/MSI: Convert pci_msi_ignore_mask to per MSI
+ domain flag
+In-Reply-To: <87y0wtzg0z.ffs@tglx>
+References: <20250320210741.GA1099701@bhelgaas>
+ <846c80f8-b80f-49fd-8a50-3fe8a473b8ec@suse.com>
+ <qn7fzggcj6qe6r6gdbwcz23pzdz2jx64aldccmsuheabhmjgrt@tawf5nfwuvw7>
+ <Z-GbuiIYEdqVRsHj@macbook.local>
+ <kp372led6jcryd4ubpyglc4h7b3erramgzsjl2slahxdk7w575@jganskuwkfvb>
+ <Z-Gv6TG9dwKI-fvz@macbook.local> <87y0wtzg0z.ffs@tglx>
+Date: Tue, 25 Mar 2025 10:20:43 +0100
+Message-ID: <87v7rxzct0.ffs@tglx>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/3] docs: update xenstore migration stream definition
-To: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250314121835.1879-1-jgross@suse.com>
- <20250314121835.1879-2-jgross@suse.com>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20250314121835.1879-2-jgross@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------2epZfDbXDohnV403F4KVuaCN"
-X-Spam-Score: -5.19
-X-Spamd-Result: default: False [-5.19 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SIGNED_PGP(-2.00)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	NEURAL_HAM_LONG(-0.99)[-0.993];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:helo];
-	HAS_ATTACHMENT(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Level: 
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------2epZfDbXDohnV403F4KVuaCN
-Content-Type: multipart/mixed; boundary="------------a0l1lpdhWmiiVsiEHOSzlxl3";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <85aa1047-b045-4004-9306-b40e8c5fa6d9@suse.com>
-Subject: Re: [PATCH v9 1/3] docs: update xenstore migration stream definition
-References: <20250314121835.1879-1-jgross@suse.com>
- <20250314121835.1879-2-jgross@suse.com>
-In-Reply-To: <20250314121835.1879-2-jgross@suse.com>
-Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
- ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
- Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
- pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
- tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
- OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
- v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
- 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
- jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
- DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
- Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
- dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
- AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
-
---------------a0l1lpdhWmiiVsiEHOSzlxl3
-Content-Type: multipart/mixed; boundary="------------eKcyf4auhfzkHY4ggXjDusQD"
-
---------------eKcyf4auhfzkHY4ggXjDusQD
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTQuMDMuMjUgMTM6MTgsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IEluIG9yZGVyIHRv
-IGNsb3NlIGEgcmFjZSB3aW5kb3cgZm9yIFhlbnN0b3JlIGxpdmUgdXBkYXRlIHdoZW4gdXNp
-bmcNCj4gdGhlIG5ldyB1bmlxdWVfaWQgb2YgZG9tYWlucywgdGhlIG1pZ3JhdGlvbiBzdHJl
-YW0gbmVlZHMgdG8gY29udGFpbg0KPiB0aGlzIHVuaXF1ZV9pZCBmb3IgZWFjaCBkb21haW4g
-a25vd24gYnkgWGVuc3RvcmUuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3Nz
-IDxqZ3Jvc3NAc3VzZS5jb20+DQoNClRoaXMgcGF0Y2ggaXMgc3RpbGwgbWlzc2luZyBhbiBB
-Y2suDQoNCkp1bGllbj8NCg0KDQpKdWVyZ2VuDQoNCj4gLS0tDQo+IFY4Og0KPiAtIG5ldyBw
-YXRjaA0KPiBWOToNCj4gLSBpbnN0ZWFkIG9mIHVzaW5nIGFuIG9mZnNldCwgdXNlIGEgZmxh
-ZyBmb3IgdW5pcXVlX2lkIHByZXNlbmNlDQo+ICAgIChKdWxpZW4gR3JhbGwpDQo+IC0tLQ0K
-PiAgIGRvY3MvZGVzaWducy94ZW5zdG9yZS1taWdyYXRpb24ubWQgfCAxOCArKysrKysrKysr
-KysrKysrKy0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgMSBkZWxl
-dGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RvY3MvZGVzaWducy94ZW5zdG9yZS1taWdy
-YXRpb24ubWQgYi9kb2NzL2Rlc2lnbnMveGVuc3RvcmUtbWlncmF0aW9uLm1kDQo+IGluZGV4
-IDA4MjMxNGJmNzIuLmEwYWNkNzZjZTEgMTAwNjQ0DQo+IC0tLSBhL2RvY3MvZGVzaWducy94
-ZW5zdG9yZS1taWdyYXRpb24ubWQNCj4gKysrIGIvZG9jcy9kZXNpZ25zL3hlbnN0b3JlLW1p
-Z3JhdGlvbi5tZA0KPiBAQCAtMTU2LDcgKzE1Niw3IEBAIHRoZSBkb21haW4gYmVpbmcgbWln
-cmF0ZWQuDQo+ICAgYGBgDQo+ICAgICAgIDAgICAgICAgMSAgICAgICAyICAgICAgIDMgICAg
-ICAgNCAgICAgICA1ICAgICAgIDYgICAgICAgNyAgICBvY3RldA0KPiAgICstLS0tLS0tKy0t
-LS0tLS0rLS0tLS0tLSstLS0tLS0tKy0tLS0tLS0rLS0tLS0tLSstLS0tLS0tKy0tLS0tLS0r
-DQo+IC18IGNvbm4taWQgICAgICAgICAgICAgICAgICAgICAgIHwgY29ubi10eXBlICAgICB8
-ICAgICAgICAgICAgICAgfA0KPiArfCBjb25uLWlkICAgICAgICAgICAgICAgICAgICAgICB8
-IGNvbm4tdHlwZSAgICAgfCBmaWVsZHMgICAgICAgIHwNCj4gICArLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0rLS0tLS0tLS0tLS0tLS0tKw0KPiAg
-IHwgY29ubi1zcGVjDQo+ICAgLi4uDQo+IEBAIC0xNjUsNiArMTY1LDkgQEAgdGhlIGRvbWFp
-biBiZWluZyBtaWdyYXRlZC4NCj4gICArLS0tLS0tLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0t
-LSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKw0KPiAgIHwgZGF0YQ0KPiAgIC4u
-Lg0KPiArKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLSsNCj4gK3wgdW5pcXVlLWlkICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8DQo+ICsrLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKw0KPiAg
-IGBgYA0KPiAgIA0KPiAgIA0KPiBAQCAtMTc4LDYgKzE4MSwxNiBAQCB0aGUgZG9tYWluIGJl
-aW5nIG1pZ3JhdGVkLg0KPiAgIHwgICAgICAgICAgICAgICAgfCAweDAwMDE6IHNvY2tldCAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8DQo+ICAgfCAgICAgICAgICAgICAgICB8
-IDB4MDAwMiAtIDB4RkZGRjogcmVzZXJ2ZWQgZm9yIGZ1dHVyZSB1c2UgICAgIHwNCj4gICB8
-ICAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgfA0KPiArfCBgZmllbGRzYCAgICAgICB8IEEgY29sbGVjdGlvbiBvZiBmbGFn
-cyBpbmRpY2F0aW5nIHByZXNlbmNlICAgIHwNCj4gK3wgICAgICAgICAgICAgICAgfCBvZiBh
-ZGRpdGlvbmFsIGZpZWxkcyBhZnRlciB0aGUgdmFyaWFibGUgICAgICB8DQo+ICt8ICAgICAg
-ICAgICAgICAgIHwgbGVuZ3RoIGBkYXRhYCBwYXJ0LiBUaGUgYWRkaXRpb25hbCBmaWVsZHMg
-ICAgfA0KPiArfCAgICAgICAgICAgICAgICB8IHdpbGwgc3RhcnQgYWZ0ZXIgYSBwb3NzaWJs
-ZSBwYWRkaW5nIGZvciAgICAgIHwNCj4gK3wgICAgICAgICAgICAgICAgfCBhbGlnbmluZyB0
-byBhIDggb2N0ZXQgYm91bmRhcnkuICAgICAgICAgICAgICB8DQo+ICt8ICAgICAgICAgICAg
-ICAgIHwgRGVmaW5lZCBmbGFnIHZhbHVlcyAodG8gYmUgb3ItZWQpOiAgICAgICAgICAgfA0K
-PiArfCAgICAgICAgICAgICAgICB8IDB4MDAwMTogYHVuaXF1ZV9pZGAgcHJlc2VudCAob25s
-eSBuZWVkZWQgZm9yIHwNCj4gK3wgICAgICAgICAgICAgICAgfCAgICAgICAgIGBzaGFyZWQg
-cmluZ2AgY29ubmVjdGlvbiBpbiBsaXZlICAgICB8DQo+ICt8ICAgICAgICAgICAgICAgIHwg
-ICAgICAgICB1cGRhdGUgc3RyZWFtcykuICAgICAgICAgICAgICAgICAgICAgfA0KPiArfCAg
-ICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHwNCj4gICB8IGBjb25uLXNwZWNgICAgIHwgU2VlIGJlbG93ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgfA0KPiAgIHwgICAgICAgICAgICAgICAgfCAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8DQo+ICAgfCBgaW4t
-ZGF0YS1sZW5gICB8IFRoZSBsZW5ndGggKGluIG9jdGV0cykgb2YgYW55IGRhdGEgcmVhZCAg
-ICAgIHwNCj4gQEAgLTE5Myw2ICsyMDYsOSBAQCB0aGUgZG9tYWluIGJlaW5nIG1pZ3JhdGVk
-Lg0KPiAgIHwgYGRhdGFgICAgICAgICAgfCBQZW5kaW5nIGRhdGE6IGZpcnN0IGluLWRhdGEt
-bGVuIG9jdGV0cyBvZiAgICB8DQo+ICAgfCAgICAgICAgICAgICAgICB8IHJlYWQgZGF0YSwg
-dGhlbiBvdXQtZGF0YS1sZW4gb2N0ZXRzIG9mICAgICAgIHwNCj4gICB8ICAgICAgICAgICAg
-ICAgIHwgd3JpdHRlbiBkYXRhIChhbnkgb2YgYm90aCBtYXkgYmUgZW1wdHkpICAgICAgfA0K
-PiArfCAgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHwNCj4gK3wgYHVuaXF1ZS1pZGAgICAgfCBVbmlxdWUgaWRlbnRpZmll
-ciBvZiBhIGRvbWFpbiAgICAgICAgICAgICAgICB8DQo+ICt8ICAgICAgICAgICAgICAgIHwg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfA0KPiAgIA0K
-PiAgIEluIGNhc2Ugb2YgbGl2ZSB1cGRhdGUgdGhlIGNvbm5lY3Rpb24gcmVjb3JkIGZvciB0
-aGUgY29ubmVjdGlvbiB2aWEgd2hpY2gNCj4gICB0aGUgbGl2ZSB1cGRhdGUgY29tbWFuZCB3
-YXMgaXNzdWVkIHdpbGwgY29udGFpbiB0aGUgcmVzcG9uc2UgZm9yIHRoZSBsaXZlDQoNCg==
-
---------------eKcyf4auhfzkHY4ggXjDusQD
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Tue, Mar 25 2025 at 09:11, Thomas Gleixner wrote:
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+> On Mon, Mar 24 2025 at 20:18, Roger Pau Monn=C3=A9 wrote:
+>> On Mon, Mar 24, 2025 at 07:58:14PM +0100, Daniel Gomez wrote:
+>>> The issue is that info appears to be uninitialized. So, this worked for=
+ me:
+>>
+>> Indeed, irq_domain->host_data is NULL, there's no msi_domain_info.  As
+>> this is x86, I was expecting x86 ot always use
+>> x86_init_dev_msi_info(), but that doesn't seem to be the case.  I
+>> would like to better understand this.
+>
+> Indeed. On x86 this should not happen at all. On architectures, which do
+> not use (hierarchical) interrupt domains, it will return NULL.
+>
+> So I really want to understand why this happens on x86 before such a
+> "fix" is deployed.
 
---------------eKcyf4auhfzkHY4ggXjDusQD--
+So after staring at it some more it's clear. Without XEN, the domain
+returned is the MSI parent domain, which is the vector domain in that
+setup. That does not have a domain info set. But on legacy architectures
+there is not even a domain.
 
---------------a0l1lpdhWmiiVsiEHOSzlxl3--
+It's really wonderful that we have a gazillion ways to manage the
+backends of PCI/MSI....
 
---------------2epZfDbXDohnV403F4KVuaCN
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+So none of the suggested pointer checks will cover it correctly. Though
+there is already a function which allows to query MSI domain flags
+independent of the underlying insanity. Sorry for not catching it in
+review.
 
------BEGIN PGP SIGNATURE-----
+Untested patch below.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmfidL0FAwAAAAAACgkQsN6d1ii/Ey+i
-Kwf8DA8ZyVPps049wXVRhluBsMl++iMjsWvs/9yr8qbitD4Sbd93JFULhEd+bzJRvMU2qExGNSjZ
-v8jDw0fv61aoG9yoJ2+iqTVEtIcC/xbjj/Ev6v6gV7R+1D6J335K+EzdjykmFZNxaoQn9UPse4Dy
-XZhNuhnsyx3TZNjh0VlyMSPwJ1LZXaXTNYm37CskX5ZQFf6eCE9QQYdq64lGETzpgz/esz97dJEO
-VTZx5GclYyM2dqFxT1DejQVKXTn76OoU+G0c+uY59kmTfnzpHqXCi1BWvPTzGJ41IqxFM/yS/kv0
-2Ms4x3kroey0dLmulDr2jqZc3bHFgfMnJIRuhV1Ofw==
-=Q16C
------END PGP SIGNATURE-----
+Thanks,
 
---------------2epZfDbXDohnV403F4KVuaCN--
+        tglx
+---
+ drivers/pci/msi/msi.c |   18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
+
+--- a/drivers/pci/msi/msi.c
++++ b/drivers/pci/msi/msi.c
+@@ -285,8 +285,6 @@ static void pci_msi_set_enable(struct pc
+ static int msi_setup_msi_desc(struct pci_dev *dev, int nvec,
+ 			      struct irq_affinity_desc *masks)
+ {
+-	const struct irq_domain *d =3D dev_get_msi_domain(&dev->dev);
+-	const struct msi_domain_info *info =3D d->host_data;
+ 	struct msi_desc desc;
+ 	u16 control;
+=20
+@@ -297,7 +295,7 @@ static int msi_setup_msi_desc(struct pci
+ 	/* Lies, damned lies, and MSIs */
+ 	if (dev->dev_flags & PCI_DEV_FLAGS_HAS_MSI_MASKING)
+ 		control |=3D PCI_MSI_FLAGS_MASKBIT;
+-	if (info->flags & MSI_FLAG_NO_MASK)
++	if (pci_msi_domain_supports(dev, MSI_FLAG_NO_MASK, DENY_LEGACY))
+ 		control &=3D ~PCI_MSI_FLAGS_MASKBIT;
+=20
+ 	desc.nvec_used			=3D nvec;
+@@ -605,20 +603,18 @@ static void __iomem *msix_map_region(str
+  */
+ void msix_prepare_msi_desc(struct pci_dev *dev, struct msi_desc *desc)
+ {
+-	const struct irq_domain *d =3D dev_get_msi_domain(&dev->dev);
+-	const struct msi_domain_info *info =3D d->host_data;
+-
+ 	desc->nvec_used				=3D 1;
+ 	desc->pci.msi_attrib.is_msix		=3D 1;
+ 	desc->pci.msi_attrib.is_64		=3D 1;
+ 	desc->pci.msi_attrib.default_irq	=3D dev->irq;
+ 	desc->pci.mask_base			=3D dev->msix_base;
+-	desc->pci.msi_attrib.can_mask		=3D !(info->flags & MSI_FLAG_NO_MASK) &&
+-						  !desc->pci.msi_attrib.is_virtual;
+=20
+-	if (desc->pci.msi_attrib.can_mask) {
++
++	if (!pci_msi_domain_supports(dev, MSI_FLAG_NO_MASK, DENY_LEGACY) &&
++	    !desc->pci.msi_attrib.is_virtual) {
+ 		void __iomem *addr =3D pci_msix_desc_addr(desc);
+=20
++		desc->pci.msi_attrib.can_mask =3D true;
+ 		desc->pci.msix_ctrl =3D readl(addr + PCI_MSIX_ENTRY_VECTOR_CTRL);
+ 	}
+ }
+@@ -715,8 +711,6 @@ static int msix_setup_interrupts(struct
+ static int msix_capability_init(struct pci_dev *dev, struct msix_entry *en=
+tries,
+ 				int nvec, struct irq_affinity *affd)
+ {
+-	const struct irq_domain *d =3D dev_get_msi_domain(&dev->dev);
+-	const struct msi_domain_info *info =3D d->host_data;
+ 	int ret, tsize;
+ 	u16 control;
+=20
+@@ -747,7 +741,7 @@ static int msix_capability_init(struct p
+ 	/* Disable INTX */
+ 	pci_intx_for_msi(dev, 0);
+=20
+-	if (!(info->flags & MSI_FLAG_NO_MASK)) {
++	if (!pci_msi_domain_supports(dev, MSI_FLAG_NO_MASK, DENY_LEGACY)) {
+ 		/*
+ 		 * Ensure that all table entries are masked to prevent
+ 		 * stale entries from firing in a crash kernel.
 
