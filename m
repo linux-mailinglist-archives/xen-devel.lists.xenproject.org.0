@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 154A9A70781
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:59:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926755.1329589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40FE7A707A1
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 18:04:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926767.1329598 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx7cX-0005Mu-8e; Tue, 25 Mar 2025 16:59:21 +0000
+	id 1tx7hJ-0008CP-Sg; Tue, 25 Mar 2025 17:04:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926755.1329589; Tue, 25 Mar 2025 16:59:21 +0000
+Received: by outflank-mailman (output) from mailman id 926767.1329598; Tue, 25 Mar 2025 17:04:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx7cX-0005LS-5l; Tue, 25 Mar 2025 16:59:21 +0000
-Received: by outflank-mailman (input) for mailman id 926755;
- Tue, 25 Mar 2025 16:59:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RPpQ=WM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tx7cV-0005LM-UA
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:59:19 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7dad4c6d-099a-11f0-9ea3-5ba50f476ded;
- Tue, 25 Mar 2025 17:59:18 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-43d0618746bso40692005e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 09:59:18 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d43f43ecbsm204785705e9.10.2025.03.25.09.59.17
+	id 1tx7hJ-0008AX-Po; Tue, 25 Mar 2025 17:04:17 +0000
+Received: by outflank-mailman (input) for mailman id 926767;
+ Tue, 25 Mar 2025 17:04:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ogJ6=WM=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tx7hH-0008AR-Lb
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 17:04:15 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2d68a7fc-099b-11f0-9ffa-bf95429c2676;
+ Tue, 25 Mar 2025 18:04:13 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5e0caa151so10516437a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 10:04:13 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5ebccf89240sm7942193a12.31.2025.03.25.10.04.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Mar 2025 09:59:17 -0700 (PDT)
+ Tue, 25 Mar 2025 10:04:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,282 +45,364 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7dad4c6d-099a-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 2d68a7fc-099b-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742921958; x=1743526758; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FVkMY9t4X8uuqmCFVO+znnnCLkEsUIYHJwu1DhgFM88=;
-        b=VF3B4cYaWzQBrJRYm/Yc9sPBrMM9o3Q0nMzEHGX3xj2aPpvOrhJqHhc8ZNGXs10YnJ
-         T21GoqJxfQphFLBG5ciDafYQ4V0qT5rSylXEXo1XMqZlCshILyjsiBJ8AS9im38JWcy4
-         GzGN7/qY6pny98uz7XACRGcHsQwNIcPHyjqhEshJhiXx28nSoTE+oY+MV/p4euQ2+mDQ
-         +DXPEfy1QdU0qokCWwp579GZMsMhEPGFKewE/MPsjl01xVnuinKI92QAT/LyWGAZxgzB
-         IT88wMz9gyzWiSkf0T7HPYekuynzFGx0hm8FvUnO5uEOYBscG20KXZlp8o8qUKxpP53h
-         4VkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742921958; x=1743526758;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1742922253; x=1743527053; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FVkMY9t4X8uuqmCFVO+znnnCLkEsUIYHJwu1DhgFM88=;
-        b=JWuJGvihVvmRDO8unShqTMy8czxw798pMmfuWttqD+ZIILQSRb5KeOZ4sUDfGd0VQ9
-         BDL1iciUTdwDEXFixHF0MTuTrA3WpBucHt9WCnFpvGxlXvlAyWT+3OIEaGVrpTdyyfkR
-         2xPCr0tv5UeT4W4nk6W1Rux11UVUfFyespvNf2WcSa3p7kBHBYOEKg5eierYOQQaFc6k
-         ToFvyNqJeH9rHppOBXEqiRWk3mZajsBCOqoury+k+KVHNypvgmpe7CVi5MUD6lYPnGkj
-         CqzL2J6hSvARzAGewwUDgddVphe3wKQ56DqrZjWI8tFRi4d2Ja/QrGTMYQcfEDP3pf6n
-         xQQw==
-X-Forwarded-Encrypted: i=1; AJvYcCU3aWYQZBxPxop9nNFySCNDL9qAws93o3UkWzmWQc4zYCQBGGfP0+kIe8V8z2pwqzGoag544ldElSE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxN2yYnbeQNdb0+92X1vgdAy1brKTvUC+AO2hq1U8wiavjtjCV2
-	CPUmcy5DOWAePNv404fkC8EQX6Ts+a7+N6Mp4yMf7y4+B9VCruTqG15O4EVEHw==
-X-Gm-Gg: ASbGncthgE1RXgEbhvNLV2tAIQLJHxXcaPsd8R6QrxFUYgt/xNxFKJ8ILwA4E5JzXXB
-	H0X5/xPX680Qkp+lblXBjJMzvdFya9jjxVbn3rDY0CxiaVouoBWhVKaHJ5zjj/8xsa0So7wjg4D
-	IzNtnHW81oAoIcX2PQFWXMCGE9EpBhhHqRLJV7Eu73fTM75Orhm6dkQVkYVLna952JF/9GGKrh9
-	3gp42jTnwaS09Z1Fjmz7iOtYy6v4+gofyHmvpicFdZLD5f2fbU372O0LwA1CiQrACsVX9Qb65Zy
-	zoaTMnAB9OdO1rBJxOrmLkAMGdxZo9DeoUNvHYqXC4TtSlVwBZzaRqqsAnbiepkVytMCkAOaisH
-	LAzAW/NT/D03U+9LVKsZMfS2oSaTKZA==
-X-Google-Smtp-Source: AGHT+IGv3XGNVMFgbVufmMsbuvCFGnsvcm5rXevQfCtNHQOt9uvyD590aXLiDNDjqdwPfnypgzaL6w==
-X-Received: by 2002:a05:600c:1ca4:b0:43d:b3:fb1 with SMTP id 5b1f17b1804b1-43d50a3c12amr125783195e9.27.1742921958042;
-        Tue, 25 Mar 2025 09:59:18 -0700 (PDT)
-Message-ID: <85d2bde5-b078-4c04-87e6-263b3e218cf9@suse.com>
-Date: Tue, 25 Mar 2025 17:59:16 +0100
+        bh=DsTq9LYeqZRm0Y/urEFIhygv9dSmRUM5rmlSWejk8yA=;
+        b=LROKq10Nu0B6K2zhNcBhJ0SdkjkEdMWbf5DeNoibsnqsMz7YufDJ4ikLuAL3posXYk
+         Us1JkW99ilCecz53i0uwDMnHJur4c+IuyENEiVcZwTxCNnMYQIBERpiRcH+8LZpZWhta
+         9JLZoJbYUPh7yiIPQaMgUQuK8JBPkJdQOABqLp2qjGFkcIYCtlk7nKZdAoTZy95LgskD
+         ihAs7qR2pzMOBpDdfkrIxRFuuveq97ZdOvRHdQE2tc3Uw420SUUN1hrqfKVxcHrCDg9w
+         fh2PXrEMJa7hGtHX2sLZtb0ipHo3R9IQ/guBvDFyjUjrqXVqqk8IO0FIbhQewPsbJNIm
+         eBUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742922253; x=1743527053;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=DsTq9LYeqZRm0Y/urEFIhygv9dSmRUM5rmlSWejk8yA=;
+        b=ks4djsr2+pcitLlur0VnI/mMEM8B59pr/sV6LQlCrP1UmS3hsTbywycDDRL2HD8gzK
+         spMvvMzO57EnMg/UxcrJbcntuds5YYB6dUIUhSUygR3zXWcat+lze//26/NQGDSRIkTn
+         +L23I+S5PUsmkegLY9Q1GE/ERDwWNze9G8rpcwWknWmVD490yENtEi+vz9DB4y1qLITS
+         1xVhu74XVtUSa/ASP1PlG4xmzAan6btKRJF7j88Sa7AqiByxSGSFiXC4t7eDe4u5vqoT
+         tLh4Z/KkND/EIixo5IJGOHZ8udF6712Bzr+Y0oofzDnE152orPDTytjoPRzw742XIWcY
+         v15w==
+X-Gm-Message-State: AOJu0Yyp27olhzpzjn/WY3qejbDQ1Y0iayTqyVp+hrLfknuOXGaR9h9N
+	mnDU2FX+MPEBo16/N4qkdyhBqfhBq0GZ9fIBNALaYPVrj+mDyrdx
+X-Gm-Gg: ASbGncvO11HkYAhF9PTwYd2+/2c/WN2jh1NpfcDkKJU+tML7n4xJsX87PeQGgngMhNl
+	eArZ2k4/vB0g/fwye2O4CfjGnbobSy+5jgqUFi+RT8U210jgbTLBWRYqkgcm+CWVD3aoWERZNdi
+	N/yRNA7qqwgw6+7NrSlcWsGwxQFr73yPkpyW0Nzxc1utN/fWj9m04QkQBZr5GWQ5wEYblgs12tn
+	h8DEcf0HmoUvpACAb/psTD55u5GZTkU2da+6Mne1xRM1k5oahrHSXUpJ0alcQ+QOohtC45yhGPz
+	v5r5GjA2QeBhk8r3EY+DwJHpdfW8JQUboZj0Ghypi1sCWKF+yzddExoLNHJFfchBfy3F+cg+ssy
+	iLDEtQpUFko+6rE8Hvveg
+X-Google-Smtp-Source: AGHT+IHlxpUP4bP4UiR+h/4GZGtq/W0LaatklngHqb8k6O3g0elrBxmSW8mkO7Et+vFi0u4SRNv+ZQ==
+X-Received: by 2002:a05:6402:2399:b0:5ec:c982:7efe with SMTP id 4fb4d7f45d1cf-5ecc9827f70mr4980201a12.14.1742922252583;
+        Tue, 25 Mar 2025 10:04:12 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------VCEwCpqhbsUxNQCoGCDzsb03"
+Message-ID: <a852cb38-79fc-4b9d-b0a0-b69e277c2b82@gmail.com>
+Date: Tue, 25 Mar 2025 18:04:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 15/15] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
- xen_sysctl_pm_op for amd-cppc driver
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250306083949.1503385-1-Penny.Zheng@amd.com>
- <20250306083949.1503385-16-Penny.Zheng@amd.com>
+Subject: Re: [PATCH] RISCV/bitops: Use Zbb to provide arch-optimised bitops
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20250226172050.1300771-1-andrew.cooper3@citrix.com>
+ <113b2464-c7b2-4068-a179-707cba4f3835@suse.com>
+ <50cd2332-11b7-4b64-85ea-489c416098f9@citrix.com>
+ <db2073b0-8585-4518-9467-b7da4cefbbae@suse.com>
+ <8dff5fb9-b46f-47bf-a6ee-863282155706@citrix.com>
+ <295f59af-ebb8-4ad5-bf27-ec0ea5a2c2fe@gmail.com>
+ <927264c2-0b99-4d60-97f8-31bcd0d64aa6@suse.com>
+ <a7f05789-cf1a-474f-b619-80a7e890a579@citrix.com>
+ <7cfbd773-de4b-459f-8fa9-7c6ed19fe0ad@gmail.com>
+ <52bd483a-c5bf-4eba-867f-3476b1b86550@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250306083949.1503385-16-Penny.Zheng@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <52bd483a-c5bf-4eba-867f-3476b1b86550@suse.com>
 
-On 06.03.2025 09:39, Penny Zheng wrote:
-> Introduce helper set_amd_cppc_para and get_amd_cppc_para to
-> SET/GET CPPC-related para for amd-cppc/amd-cppc-epp driver.
-> 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> ---
-> v1 -> v2:
-> - Give the variable des_perf an initializer of 0
-> - Use the strncmp()s directly in the if()
-> ---
->  xen/arch/x86/acpi/cpufreq/amd-cppc.c | 124 +++++++++++++++++++++++++++
->  xen/drivers/acpi/pmstat.c            |  20 ++++-
->  xen/include/acpi/cpufreq/cpufreq.h   |   5 ++
->  3 files changed, 145 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/arch/x86/acpi/cpufreq/amd-cppc.c b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-> index 606bb648b3..28c13b09c8 100644
-> --- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-> @@ -32,6 +32,7 @@
->  
->  static bool __ro_after_init opt_active_mode;
->  static DEFINE_PER_CPU_READ_MOSTLY(uint8_t, epp_init);
-> +static bool __ro_after_init amd_cppc_in_use;
->  
->  struct amd_cppc_drv_data
->  {
-> @@ -513,6 +514,123 @@ static int cf_check amd_cppc_epp_set_policy(struct cpufreq_policy *policy)
->      return amd_cppc_epp_update_limit(policy);
->  }
->  
-> +int get_amd_cppc_para(unsigned int cpu,
-> +                      struct xen_cppc_para *cppc_para)
-> +{
-> +    const struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
-> +
-> +    if ( data == NULL )
-> +        return -ENODATA;
-> +
-> +    cppc_para->features         = 0;
-> +    cppc_para->lowest           = data->caps.lowest_perf;
-> +    cppc_para->lowest_nonlinear = data->caps.lowest_nonlinear_perf;
-> +    cppc_para->nominal          = data->caps.nominal_perf;
-> +    cppc_para->highest          = data->caps.highest_perf;
-> +    cppc_para->minimum          = data->req.min_perf;
-> +    cppc_para->maximum          = data->req.max_perf;
-> +    cppc_para->desired          = data->req.des_perf;
-> +    cppc_para->energy_perf      = data->req.epp;
-> +
-> +    return 0;
-> +}
-> +
-> +int set_amd_cppc_para(const struct cpufreq_policy *policy,
-> +                      const struct xen_set_cppc_para *set_cppc)
-> +{
-> +    unsigned int cpu = policy->cpu;
-> +    struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
-> +    uint8_t max_perf, min_perf, des_perf = 0, epp;
-> +
-> +    if ( data == NULL )
-> +        return -ENOENT;
-> +
-> +    /* Validate all parameters - Disallow reserved bits. */
-> +    if ( set_cppc->minimum > UINT8_MAX || set_cppc->maximum > UINT8_MAX ||
-> +         set_cppc->desired > UINT8_MAX || set_cppc->energy_perf > UINT8_MAX )
-> +        return -EINVAL;
-> +
-> +    /* Only allow values if params bit is set. */
-> +    if ( (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED) &&
-> +          set_cppc->desired) ||
-> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MINIMUM) &&
-> +          set_cppc->minimum) ||
-> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MAXIMUM) &&
-> +          set_cppc->maximum) ||
-> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ENERGY_PERF) &&
-> +          set_cppc->energy_perf) )
-> +        return -EINVAL;
-> +
-> +    /* Activity window not supported in MSR */
-> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ACT_WINDOW )
-> +        return -EOPNOTSUPP;
-> +
-> +    /* Return if there is nothing to do. */
-> +    if ( set_cppc->set_params == 0 )
-> +        return 0;
-> +
-> +    epp = per_cpu(epp_init, cpu);
-> +    /* Apply presets */
-> +    /*
-> +     * XEN_SYSCTL_CPPC_SET_PRESET_POWERSAVE/PERFORMANCE/BALANCE are
-> +     * for amd-cppc in active mode, min_perf could be set with lowest_perf
-> +     * representing the T-state range of performance levels, while
-> +     * XEN_SYSCTL_CPPC_SET_PRESET_NONE is for amd-cppc in passive mode, it
-> +     * depends on governor to do performance scaling, setting with
-> +     * lowest_nonlinear_perf to ensures performance in P-state range.
-> +     */
+This is a multi-part message in MIME format.
+--------------VCEwCpqhbsUxNQCoGCDzsb03
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Nit: There are again two consecutive comments here.
 
-The active / passive mode distinction mentioned in the comment isn't
-reflected anywhere in the code. It's the XEN_SYSCTL_CPPC_SET_DESIRED
-which distinguishes them, yet that flag isn't mentioned in the comment.
+On 3/25/25 5:46 PM, Jan Beulich wrote:
+> On 25.03.2025 17:35, Oleksii Kurochko wrote:
+>> On 3/7/25 1:12 PM, Andrew Cooper wrote:
+>>> On 07/03/2025 12:01 pm, Jan Beulich wrote:
+>>>> On 07.03.2025 12:50, Oleksii Kurochko wrote:
+>>>>> On 3/6/25 9:19 PM, Andrew Cooper wrote:
+>>>>>> On 05/03/2025 7:34 am, Jan Beulich wrote:
+>>>>>>> I was actually hoping to eliminate BITS_PER_LONG at some point, in favor
+>>>>>>> of using sizeof(long) * BITS_PER_BYTE. (Surely in common code we could
+>>>>>>> retain a shorthand of that name, if so desired, but I see no reason why
+>>>>>>> each arch would need to provide all three BITS_PER_{BYTE,INT,LONG}.)
+>>>>>> The concern is legibility and clarity.
+>>>>>>
+>>>>>> This:
+>>>>>>
+>>>>>>        ((x) ? 32 - __builtin_clz(x) : 0)
+>>>>>>
+>>>>>> is a clear expression in a way that this:
+>>>>>>
+>>>>>>        ((x) ? (sizeof(int) * BITS_PER_BYTE) - __builtin_clz(x) : 0)
+>>>>>>
+>>>>>> is not.  The problem is the extra binary expression, and this:
+>>>>>>
+>>>>>>        ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
+>>>>>>
+>>>>>> is still clear, because the reader doesn't have to perform a multiply to
+>>>>>> just to figure out what's going on.
+>>>>>>
+>>>>>>
+>>>>>> It is definitely stupid to have each architecture provide their own
+>>>>>> BITS_PER_*.  The compiler is in a superior position to provide those
+>>>>>> details, and it should be in a common location.
+>>>>>>
+>>>>>> I don't particularly mind how those constants are derived, but one key
+>>>>>> thing that BITS_PER_* can do which sizeof() can't is be used in #ifdef/etc.
+>>>>> What about moving them to xen/config.h? (if it isn't the best one place, any suggestion which is better?)
+>>>>>
+>>>>> #define BYTES_PER_INT  (1 << INT_BYTEORDER)
+>>>>> #define BITS_PER_INT  (BYTES_PER_INT << 3)
+>>>>>
+>>>>> #define BYTES_PER_LONG (1 << LONG_BYTEORDER)
+>>>>> #define BITS_PER_LONG (BYTES_PER_LONG << 3)
+>>>>> #define BITS_PER_BYTE 8
+>>> The *_BYTEORDER's are useless indirection.  BITS_PER_* should be defined
+>>> straight up, and this will simplify quite a lot of preprocessing.
+>> Could we really drop *_BYTEORDER?
+>>
+>> For example, LONG_BYTEORDER for Arm could be either 2 or 3 depends on Arm32 or Arm64 is used.
+> The can still #define BITS_PER_LONG to 32 or 64 respectively, can't they?
 
-> +    switch ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_PRESET_MASK )
-> +    {
-> +    case XEN_SYSCTL_CPPC_SET_PRESET_POWERSAVE:
-> +        if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
-> +            return -EINVAL;
-> +        min_perf = data->caps.lowest_perf;
-> +        max_perf = data->caps.highest_perf;
+Yes, but then if we want to move it to xen/config.h then it will be needed to:
+in Arm's asm/config.h to have something like:
+   #ifdef CONFIG_ARM_32
+       #define BITS_PER_LONG 32
+   #endif
 
-These are still not not both ".lowest_perf", and I still don't understand
-- due to the lack of a comment - why that is.
+and then in xen/config.h
+   #ifndef BITS_PER_LONG
+       #define BITS_PER_LONG 64
+   #endif
 
-> +        epp = CPPC_ENERGY_PERF_MAX_POWERSAVE;
-> +        break;
-> +
-> +    case XEN_SYSCTL_CPPC_SET_PRESET_PERFORMANCE:
-> +        if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
-> +            return -EINVAL;
-> +        min_perf = data->caps.highest_perf;
-> +        max_perf = data->caps.highest_perf;
-> +        epp = CPPC_ENERGY_PERF_MAX_PERFORMANCE;
-> +        break;
-> +
-> +    case XEN_SYSCTL_CPPC_SET_PRESET_BALANCE:
-> +        if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
-> +            return -EINVAL;
-> +        min_perf = data->caps.lowest_perf;
-> +        max_perf = data->caps.highest_perf;
-> +        epp = CPPC_ENERGY_PERF_BALANCE;
-> +        break;
-> +
-> +    case XEN_SYSCTL_CPPC_SET_PRESET_NONE:
-> +        min_perf = data->caps.lowest_nonlinear_perf;
-> +        max_perf = data->caps.highest_perf;
-> +        break;
-> +
-> +    default:
-> +        return -EINVAL;
-> +    }
-> +
-> +    /* Further customize presets if needed */
-> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MINIMUM )
-> +        min_perf = set_cppc->minimum;
-> +
-> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MAXIMUM )
-> +        max_perf = set_cppc->maximum;
-> +
-> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ENERGY_PERF )
-> +        epp = set_cppc->energy_perf;
-> +
-> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
-> +        des_perf = set_cppc->desired;
+But I wanted to not have #ifndef BITS_PER_LONG in xen/config.h. (or using CONFIG_ARM_32 in xen/config.h)
 
-Considering these I even less understand what the comment further up is
-about.
+If it is okay to have this #ifndef in xen/config.h then we can do in that way.
 
-> +    return amd_cppc_write_request(cpu, min_perf, des_perf, max_perf, epp);
-> +}
-> +
-> +
+>
+>>>>> Also, it seems like the follwoing could be moved there too:
+>>>>>
+>>>>> #define POINTER_ALIGN  BYTES_PER_LONG
+>>>> This one is likely fine to move.
+>>>>
+>>>>> #define BITS_PER_LLONG 64
+>>>> This one is only fine to move imo when converted to
+>>>>
+>>>> #define BITS_PER_LONG (BYTES_PER_LLONG << 3)
+>>> Erm?  That's mixing long and long long types.  Presuming that's an
+>>> errant L, then sure.
+>>>
+>>>>> #define BITS_PER_BYTE 8
+>>>> Personally I'd rather leave this per-arch. The others can truly be derived;
+>>>> this one can't be. If we centralize, imo we should also convert the " << 3"
+>>>> to " * BITS_PER_BYTE".
+>>> It is highly unlikely that Xen will ever run on a system where CHAR_BIT
+>>> isn't 8.
+>>>
+>>> So I suggest it stays central to reduce complexity.  If an arch ever
+>>> needs to change it, the complexity can be added then.
+>> Does it make sense to ifdef that? Or, at least, before defintion of BITS_PER_BYTE something like:
+>> #if CHAR_BIT != 8
+>> #error "CHAR_BIT isn't 8"
+>> #endif
+> Where would CHAR_BIT come from? Oh, perhaps you mean __CHAR_BIT__? If all
+> compilers we can build with supply that value, we could indeed centrally
+> use either
+>
+> #define BITS_PER_BYTE __CHAR_BIT__
+>
+> or
+>
+> #define BITS_PER_BYTE 8
+> #if BITS_PER_BYTE != __CHAR_BIT__
+> # error "..."
+> #endif
 
-Nit (not for the first time, I think): No double blank lines please.
+Sorry, I meant __CHAR_BIT__.
 
-> @@ -533,6 +651,11 @@ amd_cppc_epp_driver =
->      .exit       = amd_cppc_cpufreq_cpu_exit,
->  };
->  
-> +bool amd_cppc_active(void)
-> +{
-> +    return amd_cppc_in_use;
-> +}
-> +
->  int __init amd_cppc_register_driver(void)
->  {
->      int ret;
-> @@ -552,6 +675,7 @@ int __init amd_cppc_register_driver(void)
->  
->      /* Remove possible fallback option */
->      xen_processor_pmbits &= ~XEN_PROCESSOR_PM_PX;
-> +    amd_cppc_in_use = true;
+Thanks.
 
-Is this separate flag really needed? Can't you go from xen_processor_pmbits?
+~ Oleksii
 
-> --- a/xen/drivers/acpi/pmstat.c
-> +++ b/xen/drivers/acpi/pmstat.c
-> @@ -261,7 +261,16 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
->           !strncmp(op->u.get_para.scaling_driver, XEN_HWP_DRIVER_NAME,
->                    CPUFREQ_NAME_LEN) )
->          ret = get_hwp_para(policy->cpu, &op->u.get_para.u.cppc_para);
-> -    else
-> +    else if ( !strncmp(op->u.get_para.scaling_driver, XEN_AMD_CPPC_DRIVER_NAME,
-> +                       CPUFREQ_NAME_LEN) ||
-> +              !strncmp(op->u.get_para.scaling_driver, XEN_AMD_CPPC_EPP_DRIVER_NAME,
+--------------VCEwCpqhbsUxNQCoGCDzsb03
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Overlong line again.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 3/25/25 5:46 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:52bd483a-c5bf-4eba-867f-3476b1b86550@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 25.03.2025 17:35, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 3/7/25 1:12 PM, Andrew Cooper wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 07/03/2025 12:01 pm, Jan Beulich wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 07.03.2025 12:50, Oleksii Kurochko wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">On 3/6/25 9:19 PM, Andrew Cooper wrote:
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">On 05/03/2025 7:34 am, Jan Beulich wrote:
+</pre>
+                <blockquote type="cite">
+                  <pre wrap="" class="moz-quote-pre">I was actually hoping to eliminate BITS_PER_LONG at some point, in favor
+of using sizeof(long) * BITS_PER_BYTE. (Surely in common code we could
+retain a shorthand of that name, if so desired, but I see no reason why
+each arch would need to provide all three BITS_PER_{BYTE,INT,LONG}.)
+</pre>
+                </blockquote>
+                <pre wrap="" class="moz-quote-pre">The concern is legibility and clarity.
 
-Jan
+This:
+
+      ((x) ? 32 - __builtin_clz(x) : 0)
+
+is a clear expression in a way that this:
+
+      ((x) ? (sizeof(int) * BITS_PER_BYTE) - __builtin_clz(x) : 0)
+
+is not.  The problem is the extra binary expression, and this:
+
+      ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
+
+is still clear, because the reader doesn't have to perform a multiply to
+just to figure out what's going on.
+
+
+It is definitely stupid to have each architecture provide their own
+BITS_PER_*.  The compiler is in a superior position to provide those
+details, and it should be in a common location.
+
+I don't particularly mind how those constants are derived, but one key
+thing that BITS_PER_* can do which sizeof() can't is be used in #ifdef/etc.
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">What about moving them to xen/config.h? (if it isn't the best one place, any suggestion which is better?)
+
+#define BYTES_PER_INT  (1 &lt;&lt; INT_BYTEORDER)
+#define BITS_PER_INT  (BYTES_PER_INT &lt;&lt; 3)
+
+#define BYTES_PER_LONG (1 &lt;&lt; LONG_BYTEORDER)
+#define BITS_PER_LONG (BYTES_PER_LONG &lt;&lt; 3)
+#define BITS_PER_BYTE 8
+</pre>
+            </blockquote>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">The *_BYTEORDER's are useless indirection.  BITS_PER_* should be defined
+straight up, and this will simplify quite a lot of preprocessing.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Could we really drop *_BYTEORDER?
+
+For example, LONG_BYTEORDER for Arm could be either 2 or 3 depends on Arm32 or Arm64 is used.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+The can still #define BITS_PER_LONG to 32 or 64 respectively, can't they?</pre>
+    </blockquote>
+    <pre>Yes, but then if we want to move it to xen/config.h then it will be needed to:
+in Arm's asm/config.h to have something like:
+  #ifdef CONFIG_ARM_32
+      #define BITS_PER_LONG 32
+  #endif
+
+and then in xen/config.h
+  #ifndef BITS_PER_LONG
+      #define BITS_PER_LONG 64
+  #endif
+
+But I wanted to not have #ifndef BITS_PER_LONG in xen/config.h. (or using CONFIG_ARM_32 in xen/config.h)
+
+If it is okay to have this #ifndef in xen/config.h then we can do in that way.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:52bd483a-c5bf-4eba-867f-3476b1b86550@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">Also, it seems like the follwoing could be moved there too:
+
+#define POINTER_ALIGN  BYTES_PER_LONG
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">This one is likely fine to move.
+
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">#define BITS_PER_LLONG 64
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">This one is only fine to move imo when converted to
+
+#define BITS_PER_LONG (BYTES_PER_LLONG &lt;&lt; 3)
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Erm?  That's mixing long and long long types.  Presuming that's an
+errant L, then sure.
+
+</pre>
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">#define BITS_PER_BYTE 8
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">Personally I'd rather leave this per-arch. The others can truly be derived;
+this one can't be. If we centralize, imo we should also convert the " &lt;&lt; 3"
+to " * BITS_PER_BYTE".
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">It is highly unlikely that Xen will ever run on a system where CHAR_BIT
+isn't 8.
+
+So I suggest it stays central to reduce complexity.  If an arch ever
+needs to change it, the complexity can be added then.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Does it make sense to ifdef that? Or, at least, before defintion of BITS_PER_BYTE something like:
+#if CHAR_BIT != 8
+#error "CHAR_BIT isn't 8"
+#endif
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Where would CHAR_BIT come from? Oh, perhaps you mean __CHAR_BIT__? If all
+compilers we can build with supply that value, we could indeed centrally
+use either
+
+#define BITS_PER_BYTE __CHAR_BIT__
+
+or
+
+#define BITS_PER_BYTE 8
+#if BITS_PER_BYTE != __CHAR_BIT__
+# error "..."
+#endif</pre>
+    </blockquote>
+    <pre>Sorry, I meant __CHAR_BIT__.
+
+Thanks.
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------VCEwCpqhbsUxNQCoGCDzsb03--
 
