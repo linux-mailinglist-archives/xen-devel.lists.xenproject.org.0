@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4CDBA6EA69
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 08:22:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926062.1328915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8500AA6EA82
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 08:30:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926071.1328925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twybq-0006Tp-H5; Tue, 25 Mar 2025 07:22:02 +0000
+	id 1twyjj-00082H-6H; Tue, 25 Mar 2025 07:30:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926062.1328915; Tue, 25 Mar 2025 07:22:02 +0000
+Received: by outflank-mailman (output) from mailman id 926071.1328925; Tue, 25 Mar 2025 07:30:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twybq-0006Qh-Dk; Tue, 25 Mar 2025 07:22:02 +0000
-Received: by outflank-mailman (input) for mailman id 926062;
- Tue, 25 Mar 2025 07:22:00 +0000
+	id 1twyjj-00080i-3C; Tue, 25 Mar 2025 07:30:11 +0000
+Received: by outflank-mailman (input) for mailman id 926071;
+ Tue, 25 Mar 2025 07:30:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=B0qP=WM=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1twybo-0006Qb-IZ
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 07:22:00 +0000
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [2607:f8b0:4864:20::335])
+ id 1twyjg-00080c-Ut
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 07:30:08 +0000
+Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
+ [2607:f8b0:4864:20::c33])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d69f9774-0949-11f0-9ea3-5ba50f476ded;
- Tue, 25 Mar 2025 08:21:59 +0100 (CET)
-Received: by mail-ot1-x335.google.com with SMTP id
- 46e09a7af769-72c14138668so674751a34.2
- for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 00:21:59 -0700 (PDT)
+ id f9b31bb5-094a-11f0-9ea3-5ba50f476ded;
+ Tue, 25 Mar 2025 08:30:07 +0100 (CET)
+Received: by mail-oo1-xc33.google.com with SMTP id
+ 006d021491bc7-601c46a92d1so2959973eaf.1
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 00:30:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,51 +40,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d69f9774-0949-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: f9b31bb5-094a-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1742887318; x=1743492118; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1742887806; x=1743492606; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KiUmbp6CtUte/qgasF3BI8wkEyt3CYP3GiOJePeBhIc=;
-        b=xDVpJpSXYbY+8MTAcmH2cK1YpEPiMQiHRrst7SjMRWqFCl/f8pai+F37quv+RWzPn3
-         9xVYuMPZjvjDUYaqQprjxJwHYIH2E0WAB/Pm1ntw3B9yuNC3PDcOZNmEi6LQfJKgRqRc
-         g9K0SjldVujsEQQp+81NvpJY03Vdt0JaiDAGKLXxIbv23fdnCEOcjhvC8wW/+qTRhQ4U
-         W9VPPlXflFZ4B+eUfn3xTrpfi02EZnqV8lGYDJNNSQpMVGh2pN2banAgaD2hZkLRvfT6
-         F1XewJ0okDVhQxHUZthpAk5uoKAoNTjOMSCJEpvs4CB6A7YNjhhqWt4wDBRrvHMY2Mk+
-         YBlg==
+        bh=L//Q+oqpIJ9qeYZhlPg+Vg7CD7DHOGCkewvzZk+nVTs=;
+        b=sKkOcmcpDiZFj3p3/hVknAw3edfbrYqEbzAfRgNltTrS9RTWl5FV7s4VXGJUKvO+8c
+         Pfu77FNwZug1c3TrNTleGjMSB2D5VObd01zBojJHbZfTc7adx9fE+7tJZygg5nF2SzX1
+         c0/7R6MM7m3xnMhv9jkFQrC7MrbVxdVV/L39g/NpH+vrmV3giZytRXkLYAbILtcwA2yO
+         nOubrC/dT6Pyd/vRQbiGYPra2f4VgBGMjqbTmuoGWUWHh6Hi/Vm00AD1M6BuvzgNVZls
+         wmAmobAVJotXpP4TPpiBcBR7aaQJgcydnqCjYppICBfLrEyqDAvA8d4F9X+OAuCle0PS
+         v92Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742887318; x=1743492118;
+        d=1e100.net; s=20230601; t=1742887806; x=1743492606;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=KiUmbp6CtUte/qgasF3BI8wkEyt3CYP3GiOJePeBhIc=;
-        b=auOAJ80FLAcmyARuGUKQo6f+siXb4gCXdgfluioucK7JA1Ne8ImolRL/oRyclqacVz
-         FCJCfcd+QNoeWAa5oAgvN98l02NHh/UyGIjxeskrPZfJuevJXJulJc3TGSVLfz4cAZho
-         /UBF8qj7bQeU/pxaapBeMmsZc0r/nzrU0S92xCJgLfYCXHQBbmWL0nK/FMFsc7DQS/J2
-         qFdXjpsHzvGj7AxcVhs1lGYAzDbxybkpjffe7QozgLSzSJGiMKCq6iaUl41iYfpln5z9
-         JKJMYmyONBR80gzU9FJYwlLqMFHwLdZdbxlrvNwxP4rdIM7PJSTUtOaxS9+CP0HEj4Bm
-         yM9w==
-X-Gm-Message-State: AOJu0Yxu6khAiQ0iFrpNmPAsafEb26rE8MlObScf/8E5BvY1XdONPO3F
-	uOkjgaArbQn1MRygZn1OHLp4k/gJtWAFofizgMRbHwxHEeo483AMV4p4pCH/eUbTP5aZSO7ZUp2
-	uZQCNpk47aE8zrxD5HhSUtwkBerEvnWN3Zy53gg==
-X-Gm-Gg: ASbGnct8hGybdh9clW2S3ZVVGxQLH1xnCEu/4NIr7seWDFrsVW4ooR9DsXTFdRn9Aa8
-	Yb6zKOgsxALkwyeZt4DJAZHaw+Qz8QzsYKW+ox5FOj+6yddK70uGwBzgSf9NY+j6UDGQRlmDWGF
-	/G2WDW/ikA9DPjQclJJBOR7Jl205ljUgdB4TxgTw==
-X-Google-Smtp-Source: AGHT+IGGfche2VvbHJ9J/jIYxnSxl4L8RvckP6nsOMDk3cEXoWSABtsyiOlQtXCFQXu7RBsImAIhsSPGH4LZoEtWjj0=
-X-Received: by 2002:a9d:6741:0:b0:72c:320b:f76b with SMTP id
- 46e09a7af769-72c320c0028mr2224053a34.1.1742887317949; Tue, 25 Mar 2025
- 00:21:57 -0700 (PDT)
+        bh=L//Q+oqpIJ9qeYZhlPg+Vg7CD7DHOGCkewvzZk+nVTs=;
+        b=stiM/PjcmEY5R0oOhRSOt3/HNjnh2r8pj1pgKD+V4XtbW9zQaCSxXAx5i5KLahULlG
+         Krc66bh0sRk+2I8qXRuGLQpxBYqhy7zSCL1QhYA9ybEtHTvTjuM6OZVmNkiuijZMISLm
+         ujjympx/pMPciwMsEekAdGkG6cMaUZirKRvWTQDaS8RdxmNqz21x6MBd76JksKT4wLsP
+         MhAdcBMj93gLSyyJsIPPZ60X6jBugaJbfVwu6kv6A3sXIauau5RgvhWFjiIJp/FcpwHF
+         ylE4wqDLoKxEisUXQJ01o1JDA5WJnrYMZlZ2MEnewOXvbIiIR7LoFDvH6o/KN3UOy8MU
+         jxCw==
+X-Gm-Message-State: AOJu0Yy2BopZsOkN1XrOUtvnwhTHMYoU9I4KIEM9+s7dYLNpezmFQiiQ
+	LmgH5GU25KHwhzmP9ZeJiqpCsEI87wjQXw1HzJpGWOLipuYienhLz880W0qJc+fplFGt2J/cVzF
+	/kaeoH1mR5Ej/MTCEDZqvmn8IAIsO1u5V1LIYAg==
+X-Gm-Gg: ASbGnctdiFwZQ8K0ICL5RWbkEjKfAizld3P3/d+RHXPXLPh541b8W/TJFGqve6y3KhY
+	Z1PYebHlh1c/6n0U6MWLpYNoJ3H0xWGPJvxWmo6sVPIfF1CPX7bUW5qM7YE8K9g3s7VoH7gs4dQ
+	upibvO836txBJkpqXpCDb4mBJrcXI=
+X-Google-Smtp-Source: AGHT+IGpCVc7EEEE0lx5GtjkPPuSez0TMwUDKhLXMMPaxVXPfHzATXU1zVV3v0/dvbg9kHKzJajUjsH+V4mo0UCauZk=
+X-Received: by 2002:a05:6870:3e0c:b0:29e:27bd:69ef with SMTP id
+ 586e51a60fabf-2c7804ce2a0mr10905125fac.30.1742887806234; Tue, 25 Mar 2025
+ 00:30:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1742824138.git.bertrand.marquis@arm.com> <719dad25719a0834dc0e52da715aca989a3c20fb.1742824138.git.bertrand.marquis@arm.com>
-In-Reply-To: <719dad25719a0834dc0e52da715aca989a3c20fb.1742824138.git.bertrand.marquis@arm.com>
+References: <cover.1742824138.git.bertrand.marquis@arm.com>
+ <8f0928b4e94b47d6fed201dcd8cfb1068573b297.1742824138.git.bertrand.marquis@arm.com>
+ <A5ADD7FD-5FBD-4BE5-9428-A69719A2ACBE@arm.com>
+In-Reply-To: <A5ADD7FD-5FBD-4BE5-9428-A69719A2ACBE@arm.com>
 From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 25 Mar 2025 08:21:46 +0100
-X-Gm-Features: AQ5f1Jp4yaZl8NVs_6Ah_jxGWeHmYctAnFecU1-kuG9fXKrc-kutFdEhrFoHp44
-Message-ID: <CAHUa44FfP0qrOgubGpdGSMVhDNonQVbWq+cor9NshvYh8S6hqg@mail.gmail.com>
-Subject: Re: [PATCH v4 4/5] xen/arm: ffa: Add indirect message between VM
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
+Date: Tue, 25 Mar 2025 08:29:54 +0100
+X-Gm-Features: AQ5f1Jryin2RXmYwYSfZSkuoq9q2OQLNNr6jx1ybBslKYbK2eanxM4trkJYQVYI
+Message-ID: <CAHUa44Es0DyPU0mLXBZs7hHv_+XGDmR2yaigBf=5TnMQgSFxvg@mail.gmail.com>
+Subject: Re: [PATCH v4 2/5] xen/arm: ffa: Introduce VM to VM support
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
 	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
 	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
 Content-Type: text/plain; charset="UTF-8"
@@ -92,178 +94,161 @@ Content-Transfer-Encoding: quoted-printable
 
 Hi Bertrand,
 
-On Mon, Mar 24, 2025 at 2:53=E2=80=AFPM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
+On Mon, Mar 24, 2025 at 2:58=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
 >
-> Add support for indirect messages between VMs.
-> This is only enabled if CONFIG_FFA_VM_TO_VM is selected.
+> Hi,
 >
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
-> Changes in v4:
-> - Use a local copy of the message header to prevent a TOC/TOU possible
->   issue when using the payload size
-> Changes in v3:
-> - Move vm to vm indirect message handling in a sub function to simplify
->   lock handling and make implementation easier to read
-> Changes in v2:
-> - Switch ifdef to IS_ENABLED
-> ---
->  xen/arch/arm/tee/ffa_msg.c | 110 ++++++++++++++++++++++++++++++++-----
->  1 file changed, 96 insertions(+), 14 deletions(-)
+> > On 24 Mar 2025, at 14:53, Bertrand Marquis <Bertrand.Marquis@arm.com> w=
+rote:
+> >
+> > Create a CONFIG_FFA_VM_TO_VM parameter to activate FFA communication
+> > between VMs.
+> > When activated list VMs in the system with FF-A support in part_info_ge=
+t.
+> >
+> > When VM to VM is activated, Xen will be tainted as Insecure and a
+> > message is displayed to the user during the boot as there is no
+> > filtering of VMs in FF-A so any VM can communicate or see any other VM
+> > in the system.
+> >
+> > WARNING: There is no filtering for now and all VMs are listed !!
+> >
+> > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> > ---
+> > Changes in v4:
+> > - properly handle SPMC version 1.0 header size case in partinfo_get
+> > - switch to local counting variables instead of *pointer +=3D 1 form
+> > - coding style issue with missing spaces in if ()
+> > Changes in v3:
+> > - break partinfo_get in several sub functions to make the implementatio=
+n
+> >  easier to understand and lock handling easier
+> > - rework implementation to check size along the way and prevent previou=
+s
+> >  implementation limits which had to check that the number of VMs or SPs
+> >  did not change
+> > - taint Xen as INSECURE when VM to VM is enabled
+> > Changes in v2:
+> > - Switch ifdef to IS_ENABLED
+> > - dom was not switched to d as requested by Jan because there is alread=
+y
+> >  a variable d pointing to the current domain and it must not be
+> >  shadowed.
+> > ---
+> > xen/arch/arm/tee/Kconfig        |  11 ++
+> > xen/arch/arm/tee/ffa.c          |  12 ++
+> > xen/arch/arm/tee/ffa_partinfo.c | 274 +++++++++++++++++++++-----------
+> > xen/arch/arm/tee/ffa_private.h  |  12 ++
+> > 4 files changed, 218 insertions(+), 91 deletions(-)
 
+With the comment you mention below fixed, please add:
 Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
 Cheers,
 Jens
 
+> >
+> > diff --git a/xen/arch/arm/tee/Kconfig b/xen/arch/arm/tee/Kconfig
+> > index c5b0f88d7522..88a4c4c99154 100644
+> > --- a/xen/arch/arm/tee/Kconfig
+> > +++ b/xen/arch/arm/tee/Kconfig
+> > @@ -28,5 +28,16 @@ config FFA
+> >
+> >  [1] https://developer.arm.com/documentation/den0077/latest
+> >
+> > +config FFA_VM_TO_VM
+> > +    bool "Enable FF-A between VMs (UNSUPPORTED)" if UNSUPPORTED
+> > +    default n
+> > +    depends on FFA
+> > +    help
+> > +      This option enables to use FF-A between VMs.
+> > +      This is experimental and there is no access control so any
+> > +      guest can communicate with any other guest.
+> > +
+> > +      If unsure, say N.
+> > +
+> > endmenu
+> >
+> > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> > index 3bbdd7168a6b..e41ab5f8ada6 100644
+> > --- a/xen/arch/arm/tee/ffa.c
+> > +++ b/xen/arch/arm/tee/ffa.c
+> > @@ -464,6 +464,18 @@ static bool ffa_probe(void)
+> >     printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
+> >            FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
+> >
+> > +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+> > +    {
+> > +        /*
+> > +         * When FFA VM to VM is enabled, the current implementation do=
+es not
+> > +         * offer any way to limit which VM can communicate with which =
+VM using
+> > +         * FF-A.
+> > +         * Signal this in the xen console and taint the system as inse=
+cure.
+> > +         * TODO: Introduce a solution to limit what a VM can do throug=
+h FFA.
+> > +         */
+> > +        printk(XENLOG_ERR "ffa: VM to VM is enabled, system is insecur=
+e !!\n");
+> > +        add_taint(TAINT_MACHINE_INSECURE);
+> > +    }
+> >     /*
+> >      * psci_init_smccc() updates this value with what's reported by EL-=
+3
+> >      * or secure world.
+> > diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_par=
+tinfo.c
+> > index c0510ceb8338..406c57b95f77 100644
+> > --- a/xen/arch/arm/tee/ffa_partinfo.c
+> > +++ b/xen/arch/arm/tee/ffa_partinfo.c
+> > @@ -63,9 +63,156 @@ static int32_t ffa_partition_info_get(uint32_t *uui=
+d, uint32_t flags,
+> >     return ret;
+> > }
+> >
+> > -void ffa_handle_partition_info_get(struct cpu_user_regs *regs)
+> > +static int32_t ffa_get_sp_count(uint32_t *uuid, uint32_t *sp_count)
+> > +{
+> > +    uint32_t src_size;
+> > +
+> > +    return ffa_partition_info_get(uuid, FFA_PARTITION_INFO_GET_COUNT_F=
+LAG,
+> > +                                  sp_count, &src_size);
+> > +}
+> > +
+> > +static int32_t ffa_get_sp_partinfo(uint32_t *uuid, uint32_t *sp_count,
+> > +                                   void *dst_buf, void *end_buf,
+> > +                                   uint32_t dst_size)
+> > {
+> >     int32_t ret;
+> > +    uint32_t src_size, real_sp_count;
+> > +    void *src_buf =3D ffa_rx;
+> > +    uint32_t count =3D 0;
+> > +
+> > +    /* Do we have a RX buffer with the SPMC */
+> > +    if ( !ffa_rx )
+> > +        return FFA_RET_DENIED;
+> > +
+> > +    /* We need to use the RX buffer to receive the list */
+> > +    spin_lock(&ffa_rx_buffer_lock);
+> > +
+> > +    ret =3D ffa_partition_info_get(uuid, 0, &real_sp_count, &src_size)=
+;
+> > +    if ( ret )
+> > +        goto out;
+> > +
+> > +    /* We now own the RX buffer */
+> > +
+> > +    /* We only support a 1.1 firmware version */
 >
-> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
-> index ee594e737fc7..7c36e3aac47c 100644
-> --- a/xen/arch/arm/tee/ffa_msg.c
-> +++ b/xen/arch/arm/tee/ffa_msg.c
-> @@ -88,43 +88,125 @@ out:
->                   resp.a7 & mask);
->  }
+> This comment should have been removed.
+> I will fix it on next version of might be possible to do on commit
+> if there are no further comments here.
 >
-> +static int32_t ffa_msg_send2_vm(uint16_t dst_id,
-> +                                struct ffa_part_msg_rxtx *src_msg)
-> +{
-> +    struct domain *dst_d;
-> +    struct ffa_ctx *dst_ctx;
-> +    struct ffa_part_msg_rxtx *dst_msg;
-> +    int err;
-> +    int32_t ret;
-> +
-> +    if ( dst_id =3D=3D 0 )
-> +        /* FF-A ID 0 is the hypervisor, this is not valid */
-> +        return FFA_RET_INVALID_PARAMETERS;
-> +
-> +    /* This is also checking that dest is not src */
-> +    err =3D rcu_lock_live_remote_domain_by_id(dst_id - 1, &dst_d);
-> +    if ( err )
-> +        return FFA_RET_INVALID_PARAMETERS;
-> +
-> +    if ( dst_d->arch.tee =3D=3D NULL )
-> +    {
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        goto out_unlock;
-> +    }
-> +
-> +    dst_ctx =3D dst_d->arch.tee;
-> +    if ( !dst_ctx->guest_vers )
-> +    {
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        goto out_unlock;
-> +    }
-> +
-> +    /* we need to have enough space in the destination buffer */
-> +    if ( dst_ctx->page_count * FFA_PAGE_SIZE <
-> +            (sizeof(struct ffa_part_msg_rxtx) + src_msg->msg_size) )
-> +    {
-> +        ret =3D FFA_RET_NO_MEMORY;
-> +        goto out_unlock;
-> +    }
-> +
-> +    /* This also checks that destination has set a Rx buffer */
-> +    ret =3D ffa_rx_acquire(dst_d);
-> +    if ( ret )
-> +        goto out_unlock;
-> +
-> +    dst_msg =3D dst_ctx->rx;
-> +
-> +    /* prepare destination header */
-> +    dst_msg->flags =3D 0;
-> +    dst_msg->reserved =3D 0;
-> +    dst_msg->msg_offset =3D sizeof(struct ffa_part_msg_rxtx);
-> +    dst_msg->send_recv_id =3D src_msg->send_recv_id;
-> +    dst_msg->msg_size =3D src_msg->msg_size;
-> +
-> +    memcpy(dst_ctx->rx + sizeof(struct ffa_part_msg_rxtx),
-> +           ((void *)src_msg) + src_msg->msg_offset, src_msg->msg_size);
-> +
-> +    /* receiver rx buffer will be released by the receiver*/
-> +
-> +out_unlock:
-> +    rcu_unlock_domain(dst_d);
-> +    if ( !ret )
-> +        ffa_raise_rx_buffer_full(dst_d);
-> +
-> +    return ret;
-> +}
-> +
->  int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
->  {
->      struct domain *src_d =3D current->domain;
->      struct ffa_ctx *src_ctx =3D src_d->arch.tee;
-> -    const struct ffa_part_msg_rxtx *src_msg;
-> +    struct ffa_part_msg_rxtx src_msg;
->      uint16_t dst_id, src_id;
->      int32_t ret;
->
-> -    if ( !ffa_fw_supports_fid(FFA_MSG_SEND2) )
-> -        return FFA_RET_NOT_SUPPORTED;
-> -
->      if ( !spin_trylock(&src_ctx->tx_lock) )
->          return FFA_RET_BUSY;
->
-> -    src_msg =3D src_ctx->tx;
-> -    src_id =3D src_msg->send_recv_id >> 16;
-> -    dst_id =3D src_msg->send_recv_id & GENMASK(15,0);
-> +    /* create a copy of the message header */
-> +    memcpy(&src_msg, src_ctx->tx, sizeof(src_msg));
-> +
-> +    src_id =3D src_msg.send_recv_id >> 16;
-> +    dst_id =3D src_msg.send_recv_id & GENMASK(15,0);
->
-> -    if ( src_id !=3D ffa_get_vm_id(src_d) || !FFA_ID_IS_SECURE(dst_id) )
-> +    if ( src_id !=3D ffa_get_vm_id(src_d) )
->      {
->          ret =3D FFA_RET_INVALID_PARAMETERS;
-> -        goto out_unlock_tx;
-> +        goto out;
->      }
->
->      /* check source message fits in buffer */
->      if ( src_ctx->page_count * FFA_PAGE_SIZE <
-> -         src_msg->msg_offset + src_msg->msg_size ||
-> -         src_msg->msg_offset < sizeof(struct ffa_part_msg_rxtx) )
-> +         src_msg.msg_offset + src_msg.msg_size ||
-> +         src_msg.msg_offset < sizeof(struct ffa_part_msg_rxtx) )
->      {
->          ret =3D FFA_RET_INVALID_PARAMETERS;
-> -        goto out_unlock_tx;
-> +        goto out;
->      }
->
-> -    ret =3D ffa_simple_call(FFA_MSG_SEND2,
-> +    if ( FFA_ID_IS_SECURE(dst_id) )
-> +    {
-> +        /* Message for a secure partition */
-> +        if ( !ffa_fw_supports_fid(FFA_MSG_SEND2) )
-> +        {
-> +            ret =3D FFA_RET_NOT_SUPPORTED;
-> +            goto out;
-> +        }
-> +
-> +        ret =3D ffa_simple_call(FFA_MSG_SEND2,
->                            ((uint32_t)ffa_get_vm_id(src_d)) << 16, 0, 0, =
-0);
-> +    }
-> +    else if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> +    {
-> +        /* Message for a VM */
-> +        ret =3D ffa_msg_send2_vm(dst_id, &src_msg);
-> +    }
-> +    else
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
->
-> -out_unlock_tx:
-> +out:
->      spin_unlock(&src_ctx->tx_lock);
->      return ret;
->  }
-> --
-> 2.47.1
+> Cheers
+> Bertrand
 >
 
