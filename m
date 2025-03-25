@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9C49A7041F
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 15:46:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926585.1329421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF207A704A4
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 16:10:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926601.1329438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx5Xn-0001xk-8p; Tue, 25 Mar 2025 14:46:19 +0000
+	id 1tx5tk-0006xE-2x; Tue, 25 Mar 2025 15:09:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926585.1329421; Tue, 25 Mar 2025 14:46:19 +0000
+Received: by outflank-mailman (output) from mailman id 926601.1329438; Tue, 25 Mar 2025 15:09:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx5Xn-0001vn-5q; Tue, 25 Mar 2025 14:46:19 +0000
-Received: by outflank-mailman (input) for mailman id 926585;
- Tue, 25 Mar 2025 14:46:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tx5tk-0006vk-01; Tue, 25 Mar 2025 15:09:00 +0000
+Received: by outflank-mailman (input) for mailman id 926601;
+ Tue, 25 Mar 2025 15:08:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ogJ6=WM=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tx5Xm-0001ve-Ab
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 14:46:18 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e83a3e70-0987-11f0-9ea3-5ba50f476ded;
- Tue, 25 Mar 2025 15:46:17 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5e5b56fc863so8415865a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 07:46:17 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3efbdecedsm874414366b.140.2025.03.25.07.46.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Mar 2025 07:46:15 -0700 (PDT)
+ <SRS0=uFHn=WM=epam.com=Oleksandr_Tyshchenko@srs-se1.protection.inumbo.net>)
+ id 1tx5ti-0006ve-Pw
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 15:08:58 +0000
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c201::3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0b8357b2-098b-11f0-9ffa-bf95429c2676;
+ Tue, 25 Mar 2025 16:08:44 +0100 (CET)
+Received: from PR3PR03MB6412.eurprd03.prod.outlook.com (2603:10a6:102:7d::8)
+ by DU0PR03MB9256.eurprd03.prod.outlook.com (2603:10a6:10:474::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Tue, 25 Mar
+ 2025 15:08:43 +0000
+Received: from PR3PR03MB6412.eurprd03.prod.outlook.com
+ ([fe80::2887:9068:38f6:8340]) by PR3PR03MB6412.eurprd03.prod.outlook.com
+ ([fe80::2887:9068:38f6:8340%7]) with mapi id 15.20.8534.040; Tue, 25 Mar 2025
+ 15:08:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,353 +47,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e83a3e70-0987-11f0-9ea3-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1742913976; x=1743518776; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ubfnu9zPadwWKnVhmyyBplAaK3Mwmaf0IF/mk+Bq8lQ=;
-        b=a4Gpkk9wUgcQlFlk2Tf+4A70wothydI1fuQuAq3SXotK+4elOfQN343xC/neTk6wgd
-         vk0KR/gT9uuNrzvrM07bAuJIWHJAd8kAZJsoZQfHvgJ/g+FqT/05iiQvchF3G1y47ort
-         jBRbCkAzNurGPbdhdVwnVhJ5e/AQCcssKE3IXqq1Io7RAPY9wSG2NSzJQByZCH+Xq2eh
-         SnryF9t1ohtUkccNOOiMjNQ1bai52CVYY5K/9h+rhODebXRrRmevcCStqeNfVq15Zh8f
-         0w/Bg2VkGLUDsTUqXDVZXNCPaQXjBnEqwVDRGE9UqPv7gxwt12alTIXPABcNq4BSj/HA
-         2Xuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742913976; x=1743518776;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ubfnu9zPadwWKnVhmyyBplAaK3Mwmaf0IF/mk+Bq8lQ=;
-        b=aiLvOLr8RHb6tKALXsZgzOm+f5NaPr4e5uA79vud4Mdkp9bxhBWzzMMcc/y3/Wwdzt
-         bG++akoXmf2fYX2Q64+cBW2dLuGHY4k0LBfRYINrwRS05S68eQzheihDhm68bKZzSa5R
-         Hjt2pD8c1GkF/FV+uXn6G/CXJhbsGa7Vp0iWSDVMafaFo6lSRPN0SZ/vE1JGQ2zEmEhs
-         IEtMRC2BjUov85zPHJ80V6C/RHJsdOUfr5Ngln/RT6nCAzqBk0An8OBiDTfpQcdseMKd
-         7ZBK+lkKmy4dIjRSGc3dHt2ellomdlanV59I+PH5cbc9gBW2T0TzX8GwueRj6Orl07Eq
-         Y+WA==
-X-Forwarded-Encrypted: i=1; AJvYcCUjh3UxgbB18mRmJldDwcqS8n+n3DrXQVbc3MWE7A3SpK8pLUSLP4iRFjNWDQj+krIsKVkXcKr2Bf4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YysM0i55slooExK0a3xGmNVp3Aj3IN09m7pB7K4cfZjiMlf/SXg
-	kAbYpLASfbsyyVni3cXUAHq/NsKPIHmizvv5s/V2/fm+JYz1dVQ/
-X-Gm-Gg: ASbGncte07Oqx4CEEY/v0aoSKkme6QYOXUBMJeoZpEAPnleuJGLgglVPSRU29Gahich
-	l0ZCDsEZoXv70uryuitftpPpAvq1HqTaJXtRlnppRRpuOtaHt3KpT4TLIS9WIgTEOOKgTrGXO+W
-	q/qpRU48MXyIqjdWG/YAiB7BMxjIOSogaYKGB3pkSy0vmKu7dbDKWCTU8R7V/XWRgmWJAXnONBB
-	Hn+EeZR350Kasqn5RAs3cOtPfEkvqZWh2K1MQMo06CcXEP0ONYbbVoCTEAPyNS+r3ZUZBm0T/5Z
-	1QfZfyLUEc0k9gMtOrAUbSPDsBPpv/R8xEcjsIcRKHkwei8DEAhQTM26pJ7RP/XIOaXrBShcTaC
-	Nv5/FuMKQwWcTkOLm+LWu
-X-Google-Smtp-Source: AGHT+IFIoljogbjmBLwLC2Yyucm4iCx4mjY8P6kVJBdLHhkpiIoEf6sahx7w0kGWsoXzBWItAn1uig==
-X-Received: by 2002:a17:906:d542:b0:ac3:ed56:86dc with SMTP id a640c23a62f3a-ac3f22d527fmr1678852866b.31.1742913976099;
-        Tue, 25 Mar 2025 07:46:16 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------jzrVTekTF7oCKnyBkz7fX39l"
-Message-ID: <238a9b67-a4f3-4f97-9d13-11a35884be0b@gmail.com>
-Date: Tue, 25 Mar 2025 15:46:14 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/riscv: add H extenstion to -march
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Milan Djokic <milandjokic1995@gmail.com>,
- Slavisa Petrovic <Slavisa.Petrovic@rt-rk.com>, xen-devel@lists.xenproject.org
-References: <0a072ab36b54ea7c4f9a6f94465fb7b79f9f49b2.1742573085.git.oleksii.kurochko@gmail.com>
- <c9c7c8e2-d441-4a1a-a658-98dfe0a98ed8@suse.com>
- <ee8b8e09-9b0b-4757-989c-b7d81721c325@gmail.com>
- <3d9e8e8c-2e09-43d6-a254-2f081c9e5eb1@suse.com>
- <e6e64e58-a26a-44cc-b708-5bf510b041c8@gmail.com>
- <a6d511ec-38bc-4fad-9e08-462b7c10eac4@suse.com>
+X-Inumbo-ID: 0b8357b2-098b-11f0-9ffa-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V8E5/t1Fmgtlbrh7x7mm3ly5L1abyM4ThiWK70GQDqP7QXgpHeU6TYgMLv/ManY4F2keOyyVrqsTZHoikMg6L5bMxmaja7Ea9r2y22d/3CnHWzhHsF1Pmpn+kjfhjJWLGIOqCQywR9ia4TrJ9j5urfaS4FolIut+gDlpxN/cbHBBuRaMGBCyOyDPGAjWhdj1AJrlRtlRRX8m+x6Wmea+rhfU3R4oZR5XyDujKvaLchLTQX8tu/vpXRqCewEBek70j1OMuEH+Hk6f40vljHRr5QXQO1JpOB136l9OwS7/61xAy9qem9aOkLNy2ns3RF4+fIa32H4c4sohqaSICHqezA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fZV1Xrp24hzBjC7X/wRRug3+v8GuB2ErTpL9mzqJDug=;
+ b=x+YbOPZbjYULl/rpj6pv1khL+P4Dna0rbkoRoSJHw3jPbJHO5B1hXQiNDD7BZbIaGCmPbne8ftZkU8Rh7lJ1llHAnNqCGAoKB8tjC6stGLInEoR7w19m/RcZd2iYPvO4zgK7H38SGtafIEA5cFBE97EAERkxO1pk5gdreugvFFl2ZaIb4dxaohfvnYOQy5PVrGKzs8BLtd0epTwR4g63qErVni95LwZLdeOrU7FXrhjGLChW4WlQW3wDe2tj+oICCmB2cW3xhNwFISfVmV/hgAokcqOQq1Rs0qHszuazzSjSqjZGvSvTH3+P2PwFN4G5mqlzI7RMaRnNCYSJGNvypg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fZV1Xrp24hzBjC7X/wRRug3+v8GuB2ErTpL9mzqJDug=;
+ b=A7Xqz+WCoczoYISAxsK7RKP2SydjqIiC0O/XsqI7p3TnXnMWzDpAfameEZDMLw3OQB2KPF9iQpd0lryMU+BO4BgYIm4+MkbSv5i5Hfwrrm/oA5vbxWNIVPE44VvXFcBAUp4yCDmc9VbDuqnamAQnT54InzvW9vmFYRJCPeuKa8df0X8vspCxgiB2qufaccLpZBGlmKuzDAfLFD1HSexDcJ6zXa/XnpfUIVYs8fli9zM/teXKTid5ETqfagl8pS7i/mlIYSFKe1HvdmK1cCWH3/L0iP9/GAo3D00w0TXOfqflkAgrj9FLiy13E150jFbExs2xqPdLBbOu0J3DE1ceaQ==
+From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH V2] xen/arm: Initialize acpi_disabled to true during
+ declaration
+Thread-Topic: [PATCH V2] xen/arm: Initialize acpi_disabled to true during
+ declaration
+Thread-Index: AQHbnZfMrs+h0o/uEkuTNWO41qxIcA==
+Date: Tue, 25 Mar 2025 15:08:42 +0000
+Message-ID: <20250325150842.2015968-1-oleksandr_tyshchenko@epam.com>
+Accept-Language: en-US, ru-RU
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <a6d511ec-38bc-4fad-9e08-462b7c10eac4@suse.com>
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PR3PR03MB6412:EE_|DU0PR03MB9256:EE_
+x-ms-office365-filtering-correlation-id: 230c80f1-f831-4a8c-8a1e-08dd6baeeebb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?qXm6SISIU7WBgutD2M/lI0cm2JuwEAQ3YkAUB0Sq/O5f/cPPBGCiYTr6r7?=
+ =?iso-8859-1?Q?TtP4dF4KWk8lYaz29j5dCtx9e7gLC0VbehkxNSsmlymmGWtDT4s8pmwgJ+?=
+ =?iso-8859-1?Q?jm38iScsr7L5mbOFIrf3unhbRhpyi5GYEOc7kGLVNgMpRjYsFDZS1wILIl?=
+ =?iso-8859-1?Q?ANwt7IatEKOyHzVhq4kPQcOr1yMLccDY4TJihC0l/E2rdtfb6fh2wwyet6?=
+ =?iso-8859-1?Q?eQHg71Xcu9VHJgBJdDxFtWxG4GcIsY7uDcOyLhixroHCiioA7j67ydhT2P?=
+ =?iso-8859-1?Q?08IVZ2gaK4DP3mFxr5gJmERf046HEPC/oEn2k9qka7zrkqGzG+NEaLUrGB?=
+ =?iso-8859-1?Q?g12tUrvoOurKzOljQRE/Q/IxMgXJtRCLVFRk2x9yV6Z2VdMjZrz6LuGU9m?=
+ =?iso-8859-1?Q?7cQ8hNInd2ykkwE1IgIAkAwrKk4q9Fb4DJKmOQMzD3gKXQleJxVXrm6SJ8?=
+ =?iso-8859-1?Q?i0ES5bvsBSPXkkyJILgZbGxEY0w8NbBhaYHo3N2mEkNJrBBLL6ytGg5Ibq?=
+ =?iso-8859-1?Q?DePHseDq9XYm8Q5H/R5JCJBkES9u+wyN0BUnmoc5yoPtz77I170sEPFTFd?=
+ =?iso-8859-1?Q?7y1nd5mzbnABJHqdThnwV0ai5OFQXxAhbCaYEmO/5rjnpTneZ+j6BbT233?=
+ =?iso-8859-1?Q?YQgTF6Izc8SNKi3Ry0hTMWhjOpxq9/qSwn2GktpjrqRJDxdL7gnMF4gGNC?=
+ =?iso-8859-1?Q?mZOK4DoDKEkkfOCXUtqenFEy72kd6XSd/t6sjxv7YEeOmwdUz4jbTo7vix?=
+ =?iso-8859-1?Q?aORSNwPWzj6UfeStLJGmtyW1VYu4JZz+oUJrhNaM9GxeeM8ZPlWcY+tX5w?=
+ =?iso-8859-1?Q?B5B5zTMI450Icz5FRtv17qCRIbST9Ww9GkVaHJtt6uoK16mYEqYUtkl3h5?=
+ =?iso-8859-1?Q?B14dNB4T8p+r16TW/rPi/ZaKq/LsA0+S+yj7uVdGHd1fTsE0XRaqTweJod?=
+ =?iso-8859-1?Q?p8bBRUx/ltYFyAjsMTSdfFUxF00uQ41B6pv5j9lO5NfSfNzjAxbHpAT2FU?=
+ =?iso-8859-1?Q?ds09eE4dZTgCkLCBJXWgt/EL05NZFGFUL4mlKpg2M7Qr004lj0tLL6bEtM?=
+ =?iso-8859-1?Q?k2MUC3OGkumsxF55HBoAdDRMnnL8SKYH+12LwFuIglTp8vvS7a+ApjJPaK?=
+ =?iso-8859-1?Q?LSb+L2+ljXiUY8Usybr3i8Qnv9GiKWESC5h0H0XUMEwwxMh2qhR038TF76?=
+ =?iso-8859-1?Q?vwqaiitTZCauQ16Ysq1S3g+Xa42UqEkqvNiNHpun1cE9OlrM6mhSkf8M11?=
+ =?iso-8859-1?Q?Vq0iess8JRbYddNXd3MdgHEbufecAWmDsAMhpCnyKREV5TjHIN3p8YroT5?=
+ =?iso-8859-1?Q?FVilAKZkaSNCT8Qo8JXeBd6iNOgRYUlGHhutLr3uq/94vHjp61rgsKXC14?=
+ =?iso-8859-1?Q?OJgUGGzsSLdTxIBiObndAsdk6vavQhmyugNiZw1Nu/TrJcHckj4+u5Nz2/?=
+ =?iso-8859-1?Q?HrYO7Kp3ckqjDBjbW058U6vMDuPA/B0vzsqS6/vgnpAN34c4TYNtos3N+k?=
+ =?iso-8859-1?Q?LabWE4m3U4hJ4G81QLC02Q?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR03MB6412.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?JoJW73SJy8vaMkofFhNqwj1lT/h3zzdln9tPfgxt+DbXq4Kj0wxhIIrWKh?=
+ =?iso-8859-1?Q?hXIBi7i4Nv0DShYM957+QBW6hbmZPl8VHIjeoUVtlxWejD8hBHktJ09MQa?=
+ =?iso-8859-1?Q?I/wkCfckSe9LRZ+RC4GXX1TWoMZoBk6v+x4KwHVqOVeCtsZMQwW2qH0M9+?=
+ =?iso-8859-1?Q?5tMu2rau0Pwl6AyyTWaZPMkvhONXnWqcUE6sh9uGuBcIx+8z5OOv/7Gw0t?=
+ =?iso-8859-1?Q?RErgSnvB7JOkRzJy8AJp320Hyfx4PNheNi5F5wqpQNElAwZvoy4sZAjZmu?=
+ =?iso-8859-1?Q?Dj3QD2GXZ38gMj3gIRDK/FxnkkdpXymdCj7TAWjJTlSX+TOOqX7dqcXxgu?=
+ =?iso-8859-1?Q?p+mj/D9kNYySs6t0jVxwXVR6I0WXmn2dDtZ1APvyx7RSc+oqTVIYlxANlQ?=
+ =?iso-8859-1?Q?T9dOgIdYDhZr6yA3pr/6WUCydIVWyvNyM0G6a3mqlQ/dWreDa1W5HtI5bO?=
+ =?iso-8859-1?Q?P1JHA3PjyKWtlqk9PTXE8rfDNZ8qy9rC89L01KpKd7zf03iUA7zzSy6S+w?=
+ =?iso-8859-1?Q?mOv5MQIrPZCq8YKvg6BK5BZw3Op9VOubSUhb5ELd1ieywRbamdXDG2kjwQ?=
+ =?iso-8859-1?Q?H64wahH/jhJ0cutO+t4wLbQUS2+9WHafOGSj1BpwnSkgCl3uS4CatAnQr4?=
+ =?iso-8859-1?Q?Utq1mqATEfKd8rfpTkrQ6ZzUtEYh7aoPQdb0J9wd0SnQPGjo43ugacAlH/?=
+ =?iso-8859-1?Q?asZzXGPz7gwniFJkotpD499l2snM9QmvVGX4e3I47RI9GsBAr6Oz5f/XoN?=
+ =?iso-8859-1?Q?8mrjtn3T4MKjOh/mubLo+RCWiLa8ASZSdCPTPYEyAsJvhKleLe8gnNlQeF?=
+ =?iso-8859-1?Q?/gJhVESVRM0vWU9nwaiZQ07NQGboR8fG51+WSIocnvWKZlmdkit0Qp3WkM?=
+ =?iso-8859-1?Q?Rfx1D6XESCQBTc3Fmij2yyzSC6vrTSFQ6kNUwCREWu9jRDXHYW6+spMoMU?=
+ =?iso-8859-1?Q?tVsdTSSehSUk3AA/xjY4Hz2w1t/mRWyz8is2NAwHlMZo9ZjKhaB72/lyPQ?=
+ =?iso-8859-1?Q?KwVzE6R4jCBfbrQJAu8r2m73UXncu7uSQaDicL8aiMtmWbMfCYR+q52KwH?=
+ =?iso-8859-1?Q?QXSqsNWrcbwaENW0ZCeF2Bie7a60aq/oMt5Ee0be/HxHiR35BGLBEf5WUw?=
+ =?iso-8859-1?Q?KCCLYR+lTY3hUWNagjJlSvfuZxN2PCElpC1NHLn9tXbZPYc11IHqxuV1de?=
+ =?iso-8859-1?Q?JiimFR/lBWTvM+WrFehYaOMJCnNoiRkZR8OCGDzJR7Y8hTwCU7NRSC/3WD?=
+ =?iso-8859-1?Q?OW4U9+ERRGGJkgWtKgqqBfX8aKrPEIYT95LlChL7jI/bxi/nFW+GH9lFos?=
+ =?iso-8859-1?Q?81Zh49CG/+X+KghOAUzSZ7FqUy/yq1d0/iJ+U8HzuaRce+AcvH2RlhSUJq?=
+ =?iso-8859-1?Q?cjnaeCtkLmG8cswORJ2O+sFr3Fs0+x028XVu5ivY00mZxWW+azXUxMjUGI?=
+ =?iso-8859-1?Q?CxdOMWU5xZbYW0rdvMhRmbdQsf4ZKQIWPhltaEDM/ypOXM7ykhqo8WxWbf?=
+ =?iso-8859-1?Q?wUMgkl3KzQxqTtj+F5vmnEyE1Cum+/zdZ2uPjsCjdBMX84Q2SEqAa3UPgp?=
+ =?iso-8859-1?Q?R/V8Sqb3/E1UoFY/AJ7TuLsgPp24XSiT0+/5rpc4hpMHIlPedDPLAZbd+7?=
+ =?iso-8859-1?Q?G22cszuM16tkAQNqmbfcbid8wQi6y0WiKVhgljfzm9wig3Th513c1cfI4A?=
+ =?iso-8859-1?Q?KZnUv5zBZoU/soqAjDM=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PR3PR03MB6412.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 230c80f1-f831-4a8c-8a1e-08dd6baeeebb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2025 15:08:42.9816
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: zxaZJfGlt+9wjldzm995RfpSRIEkFAmvkAfWq9vSNP+E0+8rU5hda3Izt9lE6X1mv8Rkes3lnscDgEOCIS4qRNEFT85vUOJJZPliRwFmoB0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB9256
 
-This is a multi-part message in MIME format.
---------------jzrVTekTF7oCKnyBkz7fX39l
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On the device-tree-based Arm64 system, if Xen is built with
+CONFIG_ACPI=3Dy, CONFIG_STATIC_MEMORY=3Dy, and the static memory range
+is provided in the host device tree, the BUG is triggered in
+common/page_alloc.c during Xen's early boot. The BUG occurs when
+the first page from the static range is fed to the domain
+sub-allocator and finally ends up in mark_page_free().
+The pg->count_info & PGC_state is not in the state that
+the code expects to see there.
 
+(XEN) Checking for initrd in /chosen
+(XEN) Checking for "xen,static-mem" in domain node
+(XEN) RAM: 0000000040000000 - 00000000bfffffff
+(XEN)
+(XEN) MODULE[0]: 0000000043200000 - 0000000043343fff Xen
+(XEN) MODULE[1]: 0000000043400000 - 0000000043402fff Device Tree
+(XEN) MODULE[2]: 0000000042e00000 - 0000000043111f82 Ramdisk
+(XEN) MODULE[3]: 0000000040400000 - 0000000042cfffff Kernel
+(XEN)  RESVD[0]: 0000000050000000 - 000000005fffffff
+(XEN)
+(XEN) CMDLINE[0000000040400000]:domU0 console=3DttyAMA0
+(XEN)
+(XEN) Command line: console=3Ddtuart conswitch=3Dax
+(XEN) pg MFN 50000 c=3D0x2180000000000000 o=3D0 v=3D0 t=3D0
+(XEN) Xen BUG at common/page_alloc.c:1474
+[snip]
 
-On 3/25/25 2:47 PM, Jan Beulich wrote:
-> On 25.03.2025 14:02, Oleksii Kurochko wrote:
->> On 3/25/25 12:52 PM, Jan Beulich wrote:
->>> On 25.03.2025 12:48, Oleksii Kurochko wrote:
->>>> On 3/24/25 1:31 PM, Jan Beulich wrote:
->>>>> On 21.03.2025 17:17, Oleksii Kurochko wrote:
->>>>>> H provides additional instructions and CSRs that control the new stage of
->>>>>> address translation and support hosting a guest OS in virtual S-mode
->>>>>> (VS-mode).
->>>>>>
->>>>>> According to the Unprivileged Architecture (version 20240411) specification:
->>>>>> ```
->>>>>> Table 74 summarizes the standardized extension names. The table also defines
->>>>>> the canonical order in which extension names must appear in the name string,
->>>>>> with top-to-bottom in table indicating first-to-last in the name string, e.g.,
->>>>>> RV32IMACV is legal, whereas RV32IMAVC is not.
->>>>>> ```
->>>>>> According to Table 74, the h extension is placed last in the one-letter
->>>>>> extensions name part of the ISA string.
->>>>>>
->>>>>> `h` is a standalone extension based on the patch [1] but it wasn't so
->>>>>> before.
->>>>>> As the minimal supported GCC version to build Xen for RISC-V is 12.2.0,
->>>>>> and for that version it will be needed to encode H extensions instructions
->>>>>> explicitly by checking if __risv_h is defined.
->>>>> Leaving aside the typo, what is this about? There's no use of __riscv_h in
->>>>> the patch here, and ...
->>>> It is going to be used in future patches:https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/p2m.c?ref_type=heads#L32
->>> For this and ...
->>>
->>>>>> @@ -25,10 +24,13 @@ $(eval $(1) := \
->>>>>>     	$(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
->>>>>>     endef
->>>>>>     
->>>>>> +h-insn := "hfence.gvma"
->>>>>> +$(call check-extension,h)
->>>>> ... this, if it fails, will not have any effect on the build right now
->>>>> afaics.
->>>> No, it won't have any affect now as instruction from H extension isn't used now.
->>>> But it will beneededforhttps://lore.kernel.org/xen-devel/dae753618491b2a6e42f7ed3f24190d0dc13fe3f.1740754166.git.Slavisa.Petrovic@rt-rk.com/
->>>> and for p2m changes mentioned above.
->>> ... this both being future work, it might help if it could be made clear
->>> right here how things are going to work (with both gcc12 and up-to-date
->>> gcc).
->> I can update the commit message with the following:
->> ```
->> If 'H' extension is supported by compiler then __riscv_h will be defined by
->> compiler (for gcc version >= 13.1).
->> For gcc12 it will be needed to:
->> #ifdef __riscv_h
->>    asm volatile ("h extension instruction");
->> #else
->>    asm volatile ("|.insn ..."); #endif ```
-> Okay, that's what I was concerned about. __riscv_h is a compiler indication.
-> It means nothing about H extension insns being supported by the assembler
-> (except perhaps for Clang's integrated one). The check-extension thing in
-> the Makefile will actually check both in one go. Yet then the hfence.* insns
-> have been in binutils since 2.38, i.e. pre-dating gcc12.
+The problem is that the static range gets mistakenly unreserved
+in populate_boot_allocator() and reaches init_boot_pages().
+This happens since by the time the populate_boot_allocator()
+is executed, the evaluated in fw_unreserved_regions()
+an acpi_disabled variable is still false and as the result
+the dt_unreserved_regions() which should simply skip that static range
+does not get called. The acpi_disabled will be set to the actual value
+(in our case it is true) later on in acpi_boot_table_init().
 
-It is still needed to have or #ifdef-ing or workaround mentioned below ...
+The important question is why acpi_disabled is false by the time
+setup_mm() is executed. With CONFIG_ACPI=3Dn it is a macro that is always
+true, but with CONFIG_ACPI=3Dy it is a boolean that is false from the very
+beggining, even though the entire acpi_boot_table_init() (which is called
+after setup_mm()) is written with the assumption that ACPI is off by defaul=
+t
+at the start. So, initialize acpi_disabled to true during declaration
+if CONFIG_ACPI=3Dy to avoid an issue and match to acpi_boot_table_init().
 
->
->> Or probably it will be easier not to ifdef-ing
->> everything with __riscv_h but just return back a workaround with the
->> following changes: ``` $ git diff diff --git a/xen/arch/riscv/arch.mk
->> b/xen/arch/riscv/arch.mk index f29ad332c1..3bd64e7e51 100644 ---
->> a/xen/arch/riscv/arch.mk +++ b/xen/arch/riscv/arch.mk @@ -24,13 +24,17
->> @@ $(eval $(1) := \ $(call as-insn,$(CC)
->> $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1))) endef -h-insn :=
->> "hfence.gvma" -$(call check-extension,h) +
->> +h-extension-name-$(CONFIG_CC_IS_GCC) := $(call cc-ifversion,-lt,1301,
->> hh, h) +h-extension-name-$(CONFIG_CC_IS_CLANG) := h +
->> +$(h-extension-name-y)-insn := "hfence.gvma" +$(call
->> check-extension,$(h-extension-name-y)) zihintpause-insn := "pause"
->> $(call check-extension,zihintpause) -extensions := $(h) $(zihintpause)
->> _zicsr_zifencei_zbb +extensions := $($(h-extension-name-y))
->> $(zihintpause) _zicsr_zifencei_zbb extensions := $(subst
->> $(space),,$(extensions)) ``` I prefer more a little bit the second
->> option with having the workaround for GCC version. ~ Oleksii |
-> I fear this ended up unreadable.
+Suggested-by: Michal Orzel <michal.orzel@amd.com>
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+  V2:
+   - drop post-commit remark
+   - use the approach suggested by Michal
+   - update commit subject (WAS xen/device-tree: Switch back to dt_unreserv=
+ed_regions() in boot allocator)
+     and description
+---
+---
+ xen/arch/arm/setup.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-... something happen with formatting:
-
-diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
-index f29ad332c1..3bd64e7e51 100644
---- a/xen/arch/riscv/arch.mk
-+++ b/xen/arch/riscv/arch.mk
-@@ -24,13 +24,17 @@ $(eval $(1) := \
-         $(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
-  endef
-  
--h-insn := "hfence.gvma"
--$(call check-extension,h)
-+
-+h-extension-name-$(CONFIG_CC_IS_GCC) := $(call cc-ifversion,-lt,1301, hh, h)
-+h-extension-name-$(CONFIG_CC_IS_CLANG) := h
-+
-+$(h-extension-name-y)-insn := "hfence.gvma"
-+$(call check-extension,$(h-extension-name-y))
-  
-  zihintpause-insn := "pause"
-  $(call check-extension,zihintpause)
-  
--extensions := $(h) $(zihintpause) _zicsr_zifencei_zbb
-+extensions := $($(h-extension-name-y)) $(zihintpause) _zicsr_zifencei_zbb
-  
-  extensions := $(subst $(space),,$(extensions))
-
-~ Oleksii
-
---------------jzrVTekTF7oCKnyBkz7fX39l
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 3/25/25 2:47 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:a6d511ec-38bc-4fad-9e08-462b7c10eac4@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 25.03.2025 14:02, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 3/25/25 12:52 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 25.03.2025 12:48, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">On 3/24/25 1:31 PM, Jan Beulich wrote:
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">On 21.03.2025 17:17, Oleksii Kurochko wrote:
-</pre>
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">H provides additional instructions and CSRs that control the new stage of
-address translation and support hosting a guest OS in virtual S-mode
-(VS-mode).
-
-According to the Unprivileged Architecture (version 20240411) specification:
-```
-Table 74 summarizes the standardized extension names. The table also defines
-the canonical order in which extension names must appear in the name string,
-with top-to-bottom in table indicating first-to-last in the name string, e.g.,
-RV32IMACV is legal, whereas RV32IMAVC is not.
-```
-According to Table 74, the h extension is placed last in the one-letter
-extensions name part of the ISA string.
-
-`h` is a standalone extension based on the patch [1] but it wasn't so
-before.
-As the minimal supported GCC version to build Xen for RISC-V is 12.2.0,
-and for that version it will be needed to encode H extensions instructions
-explicitly by checking if __risv_h is defined.
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">Leaving aside the typo, what is this about? There's no use of __riscv_h in
-the patch here, and ...
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">It is going to be used in future patches:<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/p2m.c?ref_type=heads#L32">https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/p2m.c?ref_type=heads#L32</a>
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">For this and ...
-
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">@@ -25,10 +24,13 @@ $(eval $(1) := \
-   	$(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
-   endef
-   
-+h-insn := "hfence.gvma"
-+$(call check-extension,h)
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">... this, if it fails, will not have any effect on the build right now
-afaics.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">No, it won't have any affect now as instruction from H extension isn't used now.
-But it will be <a class="moz-txt-link-abbreviated" href="mailto:neededforhttps://lore.kernel.org/xen-devel/dae753618491b2a6e42f7ed3f24190d0dc13fe3f.1740754166.git.Slavisa.Petrovic@rt-rk.com/">neededforhttps://lore.kernel.org/xen-devel/dae753618491b2a6e42f7ed3f24190d0dc13fe3f.1740754166.git.Slavisa.Petrovic@rt-rk.com/</a>
-and for p2m changes mentioned above.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">... this both being future work, it might help if it could be made clear
-right here how things are going to work (with both gcc12 and up-to-date
-gcc).
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-I can update the commit message with the following:
-```
-If 'H' extension is supported by compiler then __riscv_h will be defined by
-compiler (for gcc version &gt;= 13.1).
-For gcc12 it will be needed to:
-#ifdef __riscv_h
-  asm volatile ("h extension instruction");
-#else
-  asm volatile ("|.insn ..."); #endif ```
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Okay, that's what I was concerned about. __riscv_h is a compiler indication.
-It means nothing about H extension insns being supported by the assembler
-(except perhaps for Clang's integrated one). The check-extension thing in
-the Makefile will actually check both in one go. Yet then the hfence.* insns
-have been in binutils since 2.38, i.e. pre-dating gcc12.</pre>
-    </blockquote>
-    <pre>It is still needed to have or #ifdef-ing or workaround mentioned below ...
-</pre>
-    <blockquote type="cite"
-      cite="mid:a6d511ec-38bc-4fad-9e08-462b7c10eac4@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Or probably it will be easier not to ifdef-ing 
-everything with __riscv_h but just return back a workaround with the 
-following changes: ``` $ git diff diff --git a/xen/arch/riscv/arch.mk 
-b/xen/arch/riscv/arch.mk index f29ad332c1..3bd64e7e51 100644 --- 
-a/xen/arch/riscv/arch.mk +++ b/xen/arch/riscv/arch.mk @@ -24,13 +24,17 
-@@ $(eval $(1) := \ $(call as-insn,$(CC) 
-$(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1))) endef -h-insn := 
-"hfence.gvma" -$(call check-extension,h) + 
-+h-extension-name-$(CONFIG_CC_IS_GCC) := $(call cc-ifversion,-lt,1301, 
-hh, h) +h-extension-name-$(CONFIG_CC_IS_CLANG) := h + 
-+$(h-extension-name-y)-insn := "hfence.gvma" +$(call 
-check-extension,$(h-extension-name-y)) zihintpause-insn := "pause" 
-$(call check-extension,zihintpause) -extensions := $(h) $(zihintpause) 
-_zicsr_zifencei_zbb +extensions := $($(h-extension-name-y)) 
-$(zihintpause) _zicsr_zifencei_zbb extensions := $(subst 
-$(space),,$(extensions)) ``` I prefer more a little bit the second 
-option with having the workaround for GCC version. ~ Oleksii |
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I fear this ended up unreadable.</pre>
-    </blockquote>
-    <pre>... something happen with formatting:
-
-diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
-index f29ad332c1..3bd64e7e51 100644
---- a/xen/arch/riscv/arch.mk
-+++ b/xen/arch/riscv/arch.mk
-@@ -24,13 +24,17 @@ $(eval $(1) := \
-        $(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
- endef
- 
--h-insn := "hfence.gvma"
--$(call check-extension,h)
-+
-+h-extension-name-$(CONFIG_CC_IS_GCC) := $(call cc-ifversion,-lt,1301, hh, h)
-+h-extension-name-$(CONFIG_CC_IS_CLANG) := h
-+
-+$(h-extension-name-y)-insn := "hfence.gvma"
-+$(call check-extension,$(h-extension-name-y))
- 
- zihintpause-insn := "pause"
- $(call check-extension,zihintpause)
- 
--extensions := $(h) $(zihintpause) _zicsr_zifencei_zbb
-+extensions := $($(h-extension-name-y)) $(zihintpause) _zicsr_zifencei_zbb
- 
- extensions := $(subst $(space),,$(extensions))
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------jzrVTekTF7oCKnyBkz7fX39l--
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index ffcae900d7..9e94f1a8c7 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -57,7 +57,7 @@
+ struct cpuinfo_arm __read_mostly system_cpuinfo;
+=20
+ #ifdef CONFIG_ACPI
+-bool __read_mostly acpi_disabled;
++bool __read_mostly acpi_disabled =3D true;
+ #endif
+=20
+ domid_t __read_mostly max_init_domid;
+--=20
+2.34.1
 
