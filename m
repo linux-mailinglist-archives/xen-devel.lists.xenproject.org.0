@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8500AA6EA82
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 08:30:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926071.1328925 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 626E8A6EAB7
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 08:39:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926083.1328935 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twyjj-00082H-6H; Tue, 25 Mar 2025 07:30:11 +0000
+	id 1twysn-0001QX-5T; Tue, 25 Mar 2025 07:39:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926071.1328925; Tue, 25 Mar 2025 07:30:11 +0000
+Received: by outflank-mailman (output) from mailman id 926083.1328935; Tue, 25 Mar 2025 07:39:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twyjj-00080i-3C; Tue, 25 Mar 2025 07:30:11 +0000
-Received: by outflank-mailman (input) for mailman id 926071;
- Tue, 25 Mar 2025 07:30:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1twysn-0001Nu-2C; Tue, 25 Mar 2025 07:39:33 +0000
+Received: by outflank-mailman (input) for mailman id 926083;
+ Tue, 25 Mar 2025 07:39:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=B0qP=WM=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1twyjg-00080c-Ut
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 07:30:08 +0000
-Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
- [2607:f8b0:4864:20::c33])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f9b31bb5-094a-11f0-9ea3-5ba50f476ded;
- Tue, 25 Mar 2025 08:30:07 +0100 (CET)
-Received: by mail-oo1-xc33.google.com with SMTP id
- 006d021491bc7-601c46a92d1so2959973eaf.1
- for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 00:30:07 -0700 (PDT)
+ id 1twysl-0001No-S1
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 07:39:31 +0000
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [2001:4860:4864:20::30])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 48b2c865-094c-11f0-9ffa-bf95429c2676;
+ Tue, 25 Mar 2025 08:39:29 +0100 (CET)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-2c6ed7ec0a5so1416053fac.1
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 00:39:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,215 +40,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9b31bb5-094a-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 48b2c865-094c-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1742887806; x=1743492606; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1742888368; x=1743493168; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L//Q+oqpIJ9qeYZhlPg+Vg7CD7DHOGCkewvzZk+nVTs=;
-        b=sKkOcmcpDiZFj3p3/hVknAw3edfbrYqEbzAfRgNltTrS9RTWl5FV7s4VXGJUKvO+8c
-         Pfu77FNwZug1c3TrNTleGjMSB2D5VObd01zBojJHbZfTc7adx9fE+7tJZygg5nF2SzX1
-         c0/7R6MM7m3xnMhv9jkFQrC7MrbVxdVV/L39g/NpH+vrmV3giZytRXkLYAbILtcwA2yO
-         nOubrC/dT6Pyd/vRQbiGYPra2f4VgBGMjqbTmuoGWUWHh6Hi/Vm00AD1M6BuvzgNVZls
-         wmAmobAVJotXpP4TPpiBcBR7aaQJgcydnqCjYppICBfLrEyqDAvA8d4F9X+OAuCle0PS
-         v92Q==
+        bh=BS81KqZTnFpC3mAOczh6LrpUz0knVwLI1q0tTP9ubWM=;
+        b=X4WAxQpAhR9ItZuR5oBN7NJY055QIGwfUD08XSMdC65U2keSdXDbeAj9imwbpEasTb
+         BL36OLXsBN+1XsjTdiH7GSYiNOdoCypB4WCsBukMxOrMyfE4MAXZ5VBey+z84wj4RzhN
+         MWSpOaKUrs8QWzbA4c0Q3clNNtrOnGI/TXNrUsuVJ/8TaLsTU+ltoAHZZcI6t9Eo0uJX
+         qIat4eE27vYIwY74osTL6jRjAQIkzrnIrds/0b/2i8I/iMyux2V4UwFCu1RKPTu2Lc1j
+         RqvyIPUvtqWOHL/41SwE+EhYtH7lRx9HiiwWBOx8Jz2kFelt3SLTmh1M0mtlBEoLNwUy
+         CAHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742887806; x=1743492606;
+        d=1e100.net; s=20230601; t=1742888368; x=1743493168;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=L//Q+oqpIJ9qeYZhlPg+Vg7CD7DHOGCkewvzZk+nVTs=;
-        b=stiM/PjcmEY5R0oOhRSOt3/HNjnh2r8pj1pgKD+V4XtbW9zQaCSxXAx5i5KLahULlG
-         Krc66bh0sRk+2I8qXRuGLQpxBYqhy7zSCL1QhYA9ybEtHTvTjuM6OZVmNkiuijZMISLm
-         ujjympx/pMPciwMsEekAdGkG6cMaUZirKRvWTQDaS8RdxmNqz21x6MBd76JksKT4wLsP
-         MhAdcBMj93gLSyyJsIPPZ60X6jBugaJbfVwu6kv6A3sXIauau5RgvhWFjiIJp/FcpwHF
-         ylE4wqDLoKxEisUXQJ01o1JDA5WJnrYMZlZ2MEnewOXvbIiIR7LoFDvH6o/KN3UOy8MU
-         jxCw==
-X-Gm-Message-State: AOJu0Yy2BopZsOkN1XrOUtvnwhTHMYoU9I4KIEM9+s7dYLNpezmFQiiQ
-	LmgH5GU25KHwhzmP9ZeJiqpCsEI87wjQXw1HzJpGWOLipuYienhLz880W0qJc+fplFGt2J/cVzF
-	/kaeoH1mR5Ej/MTCEDZqvmn8IAIsO1u5V1LIYAg==
-X-Gm-Gg: ASbGnctdiFwZQ8K0ICL5RWbkEjKfAizld3P3/d+RHXPXLPh541b8W/TJFGqve6y3KhY
-	Z1PYebHlh1c/6n0U6MWLpYNoJ3H0xWGPJvxWmo6sVPIfF1CPX7bUW5qM7YE8K9g3s7VoH7gs4dQ
-	upibvO836txBJkpqXpCDb4mBJrcXI=
-X-Google-Smtp-Source: AGHT+IGpCVc7EEEE0lx5GtjkPPuSez0TMwUDKhLXMMPaxVXPfHzATXU1zVV3v0/dvbg9kHKzJajUjsH+V4mo0UCauZk=
-X-Received: by 2002:a05:6870:3e0c:b0:29e:27bd:69ef with SMTP id
- 586e51a60fabf-2c7804ce2a0mr10905125fac.30.1742887806234; Tue, 25 Mar 2025
- 00:30:06 -0700 (PDT)
+        bh=BS81KqZTnFpC3mAOczh6LrpUz0knVwLI1q0tTP9ubWM=;
+        b=Mi2vH96vJSgQ1EM/DLLKUeciiFfOFwpr0x70x6otuXaepOOXYIJaIezzrNgAMtt5Di
+         /tPp1pMywFhWuV9YEr/IJOT0qSgU84Mb7KQKG2OarPlArtj40jENEutULPaHoUnz1Bg1
+         cJ1c25uuiS1QaAtvnXiI3m1GJpI7VHKskBAyZRoGgbBg0fm2LZby8zjwCMIFZTeONUNa
+         hiXrAjmZVcLVMeAMzZJv5tBoKgqa+AjleGZFtlJzwE7efbh8sDFq3GE24bk//aPcCFHd
+         MQ+qZ9Uo7/0/JXYG2koLb0IGCMG7hBBJ/r0gUbA2uxEyuOOINI9PwZKQfg2lDdJOUQB/
+         SqJQ==
+X-Gm-Message-State: AOJu0YxPilek/C/ndkAhRo8ljuFK13aIsDg6BUumHhnMYi8S9ifIv5e9
+	ACKZTigYs7zE//7VTfBvDfTJYSNKptAmGkuXiVA7Q17VxhVvw0h3B+ypD05JxqodYJD4Acd9pKx
+	BmC4uKtF+AOUAsyOEfTRTK2iyFcHFXJGH5Kng2g==
+X-Gm-Gg: ASbGncuseeLFccZRGpZEvmH42qh0n14kXNOjVNO2KvDIxjFmhvcVjdpEgwodfaOVKBC
+	hlYHooHvIbHuoEnzHj1RbDMd0bSxrFbobN/4Vx6KoL5OaJstOBqPSZ1yUOkY9VB+mj1MrHNu0EN
+	5dMjaxsbX2wm91qRFNV9U6Kui6wCg=
+X-Google-Smtp-Source: AGHT+IG/29TMFnpYD0R7DnujGknqtdj6ngn6wZ2aLjwervq4a07wDCuZ9ESh72dxrP3OMwmtfTSAQ6RN2nGQdiiH/sI=
+X-Received: by 2002:a05:6871:ea0f:b0:2c1:51f7:e648 with SMTP id
+ 586e51a60fabf-2c780544564mr11117966fac.35.1742888368417; Tue, 25 Mar 2025
+ 00:39:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1742824138.git.bertrand.marquis@arm.com>
- <8f0928b4e94b47d6fed201dcd8cfb1068573b297.1742824138.git.bertrand.marquis@arm.com>
- <A5ADD7FD-5FBD-4BE5-9428-A69719A2ACBE@arm.com>
-In-Reply-To: <A5ADD7FD-5FBD-4BE5-9428-A69719A2ACBE@arm.com>
+References: <cover.1742824138.git.bertrand.marquis@arm.com> <a22e5375df48d16cb4c0b3d80dde8593522b3ddd.1742824138.git.bertrand.marquis@arm.com>
+In-Reply-To: <a22e5375df48d16cb4c0b3d80dde8593522b3ddd.1742824138.git.bertrand.marquis@arm.com>
 From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 25 Mar 2025 08:29:54 +0100
-X-Gm-Features: AQ5f1Jryin2RXmYwYSfZSkuoq9q2OQLNNr6jx1ybBslKYbK2eanxM4trkJYQVYI
-Message-ID: <CAHUa44Es0DyPU0mLXBZs7hHv_+XGDmR2yaigBf=5TnMQgSFxvg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/5] xen/arm: ffa: Introduce VM to VM support
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Date: Tue, 25 Mar 2025 08:39:16 +0100
+X-Gm-Features: AQ5f1JoFc0K0KpvbRQmawvlOHEl6KC0cRepnGBoXbtlaFC604ccK-uVVO2REQO0
+Message-ID: <CAHUa44ER8j2_=k0WcSZfSY6M6MLtC+489tKy4MxNLvHa9veJWA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/5] xen/arm: Create tee command line parameter
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi Bertrand,
 
-On Mon, Mar 24, 2025 at 2:58=E2=80=AFPM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
+On Mon, Mar 24, 2025 at 2:53=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
 >
-> Hi,
+> Add a new command line parameter "tee=3D" to be used to explicitly select
+> what tee mediator is to be used by Xen and fail if it does not exist
+> or the probe function for it failed.
 >
-> > On 24 Mar 2025, at 14:53, Bertrand Marquis <Bertrand.Marquis@arm.com> w=
-rote:
-> >
-> > Create a CONFIG_FFA_VM_TO_VM parameter to activate FFA communication
-> > between VMs.
-> > When activated list VMs in the system with FF-A support in part_info_ge=
-t.
-> >
-> > When VM to VM is activated, Xen will be tainted as Insecure and a
-> > message is displayed to the user during the boot as there is no
-> > filtering of VMs in FF-A so any VM can communicate or see any other VM
-> > in the system.
-> >
-> > WARNING: There is no filtering for now and all VMs are listed !!
-> >
-> > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> > ---
-> > Changes in v4:
-> > - properly handle SPMC version 1.0 header size case in partinfo_get
-> > - switch to local counting variables instead of *pointer +=3D 1 form
-> > - coding style issue with missing spaces in if ()
-> > Changes in v3:
-> > - break partinfo_get in several sub functions to make the implementatio=
-n
-> >  easier to understand and lock handling easier
-> > - rework implementation to check size along the way and prevent previou=
-s
-> >  implementation limits which had to check that the number of VMs or SPs
-> >  did not change
-> > - taint Xen as INSECURE when VM to VM is enabled
-> > Changes in v2:
-> > - Switch ifdef to IS_ENABLED
-> > - dom was not switched to d as requested by Jan because there is alread=
-y
-> >  a variable d pointing to the current domain and it must not be
-> >  shadowed.
-> > ---
-> > xen/arch/arm/tee/Kconfig        |  11 ++
-> > xen/arch/arm/tee/ffa.c          |  12 ++
-> > xen/arch/arm/tee/ffa_partinfo.c | 274 +++++++++++++++++++++-----------
-> > xen/arch/arm/tee/ffa_private.h  |  12 ++
-> > 4 files changed, 218 insertions(+), 91 deletions(-)
+> Without specifying which tee is to be used, Xen will use the first one
+> for which the probe function succeeds which depends on the order of the
+> mediator list which depends on the compiler.
+> Using the command line argument, it is now possible to explicit request
+> a specific TEE mediator and panic on boot if it is not available.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes in v4:
+> - None
+> Changes in v3:
+> - Properly classify tee as arm specific (Jan)
+> Changes in v2:
+> - Patch introduced to add a command line selection of the TEE
+> ---
+>  docs/misc/xen-command-line.pandoc  | 14 ++++++++++++++
+>  xen/arch/arm/include/asm/tee/tee.h |  4 ++++
+>  xen/arch/arm/tee/tee.c             | 31 ++++++++++++++++++++++++++++++
+>  3 files changed, 49 insertions(+)
 
-With the comment you mention below fixed, please add:
 Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
 Cheers,
 Jens
 
-> >
-> > diff --git a/xen/arch/arm/tee/Kconfig b/xen/arch/arm/tee/Kconfig
-> > index c5b0f88d7522..88a4c4c99154 100644
-> > --- a/xen/arch/arm/tee/Kconfig
-> > +++ b/xen/arch/arm/tee/Kconfig
-> > @@ -28,5 +28,16 @@ config FFA
-> >
-> >  [1] https://developer.arm.com/documentation/den0077/latest
-> >
-> > +config FFA_VM_TO_VM
-> > +    bool "Enable FF-A between VMs (UNSUPPORTED)" if UNSUPPORTED
-> > +    default n
-> > +    depends on FFA
-> > +    help
-> > +      This option enables to use FF-A between VMs.
-> > +      This is experimental and there is no access control so any
-> > +      guest can communicate with any other guest.
-> > +
-> > +      If unsure, say N.
-> > +
-> > endmenu
-> >
-> > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> > index 3bbdd7168a6b..e41ab5f8ada6 100644
-> > --- a/xen/arch/arm/tee/ffa.c
-> > +++ b/xen/arch/arm/tee/ffa.c
-> > @@ -464,6 +464,18 @@ static bool ffa_probe(void)
-> >     printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
-> >            FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
-> >
-> > +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> > +    {
-> > +        /*
-> > +         * When FFA VM to VM is enabled, the current implementation do=
-es not
-> > +         * offer any way to limit which VM can communicate with which =
-VM using
-> > +         * FF-A.
-> > +         * Signal this in the xen console and taint the system as inse=
-cure.
-> > +         * TODO: Introduce a solution to limit what a VM can do throug=
-h FFA.
-> > +         */
-> > +        printk(XENLOG_ERR "ffa: VM to VM is enabled, system is insecur=
-e !!\n");
-> > +        add_taint(TAINT_MACHINE_INSECURE);
-> > +    }
-> >     /*
-> >      * psci_init_smccc() updates this value with what's reported by EL-=
-3
-> >      * or secure world.
-> > diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_par=
-tinfo.c
-> > index c0510ceb8338..406c57b95f77 100644
-> > --- a/xen/arch/arm/tee/ffa_partinfo.c
-> > +++ b/xen/arch/arm/tee/ffa_partinfo.c
-> > @@ -63,9 +63,156 @@ static int32_t ffa_partition_info_get(uint32_t *uui=
-d, uint32_t flags,
-> >     return ret;
-> > }
-> >
-> > -void ffa_handle_partition_info_get(struct cpu_user_regs *regs)
-> > +static int32_t ffa_get_sp_count(uint32_t *uuid, uint32_t *sp_count)
-> > +{
-> > +    uint32_t src_size;
-> > +
-> > +    return ffa_partition_info_get(uuid, FFA_PARTITION_INFO_GET_COUNT_F=
-LAG,
-> > +                                  sp_count, &src_size);
-> > +}
-> > +
-> > +static int32_t ffa_get_sp_partinfo(uint32_t *uuid, uint32_t *sp_count,
-> > +                                   void *dst_buf, void *end_buf,
-> > +                                   uint32_t dst_size)
-> > {
-> >     int32_t ret;
-> > +    uint32_t src_size, real_sp_count;
-> > +    void *src_buf =3D ffa_rx;
-> > +    uint32_t count =3D 0;
-> > +
-> > +    /* Do we have a RX buffer with the SPMC */
-> > +    if ( !ffa_rx )
-> > +        return FFA_RET_DENIED;
-> > +
-> > +    /* We need to use the RX buffer to receive the list */
-> > +    spin_lock(&ffa_rx_buffer_lock);
-> > +
-> > +    ret =3D ffa_partition_info_get(uuid, 0, &real_sp_count, &src_size)=
-;
-> > +    if ( ret )
-> > +        goto out;
-> > +
-> > +    /* We now own the RX buffer */
-> > +
-> > +    /* We only support a 1.1 firmware version */
 >
-> This comment should have been removed.
-> I will fix it on next version of might be possible to do on commit
-> if there are no further comments here.
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-li=
+ne.pandoc
+> index 89db6e83be66..0c2ff542a138 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -2651,6 +2651,20 @@ Specify the per-cpu trace buffer size in pages.
 >
-> Cheers
-> Bertrand
+>  Flag to enable TSC deadline as the APIC timer mode.
+>
+> +### tee (arm)
+> +> `=3D <string>`
+> +
+> +Specify the TEE mediator to be probed and use.
+> +
+> +The default behaviour is to probe all supported TEEs supported by Xen an=
+d use
+> +the first one successfully probed. When this parameter is passed, Xen wi=
+ll
+> +probe only the TEE mediator passed as argument and boot will fail if thi=
+s
+> +mediator is not properly probed or if the requested TEE is not supported=
+ by
+> +Xen.
+> +
+> +This parameter can be set to `optee` of `ffa` if the corresponding media=
+tors
+> +are compiled in.
+> +
+>  ### tevt_mask
+>  > `=3D <integer>`
+>
+> diff --git a/xen/arch/arm/include/asm/tee/tee.h b/xen/arch/arm/include/as=
+m/tee/tee.h
+> index 0169fd746bcd..15d664e28dce 100644
+> --- a/xen/arch/arm/include/asm/tee/tee.h
+> +++ b/xen/arch/arm/include/asm/tee/tee.h
+> @@ -55,6 +55,9 @@ struct tee_mediator_desc {
+>      /* Printable name of the TEE. */
+>      const char *name;
+>
+> +    /* Command line name of the TEE (to be used with tee=3D cmdline opti=
+on) */
+> +    const char *cmdline_name;
+> +
+>      /* Mediator callbacks as described above. */
+>      const struct tee_mediator_ops *ops;
+>
+> @@ -77,6 +80,7 @@ void tee_free_domain_ctx(struct domain *d);
+>  static const struct tee_mediator_desc __tee_desc_##_name __used     \
+>  __section(".teemediator.info") =3D {                                  \
+>      .name =3D _namestr,                                               \
+> +    .cmdline_name =3D #_name,                                         \
+>      .ops =3D _ops,                                                    \
+>      .tee_type =3D _type                                               \
+>  }
+> diff --git a/xen/arch/arm/tee/tee.c b/xen/arch/arm/tee/tee.c
+> index 3f65e45a7892..066b5ba40f9d 100644
+> --- a/xen/arch/arm/tee/tee.c
+> +++ b/xen/arch/arm/tee/tee.c
+> @@ -19,12 +19,17 @@
+>  #include <xen/errno.h>
+>  #include <xen/init.h>
+>  #include <xen/types.h>
+> +#include <xen/param.h>
+>
+>  #include <asm/tee/tee.h>
+>
+>  extern const struct tee_mediator_desc _steemediator[], _eteemediator[];
+>  static const struct tee_mediator_desc __read_mostly *cur_mediator;
+>
+> +/* Select the TEE mediator using a name on command line. */
+> +static char __initdata opt_mediator[16] =3D "";
+> +string_param("tee", opt_mediator);
+> +
+>  /*
+>   * TODO: Add function to alter Dom0 DTB, so we can properly describe
+>   * present TEE.
+> @@ -81,14 +86,40 @@ static int __init tee_init(void)
+>  {
+>      const struct tee_mediator_desc *desc;
+>
+> +    if ( strcmp(opt_mediator, "") )
+> +        printk(XENLOG_INFO "TEE Mediator %s selected from command line\n=
+",
+> +               opt_mediator);
+> +
+> +    /*
+> +     * When a specific TEE is selected using the 'tee=3D' command line
+> +     * argument, we panic if the probe fails or if the requested TEE is =
+not
+> +     * supported.
+> +     */
+>      for ( desc =3D _steemediator; desc !=3D _eteemediator; desc++ )
+>      {
+> +        if ( strcmp(opt_mediator, "") &&
+> +             strncmp(opt_mediator, desc->cmdline_name, sizeof(opt_mediat=
+or)) )
+> +            continue;
+> +
+>          if ( desc->ops->probe() )
+>          {
+>              printk(XENLOG_INFO "Using TEE mediator for %s\n", desc->name=
+);
+>              cur_mediator =3D desc;
+>              return 0;
+>          }
+> +        else if ( strcmp(opt_mediator, "") )
+> +        {
+> +            panic("TEE mediator %s from command line probe failed\n",
+> +                  opt_mediator);
+> +            return -EFAULT;
+> +        }
+> +    }
+> +
+> +    if ( strcmp(opt_mediator, "") )
+> +    {
+> +        panic("TEE Mediator %s from command line not supported\n",
+> +              opt_mediator);
+> +        return -EINVAL;
+>      }
+>
+>      return 0;
+> --
+> 2.47.1
 >
 
