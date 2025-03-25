@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A3DCA706C5
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:26:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926683.1329518 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9660A70703
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:36:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926692.1329529 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx76o-0003BI-CK; Tue, 25 Mar 2025 16:26:34 +0000
+	id 1tx7Fp-0005tx-75; Tue, 25 Mar 2025 16:35:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926683.1329518; Tue, 25 Mar 2025 16:26:34 +0000
+Received: by outflank-mailman (output) from mailman id 926692.1329529; Tue, 25 Mar 2025 16:35:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx76o-000399-9k; Tue, 25 Mar 2025 16:26:34 +0000
-Received: by outflank-mailman (input) for mailman id 926683;
- Tue, 25 Mar 2025 16:26:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RPpQ=WM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tx76n-000393-L0
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:26:33 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e72f2ed4-0995-11f0-9ffa-bf95429c2676;
- Tue, 25 Mar 2025 17:26:28 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-39149bccb69so5159641f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 09:26:28 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9f682bsm14035370f8f.101.2025.03.25.09.26.26
+	id 1tx7Fp-0005s5-4N; Tue, 25 Mar 2025 16:35:53 +0000
+Received: by outflank-mailman (input) for mailman id 926692;
+ Tue, 25 Mar 2025 16:35:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ogJ6=WM=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tx7Fn-0005rx-HC
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:35:51 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3626ec78-0997-11f0-9ea3-5ba50f476ded;
+ Tue, 25 Mar 2025 17:35:50 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-abec8b750ebso1066280766b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 09:35:50 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac3efbd3d25sm875226066b.125.2025.03.25.09.35.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Mar 2025 09:26:27 -0700 (PDT)
+ Tue, 25 Mar 2025 09:35:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,220 +45,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e72f2ed4-0995-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 3626ec78-0997-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742919988; x=1743524788; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aomz1MzpaWOPvW7CCQj1qPGB9OY7E6EgTrGj3yfvO18=;
-        b=AasJZ24SRA03ak5U36nSJbUcT+XyPquGdViTW3xAseYXhJSiItpi+jq5ZOuF4uprN5
-         GBqalbawuj+gFN9HWfptMqeF2ihcwtGFpvKDUKSveq5Q+BDDbZWVPvFUOQv+Lpct9SxJ
-         miz6/TZNkQa/xP2MRl28Rc2c32VJlERXAdQTMRxKoM3tINOqOOYRIC+xg3aCV0kkrkCv
-         wd8wowJzzu/PncppiJaEirm5HZrnaDmV7j6ClQXXAE2aUBC5YaJabmH2J4IL9mlhboNq
-         I8qCWAnmcq4SnN/8la2ULMXYrvSB34ehSJpcunJ8Ybe2gz8W4KZjCWTu54/TjGTXbdG0
-         ObsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742919988; x=1743524788;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1742920550; x=1743525350; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aomz1MzpaWOPvW7CCQj1qPGB9OY7E6EgTrGj3yfvO18=;
-        b=pp+rZO/f4tscmDHO4j66jMAP+pHwVSgaA/vjTqCMOU0m7xbGRtDUWjjjLuyZYDi/ni
-         pqnpF64EU/7f4OZbdA556eHwp495E6coBSKxhlKdzE1F5YKOZcUKAyyoXJ/jjrHCyVAc
-         kOSj8Bzoh7C71Ijee2ZZGPKUmzGSR2fH7QsER99B1DO77dTQVXq2OnSK3ZzFHR63ijB8
-         JKGtyBfq7n4YVFr41Usi7Xk0HK7LoUn0HY+01JCiODAsuOYWSu3GANdCFWIsHCjBrFSv
-         F8NzUp1jpBLIHEIKn3xts+Njhdi7VsW7NfJOThrL9WwVY2n8R7XOQCD2mWq1324y8R0N
-         v7Tg==
-X-Forwarded-Encrypted: i=1; AJvYcCVpgyaXNnYJ2yR2xl+o0i6xzz2G54eQ06K/lWMfl+uJ35rqr7T4xBwtDbr1XvbnkzVePi3zdHlKh00=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyhpKbOTvhTJ87Pb3d0G8vry3DiBX9iOWyP4507uXnt4i1w1TIg
-	JRD6ck4JbXLzea/kaXFCbSh5z5KvqNuoToWsfMA1v5Clh8tL9J0RtYF43qYFsA==
-X-Gm-Gg: ASbGncuwO+Z+iyr3AfOOrtqJjsXhG4e9sI81Xmp6Y+FWWlAHZ7DoTeP1WjCn0s/5wpD
-	Yh/MqYg770xt9WZ2TLKfjGt21npFKsY9bUKdcrBZk1qaWiDcwx7EeKPB6X1VTvmHWWK+/u5DmbN
-	rf413EnpxS1FwcXkpfZ5lGDdUgv4JxgR0IR+50wnFZjzVfLu1KF85AdKRVyyY8Nc5wH6ONwyat7
-	Rbf7TNbQB7y2qWlke+FQO/ODg0Ps8TY6sCUcWDpfrVhUT1lCeWq4v73UiW1gXxKmM02UR+gbgh5
-	/zed6CDC6waBZ00VFgkpOkNtlv+IliKkv6xyetyZAyOdHwF0FFdyxfGoP7BTLsTJVk04uW4pp5a
-	I/m1fFDdOkFxA1J3W14fLLZ+RaZ9dLQ==
-X-Google-Smtp-Source: AGHT+IFpTsH2Uozah9LwgJ/BYXJMUjj7Mlwn/BXOJYSyNKQC9Q5yyGrY8j4e+9R7Hvu2jKiu/Spa1Q==
-X-Received: by 2002:a05:6000:1f87:b0:391:2ba9:4c59 with SMTP id ffacd0b85a97d-3997f93988amr16734608f8f.43.1742919987704;
-        Tue, 25 Mar 2025 09:26:27 -0700 (PDT)
-Message-ID: <5a0e1f5f-c08b-4045-98df-dec73ece028c@suse.com>
-Date: Tue, 25 Mar 2025 17:26:26 +0100
+        bh=nwmCkfioYO61w5s0JKfSQqcxqsT4neLWRjigXwzHRAk=;
+        b=kr/I69/7E6LU131eRT6ewK9nHLXh+rFgxE/U8eme7MgQv4E2ehQ6kTqCshI7ZIV0sI
+         Mhv1YHlvMVQliW1RBEcJBFo75AjzxbKnUvUEZizStdytquQdmXfLmwB/ATzKprLU/Ggp
+         JQDgDSEAQUq3jXgjNmRXhGhPNxDIEtXBYzPFEFMHw5WzHlzvHCP3De5QBVyjbkwgamlx
+         l2+Po9ntGVWMO/Vf2iuEB6GNxFvQTLXPqUkAHiHCDDQA+Nm2AlY7/8WREAzSuY6v8n8/
+         Xva1JV5YFTObwD62Yp9CjOsF/Mx0Akk5wkLGMImglx7oN9mxAbpDPLI9fE9Hp4QhYOu5
+         KtKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742920550; x=1743525350;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=nwmCkfioYO61w5s0JKfSQqcxqsT4neLWRjigXwzHRAk=;
+        b=OmELHmlqMi0IuEs/cCefcaMRdR3keDvkxaDDnclWGRxIow2BHLyaBFGY3p6gdWTZGk
+         J4IQQlciM1QMpphXbooQNtxEPVe8ItZOOuxAApWTX3GhV2Qu+y3jsJsdTbYpVEteT7rr
+         RcsDkO+5POvpDCraYPDe50VCmowqJ7G656moSrEjM083Oe5MSx5WdwJf7iUPstbiI8ti
+         klG7GrQv8VzE+Fb6ZkmIBfanX8dplCF0/loePftWBMYUI79nHJvt9rjsibYyZJfj1Mbh
+         L9EaVu8KEZAditKMK/OYvnhQpBBcEBFRiFZ/8KDNrdESggVY9G4WkA6RVw8poJ9wZvTp
+         uDEg==
+X-Gm-Message-State: AOJu0YzZ8pNjPnNxNo6gLmL8MxhBRpp4HT9rKkkH8WuBmuTp6GZ8b6Df
+	fPRJ0EUQoEVp8GRLXSu3L1wnmg2ltmlYNVez7qWx7EvXqOCUoMa9
+X-Gm-Gg: ASbGncscD/Ltr4vqa4wLvRFXkzqJ/8Em/IugUdhFlMk1T2iF50+P4zhhNG1XGkOgDia
+	qDDw0hmEUtWh236n3UPp+4uPQdvqfLaCIE03FJ9OGbmjb9u+ujuFIXW8fRIRfA2ZIEmDNQOYFNn
+	6HgkV2UbHVeVn2w0c7fHwTaVyBDIJm9n7P0w8yqo4stVD+MrZ9RKBjLVbRFoiuKx0aw3+PtYBxx
+	3wpDwd3CcXyqwL21yvVYUEl92ZO2eJSjpo466l3hJBliSWk6/MKZuf/nIAZWB4pyVt18WdB3JXk
+	BublnUnouwnQs8H6Bbnz7v50LRvuNhauy+KB16t0VPcpS3ILHGhUEZv1TcaGxqYRz03jrGbcLVl
+	I3++ZOVnDYn2Zj4nMfzSm
+X-Google-Smtp-Source: AGHT+IEnM5aOMnZmXYgKj777+1uY49F00+Q83G5ewHbtqQ3Eg7QlWn7ivKrshCtawW50p2BmJhABJA==
+X-Received: by 2002:a17:907:2ce3:b0:ac3:17bb:34fc with SMTP id a640c23a62f3a-ac3f2530bb2mr1641258566b.52.1742920549329;
+        Tue, 25 Mar 2025 09:35:49 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------E4gwTEZHR9vy0Dee7ApGWh04"
+Message-ID: <7cfbd773-de4b-459f-8fa9-7c6ed19fe0ad@gmail.com>
+Date: Tue, 25 Mar 2025 17:35:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/riscv: add H extenstion to -march
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Milan Djokic <milandjokic1995@gmail.com>,
- Slavisa Petrovic <Slavisa.Petrovic@rt-rk.com>, xen-devel@lists.xenproject.org
-References: <0a072ab36b54ea7c4f9a6f94465fb7b79f9f49b2.1742573085.git.oleksii.kurochko@gmail.com>
- <c9c7c8e2-d441-4a1a-a658-98dfe0a98ed8@suse.com>
- <ee8b8e09-9b0b-4757-989c-b7d81721c325@gmail.com>
- <3d9e8e8c-2e09-43d6-a254-2f081c9e5eb1@suse.com>
- <e6e64e58-a26a-44cc-b708-5bf510b041c8@gmail.com>
- <a6d511ec-38bc-4fad-9e08-462b7c10eac4@suse.com>
- <238a9b67-a4f3-4f97-9d13-11a35884be0b@gmail.com>
+Subject: Re: [PATCH] RISCV/bitops: Use Zbb to provide arch-optimised bitops
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250226172050.1300771-1-andrew.cooper3@citrix.com>
+ <113b2464-c7b2-4068-a179-707cba4f3835@suse.com>
+ <50cd2332-11b7-4b64-85ea-489c416098f9@citrix.com>
+ <db2073b0-8585-4518-9467-b7da4cefbbae@suse.com>
+ <8dff5fb9-b46f-47bf-a6ee-863282155706@citrix.com>
+ <295f59af-ebb8-4ad5-bf27-ec0ea5a2c2fe@gmail.com>
+ <927264c2-0b99-4d60-97f8-31bcd0d64aa6@suse.com>
+ <a7f05789-cf1a-474f-b619-80a7e890a579@citrix.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <238a9b67-a4f3-4f97-9d13-11a35884be0b@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <a7f05789-cf1a-474f-b619-80a7e890a579@citrix.com>
 
-On 25.03.2025 15:46, Oleksii Kurochko wrote:
-> 
-> On 3/25/25 2:47 PM, Jan Beulich wrote:
->> On 25.03.2025 14:02, Oleksii Kurochko wrote:
->>> On 3/25/25 12:52 PM, Jan Beulich wrote:
->>>> On 25.03.2025 12:48, Oleksii Kurochko wrote:
->>>>> On 3/24/25 1:31 PM, Jan Beulich wrote:
->>>>>> On 21.03.2025 17:17, Oleksii Kurochko wrote:
->>>>>>> H provides additional instructions and CSRs that control the new stage of
->>>>>>> address translation and support hosting a guest OS in virtual S-mode
->>>>>>> (VS-mode).
->>>>>>>
->>>>>>> According to the Unprivileged Architecture (version 20240411) specification:
->>>>>>> ```
->>>>>>> Table 74 summarizes the standardized extension names. The table also defines
->>>>>>> the canonical order in which extension names must appear in the name string,
->>>>>>> with top-to-bottom in table indicating first-to-last in the name string, e.g.,
->>>>>>> RV32IMACV is legal, whereas RV32IMAVC is not.
->>>>>>> ```
->>>>>>> According to Table 74, the h extension is placed last in the one-letter
->>>>>>> extensions name part of the ISA string.
->>>>>>>
->>>>>>> `h` is a standalone extension based on the patch [1] but it wasn't so
->>>>>>> before.
->>>>>>> As the minimal supported GCC version to build Xen for RISC-V is 12.2.0,
->>>>>>> and for that version it will be needed to encode H extensions instructions
->>>>>>> explicitly by checking if __risv_h is defined.
->>>>>> Leaving aside the typo, what is this about? There's no use of __riscv_h in
->>>>>> the patch here, and ...
->>>>> It is going to be used in future patches:https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/p2m.c?ref_type=heads#L32
->>>> For this and ...
+This is a multi-part message in MIME format.
+--------------E4gwTEZHR9vy0Dee7ApGWh04
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+On 3/7/25 1:12 PM, Andrew Cooper wrote:
+> On 07/03/2025 12:01 pm, Jan Beulich wrote:
+>> On 07.03.2025 12:50, Oleksii Kurochko wrote:
+>>> On 3/6/25 9:19 PM, Andrew Cooper wrote:
+>>>> On 05/03/2025 7:34 am, Jan Beulich wrote:
+>>>>> I was actually hoping to eliminate BITS_PER_LONG at some point, in favor
+>>>>> of using sizeof(long) * BITS_PER_BYTE. (Surely in common code we could
+>>>>> retain a shorthand of that name, if so desired, but I see no reason why
+>>>>> each arch would need to provide all three BITS_PER_{BYTE,INT,LONG}.)
+>>>> The concern is legibility and clarity.
 >>>>
->>>>>>> @@ -25,10 +24,13 @@ $(eval $(1) := \
->>>>>>>     	$(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
->>>>>>>     endef
->>>>>>>     
->>>>>>> +h-insn := "hfence.gvma"
->>>>>>> +$(call check-extension,h)
->>>>>> ... this, if it fails, will not have any effect on the build right now
->>>>>> afaics.
->>>>> No, it won't have any affect now as instruction from H extension isn't used now.
->>>>> But it will beneededforhttps://lore.kernel.org/xen-devel/dae753618491b2a6e42f7ed3f24190d0dc13fe3f.1740754166.git.Slavisa.Petrovic@rt-rk.com/
->>>>> and for p2m changes mentioned above.
->>>> ... this both being future work, it might help if it could be made clear
->>>> right here how things are going to work (with both gcc12 and up-to-date
->>>> gcc).
->>> I can update the commit message with the following:
->>> ```
->>> If 'H' extension is supported by compiler then __riscv_h will be defined by
->>> compiler (for gcc version >= 13.1).
->>> For gcc12 it will be needed to:
->>> #ifdef __riscv_h
->>>    asm volatile ("h extension instruction");
->>> #else
->>>    asm volatile ("|.insn ..."); #endif ```
->> Okay, that's what I was concerned about. __riscv_h is a compiler indication.
->> It means nothing about H extension insns being supported by the assembler
->> (except perhaps for Clang's integrated one). The check-extension thing in
->> the Makefile will actually check both in one go. Yet then the hfence.* insns
->> have been in binutils since 2.38, i.e. pre-dating gcc12.
-> 
-> It is still needed to have or #ifdef-ing or workaround mentioned below ...
-> 
+>>>> This:
+>>>>
+>>>>       ((x) ? 32 - __builtin_clz(x) : 0)
+>>>>
+>>>> is a clear expression in a way that this:
+>>>>
+>>>>       ((x) ? (sizeof(int) * BITS_PER_BYTE) - __builtin_clz(x) : 0)
+>>>>
+>>>> is not.  The problem is the extra binary expression, and this:
+>>>>
+>>>>       ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
+>>>>
+>>>> is still clear, because the reader doesn't have to perform a multiply to
+>>>> just to figure out what's going on.
+>>>>
+>>>>
+>>>> It is definitely stupid to have each architecture provide their own
+>>>> BITS_PER_*.  The compiler is in a superior position to provide those
+>>>> details, and it should be in a common location.
+>>>>
+>>>> I don't particularly mind how those constants are derived, but one key
+>>>> thing that BITS_PER_* can do which sizeof() can't is be used in #ifdef/etc.
+>>> What about moving them to xen/config.h? (if it isn't the best one place, any suggestion which is better?)
+>>>
+>>> #define BYTES_PER_INT  (1 << INT_BYTEORDER)
+>>> #define BITS_PER_INT  (BYTES_PER_INT << 3)
+>>>
+>>> #define BYTES_PER_LONG (1 << LONG_BYTEORDER)
+>>> #define BITS_PER_LONG (BYTES_PER_LONG << 3)
+>>> #define BITS_PER_BYTE 8
+> The *_BYTEORDER's are useless indirection.  BITS_PER_* should be defined
+> straight up, and this will simplify quite a lot of preprocessing.
+
+Could we really drop *_BYTEORDER?
+
+For example, LONG_BYTEORDER for Arm could be either 2 or 3 depends on Arm32 or Arm64 is used.
+
+>
+>>> Also, it seems like the follwoing could be moved there too:
+>>>
+>>> #define POINTER_ALIGN  BYTES_PER_LONG
+>> This one is likely fine to move.
 >>
->>> Or probably it will be easier not to ifdef-ing
->>> everything with __riscv_h but just return back a workaround with the
->>> following changes: ``` $ git diff diff --git a/xen/arch/riscv/arch.mk
->>> b/xen/arch/riscv/arch.mk index f29ad332c1..3bd64e7e51 100644 ---
->>> a/xen/arch/riscv/arch.mk +++ b/xen/arch/riscv/arch.mk @@ -24,13 +24,17
->>> @@ $(eval $(1) := \ $(call as-insn,$(CC)
->>> $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1))) endef -h-insn :=
->>> "hfence.gvma" -$(call check-extension,h) +
->>> +h-extension-name-$(CONFIG_CC_IS_GCC) := $(call cc-ifversion,-lt,1301,
->>> hh, h) +h-extension-name-$(CONFIG_CC_IS_CLANG) := h +
->>> +$(h-extension-name-y)-insn := "hfence.gvma" +$(call
->>> check-extension,$(h-extension-name-y)) zihintpause-insn := "pause"
->>> $(call check-extension,zihintpause) -extensions := $(h) $(zihintpause)
->>> _zicsr_zifencei_zbb +extensions := $($(h-extension-name-y))
->>> $(zihintpause) _zicsr_zifencei_zbb extensions := $(subst
->>> $(space),,$(extensions)) ``` I prefer more a little bit the second
->>> option with having the workaround for GCC version. ~ Oleksii |
->> I fear this ended up unreadable.
-> 
-> ... something happen with formatting:
-> 
-> diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
-> index f29ad332c1..3bd64e7e51 100644
-> --- a/xen/arch/riscv/arch.mk
-> +++ b/xen/arch/riscv/arch.mk
-> @@ -24,13 +24,17 @@ $(eval $(1) := \
->          $(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
->   endef
->   
-> -h-insn := "hfence.gvma"
-> -$(call check-extension,h)
-> +
-> +h-extension-name-$(CONFIG_CC_IS_GCC) := $(call cc-ifversion,-lt,1301, hh, h)
+>>> #define BITS_PER_LLONG 64
+>> This one is only fine to move imo when converted to
+>>
+>> #define BITS_PER_LONG (BYTES_PER_LLONG << 3)
+> Erm?  That's mixing long and long long types.  Presuming that's an
+> errant L, then sure.
+>
+>>> #define BITS_PER_BYTE 8
+>> Personally I'd rather leave this per-arch. The others can truly be derived;
+>> this one can't be. If we centralize, imo we should also convert the " << 3"
+>> to " * BITS_PER_BYTE".
+> It is highly unlikely that Xen will ever run on a system where CHAR_BIT
+> isn't 8.
+>
+> So I suggest it stays central to reduce complexity.  If an arch ever
+> needs to change it, the complexity can be added then.
 
-It all else fails, that's an option. The downside is that such version checks
-break if someone backports the respective change to an older version. Probing
-support for the actual command line option would be better. Why would
+Does it make sense to ifdef that? Or, at least, before defintion of BITS_PER_BYTE something like:
+#if CHAR_BIT != 8
+#error "CHAR_BIT isn't 8"
+#endif
 
-$(call check-extension,hh)
-$(call check-extension,h)
+~ Oleksii
 
-not work, btw? (Of course, if the above was an option, something slightly
-smarter may still want using, so that e.g. we avoid probing both in the more
-common case [going forward] that "h" is what is supported.)
+--------------E4gwTEZHR9vy0Dee7ApGWh04
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Jan
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 3/7/25 1:12 PM, Andrew Cooper wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:a7f05789-cf1a-474f-b619-80a7e890a579@citrix.com">
+      <pre wrap="" class="moz-quote-pre">On 07/03/2025 12:01 pm, Jan Beulich wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 07.03.2025 12:50, Oleksii Kurochko wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 3/6/25 9:19 PM, Andrew Cooper wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 05/03/2025 7:34 am, Jan Beulich wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">I was actually hoping to eliminate BITS_PER_LONG at some point, in favor
+of using sizeof(long) * BITS_PER_BYTE. (Surely in common code we could
+retain a shorthand of that name, if so desired, but I see no reason why
+each arch would need to provide all three BITS_PER_{BYTE,INT,LONG}.)
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">The concern is legibility and clarity.
 
-> +h-extension-name-$(CONFIG_CC_IS_CLANG) := h
-> +
-> +$(h-extension-name-y)-insn := "hfence.gvma"
-> +$(call check-extension,$(h-extension-name-y))
->   
->   zihintpause-insn := "pause"
->   $(call check-extension,zihintpause)
->   
-> -extensions := $(h) $(zihintpause) _zicsr_zifencei_zbb
-> +extensions := $($(h-extension-name-y)) $(zihintpause) _zicsr_zifencei_zbb
->   
->   extensions := $(subst $(space),,$(extensions))
-> 
-> ~ Oleksii
-> 
+This:
 
+     ((x) ? 32 - __builtin_clz(x) : 0)
+
+is a clear expression in a way that this:
+
+     ((x) ? (sizeof(int) * BITS_PER_BYTE) - __builtin_clz(x) : 0)
+
+is not.  The problem is the extra binary expression, and this:
+
+     ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
+
+is still clear, because the reader doesn't have to perform a multiply to
+just to figure out what's going on.
+
+
+It is definitely stupid to have each architecture provide their own
+BITS_PER_*.  The compiler is in a superior position to provide those
+details, and it should be in a common location.
+
+I don't particularly mind how those constants are derived, but one key
+thing that BITS_PER_* can do which sizeof() can't is be used in #ifdef/etc.
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">What about moving them to xen/config.h? (if it isn't the best one place, any suggestion which is better?)
+
+#define BYTES_PER_INT  (1 &lt;&lt; INT_BYTEORDER)
+#define BITS_PER_INT  (BYTES_PER_INT &lt;&lt; 3)
+
+#define BYTES_PER_LONG (1 &lt;&lt; LONG_BYTEORDER)
+#define BITS_PER_LONG (BYTES_PER_LONG &lt;&lt; 3)
+#define BITS_PER_BYTE 8
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+The *_BYTEORDER's are useless indirection.  BITS_PER_* should be defined
+straight up, and this will simplify quite a lot of preprocessing.</pre>
+    </blockquote>
+    <pre>Could we really drop *_BYTEORDER?
+
+For example, LONG_BYTEORDER for Arm could be either 2 or 3 depends on Arm32 or Arm64 is used.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:a7f05789-cf1a-474f-b619-80a7e890a579@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">
+Also, it seems like the follwoing could be moved there too:
+
+#define POINTER_ALIGN  BYTES_PER_LONG
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">This one is likely fine to move.
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">#define BITS_PER_LLONG 64
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">This one is only fine to move imo when converted to
+
+#define BITS_PER_LONG (BYTES_PER_LLONG &lt;&lt; 3)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Erm?  That's mixing long and long long types.  Presuming that's an
+errant L, then sure.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">#define BITS_PER_BYTE 8
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">Personally I'd rather leave this per-arch. The others can truly be derived;
+this one can't be. If we centralize, imo we should also convert the " &lt;&lt; 3"
+to " * BITS_PER_BYTE".
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+It is highly unlikely that Xen will ever run on a system where CHAR_BIT
+isn't 8.
+
+So I suggest it stays central to reduce complexity.  If an arch ever
+needs to change it, the complexity can be added then.</pre>
+    </blockquote>
+    <pre>Does it make sense to ifdef that? Or, at least, before defintion of BITS_PER_BYTE something like:
+#if CHAR_BIT != 8
+#error "CHAR_BIT isn't 8"
+#endif
+
+</pre>
+    <pre>~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------E4gwTEZHR9vy0Dee7ApGWh04--
 
