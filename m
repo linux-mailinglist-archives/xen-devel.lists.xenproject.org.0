@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15B30A70749
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:46:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926723.1329560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09C34A70759
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:50:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926736.1329569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx7Q8-0001MX-MX; Tue, 25 Mar 2025 16:46:32 +0000
+	id 1tx7T9-0001xm-62; Tue, 25 Mar 2025 16:49:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926723.1329560; Tue, 25 Mar 2025 16:46:32 +0000
+Received: by outflank-mailman (output) from mailman id 926736.1329569; Tue, 25 Mar 2025 16:49:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx7Q8-0001K7-I3; Tue, 25 Mar 2025 16:46:32 +0000
-Received: by outflank-mailman (input) for mailman id 926723;
- Tue, 25 Mar 2025 16:46:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RPpQ=WM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tx7Q7-0001Jz-3n
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:46:31 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b33383d7-0998-11f0-9ea3-5ba50f476ded;
- Tue, 25 Mar 2025 17:46:30 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-39ac56756f6so1905376f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 09:46:30 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d43fdeb6esm205543215e9.31.2025.03.25.09.46.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Mar 2025 09:46:28 -0700 (PDT)
+	id 1tx7T9-0001w9-37; Tue, 25 Mar 2025 16:49:39 +0000
+Received: by outflank-mailman (input) for mailman id 926736;
+ Tue, 25 Mar 2025 16:49:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Gb8l=WM=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1tx7T8-0001w1-1X
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:49:38 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2060f.outbound.protection.outlook.com
+ [2a01:111:f403:2407::60f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2021d7b8-0999-11f0-9ffa-bf95429c2676;
+ Tue, 25 Mar 2025 17:49:32 +0100 (CET)
+Received: from SJ0PR03CA0165.namprd03.prod.outlook.com (2603:10b6:a03:338::20)
+ by DM4PR12MB6541.namprd12.prod.outlook.com (2603:10b6:8:88::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Tue, 25 Mar
+ 2025 16:49:29 +0000
+Received: from SJ1PEPF0000231B.namprd03.prod.outlook.com
+ (2603:10b6:a03:338:cafe::d6) by SJ0PR03CA0165.outlook.office365.com
+ (2603:10b6:a03:338::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.42 via Frontend Transport; Tue,
+ 25 Mar 2025 16:49:28 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ1PEPF0000231B.mail.protection.outlook.com (10.167.242.232) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Tue, 25 Mar 2025 16:49:28 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Mar
+ 2025 11:49:27 -0500
+Received: from [172.22.20.237] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 25 Mar 2025 11:49:27 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,181 +59,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b33383d7-0998-11f0-9ea3-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742921189; x=1743525989; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aiukUuVbNWN1E8woYFQ1KwSKF7YW+oMpjW8b0NLO96w=;
-        b=MUvaBClrgrmW6mVEObwBd7h4boh3dk7d+Uswc9VqGYUS1Bx2Dqi810FPXxueGFIJEH
-         5S6QpHYSwPmytpkvdQVHGURkXUIqBvfIaJ+0P1w0S4uzhwzXnplV9zHtn5y0DuWSvaSd
-         +fVnzcWHUZh6ocHaI2/oUGnaekKcDDEFifkhliCZwY64dfVaKNZ/3bmJpQW4m1uRXJlf
-         DtYmsITxAvXLb6FUnC+23bcGJ5XG8V/tHdKZNvMNa5L+wrrrp2rSI9PTjBDeNpZkhZ62
-         cyS2V6Ca+VnzdnHvcVtne47phUumYY4WgvgxwnUXw5F9J6He3/eJPwuLEi7G7EgwTQAz
-         rEMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742921189; x=1743525989;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aiukUuVbNWN1E8woYFQ1KwSKF7YW+oMpjW8b0NLO96w=;
-        b=Uq8c1cdsuXJdZn9u3cayjP5jpAx574yvoEEVjHPwzWigtdwToYuPASZOeZdHw5Jbvc
-         ryZw3YxGdXTXGk64aXptRk104Eu9Ivl5BVmJWue1/ynwnzYSelLp69a0XkjXuCBRc9wF
-         F8Vj3PXEkHiOIOSEzpjAKE9724z7EHo1mgILeDLLj7u6rwkrrvuPobbwBeB0m0v52ygw
-         hcWKbQ5M+PGrDDZt7OFfrEWVZjFlgJic7obWea1VPTRyoLcSN24IB8GuBU18YqKHX6lA
-         62S5FVIiw1bXd7Ayai9nnWxc6lMWTvlWREwxLXHt0z4qZN9Trgi3OJ9f3Ewe6bXbD+2I
-         nDoA==
-X-Gm-Message-State: AOJu0YwaKem/pAwFIdFkA2e7yo2xNaWNlvezP2YpjcB0v9fRHlwqC5vj
-	Qq9Kr8jc1GcCrulwt9yWpCV/0NlnDkf5z4mJgFIl4TpuPedju6wvhFtHG1FnCeqBhOFgWy5Tiso
-	=
-X-Gm-Gg: ASbGncuhZh54Lh5VGBZ7yVKAAhsfCnfyexCyj001KAg4NlpxGwAWBNakrKtSsoIL44D
-	lc4h9YbMvcrf8WgA1aqwTbfJikyW6nA65nMhcwOlfyuuUs6J+L9jOgZGZjaOTPTr6trx+YDLgfu
-	NqIfbTiP1LNNPDYj+p89AYr9a74QCzd6IwnkO6Z3jSJAXgKlCWydjs80td/eQWIA/Igzqnn/xxb
-	7gMHEJYkbE65XsFY0EaPDKLoeUlu6zlfAEKdssQbFnILM1YlIGywvPUPuFVJkjWQCU1LIZh054K
-	A496FpnzGBu1+CkOKWJFPe6vyfFVIJ2MG4X3PBnCFKcqyLxm1AvldH1F/DVblTGQOKu8r28aZff
-	st/sNk7IxUha3rIdTn6gjddz0lHk6MSawUqF+782U
-X-Google-Smtp-Source: AGHT+IHAzY795PWdAYeu5uejpT84u62Fvk4ZLP7i1eLyhcIGJAp7IpBC8thfC7eRXHuGzRHDfyXoqQ==
-X-Received: by 2002:a05:6000:178b:b0:390:de33:b0ef with SMTP id ffacd0b85a97d-3997f911ec1mr14452537f8f.30.1742921188873;
-        Tue, 25 Mar 2025 09:46:28 -0700 (PDT)
-Message-ID: <52bd483a-c5bf-4eba-867f-3476b1b86550@suse.com>
-Date: Tue, 25 Mar 2025 17:46:27 +0100
+X-Inumbo-ID: 2021d7b8-0999-11f0-9ffa-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rt6mXzRAx86fIskw1kzGJqweQOwaBfCywK3FjUE8mTi8UJ7JD+PGQxfVgAd1hcUAQHq/0sHzc9VyAlG11D6yVyPA3/HucgbPQyNd/GaLQU/LIG5VYOGZn867hXgR2aId77tT+QRmAdc3eqedjJLTOJen1RdRpScus3EzBzP/3lmazFz6R8rhYox4/a6iaA/MmmiXMw75xCKf/hcZjZKt/GkbgNuDjujClzW/phjNd58hTM5AUTW5wTWRhMoKaM6Q1fD5h7Vz1dewBIMYdfnPwTvGuZLnpMIlB3UQOAuznVtTlT/LHaxgGnaum0kLEXXT0lW948LvReYtjWUgeJboug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HycmxVDEqqZCPf74R2+PCdRep2uYwvSEg3Z9pvxEVqI=;
+ b=vQwIXVzNmKLUCAh8sDXs5015NXGBFcuWTFu3oErdNeWO0ZUpWMYKssy/2FTkUYtqQLyCZdLcJFoKA6uIavB/VmwRsFCbh8p1B/HyCiN3p+757SCn0LC9NLal7m/k15pTwdZypizIrX+9x1eSSp0TNEHp+PPjZ6oMMZZu8HiuJh4et3L+I6vzkW8kVtXgVV0q5NrjwEzcQMdVhiQwJjqrpk6aRrs8sEuA/4QVEnHcVYBLAbRD8G5Hndf35PtOCayU/CjUjQVXcu8AAHRZ0wX3E7bnlvtqY4sE+GqEKfxXkOvbYxlCwu/t9G9Cw3QihKdvlUdNMJ6lzTVPjBaTym13ww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HycmxVDEqqZCPf74R2+PCdRep2uYwvSEg3Z9pvxEVqI=;
+ b=w57yMdihKB9C51SMbd652dZIaTVuIqW1/RC5kX1iAh7FtXYNh4KQVDCJlbZv3EP4m7Pes6LN/uQW1cXSpNDEJbeKNbxCQu950A9TdupOKubvvaHMVvwib21NL/SzwKqC5+MlFsflmP2dVYdyWxgr4ka2HWiITsU9i5I6/k0lUVE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <92b5c3ae-716c-4ea1-95f5-65150fccf39f@amd.com>
+Date: Tue, 25 Mar 2025 12:49:29 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RISCV/bitops: Use Zbb to provide arch-optimised bitops
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20250226172050.1300771-1-andrew.cooper3@citrix.com>
- <113b2464-c7b2-4068-a179-707cba4f3835@suse.com>
- <50cd2332-11b7-4b64-85ea-489c416098f9@citrix.com>
- <db2073b0-8585-4518-9467-b7da4cefbbae@suse.com>
- <8dff5fb9-b46f-47bf-a6ee-863282155706@citrix.com>
- <295f59af-ebb8-4ad5-bf27-ec0ea5a2c2fe@gmail.com>
- <927264c2-0b99-4d60-97f8-31bcd0d64aa6@suse.com>
- <a7f05789-cf1a-474f-b619-80a7e890a579@citrix.com>
- <7cfbd773-de4b-459f-8fa9-7c6ed19fe0ad@gmail.com>
+Subject: Re: [PATCH v3 1/5] xen/acpi: upload power and performance related
+ data from a PVH dom0
+To: Jan Beulich <jbeulich@suse.com>, Penny Zheng <Penny.Zheng@amd.com>, "Roger
+ Pau Monne" <roger.pau@citrix.com>
+CC: Ray Huang <Ray.Huang@amd.com>, <xen-devel@lists.xenproject.org>,
+	<linux-kernel@vger.kernel.org>, Juergen Gross <jgross@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>
+References: <20250306110824.1506699-1-Penny.Zheng@amd.com>
+ <20250306110824.1506699-2-Penny.Zheng@amd.com>
+ <45640c36-0b7d-4502-bf4d-df1c1d17d528@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7cfbd773-de4b-459f-8fa9-7c6ed19fe0ad@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <45640c36-0b7d-4502-bf4d-df1c1d17d528@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231B:EE_|DM4PR12MB6541:EE_
+X-MS-Office365-Filtering-Correlation-Id: 93598dc3-16a6-42e3-6944-08dd6bbd025a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VEc0UFBZMWx2RjRuQzV2VFFGMmQ4UFFKZldBc01sNDdDYW94WXNyWGNDUlQ5?=
+ =?utf-8?B?TTVGL0toSVBJMHFsNm95NWVmd2d3ZTdwWTFRRFhHcW1NTTVhaW82MDR4TmtK?=
+ =?utf-8?B?b3d4eENjbjd6OG9hSXNQdE0wTkdTNVM1RE4rbnpHeVVwcEtyWDNXRks4QVdQ?=
+ =?utf-8?B?SnF5NzdneTZQZUFzb3BJWGoyRmovMjR3MldkQmUvZlh0dnErR2RhM1FBbXFE?=
+ =?utf-8?B?Zkp5Y1VMTWxIaHF4aytBcFRaU3ZqZytkRTJydHZTWlVPL3BsRmFIbHVuTnBY?=
+ =?utf-8?B?Y3h2ZHRnU3QwZ3FYQzgrOTZ4YncvYytHc2dmUXZmdWlzV1dNM040MGNQdEUr?=
+ =?utf-8?B?bHBJbkRhK0twWTlGaUpYb0kxNnJDendTNG1VZkl6MFN2TjVUT3N4UHM0VHZT?=
+ =?utf-8?B?K256QklSMXhEd3R3THFSWVk5TTBkeGMxZHpwNExEVVhTRnZaUG5EWCtQcXlv?=
+ =?utf-8?B?cFNaNVlMUnB5RzRzQXFWV09oQ1h5NkxHL0FQQXpIU1dxTzN3MjQvSk4zaDQy?=
+ =?utf-8?B?bjN5aTNyM2Nidkp0b1RRaVZXSUdTUExuYmgvMVpQYUpjV0pTL0tDY01xcDlr?=
+ =?utf-8?B?NXMzMWlTY0ZsMkMyaFpJZHg4aktxM2xHR2dIZVE5V2RhSlorUEJ6dGNYM2Zs?=
+ =?utf-8?B?aG1MVWF3U045RzJ5L1drMU9hMGNla0p2bEpocm9IYjFQdDl5OXYybi9nTGVP?=
+ =?utf-8?B?dTlHbm1rcnFjUjBxQlIrdmJCWHJmQ1c4YUlSMkMxdG1uL2xjYVVub3RoZU5l?=
+ =?utf-8?B?OGlZUUM3ZnVXYXRPMTFEajlMMnN4NkJESDZBaXd1QTdTcjNCYWovRTVZSWJs?=
+ =?utf-8?B?VER2TWptUjRkSzJnK2Z6TFlHUCs0QXJhdkM0SkRqa2tUV0U2dHAvYWZ6WUpK?=
+ =?utf-8?B?YXY1T0dpZDdoU29DVFZqajRYeUdGaGp5dEJNYjhxMGRJcWtBc0V5UGVmZzNK?=
+ =?utf-8?B?UFUzaklqUGFTSFNWUDdxNEJVd0pkaGNsSU91dlhEUUUzVSs4OVZCcElaQkdE?=
+ =?utf-8?B?Q1BlY080dUVNd1lJeEgydUN0Vzk2TmRNbWN2NytRTFF0eWhDV0xXNnVrdm5Z?=
+ =?utf-8?B?dHFzRk5md1FUSVpiMkdwdEJ2bWw5NEtuWEF2MFRyM3lZYXl6cDFWS3BwNThU?=
+ =?utf-8?B?Sk05Qmtodjc4cSszdTBycFlhL3lLNEgzbCtyMXdCbXhrcW03NkZQZXNmRXgr?=
+ =?utf-8?B?OWJqZytSYzZXWENaMHliTHFKUWdDdXVxWGk2a0tsU0lCUXd2dkxTTXVHajFE?=
+ =?utf-8?B?T0hxenB4RUd6ZnNsRk1wcVdXVys4ZkUyZ0o5b0tYMXRyelhuMEtpOFlXYmc0?=
+ =?utf-8?B?cHNiR01LSi8rakVUbklkQTIwUk1mYVJLQTkzMy9aejNvaFBsaUJIZU04dzBN?=
+ =?utf-8?B?SEVBRm9IWWtLY1VTUXNNTUFJUHJwTjdrR2VmWjB3OFRReSthMC9ReWlQeXZt?=
+ =?utf-8?B?aU13U3FpWmMrQlJnNndzajRnNHJEZDk4TVZ1K1Iwd0JaSFpxNWxYZDdocXVM?=
+ =?utf-8?B?WmN2ekw4UUJQd2ViUEVBNTZJV3R2c3FKMFdSbEcrck1TVHNtUENuM3M1YktX?=
+ =?utf-8?B?QW9RYnFjWU8yVkdFdnJvKzAzTWdndGZhVWR6dUVQTzdNc1QxQTY3eEZEN29w?=
+ =?utf-8?B?c2wyU0xybmtONndVbDVIS0ZvSWozTmNyb0NSanhoMnlPWHdRaWJUZEhOOGp3?=
+ =?utf-8?B?UE9PQ01BTGJOc0RnZWMwb0tjWnBkbWo2ajh0dUY2L2pCWXJaQTgvWWtPLzRX?=
+ =?utf-8?B?aW1vdE1hbVN3d2xMaUszU0FvQ1IzYS9WaFQ4Vm5sMUdUV2xleVdKZCttM2hF?=
+ =?utf-8?B?Rm9kbjNtRVJSOEFYbVJuN2ZKSlFVMG5PMHVFNkM4TzZLZUtBN3cxK3c4a1lN?=
+ =?utf-8?B?dmg4OFFlNlNGaGRSdldJNk1tdzdqWW10QWUxb2hOTTErK2Zoeng0ZTQxeElX?=
+ =?utf-8?B?anROWHlna3hlQjd4bE05Z3NsY1dRUVBqZ1ErRUhXR2wwV1VCaXdDU0tobHBG?=
+ =?utf-8?Q?QuYQAbMP2GOf/q0gYY8aoUleAcPjGg=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2025 16:49:28.7386
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93598dc3-16a6-42e3-6944-08dd6bbd025a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231B.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6541
 
-On 25.03.2025 17:35, Oleksii Kurochko wrote:
-> 
-> On 3/7/25 1:12 PM, Andrew Cooper wrote:
->> On 07/03/2025 12:01 pm, Jan Beulich wrote:
->>> On 07.03.2025 12:50, Oleksii Kurochko wrote:
->>>> On 3/6/25 9:19 PM, Andrew Cooper wrote:
->>>>> On 05/03/2025 7:34 am, Jan Beulich wrote:
->>>>>> I was actually hoping to eliminate BITS_PER_LONG at some point, in favor
->>>>>> of using sizeof(long) * BITS_PER_BYTE. (Surely in common code we could
->>>>>> retain a shorthand of that name, if so desired, but I see no reason why
->>>>>> each arch would need to provide all three BITS_PER_{BYTE,INT,LONG}.)
->>>>> The concern is legibility and clarity.
->>>>>
->>>>> This:
->>>>>
->>>>>       ((x) ? 32 - __builtin_clz(x) : 0)
->>>>>
->>>>> is a clear expression in a way that this:
->>>>>
->>>>>       ((x) ? (sizeof(int) * BITS_PER_BYTE) - __builtin_clz(x) : 0)
->>>>>
->>>>> is not.  The problem is the extra binary expression, and this:
->>>>>
->>>>>       ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
->>>>>
->>>>> is still clear, because the reader doesn't have to perform a multiply to
->>>>> just to figure out what's going on.
->>>>>
->>>>>
->>>>> It is definitely stupid to have each architecture provide their own
->>>>> BITS_PER_*.  The compiler is in a superior position to provide those
->>>>> details, and it should be in a common location.
->>>>>
->>>>> I don't particularly mind how those constants are derived, but one key
->>>>> thing that BITS_PER_* can do which sizeof() can't is be used in #ifdef/etc.
->>>> What about moving them to xen/config.h? (if it isn't the best one place, any suggestion which is better?)
->>>>
->>>> #define BYTES_PER_INT  (1 << INT_BYTEORDER)
->>>> #define BITS_PER_INT  (BYTES_PER_INT << 3)
->>>>
->>>> #define BYTES_PER_LONG (1 << LONG_BYTEORDER)
->>>> #define BITS_PER_LONG (BYTES_PER_LONG << 3)
->>>> #define BITS_PER_BYTE 8
->> The *_BYTEORDER's are useless indirection.  BITS_PER_* should be defined
->> straight up, and this will simplify quite a lot of preprocessing.
-> 
-> Could we really drop *_BYTEORDER?
-> 
-> For example, LONG_BYTEORDER for Arm could be either 2 or 3 depends on Arm32 or Arm64 is used.
-
-The can still #define BITS_PER_LONG to 32 or 64 respectively, can't they?
-
->>>> Also, it seems like the follwoing could be moved there too:
->>>>
->>>> #define POINTER_ALIGN  BYTES_PER_LONG
->>> This one is likely fine to move.
->>>
->>>> #define BITS_PER_LLONG 64
->>> This one is only fine to move imo when converted to
->>>
->>> #define BITS_PER_LONG (BYTES_PER_LLONG << 3)
->> Erm?  That's mixing long and long long types.  Presuming that's an
->> errant L, then sure.
+On 2025-03-25 12:17, Jan Beulich wrote:
+> On 06.03.2025 12:08, Penny Zheng wrote:
+>> From: Roger Pau Monne <roger.pau@citrix.com>
 >>
->>>> #define BITS_PER_BYTE 8
->>> Personally I'd rather leave this per-arch. The others can truly be derived;
->>> this one can't be. If we centralize, imo we should also convert the " << 3"
->>> to " * BITS_PER_BYTE".
->> It is highly unlikely that Xen will ever run on a system where CHAR_BIT
->> isn't 8.
+>> When running as a PVH dom0 the ACPI MADT is crafted by Xen in order to
+>> report the correct numbers of vCPUs that dom0 has, so the host MADT is
+>> not provided to dom0.  This creates issues when parsing the power and
+>> performance related data from ACPI dynamic tables, as the ACPI
+>> Processor UIDs found on the dynamic code are likely to not match the
+>> ones crafted by Xen in the dom0 MADT.
 >>
->> So I suggest it stays central to reduce complexity.  If an arch ever
->> needs to change it, the complexity can be added then.
+>> Xen would rely on Linux having filled at least the power and
+>> performance related data of the vCPUs on the system, and would clone
+>> that information in order to setup the remaining pCPUs on the system
+>> if dom0 vCPUs < pCPUs.  However when running as PVH dom0 it's likely
+>> that none of dom0 CPUs will have the power and performance data
+>> filled, and hence the Xen ACPI Processor driver needs to fetch that
+>> information by itself.
+>>
+>> In order to do so correctly, introduce a new helper to fetch the _CST
+>> data without taking into account the system capabilities from the
+>> CPUID output, as the capabilities reported to dom0 in CPUID might be
+>> different from the ones on the host.
+>>
+>> Note that the newly introduced code will only fetch the _CST, _PSS,
+>> _PPC and _PCT from a single CPU, and clone that information for all the
+>> other Processors.  This won't work on an heterogeneous system with
+>> Processors having different power and performance related data between
+>> them.
+>>
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>> ---
+>>   drivers/xen/pcpu.c               |   3 +-
+>>   drivers/xen/xen-acpi-processor.c | 232 ++++++++++++++++++++++++++++---
+>>   include/xen/xen.h                |   2 +-
+>>   3 files changed, 216 insertions(+), 21 deletions(-)
 > 
-> Does it make sense to ifdef that? Or, at least, before defintion of BITS_PER_BYTE something like:
-> #if CHAR_BIT != 8
-> #error "CHAR_BIT isn't 8"
-> #endif
+> No dependency on another patch is mentioned anywhere (the cover letter
+> only says the series is based on the very patch here), yet the bulk of
+> the changes here (to drivers/xen/xen-acpi-processor.c) are meaningless
+> for a PVH Dom0, because of
+> 
+> config XEN_ACPI_PROCESSOR
+> 	tristate "Xen ACPI processor"
+> 	depends on XEN && XEN_PV_DOM0 && X86 && ACPI_PROCESSOR && CPU_FREQ
+> 
+> (note the XEN_PV_DOM0 in there). Is the patch here perhaps missing an
+> adjustment to the above, to use XEN_DOM0 instead?
 
-Where would CHAR_BIT come from? Oh, perhaps you mean __CHAR_BIT__? If all
-compilers we can build with supply that value, we could indeed centrally
-use either
+Wow, I'm surprised you found that :)  Yes, that is a build-time 
+dependency, but the runtime dependency is only on xen_initial_domain(). 
+Yes, it deserves updating.
 
-#define BITS_PER_BYTE __CHAR_BIT__
-
-or
-
-#define BITS_PER_BYTE 8
-#if BITS_PER_BYTE != __CHAR_BIT__
-# error "..."
-#endif
-
-Jan
+Thanks,
+Jason
 
