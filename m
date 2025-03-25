@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 616D9A7076F
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:54:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926746.1329579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 154A9A70781
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:59:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926755.1329589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx7Xj-0004oF-Np; Tue, 25 Mar 2025 16:54:23 +0000
+	id 1tx7cX-0005Mu-8e; Tue, 25 Mar 2025 16:59:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926746.1329579; Tue, 25 Mar 2025 16:54:23 +0000
+Received: by outflank-mailman (output) from mailman id 926755.1329589; Tue, 25 Mar 2025 16:59:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx7Xj-0004ln-KF; Tue, 25 Mar 2025 16:54:23 +0000
-Received: by outflank-mailman (input) for mailman id 926746;
- Tue, 25 Mar 2025 16:54:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uFHn=WM=epam.com=Oleksandr_Tyshchenko@srs-se1.protection.inumbo.net>)
- id 1tx7Xh-0004lh-Vu
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:54:22 +0000
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazlp170120003.outbound.protection.outlook.com
- [2a01:111:f403:c200::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c7e76370-0999-11f0-9ffa-bf95429c2676;
- Tue, 25 Mar 2025 17:54:13 +0100 (CET)
-Received: from PR3PR03MB6412.eurprd03.prod.outlook.com (2603:10a6:102:7d::8)
- by DB9PR03MB8448.eurprd03.prod.outlook.com (2603:10a6:10:39b::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.35; Tue, 25 Mar
- 2025 16:54:10 +0000
-Received: from PR3PR03MB6412.eurprd03.prod.outlook.com
- ([fe80::2887:9068:38f6:8340]) by PR3PR03MB6412.eurprd03.prod.outlook.com
- ([fe80::2887:9068:38f6:8340%7]) with mapi id 15.20.8534.040; Tue, 25 Mar 2025
- 16:54:10 +0000
+	id 1tx7cX-0005LS-5l; Tue, 25 Mar 2025 16:59:21 +0000
+Received: by outflank-mailman (input) for mailman id 926755;
+ Tue, 25 Mar 2025 16:59:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RPpQ=WM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tx7cV-0005LM-UA
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:59:19 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7dad4c6d-099a-11f0-9ea3-5ba50f476ded;
+ Tue, 25 Mar 2025 17:59:18 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43d0618746bso40692005e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 09:59:18 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d43f43ecbsm204785705e9.10.2025.03.25.09.59.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 25 Mar 2025 09:59:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,198 +45,282 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7e76370-0999-11f0-9ffa-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g5p84DGApjTGkeA5Ml0tnwKQB34th77zECFFylgRILCRitsJWDOnoa7m+QmyPlPKhb+KBog/vg4UepLybnzCpXP73kOZ5AFbtZJt+kv5wIlpxxNzB2Pzu77El6iQhbvO+2+1+E4l5Pdk6Lz4GE1Fz29g/SMldIzCzUYkvT7Ke2sZl0deFlE3DUk7LVpHhl5JtP8sRUyl5HWUS3KPo7e9mBsHgo9mAjMrJaizE2rbTYwbaKjv1Gr2RMmorTXDVFYs0u2ldYuhAdYahTsDrJO2utzrHaaEWTUPwrYZBBSNL5xkgxKt27WdG0xir3fZwt/v1d6W6aO2kdWO2m5Xa/MIgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wG8UckL0gHwhuH44rb5YCdCnMwuueWPNkaDZBreM5lE=;
- b=er/hktCx2tG1QdCJfXpdpff8Z11EOakKyh1ucSkAPgLYaXKOXftIQudosEvu0PR5A+bz4pXrfRR9D3rAwvRr0vflp+rOsdL4ePKF6pK/zI4HBFiDIfQMdId5llzoE2YYsTvC8AmM1epHBE0IedgYXliLJlr6dfOIzYOhpQMr2TAa0JqkSwRQx6w8i8bQXgkdclRJ+vZMUBCmvTQro8NMy+5d+kFqSr8jUo9GwGJS3Z4nH/KQP9f8vHNMJ61rnYs2IY2uZrJ353b1IsXQ67togsKyPM0pOmWQmPNhXW003/e6JY/x2UeLYDjOhTHgklwBmbm/1MrAjvd0L79QjieV/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wG8UckL0gHwhuH44rb5YCdCnMwuueWPNkaDZBreM5lE=;
- b=RGA5obSpOfNrHnQvw+p2lOk/jVviZXIzSipR+2vn4es7yOZrb1qDAPQSXCZljrwJq0WKmS1ploVeDgiHb1s0p7Ooc8epxejooTDVZa4D5tyGQbozCMYlMywJtK6uGkMPNZUKJuUNVmnYZBH9eCjZdYLty29OUc/nJM9gSKgdqBKFE8sTpRag+2Q6h92BDhi7HF2kZ13imAALunyTPm+tS0sqhE9P0ESxP2JGwqVPldwUx/I4HST407ZA4nd60Iwj7H5zobtN4NgkoyEgNcJV8Wox8yCLcetUAerT5089YWn+9LaYDAesCAyvcERJzx+vSUeqxf0QA6juJtjOjEENWg==
-From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, "Orzel, Michal"
-	<michal.orzel@amd.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH V2] xen/arm: Initialize acpi_disabled to true during
- declaration
-Thread-Topic: [PATCH V2] xen/arm: Initialize acpi_disabled to true during
- declaration
-Thread-Index:
- AQHbnZfMrs+h0o/uEkuTNWO41qxIcLOD+IUAgAADaoCAAAM8AIAABQEAgAABHgCAAAyVAA==
-Date: Tue, 25 Mar 2025 16:54:10 +0000
-Message-ID: <340d58e8-b4f0-43ce-8925-e509282bccf0@epam.com>
-References: <20250325150842.2015968-1-oleksandr_tyshchenko@epam.com>
- <9b96395c-ca88-483b-be06-b7768b552983@xen.org>
- <4e048dad-bd12-4526-ae62-f424bdb8271b@amd.com>
- <db47de86-b2c1-4860-9212-49c051e1bebd@xen.org>
- <24809d8d-5d95-4527-89e1-e82889d58e3f@epam.com>
- <180d0f62-cab1-4fb5-a09f-c82b117ff554@xen.org>
-In-Reply-To: <180d0f62-cab1-4fb5-a09f-c82b117ff554@xen.org>
-Accept-Language: en-US, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PR3PR03MB6412:EE_|DB9PR03MB8448:EE_
-x-ms-office365-filtering-correlation-id: 4d32b566-2f53-4f7f-d1e1-08dd6bbdaa2e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?cmJ2WkdFMW05VlB5VDRaMDFsQURYMkJRSVg5M2kyZ1lqd2s1RnJPS2xVS1Nn?=
- =?utf-8?B?V3VpYmhSdGNrbEtCRGtBRXgxcWR5ZHBoWFd0UEJqeUpTZW9vN3JKbDd0VE9l?=
- =?utf-8?B?cCt4MURXbGYxV3pSdDVqSHNyOE5CVUNOREdtV3VhYXZMRGVHVmtsL3ppT1lJ?=
- =?utf-8?B?dC9mRkxISXUvT2hmNVpPZFE0M1cvM2JZZkZobWpnbXkwTE5JTEQvVDVjQXJi?=
- =?utf-8?B?VXh5Sm5IMXdhYVJNcUltT21MVWswMENiTmNYalVjS0JqVEhueDB5OGllYmJt?=
- =?utf-8?B?dVErSEQ1L2NONzYyVmtTSXJ4WXBqVnp6cXFneW84WC9iTHNZQVJhaURSTVdz?=
- =?utf-8?B?eVNvN0dEMzV5TTJpcGdBVGI1MTFva2I1bzBVWGJLZmhiWkc0UFlGT0FzVjRD?=
- =?utf-8?B?eUxWRHpHdnUvMU04OUtUR1ljYUNWaTNxYlVyNG9mOGR1MDBDRzl2a1VSQU1N?=
- =?utf-8?B?eGN4em05b1c1U0ZLUGpaM2hBMTF0OEZOb0xOZlZNWHZ1K00rTi8ySytLMmZI?=
- =?utf-8?B?N0I2a3dSZHRlczVUZFFXdjU3Qk9sWlVrOEUybGZFTXJJY3dnNkJ5b2ZLVW55?=
- =?utf-8?B?ay9pMlFXazBST25YcHJNaVZXRVN4ZlVkYThBb3dRS2JlNk5BQ0ovU3pTKzJy?=
- =?utf-8?B?TVZ1azdSYmlBdTNQdzlPeVVCY25UelgvU2hjTEdGeWh1RDRrb2s0U05wK0Ni?=
- =?utf-8?B?VUZIOE1jVmhpY2N0dHVORUVIVmEwQ1h3U1B5NTNTZURnd2tqekxackhVcVdp?=
- =?utf-8?B?ZUtSaTZuRUxqZ0ZYaU1TWHVDcm1zdnZIUElmSjFjKzU4QTYwaDdYcFZ2dGdI?=
- =?utf-8?B?MFU0ZXFBMzBDUlVHNlpTSXFmUW80SndKK2VQb3ZQZW1OeDRiVWw4VS9BdU1l?=
- =?utf-8?B?Z3VWbHczamY5clphekxDaXhPRDkzRnAyT2tpM1F6c1FBMldFdFVmKzN4TExa?=
- =?utf-8?B?U0wvOVBlaHhJeUZoMmNTMnYya2k3Yk53VWNJZnltVmhHaFg1VnpId1hnUXpV?=
- =?utf-8?B?RGgveHdtclhFNy9pUWlmNCs3dkp3TFUrS293THlpeWJQQW10bGhIVmhPMWJ6?=
- =?utf-8?B?UVozejFxSEdzVS9qYlNzZFVlN05HUHRyYUtTNlYvRkdTc0x4V3Y4RFg3TlY4?=
- =?utf-8?B?VVJtUk5BTTBQMk9rMWI2ZUdvdVFPYUlZeU1TT3Q1ZDJqRTNYQWNHRTNFRXBi?=
- =?utf-8?B?dXMya21McnF0bkNLU240bzJwUXlLZWRtc2FObC9qc0hwSjdNTHEwRzlZdFNW?=
- =?utf-8?B?UWRZWHF6NlJsSzF4VG1aV1Z6MDZMNVlTSkExSUpKejl6R0pPcVhRNWtPbXkz?=
- =?utf-8?B?Nk5QcC9seGdyRXZPaXBFUzFVQ1FaaFptSmwvSmxYOGpOVHloTkhwakNNSU1O?=
- =?utf-8?B?WFVWVWMyd0VxTVJ1VS93QmNiVDlrZUJWWUJHTjNVTkJCZ0QrMGw1ekwyQWJG?=
- =?utf-8?B?ZUVPcnBJTWd4b2hOTGg5ZlN1U2V6MlB6ZU1hK2UyRlpVOWdkWlRWdEU0MGpN?=
- =?utf-8?B?NUpPYUJnSzh3a0NtYlNWNURyVVI0U1ZEU2NwNm8rMTNraU53S3F1bUdTRlBx?=
- =?utf-8?B?NG1XQUs3ZVFodG1HYVd3L3BiNGVXQkJmZGltUW1pdjF4d3VNYUZlbmRBVnk3?=
- =?utf-8?B?UlQ5Y2c5aFNzeFg2WmtuUnI3dTB6bnpxbXVObUduaWVpQ0V3TVRVR1pndEg2?=
- =?utf-8?B?eHNZTFZ1aE1lVkxDSVVNSTV4MkdZT05MU09WYVk1UVduZEw0OWJoektuTTJV?=
- =?utf-8?B?RTdwalBEOFYvajFTTWtWVFBIWDRCMXZLNlJEZzU1TUVMMWNEQm5rWC93ZHRM?=
- =?utf-8?B?SWtvQXdDZWRpMXo1T1kxaE1pZDREcTVGcWl4cXpNTkpPaFkyZDk2aHo3QXJ6?=
- =?utf-8?B?cE55RXEzT2I3YWlDU2k1azQ0RmNkNEtBUk51SkpGK04xZjF3a0l2c2o3Y3NP?=
- =?utf-8?Q?p+FNWdNK+EWrY4izMQqS5x45qrlQyQMO?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR03MB6412.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?N2tsenA5NWo4VHU2SUhXRGtVaE5RZW5wUnZmbEtvcytQVFZSMGlHMnNMamFn?=
- =?utf-8?B?NFArR0F4T2ZFRDZiL1RIYUIwNXh0VSt2ZVVrMzF4T2NRemxIVUNyeEttWHNG?=
- =?utf-8?B?K2RSN3JYMDdidkZoMmw2a1dnS2Z5c0lEd0pvVTNtbjM4WHhLN1R0Sm5CeU1n?=
- =?utf-8?B?NjFVdXhENkhXMldoQnFvMTcxNXErRGhPejZKQVZnWGpVQkZFYkdIMVh3YlYr?=
- =?utf-8?B?SFhsU2Fzc1BCWXpSbWo2WFhpVlhYSUcrN1JJaHBUdWhUNHhXcGRSUHJUbGhL?=
- =?utf-8?B?T1RYYy9FMVcrTFB0cjBwWWlYSjI3TG5WN0FveTBjcGNZVDRUNEw2WmJKNzZ5?=
- =?utf-8?B?citSMTBBQU83R3ZCbnA3TFBldjZNVzNVeDAwbzRMVFZYSFREZHJxZzdlYVdx?=
- =?utf-8?B?aXJlMUFlSk51cDNwampWNEQvbThBM2E2KzBjci80R0tIN25veFVGb0V6cmNR?=
- =?utf-8?B?YXpCRndCb24wYkQvakJ3bkFGWE56dElZZERYSkh1eGowdDhrakF6YnkvS2lX?=
- =?utf-8?B?Y0ZjeXZIRHZRaHJmTWwvR25TZ0V5Q3hXWnhhajVHd21ONUNIMFU0bHMvSUx6?=
- =?utf-8?B?MUxTZGR5VGVEM0F6VjhkOERLR0ladnpmdCt4VVI5RmZPZi9YR1l3NzJTWXlM?=
- =?utf-8?B?TEVMTlg4dy94RnRWblRqREJBRFJkK3owTnJYSHZYeFFKNytqRmFBWHVqNlVk?=
- =?utf-8?B?Mk1TWkZCQ1V1WEp5ejZCN3RMdnpXMC9tdENkUnNpSjNuQkMzbTNRd1FZWmcv?=
- =?utf-8?B?MXF0UUgrYkVFOHFwcG94ODhnWFRKQzZWSHkvbEt1eUQzVzZEZGVBMTVOek9S?=
- =?utf-8?B?OFh3QVNNcnNtVG1FVmdTSjV6d0syOGhSZTY0L1h6M2ZLRE9HNUlxeWk0TlNV?=
- =?utf-8?B?b1lZVlh5d3pKbWg2c0FYeVV0TUtpSzVQeXc0UmdxWXFIckVMV2s2SmhLbGt2?=
- =?utf-8?B?OTFkZDQ3TFJtYUdvbWkxRXRFMTRYeUJjSFcxZzlpZG91ems5eE95OElLWlFF?=
- =?utf-8?B?NmkwdGdCUitBek1yczAvNjQ4ODRYanFxaWRnZFlzeVVSVTNkNk9RbEZNQmJD?=
- =?utf-8?B?K0dWazlJUldwVmM4bDFXS1FvN21NTlNkV3p5RjR4dVhsb3RTc2NMZGJXd2N1?=
- =?utf-8?B?TENVZy9ERXRhcVdjaGE0cS91TE5VNnRpbi8zWHp5aUk2Qm5GTHJnM3pHWDA5?=
- =?utf-8?B?WHJOZWZXcytWUm9kWUlta3draENXczZqZEZENzdRUHROSFIrYkpVOHhOR2Rp?=
- =?utf-8?B?SXZFQ0lKQThEL3JzZlBzbGltK3NCMDhmTzN6T3RPb0F2akZudjk4THlyY1NX?=
- =?utf-8?B?R3RpZldWbGt6UnJLNFFaSUtscVFHZ1lSQzlkYmNaL2JSdm90T243TU1LK2Rz?=
- =?utf-8?B?VUh3R1VDM0xrMWNuaTlvNWx2a0V5L1dIL0N5VG1mOHI0bEx3SUdqQkp1cDg2?=
- =?utf-8?B?ZTNRNEpKRkZua2Z6Zm1CQ1NGTXVaWEdOY2txSnJHS3NzN0VZS3J5am9jWXVi?=
- =?utf-8?B?RTU2cTNQN25kZlMrdFA1NUgxVFBCMjlBMS9DQUV4YWQyOWE0MWE1TGNOa2Y3?=
- =?utf-8?B?MTBlQVY0OEF5M2d5bDBFSjFqREh0TEkyNURCWGczNkErMndxVVAyV2JxV3Rp?=
- =?utf-8?B?T3J2VkQrOEtsQ1k2TjV3dTFJUHBXQ3dpZTUvSWtnd1pDaFR3dUlXNnA2d2Iy?=
- =?utf-8?B?Yks2WXJIa3pPa1ZiY3JqbjFHYk1vVEdWODB3Tk1lcUd6cU5ma3U4NEpXa0VI?=
- =?utf-8?B?WHpZbkVKb012eFBxRWtFeHFQMlNhNVJ0cm1OMzNaZjRjM0tqSkI2M1dabDVZ?=
- =?utf-8?B?R3haM3gzOXVtdENVVENwS0lweVBKN2VjK1JlMEtLeUtXNldoMzBRZEY2NUl6?=
- =?utf-8?B?b0xUd2JqNkV1czQ3R0VGRlg4bWlnaHBYYnRTN0krU1lNMnlYTHQ2cEllaWkv?=
- =?utf-8?B?TkRwV0JwTGhRRU9ZemN3NXArVVd5T29qdVFBMDdKZStyQkUvWkVrckdMaFFx?=
- =?utf-8?B?RXFhWS95b1lYUXh2cVVBNHgvRzRKNFQyK2g1QWVlc0ZsVnpIMFFEcnVYRDdv?=
- =?utf-8?B?blMwMHQvdW1ZSVlWMHlHcjQ0UGRhcXBrMUZZQWhzS3U3dE1Tc01zdC9xYmxT?=
- =?utf-8?B?anV0VWZ3MGQzNXVnNi9tcGhma090M0ovbFRpaGRzdXBRbzdjc3FEK2RDUjlH?=
- =?utf-8?Q?w5vFJmKioZUfLeQmvqEAK4I=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <E08B633F61897C41A70FE13ECAA697E7@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 7dad4c6d-099a-11f0-9ea3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1742921958; x=1743526758; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FVkMY9t4X8uuqmCFVO+znnnCLkEsUIYHJwu1DhgFM88=;
+        b=VF3B4cYaWzQBrJRYm/Yc9sPBrMM9o3Q0nMzEHGX3xj2aPpvOrhJqHhc8ZNGXs10YnJ
+         T21GoqJxfQphFLBG5ciDafYQ4V0qT5rSylXEXo1XMqZlCshILyjsiBJ8AS9im38JWcy4
+         GzGN7/qY6pny98uz7XACRGcHsQwNIcPHyjqhEshJhiXx28nSoTE+oY+MV/p4euQ2+mDQ
+         +DXPEfy1QdU0qokCWwp579GZMsMhEPGFKewE/MPsjl01xVnuinKI92QAT/LyWGAZxgzB
+         IT88wMz9gyzWiSkf0T7HPYekuynzFGx0hm8FvUnO5uEOYBscG20KXZlp8o8qUKxpP53h
+         4VkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742921958; x=1743526758;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FVkMY9t4X8uuqmCFVO+znnnCLkEsUIYHJwu1DhgFM88=;
+        b=JWuJGvihVvmRDO8unShqTMy8czxw798pMmfuWttqD+ZIILQSRb5KeOZ4sUDfGd0VQ9
+         BDL1iciUTdwDEXFixHF0MTuTrA3WpBucHt9WCnFpvGxlXvlAyWT+3OIEaGVrpTdyyfkR
+         2xPCr0tv5UeT4W4nk6W1Rux11UVUfFyespvNf2WcSa3p7kBHBYOEKg5eierYOQQaFc6k
+         ToFvyNqJeH9rHppOBXEqiRWk3mZajsBCOqoury+k+KVHNypvgmpe7CVi5MUD6lYPnGkj
+         CqzL2J6hSvARzAGewwUDgddVphe3wKQ56DqrZjWI8tFRi4d2Ja/QrGTMYQcfEDP3pf6n
+         xQQw==
+X-Forwarded-Encrypted: i=1; AJvYcCU3aWYQZBxPxop9nNFySCNDL9qAws93o3UkWzmWQc4zYCQBGGfP0+kIe8V8z2pwqzGoag544ldElSE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxN2yYnbeQNdb0+92X1vgdAy1brKTvUC+AO2hq1U8wiavjtjCV2
+	CPUmcy5DOWAePNv404fkC8EQX6Ts+a7+N6Mp4yMf7y4+B9VCruTqG15O4EVEHw==
+X-Gm-Gg: ASbGncthgE1RXgEbhvNLV2tAIQLJHxXcaPsd8R6QrxFUYgt/xNxFKJ8ILwA4E5JzXXB
+	H0X5/xPX680Qkp+lblXBjJMzvdFya9jjxVbn3rDY0CxiaVouoBWhVKaHJ5zjj/8xsa0So7wjg4D
+	IzNtnHW81oAoIcX2PQFWXMCGE9EpBhhHqRLJV7Eu73fTM75Orhm6dkQVkYVLna952JF/9GGKrh9
+	3gp42jTnwaS09Z1Fjmz7iOtYy6v4+gofyHmvpicFdZLD5f2fbU372O0LwA1CiQrACsVX9Qb65Zy
+	zoaTMnAB9OdO1rBJxOrmLkAMGdxZo9DeoUNvHYqXC4TtSlVwBZzaRqqsAnbiepkVytMCkAOaisH
+	LAzAW/NT/D03U+9LVKsZMfS2oSaTKZA==
+X-Google-Smtp-Source: AGHT+IGv3XGNVMFgbVufmMsbuvCFGnsvcm5rXevQfCtNHQOt9uvyD590aXLiDNDjqdwPfnypgzaL6w==
+X-Received: by 2002:a05:600c:1ca4:b0:43d:b3:fb1 with SMTP id 5b1f17b1804b1-43d50a3c12amr125783195e9.27.1742921958042;
+        Tue, 25 Mar 2025 09:59:18 -0700 (PDT)
+Message-ID: <85d2bde5-b078-4c04-87e6-263b3e218cf9@suse.com>
+Date: Tue, 25 Mar 2025 17:59:16 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PR3PR03MB6412.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d32b566-2f53-4f7f-d1e1-08dd6bbdaa2e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2025 16:54:10.4353
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 81naxjS9pYMy1IslIQcEFkyBZP7rY0rjB/PiFK30jfb3wt5yqNcGQ7hGoLiAM0Y9Gp9EzxNTbuloQna+tTr2uMlcGe2gcZ55Muz86gMsOYo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB8448
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 15/15] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
+ xen_sysctl_pm_op for amd-cppc driver
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20250306083949.1503385-1-Penny.Zheng@amd.com>
+ <20250306083949.1503385-16-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250306083949.1503385-16-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-DQoNCk9uIDI1LjAzLjI1IDE4OjA5LCBKdWxpZW4gR3JhbGwgd3JvdGU6DQoNCg0KPiBIaSBPbGVr
-c2FuZHIsDQoNCkhlbGxvIEp1bGllbg0KDQo+IA0KPiBPbiAyNS8wMy8yMDI1IDE2OjA1LCBPbGVr
-c2FuZHIgVHlzaGNoZW5rbyB3cm90ZToNCj4+Pj4+IEZ1cnRoZXJtb3JlLCB3aGF0IGhhcHBlbiBp
-ZiB3ZSBkZWNpZGUgdG8gdXNlIEFDUEkgYWZ0ZXJ3YXJkcz8gV291bGRuJ3QNCj4+Pj4+IHRoaXMg
-bWVhbiB0aGF0IHRoZSBzdGF0aWMgcmVnaW9ucyB3b3VsZCBiZSByZXNlcnZlZCBldmVuIGlmIEFD
-UEkgDQo+Pj4+PiBkb2Vzbid0DQo+Pj4+PiB1c2Ugc3RhdGljIG1lbW9yeSAoYWxsIHRoZSBtZW1v
-cnkgaXMgZXhwZWN0ZWQgdG8gYmUgZ2l2ZW4gdG8gdGhlDQo+Pj4+PiBhbGxvY2F0b3IpPw0KPj4+
-PiBJIGRvbid0IHRoaW5rIHN1Y2ggaHlicmlkIGNvbmZpZ3VyYXRpb24gaXMgdmFsaWQgKGJvb3Rp
-bmcgd2l0aCBBQ1BJIHlldA0KPj4+PiBkZWNsYXJpbmcgcmVzZXJ2ZWQgcmVnaW9ucyBpbiBEVCku
-IFNlZSBjb21taXQ6DQo+Pj4+IDljMmJjMGYyNGIyYmE3MDgyZGY0MDhiM2MzM2VjOWE4NmJmMjBj
-ZjANCj4+Pg0KPj4+IEkgZG9uJ3QgdGhpbmsgdGhlIGNvbW1pdCBpcyBwcmV2ZW50aW5nIGh5YnJp
-ZCBjb25maWd1cmF0aW9uLiBJdCBpcyBqdXN0DQo+Pj4gc2F5aW5nIHRoYXQgdGhlIHJlZ2lvbiAo
-d2hpY2ggY291bGQgYmUgYSBzdGF0aWMgcmVnaW9uIGJlY2F1c2UgdGhpcyBpcw0KPj4+IG5vdCBz
-dXBwb3J0ZWQpIHdpbGwgYmUgdW5yZXNlcnZlZC4NCj4+Pg0KPj4+IElPVywgd2hlbiBib290aW5n
-IHdpdGggRGV2aWNlLVRyZWUgeW91IG1heSBiZSBhYmxlIHRvIHVzZSBzdGF0aWMgbWVtb3J5Lg0K
-Pj4+IEJ1dCBpZiB5b3Ugd2VyZSBib290aW5nIHdpdGggQUNQSSwgc3RhdGljIG1lbW9yeSBpcyBu
-b3Qgc3VwcG9ydGVkIGFuZA0KPj4+IHRoZXJlZm9yZSB0aGUgcmVnaW9ucyBzaG91bGQgYmUgZnJl
-ZSBmb3Igb3RoZXIgcHVycG9zZS4NCj4+DQo+Pg0KPj4gSnVsaWVuLCBJIHNlZSB5b3VyIHBvaW50
-cywgYnV0IHRoZSBjdXJyZW50IHBhdGNoIGRvZXMgbm90IGF0dGVtcHQgdG8NCj4+IG1ha2Ugc3Rh
-dGljIChyZXNlcnZlZCkgbWVtb3J5IHByb3Blcmx5IHdvcmsgb24gQUNQSS1iYXNlZCBzeXN0ZW0g
-KGlmIGl0DQo+PiBpcyBhdmFpbGFibGUgdGhlcmUpLCBjdXJyZW50IHBhdGNoIHRyaWVzIHRvIHNv
-bHZlIHRoZSByZWFsIGlzc3VlIG9uDQo+PiBkZXZpY2UtdHJlZS1iYXNlZCBzeXN0ZW0gd2l0aCBY
-ZW4gY29tcGlsZWQgd2l0aCBDT05GSUdfQUNQST15IChhdCBsZWFzdA0KPj4gdW5pbnRlbnRpb25h
-bGx5KS4gDQo+IA0KPiBJIGFtIG5vdCBhc2tpbmcgdG8gbWFrZSBBQ1BJIHdvcmsgd2l0aCBzdGF0
-aWMgbWVtb3J5LiBJIGFtIGFza2luZyB0byBub3QgDQo+IGJyZWFrIEFDUEkgaWYgdGhlIERldmlj
-ZS1UcmVlIGlzIHNwZWNpZnlpbmcgc3RhdGljIG1lbW9yeSByZWdpb24uDQo+IA0KPj4gSG93ZXZl
-ciwgSSB3b25kZXIsIHdoeSBpdCBoYXMgbm90IGJlZW4gbm90aWNlZCBzbyBmYXIuDQo+IA0KPiBB
-Q1BJIGlzIG5vdCBhIHN1cHBvcnRlZCBmZWF0dXJlIGFuZCBnYXRlZCBieSBVTlNVUFBPUlRFRC4g
-U28gdGhlIA0KPiBpbXBsaWNhdGlvbiBpcyB5b3UgaGF2ZSBlbmFibGVkIFVOU1VQUE9SVEVEIGFu
-ZCBhbnl0aGluZyBjYW4gaGFwcGVuIA0KPiByZWFsbHkgOykuDQoNCkluZGVlZCwgdGhpcyBhbnN3
-ZXJzIHRoZSBxdWVzdGlvbi4NCg0KDQo+IA0KPj4NCj4+IEl0IHRvb2sgc29tZSB0aW1lIHRvIHVu
-ZGVyc3RhbmQgd2h5IGp1c3QgZW5hYmxpbmcgQ09ORklHX1NUQVRJQ19NRU1PUlk9eQ0KPj4gdHJp
-Z2dlcmVkIGEgQlVHIGluIGNvbW1vbiBjb2RlLiBBbmQgaXQgdHVybmVkIG91dCB0aGF0IGl0IHdh
-cw0KPj4gQ09ORklHX0FDUEk9eSBpbiBteSBYZW4ncyAuY29uZmlnIHRoYXQgY2F1c2VkIHRoYXQg
-Y29uc2VxdWVuY2UgKEkNCj4+IHNwZWNpYWxseSB3cm90ZSBzbyBsb25nIGRlc2NyaXB0aW9uIHRv
-IHByb3ZpZGUgZnVsbCBjb250ZXh0KS4NCj4gDQo+IEFzIEkgd3JvdGUgYWJvdmUsIHRoZSBvbmx5
-IHRoaW5nIEkgYW0gYXNraW5nIGlzIHRoYXQgbWVtb3J5IGZvciBzdGF0aWMgDQo+IHJlZ2lvbnMg
-c2hvdWxkIGJlIHVucmVzZXJ2ZWQgd2hlbiBBQ1BJIGlzIGVuYWJsZWQgbGlrZSBpdCBpcyBhbHJl
-YWR5IHRoZSANCj4gY2FzZSB0b2RheS4NCg0KU28gdGhlIGNvbmNlcm4gaXMgdGhhdCBub3QgcmVz
-ZXJ2aW5nIHByb3ZpZGVkIGJ5IHRoZSBkZXZpY2UgdHJlZSBzdGF0aWMgDQptZW1vcnkgcmVnaW9u
-IGlzIGdvaW5nIHRvIGJlIGEgcG90ZW50aWFsIHdhc3RlIG9mIHRoZSBtZW1vcnkgb24gdGhlIHJl
-YWwgDQpBQ1BJIHN5c3RlbT8gT3IgSSBtaXNzZWQgc29tZXRoaW5nPw0KDQpJIHNlZSB0d28gb3B0
-aW9ucyB3aXRoIHVucmVzZXJ2aW5nIHRoZSBzdGF0aWMgbWVtb3J5IHJlZ2lvbnMgb24gdGhlIHJl
-YWwgDQpBQ1BJIHN5c3RlbS4gSSBhc3N1bWUsIHRoYXQgd2Ugc2hvdWxkIHVucmVzZXJ2ZSBvbmx5
-IGFmdGVyIHdlIGRlZmluaXRlbHkgDQprbm93IHRoYXQgd2UgYXJlIHJ1bm5pbmcgd2l0aCBBQ1BJ
-IChpLmUuIGFmdGVyIGFjcGlfYm9vdF90YWJsZV9pbml0KCkgDQpjb21wbGV0ZXMgYW5kIGFjcGlf
-ZGlzYWJsZWQgcmVmbGVjdHMgdGhlIHJlYWwgc3RhdGUgb2YgdGhpbmdzKSwgcmlnaHQ/DQoNCjEu
-IGVpdGhlciBjYWxsIGFjcGlfYm9vdF90YWJsZV9pbml0KCkgYmVmb3JlIHNldHVwX21tKCkgaW4g
-QXJtNjQncyANCnN0YXJ0X3hlbigpLg0KMi4gb3IgZ28gdGhyb3VnaCByZXNlcnZlZF9tZW0tPm5y
-X2JhbmtzIGFuZCB1bnJlc2VydmUgZXZlcnl0aGluZyBtYXJrZWQgDQp3aXRoIE1FTUJBTktfU1RB
-VElDX0RPTUFJTiBhZnRlciBhY3BpX2Jvb3RfdGFibGVfaW5pdCgpIGNvbXBsZXRlcw0KDQpXaGF0
-IGRvIHlvdSB0aGluaz8NCg0KVW5mb3J0dW5hdGVseSwgSSBkbyBub3QgaGF2ZSBzdWNoIGVudmly
-b25tZW50IGluIGhhbmQgKEFDUEktYmFzZWQgDQooZG9tMGxlc3M/KSBzeXN0ZW0gYnV0IHN0aWxs
-IHByb3ZpZGluZyBkZXZpY2UtdHJlZSB3aXRoIHN0YXRpYyBtZW1vcnkpIA0KZm9yIHRoZSByZWFs
-IHRlc3RpbmcuDQoNCj4gDQo+IENoZWVycywNCj4g
+On 06.03.2025 09:39, Penny Zheng wrote:
+> Introduce helper set_amd_cppc_para and get_amd_cppc_para to
+> SET/GET CPPC-related para for amd-cppc/amd-cppc-epp driver.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> ---
+> v1 -> v2:
+> - Give the variable des_perf an initializer of 0
+> - Use the strncmp()s directly in the if()
+> ---
+>  xen/arch/x86/acpi/cpufreq/amd-cppc.c | 124 +++++++++++++++++++++++++++
+>  xen/drivers/acpi/pmstat.c            |  20 ++++-
+>  xen/include/acpi/cpufreq/cpufreq.h   |   5 ++
+>  3 files changed, 145 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/arch/x86/acpi/cpufreq/amd-cppc.c b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+> index 606bb648b3..28c13b09c8 100644
+> --- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+> @@ -32,6 +32,7 @@
+>  
+>  static bool __ro_after_init opt_active_mode;
+>  static DEFINE_PER_CPU_READ_MOSTLY(uint8_t, epp_init);
+> +static bool __ro_after_init amd_cppc_in_use;
+>  
+>  struct amd_cppc_drv_data
+>  {
+> @@ -513,6 +514,123 @@ static int cf_check amd_cppc_epp_set_policy(struct cpufreq_policy *policy)
+>      return amd_cppc_epp_update_limit(policy);
+>  }
+>  
+> +int get_amd_cppc_para(unsigned int cpu,
+> +                      struct xen_cppc_para *cppc_para)
+> +{
+> +    const struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
+> +
+> +    if ( data == NULL )
+> +        return -ENODATA;
+> +
+> +    cppc_para->features         = 0;
+> +    cppc_para->lowest           = data->caps.lowest_perf;
+> +    cppc_para->lowest_nonlinear = data->caps.lowest_nonlinear_perf;
+> +    cppc_para->nominal          = data->caps.nominal_perf;
+> +    cppc_para->highest          = data->caps.highest_perf;
+> +    cppc_para->minimum          = data->req.min_perf;
+> +    cppc_para->maximum          = data->req.max_perf;
+> +    cppc_para->desired          = data->req.des_perf;
+> +    cppc_para->energy_perf      = data->req.epp;
+> +
+> +    return 0;
+> +}
+> +
+> +int set_amd_cppc_para(const struct cpufreq_policy *policy,
+> +                      const struct xen_set_cppc_para *set_cppc)
+> +{
+> +    unsigned int cpu = policy->cpu;
+> +    struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
+> +    uint8_t max_perf, min_perf, des_perf = 0, epp;
+> +
+> +    if ( data == NULL )
+> +        return -ENOENT;
+> +
+> +    /* Validate all parameters - Disallow reserved bits. */
+> +    if ( set_cppc->minimum > UINT8_MAX || set_cppc->maximum > UINT8_MAX ||
+> +         set_cppc->desired > UINT8_MAX || set_cppc->energy_perf > UINT8_MAX )
+> +        return -EINVAL;
+> +
+> +    /* Only allow values if params bit is set. */
+> +    if ( (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED) &&
+> +          set_cppc->desired) ||
+> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MINIMUM) &&
+> +          set_cppc->minimum) ||
+> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MAXIMUM) &&
+> +          set_cppc->maximum) ||
+> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ENERGY_PERF) &&
+> +          set_cppc->energy_perf) )
+> +        return -EINVAL;
+> +
+> +    /* Activity window not supported in MSR */
+> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ACT_WINDOW )
+> +        return -EOPNOTSUPP;
+> +
+> +    /* Return if there is nothing to do. */
+> +    if ( set_cppc->set_params == 0 )
+> +        return 0;
+> +
+> +    epp = per_cpu(epp_init, cpu);
+> +    /* Apply presets */
+> +    /*
+> +     * XEN_SYSCTL_CPPC_SET_PRESET_POWERSAVE/PERFORMANCE/BALANCE are
+> +     * for amd-cppc in active mode, min_perf could be set with lowest_perf
+> +     * representing the T-state range of performance levels, while
+> +     * XEN_SYSCTL_CPPC_SET_PRESET_NONE is for amd-cppc in passive mode, it
+> +     * depends on governor to do performance scaling, setting with
+> +     * lowest_nonlinear_perf to ensures performance in P-state range.
+> +     */
+
+Nit: There are again two consecutive comments here.
+
+The active / passive mode distinction mentioned in the comment isn't
+reflected anywhere in the code. It's the XEN_SYSCTL_CPPC_SET_DESIRED
+which distinguishes them, yet that flag isn't mentioned in the comment.
+
+> +    switch ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_PRESET_MASK )
+> +    {
+> +    case XEN_SYSCTL_CPPC_SET_PRESET_POWERSAVE:
+> +        if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
+> +            return -EINVAL;
+> +        min_perf = data->caps.lowest_perf;
+> +        max_perf = data->caps.highest_perf;
+
+These are still not not both ".lowest_perf", and I still don't understand
+- due to the lack of a comment - why that is.
+
+> +        epp = CPPC_ENERGY_PERF_MAX_POWERSAVE;
+> +        break;
+> +
+> +    case XEN_SYSCTL_CPPC_SET_PRESET_PERFORMANCE:
+> +        if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
+> +            return -EINVAL;
+> +        min_perf = data->caps.highest_perf;
+> +        max_perf = data->caps.highest_perf;
+> +        epp = CPPC_ENERGY_PERF_MAX_PERFORMANCE;
+> +        break;
+> +
+> +    case XEN_SYSCTL_CPPC_SET_PRESET_BALANCE:
+> +        if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
+> +            return -EINVAL;
+> +        min_perf = data->caps.lowest_perf;
+> +        max_perf = data->caps.highest_perf;
+> +        epp = CPPC_ENERGY_PERF_BALANCE;
+> +        break;
+> +
+> +    case XEN_SYSCTL_CPPC_SET_PRESET_NONE:
+> +        min_perf = data->caps.lowest_nonlinear_perf;
+> +        max_perf = data->caps.highest_perf;
+> +        break;
+> +
+> +    default:
+> +        return -EINVAL;
+> +    }
+> +
+> +    /* Further customize presets if needed */
+> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MINIMUM )
+> +        min_perf = set_cppc->minimum;
+> +
+> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MAXIMUM )
+> +        max_perf = set_cppc->maximum;
+> +
+> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ENERGY_PERF )
+> +        epp = set_cppc->energy_perf;
+> +
+> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
+> +        des_perf = set_cppc->desired;
+
+Considering these I even less understand what the comment further up is
+about.
+
+> +    return amd_cppc_write_request(cpu, min_perf, des_perf, max_perf, epp);
+> +}
+> +
+> +
+
+Nit (not for the first time, I think): No double blank lines please.
+
+> @@ -533,6 +651,11 @@ amd_cppc_epp_driver =
+>      .exit       = amd_cppc_cpufreq_cpu_exit,
+>  };
+>  
+> +bool amd_cppc_active(void)
+> +{
+> +    return amd_cppc_in_use;
+> +}
+> +
+>  int __init amd_cppc_register_driver(void)
+>  {
+>      int ret;
+> @@ -552,6 +675,7 @@ int __init amd_cppc_register_driver(void)
+>  
+>      /* Remove possible fallback option */
+>      xen_processor_pmbits &= ~XEN_PROCESSOR_PM_PX;
+> +    amd_cppc_in_use = true;
+
+Is this separate flag really needed? Can't you go from xen_processor_pmbits?
+
+> --- a/xen/drivers/acpi/pmstat.c
+> +++ b/xen/drivers/acpi/pmstat.c
+> @@ -261,7 +261,16 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
+>           !strncmp(op->u.get_para.scaling_driver, XEN_HWP_DRIVER_NAME,
+>                    CPUFREQ_NAME_LEN) )
+>          ret = get_hwp_para(policy->cpu, &op->u.get_para.u.cppc_para);
+> -    else
+> +    else if ( !strncmp(op->u.get_para.scaling_driver, XEN_AMD_CPPC_DRIVER_NAME,
+> +                       CPUFREQ_NAME_LEN) ||
+> +              !strncmp(op->u.get_para.scaling_driver, XEN_AMD_CPPC_EPP_DRIVER_NAME,
+
+Overlong line again.
+
+Jan
 
