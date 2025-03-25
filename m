@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6CEDA6FE34
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 13:51:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926455.1329300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B890A6FE6E
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 13:54:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926467.1329310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx3l0-0004R3-Jf; Tue, 25 Mar 2025 12:51:50 +0000
+	id 1tx3mi-000547-32; Tue, 25 Mar 2025 12:53:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926455.1329300; Tue, 25 Mar 2025 12:51:50 +0000
+Received: by outflank-mailman (output) from mailman id 926467.1329310; Tue, 25 Mar 2025 12:53:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx3l0-0004Od-Gl; Tue, 25 Mar 2025 12:51:50 +0000
-Received: by outflank-mailman (input) for mailman id 926455;
- Tue, 25 Mar 2025 12:51:49 +0000
+	id 1tx3mi-00051v-0O; Tue, 25 Mar 2025 12:53:36 +0000
+Received: by outflank-mailman (input) for mailman id 926467;
+ Tue, 25 Mar 2025 12:53:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RPpQ=WM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tx3kz-0004OR-FT
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 12:51:49 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1tx3mg-00051B-Dq
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 12:53:34 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e936d76b-0977-11f0-9ffa-bf95429c2676;
- Tue, 25 Mar 2025 13:51:47 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3914a5def6bso3300865f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 05:51:46 -0700 (PDT)
+ id 28659fb5-0978-11f0-9ffa-bf95429c2676;
+ Tue, 25 Mar 2025 13:53:32 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43cec5cd73bso35403005e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 05:53:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9a3f36sm13946521f8f.32.2025.03.25.05.51.45
+ 5b1f17b1804b1-43d43fdeb79sm201290315e9.25.2025.03.25.05.53.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Mar 2025 05:51:45 -0700 (PDT)
+ Tue, 25 Mar 2025 05:53:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e936d76b-0977-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 28659fb5-0978-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742907106; x=1743511906; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742907212; x=1743512012; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=2UI6kyWj0JfKs1+sNfG/JkSIh/aJ8nF8v50j99RHjYU=;
-        b=DNFlB86VefGTE3x1sk2Am8rl1jaAAkJk/ktAuI1nL6SHWxb0/qfOkEmPTuOULVSQqI
-         Mq/Q2+CFg9ID7lz/TUsTpVI33uEohxpLfs/CL/FR+GZDLLZi4gUvbfj9N7us3U3N8euT
-         /FNdSSazLX7ACdJYd6SJlBNASrNYkUFG4ia0GJo7tg8FHIRgbpgfdaPDy2R7FDdsIkPC
-         6EfdDH4d/tCMM19f8P006bEuAHsElFPH6tjW36cc5NKkE8VF/riB2P9ntSuvr2rwCkhF
-         G4yVh3le355V20zIvLCEX8VmiTGpLr7ZoiF0YHYzqiUpA2YYdGw9Ei5gCQYnykBQGHh0
-         YeyA==
+        bh=4M2M3fPpC3XGA5w4WkSqlgXfuPFwv3Z2U63mS/wHHbQ=;
+        b=Y+Oa1JSndvOkd+gwa3UvlJKjQK/c+ZURPxHkXVr/emSX8XJlj6LHwMZ4ZYnc3jLWyo
+         Cj52vXOima0mqjFD17MZGSn6umy6U30L4Nrzw2nLgAKoz172xcmALe/QtXgAuEwoDr8h
+         GJbQhcV2VOvgz1gPrJbI52b3WevRyTU4LusoSNvYQJ/ejr7XnztowZJkJsTP4SMi2LMw
+         iYNCVHSvDhxwKGdCmAPsZA0BWi7G4TGxOX7WKwNRRbBYKedIcGPTzsPkfYE63H6ijFDW
+         5wedQXYOrb9CaShLjVFrjOdyyfOYEnk9aDp9or4GQ4BBlCce34oz75lxIvKbJ3KKeCJ4
+         JRLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742907106; x=1743511906;
+        d=1e100.net; s=20230601; t=1742907212; x=1743512012;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2UI6kyWj0JfKs1+sNfG/JkSIh/aJ8nF8v50j99RHjYU=;
-        b=N0NVDi7TpkU78tKxA0nxIjnLLuMz8de5koy8ZRtLH4xn9EwjPNQp6+atxvtSU+VYS8
-         MlQCgItV0mSHnC39cQeiVcTLMn3HyizuW+YJy/wR/D2lurBLTwonr06u4rjrT35YMiJu
-         Ryo/F3Osh9TFfnhYUNFR/GZG78NGQRyZZv8zb/uktwQCPp0JJDiXtXtN8/MLHTLmceOe
-         XG19bTHz4ieOykB+b5K8ds6si6VK0aMat8oZimOktV8SQGCBOwqaBkBzrUTHKGjbCOIj
-         W8Kucdc69uFdq0xqfInWow83+CPdvh7Zlq0dQd+DDJIUsAtDumL/gbZXI553AMWNdSVv
-         2JLQ==
-X-Gm-Message-State: AOJu0Yy5YHX3g+3gfDfFzUukfHBZWXL0dIvHO7/UzkRK92rwfD/MpxWf
-	BcVwnaF5lLHOHRqfsSBD2/ADIfSjcad8oREGXWTaXUQqk26Hr2b/4uzIBa8VFvr1s8UZn+JOCYI
+        bh=4M2M3fPpC3XGA5w4WkSqlgXfuPFwv3Z2U63mS/wHHbQ=;
+        b=I/N22qwyX8/ByYqCXbmF8xOp7YFAAjruuXVkTqLNjlLzFv4JKwsE314Xe/adR90jze
+         WVb/1njony0yN32E2/ewtojUXxwcfRhuFy6G0fwzVuaTvh+XA9DwkTN3ROU8jJoNuSqg
+         h/ywFiEMflg9m0y7Q6g2Swr11itr94G+Cb8PmKss07wRhgwxOYYlSUpsOIRbJbH4EtWg
+         +DqdpuS/7sLEf8oI7bys1JBVHNCJ1pRHk88jWpa+SwJxUC9eEJnTZqRZeSMnBQQQFhIq
+         TekuoJCLfDUlo+vFHNNBT73Tn3xLeViI54HVMD/L49nQtroOWFlSoMl3KsY/IhnfIroz
+         Uhvg==
+X-Gm-Message-State: AOJu0Yw2FvGZpS+EnpEiIz0PIfNlo1c3VdAJ8+bIpsA9ZmaSecCQYd/v
+	qCVA0bfnAH4Mwtqo/nsRVb6GiUGPnJFHjMDED6gBS43FQb2Od3xKFLKpTiL5KqGx5Gyby0ela30
 	=
-X-Gm-Gg: ASbGncsgg01xzFyjZXveBcU7NzhQLE/5OV6itbTC6DNOz9HtKG6zVKjI6Lixe4tbS8a
-	QCAxl8A2aIm3u1YyWw5HOvEVZC//m/5EZfYUy3SN8qhwaQJQ5l2GdEe++84r8vJz40RF35C7EBy
-	w+5u+3HEWLgilDQ/je6FNGsTGF2bQZ8N2CeKj8SWo0VyZNWaktsculWN4hgwj+yMzSZYoH2BMYh
-	pCqc7Dr4x8rYOkBh5LUBtyjB0VLUtjq+VOzzGGoP2CdYh0Vq5opGGKOhiNtMARcVvbGGO7B/j3C
-	5qEkFz0hqGvl3+LD5i2tKZL3LcfLcepngOOiLXrA9OOBDH8+cKwn1JAyKwR457yUm33rws7SmZv
-	8Zeer6gx6KaXmunNFnX7WwOULnHW7WA==
-X-Google-Smtp-Source: AGHT+IGdqTMKmvDwaCbAMMRkMPPBRBJxD13gUM3aAdpqSFbxFsJL6h+GF3pFg9XVJDDpB1yiQVYBig==
-X-Received: by 2002:a05:6000:1849:b0:391:8a3:d964 with SMTP id ffacd0b85a97d-3997f92d0a6mr16586145f8f.41.1742907106128;
-        Tue, 25 Mar 2025 05:51:46 -0700 (PDT)
-Message-ID: <d1fca705-bfed-4370-a907-ca090dea58e5@suse.com>
-Date: Tue, 25 Mar 2025 13:51:44 +0100
+X-Gm-Gg: ASbGnct+dYHlDePBKWJ9FCC/zVav+w7mrch/QAWRjy3d4aHlAi5QZsvfL2iDgy1cl2A
+	8jqFHx9ZdVfvD5bHa+bGe5ypJ+XSVR/W/ZII/35dfGqL3KwYcPLlWpG9quWmskm9K2qdhRtKsDQ
+	h/zRzdUD/c+Zh6BcrUsfPksYYvoiaE7/d6yDsjB64zhBmJNIqlyjbHjos31QdAqX1Evs0KeHwEp
+	+gZBqPYhXjvMFvhxD/CGJDqjyxSeCMTRQsNIltz8+mG8PyjsRTNek15Eu509MEFJfNa+pdfcYQm
+	jSWVF0SLG6M0z8uaOO+xfGfCoAWlamYXmmemil1RUAM8KzefbCeWYAJjFs8vMmPvyWaL7najYQd
+	Wf12hmgVvVfXZWU6Ve77qzz+VmpTj7Q==
+X-Google-Smtp-Source: AGHT+IGpg8Xf1zfeNspgS2q3ag1+5n+BSDWB7VIfm5eQvFPgvfSqMsxKQRKKrxpIh5U8PMwBo8yMwQ==
+X-Received: by 2002:a05:600c:83c4:b0:43d:5ec:b2f4 with SMTP id 5b1f17b1804b1-43d509eb097mr190408905e9.10.1742907212080;
+        Tue, 25 Mar 2025 05:53:32 -0700 (PDT)
+Message-ID: <b2f1d0dc-54b0-4520-b4b6-3a1892662e53@suse.com>
+Date: Tue, 25 Mar 2025 13:53:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Jason Andryuk <jandryuk@gmail.com>, Penny Zheng <Penny.Zheng@amd.com>
+ Penny Zheng <Penny.Zheng@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] xenpm: sanitize allocations in show_cpufreq_para_by_cpuid()
+Subject: [PATCH] x86/pmstat: fold two allocations in get_cpufreq_para()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -120,46 +119,65 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-malloc(), when passed zero size, may return NULL (the behavior is
-implementation defined). Extend the ->gov_num check to the other two
-allocations as well. Don't chance then actually using a NULL in
-print_cpufreq_para().
+There's little point in allocation two uint32_t[] arrays separately.
+We'll need the bigger of the two anyway, and hence we can use that
+bigger one also for transiently storing the smaller number of items.
 
-Fixes: 75e06d089d48 ("xenpm: add cpu frequency control interface, through which user can")
+While there also drop j (we can use i twice) and adjust the type of
+the remaining two variables on that line.
+
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/tools/misc/xenpm.c
-+++ b/tools/misc/xenpm.c
-@@ -840,8 +840,9 @@ static void print_cpufreq_para(int cpuid
+--- a/xen/drivers/acpi/pmstat.c
++++ b/xen/drivers/acpi/pmstat.c
+@@ -193,11 +193,10 @@ static int get_cpufreq_para(struct xen_s
+     const struct processor_pminfo *pmpt;
+     struct cpufreq_policy *policy;
+     uint32_t gov_num = 0;
+-    uint32_t *affected_cpus;
+-    uint32_t *scaling_available_frequencies;
++    uint32_t *data;
+     char     *scaling_available_governors;
+     struct list_head *pos;
+-    uint32_t cpu, i, j = 0;
++    unsigned int cpu, i = 0;
+ 
+     pmpt = processor_pminfo[op->cpuid];
+     policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
+@@ -219,25 +218,22 @@ static int get_cpufreq_para(struct xen_s
+         return -EAGAIN;
      }
-     else
-     {
--        printf("scaling_avail_gov    : %s\n",
--               p_cpufreq->scaling_available_governors);
-+        if ( p_cpufreq->gov_num )
-+            printf("scaling_avail_gov    : %s\n",
-+                   p_cpufreq->scaling_available_governors);
  
-         printf("current_governor     : %s\n", p_cpufreq->u.s.scaling_governor);
-         if ( !strncmp(p_cpufreq->u.s.scaling_governor,
-@@ -907,7 +908,8 @@ static int show_cpufreq_para_by_cpuid(xc
-         p_cpufreq->scaling_available_frequencies = NULL;
-         p_cpufreq->scaling_available_governors = NULL;
+-    if ( !(affected_cpus = xzalloc_array(uint32_t, op->u.get_para.cpu_num)) )
++    if ( !(data = xzalloc_array(uint32_t,
++                                max(op->u.get_para.cpu_num,
++                                    op->u.get_para.freq_num))) )
+         return -ENOMEM;
++
+     for_each_cpu(cpu, policy->cpus)
+-        affected_cpus[j++] = cpu;
++        data[i++] = cpu;
+     ret = copy_to_guest(op->u.get_para.affected_cpus,
+-                       affected_cpus, op->u.get_para.cpu_num);
+-    xfree(affected_cpus);
+-    if ( ret )
+-        return ret;
++                        data, op->u.get_para.cpu_num);
  
--        if (!(p_cpufreq->affected_cpus =
-+        if (p_cpufreq->cpu_num &&
-+            !(p_cpufreq->affected_cpus =
-               malloc(p_cpufreq->cpu_num * sizeof(uint32_t))))
-         {
-             fprintf(stderr,
-@@ -916,7 +918,8 @@ static int show_cpufreq_para_by_cpuid(xc
-             ret = -ENOMEM;
-             goto out;
-         }
--        if (!(p_cpufreq->scaling_available_frequencies =
-+        if (p_cpufreq->freq_num &&
-+            !(p_cpufreq->scaling_available_frequencies =
-               malloc(p_cpufreq->freq_num * sizeof(uint32_t))))
-         {
-             fprintf(stderr,
+-    if ( !(scaling_available_frequencies =
+-           xzalloc_array(uint32_t, op->u.get_para.freq_num)) )
+-        return -ENOMEM;
+     for ( i = 0; i < op->u.get_para.freq_num; i++ )
+-        scaling_available_frequencies[i] =
+-                        pmpt->perf.states[i].core_frequency * 1000;
++        data[i] = pmpt->perf.states[i].core_frequency * 1000;
+     ret = copy_to_guest(op->u.get_para.scaling_available_frequencies,
+-                   scaling_available_frequencies, op->u.get_para.freq_num);
+-    xfree(scaling_available_frequencies);
++                        data, op->u.get_para.freq_num) ?: ret;
++
++    xfree(data);
+     if ( ret )
+         return ret;
+ 
 
