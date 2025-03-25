@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19187A6EACF
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 08:47:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926092.1328944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AADFA6EAE0
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 08:54:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926101.1328955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twyzm-0003y8-Qv; Tue, 25 Mar 2025 07:46:46 +0000
+	id 1twz6e-0006bk-HJ; Tue, 25 Mar 2025 07:53:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926092.1328944; Tue, 25 Mar 2025 07:46:46 +0000
+Received: by outflank-mailman (output) from mailman id 926101.1328955; Tue, 25 Mar 2025 07:53:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1twyzm-0003wg-OE; Tue, 25 Mar 2025 07:46:46 +0000
-Received: by outflank-mailman (input) for mailman id 926092;
- Tue, 25 Mar 2025 07:46:45 +0000
+	id 1twz6e-0006Zg-DI; Tue, 25 Mar 2025 07:53:52 +0000
+Received: by outflank-mailman (input) for mailman id 926101;
+ Tue, 25 Mar 2025 07:53:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RPpQ=WM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1twyzl-0003wa-Fm
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 07:46:45 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1twz6d-0006Za-AJ
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 07:53:51 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4b70f233-094d-11f0-9ffa-bf95429c2676;
- Tue, 25 Mar 2025 08:46:43 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43cf628cb14so39367125e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 00:46:43 -0700 (PDT)
+ id 49546f23-094e-11f0-9ffa-bf95429c2676;
+ Tue, 25 Mar 2025 08:53:49 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-39ac56756f6so1359195f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 00:53:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d4fceafb7sm146697035e9.1.2025.03.25.00.46.41
+ ffacd0b85a97d-3997f9a6326sm12702899f8f.29.2025.03.25.00.53.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Mar 2025 00:46:42 -0700 (PDT)
+ Tue, 25 Mar 2025 00:53:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b70f233-094d-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 49546f23-094e-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742888803; x=1743493603; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742889229; x=1743494029; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=p/tma21W0tagGg9/XqW58uPu+AQaIfuzr2VjmvyOcus=;
-        b=JCTBIY9F9gqGd4amb4TvYvCx1qCmqTzKPoflfFnMwLOWB9NGhjMdiOV2BlbFKnH9re
-         hvmRNLq4uPHvnNp/90Zk1Ixdb7dqynHBL4rf70ShnUuFoP2SrhrdQKb0fkthimHFe9kp
-         vVd1Ae5Ac6mmXR0KPAtXVKhhs8xrn+s07YVGyTndKfnZv+i4LRpjSm0k9wTWhJw9CtYl
-         LxQi/wDU0MoaB1zFHt+L++Ip8w1pUE+lDNSPjtMrchezT+q6Fwfi3cdAXsocEawccfaA
-         rJn7j3doiOCn/V772O/GkgmPUvjNoaPghz+x2IyWSEHyuj1rOLhDILZuBRZIXnDtChNC
-         DyRA==
+        bh=gaPjOeaS1yKq+UrU7ULLpkvLzc5sxXuO0RcmwuQlI5M=;
+        b=LHv6ooFkD8CejHkidSM/ohuzU8A6i5OLd6/rkEPPuP74XoEBGXbGbKM8mSmMjbmTPj
+         P6jeJzEC8ALQSMtiyrTbXyKk1zDKksnQ4mcbuswDMkNCFXkMLsFmDlrMVefRDP5cQtlf
+         oKYvcj+w0yw2p9V8pkclO0BpC7v2Xf2PaL/ursTrAVsaVJmylikleQ24UfxPYzTyJPF6
+         MmOMPTpmNMenbzCWtd+btxTDP3uk2XoS2gAXXH389Bz/SKiks+okvXIyRiJcrvx67s1O
+         hzjl7pE+MRs+fAXhO6nJmWVR8Yx1EfXYEYuJblGv9IXN7GxU/QydNmtlq90faLMWvkMu
+         xXjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742888803; x=1743493603;
+        d=1e100.net; s=20230601; t=1742889229; x=1743494029;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=p/tma21W0tagGg9/XqW58uPu+AQaIfuzr2VjmvyOcus=;
-        b=PWvVcuyhlnLfio+b/KypDB7I+OCj94oAlkjBfMQtzol8CaBxvG703ZZSe+FnVpPsrc
-         8ScSpo2mRue9QQ94KIqeu0ARYjTYnh5ZsuBad/B+KDFWIeACIQ5NpoZSzVNtyUAet0+t
-         89hPqi6qXHJrU/iG3dsqwTdqbBvz14cCIMXR2Q5CLuZxQ0g4vyuS2oeJ9P8ZjeAMxc6M
-         5wKuJXcCNTE7jRf+1YG+/9MLBTe2M3fX8HDgrJD9rHlimPvviiBsVQcRyNtVZXdJK/4S
-         ZeIUJATyoXZLGBa7Dxs+Zubf1rLq7XUMiah/HcbXNS/gzW1K6nG2Fds0d+Cm1BpaKeIj
-         o26g==
-X-Forwarded-Encrypted: i=1; AJvYcCVEvbdBZOKB0rAWiD7KQzKJUPTJzHVPJe7AZ+i3O4oPpuFT2v1bUDZkkod9d1DZVSH2ZSHsTvFRUVo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwQ8NTzm7CcO70FkfZIIngtXpNiyqtn+HHHscwCAUaXKX6sMt8J
-	YOq/xTCuoR3cn6x6SKQNw/ZgXDymyZmlOmvqzDFuycya2iR/2qpL3a2Mfd0VUQ==
-X-Gm-Gg: ASbGncvqT5qH7/Grv/ord6L0rEiD0ZFTgXqZVY0k2k3ZzISY1jrmW0CW5IaAxO7i8Dk
-	URRL+/wDWqNCmCS+UXj2aJjh+Yvu5ycd/6h5mAbNlBpkbqIdtFtL+YhtNg15iV7GH06k6LWd0yp
-	ZBGjHHrSE8sOv0LHy/lLviDi2dPJBPoMFmB3zNe1a4zESAj7aM84GrFTApAke4woSfFdkv/DLGK
-	Dtph/gmUooc1ES6h0d5Qf6RMvREzvQjRbHOZA2R9XZjzJ6YfGXpQwp94iVyp9wgTdZnl9nwxRyt
-	0YqrtzZHX+JCiRXF6R8P5B0RJOV5rlaQeCWsKjrrGDTtq3VnnOh8Ic3lIiYYoZWc/EO/jRfHsPD
-	zEFKS1TAnOPVLg3+0B0fgb4221PTN4A==
-X-Google-Smtp-Source: AGHT+IGsnTJSMGGefzN6hrlg74gPrK06eVxh7WJeR5Ixjg2sHu4S9KDohZNARKVfEleScyAlR2ubDg==
-X-Received: by 2002:a05:600c:1da4:b0:43b:ca8c:fca3 with SMTP id 5b1f17b1804b1-43d503516d7mr141523725e9.11.1742888802581;
-        Tue, 25 Mar 2025 00:46:42 -0700 (PDT)
-Message-ID: <a3659fe7-b98e-41ab-873b-58f494969b3d@suse.com>
-Date: Tue, 25 Mar 2025 08:46:41 +0100
+        bh=gaPjOeaS1yKq+UrU7ULLpkvLzc5sxXuO0RcmwuQlI5M=;
+        b=DQtIO+aDxqsx19bDOqIIIzrb18Vpdvbzv8WVqeBRpvUp5k8bUos0OdGGfb103a2DmZ
+         i86sAtMitIEi62nJTvzUw6IDC9XOgHrJarn4K4mbWQX71kg4e7+g5iajrGTBaxvtyAw1
+         2kapn6BhMIbArAXa+Scpst8gGvLMUK1mhKLpk0XXiUWCBVE7orbP0kVE1snCqDDjoGZs
+         AN1/1hjVbE092TIgNLl3ygpOKvLwo3oc0OE+VQeMgb2cNlMNDaKyMEZ+G1M81waz151h
+         I8UFnkxagl4kskpQGhjw0FqvvLJ/60MUHrN1/a05NoU11zlmAK7HVvg+Ev3FqBY5pv2t
+         Ck6g==
+X-Forwarded-Encrypted: i=1; AJvYcCW2OaMuHsWo7Il5Z4S0R+a88TkZFYAznLDEQQ6a50/vKwYv6NLlQq1E+g4cZk/5CXkvw2Hxnedgcxk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzeNiojkBfJMSJ0LwTirawQUgfaJ0eK10FOjAKyzq81vIyXeiZt
+	zdQRakeMbSm/iB906VLLpVUnU92zu5rBFb0lBvSz6UrcXwj6i8K/BlyOuGWmCg==
+X-Gm-Gg: ASbGncv+6HeNFbPF64C2dsXzS9Y1tmFW7TiZxZSx/tT3n7HFEA7liqE7W55KXaBIqA1
+	1JWBo6TKSAI/vLCMuF/r2sjTJh3gRmaUTAI/GcOz3Snp3ikOhRcuwt7Z+xtwD9Rs1GeJeqCLNxy
+	OjR/rAudX3d4FP0wnFenElUhRxgWg87AiykgtKdedDyRwh7XqB8cPKdgHy/7IG/jSQFmq8T27Ma
+	UnN5TYVMs+NMWEDh79Cmm6jouVlJrnbSnEtoSHQOzQ4S2ZiuDHDWAZVPhotYC8KeYHTMrgvxkm4
+	8wjRmAmykj2GoQ/PklmiSUC+R7/mjRGAdOhI/Rawv8knPK18UBdkNtkIcrcgDpL2byIH5XAtg3Y
+	h7ltETUPqhH1aOYvlIGCLNMTM43KauOWNq7sE9AO2
+X-Google-Smtp-Source: AGHT+IFzb8SEwGqg3ngvzqV3prWVUUA539MKL/XCcFqwjCSr7r5OoXl4UjgWoZ4z67Jikooj/q+UZw==
+X-Received: by 2002:a05:6000:18ab:b0:39a:c6c4:f877 with SMTP id ffacd0b85a97d-39ac6c4fad7mr3059302f8f.20.1742889228650;
+        Tue, 25 Mar 2025 00:53:48 -0700 (PDT)
+Message-ID: <c46e1b7a-d765-421f-a7a8-9187bfb5b732@suse.com>
+Date: Tue, 25 Mar 2025 08:53:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86/PVH: account for module command line length
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jandryuk@gmail.com>,
+Subject: Re: [PATCH v3 02/15] xen/x86: introduce new sub-hypercall to
+ propagate CPPC data
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <110f0966-0b89-48d6-b1b3-abae93802c19@suse.com>
- <6a039bc7-429d-4473-8a92-e5693dfd3fd9@citrix.com>
+References: <20250306083949.1503385-1-Penny.Zheng@amd.com>
+ <20250306083949.1503385-3-Penny.Zheng@amd.com>
+ <19cab53d-3edc-4900-95f1-6d5d81e0ecac@suse.com>
+ <DM4PR12MB845156C8C25495D7DB396ED9E1A72@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,71 +126,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6a039bc7-429d-4473-8a92-e5693dfd3fd9@citrix.com>
+In-Reply-To: <DM4PR12MB845156C8C25495D7DB396ED9E1A72@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 24.03.2025 19:24, Andrew Cooper wrote:
-> On 24/03/2025 12:03 pm, Jan Beulich wrote:
->> As per observation in practice, initrd->cmdline_pa is not normally zero.
->> Hence so far we always appended at least one byte. That alone may
->> already render insufficient the "allocation" made by find_memory().
->> Things would be worse when there's actually a (perhaps long) command
->> line.
+On 25.03.2025 05:12, Penny, Zheng wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Monday, March 24, 2025 10:28 PM
 >>
->> Skip setup when the command line is empty. Amend the "allocation" size
->> by padding and actual size of module command line. Along these lines
->> also skip initrd setup when the initrd is zero size.
+>> On 06.03.2025 09:39, Penny Zheng wrote:
+>>> +    pm_info = processor_pminfo[cpuid];
+>>> +    /* Must already allocated in set_psd_pminfo */
+>>> +    if ( !pm_info )
+>>> +    {
+>>> +        ret = -EINVAL;
+>>> +        goto out;
+>>> +    }
+>>> +    pm_info->cppc_data = *cppc_data;
+>>> +
+>>> +    if ( cpufreq_verbose )
+>>> +        print_CPPC(&pm_info->cppc_data);
+>>> +
+>>> +    pm_info->init = XEN_CPPC_INIT;
 >>
->> Fixes: 0ecb8eb09f9f ("x86/pvh: pass module command line to dom0")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> v3: Permit empty initrd with non-empty module command line again.
->> v2: Use elf_round_up(). Introduce initrd_cmdline local. Re-base.
+>> That is - whichever Dom0 invoked last will have data recorded, and the other
+>> effectively is discarded? I think a warning (perhaps a one-time one) is minimally
+>> needed to diagnose the case where one type of data replaces the other.
+>>
 > 
-> I wasn't making a request to support an empty module with a non-empty
-> cmdline.
-> 
-> That's a nonsense configuration; it's almost certainly an error
-> elsewhere, rather than an intended configuration.
+> In last v2 discussion, we are discussing that either set_px_pminfo or set_cppc_pminfo shall be invoked,
+> which means either PX data is recorded, or CPPC data is recorded.
+> Current logic is that, cpufreq cmdline logic will set the XEN_PROCESSOR_PM_PX/CPPC
+> flag to reflect user preference, if user defines the fallback option, like "cpufreq=amd-cppc,xen", we will have both
+>  XEN_PROCESSOR_PM_PX | XEN_PROCESSOR_PM_CPPC set in the beginning.
+> Later in cpufreq driver register logic, as only one register could be registered , if amd-cppc
+> being registered successfully, it will clear the  XEN_PROCESSOR_PM_PX flag bit.
+> But if it fails to register, fallback scheme kicks off, we will try the legacy P-states, in the mean time,
+> clearing the XEN_PROCESSOR_PM_CPPC.
+> We are trying to make XEN_PROCESSOR_PM_PX and XEN_PROCESSOR_PM_CPPC exclusive
+> values after driver registration, which will ensure us that either set_px_pminfo or set_cppc_pminfo
+> is taken in the runtime.
 
-Who are we to judge whether some configuration is nonsense?
-
->> --- a/xen/arch/x86/hvm/dom0_build.c
->> +++ b/xen/arch/x86/hvm/dom0_build.c
->> @@ -652,9 +652,10 @@ static int __init pvh_load_kernel(
->>      unsigned long image_len = image->size;
->>      unsigned long initrd_len = initrd ? initrd->size : 0;
->>      const char *cmdline = image->cmdline_pa ? __va(image->cmdline_pa) : NULL;
->> +    const char *initrd_cmdline = NULL;
->>      struct elf_binary elf;
->>      struct elf_dom_parms parms;
->> -    size_t extra_space;
->> +    size_t extra_space = 0;
->>      paddr_t last_addr;
->>      struct hvm_start_info start_info = { 0 };
->>      struct hvm_modlist_entry mod = { 0 };
->> @@ -712,10 +713,26 @@ static int __init pvh_load_kernel(
->>       * split into smaller allocations, done as a single region in order to
->>       * simplify it.
->>       */
->> -    extra_space = sizeof(start_info);
->> -
->>      if ( initrd )
->> -        extra_space += sizeof(mod) + ROUNDUP(initrd_len, PAGE_SIZE);
->> +    {
->> +        extra_space = elf_round_up(&elf, initrd_len);
-> 
-> I'm going to insist on not doing this.  For the sake of anyone (else)
-> trying to follow this logic.
-> 
-> You're trading increased cognitive complexity of the logic to avoid
-> using one local variable.
-
-Well, okay, I'll make a change here then. Your earlier reply didn't sound
-like "I'm going to insist", though. Instead I thought I could assume that
-my reply there having been left un-responded to would mean you're okay
-with the justification I gave.
+Yet you realize that this implies Dom0 to know what configuration Xen uses,
+in order to know which data to upload. The best approach might be to have
+Dom0 upload all data it has, with us merely ignoring what we can't make use
+of. The order of uploading (CPPC first or CPPC last) shouldn't matter. Then
+(and only then, and - ftaod - only when uploading of the "wrong" kind of
+data doesn't result in an error) things can go without warning.
 
 Jan
 
