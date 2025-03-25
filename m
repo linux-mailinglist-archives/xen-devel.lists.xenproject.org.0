@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8A77A7061A
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:09:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926661.1329500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26B0FA7068B
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:17:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926671.1329508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx6q0-0006FI-M7; Tue, 25 Mar 2025 16:09:12 +0000
+	id 1tx6xh-0000Pg-Da; Tue, 25 Mar 2025 16:17:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926661.1329500; Tue, 25 Mar 2025 16:09:12 +0000
+Received: by outflank-mailman (output) from mailman id 926671.1329508; Tue, 25 Mar 2025 16:17:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx6q0-0006CR-Ij; Tue, 25 Mar 2025 16:09:12 +0000
-Received: by outflank-mailman (input) for mailman id 926661;
- Tue, 25 Mar 2025 16:09:10 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1tx6xh-0000OH-AN; Tue, 25 Mar 2025 16:17:09 +0000
+Received: by outflank-mailman (input) for mailman id 926671;
+ Tue, 25 Mar 2025 16:17:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tx6py-0006CL-M3
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:09:10 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tx6py-007loX-1j;
- Tue, 25 Mar 2025 16:09:10 +0000
-Received: from [15.248.2.26] (helo=[10.24.67.162])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tx6py-00Ensi-0I;
- Tue, 25 Mar 2025 16:09:10 +0000
+ (envelope-from <SRS0=RPpQ=WM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tx6xf-0000O8-S4
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:17:07 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 97ebba27-0994-11f0-9ea3-5ba50f476ded;
+ Tue, 25 Mar 2025 17:17:05 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-39133f709f5so3136804f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 09:17:05 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3997f9ef23esm14023550f8f.81.2025.03.25.09.17.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 25 Mar 2025 09:17:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,83 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=bJ4j46HN7qzpTqg9a8dRjGOk2MOybzhJfDE3VSJtcY0=; b=f/yb/F30qDteUP1qu/vvoh9G8M
-	Artixa0QSfrpdHWX8kAfU7S9EunDAFdrVKs43xcRqpKrR6Dp1R6TnjR8nJcG6GVOf2TETRfIhDa5H
-	asHHA5Pr7dUuwYpn+svGpinABhz0HDI0cHNKrneMg+By3i4+v1V/kc4Mj55EwkXGog+4=;
-Message-ID: <180d0f62-cab1-4fb5-a09f-c82b117ff554@xen.org>
-Date: Tue, 25 Mar 2025 16:09:08 +0000
+X-Inumbo-ID: 97ebba27-0994-11f0-9ea3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1742919425; x=1743524225; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Nzom9g4Ka5TevUtw1wU09d/0vW6yFxavyu5lSqFcITk=;
+        b=VDOwYuXvSvUoJzdzs1Zbt68UAL4vI9Mo0ZRV9ETB5nekb9VIi8e1b8gUK+dyiPoLnk
+         /dHTu9HV8mEUQS3HHVTwVW7JSWMffuZ/YCutW2PZMZO+zlzNBxCb6B62uFzWfng81Os6
+         aa3hQ7S38G3Zi/Qz3kyp1UijINOpb5kgbwCAfSi+Du4DNeIZWYD6YOKCT7i1Hjucu1VK
+         PpCyxCJRXWpzAMS5slSwTyGNhnie0OY9CL5CmGdkS5LTobZLQit/z33oQ0KVt6/Lfgbz
+         cozyYkgcSjCs/aKEdmkqALZUBar1Eu/WGPBf8t4jaNbfC1xle0tfWZj0frQ2FJejnFpD
+         tCaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742919425; x=1743524225;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Nzom9g4Ka5TevUtw1wU09d/0vW6yFxavyu5lSqFcITk=;
+        b=az4o5hiUQw0fmRBY6XC2orLxX3MvsgFGpQiMyDC6e8RVQ0Bv/I1QJ08we0hI3hqhj1
+         iHFqqBJCicgpYaXJJxUJgUlKcIvp+K7qEB1dQqqHhaAyiLpq2B3N/mGVodnpMSD4B58u
+         ILNGkrOL1umXYXJejUOJG9yhaRPxfPv93nZMGK2Hp0hN3X7HpvFsVXCK22Nw0LahZAlV
+         1aZu8qPVDNB5ezozxgpGIJBYrN4tIneJf+6abbsbO1StLAy3+sAjqGg4SP+N+xjIQYRD
+         qCdHGnAZHzeviApTaQdg4CxRAFXelezQr+ZIDxjMNpmnJjJnmJJqUx2D5UH+4nwfYM5u
+         gNcw==
+X-Forwarded-Encrypted: i=1; AJvYcCXS5Mtr8gv47ffC4NiH6xGfvUexHCo9Mk4Mu4BUZbmoYUVAhrv0EU+NnRjxg0YFbGTaYIds45qqNag=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz61VMVQjIFo6mWGklSOQz7GMyaEj9fPQt6DSILHjTJr8mj8YSW
+	78q8xtYG57L/Hq8sJAl6jqYHI6qVE6uadUDbK7Um2yogyRKULSO3SuK50V1ZFA==
+X-Gm-Gg: ASbGnctGdt9NoZOrqo7fsuVgg5orW4nV0/RWCDUYBWfxmrKcfWMeE0BmLmQEIk5CnMP
+	Xxc0tb+obonfXOzbsLdaAXdzL0MP0sn+numIkNoinJyfrUVAltR8EslxxZnNdbCOlLUK3jwbPnS
+	jyvHsmkI6Yu1TiJ5wTh8C4UR+oUNAgporaHNjIGcbbz8er3IOgcEJ73PcRs6YftMZU17AEh/LTp
+	gy05mccQNbd/VxJi8eD83J1RVHUkZrlF2h9+Ze4h5ygBo0vA/A5dWA6IQcIcjldztybD6clzIKr
+	vdQsmukyYrKi3rBsCOp3tWNPZ+TkIAfDDYQaKrOXDL8pr0LdVxjQzi6UUfIXWFJpNrm/dsonSp0
+	7l/S7LO1EBMLH69TSqMZkQ0C9v1AdEY6OsZcUC8IB
+X-Google-Smtp-Source: AGHT+IFAMF5I9YU7m8Jb60Oer9qE9T5DhfVykQZ4NtX7buysg8XRTsEGTIIKCjRzTnfRw1k9AA5epA==
+X-Received: by 2002:a5d:5982:0:b0:391:2b11:657 with SMTP id ffacd0b85a97d-3997f92d423mr18749416f8f.38.1742919425210;
+        Tue, 25 Mar 2025 09:17:05 -0700 (PDT)
+Message-ID: <45640c36-0b7d-4502-bf4d-df1c1d17d528@suse.com>
+Date: Tue, 25 Mar 2025 17:17:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2] xen/arm: Initialize acpi_disabled to true during
- declaration
-Content-Language: en-GB
-To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- "Orzel, Michal" <michal.orzel@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250325150842.2015968-1-oleksandr_tyshchenko@epam.com>
- <9b96395c-ca88-483b-be06-b7768b552983@xen.org>
- <4e048dad-bd12-4526-ae62-f424bdb8271b@amd.com>
- <db47de86-b2c1-4860-9212-49c051e1bebd@xen.org>
- <24809d8d-5d95-4527-89e1-e82889d58e3f@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <24809d8d-5d95-4527-89e1-e82889d58e3f@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 1/5] xen/acpi: upload power and performance related
+ data from a PVH dom0
+To: Penny Zheng <Penny.Zheng@amd.com>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Ray Huang <Ray.Huang@amd.com>, Jason Andryuk <jason.andryuk@amd.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <20250306110824.1506699-1-Penny.Zheng@amd.com>
+ <20250306110824.1506699-2-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250306110824.1506699-2-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Oleksandr,
-
-On 25/03/2025 16:05, Oleksandr Tyshchenko wrote:
->>>> Furthermore, what happen if we decide to use ACPI afterwards? Wouldn't
->>>> this mean that the static regions would be reserved even if ACPI doesn't
->>>> use static memory (all the memory is expected to be given to the
->>>> allocator)?
->>> I don't think such hybrid configuration is valid (booting with ACPI yet
->>> declaring reserved regions in DT). See commit:
->>> 9c2bc0f24b2ba7082df408b3c33ec9a86bf20cf0
->>
->> I don't think the commit is preventing hybrid configuration. It is just
->> saying that the region (which could be a static region because this is
->> not supported) will be unreserved.
->>
->> IOW, when booting with Device-Tree you may be able to use static memory.
->> But if you were booting with ACPI, static memory is not supported and
->> therefore the regions should be free for other purpose.
+On 06.03.2025 12:08, Penny Zheng wrote:
+> From: Roger Pau Monne <roger.pau@citrix.com>
 > 
+> When running as a PVH dom0 the ACPI MADT is crafted by Xen in order to
+> report the correct numbers of vCPUs that dom0 has, so the host MADT is
+> not provided to dom0.  This creates issues when parsing the power and
+> performance related data from ACPI dynamic tables, as the ACPI
+> Processor UIDs found on the dynamic code are likely to not match the
+> ones crafted by Xen in the dom0 MADT.
 > 
-> Julien, I see your points, but the current patch does not attempt to
-> make static (reserved) memory properly work on ACPI-based system (if it
-> is available there), current patch tries to solve the real issue on
-> device-tree-based system with Xen compiled with CONFIG_ACPI=y (at least
-> unintentionally). 
-
-I am not asking to make ACPI work with static memory. I am asking to not 
-break ACPI if the Device-Tree is specifying static memory region.
-
-> However, I wonder, why it has not been noticed so far.
-
-ACPI is not a supported feature and gated by UNSUPPORTED. So the 
-implication is you have enabled UNSUPPORTED and anything can happen 
-really ;).
-
+> Xen would rely on Linux having filled at least the power and
+> performance related data of the vCPUs on the system, and would clone
+> that information in order to setup the remaining pCPUs on the system
+> if dom0 vCPUs < pCPUs.  However when running as PVH dom0 it's likely
+> that none of dom0 CPUs will have the power and performance data
+> filled, and hence the Xen ACPI Processor driver needs to fetch that
+> information by itself.
 > 
-> It took some time to understand why just enabling CONFIG_STATIC_MEMORY=y
-> triggered a BUG in common code. And it turned out that it was
-> CONFIG_ACPI=y in my Xen's .config that caused that consequence (I
-> specially wrote so long description to provide full context).
+> In order to do so correctly, introduce a new helper to fetch the _CST
+> data without taking into account the system capabilities from the
+> CPUID output, as the capabilities reported to dom0 in CPUID might be
+> different from the ones on the host.
+> 
+> Note that the newly introduced code will only fetch the _CST, _PSS,
+> _PPC and _PCT from a single CPU, and clone that information for all the
+> other Processors.  This won't work on an heterogeneous system with
+> Processors having different power and performance related data between
+> them.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+>  drivers/xen/pcpu.c               |   3 +-
+>  drivers/xen/xen-acpi-processor.c | 232 ++++++++++++++++++++++++++++---
+>  include/xen/xen.h                |   2 +-
+>  3 files changed, 216 insertions(+), 21 deletions(-)
 
-As I wrote above, the only thing I am asking is that memory for static 
-regions should be unreserved when ACPI is enabled like it is already the 
-case today.
+No dependency on another patch is mentioned anywhere (the cover letter
+only says the series is based on the very patch here), yet the bulk of
+the changes here (to drivers/xen/xen-acpi-processor.c) are meaningless
+for a PVH Dom0, because of
 
-Cheers,
+config XEN_ACPI_PROCESSOR
+	tristate "Xen ACPI processor"
+	depends on XEN && XEN_PV_DOM0 && X86 && ACPI_PROCESSOR && CPU_FREQ
 
--- 
-Julien Grall
+(note the XEN_PV_DOM0 in there). Is the patch here perhaps missing an
+adjustment to the above, to use XEN_DOM0 instead?
 
+Jan
 
