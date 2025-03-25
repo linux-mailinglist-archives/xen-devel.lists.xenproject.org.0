@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26B0FA7068B
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:17:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926671.1329508 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A3DCA706C5
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:26:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926683.1329518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx6xh-0000Pg-Da; Tue, 25 Mar 2025 16:17:09 +0000
+	id 1tx76o-0003BI-CK; Tue, 25 Mar 2025 16:26:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926671.1329508; Tue, 25 Mar 2025 16:17:09 +0000
+Received: by outflank-mailman (output) from mailman id 926683.1329518; Tue, 25 Mar 2025 16:26:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx6xh-0000OH-AN; Tue, 25 Mar 2025 16:17:09 +0000
-Received: by outflank-mailman (input) for mailman id 926671;
- Tue, 25 Mar 2025 16:17:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tx76o-000399-9k; Tue, 25 Mar 2025 16:26:34 +0000
+Received: by outflank-mailman (input) for mailman id 926683;
+ Tue, 25 Mar 2025 16:26:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RPpQ=WM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tx6xf-0000O8-S4
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:17:07 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 97ebba27-0994-11f0-9ea3-5ba50f476ded;
- Tue, 25 Mar 2025 17:17:05 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-39133f709f5so3136804f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 09:17:05 -0700 (PDT)
+ id 1tx76n-000393-L0
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:26:33 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e72f2ed4-0995-11f0-9ffa-bf95429c2676;
+ Tue, 25 Mar 2025 17:26:28 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-39149bccb69so5159641f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 09:26:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9ef23esm14023550f8f.81.2025.03.25.09.17.04
+ ffacd0b85a97d-3997f9f682bsm14035370f8f.101.2025.03.25.09.26.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Mar 2025 09:17:04 -0700 (PDT)
+ Tue, 25 Mar 2025 09:26:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97ebba27-0994-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: e72f2ed4-0995-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742919425; x=1743524225; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742919988; x=1743524788; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Nzom9g4Ka5TevUtw1wU09d/0vW6yFxavyu5lSqFcITk=;
-        b=VDOwYuXvSvUoJzdzs1Zbt68UAL4vI9Mo0ZRV9ETB5nekb9VIi8e1b8gUK+dyiPoLnk
-         /dHTu9HV8mEUQS3HHVTwVW7JSWMffuZ/YCutW2PZMZO+zlzNBxCb6B62uFzWfng81Os6
-         aa3hQ7S38G3Zi/Qz3kyp1UijINOpb5kgbwCAfSi+Du4DNeIZWYD6YOKCT7i1Hjucu1VK
-         PpCyxCJRXWpzAMS5slSwTyGNhnie0OY9CL5CmGdkS5LTobZLQit/z33oQ0KVt6/Lfgbz
-         cozyYkgcSjCs/aKEdmkqALZUBar1Eu/WGPBf8t4jaNbfC1xle0tfWZj0frQ2FJejnFpD
-         tCaQ==
+        bh=aomz1MzpaWOPvW7CCQj1qPGB9OY7E6EgTrGj3yfvO18=;
+        b=AasJZ24SRA03ak5U36nSJbUcT+XyPquGdViTW3xAseYXhJSiItpi+jq5ZOuF4uprN5
+         GBqalbawuj+gFN9HWfptMqeF2ihcwtGFpvKDUKSveq5Q+BDDbZWVPvFUOQv+Lpct9SxJ
+         miz6/TZNkQa/xP2MRl28Rc2c32VJlERXAdQTMRxKoM3tINOqOOYRIC+xg3aCV0kkrkCv
+         wd8wowJzzu/PncppiJaEirm5HZrnaDmV7j6ClQXXAE2aUBC5YaJabmH2J4IL9mlhboNq
+         I8qCWAnmcq4SnN/8la2ULMXYrvSB34ehSJpcunJ8Ybe2gz8W4KZjCWTu54/TjGTXbdG0
+         ObsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742919425; x=1743524225;
+        d=1e100.net; s=20230601; t=1742919988; x=1743524788;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Nzom9g4Ka5TevUtw1wU09d/0vW6yFxavyu5lSqFcITk=;
-        b=az4o5hiUQw0fmRBY6XC2orLxX3MvsgFGpQiMyDC6e8RVQ0Bv/I1QJ08we0hI3hqhj1
-         iHFqqBJCicgpYaXJJxUJgUlKcIvp+K7qEB1dQqqHhaAyiLpq2B3N/mGVodnpMSD4B58u
-         ILNGkrOL1umXYXJejUOJG9yhaRPxfPv93nZMGK2Hp0hN3X7HpvFsVXCK22Nw0LahZAlV
-         1aZu8qPVDNB5ezozxgpGIJBYrN4tIneJf+6abbsbO1StLAy3+sAjqGg4SP+N+xjIQYRD
-         qCdHGnAZHzeviApTaQdg4CxRAFXelezQr+ZIDxjMNpmnJjJnmJJqUx2D5UH+4nwfYM5u
-         gNcw==
-X-Forwarded-Encrypted: i=1; AJvYcCXS5Mtr8gv47ffC4NiH6xGfvUexHCo9Mk4Mu4BUZbmoYUVAhrv0EU+NnRjxg0YFbGTaYIds45qqNag=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz61VMVQjIFo6mWGklSOQz7GMyaEj9fPQt6DSILHjTJr8mj8YSW
-	78q8xtYG57L/Hq8sJAl6jqYHI6qVE6uadUDbK7Um2yogyRKULSO3SuK50V1ZFA==
-X-Gm-Gg: ASbGnctGdt9NoZOrqo7fsuVgg5orW4nV0/RWCDUYBWfxmrKcfWMeE0BmLmQEIk5CnMP
-	Xxc0tb+obonfXOzbsLdaAXdzL0MP0sn+numIkNoinJyfrUVAltR8EslxxZnNdbCOlLUK3jwbPnS
-	jyvHsmkI6Yu1TiJ5wTh8C4UR+oUNAgporaHNjIGcbbz8er3IOgcEJ73PcRs6YftMZU17AEh/LTp
-	gy05mccQNbd/VxJi8eD83J1RVHUkZrlF2h9+Ze4h5ygBo0vA/A5dWA6IQcIcjldztybD6clzIKr
-	vdQsmukyYrKi3rBsCOp3tWNPZ+TkIAfDDYQaKrOXDL8pr0LdVxjQzi6UUfIXWFJpNrm/dsonSp0
-	7l/S7LO1EBMLH69TSqMZkQ0C9v1AdEY6OsZcUC8IB
-X-Google-Smtp-Source: AGHT+IFAMF5I9YU7m8Jb60Oer9qE9T5DhfVykQZ4NtX7buysg8XRTsEGTIIKCjRzTnfRw1k9AA5epA==
-X-Received: by 2002:a5d:5982:0:b0:391:2b11:657 with SMTP id ffacd0b85a97d-3997f92d423mr18749416f8f.38.1742919425210;
-        Tue, 25 Mar 2025 09:17:05 -0700 (PDT)
-Message-ID: <45640c36-0b7d-4502-bf4d-df1c1d17d528@suse.com>
-Date: Tue, 25 Mar 2025 17:17:03 +0100
+        bh=aomz1MzpaWOPvW7CCQj1qPGB9OY7E6EgTrGj3yfvO18=;
+        b=pp+rZO/f4tscmDHO4j66jMAP+pHwVSgaA/vjTqCMOU0m7xbGRtDUWjjjLuyZYDi/ni
+         pqnpF64EU/7f4OZbdA556eHwp495E6coBSKxhlKdzE1F5YKOZcUKAyyoXJ/jjrHCyVAc
+         kOSj8Bzoh7C71Ijee2ZZGPKUmzGSR2fH7QsER99B1DO77dTQVXq2OnSK3ZzFHR63ijB8
+         JKGtyBfq7n4YVFr41Usi7Xk0HK7LoUn0HY+01JCiODAsuOYWSu3GANdCFWIsHCjBrFSv
+         F8NzUp1jpBLIHEIKn3xts+Njhdi7VsW7NfJOThrL9WwVY2n8R7XOQCD2mWq1324y8R0N
+         v7Tg==
+X-Forwarded-Encrypted: i=1; AJvYcCVpgyaXNnYJ2yR2xl+o0i6xzz2G54eQ06K/lWMfl+uJ35rqr7T4xBwtDbr1XvbnkzVePi3zdHlKh00=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyhpKbOTvhTJ87Pb3d0G8vry3DiBX9iOWyP4507uXnt4i1w1TIg
+	JRD6ck4JbXLzea/kaXFCbSh5z5KvqNuoToWsfMA1v5Clh8tL9J0RtYF43qYFsA==
+X-Gm-Gg: ASbGncuwO+Z+iyr3AfOOrtqJjsXhG4e9sI81Xmp6Y+FWWlAHZ7DoTeP1WjCn0s/5wpD
+	Yh/MqYg770xt9WZ2TLKfjGt21npFKsY9bUKdcrBZk1qaWiDcwx7EeKPB6X1VTvmHWWK+/u5DmbN
+	rf413EnpxS1FwcXkpfZ5lGDdUgv4JxgR0IR+50wnFZjzVfLu1KF85AdKRVyyY8Nc5wH6ONwyat7
+	Rbf7TNbQB7y2qWlke+FQO/ODg0Ps8TY6sCUcWDpfrVhUT1lCeWq4v73UiW1gXxKmM02UR+gbgh5
+	/zed6CDC6waBZ00VFgkpOkNtlv+IliKkv6xyetyZAyOdHwF0FFdyxfGoP7BTLsTJVk04uW4pp5a
+	I/m1fFDdOkFxA1J3W14fLLZ+RaZ9dLQ==
+X-Google-Smtp-Source: AGHT+IFpTsH2Uozah9LwgJ/BYXJMUjj7Mlwn/BXOJYSyNKQC9Q5yyGrY8j4e+9R7Hvu2jKiu/Spa1Q==
+X-Received: by 2002:a05:6000:1f87:b0:391:2ba9:4c59 with SMTP id ffacd0b85a97d-3997f93988amr16734608f8f.43.1742919987704;
+        Tue, 25 Mar 2025 09:26:27 -0700 (PDT)
+Message-ID: <5a0e1f5f-c08b-4045-98df-dec73ece028c@suse.com>
+Date: Tue, 25 Mar 2025 17:26:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] xen/acpi: upload power and performance related
- data from a PVH dom0
-To: Penny Zheng <Penny.Zheng@amd.com>, Roger Pau Monne <roger.pau@citrix.com>
-Cc: Ray Huang <Ray.Huang@amd.com>, Jason Andryuk <jason.andryuk@amd.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <20250306110824.1506699-1-Penny.Zheng@amd.com>
- <20250306110824.1506699-2-Penny.Zheng@amd.com>
+Subject: Re: [PATCH v2] xen/riscv: add H extenstion to -march
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Milan Djokic <milandjokic1995@gmail.com>,
+ Slavisa Petrovic <Slavisa.Petrovic@rt-rk.com>, xen-devel@lists.xenproject.org
+References: <0a072ab36b54ea7c4f9a6f94465fb7b79f9f49b2.1742573085.git.oleksii.kurochko@gmail.com>
+ <c9c7c8e2-d441-4a1a-a658-98dfe0a98ed8@suse.com>
+ <ee8b8e09-9b0b-4757-989c-b7d81721c325@gmail.com>
+ <3d9e8e8c-2e09-43d6-a254-2f081c9e5eb1@suse.com>
+ <e6e64e58-a26a-44cc-b708-5bf510b041c8@gmail.com>
+ <a6d511ec-38bc-4fad-9e08-462b7c10eac4@suse.com>
+ <238a9b67-a4f3-4f97-9d13-11a35884be0b@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,58 +130,135 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250306110824.1506699-2-Penny.Zheng@amd.com>
+In-Reply-To: <238a9b67-a4f3-4f97-9d13-11a35884be0b@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.03.2025 12:08, Penny Zheng wrote:
-> From: Roger Pau Monne <roger.pau@citrix.com>
+On 25.03.2025 15:46, Oleksii Kurochko wrote:
 > 
-> When running as a PVH dom0 the ACPI MADT is crafted by Xen in order to
-> report the correct numbers of vCPUs that dom0 has, so the host MADT is
-> not provided to dom0.  This creates issues when parsing the power and
-> performance related data from ACPI dynamic tables, as the ACPI
-> Processor UIDs found on the dynamic code are likely to not match the
-> ones crafted by Xen in the dom0 MADT.
+> On 3/25/25 2:47 PM, Jan Beulich wrote:
+>> On 25.03.2025 14:02, Oleksii Kurochko wrote:
+>>> On 3/25/25 12:52 PM, Jan Beulich wrote:
+>>>> On 25.03.2025 12:48, Oleksii Kurochko wrote:
+>>>>> On 3/24/25 1:31 PM, Jan Beulich wrote:
+>>>>>> On 21.03.2025 17:17, Oleksii Kurochko wrote:
+>>>>>>> H provides additional instructions and CSRs that control the new stage of
+>>>>>>> address translation and support hosting a guest OS in virtual S-mode
+>>>>>>> (VS-mode).
+>>>>>>>
+>>>>>>> According to the Unprivileged Architecture (version 20240411) specification:
+>>>>>>> ```
+>>>>>>> Table 74 summarizes the standardized extension names. The table also defines
+>>>>>>> the canonical order in which extension names must appear in the name string,
+>>>>>>> with top-to-bottom in table indicating first-to-last in the name string, e.g.,
+>>>>>>> RV32IMACV is legal, whereas RV32IMAVC is not.
+>>>>>>> ```
+>>>>>>> According to Table 74, the h extension is placed last in the one-letter
+>>>>>>> extensions name part of the ISA string.
+>>>>>>>
+>>>>>>> `h` is a standalone extension based on the patch [1] but it wasn't so
+>>>>>>> before.
+>>>>>>> As the minimal supported GCC version to build Xen for RISC-V is 12.2.0,
+>>>>>>> and for that version it will be needed to encode H extensions instructions
+>>>>>>> explicitly by checking if __risv_h is defined.
+>>>>>> Leaving aside the typo, what is this about? There's no use of __riscv_h in
+>>>>>> the patch here, and ...
+>>>>> It is going to be used in future patches:https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/p2m.c?ref_type=heads#L32
+>>>> For this and ...
+>>>>
+>>>>>>> @@ -25,10 +24,13 @@ $(eval $(1) := \
+>>>>>>>     	$(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
+>>>>>>>     endef
+>>>>>>>     
+>>>>>>> +h-insn := "hfence.gvma"
+>>>>>>> +$(call check-extension,h)
+>>>>>> ... this, if it fails, will not have any effect on the build right now
+>>>>>> afaics.
+>>>>> No, it won't have any affect now as instruction from H extension isn't used now.
+>>>>> But it will beneededforhttps://lore.kernel.org/xen-devel/dae753618491b2a6e42f7ed3f24190d0dc13fe3f.1740754166.git.Slavisa.Petrovic@rt-rk.com/
+>>>>> and for p2m changes mentioned above.
+>>>> ... this both being future work, it might help if it could be made clear
+>>>> right here how things are going to work (with both gcc12 and up-to-date
+>>>> gcc).
+>>> I can update the commit message with the following:
+>>> ```
+>>> If 'H' extension is supported by compiler then __riscv_h will be defined by
+>>> compiler (for gcc version >= 13.1).
+>>> For gcc12 it will be needed to:
+>>> #ifdef __riscv_h
+>>>    asm volatile ("h extension instruction");
+>>> #else
+>>>    asm volatile ("|.insn ..."); #endif ```
+>> Okay, that's what I was concerned about. __riscv_h is a compiler indication.
+>> It means nothing about H extension insns being supported by the assembler
+>> (except perhaps for Clang's integrated one). The check-extension thing in
+>> the Makefile will actually check both in one go. Yet then the hfence.* insns
+>> have been in binutils since 2.38, i.e. pre-dating gcc12.
 > 
-> Xen would rely on Linux having filled at least the power and
-> performance related data of the vCPUs on the system, and would clone
-> that information in order to setup the remaining pCPUs on the system
-> if dom0 vCPUs < pCPUs.  However when running as PVH dom0 it's likely
-> that none of dom0 CPUs will have the power and performance data
-> filled, and hence the Xen ACPI Processor driver needs to fetch that
-> information by itself.
+> It is still needed to have or #ifdef-ing or workaround mentioned below ...
 > 
-> In order to do so correctly, introduce a new helper to fetch the _CST
-> data without taking into account the system capabilities from the
-> CPUID output, as the capabilities reported to dom0 in CPUID might be
-> different from the ones on the host.
+>>
+>>> Or probably it will be easier not to ifdef-ing
+>>> everything with __riscv_h but just return back a workaround with the
+>>> following changes: ``` $ git diff diff --git a/xen/arch/riscv/arch.mk
+>>> b/xen/arch/riscv/arch.mk index f29ad332c1..3bd64e7e51 100644 ---
+>>> a/xen/arch/riscv/arch.mk +++ b/xen/arch/riscv/arch.mk @@ -24,13 +24,17
+>>> @@ $(eval $(1) := \ $(call as-insn,$(CC)
+>>> $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1))) endef -h-insn :=
+>>> "hfence.gvma" -$(call check-extension,h) +
+>>> +h-extension-name-$(CONFIG_CC_IS_GCC) := $(call cc-ifversion,-lt,1301,
+>>> hh, h) +h-extension-name-$(CONFIG_CC_IS_CLANG) := h +
+>>> +$(h-extension-name-y)-insn := "hfence.gvma" +$(call
+>>> check-extension,$(h-extension-name-y)) zihintpause-insn := "pause"
+>>> $(call check-extension,zihintpause) -extensions := $(h) $(zihintpause)
+>>> _zicsr_zifencei_zbb +extensions := $($(h-extension-name-y))
+>>> $(zihintpause) _zicsr_zifencei_zbb extensions := $(subst
+>>> $(space),,$(extensions)) ``` I prefer more a little bit the second
+>>> option with having the workaround for GCC version. ~ Oleksii |
+>> I fear this ended up unreadable.
 > 
-> Note that the newly introduced code will only fetch the _CST, _PSS,
-> _PPC and _PCT from a single CPU, and clone that information for all the
-> other Processors.  This won't work on an heterogeneous system with
-> Processors having different power and performance related data between
-> them.
+> ... something happen with formatting:
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> ---
->  drivers/xen/pcpu.c               |   3 +-
->  drivers/xen/xen-acpi-processor.c | 232 ++++++++++++++++++++++++++++---
->  include/xen/xen.h                |   2 +-
->  3 files changed, 216 insertions(+), 21 deletions(-)
+> diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+> index f29ad332c1..3bd64e7e51 100644
+> --- a/xen/arch/riscv/arch.mk
+> +++ b/xen/arch/riscv/arch.mk
+> @@ -24,13 +24,17 @@ $(eval $(1) := \
+>          $(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
+>   endef
+>   
+> -h-insn := "hfence.gvma"
+> -$(call check-extension,h)
+> +
+> +h-extension-name-$(CONFIG_CC_IS_GCC) := $(call cc-ifversion,-lt,1301, hh, h)
 
-No dependency on another patch is mentioned anywhere (the cover letter
-only says the series is based on the very patch here), yet the bulk of
-the changes here (to drivers/xen/xen-acpi-processor.c) are meaningless
-for a PVH Dom0, because of
+It all else fails, that's an option. The downside is that such version checks
+break if someone backports the respective change to an older version. Probing
+support for the actual command line option would be better. Why would
 
-config XEN_ACPI_PROCESSOR
-	tristate "Xen ACPI processor"
-	depends on XEN && XEN_PV_DOM0 && X86 && ACPI_PROCESSOR && CPU_FREQ
+$(call check-extension,hh)
+$(call check-extension,h)
 
-(note the XEN_PV_DOM0 in there). Is the patch here perhaps missing an
-adjustment to the above, to use XEN_DOM0 instead?
+not work, btw? (Of course, if the above was an option, something slightly
+smarter may still want using, so that e.g. we avoid probing both in the more
+common case [going forward] that "h" is what is supported.)
 
 Jan
+
+> +h-extension-name-$(CONFIG_CC_IS_CLANG) := h
+> +
+> +$(h-extension-name-y)-insn := "hfence.gvma"
+> +$(call check-extension,$(h-extension-name-y))
+>   
+>   zihintpause-insn := "pause"
+>   $(call check-extension,zihintpause)
+>   
+> -extensions := $(h) $(zihintpause) _zicsr_zifencei_zbb
+> +extensions := $($(h-extension-name-y)) $(zihintpause) _zicsr_zifencei_zbb
+>   
+>   extensions := $(subst $(space),,$(extensions))
+> 
+> ~ Oleksii
+> 
+
 
