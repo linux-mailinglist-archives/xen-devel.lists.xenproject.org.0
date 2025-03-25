@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4781EA70C6E
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 22:55:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926966.1329779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1474A70C81
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 23:03:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926974.1329789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txCEJ-0005co-SO; Tue, 25 Mar 2025 21:54:39 +0000
+	id 1txCMp-0008Ac-Ln; Tue, 25 Mar 2025 22:03:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926966.1329779; Tue, 25 Mar 2025 21:54:39 +0000
+Received: by outflank-mailman (output) from mailman id 926974.1329789; Tue, 25 Mar 2025 22:03:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txCEJ-0005bL-Pc; Tue, 25 Mar 2025 21:54:39 +0000
-Received: by outflank-mailman (input) for mailman id 926966;
- Tue, 25 Mar 2025 21:54:38 +0000
+	id 1txCMp-00088S-Iz; Tue, 25 Mar 2025 22:03:27 +0000
+Received: by outflank-mailman (input) for mailman id 926974;
+ Tue, 25 Mar 2025 22:03:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cNE8=WM=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
- id 1txCEI-0005bF-Ct
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 21:54:38 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ <SRS0=vmVN=WM=canb.auug.org.au=sfr@srs-se1.protection.inumbo.net>)
+ id 1txCMm-00088M-Mc
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 22:03:26 +0000
+Received: from mail.ozlabs.org (mail.ozlabs.org [2404:9400:2221:ea00::3])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bdae3c73-09c3-11f0-9ea3-5ba50f476ded;
- Tue, 25 Mar 2025 22:54:36 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7D91943C37;
- Tue, 25 Mar 2025 21:54:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAAD7C4CEE4;
- Tue, 25 Mar 2025 21:54:34 +0000 (UTC)
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 33EA2380DBFC; Tue, 25 Mar 2025 21:55:12 +0000 (UTC)
+ id f28243cc-09c4-11f0-9ea3-5ba50f476ded;
+ Tue, 25 Mar 2025 23:03:21 +0100 (CET)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4ZMkSb34QMz4x3S;
+ Wed, 26 Mar 2025 09:03:11 +1100 (AEDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,43 +42,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bdae3c73-09c3-11f0-9ea3-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1742939674;
-	bh=/1HExJHoJNml3mTtvjVeKL/OsCGNQlY8O681pHdx6F4=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
-	b=taNddJe+Q8O8lJMOSl+m1+LVKRDvlwyJzfj+AAOaFrLBvzDbQFA1qhhz+myEUedS8
-	 zsObomku4xGoTUKDRrEkMIf/LJvZDzpBzKABFL2LCxv3b37+mqRcRtw7Hy+ENcvdRr
-	 ygP8Z1J4YO7qtrAJr15WTC/N2uozLTdMqD8biJf0zxgdo4NQ4piJDP3TsahNbuYBG9
-	 Hhb3zD6GcB3L5KMbKPGowZU7uMrQtooZRQ6T88D3nPai9rjjYwWCazmVxjQdHV4x8R
-	 y46sfQ2bcUwIdwHfhcfdMbF2GptYnBVsHln/FVYKc7wLdNn6Eurr6yHB44LKvikySp
-	 tGZofpEmMZLEg==
-Subject: Re: [GIT PULL] xen: branch for v6.15-rc1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20250323102618.29516-1-jgross@suse.com>
-References: <20250323102618.29516-1-jgross@suse.com>
-X-PR-Tracked-List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
-X-PR-Tracked-Message-Id: <20250323102618.29516-1-jgross@suse.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.15-rc1-tag
-X-PR-Tracked-Commit-Id: c3164d2e0d181027da8fc94f8179d8607c3d440f
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: dce3ab4c57e662ae019c22e7c2f2aa887617beae
-Message-Id: <174293971067.745772.18284213114381644251.pr-tracker-bot@kernel.org>
-Date: Tue, 25 Mar 2025 21:55:10 +0000
-To: Juergen Gross <jgross@suse.com>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, sstabellini@kernel.org
+X-Inumbo-ID: f28243cc-09c4-11f0-9ea3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
+	s=201702; t=1742940191;
+	bh=38W8upVMOF87Aaqs8SXomZEIZnrWoUhgAIMPG3P4yZM=;
+	h=Date:From:To:Cc:Subject:From;
+	b=RggYCKbAoCiOHYSJV+bY2Hl3iw6i4MSLGTV5DvNF7h9DNq2h6S2sufhSUSaLXhAHQ
+	 qbW3rHyi24rHHrvluWOkTYB0/fyqfqHQ4wUdK2ITeHrgOFEpp0KXD2nGtBZx2c2NPX
+	 LZIfQGsXJiwNNV8tFxqw8XAiwASSJ8INdDfykTyDjopnA+kRF71oUSSL9y0dVWIgq3
+	 aXvXH6YlQmpjJnfi+wgnYUt3pLWOYstY87gjrFEOSSXY/6fwfLPyLcfgFWyuaPQt5/
+	 6pZ/+5l1EcM3BnMCnMKIf0S4/niaX/kjt7pX0PAuKsVLmXrPVlJpEajWOmGm34CSc8
+	 8cuYn7MF1DpYw==
+Date: Wed, 26 Mar 2025 09:03:10 +1100
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Juergen Gross <jgross@suse.com>, Konrad Rzeszutek Wilk
+ <konrad.wilk@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Xen Devel
+ <xen-devel@lists.xenproject.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next
+ Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: duplicate patches in the xen-tip tree
+Message-ID: <20250326090310.4f162838@canb.auug.org.au>
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="Sig_/FIk6u8s3DQ3M9mmnBRSUw+D";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 
-The pull request you sent on Sun, 23 Mar 2025 11:26:18 +0100:
+--Sig_/FIk6u8s3DQ3M9mmnBRSUw+D
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.15-rc1-tag
+Hi all,
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/dce3ab4c57e662ae019c22e7c2f2aa887617beae
+The following commits are also in Linus Torvalds' tree as different
+commits (but the same patches):
 
-Thank you!
+  d9f2164238d8 ("PCI/MSI: Convert pci_msi_ignore_mask to per MSI domain fla=
+g")
+  cae5129fccb1 ("PCI: vmd: Disable MSI remapping bypass under Xen")
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+These are commits
+
+  c3164d2e0d18 ("PCI/MSI: Convert pci_msi_ignore_mask to per MSI domain fla=
+g")
+  6c4d5aadf5df ("PCI: vmd: Disable MSI remapping bypass under Xen")
+
+in Linus' tree.
+
+--=20
+Cheers,
+Stephen Rothwell
+
+--Sig_/FIk6u8s3DQ3M9mmnBRSUw+D
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmfjKB4ACgkQAVBC80lX
+0GwvEQf8Cax0RQJCNfhf8Gk3G999eeL2bfU+Cz1UURF+bFcV8xCQyVjrgqh5iksV
+Mod2f+MVSKcsaJ4Ssj4hpuTbU7MJw9rBWuQymBKs7ImPMKFB5XXK/kOg1uhvQZsk
+YSygHcbKRTp5aUzf0G7NP29JVQWV1MSL/IK6R85DYnp5ieu9bB/evcXsOs+r/MAh
+YdgutM1IaZXBy7wb6StjxGQ+TNtbrEnUS+wUbkvFDt0QwGFOIXV32e95CwyKAXnc
+ztgPHPurzAKR7jWqjjdxne9+IopPVwDCyaHE/w0CrV8vhuuAapyuqASNejMuJR5m
+quRcnpAzoQOo7S2PECRraGvEdvI6Rw==
+=k2y0
+-----END PGP SIGNATURE-----
+
+--Sig_/FIk6u8s3DQ3M9mmnBRSUw+D--
 
