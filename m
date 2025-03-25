@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A66FA7070D
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:37:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.926700.1329539 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03ECFA7072A
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Mar 2025 17:42:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.926714.1329549 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx7Hc-0006Rp-I2; Tue, 25 Mar 2025 16:37:44 +0000
+	id 1tx7Lm-0000me-4z; Tue, 25 Mar 2025 16:42:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 926700.1329539; Tue, 25 Mar 2025 16:37:44 +0000
+Received: by outflank-mailman (output) from mailman id 926714.1329549; Tue, 25 Mar 2025 16:42:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tx7Hc-0006Pe-Ex; Tue, 25 Mar 2025 16:37:44 +0000
-Received: by outflank-mailman (input) for mailman id 926700;
- Tue, 25 Mar 2025 16:37:43 +0000
+	id 1tx7Lm-0000jw-1o; Tue, 25 Mar 2025 16:42:02 +0000
+Received: by outflank-mailman (input) for mailman id 926714;
+ Tue, 25 Mar 2025 16:42:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Gb8l=WM=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tx7Hb-0006PW-3N
- for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:37:43 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062c.outbound.protection.outlook.com
- [2a01:111:f403:200a::62c])
+ <SRS0=ogJ6=WM=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1tx7Lk-0000jq-80
+ for xen-devel@lists.xenproject.org; Tue, 25 Mar 2025 16:42:00 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 777069be-0997-11f0-9ea3-5ba50f476ded;
- Tue, 25 Mar 2025 17:37:41 +0100 (CET)
-Received: from DS7PR05CA0070.namprd05.prod.outlook.com (2603:10b6:8:57::28) by
- CH3PR12MB8460.namprd12.prod.outlook.com (2603:10b6:610:156::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Tue, 25 Mar
- 2025 16:37:34 +0000
-Received: from DS1PEPF00017099.namprd05.prod.outlook.com
- (2603:10b6:8:57:cafe::9) by DS7PR05CA0070.outlook.office365.com
- (2603:10b6:8:57::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.42 via Frontend Transport; Tue,
- 25 Mar 2025 16:37:34 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS1PEPF00017099.mail.protection.outlook.com (10.167.18.103) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Tue, 25 Mar 2025 16:37:34 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Mar
- 2025 11:37:33 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Mar
- 2025 11:37:33 -0500
-Received: from [172.22.20.237] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 25 Mar 2025 11:37:32 -0500
+ id 0d1f81f0-0998-11f0-9ea3-5ba50f476ded;
+ Tue, 25 Mar 2025 17:41:51 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ac2bfcd2a70so823826966b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Mar 2025 09:41:51 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac3efbdc78esm890019066b.134.2025.03.25.09.41.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 25 Mar 2025 09:41:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,209 +45,411 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 777069be-0997-11f0-9ea3-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oc2l98v99r9yWY4teGDH1J2VsL0x7YDTIwYrNgYbvb+Wwd4+reVU4Bgv5IPn5lL85Mzv4PSZOvQzUMc3rUo0Jzrbn+q7x20c4zHJgTpvBxtOkYb61x4AmBNx0gO0VVqtJCpaYwXl7/9BZsj3kLuOS/7yh1WvB7C4WsNIhI82lPcoZHi1Tk5N7pNBL1og3mbLAtB/bofzUGO92xYo/hAkw4PdbXCi8v6fzuo/BlkE+0LHYMUTlvFX5aSxGj1HLLACKa2b+ixiR232kQNnNe+Q7D6nMyutKI/rvpbZRDSzsjh2H02nraPPV496+tLvJ+oGLMczsDVfla30ZQSMwB/F6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vBMrt+AILPCIvhl8gFDMn6YmrPFPBBczacbOkXP2Rpw=;
- b=MAhB8w3EidgTBylvzR5JSixvQQ3bIortpYfbhUloYSbuJk7/4iWW7HWTE7dsedmVUj9le1U2Bp2pR0F9iEtn1JHRQN291oNf4L67/JCvCpvDJ1J/dyM64ObZ5NW+xAyPtGv/TNiyG+Oa7ISrZ9j5B1JFGuRFxOIDuHsGZgmCokPT6rFMC92DgBPg4eg+w9flDXmh3tjzEclXmJAQfHN+c0SaTPXqHwvKZTPittw/Iko95ZWsY6WfCo+mqwyYr7bo3bA3jhCX2EHJZGw6Kg2UABXt9LXdiE6X43Y/i6EI/1rEVTsvgvx5r4A5bTt+7sgfEpi4u4QN/orF+1I/r5QDXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vBMrt+AILPCIvhl8gFDMn6YmrPFPBBczacbOkXP2Rpw=;
- b=LNW7Ehv0uGHiq+CHnEghoq3D5NK2g7LufCCnsh2XeSQUqoRDoGjI8+ae19YOOJb7AvS5U3FkSF6lpBBlV/12hSJ3vn2nqG8CNyhsLCLiiTbE1RCcBuljWLOUrxU9sU47pOwwkEULYl0ITR1x5ocnDaMg5211mp5OGPkWYxWA6f4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <490094f1-001a-436f-a9a8-dc982235b2ae@amd.com>
-Date: Tue, 25 Mar 2025 12:37:35 -0400
+X-Inumbo-ID: 0d1f81f0-0998-11f0-9ea3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1742920910; x=1743525710; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=A0g96jhRPHha2UGiRt5bcCyitwiDAKf4aRv26RwN8Wo=;
+        b=GA8mW4jEg7rdBU3ux3I1YtonCU9vPDEeOiYFNd1ujdVApyApy0z2dlLs3PetQQdBWk
+         gUvmWU3dBYCJ/3Kwzb/oWXb9d13kMZ4rvScw8qwxbFooajQMl0N08Sm2I/9GYPYfyMNV
+         qBjKdDrJvgMNrxX4WyhR6GUMFKD037R67ck/PLQLeZx68VNPBve+I8TP5W43S4k1O2+D
+         kuz/FQ2KAYYHEcYxrbrr7osTduqnJbH6vq/iGzJITRRHc0M3v/o+oTi4e4plS7MTzBOl
+         V8G2CSS9mfFxY9et4qyOk0KgRHfPhts5nbxokfVLmWOESfPeldP69srty+OLn9Ef9mAl
+         x7EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742920910; x=1743525710;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=A0g96jhRPHha2UGiRt5bcCyitwiDAKf4aRv26RwN8Wo=;
+        b=UGJeaUSZ/ph+7B7oHao1rIuLYwwRYs2f4NaRR4eLwUivwSASWAToFgJc4XHVjRs4jF
+         06Du5N/ZLSsb6RheTWN7PXPj0EN578iXYJc06J3P8pqDlD/4W6pEwd1L6xqhaDdVXOcu
+         fwpGUhWFTJkACFdfLOO1sjpvinfYp7RW3d5NbvqU9xpPkLMWwA0mixVQlf6B9H+pBekw
+         jWYGYCJBso9zSeCRZUT25BFMJWqndh1vPYlP4/zKX8Cl6AbOTKIlR6GozxmLIMmF+mRF
+         4MoeiBs6eAvAo4kmwru9DDIpMWv5J65KksYuQy9cutXu8mvJOWCJY3U7mDn6cjedzsr0
+         IQcQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXxecuefm4U5Y3EJJsQ4E7qLdN8c+1wNWFqfqSjN4fyslUl/h+zkKsN6fDB4O7vBWbrU5V/z2VaMok=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YykplF/JDzFsEMyohvy2CCIbj11CuhtpnpTiKnZ0YzNN4+Umhqg
+	bG7kLWA4wQWiopGPLVTQGLEmvloe7zb7QDlN+VcXYn5hEvVln8jF
+X-Gm-Gg: ASbGncve4isbtS7ccNqhtpYP4myWzbGGmsRl6Pl+43NEgHdFkFNQxso4mcZ0UhDGA27
+	oCpB7D/pvoBicUZRoQbKmJGIRyd/VRDKdzChvU30IzEu4n6ZstEt7/LfUgvZJ3m/PNUmwB4PUDT
+	RO9w7NdBlniDeto/x7Q5CqIusbTqx368i3pj19/DcBtrhl9FbEtSJ+VmrBLdjS91Ht5mIV/a72W
+	LoQsZb8OZa3/nRAoiIphwnt+MHWvxn38Cl6e/nI0eJCzbMJqNa1pte/q1YslN3PUn/Ige5RZtkR
+	tarh8f0ScZS/kNcfUZnDP8PaWxt6Ip/G0RYjPUQGtujUqouxIsEgGiHReUfDRcTm0wr2v0NJJl8
+	VjGYeqWoFDxcqqhmf7tvF
+X-Google-Smtp-Source: AGHT+IE9M0YVeQmyneOjDz+BxNnoSVaPFohSfr7x/4GYQwuiELltO1sn1OorDHF5s9x/wMnRSAREug==
+X-Received: by 2002:a17:907:a58c:b0:ac1:e332:b1e7 with SMTP id a640c23a62f3a-ac3f24164e1mr1915745366b.4.1742920909970;
+        Tue, 25 Mar 2025 09:41:49 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------0thxU0AzXDdkkcV7U2K9pCEn"
+Message-ID: <9c37f0d7-f26a-4a53-b9a3-84cad82d6cef@gmail.com>
+Date: Tue, 25 Mar 2025 17:41:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 14/15] xen/xenpm: Adapt cpu frequency monitor in xenpm
-To: Jan Beulich <jbeulich@suse.com>, Penny Zheng <Penny.Zheng@amd.com>, "Jason
- Andryuk" <jandryuk@gmail.com>, Anthony PERARD <anthony.perard@vates.tech>
-CC: <ray.huang@amd.com>, Juergen Gross <jgross@suse.com>,
-	<xen-devel@lists.xenproject.org>
-References: <20250306083949.1503385-1-Penny.Zheng@amd.com>
- <20250306083949.1503385-15-Penny.Zheng@amd.com>
- <6f5a81d7-c650-46d2-b667-6b7c3bc54c41@suse.com>
+Subject: Re: [PATCH v2] xen/riscv: add H extenstion to -march
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Milan Djokic <milandjokic1995@gmail.com>,
+ Slavisa Petrovic <Slavisa.Petrovic@rt-rk.com>, xen-devel@lists.xenproject.org
+References: <0a072ab36b54ea7c4f9a6f94465fb7b79f9f49b2.1742573085.git.oleksii.kurochko@gmail.com>
+ <c9c7c8e2-d441-4a1a-a658-98dfe0a98ed8@suse.com>
+ <ee8b8e09-9b0b-4757-989c-b7d81721c325@gmail.com>
+ <3d9e8e8c-2e09-43d6-a254-2f081c9e5eb1@suse.com>
+ <e6e64e58-a26a-44cc-b708-5bf510b041c8@gmail.com>
+ <a6d511ec-38bc-4fad-9e08-462b7c10eac4@suse.com>
+ <238a9b67-a4f3-4f97-9d13-11a35884be0b@gmail.com>
+ <5a0e1f5f-c08b-4045-98df-dec73ece028c@suse.com>
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <6f5a81d7-c650-46d2-b667-6b7c3bc54c41@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <5a0e1f5f-c08b-4045-98df-dec73ece028c@suse.com>
+
+This is a multi-part message in MIME format.
+--------------0thxU0AzXDdkkcV7U2K9pCEn
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017099:EE_|CH3PR12MB8460:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7acdd718-2e04-418d-b025-08dd6bbb586d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?OXg2bkp3ODEwelZNdzYvTkdxZ0RDQzI2L3Jtb2FNS0t6RHhsQVZ1K2NSUVFk?=
- =?utf-8?B?RGgzMWpscGZQRTNnNkc0Tnc5SmIrTldaR2dRd21VUDlrRFNVR0JDMXRTQ3VI?=
- =?utf-8?B?dGVUak9XbW1uMGxReUIyY1ZtL0VXUGtnMEZmdGVTam0vazZrNHBHRlpLWFhX?=
- =?utf-8?B?SEF6dllaL3dwNG5BN0c5cXB4YjJSbStodmgvenZkQjJsUGtVZitDNkJpRFVQ?=
- =?utf-8?B?ckFKdGFjWUFwMVlGNnF6dnJPckNEOGNOV3FrcnhWdjhmRTBBV3E3M0Y4WnZS?=
- =?utf-8?B?ZVREcTVNRGxsa2dZYlpGdHMrSHFSZkRRd05xc1ZDUE5vREJuek5raFFleDNZ?=
- =?utf-8?B?NFdrK1Q4amNMNHduaUg0aWZiYXVqZHJURnN2WUpxa2NzRzdabStuWXlQa1cz?=
- =?utf-8?B?TzFGeC84dHd2S2hPWUlocjZtUVlCV2J6VHlYTHY1S2xPTmRnWjJvZm9pWWdK?=
- =?utf-8?B?aTFoVTZ5S2pmQzBRU2t1czdkQ3N5Qjk5UGFaSHlRa0ppYTBmTnBuRlJjVm96?=
- =?utf-8?B?QkNhRVVXWS9paGFzNWJjR3dsWHdBdEt5T0RUVnVKenV6M3VwWEYvZHJiaFFK?=
- =?utf-8?B?T2VlZnlNbHRVVXlIczFOdk5aMjVwendReU53WVpuSUVsbWtYVHFsNThwWnJj?=
- =?utf-8?B?cmYzUGJ3aERWbWttcUhmcTZ3a2REclU1UEJZWlFlNlJqWm5YeTF1Zi9kOExX?=
- =?utf-8?B?UVlUTWUyZkZJMUFEMWl1emxRaGl3QUladDhpaDZwNFhsQUtoZUM5SEhUQjBs?=
- =?utf-8?B?SFVoODRUTnVCZC9DTzFXTlBZaTJzc2U4bmhXNHpSNEQrbFUrVFh3cWttWDho?=
- =?utf-8?B?aFhzbFZyWkJJTXMyS3BSMS9tNXVmWmN0anplMmFrajh4MjYyMGRpclNZUXhZ?=
- =?utf-8?B?MjJRdlhnVU8xZHFxa29uZ2liOGx3R3hMT01LVHRRcVFxTVBkbGJBUktVZmVK?=
- =?utf-8?B?ZlRRUlRhQTh1UG9WS0g1WkxwbW5MUmtYcjJ3NkIzaXcrdGQ0LzBDR0ZuQUxs?=
- =?utf-8?B?SVFqSmZUaE1TaUJlSFpGU29YMU8wWXFyVlpaZ0FuNGpGUzFJbE9ibE5ST3V0?=
- =?utf-8?B?dTVERUdCSFJrVGZYdkkvUU5qUDM1bVRRMzRFR3VhaHdZaU1lRkFoVFBJR3g3?=
- =?utf-8?B?UGJwMWIyM1Q1UE9UQStJTlE1RjdwYVppTWh1L0U2b1kyY2JrYWlXc2xNQVJG?=
- =?utf-8?B?bFJMcGt4RzVGbWx5Q1JGbUZtOHZlQ0Y1S3hQS1kxcUdLMlYwUHB6OFpOZWpF?=
- =?utf-8?B?QzcwRHMyd1h2MkUrVUg2RUVhUXBHazZRVHJobGJ3QXR1YjdqaWFPa1VpQ2Y3?=
- =?utf-8?B?WTI4ZktxUXY4cEJjV0ZCQVVTODZPbGFIbGE3R2U1d3hzUHVLMUF5VmpaNWFh?=
- =?utf-8?B?Y0t5V0VuQkpoZ0U0cTJ0U2VQOTVydFpLbVZOYXVPN3kycU5CdWV0ZTl1Y05V?=
- =?utf-8?B?RlFyYmxSSWR6QVdvRHd1dlE1Vkx3QTlPRVp2dnh6T0d2c1B4OXE5MitlWFBG?=
- =?utf-8?B?S1lvRUdiWmxTVkJ5bFFUNXRIVjRVZHpqb082TDhjRXJCQlppRm9nYWxaNlE2?=
- =?utf-8?B?QXA1dHh0WjRXbUp5MHJ4aFVSRjlIb0FQK2tGL2pNYW9USGtqWXExK3dyTmJL?=
- =?utf-8?B?bCtiQnhPdlRLODlUb2J2YUFwUFBlbUwzcHl2a1M5TkNpUWd1SlBLUTRxL0VK?=
- =?utf-8?B?MWFjM3NRcTV3RDV1Z1FHb1owUXJMN0ZkaXNhTklyZHpLVEJPU2xtM1haUTRH?=
- =?utf-8?B?WWQyRkNBMXFlZjdWWnBaM1FzYUNraytUTU1JVXJkcHZrRVNkR2NPUk93eXZC?=
- =?utf-8?B?WU9xaDdsRUlTQjdPdTRveFZEUGFMTEFEM00wdDR1bzRZVjY0cFBKRnVpZFl1?=
- =?utf-8?B?WHdSSGFja3VSWFhjWkM3Y2ZGcmlLTUlId3pSY3gzNHM1T1NjVDRMNloxS3ZQ?=
- =?utf-8?B?SFA3dDhKWW5WbHl6TlVZWC93NlhDWkFMZEt0WnZuaW9lendJc3Y3ZGR1eDRN?=
- =?utf-8?Q?bi2kc61HBWq1q8xt8NDKWA8rF9Kikk=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2025 16:37:34.2180
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7acdd718-2e04-418d-b025-08dd6bbb586d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00017099.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8460
-
-On 2025-03-25 07:26, Jan Beulich wrote:
-> On 06.03.2025 09:39, Penny Zheng wrote:
->> Make `xenpm get-cpureq-para/set-cpufreq-para` available in CPPC mode.
->> --- a/tools/libs/ctrl/xc_pm.c
->> +++ b/tools/libs/ctrl/xc_pm.c
->> @@ -214,13 +214,12 @@ int xc_get_cpufreq_para(xc_interface *xch, int cpuid,
->>   			 user_para->gov_num * CPUFREQ_NAME_LEN * sizeof(char), XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
->>   
->>       bool has_num = user_para->cpu_num &&
->> -                     user_para->freq_num &&
->>                        user_para->gov_num;
->>   
->>       if ( has_num )
-> 
-> Something looks wrong here already before your patch: With how has_num is set
-> and with this conditional, ...
-> 
->>       {
->>           if ( (!user_para->affected_cpus)                    ||
->> -             (!user_para->scaling_available_frequencies)    ||
->> +             (user_para->freq_num && !user_para->scaling_available_frequencies)    ||
->>                (user_para->gov_num && !user_para->scaling_available_governors) )
-> 
-> ... this ->gov_num check, ...>>           {
->>               errno = EINVAL;
->> @@ -228,14 +227,16 @@ int xc_get_cpufreq_para(xc_interface *xch, int cpuid,
->>           }
->>           if ( xc_hypercall_bounce_pre(xch, affected_cpus) )
->>               goto unlock_1;
->> -        if ( xc_hypercall_bounce_pre(xch, scaling_available_frequencies) )
->> +        if ( user_para->freq_num &&
->> +             xc_hypercall_bounce_pre(xch, scaling_available_frequencies) )
->>               goto unlock_2;
->>           if ( user_para->gov_num &&
-> 
-> ... this one, and ...
-> 
->>                xc_hypercall_bounce_pre(xch, scaling_available_governors) )
->>               goto unlock_3;
->>   
->>           set_xen_guest_handle(sys_para->affected_cpus, affected_cpus);
->> -        set_xen_guest_handle(sys_para->scaling_available_frequencies, scaling_available_frequencies);
->> +        if ( user_para->freq_num )
->> +            set_xen_guest_handle(sys_para->scaling_available_frequencies, scaling_available_frequencies);
-> 
-> (Nit: Yet another overly long line. It was too long already before, yes, but
->   that's no excuse to make it even longer.  The more that there is better
->   formatting right in context below.)
-> 
->>           if ( user_para->gov_num )
-> 
-> ... this one are all dead code. Jason? I expect the has_num variable simply
-> wants dropping altogether, thus correcting the earlier anomaly and getting
-> the intended new behavior at the same time.
-
-Hmmm.  The sysctl is executed twice - first to query the assorted *_num 
-values and a second time to retrieve the results with sized arrays.
-
-get_hwp_para() does not populate scaling_available_governors, so the 
-intention was to be able to skip allocating the buffer for it.
-
-     pmstat&xenpm: Re-arrage for cpufreq union
-
-     Rearrange code now that xen_sysctl_pm_op's get_para fields has the
-     nested union and struct.  In particular, the scaling governor
-     information like scaling_available_governors is inside the union, so it
-     is not always available.  Move those fields (op->u.get_para.u.s.u.*)
-     together as well as the common fields (ones outside the union like
-     op->u.get_para.turbo_enabled).
-
-     With that, gov_num may be 0, so bounce buffer handling needs
-     to be modified.
-
-     scaling_governor and other fields inside op->u.get_para.u.s.u.* 
-won't be
-     used for hwp, so this will simplify the change when hwp support is
-     introduced and re-indents these lines all together.
-
-I noted that gov_num may be 0.  But that may have been before hwp had 
-its own internal governor.  But, yes, the has_num handling looks wrong 
-for gov_num == 0.  I don't have a machine with hwp to verify.
 
 
->> @@ -926,7 +926,8 @@ static int show_cpufreq_para_by_cpuid(xc_interface *xc_handle, int cpuid)
->>               ret = -ENOMEM;
->>               goto out;
->>           }
->> -        if (!(p_cpufreq->scaling_available_frequencies =
->> +        if (p_cpufreq->freq_num &&
->> +            !(p_cpufreq->scaling_available_frequencies =
->>                 malloc(p_cpufreq->freq_num * sizeof(uint32_t))))
->>           {
->>               fprintf(stderr,
-> 
-> Can someone explain to me how the pre-existing logic here works? All
-> three ->*_num start out as zero. Hence respective allocations (of zero
-> size) may conceivably return NULL (the behavior there is implementation
-> defined after all). Yet then we'd bail from the loop, and hence from the
-> function. IOW adding a ->freq_num check and also a ->cpu_num one (along
-> with the ->gov_num one that apparently was added during HWP development)
-> would once again look like an independent (latent) bugfix to me.
+On 3/25/25 5:26 PM, Jan Beulich wrote:
+> On 25.03.2025 15:46, Oleksii Kurochko wrote:
+>> On 3/25/25 2:47 PM, Jan Beulich wrote:
+>>> On 25.03.2025 14:02, Oleksii Kurochko wrote:
+>>>> On 3/25/25 12:52 PM, Jan Beulich wrote:
+>>>>> On 25.03.2025 12:48, Oleksii Kurochko wrote:
+>>>>>> On 3/24/25 1:31 PM, Jan Beulich wrote:
+>>>>>>> On 21.03.2025 17:17, Oleksii Kurochko wrote:
+>>>>>>>> H provides additional instructions and CSRs that control the new stage of
+>>>>>>>> address translation and support hosting a guest OS in virtual S-mode
+>>>>>>>> (VS-mode).
+>>>>>>>>
+>>>>>>>> According to the Unprivileged Architecture (version 20240411) specification:
+>>>>>>>> ```
+>>>>>>>> Table 74 summarizes the standardized extension names. The table also defines
+>>>>>>>> the canonical order in which extension names must appear in the name string,
+>>>>>>>> with top-to-bottom in table indicating first-to-last in the name string, e.g.,
+>>>>>>>> RV32IMACV is legal, whereas RV32IMAVC is not.
+>>>>>>>> ```
+>>>>>>>> According to Table 74, the h extension is placed last in the one-letter
+>>>>>>>> extensions name part of the ISA string.
+>>>>>>>>
+>>>>>>>> `h` is a standalone extension based on the patch [1] but it wasn't so
+>>>>>>>> before.
+>>>>>>>> As the minimal supported GCC version to build Xen for RISC-V is 12.2.0,
+>>>>>>>> and for that version it will be needed to encode H extensions instructions
+>>>>>>>> explicitly by checking if __risv_h is defined.
+>>>>>>> Leaving aside the typo, what is this about? There's no use of __riscv_h in
+>>>>>>> the patch here, and ...
+>>>>>> It is going to be used in future patches:https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/p2m.c?ref_type=heads#L32
+>>>>> For this and ...
+>>>>>
+>>>>>>>> @@ -25,10 +24,13 @@ $(eval $(1) := \
+>>>>>>>>      	$(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
+>>>>>>>>      endef
+>>>>>>>>      
+>>>>>>>> +h-insn := "hfence.gvma"
+>>>>>>>> +$(call check-extension,h)
+>>>>>>> ... this, if it fails, will not have any effect on the build right now
+>>>>>>> afaics.
+>>>>>> No, it won't have any affect now as instruction from H extension isn't used now.
+>>>>>> But it willbeneededforhttps://lore.kernel.org/xen-devel/dae753618491b2a6e42f7ed3f24190d0dc13fe3f.1740754166.git.Slavisa.Petrovic@rt-rk.com/
+>>>>>> and for p2m changes mentioned above.
+>>>>> ... this both being future work, it might help if it could be made clear
+>>>>> right here how things are going to work (with both gcc12 and up-to-date
+>>>>> gcc).
+>>>> I can update the commit message with the following:
+>>>> ```
+>>>> If 'H' extension is supported by compiler then __riscv_h will be defined by
+>>>> compiler (for gcc version >= 13.1).
+>>>> For gcc12 it will be needed to:
+>>>> #ifdef __riscv_h
+>>>>     asm volatile ("h extension instruction");
+>>>> #else
+>>>>     asm volatile ("|.insn ..."); #endif ```
+>>> Okay, that's what I was concerned about. __riscv_h is a compiler indication.
+>>> It means nothing about H extension insns being supported by the assembler
+>>> (except perhaps for Clang's integrated one). The check-extension thing in
+>>> the Makefile will actually check both in one go. Yet then the hfence.* insns
+>>> have been in binutils since 2.38, i.e. pre-dating gcc12.
+>> It is still needed to have or #ifdef-ing or workaround mentioned below ...
+>>
+>>>> Or probably it will be easier not to ifdef-ing
+>>>> everything with __riscv_h but just return back a workaround with the
+>>>> following changes: ``` $ git diff diff --git a/xen/arch/riscv/arch.mk
+>>>> b/xen/arch/riscv/arch.mk index f29ad332c1..3bd64e7e51 100644 ---
+>>>> a/xen/arch/riscv/arch.mk +++ b/xen/arch/riscv/arch.mk @@ -24,13 +24,17
+>>>> @@ $(eval $(1) := \ $(call as-insn,$(CC)
+>>>> $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1))) endef -h-insn :=
+>>>> "hfence.gvma" -$(call check-extension,h) +
+>>>> +h-extension-name-$(CONFIG_CC_IS_GCC) := $(call cc-ifversion,-lt,1301,
+>>>> hh, h) +h-extension-name-$(CONFIG_CC_IS_CLANG) := h +
+>>>> +$(h-extension-name-y)-insn := "hfence.gvma" +$(call
+>>>> check-extension,$(h-extension-name-y)) zihintpause-insn := "pause"
+>>>> $(call check-extension,zihintpause) -extensions := $(h) $(zihintpause)
+>>>> _zicsr_zifencei_zbb +extensions := $($(h-extension-name-y))
+>>>> $(zihintpause) _zicsr_zifencei_zbb extensions := $(subst
+>>>> $(space),,$(extensions)) ``` I prefer more a little bit the second
+>>>> option with having the workaround for GCC version. ~ Oleksii |
+>>> I fear this ended up unreadable.
+>> ... something happen with formatting:
+>>
+>> diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+>> index f29ad332c1..3bd64e7e51 100644
+>> --- a/xen/arch/riscv/arch.mk
+>> +++ b/xen/arch/riscv/arch.mk
+>> @@ -24,13 +24,17 @@ $(eval $(1) := \
+>>           $(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
+>>    endef
+>>    
+>> -h-insn := "hfence.gvma"
+>> -$(call check-extension,h)
+>> +
+>> +h-extension-name-$(CONFIG_CC_IS_GCC) := $(call cc-ifversion,-lt,1301, hh, h)
+> It all else fails, that's an option. The downside is that such version checks
+> break if someone backports the respective change to an older version. Probing
+> support for the actual command line option would be better. Why would
+>
+> $(call check-extension,hh)
+> $(call check-extension,h)
+>
+> not work, btw? (Of course, if the above was an option, something slightly
+> smarter may still want using, so that e.g. we avoid probing both in the more
+> common case [going forward] that "h" is what is supported.)
 
-I guess we rely on glibc providing non-NULL?  But also they are ignored 
-for the initial query of *_num values.
+It will work, I just decided to do in the way mentioned above because clang doesn't have this issue with having single 'h' at all
+so for clang it isn't needed to have $(call check-extension, hh) at all.
 
-Regards,
-Jason
+I have similar patch somewhere. I will re-apply it.
+
+Thanks.
+
+~ Oleksii
+
+>> +h-extension-name-$(CONFIG_CC_IS_CLANG) := h
+>> +
+>> +$(h-extension-name-y)-insn := "hfence.gvma"
+>> +$(call check-extension,$(h-extension-name-y))
+>>    
+>>    zihintpause-insn := "pause"
+>>    $(call check-extension,zihintpause)
+>>    
+>> -extensions := $(h) $(zihintpause) _zicsr_zifencei_zbb
+>> +extensions := $($(h-extension-name-y)) $(zihintpause) _zicsr_zifencei_zbb
+>>    
+>>    extensions := $(subst $(space),,$(extensions))
+>>
+>> ~ Oleksii
+>>
+--------------0thxU0AzXDdkkcV7U2K9pCEn
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 3/25/25 5:26 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:5a0e1f5f-c08b-4045-98df-dec73ece028c@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 25.03.2025 15:46, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 3/25/25 2:47 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 25.03.2025 14:02, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 3/25/25 12:52 PM, Jan Beulich wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">On 25.03.2025 12:48, Oleksii Kurochko wrote:
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">On 3/24/25 1:31 PM, Jan Beulich wrote:
+</pre>
+                <blockquote type="cite">
+                  <pre wrap="" class="moz-quote-pre">On 21.03.2025 17:17, Oleksii Kurochko wrote:
+</pre>
+                  <blockquote type="cite">
+                    <pre wrap="" class="moz-quote-pre">H provides additional instructions and CSRs that control the new stage of
+address translation and support hosting a guest OS in virtual S-mode
+(VS-mode).
+
+According to the Unprivileged Architecture (version 20240411) specification:
+```
+Table 74 summarizes the standardized extension names. The table also defines
+the canonical order in which extension names must appear in the name string,
+with top-to-bottom in table indicating first-to-last in the name string, e.g.,
+RV32IMACV is legal, whereas RV32IMAVC is not.
+```
+According to Table 74, the h extension is placed last in the one-letter
+extensions name part of the ISA string.
+
+`h` is a standalone extension based on the patch [1] but it wasn't so
+before.
+As the minimal supported GCC version to build Xen for RISC-V is 12.2.0,
+and for that version it will be needed to encode H extensions instructions
+explicitly by checking if __risv_h is defined.
+</pre>
+                  </blockquote>
+                  <pre wrap="" class="moz-quote-pre">Leaving aside the typo, what is this about? There's no use of __riscv_h in
+the patch here, and ...
+</pre>
+                </blockquote>
+                <pre wrap="" class="moz-quote-pre">It is going to be used in future patches:<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/p2m.c?ref_type=heads#L32">https://gitlab.com/xen-project/people/olkur/xen/-/blob/riscv-next-upstreaming/xen/arch/riscv/p2m.c?ref_type=heads#L32</a>
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">For this and ...
+
+</pre>
+              <blockquote type="cite">
+                <blockquote type="cite">
+                  <blockquote type="cite">
+                    <pre wrap="" class="moz-quote-pre">@@ -25,10 +24,13 @@ $(eval $(1) := \
+    	$(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
+    endef
+    
++h-insn := "hfence.gvma"
++$(call check-extension,h)
+</pre>
+                  </blockquote>
+                  <pre wrap="" class="moz-quote-pre">... this, if it fails, will not have any effect on the build right now
+afaics.
+</pre>
+                </blockquote>
+                <pre wrap="" class="moz-quote-pre">No, it won't have any affect now as instruction from H extension isn't used now.
+But it will <a class="moz-txt-link-abbreviated" href="mailto:beneededforhttps://lore.kernel.org/xen-devel/dae753618491b2a6e42f7ed3f24190d0dc13fe3f.1740754166.git.Slavisa.Petrovic@rt-rk.com/">beneededforhttps://lore.kernel.org/xen-devel/dae753618491b2a6e42f7ed3f24190d0dc13fe3f.1740754166.git.Slavisa.Petrovic@rt-rk.com/</a>
+and for p2m changes mentioned above.
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">... this both being future work, it might help if it could be made clear
+right here how things are going to work (with both gcc12 and up-to-date
+gcc).
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">I can update the commit message with the following:
+```
+If 'H' extension is supported by compiler then __riscv_h will be defined by
+compiler (for gcc version &gt;= 13.1).
+For gcc12 it will be needed to:
+#ifdef __riscv_h
+   asm volatile ("h extension instruction");
+#else
+   asm volatile ("|.insn ..."); #endif ```
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Okay, that's what I was concerned about. __riscv_h is a compiler indication.
+It means nothing about H extension insns being supported by the assembler
+(except perhaps for Clang's integrated one). The check-extension thing in
+the Makefile will actually check both in one go. Yet then the hfence.* insns
+have been in binutils since 2.38, i.e. pre-dating gcc12.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+It is still needed to have or #ifdef-ing or workaround mentioned below ...
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">Or probably it will be easier not to ifdef-ing
+everything with __riscv_h but just return back a workaround with the
+following changes: ``` $ git diff diff --git a/xen/arch/riscv/arch.mk
+b/xen/arch/riscv/arch.mk index f29ad332c1..3bd64e7e51 100644 ---
+a/xen/arch/riscv/arch.mk +++ b/xen/arch/riscv/arch.mk @@ -24,13 +24,17
+@@ $(eval $(1) := \ $(call as-insn,$(CC)
+$(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1))) endef -h-insn :=
+"hfence.gvma" -$(call check-extension,h) +
++h-extension-name-$(CONFIG_CC_IS_GCC) := $(call cc-ifversion,-lt,1301,
+hh, h) +h-extension-name-$(CONFIG_CC_IS_CLANG) := h +
++$(h-extension-name-y)-insn := "hfence.gvma" +$(call
+check-extension,$(h-extension-name-y)) zihintpause-insn := "pause"
+$(call check-extension,zihintpause) -extensions := $(h) $(zihintpause)
+_zicsr_zifencei_zbb +extensions := $($(h-extension-name-y))
+$(zihintpause) _zicsr_zifencei_zbb extensions := $(subst
+$(space),,$(extensions)) ``` I prefer more a little bit the second
+option with having the workaround for GCC version. ~ Oleksii |
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">I fear this ended up unreadable.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+... something happen with formatting:
+
+diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+index f29ad332c1..3bd64e7e51 100644
+--- a/xen/arch/riscv/arch.mk
++++ b/xen/arch/riscv/arch.mk
+@@ -24,13 +24,17 @@ $(eval $(1) := \
+         $(call as-insn,$(CC) $(riscv-generic-flags)_$(1),$(value $(1)-insn),_$(1)))
+  endef
+  
+-h-insn := "hfence.gvma"
+-$(call check-extension,h)
++
++h-extension-name-$(CONFIG_CC_IS_GCC) := $(call cc-ifversion,-lt,1301, hh, h)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+It all else fails, that's an option. The downside is that such version checks
+break if someone backports the respective change to an older version. Probing
+support for the actual command line option would be better. Why would
+
+$(call check-extension,hh)
+$(call check-extension,h)
+
+not work, btw? (Of course, if the above was an option, something slightly
+smarter may still want using, so that e.g. we avoid probing both in the more
+common case [going forward] that "h" is what is supported.)</pre>
+    </blockquote>
+    <pre>It will work, I just decided to do in the way mentioned above because clang doesn't have this issue with having single 'h' at all
+so for clang it isn't needed to have $(call check-extension, hh) at all.
+
+I have similar patch somewhere. I will re-apply it.
+
+Thanks.
+
+~ Oleksii</pre>
+    <blockquote type="cite"
+      cite="mid:5a0e1f5f-c08b-4045-98df-dec73ece028c@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+h-extension-name-$(CONFIG_CC_IS_CLANG) := h
++
++$(h-extension-name-y)-insn := "hfence.gvma"
++$(call check-extension,$(h-extension-name-y))
+  
+  zihintpause-insn := "pause"
+  $(call check-extension,zihintpause)
+  
+-extensions := $(h) $(zihintpause) _zicsr_zifencei_zbb
++extensions := $($(h-extension-name-y)) $(zihintpause) _zicsr_zifencei_zbb
+  
+  extensions := $(subst $(space),,$(extensions))
+
+~ Oleksii
+
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------0thxU0AzXDdkkcV7U2K9pCEn--
 
