@@ -2,55 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7A4BA715B8
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 12:27:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.927624.1330348 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14390A715D0
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 12:33:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.927638.1330358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txOuf-0000D1-4r; Wed, 26 Mar 2025 11:27:13 +0000
+	id 1txP0X-0003aK-Rg; Wed, 26 Mar 2025 11:33:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 927624.1330348; Wed, 26 Mar 2025 11:27:13 +0000
+Received: by outflank-mailman (output) from mailman id 927638.1330358; Wed, 26 Mar 2025 11:33:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txOuf-0000BJ-27; Wed, 26 Mar 2025 11:27:13 +0000
-Received: by outflank-mailman (input) for mailman id 927624;
- Wed, 26 Mar 2025 11:27:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1txP0X-0003YK-P3; Wed, 26 Mar 2025 11:33:17 +0000
+Received: by outflank-mailman (input) for mailman id 927638;
+ Wed, 26 Mar 2025 11:33:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VNrU=WN=samsung.com=m.szyprowski@srs-se1.protection.inumbo.net>)
- id 1txOud-0000BD-Sa
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 11:27:12 +0000
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3ad98d65-0a35-11f0-9ffa-bf95429c2676;
- Wed, 26 Mar 2025 12:27:04 +0100 (CET)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20250326112658euoutp025c89de55379c71ecfed345334735f0eb~wVrtPeM5y0175301753euoutp02B
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 11:26:58 +0000 (GMT)
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20250326112656eucas1p193066b529e16ef428bd680dabf570841~wVrr7tGkI0973109731eucas1p1N;
- Wed, 26 Mar 2025 11:26:56 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id 33.35.20397.084E3E76; Wed, 26
- Mar 2025 11:26:56 +0000 (GMT)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20250326112656eucas1p27c3b714ecf38ca2249c5aa1261ed3f7e~wVrrUROrM0050000500eucas1p2X;
- Wed, 26 Mar 2025 11:26:56 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20250326112656eusmtrp1c89addaa1a2d2f471d76f305d45578c9~wVrrTlktV2343023430eusmtrp1C;
- Wed, 26 Mar 2025 11:26:56 +0000 (GMT)
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id 14.CD.19654.084E3E76; Wed, 26
- Mar 2025 11:26:56 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20250326112654eusmtip17f1c64d1e828f29e834b0004a1496fd7~wVrpgGmx13273532735eusmtip1B;
- Wed, 26 Mar 2025 11:26:54 +0000 (GMT)
+ <SRS0=16MU=WN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1txP0V-0003Y9-US
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 11:33:15 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1ad5d4a9-0a36-11f0-9ea3-5ba50f476ded;
+ Wed, 26 Mar 2025 12:33:14 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43d0359b1fcso4924305e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 04:33:14 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d43f332adsm232190655e9.3.2025.03.26.04.33.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Mar 2025 04:33:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,196 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ad98d65-0a35-11f0-9ffa-bf95429c2676
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20250326112658euoutp025c89de55379c71ecfed345334735f0eb~wVrtPeM5y0175301753euoutp02B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1742988418;
-	bh=JNzUkgewJxVw+djbfV7Om+X3X2br3UJlxB3aD3WIpL4=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=H/Gsgbhh52kAkAWU1ySSVLdyYXoZgdzsmqF40i09jQZEwz60rYhR1kyuNqz/Pg2D5
-	 0gPtMRNvonNd1jn22H/zqS+z7qcX1AEgyoebJQiQpTJeayGkUnfVa4ocSicGAzaJ/3
-	 G2h5OruCWuxJbnj3czNDlF3hvtt+FNSMX+WOcc1I=
-X-AuditID: cbfec7f5-ed1d670000004fad-ca-67e3e48044ff
-Message-ID: <289d54b8-91eb-44cc-9304-355f1f865d4d@samsung.com>
-Date: Wed, 26 Mar 2025 12:26:53 +0100
+X-Inumbo-ID: 1ad5d4a9-0a36-11f0-9ea3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1742988794; x=1743593594; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Wz1pPojnD86FxiGPp1RtCzUAV+1N6fuxzKDY+mWmWss=;
+        b=OkGjHxmQliUa9Eb4WZ4qxw3j0frULfdsxADq1mTlfdS0XjmFS+sPRD3gpzEp8ySGD7
+         gHdRjL27C0FhZFs6g/+JDhMvkYVoRtX6fJ8ExonJLnzNJDw12O8nMy436q8VsUUL5Kww
+         i492+Fdjlh9EDo+uBS2XgGaF/N84LxyQA7roY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742988794; x=1743593594;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Wz1pPojnD86FxiGPp1RtCzUAV+1N6fuxzKDY+mWmWss=;
+        b=v+L+I+UiFyzKxMOCy5Y62M2HhIaGFT8npMRzmRhroYOyOZwnDUIjoHmLZM8sO6vITF
+         ts2Y8A2IByV2f1vt1q49N28RvNXkF+JWEGPu6CJs5K9lFVhw4Yni7uS1TMz93qBH4YxY
+         L4pAwEeoXKbAgarVTHeoHRdJ4gzVMTO+1TGOwH6kiK9+4lzkT0VGXCvNWfWk7dAnmWS+
+         seDtlkyqavjQDTRyFIH2yoRZNvo5J9Grh7QbCyUYYnpGJfRzhlLHVLZkguzIClXV4JzL
+         Dn4e2RpArF5eHCT8r4lNFNO4OD1NrxyCo4w4cBsh9vMaf6jfW/AzOSby3/6iLd3tjpIG
+         k0Ng==
+X-Forwarded-Encrypted: i=1; AJvYcCVPhJf2hZJGZgbgmK+sKErpyCAQ9HdIm35DrjLOHxDF3BPTrE+NvG/dIUTBq/NHy+5zoA7B/wWVzi4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyGfsRM0k7JnveRcjJ6P/9LzWFqqjiEuFhq7Z+G6HK4lS9li453
+	Ee5y9jB10MUva6WmbIF+SZW2lyvIj3PUNeqh8a0Y8OBDqR61AdGsSftPdIPuYr4=
+X-Gm-Gg: ASbGncsPpBL7aeO0sXVb5XEId2rVJS+P3zM3eKMlU90vOA5yXj0d4FPl3JOzryTUyv9
+	TZ9w4jqGpVciSu+eGuzXWq+IFLUu2YXZoKDnBFvVfD5mfI0BspEwP8fgfCEn6tcDXtSXKFuSgkV
+	xmmlqKAeYiZpfaiQxQyRTHtbiPVenLwzctVgEi0RjRFdqqA9dzJMNl7HhpC9RtRSG9cCHZ8cA/J
+	yX6lcchSj/tdritENcMFcJkCkrhfMELH7/E6X5Qyxq5pBM1w5IBVAC/LXkT862XDN5qUw4xh/0c
+	xiTmLgPQSH8jBNRMPcssV7HkhIIXAN92Jqe9yZgT5Y17yyOvOGkxEX5PJK6T+q6ZACV9zAVhNFm
+	khhAjLmfy1g==
+X-Google-Smtp-Source: AGHT+IFTDL+Bude+LviDN/fc/na61tKpfS4sFR6Ce+5Ujedmn1sbVT/yr3DnYB9BLKqdyGiE0IWFiA==
+X-Received: by 2002:a05:600c:1d01:b0:439:8878:5029 with SMTP id 5b1f17b1804b1-43d77547ecbmr30941275e9.2.1742988793811;
+        Wed, 26 Mar 2025 04:33:13 -0700 (PDT)
+Message-ID: <c8e1d6fa-a77e-49bb-930d-372686df0c92@citrix.com>
+Date: Wed, 26 Mar 2025 11:33:12 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] PCI/MSI: Convert pci_msi_ignore_mask to per MSI
- domain flag
-To: Thomas Gleixner <tglx@linutronix.de>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Daniel Gomez <da.gomez@kernel.org>
-Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Bjorn Helgaas
-	<helgaas@kernel.org>, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org, Bjorn Helgaas
-	<bhelgaas@google.com>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <87v7rxzct0.ffs@tglx>
+Subject: Re: [PATCH 2/2] x86/emul: Emulate %cr8 accesses
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250325174109.267974-1-andrew.cooper3@citrix.com>
+ <20250325174109.267974-3-andrew.cooper3@citrix.com>
+ <261b12d9-7125-4cee-acd8-a8ab3287b05e@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <261b12d9-7125-4cee-acd8-a8ab3287b05e@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrJKsWRmVeSWpSXmKPExsWy7djP87oNTx6nGxz4r2expCnD4vOGf2wW
-	f6dlW7zY0M5o8erMWjaLaRvFLebcNLK4vGsOm8XZecfZLC4dWMBkMeP8YlaLzZumMlv82PCY
-	1eL7lslMDnwe31v7WDxeT57A6LFgU6nHplWdbB7vzp1j95h3MtDj8IcrLB7v911l81i/5SqL
-	x+dNch4nWr6wBnBHcdmkpOZklqUW6dslcGXMmK9ecFip4tiu3WwNjOukuxg5OSQETCQ2TTjK
-	1MXIxSEksIJRYt6OS6wQzhdGiVXXPkE5nxklNu+YygLT0nH4BTtEYjmjxLJlh5ghnI+MEp++
-	/WPrYuTg4BWwkzj+NwikgUVAVWLx1y2sIDavgKDEyZlPwAaJCshL3L81gx3EFhaIlNi46CXY
-	HSIC7YwSZ2a9YQRxmAX+M0k0dc9lA6liFhCXuPVkPhOIzSZgKNH1tgsszimgJPH/5XUmiBp5
-	ieats8EukhDYzynR/WAh2EUSAi4SP3sjIV4Qlnh1fAs7hC0jcXpyDwtEPdDmBb/vM0E4Exgl
-	Gp7fYoSospa4c+4X2CBmAU2J9bv0IcKOElM7J7JDzOeTuPFWEOIGPolJ26YzQ4R5JTrahCCq
-	1SRmHV8Ht/bghUvMExiVZiGFyywkX85C8s0shL0LGFlWMYqnlhbnpqcWG+ellusVJ+YWl+al
-	6yXn525iBKa+0/+Of93BuOLVR71DjEwcjIcYJTiYlUR4j7E+TBfiTUmsrEotyo8vKs1JLT7E
-	KM3BoiTOu2h/a7qQQHpiSWp2ampBahFMlomDU6qBqak1o1nlbEDn/KwXAl5FqbzJO7mO5yQW
-	Sa9fbZjh5hDndd9zvezfQ63VN5d99zvneO4M++bEmRMucYUJXC+UlbzxWapG8g3vn4MHgjLn
-	znV4Zfer9HEDs8S9o5P/sRhlMX2UzSjIDfIXOaX3Mchs9U62ruRuxfkZlT/nPdsny6+56u+7
-	J08+O6p3VrGt/Z1yZWF5s6fNIY//E/n2r9cXXhAf3WKbtoAv7lPbkXIhQbaK/ZF138s+ZnqF
-	bHJf+ko2umh+tvbdf1f0G2d+s5+6V2GukMiC4BX1X0ILrDyN2N2/H+wtqD+2bJL3Fq3v8j+X
-	3bKYrS1nnP7d6q88g9GJSzFvD/79U/yQ1bHeVey+EktxRqKhFnNRcSIAWalNN+wDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrDIsWRmVeSWpSXmKPExsVy+t/xu7oNTx6nG6z7y26xpCnD4vOGf2wW
-	f6dlW7zY0M5o8erMWjaLaRvFLebcNLK4vGsOm8XZecfZLC4dWMBkMeP8YlaLzZumMlv82PCY
-	1eL7lslMDnwe31v7WDxeT57A6LFgU6nHplWdbB7vzp1j95h3MtDj8IcrLB7v911l81i/5SqL
-	x+dNch4nWr6wBnBH6dkU5ZeWpCpk5BeX2CpFG1oY6RlaWugZmVjqGRqbx1oZmSrp29mkpOZk
-	lqUW6dsl6GXMmK9ecFip4tiu3WwNjOukuxg5OSQETCQ6Dr9g72Lk4hASWMoosfT0ZhaIhIzE
-	yWkNrBC2sMSfa11sEEXvGSWOb7nL1MXIwcErYCdx/G8QSA2LgKrE4q9bwOp5BQQlTs58AjZH
-	VEBe4v6tGewgtrBApMTGRS+ZQOaICHQySixvvcAC4jAL/GeS2PVqKjPEhttMEvc6n4K1MwuI
-	S9x6Mp8JxGYTMJToegtyBicHp4CSxP+X15kgaswkurZ2MULY8hLNW2czT2AUmoXkkllIRs1C
-	0jILScsCRpZVjCKppcW56bnFRnrFibnFpXnpesn5uZsYgdG+7djPLTsYV776qHeIkYmD8RCj
-	BAezkgjvMdaH6UK8KYmVValF+fFFpTmpxYcYTYHBMZFZSjQ5H5hu8kriDc0MTA1NzCwNTC3N
-	jJXEedmunE8TEkhPLEnNTk0tSC2C6WPi4JRqYNpmEcbf5u544/O/7kmMh/Zvv78l4tSxsG2s
-	ldxRdidsuFVuhywsdIrnKo4ut1227YF9Rv3+v1cmXGfXYV9ybX1IbFrO5ddyX19c+TnT7k7c
-	mt6COZb3C6M2talaLmM/MOvwgpev3m7afIyVuY1Fbu8BmY0savkB9480qWQF7LvPEVqms/HH
-	JqYNS7OuLDl90KXP7NSWxKaFp9qmLrvpsSFut93Lkz88+0KeHjw+40aXdp7a6llT1xs+Wsbc
-	2DHV/+5GY601TZJffqRG3FWPUXs+74KG/dkVNrN39f7iWeqTVulkmJF35mBLqWb0famm+lVS
-	xin50hp26RxS6tlmSpP+bO/81iVyiP1Bn8jDumwlluKMREMt5qLiRABMzfnpfwMAAA==
-X-CMS-MailID: 20250326112656eucas1p27c3b714ecf38ca2249c5aa1261ed3f7e
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20250326112656eucas1p27c3b714ecf38ca2249c5aa1261ed3f7e
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20250326112656eucas1p27c3b714ecf38ca2249c5aa1261ed3f7e
-References: <20250320210741.GA1099701@bhelgaas>
-	<846c80f8-b80f-49fd-8a50-3fe8a473b8ec@suse.com>
-	<qn7fzggcj6qe6r6gdbwcz23pzdz2jx64aldccmsuheabhmjgrt@tawf5nfwuvw7>
-	<Z-GbuiIYEdqVRsHj@macbook.local>
-	<kp372led6jcryd4ubpyglc4h7b3erramgzsjl2slahxdk7w575@jganskuwkfvb>
-	<Z-Gv6TG9dwKI-fvz@macbook.local> <87y0wtzg0z.ffs@tglx> <87v7rxzct0.ffs@tglx>
-	<CGME20250326112656eucas1p27c3b714ecf38ca2249c5aa1261ed3f7e@eucas1p2.samsung.com>
 
-On 25.03.2025 10:20, Thomas Gleixner wrote:
-> On Tue, Mar 25 2025 at 09:11, Thomas Gleixner wrote:
->> On Mon, Mar 24 2025 at 20:18, Roger Pau Monné wrote:
->>> On Mon, Mar 24, 2025 at 07:58:14PM +0100, Daniel Gomez wrote:
->>>> The issue is that info appears to be uninitialized. So, this worked for me:
->>> Indeed, irq_domain->host_data is NULL, there's no msi_domain_info.  As
->>> this is x86, I was expecting x86 ot always use
->>> x86_init_dev_msi_info(), but that doesn't seem to be the case.  I
->>> would like to better understand this.
->> Indeed. On x86 this should not happen at all. On architectures, which do
->> not use (hierarchical) interrupt domains, it will return NULL.
+On 26/03/2025 11:19 am, Jan Beulich wrote:
+> On 25.03.2025 18:41, Andrew Cooper wrote:
+>> Petr reports:
 >>
->> So I really want to understand why this happens on x86 before such a
->> "fix" is deployed.
-> So after staring at it some more it's clear. Without XEN, the domain
-> returned is the MSI parent domain, which is the vector domain in that
-> setup. That does not have a domain info set. But on legacy architectures
-> there is not even a domain.
->
-> It's really wonderful that we have a gazillion ways to manage the
-> backends of PCI/MSI....
->
-> So none of the suggested pointer checks will cover it correctly. Though
-> there is already a function which allows to query MSI domain flags
-> independent of the underlying insanity. Sorry for not catching it in
-> review.
->
-> Untested patch below.
+>>   (XEN) MMIO emulation failed (1): d12v1 64bit @ 0010:fffff8057ba7dfbf -> 45 0f 20 c2 ...
+>>
+>> during introspection.
+>>
+>> This is MOV %cr8, which is wired up for hvm_mov_{to,from}_cr(); the VMExit
+>> fastpaths, but not for the full emulation slowpaths.
+>>
+>> Xen's handling of %cr8 turns out to be quite wrong.  At a minimum, we need
+>> storage for %cr8 separate to APIC_TPR, and to alter intercepts based on
+>> whether the vLAPIC is enabled or not.  But that's more work than there is time
+>> for in the short term, so make a stopgap fix.
+>>
+>> Extend hvmemul_{read,write}_cr() with %cr8 cases.  Unlike hvm_mov_to_cr(),
+>> hardware hasn't filtered out invalid values (#GP checks are ahead of
+>> intercepts), so introduce X86_CR8_VALID_MASK.
+>>
+>> Reported-by: Petr Beneš <w1benny@gmail.com>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-This fixes the panic observed on ARM64 RK3568-based Odroid-M1 board 
-(arch/arm64/boot/dts/rockchip/rk3568-odroid-m1.dts) on next-20250325. 
-Thanks!
-
-Feel free to add to the final patch:
-
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-
+Thanks.
 
 >
-> Thanks,
+>> --- a/xen/arch/x86/hvm/emulate.c
+>> +++ b/xen/arch/x86/hvm/emulate.c
+>> @@ -2288,6 +2288,10 @@ static int cf_check hvmemul_read_cr(
+>>          val = curr->arch.hvm.guest_cr[reg];
+>>          break;
+>>  
+>> +    case 8:
+>> +        val = (vlapic_get_reg(vcpu_vlapic(curr), APIC_TASKPRI) & 0xf0) >> 4;
+> No new #define then to use MASK_EXTR() here and ...
 >
->          tglx
-> ---
->   drivers/pci/msi/msi.c |   18 ++++++------------
->   1 file changed, 6 insertions(+), 12 deletions(-)
->
-> --- a/drivers/pci/msi/msi.c
-> +++ b/drivers/pci/msi/msi.c
-> @@ -285,8 +285,6 @@ static void pci_msi_set_enable(struct pc
->   static int msi_setup_msi_desc(struct pci_dev *dev, int nvec,
->   			      struct irq_affinity_desc *masks)
->   {
-> -	const struct irq_domain *d = dev_get_msi_domain(&dev->dev);
-> -	const struct msi_domain_info *info = d->host_data;
->   	struct msi_desc desc;
->   	u16 control;
->   
-> @@ -297,7 +295,7 @@ static int msi_setup_msi_desc(struct pci
->   	/* Lies, damned lies, and MSIs */
->   	if (dev->dev_flags & PCI_DEV_FLAGS_HAS_MSI_MASKING)
->   		control |= PCI_MSI_FLAGS_MASKBIT;
-> -	if (info->flags & MSI_FLAG_NO_MASK)
-> +	if (pci_msi_domain_supports(dev, MSI_FLAG_NO_MASK, DENY_LEGACY))
->   		control &= ~PCI_MSI_FLAGS_MASKBIT;
->   
->   	desc.nvec_used			= nvec;
-> @@ -605,20 +603,18 @@ static void __iomem *msix_map_region(str
->    */
->   void msix_prepare_msi_desc(struct pci_dev *dev, struct msi_desc *desc)
->   {
-> -	const struct irq_domain *d = dev_get_msi_domain(&dev->dev);
-> -	const struct msi_domain_info *info = d->host_data;
-> -
->   	desc->nvec_used				= 1;
->   	desc->pci.msi_attrib.is_msix		= 1;
->   	desc->pci.msi_attrib.is_64		= 1;
->   	desc->pci.msi_attrib.default_irq	= dev->irq;
->   	desc->pci.mask_base			= dev->msix_base;
-> -	desc->pci.msi_attrib.can_mask		= !(info->flags & MSI_FLAG_NO_MASK) &&
-> -						  !desc->pci.msi_attrib.is_virtual;
->   
-> -	if (desc->pci.msi_attrib.can_mask) {
-> +
-> +	if (!pci_msi_domain_supports(dev, MSI_FLAG_NO_MASK, DENY_LEGACY) &&
-> +	    !desc->pci.msi_attrib.is_virtual) {
->   		void __iomem *addr = pci_msix_desc_addr(desc);
->   
-> +		desc->pci.msi_attrib.can_mask = true;
->   		desc->pci.msix_ctrl = readl(addr + PCI_MSIX_ENTRY_VECTOR_CTRL);
->   	}
->   }
-> @@ -715,8 +711,6 @@ static int msix_setup_interrupts(struct
->   static int msix_capability_init(struct pci_dev *dev, struct msix_entry *entries,
->   				int nvec, struct irq_affinity *affd)
->   {
-> -	const struct irq_domain *d = dev_get_msi_domain(&dev->dev);
-> -	const struct msi_domain_info *info = d->host_data;
->   	int ret, tsize;
->   	u16 control;
->   
-> @@ -747,7 +741,7 @@ static int msix_capability_init(struct p
->   	/* Disable INTX */
->   	pci_intx_for_msi(dev, 0);
->   
-> -	if (!(info->flags & MSI_FLAG_NO_MASK)) {
-> +	if (!pci_msi_domain_supports(dev, MSI_FLAG_NO_MASK, DENY_LEGACY)) {
->   		/*
->   		 * Ensure that all table entries are masked to prevent
->   		 * stale entries from firing in a crash kernel.
->
->
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+>> @@ -2333,6 +2337,17 @@ static int cf_check hvmemul_write_cr(
+>>          rc = hvm_set_cr4(val, true);
+>>          break;
+>>  
+>> +    case 8:
+>> +        if ( val & ~X86_CR8_VALID_MASK )
+>> +        {
+>> +            rc = X86EMUL_EXCEPTION;
+>> +            break;
+>> +        }
+>> +
+>> +        vlapic_set_reg(vcpu_vlapic(curr), APIC_TASKPRI, val << 4);
+> ... MASK_INSR() here?
 
+No.  The logic wont survive fixing cr8 I don't think.
+
+AFAICT, what we need is plain storage, and vlapic_{get,set}_tpr()
+accessors which account for hw-disable, and then call back into
+hvm_set_reg() to adjust intercepts.
+
+~Andrew
 
