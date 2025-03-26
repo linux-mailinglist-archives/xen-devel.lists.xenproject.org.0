@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AB8AA717CF
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 14:53:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.927811.1330550 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5001BA717E8
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 14:56:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.927824.1330580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txRBV-0001wY-4w; Wed, 26 Mar 2025 13:52:45 +0000
+	id 1txRF7-0002if-Qv; Wed, 26 Mar 2025 13:56:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 927811.1330550; Wed, 26 Mar 2025 13:52:45 +0000
+Received: by outflank-mailman (output) from mailman id 927824.1330580; Wed, 26 Mar 2025 13:56:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txRBV-0001v6-26; Wed, 26 Mar 2025 13:52:45 +0000
-Received: by outflank-mailman (input) for mailman id 927811;
- Wed, 26 Mar 2025 13:52:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1txRF7-0002gc-O4; Wed, 26 Mar 2025 13:56:29 +0000
+Received: by outflank-mailman (input) for mailman id 927824;
+ Wed, 26 Mar 2025 13:56:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SgUP=WN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txRBT-0001v0-TR
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 13:52:43 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 94838f33-0a49-11f0-9ffa-bf95429c2676;
- Wed, 26 Mar 2025 14:52:39 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-39ac8e7688aso1648354f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 06:52:39 -0700 (PDT)
+ id 1txRF6-0002gW-9F
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 13:56:28 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1c69f79d-0a4a-11f0-9ea3-5ba50f476ded;
+ Wed, 26 Mar 2025 14:56:27 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-39133f709f5so3661897f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 06:56:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f99579bsm17106210f8f.19.2025.03.26.06.52.37
+ ffacd0b85a97d-3997f9957d9sm16827029f8f.9.2025.03.26.06.56.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Mar 2025 06:52:37 -0700 (PDT)
+ Wed, 26 Mar 2025 06:56:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94838f33-0a49-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 1c69f79d-0a4a-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742997158; x=1743601958; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742997386; x=1743602186; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ozfcPn1Sa0wlHDocChCTdPbjbsZwrzBuBCcmqZOvzb0=;
-        b=cjdbOzV6UukzssB8/0/uEFD25+4QaEZ5UdZgAcKLGs7EyyzP2KfiMlx0p43M7H7CY6
-         IGu18rgo8jJ1/7EIoUqUgP+fhTCUzBsyls3jdqJOcuJBSC8Su+8tkBf7njt2MVoSPBnH
-         XvrbKjXeRYZnitATFm59JA4HMvUjxcwbur9zkYbsz0r4A+hLQ9e5q1vhHtI3oui65S8D
-         N1nIlGe8T5TOiXzjnZ2wrFOprRaE/4FhwtfLMPCPBHQBrCXtwRE0cq8iqOTeEEqJ+UgZ
-         SffDhU2RmvRk5e0+sfRWRN3IKAh3F4F8ip+Xq4lVzMU1eDCmnc5zO4uRy+dSiDLItU36
-         +Taw==
+        bh=hTAURXrIYg+pgGyFJqihA3P7qspP6ZkkzTE7cCePTXQ=;
+        b=AuIeic4vucGd3/8/FIZGb88Y8AgccTuhlhI06kDzHk1p0bz2/+Jo3TIAsluoOC9c0q
+         ndUzNqtkpQ6gMfQAHkruV7FLsZix3PZPuhzCJMunFL9yEWZ+gqR8HgEOIS85aUIV/CoZ
+         JtE3wt70BESt8qjELMDxYqNsHFt+AeVYRUxvHdPF48TeddIXEDixjlTjce9bsyGdD0XF
+         xqCIW6uuMoIfQbao19vHnZNQ23WCVbeYpASDS2zFztzSGU8N7R0LzJMxxxuDgkLfVXRj
+         m1GQqrilB51Ia4MfxLoRVTgLZDqKgNt61JxKafnBG2JTiB/7HsgNl2Kb19948L65uT0s
+         0CKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742997158; x=1743601958;
+        d=1e100.net; s=20230601; t=1742997386; x=1743602186;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ozfcPn1Sa0wlHDocChCTdPbjbsZwrzBuBCcmqZOvzb0=;
-        b=gHZP/GQ9tYlo4RJDar0AFmRSqu2UNORVEzpsoNdklMJMbSMGfw9IfKbMN0x+4F9WdY
-         +yEBwag5LhZhNqUNtZWQtzHXLd4o+aGJXvp6ypVgFku+CxSToIhaBXi8mjWQLjQu37+y
-         TdhDgX5p8D/5GXcEtxdyElwLvBvNguC0SINTuEL8JEow8oKZaJBAypxTuSSZEaIA0JGI
-         Ytq0nFZ6tPlcqJLnbti2puqCk3VLvA9jVpa69yqa9L17FpXigcA/TCXkIY4x8tiegsC8
-         +k/2B2QMQSU489wRAbeAVE7hIDhFp6NRt2JgiNq4XyfGOJ32dr1vCxhv9/Yq+Qq+p/tP
-         JN+w==
-X-Forwarded-Encrypted: i=1; AJvYcCVHpEUdpnsaa6rr+/RpWu1ts7P7lPCQwvwnkOcfUc8t9ZuW2uqSj8Rt3pMzUFV/Dau3WVeYMLE3LFU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwNLqPII6d+OiKNk1Uv8Es2RSoxJsu1NsbKL0meTVK4UZNTivqc
-	Dw3PwhTEiBWfNREIXs3m5+Vp7xdi2pbL7sUm4FfUCkY6lIvooflkuncFSH5xrQ==
-X-Gm-Gg: ASbGncvXBPOvOfAzWHwDGf5+081TkZXQgBCYs5C6u8bVYXRaG3n30cXfKW9zfDfXMf+
-	gfjSbVdIXM69pIXRQZoPNTwSp2eFtlUB0GC5CIFwOcYxcxwbEHPArMAT/qKHdO3p0pqwGkEAkn1
-	3YNUv4Ttan/OHnKGHVOFhxtsBX2wREaapJ1qAn+PHtszPcAdWTNKUxmytz+9ypXXeOrvcLcXIFH
-	imIkwWZ+4DX6RD5UCsfFzHJl+TLOHVV2dajsrq8Ptwt4aCFyr4+Ke94UMHUMVkVgbmQFkbl8VmX
-	Fhr5DvaVCr/60+IpM8iLDyclU6AtoIG9iyaxHam4BcnJetYNvxHuMsE2xvnTJp1spMroAh5OlvB
-	eQhz6QEHFnUmL7jXXenSoQtuTM0chJYhmMT/L99TJ
-X-Google-Smtp-Source: AGHT+IH0QTtXH/9TItLSD7dz2rY/UnAnlmrVYo67um4wBoc0O8d/Ww26kFIKkh38954z+DOP50C4zg==
-X-Received: by 2002:a05:6000:1ac8:b0:391:4389:f36a with SMTP id ffacd0b85a97d-3997f937d54mr22349235f8f.48.1742997158268;
-        Wed, 26 Mar 2025 06:52:38 -0700 (PDT)
-Message-ID: <4d24b27a-df7c-45cc-85d4-a1dbc4057aac@suse.com>
-Date: Wed, 26 Mar 2025 14:52:37 +0100
+        bh=hTAURXrIYg+pgGyFJqihA3P7qspP6ZkkzTE7cCePTXQ=;
+        b=W0k8/9+IioSYOrab0C6EYZ6ucYiIDkkOMphWvjcCSpfiQl0ktq5ycQ9/yyJ99jzV/n
+         fgvNXYTwXc+aWfTdVXbwdJVWNVPRIzEhFJRM8Ei8SDLybF2H9jTkZqSB0AjXkhx8jrPk
+         kw0R2oLSBDe2KKw3SQGy+fVKF8og2X5W2NZRvPAqUQL8A+oHagcEwcXXgf/bHH4bHMWA
+         7BJlMMYH2NqKFDjEbKt4D95XDuEQ7adb9/1h8ijAH29G2VaD4q+TYQS77VtFPc9ko3ZB
+         M9XQT5ifC149eSm8VAqIq9ck+nc7lAgbrYwbxA/oHlLkps557p1BjllWezUjRjTZYW0V
+         fAFw==
+X-Forwarded-Encrypted: i=1; AJvYcCXA97v06ZS4lDDo62f4GKntOE/+PXBZEuO7FhAMJDOxL5LoooyMi2CQBAJewXhPm9z/FThBAoeRNP4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzh4NuPWUkErQ85RxJ3ABTsaw2mH5BqaKDZ0JpcQjvQk+9MkAaM
+	b2R0Gj1CUQBgcHeXBG6GBSZ1Z7SAJl4PU+JIfBTKy9JvhOieZK+6quEUdt4rdw==
+X-Gm-Gg: ASbGncubRRwzjrEtc5pGLjf4T0TmRJkSwa2fMLzjqctffGgR9FG27tbkpHPzh6Qv42Q
+	2tdACKVLOvY0+IaYAFjFwCSYWPc4+hw+LlpCQLZ6fWlvVsuYjA7DoMZ9v8KwKCqt/gWHvK8O4iZ
+	WmUDbTkP7isz3wSjAsJrwxxMLmYE5pX1w+E6L2/WPgHx7Xcr/wD05FkjNDlOn3ofgLIburl30vA
+	Hej5dUBcg0Dji/nqO8G0glvdld3ZH3D2THJN5UaSKC+ncpS2M+Yw2OduOuk8HhTtRyF/0FFECpM
+	uq7JTqpAhpJfyeA6aPn1drGvae3AYiCbye5BKGmBklAnIfK93AKp0gMAGfaTS6t7g3LkkvWzOpt
+	xFISc3NQuAnv3+Zvz5nDbpCTZSkqzEg==
+X-Google-Smtp-Source: AGHT+IGWAcxGjJbRNF/SDlmTINXHnUjzL5WcQ2tFsgybH+4iuH+O54LdwIKfjlhYtBEf2cddqRJZ8A==
+X-Received: by 2002:a05:6000:4012:b0:391:4674:b10f with SMTP id ffacd0b85a97d-3997f92d312mr17335151f8f.36.1742997386433;
+        Wed, 26 Mar 2025 06:56:26 -0700 (PDT)
+Message-ID: <141c8421-77fb-45fa-a892-94713c74113d@suse.com>
+Date: Wed, 26 Mar 2025 14:56:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/8] xen/domain: introduce domid_top
+Subject: Re: [PATCH v1 4/8] xen/domain: introduce domid_alloc()
 To: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
  dmukhin@ford.com, xen-devel@lists.xenproject.org
 References: <20250318233617.849903-1-dmukhin@ford.com>
- <20250318233617.849903-4-dmukhin@ford.com>
+ <20250318233617.849903-5-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,39 +119,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250318233617.849903-4-dmukhin@ford.com>
+In-Reply-To: <20250318233617.849903-5-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 19.03.2025 00:36, dmkhn@proton.me wrote:
-> Rename max_init_domid to domid_top to align with its usage in the code
-> (Arm), where it represents the upper boundary of the non-system domain
-> ID range.
-
-I think I said before that I don't share this view of yours. The variable
-is quite appropriately named; it's the further use you made of it in earlier
-versions of work of yours in this area where the name ended up no longer
-reflecting the purpose. Yet that's not a reason to change the name.
-
-I'm unconvinced we actually need a variable tracking the largest known
-non-system domain ID. The domain list is sorted, so obtaining that ID
-should be reasonably easy and cheap without such a variable.
-
-Furthermore such a variable would likely also need reducing when the
-domain with the highest ID dies.
-
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -472,7 +472,7 @@ static void cf_check dump_console_ring_key(unsigned char key)
->   */
->  static unsigned int __read_mostly console_rx = 0;
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -2367,8 +2367,15 @@ void __init create_dom0(void)
+>          .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
+>      };
+>      unsigned int flags = CDF_privileged;
+> +    domid_t domid;
+>      int rc;
 >  
-> -#define max_console_rx (max_init_domid + 1)
-> +#define max_console_rx (domid_top + 1)
+> +    rc = domid_alloc(get_initial_domain_id());
+> +    if ( rc < 0 )
+> +        panic("Cannot use domain ID %d (rc = %d)\n",
+> +              get_initial_domain_id(), rc);
+> +    domid = rc;
+> +
+>      /* The vGIC for DOM0 is exactly emulating the hardware GIC */
+>      dom0_cfg.arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE;
+>      dom0_cfg.arch.nr_spis = VGIC_DEF_NR_SPIS;
+> @@ -2391,19 +2398,21 @@ void __init create_dom0(void)
+>      if ( !llc_coloring_enabled )
+>          flags |= CDF_directmap;
+>  
+> -    dom0 = domain_create(0, &dom0_cfg, flags);
+> +    dom0 = domain_create(domid, &dom0_cfg, flags);
+>      if ( IS_ERR(dom0) )
+> -        panic("Error creating domain 0 (rc = %ld)\n", PTR_ERR(dom0));
+> +        panic("Error creating domain %d (rc = %ld)\n", domid, PTR_ERR(dom0));
+>  
+>      if ( llc_coloring_enabled && (rc = dom0_set_llc_colors(dom0)) )
+> -        panic("Error initializing LLC coloring for domain 0 (rc = %d)\n", rc);
+> +        panic("Error initializing LLC coloring for domain %d (rc = %d)\n",
+> +              domid, rc);
+>  
+>      if ( alloc_dom0_vcpu0(dom0) == NULL )
+> -        panic("Error creating domain 0 vcpu0\n");
+> +        panic("Error creating domain %d vcpu0\n", domid);
+>  
+>      rc = construct_dom0(dom0);
+>      if ( rc )
+> -        panic("Could not set up DOM0 guest OS (rc = %d)\n", rc);
+> +        panic("Could not set up guest OS for domain %d (rc = %d)\n",
+> +              domid, rc);
+>  }
 
-This use in particular is bogus. The intention here is to permit console
-access only to (some?) domains created during boot. Making a (conceptual)
-change here would require separate justification.
+Assuming we really needed this new function, why would there be an Arm side
+change to Dom0 creation, but no equivalent change on the x86 side?
 
 Jan
 
