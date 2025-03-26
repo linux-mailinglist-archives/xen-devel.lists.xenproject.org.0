@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56AE7A717B7
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 14:45:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.927802.1330541 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AB8AA717CF
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 14:53:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.927811.1330550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txR3l-0007rv-DU; Wed, 26 Mar 2025 13:44:45 +0000
+	id 1txRBV-0001wY-4w; Wed, 26 Mar 2025 13:52:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 927802.1330541; Wed, 26 Mar 2025 13:44:45 +0000
+Received: by outflank-mailman (output) from mailman id 927811.1330550; Wed, 26 Mar 2025 13:52:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txR3l-0007pT-Ag; Wed, 26 Mar 2025 13:44:45 +0000
-Received: by outflank-mailman (input) for mailman id 927802;
- Wed, 26 Mar 2025 13:44:44 +0000
+	id 1txRBV-0001v6-26; Wed, 26 Mar 2025 13:52:45 +0000
+Received: by outflank-mailman (input) for mailman id 927811;
+ Wed, 26 Mar 2025 13:52:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SgUP=WN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txR3k-0007pN-37
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 13:44:44 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1txRBT-0001v0-TR
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 13:52:43 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 781abc57-0a48-11f0-9ffa-bf95429c2676;
- Wed, 26 Mar 2025 14:44:41 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-391342fc148so4769956f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 06:44:41 -0700 (PDT)
+ id 94838f33-0a49-11f0-9ffa-bf95429c2676;
+ Wed, 26 Mar 2025 14:52:39 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-39ac8e7688aso1648354f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 06:52:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d82f3235asm2478125e9.31.2025.03.26.06.44.40
+ ffacd0b85a97d-3997f99579bsm17106210f8f.19.2025.03.26.06.52.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Mar 2025 06:44:40 -0700 (PDT)
+ Wed, 26 Mar 2025 06:52:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 781abc57-0a48-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 94838f33-0a49-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742996681; x=1743601481; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742997158; x=1743601958; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WEctQAVJ92zI9uGPDt2pFR4Cswu03XEpUN5mUbHVcRs=;
-        b=DpL6qRFAhMhF8+0sEX2e3TYrSYn7KxvRpgBWOUas5H8iXzHO72kYp7hsBv2YOoxL2E
-         Zkcehk9k+SpIgfuaBmUl2WeIqtvCyKOaY9wpbY/qJoH3UXw5Sc8Q3dHkPP/S14Q3FEdx
-         9jOvo71Kpc0OQB9OWCeL4BAhwetgMS7NS3F/soiN4WE7/cUcSLMSGn/RPaSXwUnO3vxO
-         K8g2gU5eXLGlvVc5Ax0ueKUhKewTiDC+OdyzxakElCBdHe8YH9i6+By4gCxBeoHmR+I+
-         IZi76c1FP5wpQDYs8jZ6RiG+2WHmVUsi0dmcv9ZbKjQOTcDyoYl98yj4GIzc4NPaXD8J
-         Vmgg==
+        bh=ozfcPn1Sa0wlHDocChCTdPbjbsZwrzBuBCcmqZOvzb0=;
+        b=cjdbOzV6UukzssB8/0/uEFD25+4QaEZ5UdZgAcKLGs7EyyzP2KfiMlx0p43M7H7CY6
+         IGu18rgo8jJ1/7EIoUqUgP+fhTCUzBsyls3jdqJOcuJBSC8Su+8tkBf7njt2MVoSPBnH
+         XvrbKjXeRYZnitATFm59JA4HMvUjxcwbur9zkYbsz0r4A+hLQ9e5q1vhHtI3oui65S8D
+         N1nIlGe8T5TOiXzjnZ2wrFOprRaE/4FhwtfLMPCPBHQBrCXtwRE0cq8iqOTeEEqJ+UgZ
+         SffDhU2RmvRk5e0+sfRWRN3IKAh3F4F8ip+Xq4lVzMU1eDCmnc5zO4uRy+dSiDLItU36
+         +Taw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742996681; x=1743601481;
+        d=1e100.net; s=20230601; t=1742997158; x=1743601958;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WEctQAVJ92zI9uGPDt2pFR4Cswu03XEpUN5mUbHVcRs=;
-        b=Jqz4ijWCcGATd8HYnTCpISy09ddwW/Zfr6vsqhVns119YNczFFCxzRovlp90uulsvL
-         yfhFPNhBQkw/TSnjzi0Tva8xAuSW5npBMZwPZjOY7JvOCUr3N7UcsWxYZM9O6blKLTks
-         GUEXnUeBXkNTvNXAKvvwiH8jdlMpKlntF2OsWiPoE1KKPVzKvUMk5umbYYUrQKFIdUvY
-         lTOfZ30lyVhn/EkJQkakiJN6qNb1Fx8zU1gyuRtGPMyxfGXPsE/qdAWD5/NCgdziQd57
-         z9LJXmNYBGR3jm5gsNPmIbOZxsOfi59TUmivP/5JUCFGUFeDTREXZU1ovvrcPJxg3lik
-         PU1A==
-X-Forwarded-Encrypted: i=1; AJvYcCV9GtAoGW376kIZA6alVNogZ6fzh1bdoUsNyWz8RwTw+5c3GksYFImNAg/T57HniBZug+7owP1Nebw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzsCn2kh+FdTxdSfQpYCAOw9/w+svUaxArH5D7QBBm9XFjtDHjp
-	ei1n7go4cDtycbCC9nHA1agX1d+JHZXO1hOioE2HGYNOVRvqemEsc0vlL5bryQ==
-X-Gm-Gg: ASbGncvFrmBoCmMmhpEFZMvHNU8Cqyys2U1pGBYTBvWj4q0f3mST2GLEO93l6FOhn+F
-	BiYSG1l30GiaWUYHLSOtkFLx1nKgDzCH3tS0bda8aee1fhlIT/m+jVYhaAFyfTv1163CrXfuiRi
-	XlDAg4cpaHqDjth1k86ZZXLrYV9sD33dDV8cg+WLFMwlbE84WUI8wS1kELaGZyoXVgq+zI7eAyG
-	b2jZp5wg+W1gTE8noLJbIfipPxD0bDtnI8NvklUD9o26cjYgAYSNXU1kgcIUfMKv+R/wiyy/UWB
-	LRltqgyAzyxwbdxJaqBS153NtgAjtpVoQ1kzaEcjBDrh/YxLA5vzjlN77B+hf2CQaWAKoY5GKFQ
-	mJ6jWbJUuAjtSaL0n1LVYIK0GD8KF+A==
-X-Google-Smtp-Source: AGHT+IEZKqeAK7t3LZT7GysIn1XUCJdCYbP8/D18JG3rDyQVPnFRd5kV26oFvZNvxXe5J1qLyhEfuw==
-X-Received: by 2002:a05:6000:4188:b0:391:4999:776c with SMTP id ffacd0b85a97d-3997f932c74mr16264807f8f.40.1742996681215;
-        Wed, 26 Mar 2025 06:44:41 -0700 (PDT)
-Message-ID: <7a2f80b3-5018-4f15-973c-fe950a574b11@suse.com>
-Date: Wed, 26 Mar 2025 14:44:39 +0100
+        bh=ozfcPn1Sa0wlHDocChCTdPbjbsZwrzBuBCcmqZOvzb0=;
+        b=gHZP/GQ9tYlo4RJDar0AFmRSqu2UNORVEzpsoNdklMJMbSMGfw9IfKbMN0x+4F9WdY
+         +yEBwag5LhZhNqUNtZWQtzHXLd4o+aGJXvp6ypVgFku+CxSToIhaBXi8mjWQLjQu37+y
+         TdhDgX5p8D/5GXcEtxdyElwLvBvNguC0SINTuEL8JEow8oKZaJBAypxTuSSZEaIA0JGI
+         Ytq0nFZ6tPlcqJLnbti2puqCk3VLvA9jVpa69yqa9L17FpXigcA/TCXkIY4x8tiegsC8
+         +k/2B2QMQSU489wRAbeAVE7hIDhFp6NRt2JgiNq4XyfGOJ32dr1vCxhv9/Yq+Qq+p/tP
+         JN+w==
+X-Forwarded-Encrypted: i=1; AJvYcCVHpEUdpnsaa6rr+/RpWu1ts7P7lPCQwvwnkOcfUc8t9ZuW2uqSj8Rt3pMzUFV/Dau3WVeYMLE3LFU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwNLqPII6d+OiKNk1Uv8Es2RSoxJsu1NsbKL0meTVK4UZNTivqc
+	Dw3PwhTEiBWfNREIXs3m5+Vp7xdi2pbL7sUm4FfUCkY6lIvooflkuncFSH5xrQ==
+X-Gm-Gg: ASbGncvXBPOvOfAzWHwDGf5+081TkZXQgBCYs5C6u8bVYXRaG3n30cXfKW9zfDfXMf+
+	gfjSbVdIXM69pIXRQZoPNTwSp2eFtlUB0GC5CIFwOcYxcxwbEHPArMAT/qKHdO3p0pqwGkEAkn1
+	3YNUv4Ttan/OHnKGHVOFhxtsBX2wREaapJ1qAn+PHtszPcAdWTNKUxmytz+9ypXXeOrvcLcXIFH
+	imIkwWZ+4DX6RD5UCsfFzHJl+TLOHVV2dajsrq8Ptwt4aCFyr4+Ke94UMHUMVkVgbmQFkbl8VmX
+	Fhr5DvaVCr/60+IpM8iLDyclU6AtoIG9iyaxHam4BcnJetYNvxHuMsE2xvnTJp1spMroAh5OlvB
+	eQhz6QEHFnUmL7jXXenSoQtuTM0chJYhmMT/L99TJ
+X-Google-Smtp-Source: AGHT+IH0QTtXH/9TItLSD7dz2rY/UnAnlmrVYo67um4wBoc0O8d/Ww26kFIKkh38954z+DOP50C4zg==
+X-Received: by 2002:a05:6000:1ac8:b0:391:4389:f36a with SMTP id ffacd0b85a97d-3997f937d54mr22349235f8f.48.1742997158268;
+        Wed, 26 Mar 2025 06:52:38 -0700 (PDT)
+Message-ID: <4d24b27a-df7c-45cc-85d4-a1dbc4057aac@suse.com>
+Date: Wed, 26 Mar 2025 14:52:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/8] xen/console: introduce console input permission
+Subject: Re: [PATCH v1 3/8] xen/domain: introduce domid_top
 To: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
  dmukhin@ford.com, xen-devel@lists.xenproject.org
 References: <20250318233617.849903-1-dmukhin@ford.com>
- <20250318233617.849903-3-dmukhin@ford.com>
+ <20250318233617.849903-4-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,60 +119,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250318233617.849903-3-dmukhin@ford.com>
+In-Reply-To: <20250318233617.849903-4-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 19.03.2025 00:36, dmkhn@proton.me wrote:
-> @@ -564,10 +586,25 @@ static void __serial_rx(char c)
->          /* Deliver input to the PV shim console. */
->          rc = consoled_guest_tx(c);
+> Rename max_init_domid to domid_top to align with its usage in the code
+> (Arm), where it represents the upper boundary of the non-system domain
+> ID range.
+
+I think I said before that I don't share this view of yours. The variable
+is quite appropriately named; it's the further use you made of it in earlier
+versions of work of yours in this area where the name ended up no longer
+reflecting the purpose. Yet that's not a reason to change the name.
+
+I'm unconvinced we actually need a variable tracking the largest known
+non-system domain ID. The domain list is sorted, so obtaining that ID
+should be reasonably easy and cheap without such a variable.
+
+Furthermore such a variable would likely also need reducing when the
+domain with the highest ID dies.
+
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -472,7 +472,7 @@ static void cf_check dump_console_ring_key(unsigned char key)
+>   */
+>  static unsigned int __read_mostly console_rx = 0;
 >  
-> -    if ( rc )
-> +    switch ( rc )
-> +    {
-> +    case 0:
-> +        break;
-> +
-> +    case -EBUSY:    /* Loopback mode */
-> +    case -ENOSPC:   /* FIFO is full */
->          guest_printk(d,
->                       XENLOG_WARNING "failed to process console input: %d\n",
->                       rc);
-> +        break;
-> +
-> +    default:
-> +        d->console.input_allowed = false;
+> -#define max_console_rx (max_init_domid + 1)
+> +#define max_console_rx (domid_top + 1)
 
-This aspect isn't mentioned / justified in the description, and I also
-can't deduce why you would do so. Or to put it differently, why you'd
-then not also take away input focus from this domain, for it no longer
-being eligible to have focus.
-
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -512,7 +512,7 @@ struct domain
->      bool             auto_node_affinity;
->      /* Is this guest fully privileged (aka dom0)? */
->      bool             is_privileged;
-> -    /* Can this guest access the Xen console? */
-> +    /* XSM: permission to use HYPERCALL_console_io hypercall */
->      bool             is_console;
->      /* Is this guest being debugged by dom0? */
->      bool             debugger_attached;
-> @@ -651,6 +651,12 @@ struct domain
->      unsigned int num_llc_colors;
->      const unsigned int *llc_colors;
->  #endif
-> +
-> +    /* Console settings. */
-> +    struct {
-> +        /* Permission to own physical console input. */
-> +        bool input_allowed;
-> +    } console;
-
-Are further fields going to be added to this sub-struct? If not, is having
-a sub-struct here actually worth it?
+This use in particular is bogus. The intention here is to permit console
+access only to (some?) domains created during boot. Making a (conceptual)
+change here would require separate justification.
 
 Jan
 
