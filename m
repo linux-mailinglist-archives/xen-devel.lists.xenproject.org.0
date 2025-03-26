@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B2A0A71493
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 11:19:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.927518.1330248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39DCFA71494
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 11:19:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.927526.1330259 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txNqY-00044n-DM; Wed, 26 Mar 2025 10:18:54 +0000
+	id 1txNrA-0004WQ-M2; Wed, 26 Mar 2025 10:19:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 927518.1330248; Wed, 26 Mar 2025 10:18:54 +0000
+Received: by outflank-mailman (output) from mailman id 927526.1330259; Wed, 26 Mar 2025 10:19:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txNqY-00042Q-AU; Wed, 26 Mar 2025 10:18:54 +0000
-Received: by outflank-mailman (input) for mailman id 927518;
- Wed, 26 Mar 2025 10:18:52 +0000
+	id 1txNrA-0004Uf-Hj; Wed, 26 Mar 2025 10:19:32 +0000
+Received: by outflank-mailman (input) for mailman id 927526;
+ Wed, 26 Mar 2025 10:19:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mf06=WN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1txNqW-00042K-T7
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 10:18:52 +0000
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [2607:f8b0:4864:20::630])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=SgUP=WN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1txNr9-00042K-GP
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 10:19:31 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b65876b1-0a2b-11f0-9ea3-5ba50f476ded;
- Wed, 26 Mar 2025 11:18:51 +0100 (CET)
-Received: by mail-pl1-x630.google.com with SMTP id
- d9443c01a7336-22403cbb47fso130744655ad.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 03:18:51 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- d9443c01a7336-22780f3966esm106377465ad.13.2025.03.26.03.18.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Mar 2025 03:18:49 -0700 (PDT)
+ id ce0b9a42-0a2b-11f0-9ea3-5ba50f476ded;
+ Wed, 26 Mar 2025 11:19:30 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43cfb6e9031so59874395e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 03:19:30 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3997f9a3f2asm16532849f8f.30.2025.03.26.03.19.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Mar 2025 03:19:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,185 +45,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b65876b1-0a2b-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: ce0b9a42-0a2b-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1742984330; x=1743589130; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Db10ZU16XpLJFmNhtVonPGqlBLb3EZGYInBr3P0oVkQ=;
-        b=FmXZQc0zwtdOz2mCAP3xeM+lqyihQpJdEq6u5MkJpVAbY1P7Y4Ha6bcORUC+nCS9CE
-         0rrCm/5pKuDsUN+zdBuMwDZEFYN55tLjbD8GQ/SxRJfd1YQKbH+Md6AMaNy5pJBWHBTV
-         A5HaptW4pNamPLO4U8Gmi5WxPIIOYocqfy7/M=
+        d=suse.com; s=google; t=1742984370; x=1743589170; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=enaZ41R7a26K5TcpXO33gsxTdPnQnO4M4gP9U1VD8iA=;
+        b=YR2JUqso92HlRzm2JfhgWYuS++LoA8Ma8eVLAFYPvAqZ8v6aaUIYj28wVXCmmNsd8m
+         iF5FwJ85pba18LoqxivhMuIk5WqevnncTh5EescB8VU7VG/ag7WAlVjunmWhRnvq1j/u
+         Q/KjHqXhQMdhsy2YVe9CkLO5hEjdF3spbmDSQ3TglQoupkaMzdMHolrQM0A6kP3t6ltT
+         fsIUFALIWUh9TCDUnucre7y+ZMQsK/ABEltlONd0q4vQ1i/hTJ/TwnJWpeB1ocOkADdY
+         TRFvlOE/GacTmGnKTKbc1VFcXOJFNxeRNBNJJ2bVh8pUoSdfTmIdWhHICjcIOVOsG7PJ
+         BDBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742984330; x=1743589130;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Db10ZU16XpLJFmNhtVonPGqlBLb3EZGYInBr3P0oVkQ=;
-        b=UIc4H7o1xIsMfP49R6Hrkcs9y6zZkd06M7XHPLeK/LWILkaGufvZHh426DFXSQFQOA
-         doTMzibLLcCmW63K25CyiynMOJR8lu9Sd7z2u/Pvi5kX9oKwF2SVRfVRalmHNCmc7b2z
-         HwUwpJxsFMvnO2a7HzUqoju/ksIrztX/yVqC7ejRSRFK8bD+zhMu7RPnHXkKNcne6ysL
-         eIRN3qshFKYS2vI24YO9htmcUQdbLGBarve2Z1kOpw8rXbbE2K8ugzmtYMqJcafJWpEO
-         T6hO6rFfriTGt+7Pngyf/WynuxgmuncM0BlbCRdw6VrPuBrBmQmWVrRdbOueHICX0cre
-         800Q==
-X-Gm-Message-State: AOJu0YxOxQ+4CCu8DBFZD4ahJ9QuRzF0eoID640vxG31nWJSWk7Oqw5N
-	jQTQq4/t0h9xz7UtJuSD11YApY7IW7CYsMw2cDM64lre4aqm02WUcqnxOQg9iME=
-X-Gm-Gg: ASbGncvkg2B35tuE9zZdhYWmPwg98h8ltAH14LpHSpikvugBNHclA15NGNjjKsDKvbz
-	8nXVfyqTn1mU08NZBjWUgGuJRi05yX02MichqgJgaiHG8aKSaQxzFTHZR/DYFIWAYozcskbjW2s
-	ePaoRSSL96/40INbMIyha9z2yn3UYX5qmGTzkIObr+M9z3nkNqz9OCJGjNihmcerwWNW6EFw+27
-	4quLJUS0JxWN8DnNx7ZjxidgNMKKsSs+qVHynRXz4TculCMsx7ML9axnTMahFsldowqr0e4yX2+
-	LzxsTNs5z2JFM1hSE8PvlnHtBgHXaqMCSsPIR64k86w31SsaHw==
-X-Google-Smtp-Source: AGHT+IHf0vUmRm/KTp+g9tg2N8FmUeOWyQJto2vPEs4MTPoZ8vaiyNP2BVhhXuWNOQXQZmRavEZOOg==
-X-Received: by 2002:a17:903:46c5:b0:220:d79f:60f1 with SMTP id d9443c01a7336-22780e122dcmr296161435ad.42.1742984329879;
-        Wed, 26 Mar 2025 03:18:49 -0700 (PDT)
-Date: Wed, 26 Mar 2025 11:18:44 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] x86/PVH: expose OEMx ACPI tables to Dom0
-Message-ID: <Z-PUhO3C1qp3L8-l@macbook.local>
-References: <c9365d42-c15d-4d93-acd8-106ca46cb7f3@suse.com>
- <Z-PHJk8GT-y1NnHl@macbook.local>
- <59685c88-44c6-43fe-9f6e-1121d51fd76f@suse.com>
+        d=1e100.net; s=20230601; t=1742984370; x=1743589170;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=enaZ41R7a26K5TcpXO33gsxTdPnQnO4M4gP9U1VD8iA=;
+        b=xTH+FiJ1tUHzM6MFHIFBjKzPNGcMQxnbpH4LwGZu1Qn7no9Hh8qJhI1ny3JfFwmJqc
+         Git8e2PpETwriuR67KvmDWr/nhvlg5O7bmL8eMYoOdQrv1UYNCaFuCNb49wPJPR2GVbd
+         Cr8cLg55Ma8oB+yQhMAxATqrAU7xbGV+q9An89EOmjBG3KCigQIoWP4O1Ln7sdywEKqG
+         ng8mHPTnOPRdnhfZA5Un65ttjHjQJGEZvNT9RUODawOMbgYwYRjd7bFdDJJr2dBBFzmp
+         I2/BIE9OvdVbwERuBsoFu8Uebbf1PVTRVI5M5iRp243MF4yCQEC0d7tB4YLxBKJAUReU
+         xEQA==
+X-Forwarded-Encrypted: i=1; AJvYcCV69q/xmnUTRtyfzZXOuGWBXsYr2O+4X05n2zyZqm9QlKSDBm16BNlYR7Pm03xwiXeKloROcAIFjuw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwauWUnH+g+co+j4/e7Oo2Jfz2pZFbtKmojZTUa6D4iEtM8yhTw
+	d4BQNf885TVLdhgFiTnPzM9F35B30g6F4RHWWCCWsJ+qUKp0TUGT/62YeGJ+8A==
+X-Gm-Gg: ASbGncuJX5mHyViIXFThgHQ3S3aCE8leMBhTLt18lFGkMmBttQ3tggeCbkOcxhBi5zv
+	D3bvoAC3qSNmqO8u53CNvUrJVoM/Wgb/I7szuhemjxyVJC3srp7F008qlxJnBGoB05V7Qh7SaCH
+	dgguyw+xmmYB/GwzEwbvFlaNvlcsIy24g471dj5XmJDkx27rGJJ9/pNgm7v66MKzp8rUlYI9/+T
+	YSkAuwJ6O0cp7yrdlv0o+X6PkE0WdgInfjvxjSkvID9An23iQI8dK7jSaGikEoyuXrNVIomZUoX
+	YHPPA3iW1obqSPpzEvCRVQVG1ntXj0Fyue3jkkPMQcT04j0sasogsmzXY/Z0BJXIaErAwtOEUpN
+	pBhf0RvIyCorMAEGlEognlvSungvvCQ==
+X-Google-Smtp-Source: AGHT+IGEJvYUD+4zIm2nBnWsXbg3MYCekxy8Sjc9AKbga1JLBjdq+EZ/EPEH1BS8Jhh2oYoFBUVLng==
+X-Received: by 2002:a05:600c:4512:b0:43c:f87c:24ce with SMTP id 5b1f17b1804b1-43d50a3781amr141598035e9.21.1742984369955;
+        Wed, 26 Mar 2025 03:19:29 -0700 (PDT)
+Message-ID: <2e6e7ce3-0d60-4d25-ba6f-6d74599dfb8f@suse.com>
+Date: Wed, 26 Mar 2025 11:19:28 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <59685c88-44c6-43fe-9f6e-1121d51fd76f@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/15] xen/cpufreq: fix core frequency calculation for
+ AMD Family 1Ah CPUs
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20250306083949.1503385-1-Penny.Zheng@amd.com>
+ <20250306083949.1503385-8-Penny.Zheng@amd.com>
+ <0b340303-db4e-4723-b53d-178b2676a36c@suse.com>
+ <DM4PR12MB84515BDB3E64C4AEA561B266E1A62@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <3e0155aeee7a8629801adbc9c78a5bb6@bugseng.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <3e0155aeee7a8629801adbc9c78a5bb6@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Mar 26, 2025 at 10:45:18AM +0100, Jan Beulich wrote:
-> On 26.03.2025 10:21, Roger Pau Monné wrote:
-> > On Wed, Mar 26, 2025 at 09:45:09AM +0100, Jan Beulich wrote:
-> >> What they contain we don't know, but we can't sensibly hide them. On my
-> >> Skylake system OEM1 (with a description of "INTEL  CPU EIST") is what
-> >> contains all the _PCT, _PPC, and _PSS methods, i.e. about everything
-> >> needed for cpufreq. (_PSD interestingly are in an SSDT there.)
-> >>
-> >> Further OEM2 there has a description of "INTEL  CPU  HWP", while OEM4
-> >> has "INTEL  CPU  CST". Pretty clearly all three need exposing for
-> >> cpufreq and cpuidle to work.
-> >>
-> >> Fixes: 8b1a5268daf0 ("pvh/dom0: whitelist PVH Dom0 ACPI tables")
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > 
-> > Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+On 26.03.2025 11:14, Nicola Vetrini wrote:
+> On 2025-03-26 10:54, Penny, Zheng wrote:
+>>> -----Original Message-----
+>>> From: Jan Beulich <jbeulich@suse.com>
+>>> Sent: Monday, March 24, 2025 11:48 PM
+>>>
+>>> On 06.03.2025 09:39, Penny Zheng wrote:
+>>>> This commit fixes core frequency calculation for AMD Family 1Ah CPUs,
+>>>> due to a change in the PStateDef MSR layout in AMD Family 1Ah+.
+>>>> In AMD Family 1Ah+, Core current operating frequency in MHz is
+>>>> calculated as
+>>>> follows:
+>>>
+>>> Why 1Ah+? In the code you correctly limit to just 1Ah.
+>>>
+>>>> --- a/xen/arch/x86/cpu/amd.c
+>>>> +++ b/xen/arch/x86/cpu/amd.c
+>>>> @@ -572,12 +572,24 @@ static void amd_get_topology(struct cpuinfo_x86 *c)
+>>>>                                                            :
+>>>> c->cpu_core_id);  }
+>>>>
+>>>> +static uint64_t amd_parse_freq(const struct cpuinfo_x86 *c, uint64_t
+>>>> +value) {
+>>>> +   ASSERT(c->x86 <= 0x1A);
+>>>> +
+>>>> +   if (c->x86 < 0x17)
+>>>> +           return (((value & 0x3f) + 0x10) * 100) >> ((value >> 6) & 7);
+>>>> +   else if (c->x86 <= 0x19)
+>>>> +           return ((value & 0xff) * 25 * 8) / ((value >> 8) & 0x3f);
+>>>> +   else
+>>>> +           return (value & 0xfff) * 5;
+>>>> +}
+>>>
+>>> Could I talk you into omitting the unnecessary "else" in cases like 
+>>> this one?
+>>> (This may also make sense to express as switch().)
+>>>
+>>
+>> Sorry, bad habit... will change it to switch
+>>
+>>>> @@ -658,19 +670,20 @@ void amd_log_freq(const struct cpuinfo_x86 *c)
+>>>>     if (!(lo >> 63))
+>>>>             return;
+>>>>
+>>>> -#define FREQ(v) (c->x86 < 0x17 ? ((((v) & 0x3f) + 0x10) * 100) >> (((v) >> 6) &
+>>> 7) \
+>>>> -                                : (((v) & 0xff) * 25 * 8) / (((v) >> 8) & 0x3f))
+>>>>     if (idx && idx < h &&
+>>>>         !rdmsr_safe(0xC0010064 + idx, val) && (val >> 63) &&
+>>>>         !rdmsr_safe(0xC0010064, hi) && (hi >> 63))
+>>>>             printk("CPU%u: %lu (%lu ... %lu) MHz\n",
+>>>> -                  smp_processor_id(), FREQ(val), FREQ(lo), FREQ(hi));
+>>>> +                  smp_processor_id(),
+>>>> +                  amd_parse_freq(c, val),
+>>>> +                  amd_parse_freq(c, lo), amd_parse_freq(c, hi));
+>>>
+>>> I fear Misra won't like multiple function calls to evaluate the 
+>>> parameters to pass to
+>>> another function. Iirc smp_process_id() has special exception, so 
+>>> that's okay here.
+>>> This may be possible to alleviate by marking the new helper pure or 
+>>> even const
+>>> (see gcc doc as to caveats with passing pointers to const functions). 
+>>> Cc-ing Nicola
+>>> for possible clarification or correction.
+>>>
+>>
+>> Maybe we shall declare the function __pure. Having checked the gcc doc,
+>> ``
+>> a function that has pointer arguments must not be declared const
+>> ``
+>> Otherwise we store the "c->x86" value to avoid using the pointer
 > 
-> Thanks.
-> 
-> >> ---
-> >> Sadly the commit above says nothing at all about the criteria used by
-> >> which tables would want to be whitelisted.
-> > 
-> > I think at that point it was mostly an allow list that enabled me to
-> > boot PVH on the systems I was testing.  I don't think it was intended
-> > to be complete, but rather something that we would expand as needed.
-> > There where many and bigger missing pieces of PVH dom0 when that was
-> > committed.
-> 
-> To be frank, with that it was premature to declare PVH Dom0 fully supported.
-> This aspect also isn't mentioned in the caveats in SUPPORT.md.
+> Either way could work. ECLAIR will automatically pick up 
+> __attribute__((pure)) or __attribute__((const)) from the declaration. 
+> Maybe it could be const, as from a cursory look I don't think the gcc 
+> restriction on pointer arguments applies, as the pointee is not modified 
+> between successive calls, but I might be mistaken.
 
-It's supported with caveats, so I wouldn't call it fully supported.
-See for example the recent addition of the pf-fixup option.
+Indeed this matches my reading of it. Yet things are somewhat delicate here,
+so I like to always leave room for being proven wrong.
 
-Note the wording in SUPPORT.md:
-
-"PVH dom0 hasn't received the same test coverage as PV dom0, so it can exhibit
-unexpected behavior or issues on some hardware.
-
-At least the following features are missing on a PVH dom0:"
-
-I think it's quite clear from the usage of "at least" that the list of
-caveats might not be complete.  The missing ACPI tables would just be
-one extra caveat, which sadly we didn't list.
-
-> >> Further tables on said system
-> >> which weren't blacklisted prior to that commit, yet which also aren't
-> >> whitelisted are DBGP, DBG2, FIDT, LPIT, MIGT, MSCT, NITR, PCCT, RASF,
-> >> SVOS, UEFI, WDDT, and WSMT. Even without diving into the details of any
-> >> of them it seems pretty clear to me that at least some would want
-> >> whitelisting, too.
-> > 
-> > I cannot find any reference about: FIDT, MIGT, NITR, SVOS and WDDT in
-> > the ACPI spec.
-> 
-> WDDT - Watchdog Descriptor Table (Table 5.6 in spec version 6.5)
-> 
-> > The MSCT I think we don't want to expose, as it's related to topology
-> > data.
-> > 
-> > Regarding RASF I would be slightly worried about the patrol scrub
-> > feature.  The memory map exposed to dom0 will be different from the
-> > native one, and there's also the interposed p2m.
-> 
-> Thing is - either kind of Dom0 needs to have a sufficient level of insight
-> into the host memory map to support memory-related RAS features. Which may
-> mean that RASF may only be exposed if the Dom0 kernel declares itself as
-> aware of the need to consider data there to refer to a separate address
-> space.
-
-Yes, but then, how is a PVH dom0 going to be aware of such addresses?
-Given the automatic translation of gfn -> mfn that's completely hidden
-from dom0.
-
-I'm not saying it can't be done, but I think RASF shouldn't be exposed
-to a PVH dom0 until we understand how such feature is supposed to work
-with the interposed p2m and the fabricated memory map available to a
-PVH dom0.  Note a PVH dom0 can still get the host memory map from the
-XENMEM_machine_memory_map hypercall.
-
-> >> --- a/xen/arch/x86/hvm/dom0_build.c
-> >> +++ b/xen/arch/x86/hvm/dom0_build.c
-> >> @@ -1010,12 +1010,20 @@ static bool __init pvh_acpi_table_allowe
-> >>              return true;
-> >>          else
-> >>          {
-> >> +    skip:
-> >>              printk("Skipping table %.4s in non-ACPI non-reserved region\n",
-> >>                     sig);
-> >>              return false;
-> >>          }
-> >>      }
-> >>  
-> >> +    if ( !strncmp(sig, "OEM", 3) )
-> >> +    {
-> >> +        if ( acpi_memory_banned(address, size) )
-> >> +            goto skip;
-> >> +        return true;
-> >> +    }
-> > 
-> > I may have put this ahead of the loop, so that the goto label doesn't
-> > go backwards (which always feels weird to me).
-> 
-> It felt odd to me to put it first; I'm almost always hesitant to add stuff
-> to the front of something that's already there, due to the possible
-> implication of "what I add is more important than what was there before".
-> 
-> As to label vs goto placement: It's the other way around for me. C wants
-> everything else declared before use. Hence I prefer to have labels appear
-> before their use. I'm actually puzzled by Misra not sharing that view,
-> and instead having Rule 15.2 (which we haven't adopted yet afaics) to
-> demand the opposite (and assuming Rule 15.1 is being violated in the
-> first place).
-
-Oh, I see.  No strong opinion really.
-
-> >> +
-> > 
-> > I wonder if additionally we should print tables filtered to dom0 here:
-> > 
-> > if ( opt_dom0_verbose )
-> >     printk("Hidden ACPI Table %.4s\n", sig);
-> > 
-> > So that it's more obvious which tables are not exposed.
-> 
-> I, too, thought about that, but assumed it may not have been done before
-> for a reason. Plus it would want to be a separate change anyway, imo.
-
-Indeed, it should be a separate change, sorry if my comment made it
-look I would rather merge with the current commit.
-
-Thanks, Roger.
+Jan
 
