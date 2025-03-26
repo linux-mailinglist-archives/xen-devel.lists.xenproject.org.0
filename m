@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F03BBA71B8E
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 17:11:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928091.1330871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81812A71BB1
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 17:22:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928133.1330891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txTLL-0005sS-TR; Wed, 26 Mar 2025 16:11:03 +0000
+	id 1txTVU-0001fQ-0g; Wed, 26 Mar 2025 16:21:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928091.1330871; Wed, 26 Mar 2025 16:11:03 +0000
+Received: by outflank-mailman (output) from mailman id 928133.1330891; Wed, 26 Mar 2025 16:21:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txTLL-0005p9-Pk; Wed, 26 Mar 2025 16:11:03 +0000
-Received: by outflank-mailman (input) for mailman id 928091;
- Wed, 26 Mar 2025 16:11:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1txTVT-0001dy-TO; Wed, 26 Mar 2025 16:21:31 +0000
+Received: by outflank-mailman (input) for mailman id 928133;
+ Wed, 26 Mar 2025 16:21:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=16MU=WN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1txTLK-0005p2-V2
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 16:11:02 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e8ab7954-0a5c-11f0-9ffa-bf95429c2676;
- Wed, 26 Mar 2025 17:11:00 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-ab771575040so220807466b.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 09:11:00 -0700 (PDT)
+ id 1txTVR-0001ds-SV
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 16:21:29 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5f400da5-0a5e-11f0-9ea3-5ba50f476ded;
+ Wed, 26 Mar 2025 17:21:29 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43d04dc73b7so219255e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 09:21:29 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3ef86e529sm1056919966b.21.2025.03.26.09.10.59
+ ffacd0b85a97d-3997f995a10sm17107688f8f.6.2025.03.26.09.21.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Mar 2025 09:10:59 -0700 (PDT)
+ Wed, 26 Mar 2025 09:21:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8ab7954-0a5c-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 5f400da5-0a5e-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743005460; x=1743610260; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1743006088; x=1743610888; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1Vjq//Ay9AvSr5A0VMtoD3ipuHAoPhIoZbeOLTowXPA=;
-        b=s5yIgFGAQmhFONUHa6jiErMHljm3eVc9fvdmYhYzlHxeHC/wEGP87j15gxJOuekaPk
-         ENaFClEe8OPT3q1PnineQIFIXOBoNwDEfpi2rxB8s4fBPkWRwDaZ7WiKiLagyixjWDz0
-         c4Z3qp09WLVwY7ST5KLm2Xm3CQd7rz5GYsDWs=
+        bh=ITzV4RzZv9w40RJ+s/udDv7KA+w6lF6nlHTPU/fyW2s=;
+        b=gh7fN6S8SiZiJBp6A0+0ezuWCnC+Y+ItTI3iTsgAS9/92iCTEPbYYL+TbADmjbiq0A
+         QYIgDIaL/LfekxVU9R1MGsd+Qm/urekTSzetc7tZ8s83h482XnEQS9QI60gf0bt+3QfF
+         2ciMKjQLLcOXpyDRbv/xxCDEuFI+hte6eJe+A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743005460; x=1743610260;
+        d=1e100.net; s=20230601; t=1743006088; x=1743610888;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1Vjq//Ay9AvSr5A0VMtoD3ipuHAoPhIoZbeOLTowXPA=;
-        b=VvTVZtFkHe1MOYzL93p8BcbHmUEiepQ9eJMYajQUJh+Fx9OjMNn+7QZBjbPgebt6Qm
-         3o/Tf5EAW+cAvrpGPBNsdF4yYLzVKEeEoH0dtnzOXiVBe2OTGw+ft4Fk9W4lTGo5+aT5
-         lEFjf1Oo+AfKonGwZKiHMUku6jTmcm1idRHY3hP4OEuAZEYcTpBKyAzgLovr98BiklXP
-         2DGD8hRv2OUSz2dSVx44PjTOHiP+zLKs17+cKn1yGMq5zxTwjwHbYvVTSMoo8FkSqsOV
-         W5NgHLcizNMgRQq3Z9yclRtzqlP2iv7QwI1ZkmNU2FpOzTVCbfMrpaHIoHpPdRazKwlL
-         w0nA==
-X-Forwarded-Encrypted: i=1; AJvYcCV+72HvrtVrQTh/S3LiIW0Rn0jb1QBojCUB3gihXs8FUkMDdh8jKOt1FymZZ0FRCTTO27/ATfsJDHs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy71cYE8DCwto7GfRV2ShUYr8wocukRRN7kW1QMgnltxe7pGS/h
-	SfsVuxRiv2w9uS6seXwP3EmweZq4kkp+Inn0kgrWMReM9ueNXMtuxFabriQdfHg=
-X-Gm-Gg: ASbGncu0Ut0b1d8RK7Eic9zSUqeIxacbdtmB5SwLPMMinJZGYL0DLzSSCcqJPX4nYNd
-	bRuE2ok1vwK9W0nJvukW+JWpqyP+V5MYGdKfQ33PYN+C1jttXAljlcIO4ObL06Q2VPu1M90/oHN
-	ZZ4zJXh4xPbu3O0tBGGAacmmP8K/z7YYUOxVT4f2gck7ZfkoNNf4ysHf5+9iIPRT6XxPSNC4PNg
-	r6ZB5X1IeMXauwo45+jxagcve7yaCs7PAzUxlFjorztJO6Ag4W4h7tmNhf++6ZwlMcvxddB55K1
-	WMljkz8waqDm0ftDrxvWaOEcK56/EZO3IxMjJJ+TWohJB1uS3Q2nd03vMVCTJzGJz2tp1Dwfw0z
-	87gIgX8cLrw==
-X-Google-Smtp-Source: AGHT+IHrbUDmpQ4d+X0qbNuncwvsqoK6JHWS4D5t7xznyETaIM1ctNbRzFbHV55UUGVd2fwwmnkoUQ==
-X-Received: by 2002:a17:907:6eac:b0:abf:6bba:9626 with SMTP id a640c23a62f3a-ac6e0a0fc82mr396975266b.12.1743005460031;
-        Wed, 26 Mar 2025 09:11:00 -0700 (PDT)
-Message-ID: <2f59957f-743a-4c29-912a-3fdaf137cbd6@citrix.com>
-Date: Wed, 26 Mar 2025 16:10:58 +0000
+        bh=ITzV4RzZv9w40RJ+s/udDv7KA+w6lF6nlHTPU/fyW2s=;
+        b=WIHDIbv6uNwlSxYjKGiRwhfHoD7/lLD20LglzwkWHKS4FUyZ8lxrkK5uL20IAdYGLl
+         sZRWycfug/tab1Htour7+Af9DDc29VuqrkdqgbsDE32T08Cctk3Vy1SEAW4k5ATjfCfX
+         27uYVwNO3zFvU+S3LZyR3dgpF3HIXGaZbF+MXloZeGFG3U0qXo9oMGeMRTuLMR8ivvlG
+         FdGNKNa8QOUwRK15C+1d2i3Nwcxb/AZG5kQT01hEiGZ41f74oRt4AakFuzOXreaBfbKV
+         6jmdbw906F3fQli5+ZgxPcogVuyL7M33uzSuEL48EOUbJsSLJJnpGkxBJghj8lo0txMU
+         CRLQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWIX8tbvSfnc3iCvk1NsoxF0Uk5jth2wN+0OF3DRQ72zSNl+K38IDdidXG+pIFckb4uDLWqLEtSyF8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxxiOvg3s2iWT6MmmNdQmriHaXWcJH1e2arHShakOPsIOnDy4lQ
+	ARyLsIFJV+PKXXkqmuwv6+9l6RxIb67DBHPDM68uzKMez862OyYJel1OU0scL08=
+X-Gm-Gg: ASbGncuJqiE5CyyQazjqpF6cytuqZIk3QnIqghwS3Fjtd3brbXyRH26ZBr54t9BlZbz
+	tiF8dkn4mMYYY9q7NrMYfPUlD8Ulz5gtxAiZOSsfM1jPRVUIi+UqYNZOD8KwWpmq0BtlYfou1Oc
+	4xAoFmXuw9ayWU9a2y6lARQ54EwPNqHPg6p4uBxhHu4XaRJzOFs+oEXlBjneiFS1nj4isTqULaH
+	2Finr1lF8oWA7UynKGtyfBbIhW26conlo93n3sTfu2xwHxtnsUYmWpVLxXnsngJO7YtJI/Rra0h
+	eKD9nRsUUTGdsZCggZO0SJ368yYilqzAIcyUazr9RzEyQRw/MLwHVJux4hXMKyWOhguNgHvd9Zh
+	Ov8t9FDvxMj1VJAQ4UZyY
+X-Google-Smtp-Source: AGHT+IEobiCELOAyMQf8sMixKJ+zewpzUz9qqfDTutClbD5+s4R5qtxKpMTBJza/kxRRs8CxwG+mHw==
+X-Received: by 2002:a05:6000:4285:b0:391:1473:336a with SMTP id ffacd0b85a97d-39ad178dc1fmr1170f8f.36.1743006088352;
+        Wed, 26 Mar 2025 09:21:28 -0700 (PDT)
+Message-ID: <39593610-1bd4-4319-9429-7cffeadd0da7@citrix.com>
+Date: Wed, 26 Mar 2025 16:21:27 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] remove qemu-traditional
+Subject: Re: [PATCH 2/6] docs: remove qemu-traditional support from
+ documentation
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Nick Rosbrook <rosbrookn@gmail.com>, George Dunlap <gwd@xenproject.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
 References: <20250326160442.19706-1-jgross@suse.com>
+ <20250326160442.19706-3-jgross@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -142,21 +138,28 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250326160442.19706-1-jgross@suse.com>
+In-Reply-To: <20250326160442.19706-3-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 26/03/2025 4:04 pm, Juergen Gross wrote:
-> Remove the qemu-traditional support. This includes the Mini-OS
-> based ioemu-stubdom.
->
-> I _think_ rombios support could be removed, too, but this can be
-> done in a second step.
+> diff --git a/docs/misc/xenstore-paths.pandoc b/docs/misc/xenstore-paths.pandoc
+> index a604f6b1c6..583e977b65 100644
+> --- a/docs/misc/xenstore-paths.pandoc
+> +++ b/docs/misc/xenstore-paths.pandoc
+> @@ -634,7 +634,7 @@ Path in xenstore to the backend, normally
+>  
+>  Trustworthy copy of /local/domain/$DOMID/backend/$KIND/$DEVID/$NODE.
+>  
+> -#### /libxl/$DOMID/dm-version ("qemu_xen"|"qemu_xen_traditional") = [n,INTERNAL]
+> +#### /libxl/$DOMID/dm-version ("qemu_xen") = [n,INTERNAL]
+>  
+>  The device model version for a domain.
+>  
 
-XenServer is still using RomBIOS, because qemu-trad and qemu-xen were
-not inter-operable and we needed Windows not to go a shade of blue. 
-Therefore I'd prefer if this could stay in it's off-by-default form,
-rather than carrying a revert.
+As a spec of what might liably be found in xenstore, this probably
+shouldn't remove "qemu_xen_traditional" entirely.  Perhaps an extra
+sentence saying "qemu_xen_traditional" is a since-removed dm-version?
 
 ~Andrew
 
