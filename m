@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 344B9A717F0
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 14:59:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.927843.1330600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDA55A717F5
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 15:01:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.927851.1330611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txRI5-0003pp-Ip; Wed, 26 Mar 2025 13:59:33 +0000
+	id 1txRJU-0005OH-TH; Wed, 26 Mar 2025 14:01:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 927843.1330600; Wed, 26 Mar 2025 13:59:33 +0000
+Received: by outflank-mailman (output) from mailman id 927851.1330611; Wed, 26 Mar 2025 14:01:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txRI5-0003nF-Fw; Wed, 26 Mar 2025 13:59:33 +0000
-Received: by outflank-mailman (input) for mailman id 927843;
- Wed, 26 Mar 2025 13:59:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PxEH=WN=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1txRI3-0003n2-TT
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 13:59:31 +0000
-Received: from fout-b8-smtp.messagingengine.com
- (fout-b8-smtp.messagingengine.com [202.12.124.151])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 86edeeb9-0a4a-11f0-9ffa-bf95429c2676;
- Wed, 26 Mar 2025 14:59:26 +0100 (CET)
-Received: from phl-compute-07.internal (phl-compute-07.phl.internal
- [10.202.2.47])
- by mailfout.stl.internal (Postfix) with ESMTP id C202D1140160;
- Wed, 26 Mar 2025 09:59:24 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-07.internal (MEProxy); Wed, 26 Mar 2025 09:59:25 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 26 Mar 2025 09:59:22 -0400 (EDT)
+	id 1txRJU-0005LH-Po; Wed, 26 Mar 2025 14:01:00 +0000
+Received: by outflank-mailman (input) for mailman id 927851;
+ Wed, 26 Mar 2025 14:00:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=SgUP=WN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1txRJS-0005L7-Lj
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 14:00:58 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bd58ac23-0a4a-11f0-9ea3-5ba50f476ded;
+ Wed, 26 Mar 2025 15:00:57 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43cf06eabdaso63630515e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 07:00:57 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d7ae6a319sm13803325e9.0.2025.03.26.07.00.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Mar 2025 07:00:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +45,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86edeeb9-0a4a-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1742997564;
-	 x=1743083964; bh=W/FX7ohQ/5ZT9nYAekaJAdnJKpms/fZaHpPLyQzp93w=; b=
-	uVa0g5LVgh+F1eNrk9m0NUqrXQ70cmnNeRNBHH7beItib9C+Xl46FuCK7aCBpnfQ
-	KeWWCrTGxe8dUsZ1ktGsvfehPgNubudVQJJE612wtT79hOJNSsB5XDXX01ECErJC
-	E0IKvXxwFIr47k2R5lubsSmSE60mv5OSQDuvGkHbigc42Ln+nu4RDZph5GTtR/I/
-	4ckUsiT0lePbPvXGIOMvR7QLTlHNyFzLJOUzpnJGByixn5x6KiHsBa1ob8ANB/3a
-	ouCtfcnO8Whbn6xWBT7TQ7I1NvBgY0fkWH109mxa/5ILDfnzyFd2+o9P6hye+WGv
-	+03aKYBIZzSi5lRhZP+1PQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1742997564; x=1743083964; bh=W/FX7ohQ/5ZT9nYAekaJAdnJKpms/fZaHpP
-	LyQzp93w=; b=trFMnLljfShmShB156yjl/TNED8011EgPTTNDJmYz2JfraLYTY1
-	0ez3ow8eCp8tlFD8Fq7GoekRqEBuoCgSFq+Zt7dtzoX0/fU6H2lAgu44uBxjy7AG
-	hmh1MJpdWiv+wGjgG/2lSBGmTxbF8j9qJJ6LwXITqW3V8lQMOvhLgFA31v3jBPT/
-	p7lemuHlLLQXLnLeJo96QLqYPcsE+lKliyWIkI2jbQFOAac8xeTGoclaZEgJXrA8
-	REQ9Ib8yLJ8yR8T5L4uxaI+mV7pKG3MZAqMth0OkfqMZVCpquUDaUVVfJTJ+3ekv
-	c6RS355TtBkWP1OVl7KP+CBciTv5nuSvrOw==
-X-ME-Sender: <xms:PAjkZyJIRTuBWC8x439dw_omlc6C88A__b2tDKL1W3ENa3K1ITXKWQ>
-    <xme:PAjkZ6JenL51I2Axecz_Wca5C9q8CXSCfd2Ugml4n-riEwGyONXi_DLD6lb3EwbJW
-    2oxmyUEBLCrgA>
-X-ME-Received: <xmr:PAjkZysvUlYK3Zp0bpaDDNK-Aj8qwO6gygYEjZ41FN2Jfzv4NDO7F2ZFgGve7h_919Avj2XeJyfsdyOjq4-IKfOY46ZEvPpv3w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdduieehjeduucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
-    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
-    ggftrfgrthhtvghrnhepueekteetgefggfekudehteegieeljeejieeihfejgeevhfetgf
-    fgteeuteetueetnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghr
-    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeelpdhmohgu
-    vgepshhmthhpohhuthdprhgtphhtthhopegrlhgvjhgrnhgurhhordhvrghllhgvjhhose
-    gtlhhouhgurdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigv
-    nhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefse
-    gtihhtrhhigidrtghomhdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgr
-    thgvshdrthgvtghhpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgurdgtoh
-    hmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopehj
-    uhhlihgvnhesgigvnhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrh
-    higidrtghomhdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhr
-    gh
-X-ME-Proxy: <xmx:PAjkZ3Yj5qH6-xubYF58N9m6sKapJxAuRX8Qc6tYUKuY2N1n9AAGxA>
-    <xmx:PAjkZ5bh5PPbdRJ487w1SGDXvuDO-MoLau7zmkH3xRjTuhXu9N4x7w>
-    <xmx:PAjkZzBtTwYgKoeYi3Wsrvc88k1QofAYZkXehXkqWpxoGkke6uEyJg>
-    <xmx:PAjkZ_YuyMYDiwWymMqdVt_7sxKLqvfsCFZ071fvu9nbw6vESzYiAw>
-    <xmx:PAjkZ7kNQ1ZVCUQve3ubVBhhw2rG5xQ68tWyQjRQJI8wH5Jd-wItqfPR>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 26 Mar 2025 14:59:20 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] tools: Remove support for qemu-trad's battery reporting
-Message-ID: <Z-QIOJax7of-y79f@mail-itl>
-References: <20250325174110.467-1-alejandro.vallejo@cloud.com>
+X-Inumbo-ID: bd58ac23-0a4a-11f0-9ea3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1742997656; x=1743602456; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=J/YkBCNDG5AJayj0A2z2q3xg0RgGE5rehh637fLxSYs=;
+        b=M2GYyhUJCbjpl/UotSs0N0LWPbX7sjih3z33e9IbA6JSbc9TSTjOEJ9KLjDrrxHNmK
+         mUcUnqK5eyFtHzDgUmNMfhxSSb8C/xoNR+hIuIuEI3tMoLuYZ7jn69b6zac49g8FCUgD
+         NjTVcaqkzd4zP7dIrWDaptF0RIHUeIYbIXKbW5QBdlCO4NPovRmMjxSsHV0G0XmvtMMj
+         Hus/HVaoftTG5AFPgvNNfFbTRrhZZgC+7rTJS03oS6H3yIglz1SNVfbKQSfhQiq67inf
+         lGXXv94dv79W34eJJjxZJxMvVZvbEe/mbTFOxSN05N775QgWmXGuwZ474qIsmaplmQst
+         OoFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742997656; x=1743602456;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=J/YkBCNDG5AJayj0A2z2q3xg0RgGE5rehh637fLxSYs=;
+        b=U2WvkigMs19fmM4WXdlFR7elpIkaIKLQu3B6rDENvDOh9wqDfAee+O006UdLV9pR3S
+         NcYsDCSoerU06AwP2Y2B7UpaDCA1K/J2/BCBuf89euMGSk2MqPhX41a2WimikrS2ME8S
+         m1aR/dRHdEZzV1KjSJhMzi+bDxIiof1fGgflHBEAX1/tdze8FD28Q4Qo87XHoyxHZTMW
+         MBxPARVOju7hVCmxW6POEGGbDzhjpX1WORA3TTKBbz3WYRkH+wpMaFtB6I2bqFCDJh3m
+         C7W5CI5Qnug2BO6pzuIlk6IurAp49L6Kw8O6znzQpihjVb0VWn9Ijy4ms2vSCTIme1Tp
+         JOtA==
+X-Forwarded-Encrypted: i=1; AJvYcCU9YyN3JCkuOfPW/P2ksOgW7SqNiScQasho4UFjv2ivtKG7qKNBf7wiVizJU5cwy9TpQLQvN5yVtWs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw2pKCUlqcCfGpTgUmpmsu0t2KmBgDcf9Fy6FoZQ9mtbc2xf2lc
+	9WFx0RGIXEYd/p+uYGVRdHO5wE6X5QtN0WP/xw1IyKTWA1Npwd65irgjdXL18Q==
+X-Gm-Gg: ASbGnctDe0sZFvBcunWunv770W42vyI4IEgq6n4pYmrKs9R7VkEIpxfwqS8ukJ8syyP
+	9qtsEOLJYt7WKPquzmXBocE1geSl4TuzgEquSuFnLUAntPtWqTPn250la2quV11/SXcMpg46N9k
+	DZR9+1LP04Z2BGvX+VN1hEEPzc3HccCYz4KrEVlJc+vV1iov9R5db8hsiwZxXnMaSh8+Ur0U5dh
+	Ko7UUnn7GVzSFHIhb9LRyP6k8KOn3EoFuhnpaniH4bADw8zXd4KNcU1zWfgOfgz151xvnVnkQm7
+	AWmIvX0rHtx9puJLBWGRHYjHay+KSG4xfTzuXyWnjm4Mh6EQZm3U5qsdCLL2ExCegfIF1r3DvZ0
+	aalmm5gFFZuULrTOFyLGZONulz/aoEw==
+X-Google-Smtp-Source: AGHT+IFQ8wXIvESNmKYHLYp6tjBzJTSQK2uSuR5ydyCCacQ5ezbAeeFLEP065r2ysITMQ0mB/EA6aQ==
+X-Received: by 2002:a05:600c:154a:b0:43c:fa52:7d2d with SMTP id 5b1f17b1804b1-43d50a37825mr199162015e9.20.1742997656294;
+        Wed, 26 Mar 2025 07:00:56 -0700 (PDT)
+Message-ID: <3680cff3-5dc9-439d-a154-1abaee94c3ec@suse.com>
+Date: Wed, 26 Mar 2025 15:00:54 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="9JNzTgQ/l6L/ioVg"
-Content-Disposition: inline
-In-Reply-To: <20250325174110.467-1-alejandro.vallejo@cloud.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 6/8] xen/console: rename console_rx to console_focus
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250318233617.849903-1-dmukhin@ford.com>
+ <20250318233617.849903-7-dmukhin@ford.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250318233617.849903-7-dmukhin@ford.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 19.03.2025 00:36, dmkhn@proton.me wrote:
+> Update the symbol name in preparation for the semantic change
+> to the physical console input owner domain identifier.
 
---9JNzTgQ/l6L/ioVg
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 26 Mar 2025 14:59:20 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] tools: Remove support for qemu-trad's battery reporting
+As you say, no semantic change here just yet, but then ...
 
-On Tue, Mar 25, 2025 at 05:41:10PM +0000, Alejandro Vallejo wrote:
-> The way this undocumented feature works is via qemu-trad (who nobody
-> uses anymore), by intercepting 3 magic PIOs. 0x88 is one of them, and
-> it's probed by hvmloader as a means of detecting support for this (so,
-> on qemu-upstream this check always fails). If hvmloader detects the
-> feature, it appends an SSDT with AML inherited from some laptop ~20y
-> ago. QEMU then communicates with a userspace daemon (xenpmd) via an
-> undocumented xenstore key ("refreshbatterystatus") in order to report
-> battery levels.
->=20
-> Seeing how no one uses, mantains or cares about qemu-trad anymore, rip
-> it all out. The hvmloader check, the SSDT generation logic and xenpmd.
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -465,12 +465,9 @@ static void cf_check dump_console_ring_key(unsigned char key)
+>   * and the DomUs started from Xen at boot.
+>   */
+>  #define switch_code (opt_conswitch[0]-'a'+1)
+> -/*
+> - * console_rx=0 => input to xen
+> - * console_rx=1 => input to dom0 (or the sole shim domain)
+> - * console_rx=N => input to dom(N-1)
+> - */
 
-Oh, I didn't know something like this existed!
-We needed a feature like this, and solved it via extra kernel module +
-PV-like interface to feed it with data from dom0:
-https://github.com/QubesOS/qubes-dummy-psu/
+... this (correct) comment is replaced by ...
 
-I guess it doesn't make much sense for me to resurrect the old interface
-and bring it to QEMU upstream, as I need the battery info in PVH too.
-So, I'm fine with removing it as is.
+> -static unsigned int __read_mostly console_rx = 0;
+> +
+> +/* Console owner domain identifier. */
 
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-> ---
-> If this feature is truly wanted, it must be implemented in
-> qemu-upstream. Ideally in a MUCH less roundabout way. And definitely
-> without involving xenstore.
+... this (right now) incorrect one.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---9JNzTgQ/l6L/ioVg
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmfkCDgACgkQ24/THMrX
-1yxfzQf/cxFSm5+S81Qzk3jIpmox5DoY0f2/owTtjiHoTLFJQQhPiTbq8fiY/H/8
-y0fG8L+wMIP4RnRZXa6NmI9m5ZzMxk7RVGCvlVahhCqrfHSviIY85soQAVREP8DS
-hnSRCvlu6YCxWAwGFqpXV4fx3dbiakzZ+tITw1QFngDUth3YjNfeSMNTtxJ/l6dr
-BcmRPwcvePQfti/sN21jC9uZhA+JBCYcg4zDgxZer2lOaY0hEg+/IIYaMatZzRqs
-QTVDgf92yML1M3/4LjnbH8f3YGjb6A1Mu2BAWMfpn66ogwgK7neDdnXay+EZpmn+
-5Qfcfq/Jc4X7RkCpTzQt1nMFS23lmA==
-=FuQg
------END PGP SIGNATURE-----
-
---9JNzTgQ/l6L/ioVg--
+Jan
 
