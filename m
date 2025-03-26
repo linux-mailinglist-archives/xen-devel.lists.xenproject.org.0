@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1679A71A67
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 16:33:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928009.1330770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4109CA71AEC
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 16:44:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928021.1330780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txSkk-0000RR-JY; Wed, 26 Mar 2025 15:33:14 +0000
+	id 1txSvL-0003ET-If; Wed, 26 Mar 2025 15:44:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928009.1330770; Wed, 26 Mar 2025 15:33:14 +0000
+Received: by outflank-mailman (output) from mailman id 928021.1330780; Wed, 26 Mar 2025 15:44:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txSkk-0000P9-Gu; Wed, 26 Mar 2025 15:33:14 +0000
-Received: by outflank-mailman (input) for mailman id 928009;
- Wed, 26 Mar 2025 15:33:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SgUP=WN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txSkj-0000P3-Dj
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 15:33:13 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9ffdd6c1-0a57-11f0-9ffa-bf95429c2676;
- Wed, 26 Mar 2025 16:33:11 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3912c09be7dso4669079f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 08:33:11 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d82e83482sm5929025e9.14.2025.03.26.08.33.09
+	id 1txSvL-0003Ca-G6; Wed, 26 Mar 2025 15:44:11 +0000
+Received: by outflank-mailman (input) for mailman id 928021;
+ Wed, 26 Mar 2025 15:44:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XIkG=WN=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1txSvK-0003CS-2K
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 15:44:10 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 28260706-0a59-11f0-9ea3-5ba50f476ded;
+ Wed, 26 Mar 2025 16:44:09 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-abbb12bea54so991887966b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 08:44:09 -0700 (PDT)
+Received: from localhost ([46.149.103.13]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac3ef86e4f1sm1053698066b.29.2025.03.26.08.44.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Mar 2025 08:33:10 -0700 (PDT)
+ Wed, 26 Mar 2025 08:44:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +44,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ffdd6c1-0a57-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 28260706-0a59-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743003191; x=1743607991; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D6mNQiPv2roExn7o1sekMybwiaNzAsyneItle3PBlpk=;
-        b=O6Lfk+dcVRB9Bk6Bse+r143fgidkI2U6faz9Uj8W0YGqanqA+kpsy19PK78FcBAC/1
-         AKbXkLcZuK9XZ6UCkwtP8jk+PxBgWU+KuJ3P/uvEVdQ9jLN3HX8fDjDeLV/m4wxN0/iO
-         TrtpdLPO88SEQvbO5gK8GaVN8+K6UOEeXJV3ZYfJQSv0GUnLdFoTZsE1+Zf3y4nKm5q1
-         OZnLeLfL1X8kJPvlwK6DO4HoFN+4t4WKdaRo/qhR6y2WTWOnim4FMAl0VU6iY6tuLd0X
-         /FpEAagDREk0+9kuYXw40BjJ5YyA5WIBYUF06X1XHePvmyeRvzRs7tFv8jdJg1j6l1MH
-         7wLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743003191; x=1743607991;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1743003848; x=1743608648; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=D6mNQiPv2roExn7o1sekMybwiaNzAsyneItle3PBlpk=;
-        b=Lobo9r/LcGtUdomJ6Dzbfdh4pU45gzTqP6TCLeaJvNBhld5/Ud7+gWsK3P42iMec4J
-         oNyx7waCzQ1GS0nQsWOLw1ZhZPF6I56dgTewllh+P3XalptPqmzEoi8YGS8vtTjQ3HAs
-         54ivJgO1kGPTk/xqHZ+hWrAjKQ2TlHa0pBAvOaKeqYNfsVa+6eb3L2bPuRNrt375/Wvr
-         hhpwEsif7KGL/dsTEKQJdTiouuZJwjTkxWvaH5TVLv6rFA51D+OAS7uQUQVTuIIKUkHh
-         Arvip2CyaH9CuPwBMtou5481O7tHT3iH9DhfXSuhjw15v2uCt6wcCW8Rw6TuMdLk6F06
-         qNAQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU7rtjLLdc3toJXE7/xCDOJFzjiuKbDEEBvzpuIuDWYxOn3cZ7GOtvWYlmCYLBPngIQynFkSpjQK3g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyTC8PWzIjz8hEQu71h0XWDaeRNcZ2d2p+it7dSRJel9C07EwOI
-	3fEf2tIQHGq9s8zUCnlL8zPT8JGONi10sTX2FaaSeNVl72g4lsELRfx+vFDR3g==
-X-Gm-Gg: ASbGnctYWqVwoQHH4H8SHt8gvQKqBW6ztgBiA59/zS0zAqptJ0Lieg9xBj6ppHlAXce
-	5sEV77+eJvwckKTYBp4N6Y27oRQcQht3UIqTenwSN3CIWor3n3A8PEJXxHufgfK/xalIAfbYOjG
-	At0+Mt7YWw+qzOgxM5bP1qVEsenkyLcK1bnbnYHfqJxIh2cp8sKNeaJGq+XcZlhzkumJGQkisrw
-	JPC7r0RJYXPODMcSHLN9UBlVl5s8O4VEOnhkQaTIp65FdwrSgddrHYBHrvAAcHAQnmgPbb8cIUi
-	5w8SsE0EjNd4uVlqMvlmdZKVKKFe4AS61uIAVNEz2s7sPfkg6veGHvcJB2bAc2wdEjzBQniMidt
-	AcDCLnUqPGAGuX3B75hK1YpGm0cOtjSXWVu+Pk3Nl
-X-Google-Smtp-Source: AGHT+IG3cMWRg9GpjcfBghWL7oqhUP++O/0VjDq4zeOdi/WtmSsB4JbzrNNA/Mw6oA2BrZ3h6OPuFw==
-X-Received: by 2002:a05:6000:1864:b0:391:10c5:d1ab with SMTP id ffacd0b85a97d-3997f8f61d0mr17234935f8f.5.1743003190558;
-        Wed, 26 Mar 2025 08:33:10 -0700 (PDT)
-Message-ID: <4af7fa9a-ec99-4304-8016-9f1448d9e2a6@suse.com>
-Date: Wed, 26 Mar 2025 16:33:09 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/emul: Adjust handling of CR8_LEGACY
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250326152558.350103-1-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250326152558.350103-1-andrew.cooper3@citrix.com>
+        bh=t/gA25aNLaH15+MxnPrTob9W9SY86dCiAks8WiBXv5M=;
+        b=QGjyLTRz3UHNwlNnnIy4bi9yNPbgPe5OcULlei3cwd7PDeKb1/gtYF1/ISBKYOzvT1
+         Locna1zwhJ3G5QeBMtH59ES9t3xqWPlSc69MDRh7WnmRgM9zBUp9nq08GJbDgYQDOs8/
+         2kSPRXeVNqcJYju1h/+Q73lYkXOhrMxO1WDe4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743003848; x=1743608648;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=t/gA25aNLaH15+MxnPrTob9W9SY86dCiAks8WiBXv5M=;
+        b=lJGMFU7lnQApe9AY7JX4DM7NXVnPHPN/rSONfh7jI0BLSvolVKVTaCenMGoX5xkRzL
+         4q7a/yO5jjSR914FZaGw0SK+iXXum1A8rcE3ymCSj004clmPRNwHQRXT+bIjLRZXb0mZ
+         xpgNi5DVdFxBSSozWHp7qMeazN6tsg27n7p8C1Qus8fxKbqMtodQEv5vYTHii/6yMmRE
+         4BClkq2WP2US6IsvkhG2GTEgnIuocC236M5xINo8q8+OVW7DxIXu7ztIku9NSdX5ypVL
+         AVXJhUx5fxd0O3fyDFJyIeUkSvDn1Qp45CKIv5Kh/5mnwr/PjpJ8DjzCDqUkqRvM0S99
+         rG5w==
+X-Gm-Message-State: AOJu0Yzyme3tg2ED5H+wlVQT5GHc11T4ifZuBeziuofql/+jLdICTjhK
+	6eQ9FHssbFWnEflJuwKukq+RIIExLX+6rBQffmY6AVYs2luh+C2a5qtZxlUHWe8=
+X-Gm-Gg: ASbGncvqCzGlDedZLukzMIUWc4KmMBu/Y2upxAoV4nmH5F0LGsiHwOG+ibA/1jXyjPF
+	LHhMz7xMpAp5rNc4f2aAyKlLfndxseW2l0pEzJaEvL8JEpPAv04pkGfzkwv3hS6dhXo2GfvEtjO
+	GWbvotC6f9cSNjjzXl48tO3KT3whdy9v9XfQg3+H5RoRZIsuke1nh7esxEXSD4Oa7sg1V4z00Ug
+	dOh+JJLStdnURyO4gVSm1xcNwf9uXvZL+qXdWrxpTzHlc8jt390ob6t6JGhonGgGBz6Z4OcTApH
+	TuBWJkp0z4LFgMykCZdeXOH+T5qidUHNmS46KWYdyBuWOexjB0Mk1jZ1fHObxQ==
+X-Google-Smtp-Source: AGHT+IGGxe5drznngos4Vd7+Dh2Mofsgf6B/DAjK4gVuktDK4a9UQeKp8n3KVKEa/blQJTNglaqQ6Q==
+X-Received: by 2002:a17:906:4fcd:b0:ac3:49f0:4d10 with SMTP id a640c23a62f3a-ac3f24b42camr2300812866b.38.1743003848464;
+        Wed, 26 Mar 2025 08:44:08 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Wed, 26 Mar 2025 15:44:05 +0000
+Message-Id: <D8QBAOE8U497.UAKETQOU3D2Y@cloud.com>
+Cc: <xen-devel@lists.xenproject.org>, "Andrew Cooper"
+ <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>,
+ "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>,
+ "Julien Grall" <julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>
+Subject: Re: [PATCH] tools: Remove support for qemu-trad's battery reporting
+From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
+To: =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+X-Mailer: aerc 0.18.2
+References: <20250325174110.467-1-alejandro.vallejo@cloud.com>
+ <Z-QIOJax7of-y79f@mail-itl>
+In-Reply-To: <Z-QIOJax7of-y79f@mail-itl>
 
-On 26.03.2025 16:25, Andrew Cooper wrote:
-> The CR8_LEGACY feature was introduced in the K8 Revision F.  It doesn't exist
-> in prior revisions of the K8.
-> 
-> Furthermore, from APM Vol2 3.1.5 CR8 (Task Priority Register, TPR):
-> 
->   The AMD64 architecture introduces a new control register, CR8, defined as
->   the task priority register (TPR).
-> 
-> Give CR8_LEGACY a dependency on LM, seeing as CR8 doesn't exist on pre-64bit
-> CPUs.
+On Wed Mar 26, 2025 at 1:59 PM GMT, Marek Marczykowski-G=C3=B3recki wrote:
+> On Tue, Mar 25, 2025 at 05:41:10PM +0000, Alejandro Vallejo wrote:
+> > The way this undocumented feature works is via qemu-trad (who nobody
+> > uses anymore), by intercepting 3 magic PIOs. 0x88 is one of them, and
+> > it's probed by hvmloader as a means of detecting support for this (so,
+> > on qemu-upstream this check always fails). If hvmloader detects the
+> > feature, it appends an SSDT with AML inherited from some laptop ~20y
+> > ago. QEMU then communicates with a userspace daemon (xenpmd) via an
+> > undocumented xenstore key ("refreshbatterystatus") in order to report
+> > battery levels.
+> >=20
+> > Seeing how no one uses, mantains or cares about qemu-trad anymore, rip
+> > it all out. The hvmloader check, the SSDT generation logic and xenpmd.
+>
+> Oh, I didn't know something like this existed!
 
-But that's not what LM stands for in the dependencies. If you want to run a
-guest strictly as 32-bit one, you could suppress exposure of LM. That
-shouldn't also suppress the ability to access CR8 then, though - the LOCK
-way of accessing was - aiui - specifically added to allow access to it from
-a 32-bit kernel.
+In retrospect, it might've been for the best. I really dislike the way it's=
+ put
+together. Using xenstore feels really pointless.
 
-> Additionally, from APM Vol3 4 System Instructions MOV CRn:
-> 
->   CR8 can be read and written in 64-bit mode, using a REX prefix.  CR8 can be
->   read and written in all modes using a LOCK prefix instead of a REX prefix to
->   specify the additional opcode bit.
-> 
-> i.e. the LOCK prefix serves as an alternative encoding for REX.R.
-> 
-> Switch decode_twobyte() from += 8 to |= 8 to better match the description
-> given.  Other indications that the encoding isn't additive are that the CR
-> intercepts stop at 15, that LOCK MOV CR8 generates #UD rather than becoming a
-> CR0 access.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Also, designers never put an ADD into silicon if they can possibly avoid it,
-> because it's slow and large compared to the single OR gate needed in this
-> case.
+> We needed a feature like this, and solved it via extra kernel module +
+> PV-like interface to feed it with data from dom0:
+> https://github.com/QubesOS/qubes-dummy-psu/
 
-My reading of the respective doc was never resulting in something unambiguous.
-I find this argument far more convincing than anything that's in the doc.
+I did wonder (after learning how this all works) how you guys did it withou=
+t
+qemu-trad. I guess that explains it. FWIW, it's not hard to do this properl=
+y on
+QEMU upstream. We could create a new field under a BAR of the Xen platform
+device and instruct some (much, much, much simpler) AML to read the battery
+level from there. Then QEMU can ask the real system what the battery level =
+is
+and Bob's your uncle.
 
-I probably should have tried out REX + LOCK. Maybe I even did and concluded
-from it faulting that the two things are cumulative.
+But...
 
-Jan
+>
+> I guess it doesn't make much sense for me to resurrect the old interface
+> and bring it to QEMU upstream, as I need the battery info in PVH too.
+> So, I'm fine with removing it as is.
+
+... in principle I'd say QubesOS and OpenXT are the two only plausible user=
+s of
+this feature. So it's a tad pointless if you've since developed a working
+solution many years ago.
+
+Cheers,
+Alejandro
 
