@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A463BA71403
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 10:45:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.927402.1330148 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D657A7140A
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 10:46:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.927410.1330159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txNK7-0007OF-QS; Wed, 26 Mar 2025 09:45:23 +0000
+	id 1txNL5-0007uL-3s; Wed, 26 Mar 2025 09:46:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 927402.1330148; Wed, 26 Mar 2025 09:45:23 +0000
+Received: by outflank-mailman (output) from mailman id 927410.1330159; Wed, 26 Mar 2025 09:46:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txNK7-0007MZ-NO; Wed, 26 Mar 2025 09:45:23 +0000
-Received: by outflank-mailman (input) for mailman id 927402;
- Wed, 26 Mar 2025 09:45:22 +0000
+	id 1txNL5-0007rF-0u; Wed, 26 Mar 2025 09:46:23 +0000
+Received: by outflank-mailman (input) for mailman id 927410;
+ Wed, 26 Mar 2025 09:46:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SgUP=WN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txNK6-0007MT-7u
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 09:45:22 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=k+Jq=WN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1txNL3-0007r3-Fj
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 09:46:21 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 083ecf58-0a27-11f0-9ea3-5ba50f476ded;
- Wed, 26 Mar 2025 10:45:21 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-39133f709f5so3500112f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 02:45:20 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9955fbsm16168155f8f.5.2025.03.26.02.45.19
+ id 2bcc2dab-0a27-11f0-9ea3-5ba50f476ded;
+ Wed, 26 Mar 2025 10:46:20 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-ac3eb3fdd2eso1101612466b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 02:46:20 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac6932e843asm581380866b.83.2025.03.26.02.46.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Mar 2025 02:45:19 -0700 (PDT)
+ Wed, 26 Mar 2025 02:46:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,183 +45,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 083ecf58-0a27-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 2bcc2dab-0a27-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742982320; x=1743587120; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YFHCbk4beyjRveupEah0jIYxfPLznuiZK5A/86Hhkfc=;
-        b=eMp4U9hW0aaOJUF5+lRIsjt074p1qiQirGT8VLxoNG/RETPTEqRgu+193HiTiVb14q
-         LdWz35kNBKUYrvrhnK2gHNJwl4JskgcN+yt4egmmjxLb5d2fZDR5CzedTcSHdNzLWr/J
-         E+JlakwjSdqW92DOGrPCe5Vv+2ZlYD3cg8ZDS85SfklQjJBlaSCYqxa/hk3AS4JPN/zX
-         DejkbGrDvyD6qoWcAzQALii4wrMCV2VBvmtGtzRj256dT98vB6Q4AqE29dufH+HspWzW
-         mUcRM8CyruXpCwUuhOme5hiyUDu4U+DMk4ZNh4YNRqU6XG0TCA/cXaWCdOQzdRGT1veU
-         F4SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742982320; x=1743587120;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1742982380; x=1743587180; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YFHCbk4beyjRveupEah0jIYxfPLznuiZK5A/86Hhkfc=;
-        b=HFk4bMTzwC5djBnr99Rx79YgYnM0NdJlXyqyM7LmKr5H4xtkFhJhI+4rKmM5Ir1K+i
-         U1DdobrK6inWNwrq8hOImoSy/tmidDv+fRQgXOkI9JxfIvXEcxGltwjJQQWFELTvR5DX
-         hTSd3RJUNkGFp6rQU2BBHa5CqmwtYC5nCReh4fDk+SclZN+fpolY1qCE2aKel7bOq+zl
-         0LFwWeiAam/1g0rhNFd06Enr7zoRdNedx9i7T/f2ILHSNv0jJ9ws/KEGhhftyX3RIALp
-         KY8Dw38jfVg4solUCjlAk5iVNHruZIRHTGdGxmNK+uN242MqqbQLLdrtOoKYw7dKutWa
-         EWtw==
-X-Gm-Message-State: AOJu0YxXHvnJt12ha+mZbWR2OeoY7QQgHoKcbA5tv9xOaKBtxoOk7rVG
-	fmQ34E8VfBfJ+tCJGEWtH53WV2CeeJ/PefMDQkcBOyrDwQrVCJPCcahzQemDYA==
-X-Gm-Gg: ASbGnctTfQfUua4iDd1Eb6+g/NaTNRYMCcqewAQ0ysTQPG9J3OFfLAI7fDdpHa6PG+5
-	MLP9jtvk860mZf6NtWm8UD5q3+RGWvjs5u8b7ckEvt4mqRhERMF9MLyyPg7jB9fgP3OJ2VhcwAM
-	p/isra7smM2Th36KtFDw9s72Q0QHJgne08a9J+o7Cm+E3zJ01TMajqXG2p9zpkWP8pumpMg/Nua
-	pRtNBmgh4SipC/uC/Ld3QmjslsyR9oYy/Avv7yXpS7I1mjpr75zGiM5Yz7ttWCTD8FdwDuVI5pV
-	O8j/bfm2u5t6xJkPbCIUFr0HAL6y/uFnFzlgWIub0ialNcpaaV1byMAca5ubL9cy9crd5XcePob
-	FXhotCFdcdF/seeUInQnaYg234Yn1gD/fb9viNQnz
-X-Google-Smtp-Source: AGHT+IExyjGivCnmQcKfZm/Af4J1LwEgEhABnxzbK1PmlGq59TEeTQT7rf24W94Sw1UxSEQkJSp+Xg==
-X-Received: by 2002:a5d:6d08:0:b0:391:3261:ff48 with SMTP id ffacd0b85a97d-3997f92d06dmr20316139f8f.35.1742982320133;
-        Wed, 26 Mar 2025 02:45:20 -0700 (PDT)
-Message-ID: <59685c88-44c6-43fe-9f6e-1121d51fd76f@suse.com>
-Date: Wed, 26 Mar 2025 10:45:18 +0100
+        bh=VKtAF4Sn4MGkhBMDCi6lQ3hpL91KxMQ7xTKUQPP3h9c=;
+        b=ZmSOogulft6G+ddFAUxKYnTwxJDcsansnt/lkGbZvPIvDh6rCQwbq5414rTPA5zByr
+         E3FHC+K6unSVdPM0A2jpa9OKLJhWoHzynHPRDyjACyOkkPEUuSPcX8eprLNVX1pMH+3H
+         ygShcrmnZjn8Y65F5gIscECAWBFmFedaTOr1fs69nIwSbotcqlszseMYzWKHgBxF9n/5
+         YGn61darlynrm6QDe7S2pi6+wLI7fANh7FRMjRpwN446kytJOWBmTIxCIpfdmaYxgcqO
+         INTRjAfyL+zVSk7Vmj/+iuZtsEs0OishA7FJ/D1zpXn+2gtpkdGvcLGoqoWbOhRyJ9bt
+         SP8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742982380; x=1743587180;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=VKtAF4Sn4MGkhBMDCi6lQ3hpL91KxMQ7xTKUQPP3h9c=;
+        b=B16YBqYteZ8m6ltwUDplF+ZS+2JHM/HOTlL0lonajWaS68HTUBwa3OXgyFvVaSCQFb
+         Y3HLAmGFpKs4bXaPeSgH4HMMNWKo51QFlPA2uAAbtCT5mSFKMp0S/c1pQ+CdbfxTNOoT
+         h9HZJ1ibivvtVZYCowcYYbi75X8NHAoEWUH6iCanGUJF0KZBCa9lKMp3sFh2l1409WBt
+         9RXcTgXEEVAe1jJ3pb3L/1gzhQ4SxXZbnaQq/CraJtRfc0PEAt3x6ry+CuGouhZNerTV
+         NDwiy6IvxwrQjBqkTacSXlb4eaxrz0VuJJVSxh1ln8iyfUOXZYbv6a8mHxSIVaPhJggn
+         zZbA==
+X-Forwarded-Encrypted: i=1; AJvYcCVMuH/ytOvUUkqi+HAbgJVVr/Po6oEu4ilvjffBXeow+sV2oZ1kjHvBr3TnTRZagRYa8OX5g0Rq7Jo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwEQME1dv+F9T8DbXFnaRoInwrvTayCjh5PeilOswUCRv+3MM5X
+	Dm0yOOaVfcoTJ3EFsYIxJXPkwQB2iJq04LhQf/g4GP1MHwIRrHpw
+X-Gm-Gg: ASbGncuV5Zk3alxuZZVbLPP4MgGiLUy0YbfD8pT8LSTtOh56WtlopVGaoCkb7qj97th
+	0sUXlMq81Hkamn8F/VH63ZNteq7tq+bcSEcj1YnoDmn2h0cud1wKaqJ+THdzULVderZkAC+6ZoN
+	I26m5qG0IS9jTrXP+Wt1PyIlRlDFWtQg8Ti+2FfNyjl8w7nzRpkMHx2bigDnYFdLPYlkKSxDooy
+	UpPrssJoB3A2NdZMchueiSQ2NZCqKSpg6ABvyuZI5VwYYyTz9jeqUJszlwKCJsHYhn1OdDWi+Nj
+	FidOc99KmUg+zXIwFHvPwYpe4kmuMPJFksozh8/aVj4+aM8OBNX+JIjYOD32fITzAmnX/h/Ks9g
+	vFfAtoc1nJfOVBnOWmI0Z
+X-Google-Smtp-Source: AGHT+IHeekuqGizZnyty1U6Tv5JzCn5ILs+r4Ex0G80DvsO9kh7mFzqCdX+xP3p8CFNvdmKztOHCTA==
+X-Received: by 2002:a17:906:d7cc:b0:abf:73ba:fd60 with SMTP id a640c23a62f3a-ac3f22b8b4bmr2098518266b.29.1742982379492;
+        Wed, 26 Mar 2025 02:46:19 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------tJSC0cM6NTZK6SeyIwhchS0Q"
+Message-ID: <763b3dc7-68c9-4984-9e55-7bd57c356bd7@gmail.com>
+Date: Wed, 26 Mar 2025 10:46:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/PVH: expose OEMx ACPI tables to Dom0
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <c9365d42-c15d-4d93-acd8-106ca46cb7f3@suse.com>
- <Z-PHJk8GT-y1NnHl@macbook.local>
+Subject: Re: [PATCH v3 6/7] xen: introduce Kconfig ARCH_PAGING_MEMPOOL
+To: "Orzel, Michal" <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Luca Fancellu <luca.fancellu@arm.com>
+Cc: Penny Zheng <Penny.Zheng@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Wei Chen <wei.chen@arm.com>,
+ xen-devel@lists.xenproject.org
+References: <20250317200727.798696-1-luca.fancellu@arm.com>
+ <20250317200727.798696-7-luca.fancellu@arm.com>
+ <85ba02a9-f9f9-4141-85be-a9a2d431e450@gmail.com>
+ <26583ecf-4057-46b1-8f87-f4589d7bec17@suse.com>
+ <136cf1c5-d1e5-471d-b560-51632b444e41@gmail.com>
+ <94865aea-043b-4f52-adb8-d2d78dba293b@suse.com>
+ <0957c74f-a53d-4107-bc8d-e13d7c308d39@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z-PHJk8GT-y1NnHl@macbook.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <0957c74f-a53d-4107-bc8d-e13d7c308d39@amd.com>
 
-On 26.03.2025 10:21, Roger Pau Monné wrote:
-> On Wed, Mar 26, 2025 at 09:45:09AM +0100, Jan Beulich wrote:
->> What they contain we don't know, but we can't sensibly hide them. On my
->> Skylake system OEM1 (with a description of "INTEL  CPU EIST") is what
->> contains all the _PCT, _PPC, and _PSS methods, i.e. about everything
->> needed for cpufreq. (_PSD interestingly are in an SSDT there.)
+This is a multi-part message in MIME format.
+--------------tJSC0cM6NTZK6SeyIwhchS0Q
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+On 3/26/25 10:39 AM, Orzel, Michal wrote:
+>
+> On 20/03/2025 08:32, Jan Beulich wrote:
 >>
->> Further OEM2 there has a description of "INTEL  CPU  HWP", while OEM4
->> has "INTEL  CPU  CST". Pretty clearly all three need exposing for
->> cpufreq and cpuidle to work.
->>
->> Fixes: 8b1a5268daf0 ("pvh/dom0: whitelist PVH Dom0 ACPI tables")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+>> On 19.03.2025 17:31, Oleksii Kurochko wrote:
+>>> On 3/19/25 12:35 PM, Jan Beulich wrote:
+>>>> On 18.03.2025 14:05, Oleksii Kurochko wrote:
+>>>>> On 3/17/25 9:07 PM, Luca Fancellu wrote:
+>>>>>> From: Penny Zheng<Penny.Zheng@arm.com>
+>>>>>>
+>>>>>> ARM MPU system doesn't need to use paging memory pool, as MPU memory
+>>>>>> mapping table at most takes only one 4KB page, which is enough to
+>>>>>> manage the maximum 255 MPU memory regions, for all EL2 stage 1
+>>>>>> translation and EL1 stage 2 translation.
+>>>>>>
+>>>>>> Introduce ARCH_PAGING_MEMPOOL Kconfig common symbol, selected for Arm
+>>>>>> MMU systems, x86 and RISC-V.
+>>>>>>
+>>>>>> Wrap the code inside 'construct_domU' that deal with p2m paging
+>>>>>> allocation in a new function 'domain_p2m_set_allocation', protected
+>>>>>> by ARCH_PAGING_MEMPOOL, this is done in this way to prevent polluting
+>>>>>> the former function with #ifdefs and improve readability
+>>>>>>
+>>>>>> Introduce arch_{get,set}_paging_mempool_size stubs for architecture
+>>>>>> with !ARCH_PAGING_MEMPOOL.
+>>>>>>
+>>>>>> Remove 'struct paging_domain' from Arm 'struct arch_domain' when the
+>>>>>> field is not required.
+>>>>>>
+>>>>>> Signed-off-by: Penny Zheng<penny.zheng@arm.com>
+>>>>>> Signed-off-by: Wei Chen<wei.chen@arm.com>
+>>>>>> Signed-off-by: Luca Fancellu<luca.fancellu@arm.com>
+>>>>>> ---
+>>>>>> v3 changes:
+>>>>>>     - Introduced ARCH_PAGING_MEMPOOL instead of HAS_PAGING_MEMPOOL
+>>>>>> v2 changes:
+>>>>>>     - make Kconfig HAS_PAGING_MEMPOOL common
+>>>>>>     - protect also "xen,domain-p2m-mem-mb" reading with HAS_PAGING_MEMPOOL
+>>>>>>     - do not define p2m_teardown{_allocation} in this patch
+>>>>>>     - change commit message
+>>>>>> ---
+>>>>>>     xen/arch/arm/Kconfig              |  1 +
+>>>>>>     xen/arch/arm/dom0less-build.c     | 74 ++++++++++++++++++++-----------
+>>>>>>     xen/arch/arm/include/asm/domain.h |  2 +
+>>>>>>     xen/arch/riscv/Kconfig            |  1 +
+>>>>>>     xen/arch/x86/Kconfig              |  1 +
+>>>>>>     xen/common/Kconfig                |  3 ++
+>>>>>>     xen/include/xen/domain.h          | 17 +++++++
+>>>>>>     7 files changed, 73 insertions(+), 26 deletions(-)
+>>>>> For RISC-V:
+>>>>>     Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>>>> Mind me asking then why RISC-V needs this at this point? The stubs surely
+>>>> were added to address some build issue, not because they are actively
+>>>> meaningful?
+>>> Only because we have stubs and not to have redefinition compilation
+>>> error. And, yes, they are not actively meaningful now, at least. I am
+>>> okay with not enabling of this config for RISC-V but then seems to me we
+>>> have to drop stubs in riscv/stubs.c. ~ Oleksii
+>> Well, I don't think it's "have to", but I agree that dropping them would
+>> make sense then (and be desirable).
+> @Jan, @Oleksii, is there anything blocking this patch to be committed (Luca
+> question does not seem to be answered)? Other patches in the series are ready to
+> be merged.
 
-Thanks.
+I think the change in xen/arch/riscv/Kconfig should be dropped with dropping
+arch_{get,set}_paging_mempool_size() in riscv/stubs.c as they are defined in
+xen/domain.h for the case when CONFIG_ARCH_PAGING_MEMPOOL=n.
 
->> ---
->> Sadly the commit above says nothing at all about the criteria used by
->> which tables would want to be whitelisted.
-> 
-> I think at that point it was mostly an allow list that enabled me to
-> boot PVH on the systems I was testing.  I don't think it was intended
-> to be complete, but rather something that we would expand as needed.
-> There where many and bigger missing pieces of PVH dom0 when that was
-> committed.
+~ Oleksii
 
-To be frank, with that it was premature to declare PVH Dom0 fully supported.
-This aspect also isn't mentioned in the caveats in SUPPORT.md.
+--------------tJSC0cM6NTZK6SeyIwhchS0Q
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
->> Further tables on said system
->> which weren't blacklisted prior to that commit, yet which also aren't
->> whitelisted are DBGP, DBG2, FIDT, LPIT, MIGT, MSCT, NITR, PCCT, RASF,
->> SVOS, UEFI, WDDT, and WSMT. Even without diving into the details of any
->> of them it seems pretty clear to me that at least some would want
->> whitelisting, too.
-> 
-> I cannot find any reference about: FIDT, MIGT, NITR, SVOS and WDDT in
-> the ACPI spec.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 3/26/25 10:39 AM, Orzel, Michal
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:0957c74f-a53d-4107-bc8d-e13d7c308d39@amd.com">
+      <pre wrap="" class="moz-quote-pre">
 
-WDDT - Watchdog Descriptor Table (Table 5.6 in spec version 6.5)
+On 20/03/2025 08:32, Jan Beulich wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
 
-> The MSCT I think we don't want to expose, as it's related to topology
-> data.
-> 
-> Regarding RASF I would be slightly worried about the patrol scrub
-> feature.  The memory map exposed to dom0 will be different from the
-> native one, and there's also the interposed p2m.
+On 19.03.2025 17:31, Oleksii Kurochko wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">
+On 3/19/25 12:35 PM, Jan Beulich wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 18.03.2025 14:05, Oleksii Kurochko wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">On 3/17/25 9:07 PM, Luca Fancellu wrote:
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">From: Penny Zheng<a class="moz-txt-link-rfc2396E" href="mailto:Penny.Zheng@arm.com">&lt;Penny.Zheng@arm.com&gt;</a>
 
-Thing is - either kind of Dom0 needs to have a sufficient level of insight
-into the host memory map to support memory-related RAS features. Which may
-mean that RASF may only be exposed if the Dom0 kernel declares itself as
-aware of the need to consider data there to refer to a separate address
-space.
+ARM MPU system doesn't need to use paging memory pool, as MPU memory
+mapping table at most takes only one 4KB page, which is enough to
+manage the maximum 255 MPU memory regions, for all EL2 stage 1
+translation and EL1 stage 2 translation.
 
->> --- a/xen/arch/x86/hvm/dom0_build.c
->> +++ b/xen/arch/x86/hvm/dom0_build.c
->> @@ -1010,12 +1010,20 @@ static bool __init pvh_acpi_table_allowe
->>              return true;
->>          else
->>          {
->> +    skip:
->>              printk("Skipping table %.4s in non-ACPI non-reserved region\n",
->>                     sig);
->>              return false;
->>          }
->>      }
->>  
->> +    if ( !strncmp(sig, "OEM", 3) )
->> +    {
->> +        if ( acpi_memory_banned(address, size) )
->> +            goto skip;
->> +        return true;
->> +    }
-> 
-> I may have put this ahead of the loop, so that the goto label doesn't
-> go backwards (which always feels weird to me).
+Introduce ARCH_PAGING_MEMPOOL Kconfig common symbol, selected for Arm
+MMU systems, x86 and RISC-V.
 
-It felt odd to me to put it first; I'm almost always hesitant to add stuff
-to the front of something that's already there, due to the possible
-implication of "what I add is more important than what was there before".
+Wrap the code inside 'construct_domU' that deal with p2m paging
+allocation in a new function 'domain_p2m_set_allocation', protected
+by ARCH_PAGING_MEMPOOL, this is done in this way to prevent polluting
+the former function with #ifdefs and improve readability
 
-As to label vs goto placement: It's the other way around for me. C wants
-everything else declared before use. Hence I prefer to have labels appear
-before their use. I'm actually puzzled by Misra not sharing that view,
-and instead having Rule 15.2 (which we haven't adopted yet afaics) to
-demand the opposite (and assuming Rule 15.1 is being violated in the
-first place).
+Introduce arch_{get,set}_paging_mempool_size stubs for architecture
+with !ARCH_PAGING_MEMPOOL.
 
->> +
-> 
-> I wonder if additionally we should print tables filtered to dom0 here:
-> 
-> if ( opt_dom0_verbose )
->     printk("Hidden ACPI Table %.4s\n", sig);
-> 
-> So that it's more obvious which tables are not exposed.
+Remove 'struct paging_domain' from Arm 'struct arch_domain' when the
+field is not required.
 
-I, too, thought about that, but assumed it may not have been done before
-for a reason. Plus it would want to be a separate change anyway, imo.
+Signed-off-by: Penny Zheng<a class="moz-txt-link-rfc2396E" href="mailto:penny.zheng@arm.com">&lt;penny.zheng@arm.com&gt;</a>
+Signed-off-by: Wei Chen<a class="moz-txt-link-rfc2396E" href="mailto:wei.chen@arm.com">&lt;wei.chen@arm.com&gt;</a>
+Signed-off-by: Luca Fancellu<a class="moz-txt-link-rfc2396E" href="mailto:luca.fancellu@arm.com">&lt;luca.fancellu@arm.com&gt;</a>
+---
+v3 changes:
+   - Introduced ARCH_PAGING_MEMPOOL instead of HAS_PAGING_MEMPOOL
+v2 changes:
+   - make Kconfig HAS_PAGING_MEMPOOL common
+   - protect also "xen,domain-p2m-mem-mb" reading with HAS_PAGING_MEMPOOL
+   - do not define p2m_teardown{_allocation} in this patch
+   - change commit message
+---
+   xen/arch/arm/Kconfig              |  1 +
+   xen/arch/arm/dom0less-build.c     | 74 ++++++++++++++++++++-----------
+   xen/arch/arm/include/asm/domain.h |  2 +
+   xen/arch/riscv/Kconfig            |  1 +
+   xen/arch/x86/Kconfig              |  1 +
+   xen/common/Kconfig                |  3 ++
+   xen/include/xen/domain.h          | 17 +++++++
+   7 files changed, 73 insertions(+), 26 deletions(-)
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">For RISC-V:
+   Reviewed-by: Oleksii Kurochko<a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">Mind me asking then why RISC-V needs this at this point? The stubs surely
+were added to address some build issue, not because they are actively
+meaningful?
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">
+Only because we have stubs and not to have redefinition compilation
+error. And, yes, they are not actively meaningful now, at least. I am
+okay with not enabling of this config for RISC-V but then seems to me we
+have to drop stubs in riscv/stubs.c. ~ Oleksii
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Well, I don't think it's "have to", but I agree that dropping them would
+make sense then (and be desirable).
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">@Jan, @Oleksii, is there anything blocking this patch to be committed (Luca
+question does not seem to be answered)? Other patches in the series are ready to
+be merged.</pre>
+    </blockquote>
+    <pre>I think the change in xen/arch/riscv/Kconfig should be dropped with dropping
+arch_{get,set}_paging_mempool_size() in riscv/stubs.c as they are defined in
+xen/domain.h for the case when CONFIG_ARCH_PAGING_MEMPOOL=n.
 
-Jan
+~ Oleksii
+
+</pre>
+  </body>
+</html>
+
+--------------tJSC0cM6NTZK6SeyIwhchS0Q--
 
