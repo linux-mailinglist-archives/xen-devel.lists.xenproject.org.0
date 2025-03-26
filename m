@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4109CA71AEC
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 16:44:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928021.1330780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFA90A71AF1
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 16:45:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928029.1330791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txSvL-0003ET-If; Wed, 26 Mar 2025 15:44:11 +0000
+	id 1txSwL-0003jS-SI; Wed, 26 Mar 2025 15:45:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928021.1330780; Wed, 26 Mar 2025 15:44:11 +0000
+Received: by outflank-mailman (output) from mailman id 928029.1330791; Wed, 26 Mar 2025 15:45:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txSvL-0003Ca-G6; Wed, 26 Mar 2025 15:44:11 +0000
-Received: by outflank-mailman (input) for mailman id 928021;
- Wed, 26 Mar 2025 15:44:10 +0000
+	id 1txSwL-0003hQ-P1; Wed, 26 Mar 2025 15:45:13 +0000
+Received: by outflank-mailman (input) for mailman id 928029;
+ Wed, 26 Mar 2025 15:45:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XIkG=WN=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1txSvK-0003CS-2K
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 15:44:10 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ <SRS0=/1hs=WN=bounce.vates.tech=bounce-md_30504962.67e42105.v1-c92b4bcbb10142aead979be8e26344ee@srs-se1.protection.inumbo.net>)
+ id 1txSwK-0003e8-4g
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 15:45:12 +0000
+Received: from mail134-16.atl141.mandrillapp.com
+ (mail134-16.atl141.mandrillapp.com [198.2.134.16])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 28260706-0a59-11f0-9ea3-5ba50f476ded;
- Wed, 26 Mar 2025 16:44:09 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-abbb12bea54so991887966b.0
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 08:44:09 -0700 (PDT)
-Received: from localhost ([46.149.103.13]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3ef86e4f1sm1053698066b.29.2025.03.26.08.44.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Mar 2025 08:44:08 -0700 (PDT)
+ id 4c8f8afe-0a59-11f0-9ea3-5ba50f476ded;
+ Wed, 26 Mar 2025 16:45:10 +0100 (CET)
+Received: from pmta10.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail134-16.atl141.mandrillapp.com (Mailchimp) with ESMTP id
+ 4ZNB1x29L7zB5p7nN
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 15:45:09 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ c92b4bcbb10142aead979be8e26344ee; Wed, 26 Mar 2025 15:45:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,103 +43,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28260706-0a59-11f0-9ea3-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1743003848; x=1743608648; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=t/gA25aNLaH15+MxnPrTob9W9SY86dCiAks8WiBXv5M=;
-        b=QGjyLTRz3UHNwlNnnIy4bi9yNPbgPe5OcULlei3cwd7PDeKb1/gtYF1/ISBKYOzvT1
-         Locna1zwhJ3G5QeBMtH59ES9t3xqWPlSc69MDRh7WnmRgM9zBUp9nq08GJbDgYQDOs8/
-         2kSPRXeVNqcJYju1h/+Q73lYkXOhrMxO1WDe4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743003848; x=1743608648;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=t/gA25aNLaH15+MxnPrTob9W9SY86dCiAks8WiBXv5M=;
-        b=lJGMFU7lnQApe9AY7JX4DM7NXVnPHPN/rSONfh7jI0BLSvolVKVTaCenMGoX5xkRzL
-         4q7a/yO5jjSR914FZaGw0SK+iXXum1A8rcE3ymCSj004clmPRNwHQRXT+bIjLRZXb0mZ
-         xpgNi5DVdFxBSSozWHp7qMeazN6tsg27n7p8C1Qus8fxKbqMtodQEv5vYTHii/6yMmRE
-         4BClkq2WP2US6IsvkhG2GTEgnIuocC236M5xINo8q8+OVW7DxIXu7ztIku9NSdX5ypVL
-         AVXJhUx5fxd0O3fyDFJyIeUkSvDn1Qp45CKIv5Kh/5mnwr/PjpJ8DjzCDqUkqRvM0S99
-         rG5w==
-X-Gm-Message-State: AOJu0Yzyme3tg2ED5H+wlVQT5GHc11T4ifZuBeziuofql/+jLdICTjhK
-	6eQ9FHssbFWnEflJuwKukq+RIIExLX+6rBQffmY6AVYs2luh+C2a5qtZxlUHWe8=
-X-Gm-Gg: ASbGncvqCzGlDedZLukzMIUWc4KmMBu/Y2upxAoV4nmH5F0LGsiHwOG+ibA/1jXyjPF
-	LHhMz7xMpAp5rNc4f2aAyKlLfndxseW2l0pEzJaEvL8JEpPAv04pkGfzkwv3hS6dhXo2GfvEtjO
-	GWbvotC6f9cSNjjzXl48tO3KT3whdy9v9XfQg3+H5RoRZIsuke1nh7esxEXSD4Oa7sg1V4z00Ug
-	dOh+JJLStdnURyO4gVSm1xcNwf9uXvZL+qXdWrxpTzHlc8jt390ob6t6JGhonGgGBz6Z4OcTApH
-	TuBWJkp0z4LFgMykCZdeXOH+T5qidUHNmS46KWYdyBuWOexjB0Mk1jZ1fHObxQ==
-X-Google-Smtp-Source: AGHT+IGGxe5drznngos4Vd7+Dh2Mofsgf6B/DAjK4gVuktDK4a9UQeKp8n3KVKEa/blQJTNglaqQ6Q==
-X-Received: by 2002:a17:906:4fcd:b0:ac3:49f0:4d10 with SMTP id a640c23a62f3a-ac3f24b42camr2300812866b.38.1743003848464;
-        Wed, 26 Mar 2025 08:44:08 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 26 Mar 2025 15:44:05 +0000
-Message-Id: <D8QBAOE8U497.UAKETQOU3D2Y@cloud.com>
-Cc: <xen-devel@lists.xenproject.org>, "Andrew Cooper"
- <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>,
- "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>,
- "Julien Grall" <julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>
-Subject: Re: [PATCH] tools: Remove support for qemu-trad's battery reporting
-From: "Alejandro Vallejo" <alejandro.vallejo@cloud.com>
-To: =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-X-Mailer: aerc 0.18.2
-References: <20250325174110.467-1-alejandro.vallejo@cloud.com>
- <Z-QIOJax7of-y79f@mail-itl>
-In-Reply-To: <Z-QIOJax7of-y79f@mail-itl>
+X-Inumbo-ID: 4c8f8afe-0a59-11f0-9ea3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1743003909; x=1743273909;
+	bh=3hi8aZCVSf89jZ5GLNkCFvPhATPL3V0uftBKHvxHiac=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=Q7G46ggii5rbBKyAUCajYbSwKenCHs/0rJ6L8rtKFCm+ejXb8V+xESkrO43EW6AY8
+	 vL6qddd932DZHIBXhdbIMTdys2DEDPmn1Nq73B/EDKVjgSrkPeSbtQgkQ36crjEazS
+	 IMb0v5cJnfrWOb2Okv10uE8Gc/wKijGkoj8rzeGPRfMBZcNJq95kqjfE6cc21YfI37
+	 VzX03x3/SAQHHJbXRox/WR3GpMpEiJi9urqsdOl68j8FtnDgzIHVl5DnTDy0ar8smJ
+	 w3Q02iv+C7hvI4NwnzFMoIHJGQHnVrI/VMH7gJDLBtPRzBoRqbBxzePmkuKJTFceTn
+	 NO/8oEI4DIkRQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1743003909; x=1743264409; i=anthony.perard@vates.tech;
+	bh=3hi8aZCVSf89jZ5GLNkCFvPhATPL3V0uftBKHvxHiac=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=Zp+ooy7Q9E+KpIEqZbdjUUSrIu83/7jj2OH+mfuUCKwRdWzT1yMzkLWlhsjhNHO0A
+	 0FxqueioPJKOyh9w0m/oSoibMHLVlXFitbz7d1ggnBEoFvSsl/ZYkMNlNgjIfz9hYY
+	 3hS9ewNPg9ir5BSUWSABagYlm3qZhZaCUQxxEX93/CLulsXOLySNKUhaC0/4NdlHfW
+	 miaMNX8osnFAsXJkxJknycNw9IgrRhdBOZ6oqmLoFuPKua2GxP58wH49KVSnuv1vD6
+	 GZaSuGiC//JFP31yo3AOu1Og/rrSoEoLQsdibfVuSjLeRrWIkZw7N+H7hL/5Ex4395
+	 o/XLKErQzIBsg==
+From: "Anthony PERARD" <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v3=2014/15]=20xen/xenpm:=20Adapt=20cpu=20frequency=20monitor=20in=20xenpm?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1743003908057
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Penny Zheng" <Penny.Zheng@amd.com>, "Jason Andryuk" <jandryuk@gmail.com>, ray.huang@amd.com, "Juergen Gross" <jgross@suse.com>, xen-devel@lists.xenproject.org
+Message-Id: <Z-QhA4t3cHkvIt_U@l14>
+References: <20250306083949.1503385-1-Penny.Zheng@amd.com> <20250306083949.1503385-15-Penny.Zheng@amd.com> <6f5a81d7-c650-46d2-b667-6b7c3bc54c41@suse.com>
+In-Reply-To: <6f5a81d7-c650-46d2-b667-6b7c3bc54c41@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.c92b4bcbb10142aead979be8e26344ee?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250326:md
+Date: Wed, 26 Mar 2025 15:45:09 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Wed Mar 26, 2025 at 1:59 PM GMT, Marek Marczykowski-G=C3=B3recki wrote:
-> On Tue, Mar 25, 2025 at 05:41:10PM +0000, Alejandro Vallejo wrote:
-> > The way this undocumented feature works is via qemu-trad (who nobody
-> > uses anymore), by intercepting 3 magic PIOs. 0x88 is one of them, and
-> > it's probed by hvmloader as a means of detecting support for this (so,
-> > on qemu-upstream this check always fails). If hvmloader detects the
-> > feature, it appends an SSDT with AML inherited from some laptop ~20y
-> > ago. QEMU then communicates with a userspace daemon (xenpmd) via an
-> > undocumented xenstore key ("refreshbatterystatus") in order to report
-> > battery levels.
-> >=20
-> > Seeing how no one uses, mantains or cares about qemu-trad anymore, rip
-> > it all out. The hvmloader check, the SSDT generation logic and xenpmd.
->
-> Oh, I didn't know something like this existed!
+On Tue, Mar 25, 2025 at 12:26:09PM +0100, Jan Beulich wrote:
+> On 06.03.2025 09:39, Penny Zheng wrote:
+> > Make `xenpm get-cpureq-para/set-cpufreq-para` available in CPPC mode.
+> > --- a/tools/libs/ctrl/xc_pm.c
+> > +++ b/tools/libs/ctrl/xc_pm.c
+> > @@ -214,13 +214,12 @@ int xc_get_cpufreq_para(xc_interface *xch, int cpuid,
+> > @@ -301,7 +302,8 @@ unlock_4:
+> >      if ( user_para->gov_num )
+> >          xc_hypercall_bounce_post(xch, scaling_available_governors);
+> >  unlock_3:
+> > -    xc_hypercall_bounce_post(xch, scaling_available_frequencies);
+> > +    if ( user_para->freq_num )
+> > +        xc_hypercall_bounce_post(xch, scaling_available_frequencies);
+> >  unlock_2:
+> >      xc_hypercall_bounce_post(xch, affected_cpus);
+> >  unlock_1:
+> 
+> I'm also puzzled by the function's inconsistent return value - Anthony,
+> can you explain / spot why things are the way they are?
 
-In retrospect, it might've been for the best. I really dislike the way it's=
- put
-together. Using xenstore feels really pointless.
-
-> We needed a feature like this, and solved it via extra kernel module +
-> PV-like interface to feed it with data from dom0:
-> https://github.com/QubesOS/qubes-dummy-psu/
-
-I did wonder (after learning how this all works) how you guys did it withou=
-t
-qemu-trad. I guess that explains it. FWIW, it's not hard to do this properl=
-y on
-QEMU upstream. We could create a new field under a BAR of the Xen platform
-device and instruct some (much, much, much simpler) AML to read the battery
-level from there. Then QEMU can ask the real system what the battery level =
-is
-and Bob's your uncle.
-
-But...
-
->
-> I guess it doesn't make much sense for me to resurrect the old interface
-> and bring it to QEMU upstream, as I need the battery info in PVH too.
-> So, I'm fine with removing it as is.
-
-... in principle I'd say QubesOS and OpenXT are the two only plausible user=
-s of
-this feature. So it's a tad pointless if you've since developed a working
-solution many years ago.
+Looks like 73367cf3b4b4 ("libxc: Fix xc_pm API calls to return negative
+error and stash error in errno.") made some changes, and fixed some
+return value to be like described in "xenctrl.h", but I guess failed to
+also change the "ret = -errno".
 
 Cheers,
-Alejandro
+
+-- 
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
