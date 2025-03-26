@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1163A71D9A
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 18:47:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928197.1330942 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1B0DA71F8F
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 20:50:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928232.1330983 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txUqS-0005UG-1G; Wed, 26 Mar 2025 17:47:16 +0000
+	id 1txWkr-0005CD-Qc; Wed, 26 Mar 2025 19:49:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928197.1330942; Wed, 26 Mar 2025 17:47:16 +0000
+Received: by outflank-mailman (output) from mailman id 928232.1330983; Wed, 26 Mar 2025 19:49:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txUqR-0005R8-UL; Wed, 26 Mar 2025 17:47:15 +0000
-Received: by outflank-mailman (input) for mailman id 928197;
- Wed, 26 Mar 2025 17:47:14 +0000
+	id 1txWkr-00059i-NW; Wed, 26 Mar 2025 19:49:37 +0000
+Received: by outflank-mailman (input) for mailman id 928232;
+ Wed, 26 Mar 2025 19:49:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k+Jq=WN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1txUqQ-0005R2-2j
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 17:47:14 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ id 1txWkq-00059a-EM
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 19:49:36 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5891f24a-0a6a-11f0-9ffa-bf95429c2676;
- Wed, 26 Mar 2025 18:47:12 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-ac289147833so16370666b.2
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 10:47:12 -0700 (PDT)
-Received: from fedora.. (user-109-243-64-225.play-internet.pl.
+ id 710c1b1c-0a7b-11f0-9ffa-bf95429c2676;
+ Wed, 26 Mar 2025 20:49:34 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5e0caa151so371762a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 12:49:34 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
  [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac6ea5ef3f1sm134877866b.79.2025.03.26.10.47.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Mar 2025 10:47:10 -0700 (PDT)
+ 4fb4d7f45d1cf-5ebccf84600sm9895855a12.19.2025.03.26.12.49.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Mar 2025 12:49:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,258 +45,334 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5891f24a-0a6a-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 710c1b1c-0a7b-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743011231; x=1743616031; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=f7Uzq9oW680zYljd7jZo7KQRh1uZjJNlw96sXDXsCB0=;
-        b=j5lJe8VI/21Gdx+UJPwp5kS8OvjEuHb8fNmjGy826D9ZrkbuV12s7J6NsX+/mVSJZY
-         D4/AhsV4imDEbiYAwaxsvh99SQCa7OCy88lLT9YP6662uwXbJ+W22RTJdF7O0df5WALA
-         fpSMde6yTr2UekJb5MijLxqoffW0j3rxYOavdmiBGiU2ZLBbeF7lQsOCqgxWFkNTaZAm
-         AW1bJDSjWgKcCxGH3rkF+4maIwxAMkXZ+TI6RB/CbUDorIqYbIjVL9ua+zGaILtg8atI
-         2f1Hji9m13BQMg3j5xEV3kIs8yNMhZqDricGiFpxveMMRBBa468m5YVnvHTSYKHAvHqz
-         +X5A==
+        d=gmail.com; s=20230601; t=1743018574; x=1743623374; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FKlyMe5NmwlIerDlrSZYIk6XVWD21J6zqo0x6V8By9s=;
+        b=I1F5Hnz08Ogy5M6YH/7Bx5SrS5tYujhLtTCqmiO2YSJ6gVjqP0CxDKFJXEp3UcAL2o
+         4OhZIyKRErOsfAyndYHDYpWvLM6wacxGqe3xs7qKmTegx2YB/7Euiyu+J71rv/OzyZY2
+         TxtO9LPziLo+wSxtqEpzyo3q7/xOCcG3HvEG2gR3LzpJ5CHfOpjvC0WeDO6Lki0/d78N
+         gwGMxUOfOoFC9/gG9Vrfl75R6hfePVbV+h9tBaWf3y4X5QRh8zEiF+gofiud6mfzYNca
+         WcoTTzqVyIDbrIeEYYteTIh6Dk0t96aZeOgGds4Kn9J3Af0XE9aIIeMa6sBJbxXL97vk
+         W6wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743011231; x=1743616031;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=f7Uzq9oW680zYljd7jZo7KQRh1uZjJNlw96sXDXsCB0=;
-        b=uq2aY+73v5xmNi45USC6m5XZeEaXBbUp2fn1X/o+L5p51UF+CfXwahvQFnKs4jgX/B
-         s08rhT5d2Y5+W4uISkv8E95nA8/zKVGWpMGLaRe76TjAfJefpOAUY45MP+xnF/SyfHbq
-         MZJfY+ka96ZCqQFtXmMVeENBVdlFQHeJPByo7zZa26+gocxubfWnCg0S1fFiBPjw98cy
-         EK9paRzxH+W5soZagaOhUVvRJ1RgPyg63i9vICS/Mz4Ezsg03coOLKyxaEE+EH3X+NFN
-         0rLQRP1lkWec8nlvDw/xxNlpdTyhyWiTrL31wIXboqR5FDhO7ell+qp4O7RJ56obTYht
-         E/ng==
-X-Gm-Message-State: AOJu0Yx4VbtpqPWeIKrt1vHITQ9uIq/mOh1nlC1OCEnlfUZgm9KpWWAB
-	Lpsz6kDL22W63Lvqn7Jt0KYwpAaxgLAL3abtc9OOhEih+SdTIrgzz4oYqQ==
-X-Gm-Gg: ASbGnct3hppJLOCkH3Est3bEuRcUQAthNOLpU1R25sAx6GsT3QU0yslNRH8V0M3EP+H
-	wgXA+9GWY2isotFPw/zGCSs47Eg8Rf62IdB0qJB6/anY8tWKXypLR9qM5o5Umjom0yrtr/kL1he
-	SN+4hTC5K6xpQMLupakEuA9xLyWGqAAFX+eDRlWQ35mJH+Ctl2gD1lITXPNDzfpAQm7iC5SwYxO
-	e0ezIzWmF4RjvrsYmxbx0gCfWvri+CBu7Fz/4v8sIyBtJW87iszgQNCsulldYeUz+BIyWGX6Ukr
-	hmrEae7DpvJyoO8wg2x9Jj35eMcT+ihMyX6/VjKPGQEdhWuPUhl51zGBYlGviidJygQ/Jhlp10L
-	9vJZP7oIqQkaSBw==
-X-Google-Smtp-Source: AGHT+IHo0r83mE4rf9pbHCAAQ+DPsqN72cKLnUv/ar1JHntkyXb3bYZsYi7vqB+UTNo0LNZ+yM0bVA==
-X-Received: by 2002:a17:907:78b:b0:abf:67de:2f1f with SMTP id a640c23a62f3a-ac6fb0ff500mr34913066b.44.1743011230604;
-        Wed, 26 Mar 2025 10:47:10 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v1] xen/config.h: Move BITS_PER_* definitions from asm/config.h to xen/config.h
-Date: Wed, 26 Mar 2025 18:47:07 +0100
-Message-ID: <4f085bcbf5b6f1bc42824bfb08724e8a9bbd4918.1743005389.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        d=1e100.net; s=20230601; t=1743018574; x=1743623374;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=FKlyMe5NmwlIerDlrSZYIk6XVWD21J6zqo0x6V8By9s=;
+        b=hiPIMgdytpIDPyU/N9mpbSLRqQVa0HXciXLh4v3sJ1PX568t9PzjRLW5zm7kaq/uuM
+         b8A1koY2LlfaltL2DaIWTgxQ5CdaE5eEnR4mLUytzymzHaMn7cMeYO0RvETnPMh4oAJu
+         EeJLJ8YTN9/OFsebTzJW/XN38EvGFODV2WScORAalRwV1Q80cVDkgUapNVwFoa9kQl2G
+         0epYrzZhXi8ezax1OQ7EggbpX/P/XmrYJSy7R5O827P1i7LI/HCgEWP/xEBCdJ0prtmN
+         nyK4w8o9rpxwYvfGtrXpVpeQ34tqUXdQEuvz0HiMF7uq3iQWMgH7cB9BhJ4GAJteIgqs
+         NV1w==
+X-Forwarded-Encrypted: i=1; AJvYcCUZS7u7LIy4r6CWRxXcpUX/DKOMkNg0u8dkCBuZffHw4t0dWiDNUzUFH5qlkIQ8AznXjuyv/CD9xPg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyngVqZ8Nz/GB1ELgoeLh/sUERtaW1dSxbhdhcRKjNRoH8Mvhc5
+	sYqM3J8uFwsCycbUmSYVxcAz9KzBsE9F2Uovglf97i/MdFv+XNgF
+X-Gm-Gg: ASbGncsQRVYZ29SLKbFG59e9QpuqfgmBHLPoQW/jl4xtm/5oHkDroQYykjwd8ZW6DWQ
+	zUTttnhXBKi5KjE4xLydpuDb69bxmjvpbongsZYp3H0bmmtRUa+oexI/tc8jxaaWf4dDL9xbfsJ
+	AhOLBhuLlq9a3MJnbUh9PhXWdNIpv4Xy2+4/U/IXj4ftAreRCRyTa8VWse+l0n1xvQl045KwBjH
+	nmNGG7yrad8UXMUEpLv7LDh1ce/BWUUL3IvPeNJ5cSxknXcOaIvXjcf0zu87e3DTvGQaSN3uEHY
+	LRqRBzD8tAeGc0sncjzgsVU0dA5cqUZJBG8whastNIQTDl+gqPzQ1kxQ8jRMj/zGAN0SUM3i2kV
+	nRWU+sIWXNKf4b+V30JGq
+X-Google-Smtp-Source: AGHT+IFTuRSW0NkmVbVpKr9+fvMG59P7oKelrXy458/mQp069sIYHQ1Xql+JCIBQHqUTt1oNu2O8OA==
+X-Received: by 2002:a05:6402:42c2:b0:5ec:c982:7efe with SMTP id 4fb4d7f45d1cf-5ed8e59ddbamr865040a12.14.1743018573448;
+        Wed, 26 Mar 2025 12:49:33 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------L5vjZPFKi1omyaQgWb35deWR"
+Message-ID: <cb66e1e4-7ac4-4a98-9bdb-b92e6c069f0a@gmail.com>
+Date: Wed, 26 Mar 2025 20:49:32 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] xen/riscv: introduce preinit_xen_time()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <1a04711f46a1c0a7cdf709abc37f143747215495.1742918184.git.oleksii.kurochko@gmail.com>
+ <86c067f2-87ff-4e75-b94a-9d760fc730e5@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <86c067f2-87ff-4e75-b94a-9d760fc730e5@suse.com>
 
-BITS_PER_* values can be defined in a common way using compiler-provided macros.
-Thus, these definitions are moved to xen/config.h to reduce duplication across
-architectures.
+This is a multi-part message in MIME format.
+--------------L5vjZPFKi1omyaQgWb35deWR
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Additionally, *_BYTEORDER macros are removed, as BITS_PER_* values now come
-directly from the compiler environment.
 
-The arch_fls() implementation for Arm and PPC is updated to use BITS_PER_INT
-instead of a hardcoded value of 32.
+On 3/26/25 4:13 PM, Jan Beulich wrote:
+> On 25.03.2025 18:36, Oleksii Kurochko wrote:
+>> preinit_xen_time() does two things:
+>> 1. Parse timebase-frequency properpy of /cpus node to initialize
+>>     cpu_khz variable.
+>> 2. Initialize xen_start_clock_cycles with the current time counter
+>>     value.
+>>
+>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>> ---
+>> Changes in v2:
+>>   - Update SPDX tag for time.c
+>>   - s/read_mostly/__ro_after_init for boot_count variable.
+>>   - Add declaration of boot_count to asm/time.h.
+>>   - Rename boot_count to xen_start_clock_cycles.
+> I'm not going to insist on another name change, but I'm having a hard time
+> seeing why almost any global variable in Xen would need to have a xen_
+> prefix. "start" also can be ambiguous, so imo boot_clock_cycles would have
+> been best.
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+I can change that during the work on the version of this patch.
+
+>
+>> --- /dev/null
+>> +++ b/xen/arch/riscv/time.c
+>> @@ -0,0 +1,39 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +#include <xen/device_tree.h>
+>> +#include <xen/init.h>
+>> +#include <xen/lib.h>
+>> +#include <xen/sections.h>
+>> +
+>> +unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
+>> +unsigned long __ro_after_init xen_start_clock_cycles;
+> For the theoretical at this point case of support RV32, will unsigned long
+> be wide enough? I.e. is the counter only 32 bits wide when XLEN=32?
+
+No, it will be really an issue and the type should be uint64_t for this variable
+because on RV32I the timeh CSR is a read-only shadow of the upper 32 bits of the
+memory-mapped mtime register, while time shadows only the lower 32 bits of mtime.
+So on RV32 it is still 64-bit long and requires two reads to get cycle value.
+
+>
+>> +static __initdata struct dt_device_node *timer;
+> Please can __initdata (and alike) live at its canonical place, between
+> type and identifier?
+>
+> It's also unclear at this point why this needs to be a file scope variable.
+
+Because this variable is used and will be used only in preinit_dt_xen_time().
+But I think we could move the declaration of this variable to preinit_dt_xen_time()
+as it is used only during preinit_dt_xen_time().
+
+>
+>> +/* Set up the timer on the boot CPU (early init function) */
+>> +static void __init preinit_dt_xen_time(void)
+>> +{
+>> +    static const struct dt_device_match __initconstrel timer_ids[] =
+>> +    {
+>> +        DT_MATCH_PATH("/cpus"),
+>> +        { /* sentinel */ },
+>> +    };
+>> +    uint32_t rate;
+>> +
+>> +    timer = dt_find_matching_node(NULL, timer_ids);
+>> +    if ( !timer )
+>> +        panic("Unable to find a compatible timer in the device tree\n");
+>> +
+>> +    dt_device_set_used_by(timer, DOMID_XEN);
+>> +
+>> +    if ( !dt_property_read_u32(timer, "timebase-frequency", &rate) )
+>> +        panic("Unable to find clock frequency\n");
+>> +
+>> +    cpu_khz = rate / 1000;
+> "rate" being only 32 bits wide, what about clock rates above 4GHz? Or is
+> this some external clock running at a much lower rate than the CPU would?
+
+It is the frequency of the hardware timer that drives the 
+|mtime|register, it defines the frequency (in Hz) at which the timer 
+increments.
+
+
+>
+>> +}
+>> +
+>> +void __init preinit_xen_time(void)
+>> +{
+>> +    preinit_dt_xen_time();
+>> +
+>> +    xen_start_clock_cycles = get_cycles();
+>> +}
+> I take it that more stuff is going to be added to this function? Else I
+> wouldn't see why preinit_dt_xen_time() needed to be a separate function.
+
+Actually, I checked my latest downstream branch and I haven't added nothing
+extra to this function.
+Only one thing that I want to add is ACPI case:
+     if ( acpi_disabled )
+         preinit_dt_xen_time();
+     else
+         panic("TBD\n"); /* preinit_acpi_xen_time(); */
+
+~ Oleksii
+
+--------------L5vjZPFKi1omyaQgWb35deWR
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 3/26/25 4:13 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:86c067f2-87ff-4e75-b94a-9d760fc730e5@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 25.03.2025 18:36, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">preinit_xen_time() does two things:
+1. Parse timebase-frequency properpy of /cpus node to initialize
+   cpu_khz variable.
+2. Initialize xen_start_clock_cycles with the current time counter
+   value.
+
+Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 ---
-Potentially, BITS_PER_XEN_ULONG could also be moved to xen/config.h, as it is
-64 for all architectures except x86. A possible approach:
+Changes in v2:
+ - Update SPDX tag for time.c
+ - s/read_mostly/__ro_after_init for boot_count variable.
+ - Add declaration of boot_count to asm/time.h.
+ - Rename boot_count to xen_start_clock_cycles.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I'm not going to insist on another name change, but I'm having a hard time
+seeing why almost any global variable in Xen would need to have a xen_
+prefix. "start" also can be ambiguous, so imo boot_clock_cycles would have
+been best.</pre>
+    </blockquote>
+    <pre>I can change that during the work on the version of this patch.
 
-#ifndef BITS_PER_XEN_ULONG
-#define BITS_PER_XEN_ULONG 64
-#endif
+</pre>
+    <blockquote type="cite"
+      cite="mid:86c067f2-87ff-4e75-b94a-9d760fc730e5@suse.com">
+      <pre wrap="" class="moz-quote-pre">
 
-CI's tests result:
-  https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/1736620512
----
- xen/arch/arm/include/asm/bitops.h   |  4 +---
- xen/arch/arm/include/asm/config.h   |  8 --------
- xen/arch/ppc/include/asm/bitops.h   |  4 +---
- xen/arch/ppc/include/asm/config.h   |  7 -------
- xen/arch/riscv/include/asm/config.h | 13 -------------
- xen/arch/x86/include/asm/config.h   |  8 --------
- xen/include/xen/config.h            |  9 +++++++++
- 7 files changed, 11 insertions(+), 42 deletions(-)
-
-diff --git a/xen/arch/arm/include/asm/bitops.h b/xen/arch/arm/include/asm/bitops.h
-index f163d9bb45..60686a3a55 100644
---- a/xen/arch/arm/include/asm/bitops.h
-+++ b/xen/arch/arm/include/asm/bitops.h
-@@ -22,8 +22,6 @@
- #define __set_bit(n,p)            set_bit(n,p)
- #define __clear_bit(n,p)          clear_bit(n,p)
- 
--#define BITS_PER_BYTE           8
--
- #define ADDR (*(volatile int *) addr)
- #define CONST_ADDR (*(const volatile int *) addr)
- 
-@@ -75,7 +73,7 @@ bool clear_mask16_timeout(uint16_t mask, volatile void *p,
- 
- #define arch_ffs(x)  ((x) ? 1 + __builtin_ctz(x) : 0)
- #define arch_ffsl(x) ((x) ? 1 + __builtin_ctzl(x) : 0)
--#define arch_fls(x)  ((x) ? 32 - __builtin_clz(x) : 0)
-+#define arch_fls(x)  ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
- #define arch_flsl(x) ((x) ? BITS_PER_LONG - __builtin_clzl(x) : 0)
- 
- #endif /* _ARM_BITOPS_H */
-diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
-index 0a51142efd..5a02db6937 100644
---- a/xen/arch/arm/include/asm/config.h
-+++ b/xen/arch/arm/include/asm/config.h
-@@ -8,19 +8,11 @@
- #define __ARM_CONFIG_H__
- 
- #if defined(CONFIG_ARM_64)
--# define LONG_BYTEORDER 3
- # define ELFSIZE 64
- #else
--# define LONG_BYTEORDER 2
- # define ELFSIZE 32
- #endif
- 
--#define BYTES_PER_LONG (1 << LONG_BYTEORDER)
--#define BITS_PER_LONG (BYTES_PER_LONG << 3)
--#define POINTER_ALIGN BYTES_PER_LONG
--
--#define BITS_PER_LLONG 64
--
- /* xen_ulong_t is always 64 bits */
- #define BITS_PER_XEN_ULONG 64
- 
-diff --git a/xen/arch/ppc/include/asm/bitops.h b/xen/arch/ppc/include/asm/bitops.h
-index c942e9432e..e72942cca0 100644
---- a/xen/arch/ppc/include/asm/bitops.h
-+++ b/xen/arch/ppc/include/asm/bitops.h
-@@ -15,8 +15,6 @@
- #define __set_bit(n, p)         set_bit(n, p)
- #define __clear_bit(n, p)       clear_bit(n, p)
- 
--#define BITS_PER_BYTE           8
--
- /* PPC bit number conversion */
- #define PPC_BITLSHIFT(be)    (BITS_PER_LONG - 1 - (be))
- #define PPC_BIT(bit)         (1UL << PPC_BITLSHIFT(bit))
-@@ -121,7 +119,7 @@ static inline int test_and_set_bit(unsigned int nr, volatile void *addr)
- 
- #define arch_ffs(x)  ((x) ? 1 + __builtin_ctz(x) : 0)
- #define arch_ffsl(x) ((x) ? 1 + __builtin_ctzl(x) : 0)
--#define arch_fls(x)  ((x) ? 32 - __builtin_clz(x) : 0)
-+#define arch_fls(x)  ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
- #define arch_flsl(x) ((x) ? BITS_PER_LONG - __builtin_clzl(x) : 0)
- 
- #define arch_hweightl(x) __builtin_popcountl(x)
-diff --git a/xen/arch/ppc/include/asm/config.h b/xen/arch/ppc/include/asm/config.h
-index 148fb3074d..8e32edd5a5 100644
---- a/xen/arch/ppc/include/asm/config.h
-+++ b/xen/arch/ppc/include/asm/config.h
-@@ -6,19 +6,12 @@
- #include <xen/page-size.h>
- 
- #if defined(CONFIG_PPC64)
--#define LONG_BYTEORDER 3
- #define ELFSIZE        64
- #define MAX_VIRT_CPUS  1024u
- #else
- #error "Unsupported PowerPC variant"
- #endif
- 
--#define BYTES_PER_LONG (1 << LONG_BYTEORDER)
--#define BITS_PER_LONG  (BYTES_PER_LONG << 3)
--#define POINTER_ALIGN  BYTES_PER_LONG
--
--#define BITS_PER_LLONG 64
--
- /* xen_ulong_t is always 64 bits */
- #define BITS_PER_XEN_ULONG 64
- 
-diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
-index 7141bd9e46..314c97c20a 100644
---- a/xen/arch/riscv/include/asm/config.h
-+++ b/xen/arch/riscv/include/asm/config.h
-@@ -119,25 +119,12 @@
- #define HYPERVISOR_VIRT_START XEN_VIRT_START
- 
- #if defined(CONFIG_RISCV_64)
--# define INT_BYTEORDER 2
--# define LONG_BYTEORDER 3
- # define ELFSIZE 64
- # define MAX_VIRT_CPUS 128u
- #else
- # error "Unsupported RISCV variant"
- #endif
- 
--#define BYTES_PER_INT  (1 << INT_BYTEORDER)
--#define BITS_PER_INT  (BYTES_PER_INT << 3)
--
--#define BYTES_PER_LONG (1 << LONG_BYTEORDER)
--#define BITS_PER_LONG  (BYTES_PER_LONG << 3)
--#define POINTER_ALIGN  BYTES_PER_LONG
--
--#define BITS_PER_LLONG 64
--
--#define BITS_PER_BYTE 8
--
- /* xen_ulong_t is always 64 bits */
- #define BITS_PER_XEN_ULONG 64
- 
-diff --git a/xen/arch/x86/include/asm/config.h b/xen/arch/x86/include/asm/config.h
-index 19746f956e..f0123a7de9 100644
---- a/xen/arch/x86/include/asm/config.h
-+++ b/xen/arch/x86/include/asm/config.h
-@@ -7,16 +7,8 @@
- #ifndef __X86_CONFIG_H__
- #define __X86_CONFIG_H__
- 
--#define LONG_BYTEORDER 3
- #define CONFIG_PAGING_LEVELS 4
- 
--#define BYTES_PER_LONG (1 << LONG_BYTEORDER)
--#define BITS_PER_LONG (BYTES_PER_LONG << 3)
--#define BITS_PER_BYTE 8
--#define POINTER_ALIGN BYTES_PER_LONG
--
--#define BITS_PER_LLONG 64
--
- #define BITS_PER_XEN_ULONG BITS_PER_LONG
- 
- #define CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS 1
-diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
-index d888b2314d..dbbf2fce62 100644
---- a/xen/include/xen/config.h
-+++ b/xen/include/xen/config.h
-@@ -98,4 +98,13 @@
- #define ZERO_BLOCK_PTR ((void *)-1L)
- #endif
- 
-+#define BYTES_PER_LONG  __SIZEOF_LONG__
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- /dev/null
++++ b/xen/arch/riscv/time.c
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#include &lt;xen/device_tree.h&gt;
++#include &lt;xen/init.h&gt;
++#include &lt;xen/lib.h&gt;
++#include &lt;xen/sections.h&gt;
 +
-+#define BITS_PER_BYTE   __CHAR_BIT__
-+#define BITS_PER_INT    (__SIZEOF_INT__ << 3)
-+#define BITS_PER_LONG   (BYTES_PER_LONG << 3)
-+#define BITS_PER_LLONG  (__SIZEOF_LONG_LONG__ << 3)
-+
-+#define POINTER_ALIGN   __SIZEOF_POINTER__
-+
- #endif /* __XEN_CONFIG_H__ */
--- 
-2.48.1
++unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
++unsigned long __ro_after_init xen_start_clock_cycles;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+For the theoretical at this point case of support RV32, will unsigned long
+be wide enough? I.e. is the counter only 32 bits wide when XLEN=32?</pre>
+    </blockquote>
+    <pre>No, it will be really an issue and the type should be uint64_t for this variable
+because on RV32I the timeh CSR is a read-only shadow of the upper 32 bits of the
+memory-mapped mtime register, while time shadows only the lower 32 bits of mtime.
+So on RV32 it is still 64-bit long and requires two reads to get cycle value.</pre>
+    <blockquote type="cite"
+      cite="mid:86c067f2-87ff-4e75-b94a-9d760fc730e5@suse.com">
+      <pre wrap="" class="moz-quote-pre">
 
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+static __initdata struct dt_device_node *timer;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Please can __initdata (and alike) live at its canonical place, between
+type and identifier?
+
+It's also unclear at this point why this needs to be a file scope variable.</pre>
+    </blockquote>
+    <pre>Because this variable is used and will be used only in preinit_dt_xen_time().
+But I think we could move the declaration of this variable to preinit_dt_xen_time()
+as it is used only during preinit_dt_xen_time().
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:86c067f2-87ff-4e75-b94a-9d760fc730e5@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+/* Set up the timer on the boot CPU (early init function) */
++static void __init preinit_dt_xen_time(void)
++{
++    static const struct dt_device_match __initconstrel timer_ids[] =
++    {
++        DT_MATCH_PATH("/cpus"),
++        { /* sentinel */ },
++    };
++    uint32_t rate;
++
++    timer = dt_find_matching_node(NULL, timer_ids);
++    if ( !timer )
++        panic("Unable to find a compatible timer in the device tree\n");
++
++    dt_device_set_used_by(timer, DOMID_XEN);
++
++    if ( !dt_property_read_u32(timer, "timebase-frequency", &amp;rate) )
++        panic("Unable to find clock frequency\n");
++
++    cpu_khz = rate / 1000;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+"rate" being only 32 bits wide, what about clock rates above 4GHz? Or is
+this some external clock running at a much lower rate than the CPU would?</pre>
+    </blockquote>
+    <pre><span data-teams="true"><span style="font-size: inherit;">It is the frequency of the hardware timer that drives the </span><code>mtime</code><span
+    style="font-size: inherit;"> register,
+it defines the frequency (in Hz) at which the timer increments.
+</span></span></pre>
+    <br>
+    <blockquote type="cite"
+      cite="mid:86c067f2-87ff-4e75-b94a-9d760fc730e5@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+}
++
++void __init preinit_xen_time(void)
++{
++    preinit_dt_xen_time();
++
++    xen_start_clock_cycles = get_cycles();
++}
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I take it that more stuff is going to be added to this function? Else I
+wouldn't see why preinit_dt_xen_time() needed to be a separate function.</pre>
+    </blockquote>
+    <pre>Actually, I checked my latest downstream branch and I haven't added nothing
+extra to this function.
+Only one thing that I want to add is ACPI case:
+    if ( acpi_disabled )
+        preinit_dt_xen_time();
+    else
+        panic("TBD\n"); /* preinit_acpi_xen_time(); */
+
+~ Oleksii
+
+</pre>
+  </body>
+</html>
+
+--------------L5vjZPFKi1omyaQgWb35deWR--
 
