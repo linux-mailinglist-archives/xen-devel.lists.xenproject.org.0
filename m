@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9491CA713E6
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 10:39:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.927391.1330139 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A463BA71403
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 10:45:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.927402.1330148 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txNED-0004HL-44; Wed, 26 Mar 2025 09:39:17 +0000
+	id 1txNK7-0007OF-QS; Wed, 26 Mar 2025 09:45:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 927391.1330139; Wed, 26 Mar 2025 09:39:17 +0000
+Received: by outflank-mailman (output) from mailman id 927402.1330148; Wed, 26 Mar 2025 09:45:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txNED-0004Fs-0b; Wed, 26 Mar 2025 09:39:17 +0000
-Received: by outflank-mailman (input) for mailman id 927391;
- Wed, 26 Mar 2025 09:39:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a+/s=WN=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1txNEC-0004Fm-6S
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 09:39:16 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2062e.outbound.protection.outlook.com
- [2a01:111:f403:2415::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2a611d94-0a26-11f0-9ffa-bf95429c2676;
- Wed, 26 Mar 2025 10:39:09 +0100 (CET)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by SA1PR12MB8163.namprd12.prod.outlook.com (2603:10b6:806:332::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.42; Wed, 26 Mar
- 2025 09:39:06 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8534.043; Wed, 26 Mar 2025
- 09:39:06 +0000
+	id 1txNK7-0007MZ-NO; Wed, 26 Mar 2025 09:45:23 +0000
+Received: by outflank-mailman (input) for mailman id 927402;
+ Wed, 26 Mar 2025 09:45:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=SgUP=WN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1txNK6-0007MT-7u
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 09:45:22 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 083ecf58-0a27-11f0-9ea3-5ba50f476ded;
+ Wed, 26 Mar 2025 10:45:21 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-39133f709f5so3500112f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 02:45:20 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3997f9955fbsm16168155f8f.5.2025.03.26.02.45.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 Mar 2025 02:45:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,215 +45,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a611d94-0a26-11f0-9ffa-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XQLqiFx0cFtP6ur5HPuV8x6VtrxdIPo21+QdE2IdiQTHJsNEcXYy0xnXk/MxDSiluFc8uer29ejX1t2e9xB1g0xM51tek1OR1uhzIVXL2fc1uvDZJ3uvoB8M2b9SxOeJUmbA/Cq8q2IOLKGsO4KsOH2r6Yeo8sUPVQbsTLp83qOMFPcxIQS7MQ6G9fHCOrxu7XSpMCKNGddhsIReQkg+9bp9vBbpb4N2qD3i7+ViyQ9IuaNG3uU9mCf5Lfw8uRLv5BoxKDWOJWvZR3UyKvGx0K02ceTsT0XCJmQTO1i/+FjXtugil3WiTkFc6CO0SOrW+dCGUPLSznrc1us+izCr+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7DstXOYdcYX0FnEIar3Xz4RK1/wuv11/KK9CpY6UzZ8=;
- b=wcSWtjFhy37yg9IT2V44PS0PTW7oGUPUwymZEYsQgRijuJStAcNAdma7Kj/i/RZr/rebP+zirSfV410myCbA9OMA2peoJ6RYGWj26BCl9HbdCSlqKFQ47a1Plsk7ASL+opXa/tjxB4d5m+nixGiGbJqpA5zksUPB4g7/d8s8IMK+lJtWyYAGqd1sheqXTX5ioWxtlZdlLHduc4ykICFjbyjgb5RFxNAK8KnV1hWIicPByG9zQ05709KGqNZyB/oY/5gjj0LXT/8zP5mPvZG57G5qTh6zPDENWjrTZPvj9c9uU1Cl8wUS94m7yy3Vctw19/7QMwBiPFLWP9BA33N4qw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7DstXOYdcYX0FnEIar3Xz4RK1/wuv11/KK9CpY6UzZ8=;
- b=woq9Z2WQpNr78DK4g7uW6UuylOUDImmWkpgwgCw2qfm6nzKvNGQyP7I0dw3n+pYG0O97+rTfQ6vPp7IEZ9lXhrczQnEkn7Av/t9bSCxyTlbVJ+xlIZlvtdruy+Ez/jM2ZiM5KJeNQxeSTQ50XMqJbP2O/RNed9rgwDa60LE/KzI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <0957c74f-a53d-4107-bc8d-e13d7c308d39@amd.com>
-Date: Wed, 26 Mar 2025 10:39:01 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/7] xen: introduce Kconfig ARCH_PAGING_MEMPOOL
-To: Jan Beulich <jbeulich@suse.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Luca Fancellu <luca.fancellu@arm.com>
-Cc: Penny Zheng <Penny.Zheng@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Wei Chen <wei.chen@arm.com>,
- xen-devel@lists.xenproject.org
-References: <20250317200727.798696-1-luca.fancellu@arm.com>
- <20250317200727.798696-7-luca.fancellu@arm.com>
- <85ba02a9-f9f9-4141-85be-a9a2d431e450@gmail.com>
- <26583ecf-4057-46b1-8f87-f4589d7bec17@suse.com>
- <136cf1c5-d1e5-471d-b560-51632b444e41@gmail.com>
- <94865aea-043b-4f52-adb8-d2d78dba293b@suse.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <94865aea-043b-4f52-adb8-d2d78dba293b@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0396.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cf::10) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
+X-Inumbo-ID: 083ecf58-0a27-11f0-9ea3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1742982320; x=1743587120; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=YFHCbk4beyjRveupEah0jIYxfPLznuiZK5A/86Hhkfc=;
+        b=eMp4U9hW0aaOJUF5+lRIsjt074p1qiQirGT8VLxoNG/RETPTEqRgu+193HiTiVb14q
+         LdWz35kNBKUYrvrhnK2gHNJwl4JskgcN+yt4egmmjxLb5d2fZDR5CzedTcSHdNzLWr/J
+         E+JlakwjSdqW92DOGrPCe5Vv+2ZlYD3cg8ZDS85SfklQjJBlaSCYqxa/hk3AS4JPN/zX
+         DejkbGrDvyD6qoWcAzQALii4wrMCV2VBvmtGtzRj256dT98vB6Q4AqE29dufH+HspWzW
+         mUcRM8CyruXpCwUuhOme5hiyUDu4U+DMk4ZNh4YNRqU6XG0TCA/cXaWCdOQzdRGT1veU
+         F4SQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742982320; x=1743587120;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YFHCbk4beyjRveupEah0jIYxfPLznuiZK5A/86Hhkfc=;
+        b=HFk4bMTzwC5djBnr99Rx79YgYnM0NdJlXyqyM7LmKr5H4xtkFhJhI+4rKmM5Ir1K+i
+         U1DdobrK6inWNwrq8hOImoSy/tmidDv+fRQgXOkI9JxfIvXEcxGltwjJQQWFELTvR5DX
+         hTSd3RJUNkGFp6rQU2BBHa5CqmwtYC5nCReh4fDk+SclZN+fpolY1qCE2aKel7bOq+zl
+         0LFwWeiAam/1g0rhNFd06Enr7zoRdNedx9i7T/f2ILHSNv0jJ9ws/KEGhhftyX3RIALp
+         KY8Dw38jfVg4solUCjlAk5iVNHruZIRHTGdGxmNK+uN242MqqbQLLdrtOoKYw7dKutWa
+         EWtw==
+X-Gm-Message-State: AOJu0YxXHvnJt12ha+mZbWR2OeoY7QQgHoKcbA5tv9xOaKBtxoOk7rVG
+	fmQ34E8VfBfJ+tCJGEWtH53WV2CeeJ/PefMDQkcBOyrDwQrVCJPCcahzQemDYA==
+X-Gm-Gg: ASbGnctTfQfUua4iDd1Eb6+g/NaTNRYMCcqewAQ0ysTQPG9J3OFfLAI7fDdpHa6PG+5
+	MLP9jtvk860mZf6NtWm8UD5q3+RGWvjs5u8b7ckEvt4mqRhERMF9MLyyPg7jB9fgP3OJ2VhcwAM
+	p/isra7smM2Th36KtFDw9s72Q0QHJgne08a9J+o7Cm+E3zJ01TMajqXG2p9zpkWP8pumpMg/Nua
+	pRtNBmgh4SipC/uC/Ld3QmjslsyR9oYy/Avv7yXpS7I1mjpr75zGiM5Yz7ttWCTD8FdwDuVI5pV
+	O8j/bfm2u5t6xJkPbCIUFr0HAL6y/uFnFzlgWIub0ialNcpaaV1byMAca5ubL9cy9crd5XcePob
+	FXhotCFdcdF/seeUInQnaYg234Yn1gD/fb9viNQnz
+X-Google-Smtp-Source: AGHT+IExyjGivCnmQcKfZm/Af4J1LwEgEhABnxzbK1PmlGq59TEeTQT7rf24W94Sw1UxSEQkJSp+Xg==
+X-Received: by 2002:a5d:6d08:0:b0:391:3261:ff48 with SMTP id ffacd0b85a97d-3997f92d06dmr20316139f8f.35.1742982320133;
+        Wed, 26 Mar 2025 02:45:20 -0700 (PDT)
+Message-ID: <59685c88-44c6-43fe-9f6e-1121d51fd76f@suse.com>
+Date: Wed, 26 Mar 2025 10:45:18 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|SA1PR12MB8163:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9279b46-997e-49df-1a2d-08dd6c4a0d30
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UHQ2dGxRNkFwaHJ4Uy9BVHVldEhCb3Bud3Q0T3JzQU53cDNiclVIZWI1dFMw?=
- =?utf-8?B?WXcvdGFFTTlia1gybTZjeFEwc3RITnFneUhoNFlESG05MjBLOFd5V3l2OWRw?=
- =?utf-8?B?Mldac1hndTJVSWszNU05YW02aE5pYmNhYUpLZnZxOXBQMERNdjY1bHhsWGpC?=
- =?utf-8?B?ZHM3c1JmbFBJMEJvOW43dTBkRzJrOUxXb1FhK2FZZHN3QzVDcFEyZUk3M21j?=
- =?utf-8?B?Rk43WHlrRFJuZ2s5LzZlMkJuY0IvMDRPZy91OWtJU1RScCtYZFhuRnc1dk9E?=
- =?utf-8?B?Kys0MGdLOHBON0g0ZHBOSi9SSW1vMDF5M3RQN21Oem1ITGdJdlFzQjZyT1N6?=
- =?utf-8?B?a2JLODZMTUZJaURHanJNckZEelQ0SEtEclBpUThDY0ZLVDJDYXp6NFZXdnBr?=
- =?utf-8?B?ZE02bjNNbUE5SjZPSXJhdndIVVBBR3dtanNndWhNZTNUbDMrZ1lnWWh2dHJ0?=
- =?utf-8?B?dEVyeUZLMS90UnVjQ2owcVl6MnZGclhMR0JIdHkzSDRnMEs5RDg4b25PNFJK?=
- =?utf-8?B?Y0N1MHduZEZpSHRlakkybHhjTkJZQm50Y083MldESFNQM0puUDZOc0o5dUVx?=
- =?utf-8?B?SWtTaEptRWJDN1NyejljRGY4TnJ5TWdDSU5UMFh0VUtMakx4dHl3Q1VwNWJZ?=
- =?utf-8?B?RFB0eFlpZlBvRWlaYWtNbEhzY1h1Y3hJUzFSZUd0dEV6TnhCY29KajY3bWdQ?=
- =?utf-8?B?blk3Mi9LYUN0dWRHQkhrb1BpVnk2TzIzOXpxU0xkbGQ3djdmYmZ3WVRMbnNQ?=
- =?utf-8?B?WmttTjBHZmh6aXRTY3RLMTk0ejZKaktjK2l1NjhmMC9UY3FZdEpTK1ZBQU00?=
- =?utf-8?B?UStCTHlhc2FTdWRnMFpNajdzTVlrMU8ySUJrTXhnU2VKSE5aVlU2TVdxKy9E?=
- =?utf-8?B?L1UwRDEzQW1oR1NEMnRDZTE4VmtEdE9uYzNDOHBuR01POEtjT1RvZnFUTWl6?=
- =?utf-8?B?aS9zcG02Zml0TE1RWVBBbXlQZ0lqSnNxdVMvRzRWcTBtS3dqNW5OSS9qbTdE?=
- =?utf-8?B?MmtkV2xXRm01SjA0bXQzb0FSUnBJN3RIYkptS0lpMU9JM3BvR21HR0JmSWNR?=
- =?utf-8?B?dGxaN2NHUW93UUpldFpCdzJJelFhc3h3R1dySkV3SE5kYlpiRE02ZisxejhM?=
- =?utf-8?B?YVlLejVRcmpqLytPZmM1NVNkMVczckRNMEpIQTlybkRVSC8yMTUxVE5OOVZn?=
- =?utf-8?B?SnZFYklNZHBrZWw4WTJ2azNwNDN6Q01VQkY0cmZTbkZEdHQwaEN1V0VUT2Nj?=
- =?utf-8?B?c1FidVJoSUpvelExK3FpcFoyTjNWRjFvU2pOaGYvSDlPVU94MCt0Q1F5MUV0?=
- =?utf-8?B?KzFhaDI4dEgxSG9SbGIyUEwwajNSM1djZmJ5Sit1cDFLRW9zZnI4VTRPQUI1?=
- =?utf-8?B?bzdGODc4VUNZQnFvYkZ4RXpxMW94SGRObVh2enl3WWhCTU16Qmk0VDc1OENG?=
- =?utf-8?B?MERtYkZja0diMFJyVlVaV2xMSm4rQjFGWHNMS0w2eDVRWHpRaUEyT25IU1oy?=
- =?utf-8?B?Rm04Y1JMZEFVVjR5dEpNUWw1Z1ZkM2ZxdnNLK3FyTHZaMkVqODhWSUVDU0xM?=
- =?utf-8?B?YzBSd3FQZ1NxQjdvZjY3VE8wMU1aV0EvbEJ5VXp2R25XVXZ0UHVEQ3JKaHBW?=
- =?utf-8?B?QThYWCszMXFoZTV3Q3ZrcjB1a2l2SzRRamt1Snl3bXBHNXdQdC9uMHczN2xI?=
- =?utf-8?B?N2pmclc4VnpoWDB0RTNONEFCT0lyUU40bExHSWJIU1ZndCtzRWF2eTRuYTY2?=
- =?utf-8?B?SUxjSDZtMXo1dUdLanZReXRlbmlBWDlYTlVzMDBhVGRuZjQxenFYbGdYaCty?=
- =?utf-8?B?L3l4VzRzUmxMaVVjMk9TVHQ5MnFXYWlZTW41RlV4c1dYL2FJeG5NN2xDZklw?=
- =?utf-8?Q?XhzJqPIWcL022?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UjlIOXlKRWRHakR3MlkxTi9aYW9MMTYzOXR4U2U4ZUQzNjZ3Y01Majh6K0Yw?=
- =?utf-8?B?VGpXK2o4UmhFZE9oejBlVHJSN2N0ZEZ2aDJmVFQrVXUySFpOdDE1M21IWlIv?=
- =?utf-8?B?dEdvZ0xLOTJmakJpZkNhbmRuV210eHVoTW1Hc2Rzbm5yelJHelNSK2NPdmwz?=
- =?utf-8?B?ZUNYN0Y3NXhEK0tsUXljS25UbGgrcHFnUmxEUk1IVXJXZks3QkNtYXVYZExX?=
- =?utf-8?B?RGpNUnhvWitCdkxBQTNBNmVLOXAvam0xaFNOYUFodXpZRVcxS1QwUnRvNTJ6?=
- =?utf-8?B?Tkx6V25tUVhyeGc3ejE5WGxER2Q1aGU2UFA4dnlPVWRqTWdac3F2Q0pkUUEv?=
- =?utf-8?B?QzRIYzVCUStwOFJmR1hxZFNreHdiUVJ0eVg4ei9OSnNnWXBTTW5HZE11TFZK?=
- =?utf-8?B?c2hUeldtSUczUm9MNlFUREZOQ3Y2c3RrQ3Q0eDdYeENCcFVJQXpQdmp1RXQ3?=
- =?utf-8?B?blVrbGhVVGpDbkxLMzNEdk0wTktUT1QzNndGbkNzRlVXak1FcFVtaFUveEp5?=
- =?utf-8?B?bVBkcDk5MnN0VFBSUm9ubHlqL3oyQjFTckxPT09zdTRkOEk5Nk1PbWdXU0Q5?=
- =?utf-8?B?NDN2Vk9UTVFqTTZvWDVES2pHUnA0R3ljVHZsSGdITUJaTGp4RFVtMGNoSmZj?=
- =?utf-8?B?cTRpYWVpUWFQL1Z5YmJtUjgyTDJLdFVsbzRjd1h3aVl3Zk5oLzR3QW92Zk1w?=
- =?utf-8?B?eVdwNkttMjZzYTRXeG5MK0FublhITzhVR3ZuOFBQUWdSbzRzYzk1UTA4TFdv?=
- =?utf-8?B?d2EzS1crUmRFRUUwSnhmME5sbFRjTjZaQU1zeEFLbGlqSDlrSERtSlA2R0k1?=
- =?utf-8?B?VHZYMk9DUnJvMDZDL2ErUkEvSWNoeDJVZmdTQmZ5cFF1TERLVURxbU9aZi9u?=
- =?utf-8?B?UHVhYjBqa0huNGxDOW83bjM1WklsdG9hNFZlU2h6S243bVBjT2V5TWZLcGoy?=
- =?utf-8?B?NTUvY1NZMERhNSthVjIvb2UrWk9CMGhINEozWDZZT09Nem9nMm5ROUtYa25Y?=
- =?utf-8?B?dG5pZ3lpcFNUZ2JJcFI4KzJHL0dKUmVqdCt2VUo3K2lkNUVZRXMzUTVYTGg5?=
- =?utf-8?B?NFVQUjU4MzdOSlg1K3cyTXE5RmRmcnk0SXBDdldvSUh1V3hHajBwaXQrOC9L?=
- =?utf-8?B?TWNUMTgzVzE5Qjh4QTlZVkdOQVQzUWQyTEdzb01uOTZKa29HM0JRM2R1YlVY?=
- =?utf-8?B?em05Vkt1a3pKdnhGV3ZHN3I3YldIMUdTN0xGS2xVZ1p4STRwYmtmRUpsVjcx?=
- =?utf-8?B?cDhGeHRhT3M3TFNkVXNjOStBeUdQbWJuYzM2c0ttalNWZmlNUFlvMzFKVWt6?=
- =?utf-8?B?MkJhcEZQREk4MHVHNmpBY29MMk9rZFJkNXVKamJPQmJsdWFZUkdCSVM0Umxy?=
- =?utf-8?B?bVF3eEpiVXkrYkExSjI3dUlMaFVqMWg1N3ZQWEpnK2Y5OHVFbEU0dWw4K3gr?=
- =?utf-8?B?VnBxeEFHRGlRQ3QwamJHcU9id3dxT1Zid2dTZ0VPSDlqeW96VnpwdmdOMU9C?=
- =?utf-8?B?d3IvY1loQzdSeWxlQWEvOHI1eEVPRC9UN0RrUmdhbldxTkpvNHFHUEZqNjdi?=
- =?utf-8?B?N1ovdERiT280cU56dDZQUlh0R1Q3Q0JTaXdVMEt6eUxXRmdnWjBENmNtbGdy?=
- =?utf-8?B?THM1cjJTRlZDZmdrbmdWWHJ0ZkkrTUFwY2FVT1VCV2ZsRFprbWJsckYxYWxs?=
- =?utf-8?B?RDZnbGdmL09LcjhTZkVYSEFNT3BreTlRMW9qb0NXRXA3Nm5CeFBUanF4R1dI?=
- =?utf-8?B?bENOdDllVTgxSnNrZklGU2VEUCtzQ09SQU5QcEJLSGRrS2pLZ2ZGTXdPU3kz?=
- =?utf-8?B?UWNCbFdPMS9pM3N6YmQvYm5WNUNWb0NWQSt4eXNOd1lTcjZnQkQrNk45RmdT?=
- =?utf-8?B?RC8yZDlYQjBFTklGMWp6SWNPYW5QTG01YUVYbVphS3E5UXh6YUU4QnV2QktL?=
- =?utf-8?B?YXhuYmYxYXpjZFNZbXhzSXVIa1VWMDJDUzBQa1V2WjJadjBWQ05nR29hZWNh?=
- =?utf-8?B?T2lvdFpGYWNiVTNqcVloSmhTL1lnd3A3UlJKVnYwdmVVVTUyUkZaek04RHRm?=
- =?utf-8?B?Szk0dDEyL0dQVDRsWThQVFdMT0ttSEdTbXJ1emdrZFl0U2RjOGhuOC9MN0xx?=
- =?utf-8?Q?O7B+/QcgU5/PdbLQNM9plYdrH?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9279b46-997e-49df-1a2d-08dd6c4a0d30
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2025 09:39:06.3560
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W/E8avTuCtT7amZLnpluehUWYu/rEwhyIcPAtCegiKdDvOIYCY8jDI5cW73o6nmb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8163
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/PVH: expose OEMx ACPI tables to Dom0
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <c9365d42-c15d-4d93-acd8-106ca46cb7f3@suse.com>
+ <Z-PHJk8GT-y1NnHl@macbook.local>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <Z-PHJk8GT-y1NnHl@macbook.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 20/03/2025 08:32, Jan Beulich wrote:
-> 
-> 
-> On 19.03.2025 17:31, Oleksii Kurochko wrote:
+On 26.03.2025 10:21, Roger Pau Monné wrote:
+> On Wed, Mar 26, 2025 at 09:45:09AM +0100, Jan Beulich wrote:
+>> What they contain we don't know, but we can't sensibly hide them. On my
+>> Skylake system OEM1 (with a description of "INTEL  CPU EIST") is what
+>> contains all the _PCT, _PPC, and _PSS methods, i.e. about everything
+>> needed for cpufreq. (_PSD interestingly are in an SSDT there.)
 >>
->> On 3/19/25 12:35 PM, Jan Beulich wrote:
->>> On 18.03.2025 14:05, Oleksii Kurochko wrote:
->>>> On 3/17/25 9:07 PM, Luca Fancellu wrote:
->>>>> From: Penny Zheng<Penny.Zheng@arm.com>
->>>>>
->>>>> ARM MPU system doesn't need to use paging memory pool, as MPU memory
->>>>> mapping table at most takes only one 4KB page, which is enough to
->>>>> manage the maximum 255 MPU memory regions, for all EL2 stage 1
->>>>> translation and EL1 stage 2 translation.
->>>>>
->>>>> Introduce ARCH_PAGING_MEMPOOL Kconfig common symbol, selected for Arm
->>>>> MMU systems, x86 and RISC-V.
->>>>>
->>>>> Wrap the code inside 'construct_domU' that deal with p2m paging
->>>>> allocation in a new function 'domain_p2m_set_allocation', protected
->>>>> by ARCH_PAGING_MEMPOOL, this is done in this way to prevent polluting
->>>>> the former function with #ifdefs and improve readability
->>>>>
->>>>> Introduce arch_{get,set}_paging_mempool_size stubs for architecture
->>>>> with !ARCH_PAGING_MEMPOOL.
->>>>>
->>>>> Remove 'struct paging_domain' from Arm 'struct arch_domain' when the
->>>>> field is not required.
->>>>>
->>>>> Signed-off-by: Penny Zheng<penny.zheng@arm.com>
->>>>> Signed-off-by: Wei Chen<wei.chen@arm.com>
->>>>> Signed-off-by: Luca Fancellu<luca.fancellu@arm.com>
->>>>> ---
->>>>> v3 changes:
->>>>>    - Introduced ARCH_PAGING_MEMPOOL instead of HAS_PAGING_MEMPOOL
->>>>> v2 changes:
->>>>>    - make Kconfig HAS_PAGING_MEMPOOL common
->>>>>    - protect also "xen,domain-p2m-mem-mb" reading with HAS_PAGING_MEMPOOL
->>>>>    - do not define p2m_teardown{_allocation} in this patch
->>>>>    - change commit message
->>>>> ---
->>>>>    xen/arch/arm/Kconfig              |  1 +
->>>>>    xen/arch/arm/dom0less-build.c     | 74 ++++++++++++++++++++-----------
->>>>>    xen/arch/arm/include/asm/domain.h |  2 +
->>>>>    xen/arch/riscv/Kconfig            |  1 +
->>>>>    xen/arch/x86/Kconfig              |  1 +
->>>>>    xen/common/Kconfig                |  3 ++
->>>>>    xen/include/xen/domain.h          | 17 +++++++
->>>>>    7 files changed, 73 insertions(+), 26 deletions(-)
->>>> For RISC-V:
->>>>    Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->>> Mind me asking then why RISC-V needs this at this point? The stubs surely
->>> were added to address some build issue, not because they are actively
->>> meaningful?
+>> Further OEM2 there has a description of "INTEL  CPU  HWP", while OEM4
+>> has "INTEL  CPU  CST". Pretty clearly all three need exposing for
+>> cpufreq and cpuidle to work.
 >>
->> Only because we have stubs and not to have redefinition compilation
->> error. And, yes, they are not actively meaningful now, at least. I am
->> okay with not enabling of this config for RISC-V but then seems to me we
->> have to drop stubs in riscv/stubs.c. ~ Oleksii
+>> Fixes: 8b1a5268daf0 ("pvh/dom0: whitelist PVH Dom0 ACPI tables")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Well, I don't think it's "have to", but I agree that dropping them would
-> make sense then (and be desirable).
-@Jan, @Oleksii, is there anything blocking this patch to be committed (Luca
-question does not seem to be answered)? Other patches in the series are ready to
-be merged.
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-~Michal
+Thanks.
 
+>> ---
+>> Sadly the commit above says nothing at all about the criteria used by
+>> which tables would want to be whitelisted.
+> 
+> I think at that point it was mostly an allow list that enabled me to
+> boot PVH on the systems I was testing.  I don't think it was intended
+> to be complete, but rather something that we would expand as needed.
+> There where many and bigger missing pieces of PVH dom0 when that was
+> committed.
+
+To be frank, with that it was premature to declare PVH Dom0 fully supported.
+This aspect also isn't mentioned in the caveats in SUPPORT.md.
+
+>> Further tables on said system
+>> which weren't blacklisted prior to that commit, yet which also aren't
+>> whitelisted are DBGP, DBG2, FIDT, LPIT, MIGT, MSCT, NITR, PCCT, RASF,
+>> SVOS, UEFI, WDDT, and WSMT. Even without diving into the details of any
+>> of them it seems pretty clear to me that at least some would want
+>> whitelisting, too.
+> 
+> I cannot find any reference about: FIDT, MIGT, NITR, SVOS and WDDT in
+> the ACPI spec.
+
+WDDT - Watchdog Descriptor Table (Table 5.6 in spec version 6.5)
+
+> The MSCT I think we don't want to expose, as it's related to topology
+> data.
+> 
+> Regarding RASF I would be slightly worried about the patrol scrub
+> feature.  The memory map exposed to dom0 will be different from the
+> native one, and there's also the interposed p2m.
+
+Thing is - either kind of Dom0 needs to have a sufficient level of insight
+into the host memory map to support memory-related RAS features. Which may
+mean that RASF may only be exposed if the Dom0 kernel declares itself as
+aware of the need to consider data there to refer to a separate address
+space.
+
+>> --- a/xen/arch/x86/hvm/dom0_build.c
+>> +++ b/xen/arch/x86/hvm/dom0_build.c
+>> @@ -1010,12 +1010,20 @@ static bool __init pvh_acpi_table_allowe
+>>              return true;
+>>          else
+>>          {
+>> +    skip:
+>>              printk("Skipping table %.4s in non-ACPI non-reserved region\n",
+>>                     sig);
+>>              return false;
+>>          }
+>>      }
+>>  
+>> +    if ( !strncmp(sig, "OEM", 3) )
+>> +    {
+>> +        if ( acpi_memory_banned(address, size) )
+>> +            goto skip;
+>> +        return true;
+>> +    }
+> 
+> I may have put this ahead of the loop, so that the goto label doesn't
+> go backwards (which always feels weird to me).
+
+It felt odd to me to put it first; I'm almost always hesitant to add stuff
+to the front of something that's already there, due to the possible
+implication of "what I add is more important than what was there before".
+
+As to label vs goto placement: It's the other way around for me. C wants
+everything else declared before use. Hence I prefer to have labels appear
+before their use. I'm actually puzzled by Misra not sharing that view,
+and instead having Rule 15.2 (which we haven't adopted yet afaics) to
+demand the opposite (and assuming Rule 15.1 is being violated in the
+first place).
+
+>> +
+> 
+> I wonder if additionally we should print tables filtered to dom0 here:
+> 
+> if ( opt_dom0_verbose )
+>     printk("Hidden ACPI Table %.4s\n", sig);
+> 
+> So that it's more obvious which tables are not exposed.
+
+I, too, thought about that, but assumed it may not have been done before
+for a reason. Plus it would want to be a separate change anyway, imo.
+
+Jan
 
