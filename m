@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C513BA71510
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 11:44:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.927555.1330279 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13AA8A71525
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 11:55:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.927568.1330289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txOE4-0003ES-NZ; Wed, 26 Mar 2025 10:43:12 +0000
+	id 1txOPr-00076i-P2; Wed, 26 Mar 2025 10:55:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 927555.1330279; Wed, 26 Mar 2025 10:43:12 +0000
+Received: by outflank-mailman (output) from mailman id 927568.1330289; Wed, 26 Mar 2025 10:55:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txOE4-0003Bv-KQ; Wed, 26 Mar 2025 10:43:12 +0000
-Received: by outflank-mailman (input) for mailman id 927555;
- Wed, 26 Mar 2025 10:43:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1txOPr-00074P-Ln; Wed, 26 Mar 2025 10:55:23 +0000
+Received: by outflank-mailman (input) for mailman id 927568;
+ Wed, 26 Mar 2025 10:55:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SgUP=WN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txOE3-0003Bp-88
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 10:43:11 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1ad37d60-0a2f-11f0-9ffa-bf95429c2676;
- Wed, 26 Mar 2025 11:43:08 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43948021a45so58882615e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 03:43:08 -0700 (PDT)
+ id 1txOPq-00074J-Ni
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 10:55:22 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cfa8bfbb-0a30-11f0-9ea3-5ba50f476ded;
+ Wed, 26 Mar 2025 11:55:21 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43cfb6e9031so60217845e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 03:55:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9eef37sm16170353f8f.85.2025.03.26.03.43.06
+ 5b1f17b1804b1-43d53678dfcsm169347535e9.18.2025.03.26.03.55.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Mar 2025 03:43:06 -0700 (PDT)
+ Wed, 26 Mar 2025 03:55:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ad37d60-0a2f-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: cfa8bfbb-0a30-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742985787; x=1743590587; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742986520; x=1743591320; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=94yY/NZoC7Jt7gmwdVq9Muckwc0UvBMmuDWNsS52KTc=;
-        b=d2yMiPwWgwmARfj1p5jZLX+CVCDiWQuxWpfiCfnLGeG/SmhAMwkAvCephqgpLIiSeK
-         DMxSJmtw1bqEze9RkoAaOT1nogg+q/UALvJfw00KjHx/DauKPR4XDKnwGJ1l0go24Jcw
-         gz46ItMtGSrPmEhTP89IN3ki/EkRHH88vtzjE5Kh+XQA6l0oiGJNdrCvA/YQEO/kdQik
-         ka2odPlNuJv7Eky0Kqz3cm8H8DIgaHkWpMuaxPflwkMEXMjDuxiuEYkoHZvpP3Ev4Xon
-         EbZ0G7x8HRdm9npyQTAER05hX0CNx8uVCJ2mccjT0a6nS0H9EJzoImMIwbaIh+KTQDDS
-         qcfg==
+        bh=iY3z6quRTasDbN6r9gIWHkYNuUCGDeJLBrHYFjuHPP8=;
+        b=FxO1ixsOSL1M83NcqCa8HRNAZkvwbdtTfVBc8UBns6kKaI/ey42Hhu8ZSTS/gcqMDG
+         y39MKlOmDr5lqZEFaTi7qyHro55k8u6a6anByv7B/5VRTttV8VTD5OPNwZ22jmE3fnVK
+         IFepa++maniM8jjuqDxoVtADcErve9+7rU23SrkKiSt2PSP15En3R/7yyfuwD7GxsU49
+         p7Rn5V0qg4a9xcbMDumWxyg/N6oCE4IQYGwPS/TAddGEAH8p65AshINGQRAknLFA8WeS
+         XZufpWtAsajnYQ/TjkPewntWqt4Y0LRuZ2zSfuRgjXoX+SwFu9oVl2+1vPVEbOxdbFix
+         ehBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742985787; x=1743590587;
+        d=1e100.net; s=20230601; t=1742986520; x=1743591320;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=94yY/NZoC7Jt7gmwdVq9Muckwc0UvBMmuDWNsS52KTc=;
-        b=fMHPxd7cFTgfKzq1UNFau7Al/DZU8YF0JfkzKqtWv5YU3ayaJcD4FjquNrDjTTYdmi
-         vv739OjgaaLJc+Aqkxw8GNevg1/oqQvWqiT37409v+SRpWHqFOdR1vTk92cF97WJEoCR
-         6gUKRu5wFK3B8eg49ziCxoeuroFEDvOB9ORdnKFwRWC5g2XrGhrZMF4Q3Vjha0e1xKFD
-         zyGVMQn4A/0ImifJKFqFuaAJx54bqUqyuUZEar1XHJ1Z86dcqJvxK3n7dMEVkHfTlGCQ
-         WeXhd5xxW96Pj+ms7J8+OANza5VSF6pUqcWo9KOM8h8o0HPr2eh8WMLsZq9oAb14PiyF
-         Zkbg==
-X-Forwarded-Encrypted: i=1; AJvYcCUWycXSZvEvYY7nFO4bLYk68H7KFCGhjw+uwnCul5pDiDSNqvcMRs7No9VjZj4BufNrag8eS5vJgRM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzFbtB6eVmRVWpRNSNYHMxz3i6T5oBQN7egN0jXcTuVwmARFfnk
-	GlnbUNIA7b9MvlnV7JCI5lDfNuCApIY7NHZ1dgs0+Ab0t3oVKLYxZA1BKO/sfg==
-X-Gm-Gg: ASbGnctftRzayxG1aPKm87ogookUrsdnaLtJcATNb07dDvJ2gvCO5r49UJwd96m6YwD
-	BczcoU83cgmaDVyMMf5I0NEGfj4ZsslOEGp1G7TOAV81bN/CMO+kvfTh2ulYQYOxdp5qkQp2Axh
-	Z2Mg5mce6Pq6IMrNcw4xqMaAMWRUh9eUw2wpyUyTrmf/uIAmsQngQxSUbTWVcR4PwRaevjf3N2L
-	9mXP/EaheWYvt9EUCyD9Ys4qgmvAG9Te0JRvtdxVjT92DHxibIzb/ijWvlHYAvRy9yzKudNcH54
-	/I5D35mowU65u/JUyEv8JFHjpfLQPRtFPE2zSopltCj/0fEdX950iJnCH2JkP9/QgTpJGuA6gyF
-	tCloioBmO+8VpdZgnoS2S1IdcmyCpiw==
-X-Google-Smtp-Source: AGHT+IEMnhLbOeti6NgOYcqVBOzNWxm1OEH/Jjwe5S+vVTPqxBEP9kAr6SOBMXawdIEGGsvO6JF39g==
-X-Received: by 2002:a05:600c:3d85:b0:43c:fee3:2bce with SMTP id 5b1f17b1804b1-43d50a39becmr171643045e9.26.1742985787261;
-        Wed, 26 Mar 2025 03:43:07 -0700 (PDT)
-Message-ID: <94160460-357a-4852-b56d-3d89febd0e68@suse.com>
-Date: Wed, 26 Mar 2025 11:43:05 +0100
+        bh=iY3z6quRTasDbN6r9gIWHkYNuUCGDeJLBrHYFjuHPP8=;
+        b=J/BK4+HMswxFO/sigmogLfG2+z+A+z6ASfIZjnTZCVX2YdZYi+Sxhb8v7j2UF7miBh
+         z3A/ytWUaHgtjJtMILRiLxocmlZCaDNYuHTZ53XS/fSr26PeiGhkWLFsVcESSVuekrS4
+         QYL1UBMHQiZhwGLx6RHm1oRJ37ieRFnJWkhI5aSWOu4fNJ2jN1krHQO4zd/8t48jpC+E
+         FHQY6bIyvgDpqcR3i+xsO9vntj8UPnoAu0FqfmxpgP0CEMMWKKzWMCkkJHic0VjKrolT
+         R2+vNDaHoqmLOZ/p2qoGlaCuUzkb2laj2fDjz/q4g+EFwSol08UM58S0Uv4Ec0LEuHEw
+         IRLw==
+X-Forwarded-Encrypted: i=1; AJvYcCVLFQsA4xC42C8uLjuN7+lkoVyArkWf1WQhJSr2OtUtvggFt+CnpLktOSQS2aUG7auEVPDiwsz9P/I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyBJ308qvac6VFWRERBkE5UxWNEzp9unXKJVH1z1Hx/ZngEl/6/
+	MhOGXVAQX7Bi0PlJIHzsklCZ5wR7EOnrbXiyjM7fntG060v3TONHgOsw5DZFPw==
+X-Gm-Gg: ASbGncvvbn1rIHlh7ue4AfTY/bJcPuMGvOdInXbDFgL4yoOhiUZ2m8VbnQJVvg3JZSV
+	ZPZTk5bSU51J7em4OaveeqOstPvJT262sfub+XTiAZfcYbbHR5B+m+EQ+ycAyj4+tpqZZiLcclR
+	lh5w/eTPEY3cVlfBweXEIIngBos31QNBUodIR2ZUAyuqnNqFMmeH0p40pX4D7EkOOARh4Q7v8Gq
+	HddbNyLk0d3LuSroSqusYuOjAufEWwQJk6YAsZM1vm4IHHr5okoKcvDcqE80yDPVSFGl7/QlLza
+	2aH+qJFB0hfVmtFPFfS/PYYVsCYeYNWphubANfKCoVnMwvArci58CExwBy4iy5qcyJdd0hgIQwA
+	Y82OsQHoUdeQxF8Y8EadeYDeYIjHwDA==
+X-Google-Smtp-Source: AGHT+IHHzr5vIJkqtjdUwQa+2nXMvWXDLydTRbqcnPuzID1tAd1wkBFGqKADVRZ+0h84Z4z4e8fB7A==
+X-Received: by 2002:a05:600c:3502:b0:43c:f969:13c0 with SMTP id 5b1f17b1804b1-43d50a4f8d5mr202616945e9.29.1742986520122;
+        Wed, 26 Mar 2025 03:55:20 -0700 (PDT)
+Message-ID: <df911e05-df3d-4f16-992e-a1931ad00099@suse.com>
+Date: Wed, 26 Mar 2025 11:55:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/15] xen/cpufreq: refactor cmdline "cpufreq=xxx"
+Subject: Re: [PATCH v3 05/15] xen/x86: introduce "cpufreq=amd-cppc" xen
+ cmdline
 To: "Penny, Zheng" <penny.zheng@amd.com>
 Cc: "Huang, Ray" <Ray.Huang@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -97,9 +98,9 @@ Cc: "Huang, Ray" <Ray.Huang@amd.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20250306083949.1503385-1-Penny.Zheng@amd.com>
- <20250306083949.1503385-4-Penny.Zheng@amd.com>
- <80963bfa-a19e-49a7-8de2-0d8508af450f@suse.com>
- <DM4PR12MB8451F07287ABC9BB683D7BD3E1A62@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <20250306083949.1503385-6-Penny.Zheng@amd.com>
+ <5498f98e-f3c5-4cb4-9a3d-793239a4339d@suse.com>
+ <DM4PR12MB84519AF2B72DDDF50CA8BF18E1A62@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,106 +126,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB8451F07287ABC9BB683D7BD3E1A62@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB84519AF2B72DDDF50CA8BF18E1A62@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.03.2025 08:20, Penny, Zheng wrote:
+On 26.03.2025 09:35, Penny, Zheng wrote:
 >> -----Original Message-----
 >> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Monday, March 24, 2025 11:01 PM
+>> Sent: Monday, March 24, 2025 11:26 PM
 >>
 >> On 06.03.2025 09:39, Penny Zheng wrote:
->>> --- a/docs/misc/xen-command-line.pandoc
->>> +++ b/docs/misc/xen-command-line.pandoc
->>> @@ -535,7 +535,8 @@ choice of `dom0-kernel` is deprecated and not supported
->> by all Dom0 kernels.
->>>    processor to autonomously force physical package components into idle state.
->>>    The default is enabled, but the option only applies when `hwp` is enabled.
+>>> @@ -514,5 +515,14 @@ acpi_cpufreq_driver = {
 >>>
->>> -There is also support for `;`-separated fallback options:
->>> +User could use `;`-separated options to support universal options
->>> +which they would like to try on any agnostic platform, *but* under
->>> +priority order, like
->>>  `cpufreq=hwp;xen,verbose`.  This first tries `hwp` and falls back to
->>> `xen` if  unavailable.  Note: The `verbose` suboption is handled
->>> globally.  Setting it  for either the primary or fallback option
->>> applies to both irrespective of where
+>>>  int __init acpi_cpufreq_register(void)  {
+>>> -    return cpufreq_register_driver(&acpi_cpufreq_driver);
+>>> +    int ret;
+>>> +
+>>> +    ret = cpufreq_register_driver(&acpi_cpufreq_driver);
+>>> +    if ( ret )
+>>> +        return ret;
+>>> +
+>>> +    if ( IS_ENABLED(CONFIG_AMD) )
+>>> +        xen_processor_pmbits &= ~XEN_PROCESSOR_PM_CPPC;
 >>
->> What does "support" here mean? I fear I can't even suggest what else to use, as I
->> don't follow what additional information you mean to add here. Is a change here
->> really needed?
+>> What's the purpose of the if() here?
 > 
-> There are two changes I'd like to address:
-> 1) ";" is not designed for fallback options anymore, like we discussed before, we would
-> like to support something like "cpufreq=hwp;amd-cppc;xen" for users to define all universal options
-> they would like to try.
+> After cpufreq driver properly registered, I'd like XEN_PROCESSOR_PM_PX and XEN_PROCESSOR_PM_CPPC
+> being exclusive value to represent the actual underlying registered driver.
+> As users could define something like "cpufreq=amd-cppc,xen", which implies both XEN_PROCESSOR_PM_PX and XEN_PROCESSOR_PM_CPPC
+> got set in parsing logic. With amd-cppc failing to register, we are falling back to legacy ones. Then XEN_PROCESSOR_PM_CPPC needs to clear.
 
-Why would the meaning of ; change? There's no difference between having a single
-fallback option from hwp, or two of them from amd-cppc.
+Looks like you try to explain the &= when my question was about the if().
+I understand the purpose of the &=. What I don't understand is why it needs
+to be conditional.
 
-> 2) Must under *priority* order. As in cpufreq_driver_init(), we are using loop to decide which driver to
-> try firstly. If user defines "cpufreq=xen;amd-cppc", which leads legacy P-state set before amd-cppc in cpufreq_xen_opts[],
-> then in the loop, we will try to register legacy P-state firstly, once it gets registered successfully, we will not try to register amd-cppc at all.
-
-This in-order aspect also doesn't change.
-
-Overall I fear I don't feel my question was answered.
-
->>> --- a/xen/drivers/cpufreq/cpufreq.c
->>> +++ b/xen/drivers/cpufreq/cpufreq.c
->>> +    if ( arg[0] && arg[1] )
->>> +        ret = cpufreq_cmdline_parse(arg + 1, end);
->>> +
->>> +    return ret;
->>> +}
->>> +
->>> +static int __init cpufreq_cmdline_parse_hwp(const char *arg, const
->>> +char *end) {
->>> +    int ret = 0;
->>> +
->>> +    xen_processor_pmbits |= XEN_PROCESSOR_PM_PX;
->>> +    cpufreq_controller = FREQCTL_xen;
->>> +    cpufreq_xen_opts[cpufreq_xen_cnt++] = CPUFREQ_hwp;
->>> +    if ( arg[0] && arg[1] )
->>> +        ret = hwp_cmdline_parse(arg + 1, end);
->>> +
->>> +    return ret;
->>> +}
+>>> --- a/xen/include/acpi/cpufreq/cpufreq.h
+>>> +++ b/xen/include/acpi/cpufreq/cpufreq.h
+>>> @@ -28,6 +28,7 @@ enum cpufreq_xen_opt {
+>>>      CPUFREQ_none,
+>>>      CPUFREQ_xen,
+>>>      CPUFREQ_hwp,
+>>> +    CPUFREQ_amd_cppc,
+>>>  };
+>>>  extern enum cpufreq_xen_opt cpufreq_xen_opts[2];
 >>
->> For both of the helpers may I suggest s/parse/process/ or some such ("handle"
->> might be another possible term to use), as themselves they don't do any parsing?
+>> I'm pretty sure I pointed out before that this array needs to grow, now that you add a
+>> 3rd kind of handling.
 >>
 > 
-> Maybe I mis-understood the previous comment you said
-> ```
->         >          else if ( IS_ENABLED(CONFIG_INTEL) && choice < 0 &&
->         > ```
-> 
->         For the rest of this, I guess I'd prefer to see this in context. Also with
->         regard to the helper function's name.
-> ```
-> I thought you suggested to introduce helper function to wrap the conditional codes...
-> Or may you were suggesting something like:
-> ```
-> #ifdef CONFIG_INTEL
-> else if ( choice < 0 && !cmdline_strcmp(str, "hwp") )
-> {
->     xen_processor_pmbits |= XEN_PROCES
->     ...
-> }
-> #endif
-> ```
+> Hmmm, but the CPUFREQ_hwp and CPUFREQ_amd_cppc are incompatible options.
+> I thought cpufreq_xen_opts[] shall reflect available choices on their hardware.
+> Even if users define "cpufreq=hwp;amd-cppc;xen", in Intel platform, cpufreq_xen_opts[] shall
+> contain  CPUFREQ_hwp and CPUFREQ_xen, while in amd platform, cpufreq_xen_opts[] shall
+> contain CPUFREQ_amd_cppc and CPUFREQ_xen
 
-Was this reply of yours misplaced? It doesn't fit with the part of my reply in
-context above. Or maybe I'm not understanding what you mean to say.
-
->> In the end I'm also not entirely convinced that we need these two almost identical
->> helpers (with a 3rd likely appearing in a later patch).
-
-Instead it feels as if this response of yours was to this part of my comment.
-Indeed iirc I was suggesting to introduce a helper function. Note, however, the
-singular here as well as in your response above.
+Maybe I misread the code, but the impression I got was that "cpufreq=hwp;amd-cppc;xen"
+would populate 3 slots of the array (with one of "hwp" and "amd-cppc" necessarily not
+working, leading to the next one to be tried).
 
 Jan
 
