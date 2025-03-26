@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12349A719EF
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 16:14:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.927952.1330721 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0236FA71A0D
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 16:19:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.927963.1330730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txSRP-0001db-Vk; Wed, 26 Mar 2025 15:13:15 +0000
+	id 1txSXS-0002H7-MM; Wed, 26 Mar 2025 15:19:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 927952.1330721; Wed, 26 Mar 2025 15:13:15 +0000
+Received: by outflank-mailman (output) from mailman id 927963.1330730; Wed, 26 Mar 2025 15:19:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txSRP-0001ap-RR; Wed, 26 Mar 2025 15:13:15 +0000
-Received: by outflank-mailman (input) for mailman id 927952;
- Wed, 26 Mar 2025 15:13:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1txSXS-0002Ef-JG; Wed, 26 Mar 2025 15:19:30 +0000
+Received: by outflank-mailman (input) for mailman id 927963;
+ Wed, 26 Mar 2025 15:19:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SgUP=WN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txSRO-0001ah-6A
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 15:13:14 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d468a57b-0a54-11f0-9ea3-5ba50f476ded;
- Wed, 26 Mar 2025 16:13:10 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3913958ebf2so5630532f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 08:13:10 -0700 (PDT)
+ id 1txSXS-0002EZ-0R
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 15:19:30 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b387afca-0a55-11f0-9ffa-bf95429c2676;
+ Wed, 26 Mar 2025 16:19:25 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43d2d952eb1so52096495e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 08:19:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9e65f0sm17195436f8f.74.2025.03.26.08.13.09
+ 5b1f17b1804b1-43d82efeacasm5116095e9.23.2025.03.26.08.19.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Mar 2025 08:13:09 -0700 (PDT)
+ Wed, 26 Mar 2025 08:19:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d468a57b-0a54-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: b387afca-0a55-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743001990; x=1743606790; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743002364; x=1743607164; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LcNNzFHix/dmgUC3rDZCsnChTjI+jCRZvs1d6v/7WfY=;
-        b=KNvRT5NpyGWZqibRBELHYD5TYlb4w/S00dHlr3CPTxEV8j5mmeDYCbx3wLWzEBevAu
-         vxyWA9lRXNNxQBGsAydEzXuyi5ptvIJ/PXs8N4f/lY89GDWVtdJVamhvqn+kovqKwjcB
-         Q6e3r3/lYPEPE/0Ch2+BuAg0wsQt9eVVe6oQLkwYSuktwRG8R7o4m+8GdKDQlQnFznRe
-         8Q7DgRlyG6gBWwDiPuFBr4VFFB1wCNQm7kJ1GLLoUuFny7uZvpT1UpDLxEhTFL6rHPtG
-         olEXP92Z43UCFJebbsXUOBfjQXHG9urLx+wz7oZQtOfGaD8+cD+zfpctuvE3oCPLxqcR
-         NrPg==
+        bh=XGBNjc/7bYFUGFiPOag7QmYgqexvjJu7OxOL4dSG6lk=;
+        b=RYZ1p7bFT/A+URzW/uR1vAS2HjdLJ2jM2kbYxfgwtWWqim5gjBIQB1qIHwU0hv1ThC
+         wXxPL/v4jjBnxI3oChAIzjHqctnrDRMRLC1VgJ/OhwCif0UV9N8rsaQ39BizNJ6eHmla
+         AH2rYJD7qGBQL+Qi0TK75whFgrPphZLoqCUdlcelsSvVbpgSyENYqIYROtp3qIqaWlSI
+         zYH7CQuKwCWPsZ/NTdwD1uT8JjN+ilRODAY3DpbwfNnxAzx5FsDHshBsCgLZ4KZA3CJs
+         F9utztwxEMbRsgHRgbQhgZUjW5aEUPxWpVZNb0uVUs3tMK1Trw2tNzBPqRXW5MjZhSB9
+         VhwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743001990; x=1743606790;
+        d=1e100.net; s=20230601; t=1743002364; x=1743607164;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LcNNzFHix/dmgUC3rDZCsnChTjI+jCRZvs1d6v/7WfY=;
-        b=NhKnNpoh8uBHoWRpEyGkkqY9GtkN0IAdgB67ywErQticM/dDtZh67UfTyPS8F7f6wU
-         fd0RZmbiFVHO/3VXlvKFHjMgzuPpYDZifGDVGdXxxfyMKwENWzW1FmN+RpPoHgUpbz+q
-         g6HrvQDjzur+9foMt0rV5aXnAuLLuzwx9FageBSFMd5mnCBv0ZrKyHXKp4UrH/SpUOc4
-         rv9E4wSrKa8Rs6hhp2lpBcgy/G3n2FC6Xw9S4c370GQclrrqtNAscmC/BXcMMiOpjf/Z
-         WVa5kiMLEXI+pcfxzHhqxjd8vAdHz3XA/fUbPQybhLsSpHmYSjQAuKkf8XdQvtrt/rVB
-         JjIw==
-X-Forwarded-Encrypted: i=1; AJvYcCU4j34yu2q2JepM661emB+IZpN5kHLlgQAiaMuTEO6jm0Q55lAWxX5BtSDqnMxUoo1XrQIIRWKU29g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwoNhOWnehE/ayOv4GWaotNQHmJWHqkxVX+ZWORbFnZKPfnzbDK
-	/3zu4ca1THXtauOPeftiNle/cw/iqriZLKn4ekwBH22NTKR0pCB3x15K22hm5Q==
-X-Gm-Gg: ASbGncvdxM82c0EaHrvTxg7TK4qffIIm+WE1gRo77o7uWuvnYzYUo78MebLI4oWbUNl
-	ygdKesSziR0QqPfaTErqFvfQ0dlMF1gIlQ1XHtGJogfZS569Enh8p8mE25nGaxc15zQnwB6jFLe
-	cEGbZFDZvQcgSNgI9wW7A0jIqeScasIxqjCDTQCuaCjcgnSHxAfe3UH55/WogR8aQQSH60fKRBl
-	kefP57eTRl9TYasrQDZN6MyixfwM2Y2IkCt/qPBjwDt2mhMPM7h7bpUpEMkR7R3j6xeEYadcusf
-	qOFUeQPCxYt3rys93TEiW8qEFNnYWXzMqAmYPDUeXr1kI60Mi9qWyxZzXc/LTgvU9o7Zbkfw+if
-	nSdgTYeR5BefjBh+e2sIAwFmPPpYoTA==
-X-Google-Smtp-Source: AGHT+IHpEoAAcxtQqjxyomqK/wbDsASptHmQtkSQx42HPODYpTeshsbNIMgBG9gF+u6hyeL94JKf7A==
-X-Received: by 2002:a5d:584b:0:b0:390:f9a5:bd79 with SMTP id ffacd0b85a97d-3997f90ab9emr20882402f8f.26.1743001990060;
-        Wed, 26 Mar 2025 08:13:10 -0700 (PDT)
-Message-ID: <86c067f2-87ff-4e75-b94a-9d760fc730e5@suse.com>
-Date: Wed, 26 Mar 2025 16:13:08 +0100
+        bh=XGBNjc/7bYFUGFiPOag7QmYgqexvjJu7OxOL4dSG6lk=;
+        b=ZfGyfNUu6BRGxcCRodlFueXwBlg7fpbdUCn+mqFDQPXktZv6gref8mVzahHGGl2iu5
+         tfObA34JMn8IQx86MFqdgS7O27tAKQiuvahN8n2fafCaqTA/PCYaxllGZY/rd1sZ3xyT
+         ZB0ZAnLv/9wG1ow7VmcKSRyxaXEnv1y5x0zbbxNzUxmp/zyQpCB7S4eArGjatO+OdwG+
+         +Gu5xzsWRDKSap1IIkw1NLaBgEZ2Kh0DgcX6takohtwyTQqsiDdrdPAsY2eBN5HhSjT3
+         iVPhpxIEmS6BLsDZZLk1347A/yH1WrAcCKdlUtcjBC5flHnUX4JpWXyt475bUFpp+c9O
+         L+tA==
+X-Forwarded-Encrypted: i=1; AJvYcCWNbWYzLTnYSiPGs0M2qRdKtX3bSMoHVH7k+VmCICc0j7xusL4zJsXI9Lau1XMaR5Z3f4rAn/mbneY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEgmzUItfc38YM8WliNQHpRaBXPDvkdFE7kVeQyfiIKvISriAg
+	7Uv3qgbg9NHXEUnZvkDDcsHp6JP1WvlSGAX/cM8j9jpruR0XwkmzBKU68742gA==
+X-Gm-Gg: ASbGncvL3gmJwu3YC4EaFxSYatumMLpTxP+GeWNLMVIEyVoKDEbNUaZ7EaHrbzlaT4O
+	x6TqGDWv1tU0i8oAjmN6bXev9HiK3X509HhHP8hG/x5Xk+NmASvj8ygIGZjz7bk2cs+TxgqW394
+	n82YaDxK+JobvtWBBmYidafn0lGS5MAML4OI4UgwPax21bN7fheJqRQPrFMEnOrfrht3kcBt3sm
+	7JqLt4f2UJAx9TjCxurpE5JCoq1fmEUxAGGnoFNZ3FPHxdOO6Goyu1PI03Vqr/oN5JuBLRU5lNd
+	AFyRFVIiAq2XmmKw5GTLyEYvMnOzp8908PicjQ/pyHz944GLgQ1fGub0Gjg9VpnglE15h8la9jw
+	F8Rv+Ol1/dGaB0F4E+0E0qZxrUtuw9w==
+X-Google-Smtp-Source: AGHT+IFkffpDSzO9ATtlqXkLmzWd3vbnMRC+H7wNo5WNOmvM+0E6AbIz2a3H1b9d1gXjsdDVGg3zKg==
+X-Received: by 2002:a05:600c:1f0c:b0:43d:42b:e186 with SMTP id 5b1f17b1804b1-43d555b7ec9mr176600835e9.8.1743002364390;
+        Wed, 26 Mar 2025 08:19:24 -0700 (PDT)
+Message-ID: <e9fddc7d-feb3-4fd0-830f-de4b7ef17bba@suse.com>
+Date: Wed, 26 Mar 2025 16:19:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] xen/riscv: introduce preinit_xen_time()
+Subject: Re: [PATCH v2 3/4] xen/riscv: implement basic aplic_preinit()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -95,8 +95,10 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
 References: <1a04711f46a1c0a7cdf709abc37f143747215495.1742918184.git.oleksii.kurochko@gmail.com>
+ <f0945e3a41e911b5dfd005a8d15aa0d668d8e3cf.1742918184.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,87 +124,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1a04711f46a1c0a7cdf709abc37f143747215495.1742918184.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <f0945e3a41e911b5dfd005a8d15aa0d668d8e3cf.1742918184.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 25.03.2025 18:36, Oleksii Kurochko wrote:
-> preinit_xen_time() does two things:
-> 1. Parse timebase-frequency properpy of /cpus node to initialize
->    cpu_khz variable.
-> 2. Initialize xen_start_clock_cycles with the current time counter
->    value.
+> Introduce preinitialization stuff for the RISC-V Advanced Platform-Level
+> Interrupt Controller (APLIC) in Xen:
+>  - Implementing the APLIC pre-initialization function (`aplic_preinit()`),
+>    ensuring that only one APLIC instance is supported in S mode.
+>  - Initialize APLIC's correspoinding DT node.
+>  - Declaring the DT device match table for APLIC.
+>  - Setting `aplic_info.hw_version` during its declaration.
+>  - Declaring an APLIC device.
 > 
+> Since Microchip originally developed aplic.c [1], an internal discussion
+> with them led to the decision to use the MIT license instead of the default
+> GPL-2.0-only.
+> 
+> [1] https://gitlab.com/xen-project/people/olkur/xen/-/commit/7cfb4bd4748ca268142497ac5c327d2766fb342d
+> 
+> Signed-off-by: Romain Caritey <Romain.Caritey@microchip.com>
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in v2:
->  - Update SPDX tag for time.c
->  - s/read_mostly/__ro_after_init for boot_count variable.
->  - Add declaration of boot_count to asm/time.h.
->  - Rename boot_count to xen_start_clock_cycles.
 
-I'm not going to insist on another name change, but I'm having a hard time
-seeing why almost any global variable in Xen would need to have a xen_
-prefix. "start" also can be ambiguous, so imo boot_clock_cycles would have
-been best.
+You recall that From: != 1st S-o-b is unusual, and wants some explanation.
+IOW it's unclear who the original author of this patch is.
 
 > --- /dev/null
-> +++ b/xen/arch/riscv/time.c
-> @@ -0,0 +1,39 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#include <xen/device_tree.h>
+> +++ b/xen/arch/riscv/aplic.c
+> @@ -0,0 +1,49 @@
+> +/* SPDX-License-Identifier: MIT */
+> +
+> +/*
+> + * xen/arch/riscv/aplic.c
+> + *
+> + * RISC-V Advanced Platform-Level Interrupt Controller support
+> + *
+> + * Copyright (c) 2023-2024 Microchip.
+> + * Copyright (c) 2024-2025 Vates
+> + */
+> +
+> +#include <xen/errno.h>
 > +#include <xen/init.h>
-> +#include <xen/lib.h>
-> +#include <xen/sections.h>
+> +#include <xen/types.h>
 > +
-> +unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
-> +unsigned long __ro_after_init xen_start_clock_cycles;
-
-For the theoretical at this point case of support RV32, will unsigned long
-be wide enough? I.e. is the counter only 32 bits wide when XLEN=32?
-
-> +static __initdata struct dt_device_node *timer;
-
-Please can __initdata (and alike) live at its canonical place, between
-type and identifier?
-
-It's also unclear at this point why this needs to be a file scope variable.
-
-> +/* Set up the timer on the boot CPU (early init function) */
-> +static void __init preinit_dt_xen_time(void)
-> +{
-> +    static const struct dt_device_match __initconstrel timer_ids[] =
-> +    {
-> +        DT_MATCH_PATH("/cpus"),
-> +        { /* sentinel */ },
-> +    };
-> +    uint32_t rate;
+> +#include <asm/device.h>
+> +#include <asm/intc.h>
 > +
-> +    timer = dt_find_matching_node(NULL, timer_ids);
-> +    if ( !timer )
-> +        panic("Unable to find a compatible timer in the device tree\n");
-> +
-> +    dt_device_set_used_by(timer, DOMID_XEN);
-> +
-> +    if ( !dt_property_read_u32(timer, "timebase-frequency", &rate) )
-> +        panic("Unable to find clock frequency\n");
-> +
-> +    cpu_khz = rate / 1000;
+> +static struct intc_info aplic_info = {
+> +    .hw_version = INTC_APLIC
+> +};
 
-"rate" being only 32 bits wide, what about clock rates above 4GHz? Or is
-this some external clock running at a much lower rate than the CPU would?
+Is this going to be written to (much) post-init? IOW - __read_mostly or
+even __ro_after_init?
 
-> +}
-> +
-> +void __init preinit_xen_time(void)
-> +{
-> +    preinit_dt_xen_time();
-> +
-> +    xen_start_clock_cycles = get_cycles();
-> +}
-
-I take it that more stuff is going to be added to this function? Else I
-wouldn't see why preinit_dt_xen_time() needed to be a separate function.
+With authorship clarified and this variable adjusted according to whatever
+the longer term use of it is
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
