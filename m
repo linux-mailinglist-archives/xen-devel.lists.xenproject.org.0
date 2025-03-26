@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D45E9A713B0
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 10:29:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.927373.1330118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB20AA713C6
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 10:35:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.927382.1330128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txN45-0000kW-Vh; Wed, 26 Mar 2025 09:28:49 +0000
+	id 1txN9s-0003id-If; Wed, 26 Mar 2025 09:34:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 927373.1330118; Wed, 26 Mar 2025 09:28:49 +0000
+Received: by outflank-mailman (output) from mailman id 927382.1330128; Wed, 26 Mar 2025 09:34:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txN45-0000hZ-Sj; Wed, 26 Mar 2025 09:28:49 +0000
-Received: by outflank-mailman (input) for mailman id 927373;
- Wed, 26 Mar 2025 09:28:47 +0000
+	id 1txN9s-0003gW-G7; Wed, 26 Mar 2025 09:34:48 +0000
+Received: by outflank-mailman (input) for mailman id 927382;
+ Wed, 26 Mar 2025 09:34:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SgUP=WN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txN43-0000hT-NF
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 09:28:47 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=16MU=WN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1txN9r-0003gQ-Hf
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 09:34:47 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b7661999-0a24-11f0-9ea3-5ba50f476ded;
- Wed, 26 Mar 2025 10:28:46 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4393dc02b78so47086365e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 02:28:46 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d4fd9ec29sm175493175e9.30.2025.03.26.02.28.44
+ id 8e5b4792-0a25-11f0-9ea3-5ba50f476ded;
+ Wed, 26 Mar 2025 10:34:46 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43cfebc343dso50055965e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 02:34:46 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d43f556a4sm227515815e9.22.2025.03.26.02.34.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Mar 2025 02:28:45 -0700 (PDT)
+ Wed, 26 Mar 2025 02:34:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,141 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7661999-0a24-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 8e5b4792-0a25-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742981325; x=1743586125; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1742981686; x=1743586486; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lLezJDfb6wlt+VE8qyc+JEwTLurnNBYVVv4E9BTkDE8=;
-        b=PFXrHJ6K7UfGrokjC3LPJSv0259P1xkl27ZlpsNt8rxneS1yXSwNEY2HG9mqxF59QY
-         LUCX/PYEpUYE6IEOhLTXjVQa763Gd/BFpGEdsvywyWxzdO1a8x9aeFF06p5lxrgUwoPD
-         DQrFmPzMUu8g6YGPDm0HK+NbRtfgS52ejvVEfff6Bkm2jg/Id1V5TrvGs73eVAs15fab
-         G9sWxbydi0hbp41Et3x73CQJ1t7WoeoOvK9mv5HN1W/Dj+/owX0Yv+6SgdkHKDTFILvk
-         VjfpAdooTtmQYoAjDa3XQ/q7GBwFQZlOPlt0tZqcMPWMTzHZU5E2FrQHV/nHMaUsu95e
-         KyfQ==
+        bh=nwcfmviDfc9HYBYFyoF0Thsj//TBc1EObkoKzxW+X70=;
+        b=ldloEQzyAB5zHPHTPWXncm77nHtzN20t+7SGZ53Gh+JJYha2/quHZo8y5RkI5e1XCq
+         tRIQRTcyILvAeUOqQ6mQ+sbtASALX16UCxJDx7EA5QcJGA/gOZNVr7+ymiYDDcoJbE+k
+         s+fSKMZnJ/DU31vnoGBdDHKhF1Q340xYiW1yA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742981325; x=1743586125;
+        d=1e100.net; s=20230601; t=1742981686; x=1743586486;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lLezJDfb6wlt+VE8qyc+JEwTLurnNBYVVv4E9BTkDE8=;
-        b=JjE6DUpINQk9uOg2bF/a0A2HR3KrFbSDu4ZoV8ATAN048Aam0yjsYBzDCTCSmp0ylx
-         yjwyNNk7bRe7Q3lnNmVx4r+TJovcEEaEo6f8trChkgo9gN1xmBS2BCHP0e0vxLM3bajO
-         j9Lbpc10cd4QGinRXd7CDZtbZ3JuvNvdeWq6NQ/g3EJuwFnFLOU7yqNXihkCQ9X9jAEQ
-         iKhBQMJzlHlaCnUlewkG41m5JRiN8KSgRCWsJHn+yZ4FaxkwBOoENmvAyZ+pUj1UJA31
-         1NuyHmA3QOQlvKkFPMCThSqpAPKjtL/wRrLE6jLMN/46jPu3P2g0wBAQMpiWZw8gpQDv
-         b9mQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUwzRYuUgk+DIHIOxG6AMmLqOtn9H9QYpYuY9jaLrWbNQXAvvQCr8C1tOHGTLX7jyrNKoPbBBwHEfM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyS6ky3a6a0sqMu2FARlLZxPJMiRCvLpUKzsiQF5gPx4x4EPjc1
-	TtHSUGRysYc9Kp3uuAE2vxlU4THd4WAbUbu6t63G9tw6IpDuPv7P6iFU6fKvjA==
-X-Gm-Gg: ASbGncvoG3A5EUC5ldXCVQZEn1DcEiOYv4kr3BWW89pMfv2JsVaARKHGZwykZaqDZJM
-	OJ9m28iNJFzWKI4edicXE6ljkVTsqrK1TtWmvT2fdEAL+8noeHlgo4arrXEIrXLaLcBGu856OQc
-	Wuw0010gh5J9QmApKPXOb8ptnojWvymV50Nda9ad848MCX5Xbnvg6aHoHazf63enh0UH4c3Xwdj
-	EhzYHdLPQXuaA+/X0gjr6o3f7uQNatkqdsCtL2RP3dM2/z4sBBpRIc3HufrjZZf5/dIMIQKfnqT
-	l8G3CVthGpXM1VEdE17hL7UGinOvl89ieLtxZ1/iUnO8mTpJYK9ZgwJdcFboyB83ml14nsHFOSk
-	eYlMTQkjHHkPAwYMc3PcI4wndLnSRdA==
-X-Google-Smtp-Source: AGHT+IEgAE2EDb2/urRVuy6zKDqX3FNmt+oWa6d8dIx/5jMqt7A8p5wsDuEZElsXKYWaWFtpDeY05w==
-X-Received: by 2002:a05:6000:2103:b0:391:2954:de27 with SMTP id ffacd0b85a97d-3997f93c2b0mr14045035f8f.45.1742981325528;
-        Wed, 26 Mar 2025 02:28:45 -0700 (PDT)
-Message-ID: <45ddac7d-a8cd-4bf0-91ee-83d266628cca@suse.com>
-Date: Wed, 26 Mar 2025 10:28:44 +0100
+        bh=nwcfmviDfc9HYBYFyoF0Thsj//TBc1EObkoKzxW+X70=;
+        b=bx8l4eJQevw0tRFYz6AqM0/iDd2UFiKzUEJMJ31XybWn3znGjD7v53XO/h5wnw/exC
+         lf72NKj3YW7GZZbLummyVmYW/42KdEJHKoss/JqrEFTKrJn7Xr7jiVUn3YMDOCDPz4vb
+         KQucLvRxAVUvhKmMMUuuDp8yHHjhP2gBDGPjht+xS5WC1j13BKr76LNTDTOav4+5JRa5
+         JREdFqM1kW3qlm7bhZDM9QvG2Q4Eb0O/VMQNbOizQ60a8sMvEp3uOT9NCeMVlqW4K7e1
+         eoJT5ItGty93YGdTFvfRAgxJDK0XkelvcEGhto4ZvnmQU4K13TmDP9TxqSoHYSuTWLvv
+         xyfA==
+X-Forwarded-Encrypted: i=1; AJvYcCU71HYrk0PJtVe1ITJg1XjHVpZXKoBmc66n4Vqdzjrlzvu5zQ08PewdHD4CmEX6JTdbqUTPOOsf21g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwkTDvZ18mCKTLIi0i9vqqk06X/KN/3xmq+Lqf+0I9yK+dYvzd7
+	tR1GzBK5uLeIrqOFbGYM5kX+gJ+uRsBrFbirENLU60WmmPLP4z8PGR/Y01KYOK4=
+X-Gm-Gg: ASbGncuezX/hXz3j4B+0/gKQKLKlPQstVEZVpSsFRx6g7bo8ioDxuvQChCz14wnkuyS
+	J2XXuMgWQ72E3AUgRFcDeNJ0JioAvq0FybwBovUbcjfFWmgNEjcl49bl9TYb/6+7fN97mAwZYvj
+	WL781NdhroDOl4mxKxm/OWBoDYjRWvZKoD81IBdeTwsJTP05QXtxaPZbvFnu6072onbjfXPoOYR
+	YCCzVqBA+1KWKgLj2fJDutTkY9Q/2EQuEvqryFO0UktIYXxLFO1lC+rmCpA+3LEMGlpxkgO4hr+
+	ADffsBob1fs1u/2ZOxYd4xO+k7mHN0ELXDyPoAX9swJFWXaDIFHZcRsalLoqyD9Z4q4+g/m7Ax8
+	ifg/Nejel3w==
+X-Google-Smtp-Source: AGHT+IEGxOsLkuKpWZAx7NzTXS9XUQiUd+UK/tTMpfTBIzDZwHxySQxKAcZWTO04x44xUF/ZcVZOBw==
+X-Received: by 2002:a05:600c:1d8f:b0:43b:ca39:6c75 with SMTP id 5b1f17b1804b1-43d509f44f2mr212746085e9.16.1742981686086;
+        Wed, 26 Mar 2025 02:34:46 -0700 (PDT)
+Message-ID: <a57c2ae0-2c9f-4fac-9ebb-a570f0f2cabc@citrix.com>
+Date: Wed, 26 Mar 2025 09:34:45 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/elf: Remove ASM_CALL_CONSTRAINT from
- elf_core_save_regs()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] x86/bitops: Account for POPCNT errata on earlier Intel
+ CPUs
+To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250325180005.275552-1-andrew.cooper3@citrix.com>
- <ae306524-bc22-450e-88d6-8c0785003e17@suse.com>
- <1a01a590-acb6-4b6e-9fb9-3af4deabb4b5@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1a01a590-acb6-4b6e-9fb9-3af4deabb4b5@citrix.com>
+References: <20250325185219.315319-1-andrew.cooper3@citrix.com>
+ <56fbd614-2b46-4cc2-88f3-e244aedd5479@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <56fbd614-2b46-4cc2-88f3-e244aedd5479@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 26.03.2025 10:17, Andrew Cooper wrote:
-> On 26/03/2025 9:00 am, Jan Beulich wrote:
->> On 25.03.2025 19:00, Andrew Cooper wrote:
->>> I was mistaken about when ASM_CALL_CONSTRAINT is applicable.  It is not
->>> applicable for plain pushes/pops, so remove it from the flags logic.
->>>
->>> Clarify the description of ASM_CALL_CONSTRAINT to be explicit about unwinding
->>> using framepointers.
->>>
->>> Fixes: 0754534b8a38 ("x86/elf: Improve code generation in elf_core_save_regs()")
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Jan Beulich <JBeulich@suse.com>
->>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>>  xen/arch/x86/include/asm/asm_defns.h  | 5 +++--
->>>  xen/arch/x86/include/asm/x86_64/elf.h | 2 +-
->>>  2 files changed, 4 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/xen/arch/x86/include/asm/asm_defns.h b/xen/arch/x86/include/asm/asm_defns.h
->>> index 92b4116a1564..689d1dcbf754 100644
->>> --- a/xen/arch/x86/include/asm/asm_defns.h
->>> +++ b/xen/arch/x86/include/asm/asm_defns.h
->>> @@ -28,8 +28,9 @@ asm ( "\t.equ CONFIG_INDIRECT_THUNK, "
->>>  
->>>  /*
->>>   * This output constraint should be used for any inline asm which has a "call"
->>> - * instruction.  Otherwise the asm may be inserted before the frame pointer
->>> - * gets set up by the containing function.
->>> + * instruction, which forces the stack frame to be set up prior to the asm
->>> + * block.  This matters when unwinding using framepointers, where the asm's
->>> + * function can get skipped over.
->> Does "forces the stack frame to be set up" really mean the stack frame, or the
->> frame pointer (if one is in use)?
-> 
-> What do you consider to be the difference, given how frame pointers work
-> in our ABI?
+On 26/03/2025 9:20 am, Jan Beulich wrote:
+> On 25.03.2025 19:52, Andrew Cooper wrote:
+>> It turns out that LZCNT/TZCNT have the same input dependent bug, prior to
+>> Skylake.
+> These two do, but BSF/BSR don't? Pretty odd.
 
-My point is that frame pointers are an optional part. Sufficiently high
-optimization levels omit them by default, iirc. And depending on
-CONFIG_FRAME_POINTER we may explicitly pass -fno-omit-frame-pointer. Even
-in that case there is a stack frame that the compiler is setting up. Yet
-in that case the effect of ASM_CALL_CONSTRAINT is not relevant. Hence
-also why the construct expands to nothing in that case. The comment,
-however, is placed outside if the #ifdef, and hence applies to both forms
-(according to the way I read such, at least).
+BSF/BSR have true input dependencies.  They both have cases where the
+destination register is left unmodified.
 
-> It is the frame pointer which needs setting up, which at a minimum
-> involves spilling registers to the stack and getting %rsp into it's
-> eventual position.
+>
+>> --- a/xen/arch/x86/include/asm/bitops.h
+>> +++ b/xen/arch/x86/include/asm/bitops.h
+>> @@ -488,10 +488,16 @@ static always_inline unsigned int arch_hweightl(unsigned long x)
+>>       *
+>>       * This limits the POPCNT instruction to using the same ABI as a function
+>>       * call (input in %rdi, output in %eax) but that's fine.
+>> +     *
+>> +     * On Intel CPUs prior to Cannon Lake, the POPCNT instruction has a false
+>> +     * input dependency on it's destination register (errata HSD146, SKL029
+>> +     * amongst others), impacting loops such as bitmap_weight().  Insert an
+>> +     * XOR to manually break the dependency.
+>>       */
+> With this being an Intel-only issue, wouldn't we better ...
+>
+>>      alternative_io("call arch_generic_hweightl",
+>> +                   "xor %k[res], %k[res]\n\t"
+> ... put this line in #ifdef CONFIG_INTEL then? The extra overhead is small, but
+> I see no reason not to avoid it if we can. (I realize that's not quite as
+> straightforward as it reads, for alternative_io() being a macro.)
 
-Right, and all I'm effectively asking for is s/stack frame/frame pointer/
-in the new comment text. Then:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+For an XOR, no; not worth the complexity.
 
-Alternatively part or all of the comment could be moved inside the #ifdef.
+Besides, this gets used a whole 5 locations in the hypervisor, after I
+cleaned up the paths which shouldn't have been using hweight() in the
+first place.
 
-Jan
+~Andrew
 
