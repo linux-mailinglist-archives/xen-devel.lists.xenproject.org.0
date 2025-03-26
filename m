@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16A0AA715EC
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 12:39:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.927648.1330369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D8B4A715EF
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Mar 2025 12:39:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.927656.1330379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txP61-0004AA-EB; Wed, 26 Mar 2025 11:38:57 +0000
+	id 1txP6t-0004f8-Ne; Wed, 26 Mar 2025 11:39:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 927648.1330369; Wed, 26 Mar 2025 11:38:57 +0000
+Received: by outflank-mailman (output) from mailman id 927656.1330379; Wed, 26 Mar 2025 11:39:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txP61-00048N-BD; Wed, 26 Mar 2025 11:38:57 +0000
-Received: by outflank-mailman (input) for mailman id 927648;
- Wed, 26 Mar 2025 11:38:55 +0000
+	id 1txP6t-0004cN-KE; Wed, 26 Mar 2025 11:39:51 +0000
+Received: by outflank-mailman (input) for mailman id 927656;
+ Wed, 26 Mar 2025 11:39:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SgUP=WN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txP5z-00048H-Fy
- for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 11:38:55 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1txP6r-0004Y0-RK
+ for xen-devel@lists.xenproject.org; Wed, 26 Mar 2025 11:39:49 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e53bd5f3-0a36-11f0-9ea3-5ba50f476ded;
- Wed, 26 Mar 2025 12:38:54 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4394036c0efso42802025e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 04:38:54 -0700 (PDT)
+ id 063c521e-0a37-11f0-9ea3-5ba50f476ded;
+ Wed, 26 Mar 2025 12:39:49 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43cf257158fso45098535e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 04:39:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d43f33237sm232100225e9.4.2025.03.26.04.38.52
+ 5b1f17b1804b1-43d4fd28a46sm181439635e9.24.2025.03.26.04.39.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Mar 2025 04:38:53 -0700 (PDT)
+ Wed, 26 Mar 2025 04:39:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e53bd5f3-0a36-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 063c521e-0a37-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1742989133; x=1743593933; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1742989189; x=1743593989; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=6aXxR3hXL+VeKHVX9AtNaLzjk3a+vjAHfbpLeqoQkPY=;
-        b=Ky238BiQal+NEMLTQCMHYRXNYMwvKfJiEABdStVbv+9wZkOjl4sGD1YifQQw+sA4V8
-         4Szm11Yub9Gl59/MrqmwX44bvRoFrzsW9uDJlNqGs4LvdD07NHH8ysfAIpiYKWg8cedf
-         YZn5Bllwsl9kO67GrUuvU5pftXjZ5fJaz6IGIBbfJ3mh/O4LNWS4TCmiZFeVz+VxiTAh
-         9fEhjfE9Ei/SNyZwYL1CoPSTB7XXWdspIAUsxE0jgMDS4CxjVwzA9jEGrn1Vd2peszCW
-         8qj8os3oAahlX8ZzIAVhZpK2Ch7GdRaBqZey1yB6coragmem7yDwc6IK6ITWKuvR0xcw
-         pq/Q==
+        bh=Y/+vHhqPqauyzLbCnHOg4CDiwRpy3lLMT3fuy/6hifM=;
+        b=fQmq69NkhFJ45XA6TpelPqMAVEw/3U5peSCDonPNHLZAnrlEROwebno2rofVKI41uA
+         eChrye5lujFn3jF0HK9Eoxj5QoRR5WyI8pYREPACAjAQ/77eRrX6oNQT7H4beEZObbjn
+         8geCF8/y0P1HAb9xyZ4NZ6bwJw1A14qdXscMz5InFqTeXSV7TInmuGAPGwpQ7Jt9Ku+c
+         jMjgtXjL+Oxkx0MdScg1pwYKotqNuWD48YwO65/iqPcwADmhIgf2qkzfrSGhO87bXD4I
+         yVJRd65xiSO/C9wnUO7a0dDdEHUv0/r3UXyywGdplE4IOOh6QkR0ps+BWx3kbNcZbo1T
+         8n2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742989133; x=1743593933;
+        d=1e100.net; s=20230601; t=1742989189; x=1743593989;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6aXxR3hXL+VeKHVX9AtNaLzjk3a+vjAHfbpLeqoQkPY=;
-        b=gzyW0ERKHrOJz6NDjBjtjlcJcfCAno3R/j9JfGBvXeGqB7OwZCvLTmpd0DL0LLb3jT
-         0tJUlnX33BRtkaE3xGeysvdMYcG1qGBeacQcZT2bgGiBSvyrgpDJNj5mY+16wEWTaEOM
-         sNijf/UcYDqS/smOg7jTT30/Daa98hYQ7ZgmtXQ9fhpqcSE5o/F1CzhNvRqhX6pLmOeg
-         8Ozhlw4Ma2bS3WCYan8oNnbxbDeJD+B7vsTXFSw9HVOrUT69oV1MiqaelkmxPzArKg1W
-         MOGozh4X7VL8p7B6QI4J3cOpVqgjgn/McERiSy/sYhV5nCu5NhP0uZylVwkITXzhy0h3
-         R4Qw==
-X-Gm-Message-State: AOJu0YxUdSEmsuPHtAaljNjCsIb1YwNsQdq5lsHVEN+yk/RslukKe9kI
-	m1UMA8JDks88R6lfC6klNC5Fn7dAnX9Qu7ueNqQk+1esgxcnNtiLQTpde2PS7mN/SEuZmgVOofo
+        bh=Y/+vHhqPqauyzLbCnHOg4CDiwRpy3lLMT3fuy/6hifM=;
+        b=tBVAjBWJS7tZ1v7mnfiUU/S2j8bOmw/bBuAR3dckHoY+DREUJncOdyLAxmWIgbGCYd
+         eszG9QFL/wMmjKEJ4Peew9kJ+MEBDSq6Be7K+q7lGf7Rk7V2EaLXihEL/X/IshQ9w4yq
+         UzJHet5DmJ8mKjWtGy2Tz+IqZoMtdFtiHyH+v0PraY7gy0eTxFVRD6YKxScV4x+xAHmu
+         Aan8hKoBi922f7bjmT4pdJ6hG+hcdvkiDpP6NJSwuOfjc+gOrkFKyWWn27oJoIdV5aSU
+         EeQPFJhvYfQ9MJ6tyLluFss3bCMmNZamsCUlRDwx8HIGh5IicC4PC5xtc1iGAnR/ufgU
+         SR6Q==
+X-Gm-Message-State: AOJu0YzxfS7i6/ZqP6+j63JQOipjiP2qP4BmXPgfULIT4iCmcp2ZEHhJ
+	4o0W1P0YLr5nya5vXjG1JBvsxPbf3NVHaU7gAflYyVE/k3RSb3FM9I3askJjlLdvpq8yA4saiME
 	=
-X-Gm-Gg: ASbGnctZO52FjsmhKknQxEtCQ0mHpDAb8jDbcbktLt3GRmuNv+Yy+Dc7Yas6lTILfM4
-	DzL1OmEFcULb97dEPd3W7aTQX4S9lHCVEJEcdaQuRcQDCHgisOnb/M9F7DyKi0D+vNdjRTnJb+P
-	UcnY7btitM4S5h4eDOFoCsa2P+q/WQnoG2g2lM1XXa6r52O+kZkZeqAtc8mJHOinHwiXMf5l+je
-	Um4M8x/RIq+3CZ+fBv8X4GMGNJ9oS4p3mLbDlasZxpLykEEuB7g5hf9pCzuIU5AVW01DzjyCEGx
-	LoShzOc5p9qDbWaWvjCyIoDuIYX1l6S72JzGrN3G0G/owVYtnwPRVioHUs6msNxYO3bacLsb18h
-	Pexqozw5M6BYzitMk0WjWMgCyczcW+Q==
-X-Google-Smtp-Source: AGHT+IH5erneXS5jGtt5+YeZwJ338HyKZeXGoAKm7Hf/prj863Eplc4VPqIo7q5iDdSSwLi+elYkgw==
-X-Received: by 2002:a05:600c:1d1a:b0:43d:300f:fa3d with SMTP id 5b1f17b1804b1-43d509e43d8mr189981345e9.5.1742989133358;
-        Wed, 26 Mar 2025 04:38:53 -0700 (PDT)
-Message-ID: <59051630-3843-400d-9127-a6eff15a2b5d@suse.com>
-Date: Wed, 26 Mar 2025 12:38:52 +0100
+X-Gm-Gg: ASbGncueWipE0zqtCUYjh8Rg4KMSSz+6+/UeQ4bqCLQqflV6bdzgo2YxOGkTV0SuCSD
+	wq6Fl/SPvN4rmfI6DnzgefiuSiOPxlMiNwqmnIv1tquBt6VJNzP+pmwc5Pp6y1mJ7cL5QWu/yY4
+	nyvlVXBoeMCrwHifzms540B2gZKgZ/QpR0Wx6Qcd39EG6eOGrMyjOqcpORQ2rDpCc5xQ9i/+0K4
+	IihZDOZyWIgimGjNp8I3dW8agx9HqObVTtC3q7QLBGmlr3pclswmCpMSXbHSivL3zzwm6WyfHwr
+	SvbKTSB7D063q6tZC3m8tUzjqomm/YCAExjcQbJwZoismjfeiq6AAqzs2BXeIPrcv57xshlVnAK
+	cdF485peHvkhj/ZX8U2O0iXG7LsJv0g==
+X-Google-Smtp-Source: AGHT+IE5PBs172wf9orGVNUEmtpOqTZRuW09j191tqDHjJEAe3ltZWiA5/xpAnDIjce/Xm301TpvAA==
+X-Received: by 2002:a05:600c:1e04:b0:43b:cd0d:9466 with SMTP id 5b1f17b1804b1-43d62c6121dmr119223905e9.9.1742989188801;
+        Wed, 26 Mar 2025 04:39:48 -0700 (PDT)
+Message-ID: <fa6d6ca6-d133-4a9e-9da4-42b0c0b50437@suse.com>
+Date: Wed, 26 Mar 2025 12:39:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/pmstat: correct get_cpufreq_para()'s error return value
+Subject: [PATCH] Arm/domctl: correct XEN_DOMCTL_vuart_op error return value
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -122,35 +124,20 @@ copy_to_guest() returns the number of bytes not copied; that's not what
 the function should return to its caller though. Convert to returning
 -EFAULT instead.
 
-Fixes: 7542c4ff00f2 ("Add user PM control interface")
-Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Fixes: 86039f2e8c20 ("xen/arm: vpl011: Add a new domctl API to initialize vpl011")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/drivers/acpi/pmstat.c
-+++ b/xen/drivers/acpi/pmstat.c
-@@ -230,12 +230,12 @@ static int get_cpufreq_para(struct xen_s
+--- a/xen/arch/arm/domctl.c
++++ b/xen/arch/arm/domctl.c
+@@ -172,8 +172,8 @@ long arch_do_domctl(struct xen_domctl *d
+             break;
+         }
  
-     for ( i = 0; i < op->u.get_para.freq_num; i++ )
-         data[i] = pmpt->perf.states[i].core_frequency * 1000;
--    ret = copy_to_guest(op->u.get_para.scaling_available_frequencies,
--                        data, op->u.get_para.freq_num) ?: ret;
-+    ret += copy_to_guest(op->u.get_para.scaling_available_frequencies,
-+                         data, op->u.get_para.freq_num);
+-        if ( !rc )
+-            rc = copy_to_guest(u_domctl, domctl, 1);
++        if ( !rc && copy_to_guest(u_domctl, domctl, 1) )
++            rc = -EFAULT;
  
-     xfree(data);
-     if ( ret )
--        return ret;
-+        return -EFAULT;
- 
-     op->u.get_para.cpuinfo_cur_freq =
-         cpufreq_driver.get ? alternative_call(cpufreq_driver.get, op->cpuid)
-@@ -272,7 +272,7 @@ static int get_cpufreq_para(struct xen_s
-                             gov_num * CPUFREQ_NAME_LEN);
-         xfree(scaling_available_governors);
-         if ( ret )
--            return ret;
-+            return -EFAULT;
- 
-         op->u.get_para.u.s.scaling_cur_freq = policy->cur;
-         op->u.get_para.u.s.scaling_max_freq = policy->max;
+         return rc;
+     }
 
