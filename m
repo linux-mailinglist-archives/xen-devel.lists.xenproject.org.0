@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1D6AA72EC2
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 12:21:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.929029.1331652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D27EA72F7F
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 12:33:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.929042.1331662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txlI4-0004ZQ-Hd; Thu, 27 Mar 2025 11:20:52 +0000
+	id 1txlTY-0008LC-HV; Thu, 27 Mar 2025 11:32:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 929029.1331652; Thu, 27 Mar 2025 11:20:52 +0000
+Received: by outflank-mailman (output) from mailman id 929042.1331662; Thu, 27 Mar 2025 11:32:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txlI4-0004XG-F4; Thu, 27 Mar 2025 11:20:52 +0000
-Received: by outflank-mailman (input) for mailman id 929029;
- Thu, 27 Mar 2025 11:20:50 +0000
+	id 1txlTY-0008J3-Ei; Thu, 27 Mar 2025 11:32:44 +0000
+Received: by outflank-mailman (input) for mailman id 929042;
+ Thu, 27 Mar 2025 11:32:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txlI2-0004Tu-Py
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 11:20:50 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uFzh=WO=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1txlTX-0008Ix-CX
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 11:32:43 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8907f5db-0afd-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 12:20:49 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43cfecdd8b2so6973325e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 04:20:49 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9b4ce9sm19837735f8f.53.2025.03.27.04.20.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 04:20:48 -0700 (PDT)
+ id 320021db-0aff-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 12:32:42 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-ac345bd8e13so148170766b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 04:32:42 -0700 (PDT)
+Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ac3efb64a2asm1229031066b.92.2025.03.27.04.32.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Mar 2025 04:32:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +45,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8907f5db-0afd-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 320021db-0aff-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743074448; x=1743679248; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DERAtXp836KqIEYl0wfo2SWKXigwnSKvCZoX3oWHr7A=;
-        b=dwUNjepxBVHcB1L3xa7uvt2wTfJN1AWl+si3vDBLzZRu+PoSjRAEdGBD2cX1RXQ9h9
-         opHs4yOHCSpgde0xvhXqjPoB+uQM2oM7cqlpichJQdSYwGzB8cog3Lz84VCKV6+fV3oY
-         iqwy7cMVZIv+HbUA1rSy7fAZ9iRop+CtzTXg5GVFvRSlX/qYO4Ns0N3NoOV1jaAzqSES
-         9NEGfEj6o5XrBW0xVFlw4sQ/H5Xl001uGZr9ZWPCGpSsyoLb6JUwLfmqRSq70AR3S3JL
-         A1G4s/bY6Uv7SMSayfixQtpIJGDrBGvsBq9VUCkrBOpsjYe7FB3ic3KEFVpG/ihgKWCP
-         44+A==
+        d=gmail.com; s=20230601; t=1743075161; x=1743679961; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=SiEaN7cfNVNuO5q9MKTZb30f+X3rKu30S9/vPJL/aWM=;
+        b=M5jDdzX8A+E08JhdWQtuYpJxst1rF5Ca0we69+eUX5WYIAjDNW7xcmLlC6DQaKdNtj
+         HR2TjyYi7wpK6Ecc2UEQ92GU5KQA9donh9khstSiiDB/K1uRwPDGuxRtn5TpKSKsc9vX
+         4J0teKMdS3P5rOeKq1xovCMB2JgsrC0VscAPsTJPhDy/9hkWizu6HDns/eqrCXWC62u/
+         x0HWu2FEk1WGXHBJa/2Q8n6WHDvDgdELjaHrXzWOH+13KbipPSJSl8g7AgNqzi8GMH0p
+         SnxNiaVM98tKaXXR0116yUDypDo9q0FGNoy2pGmaHDQphsjpLgXRil/+kdK78LaFkXdy
+         sHWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743074448; x=1743679248;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DERAtXp836KqIEYl0wfo2SWKXigwnSKvCZoX3oWHr7A=;
-        b=WyH9WSDezuwvFt7T3ctdegGDgo6J7wZttK5djLQJA/R8GbyNhnRg9xAH8lw0smjZxv
-         aVAjCk1hodfNNrB9w4DNzxOc9ehFpuLawZUmXDv2ywRdICvHu39aL1J9cT3XlCXx9Ewf
-         AYE5ks18hGqMzJbLA2Ep7WlEd5xpeeBu3cZdegXSxJf5o0YPJ24MJ/TfLG1ixJo1BL98
-         zRf+0VZJ0qzhtyCew6UI/QP/aJY68jLNOcdLJwItSEgmHgTvQvgnDp4LGGSPIojPy7kZ
-         9VbGcK1iVRKx7MeHSx7luWBMiphUv39v/whh08Fo5VfrxrBHW8mWfjk6Fa3ik1NUHpbG
-         nNsQ==
-X-Gm-Message-State: AOJu0Yy/V5+S2hNW1VOeiHJI8uqwgnUuOwaY2I1Kag9iHRsvSObscVAk
-	Y56Vzc0XTWmcfFIR1H40giCsnH4OyeiingZtsZyCm2vAATDEcmve3klrQbU/fCN4CwrTpU5oTEM
-	=
-X-Gm-Gg: ASbGncviGC/pkyGPkwKtaXoDrXtya3D7QrlH4Ao4T70OMHRseC6vqo26nj2a8IJ4u4P
-	cPgPCevxJOdkbzbUyImj5Es//aRr8ai1gkcAr51A91L2STJvSeaj1JqkM0mMW0xc/S+ICVh+gGb
-	KY2Peg11Q0QwxL9ffcRTqg8PnlwRM+2LTaNzXmzA3Rd6vxdvRj+oHbDfuW9KWrmHmVIjx0uqdgc
-	b6xIiaMNCtIJsJ2fY6OixC7pIB6uwsn9LMm+4NeayBmgOlXMbztjJE47khmH9oL+R8rResHaxMB
-	OfqwmAc/8tcm3eZZV5qLcxnrYaqJjoiE4JFOdDBB1dhzecHJf0xQZDtV5JUS9lbzZUNkFBPYnPp
-	SRoXyrnnS0wWgePe15zOlUEbG4FNa9g==
-X-Google-Smtp-Source: AGHT+IHPwpDdU9GlgJy6W1YxUhV9huIUcrUh0gBqB1QiafEQpVRpR/x6o3TpjqNdOMHRqDO6LVs0Cw==
-X-Received: by 2002:a05:6000:400e:b0:391:487f:280b with SMTP id ffacd0b85a97d-39ad1754420mr2759388f8f.10.1743074448610;
-        Thu, 27 Mar 2025 04:20:48 -0700 (PDT)
-Message-ID: <ad8ea1da-dda9-4567-8b15-55b65777e80f@suse.com>
-Date: Thu, 27 Mar 2025 12:20:47 +0100
+        d=1e100.net; s=20230601; t=1743075161; x=1743679961;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SiEaN7cfNVNuO5q9MKTZb30f+X3rKu30S9/vPJL/aWM=;
+        b=SEl9rEWd+J8TzRiJigLinTWzqHXGVhpkRc47vpK/hqEevaSca9ZPpsCvQivJTaNab+
+         L57W0c8ADkWPq+sxEYSLURhJ4CviFU/spdCVPwdJ8EU3X0Fd124PhGEh0M6yodozwpv1
+         oQjiKyY8KrrAjpbTDzeiuQYrqiqHm4FxfmNbTiqTMilZDtPwzkaiS2mpmCf74j82nNm0
+         FVTO+56XN7SXx1AyX/3mYpZxzswBtW95YIaO/9LuEMgUayVzQzb13LYZE1PLwlaieqgj
+         7gNxq4zx7agYQb9Br5KrhV9LWVIpVUBvdBwT5X35w4C2dctPcU049Oml+C5uEinHJ16M
+         Qnpw==
+X-Gm-Message-State: AOJu0Yy+dGWIQre0x+rlmIbej6VxOLfdkxP4INA9OUeA3uRQ8l3kgFQe
+	O2S62+4okSudonCB3WFxkxzdbyZPPaSxXqe5DvDoKRNeSIqn9F0ABFybGg==
+X-Gm-Gg: ASbGncsrWCBJdaZjBO20MkLfDX6cbJdrZ294DxWdIEwi/709Lkw6+jGbQp3y+pFJdHV
+	MLmqIdKGDsZTVJ3bhPa9CbbFU5mCj1zHGfaATiNXvjZP8mEFP5pLr9zEUNXMlrDVN9f6zWHf/xV
+	DHrBTkQH5yTwnfdPsCJ5CSg4BfwUbKusmQxWTJPVAwsQ8brQeFZ+gjKqZNNjfGktzAsQ1Y5Atle
+	f3gRJZyceh4y3c8MHryaz0NWz9ETq2h90Hh4cnwIRBn2XsvKg9LtX/w3KCHvudpU7vzWdtBAlvW
+	/frWb65wfEI2k0js3C6sGVgoLOSZU1dOaKC0BtnfEzg6MqdONKc2iGnKamXuKR1JFmW0oD32C58
+	+PvC9slAB
+X-Google-Smtp-Source: AGHT+IG3V5Tr1egLTLnhtRk+Ob11D/SkbQlTGWvilIgAaiaHGTcghuBbYfROmo7OMaQ0JIuDra+hwg==
+X-Received: by 2002:a17:907:3d92:b0:ac3:c7c6:3c97 with SMTP id a640c23a62f3a-ac6fa7e7335mr285968166b.0.1743075160370;
+        Thu, 27 Mar 2025 04:32:40 -0700 (PDT)
+From: Mykola Kvach <xakep.amatop@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Mykyta Poturai <mykyta_poturai@epam.com>
+Subject: [PATCH v2] xen/percpu: don't initialize percpu on resume
+Date: Thu, 27 Mar 2025 13:32:25 +0200
+Message-ID: <7c3fece57a28462ae0c071c1cf72eb32541f1b91.1743074241.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/MTRR: hook mtrr_bp_restore() back up
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Unlike stated in the offending commit's description,
-load_system_tables() wasn't the only thing left to retain from the
-earlier restore_rest_processor_state().
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-While there also do Misra-related tidying for the function itself: The
-function being used from assembly only means it doesn't need to have a
-declaration, but wants to be asmlinkage.
+Invocation of the CPU_UP_PREPARE notification
+on ARM64 during resume causes a crash:
 
-Fixes: 4304ff420e51 ("x86/S3: Drop {save,restore}_rest_processor_state() completely")
-Reported-by: Roger Pau Monné <roger.pau@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+(XEN) [  315.807606] Error bringing CPU1 up: -16
+(XEN) [  315.811926] Xen BUG at common/cpu.c:258
+[...]
+(XEN) [  316.142765] Xen call trace:
+(XEN) [  316.146048]    [<00000a0000202264>] enable_nonboot_cpus+0x128/0x1ac (PC)
+(XEN) [  316.153219]    [<00000a000020225c>] enable_nonboot_cpus+0x120/0x1ac (LR)
+(XEN) [  316.160391]    [<00000a0000278180>] suspend.c#system_suspend+0x4c/0x1a0
+(XEN) [  316.167476]    [<00000a0000206b70>] domain.c#continue_hypercall_tasklet_handler+0x54/0xd0
+(XEN) [  316.176117]    [<00000a0000226538>] tasklet.c#do_tasklet_work+0xb8/0x100
+(XEN) [  316.183288]    [<00000a0000226920>] do_tasklet+0x68/0xb0
+(XEN) [  316.189077]    [<00000a000026e120>] domain.c#idle_loop+0x7c/0x194
+(XEN) [  316.195644]    [<00000a0000277638>] shutdown.c#halt_this_cpu+0/0x14
+(XEN) [  316.202383]    [<0000000000000008>] 0000000000000008
+
+Freeing per-CPU areas and setting __per_cpu_offset to INVALID_PERCPU_AREA
+only occur when !park_offline_cpus and system_state is not SYS_STATE_suspend.
+On ARM64, park_offline_cpus is always false, so setting __per_cpu_offset to
+INVALID_PERCPU_AREA depends solely on the system state.
+
+If the system is suspended, this area is not freed, and during resume, an error
+occurs in init_percpu_area, causing a crash because INVALID_PERCPU_AREA is not
+set and park_offline_cpus remains 0:
+
+    if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
+        return park_offline_cpus ? 0 : -EBUSY;
+
+The same crash can occur on x86 if park_offline_cpus is set
+to 0 during Xen resume.
+
+Fixes: f75780d26b2f ("xen: move per-cpu area management into common code")
+Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-Contextually assumed to go on top of "x86/MTRR: constrain AP sync and
-BSP restore". Functionally there's no dependency.
+Changes introduced in V2:
+ - cosmetic fixes after review
+ - chnages in a commit message: add "Fixes"
+---
+ xen/common/percpu.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
---- a/xen/arch/x86/acpi/wakeup_prot.S
-+++ b/xen/arch/x86/acpi/wakeup_prot.S
-@@ -124,6 +124,8 @@ LABEL(s3_resume)
-         mov     STACK_CPUINFO_FIELD(cr4)(%rbx), %rax
-         mov     %rax, %cr4
+diff --git a/xen/common/percpu.c b/xen/common/percpu.c
+index e4e8b7bcab..b20f0460fc 100644
+--- a/xen/common/percpu.c
++++ b/xen/common/percpu.c
+@@ -30,7 +30,9 @@ static int init_percpu_area(unsigned int cpu)
+     char *p;
  
-+        call    mtrr_bp_restore
-+
- .Lsuspend_err:
-         pop     %r15
-         pop     %r14
---- a/xen/arch/x86/cpu/mtrr/main.c
-+++ b/xen/arch/x86/cpu/mtrr/main.c
-@@ -610,7 +610,7 @@ void mtrr_aps_sync_end(void)
- 	hold_mtrr_updates_on_aps = 0;
- }
+     if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
+-        return park_offline_cpus ? 0 : -EBUSY;
++        return park_offline_cpus || system_state == SYS_STATE_resume
++            ? 0
++            : -EBUSY;
  
--void mtrr_bp_restore(void)
-+void asmlinkage mtrr_bp_restore(void)
- {
- 	if (mtrr_if)
- 		mtrr_set_all();
---- a/xen/arch/x86/include/asm/mtrr.h
-+++ b/xen/arch/x86/include/asm/mtrr.h
-@@ -66,7 +66,6 @@ extern uint8_t pat_type_2_pte_flags(uint
- extern int hold_mtrr_updates_on_aps;
- extern void mtrr_aps_sync_begin(void);
- extern void mtrr_aps_sync_end(void);
--extern void mtrr_bp_restore(void);
- 
- extern bool mtrr_var_range_msr_set(struct domain *d, struct mtrr_state *m,
-                                    uint32_t msr, uint64_t msr_content);
+     if ( (p = alloc_xenheap_pages(PERCPU_ORDER, 0)) == NULL )
+         return -ENOMEM;
+-- 
+2.43.0
+
 
