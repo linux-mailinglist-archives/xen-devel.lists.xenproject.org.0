@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81F4CA72C2E
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 10:16:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928760.1331423 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E510A72C4B
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 10:24:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928770.1331432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txjKO-0003fJ-P5; Thu, 27 Mar 2025 09:15:08 +0000
+	id 1txjT5-0006g3-JA; Thu, 27 Mar 2025 09:24:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928760.1331423; Thu, 27 Mar 2025 09:15:08 +0000
+Received: by outflank-mailman (output) from mailman id 928770.1331432; Thu, 27 Mar 2025 09:24:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txjKO-0003dr-Lw; Thu, 27 Mar 2025 09:15:08 +0000
-Received: by outflank-mailman (input) for mailman id 928760;
- Thu, 27 Mar 2025 09:15:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1txjT5-0006dU-GU; Thu, 27 Mar 2025 09:24:07 +0000
+Received: by outflank-mailman (input) for mailman id 928770;
+ Thu, 27 Mar 2025 09:24:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txjKN-0003dl-H6
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 09:15:07 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f8785dd6-0aeb-11f0-9ffa-bf95429c2676;
- Thu, 27 Mar 2025 10:15:05 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43cebe06e9eso5145995e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 02:15:05 -0700 (PDT)
+ id 1txjT3-0006dL-Rq
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 09:24:05 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 39d5f307-0aed-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 10:24:04 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-43cef035a3bso5144195e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 02:24:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d82dedeaesm33171285e9.4.2025.03.27.02.15.04
+ ffacd0b85a97d-3997f9a3f76sm19498690f8f.37.2025.03.27.02.24.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 02:15:04 -0700 (PDT)
+ Thu, 27 Mar 2025 02:24:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8785dd6-0aeb-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 39d5f307-0aed-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743066904; x=1743671704; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743067444; x=1743672244; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UpFU0hVE1FrW6ASXlG28jMvykySTG53ROxOxilig8cM=;
-        b=HhXDaxI7RdWp9RsV4KdtTSUSnN8SlYWLIU0XyPAlEdKUyozmY6UVi0Fv907V4ucpEX
-         TYWGtjLdvtp4zGj3S8Y/+A1wNn1cpGPTT8UJdsbIa/bdMB0cNNlmiN9lnn7oNmm9ncbb
-         vpnb40bz47FcYo855RSUB6FIijaVKYgJjct88skSZjkVOEIqKqNqzA7SCdWtYKdHFaRi
-         6iCM5lmn/21EY1t6K5K5Ch7LU+aFhjmm816VMoHVgkBnyzHlHAEfPXWGkzhA6D449d4V
-         RUaeNR0LpfSBPVyS5xxu5M7k1+vmGztr0ZRRcmDMAgHUZE1tVSrjBBlVP1pJtHvaPy0z
-         OhFA==
+        bh=VOZTxA0bXH2G6iAH3ohMfXD0PvN8W2Q9SpYZINI6vr4=;
+        b=ddAaR+SD5r6uXYD8+BUWfFgnt0bDshPQA4yj++qVEoBXV3A8dTWm1v+oT++yVXg3iZ
+         jMN+27yVdlYiX29YRZqYQdOgECcEran3KUZ8L9PVVgLTVM00v81wetlscjLuQZjX59WR
+         42H71eJEfWa1LiI0+SAtzG6smBAjzn39L8Ek/kGH91W9VkaXaoHaH8S77s/32jaXrzhF
+         lFKSVvnZ3DW/gU6eZBzieH7S9Ava/3+Lh/gSwafGgEFP+jfE8iVPbJDA8GNnZilY3hRL
+         L1u2nlfqh4l0z0ZpzVssmdt4k9G62q05KqOSfs0GPWgyLsXYLAsjxuC5TtO9v9kSGulA
+         iYXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743066904; x=1743671704;
+        d=1e100.net; s=20230601; t=1743067444; x=1743672244;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UpFU0hVE1FrW6ASXlG28jMvykySTG53ROxOxilig8cM=;
-        b=cR4/+c9cLL1kstk2h6HY4S6WKmWwv2QvorYlO+vbWuN8pp9hYT9pRveKIDMrx6AY2o
-         TybF//miBOzaYFbW7xcrt4RPJZXyHGx/AmUyxkgnsZ0RUKeANKoViRdbJMO+kjeZfj3R
-         wUxxbHF8VD01gvkEoeelwVe1MvLZiqHI1NdedbJJ0uHMzy6T9hrMdWwMAJOnBcvB37f8
-         92Q3+ehi4RAPudwHp+eu8YD4IshglNb9qM5sBr1xrWtZ/yzkytuO41xx8jk7hvKdBvdZ
-         DRnGpsa/u4cp9MMvYqLZD1fN28+rZq2t00a5n9dNkPv6KeG4PPFvBHGYiokMwOtLIhoG
-         GQrw==
-X-Gm-Message-State: AOJu0Yy35My4E6GcPrJMeEYRY1w1nuVX/hHFXmdNlqbC7jx+g7Yd0K/B
-	xtyZ5kEMcBZIzKER8qu+gfB6PA2rg4vGmdRTxYUxvvP0vso4AVhDO1Lw0lSxGQ==
-X-Gm-Gg: ASbGncuxfG1U7S3VfQ9mKTGs3X7BxCKmOu9NQyLX7IfjbGqiXmr1NdUc9NPgG9w38nR
-	53ciwCbPP/08kdTB3NFVetifmmNnGffSqHsbPCSS9pHiFUy3Lbfq3E2AUPimOLV2vt3jkqOypk/
-	tq5SRUHTql/F4TWcX/q3M6dAWWFCjtMUKJjdieN82LuS16ZBVmU+/bJjC/rjD+lZZUeveGyX9nt
-	rtzSN0I9SGIds8V1JYJ9BZvgOzw26h1keDh5zl1Yrxo4C+2TWblDP1UEL4w1xECdns7CEQ2JAaa
-	Ji8riQQs2396s4y3LLvs48hBhPmtISH9TzsJYOpZOvBbehOAjpY+nOnncuoluIPFqtYlUKwBxsq
-	wVAv1c3O+yjOMrHyVMFQUoLnlKNqRyw==
-X-Google-Smtp-Source: AGHT+IGRtD/CowL0rztpF7jAU5osH7r4jUhKpipFK+kJa1qDdKWpLGqDUeRJBDPqA+9ikajicS00Mw==
-X-Received: by 2002:a05:6000:1446:b0:39a:ca0c:fb0c with SMTP id ffacd0b85a97d-39ad1759e02mr1973084f8f.28.1743066904509;
-        Thu, 27 Mar 2025 02:15:04 -0700 (PDT)
-Message-ID: <eb44921a-f6af-4aa9-9395-18e4e47d440a@suse.com>
-Date: Thu, 27 Mar 2025 10:15:03 +0100
+        bh=VOZTxA0bXH2G6iAH3ohMfXD0PvN8W2Q9SpYZINI6vr4=;
+        b=IHewCWXRv2a1lOMnpj0aKinnTZMsls1x1jqNpnVG6oFx+IcnAI7M6Zd+9nLl0cZGZn
+         5yuVh/M6KeN5Vi/w9pKmV1M48ODKhE5fcZ6AdZb8ysiiF5+OAE1jCq7jTq3iLoHQ7d0g
+         STMPVtKZydGHyJUW8h8ZmWhCbfAsObrpv2hXcxYdjsrAddujRa3zoLb4d2tr4H7mb9zT
+         0R2dlzo5HmO1rVAYqPucKay5s02S16suGmgUkYX8BuMjc/dNPV2Veiit8dneEVq1frKD
+         VNzvpV6PdD06lIe8TqFxErfvazLWUPYvdSz0lSr/+h6FddOSuvM2Cr7H0jCUCQMM+5LR
+         Y0Pg==
+X-Gm-Message-State: AOJu0YyfIeeCUhV2hg7gzm8i+ozqu4EvrjNioEiF+GzVXsG3pKtV2K1e
+	9zLw3S57sdKOc4bLy8O9nB89fMuGJppjrgbC9BDy7mrt7s6ObayvF4EJIEoyqA==
+X-Gm-Gg: ASbGncv91vcyI/0PYd49vrSO643DGoKplDDLAorjap28AiUjfKUosrHlQTqsL+2686Q
+	7X+i3ifDmelnJm+yBL8ue11W2F0nWl7cvH4vlupe866oatww9ctBazi6PhffzyiUj/OK0wQqp+U
+	jtC//PJiw8eP3DKTAbouH7vYBZLq/+v57RJn4ExpLzAsMm0zDdonBD2nqITHxeaFeW2P+rjK+u+
+	GhX+TEwNMK/ftqeQOCsacD1OdLlkdKzWabXvTcA/XUqEY3NtxmnjwyFg2T0nPjWW+ZdTj5lp97l
+	lI1w+KwqYeJ9Ey+FgzxxUmZWOt/If441fdAIsjhMuMRm3Xz1ejt550mk8rwxTHUqcgokk6k/Ggw
+	PgWxQSlUDB3djhmibZVSgrmXmJzosyg==
+X-Google-Smtp-Source: AGHT+IG0+XNuSAXedirfzs1FEAUuLGE0vViOUNeaJrq8ps2lssiE6D+klPQf0yJKszT8fmuuLHbmig==
+X-Received: by 2002:a5d:5847:0:b0:390:d6ab:6c49 with SMTP id ffacd0b85a97d-39ad176bc4emr3143519f8f.35.1743067443740;
+        Thu, 27 Mar 2025 02:24:03 -0700 (PDT)
+Message-ID: <307f7c6e-bb31-4c0a-890e-a21b7a4e178f@suse.com>
+Date: Thu, 27 Mar 2025 10:24:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/CPU: don't hard-code MTRR availability
+Subject: Re: [PATCH v2] x86/P2M: synchronize fast and slow paths of
+ p2m_get_page_from_gfn()
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>
-References: <edecdda9-4728-4c65-9f31-76c912a433d7@suse.com>
- <Z-UKm6D9pmAEaE_9@macbook.local>
+References: <b590b590-764a-4dfe-9e13-975122790329@suse.com>
+ <Z-UToaPviR7b73iG@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,49 +118,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z-UKm6D9pmAEaE_9@macbook.local>
+In-Reply-To: <Z-UToaPviR7b73iG@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 27.03.2025 09:21, Roger Pau Monné wrote:
-> On Tue, Mar 25, 2025 at 08:18:11AM +0100, Jan Beulich wrote:
->> In particular if we're running virtualized, the underlying hypervisor
->> (which may be another Xen) may not surface MTRRs, and offer PAT only.
+On 27.03.2025 10:00, Roger Pau Monné wrote:
+> On Tue, Mar 25, 2025 at 08:17:04AM +0100, Jan Beulich wrote:
+>> Handling of both grants and foreign pages was different between the two
+>> paths.
+>>
+>> While permitting access to grants would be desirable, doing so would
+>> require more involved handling; undo that for the time being. In
+>> particular the page reference obtained would prevent the owning domain
+>> from changing e.g. the page's type (after the grantee has released the
+>> last reference of the grant). Instead perhaps another reference on the
+>> grant would need obtaining. Which in turn would require determining
+>> which grant that was.
+>>
+>> Foreign pages in any event need permitting on both paths.
 > 
-> At least for Xen, I think we offer MTRR uniformly, even on PVH
-> guests?
-
-By default we do, but we discussed the option of offering PAT-only environments
-beyond leaving it open whether people disabling MTRR support in their guest
-config are outside of supported terrain.
-
->> Fixes: 5a281883cdc3 ("Hardcode many cpu features for x86/64 -- we know 64-bit")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> I've been wondering about this, and AFAICT the PV equivalent of this
+> function (the tail of get_page_from_gfn()) is much more limited in
+> that it just allows access to domain owned RAM or MMIO that has a
+> backing page (I expect mostly for the low 1MB?).
 > 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+> However for HVM domains we allow to take references to foreign mapped
+> pages and taking references to MMIO pages is not permitted.
 > 
-> My main concern is whether the !mtrr path is still functional.  Have
-> you tried booting the resulting hypervisor with MTRR masked on CPUID?
-> 
-> (or alternatively short-circuiting cpu_has_mtrr == 0?)
+> Should the tail of get_page_from_gfn() also be adjusted to make use of
+> the newly introduced get_page_from_mfn_and_type(), thus unifying the
+> logic for both PV and HVM?
 
-I didn't think this would be a prereq here. If we boot in an environment truly
-lacking MTRR, we'll crash on the first MTRR MSR access - none of those accesses
-use the safe accessors. Since you asked, I tried booting with "cpuid=no-mtrr".
-As I'm doing this on a system with console, all I can say is that it takes
-minutes to reach the point where we'd start setting up Dom0 (which itself then
-takes so long that I timed out waiting for it to make progress), due to all
-screen output becoming unbelievably slow after AP bringup. Surely something's
-screwed somewhere, as VRAM accesses being slow (or fast) shouldn't depend on AP
-bringup having completed. I actually suspect it's not just VRAM accesses which
-are slow, but that we're left running in uncachable mode altogether for whatever
-reason.
+There's no (proper) use of P2M types in PV, so I don't think using this
+function is viable for PV. In particular we'd never observe p2m_foreign
+in PV, if I'm not mistaken.
 
-What this maybe useful for is to figure out the reason of "Platform timer
-appears to have unexpectedly wrapped <N> times", which I saw appear once.
+> Could possibly be done in a separate change, I'm just trying to
+> understand why we have this seemingly different handling for PV vs
+> HVM.
 
-Given this, I'm actually uncertain whether it is legitimate then to take your
-ack.
+The difference is because access to foreign pages was hacked in to work
+for PVH in a much different (and imo yet more hacky) way than it was
+made work far longer ago for PV. The crucial part of that is in
+get_page_from_l1e(), so get_page_from_gfn() isn't that relevant there
+(I think).
 
 Jan
 
