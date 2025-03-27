@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63653A72DDF
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 11:34:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928926.1331564 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F129A72DE9
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 11:39:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928936.1331573 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txkYn-0005vu-C3; Thu, 27 Mar 2025 10:34:05 +0000
+	id 1txkdb-0006VW-T1; Thu, 27 Mar 2025 10:39:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928926.1331564; Thu, 27 Mar 2025 10:34:05 +0000
+Received: by outflank-mailman (output) from mailman id 928936.1331573; Thu, 27 Mar 2025 10:39:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txkYn-0005sm-93; Thu, 27 Mar 2025 10:34:05 +0000
-Received: by outflank-mailman (input) for mailman id 928926;
- Thu, 27 Mar 2025 10:34:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1txkdb-0006U6-QI; Thu, 27 Mar 2025 10:39:03 +0000
+Received: by outflank-mailman (input) for mailman id 928936;
+ Thu, 27 Mar 2025 10:39:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Dp8+=WO=bounce.vates.tech=bounce-md_30504962.67e52999.v1-e13a6d7d97f648efba5b3b5c4c2969bc@srs-se1.protection.inumbo.net>)
- id 1txkYl-0005sg-Ti
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 10:34:03 +0000
-Received: from mail134-16.atl141.mandrillapp.com
- (mail134-16.atl141.mandrillapp.com [198.2.134.16])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ffe12821-0af6-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 11:34:02 +0100 (CET)
-Received: from pmta10.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail134-16.atl141.mandrillapp.com (Mailchimp) with ESMTP id
- 4ZNg4T28TzzB5p51t
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 10:34:01 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- e13a6d7d97f648efba5b3b5c4c2969bc; Thu, 27 Mar 2025 10:34:01 +0000
+ <SRS0=U7fn=WO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1txkda-0006U0-Bm
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 10:39:02 +0000
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [2607:f8b0:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id af23253a-0af7-11f0-9ffa-bf95429c2676;
+ Thu, 27 Mar 2025 11:38:56 +0100 (CET)
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-224171d6826so20807355ad.3
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 03:38:56 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ 98e67ed59e1d1-3039e10b783sm1853477a91.22.2025.03.27.03.38.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Mar 2025 03:38:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,83 +44,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ffe12821-0af6-11f0-9ea3-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1743071641; x=1743341641;
-	bh=hI1YTu+xJpgiQd0xIPrnt1Cx7BuR6zlbc0m5bcO8eU4=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=cu2t5jqjY5ZZZ6cj1SWaa2+9MnXgO1BQzBBcw9wo7k6HsjZvdyltIt3YfAV0ldsSH
-	 Du58QZ5G5NYZJcTjqd/pyj/uCdTgL67rNJrWgQPO+j6rv9MFMrEJKG/+8JErshMCdu
-	 GPnHT4I6ADa/6jQqzvxZ+M8ccc8UUAPWjmiAFg4/r4l7NHKHxUYCPCVr54mR41m/Bg
-	 KAQ64QHzhAULpjHNsAcGLkTVy3F+/rZNBuEBgA+odHOH12pAON1I/9NpCTPMFjCPTJ
-	 xPR461MnVXOVzQirVWzMbTeA1EiujLcko8yDaAw1YBuLRWC7UG/ed+1BOO2DLrZst+
-	 SlaVsn0aU4Utg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1743071641; x=1743332141; i=anthony.perard@vates.tech;
-	bh=hI1YTu+xJpgiQd0xIPrnt1Cx7BuR6zlbc0m5bcO8eU4=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=Q6q0kXFuvXdM3/1+D/26VxplL2+eQHUcfxxJVO3s4p+P6oDff/F26kRKvsh2DAEwd
-	 mafxUFX6ZTVv51Inkum8ljaVOJP28P6RKiZtYyJAAbbqZ50psLUaDON8ND8vkyzuow
-	 XJlfB1WCAq1RGtneCvg4q44spseEck95AxXB6pLuUbTl9WPPMUXT9yPC2uu6Hhnh1t
-	 NmapB1tHahg+gBNLzXzRNN4VwAJRdqYzef76nsao2zXYWxTytqOya5U+KrigcAa5a5
-	 TW8VKMkh31hhqFS44Qh+IchvXAuU91QkRiSbKwi7vEjBVz/ZAWHDHWHGcnUK3iRV2T
-	 fVZx3ztl3VB4A==
-From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?[XEN=20PATCH]=20CI:=20Change=20pipeline=20name=20for=20scheduled=20pipeline?=
-X-Mailer: git-send-email 2.39.5
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1743071640318
-To: xen-devel@lists.xenproject.org
-Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Doug Goldstein" <cardoe@cardoe.com>, "Stefano Stabellini" <sstabellini@kernel.org>
-Message-Id: <20250327103345.21306-1-anthony.perard@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.e13a6d7d97f648efba5b3b5c4c2969bc?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250327:md
-Date: Thu, 27 Mar 2025 10:34:01 +0000
+X-Inumbo-ID: af23253a-0af7-11f0-9ffa-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1743071935; x=1743676735; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=XxtHe4u5eCyaWIxQJjvAyCAim8X3pqotR+wuwkdJ0H4=;
+        b=vPS9stMoWV7NcKH5Fds6HsGzEn8NHxkPFtSBZbhpuSw1ulTiXIOkssa08675Cnf0lx
+         12z8elleaF62sRZPESYKM6tk2VwE3fRFzJKS7vsTzfE8OEalnfkCQ5Jo4Kv+u/WD/Ls9
+         tAUDEhxHUv9pP6Pki5TQr+8EK16aD0IOn44TU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743071935; x=1743676735;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=XxtHe4u5eCyaWIxQJjvAyCAim8X3pqotR+wuwkdJ0H4=;
+        b=aOdoRmIuhoFwtwPIdykd+l0CpVJqQ7XyUEnIM+DVVeeIMSt9u//Z9Zsf7lIKchIgaa
+         6okOfv2um963bGgGRWvwXmeZ2uIuw6gZdpGyiASyAt1AAOzbjwuDXLoF9rcWGxVW+P9a
+         0WsjiNupiNFuXzw+PlDS5M9HIsu5DuTa5pTJ8W8SEijykgDZMA/DEIS/okKhIMA9EZkl
+         3bnvFH9l8yJKx88Kg9acx9Puzi2r1Bcm/y/nwcHqfhNpA279FTnl5HG7coULxZIYgSLa
+         X1y/pwHPGJ+/ImrC7ewtSbXYiZDaLSDdmbfwuegN5heHSlRUtSI/eF5kn0MWT5NxfsUs
+         NNeg==
+X-Gm-Message-State: AOJu0Yy4AN3BnicY1/8OEq+l3bgq1APSXdnUJRya2KBz9pHkiyGpaFRH
+	P8ktYTqGVxYQEpsEwz7pDCu7hXgg8QwCdrdmk+oaDM2H0y9nmjVN0iuWaEyPcHI=
+X-Gm-Gg: ASbGncvpmaH33SSR64qQReaepQmgN3USi8GkLNexdX9IVvAjeG7qnZZLZhs8gpppuaz
+	nSoa/5xtpr0ocs3myfwZABVHjMfbyqOEwM4Rv3gMYi9xNcE2KMO4u9UW9reOcUwMv+a0MIY/tbU
+	SRO2ZvNffUab7lKttncmg67sYsTb6TCF81asRg/mThQblK9GzT/ilDMteoPAXn3m2LPEqWnCsc4
+	P6athr2Ved1sNJjR8mqEkBkuK0XnNo2DRNMZKNs8SzyxrPg36YwwcuAMXzU0LF+qYva44YqYmyR
+	MGWaclJ1JLhr1Y3pUzSmm5NGlFQiMw03vI/Yp48qmc0rm63mmQ==
+X-Google-Smtp-Source: AGHT+IHwWzEcjXbRmozyPhM4mxFKrMiR6mwQQ/hRmz2tSBylI14BHxJAMBrRULE7h55lrG6lrApQDQ==
+X-Received: by 2002:a17:90b:2e8d:b0:2f8:49ad:4079 with SMTP id 98e67ed59e1d1-303a7c5c9edmr4134777a91.6.1743071935097;
+        Thu, 27 Mar 2025 03:38:55 -0700 (PDT)
+Date: Thu, 27 Mar 2025 11:38:48 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2] x86/P2M: synchronize fast and slow paths of
+ p2m_get_page_from_gfn()
+Message-ID: <Z-UquDQHtnFMJ4se@macbook.local>
+References: <b590b590-764a-4dfe-9e13-975122790329@suse.com>
+ <Z-UToaPviR7b73iG@macbook.local>
+ <307f7c6e-bb31-4c0a-890e-a21b7a4e178f@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <307f7c6e-bb31-4c0a-890e-a21b7a4e178f@suse.com>
 
-This description is already displayed on the web UI of the list of
-pipeline, but using it as "name" will make it available in webhooks as
-well and can be used by a bot.
+On Thu, Mar 27, 2025 at 10:24:02AM +0100, Jan Beulich wrote:
+> On 27.03.2025 10:00, Roger Pau Monné wrote:
+> > On Tue, Mar 25, 2025 at 08:17:04AM +0100, Jan Beulich wrote:
+> >> Handling of both grants and foreign pages was different between the two
+> >> paths.
+> >>
+> >> While permitting access to grants would be desirable, doing so would
+> >> require more involved handling; undo that for the time being. In
+> >> particular the page reference obtained would prevent the owning domain
+> >> from changing e.g. the page's type (after the grantee has released the
+> >> last reference of the grant). Instead perhaps another reference on the
+> >> grant would need obtaining. Which in turn would require determining
+> >> which grant that was.
+> >>
+> >> Foreign pages in any event need permitting on both paths.
+> > 
+> > I've been wondering about this, and AFAICT the PV equivalent of this
+> > function (the tail of get_page_from_gfn()) is much more limited in
+> > that it just allows access to domain owned RAM or MMIO that has a
+> > backing page (I expect mostly for the low 1MB?).
+> > 
+> > However for HVM domains we allow to take references to foreign mapped
+> > pages and taking references to MMIO pages is not permitted.
+> > 
+> > Should the tail of get_page_from_gfn() also be adjusted to make use of
+> > the newly introduced get_page_from_mfn_and_type(), thus unifying the
+> > logic for both PV and HVM?
+> 
+> There's no (proper) use of P2M types in PV, so I don't think using this
+> function is viable for PV. In particular we'd never observe p2m_foreign
+> in PV, if I'm not mistaken.
 
-This doesn't change the behavior for other pipeline types, where the
-variable isn't set.
+Indeed, p2m types are just occasionally faked for PV, like in
+get_page_from_gfn().
 
-Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
----
+> > Could possibly be done in a separate change, I'm just trying to
+> > understand why we have this seemingly different handling for PV vs
+> > HVM.
+> 
+> The difference is because access to foreign pages was hacked in to work
+> for PVH in a much different (and imo yet more hacky) way than it was
+> made work far longer ago for PV. The crucial part of that is in
+> get_page_from_l1e(), so get_page_from_gfn() isn't that relevant there
+> (I think).
 
-Notes:
-    doc:
-    https://docs.gitlab.com/ci/yaml/#workflowname
-    https://docs.gitlab.com/ci/variables/predefined_variables/#predefined-variables
+OK.  I'm kind of surprised we need foreign handling for HVM and not
+for PV in get_page_from_gfn(), as even with specific handling of
+foreign pages in get_page_from_l1e(), the former is used in a lot of
+places that don't seem obviously tied or gated to a call to
+get_page_from_l1e().
 
- .gitlab-ci.yml | 1 +
- 1 file changed, 1 insertion(+)
+For example the XEN_DOMCTL_getpageframeinfo3 usage of
+get_page_from_gfn() will have different results when used against a
+foreign page depending on whether the caller is a PV or an HVM
+domain.
 
-diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-index b3beb2ff9d..7974ac4e82 100644
---- a/.gitlab-ci.yml
-+++ b/.gitlab-ci.yml
-@@ -4,6 +4,7 @@ variables:
-     description: "Regex to select only some jobs, must be enclosed with /. For example /job1|job2/"
- 
- workflow:
-+  name: "$CI_PIPELINE_SCHEDULE_DESCRIPTION"
-   rules:
-     - if: $CI_COMMIT_BRANCH =~ /^(master|smoke|^coverity-tested\/.*|stable-.*)$/
-       when: never
--- 
-
-
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+Thanks, Roger.
 
