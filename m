@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACA41A72C60
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 10:30:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928790.1331453 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37CD3A72C98
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 10:36:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928805.1331463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txjYx-0000HX-EN; Thu, 27 Mar 2025 09:30:11 +0000
+	id 1txjeW-0002OS-2j; Thu, 27 Mar 2025 09:35:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928790.1331453; Thu, 27 Mar 2025 09:30:11 +0000
+Received: by outflank-mailman (output) from mailman id 928805.1331463; Thu, 27 Mar 2025 09:35:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txjYx-0000FS-Ak; Thu, 27 Mar 2025 09:30:11 +0000
-Received: by outflank-mailman (input) for mailman id 928790;
- Thu, 27 Mar 2025 09:30:09 +0000
+	id 1txjeW-0002Mz-00; Thu, 27 Mar 2025 09:35:56 +0000
+Received: by outflank-mailman (input) for mailman id 928805;
+ Thu, 27 Mar 2025 09:35:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txjYv-0000FM-GF
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 09:30:09 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Eznr=WO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1txjeU-0002Mt-GZ
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 09:35:54 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1245ab17-0aee-11f0-9ffa-bf95429c2676;
- Thu, 27 Mar 2025 10:30:07 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3914aba1ce4so565551f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 02:30:07 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39ab907da9asm16933532f8f.90.2025.03.27.02.30.06
+ id db226ea3-0aee-11f0-9ffa-bf95429c2676;
+ Thu, 27 Mar 2025 10:35:44 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5cded3e2eso1213425a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 02:35:44 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5ebccf67591sm10779994a12.3.2025.03.27.02.35.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 02:30:06 -0700 (PDT)
+ Thu, 27 Mar 2025 02:35:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +45,344 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1245ab17-0aee-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: db226ea3-0aee-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743067807; x=1743672607; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=W4vZBvYaByNd9A1fE5NNYaUZh1Or1PdoNuWSV/1koD0=;
-        b=DUdK0Y7NUurY44iImp8JNB9IG9J+MPTATQ2DqQj2cqiOIl/phjvGDrATaIBtE+DpJS
-         C5al0EFOhkWQeAwP08m2DJG6sZeUAdJbJDh8Vf8z8WMjqdqupPRyV2e/j73P/XwL8aUK
-         AMz9K2WQ8qCA5Ga5IF3JvzI4oqH9wIpzUc+v5RxHrRGc8CfWYGJqfuCJwS9mC9v1HaTb
-         B+G77gvi00hmSjG6se72PbMxLLsplsfTnnZEFSFZUP/n/hOE9Ns7gNelqK7GG2L7r04G
-         a4YcqO7zyk3KGVjIVgcAdVwpopuYfmGt4xa32EZBPLw/wK2aBZMsKEdIkhAufT9DhyyP
-         k3AQ==
+        d=gmail.com; s=20230601; t=1743068144; x=1743672944; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=T18egcP3xFa+j5OuoMHL/WYufvsDa+8iCmW2SU808RA=;
+        b=m3PuO4busgihc8UspyXe1NTD5T0VgBRyrVRWd5YJM1iLRFGRpqr8vAe44RMm0EFMgr
+         r4FE6Bx/myl1mQ4GG7Qp6wLjvj0w7+iGgevvv22cK4r0ryU+IOvCDIQnIvryGeYYgP93
+         4sc1oU835RxRL/tGxpZ2lml2xynQjpXUxyr4jDbKCoTIjEaKF8I42H/0AIQs8oqD/aD0
+         tvASNE+Z6V8phHg5SA821Jroc+rVRJg5xaHj/B48VX0TuE8CFiQlw8zmXcBxV7OZubUP
+         9I9oQuqc5hgpDLxyCYo378HekEFWel94HvS0ubgNiORGI5zuNkupybzoKRFaSatv8VzQ
+         YJMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743067807; x=1743672607;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=W4vZBvYaByNd9A1fE5NNYaUZh1Or1PdoNuWSV/1koD0=;
-        b=sCSkCjZIP9UA44UVsOlF7RzNSGLkmTOysVTQvonMmYNJES7AwQFe046TNZq6fBllDA
-         jJMv/EX25tXdEFokC8U2Rit4cRAzm7nRWuOlor7MthId+oTYb3jWXRgCaRda1EaJfe3V
-         mQnkuqCmd0jL7nfUcuH9hfmo4GJrbeDT7tjfN7qdzLjzOPZA6McMXhHArYnap8Uq993L
-         CpoRON8M5uxCc+cwRUCRYDhH7/pnKOlnhfyeuzc6LGYt91pbY+jsFThKpGhkCr3MxQtU
-         kwjusnni7m1u0ac+cSNzDAt8qU/F+UTAbRGhvEbWNY9uePa0am0ekEe6T1Wcjg1SBfpI
-         D4bQ==
-X-Gm-Message-State: AOJu0Yx12D5LxLBwXDGrRw2sYmhRUAH1EvuR1Iq7q5NFafLdAuPivVlv
-	NhJv+tA2nY8qfsGChfRZ1sQ4EBbnvFFQpJ04BfHJWNmpZW4HWQSN28ObdfNERw==
-X-Gm-Gg: ASbGncuN605M8xGhQ6eg4tpSofrH9s6FCPrgQz1sqTeX6nz3oZJSQlqJTeFRi9vtUv5
-	37H0LZf3ZNHlJFLXbYZDqgc9cFD+8m2EGktdZZEh6i2HMZ5xMuz44pkuXaHBfk42hwSiXiIjxca
-	Lw8CMv/WuL8Aj7bBAE7sV76ODSD4U6ahs8t75+bhFxUa9a3eV8xJMzpvUImL+MRw4CHWIOT/cBi
-	2b8HCwg5IfeuQYttVn94PsH3UVEBLJfYiq8bGmvriHjhW4Yo4jhcQk45hmrAFGPUFeyuHQXv/N/
-	PMVc/ysvzSI8I1uEi6g85BnG+cKl5j/weIvq0Y1nt1PDKKfK/PVGY3NBu+6inaoseasNLSkNReF
-	wkaawirvH9Ta22wdVJE41+YGXdkfi9Q==
-X-Google-Smtp-Source: AGHT+IExw33n57Jurm/4GA5OUknOZplGOJ7D9HQh3OoC5LzEXuN2WqDGWeMjvojVRDkPsLDwleIXDw==
-X-Received: by 2002:a05:6000:4011:b0:38d:bccf:f342 with SMTP id ffacd0b85a97d-39ad1760510mr2298061f8f.43.1743067806845;
-        Thu, 27 Mar 2025 02:30:06 -0700 (PDT)
-Message-ID: <bb3a7a97-b90e-461e-9ebb-edf8cfbe430a@suse.com>
-Date: Thu, 27 Mar 2025 10:30:05 +0100
+        d=1e100.net; s=20230601; t=1743068144; x=1743672944;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=T18egcP3xFa+j5OuoMHL/WYufvsDa+8iCmW2SU808RA=;
+        b=rh387Qv17xLp2hIyQjdMVVtOgN+cOTcq6Q8LKCHyIFzzCpZeGaMuJL3xawQZXQyHZ9
+         pO7HINZaRfm/AU9hGwO1uCsn6SQ8i0pKiiLMxXHYHGOYiT/YFnjcXjApb0Ku4dhQ10ss
+         Z4m8DlQctvdMOmWLV6oC9n3WfDZp5K6XWxzplndDEi92EUffR+tvSVjOEWQiW9c7ZMcc
+         xorC9OUtYmSR9R2n/rEra+BwI18AsaDUGk9eA36dcjCjpWxMHC+aKzJlzIlkJPj1B8EG
+         O/kr72bckvNC1zgHwanqT927Vph6O/un4fyxWKkrQcMeeT1PFCzoZuEjwYxykpN4t60x
+         GaTw==
+X-Forwarded-Encrypted: i=1; AJvYcCXnCKoaPoYj6IJUJhiOsV7U9YnoGuA+5poyjUA9x3rDgjgN4ajvjxw4EIIUziawNCsOuLey4lB4Koo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwN5oDFeGVwoX0xNOevnn9SOae9Z2+Yvh5Yq6nTPZQYO2oRldmD
+	tCy8G3glQ2EXV6GEK78Mw03XA44+jMz4B7PAs4D1zF/JhJvzaTlY
+X-Gm-Gg: ASbGncvG/R0DYnD51iCVy5HJcwVZt3R6oWP9lz64KuJveDmkvJuiGZxea4O4goTyKmX
+	2eW0v3XBhc1YSbhLrLiVJMhox90g66OZgYdzn0kh8CCPW5td7cv/XDzHYDjuJdE8lAp0QQFiAfp
+	H0TRs4fImMie8YR5lY+/NxtMQ3wVBnx1U+L/Ao6TFFbjZ/66ijEzEBQl6DMY2u5ghjGfLhypAgq
+	SGTV9h9TiVOD2b3tfjR5xORs63e8qolVGK2UFiK/2rcO0svSMAqd+Wsu5MOZr8UUVbEHNd+4INT
+	3fwvtDImtJGcjArL2CqkPD5o4c0a5CnS86PBWIR1kDGkabNbQZhhcMhUuGFPrVK2nOsMNPoEw7D
+	XnbfYgGYUkRBF9+JbJRX6nrZkqu2jVGs=
+X-Google-Smtp-Source: AGHT+IGCYK5cQ6E+FxSnyWjug5hyM1PZkTtI217RlaaPvp3n+c4yukNXWJADCwXsHItxap/xKyZVNQ==
+X-Received: by 2002:a05:6402:2816:b0:5e5:49af:411d with SMTP id 4fb4d7f45d1cf-5ed8e7bf6c2mr3176756a12.17.1743068143422;
+        Thu, 27 Mar 2025 02:35:43 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------I00DrlvXWfQL64HZgUb4pu1o"
+Message-ID: <87fe5ebc-4bbd-4941-814b-5447be06a201@gmail.com>
+Date: Thu, 27 Mar 2025 10:35:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/CPU: don't hard-code MTRR availability
-From: Jan Beulich <jbeulich@suse.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <edecdda9-4728-4c65-9f31-76c912a433d7@suse.com>
- <Z-UKm6D9pmAEaE_9@macbook.local>
- <eb44921a-f6af-4aa9-9395-18e4e47d440a@suse.com>
+Subject: Re: [PATCH v2 15/19] xen/sysctl: wrap around XEN_SYSCTL_physinfo
+To: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org
+Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>
+References: <20250326055053.3313146-1-Penny.Zheng@amd.com>
+ <20250326055053.3313146-16-Penny.Zheng@amd.com>
 Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <eb44921a-f6af-4aa9-9395-18e4e47d440a@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20250326055053.3313146-16-Penny.Zheng@amd.com>
 
-On 27.03.2025 10:15, Jan Beulich wrote:
-> On 27.03.2025 09:21, Roger Pau Monné wrote:
->> My main concern is whether the !mtrr path is still functional.  Have
->> you tried booting the resulting hypervisor with MTRR masked on CPUID?
->>
->> (or alternatively short-circuiting cpu_has_mtrr == 0?)
-> 
-> I didn't think this would be a prereq here. If we boot in an environment truly
-> lacking MTRR, we'll crash on the first MTRR MSR access - none of those accesses
-> use the safe accessors. Since you asked, I tried booting with "cpuid=no-mtrr".
-> As I'm doing this on a system with console, all I can say is that it takes
-> minutes to reach the point where we'd start setting up Dom0 (which itself then
-> takes so long that I timed out waiting for it to make progress), due to all
-> screen output becoming unbelievably slow after AP bringup. Surely something's
-> screwed somewhere, as VRAM accesses being slow (or fast) shouldn't depend on AP
-> bringup having completed. I actually suspect it's not just VRAM accesses which
-> are slow, but that we're left running in uncachable mode altogether for whatever
-> reason.
+This is a multi-part message in MIME format.
+--------------I00DrlvXWfQL64HZgUb4pu1o
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-I think found a trivial way to avoid this, and the change there imo makes sense
-even if I can't explain this particular aspect of it. I'll submit that
-independently.
 
-Jan
+On 3/26/25 6:50 AM, Penny Zheng wrote:
+> The following functions are only used to deal with XEN_SYSCTL_physinfo,
+> then they shall be wrapped:
+> - arch_do_physinfo
+> - get_outstanding_claims
+>
+> Signed-off-by: Penny Zheng<Penny.Zheng@amd.com>
+> ---
+> v1 -> v2:
+> - no need to wrap declaration
+> - add transient #ifdef in sysctl.c for correct compilation
+> ---
+>   xen/arch/arm/sysctl.c   | 2 ++
+>   xen/arch/riscv/stubs.c  | 2 ++
+>   xen/arch/x86/sysctl.c   | 2 ++
+>   xen/common/page_alloc.c | 2 ++
+>   xen/common/sysctl.c     | 2 +-
+>   5 files changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
+> index 32cab4feff..2d350b700a 100644
+> --- a/xen/arch/arm/sysctl.c
+> +++ b/xen/arch/arm/sysctl.c
+> @@ -15,6 +15,7 @@
+>   #include <asm/arm64/sve.h>
+>   #include <public/sysctl.h>
+>   
+> +#ifdef CONFIG_SYSCTL
+>   void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+>   {
+>       pi->capabilities |= XEN_SYSCTL_PHYSCAP_hvm | XEN_SYSCTL_PHYSCAP_hap;
+> @@ -22,6 +23,7 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+>       pi->arch_capabilities |= MASK_INSR(sve_encode_vl(get_sys_vl_len()),
+>                                          XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
+>   }
+> +#endif
+>   
+>   long arch_do_sysctl(struct xen_sysctl *sysctl,
+>                       XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+> diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+> index 5951b0ce91..7b3f748886 100644
+> --- a/xen/arch/riscv/stubs.c
+> +++ b/xen/arch/riscv/stubs.c
+> @@ -328,10 +328,12 @@ long arch_do_sysctl(struct xen_sysctl *sysctl,
+>       BUG_ON("unimplemented");
+>   }
+>   
+> +#ifdef CONFIG_SYSCTL
+>   void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+>   {
+>       BUG_ON("unimplemented");
+>   }
+> +#endif /* CONFIG_SYSCTL */
+
+Considering that now we will have CONFIG_SYSCTL, I think it would be better just to drop
+definition of arch_do_physinfo() from riscv/stubs.c as it was added to make common code build
+for RISC-V happy.
+
+Thanks.
+
+~ Oleksii
+
+>   
+>   /* p2m.c */
+>   
+> diff --git a/xen/arch/x86/sysctl.c b/xen/arch/x86/sysctl.c
+> index 1b04947516..d7da476379 100644
+> --- a/xen/arch/x86/sysctl.c
+> +++ b/xen/arch/x86/sysctl.c
+> @@ -91,6 +91,7 @@ static long cf_check smt_up_down_helper(void *data)
+>       return ret;
+>   }
+>   
+> +#ifdef CONFIG_SYSCTL
+>   void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+>   {
+>       memcpy(pi->hw_cap, boot_cpu_data.x86_capability,
+> @@ -104,6 +105,7 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+>       if ( IS_ENABLED(CONFIG_SHADOW_PAGING) )
+>           pi->capabilities |= XEN_SYSCTL_PHYSCAP_shadow;
+>   }
+> +#endif
+>   
+>   long arch_do_sysctl(
+>       struct xen_sysctl *sysctl, XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 5803a1ef4e..36424a9245 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -601,6 +601,7 @@ out:
+>       return ret;
+>   }
+>   
+> +#ifdef CONFIG_SYSCTL
+>   void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages)
+>   {
+>       spin_lock(&heap_lock);
+> @@ -608,6 +609,7 @@ void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages)
+>       *free_pages = avail_heap_pages(MEMZONE_XEN + 1, NR_ZONES - 1, -1);
+>       spin_unlock(&heap_lock);
+>   }
+> +#endif /* CONFIG_SYSCTL */
+>   
+>   static bool __read_mostly first_node_initialised;
+>   #ifndef CONFIG_SEPARATE_XENHEAP
+> diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
+> index ccce7fe963..76622503e2 100644
+> --- a/xen/common/sysctl.c
+> +++ b/xen/common/sysctl.c
+> @@ -258,7 +258,6 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+>           ret = sched_adjust_global(&op->u.scheduler_op);
+>           break;
+>   
+> -#endif /* CONFIG_SYSCTL */
+>       case XEN_SYSCTL_physinfo:
+>       {
+>           struct xen_sysctl_physinfo *pi = &op->u.physinfo;
+> @@ -301,6 +300,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+>       }
+>       break;
+>   
+> +#endif /* CONFIG_SYSCTL */
+>       case XEN_SYSCTL_numainfo:
+>       {
+>           unsigned int i, j, num_nodes;
+--------------I00DrlvXWfQL64HZgUb4pu1o
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 3/26/25 6:50 AM, Penny Zheng wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20250326055053.3313146-16-Penny.Zheng@amd.com">
+      <pre wrap="" class="moz-quote-pre">The following functions are only used to deal with XEN_SYSCTL_physinfo,
+then they shall be wrapped:
+- arch_do_physinfo
+- get_outstanding_claims
+
+Signed-off-by: Penny Zheng <a class="moz-txt-link-rfc2396E" href="mailto:Penny.Zheng@amd.com">&lt;Penny.Zheng@amd.com&gt;</a>
+---
+v1 -&gt; v2:
+- no need to wrap declaration
+- add transient #ifdef in sysctl.c for correct compilation
+---
+ xen/arch/arm/sysctl.c   | 2 ++
+ xen/arch/riscv/stubs.c  | 2 ++
+ xen/arch/x86/sysctl.c   | 2 ++
+ xen/common/page_alloc.c | 2 ++
+ xen/common/sysctl.c     | 2 +-
+ 5 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
+index 32cab4feff..2d350b700a 100644
+--- a/xen/arch/arm/sysctl.c
++++ b/xen/arch/arm/sysctl.c
+@@ -15,6 +15,7 @@
+ #include &lt;asm/arm64/sve.h&gt;
+ #include &lt;public/sysctl.h&gt;
+ 
++#ifdef CONFIG_SYSCTL
+ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+ {
+     pi-&gt;capabilities |= XEN_SYSCTL_PHYSCAP_hvm | XEN_SYSCTL_PHYSCAP_hap;
+@@ -22,6 +23,7 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+     pi-&gt;arch_capabilities |= MASK_INSR(sve_encode_vl(get_sys_vl_len()),
+                                        XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
+ }
++#endif
+ 
+ long arch_do_sysctl(struct xen_sysctl *sysctl,
+                     XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+index 5951b0ce91..7b3f748886 100644
+--- a/xen/arch/riscv/stubs.c
++++ b/xen/arch/riscv/stubs.c
+@@ -328,10 +328,12 @@ long arch_do_sysctl(struct xen_sysctl *sysctl,
+     BUG_ON("unimplemented");
+ }
+ 
++#ifdef CONFIG_SYSCTL
+ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+ {
+     BUG_ON("unimplemented");
+ }
++#endif /* CONFIG_SYSCTL */</pre>
+    </blockquote>
+    <pre>Considering that now we will have CONFIG_SYSCTL, I think it would be better just to drop
+definition of arch_do_physinfo() from riscv/stubs.c as it was added to make common code build
+for RISC-V happy.
+
+Thanks.
+
+~ Oleksii
+</pre>
+    <blockquote type="cite"
+      cite="mid:20250326055053.3313146-16-Penny.Zheng@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+ 
+ /* p2m.c */
+ 
+diff --git a/xen/arch/x86/sysctl.c b/xen/arch/x86/sysctl.c
+index 1b04947516..d7da476379 100644
+--- a/xen/arch/x86/sysctl.c
++++ b/xen/arch/x86/sysctl.c
+@@ -91,6 +91,7 @@ static long cf_check smt_up_down_helper(void *data)
+     return ret;
+ }
+ 
++#ifdef CONFIG_SYSCTL
+ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+ {
+     memcpy(pi-&gt;hw_cap, boot_cpu_data.x86_capability,
+@@ -104,6 +105,7 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
+     if ( IS_ENABLED(CONFIG_SHADOW_PAGING) )
+         pi-&gt;capabilities |= XEN_SYSCTL_PHYSCAP_shadow;
+ }
++#endif
+ 
+ long arch_do_sysctl(
+     struct xen_sysctl *sysctl, XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 5803a1ef4e..36424a9245 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -601,6 +601,7 @@ out:
+     return ret;
+ }
+ 
++#ifdef CONFIG_SYSCTL
+ void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages)
+ {
+     spin_lock(&amp;heap_lock);
+@@ -608,6 +609,7 @@ void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages)
+     *free_pages = avail_heap_pages(MEMZONE_XEN + 1, NR_ZONES - 1, -1);
+     spin_unlock(&amp;heap_lock);
+ }
++#endif /* CONFIG_SYSCTL */
+ 
+ static bool __read_mostly first_node_initialised;
+ #ifndef CONFIG_SEPARATE_XENHEAP
+diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
+index ccce7fe963..76622503e2 100644
+--- a/xen/common/sysctl.c
++++ b/xen/common/sysctl.c
+@@ -258,7 +258,6 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+         ret = sched_adjust_global(&amp;op-&gt;u.scheduler_op);
+         break;
+ 
+-#endif /* CONFIG_SYSCTL */
+     case XEN_SYSCTL_physinfo:
+     {
+         struct xen_sysctl_physinfo *pi = &amp;op-&gt;u.physinfo;
+@@ -301,6 +300,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+     }
+     break;
+ 
++#endif /* CONFIG_SYSCTL */
+     case XEN_SYSCTL_numainfo:
+     {
+         unsigned int i, j, num_nodes;
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------I00DrlvXWfQL64HZgUb4pu1o--
 
