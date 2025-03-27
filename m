@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE8CAA7364F
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 17:05:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.929675.1332430 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21335A73661
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 17:10:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.929689.1332440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txpjR-0006DC-FQ; Thu, 27 Mar 2025 16:05:25 +0000
+	id 1txpoA-0007lb-3I; Thu, 27 Mar 2025 16:10:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 929675.1332430; Thu, 27 Mar 2025 16:05:25 +0000
+Received: by outflank-mailman (output) from mailman id 929689.1332440; Thu, 27 Mar 2025 16:10:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txpjR-0006BT-C3; Thu, 27 Mar 2025 16:05:25 +0000
-Received: by outflank-mailman (input) for mailman id 929675;
- Thu, 27 Mar 2025 16:05:24 +0000
+	id 1txpoA-0007jj-0g; Thu, 27 Mar 2025 16:10:18 +0000
+Received: by outflank-mailman (input) for mailman id 929689;
+ Thu, 27 Mar 2025 16:10:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Eznr=WO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1txpjQ-0006BN-5v
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 16:05:24 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1txpo8-0007jd-AQ
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 16:10:16 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 498727c7-0b25-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 17:05:22 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5eb5ecf3217so2130520a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 09:05:22 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5edc17dff16sm4767a12.67.2025.03.27.09.05.19
+ id f80fd846-0b25-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 17:10:15 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3913b539aabso663735f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 09:10:15 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d830f5b41sm43433705e9.27.2025.03.27.09.10.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 09:05:20 -0700 (PDT)
+ Thu, 27 Mar 2025 09:10:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,163 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 498727c7-0b25-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: f80fd846-0b25-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743091522; x=1743696322; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wO+wt6DrXguhKtyD31HtL0rruhHKVsvcQl5IUhCl60A=;
-        b=BJOsRjR2vo1P+cQobidl7aj5kwC53SU0klB1PzbNtEyBT97//GDsSBkfAEvSEAP60P
-         SjlsLwj2paCknLa3FajN+csHJY25zDUtYa2UgKHIZM5t5WAW7TAUS9vlXS2th4Zzl6M+
-         2CjPWZriHX42ZqXcpLcDEgzP64xWi8s+3OdRLOuHzNJ/1eim/48xEbPqBApG7Raf1XXt
-         6228VIquv4tYNxYZcBxtzysl2/k1RPKn+TkvH9V5wOmoEILbySYBSfBYko30Fw+Bxd4l
-         FxuhhshGe69fRPxN9qbuIPXn3Ohv/hxvSo8MqMQ1GTIxbPtxVLo/7VGs6Bf6KO2wrqHg
-         1m6Q==
+        d=suse.com; s=google; t=1743091815; x=1743696615; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=YlqTkyWWUGrlYXsLLjLB1P/83uAmyPdiDCoFd1qRRwk=;
+        b=DqS8cTu81mzkGd1wNWDtiuXkvpTm765q1k3LataZW46vOsv7rl360FKBsnKZ4/TFfg
+         5NzLT8fkl3DeIjuBJNTEu3DUNXQZNzDSQn0nOCR91FBQlN6kWqOSpERiaaJg+p+vJBPJ
+         RciZicSXO+g2NTJoC6RTolTWczrGJJbmfc7vEHPfCLYXlI5/R5lhqnLyxNtUnR5KxBBH
+         6NKJzp9MsM/aYnPs1n780VieFMja8TVwuzMuhwBF/A4EMSjDFBV2nxPxAH4GtsEWFj39
+         Hlm+DlG0v3HUVlEG0dXth6OTH/MdO8ITQKfCsFMjIJBPqnvl1CHVKIHoaxSFYvWxSUs9
+         Kmxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743091522; x=1743696322;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=wO+wt6DrXguhKtyD31HtL0rruhHKVsvcQl5IUhCl60A=;
-        b=mwLNhs8l1W2naFQF+ZayfWEgQmAWFpeLt+ex8/BbCrSOIHqHfm4+zKtxum+Cihik7+
-         alvjAtl23yGeQSBIgQLGhqkIQjPGUN81pOJFT8NsfbKIPSjU+OMZARTiPVEz2ARez7+Y
-         GiE2252IfTo4DfoTgZPue6REdapAS9S5j8bzHa8juYSivFKxCedcvdE/a1+O9IqTwno+
-         L+m2oPmwPyWMGRvJbILsfhCJJj2jV2JVi7Mujp6m6gDPSIrdAML4DZ8FLqevzPHwnI5l
-         SZZgxqxgdzfRDrKj6udhiXHAawHop+EIVFfuDnsnaQJ4G1saApO7ZwksR19tcRCiSBTw
-         cULA==
-X-Forwarded-Encrypted: i=1; AJvYcCVJqEmqzVcD4S9aGLP5VsOB7vhdfzEmbgWhtwHgplhE1SIBjDd+So3qaRGyXMsSf/TGiDTkLFcofYo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzANhQYYNEZ/c7CE1pv8bHtFHS0RCiQymdvSKBOXWCxU1nJ6Whz
-	T21r0Gsy0uADjk9SAs/xJ/Bk6mt1BnXIgyb6QcPJ2baIPxxZT1zz
-X-Gm-Gg: ASbGncuSHTlt6BFGpuz1mVQhnGfHEiK8dK4ewG1PuNWO6ggQt7/veeManW7ySEtrCYi
-	awmDe7y902FWkOpB/bFCV0DFyygb/gk8Fpr4CWt72OiLkfkNbw8u3j5pz2V6wfaDodRAPEjmaEQ
-	7fJfk407s9HUo0mmxyOIyaLHx7Y/zgBWJ74KXg24G1a/HzUkxL9dSAZ3MMcWFuMWGGX5Y/KUjTN
-	84HEUMCiF6nvIf1cMokujmuSafeYAyZfv2Gupz0WG93M/Xyo6i+yBh+VY6eRaEFKRj50fwEtWoY
-	R4fs5/QrrUdI0uQ+8Xj29Ll6H7A9aQDSXw3bH9OGc0pQGi7rr/qc4ZcNoOIcC4027aQj8q0Ytkf
-	q7RlU9qk264Fi78SA3ymgmt+/0xYlldA=
-X-Google-Smtp-Source: AGHT+IHE3OSOSZVXLgq0eCk41BH1kExTywHaKR1ZggygKUNRXotxO3LrKlB4CW2Jn9ViP9wTlbJzxw==
-X-Received: by 2002:a05:6402:518b:b0:5e6:44d9:57f7 with SMTP id 4fb4d7f45d1cf-5ed8ec1ea14mr3781304a12.26.1743091520648;
-        Thu, 27 Mar 2025 09:05:20 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------pU8EYQMgbsmGwc04BHiJZTpU"
-Message-ID: <5d34510a-2f31-4295-b42d-a4e035dd4559@gmail.com>
-Date: Thu, 27 Mar 2025 17:05:19 +0100
+        d=1e100.net; s=20230601; t=1743091815; x=1743696615;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YlqTkyWWUGrlYXsLLjLB1P/83uAmyPdiDCoFd1qRRwk=;
+        b=QEViWNtQWyvQssULSDudcsfj8VF4058ejT16SwjmRNNcNiSuIz/YRwnNU+5wgFMtUy
+         Z+KENRlRymE4McJO0ZcQR9PmwyGc9lzoFJ/Rk8vvkYeDdBtWK3sGP5yg4pKEeFxqhmhp
+         qnUVqONH2Lq1uBTraCstBUZQ/jyd+KJBFBcc52fXVsY15Ngwj7zkd805aVMOCJyj/8eO
+         Nuu2890EDVrlzsjBBVe4LhRLLCTfCNO69m01VbG5E6wCEYAVmkwdWCRnkckP2Iq/3t9p
+         uja8DHSHteIDCE+VAwtHY/ED4kXUzIuTkU/H7mp3t1hJZZTjc41Wlc2De5IgzY9IEQlK
+         J/WA==
+X-Forwarded-Encrypted: i=1; AJvYcCVisRFfz3K+6cTLFcCmOFtB0s9wEzQFyeIjmXfi43Z7NtvuejETWPQ1hI/2yW32MaX3PlvkqQlDj2s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzzKuNy5uBPDRmwr5h6qDfjPy/203WDgOzk26eD0cP8qow93ibz
+	ziGzNqo6+uhIcENlfwtmxuz9MWQzjkDQ8n/RouxPvR2PibvVEMeiWlAfbDg4ig==
+X-Gm-Gg: ASbGncvW2aVLOBk1/3oQKqItd8pisWKBhMCvpOJC3kjPNxxZrr/kdjDe0S8PKVMaR0/
+	6HVA4ShzEdB34AkyJ3V5VWmD4PqRAFUUwpiYvpXKrl5kPU1uLStfFqFJddPC6aIz/X1uVy45IHi
+	+aVTNpu0ZzthA6YxM2YoLT6M3f/OXbWb4kChnOpQ2QRM+gWRyqZzGxFTsevAswSLbB2NVgpiuHw
+	Ad4Xgk/j8gyQI35nuRW0LdN3pViVBNSyTIb1HMplTHOMMex+R4Lb/M2bJZlBL3mhQRYixY8SIYe
+	fjWPAib1PhajaF25z/LNLCEhfFfP3H0s63tJ5EGNTSTBLemjVTYOqaGEuTL2EbajLXtwS+NjdGS
+	TJKgxkNXwywzNizTRDm2IeL0RPflHIg==
+X-Google-Smtp-Source: AGHT+IEv+9zsOEI4rwZCUEEcVbtu6AyVE8+ZIToF/QsnMz2cqqJtwBtNivesbZxeocyokfiDo36P9g==
+X-Received: by 2002:a5d:64c7:0:b0:391:49f6:dad4 with SMTP id ffacd0b85a97d-39ad176b9e5mr3963334f8f.41.1743091814615;
+        Thu, 27 Mar 2025 09:10:14 -0700 (PDT)
+Message-ID: <0758acd6-40fb-42f3-8fd4-2d22056183a1@suse.com>
+Date: Thu, 27 Mar 2025 17:10:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] CHANGELOG: Minimum toolchain requirements for x86 and
- ARM
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250327153725.401451-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] trace: convert init_trace_bufs() to constructor
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+References: <e1e556c4-ed71-41f7-acfc-b7fa866a0d3e@suse.com>
+ <89043421-49b5-40cc-91c8-f4cd7dd2f6d1@xen.org>
+ <87f63516-f9a3-46cc-80a7-1eb614c1f818@suse.com>
+ <4c5ba483-c78b-4d45-addc-5a3070d99689@xen.org>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20250327153725.401451-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <4c5ba483-c78b-4d45-addc-5a3070d99689@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------pU8EYQMgbsmGwc04BHiJZTpU
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On 27.03.2025 16:49, Julien Grall wrote:
+> On 27/03/2025 15:08, Jan Beulich wrote:
+>> On 27.03.2025 15:49, Julien Grall wrote:
+>>> On 13/03/2025 13:38, Jan Beulich wrote:
+>>>> ---
+>>>> Same could then apparently be done for heap_init_late(). Thoughts?
+>>>
+>>> Looking at the code, I couldn't figure out whether any of the
+>>> constructors may rely on some changes done by heap_init_late().
+>>>
+>>> The only issue I can think of is scrubbing. In the case it is
+>>> synchronous, would the memory allocated before hand be scrubbed?
+>>
+>> Memory that is allocated can't possibly be scrubbed; only memory that's
+>> still un-allocated can be. With that I fear I don't properly understand
+>> the question you raise.
+> 
+> I meant that if memory is allocated by calls from init_constructors(). 
+> Before this patch, the memory would be scrubbed. After this patch, 
+> anything constructors called before heap_init_late() would end up to not 
+> be scrubbed if it is synchronous.
 
+Oh, I see. Since scrubbing may be asynchronous, any site relying on scrubbing
+having happened would be flawed anyway. Apart from that, unless callers pass
+MEMF_no_scrub to alloc_heap_pages(), un-scrubbed pages would be scrubbed
+anyway (see near the end of the function).
 
-On 3/27/25 4:37 PM, Andrew Cooper wrote:
-> Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
-> ---
-> CC: Anthony PERARD<anthony.perard@vates.tech>
-> CC: Michal Orzel<michal.orzel@amd.com>
-> CC: Jan Beulich<jbeulich@suse.com>
-> CC: Julien Grall<julien@xen.org>
-> CC: Roger Pau Monné<roger.pau@citrix.com>
-> CC: Stefano Stabellini<sstabellini@kernel.org>
-> CC: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->
-> v2:
->   * State x86 and ARM, rather than implying all architectures.
-> ---
->   CHANGELOG.md | 3 +++
->   1 file changed, 3 insertions(+)
->
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index 35ab6749241c..8f6afa5c858a 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->   ## [4.21.0 UNRELEASED](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
->   
->   ### Changed
-> + - The minimum toolchain requirements have increased for some architectures:
-> +   - For x86, GCC 5.1 and Binutils 2.25, or Clang/LLVM 11
-> +   - For ARM32 and ARM64, GCC 5.1 and Binutils 2.25
->   
->   ### Added
->    - On x86:
-
-LKGTM: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-
-Thanks.
-
-~ Oleksii
-
---------------pU8EYQMgbsmGwc04BHiJZTpU
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 3/27/25 4:37 PM, Andrew Cooper
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20250327153725.401451-1-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
----
-CC: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
-CC: Michal Orzel <a class="moz-txt-link-rfc2396E" href="mailto:michal.orzel@amd.com">&lt;michal.orzel@amd.com&gt;</a>
-CC: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
-CC: Julien Grall <a class="moz-txt-link-rfc2396E" href="mailto:julien@xen.org">&lt;julien@xen.org&gt;</a>
-CC: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
-CC: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a>
-CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-v2:
- * State x86 and ARM, rather than implying all architectures.
----
- CHANGELOG.md | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 35ab6749241c..8f6afa5c858a 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
- ## [4.21.0 UNRELEASED](<a class="moz-txt-link-freetext" href="https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=staging">https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=staging</a>) - TBD
- 
- ### Changed
-+ - The minimum toolchain requirements have increased for some architectures:
-+   - For x86, GCC 5.1 and Binutils 2.25, or Clang/LLVM 11
-+   - For ARM32 and ARM64, GCC 5.1 and Binutils 2.25
- 
- ### Added
-  - On x86:
-</pre>
-    </blockquote>
-    <pre>LKGTM: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-Thanks.
-
-~ Oleksii
-</pre>
-  </body>
-</html>
-
---------------pU8EYQMgbsmGwc04BHiJZTpU--
+Jan
 
