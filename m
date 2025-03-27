@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A64C6A72829
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 02:35:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928408.1331123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03C01A728A3
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 03:11:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928420.1331133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txc8g-00084V-2d; Thu, 27 Mar 2025 01:34:34 +0000
+	id 1txchv-0000HV-NF; Thu, 27 Mar 2025 02:10:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928408.1331123; Thu, 27 Mar 2025 01:34:34 +0000
+Received: by outflank-mailman (output) from mailman id 928420.1331133; Thu, 27 Mar 2025 02:10:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txc8f-00082y-W2; Thu, 27 Mar 2025 01:34:33 +0000
-Received: by outflank-mailman (input) for mailman id 928408;
- Thu, 27 Mar 2025 01:34:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1txchv-0000FJ-Ji; Thu, 27 Mar 2025 02:10:59 +0000
+Received: by outflank-mailman (input) for mailman id 928420;
+ Thu, 27 Mar 2025 02:10:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SxjK=WO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1txc8e-00082s-R2
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 01:34:32 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a0f28b26-0aab-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 02:34:31 +0100 (CET)
+ id 1txchu-0000FB-FU
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 02:10:58 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b74623c5-0ab0-11f0-9ffa-bf95429c2676;
+ Thu, 27 Mar 2025 03:10:56 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 06115A401B4;
- Thu, 27 Mar 2025 01:29:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB246C4CEE2;
- Thu, 27 Mar 2025 01:34:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0DC8F61161;
+ Thu, 27 Mar 2025 02:10:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6D8BC4CEE2;
+ Thu, 27 Mar 2025 02:10:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,87 +41,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0f28b26-0aab-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: b74623c5-0ab0-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743039269;
-	bh=4evYnni4ymNnLfjOMXkEzYt8QlQ++HFdDFluQzw0Sfs=;
+	s=k20201202; t=1743041454;
+	bh=n8nunGwFKW2BRd716thzDPCmgW4xhACIDhXx6ZW6sYU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NSSmxMD3vvK/qGUqw0SCIy5Q1nhkzoE4bj3OXU1bxckCpIyLaVDyX3pfQvxhBxbho
-	 JNKcpDW0kHBqqFwCBdA/tp38eDPgwu9Ke5VI39CQSZck4qPp1T8k5u8CKSaTAnFLWH
-	 NHwTXKiqzaosPnVbqwxY70rx/1TFaP6l1v8ZLP4jqTESlHgR2Nf9LQyzdxOCqRzSX/
-	 oj7bs8BkZwErHz6zaP/2qQbZMywBUH+xVyqxbaJ6+gcz2PigQmT2+tholM7KOJz4zV
-	 FQ64RCOONSo8INVmjJHmewr2p50/vpTQC4MkXaFFtZor6JUQWxpK6A8nyfFEg99LNY
-	 QREyHMiSo8EkA==
-Date: Wed, 26 Mar 2025 18:34:21 -0700 (PDT)
+	b=sxJloY8360ZyQfGOnhW0ZP1vW85cH7j3xM42d/HKA3BH06agcMG30NtyK85pKEcum
+	 FDUWm63GwkxvMFGlzNMrCvhph2jhogfhEfGUFoGrigA6q+dt1VnDdCewaqfzdsD4E6
+	 m7QzQls2p8W8+1RxF4ARkvV7hHVnysUD/tYxpVWbQB6eWu0yeaQkV5obMVm8ZAKuxL
+	 ilL0bwMqdXhYiZGUPKFtZx1hHEHj8ReICxg4RCjq3zpN9oiO53JHSOFmudkrLIWwlN
+	 x/OVLNkxwoIDItZE60DfdiJX4tQLeR5oUBuivU/E9UxuUNIhNovk1F5xp07igroELM
+	 ZzXZqWwAX18GQ==
+Date: Wed, 26 Mar 2025 19:10:52 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH] ARM/vgic: Fix out-of-bounds accesses in
- vgic_mmio_write_sgir()
-In-Reply-To: <875xjvi952.fsf@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2503261834160.563920@ubuntu-linux-20-04-desktop>
-References: <20250326155121.364658-1-andrew.cooper3@citrix.com> <875xjvi952.fsf@epam.com>
+To: Anthony PERARD <anthony.perard@vates.tech>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH] automation: Avoid changing source files for randconfig
+ tests
+In-Reply-To: <20250326142754.5441-1-anthony.perard@vates.tech>
+Message-ID: <alpine.DEB.2.22.394.2503261910100.563920@ubuntu-linux-20-04-desktop>
+References: <20250326142754.5441-1-anthony.perard@vates.tech>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 27 Mar 2025, Volodymyr Babchuk wrote:
-> Hi Andrew,
+On Wed, 26 Mar 2025, Anthony PERARD wrote:
+> We should avoid changing files from the source tree if we don't intend
+> to commit the result.
 > 
-> Andrew Cooper <andrew.cooper3@citrix.com> writes:
+> We don't really need to check if $EXTRA_FIXED_RANDCONFIG is empty so
+> add it to the temporary file in all cases.
 > 
-> > The switch() statement is over bits 24:25 (unshifted) of the guest provided
-> > value.  This makes case 0x3: dead, and not an implementation of the 4th
-> > possible state.
-> >
-> > A guest which writes (3<<24)|(ff<<16) to this register will skip the early
-> > exit, then enter bitmap_for_each() with targets not bound by nr_vcpus.
-> >
-> > If the guest has fewer than 8 vCPUs, bitmap_for_each() will read off the end
-> > of d->vcpu[] and use the resulting vcpu pointer to ultimately derive irq, and
-> > perform an out-of-bounds write.
-> >
-> > Fix this by changing case 0x3 to default.
-> >
-> > Fixes: 08c688ca6422 ("ARM: new VGIC: Add SGIR register handler")
-> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+> ---
+>  automation/scripts/build | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 > 
-> Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> diff --git a/automation/scripts/build b/automation/scripts/build
+> index 522efe774e..8a3b8fb6b2 100755
+> --- a/automation/scripts/build
+> +++ b/automation/scripts/build
+> @@ -12,12 +12,12 @@ $cc --version
+>  # random config or default config
+>  if [[ "${RANDCONFIG}" == "y" ]]; then
+>  
+> -    # Append job-specific fixed configuration
+> -    if [[ -n "${EXTRA_FIXED_RANDCONFIG}" ]]; then
+> -        echo "${EXTRA_FIXED_RANDCONFIG}" >> xen/tools/kconfig/allrandom.config
+> -    fi
+> +    cp -f xen/tools/kconfig/allrandom.config xen/allrandom.config.tmp
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Wouldn't it be better to use mktemp?
+
+local tmpconfig=$(mktemp)
+cp -f xen/tools/kconfig/allrandom.config $tmpconfig
 
 
-> > ---
-> > CC: Stefano Stabellini <sstabellini@kernel.org>
-> > CC: Julien Grall <julien@xen.org>
-> > CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> > CC: Bertrand Marquis <bertrand.marquis@arm.com>
-> > CC: Michal Orzel <michal.orzel@amd.com>
-> >
-> > This vgic driver is explicity not security supported, hence no XSA.
-> > ---
-> >  xen/arch/arm/vgic/vgic-mmio-v2.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/xen/arch/arm/vgic/vgic-mmio-v2.c b/xen/arch/arm/vgic/vgic-mmio-v2.c
-> > index 670b335db2c3..7d1391ac9b48 100644
-> > --- a/xen/arch/arm/vgic/vgic-mmio-v2.c
-> > +++ b/xen/arch/arm/vgic/vgic-mmio-v2.c
-> > @@ -104,7 +104,8 @@ static void vgic_mmio_write_sgir(struct vcpu *source_vcpu,
-> >      case GICD_SGI_TARGET_SELF:                    /* this very vCPU only */
-> >          targets = (1U << source_vcpu->vcpu_id);
-> >          break;
-> > -    case 0x3:                                     /* reserved */
-> > +
-> > +    default:
-> >          return;
-> >      }
-> 
+> -    make -j$(nproc) -C xen KCONFIG_ALLCONFIG=tools/kconfig/allrandom.config randconfig
+> +    # Append job-specific fixed configuration
+> +    echo "${EXTRA_FIXED_RANDCONFIG}" >> xen/allrandom.config.tmp
+> +
+> +    make -j$(nproc) -C xen KCONFIG_ALLCONFIG=allrandom.config.tmp randconfig
+>  
+>      # RANDCONFIG implies HYPERVISOR_ONLY
+>      HYPERVISOR_ONLY="y"
 > -- 
-> WBR, Volodymyr
+> 
+> 
+> Anthony Perard | Vates XCP-ng Developer
+> 
+> XCP-ng & Xen Orchestra - Vates solutions
+> 
+> web: https://vates.tech
+> 
 
