@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54BABA727DC
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 01:45:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928365.1331092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D519A727EB
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 01:51:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928385.1331103 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txbML-0004Rp-05; Thu, 27 Mar 2025 00:44:37 +0000
+	id 1txbSs-000709-SC; Thu, 27 Mar 2025 00:51:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928365.1331092; Thu, 27 Mar 2025 00:44:36 +0000
+Received: by outflank-mailman (output) from mailman id 928385.1331103; Thu, 27 Mar 2025 00:51:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txbMK-0004QF-TR; Thu, 27 Mar 2025 00:44:36 +0000
-Received: by outflank-mailman (input) for mailman id 928365;
- Thu, 27 Mar 2025 00:44:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1txbSs-0006xS-Nn; Thu, 27 Mar 2025 00:51:22 +0000
+Received: by outflank-mailman (input) for mailman id 928385;
+ Thu, 27 Mar 2025 00:51:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4IZU=WO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1txbMI-0004Q9-Qz
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 00:44:34 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a41ff42b-0aa4-11f0-9ffa-bf95429c2676;
- Thu, 27 Mar 2025 01:44:29 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3914aba1ce4so290652f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 26 Mar 2025 17:44:29 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9efc90sm18535387f8f.98.2025.03.26.17.44.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Mar 2025 17:44:28 -0700 (PDT)
+ <SRS0=fbs7=WO=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1txbSr-0006j1-5n
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 00:51:21 +0000
+Received: from fout-a7-smtp.messagingengine.com
+ (fout-a7-smtp.messagingengine.com [103.168.172.150])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 97b096f0-0aa5-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 01:51:19 +0100 (CET)
+Received: from phl-compute-07.internal (phl-compute-07.phl.internal
+ [10.202.2.47])
+ by mailfout.phl.internal (Postfix) with ESMTP id 8156D1382D8F;
+ Wed, 26 Mar 2025 20:51:17 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-07.internal (MEProxy); Wed, 26 Mar 2025 20:51:17 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 26 Mar 2025 20:51:15 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,141 +45,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a41ff42b-0aa4-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743036269; x=1743641069; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2zRnudDsm1YPUDsp/rGq/8rJn9zgkb4N3lQSmhYhgqA=;
-        b=oaR4hrxurNEpGPyWE4HPcrPKxpb3recZi92lQYTHYx3S6IkeUKekSvOgnJWdzyMKg0
-         s3NdmWvEonxh2Chcb0zdCHrfjFcGmzZvYhh/GcRJ1VvoL0BZRcU3aKEoLKemb82ERwY+
-         oO5BT2Azskttl0kWFk164j4vwno/qlfvJInow=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743036269; x=1743641069;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2zRnudDsm1YPUDsp/rGq/8rJn9zgkb4N3lQSmhYhgqA=;
-        b=C5ZuKrlmd/I3Hf4tIgNBFXGMrt82X/0/epfXNSvHm/kjUqeQ0m8O8Pu8fqQ2qx6SPs
-         2kcgjPDid44kpwFcB7ajJbF000JEPzvorNN/Az1TddQiTKU2YBLQh6M3t73AsVtYOKyr
-         EK4ESJdy4Q7LrSnkMK0oGsvuHkgSK4Pu8VG/Re+WXj28z5lBtLiU/brzn1UG4xu2aWeA
-         DP6pJ2A5fNmEfeoxYA94OozNFSs2TwpvGiuvuHsmCy0IUbMT2rzvhN/zWvEnGu2uDrNS
-         ++l8fvl7PkZzOrCeKc5GkKZ4jnJq5pxMi2lfVwkGbby6mFr+UUerei26r5H4D+f9uqyG
-         VrpA==
-X-Forwarded-Encrypted: i=1; AJvYcCU2Dt2AAK26emAhDzB9hQld1uoQf9G4fH7f9VmMCS0SQrt4iMMlz2TmfaYXgekEIgjamBT4AywyWUU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyUHH6U4GZIaOswFJwbManM9qRAixU26uQ5x8YNxyptNvVrnaVP
-	2J4vYq91IUQQoKJfR87rKe/JCkzHXRhpF+kS0lMmBCTPIjonfEZ3mIJmvVydmEA=
-X-Gm-Gg: ASbGncvdn252nMuzH6kavK7PQnKCpNC5Ts3EtWX5iieeXnKhJb/Fef5dPndjGJcEgDv
-	yqIHh5+dKeqyKV96DkHdVsJGRBACiPPqxR+wo/uVi07RbIb03RkU8yr46If7eLFYzxa7YlcGOHb
-	5ny6e+3MOrTpYhy7PPyEE6Nx1o7ct36+RPvTt4jH3uRWkCQyMxibiok8NeRyRvQfUEAFd2FMkqI
-	Czp7QLYRiNG19bS9Z6PfktMRkv+ay7HProuhCP0SCV7YUcP5xZUiNME70BTBJbiQs7t9TnRPpex
-	QiwP25xWnVNGZAuRZA7PVeGfOBME0Bm2Znog9UxUnEHpNTz/dniZtoKeCqOcp0th3AZezE44ND8
-	xmrIfZwKB+w==
-X-Google-Smtp-Source: AGHT+IFeB7ZzTeiSPN34z+pMTNTEtjhOVE2XodLXycae+Kk9EyvSk8JSWWRoVI6EnZvpsDBX1Umxyw==
-X-Received: by 2002:a05:6000:1786:b0:38f:4acd:975c with SMTP id ffacd0b85a97d-39ad174916emr1246170f8f.27.1743036268771;
-        Wed, 26 Mar 2025 17:44:28 -0700 (PDT)
-Message-ID: <17a808cf-e676-4c30-9068-34a9a4d568d7@citrix.com>
-Date: Thu, 27 Mar 2025 00:44:26 +0000
+X-Inumbo-ID: 97b096f0-0aa5-11f0-9ea3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm1; t=1743036677; x=1743123077; bh=aH
+	gpfGvsQEpk4WJmGuLs0xRXWghu0gspE2h/8NA1P04=; b=v6Nk7hWcAZiXa1h681
+	IFRM5aviXQ7RY/dzHCryRBc1p7z7LX9Wb+TY0OdSowW06eGHnm4Okyk1dy+OFKCM
+	BWb5tzehwVwqR9adnSSTSeojJxT+LsuyNrfaOH1P15vGIaJHfQ4LhKl8n+f03jpm
+	8Hs0Bcwz13mwTQpEWa0MevDO+4bwsi14FukJQhkc2lfQWrmNZr6ic+3IOgYTqSnA
+	4WSTbwzjbsSm0y7Xn9pOL5WzFny3Z1E7mL2RNaiTPaHmXKuS47q1bWvcTo6LR+Qi
+	pS6K+UFlKgA8P/MMBEthcqWxDoaB5a4X6c4IPUMF0JUyxbO2ns7r2paWYyW38sOM
+	uYMg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1743036677; x=
+	1743123077; bh=aHgpfGvsQEpk4WJmGuLs0xRXWghu0gspE2h/8NA1P04=; b=n
+	w4zHffZ4rADErIe1X+uJIswEdPUn1G9Y1D6PvI9JfjsX3uGbcX3wuKH+c2V8mxqI
+	4ggCFqeC1RnlXGP+gVOpKUoVmnckoKq9Ft+k82dNN9DJKfOWVqrP9vhT3+LGo1WF
+	69hUrwaGFW1WKL5O/ccsxLv+DNNlrBdTd/TL4qoMf4lEpfr9AMSKZ9VIET972nUa
+	1dgd7NaEjXEm7myusMQBsIJBL+io7BywRfe92hs4MLKjvIYp6LGOEyyWpB4buWAg
+	flwLaKJyF0cY0xndwyZVeiZL73yWAoGPVW8W1+OVm+obea4SAW9MsAzm2EL0zNIy
+	fz1Lr3Kxv4hRfWBErl60w==
+X-ME-Sender: <xms:BaHkZzE2pJgqRmZOc3r0CjC7u86x9HrNtj8qEhIgaJn1557CB-IAVQ>
+    <xme:BaHkZwU1vUFBOhiFcNR_pajS27VUDnzhxbfc_MXQ6df8hKd3uFbqyn425OVujLS2W
+    A4h0FpzSYicEQ>
+X-ME-Received: <xmr:BaHkZ1JpLiljDaaSJ_EzTIA21sXWkev5kw7oBJVY_qM4OzfQucMZeRo0BTZnURJpsZx4fTHGc0bh7KS-w_3DF7RWLUTjioC4gA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdduieejtdduucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkgggtugesghdtreertddtjeen
+    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
+    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
+    rfgrthhtvghrnhepgfdtgfdvteetffeluefgudfggeejkefgfeffvdehfffhtdefgefgue
+    ehtdffueelnecuffhomhgrihhnpehquhgsvghsqdhoshdrohhrghenucevlhhushhtvghr
+    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeekpdhmohgu
+    vgepshhmthhpohhuthdprhgtphhtthhopehrrghfrggvlheskhgvrhhnvghlrdhorhhgpd
+    hrtghpthhtohepvhhirhgvshhhrdhkuhhmrghrsehlihhnrghrohdrohhrghdprhgtphht
+    thhopehlihhnuhigqdhpmhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhope
+    hlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthho
+    pehlihhnuhigqdgrtghpihesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhope
+    igvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphht
+    thhopehjghhrohhsshesshhushgvrdgtohhmpdhrtghpthhtoheprhgvghhrvghsshhioh
+    hnsheslhhishhtshdrlhhinhhugidruggvvh
+X-ME-Proxy: <xmx:BaHkZxHw3bMVFOEj4GGqr1F7NTButjSDBu25haS8k-b_IJPV6SGnhg>
+    <xmx:BaHkZ5VBHkXyjj6geWdGr8S8gX93KOaq2dco7UjC7KVc2Ua93MzO1A>
+    <xmx:BaHkZ8NmEMl3cQl7QcXC9X-_NQa7Kq-BplrfKg4Yox3SDVUNwtOrRA>
+    <xmx:BaHkZ42EsKC3pRiXmr64C9QNIYUJ9869j1N5sDLyvw_fkfzNzJIrlA>
+    <xmx:BaHkZ1pKcoIr0UaT5Kl3lc8iL4zvRqhhuVLqJYut77Enhw7a8HVr5uUr>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 27 Mar 2025 01:51:13 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Juergen Gross <jgross@suse.com>, regressions@lists.linux.dev
+Subject: NULL pointer dereference in cpufreq_update_limits(?) under Xen PV
+ dom0 - regression in 6.13
+Message-ID: <Z-ShAR59cTow0KcR@mail-itl>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] xen/config.h: Move BITS_PER_* definitions from
- asm/config.h to xen/config.h
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>
-References: <4f085bcbf5b6f1bc42824bfb08724e8a9bbd4918.1743005389.git.oleksii.kurochko@gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <4f085bcbf5b6f1bc42824bfb08724e8a9bbd4918.1743005389.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="jK9RafVCHRtlVVtN"
+Content-Disposition: inline
 
-On 26/03/2025 5:47 pm, Oleksii Kurochko wrote:
-> diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
-> index d888b2314d..dbbf2fce62 100644
-> --- a/xen/include/xen/config.h
-> +++ b/xen/include/xen/config.h
-> @@ -98,4 +98,13 @@
->  #define ZERO_BLOCK_PTR ((void *)-1L)
->  #endif
->  
-> +#define BYTES_PER_LONG  __SIZEOF_LONG__
-> +
-> +#define BITS_PER_BYTE   __CHAR_BIT__
-> +#define BITS_PER_INT    (__SIZEOF_INT__ << 3)
-> +#define BITS_PER_LONG   (BYTES_PER_LONG << 3)
-> +#define BITS_PER_LLONG  (__SIZEOF_LONG_LONG__ << 3)
-> +
-> +#define POINTER_ALIGN   __SIZEOF_POINTER__
 
-See how much nicer this is.  This patch possibly wants to wait until
-I've fixed the compiler checks to update to the new baseline, or we can
-just say that staging is staging and corner case error messages are fine.
+--jK9RafVCHRtlVVtN
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 27 Mar 2025 01:51:13 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Juergen Gross <jgross@suse.com>, regressions@lists.linux.dev
+Subject: NULL pointer dereference in cpufreq_update_limits(?) under Xen PV
+ dom0 - regression in 6.13
 
-One thing, you have to replace the "<< 3" as you're hard-coding 8 here
-and ignoring __CHAR_BIT__.
+Hi,
 
-I'd suggest keeping the BITS_PER_BYTE on the LHS, e.g:
+I've got a report[1] that 6.13.6 crashes as listed below. It worked fine in
+6.12.11. We've tried few simple things to narrow the problem down, but
+without much success.
 
-#define BITS_PER_INT    (BITS_PER_BYTE * __SIZEOF_INT__)
+This is running in Xen 4.17.5, PV dom0, which probably is relevant here.
+This is running on AMD Ryzen 9 7950X3D, with ASRock X670E Taichi
+motherboard.
+There are few more details in the original report (link below).
 
-which tabulates better.
+The kernel package (including its config saved into /boot) is here:
+https://yum.qubes-os.org/r4.2/current/host/fc37/rpm/kernel-latest-6.13.6-1.=
+qubes.fc37.x86_64.rpm
+https://yum.qubes-os.org/r4.2/current/host/fc37/rpm/kernel-latest-modules-6=
+=2E13.6-1.qubes.fc37.x86_64.rpm
 
-I suggest keeping BITS_PER_XEN_ULONG to be arch-local.  ARM is the
-odd-one-out having a non-64bit arch use a 64bit XEN_ULONG.
+The crash message:
+[    9.367048] BUG: kernel NULL pointer dereference, address: 0000000000000=
+070
+[    9.368251] #PF: supervisor read access in kernel mode
+[    9.369273] #PF: error_code(0x0000) - not-present page
+[    9.370346] PGD 0 P4D 0
+[    9.371222] Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
+[    9.372114] CPU: 0 UID: 0 PID: 128 Comm: kworker/0:2 Not tainted 6.13.6-=
+1.qubes.fc37.x86_64 #1
+[    9.373184] Hardware name: ASRock X670E Taichi/X670E Taichi, BIOS 3.20 0=
+2/21/2025
+[    9.374183] Workqueue: kacpi_notify acpi_os_execute_deferred
+[    9.375124] RIP: e030:cpufreq_update_limits+0x10/0x30
+[    9.375840] Code: 84 00 00 00 00 00 0f 1f 40 00 90 90 90 90 90 90 90 90 =
+90 90 90 90 90 90 90 90 f3 0f 1e fa 0f 1f 44 00 00 48 8b 05 98 e4 21 02 <48=
+> 8b 40 70 48 85 c0 74 06 e9 a2 36 38 00 cc e9 ec fe ff ff 66 66
+[    9.377009] RSP: e02b:ffffc9004058be28 EFLAGS: 00010246
+[    9.377667] RAX: 0000000000000000 RBX: ffff888005bf4800 RCX: ffff88805d6=
+35fa8
+[    9.378415] RDX: ffff888005bf4800 RSI: 0000000000000085 RDI: 00000000000=
+00000
+[    9.379127] RBP: ffff888005cd7800 R08: 0000000000000000 R09: 80808080808=
+08080
+[    9.379887] R10: ffff88800391abc0 R11: fefefefefefefeff R12: ffff888004e=
+8aa00
+[    9.380669] R13: ffff88805d635f80 R14: ffff888004e8aa15 R15: ffff8880059=
+baf00
+[    9.381514] FS:  0000000000000000(0000) GS:ffff88805d600000(0000) knlGS:=
+0000000000000000
+[    9.382345] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    9.383045] CR2: 0000000000000070 CR3: 000000000202c000 CR4: 00000000000=
+50660
+[    9.383786] Call Trace:
+[    9.384335]  <TASK>
+[    9.384886]  ? __die+0x23/0x70
+[    9.385456]  ? page_fault_oops+0x95/0x190
+[    9.386036]  ? exc_page_fault+0x76/0x190
+[    9.386636]  ? asm_exc_page_fault+0x26/0x30
+[    9.387215]  ? cpufreq_update_limits+0x10/0x30
+[    9.387805]  acpi_processor_notify.part.0+0x79/0x150
+[    9.388402]  acpi_ev_notify_dispatch+0x4b/0x80
+[    9.389013]  acpi_os_execute_deferred+0x1a/0x30
+[    9.389610]  process_one_work+0x186/0x3b0
+[    9.390205]  worker_thread+0x251/0x360
+[    9.390765]  ? srso_alias_return_thunk+0x5/0xfbef5
+[    9.391376]  ? __pfx_worker_thread+0x10/0x10
+[    9.391957]  kthread+0xd2/0x100
+[    9.392493]  ? __pfx_kthread+0x10/0x10
+[    9.393043]  ret_from_fork+0x34/0x50
+[    9.393575]  ? __pfx_kthread+0x10/0x10
+[    9.394090]  ret_from_fork_asm+0x1a/0x30
+[    9.394621]  </TASK>
+[    9.395106] Modules linked in: gpio_generic amd_3d_vcache acpi_pad(-) lo=
+op fuse xenfs dm_thin_pool dm_persistent_data dm_bio_prison amdgpu amdxcp i=
+2c_algo_bit drm_ttm_helper ttm crct10dif_pclmul drm_exec crc32_pclmul gpu_s=
+ched
+crc32c_intel drm_suballoc_helper polyval_clmulni drm_panel_backlight_quirks=
+ polyval_generic drm_buddy ghash_clmulni_intel sha512_ssse3 drm_display_hel=
+per sha256_ssse3 sha1_ssse3 xhci_pci cec nvme sp5100_tco xhci_hcd nvme_core=
+ nvme_auth
+video wmi xen_acpi_processor xen_privcmd xen_pciback xen_blkback xen_gntall=
+oc xen_gntdev xen_evtchn scsi_dh_rdac scsi_dh_emc scsi_dh_alua uinput dm_mu=
+ltipath
+[    9.398698] CR2: 0000000000000070
+[    9.399266] ---[ end trace 0000000000000000 ]---
+[    9.399880] RIP: e030:cpufreq_update_limits+0x10/0x30
+[    9.400528] Code: 84 00 00 00 00 00 0f 1f 40 00 90 90 90 90 90 90 90 90 =
+90 90 90 90 90 90 90 90 f3 0f 1e fa 0f 1f 44 00 00 48 8b 05 98 e4 21 02 <48=
+> 8b 40 70 48 85 c0 74 06 e9 a2 36 38 00 cc e9 ec fe ff ff 66 66
+[    9.401673] RSP: e02b:ffffc9004058be28 EFLAGS: 00010246
+[    9.402316] RAX: 0000000000000000 RBX: ffff888005bf4800 RCX: ffff88805d6=
+35fa8
+[    9.403060] RDX: ffff888005bf4800 RSI: 0000000000000085 RDI: 00000000000=
+00000
+[    9.403819] RBP: ffff888005cd7800 R08: 0000000000000000 R09: 80808080808=
+08080
+[    9.404581] R10: ffff88800391abc0 R11: fefefefefefefeff R12: ffff888004e=
+8aa00
+[    9.405332] R13: ffff88805d635f80 R14: ffff888004e8aa15 R15: ffff8880059=
+baf00
+[    9.406063] FS:  0000000000000000(0000) GS:ffff88805d600000(0000) knlGS:=
+0000000000000000
+[    9.406830] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    9.407561] CR2: 0000000000000070 CR3: 000000000202c000 CR4: 00000000000=
+50660
+[    9.408318] Kernel panic - not syncing: Fatal exception
+[    9.409022] Kernel Offset: disabled
+(XEN) Hardware Dom0 crashed: 'noreboot' set - not rebooting.
 
-~Andrew
+Looking at the call trace, it's likely related to ACPI, and Xen too, so
+I'm adding relevant lists too.
+
+Any ideas?
+
+#regzbot introduced: v6.12.11..v6.13.6
+
+[1] https://forum.qubes-os.org/t/kernel-latest-6-13-6-boot-loop/32926
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--jK9RafVCHRtlVVtN
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmfkoQEACgkQ24/THMrX
+1yw1pQgAiGheqvBVAzHRFCalG+1EJQd6wmukzpCgFaXCkqkogTtXUbL5pnar1ZGK
+1FzPFjP788c944gItnjaT3DhndMNBosTVjxe3PuogF7hwZVM7DuJ3zsWpoQq9cyO
+jsR/A3B25Nq9j4CM09Q74U+NRpS1sy3QtUH71D8+U0qhsc/RwrKzfrDD4RT/Az7X
+OFU/6dT2hfi+4tlGWCSwPlSFss7oL6h2OvlfEBb8bKUoNX1C6r9wA4pMSqTI4mSz
+HMUaAnKegjA5LekTjYiCoCX+CAm4yE03SPrVOimmLQa/Elh3s7PDt9PNesatzGxn
+B5oM/RNS+k73QptVRsjTpl/DH8fS+w==
+=zTtu
+-----END PGP SIGNATURE-----
+
+--jK9RafVCHRtlVVtN--
 
