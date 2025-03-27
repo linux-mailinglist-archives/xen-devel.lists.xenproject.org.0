@@ -2,36 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3834A73403
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 15:12:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.929383.1332010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF27CA73409
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 15:13:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.929395.1332032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txnyI-0001Ef-29; Thu, 27 Mar 2025 14:12:38 +0000
+	id 1txnzI-0001ug-G8; Thu, 27 Mar 2025 14:13:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 929383.1332010; Thu, 27 Mar 2025 14:12:38 +0000
+Received: by outflank-mailman (output) from mailman id 929395.1332032; Thu, 27 Mar 2025 14:13:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txnyH-0001Cf-Vm; Thu, 27 Mar 2025 14:12:37 +0000
-Received: by outflank-mailman (input) for mailman id 929383;
- Thu, 27 Mar 2025 14:12:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qwmD=WO=bounce.vates.tech=bounce-md_30504962.67e55ccc.v1-b67d07b3874d4e8999d0f32c8c847b9b@srs-se1.protection.inumbo.net>)
- id 1txnyF-0001CE-HN
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 14:12:35 +0000
-Received: from mail133-26.atl131.mandrillapp.com
- (mail133-26.atl131.mandrillapp.com [198.2.133.26])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 845b90b2-0b15-11f0-9ffa-bf95429c2676;
- Thu, 27 Mar 2025 15:12:29 +0100 (CET)
-Received: from pmta13.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail133-26.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4ZNlwX2qwtzKsbNVh
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 14:12:28 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- b67d07b3874d4e8999d0f32c8c847b9b; Thu, 27 Mar 2025 14:12:28 +0000
+	id 1txnzI-0001rb-DX; Thu, 27 Mar 2025 14:13:40 +0000
+Received: by outflank-mailman (input) for mailman id 929395;
+ Thu, 27 Mar 2025 14:13:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=uRC/=WO=alien8.de=bp@srs-se1.protection.inumbo.net>)
+ id 1txnzH-0001rV-Aa
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 14:13:39 +0000
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ad5bea3a-0b15-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 15:13:38 +0100 (CET)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7064A40E0219; 
+ Thu, 27 Mar 2025 14:13:36 +0000 (UTC)
+Received: from mail.alien8.de ([127.0.0.1])
+ by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id JzESrgo2KtC2; Thu, 27 Mar 2025 14:13:32 +0000 (UTC)
+Received: from zn.tnic (pd95303ce.dip0.t-ipconnect.de [217.83.3.206])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
+ SHA256) (No client certificate requested)
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4A83340E021F;
+ Thu, 27 Mar 2025 14:13:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,66 +48,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 845b90b2-0b15-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1743084748; x=1743354748;
-	bh=Ier6FjZvBD+LLBVf8D2hJQZeOU3HJ0lbuROWkezwWpA=;
-	h=From:Subject:Message-Id:To:Cc:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=l5VWCyurLvzGAFikT3w5N6SaOcFACcouGAyoL0RCWJZlXGcu4MInFLZYm/rY4WjVr
-	 z9fEjrfAHiLRGTb3KzNMxIMnDc+eJHdlIhBmQOtgh+9RYS+v3j2CahgSA2bMoqefYH
-	 THAM+ssVKBy3/FVoT39ZsYco0L6p1hp20DVzvQ9OylxiSRb6uvGjAZufiB2K1WdQ23
-	 FQ0XgDjZ6DE1yacuOix9ncRBD+1yhDHM/iPSr4zoQeBAuqFmSTp3uBttxfjLHv/A/q
-	 kRNpQw19pyljl5UZK4xjHeDd1Lcj5XVTTxDQARVEdgMK71X7W7mL0DXly/Rt45PQ6h
-	 bNLaztdKGHY3g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1743084748; x=1743345248; i=teddy.astie@vates.tech;
-	bh=Ier6FjZvBD+LLBVf8D2hJQZeOU3HJ0lbuROWkezwWpA=;
-	h=From:Subject:Message-Id:To:Cc:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=fiXwhXRx9Ur6wQoB4oXG2nX0veotXH8WoR5Mx08V7qinzZCkc/DdP/b4LnNYs0tAJ
-	 a3wMjjijuIudLeI/g2oEVGFUcItKElAo26Fn77ccTTPGj3uYC/WhLOEzUwJw1mdBTz
-	 Dqlyq4MIEZed+S15k7+TmdwiyQc6xEEdMcIS5hKbql6PD4HKC3CP0pkw/2st7k+3bh
-	 rUagN8YfwRsSUH2xjTu8b8HSqatYQ31F95YFMemakBVaj+Da3nPJpmpqg63nZ617BX
-	 HPDnueCkA0QwJlQMiS5j7M2ddaBejzsP58a6ef3Sh2h7ck3p3kP1BFVRklVnmt9u2S
-	 Oaer7MtK0srcA==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Allocating=20SEV=20C-bit-cleared=20pages=20(without=20relying=20on=20swiotlb)?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1743084747829
-Message-Id: <b16ec2d7-4a84-482f-b875-d7c152facab5@vates.tech>
-To: linux-kernel@vger.kernel.org, linux-mm@vger.kernel.org
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.b67d07b3874d4e8999d0f32c8c847b9b?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250327:md
-Date: Thu, 27 Mar 2025 14:12:28 +0000
+X-Inumbo-ID: ad5bea3a-0b15-11f0-9ea3-5ba50f476ded
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1743084811; bh=woRVz5b4vp99dk/fbV1QOQUcl24nf2AjIPWa1aaxd0c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=j2BwqpaAefmKroUo0u/yYcpl3m6+7C/LtS8QAzwOw8jzvwtGaKStmmuY4dZT0fhMl
+	 gT4wSODMdukb0m7c/VpcQPbIs0LnC/19oeSaNyh2f3Il/nFt7tF5HeehZeiR5/3UJz
+	 BcoMZ1+93ftyZv3PRa0Z/f1qccHgoaNHHBuCG3Tf+zsasYCsM+t7BHPQXHw6zbhlC5
+	 rE4jpNDdCl00L6mo0busdZc5mz4yUgvYdaH3jWKAcrbBh/yShm3nzgg8GmDH3dzUi4
+	 KnkNAg2fbTNgHGG/Yv6kJB5YtICDIMAb17jnJmcfuJ1F5E21NCd3b4x+BXQ89QpWxa
+	 y6crmGTCZ4NNSOZY3F9q4CKUEfmemIbsFwcPeag47tcxem+YfQE0DpZQtCdHW8HS9J
+	 AAakGcdqooI8IiEdjZyzwxKFuwOgGvLAJst7oAEF8iLl37xPr/5q0amYmN/25xHQhX
+	 liEeI0CdkLFrFHuHZoYuoHSwAyDdGVoMGyF5hNqerDgqsDsRb72iKMbDYHkQImUC3U
+	 S5E9wFIy2sMlRrfHbNXUab+CZ590OH7QTDysrsndYqS1U8u+ANHv57qWCY+K/bGBif
+	 dHkM04vfrj2+KXO3H25RM2xNew27ZAFRZ9p0rkHA6Lqod609xvvuQLyEn31WRxtXsw
+	 rl9577ZmzLF6CJHNfppnSZQg=
+Date: Thu, 27 Mar 2025 15:13:16 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Jan Beulich <jbeulich@suse.com>, oe-kbuild-all@lists.linux.dev,
+	xen-devel@lists.xenproject.org,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	kernel test robot <lkp@intel.com>, x86-ml <x86@kernel.org>,
+	lkml <linux-kernel@vger.kernel.org>
+Subject: Re: [xen-tip:linux-next 12/12] WARNING: modpost: vmlinux: section
+ mismatch in reference: mc_debug_data+0x0 (section: .data) ->
+ mc_debug_data_early (section: .init.data)
+Message-ID: <20250327141316.GBZ-Vc_NybN1cIEePu@fat_crate.local>
+References: <202407240907.u0NJHgTu-lkp@intel.com>
+ <a9b1e875-5bf8-4755-ad2e-78ab2eb02c97@suse.com>
+ <fc4b5a0c-19dc-4741-b184-08b704444a1b@suse.com>
+ <3a847f18-750f-4bd2-9cac-37c4b9bdc84b@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+In-Reply-To: <3a847f18-750f-4bd2-9cac-37c4b9bdc84b@suse.com>
+Content-Transfer-Encoding: quoted-printable
 
-Hello Linux mailing list !
+On Wed, Jul 24, 2024 at 11:55:39AM +0200, J=C3=BCrgen Gro=C3=9F wrote:
+> I'd prefer a general way to handle this problem, like e.g. some kind of
+> __refdata tagging for percpu variables.
 
-For porting Linux code to make it work on Xen with AMD-SEV, I need to 
-change the allocation of some pages to use "shared pages" (C-bit 
-cleared) instead of private pages (C-bit set, which is the default kind) 
-as these pages needs to be shared with the hypervisor/Dom0.
+Any reason for not doing the trivial thing?
 
-Is there a facility to allocate pages with C-bit cleared (and if not 
-running under SEV, just allocate a plain page) ? Current Linux code for 
-SEV seems to only rely on swiotlb as access to shared page is mostly 
-made through DMA-kind devices (e.g virtio or emulated device), but I 
-don't think it is the best approach.
+diff --git a/arch/x86/xen/multicalls.c b/arch/x86/xen/multicalls.c
+index 10c660fae8b3..100bfaba3f4d 100644
+--- a/arch/x86/xen/multicalls.c
++++ b/arch/x86/xen/multicalls.c
+@@ -53,7 +53,7 @@ struct mc_debug_data {
+ };
+=20
+ static DEFINE_PER_CPU(struct mc_buffer, mc_buffer);
+-static struct mc_debug_data mc_debug_data_early __initdata;
++static struct mc_debug_data mc_debug_data_early;
+ static DEFINE_PER_CPU(struct mc_debug_data *, mc_debug_data) =3D
+ 	&mc_debug_data_early;
+ static struct mc_debug_data __percpu *mc_debug_data_ptr;
 
-Regards
-Teddy
+---
 
+since this breaks randbuilds:
 
-Teddy Astie | Vates XCP-ng Developer
+WARNING: modpost: vmlinux: section mismatch in reference: mc_debug_data+0=
+x0 (section: .data) -> mc_debug_data_early (section: .init.data)
+ERROR: modpost: Section mismatches detected.
+Set CONFIG_SECTION_MISMATCH_WARN_ONLY=3Dy to allow them.
+make[2]: *** [scripts/Makefile.modpost:147: Module.symvers] Error 1
+make[2]: *** Deleting file 'Module.symvers'
+make[1]: *** [/mnt/kernel/kernel/linux/Makefile:1947: modpost] Error 2
+make: *** [Makefile:251: __sub-make] Error 2
 
-XCP-ng & Xen Orchestra - Vates solutions
+?
 
-web: https://vates.tech
+--=20
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
 
