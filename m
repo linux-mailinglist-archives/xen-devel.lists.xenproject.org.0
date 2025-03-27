@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0AC9A73549
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 16:06:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.929532.1332226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63AD1A7355E
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 16:09:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.929548.1332236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txonY-0002Nn-8O; Thu, 27 Mar 2025 15:05:36 +0000
+	id 1txoqm-0002z5-Na; Thu, 27 Mar 2025 15:08:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 929532.1332226; Thu, 27 Mar 2025 15:05:36 +0000
+Received: by outflank-mailman (output) from mailman id 929548.1332236; Thu, 27 Mar 2025 15:08:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txonY-0002ML-5l; Thu, 27 Mar 2025 15:05:36 +0000
-Received: by outflank-mailman (input) for mailman id 929532;
- Thu, 27 Mar 2025 15:05:34 +0000
+	id 1txoqm-0002wZ-Kl; Thu, 27 Mar 2025 15:08:56 +0000
+Received: by outflank-mailman (input) for mailman id 929548;
+ Thu, 27 Mar 2025 15:08:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4IZU=WO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1txonW-0002MD-6r
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 15:05:34 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1txoql-0002wT-Qs
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 15:08:55 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ee1c77eb-0b1c-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 16:05:33 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3995ff6b066so587157f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 08:05:33 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9a31a7sm19831040f8f.23.2025.03.27.08.05.32
+ id 6602ccca-0b1d-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 16:08:54 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-39141ffa9fcso890267f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 08:08:54 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d82dedde6sm40732165e9.5.2025.03.27.08.08.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 08:05:32 -0700 (PDT)
+ Thu, 27 Mar 2025 08:08:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee1c77eb-0b1c-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 6602ccca-0b1d-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743087932; x=1743692732; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743088134; x=1743692934; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VIRKwdVRurrs7WTBM2RdGcNH+5YfptL5R6g2udGz7Qk=;
-        b=thFFJcRB4ozRzbc0bLCPa+ARiAbF2pfEqQhBEF1ClEsZrptxdSx7ts3in3/weiLUTQ
-         H3yTVocoBE6WzEFqOMUQ9VKTtwl9SA5xDabCoK3pkAQRt7tXo9geHlGOO3qUJ877tOPq
-         uYa3eHRgnBBGRyjFqx2L6+G0GW6BmSLbVWZkA=
+        bh=xoi4q6ojIHG2wXB3EUgXjgE88BGltWN/JC8dV5kBNj4=;
+        b=SqLGNjpWirO6K+cSTO8x9SR+K5I7p8joprlQlcUkXotZZmIVxFs/7QX/0jWwShdXGu
+         saE6ryMPvzd7LSxeRY9UTbH+QuydxMWVveuTAY+ZNmUvyjsgTzinL3HJCqz71c2zjbUl
+         qHtQrijrwVtVF46EFA5DT+PLbK3XTm+fsimdW6W93QtBZhLmoe3I5q0I5bVx/GCwKJts
+         cFyogf+vr5rlFRiVIfRw6HPr/2h+5MwZqadldmMRJl/lG6KiiAiO/h540kTaysrG11fQ
+         dda3V6vx6yqN45Cm8ipQ+tvHAHTtDMJoV9QmnQYUpFqnOMf3b/4qo0glOhxVc0z8ly2G
+         jwTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743087932; x=1743692732;
+        d=1e100.net; s=20230601; t=1743088134; x=1743692934;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VIRKwdVRurrs7WTBM2RdGcNH+5YfptL5R6g2udGz7Qk=;
-        b=XO8aLdISO6nos/EyI5LVoH0SGEWrErOh0r8v8yGiW7lJx5EFp9SlJhb/8007UKEylK
-         GWoZrQWHt21o9m+7WFmkkzIq5qwqtYx7XkmJbLX7OB7cefCPd1k7ZArPg+J4kksiOvnv
-         zIVg55AGczUgamMh5/C4na7avoTAJrCPMZfgjU68gFy9L8NBT2Cpvpr+1BkNL2xqDUg6
-         uhwN5naBci6BofHwQuVHbr//Uj1ZZ28zfA8syD+Ve49Ne0Dd4HMEhlKlGfih0h3YAuah
-         KiHnDmQQAKaDiAAMIi70dZat2+ldk84MlUPJm+l0mdT+yWLe8b/GwkEI/wRW7waa1DY5
-         CRlw==
-X-Gm-Message-State: AOJu0YwbON9f8GRrEk26VdP0ho2XV0e/k2G1b/ex8jrbOSdYZdgp9Ja2
-	SvXH84Uz485dhDsh670tUjD/X6+QffZ0M3I3MjE5FHdc6DlK1JAUrLbUd30NORM=
-X-Gm-Gg: ASbGncst4GlsvWM1hn3tCNQBlp75ElXnSRkw5lu2qgSVDx6G8ZrHayNX79ydTONEK+O
-	cRjQ99tVlv6LHYqR//B/QSyznyA6MJ4K5wkv/Uetpes0t5EuMYRzoDAwPkmcDyRrXlCJa1uk7DX
-	js6T96bQN0EVz1+h9uwejHoqGwM62XQtypnNi6rqHaLtctitcXgImo+J+5sHs4cVP9eptAUVb28
-	MPaVyHJcRwol7hK02nHhKC/mJ9CnHigus2+zLgnUnqavje9qhwvTOCeEiFboCwAo8f81yR/W2aO
-	Oc8Tn5NlfDgTKrqBlEllLV1G/583LjPwcY6rIJw1B06RGltM/2nKjUdkTnwFACDitUmVCbKsLYj
-	higM8JLZxWQ==
-X-Google-Smtp-Source: AGHT+IEwaHx0BivAwqvxevOY35LeI3UM2gV6CUvf0D4KmXBxFV6OYMgwiS/JDe4eDrJeNfH8Wczp5g==
-X-Received: by 2002:a5d:5f91:0:b0:38f:4d40:358 with SMTP id ffacd0b85a97d-39ad173f987mr3588337f8f.9.1743087932574;
-        Thu, 27 Mar 2025 08:05:32 -0700 (PDT)
-Message-ID: <e1d9c8f1-f649-49bd-b2b9-9a873aedd939@citrix.com>
-Date: Thu, 27 Mar 2025 15:05:31 +0000
+        bh=xoi4q6ojIHG2wXB3EUgXjgE88BGltWN/JC8dV5kBNj4=;
+        b=GoVk+3YCoB3lgPpadH6J9azTNeeBoik9HMQdRFEOF/c7zznidXUqssAZAz+PUpWkl9
+         fogZqfPxCROnzRoW3uLTpO62QHzYtiQg6UkrmeC0t56AzJ9ljG3cfatFtRLdETNFi9GY
+         5vLLGJlfHklpT0Er7NW89olWYdhGJW2TZbQ8czx5Om3p5CyRNUQoh3EeCalIYVJjQ/fB
+         StrsCjS211/Z6FrtSyIoh+vmSkI8pYtJNAkQjyUaFOyNIZxiSeq8Gm3vJTZMp2oQ4kyj
+         vYt13laImcgn9Ip0Qu3WlnNBsTmxg3fCJ/QViOr9IvrLOfBD/T5lfbdQ7otWE98vFBVY
+         NAWA==
+X-Forwarded-Encrypted: i=1; AJvYcCVluWvF1RVUCfZlEm0ZD9iyNva8KF/1ZvGW0zeS8cJwUxkj9NhZJJK+VCZRxpLEYMnqG1cnVjCg7uw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxsHCGX56Acx1s6WAKbhIC8NWfWKwhddwXKw73YwB3gQ/5Y8i9e
+	1CljUXIaLQAoBcE7TuvHAwDHyBzqLDwDxgxRvKmneGo5jPGSNs0iO014T3TCLw==
+X-Gm-Gg: ASbGncttsXdUT+bRD1c4EHVqsIBZSKvUIl+jbzr39wUd8zT6moODZNazKwtQf4aIMUM
+	NlV6nkbj3q4ZgWE76ZKehsfsdI8Cyu5hrJ0ItUxEQxzPlmDLtzuQtOv+eOY9jNXthZ8Uz0MRItt
+	yZXp1vtboj1QgVXL03PSW0e13FOqUlRMtrWJ9PoUxkHzhrm58T0ZRLbQIqOp+AENj6SJActvNHH
+	ONqvGghBN5utO1UvwNIgT3+y1IxAH+h01R6yGAsv2AjH2sk8CpGZ8dLvG5A1NDYMqhPy7zyBxX4
+	+rimib3e/iELuI6vB+PYWGixu3JZftldejKOfge7sYG7OTsgRplp8Ta2SpJRwJU4kThuy9Udh7E
+	j9xQrHMpdHZOxiW0rQ2YWOcMfAmLG0+ViKjKWgzcU
+X-Google-Smtp-Source: AGHT+IFe89gEnPeHi+2b+9PqhGDSn6j/MVltmycwi40CKYPexZXuAPx7mLXTzGOrX1CAGVMC11Vl8A==
+X-Received: by 2002:a05:6000:1866:b0:390:f902:f961 with SMTP id ffacd0b85a97d-39ad1773b94mr3442416f8f.45.1743088133586;
+        Thu, 27 Mar 2025 08:08:53 -0700 (PDT)
+Message-ID: <87f63516-f9a3-46cc-80a7-1eb614c1f818@suse.com>
+Date: Thu, 27 Mar 2025 16:08:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/MTRR: constrain AP sync and BSP restore
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <56fbfae0-aac7-4841-ab3c-a7e00dda3744@suse.com>
- <Z-UuG2QW56iSfeFj@macbook.local>
- <47e6ad0b-ca4e-499e-8824-6f2dd525c354@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <47e6ad0b-ca4e-499e-8824-6f2dd525c354@suse.com>
+Subject: Re: [PATCH] trace: convert init_trace_bufs() to constructor
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+References: <e1e556c4-ed71-41f7-acfc-b7fa866a0d3e@suse.com>
+ <89043421-49b5-40cc-91c8-f4cd7dd2f6d1@xen.org>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <89043421-49b5-40cc-91c8-f4cd7dd2f6d1@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27/03/2025 11:03 am, Jan Beulich wrote:
-> On 27.03.2025 11:53, Roger Pau Monné wrote:
->> On Thu, Mar 27, 2025 at 10:54:23AM +0100, Jan Beulich wrote:
->>> mtrr_set_all() has quite a bit of overhead, which is entirely useless
->>> when set_mtrr_state() really does nothing. Furthermore, with
->>> mtrr_state.def_type never initialized from hardware, post_set()'s
->>> unconditional writing of the MSR means would leave us running in UC
->>> mode after the sync.
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> --- a/xen/arch/x86/cpu/mtrr/main.c
->>> +++ b/xen/arch/x86/cpu/mtrr/main.c
->>> @@ -605,13 +605,15 @@ void mtrr_aps_sync_begin(void)
->>>  
->>>  void mtrr_aps_sync_end(void)
->>>  {
->>> -	set_mtrr(~0U, 0, 0, 0);
->>> +	if (mtrr_if)
->>> +		set_mtrr(~0U, 0, 0, 0);
->>>  	hold_mtrr_updates_on_aps = 0;
->>>  }
->>>  
->>>  void mtrr_bp_restore(void)
->> Maybe I'm blind, but I cannot find any caller to mtrr_bp_restore()?
->> Am I missing something obvious?
-> You don't. It was lost in 4304ff420e51 ("x86/S3: Drop
-> {save,restore}_rest_processor_state() completely"), with there being no
-> indication in the description that this was actually intentional. Looks like
-> another S3 regression we need to fix. Unless you, Andrew, have an explanation
-> for this.
+On 27.03.2025 15:49, Julien Grall wrote:
+> On 13/03/2025 13:38, Jan Beulich wrote:
+>> There's no need for each arch to invoke it directly, and there's no need
+>> for having a stub either. With the present placement of the calls to
+>> init_constructors() it can easily be a constructor itself.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Acked-by: Julien Grall <jgrall@amazon.com>
 
-Hmm, I don't think I intended to make a change without discussing it.
+Thanks.
 
-However, I think I'd concluded that it was redundant with the
-mtrr_aps_sync_end() call.
+>> ---
+>> Same could then apparently be done for heap_init_late(). Thoughts?
+> 
+> Looking at the code, I couldn't figure out whether any of the 
+> constructors may rely on some changes done by heap_init_late().
+> 
+> The only issue I can think of is scrubbing. In the case it is 
+> synchronous, would the memory allocated before hand be scrubbed?
 
-~Andrew
+Memory that is allocated can't possibly be scrubbed; only memory that's
+still un-allocated can be. With that I fear I don't properly understand
+the question you raise.
+
+Jan
 
