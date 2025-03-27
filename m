@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C78D7A73359
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 14:29:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.929288.1331904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4CA5A73365
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 14:32:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.929298.1331913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txnHr-0003Hl-DW; Thu, 27 Mar 2025 13:28:47 +0000
+	id 1txnL6-0005vc-Os; Thu, 27 Mar 2025 13:32:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 929288.1331904; Thu, 27 Mar 2025 13:28:47 +0000
+Received: by outflank-mailman (output) from mailman id 929298.1331913; Thu, 27 Mar 2025 13:32:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txnHr-0003FX-9g; Thu, 27 Mar 2025 13:28:47 +0000
-Received: by outflank-mailman (input) for mailman id 929288;
- Thu, 27 Mar 2025 13:28:46 +0000
+	id 1txnL6-0005uA-MD; Thu, 27 Mar 2025 13:32:08 +0000
+Received: by outflank-mailman (input) for mailman id 929298;
+ Thu, 27 Mar 2025 13:32:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txnHq-0003FR-87
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 13:28:46 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1txnL5-0005u1-Lf
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 13:32:07 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 67f6c5d7-0b0f-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 14:28:44 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3913cf69784so680650f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 06:28:44 -0700 (PDT)
+ id e03576d5-0b0f-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 14:32:06 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43cfb6e9031so9282515e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 06:32:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f9b3f7csm19629523f8f.49.2025.03.27.06.28.43
+ ffacd0b85a97d-3997f995a10sm19755881f8f.6.2025.03.27.06.32.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 06:28:43 -0700 (PDT)
+ Thu, 27 Mar 2025 06:32:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67f6c5d7-0b0f-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: e03576d5-0b0f-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743082124; x=1743686924; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=p4bQIgCrWkTChR58ukhq3Bu5CIaiUZg8fIqb+7xUY6s=;
-        b=ZjWtdCFbJeGvXipx/QNYYtT5X8R47bLuTZGzazZySDQKl7w6+XWxElq2zyL1HeQKqH
-         3Rqbfv0T6bA/l2FPIq6hGh81X6L/UFnucUbHDhv6XW1msd+rL+gcD3/uIbMByQXWu73K
-         7kSX9LrSn4xOgSaa9+nF3GEy6zwqcgayMSTiqmbPgUSLJ6KG6tOncAqmspgzJZluWysX
-         QDyciERdTn4ZQUcXU0vVtxvDp6KLaLO3U1UnWL/N9OkLDcWAXpbOeijcDDcPpo/hAC7y
-         ir8YYuafIpmW5a7IgDH1xq6d9KmjLWFEtBPdO7+g7syO0sxTkGiKOw0Aj2ztS0m0ApOf
-         cPQA==
+        d=suse.com; s=google; t=1743082326; x=1743687126; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=DkoaVwWLavIxu1YQJCb3NH/+CQa3gtkc1a2kSLpQG28=;
+        b=Jd8TD3/AYvuwKNAjVOhAKjAUwzOiP2dAbl2mElpcbgIxsByNisBuuje4ThR+OT0ys9
+         lu+Njp7f+SShCtEC4MFpzjpIPaEbwHbIwLqFyfZGIjuCGVqNk2HAkdAH1OD/xdaQ7tcl
+         Chh2h0ew3+CtqV7Z2AiZlbaqloiZ68smUMD5DPpvyJ/G7Y9vC9NtTGaJ07YFU3XuBTdj
+         iyc/mHJ1v8H7q80n1HpAtSTFzc4xfKA9f86qOzBeMrjijeuBRW3nwfXGNHzCUFtPyEkf
+         HIRkxONIocN/0tQZxSdOSFsBj7QUOPg5b6AlbPsI4nWCyHt5vqt/oTGfPxyQJnpINvFX
+         +h+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743082124; x=1743686924;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=p4bQIgCrWkTChR58ukhq3Bu5CIaiUZg8fIqb+7xUY6s=;
-        b=szVRkBh+7H4fhIM71GtXQgZzhizNVIujKPDKeJNzBGmplpfYqAvnYIhT9HsTM39Ii3
-         8dBtN1hIFzJiBi1aePHsgFMRGDKHwy6ppNOPrdGwVt5rmGPauVxqQkY2rOTy7dDfS1cH
-         zXcQwtpfc4pzW5RXKh5v/KKc4IAyQevfmd45iK6v4gVkZHEDkCge8BpZO+xmgG9TE5+5
-         CyXe2ILUmsSb/lV6XZJMbA/vGO2HXXwDBn+x7FpvsegqNdKd1rd88uqT4DoPrHWwvKwi
-         0C+pmxUAr/u0I5cfzWLCY2qpsLPTjP3BkhLm6TzJkxrYCdtO3gEb2sLFNXz/YDgdMvle
-         aa+Q==
-X-Gm-Message-State: AOJu0YygB4awY5ZKANF+yZMbu8q+byJ5Xt+Z4sSomkd0EdNmKHApBizw
-	okbWBE7FLMEILI1WQbJHHR7f7vhuTOuIR3RDqB+DC8XuAgITnLLA5zqHDDg/dQ==
-X-Gm-Gg: ASbGncvQfYgECA/Vpj4sGGjW8QLPyW6ZwDGaolFQ2VRL59fCdze/5JveiFuw6Pfej+N
-	U25P8lIbvM9hnhW3OXLDt7k3q5CPiomFgwfzKMs8FNk+73QVdf+P0OCYYX9TYl/qGL93a36RCHB
-	Yc7OyvRSqNb8rlVYf1mUYGCBsPy2WVowJ1N7SnspvPCEalTTpmfxt+konbw6zCxcILP8cvc+vt9
-	brcBWETi6R6+UG9nqaiZtfYOlIEigDfh2+M85mKS1y+1eAN385LLWHqrdGfNQ8CXW62T2uGrX+/
-	gU1QHG9i+6yDeihTmMgpLEGN8lAR/5jkq01bPZgToRUCqlf4gCGvu2l3xai2SWzxCDQDKQFLOId
-	mLwOj9GCSuR8doDHChsnjIFA0zjw5lvMxARyt7msk
-X-Google-Smtp-Source: AGHT+IGSQuvRL5+2EeZOHCgW1Yin50C6KIR0XS0gtSyYQzy5xHvKOc83B5lydbeqxArI5WK5mVgfeQ==
-X-Received: by 2002:a5d:59a9:0:b0:391:2c0c:1247 with SMTP id ffacd0b85a97d-39ad17414b1mr3407132f8f.1.1743082124050;
-        Thu, 27 Mar 2025 06:28:44 -0700 (PDT)
-Message-ID: <f5669417-43f3-4c63-bb7d-a108f13757cb@suse.com>
-Date: Thu, 27 Mar 2025 14:28:42 +0100
+        d=1e100.net; s=20230601; t=1743082326; x=1743687126;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=DkoaVwWLavIxu1YQJCb3NH/+CQa3gtkc1a2kSLpQG28=;
+        b=aIDvCzDZ4CvJdYH/uojbmiCaSMsLTliAr+FGiR0FS137jW3PsZ06P2yVrBBhK5CpEu
+         1Unebg7qcutfMEi0BwtQak0PzJ7gVRP8Xofp+yDm17U5ryuUgChQtZw2MSwdDC2HkuTB
+         FG1hJMIyMtQ+IRMa+o1o0Wzb0sAQoQ9Q2QZuHn2aIp+YR6WJXWhwoErX5BepsddQ5g85
+         jS9sUonXWdzrZS8nWeCTpf9prnYSqTfRcF2kEBP2CkiRL2hO0aoNBotp5i5i6nbceaTp
+         viI0Y3hG2V3acKjB5zj4UweAe8Bqg4FKQesg4t4W9EA0MKTIMPqjbxD8E1WPjRzvmrIM
+         SKgQ==
+X-Gm-Message-State: AOJu0YwC4C42wd/j6552Xw3t5xoHc6futRTnkh3SpRgM2ZhNluKGOW/L
+	f5WTUWd4KfLIqRcBtsuU+W76y2dwfGLIDQ3rIwJfJDm1/rWeZOfbzzb0oFm4z/1GC/poSI5wIFA
+	=
+X-Gm-Gg: ASbGncvBo48LytDu5g6WNrPamSzaaoNfIEbZomd/G3PUeXanW+4yX18GIP9coOiJsH7
+	5VtsCZ4sq5d0hbRyR45Z9pmCuJfq0llqgnOZDOJY7hgxEcu2A2QfEdyFbuhcwBgMjn2NeO+lxSf
+	AUbLocRf1mtBeNuGfTV0998BEzHkkEKuY0IUctuxZb6NaKLHcUaDOeX53SzCN6QhRUEBf8/ChWx
+	7byak2smqjYJVn5A+XyDkxHDh22NZ3fyPCY8E41LMKer4QYW78fHUOuxPNGBh0LclhOrCBQPc3/
+	hz4V46fzAuAt8I0sNHBC3GawnWfg3MoDXtQramW6MA+uI9Wv7PseUV9oJxfrF/KXLn0gomJ/xbD
+	xR+Y6SpSitsWW9XW+p0B0TjLT3rj/5g==
+X-Google-Smtp-Source: AGHT+IH0n5JHR5/vKHkTlG3sa1k6VaExBrgIAzaFybvzX9QULLCeN+02lt99BGck2XbqUGSV7AJHlQ==
+X-Received: by 2002:a5d:47a2:0:b0:391:158f:3d59 with SMTP id ffacd0b85a97d-39ad17491aamr2687831f8f.15.1743082325624;
+        Thu, 27 Mar 2025 06:32:05 -0700 (PDT)
+Message-ID: <df676738-19e7-47e6-977f-25d6d13ccc50@suse.com>
+Date: Thu, 27 Mar 2025 14:32:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/MTRR: hook mtrr_bp_restore() back up
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>
-References: <ad8ea1da-dda9-4567-8b15-55b65777e80f@suse.com>
- <Z-U4ozL6p-Unh5Y8@macbook.local>
- <fde64904-343b-48c9-b396-961811cc2adb@suse.com>
- <Z-VJBIbQal-jZAGM@macbook.local>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Anthony Perard <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] libxc/PM: correct (not just) error handling in
+ xc_get_cpufreq_para()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -120,44 +115,111 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z-VJBIbQal-jZAGM@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27.03.2025 13:48, Roger Pau Monné wrote:
-> On Thu, Mar 27, 2025 at 01:30:44PM +0100, Jan Beulich wrote:
->> On 27.03.2025 12:38, Roger Pau Monné wrote:
->>> On Thu, Mar 27, 2025 at 12:20:47PM +0100, Jan Beulich wrote:
->>>> Unlike stated in the offending commit's description,
->>>> load_system_tables() wasn't the only thing left to retain from the
->>>> earlier restore_rest_processor_state().
->>>>
->>>> While there also do Misra-related tidying for the function itself: The
->>>> function being used from assembly only means it doesn't need to have a
->>>> declaration, but wants to be asmlinkage.
->>>
->>> I wonder, maybe the intention was for the MTRR restoring on the BSP to
->>> also be done by the mtrr_aps_sync_end() call in enter_state()?
->>>
->>> AFAICT that will set the MTRRs uniformly on all CPUs, by calling
->>> mtrr_set_all() just like mtrr_bp_restore(), but later in the restore
->>> process.
->>
->> Hmm, yes, that's possible. The comment in set_mtrr() is somewhat misleading
->> then, though, as for the BP the writing then isn't just "okay" but necessary.
->> Question is whether doing this so much later is actually good enough.
-> 
-> Hm, no idea really.  We do the device restore ahead of the MTRR
-> restore, so I wonder whether we could have issues by using unexpected
-> effective cache attributes for device memory accesses as a result of
-> MTRRs not being initialized?
+From their introduction all xc_hypercall_bounce_pre() uses, when they
+failed, would properly cause exit from the function including cleanup,
+yet without informing the caller of the failure. Purge the unlock_1
+label for being both pointless and mis-named.
 
-That's just one of the possible problems. The father the MTRRs we run with
-diverged from what firmware puts in place, the bigger the possible trouble.
-I think the restoring better is done as being switched to here again. The
-absence of any discussion of MTRRs in that earlier change leaves me pretty
-certain that the behavioral change there wasn't intended. Andrew is usually
-pretty good at spelling out all intended effects.
+An earlier attempt to switch to the usual split between return value and
+errno wasn't quite complete.
 
-Jan
+HWP work made the cleanup of the "available governors" array
+conditional, neglecting the fact that the condition used may not be the
+condition that was used to allocate the buffer (as the structure field
+is updated upon getting back EAGAIN). Throughout the function, use the
+local variable being introduced to address that.
+
+Fixes: 4513025a8790 ("libxc: convert sysctl interfaces over to hypercall buffers")
+Amends: 73367cf3b4b4 ("libxc: Fix xc_pm API calls to return negative error and stash error in errno")
+Fixes: 31e264c672bc ("pmstat&xenpm: Re-arrage for cpufreq union")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+--- a/tools/libs/ctrl/xc_pm.c
++++ b/tools/libs/ctrl/xc_pm.c
+@@ -212,31 +212,32 @@ int xc_get_cpufreq_para(xc_interface *xc
+     DECLARE_NAMED_HYPERCALL_BOUNCE(scaling_available_governors,
+ 			 user_para->scaling_available_governors,
+ 			 user_para->gov_num * CPUFREQ_NAME_LEN * sizeof(char), XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
+-
+-    bool has_num = user_para->cpu_num &&
+-                     user_para->freq_num &&
+-                     user_para->gov_num;
++    unsigned int in_gov_num = user_para->gov_num;
++    bool has_num = user_para->cpu_num && user_para->freq_num;
+ 
+     if ( has_num )
+     {
+         if ( (!user_para->affected_cpus)                    ||
+              (!user_para->scaling_available_frequencies)    ||
+-             (user_para->gov_num && !user_para->scaling_available_governors) )
++             (in_gov_num && !user_para->scaling_available_governors) )
+         {
+             errno = EINVAL;
+             return -1;
+         }
+-        if ( xc_hypercall_bounce_pre(xch, affected_cpus) )
+-            goto unlock_1;
+-        if ( xc_hypercall_bounce_pre(xch, scaling_available_frequencies) )
++        ret = xc_hypercall_bounce_pre(xch, affected_cpus);
++        if ( ret )
++            return ret;
++        ret = xc_hypercall_bounce_pre(xch, scaling_available_frequencies);
++        if ( ret )
+             goto unlock_2;
+-        if ( user_para->gov_num &&
+-             xc_hypercall_bounce_pre(xch, scaling_available_governors) )
++        if ( in_gov_num )
++            ret = xc_hypercall_bounce_pre(xch, scaling_available_governors);
++        if ( ret )
+             goto unlock_3;
+ 
+         set_xen_guest_handle(sys_para->affected_cpus, affected_cpus);
+         set_xen_guest_handle(sys_para->scaling_available_frequencies, scaling_available_frequencies);
+-        if ( user_para->gov_num )
++        if ( in_gov_num )
+             set_xen_guest_handle(sys_para->scaling_available_governors,
+                                  scaling_available_governors);
+     }
+@@ -246,7 +247,7 @@ int xc_get_cpufreq_para(xc_interface *xc
+     sysctl.u.pm_op.cpuid = cpuid;
+     sys_para->cpu_num  = user_para->cpu_num;
+     sys_para->freq_num = user_para->freq_num;
+-    sys_para->gov_num  = user_para->gov_num;
++    sys_para->gov_num  = in_gov_num;
+ 
+     ret = xc_sysctl(xch, &sysctl);
+     if ( ret )
+@@ -256,12 +257,11 @@ int xc_get_cpufreq_para(xc_interface *xc
+             user_para->cpu_num  = sys_para->cpu_num;
+             user_para->freq_num = sys_para->freq_num;
+             user_para->gov_num  = sys_para->gov_num;
+-            ret = -errno;
+         }
+ 
+         if ( has_num )
+             goto unlock_4;
+-        goto unlock_1;
++        return ret;
+     }
+     else
+     {
+@@ -298,13 +298,13 @@ int xc_get_cpufreq_para(xc_interface *xc
+     }
+ 
+ unlock_4:
+-    if ( user_para->gov_num )
++    if ( in_gov_num )
+         xc_hypercall_bounce_post(xch, scaling_available_governors);
+ unlock_3:
+     xc_hypercall_bounce_post(xch, scaling_available_frequencies);
+ unlock_2:
+     xc_hypercall_bounce_post(xch, affected_cpus);
+-unlock_1:
++
+     return ret;
+ }
+ 
 
