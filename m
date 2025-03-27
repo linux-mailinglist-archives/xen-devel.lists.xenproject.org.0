@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01EDDA73A84
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 18:33:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.929871.1332643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 891BCA73CA4
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 18:43:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.929884.1332652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txr6J-00035z-Qv; Thu, 27 Mar 2025 17:33:07 +0000
+	id 1txrG6-0005u8-PD; Thu, 27 Mar 2025 17:43:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 929871.1332643; Thu, 27 Mar 2025 17:33:07 +0000
+Received: by outflank-mailman (output) from mailman id 929884.1332652; Thu, 27 Mar 2025 17:43:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txr6J-00033l-MQ; Thu, 27 Mar 2025 17:33:07 +0000
-Received: by outflank-mailman (input) for mailman id 929871;
- Thu, 27 Mar 2025 17:33:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1txrG6-0005s0-MY; Thu, 27 Mar 2025 17:43:14 +0000
+Received: by outflank-mailman (input) for mailman id 929884;
+ Thu, 27 Mar 2025 17:43:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Eznr=WO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1txr6I-00033f-Vz
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 17:33:07 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a8f3b4e-0b31-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 18:33:05 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-ab771575040so463919366b.1
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 10:33:05 -0700 (PDT)
-Received: from fedora.. (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac71922b8aesm28381766b.13.2025.03.27.10.33.03
+ <SRS0=4IZU=WO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1txrG4-0005rs-VC
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 17:43:12 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f15adb23-0b32-11f0-9ffa-bf95429c2676;
+ Thu, 27 Mar 2025 18:43:07 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3913fdd0120so790312f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 10:43:07 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c0b7a4498sm142475f8f.99.2025.03.27.10.43.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Mar 2025 10:33:04 -0700 (PDT)
+ Thu, 27 Mar 2025 10:43:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,263 +45,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a8f3b4e-0b31-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: f15adb23-0b32-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743096785; x=1743701585; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1743097387; x=1743702187; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=IFoKnyDMTpyL3rQ8P569Ng4MV6MJNyt3gAVshetXZPc=;
-        b=Suy+3smMpnDfI0PorY9lUphPAJpLJZUS0SZfI/EoMznLiWRdpS+7jU+yqCmdwby9oh
-         7Vt5yGxbRIKio1RRNm3/B//43FqQh//GxpC5pB9/0If1wFAZhjXNnUpCn+5ENQ121FGF
-         MMkWlLzq8Gvk/a0KlUYHgc0sKaPqpnuDjD3e+qeuiDTAAevcubZZmwqtvBomJGAV9W+w
-         beW8KjvwS3F0b6uKyTEBBw8CHDAoXUdlIYicyWFODG67cOM2AeSJNwGpdZLffNrkyW6j
-         DdjY2c60r+Rh6X05mIBvL5A+AttylOAcg61+dmHt68rXDsejIo78OPkpYs2oKPFi+IL+
-         UFmA==
+        bh=rPCyN3mhqjB6y1nALjXr18LIWD/daYld8rTdpJBNiws=;
+        b=LnNMLreKxOJMZPDhkRjLHP9ysORdvu45BCN4VKpfHTHJ6zD86fE5QqMrup2j5AYT65
+         +CrWC4H2Vd24xU4NiAlk9F+PGD8m8Am2XXgodGk7RVLKdEBBxPjlRIt2h9Eyumdvc0pO
+         VQmD/hR8CsOXZhokz2ftUqlKzDlC8wJkJDou8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743096785; x=1743701585;
+        d=1e100.net; s=20230601; t=1743097387; x=1743702187;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=IFoKnyDMTpyL3rQ8P569Ng4MV6MJNyt3gAVshetXZPc=;
-        b=c0wyqDwj6QXewTstmgl83os15B++/ZPCKXm1KZ0vf5+JQoE9yOR/9WoLrBT73o63dI
-         2ffcBaA0mD/BF0591fdVUECpohBs/vOWeI8JZM5wZwt9vs031KYHMzb/AqhSepwv1MIt
-         zK7oHPACXZCOARwpKSZ5KUlpLrFGeo9r8F/cvCANJcnN8UKF1BOst4Cvld9FFK0bsJsV
-         kFNHjVgvcxPAGKHMWFFPXqSGeY98wY1CjeGSuWyCBR12HGFkPm6OthiEan7T2TcxyxaE
-         XlNyab/Lc5gMJy7jOgt3SudPCB129+5g8/zh9KBTTh2SPJKwqiqjQzIzNZaGUdGysgr0
-         mZTA==
-X-Gm-Message-State: AOJu0YyQZQVdrJUpXhKDylhZh5EbJ2W7FCqeSlIajlEud395dmgarx5Z
-	mSs7Ttzedo+Y/PXlhuxXtrAiP9RW7EOk8KbtfP8QdRZaTaLRG73c/lE0+g==
-X-Gm-Gg: ASbGncvXyqGy4hYzIM584GtGIYP3GwzKxpLy/38Sgnd91AYiLcUfx0Ya4zhiMCtWq1f
-	4GMKJ3Kha2MREPkOcmkxwwVe5JLI1ubZ/7MMizeWBUxS/EXmN9YZ15hQFh6HZ1i3WmrkwzdKreb
-	S3OWsVIpMTCjkpWhFDPsib8lZ029MPjES0vGnNhtWZGQ8dwSYGkfl4VVbsQKxAJicV7qPJQMstb
-	iy4R5BSO6Q13Q8Lnq6MkLtMJ0RP8flPSxFb/zQhTKOOntYzhJ/VkTkV9g8N3k0EnYiufTwrB0nu
-	0d1QAm2EsGcegdyBLi1v49Uo7a6OhLxoXnAcq9XiZ4fUBUWFnKSBfaMkxtFU11/fzh0va9FITaq
-	j7256Z4/SEeViG64hoA6MmTZs
-X-Google-Smtp-Source: AGHT+IGJ+rO1LaXSCQ7ZFD1kDVaSobHiRIlQR8b0RP3Dpn4MnrcOFEbVU/PaglwwkdzSeGKprtoE7A==
-X-Received: by 2002:a17:906:4fd5:b0:ac1:e45f:9c71 with SMTP id a640c23a62f3a-ac71683f88dmr138079066b.1.1743096784500;
-        Thu, 27 Mar 2025 10:33:04 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
+        bh=rPCyN3mhqjB6y1nALjXr18LIWD/daYld8rTdpJBNiws=;
+        b=TqAnJEwR7OJnV47p6vigAmqhW4vANMUpBhtz7e5IY61NoNW+fM/2aSbkT+F4VAR8NS
+         E61phYxq2at1TKvWij5gTxklADkbhSMXafd2gtT4GSAxA3GmwrfY4StCGAqupD9hofG+
+         C7azI+nMtyNDoJThQR+cKGTJJps2c/tOmDxinoLe3+NPVfeaY+TXiOeV2SmERUHmGz8/
+         m17hlW8BEGiELE3IVD4MAXiqg4uoW+Py4H6dGVyxOBA9h7CODJD5UmuHWfPTXYxw32fM
+         rbsSA/BfnEOXHxAptFvHOgFGVc3ZHkSu4cQCJntwGtekz2uRRixV4ck30H6dLurN8EGn
+         7U8Q==
+X-Gm-Message-State: AOJu0YybaXhcjCOXd/INTy5fbpTA1w4gz7l5dMzCvCZprqY5Nak1fCIP
+	MxItbvGoN47ObtT77XxqTL5WEtdzEiENVBii4yhvUJ5LXexvFPcJJIhemTFEZK24QPiji4crzj+
+	OF1Q=
+X-Gm-Gg: ASbGncvq7qpj62q3wzez+i2AM+6zfEMSrClmiEhA4aBodznfCTwU35O/hHeH41wBjyg
+	CO5ehHj7GnwkZ0qdg4fYW1Tkcoo7q1YI89z2C5Ao9RaErG3h0LyKAy6YOhmXYqkRpEu3Jjmic1y
+	XmrXvT0iGGyBtrJH3enc2nclmhj0d00t5CkA5Fvh6L3Juumh2pWfQ+U0hJwYwxo8RYr60wwZudd
+	LjHE7tuuh+vfn/xHEQ62ntyQEMRRpKEdHYCb9nwa8ypWwJa+U0zgxtnZFo2M9BfvlZ2Q73trEyC
+	1hIZ4fOepHaAph+VhjBQSb7QUaxoxnJrcUO/RgtYVJq20kwrG+m4swuRiowIKc6HKO8Iml92omI
+	y7FKTt6WcLKMPVd5vew==
+X-Google-Smtp-Source: AGHT+IGDiVfgjkRSnE4XOJND0Taxnn8dRSdT8EmKDZA3gonFDCJ8qQut7D1kG/hKQpqr6qjMzuVYbw==
+X-Received: by 2002:a05:6000:4021:b0:391:3b70:2dab with SMTP id ffacd0b85a97d-39ad1746712mr3542349f8f.17.1743097386625;
+        Thu, 27 Mar 2025 10:43:06 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v2] xen/config.h: Move BITS_PER_* definitions from asm/config.h to xen/config.h
-Date: Thu, 27 Mar 2025 18:33:01 +0100
-Message-ID: <6b21fb046cf1c8ca760f5ad72fa3cc13b59c4069.1743092485.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.49.0
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH v3] Xen: Update compiler checks
+Date: Thu, 27 Mar 2025 17:43:02 +0000
+Message-Id: <20250327174302.412821-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-BITS_PER_* values can be defined in a common way using compiler-provided macros.
-Thus, these definitions are moved to xen/config.h to reduce duplication across
-architectures.
+We have checks in both xen/compiler.h, and Config.mk.  Both are incomplete.
 
-Additionally, *_BYTEORDER macros are removed, as BITS_PER_* values now come
-directly from the compiler environment.
+The check in Config.mk sees $(CC) in system and cross-compiler form, so cannot
+express anything more than the global baseline.  Change it to simply 5.1.
 
-The arch_fls() implementation for Arm and PPC is updated to use BITS_PER_INT
-instead of a hardcoded value of 32.
+In xen/compiler.h, rewrite the expression for clarity/brevity.
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Include a GCC 12.2 check for RISCV, and include a Clang 11 baseline check.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
- GitLab CI tests results:
-   https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/1738505446
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
- As Anrew mentioned here https://lore.kernel.org/xen-devel/f294e2b1-db03-46b2-b46d-61e89b55cef3@suse.com/T/#ma4205392964ff913d9dfa8e044a4af59ed6aef88:
- "This patch possibly wants to wait until I've fixed the compiler checks to update to the new baseline, ..."
+v3:
+ * Reinstate the xen/compiler.h block
+ * Restrict Config.mk to the baseline only
+v2:
+ * Change to altering Config.mk
 
- The patch with compiler fixes is https://lore.kernel.org/xen-devel/f79117a2-1763-4458-862f-a5219b09989a@citrix.com/T/#mf79cf8c1f6f6a3661c49bac84c1c15bbaae7422d.
+https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1738778376 with
+the CI changes reverted, so as to expect failures for CentOS 7 and earlier
+Ubuntu Clangs.
+
+The $(eval $(check-y)) is badly positioned:
+
+  xen.git/xen$ make
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+    HOSTCC  tools/fixdep
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  make[1]: *** [scripts/Makefile.host:108: tools/fixdep] Error 1
+    HOSTCC  tools/symbols
+  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
+  make[1]: *** [scripts/Makefile.host:108: tools/symbols] Error 1
+  make: *** [Makefile:610: xen] Error 2
+
+It is involved every time Config.mk is included, rather than once per `make`
+invocation.
 ---
-Changes in v2:
- - Add the comment "It is assumed that sizeof(void *) == __alignof(void *)"
-   above POINTER_ALIGN definition.
- - Replace "<< 3" with "BITS_PER_BYTE" in definitions of
-   BITS_PER_{INT,LONG,LONG_LONG}.
----
- xen/arch/arm/include/asm/bitops.h   |  4 +---
- xen/arch/arm/include/asm/config.h   |  8 --------
- xen/arch/ppc/include/asm/bitops.h   |  4 +---
- xen/arch/ppc/include/asm/config.h   |  7 -------
- xen/arch/riscv/include/asm/config.h | 13 -------------
- xen/arch/x86/include/asm/config.h   |  8 --------
- xen/include/xen/config.h            | 10 ++++++++++
- 7 files changed, 12 insertions(+), 42 deletions(-)
+ Config.mk                  |  4 ++--
+ xen/include/xen/compiler.h | 26 ++++++++++++++------------
+ 2 files changed, 16 insertions(+), 14 deletions(-)
 
-diff --git a/xen/arch/arm/include/asm/bitops.h b/xen/arch/arm/include/asm/bitops.h
-index f163d9bb45..60686a3a55 100644
---- a/xen/arch/arm/include/asm/bitops.h
-+++ b/xen/arch/arm/include/asm/bitops.h
-@@ -22,8 +22,6 @@
- #define __set_bit(n,p)            set_bit(n,p)
- #define __clear_bit(n,p)          clear_bit(n,p)
+diff --git a/Config.mk b/Config.mk
+index 8a73f3da62b4..8a60d4a55abf 100644
+--- a/Config.mk
++++ b/Config.mk
+@@ -125,8 +125,8 @@ define cc-ver-check-closure
+     endif
+ endef
  
--#define BITS_PER_BYTE           8
--
- #define ADDR (*(volatile int *) addr)
- #define CONST_ADDR (*(const volatile int *) addr)
+-# Require GCC v4.1+
+-check-$(gcc) = $(call cc-ver-check,CC,0x040100,"Xen requires at least gcc-4.1")
++# Require GCC v5.1 as the project global baseline
++check-$(gcc) = $(call cc-ver-check,CC,0x050100,"Xen requires at least GCC 5.1")
+ $(eval $(check-y))
  
-@@ -75,7 +73,7 @@ bool clear_mask16_timeout(uint16_t mask, volatile void *p,
+ ld-ver-build-id = $(shell $(1) --build-id 2>&1 | \
+diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+index 636a85bc417d..38b8fa3d386d 100644
+--- a/xen/include/xen/compiler.h
++++ b/xen/include/xen/compiler.h
+@@ -1,19 +1,21 @@
+ #ifndef __LINUX_COMPILER_H
+ #define __LINUX_COMPILER_H
  
- #define arch_ffs(x)  ((x) ? 1 + __builtin_ctz(x) : 0)
- #define arch_ffsl(x) ((x) ? 1 + __builtin_ctzl(x) : 0)
--#define arch_fls(x)  ((x) ? 32 - __builtin_clz(x) : 0)
-+#define arch_fls(x)  ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
- #define arch_flsl(x) ((x) ? BITS_PER_LONG - __builtin_clzl(x) : 0)
- 
- #endif /* _ARM_BITOPS_H */
-diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
-index 0a51142efd..5a02db6937 100644
---- a/xen/arch/arm/include/asm/config.h
-+++ b/xen/arch/arm/include/asm/config.h
-@@ -8,19 +8,11 @@
- #define __ARM_CONFIG_H__
- 
- #if defined(CONFIG_ARM_64)
--# define LONG_BYTEORDER 3
- # define ELFSIZE 64
- #else
--# define LONG_BYTEORDER 2
- # define ELFSIZE 32
- #endif
- 
--#define BYTES_PER_LONG (1 << LONG_BYTEORDER)
--#define BITS_PER_LONG (BYTES_PER_LONG << 3)
--#define POINTER_ALIGN BYTES_PER_LONG
--
--#define BITS_PER_LLONG 64
--
- /* xen_ulong_t is always 64 bits */
- #define BITS_PER_XEN_ULONG 64
- 
-diff --git a/xen/arch/ppc/include/asm/bitops.h b/xen/arch/ppc/include/asm/bitops.h
-index c942e9432e..e72942cca0 100644
---- a/xen/arch/ppc/include/asm/bitops.h
-+++ b/xen/arch/ppc/include/asm/bitops.h
-@@ -15,8 +15,6 @@
- #define __set_bit(n, p)         set_bit(n, p)
- #define __clear_bit(n, p)       clear_bit(n, p)
- 
--#define BITS_PER_BYTE           8
--
- /* PPC bit number conversion */
- #define PPC_BITLSHIFT(be)    (BITS_PER_LONG - 1 - (be))
- #define PPC_BIT(bit)         (1UL << PPC_BITLSHIFT(bit))
-@@ -121,7 +119,7 @@ static inline int test_and_set_bit(unsigned int nr, volatile void *addr)
- 
- #define arch_ffs(x)  ((x) ? 1 + __builtin_ctz(x) : 0)
- #define arch_ffsl(x) ((x) ? 1 + __builtin_ctzl(x) : 0)
--#define arch_fls(x)  ((x) ? 32 - __builtin_clz(x) : 0)
-+#define arch_fls(x)  ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
- #define arch_flsl(x) ((x) ? BITS_PER_LONG - __builtin_clzl(x) : 0)
- 
- #define arch_hweightl(x) __builtin_popcountl(x)
-diff --git a/xen/arch/ppc/include/asm/config.h b/xen/arch/ppc/include/asm/config.h
-index 148fb3074d..8e32edd5a5 100644
---- a/xen/arch/ppc/include/asm/config.h
-+++ b/xen/arch/ppc/include/asm/config.h
-@@ -6,19 +6,12 @@
- #include <xen/page-size.h>
- 
- #if defined(CONFIG_PPC64)
--#define LONG_BYTEORDER 3
- #define ELFSIZE        64
- #define MAX_VIRT_CPUS  1024u
- #else
- #error "Unsupported PowerPC variant"
- #endif
- 
--#define BYTES_PER_LONG (1 << LONG_BYTEORDER)
--#define BITS_PER_LONG  (BYTES_PER_LONG << 3)
--#define POINTER_ALIGN  BYTES_PER_LONG
--
--#define BITS_PER_LLONG 64
--
- /* xen_ulong_t is always 64 bits */
- #define BITS_PER_XEN_ULONG 64
- 
-diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
-index 7141bd9e46..314c97c20a 100644
---- a/xen/arch/riscv/include/asm/config.h
-+++ b/xen/arch/riscv/include/asm/config.h
-@@ -119,25 +119,12 @@
- #define HYPERVISOR_VIRT_START XEN_VIRT_START
- 
- #if defined(CONFIG_RISCV_64)
--# define INT_BYTEORDER 2
--# define LONG_BYTEORDER 3
- # define ELFSIZE 64
- # define MAX_VIRT_CPUS 128u
- #else
- # error "Unsupported RISCV variant"
- #endif
- 
--#define BYTES_PER_INT  (1 << INT_BYTEORDER)
--#define BITS_PER_INT  (BYTES_PER_INT << 3)
--
--#define BYTES_PER_LONG (1 << LONG_BYTEORDER)
--#define BITS_PER_LONG  (BYTES_PER_LONG << 3)
--#define POINTER_ALIGN  BYTES_PER_LONG
--
--#define BITS_PER_LLONG 64
--
--#define BITS_PER_BYTE 8
--
- /* xen_ulong_t is always 64 bits */
- #define BITS_PER_XEN_ULONG 64
- 
-diff --git a/xen/arch/x86/include/asm/config.h b/xen/arch/x86/include/asm/config.h
-index 19746f956e..f0123a7de9 100644
---- a/xen/arch/x86/include/asm/config.h
-+++ b/xen/arch/x86/include/asm/config.h
-@@ -7,16 +7,8 @@
- #ifndef __X86_CONFIG_H__
- #define __X86_CONFIG_H__
- 
--#define LONG_BYTEORDER 3
- #define CONFIG_PAGING_LEVELS 4
- 
--#define BYTES_PER_LONG (1 << LONG_BYTEORDER)
--#define BITS_PER_LONG (BYTES_PER_LONG << 3)
--#define BITS_PER_BYTE 8
--#define POINTER_ALIGN BYTES_PER_LONG
--
--#define BITS_PER_LLONG 64
--
- #define BITS_PER_XEN_ULONG BITS_PER_LONG
- 
- #define CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS 1
-diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
-index d888b2314d..7d43159efb 100644
---- a/xen/include/xen/config.h
-+++ b/xen/include/xen/config.h
-@@ -98,4 +98,14 @@
- #define ZERO_BLOCK_PTR ((void *)-1L)
- #endif
- 
-+#define BYTES_PER_LONG  __SIZEOF_LONG__
+-#if !defined(__GNUC__) || (__GNUC__ < 4)
+-#error Sorry, your compiler is too old/not recognized.
+-#elif CONFIG_CC_IS_GCC
+-# if defined(CONFIG_ARM_32) && CONFIG_GCC_VERSION < 40900
+-#  error Sorry, your version of GCC is too old - please use 4.9 or newer.
+-# elif defined(CONFIG_ARM_64) && CONFIG_GCC_VERSION < 50100
+-/*
+- * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63293
+- * https://lore.kernel.org/r/20210107111841.GN1551@shell.armlinux.org.uk
+- */
+-#  error Sorry, your version of GCC is too old - please use 5.1 or newer.
++#if CONFIG_CC_IS_GCC
 +
-+#define BITS_PER_BYTE   __CHAR_BIT__
-+#define BITS_PER_INT    (BITS_PER_BYTE * __SIZEOF_INT__)
-+#define BITS_PER_LONG   (BITS_PER_BYTE * BYTES_PER_LONG)
-+#define BITS_PER_LLONG  (BITS_PER_BYTE * __SIZEOF_LONG_LONG__)
++# if defined(CONFIG_RISCV) && CONFIG_GCC_VERSION < 120200
++#  error Sorry, please use GCC >= 12.2
++# elif CONFIG_GCC_VERSION < 50100
++#  error Sorry, please use GCC >= 5.1
+ # endif
+-#endif
 +
-+/* It is assumed that sizeof(void *) == __alignof(void *) */
-+#define POINTER_ALIGN   __SIZEOF_POINTER__
++#elif CONFIG_CC_IS_CLANG
 +
- #endif /* __XEN_CONFIG_H__ */
++# if CONFIG_CLANG_VERSION < 110000
++#  error Sorry, please use Clang >= 11
++# endif
++
++#endif /* Compiler checks. */
+ 
+ #ifdef CONFIG_CC_HAS_VISIBILITY_ATTRIBUTE
+ /* Results in more efficient PIC code (no indirections through GOT or PLT). */
 -- 
-2.49.0
+2.39.5
 
 
