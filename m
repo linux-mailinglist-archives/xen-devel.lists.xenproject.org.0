@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75E8AA72CBD
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 10:50:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928839.1331493 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C3BFA72CDA
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 10:54:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928857.1331502 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txjsw-0007df-Re; Thu, 27 Mar 2025 09:50:50 +0000
+	id 1txjwS-00017b-9f; Thu, 27 Mar 2025 09:54:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928839.1331493; Thu, 27 Mar 2025 09:50:50 +0000
+Received: by outflank-mailman (output) from mailman id 928857.1331502; Thu, 27 Mar 2025 09:54:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txjsw-0007by-OW; Thu, 27 Mar 2025 09:50:50 +0000
-Received: by outflank-mailman (input) for mailman id 928839;
- Thu, 27 Mar 2025 09:50:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U7fn=WO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1txjsv-0007PE-Hl
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 09:50:49 +0000
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [2607:f8b0:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f5155b28-0af0-11f0-9ffa-bf95429c2676;
- Thu, 27 Mar 2025 10:50:47 +0100 (CET)
-Received: by mail-pl1-x632.google.com with SMTP id
- d9443c01a7336-22403cbb47fso17088465ad.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 02:50:47 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- d9443c01a7336-22780f39763sm125075565ad.10.2025.03.27.02.50.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Mar 2025 02:50:45 -0700 (PDT)
+	id 1txjwS-00015T-6Y; Thu, 27 Mar 2025 09:54:28 +0000
+Received: by outflank-mailman (input) for mailman id 928857;
+ Thu, 27 Mar 2025 09:54:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1txjwQ-00015N-FP
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 09:54:26 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 77441ed1-0af1-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 10:54:25 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-39127512371so425398f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 02:54:25 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3997f9a3f2asm19586034f8f.30.2025.03.27.02.54.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Mar 2025 02:54:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,105 +45,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5155b28-0af0-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 77441ed1-0af1-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743069046; x=1743673846; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=62R4Thfwk/slnHCpPaDFFM5GYBbA/tG5qE0frhplIqA=;
-        b=BJBR2Giy5nu5D+h6B3LnswKGow+xO7Y2KFguyQC/1XyBueiILLrhHtU3pd3TSP2slm
-         YlPni62VWSLsIBO3BrI9EyT032OlLmuzTyIGfE9t7co0MJ9radJy3Wy78ChZelPOqjFx
-         +MadKenW54vPING2SRUF4XvgQMjWTe17APyJQ=
+        d=suse.com; s=google; t=1743069265; x=1743674065; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=9kZ99uvO3U9iWS7fBj8q9WZwSKRMIl7XeYlMoKltxFk=;
+        b=e78+Q8ZRKpxeAb1gjtwdBeyCffts04gDYORdhlu7OUVTfV4Q9Av4WtjlYYpqo2rQCC
+         lncv8Ire6o0G1LF083Qyw1vxnt1JBpPVTnrUaUSGcdvVeu0k84Ge8MmRed2BTVkEf+MD
+         QFNAVc2RaWy7vZhZqvye/BM4y4bRxs5jCbdZBS6VuQjCFFjNyW9WeaUzTXeaaQbhh2pJ
+         n5jjduJ28ZXaWk1DmIw/jEOkohh4ywdSRXz8Zqn8gYfcezEZqP+rYvQh9KdnV618UvLg
+         ZJoSEWbCX0NwaQULQHt4EfUhgzra7A3EPBICjZIWxQNOimZAXQyWwwp9944FpWfFRAxo
+         DUXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743069046; x=1743673846;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1743069265; x=1743674065;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=62R4Thfwk/slnHCpPaDFFM5GYBbA/tG5qE0frhplIqA=;
-        b=eam695WDca+/KxzTMEy8Ldb1Nzvx9dffeGw0hNPomDo6tOmnMji8LJhJH58TauJ9e1
-         I3lwJ9BrBH9uOquwEb5VF7aXpJoNYcHkXEd0kvVQwYm1qc+dai+yddw9XJBYzPpUVP6j
-         hjSgvqgBBYVO/ta93f5FLIQlY4Sn44K25K5YLLBi84pbUWp4Pr03+10teHMNrM1HoE8g
-         pUW7fTeXpql42ZLo4fGOQu+FSiL7tVWc3DLNY2yMhV8SBUDRu5TJ+0uYtjl7ZUuQBEX1
-         ABH+94B9FfXNZEhkY5VD5byNtmbkuQ7c8Nyl9GphUjpuNwTBB3ccLNeNv1Lq2at964aB
-         Rpdw==
-X-Gm-Message-State: AOJu0Yy/pKQLbfhRJxSTW8UMsrTFEki8TYWNn1dO5e+5NCaVoXV7f2Yg
-	mU5ics9x+vi3cjKcOoqQukXb5MJ2oU/xNjOMomopZNXFX5x7CgII0b1tD9LBjRE=
-X-Gm-Gg: ASbGnctpZx883xiaXOUM0XNh0qHsSsp4KtZWgYo5ZhtNxvx3GRmMmcsI/REP0O/l3ku
-	1hrOlHVLachDsfnME0rPrEPnGfcwRaga1oqSisT50cZ4y1pNmzmsSba9CSp2xMJXSQmhEWY4T6G
-	5BaYfQ9Ya+DJlTTNdW9vpA9/2uAB7KYp2WpUPscwIOVdeqIPna1M1ooe+FUtxVOcj6NDPaC0QSk
-	Ioyxd04UyUzzsIu7lJbiNhBnkYLPQk9NijFo2HvsjGZUIFveqzN9ozZCIqF47JQl8J1+jZyaxTI
-	Uef5ljtm5OEE/Yud6m5TeAgC96zCG7rK0yvzDvrVMqPZD9AkUA==
-X-Google-Smtp-Source: AGHT+IFGVTuNe0E6D2IFJmKpJ83MTUuUhBOIVsV2kv20NzcJSzXPdmOWuy6koKts0+vEk/ubT4vpBw==
-X-Received: by 2002:a17:902:d4c5:b0:227:ac2a:1dd6 with SMTP id d9443c01a7336-22804874707mr53259835ad.24.1743069046039;
-        Thu, 27 Mar 2025 02:50:46 -0700 (PDT)
-Date: Thu, 27 Mar 2025 10:50:40 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] x86/CPU: don't hard-code MTRR availability
-Message-ID: <Z-UfcHfHys6c0HZb@macbook.local>
-References: <edecdda9-4728-4c65-9f31-76c912a433d7@suse.com>
- <Z-UKm6D9pmAEaE_9@macbook.local>
- <eb44921a-f6af-4aa9-9395-18e4e47d440a@suse.com>
+        bh=9kZ99uvO3U9iWS7fBj8q9WZwSKRMIl7XeYlMoKltxFk=;
+        b=R858DsPD32VK9WQv9xbut7/YFaCSFBoSIcmkfVQwnfRXVT54nCQlxmgTlMwNrb8GMG
+         WBgLmZ1OH0/UHFXOiTiTQxrnXcTtM62muCh288ICogek3QsPirR1/eGfjZ2phhgXTpo3
+         TJYeQlgB5pmx4kjARczRXwL5MgBPtbfDCPOU9uyr2fu+4VX9eF3zlE+vkmIXwuEdHpO1
+         areae3+Ul+TYZhqyxHyA6mv22U8IBGa84SlG/b5giPa54bM6/VYh9QubqLSo2Qr9CQSK
+         hEWokBVPP+1KaPNWqDrF9VU1BNUrMeWXtK7TLgdz5O8/xiZaxrPOCcnWSKxjWRg2hZj4
+         /W8g==
+X-Gm-Message-State: AOJu0YwzCfyYtDa5Nxrvc8euAlg0YqlpA57WE7IjF34an1mAT7D9rs6y
+	zGfPDVAE0ANhgprxcnIZbEUv44sck8WE63NRo+AtSdX9H6ajN0lhDV5rGNKzjEgg9gJwnRNkJbA
+	=
+X-Gm-Gg: ASbGncuJ0YW7xaPiLIbXCmh1hYXJtY1DyPwY4daN9mMv119NnFKFZEfYKdHCU18xpOk
+	Nh4Hxo7oq7ntIUgbgNdYwNjlQe6Gbnwo2lDwdslnjv9qaMc/5f3HILOebs3pyXhMeztDfTprioE
+	G8hy6TM5lLEuogreURtYtlVpk7qf5MpG4xxpZuNgn15BsD0x9k3GCj0vH3nVyq/eFOVyT+cIr8t
+	CsHMeuo+dO8B2WkKqiW4ukNoEDmTmpJHetSyPnXr2pSUR8RwXDMh0WHOn4OW7FjYyXdovDwybP4
+	koUPKeBYlUVw8uWqbRSnCuyNbpzkfXtDMlh8Ar2YlUlZRCSVlK8DMgCWCoUL6rLgArxUF9lVA+s
+	XuWRqo7g59o+ZrZyq5lH1yX+orwNAew==
+X-Google-Smtp-Source: AGHT+IHq99HvJEAEPeqXO/96W8GlVmu6cPHVfkvlFqIkVBKeTVtc+2AtQkkN0OjkxV/NhVouzmSAMQ==
+X-Received: by 2002:a05:6000:4211:b0:391:3157:7717 with SMTP id ffacd0b85a97d-39ad177b815mr2303349f8f.34.1743069264879;
+        Thu, 27 Mar 2025 02:54:24 -0700 (PDT)
+Message-ID: <56fbfae0-aac7-4841-ab3c-a7e00dda3744@suse.com>
+Date: Thu, 27 Mar 2025 10:54:23 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <eb44921a-f6af-4aa9-9395-18e4e47d440a@suse.com>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/MTRR: constrain AP sync and BSP restore
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Mar 27, 2025 at 10:15:03AM +0100, Jan Beulich wrote:
-> On 27.03.2025 09:21, Roger Pau Monné wrote:
-> > On Tue, Mar 25, 2025 at 08:18:11AM +0100, Jan Beulich wrote:
-> >> In particular if we're running virtualized, the underlying hypervisor
-> >> (which may be another Xen) may not surface MTRRs, and offer PAT only.
-> > 
-> > At least for Xen, I think we offer MTRR uniformly, even on PVH
-> > guests?
-> 
-> By default we do, but we discussed the option of offering PAT-only environments
-> beyond leaving it open whether people disabling MTRR support in their guest
-> config are outside of supported terrain.
-> 
-> >> Fixes: 5a281883cdc3 ("Hardcode many cpu features for x86/64 -- we know 64-bit")
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > 
-> > Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-> > 
-> > My main concern is whether the !mtrr path is still functional.  Have
-> > you tried booting the resulting hypervisor with MTRR masked on CPUID?
-> > 
-> > (or alternatively short-circuiting cpu_has_mtrr == 0?)
-> 
-> I didn't think this would be a prereq here. If we boot in an environment truly
-> lacking MTRR, we'll crash on the first MTRR MSR access - none of those accesses
-> use the safe accessors.
+mtrr_set_all() has quite a bit of overhead, which is entirely useless
+when set_mtrr_state() really does nothing. Furthermore, with
+mtrr_state.def_type never initialized from hardware, post_set()'s
+unconditional writing of the MSR means would leave us running in UC
+mode after the sync.
 
-Right, hopefully we don't have unprotected MTRR MSR accesses, so
-cpu_has_mtrr == 0 should prevent those.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-> Since you asked, I tried booting with "cpuid=no-mtrr".
-> As I'm doing this on a system with console, all I can say is that it takes
-> minutes to reach the point where we'd start setting up Dom0 (which itself then
-> takes so long that I timed out waiting for it to make progress), due to all
-> screen output becoming unbelievably slow after AP bringup. Surely something's
-> screwed somewhere, as VRAM accesses being slow (or fast) shouldn't depend on AP
-> bringup having completed. I actually suspect it's not just VRAM accesses which
-> are slow, but that we're left running in uncachable mode altogether for whatever
-> reason.
-> 
-> What this maybe useful for is to figure out the reason of "Platform timer
-> appears to have unexpectedly wrapped <N> times", which I saw appear once.
-> 
-> Given this, I'm actually uncertain whether it is legitimate then to take your
-> ack.
-
-I think it might be best if we can figure out what causes those issues
-(and possibly fix them) before taking this patch?
-
-Albeit you could argue that running excruciatingly slow is better than
-just crashing of an unhandled #GP from a rdmsr.
-
-Thanks, Roger.
+--- a/xen/arch/x86/cpu/mtrr/main.c
++++ b/xen/arch/x86/cpu/mtrr/main.c
+@@ -605,13 +605,15 @@ void mtrr_aps_sync_begin(void)
+ 
+ void mtrr_aps_sync_end(void)
+ {
+-	set_mtrr(~0U, 0, 0, 0);
++	if (mtrr_if)
++		set_mtrr(~0U, 0, 0, 0);
+ 	hold_mtrr_updates_on_aps = 0;
+ }
+ 
+ void mtrr_bp_restore(void)
+ {
+-	mtrr_set_all();
++	if (mtrr_if)
++		mtrr_set_all();
+ }
+ 
+ static int __init cf_check mtrr_init_finialize(void)
 
