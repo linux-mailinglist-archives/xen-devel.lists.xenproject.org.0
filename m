@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26382A73293
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 13:50:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.929224.1331852 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42785A7329B
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 13:51:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.929237.1331863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txmgj-0000po-Gh; Thu, 27 Mar 2025 12:50:25 +0000
+	id 1txmhn-0002aG-Qh; Thu, 27 Mar 2025 12:51:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 929224.1331852; Thu, 27 Mar 2025 12:50:25 +0000
+Received: by outflank-mailman (output) from mailman id 929237.1331863; Thu, 27 Mar 2025 12:51:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txmgj-0000mw-Dh; Thu, 27 Mar 2025 12:50:25 +0000
-Received: by outflank-mailman (input) for mailman id 929224;
- Thu, 27 Mar 2025 12:50:24 +0000
+	id 1txmhn-0002Y6-Mq; Thu, 27 Mar 2025 12:51:31 +0000
+Received: by outflank-mailman (input) for mailman id 929237;
+ Thu, 27 Mar 2025 12:51:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Eznr=WO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1txmgi-0000mm-C0
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 12:50:24 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1txmhl-0002Y0-VH
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 12:51:29 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0bdc5b5a-0b0a-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 13:50:22 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-aaee2c5ee6eso142398666b.1
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 05:50:22 -0700 (PDT)
+ id 3360cbc2-0b0a-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 13:51:28 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-ac3eb3fdd2eso191430466b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 05:51:28 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
  [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac3ef869fb5sm1255598466b.15.2025.03.27.05.50.20
+ a640c23a62f3a-ac3ef8d396csm1224162966b.43.2025.03.27.05.51.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 05:50:21 -0700 (PDT)
+ Thu, 27 Mar 2025 05:51:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,77 +45,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0bdc5b5a-0b0a-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 3360cbc2-0b0a-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743079822; x=1743684622; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1743079888; x=1743684688; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yg1WMwzD3+fzmKMGZo5L4BsVNyNbawIpifObTOODDxU=;
-        b=EMyWLYaQ1Wu9VspACrdiA647Jt3sLydxKNWGG21RsX903qrHBnl0H23RL5rA2aaCKT
-         xmBtC3iGHUTNkOT7HFqZW65a06oUe3f+rnqO806GJv2pHqSXvowSKrSJ1QqqiGs4UVom
-         /QCmZYvPaRgUaN6mLjOsJr/kMwjM/5aGYVwr9ksO68gUwPQ7G9gVVdA5cIThCwbdKFv5
-         wXbG1kph4GqTMUH4YLL0JisgQ6g/2T9af74K30IVIc+AumFoHqSaBKQQTYeTx3tJLiWY
-         uSfHKQtO0KY+MDyTKfFiIg4smG+4fSBSL3SmSY7KOMo9eHBvXqZBdrqGSjNG8L7FzCnb
-         /K5g==
+        bh=eogGriwvg0ICNNhjAk59r8XGe3QA/uby5ESqiJ679EQ=;
+        b=QG5Y7xh6Q9KesHcpfeca/zJiAKLK7MO9FV4IBK8/zyxAj3YI3un0YJjlryhMk6L7Yz
+         iOAKrPa02nO+vmV9D5WaeORLYkn4vXmcDrMgOnMtoSX2/YgfauPZQlyIQzvmSsHT35ax
+         VYE7EiR1sHuBnVVzSibmtb/fXY5wT9N9lvG6lq/854vcIAN1GsEj5lf6jLThQCbe6czt
+         uDWNdmio6hdyygdFHbmoVcWZC0PJckzJPhb6X9tat4kIId+z0scYCW7ZzTnolNYhc9R5
+         +5h/Bu/KVqMs1Twoa7tDkRL5D9J8woh1tITKIvFcRa/nomZE/yOhqKlUabKIu+47mVq5
+         sNZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743079822; x=1743684622;
+        d=1e100.net; s=20230601; t=1743079888; x=1743684688;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=yg1WMwzD3+fzmKMGZo5L4BsVNyNbawIpifObTOODDxU=;
-        b=U/uqjSRjt+XAWckvmFZlW4n/GrPvl9lLgtdKSRDs77XlPU9ipJhKG44cgXgufgmLkQ
-         KxjOQpzzxNFN5LxC2vnSBESk/Pg8JeYB8ayqijIshWdgElHr7LiRb8L4mz7D5vxFrinh
-         O65RKC4qpRZK4blKEoLqE+tf0SPd2fsuWexKJUkz1RXZ8GC0MAXYBHHZs0XwBpMtGG9t
-         NBOHBvtYRSPHV3H1l/8u6gYoy00Z5Gr31dbyPUXhmeOWxmLNIFaS+Ju6cvIdq8nuAPRw
-         AG8rrEu+4E6keB9Hf3ze/nKJ7XeYpWX9H5qgnQCRcWJ5TdVMJc/1oNV2c4Zl7NMiUFxx
-         23vA==
-X-Forwarded-Encrypted: i=1; AJvYcCW+Q/stAMxwziJI5+zGy+ZuxbVjbGRnCmsle97ZS6YocDoP8DpvxXQAgGezPsmZCh/vOjNuOCCD8fY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzTY7n0dJMYdmaTvXwAsRYjBLbxb6tDynhEwH696sz2DtuAB4Cg
-	UdtXr9ejLMKL2wWQ8fSgB7aUTG7O+x2P5JVRRQUGG4hDruc1iUwP
-X-Gm-Gg: ASbGncvuYT1t5OYzl3dtOQJBI7ZRdVb1NO3K700/Qo8n6R/L3/L5wIRrDD0M0A2UbDr
-	kKc/Sd5sd75kIbIVRJ+/Trw7uRME9kSXb3tWXjcT1ChT7UDner5YfDUoMJvjHDKdjI+1VqxLnKl
-	IBN/L72/vxk5qZz2g93wbV1KrcH76eUloISFa3Y8slBLgx6XfoiIX1B5Z24TKKUoDg8A9GzDY//
-	Z1tAsgH9/MIYB479zed2PfgY+ttP/UA8u6rjmDigWgTkTfP3BruopXMhDbgIhk78PnpkNf2vfnb
-	RN4k/fCBqld6Ws3sakvjpFLtoKeg8SbZa/DKS2cEcYdG8NRvMQLsD8Rsbo84VzAkancbJ+8gfMm
-	PIInk14/sPQrw1SzgZoJb
-X-Google-Smtp-Source: AGHT+IGORP23OnU8NN6oUdzohHzJuDFbsyNhYR7+cO7lCLxJ8jn6gtQTJabkZUQxerJxNKUTCv3rMQ==
-X-Received: by 2002:a17:907:3609:b0:ac2:7a6d:c927 with SMTP id a640c23a62f3a-ac6fb14ec0dmr368581366b.50.1743079821572;
-        Thu, 27 Mar 2025 05:50:21 -0700 (PDT)
+        bh=eogGriwvg0ICNNhjAk59r8XGe3QA/uby5ESqiJ679EQ=;
+        b=ZdTvtmLRCv+BG3dkLKEa0nrb0WGHYJ5/8e0op89YJ4z2kCl+qHLBKOpl0O8xy/L3+s
+         WHXXmFccvP+LL8Myb1wgAXemfx/vgBDAHdTM4BTKBeRQqbWejAIIigBqq5IFHZWIz884
+         bb2Co1KE6O5KC3FE+vzI5qFeBtvIqGrh70stWBt3gmE9bYT3Hu8693uituh3e/HMiU7O
+         NdUse3CZnBZKcrfuKFRaDTOdNFEsIW+SsaaQCUmQ7DW9JavSAoRNvuvnWpNIlNREOWP8
+         aCRXBBngOT83lODwarDXv2uRqqevRXfuHyYt5O5q03uRAk7LtWEPPtFcl0Yc+kuePK8X
+         s7tw==
+X-Forwarded-Encrypted: i=1; AJvYcCXo0wCFcdwY0QY+7T+B2LrMiOshR/295xJ7O11Uk+l+RLX9Razo/+w8k+q/8O7n1WEnaleidZ+m2Ec=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzAv9l8qEju0FRrfDFZmxPkzOVS4bAvjqFXqMZt/OqgQ9aftqT7
+	25fZ8SGcy60+dQRuc6Y0E7B8FGgktBCVssOQFaghFv0Y4+02P9cP
+X-Gm-Gg: ASbGncvbsXB1jhfij6wEoULVqAIXleKVVBGgPB+c9F2uirA8fQWfELbEeZq30KNeUoc
+	se63kvYJn36HYIug83LS7nEbxkSJ8alzs0kowH0raYwDk8aTjROvxQ5TtNZdN6L/bQAr+UUrLwj
+	4LN6sXnGcYUSGOrlyPmA7lnm3aJptJxPalceNlbssh9S+3HlhyvD7163nXroNbvgmvNsEvqC6h9
+	2g+n64ydf1XG9geYeot/gDWWv+N2MKNVvv6aFWzby4ePhKkItXVBOzncyZkqtWsOZ/9ib4ntt4H
+	ezuqtHwJM47S1bJVJq7J4KtY5OWUFZlxUOjzJgsmUHQEuy2BkJv/UPANCZSfxzhPeFyHASyAtvW
+	/T8gzApr6Gs64a3SbdPxt
+X-Google-Smtp-Source: AGHT+IEOejEiAd1FE+YNRC6Mba7U6atehsxFrt4jGjsHBFkCu2fg3YUoOm8e2BiNcxpbVqTPQKrzLA==
+X-Received: by 2002:a17:907:86ac:b0:ac3:25d7:6950 with SMTP id a640c23a62f3a-ac6faec918amr298040266b.20.1743079888040;
+        Thu, 27 Mar 2025 05:51:28 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------eWyI60p0nnfMTdBRG0QyofGh"
-Message-ID: <c3d6a46c-c372-43f2-81d4-8128ebcb1b2b@gmail.com>
-Date: Thu, 27 Mar 2025 13:50:20 +0100
+ boundary="------------YKVcPGAVMCcDgzVG1EEpd20O"
+Message-ID: <34c4ba5e-3d06-45af-9c73-e4f160f6d74e@gmail.com>
+Date: Thu, 27 Mar 2025 13:51:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v1] xen/config.h: Move BITS_PER_* definitions from
  asm/config.h to xen/config.h
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Shawn Anastasio <sanastasio@raptorengineering.com>,
  Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
 References: <4f085bcbf5b6f1bc42824bfb08724e8a9bbd4918.1743005389.git.oleksii.kurochko@gmail.com>
- <17a808cf-e676-4c30-9068-34a9a4d568d7@citrix.com>
+ <8046d3c4-c00e-4322-b665-81614af89f13@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <17a808cf-e676-4c30-9068-34a9a4d568d7@citrix.com>
+In-Reply-To: <8046d3c4-c00e-4322-b665-81614af89f13@suse.com>
 
 This is a multi-part message in MIME format.
---------------eWyI60p0nnfMTdBRG0QyofGh
+--------------YKVcPGAVMCcDgzVG1EEpd20O
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 
-On 3/27/25 1:44 AM, Andrew Cooper wrote:
-> On 26/03/2025 5:47 pm, Oleksii Kurochko wrote:
->> diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
->> index d888b2314d..dbbf2fce62 100644
+On 3/27/25 9:18 AM, Jan Beulich wrote:
+> On 26.03.2025 18:47, Oleksii Kurochko wrote:
 >> --- a/xen/include/xen/config.h
 >> +++ b/xen/include/xen/config.h
 >> @@ -98,4 +98,13 @@
@@ -130,39 +130,18 @@ On 3/27/25 1:44 AM, Andrew Cooper wrote:
 >> +#define BITS_PER_LLONG  (__SIZEOF_LONG_LONG__ << 3)
 >> +
 >> +#define POINTER_ALIGN   __SIZEOF_POINTER__
-> See how much nicer this is.  This patch possibly wants to wait until
-> I've fixed the compiler checks to update to the new baseline, or we can
-> just say that staging is staging and corner case error messages are fine.
+> Just one remark here: Imo this needs to come with a comment, as alignment and
+> size aren't necessarily tied together. It's merely that we assume that
+> sizeof(void *) == __alignof(void *).
 
-Do you mean this patch:https://lore.kernel.org/xen-devel/20250320153241.43809-3-andrew.cooper3@citrix.com/?
-
-I haven't checked clang but if to look at gcc then these builtin macros was introduced in
-024a85aeb6a("c-cppbuiltin.c (builtin_define_type_sizeof): New function.") and it seems like even older then gcc5
-contains this patch:
-$ git tag --contains 024a85aeb6a912811d917f737eaad39140c2fb0c
-   ...
-   releases/gcc-4.3.0
-   ...
-
-Am I missing something?
-
->
-> One thing, you have to replace the "<< 3" as you're hard-coding 8 here
-> and ignoring __CHAR_BIT__.
->
-> I'd suggest keeping the BITS_PER_BYTE on the LHS, e.g:
->
-> #define BITS_PER_INT    (BITS_PER_BYTE * __SIZEOF_INT__)
->
-> which tabulates better.
-
-Thanks. I'll update that and send the new patch version.
+I will added the following comment then:
+/* it is assumed that sizeof(void *) == __alignof(void *) */
 
 ~ Oleksii
 
---------------eWyI60p0nnfMTdBRG0QyofGh
+--------------YKVcPGAVMCcDgzVG1EEpd20O
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 <!DOCTYPE html>
 <html>
@@ -172,17 +151,14 @@ Content-Transfer-Encoding: 8bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 3/27/25 1:44 AM, Andrew Cooper
-      wrote:<br>
+    <div class="moz-cite-prefix">On 3/27/25 9:18 AM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:17a808cf-e676-4c30-9068-34a9a4d568d7@citrix.com">
-      <pre wrap="" class="moz-quote-pre">On 26/03/2025 5:47 pm, Oleksii Kurochko wrote:
+      cite="mid:8046d3c4-c00e-4322-b665-81614af89f13@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 26.03.2025 18:47, Oleksii Kurochko wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
-index d888b2314d..dbbf2fce62 100644
---- a/xen/include/xen/config.h
+        <pre wrap="" class="moz-quote-pre">--- a/xen/include/xen/config.h
 +++ b/xen/include/xen/config.h
 @@ -98,4 +98,13 @@
  #define ZERO_BLOCK_PTR ((void *)-1L)
@@ -199,40 +175,16 @@ index d888b2314d..dbbf2fce62 100644
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-See how much nicer this is.  This patch possibly wants to wait until
-I've fixed the compiler checks to update to the new baseline, or we can
-just say that staging is staging and corner case error messages are fine.</pre>
+Just one remark here: Imo this needs to come with a comment, as alignment and
+size aren't necessarily tied together. It's merely that we assume that
+sizeof(void *) == __alignof(void *).</pre>
     </blockquote>
-    <pre>Do you mean this patch: <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/20250320153241.43809-3-andrew.cooper3@citrix.com/">https://lore.kernel.org/xen-devel/20250320153241.43809-3-andrew.cooper3@citrix.com/</a>?
+    <pre>I will added the following comment then:
+/* it is assumed that sizeof(void *) == __alignof(void *) */
 
-I haven't checked clang but if to look at gcc then these builtin macros was introduced in
-024a85aeb6a("c-cppbuiltin.c (builtin_define_type_sizeof): New function.") and it seems like even older then gcc5
-contains this patch:
-$ git tag --contains 024a85aeb6a912811d917f737eaad39140c2fb0c
-  ...
-  releases/gcc-4.3.0
-  ...
-
-Am I missing something?
-</pre>
-    <blockquote type="cite"
-      cite="mid:17a808cf-e676-4c30-9068-34a9a4d568d7@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
-
-One thing, you have to replace the "&lt;&lt; 3" as you're hard-coding 8 here
-and ignoring __CHAR_BIT__.
-
-I'd suggest keeping the BITS_PER_BYTE on the LHS, e.g:
-
-#define BITS_PER_INT    (BITS_PER_BYTE * __SIZEOF_INT__)
-
-which tabulates better.</pre>
-    </blockquote>
-    <pre>Thanks. I'll update that and send the new patch version.</pre>
-    <pre>~ Oleksii
-</pre>
+~ Oleksii</pre>
   </body>
 </html>
 
---------------eWyI60p0nnfMTdBRG0QyofGh--
+--------------YKVcPGAVMCcDgzVG1EEpd20O--
 
