@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1FB6A735F8
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 16:50:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.929642.1332359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A848A73619
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 16:54:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.929651.1332369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txpUF-0007zw-G6; Thu, 27 Mar 2025 15:49:43 +0000
+	id 1txpYs-0002LH-0x; Thu, 27 Mar 2025 15:54:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 929642.1332359; Thu, 27 Mar 2025 15:49:43 +0000
+Received: by outflank-mailman (output) from mailman id 929651.1332369; Thu, 27 Mar 2025 15:54:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txpUF-0007wn-D0; Thu, 27 Mar 2025 15:49:43 +0000
-Received: by outflank-mailman (input) for mailman id 929642;
- Thu, 27 Mar 2025 15:49:41 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1txpYr-0002JQ-U3; Thu, 27 Mar 2025 15:54:29 +0000
+Received: by outflank-mailman (input) for mailman id 929651;
+ Thu, 27 Mar 2025 15:54:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1txpUD-0007wh-Fd
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 15:49:41 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1txpUA-00Brhg-1m;
- Thu, 27 Mar 2025 15:49:38 +0000
-Received: from [15.248.2.232] (helo=[10.24.66.240])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1txpUA-001vlR-11;
- Thu, 27 Mar 2025 15:49:38 +0000
+ (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1txpYp-0002JK-VG
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 15:54:27 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c2aa1dfd-0b23-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 16:54:26 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-399676b7c41so649298f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 08:54:26 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3997f9efc90sm20552889f8f.98.2025.03.27.08.54.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Mar 2025 08:54:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,71 +45,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=l8S/MapkqA4tdMiR1/D0z1hQG/6vvyr0sz4l5Ng3Q30=; b=MnpIsnQI46ehhGJk5CDrjxosZ3
-	yY+h5A/pMlwHqloCAyOuu7J5D35UgdGRrREYtD2aboDVR9GSzfJavVZcjiG02lROa+rHnD6pv5Zo3
-	eECSq2sHo36h4uAR1D4Yn9DOg1/ldUoc9CK/kETP5ZezpSq6ovD/Bn0Iz7lZhZjPAtUA=;
-Message-ID: <4c5ba483-c78b-4d45-addc-5a3070d99689@xen.org>
-Date: Thu, 27 Mar 2025 15:49:36 +0000
+X-Inumbo-ID: c2aa1dfd-0b23-11f0-9ea3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1743090866; x=1743695666; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=m5XSaLhx2DUcgSSdocCldH0P1LF3z6PJeX+w2Ljuk/8=;
+        b=ULjf6UQTaJ1EynrmGKUJt9PA9uVX4YAqDEaU7rMIlBGorq0DYoSVTHgWnI5EwFdhj6
+         D9F+9r8LnyY0TUmQ+H+vfbVbxkzpmxbvOK0WfZTWAGpxn/FMMomQllhW/vxWGXgg/VwR
+         o+6j2ZlEdJkbQeGkQjhmurb8SipFXh2XQldXSCUB/tTLAuC8ad6yAGND5P8eZQk2Eyrj
+         e/zUGllBRpaz9qDMkSd/XAaAnGPcaLssHGsufY3xYn16DztDqyDfynHbNJgsRFh9ZJgg
+         L0Cin7tc+XBLMR8iJnik7HkMEh0+ztK+YnL0RLzRXJ3wTXOj5D1pv5DrPvEcF8JYISTH
+         kbxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743090866; x=1743695666;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=m5XSaLhx2DUcgSSdocCldH0P1LF3z6PJeX+w2Ljuk/8=;
+        b=ZnQJ0LDr9vyqc9p6RjVZKEKbQGGvjveme3p0y9bHzXbeSCQg/07LpSmeG7V+OeiaKx
+         0E2Z/7FMaiacocG/ZUXIgR6Gp1mIRzxQLog7ekjTyfXDWWNA9YcGjbCKUkcfQnf3qC9c
+         o05eJVUwVUmuA7c3gf3YN0+3j0wrNEjEkOa/8sj8YzL4cJBeLjtA3OCeEKIo9vpdTpZl
+         zHOJlXFbdIw3DKxLeQwwqdxVxt3h8eHC3TwswlN4KQ1F2J5vsPqvHtryZ/rpBGKOrDp4
+         IiCJoIqZTQkaH9CKrKYtXopOPq3Vw15EIJEOEC0VvNIdurWIDLjocJFvMhR5BuipepRR
+         wwzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWiQBa40fPc8OUJC47UxpGJZem6lv2o7kRw+vK25NoeRuuoGicRwU4rxIsspW47It97KSva3nQQO1k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyL/+sWsfKhWyqZXYZMafohFeo/crLstub+SDamI0PKsLamUoBD
+	AJMs7uY0RJw7bohICTS30FP+dl7BtrswbNqp3CxDSZmLQe6z5jljOeZcOIyOHA==
+X-Gm-Gg: ASbGncsYkODI2IYMn6n5DG8FkcyvFRJcSJx9E7MrzBNi9GAbBmp3IKuOwLrBxZfCdTF
+	o4wY3x/HNveGx46qIdeSETKFZN7kCK8a1Y8B730vV2uTClRQCQilypTMZSAHWcvH8Ak8ebHzBNU
+	o/SBp9B4FpQXN07bfci4wV0UzGNycX/r+IwNG8NygN9IPVxDFTGry6FEQLW0rHR1YXdXSqUZYIZ
+	piyxB1DZlJRqOViyudYQgUa427bNMiY0+dL/dVka+sMe5uPIZc/uHPiv4WLItrWluXyyO1fk5dA
+	27ivVk3H+qq5tZzY7QeYl20fTBqzmZsOUx2zSnhd/7cUkmwBeGSqAmnwuIBOoFjJ/zZ1U0eXAr9
+	ULOT6Xtye1lj+uamaPLz48df8c/3dSQ==
+X-Google-Smtp-Source: AGHT+IG5tJdePH8InWhujhd3vYueb3HwgNnKYKXa3ZsqDnu6an0dnyTQHymqA48fMEZ1hSF1LJoQRQ==
+X-Received: by 2002:a5d:5885:0:b0:38f:5057:5810 with SMTP id ffacd0b85a97d-39ad17525b2mr4549694f8f.25.1743090866227;
+        Thu, 27 Mar 2025 08:54:26 -0700 (PDT)
+Message-ID: <16266da1-f164-41a4-a569-b500998b4b64@suse.com>
+Date: Thu, 27 Mar 2025 16:54:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] trace: convert init_trace_bufs() to constructor
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH 1/6] SUPPORT.md: make Linux based stubdom fully supported
+To: Juergen Gross <jgross@suse.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-References: <e1e556c4-ed71-41f7-acfc-b7fa866a0d3e@suse.com>
- <89043421-49b5-40cc-91c8-f4cd7dd2f6d1@xen.org>
- <87f63516-f9a3-46cc-80a7-1eb614c1f818@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <87f63516-f9a3-46cc-80a7-1eb614c1f818@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250326160442.19706-1-jgross@suse.com>
+ <20250326160442.19706-2-jgross@suse.com>
+ <0db5c039-f379-4393-b00f-c4cd44188a9b@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <0db5c039-f379-4393-b00f-c4cd44188a9b@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Jan,
-
-On 27/03/2025 15:08, Jan Beulich wrote:
-> On 27.03.2025 15:49, Julien Grall wrote:
->> On 13/03/2025 13:38, Jan Beulich wrote:
->>> There's no need for each arch to invoke it directly, and there's no need
->>> for having a stub either. With the present placement of the calls to
->>> init_constructors() it can easily be a constructor itself.
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 27.03.2025 16:25, Juergen Gross wrote:
+> On 26.03.25 17:04, Juergen Gross wrote:
+>> All patches needed for running with a Linux stubdom device model are
+>> in the tree and QubesOS is using and testing Linux stubdoms nowadays.
 >>
->> Acked-by: Julien Grall <jgrall@amazon.com>
-> 
-> Thanks.
-> 
->>> ---
->>> Same could then apparently be done for heap_init_late(). Thoughts?
+>> Switch support from "Tech Preview" to "Supported".
 >>
->> Looking at the code, I couldn't figure out whether any of the
->> constructors may rely on some changes done by heap_init_late().
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>>   CHANGELOG.md | 1 +
+>>   SUPPORT.md   | 2 +-
+>>   2 files changed, 2 insertions(+), 1 deletion(-)
 >>
->> The only issue I can think of is scrubbing. In the case it is
->> synchronous, would the memory allocated before hand be scrubbed?
+>> diff --git a/CHANGELOG.md b/CHANGELOG.md
+>> index 9a5919585d..b03e2c73d7 100644
+>> --- a/CHANGELOG.md
+>> +++ b/CHANGELOG.md
+>> @@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>>   ## [4.21.0 UNRELEASED](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
+>>   
+>>   ### Changed
+>> + - Linux based device model stubdomains are now fully supported.
+>>   
+>>   ### Added
+>>    - On x86:
+>> diff --git a/SUPPORT.md b/SUPPORT.md
+>> index 91cb6f8ed2..ed4412f0af 100644
+>> --- a/SUPPORT.md
+>> +++ b/SUPPORT.md
+>> @@ -260,7 +260,7 @@ Go (golang) bindings for libxl
+>>   
+>>   Support for running qemu-xen device model in a linux stubdomain.
+>>   
+>> -    Status: Tech Preview
+>> +    Status: Supported
 > 
-> Memory that is allocated can't possibly be scrubbed; only memory that's
-> still un-allocated can be. With that I fear I don't properly understand
-> the question you raise.
+> The status change was discussed in the security team. The suggestion was
+> that the new support state should be "Supported, with caveats", clarifying
+> that any issue in the stubdomain affecting only the guest it is servicing
+> would not be regraded to be a security issue.
 
-I meant that if memory is allocated by calls from init_constructors(). 
-Before this patch, the memory would be scrubbed. After this patch, 
-anything constructors called before heap_init_late() would end up to not 
-be scrubbed if it is synchronous.
+Mind making this a tiny bit more strict, by saying "affecting only the guest
+it is servicing or itself"?
 
-Cheers,
-
--- 
-Julien Grall
-
+Jan
 
