@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4CA5A73365
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 14:32:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.929298.1331913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3BDAA7336F
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 14:36:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.929308.1331923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txnL6-0005vc-Os; Thu, 27 Mar 2025 13:32:08 +0000
+	id 1txnPK-0006XV-8c; Thu, 27 Mar 2025 13:36:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 929298.1331913; Thu, 27 Mar 2025 13:32:08 +0000
+Received: by outflank-mailman (output) from mailman id 929308.1331923; Thu, 27 Mar 2025 13:36:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txnL6-0005uA-MD; Thu, 27 Mar 2025 13:32:08 +0000
-Received: by outflank-mailman (input) for mailman id 929298;
- Thu, 27 Mar 2025 13:32:07 +0000
+	id 1txnPK-0006VP-5f; Thu, 27 Mar 2025 13:36:30 +0000
+Received: by outflank-mailman (input) for mailman id 929308;
+ Thu, 27 Mar 2025 13:36:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txnL5-0005u1-Lf
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 13:32:07 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1txnPI-0006VJ-V0
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 13:36:28 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e03576d5-0b0f-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 14:32:06 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43cfb6e9031so9282515e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 06:32:06 -0700 (PDT)
+ id 7c250b3a-0b10-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 14:36:28 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43948f77f1aso7277275e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 06:36:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3997f995a10sm19755881f8f.6.2025.03.27.06.32.04
+ ffacd0b85a97d-3997f9eff6esm19953245f8f.100.2025.03.27.06.36.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 06:32:05 -0700 (PDT)
+ Thu, 27 Mar 2025 06:36:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e03576d5-0b0f-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 7c250b3a-0b10-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743082326; x=1743687126; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DkoaVwWLavIxu1YQJCb3NH/+CQa3gtkc1a2kSLpQG28=;
-        b=Jd8TD3/AYvuwKNAjVOhAKjAUwzOiP2dAbl2mElpcbgIxsByNisBuuje4ThR+OT0ys9
-         lu+Njp7f+SShCtEC4MFpzjpIPaEbwHbIwLqFyfZGIjuCGVqNk2HAkdAH1OD/xdaQ7tcl
-         Chh2h0ew3+CtqV7Z2AiZlbaqloiZ68smUMD5DPpvyJ/G7Y9vC9NtTGaJ07YFU3XuBTdj
-         iyc/mHJ1v8H7q80n1HpAtSTFzc4xfKA9f86qOzBeMrjijeuBRW3nwfXGNHzCUFtPyEkf
-         HIRkxONIocN/0tQZxSdOSFsBj7QUOPg5b6AlbPsI4nWCyHt5vqt/oTGfPxyQJnpINvFX
-         +h+A==
+        d=suse.com; s=google; t=1743082587; x=1743687387; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=4JhjMh7hWu20C1sCTUo60gpwltU8peQAYhTfB/lLtbc=;
+        b=Dtf9Cqu60ZuhvvJZeTuhm35KUREU6ZTYzWfYokj18+agLSiVwgbEtCzumrfZ6Mmdbe
+         nXE+N+Qu/nBM+NsnTNHIBhtSHZz4UqtfDFseeFlq+LkiI/kf4RYJAY/3JqvJlENYH+wA
+         XOEBQGlEhbXNLehYdjNmoVxVx4Ls24Rqxvw0sc/HaggTd9j2BhdoD72ZnZEGaudD9B5c
+         qUgpkp0qr0zI66BgNGsxZndpyeDRVz97OWu+WGKC/+ujbGbmeHv8GTmXiVJ2AQPUKod3
+         UkhykCN7E+Scyqwydo69oC3yN4JwC5KCkoepiwDA8YpAWTDI7XxFfgsWJrD/YfEeTXI3
+         OHqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743082326; x=1743687126;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DkoaVwWLavIxu1YQJCb3NH/+CQa3gtkc1a2kSLpQG28=;
-        b=aIDvCzDZ4CvJdYH/uojbmiCaSMsLTliAr+FGiR0FS137jW3PsZ06P2yVrBBhK5CpEu
-         1Unebg7qcutfMEi0BwtQak0PzJ7gVRP8Xofp+yDm17U5ryuUgChQtZw2MSwdDC2HkuTB
-         FG1hJMIyMtQ+IRMa+o1o0Wzb0sAQoQ9Q2QZuHn2aIp+YR6WJXWhwoErX5BepsddQ5g85
-         jS9sUonXWdzrZS8nWeCTpf9prnYSqTfRcF2kEBP2CkiRL2hO0aoNBotp5i5i6nbceaTp
-         viI0Y3hG2V3acKjB5zj4UweAe8Bqg4FKQesg4t4W9EA0MKTIMPqjbxD8E1WPjRzvmrIM
-         SKgQ==
-X-Gm-Message-State: AOJu0YwC4C42wd/j6552Xw3t5xoHc6futRTnkh3SpRgM2ZhNluKGOW/L
-	f5WTUWd4KfLIqRcBtsuU+W76y2dwfGLIDQ3rIwJfJDm1/rWeZOfbzzb0oFm4z/1GC/poSI5wIFA
-	=
-X-Gm-Gg: ASbGncvBo48LytDu5g6WNrPamSzaaoNfIEbZomd/G3PUeXanW+4yX18GIP9coOiJsH7
-	5VtsCZ4sq5d0hbRyR45Z9pmCuJfq0llqgnOZDOJY7hgxEcu2A2QfEdyFbuhcwBgMjn2NeO+lxSf
-	AUbLocRf1mtBeNuGfTV0998BEzHkkEKuY0IUctuxZb6NaKLHcUaDOeX53SzCN6QhRUEBf8/ChWx
-	7byak2smqjYJVn5A+XyDkxHDh22NZ3fyPCY8E41LMKer4QYW78fHUOuxPNGBh0LclhOrCBQPc3/
-	hz4V46fzAuAt8I0sNHBC3GawnWfg3MoDXtQramW6MA+uI9Wv7PseUV9oJxfrF/KXLn0gomJ/xbD
-	xR+Y6SpSitsWW9XW+p0B0TjLT3rj/5g==
-X-Google-Smtp-Source: AGHT+IH0n5JHR5/vKHkTlG3sa1k6VaExBrgIAzaFybvzX9QULLCeN+02lt99BGck2XbqUGSV7AJHlQ==
-X-Received: by 2002:a5d:47a2:0:b0:391:158f:3d59 with SMTP id ffacd0b85a97d-39ad17491aamr2687831f8f.15.1743082325624;
-        Thu, 27 Mar 2025 06:32:05 -0700 (PDT)
-Message-ID: <df676738-19e7-47e6-977f-25d6d13ccc50@suse.com>
-Date: Thu, 27 Mar 2025 14:32:04 +0100
+        d=1e100.net; s=20230601; t=1743082587; x=1743687387;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4JhjMh7hWu20C1sCTUo60gpwltU8peQAYhTfB/lLtbc=;
+        b=J4ph8HmRELZ0oPZQSqvoBjHxuB4h9RlLnCT26yICtgMtfJNDTolsURJ/1WA7vPfAVJ
+         56wHj0MBAuWo60Z5+iL7fXiW4Ju/0MJx2wOMhNoR7vTLTA9LuepDeK5S65dJU0Wvn5HZ
+         7H1SWGIle62RmX1LByOZjawhN5JrkJaEzMDN2jUjXoGGzCbk6/Jt9abSPWnS2DtNCMuS
+         IDSkehpk7LdWPk+cw4be8tfENQ8YpdOHmaQG+KrcHM1fS1sdtr/07agA4Zd8DcOTIeWi
+         flghPxo60R2VYwwX/95P1IeCW75C4CsOywTrO40gyiBFSLPOm8T61fuRMHGh6uo8aNxk
+         KgqQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUKmc1aKJ9PesgBkX+eITZuJR5mUTPirhDfHwqpfEOyejhXU/xTu0HNhJA9Czra3PjJVJlsFA3xUeY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyp6d9ODuA+lmAhIO3PZ5LPgpGy7Ecre8m4nmtYjcUD/nCLUIIT
+	cKHYUytYD7D1U4on01NbcAffiQBVrSEqrW31FxaU/R6c6Gdpm6GwG8zKwFMhaQ==
+X-Gm-Gg: ASbGncsf81xN0HTTes/9jf1ypD6Wf7/Z/8cx5owZFEOYk8qqVSu/672yEEm8FUda1Mo
+	R4EBYI5Pl/D40FddK4Wg79NGPw5ecsZABUnLcadBOWb4ahtJ7SrydH1kqJ3slV7P7lDo+iN5iM1
+	sl4/6O5Z6p0txbBZcwWRqGyBN8k1RLqITnq7q6LrHQD4eKhA8qgmsVgpyhae6nuuWtCO0vqt4v3
+	PxTawfkVtcMu3r53pnCIZW3Ud/5QfniRS14NE8E16up6YERkYNqhkolpMZXOmlWcBJjOIwZMv7h
+	Ck+20x0Hj0+JcOmMxfUIsLVTr7We3ALoMoHTHdUVQ2cIDqNlBIOhroZTXxVWy1wZX2zWftbJ5Il
+	Ugej4IWtKc+yQutElyXygtPgKBe9jSQ==
+X-Google-Smtp-Source: AGHT+IE5x7hTphmGwx7ZUsPW8nai6fo1iU3wARgNCPHi7XupijTjCWMuFnVyEnijjD9MivI8ofUOoQ==
+X-Received: by 2002:a05:600c:4e05:b0:43d:26e3:f2f6 with SMTP id 5b1f17b1804b1-43d84f5e5bcmr40959545e9.5.1743082587366;
+        Thu, 27 Mar 2025 06:36:27 -0700 (PDT)
+Message-ID: <92bcf196-a138-4784-8bfd-c73a1d430321@suse.com>
+Date: Thu, 27 Mar 2025 14:36:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] xen/config.h: Move BITS_PER_* definitions from
+ asm/config.h to xen/config.h
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
+References: <4f085bcbf5b6f1bc42824bfb08724e8a9bbd4918.1743005389.git.oleksii.kurochko@gmail.com>
+ <17a808cf-e676-4c30-9068-34a9a4d568d7@citrix.com>
+ <994b9d44-f82f-4eb7-8742-9041ba2caf17@suse.com>
+ <f7381aa7-cfc8-4225-b500-374804cbf23d@citrix.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony Perard <anthony@xenproject.org>, Juergen Gross <jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] libxc/PM: correct (not just) error handling in
- xc_get_cpufreq_para()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,111 +130,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <f7381aa7-cfc8-4225-b500-374804cbf23d@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From their introduction all xc_hypercall_bounce_pre() uses, when they
-failed, would properly cause exit from the function including cleanup,
-yet without informing the caller of the failure. Purge the unlock_1
-label for being both pointless and mis-named.
+On 27.03.2025 13:53, Andrew Cooper wrote:
+> On 27/03/2025 8:21 am, Jan Beulich wrote:
+>> On 27.03.2025 01:44, Andrew Cooper wrote:
+>>> On 26/03/2025 5:47 pm, Oleksii Kurochko wrote:
+>>>> diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
+>>>> index d888b2314d..dbbf2fce62 100644
+>>>> --- a/xen/include/xen/config.h
+>>>> +++ b/xen/include/xen/config.h
+>>>> @@ -98,4 +98,13 @@
+>>>>  #define ZERO_BLOCK_PTR ((void *)-1L)
+>>>>  #endif
+>>>>  
+>>>> +#define BYTES_PER_LONG  __SIZEOF_LONG__
+>>>> +
+>>>> +#define BITS_PER_BYTE   __CHAR_BIT__
+>>>> +#define BITS_PER_INT    (__SIZEOF_INT__ << 3)
+>>>> +#define BITS_PER_LONG   (BYTES_PER_LONG << 3)
+>>>> +#define BITS_PER_LLONG  (__SIZEOF_LONG_LONG__ << 3)
+>>>> +
+>>>> +#define POINTER_ALIGN   __SIZEOF_POINTER__
+>>> See how much nicer this is.  This patch possibly wants to wait until
+>>> I've fixed the compiler checks to update to the new baseline, or we can
+>>> just say that staging is staging and corner case error messages are fine.
+>>>
+>>> One thing, you have to replace the "<< 3" as you're hard-coding 8 here
+>>> and ignoring __CHAR_BIT__.
+>>>
+>>> I'd suggest keeping the BITS_PER_BYTE on the LHS, e.g:
+>>>
+>>> #define BITS_PER_INT    (BITS_PER_BYTE * __SIZEOF_INT__)
+>>>
+>>> which tabulates better.
+>>>
+>>> I suggest keeping BITS_PER_XEN_ULONG to be arch-local.
+>> I agree here despite ...
+>>
+>>>   ARM is the
+>>> odd-one-out having a non-64bit arch use a 64bit XEN_ULONG.
+>> ... not agreeing here: x86 is the odd-one-out; I sincerely hope any new ports
+>> to 32-bit architectures / flavors will avoid compat layer translation by making
+>> this type a proper 64-bit one. Architectures truly being 32-bit only, with no
+>> expectation of a 64-bit flavor ever appearing, would be different.
+> 
+> I have some very firm opinions about this.
+> 
+> It is an error that the type xen_ulong exists, anywhere.  The fact it
+> wasn't named guest_ulong shows a profound misunderstanding of its
+> purpose and usage in the API/ABI.
+> 
+> Similarly, BITS_PER_XEN_ULONG is buggily named, and should be
+> BITS_PER_GUEST_ULONG, as demonstrated by it's singular use in Xen
+> (calculating BITS_PER_EVTCHN_WORD(d)).
+> 
+> ARM declaring that arm32 uses 64-bit xen_ulongs was cutting a corner
+> that's going to bite twice as hard when 128bit comes along, and
+> RISCV-128 is in progress already.
 
-An earlier attempt to switch to the usual split between return value and
-errno wasn't quite complete.
+Yes indeed.
 
-HWP work made the cleanup of the "available governors" array
-conditional, neglecting the fact that the condition used may not be the
-condition that was used to allocate the buffer (as the structure field
-is updated upon getting back EAGAIN). Throughout the function, use the
-local variable being introduced to address that.
+> All of this needs purging from the API/ABIs before RISC-V/PPC inherit
+> the mistakes that are holding x86 and ARM back.
 
-Fixes: 4513025a8790 ("libxc: convert sysctl interfaces over to hypercall buffers")
-Amends: 73367cf3b4b4 ("libxc: Fix xc_pm API calls to return negative error and stash error in errno")
-Fixes: 31e264c672bc ("pmstat&xenpm: Re-arrage for cpufreq union")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+I'm curious to learn how you envision to support a 32-bit guest on RV128,
+for example. You dislike the compat layer, and you also dislike xen_ulong_t
+(I agree its name is potentially misleading). So you must be thinking of
+something entirely new to express in particular interfacing structures.
 
---- a/tools/libs/ctrl/xc_pm.c
-+++ b/tools/libs/ctrl/xc_pm.c
-@@ -212,31 +212,32 @@ int xc_get_cpufreq_para(xc_interface *xc
-     DECLARE_NAMED_HYPERCALL_BOUNCE(scaling_available_governors,
- 			 user_para->scaling_available_governors,
- 			 user_para->gov_num * CPUFREQ_NAME_LEN * sizeof(char), XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
--
--    bool has_num = user_para->cpu_num &&
--                     user_para->freq_num &&
--                     user_para->gov_num;
-+    unsigned int in_gov_num = user_para->gov_num;
-+    bool has_num = user_para->cpu_num && user_para->freq_num;
- 
-     if ( has_num )
-     {
-         if ( (!user_para->affected_cpus)                    ||
-              (!user_para->scaling_available_frequencies)    ||
--             (user_para->gov_num && !user_para->scaling_available_governors) )
-+             (in_gov_num && !user_para->scaling_available_governors) )
-         {
-             errno = EINVAL;
-             return -1;
-         }
--        if ( xc_hypercall_bounce_pre(xch, affected_cpus) )
--            goto unlock_1;
--        if ( xc_hypercall_bounce_pre(xch, scaling_available_frequencies) )
-+        ret = xc_hypercall_bounce_pre(xch, affected_cpus);
-+        if ( ret )
-+            return ret;
-+        ret = xc_hypercall_bounce_pre(xch, scaling_available_frequencies);
-+        if ( ret )
-             goto unlock_2;
--        if ( user_para->gov_num &&
--             xc_hypercall_bounce_pre(xch, scaling_available_governors) )
-+        if ( in_gov_num )
-+            ret = xc_hypercall_bounce_pre(xch, scaling_available_governors);
-+        if ( ret )
-             goto unlock_3;
- 
-         set_xen_guest_handle(sys_para->affected_cpus, affected_cpus);
-         set_xen_guest_handle(sys_para->scaling_available_frequencies, scaling_available_frequencies);
--        if ( user_para->gov_num )
-+        if ( in_gov_num )
-             set_xen_guest_handle(sys_para->scaling_available_governors,
-                                  scaling_available_governors);
-     }
-@@ -246,7 +247,7 @@ int xc_get_cpufreq_para(xc_interface *xc
-     sysctl.u.pm_op.cpuid = cpuid;
-     sys_para->cpu_num  = user_para->cpu_num;
-     sys_para->freq_num = user_para->freq_num;
--    sys_para->gov_num  = user_para->gov_num;
-+    sys_para->gov_num  = in_gov_num;
- 
-     ret = xc_sysctl(xch, &sysctl);
-     if ( ret )
-@@ -256,12 +257,11 @@ int xc_get_cpufreq_para(xc_interface *xc
-             user_para->cpu_num  = sys_para->cpu_num;
-             user_para->freq_num = sys_para->freq_num;
-             user_para->gov_num  = sys_para->gov_num;
--            ret = -errno;
-         }
- 
-         if ( has_num )
-             goto unlock_4;
--        goto unlock_1;
-+        return ret;
-     }
-     else
-     {
-@@ -298,13 +298,13 @@ int xc_get_cpufreq_para(xc_interface *xc
-     }
- 
- unlock_4:
--    if ( user_para->gov_num )
-+    if ( in_gov_num )
-         xc_hypercall_bounce_post(xch, scaling_available_governors);
- unlock_3:
-     xc_hypercall_bounce_post(xch, scaling_available_frequencies);
- unlock_2:
-     xc_hypercall_bounce_post(xch, affected_cpus);
--unlock_1:
-+
-     return ret;
- }
- 
+Jan
 
