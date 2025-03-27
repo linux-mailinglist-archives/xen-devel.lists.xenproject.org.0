@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC07FA72B6A
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 09:25:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928632.1331313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8049A72B72
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 09:27:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928654.1331332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txiYS-0001b9-DJ; Thu, 27 Mar 2025 08:25:36 +0000
+	id 1txiZs-0002kC-5g; Thu, 27 Mar 2025 08:27:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928632.1331313; Thu, 27 Mar 2025 08:25:36 +0000
+Received: by outflank-mailman (output) from mailman id 928654.1331332; Thu, 27 Mar 2025 08:27:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txiYS-0001Ze-8U; Thu, 27 Mar 2025 08:25:36 +0000
-Received: by outflank-mailman (input) for mailman id 928632;
- Thu, 27 Mar 2025 08:25:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1txiZs-0002iB-2V; Thu, 27 Mar 2025 08:27:04 +0000
+Received: by outflank-mailman (input) for mailman id 928654;
+ Thu, 27 Mar 2025 08:27:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txiYR-0001ZY-6z
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 08:25:35 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0da09761-0ae5-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 09:25:34 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43cf3192f3bso7156065e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 01:25:34 -0700 (PDT)
+ id 1txiZq-0002i3-SB
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 08:27:02 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4154cb36-0ae5-11f0-9ffa-bf95429c2676;
+ Thu, 27 Mar 2025 09:27:01 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43cf06eabdaso6275505e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 01:27:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d830f5ea4sm29659475e9.25.2025.03.27.01.25.32
+ 5b1f17b1804b1-43d82dedf21sm29927785e9.6.2025.03.27.01.26.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 01:25:33 -0700 (PDT)
+ Thu, 27 Mar 2025 01:27:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0da09761-0ae5-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 4154cb36-0ae5-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743063934; x=1743668734; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743064020; x=1743668820; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kgWJsUpsJ1d6AFfG/+Kk1PeQiomMW6naSI0FS91nmkM=;
-        b=M3AXdQDvm1xtB7624aPZpY5X1zscNfocV89ntEKPJQX4wpoCWsUsgWFt54ucaCEnl2
-         nDvkNXSzCKo0fc47dl8vX+OGymkiM3HtmZJJkKfu0tR1O268PvU5UrFmtBOL6tIh3DKU
-         odG9Was6Mjx5+dl+n6TwxICUsrIW4BjMz3xjGgTo9ddgesodGEy7cssM75Y9GADVWVwx
-         0WhSJczATlSYTKNKRsPdEGNZcPDvyhBWmbswtLJcpfsRuzngr2ER6zNk+cgMqgf1eE4m
-         tReDawff5YeNjISbKRfFgCO5CBRj0Jto+HqCqxKDtqRtmKyvaInY47k6XVvxdLDOFN5l
-         0q1A==
+        bh=0rI0MvUf6Y1Z8bBVeUVYbw6emjnFugFJY3sfFZH7c2A=;
+        b=Hffi45lxgXLqzbkOz+eO+/zxX8JBSSTBwmSC9YFsauN0IXLCvd0dngouseptGRy+6d
+         BbRqJ/dYaHYEDVorpN5HwgGxR+kIQhwwHKLqTjl7Mo9NJncnRMVVj7q699/h4ndgF2GW
+         fqbwQiJF8mEOOseOrnBfdI8bTnLa6lmvPstbQbBzP0mMZ3PJB/ukAtfsEjIZZEcKmaD6
+         b9jVmprvuIqAjfCqaTnOle6p3D6aBi0vCn8Z3kja963tTa4oYM819OCzyL8DO6jXKp6i
+         yISSH/hkJzpKrDCPFa/ILsoiJzNB/vcT2onC2Zzj1WYy5WWOdz2lGRkiQ7TSMJGWLaCS
+         AtaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743063934; x=1743668734;
+        d=1e100.net; s=20230601; t=1743064020; x=1743668820;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kgWJsUpsJ1d6AFfG/+Kk1PeQiomMW6naSI0FS91nmkM=;
-        b=s5uhLTPz+TKKrcAnQnDzagiuD7ONncIKO/FoRDPYTgjNmYUn20Rx5nw/BgZiNAEq4K
-         a89tqhT5lkg0bB8+v7+Zxnjw9EvSSBTUAxywisVunQyINcX6p4fW2doRm9Dm3n9muOOB
-         /kKcafjtkf0BfEFl0BcS4UA5SXdElenkLQRcl+x9oIDbB8QsClN+Wk0b3TfYdhM7DBsD
-         rhl7ILE4iwXF4imPxBMpJTiIlKD9mrsX46zkJkmzRAXSV6O1+MbfrhZW3snBOw3Aq8Lv
-         EcD9EaTJi1lA6/9Qa3ipqifLG/svLwFDYRIMyZKQTtzYQQBp4gOJ7llt7HnCvI9qIFyY
-         cm9w==
-X-Forwarded-Encrypted: i=1; AJvYcCU7+tDQPyD/XoqTxSlGvBgAAGMScTPhAHXuUIgI5exOGa7HXZ2P9s00dwVMrBfypUZTQHpXrmgeUOg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx0BbuyZCJd2weBDBHw3Xqogb2fyczse6zw/eqtlAQ9UvF/gQqA
-	mcr0xiZQ004c0sLG3W7fUlhcNFWMz40FZz8b2uYxhos/cjOgmxcyUDO5Kolgyg==
-X-Gm-Gg: ASbGncuoDsOP+y++ZaVfS6iYg3Lx6eRJVnQjAsN3+NUS/nsYyzqMUycnjs5o3VtLGWz
-	8gHL018TU9fvh5ZuLwxSKmshrwA0bwGhuDVp8FKKvMHQGczZZGVaJUorkHZE+F4ODmZAos6gXbm
-	8PadXJ5iJygcDfWeFpdAwlQHDJ3vut98eG0u9LottrqZNqgPCKim85kXqScvRkBgS+3kNA5IPOc
-	S1l2HkdhDMV1mbw6lQCEnk0E1N2+IYyOz4Uy5ekXl13gP+Mq+9iYjngf34w5lE5HeJOP9mSCChS
-	ite4Xi6xWXXyfv6wM7cccgc6J7E6DCuSaRJibwMX8FMf8oZtDnby89J1WFMfXKXw7xjuFbmdxHI
-	PFQt84fVPAEALsB3RHHSYpBxjG0EqwA==
-X-Google-Smtp-Source: AGHT+IGP8V3gMW01tL2/xRKuecjfQrOD6TqxgqvAvGrHYEpKUyQY6ILDvK54GLs79yVQNfCiqMsfBg==
-X-Received: by 2002:a5d:598d:0:b0:394:ef93:9afc with SMTP id ffacd0b85a97d-39ad1741b23mr1964550f8f.18.1743063933594;
-        Thu, 27 Mar 2025 01:25:33 -0700 (PDT)
-Message-ID: <689e103f-8130-4b38-ba63-607493737af7@suse.com>
-Date: Thu, 27 Mar 2025 09:25:31 +0100
+        bh=0rI0MvUf6Y1Z8bBVeUVYbw6emjnFugFJY3sfFZH7c2A=;
+        b=culD0TZwKOtAjZzEDkRSbJTNF/S4U9XdvPJoYUKxWZbfNwL6U3SaTjX/vNnWh3IVEy
+         lDUuXP1OVaRQ4zYedmPGW/sV3i8Vv/XH9jdlCQ+4gBXDtjMOiN0cf73sX+jZPJbTdLrC
+         DvB22r44hAOwauINOvOMYeVc27Mf0ld1nqMKy3PNRVBEc4MZludm3H8YHM7amB6gshow
+         +rzRf5Qh5O7goD/1cVaQqT3oKqr6NJ1BJ/nsAm3aWJgF6sgz5IgP/Q4q6SNPEw8L/ez1
+         2452hz0JaBSlSxiU1nsDgwf/CDRGtQKccgiChlSTQ8y2LmBSU1fgBeQs2znwSOhR9lPT
+         E8VA==
+X-Forwarded-Encrypted: i=1; AJvYcCUGE3MazXN/quP9/3Yyk1aE+zIff+cBZOlF56Rh88JlsriESSkuvW70EKRw2CN73ircnM7iEGs+q/w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywa6RnEeV8NuU1DfPpqc6faSdacEB6j7OFs0ffoN0tVltMOmuzN
+	Tb02lcUJ/vQZmMAG8TlJTs1xzOFZkeqQDfMh5W09c0VjhOJx0UrNOjVh6NyTrw==
+X-Gm-Gg: ASbGncstwLncvpMrvNsjOcVRAo+ct04Ke0vkseUzceQ6hpsZgv+0QdycJOVlwQiFbvL
+	z50Yv6n5tljaq/SzBfjStGg0EzYDejmX70OccYkmBN5BkJlWdOxqxehtD33WgvFtDn9GmfKVYlP
+	AezQHxJbzuLjj2r8Va6baZOT15U/ooww65yZMccQf8jb3hCcOq9S1da4XzCN+Duxv78AerHTsBz
+	+zQr9TSgOaemffbr9T1nKjGTXffu9wNiVxAdEvlUN8AKfxp23SQPw7uf7zZYWeRnrv8ocGfcSeP
+	dWEWdfWv7rf5FzrVDKJaeGcZ5BYRxJbmOL49FD9HoeC1kneFNShLfORWi0xtLYCNOFMHHwql2SW
+	2o/MqaEC6Tzl9bJk8eOUqfzeE3BFZBw==
+X-Google-Smtp-Source: AGHT+IFCM9QoqGokMIinQR/aewa23+ccvooIid/S52q8MJJEOR2N3VfCyzn9Oj02KNlVxJ32Xznufw==
+X-Received: by 2002:a05:600c:1d9e:b0:43c:f75a:eb54 with SMTP id 5b1f17b1804b1-43d8582c4ddmr20672885e9.13.1743064020401;
+        Thu, 27 Mar 2025 01:27:00 -0700 (PDT)
+Message-ID: <a0334340-6dc9-4526-ab00-1d9bbb290de2@suse.com>
+Date: Thu, 27 Mar 2025 09:26:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] xen/percpu: don't initialize percpu on resume
@@ -95,7 +95,8 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Mykyta Poturai <mykyta_poturai@epam.com>,
- Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org
+ Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org,
+ Marek Marczykowski <marmarek@invisiblethingslab.com>
 References: <20250327052241.202167-1-xakep.amatop@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
@@ -127,32 +128,40 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 27.03.2025 06:22, Mykola Kvach wrote:
-> --- a/xen/common/percpu.c
-> +++ b/xen/common/percpu.c
-> @@ -30,7 +30,12 @@ static int init_percpu_area(unsigned int cpu)
->      char *p;
->  
->      if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
-> -        return park_offline_cpus ? 0 : -EBUSY;
-> +    {
-> +        if ( system_state == SYS_STATE_resume )
-> +            return 0;
-> +        else
-> +            return park_offline_cpus ? 0 : -EBUSY;
-> +    }
+> Invocation of the CPU_UP_PREPARE notification
+> on ARM64 during resume causes a crash:
+> 
+> (XEN) [  315.807606] Error bringing CPU1 up: -16
+> (XEN) [  315.811926] Xen BUG at common/cpu.c:258
+> [...]
+> (XEN) [  316.142765] Xen call trace:
+> (XEN) [  316.146048]    [<00000a0000202264>] enable_nonboot_cpus+0x128/0x1ac (PC)
+> (XEN) [  316.153219]    [<00000a000020225c>] enable_nonboot_cpus+0x120/0x1ac (LR)
+> (XEN) [  316.160391]    [<00000a0000278180>] suspend.c#system_suspend+0x4c/0x1a0
+> (XEN) [  316.167476]    [<00000a0000206b70>] domain.c#continue_hypercall_tasklet_handler+0x54/0xd0
+> (XEN) [  316.176117]    [<00000a0000226538>] tasklet.c#do_tasklet_work+0xb8/0x100
+> (XEN) [  316.183288]    [<00000a0000226920>] do_tasklet+0x68/0xb0
+> (XEN) [  316.189077]    [<00000a000026e120>] domain.c#idle_loop+0x7c/0x194
+> (XEN) [  316.195644]    [<00000a0000277638>] shutdown.c#halt_this_cpu+0/0x14
+> (XEN) [  316.202383]    [<0000000000000008>] 0000000000000008
+> 
+> Freeing per-CPU areas and setting __per_cpu_offset to INVALID_PERCPU_AREA
+> only occur when !park_offline_cpus and system_state is not SYS_STATE_suspend.
+> On ARM64, park_offline_cpus is always false, so setting __per_cpu_offset to
+> INVALID_PERCPU_AREA depends solely on the system state.
+> 
+> If the system is suspended, this area is not freed, and during resume, an error
+> occurs in init_percpu_area, causing a crash because INVALID_PERCPU_AREA is not
+> set and park_offline_cpus remains 0:
+> 
+>     if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
+>         return park_offline_cpus ? 0 : -EBUSY;
+> 
+> It appears that the same crash can occur on x86 if park_offline_cpus is set
+> to 0 during Xen suspend.
 
-Hmm, why not the much simpler
-
-        return park_offline_cpus || system_state == SYS_STATE_resume
-               ? 0
-               : -EBUSY;
-
-Even if not for whatever reason, I'd really like to ask to omit such an
-unnecessary "else".
-
-Preferably with the adjustment (which I'd be happy to make while
-committing) and with the (iirc) previously suggested Fixes: tag:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Oh, also - it's not "appears"; iirc Marek meanwhile confirmed the misbehavior on
+x86 AMD hardware.
 
 Jan
 
