@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 891BCA73CA4
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 18:43:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.929884.1332652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19480A73E5C
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 20:07:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.929901.1332668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txrG6-0005u8-PD; Thu, 27 Mar 2025 17:43:14 +0000
+	id 1txsYY-0006mq-DG; Thu, 27 Mar 2025 19:06:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 929884.1332652; Thu, 27 Mar 2025 17:43:14 +0000
+Received: by outflank-mailman (output) from mailman id 929901.1332668; Thu, 27 Mar 2025 19:06:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txrG6-0005s0-MY; Thu, 27 Mar 2025 17:43:14 +0000
-Received: by outflank-mailman (input) for mailman id 929884;
- Thu, 27 Mar 2025 17:43:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4IZU=WO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1txrG4-0005rs-VC
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 17:43:12 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f15adb23-0b32-11f0-9ffa-bf95429c2676;
- Thu, 27 Mar 2025 18:43:07 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3913fdd0120so790312f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 10:43:07 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b7a4498sm142475f8f.99.2025.03.27.10.43.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Mar 2025 10:43:06 -0700 (PDT)
+	id 1txsYY-0006k8-9f; Thu, 27 Mar 2025 19:06:22 +0000
+Received: by outflank-mailman (input) for mailman id 929901;
+ Thu, 27 Mar 2025 19:06:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zm5l=WO=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1txsYW-0006k2-CH
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 19:06:20 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 894681c1-0b3e-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 20:06:07 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5F62B1F388;
+ Thu, 27 Mar 2025 19:06:05 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 113581376E;
+ Thu, 27 Mar 2025 19:06:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id mDu7Ap2h5WeONgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 27 Mar 2025 19:06:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,173 +52,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f15adb23-0b32-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743097387; x=1743702187; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=rPCyN3mhqjB6y1nALjXr18LIWD/daYld8rTdpJBNiws=;
-        b=LnNMLreKxOJMZPDhkRjLHP9ysORdvu45BCN4VKpfHTHJ6zD86fE5QqMrup2j5AYT65
-         +CrWC4H2Vd24xU4NiAlk9F+PGD8m8Am2XXgodGk7RVLKdEBBxPjlRIt2h9Eyumdvc0pO
-         VQmD/hR8CsOXZhokz2ftUqlKzDlC8wJkJDou8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743097387; x=1743702187;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rPCyN3mhqjB6y1nALjXr18LIWD/daYld8rTdpJBNiws=;
-        b=TqAnJEwR7OJnV47p6vigAmqhW4vANMUpBhtz7e5IY61NoNW+fM/2aSbkT+F4VAR8NS
-         E61phYxq2at1TKvWij5gTxklADkbhSMXafd2gtT4GSAxA3GmwrfY4StCGAqupD9hofG+
-         C7azI+nMtyNDoJThQR+cKGTJJps2c/tOmDxinoLe3+NPVfeaY+TXiOeV2SmERUHmGz8/
-         m17hlW8BEGiELE3IVD4MAXiqg4uoW+Py4H6dGVyxOBA9h7CODJD5UmuHWfPTXYxw32fM
-         rbsSA/BfnEOXHxAptFvHOgFGVc3ZHkSu4cQCJntwGtekz2uRRixV4ck30H6dLurN8EGn
-         7U8Q==
-X-Gm-Message-State: AOJu0YybaXhcjCOXd/INTy5fbpTA1w4gz7l5dMzCvCZprqY5Nak1fCIP
-	MxItbvGoN47ObtT77XxqTL5WEtdzEiENVBii4yhvUJ5LXexvFPcJJIhemTFEZK24QPiji4crzj+
-	OF1Q=
-X-Gm-Gg: ASbGncvq7qpj62q3wzez+i2AM+6zfEMSrClmiEhA4aBodznfCTwU35O/hHeH41wBjyg
-	CO5ehHj7GnwkZ0qdg4fYW1Tkcoo7q1YI89z2C5Ao9RaErG3h0LyKAy6YOhmXYqkRpEu3Jjmic1y
-	XmrXvT0iGGyBtrJH3enc2nclmhj0d00t5CkA5Fvh6L3Juumh2pWfQ+U0hJwYwxo8RYr60wwZudd
-	LjHE7tuuh+vfn/xHEQ62ntyQEMRRpKEdHYCb9nwa8ypWwJa+U0zgxtnZFo2M9BfvlZ2Q73trEyC
-	1hIZ4fOepHaAph+VhjBQSb7QUaxoxnJrcUO/RgtYVJq20kwrG+m4swuRiowIKc6HKO8Iml92omI
-	y7FKTt6WcLKMPVd5vew==
-X-Google-Smtp-Source: AGHT+IGDiVfgjkRSnE4XOJND0Taxnn8dRSdT8EmKDZA3gonFDCJ8qQut7D1kG/hKQpqr6qjMzuVYbw==
-X-Received: by 2002:a05:6000:4021:b0:391:3b70:2dab with SMTP id ffacd0b85a97d-39ad1746712mr3542349f8f.17.1743097386625;
-        Thu, 27 Mar 2025 10:43:06 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH v3] Xen: Update compiler checks
-Date: Thu, 27 Mar 2025 17:43:02 +0000
-Message-Id: <20250327174302.412821-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: 894681c1-0b3e-11f0-9ea3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1743102365; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=1uaLOUY0NRlFtKACDBCKYX8snuEcg6PpjJZK1xBYCNw=;
+	b=g7zNhjSfrYL5RYkzVmcyjXJxmGUk+AMVERlvObo78oWjtTLkXYhkFzcMqIMrvG+dy+Sr8H
+	t3WM1tDbVLZLUG22cKsZu2lG1MfeUKF/9Kmfg/kVgQIqmYNRMy/WILfSnMUlUSc1zwAaxl
+	iVaDS04UMDjCUoVJzicP4ZPgoUsY5N4=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=g7zNhjSf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1743102365; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=1uaLOUY0NRlFtKACDBCKYX8snuEcg6PpjJZK1xBYCNw=;
+	b=g7zNhjSfrYL5RYkzVmcyjXJxmGUk+AMVERlvObo78oWjtTLkXYhkFzcMqIMrvG+dy+Sr8H
+	t3WM1tDbVLZLUG22cKsZu2lG1MfeUKF/9Kmfg/kVgQIqmYNRMy/WILfSnMUlUSc1zwAaxl
+	iVaDS04UMDjCUoVJzicP4ZPgoUsY5N4=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH] xen: fix multicall debug feature
+Date: Thu, 27 Mar 2025 20:06:02 +0100
+Message-ID: <20250327190602.26015-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 5F62B1F388
+X-Spam-Score: -3.01
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
+X-Spam-Level: 
 
-We have checks in both xen/compiler.h, and Config.mk.  Both are incomplete.
+Initializing a percpu variable with the address of a struct tagged as
+.initdata is breaking the build with CONFIG_SECTION_MISMATCH_WARN_ONLY
+not set to "y".
 
-The check in Config.mk sees $(CC) in system and cross-compiler form, so cannot
-express anything more than the global baseline.  Change it to simply 5.1.
+Fix that by using an access function instead returning the .initdata
+struct address if the percpu space of the struct hasn't been
+allocated yet.
 
-In xen/compiler.h, rewrite the expression for clarity/brevity.
-
-Include a GCC 12.2 check for RISCV, and include a Clang 11 baseline check.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Fixes: 368990a7fe30 ("xen: fix multicall debug data referencing")
+Reported-by: Borislav Petkov <bp@alien8.de>
+Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+ arch/x86/xen/multicalls.c | 26 ++++++++++++++------------
+ arch/x86/xen/smp_pv.c     |  1 -
+ arch/x86/xen/xen-ops.h    |  3 ---
+ 3 files changed, 14 insertions(+), 16 deletions(-)
 
-v3:
- * Reinstate the xen/compiler.h block
- * Restrict Config.mk to the baseline only
-v2:
- * Change to altering Config.mk
-
-https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1738778376 with
-the CI changes reverted, so as to expect failures for CentOS 7 and earlier
-Ubuntu Clangs.
-
-The $(eval $(check-y)) is badly positioned:
-
-  xen.git/xen$ make
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-    HOSTCC  tools/fixdep
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  make[1]: *** [scripts/Makefile.host:108: tools/fixdep] Error 1
-    HOSTCC  tools/symbols
-  *** FATAL BUILD ERROR: Xen requires at least GCC 0x150100
-  make[1]: *** [scripts/Makefile.host:108: tools/symbols] Error 1
-  make: *** [Makefile:610: xen] Error 2
-
-It is involved every time Config.mk is included, rather than once per `make`
-invocation.
----
- Config.mk                  |  4 ++--
- xen/include/xen/compiler.h | 26 ++++++++++++++------------
- 2 files changed, 16 insertions(+), 14 deletions(-)
-
-diff --git a/Config.mk b/Config.mk
-index 8a73f3da62b4..8a60d4a55abf 100644
---- a/Config.mk
-+++ b/Config.mk
-@@ -125,8 +125,8 @@ define cc-ver-check-closure
-     endif
- endef
+diff --git a/arch/x86/xen/multicalls.c b/arch/x86/xen/multicalls.c
+index 10c660fae8b3..7237d56a9d3f 100644
+--- a/arch/x86/xen/multicalls.c
++++ b/arch/x86/xen/multicalls.c
+@@ -54,14 +54,20 @@ struct mc_debug_data {
  
--# Require GCC v4.1+
--check-$(gcc) = $(call cc-ver-check,CC,0x040100,"Xen requires at least gcc-4.1")
-+# Require GCC v5.1 as the project global baseline
-+check-$(gcc) = $(call cc-ver-check,CC,0x050100,"Xen requires at least GCC 5.1")
- $(eval $(check-y))
+ static DEFINE_PER_CPU(struct mc_buffer, mc_buffer);
+ static struct mc_debug_data mc_debug_data_early __initdata;
+-static DEFINE_PER_CPU(struct mc_debug_data *, mc_debug_data) =
+-	&mc_debug_data_early;
+ static struct mc_debug_data __percpu *mc_debug_data_ptr;
+ DEFINE_PER_CPU(unsigned long, xen_mc_irq_flags);
  
- ld-ver-build-id = $(shell $(1) --build-id 2>&1 | \
-diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
-index 636a85bc417d..38b8fa3d386d 100644
---- a/xen/include/xen/compiler.h
-+++ b/xen/include/xen/compiler.h
-@@ -1,19 +1,21 @@
- #ifndef __LINUX_COMPILER_H
- #define __LINUX_COMPILER_H
+ static struct static_key mc_debug __ro_after_init;
+ static bool mc_debug_enabled __initdata;
  
--#if !defined(__GNUC__) || (__GNUC__ < 4)
--#error Sorry, your compiler is too old/not recognized.
--#elif CONFIG_CC_IS_GCC
--# if defined(CONFIG_ARM_32) && CONFIG_GCC_VERSION < 40900
--#  error Sorry, your version of GCC is too old - please use 4.9 or newer.
--# elif defined(CONFIG_ARM_64) && CONFIG_GCC_VERSION < 50100
--/*
-- * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63293
-- * https://lore.kernel.org/r/20210107111841.GN1551@shell.armlinux.org.uk
-- */
--#  error Sorry, your version of GCC is too old - please use 5.1 or newer.
-+#if CONFIG_CC_IS_GCC
++static struct mc_debug_data * __ref get_mc_debug(void)
++{
++	if (!mc_debug_data_ptr)
++		return &mc_debug_data_early;
 +
-+# if defined(CONFIG_RISCV) && CONFIG_GCC_VERSION < 120200
-+#  error Sorry, please use GCC >= 12.2
-+# elif CONFIG_GCC_VERSION < 50100
-+#  error Sorry, please use GCC >= 5.1
- # endif
--#endif
++	return this_cpu_ptr(mc_debug_data_ptr);
++}
 +
-+#elif CONFIG_CC_IS_CLANG
-+
-+# if CONFIG_CLANG_VERSION < 110000
-+#  error Sorry, please use Clang >= 11
-+# endif
-+
-+#endif /* Compiler checks. */
+ static int __init xen_parse_mc_debug(char *arg)
+ {
+ 	mc_debug_enabled = true;
+@@ -71,20 +77,16 @@ static int __init xen_parse_mc_debug(char *arg)
+ }
+ early_param("xen_mc_debug", xen_parse_mc_debug);
  
- #ifdef CONFIG_CC_HAS_VISIBILITY_ATTRIBUTE
- /* Results in more efficient PIC code (no indirections through GOT or PLT). */
+-void mc_percpu_init(unsigned int cpu)
+-{
+-	per_cpu(mc_debug_data, cpu) = per_cpu_ptr(mc_debug_data_ptr, cpu);
+-}
+-
+ static int __init mc_debug_enable(void)
+ {
+ 	unsigned long flags;
++	struct mc_debug_data __percpu *mcdb;
+ 
+ 	if (!mc_debug_enabled)
+ 		return 0;
+ 
+-	mc_debug_data_ptr = alloc_percpu(struct mc_debug_data);
+-	if (!mc_debug_data_ptr) {
++	mcdb = alloc_percpu(struct mc_debug_data);
++	if (!mcdb) {
+ 		pr_err("xen_mc_debug inactive\n");
+ 		static_key_slow_dec(&mc_debug);
+ 		return -ENOMEM;
+@@ -93,7 +95,7 @@ static int __init mc_debug_enable(void)
+ 	/* Be careful when switching to percpu debug data. */
+ 	local_irq_save(flags);
+ 	xen_mc_flush();
+-	mc_percpu_init(0);
++	mc_debug_data_ptr = mcdb;
+ 	local_irq_restore(flags);
+ 
+ 	pr_info("xen_mc_debug active\n");
+@@ -155,7 +157,7 @@ void xen_mc_flush(void)
+ 	trace_xen_mc_flush(b->mcidx, b->argidx, b->cbidx);
+ 
+ 	if (static_key_false(&mc_debug)) {
+-		mcdb = __this_cpu_read(mc_debug_data);
++		mcdb = get_mc_debug();
+ 		memcpy(mcdb->entries, b->entries,
+ 		       b->mcidx * sizeof(struct multicall_entry));
+ 	}
+@@ -235,7 +237,7 @@ struct multicall_space __xen_mc_entry(size_t args)
+ 
+ 	ret.mc = &b->entries[b->mcidx];
+ 	if (static_key_false(&mc_debug)) {
+-		struct mc_debug_data *mcdb = __this_cpu_read(mc_debug_data);
++		struct mc_debug_data *mcdb = get_mc_debug();
+ 
+ 		mcdb->caller[b->mcidx] = __builtin_return_address(0);
+ 		mcdb->argsz[b->mcidx] = args;
+diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
+index 688ff59318ae..9bb8ff8bff30 100644
+--- a/arch/x86/xen/smp_pv.c
++++ b/arch/x86/xen/smp_pv.c
+@@ -305,7 +305,6 @@ static int xen_pv_kick_ap(unsigned int cpu, struct task_struct *idle)
+ 		return rc;
+ 
+ 	xen_pmu_init(cpu);
+-	mc_percpu_init(cpu);
+ 
+ 	/*
+ 	 * Why is this a BUG? If the hypercall fails then everything can be
+diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
+index 63c13a2ccf55..25e318ef27d6 100644
+--- a/arch/x86/xen/xen-ops.h
++++ b/arch/x86/xen/xen-ops.h
+@@ -261,9 +261,6 @@ void xen_mc_callback(void (*fn)(void *), void *data);
+  */
+ struct multicall_space xen_mc_extend_args(unsigned long op, size_t arg_size);
+ 
+-/* Do percpu data initialization for multicalls. */
+-void mc_percpu_init(unsigned int cpu);
+-
+ extern bool is_xen_pmu;
+ 
+ irqreturn_t xen_pmu_irq_handler(int irq, void *dev_id);
 -- 
-2.39.5
+2.43.0
 
 
