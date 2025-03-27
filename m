@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0201A72AA5
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 08:39:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928532.1331223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6C6DA72AB7
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 08:43:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928548.1331232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txhpX-00020F-W8; Thu, 27 Mar 2025 07:39:11 +0000
+	id 1txht7-0004e4-GT; Thu, 27 Mar 2025 07:42:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928532.1331223; Thu, 27 Mar 2025 07:39:11 +0000
+Received: by outflank-mailman (output) from mailman id 928548.1331232; Thu, 27 Mar 2025 07:42:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txhpX-0001yq-SN; Thu, 27 Mar 2025 07:39:11 +0000
-Received: by outflank-mailman (input) for mailman id 928532;
- Thu, 27 Mar 2025 07:39:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1txht7-0004cc-Da; Thu, 27 Mar 2025 07:42:53 +0000
+Received: by outflank-mailman (input) for mailman id 928548;
+ Thu, 27 Mar 2025 07:42:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txhpW-0001yk-DF
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 07:39:10 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 91a10ffb-0ade-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 08:39:09 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-39ac8e7688aso423442f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 00:39:09 -0700 (PDT)
+ id 1txht5-0004cW-IK
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 07:42:51 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 150c377c-0adf-11f0-9ffa-bf95429c2676;
+ Thu, 27 Mar 2025 08:42:49 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3913fdd003bso316142f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 00:42:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d830f5f22sm28124385e9.30.2025.03.27.00.39.07
+ ffacd0b85a97d-3997f9e6539sm19157592f8f.77.2025.03.27.00.42.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 00:39:08 -0700 (PDT)
+ Thu, 27 Mar 2025 00:42:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91a10ffb-0ade-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 150c377c-0adf-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743061149; x=1743665949; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743061369; x=1743666169; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f/e5WuW0HVCiCOzbWvayFEgAyTWKwiuX91S8IXidC3Y=;
-        b=QoymylEx8ZuAqw/q6Yfx1QAjaZfSheb9sxroMbdVOLWvlmfbq1PFn12PKkv/TloX/N
-         Oi+2/PEqzkxtZpPB3BBPoI0D/hkAQUC05DFFEyT6PWXfxuUomediYtD49b0O9WPaYBMx
-         DYEr9i62kqJV1/ealhOhVNbFD6mbJsgvS6Vzfzw1xkBPU0s76EYgjh9lGPKpn1dXZsR3
-         tQZjandtRZ1456SCuytd2j9m9EoyT+dU1PvOQFv2IlMVuz+UeQisUbIGlT1Mtwh8cceo
-         qbfsFkOpOi39XP+H0DvCeu1qIwNj1ehxQODOZqgfqYLRgIjt7mElq0Ou9csHuAQXapft
-         8Ozw==
+        bh=ZGjhqRU/qS5c78h8VhRsUJeEi6tJrE3XsvjZ0/hEp8w=;
+        b=ahi0ARmM/xZzqzclx56hzeh6Y10wAEuUSHeZRASSEgGvc3LfGWYfAEu8615nkkQ468
+         /Q5s9fFP8I7JcRgmz7i9GjhO53YCs5Eqwp99lKRaN4U2wro1YZw5wUVsNfp/XBfO2V55
+         PuZ2z5l4hSAGY66UVfHtc5Xr+HxdqrXB6DuV88vRNDYL5ry1NWtm8mnWQHJKs3XkG821
+         +cNEykhEkARH5ZDYMxMl022ibBrxo3sIuNNkBOtEQFYqlGmaBG+sJOGwpMNHt8SKPd/2
+         Kpr2t+ABR9069Nlihx9QIlf5i/8+ziBUd+XzOuTYzXGGCCWJDeeJW53MFVClmM5mREQZ
+         QOVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743061149; x=1743665949;
+        d=1e100.net; s=20230601; t=1743061369; x=1743666169;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=f/e5WuW0HVCiCOzbWvayFEgAyTWKwiuX91S8IXidC3Y=;
-        b=F0UH5CUCysQ9BtnRHdpdWSFsOZZdcmUFqkL+tZLBiliLU2lzIQnsNLMT4EEfSGmbg2
-         n2zADZKM0kE19m9ZxNj7oOgM09TW9B3cfJ9F1X2uhEuCBHUfqzcL7rzDkoLgsRzBQyQn
-         Snh+QcT615JZ7J88vS5j6hPewsEN9wjqPhf5sfq9c/iluV234wX5oW6cAEAIioClhh17
-         1DxN6Xkxlt4YRsxbWyqRTGkdkcTyuqyZ7xA8v6Ty6kFAPZw/pb/uP/sGGBDrmCt74ckz
-         T64S/MJQDzHci/xbLz/fdNY7mCIAi8mdZb6aWiLuzod15jsRxHMv9CoFmuHNCPbk+6tu
-         B6qA==
-X-Forwarded-Encrypted: i=1; AJvYcCUf96OgdTWB83aNpN55Ub/6TSIyw+vlDKbk7N6KuO0qqeqOYnbYuEL3G9+048O6Jyg/vyTffOg71ig=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxezJ97o33kItgZeO4jU3BH2LGQSvYx9kwpCjELegiSZubwHH3X
-	0KwdbTJHBZWWq76UPmr5vR6AlHdGG38ObHFwiOgVCG1jB6SqAKyiiqsGuq92Bg==
-X-Gm-Gg: ASbGncsSiUPeu3LqkLRj9LhMiPiz0Kxp+IEv/yKlHdhK30Nj5CFrtMWmtg5r1G/tFAB
-	OKgUrCAyBtrtPBdtOxYZJ/1/I49+4oztMq82GivEZvoNkrB9g79fGTdGm1Oqf/p0INTU6JhAYn6
-	LTy9PWnMClcvv6Yp7iZNSoN97sd1YVZWidqsqEHHiSADGjAgRj0TLddYF5mmo9nMgqYRZOCVnza
-	vu9PHil4IjtVVJhz392uIo63xQd2cW4UURVKoXSQzIXBS9mSra+JaR15HoaXf/cwILAMat5W79X
-	Eypaby2xOVXtPvEclvArsdTVBGRh1b6STXggvz1p8oQ6DNTMFgJ7jXKK6XYIm323GHHHlPV2xx2
-	nfBwVU0N3pyVx0RPbWm0hnyjUo8b9ww==
-X-Google-Smtp-Source: AGHT+IHzGYrBTXHrg5rZ9y05RkVdfrERoRX7P4zCHJoRSgrsorJSzHUazxwgQpt7j3CEss9dJn7AjA==
-X-Received: by 2002:a5d:47c5:0:b0:391:412b:e23f with SMTP id ffacd0b85a97d-39ad1746282mr2052145f8f.15.1743061148536;
-        Thu, 27 Mar 2025 00:39:08 -0700 (PDT)
-Message-ID: <b0af1e38-9c27-469e-8bc9-321d3c49dd2c@suse.com>
-Date: Thu, 27 Mar 2025 08:39:07 +0100
+        bh=ZGjhqRU/qS5c78h8VhRsUJeEi6tJrE3XsvjZ0/hEp8w=;
+        b=pXwaRKjLzB1loPCOn4WEakjGxmvkHd4vpk3pTJeFfM06j0tcjlUxS2XnsGAZYPD6gj
+         jZPxQvclkBC7efIbX0gMDVLpT/YrDzDS601QoC8rQzKRicTZFeAFuyUxE0iy7vly+HiE
+         6QCvxWDY+uVVUi6VDlawa4DA1jw8I7/tU6XUl/a+x4DX/OvQoBxexfvB0yUJnUw0MdtP
+         UW4q0TC78ntETqnob10vhPb3Q6knxDT+M9nwfLXb55naQUVgWuwG24vrYNmzxZoSqRql
+         JCzKmJ6W8mY3UhXLXrrfpNvhH3xuLXblgGdUc9i4F/vqyxGVmbSkzSahK7KczLoq2ZG2
+         TdLw==
+X-Forwarded-Encrypted: i=1; AJvYcCV6u2inU/EYkqj3aOtwQcdZwfynDrj4OwJM/8vEww6e0Tc0ESlOGkouBHG7wiHL2tJvLQWZUimixmw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyVudxM5RUKGcEs8ABxlxvlrCbzJblCYlAhl/yOjnevisJspXe1
+	5BX5qpbua+gvrmbXdcYhTXHPRHzQhmzLgNWIMB4crvUp7DPJy5t/xk8KB4BqpA==
+X-Gm-Gg: ASbGncszAqwV93dbSCXR0IvxbviaaI/e6QkAwnUuESyUwWgKy5HZ5zNZtwaEDJGBcCY
+	2lGS/+K7MHVWU8cmskuLdrTjk+pqCOhGtbKRgbIw0wT0up5Z7f6fWMz9Pn2aj0sSW8Ly/a2HgCz
+	XxGJps5n21Yy8NTrXB+kPHjptAPCvaMgobESHZtk7cVwplGut6xVt/5EOWRpfHFVgSLY1Ww4SPT
+	8vnAq8xQ3iqMMINObXfaiN+LZhaK2c5er9JWfWp5u1JiIm3U/Q2VMr0sdOOilkIh85OSwuTqj+u
+	J1EwLvvxgDZ0YuMO40eKVIyMcqqjV9732BvxoW1Bn99EjzXC2XYvjeEu6UQ5HHgqew6fSTM5/8m
+	LiA1UxL9gq3P/ZE7l73VlEeZyYZAIqA==
+X-Google-Smtp-Source: AGHT+IEp39JTZW9V5iZ42M0/U9NEVf3gIwhdyfkU6MvYUOa8+3LEE8ke1EWMH+1kam5j1KfU5jnLGQ==
+X-Received: by 2002:a5d:598e:0:b0:391:65c:1b05 with SMTP id ffacd0b85a97d-39ad14f3095mr2018783f8f.11.1743061369100;
+        Thu, 27 Mar 2025 00:42:49 -0700 (PDT)
+Message-ID: <f76b12af-172a-4faf-9e60-54c4626db8c3@suse.com>
+Date: Thu, 27 Mar 2025 08:42:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] xen/riscv: implement basic aplic_preinit()
+Subject: Re: [PATCH v2 1/4] xen/riscv: introduce preinit_xen_time()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -95,12 +95,10 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <1a04711f46a1c0a7cdf709abc37f143747215495.1742918184.git.oleksii.kurochko@gmail.com>
- <f0945e3a41e911b5dfd005a8d15aa0d668d8e3cf.1742918184.git.oleksii.kurochko@gmail.com>
- <e9fddc7d-feb3-4fd0-830f-de4b7ef17bba@suse.com>
- <242f04d2-50b6-4ce1-8710-6dae2f940b9e@gmail.com>
+ <86c067f2-87ff-4e75-b94a-9d760fc730e5@suse.com>
+ <cb66e1e4-7ac4-4a98-9bdb-b92e6c069f0a@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,99 +124,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <242f04d2-50b6-4ce1-8710-6dae2f940b9e@gmail.com>
+In-Reply-To: <cb66e1e4-7ac4-4a98-9bdb-b92e6c069f0a@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.03.2025 17:49, Oleksii Kurochko wrote:
-> On 3/26/25 4:19 PM, Jan Beulich wrote:
+On 26.03.2025 20:49, Oleksii Kurochko wrote:
+> On 3/26/25 4:13 PM, Jan Beulich wrote:
 >> On 25.03.2025 18:36, Oleksii Kurochko wrote:
->>> Introduce preinitialization stuff for the RISC-V Advanced Platform-Level
->>> Interrupt Controller (APLIC) in Xen:
->>>   - Implementing the APLIC pre-initialization function (`aplic_preinit()`),
->>>     ensuring that only one APLIC instance is supported in S mode.
->>>   - Initialize APLIC's correspoinding DT node.
->>>   - Declaring the DT device match table for APLIC.
->>>   - Setting `aplic_info.hw_version` during its declaration.
->>>   - Declaring an APLIC device.
->>>
->>> Since Microchip originally developed aplic.c [1], an internal discussion
->>> with them led to the decision to use the MIT license instead of the default
->>> GPL-2.0-only.
->>>
->>> [1]https://gitlab.com/xen-project/people/olkur/xen/-/commit/7cfb4bd4748ca268142497ac5c327d2766fb342d
->>>
->>> Signed-off-by: Romain Caritey<Romain.Caritey@microchip.com>
->>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->> You recall that From: != 1st S-o-b is unusual, and wants some explanation.
->> IOW it's unclear who the original author of this patch is.
-> 
-> I'm not 100% sure who should be the author. Such patch doesn't exist before but I took the changes
-> based on the changes mentioned in commit message as [1].
-> 
-> If you think that the author should be Romain, I am okay with that.
-
-I can't sensibly form an opinion here. This needs settling between him and you.
-From your reply I'm not even convinced his S-o-b is legitimately there then.
-You may want to use another, less standard tag in such a case (like the
-Co-developed-by: that I've seen in use here and there) to still give credit to
-him.
-
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/aplic.c
->>> @@ -0,0 +1,49 @@
->>> +/* SPDX-License-Identifier: MIT */
+>>> +/* Set up the timer on the boot CPU (early init function) */
+>>> +static void __init preinit_dt_xen_time(void)
+>>> +{
+>>> +    static const struct dt_device_match __initconstrel timer_ids[] =
+>>> +    {
+>>> +        DT_MATCH_PATH("/cpus"),
+>>> +        { /* sentinel */ },
+>>> +    };
+>>> +    uint32_t rate;
 >>> +
->>> +/*
->>> + * xen/arch/riscv/aplic.c
->>> + *
->>> + * RISC-V Advanced Platform-Level Interrupt Controller support
->>> + *
->>> + * Copyright (c) 2023-2024 Microchip.
->>> + * Copyright (c) 2024-2025 Vates
->>> + */
+>>> +    timer = dt_find_matching_node(NULL, timer_ids);
+>>> +    if ( !timer )
+>>> +        panic("Unable to find a compatible timer in the device tree\n");
 >>> +
->>> +#include <xen/errno.h>
->>> +#include <xen/init.h>
->>> +#include <xen/types.h>
+>>> +    dt_device_set_used_by(timer, DOMID_XEN);
 >>> +
->>> +#include <asm/device.h>
->>> +#include <asm/intc.h>
+>>> +    if ( !dt_property_read_u32(timer, "timebase-frequency", &rate) )
+>>> +        panic("Unable to find clock frequency\n");
 >>> +
->>> +static struct intc_info aplic_info = {
->>> +    .hw_version = INTC_APLIC
->>> +};
->> Is this going to be written to (much) post-init? IOW - __read_mostly or
->> even __ro_after_init?
+>>> +    cpu_khz = rate / 1000;
+>> "rate" being only 32 bits wide, what about clock rates above 4GHz? Or is
+>> this some external clock running at a much lower rate than the CPU would?
 > 
-> I think that __read_mostly would be better because intc_info structure in the future
-> will contain member "void *private". And in `private` it can be a data which can
-> be changed.
+> It is the frequency of the hardware timer that drives the 
+> |mtime|register, it defines the frequency (in Hz) at which the timer 
+> increments.
 
-You mean the pointer can change? Or merely what it points to, i.e. ...
+And that timer can't plausibly run at more than 4 GHz?
 
-> For example, `private` can contain an aplic_priv structure:
-> struct aplic_priv {
->      /* number of irqs */
->      uint32_t   nr_irqs;
+>>> +void __init preinit_xen_time(void)
+>>> +{
+>>> +    preinit_dt_xen_time();
+>>> +
+>>> +    xen_start_clock_cycles = get_cycles();
+>>> +}
+>> I take it that more stuff is going to be added to this function? Else I
+>> wouldn't see why preinit_dt_xen_time() needed to be a separate function.
 > 
->      /* base physical address and size */
->      paddr_t    paddr_start;
->      paddr_t    paddr_end;
->      uint64_t   size;
-> 
->      /* registers */
->      struct aplic_regs   *regs;
-> 
->      /* imsic configuration */
->      const struct imsic_config *imsic_cfg;
-> };
-> 
-> and regs from aplic_priv structure can be changed in runtime.
+> Actually, I checked my latest downstream branch and I haven't added nothing
+> extra to this function.
+> Only one thing that I want to add is ACPI case:
+>      if ( acpi_disabled )
+>          preinit_dt_xen_time();
+>      else
+>          panic("TBD\n"); /* preinit_acpi_xen_time(); */
 
-... the contents of such a struct? In this latter case the struct instance
-here can still be __ro_after_init as long as the pointer is set from an
-__init function.
+That's probably a good enough reason then to keep the function separate.
 
 Jan
 
