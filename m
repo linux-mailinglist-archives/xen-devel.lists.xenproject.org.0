@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 615EFA7340A
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 15:13:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.929396.1332043 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B44B1A7343C
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 15:21:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.929419.1332052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txnzM-00028j-Oi; Thu, 27 Mar 2025 14:13:44 +0000
+	id 1txo6O-0004z3-HN; Thu, 27 Mar 2025 14:21:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 929396.1332043; Thu, 27 Mar 2025 14:13:44 +0000
+Received: by outflank-mailman (output) from mailman id 929419.1332052; Thu, 27 Mar 2025 14:21:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txnzM-00027c-Jb; Thu, 27 Mar 2025 14:13:44 +0000
-Received: by outflank-mailman (input) for mailman id 929396;
- Thu, 27 Mar 2025 14:13:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1txo6O-0004wB-Ek; Thu, 27 Mar 2025 14:21:00 +0000
+Received: by outflank-mailman (input) for mailman id 929419;
+ Thu, 27 Mar 2025 14:20:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txnzL-000264-0G
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 14:13:43 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id af2c131b-0b15-11f0-9ffa-bf95429c2676;
- Thu, 27 Mar 2025 15:13:41 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4394a0c65fcso10275145e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 07:13:41 -0700 (PDT)
+ id 1txo6M-0004kM-Bw
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 14:20:58 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b30a59bc-0b16-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 15:20:57 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-39129fc51f8so759886f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 07:20:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d7ae65761sm43258195e9.0.2025.03.27.07.13.39
+ ffacd0b85a97d-39ac67970a2sm9836995f8f.16.2025.03.27.07.20.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 07:13:40 -0700 (PDT)
+ Thu, 27 Mar 2025 07:20:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af2c131b-0b15-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: b30a59bc-0b16-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743084820; x=1743689620; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=AJnpz9b93EIR7vUhKHXLmwH//MjhVoWv4ag+TbgribM=;
-        b=FTAiup/E45IoMPs7FuYWjFZxhI6rVpVqqXtP5cvSwGvlk3yygvtsLc1l3+ZotXj1Fj
-         7NN7e7y3/dtc/LX/WS/5PzrXG0bRQUeE5gOuqZAUdNJVmNEuIGDBVEIiD03VXmxuXvse
-         MrO++NgHS7wStdYok9A5OZFQmKFxTq60RcUlARrofzH1WJ8BwyQwjrSC676QEAd+f89P
-         Mp/dIN52WDsrzu8v/6CpQUh9+jZ0S2KoS0YRpO4pJwsS2exSRTb3erWije9QkVEtjmnz
-         KVheyS7FJ6ooPK46/6Tm+nvAxGSnUinzhAIKtmSkg3sWGfa7l5t9F7g/IrfUrvn/wh/e
-         ScdA==
+        d=suse.com; s=google; t=1743085256; x=1743690056; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=uqG9ju3hY/T+4CCqMZkWLe2+X+VoXuDMIQAHI/1oG8E=;
+        b=VPMXt/13aeO39x/bRBJKvo+GkgCUZaYhW36mVIMO6tY/6LHxIpdWEQlrhKRjE6RvBv
+         mnpzA3fpRgUX/Zv/6W4jjTDerxG64B8agiMGrD/igZ0Drt5PhUFmuibmO8Hr1mNftFL3
+         ciY2aDH2l/h0FuEBPRS1YojC97v3cOb+soBEqTaH3VEFXP/LGpiQqEj//aAjXeStrZzU
+         MVGU3CMa/HOJ9SOEK78RJ7xbqCflFe50RSicK+eN5jFcyHGjU5PFjmQ78SkVF/aj9egg
+         TDcmNGOwzZ/voY2+31vzaGvdkG7iKZMcuHAIKbwk9FVCIeQHg69lJLSLQbUzmeETptXE
+         nLcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743084820; x=1743689620;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AJnpz9b93EIR7vUhKHXLmwH//MjhVoWv4ag+TbgribM=;
-        b=D4ulUzmKFjImaEzTwQYdEljr7Ymk7XwxwWFXcFY0gy5T/zd3c0JILJV4wDiD2vbsSd
-         y3RRlZwanFQawLGDlquaKQI5bsGsGQCNlLaaDA8ZlFy4l5/gF+K2upQFIxsdZ5BpD9ID
-         CmmjTDoZATutXHR00Cc3S7oBDAkcR1RHt9t+Kmm+mApgY5352eVf+gRwmZfICw5n6l+L
-         h5Gw+twJK5UIJ/wwUgaVcuv83byWoekOzRapy6WhJPs5csIc9jDy8LuLKO3nhyHCnIVX
-         +FEFvkm1sW2D9B4MuZzXsYUyiPk/73P2pgKbSAsmTSwGRf5SFvPkv1kIC9Ga6uiE/9Rj
-         SVUA==
-X-Gm-Message-State: AOJu0YwclE/Z7ityIiYwk0mvlJUGm1tP5M91Tep0PNhTyIulrf8lNecj
-	yRwvtpDROCkAPiariyrrYkGWLC1NuK03gj465fWN+hbIcwpkCPYU2ikNky1wtU+Y0LVas6a9pxk
+        d=1e100.net; s=20230601; t=1743085256; x=1743690056;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uqG9ju3hY/T+4CCqMZkWLe2+X+VoXuDMIQAHI/1oG8E=;
+        b=WAmMvkDWTOMA0udG4yMdbNrCf5Obse+9YZGqXiMtoQnscyyxqrjJCQ0k+xWb+K3NeB
+         ajJ+IWarCUr3cw+YV/qfLLyRpNo8Q6Hs9tB3cqpv/1KbOY5XizXp6W/i/Nubh4qq+IcC
+         +j9uyhNPA2Ki08xdw49eiu0wvjYrqegtVuj3/gBVXWb6Fc+Pvywz9TCv8dG1JwyOn4pm
+         /sB8UqeJPPZz0cKZOTblSaRzqRemoOgfcTtXeVt3VrXZX4S5sEgJ4tijGV0YR/7CJbfT
+         /gOGJGMi/CMNzCAV8Bz/UZBBhoSGkbfLkuvnpLm7UvMElEarsJvRQvvG4Nd0XZy5NfXv
+         9Lww==
+X-Gm-Message-State: AOJu0YwKElMWIXGRvtvFIs0774kPX/auBFwwQAMKoGjBo/whnzf/4EUF
+	t6O5sj8tJ4YYGoaTdqN0BEJLnZ63xXxsavm8KpRA++kjcsQWDDTF3PKm22to6egwxMsVt3jM/kc
 	=
-X-Gm-Gg: ASbGnct7RoQYqHuP4Ow4p4SzyC+Dc+dI/yCjBa8CHv0myhALaAo3tmCxlGC0PSwBWST
-	HCtesMI2xdgGBezlcY+3gsKmUMB6wH8VPPJRoPdCkcuv4w/1X/5SqEyhyYvnZI3H9hNK3sUZSXI
-	KClgut+LKWkv41iFmN7hMW6/dPAiKoQLX8E/ETvn8s3x/u7uQUvMN7relpa6Hjb33NCOVmR+5bF
-	/WMguBvtJf//xMvwOyI4dV0/gLzSgbRYHgR0G7vvIInCG0ZuEMDFofIa+Oi9pUMn+lnwjX6fIiC
-	WDESWnGGnZiFdgKx9gzqzE989tgomjrzv24+xL71Hx1Yn6ddcabZ0KgPQIjRo48OJyd6s84mLf/
-	V6lsEzpH7kGPGWLyVZ1ni3kdf08cnhQ==
-X-Google-Smtp-Source: AGHT+IE5dcQFlG01IMLVZRYhqgmDPu55YmtYyYdRZPv0omkvGmYU2VBb0vUo13YmGxxYVpbey5Jjig==
-X-Received: by 2002:a5d:6da6:0:b0:38c:3f12:64be with SMTP id ffacd0b85a97d-39ad17845ecmr3849802f8f.35.1743084820443;
-        Thu, 27 Mar 2025 07:13:40 -0700 (PDT)
-Message-ID: <7ac97714-7137-47bb-b109-3ec4c69fbeb0@suse.com>
-Date: Thu, 27 Mar 2025 15:13:39 +0100
+X-Gm-Gg: ASbGncv2NZnR+I2WyJ2c8v1i7u/87i8h8DdedBIiDTh4++FtQ1BPjQsj/ueD8VCKhHw
+	wNDsgmBCs+4Hb7Qg3vBGiaV+nzzEinziA2BOJcPotpEeHw3kDhk4+m68YU3ZDdGozI5qKBDd3r4
+	XzIW9b8AuVkmDnRhGSTLm7qFCLAZ+ciwjO9r6QiYXYQoXrNAM+z0Q7ch+xKi/wnWvfXHctoB/pr
+	MyZlsbI/1pvwBfwFdq0L2towIUS3aoAFp11X9BN3HBD6U+WgBsdQbBorXuwMSf8OAndNyTuPUwa
+	Xcw5iDhvB4nyOSvC9NUWgh1W2DigNw/PFuQu6AuVxulE9DMnj3awaXegLM7luQwZ7d2LHvSXTgy
+	ErkFgNRc+RRkCYVseCFYSI5XNRN6kzA==
+X-Google-Smtp-Source: AGHT+IGadbY9Ep4T54jZnlR529B/HLBhE2b+KdPwRQVDza4O5DeJJOE4aZMQBiUZ0hV75XIu9yVQrA==
+X-Received: by 2002:a5d:588c:0:b0:390:f6aa:4e7c with SMTP id ffacd0b85a97d-39ad1749184mr3606741f8f.28.1743085256531;
+        Thu, 27 Mar 2025 07:20:56 -0700 (PDT)
+Message-ID: <ca0fb29a-96e8-489e-b109-76a684621d18@suse.com>
+Date: Thu, 27 Mar 2025 15:20:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: preparations for 4.19.2
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>,
- "community.manager@xenproject.org" <community.manager@xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>
+Subject: Re: [PATCH] x86/MTRR: hook mtrr_bp_restore() back up
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Marek Marczykowski <marmarek@invisiblethingslab.com>
+References: <ad8ea1da-dda9-4567-8b15-55b65777e80f@suse.com>
+ <Z-U4ozL6p-Unh5Y8@macbook.local>
+ <fde64904-343b-48c9-b396-961811cc2adb@suse.com>
+ <Z-VJBIbQal-jZAGM@macbook.local>
+ <f5669417-43f3-4c63-bb7d-a108f13757cb@suse.com>
+ <Z-VcXGhlObVZYhoc@macbook.local>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,22 +123,64 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <Z-VcXGhlObVZYhoc@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-All,
+On 27.03.2025 15:10, Roger Pau Monné wrote:
+> On Thu, Mar 27, 2025 at 02:28:42PM +0100, Jan Beulich wrote:
+>> On 27.03.2025 13:48, Roger Pau Monné wrote:
+>>> On Thu, Mar 27, 2025 at 01:30:44PM +0100, Jan Beulich wrote:
+>>>> On 27.03.2025 12:38, Roger Pau Monné wrote:
+>>>>> On Thu, Mar 27, 2025 at 12:20:47PM +0100, Jan Beulich wrote:
+>>>>>> Unlike stated in the offending commit's description,
+>>>>>> load_system_tables() wasn't the only thing left to retain from the
+>>>>>> earlier restore_rest_processor_state().
+>>>>>>
+>>>>>> While there also do Misra-related tidying for the function itself: The
+>>>>>> function being used from assembly only means it doesn't need to have a
+>>>>>> declaration, but wants to be asmlinkage.
+>>>>>
+>>>>> I wonder, maybe the intention was for the MTRR restoring on the BSP to
+>>>>> also be done by the mtrr_aps_sync_end() call in enter_state()?
+>>>>>
+>>>>> AFAICT that will set the MTRRs uniformly on all CPUs, by calling
+>>>>> mtrr_set_all() just like mtrr_bp_restore(), but later in the restore
+>>>>> process.
+>>>>
+>>>> Hmm, yes, that's possible. The comment in set_mtrr() is somewhat misleading
+>>>> then, though, as for the BP the writing then isn't just "okay" but necessary.
+>>>> Question is whether doing this so much later is actually good enough.
+>>>
+>>> Hm, no idea really.  We do the device restore ahead of the MTRR
+>>> restore, so I wonder whether we could have issues by using unexpected
+>>> effective cache attributes for device memory accesses as a result of
+>>> MTRRs not being initialized?
+>>
+>> That's just one of the possible problems. The father the MTRRs we run with
+>> diverged from what firmware puts in place, the bigger the possible trouble.
+>> I think the restoring better is done as being switched to here again. The
+>> absence of any discussion of MTRRs in that earlier change leaves me pretty
+>> certain that the behavioral change there wasn't intended. Andrew is usually
+>> pretty good at spelling out all intended effects.
+> 
+> No objection, however for the BSP we now end up restoring the MTRRs
+> twice, as we will also do it in mtrr_aps_sync_end().
+> 
+> Might be worth to mention in the commit message that the MTRR state
+> was restored in mtrr_aps_sync_end() for the BSP also, but that it
+> might be too late.
 
-the release is due in a little over a week. Please point out backports you find
-missing from the respective staging branch, but which you consider relevant. I'm
-already aware of
+I've added "Note that MTRR state was still reloaded via mtrr_aps_sync_end(),
+but that happens quite a bit later in the resume process."
 
-be7f0cc651d8	ARM/vgic: Fix out-of-bounds accesses in vgic_mmio_write_sgir()
+> Possibly with that somehow noted in the commit message:
+> 
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-and I'm further aware that there are a number of bug fixes in flight.
-
-Advance notice: 4.18.5 ought to follow a few weeks later; I'd like to defer it a
-little, so it can be the last full-support stable release from that branch
-before moving into security-only state.
+Thanks. Any chance of getting another one for the 3rd patch in this (split
+up) group? Maybe the duplicate one for the "don't hard-code" one was actually
+meant to go there?
 
 Jan
 
