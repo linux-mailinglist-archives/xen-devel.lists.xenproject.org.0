@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AC4DA72D13
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 10:58:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928878.1331522 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38D65A72D2C
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 11:00:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928888.1331532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txk0K-0002Fq-4G; Thu, 27 Mar 2025 09:58:28 +0000
+	id 1txk1r-0003DF-DV; Thu, 27 Mar 2025 10:00:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928878.1331522; Thu, 27 Mar 2025 09:58:28 +0000
+Received: by outflank-mailman (output) from mailman id 928888.1331532; Thu, 27 Mar 2025 10:00:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txk0K-0002Cx-0V; Thu, 27 Mar 2025 09:58:28 +0000
-Received: by outflank-mailman (input) for mailman id 928878;
- Thu, 27 Mar 2025 09:58:26 +0000
+	id 1txk1r-0003AJ-AK; Thu, 27 Mar 2025 10:00:03 +0000
+Received: by outflank-mailman (input) for mailman id 928888;
+ Thu, 27 Mar 2025 10:00:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txk0I-0002Cp-IX
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 09:58:26 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1txk1p-0002m6-NJ
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 10:00:01 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0674467a-0af2-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 10:58:25 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43cfdc2c8c9so4327115e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 02:58:25 -0700 (PDT)
+ id 3f26c9d6-0af2-11f0-9ea3-5ba50f476ded;
+ Thu, 27 Mar 2025 11:00:00 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43948f77f1aso5314055e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 03:00:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39ac67970a2sm9193221f8f.16.2025.03.27.02.58.24
+ 5b1f17b1804b1-43d8314e110sm32948565e9.39.2025.03.27.02.59.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 02:58:24 -0700 (PDT)
+ Thu, 27 Mar 2025 02:59:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0674467a-0af2-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 3f26c9d6-0af2-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743069505; x=1743674305; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743069600; x=1743674400; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CTwKjLGjQQudE74WfWowNahvCBksgLNun8cfuE9d/RM=;
-        b=QMeKcTuMSF0Xd9hwfo67Z5mAjq3McQn47ovu04EcvS7g/zlvPNfoO+DKhOLmYlyuMq
-         DuyNzXjpvw1zTmw4p0KeWssFVyWk3UE78c1NFcKLIQXb9m1C9pwOCWKZWapFfvArKfuI
-         xEOCJxdLgZxCqP1+xhrQ0/obrW4HamXu2J01WhCGmGDBrOGde76gSREh80J3hFPqxnxy
-         0H8oCnwNdGZ/3DyiZ23QX6mXutw4Hs3YGvr5LXuvILFWlrv33Y8UyrVHT5bq4nrSeca6
-         9OP7079L1GHTcmwgPz606muHjthaAvUjHbq1LHuP/+cwAx0wjW3axzBqxXpcf/HvhXXK
-         a4yA==
+        bh=mByp0QV7TbmpctPpR6AJlDh8Sj40UN247eMOEWwZ2Tw=;
+        b=CyUTP7WZ3jSYwRbJj533l95tPLRAF2YMj7PnQYG02RfHm5WFnXGg9tNwwhWs/sp3dx
+         DElmVHECg1b52ac9090A7I56yMefU7wvZIKUEacb1HECS3u+JcxP1zX5JTlVBHJZKLH2
+         i3WzUkxsAWP2GsOePCPJ3C95ioedNk1WhwFN4dc1t8/Qkfzsufg0w/vnaJ3A23I2mC5X
+         10qzEjZcIxWVNp2tHohqxvdlqkkYtQLZ3+P20ZzXe7pztU0k2D+pZZRij/2OU1KxkAHB
+         A+MTg6E1ljDLYepOi/M4QvNga7gYOGGok+DtMqbpssDsptfzHQ69042dQgQJzsK4RnjY
+         Bm4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743069505; x=1743674305;
+        d=1e100.net; s=20230601; t=1743069600; x=1743674400;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CTwKjLGjQQudE74WfWowNahvCBksgLNun8cfuE9d/RM=;
-        b=BzS0+HUDgmfoO1r27HhYamHmgvt9wgr/vnAoZ5+ChuJUxaAeVAkh7fyephHyE8BqCX
-         n9Hrk1eCpByGxo5pua2F32FwCITUW7RV2YFVWBjlJc2Y4peHs0p+8xfmHAPHBHfimWeV
-         Qz5NZdtTVWVncQE+dRGq2EybRE7/QCHvf9CFDwh9EfqYqbhdCGIGFTE5qQ37F0PB2nO/
-         5793QAPZpAI38T2gvjInlJHLwP5W590OnW46RK9syJ04ucjCyy1MQVBrk7q9ELEDE/VZ
-         qapgH0HXR2wJa0GkpzLg3GqCgEvGtG8SaYuq+IuHFd9CS4kxA04aAh1sCB+lGcf7Ls1X
-         3lYw==
-X-Forwarded-Encrypted: i=1; AJvYcCX44Jf45GcPYse7Ki6frgkbHpa7KzJnhBetpZxPB6wZzhe3J4l6k1azY5sMrObHLvm8+TU3F+okTRw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw5fZ7jM/eVUa9Jcc+Bc0x/jEtbcpKpb5gEaIQEbbeJmJpwBsHa
-	Dk8YgdLdkiGugrhuGDXUe/Y2ZpJoYL1ijzADtXSdVBK/ZKgZS9F+RPrKfyVS7XGfdqhiTAh34WE
-	=
-X-Gm-Gg: ASbGncu79gSQdDFTUbkIhWALAQ2fuBT9rVMiY6wVlZR4Jicwq+HPY/5N7Gr6xC9z81m
-	lVHOSuYRk7sYQa8MjHgeAwknLMKDKJ015r8H7nOF6OMG1JySsexRoWepi3ubwKcsYPkkpQILoCb
-	fPugmzDEBqU4HrJ2p4iL1ePI8HeMvByDyiLpVg6LHPaVS39S3KdYqwXxWz6oi4V55mnv8AAtGPq
-	vRBGytHHGEx0OlB49LhhsEW/mwDfIQFwD942CiLG/o0OFrCweO4dwHpbS4EzC84lDMzWiIJvW7N
-	5Ru1ple8aq8bqAlYpJ1H+vcLmnTpawdBN25ouRoQ4uxgKWkahk27OjWlY4rThlD+cIuFy2e5cKn
-	4WUF5IM3P+AFS2CxYWFTESEVeRADDJQ==
-X-Google-Smtp-Source: AGHT+IFh78ufyfSSFxSErr4DGIGmpBwRO2iRL8eZOfYeyIuYGxvYMJYeP81UY63C5HJgGqMmExXPhA==
-X-Received: by 2002:a05:600c:3c9a:b0:43c:fceb:91a with SMTP id 5b1f17b1804b1-43d84f8b86dmr30159885e9.11.1743069504989;
-        Thu, 27 Mar 2025 02:58:24 -0700 (PDT)
-Message-ID: <45e7368b-9aef-4e72-934c-3fa8846a8d5f@suse.com>
-Date: Thu, 27 Mar 2025 10:58:23 +0100
+        bh=mByp0QV7TbmpctPpR6AJlDh8Sj40UN247eMOEWwZ2Tw=;
+        b=IE6n9dmCo1EylNkboEPZ83vaRqQPOFw9ewn5eZLzkG8c5QIFBH7CY+zWd3sDWfdVMh
+         GQuB0RFTg4GE3K30tUue1n0Cddi8lItuTbbs/h8PnkPnuv3sPkYxiFzhA2ByONMORXwv
+         CYW79AYobLtWqTHB6j/capMSFE8VrwtNAzoAgAOgx4KN4WLxr0Y3amnCLhlrleGId94G
+         9yvlQtwrKL8fPzNlcSuEf8r8BNU3ocjXKiypSBgSwRaJCG9u7K4SzdmU17XE5sqqZdiV
+         9z6o0PUqqGOsGabptZrhpr4MJE1oydOcAxtNTHsyDN1DFzHs9n7Z/5gULYL/oOLgxF7L
+         vMVg==
+X-Gm-Message-State: AOJu0YwIfGGeTre/tOsjsFlprSASz6/AphInXZbi3NhOtjuK2uAA2Bl1
+	CXUwMD7xomL5biZB4XLpYN19hMmrbyRgrUK43QdWANEWdcTRwTCz4j4rUhx8+w==
+X-Gm-Gg: ASbGncsWgSIM5pZPmVHiVm8Zsqwbv45MkSh64MzMLrzHfQBe9yslTDFWK8afAntQVkm
+	Ar16MwiYhDjkZu6oMEK+g8WxiplY2bhmqR0f70vIDmwYg+3/nFnygvGwdqkKsSQC5QSU81tCgTW
+	dwxXWpr8Knk6qYBtvuhFtQTX83OcwKXidNsT6xuT39G+zRu0G2uLr303vAZL2SBrOxZWmbJs7Om
+	Kv/KL2JL2y2u7UpEU0r5uSXIsfwqu5SZFM4+j0VOs5ctp0df9ZCFApqJLJ3J7Kh9kTKxPwgbMF6
+	g3ZwBbfKhpdTsW50y5jr+IJjwriWTo9RCZ0JZ4A5gveMR6MKYf7mMOc20PRyYS9h0UI9hfBxqbo
+	CxF2ZEyReGxikOppmMT2KY9ZLwldOAw==
+X-Google-Smtp-Source: AGHT+IEuGp2V4qOYk0GvIRS7Z1xnCZJJ6Ml+PVVzX0GHmCFTl2et5VU9RMunGAFlqzoYFQ2v3Nk2xQ==
+X-Received: by 2002:a05:600c:1e08:b0:43d:16a0:d82c with SMTP id 5b1f17b1804b1-43d8d5b0111mr909535e9.2.1743069600072;
+        Thu, 27 Mar 2025 03:00:00 -0700 (PDT)
+Message-ID: <90c81e5a-97d8-47b7-9cdf-aa07a59ed4f7@suse.com>
+Date: Thu, 27 Mar 2025 10:59:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/19] xen/sysctl: wrap around XEN_SYSCTL_physinfo
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Penny Zheng <Penny.Zheng@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20250326055053.3313146-1-Penny.Zheng@amd.com>
- <20250326055053.3313146-16-Penny.Zheng@amd.com>
- <87fe5ebc-4bbd-4941-814b-5447be06a201@gmail.com>
+Subject: Re: [PATCH] x86/CPU: don't hard-code MTRR availability
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <edecdda9-4728-4c65-9f31-76c912a433d7@suse.com>
+ <Z-UKm6D9pmAEaE_9@macbook.local>
+ <eb44921a-f6af-4aa9-9395-18e4e47d440a@suse.com>
+ <Z-UfcHfHys6c0HZb@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,72 +119,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <87fe5ebc-4bbd-4941-814b-5447be06a201@gmail.com>
+In-Reply-To: <Z-UfcHfHys6c0HZb@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27.03.2025 10:35, Oleksii Kurochko wrote:
-> 
-> On 3/26/25 6:50 AM, Penny Zheng wrote:
->> The following functions are only used to deal with XEN_SYSCTL_physinfo,
->> then they shall be wrapped:
->> - arch_do_physinfo
->> - get_outstanding_claims
+On 27.03.2025 10:50, Roger Pau Monné wrote:
+> On Thu, Mar 27, 2025 at 10:15:03AM +0100, Jan Beulich wrote:
+>> On 27.03.2025 09:21, Roger Pau Monné wrote:
+>>> On Tue, Mar 25, 2025 at 08:18:11AM +0100, Jan Beulich wrote:
+>>>> In particular if we're running virtualized, the underlying hypervisor
+>>>> (which may be another Xen) may not surface MTRRs, and offer PAT only.
+>>>
+>>> At least for Xen, I think we offer MTRR uniformly, even on PVH
+>>> guests?
 >>
->> Signed-off-by: Penny Zheng<Penny.Zheng@amd.com>
->> ---
->> v1 -> v2:
->> - no need to wrap declaration
->> - add transient #ifdef in sysctl.c for correct compilation
->> ---
->>   xen/arch/arm/sysctl.c   | 2 ++
->>   xen/arch/riscv/stubs.c  | 2 ++
->>   xen/arch/x86/sysctl.c   | 2 ++
->>   xen/common/page_alloc.c | 2 ++
->>   xen/common/sysctl.c     | 2 +-
->>   5 files changed, 9 insertions(+), 1 deletion(-)
+>> By default we do, but we discussed the option of offering PAT-only environments
+>> beyond leaving it open whether people disabling MTRR support in their guest
+>> config are outside of supported terrain.
 >>
->> diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
->> index 32cab4feff..2d350b700a 100644
->> --- a/xen/arch/arm/sysctl.c
->> +++ b/xen/arch/arm/sysctl.c
->> @@ -15,6 +15,7 @@
->>   #include <asm/arm64/sve.h>
->>   #include <public/sysctl.h>
->>   
->> +#ifdef CONFIG_SYSCTL
->>   void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
->>   {
->>       pi->capabilities |= XEN_SYSCTL_PHYSCAP_hvm | XEN_SYSCTL_PHYSCAP_hap;
->> @@ -22,6 +23,7 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
->>       pi->arch_capabilities |= MASK_INSR(sve_encode_vl(get_sys_vl_len()),
->>                                          XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
->>   }
->> +#endif
->>   
->>   long arch_do_sysctl(struct xen_sysctl *sysctl,
->>                       XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->> diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
->> index 5951b0ce91..7b3f748886 100644
->> --- a/xen/arch/riscv/stubs.c
->> +++ b/xen/arch/riscv/stubs.c
->> @@ -328,10 +328,12 @@ long arch_do_sysctl(struct xen_sysctl *sysctl,
->>       BUG_ON("unimplemented");
->>   }
->>   
->> +#ifdef CONFIG_SYSCTL
->>   void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
->>   {
->>       BUG_ON("unimplemented");
->>   }
->> +#endif /* CONFIG_SYSCTL */
+>>>> Fixes: 5a281883cdc3 ("Hardcode many cpu features for x86/64 -- we know 64-bit")
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>
+>>> My main concern is whether the !mtrr path is still functional.  Have
+>>> you tried booting the resulting hypervisor with MTRR masked on CPUID?
+>>>
+>>> (or alternatively short-circuiting cpu_has_mtrr == 0?)
+>>
+>> I didn't think this would be a prereq here. If we boot in an environment truly
+>> lacking MTRR, we'll crash on the first MTRR MSR access - none of those accesses
+>> use the safe accessors.
 > 
-> Considering that now we will have CONFIG_SYSCTL, I think it would be better just to drop
-> definition of arch_do_physinfo() from riscv/stubs.c as it was added to make common code build
-> for RISC-V happy.
+> Right, hopefully we don't have unprotected MTRR MSR accesses, so
+> cpu_has_mtrr == 0 should prevent those.
 
-Wouldn't that require SYSCTL=n then for RISC-V, which better wouldn't be done
-(as it would need undoing later on)?
+Actually we do, see my other patch just posted.
+
+>> Since you asked, I tried booting with "cpuid=no-mtrr".
+>> As I'm doing this on a system with console, all I can say is that it takes
+>> minutes to reach the point where we'd start setting up Dom0 (which itself then
+>> takes so long that I timed out waiting for it to make progress), due to all
+>> screen output becoming unbelievably slow after AP bringup. Surely something's
+>> screwed somewhere, as VRAM accesses being slow (or fast) shouldn't depend on AP
+>> bringup having completed. I actually suspect it's not just VRAM accesses which
+>> are slow, but that we're left running in uncachable mode altogether for whatever
+>> reason.
+>>
+>> What this maybe useful for is to figure out the reason of "Platform timer
+>> appears to have unexpectedly wrapped <N> times", which I saw appear once.
+>>
+>> Given this, I'm actually uncertain whether it is legitimate then to take your
+>> ack.
+> 
+> I think it might be best if we can figure out what causes those issues
+> (and possibly fix them) before taking this patch?
+> 
+> Albeit you could argue that running excruciatingly slow is better than
+> just crashing of an unhandled #GP from a rdmsr.
+
+Indeed that's my thinking. But if you prefer, I can wait with this patch until
+after the other one has gone in.
 
 Jan
 
