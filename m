@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9085EA72B43
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 09:19:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928603.1331283 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0F72A72B4D
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 09:21:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928612.1331293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txiS6-0006JL-84; Thu, 27 Mar 2025 08:19:02 +0000
+	id 1txiUk-0000Tz-Kd; Thu, 27 Mar 2025 08:21:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928603.1331283; Thu, 27 Mar 2025 08:19:02 +0000
+Received: by outflank-mailman (output) from mailman id 928612.1331293; Thu, 27 Mar 2025 08:21:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txiS6-0006GS-4s; Thu, 27 Mar 2025 08:19:02 +0000
-Received: by outflank-mailman (input) for mailman id 928603;
- Thu, 27 Mar 2025 08:19:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1txiUk-0000SC-H8; Thu, 27 Mar 2025 08:21:46 +0000
+Received: by outflank-mailman (input) for mailman id 928612;
+ Thu, 27 Mar 2025 08:21:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8rqf=WO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1txiS4-0006GM-V2
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 08:19:00 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2278791c-0ae4-11f0-9ea3-5ba50f476ded;
- Thu, 27 Mar 2025 09:18:59 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4394a823036so6780885e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 01:18:59 -0700 (PDT)
+ id 1txiUj-0000S6-RU
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 08:21:45 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 845cb049-0ae4-11f0-9ffa-bf95429c2676;
+ Thu, 27 Mar 2025 09:21:43 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43cef035a3bso4649815e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 01:21:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d82e83609sm29587755e9.15.2025.03.27.01.18.58
+ ffacd0b85a97d-3997f9ef23esm19048078f8f.81.2025.03.27.01.21.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 01:18:58 -0700 (PDT)
+ Thu, 27 Mar 2025 01:21:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2278791c-0ae4-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 845cb049-0ae4-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743063539; x=1743668339; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743063703; x=1743668503; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Yy6X/pds0LeIPGYc2gJPeGYo3rta6p8lXrStEaz3Q/8=;
-        b=JHCX4W4FYfR3mF62Rb3tcqUXKMG9bhuGekEgk6UCe5XfrE/s+H93BV5sVZwq22DeDK
-         aeKKAAM/c3c8kqivf4uXZfMd3j2x66Y6XJpfAinMinfqo0kZ3svUfudexbFF481S8no/
-         LqJvh18laOLThU9eoVcQFkKz4tm4avuPjieEc7I2W5JYcJ8in+iSjrdpbqA1pFjIgjV1
-         HYTirjOj2OCHzijwhHQBXelZPFMExUjmoRR2T9YRR+AF4AxV1+Eu5tNKXPE41Ixm0ZOB
-         oR/IlYI3WcGlco3IYb//M3rgr6pPeE1RG/kuIXT0j8/gShfpR52/L7tcehqiT6ezsMTY
-         +O3w==
+        bh=kOQA30RryXkHcOPMSqNMtCtniI5ngfbnb7V1QtqhSfw=;
+        b=bNO2MyhvSGkzQcv24udXuQ3Ag9BnrOMsSzL8llnTNj0+NNFG6a4JjMu463J2vZOl7g
+         YVYlhPjIHPzQfAL+PwjBhYAyWO/12D9vu0y7OAExYp8LIP7zPl0DhUaLsz3eO/A4KfNj
+         74cWvSqkg6ZqF64ujx8tFyX8XU+RiAiOsFOzBRo6LD746CKsZhso9IGn2k2S25MpYzKa
+         eXBv45CyQLzkX/WJOoVid8hTjB67ON6VcEVvJB8ZTlafuo4GdBfVFSREZcLnsue4eXiq
+         uvXhVDeaKhzoUxIjvu5Co2E4LsU4YTj93ANubxmuwzRJsOPnWGcsdYFykSxF/HKp5KiE
+         Geag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743063539; x=1743668339;
+        d=1e100.net; s=20230601; t=1743063703; x=1743668503;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Yy6X/pds0LeIPGYc2gJPeGYo3rta6p8lXrStEaz3Q/8=;
-        b=vQu57xpWDPuroMDSLJF0PvUQ+Qei7eQMeH24Hj9GwUJyYC/L8cWxaHTQ59dYFDMKiS
-         ViPAyReIfHN3zFdQ+u2QLQwQsb0sddkQd5TkNKiuuks5gej3xJ49BpHHFjRC9/DifV4T
-         LxdA0LVjqUqjyDHYGvI15QRv3mHHWTCreOHv+6UCBsYeQKIQM1pE5THHeTJs1qAirTDP
-         C16xhUQIQHOwsVml3MyLn8Enhz0cXWWlW0pXGOsJYF1UVtH27/FHooA5c7+lAw1xSCB+
-         a9PE8INEgaHbrycIT4Wotmhk/xKK/aeAQSt/bakDOoeNjkky7eeDC5TcDn1uF8xKpyiu
-         znaQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVEFKomRiahlO+1DS3tHlsDO2iPihKMETmamklUhZUCRwUjWMorWcOPRfKhDEJhXjKQ49ZfNQ6naFQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzRuxLqRyJvIWamcFXnbkcVgoCTllxfBFpOa7mhe47+hp8GysNh
-	e5aqdFIbXlp9FP9GRiJ1PwrNa3e/EaTpI4MWBsnlZ5Ui68dyJb73m1S1a3LKfQ==
-X-Gm-Gg: ASbGncsle04dVpDbMZXxNmxHReOJjajJuwFYDXIQnevcIKi8Jj5Y4gZbLk49+qhAH5/
-	akdQBjKdVxQWjLpBrkoGBmdnUzsLAsCksszkWQyiChdd/+UjcDZC945LAv3iShvFFtZx4+5s/gg
-	kBTo30+YZK8jdUHHQ64BK/+vL8cTUFmAIT7BFtqzgVXrkLUhMP1f/16AQ6qdj11Ti8emuiD1JAR
-	mytpKWHx/pE306YI1i83CPQOh344qn/mZw9Ix4t4f21Nx/99Ian5fY1LpK3jP8PVjIFVdrFeiK0
-	isVZwDk/HiQ4I6ozlLcjtGJPCdoYLkjth4CKBzz1LQuXzLc5SLixjFpGPGVlC+rVtM5356zMaLX
-	gHDHgvFbhFX55OjXTnQu4BYlHky4NHA==
-X-Google-Smtp-Source: AGHT+IHMYqGUU4cXvf5sudRsYkF0lIKhrX356Q+bv+ELtSRN66rRwSBXd35BYyyBVXyVPC9WoTMfFw==
-X-Received: by 2002:a05:600c:886:b0:43d:7bfa:2739 with SMTP id 5b1f17b1804b1-43d8654e969mr11829325e9.23.1743063539111;
-        Thu, 27 Mar 2025 01:18:59 -0700 (PDT)
-Message-ID: <8046d3c4-c00e-4322-b665-81614af89f13@suse.com>
-Date: Thu, 27 Mar 2025 09:18:57 +0100
+        bh=kOQA30RryXkHcOPMSqNMtCtniI5ngfbnb7V1QtqhSfw=;
+        b=Xf1AraT+M9ObngsMqydtfKoE7tZqKSZLVYDas4K5S9YgWXSPDC7iX79Ll8Em4wQSIL
+         KCJqtuI01sHtb3o0DrmyUGXPndA5CwAlnFR29RLjfaVo0kPCJxiW7ibs0d2kgAnQWaiy
+         NHeCW7Q1lKFb7Jh3pULdlARYmWzCmt6NFc14ZkHMv+6CkXYkYlFl81BSbRd9LX/PQ2XA
+         ARqsACO7wfTvUl1YWM24C57a7p2XGEJnEKInii8jkWiofWDXMDGjlFoS1WVBQ9teVUuV
+         ZHBXp4txNoCUlfEIG0GniWEmAsnKbgg9T+4ARD+3IrTGQyXO2UlGo5A0BrepWSpjzb4a
+         BmXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUOqDZlWVfFxSJouCkZWJKOk9QMjbCSHl0AW08l/NtbF26NLROZgiZHwLXAguwVisT8VhLPA6gwS4g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzmBgDI2STCn9PZQwbCXSKgqCzsCRyuLMJzVrXTK0eOuREequO7
+	PGqgM79cWZC3U1+p27poIfC1i5DZyz6e+/HyM3PA+bHH9mz0QmfGHt5T3e0Y+g==
+X-Gm-Gg: ASbGnctBvq8cSL/9oV6Y9hwgn/ivIQGv/U87M2w9VMmv4Csb8RV0MfIQgvsfi6RHWKc
+	E8T9GfbX7fWBiNb4sx5mlxF/JgTfj28MlI1NeIJbT2VLjr5Zw4ZgXQY+R2TmcpKBM5+G301t/QJ
+	qkqEy1AjioDuT4pDwAGt8Xog+VFcvvshYeF+s6PP/WrY4jxNd947QWpApQUXZQm5cvJnxLcD3GA
+	pWqlyzhKdQOZsze7+iXSMDs7u3L0ad95cet47SDAoattx1wQO3TwlQr5/eO+T/qh3GbcviBr6Yj
+	FHCj6SrxzRUOb3j6gcS9OvfilEsU68Eaube3jiBRlKCgpk07lUyA1rkZBa+lvy5YorcEHuXaAPk
+	Pw1LZj2JG5Hujv4cUohTBHi7ASUtjRg==
+X-Google-Smtp-Source: AGHT+IGEalR9lm09CGeRt4qP0uNmFEgYRTHnO85jQBJzM8w8XvLBPIi5Xj5f/sxwkKuMANq3DMqx2A==
+X-Received: by 2002:a5d:59ae:0:b0:391:4873:7943 with SMTP id ffacd0b85a97d-39ad175004emr2108226f8f.32.1743063703289;
+        Thu, 27 Mar 2025 01:21:43 -0700 (PDT)
+Message-ID: <994b9d44-f82f-4eb7-8742-9041ba2caf17@suse.com>
+Date: Thu, 27 Mar 2025 09:21:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v1] xen/config.h: Move BITS_PER_* definitions from
  asm/config.h to xen/config.h
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Shawn Anastasio <sanastasio@raptorengineering.com>,
  Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
 References: <4f085bcbf5b6f1bc42824bfb08724e8a9bbd4918.1743005389.git.oleksii.kurochko@gmail.com>
+ <17a808cf-e676-4c30-9068-34a9a4d568d7@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,29 +128,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4f085bcbf5b6f1bc42824bfb08724e8a9bbd4918.1743005389.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <17a808cf-e676-4c30-9068-34a9a4d568d7@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26.03.2025 18:47, Oleksii Kurochko wrote:
-> --- a/xen/include/xen/config.h
-> +++ b/xen/include/xen/config.h
-> @@ -98,4 +98,13 @@
->  #define ZERO_BLOCK_PTR ((void *)-1L)
->  #endif
->  
-> +#define BYTES_PER_LONG  __SIZEOF_LONG__
-> +
-> +#define BITS_PER_BYTE   __CHAR_BIT__
-> +#define BITS_PER_INT    (__SIZEOF_INT__ << 3)
-> +#define BITS_PER_LONG   (BYTES_PER_LONG << 3)
-> +#define BITS_PER_LLONG  (__SIZEOF_LONG_LONG__ << 3)
-> +
-> +#define POINTER_ALIGN   __SIZEOF_POINTER__
+On 27.03.2025 01:44, Andrew Cooper wrote:
+> On 26/03/2025 5:47 pm, Oleksii Kurochko wrote:
+>> diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
+>> index d888b2314d..dbbf2fce62 100644
+>> --- a/xen/include/xen/config.h
+>> +++ b/xen/include/xen/config.h
+>> @@ -98,4 +98,13 @@
+>>  #define ZERO_BLOCK_PTR ((void *)-1L)
+>>  #endif
+>>  
+>> +#define BYTES_PER_LONG  __SIZEOF_LONG__
+>> +
+>> +#define BITS_PER_BYTE   __CHAR_BIT__
+>> +#define BITS_PER_INT    (__SIZEOF_INT__ << 3)
+>> +#define BITS_PER_LONG   (BYTES_PER_LONG << 3)
+>> +#define BITS_PER_LLONG  (__SIZEOF_LONG_LONG__ << 3)
+>> +
+>> +#define POINTER_ALIGN   __SIZEOF_POINTER__
+> 
+> See how much nicer this is.  This patch possibly wants to wait until
+> I've fixed the compiler checks to update to the new baseline, or we can
+> just say that staging is staging and corner case error messages are fine.
+> 
+> One thing, you have to replace the "<< 3" as you're hard-coding 8 here
+> and ignoring __CHAR_BIT__.
+> 
+> I'd suggest keeping the BITS_PER_BYTE on the LHS, e.g:
+> 
+> #define BITS_PER_INT    (BITS_PER_BYTE * __SIZEOF_INT__)
+> 
+> which tabulates better.
+> 
+> I suggest keeping BITS_PER_XEN_ULONG to be arch-local.
 
-Just one remark here: Imo this needs to come with a comment, as alignment and
-size aren't necessarily tied together. It's merely that we assume that
-sizeof(void *) == __alignof(void *).
+I agree here despite ...
+
+>  ARM is the
+> odd-one-out having a non-64bit arch use a 64bit XEN_ULONG.
+
+... not agreeing here: x86 is the odd-one-out; I sincerely hope any new ports
+to 32-bit architectures / flavors will avoid compat layer translation by making
+this type a proper 64-bit one. Architectures truly being 32-bit only, with no
+expectation of a 64-bit flavor ever appearing, would be different.
 
 Jan
 
