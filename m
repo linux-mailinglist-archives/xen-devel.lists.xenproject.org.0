@@ -2,56 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 251B9A72B7D
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 09:29:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.928666.1331343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA54AA72B9A
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Mar 2025 09:37:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.928677.1331353 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txicR-0003Ld-Ig; Thu, 27 Mar 2025 08:29:43 +0000
+	id 1txijn-0006Hx-A2; Thu, 27 Mar 2025 08:37:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 928666.1331343; Thu, 27 Mar 2025 08:29:43 +0000
+Received: by outflank-mailman (output) from mailman id 928677.1331353; Thu, 27 Mar 2025 08:37:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1txicR-0003Ib-FX; Thu, 27 Mar 2025 08:29:43 +0000
-Received: by outflank-mailman (input) for mailman id 928666;
- Thu, 27 Mar 2025 08:29:41 +0000
+	id 1txijn-0006Fy-6c; Thu, 27 Mar 2025 08:37:19 +0000
+Received: by outflank-mailman (input) for mailman id 928677;
+ Thu, 27 Mar 2025 08:37:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FdJw=WO=intel.com=oliver.sang@srs-se1.protection.inumbo.net>)
- id 1txicP-0003IV-Dm
- for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 08:29:41 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ <SRS0=yWE1=WO=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1txijl-0006Fq-8I
+ for xen-devel@lists.xenproject.org; Thu, 27 Mar 2025 08:37:17 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20606.outbound.protection.outlook.com
+ [2a01:111:f403:2613::606])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9bdfa62e-0ae5-11f0-9ffa-bf95429c2676;
- Thu, 27 Mar 2025 09:29:34 +0100 (CET)
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2025 01:29:32 -0700
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2025 01:29:33 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14; Thu, 27 Mar 2025 01:29:31 -0700
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.14 via Frontend Transport; Thu, 27 Mar 2025 01:29:31 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.176)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.44; Thu, 27 Mar 2025 01:29:31 -0700
-Received: from LV3PR11MB8603.namprd11.prod.outlook.com (2603:10b6:408:1b6::9)
- by DS0PR11MB7531.namprd11.prod.outlook.com (2603:10b6:8:14a::20) with
- Microsoft SMTP Server (version=TLS1_2,
+ id af4a6f75-0ae6-11f0-9ffa-bf95429c2676;
+ Thu, 27 Mar 2025 09:37:15 +0100 (CET)
+Received: from AS4P189CA0068.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:659::23)
+ by VI1PR08MB10076.eurprd08.prod.outlook.com (2603:10a6:800:1bd::5)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Thu, 27 Mar
- 2025 08:29:12 +0000
-Received: from LV3PR11MB8603.namprd11.prod.outlook.com
- ([fe80::4622:29cf:32b:7e5c]) by LV3PR11MB8603.namprd11.prod.outlook.com
- ([fe80::4622:29cf:32b:7e5c%4]) with mapi id 15.20.8534.043; Thu, 27 Mar 2025
- 08:29:12 +0000
+ 2025 08:37:11 +0000
+Received: from AMS0EPF000001AE.eurprd05.prod.outlook.com
+ (2603:10a6:20b:659:cafe::97) by AS4P189CA0068.outlook.office365.com
+ (2603:10a6:20b:659::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.43 via Frontend Transport; Thu,
+ 27 Mar 2025 08:37:11 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AMS0EPF000001AE.mail.protection.outlook.com (10.167.16.154) with
+ Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.20
+ via Frontend Transport; Thu, 27 Mar 2025 08:37:10 +0000
+Received: ("Tessian outbound d933a9851b56:v604");
+ Thu, 27 Mar 2025 08:37:09 +0000
+Received: from L80ddd225d425.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ A22862E3-4892-4495-8738-FC8A1918B29A.1; 
+ Thu, 27 Mar 2025 08:37:04 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id
+ L80ddd225d425.1 (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Thu, 27 Mar 2025 08:37:04 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
+ by AS2PR08MB9975.eurprd08.prod.outlook.com (2603:10a6:20b:62c::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Thu, 27 Mar
+ 2025 08:37:01 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a%7]) with mapi id 15.20.8534.043; Thu, 27 Mar 2025
+ 08:37:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,272 +72,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9bdfa62e-0ae5-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1743064174; x=1774600174;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=tqKqoSn9OHUgJH9+agTAVBP3Nm7fSmiFE619J/tRecw=;
-  b=X5GkaOotylVrCZtNuReKZ8m+e4B24A0Vkmj+BlqhKVR6IDPlz7BZ1T/B
-   Snrf21yURk11/aUV89JxksLfiPi6qe7ar2WutGMmzZ3sV/NUBxvesHe24
-   3DAj5txVWJVdPrZ1JIGkbBm3zcIHH4eiNw9GUU9Smzedcg9nKWB72lOks
-   aVsiyRCMJ6J8CCTn8WvVUn6qxmNR0nOiAFDA0GtGnHNWXpqYDglIlF+UN
-   mWxhzAr3GgK2ExrQoK9i+Q333ZpX9d1fAVa2d2buZGcF3bUWN/WDNOTYB
-   2WAwrR1xlTz7pGbXTXCHGYoA6GDQ6B2ipBbdsnm2rLe/BUFTFQh4qCrG6
-   g==;
-X-CSE-ConnectionGUID: 7l7UUf4nR8Co/t6mth+BeQ==
-X-CSE-MsgGUID: 0C04QSDTST+xZNoAvGVRvg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11385"; a="44258077"
-X-IronPort-AV: E=Sophos;i="6.14,280,1736841600"; 
-   d="scan'208";a="44258077"
-X-CSE-ConnectionGUID: uGsA84PnRE6NMVNhNxbYFQ==
-X-CSE-MsgGUID: cqHGeZjMRd6j2li8MOQ1mQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,280,1736841600"; 
-   d="scan'208";a="125998603"
+X-Inumbo-ID: af4a6f75-0ae6-11f0-9ffa-bf95429c2676
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=pLl/m+/vETEnEtI3Y1nXgSKEdNve8eHeay7y9OMqfNZQWtL3IgLmdIrw2D0c1DPgGwLASBTFUwU9tzcmMyILIY8AXZ+wCftVpE0ORdznI3ogss2Slj64vXpcaps4Xs7U0snE7GL80x7vFEqo25E7uOOpiIjfu0ATtiwRlTXOQbIx7njA5pCiTbvPw3n8JTjD4O7wWvqXrcHA/AlDsyJdOtwSF+/0A5a6/1uVytgy3Uvc6SJ0cV21vNbh8Wyhv50qU2yBGtrdWoYtGHNSztAGZvhVvn/xJbi/vvqGgpcA5NyjN+TfUmslduYQmEqTXGCoGIF7K2VmN7THSFpn7LgBkw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EmkhyCtEOEhLBaybFLIZ4HYsv7SNKTd41UY4xdvR9Jg=;
+ b=pFIxAkJu+0EeN3AFNWO+10kuXYlQ/wugh7m8WBxOain80dIM8LtikNHwjYtk6HyC78GwcvplHQ7+2TCr8iSc859GODsvYKsBJu2CM5lhKZmKFDZtc0disk0paqtf9JxxmGrWC7NlyNPL5720Du+C6T0eeQpDHvV933o99c9Z4AkC3x1nBbZTFzjsmI69KIRUV0mO65RAjrUljrZZBP4kW9nrXtzeecdKwDIGLCtrdZIVJvYvELVa+w5OJTqEXsGlseTAe0I1EObJuZl40Tcoh1kdXqhi7t1OHAawdyqV5SRm7wqib8ksktCWUrPc/N7XJbVWWNDXNVsoBAmMg34nJg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EmkhyCtEOEhLBaybFLIZ4HYsv7SNKTd41UY4xdvR9Jg=;
+ b=fLwdcxYmqp3qDi3IEm5Pmojc8NptgBLaj4e3vzJCyZtwkekt0hkj/KRQTCbdFzVHq9HCYSoL/OMXAJ4Qcy30JHvR3yZgUTemEXxWVKjAwxwdsijjwOsOkbn6/3/GlqCPvxYXW2jC3L9GFbDLw4FOMPRQJAqwEih4r5AC5OpB6s4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 9dd22a9587c78bdf
+X-TessianGatewayMetadata: t8VbQh+CzfATGhViFjBASE53oaIa6n/gdVVnFNBt7/Hc2LmwFGxKGAT37g6iHlQzB9Qf57KBif/9Ni3dTmQykwbf8Mx7PrUkoy13abgbeezMAdU7VTN8pUe7enuDKRZ3AgKtxG+1hGXzgFVRLnuYtR4Nevhgv/PXg2o/2Cv6nuw=
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lhTZbM+niuuhQSKVPodlWbX9mgvmNhniiHBXyQO16D4rl/V21BFRhLnGd5VeVZJoDtFvAocMRUl/RJkPtKHuL1VVDwW+gOtLIg/+5k12jd75zg3I7d7R9wFs523kPMY3a7MQIwlUeuRsTk35gXEpXC3JVUYqmdCnzBW8RjYoxS6VX2825yfiMf8/wPaJaEHrXKzoKl5+A+b/aKGTiTxdkSbk9yohzwEmzyFqBc7WXIIVPh1bIVeAtxdniinZlhlr9DojU94L0IrNQZNNDaHVC/MPuOI+RDLlXGHgDGQQmoJIsiM1fL8d8iKTcCs3P1EyxuYl2CMRescHtBMG11dDJw==
+ b=TDLJjxnj8zptLmZ8T+tmmgBrLlm1xxNhiETScdf+G821hiL5NcoeH0K6giFVnXUrKMt2FoiIX2HXP8cCZN5nur25M81eGdh2h4K8cWOHHgrhq1srq8HjQrJlJTMmLNiyQDMik0qUkssFh2xE018MEKD6Jysor6yPdHoC4SNkOca6updsfv5vPDRbYyKyqMt+SjSuA0LiGy+Y7JiLqd+s+PoHeUWadrSMcJ7YYWjvudb+9Oa29fIEEZMjb7kReUHBryzgtm6NxpBiSJPja4QZv1h5GOisLjU4Rdgg5qWroCFW3qV4bXaPXsYX1J+Nv6TxVz/05x3+8VZMoWubi/72oA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FpLdLTFTw5ulZKWQUefRgbe0u/yDE+SwfhwrHJkbreY=;
- b=VQnCpNMMtF6fGtTTE3jMVY0BswTjcczekk21sQv+ejXJ4Je2xlgn9nNIaJ2zg7ePgnC/yw8ugWEsOdybn/8PVL1F2A+7noNSMV0BIeKnWSc4lLRIdXcubwpwag8gsLLqopNKIvg0mgRARd07ZNm10ZFXk3bJUHMBCl06P2QK4kuwXwXznj7csoX0ycNkswE2aBhaaM/SyztDpYPpbR2BizLzXhPj1F2isKGHOfzny94HHq5SMBfQ9cXyzNRS+wk4mIr90wwRAvZ6MvI6Ito6J9sdojFuUC3yAfvNqlIdLxA4rkVojtqm0ph89jfD9UfBHumCwa2Mcg/vqUd0xxFbiw==
+ bh=EmkhyCtEOEhLBaybFLIZ4HYsv7SNKTd41UY4xdvR9Jg=;
+ b=kdI0HDUdkg8fHmPdWClVJE7Glx0CMhTKnDqrwoiMPAxmKgjfwKfypuJx2WHbDoPPmFdrc21fxb9gAinpRcDbxWwPLKrAkFI1/RuezXWYPqE3zVJAO1Zr7YnKjnsZ/KwnZRcMOqaFCxu6fnMtats8oHu47AKr/mnvLvFYfwTjz7DhT7ZpU4YlHrmXbA4Y6pY4RQaWV17U6QviiWJFP5yWvA2TGAp3Lvv9TO2ZSz/jS7m0RVpI6fVn0DacOaK2VPLEed1KCJhOw7zqBn3nWdf8SCK44pdUxbgOip40I8bhtyE5RfAm6W7NKR8IBMW2SG0mYqthz8QnApZBnJ3jq7DJaw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Date: Thu, 27 Mar 2025 16:29:02 +0800
-From: kernel test robot <oliver.sang@intel.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-CC: <oe-lkp@lists.linux.dev>, <lkp@intel.com>, Juergen Gross
-	<jgross@suse.com>, Thomas Gleixner <tglx@linutronix.de>, Bjorn Helgaas
-	<bhelgaas@google.com>, <xen-devel@lists.xenproject.org>,
-	<linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<ltp@lists.linux.it>, <oliver.sang@intel.com>
-Subject: [linux-next:master] [PCI/MSI]  d9f2164238:
- Kernel_panic-not_syncing:Fatal_exception
-Message-ID: <202503271537.b451d717-lkp@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-X-ClientProxiedBy: SI2PR01CA0047.apcprd01.prod.exchangelabs.com
- (2603:1096:4:193::10) To LV3PR11MB8603.namprd11.prod.outlook.com
- (2603:10b6:408:1b6::9)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR11MB8603:EE_|DS0PR11MB7531:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69eb18ba-15fe-44c8-017c-08dd6d0973b4
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EmkhyCtEOEhLBaybFLIZ4HYsv7SNKTd41UY4xdvR9Jg=;
+ b=fLwdcxYmqp3qDi3IEm5Pmojc8NptgBLaj4e3vzJCyZtwkekt0hkj/KRQTCbdFzVHq9HCYSoL/OMXAJ4Qcy30JHvR3yZgUTemEXxWVKjAwxwdsijjwOsOkbn6/3/GlqCPvxYXW2jC3L9GFbDLw4FOMPRQJAqwEih4r5AC5OpB6s4=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"jens.wiklander@linaro.org" <jens.wiklander@linaro.org>, Volodymyr Babchuk
+	<volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>
+Subject: Re: [PATCH v4 5/5] xen/arm: ffa: Enable VM to VM without firmware
+Thread-Topic: [PATCH v4 5/5] xen/arm: ffa: Enable VM to VM without firmware
+Thread-Index: AQHbnMQpJ/OSxu9MyEmYd5oQRaZ927OGF78AgACVfQA=
+Date: Thu, 27 Mar 2025 08:37:01 +0000
+Message-ID: <8742853A-E32D-4BA5-AA4D-C69A2FCAEE85@arm.com>
+References: <cover.1742824138.git.bertrand.marquis@arm.com>
+ <0f5cf498c3c511ed192e8b7b7d0f4987e00e5c0d.1742824138.git.bertrand.marquis@arm.com>
+ <6727ece4-d589-4ab4-9172-07dd6a7f2b44@xen.org>
+In-Reply-To: <6727ece4-d589-4ab4-9172-07dd6a7f2b44@xen.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.400.131.1.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DB9PR08MB6588:EE_|AS2PR08MB9975:EE_|AMS0EPF000001AE:EE_|VI1PR08MB10076:EE_
+X-MS-Office365-Filtering-Correlation-Id: adcfeac2-e8c6-46ae-ec4d-08dd6d0a90ae
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?30DDTL3+jhbyjccBFMsOpEYWdQtMW+Zq2Oeip8Dj4FHWtmk4JvJ17TaaA7Nj?=
- =?us-ascii?Q?DDY4M9Jhw2Y/EQSHAgq+46iA9FNqlnbUbAwaPwYYt7rXiVesL0NSKPgqu8mf?=
- =?us-ascii?Q?gLs17TTD4qVDlTpjEoDpToXCy0qycFetsrcakz92D/Uktqt+UDzNovkb7So4?=
- =?us-ascii?Q?mYyVmULdJERV6LUFquW6WoWppGKNKIs+Mjl6ECfcT2LYDnQLKhK9QIy47Iuv?=
- =?us-ascii?Q?9iRER/yjr5lzBFrIvs9zMhpfjA534aj1r3/SF53g65XTRQyNAa2Pn1L7Xd5o?=
- =?us-ascii?Q?5wmv8MAcUToAIstN8Pg/PJJz+REGEniI5B16XJHt8tfTl3kAGWITil3G76Sg?=
- =?us-ascii?Q?Uy5oVAvB4AGRbVgEGgH03bsYvgPnOFualpqfccbiJNmyvrrV9IURatXtjkB+?=
- =?us-ascii?Q?3z4lL3s1Zwns4QKlLGisMiLTuZraRUW9cmdo1waJgBVp45ecR2HNYW4A20+k?=
- =?us-ascii?Q?+5ltmXMv0mMPJuSqcMxwoNzs85hYi6J8LZ3W7VDuJqwsJ3m7L1bxFjWIlqPd?=
- =?us-ascii?Q?109HqwElwzF+yZy6XOZ6D4p8CL4UufM4frhbWbY8tfvsAMot7v2YEv6WArAY?=
- =?us-ascii?Q?IQ/Mw5cxncGIsBYL5vrLn7Tz2ZpqWhQWuUOYPgLYm1JqAVvzTNxT4JrbR73w?=
- =?us-ascii?Q?bs4pG0344aD2BpoL/yBr7jjjpuoxZMvEZFEfa0oGCIJm1l3ejF0UFaq+ObN9?=
- =?us-ascii?Q?HtPQROqCsS128hHNV3o1HsVpxWAzmD2UxS6AgqkuAoJdkjtIenCXAZZSu3V/?=
- =?us-ascii?Q?ifNsZcNHCcHV3iq7VxeEaSf31tugVDmrXa2zpS+Wg5Qge4yOX9hRLhxlbqOD?=
- =?us-ascii?Q?H1XGhuM/cC3+NX13jSEwPDpn2oG/CB+Wgbjwoldq3uN9LYIoMApypPf24d0d?=
- =?us-ascii?Q?Nr0sg5UB6C67HZNtP4XU7dXNX5tMZP033IcDld0sAAahmlxtqo39ZPxMvGHR?=
- =?us-ascii?Q?4/mZ3SBWibIdwdVPqqUrHu3WZovMmCA/kkdFYMnKYVpEyxlJ6rq4olK6Psm6?=
- =?us-ascii?Q?ekFRaUAS0m28kqqTRBZuv4P7BwPmSvR3MlpupLjMdtPxVJl/ACThnXhQ+QU7?=
- =?us-ascii?Q?E3KsQY707hPmut5DaI8HopA6BXt3RktZombzvVCeUFZ+ugqZgnAQotcEZgA8?=
- =?us-ascii?Q?MEeEvw7auDYt75ZJgjkOt7N+6usGRFhDQV8GeC6SYL46dXiIhWkVx/1cCJgy?=
- =?us-ascii?Q?9Fp/cu3xBeaqtzgwEuv1R9x9dl6uV9/tyFAzPV9eQensVXyaVWuYjlEy+fu+?=
- =?us-ascii?Q?HUb6hsg11spCVL99YznlSWeZRpOd9H4IPB2Au6QAjSII34lT+GCgzC/ABxSt?=
- =?us-ascii?Q?8wU5ObkIYGeI3oB1YfheNm6nKBm6REPr9iQdXXzi/gNR8Q=3D=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR11MB8603.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?QIs5v+/ugsE6AfRDUXZQpdl/oeLc73Zepg1EjMVIssoqBvGEioppxO5LicmV?=
- =?us-ascii?Q?lGjpB849Tx/8EMyiQ7+SDCztac0nJY3d2uEowPrER4Ibs2AkoRPvF8vG/MvB?=
- =?us-ascii?Q?mjDYWZULDyHBBbUTJu3S7yoKyekYajgg8Mjud7AVp00iuue6a+wRIJzUvyF5?=
- =?us-ascii?Q?h7xCcp6jbnFu/cdCyTdEVoWWWJnGMxupquAF/TyjIsLgtHgAMZziBk7qeemy?=
- =?us-ascii?Q?uZtKVNjBzgRHYUUmbpAV/Rg60wmMUlh3frLKYPiJE/n9UsQF4QcHcBCAcVWq?=
- =?us-ascii?Q?iZlnR0pM+wg9MIMM9w5+CJ8bLZTwuEzBaYT6NxFCR0MyJkiZSg4RuLxKih9p?=
- =?us-ascii?Q?dy60DZOxPwyOUOQLQWXvwpIrOW4o2ulLsBuNJW0iXjSSkHo/GmmCJrOB3nT/?=
- =?us-ascii?Q?a4sCOTSrg6gur7CDUdN7lPwnHiYUWCotwIcAQxbenn1jg+9l7IkO0CMhmGDq?=
- =?us-ascii?Q?MNvCFxyY4bg3AqeT7Qs8JIwx2zRY6FYQajU4lwKSnQHElu+/FoChGcrqFDjQ?=
- =?us-ascii?Q?+HaKhR5XhQZL4XIddaWBr9Ov1GcEnFyGB30f/eeJuvyf48pMgaOMdwYofSA3?=
- =?us-ascii?Q?U57uMZhYK3Rjfpz8W6JaNWsEmACPYxNT78qmF8tuKTjtSPXzOfnIGDu4l38d?=
- =?us-ascii?Q?+bi+u4T4Wkxj4LAgM6+a/PcQDL3UWufFaFvMwK3Yv6FM6wrI45usWCeojQ9b?=
- =?us-ascii?Q?PRn6SICcqN363Qe4yVZyvtqDJZ7DjQ/ct28m7Y1cXp5giQNox+us8R34KDX9?=
- =?us-ascii?Q?0ThAPe7iIoJkWK95JvG54IoHeoP4mnEyj+Urd6rBMrticmgJRd574WD/jtvL?=
- =?us-ascii?Q?nUia9/W5hoTIvOmt/p+3n/2MdfQznhBTWNCc8ap4iorqSJFssodvqJvbHIsp?=
- =?us-ascii?Q?d0FiIaxV2C/Etr/jGwpQrx5Hgd1oNCeqgyPBDEO+gB8xCo+dmz77L4wIjydV?=
- =?us-ascii?Q?OIfEA34zv4Bga+lHUgiOnEk2TVRYwOX6ciTi01M8jE5Vj/fpDRGlXP+78bvY?=
- =?us-ascii?Q?KG3oZhIdwtXOd8A4n5ATsEFS+zLTAmxe6u1tjB8cc8WkhCK8oGSxqJQjBJ+a?=
- =?us-ascii?Q?VOzV62mRnhHu3pctVVyE71SglbgRi9HpypNj0tIWECiE5g8E9LXa9pvERy0O?=
- =?us-ascii?Q?hL+biUnzvI2m40wrJNMmzfxhFAWfOWpN37DNkwkfMiUAZzW1vCfBcSgK5wyr?=
- =?us-ascii?Q?IItOtLMbKSznDm06K17wE/J6/8426SHYnmwKeAHjT7uyF6rpxvJUfAKTxgMI?=
- =?us-ascii?Q?ctHtVFg0wzfsiZIubaDzL8C53vJGOXtReWP149TQ6ErnJU3dKjqPeO3quWkt?=
- =?us-ascii?Q?QzR3wYnRGZ56IqIees/89cHL0RXUNgL/aOArwJlQAvmuj0NQuOvwV+SN25Yv?=
- =?us-ascii?Q?vWMIAJRheE4gM3mp2jTfeaxpkItjrt/rrpJOzSQlbYTMVuPJwFU1wyEApyjg?=
- =?us-ascii?Q?gohqquz8rgFYWm2oqZ+JZVZfE8EmshaHWCmReRUJxyhwBPSer+s7H0UBjk1n?=
- =?us-ascii?Q?pr0gwqmdLSFUKiBwQSJARihA+2KXKvWs53u462ZkLEWrOH0APJPEwJNyeRFI?=
- =?us-ascii?Q?bvDaQz6JqqGCk55xZoG0gayKFNZ6l+28+qLoxHjhZWojFKDWnzmAhnAR++go?=
- =?us-ascii?Q?Rg=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69eb18ba-15fe-44c8-017c-08dd6d0973b4
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR11MB8603.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2025 08:29:12.0630
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?us-ascii?Q?HAnEJwrqdRmN/gP84qJLuidvhaKbQ7jFDhZSFsgioaXPUKy1KqSGlvp7TalY?=
+ =?us-ascii?Q?tqY1IF1G4nsvnizlKroaNINiMnxwg86hLNXMzMlPca6HrXuj/er86NIurlrp?=
+ =?us-ascii?Q?5mQNaCOHcw3TMf+jQlWN+sumpjb27jcUd8+oiF2G1iuXwEipU9pGGSSbKxzO?=
+ =?us-ascii?Q?XK1iYR2/McoVslWV0Kf/OG8ZzRuWNP6+JoE1WxMv9NuCCL3z82b0Xfyd9LV5?=
+ =?us-ascii?Q?j80CHeXgkUi7C+Ry7BPMTo3XW9brX8BaDtuuqpqg4VNLusvB09DbEmCHKg7x?=
+ =?us-ascii?Q?UFrEze9WJsL+kMu6QZk3XGKogQchZe3ChSVXBw1h4L1Bd51IFJtSqrX0JsTm?=
+ =?us-ascii?Q?tSIfxtwsQ/eOS7LBln8wtdru9yMmApEVY+bnEjxr47Hgd2jJ6uxbW6G2LirY?=
+ =?us-ascii?Q?Q35t02XDmyduELd3sqqYT6ZUnAuI3Fa+TDsTDfnHTtYPSosn8z7hp7QSk/hh?=
+ =?us-ascii?Q?WrmK1ctwrCV0Junx5qa/CMs5q47rQQ1iRWy0TpR/S7TPzfHDh/mvu6O3Ad2T?=
+ =?us-ascii?Q?T477nEup9TJ9TzK22oo3H+ilO+QcQP7b07XA88ou+fUU9YUVA9MwTNLpxKPB?=
+ =?us-ascii?Q?q7pqqpe1kFMHdYqQdOlaxgu8zvShit22JzFhKdoMW46TMkbyKVaNhs2KKckO?=
+ =?us-ascii?Q?7CTemx3evpeAY8tPabeZ+J3sU9Pwv60u6EEehEggCERqraBptdR09lZM8ctb?=
+ =?us-ascii?Q?Is/Jl4LfsUfTNMB6mvGAv+2w1OocL7wFz8FcSch5WrQYAf2GzhTxvigHv7DR?=
+ =?us-ascii?Q?VlatZLLFtdYIuuPrwtSGzeMbXGHyFsovbeesV1yrjup3tXM0YthoLGdDEnYq?=
+ =?us-ascii?Q?yfjRZU1CoQUj1J17MLYKfhE0Qqwooqg1IWdhA0oH9jgzNbREnfVI51wYyvEo?=
+ =?us-ascii?Q?x8xlgo0ip6CY7JS37p2unJ3vqRsEj2Tq9tipmWSDdrMKBW7zdgA2aapatFc3?=
+ =?us-ascii?Q?SAw1p+90Rk8N+7ijbDOfwrxGrH022m6Yj8coup6/nUZEC4XJCSwXORqHWGDm?=
+ =?us-ascii?Q?tsgUgDlPI96lTQdQ1bwAV06DXM6WbE25mkpgicdc1oyS7jdFE2+xOwEKQJCT?=
+ =?us-ascii?Q?m5Ye8T7TFEsPcLLdE+ECE4sFiPVaRZLU9LsNuxpKY5+b8XYn37ezeApuXGwg?=
+ =?us-ascii?Q?fGiZXnl5mKCFuz4VaGn52YVwTH/cnoVpvXPwSrnZjVMDzyp9iA/sgmMYJkTI?=
+ =?us-ascii?Q?Axdp4IhwXNGSSOcdVsCrm4LRKMZqVPHQ/2CWFyTzFbX/vmi0F/XbeH4Il+X5?=
+ =?us-ascii?Q?l9pjYpDj6x11iHEBAr/gzrC6+rbINSdUWu6dhmh8/ArHFWmy7nq9ltDA3rUH?=
+ =?us-ascii?Q?cd0lCMRHu+wguULV9rQRwO9ElSxuDYdMkfI6MndklGTiONTHBeFcfErolC1w?=
+ =?us-ascii?Q?kbGP0Y/n9HaSU92YnF690caOlfzzrb0Kxyptb/LYMb/pFnWs3aK7VS9SwSvi?=
+ =?us-ascii?Q?BGtrwqP8k/LUbjfZ6q0ZKlWOrC36J0iY?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <9F007AD0F61C3746914F475CEDCCCE2E@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9975
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-SkipListedInternetSender:
+ ip=[2603:10a6:10:25a::24];domain=DB9PR08MB6588.eurprd08.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AMS0EPF000001AE.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	876f0d17-22e6-410f-f01d-08dd6d0a8b7d
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|35042699022|1800799024|36860700013|376014|14060799003|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?dJpciHAmvkg8WN9Ca4jNs3aq36hsy5OTO5ZC/8JJr/+XgCGsSksK/XauZqgR?=
+ =?us-ascii?Q?vuUYq2CvbRdfTq2lWK4QfeywEGclNQayORmypwy3yokRPF3eWYvphKhMNdIE?=
+ =?us-ascii?Q?BO4E1Yca2W2MDiUfXeDI4U/F0VFT6DmM5X284fXAd/KHM1mRaz/ULSLZwWH6?=
+ =?us-ascii?Q?1T5KBy+L2SR6SLOGulTadddRuFtrXtwwPNY+sNc4yrL5RONSbBHjA04+gJ1E?=
+ =?us-ascii?Q?fSoOM0UXJNHxTEI1lj+NDxxpVSG42iqDxwNE2Y4O+JVzSaWvSkV1iLzn/iY/?=
+ =?us-ascii?Q?pNf5hOQaaB9LrJqN+mQBSvRcbpsyg4dkQypIMkCOFxPEC1qF8eDOPUQkxWUK?=
+ =?us-ascii?Q?TOEMTTGpHcw9c3OtjJYAKNTlDhG2A3nMfTzwhNQ45W8PFpsYQLQICxxlGNlH?=
+ =?us-ascii?Q?pleLnKpBqbcg/8m97KqoW6Gy4QIbU2LFO3IlaSp4w4MtJg0rOLoOFngsk5dv?=
+ =?us-ascii?Q?ZWL4UUYT6c3+K0tgbCf57lDwBIhnZLpnxKh7skkXuZRiXAQKaVDWYqsyjNJD?=
+ =?us-ascii?Q?ODLM8bG1Fel9xTVOvJCzOCSJW0IBAurl8CU9lr/Rck8V+owo/HYTQNtCVAvY?=
+ =?us-ascii?Q?9qwyR686L99W0kpmZNNFicUE26hFUeVYDbtlvrI9FTB+y8Aqzm0bWYmkPmiY?=
+ =?us-ascii?Q?G6rZ1P6Dazkly0D87JDoQg7gmAv6ovPE9K3Dme2IMKtyIKO9yDVHE367+TL4?=
+ =?us-ascii?Q?G7r0fjvkZbPvuSFnSjdsLZYXWkNWeoRDjhzAIWt5mxnO57vmcOvFKCb3/sid?=
+ =?us-ascii?Q?3JmWT94KSEkLxE17IVOtc5fQIIvJPbGVl6ubD2+KxDkc2ZIy+F7yifKCx4bW?=
+ =?us-ascii?Q?S0yMn+RSPb8mvGrpLBjraq5oW/6iGuGKBypi+Si++DIoKjNMDsf0yKR8Pjre?=
+ =?us-ascii?Q?tcjKeXrOop+93NkS+l4jhMBaAdstoLQXlUsJ5mOjBnBPKMHvw0DMJAqB5HXn?=
+ =?us-ascii?Q?1OhjxsuJDKbym/bJ1R0zGLlTxkabKOYT6SwkgammQfyH2w9Kod2PkdbCNGcm?=
+ =?us-ascii?Q?WOYqrkyBM/l9Tov/AEICKLSIthIwkZ5MutpoETiLD2bmryb4JPxKN1TLM1OE?=
+ =?us-ascii?Q?5eaPhshz36T4soSd4PDCk2irl1kEmdQOoRsCsaaxz+65589V8hPDTRdXdtPS?=
+ =?us-ascii?Q?OuXegcnaFvKYdYJ2lVuIl7pg2t45pRQdnKyCccmsAgFRpZMVKeta4MMabDUU?=
+ =?us-ascii?Q?Zv+znH9c0pQUkjmRddlQieUzm3EENImGAUb94j/lpAU81iaWPQsKQonaDhqS?=
+ =?us-ascii?Q?U61qYz3YkYBgci1VSsnolf4SLo0A8VITJNn5suhKFb//QATBgUkLvwZvYYK+?=
+ =?us-ascii?Q?gIvyNyVjc07WDH6WKgxPvGI5zUskZm0z19AUHP/XeteOOZXdHqRl9QOB80lv?=
+ =?us-ascii?Q?f6iAE3L3RiHPT6KjUTIk0CJ4iQssa6Oz2JDGYktPmic56+p5Zl2l3Cnnc1Nu?=
+ =?us-ascii?Q?wd/mPMeFaRTML2BWkJDsIj1I+9YR1uaVfvDgYpwfMrUCXkv65DHFdeTPkwxG?=
+ =?us-ascii?Q?43DwxourituZMF8=3D?=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:64aa7808-outbound-1.mta.getcheckrecipient.com;CAT:NONE;SFS:(13230040)(35042699022)(1800799024)(36860700013)(376014)(14060799003)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2025 08:37:10.0024
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HIKjO0/IE7/Vu0gvA3XlEAfd3VSwhGOPQP+WzMZV0SUtatkAeGT/5c0KWqvbA8IjyO9ZuWu34p1k9HiJDDiNgw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7531
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: adcfeac2-e8c6-46ae-ec4d-08dd6d0a90ae
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF000001AE.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB10076
+
+Hi Julien,
+
+> On 27 Mar 2025, at 00:41, Julien Grall <julien@xen.org> wrote:
+>=20
+> Hi Bertrand,
+>=20
+> On 24/03/2025 13:53, Bertrand Marquis wrote:
+>> When VM to VM support is activated and there is no suitable FF-A support
+>> in the firmware, enable FF-A support for VMs to allow using it for VM to
+>> VM communications.
+>=20
+> tee/ and the callbacks associated are meant to be used for mediatiors. My=
+ current interpretation ist this is only meant to interpose between a guest=
+ and physical resources. Here you are extending the meaning to "virtual TEE=
+". I am sort of ok with that but ...
+
+I see what you mean but FF-A will not only be used to communicate with TEE =
+(even if the primary use case right now is this one, including have it in a=
+ VM instead of the secure world).
+
+>=20
+>> If there is OP-TEE running in the secure world and using the non FF-A
+>> communication system, having CONFIG_FFA_VM_TO_VM could be non functional
+>> (if optee is probed first) or OP-TEE could be non functional (if FF-A is
+>> probed first) so it is not recommended to activate the configuration
+>> option for such systems.
+>=20
+> ... this part is concerning me. You should be able to build with CONFIG_F=
+FA_VM_TO_VM and still boot when OP-TEE is present on the system. This is no=
+t too critical now as this is tech preview but this is definitely a blocker=
+ for making FFA supported. Can this be mentioned at the top of the ffa.c fi=
+le (which already contains existing blocker)?
+
+OP-TEE supports FF-A and in fact should be switched to using it by default =
+as it allows it to run in parallel of other TEEs in the secure world or hav=
+e FF-A compliant SPs running on top of OP-TEE.
+More and more you will see FF-A popping up as a recommended (or required) p=
+art of the firmware features.
+
+So the only reason to use OP-TEE without FF-A is if you have an old OP-TEE =
+in which case your firmware will not support FF-A and using it between VMs =
+is probably not required.
+
+>=20
+> Also, given this would expose a fully virtual TEE, we should be able to h=
+ave a system where you have some VMs talking FFA and some using the physica=
+l OPTEE (or another TEE). Whether we want to support it is a different ques=
+tion but this design would prevent it. Is this intended?
+
+Right now i would say this is definitely not something we need as part of t=
+he tech preview as anybody using this feature in Xen would use an OP-TEE wi=
+th FF-A support.
+But from Xen point of view, we should (if we can) support running on old sy=
+stems with an existing OP-TEE but still use FF-A between VMs.
+This has some consequences on how the tee mediator and FF-A support is desi=
+gned and I will definitely give it some thoughts (primary idea would be to =
+decouple FF-A with secure as mediator to FF-A between VMs somehow).
+
+For the review side of things, am I right to understand from your comments =
+that this ok for now as tech-preview ?
+
+Cheers
+Bertrand
 
 
-Hello,
-
-kernel test robot noticed "Kernel_panic-not_syncing:Fatal_exception" on:
-
-commit: d9f2164238d814d119e8c979a3579d1199e271bb ("PCI/MSI: Convert pci_msi_ignore_mask to per MSI domain flag")
-https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git master
-
-[test failed on linux-next/master 0e871365f7f9aeb9b590e345458b2083e067cd13]
-
-in testcase: ltp
-version: ltp-x86_64-042eff32a-1_20250322
-with following parameters:
-
-	test: net.rpc_tests
-
-
-
-config: x86_64-rhel-9.4-ltp
-compiler: gcc-12
-test machine: 8 threads Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz (Skylake) with 16G memory
-
-(please refer to attached dmesg/kmsg for entire log/backtrace)
-
-
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <oliver.sang@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202503271537.b451d717-lkp@intel.com
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20250327/202503271537.b451d717-lkp@intel.com
-
-
-[    5.420499][    T1] IOAPIC[0]: Preconfigured routing entry (2-16 -> IRQ 16 Level:1 ActiveLow:1)
-[    5.429420][    T1] e1000e 0000:00:1f.6: Interrupt Throttling Rate (ints/sec) set to dynamic conservative mode
-[    5.439557][    T1] Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] PREEMPT SMP KASAN PTI
-[    5.452040][    T1] KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-[    5.460040][    T1] CPU: 5 UID: 0 PID: 1 Comm: swapper/0 Not tainted 6.14.0-rc6-00007-gd9f2164238d8 #1
-[    5.469031][    T1] Hardware name: HP HP Z240 SFF Workstation/802E, BIOS N51 Ver. 01.63 10/05/2017
-[    5.477030][    T1] RIP: 0010:msi_setup_msi_desc+0x172/0x3c0
-[    5.484132][    T1] Code: 44 24 30 f6 83 47 08 00 00 10 74 0d 66 89 44 24 0c 80 cc 01 66 89 44 24 30 48 ba 00 00 00 00 00 fc ff df 4c 89 f9 48 c1 e9 03 <0f> b6 14 11 84 d2 74 09 80 fa 03 0f 8e f7 01 00 00 41 8b 17 81 e2
-[    5.504013][    T1] RSP: 0000:ffffc9000006f588 EFLAGS: 00010246
-[    5.509034][    T1] RAX: 0000000000000080 RBX: ffff888106b5a000 RCX: 0000000000000000
-[    5.517035][    T1] RDX: dffffc0000000000 RSI: 0000000000000246 RDI: ffff888106b5a846
-[    5.525034][    T1] RBP: 0000000000000001 R08: 0000000000000001 R09: fffff5200000de8b
-[    5.533035][    T1] R10: 0000000000000003 R11: ffffffff81d93300 R12: 1ffff9200000deb3
-[    5.541033][    T1] R13: ffffc9000006f5c8 R14: ffff888106b5a06d R15: 0000000000000000
-[    5.549034][    T1] FS:  0000000000000000(0000) GS:ffff88838e880000(0000) knlGS:0000000000000000
-[    5.558003][    T1] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    5.563005][    T1] CR2: 0000000000000000 CR3: 000000043c06c001 CR4: 00000000003706f0
-[    5.572049][    T1] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-[    5.580047][    T1] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-[    5.588024][    T1] Call Trace:
-[    5.590035][    T1]  <TASK>
-[    5.594008][    T1]  ? die_addr+0x3c/0xa0
-[    5.598035][    T1]  ? exc_general_protection+0x150/0x230
-[    5.604003][    T1]  ? asm_exc_general_protection+0x22/0x30
-[    5.609042][    T1]  ? kasan_save_track+0x10/0x30
-[    5.614035][    T1]  ? msi_setup_msi_desc+0x172/0x3c0
-[    5.618005][    T1]  ? msi_setup_msi_desc+0x115/0x3c0
-[    5.624005][    T1]  ? __pfx_msi_setup_msi_desc+0x10/0x10
-[    5.630034][    T1]  ? __pfx_mutex_lock+0x10/0x10
-[    5.634005][    T1]  msi_capability_init+0x1d2/0x7c0
-[    5.638034][    T1]  ? __pfx_msi_capability_init+0x10/0x10
-[    5.645043][    T1]  ? __pfx_yield_to+0x10/0x10
-[    5.650005][    T1]  ? mutex_unlock+0x7f/0xd0
-[    5.654034][    T1]  ? __pfx_mutex_unlock+0x10/0x10
-[    5.658004][    T1]  ? irq_domain_update_bus_token+0x123/0x180
-[    5.665043][    T1]  ? __msi_create_irq_domain+0x1c1/0x470
-[    5.670037][    T1]  ? msi_create_device_irq_domain+0x594/0x760
-[    5.676004][    T1]  __pci_enable_msi_range+0x28e/0x3b0
-[    5.682005][    T1]  ? __pfx___pci_enable_msi_range+0x10/0x10
-[    5.686165][    T1]  ? e1000e_check_options+0x3e2/0x1180
-[    5.693036][    T1]  pci_enable_msi+0x16/0x30
-[    5.696005][    T1]  e1000e_set_interrupt_capability+0x109/0x670
-[    5.701035][    T1]  ? mutex_unlock+0x7f/0xd0
-[    5.708003][    T1]  e1000_sw_init+0x1f2/0x7c0
-[    5.711004][    T1]  e1000_probe+0xab6/0x2a80
-[    5.717005][    T1]  ? __pfx_e1000_probe+0x10/0x10
-[    5.721006][    T1]  ? do_nanosleep+0x2e0/0x460
-[    5.726036][    T1]  ? __pfx_e1000_probe+0x10/0x10
-[    5.731005][    T1]  local_pci_probe+0xd9/0x190
-[    5.735036][    T1]  pci_call_probe+0x183/0x510
-[    5.739006][    T1]  ? _raw_spin_lock+0x81/0xe0
-[    5.744005][    T1]  ? __pfx_pci_call_probe+0x10/0x10
-[    5.749035][    T1]  ? kernfs_add_one+0x2dd/0x450
-[    5.754004][    T1]  ? pci_assign_irq+0x81/0x2a0
-[    5.759084][    T1]  ? pci_match_device+0x38b/0x690
-[    5.764049][    T1]  ? kernfs_put+0x18/0x40
-[    5.768035][    T1]  pci_device_probe+0x19c/0x230
-[    5.773007][    T1]  ? pci_dma_configure+0x121/0x180
-[    5.777045][    T1]  really_probe+0x1e3/0x920
-[    5.783035][    T1]  __driver_probe_device+0x18c/0x3d0
-[    5.786004][    T1]  driver_probe_device+0x4a/0x120
-[    5.793047][    T1]  __driver_attach+0x1dd/0x4a0
-[    5.797044][    T1]  ? __pfx___driver_attach+0x10/0x10
-[    5.801048][    T1]  bus_for_each_dev+0xf0/0x170
-[    5.807197][    T1]  ? __pfx_bus_for_each_dev+0x10/0x10
-[    5.812005][    T1]  ? __kmalloc_cache_noprof+0x149/0x3e0
-[    5.818006][    T1]  ? klist_add_tail+0x132/0x260
-[    5.823004][    T1]  bus_add_driver+0x29a/0x5c0
-[    5.827006][    T1]  driver_register+0x130/0x450
-[    5.832033][    T1]  ? __pfx_e1000_init_module+0x10/0x10
-[    5.837005][    T1]  do_one_initcall+0x8e/0x390
-[    5.842006][    T1]  ? __pfx_do_one_initcall+0x10/0x10
-[    5.847005][    T1]  ? __pfx_parse_args+0x10/0x10
-[    5.852007][    T1]  ? __kmalloc_noprof+0x1d4/0x4d0
-[    5.857045][    T1]  ? do_initcalls+0x2e/0x360
-[    5.861045][    T1]  do_initcalls+0x198/0x360
-[    5.865046][    T1]  kernel_init_freeable+0x813/0xc80
-[    5.871002][    T1]  ? __pfx_kernel_init+0x10/0x10
-[    5.876006][    T1]  kernel_init+0x1b/0x1f0
-[    5.880192][    T1]  ? calculate_sigpending+0x56/0x90
-[    5.885046][    T1]  ret_from_fork+0x30/0x70
-[    5.889047][    T1]  ? __pfx_kernel_init+0x10/0x10
-[    5.893046][    T1]  ret_from_fork_asm+0x1a/0x30
-[    5.898037][    T1]  </TASK>
-[    5.902006][    T1] Modules linked in:
-[    5.906069][    T1] ---[ end trace 0000000000000000 ]---
-[    5.911439][    T1] RIP: 0010:msi_setup_msi_desc+0x172/0x3c0
-[    5.917163][    T1] Code: 44 24 30 f6 83 47 08 00 00 10 74 0d 66 89 44 24 0c 80 cc 01 66 89 44 24 30 48 ba 00 00 00 00 00 fc ff df 4c 89 f9 48 c1 e9 03 <0f> b6 14 11 84 d2 74 09 80 fa 03 0f 8e f7 01 00 00 41 8b 17 81 e2
-[    5.936715][    T1] RSP: 0000:ffffc9000006f588 EFLAGS: 00010246
-[    5.942693][    T1] RAX: 0000000000000080 RBX: ffff888106b5a000 RCX: 0000000000000000
-[    5.950583][    T1] RDX: dffffc0000000000 RSI: 0000000000000246 RDI: ffff888106b5a846
-[    5.959042][    T1] RBP: 0000000000000001 R08: 0000000000000001 R09: fffff5200000de8b
-[    5.966940][    T1] R10: 0000000000000003 R11: ffffffff81d93300 R12: 1ffff9200000deb3
-[    5.974827][    T1] R13: ffffc9000006f5c8 R14: ffff888106b5a06d R15: 0000000000000000
-[    5.982728][    T1] FS:  0000000000000000(0000) GS:ffff88838e880000(0000) knlGS:0000000000000000
-[    5.991591][    T1] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    5.998093][    T1] CR2: 0000000000000000 CR3: 000000043c06c001 CR4: 00000000003706f0
-[    6.006000][    T1] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-[    6.013929][    T1] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-[    6.021832][    T1] Kernel panic - not syncing: Fatal exception
-[    6.026005][    T1] Kernel Offset: disabled
-
-
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>=20
+> Cheers,
+>=20
+> --=20
+> Julien Grall
+>=20
 
 
