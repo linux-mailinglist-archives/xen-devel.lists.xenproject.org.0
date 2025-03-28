@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBCB8A74B70
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 14:45:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.930662.1333275 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D98F3A74B61
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 14:45:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.930664.1333289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tyA0n-00065u-MQ; Fri, 28 Mar 2025 13:44:41 +0000
+	id 1tyA0p-0006Sq-Bo; Fri, 28 Mar 2025 13:44:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 930662.1333275; Fri, 28 Mar 2025 13:44:41 +0000
+Received: by outflank-mailman (output) from mailman id 930664.1333289; Fri, 28 Mar 2025 13:44:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tyA0n-00062E-HL; Fri, 28 Mar 2025 13:44:41 +0000
-Received: by outflank-mailman (input) for mailman id 930662;
- Fri, 28 Mar 2025 13:44:40 +0000
+	id 1tyA0p-0006OE-3n; Fri, 28 Mar 2025 13:44:43 +0000
+Received: by outflank-mailman (input) for mailman id 930664;
+ Fri, 28 Mar 2025 13:44:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IZL4=WP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tyA0m-0005Dj-1K
- for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 13:44:40 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1tyA0n-0005Dj-1d
+ for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 13:44:41 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cadc374f-0bda-11f0-9ffa-bf95429c2676;
- Fri, 28 Mar 2025 14:44:38 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43690d4605dso15049135e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 28 Mar 2025 06:44:38 -0700 (PDT)
+ id cb7af4c3-0bda-11f0-9ffa-bf95429c2676;
+ Fri, 28 Mar 2025 14:44:39 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4394a823036so21519985e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Mar 2025 06:44:39 -0700 (PDT)
 Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
  [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d8314f5c6sm73339085e9.40.2025.03.28.06.44.36
+ 5b1f17b1804b1-43d8314f5c6sm73339085e9.40.2025.03.28.06.44.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Mar 2025 06:44:36 -0700 (PDT)
+ Fri, 28 Mar 2025 06:44:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cadc374f-0bda-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: cb7af4c3-0bda-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743169477; x=1743774277; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1743169479; x=1743774279; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=a8W5SkdckqpViwNw8B8SNV+vwNGpyKIiESmN47LM7ug=;
-        b=k3F71TGlpKWc0h0UociXjUdpjfnQ733SNJamr7weppzYTnkTja9bZ4dPS0TmRO5xhT
-         nmEJ2qY0zEqCexIM2gD7hmfUXkP3RWPBwsGHFsloLTB3uZ+WrUk8gvLGt+s65FYtYDAq
-         XoerqlLBaeEmajqTowBrv36UPo6M4nX7LltPM=
+        bh=YLn8srVkw3Yg8gfwsGTdOECt81wVzaI0OabRG++w1eI=;
+        b=iEEuRzEkzv5c8FcoYVegB9/wT3rXdc8PnT3tjiz+5oa6oZF69jM8bIbwWv8FBBXwx8
+         1zYgG//xj8l+qc+jSzGojr4MomacheXeFjXZuIWUx3SsNLOSDhsBcZRxsgMmCsWHexuE
+         lU/kmafPlRs9S2MhC2rGafsnaYcYYvSW7fvbc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743169477; x=1743774277;
+        d=1e100.net; s=20230601; t=1743169479; x=1743774279;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=a8W5SkdckqpViwNw8B8SNV+vwNGpyKIiESmN47LM7ug=;
-        b=MNurhW4fKAEbw77x9j0xrgTyzVpgqylhugx3DuOuq6DoysRRYndTitLhvrvhX+EJ6t
-         HV51bkpbPZo1tmn1lQxiFKPDK4mqV2nc4qQSkBaUiFK1cRvJ+UmtBTXON1NN6bOc3uc8
-         k4itJPtxgGC/C7qdGRr83WHnjqVajznK1QyqRESNVJG6Lk2V0Pd7vWBJB3XivJcYTw2S
-         0FeBfiraUjiIMsiUCePagejrud2Qxo/znuMDUnzmsnQv7YTbf1gnxooaYfjQjfa7v0Sq
-         oZ32OEDFzRrWdajm6/IWGWtV4g/T9LLUk/8z3B27oX8SWlEK1Ag009vKodFCfNHD+RiD
-         4qCg==
-X-Gm-Message-State: AOJu0Yxz0N97q6ioa1zB6k0i5vX+gulW4XXKZRNfEs3epUe7/WErJTWK
-	j1oLAlnAweNL+rWmLk5gx9sog1ewR1Bcjqb1iXnZr2JSAU1o2B54L3L0iayMQRlvdUpCo4dlBlf
-	WzBc=
-X-Gm-Gg: ASbGncsLTVrOjOcc+c1IIyfLpOHjwcTh6n4uF7xCY+au/JjjmgxUtu65yKl/uNdfmke
-	oSEWWMQ3v8s6arxEX6bPxwOnkOWWALgh3hlix2SuxlddikQGBBq1XBRYHNlk32xlzC8cuklno8B
-	dzcpgE52EF49Zj0r+a5XZsrjS6FIdSyGqWsQx5Y2xPU9PdMUSkD2HmJn+tk5EQXsrRfcDWBFTZF
-	QTWN+T/okutByBZv7foGnqvHvt0R09ZA+xhZA/hh3kVN3G4/+p1/AHk4pSF5Nww83uGUVTDVjMp
-	DMDSEDUze6VbQzaD+RoWXB52PoL6pvS53v/TIUhR5TAINvcqMk/MelcgFYWfzKEW+qn2y+V9x0s
-	tYNZVqK5ykgkjrEYRQA==
-X-Google-Smtp-Source: AGHT+IG2t1EAyDACSeBb/uY/ZuDdN+wJPR2Z8n9fr2z1771JJWgzWikUg+Oo6d29LOM7vxTz9J1mag==
-X-Received: by 2002:a05:600c:1c0e:b0:43c:fffc:7886 with SMTP id 5b1f17b1804b1-43d850a93c9mr72645975e9.8.1743169477478;
-        Fri, 28 Mar 2025 06:44:37 -0700 (PDT)
+        bh=YLn8srVkw3Yg8gfwsGTdOECt81wVzaI0OabRG++w1eI=;
+        b=co81OiL1JnFpixxStUuBgUdnASUgTKWyOrdJ20pkAsGjQ26v6BJdgiNFNJJSU7LQoQ
+         r8lqYUnLTeEQVD+2V59bzemMP2MU6XXn/sfqRQEaVPzWrvk56dqa6b0Fmj2SdUomrfjh
+         eoUTWOQ9PVeaR+nwN4iVBP0LWCgE8HSKBmmrfiko9xgoOq+HM4cp+3StDWZess7HLtT2
+         Wbp5uhkxpdBjGz9GRY8gdKO+jk0j4lCs1xqAt9/oYDqItTWn491GVldzt4XgHaumxk9l
+         CI0nEqH10XZkAEQ7rxfBeGeXVd+bKFIdnhjqt/bpmSUv1IF1SF6UuvJjqLA2I2c6LCqK
+         kN1g==
+X-Gm-Message-State: AOJu0Ywi/2T+VH9tYqRN/Krh2bq++Fu3Ak9opnnMhGqQl+vHOD9l+pKb
+	JfdeI6tuPZSi97YW2Xm5mztgvTOVuuW/beQFZOHKQvOz4P/SI5irHcaPUo9yWzdxlu4x9wIgPkS
+	fDP0=
+X-Gm-Gg: ASbGncv4bEbMh8NAQEII0aLsgUdVBSa3I/3kzQyxb5Bx8olSOHiJvpgh9AQ8/gtPp7+
+	OvrlLLc7FZMCFSiY0bDVy/Rtb5QWAnrcQzIOya7vz9DPOXNDNrVev2LHIqZ7DXkb+TZMCn2yv2j
+	/qddPNHoLH1eAkQe8ACyM+txJVgSdOruwlb2kYXUFMBPBBb00z4ilHS87moIfFtwedkERmpntjv
+	DVBJDLhvxqqtmWufyRWNgm/JTOiDfSWqFfRcI6FeQqT/YrZliATrBM+PZBBnId7pUNBizY/l/iB
+	+qZ4pwfdDiyNUaQL3FlhcB8czLeysu1q9GNGk7rdjbJ/km9rRaIMCZSZ2Edr8+eShGHyKjEFDZF
+	zHV57hoQaMzR3OwzC6w==
+X-Google-Smtp-Source: AGHT+IFpGaM1UkpZQawuV8q0zxzITdIPLaEq+TB4g1vBMIklq4bOPRRgoT1JeWiE0tZFtBzJtvDfEg==
+X-Received: by 2002:a05:600c:4585:b0:43c:f8fc:f6a6 with SMTP id 5b1f17b1804b1-43d84f8843dmr74418325e9.9.1743169478514;
+        Fri, 28 Mar 2025 06:44:38 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Lin Liu <lin.liu@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>,
@@ -93,9 +94,9 @@ Cc: Lin Liu <lin.liu@citrix.com>,
 	Shawn Anastasio <sanastasio@raptorengineering.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	"Daniel P . Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH v5 04/16] xen/lib: Switch to xen/byteorder.h
-Date: Fri, 28 Mar 2025 13:44:15 +0000
-Message-Id: <20250328134427.874848-5-andrew.cooper3@citrix.com>
+Subject: [PATCH v5 05/16] xen/device-tree: Remove use of *_to_cpup() helpers
+Date: Fri, 28 Mar 2025 13:44:16 +0000
+Message-Id: <20250328134427.874848-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250328134427.874848-1-andrew.cooper3@citrix.com>
 References: <20250328134427.874848-1-andrew.cooper3@citrix.com>
@@ -105,18 +106,14 @@ Content-Transfer-Encoding: 8bit
 
 From: Lin Liu <lin.liu@citrix.com>
 
-In divmod.c, additionally swap xen/lib.h for xen/macros.h as only ABS() is
-needed.
-
-In find-next-bit.c, ext2 has nothing to do with this logic.  Despite the
-comments, it was a local modification when the logic was imported from Linux,
-because Xen didn't have a suitable helper.
-
-The new infrsatructure does have a suitable primitive, so use it.
+These wrappers simply hide a deference, which adds to the cognitive complexity
+of reading the code.  As such, they're not going to be included in the new
+byteswap infrastructure.
 
 No functional change.
 
 Signed-off-by: Lin Liu <lin.liu@citrix.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Anthony PERARD <anthony.perard@vates.tech>
 CC: Michal Orzel <michal.orzel@amd.com>
@@ -131,130 +128,199 @@ CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 CC: Daniel P. Smith <dpsmith@apertussolutions.com>
 CC: Lin Liu <lin.liu@citrix.com>
 
-The find-next-bit.c changes, being inside __BIG_ENDIAN aren't even compiled in
-any build of Xen.  I manually checked that they compiled.
-
 v5:
  * Rebase
- * Include a fixto divmod.c
- * Explain why even Linux has never had anything by the name ext2_swab()
+ * Split out of later patch
 ---
- xen/lib/divmod.c        |  5 ++---
- xen/lib/find-next-bit.c | 39 +++++++--------------------------------
- 2 files changed, 9 insertions(+), 35 deletions(-)
+ xen/common/device-tree/device-tree.c | 44 ++++++++++++++--------------
+ 1 file changed, 22 insertions(+), 22 deletions(-)
 
-diff --git a/xen/lib/divmod.c b/xen/lib/divmod.c
-index 0377d62130ae..b5b111dacecc 100644
---- a/xen/lib/divmod.c
-+++ b/xen/lib/divmod.c
-@@ -1,6 +1,5 @@
--#include <xen/lib.h>
--#include <xen/types.h>
--#include <asm/byteorder.h>
-+#include <xen/byteorder.h>
-+#include <xen/macros.h>
+diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/device-tree.c
+index e8f810b2fe10..90fee2ba0315 100644
+--- a/xen/common/device-tree/device-tree.c
++++ b/xen/common/device-tree/device-tree.c
+@@ -173,7 +173,7 @@ bool dt_property_read_u32(const struct dt_device_node *np,
+     if ( !val || len < sizeof(*out_value) )
+         return 0;
  
- /*
-  * A couple of 64 bit operations ported from FreeBSD.
-diff --git a/xen/lib/find-next-bit.c b/xen/lib/find-next-bit.c
-index 761b02739841..9b8d7814f20c 100644
---- a/xen/lib/find-next-bit.c
-+++ b/xen/lib/find-next-bit.c
-@@ -9,8 +9,7 @@
-  * 2 of the License, or (at your option) any later version.
-  */
- #include <xen/bitops.h>
--
--#include <asm/byteorder.h>
-+#include <xen/byteorder.h>
+-    *out_value = be32_to_cpup(val);
++    *out_value = be32_to_cpu(*val);
  
- #define __ffs(x) (ffsl(x) - 1)
- #define ffz(x) __ffs(~(x))
-@@ -164,30 +163,6 @@ EXPORT_SYMBOL(find_first_zero_bit);
- 
- #ifdef __BIG_ENDIAN
- 
--/* include/linux/byteorder does not support "unsigned long" type */
--static inline unsigned long ext2_swabp(const unsigned long * x)
--{
--#if BITS_PER_LONG == 64
--	return (unsigned long) __swab64p((u64 *) x);
--#elif BITS_PER_LONG == 32
--	return (unsigned long) __swab32p((u32 *) x);
--#else
--#error BITS_PER_LONG not defined
--#endif
--}
--
--/* include/linux/byteorder doesn't support "unsigned long" type */
--static inline unsigned long ext2_swab(const unsigned long y)
--{
--#if BITS_PER_LONG == 64
--	return (unsigned long) __swab64((u64) y);
--#elif BITS_PER_LONG == 32
--	return (unsigned long) __swab32((u32) y);
--#else
--#error BITS_PER_LONG not defined
--#endif
--}
--
- #ifndef find_next_zero_bit_le
- unsigned long find_next_zero_bit_le(const void *addr, unsigned
- 		long size, unsigned long offset)
-@@ -202,7 +177,7 @@ unsigned long find_next_zero_bit_le(const void *addr, unsigned
- 	size -= result;
- 	offset &= (BITS_PER_LONG - 1UL);
- 	if (offset) {
--		tmp = ext2_swabp(p++);
-+		tmp = bswapl(*p++);
- 		tmp |= (~0UL >> (BITS_PER_LONG - offset));
- 		if (size < BITS_PER_LONG)
- 			goto found_first;
-@@ -220,7 +195,7 @@ unsigned long find_next_zero_bit_le(const void *addr, unsigned
- 	}
- 	if (!size)
- 		return result;
--	tmp = ext2_swabp(p);
-+	tmp = bswapl(*p);
- found_first:
- 	tmp |= ~0UL << size;
- 	if (tmp == ~0UL)	/* Are any bits zero? */
-@@ -229,7 +204,7 @@ unsigned long find_next_zero_bit_le(const void *addr, unsigned
- 	return result + ffz(tmp);
- 
- found_middle_swap:
--	return result + ffz(ext2_swab(tmp));
-+	return result + ffz(bswapl(tmp));
+     return 1;
  }
- EXPORT_SYMBOL(find_next_zero_bit_le);
- #endif
-@@ -248,7 +223,7 @@ unsigned long find_next_bit_le(const void *addr, unsigned
- 	size -= result;
- 	offset &= (BITS_PER_LONG - 1UL);
- 	if (offset) {
--		tmp = ext2_swabp(p++);
-+		tmp = bswapl(*p++);
- 		tmp &= (~0UL << offset);
- 		if (size < BITS_PER_LONG)
- 			goto found_first;
-@@ -267,7 +242,7 @@ unsigned long find_next_bit_le(const void *addr, unsigned
- 	}
- 	if (!size)
- 		return result;
--	tmp = ext2_swabp(p);
-+	tmp = bswapl(*p);
- found_first:
- 	tmp &= (~0UL >> (BITS_PER_LONG - size));
- 	if (tmp == 0UL)		/* Are any bits set? */
-@@ -276,7 +251,7 @@ unsigned long find_next_bit_le(const void *addr, unsigned
- 	return result + __ffs(tmp);
+@@ -266,7 +266,7 @@ int dt_property_read_variable_u32_array(const struct dt_device_node *np,
  
- found_middle_swap:
--	return result + __ffs(ext2_swab(tmp));
-+	return result + __ffs(bswapl(tmp));
+     count = sz;
+     while ( count-- )
+-        *out_values++ = be32_to_cpup(val++);
++        *out_values++ = be32_to_cpu(*val++);
+ 
+     return sz;
  }
- EXPORT_SYMBOL(find_next_bit_le);
- #endif
+@@ -493,7 +493,7 @@ static int __dt_n_addr_cells(const struct dt_device_node *np, bool parent)
+ 
+         ip = dt_get_property(np, "#address-cells", NULL);
+         if ( ip )
+-            return be32_to_cpup(ip);
++            return be32_to_cpu(*ip);
+     } while ( np->parent );
+     /* No #address-cells property for the root node */
+     return DT_ROOT_NODE_ADDR_CELLS_DEFAULT;
+@@ -510,7 +510,7 @@ static int __dt_n_size_cells(const struct dt_device_node *np, bool parent)
+ 
+         ip = dt_get_property(np, "#size-cells", NULL);
+         if ( ip )
+-            return be32_to_cpup(ip);
++            return be32_to_cpu(*ip);
+     } while ( np->parent );
+     /* No #address-cells property for the root node */
+     return DT_ROOT_NODE_SIZE_CELLS_DEFAULT;
+@@ -643,7 +643,7 @@ static void dt_bus_pci_count_cells(const struct dt_device_node *np,
+ static unsigned int dt_bus_pci_get_flags(const __be32 *addr)
+ {
+     unsigned int flags = 0;
+-    u32 w = be32_to_cpup(addr);
++    u32 w = be32_to_cpu(*addr);
+ 
+     switch((w >> 24) & 0x03) {
+     case 0x01:
+@@ -1096,7 +1096,7 @@ dt_irq_find_parent(const struct dt_device_node *child)
+         if ( parp == NULL )
+             p = dt_get_parent(child);
+         else
+-            p = dt_find_node_by_phandle(be32_to_cpup(parp));
++            p = dt_find_node_by_phandle(be32_to_cpu(*parp));
+         child = p;
+     } while ( p && dt_get_property(p, "#interrupt-cells", NULL) == NULL );
+ 
+@@ -1129,7 +1129,7 @@ unsigned int dt_number_of_irq(const struct dt_device_node *device)
+     intlen /= sizeof(*intspec);
+ 
+     dt_dprintk(" using 'interrupts' property\n");
+-    dt_dprintk(" intspec=%d intlen=%d\n", be32_to_cpup(intspec), intlen);
++    dt_dprintk(" intspec=%d intlen=%d\n", be32_to_cpu(*intspec), intlen);
+ 
+     /* Look for the interrupt parent. */
+     p = dt_irq_find_parent(device);
+@@ -1260,7 +1260,7 @@ int dt_for_each_irq_map(const struct dt_device_node *dev,
+         imaplen -= addrsize + intsize;
+ 
+         /* Get the interrupt parent */
+-        ipar = dt_find_node_by_phandle(be32_to_cpup(imap));
++        ipar = dt_find_node_by_phandle(be32_to_cpu(*imap));
+         imap++;
+         --imaplen;
+ 
+@@ -1377,8 +1377,8 @@ static int dt_irq_map_raw(const struct dt_device_node *parent,
+     int match, i;
+ 
+     dt_dprintk("dt_irq_map_raw: par=%s,intspec=[0x%08x 0x%08x...],ointsize=%d\n",
+-               parent->full_name, be32_to_cpup(intspec),
+-               be32_to_cpup(intspec + 1), ointsize);
++               parent->full_name, be32_to_cpu(*intspec),
++               be32_to_cpu(*(intspec+1)), ointsize);
+ 
+     ipar = parent;
+ 
+@@ -1490,7 +1490,7 @@ static int dt_irq_map_raw(const struct dt_device_node *parent,
+             dt_dprintk(" -> match=%d (imaplen=%d)\n", match, imaplen);
+ 
+             /* Get the interrupt parent */
+-            newpar = dt_find_node_by_phandle(be32_to_cpup(imap));
++            newpar = dt_find_node_by_phandle(be32_to_cpu(*imap));
+             imap++;
+             --imaplen;
+ 
+@@ -1584,7 +1584,7 @@ int dt_device_get_raw_irq(const struct dt_device_node *device,
+     intlen /= sizeof(*intspec);
+ 
+     dt_dprintk(" using 'interrupts' property\n");
+-    dt_dprintk(" intspec=%d intlen=%d\n", be32_to_cpup(intspec), intlen);
++    dt_dprintk(" intspec=%d intlen=%d\n", be32_to_cpu(*intspec), intlen);
+ 
+     /* Look for the interrupt parent. */
+     p = dt_irq_find_parent(device);
+@@ -1695,7 +1695,7 @@ static int __dt_parse_phandle_with_args(const struct dt_device_node *np,
+          * If phandle is 0, then it is an empty entry with no
+          * arguments.  Skip forward to the next entry.
+          * */
+-        phandle = be32_to_cpup(list++);
++        phandle = be32_to_cpu(*list++);
+         if ( phandle )
+         {
+             /*
+@@ -1764,7 +1764,7 @@ static int __dt_parse_phandle_with_args(const struct dt_device_node *np,
+                 out_args->np = node;
+                 out_args->args_count = count;
+                 for ( i = 0; i < count; i++ )
+-                    out_args->args[i] = be32_to_cpup(list++);
++                    out_args->args[i] = be32_to_cpu(*list++);
+             }
+ 
+             /* Found it! return success */
+@@ -1845,7 +1845,7 @@ static unsigned long unflatten_dt_node(const void *fdt,
+     int has_name = 0;
+     int new_format = 0;
+ 
+-    tag = be32_to_cpup((__be32 *)(*p));
++    tag = be32_to_cpu(*(__be32 *)(*p));
+     if ( tag != FDT_BEGIN_NODE )
+     {
+         printk(XENLOG_WARNING "Weird tag at start of node: %x\n", tag);
+@@ -1938,7 +1938,7 @@ static unsigned long unflatten_dt_node(const void *fdt,
+         u32 sz, noff;
+         const char *pname;
+ 
+-        tag = be32_to_cpup((__be32 *)(*p));
++        tag = be32_to_cpu(*(__be32 *)(*p));
+         if ( tag == FDT_NOP )
+         {
+             *p += 4;
+@@ -1947,8 +1947,8 @@ static unsigned long unflatten_dt_node(const void *fdt,
+         if ( tag != FDT_PROP )
+             break;
+         *p += 4;
+-        sz = be32_to_cpup((__be32 *)(*p));
+-        noff = be32_to_cpup((__be32 *)((*p) + 4));
++        sz = be32_to_cpu(*(__be32 *)(*p));
++        noff = be32_to_cpu(*(__be32 *)((*p) + 4));
+         *p += 8;
+         if ( fdt_version(fdt) < 0x10 )
+             *p = ROUNDUP(*p, sz >= 8 ? 8 : 4);
+@@ -1975,13 +1975,13 @@ static unsigned long unflatten_dt_node(const void *fdt,
+                  (strcmp(pname, "linux,phandle") == 0) )
+             {
+                 if ( np->phandle == 0 )
+-                    np->phandle = be32_to_cpup((__be32*)*p);
++                    np->phandle = be32_to_cpu(*(__be32*)*p);
+             }
+             /* And we process the "ibm,phandle" property
+              * used in pSeries dynamic device tree
+              * stuff */
+             if ( strcmp(pname, "ibm,phandle") == 0 )
+-                np->phandle = be32_to_cpup((__be32 *)*p);
++                np->phandle = be32_to_cpu(*(__be32 *)*p);
+             pp->name = pname;
+             pp->length = sz;
+             pp->value = (void *)*p;
+@@ -2053,7 +2053,7 @@ static unsigned long unflatten_dt_node(const void *fdt,
+             *p += 4;
+         else
+             mem = unflatten_dt_node(fdt, mem, p, np, allnextpp, fpsize);
+-        tag = be32_to_cpup((__be32 *)(*p));
++        tag = be32_to_cpu(*(__be32 *)(*p));
+     }
+     if ( tag != FDT_END_NODE )
+     {
+@@ -2099,7 +2099,7 @@ int unflatten_device_tree(const void *fdt, struct dt_device_node **mynodes)
+     /* Second pass, do actual unflattening */
+     start = ((unsigned long)fdt) + fdt_off_dt_struct(fdt);
+     unflatten_dt_node(fdt, mem, &start, NULL, &allnextp, 0);
+-    if ( be32_to_cpup((__be32 *)start) != FDT_END )
++    if ( be32_to_cpu(*(__be32 *)start) != FDT_END )
+     {
+         printk(XENLOG_ERR "Weird tag at end of tree: %08x\n",
+                   *((u32 *)start));
 -- 
 2.39.5
 
