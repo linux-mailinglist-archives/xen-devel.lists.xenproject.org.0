@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86A18A74A45
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 14:05:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.930607.1333204 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EE35A74A4B
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 14:05:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.930619.1333214 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ty9No-0002zv-2l; Fri, 28 Mar 2025 13:04:24 +0000
+	id 1ty9Oy-0003YV-EQ; Fri, 28 Mar 2025 13:05:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 930607.1333204; Fri, 28 Mar 2025 13:04:24 +0000
+Received: by outflank-mailman (output) from mailman id 930619.1333214; Fri, 28 Mar 2025 13:05:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ty9Nn-0002xJ-WB; Fri, 28 Mar 2025 13:04:23 +0000
-Received: by outflank-mailman (input) for mailman id 930607;
- Fri, 28 Mar 2025 13:04:22 +0000
+	id 1ty9Oy-0003X2-Bi; Fri, 28 Mar 2025 13:05:36 +0000
+Received: by outflank-mailman (input) for mailman id 930619;
+ Fri, 28 Mar 2025 13:05:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hnye=WP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ty9Nm-0002xD-SU
- for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 13:04:22 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1ty9Ox-0003Wt-0t
+ for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 13:05:35 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 29e1ae72-0bd5-11f0-9ea3-5ba50f476ded;
- Fri, 28 Mar 2025 14:04:20 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3912baafc58so1705951f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 28 Mar 2025 06:04:20 -0700 (PDT)
+ id 5584c781-0bd5-11f0-9ea3-5ba50f476ded;
+ Fri, 28 Mar 2025 14:05:34 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3914a5def6bso1138648f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Mar 2025 06:05:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b6588d0sm2536073f8f.7.2025.03.28.06.04.18
+ ffacd0b85a97d-39c0b66a8c9sm2554732f8f.47.2025.03.28.06.05.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Mar 2025 06:04:19 -0700 (PDT)
+ Fri, 28 Mar 2025 06:05:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 29e1ae72-0bd5-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 5584c781-0bd5-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743167060; x=1743771860; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743167133; x=1743771933; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BZHLXK8B/PjnAgdDc8+ZhE8zBlvGgaM02nfJyklFA30=;
-        b=aR1dHOROCQ0CBe8NNMrun2ZchwHdi87jip96xXACHn89mseMUOLTpyXOzDAHRVqVK5
-         8WyxeaDTScAz24OdIrjDB9UiZI9h/xYQjIhgVx6URuLOenFkx2CG1+QgerSUvDg4AzgP
-         D4CfD/RbF8dngWnh7jHoG3veyztk3FxjrCXKqjBTAS15DAQRZ/Ws7puGOPzPlsMb1zCM
-         yGgIoMNOKDQvoeZObcFiuq430diL3FnJAzCR0ySmTPRmRaVYXVU8DQM0DiKnSdIUsWM2
-         IggO5pscYGpBrtOWeBLima6KzjEj1xENTy9qI5FFVTDaYRbFOK0U9NDaVhMovZj+tAkE
-         Ur5w==
+        bh=mRWTylH9KBu3wLOowxXO6GgnL+/lOGKwdWoSuNSZmi8=;
+        b=OeESjjFbW23xM1SUu7L7hA4ZUgkO7PyFoDqNlN6KLbL0dQZHD6eCJCEPF/LSeHKbVq
+         vWSwlhv8Y3M26lf/kymLPKm3KI0Ggb+OqKYqjQYa53PKTyaFMJ9ef5FQ9UMN3EA92zPb
+         YrHDbrf95BGwQOTY3U3JL15jN5LBgTtsDSstHbNRZVhXnlq1+Q70gLNm2cwNZjYEmngT
+         6+Zqfz8SRWm7hX8hqgj7jHvRCUo2utI3kyR/xe0jPZYEf/5vTkMdKS6P+YyuhR3LuBss
+         5Rgg91uV1+Ti12ov231gcQVRSJMV/K6KgqLxM1lQ8YhnM5CT6gYZ5y3VYqU64oAs5PEd
+         XrfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743167060; x=1743771860;
+        d=1e100.net; s=20230601; t=1743167133; x=1743771933;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BZHLXK8B/PjnAgdDc8+ZhE8zBlvGgaM02nfJyklFA30=;
-        b=cFokrgiyt8sw8obLulDsm/4WdoFikyFMuZf1lYFnrrgYIDlDOfqwVeJPJzBmchSj6N
-         mWQ2NOtKck4YExqy1YnTp8pT3tmTPguiDxWYvJNHbRB6sCMJ7WLwrBNTEsdFrg2+UCaX
-         qoihf+VW2biMPjno+9iSO12zhwdzo0PbIk9gD1lxYD/QKeVPxRe5KXezDF4Xh1ZE1k4r
-         p6nuivMYiFM+nIUqXvAXd8W+aGujlTUymmNi2NY+U5SuWNckpJF0HQ84wsJDO97HBM+h
-         abXLA/mxu+mH8FgIT8KUuaHYNI1M0JRZEi/ZrnqaGlELeEQGM2oFnFWF0znBUJi7mOj4
-         xOJg==
-X-Forwarded-Encrypted: i=1; AJvYcCVyAgDhNxLdl691xQdWccMHG+hsl+LG+US4Ndz39i2OauhKUK1/bkv5QCyZeegJlQg3LepIdQChkq4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxvn8LJpy9xheArE8aYSVt5aTVpZpnJpNI0i2H3wfJwz7MkxML6
-	iZGjvQgluuw/V1+1AOwfoh2km6Lxf0nAWjuxkscCj0E3vth3I2jYVDETozvXdw==
-X-Gm-Gg: ASbGnctAmfLgzg8eCq4osGy/MfFpNnGnKRRW6RDAx7oFRUQPzuldlNwR8f0A6YxsgfE
-	FwUFk/k0iPIndBD0elDXEkuxPPHGzGyPnTtlKc0H4SsGsVka1hm/KJlBHWdE5/VoyxIdXPJWCl9
-	6z7a7U+bu/m5+CNBXYUfHwMbeeGjnSXACqviIk1l+EXCNM9ju8f9dPYStZfJLZuZ9bdacg2Ti3H
-	WQpHEx9K/XmX/IGspqcDmqxDqzANRRHQMmLM8pUcyIsWxXQk7oBtUZL6Jo2dlQziisJLzCWgDW6
-	Y5XDzjFP2Hn8zE26XjRmNX4bi3fCAEln2s2KCKW98KOiZZS+l/NQoXDAcpJ3koyAD9YnTE1tqrP
-	LzttstOzmN8uuM8JQg9BmTnvBQaLtGg==
-X-Google-Smtp-Source: AGHT+IE651vZxxMgK1wcA4w3CTvHXPr7HNvjFOevflMqtVGvdliQzB5NjJgktMMBHv4T6HHvzcroDw==
-X-Received: by 2002:a5d:584a:0:b0:391:41c9:7a87 with SMTP id ffacd0b85a97d-39ad17988dcmr7280626f8f.51.1743167059699;
-        Fri, 28 Mar 2025 06:04:19 -0700 (PDT)
-Message-ID: <df7853d6-14c9-4dc6-9910-2fd735cf797c@suse.com>
-Date: Fri, 28 Mar 2025 14:04:18 +0100
+        bh=mRWTylH9KBu3wLOowxXO6GgnL+/lOGKwdWoSuNSZmi8=;
+        b=F9nI6EwwPYuvMhd3Gii4AJ7pdCJRBpIrPnFnRkRbFlCR6Cal9AerNeFKh4lOblKz31
+         +KI4MGXT6tbyvqw7ksu4L6m1pf4wz7lvilL62iy2xNl8EU85TNf34KugnTTKjMFk0OHi
+         fA4f06t41dZkPPdsJGstbNj79WJEuxDEndL2PSTQJ2WY9Es81wriI1TrJWCIGHK8KIHz
+         wtIPZ5KdsebhsjyO+HsT24eHi2ZM3JjjLq2M2z1itdOM+xbe9trEIc2Vkg8a+YVEVbbp
+         STVpd5ekVs5sRAw+T/Zg86PDufNsRN6KeSSxdwhbszzM2q0NGF5ySNPEjay8fvtJHpmq
+         V/7Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWWBjUr6PECAk3W7qlTvmFKP5yJLEJ3WaMyPjn/O5NicCisUvyBjcJ8rsEwSxIrhvVuvc+FiSLLJhE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YymJ2CvQ/92ck1S1zls3T+Yc0DdLBiNIBxGM+cH7tOniJoeBNoI
+	7TkwHCtOcR9P1A91pWEpzdl60PnPetmqqMG74CzpCutShhygFkG7ooiepO/m9g==
+X-Gm-Gg: ASbGnctbAXU0mNr/nS8MBCpBlrR7+cxAPKih4FM0zfWLw52eDabXjMIbacS8ocE6ANK
+	IYyEFSls8AUzN/6kaZNK5CpW70MTHKTg599MDENPLIWPr0XolbvFtYhbunEoi5DpC6ZUzYMNhTz
+	zIpaWtwZd0nRfVaJSJM557+YeAykEzcy14imq06l3hQ7j5a9MuW4XyBk3rFhacmLQcVjjsVnPo6
+	tq32GOlPmt/w34lghUYkHmz841I1iB6giC0RdAVm88iaUCmH7HtCK4eSoFZNotNKhX+0jO1zhBf
+	L5Lr2oe1HvBU3trao7Q4INna01In2DOx+WAkHvWZTmlGJ5u8YujZ9UWmlJmF1IFTN5s3GMp4s2U
+	M/tgPCbt8Ks/oKV+8yqS6NS6viI5prgSWt6MVlco/
+X-Google-Smtp-Source: AGHT+IHu81nOXFQVWqLqOTIfTB0mqtDqhNTSrgCU+eX5ZmWr5AaBxoT6sK1zU7zAS8jDMBn336Awyw==
+X-Received: by 2002:a05:6000:4024:b0:391:2e6a:30fe with SMTP id ffacd0b85a97d-39ad177f70bmr6158944f8f.39.1743167132957;
+        Fri, 28 Mar 2025 06:05:32 -0700 (PDT)
+Message-ID: <d6be28f6-7c33-41c7-9502-799e484014bf@suse.com>
+Date: Fri, 28 Mar 2025 14:05:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] xen: x86: irq: use do-while loop in create_irq()
+Subject: Re: [PATCH v2 1/3] xen: gcov: add support for gcc 14
 To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20250328121902.2134020-1-volodymyr_babchuk@epam.com>
- <20250328121902.2134020-3-volodymyr_babchuk@epam.com>
+ <20250328121902.2134020-2-volodymyr_babchuk@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,69 +122,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250328121902.2134020-3-volodymyr_babchuk@epam.com>
+In-Reply-To: <20250328121902.2134020-2-volodymyr_babchuk@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 28.03.2025 13:19, Volodymyr Babchuk wrote:
-> While building xen with GCC 14.2.1 with "-fcondition-coverage" option,
-> the compiler produces a false positive warning:
-> 
->   arch/x86/irq.c: In function ‘create_irq’:
->   arch/x86/irq.c:281:11: error: ‘desc’ may be used uninitialized [-Werror=maybe-uninitialized]
->     281 |     ret = init_one_irq_desc(desc);
->         |           ^~~~~~~~~~~~~~~~~~~~~~~
->   arch/x86/irq.c:269:22: note: ‘desc’ was declared here
->     269 |     struct irq_desc *desc;
->         |                      ^~~~
->   cc1: all warnings being treated as errors
->   make[2]: *** [Rules.mk:252: arch/x86/irq.o] Error 1
-> 
-> The same behavior can be observed when building Xen with "-Og"
-> optimization level. Fix this by using "do { } while" loop instead of
-> "for" loop.
+> gcc 14 (with patch "Add condition coverage (MC/DC)") introduced 9th
+> gcov counter. Also this version can call new merge function
+> __gcov_merge_ior(), so we need a new stub for it.
 > 
 > Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> 
-> ---
-> 
-> Changes in v2:
-> 
->  - Use do { } while loop instead of initializing desc with NULL
-> ---
 
-I'm afraid to disappoint you by saying that I liked v1 better; all it was
-lacking was a comment. Such a comment is still lacking here. Without that,
-someone may come and convert this back to the more normal (in this
-situation) "for" loop.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/x86/irq.c
-> +++ b/xen/arch/x86/irq.c
-> @@ -264,15 +264,19 @@ void __init clear_irq_vector(int irq)
->  
->  int create_irq(nodeid_t node, bool grant_access)
->  {
-> -    int irq, ret;
-> +    int ret;
-> +    int irq = nr_irqs_gsi;
->      struct irq_desc *desc;
->  
-> -    for (irq = nr_irqs_gsi; irq < nr_irqs; irq++)
-> +    if ( irq >= nr_irqs )
-> +        return -ENOSPC;
-> +
-> +    do
->      {
 
-Nit: The brace goes on the same line as the "do", just like ...
-
->          desc = irq_to_desc(irq);
->          if (cmpxchg(&desc->arch.used, IRQ_UNUSED, IRQ_RESERVED) == IRQ_UNUSED)
->             break;
-> -    }
-> +    } while ( ++irq < nr_irqs );
-
-... it's on the same line as the "while" here.
-
-Jan
 
