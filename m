@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F7A5A745BB
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 09:53:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.930327.1332967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F272A745C8
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 09:57:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.930337.1332978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ty5Sl-0003fU-6c; Fri, 28 Mar 2025 08:53:15 +0000
+	id 1ty5Wg-0004Ft-MB; Fri, 28 Mar 2025 08:57:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 930327.1332967; Fri, 28 Mar 2025 08:53:15 +0000
+Received: by outflank-mailman (output) from mailman id 930337.1332978; Fri, 28 Mar 2025 08:57:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ty5Sl-0003dD-3q; Fri, 28 Mar 2025 08:53:15 +0000
-Received: by outflank-mailman (input) for mailman id 930327;
- Fri, 28 Mar 2025 08:53:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QVst=WP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ty5Sj-0003d5-5A
- for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 08:53:13 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 13aa034c-0bb2-11f0-9ffa-bf95429c2676;
- Fri, 28 Mar 2025 09:53:11 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5e6167d0536so3752363a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 28 Mar 2025 01:53:11 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5edc16aae09sm1045758a12.6.2025.03.28.01.53.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Mar 2025 01:53:09 -0700 (PDT)
+	id 1ty5Wg-0004DV-JV; Fri, 28 Mar 2025 08:57:18 +0000
+Received: by outflank-mailman (input) for mailman id 930337;
+ Fri, 28 Mar 2025 08:57:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1ty5Wf-0004DP-7y
+ for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 08:57:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1ty5We-00DkXP-0F;
+ Fri, 28 Mar 2025 08:57:16 +0000
+Received: from [2a02:8012:3a1:0:9545:fe10:6ede:2324]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1ty5Wd-003nbY-2W;
+ Fri, 28 Mar 2025 08:57:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,172 +39,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13aa034c-0bb2-11f0-9ffa-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743151990; x=1743756790; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=R/WnZPlwT5gj+uVh3nw/Ii6GOkLXlbI8P6+Lg6cYNL4=;
-        b=YuYNf1zEn/F/v7fhpTv2WR0xTAOu5SXdcmCZxGlREbb8sayA+kktXk6h5xiu16aiNl
-         fssjDeDCK4fRSqdRgyrnxzXg9pI5sUI/CjBiY+LdVJnae/DEcTpoppo8UH7vBno5SKf4
-         x95EDh0vWLOiOAySFwCJ8Hwj2FufALooUowkLLJoSA9gNTDaOj9n3Ogv920h8/E6nNbV
-         Rn99aqzHByVbXXRbGMjZqa1Wdn8v/6LfdB7/oR8EIMQDvDuvBoozwBzMeyzg7vwE/xLP
-         tsDIJjVqIaOnDm0GJ5+lMVkqeLa7WI/aQ1VyOF03wEQuv5uHTp4MCRo3gbKBX0I/mxj1
-         +3ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743151990; x=1743756790;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=R/WnZPlwT5gj+uVh3nw/Ii6GOkLXlbI8P6+Lg6cYNL4=;
-        b=mI9cIwCwtLlwUyrJgrDIZwwf0rUoHBdj9UPHV83zbBMGTOXgl4YvyrpnKOVj1Dno0U
-         6QTX5GIGkuFJ/L3EpLdpvTD8LrnWOWNImEv6WYsXV8snu9bRRq4mwGQ/3g6/HWr00rQv
-         QytdNxNblQEL3qGnh/FTSoToUdOj7ZOmezpj+cxBBD6j01/+2JD++sh49d+KhEAItJCU
-         L4ojMpgGs+LQ8o10ubybDdEz55wqaKf1TzmRF8cq5PUnLSCzQSetm5nH9OqO0vGCLTLe
-         Xl/NLaoK2Q5bQyuEhn9yskrVpPaBYBHFtcvsROKbFXR97Juh81WQqk+Glj1Fgq8tplMU
-         VS5Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWZNh1csrg3TsS7HB5DAaRABuY0GTxKtYw5p9/GN2TRGvdJTsblDm+infUvfyzXJMJSy/ybXfstA4U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxH8EZP6t73DsiVwxW4LEM17VtkrvVFWLXFp8yK5QoZxq3ZEob6
-	4T3JGdthRF3glR8mlZEcIbtFJ1l+gRPfaOWqbZ0siKq6ra0rcF4I
-X-Gm-Gg: ASbGncsSAUFmBb/uhCX6JChizVmr9eVGEuMLopbHOTI+qTfO8B25h9AUo2SEsKBefwv
-	o+eKUsuHARXl7Txu/XyLsjg5L2pnJc3LrcRkkwRRhovJkRwbMuXOjanKCjOd/YcqPkz+J0bZG47
-	tc2mblAJrHmB0fQx7qauD33CpDq32bb+qNFbcgLAri+6tQk/EUvNC26syI6vN62Zb1gC0jNvxr0
-	N6bgdRcg27AZCJTIFhCchhZLL3DVsFwxlmaVGNnMCBYDBsmR5Q7oRSRqnkn2f34o69bVyUCpJru
-	dN+G/N3DeE0ZTODg7PFCzqhr3HfIYejKNEx4M94aeV8HZI0WQjzjGm2sJv+B1ZGQqKnKca7k4lE
-	3KpK8q2xzxHYW0lbGgOck
-X-Google-Smtp-Source: AGHT+IHZrytY0aXJHOPK1iZWN5t9mPviI9RdXM9rFQxFi5TW1lNsLH5wek0IeUwp9U3wcDap2WHyhw==
-X-Received: by 2002:a05:6402:5243:b0:5e7:8efa:ba13 with SMTP id 4fb4d7f45d1cf-5ed8df6a9f8mr6499609a12.7.1743151990207;
-        Fri, 28 Mar 2025 01:53:10 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------VtPgCnlEs5IUQay8qRuqripN"
-Message-ID: <1db4c47b-49f0-458d-ad00-1e55bb2774e9@gmail.com>
-Date: Fri, 28 Mar 2025 09:53:09 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=hdLR44AiivIEkDC0Kq8jAA2kYXc1hUQfHDd2qzFvYFM=; b=Kn5EQjAxdtLE/vQwL4DCQY5pjy
+	Ynme2OrOwuwjM4jYF2jSMRWZe40wz/Ng8pzxwek81Y9IPZT8WfzNqUNSOitb8VlKZCwJ95AghyGiH
+	nFva2jBFXovF6Ouy1Rh6rG7+I6vCKOHVYsYWYJ3IzfkZgPiD29y+S14Pz80KKbh56UUo=;
+Message-ID: <baf871c2-8f4e-45a4-b03e-cb0b59c8eb18@xen.org>
+Date: Fri, 28 Mar 2025 08:57:13 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/config.h: Move BITS_PER_* definitions from
- asm/config.h to xen/config.h
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <6b21fb046cf1c8ca760f5ad72fa3cc13b59c4069.1743092485.git.oleksii.kurochko@gmail.com>
- <404e86cf-740b-4613-8534-a18b3654f874@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <404e86cf-740b-4613-8534-a18b3654f874@suse.com>
-
-This is a multi-part message in MIME format.
---------------VtPgCnlEs5IUQay8qRuqripN
+Subject: Re: [PATCH] xen/char: implement suspend/resume calls for SCIF driver
+Content-Language: en-GB
+To: "Orzel, Michal" <michal.orzel@amd.com>,
+ Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Mykola Kvach <mykola_kvach@epam.com>
+References: <800acb5c8447153e6c451c8df316ff678fbb4087.1743114879.git.mykola_kvach@epam.com>
+ <d5c15760-c6cd-4f20-b296-a9f9fd44ab0d@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <d5c15760-c6cd-4f20-b296-a9f9fd44ab0d@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+Hi Michal,
 
-On 3/28/25 8:49 AM, Jan Beulich wrote:
-> On 27.03.2025 18:33, Oleksii Kurochko wrote:
->> BITS_PER_* values can be defined in a common way using compiler-provided macros.
->> Thus, these definitions are moved to xen/config.h to reduce duplication across
->> architectures.
+On 28/03/2025 08:39, Orzel, Michal wrote:
+> 
+> 
+> On 28/03/2025 08:08, Mykola Kvach wrote:
 >>
->> Additionally, *_BYTEORDER macros are removed, as BITS_PER_* values now come
->> directly from the compiler environment.
 >>
->> The arch_fls() implementation for Arm and PPC is updated to use BITS_PER_INT
->> instead of a hardcoded value of 32.
+>> From: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 >>
->> Suggested-by: Andrew Cooper<andrew.cooper3@citrix.com>
->> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-> Reviewed-by: Jan Beulich<jbeulich@suse.com>
-> albeit ...
->
->> --- a/xen/include/xen/config.h
->> +++ b/xen/include/xen/config.h
->> @@ -98,4 +98,14 @@
->>   #define ZERO_BLOCK_PTR ((void *)-1L)
->>   #endif
->>   
->> +#define BYTES_PER_LONG  __SIZEOF_LONG__
-> ... I remain unconvinced that we actually need this (yet then not its sibling
-> for int). All uses I can spot could be replaced by sizeof(long). This (and its
-> sibling) would be needed only for #if uses, and there I would then wonder why
-> we couldn't use __SIZEOF_LONG__ directly, now that we assume its universally
-> available.
+>> The changes have been tested only on the Renesas R-Car H3 Starter Kit board.
+>>
+>> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> I'm afraid that without a suspend feature on Arm merged, this is just
+> introducing a dead code which we try to eliminate both for MISRA and safety.
+> I'd prefer to wait for the suspend feature to be merged first.
 
-I left only because|BYTES_PER_LONG| is used in ARM and x86 code.
-If no one minds, I can replace|BYTES_PER_LONG| with|__SIZEOF_LONG__|.
+This patch is not different from the ns16550 driver which already have 
+suspend/resume callback and users. They will be used by but the caller 
+is not used on Arm yet. So you are saying the code there is not MISRA 
+compliant? If so, is this reported by ECLAIR?
 
-~ Oleksii
+Regardless that, I don't think the full suspend/resume series would 
+help. AFAIR, the caller will be protected with a config (SUSPEND 
+something). So IIUC your definition, this code will still be "dead code" 
+in certain config. Therefore are you suggesting to protect everything 
+suspend specific code with SUSPEND?
 
---------------VtPgCnlEs5IUQay8qRuqripN
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+If the answer is yes, how about introducing the SUSPEND config now? This 
+would allow to get some of the code merged in advance.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 3/28/25 8:49 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:404e86cf-740b-4613-8534-a18b3654f874@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 27.03.2025 18:33, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">BITS_PER_* values can be defined in a common way using compiler-provided macros.
-Thus, these definitions are moved to xen/config.h to reduce duplication across
-architectures.
+Cheers,
 
-Additionally, *_BYTEORDER macros are removed, as BITS_PER_* values now come
-directly from the compiler environment.
+-- 
+Julien Grall
 
-The arch_fls() implementation for Arm and PPC is updated to use BITS_PER_INT
-instead of a hardcoded value of 32.
-
-Suggested-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
-Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Reviewed-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
-albeit ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/include/xen/config.h
-+++ b/xen/include/xen/config.h
-@@ -98,4 +98,14 @@
- #define ZERO_BLOCK_PTR ((void *)-1L)
- #endif
- 
-+#define BYTES_PER_LONG  __SIZEOF_LONG__
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... I remain unconvinced that we actually need this (yet then not its sibling
-for int). All uses I can spot could be replaced by sizeof(long). This (and its
-sibling) would be needed only for #if uses, and there I would then wonder why
-we couldn't use __SIZEOF_LONG__ directly, now that we assume its universally
-available.</pre>
-    </blockquote>
-    <pre>I left only because <code data-start="67" data-end="83">BYTES_PER_LONG</code> is used in ARM and x86 code.
-If no one minds, I can replace <code data-start="146" data-end="162">BYTES_PER_LONG</code> with <code
-    data-start="168" data-end="185" data-is-only-node="">__SIZEOF_LONG__</code>.
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------VtPgCnlEs5IUQay8qRuqripN--
 
