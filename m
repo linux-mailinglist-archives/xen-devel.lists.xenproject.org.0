@@ -2,38 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADE6AA7440F
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 07:42:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.930155.1332828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37799A7441D
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 07:46:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.930164.1332839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ty3QY-0008UR-Ur; Fri, 28 Mar 2025 06:42:50 +0000
+	id 1ty3Tj-0000gT-Fa; Fri, 28 Mar 2025 06:46:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 930155.1332828; Fri, 28 Mar 2025 06:42:50 +0000
+Received: by outflank-mailman (output) from mailman id 930164.1332839; Fri, 28 Mar 2025 06:46:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ty3QY-0008ST-RS; Fri, 28 Mar 2025 06:42:50 +0000
-Received: by outflank-mailman (input) for mailman id 930155;
- Fri, 28 Mar 2025 06:42:48 +0000
+	id 1ty3Tj-0000dL-Ch; Fri, 28 Mar 2025 06:46:07 +0000
+Received: by outflank-mailman (input) for mailman id 930164;
+ Fri, 28 Mar 2025 06:44:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IZL4=WP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ty3QW-0008SJ-Ri
- for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 06:42:48 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d9fd985c-0b9f-11f0-9ffa-bf95429c2676;
- Fri, 28 Mar 2025 07:42:43 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43cfecdd8b2so14017885e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 23:42:43 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d8ff02f91sm17442935e9.29.2025.03.27.23.42.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 23:42:42 -0700 (PDT)
+ <SRS0=bq2r=WP=boeing.com=gihwan.kwon@srs-se1.protection.inumbo.net>)
+ id 1ty3S0-0000ak-KH
+ for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 06:44:20 +0000
+Received: from clt-mbsout-02.mbs.boeing.net (clt-mbsout-02.mbs.boeing.net
+ [130.76.144.163]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0dbea2b0-0ba0-11f0-9ffa-bf95429c2676;
+ Fri, 28 Mar 2025 07:44:11 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by clt-mbsout-02.mbs.boeing.net (8.15.2/8.15.2/DOWNSTREAM_MBSOUT) with SMTP id
+ 52S6i8I1008614; Fri, 28 Mar 2025 02:44:08 -0400
+Received: from XCH16-09-09.nos.boeing.com (xch16-09-09.nos.boeing.com
+ [144.115.66.157])
+ by clt-mbsout-02.mbs.boeing.net (8.15.2/8.15.2/8.15.2/UPSTREAM_MBSOUT) with
+ ESMTPS id 52S6hxu3008547
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO)
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Mar 2025 02:43:59 -0400
+Received: from XCH16-07-10.nos.boeing.com (144.115.66.112) by
+ XCH16-09-09.nos.boeing.com (144.115.66.157) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Thu, 27 Mar 2025 23:43:59 -0700
+Received: from XCH19-EDGE-C02.nos.boeing.com (130.76.144.198) by
+ XCH16-07-10.nos.boeing.com (144.115.66.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44 via Frontend Transport; Thu, 27 Mar 2025 23:43:58 -0700
+Received: from USG02-BN3-obe.outbound.protection.office365.us (23.103.199.151)
+ by boeing.com (130.76.144.198) with Microsoft SMTP Server
+ (version=TLS1_2, 
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Thu, 27 Mar
+ 2025 23:43:58 -0700
+Received: from PH3P110MB2246.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:1ae::6)
+ by BN0P110MB1626.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:185::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.32; Fri, 28 Mar
+ 2025 06:43:52 +0000
+Received: from PH3P110MB2246.NAMP110.PROD.OUTLOOK.COM
+ ([fe80::e553:fd5d:6dc0:5572]) by PH3P110MB2246.NAMP110.PROD.OUTLOOK.COM
+ ([fe80::e553:fd5d:6dc0:5572%4]) with mapi id 15.20.8511.031; Fri, 28 Mar 2025
+ 06:43:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +67,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9fd985c-0b9f-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: 0dbea2b0-0ba0-11f0-9ffa-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=boeing.com;
+	s=boeing-s1912; t=1743144249;
+	bh=o74PJtK1U/utXpqLd6A1Q/nS4b6mJRxdw0HHekiTb6w=;
+	h=From:To:Subject:Date:From;
+	b=eWzCJooPgEJ25QQxWt+AzhB9cOm/Gi1CPtAQVHUmsE/4psP/F7pi9IbUdBAKW1Bg3
+	 tB8/DFxg48dmCJd5eigpIrHwZKztEhqSDuGzmQ3ZBddXe6TyTIi9B6bfZ+e38ZQvMD
+	 NJBNiBJPUmw8ZZY+VtmQNcS85c6uh7huCbhKQoGh5Efu//qKT9FW6he1nJ9gHBbZck
+	 zXm/Wrzh/SEAxj0iFpJLCc/w7thSYDQ41aUsS4EX5ogks3DPEjfxGcnUnR3glYF8RZ
+	 sFb+AccAt2CbnmlHDDItpNpmz2WXzxIjE73JudziMMXmGaC+b55+GJrJYXrhmKwSpc
+	 Wzgn0JeLclsIw==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector5401; d=microsoft.com; cv=none;
+ b=0gfaoBnCkNlWj9lWSR25NjzefesJ5yGVkaW0xXP16eO5WeZ0rzKn+ZyK40I2HUx+xUR//qlmcBe5PKcvmdmnv5x+Nz6S2WfI6FlmuClgWi9tBhCN2NMmsRGJFKSZDlm1E5kkdanA3MU8xRs9v8qqCtUVmdjS9eHClGcZTDaqb2hg33xZwvbJrMeQs7K0kl1wyXu7zlkqdTX6NZq+CjiOUNUbfcyf9Gzdv8lXg9XqIXD0YMlli4biX8I/T+4m76GC5BHvVLKb1mvRIiSZ8LlzDSA7l5+FRTJO66oyinET8Nqu20UN645UoJSqAKKqlQr481qSZimFrQXLkrN9A9ASrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector5401;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o74PJtK1U/utXpqLd6A1Q/nS4b6mJRxdw0HHekiTb6w=;
+ b=NCbHxtvVFukf9q0rPRdBRVqLGgYJA+a4DR54C1xXV8bDcidnKEWy4Oo61XxHAYRyc44OT56NVHaGuAMEeNZFUmN1r+Km+KlS7Vd5l7pc9UqKCDNIPDS5umqEsH0iNir1XAqesajdj/Gnl/HoyCCvBTmOT2Xg1ruAgBnpHmAAu9sxJWmCDmXFcr/lGvJfYx9eoK0tyVkMRMEbaRuIoPVD/vqYhV3aDiM4qpG0gm/Ka3jizIpeZTxPGU5yZxJTf7HdC/x4sXv1A5mFSiWV+AoYAShQbrkSjL+Qv06QdmqLEYxLntScNs5DWTeI+LVC3fO30JUf4+d8MTM6mHwEstCg/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=boeing.com; dmarc=pass action=none header.from=boeing.com;
+ dkim=pass header.d=boeing.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743144163; x=1743748963; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BzxHs+Wro57eKQjF2Vr/UdyCRbsM9rSJzv087/W/Q10=;
-        b=sw/RECEPOc+YR2/wy18l1EloipjWDsJIvo6bO+5sgq5z4UKA9Ghbpaontnv78mBlcr
-         sSBKecl4DrKebWt3VQ32OZeOWQN9ZHAjr1A63ff4ZfojsYMu/oiOxy6nDnsJfm3yAKwx
-         QjGMFYwtwapk3nwKnOIfg3XG5E1S11iWX6Lvo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743144163; x=1743748963;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BzxHs+Wro57eKQjF2Vr/UdyCRbsM9rSJzv087/W/Q10=;
-        b=lcXPgMAK/LgGgnMQ9qEWsM02zghDZjHLG5SvAPPUjkfO7co5RDPvex81ZVMeEVQ47C
-         14ZRT9vdBqexLcOghrPVFjkuByv8hob973z5O+/BoJRQIi/R74irwJcj+GeLGjFaHy/Q
-         xrHOJPH+KdMV7DrvP6eBUE7VdPGX7Fv3vNgIDLNncbc1xOdTk1N8mSQtVyGHhSdGYHjp
-         EPgBN44jBjHFdIksvsiFX1Zwxhy3Z/MXS1ShrUjqJ0VAy4QlwzUHGuW/fhEqtfyKDx5X
-         i7+bqUod8skOPCCK96rbL6AiuYUxNrYfWbfr2EcjPMeucZlRrWvcJ4/qKWpvdP+h9obq
-         0A0w==
-X-Forwarded-Encrypted: i=1; AJvYcCVid2YmiLjUL+s7DTcEp1LZqo/xUXuLZokT6Mqd7p/bWwyVIAF+QWrW+ys+ZFegwFZoIU2Kensgz5o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxqj5NXptaKJKhGzkCSDD5/Dl7NuLZwrpKbelqUY9w2bUuuY4o7
-	R6TQL3WMj3rcSL+1FoeyaWOd0/QGvBCijq2WNbjlrIL2o1SOhvquc/0yGoSXOtc=
-X-Gm-Gg: ASbGncvIwpo7uA2FsOASZNjFHeLo/qAYefMaricn+9s/MjYWDKKQVrUQA2L+mO7DLez
-	cDS+dec/Tsa4vKssCVF/EZw4YfYTV1HC9Y0T+AO6s5nxPcJ53YlbNK8zwLGpHktHQ7h3ZRSjiuR
-	5PvPZR1/tkn1r2605OFiFhq85slqJxOEHKCuLQWZ163GEml1jEF8E2zpb7bEoO9zJA7OQosE3HV
-	rXAaXdl9wiN8GxoFacG8hlHso4WWIfhKHoWfn3hKZGywT9YUbKECsa/dUAP0MLM/pRSSxctzYUp
-	OKj6ETTSRvCIc3kXdA6Bd51aKIkcl0gLycOBDEIKhRm1qvGMHhDTrjvD2nJ0i+V/TU65qzQmZDE
-	q/wkhH+QYYA==
-X-Google-Smtp-Source: AGHT+IFzdg398dDSZY8x7tED1owFpp+ZtrPRomKTwCuWU8MXb/52vwB4laCDNNhC4pyb61WjqpgMVA==
-X-Received: by 2002:a05:600c:3106:b0:43d:160:cd9e with SMTP id 5b1f17b1804b1-43d84fb498fmr52843455e9.17.1743144162853;
-        Thu, 27 Mar 2025 23:42:42 -0700 (PDT)
-Message-ID: <8d98ba26-b358-407a-9f59-b7c08d1f09fd@citrix.com>
-Date: Fri, 28 Mar 2025 06:42:41 +0000
+ d=boeing.onmicrosoft.com; s=selector1-boeing-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o74PJtK1U/utXpqLd6A1Q/nS4b6mJRxdw0HHekiTb6w=;
+ b=Wh8q/yNNCkTsv8z+nF2y++7/odhfnrqzxW1uMK3HaxSzJPkIWiOzrpn148Hxa/GhFXZi1uHxGHMYtqGm5d3DAJ1gxQ0A5tFmlHs5LBJuGgsghsIKYoVQmB1STx0rKUKUiDG5t2xqnqoqr/65Fqb3EsQ0gMrXBUVnVv5i7nrrZ7I=
+From: "Kwon, Gihwan" <gihwan.kwon@boeing.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: [QUESTION] Minimal Xen Configuration
+Thread-Topic: [QUESTION] Minimal Xen Configuration
+Thread-Index: AdufrJ9UUf/GAK+7RESPH/YMB+/liA==
+Date: Fri, 28 Mar 2025 06:43:51 +0000
+Message-ID: <PH3P110MB2246A9D7AFA0A73000781B0390A0A@PH3P110MB2246.NAMP110.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=boeing.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH3P110MB2246:EE_|BN0P110MB1626:EE_
+x-ms-office365-filtering-correlation-id: 1d92e320-6474-452a-e707-08dd6dc3e706
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?NWhFvOvpVojD+Oyym9qqxsLl/GPV5by1MiRogx5q+t1sZRe9KSKjeP/gE/kH?=
+ =?us-ascii?Q?+FfEUc7e77+zpoA8OUME1pTpjhBgXBEV/ztYZS1kWd7C9qDsZOiHRqy0ykES?=
+ =?us-ascii?Q?oiPdFoWH7PzZhG9SbUZ+WR72PZCW4JOmYfsOu488rqc3PnBq/IVa729i+/SG?=
+ =?us-ascii?Q?Kt1nf1N0FD7IyLQUurqYc8njBJL2gZKE9pg8JkQ/xTC3Szxno0Z0JEJvpPgI?=
+ =?us-ascii?Q?j8Ohwq9iavoUJxpx2/05u7j/NbYzZznGFHwgPs+CacPqmJa6N52JtQXF8ymX?=
+ =?us-ascii?Q?dDzLKg0oCpcff4srv3CyFydsL6HT3J5HSuz5BHeTkL0PEg1Drz19WooS+HBR?=
+ =?us-ascii?Q?ClWY0TZIxr2h5ydXhkKqdoRFBCOWhpUK+/zJ4e6T4Wcb76KgrAtkNPezmce6?=
+ =?us-ascii?Q?HhuWxaOoxwM3S58HkWVDF2dbSQnvnSpoeEl4YnyPyuC/ff0J9/DvhDuz/9LH?=
+ =?us-ascii?Q?Irz1omDU3e0MwBQQeu3p/tngXBQtDYntzUSIY0K8S9P3amzH4MjQx73SlwWA?=
+ =?us-ascii?Q?aY9KmOcJuRYZE/y+ZDNxQoH7IKofo+BeOdN/JJaGHFRFyg6j0UKyqGfufSY+?=
+ =?us-ascii?Q?INsYdHbA8Cfkp2pBqBPgpYgM7woTnxqKLgbZtILSdxoTdJhmLVZhbKsj0iSw?=
+ =?us-ascii?Q?HV0Si+H5Cz6JIDGt7bqO2Gl2/HMionVVat+pYUyYDGV5aF2+tkkaPbvcUvfm?=
+ =?us-ascii?Q?Rxc7DhXQo4+5lgYm8j9WV0VXBelvB03AuQSfctqU/gPJ3ZhUxhRN5W6QtARD?=
+ =?us-ascii?Q?31Bl3A/O2OBi9m+rly3llZdssq3kAXINGUTxpDBDcVWnPVTKwCDVuXVV9L3B?=
+ =?us-ascii?Q?2VlP1l8U7ckB8Q4ieyR8SvSMOq9bVMgZgQ3DYqnCPNKfSjqPueEw9lHtdsZ7?=
+ =?us-ascii?Q?AamjoK3bgC86JH6+ovJOuYvAg2UF6o/C/ht//fDojM/xEIyrPlI6567/HsZG?=
+ =?us-ascii?Q?Y2GUYr8I7nDHjsv4L5ySUUBGb2mRRMWKZL/+coYSdtuaXy20+McZFmmh054r?=
+ =?us-ascii?Q?F9X7mbmSm3tkDP4U6iMhU/opnbbigjy463Lra7WeQ59kT/5YY209+B9sD1ut?=
+ =?us-ascii?Q?yHHbNBgTAe1qo6Z5kn0bdB3QmE+tnewR8tSbpMjxqbwh0tbse2BMUgB2wG1r?=
+ =?us-ascii?Q?eXTxi6NT7dZr1V2FmjTC6HPceipZKTnUe+zErz8inmPfHi+WFyWN8xHzywDz?=
+ =?us-ascii?Q?0Bo18pknxxZT8+7/4YlmAUwxSyz5KpiGwJOBUiqufntbgLZa5958mwTC5F18?=
+ =?us-ascii?Q?HG1GQzYzHonVzfWO/RuTITJe/zI5T2L8jMfrW9l/djKPUGnqYO8kwXfSpq0j?=
+ =?us-ascii?Q?Xq4+oZNjU8NhP1R7Q/wNMYedPebgShmNG6m3RojFgaYKCyZdyhrDP/3TijGD?=
+ =?us-ascii?Q?ZIGauWJ2H88h6KFPERQ6VY0vaX+TbQMW2yV/OlBQddiYszrqDUQm024UU9Gv?=
+ =?us-ascii?Q?TlpsZhxGxKBq5DEB9xWDg0kyylHjQU6e?=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH3P110MB2246.NAMP110.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?qE+dX/ks6IzvzqVrsDUOrh3nXLsYbRXysKTfTaZEZoTdn0BbNtwQXL/h6CbI?=
+ =?us-ascii?Q?iseJNnBKn4vzydPH9UWIRsDmFwNBprwTlupWQ1qYdiwwWHqhtdheLjeM6pKm?=
+ =?us-ascii?Q?NWuog3iIMIzwdr5nHj3ieHC/G6bqISlkMpCfUQ/7bRUAJcCAv5YAr5FvW7gm?=
+ =?us-ascii?Q?5+zFP7icrkAt0/JxAqgZf/EJXSSTczZFfp8MbFKxV6NH9Rz2ECy0n8yvQ7ne?=
+ =?us-ascii?Q?kwgcPxQw4Mc2A5SwA6KBqJdg4CZC+JnzK+wIfc+rhEgZ57zJqV1ns+lV/yPF?=
+ =?us-ascii?Q?7pEmCNUqVSNBYC54qCwoycJYjB/gI7j6EgGafKhOUK9hEJaP2criyv+AWQAM?=
+ =?us-ascii?Q?D99OaScFG1bHX2l21vnAYF+0nODD61YFSUxhsLe2CXFhw0abJ19B0WR0HM+Y?=
+ =?us-ascii?Q?LClS4f+X0XD0nGmYcYV4gFS7Qa91jj2/uMassMrbWvv5sqoYPk8N6Q5MShYW?=
+ =?us-ascii?Q?qD8GXJmRj3FFvoJifaR0uF86EFBvM8z3fsK0uGL953hu6UdRUd82sQa+9fc8?=
+ =?us-ascii?Q?iy1ImftV7wDYGRnWHD1zmDXmU/sR8zeLwO9pVhMKKL3zgmUn82zpuuC6bw8y?=
+ =?us-ascii?Q?qTQZ98ZBlwdwHjInzE+ajlL5yhR0H2RfY7vB+RnBJrmI3OFs5vcFiW9vuF9a?=
+ =?us-ascii?Q?HBVw5THsZFJd3YpmEU51YPJB9Bfo2ScWb/ZtI2JPewcdboKq7qpN00aAfNBN?=
+ =?us-ascii?Q?0xpV7qGPFyEqrZJa5GvWNR25IdmkxVp6b3pLGfiuoeLJ/JCTYkqWGQo4kr7M?=
+ =?us-ascii?Q?M5jI5IOW4OaUEm6Gz0s22dIDd9CIjdLRXyDrUubYzkc1rN1dtDtLl9hPcsDD?=
+ =?us-ascii?Q?jF81c9Qiy6+9rTQHBZpogdb/y/CnZ3jj9zM046QEZfuLjXvSG8t/p1tYjVgQ?=
+ =?us-ascii?Q?t2byHOVfDrCFgp5FlPnPlrs5QZEUsh0ILCD8PbtswINPyjHgxggTwC7qwiH8?=
+ =?us-ascii?Q?Bs2J7qRsgyXIv+biIFBzSVv58XH4mXaIzE41Uj1SpIp6lDbhicGsD3xYqex+?=
+ =?us-ascii?Q?11vFMErDibNiMwF8Uo7F3IHVE6rjY7ikykQxtfFSNOqRI86RgCAp1cAf44GD?=
+ =?us-ascii?Q?+U+A5A3bP7Agjx5CK9z8vZ22hXpWIhG2rztSzNf+qBSnjAaCd833AjZwAhGe?=
+ =?us-ascii?Q?pbje3ubmqu828+HXiULvXS9D4EtGOPNao8Gu/9YPjWO5EcHWYvn3rw7mNT24?=
+ =?us-ascii?Q?M9kn29Cgh8qJ6dn7lkFo9f7DQIuaqhSMYJt+9k9Iexu4Uq7NXZr/KH4Vk0Be?=
+ =?us-ascii?Q?qxwo0ccIK4HKz8tvpeUqHT4MsaKJtvKStytQsBtkSwXeAuUZxodoBm9uSk38?=
+ =?us-ascii?Q?Z48tRU48PeXjhkDHIHlmPsCmIxyRYd2kmgfYpIB0HyKdfHqLl8ju+YGtSRTq?=
+ =?us-ascii?Q?Qe8oipCKSnYJrcF2p4dugTTh9j5ZRx5Sr4cmsMf1wu4YbzMAQgO82tRzvYk/?=
+ =?us-ascii?Q?gvOPoF/zYX1yeW+DrMBfoImDJc3Vn1pVCaDK9fXq4f9cTQOFbxcijMdqBwja?=
+ =?us-ascii?Q?j2vGIvGN2G0qNmc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] xen: gcov: add support for gcc 14.1
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250327004044.2014048-1-volodymyr_babchuk@epam.com>
- <20250327004044.2014048-2-volodymyr_babchuk@epam.com>
- <b56cd8e5-d17a-46a3-8584-cf69113c145a@suse.com> <87iknugmgu.fsf@epam.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <87iknugmgu.fsf@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH3P110MB2246.NAMP110.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d92e320-6474-452a-e707-08dd6dc3e706
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Mar 2025 06:43:51.7994
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bcf48bba-4d6f-4dee-a0d2-7df59cc36629
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0P110MB1626
+X-OriginatorOrg: boeing.com
+X-TM-AS-GCONF: 00
 
-On 27/03/2025 10:03 pm, Volodymyr Babchuk wrote:
-> Hi Jan,
->
-> Jan Beulich <jbeulich@suse.com> writes:
->
->> On 27.03.2025 01:40, Volodymyr Babchuk wrote:
->>> GCC 14.1 has 9 gcov counters and also can call new merge function
->>> __gcov_merge_ior(), so we need a new stub for it.
->>>
->>> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
->> As to the title - what about 14.2.0? Or the soon to appear 14.3.0? I recommend
->> to say just 14.
->>
-> According to GCC changelog, it was added in GCC 14.1. And yesterday they
-> added another counter... So probably 14.3 will have 10 counters in total.
+Dear Xen Community,
 
-Do you have links?
+I hope this message finds you well.
 
-I'd expect that to mean that GCC 15 will have 10 counters, not GCC 14.3.
+I have heard that there exists a minimal Xen configuration optimized for=20
+safety-critical products, particularly in automotive applications, with the=
+=20
+code size reduced to approximately 50k SLOC.
 
->
->>> --- a/xen/common/coverage/gcc_4_7.c
->>> +++ b/xen/common/coverage/gcc_4_7.c
->>> @@ -28,8 +28,10 @@
->>>  #define GCOV_COUNTERS 10
->>>  #elif GCC_VERSION < 100000
->>>  #define GCOV_COUNTERS 9
->>> -#else
->>> +#elif GCC_VERSION < 140100
->> The situation is a little less clear here because the development window is
->> fuzzy to cover. Nevertheless with all other conditionals here using only a
->> major version, with subversion being 0, I think the same should go for 14.
->> Unless of course there is a good reason to be inconsistent.
-> As I said, 9nth counter was added in GCC 14.1, GCC 14.0 had less counters.
+Could anyone provide guidance or point me to relevant resources regarding=20
+this minimal Xen configuration? Any insights or references would be greatly
+appreciated.
 
-In GCC's numbering scheme, .0 is the dev window and .1 is the release.
+Thank you in advance for your assistance.
 
-The 9th counter will have appeared somewhere in the dev window, but
-that's all GCC 14 as far as we're concerned.
+Best regards,
+Gihwan Kwon
 
-~Andrew
 
