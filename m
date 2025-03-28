@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32762A74EB6
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 17:59:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.930973.1333497 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1745A74F92
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 18:37:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.931040.1333522 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tyD2Y-0001jz-Rq; Fri, 28 Mar 2025 16:58:42 +0000
+	id 1tyDdD-0003x3-LG; Fri, 28 Mar 2025 17:36:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 930973.1333497; Fri, 28 Mar 2025 16:58:42 +0000
+Received: by outflank-mailman (output) from mailman id 931040.1333522; Fri, 28 Mar 2025 17:36:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tyD2Y-0001hh-Nn; Fri, 28 Mar 2025 16:58:42 +0000
-Received: by outflank-mailman (input) for mailman id 930973;
- Fri, 28 Mar 2025 16:58:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tyDdD-0003um-Hp; Fri, 28 Mar 2025 17:36:35 +0000
+Received: by outflank-mailman (input) for mailman id 931040;
+ Fri, 28 Mar 2025 17:36:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QVst=WP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tyD2X-00011d-GG
- for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 16:58:41 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e65dbb7e-0bf5-11f0-9ea4-5ba50f476ded;
- Fri, 28 Mar 2025 17:58:41 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5eb5ecf3217so4399092a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 28 Mar 2025 09:58:40 -0700 (PDT)
-Received: from fedora.. (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5edc16aae90sm1665004a12.15.2025.03.28.09.58.38
+ <SRS0=IZL4=WP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tyDdB-0003ug-K8
+ for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 17:36:33 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2d19569b-0bfb-11f0-9ffa-bf95429c2676;
+ Fri, 28 Mar 2025 18:36:27 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3913b539aabso1458756f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Mar 2025 10:36:27 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c0b66ab86sm3322652f8f.51.2025.03.28.10.36.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Mar 2025 09:58:39 -0700 (PDT)
+ Fri, 28 Mar 2025 10:36:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,155 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e65dbb7e-0bf5-11f0-9ea4-5ba50f476ded
+X-Inumbo-ID: 2d19569b-0bfb-11f0-9ffa-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743181120; x=1743785920; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3F8SefbWZUmJrgPRZAQY4Ulx3HIoSvhY6ydZ1zkGaiQ=;
-        b=f8OzuAZVA7KxXw+Gp7JPkW2JdlqEzyIgJOU3bwnmJK+S2UTapH+N0b6Nc6KSEB9XZp
-         hATe1VF7sf1yUupQSFpdZLHh536fq5rk6MK107IYYjqoi3t3TDQIgEf8UtsWVMuu55LB
-         Kei5Y4wQTyxuAaXdrtohPV7Pe+BctyQnSOlgRMA1L8BHlOVX6DNuqnkcL8UEmMq4LElE
-         BEWTLZYISg0xKWUCaeI1r8cGQ1C4b4v/ESGpYxdbVzsznM3RPf+RpA8EkRzBMo9xgPKX
-         bkzYhGLzl64bbGQoOale7AncHhQGth+eJD4UWP3gOLTxPZFIS6YXL3trMixqvpksh4wy
-         CEVw==
+        d=citrix.com; s=google; t=1743183386; x=1743788186; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ueJlsKLJkxEXFgZQaRhI/br6w8/vNs+jY9tzcpOs6oY=;
+        b=sgPqX+wT9TUSicBkLWoTDMkTAogp1XzOvP13ISdYNjqW1QB2zvnmq1hDadrP+hWBzo
+         EdD/xUABlcovzUfd8G/MGne6uAJL2jnM0M+Mk6pYjTGXZuKvuoes2eKFf++4qsfH6Ot4
+         37lL3J4LnlYtqwh8gdbv99KYKwLhNY4b+c8Hk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743181120; x=1743785920;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3F8SefbWZUmJrgPRZAQY4Ulx3HIoSvhY6ydZ1zkGaiQ=;
-        b=OxHRJa6ZLE6RF+uhz0kQQlnS39g0cs0rwYgCx2aVXhos9DtEhpoZo+ZppRxntK4DU8
-         6ATw3cq6ioOaNCrS7T/E/AOcYUtfuLNY/J64xnV85wKOEOcBw44/H0ZfDeuenVnfJIL4
-         rWxbhKpE0BeWAKYQb3+etu36+Pt4TAc6RFL4gmymOmlZA5LnJLxpo9izceTxxlDsnowM
-         JAgU/BOzcy+foMPjLPlpiV/VyMBFNdU5DPyStU3LI7uMTaQE7TLJd0v+toUZxivHCTWK
-         ZOs1c3Gv3ZdkMdcs/KpQDcKpjbkEReorkGquQDmOIghL8tlsm0U19c3iNDdiVt7wfTwY
-         0Pkg==
-X-Gm-Message-State: AOJu0YzH1kxVytf92qtoc3lXIKeIIeoIrRCBDK4F91CycR/d419Lh58w
-	jAT7rQLdF+gAzz4lJ/t5qmdUarOtOAbfiLBa9NFFgAzZ+G303sZNqGCWEA==
-X-Gm-Gg: ASbGncuGBlXhkzOvYJ1Kha7YcMT2ps6VLHFeAn7MBWguxzEudFj5XXULHIKh4CxOF/O
-	YD8rT30Y1sT/nhcQsI/EoWqaZRFHAgTu75L/m9/aIVSH6lse5f9WsFQ3xUXHazNr2UbauUjlOYA
-	UWC8Eh869NXfrzRb+iyRh7u4ypWB95dVQK10jFE30vUDN16P772EwntR+dGeDi9Vg+1gs7ArucF
-	odlB71FSnMGhqRrlt8EJnKRUVFu2gyB+kiPU3YXVtEJP7yho/TUTWdgh4T3JtGUi/WlAEJhItua
-	kFMGLdrEojNpfRVoTH2MxTx2psEHVKZIzhBjoXE36qmqUXeW69NV2jxQDawuLBOys7+4owXZVab
-	Qe+JAhhPTM/2LdA==
-X-Google-Smtp-Source: AGHT+IFMk2+7VOHOfkNZXBVL6jGpGNPstwNgNOtiIRIFyqbaWJvvmMA3HwW/LNlNGuaTtc5SOVaf9w==
-X-Received: by 2002:a05:6402:5106:b0:5e7:b015:c636 with SMTP id 4fb4d7f45d1cf-5ed8e25550dmr9349717a12.6.1743181119936;
-        Fri, 28 Mar 2025 09:58:39 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
+        d=1e100.net; s=20230601; t=1743183386; x=1743788186;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ueJlsKLJkxEXFgZQaRhI/br6w8/vNs+jY9tzcpOs6oY=;
+        b=ugEQn1gxVdW4wDGzLehENTAm/uPzv1UGfjiP6GpBPeU8wlio34xxWv+blW//5Gi/1G
+         felRB/U2J8wX4DmFbSHOxes3cdAmIlrp/68mrYdaAMjwYH0LzbyrXcpOylmLBR5u2XIW
+         LlgC1aqYD0LoLwcpK5fCctzPcTs94OEqtB2NeCFZft2jUT//F51yLJmCydbcmrnrB7mL
+         BT8IA0csolrZ5erJbtwIgeIl1B4jdVhc6+ox39aQiNp4VXtBC9odt/MH3/eLWsdlHGJ3
+         UcdSmY0qIpzjgsCRZzS9OkT9sHcmkjGtS13hKbwDLgpcBkS/EixaWS9uuAFzwO1pLAmt
+         D55g==
+X-Gm-Message-State: AOJu0Yx/WoI8rSbnHJQkWqfd8eaoaaUItplxgabC4VQtoeWeJR9pDrQw
+	IpgZwYQZPdFkt6roK6zy5M6CkFqnwLo4dtxqQ2qHdLisdiufT5UIMIS1nQ415skbD8PECgsuPHC
+	yods=
+X-Gm-Gg: ASbGncviK4YnCdnDxUVd5jKnoeUkniM1Bl9ZQn1Ow9/HD9MZkyIybpTRz61TCBII4w+
+	Jo8+KflrnK9Qc83eH7w8R7kQSLmKUsj8DDpKegFP0kRlECNH3SAiCqI/qJQtFDsyYBJtbB9Xv/L
+	/b9vN8dan3X7NNurbE4lypUjPEyKPrcQD+iIHNqtojpND7WG5Kfg6q55KKyOQC4fBdXZYycFfJr
+	8y5ya7l8xgdHP+zMBuDFyQsR14UeKiZs3Jlg0PPhM+xZJz1MVbPXccB6Kre6tXKPtyHQl5hUe/W
+	Fy1SPKy/pxMqnzNG3LOTfic5+PTsDISuVM3FrBcWFPy3j8cV5mJH/rpZbqoPafeEihFfHOT1mFS
+	6bcEweySi3Uwk1ehQaQ==
+X-Google-Smtp-Source: AGHT+IESleC0WTEPcPPrg1QmNhPbAizZQSvltcOk1rIrPxbYvYabBft4iPOCJcDACiACiMovEZuv7g==
+X-Received: by 2002:a05:6000:23c2:b0:391:2f15:c1f4 with SMTP id ffacd0b85a97d-39ad1784ae9mr5671351f8f.55.1743183386183;
+        Fri, 28 Mar 2025 10:36:26 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 4/4] xen/riscv: introduce intc_preinit()
-Date: Fri, 28 Mar 2025 17:58:32 +0100
-Message-ID: <3bce47b0cd1984dcc9a283051e717f0cfec7c146.1743165791.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <4ddde60347edf6740fbc69b5739d099616f5b5ff.1743165791.git.oleksii.kurochko@gmail.com>
-References: <4ddde60347edf6740fbc69b5739d099616f5b5ff.1743165791.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH] xen/types: Drop compatibility for GCC < 4.4
+Date: Fri, 28 Mar 2025 17:36:23 +0000
+Message-Id: <20250328173623.892770-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Currently, only the device tree method is available to locate and perform
-pre-initialization steps for the interrupt controller (at the moment, only
-one interrupt controller is going to be supported). When `acpi_disabled`
-is true, the system will scan for a node with the "interrupt-controller"
-property and then call `device_init()` to validate if it is an expected
-interrupt controller and if yes then save this node for further usage.
+We now have compiler types for every standard type we use.
 
-If `acpi_disabled` is false, the system will panic, as ACPI support is not
-yet implemented for RISC-V.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+---
+ xen/include/xen/stdint.h | 19 -------------------
+ xen/include/xen/types.h  |  3 +--
+ 2 files changed, 1 insertion(+), 21 deletions(-)
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-Changes in v3:
- - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
----
-Changes in v2:
- - Update the commit message.
----
- xen/arch/riscv/Makefile           |  1 +
- xen/arch/riscv/include/asm/intc.h |  2 ++
- xen/arch/riscv/intc.c             | 14 ++++++++++++++
- xen/arch/riscv/setup.c            |  3 +++
- 4 files changed, 20 insertions(+)
- create mode 100644 xen/arch/riscv/intc.c
-
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index dd5fd25c7d..0c6c4a38a3 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -2,6 +2,7 @@ obj-y += aplic.o
- obj-y += cpufeature.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-y += entry.o
-+obj-y += intc.o
- obj-y += mm.o
- obj-y += pt.o
- obj-$(CONFIG_RISCV_64) += riscv64/
-diff --git a/xen/arch/riscv/include/asm/intc.h b/xen/arch/riscv/include/asm/intc.h
-index ff9bb33896..52ba196d87 100644
---- a/xen/arch/riscv/include/asm/intc.h
-+++ b/xen/arch/riscv/include/asm/intc.h
-@@ -17,4 +17,6 @@ struct intc_info {
-     const struct dt_device_node *node;
- };
+diff --git a/xen/include/xen/stdint.h b/xen/include/xen/stdint.h
+index a40165c6ae33..dde12964bfe6 100644
+--- a/xen/include/xen/stdint.h
++++ b/xen/include/xen/stdint.h
+@@ -2,23 +2,6 @@
+ #ifndef __XEN_STDINT_H__
+ #define __XEN_STDINT_H__
  
-+void intc_preinit(void);
-+
- #endif /* ASM__RISCV__INTERRUPT_CONTOLLER_H */
-diff --git a/xen/arch/riscv/intc.c b/xen/arch/riscv/intc.c
-new file mode 100644
-index 0000000000..4061a3c457
---- /dev/null
-+++ b/xen/arch/riscv/intc.c
-@@ -0,0 +1,14 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include <xen/acpi.h>
-+#include <xen/device_tree.h>
-+#include <xen/init.h>
-+#include <xen/lib.h>
-+
-+void __init intc_preinit(void)
-+{
-+    if ( acpi_disabled )
-+        intc_dt_preinit();
-+    else
-+        panic("ACPI interrupt controller preinit() isn't implemented\n");
-+}
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 836ad16fed..4e416f6e44 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -16,6 +16,7 @@
- #include <asm/cpufeature.h>
- #include <asm/early_printk.h>
- #include <asm/fixmap.h>
-+#include <asm/intc.h>
- #include <asm/sbi.h>
- #include <asm/setup.h>
- #include <asm/smp.h>
-@@ -128,6 +129,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+-#ifndef __INT8_TYPE__ /* GCC <= 4.4 */
+-
+-/*
+- * Define the types using GCC internal notation.  Clang understands this too.
+- * https://gcc.gnu.org/onlinedocs/gcc/Common-Variable-Attributes.html
+- */
+-typedef   signed __attribute__((__mode__(__QI__)))     int8_t;
+-typedef unsigned __attribute__((__mode__(__QI__)))    uint8_t;
+-typedef   signed __attribute__((__mode__(__HI__)))    int16_t;
+-typedef unsigned __attribute__((__mode__(__HI__)))   uint16_t;
+-typedef   signed __attribute__((__mode__(__SI__)))    int32_t;
+-typedef unsigned __attribute__((__mode__(__SI__)))   uint32_t;
+-typedef   signed __attribute__((__mode__(__DI__)))    int64_t;
+-typedef unsigned __attribute__((__mode__(__DI__)))   uint64_t;
+-
+-#else
+-
+ typedef __INT8_TYPE__        int8_t;
+ typedef __UINT8_TYPE__      uint8_t;
+ typedef __INT16_TYPE__      int16_t;
+@@ -28,6 +11,4 @@ typedef __UINT32_TYPE__    uint32_t;
+ typedef __INT64_TYPE__      int64_t;
+ typedef __UINT64_TYPE__    uint64_t;
  
-     preinit_xen_time();
+-#endif
+-
+ #endif /* __XEN_STDINT_H__ */
+diff --git a/xen/include/xen/types.h b/xen/include/xen/types.h
+index 543bfb2159b1..e8d419b95412 100644
+--- a/xen/include/xen/types.h
++++ b/xen/include/xen/types.h
+@@ -17,6 +17,7 @@ typedef __SIZE_TYPE__ size_t;
+ typedef signed long ssize_t;
  
-+    intc_preinit();
-+
-     printk("All set up\n");
+ typedef __PTRDIFF_TYPE__ ptrdiff_t;
++typedef __UINTPTR_TYPE__ uintptr_t;
  
-     machine_halt();
+ /*
+  * Users of this macro are expected to pass a positive value.
+@@ -58,8 +59,6 @@ typedef uint32_t __be32;
+ typedef uint64_t __le64;
+ typedef uint64_t __be64;
+ 
+-typedef unsigned int __attribute__((__mode__(__pointer__))) uintptr_t;
+-
+ #define test_and_set_bool(b)   xchg(&(b), true)
+ #define test_and_clear_bool(b) xchg(&(b), false)
+ 
 -- 
-2.49.0
+2.39.5
 
 
