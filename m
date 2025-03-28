@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9649BA7442C
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 07:55:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.930180.1332849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1D8FA74438
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 08:09:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.930190.1332859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ty3c5-0003Sr-Fj; Fri, 28 Mar 2025 06:54:45 +0000
+	id 1ty3pa-0006HR-Kb; Fri, 28 Mar 2025 07:08:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 930180.1332849; Fri, 28 Mar 2025 06:54:45 +0000
+Received: by outflank-mailman (output) from mailman id 930190.1332859; Fri, 28 Mar 2025 07:08:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ty3c5-0003Pj-CT; Fri, 28 Mar 2025 06:54:45 +0000
-Received: by outflank-mailman (input) for mailman id 930180;
- Fri, 28 Mar 2025 06:54:44 +0000
+	id 1ty3pa-0006EO-HS; Fri, 28 Mar 2025 07:08:42 +0000
+Received: by outflank-mailman (input) for mailman id 930190;
+ Fri, 28 Mar 2025 07:08:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hnye=WP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ty3c4-0003Pd-H2
- for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 06:54:44 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kqHR=WP=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1ty3pZ-0006EI-5v
+ for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 07:08:41 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 86c6e859-0ba1-11f0-9ea3-5ba50f476ded;
- Fri, 28 Mar 2025 07:54:43 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-43cfecdd8b2so14079455e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 27 Mar 2025 23:54:43 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d8ff03715sm17690485e9.31.2025.03.27.23.54.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Mar 2025 23:54:41 -0700 (PDT)
+ id 79d111a7-0ba3-11f0-9ea3-5ba50f476ded;
+ Fri, 28 Mar 2025 08:08:40 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5e66407963fso3493523a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Mar 2025 00:08:40 -0700 (PDT)
+Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5edc17b2214sm897827a12.54.2025.03.28.00.08.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Mar 2025 00:08:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,148 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86c6e859-0ba1-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: 79d111a7-0ba3-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743144882; x=1743749682; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qmuJf7BUt6vxWByZFn6O7PwlDnmljDQYZyi2+XHGDcI=;
-        b=cRwLPfU2vijDgaftanGZD6RkxtSqjxfiuJ10Xmg/rU9uiiX2S5+6Jsrb3+6mKxcjx3
-         PhHyUwR7Kfo38dzxkLC4pB4ki88PYDF/OJXGlL3AmQ/xqu/FGC0n8CdzLUi2yJXVaV9a
-         SqYQX3qAz6HwwS6vNtC3Jh9io3K76u1IJgULjDn4eFzhV6d7Uhj/QJA928Q5kSfz29yS
-         Z/6Jh5xE9vBR0LExtYLTxLEJ0ckHtXJVAocYNtkwgeaApjMgtsZgWs5bjZJ1CmnXsHfc
-         2giWfAL8vm3rzTDXSVWP521405jwvejDCLdQxiP5k6Fc++FCwiPJDrqi3EaaGjmZHfqX
-         ZmKw==
+        d=gmail.com; s=20230601; t=1743145719; x=1743750519; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=mlAnhWMOxFU2qjJ66imKm1iwMnse11AYFRs4Tjl2pTg=;
+        b=ZlU+l1pcCJydW9pk5yKH02slIGfWR+4F25G8qp/RAn6PgkZV4wqJPglRLVTO6t/VKW
+         t6O5HZl8YSCxtpPxSOKwYuswYWS0laX0PhTLEC97qw6eqWuscKEh4cFHxT7YnWJ+VcWE
+         mCidHFMXSq/E2BOtxkzA+SKu9eDh1e9j9gZOk3CzD0GfAe78RUmYV4BhZt+M4hbNXqiy
+         ScbPrOBsO273uRee8YcvDiqgWEsj6oYgZ6qVSoAC3rSfai/fXWWl0uwuOZqvK+E8WLpE
+         VsJG1eILNi7IaIXJqs5SbQ4HenOmwrs7ghYnxGXuKRDG5B6Th2o5NxFtzCmoFGfJYYz6
+         lVxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743144882; x=1743749682;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qmuJf7BUt6vxWByZFn6O7PwlDnmljDQYZyi2+XHGDcI=;
-        b=gNRRLK1fby8ZymfVmO+fohhw5B/azgeLE7Qk6jER7uvX2qdloRo3i41txJj7pZFhos
-         fACKaA5jmYvThyL7AiFH6Yjn2+qsaaiFJxWWiSx/fFV+FS0W+diefnc15oGc37jCabNr
-         oLB76BSmEWhnfdLbrFIO7TShzdcIMSIAD6IgeBcO8BM0YX0JTdzZbIueW/fhKv5Lr4UI
-         KcZZCm2CPQZjBBxyfI5TSK0F6VHtk4nWMflpDLNM+lt1iPJ8rsqfh0p4lEf54SsMlxWV
-         kLQ2Xn39BO1PKmrWpEKb/4+lRYZh0eVslZoH6e43wXfvF0ssoJ6QuuBAx4DhWIzOehI9
-         PAPw==
-X-Forwarded-Encrypted: i=1; AJvYcCWFsnxk/upwtB6PzK5Tz9U2xMKz+XEHyWuGa/PSVAQO3C8q60DF8ya3uPuWYQfwh030R4Zrw+FzZV0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YztRgyiuqVWT53/wBPOt/Uy3mrMzJcFsLvw6FRa29r2WoLJecYQ
-	ijItrwvePuTsFNp4tx+9mZ2nDdcWdMCxcudN4WRH3tlta9xffbiZQ11yDKmAXw==
-X-Gm-Gg: ASbGncss4LHLB/gb9edTGRBj4GF6q5uQlLrTWlDGeAveL+2KBi69CX89jEfDcHMFpVP
-	VKXR6EhUwqPmD//pc38orQEHvahOL1e05RWoUT0ZBhwJrwhQ4nzog3go7aByy+XICV9FDdxAbxD
-	q4oUzDgKQEmm014uB+ZPqlimLN0+gBmyFW3c3HJtW+f1LmabSqMnpCvi1OtklJ1GcbrMiLMYXE4
-	sRqHRJQsRy9AB3HLAasJ1TD7w95An0LC7jZBsoRgcmDkYFoKZtgnWiGZ0lSs5XkCI2RnyBAbQ1J
-	PwxlBM9CdlCoeAnjPzDfhSujgRVqf9rBlSPfA+pMkWw5+Qv8cV1ufehi9ExlW5ggI+pc8vVClZk
-	mCXgNifBFjI866cz6m1MGfEdhCrFlZQ==
-X-Google-Smtp-Source: AGHT+IENqdEuED82yCeHDrcST8DNP6+DfkHItIv5BLJ+DnM9zNlaLZnqONwiSn1g6Pq+UeX8upnRpw==
-X-Received: by 2002:a05:600c:138e:b0:43c:fb5b:84d8 with SMTP id 5b1f17b1804b1-43d84fb4bf8mr70982305e9.16.1743144882177;
-        Thu, 27 Mar 2025 23:54:42 -0700 (PDT)
-Message-ID: <1a2cbedf-e4de-4373-9a3b-3ff0c75c4290@suse.com>
-Date: Fri, 28 Mar 2025 07:54:40 +0100
+        d=1e100.net; s=20230601; t=1743145719; x=1743750519;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mlAnhWMOxFU2qjJ66imKm1iwMnse11AYFRs4Tjl2pTg=;
+        b=lzzczku1TRii/5D0tcVOjxJWuNqM8EzJp5E0SKM85WvXqyfL1zGxV//al5cYCN3OdE
+         qt/BPSXZxKC6EKeMJD7BZZYWgSZEJrQ0jOMBpmLnigYOlLWSYKky/LyINCxHFLS01SJk
+         CGAdW7N6vCFElJT2jFwSDYxTQFFVfVJNk1xv3INXkalsgNKLXLbmtZQNke/dB9Say84i
+         EKGYAp7NEpCBmwm8BhgoeRDqoWY2z6d+ik8bdUVLzIJbd/piL2EOqCI1ycCeq18FR4Lq
+         Yfi+uRbjGQww51uA4D+/uTlfIvecfKZjpbYgCIH6i+0dBYmgRqQ9wgRGiaUThFQsj1Vb
+         mlMA==
+X-Gm-Message-State: AOJu0YzHG4BPlCXMlATWROoYlUKHEaMNwlJqHeTFLSkJh8U8yvj3M99R
+	e5LLzXYCLk/4cmk17hCcnJrB/AtAcMjqQgUlkOeGOpvrbaj7aOE3dTySww==
+X-Gm-Gg: ASbGncv71ASm0G0LVStWAH+GJENQNFVjfzDvX07Fz37QESSUYl7bQUEvToxd7tq/TQq
+	rTXPmcO2C7s084Z/0hQQ5FcdodXzQfHuNGxzKeg5hnBAYQ7409hZJqGgvLqeLv8TI4x3ZNmpU6h
+	yUYxfoJaN/+IaAiT08EccouPwtWkb4JrpvUMH8agAYOq+hvi0iuRr10b0eC1Piq5NwpZG9NVcnl
+	NM+dUcECwDao6csK6gx8nb4HZU2XwKvNqjLJJRHDd4eBHipR1ZPGb0nsELERmUhEFyiUYEQCweq
+	n0hChT2mQ91kOa5/N1phYD2kih9e9cuZq1aCK5mTpii3vyuqtZRtDMMX+Q8aUVm2KXjlMHvkF3K
+	9JelSWRET
+X-Google-Smtp-Source: AGHT+IFneya84quYsKrcX9FAUlxti5iEgjppu1P5Sv3AjACuikZpnkitBNi+8oyj2l9pMEHwAapdCw==
+X-Received: by 2002:a17:907:94d0:b0:ac4:491:1548 with SMTP id a640c23a62f3a-ac6faea744emr684803066b.11.1743145719027;
+        Fri, 28 Mar 2025 00:08:39 -0700 (PDT)
+From: Mykola Kvach <xakep.amatop@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Mykola Kvach <mykola_kvach@epam.com>
+Subject: [PATCH] xen/char: implement suspend/resume calls for SCIF driver
+Date: Fri, 28 Mar 2025 09:08:22 +0200
+Message-ID: <800acb5c8447153e6c451c8df316ff678fbb4087.1743114879.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: simplify bitmap_to_xenctl_bitmap for little endian
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, michal.orzel@amd.com, julien@xen.org,
- roger.pau@citrix.com, bertrand.marquis@arm.com,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2503182002160.2000798@ubuntu-linux-20-04-desktop>
- <ad1bd470-1efa-4019-89ac-386bb05dd44d@suse.com>
- <alpine.DEB.2.22.394.2503191754480.2325679@ubuntu-linux-20-04-desktop>
- <8297406e-b281-4783-9238-d6326db3fa15@suse.com>
- <alpine.DEB.2.22.394.2503211607200.2325679@ubuntu-linux-20-04-desktop>
- <59cdc84c-6e5a-4752-b09a-945d05badd91@suse.com>
- <alpine.DEB.2.22.394.2503271628460.563920@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2503271628460.563920@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 28.03.2025 00:33, Stefano Stabellini wrote:
-> On Mon, 24 Mar 2025, Jan Beulich wrote:
->> On 22.03.2025 00:09, Stefano Stabellini wrote:
->>> @@ -384,21 +382,40 @@ int bitmap_to_xenctl_bitmap(struct xenctl_bitmap *xenctl_bitmap,
->>>      uint8_t zero = 0;
->>>      int err = 0;
->>>      unsigned int xen_bytes = DIV_ROUND_UP(nbits, BITS_PER_BYTE);
->>> -    uint8_t *bytemap = xmalloc_array(uint8_t, xen_bytes);
->>> -
->>> -    if ( !bytemap )
->>> -        return -ENOMEM;
->>> +    uint8_t last;
->>>  
->>>      guest_bytes = DIV_ROUND_UP(xenctl_bitmap->nr_bits, BITS_PER_BYTE);
->>>      copy_bytes  = min(guest_bytes, xen_bytes);
->>>  
->>> -    bitmap_long_to_byte(bytemap, bitmap, nbits);
->>> +    if ( IS_ENABLED(__BIG_ENDIAN) )
->>> +    {
->>> +        uint8_t *bytemap = xmalloc_array(uint8_t, xen_bytes);
->>>  
->>> -    if ( copy_bytes &&
->>> -         copy_to_guest(xenctl_bitmap->bitmap, bytemap, copy_bytes) )
->>> -        err = -EFAULT;
->>> +        if ( !bytemap )
->>> +            return -ENOMEM;
->>>  
->>> -    xfree(bytemap);
->>> +        bitmap_long_to_byte(bytemap, bitmap, nbits);
->>> +        last = bytemap[nbits/8];
->>
->> Same style nit as before.
->>
->>> +        if ( copy_bytes &&
->>
->> copy_bytes > 1
->>
->>> +             copy_to_guest(xenctl_bitmap->bitmap, bytemap, copy_bytes - 1) )
->>> +            err = -EFAULT;
->>> +
->>> +        xfree(bytemap);
->>> +    }
->>> +    else
->>> +    {
->>> +        const uint8_t *bytemap = (const uint8_t *)bitmap;
->>> +        last = bytemap[nbits/8];
->>> +
->>> +        if ( copy_bytes &&
->>> +             copy_to_guest(xenctl_bitmap->bitmap, bytemap, copy_bytes - 1) )
->>> +            err = -EFAULT;
->>
->> The two identical instances would imo better stay common, even if this may
->> require another function-scope variable (to invoke xfree() on after the
->> copy-out).
-> 
-> That's not possible because bytemap is defined differently in the two
-> cases so it has to be defined within the if block.
+From: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
-Hence why I said "even if this may require another function-scope variable".
+The changes have been tested only on the Renesas R-Car H3 Starter Kit board.
 
-Jan
+Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+---
+ xen/drivers/char/scif-uart.c | 34 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 32 insertions(+), 2 deletions(-)
+
+diff --git a/xen/drivers/char/scif-uart.c b/xen/drivers/char/scif-uart.c
+index 757793ca45..ce0f87c650 100644
+--- a/xen/drivers/char/scif-uart.c
++++ b/xen/drivers/char/scif-uart.c
+@@ -139,9 +139,8 @@ static void scif_uart_interrupt(int irq, void *data)
+     }
+ }
+ 
+-static void __init scif_uart_init_preirq(struct serial_port *port)
++static void scif_uart_disable(struct scif_uart *uart)
+ {
+-    struct scif_uart *uart = port->uart;
+     const struct port_params *params = uart->params;
+ 
+     /*
+@@ -155,6 +154,14 @@ static void __init scif_uart_init_preirq(struct serial_port *port)
+ 
+     /* Reset TX/RX FIFOs */
+     scif_writew(uart, SCIF_SCFCR, SCFCR_RFRST | SCFCR_TFRST);
++}
++
++static void scif_uart_init_preirq(struct serial_port *port)
++{
++    struct scif_uart *uart = port->uart;
++    const struct port_params *params = uart->params;
++
++    scif_uart_disable(uart);
+ 
+     /* Clear all errors and flags */
+     scif_readw(uart, params->status_reg);
+@@ -271,6 +278,27 @@ static void scif_uart_stop_tx(struct serial_port *port)
+     scif_writew(uart, SCIF_SCSCR, scif_readw(uart, SCIF_SCSCR) & ~SCSCR_TIE);
+ }
+ 
++static void scif_uart_suspend(struct serial_port *port)
++{
++    struct scif_uart *uart = port->uart;
++
++    scif_uart_stop_tx(port);
++    scif_uart_disable(uart);
++}
++
++static void scif_uart_resume(struct serial_port *port)
++{
++    struct scif_uart *uart = port->uart;
++    const struct port_params *params = uart->params;
++    uint16_t ctrl;
++
++    scif_uart_init_preirq(port);
++
++    /* Enable TX/RX and Error Interrupts  */
++    ctrl = scif_readw(uart, SCIF_SCSCR);
++    scif_writew(uart, SCIF_SCSCR, ctrl | params->irq_flags);
++}
++
+ static struct uart_driver __read_mostly scif_uart_driver = {
+     .init_preirq  = scif_uart_init_preirq,
+     .init_postirq = scif_uart_init_postirq,
+@@ -281,6 +309,8 @@ static struct uart_driver __read_mostly scif_uart_driver = {
+     .start_tx     = scif_uart_start_tx,
+     .stop_tx      = scif_uart_stop_tx,
+     .vuart_info   = scif_vuart_info,
++    .suspend      = scif_uart_suspend,
++    .resume       = scif_uart_resume,
+ };
+ 
+ static const struct dt_device_match scif_uart_dt_match[] __initconst =
+-- 
+2.43.0
+
 
