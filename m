@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1D8FA74438
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 08:09:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.930190.1332859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C817A74439
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Mar 2025 08:10:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.930199.1332868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ty3pa-0006HR-Kb; Fri, 28 Mar 2025 07:08:42 +0000
+	id 1ty3qm-0006nc-Sj; Fri, 28 Mar 2025 07:09:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 930190.1332859; Fri, 28 Mar 2025 07:08:42 +0000
+Received: by outflank-mailman (output) from mailman id 930199.1332868; Fri, 28 Mar 2025 07:09:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ty3pa-0006EO-HS; Fri, 28 Mar 2025 07:08:42 +0000
-Received: by outflank-mailman (input) for mailman id 930190;
- Fri, 28 Mar 2025 07:08:41 +0000
+	id 1ty3qm-0006kx-Pq; Fri, 28 Mar 2025 07:09:56 +0000
+Received: by outflank-mailman (input) for mailman id 930199;
+ Fri, 28 Mar 2025 07:09:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kqHR=WP=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1ty3pZ-0006EI-5v
- for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 07:08:41 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1ty3ql-0006kr-AA
+ for xen-devel@lists.xenproject.org; Fri, 28 Mar 2025 07:09:55 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 79d111a7-0ba3-11f0-9ea3-5ba50f476ded;
- Fri, 28 Mar 2025 08:08:40 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5e66407963fso3493523a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 28 Mar 2025 00:08:40 -0700 (PDT)
+ id a61b3b33-0ba3-11f0-9ea3-5ba50f476ded;
+ Fri, 28 Mar 2025 08:09:54 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-ac2a81e41e3so359616666b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Mar 2025 00:09:54 -0700 (PDT)
 Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5edc17b2214sm897827a12.54.2025.03.28.00.08.38
+ a640c23a62f3a-ac7192e7d36sm113585466b.77.2025.03.28.00.09.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Mar 2025 00:08:38 -0700 (PDT)
+ Fri, 28 Mar 2025 00:09:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +45,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79d111a7-0ba3-11f0-9ea3-5ba50f476ded
+X-Inumbo-ID: a61b3b33-0ba3-11f0-9ea3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743145719; x=1743750519; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1743145793; x=1743750593; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mlAnhWMOxFU2qjJ66imKm1iwMnse11AYFRs4Tjl2pTg=;
-        b=ZlU+l1pcCJydW9pk5yKH02slIGfWR+4F25G8qp/RAn6PgkZV4wqJPglRLVTO6t/VKW
-         t6O5HZl8YSCxtpPxSOKwYuswYWS0laX0PhTLEC97qw6eqWuscKEh4cFHxT7YnWJ+VcWE
-         mCidHFMXSq/E2BOtxkzA+SKu9eDh1e9j9gZOk3CzD0GfAe78RUmYV4BhZt+M4hbNXqiy
-         ScbPrOBsO273uRee8YcvDiqgWEsj6oYgZ6qVSoAC3rSfai/fXWWl0uwuOZqvK+E8WLpE
-         VsJG1eILNi7IaIXJqs5SbQ4HenOmwrs7ghYnxGXuKRDG5B6Th2o5NxFtzCmoFGfJYYz6
-         lVxQ==
+        bh=pgnirDI5Z6jVdU8BzlRjfzaNqqaKOUcJC3vL34SH97E=;
+        b=JPyfQby3N2J1B8PtnvJq5DjTsW5JeJqdYIATEvx+LKhdmwq8LQ7IQzOCKqIPxLHUfD
+         2i+dWwZlJIdFkpK1hXkvPQYMmiGddM3d3rz2w0CgbIHmfbopmaHelXuO1X/hmU1i1P2n
+         ywBFtlT+dhIaIrbOxwfzFQACtlJ6Y8ECvkIWKMan7RXUGLl4U0q5OEMcR99PqXuiT/XT
+         280pVrXxBLN4c0eHGXZ+SDtogJHwla2gmcQecI4JlAqMB3YaaQ8f+2vX9J7eFQq1wWyV
+         itzumEo2oTNdqL8Ey+gDUD0raonwP5i/aGyK3jw8EXFkC59Uw6zuhbeFGFsua5cAgNrq
+         1uhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743145719; x=1743750519;
+        d=1e100.net; s=20230601; t=1743145793; x=1743750593;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=mlAnhWMOxFU2qjJ66imKm1iwMnse11AYFRs4Tjl2pTg=;
-        b=lzzczku1TRii/5D0tcVOjxJWuNqM8EzJp5E0SKM85WvXqyfL1zGxV//al5cYCN3OdE
-         qt/BPSXZxKC6EKeMJD7BZZYWgSZEJrQ0jOMBpmLnigYOlLWSYKky/LyINCxHFLS01SJk
-         CGAdW7N6vCFElJT2jFwSDYxTQFFVfVJNk1xv3INXkalsgNKLXLbmtZQNke/dB9Say84i
-         EKGYAp7NEpCBmwm8BhgoeRDqoWY2z6d+ik8bdUVLzIJbd/piL2EOqCI1ycCeq18FR4Lq
-         Yfi+uRbjGQww51uA4D+/uTlfIvecfKZjpbYgCIH6i+0dBYmgRqQ9wgRGiaUThFQsj1Vb
-         mlMA==
-X-Gm-Message-State: AOJu0YzHG4BPlCXMlATWROoYlUKHEaMNwlJqHeTFLSkJh8U8yvj3M99R
-	e5LLzXYCLk/4cmk17hCcnJrB/AtAcMjqQgUlkOeGOpvrbaj7aOE3dTySww==
-X-Gm-Gg: ASbGncv71ASm0G0LVStWAH+GJENQNFVjfzDvX07Fz37QESSUYl7bQUEvToxd7tq/TQq
-	rTXPmcO2C7s084Z/0hQQ5FcdodXzQfHuNGxzKeg5hnBAYQ7409hZJqGgvLqeLv8TI4x3ZNmpU6h
-	yUYxfoJaN/+IaAiT08EccouPwtWkb4JrpvUMH8agAYOq+hvi0iuRr10b0eC1Piq5NwpZG9NVcnl
-	NM+dUcECwDao6csK6gx8nb4HZU2XwKvNqjLJJRHDd4eBHipR1ZPGb0nsELERmUhEFyiUYEQCweq
-	n0hChT2mQ91kOa5/N1phYD2kih9e9cuZq1aCK5mTpii3vyuqtZRtDMMX+Q8aUVm2KXjlMHvkF3K
-	9JelSWRET
-X-Google-Smtp-Source: AGHT+IFneya84quYsKrcX9FAUlxti5iEgjppu1P5Sv3AjACuikZpnkitBNi+8oyj2l9pMEHwAapdCw==
-X-Received: by 2002:a17:907:94d0:b0:ac4:491:1548 with SMTP id a640c23a62f3a-ac6faea744emr684803066b.11.1743145719027;
-        Fri, 28 Mar 2025 00:08:39 -0700 (PDT)
+        bh=pgnirDI5Z6jVdU8BzlRjfzaNqqaKOUcJC3vL34SH97E=;
+        b=atbXPdF239XufpWJtZPFnF1vYvdRHnFyuOeQAw/IPoXq3e2oOWGCEWGLQPoQbklPVw
+         dR6cbg3DuM9U4/iBSCxuAwZa6unmoJM6+YvUxdDjjJgs5+JoD1dX4Jyws8QhYyWc+707
+         tViO2flKpAbc87EByFHMZAH4UFWpk3b2r/vpAXh+BM4v9pXDIT1aNL+f4BLF6U6PIqDy
+         w8SQrLpRLwprghzU36A3AihsUmXoVmeFR8UcfscivmZpMq0f4uRKcoaEtLJKKd6NKwCR
+         gdTo3RTjolwHbogOv6xpUIdETqQT3Vg3elKSTU0jl0OZIg+r1ZDIB8AodAIvZC3P9Vnw
+         xeJQ==
+X-Gm-Message-State: AOJu0YyTvnaJw5EOmMt/gqLx94eZS+H9vqdd013U3env+4v9qppda+a2
+	5oGI0zIojrKLG4otSStj9urAXXGESVu04xhxatlHUX3HTCv7wDk8IQxJqg==
+X-Gm-Gg: ASbGncvDdbnJv3zpKlvkBRUP1hAc/sS2WwTeTG2EZggjMPfrqBII16BoYc+WQXf9CAx
+	XLANiFdsM7n9E++fphSfJknEuZ03YWccoCxeDUGwJl+Q/SLyEnNPI4+pO20tZT9H6mptMMrpd+O
+	DTISYVdNdL9OxBdViFV7M2DDTdPPxTbe1tAGT1Ae3WudrTO3AuB9S9V6Ua35+qSBwsf9+S7u1wB
+	huCgqkcy4sskIkKQpmVQ36mvwOQ/JQDRUwEXjJ+6F/NuGhtOwS0kKiRWUyjKnoi9V7K6PJy7y6r
+	MDyCvMajnbvfFlonmMqjrcpskfuXLmdbW9PFY3CPMRfvWtTut4GtOe+J6kUasZ54ZISYCBfk20D
+	j4n87vheY2FlyoUnixo4=
+X-Google-Smtp-Source: AGHT+IH8yNxZW7Q/KzLPPZ87s2aTgfSNmKKJ2ScX6hHjamY672pz8vID3rMVyz2XoCz1T7Is3PjRtw==
+X-Received: by 2002:a17:907:6d05:b0:ac4:4c5:9f26 with SMTP id a640c23a62f3a-ac6fb0fcadamr624132166b.38.1743145792773;
+        Fri, 28 Mar 2025 00:09:52 -0700 (PDT)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
+Cc: Mykyta Poturai <mykyta_poturai@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Mykola Kvach <mykola_kvach@epam.com>
-Subject: [PATCH] xen/char: implement suspend/resume calls for SCIF driver
-Date: Fri, 28 Mar 2025 09:08:22 +0200
-Message-ID: <800acb5c8447153e6c451c8df316ff678fbb4087.1743114879.git.mykola_kvach@epam.com>
+Subject: [PATCH v3] xen/percpu: don't initialize percpu on resume
+Date: Fri, 28 Mar 2025 09:09:48 +0200
+Message-ID: <c2badfebc1efe612c75884218f57af607df5394c.1743110205.git.mykola_kvach@epam.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+From: Mykyta Poturai <mykyta_poturai@epam.com>
 
-The changes have been tested only on the Renesas R-Car H3 Starter Kit board.
+Invocation of the CPU_UP_PREPARE notification
+on ARM64 during resume causes a crash:
 
-Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+(XEN) [  315.807606] Error bringing CPU1 up: -16
+(XEN) [  315.811926] Xen BUG at common/cpu.c:258
+[...]
+(XEN) [  316.142765] Xen call trace:
+(XEN) [  316.146048]    [<00000a0000202264>] enable_nonboot_cpus+0x128/0x1ac (PC)
+(XEN) [  316.153219]    [<00000a000020225c>] enable_nonboot_cpus+0x120/0x1ac (LR)
+(XEN) [  316.160391]    [<00000a0000278180>] suspend.c#system_suspend+0x4c/0x1a0
+(XEN) [  316.167476]    [<00000a0000206b70>] domain.c#continue_hypercall_tasklet_handler+0x54/0xd0
+(XEN) [  316.176117]    [<00000a0000226538>] tasklet.c#do_tasklet_work+0xb8/0x100
+(XEN) [  316.183288]    [<00000a0000226920>] do_tasklet+0x68/0xb0
+(XEN) [  316.189077]    [<00000a000026e120>] domain.c#idle_loop+0x7c/0x194
+(XEN) [  316.195644]    [<00000a0000277638>] shutdown.c#halt_this_cpu+0/0x14
+(XEN) [  316.202383]    [<0000000000000008>] 0000000000000008
+
+Freeing per-CPU areas and setting __per_cpu_offset to INVALID_PERCPU_AREA
+only occur when !park_offline_cpus and system_state is not SYS_STATE_suspend.
+On ARM64, park_offline_cpus is always false, so setting __per_cpu_offset to
+INVALID_PERCPU_AREA depends solely on the system state.
+
+If the system is suspended, this area is not freed, and during resume, an error
+occurs in init_percpu_area, causing a crash because INVALID_PERCPU_AREA is not
+set and park_offline_cpus remains 0:
+
+    if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
+        return park_offline_cpus ? 0 : -EBUSY;
+
+The same crash can occur on x86 if park_offline_cpus is set
+to 0 during Xen resume.
+
+Fixes: f75780d26b2f ("xen: move per-cpu area management into common code")
+Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/drivers/char/scif-uart.c | 34 ++++++++++++++++++++++++++++++++--
- 1 file changed, 32 insertions(+), 2 deletions(-)
+Changes introduced in V3:
+ - cosmetic fixes
+ - change email in the "From:" tag
 
-diff --git a/xen/drivers/char/scif-uart.c b/xen/drivers/char/scif-uart.c
-index 757793ca45..ce0f87c650 100644
---- a/xen/drivers/char/scif-uart.c
-+++ b/xen/drivers/char/scif-uart.c
-@@ -139,9 +139,8 @@ static void scif_uart_interrupt(int irq, void *data)
-     }
- }
+Changes introduced in V2:
+ - minor fixes after review
+ - add "Fixes:" tag
+---
+ xen/common/percpu.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/xen/common/percpu.c b/xen/common/percpu.c
+index e4e8b7bcab..c6ecd95a08 100644
+--- a/xen/common/percpu.c
++++ b/xen/common/percpu.c
+@@ -30,7 +30,9 @@ static int init_percpu_area(unsigned int cpu)
+     char *p;
  
--static void __init scif_uart_init_preirq(struct serial_port *port)
-+static void scif_uart_disable(struct scif_uart *uart)
- {
--    struct scif_uart *uart = port->uart;
-     const struct port_params *params = uart->params;
+     if ( __per_cpu_offset[cpu] != INVALID_PERCPU_AREA )
+-        return park_offline_cpus ? 0 : -EBUSY;
++        return park_offline_cpus || system_state == SYS_STATE_resume
++               ? 0
++               : -EBUSY;
  
-     /*
-@@ -155,6 +154,14 @@ static void __init scif_uart_init_preirq(struct serial_port *port)
- 
-     /* Reset TX/RX FIFOs */
-     scif_writew(uart, SCIF_SCFCR, SCFCR_RFRST | SCFCR_TFRST);
-+}
-+
-+static void scif_uart_init_preirq(struct serial_port *port)
-+{
-+    struct scif_uart *uart = port->uart;
-+    const struct port_params *params = uart->params;
-+
-+    scif_uart_disable(uart);
- 
-     /* Clear all errors and flags */
-     scif_readw(uart, params->status_reg);
-@@ -271,6 +278,27 @@ static void scif_uart_stop_tx(struct serial_port *port)
-     scif_writew(uart, SCIF_SCSCR, scif_readw(uart, SCIF_SCSCR) & ~SCSCR_TIE);
- }
- 
-+static void scif_uart_suspend(struct serial_port *port)
-+{
-+    struct scif_uart *uart = port->uart;
-+
-+    scif_uart_stop_tx(port);
-+    scif_uart_disable(uart);
-+}
-+
-+static void scif_uart_resume(struct serial_port *port)
-+{
-+    struct scif_uart *uart = port->uart;
-+    const struct port_params *params = uart->params;
-+    uint16_t ctrl;
-+
-+    scif_uart_init_preirq(port);
-+
-+    /* Enable TX/RX and Error Interrupts  */
-+    ctrl = scif_readw(uart, SCIF_SCSCR);
-+    scif_writew(uart, SCIF_SCSCR, ctrl | params->irq_flags);
-+}
-+
- static struct uart_driver __read_mostly scif_uart_driver = {
-     .init_preirq  = scif_uart_init_preirq,
-     .init_postirq = scif_uart_init_postirq,
-@@ -281,6 +309,8 @@ static struct uart_driver __read_mostly scif_uart_driver = {
-     .start_tx     = scif_uart_start_tx,
-     .stop_tx      = scif_uart_stop_tx,
-     .vuart_info   = scif_vuart_info,
-+    .suspend      = scif_uart_suspend,
-+    .resume       = scif_uart_resume,
- };
- 
- static const struct dt_device_match scif_uart_dt_match[] __initconst =
+     if ( (p = alloc_xenheap_pages(PERCPU_ORDER, 0)) == NULL )
+         return -ENOMEM;
 -- 
 2.43.0
 
