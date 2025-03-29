@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EA30A75394
-	for <lists+xen-devel@lfdr.de>; Sat, 29 Mar 2025 01:07:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.931319.1333692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90051A75395
+	for <lists+xen-devel@lfdr.de>; Sat, 29 Mar 2025 01:07:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.931333.1333701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tyJjE-0003Uk-Mw; Sat, 29 Mar 2025 00:07:12 +0000
+	id 1tyJjb-00047e-UH; Sat, 29 Mar 2025 00:07:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 931319.1333692; Sat, 29 Mar 2025 00:07:12 +0000
+Received: by outflank-mailman (output) from mailman id 931333.1333701; Sat, 29 Mar 2025 00:07:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tyJjE-0003Sx-Ix; Sat, 29 Mar 2025 00:07:12 +0000
-Received: by outflank-mailman (input) for mailman id 931319;
- Sat, 29 Mar 2025 00:07:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tyJjb-000477-QU; Sat, 29 Mar 2025 00:07:35 +0000
+Received: by outflank-mailman (input) for mailman id 931333;
+ Sat, 29 Mar 2025 00:07:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=oenM=WQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tyJjD-0003AW-S8
- for xen-devel@lists.xenproject.org; Sat, 29 Mar 2025 00:07:11 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1e6ed6a-0c31-11f0-9ffa-bf95429c2676;
- Sat, 29 Mar 2025 01:07:10 +0100 (CET)
+ id 1tyJja-0003ea-MU
+ for xen-devel@lists.xenproject.org; Sat, 29 Mar 2025 00:07:34 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cf16546f-0c31-11f0-9ea4-5ba50f476ded;
+ Sat, 29 Mar 2025 01:07:32 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 29F155C100B;
- Sat, 29 Mar 2025 00:04:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D155C4CEE4;
- Sat, 29 Mar 2025 00:07:07 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 64D86A43055;
+ Sat, 29 Mar 2025 00:02:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77216C4CEE4;
+ Sat, 29 Mar 2025 00:07:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1e6ed6a-0c31-11f0-9ffa-bf95429c2676
+X-Inumbo-ID: cf16546f-0c31-11f0-9ea4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743206828;
-	bh=QOL1SjKrqmPDLWAU51TkSxpk97iUGfgl/1pOBgkgIDY=;
+	s=k20201202; t=1743206850;
+	bh=4JXaR8rZikU0L4TzAJoNI85O5OIXAeNA8t/FyZen+3c=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Ur+PnpSmq072MDzP4VsE4VGJLOyo+UHiaMsEOwJGCpVve1z7moG5rA2iIUXLoCsC0
-	 TF1eFvRz4lKxv7eqi3kMEKxb0u4xfR2fv0fM+BvG8ee/sIG34x93n/VgSPLU66JpW0
-	 LRPLu0jUUsij4Ow9A5njA8Y7XhRpHbPpR0OHJ9YSE+xjwMwUjzWiTNkiWosGzRjnwY
-	 kGlkJ4Vv+ccIA35opydofiAnbl0go/t2Ji6JuKQnLWipZrtdBnKHCy+r8PvJIEyu34
-	 Hpcd40Zl/clZB1UETnHsho0l5XwtXGft3W/BpIy09XOq00XN3aEPfjTUSeoGruqeZ9
-	 JOJISU5k6E3Ag==
-Date: Fri, 28 Mar 2025 17:07:05 -0700 (PDT)
+	b=LSv6WgW0WWKGos4skoJdi9v4NQrSZUc0SSuwWNLlQCkQYl++oV2Zya7M/P+/2U7QL
+	 XOqPrTv+2sTOId6h4g6c3kAQwEthrP6QHuo7QzcYEiIWzu3pIHC9wfBOD0bdXu+vOn
+	 TQ5NoGyrk0Mn0p8GZiGxrkH/5t6tc6feVpx2/i0LQ3fazXWCi+GJiOM+5z3VoWNAKn
+	 RNdkhsyCKPzD2tiCva90yJYjB1sMrVvnX/q80acqAJqqL7R4/n/fem00bfMmz5oC0K
+	 uGF0QQfbc33agpFSPEA6pU4eeh1pI5lmGhIyGqNeG5twTNk+rRAYFlsW9Fp1c7fptQ
+	 ChU7xY91bpEQg==
+Date: Fri, 28 Mar 2025 17:07:27 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Penny Zheng <Penny.Zheng@amd.com>
@@ -63,22 +62,19 @@ cc: xen-devel@lists.xenproject.org, ray.huang@amd.com,
     Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
     Julien Grall <julien@xen.org>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v2 04/19] xen/sysctl: wrap around
- XEN_SYSCTL_readconsole
-In-Reply-To: <20250326055053.3313146-5-Penny.Zheng@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2503281706590.563920@ubuntu-linux-20-04-desktop>
-References: <20250326055053.3313146-1-Penny.Zheng@amd.com> <20250326055053.3313146-5-Penny.Zheng@amd.com>
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 07/19] xen/sysctl: wrap around XEN_SYSCTL_perfc_op
+In-Reply-To: <20250326055053.3313146-8-Penny.Zheng@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2503281707200.563920@ubuntu-linux-20-04-desktop>
+References: <20250326055053.3313146-1-Penny.Zheng@amd.com> <20250326055053.3313146-8-Penny.Zheng@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 26 Mar 2025, Penny Zheng wrote:
-> The following functions is to deal with XEN_SYSCTL_readconsole sub-op, and
-> shall be wrapped:
-> - xsm_readconsole
-> - read_console_ring
+> perfc_control() and perfc_copy_info() are responsible for providing control
+> of perf counters via XEN_SYSCTL_perfc_op in DOM0, so they both shall
+> be wrapped.
 > 
 > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
