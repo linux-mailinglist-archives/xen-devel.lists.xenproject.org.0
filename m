@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDCF8A75AC4
-	for <lists+xen-devel@lfdr.de>; Sun, 30 Mar 2025 18:04:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.931630.1333828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76FD1A75AD3
+	for <lists+xen-devel@lfdr.de>; Sun, 30 Mar 2025 18:11:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.931615.1333838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tyv8c-0002Rg-Ug; Sun, 30 Mar 2025 16:03:54 +0000
+	id 1tyvFF-0004vw-I3; Sun, 30 Mar 2025 16:10:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 931630.1333828; Sun, 30 Mar 2025 16:03:54 +0000
+Received: by outflank-mailman (output) from mailman id 931615.1333838; Sun, 30 Mar 2025 16:10:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tyv8c-0002PH-R6; Sun, 30 Mar 2025 16:03:54 +0000
-Received: by outflank-mailman (input) for mailman id 931630;
- Sun, 30 Mar 2025 16:03:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tyvFF-0004uF-Ez; Sun, 30 Mar 2025 16:10:45 +0000
+Received: by outflank-mailman (input) for mailman id 931615;
+ Sun, 30 Mar 2025 14:58:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iWEh=WR=mail.com=hehongbo@srs-se1.protection.inumbo.net>)
- id 1tyv8b-0002PB-L2
- for xen-devel@lists.xenproject.org; Sun, 30 Mar 2025 16:03:53 +0000
-Received: from mout.mail.com (mout.mail.com [74.208.4.200])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8fa6b1dd-0d80-11f0-9ffb-bf95429c2676;
- Sun, 30 Mar 2025 18:03:48 +0200 (CEST)
-Received: from localhost.localdomain ([202.81.229.170]) by smtp.mail.com
- (mrgmxus005 [74.208.5.15]) with ESMTPSA (Nemesis) id
- 0LtZ5O-1t0Sma0jDA-015jgB; Sun, 30 Mar 2025 18:03:44 +0200
+ (envelope-from <SRS0=jPsk=WR=web.de=spasswolf@srs-se1.protection.inumbo.net>)
+ id 1tyu72-0003nm-5O
+ for xen-devel@lists.xenproject.org; Sun, 30 Mar 2025 14:58:12 +0000
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 652c59cd-0d77-11f0-9ea7-5ba50f476ded;
+ Sun, 30 Mar 2025 16:58:10 +0200 (CEST)
+Received: from localhost.localdomain ([95.223.134.88]) by smtp.web.de
+ (mrweb006 [213.165.67.108]) with ESMTPSA (Nemesis) id
+ 1Mxpmc-1tC08g1IJ4-00wRcp; Sun, 30 Mar 2025 16:57:24 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,158 +39,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8fa6b1dd-0d80-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mail.com;
-	s=s1089575; t=1743350624; x=1743955424; i=hehongbo@mail.com;
-	bh=oF78OOmsAcJMdi0rEz2e/GUg/u4gORsyRl/Ou+Gu0Ig=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:In-Reply-To:
+X-Inumbo-ID: 652c59cd-0d77-11f0-9ea7-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1743346644; x=1743951444; i=spasswolf@web.de;
+	bh=paMlcnbsyzixmxEKIk7TpgKIis192RtNpMFqbarKJOc=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding:cc:
 	 content-transfer-encoding:content-type:date:from:message-id:
 	 mime-version:reply-to:subject:to;
-	b=DmxkQ81XoPPQlP10i5Vl0AQ3qwsAoBPzLQ3ULX2aV2Qv3tqqgNFAh9zAsGcE/bUh
-	 nGJ0OdCtRasJzw4tTTRO+5lMFStBFcM3MEoxpHFOQc59jVaX4TebkT7bsjKnHP3XQ
-	 7JSkgLVP6U+4+ec6x+f/zJ79fJigt5AJDpOeAWyYMvvEOh08EE61gZ0FNZNjKEILQ
-	 zk3TN/G9h33f4lOmrUtP4w4d23ZT0WJtGqjERgh8XxmpdQFaqCtNHkI3tZnQKG850
-	 VirzGFJi/XR/kzTkelJfzQG18d2yrcGqpQLSsThocPloR78QJxLNVd5V0yXOyGoW8
-	 zH5Q9Yrmkz02URJQzw==
-X-UI-Sender-Class: f2cb72be-343f-493d-8ec3-b1efb8d6185a
-From: Hongbo <hehongbo@mail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Hongbo <hehongbo@mail.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>
-Subject: [XEN PATCH v2 1/1] tools/libxl: search PATH for QEMU if `QEMU_XEN_PATH` is not absolute
-Date: Mon, 31 Mar 2025 00:03:04 +0800
-Message-Id: <20250330160304.20899-1-hehongbo@mail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20241223031753.13709-1-hehongbo@mail.com>
-References: <20241223031753.13709-1-hehongbo@mail.com>
+	b=gGBtNgWaQigjbDZdbhArPRoyl5PvwqghMU8VVCNUeJuS2XrHDtSiJjxotPUqv1O2
+	 N1RMN8z4AkSOsiLDjo8QKOUi4YzC+NyshnXXijTRUR2ywlsUqH2klnH1MEbToBjyf
+	 mb8Gdz8ZMvbePJ2sxQ+JcZQ1Ig5RKuaKIGLKoWvQv0dmgTW7Zzc1eUHiWotViv1x7
+	 zgqdNA7Ro9EtkRfKsQ3n0pNsoUB2X1RbzpDQ3rShB9XSISBrDk3SBCjccOpRHPAfE
+	 QD6FATmLTqx7Z3R/QdQcpFQX7PhDp4D3SxkiibgrcNQdiOdr7vCPS0lUUQ4IYpZqy
+	 +LMVjhFTRqv7dpxCJw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+From: Bert Karwatzki <spasswolf@web.de>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: Bert Karwatzki <spasswolf@web.de>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	"Daniel Gomez" <da.gomez@kernel.org>,
+	=?UTF-8?q?J=C3=BCrgen=20Gro=C3=9F?= <jgross@suse.com>,
+	"Bjorn Helgaas" <helgaas@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-pci@vger.kernel.org,
+	"Ingo Molnar" <mingo@redhat.com>,
+	"Borislav Petkov" <bp@alien8.de>,
+	"Dave Hansen" <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH] PCI/MSI: Handle the NOMASK flag correctly for all PCI/MSI backends
+Date: Sun, 30 Mar 2025 16:57:17 +0200
+Message-ID: <20250330145719.32280-1-spasswolf@web.de>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <87v7rxzct0.ffs@tglx>
+References: 
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:JS7NwQ+ubojur4xWWgrI9hbYHpAT0pd9Oayj5blPfppS4/Y0USz
- fQzRTDrEYRbmsUHOZfEL5B0FF4su4BVJUt1XdnvjJ5NrwMrA4nVrTaWIwV+xZpWoNovNJeF
- IR6/hMFYxvoMGaFlnN8O8pNtarTUk2A2d66ku8j6pSMbiPpdY2K/3KmCvVbMjme3JP2i/7v
- m2a+8b7L70HLjXa5sv/jg==
+Content-Transfer-Encoding: 8bit
+X-Provags-ID: V03:K1:nkWDZ3wl89O1RHvPpDsRC7wrZxkyQ6Ar8ilNgBDFHoUFD2MBzVs
+ 1nPuJFIQE+DweCB5he01EvPkRIoBrglw4JAuqeK+j/W3pVnn5GXnHymx9dKP7Kw9mEj/IKc
+ 53NhvcKE0M70gKCVKzI0DHtN/RCBJ4CU/a3pFI+KKhabc6ZujcgQsaD8saibq531fJb313o
+ ngyCJ1po4towA43WKAxjg==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:Gx6iHqN3pJg=;0Tyn0EQOCHpD9pJvkemii4yQY9Q
- 1gdeDrDDHCNs7cK9SzYR3rYiF0MNoFdGodeBsuXC21gCeTp0AZdbKAbaULK18xrVb4LAw/Xl5
- Et7VuBwvIUcN7//7P5inGCDS+RHxGGXWgzfqV51jBa3IFsGPNOuIAS/l5YNmSOMj4tNqksZBV
- eh+iJCzl5Z3DDlnNt3EuJjF0rLgvN6739r6NwbCbireMFYLcmRV0OYARYoDXoVn5KgKrrn3Uj
- UaEX6ThgmC5C1p5qltwURCVV+awU/gsQEigZQEHKocQph7Xm5+weiyzhCUuhHhuwxA8r/C7Ph
- NOH52KNkHozcaYFyNoYaewvyDoSYn6DltN6CxwIWYcZz7/UsF8sNvF0+zBcHfU7QJsyYEbyW8
- bySPvAZSptdwHMcC+4lrgOKqHHwFY8xoyDoBX2advNMszbUItlSxMjJ+e4kIdp2/8KJNLkXP9
- jGr1rZvcEA/+k5P8c+NXAuJb348c8lNVXGUo4cB4VQpbGpTyDYZaBqDnf/V0N1f70XfBMbWEJ
- 5vG45g2/dVbFXEDso7dEHVwQsK9As/ijd09gI2scc6wTGhaSTfC+55zsnHWZOFfGxXVciXHjD
- j+mEbaRJF0+2xuc+jCnjocxgtZuOaaOFAFOPtYb0HF7iDlaNOoUqllet4fqIkwqRMDfMVPmqL
- wduwpH/6Un7s3Dnrw0DgANo70yi3uR8erMay3Q0SJ3iv00918fm8Jof9NEci1s/SYpmM2ndX0
- y0r1jblS9Cz0Z4r/pvGSiATUwd7Qx6CNwqYEN6dEHISOaxt0UEjfvB87kqoYnWJuW5HlESLRo
- BunO5CbzBr7m0G2IAD5cVhtY3gNg4ZHMfSNDaWAbsl6m08NYHLX66Gaf4P87VerKWSZ+VzraI
- cDudx9PKyDiglBwcW5ZgF5zbeD0QU7uJ7pBLG9W7Mo33EQqHtyi/ppQI2S8RFId26QlXqpte5
- I0S1axGJR3krATrNMLbERMG1gpIsnFGsTJSf5HXVcY8rlbpm8Tk2BKC9rPNX8plqZ6/vMOQSZ
- kyPn424WJqz51vVC19V5bOqDsQD44WD7VDgOaNGnVgJoH0NFcKURzqA9B/aKxiL5EkRCGw8zx
- nDMrMrnCZfscpys8MKg+LM3+f8i2kZ4mKNRtTAMc7gYwdlDMyqKldQEorR2thZm9qjjPfR23r
- rgbKQGrXio2dUnOhGB5xIMc1CZ1cH7bDhXBu/Hl8oaywtUPGB7u7ze3XmcZ1h8e91X5Re1Ol5
- t8R6wuqo/WLIhd5y4JoGl+0gOilaL2K9wnoo1d0MJ1le3eJZ+E3q5OSWaMzNbzFhzbZ3cY6Wi
- LOXzGeUZeTQ/jHK/4wQNyEosep18nvbTz6Es63dWnz8mnBp3nY23fF5SBkeM6kfCoF86FJDKl
- Xa8ryHeE5ijIMt5pT1Ji3Qu1IvZDpG7JSHtW9W/tpVc7rWOOIL8p7X7CVpF5IfGyVaYv53tiV
- joAppR3nZ2Va6i9MUlE3AGqEdZnY=
+UI-OutboundReport: notjunk:1;M01:P0:wJCifl4CpFM=;pIs1w/sJ/84spZPO2nx3agN2Pnx
+ Ae8afovBO+2C+P4j7qkZ9pgPzgAhOgIxrjQTbSs3FvZvqSMxOFa1GjqdsCGhHLmS+rGwJp0OU
+ MUTOCOjyvLotFw5PIxK7yPe3oFmXj+FpeipFrzGVqKkW5rGMKXELshSiQo+roGQQA1/BJV5K3
+ BskBSxNgb1X/Eme532dvlvgGny2myzvVXnbrcxFO84DUwgAJIP2qL4S1E9zvMJ4MKSI0WwJ6a
+ eMpS5tvDgmHoftVHgAimZHaAbImiD9HIK6mXUGtRm5NNnADE3fIu9YMV1Xyppg0Mt0EGk9aPb
+ oFbS8zsafr92I5ut4O81OeNVfsperzs+vzixbHe1/QnC12JS8k/qGc8KZXQAwbpXvWK+RtzkK
+ FxRqQWxdcZykhklJF4NdjYUJwH+EI3jGjKvieKnHRHzJGl07+wC3ynLm2MnMpCwl5CTGsrzmU
+ 1RjyQ+qV4MPzsJbeQAT5OWlQEJcqszewE4y3MRVz/FhkDTkig3cev3MYkoXctX+k35sgznXEi
+ uMasZSj+hi1J1/y/r/r5g3R8EyMSvQFF6mxaBB1LLy9AA3Vc4tAG25Mwmv//ovNKYtI/9gUAg
+ aS3GdPEOvTxGu08TsgCPIHzk9VMluzl1o4pdWU9IE9dY2304pxhjf6eb7OelxSU6UJyfwGpEu
+ zJXhkMAoNirJnAVVGhRWQ9gtBzJQ/01g6I+du8mOa+IGBZeH+hLZcdLFDMWPThuSCSexSlbQC
+ 0QCCUGMe+X7OeOFavH2taPu7OI+O1CgtX2x6iee/okPXNNauQsEmxW/zXvJvMm0clnkJ/THlO
+ vFSLygdTDRjEqpJE47mcZiEom36ssyoI3mi1yFXz7fIvW8hbAKexz/fkTR/rd8KRoadT+fhKv
+ SnCdruPmrJa8PJ4RIyuxk8nlis8rfO0BV4is745M7yd4VRZ764VC3aLc+3QW38IVs25gqmPAU
+ jLn/zGJjcu0ODi0+ju0O0s9LHoW3u3rtrJIZJYDt7ix85CFrE+lpdBjUxpRdolCisnwNj8qEU
+ iSC3io79qQ8jnQ49NVnLRzLRTc/N8dWnkD8Y710xKpnV3Za1gCDzqmqMtNyed2shlFFaojvkb
+ PEXcc2i6tRCqMMnmBYMDw9PzLd+ez0FDSRaaKuqLodZbkOUDvLY8fbNNBOowYRQzlVvW7Topc
+ DgvlX4tX81mWj8B1ZmpDmiTcTRauPdMoPqNjJgPqGo4OeF5DxAGXLGPalRnTXBRyr47x1dCax
+ bg957YOIqkN0Xc7Zb9bBVJQ0VEvn5vwmPvGleEyEa2w17kfPUWMdQUw0Yh5JxDP6zvDFysY7t
+ xPiptEL4ng68xMP1yLr6xBt25fcTB14AzMe35aA8ia8ReZvclaX1b2/CMx/e9ZisNK0RWlza9
+ mTP5V/4/ao+gUm1gK1EaUsDs1NhsAadeIkSzkNrh5Amqs17DD+Q+3Bu0VsX40dTs5tddg1c3/
+ RhqF70w==
 
-`QEMU_XEN_PATH` will be configured as `qemu-system-i386` with no clue wher=
-e, if
-`--with-system-qemu` is set without giving a path (as matched in the case =
-`yes`
-but not `*`). However, the existence of the executable is checked by `acce=
-ss()`,
-that will not look for anywhere in $PATH but the current directory. And si=
-nce it
-is possible for `qemu-system-i386` (or any other configured values) to be
-executed from PATH later, we'd better find that in PATH and return the ful=
-l path
-for the caller to check against.
+This also fixes a timeout error in the nvme driver introduced by commit
+c3164d2e0d1. In linux-next-2025032{5,6} booting hangs in about 50% of boot
+attempts with the message:
+nvme nvme1: I/O tag 4 (1004) QID 0 timeout, completion polled
+nvme nvme0: I/O tag 20 (1014) QID 0 timeout, completion polled
+after some more time I get a message about task udev-worker blocking for more
+than 61 seconds and get dropped to an initramfs shell. I bisected this to
+commit c3164d2e0d1. As this error does not occur in linux-next-20250328, I
+searched for commits that might fix this error and indeed cherrypicking commit
+dbc5d00074fd on top of linux-next-20250326 fixes the issue for me. No xen or
+kvm was used in my case.
 
-Signed-off-by: Hongbo <hehongbo@mail.com>
-=2D--
-v2:
- - Identify absolute/relative paths with their first char (being `/` or no=
-t).
- - Put the case inside a block `{}` to address `clang` warnings about the =
-new
-   variable.
- - Avoid unnecessary string duplications.
- - Parity of using `{}` block on both sides of `if` statements.
- - Use `libxl__abs_path()` to get absolute paths.
-
-Updated the patch as requested.
-
-Also, I just realized that there is a `libxl__abs_path()` (occurred just a=
-bove
-my patched hunk), and I should utilize that instead of doing the `%s/%s`
-`snprintf` thing myself.
-
-Let me know if further changes are needed.
-
-Best regards,
-Hongbo
-=2D--
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Juergen Gross <jgross@suse.com>
-=2D--
- tools/libs/light/libxl_dm.c | 38 +++++++++++++++++++++++++++++++++++--
- 1 file changed, 36 insertions(+), 2 deletions(-)
-
-diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-index b193a5dc37..8f0bbd5d64 100644
-=2D-- a/tools/libs/light/libxl_dm.c
-+++ b/tools/libs/light/libxl_dm.c
-@@ -331,9 +331,43 @@ const char *libxl__domain_device_model(libxl__gc *gc,
-         case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
-             dm =3D libxl__abs_path(gc, "qemu-dm", libxl__private_bindir_p=
-ath());
-             break;
--        case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
--            dm =3D qemu_xen_path(gc);
-+        case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN: {
-+            const char *configured_dm =3D qemu_xen_path(gc);
-+            if (configured_dm[0] =3D=3D '/')
-+            {
-+                dm =3D configured_dm;
-+            }
-+            else
-+            {
-+                const char *path_env =3D getenv("PATH");
-+                if (!path_env)
-+                {
-+                    dm =3D configured_dm;
-+                }
-+                else
-+                {
-+                    char *path_dup =3D libxl__strdup(gc, path_env);
-+                    char *saveptr;
-+
-+                    char *path =3D strtok_r(path_dup, ":", &saveptr);
-+                    dm =3D NULL;
-+                    while (path)
-+                    {
-+                        char *candidate =3D libxl__abs_path(gc, configure=
-d_dm, path);
-+                        if (access(candidate, X_OK) =3D=3D 0)
-+                        {
-+                            dm =3D candidate;
-+                            break;
-+                        }
-+                        path =3D strtok_r(NULL, ":", &saveptr);
-+                    }
-+
-+                    if (!dm)
-+                        dm =3D configured_dm;
-+                }
-+            }
-             break;
-+        }
-         default:
-             LOG(ERROR, "invalid device model version %d",
-                 info->device_model_version);
-=2D-
-2.39.5 (Apple Git-154)
-
+Bert Karwatzki
 
