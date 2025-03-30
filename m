@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71EA4A75920
-	for <lists+xen-devel@lfdr.de>; Sun, 30 Mar 2025 11:20:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.931578.1333784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08E51A75921
+	for <lists+xen-devel@lfdr.de>; Sun, 30 Mar 2025 11:29:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.931588.1333795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tyopK-00081n-CX; Sun, 30 Mar 2025 09:19:34 +0000
+	id 1tyoyY-0002BI-1p; Sun, 30 Mar 2025 09:29:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 931578.1333784; Sun, 30 Mar 2025 09:19:34 +0000
+Received: by outflank-mailman (output) from mailman id 931588.1333795; Sun, 30 Mar 2025 09:29:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tyopK-0007zf-85; Sun, 30 Mar 2025 09:19:34 +0000
-Received: by outflank-mailman (input) for mailman id 931578;
- Sun, 30 Mar 2025 09:19:33 +0000
+	id 1tyoyX-00029q-Uo; Sun, 30 Mar 2025 09:29:05 +0000
+Received: by outflank-mailman (input) for mailman id 931588;
+ Sun, 30 Mar 2025 09:29:05 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tyopJ-0007zZ-FS
- for xen-devel@lists.xenproject.org; Sun, 30 Mar 2025 09:19:33 +0000
+ (envelope-from <julien@xen.org>) id 1tyoyX-00029k-AT
+ for xen-devel@lists.xenproject.org; Sun, 30 Mar 2025 09:29:05 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tyopJ-000Ee5-0V;
- Sun, 30 Mar 2025 09:19:33 +0000
+ (envelope-from <julien@xen.org>) id 1tyoyW-000Ero-2V;
+ Sun, 30 Mar 2025 09:29:04 +0000
 Received: from [2a02:8012:3a1:0:bc2b:32d:d844:1191]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tyopI-0095AN-34;
- Sun, 30 Mar 2025 09:19:33 +0000
+ (envelope-from <julien@xen.org>) id 1tyoyW-0096LS-1t;
+ Sun, 30 Mar 2025 09:29:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +42,61 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=sUtk6NcT49oh/eI7tK+FbfS31oBr1EZgq64UqSlVvQI=; b=29YQC9ijiOPyFrJrspaT7QyTHo
-	8/dn8BC3aXVYvhVP0DfxgQDbVvRStKjL/i1mXy9bdu8Lt2ToNV5obrjwULaAhibWZGsQM5DJBvcX+
-	wOss6ZHiw6QmWPTeLehKJ/UaxejP+J0JSgtXXSZdKEK5xTY+dRZ268FNgtwd0aBP/OOk=;
-Message-ID: <aaea3429-a0bf-481a-87c3-8af6c7a71719@xen.org>
-Date: Sun, 30 Mar 2025 10:19:31 +0100
+	bh=lcVwf9ngiQ05Vzj71XI3bwYVTMADqpMd4aqn3s4Kut8=; b=TtWskzyYAhkT6xXC9zbTPOp1j/
+	fY9uymGD7tpxYo7YgnC0eHdR3eU+QgSDDB0icrNGRvDv0vCaobosRHwNsFiYLfg6gkKBXvzGlp729
+	YCGxytVBJ9F3vHThu5aVSFg2Vy0PVuQjuJZPrWpgClV65akrud8SCLQwmK9DD++/JnuA=;
+Message-ID: <5b901464-64f4-489c-ad62-e03b7f9d47b7@xen.org>
+Date: Sun, 30 Mar 2025 10:29:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/arm/efi: merge neighboring banks
+Subject: Re: [PATCH v3] xen: simplify bitmap_to_xenctl_bitmap for little
+ endian
 Content-Language: en-GB
 To: Stefano Stabellini <stefano.stabellini@amd.com>,
  xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com
-References: <20250328213331.1498584-1-stefano.stabellini@amd.com>
+Cc: sstabellini@kernel.org, andrew.cooper3@citrix.com, jbeulich@suse.com,
+ roger.pau@citrix.com, michal.orzel@amd.com, bertrand.marquis@arm.com
+References: <20250327233419.1119763-1-stefano.stabellini@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20250328213331.1498584-1-stefano.stabellini@amd.com>
+In-Reply-To: <20250327233419.1119763-1-stefano.stabellini@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi Stefano,
 
-On 28/03/2025 21:33, Stefano Stabellini wrote:
-> When booting from U-Boot bootefi, there can be a high number of
-> neighboring RAM banks. See for example:
+On 27/03/2025 23:34, Stefano Stabellini wrote:
+> The little endian implementation of bitmap_to_xenctl_bitmap leads to
+> unnecessary xmallocs and xfrees. Given that Xen only supports little
+> endian architectures, it is worth optimizing.
 > 
-> (XEN) RAM: 0000000000000000 - 0000000000bfffff
-> (XEN) RAM: 0000000000c00000 - 0000000000c00fff
-> (XEN) RAM: 0000000000c01000 - 0000000000dfffff
-> (XEN) RAM: 0000000000e00000 - 000000000279dfff
-> (XEN) RAM: 000000000279e000 - 00000000029fffff
-> (XEN) RAM: 0000000002a00000 - 0000000008379fff
-> (XEN) RAM: 000000000837a000 - 00000000083fffff
-> (XEN) RAM: 0000000008400000 - 0000000008518fff
-> (XEN) RAM: 0000000008519000 - 00000000085fffff
-> (XEN) RAM: 0000000008600000 - 0000000008613fff
-> (XEN) RAM: 0000000008614000 - 00000000097fffff
-> (XEN) RAM: 0000000009800000 - 00000000098a7fff
-> (XEN) RAM: 00000000098a8000 - 0000000009dfffff
-> (XEN) RAM: 0000000009e00000 - 0000000009ea7fff
-> (XEN) RAM: 0000000009ea8000 - 000000001fffffff
-> (XEN) RAM: 0000000020000000 - 000000002007ffff
-> (XEN) RAM: 0000000020080000 - 0000000077b17fff
-> (XEN) RAM: 0000000077b19000 - 0000000077b2bfff
-> (XEN) RAM: 0000000077b2c000 - 0000000077c8dfff
-> (XEN) RAM: 0000000077c8e000 - 0000000077c91fff
-> (XEN) RAM: 0000000077ca7000 - 0000000077caafff
-> (XEN) RAM: 0000000077cac000 - 0000000077caefff
-> (XEN) RAM: 0000000077cd0000 - 0000000077cd2fff
-> (XEN) RAM: 0000000077cd4000 - 0000000077cd7fff
-> (XEN) RAM: 0000000077cd8000 - 000000007bd07fff
-> (XEN) RAM: 000000007bd09000 - 000000007fd5ffff
-> (XEN) RAM: 000000007fd70000 - 000000007fefffff
-> (XEN) RAM: 0000000800000000 - 000000087fffffff
-> 
-> Xen does not currently support boot modules that span multiple banks: at
-> least one of the regions get freed twice. The first time from
-> setup_mm->populate_boot_allocator, then again from
-> discard_initial_modules->fw_unreserved_regions. With a high number of
-> banks, it can be difficult to arrange the boot modules in a way that
-> avoids spanning across multiple banks.
-> 
-> This small patch merges neighboring regions, to make dealing with them
-> more efficient, and to make it easier to load boot modules.
+> This patch removes the need for the xmalloc on little endian
+> architectures.
 > 
 > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> ---
+> Changes in v3:
+> - code style
+> - copy_bytes > 1 checks
+> - copy_bytes > 0 check for copy_to_guest_offset
+> ---
+>   xen/common/bitmap.c | 42 ++++++++++++++++++++++++++++++------------
+>   1 file changed, 30 insertions(+), 12 deletions(-)
+> 
+> diff --git a/xen/common/bitmap.c b/xen/common/bitmap.c
+> index 3da63a32a6..d3f9347e62 100644
+> --- a/xen/common/bitmap.c
+> +++ b/xen/common/bitmap.c
+> @@ -52,7 +52,7 @@ static void clamp_last_byte(uint8_t *bp, unsigned int nbits)
+>   	unsigned int remainder = nbits % 8;
+>   
+>   	if (remainder)
+> -		bp[nbits/8] &= (1U << remainder) - 1;
+> +		*bp &= (1U << remainder) - 1;
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+This is changing the behavior of clamp_last_byte(). Yet, it doesn't seem 
+the comment on top of is changed. Is this intended? Also, I would 
+consider rename 'bp' so it is clearer this is meant to point to the last 
+byte of the bitmap rather than the start.
 
 Cheers,
 
