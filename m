@@ -2,32 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 304CDA75CC0
-	for <lists+xen-devel@lfdr.de>; Sun, 30 Mar 2025 23:38:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.931800.1333987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90BF9A75CC6
+	for <lists+xen-devel@lfdr.de>; Sun, 30 Mar 2025 23:49:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.931810.1333997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tz0MH-0005J4-Tq; Sun, 30 Mar 2025 21:38:21 +0000
+	id 1tz0WY-00085c-Rd; Sun, 30 Mar 2025 21:48:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 931800.1333987; Sun, 30 Mar 2025 21:38:21 +0000
+Received: by outflank-mailman (output) from mailman id 931810.1333997; Sun, 30 Mar 2025 21:48:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tz0MH-0005GD-RC; Sun, 30 Mar 2025 21:38:21 +0000
-Received: by outflank-mailman (input) for mailman id 931800;
- Sun, 30 Mar 2025 21:38:20 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1tz0WY-00083O-Oj; Sun, 30 Mar 2025 21:48:58 +0000
+Received: by outflank-mailman (input) for mailman id 931810;
+ Sun, 30 Mar 2025 21:48:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1tz0MG-0005G7-3D
- for xen-devel@lists.xenproject.org; Sun, 30 Mar 2025 21:38:20 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tz0MF-000W6M-1g;
- Sun, 30 Mar 2025 21:38:19 +0000
-Received: from [2a02:8012:3a1:0:51d5:4bad:16b9:5cff]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1tz0MF-00ATV1-18;
- Sun, 30 Mar 2025 21:38:19 +0000
+ (envelope-from <SRS0=l0Nf=WR=redhat.com=mst@srs-se1.protection.inumbo.net>)
+ id 1tz0WW-00083H-Uc
+ for xen-devel@lists.xenproject.org; Sun, 30 Mar 2025 21:48:56 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c59619f9-0db0-11f0-9ea7-5ba50f476ded;
+ Sun, 30 Mar 2025 23:48:54 +0200 (CEST)
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-53-H2BTUS6kOn-mesMisDLXzw-1; Sun, 30 Mar 2025 17:48:51 -0400
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-43cf3168b87so19826245e9.2
+ for <xen-devel@lists.xenproject.org>; Sun, 30 Mar 2025 14:48:51 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1517:1000:ea83:8e5f:3302:3575])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d82e83477sm147882045e9.16.2025.03.30.14.48.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 30 Mar 2025 14:48:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,91 +49,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=cJyQTLDDdQqqF9KVwvNK4TW/cU9KPxuZA2l1TwsEATU=; b=zaxyHQQM5xPzgeU1jpZaspT0Rh
-	JUdmD+exogPXqlipEP/vtc/TmmntSxjvahBk+QWpol2hY7mDiRZtq9dIM7ivgebFREqGxkuffhv5i
-	tFm1EthEVSBU0352UZOW7ZYE4fhOgQP9aSAXbmF1NLupV+EOURGaVWpmlRWuqB6U7vSU=;
-Message-ID: <504f5df7-4d23-4fbd-a15d-632262f2b685@xen.org>
-Date: Sun, 30 Mar 2025 22:38:17 +0100
+X-Inumbo-ID: c59619f9-0db0-11f0-9ea7-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1743371332;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MRkqFL3NXkPCwg+oa2kxw02pthB6mXCTdemECWhwX84=;
+	b=hNpU6pONKodQd8M3EaFiv2hkW8z9T57xb8mKe/6fwQP4r2uOXMyqo/dfIt+nlnwHmtXVbq
+	wQ1vehs87NGYy8Q7MT4LQCIlSRbjYF5CCA/r/K1EJJlhdTm8m3Hk+CthvJvXu8MncyODep
+	UN7+vTARjHsksykNsg+mytaw1YWHr/o=
+X-MC-Unique: H2BTUS6kOn-mesMisDLXzw-1
+X-Mimecast-MFC-AGG-ID: H2BTUS6kOn-mesMisDLXzw_1743371330
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743371330; x=1743976130;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MRkqFL3NXkPCwg+oa2kxw02pthB6mXCTdemECWhwX84=;
+        b=FLcVMYxtKR9IGArFfLkoxU7mrZtfW/LNkFamsSTbZGVDJxH454Nvu/DttDBn9SGr/C
+         SY/ohQKVeAW4bq7YorXoaguxLUUIDozsZivGRh1zvGWhW0Ixp+jfrbDrsRe7laJuUqqs
+         fsI6Zx251S0Guhd/RyWG4fCMkVrqnmcyOr3lFQJMpGY86fQMtpytPn64avqHg6uGTDlj
+         fh4xurpFeiGUbFZdCeytkNyQfs+emCp2xaBvzcthHePeZes0vqG476u4e6pPqWC1v3mb
+         DdduugULRtN2U2R6cjYZ18MDQnM8tUV7Zl5s9lEnC+hbAgOr+ccdQH/b/8UvHgKC979m
+         LnrA==
+X-Forwarded-Encrypted: i=1; AJvYcCUvs4py+BDx2xggiY7ydTuQXPAesiVNnhTC0mkeljKjlWO+CDER5Tky0pXoi8wR3DPrAo2FztMcIj0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyPhCbGhmMGMKvUaVpvmBfiWiMdxO2EqYPcJQkWqS6Xholz0kB8
+	eTAMnyZuSdG/3sLHNbM5pQdYIhhGAEnTm80LJ4xENE7iMVip8IrnHyh03d9YO455vRE+H2Y2bTM
+	HO+aNRhMSh9H4X6QAc/uefdNOY6rPiGzmiZsEVQrXcOkbpVdesizw9QvXPYJAp9b7
+X-Gm-Gg: ASbGnctRNHqIpQHXopotzqZav+VAkjU8MSImfK53XzIIPMMlXMKEsGycn4xpNPn7B5X
+	2GBHfCnGwA89FVXMlo+Ukv5ctx3D7XolGhwYENQ8V9ChSqao7s6mZ2JZ2NxWkmiTsIKXVLnivwU
+	COUKb1thTnHtD/SfMtvHUyo8mcG6AvTz/CHcdADMOWAkE9El3NNfzEOKEL5q8K2StPWOtJxKeS9
+	9QWOa9S1VMEzd5dAqEMFMd6ngjKEHvsPg1TJGDYD0wB1kfX+J5lKCyOWKx5khDBV3OBBC31gbdr
+	hhjwioBUWg==
+X-Received: by 2002:a05:600c:1d8c:b0:43c:f050:fee8 with SMTP id 5b1f17b1804b1-43db628992cmr52509345e9.20.1743371329774;
+        Sun, 30 Mar 2025 14:48:49 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH1kdHHR/M4aOUOFDnZpG/iLLAoqQlqVBS2836/4CKe19RX2SyJrF+xilFjC/1QxsrymXzr6Q==
+X-Received: by 2002:a05:600c:1d8c:b0:43c:f050:fee8 with SMTP id 5b1f17b1804b1-43db628992cmr52509055e9.20.1743371329422;
+        Sun, 30 Mar 2025 14:48:49 -0700 (PDT)
+Date: Sun, 30 Mar 2025 17:48:42 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: linuxppc-dev@lists.ozlabs.org, Claire Chang <tientzu@chromium.org>,
+	Rob Herring <robh+dt@kernel.org>, mpe@ellerman.id.au,
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	boris.ostrovsky@oracle.com, jgross@suse.com,
+	Christoph Hellwig <hch@lst.de>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	heikki.krogerus@linux.intel.com, peterz@infradead.org,
+	benh@kernel.crashing.org, grant.likely@arm.com, paulus@samba.org,
+	mingo@kernel.org, sstabellini@kernel.org,
+	Saravana Kannan <saravanak@google.com>, xypron.glpk@gmx.de,
+	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+	Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+	xen-devel@lists.xenproject.org, Thierry Reding <treding@nvidia.com>,
+	linux-devicetree <devicetree@vger.kernel.org>,
+	Nicolas Boichat <drinkcat@chromium.org>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	lkml <linux-kernel@vger.kernel.org>,
+	"list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+	Jim Quinlan <james.quinlan@broadcom.com>,
+	Robin Murphy <robin.murphy@arm.com>, hch@infradead.org,
+	Jason Wang <jasowang@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	virtualization@lists.linux.dev, graf@amazon.de
+Subject: Re: Using Restricted DMA for virtio-pci
+Message-ID: <20250330173951-mutt-send-email-mst@kernel.org>
+References: <20210209062131.2300005-1-tientzu@chromium.org>
+ <979b6a34ca5724ced1d4871b58bf227065d7da57.camel@infradead.org>
+ <20250321142947-mutt-send-email-mst@kernel.org>
+ <d1382a6ee959f22dc5f6628d8648af77f4702418.camel@infradead.org>
+ <20250330125929-mutt-send-email-mst@kernel.org>
+ <E3EE485D-AD74-457C-BDEC-F8C62DFE4909@infradead.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/5] xen/arm: ffa: Enable VM to VM without firmware
-Content-Language: en-GB
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "jens.wiklander@linaro.org" <jens.wiklander@linaro.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>
-References: <cover.1742824138.git.bertrand.marquis@arm.com>
- <0f5cf498c3c511ed192e8b7b7d0f4987e00e5c0d.1742824138.git.bertrand.marquis@arm.com>
- <6727ece4-d589-4ab4-9172-07dd6a7f2b44@xen.org>
- <8742853A-E32D-4BA5-AA4D-C69A2FCAEE85@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <8742853A-E32D-4BA5-AA4D-C69A2FCAEE85@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <E3EE485D-AD74-457C-BDEC-F8C62DFE4909@infradead.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: MrkAnU6tI2ARhHnQ6F8QvtoNufxFrx7_caHWlPnGv6Q_1743371330
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Bertrand,
-
-On 27/03/2025 08:37, Bertrand Marquis wrote:
->> On 27 Mar 2025, at 00:41, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Bertrand,
->>
->> On 24/03/2025 13:53, Bertrand Marquis wrote:
->>> When VM to VM support is activated and there is no suitable FF-A support
->>> in the firmware, enable FF-A support for VMs to allow using it for VM to
->>> VM communications.
->>
->> tee/ and the callbacks associated are meant to be used for mediatiors. My current interpretation ist this is only meant to interpose between a guest and physical resources. Here you are extending the meaning to "virtual TEE". I am sort of ok with that but ...
+On Sun, Mar 30, 2025 at 10:27:58PM +0100, David Woodhouse wrote:
+> On 30 March 2025 18:06:47 BST, "Michael S. Tsirkin" <mst@redhat.com> wrote:
+> >> It's basically just allowing us to expose through PCI, what I believe
+> >> we can already do for virtio in DT.
+> >
+> >I am not saying I am against this extension.
+> >The idea to restrict DMA has a lot of merit outside pkvm.
+> >For example, with a physical devices, limiting its DMA
+> >to a fixed range can be good for security at a cost of
+> >an extra data copy.
+> >
+> >So I am not saying we have to block this specific hack.
+> >
+> >what worries me fundamentally is I am not sure it works well
+> >e.g. for physical virtio cards.
 > 
-> I see what you mean but FF-A will not only be used to communicate with TEE (even if the primary use case right now is this one, including have it in a VM instead of the secure world).
- > >>
->>> If there is OP-TEE running in the secure world and using the non FF-A
->>> communication system, having CONFIG_FFA_VM_TO_VM could be non functional
->>> (if optee is probed first) or OP-TEE could be non functional (if FF-A is
->>> probed first) so it is not recommended to activate the configuration
->>> option for such systems.
->>
->> ... this part is concerning me. You should be able to build with CONFIG_FFA_VM_TO_VM and still boot when OP-TEE is present on the system. This is not too critical now as this is tech preview but this is definitely a blocker for making FFA supported. Can this be mentioned at the top of the ffa.c file (which already contains existing blocker)?
+> Not sure why it doesn't work for physical cards. They don't need to be bus-mastering; they just take data from a buffer in their own RAM.
+
+I mean, it kind of does, it is just that CPU pulling data over the PCI bus
+stalls it so is very expensive. It is not by chance people switched to
+DMA almost exclusively.
+
+
+> >Attempts to pass data between devices will now also require
+> >extra data copies.
 > 
-> OP-TEE supports FF-A and in fact should be switched to using it by default as it allows it to run in parallel of other TEEs in the secure world or have FF-A compliant SPs running on top of OP-TEE.
-> More and more you will see FF-A popping up as a recommended (or required) part of the firmware features.
+> Yes. I think that's acceptable, but if we really cared we could perhaps extend the capability to refer to a range inside a given BAR on a specific *device*? Or maybe just *function*, and allow sharing of SWIOTLB buffer within a multi-function device?
+
+Fundamentally, this is what dmabuf does.
+
+> I think it's overkill though.
 > 
-> So the only reason to use OP-TEE without FF-A is if you have an old OP-TEE in which case your firmware will not support FF-A and using it between VMs is probably not required.
-
-Thanks for the clarification. I know we only support OP-TEE in Xen 
-today, but do you know what will happen for the other TEEs? Will they 
-adopt FF-A?
-
+> >Did you think about adding an swiotlb mode to virtio-iommu at all?
+> >Much easier than parsing page tables.
 > 
->>
->> Also, given this would expose a fully virtual TEE, we should be able to have a system where you have some VMs talking FFA and some using the physical OPTEE (or another TEE). Whether we want to support it is a different question but this design would prevent it. Is this intended?
-> 
-> Right now i would say this is definitely not something we need as part of the tech preview as anybody using this feature in Xen would use an OP-TEE with FF-A support.
-> But from Xen point of view, we should (if we can) support running on old systems with an existing OP-TEE but still use FF-A between VMs.
-> This has some consequences on how the tee mediator and FF-A support is designed and I will definitely give it some thoughts (primary idea would be to decouple FF-A with secure as mediator to FF-A between VMs somehow).
+> Often the guests which need this will have a real IOMMU for the true
+> pass-through devices.
 
-I am not sure we need to decouple anything. Today, we can already 
-specify the type of the TEE used by a given VM (see tee_type). But we 
-are enforcing the TEE type match the one of the current mediator.
+Not sure I understand. You mean with things like stage 2 passthrough?
 
-So what if we allow multiple mediator to run and when the domain is 
-initialized we select the correct medatior/ops for the VM?
+> Adding a virtio-iommu into the mix (or any other
+> system-wide way of doing something different for certain devices) is
+> problematic.
 
-For simplification, we could even hardocode FF-A as the second mediator.
+OK... but the issue isn't specific to no DMA devices, is it?
 
-> 
-> For the review side of things, am I right to understand from your comments that this ok for now as tech-preview ?
 
-Yes I am happy with the approach for now.
+> The on-device buffer keeps it nice and simple,
 
-Cheers,
+I am not saying it is not.
+It's just a little boutique.
+
+> and even allows us to
+> do device support for operating systems like Windows where it's a lot
+> harder to do anything generic in the core OS.
+
+Well we do need virtio iommu windows support sooner or later, anyway.
 
 -- 
-Julien Grall
+MST
 
 
