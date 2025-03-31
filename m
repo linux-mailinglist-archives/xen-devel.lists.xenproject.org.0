@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9A36A762B2
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 10:46:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.932249.1334416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A745A762C6
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 10:54:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.932272.1334427 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzAmv-00034C-1z; Mon, 31 Mar 2025 08:46:33 +0000
+	id 1tzAuE-0007jX-Pt; Mon, 31 Mar 2025 08:54:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 932249.1334416; Mon, 31 Mar 2025 08:46:33 +0000
+Received: by outflank-mailman (output) from mailman id 932272.1334427; Mon, 31 Mar 2025 08:54:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzAmu-00032X-Vb; Mon, 31 Mar 2025 08:46:32 +0000
-Received: by outflank-mailman (input) for mailman id 932249;
- Mon, 31 Mar 2025 08:46:31 +0000
+	id 1tzAuE-0007gR-M3; Mon, 31 Mar 2025 08:54:06 +0000
+Received: by outflank-mailman (input) for mailman id 932272;
+ Mon, 31 Mar 2025 08:54:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AhU9=WS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzAmt-00032Q-Ml
- for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 08:46:31 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FpTe=WS=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tzAuC-0007gL-KK
+ for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 08:54:04 +0000
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [2607:f8b0:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a3cc07ad-0e0c-11f0-9ea7-5ba50f476ded;
- Mon, 31 Mar 2025 10:46:30 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-39ac9aea656so3487253f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 31 Mar 2025 01:46:30 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b79e1b0sm10569740f8f.75.2025.03.31.01.46.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Mar 2025 01:46:29 -0700 (PDT)
+ id b1bbd6cd-0e0d-11f0-9ea7-5ba50f476ded;
+ Mon, 31 Mar 2025 10:54:03 +0200 (CEST)
+Received: by mail-pl1-x632.google.com with SMTP id
+ d9443c01a7336-22438c356c8so82901485ad.1
+ for <xen-devel@lists.xenproject.org>; Mon, 31 Mar 2025 01:54:03 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d2e1a72fcca58-7397106c7b7sm6464437b3a.116.2025.03.31.01.54.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 31 Mar 2025 01:54:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,183 +44,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3cc07ad-0e0c-11f0-9ea7-5ba50f476ded
+X-Inumbo-ID: b1bbd6cd-0e0d-11f0-9ea7-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743410789; x=1744015589; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4XWaGEjsTvHjrR76ANIOckdg8Yl32EYXYAqSXMIJ3PY=;
-        b=AeGeOF0lvNIKqxWXrinOBQO2IZ/TYKmJ/TzWiNcaCO4CdXUsbEGo+wp4u30AUL/9oF
-         a/vnQYxIQPOnqW6d0o4iYe5nPToHf2CyiaaxJ0+FRGTrYBv0atdHGhs+61Y+pt/4c7GA
-         O3sVHyVQSiqNZhWB9eD9ucFJt+uXjqDjxY5yWlGhrz1upN3rSfLBFZvY9ZA6CAVMMKCA
-         gGCvUsnCengRS4mYeXqfEX/XHV06I2AW21djA7Cfbq2SKk0gXfdu4YeLKZ+UtsWZA5Y7
-         QoRc8A0nhB3yQJg98c68rf5Vs1eoLQO7p/gLptK6cIFR8r0/wbtqJ4S3sywFrrJ1g7BP
-         gEiQ==
+        d=citrix.com; s=google; t=1743411242; x=1744016042; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=g68pv8HLKjxwIYNYmVAVNeAB6X96bZp2QGkJCQ1PFwQ=;
+        b=XOPudND53zcD7ztA/mfEzGxtp50UOHpO0xcrGQKTPZ/B8jb5sx7XTsD95r5CkixFgk
+         M6/oJVXRYnZ9dsogzYSIVkzsZ3F1Lxy7wGOuss129UvRbaIWPYapDbiO3urF52W32fLs
+         wwBsj9wL/8Oqhz/LyDEb/4djXR6xchrv4/TOM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743410789; x=1744015589;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4XWaGEjsTvHjrR76ANIOckdg8Yl32EYXYAqSXMIJ3PY=;
-        b=UZJVlSJWFjcQizGDUGubxe+SpjtKvsoEiQi5WXmMKZccUWm2JK6Tgp7hZNmd/pPGfa
-         UopcHbDBrn2/YtR8Zp/0TW3YJgE2GeAunXBbhMFtVBTODgP5sDfu8B1I9PNj9UsR7Zqo
-         JkcgmzEWpsB3Nl8MKPweNCRaoo9vXG4JVJTpYLqZ2X0EL3O+WtJcPhMajnW2uKeG6qFF
-         Fe9wS8BJJnx+ynFEcBEyxY8o0RjZjMuN2KqRX7ldUhhJfD1hzURA3e+Dsq4pIOlYQ8Yw
-         Pb9ODBasEBKOIgOW9Y3S31HB9r/+4cXGo/PFTa98KscLLx2JxaMpQlK9gWoRZJhkH+lL
-         SpdA==
-X-Gm-Message-State: AOJu0YwHrvFCtVddfEw+86OXl/XZdMefatOy8n2Q2yqfo/C5pSuMpoeO
-	olrMLR1dvn+ddwjh8DyVJ2fd3EszU/TvA7d43/7zzfDfvSFXDwANxTAXIB8/7w==
-X-Gm-Gg: ASbGncv1JEJ7wRuF/pEwsAjytZJ+uBlzTHd+7/oPDY18VfHPzJ/2a9Wl2l/OEk4aXxT
-	ftsUxN/pPAZvPy2JxCyjGHO7wzZSe+USx+lyq1/zbnxJV0Ke9xxIKM2QFLxkfd+9dJicDFb4wGC
-	nNXAzNIHB+mcWqBYLBU2bWwRJIUOQ2Yz+AcrMa3YQdnE7YCY7VEceJ1vC93Cr8C34wGQyuvE00b
-	Hv0soaoiSCjEM3sy2LiTW/Ty9J+E654CavMbJvWqn4Bz2VgJExFKoxDXsJ7aw67Za24Iy3PXs9H
-	u1NiVz7gSUUrqsVyaDEjhkS1KbT/girtmbh15j8mQ9vZwBf3Wm9JQNgJyz57I4u4YOyadXXvAgg
-	uDBPOLnTu+bVqKdLpp3A3YsW1aOGBLg==
-X-Google-Smtp-Source: AGHT+IFEt+LIHtOJTSWpd3NjLWeE3XbpTxceRrS/bzi8VudJ9nEcYTHBPDLuoaM5rC2hHkHgT+UkrA==
-X-Received: by 2002:a5d:5848:0:b0:391:45e9:face with SMTP id ffacd0b85a97d-39c1211d5bbmr5383257f8f.54.1743410789425;
-        Mon, 31 Mar 2025 01:46:29 -0700 (PDT)
-Message-ID: <bed18044-098c-4408-8024-24b79d760417@suse.com>
-Date: Mon, 31 Mar 2025 10:46:31 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] vpci: Hide capability when it fails to initialize
+        d=1e100.net; s=20230601; t=1743411242; x=1744016042;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=g68pv8HLKjxwIYNYmVAVNeAB6X96bZp2QGkJCQ1PFwQ=;
+        b=jlImEYhWn/U/e92pcBidpn7+uFiaYbMfIpkA125xRLzzTHn56GOWssRzpoR86IjYmI
+         3yRanuSuC+VmOIoI8lrbcI1sJTI1qQmeV6e8sex/t+2VSisI/6E1j4eukJhFW9Mza7qv
+         915ZocX5dE10Kf9R5jR7PUzOmL9KGsiIOUaDLC8Mf65NiuqXtgyZQHXeNQJjB2nUBJVt
+         liS7Hlm/3G78aB4nmbZue99By4wzU8B+ltHW61Fwtq83aBrGzk3Ws570bM0/GKpn9dQE
+         EJAqBOXeoz95PA+Z9j+X5q9CAmgU2N0I/quc5HTVfJEBYcZ47tSPa96GDTMMU3ZA5au1
+         P+tA==
+X-Gm-Message-State: AOJu0Yw+ea6WkJBu9ljczLZ+dbx32GOT4lj8RxFxJeoj7LcECH1oS4gr
+	twyxQuxZWLjCPvC6yl0xOQJpoHaqE9QKE+8EaOPIvt+3U9qn8znmiG8DnjcIwkkRmpjQMJcBmzC
+	S
+X-Gm-Gg: ASbGncsUbRlMerRs9OsW3z+bntk/CBMCXg2QdlMbOTyEn12KbaJrsXMzScKF1nZhhh/
+	tSOeiJjik0R3GDDrgl4xU7aI0+7M4Sh6XbMH7/sSIzUtRfBZee3OScOoPETptBuSJgIWPzJwhof
+	HEqpVg0eHjGwDtxua2mSUguoafGFHmS4zo2eE9dR21doZYsdpv9WNr1qoSMzHroTxnx2zg5xxgQ
+	XqWGfBlq4JJb3cpgPh16+B15IoSHNvoOf1LljTavLeI0KH0UoXpfTybtCpnM/c0FZYrRXydWL0v
+	e9s4DFkkslcbXVaSQW0q4vc5WMChuzKFqAnvJq2wsbGXk3ngSA==
+X-Google-Smtp-Source: AGHT+IGIE0rMnnu+MRDEZJk9y8ZHT3VF0R+T53xSrMaQX2pAC07QvM09shgGUdRHgWf96BiJHhDD+g==
+X-Received: by 2002:a05:6a20:9e4a:b0:1f5:862b:a583 with SMTP id adf61e73a8af0-2009f78553bmr15390872637.34.1743411241885;
+        Mon, 31 Mar 2025 01:54:01 -0700 (PDT)
+Date: Mon, 31 Mar 2025 10:53:56 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Huang, Ray" <Ray.Huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+	"Huang, Ray" <Ray.Huang@amd.com>
+Subject: Re: [PATCH v1 3/3] vpci/msi: Remove registers when init_msi() fails
+Message-ID: <Z-pYJNyGieUqkVvl@macbook.local>
 References: <20250327073214.158210-1-Jiqian.Chen@amd.com>
- <Z-UZm5sTIz4nOt4-@macbook.local>
- <BL1PR12MB5849F1134D9E51E6A0F7B4A7E7AD2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <Z-pVrGLZTCk1ZXb1@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z-pVrGLZTCk1ZXb1@macbook.local>
-Content-Type: text/plain; charset=UTF-8
+ <20250327073214.158210-3-Jiqian.Chen@amd.com>
+ <Z-VIFo7q7-UNsLCt@macbook.local>
+ <BL1PR12MB584905BC9966EF9742FF4472E7AD2@BL1PR12MB5849.namprd12.prod.outlook.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <BL1PR12MB584905BC9966EF9742FF4472E7AD2@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-On 31.03.2025 10:43, Roger Pau Monné wrote:
-> On Mon, Mar 31, 2025 at 07:26:20AM +0000, Chen, Jiqian wrote:
->> On 2025/3/27 17:25, Roger Pau Monné wrote:
->>> On Thu, Mar 27, 2025 at 03:32:12PM +0800, Jiqian Chen wrote:
->>>> --- a/xen/drivers/vpci/vpci.c
->>>> +++ b/xen/drivers/vpci/vpci.c
->>>> @@ -36,8 +36,8 @@ struct vpci_register {
->>>>  };
->>>>  
->>>>  #ifdef __XEN__
->>>> -extern vpci_register_init_t *const __start_vpci_array[];
->>>> -extern vpci_register_init_t *const __end_vpci_array[];
->>>> +extern vpci_capability_t *const __start_vpci_array[];
->>>> +extern vpci_capability_t *const __end_vpci_array[];
->>>>  #define NUM_VPCI_INIT (__end_vpci_array - __start_vpci_array)
->>>>  
->>>>  #ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
->>>> @@ -83,6 +83,47 @@ static int assign_virtual_sbdf(struct pci_dev *pdev)
->>>>  
->>>>  #endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
->>>>  
->>>> +static int vpci_init_cap_with_priority(struct pci_dev *pdev,
->>>> +                                       const char *priority)
->>>> +{
->>>> +    for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
->>>> +    {
->>>> +        const vpci_capability_t *capability = __start_vpci_array[i];
->>>> +        const unsigned int cap_id = capability->id;
->>>> +        unsigned int pos;
->>>> +        int rc;
->>>> +
->>>> +        if ( *(capability->priority) != *priority )
->>>> +            continue;
->>>> +
->>>> +        if ( !capability->is_ext )
->>>> +            pos = pci_find_cap_offset(pdev->sbdf, cap_id);
->>>> +        else
->>>> +            pos = pci_find_ext_capability(pdev->sbdf, cap_id);
->>>> +
->>>> +        if ( !pos )
->>>> +            continue;
->>>> +
->>>> +        rc = capability->init(pdev);
->>>> +
->>>> +        if ( rc )
->>>> +        {
->>>> +            printk(XENLOG_WARNING "%pd %pp: cap init fail rc=%d, try to hide\n",
->>>> +                   pdev->domain, &pdev->sbdf, rc);
->>>> +            rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
->>>> +                                   pos, capability->is_ext ? 4 : 1, NULL);
->>>
->>> Are you sure this works as intended? 
->> Yes, I used failure test cases of init_msi/rebar.
->> From the "lspci" result, they were hided from the dom0.
->> But I forgot to test for domUs.
-> 
-> I assume that's only tested with Linux?  See my comment below about
-> capability ID 0 being reserved, and hence I think we should not keep
-> capabilities with ID 0 on the list, as it might cause malfunctions to
-> OSes.
-> 
->>> The capability ID 0 is marked as "reserved" in the spec, so it's unclear to me how OSes would handle
->>> finding such capability on the list - I won't be surprised if some
->>> implementations decide to terminate the walk.  It's fine to mask the
->>> capability ID for the ones that we don't want to expose, but there's
->>> further work to do IMO.
->>>
->>> The usual way to deal with masking capabilities is to short circuit
->>> the capability from the linked list, by making the previous capability
->>> "Next Capability Offset" point to the next capability in the list,
->>> thus skipping the current one. So:
->>>
->>> capability[n - 1].next_cap = capability[n].next_cap
->>>
->>> IOW: you will need to add the handler to the previous capability on
->>> the list.  That's how it's already done in init_header().
->> Oh, I got your opinion.
->> But we may need to discuss this more.
->> In my opinion, there should be two situations:
->> First, if device belongs to hardware domain, there is no emulation of legacy or extended capabilities linked list if I understand codes right.
-> 
-> Yes, but that needs to be fixed, we need to have this kind of
-> emulation uniformly.
-> 
->> So, for this situation, I think current implementation of my patch is enough for hiding legacy or extended capabilities.
-> 
-> It works given the current code in Linux.  As said above, I don't
-> think this is fully correct according to the PCI spec.
-> 
->> Second, if device belongs to common domain, we just need to consider legacy capabilities since all extended capabilities are hided in init_header().
->> So, for this situation, I need to what you said " capability[n - 1].next_cap = capability[n].next_cap "
-> 
-> I'm not sure why would want to handle the hardware domain vs
-> unprivileged domains differently here.  The way to hide the
-> capabilities should always be the same, like it's currently done for
-> domUs.
+On Mon, Mar 31, 2025 at 08:13:50AM +0000, Chen, Jiqian wrote:
+> On 2025/3/27 20:44, Roger Pau Monné wrote:
+> > On Thu, Mar 27, 2025 at 03:32:14PM +0800, Jiqian Chen wrote:
+> >> When init_msi() fails, the new codes will try to hide MSI
+> >> capability, so it can't rely on vpci_deassign_device() to
+> >> remove all MSI related registers anymore, those registers
+> >> must be cleaned up in failure path of init_msi.
+> >>
+> >> To do that, use a vpci_register array to record all MSI
+> >> registers and call vpci_remove_register() to remove registers.
+> > 
+> > As I'm just seeing 3 patches on the series, isn't there one missing
+> > for MSI-X at least?
+> No, because init_msix only call vpci_add_register once, there is no need to remove registers when it fails.
 
-FWIW - I agree with Roger on all the point made.
+Seems a bit fragile, what about if there's further code added to
+init_msix() that could return an error after the vpci_add_register()
+call?  It would be safer to have a cleanup function that removes the
+config space handlers, plus the MMIO one (see the call to
+register_mmio_handler()), and the addition to the
+d->arch.hvm.msix_tables list.
 
-Jan
+> > 
+> >> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> >> ---
+> >>  xen/drivers/vpci/msi.c | 57 +++++++++++++++++++++++++++++-------------
+> >>  1 file changed, 39 insertions(+), 18 deletions(-)
+> >>
+> >> diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
+> >> index 9d7a9fd8dba1..30ef97efb7b0 100644
+> >> --- a/xen/drivers/vpci/msi.c
+> >> +++ b/xen/drivers/vpci/msi.c
+> >> @@ -195,6 +195,9 @@ static void cf_check mask_write(
+> >>  
+> >>  static int cf_check init_msi(struct pci_dev *pdev)
+> >>  {
+> >> +    unsigned int offset;
+> >> +    unsigned int reg_index = 0;
+> >> +    struct vpci_register registers[VPCI_CAP_MAX_REGISTER];
+> >>      unsigned int pos = pdev->msi_pos;
+> >>      uint16_t control;
+> >>      int ret;
+> >> @@ -206,15 +209,13 @@ static int cf_check init_msi(struct pci_dev *pdev)
+> >>      if ( !pdev->vpci->msi )
+> >>          return -ENOMEM;
+> >>  
+> >> +    offset = msi_control_reg(pos);
+> >>      ret = vpci_add_register(pdev->vpci, control_read, control_write,
+> >> -                            msi_control_reg(pos), 2, pdev->vpci->msi);
+> >> +                            offset, 2, pdev->vpci->msi);
+> >>      if ( ret )
+> >> -        /*
+> >> -         * NB: there's no need to free the msi struct or remove the register
+> >> -         * handlers form the config space, the caller will take care of the
+> >> -         * cleanup.
+> >> -         */
+> >> -        return ret;
+> >> +        goto fail;
+> >> +    registers[reg_index].offset = offset;
+> >> +    registers[reg_index++].size = 2;
+> >>  
+> >>      /* Get the maximum number of vectors the device supports. */
+> >>      control = pci_conf_read16(pdev->sbdf, msi_control_reg(pos));
+> >> @@ -234,33 +235,42 @@ static int cf_check init_msi(struct pci_dev *pdev)
+> >>      pdev->vpci->msi->address64 = is_64bit_address(control);
+> >>      pdev->vpci->msi->masking = is_mask_bit_support(control);
+> >>  
+> >> +    offset = msi_lower_address_reg(pos);
+> >>      ret = vpci_add_register(pdev->vpci, address_read, address_write,
+> >> -                            msi_lower_address_reg(pos), 4, pdev->vpci->msi);
+> >> +                            offset, 4, pdev->vpci->msi);
+> >>      if ( ret )
+> >> -        return ret;
+> >> +        goto fail;
+> >> +    registers[reg_index].offset = offset;
+> >> +    registers[reg_index++].size = 4;
+> >>  
+> >> +    offset = msi_data_reg(pos, pdev->vpci->msi->address64);
+> >>      ret = vpci_add_register(pdev->vpci, data_read, data_write,
+> >> -                            msi_data_reg(pos, pdev->vpci->msi->address64), 2,
+> >> -                            pdev->vpci->msi);
+> >> +                            offset, 2, pdev->vpci->msi);
+> >>      if ( ret )
+> >> -        return ret;
+> >> +        goto fail;
+> >> +    registers[reg_index].offset = offset;
+> >> +    registers[reg_index++].size = 2;
+> >>  
+> >>      if ( pdev->vpci->msi->address64 )
+> >>      {
+> >> +        offset = msi_upper_address_reg(pos);
+> >>          ret = vpci_add_register(pdev->vpci, address_hi_read, address_hi_write,
+> >> -                                msi_upper_address_reg(pos), 4, pdev->vpci->msi);
+> >> +                                offset, 4, pdev->vpci->msi);
+> >>          if ( ret )
+> >> -            return ret;
+> >> +            goto fail;
+> >> +        registers[reg_index].offset = offset;
+> >> +        registers[reg_index++].size = 4;
+> >>      }
+> >>  
+> >>      if ( pdev->vpci->msi->masking )
+> >>      {
+> >> +        offset = msi_mask_bits_reg(pos, pdev->vpci->msi->address64);
+> >>          ret = vpci_add_register(pdev->vpci, mask_read, mask_write,
+> >> -                                msi_mask_bits_reg(pos,
+> >> -                                                  pdev->vpci->msi->address64),
+> >> -                                4, pdev->vpci->msi);
+> >> +                                offset, 4, pdev->vpci->msi);
+> >>          if ( ret )
+> >> -            return ret;
+> >> +            goto fail;
+> >> +        registers[reg_index].offset = offset;
+> >> +        registers[reg_index++].size = 4;
+> > 
+> > As commented on the previous patch, I don't like much the usage of
+> > this registers array to store which handlers have been added.  It
+> > would be best if you just removed every possible handler that could be
+> > added, without keeping track of them.
+> Make sense, it will indeed be simpler if it is fine to remove all possible registers.
+> 
+> > 
+> > Thinking about it, do we maybe need a helper vcpi function that wipes
+> > all handlers from a specific range?  I think it could be helpful here,
+> > as the size of the capabilities is well-known, so on error it would be
+> > easier to just call such a generic handler to wipe all hooks added to
+> > the region covered by the failing capability.
+> But I am not sure if that helper function is suitable for all capabilities.
+> Like Rebar, its structure can range from 12 bytes long(for a single BAR) to 52 bytes long(for all six BARs).
+> If a device supports Rebar and only has a single resizable BAR, does hardware still reserved the range from 13 bytes to 52 bytes for that device?
+
+No, we would need to fetch the size of the capability in the cleanup
+function, or figure it otherwise.  Note the same applies to MSI
+capability, which has a variable size depending on whether 64bit
+addresses and masking is supported.
+
+> I mean if I remove the registers(with range 13 to 52), is it possible that I deleted registers belonging to other abilities?
+
+It is, indeed.  You need to know or calculate the size of the
+capability to be removed, but that's likely easier and more robust
+that keeping an array with the list of added registers?
+
+Thanks, Roger.
 
