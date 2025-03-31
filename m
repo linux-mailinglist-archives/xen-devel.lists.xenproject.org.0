@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 976CCA7654B
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 14:02:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.932424.1334551 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 782ADA7655D
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 14:07:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.932450.1334561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzDpu-0005iM-6q; Mon, 31 Mar 2025 12:01:50 +0000
+	id 1tzDuR-0007or-N8; Mon, 31 Mar 2025 12:06:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 932424.1334551; Mon, 31 Mar 2025 12:01:50 +0000
+Received: by outflank-mailman (output) from mailman id 932450.1334561; Mon, 31 Mar 2025 12:06:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzDpu-0005gG-3f; Mon, 31 Mar 2025 12:01:50 +0000
-Received: by outflank-mailman (input) for mailman id 932424;
- Mon, 31 Mar 2025 12:01:49 +0000
+	id 1tzDuR-0007nP-KN; Mon, 31 Mar 2025 12:06:31 +0000
+Received: by outflank-mailman (input) for mailman id 932450;
+ Mon, 31 Mar 2025 12:06:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AhU9=WS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzDps-0005Tw-VF
- for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 12:01:48 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1tzDuP-0007li-Go
+ for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 12:06:29 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ec14b0c9-0e27-11f0-9ea7-5ba50f476ded;
- Mon, 31 Mar 2025 14:01:47 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43ce70f9afbso45303905e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 31 Mar 2025 05:01:47 -0700 (PDT)
+ id 92eb5435-0e28-11f0-9ea7-5ba50f476ded;
+ Mon, 31 Mar 2025 14:06:27 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43cfba466b2so43790625e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 31 Mar 2025 05:06:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b7a42a3sm11251662f8f.91.2025.03.31.05.01.46
+ ffacd0b85a97d-39c0b6588e9sm11405868f8f.14.2025.03.31.05.06.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Mar 2025 05:01:46 -0700 (PDT)
+ Mon, 31 Mar 2025 05:06:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec14b0c9-0e27-11f0-9ea7-5ba50f476ded
+X-Inumbo-ID: 92eb5435-0e28-11f0-9ea7-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743422507; x=1744027307; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ZfuQddb+PyMew2eqQBBtECV4Ps+rVk9z1LijNlqeAJ4=;
-        b=U2t38NYev5rDJBRQ8+aPwwv08B2/JUNET4tROhLQnkcbHaSnkdtFALmMkNe6LSOTGL
-         gZBMybv4nvcm4XXM37UcjIROAhI1lD9kqoIZwDS8FN5usNx/2lOqki75X1UAcTjF25Ym
-         wBXjkATE66ZvLxTysMLtLe36Sbitm4zbkJhbawZDc5bKAlwGI5LC12LgkQoy5HGBI5Oq
-         ynqoUA1FBgJdInefvH6GP3q48tifjr9ZE5zFdWqRTuHL6I2knBbO2DXU9llj1YylysLu
-         56NpFXmieac3bA1M2k1PUabOAvj5mzHbtdyhhpg76LNwPH3lVPdsMiHsLAVFt3pic679
-         QSmQ==
+        d=suse.com; s=google; t=1743422787; x=1744027587; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=SoXdx9362lMuWFXm4rmKqTwJvk4L9cvuVpZbFweaOMM=;
+        b=gBr3D/NCMJJEeQt4fYmGuMGZIcdosi1UwzuqdAwJOmoIOol7t8vv58IlmpL7Nk9V15
+         7sa7/oasccOUABwtCf2kh/RmgOyo62OlH2EjKIAB4ZyFmW2I1LK9kk4ImCY1m466LpGx
+         UrcTm1UawDpy28tXJwwSifd8TMR9iU/y6ZdNreQwUTvjDVZ6/9nNaJd5ZpzO98tIfBMu
+         ggyIVJYcbsLyiPHAwj4oiPz2tY08lFTV7PI0RRhIkUAYav4zD3EWGJHPnXPtbDTdeJnt
+         uPlQB1wmaO5pfiwaAV1gBrtjEW40X59nbAx8PMrTSsQiCVnQsraSjeQJnWRx+x9TGFPa
+         a91A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743422507; x=1744027307;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZfuQddb+PyMew2eqQBBtECV4Ps+rVk9z1LijNlqeAJ4=;
-        b=myArukIT6r5LQdHgCYsofXOCHjejOYW8e+5SHX3VNrs4tzHhsboUw+XYj8+mcOj/xr
-         9mMiDRrfORuRLPeEGGqLmMMDwVx5YRa4h8kMBRbRopFzqIA1LtqoGcn0wJFJwOSfLnEX
-         aeZ05jofXaGutUA/0aiGArB5010n/cytWILzIFNyLlMjlTJz8Qcog0W+1verrouHE0rX
-         hefk6gKTJC+5KR+Fd4ZG3x8yjEzbiPPvhj7efuxKEFg5tXLTmc5c3vLircdXMz/C5nXb
-         lbvaK9yMBxFSX/kwVvl7L7i9L85l6JPml/AR8lBcB4HYj7NLsR2f1ewgmsNPtc3lpVf6
-         jIeg==
-X-Gm-Message-State: AOJu0YzhS0eM5Za8lWVQyOFXW9hheTeRJuX6aSgViEQ0o5TLkW8nBOnn
-	HG9kRxP1qcjwNiWNfhXX3nSP6rnqGPeUXaY2JEZmzVJPbuXXyO2sC4XK1Fo7zKWdUeplMpcHf3c
+        d=1e100.net; s=20230601; t=1743422787; x=1744027587;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SoXdx9362lMuWFXm4rmKqTwJvk4L9cvuVpZbFweaOMM=;
+        b=BoEviVcjUgGCMrZ/fk8zW1Jsn4NcSC4Ma5nS5uNVQYQzSk494HECAqK1/D/A04glQH
+         tYnl1v1vHRguFDsDIybK9VvbJ6ls6vU3sZEVtUGCk1YVlH9ONqPkSOk8jjX8iNbWKxTb
+         YWNhBcC0P4X4XPpu4awcCR5acL+TkoPp6+hrhUwM+K56rNO0anPujt2kXAdST0zC7ebS
+         WgqVTokH7NTsMbxJX2mvMD7FHNESjh5Q1SN4BUuhMAvUvOO9MoqqIZt/RNVh8JFCFtIM
+         unx8D85mXDX4zRByw7nQRVNJGuC4GnWtBq5xnXj7T5Iutf2aOXCY3HjQqlX5/t09TgU8
+         Os/Q==
+X-Gm-Message-State: AOJu0YzX28UpfOpH+apOXJv565tPYLb1eazhWbuZ6HhiF6qo3oor5PZA
+	bwgBYDK1J3lve2Yhg45bqb8bMlMqL0uEFsyLxzsUC7FuhqrW5SZaA5umxcY1V1vpdxVi6emeZAQ
 	=
-X-Gm-Gg: ASbGnctG8uh1JWoD+U3zgJ5TlRViwrvxnLI0KWJTNrUos1w/XnFgBSY0/V41BWKcykQ
-	q1VRtzBy7l+w6AEIfMYqw8WClRBMb50dMQl5FIXUXastW9PUceBobiwift1DZdfArrWVKIfRq1D
-	1SZuA04gl3I2MM/MaSjG9PrzKBD6mp1vFLx9IS6J8EmpQ7mioCgxvguiW+Bc988APVgiFGYcL6A
-	aNMbDIgTA/gMJUGOGvNiCdGrd+o+ay8VvmNwBLhF8TOxg3iBI1ACoUDu7/oNsqXAUmliOYyaoXR
-	zf5vehvCT5oFrvRquGNFjDn+d38oM+hB9eJR1aJvqtWDovJ0Dh9uYltiFru7L9CuFh0NJbUcSqe
-	X7YWuKvJf+eYWnGL6/E8ZUt8/r1IcAA==
-X-Google-Smtp-Source: AGHT+IF487W4FOh5MPtn2POPHQVHa5dw4ujF1P5FkgLi/WxoXxQp4YYuY8uzHw4/fDmwXkUpm/wYtQ==
-X-Received: by 2002:a05:6000:42ca:b0:38f:30a3:51fe with SMTP id ffacd0b85a97d-39c12117a99mr5260433f8f.42.1743422506952;
-        Mon, 31 Mar 2025 05:01:46 -0700 (PDT)
-Message-ID: <03f284a2-cc9b-4950-89b7-f9feaac0e129@suse.com>
-Date: Mon, 31 Mar 2025 14:01:45 +0200
+X-Gm-Gg: ASbGncv/z2e8rXn+9RUgB+H+t0onwZ+iqLOpDVQtix5zeFD+OM/htlE15BAns+i51wc
+	Fz9bIGrfn7wPK5CBxOCKCiQY+GnT+QS1fPYPtIO1YG8YqwRTVZg6RMi6v/8jgDKR39G2sy3t1ws
+	iImzfRxbcpuWAA8AwnZaskQUf6NJnC2vNhnEZR1hULQ5g/V9twRpL7mes8rjBD8K0lXDqHpMQC8
+	ixEELnJTzP5urjyVLz3yGlimR70WNuKLMo+gGwnOc5UFn9ZGI/5NmiMELyEj0bMzdrcpGcXZrOv
+	OR2LdnB8QElg+TEmnxow75eyUKaNLVszq0jAC9qOtsg9Izyu89YeK0S/tY35fU1CyfbnmrffLhn
+	wMVDYVqN27kDK7D7+ETs/lULTVyVXSXE27cHNDFVn
+X-Google-Smtp-Source: AGHT+IH0YGOBCNj7awZ+RFFLpN/3l/0IlXszoKHnLvmSdQaBSbBhbF4G3OOdtXJb217wy9hNKpqlnA==
+X-Received: by 2002:a05:6000:400e:b0:391:2e31:c7e5 with SMTP id ffacd0b85a97d-39c120cc88bmr6709027f8f.6.1743422787068;
+        Mon, 31 Mar 2025 05:06:27 -0700 (PDT)
+Message-ID: <4042ed88-5921-46a8-877c-81fa96a82b42@suse.com>
+Date: Mon, 31 Mar 2025 14:06:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+Subject: Re: [PATCH] Config.mk: correct gcc5 check
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] Config.mk: correct gcc5 check
+References: <03f284a2-cc9b-4950-89b7-f9feaac0e129@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -118,28 +120,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <03f284a2-cc9b-4950-89b7-f9feaac0e129@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Passing the -dumpversion option to gcc may only print the major version
-(for 4.x.y it printed major and minor, which in nowaday's scheme is then
-indeed just 5 for 5.x).
+On 31.03.2025 14:01, Jan Beulich wrote:
+> Passing the -dumpversion option to gcc may only print the major version
+> (for 4.x.y it printed major and minor, which in nowaday's scheme is then
+> indeed just 5 for 5.x).
 
-Fixes: 40458f752550 ("Xen: Update compiler baseline checks")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+I meanwhile notice that my self-built compilers print 3 digits, so there
+really is a point to doc saying
 
---- a/Config.mk
-+++ b/Config.mk
-@@ -125,9 +125,9 @@ define cc-ver-check-closure
-     endif
- endef
- 
--# Require GCC v5.1 as the project global baseline
--check-$(gcc) = $(call cc-ver-check,CC,0x050100,"Xen requires at least GCC 5.1")
-+# Require GCC v5 as the project global baseline
-+check-$(gcc) = $(call cc-ver-check,CC,0x050000,"Xen requires at least GCC 5")
- $(eval $(check-y))
- 
- ld-ver-build-id = $(shell $(1) --build-id 2>&1 | \
- 					grep -q build-id && echo n || echo y)
+"Depending on how the compiler has been configured it can be just a single
+number (major version), two numbers separated by a dot (major and minor
+version) or three numbers separated by dots (major, minor and patchlevel
+version)."
+
+I've locally changed the above to
+
+(my system 4.x.y printed major and minor, which in nowaday's scheme is
+then indeed just 5 for 5.x, which in turn is what my secondary system
+compiler does)
+
+Jan
 
