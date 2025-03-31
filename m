@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AC05A76016
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 09:31:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.931947.1334120 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB732A76045
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 09:42:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.931968.1334154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tz9bO-0004Dz-Cf; Mon, 31 Mar 2025 07:30:34 +0000
+	id 1tz9mj-0008UJ-OF; Mon, 31 Mar 2025 07:42:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 931947.1334120; Mon, 31 Mar 2025 07:30:34 +0000
+Received: by outflank-mailman (output) from mailman id 931968.1334154; Mon, 31 Mar 2025 07:42:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tz9bO-0004B9-9P; Mon, 31 Mar 2025 07:30:34 +0000
-Received: by outflank-mailman (input) for mailman id 931947;
- Mon, 31 Mar 2025 07:30:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tz9mj-0008Rq-LJ; Mon, 31 Mar 2025 07:42:17 +0000
+Received: by outflank-mailman (input) for mailman id 931968;
+ Mon, 31 Mar 2025 07:42:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AhU9=WS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tz9bN-00048a-58
- for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 07:30:33 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 070476f2-0e02-11f0-9ea7-5ba50f476ded;
- Mon, 31 Mar 2025 09:30:32 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-39143200ddaso2639276f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 31 Mar 2025 00:30:32 -0700 (PDT)
+ id 1tz9mi-0008Rk-Jb
+ for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 07:42:16 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a9991c03-0e03-11f0-9ffb-bf95429c2676;
+ Mon, 31 Mar 2025 09:42:14 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43948021a45so41766095e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 31 Mar 2025 00:42:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b662850sm10396115f8f.26.2025.03.31.00.30.30
+ 5b1f17b1804b1-43d8fbc10e1sm112933915e9.12.2025.03.31.00.42.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Mar 2025 00:30:31 -0700 (PDT)
+ Mon, 31 Mar 2025 00:42:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 070476f2-0e02-11f0-9ea7-5ba50f476ded
+X-Inumbo-ID: a9991c03-0e03-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743406231; x=1744011031; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743406934; x=1744011734; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5WxpwyIlJPxlrIKLTCvktjafdgYpbJds4VnDH9Ewamk=;
-        b=XkwNK9UKUKZ+ZvFhqUjKCwZW4xkFOjY2z46qFRK5q6+fifQeKRaEHBWdWZcHRxSqPk
-         uyyiyd6kd9nRXW9jIeswcYEcpR6ecZ5XjzwNxMiJswTrEYqK5yecGEgWu3VuuiXM8d4u
-         vtWcr+7y5NJFVT5SGnHo0Ge39rttuFbg/CNAg+MaAIzJqq1SWiehwcgWS8QVGMS5Udo9
-         vweTO+dRyZDqgwkyJbotr1mvyfPoY8LfSA5v2/rMgcj7SGccnG/OGkDkBPGzSgS0vBz0
-         Gxjf2ns4ZaSxouZt+d16Hc594+Tz0swA+v6wqpjBeXYckmyMYzQibvO9WGAuNb0vVZGa
-         6+Ww==
+        bh=kTH+44uyqZQ2AnKI4gU4wAgOXUxVo/Mrp/QtLIgJgjc=;
+        b=SyEcoXpdZE+UwanC7lip/2lqGqiml01+IEtjBbpqI0Gpxfz4qZ1alZ3TAo7dRRIf+Z
+         JQEhqYE7Zlun/c3M05rZ4cs+Zv8uhZOR2oUkAzejPRbMUr3nQqEDvgdYG8KjnCo//HnR
+         xAxEt6uMLJTqGRmJQCI7Rkr7FhFhEZYJ7szR1NXlI39L0r9OK2mZYKrxMyAMEUZpf+4Q
+         qvoqUHcztvrkf1K3VWcCNbHV8ivb3B8xHFgYl/hm2vsCC3JPOuXFGOa32B0NdWAqpsLH
+         AzfUUSG6zBvGQAJD7r5+Q104UrhR9gGP3yNDDqJOoO4g2rQ/qRixy7ALRqMJ8UUMnDbj
+         VTpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743406231; x=1744011031;
+        d=1e100.net; s=20230601; t=1743406934; x=1744011734;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5WxpwyIlJPxlrIKLTCvktjafdgYpbJds4VnDH9Ewamk=;
-        b=WMHq9JgcgsBuNIXKJTDq9PdOO+JKMTSE5Rq/+r2/4pkyDSBW7Kw1zTBCTS3JMiAOkd
-         MC986blvJu6PisUUG//Txa3kLMIUfPF/j+cx3nkquMN5yH0pY9KXvVtxMcRX9Nr5QhhK
-         TTf+Q0p/I0Kgku7xvN+QnxVxSDdMeeJuqwmx24MhsXgGan7H1YzhnO+PftOPsB37Z7HK
-         95tR6U82E9SbMDk/pREtJTzSH0Ogdl7yD+B4pq4usJc8bzOeXiWwnr62o7f9BefEP8uX
-         KRlB80jx9WoxnWzpsG5xpgjociyHHblIaepldqbAZsCHrDlTR8UWe4QyAKCRAe8jLsN+
-         yU0A==
-X-Forwarded-Encrypted: i=1; AJvYcCUbyW/BxC0bZRiHPv66LtkJ+tUBQyh727UOi5ggt8vT2BbGXMLQ0VtOi8+NKt5qCG0QH4tzyFdlN+A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDjBxH+WgM47VRlgDTDtUc6EsxRNuKTqwm0CYCP0Jmbnvgfuvt
-	ykA8v7WUPiwVuH+XA+rAyKISMFPXbezc6NJ/Xcq1zazVfINf/tN/JavVBXEXHQ==
-X-Gm-Gg: ASbGnctYIzBg7Z2DtURIQY0hzLaBCDyrRdzScMA+b9/D27B6tDjmdizPydDi+B6BFeE
-	j/Hc0tCqcrlrZpwlnI1bnot4K2Pirw+YilMQWLzfFvaQP2cjw+kTCjs85hVeKzJnPPUORPhHfg/
-	Fjq6VjXZwEqoEGqQq//E1T5pduEzSiyy74VfvzfsCXqAsJEYQEZYGsg0pZJ4Oan9OctHDtNRZNe
-	TgLR04/Ms8sUIkKEZkt51u8uXVOb6d7n2D78HFWGUi7X1KzP7Go8AThluGdK2lDt1jQurWzhroY
-	X/Sr43UkhPf/ft86zojLoVAyApeRMYRsVVzm1t0P7Agib+zoJm6XkCMAsW3RDrYL2qmNQXee1f2
-	tslUR5sD+9fBcS1GdRXlFtPDLXWoExQ==
-X-Google-Smtp-Source: AGHT+IFSmPH36kvQUiaiu4R6ZBkigfODMirAfEfVXsp7JRV9vLUbaFkxDEkRYMgPDfE9enkKvmGtDQ==
-X-Received: by 2002:a05:6000:1ace:b0:390:e1c5:fe2 with SMTP id ffacd0b85a97d-39c12117c44mr5819462f8f.38.1743406231382;
-        Mon, 31 Mar 2025 00:30:31 -0700 (PDT)
-Message-ID: <81dad4de-dbb1-44ff-b1bf-5d30c8f5d22b@suse.com>
-Date: Mon, 31 Mar 2025 09:30:33 +0200
+        bh=kTH+44uyqZQ2AnKI4gU4wAgOXUxVo/Mrp/QtLIgJgjc=;
+        b=Hd/REk6UPylFB+urb/UnpLlgxhfEhI8L66MUgpriijQxnli6IiCBU3NhBVp5pvkPx9
+         7N+hNyG8WmsheD1a5xUoLMi4PF4rW1yRtFgmeOlKBZIryS50lCxblwUlPx4ZL899cgeF
+         cPEpAP/xpuwoX8ql8jroduLOp0V6xHavdStvNmKj7qspnSP77GhaFLtmgTtVYcybFujw
+         HKDrRlHz9jBdJ0jKTTPyKwGVtzI+SgmCF6hGQXgKosfRRb1k1+grtScbSUYY8NseGs6Y
+         foE57Yj8GjNkVJEnEpNQGqx9iM3lx5p9qQXiPziwVvEJVc5h5jzuZONM06ntCIhjO4Mq
+         a+pQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWsQaNFC/H61EQbfYm4JIpB2pwl92g+xcQ6HNJDkFjyEOMYzoZrVLxS6z7VsnBRzmtnB+bs1RlC/wQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxAE1t8ZV/P29SpoR2i5rC5vwUcsoAb6s5ywmsOnpCWQwLNzsPn
+	qh18oSHAkrwNVFSXvSLJORzkhDCHLSD2O5ke/vblcTpRxcctW2Y7lxvYQt8IOw==
+X-Gm-Gg: ASbGncvQUyXSs18GWU9g6F/hZ6CxW3IwwSuGjZpYI3Oc5i4IGmN6+hum4+pq+Occfrc
+	13imVmZybMHg5jgv7lJzVmRR1dQnvhVY2MXO3bHYbbf+HA3hPa4N/HEiDegLvdzsJ9CF1wjLidS
+	5AnF9bDkRT6HCSpdiF5tL689tPIhKqAHtHZ/FJMoATUCDXQTO7ZOLHyVN7Xw7wUL/Pl+A2Tji+5
+	pGhXYvXVOnk1szP+51ug06KKkQTRcfrr+ZRkWjxmlEd5zh0vXYifC/CuQkiohxbjrqkc/wAvKbn
+	++/NtpLVUJZqCictkb7UnSnCJS0odG7qkI4GIvwEF/wSniz7y7Yu4HHvzvATa+iQl2ACWbp7OC1
+	LB8c6PFdHKssKNerjt4HiPRfr8y0Olg==
+X-Google-Smtp-Source: AGHT+IHQetVlKCsNKPAX7Bj5tw/Gf6Vk7+bBfq3wAq/oR0fUWreC+HAI2vHmKRUAtcX4KX/wWkMTnw==
+X-Received: by 2002:a05:600c:c0f:b0:43d:b51:46fb with SMTP id 5b1f17b1804b1-43db61d8dd7mr67899755e9.2.1743406933738;
+        Mon, 31 Mar 2025 00:42:13 -0700 (PDT)
+Message-ID: <88971ebb-6a58-4d7e-b7e6-2db9b78fa341@suse.com>
+Date: Mon, 31 Mar 2025 09:42:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/16] xen/lzo: Remove more remanants of TMEM
+Subject: Re: [PATCH v5 02/16] xen: Remove __{BIG,LITTLE}_ENDIAN_BITFIELD
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
@@ -100,7 +100,7 @@ Cc: Anthony PERARD <anthony.perard@vates.tech>,
  "Daniel P . Smith" <dpsmith@apertussolutions.com>,
  Lin Liu <lin.liu@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250328134427.874848-1-andrew.cooper3@citrix.com>
- <20250328134427.874848-2-andrew.cooper3@citrix.com>
+ <20250328134427.874848-3-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,20 +126,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250328134427.874848-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20250328134427.874848-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 28.03.2025 14:44, Andrew Cooper wrote:
-> This logic was inserted by commit 447f613c5404 ("lzo: update LZO compression
-> to current upstream version") but was only relevant for the TMEM logic, so
-> should have been deleted in commit c492e19fdd05 ("xen: remove tmem from
-> hypervisor")
-> 
-> Fixes: c492e19fdd05 ("xen: remove tmem from hypervisor")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> There is a singular user.  It's unlikely we'll gain a big-endian build of Xen,
+> but it's far more unlikely that bitfields will differ from main endianness.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Just one point: While endian-ness in general is dictated by hardware, endian-
+ness of bitfields is entirely a psABI thing, aiui. Hence tying both together
+(beyond the latter defaulting to the former) doesn't seem quite appropriate
+to me.
 
+> I'm tempted to simply drop the logic in maptrack_node.  If any big-endian
+> build of Xen came along, that's probably the least of it's worries.
 
+As long as it's not obviously broken, I'd prefer to keep such. While it may
+not be a primary worry, it's still one less of all the worries then.
+
+Jan
 
