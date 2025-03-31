@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA0EEA767D4
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 16:28:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.932613.1334719 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31808A76804
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 16:35:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.932623.1334729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzG7X-0001fA-LY; Mon, 31 Mar 2025 14:28:11 +0000
+	id 1tzGE0-0004Xn-9y; Mon, 31 Mar 2025 14:34:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 932613.1334719; Mon, 31 Mar 2025 14:28:11 +0000
+Received: by outflank-mailman (output) from mailman id 932623.1334729; Mon, 31 Mar 2025 14:34:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzG7X-0001d2-IO; Mon, 31 Mar 2025 14:28:11 +0000
-Received: by outflank-mailman (input) for mailman id 932613;
- Mon, 31 Mar 2025 14:28:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sCWu=WS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tzG7W-0001cu-9k
- for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 14:28:10 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5d95b2b3-0e3c-11f0-9ffb-bf95429c2676;
- Mon, 31 Mar 2025 16:28:08 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43cf0d787eeso42812825e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 31 Mar 2025 07:28:08 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b79e136sm11470185f8f.67.2025.03.31.07.28.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Mar 2025 07:28:07 -0700 (PDT)
+	id 1tzGE0-0004VY-6p; Mon, 31 Mar 2025 14:34:52 +0000
+Received: by outflank-mailman (input) for mailman id 932623;
+ Mon, 31 Mar 2025 14:34:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8cRO=WS=kernel.org=sashal@srs-se1.protection.inumbo.net>)
+ id 1tzGDy-0004VS-Os
+ for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 14:34:50 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4c2f7509-0e3d-11f0-9ea7-5ba50f476ded;
+ Mon, 31 Mar 2025 16:34:49 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 558615C565B;
+ Mon, 31 Mar 2025 14:32:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AE70C4CEE3;
+ Mon, 31 Mar 2025 14:34:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +41,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d95b2b3-0e3c-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743431287; x=1744036087; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HU9R0s0cMCNnWWgQXk1cRvQ2tCf5Am1r/s+JJTWhLfw=;
-        b=M/JqPylOvhdMiYYiRKluTKv6XaIsGLFN1in3abBtk1Bn5C2S9wGRW0jdMAC1uy3kGl
-         xKUq2hflxQLOUpSDC/FeA+eJqUFCOM4JvpL0r+zeF9aG2TCyNbXNXXiH2ETY240QiO3j
-         MBTYLKh6j8m7Vn2+OcgcD8PrMPytMmeVjbPy4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743431287; x=1744036087;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HU9R0s0cMCNnWWgQXk1cRvQ2tCf5Am1r/s+JJTWhLfw=;
-        b=qXkhmNKgKyN14dMQCFRVaMhMfwvMlkLhbCkJu7RNpL+MrGdaTAt3S246/Zfzl8CdvQ
-         g1ExHCkqviQQzrmroWZng7gEFwUnJbwpsyvlgWco9CUHgjE8ND2pi5fuMf/P40z+vFKe
-         3qGuWLN3y6l+8+zylGDFoohQ3sa7xEnOlIK6hLpYsMr4x0rLhDOvakazGscszpxiq4rh
-         4H69qG210NUUaodlZErPhrju/ILKLzBL95wr5tHQUGbgeVJ1eAvj2FaZAiOK67PeGmB8
-         DLEl5tiBMgPakXTzTG5XpxB7fSxuX9ffHhAVJsHMyA1mP5bBPLgQeuRdN5tAankou0GA
-         aEiQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVmpifnK48dDBcqSrBm2eqnYr7h+OicSB1hrKxFXwnd/Hw7yq8ztgEkCDZ2SuTImbSclCDay0cODpQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx3QoZ+6FqWkF83jtORlj1xRoHqb3iBdFkE/eiKKyKz3/8+w8H8
-	mnL3Hi8JxQbEC1GXy1qDwD1A8KiC8tPqRAIJnUWziHg1Q1nywFoh6oGLQWt3z0U=
-X-Gm-Gg: ASbGncvsEj4WMyIJiRlxULOFiEFRGe8qFrpR6Bn8tnxFWja+l77Wt8ZJMuyFt6M9max
-	5Xt4hwxl4NQYPRr+Guu32VndiTy/p79q6DfcXbi+CeYSP8vssEqzASEIWjcEYxSCfrEYG7yzCSa
-	PegfWO7l3x76WaJi+Sw4s1aLelG+dYb4HUltj/ukaXLSsrFjhPbCkfTC6MavLlnPdvWkE4OFJh8
-	UOvQtj6nx4atdjEsCT2S7Kf/xxT058xeHC3/5ZkR+NicP7xsePAyhPztT7z8SxBPCxdaP/7GXsj
-	SL/vKF5wYuk7etgGW0VhRXDF8JY++Fy0lJFXFgyyN/u4JD0FSLkKwqJB+huEhlfz8tRQKPEXvj7
-	YDHVJiXVmhg==
-X-Google-Smtp-Source: AGHT+IGQ8ol+CWr2ozN5EgYlbinOp89z5JtjGnOVRbtdTuVkjAxhbiU6GZJRdrdQH7nAXcCC1l+byQ==
-X-Received: by 2002:a05:600c:4f43:b0:43c:fad6:fa5a with SMTP id 5b1f17b1804b1-43db62b77acmr82203945e9.24.1743431287650;
-        Mon, 31 Mar 2025 07:28:07 -0700 (PDT)
-Message-ID: <0ca065f3-cc80-4809-892e-40cd70b01b02@citrix.com>
-Date: Mon, 31 Mar 2025 15:28:06 +0100
+X-Inumbo-ID: 4c2f7509-0e3d-11f0-9ea7-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1743431686;
+	bh=xaEMZxbQp1Qr9ivAjB59KF4a/0OwWMSbOUS1BmmeD7w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=G1CHqkYu8VyQ6OGBy8Dvy9fNGxOKxoF4NMamm0gRnOHuMkJwUrKvSXZuSiT5dN0yo
+	 P2XVwyJpWfS7+vyu5woRvafHCbicA2+sKmf55zgj10psIt+6CVu9YesyctLnQuDv2A
+	 apcn1zKBbxfRyEiHjXE7PXx/sCftvhwmEptLMxMfvPLKPGvFPf2tGWWd9jQPSc1q3R
+	 AUgMA+ED0kH7s0sIP1KyIUN88+mTUxMMvniweT3B2PYudefkDbR4GWqwOD0puvbxrw
+	 RcAUApTZu31XXoVEmLU2qQv2X4Lrw61VvZF/02GtLu6amSU8KS2Zv1uOMmel+RhpHd
+	 xFPKn3bxFT8xg==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Kees Cook <kees@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.14 15/18] xen/mcelog: Add __nonstring annotations for unterminated strings
+Date: Mon, 31 Mar 2025 10:34:05 -0400
+Message-Id: <20250331143409.1682789-15-sashal@kernel.org>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250331143409.1682789-1-sashal@kernel.org>
+References: <20250331143409.1682789-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: annotate page tables also with type
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <e77a48b7-8f26-4b13-8863-615b5fbb7a29@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <e77a48b7-8f26-4b13-8863-615b5fbb7a29@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.14
+Content-Transfer-Encoding: 8bit
 
-On 31/03/2025 3:26 pm, Jan Beulich wrote:
-> Use infrastructure from xen/linkage.h instead of the custom legacy
-> macros that we're in the process of phasing out.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+From: Kees Cook <kees@kernel.org>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+[ Upstream commit 1c3dfc7c6b0f551fdca3f7c1f1e4c73be8adb17d ]
+
+When a character array without a terminating NUL character has a static
+initializer, GCC 15's -Wunterminated-string-initialization will only
+warn if the array lacks the "nonstring" attribute[1]. Mark the arrays
+with __nonstring to and correctly identify the char array as "not a C
+string" and thereby eliminate the warning.
+
+Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=117178 [1]
+Cc: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: xen-devel@lists.xenproject.org
+Signed-off-by: Kees Cook <kees@kernel.org>
+Acked-by: Juergen Gross <jgross@suse.com>
+Message-ID: <20250310222234.work.473-kees@kernel.org>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/xen/interface/xen-mca.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/xen/interface/xen-mca.h b/include/xen/interface/xen-mca.h
+index 464aa6b3a5f92..1c9afbe8cc260 100644
+--- a/include/xen/interface/xen-mca.h
++++ b/include/xen/interface/xen-mca.h
+@@ -372,7 +372,7 @@ struct xen_mce {
+ #define XEN_MCE_LOG_LEN 32
+ 
+ struct xen_mce_log {
+-	char signature[12]; /* "MACHINECHECK" */
++	char signature[12] __nonstring; /* "MACHINECHECK" */
+ 	unsigned len;	    /* = XEN_MCE_LOG_LEN */
+ 	unsigned next;
+ 	unsigned flags;
+-- 
+2.39.5
+
 
