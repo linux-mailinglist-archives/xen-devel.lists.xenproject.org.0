@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D596FA76764
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 16:08:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.932573.1334680 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3B99A76769
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 16:09:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.932582.1334691 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzFoA-0002zi-Fv; Mon, 31 Mar 2025 14:08:10 +0000
+	id 1tzFop-0003Ta-Pg; Mon, 31 Mar 2025 14:08:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 932573.1334680; Mon, 31 Mar 2025 14:08:10 +0000
+Received: by outflank-mailman (output) from mailman id 932582.1334691; Mon, 31 Mar 2025 14:08:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzFoA-0002yA-CD; Mon, 31 Mar 2025 14:08:10 +0000
-Received: by outflank-mailman (input) for mailman id 932573;
- Mon, 31 Mar 2025 14:08:09 +0000
+	id 1tzFop-0003R1-Kb; Mon, 31 Mar 2025 14:08:51 +0000
+Received: by outflank-mailman (input) for mailman id 932582;
+ Mon, 31 Mar 2025 14:08:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AhU9=WS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzFo9-0002y4-3b
- for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 14:08:09 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sCWu=WS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tzFoo-0002y4-BL
+ for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 14:08:50 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 91fb51d2-0e39-11f0-9ea7-5ba50f476ded;
- Mon, 31 Mar 2025 16:08:07 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43cfebc343dso33786205e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 31 Mar 2025 07:08:07 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d82e6adf6sm164469255e9.15.2025.03.31.07.08.05
+ id aa104eb2-0e39-11f0-9ea7-5ba50f476ded;
+ Mon, 31 Mar 2025 16:08:47 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3913d45a148so3857153f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 31 Mar 2025 07:08:47 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c0b6588dbsm11213738f8f.2.2025.03.31.07.08.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Mar 2025 07:08:06 -0700 (PDT)
+ Mon, 31 Mar 2025 07:08:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91fb51d2-0e39-11f0-9ea7-5ba50f476ded
+X-Inumbo-ID: aa104eb2-0e39-11f0-9ea7-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743430087; x=1744034887; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1743430127; x=1744034927; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/OCOcG6P9mAeJAunhReJkrJSdX+Xzr8EMW/S5KpwgEE=;
-        b=XwGm3rJjYFZ95yqjvkZUbqXRUJUSsXammZv6GwLskA49jR+/9grS3q9HzGWaT8c8f1
-         m14YYTywpn+N70/nQ7+CRcVMVnCPq4j9/47v/zw6AKQQxp2yE9rHSFlapzXLENKsUcwq
-         A+c2EsoE1Q7FKePG6aen9hIxAqrfRZhfPr8GUtjVDELVzmt8d4Tgmj4mTn831RzWLhQ0
-         um3H76bAqNY5Nq9jSLEVdYoHkXlK1puT1vMJbKYETRWUouilB9lMt92qfyUGNJ2NeJOt
-         NdY+RkZ/l9G/sHCUmwa0wljI4MTiZxsSenUingEOdyvI0CU8k2NRqUB7NYeIOGsLnVX5
-         s3IQ==
+        bh=FGxObq2IxN5p9SAmnNwbMDrvj9l8oAk8lHYVy4oyLZM=;
+        b=mlB9RDkCzQPrlS8fwEg1R5qLrpfsLN4p/mbjkGk8uW/LXeJuBcIFWLvSAIyeHUkHsO
+         HPlAPAmtbqT5bPigssH19wHXpmGdgoL+t+flZwxeDk6fO4rmkxWrsFk7eRA5Jd4mJBgG
+         Fs5xZg4Gd89mnLbR73311vRsvGGj7wkezm0oA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743430087; x=1744034887;
+        d=1e100.net; s=20230601; t=1743430127; x=1744034927;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/OCOcG6P9mAeJAunhReJkrJSdX+Xzr8EMW/S5KpwgEE=;
-        b=kscWU6LYP/0vaq3Z3vNua6gziNV6LIqNzn3jACyTIdeO1rqSJQ03ZLDxdtq6a4Ywl2
-         g9QVSHv0olO99jmcWCwismC97pbxrwZsWKDtbx/wb8KF2ns9NeUy+COSzpKb4GrtQWao
-         80nerhidFQjXIgC4g5sYNG9tX2Ra35hhtcdtZ+iLINpSzmPlS+In6PKAQjo0utjKN3ai
-         CJ+kYoJvzjkifI8U1NQZS3ypAGElvuWBjFmxEIlsA1yy0B4sp89Sv1VEvGzzyQBUIKM+
-         mz/3l0BQKARzgfkmbiHTO7ftg4qy94gMZ5YQL7a0nxUs3Ryw+wb4qpLjbj8RBMCdtR+k
-         wCCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVqbb4rDsJZPUwXULjn85iv50d0OadPklho65GFnZaFpgJx0nqXvW/esUUoT2yyGSzLNzcz7BcWi6U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwFk9B7DhQqEWbQNcgZsaA9WVt/zytHHbnZVABoD3gPwuQGWHxu
-	trJ/zYEAwpAtyTJI0G2K4hvW+lpA9Bwulnpg76rPjxNAmH0HG+Rpaq/jXBabRA==
-X-Gm-Gg: ASbGncsgYo/KXse6zEPx2ZQnvz71ZV4JZyDbi9HLzu6IrQ3B4+dJCVuGXmIadJXcF1m
-	PnHims+XXAnHgXUVEemBRB9yWlk4ZhQpe0bErFlhrnYGUUrBm6oVQzHPXFGjJUS/MQ714DYj/68
-	QtPoDe30K9dHbhx1Vu6pOQND9yCyosWNFf6/jCS7LFqKl3XgapOc0ARqscfLAzlPe/4uyiwBGHz
-	yR4GDSknEE9z2PpsHt6P6WCXowN7W3wMw7E7BJO7hhRrJ5dR2OBVIvSC6xZ3JYuGU8eKoa/J5Ko
-	dcBiJhoVzUlJPynFi2HsIHkW8+D6qsXI/E5bgS3farUIfg45C+v8nJbH1eo8wW7fmdRKI1nEJWQ
-	sHIaPMyc/ATLmdQ/aG1r1INzcuIUI0MfloMQYXisc
-X-Google-Smtp-Source: AGHT+IEATkPppot9ETklh5xd0lZWl7gxTRrffJFyHDM0jBgIMzldRQINLO0hslXwzgxpLtssjBZRlw==
-X-Received: by 2002:a5d:5f52:0:b0:391:22a9:4408 with SMTP id ffacd0b85a97d-39c120dd71dmr7836683f8f.16.1743430086655;
-        Mon, 31 Mar 2025 07:08:06 -0700 (PDT)
-Message-ID: <bc87f343-2e75-4f39-907f-0b929bd6308a@suse.com>
-Date: Mon, 31 Mar 2025 16:08:05 +0200
+        bh=FGxObq2IxN5p9SAmnNwbMDrvj9l8oAk8lHYVy4oyLZM=;
+        b=XwTJ7p/+NnaKVhryrYePPUpawwQ2XHLJbCE3XCOyZQ+rqwN8RP94y6RPEkvglBbb/L
+         3mmqZ9lAOi3rxz7ALnbEVtqyFSNRsSjYYE3+tYFE0l3JJDu5/k7nAIHzmJpgAls/7Q26
+         fo/BIeWd1N2DWL2E1tzL4swintIb7L2dmVRqaVGAxwK09/pE5hSkl919YKT6gzlkHILu
+         aYkop6smkosHVX6SpZjgroKmDzM9JmTsJCkLfUqmCiXWeY6zaSFPegTbC5PampBRy52O
+         ag/fJo+8TSgE2z7xp6f13uwjO9AFSbEe2UXHy7SJKDBNR9w9givs7umqqHjzS4xwywlx
+         sy+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCV9g3b0THEWqt18BwJSB4zqpPvvHKHrPd5/8bq+49pUkkEhPxAqDsn4GCoKNUVYpp/jc6/MoncJ0iA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx7vK2ywZVgikyiNL+nd2UlFEH7RKiQ/nM7W6kUZ05KoByfd8zh
+	zuD6vPPKJ15f1lIeEz+wZ4g17qVhKElFeUoL+ZNm2PFhyaa/qC5BHznKXEL0B/Q=
+X-Gm-Gg: ASbGnct/kTXhNh+hLU2ZJRkWTkSujTTe3CEuBksdVzoXtySOs2BBv56uhdOi/1mB37K
+	L7HBZfW7uaJUloolJbfGerfSCVN9AszDDPfnJ/KktT3fFSBEK8cWWvML2VnHeeOBXkPXasN/MNq
+	h7oVfnA+FDVanaPnFS54tU3cj3Kd5K6DQonr7MMfJZ/CLzW16d2IpZiam4ahSaJBGQHUVlP0Im2
+	UJeyNS48zoz1uej8e8k4PJMXDDCbxbYS5FoL3UyqTCt6ijMbIz2w8mrguYc4O65v1FK6pi2vhXf
+	8dUaQyKS778G0nisOoaV/41TnM0Z7JThUy6bx+rl5/75kbMCaDHKJx5D+WFiofCTS18pIr3N2dp
+	M5cLzTAvUGtdTinmfXrHS
+X-Google-Smtp-Source: AGHT+IGB2F+S/hviiytix45DOKQIf1F/WyGdr4X7YnxUqJGbh2BaAxZ2jRpeVAULLNkn6R7nBpbpBQ==
+X-Received: by 2002:a05:6000:2d10:b0:391:ba6:c069 with SMTP id ffacd0b85a97d-39c1211501fmr5131646f8f.44.1743430127325;
+        Mon, 31 Mar 2025 07:08:47 -0700 (PDT)
+Message-ID: <cb5e2b75-b212-4a9b-b4ef-c5960b32a7e3@citrix.com>
+Date: Mon, 31 Mar 2025 15:08:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 03/16] xen: Implement common byte{order,swap}.h
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Lin Liu <lin.liu@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH v5 02/16] xen: Remove __{BIG,LITTLE}_ENDIAN_BITFIELD
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
@@ -98,68 +95,77 @@ Cc: Lin Liu <lin.liu@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
  Shawn Anastasio <sanastasio@raptorengineering.com>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+ Lin Liu <lin.liu@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250328134427.874848-1-andrew.cooper3@citrix.com>
- <20250328134427.874848-4-andrew.cooper3@citrix.com>
- <c79d76e2-3e6d-4c2a-a240-ee36daa559e0@suse.com>
- <0fafaf3f-ded6-4444-a635-bf32a47b209b@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0fafaf3f-ded6-4444-a635-bf32a47b209b@citrix.com>
+ <20250328134427.874848-3-andrew.cooper3@citrix.com>
+ <88971ebb-6a58-4d7e-b7e6-2db9b78fa341@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <88971ebb-6a58-4d7e-b7e6-2db9b78fa341@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 31.03.2025 15:59, Andrew Cooper wrote:
-> On 31/03/2025 9:32 am, Jan Beulich wrote:
->> On 28.03.2025 14:44, Andrew Cooper wrote:
->>> +#if defined(__LITTLE_ENDIAN)
->>> +
->>> +# define cpu_to_le64(x) (uint64_t)(x)
->>> +# define le64_to_cpu(x) (uint64_t)(x)
->>> +# define cpu_to_le32(x) (uint32_t)(x)
->>> +# define le32_to_cpu(x) (uint32_t)(x)
->>> +# define cpu_to_le16(x) (uint16_t)(x)
->>> +# define le16_to_cpu(x) (uint16_t)(x)
->> (Not just) for Misra these all need another pair of parentheses around the
->> entire expressions.
-> 
-> Why?  For both points?  Eclair is happy, with this at least.
+On 31/03/2025 8:42 am, Jan Beulich wrote:
+> On 28.03.2025 14:44, Andrew Cooper wrote:
+>> There is a singular user.  It's unlikely we'll gain a big-endian build of Xen,
+>> but it's far more unlikely that bitfields will differ from main endianness.
+> Just one point: While endian-ness in general is dictated by hardware, endian-
+> ness of bitfields is entirely a psABI thing, aiui. Hence tying both together
+> (beyond the latter defaulting to the former) doesn't seem quite appropriate
+> to me.
+>
+>> I'm tempted to simply drop the logic in maptrack_node.  If any big-endian
+>> build of Xen came along, that's probably the least of it's worries.
+> As long as it's not obviously broken, I'd prefer to keep such. While it may
+> not be a primary worry, it's still one less of all the worries then.
 
-As was explained to us, Eclair looks at the final, expanded code. Hence it may
-well be that right now, in the code Eclair checks, we have no violations. Ones
-may start to appear elsewhere or later, though. The fix then would still be to
-get these macros into fully parenthesized shape.
+Given the way patch 3 has ended up, this is easier to keep than in
+earlier revisions.
 
-That said, I can't think of any "good" code needing these parentheses here. I
-can think of bad code though, which would properly fail to compile if the
-parentheses were added, e.g.
+Still, I think it's of very dubious utility.
 
-    le32_to_cpu(a)++;
-
-I fear I can't answer the 2nd question - what do you mean by "For both points?"?
-
-Jan
+~Andrew
 
