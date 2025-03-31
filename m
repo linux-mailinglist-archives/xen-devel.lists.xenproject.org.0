@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F80A75F08
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 08:51:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.931907.1334091 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C7FEA75F09
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 08:52:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.931927.1334101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tz8z1-0002L7-3x; Mon, 31 Mar 2025 06:50:55 +0000
+	id 1tz90a-0003bq-GL; Mon, 31 Mar 2025 06:52:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 931907.1334091; Mon, 31 Mar 2025 06:50:55 +0000
+Received: by outflank-mailman (output) from mailman id 931927.1334101; Mon, 31 Mar 2025 06:52:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tz8z1-0002I9-07; Mon, 31 Mar 2025 06:50:55 +0000
-Received: by outflank-mailman (input) for mailman id 931907;
- Mon, 31 Mar 2025 06:50:53 +0000
+	id 1tz90a-0003ZP-DB; Mon, 31 Mar 2025 06:52:32 +0000
+Received: by outflank-mailman (input) for mailman id 931927;
+ Mon, 31 Mar 2025 06:52:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AhU9=WS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tz8yz-0002I3-4W
- for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 06:50:53 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1tz90Y-0003ZH-Rx
+ for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 06:52:30 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7b4d020a-0dfc-11f0-9ea7-5ba50f476ded;
- Mon, 31 Mar 2025 08:50:50 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-39c0dfad22aso1474187f8f.2
- for <xen-devel@lists.xenproject.org>; Sun, 30 Mar 2025 23:50:50 -0700 (PDT)
+ id b6b441cc-0dfc-11f0-9ea7-5ba50f476ded;
+ Mon, 31 Mar 2025 08:52:29 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-39143200ddaso2616200f8f.1
+ for <xen-devel@lists.xenproject.org>; Sun, 30 Mar 2025 23:52:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b658c87sm10523587f8f.9.2025.03.30.23.50.49
+ ffacd0b85a97d-39c0b7a4318sm10257624f8f.87.2025.03.30.23.52.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 30 Mar 2025 23:50:49 -0700 (PDT)
+ Sun, 30 Mar 2025 23:52:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b4d020a-0dfc-11f0-9ea7-5ba50f476ded
+X-Inumbo-ID: b6b441cc-0dfc-11f0-9ea7-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743403849; x=1744008649; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743403949; x=1744008749; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mulo67s4xyOwq3YWS5wm+JI3ee4XAf8RvE4OYvx8Tsw=;
-        b=apTeuDoIMop3Z2V5WzLtqKDt0LF6QOlYnDKEGKx4h6Od0qW/l5DTzuUkOUzfhODfNX
-         OZFbT+z46SOSrT7fLMhdFwXcfY6RRa+2R072c8loWWm5vV1bqYRSlfUD8CbEY5ZXgB7V
-         ZByV5Qx/Y0NdZWD1IxfFXCxZmTB34jlfB3fV7HriTElAZmin+ZINqlP6SQjY0wSBlUAp
-         zADr48h/gGXRcNyjQQ4F4bKBxnfyj7Wpum4HzdSuH5PRcHMZ3Q6JRlkeh/VqSmga2PEU
-         Yu+dcdKZs+z7V1xCxrKGnm9rNfVzIlRtXyE0L8EHx2MXArsFyVlOcuF2mlKmau7T28Tm
-         jlXg==
+        bh=n08gtiAEQAz01ni/J3mRmiRql8AVgHhCnoE0/vItLoM=;
+        b=H49vp/1iu71vus3kDZvjaCUmTjM5sv0Qi7rUjHtXpEDhQVjQLExbd3+QE2+n9l5BV1
+         uZQ5Edxdc/47wZLQQp6vKvPWcYON+qvHzN9dOAt2KZAyi04nZ/o06Mp+/GML9gB3JqNa
+         YUIAo3tOiAYLYqelAld+b/x6u7RV27gdghJiLTwq9l1SJurt3cQm0xoOVrCrMpdNUehE
+         f7XI2/oEU3I/HyVpUUdj9A8dTJjUiGrBFc7HcaFR1Ns/uzMTSjxVJct4hxZz9+IsQ/z4
+         dLOvL1Z3JGsN65J2hX55U3k3Fhh74ELNug6oYB8uUChiSDcw/dHgiIzCmHPtgjFftiVl
+         gn5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743403849; x=1744008649;
+        d=1e100.net; s=20230601; t=1743403949; x=1744008749;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mulo67s4xyOwq3YWS5wm+JI3ee4XAf8RvE4OYvx8Tsw=;
-        b=N9oqrVr+IEzSXhhzFAUHeEOB8dla1Gy48ENdeH9x03qP1CYccwsqs9kVTEgMwo6Nl5
-         Zv5nDlpj2VSHRXLEucsMaCxD0a9Y4Dv+WdCw0cgDOev6GfHfcOeMZEIntViauewAAGqg
-         5J3Q8wEUCS+TfQq4pNLQWwDHPLpzKsFojQw44DZWWdpuw3Sb5rFop76u5H1Ju9Mxf98r
-         DF/AcLfRMB6hqU58xRtlB1puM+CUwAlT8pKeKBz6OKX1j3bFicQoKZoUq/03FqHdRO1E
-         7XBf5S7Uf+HLSA+zm+QWYNLceK/SJA1isqCvvwB3IYpJI2+jVxcdN831YMIm+/APHccJ
-         r6lg==
-X-Forwarded-Encrypted: i=1; AJvYcCVGGW62H1C8GEinBGlKbNyKq6goIOqYANrTIggGPfkrkn+KwwTQi7rDvSiUQR+oKxrPOOMBtbxPeno=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYZPdyAewyy43sB/Hc9YJOMnwYjJ1DJEezz3xnoMKK/j4c0sOP
-	vUoc66DA8jcw2LhUT7x1hVxxbO0tH8gun+I6TCgXM59PlkuV8seE+VCEO8XecQ==
-X-Gm-Gg: ASbGncvPIqbfVAvR1FTBjKY9n+1fKVYSDXnbisWDsCprzPF8Xng2sC95JgyYQH/PRPR
-	YW4D+/E0jFfpuMXgc5O9oB3IIf0unOtR4hrTlItqxAcugpMilQjEwn7S57v2GX5iAygKmG7jVRu
-	pZ5OCaDtwoAhvhj8Cl+B06ulboqw6jog1cE1p7kJz1DtlSaPiquHMCoaZ0jsycO39wKwGw2mrY3
-	FUCZ6gehENhBjPwzVRGCfzieGyZI0slGSwH35iLT75KDQhbYh04cl5FUc8RfOGU5eHfq4/8Wbns
-	tTijf9keOSkElLWa0rLQ6YfBAaMOAPzChFdVnG8NARMYPHxxX8dJ50MyhZhkHA+2vcM5z8w/Eg7
-	9y4nwHFYz10c4zzZ3hR2RhY8+xbDcRfsGNtAVKcn6
-X-Google-Smtp-Source: AGHT+IGOol82neLn7VXXvqo+FZ2Y2CLlJzrw3fFHTV2yYKu9LFh9OCzIzN+YvMiEMD1Sf0j+vKFn/w==
-X-Received: by 2002:a5d:5f91:0:b0:390:f9d0:5e3 with SMTP id ffacd0b85a97d-39c120ca76emr6452461f8f.1.1743403849566;
-        Sun, 30 Mar 2025 23:50:49 -0700 (PDT)
-Message-ID: <3725d86e-f804-49c2-b966-2a52aea6fcde@suse.com>
-Date: Mon, 31 Mar 2025 08:50:51 +0200
+        bh=n08gtiAEQAz01ni/J3mRmiRql8AVgHhCnoE0/vItLoM=;
+        b=NCEFEj9DOYfDljU6vWjju59fLTpv2ImAnsn6OML3YWQJjyfZc0AsihAKdnQmfErr7L
+         +q++IWMoABDFb9VfvYex+ipe9fV/rLOp/GZRb/qckV2Y47yMlDWP6+Vp4iolhWZqIw00
+         cQfk3duMkByO7nBjkAlku/TeYnWCcOzXH5UlykXGrVSWnweOCn81nr8dbqQkOYkfY8wB
+         FwpvHqMWl64aB2uGH5lVg6laJJYf8k/NDGyG8tk8YemgTS1NFwEczyf0UXek38JVD7QU
+         qb5kENUUCXWZmU80PalySaklFJTnB1PvYWqXOZT36Bs5pLoMSBqYWzvsuZckEk76v60B
+         l1Iw==
+X-Forwarded-Encrypted: i=1; AJvYcCXSrFrmmcpScrEBtlXfompEDEgtg+9JLWZ0j4BnD+oSPgRMqipgQgIr5cIB7q1eEOXlcTP4RIGSLro=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw4wbNzvAz+nfN/7I8Yzugt7CQiJ6SG7ISJJOgiau4RGQny2ozH
+	q65dYaH57znVV3hsJ9/oGZz621ilwwK8OaegUHs/JIvwpymXW06rIXtXJ6mAHQ==
+X-Gm-Gg: ASbGncs2AdlDqrwH9+mlEx+6d8esPISLvK8exXRTOwDogy+zevSKvut3tkQ0dS1tIPz
+	HrjBoHgl4v0djKNMEFJyKdXZupG5SCbzPUXaGALi7XUctV0yb9DBwXKxDjU+TRi2gZU1DOs/1l8
+	xm2F+3hIjcS6nebM0cWqG1cipH9MJno0OmzXDMQgKisuW62H1xV9tnWMDWg9MkDa9iz1BfyBJql
+	ui5p5QQA5rdcFV7YpIQyH9z8cbv2qs7j+zLmECnA0lEnXsjmsDhwr/eJeVZhPeD0y/3VWYhB8lj
+	eQVv/BdnE+JcG9PAYPALYup8EJzq07kyxCsq8GGK9ZIClejSm63ZGpPiqIhcUwek85GCNIitqLL
+	FWPvpsNrGLIf2SmZd6/q+NF5FC4Qa2Q==
+X-Google-Smtp-Source: AGHT+IHb6/hVyxKpS3GektByaO0WZ2oiwI3JY0Xv4CO/6hbATvAaWok96JfASv38Q8JHMhscE2r7+Q==
+X-Received: by 2002:a05:6000:290f:b0:391:4231:40a with SMTP id ffacd0b85a97d-39c120e30a5mr6828470f8f.33.1743403949300;
+        Sun, 30 Mar 2025 23:52:29 -0700 (PDT)
+Message-ID: <9bfa0537-61e9-4dbf-867b-8b2162be36ff@suse.com>
+Date: Mon, 31 Mar 2025 08:52:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 RESEND 2/6] Arm32: use new-style entry annotations for
- MMU code
+Subject: Re: [PATCH v8 RESEND 3/6] Arm32: use new-style entry annotations for
+ entry code
 To: Julien Grall <julien@xen.org>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
@@ -97,8 +97,8 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
  <ebc98ba6-4ced-4e74-baa6-089240465eca@suse.com>
- <1287edd8-188f-4b1a-b087-0beb3eea5ed4@suse.com>
- <dad70c39-c398-4641-8775-ffb1b896367e@xen.org>
+ <149aff98-bccb-4671-9961-484e5651bf1f@suse.com>
+ <a1c41776-fb5e-4b83-a6f0-b4370a0c0e0e@xen.org>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,47 +124,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <dad70c39-c398-4641-8775-ffb1b896367e@xen.org>
+In-Reply-To: <a1c41776-fb5e-4b83-a6f0-b4370a0c0e0e@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.03.2025 19:39, Julien Grall wrote:
-> Hi Jan,
-> 
+On 28.03.2025 19:46, Julien Grall wrote:
 > On 13/03/2025 08:07, Jan Beulich wrote:
->> Locally override SYM_PUSH_SECTION() to retain the intended section
->> association.
->>
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >> Tested-by: Luca Fancellu <luca.fancellu@arm.com> # arm
->> ---
->> v7: New.
->>
->> --- a/xen/arch/arm/arm32/mmu/head.S
->> +++ b/xen/arch/arm/arm32/mmu/head.S
->> @@ -160,6 +160,13 @@
->>   .endm
->>   
->>   .section .text.idmap, "ax", %progbits
->> +/*
->> + * Code below wants to all live in the section established above.  Annotations
->> + * from xen/linkage.h therefore may not switch sections (honoring
->> + * CONFIG_CC_SPLIT_SECTIONS).  Override the respective macro.
->> + */
->> +#undef SYM_PUSH_SECTION
->> +#define SYM_PUSH_SECTION(name, attr)
-> 
-> AFAICT, SYM_PUSH_SECTION doesn't exist yet. It is introduced by patch 
-> #6. Should this be moved to the last patch?
-
-Perhaps; I failed to notice this when I moved that patch last. I doesn't hurt
-to live right here, but I agree it's better to move it.
-
-> The rest of the patch LGTM to me. So with this addressed:
 > 
 > Acked-by: Julien Grall <jgrall@amazon.com>
 
 Thanks.
 
+>> ---
+>> Should the GLOBAL()s also be replaced?
+> 
+> I guess the goal is to use helper from xen/linkage.h.
+
+Yes. Imo in the long run we shouldn't have more than one annotation
+scheme.
+
 Jan
+
+> So I would say 
+> yes. It doesn't need to be done in this series though.
+> 
+> Cheers,
+> 
+
 
