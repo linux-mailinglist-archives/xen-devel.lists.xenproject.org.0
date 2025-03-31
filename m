@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7CD2A7703B
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 23:43:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.932997.1335059 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58E56A7703D
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 23:43:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.932999.1335069 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzMux-00051M-0b; Mon, 31 Mar 2025 21:43:39 +0000
+	id 1tzMv1-0005L1-8i; Mon, 31 Mar 2025 21:43:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 932997.1335059; Mon, 31 Mar 2025 21:43:38 +0000
+Received: by outflank-mailman (output) from mailman id 932999.1335069; Mon, 31 Mar 2025 21:43:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzMuw-0004z3-T6; Mon, 31 Mar 2025 21:43:38 +0000
-Received: by outflank-mailman (input) for mailman id 932997;
- Mon, 31 Mar 2025 21:43:37 +0000
+	id 1tzMv1-0005Hv-4d; Mon, 31 Mar 2025 21:43:43 +0000
+Received: by outflank-mailman (input) for mailman id 932999;
+ Mon, 31 Mar 2025 21:43:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vLSd=WS=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1tzMuv-0004Vr-CD
- for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 21:43:37 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20616.outbound.protection.outlook.com
- [2a01:111:f403:2009::616])
+ id 1tzMuz-0004Vr-3d
+ for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 21:43:41 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20603.outbound.protection.outlook.com
+ [2a01:111:f403:2415::603])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3255c74c-0e79-11f0-9ffb-bf95429c2676;
- Mon, 31 Mar 2025 23:43:35 +0200 (CEST)
-Received: from SJ0PR13CA0045.namprd13.prod.outlook.com (2603:10b6:a03:2c2::20)
- by CH3PR12MB7618.namprd12.prod.outlook.com (2603:10b6:610:14c::15)
+ id 3444c228-0e79-11f0-9ffb-bf95429c2676;
+ Mon, 31 Mar 2025 23:43:39 +0200 (CEST)
+Received: from BLAPR03CA0008.namprd03.prod.outlook.com (2603:10b6:208:32b::13)
+ by PH0PR12MB8051.namprd12.prod.outlook.com (2603:10b6:510:26d::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.47; Mon, 31 Mar
- 2025 21:43:30 +0000
-Received: from SJ1PEPF00002314.namprd03.prod.outlook.com
- (2603:10b6:a03:2c2:cafe::b9) by SJ0PR13CA0045.outlook.office365.com
- (2603:10b6:a03:2c2::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.20 via Frontend Transport; Mon,
- 31 Mar 2025 21:43:30 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00002314.mail.protection.outlook.com (10.167.242.168) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Mon, 31 Mar
+ 2025 21:43:33 +0000
+Received: from BL6PEPF00022573.namprd02.prod.outlook.com
+ (2603:10b6:208:32b:cafe::bc) by BLAPR03CA0008.outlook.office365.com
+ (2603:10b6:208:32b::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.54 via Frontend Transport; Mon,
+ 31 Mar 2025 21:43:32 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL6PEPF00022573.mail.protection.outlook.com (10.167.249.41) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8606.22 via Frontend Transport; Mon, 31 Mar 2025 21:43:30 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8606.22 via Frontend Transport; Mon, 31 Mar 2025 21:43:32 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 31 Mar
- 2025 16:43:29 -0500
+ 2025 16:43:31 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 31 Mar
+ 2025 16:43:31 -0500
 Received: from fedora.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 31 Mar 2025 16:43:28 -0500
+ Transport; Mon, 31 Mar 2025 16:43:30 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,228 +63,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3255c74c-0e79-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 3444c228-0e79-11f0-9ffb-bf95429c2676
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OQk1v3sz2qJeiZigHQudTSnn6T6p3Edp2cYSHA+hO9jnlzuOQKrsRNS3pkWUCFNZsVxV+8DKJJ8PD5NXQlBWMMnO8DoUa4YsOnNMGXE85MXGHAgF4XGvgXPCYMk096nTiDizZHuYwEf4ibbQE7uMIGTQOniAcMJ24CmKoiHhdekhXnguFDmixh03CGaTe9E22+SwskSbQJULRK9bLR2X8tjWF8wPLdbEiJ1BTxTYcTwP1Waysd7MDJgUfXPQJzVerf431K0HAaSfES0fFcK/K1oOxCfE6AeDGctYUBDH0+dwa2cuLjQ4qbVH/wlGR9AMmXqRf0pDh4nTMESWkogWUA==
+ b=Hqo1KS5nxhXXEPUvAE8o6FqElcZMM72DHlRXlYJlaQHRhfMjCpiUSOk2tO1QCZD+ZgONr6kDYysL9WDStrhhbHQu5tR9SZMgbnP1GrKbCdC7OYz54qTs/EDShVae7G9dwcaNR5UuouNCBg8+/tezNjb5cRpm/86aqeAJ3RPmQMngFOnrvX1BvBC2Vjne3/zXG2dSkKtEw2fBfA8dcfNhT3Tax0sGfJ4tJW1o4qzZlLrmSmd/I+1wVNu5sWucVBPYGtEM0IG24Tf9s/WMSEgK9UEgo75KqXKyy9Za2OPpwfclxqkRF55eNTCjHg8w52H6DQTeFSo6zSMj3kTmO5frJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4vl8Wpz8L2rcI/9x1YYhQCkm3Y97kmSSKSN0YHgP/Xg=;
- b=qyXHnB7Es85tEHpUKRahEpa7RM7Y/WCtX/7nVwKoILTmQ1/bQTVyzo+z1P7FIIStAdBa3mBhIzRAQi4QVwbI14cNvzDl2uCwbgj1TDZXKwvRvJ8zElusV5YXuyORppRJBlJvd5PeFUgH/t3Wdw3wpFI7bNMIFQ67I12PelXywj+0Xb2u3ZzlZCp8Dth9cGRqDS5Z+IIOSnO3HdpcHjWiBtFiQwcA7JyRio23nmZcCUZTClajZz9ZQhTPIYWbVPJDcvOx1KMrdwjbvO4JsoRhjymu028thxaRYmcqARaYPzVB4evcrFFUGlhhu2Np7E0ThtFJTCybk2/7WqlujdGYvQ==
+ bh=obPuKkWxG0z+mEVF9qf+2e+HKAoV+mglU8Qp/Nk6GDI=;
+ b=P4f7Ty00OWA/alaYaSpIYmqZZqVV/ZB8xdl8O4+7lWQymYKwFmdV/jrveO57IOSqqz2ohUI6S+IFIBLjZ9NeVVNeotoLE+Mz/EJ0VqFvKfcxQ8WJHYP93hnxASfL2jau5Dcobmf37IlKBNpy9sRH+iT99yPftM727ygE7OHgeBogI7VuzSabDLJ+pSU1FPbbSqSD0Cfjc4S8sIgEvZKtzheOxyQwqHG8LeHRycCZVDAj6NcCmqJ+jnhteoMusOyhawXdcKmh5ibYJTguBaGgsFul2RR7glaMYeftJRX37nu8ZZZBHmKxZDa0TKi/gnEEShnqxwPAqwNTRzyqHAX5JQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4vl8Wpz8L2rcI/9x1YYhQCkm3Y97kmSSKSN0YHgP/Xg=;
- b=3/9h10hMms6wBPtd+Tq4N0ihvbygJe6PikXmCTT35HpkoFAT9YaJtKy3Nm1kOLEVnCIoRl6YDVQzzQ1U+7/2PzmMWkTuL2zehLZHiVYa6ORGTOgapW1R1GrZXtxlVaxXtr5YLpIt19AqaU+nDWP0su7jS3EBbWGDm99mssYTaZ0=
+ bh=obPuKkWxG0z+mEVF9qf+2e+HKAoV+mglU8Qp/Nk6GDI=;
+ b=hLt1WjO2+VpqZTbzzffcgxtzhjGxeJ3ZZ/3c0JA1kIlTKhhCmW/WHuY2yGm8nDyiw6GwjiNuvzJPEjtzgE8MrDMVnGpbr+TXtlfEWW6/c+ob6L3mwWwXUtyZb6i7MHjv87rGr5CKVtiw0UwM/lofRf5L/8oTu1iSTyx051YiR+o=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Jason Andryuk <jason.andryuk@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Jason Andryuk <jason.andryuk@amd.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
  Babchuk" <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 2/6] xen/arm: dom0less hwdom construction
-Date: Mon, 31 Mar 2025 17:43:17 -0400
-Message-ID: <20250331214321.205331-3-jason.andryuk@amd.com>
+Subject: [PATCH v2 3/6] xen/arm: dom0less delay xenstore initialization
+Date: Mon, 31 Mar 2025 17:43:18 -0400
+Message-ID: <20250331214321.205331-4-jason.andryuk@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250331214321.205331-1-jason.andryuk@amd.com>
 References: <20250331214321.205331-1-jason.andryuk@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002314:EE_|CH3PR12MB7618:EE_
-X-MS-Office365-Filtering-Correlation-Id: e227e2b6-b178-452f-8ae4-08dd709d13e8
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022573:EE_|PH0PR12MB8051:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f280073-b276-4295-8b26-08dd709d1508
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|34020700016|36860700013|82310400026;
+	BCL:0;ARA:13230040|36860700013|1800799024|34020700016|82310400026|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?IXbUr6XG58lRFs1ssTvJ9gu3U6jGdNCnbryQKQORAVJ1A5y3fx9cefcnz0vc?=
- =?us-ascii?Q?/nk2Szdmu3AWORSxNSUxnxN44/cNNMPKTbJeodlIkGCUzG4FkCcM8bCvKHxK?=
- =?us-ascii?Q?36maOm8ozG0SMFkIQFZVALQq4f8zBHVwRSGSVUlMeUbTVrWke/S/NSnntiTL?=
- =?us-ascii?Q?TCy4IdKUtuB+NJCXLttzWooQs+CPHXJ+TYDyCqCS7nNSNeD4s9IkczcWPPQ/?=
- =?us-ascii?Q?SpVRCeaO5C5HwkrCft5SJ7/CDh15DIZIleiSf+cPCG3xkJTOyEEQPla2ltVK?=
- =?us-ascii?Q?/4r7THubSpmaFXmVru8XDbHKyfUEEPfq8syID0yeZPqo4FSqQ0S1Yxx0eMEp?=
- =?us-ascii?Q?vGGr05juqApYa24rDvWu/SsyZtpBrcq3M8RS2C6qUXyd2Tzjrio9DJy0iJpk?=
- =?us-ascii?Q?hyNMa2tb+ufIW3UR4enWaI+ySae03FiuBOI58zfl0cvjUK2+AkCpKbRCgSgq?=
- =?us-ascii?Q?ZpTs0aR9IZDeo0ZFrXsPXrsLFn3q9D+1lOfPaoLSgAfRX/6vVVXQAIW6X9JA?=
- =?us-ascii?Q?Rr7zasXVnbHoAyfXaS2PyInVn3RLuHvQlfyxMx2Zk4x3e0BYytkezEQpEmMr?=
- =?us-ascii?Q?2kIvOpNKN1rCbWleaUQneuC5uirsYT81LG8ebYFgsHKFcrFVToSKF0PZsA6S?=
- =?us-ascii?Q?fdzCw6+3inTuW8VGJ+ZZijK5rdLQY4jPLmpEEFkz5mXQZ8MrrMbFJDZgKG6H?=
- =?us-ascii?Q?yimocVIxTFCUTL+9JWSeK9qbvkBjXAgm6fUVG1gy3CdaCPsfikb+vvxp3ejJ?=
- =?us-ascii?Q?MO2FO/KK7DlIDemn/pvWgAcgQPesRJybr+ntGrV4e0pMLGZOzmBWHRD6Q1ew?=
- =?us-ascii?Q?u2R7rEjMg0CzHfjcnwHfFaesLbNYOppi6d51OV+MM79ES7MePN0lD/w9Ccpd?=
- =?us-ascii?Q?cGDKQJqjkudZbicbh+SsEteGSshhiGp2DFYSy5yz1ywUtBWsZ7yPrL6N2L9j?=
- =?us-ascii?Q?sgsH6+Sg7ozPZ1xFSRhqPtu3+eBsgbGB/csttN0ogQBW8ti9AR2zp8Kzd3IT?=
- =?us-ascii?Q?x5nhneeZ1m53PSWrnw9k8NEpfsZPJhbxyaWrsxPzmlF4BzMnucdziSSmyI3/?=
- =?us-ascii?Q?fLkAlfvyDWMwzzl2ZYs5XPvheuRmZXEz3gfCdMWJhX6Bk6SI0CuPPBTOWDkd?=
- =?us-ascii?Q?Gcj3XUaBCSklNcIBLyJa9OyCAMGZmrMO2tV6Q4zRIiBSN0rzC+/Y0iWBAudc?=
- =?us-ascii?Q?z476iGUhOYvCo5rZ4uqI5Jw7GQhsskL3H3pzcWVFV41PiYwhGvvwdE6dW47c?=
- =?us-ascii?Q?y1nXlzPeqEzQR1vNoBlmykZuURdxpNP24bsk5pHKkWA6CKuW0pFU17H1PDq/?=
- =?us-ascii?Q?pxIabmuUOnrEKB704VL1gkgAwdCXWv2ckKdczsZg4VhYXO+iM4KPgzgX8GPE?=
- =?us-ascii?Q?LC7UsxKbvvHaxya2lctLF465oHjTns+mze8hGCcPDSFWObXIy1fyG+9mOuuk?=
- =?us-ascii?Q?6bEGRm4S6XXN5dEmlutzRkk4rvYoW2++n3Vbu2bqVbrho2sV6Ub2PSedG3EN?=
- =?us-ascii?Q?RnPhKixQ50kC59c11wjoip5EuJPLju7FQPXM?=
+	=?us-ascii?Q?KHQdASEBlfybq4TDO0Ghhrx1EijTSmnkl3QjnEVkEhxXepQqvU5GGv3NLn69?=
+ =?us-ascii?Q?fwp6mLgM62KIDdw5tV7uP3k8LhfuggBnlkPEAVH7aIZtov4eTFuio1atFe3l?=
+ =?us-ascii?Q?BPZIznNpH8jpwv2SBqXPTkoHrUDmARGdzVVHCXg+QKhBkSwG3tdbRDO5LKXx?=
+ =?us-ascii?Q?t+Sm0xn3SYBZSjdWSsKk5A3EdQNe3jVrFEgCuNDPf5VJnD4WinUJN5kh2g0A?=
+ =?us-ascii?Q?0CZV4Aj5bO4f7HMsc2hunrraiBsUdaWUgErep/t33v3OxmzdOuj+xmmjiOOG?=
+ =?us-ascii?Q?YhZ4pEX8LC3T8GXJvfa1q0mRdgxAw0TCwl52lq82IMxnhav1FcFX4CelSsdp?=
+ =?us-ascii?Q?DTqzLkro4y2GfQKqV//FiCjyLBIldEbS0X/azbE06f/cy9cMXi7cIuvuU452?=
+ =?us-ascii?Q?QuAzqV3Z1mXVBsDWZ2EobWyy15GfYWckoYHPm6X/5J7QXztb734wFJF/S9Bz?=
+ =?us-ascii?Q?2ex1A5pxQYYSlvHstZyYtQq0C6Nmw7mb0QXXiKbO1xutHbjmermsDbPR5dsX?=
+ =?us-ascii?Q?/QORwyf+dufAAKzJw6OLhHLiP8bdiKa3B4yHPeLifn2PAVgB/cGuz2nvEbKt?=
+ =?us-ascii?Q?M1PpUuQms5uccsVcrKu1oWFLw11T00EVQZKT6Pgc2i5NY71uMeaQkLqEQDxe?=
+ =?us-ascii?Q?lRfDbFJC0aM9kzgPDM6xC7RV0uEZdVM7nB/NYMSfIYuPWBFNxn7BJlYS8zhp?=
+ =?us-ascii?Q?sFCDG0MTJz6vG0VV3uD99UfHL4eLjB5ouBOZPsjzKM5ZQK8TK3wSryI8wpuc?=
+ =?us-ascii?Q?nPxS3W1/lVKKSZ13xZSQj6iJrfZs+If5sEg1SRJA3LtUM+77kPaBQdc614ob?=
+ =?us-ascii?Q?154pAyZO/7aU6sqhfuvFVgD/iycOxga3rhK7wjobqo6vDVgzN0O2O50NwnuB?=
+ =?us-ascii?Q?BM4MUJTVFIuWwDLm27+zq71Vj18+1DP3Iaek03jng1UozUlWv6z8oXZRacbZ?=
+ =?us-ascii?Q?vxuc0mCGrZsCvYSw9emDmu0idBqdOS+aO30KGNWYfEQoY9/XkWOJ1nW+Gq2B?=
+ =?us-ascii?Q?C8+dKreM80MU4xKCJC3z4ZKjBdg0mKu7bncREyiaYB8Nf2pjd9RZloITIvwx?=
+ =?us-ascii?Q?mKpY6qWaSoE345AUDEFjl9Sq97rmrV7pCNpE8YG1MTpt4j+r58uk5k+aNiAI?=
+ =?us-ascii?Q?jCjV49MIbDTKef0XffZWIKtQKU9vy/SUGJIiwaNZh3hm0qGosJ58YG4tETpG?=
+ =?us-ascii?Q?sQNNwxyFWWCyYI9oJs06uOHGUW/IyxVqDswqQ+3eouSkg2P1Zs7DIbrciarP?=
+ =?us-ascii?Q?UmzMtyims9uNxdQhxb1X4tl/CpFO7KO1/OIKZUh88aAJNH5jb6Fh3a/67Dob?=
+ =?us-ascii?Q?K1ZFtnzqc+U2fkFyr1s/yuIoQg1IUBPUCT3x1sKqFOq+AcILZUcx5KDVx7Aa?=
+ =?us-ascii?Q?GqUpaRh3Kk4sQ3WIR8oH3kFa4UBh6JsHXV9I6yB7cHQUy7zClItDRB5S6pYL?=
+ =?us-ascii?Q?A/fb/LikTK7lt84g0e3fQVNgI/vHPjLqw5JhdesZ5xeKb6DHwzFJQgNbyp6H?=
+ =?us-ascii?Q?5T283vbTjxLv9j4=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(34020700016)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(34020700016)(82310400026)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2025 21:43:30.1099
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2025 21:43:32.1067
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e227e2b6-b178-452f-8ae4-08dd709d13e8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f280073-b276-4295-8b26-08dd709d1508
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002314.namprd03.prod.outlook.com
+	BL6PEPF00022573.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7618
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8051
 
-When creating a hardware domain, have the dom0less code call
-construct_hwdom() which is shared with the dom0 code.  The hardware
-domain requires building that best matches the dom0 build path.  Re-use
-it to keep them in sync.
+To allocate the xenstore event channel and initialize the grant table
+entry, the xenstore domid is neeed.  A dom0 is created before the domUs,
+so it is normally available through hardware_domain.  With capabilities
+and dom0less, the xenstore domain may not be created first.
 
-The device tree node of the dom0less config is now passed into
-construct_hwdom().  dom0 uses /chosen for process_shm while a hwdom will
-use the value from its dom0less device tree node.
+Keep the population of the page and HVM_PARAM_STORE_PFN in the normal
+domain construction, but delay event channel creation and grant seeding
+to after all domUs are created.  HVM_PARAM_STORE_PFN now serves as
+indication to setup xenstore since the device tree is no longer
+immediately available.  0 means no xenstore.  ~0ULL means legacy so only
+the event channel needs setup, and any other value means to seed the
+page.
+
+dom0 needs to set xs_domid when it is serving as the xenstore domain.
+
+The domain running xenstored needs to be the handler for VIRQ_DOM_EXC,
+so set that as well - it otherwise defaults to hardware domain.
 
 Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 ---
- xen/arch/arm/dom0less-build.c           | 57 ++++++++++++++-----------
- xen/arch/arm/domain_build.c             | 10 +++--
- xen/arch/arm/include/asm/domain_build.h |  3 +-
- 3 files changed, 42 insertions(+), 28 deletions(-)
+v2:
+Re-order ahead of seeding.
+Fix created type in commit message
+Change set_xs_domid to set_xs_domain
+Set xenstore domain as VIRQ_DOM_EXC handler
+
+Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+---
+ xen/arch/arm/dom0less-build.c             | 67 +++++++++++++++++------
+ xen/arch/arm/domain_build.c               |  2 +
+ xen/arch/arm/include/asm/dom0less-build.h |  2 +
+ 3 files changed, 53 insertions(+), 18 deletions(-)
 
 diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index 573b0d25ae..e25d7bd468 100644
+index e25d7bd468..a46f292c1f 100644
 --- a/xen/arch/arm/dom0less-build.c
 +++ b/xen/arch/arm/dom0less-build.c
-@@ -911,36 +911,45 @@ static int __init construct_domU(struct domain *d,
-     /* type must be set before allocate memory */
-     d->arch.type = kinfo.type;
- #endif
--    if ( !dt_find_property(node, "xen,static-mem", NULL) )
--        allocate_memory(d, &kinfo);
--    else if ( !is_domain_direct_mapped(d) )
--        allocate_static_memory(d, &kinfo, node);
--    else
--        assign_static_memory_11(d, &kinfo, node);
--
--    rc = process_shm(d, &kinfo, node);
--    if ( rc < 0 )
--        return rc;
--
--    /*
--     * Base address and irq number are needed when creating vpl011 device
--     * tree node in prepare_dtb_domU, so initialization on related variables
--     * shall be done first.
--     */
--    if ( kinfo.vpl011 )
-+    if ( is_hardware_domain(d) )
+@@ -20,6 +20,15 @@
+ #include <asm/static-memory.h>
+ #include <asm/static-shmem.h>
+ 
++static domid_t __initdata xs_domid = DOMID_INVALID;
++static bool __initdata need_xenstore;
++
++void __init set_xs_domain(struct domain *d)
++{
++    xs_domid = d->domain_id;
++    set_global_virq_handler(d, VIRQ_DOM_EXC);
++}
++
+ bool __init is_dom0less_mode(void)
+ {
+     struct bootmodules *mods = &bootinfo.modules;
+@@ -694,7 +703,7 @@ static int __init alloc_xenstore_evtchn(struct domain *d)
+     int rc;
+ 
+     alloc.dom = d->domain_id;
+-    alloc.remote_dom = hardware_domain->domain_id;
++    alloc.remote_dom = xs_domid;
+     rc = evtchn_alloc_unbound(&alloc, 0);
+     if ( rc )
      {
--        rc = domain_vpl011_init(d, NULL);
-+        rc = construct_hwdom(&kinfo, node);
+@@ -760,16 +769,10 @@ static int __init alloc_xenstore_params(struct kernel_info *kinfo)
+     struct domain *d = kinfo->d;
+     int rc = 0;
+ 
+-    if ( kinfo->dom0less_feature & (DOM0LESS_XENSTORE | DOM0LESS_XS_LEGACY) )
+-    {
+-        ASSERT(hardware_domain);
+-        rc = alloc_xenstore_evtchn(d);
+-        if ( rc < 0 )
+-            return rc;
++    if ( (kinfo->dom0less_feature & (DOM0LESS_XENSTORE | DOM0LESS_XS_LEGACY))
++                                 == (DOM0LESS_XENSTORE | DOM0LESS_XS_LEGACY) )
+         d->arch.hvm.params[HVM_PARAM_STORE_PFN] = ~0ULL;
+-    }
+-
+-    if ( kinfo->dom0less_feature & DOM0LESS_XENSTORE )
++    else if ( kinfo->dom0less_feature & DOM0LESS_XENSTORE )
+     {
+         rc = alloc_xenstore_page(d);
          if ( rc < 0 )
-             return rc;
+@@ -841,6 +844,30 @@ static void __init domain_vcpu_affinity(struct domain *d,
      }
-+    else
-+    {
-+        if ( !dt_find_property(node, "xen,static-mem", NULL) )
-+            allocate_memory(d, &kinfo);
-+        else if ( !is_domain_direct_mapped(d) )
-+            allocate_static_memory(d, &kinfo, node);
-+        else
-+            assign_static_memory_11(d, &kinfo, node);
- 
--    rc = prepare_dtb_domU(d, &kinfo);
--    if ( rc < 0 )
--        return rc;
-+        rc = process_shm(d, &kinfo, node);
-+        if ( rc < 0 )
-+            return rc;
- 
--    rc = construct_domain(d, &kinfo);
--    if ( rc < 0 )
--        return rc;
-+        /*
-+         * Base address and irq number are needed when creating vpl011 device
-+         * tree node in prepare_dtb_domU, so initialization on related variables
-+         * shall be done first.
-+         */
-+        if ( kinfo.vpl011 )
-+        {
-+            rc = domain_vpl011_init(d, NULL);
-+            if ( rc < 0 )
-+                return rc;
-+        }
-+
-+        rc = prepare_dtb_domU(d, &kinfo);
-+        if ( rc < 0 )
-+            return rc;
-+
-+        rc = construct_domain(d, &kinfo);
-+        if ( rc < 0 )
-+            return rc;
-+    }
- 
-     domain_vcpu_affinity(d, node);
- 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 051c48329a..b3a396c2fc 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -2305,10 +2305,11 @@ static int __init construct_dom0(struct domain *d)
-     if ( rc < 0 )
-         return rc;
- 
--    return construct_hwdom(&kinfo);
-+    return construct_hwdom(&kinfo, NULL);
  }
  
--int __init construct_hwdom(struct kernel_info *kinfo)
-+int __init construct_hwdom(struct kernel_info *kinfo,
-+                           const struct dt_device_node *node)
++static void __init initialize_domU_xenstore(void)
++{
++    struct domain *d;
++
++    if ( xs_domid == DOMID_INVALID )
++        return;
++
++    for_each_domain( d )
++    {
++        unsigned long gfn = d->arch.hvm.params[HVM_PARAM_STORE_PFN];
++        int rc;
++
++        if ( gfn == 0 )
++            continue;
++
++        if ( is_xenstore_domain(d) )
++            continue;
++
++        rc = alloc_xenstore_evtchn(d);
++        if ( rc < 0 )
++            panic("%pd: Failed to allocate xenstore_evtchn\n", d);
++    }
++}
++
+ static int __init construct_domU(struct domain *d,
+                                  const struct dt_device_node *node)
  {
-     struct domain *d = kinfo->d;
-     int rc;
-@@ -2325,7 +2326,10 @@ int __init construct_hwdom(struct kernel_info *kinfo)
-     else
-         allocate_memory(d, kinfo);
+@@ -881,17 +908,13 @@ static int __init construct_domU(struct domain *d,
+          rc == -ENODATA ||
+          (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
+     {
+-        if ( hardware_domain )
+-            kinfo.dom0less_feature = DOM0LESS_ENHANCED;
+-        else
+-            panic("At the moment, Xenstore support requires dom0 to be present\n");
++        need_xenstore = true;
++        kinfo.dom0less_feature = DOM0LESS_ENHANCED;
+     }
+     else if ( rc == 0 && !strcmp(dom0less_enhanced, "legacy") )
+     {
+-        if ( hardware_domain )
+-            kinfo.dom0less_feature = DOM0LESS_ENHANCED_LEGACY;
+-        else
+-            panic("At the moment, Xenstore support requires dom0 to be present\n");
++        need_xenstore = true;
++        kinfo.dom0less_feature = DOM0LESS_ENHANCED_LEGACY;
+     }
+     else if ( rc == 0 && !strcmp(dom0less_enhanced, "no-xenstore") )
+         kinfo.dom0less_feature = DOM0LESS_ENHANCED_NO_XS;
+@@ -1138,7 +1161,15 @@ void __init create_domUs(void)
+         if ( rc )
+             panic("Could not set up domain %s (rc = %d)\n",
+                   dt_node_name(node), rc);
++
++        if ( d_cfg.flags & XEN_DOMCTL_CDF_xs_domain )
++            set_xs_domain(d);
+     }
++
++    if ( need_xenstore && xs_domid == DOMID_INVALID )
++        panic("xenstore requested, but xenstore domain not present\n");
++
++    initialize_domU_xenstore();
+ }
  
--    rc = process_shm_chosen(d, kinfo);
-+    if ( node )
-+        rc = process_shm(d, kinfo, node);
-+    else
-+        rc = process_shm_chosen(d, kinfo);
-     if ( rc < 0 )
-         return rc;
+ /*
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index b3a396c2fc..d99ca7b43f 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -2408,6 +2408,8 @@ void __init create_dom0(void)
+     rc = construct_dom0(dom0);
+     if ( rc )
+         panic("Could not set up DOM0 guest OS (rc = %d)\n", rc);
++
++    set_xs_domain(dom0);
+ }
  
-diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
-index 134290853c..17619c875d 100644
---- a/xen/arch/arm/include/asm/domain_build.h
-+++ b/xen/arch/arm/include/asm/domain_build.h
-@@ -13,7 +13,8 @@ bool allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
-                           paddr_t tot_size);
- void allocate_memory(struct domain *d, struct kernel_info *kinfo);
- int construct_domain(struct domain *d, struct kernel_info *kinfo);
--int construct_hwdom(struct kernel_info *kinfo);
-+int construct_hwdom(struct kernel_info *kinfo,
-+                    const struct dt_device_node *node);
- int domain_fdt_begin_node(void *fdt, const char *name, uint64_t unit);
- int make_chosen_node(const struct kernel_info *kinfo);
- int make_cpus_node(const struct domain *d, void *fdt);
+ /*
+diff --git a/xen/arch/arm/include/asm/dom0less-build.h b/xen/arch/arm/include/asm/dom0less-build.h
+index 5864944bda..b0e41a1954 100644
+--- a/xen/arch/arm/include/asm/dom0less-build.h
++++ b/xen/arch/arm/include/asm/dom0less-build.h
+@@ -9,6 +9,7 @@
+ 
+ void create_domUs(void);
+ bool is_dom0less_mode(void);
++void set_xs_domain(struct domain *d);
+ 
+ #else /* !CONFIG_DOM0LESS_BOOT */
+ 
+@@ -17,6 +18,7 @@ static inline bool is_dom0less_mode(void)
+ {
+     return false;
+ }
++static inline void set_xs_domain(struct domain *d) {}
+ 
+ #endif /* CONFIG_DOM0LESS_BOOT */
+ 
 -- 
 2.49.0
 
