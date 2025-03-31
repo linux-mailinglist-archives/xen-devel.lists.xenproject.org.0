@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F753A76848
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 16:41:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.932696.1334790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 159D1A76842
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 16:40:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.932659.1334770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzGKK-0001JP-2d; Mon, 31 Mar 2025 14:41:24 +0000
+	id 1tzGJa-0007kC-Ib; Mon, 31 Mar 2025 14:40:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 932696.1334790; Mon, 31 Mar 2025 14:41:24 +0000
+Received: by outflank-mailman (output) from mailman id 932659.1334770; Mon, 31 Mar 2025 14:40:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzGKJ-0001HQ-Ua; Mon, 31 Mar 2025 14:41:23 +0000
-Received: by outflank-mailman (input) for mailman id 932696;
- Mon, 31 Mar 2025 14:41:22 +0000
+	id 1tzGJa-0007h9-Fa; Mon, 31 Mar 2025 14:40:38 +0000
+Received: by outflank-mailman (input) for mailman id 932659;
+ Mon, 31 Mar 2025 14:40:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8cRO=WS=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1tzGGV-0004lD-Hc
- for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 14:37:27 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
+ id 1tzGGk-0004lD-4p
+ for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 14:37:42 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a9561413-0e3d-11f0-9ffb-bf95429c2676;
- Mon, 31 Mar 2025 16:37:25 +0200 (CEST)
+ id b27c482f-0e3d-11f0-9ffb-bf95429c2676;
+ Mon, 31 Mar 2025 16:37:40 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E1ED344CAB;
- Mon, 31 Mar 2025 14:37:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49B6AC4CEE3;
- Mon, 31 Mar 2025 14:37:23 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id D6FCEA41DAC;
+ Mon, 31 Mar 2025 14:32:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 737FDC4CEE9;
+ Mon, 31 Mar 2025 14:37:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9561413-0e3d-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: b27c482f-0e3d-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743431844;
-	bh=nel+CNbtIcIbXhGVRK9Wmqiu+JKidiJ+yS/1506Ry7M=;
+	s=k20201202; t=1743431859;
+	bh=EBUZ7/lyZdvglHul0hI2jt6KLmQWNLkkH/t966Me0jY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=J0IoV8ebfn91I62ieFegKX7b7/n0ECabbVHdq5Yq3oeNdgm4G63YuXDhZ7CXPRg7H
-	 YaQ9EjU2h+ZOU9Vc471/lPYDXcJTsCnFurjf08WEasbfAX+hBi0k9fJwsjsnPx/Qf/
-	 H6maW8aNCs5gs1QT+u+irPbrKuhLMW1/EKUYbUdjEVW8UFVVf/Nin4Eg3OPyKELh0K
-	 A5EWXbpb2GxoY0FtyMQy+zfjmFNZzh9nsNh9FxY0HjfwCMD7mmcBJaDT8FPgMWC+DR
-	 VmwclqxLN/Arnb94caQzYVJ27tN0FkECNnf70p7r3lIQxxIrD61bS6wM2lD6zXzS/N
-	 vLOtH15Ah2Gmg==
+	b=RDY6HbnyXjQoLmyZkPm2+mfwJkco58naAILC2MDsbzt8IB2BnM4aEJpsbbW2pduBX
+	 21ZMwTJ8AfcHxqWxb4J7ZATNPL9Ss8xlSIT6z8KTcIqhBGaXRwXFQ0WzhJooNcl7YR
+	 qGTkMfmkHWaKjJZWOOnytMB9nEJJQidfqAiQnOvIdAOBU2pmxXrQijAP2h3RlKjWc5
+	 buNtXfsalOzE9fNZ8KnBaBnHY2Y4qZuWHlPgDjjlHc4euscoADPu8ZEzY6Wv6h1B37
+	 fX/r6H2BUykYWFiXVOKYgFCpCLlrH3VLQkFPZQwSamjuQE5hV+VNpo6+FOHS7r3zRu
+	 TBRL+UCzQyprg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -62,16 +61,16 @@ Cc: Kees Cook <kees@kernel.org>,
 	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	xen-devel@lists.xenproject.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 5.10 5/6] xen/mcelog: Add __nonstring annotations for unterminated strings
-Date: Mon, 31 Mar 2025 10:37:07 -0400
-Message-Id: <20250331143710.1686600-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 4/5] xen/mcelog: Add __nonstring annotations for unterminated strings
+Date: Mon, 31 Mar 2025 10:37:25 -0400
+Message-Id: <20250331143728.1686696-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250331143710.1686600-1-sashal@kernel.org>
-References: <20250331143710.1686600-1-sashal@kernel.org>
+In-Reply-To: <20250331143728.1686696-1-sashal@kernel.org>
+References: <20250331143728.1686696-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.10.235
+X-stable-base: Linux 5.4.291
 Content-Transfer-Encoding: 8bit
 
 From: Kees Cook <kees@kernel.org>
@@ -99,10 +98,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/include/xen/interface/xen-mca.h b/include/xen/interface/xen-mca.h
-index 7483a78d24251..20a3b320d1a58 100644
+index 73a4ea714d937..5db6116cd042c 100644
 --- a/include/xen/interface/xen-mca.h
 +++ b/include/xen/interface/xen-mca.h
-@@ -371,7 +371,7 @@ struct xen_mce {
+@@ -365,7 +365,7 @@ struct xen_mce {
  #define XEN_MCE_LOG_LEN 32
  
  struct xen_mce_log {
