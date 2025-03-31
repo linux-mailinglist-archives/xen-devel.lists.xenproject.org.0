@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B266A76716
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 15:47:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.932518.1334627 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC8AA76723
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 15:53:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.932531.1334636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzFUJ-0003gO-V3; Mon, 31 Mar 2025 13:47:39 +0000
+	id 1tzFa4-0006cd-Hx; Mon, 31 Mar 2025 13:53:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 932518.1334627; Mon, 31 Mar 2025 13:47:39 +0000
+Received: by outflank-mailman (output) from mailman id 932531.1334636; Mon, 31 Mar 2025 13:53:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzFUJ-0003ew-Ro; Mon, 31 Mar 2025 13:47:39 +0000
-Received: by outflank-mailman (input) for mailman id 932518;
- Mon, 31 Mar 2025 13:47:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qpMN=WS=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1tzFUI-0003el-KI
- for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 13:47:38 +0000
-Received: from fout-a2-smtp.messagingengine.com
- (fout-a2-smtp.messagingengine.com [103.168.172.145])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b422a85b-0e36-11f0-9ea7-5ba50f476ded;
- Mon, 31 Mar 2025 15:47:37 +0200 (CEST)
-Received: from phl-compute-04.internal (phl-compute-04.phl.internal
- [10.202.2.44])
- by mailfout.phl.internal (Postfix) with ESMTP id D33881384427;
- Mon, 31 Mar 2025 09:47:35 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-04.internal (MEProxy); Mon, 31 Mar 2025 09:47:35 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 31 Mar 2025 09:47:34 -0400 (EDT)
+	id 1tzFa4-0006a2-FK; Mon, 31 Mar 2025 13:53:36 +0000
+Received: by outflank-mailman (input) for mailman id 932531;
+ Mon, 31 Mar 2025 13:53:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=AhU9=WS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tzFa3-0006Zw-DO
+ for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 13:53:35 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 88cc5b7f-0e37-11f0-9ffb-bf95429c2676;
+ Mon, 31 Mar 2025 15:53:33 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3914a5def6bso2508563f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 31 Mar 2025 06:53:33 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c0b658ab2sm11480760f8f.15.2025.03.31.06.53.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Mar 2025 06:53:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +45,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b422a85b-0e36-11f0-9ea7-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1743428855;
-	 x=1743515255; bh=Ph8eoYDLnFBfOsiI9tRFHRvss0NVnFq52pllNfkSYT8=; b=
-	Chne1J98qukWXil8IsIOPvtXtOuUvuHv1Dl+E1BsL6Yc9QpOlc9aVpB1Ihn4FuJf
-	vA36tgtNdgd7Wl6cpg00vBIwzjnM/Eceal84vG5ske6bGdpg4nQRHDbWw8vLlu/d
-	6R4BxlcXR/fGoSCiWiXAUsUMFr/FR/ZEy2I86ZJcT/uZBPOfW/gEJ9jpm2cqHPK6
-	L7yoDmqicb+RILQisbbud+hJQufJjyu5hmKwVQ/V2kvayYP/CBPjGfMjAQ73+ccd
-	pJrSDbPCA1l99MR6A7QxzvzUJrAltSzS9Lg18cLg9JnUBo44NXD7Syw7NHJDdssM
-	FpcdutLF8YrK0XuD5gW+UA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1743428855; x=1743515255; bh=Ph8eoYDLnFBfOsiI9tRFHRvss0NVnFq52pl
-	lNfkSYT8=; b=GtGwKZpZ9zGfsoMxg5oLWXazHNXRzh5FyfxGjWV2BFu+qAqvCxr
-	NZLSDoV6AZ8sH+ZC4Op1/9QsHP8qvVzoFMhIC9LWP5T9xH7vh51sAtrBab1OFji8
-	I20JGTt4yqMoUpxfw/+CriMYy2wQkFWVGfow+UGyQcBK8RB2aOCoZMz9FBXbL+LJ
-	20UHZAN+9DVcvIy0fQcxpQDcZJryymbtpVfGlTbpJGhmXo3AW8/2dmY0GTn/DfMC
-	LCMRTvehgdFawWNSz+qAkqqesl4Qow0eSbINHfgDglFkDLoqSoGBbeX4pni6WiSn
-	4PSD3OmzgAehJf0bAJjz0RQc+dOqjeM1faA==
-X-ME-Sender: <xms:95zqZ7v4vZbXWydbeNnCkSbqpwJkKxKgKkhDGoZWeNlVpKwbegglaQ>
-    <xme:95zqZ8cFtZqU9q4q0I2o-fgsNScH0MzsuuH3SVEuP_DeoqtglAb3nG0_AQxJNflGb
-    z0deJhKQOUuZA>
-X-ME-Received: <xmr:95zqZ-yXGF_BJrAYV-Fj6XRNLGTzNr3pbwsFvb-EbnaDu-JI3TWccMaHm65IqVq_mEdhp0SeDDdqOgQEp8eGh12l4aftbXPbUQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddukedttdekucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
-    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
-    ggftrfgrthhtvghrnhepveeujeetgeelleetudeuvefhtefgffejvedtvdfgieevheethe
-    elgeeuledvjeevnecuffhomhgrihhnpehgihhtlhgrsgdrtghomhenucevlhhushhtvghr
-    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeeipdhmohgu
-    vgepshhmthhpohhuthdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghith
-    hrihigrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdho
-    rhhgpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtg
-    htrdhorhhgpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphht
-    thhopegtrghrughovgestggrrhguohgvrdgtohhmpdhrtghpthhtoheprhhoghgvrhdrph
-    gruhestghithhrihigrdgtohhm
-X-ME-Proxy: <xmx:95zqZ6MjapCWqYXseM2cnngpGefLyfRVXpLSiQLsIznNVf9XJxomIA>
-    <xmx:95zqZ79ivUmFvM92qawNssUEaxEb-t0Z4eSxMvJqrwz_Gmin-umG_g>
-    <xmx:95zqZ6VBVbfwWN_FReX5dmIcQIckxg36RyhVU3Sw1d3-GTU13gpnbw>
-    <xmx:95zqZ8fCALXScu_IFY9ZfnQ7GCDO4q7MdbdlxVSb5uyIbMiKKTcA7g>
-    <xmx:95zqZ7wCV0KaN-AyFQwhbOLimR0OTwC-AVgEFv0CpxSmu9SYe5oEMcLF>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 31 Mar 2025 15:47:32 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [PATCH] ci: add yet another HW runner
-Message-ID: <Z-qc9Cw5xQq1m4tw@mail-itl>
-References: <20250314030628.96166-1-marmarek@invisiblethingslab.com>
- <alpine.DEB.2.22.394.2503141417540.3477110@ubuntu-linux-20-04-desktop>
- <Z-qVyLPnEllLKR7B@mail-itl>
- <655f5f07-ebbb-46ca-9c56-e7ad4c6e5cdd@citrix.com>
+X-Inumbo-ID: 88cc5b7f-0e37-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1743429212; x=1744034012; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=O5gfNlu1e3BmgxSnfDwX3uM9INrfHXH4hzogVViSJQI=;
+        b=JMSC42Oo8RdjJokhQ5ODrJUfRb3/OEovGmQWfyrvA89JL59nMp7eMDvncqrc2vsQ/E
+         Y0WCfOpe9zHJU4ADXwdvV/+Li9QbAa6u84k4qSk+2oXJ9Pd+3a3v8flFNytqwYiQlKYD
+         CqtR4hGGTdonM7DzGOH8bhkrp6Bot2yHQ2NvkjkEG0TAtP2dX+e0uDzRNK8UKxXiyl0K
+         5nCto95s74/ohCfc06qGLGM0BNvmuti4WUTgmMRGgt2Vy94z59zoDsdzSpBHxkD4Xtsm
+         SQXqz9bZJuzPrA3U1lz3nyCOqTdR934wJe2GSqK0+MoNV9G2uimkmREtu2tdTLwU5E4K
+         cEkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743429212; x=1744034012;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=O5gfNlu1e3BmgxSnfDwX3uM9INrfHXH4hzogVViSJQI=;
+        b=IkAiaTd3MM/hOuVljvCjW4B2TbTi1x7PE9CSFrvBbcutTPsv7yi9LpcQopc6u1gOmV
+         k7NxDuchut9RT9foZCunMeA1y4d8ZA2gS2DMBLxlTPnYa47lXHvjZnXek8u48KnasE6u
+         u+4nZB7IR/xEKJb+6eyRnbESL/viCf2hgmMejSOyAcfrx6iRuQR+hyb9TaTbiS8HoIxF
+         azEx6k9iltqIk+CLeGACFmGGaKQNIoHF8I0gQJxRr7AbNy+M0rMO865hRTb+CTY5MEJU
+         UkfUBuc7FHxuOfgoGiGap2StelXZV+kvNvpxmU7g8aWA9833KSInUasTjnwfp8z5ZDzn
+         gAjA==
+X-Forwarded-Encrypted: i=1; AJvYcCUkfcU1DSALydmbyYuO74y/IToVfApzlmbIHcmq48CDTbpyMwaoSjpWTJZ15WRYFkFzYpvJTqU9/+Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx6MGC1X92AfdzEAo6ZyOmOlwsUDdi37ENe+XKixWbsPRO+c4fZ
+	s24m5Q3qaDjush01+EQkVg4MuGDgun/0B9rCrPH1fPaelo780kG6YHYG3HC++A==
+X-Gm-Gg: ASbGncv4JxlNjkng0yI7+swmJHKomSBcMIWQnMmScmCixUTsdNN9ef2GzWQviDphR3d
+	CCKd4murEarxfp0Bx/2DoBpClp8HbeaoX8dye6tO7WRnbmfIzVW1qI/0SCMPlvNbRCDU0UIvThR
+	Wj1D5IADvRWynmXMTw2j1GWBIH++JSUDr/YHkvkC5tjuU0gDqsZLxXutTEyIt2bOyi+he2ucJFY
+	u0V5oOinQIw8XQZDmuDLfygbBbOzuiTCF5AK3OzsmD4zP6pUZjOOF0v7Nm8zMucDnBN3mh5lCmX
+	YHWcqV4+WH1YfhE3r4FbhCgb0uYf6SEY4tS5YwpLxglP9pvQHlltY/ryIRlR/9wPnXc113zrYNf
+	lGYkWQfgh/FB8HagOAWb4gYqOZfuoDA==
+X-Google-Smtp-Source: AGHT+IHbesReDlu0gp/qqhuF0xHwdwmMc1o7POcd9sh8Vflo293OrLez1+OP4KA/rghmZHqw0yoElA==
+X-Received: by 2002:a05:6000:1446:b0:38f:5057:5810 with SMTP id ffacd0b85a97d-39c120e3231mr7275243f8f.25.1743429212605;
+        Mon, 31 Mar 2025 06:53:32 -0700 (PDT)
+Message-ID: <4f2fbb41-e807-47f2-b8d1-0b44d4cfcdc8@suse.com>
+Date: Mon, 31 Mar 2025 15:53:31 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Wy1CuuroPgg+0/xb"
-Content-Disposition: inline
-In-Reply-To: <655f5f07-ebbb-46ca-9c56-e7ad4c6e5cdd@citrix.com>
-
-
---Wy1CuuroPgg+0/xb
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Mar 2025 15:47:32 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 07/16] xen/arch: Switch to new byteorder infrastructure
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [PATCH] ci: add yet another HW runner
+Cc: Lin Liu <lin.liu@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250328134427.874848-1-andrew.cooper3@citrix.com>
+ <20250328134427.874848-8-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250328134427.874848-8-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Mar 31, 2025 at 02:45:05PM +0100, Andrew Cooper wrote:
-> On 31/03/2025 2:16 pm, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Fri, Mar 14, 2025 at 02:19:19PM -0700, Stefano Stabellini wrote:
-> >> On Fri, 14 Mar 2025, Marek Marczykowski-G=C3=B3recki wrote:
-> >>> This is AMD Zen2 (Ryzen 5 4500U specifically), in a HP Probook 445 G7.
-> >>>
-> >>> This one has working S3, so add a test for it here.
-> >>>
-> >>> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethi=
-ngslab.com>
-> >>> ---
-> >>> Cc: Jan Beulich <jbeulich@suse.com>
-> >>> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> >>>
-> >>> The suspend test added here currently fails on staging[1], but passes=
- on
-> >>> staging-4.19[2]. So the regression wants fixing before committing this
-> >>> patch.
-> >> We could commit the patch now without the s3 test.
-> >>
-> >> I don't know what the x86 maintainers think about fixing the suspend
-> >> bug, but one idea would be to run a bisection between 4.20 and 4.19.
-> > This passes on staging now:
-> > https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/17446827=
-89
-> >
-> > So, the patch is good to commit as is.
->=20
-> adl and zen3p both have SUT_ADDR.=C2=A0 zen2 inherits test-2.testnet from=
- adl.
->=20
-> Presumably it wants to be test-1.testnet to match it's qubes-hw tag ?
+On 28.03.2025 14:44, Andrew Cooper wrote:
+> From: Lin Liu <lin.liu@citrix.com>
+> 
+> This needs to be done in several steps, because of common vs arch issues.
+> Start by using the new common infastructure inside the arch infrastructure.
+> 
+> libelf-private.h is awkward, and the only thing in Xen using swabXX()
+> directly.  It needs updating at the same time.
+> 
+> Signed-off-by: Lin Liu <lin.liu@citrix.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Indeed, yes. Right now it's used only for "tools-tests", not added for
-this runner, but it wants to be consistent anyway.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
 
---Wy1CuuroPgg+0/xb
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmfqnPQACgkQ24/THMrX
-1yxKDwf/XpWOs3ZUurIfiLdGPSZSDealj9rkz/8mzutsKXlXXOg2DGUUIa1xJ8Lo
-u55Z9MrL6VWtM5DZbauclGL/KWwVwN7GnNZeTKQOeUZZ/eu/M9hUiBwQVV7ROt3r
-HKQZk8GiHcxQNDMIb0mfOoYxaW1pCr72TYJ/nETsHWpZvM22rHmzsUymeNskw/Kt
-kRyJwvCntx0857B2bYFKrIDy0E/btUu9iaLU2Vz9q1kwZUdiiImvwj8IuChA/7/G
-zEfrLhTzAXtDmd9ybgN7tfQ910VvXcooSYQYV7lbD0Mx0jt8KtLwd8KnBqOFhHsl
-kRDHddDrNJ9koyMzpUje+i0xLwNzLg==
-=Cy+q
------END PGP SIGNATURE-----
-
---Wy1CuuroPgg+0/xb--
 
