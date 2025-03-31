@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8675A768B9
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 16:52:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.932724.1334809 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1E6CA769EE
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Mar 2025 17:20:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.932762.1334820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzGV9-00055e-78; Mon, 31 Mar 2025 14:52:35 +0000
+	id 1tzGw1-0003Rt-9W; Mon, 31 Mar 2025 15:20:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 932724.1334809; Mon, 31 Mar 2025 14:52:35 +0000
+Received: by outflank-mailman (output) from mailman id 932762.1334820; Mon, 31 Mar 2025 15:20:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzGV9-00053W-41; Mon, 31 Mar 2025 14:52:35 +0000
-Received: by outflank-mailman (input) for mailman id 932724;
- Mon, 31 Mar 2025 14:52:33 +0000
+	id 1tzGw1-0003Pp-6O; Mon, 31 Mar 2025 15:20:21 +0000
+Received: by outflank-mailman (input) for mailman id 932762;
+ Mon, 31 Mar 2025 15:20:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Kof6=WS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tzGV7-00053Q-4x
- for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 14:52:33 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1tzGw0-0003Pj-Qa
+ for xen-devel@lists.xenproject.org; Mon, 31 Mar 2025 15:20:20 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c565c32c-0e3f-11f0-9ffb-bf95429c2676;
- Mon, 31 Mar 2025 16:52:30 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5e5e8274a74so7240396a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 31 Mar 2025 07:52:31 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ id a77c73fb-0e43-11f0-9ffb-bf95429c2676;
+ Mon, 31 Mar 2025 17:20:18 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ac25520a289so770652966b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 31 Mar 2025 08:20:18 -0700 (PDT)
+Received: from fedora.. (user-109-243-64-225.play-internet.pl.
  [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac71961f8f0sm633929666b.95.2025.03.31.07.52.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Mar 2025 07:52:29 -0700 (PDT)
+ a640c23a62f3a-ac71922ba6fsm644280266b.19.2025.03.31.08.20.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 31 Mar 2025 08:20:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,238 +45,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c565c32c-0e3f-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: a77c73fb-0e43-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743432750; x=1744037550; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=56j89lkfPfxSdGbzQRzqFqwelwa8evuVeQi8eK4fRqA=;
-        b=hNzi5PGYm5HRzAos8Yr6o9uC20OslZP/nZKWw2+Cq0dqPhm5v7Gs7lqH6jU7u/6J0J
-         1FllGhAWaYSHvlVTN5SnFHy9NPWKJqo0FdEa/MK/ynyj8kGfC34BbCkK/3k0OGn7XVY6
-         efeYlRD0CUng50tL8VWAgR/YSB7oEh0caZmQ6UbjyD7lfiR+z43PwHnSktrZNhqFT8eN
-         ZZTT2ylxIv8Fki08KeVRF+KFDwtEIzb+CPlyWAObcHPYQZeQSRxXEkv90bpwlN627iER
-         3xhQPgIEQ8z2ZSJLIECy+Xr8o7tG6u8PCMMRreV8HrBYkD8NzgVtdxwSEHgngWqCy8uZ
-         CfRQ==
+        d=gmail.com; s=20230601; t=1743434418; x=1744039218; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=zwhXA6mi12VZ957a91yB9GLetoX262m4MEkEn262YHU=;
+        b=JP/K4ZzFeFXT9Rkcs8/D75jvPlnaDI+KbNu9pcM15s6me2w4KpilqKyRqS7gOBh+qH
+         SGh3mpEFE6hZbu9HYMWyChKGas+l5ARBNlsDANx+UOvBbLXNIw/RLDQORWTtNDoiId1q
+         SRj7tr4fd2F1h8xKJ9Z2QF/4Xq99jdbZ/s6H/bI+FkLgdPBI0hDVAkK+Cp5dQvLXpFap
+         SzGSWeG3wxsGBq8L+KvnQeTk9BX2eQhPPO2E9+V8SIZ1XT1U8OxkJ5fAdsXAWeXB05Bx
+         cJtNc+qX2dBU3YxZ7hyhvq6wVl2e9/bYl83cx+O/p4qGS+taNT6jnzmO+7pCWKrSDUnq
+         hQ+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743432750; x=1744037550;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=56j89lkfPfxSdGbzQRzqFqwelwa8evuVeQi8eK4fRqA=;
-        b=kmUFg15EGZCu3VMOPVmtMIhegGE9pgFxJr0SFKQpfcBODXL9u4a35Uf+F/Jckj09Yr
-         NNn6dyBUDXXaKQ9p31Xetd3EUcY8kqCgWU779o0toPuq56PctIx4+tZajBcKs7/rhoHw
-         h0MPlDLCwcOVuuK1AagegnF33s8oPfwbCSR3xO1g0aNNtsoIFDo3VBGAYEZNFgwFDsdd
-         ZtW2c4t3eiLyVjo8D8OP5fq+FRZbM5+ZGphWsz9A+K4qd9JoJXErfDJYEhDWNNozWVBz
-         hwHmzSgrYeAfFHT9TA6bptLT3sSj6vxxzTxN5akPjSQ2lIh5tDVu+WLR/QFXtzguR/qc
-         oZEQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWUkWh541SOU2Zsx7ZuBeeTcCU2rq68UVmB7kwMba30f9BD37s+4Mcsc+50HsF6u+WG38zvRg4H+5A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yza8Tap9rxrXdIo6dc7sjkws39DAyRIaw8qhDigAcf48wbmeeiw
-	/t6j3PDS/kHHZMXA077iwyTyV+v2Sw4CCoToO/BVXe4i9zXyZoAY
-X-Gm-Gg: ASbGncuzpiexFEabn2WpUa7nsRX3+6coOQB/KgNvp1zMSyqKsOxZKiUT8UUrVN92RSF
-	G1PWi1irRfUPCgQugNcj9ntYclmFZDUZ84+BArNAR8Xtx0AmkNhhmi1YABFLa3sD6fUZDFMoSXE
-	zSnH2FxwMb0CTYQI9ugr3GCso0/fLFajur9X6UZivHCEQjmthl/xzh4p8R0LpvMC4MOXoGClRpl
-	TwpSEhoT4wzFc3Po3jrdhdBG1UiBilxz5yv1j1yl6o1Az3MFLpY+LNC5NCcM8wo82i2y8ZKGw3B
-	j3JoLae3NHJZ7Kkl2nOt14Ojp0Dsknr/ln2+g7qF8+yAjXe56uYns88YSkBVEytrzmVqCpKf7KL
-	0u5Ui7r/JaIm6HzS0ZwlH
-X-Google-Smtp-Source: AGHT+IGiel+6UOkM8sHCVhhK+uGCOL1mG+DNamM7lCeVBXzG7Q+ndfapxQCHRQvG3BGBAvMh4rkRHg==
-X-Received: by 2002:a17:907:2ce4:b0:abf:4da0:28e3 with SMTP id a640c23a62f3a-ac7389bb03amr835434866b.18.1743432750170;
-        Mon, 31 Mar 2025 07:52:30 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------NOEJoo4c3yVrXwBVlKSVL3pd"
-Message-ID: <47abb093-90ed-4661-943f-fa35bcb655c7@gmail.com>
-Date: Mon, 31 Mar 2025 16:52:28 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 15/16] riscv: Remove asm/byteorder.h
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Lin Liu <lin.liu@citrix.com>
-References: <20250328134427.874848-1-andrew.cooper3@citrix.com>
- <20250328134427.874848-16-andrew.cooper3@citrix.com>
-Content-Language: en-US
+        d=1e100.net; s=20230601; t=1743434418; x=1744039218;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zwhXA6mi12VZ957a91yB9GLetoX262m4MEkEn262YHU=;
+        b=u/Ip7JVOGpr8IaCsULcfWxyAiW3nBuaBgU3fR69DxBj+ejEYsBihxCPYRdK6LB3cbD
+         EE/9egcW+wl5Igj/3seDuiROWmQoWkhVW9dqvgcr4WWO32ba2EnkEiJbDrVSvGO6Eu11
+         M121IkkqKrsmbAj/cAvKvbRNkT8gv7YS0duCMlOinXeGskR0mcLG0Voo31Q20N0yKkl3
+         hpdqehNZDy1l3n4s+vuKI3Trbu3qa4oDzHAQHuvj728lgg8z5Wh7xLyIZqfHIWK+Bqyo
+         VPa2Hjwof0xfFHamCf3ZpbjT/7Fnk4Ew9e1h6Wtj+A031PntUqxqIykka5NxOnZQUOTd
+         kDXA==
+X-Gm-Message-State: AOJu0YzsrquseekTOFmsitjBQRAfMTugy6yPCh4/7T55PEahBwEeDEqF
+	SfTDNmaymGzRVWgTEWG2iSApNQbQsAkzFIyHujAW8k02gktvCAxHm2yaZg==
+X-Gm-Gg: ASbGncszTE49jJF7YA0FC+AfXlszRusWxvf6rZrm3iL9KBE3kjR8FLH6zXp+2abfoCL
+	LggE1hVoZEMz+53pYsYfQaF/VTnuGwW9BqUPGGjPT7tN+ir0B0bORJf9k7Fa+Hvte7H6cNYTopI
+	RkgTtej2nbsSP6yjmrjWu+0wWJB2juL6S7y+UEJnTuUd4GyZwwnfg3AmbbTNlCYdcwn/g+XWRug
+	JPidfNugGA1MpFtzBMl4vJ3ywgaS9AjbfLFCWbMM3jqQh+E5uQqrDh51lFJFl2F2FjXWj5LT6nS
+	poLoxHJAja7v6SF9twLKymOzjPriUBRCwPVlA1gJM3non+3NNVZNWyNYUFKEphT83gctQhRK5DP
+	LjX92+sD1RxHrVa/hBff32Vqb
+X-Google-Smtp-Source: AGHT+IHsMJyTYm/ZBPS0YL1Zu9eDazSXmmFEuQTF9HS8IjRJT93hsTHU6CLUwNH1BOZQ757eimQdmg==
+X-Received: by 2002:a17:907:7da7:b0:ac6:ba92:79c9 with SMTP id a640c23a62f3a-ac7389d66e1mr957075966b.18.1743434417932;
+        Mon, 31 Mar 2025 08:20:17 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20250328134427.874848-16-andrew.cooper3@citrix.com>
-
-This is a multi-part message in MIME format.
---------------NOEJoo4c3yVrXwBVlKSVL3pd
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v1] xen/riscv: Increase XEN_VIRT_SIZE
+Date: Mon, 31 Mar 2025 17:20:11 +0200
+Message-ID: <e5fa4219ccf43125e2489cc8c49b4404e6ed22ce.1743434164.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.49.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+A randconfig job failed with the following issue:
+  riscv64-linux-gnu-ld: Xen too large for early-boot assumptions
 
-On 3/28/25 2:44 PM, Andrew Cooper wrote:
-> With the common code moved fully onto xen/byteorder.h, clean up the dregs.
->
-> The use of byteorder.h in io.h appears to have been copy&paste from ARM.  It's
-> not needed, but macros and types are.
->
-> No functional change.
->
-> Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
+The reason is that enabling the UBSAN config increased the size of
+the Xen binary.
 
-Reviewed-by:Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Increase XEN_VIRT_SIZE to reserve enough space, allowing both UBSAN
+and GCOV to be enabled together, with some slack for future growth.
 
-Thanks.
-
-~ Oleksii
-
-> ---
-> CC: Anthony PERARD<anthony.perard@vates.tech>
-> CC: Michal Orzel<michal.orzel@amd.com>
-> CC: Jan Beulich<jbeulich@suse.com>
-> CC: Julien Grall<julien@xen.org>
-> CC: Roger Pau Monné<roger.pau@citrix.com>
-> CC: Stefano Stabellini<sstabellini@kernel.org>
-> CC: Volodymyr Babchuk<Volodymyr_Babchuk@epam.com>
-> CC: Bertrand Marquis<bertrand.marquis@arm.com>
-> CC: Shawn Anastasio<sanastasio@raptorengineering.com>
-> CC: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-> CC: Daniel P. Smith<dpsmith@apertussolutions.com>
-> CC: Lin Liu<lin.liu@citrix.com>
->
-> v5:
->   * New
-> ---
->   xen/arch/riscv/include/asm/byteorder.h | 14 --------------
->   xen/arch/riscv/include/asm/io.h        |  3 ++-
->   2 files changed, 2 insertions(+), 15 deletions(-)
->   delete mode 100644 xen/arch/riscv/include/asm/byteorder.h
->
-> diff --git a/xen/arch/riscv/include/asm/byteorder.h b/xen/arch/riscv/include/asm/byteorder.h
-> deleted file mode 100644
-> index a32bca02df38..000000000000
-> --- a/xen/arch/riscv/include/asm/byteorder.h
-> +++ /dev/null
-> @@ -1,14 +0,0 @@
-> -#ifndef ASM__RISCV__BYTEORDER_H
-> -#define ASM__RISCV__BYTEORDER_H
-> -
-> -#include <xen/byteorder.h>
-> -
-> -#endif /* ASM__RISCV__BYTEORDER_H */
-> -/*
-> - * Local variables:
-> - * mode: C
-> - * c-file-style: "BSD"
-> - * c-basic-offset: 4
-> - * indent-tabs-mode: nil
-> - * End:
-> - */
-> diff --git a/xen/arch/riscv/include/asm/io.h b/xen/arch/riscv/include/asm/io.h
-> index 55f329dde321..8bab4ffa0390 100644
-> --- a/xen/arch/riscv/include/asm/io.h
-> +++ b/xen/arch/riscv/include/asm/io.h
-> @@ -38,7 +38,8 @@
->   #ifndef ASM__RISCV__IO_H
->   #define ASM__RISCV__IO_H
->   
-> -#include <asm/byteorder.h>
-> +#include <xen/macros.h>
-> +#include <xen/types.h>
->   
->   /*
->    * The RISC-V ISA doesn't yet specify how to query or modify PMAs, so we can't
---------------NOEJoo4c3yVrXwBVlKSVL3pd
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 3/28/25 2:44 PM, Andrew Cooper
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20250328134427.874848-16-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">With the common code moved fully onto xen/byteorder.h, clean up the dregs.
-
-The use of byteorder.h in io.h appears to have been copy&amp;paste from ARM.  It's
-not needed, but macros and types are.
-
-No functional change.
-
-Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a></pre>
-    </blockquote>
-    <pre>Reviewed-by: <span style="white-space: pre-wrap">Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-</span></pre>
-    <pre><span style="white-space: pre-wrap">Thanks.</span></pre>
-    <pre><span style="white-space: pre-wrap">~ Oleksii</span></pre>
-    <blockquote type="cite"
-      cite="mid:20250328134427.874848-16-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-CC: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
-CC: Michal Orzel <a class="moz-txt-link-rfc2396E" href="mailto:michal.orzel@amd.com">&lt;michal.orzel@amd.com&gt;</a>
-CC: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
-CC: Julien Grall <a class="moz-txt-link-rfc2396E" href="mailto:julien@xen.org">&lt;julien@xen.org&gt;</a>
-CC: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
-CC: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a>
-CC: Volodymyr Babchuk <a class="moz-txt-link-rfc2396E" href="mailto:Volodymyr_Babchuk@epam.com">&lt;Volodymyr_Babchuk@epam.com&gt;</a>
-CC: Bertrand Marquis <a class="moz-txt-link-rfc2396E" href="mailto:bertrand.marquis@arm.com">&lt;bertrand.marquis@arm.com&gt;</a>
-CC: Shawn Anastasio <a class="moz-txt-link-rfc2396E" href="mailto:sanastasio@raptorengineering.com">&lt;sanastasio@raptorengineering.com&gt;</a>
-CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-CC: Daniel P. Smith <a class="moz-txt-link-rfc2396E" href="mailto:dpsmith@apertussolutions.com">&lt;dpsmith@apertussolutions.com&gt;</a>
-CC: Lin Liu <a class="moz-txt-link-rfc2396E" href="mailto:lin.liu@citrix.com">&lt;lin.liu@citrix.com&gt;</a>
+ xen/arch/riscv/include/asm/config.h |  8 ++++----
+ xen/arch/riscv/include/asm/mm.h     | 12 +++++++++---
+ xen/arch/riscv/mm.c                 | 11 ++++++-----
+ 3 files changed, 19 insertions(+), 12 deletions(-)
 
-v5:
- * New
----
- xen/arch/riscv/include/asm/byteorder.h | 14 --------------
- xen/arch/riscv/include/asm/io.h        |  3 ++-
- 2 files changed, 2 insertions(+), 15 deletions(-)
- delete mode 100644 xen/arch/riscv/include/asm/byteorder.h
-
-diff --git a/xen/arch/riscv/include/asm/byteorder.h b/xen/arch/riscv/include/asm/byteorder.h
-deleted file mode 100644
-index a32bca02df38..000000000000
---- a/xen/arch/riscv/include/asm/byteorder.h
-+++ /dev/null
-@@ -1,14 +0,0 @@
--#ifndef ASM__RISCV__BYTEORDER_H
--#define ASM__RISCV__BYTEORDER_H
--
--#include &lt;xen/byteorder.h&gt;
--
--#endif /* ASM__RISCV__BYTEORDER_H */
--/*
-- * Local variables:
-- * mode: C
-- * c-file-style: "BSD"
-- * c-basic-offset: 4
-- * indent-tabs-mode: nil
-- * End:
-- */
-diff --git a/xen/arch/riscv/include/asm/io.h b/xen/arch/riscv/include/asm/io.h
-index 55f329dde321..8bab4ffa0390 100644
---- a/xen/arch/riscv/include/asm/io.h
-+++ b/xen/arch/riscv/include/asm/io.h
-@@ -38,7 +38,8 @@
- #ifndef ASM__RISCV__IO_H
- #define ASM__RISCV__IO_H
+diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
+index 7141bd9e46..ec73f436e3 100644
+--- a/xen/arch/riscv/include/asm/config.h
++++ b/xen/arch/riscv/include/asm/config.h
+@@ -41,11 +41,11 @@
+  * Start addr          | End addr         | Slot       | area description
+  * ============================================================================
+  *                   .....                 L2 511          Unused
+- *  0xffffffffc0a00000  0xffffffffc0bfffff L2 511          Fixmap
++ *  0xffffffffc1000000  0xffffffffc11fffff L2 511          Fixmap
+  *                   ..... ( 2 MB gap )
+- *  0xffffffffc0400000  0xffffffffc07fffff L2 511          FDT
++ *  0xffffffffc0a00000  0xffffffffc0dfffff L2 511          FDT
+  *                   ..... ( 2 MB gap )
+- *  0xffffffffc0000000  0xffffffffc01fffff L2 511          Xen
++ *  0xffffffffc0000000  0xffffffffc07fffff L2 511          Xen
+  *                   .....                 L2 510          Unused
+  *  0x3200000000        0x7f7fffffff       L2 200-509      Direct map
+  *                   .....                 L2 199          Unused
+@@ -78,7 +78,7 @@
  
--#include &lt;asm/byteorder.h&gt;
-+#include &lt;xen/macros.h&gt;
-+#include &lt;xen/types.h&gt;
+ #define GAP_SIZE                MB(2)
+ 
+-#define XEN_VIRT_SIZE           MB(2)
++#define XEN_VIRT_SIZE           MB(8)
+ 
+ #define BOOT_FDT_VIRT_START     (XEN_VIRT_START + XEN_VIRT_SIZE + GAP_SIZE)
+ #define BOOT_FDT_VIRT_SIZE      MB(4)
+diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
+index 4035cd400a..822c21e02a 100644
+--- a/xen/arch/riscv/include/asm/mm.h
++++ b/xen/arch/riscv/include/asm/mm.h
+@@ -43,13 +43,19 @@ static inline void *maddr_to_virt(paddr_t ma)
+  */
+ static inline unsigned long virt_to_maddr(unsigned long va)
+ {
++    const unsigned int vpn1_shift = PAGETABLE_ORDER + PAGE_SHIFT;
++    const unsigned long va_vpn = va >> vpn1_shift;
++    const unsigned long xen_virt_starn_vpn =
++        _AC(XEN_VIRT_START, UL) >> vpn1_shift;
++    const unsigned long xen_virt_end_vpn =
++        xen_virt_starn_vpn + ((XEN_VIRT_SIZE >> vpn1_shift) - 1);
++
+     if ((va >= DIRECTMAP_VIRT_START) &&
+         (va <= DIRECTMAP_VIRT_END))
+         return directmapoff_to_maddr(va - directmap_virt_start);
+ 
+-    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
+-    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
+-           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
++    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(8));
++    ASSERT((va_vpn >= xen_virt_starn_vpn) && (va_vpn <= xen_virt_end_vpn));
+ 
+     /* phys_offset = load_start - XEN_VIRT_START */
+     return phys_offset + va;
+diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
+index f2bf279bac..dfa86738f2 100644
+--- a/xen/arch/riscv/mm.c
++++ b/xen/arch/riscv/mm.c
+@@ -31,20 +31,21 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
+ #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
  
  /*
-  * The RISC-V ISA doesn't yet specify how to query or modify PMAs, so we can't
-</pre>
-    </blockquote>
-  </body>
-</html>
+- * It is expected that Xen won't be more then 2 MB.
++ * It is expected that Xen won't be more then 8 MB.
+  * The check in xen.lds.S guarantees that.
+- * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
++ * At least 6 page tables (in case of Sv39) are needed to cover 8 MB.
+  * One for each page level table with PAGE_SIZE = 4 Kb.
+  *
+- * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
++ * Four L0 page table can cover 8 MB(512 entries of
++ * one page table * PAGE_SIZE).
+  *
+  * It might be needed one more page table in case when Xen load address
+  * isn't 2 MB aligned.
+  *
+- * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
++ * (CONFIG_PAGING_LEVELS + 2) page tables are needed for the identity mapping,
+  * except that the root page table is shared with the initial mapping
+  */
+-#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2 + 1)
++#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS + 2) * 2 + 1)
+ 
+ pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+ stage1_pgtbl_root[PAGETABLE_ENTRIES];
+-- 
+2.49.0
 
---------------NOEJoo4c3yVrXwBVlKSVL3pd--
 
