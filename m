@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A542A77BD3
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 15:14:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.934262.1336029 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C350AA77BE4
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 15:19:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.934279.1336039 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzbRH-0001Gv-98; Tue, 01 Apr 2025 13:13:59 +0000
+	id 1tzbWA-0001sl-Sp; Tue, 01 Apr 2025 13:19:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 934262.1336029; Tue, 01 Apr 2025 13:13:59 +0000
+Received: by outflank-mailman (output) from mailman id 934279.1336039; Tue, 01 Apr 2025 13:19:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzbRH-0001ES-6H; Tue, 01 Apr 2025 13:13:59 +0000
-Received: by outflank-mailman (input) for mailman id 934262;
- Tue, 01 Apr 2025 13:13:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tzbWA-0001pw-Or; Tue, 01 Apr 2025 13:19:02 +0000
+Received: by outflank-mailman (input) for mailman id 934279;
+ Tue, 01 Apr 2025 13:19:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WxAi=WT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzbRF-0001ED-N0
- for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 13:13:57 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 295648e5-0efb-11f0-9ffb-bf95429c2676;
- Tue, 01 Apr 2025 15:13:54 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43cf05f0c3eso37073875e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 06:13:54 -0700 (PDT)
+ id 1tzbW9-0001pq-2z
+ for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 13:19:01 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id df3f5209-0efb-11f0-9ea7-5ba50f476ded;
+ Tue, 01 Apr 2025 15:18:59 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-4393dc02b78so36008585e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 06:18:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b658b7bsm13918170f8f.20.2025.04.01.06.13.52
+ ffacd0b85a97d-39c0b665707sm14392394f8f.38.2025.04.01.06.18.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Apr 2025 06:13:53 -0700 (PDT)
+ Tue, 01 Apr 2025 06:18:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 295648e5-0efb-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: df3f5209-0efb-11f0-9ea7-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743513234; x=1744118034; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743513539; x=1744118339; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=k2aOFrJeLChF3MlqRq3WH4VJ3NAOi+R+dVtjMisS9nE=;
-        b=dA8dWoI2c4xAtzFS5QefN0eXPutUl22Py5/as/FNAbcQasRVckvmS29pM8ypDBpOSg
-         qzSoffk6zVPL+ZomOWL8Ut6ExpsjhKT+lkaBr/5LvrigaSyVRf5tQ28zw3HqsXhJBM6U
-         l3iBcCGrY5l7M3MwfPaJG0iSG4HeFzfbL4MKigbpnCzTDZvxrP3EBAMMYoEXQGeorS6A
-         LDb8wFtYs8T/LG0GpBzlQpbfv6bF2wBKSaoPEj3Hmcluz0+Cjx5ltJyDwa9PRFUXIKTD
-         G1yjU2Ke0wJf4damYa6JvjEf1e4pKJB/sV4ekhXrpDuFrLDf/VDGe/IEOPfJk/MI2iLF
-         /1Jw==
+        bh=zMmEMEWdVmIruzzY6wmLLgf8ZzpH2/FIAZvu1Yd2zeQ=;
+        b=J7Ol4bkLLb+5WgAcWq1yXKNT657ix8mDN+Qx4PNTBuJQkZl+RN7pDBZKfc9kJ8zdpX
+         sKEGcAxgBAWzmVZzPIlJa1fM1ReUx+9iMd+usvEAxb80NFSgq7Lpfb/V6LClFYnksqmT
+         2OAbvws+Byg+VdAo+svRsQP98YsdnHjnu8bAJsGnBBy2FnZPQsSvSPyFdLTomE5Yxqqk
+         W+wLSZ9DQnX0uuHUWKgRMa1vPLx9eQMsgWY/ZscYkCz/ZatkmBx5zJW07DelHVcpDQuv
+         zyHThnrFOe4C9qEee5FlgDYptgP9Pki0QcbNNDlzVWR3qFrVj+ktyLDKH2nTLkuBhIdX
+         TE1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743513234; x=1744118034;
+        d=1e100.net; s=20230601; t=1743513539; x=1744118339;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=k2aOFrJeLChF3MlqRq3WH4VJ3NAOi+R+dVtjMisS9nE=;
-        b=olWLE6VoVCH/noFZO3A14+t7jvFFmgymhYQayuhTBlyDeuSBbNrvFywJq5yx96349d
-         eSSKWSi5q5v58BdSCM0siGDKRZiZbjrl1vALfYmHCllGLXKM9xzFrdNhkusemlboTqdp
-         LBV4HLIu0GbB2yf+4BgrmClLWlt5FEYe05yF/hdlrVXSoHr6PDMGdRPf/huCVxEUJqAm
-         oxs3I9AE7b8XmXwtbVU06gQ2JlSwr/tgdFje8fPf+21OB/fvMlrMsTAYAYi7Siwln7Wn
-         JrV83fbLQxsdKbybsNVayK480cVqBn1KDwSXWiME/jfz82gdn1aYgR41+EiGDwZQ/yfh
-         M+eA==
-X-Forwarded-Encrypted: i=1; AJvYcCXG5SglfhsRdtVWr7HkG62EwmFy2ocrWTpI5EUcC2wThIs03FkBghXAGWvsDWOmTr3rNEDDoEcig/I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxjXrAHOAWS3Lxb1ugvVaMW//orI303AtJmJPHwnaTU18WgPhlT
-	yttUx7CfLsC4uC/5zsF4PpdVtIf3ZAfdCJ64mo2CkQ+qCx/88NC0/VTzpGODYQ==
-X-Gm-Gg: ASbGncsk2LxXDMJzWdobwj8uHET294BvAFtOYoepLbbh2rM72GQzp8reJ+1fw3MJG62
-	Fic9utLR92cvi6qwXH0rht5szs9fBjN+M6cVjTuKA69BOcUrMxxfncXSuqB/1k+sEWEstR7zVxe
-	uInl+jJjbhNWi1FiTab1RmNfuZKpqtDEigYKq8ZK2prTfxmrachBT0tnP9SfW5omBeE83Rico9H
-	IkLeuZAOJXn66epi6T176nfXb+fs55xOswH/hVPhvfo1Xp/MfC9D4rlBEPCFba6VYAAMZ+S9YZy
-	1OipTchGLJEWZ3t1EGvrHU6clvYfCxDazRGHaHu6L9xRdYqNnbmz+z9Symd0QUnpmj1MY+F3wc+
-	qQb6Atjemgvo0A8Q3i3BiLJyBzGDIWA==
-X-Google-Smtp-Source: AGHT+IH2XFvrXrEpvXa4wXWmABZvGl+Rv3rxTfd1HKyfO65pXGtMSlIseu0EGsHlE4ZG1ZOwFrwH2g==
-X-Received: by 2002:a05:600c:45cd:b0:43d:54a:221c with SMTP id 5b1f17b1804b1-43e94a3bccdmr110965595e9.18.1743513233684;
-        Tue, 01 Apr 2025 06:13:53 -0700 (PDT)
-Message-ID: <c686844c-4cb8-43d0-a762-7f93a30f9388@suse.com>
-Date: Tue, 1 Apr 2025 15:13:52 +0200
+        bh=zMmEMEWdVmIruzzY6wmLLgf8ZzpH2/FIAZvu1Yd2zeQ=;
+        b=fpQjRNKaDhA8GmDSSrWaeP0Vt6R8MkWZSz3+svaAq+SxUYJlAX0zBZfcgX32lVjpSU
+         4IK7lUi2InCnL8sGxKF2KI2Q+Qad2oLgIb3HthhcjSAxQyQIpIxd54DGSg/nARHvQTZE
+         2nJwhLJ930hwhELO+Zj/XL30iSlD2kSzqgVUJxCHpJtkYbvNpofWPWzZhwqZ+QGj4ysh
+         tKSu1vsDF0Wgaw7Gufm9nszgtVALcbr1p8Zc+FjsmHRL6j8fmQDvhLfOfGhNCGJTJt5s
+         +M4Hnr0mYqrnAsz3+9+Lpp/SUqxnqgbir5sFGL/scmvLgBrOcpGwQr80RfsTq+bZ83TY
+         9x2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVpL0GHSlx+HWdBqBAi/GXlkl0JsyetTRA0FQn8iN/UiMbfyNc3pxBjpVoax/SMjp/mspbb7iY/BGQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxGG9TRq1BMGm2SwGTJOQQCs+wFoPKH0K+6U56e6l+6WclZ4XoM
+	yOZnhciIvkTc1D8t55fcKwA/MttxWtB7i2DRrK6GGq3hHvSbVj1TVBYxhaeQLQ==
+X-Gm-Gg: ASbGnctG0q0bWxwPbyMmvjuAMEBHswy3TeIgLLtavsE4Tmz4fNIh/KVIaojd+8NzR5x
+	jJwyq61ACzp6THp3lconK8sCIJCuOAhw8rUNJnWyRI9odXJWTOqY/+zUAqJJ4ngpUqz8sQG/cin
+	w+gLpSSR8FyTdtSi4ZQubnuZX5k6/et0FUUtzZhNjpj+3Yq9M4lu7iIPwjxtXpni+lnkrHkPktN
+	L7uWqCquZM0VswHiQZOiMsB2xNOe/sXzMNlAvjpJXLAeuF0ObqXJgfo0mI6yTU4pe6TRB9YK8P8
+	iI8SxKx4RKVwszuImqtM5JtenE2eXBnAUq7X4Xt9yOpIyfLqx8UbyryaD9RJLfd5dD8PYC/X5ug
+	0JmINwfC9t1a93A8VVqBWjEFqBOPXuQ==
+X-Google-Smtp-Source: AGHT+IGLj05hEc00N9mMliVgZTaXvX0aPtfyeV8Lv8IoVr9e8UdbHbCgOJBrG0zSWIdPuVdANFOVmQ==
+X-Received: by 2002:a05:600c:c15:b0:43c:fe90:1279 with SMTP id 5b1f17b1804b1-43ea7cc382amr26149375e9.21.1743513538877;
+        Tue, 01 Apr 2025 06:18:58 -0700 (PDT)
+Message-ID: <9fb343fe-8bbf-4af9-a204-46eef4bd2aac@suse.com>
+Date: Tue, 1 Apr 2025 15:18:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/11] x86/EFI: prevent write-execute sections
+Subject: Re: [PATCH v2 06/11] x86/efi: discard .text.header for PE binary
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20250401130840.72119-1-roger.pau@citrix.com>
+ <20250401130840.72119-7-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,58 +117,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250401130840.72119-1-roger.pau@citrix.com>
+In-Reply-To: <20250401130840.72119-7-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 01.04.2025 15:08, Roger Pau Monne wrote:
-> Hello,
+> The multiboot headers are not consumed in the PE binary, hence discard them
+> in the linker script when doing a PE build.
 > 
-> The following series aim to remove the presence of any write and execute
-> section in the PE Xen image.  This is required to support the NX
-> compatible flag in the PE header.   By the end of the series the
-> resulting PE image has no relocations that apply to text sections, as
-> text sections are strictly mapped read-execute only.  Xen itself
-> attempting to apply relocations to text would result in page-faults.
+> That removes some relocations that otherwise appear due to the usage of the
+> start and __efi64_mb2_start symbols in the multiboot2 header.
 > 
-> A smoke test is added to Gitlab to ensure the PE NX support doesn't
-> regress.
+> No functional change intended.
 > 
-> Only patches 5 and 10 are carried over from v1, the rest are new.
-> 
-> Thanks, Roger.
-> 
-> Roger Pau Monne (11):
->   automation/dockers: add to README how to rebuild all containers
->   x86/mkreloc: fix obtaining PE image base address
->   x86/mkreloc: use the string table to get names
->   x86/mkreloc: print the linear address of relocations to read-only
->     sections
->   xen: remove -N from the linker command line
->   x86/efi: discard .text.header for PE binary
->   x86/efi: discard multiboot related entry code for PE binary
->   x86/boot: place trampoline code in a non-execute section
->   x86/efi: avoid a relocation in efi_arch_post_exit_boot()
->   x86/efi: do not merge all .init sections
->   automation/x86: add a xen.efi test with a strict NX OVMF build
-> 
->  automation/build/README.md                   |  7 ++
->  automation/build/fedora/41-x86_64.dockerfile |  5 ++
->  automation/gitlab-ci/test.yaml               |  9 +++
->  automation/scripts/qemu-smoke-x86-64-efi.sh  | 22 +++++-
->  xen/arch/arm/Makefile                        |  6 +-
->  xen/arch/ppc/Makefile                        |  6 +-
->  xen/arch/riscv/Makefile                      |  6 +-
->  xen/arch/x86/Makefile                        | 12 +--
->  xen/arch/x86/boot/head.S                     |  3 +-
->  xen/arch/x86/efi/efi-boot.h                  |  7 +-
->  xen/arch/x86/efi/mkreloc.c                   | 77 +++++++++++++++++---
->  xen/arch/x86/xen.lds.S                       | 20 +++--
->  12 files changed, 138 insertions(+), 42 deletions(-)
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-From titles and diffstat (all Makefile changes being covered by patch 05)
-it looks like you still don't add passing --nxcompat to the linker. Is
-that intentionally left out here?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+> ---
+> We could also place the multiboot header in it's own isolated section and
+> skip such section for relocations generation in mkreloc, but it seems best
+> to just remove the code if it's unused.
+
+I agree. I'd like to mention that I recall people intending to try to make
+xen.efi usable with an MB loader. Nothing ever came of that, so if anyone
+still wanted to pursue that route, they'd need to undo / redo what you're
+doing here.
 
 Jan
 
