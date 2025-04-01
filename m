@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CFB9A784A7
+	by mail.lfdr.de (Postfix) with ESMTPS id D30CFA784A8
 	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 00:22:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.934832.1336437 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.934837.1336448 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzjzL-0000lw-6c; Tue, 01 Apr 2025 22:21:43 +0000
+	id 1tzjzN-00019e-JO; Tue, 01 Apr 2025 22:21:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 934832.1336437; Tue, 01 Apr 2025 22:21:43 +0000
+Received: by outflank-mailman (output) from mailman id 934837.1336448; Tue, 01 Apr 2025 22:21:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzjzL-0000k1-3H; Tue, 01 Apr 2025 22:21:43 +0000
-Received: by outflank-mailman (input) for mailman id 934832;
- Tue, 01 Apr 2025 22:21:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tzjzN-00014a-Ea; Tue, 01 Apr 2025 22:21:45 +0000
+Received: by outflank-mailman (input) for mailman id 934837;
+ Tue, 01 Apr 2025 22:21:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Dnoa=WT=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1tzjzK-0008FS-10
- for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 22:21:42 +0000
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
- [79.135.106.31]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id af2da4f7-0f47-11f0-9ffb-bf95429c2676;
- Wed, 02 Apr 2025 00:21:40 +0200 (CEST)
+ id 1tzjzL-00080l-Uw
+ for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 22:21:43 +0000
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
+ [109.224.244.18]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id afce6837-0f47-11f0-9ea7-5ba50f476ded;
+ Wed, 02 Apr 2025 00:21:41 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,116 +36,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af2da4f7-0f47-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: afce6837-0f47-11f0-9ea7-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1743546099; x=1743805299;
-	bh=ACi96G57+RpQp/2aY30Q6dbZ1Kg2jsTyScAUQdNS6S8=;
+	s=protonmail; t=1743546101; x=1743805301;
+	bh=EqD5rWQIMtrh3DD6wy+ihv9SumDjFLVceAqq134Fgcw=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=UNRyWTskDvaSWQUDN6iEwtcQEWqV1uQrQMEJTfC+oaLCO/0CJtOLhD1G6XV0R2pZ+
-	 ribt3Q2B5B/6s2eQ0QVZfP8zgB0/FdSrNNE9SaUVodbdOeeHsPXLNLHD5NWsAgvtBD
-	 4EEXyUhOgDfuquVs1g4G/4k/Nvm2Jt7doATALJ74GIn0evs/34H2cL7awHbPZNaxrg
-	 E0exOpP55rLABvY5z8v7w5veaFzB6z8kXJrQtTvCeOCF0DlTtlhgPbZAdb/GUDwOtW
-	 V148eXSvwm7yw9QEQeFmHlo6bDicUusIq/65OHOe3Y3wQ/yHWdhPu0qVFqhSo3usya
-	 role6lyRYHCEg==
-Date: Tue, 01 Apr 2025 22:21:34 +0000
+	b=OFCp6JWZLsruZQqZYzQG685sVK8Y1W7vbv5HWkQsvdRcj7HcPKBBSMAG+UB/Rq6cp
+	 lOhJ3QFex6rxWc7XrLMb5QhzEYJ7eoHFb0LHngGZ3jHs9t14Bxts91jqF06x0TpRBz
+	 408E2pilYM55IJ4yLItxCO+1k+FTihNQPRF2zkUcVgxfMBVgRH7yWzvIXfCtXL8d15
+	 OMOljfHZYtkMN0dGDg1NI7RbjZ+K+991HEiuop6ivv0ijks5HVGEziNESEm4bNz6/K
+	 avfKtSlZSZEl/DLa5tH6PS8vmFbBwwD6AfHN779PsEuLiLl1PaeazkKInUu2H0IVVZ
+	 NrD0S8xywK4pA==
+Date: Tue, 01 Apr 2025 22:21:38 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v1 4/5] x86/vmx: remove *_OPCODE
-Message-ID: <20250401222105.79309-5-dmukhin@ford.com>
+Subject: [PATCH v1 5/5] x86/asm: remove HAVE_AS_CLAC_STAC
+Message-ID: <20250401222105.79309-6-dmukhin@ford.com>
 In-Reply-To: <20250401222105.79309-1-dmukhin@ford.com>
 References: <20250401222105.79309-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: a105727e2157e3c7085f480a753c9f41cb30c15e
+X-Pm-Message-ID: 607f19b039f6ff96dca31464c000dad0932e593e
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 From: Denis Mukhin <dmukhin@ford.com>
 
-Remove all *_OPCODE definitions from vmx.h now that all used
-VMX instructions are natively supported by the baseline compiler.
+The new toolchain baseline knows the STAC/CLAC instructions,
+no need to carry the workaround in the code.
 
-Use vmxon and vmxoff instructions directly.
-Update __vmxon() to account for vmxon use.
-
-Resolves: https://gitlab.com/xen-project/xen/-/work_items/202
+Resolves: https://gitlab.com/xen-project/xen/-/work_items/203
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
- xen/arch/x86/include/asm/hvm/vmx/vmx.h | 34 ++++++--------------------
- 1 file changed, 8 insertions(+), 26 deletions(-)
+ xen/arch/x86/arch.mk                 |  1 -
+ xen/arch/x86/include/asm/asm-defns.h | 10 ----------
+ 2 files changed, 11 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/=
-asm/hvm/vmx/vmx.h
-index 10c0619108..1d63e49288 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-@@ -257,24 +257,6 @@ typedef union cr_access_qual {
- #define X86_SEG_AR_GRANULARITY  (1u << 15) /* 15, granularity */
- #define X86_SEG_AR_SEG_UNUSABLE (1u << 16) /* 16, segment unusable */
+diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
+index 42c3aa73da..e9fa1c92d7 100644
+--- a/xen/arch/x86/arch.mk
++++ b/xen/arch/x86/arch.mk
+@@ -15,7 +15,6 @@ $(call as-option-add,CFLAGS,CC,"rdrand %eax",-DHAVE_AS_RD=
+RAND)
+ $(call as-option-add,CFLAGS,CC,"rdfsbase %rax",-DHAVE_AS_FSGSBASE)
+ $(call as-option-add,CFLAGS,CC,"xsaveopt (%rax)",-DHAVE_AS_XSAVEOPT)
+ $(call as-option-add,CFLAGS,CC,"rdseed %eax",-DHAVE_AS_RDSEED)
+-$(call as-option-add,CFLAGS,CC,"clac",-DHAVE_AS_CLAC_STAC)
+ $(call as-option-add,CFLAGS,CC,"clwb (%rax)",-DHAVE_AS_CLWB)
+ $(call as-option-add,CFLAGS,CC,".equ \"x\"$(comma)1",-DHAVE_AS_QUOTED_SYM)
+ $(call as-option-add,CFLAGS,CC,"invpcid (%rax)$(comma)%rax",-DHAVE_AS_INVP=
+CID)
+diff --git a/xen/arch/x86/include/asm/asm-defns.h b/xen/arch/x86/include/as=
+m/asm-defns.h
+index 32d6b44910..ab653f3218 100644
+--- a/xen/arch/x86/include/asm/asm-defns.h
++++ b/xen/arch/x86/include/asm/asm-defns.h
+@@ -1,15 +1,5 @@
+ #include <asm/page-bits.h>
 =20
--#define VMCALL_OPCODE   ".byte 0x0f,0x01,0xc1\n"
--#define VMCLEAR_OPCODE  ".byte 0x66,0x0f,0xc7\n"        /* reg/opcode: /6 =
-*/
--#define VMLAUNCH_OPCODE ".byte 0x0f,0x01,0xc2\n"
--#define VMPTRLD_OPCODE  ".byte 0x0f,0xc7\n"             /* reg/opcode: /6 =
-*/
--#define VMPTRST_OPCODE  ".byte 0x0f,0xc7\n"             /* reg/opcode: /7 =
-*/
--#define VMREAD_OPCODE   ".byte 0x0f,0x78\n"
--#define VMRESUME_OPCODE ".byte 0x0f,0x01,0xc3\n"
--#define VMWRITE_OPCODE  ".byte 0x0f,0x79\n"
--#define INVEPT_OPCODE   ".byte 0x66,0x0f,0x38,0x80\n"   /* m128,r64/32 */
--#define INVVPID_OPCODE  ".byte 0x66,0x0f,0x38,0x81\n"   /* m128,r64/32 */
--#define VMXOFF_OPCODE   ".byte 0x0f,0x01,0xc4\n"
--#define VMXON_OPCODE    ".byte 0xf3,0x0f,0xc7\n"
+-#ifndef HAVE_AS_CLAC_STAC
+-.macro clac
+-    .byte 0x0f, 0x01, 0xca
+-.endm
 -
--#define MODRM_EAX_08    ".byte 0x08\n" /* ECX, [EAX] */
--#define MODRM_EAX_06    ".byte 0x30\n" /* [EAX], with reg/opcode: /6 */
--#define MODRM_EAX_07    ".byte 0x38\n" /* [EAX], with reg/opcode: /7 */
--#define MODRM_EAX_ECX   ".byte 0xc1\n" /* EAX, ECX */
+-.macro stac
+-    .byte 0x0f, 0x01, 0xcb
+-.endm
+-#endif
 -
- extern uint8_t posted_intr_vector;
-=20
- #define cpu_has_vmx_ept_exec_only_supported        \
-@@ -497,9 +479,7 @@ static inline void vpid_sync_all(void)
-=20
- static inline void __vmxoff(void)
- {
--    asm volatile (
--        VMXOFF_OPCODE
--        : : : "memory" );
-+    asm volatile ("vmxoff" : : : "memory");
- }
-=20
- static inline int __vmxon(u64 addr)
-@@ -507,15 +487,17 @@ static inline int __vmxon(u64 addr)
-     int rc;
-=20
-     asm volatile (=20
--        "1: " VMXON_OPCODE MODRM_EAX_06 "\n"
--        "   setna %b0 ; neg %0\n" /* CF=3D=3D1 or ZF=3D=3D1 --> rc =3D -1 =
-*/
-+        "1: vmxon (%[addr])\n"
-+        "   setna %b[rc]\n"
-+        "   neg %[rc]\n"          /* CF=3D=3D1 or ZF=3D=3D1 --> rc =3D -1 =
-*/
-         "2:\n"
-         ".section .fixup,\"ax\"\n"
--        "3: sub $2,%0 ; jmp 2b\n"    /* #UD or #GP --> rc =3D -2 */
-+        "3: mov $-2, %[rc]\n"
-+        "   jmp 2b\n"             /* #UD   or #GP   --> rc =3D -2 */
-         ".previous\n"
-         _ASM_EXTABLE(1b, 3b)
--        : "=3Dq" (rc)
--        : "0" (0), "a" (&addr)
-+        : [rc] "=3Dq" (rc)
-+        : "0" (0), [addr] "r" (&addr)
-         : "memory");
-=20
-     return rc;
+ .macro vmrun
+     .byte 0x0f, 0x01, 0xd8
+ .endm
 --=20
 2.34.1
 
