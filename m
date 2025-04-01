@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 761A5A7771C
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 11:02:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.933775.1335628 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90F27A77743
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 11:10:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.933790.1335638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzXVU-0000VT-FS; Tue, 01 Apr 2025 09:02:04 +0000
+	id 1tzXcz-0001D2-9Y; Tue, 01 Apr 2025 09:09:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 933775.1335628; Tue, 01 Apr 2025 09:02:04 +0000
+Received: by outflank-mailman (output) from mailman id 933790.1335638; Tue, 01 Apr 2025 09:09:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzXVU-0000Tf-CQ; Tue, 01 Apr 2025 09:02:04 +0000
-Received: by outflank-mailman (input) for mailman id 933775;
- Tue, 01 Apr 2025 09:02:03 +0000
+	id 1tzXcz-0001AQ-6p; Tue, 01 Apr 2025 09:09:49 +0000
+Received: by outflank-mailman (input) for mailman id 933790;
+ Tue, 01 Apr 2025 09:09:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WxAi=WT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzXVT-0000TZ-Ca
- for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 09:02:03 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yHas=WT=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1tzXcx-0001AK-79
+ for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 09:09:47 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060b.outbound.protection.outlook.com
+ [2a01:111:f403:2413::60b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f850c840-0ed7-11f0-9ffb-bf95429c2676;
- Tue, 01 Apr 2025 11:01:59 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-39c1efbefc6so793932f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 02:01:59 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b79e136sm13594597f8f.67.2025.04.01.02.01.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Apr 2025 02:01:58 -0700 (PDT)
+ id 0da11553-0ed9-11f0-9ffb-bf95429c2676;
+ Tue, 01 Apr 2025 11:09:44 +0200 (CEST)
+Received: from BL6PEPF00013E11.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:22e:400:0:1001:0:17) by DS4PR12MB9684.namprd12.prod.outlook.com
+ (2603:10b6:8:281::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Tue, 1 Apr
+ 2025 09:09:41 +0000
+Received: from BN3PEPF0000B069.namprd21.prod.outlook.com
+ (2a01:111:f403:c803::1) by BL6PEPF00013E11.outlook.office365.com
+ (2603:1036:903:4::4) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8583.39 via Frontend Transport; Tue,
+ 1 Apr 2025 09:09:41 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B069.mail.protection.outlook.com (10.167.243.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8632.2 via Frontend Transport; Tue, 1 Apr 2025 09:09:40 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 1 Apr
+ 2025 04:09:39 -0500
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Tue, 1 Apr 2025 04:09:38 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +59,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f850c840-0ed7-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743498119; x=1744102919; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0rh1MlzLcKRGud8Gqy7zKpiAgAmPuaUeoP2Pc6JhElo=;
-        b=fJQWVagiZUwhYfoXARi/6hYBX8vWDtu5opcVCmN0mwyWLRfLh2faByMmctMIgmQb4H
-         BSo/0IQK5uSOti7Ie/z9WsHf3VCr8PBVymdrwbqv9lTe0cGhzmSr4qrQk93nKyYkM/RU
-         mxinB+66Pht9zkKCokT7eNbSIOWTXGtbBMZUJadms5d5IX4ZD10rFbJEkmZe6rLPs2VG
-         EXIyLp6pAHukreKQPFH/P3t6R9ZaF9EbAVCDTSorsrKX6c5UcNIVhjUUv1Fl7+QKs6WP
-         IXCj0ew87uVdXWxpQh93MGSoc/FpoADnPUqwdhg4uF8xOHD7mYRvs37cyZZzGT5W9qo/
-         tNoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743498119; x=1744102919;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0rh1MlzLcKRGud8Gqy7zKpiAgAmPuaUeoP2Pc6JhElo=;
-        b=K5Ii4Pmtd68EZt4ZxWAsM5FCxoyuGbDMuVR2e44NSGZ3TY7YnIJdMlbxg8KgV6Tmgk
-         Lb7cM2+4dGo32ZVAXQsQYt9XmSXgzUmWb8e6+ftwP3fVuiCdBlkvVZAT3UKsTidQtHUl
-         rTJGZcbXnzXQylhmOtQyTMmQRqHAvKpnTlXy1lDMa6gStowZsJJFu+eCdX1WFCbCJ8p0
-         HkvahPOZYezLMXKVLnu6qirdR4pONViIcrVFAHKlW23XIMdF/ScbUEkkIPe+/Z7PNGNQ
-         Ug6WjJka0Lpjwd8/0zI0fNtFT0MsFy/9PCX8N/rdMzHQITRQSfVDgArbRZXpcEqZTNB6
-         SCfA==
-X-Gm-Message-State: AOJu0YzDHZqbIVlH13j0by+ONBYwvuQs2SpK3kNOJL6DqyotdeG5sMUc
-	emlL5aUYBrb4rCbfJQSyNZtfySjI1meLYzlQ3W/Y0OareTZLfMdexxrg/JgwvA==
-X-Gm-Gg: ASbGncs69IrzlAUb1VNTvLQ43OUWkIVX1+nraaGIhbh8w73eeIkyl0F3SuS7ssUWa/1
-	GdmrkFNuLJGj9B5unrfdDdiXfNYTmFdBEYXWZ8fsjppyToUkgOsrlTUlHnI7NK5oK86VhEZhTyW
-	vdu3aGjf9BifoRtt48/VXkcqSGzQI/e1NHtwdLo0cbdjRThtXC8frRDH+r2hml39FZ2LJg1hfhK
-	f0aFjk1V8ksF8Rxa1WfqjRAT895yZBByWPZlmpnagRy5F8iy38QoYw4OT+8BrFvVHwHe/yI/am1
-	4fOgY8Z8zkclO0EfPUUQL/X+HzYbYUMdFLvkPmVKmBzKr5kWF9RPChgKYCPApRb8sx8yDWkNzAL
-	rYKCbAcqRwhEw0KEDaFkhr02fD4x9UQ==
-X-Google-Smtp-Source: AGHT+IEbrm+sD2dy/Wgc9WB37KWJkWnSJdZenG0HuGYZLPhb1o9gapqPsGz1nt3pmvu94ER0lXIurQ==
-X-Received: by 2002:a5d:588a:0:b0:39a:d32c:fb5e with SMTP id ffacd0b85a97d-39c120deb56mr9283793f8f.21.1743498119121;
-        Tue, 01 Apr 2025 02:01:59 -0700 (PDT)
-Message-ID: <a0148fb5-0b0f-4fe7-b31a-ea220965c662@suse.com>
-Date: Tue, 1 Apr 2025 11:01:57 +0200
+X-Inumbo-ID: 0da11553-0ed9-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EkG/I8ehET7N/0ntQI5GQ8Uj5I0/qeyDo8RC0k5Hytt6IDqEokLk4dcPP/FNHvb9Sk5VXbDFetz66NyMjIpqwmh/ZdxwgcCiMR4RaQ5G8JMY4jVADBgh1eyQeqYZTBABG95hAkmBna9BdlmEnP4/O/TUQFGjteemNTIN6TgoaV0X2VuTA/zjdW4PLj3uZ0oauQgiYvsQ6z+/0Q2bwxDC/ZF2mMzmq1qL/UpmIurp4Jv4UlYvLEiA2+kWAiam56hvHErGQbVxHNYb6ZaUf4+86eaD0JizIWSPEBb/ULA4rVx+uItdYJu0HjWcu6XW+C13N6VNevsxQIenv09EPB9XOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1xofejERuiNYRNRtkzxZ8405VkZ3ajr+w43Np80D7Zg=;
+ b=VGfcBoz/ZuhjklbMiawrXU/zKqhA5nZecmCZUowK0ldms1BifIQIG7wu5dYUgV97TnQwigPunw5/biKjgx1i5YQ+cx1Pv0avI9RyhDvUfK8kfsclUO53kawttRVQLT75EHSDMZ25h4FK5aGBs/d4mr4Km2ieFfS/sYFOeMHDYCh39njOy8bMb3/ML6uaSskFw1oShBLgLo3TmFaos9dAsVneeKkmeujblckhOV20V8N5rmklE02HBs3HeaEAi7u/8JxKZuKC6Lh9mAuICYpewgsgAFzkQ4mvY1g7VWlkTmdzKwLR46LFm24ej7ATYyquq5dxXuEELsjVYPp6qwXIRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1xofejERuiNYRNRtkzxZ8405VkZ3ajr+w43Np80D7Zg=;
+ b=cpidvbtuo5lJVX60Myy7cDl6xtHKpwmS2EDG6VxCHjI3cpUodT0NKkBM1zfWRHmSXKeOC8QbenST7O0fX+Yu/6G7UjO1eIvuYfSynBeoYdEF6YloYcsZKqE9AK4BygKv9tdOChJ+MypP3D5azNabUGcBTF/owQQ/bqQBfgYxUoI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm: Drop process_shm_chosen()
+Date: Tue, 1 Apr 2025 11:09:37 +0200
+Message-ID: <20250401090937.105187-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/19] xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Huang, Ray" <Ray.Huang@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250326055053.3313146-1-Penny.Zheng@amd.com>
- <20250326055053.3313146-2-Penny.Zheng@amd.com>
- <alpine.DEB.2.22.394.2503281655590.563920@ubuntu-linux-20-04-desktop>
- <6b3c3baa-331c-44fa-9085-9b0bf72c62a1@suse.com>
- <DM4PR12MB845170590A152B7AEF4D4153E1AC2@DM4PR12MB8451.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB845170590A152B7AEF4D4153E1AC2@DM4PR12MB8451.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B069:EE_|DS4PR12MB9684:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3143e36a-62bf-4e12-069d-08dd70fcef56
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?2zaCbIFbqlsoaKNrQfrJhhnGlCsKqck/504OxMIi1UrBF6GA7c36o2lBw7hh?=
+ =?us-ascii?Q?V2o2Lb+P9q0RCrzBpmSpxATMk3VDI6+vLuVuvdaRyphAT36fc2poRZf23wTM?=
+ =?us-ascii?Q?5kr5mzw+hYYlf3qw04jhlqa5CrTQyjknxVeiPUT6E/jLHcnz96lexz1ro/9t?=
+ =?us-ascii?Q?IvhtFL0RyDKyc9pKKGVIWPhN3/OSyjccUq/gZ5HnJs7cjcr4oLy2P4KV6xzy?=
+ =?us-ascii?Q?BoU5iEgb1bYodsPJWn24s06QHkqQGtkB3dLHAfbiJC+mRumBcahFHL44G6Iw?=
+ =?us-ascii?Q?AWZuxJ2fFExPb4zCijCwxAT/F3zfQ7Ew7KeMAms5uS5p7e43lQVtfCej0KHl?=
+ =?us-ascii?Q?VBGF5SEASsGAXOaJJSFJf6szSpcwFFYF4epnoWHkcfYEIeJRzYl5XP3If4J2?=
+ =?us-ascii?Q?rmNYUlODQMEa51m6Num7Xzwml+OxOiFQHlN4aT2lfePmCzZh6FyiR1sLqggf?=
+ =?us-ascii?Q?SmAv8D0KMSuPO8lVEWbAhGpftpnA/QAgwsKOPBQIAFJ2HWRCweg0t1ksuhNS?=
+ =?us-ascii?Q?vMda4XiaOQWLK7cJo1LVhk4+hyGtm6Ha2YXAdz0c6qb2j4yPGAfpMd254tM6?=
+ =?us-ascii?Q?c+3oKQvF6skhifoGWh6o79+TakTWUgn6HVGLk1fHEXkkf0A/bgoOkPVgt3n2?=
+ =?us-ascii?Q?T5R/Eev8OBplu0lK+ynwCekxHE+9mNqg0RvHQHcJ0m7McycLsDyAiuoD/ui2?=
+ =?us-ascii?Q?XbsdXgvOqFH0mUHkTOZZ2vZyvfbrhlAZPn5hewJ7u2y4QK6Qnh4czZpDpmsM?=
+ =?us-ascii?Q?hQ+aEHxNU804g/hp8CEYKq/QudgXjuXikEATmQk+r4DZbXLas63Dnzj/XxPw?=
+ =?us-ascii?Q?umXfE+gCBuOw8Zg6rFaoBSbJOGLTjwPQb084j9bVmaQ7iQvYgyYcNHOGQ3NV?=
+ =?us-ascii?Q?Vh9b5y6cDsrWbBpudIa0Abi73b+uM1hzUZg63P7ciAFEZLT+jkL1aulFrO6N?=
+ =?us-ascii?Q?WtQl90Qq3W2nwFx2HDXM54FHpZ1O94R7cP0iFDfwy2LiwotyeoHSgOusUn8j?=
+ =?us-ascii?Q?SE5BHj1QFo+fS1VuqYdh0KfsLMKSBYoI5oCsMB+hL6AsdoleWitfxUyQxRMM?=
+ =?us-ascii?Q?h9cw1l/6aveTcDWwR8Kd/5kG2vL/ezCnNqq+jNWBosHyUO4sUsmNSY9Jiaaj?=
+ =?us-ascii?Q?zk08NPX8FszmaDzB98ydyCkngYOWQGKg6OAofT8EZfVWI1ZZjZaWSrXnxvKm?=
+ =?us-ascii?Q?tC+0MgXvj1/oMxuU27F++GLzGgaAIjq7TzpO0B88nhckBX86lyrid3+/XYkb?=
+ =?us-ascii?Q?dDJpPsbHkpLO4V+V3RABmxmEhG37/42VonwDj2+JHZh7EUI4hjAiQK/oQkUC?=
+ =?us-ascii?Q?jEIaWWJPW+4h1EeBFrNP3xeNQUwMMp/g21aCMnc3tP5cd+7y2aoL/44vuCSn?=
+ =?us-ascii?Q?EB5jd5cFZxYLqKVfLFIQJccI3RHE/w6NvCBUQnW5VF6K8hPnibIrdbga2i7Y?=
+ =?us-ascii?Q?RanbE0e0q4DEi8GHtz6Y2dhBiwrt2SHF7pnGjnQ3Lz9w3SmJPP6w2M9nVdj0?=
+ =?us-ascii?Q?ExVdCC0CE7LAhco=3D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2025 09:09:40.5519
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3143e36a-62bf-4e12-069d-08dd70fcef56
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B069.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9684
 
-On 01.04.2025 10:41, Penny, Zheng wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Monday, March 31, 2025 2:30 PM
->>
->> On 29.03.2025 00:56, Stefano Stabellini wrote:
->>> On Wed, 26 Mar 2025, Penny Zheng wrote:
->>>> We intend to remove all "depends on !PV_SHIM_EXCLUSIVE" (also the
->>>> functionally equivalent "if !...") in Kconfig file, since negative
->>>> dependancy will badly affect allyesconfig.
->>>> This commit is based on "x86: provide an inverted Kconfig control for
->>>> shim-exclusive mode"[1]
->>>>
->>>> [1]
->>>> https://lists.xen.org/archives/html/xen-devel/2023-03/msg00040.html
->>>>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
->> Where's this coming from, if I may ask?
-> 
-> I said in the commit message, this commit is based on your commit "x86: provide an inverted Kconfig control for
-> shim-exclusive mode"[1].
+There's no benefit in having process_shm_chosen() next to process_shm().
+The former is just a helper to pass "/chosen" node to the latter for
+hwdom case. Drop process_shm_chosen() and instead use process_shm()
+passing NULL as node parameter, which will result in searching for and
+using /chosen to find shm node (the DT full path search is done in
+process_shm() to avoid expensive lookup if !CONFIG_STATIC_SHM). This
+will simplify future handling of hw/control domain separation.
 
-I don't think this belongs there. Also recall what I said elsewhere about
-"This commit ..." and alike not being appropriate wording for commit messages.
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+ xen/arch/arm/domain_build.c             |  2 +-
+ xen/arch/arm/include/asm/static-shmem.h | 14 --------------
+ xen/arch/arm/static-shmem.c             |  4 ++++
+ 3 files changed, 5 insertions(+), 15 deletions(-)
 
-> So I think I shall add-in the original author, if it is not the rule, I'll remove it.
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 2b5b4331834f..7f9e17e1de4d 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -2325,7 +2325,7 @@ int __init construct_hwdom(struct kernel_info *kinfo)
+     else
+         allocate_memory(d, kinfo);
+ 
+-    rc = process_shm_chosen(d, kinfo);
++    rc = process_shm(d, kinfo, NULL);
+     if ( rc < 0 )
+         return rc;
+ 
+diff --git a/xen/arch/arm/include/asm/static-shmem.h b/xen/arch/arm/include/asm/static-shmem.h
+index fd0867c4f26b..94eaa9d500f9 100644
+--- a/xen/arch/arm/include/asm/static-shmem.h
++++ b/xen/arch/arm/include/asm/static-shmem.h
+@@ -18,14 +18,6 @@ int make_resv_memory_node(const struct kernel_info *kinfo, int addrcells,
+ int process_shm(struct domain *d, struct kernel_info *kinfo,
+                 const struct dt_device_node *node);
+ 
+-static inline int process_shm_chosen(struct domain *d,
+-                                     struct kernel_info *kinfo)
+-{
+-    const struct dt_device_node *node = dt_find_node_by_path("/chosen");
+-
+-    return process_shm(d, kinfo, node);
+-}
+-
+ int process_shm_node(const void *fdt, int node, uint32_t address_cells,
+                      uint32_t size_cells);
+ 
+@@ -74,12 +66,6 @@ static inline int process_shm(struct domain *d, struct kernel_info *kinfo,
+     return 0;
+ }
+ 
+-static inline int process_shm_chosen(struct domain *d,
+-                                     struct kernel_info *kinfo)
+-{
+-    return 0;
+-}
+-
+ static inline void init_sharedmem_pages(void) {};
+ 
+ static inline int remove_shm_from_rangeset(const struct kernel_info *kinfo,
+diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
+index c74fa13d4847..cda90105923d 100644
+--- a/xen/arch/arm/static-shmem.c
++++ b/xen/arch/arm/static-shmem.c
+@@ -297,6 +297,10 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
+ {
+     struct dt_device_node *shm_node;
+ 
++    /* Hwdom case - shm node under /chosen */
++    if ( !node )
++        node = dt_find_node_by_path("/chosen");
++
+     dt_for_each_child_node(node, shm_node)
+     {
+         const struct membank *boot_shm_bank;
+-- 
+2.25.1
 
-Please remove it. You necessarily touch a few of the same places, but that's
-about it. I accept this route being taken, but I don't agree with it. I don't
-want to be viewed as a co-author in such a case.
-
-However, you having gone from that patch (which had an entirely different
-intention), has lead to the patch here being incomplete. At least my
-understanding of Andrew's original request was to not only prune Kconfig-s of
-the dependency, but also e.g. various Makefile-s. Possibly even .c and .h
-ones. That clearly wasn't necessary with the approach I had taken. Please
-consult with Andrew to confirm.
-
-Jan
 
