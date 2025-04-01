@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E38EAA77C02
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 15:25:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.934331.1336061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DD88A77C09
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 15:27:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.934342.1336071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzbcL-0006Aw-QC; Tue, 01 Apr 2025 13:25:25 +0000
+	id 1tzbe0-0006gA-3z; Tue, 01 Apr 2025 13:27:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 934331.1336061; Tue, 01 Apr 2025 13:25:25 +0000
+Received: by outflank-mailman (output) from mailman id 934342.1336071; Tue, 01 Apr 2025 13:27:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzbcL-00068o-NX; Tue, 01 Apr 2025 13:25:25 +0000
-Received: by outflank-mailman (input) for mailman id 934331;
- Tue, 01 Apr 2025 13:25:24 +0000
+	id 1tzbe0-0006eI-1J; Tue, 01 Apr 2025 13:27:08 +0000
+Received: by outflank-mailman (input) for mailman id 934342;
+ Tue, 01 Apr 2025 13:27:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KZod=WT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tzbcK-00068i-7F
- for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 13:25:24 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ <SRS0=oF/L=WT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1tzbdy-0006e9-QZ
+ for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 13:27:06 +0000
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [2607:f8b0:4864:20::102f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c368a62e-0efc-11f0-9ffb-bf95429c2676;
- Tue, 01 Apr 2025 15:25:22 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-391342fc1f6so4936511f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 06:25:22 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d8ff02e84sm155652855e9.32.2025.04.01.06.25.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Apr 2025 06:25:21 -0700 (PDT)
+ id 0027a2ed-0efd-11f0-9ffb-bf95429c2676;
+ Tue, 01 Apr 2025 15:27:05 +0200 (CEST)
+Received: by mail-pj1-x102f.google.com with SMTP id
+ 98e67ed59e1d1-301d6cbbd5bso8893384a91.3
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 06:27:04 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d9443c01a7336-2291eee0bfdsm88335955ad.72.2025.04.01.06.27.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Apr 2025 06:27:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +44,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c368a62e-0efc-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 0027a2ed-0efd-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743513922; x=1744118722; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VFMj127YW25n0oGy9qJUEugIqGXnAG5LIQf0LifWFt4=;
-        b=FqOU6mBTxEUV/YIrBXlHlZmZ2A0i94cZs9hhavuyL9x+EQeOe/g4OEFVvo9eoyxje6
-         T26mkmiuqZ10YwZVmoNf1F8R++nRYr74bhcvn+bk6UIq2tu01cyFyaccI6d1dL2bL2nh
-         EPUNOSjMhb0sunP6sUUWpr/qcuaOaaeIqKOTs=
+        d=citrix.com; s=google; t=1743514023; x=1744118823; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=u/P6zE2mL8Ng1bH7wNcqBTKLcot4sfQX+ZxLrcuajBU=;
+        b=UgFMmLt9ZrrBd+wIXoWd6BDCAZr+yN+uIFum3BUhmoIkj9Cuyco2ZJnBbHDwli8Nab
+         rCRyvANUMZ81yoCK0mf7BjdzPxHu88w5JC6x0AoX//fHZ49QAZ39gS8qdVh/LT9aPteD
+         0CGf9YhtzT6akvIcz/GVg/apC1fH1rBOAy+1E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743513922; x=1744118722;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1743514023; x=1744118823;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VFMj127YW25n0oGy9qJUEugIqGXnAG5LIQf0LifWFt4=;
-        b=vSXNzQXrNtBciqzYjzzRfcmE3Tn9KFkjpiMKw0ct9xIhqgY3SDUIhc8nB3fS9G6poF
-         LGBP1CTsTr4mnFM+51OQfeoBsPgxtHc1lbCMsTYSUAAFAY0+s7hmldArlzN57PukHu8u
-         1sscjtKC3x/SPzURrQW8GmCCEsMuiJ9CRdqU8G1dAw0CCMPXNCvrUfL5R1nJuSw5Nufa
-         haKZZthjaXXgwsqle5wZwyroVGnmqgEodohBIMP9p0og3qbrjp42/nEi9ZPkxJgoUyfx
-         t8abIdz4J6jvvAzD1yiOsVvrGobdhxQsSMe/ouU90hENlqfoWkS1tQFVu2c8lPyYMwWT
-         wvaQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWGznOkC9XSmP2/NtfhKS7AJOgwLwVlaxGP6/Pxwp9VX2V0sYY1JAG/sYfvGgiD7DnFkfby3D3QV08=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx8o7jHGaKpMsWxH4Kfq3Qfyq6DmEKe9VQ3PRp7fa0SGOJchfx4
-	plJca7PP3rSEQZIZGzmT7Y2KEOgvkEmO1hmV5K9am0coJDo5lsVbqr1MVMDP/7A=
-X-Gm-Gg: ASbGncvGCppMSUtYg8WDQeBkusdCb+e6i1oPuOXCGKf1Janodjox2IJ8UJj6P4utNaQ
-	WVIOOYFjIt0XND9oUjYwRKeDj23Fluq5P7EDDiEKyWWXV4+sLdB2746xy5P/r1TQExTfOMNrVOi
-	hNK8RSVSmypCgfyEfsT+SfUSezK9/Lu220VNVjHcfV8QcUbqWzl7ueyVNHNNWQLGUM88CqQBMKG
-	n9RLhJBrAHUwACAfe0+aKXr7P5c62TYR/LbSF59L+xon431BM2zDbSUqjP4YsKP731KFnx/vdgN
-	qW1qGjoNZATw10k1R7jFEHLzLuHkJJTtOEuAhgQXhPRAvBmNMPXWCtXB+D81Fmp546uljGIxaxb
-	4HooUlSRY0UmBS8G2OASw
-X-Google-Smtp-Source: AGHT+IG360ggLaWG8FKCdyc/K4kBcyCk1bzcQW8J0PBqjcMH4nHrVKICd7xpMX96ld65TMwefDEyKw==
-X-Received: by 2002:a05:6000:430c:b0:39c:2692:425a with SMTP id ffacd0b85a97d-39c26924316mr1651885f8f.6.1743513921744;
-        Tue, 01 Apr 2025 06:25:21 -0700 (PDT)
-Message-ID: <2ad947f4-3a04-4461-a6ec-203ec350de4b@citrix.com>
-Date: Tue, 1 Apr 2025 14:25:20 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/11] automation/dockers: add to README how to rebuild
- all containers
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+        bh=u/P6zE2mL8Ng1bH7wNcqBTKLcot4sfQX+ZxLrcuajBU=;
+        b=ut4p6Lju/Im92r/RarZoiPT9s/3cP0zMKrbhkR9kIZn1rvfsrMMiheH5q1KSleVIIM
+         oSk3ig9bk4xUo2dexLtnNyX/uvh3HeCeWZq2/mXSu9Zngzn/7ywUheExjygdZ2yi9Vji
+         BV6V65Lb5DcNMBeKbs881PP34ZuYBqKxp45EM+QBa1F6wBwe0FpEsv9q3z/r/k2P1lhT
+         Xv8MSfvPAADsPmH/tL1Ie5dLXBRooOb0JtiT1RGfMJOFoX9qW1NPRK0aEPR27YhLMyN3
+         RN0dHF8QXikpbftjBEQ2g+BbTE/8rEbjxnJbnwSNVfpzLHLmizVaEHMb74s3EDyE1Nwy
+         Q3Uw==
+X-Forwarded-Encrypted: i=1; AJvYcCWOr7RnbY52CwTRrqPo80RZL84BvxVa0rAzTldFn4EeEOZ8xVvyI+LCx5TDHn1dTCrtBqzYQVa5A0o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyj5j1vOD2A8aomkf0J9HVVC6N/Y0hlIUtdHGqM0yowk68nKBoM
+	zXadbyTbcidys8JdjalxdKmu0FFXPrmBzXtdeuHW31lPlz0cv66e2euRCulcnBE=
+X-Gm-Gg: ASbGncuvYNUlKTg6OB4be/cfeKIn5LRU7l5te+mOYQCC2qirUzgjSO8+O/3TCVJucv7
+	v984CET+LPcIZ0iwlhg8DdkYhnwXMgUP2NaYnZpAOGvEpfsPpNmErYT4GSA2psmPIoPOWuBvn51
+	9xWlGJSOrk84ghfq4dPAusOmcXBbebFtfcKvwlpl6f+s+S2VVjgx+/3VtkUAZtg17koV/3Kpw5p
+	ZYRP6FezCwqUursz8x1FjK6iO5DErQmqIcE+LuGvjFAlOpfbDGOCV0uM41jU4Cr4N9lQ/JxUvpP
+	ZLvGekE5xfsgRIdzG+asUV05RVJo9WXDLd1X2cccgQGTxGwPgw==
+X-Google-Smtp-Source: AGHT+IFz0phDLuDwLdRjon3b8HeLoAsC6aO+gfIyHRul27N+fvrvbn040xWYs3no5Q4Yrq/vOmgzJQ==
+X-Received: by 2002:a17:90b:1f8b:b0:2ff:6608:78cd with SMTP id 98e67ed59e1d1-30531f928cdmr21437266a91.9.1743514023425;
+        Tue, 01 Apr 2025 06:27:03 -0700 (PDT)
+Date: Tue, 1 Apr 2025 15:26:58 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 00/11] x86/EFI: prevent write-execute sections
+Message-ID: <Z-vpoh858ldjXok_@macbook.local>
 References: <20250401130840.72119-1-roger.pau@citrix.com>
- <20250401130840.72119-2-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250401130840.72119-2-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <c686844c-4cb8-43d0-a762-7f93a30f9388@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <c686844c-4cb8-43d0-a762-7f93a30f9388@suse.com>
 
-On 01/04/2025 2:08 pm, Roger Pau Monne wrote:
-> Document in the README how to rebuild all containers.  This is helpful when
-> populating a local docker registry for testing purposes.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On Tue, Apr 01, 2025 at 03:13:52PM +0200, Jan Beulich wrote:
+> On 01.04.2025 15:08, Roger Pau Monne wrote:
+> > Hello,
+> > 
+> > The following series aim to remove the presence of any write and execute
+> > section in the PE Xen image.  This is required to support the NX
+> > compatible flag in the PE header.   By the end of the series the
+> > resulting PE image has no relocations that apply to text sections, as
+> > text sections are strictly mapped read-execute only.  Xen itself
+> > attempting to apply relocations to text would result in page-faults.
+> > 
+> > A smoke test is added to Gitlab to ensure the PE NX support doesn't
+> > regress.
+> > 
+> > Only patches 5 and 10 are carried over from v1, the rest are new.
+> > 
+> > Thanks, Roger.
+> > 
+> > Roger Pau Monne (11):
+> >   automation/dockers: add to README how to rebuild all containers
+> >   x86/mkreloc: fix obtaining PE image base address
+> >   x86/mkreloc: use the string table to get names
+> >   x86/mkreloc: print the linear address of relocations to read-only
+> >     sections
+> >   xen: remove -N from the linker command line
+> >   x86/efi: discard .text.header for PE binary
+> >   x86/efi: discard multiboot related entry code for PE binary
+> >   x86/boot: place trampoline code in a non-execute section
+> >   x86/efi: avoid a relocation in efi_arch_post_exit_boot()
+> >   x86/efi: do not merge all .init sections
+> >   automation/x86: add a xen.efi test with a strict NX OVMF build
+> > 
+> >  automation/build/README.md                   |  7 ++
+> >  automation/build/fedora/41-x86_64.dockerfile |  5 ++
+> >  automation/gitlab-ci/test.yaml               |  9 +++
+> >  automation/scripts/qemu-smoke-x86-64-efi.sh  | 22 +++++-
+> >  xen/arch/arm/Makefile                        |  6 +-
+> >  xen/arch/ppc/Makefile                        |  6 +-
+> >  xen/arch/riscv/Makefile                      |  6 +-
+> >  xen/arch/x86/Makefile                        | 12 +--
+> >  xen/arch/x86/boot/head.S                     |  3 +-
+> >  xen/arch/x86/efi/efi-boot.h                  |  7 +-
+> >  xen/arch/x86/efi/mkreloc.c                   | 77 +++++++++++++++++---
+> >  xen/arch/x86/xen.lds.S                       | 20 +++--
+> >  12 files changed, 138 insertions(+), 42 deletions(-)
+> 
+> From titles and diffstat (all Makefile changes being covered by patch 05)
+> it looks like you still don't add passing --nxcompat to the linker. Is
+> that intentionally left out here?
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hm, and I see I also failed to add (the already RB patch) "xen/build:
+warn about RWX load segments".
 
-I'm working on extending Anthony's container-rebuild pipeline to do this
-too, but that's not quite ready yet.
+nxcompat should be enabled by default I think?  I can of course make
+it explicit by adding to the PE link command line.
 
-~Andrew
+Thanks, Roger.
 
