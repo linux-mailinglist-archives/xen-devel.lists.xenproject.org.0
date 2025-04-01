@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC2D9A77AF4
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 14:27:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.933978.1335829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D4BBA77B18
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 14:36:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.933992.1335839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzaiE-0002kv-Ao; Tue, 01 Apr 2025 12:27:26 +0000
+	id 1tzar8-0005iS-6k; Tue, 01 Apr 2025 12:36:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 933978.1335829; Tue, 01 Apr 2025 12:27:26 +0000
+Received: by outflank-mailman (output) from mailman id 933992.1335839; Tue, 01 Apr 2025 12:36:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzaiE-0002ib-5r; Tue, 01 Apr 2025 12:27:26 +0000
-Received: by outflank-mailman (input) for mailman id 933978;
- Tue, 01 Apr 2025 12:27:24 +0000
+	id 1tzar8-0005fk-3s; Tue, 01 Apr 2025 12:36:38 +0000
+Received: by outflank-mailman (input) for mailman id 933992;
+ Tue, 01 Apr 2025 12:36:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WxAi=WT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzaiC-0002iV-28
- for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 12:27:24 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1tzar7-0005fe-ER
+ for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 12:36:37 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a98e2592-0ef4-11f0-9ea7-5ba50f476ded;
- Tue, 01 Apr 2025 14:27:22 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-39ac9aea656so4521959f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 05:27:22 -0700 (PDT)
+ id f353f9aa-0ef5-11f0-9ea7-5ba50f476ded;
+ Tue, 01 Apr 2025 14:36:36 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43690d4605dso37696155e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 05:36:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d8fbc1889sm154230465e9.16.2025.04.01.05.27.21
+ 5b1f17b1804b1-43d82e6a532sm197628825e9.9.2025.04.01.05.36.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Apr 2025 05:27:22 -0700 (PDT)
+ Tue, 01 Apr 2025 05:36:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a98e2592-0ef4-11f0-9ea7-5ba50f476ded
+X-Inumbo-ID: f353f9aa-0ef5-11f0-9ea7-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743510442; x=1744115242; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743510995; x=1744115795; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9XOFuAm2foLrtwsOzZNmoxIVwlBZyCQ84zcLOGva/yo=;
-        b=FWIruyhMaQdnF8gq5qdPb4pC+jx2WS43S2qC/wAolaHH5F0b5seJWjjg5d2jJgPk8g
-         eYH5D8wS49ZX33n7bp7SHF85ojQT+KST8Fu0zVQ3VD328R2LNfW7CwsQNEZqye4lUFuY
-         /Qy6+7ZTVEjui3LKE2V7RT36L1O35fH4FL0swCKiQGX6tItoknfF858wC9AMuEKjfEbL
-         pFT9mmF50cXbaV1WihUYllq0kXqsyMO2fGT6xD2UbQtxF7y4jG7TIotq/s6cYVYkEJXu
-         tOqgQ8wsJy/uIISVSsc4+Pd2gPgKgXXbgixHt87d4zyuW7DmuEyo2FJmcJJtbEL8I640
-         H9VQ==
+        bh=Py943HeTv7E45c0XDZ90PGc7uXDHukAZFFuNRvjoeIc=;
+        b=aKRAXhbAAvFGqV+ry5HxgV7n2oRYXoHIZlA9adXSciG3qHumSislq6PjSmeO5V/jAo
+         sI9dWybKqEUd6Z8rJa+our8j5wFbBRYXx90VEG6q18wOtj8hPJeKGUQhc4w+eopoNm1G
+         g47h2oV6c7wjHmIXh7OIpDEzC2J8DgB9QIb/jjZE403ezXJ9lKs1Ge6MJgLInFjBxcOg
+         5ptCmGOaajii3TWbNPTfB1UK2olAwgXTtQIha2JygpMP12QWXt6QklV4pQS4mTsM4MPq
+         rbuxFgY7actxN4Oxwjt0xF6egMcwtR0Wshf5oHFa5i3aeJRdVrIw3CPf2tfOZK2RKfr4
+         kmsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743510442; x=1744115242;
+        d=1e100.net; s=20230601; t=1743510995; x=1744115795;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9XOFuAm2foLrtwsOzZNmoxIVwlBZyCQ84zcLOGva/yo=;
-        b=vQ/ZaHRoT0AUmAQY+NVgu1A998UmfcJa2x2qh3wh36uIAfuxnNcG2ESAgmlwNw0Vg9
-         sbdp8xnHOxLecSQ87mgkOv3W+YIcxRq50BY3MQL3tFxbEluNOb8GD5366HDk9V9HOGkB
-         19wbkWME3TxR7YqGcE/CxiWlPZx3WQFl6HQjHuQ82v85gkSGWX8r/uR/KOO5WhsDNoyT
-         p/wYIVOp+eunIma6G1AsF7VKvEJhsZFAsP26S2wXm2MIUSHHK0KHgkqVA/AxvjP1eqM8
-         bFiSGzrBhFJsAGhOahy2tBz7crpOLvXyKoWonIHra3zhqgKAJ7hxi5BzLVFt4lps19j/
-         lO1w==
-X-Forwarded-Encrypted: i=1; AJvYcCULWHceZFvL0TTM5H+BAafUql8o/3IeHFQPxc97Sd7mkEaCl6Qnvk/+X+IcCmzb7PnNN27l8hYBHgw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxJqIzAuLBm2pbTF9t3uzeKl9qSidSv7fATTuq4e7NJFa1jxPtA
-	q9yKsKifID88lvGRrttXqLt9Hmyh8zfp5QoDhdJl9uw+G4xzr51CyGM4tNtw0g==
-X-Gm-Gg: ASbGncscKnFoR1XJnCMpzpmuL2GncTGgE2A+l6rMXlceRvGJwLKjSHNbNt8bYy+nrsp
-	wQz9hEpw7ElqhD/qBE+abnlOC8bXS+ccdEhr6s488z8o0f+S4cpuASO0gQjYYKXtviKRLGjZQfF
-	vcJsphPKxL34kTH0BCsTMAA462yIilk85v0ov2MQDpO53d0T0YoEggI2hNKJOE51EZODUkrwuHK
-	4Uk0f6QMWXS2LrgNL63M+GpTZCj5oxneKiseulx6KOO2QajZzx+y1ZJMUsbcQ1a43nB05TMA3Og
-	chJpiqPRJEuRPmtcUUfPuN+wNzuiiv7qFOb1jKiQEE+o94c9/XR75GcthfL/nWpfrSi7DCPfGd3
-	nHiRG0oq8Wr3Z63H/QsXycZHPD+kNFw==
-X-Google-Smtp-Source: AGHT+IFcFU6RTaKHZMHnsc3RxJYuJ23jeO0RsZsrVSo0X7/JmFGaXxozlwWa8ofvtpUIIbpQmBh3+w==
-X-Received: by 2002:a5d:47a7:0:b0:391:487f:280b with SMTP id ffacd0b85a97d-39c120cb53amr10963785f8f.10.1743510442380;
-        Tue, 01 Apr 2025 05:27:22 -0700 (PDT)
-Message-ID: <f1e9a924-68c8-4ebb-9f20-bfef028f2b52@suse.com>
-Date: Tue, 1 Apr 2025 14:27:21 +0200
+        bh=Py943HeTv7E45c0XDZ90PGc7uXDHukAZFFuNRvjoeIc=;
+        b=VIMjvVrHTmwGR4rP0cb4gU2ZNrh7LM3ZVS9bOLq9mQujNeBks2m5HCZ4kP7PNgsM0K
+         yPxbKSW+HwIGqLtZfC0ofsI4wr717XLZ3RAPmMw7TMdQO6IvsfY5g8h9v1RD04mj5wBq
+         Gb32T0CPGsJY66JPEGOPd8z8eAFHUXBufBn2xai4REPlwEYYk8C40dNlYG38hBcthXyF
+         LdpOJV4tPDxG9BGQpZLXyWuMy0jJwZmuc9sQDc0AIOxcPO37B3WYMXth/XvOtJClCuCd
+         ULyQEP3kSq0ut5i1PremUni+UJXqRKW3+5F9ch0c2KkMlqKZYwxj5Nprt1UnAhdjpesl
+         6d8Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXwwtE6/vkOEgighS7nRZlcY7DLR6zJRJAii8bQn2OqtN3ie0AMO0bN17zXTHmvOfS+Jq0h3z//9Ew=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyRkVJmWGXXAV4XkXXEJk4oNSCIsoDUJk0xZLR+en+sVXwJVL6P
+	qNlUp1P4oX5HD53n0PQGwALHEjNKcASFaMeerl2WlE20IRp5yqB3+M3WKr0Bdg==
+X-Gm-Gg: ASbGncvG9K202GTiAYINWzt1K6bZFxro+qdHLlv0tKDPjRoL1becip9gykJ1i8rvH7W
+	zq7uvnwn0pxpTg5dOt89xf6B5dR4h4v9Cmo2Aptq/bIvE7io91AHP7CZgFY82mBCgBTLROoK6CR
+	VE6kNOFEcp21dxq6yvYoJceuS1dm8REZgCXODLzhvfBG051URjDKcYaKtkWlrW1MdSo6JO1PO9s
+	FtH/rxSBqmRS9x3k18va9RDc/u31IHHUidzDLepR4/YyixVnrP1FfV5VvtqSVxbhIg7DFuBCK35
+	KpRAHkRwU79h7YW1GlyxAPONTFFlx/m21wrLua4kh9NmL9wwM13N7Hk89X5kn2Qx+ixcVekNjVo
+	tagMxksMZBMZbYqJiaSHhPu9uZrXn3Q==
+X-Google-Smtp-Source: AGHT+IEG91Bfd3zpZkHZzw3OGw/digGM0Cs19qkAdpIvTr/psUx7ubjEmP4U3PnKhQ1M5ULl6PQC1g==
+X-Received: by 2002:a05:600c:4e87:b0:43d:8ea:8d80 with SMTP id 5b1f17b1804b1-43db61d5fd2mr106441985e9.5.1743510995641;
+        Tue, 01 Apr 2025 05:36:35 -0700 (PDT)
+Message-ID: <eb6d841c-7972-4b2e-a28b-3a5ebed733a0@suse.com>
+Date: Tue, 1 Apr 2025 14:36:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/19] xen/sysctl: wrap around XEN_SYSCTL_sched_id
+Subject: Re: [PATCH v2 08/19] xen/sysctl: wrap around XEN_SYSCTL_lockprof_op
 To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Dario Faggioli <dfaggioli@suse.com>,
- Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250326055053.3313146-1-Penny.Zheng@amd.com>
- <20250326055053.3313146-7-Penny.Zheng@amd.com>
+ <20250326055053.3313146-9-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,27 +121,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250326055053.3313146-7-Penny.Zheng@amd.com>
+In-Reply-To: <20250326055053.3313146-9-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 26.03.2025 06:50, Penny Zheng wrote:
 > --- a/xen/common/sysctl.c
 > +++ b/xen/common/sysctl.c
-> @@ -72,10 +72,12 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->          ret = tb_control(&op->u.tbuf_op);
+> @@ -123,13 +123,13 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+>          ret = perfc_control(&op->u.perfc_op);
 >          break;
+>  #endif
+> -#endif /* CONFIG_SYSCTL */
 >  
-> +#ifdef CONFIG_SYSCTL
->      case XEN_SYSCTL_sched_id:
->          op->u.sched_id.sched_id = scheduler_id();
+>  #ifdef CONFIG_DEBUG_LOCK_PROFILE
+>      case XEN_SYSCTL_lockprof_op:
+>          ret = spinlock_profile_control(&op->u.lockprof_op);
 >          break;
->  
+>  #endif
 > +#endif /* CONFIG_SYSCTL */
->      case XEN_SYSCTL_getdomaininfolist:
+>      case XEN_SYSCTL_debug_keys:
 
-Same as in the earlier patch (and I may not repeat this if later in the series
-this re-occurs): #endif ahead of the blank line please.
+In such a situation please take the opportunity and add the blank line
+that was missing ahead of the subsequent case label.
 
 Jan
 
