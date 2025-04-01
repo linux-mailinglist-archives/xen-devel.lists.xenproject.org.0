@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 580D1A784B7
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 00:29:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.934866.1336457 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EF9CA784D2
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 00:47:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.934915.1336467 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzk6G-0002sR-73; Tue, 01 Apr 2025 22:28:52 +0000
+	id 1tzkNx-0007qB-J3; Tue, 01 Apr 2025 22:47:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 934866.1336457; Tue, 01 Apr 2025 22:28:52 +0000
+Received: by outflank-mailman (output) from mailman id 934915.1336467; Tue, 01 Apr 2025 22:47:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzk6G-0002qz-42; Tue, 01 Apr 2025 22:28:52 +0000
-Received: by outflank-mailman (input) for mailman id 934866;
- Tue, 01 Apr 2025 22:28:50 +0000
+	id 1tzkNx-0007oK-GA; Tue, 01 Apr 2025 22:47:09 +0000
+Received: by outflank-mailman (input) for mailman id 934915;
+ Tue, 01 Apr 2025 22:47:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KZod=WT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tzk6E-0002qt-4A
- for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 22:28:50 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1tzkNw-0007o8-G6
+ for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 22:47:08 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id adca464e-0f48-11f0-9ffb-bf95429c2676;
- Wed, 02 Apr 2025 00:28:47 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-39149bccb69so5360014f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 15:28:47 -0700 (PDT)
+ id 3caf3e3c-0f4b-11f0-9ffb-bf95429c2676;
+ Wed, 02 Apr 2025 00:47:06 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43d0618746bso42455335e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 15:47:06 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b60a9ddsm15454590f8f.0.2025.04.01.15.28.45
+ 5b1f17b1804b1-43eb5fd138esm2384155e9.13.2025.04.01.15.47.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Apr 2025 15:28:46 -0700 (PDT)
+ Tue, 01 Apr 2025 15:47:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: adca464e-0f48-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 3caf3e3c-0f4b-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743546527; x=1744151327; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1743547626; x=1744152426; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2Gmb1F6DHF04vcoQt+CZ0+WF6QKxkKQAgKdgbUSv2vQ=;
-        b=jl4uKoK8UcbxLmlw4NAq1j194sXCzVMvnYtIF7+/hvp/t1BZzlp2veNtfi+KHYZO8d
-         odrnc1wGiwGAJ8UMWaJxCh08aFRzSO6ljft8w9cYgFrPDhaVHQphQgdy1z+pBPr+O1Rf
-         hGtlAE71e5mQ4J4NP36D709rhuIiAWODQAG6E=
+        bh=o9pOy7Tik2ts3ocAOTXNdrNb9fTEfKJgg2ghqirIlg8=;
+        b=NwOHXT98FHRZb8fA5e6rsmqFj+aUK9bRnvtMiS6HBwmsAs53GzAyW8VKini7d+ppPV
+         qOoIq35ykOiOseFwDU17Eq2Avv+bAU72wQtkRHoAvhw1/59ZMWszj6x7yNH8NEmwHC/O
+         X3wugD3oU+rBE48GndMNIZgEpH4TW7YvbzDuw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743546527; x=1744151327;
+        d=1e100.net; s=20230601; t=1743547626; x=1744152426;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2Gmb1F6DHF04vcoQt+CZ0+WF6QKxkKQAgKdgbUSv2vQ=;
-        b=C1iPfpE3U9LyU0m/aEVf1pxI2RdmnZ07fpSB/soASwE96pWYkCNKpsmxct4yANBNOi
-         m+eqPa5HBbfnlmMrzXiw65S4PNQf6qLfgaLVg341HL96gc7Q2SmCIbBCRHuAD+ERDrX2
-         vAln9sJhR8RZ5r48Xab43u8TztzicdXSzMOGArrZ24wYbX6+PlFJb3FkhjBaZUdYWiMu
-         51OQP9Ly8ENEIqmZ4ZeIy24lqPwF07wDNv++MSwmhbKcJVpCg63uWGPpvgW8acO1lnt4
-         bBofqkQWI08xlKC34rZSE2u4aDg+SZUULWJJW7G9awlOkpRh514lnMoGlOuv5ek8iTs/
-         kGeA==
-X-Forwarded-Encrypted: i=1; AJvYcCVJepjKB0j34ioeoyDzIIW2HnvCFo2wMYTqi4B6Y/Omqn+FtUD2fRmMekAG+3PIiOeCSN7lkOCPYDI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxzcDqnmLGLgHEvgB1iGzbPdfXUXluArNfFl7NOvqMK58HTLuQ7
-	gbppeHSHGvjuBz1ZL7gCzbaAPpktZz6nono429LDbsC/A01ZIC20RjJloBquUF4=
-X-Gm-Gg: ASbGncuWlAbhNEFdFQJSfvJ7Sr344pEv7yb1gM4dgKnAWgOKnqMMH/SOvMiqhkH/7S5
-	QiLUJYO++4X9unF++KeK/M1vFhCI/gKvLY9j7gnpg6I+OXNG2Qc6+vqb0eMZasUqzUjtvq6PQOT
-	aybP9J9dLLbtpIqgny7cfyl9W1n25kgO7CeJYZpkqzHLtulXUoGVHT+u2u7lwstiwuy9oBIPLhW
-	h6uS4VxJ5mM69AR7KmeuKlF73QjpFL/NhvVGkmRBo1m/jeXEWGtss1F4EqYO5KV+a2fHer7Yk1a
-	Ymd02+y87o371r3n+N3LHtmlHFd+K74mrbWPwIweVmvmXxviM/hTIbE8EsBq7DwcfIagvbAzj0c
-	HVMq+MtM4dQ==
-X-Google-Smtp-Source: AGHT+IGAZIItCNEWZSso9ZOs4K9nL4V8LczqJYRLcdA8ThLy6YVLSIA1WSZgY6rpkr5C/Jl/3kCjrg==
-X-Received: by 2002:a05:6000:4203:b0:39c:1f0b:8f6f with SMTP id ffacd0b85a97d-39c297538f4mr156922f8f.24.1743546527194;
-        Tue, 01 Apr 2025 15:28:47 -0700 (PDT)
-Message-ID: <86249b96-ae02-41c9-9aa9-08958b26b87a@citrix.com>
-Date: Tue, 1 Apr 2025 23:28:45 +0100
+        bh=o9pOy7Tik2ts3ocAOTXNdrNb9fTEfKJgg2ghqirIlg8=;
+        b=waqX+bOkvsZRyVZ3LRICZ/sHhGVlqsADgy+neSQq0hzT3ReViogewXjomYJrThdzhl
+         2EBdSM4fwP3rk2QRGyXpye3EYXF5zQMd/FAOhhXBrUefByEyPagMr6jbK6s8B6wOmnZ4
+         mfvUhOx+HnQ5quWJNKfjuW3eVYKkQMiHLxwEqxCfRhYXCmQoeDvXgR52f9Ca4RUN/K7j
+         CeX0L0SSoP5DXhMsFqqVIqPjW+MgZOu0z3MvD+ZzbTnTdmo54+fYt6q8xCG04KfVJ1rw
+         smyHjqndbA5MDSguP1J0XeuL+cIJ4KqJULkjWn5B649bQxmvzHsn8kNzJ9EDrpbcfp1a
+         JmaQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUBnJGQ1IQlio7xO3UeH43yRRmRPfwo3s5JNQZenvF4uQE1ZTpNRuRLwjsWLJkKzEixX7i5muiP0xI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyYtNgc6OyOBWefjqr8kETv3BWVp9++bDP/BkwhWypntTWiC7vA
+	GOliYCCEIxIDIHxzeldFSwJpcLmaXrAl24Fjv/LpGqLSeA0LpgQiLyh/0oJ2c9k=
+X-Gm-Gg: ASbGnct9MGSp56APlPEfzE6k2QhH7Z4CAq3btuRbGDj8TS0VAztyoo6B/GzAftSHtJn
+	bL49uLsICCkbg0xqb+vH/w/DeAdIdByHqi6uk0AYOFErMbyxjUX3Ghl0Pr7xt0hSMnbVPwvCTyS
+	KQd/Red5Pk3gZ38L6aW5Jt45yDaGqDstHeQ83G+SFaXdUjKZUPgBf5Ckf0R8bAxXkFY0mkZZMLv
+	jqnc9wynIayj+n1bfx1IB0qnLBO8q1zl4whhRCVhbSCjOp7CsZIcnp0Bd0ebnHHveZMUg2FKbj4
+	4EFy87ol7l26eIfZBCtqkXWgrU7oYhAb18CfAZZAkjuM867HCpZb34jWbt16kg15CivCYoqThHw
+	83hTTKtw3uA==
+X-Google-Smtp-Source: AGHT+IFNvFzxv8bvqMERbE2Vz+7mkEecVUYXpfWUX+3/VMEy4CnWPpH35ymphzLllSC4uxyRl/kprA==
+X-Received: by 2002:a05:600c:4fd4:b0:43c:eea9:f45d with SMTP id 5b1f17b1804b1-43db6248e50mr137487095e9.18.1743547625935;
+        Tue, 01 Apr 2025 15:47:05 -0700 (PDT)
+Message-ID: <cf19dd5c-1c87-49e0-a8fc-52b098d12b9f@citrix.com>
+Date: Tue, 1 Apr 2025 23:47:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/5] x86/asm: remove HAVE_AS_CLAC_STAC
+Subject: Re: [PATCH v1 4/5] x86/vmx: remove *_OPCODE
 To: dmkhn@proton.me, xen-devel@lists.xenproject.org
 Cc: anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
  dmukhin@ford.com
 References: <20250401222105.79309-1-dmukhin@ford.com>
- <20250401222105.79309-6-dmukhin@ford.com>
+ <20250401222105.79309-5-dmukhin@ford.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,18 +136,54 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250401222105.79309-6-dmukhin@ford.com>
+In-Reply-To: <20250401222105.79309-5-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 01/04/2025 11:21 pm, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
->
-> The new toolchain baseline knows the STAC/CLAC instructions,
-> no need to carry the workaround in the code.
->
-> Resolves: https://gitlab.com/xen-project/xen/-/work_items/203
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> index 10c0619108..1d63e49288 100644
+> --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> @@ -507,15 +487,17 @@ static inline int __vmxon(u64 addr)
+>      int rc;
+>  
+>      asm volatile ( 
+> -        "1: " VMXON_OPCODE MODRM_EAX_06 "\n"
+> -        "   setna %b0 ; neg %0\n" /* CF==1 or ZF==1 --> rc = -1 */
+> +        "1: vmxon (%[addr])\n"
+> +        "   setna %b[rc]\n"
+> +        "   neg %[rc]\n"          /* CF==1 or ZF==1 --> rc = -1 */
+>          "2:\n"
+>          ".section .fixup,\"ax\"\n"
+> -        "3: sub $2,%0 ; jmp 2b\n"    /* #UD or #GP --> rc = -2 */
+> +        "3: mov $-2, %[rc]\n"
+> +        "   jmp 2b\n"             /* #UD   or #GP   --> rc = -2 */
+>          ".previous\n"
+>          _ASM_EXTABLE(1b, 3b)
+> -        : "=q" (rc)
+> -        : "0" (0), "a" (&addr)
+> +        : [rc] "=q" (rc)
+> +        : "0" (0), [addr] "r" (&addr)
+>          : "memory");
+>  
+>      return rc;
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+A variant of this patch (improvements to __vmxon() helper, or whatever)
+probably wants pulling out and doing earlier.
+
+For the function parameter, u64 addr wants to become paddr_t addr.
+
+Use "int rc = 0;" and [rc] "+q" (rc).  That takes away the "0" (0) that
+is otherwise unconnected.
+
+Next, "vmxon %[addr]" and [addr] "m" (addr).   The VMXON instruction
+strictly takes an m64 operand, and it doesn't need bouncing through
+another register.
+
+Finally, __vmx{on,off}() have single callers only in vmcs.c, and really
+shouldn't be in vmx.h which is included ~everywhere.  You can move them
+into vmcs.c (probably after parse_ept_param_runtime()) to limit their scope.
+
+~Andrew
 
