@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46EBFA77FAD
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 17:59:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.934649.1336292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54200A77FC4
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 18:03:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.934660.1336301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tze0t-0007Iu-Qy; Tue, 01 Apr 2025 15:58:55 +0000
+	id 1tze4a-0002RJ-A6; Tue, 01 Apr 2025 16:02:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 934649.1336292; Tue, 01 Apr 2025 15:58:55 +0000
+Received: by outflank-mailman (output) from mailman id 934660.1336301; Tue, 01 Apr 2025 16:02:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tze0t-0007Gj-O1; Tue, 01 Apr 2025 15:58:55 +0000
-Received: by outflank-mailman (input) for mailman id 934649;
- Tue, 01 Apr 2025 15:58:53 +0000
+	id 1tze4a-0002Q4-7E; Tue, 01 Apr 2025 16:02:44 +0000
+Received: by outflank-mailman (input) for mailman id 934660;
+ Tue, 01 Apr 2025 16:02:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4pMn=WT=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1tze0r-0007Gd-Sv
- for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 15:58:53 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WxAi=WT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tze4Z-0002Py-82
+ for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 16:02:43 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34c1091f-0f12-11f0-9ffb-bf95429c2676;
- Tue, 01 Apr 2025 17:58:51 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-aaee2c5ee6eso859894266b.1
- for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 08:58:51 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac71922bf79sm777430666b.35.2025.04.01.08.58.50
+ id bd72b2e6-0f12-11f0-9ffb-bf95429c2676;
+ Tue, 01 Apr 2025 18:02:41 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43cfebc343dso43409005e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 09:02:41 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43d82e834a5sm207545625e9.13.2025.04.01.09.02.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Apr 2025 08:58:50 -0700 (PDT)
+ Tue, 01 Apr 2025 09:02:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,287 +45,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34c1091f-0f12-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: bd72b2e6-0f12-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743523131; x=1744127931; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=j8htelpKbTU2dix2B4lkHfx85WH71okU6YTp1RO/csU=;
-        b=RqMKO4NMrnisWpVFDM82Y9ifZ4y6vFOzeDSnOTGc5cFIgO/p/D8IWNcAkjfThpsyrj
-         qV152d+2+Jp0b01BjmGJC9i7LD+83i0CJ2fCjEAFkaddehkc+OyiS1cmAC99w7MUfcWI
-         7NIdTxbnUnSVTNpxu5uIDRHW7t7TNqTnBMiuUAeJBDKnXG+3KqxsmRljb8ZxMwk4szdu
-         nIyvd8C56Oa7jJohTH6hvuxyNPTPA3NrcDFgeOZH3NzqL2O3cH5e2BDCYixKxRv7IneT
-         Jo7RGZgsk/gycVrfHQ0Db+1FN70wz9aBkdsagdhF2MUbyDoDZzH/Pk9+eE2Bau4LQRsX
-         /YKg==
+        d=suse.com; s=google; t=1743523360; x=1744128160; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1Rd1UfYIcfzPadMvtlKgSvC+u88t6PcyshAEvjoQHYQ=;
+        b=Yq5OPQmJQcfq7wlNwBWmLIMBr1bT0Em13txZMGRMzDENKm1jgm/yWc2g6vqeKFxNIf
+         h65ufOQFw1Cy/zW+O6COcS+JxWdVXN2GFRVlbk7/sxRb4C5PobNUASQRCEM9ArJ3v5zm
+         SmNOE5afIYL4GAAO6amiLDENj15WcX/V0vcjwMa7RlCq61IyE//P9mL9IX5/wZetHyPA
+         4nBAeRlLzJGTy1KVNyj1+BgWkIt2JSRkO322r7cjWbPstQZuoQQl1lGUZEcGFzVKrxEb
+         g0jhIHBlwiwukWCMstYzWLBFyrBBvVEzxR5e/3fATQBZgYdCLLYQvDUb1eViEwMO9TR4
+         mIKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743523131; x=1744127931;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=j8htelpKbTU2dix2B4lkHfx85WH71okU6YTp1RO/csU=;
-        b=Z3yGQo+VwwXhQqQQAr3AxHczwSxqnFwTfBGaNeqVr7v4l0im2pcjgwZKmUysaLIcse
-         2jCCvOLWPVNm1OZoKzgvEHUogws58oI/T3z93NOXu6OXbaZDNptjOBjYLDq75gVpW2Vt
-         DsmnatfEVoQkRDISriJ1XVaAQ/ELgmyUIJSM+f9/9fnZWqJSMdqPPCmQPTHQ/LdxnjHx
-         CKuCZ0XL42SzbPlBnxiiXTeAeVFRBhWyUcnlRMUVKoXD09gP7bXgfZuj41FV1PrAID6j
-         3vfep2yJci72MTPEy794v8cz9eOreDpYhUHVHDOctpvONi7tm6UXW3LzmXMe1q2RC1xx
-         uVsQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXvJApPExEbgBdMJII9AhTZXrSlNtuyCF6icxvxID8ZVYAQq0TQ7S7m3wlQJEVDtMnDVgx1X9Mbkj8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YziXtFTfE91lXDM5jeZLeSErSzN3jqXSPsXNNIpV/S+jL3fsDqu
-	Z71uEs3k5+dnWEvm9e15F3Bqri6AjoP8GPzE6wcr1qnuvFzGbqI7
-X-Gm-Gg: ASbGncv1a/k6V3L9sBNjnOQxNxwGKGzQqbL/a6pri2DpP5j4FEtMci/u+VxX8FZbiW7
-	r5wbZ8+38kDr3PINjp49HCk7/LWvvlB1JZY4C5i/6d9e/wehgBE3f6Bp4DAxab43B7edVjif2u4
-	1uhZEhYFrMcJN5BR3pwogx3zI6l3dbDNIKC2grT37YhPUmqMhnWblNirybthC82P3eoQ+DotvQQ
-	69ohKQGn+3dCTbHKdxo5XPKgez++mgcxA6qND87pBGS8TVIwVxm0PNPYjIR6yl5XO+QaPgnws7f
-	410/UcBPo8T7WymSgk9my0zUDP7cWMPO2Sdl/cFh6uQn79wExT7xkM8lJtC7jZvLBIs+pj0O5UU
-	a+G22NJf/Y6QjLc8wQrwc
-X-Google-Smtp-Source: AGHT+IFhXCuOgljTK8alXcoIlemvZQ0YKSpjnp43Og0j+ByHWhBl2b33+FOHWM+AIR2S5KaD3oHvWA==
-X-Received: by 2002:a17:907:96a5:b0:ac3:ec77:27fb with SMTP id a640c23a62f3a-ac738a8b84cmr1061901066b.26.1743523131100;
-        Tue, 01 Apr 2025 08:58:51 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------sSxrmNcgtobUfYa6NOQKX0v9"
-Message-ID: <32264ccb-e566-41e0-973f-5bc7d874f970@gmail.com>
-Date: Tue, 1 Apr 2025 17:58:50 +0200
+        d=1e100.net; s=20230601; t=1743523360; x=1744128160;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1Rd1UfYIcfzPadMvtlKgSvC+u88t6PcyshAEvjoQHYQ=;
+        b=gMgG3Dc3w0MmN1ZSO2viXe5oCQpZ3NbQRfQdHBzEzXHZALo1p3B1XyI6kpQ/O+ZzRb
+         BCrYYdJo3fR37RZn89NtOd/SSFb3r/Yx6yNPI2/QGdBPNzJy0g+rIeGy7HXfbSyUwRmh
+         xHO9q35vgTHQUgPjG+EgKW1AjK12mtlShO5l1TVk0MEusnu4YQOkQx/PgKibZCiTyzSw
+         DkMCIdMeStJoJPg3S5sMBU8Q2AEwPs32+cuyre8PjuBqehy7bzasbTPAY3CCOTULg1ts
+         nFV4i4vs3dGOENOqg3//b1MC85joUoOJcDofyyCptyYvJPvs41mrBTZ07l807D2ESqFv
+         ywuQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWATlp6GWiY4jO1cbXFxgPjhVdzbcO/hUQ/oK5ykT2B/m36MJQ726lXyLZjgJMM1YIis6gB2jLuNxI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzhoykKAUJeRGq3G80PUfuz8021KtsKCQ4Z9tcGaN+0I7jJzg5Y
+	0eSSi9as8BkOXjxsC8w4YvHOJFJ/3ouGRIXcMQ3pX3i5W+1Q3yNU6Hyi3+6xgg==
+X-Gm-Gg: ASbGncvdEvT2m+oEjFe66qkBQg7oPkRhZXaB4w8nU9hBuWJmNFooyrdZLB60fdp+Wkw
+	8iPFnU3JYBQE9I/fOluFM6afpylx747Juod25KTCitauEAWNgYuxiCLCO++8DbYeFBB5sB+gFAM
+	WTR4RNMXha8ysMNmnfP3/g+4v/JMUsqzL1vdlV7l4hkommSFoPPe3/BB1pjHZbQLef93kUzWovS
+	k0WNT2DRwu6QZuIk7ASYGnTkmXMepc4CTt7YkKJjf8XHQan33qNDvZKZs/XTBMP0Wvw2/WClXf9
+	uqGRdOGAIGnx/Fg3UckO2awdrxo8qBCqZKxo/OQVihnAu/16Kre6cKLWfBTvhQDwx5oXoWSxnH5
+	nxjU5gkT1W6WzI51ey0khufhguEaDCA==
+X-Google-Smtp-Source: AGHT+IFMqIf6XOdSzNNyMPn+t/KNTyFbUHBdss3pG+DS8HHYqEttGrEW4CBc3kbNTmfs9dVGxzyzKg==
+X-Received: by 2002:a05:600c:190b:b0:43d:49eb:963f with SMTP id 5b1f17b1804b1-43ea7cc37d7mr35677805e9.24.1743523359072;
+        Tue, 01 Apr 2025 09:02:39 -0700 (PDT)
+Message-ID: <ff6afa1e-8fa8-4adf-998d-af2b10aaebea@suse.com>
+Date: Tue, 1 Apr 2025 18:02:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] xen/riscv: Increase XEN_VIRT_SIZE
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <e5fa4219ccf43125e2489cc8c49b4404e6ed22ce.1743434164.git.oleksii.kurochko@gmail.com>
- <54ebdcb7-071f-411f-803a-930dc330a497@suse.com>
+Subject: Re: [PATCH v2 07/11] x86/efi: discard multiboot related entry code
+ for PE binary
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250401130840.72119-1-roger.pau@citrix.com>
+ <20250401130840.72119-8-roger.pau@citrix.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <54ebdcb7-071f-411f-803a-930dc330a497@suse.com>
-
-This is a multi-part message in MIME format.
---------------sSxrmNcgtobUfYa6NOQKX0v9
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250401130840.72119-8-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 01.04.2025 15:08, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/xen.lds.S
+> +++ b/xen/arch/x86/xen.lds.S
+> @@ -63,6 +63,7 @@ SECTIONS
+>    . = __image_base__;
+>    /DISCARD/ : {
+>      *(.text.header)
+> +    *(.init.multiboot)
+>    }
+>  #endif
+>  
+> @@ -208,6 +209,7 @@ SECTIONS
+>         _sinittext = .;
+>         *(.init.text)
+>         *(.text.startup)
+> +       *(.init.multiboot)
+>         _einittext = .;
 
-On 3/31/25 6:14 PM, Jan Beulich wrote:
-> On 31.03.2025 17:20, Oleksii Kurochko wrote:
->> A randconfig job failed with the following issue:
->>    riscv64-linux-gnu-ld: Xen too large for early-boot assumptions
->>
->> The reason is that enabling the UBSAN config increased the size of
->> the Xen binary.
->>
->> Increase XEN_VIRT_SIZE to reserve enough space, allowing both UBSAN
->> and GCOV to be enabled together, with some slack for future growth.
-> At some point you may want to use 2M mappings for .text (rx), .rodata
-> (r), and .data (rw). Together with .init that would then completely
-> fill those 8Mb afaict. Hence you may want to go a little further right
-> away, e.g. to 16Mb.
+Better keep stuff that was early in .init.text early, by putting
+.init.multiboot first here? Then in principle:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-It makes sense to me. I'll update to 16 Mb then right now.
+However, there are then-orphan contributions to .init.rodata (maybe also
+to .init.data), which is at least a little odd. If they're to stay that
+way at least for the moment, maybe at least mention the aspect as known
+in the commit message?
 
->> +        _AC(XEN_VIRT_START, UL) >> vpn1_shift;
->> +    const unsigned long xen_virt_end_vpn =
->> +        xen_virt_starn_vpn + ((XEN_VIRT_SIZE >> vpn1_shift) - 1);
->> +
->>       if ((va >= DIRECTMAP_VIRT_START) &&
->>           (va <= DIRECTMAP_VIRT_END))
->>           return directmapoff_to_maddr(va - directmap_virt_start);
->>   
->> -    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
->> -    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
->> -           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
->> +    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(8));
-> Is it necessary to be != ? Won't > suffice?
-
-It could be just > MB(2). Or perphaps >=.
-
->
->> +    ASSERT((va_vpn >= xen_virt_starn_vpn) && (va_vpn <= xen_virt_end_vpn));
-> Are you sure about <= on the rhs of the && ?
-
-I am using -1 [ ((XEN_VIRT_SIZE >> vpn1_shift) - 1) ] when calculating the xen_virt_end_vpn to make the range inclusive.
-So it should be fine.
-
->
->> --- a/xen/arch/riscv/mm.c
->> +++ b/xen/arch/riscv/mm.c
->> @@ -31,20 +31,21 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
->>   #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
->>   
->>   /*
->> - * It is expected that Xen won't be more then 2 MB.
->> + * It is expected that Xen won't be more then 8 MB.
->>    * The check in xen.lds.S guarantees that.
->> - * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
->> + * At least 6 page tables (in case of Sv39) are needed to cover 8 MB.
->>    * One for each page level table with PAGE_SIZE = 4 Kb.
->>    *
->> - * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
->> + * Four L0 page table can cover 8 MB(512 entries of
->> + * one page table * PAGE_SIZE).
->>    *
->>    * It might be needed one more page table in case when Xen load address
->>    * isn't 2 MB aligned.
->>    *
->> - * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
->> + * (CONFIG_PAGING_LEVELS + 2) page tables are needed for the identity mapping,
->>    * except that the root page table is shared with the initial mapping
->>    */
->> -#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2 + 1)
->> +#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS + 2) * 2 + 1)
-> I'm in trouble fitting the comment updates with the update of the #define. Why
-> would more tables be needed for the identity mapping?
-
-Agree, it isn't needed more tables for the identity mapping.
-
->   Why does XEN_VIRT_SIZE
-> not appear anywhere here?
-
-I just used 8 Mb explicitly in the comment but I think you really asked me about definition
-of PGTBL_INITIAL_COUNT where I just explicitly take into account 3 extra pages for L0.
-I will update it with using of XEN_VIRT_SIZE to have more generic definition of PGTBL_INITIAL_COUNT.
-
-Thanks
-
-~ Oleksii
-
---------------sSxrmNcgtobUfYa6NOQKX0v9
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 3/31/25 6:14 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:54ebdcb7-071f-411f-803a-930dc330a497@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 31.03.2025 17:20, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">A randconfig job failed with the following issue:
-  riscv64-linux-gnu-ld: Xen too large for early-boot assumptions
-
-The reason is that enabling the UBSAN config increased the size of
-the Xen binary.
-
-Increase XEN_VIRT_SIZE to reserve enough space, allowing both UBSAN
-and GCOV to be enabled together, with some slack for future growth.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-At some point you may want to use 2M mappings for .text (rx), .rodata
-(r), and .data (rw). Together with .init that would then completely
-fill those 8Mb afaict. Hence you may want to go a little further right
-away, e.g. to 16Mb.</pre>
-    </blockquote>
-    <pre>It makes sense to me. I'll update to 16 Mb then right now.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:54ebdcb7-071f-411f-803a-930dc330a497@suse.com">
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+        _AC(XEN_VIRT_START, UL) &gt;&gt; vpn1_shift;
-+    const unsigned long xen_virt_end_vpn =
-+        xen_virt_starn_vpn + ((XEN_VIRT_SIZE &gt;&gt; vpn1_shift) - 1);
-+
-     if ((va &gt;= DIRECTMAP_VIRT_START) &amp;&amp;
-         (va &lt;= DIRECTMAP_VIRT_END))
-         return directmapoff_to_maddr(va - directmap_virt_start);
- 
--    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
--    ASSERT((va &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)) ==
--           (_AC(XEN_VIRT_START, UL) &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)));
-+    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(8));
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Is it necessary to be != ? Won't &gt; suffice?</pre>
-    </blockquote>
-    <pre>It could be just &gt; MB(2). Or perphaps &gt;=.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:54ebdcb7-071f-411f-803a-930dc330a497@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    ASSERT((va_vpn &gt;= xen_virt_starn_vpn) &amp;&amp; (va_vpn &lt;= xen_virt_end_vpn));
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Are you sure about &lt;= on the rhs of the &amp;&amp; ?</pre>
-    </blockquote>
-    <pre>I am using -1 [ ((XEN_VIRT_SIZE &gt;&gt; vpn1_shift) - 1) ] when calculating the xen_virt_end_vpn to make the range inclusive.
-So it should be fine.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:54ebdcb7-071f-411f-803a-930dc330a497@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/mm.c
-+++ b/xen/arch/riscv/mm.c
-@@ -31,20 +31,21 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
- #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
- 
- /*
-- * It is expected that Xen won't be more then 2 MB.
-+ * It is expected that Xen won't be more then 8 MB.
-  * The check in xen.lds.S guarantees that.
-- * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
-+ * At least 6 page tables (in case of Sv39) are needed to cover 8 MB.
-  * One for each page level table with PAGE_SIZE = 4 Kb.
-  *
-- * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
-+ * Four L0 page table can cover 8 MB(512 entries of
-+ * one page table * PAGE_SIZE).
-  *
-  * It might be needed one more page table in case when Xen load address
-  * isn't 2 MB aligned.
-  *
-- * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
-+ * (CONFIG_PAGING_LEVELS + 2) page tables are needed for the identity mapping,
-  * except that the root page table is shared with the initial mapping
-  */
--#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2 + 1)
-+#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS + 2) * 2 + 1)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I'm in trouble fitting the comment updates with the update of the #define. Why
-would more tables be needed for the identity mapping?</pre>
-    </blockquote>
-    <pre>Agree, it isn't needed more tables for the identity mapping.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:54ebdcb7-071f-411f-803a-930dc330a497@suse.com">
-      <pre wrap="" class="moz-quote-pre"> Why does XEN_VIRT_SIZE
-not appear anywhere here?</pre>
-    </blockquote>
-    <pre>I just used 8 Mb explicitly in the comment but I think you really asked me about definition
-of PGTBL_INITIAL_COUNT where I just explicitly take into account 3 extra pages for L0.
-I will update it with using of XEN_VIRT_SIZE to have more generic definition of PGTBL_INITIAL_COUNT.
-
-Thanks
-
-~ Oleksii
-
-</pre>
-  </body>
-</html>
-
---------------sSxrmNcgtobUfYa6NOQKX0v9--
+Jan
 
