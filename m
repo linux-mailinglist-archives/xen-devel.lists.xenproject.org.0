@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C9F7A77E28
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 16:47:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.934497.1336181 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 779B8A77E29
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 16:47:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.934504.1336191 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzcsz-000121-4n; Tue, 01 Apr 2025 14:46:41 +0000
+	id 1tzctS-0001SK-By; Tue, 01 Apr 2025 14:47:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 934497.1336181; Tue, 01 Apr 2025 14:46:41 +0000
+Received: by outflank-mailman (output) from mailman id 934504.1336191; Tue, 01 Apr 2025 14:47:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzcsz-0000zf-25; Tue, 01 Apr 2025 14:46:41 +0000
-Received: by outflank-mailman (input) for mailman id 934497;
- Tue, 01 Apr 2025 14:46:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WxAi=WT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzcsy-0000zZ-3M
- for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 14:46:40 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1e152e2f-0f08-11f0-9ea7-5ba50f476ded;
- Tue, 01 Apr 2025 16:46:38 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43cf628cb14so45626485e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 07:46:38 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b663564sm14528233f8f.32.2025.04.01.07.46.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Apr 2025 07:46:37 -0700 (PDT)
+	id 1tzctS-0001Px-98; Tue, 01 Apr 2025 14:47:10 +0000
+Received: by outflank-mailman (input) for mailman id 934504;
+ Tue, 01 Apr 2025 14:47:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KZod=WT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tzctQ-0001L3-Dn
+ for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 14:47:08 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2eaf8b27-0f08-11f0-9ffb-bf95429c2676;
+ Tue, 01 Apr 2025 16:47:06 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-39c266c2dd5so454408f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 07:47:06 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c0b66a96dsm14091348f8f.44.2025.04.01.07.47.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Apr 2025 07:47:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,224 +45,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e152e2f-0f08-11f0-9ea7-5ba50f476ded
+X-Inumbo-ID: 2eaf8b27-0f08-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743518798; x=1744123598; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QHC15nd4PSRDca98Yxo67NkIO5WyxPw50y41IKl4czw=;
-        b=XvFj+JoyC6+w4TCKE+Z34SseuUuN8JCcFzrfpNWT4X4WLzW/j0/zechzK4WYF3pvHC
-         uQAob4lwtpBE8vfFp+VWYnEShXU0GKvdAM776tirVeTkF7QKvH0ob6/1asaA+TR5JfG2
-         H6CDU+iRBZbcAMyro+gQoh7m/ipKeDMynhXmOIs4iF8Xe/Vb7jQi6Eajot5wcOAJT+P4
-         BGAMGcyyqneIyvAIpl8Pb9XzKlSY50O7IGxvz41Xjmegj9wVXuOtF/V7F66pj4IE6JwD
-         GjgET/RO/rYEfam1/DfrLShuhyF8K/n6CQfiUxZTIdD1wDeYwrBsuFIn/8lNcovI+b3Y
-         2BOQ==
+        d=citrix.com; s=google; t=1743518826; x=1744123626; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=x1ng98cg6r0EpaZ0hRdZSynFb1XZuzv1vYF46lpGdfU=;
+        b=wFtIsmytnUIbr+D4iM406rxPBUtra3qRwjbGQ1A0wQkWKvkA2HIN/fNxRnBGsVPgWi
+         fBc5hojjIHO9lbuICyO+5x1q5mm9GFi61nFT8NzgMq2vn3XKqnSVOSl62/DOLrDNU5No
+         h0v/99CRAXTW4gAxe+RFNREQKlaRapTOKCjUw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743518798; x=1744123598;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QHC15nd4PSRDca98Yxo67NkIO5WyxPw50y41IKl4czw=;
-        b=srspE93KYXR/6y4GgB54jh/5aOfNnOje/bCQ442yQsbeSoTwusm39cGRlGj3oTn6RJ
-         9OdZq0SXM+ER4K9qDD+8UgHleX3hqkZ8xg+OiLejEobrT61U4utzs5YQM4DtFz/AwXFM
-         CGJNRtJIB0YZneZzXN2atIgNxU2zLsKG3VLYGSiKbLirGhF6JTOVEhg7rz3OIlNga3gA
-         EsHOqpJ6++1oAgna8bCkUA3Pc25yVp9G/1XNY8z4KR/J6LAOUrCWuP4sWvzYMvyDrTx1
-         CxoLtbK3G7/bTff5W/fVX6CICc1k1yP81TwyVwvXSRCQ/IGzTbUh13cuFPAQGmQ9iiDt
-         nH9g==
-X-Forwarded-Encrypted: i=1; AJvYcCXNywcKNJpnYBNjOLvQ0fquAoR5/MClV03JqK7QvMXwMdYLVfCokGrMwhKRdlwjRh7eRXNBxQC2qM0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzfWBCo4c+Kxk8kNWz6wp69jNWxxE34S+dId0WUQFazA5GlEhnT
-	yHmQAn4M3M/ywKwIeB9f/ayutDvmpuLks7taMoUci5ILmzPcg+jvHef2f6dboQ==
-X-Gm-Gg: ASbGnctKBBs8bLpx6+skTvYGgrziacLjZXO6WTDDSw4ZabtM3OPAZICHYkGP2OxMJIz
-	usR2AdPcdsQECjqtGCj6x2KVP1zEPX8sL/48sGPHvROpYNkNyQRszwdy0sql15oDJdiLyEqBx+o
-	CyTBJFsEq3e80dgW2GOsvdXSxaE8fggps4wzT86WIWwieq+Z97yYfe4ysgChma+Z0efkv5GEQV0
-	Pp1z5cuMlUHqLpYE41eKgDkxIsflr6UDuKKEdgEKZ+otWT34Amp15H2Bf5dZ4g7of5gTjIcVkwL
-	GPguKxBAtxuzZAr95Od6lbwd8nI9UmmtWfeOdMRG1KCSW8ytSaM8XFoF7Pwg/REVlOPOIHnv5JG
-	ImBgZW2LGGSXKcNVXBMKlOc03ftb7MQ==
-X-Google-Smtp-Source: AGHT+IHE+b/ZTOWK3eX/p2/oof7eJfENe6egzrfirVdm3xS3y1AJ39nx8dx1Bj/KDMYDeQDjCQAOCg==
-X-Received: by 2002:a05:6000:2281:b0:38d:dc03:a3d6 with SMTP id ffacd0b85a97d-39c27ee3659mr300851f8f.4.1743518798221;
-        Tue, 01 Apr 2025 07:46:38 -0700 (PDT)
-Message-ID: <33b166be-21db-473e-a59a-3779436c0494@suse.com>
-Date: Tue, 1 Apr 2025 16:46:36 +0200
+        d=1e100.net; s=20230601; t=1743518826; x=1744123626;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=x1ng98cg6r0EpaZ0hRdZSynFb1XZuzv1vYF46lpGdfU=;
+        b=wQU77hKnrOlu0r6BBsNpnGrFIf+gISY25Dmnk2zCNA35XjvUohVUAnsWh08Vpr6zHV
+         ZIZMDmeKVlMEApwfb5HsdO67oiVS8j6owXQtMVIV0NCK6Y5r0zjqYl0oCcVj4uxqTF2u
+         iY7amC3QHnAT15tXP9exbHi9pZ0TMMIuNcXJlxjcoymdC2MhxlCOb1J2MjxWJb7DA3Mn
+         MGlHWZhx9EPL3SMijIWZF4AfqnQHtMZIN+gQjUzrUX9YgbLVuAOVwXgMYgMxwgcuR+lU
+         6WXy2vaoOCMScm98CTO58KJfWC6KzEQuQy6XZ9ATUgM8w7aM1Xsd2TmAdNWtNuGxieqM
+         ZK0g==
+X-Gm-Message-State: AOJu0Yxhl4nhHGLGWPacd60LuP/RE4TgKHI0EGmnf2FNlgzHfRsfyR4F
+	RcB5kKU28sKaIKZWC6mkk8cD3eJhD/ZYnf2QF6tjf17zVkvxcoQIw8RMM2sS9xje6Se2OpO6GL+
+	WvXw=
+X-Gm-Gg: ASbGncs5E23/Rre6dYxxyZD6iwq4R+1yjPGpI8+zpRI3XvMZSiXII0tqC6zvEhFArFT
+	4qQ6Jt6bYRCDP7Boq/DkucBFp+LzclWNI2EjvA+12eJYXcaB8vAfKJrp1kMUvw4Ln58gChlFUdb
+	nMTgWZTtQeAr2uuBTY3OY5i/EOF2Fg77f9LvCuVv+4AlvY3nGwSLf0NjSqYe+0uL7E/NLE+6rYG
+	FL00uNPPHyYhowKtUlsfu4/XR94KQk9oH5a/y7rxKev1UMm+mnv9H+0ajoQIHMIlKOaSogcY02f
+	NkiLphX6gMpjKggYOrjHaWMCWi8OAHl4/Dj7XpLxhV+qjqILtDMYvcuLRPhmWdVzo1/6YYnkrRl
+	y5JY28f8BojVjVqjXuw==
+X-Google-Smtp-Source: AGHT+IFpPFkWRyeQp3pd7RYDaNWk6Aj7tRtunrZmPS+65o57D8DsP9c6hEky4TvxrottFPKWuuq01Q==
+X-Received: by 2002:a5d:47c1:0:b0:391:2995:5ef2 with SMTP id ffacd0b85a97d-39c12114e24mr10673851f8f.37.1743518825863;
+        Tue, 01 Apr 2025 07:47:05 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH] xen/arch: Simplify $(TARGET)-syms rule
+Date: Tue,  1 Apr 2025 15:47:03 +0100
+Message-Id: <20250401144703.961836-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 18/19] xen/sysctl: wrap around arch-specific
- arch_do_sysctl
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
-References: <20250326055053.3313146-1-Penny.Zheng@amd.com>
- <20250326055053.3313146-19-Penny.Zheng@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250326055053.3313146-19-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26.03.2025 06:50, Penny Zheng wrote:
-> Function arch_do_sysctl is to perform arch-specific sysctl op.
-> Some functions, like psr_get_info for x86, DTB overlay support for arm,
-> are solely available through sysctl op, then they all shall be wrapped
-> with CONFIG_SYSCTL
-> Also, remove all #ifdef CONFIG_SYSCTL-s in arch-specific sysctl.c, as
-> we put the guardian in Makefile for the whole file.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> ---
-> - use "depends on" for config OVERLAY_DTB
-> - no need to wrap declaration
-> - add transient #ifdef in sysctl.c for correct compilation
-> ---
->  xen/arch/arm/Kconfig   |  1 +
->  xen/arch/arm/Makefile  |  2 +-
->  xen/arch/arm/sysctl.c  |  2 --
->  xen/arch/riscv/stubs.c |  2 +-
->  xen/arch/x86/Makefile  |  2 +-
->  xen/arch/x86/psr.c     | 18 ++++++++++++++++++
->  xen/arch/x86/sysctl.c  |  2 --
->  xen/common/sysctl.c    |  2 ++
->  8 files changed, 24 insertions(+), 7 deletions(-)
-> 
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index ffdff1f0a3..aa1b4a6e6b 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -141,6 +141,7 @@ config HAS_ITS
->  
->  config OVERLAY_DTB
->  	bool "DTB overlay support (UNSUPPORTED)" if UNSUPPORTED
-> +	depends on SYSCTL
->  	help
->  	  Dynamic addition/removal of Xen device tree nodes using a dtbo.
->  
-> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-> index 4837ad467a..7c6015b84d 100644
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -54,7 +54,7 @@ obj-y += smpboot.o
->  obj-$(CONFIG_STATIC_EVTCHN) += static-evtchn.init.o
->  obj-$(CONFIG_STATIC_MEMORY) += static-memory.init.o
->  obj-$(CONFIG_STATIC_SHM) += static-shmem.init.o
-> -obj-y += sysctl.o
-> +obj-$(CONFIG_SYSCTL) += sysctl.o
->  obj-y += time.o
->  obj-y += traps.o
->  obj-y += vcpreg.o
-> diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
-> index 2d350b700a..32cab4feff 100644
-> --- a/xen/arch/arm/sysctl.c
-> +++ b/xen/arch/arm/sysctl.c
-> @@ -15,7 +15,6 @@
->  #include <asm/arm64/sve.h>
->  #include <public/sysctl.h>
->  
-> -#ifdef CONFIG_SYSCTL
->  void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
->  {
->      pi->capabilities |= XEN_SYSCTL_PHYSCAP_hvm | XEN_SYSCTL_PHYSCAP_hap;
-> @@ -23,7 +22,6 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
->      pi->arch_capabilities |= MASK_INSR(sve_encode_vl(get_sys_vl_len()),
->                                         XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
->  }
-> -#endif
->  
->  long arch_do_sysctl(struct xen_sysctl *sysctl,
->                      XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
-> diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-> index 7b3f748886..ae865e1972 100644
-> --- a/xen/arch/riscv/stubs.c
-> +++ b/xen/arch/riscv/stubs.c
-> @@ -322,13 +322,13 @@ unsigned long raw_copy_from_guest(void *to, const void __user *from,
->  
->  /* sysctl.c */
->  
-> +#ifdef CONFIG_SYSCTL
->  long arch_do_sysctl(struct xen_sysctl *sysctl,
->                      XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->  {
->      BUG_ON("unimplemented");
->  }
->  
-> -#ifdef CONFIG_SYSCTL
->  void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
->  {
->      BUG_ON("unimplemented");
-> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-> index f59c9665fd..837eafcbc0 100644
-> --- a/xen/arch/x86/Makefile
-> +++ b/xen/arch/x86/Makefile
-> @@ -79,7 +79,7 @@ ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
->  obj-y += domctl.o
->  obj-y += platform_hypercall.o
->  obj-$(CONFIG_COMPAT) += x86_64/platform_hypercall.o
-> -obj-y += sysctl.o
-> +obj-$(CONFIG_SYSCTL) += sysctl.o
->  endif
+In all cases, "-T $(obj)/xen.lds" can be factored out by appending to
+XEN_LDFLAGS.  This takes the $(LD) commands from multi-line to single-line.
 
-I think I had indicated before that this shouldn't stay inside the conditional,
-but move back up. Whether that is to happen here or while addressing my
-respective comment on patch 01 I can't easily tell.
+x86 uses $(build_id_linker) for all links, so factor that out too.
 
-> --- a/xen/common/sysctl.c
-> +++ b/xen/common/sysctl.c
-> @@ -490,8 +490,10 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->          break;
->  
->      default:
-> +#ifdef CONFIG_SYSCTL
->          ret = arch_do_sysctl(op, u_sysctl);
->          copyback = 0;
-> +#endif
->          break;
->      }
+No functional change.
 
-This isn't enough. "ret" is 0 when reaching the default: label, but may not
-stay 0 for the return from the function. I understand (expect) this is going to
-be dropped again in the next patch, but even if only transiently needed this
-should be kept correct imo. Things might be different if patch 02 introduced
-the option without a prompt, i.e. always enabled. Then all the #ifdef-ary added
-up to here would be merely syntactic sugar. In fact in that case you could omit
-all the transient #ifdef that the last patch is going to remove again. Please
-consider going that route.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
+CC: Shawn Anastasio <sanastasio@raptorengineering.com>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Otherwise I think the #endif also needs moving up, for copyback to still be
-cleared here.
+This is based on top of Roger's "xen: remove -N from the linker command line".
 
-Jan
+x86 might want to follow ARM's lead and only use $(build_id_linker) on the
+final link.  It also wants extending to PPC/RISC-V
+
+$(orphan-handling-y) needs making common and using ouside of x86 too.
+---
+ xen/arch/arm/Makefile   | 10 ++++------
+ xen/arch/ppc/Makefile   | 10 ++++------
+ xen/arch/riscv/Makefile | 10 ++++------
+ xen/arch/x86/Makefile   | 10 ++++------
+ 4 files changed, 16 insertions(+), 24 deletions(-)
+
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index 129a109d6ec5..811adf3567c4 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -96,21 +96,19 @@ ifeq ($(CONFIG_ARM_64),y)
+ 	ln -sf $(@F) $@.efi
+ endif
+ 
++$(TARGET)-syms: XEN_LDFLAGS += -T $(obj)/xen.lds
+ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
+-	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
++	$(LD) $(XEN_LDFLAGS) $< $(objtree)/common/symbols-dummy.o -o $(dot-target).0
+ 	$(NM) -pa --format=sysv $(dot-target).0 \
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+ 		> $(dot-target).0.S
+ 	$(MAKE) $(build)=$(@D) $(dot-target).0.o
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
+-	    $(dot-target).0.o -o $(dot-target).1
++	$(LD) $(XEN_LDFLAGS) $< $(dot-target).0.o -o $(dot-target).1
+ 	$(NM) -pa --format=sysv $(dot-target).1 \
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+ 		> $(dot-target).1.S
+ 	$(MAKE) $(build)=$(@D) $(dot-target).1.o
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
+-	    $(dot-target).1.o -o $@
++	$(LD) $(XEN_LDFLAGS) $< $(build_id_linker) $(dot-target).1.o -o $@
+ 	$(NM) -pa --format=sysv $@ \
+ 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+ 		> $@.map
+diff --git a/xen/arch/ppc/Makefile b/xen/arch/ppc/Makefile
+index cf27bcebb25a..9ba23ecfff7e 100644
+--- a/xen/arch/ppc/Makefile
++++ b/xen/arch/ppc/Makefile
+@@ -11,21 +11,19 @@ obj-y += tlb-radix.o
+ $(TARGET): $(TARGET)-syms
+ 	cp -f $< $@
+ 
++$(TARGET)-syms: XEN_LDFLAGS += -T $(obj)/xen.lds
+ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
+-	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
++	$(LD) $(XEN_LDFLAGS) $< $(objtree)/common/symbols-dummy.o -o $(dot-target).0
+ 	$(NM) -pa --format=sysv $(dot-target).0 \
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+ 		> $(dot-target).0.S
+ 	$(MAKE) $(build)=$(@D) $(dot-target).0.o
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
+-	    $(dot-target).0.o -o $(dot-target).1
++	$(LD) $(XEN_LDFLAGS) $< $(dot-target).0.o -o $(dot-target).1
+ 	$(NM) -pa --format=sysv $(dot-target).1 \
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+ 		> $(dot-target).1.S
+ 	$(MAKE) $(build)=$(@D) $(dot-target).1.o
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
+-	    $(dot-target).1.o -o $@
++	$(LD) $(XEN_LDFLAGS) $< $(build_id_linker) $(dot-target).1.o -o $@
+ 	$(NM) -pa --format=sysv $@ \
+ 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+ 		> $@.map
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index 516f5d505ca8..92e084db91a2 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -15,21 +15,19 @@ obj-y += vm_event.o
+ $(TARGET): $(TARGET)-syms
+ 	$(OBJCOPY) -O binary -S $< $@
+ 
++$(TARGET)-syms: XEN_LDFLAGS += -T $(obj)/xen.lds
+ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
+-	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
++	$(LD) $(XEN_LDFLAGS) $< $(objtree)/common/symbols-dummy.o -o $(dot-target).0
+ 	$(NM) -pa --format=sysv $(dot-target).0 \
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+ 		> $(dot-target).0.S
+ 	$(MAKE) $(build)=$(@D) $(dot-target).0.o
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< \
+-	    $(dot-target).0.o -o $(dot-target).1
++	$(LD) $(XEN_LDFLAGS) $< $(dot-target).0.o -o $(dot-target).1
+ 	$(NM) -pa --format=sysv $(dot-target).1 \
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+ 		> $(dot-target).1.S
+ 	$(MAKE) $(build)=$(@D) $(dot-target).1.o
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
+-	    $(dot-target).1.o -o $@
++	$(LD) $(XEN_LDFLAGS) $< $(build_id_linker) $(dot-target).1.o -o $@
+ 	$(NM) -pa --format=sysv $@ \
+ 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+ 		> $@.map
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index c2f1dcf301d6..b5227aeabb81 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -138,21 +138,19 @@ $(TARGET): $(TARGET)-syms $(efi-y) $(obj)/boot/mkelf32
+ 
+ CFLAGS-$(XEN_BUILD_EFI) += -DXEN_BUILD_EFI
+ 
++$(TARGET)-syms: XEN_LDFLAGS += -T $(obj)/xen.lds $(build_id_linker)
+ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
+-	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
++	$(LD) $(XEN_LDFLAGS) $< $(objtree)/common/symbols-dummy.o -o $(dot-target).0
+ 	$(NM) -pa --format=sysv $(dot-target).0 \
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+ 		> $(dot-target).0.S
+ 	$(MAKE) $(build)=$(@D) $(dot-target).0.o
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
+-	    $(dot-target).0.o -o $(dot-target).1
++	$(LD) $(XEN_LDFLAGS) $< $(dot-target).0.o -o $(dot-target).1
+ 	$(NM) -pa --format=sysv $(dot-target).1 \
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort $(syms-warn-dup-y) \
+ 		> $(dot-target).1.S
+ 	$(MAKE) $(build)=$(@D) $(dot-target).1.o
+-	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
+-	    $(orphan-handling-y) $(dot-target).1.o -o $@
++	$(LD) $(XEN_LDFLAGS) $< $(orphan-handling-y) $(dot-target).1.o -o $@
+ 	$(NM) -pa --format=sysv $@ \
+ 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+ 		> $@.map
+
+base-commit: debe8bf537ec2c69a4734393cd2b0c7f57f74c0c
+prerequisite-patch-id: 7911818c8833f061c9476332975b9aecb69bc26d
+-- 
+2.39.5
+
 
