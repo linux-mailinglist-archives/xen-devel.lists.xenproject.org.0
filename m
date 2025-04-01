@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B0F2A77A81
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 14:16:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.933944.1335772 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F4DFA77ADB
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 14:24:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.933967.1335818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzaXk-0007OU-Pp; Tue, 01 Apr 2025 12:16:36 +0000
+	id 1tzafC-0002Au-SB; Tue, 01 Apr 2025 12:24:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 933944.1335772; Tue, 01 Apr 2025 12:16:36 +0000
+Received: by outflank-mailman (output) from mailman id 933967.1335818; Tue, 01 Apr 2025 12:24:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzaXk-0007MG-N9; Tue, 01 Apr 2025 12:16:36 +0000
-Received: by outflank-mailman (input) for mailman id 933944;
- Tue, 01 Apr 2025 12:16:35 +0000
+	id 1tzafC-00028f-P0; Tue, 01 Apr 2025 12:24:18 +0000
+Received: by outflank-mailman (input) for mailman id 933967;
+ Tue, 01 Apr 2025 12:24:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WxAi=WT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzaXj-0007MA-De
- for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 12:16:35 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1tzafA-00028I-Ny
+ for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 12:24:16 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26c9ecee-0ef3-11f0-9ea7-5ba50f476ded;
- Tue, 01 Apr 2025 14:16:34 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-39ac9aea656so4514043f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 05:16:34 -0700 (PDT)
+ id 3a0e8fa7-0ef4-11f0-9ea7-5ba50f476ded;
+ Tue, 01 Apr 2025 14:24:15 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3914a5def6bso3097616f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 05:24:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d8314b5e7sm199241115e9.35.2025.04.01.05.16.32
+ ffacd0b85a97d-39c0b79e33asm14163357f8f.66.2025.04.01.05.24.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Apr 2025 05:16:32 -0700 (PDT)
+ Tue, 01 Apr 2025 05:24:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26c9ecee-0ef3-11f0-9ea7-5ba50f476ded
+X-Inumbo-ID: 3a0e8fa7-0ef4-11f0-9ea7-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743509793; x=1744114593; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743510255; x=1744115055; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kPWTSv5K/ONC8F+o1mQaSyKy+gzQpEWQzDbOHHnxz78=;
-        b=Ipqq59I8FsJArUrIUBxQg64tNsrAyGbij7m/HpG1Gp/ev0Ji4NbR2eA+JeAl4zSBng
-         rwvVGzosvrRhXi8i+hjC/FjF67tAyEWKTEnf/s9E4lwxCg3Q56it7NyxQkAtIvMnvFqF
-         ITCU3q+LRkFBQwacWmbIA7p4yhlQJ7pbfNEBdWl7ISxoZupS/YymAHXAz0f86b4SruMl
-         oy2vaSW45jwWgSOJ6M/FUqKEk18Cqrrcrh1S8fF1YaiBtBLDZ9x1OM4Z2lXwUrHtwsgz
-         sWBbcOMjuHC8e7L1iP5G7V+xWI2DDskZoAXt37NlIdMyE5CEXwWiaBtQRi6PZbK/GIBY
-         2cDA==
+        bh=NG3GHntTYPBQ4J0/UTfJ45c6gyMAT8x80KJMDD/TFBI=;
+        b=TsX4YXWknyAB+2A+6VLgS1dCTVybZdzS12IamNrXQP1fm6OW4qytWrUdG6EtLn3PtM
+         S0po8xzMHPyQJos9u9UCRCgRLXPUM34PI8BdlsDhwT8TQVmRdAu0Q4MGiWbMEHMz4x+J
+         gygqVz8MVEGB4dHAHDBluS/YjF3mlpb/O18wpnpqeaHir4j34HwrY0k40IkTW9bfAbUJ
+         VIzEH57NB3aX6iDC//QJyWWeaYs9PkH962qARXL71lnBwNRZt4XnACGUGAkxG4ExUAbb
+         9qN/yHfTciArjPIX7Br1qMUa4zsgs77LAGqsEZcTahCiVhp0K/J5zOp7D9ajDiDf124a
+         wRCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743509793; x=1744114593;
+        d=1e100.net; s=20230601; t=1743510255; x=1744115055;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kPWTSv5K/ONC8F+o1mQaSyKy+gzQpEWQzDbOHHnxz78=;
-        b=GrPL7c5ZgMbL3gtRpx4dRRkK9UEdOCrPZRSMu+OCQLQojsRFBYzPijdnQY4ghq9A8t
-         TF6kgrslljBgnQoDrlgomo9TceQRBQGCx57dhfWg1T9RvdzYFfLEc+cdRBHz0A0wLLWm
-         UUGWaIo2bo/rZ3NTpQ2Ya9n66Gp5UrHL4dlIXn5FsaBfg2tT6qWCampc+bK5ve3hzsRb
-         3x0/fxOGwc9R2KuX3wccmWsucXmhB+d/YzpHzmWW5gEKuQpT5pHL2WEQC5u86vlNUl4w
-         4HlAFVK26xsdP+A6K24/Bzsp2vX2zMBq3yOeO0LNas86ydqX0byQqCW5SMS9cJgZ0ivw
-         oVAA==
-X-Forwarded-Encrypted: i=1; AJvYcCUvNppYsT952tYZa/NkP3qqkMqqCBtp2kRr45ThdFaoB7mIJkw0bE/C/QPAhUGGmKGG4WD6a3wx3wc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywm/NpdhHKRQcEDMy4bh57cOvONXvk4PLYwp/3I7Q49A9G9MzP6
-	vY3vfhDgt+q7wrzY1eD/UxijitkE1aYfwv52RREfCorooso/otKR/uTtyoC24Q==
-X-Gm-Gg: ASbGnctXLh/fiz5Fx1nfxzCJo8bfYmFL0vFunnJHSeO10HPnwr6Wis3vUsT22mkoIaT
-	mDiE5HLsFkCCAt37nQn99bn1Qgr81Bw0V2zQciPfb5MvLn2Rpi1WHxwFXKL6QX8DIeXXQr4pzRJ
-	ZzO5+ps8guHd+EnBMOenMdrbYXuRtMesfPkZjzu6BJ3PMC9oyX5gkEuRNlS9l4RsRdDNwuupohQ
-	BAetXJewLJbcdogihnmTkBZVFv90pDBvHe/QUB9dHHrnrmXGOb+vXdV45+32WmhBbK3LlqTUoeU
-	rRm664XLtw9OU2yLkXWvEXTZtBkxSERrVVdWds8LGLwhgEZabIsUwrHK4UUfE1iYIEgAIAfUgPU
-	mPQL9Dwi1ayqrX+q8kQo2KbmKQnYsyBEP0NShhkYb
-X-Google-Smtp-Source: AGHT+IGR6XEBWGq3rif+DS8uWb9hT6JlG9cY25zlVFhFU3RrNgNAvlHVMP8bZN9pfAgJnkEJYV9Q4g==
-X-Received: by 2002:a05:6000:2706:b0:39c:1257:cd3f with SMTP id ffacd0b85a97d-39c1257d4fbmr6864114f8f.57.1743509793253;
-        Tue, 01 Apr 2025 05:16:33 -0700 (PDT)
-Message-ID: <6765d129-66dc-48d9-aaac-2b973edfda80@suse.com>
-Date: Tue, 1 Apr 2025 14:16:31 +0200
+        bh=NG3GHntTYPBQ4J0/UTfJ45c6gyMAT8x80KJMDD/TFBI=;
+        b=ol7FH18YJOH6Ws0a8bJUoUAzs0cM0xFMgEXYB+6S931zH/8nzhoOFy15e47k6q4Ne7
+         TW6WfGHPwpPRD8yiwyTxzB2arNjwgxqXzHfvbsyh1QoEzk8PJT+PO3ikKU9CSV/YY16u
+         Sl0VcXaDnegpRzacp/YDX9MWPfDTyqvPtSlmIUHdNR8pO2AVQRJH2vDql/tBPSViSVbN
+         o+Br0KLDTY86PHNbTkWJYXRfrr0zG6UA/JInGQspL55mC2GxK8jImAhQOR9H2hZnEbQo
+         mHCGuypDcnDUrna+vj4Z4gRtnc/aKtjRwr4abpz95USIr0aCNwMVbT90QlDFC7HK38ZF
+         X8NQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV0gWzma0tkLWr8d69+k+8FJoFZfaXWPAsAGHxo20HAktlnp0fxzaFGnfggPVS+swiQ1TdnGNZ0CLw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx3K4zQZCxfs0GC33qxmVv9V3irnLbgLcOWQGfbjfC52IXb4yRl
+	6DxHcrhftt78fkGluItfvWS0StFvpVnKUWIz9Ozh0f1cKzIHAHYKjrLO4I59kQ==
+X-Gm-Gg: ASbGncvKCt9t7JIP+5HFLBeVUX2JP9/E4zoPLbtCStMLmxsUN9EvxlYc4NDQlzHxYjJ
+	IupCdJzDmd17oxOLvNkEo46W2g0flV28bkVAEChyefNKxEegADgeBi+JliUpGi68W49DbAFwdVX
+	mt3PRzeJic705aAW/TG1uQfhlLULjcgUcAAI2khJVm5zIYni4gDPsGIH9Povll5atuuiKgVBHl4
+	aO+FaZqu/3t8zTtPAJjUmZ7RZwT78X1E2hkpCXq8fIo+CYEib6nsSVfBA7xkekwmbkEnGcqzheH
+	HL8ZlkIUYesFZbTswz+UX53BmsWknbr13tlGJn79gpF2i8ye6fyzrpR/ug2jA0bzA1Csj+vuBE/
+	uve4JW8n7/pILHNjs8GADd/IZVSnetQ==
+X-Google-Smtp-Source: AGHT+IHpHdtykKUfHQC4Vd8c9qZ/pFruzPe4SK+4h9JYOtfBIkbjZTffQQbnc8IFVqFHd7y8DCWqhQ==
+X-Received: by 2002:a5d:6d83:0:b0:38d:de45:bf98 with SMTP id ffacd0b85a97d-39c120cb898mr9117869f8f.8.1743510255260;
+        Tue, 01 Apr 2025 05:24:15 -0700 (PDT)
+Message-ID: <aead1e5f-8c3e-4579-94f3-6e75c77db0e0@suse.com>
+Date: Tue, 1 Apr 2025 14:24:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/6] xen/arm: dom0less seed xenstore grant table entry
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 04/19] xen/sysctl: wrap around XEN_SYSCTL_readconsole
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
-References: <20250331214321.205331-1-jason.andryuk@amd.com>
- <20250331214321.205331-5-jason.andryuk@amd.com>
+References: <20250326055053.3313146-1-Penny.Zheng@amd.com>
+ <20250326055053.3313146-5-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,80 +123,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250331214321.205331-5-jason.andryuk@amd.com>
+In-Reply-To: <20250326055053.3313146-5-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 31.03.2025 23:43, Jason Andryuk wrote:
-> xenstored maps other domains' xenstore pages.  Currently this relies on
-> init-dom0less or xl to seed the grants from Dom0.  With split
-> hardware/control/xenstore domains, this is problematic since we don't
-> want the hardware domain to be able to map other domains' resources
-> without their permission.  Instead have the hypervisor seed the grant
-> table entry for every dom0less domain.  The grant is then accessible as
-> normal.
-
-Yet aiui the original idea was to specifically not do this in the hypervisor.
-I agree it shouldn't be the hardware domain, but what's wrong with having the
-control domain do that? It is what is responsible for creating new domains as
-well. The question of where to do that when there's no control domain must
-also have been solved already (without me knowing the answer), as that's
-where init-dom0less must be running.
-
-> This works with C xenstored.  OCaml xenstored does not use grants and
-> would fail to foreign map the page.
-
-From the sentence it's not clear whether this is unchanged behavior or
-a deliberate regression.
-
-> --- a/xen/arch/arm/dom0less-build.c
-> +++ b/xen/arch/arm/dom0less-build.c
-> @@ -865,6 +865,10 @@ static void __init initialize_domU_xenstore(void)
->          rc = alloc_xenstore_evtchn(d);
->          if ( rc < 0 )
->              panic("%pd: Failed to allocate xenstore_evtchn\n", d);
-> +
-> +        if ( gfn != ~0ULL )
-
-Is this an odd open-coding of INVALID_GFN? And even if not - why ULL when
-"gfn" is unsigned long? The way you have it the condition will always be
-false on Arm32, if I'm not mistaken.
-
-> --- a/xen/common/grant_table.c
-> +++ b/xen/common/grant_table.c
-> @@ -4346,6 +4346,21 @@ static void gnttab_usage_print(struct domain *rd)
->          printk("no active grant table entries\n");
->  }
+On 26.03.2025 06:50, Penny Zheng wrote:
+> --- a/xen/common/sysctl.c
+> +++ b/xen/common/sysctl.c
+> @@ -58,6 +58,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
 >  
-> +#ifdef CONFIG_DOM0LESS_BOOT
-> +void __init gnttab_seed_entry(const struct domain *d, unsigned int idx,
-> +                              domid_t be_domid, uint64_t frame,
-> +                              unsigned int flags)
-> +{
-> +    const struct grant_table *gt = d->grant_table;
-> +
-> +    ASSERT(!d->creation_finished);
-
-While I don't mind the assertion, it's a little funny to see such in an
-__init function.
-
-> +    ASSERT(gt->gt_version == 1);
-> +    shared_entry_v1(gt, idx).flags = flags;
-
-Does this really need to be a function parameter? The sole caller passes
-a constant (GTF_permit_access).
-
-> --- a/xen/include/xen/grant_table.h
-> +++ b/xen/include/xen/grant_table.h
-> @@ -45,6 +45,11 @@ void grant_table_destroy(
->      struct domain *d);
->  void grant_table_init_vcpu(struct vcpu *v);
+>      switch ( op->cmd )
+>      {
+> +#ifdef CONFIG_SYSCTL
+>      case XEN_SYSCTL_readconsole:
+>          ret = xsm_readconsole(XSM_HOOK, op->u.readconsole.clear);
+>          if ( ret )
+> @@ -66,6 +67,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+>          ret = read_console_ring(&op->u.readconsole);
+>          break;
 >  
-> +/* Seed a gnttab entry for Hyperlaunch/dom0less. */
-> +void __init gnttab_seed_entry(const struct domain *d, unsigned int idx,
+> +#endif /* CONFIG_SYSCTL */
+>      case XEN_SYSCTL_tbuf_op:
 
-No __init on declarations please. They have no effect (as long as the definition
-properly has the attribute) and hence are only at risk of going stale.
+Nit: Can the #endif please live ahead of the blank line?
 
 Jan
 
