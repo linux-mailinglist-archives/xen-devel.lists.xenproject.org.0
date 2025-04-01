@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED1D5A77BFB
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 15:22:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.934305.1336049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E38EAA77C02
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 15:25:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.934331.1336061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzbZa-0004ft-CZ; Tue, 01 Apr 2025 13:22:34 +0000
+	id 1tzbcL-0006Aw-QC; Tue, 01 Apr 2025 13:25:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 934305.1336049; Tue, 01 Apr 2025 13:22:34 +0000
+Received: by outflank-mailman (output) from mailman id 934331.1336061; Tue, 01 Apr 2025 13:25:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzbZa-0004dj-9r; Tue, 01 Apr 2025 13:22:34 +0000
-Received: by outflank-mailman (input) for mailman id 934305;
- Tue, 01 Apr 2025 13:22:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tzbcL-00068o-NX; Tue, 01 Apr 2025 13:25:25 +0000
+Received: by outflank-mailman (input) for mailman id 934331;
+ Tue, 01 Apr 2025 13:25:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KZod=WT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1tzbZY-0004c8-Gs
- for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 13:22:32 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5dca5cfb-0efc-11f0-9ea7-5ba50f476ded;
- Tue, 01 Apr 2025 15:22:31 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43ce70f9afbso57742125e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 06:22:31 -0700 (PDT)
+ id 1tzbcK-00068i-7F
+ for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 13:25:24 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c368a62e-0efc-11f0-9ffb-bf95429c2676;
+ Tue, 01 Apr 2025 15:25:22 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-391342fc1f6so4936511f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 06:25:22 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43d8314bbf1sm197189955e9.38.2025.04.01.06.22.30
+ 5b1f17b1804b1-43d8ff02e84sm155652855e9.32.2025.04.01.06.25.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Apr 2025 06:22:30 -0700 (PDT)
+ Tue, 01 Apr 2025 06:25:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5dca5cfb-0efc-11f0-9ea7-5ba50f476ded
+X-Inumbo-ID: c368a62e-0efc-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743513751; x=1744118551; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1743513922; x=1744118722; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5WUzqrA+LcYY/Vhg5mLvvAklr4Mj/wh4x1uWNh/e3+0=;
-        b=XYqjn7cvTb9SkKxb9eoiY5JXMAPOlStQtkqLeQdFwdFxWvJPfGgyqbkJEvXpSt5RX5
-         ZtxtsB5s4kSVsUIvTLU7RzTpXd1JSQzwZ+arJp75suC1unGutyJAvldvHqANoFP0Zz28
-         6tievJ0BgRHWUfxkVGu7Lf+ni4VnCtm/XboAI=
+        bh=VFMj127YW25n0oGy9qJUEugIqGXnAG5LIQf0LifWFt4=;
+        b=FqOU6mBTxEUV/YIrBXlHlZmZ2A0i94cZs9hhavuyL9x+EQeOe/g4OEFVvo9eoyxje6
+         T26mkmiuqZ10YwZVmoNf1F8R++nRYr74bhcvn+bk6UIq2tu01cyFyaccI6d1dL2bL2nh
+         EPUNOSjMhb0sunP6sUUWpr/qcuaOaaeIqKOTs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743513751; x=1744118551;
+        d=1e100.net; s=20230601; t=1743513922; x=1744118722;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5WUzqrA+LcYY/Vhg5mLvvAklr4Mj/wh4x1uWNh/e3+0=;
-        b=MrBSWRqtvVxlr/W47nwseCnubnFv9rhqjQ72ublCScAVDaZ17BW7mrlsMHnbM5xNag
-         Hoz3ZsXLiKqPn8k3U/y9scth0PULwT8R8sACvmAQ46pIhrj08qTo3VsaMAQNiVP4yOhu
-         a0tb0xr9HMeSEEp1dNWP+Ro6IaVmD9BvKjisVr7OHX9h/zEkgexPSRXUTnVez2gwouwJ
-         MfQMz6pnqcCSLJOHRT6bACDtCJvz1Ux3nHY6TpdrT3h/7DAvKIFJN1JI4aSkA4kGiEjE
-         n6QVZJz9MGQbDoqpeHuSfB/NWTnJiTpcyYk8kLuq8PvPc6A3sBFnm4K63B7c4ZrtGwPr
-         Q/QA==
-X-Gm-Message-State: AOJu0YyeCES0/DQV9PqJztpOCeEifjT/duEDvOUY66O280ZLw78hBHK6
-	MJKE20BaBH+je64bfKUx/3jTRztZVrhjLs9FEgbndsBOx4WWO6welSJPBc3cM0k=
-X-Gm-Gg: ASbGncunGe1xK/H272yySILCnd7GtBUAiwwtPOFo1BsoUxH9pw4YKIhqfF9NW0qKjx1
-	JGGR0moMGlDasQAILz+s444cNFyvD56qcDZi3qytNRd33c8ePvnE7osWYFyTbgFoL1dPrw6F5Sb
-	ecHpkGkD/GVMlFN32Zs/krIl45gKtQpM4oi17heqEu+c5XCGs/PCunx/IO40nzxMzCpfUYUj/jk
-	V/qya2o01bjag7xr4QFE2yKc4toe4mgJbErUYXiX4q94bwtyjXAOjyS0+K74HX/E6NxqDuqLzL0
-	qKYYXftXpgVIM3Ls5Hj1TKO6Q23zTut7gkPwmqqvTBPX17N73eCghWO5uEwUyPmYacumPGJK+hq
-	Rs415lJYeXA==
-X-Google-Smtp-Source: AGHT+IF86HXuYi3czdDjUN/JDOlUKJoh/oHoEL3ugpvZufZw/xiyqmIdqvfq5hyNSww9wovFBU6Nkw==
-X-Received: by 2002:a05:600c:5489:b0:43c:fda5:41e9 with SMTP id 5b1f17b1804b1-43dbc419540mr126131855e9.31.1743513751266;
-        Tue, 01 Apr 2025 06:22:31 -0700 (PDT)
-Message-ID: <fc21a6e6-90d2-4f1a-8032-516d6a371d8e@citrix.com>
-Date: Tue, 1 Apr 2025 14:22:30 +0100
+        bh=VFMj127YW25n0oGy9qJUEugIqGXnAG5LIQf0LifWFt4=;
+        b=vSXNzQXrNtBciqzYjzzRfcmE3Tn9KFkjpiMKw0ct9xIhqgY3SDUIhc8nB3fS9G6poF
+         LGBP1CTsTr4mnFM+51OQfeoBsPgxtHc1lbCMsTYSUAAFAY0+s7hmldArlzN57PukHu8u
+         1sscjtKC3x/SPzURrQW8GmCCEsMuiJ9CRdqU8G1dAw0CCMPXNCvrUfL5R1nJuSw5Nufa
+         haKZZthjaXXgwsqle5wZwyroVGnmqgEodohBIMP9p0og3qbrjp42/nEi9ZPkxJgoUyfx
+         t8abIdz4J6jvvAzD1yiOsVvrGobdhxQsSMe/ouU90hENlqfoWkS1tQFVu2c8lPyYMwWT
+         wvaQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWGznOkC9XSmP2/NtfhKS7AJOgwLwVlaxGP6/Pxwp9VX2V0sYY1JAG/sYfvGgiD7DnFkfby3D3QV08=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx8o7jHGaKpMsWxH4Kfq3Qfyq6DmEKe9VQ3PRp7fa0SGOJchfx4
+	plJca7PP3rSEQZIZGzmT7Y2KEOgvkEmO1hmV5K9am0coJDo5lsVbqr1MVMDP/7A=
+X-Gm-Gg: ASbGncvGCppMSUtYg8WDQeBkusdCb+e6i1oPuOXCGKf1Janodjox2IJ8UJj6P4utNaQ
+	WVIOOYFjIt0XND9oUjYwRKeDj23Fluq5P7EDDiEKyWWXV4+sLdB2746xy5P/r1TQExTfOMNrVOi
+	hNK8RSVSmypCgfyEfsT+SfUSezK9/Lu220VNVjHcfV8QcUbqWzl7ueyVNHNNWQLGUM88CqQBMKG
+	n9RLhJBrAHUwACAfe0+aKXr7P5c62TYR/LbSF59L+xon431BM2zDbSUqjP4YsKP731KFnx/vdgN
+	qW1qGjoNZATw10k1R7jFEHLzLuHkJJTtOEuAhgQXhPRAvBmNMPXWCtXB+D81Fmp546uljGIxaxb
+	4HooUlSRY0UmBS8G2OASw
+X-Google-Smtp-Source: AGHT+IG360ggLaWG8FKCdyc/K4kBcyCk1bzcQW8J0PBqjcMH4nHrVKICd7xpMX96ld65TMwefDEyKw==
+X-Received: by 2002:a05:6000:430c:b0:39c:2692:425a with SMTP id ffacd0b85a97d-39c26924316mr1651885f8f.6.1743513921744;
+        Tue, 01 Apr 2025 06:25:21 -0700 (PDT)
+Message-ID: <2ad947f4-3a04-4461-a6ec-203ec350de4b@citrix.com>
+Date: Tue, 1 Apr 2025 14:25:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/11] x86/efi: discard .text.header for PE binary
-To: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 01/11] automation/dockers: add to README how to rebuild
+ all containers
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <20250401130840.72119-1-roger.pau@citrix.com>
- <20250401130840.72119-7-roger.pau@citrix.com>
- <9fb343fe-8bbf-4af9-a204-46eef4bd2aac@suse.com>
+ <20250401130840.72119-2-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,33 +136,20 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <9fb343fe-8bbf-4af9-a204-46eef4bd2aac@suse.com>
+In-Reply-To: <20250401130840.72119-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 01/04/2025 2:18 pm, Jan Beulich wrote:
-> On 01.04.2025 15:08, Roger Pau Monne wrote:
->> The multiboot headers are not consumed in the PE binary, hence discard them
->> in the linker script when doing a PE build.
->>
->> That removes some relocations that otherwise appear due to the usage of the
->> start and __efi64_mb2_start symbols in the multiboot2 header.
->>
->> No functional change intended.
->>
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On 01/04/2025 2:08 pm, Roger Pau Monne wrote:
+> Document in the README how to rebuild all containers.  This is helpful when
+> populating a local docker registry for testing purposes.
 >
->> ---
->> We could also place the multiboot header in it's own isolated section and
->> skip such section for relocations generation in mkreloc, but it seems best
->> to just remove the code if it's unused.
-> I agree. I'd like to mention that I recall people intending to try to make
-> xen.efi usable with an MB loader. Nothing ever came of that, so if anyone
-> still wanted to pursue that route, they'd need to undo / redo what you're
-> doing here.
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-It was Frediano, and for this same task (Host UEFI SecureBoot).
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+I'm working on extending Anthony's container-rebuild pipeline to do this
+too, but that's not quite ready yet.
 
 ~Andrew
 
