@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48921A77715
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 10:59:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.933687.1335619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 761A5A7771C
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Apr 2025 11:02:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.933775.1335628 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzXSt-0004JX-2v; Tue, 01 Apr 2025 08:59:23 +0000
+	id 1tzXVU-0000VT-FS; Tue, 01 Apr 2025 09:02:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 933687.1335619; Tue, 01 Apr 2025 08:59:23 +0000
+Received: by outflank-mailman (output) from mailman id 933775.1335628; Tue, 01 Apr 2025 09:02:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzXSs-0004EL-Te; Tue, 01 Apr 2025 08:59:22 +0000
-Received: by outflank-mailman (input) for mailman id 933687;
- Tue, 01 Apr 2025 08:59:21 +0000
+	id 1tzXVU-0000Tf-CQ; Tue, 01 Apr 2025 09:02:04 +0000
+Received: by outflank-mailman (input) for mailman id 933775;
+ Tue, 01 Apr 2025 09:02:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=heJ8=WT=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1tzXSr-0003bM-UG
- for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 08:59:21 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 990b0e36-0ed7-11f0-9ffb-bf95429c2676;
- Tue, 01 Apr 2025 10:59:19 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C12B3150C;
- Tue,  1 Apr 2025 01:59:22 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4582E3F694;
- Tue,  1 Apr 2025 01:59:18 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WxAi=WT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tzXVT-0000TZ-Ca
+ for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 09:02:03 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f850c840-0ed7-11f0-9ffb-bf95429c2676;
+ Tue, 01 Apr 2025 11:01:59 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-39c1efbefc6so793932f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Apr 2025 02:01:59 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c0b79e136sm13594597f8f.67.2025.04.01.02.01.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 01 Apr 2025 02:01:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,389 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 990b0e36-0ed7-11f0-9ffb-bf95429c2676
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v4 7/7] arm/mpu: Create the skeleton for MPU compilation
-Date: Tue,  1 Apr 2025 09:58:58 +0100
-Message-Id: <20250401085858.2228991-8-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250401085858.2228991-1-luca.fancellu@arm.com>
-References: <20250401085858.2228991-1-luca.fancellu@arm.com>
+X-Inumbo-ID: f850c840-0ed7-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1743498119; x=1744102919; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=0rh1MlzLcKRGud8Gqy7zKpiAgAmPuaUeoP2Pc6JhElo=;
+        b=fJQWVagiZUwhYfoXARi/6hYBX8vWDtu5opcVCmN0mwyWLRfLh2faByMmctMIgmQb4H
+         BSo/0IQK5uSOti7Ie/z9WsHf3VCr8PBVymdrwbqv9lTe0cGhzmSr4qrQk93nKyYkM/RU
+         mxinB+66Pht9zkKCokT7eNbSIOWTXGtbBMZUJadms5d5IX4ZD10rFbJEkmZe6rLPs2VG
+         EXIyLp6pAHukreKQPFH/P3t6R9ZaF9EbAVCDTSorsrKX6c5UcNIVhjUUv1Fl7+QKs6WP
+         IXCj0ew87uVdXWxpQh93MGSoc/FpoADnPUqwdhg4uF8xOHD7mYRvs37cyZZzGT5W9qo/
+         tNoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743498119; x=1744102919;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0rh1MlzLcKRGud8Gqy7zKpiAgAmPuaUeoP2Pc6JhElo=;
+        b=K5Ii4Pmtd68EZt4ZxWAsM5FCxoyuGbDMuVR2e44NSGZ3TY7YnIJdMlbxg8KgV6Tmgk
+         Lb7cM2+4dGo32ZVAXQsQYt9XmSXgzUmWb8e6+ftwP3fVuiCdBlkvVZAT3UKsTidQtHUl
+         rTJGZcbXnzXQylhmOtQyTMmQRqHAvKpnTlXy1lDMa6gStowZsJJFu+eCdX1WFCbCJ8p0
+         HkvahPOZYezLMXKVLnu6qirdR4pONViIcrVFAHKlW23XIMdF/ScbUEkkIPe+/Z7PNGNQ
+         Ug6WjJka0Lpjwd8/0zI0fNtFT0MsFy/9PCX8N/rdMzHQITRQSfVDgArbRZXpcEqZTNB6
+         SCfA==
+X-Gm-Message-State: AOJu0YzDHZqbIVlH13j0by+ONBYwvuQs2SpK3kNOJL6DqyotdeG5sMUc
+	emlL5aUYBrb4rCbfJQSyNZtfySjI1meLYzlQ3W/Y0OareTZLfMdexxrg/JgwvA==
+X-Gm-Gg: ASbGncs69IrzlAUb1VNTvLQ43OUWkIVX1+nraaGIhbh8w73eeIkyl0F3SuS7ssUWa/1
+	GdmrkFNuLJGj9B5unrfdDdiXfNYTmFdBEYXWZ8fsjppyToUkgOsrlTUlHnI7NK5oK86VhEZhTyW
+	vdu3aGjf9BifoRtt48/VXkcqSGzQI/e1NHtwdLo0cbdjRThtXC8frRDH+r2hml39FZ2LJg1hfhK
+	f0aFjk1V8ksF8Rxa1WfqjRAT895yZBByWPZlmpnagRy5F8iy38QoYw4OT+8BrFvVHwHe/yI/am1
+	4fOgY8Z8zkclO0EfPUUQL/X+HzYbYUMdFLvkPmVKmBzKr5kWF9RPChgKYCPApRb8sx8yDWkNzAL
+	rYKCbAcqRwhEw0KEDaFkhr02fD4x9UQ==
+X-Google-Smtp-Source: AGHT+IEbrm+sD2dy/Wgc9WB37KWJkWnSJdZenG0HuGYZLPhb1o9gapqPsGz1nt3pmvu94ER0lXIurQ==
+X-Received: by 2002:a5d:588a:0:b0:39a:d32c:fb5e with SMTP id ffacd0b85a97d-39c120deb56mr9283793f8f.21.1743498119121;
+        Tue, 01 Apr 2025 02:01:59 -0700 (PDT)
+Message-ID: <a0148fb5-0b0f-4fe7-b31a-ea220965c662@suse.com>
+Date: Tue, 1 Apr 2025 11:01:57 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/19] xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Huang, Ray" <Ray.Huang@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20250326055053.3313146-1-Penny.Zheng@amd.com>
+ <20250326055053.3313146-2-Penny.Zheng@amd.com>
+ <alpine.DEB.2.22.394.2503281655590.563920@ubuntu-linux-20-04-desktop>
+ <6b3c3baa-331c-44fa-9085-9b0bf72c62a1@suse.com>
+ <DM4PR12MB845170590A152B7AEF4D4153E1AC2@DM4PR12MB8451.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <DM4PR12MB845170590A152B7AEF4D4153E1AC2@DM4PR12MB8451.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This commit introduces the skeleton for the MPU memory management
-subsystem that allows the compilation on Arm64.
+On 01.04.2025 10:41, Penny, Zheng wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Monday, March 31, 2025 2:30 PM
+>>
+>> On 29.03.2025 00:56, Stefano Stabellini wrote:
+>>> On Wed, 26 Mar 2025, Penny Zheng wrote:
+>>>> We intend to remove all "depends on !PV_SHIM_EXCLUSIVE" (also the
+>>>> functionally equivalent "if !...") in Kconfig file, since negative
+>>>> dependancy will badly affect allyesconfig.
+>>>> This commit is based on "x86: provide an inverted Kconfig control for
+>>>> shim-exclusive mode"[1]
+>>>>
+>>>> [1]
+>>>> https://lists.xen.org/archives/html/xen-devel/2023-03/msg00040.html
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> Where's this coming from, if I may ask?
+> 
+> I said in the commit message, this commit is based on your commit "x86: provide an inverted Kconfig control for
+> shim-exclusive mode"[1].
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
----
-The implementation of setup_virt_paging() is under arm64/mpu
-because it will have a different implementation from arm32.
-v4 changes:
- - Add Michal R-by
-v3 changes:
- - rebase changes
-v2 changes:
- - p2m_teardown{_allocation} stubs are now part of this patch
- - included missing headers
- - rename vmap-mpu.c to vmap.c
- - remove comment "Not used on MPU system" on implemented stubs
----
----
- xen/arch/arm/arm64/mpu/Makefile    |  2 +
- xen/arch/arm/arm64/mpu/p2m.c       | 19 +++++++
- xen/arch/arm/arm64/mpu/smpboot.c   | 26 +++++++++
- xen/arch/arm/include/asm/mpu/p2m.h | 21 ++++++++
- xen/arch/arm/include/asm/p2m.h     |  2 +-
- xen/arch/arm/mpu/Makefile          |  3 ++
- xen/arch/arm/mpu/mm.c              | 25 +++++++++
- xen/arch/arm/mpu/p2m.c             | 84 ++++++++++++++++++++++++++++++
- xen/arch/arm/mpu/setup.c           | 40 ++++++++++++++
- xen/arch/arm/mpu/vmap.c            | 26 +++++++++
- 10 files changed, 247 insertions(+), 1 deletion(-)
- create mode 100644 xen/arch/arm/arm64/mpu/p2m.c
- create mode 100644 xen/arch/arm/arm64/mpu/smpboot.c
- create mode 100644 xen/arch/arm/include/asm/mpu/p2m.h
- create mode 100644 xen/arch/arm/mpu/p2m.c
- create mode 100644 xen/arch/arm/mpu/setup.c
- create mode 100644 xen/arch/arm/mpu/vmap.c
+I don't think this belongs there. Also recall what I said elsewhere about
+"This commit ..." and alike not being appropriate wording for commit messages.
 
-diff --git a/xen/arch/arm/arm64/mpu/Makefile b/xen/arch/arm/arm64/mpu/Makefile
-index 3340058c08c6..cf0540aecc84 100644
---- a/xen/arch/arm/arm64/mpu/Makefile
-+++ b/xen/arch/arm/arm64/mpu/Makefile
-@@ -1 +1,3 @@
- obj-y += head.o
-+obj-y += p2m.o
-+obj-y += smpboot.o
-diff --git a/xen/arch/arm/arm64/mpu/p2m.c b/xen/arch/arm/arm64/mpu/p2m.c
-new file mode 100644
-index 000000000000..b6d8b2777b58
---- /dev/null
-+++ b/xen/arch/arm/arm64/mpu/p2m.c
-@@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include <xen/bug.h>
-+#include <xen/init.h>
-+#include <asm/p2m.h>
-+
-+void __init setup_virt_paging(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/arm64/mpu/smpboot.c b/xen/arch/arm/arm64/mpu/smpboot.c
-new file mode 100644
-index 000000000000..5090f443f577
---- /dev/null
-+++ b/xen/arch/arm/arm64/mpu/smpboot.c
-@@ -0,0 +1,26 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include <xen/bug.h>
-+#include <xen/errno.h>
-+#include <xen/mm.h>
-+#include <xen/stdbool.h>
-+
-+int prepare_secondary_mm(int cpu)
-+{
-+    BUG_ON("unimplemented");
-+    return -EINVAL;
-+}
-+
-+void update_boot_mapping(bool enable)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/include/asm/mpu/p2m.h b/xen/arch/arm/include/asm/mpu/p2m.h
-new file mode 100644
-index 000000000000..e46d9e757a1d
---- /dev/null
-+++ b/xen/arch/arm/include/asm/mpu/p2m.h
-@@ -0,0 +1,21 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#ifndef __ARM_MPU_P2M_H__
-+#define __ARM_MPU_P2M_H__
-+
-+struct p2m_domain;
-+
-+static inline void p2m_clear_root_pages(struct p2m_domain *p2m) {}
-+
-+static inline void p2m_tlb_flush_sync(struct p2m_domain *p2m) {}
-+
-+#endif /* __ARM_MPU_P2M_H__ */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-index 594dc4004138..2d53bf9b6177 100644
---- a/xen/arch/arm/include/asm/p2m.h
-+++ b/xen/arch/arm/include/asm/p2m.h
-@@ -168,7 +168,7 @@ typedef enum {
- #if defined(CONFIG_MMU)
- # include <asm/mmu/p2m.h>
- #else
--# error "Unknown memory management layout"
-+# include <asm/mpu/p2m.h>
- #endif
- 
- static inline bool arch_acquire_resource_check(struct domain *d)
-diff --git a/xen/arch/arm/mpu/Makefile b/xen/arch/arm/mpu/Makefile
-index b18cec483671..21bbc517b51a 100644
---- a/xen/arch/arm/mpu/Makefile
-+++ b/xen/arch/arm/mpu/Makefile
-@@ -1 +1,4 @@
- obj-y += mm.o
-+obj-y += p2m.o
-+obj-y += setup.init.o
-+obj-y += vmap.o
-diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-index 4e9a2405d8c5..07c8959f4ee9 100644
---- a/xen/arch/arm/mpu/mm.c
-+++ b/xen/arch/arm/mpu/mm.c
-@@ -1,9 +1,12 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- 
-+#include <xen/bug.h>
-+#include <xen/errno.h>
- #include <xen/init.h>
- #include <xen/lib.h>
- #include <xen/mm.h>
- #include <xen/sizes.h>
-+#include <xen/types.h>
- 
- struct page_info *frame_table;
- 
-@@ -17,6 +20,28 @@ static void __init __maybe_unused build_assertions(void)
-     BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
- }
- 
-+void __init setup_mm(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-+{
-+    BUG_ON("unimplemented");
-+    return -EINVAL;
-+}
-+
-+void dump_hyp_walk(vaddr_t addr)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/* Release all __init and __initdata ranges to be reused */
-+void free_init_memory(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
- void __iomem *ioremap_attr(paddr_t start, size_t len, unsigned int flags)
- {
-     BUG_ON("unimplemented");
-diff --git a/xen/arch/arm/mpu/p2m.c b/xen/arch/arm/mpu/p2m.c
-new file mode 100644
-index 000000000000..f7fb58ab6aa8
---- /dev/null
-+++ b/xen/arch/arm/mpu/p2m.c
-@@ -0,0 +1,84 @@
-+
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include <xen/bug.h>
-+#include <xen/domain.h>
-+#include <xen/errno.h>
-+#include <xen/mm-frame.h>
-+#include <xen/sched.h>
-+#include <xen/types.h>
-+#include <asm/p2m.h>
-+
-+int p2m_set_entry(struct p2m_domain *p2m, gfn_t sgfn, unsigned long nr,
-+                  mfn_t smfn, p2m_type_t t, p2m_access_t a)
-+{
-+    BUG_ON("unimplemented");
-+    return -EINVAL;
-+}
-+
-+mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn, p2m_type_t *t,
-+                    p2m_access_t *a, unsigned int *page_order, bool *valid)
-+{
-+    BUG_ON("unimplemented");
-+    return INVALID_MFN;
-+}
-+
-+void p2m_dump_info(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+int p2m_init(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+    return -EINVAL;
-+}
-+
-+void p2m_save_state(struct vcpu *p)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void p2m_restore_state(struct vcpu *n)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void p2m_final_teardown(struct domain *d)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+bool p2m_resolve_translation_fault(struct domain *d, gfn_t gfn)
-+{
-+    BUG_ON("unimplemented");
-+    return false;
-+}
-+
-+void p2m_flush_vm(struct vcpu *v) {}
-+
-+int relinquish_p2m_mapping(struct domain *d)
-+{
-+    return 0;
-+}
-+
-+void p2m_domain_creation_finished(struct domain *d) {}
-+
-+int p2m_teardown(struct domain *d)
-+{
-+    return 0;
-+}
-+
-+int p2m_teardown_allocation(struct domain *d)
-+{
-+    return 0;
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/mpu/setup.c b/xen/arch/arm/mpu/setup.c
-new file mode 100644
-index 000000000000..b4da77003f47
---- /dev/null
-+++ b/xen/arch/arm/mpu/setup.c
-@@ -0,0 +1,40 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include <xen/bug.h>
-+#include <xen/init.h>
-+#include <xen/mm.h>
-+#include <xen/types.h>
-+#include <asm/setup.h>
-+
-+void __init setup_pagetables(void) {}
-+
-+void * __init early_fdt_map(paddr_t fdt_paddr)
-+{
-+    BUG_ON("unimplemented");
-+    return NULL;
-+}
-+
-+/*
-+ * copy_from_paddr - copy data from a physical address
-+ * @dst: destination virtual address
-+ * @paddr: source physical address
-+ * @len: length to copy
-+ */
-+void __init copy_from_paddr(void *dst, paddr_t paddr, unsigned long len)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+void __init remove_early_mappings(void)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/mpu/vmap.c b/xen/arch/arm/mpu/vmap.c
-new file mode 100644
-index 000000000000..f977b79cd436
---- /dev/null
-+++ b/xen/arch/arm/mpu/vmap.c
-@@ -0,0 +1,26 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include <xen/bug.h>
-+#include <xen/mm-frame.h>
-+#include <xen/types.h>
-+#include <xen/vmap.h>
-+
-+void *vmap_contig(mfn_t mfn, unsigned int nr)
-+{
-+    BUG_ON("unimplemented");
-+    return NULL;
-+}
-+
-+void vunmap(const void *va)
-+{
-+    BUG_ON("unimplemented");
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
--- 
-2.34.1
+> So I think I shall add-in the original author, if it is not the rule, I'll remove it.
 
+Please remove it. You necessarily touch a few of the same places, but that's
+about it. I accept this route being taken, but I don't agree with it. I don't
+want to be viewed as a co-author in such a case.
+
+However, you having gone from that patch (which had an entirely different
+intention), has lead to the patch here being incomplete. At least my
+understanding of Andrew's original request was to not only prune Kconfig-s of
+the dependency, but also e.g. various Makefile-s. Possibly even .c and .h
+ones. That clearly wasn't necessary with the approach I had taken. Please
+consult with Andrew to confirm.
+
+Jan
 
