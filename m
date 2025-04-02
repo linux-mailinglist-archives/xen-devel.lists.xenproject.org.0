@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07E61A78900
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 09:43:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.935163.1336618 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74797A7890F
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 09:45:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.935174.1336628 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzskR-00047c-QA; Wed, 02 Apr 2025 07:42:55 +0000
+	id 1tzsmb-0004d8-6R; Wed, 02 Apr 2025 07:45:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 935163.1336618; Wed, 02 Apr 2025 07:42:55 +0000
+Received: by outflank-mailman (output) from mailman id 935174.1336628; Wed, 02 Apr 2025 07:45:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzskR-00044g-NO; Wed, 02 Apr 2025 07:42:55 +0000
-Received: by outflank-mailman (input) for mailman id 935163;
- Wed, 02 Apr 2025 07:42:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=T645=WU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzskR-00044a-0g
- for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 07:42:55 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 15c144e5-0f96-11f0-9ea7-5ba50f476ded;
- Wed, 02 Apr 2025 09:42:53 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43cf58eea0fso30963715e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 02 Apr 2025 00:42:53 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43eb60cd354sm12214545e9.18.2025.04.02.00.42.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Apr 2025 00:42:52 -0700 (PDT)
+	id 1tzsmb-0004be-2j; Wed, 02 Apr 2025 07:45:09 +0000
+Received: by outflank-mailman (input) for mailman id 935174;
+ Wed, 02 Apr 2025 07:45:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=g9bq=WU=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1tzsmZ-0004bY-Ry
+ for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 07:45:08 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 647c5e72-0f96-11f0-9ffb-bf95429c2676;
+ Wed, 02 Apr 2025 09:45:05 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id D46C74EE0755;
+ Wed,  2 Apr 2025 09:45:04 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +40,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15c144e5-0f96-11f0-9ea7-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743579773; x=1744184573; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fWPwgZy4uPxSnbOoa9RRqDyhzLQm7Xl7UBB7ILiIh+s=;
-        b=DPBeHvRtOd1ovih0OrHoVXpLo0LPJ6aOHc9jwpY0zHfDVFH3he2aUXu1NUI7Pb49Rz
-         GhcEDHWCI1TgcIdcA426TO1JJ1YbqvanggG6KYw3uAauj6Q2rASmSKuliBDKhPp3MaNm
-         JoBtZE79l8Hs6uzspv5Y8bz7dpItgvhoLiLNcgUCckuzAWcjkpBCCdNc5kwSqpUDTWMD
-         QixP4W6d+5dUtIjTU0AtmIvhHH+Gd8ZoJev7/wfizgwNOYkVynafJ/P2OhXMklr2hiA0
-         v1FQffbA9nMq9L6EUTtdX5XX8YucCeKS8nHhsiROs3FfQ2GuhLknuR7mqFX6uG/iFPnm
-         iDrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743579773; x=1744184573;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fWPwgZy4uPxSnbOoa9RRqDyhzLQm7Xl7UBB7ILiIh+s=;
-        b=XpwXG85wQrA/TgxoTvhBOYPQldiymq7ktwGBXY1wpmZyIWF/+OqgXxUGQWFXVbFIG1
-         AN70wY0mxa3qN65V2dcdpwnH7J/vN70xEJdzZf7rxG9B3bQ8UYepwddluQbqQsbfbEBR
-         sXpfAcQiWOKZVtEO4DI45ihKVuPB73sCfNvDeR/ZtCfdqSrO2jlWa7N/DTaMq+BRKzRl
-         m/S0UfsWhKXTw1EWSDLYGLxrlyMVjfZnwQHOTnlh7TVQfZG/GHiI73XIm5E/gWnI4pvp
-         2orF2kuITg0cj87vEQHIfTYt6mMj8Zc65G+CXKvExvgGtcQHxQsH1gyunla+nl6IdfhG
-         EmVw==
-X-Forwarded-Encrypted: i=1; AJvYcCXUg3EQzDa3zwUge/U5I0ttlzXYucPkHOw2k2iJkKL8mutkM0Q3vLXq4pyZXPZv0dOxbRnUX+otkI4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwEHmKdwKwAB32pWStFZHBT/Ig+i2FAzuLCMTIcGs8rMIWw4/FM
-	fbs99LpoU9ayHmY3+2RXGt5OCJk/GcAooSFjRaHPMYPd7ocCj4K6DKLasEvBEQ==
-X-Gm-Gg: ASbGncuysc1ZQM4iQ2DLIceDrkjmFzxMDNIHpj7f0Qvlp2M4pcvc7Z4DpdoRoXavn2J
-	2H+GmDaXtWb7CPpqRRE0HK9RoNLd6DPDUY17JY4oVbHPFnBDcvmR0BcS1SMkWn+4CdYhzG5rLDt
-	pt3j/5gmogBNw/IvJtKFS0sssknmKKT6DTLP3481RcHNh/6QNvCT4GTQBb6uUtJvhwrVjVfmmhJ
-	AulacYQQh3XbvgHcgt/5IFWBngfbiKFo9Xd6NG0GfqcaezmOUrrUXxwVUYw9+xu6Cd7s5U6tZbw
-	xO3hdJONF6DNwI2oaUiTKdHXnR1XwFZ+vJB67SlGUaV9+vMgXmYKw/1nSMxCxGnhKEldhK6JcYg
-	W6OinPtKc4x0dEZ6Qcgjl3mJPLDAi1w==
-X-Google-Smtp-Source: AGHT+IGZwJk5t777RePqURdDVK/oNM6a3CkoqAERT+ayQWQ8nPr6+Ov8SWZktvwslMaKkAO2VuTYgA==
-X-Received: by 2002:a05:600c:4454:b0:43c:f1b8:16ad with SMTP id 5b1f17b1804b1-43ea7cdfd30mr65487915e9.30.1743579772834;
-        Wed, 02 Apr 2025 00:42:52 -0700 (PDT)
-Message-ID: <b51de34d-a9b5-4f8e-a26d-3772b0c9cead@suse.com>
-Date: Wed, 2 Apr 2025 09:42:51 +0200
+X-Inumbo-ID: 647c5e72-0f96-11f0-9ffb-bf95429c2676
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1743579904;
+	b=uU02vpy4h8VghoZIYHSZ6CsIaJoqqjd6MzPOzCVmH7qobbSSGHBcuhOpRHzKRIVN1AKk
+	 7ECSP0e9qwEtJnzHrGtyiig9b8aeIfTwwZqQGJxYmvqatmCnEOAt7Oe6zvNPdLpQOGHi8
+	 CBSeHC5+W7PJULcC3NkMfZpv1wOazwGn/awVM2no5R84DE+sl5FamFmuwLrdvqpmiPsYc
+	 9hZOctApE1JMjfJHj3S2loB99sq/xnRTVfnEmYBTPJNG61sWZZIr2TraMg0DLx3o9Tmqo
+	 AHkN/z6DG3sWXPBdo8j+ENTg8o1P045fIeiauZDYn6BGWcP86OH5+/uzwMB3+I/lGimlc
+	 PgjEOfOuqAU4ivXOVVfaeOFAzjystWKQWmI1n8BpDAvVkOIxszGf8QuLy+JAHO+mJeBjP
+	 1h9ACgbAAe//HoLvkRmovyCoMLfv/39NlB2cEx1ECMmyX6nen9UPQr8Etk/rcTqz8tOxa
+	 xS1Zx/A94DOoXh/pQSew12E8uTfcyjopSvY3rj33P4P1nUKQJqGdV0OpH119uNiIIu89g
+	 lfEwbMl0IHll66akFqEU7DMBWJ/72XL9IIMfGxvUVcaRQCsX391oVQMZ/VikyBEOnUKND
+	 RNY4S5FI/xj3djBgSzCDSFG1D9pNkbOOU9Du2pj9wQ4oZtwvosOHcwIBUPzneYY=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1743579904;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=qhCy2CGoUJcFbZWqQcomLbijGomZjPwLRYg2MA13gfQ=;
+	b=nkdUf6O3wXzgGB4Vw1ZZaRyCKnnlm3mEgKqwAWtRRjiRelNiuEPbpMgWnmAwLr+XYASG
+	 LtozptuuxD+B0ag3BaswM3jUhhBzci2xcPSsoqX2UFV0gymjEOunupI7oawfp7/9kwULm
+	 I9/iEwfSgjDc5paI4QRmGqgvTgyZVnW7kTpZ/AxKqL0ONWDe+4TDbtMvuGG6JlvJ+oNAB
+	 NJT+fTbM3J0MBuxVFE3201vkl47f3CF1o4GqvsgHAUAeJMLf6IQg7VyhjAkvR6T2+OIkF
+	 TVzAvVTdUhffOrkP9M/2peLPqIeflqeX9N0JT5DuG+cfvRItvoaM6ky3kui3b5Y+Uw1Ne
+	 otWLdWHV8so7kUJ+gnHDcG14m2iN2WAdFcZD9W9LzJhL8akhKBeH96s1BXHv2ZJf4qQpc
+	 zFpxcySQ/bwQWYvvpo61ES6By5h2p/6bOYfdCEA/OXkZ0zK89B7m1tdxStckm46JKW5Sy
+	 xl3G6wXIbYuuw/++3+miPwbA4ExgOVhZIjNbmX2V0XpnEEAjrpCDu171UIdtJFiexIitB
+	 mO2K/FpQGOVbkaibIsQZXFw9WKk1YBhvX+uswjvZ0qwHImGG+GocL7Xpp+o1idVEHshc7
+	 FBSrAfRd+taq1uWUkE5RayF3Z2uZGLBfMmyzCiYhEOOywICW7G94eNJFoaywK3g=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1743579904; bh=AtGTAxW0PwrhY5qFpU+TlRRK5r826YovS/7+iYwxjFA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=H6YVhaTdkmyX8GESw2Q2Fpz9B8uzXlbGB3eCYAmZpgclxFFaF54BTa2sWVlNULMg+
+	 ABgI61wOxUtX6WK2CqBT41DloE3ZpjH+irtEv++p5dFE156N0w+6L4RH4oTkwR5Aiv
+	 +I5l6qFPyQo2uqJJHkwRp9bILJEjK7KOPTaHiuv3ig8KzeBiCX0AU7A6Wsg0m8y4Lt
+	 jhrIThVHMt43mW/cZgDfwkcxLTofq5Lp9kqS01a2rjYzw3VfItmAnx4v54uNBX01MZ
+	 tjqKLP+v6V9hj1Yrzl+TXFnc2frLiF+c3+ZYKmHZApaUGHhUDqJmcQMrYIG1J818rM
+	 Ntaco1Aw61lOw==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/11] x86/mkreloc: use the string table to get names
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250401130840.72119-1-roger.pau@citrix.com>
- <20250401130840.72119-4-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250401130840.72119-4-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Date: Wed, 02 Apr 2025 09:45:04 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: "Kwon, Gihwan" <gihwan.kwon@boeing.com>
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini
+ <sstabellini@kernel.org>
+Subject: Re: [QUESTION] Minimal Xen Configuration
+In-Reply-To: <PH3P110MB2246A9D7AFA0A73000781B0390A0A@PH3P110MB2246.NAMP110.PROD.OUTLOOK.COM>
+References: <PH3P110MB2246A9D7AFA0A73000781B0390A0A@PH3P110MB2246.NAMP110.PROD.OUTLOOK.COM>
+Message-ID: <f4803fc17047a9d74928c66d39bf9632@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 01.04.2025 15:08, Roger Pau Monne wrote:
-> @@ -83,6 +111,31 @@ static unsigned int load(const char *name, int *handle,
->          exit(3);
->      }
->  
-> +    if ( !string_table && pe_hdr.symbol_table )
-> +    {
-> +        char *strings;
-> +
-> +        if ( lseek(in, pe_hdr.symbol_table + pe_hdr.symbols * SYM_SIZE,
-> +                   SEEK_SET) < 0 ||
-> +             read(in, &string_table_size, sizeof(string_table_size)) !=
-> +             sizeof(string_table_size) )
-> +        {
-> +            perror(name);
-> +            exit(3);
-> +        }
-> +
-> +        string_table_size -= sizeof(string_table_size);
-> +        strings = malloc(string_table_size);
+On 2025-03-28 07:43, Kwon, Gihwan wrote:
+> Dear Xen Community,
+> 
+> I hope this message finds you well.
+> 
+> I have heard that there exists a minimal Xen configuration optimized 
+> for
+> safety-critical products, particularly in automotive applications, with 
+> the
+> code size reduced to approximately 50k SLOC.
+> 
+> Could anyone provide guidance or point me to relevant resources 
+> regarding
+> this minimal Xen configuration? Any insights or references would be 
+> greatly
+> appreciated.
+> 
+> Thank you in advance for your assistance.
+> 
+> Best regards,
+> Gihwan Kwon
 
-One more thing: Perhaps better to allocate an extra byte here, ...
+Hello,
 
-> +        if ( read(in, strings, string_table_size) != string_table_size )
-> +        {
-> +            perror(name);
-> +            exit(3);
-> +        }
-> +
-> +        string_table = strings;
-> +    }
+I am part of the team that provides static analysis for Xen, mainly 
+towards the objective to make Xen compliant with MISRA C guidelines. As 
+part of that effort, a minimal Xen configuration has been defined (for 
+Arm and x86_64) at [1], which is the one currently analyzed for static 
+analysis for each commit [2]. It starts from the default configuration 
+for the architecture (i.e., make defconfig) and then turns on or off 
+various Kconfig options, as specified by EXTRA_XEN_CONFIG.
 
-... and then put a nul terminator at the end, just in case.
+@Stefano Stabellini (Cc'ed) is the main driving force behind the Xen 
+certification effort for automotive, therefore he's probably the best 
+person to approach to get more information on this matter.
 
-Jan
+Hope this was helpful as a starting point.
+
+Best Regards,
+  Nicola Vetrini
+
+[1] 
+https://gitlab.com/xen-project/xen/-/blob/staging/automation/gitlab-ci/analyze.yaml?ref_type=heads
+[2] https://gitlab.com/xen-project/hardware/xen/-/pipelines
+
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
