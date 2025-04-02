@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86B6FA78B24
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 11:33:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.935396.1336815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 456BBA78B2F
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 11:37:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.935408.1336826 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzuTM-00060R-2L; Wed, 02 Apr 2025 09:33:24 +0000
+	id 1tzuWu-0006Zd-Fs; Wed, 02 Apr 2025 09:37:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 935396.1336815; Wed, 02 Apr 2025 09:33:24 +0000
+Received: by outflank-mailman (output) from mailman id 935408.1336826; Wed, 02 Apr 2025 09:37:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzuTL-0005zG-Uz; Wed, 02 Apr 2025 09:33:23 +0000
-Received: by outflank-mailman (input) for mailman id 935396;
- Wed, 02 Apr 2025 09:33:22 +0000
+	id 1tzuWu-0006YA-D6; Wed, 02 Apr 2025 09:37:04 +0000
+Received: by outflank-mailman (input) for mailman id 935408;
+ Wed, 02 Apr 2025 09:37:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=T645=WU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzuTK-0005zA-PQ
- for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 09:33:22 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qYE3=WU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1tzuWt-0006Y4-Cy
+ for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 09:37:03 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 840b5770-0fa5-11f0-9ffb-bf95429c2676;
- Wed, 02 Apr 2025 11:33:20 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43cf05f0c3eso42747715e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 02 Apr 2025 02:33:20 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b6589e4sm16652693f8f.10.2025.04.02.02.33.19
+ id 0766d654-0fa6-11f0-9ffb-bf95429c2676;
+ Wed, 02 Apr 2025 11:37:01 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43cf58eea0fso31630965e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Apr 2025 02:37:01 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43eb619062fsm15027605e9.28.2025.04.02.02.36.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Apr 2025 02:33:19 -0700 (PDT)
+ Wed, 02 Apr 2025 02:37:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 840b5770-0fa5-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 0766d654-0fa6-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743586400; x=1744191200; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1743586621; x=1744191421; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MeCf6n989tXLOJZFpJnmN0Q/GEGGOoSiAkvUxACvkTs=;
-        b=R345YPZODtBcO1ydXv3HA+EN0J7YfCa0VrNdlu3LM+KdxOEM/m4Mxz79fAROkR5Dz8
-         v0nt4e9ypjGaWJNXfiRy/mv7kxZJypO64eKS0jeb1qyrpf7M4XJr5x7S5zqEYIROwDy0
-         DJWoQEDvFYTiAHYKoIa8coy24WN7EgglIh9OhCfbqfuWt2hGtJpi++kztbYCx3Cd/loO
-         bu7uY8uZyJ7t/CD4cl5GzrmKbsvsLADWnakH1ePBYsssP5X4P8qfvL/yNDPTFSO8M2XG
-         aCPkHyzJzcDcSI47IbyF6igKnL1TLHzDQ1xkii7wsgN+2gaY8BHYTcL+ciXgVVCejyjD
-         dGbg==
+        bh=dWid1er7dE8FVIvprQ/zqaxWwTMIUEe1HsAI4kdDWvY=;
+        b=Ot0SpcztKboMjI/XlfRZyOyupCR5G/rMoRK81ur+Vs2v8wiMWlP/OeJQJOe0r9Tm5i
+         55+EET9atMlj8gvBIddmCKld+9JZ/vkhazLdQlaOpF40Ec1aesSkiJC7Kj8k3bmfJNr1
+         IV2i7W9Cmrqe7FPRWWr7rOo1KMXLW48mRN/lk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743586400; x=1744191200;
+        d=1e100.net; s=20230601; t=1743586621; x=1744191421;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MeCf6n989tXLOJZFpJnmN0Q/GEGGOoSiAkvUxACvkTs=;
-        b=qDW9BtasnNq/ksuPyYCNfOrBi3nfAvfGGXtQkV2qXO1TcxqyLwxPSiTpOKYI+B8zKZ
-         P9NKR+OAXIzgmXieDlja53a6HU5SaJccOq/uoo/X/6f0T8Twc31bFtd+tevTxtjoswLh
-         0fi+ivUzczeRyF/QRM5JgAHUxf+8m4qpDkH/VNJQ80brFqWhUlSzXe5KVnf8OwhtWxY+
-         lY7S8gg3gMdyi8lZHbvTNGuHaqi2QfTJhDsi1970Sy34B8t3sE/4F+6pZAOCGBUoQIxW
-         fMHrQtxCNc9312BPHOMoHaA8zuS4VhGp4+GPzVZA9FzNF2zJP7ZPsSdwAJPmULKQkKG1
-         v7EA==
-X-Gm-Message-State: AOJu0YzPg3gmScQhcVulXqlhl+uuPLjIE7vqskB0aPlvch1LvfSHiRc1
-	0fDfl7EbJS8SyGCL3FbXhuPXU/24tKmLkEleAZCM6S9byqvm6Nb94On+JMwdgA==
-X-Gm-Gg: ASbGncv07Ogup/YlCrADxrxX2fmh04fo2Vch39J44iSxEGiMV+kt98Z+BbRp5zq8X6X
-	+/D/bmTvCBpKYj55HLmbPiCptyJHTYf9SqRNKll80660ytU5lJybe//Q8zMCVxqelCKmdzV0bOt
-	5Z6HCDH2QpOCzhX5Hc+FtfRJJmUpr/IkCqs6OTQBAb00EHCarAZqUR9nVtvQ9LT6Ilde2a0d6R9
-	FohlSLEJOFErCAHieCdvHanax62gtetkaGwCZfin86uwNN38PVFCSE2mrrGtZSRhxGoGuglpBvO
-	IJazF6wC+JiPkdLa/fpuNDNxu6PBK7ekzTcl+oFj9B+kUHD7PN2mQ49AMj+K2bQw7m+wd0gdeif
-	8/J27+KuhJd29pDzQIlPVDD4J3KBhMA==
-X-Google-Smtp-Source: AGHT+IH+twusrWPZo08mPCvhSf9OkIeFlwbB7n1v6KtGQFRD6Hj2CA/V+OuUsEKticEaxX4yWsyIJg==
-X-Received: by 2002:a05:6000:210d:b0:39c:1257:dbab with SMTP id ffacd0b85a97d-39c1257dd00mr9578013f8f.59.1743586400325;
-        Wed, 02 Apr 2025 02:33:20 -0700 (PDT)
-Message-ID: <a6264b70-5880-42a8-96fb-bc0d69785227@suse.com>
-Date: Wed, 2 Apr 2025 11:33:19 +0200
+        bh=dWid1er7dE8FVIvprQ/zqaxWwTMIUEe1HsAI4kdDWvY=;
+        b=dpshFNXFyrvgqOZuV6lt0npVueA8ACE2a5yN1GDVbdM4bRbQDMuq+XejXq3/6WBagj
+         3RJPjTh5VWBIPTZ5iNr3I5rBXq98hTk9oBTLoBKMvx8+fb5nMX6STK7dzxCazJpCQgUo
+         rbWEeqPIeYgxf/5NKJl3mGONMDDx0rJV8PCmj7LLB/rCR+TpetB+2yHZl+n33ylMpdka
+         OBMr2jIzmlSI/FrSBerp9Fjr3E9cBg9MV+zY0Fz7reyguPnUTPhCYJbvaK0cay86QOor
+         kykvF6auxBFxaP2bhzkhes4bx3KeyLX9k3DveOCRaFD/iVXiqvq1c9szj8ruP85ONQRY
+         LtWg==
+X-Forwarded-Encrypted: i=1; AJvYcCU1nGY7/pCabWX13ncq08pXaRwFw2JCmtGMNQJUS36LZ752j17ReYJ3x/u9Xr0NFoWATYukYOyKmKg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyKfPaZUe35F1xxXSPTqakUniIAGA/A3UTEOo86LmN2ju5gB8uQ
+	UfW6p6gSVYGfaLDdupWNB3Dmp+QfbdiiZH7d5B1h8fXvdSVLOfO/Kq/zlS0jfdho4a9GoOcEtFp
+	dCJE=
+X-Gm-Gg: ASbGnctFx+ZqYvwP1BuG7TfeL8VuUBEFS/1db13w2kDSsRZDp4/Pt0zvtMXJDzRzFrp
+	RnhwrNaR75aAXv8m6NhIGJaLLHGAxUc9eCjEkTwuElCYTB3fjM9OCDy9WA1OqD3NOLIujA4TW3p
+	H8Gd1qgYDMwgNyeZJAZW2VbQxK7reY9tyG6Tv8mU58uSf9zXxPbPwgtjbxOHiGra1jY2wr7AffW
+	Mx+hEWlX3O6YA6DXiSo9sFjGhb/Tgzd8+4z7Qp0L3gs3R3dsw/7wCmKq6PDik1K4Cn+xQDoX8ur
+	LprpgVmR9H2x+PpUga0+j72nxhQRanMlahzsnDNUxNkgy74amBa1rANJuHSXZ0KyS3BGcaASc+n
+	bijrovmjTjQ==
+X-Google-Smtp-Source: AGHT+IH/3ZqQaRrjbbNn0OCz8GO0fN8qEQxqRKEdUDwlFpBns1rBTTrU5BeCoJZVE4JiB3W1vtdv0w==
+X-Received: by 2002:a05:600c:34c2:b0:43c:f8fc:f687 with SMTP id 5b1f17b1804b1-43ea7cdf399mr55930215e9.27.1743586620572;
+        Wed, 02 Apr 2025 02:37:00 -0700 (PDT)
+Message-ID: <d8be8991-8ac0-4b79-83a9-f0393f1dc46e@citrix.com>
+Date: Wed, 2 Apr 2025 10:36:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Domain IDs and Capabilities
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-References: <0dd25ebd-34f2-4391-aa08-3d873ec72347@amd.com>
- <cc53bc20-51f4-49f9-b35c-77805147e603@suse.com>
- <8e2ecb31-6fea-46b4-b236-65a663510973@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8e2ecb31-6fea-46b4-b236-65a663510973@amd.com>
+Subject: Re: [PATCH v5] xen: simplify bitmap_to_xenctl_bitmap for little
+ endian
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <stefano.stabellini@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20250401005008.2787764-1-stefano.stabellini@amd.com>
+ <694eac75-e872-4ba0-80ed-95c14cd11f5e@suse.com>
+ <87f8fc5f-ed82-4930-bc04-50106cc5acff@citrix.com>
+ <52ae7bed-ba15-4842-b5d8-4fcb61df28b2@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <52ae7bed-ba15-4842-b5d8-4fcb61df28b2@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01.04.2025 19:32, Jason Andryuk wrote:
-> On 2025-04-01 04:07, Jan Beulich wrote:
->> On 31.03.2025 23:46, Jason Andryuk wrote:
->>> It is useful for a domain to know its own domid.  Xenstored has command
->>> line flags to set --master-domid (the local domid) and --priv-domid, but
->>> it would be better to autodetect those.  Also, domids are necessary to
->>> set xenstore permissions - DOMID_SELF is not supported today.
->>
->> Setting permissions for oneself?
-> 
-> Any call to xs_set_permissions(), AIUI.  Say you have two domUs, dom1 & 
-> dom2.  dom1 wants to create a shared xenstore node with full permissions 
-> for itself, but read-only permission for dom2.  dom1 needs to know its 
-> own domid to set the permissions:
-> 
->   *  struct xs_permissions perms[2];
->   *
->   *  perms[0].id = domid1;
->   *  perms[0].perms = XS_PERM_NONE;
->   *  perms[1].id = domid2;
->   *  perms[1].perms = XS_PERM_READ;
-> 
-> perms[].id doesn't handle DOMID_SELF
+On 02/04/2025 10:30 am, Jan Beulich wrote:
+> On 02.04.2025 11:21, Andrew Cooper wrote:
+>> On 01/04/2025 11:09 am, Jan Beulich wrote:
+>>> --- a/xen/common/bitmap.c
+>>> +++ b/xen/common/bitmap.c
+>>> @@ -359,12 +343,11 @@ static void bitmap_byte_to_long(unsigned
+>>>  
+>>>  #elif defined(__LITTLE_ENDIAN)
+>>>  
+>>> -static void bitmap_long_to_byte(uint8_t *bp, const unsigned long *lp,
+>>> -				unsigned int nbits)
+>>> -{
+>>> -	memcpy(bp, lp, DIV_ROUND_UP(nbits, BITS_PER_BYTE));
+>>> -	clamp_last_byte(bp, nbits);
+>>> -}
+>>> +#define LITTLE_ENDIAN 1 /* For IS_ENABLED(). */
+>> I guess I can fix this in my bswap series by giving __LITTLE_ENDIAN the
+>> value of 1 when it is defined ?
+> Hmm, that's an option, yes. Yet then I didn't pay close enough attention
+> to that part of the respective patch in that series, as I was blindly
+> assuming it to instead be
+>
+> #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+> # define __LITTLE_ENDIAN __ORDER_LITTLE_ENDIAN__
+> #elif __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+> # define __BIG_ENDIAN __ORDER_BIG_ENDIAN__
+> #endif
+>
+> to keep the values of the symbols unaltered.
 
-That is, XS_SET_PERMS only ever fully replaces existing permissions, rather
-than allowing incremental permit/revoke?
+I saw no value doing that, after auditing that it was only ever used in
+an #ifdef kind of way.  IS_ENABLED() is an extension of the same
+concept, but requiring a 1 to work.
 
-Jan
+~Andrew
 
