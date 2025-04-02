@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B6F0A79094
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 16:01:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.935781.1337175 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D282A7908D
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 16:00:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.935766.1337157 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzyet-0001Yh-Ay; Wed, 02 Apr 2025 14:01:35 +0000
+	id 1tzydr-0007wI-SC; Wed, 02 Apr 2025 14:00:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 935781.1337175; Wed, 02 Apr 2025 14:01:35 +0000
+Received: by outflank-mailman (output) from mailman id 935766.1337157; Wed, 02 Apr 2025 14:00:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzyet-0001W7-7Y; Wed, 02 Apr 2025 14:01:35 +0000
-Received: by outflank-mailman (input) for mailman id 935781;
- Wed, 02 Apr 2025 14:01:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1tzydr-0007tA-On; Wed, 02 Apr 2025 14:00:31 +0000
+Received: by outflank-mailman (input) for mailman id 935766;
+ Wed, 02 Apr 2025 14:00:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=T645=WU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzycb-0005kV-EA
- for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 13:59:13 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a81e1e25-0fca-11f0-9ea9-5ba50f476ded;
- Wed, 02 Apr 2025 15:59:12 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-39129fc51f8so5089913f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 02 Apr 2025 06:59:12 -0700 (PDT)
+ id 1tzydq-0007t4-BD
+ for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 14:00:30 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d52bd2ff-0fca-11f0-9ffb-bf95429c2676;
+ Wed, 02 Apr 2025 16:00:28 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43cf3192f3bso67742015e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Apr 2025 07:00:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43eb5fc1b9esm21848495e9.6.2025.04.02.06.59.11
+ 5b1f17b1804b1-43eb619132esm21871615e9.32.2025.04.02.07.00.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Apr 2025 06:59:11 -0700 (PDT)
+ Wed, 02 Apr 2025 07:00:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a81e1e25-0fca-11f0-9ea9-5ba50f476ded
+X-Inumbo-ID: d52bd2ff-0fca-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743602352; x=1744207152; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743602428; x=1744207228; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5qdZYmy9cJ905wD0Otv7PRiJxoIoH9X0sUdlDkKSKcA=;
-        b=Y84pn2cUzi96+haxqMOfvcQY7hcJR0PF0zrCRwraalJ+MEplLMb8frXZcRK/q4dzFc
-         tw7cC97ABu7LrHAzEf8g9+0EQqYOs+FP8zPykniT5E4+i98cowy0ApG0VtO4u0pZEnCj
-         9C0TCQNjuem8Xw48wvReDPsifSTV8tQOSz8u4KUtJ70bUWWKjTsS0EBCyiLcDS2LImYb
-         8mpCfiVz6dJrGMb3eL5hi4OtMHuAOCaXccwkZS06aH/1x+i/o6d7Amlqz/46kGTL6COE
-         9UnvFBQ+r9oUQLtfh7Y/tpEz+2YLaDIDOfDBNwPEaVTwDQ6fFi1iE9Bf6KEkTaXb+2Ja
-         y0IA==
+        bh=aQQDd1gapuOKC8ERRVi4SvfFIF2zEKLTqlaKAIWA6lc=;
+        b=FFME+Cu+NUZge2lreisO3+ZiSWA0s56nixzSNr2EptBiW/Vr3NAAd5u1mlfvmwPHZD
+         9p8gkoY2bAAczUQ3MDIMqzB+dtjy5tHSPjLl00NxG3TBPl+UpgqfUJ/nUBBsRgXwaS7D
+         6eTD0V+VoIkGaxTGTz+iOKYJDDCqYQG/cYkdWFVzJYZ6xUXf5uqoVHMBkLMFb1gwbXVO
+         mRsy4pA/Fzv0EexUX4tUyZLhk0mRVafuS5Gh7N5JtTfFIrcAC88LLahVH+e9p+5Ys8nc
+         v+e0iiOXdZMm1Y1aOzYsLiGuqZFJDc8M1aALlyNgLvOqg3ynKaincaQ29jfY9bWbtRMu
+         VLzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743602352; x=1744207152;
+        d=1e100.net; s=20230601; t=1743602428; x=1744207228;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=5qdZYmy9cJ905wD0Otv7PRiJxoIoH9X0sUdlDkKSKcA=;
-        b=PtZX41/oyzKO1g1ANTB5eFjtw/XH3FcES9gEr6NMbRd4kumjzqS47ImKriMX/Fbc9o
-         sYWG3kPDFnhmUnOOBknzZzL2iSEn/A9o9bw7ymvRvE+ja75IDJKXT8FxOMMBgkvYXpu8
-         62zlwt28aEcr2XtZEf1WQqSmRCdOLDh459hhnLG0/MIg5Sc+UtUiaHXqt1Rt99ykX+RI
-         cvpO38D5JL3JwQaXIkCCLn5Bk5vGSH9wIAiBqFKEAArO1h8NT0mCHC5Gem/DnzJcYDZc
-         c1BBti2zIQEGF8RHjTIZ8TgB9wVqjK2Wi16uPBENDnECVxxrHtApMCKX9jMuWSvW1KJC
-         NDDA==
-X-Gm-Message-State: AOJu0YxSqYn+daXVCW+mrtv+1d3f+h4v9+UB4oEAfqqswb9D1knFRYJm
-	K7lfv03gVsQc+GrzGIaSU22XO3/VDYEerxqgFy3c0TkmkNkushGpIQ7zwqq/pyEJRjzV08Vw6PA
+        bh=aQQDd1gapuOKC8ERRVi4SvfFIF2zEKLTqlaKAIWA6lc=;
+        b=MIqLQUNCLNZKESzRVzNGBlktRfMDVY6Sd1J5t3Igy+QKyBfr1/7RCP1OKMhr8GVYu4
+         11+rtrXmXwZUdAU/7vXRkj47sl8SXqyufLlX7RrYF07HytkIPe/bZ2ypBvd/ERfp55/o
+         W3cDU7TaCHaiCv2l/OtwsJH2KVeH7Wp4f2VPIm2kzTpxgNUvwcsxC4LKNkwn158WEPKQ
+         ZK3nPn68/Wvh20Hl64ja2yeFhQ6Kj5opFE3a4Ocv11FSv3C+DdG4Erqfu1H2NhIRepdA
+         hH4XlMVHEQf7KTcIKTfMMJJPMmUzBu64ZV6jrKQAela0qFo8x1Of3/I7JbpOa3HuZ5af
+         jFkg==
+X-Gm-Message-State: AOJu0YwRqQ9SCEGLQnHGI4yuZqa7tiEfKIhXU3b286bp7qh9xt33RtRe
+	NJw+BX+5wv4b/1ZKJcR1DoRJzIcuXuLgEU078AEDg3+NG8ZXbMj78TmFltZ3l6jnf3YTJqnKtKY
 	=
-X-Gm-Gg: ASbGnctJN7ekac4qFAv16DXnPuxeYtQKJj2o3AYjA21OoELJx+aScjnVUzDM83VBA9V
-	Pj18AvxvblVdJpklMDjxBr7Fwup7k6mtnmTxtiol5WTKXmKqv6BkCMvq8UvH7HMOdtc6Sj9BRB4
-	23HOZItYHNAUkZ2z4iByDwl0zhOk9GjBP0jFmztzQKwFp/2ej2BPfy0IHtkv1JO6/dI03u//mHf
-	bVdzCIjYYl9xZ1+5U9vs7CrVxaXTOVb6xBGI3/xp8bBd25pHAFFS7ggxJZDzwlM+tEV0Bz8rcnj
-	U0wKxDBQMliJ1Tp+425f5I7H+9t6nj03oZx4lkYNgc88JZqdB61sEpdsewH7ozd5r3f7DwO93Ll
-	PVaS+uAhIE+mrZ7Z15p2ZBzMin4DGGg==
-X-Google-Smtp-Source: AGHT+IHOd3wRqTHID5d6KPFa4btlsYknPWJ6RTcqPa2SHO6OnvcQROz0ypVVkXn5/L2ZVZwycctLHQ==
-X-Received: by 2002:a05:6000:1862:b0:390:f6aa:4e7c with SMTP id ffacd0b85a97d-39c120e0bc1mr13767984f8f.28.1743602352238;
-        Wed, 02 Apr 2025 06:59:12 -0700 (PDT)
-Message-ID: <5a77bb51-22d1-4956-8e45-c2412c413766@suse.com>
-Date: Wed, 2 Apr 2025 15:59:10 +0200
+X-Gm-Gg: ASbGncsH1LBvYnc4kdkalj2gJv0vGuFawaUmjn6SyNwrhX+FIgbeHTKYNLqIddNtIiV
+	WTpLN7S40X1cDTR8R+IYv3/JlFkz3P2yGHa4EOJIjGlIGe9/26WA3e1ioYgLAhiSjAoSOcEboVx
+	0m7yxxz1aYbyEGtKuJ8LXVQhoSU+cxj8XLpZzZdmMiri5D2gRSJmL3AKIFwlbi4w38pfcm1iLJV
+	TE3GNG2nbpuTSK6ObwQL/KN8LqJop02oOt1dETMlTlF7/QTpPrSfP6PHYOvQ6obJWnknUn2C3Ui
+	h3aKfpc3g3PmW7buas8SF/1jXHqccI8Go8C0l0VjKtFASNNHL2YPebCBui3Ex/UjW4869ubLZha
+	RtpBvu1RzIwdXesctbXywr07Q58tKgA==
+X-Google-Smtp-Source: AGHT+IF7C52hwri8XqctfZkS5LIAbXhdTYt5qRh8ZJuO7bII2d2p+oH8oXGLZUrSCyGsPzSnsxhO4A==
+X-Received: by 2002:a05:600c:42c8:b0:43a:b0ac:b10c with SMTP id 5b1f17b1804b1-43e8ff51423mr84298105e9.26.1743602427814;
+        Wed, 02 Apr 2025 07:00:27 -0700 (PDT)
+Message-ID: <b7261eaf-b3ce-4b71-aba2-3f40adbbe93e@suse.com>
+Date: Wed, 2 Apr 2025 16:00:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 4/5] symbols: centralize and re-arrange $(all_symbols)
- calculation
+Subject: [PATCH v2 5/5] symbols: prefer symbols which have a type
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+ <roger.pau@citrix.com>
 References: <ceef1876-8759-465c-9a74-309b6b92f773@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,75 +124,63 @@ In-Reply-To: <ceef1876-8759-465c-9a74-309b6b92f773@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-For one there's no need for each architecture to have the same logic.
-Move to the root Makefile, also to calculate just once.
+... and thus typically also a size. Using global vs local is undesirable
+in certain situations, e.g. when a "real" symbol is local and at the
+same address as a section start/end one (which are all global).
 
-And then re-arrange to permit FAST_SYMBOL_LOOKUP to be independent of
-LIVEPATCH, which may be useful in (at least) debugging.
+Note that for xen.efi the checking for "Function" is only forward-
+looking at this point: The function-ness of symbols (much like their
+size) is lost when linking PE/COFF binaries from ELF objects with GNU ld
+up to at least 2.44.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Likely syms-warn-dup-y wants to follow suit; it doesn't even have an Arm
-counterpart right now.
+I didn't see much reason to also check for "Pointer" and "Array" or any
+of the basic types. While nm reports pointers and arrays (but not the
+basic types) for PE/COFF, making those up when linker input is ELF would
+be impossible without further auxiliary (and non-standard) data in the
+ELF symbol table. Transforming STT_FUNC, otoh, is in principle possible.
 
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -460,6 +460,10 @@ ALL_OBJS-$(CONFIG_CRYPTO) += crypto/buil
+Implicit from the above: Until GNU ld properly transforms STT_FUNC,
+symbol conflicts will be resolved differently for functions. Symbol
+conflicts will always be resolved differently for data. xen.efi stack
+traces may therefore be less informative than xen-syms ones.
+---
+v2: New.
+
+--- a/xen/tools/symbols.c
++++ b/xen/tools/symbols.c
+@@ -45,6 +45,7 @@ struct sym_entry {
+ 	unsigned int addr_idx;
+ 	unsigned int stream_offset;
+ 	unsigned char type;
++	bool typed;
+ };
+ #define SYMBOL_NAME(s) ((char *)(s)->sym + 1)
  
- ALL_LIBS-y                := lib/lib.a
+@@ -180,6 +181,9 @@ static int read_symbol(FILE *in, struct
+ 		s->type = stype; /* As s->sym[0] ends mangled. */
+ 	}
+ 	s->sym[0] = stype;
++	s->typed = strcmp(type, "FUNC") == 0 ||
++	           strcmp(type, "OBJECT") == 0 ||
++	           strcmp(type, "Function") == 0;
+ 	rc = 0;
  
-+all-symbols-y :=
-+all-symbols-$(CONFIG_LIVEPATCH) += --all-symbols
-+all-symbols-$(CONFIG_FAST_SYMBOL_LOOKUP) += --sort-by-name
+  skip_tail:
+@@ -613,6 +617,13 @@ static int compare_value(const void *p1,
+ 		return -1;
+ 	if (sym1->addr > sym2->addr)
+ 		return +1;
 +
- include $(srctree)/arch/$(SRCARCH)/arch.mk
- 
- # define new variables to avoid the ones defined in Config.mk
-@@ -612,7 +616,8 @@ $(TARGET): outputmakefile asm-generic FO
- 	$(Q)$(MAKE) $(build)=include all
- 	$(Q)$(MAKE) $(build)=arch/$(SRCARCH) include
- 	$(Q)$(MAKE) $(build)=. arch/$(SRCARCH)/include/asm/asm-offsets.h
--	$(Q)$(MAKE) $(build)=. MKRELOC=$(MKRELOC) 'ALL_OBJS=$(ALL_OBJS-y)' 'ALL_LIBS=$(ALL_LIBS-y)' $@
-+	$(Q)$(MAKE) $(build)=. MKRELOC=$(MKRELOC) 'ALL_OBJS=$(ALL_OBJS-y)' \
-+	            'ALL_LIBS=$(ALL_LIBS-y)' 'all_symbols=$(all-symbols-y)' $@
- 
- SUBDIRS = xsm arch common crypto drivers lib test
- define all_sources
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -81,15 +81,6 @@ ifneq ($(CONFIG_DTB_FILE),"")
- obj-y += dtb.o
- endif
- 
--ifdef CONFIG_LIVEPATCH
--all_symbols = --all-symbols
--ifdef CONFIG_FAST_SYMBOL_LOOKUP
--all_symbols = --all-symbols --sort-by-name
--endif
--else
--all_symbols =
--endif
--
- $(TARGET): $(TARGET)-syms
- 	$(OBJCOPY) -O binary -S $< $@
- ifeq ($(CONFIG_ARM_64),y)
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -111,15 +111,6 @@ notes_phdrs = --notes
- endif
- endif
- 
--ifdef CONFIG_LIVEPATCH
--all_symbols = --all-symbols
--ifdef CONFIG_FAST_SYMBOL_LOOKUP
--all_symbols = --all-symbols --sort-by-name
--endif
--else
--all_symbols =
--endif
--
- syms-warn-dup-y := --warn-dup
- syms-warn-dup-$(CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS) :=
- syms-warn-dup-$(CONFIG_ENFORCE_UNIQUE_SYMBOLS) := --error-dup
++	/* Prefer symbols which have a type. */
++	if (sym1->typed && !sym2->typed)
++		return -1;
++	if (sym2->typed && !sym1->typed)
++		return +1;
++
+ 	/* Prefer global symbols. */
+ 	if (isupper(*sym1->sym))
+ 		return -1;
 
 
