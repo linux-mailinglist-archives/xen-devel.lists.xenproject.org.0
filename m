@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74797A7890F
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 09:45:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.935174.1336628 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFEE8A7891D
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 09:47:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.935189.1336638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzsmb-0004d8-6R; Wed, 02 Apr 2025 07:45:09 +0000
+	id 1tzsoN-0005ET-Jc; Wed, 02 Apr 2025 07:46:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 935174.1336628; Wed, 02 Apr 2025 07:45:09 +0000
+Received: by outflank-mailman (output) from mailman id 935189.1336638; Wed, 02 Apr 2025 07:46:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzsmb-0004be-2j; Wed, 02 Apr 2025 07:45:09 +0000
-Received: by outflank-mailman (input) for mailman id 935174;
- Wed, 02 Apr 2025 07:45:08 +0000
+	id 1tzsoN-0005C1-Gc; Wed, 02 Apr 2025 07:46:59 +0000
+Received: by outflank-mailman (input) for mailman id 935189;
+ Wed, 02 Apr 2025 07:46:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=g9bq=WU=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1tzsmZ-0004bY-Ry
- for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 07:45:08 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=T645=WU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1tzsoM-0005Bv-4N
+ for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 07:46:58 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 647c5e72-0f96-11f0-9ffb-bf95429c2676;
- Wed, 02 Apr 2025 09:45:05 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id D46C74EE0755;
- Wed,  2 Apr 2025 09:45:04 +0200 (CEST)
+ id a6426d08-0f96-11f0-9ffb-bf95429c2676;
+ Wed, 02 Apr 2025 09:46:55 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-399744f74e9so4142772f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Apr 2025 00:46:55 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43eb60cd74dsm12195495e9.20.2025.04.02.00.46.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Apr 2025 00:46:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,109 +45,257 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 647c5e72-0f96-11f0-9ffb-bf95429c2676
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1743579904;
-	b=uU02vpy4h8VghoZIYHSZ6CsIaJoqqjd6MzPOzCVmH7qobbSSGHBcuhOpRHzKRIVN1AKk
-	 7ECSP0e9qwEtJnzHrGtyiig9b8aeIfTwwZqQGJxYmvqatmCnEOAt7Oe6zvNPdLpQOGHi8
-	 CBSeHC5+W7PJULcC3NkMfZpv1wOazwGn/awVM2no5R84DE+sl5FamFmuwLrdvqpmiPsYc
-	 9hZOctApE1JMjfJHj3S2loB99sq/xnRTVfnEmYBTPJNG61sWZZIr2TraMg0DLx3o9Tmqo
-	 AHkN/z6DG3sWXPBdo8j+ENTg8o1P045fIeiauZDYn6BGWcP86OH5+/uzwMB3+I/lGimlc
-	 PgjEOfOuqAU4ivXOVVfaeOFAzjystWKQWmI1n8BpDAvVkOIxszGf8QuLy+JAHO+mJeBjP
-	 1h9ACgbAAe//HoLvkRmovyCoMLfv/39NlB2cEx1ECMmyX6nen9UPQr8Etk/rcTqz8tOxa
-	 xS1Zx/A94DOoXh/pQSew12E8uTfcyjopSvY3rj33P4P1nUKQJqGdV0OpH119uNiIIu89g
-	 lfEwbMl0IHll66akFqEU7DMBWJ/72XL9IIMfGxvUVcaRQCsX391oVQMZ/VikyBEOnUKND
-	 RNY4S5FI/xj3djBgSzCDSFG1D9pNkbOOU9Du2pj9wQ4oZtwvosOHcwIBUPzneYY=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1743579904;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qhCy2CGoUJcFbZWqQcomLbijGomZjPwLRYg2MA13gfQ=;
-	b=nkdUf6O3wXzgGB4Vw1ZZaRyCKnnlm3mEgKqwAWtRRjiRelNiuEPbpMgWnmAwLr+XYASG
-	 LtozptuuxD+B0ag3BaswM3jUhhBzci2xcPSsoqX2UFV0gymjEOunupI7oawfp7/9kwULm
-	 I9/iEwfSgjDc5paI4QRmGqgvTgyZVnW7kTpZ/AxKqL0ONWDe+4TDbtMvuGG6JlvJ+oNAB
-	 NJT+fTbM3J0MBuxVFE3201vkl47f3CF1o4GqvsgHAUAeJMLf6IQg7VyhjAkvR6T2+OIkF
-	 TVzAvVTdUhffOrkP9M/2peLPqIeflqeX9N0JT5DuG+cfvRItvoaM6ky3kui3b5Y+Uw1Ne
-	 otWLdWHV8so7kUJ+gnHDcG14m2iN2WAdFcZD9W9LzJhL8akhKBeH96s1BXHv2ZJf4qQpc
-	 zFpxcySQ/bwQWYvvpo61ES6By5h2p/6bOYfdCEA/OXkZ0zK89B7m1tdxStckm46JKW5Sy
-	 xl3G6wXIbYuuw/++3+miPwbA4ExgOVhZIjNbmX2V0XpnEEAjrpCDu171UIdtJFiexIitB
-	 mO2K/FpQGOVbkaibIsQZXFw9WKk1YBhvX+uswjvZ0qwHImGG+GocL7Xpp+o1idVEHshc7
-	 FBSrAfRd+taq1uWUkE5RayF3Z2uZGLBfMmyzCiYhEOOywICW7G94eNJFoaywK3g=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1743579904; bh=AtGTAxW0PwrhY5qFpU+TlRRK5r826YovS/7+iYwxjFA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=H6YVhaTdkmyX8GESw2Q2Fpz9B8uzXlbGB3eCYAmZpgclxFFaF54BTa2sWVlNULMg+
-	 ABgI61wOxUtX6WK2CqBT41DloE3ZpjH+irtEv++p5dFE156N0w+6L4RH4oTkwR5Aiv
-	 +I5l6qFPyQo2uqJJHkwRp9bILJEjK7KOPTaHiuv3ig8KzeBiCX0AU7A6Wsg0m8y4Lt
-	 jhrIThVHMt43mW/cZgDfwkcxLTofq5Lp9kqS01a2rjYzw3VfItmAnx4v54uNBX01MZ
-	 tjqKLP+v6V9hj1Yrzl+TXFnc2frLiF+c3+ZYKmHZApaUGHhUDqJmcQMrYIG1J818rM
-	 Ntaco1Aw61lOw==
+X-Inumbo-ID: a6426d08-0f96-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1743580015; x=1744184815; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=edDRPeSSLFBp5KTbZc8k1GEd+2MMcyjQAdZk6SqRO8Y=;
+        b=ZBPuCJnc63j6VpVUJbFmDDPdiJ0oYGbProdQwSnESA9jUmOZEa1Or/E6J5ncmBjUR4
+         fqJ2n2HlVZplzL3o60fjSVo1eJOzWPJwftKCAeZeT91TKsD/xGE7mdKzSxhVB950Yq/z
+         m3yr0h5IV6+2yVyWKOlnSD+ZqZdqAqs5CPGZ6TsGsRN3z0VRF1idjBTWH1169Rx7as60
+         7XbBumwXteF1GaUVYkZuPTWERcp7I6e8G/o5qcynV/wshBuddROIK8aRAi9t2RYoNI7E
+         wNlTvSiV5qeYRptK6fNPFhUOdy+euiaaYl4AEyyEdCdZWPpyUo1AggSLzHv61olOrwuP
+         DV2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743580015; x=1744184815;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=edDRPeSSLFBp5KTbZc8k1GEd+2MMcyjQAdZk6SqRO8Y=;
+        b=k3gNZNJMM+CxCQbjcWMSrkX9HN+7wAMRJNAfkyBkxIPyn5T9NO7UQw0ufMx+XnHqG9
+         ec2i+eiYZIE+j0TEeP93+Oq70aXlq7mRrG61hoZQPn7cvqHcxi9HhPGWDNOL18RtAd49
+         wdYBw7OdPNou97OChxK5er013kXnu2plzHplpyHXwGuaRA8Nhuhp6odbwVqoqPcyq+FN
+         cp7YYNqOpoj8u5vcj/MwvwEU7bs2Cu55JENp1LGhN/A7cOo3J0T5ZVN813+jEMp0DD3y
+         mqHpewJ/9oEety3+C6BMio6tpzh7m218/Rjr3DeB0kzEFxH7xpKNDHi7wfQz6b8ix4RJ
+         5Jlg==
+X-Forwarded-Encrypted: i=1; AJvYcCUYBwJFt5E1slbwMlxEFj/VvHlJXv4sQ1ERPyxPQM9f2maBRk7aJmSi1Va1ihQShEP4aoiw4pXmpQ8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwltQ8BreXrpR6le7KnPkphuJP8+A6dLa0yiEmsvvViDsf0wqYS
+	yJtz1tdFg3uQCv088nqbwtauzZvwPMvZW4mV9AN18B9MbfksBKuL48zzqBluIA==
+X-Gm-Gg: ASbGnctEuAL2odtFwBFaLPOhasMzY9qeVXfblipVxNTYuUHsZLE6sHF0LU/U3TZrt3n
+	2kDSq3w0dxB983cg8xMbbP+6rIDwhZmq0pvD3JTqvnFV51jEOoKU2NR8lnyp5sjEPlkzYF5FYr0
+	BEZ74jZ5EaYIWUSi2Mdf8viMOhg0Ok0VF4iael4VVfLnsr/0evrYFRbo0MzeBjQracSzF0V/qYj
+	HVzmYwtbLRtc1Nl4JstrO5W8ym8QtdmarMzcUlJ7bAOgnh5KaWw6ogsnpHR2tYu01DxhZmTxvAu
+	UtKYwUZ4cC9W5yv+4TBB7LZBPbG3YrHENpRvel0fW8F0tz/5JQYYNMzT7mycMlF+iSK5FXeep9D
+	wBV9+yVgD7/YFyQA0R3caWOQK6brkgw==
+X-Google-Smtp-Source: AGHT+IHBtxkx0B0/ryiZauBIuePc0enQPNC8VT6RZX9GFw/dZ1ansyAK7A18oQAsvRY/3J9sgGWysA==
+X-Received: by 2002:a5d:47a2:0:b0:39a:c9ed:8555 with SMTP id ffacd0b85a97d-39c120dfd8dmr13699475f8f.23.1743580015299;
+        Wed, 02 Apr 2025 00:46:55 -0700 (PDT)
+Message-ID: <a14a7a42-cf7e-463b-a87d-e302ce32371b@suse.com>
+Date: Wed, 2 Apr 2025 09:46:53 +0200
 MIME-Version: 1.0
-Date: Wed, 02 Apr 2025 09:45:04 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: "Kwon, Gihwan" <gihwan.kwon@boeing.com>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini
- <sstabellini@kernel.org>
-Subject: Re: [QUESTION] Minimal Xen Configuration
-In-Reply-To: <PH3P110MB2246A9D7AFA0A73000781B0390A0A@PH3P110MB2246.NAMP110.PROD.OUTLOOK.COM>
-References: <PH3P110MB2246A9D7AFA0A73000781B0390A0A@PH3P110MB2246.NAMP110.PROD.OUTLOOK.COM>
-Message-ID: <f4803fc17047a9d74928c66d39bf9632@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/11] x86/mkreloc: fix obtaining PE image base address
+From: Jan Beulich <jbeulich@suse.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250401130840.72119-1-roger.pau@citrix.com>
+ <20250401130840.72119-3-roger.pau@citrix.com>
+ <6c37ad18-a830-453e-a7ff-fb4978e3f0df@suse.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6c37ad18-a830-453e-a7ff-fb4978e3f0df@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2025-03-28 07:43, Kwon, Gihwan wrote:
-> Dear Xen Community,
+On 01.04.2025 16:17, Jan Beulich wrote:
+> On 01.04.2025 15:08, Roger Pau Monne wrote:
+>> The base address is in the pe32_opt_hdr, not after it.
+
+Which is a result of pe.h munging both the optional and the NT header into
+a single structure.
+
+>> Previous to commit f7f42accbbbb the base was read standalone (as the first
+>> field of pe32_opt_hdr).  However with the addition of reading the full
+>> contents of pe32_opt_hdr, such read will also fetch the base.  The current
+>> attempt to read the base after pe32_opt_hdr is bogus, and could only work
+>> if the file cursor is repositioned using lseek(), but there's no need for
+>> that as the data is already fetched in pe32_opt_hdr.
 > 
-> I hope this message finds you well.
-> 
-> I have heard that there exists a minimal Xen configuration optimized 
-> for
-> safety-critical products, particularly in automotive applications, with 
-> the
-> code size reduced to approximately 50k SLOC.
-> 
-> Could anyone provide guidance or point me to relevant resources 
-> regarding
-> this minimal Xen configuration? Any insights or references would be 
-> greatly
-> appreciated.
-> 
-> Thank you in advance for your assistance.
-> 
-> Best regards,
-> Gihwan Kwon
+> Yes, but: How did things work at all then with this bug?
 
-Hello,
+It simply didn't. We got away only because apparently no-one tried a build
+with a linker old enough for this tool to come into play.
 
-I am part of the team that provides static analysis for Xen, mainly 
-towards the objective to make Xen compliant with MISRA C guidelines. As 
-part of that effort, a minimal Xen configuration has been defined (for 
-Arm and x86_64) at [1], which is the one currently analyzed for static 
-analysis for each commit [2]. It starts from the default configuration 
-for the architecture (i.e., make defconfig) and then turns on or off 
-various Kconfig options, as specified by EXTRA_XEN_CONFIG.
+I'd like to suggest the replacement patch below, though.
 
-@Stefano Stabellini (Cc'ed) is the main driving force behind the Xen 
-certification effort for automotive, therefore he's probably the best 
-person to approach to get more information on this matter.
+Jan
 
-Hope this was helpful as a starting point.
+x86/EFI: correct mkreloc header (field) reading
 
-Best Regards,
-  Nicola Vetrini
+With us now reading the full combined optional and NT headers, the
+subsequent reading of (and seeking to) NT header fields is wrong. Since
+PE32 and PE32+ NT headers are different anyway (beyond the image base
+oddity extending across both headers), switch to using a union. This
+allows to fetch the image base more directly then.
 
-[1] 
-https://gitlab.com/xen-project/xen/-/blob/staging/automation/gitlab-ci/analyze.yaml?ref_type=heads
-[2] https://gitlab.com/xen-project/hardware/xen/-/pipelines
+Additionally add checking to map_section(), which would have caught at
+least the wrong (zero) image size that we previously used.
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Fixes: f7f42accbbbb ("x86/efi: Use generic PE/COFF structures")
+Reported-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Of the two checks added to map_section(), the 1st ends up being largely
+redundant with the 2nd one. Should we use just the latter?
+
+Also sanity checking the image base would be possible, but more
+cumbersome if we wanted to check moret than just "is in high half of
+address space). Therefore I've left out doing so.
+
+--- a/xen/arch/x86/efi/mkreloc.c
++++ b/xen/arch/x86/efi/mkreloc.c
+@@ -28,14 +28,16 @@ static void usage(const char *cmd, int r
+ static unsigned int load(const char *name, int *handle,
+                          struct section_header **sections,
+                          uint_fast64_t *image_base,
+-                         uint32_t *image_size,
++                         uint_fast32_t *image_size,
+                          unsigned int *width)
+ {
+     int in = open(name, O_RDONLY);
+     struct mz_hdr mz_hdr;
+     struct pe_hdr pe_hdr;
+-    struct pe32_opt_hdr pe32_opt_hdr;
+-    uint32_t base;
++    union {
++        struct pe32_opt_hdr pe;
++        struct pe32plus_opt_hdr pep;
++    } pe32_opt_hdr;
+ 
+     if ( in < 0 ||
+          read(in, &mz_hdr, sizeof(mz_hdr)) != sizeof(mz_hdr) )
+@@ -54,31 +56,40 @@ static unsigned int load(const char *nam
+ 
+     if ( lseek(in, mz_hdr.peaddr, SEEK_SET) < 0 ||
+          read(in, &pe_hdr, sizeof(pe_hdr)) != sizeof(pe_hdr) ||
+-         read(in, &pe32_opt_hdr, sizeof(pe32_opt_hdr)) != sizeof(pe32_opt_hdr) ||
+-         read(in, &base, sizeof(base)) != sizeof(base) ||
+-         /*
+-          * Luckily the image size field lives at the
+-          * same offset for both formats.
+-          */
+-         lseek(in, 24, SEEK_CUR) < 0 ||
+-         read(in, image_size, sizeof(*image_size)) != sizeof(*image_size) )
++         (read(in, &pe32_opt_hdr.pe, sizeof(pe32_opt_hdr.pe)) !=
++          sizeof(pe32_opt_hdr.pe)) )
+     {
+         perror(name);
+         exit(3);
+     }
+ 
+     switch ( (pe_hdr.magic == PE_MAGIC &&
+-              pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr)) *
+-              pe32_opt_hdr.magic )
++              pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr.pe)) *
++              pe32_opt_hdr.pe.magic )
+     {
+     case PE_OPT_MAGIC_PE32:
+         *width = 32;
+-        *image_base = base;
++        *image_base = pe32_opt_hdr.pe.image_base;
++        *image_size = pe32_opt_hdr.pe.image_size;
+         break;
+     case PE_OPT_MAGIC_PE32PLUS:
+-        *width = 64;
+-        *image_base = ((uint64_t)base << 32) | pe32_opt_hdr.data_base;
+-        break;
++        if ( pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr.pep) )
++        {
++            if ( read(in,
++                      &pe32_opt_hdr.pe + 1,
++                      sizeof(pe32_opt_hdr.pep) - sizeof(pe32_opt_hdr.pe)) !=
++                 sizeof(pe32_opt_hdr.pep) - sizeof(pe32_opt_hdr.pe) )
++            {
++                perror(name);
++                exit(3);
++            }
++
++            *width = 64;
++            *image_base = pe32_opt_hdr.pep.image_base;
++            *image_size = pe32_opt_hdr.pep.image_size;
++            break;
++        }
++        /* Fall through. */
+     default:
+         fprintf(stderr, "%s: Wrong PE file format\n", name);
+         exit(3);
+@@ -108,11 +119,28 @@ static unsigned int load(const char *nam
+ static long page_size;
+ 
+ static const void *map_section(const struct section_header *sec, int in,
+-                               const char *name)
++                               const char *name, uint_fast32_t image_size)
+ {
+     const char *ptr;
+     unsigned long offs;
+ 
++    if ( sec->rva > image_size )
++    {
++        fprintf(stderr,
++                "%s: section %.8s @ %08"PRIx32" beyond image size %08"PRIxFAST32"\n",
++                name, sec->name, sec->rva, image_size);
++        exit(6);
++    }
++
++    if ( (uint_fast64_t)sec->rva + sec->virtual_size > image_size )
++    {
++        fprintf(stderr,
++                "%s: section %.8s @ [%09"PRIx32",%09"PRIxFAST64") extends beyond image size %09"PRIxFAST32"\n",
++                name, sec->name, sec->rva,
++                (uint_fast64_t)sec->rva + sec->virtual_size, image_size);
++        exit(6);
++    }
++
+     if ( !page_size )
+         page_size = sysconf(_SC_PAGESIZE);
+     offs = sec->data_addr & (page_size - 1);
+@@ -233,7 +261,7 @@ int main(int argc, char *argv[])
+     int in1, in2;
+     unsigned int i, nsec, width1, width2;
+     uint_fast64_t base1, base2;
+-    uint32_t size1, size2;
++    uint_fast32_t size1, size2;
+     struct section_header *sec1, *sec2;
+ 
+     if ( argc == 1 ||
+@@ -308,8 +336,8 @@ int main(int argc, char *argv[])
+             sec1[i].raw_data_size = sec1[i].virtual_size;
+             sec2[i].raw_data_size = sec2[i].virtual_size;
+         }
+-        ptr1 = map_section(sec1 + i, in1, argv[1]);
+-        ptr2 = map_section(sec2 + i, in2, argv[2]);
++        ptr1 = map_section(sec1 + i, in1, argv[1], size1);
++        ptr2 = map_section(sec2 + i, in2, argv[2], size1);
+ 
+         diff_sections(ptr1, ptr2, sec1 + i, base2 - base1, width1,
+                       base1, base1 + size1);
+
 
