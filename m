@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00E62A7859E
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 02:22:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.935039.1336558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C292A786EC
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 05:47:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.935083.1336567 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzlsE-0002fD-1F; Wed, 02 Apr 2025 00:22:30 +0000
+	id 1tzp3h-00079X-MK; Wed, 02 Apr 2025 03:46:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 935039.1336558; Wed, 02 Apr 2025 00:22:30 +0000
+Received: by outflank-mailman (output) from mailman id 935083.1336567; Wed, 02 Apr 2025 03:46:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzlsD-0002dd-Tv; Wed, 02 Apr 2025 00:22:29 +0000
-Received: by outflank-mailman (input) for mailman id 935039;
- Wed, 02 Apr 2025 00:22:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YWck=WU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tzlsC-0002dW-Rb
- for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 00:22:28 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8da23f9c-0f58-11f0-9ffb-bf95429c2676;
- Wed, 02 Apr 2025 02:22:26 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D280B5C3FCC;
- Wed,  2 Apr 2025 00:20:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA06AC4CEE4;
- Wed,  2 Apr 2025 00:22:23 +0000 (UTC)
+	id 1tzp3h-00076l-IH; Wed, 02 Apr 2025 03:46:33 +0000
+Received: by outflank-mailman (input) for mailman id 935083;
+ Wed, 02 Apr 2025 03:46:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=w5pF=WU=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1tzp3f-00076f-VB
+ for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 03:46:32 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0dbe14ca-0f75-11f0-9ea7-5ba50f476ded;
+ Wed, 02 Apr 2025 05:46:30 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 5323jYCp4052768
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Tue, 1 Apr 2025 20:45:34 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,177 +40,319 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8da23f9c-0f58-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743553344;
-	bh=GW+JcUjsAPrxTRCOzqIxwLPCy4cz/rmvfzwYSx+avoY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=O5ZSeYpuvCHEgKl18yq81EehsbiMSbk7a5bQj2jqx63yskcbVOxXJ+uLjaHt5CejJ
-	 01Fat4316/ZlOHFMeYozsa0jyiHGa6q37QDW/PezjcXPZmXPGQEJKQ7zai1xpSalzW
-	 x6z0P/1PmYpETGnMzIL4GKb0GsygEOfsJkpzamTifHq4FuGl2GFJaleNb5LhYiZsVk
-	 5iRP0NRmvI1902FxZNU54VhO/ja3FBUULRL2QrLlhWFR495SpO8A4b89YKCCsLGkuH
-	 g4f4GYQvy0Pdhqu+UYGYau3T9MG116S14+gyybssb4RNIu1p2KJbrhBg6SL4Soag+8
-	 7CRcQg0l+6yaw==
-Date: Tue, 1 Apr 2025 17:22:22 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 2/2] ci: add Intel KabyLake HW runner
-In-Reply-To: <c92c7baeb09883dbbfc493c0abc1e9576533cffa.1743464494.git-series.marmarek@invisiblethingslab.com>
-Message-ID: <alpine.DEB.2.22.394.2504011722030.3098208@ubuntu-linux-20-04-desktop>
-References: <cover.c37f01ae6ae3cbc9c0897f39de9037d7225d2c94.1743464494.git-series.marmarek@invisiblethingslab.com> <c92c7baeb09883dbbfc493c0abc1e9576533cffa.1743464494.git-series.marmarek@invisiblethingslab.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 0dbe14ca-0f75-11f0-9ea7-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 5323jYCp4052768
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025032001; t=1743565538;
+	bh=B/0Ul12154gIBLTRQGmDrSHkQipxSmmaRYkawQNhljs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=d7YoxvOk9CIKebUmypsUBsbIGJDe0uIJODZYK5DJptXRC7jV6F3X1iHgsxaJq7z/U
+	 nBC47DHx45CFSikk6yorSJmHvn/RCUzlkE0NIfP5y7UNWDRWBv91w7rT+GXmQbAe6z
+	 HCcFPhy4gq4eFfyUGP1oJ31ejuLGzPZzPtgaEGzAY4WeayjxRzdkiEm1K913UJ2qFb
+	 o2q11OGn9+Uc+NNdgOH1HNABy4p6gq8usi/RT27lr00ZcWFGEXHyfLPucBEl+bhIGt
+	 HaLheaydO5A8cmC7yD4/mcLHEGK1M9ACDi53Kn4fWVEbhWUVQAm5iuaES3HqoGE7N5
+	 7tT7gwjoWNc5Q==
+Message-ID: <7a503d55-db41-42da-8133-4a3dbbd36c7e@zytor.com>
+Date: Tue, 1 Apr 2025 20:45:33 -0700
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-305143249-1743553344=:3098208"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 01/15] x86/msr: Replace __wrmsr() with
+ native_wrmsrl()
+To: Ingo Molnar <mingo@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+        linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+        linux-edac@vger.kernel.org, kvm@vger.kernel.org,
+        xen-devel@lists.xenproject.org, linux-ide@vger.kernel.org,
+        linux-pm@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, jgross@suse.com,
+        andrew.cooper3@citrix.com, peterz@infradead.org, acme@kernel.org,
+        namhyung@kernel.org, mark.rutland@arm.com,
+        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
+        wei.liu@kernel.org, ajay.kaher@broadcom.com,
+        alexey.amakhalov@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+        tony.luck@intel.com, pbonzini@redhat.com, vkuznets@redhat.com,
+        seanjc@google.com, luto@kernel.org, boris.ostrovsky@oracle.com,
+        kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com,
+        Linus Torvalds <torvalds@linux-foundation.org>
+References: <20250331082251.3171276-1-xin@zytor.com>
+ <20250331082251.3171276-2-xin@zytor.com> <Z-pruogreCuU66wm@gmail.com>
+ <9D15DE81-2E68-4FCD-A133-4963602E18C9@zytor.com> <Z-ubVFyoOzwKhI53@gmail.com>
+Content-Language: en-US
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <Z-ubVFyoOzwKhI53@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-305143249-1743553344=:3098208
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 1 Apr 2025, Marek Marczykowski-Górecki wrote:
-> This is Intel i7-7567U in NUC 7i7BNH. This one is an older one, with no
-> firmware updates (last update from 2023) and no microcode udpates
-> either. While this firmware supports UEFI, network boot works only in
-> legacy mode - thus legacy is used here (via iPXE, instead of grub2.efi).
-> Testing legacy boot path may be a useful thing on its own.
+On 4/1/2025 12:52 AM, Ingo Molnar wrote:
 > 
-> Add the same set of tests as on ADL runner.
+> * H. Peter Anvin <hpa@zytor.com> wrote:
 > 
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
-> Cc: Jan Beulich <jbeulich@suse.com>
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+>> On March 31, 2025 3:17:30 AM PDT, Ingo Molnar <mingo@kernel.org> wrote:
+>>>
+>>> * Xin Li (Intel) <xin@zytor.com> wrote:
+>>>
+>>>> -	__wrmsr      (MSR_AMD_DBG_EXTN_CFG, val | 3ULL << 3, val >> 32);
+>>>> +	native_wrmsrl(MSR_AMD_DBG_EXTN_CFG, val | 3ULL << 3);
+>>>
+>>> This is an improvement.
+>>>
+>>>> -	__wrmsr      (MSR_IA32_PQR_ASSOC, rmid_p, plr->closid);
+>>>> +	native_wrmsrl(MSR_IA32_PQR_ASSOC, (u64)plr->closid << 32 | rmid_p);
+>>>
+>>>> -	__wrmsr      (MSR_IA32_PQR_ASSOC, rmid_p, closid_p);
+>>>> +	native_wrmsrl(MSR_IA32_PQR_ASSOC, (u64)closid_p << 32 | rmid_p);
+>>>
+>>> This is not an improvement.
+>>>
+>>> Please provide a native_wrmsrl() API variant where natural [rmid_p, closid_p]
+>>> high/lo parameters can be used, without the shift-uglification...
+>>>
+>>> Thanks,
+>>>
+>>> 	Ingo
+>>
+>> Directing this question primarily to Ingo, who is more than anyone
+>> else the namespace consistency guardian:
+>>
+>> On the subject of msr function naming ... *msrl() has always been
+>> misleading. The -l suffix usually means 32 bits; sometimes it means
+>> the C type "long" (which in the kernel is used instead of
+>> size_t/uintptr_t, which might end up being "fun" when 128-bit
+>> architectures appear some time this century), but for a fixed 64-but
+>> type we normally use -q.
 > 
-> Not sure if duplicating pvshim test makes sense? Others do look like may
-> have hardware-sensitive parts.
-
-The more the merrier
-
-
-> ---
->  automation/gitlab-ci/test.yaml | 89 +++++++++++++++++++++++++++++++++++-
->  1 file changed, 89 insertions(+)
+> Yeah, agreed - that's been bothering me for a while too. :-)
 > 
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 225eb4399807..d05b9a98afa6 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -155,6 +155,17 @@
->    tags:
->      - qubes-hw2
->  
-> +.kbl-x86-64:
-> +  # it's really similar to the ADL one
-> +  extends: .adl-x86-64
-> +  variables:
-> +    PCIDEV: "00:1f.6"
-> +    PCIDEV_INTR: "MSI"
-> +    CONSOLE_OPTS: "console=com1 com1=115200,8n1,pci,msi"
-> +    SUT_ADDR: test-3.testnet
-> +  tags:
-> +    - qubes-hw3
-> +
->  .zen2-x86-64:
->    # it's really similar to the above
->    extends: .adl-x86-64
-> @@ -312,6 +323,84 @@ adl-tools-tests-pvh-x86-64-gcc-debug:
->      - *x86-64-test-needs
->      - alpine-3.18-gcc-debug
->  
-> +kbl-smoke-x86-64-gcc-debug:
-> +  extends: .kbl-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.18-gcc-debug
-> +
-> +kbl-smoke-x86-64-dom0pvh-gcc-debug:
-> +  extends: .kbl-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh dom0pvh 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.18-gcc-debug
-> +
-> +kbl-smoke-x86-64-dom0pvh-hvm-gcc-debug:
-> +  extends: .kbl-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh dom0pvh-hvm 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.18-gcc-debug
-> +
-> +kbl-suspend-x86-64-gcc-debug:
-> +  extends: .kbl-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh s3 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.18-gcc-debug
-> +
-> +kbl-pci-pv-x86-64-gcc-debug:
-> +  extends: .kbl-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh pci-pv 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.18-gcc-debug
-> +
-> +kbl-pci-hvm-x86-64-gcc-debug:
-> +  extends: .kbl-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh pci-hvm 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.18-gcc-debug
-> +
-> +kbl-pvshim-x86-64-gcc-debug:
-> +  extends: .kbl-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh pvshim 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.18-gcc-debug
-> +
-> +kbl-tools-tests-pv-x86-64-gcc-debug:
-> +  extends: .kbl-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh tools-tests-pv 2>&1 | tee ${LOGFILE}
-> +  artifacts:
-> +    reports:
-> +      junit: tests-junit.xml
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.18-gcc-debug
-> +
-> +kbl-tools-tests-pvh-x86-64-gcc-debug:
-> +  extends: .kbl-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh tools-tests-pvh 2>&1 | tee ${LOGFILE}
-> +  artifacts:
-> +    reports:
-> +      junit: tests-junit.xml
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.18-gcc-debug
-> +
->  zen2-smoke-x86-64-gcc-debug:
->    extends: .zen2-x86-64
->    script:
-> -- 
-> git-series 0.9.1
+>> Should we rename the *msrl() functions to *msrq() as part of this
+>> overhaul?
 > 
---8323329-305143249-1743553344=:3098208--
+> Yeah, that's a good idea, and because talk is cheap I just implemented
+> this in the tip:WIP.x86/msr branch with a couple of other cleanups in
+> this area (see the shortlog & diffstat below), but the churn is high:
+> 
+>    144 files changed, 1034 insertions(+), 1034 deletions(-)
+> 
+> So this can only be done if regenerated and sent to Linus right before
+> an -rc1 I think:
+> 
+>    git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip WIP.x86/msr
+
+Hi Ingo,
+
+Is this branch public?
+
+I wanted to rebase on it and then incooperate your review comments, but
+couldn't find the branch.
+
+Thanks!
+     Xin
+
+> 
+> Thanks,
+> 
+> 	Ingo
+> 
+> =======================>
+> Ingo Molnar (18):
+>        x86/msr: Standardize on u64 in <asm/msr.h>
+>        x86/msr: Standardize on u64 in <asm/msr-index.h>
+>        x86/msr: Use u64 in rdmsrl_amd_safe() and wrmsrl_amd_safe()
+>        x86/msr: Use u64 in rdmsrl_safe() and paravirt_read_pmc()
+>        x86/msr: Rename 'rdmsrl()' to 'rdmsrq()'
+>        x86/msr: Rename 'wrmsrl()' to 'wrmsrq()'
+>        x86/msr: Rename 'rdmsrl_safe()' to 'rdmsrq_safe()'
+>        x86/msr: Rename 'wrmsrl_safe()' to 'wrmsrq_safe()'
+>        x86/msr: Rename 'rdmsrl_safe_on_cpu()' to 'rdmsrq_safe_on_cpu()'
+>        x86/msr: Rename 'wrmsrl_safe_on_cpu()' to 'wrmsrq_safe_on_cpu()'
+>        x86/msr: Rename 'rdmsrl_on_cpu()' to 'rdmsrq_on_cpu()'
+>        x86/msr: Rename 'wrmsrl_on_cpu()' to 'wrmsrq_on_cpu()'
+>        x86/msr: Rename 'mce_rdmsrl()' to 'mce_rdmsrq()'
+>        x86/msr: Rename 'mce_wrmsrl()' to 'mce_wrmsrq()'
+>        x86/msr: Rename 'rdmsrl_amd_safe()' to 'rdmsrq_amd_safe()'
+>        x86/msr: Rename 'wrmsrl_amd_safe()' to 'wrmsrq_amd_safe()'
+>        x86/msr: Rename 'native_wrmsrl()' to 'native_wrmsrq()'
+>        x86/msr: Rename 'wrmsrl_cstar()' to 'wrmsrq_cstar()'
+> 
+>   arch/x86/coco/sev/core.c                           |   2 +-
+>   arch/x86/events/amd/brs.c                          |   8 +-
+>   arch/x86/events/amd/core.c                         |  12 +--
+>   arch/x86/events/amd/ibs.c                          |  26 ++---
+>   arch/x86/events/amd/lbr.c                          |  20 ++--
+>   arch/x86/events/amd/power.c                        |  10 +-
+>   arch/x86/events/amd/uncore.c                       |  12 +--
+>   arch/x86/events/core.c                             |  42 ++++----
+>   arch/x86/events/intel/core.c                       |  66 ++++++-------
+>   arch/x86/events/intel/cstate.c                     |   2 +-
+>   arch/x86/events/intel/ds.c                         |  10 +-
+>   arch/x86/events/intel/knc.c                        |  16 +--
+>   arch/x86/events/intel/lbr.c                        |  44 ++++-----
+>   arch/x86/events/intel/p4.c                         |  24 ++---
+>   arch/x86/events/intel/p6.c                         |  12 +--
+>   arch/x86/events/intel/pt.c                         |  32 +++---
+>   arch/x86/events/intel/uncore.c                     |   2 +-
+>   arch/x86/events/intel/uncore_discovery.c           |  10 +-
+>   arch/x86/events/intel/uncore_nhmex.c               |  70 ++++++-------
+>   arch/x86/events/intel/uncore_snb.c                 |  42 ++++----
+>   arch/x86/events/intel/uncore_snbep.c               |  50 +++++-----
+>   arch/x86/events/msr.c                              |   2 +-
+>   arch/x86/events/perf_event.h                       |  26 ++---
+>   arch/x86/events/probe.c                            |   2 +-
+>   arch/x86/events/rapl.c                             |   8 +-
+>   arch/x86/events/zhaoxin/core.c                     |  16 +--
+>   arch/x86/hyperv/hv_apic.c                          |   4 +-
+>   arch/x86/hyperv/hv_init.c                          |  66 ++++++-------
+>   arch/x86/hyperv/hv_spinlock.c                      |   6 +-
+>   arch/x86/hyperv/ivm.c                              |   2 +-
+>   arch/x86/include/asm/apic.h                        |   8 +-
+>   arch/x86/include/asm/debugreg.h                    |   4 +-
+>   arch/x86/include/asm/fsgsbase.h                    |   4 +-
+>   arch/x86/include/asm/kvm_host.h                    |   2 +-
+>   arch/x86/include/asm/microcode.h                   |   2 +-
+>   arch/x86/include/asm/msr-index.h                   |  12 +--
+>   arch/x86/include/asm/msr.h                         |  50 +++++-----
+>   arch/x86/include/asm/paravirt.h                    |   8 +-
+>   arch/x86/include/asm/spec-ctrl.h                   |   2 +-
+>   arch/x86/kernel/acpi/cppc.c                        |   8 +-
+>   arch/x86/kernel/amd_nb.c                           |   2 +-
+>   arch/x86/kernel/apic/apic.c                        |  16 +--
+>   arch/x86/kernel/apic/apic_numachip.c               |   6 +-
+>   arch/x86/kernel/cet.c                              |   2 +-
+>   arch/x86/kernel/cpu/amd.c                          |  28 +++---
+>   arch/x86/kernel/cpu/aperfmperf.c                   |  28 +++---
+>   arch/x86/kernel/cpu/bugs.c                         |  24 ++---
+>   arch/x86/kernel/cpu/bus_lock.c                     |  18 ++--
+>   arch/x86/kernel/cpu/common.c                       |  68 ++++++-------
+>   arch/x86/kernel/cpu/feat_ctl.c                     |   4 +-
+>   arch/x86/kernel/cpu/hygon.c                        |   6 +-
+>   arch/x86/kernel/cpu/intel.c                        |  10 +-
+>   arch/x86/kernel/cpu/intel_epb.c                    |  12 +--
+>   arch/x86/kernel/cpu/mce/amd.c                      |  22 ++---
+>   arch/x86/kernel/cpu/mce/core.c                     |  58 +++++------
+>   arch/x86/kernel/cpu/mce/inject.c                   |  32 +++---
+>   arch/x86/kernel/cpu/mce/intel.c                    |  32 +++---
+>   arch/x86/kernel/cpu/mce/internal.h                 |   2 +-
+>   arch/x86/kernel/cpu/microcode/amd.c                |   2 +-
+>   arch/x86/kernel/cpu/microcode/intel.c              |   2 +-
+>   arch/x86/kernel/cpu/mshyperv.c                     |  12 +--
+>   arch/x86/kernel/cpu/resctrl/core.c                 |  10 +-
+>   arch/x86/kernel/cpu/resctrl/monitor.c              |   2 +-
+>   arch/x86/kernel/cpu/resctrl/pseudo_lock.c          |   2 +-
+>   arch/x86/kernel/cpu/resctrl/rdtgroup.c             |   6 +-
+>   arch/x86/kernel/cpu/sgx/main.c                     |   2 +-
+>   arch/x86/kernel/cpu/topology.c                     |   2 +-
+>   arch/x86/kernel/cpu/topology_amd.c                 |   4 +-
+>   arch/x86/kernel/cpu/tsx.c                          |  20 ++--
+>   arch/x86/kernel/cpu/umwait.c                       |   2 +-
+>   arch/x86/kernel/fpu/core.c                         |   2 +-
+>   arch/x86/kernel/fpu/xstate.c                       |  10 +-
+>   arch/x86/kernel/fpu/xstate.h                       |   2 +-
+>   arch/x86/kernel/fred.c                             |  20 ++--
+>   arch/x86/kernel/hpet.c                             |   2 +-
+>   arch/x86/kernel/kvm.c                              |  28 +++---
+>   arch/x86/kernel/kvmclock.c                         |   4 +-
+>   arch/x86/kernel/mmconf-fam10h_64.c                 |   8 +-
+>   arch/x86/kernel/process.c                          |  16 +--
+>   arch/x86/kernel/process_64.c                       |  20 ++--
+>   arch/x86/kernel/reboot_fixups_32.c                 |   2 +-
+>   arch/x86/kernel/shstk.c                            |  18 ++--
+>   arch/x86/kernel/traps.c                            |  10 +-
+>   arch/x86/kernel/tsc.c                              |   2 +-
+>   arch/x86/kernel/tsc_sync.c                         |  14 +--
+>   arch/x86/kvm/svm/avic.c                            |   2 +-
+>   arch/x86/kvm/svm/sev.c                             |   2 +-
+>   arch/x86/kvm/svm/svm.c                             |  16 +--
+>   arch/x86/kvm/vmx/nested.c                          |   4 +-
+>   arch/x86/kvm/vmx/pmu_intel.c                       |   4 +-
+>   arch/x86/kvm/vmx/sgx.c                             |   8 +-
+>   arch/x86/kvm/vmx/vmx.c                             |  66 ++++++-------
+>   arch/x86/kvm/x86.c                                 |  38 ++++----
+>   arch/x86/lib/insn-eval.c                           |   6 +-
+>   arch/x86/lib/msr-smp.c                             |  16 +--
+>   arch/x86/lib/msr.c                                 |   4 +-
+>   arch/x86/mm/pat/memtype.c                          |   4 +-
+>   arch/x86/mm/tlb.c                                  |   2 +-
+>   arch/x86/pci/amd_bus.c                             |  10 +-
+>   arch/x86/platform/olpc/olpc-xo1-rtc.c              |   6 +-
+>   arch/x86/platform/olpc/olpc-xo1-sci.c              |   2 +-
+>   arch/x86/power/cpu.c                               |  26 ++---
+>   arch/x86/realmode/init.c                           |   2 +-
+>   arch/x86/virt/svm/sev.c                            |  20 ++--
+>   arch/x86/xen/suspend.c                             |   6 +-
+>   drivers/acpi/acpi_extlog.c                         |   2 +-
+>   drivers/acpi/acpi_lpit.c                           |   2 +-
+>   drivers/cpufreq/acpi-cpufreq.c                     |   8 +-
+>   drivers/cpufreq/amd-pstate-ut.c                    |   6 +-
+>   drivers/cpufreq/amd-pstate.c                       |  22 ++---
+>   drivers/cpufreq/amd_freq_sensitivity.c             |   2 +-
+>   drivers/cpufreq/e_powersaver.c                     |   6 +-
+>   drivers/cpufreq/intel_pstate.c                     | 108 ++++++++++-----------
+>   drivers/cpufreq/longhaul.c                         |  24 ++---
+>   drivers/cpufreq/powernow-k7.c                      |  14 +--
+>   drivers/crypto/ccp/sev-dev.c                       |   2 +-
+>   drivers/edac/amd64_edac.c                          |   6 +-
+>   drivers/gpu/drm/i915/selftests/librapl.c           |   4 +-
+>   drivers/hwmon/fam15h_power.c                       |   6 +-
+>   drivers/idle/intel_idle.c                          |  34 +++----
+>   drivers/mtd/nand/raw/cs553x_nand.c                 |   6 +-
+>   drivers/platform/x86/intel/ifs/core.c              |   4 +-
+>   drivers/platform/x86/intel/ifs/load.c              |  20 ++--
+>   drivers/platform/x86/intel/ifs/runtest.c           |  16 +--
+>   drivers/platform/x86/intel/pmc/cnp.c               |   6 +-
+>   drivers/platform/x86/intel/pmc/core.c              |   8 +-
+>   .../x86/intel/speed_select_if/isst_if_common.c     |  18 ++--
+>   .../x86/intel/speed_select_if/isst_if_mbox_msr.c   |  14 +--
+>   .../x86/intel/speed_select_if/isst_tpmi_core.c     |   2 +-
+>   drivers/platform/x86/intel/tpmi_power_domains.c    |   4 +-
+>   drivers/platform/x86/intel/turbo_max_3.c           |   4 +-
+>   .../x86/intel/uncore-frequency/uncore-frequency.c  |  10 +-
+>   drivers/platform/x86/intel_ips.c                   |  36 +++----
+>   drivers/powercap/intel_rapl_msr.c                  |   6 +-
+>   .../int340x_thermal/processor_thermal_device.c     |   2 +-
+>   drivers/thermal/intel/intel_hfi.c                  |  14 +--
+>   drivers/thermal/intel/intel_powerclamp.c           |   4 +-
+>   drivers/thermal/intel/intel_tcc_cooling.c          |   4 +-
+>   drivers/thermal/intel/therm_throt.c                |  10 +-
+>   drivers/video/fbdev/geode/gxfb_core.c              |   2 +-
+>   drivers/video/fbdev/geode/lxfb_ops.c               |  22 ++---
+>   drivers/video/fbdev/geode/suspend_gx.c             |  10 +-
+>   drivers/video/fbdev/geode/video_gx.c               |  16 +--
+>   include/hyperv/hvgdk_mini.h                        |   2 +-
+>   144 files changed, 1034 insertions(+), 1034 deletions(-)
+
 
