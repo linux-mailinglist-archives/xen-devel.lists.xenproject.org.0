@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4A5FA797D7
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 23:46:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.936089.1337407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E102A797DF
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 23:49:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.936102.1337417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u05uN-0001sm-9u; Wed, 02 Apr 2025 21:46:03 +0000
+	id 1u05xa-0002Sd-Na; Wed, 02 Apr 2025 21:49:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 936089.1337407; Wed, 02 Apr 2025 21:46:03 +0000
+Received: by outflank-mailman (output) from mailman id 936102.1337417; Wed, 02 Apr 2025 21:49:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u05uN-0001pv-70; Wed, 02 Apr 2025 21:46:03 +0000
-Received: by outflank-mailman (input) for mailman id 936089;
- Wed, 02 Apr 2025 21:46:02 +0000
+	id 1u05xa-0002QW-Ku; Wed, 02 Apr 2025 21:49:22 +0000
+Received: by outflank-mailman (input) for mailman id 936102;
+ Wed, 02 Apr 2025 21:49:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CoDa=WU=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1u05uM-0001ph-Hy
- for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 21:46:02 +0000
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YWck=WU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1u05xZ-0002QQ-CX
+ for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 21:49:21 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dea41218-100b-11f0-9eaa-5ba50f476ded;
- Wed, 02 Apr 2025 23:46:01 +0200 (CEST)
+ id 545b55ab-100c-11f0-9eaa-5ba50f476ded;
+ Wed, 02 Apr 2025 23:49:20 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id E4E485C689D;
+ Wed,  2 Apr 2025 21:47:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE808C4CEDD;
+ Wed,  2 Apr 2025 21:49:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,111 +41,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dea41218-100b-11f0-9eaa-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1743630360; x=1743889560;
-	bh=2O1kGMLaTlLl5JHSdR5zf6l3ThcyTHn9xa2ox9FZA50=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=SkNShEUeG3iQS9fKVhudWpT2j0pY4umPzcNfyDOuWZFi9McMmLe/3qrbfP9dzF/0q
-	 QuwMCkSG3WdLHEazhCMfIGFQATekCEmuvZft7AQoky7vAqUeoabNsWERwgqit7BVs3
-	 fWA95QHSm2wViukilhKqQsC2T7s0mqvKToA28En6mSe1BaSD9vXOFshUOoGYiF3GLh
-	 W9NQ1fehI70yhiSSL7pg+G+KaN/t8CMT/Z/fYoItAmXJwvPUU2D5gdjSdhpGw7s9iO
-	 HyTrT1HVYBvmIyE2CFknBxZNdME1nhVlNn85HjXURvmiIewBu+Gzf648oCC7XAdDud
-	 UVvh6ooU6Q/PA==
-Date: Wed, 02 Apr 2025 21:45:56 +0000
-To: xen-devel@lists.xenproject.org
-From: Denis Mukhin <dmkhn@proton.me>
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: Re: [PATCH v2] x86/domain: revisit logging in arch_domain_create()
-Message-ID: <qB_dfgqIHku9ojcMtx7Rv8BnT5JJG_lR8zAel48G1FTnc5NoYnW3XSYOHEnHp4zf0J_JObBDxf5czJVpuAyZ_E_PUQLmdeQrRb2TVo8Gr6Y=@proton.me>
-In-Reply-To: <20250401211018.75814-1-dmukhin@ford.com>
-References: <20250401211018.75814-1-dmukhin@ford.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 7e16880c56190518ec26e337f7ad9041e2850b27
+X-Inumbo-ID: 545b55ab-100c-11f0-9eaa-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1743630557;
+	bh=ecnnbyPtWEqCBgoLWsWF93nY7KLOkv/2yxHzkcCVAOI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=bgeGGNqE4NEi3SMx+onifC4Eebo2I0zctFzuQB7RbC8zPHmCHMP+SrnN9Tz5RwpKA
+	 7S4hmVJAOpd9km7zJbWRfAzvQzZ2i7pEdZNobvrg+7o9BmtcdVR6flyi0KBzV9JBP1
+	 CCkpoH6Q7xkOtDlTV3BUl1pdyN4nCmYqUBbKhRB1Q57j7XnWk7N+o1sUW5GqEMDCaP
+	 eSBd2PE1b2Q581iBKsO2wSRXutQL7FLMv+RyWhj6KfYQnVkyp+ma3+KPfBZSad5GWf
+	 JM4RPIrp7r4kdxNahG2wTK2Y0CASa9pi8Aj0rRtLqPxbrLaVC9oafK1NAMOBRdsPfy
+	 iyWSMPrYEbVYA==
+Date: Wed, 2 Apr 2025 14:49:14 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jason Andryuk <jason.andryuk@amd.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v2 6/6] xen/arm: Add capabilities to dom0less
+In-Reply-To: <0d36750a-34d2-460b-a021-5afb7c2e7039@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2504021446121.3529306@ubuntu-linux-20-04-desktop>
+References: <20250331214321.205331-1-jason.andryuk@amd.com> <20250331214321.205331-7-jason.andryuk@amd.com> <alpine.DEB.2.22.394.2504011654320.3098208@ubuntu-linux-20-04-desktop> <0d36750a-34d2-460b-a021-5afb7c2e7039@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-On Tuesday, April 1st, 2025 at 2:10 PM, dmkhn@proton.me <dmkhn@proton.me> w=
-rote:
+On Wed, 2 Apr 2025, Jason Andryuk wrote:
+> On 2025-04-01 20:03, Stefano Stabellini wrote:
+> > On Mon, 31 Mar 2025, Jason Andryuk wrote:
+> > > Add capabilities property to dom0less to allow building a
+> > > disaggregated system.  Only a single hardware domain and single xenstore
+> > > domain can be specified.  Multiple control domains are possible.
+> > > 
+> > > Introduce bootfdt.h to contain these constants.
+> > > 
+> > > When using the hardware or xenstore capabilities, adjust the grant and
+> > > event channel limits similar to dom0.
+> > > 
+> > > For a hardware domain, require an IOMMU and disallow specifying a vpl011
+> > > console or nr_spis.
+> > > 
+> > > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> > > ---
+> > > v2:
+> > > Fix comment style
+> > > Make DOMAIN_CAPS_* unsigned
+> > > Remove forced directmap & iommu
+> > > Require iommu with use of hardware domain
+> > > Limit to a single xenstore domain
+> > > 
+> > > There is overlap with hyperlaunch.  The numeric values are the same.
+> > > Hyperlaunch doesn't expose the values in a public header as done here.
+> > > Is this to be expected for dom0less?  It seems most of dom0less isn't in
+> > > a header, but just in docs.
+> > > 
+> > > Hyperlaunch uses BUILD_CAPS_, but I chose DOMAIN_CAPS_ since there are
+> > > domain-level capabilities.
+> > > 
+> > > Only a single xenstore and hardware domain make sense.  Hardware domain
+> > > receiving all hardware can only have a single domain.
+> > > 
+> > > For Xenstore, the logic latches the single xs_domid and uses that for
+> > > all domains.  Also, only a single domain can register for VIRQ_DOM_EXC.
+> > > ---
+> 
+> > > @@ -1020,6 +1023,40 @@ void __init create_domUs(void)
+> > >           if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
+> > >               panic("No more domain IDs available\n");
+> > >   +        if ( dt_property_read_u32(node, "capabilities", &val) )
+> > > +        {
+> > > +            if ( val & ~DOMAIN_CAPS_MASK )
+> > > +                panic("Invalid capabilities (%"PRIx32")\n", val);
+> > > +
+> > > +            if ( val & DOMAIN_CAPS_CONTROL )
+> > > +                flags |= CDF_privileged;
+> > > +
+> > > +            if ( val & DOMAIN_CAPS_HARDWARE )
+> > > +            {
+> > > +                if ( hardware_domain )
+> > > +                    panic("Only 1 hardware domain can be specified!
+> > > (%pd)\n",
+> > > +                           hardware_domain);
+> > > +
+> > > +                if ( !iommu_enabled )
+> > > +                    panic("iommu required for dom0less hardware
+> > > domain\n");
+> > 
+> > The panic is OK if "direct-map" is not specified. We need to check for
+> > direct-map before panic'ing.
+> 
+> Ok, I guess I misunderstood Julien's comment - I thought he wanted to require
+> an iommu.  I can re-work it.
 
->=20
->=20
-> From: Denis Mukhin dmukhin@ford.com
->=20
->=20
-> Use %pd in all logs issued from arch_domain_create().
->=20
-> Also, expand error message in arch_domain_create() under
-> !emulation_flags_ok() case to help debugging.
->=20
-> Signed-off-by: Denis Mukhin dmukhin@ford.com
->=20
-> ---
-> Changes since v1:
-> - dropped parentheses around "hardware" in the log message
-> ---
-> xen/arch/x86/domain.c | 18 ++++++++++--------
-> 1 file changed, 10 insertions(+), 8 deletions(-)
->=20
-> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-> index 4989600627..bd887b4d44 100644
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -791,13 +791,12 @@ int arch_domain_create(struct domain *d,
-> {
-> if ( !opt_allow_unsafe )
-> {
-> - printk(XENLOG_G_ERR "Xen does not allow DomU creation on this CPU"
-> - " for security reasons.\n");
-> + printk(XENLOG_G_ERR "%pd: Xen does not allow DomU creation on this CPU"
-> + " for security reasons.\n", d);
+There are some subtleties here that it is best to clarify.
 
-Forgot to remove full stops in the messages.
-Sent v3:
-  https://lore.kernel.org/xen-devel/20250402214406.115578-1-dmukhin@ford.co=
-m/
+Julien asked for the hardware domain not to imply 1:1 memory mapping. If
+the hardware domain has memory not mapped 1:1, then the IOMMU is
+required. However, a user could still explicitly request the hardware
+domain to be 1:1 mapped with the direct-map property, in that case the
+IOMMU is optional.
 
-> return -EPERM;
-> }
-> printk(XENLOG_G_WARNING
-> - "Dom%d may compromise security on this CPU.\n",
-> - d->domain_id);
->=20
-> + "%pd: domain may compromise security on this CPU.\n", d);
-> }
->=20
-> emflags =3D config->arch.emulation_flags;
->=20
-> @@ -807,16 +806,19 @@ int arch_domain_create(struct domain *d,
->=20
-> if ( emflags & ~XEN_X86_EMU_ALL )
-> {
-> - printk(XENLOG_G_ERR "d%d: Invalid emulation bitmap: %#x\n",
-> - d->domain_id, emflags);
->=20
-> + printk(XENLOG_G_ERR "%pd: Invalid emulation bitmap: %#x\n",
-> + d, emflags);
-> return -EINVAL;
-> }
->=20
-> if ( !emulation_flags_ok(d, emflags) )
-> {
-> - printk(XENLOG_G_ERR "d%d: Xen does not allow %s domain creation "
-> + printk(XENLOG_G_ERR "%pd: Xen does not allow %s %sdomain creation "
-> "with the current selection of emulators: %#x\n",
-> - d->domain_id, is_hvm_domain(d) ? "HVM" : "PV", emflags);
->=20
-> + d,
-> + is_hvm_domain(d) ? "HVM" : "PV",
-> + is_hardware_domain(d) ? "hardware " : "",
-> + emflags);
-> return -EOPNOTSUPP;
-> }
-> d->arch.emulation_flags =3D emflags;
->=20
-> --
-> 2.34.1
+
+> !direct-map && !iommu will panic.  Any other combination of direct-map and
+> iommu will be allowed.
+
+I think that's correct
+
+
+> Hmmm, "passthrough" and "multiboot,device-tree" are essentially ignored for
+> hwdom right now.  I'll require them to be unset for hwdom.
+
+Good idea
 
