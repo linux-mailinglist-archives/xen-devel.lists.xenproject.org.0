@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FA68A7871D
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 06:10:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.935098.1336577 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A82EA78777
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 06:59:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.935111.1336588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzpQr-0004xd-KJ; Wed, 02 Apr 2025 04:10:29 +0000
+	id 1tzqBA-0007Ep-0p; Wed, 02 Apr 2025 04:58:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 935098.1336577; Wed, 02 Apr 2025 04:10:29 +0000
+Received: by outflank-mailman (output) from mailman id 935111.1336588; Wed, 02 Apr 2025 04:58:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzpQr-0004uo-HX; Wed, 02 Apr 2025 04:10:29 +0000
-Received: by outflank-mailman (input) for mailman id 935098;
- Wed, 02 Apr 2025 04:10:28 +0000
+	id 1tzqB9-0007Bv-Tc; Wed, 02 Apr 2025 04:58:19 +0000
+Received: by outflank-mailman (input) for mailman id 935111;
+ Wed, 02 Apr 2025 04:58:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4Wck=WU=kernel.org=mingo@srs-se1.protection.inumbo.net>)
- id 1tzpQq-0004ui-CH
- for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 04:10:28 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (envelope-from <SRS0=w5pF=WU=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1tzqB8-0007Bn-Nz
+ for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 04:58:19 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6765d36e-0f78-11f0-9ffb-bf95429c2676;
- Wed, 02 Apr 2025 06:10:26 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id DEDAD61130;
- Wed,  2 Apr 2025 04:10:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BD29C4CEE9;
- Wed,  2 Apr 2025 04:10:15 +0000 (UTC)
+ id 14a6789f-0f7f-11f0-9ffb-bf95429c2676;
+ Wed, 02 Apr 2025 06:58:15 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 5324vV334074560
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Tue, 1 Apr 2025 21:57:32 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,67 +40,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6765d36e-0f78-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743567024;
-	bh=I0s5Gv1mQHqnKIzWxsoxCEERoVHvYzeckwE8nOas3VU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TnGYyG5PegnZexH78EkVEZhjl67pWL7sXIuankw0lLUoS6l525yDJb1k2Y991Swzi
-	 Y/BQdn5EKeOPY4iCMiCsl/wcs58dUo6w4xmkNpQPl13ChnxQG34bUHyTmZ9oI5i9zj
-	 GXNesFcifbImdVA7Krak7NrblCx3xnxnf0NZrjadpmZUOlSF3sDsu4Wqsh/OKamc5N
-	 +/zpZVi9YHfAGYahd4Ce8z4sLXldFsNZWZ5Nqw2T1fjxJ8DAvB6m9Rtz/uEQMlDmh/
-	 IRy6AIGMdjxGih5ykPwxvU4bKYE7f4SM5B+pULQxCAmH41LRub4Yb6OVvdI2LbooM3
-	 g8DLjexGSgPew==
-Date: Wed, 2 Apr 2025 06:10:12 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Xin Li <xin@zytor.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	virtualization@lists.linux.dev, linux-edac@vger.kernel.org,
-	kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-ide@vger.kernel.org, linux-pm@vger.kernel.org,
-	bpf@vger.kernel.org, llvm@lists.linux.dev, tglx@linutronix.de,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	x86@kernel.org, jgross@suse.com, andrew.cooper3@citrix.com,
-	peterz@infradead.org, acme@kernel.org, namhyung@kernel.org,
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
-	kan.liang@linux.intel.com, wei.liu@kernel.org,
-	ajay.kaher@broadcom.com, alexey.amakhalov@broadcom.com,
-	bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
-	pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
-	luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
-	haiyangz@microsoft.com, decui@microsoft.com,
-	Linus Torvalds <torvalds@linux-foundation.org>
+X-Inumbo-ID: 14a6789f-0f7f-11f0-9ffb-bf95429c2676
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 5324vV334074560
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025032001; t=1743569855;
+	bh=dP9zemrGBwQsO7PTwDde7OdOBV5enCnih/h0UjXSaBY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=KgWEvIDk0ptJ+2Le7Mljabnd1tBAvTAd/OvynSGx3lkb8s5fLKNxnDaj/u6UOdm7W
+	 +vrd3NNd0O6rV4BrlX3+iTxEb+jQH1rTuOJUcJicRl6Z5aajvTac/lcdNUGieGqjjX
+	 JSlO+qiJtqShYTz1ktaVl5/AEupYKCdX1Vrjn9eBhZPMm+kj1KbCioask+G0OE5dak
+	 XkwL1uVpPyRsdjk5rXoZkjb1lPz4F5EDEJvOXCJXyv6CyddNA3AKO8tKk5NZ4l3PNj
+	 cc4XoBuOZEJzMmYpZNWg/T2fgE69DPZZ1BoWAegBH6U0jZ4x2DVCYEdvlHUn9gNB5t
+	 CzEyh2X4dfeiA==
+Message-ID: <7f76e23e-45a9-4e9d-b792-02da9e6deee5@zytor.com>
+Date: Tue, 1 Apr 2025 21:57:31 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [RFC PATCH v1 01/15] x86/msr: Replace __wrmsr() with
  native_wrmsrl()
-Message-ID: <Z-y4pGxgiP55lpOj@gmail.com>
+To: Ingo Molnar <mingo@kernel.org>
+Cc: "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
+        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+        virtualization@lists.linux.dev, linux-edac@vger.kernel.org,
+        kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-ide@vger.kernel.org, linux-pm@vger.kernel.org,
+        bpf@vger.kernel.org, llvm@lists.linux.dev, tglx@linutronix.de,
+        mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+        x86@kernel.org, jgross@suse.com, andrew.cooper3@citrix.com,
+        peterz@infradead.org, acme@kernel.org, namhyung@kernel.org,
+        mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
+        jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
+        kan.liang@linux.intel.com, wei.liu@kernel.org, ajay.kaher@broadcom.com,
+        alexey.amakhalov@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+        tony.luck@intel.com, pbonzini@redhat.com, vkuznets@redhat.com,
+        seanjc@google.com, luto@kernel.org, boris.ostrovsky@oracle.com,
+        kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com,
+        Linus Torvalds <torvalds@linux-foundation.org>
 References: <20250331082251.3171276-1-xin@zytor.com>
- <20250331082251.3171276-2-xin@zytor.com>
- <Z-pruogreCuU66wm@gmail.com>
- <9D15DE81-2E68-4FCD-A133-4963602E18C9@zytor.com>
- <Z-ubVFyoOzwKhI53@gmail.com>
- <7a503d55-db41-42da-8133-4a3dbbd36c7e@zytor.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7a503d55-db41-42da-8133-4a3dbbd36c7e@zytor.com>
+ <20250331082251.3171276-2-xin@zytor.com> <Z-pruogreCuU66wm@gmail.com>
+ <9D15DE81-2E68-4FCD-A133-4963602E18C9@zytor.com> <Z-ubVFyoOzwKhI53@gmail.com>
+ <7a503d55-db41-42da-8133-4a3dbbd36c7e@zytor.com> <Z-y4pGxgiP55lpOj@gmail.com>
+Content-Language: en-US
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <Z-y4pGxgiP55lpOj@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
-* Xin Li <xin@zytor.com> wrote:
-
-> Hi Ingo,
+On 4/1/2025 9:10 PM, Ingo Molnar wrote:
+> Yeah, I moved it over to:
 > 
-> Is this branch public?
-> 
-> I wanted to rebase on it and then incooperate your review comments, but
-> couldn't find the branch.
+>    git://git.kernel.org/pub/scm/linux/kernel/git/mingo/tip.git WIP.x86/msr
 
-Yeah, I moved it over to:
+On it now.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/mingo/tip.git WIP.x86/msr
-
-Thanks,
-
-	Ingo
+Thanks!
+     Xin
 
