@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95A4BA78B86
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 11:48:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.935462.1336866 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0FF4A78B8C
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 11:52:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.935477.1336876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzuh3-0002wi-8R; Wed, 02 Apr 2025 09:47:33 +0000
+	id 1tzulh-00063E-PA; Wed, 02 Apr 2025 09:52:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 935462.1336866; Wed, 02 Apr 2025 09:47:33 +0000
+Received: by outflank-mailman (output) from mailman id 935477.1336876; Wed, 02 Apr 2025 09:52:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzuh3-0002uo-50; Wed, 02 Apr 2025 09:47:33 +0000
-Received: by outflank-mailman (input) for mailman id 935462;
- Wed, 02 Apr 2025 09:47:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1tzulh-00061u-MY; Wed, 02 Apr 2025 09:52:21 +0000
+Received: by outflank-mailman (input) for mailman id 935477;
+ Wed, 02 Apr 2025 09:52:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=T645=WU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzuh2-0002uf-7z
- for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 09:47:32 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7e491439-0fa7-11f0-9ffb-bf95429c2676;
- Wed, 02 Apr 2025 11:47:30 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-43cf257158fso45232885e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 02 Apr 2025 02:47:30 -0700 (PDT)
+ id 1tzulg-0005z2-Fx
+ for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 09:52:20 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2a8ede22-0fa8-11f0-9ea8-5ba50f476ded;
+ Wed, 02 Apr 2025 11:52:19 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-38f2f391864so3895917f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Apr 2025 02:52:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43eb61369d9sm14988585e9.34.2025.04.02.02.47.28
+ ffacd0b85a97d-39c0b6588dbsm16210364f8f.2.2025.04.02.02.52.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Apr 2025 02:47:29 -0700 (PDT)
+ Wed, 02 Apr 2025 02:52:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e491439-0fa7-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 2a8ede22-0fa8-11f0-9ea8-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743587249; x=1744192049; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NdKGFxVWSPRNWLC+7QUq0r7MZjDgcRM54pN02gxh+s0=;
-        b=g3F2QavKItFC1oeKZwYAb31Vq/PLEK+wqi8HJ38s7XKsHFmOV56Z4hIg2GqmH41p0K
-         nekEauD1xKDAImQ8D/rznTSH2wChkGHJqKs89lXipRv/OP06IBUmQB9sPpemGt+E0XIX
-         tlr88iQrenxrFKKYsYfg85Ke7wTlLfKanvf1VgXSiIg4v14e+nWH2SnXqwfC+sTs4bi7
-         T22rMn5ybU9/eIoUsGW1Hww8eSY2FQw3fejCLIPmU9wSKVYOZYjaHvLOogNo4mw9ysNX
-         B0gVZgb8YbKNLNxECFtSD6Pgc2m9cZ+FUwWXgEnn8H2yU6UN8XqGC9hqPee2x/URMwaT
-         JFLg==
+        d=suse.com; s=google; t=1743587538; x=1744192338; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=VUNK9W8wV2mujo6N+5rPbjZDFz3Oe4t/5642xMeyKpw=;
+        b=eMNYAp+j/mREwJU1XdI+IlElywVElh9h0oD7jb8lWjMrevLgII2cxSfpX8YkqcdNrL
+         aXhS4ulQgGNjaUGl5tAQkfJGlmfHTaLrP2nJVpcL2yydn/yrN29Yrb9XmHFEfCe0sztM
+         JD1jTgrKYjg1wYYJUcBwBuYjAJLojyWMy2/AS2uHi0PJ5yUggNHG0pHGqo+ncrrlSvx9
+         +74NvbvbjVG7L4Hzv8ZuVmwTqfg3KK5P9QyeR4TdKx7ELw/ij82hSuS44C08w4fbAjn7
+         DnGMtAswSOMKQcq4LgrVBAQEYDcpoCchgeHPM0OIhTnNWM+kLogbiYDTombpgtTouiDV
+         3fuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743587249; x=1744192049;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NdKGFxVWSPRNWLC+7QUq0r7MZjDgcRM54pN02gxh+s0=;
-        b=SZ/5S+qpvx1hp5iYfmy2bUyPGmlGIiGevNhgp1WGUYG92PJKPaUA+KEJdHMNDAjEVN
-         nirXp1fQpp2w+WAamgOkn7jWkR5q0bnHqtx5m0qwrP1tBSvos5BZ6ofZMCBJvkc1O/Vd
-         ySQt6nmg15uSIimx7oK6Xvk/ZvEWLi3G06BePws0ppJ5ajVqkj5E3VLi4Xmhjx6m4M/r
-         FOtpA/u+iLRJ9zy47svO+QsjuPWNppMiecPMB1vq7yzeaEfbE/pX2tqy9IB5vhuzNM5c
-         ll+u2gyiG7mbMNW1E5es3t6xkDDrUW24vY1WBYbFvPIToleq3HYk1XdlfjtQLmSjnLNK
-         gFjQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXE+uAmmDoZ3mppexWEsTs7X5P+Q8TQodATQsL5oBGWa05IUIUNd3EyApZH1xNiKSIY7jiFvB02WPk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzVvsPLRz6MRv7HAivbEExQyHUNnEcW1trriftAJfM1z1fJVPhu
-	057LQaLA7f7yDyP93wbw1VTKtC7T2JzVlfSWMBcAZdI6pozst5P0qxBp9lz09A==
-X-Gm-Gg: ASbGncugBdl/+cK61orkvEgALCZqwyhrijOykdCogev4O+oGf5m3+sA6kOn9CT3Zm0a
-	XFF7Na7M6mMyFCBXyZ1GMJvqcYSnHZdyx18dxbdq3whZYgzduG6G3KhWMugeu7hIl3DAHlYZt2e
-	z3CrhinVsm4RLnmquudiDiDYq75NGS9vN3cMiHU1kL/VVEMoVYfwck4Abqp40/bY3I01kscOtH7
-	tlpCyqBNT0get0stLoNqMcvoyz5vHcG3qvGy+A8c7YvrYiAE0ZlM+SH7cxzxOGwkpSkPLrOcIaI
-	qpiNxyGf/HpV3Q0/xh1axxZ37BDhfreg0xUntElg5sZnVXgRNjCZUEa5+wEARB4NSpl3SWjJddq
-	ZbpwZkS3gNpJ2C84O8u2TynOVumdxQsvnCSYOFloQ
-X-Google-Smtp-Source: AGHT+IHlyiSONRTyMWoLNXKOp9N/0n5BsuYqdUJL5ms+3rrxiFOXS9AsAMIbT+l121TCvOzAXxwZjA==
-X-Received: by 2002:a05:600c:444d:b0:43c:f85d:1245 with SMTP id 5b1f17b1804b1-43db6249f80mr134776985e9.17.1743587249646;
-        Wed, 02 Apr 2025 02:47:29 -0700 (PDT)
-Message-ID: <9de3107f-d6e2-49d8-bf9b-32ce75868514@suse.com>
-Date: Wed, 2 Apr 2025 11:47:28 +0200
+        d=1e100.net; s=20230601; t=1743587538; x=1744192338;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VUNK9W8wV2mujo6N+5rPbjZDFz3Oe4t/5642xMeyKpw=;
+        b=cAwZES0X0pUJ0PClcXS7+v2KR87cHFsEqwTxmhA+NG7/e84x5p7s03sxwHdzCzAuGn
+         bbFnr4XXMnQD3AkBPUMpavixJzBYFB1zI9djXznZrYmUU3h7vRt/a0d6UWnP6bEm03xd
+         cyrQA8phQqCvlazcDwQtx/yD/Kjm4JWKgGx0oYLNl0oUCGnTF34azxRXOaQa8cdyM3Ba
+         1707sESebGPza4W1NpQigWJrKCpHV3ESnowCpmTWyMSQ+7wxSHDMV9qGQbulVSVhU0Oc
+         CBlVsBDxbu9jRx+CISInc2XghWBplxSDLpgwigds5JJvJXmQPXf9t6KvX6nSuKr9ZAFZ
+         C9lw==
+X-Forwarded-Encrypted: i=1; AJvYcCUt3K6m8tGf0zt/5Y4L/nT/EMPbkb3y+6UWaWwpRfwTmtzLYQqOz0NIQGhz2X2dIhGa6vVfQOT2HMI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzjipf2+aTy+x4Yz7zpg+35FZp2NXXB3NaYMFvikL5jN43U+khI
+	Hq4A2zjQ0MRszcYsoGpWK4UhhR8yw9F/owlNPxiShW1KRPMmzS1ezWtWkbmVnA==
+X-Gm-Gg: ASbGncu1DwwwhLfFZVu5l2KzdVGg+A5gHOlllqIhHEwMSFg1bEc+UeG6Nn5L0nqafiM
+	fRx4HrHn5Wovkj+oiw6vN9k5Aa68odL2KrP/HTqABNVQyrv4mVldZkNFbkMDtpbsvSng83QZQYi
+	Ymq2zMUHzspYgwMjg8uktPp95lglzztY1JdvaEDE7Zs7WesgyYwJUI1DMiQ4nOj73lO6IMq56UW
+	agaRgKeas+VKd0q4UyjQZrfjTf6/a5TR4V8eO7zH8N4LllTXWYqJQ6/Fw+bNStDW/q+89eSMKgY
+	ROxIwGtzifoQcGlNHJGj/PZ0Mi96F9FYimTjpDdArAO4ut7JAkJA2ACo6v64dNGm3JcZ8kHdOU3
+	Xupduum6E/C3aOcIn5Yw8oD2lY4C1tA==
+X-Google-Smtp-Source: AGHT+IFL5lGpxKIdfiYMutyujXBFRRd+hRBXLkx07R4s2xxTlXEguS65ZeyVZ+R6ojvo2E09jjvYLw==
+X-Received: by 2002:a05:6000:1842:b0:391:253b:405d with SMTP id ffacd0b85a97d-39c12115d7amr11756941f8f.41.1743587538638;
+        Wed, 02 Apr 2025 02:52:18 -0700 (PDT)
+Message-ID: <0fe8cbc5-cb34-4446-881c-f7ef20d36ce5@suse.com>
+Date: Wed, 2 Apr 2025 11:52:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/11] x86/boot: place trampoline code in a non-execute
- section
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20250401130840.72119-1-roger.pau@citrix.com>
- <20250401130840.72119-9-roger.pau@citrix.com>
- <3fd56964-918a-49f7-a0fe-a1c6b8633af6@citrix.com>
+Subject: Re: [PATCH v1 4/5] x86/vmx: remove *_OPCODE
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250401222105.79309-1-dmukhin@ford.com>
+ <20250401222105.79309-5-dmukhin@ford.com>
 Content-Language: en-US
-Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,42 +119,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3fd56964-918a-49f7-a0fe-a1c6b8633af6@citrix.com>
+In-Reply-To: <20250401222105.79309-5-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.04.2025 15:49, Andrew Cooper wrote:
-> On 01/04/2025 2:08 pm, Roger Pau Monne wrote:
->> The trampoline code is never executed in the position placed by the
->> loader.  It's first copied to the low 1MB, and always executed from
->> there.
->>
->> Move the trampoline code from being in .init.text section into
->> .init.data, so it's not in an executable section.  This allows applying
->> the relocations safely against a non-executable (and thus non-read only)
->> section, and then copy the relocated trampoline to the low 1MB.  Note
->> that the trampoline code is placed on an .init section, so zapped after
->> boot has finished.
->>
->> No functional change intended.
->>
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> ---
->> An alternative approach is to apply the relocations after having copied the
->> trampoline to the low 1MB, but that still generates relocations in mkreloc,
->> which is not helpful for the goal of having no relocations applied to
->> read-execute code sections.  This approach however places code in a data
->> section, which might cause issues when debugging it.
-> 
-> I, probably most of all, spend a reasonable amount of time disassembling
-> the trampoline. I really would prefer to keep it in an executable section.
-> 
-> What are the options with relocations?  Can't we simply drop any in the
-> trampoline region?
+On 02.04.2025 00:21, dmkhn@proton.me wrote:
+> @@ -497,9 +479,7 @@ static inline void vpid_sync_all(void)
+>  
+>  static inline void __vmxoff(void)
+>  {
+> -    asm volatile (
+> -        VMXOFF_OPCODE
+> -        : : : "memory" );
+> +    asm volatile ("vmxoff" : : : "memory");
 
-That's perhaps an option with mkreloc, but would require zapping them after
-linking if we have the linker produce relocations. Doable, but likely not
-to end up being pretty.
+Nit (style): Blanks immediately inside parentheses please. Ideally ...
+
+> @@ -507,15 +487,17 @@ static inline int __vmxon(u64 addr)
+>      int rc;
+>  
+>      asm volatile ( 
+> -        "1: " VMXON_OPCODE MODRM_EAX_06 "\n"
+> -        "   setna %b0 ; neg %0\n" /* CF==1 or ZF==1 --> rc = -1 */
+> +        "1: vmxon (%[addr])\n"
+> +        "   setna %b[rc]\n"
+> +        "   neg %[rc]\n"          /* CF==1 or ZF==1 --> rc = -1 */
+>          "2:\n"
+>          ".section .fixup,\"ax\"\n"
+> -        "3: sub $2,%0 ; jmp 2b\n"    /* #UD or #GP --> rc = -2 */
+> +        "3: mov $-2, %[rc]\n"
+> +        "   jmp 2b\n"             /* #UD   or #GP   --> rc = -2 */
+>          ".previous\n"
+>          _ASM_EXTABLE(1b, 3b)
+> -        : "=q" (rc)
+> -        : "0" (0), "a" (&addr)
+> +        : [rc] "=q" (rc)
+> +        : "0" (0), [addr] "r" (&addr)
+>          : "memory");
+
+... you'd also take the opportunity to add the missing one here. Then
+again Andrew eliminates this altogether anyway.
 
 Jan
 
