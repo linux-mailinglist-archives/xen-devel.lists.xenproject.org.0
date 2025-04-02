@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94822A7855C
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 01:51:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.934979.1336517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A17A9A7856A
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 02:04:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.935000.1336527 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzlNo-0000V0-0T; Tue, 01 Apr 2025 23:51:04 +0000
+	id 1tzlaJ-0004pz-3T; Wed, 02 Apr 2025 00:03:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 934979.1336517; Tue, 01 Apr 2025 23:51:03 +0000
+Received: by outflank-mailman (output) from mailman id 935000.1336527; Wed, 02 Apr 2025 00:03:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzlNn-0000T5-U5; Tue, 01 Apr 2025 23:51:03 +0000
-Received: by outflank-mailman (input) for mailman id 934979;
- Tue, 01 Apr 2025 23:51:02 +0000
+	id 1tzlaJ-0004oP-0Z; Wed, 02 Apr 2025 00:03:59 +0000
+Received: by outflank-mailman (input) for mailman id 935000;
+ Wed, 02 Apr 2025 00:03:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p4cc=WT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1tzlNm-0000QM-Cs
- for xen-devel@lists.xenproject.org; Tue, 01 Apr 2025 23:51:02 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ <SRS0=YWck=WU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1tzlaG-0004oJ-Pj
+ for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 00:03:56 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2992d128-0f54-11f0-9ffb-bf95429c2676;
- Wed, 02 Apr 2025 01:51:00 +0200 (CEST)
+ id f6ddef03-0f55-11f0-9ffb-bf95429c2676;
+ Wed, 02 Apr 2025 02:03:54 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 74B87A41712;
- Tue,  1 Apr 2025 23:45:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80B8FC4CEE4;
- Tue,  1 Apr 2025 23:50:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4040B61129;
+ Wed,  2 Apr 2025 00:03:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3B01C4CEE4;
+ Wed,  2 Apr 2025 00:03:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,77 +41,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2992d128-0f54-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: f6ddef03-0f55-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743551459;
-	bh=MyoYIGMJ4pQJ4sDHjS7J1+l6z+LyNDtoYmiWxCj1zac=;
+	s=k20201202; t=1743552232;
+	bh=jT/+pCeWK8jt5gV1YwLnACokaY0EoUF0vSAd9cxvZwU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=SD/rmbGdSArZlsrwYPEFe+gAbJvLX0Ht2Zzn+P+mLF3zI3xt1JLaFfEiRYUto8pDd
-	 jeicG10QeeT9+GOO2kUpLukJPPSFwTh/gZbj3fvWdRmDANLrHBl66qLQ+8hYfLPJoB
-	 uu9dTwyjHiAzQ7NGiFTxSI8W2NAqPQTwSH8xHwub4qChOwIPDTXnDf+LgFC7j+Jm3I
-	 DFWqkUANWu8/RtQ6ZCq9pGNiezt9iSSSROfl7cmgT792CiJV1uDO8hD4qptFA7G17c
-	 TnogyGjJ54W05Au1nTa5L8p1PyYExBwfFYAFqr/qw3LbGyjhvdezsMYtmd3RmMPdFG
-	 z6QfWY6rJBPTQ==
-Date: Tue, 1 Apr 2025 16:50:55 -0700 (PDT)
+	b=FtsBGhVSz406sBEBKBZGM5p0RkhZAcUxtosbc3I6r03khjN3jEyWNj87i24Qv5hR7
+	 DClGoubpnRnCachofzK+cv5KPRtGQMwL/83zLm+w18qZ6o+hZKHFmTtmFS9g8PcWDC
+	 CqzY8MV0vSQHDrGmr06STz3S0zHr+AwomrCVFpTaPLOqgBS/K5VUr0e3Wq9Fl8T8SZ
+	 rkKdqvTChQ23Atch+FQPbTxb16zGg44OTnCIyzWxZF5LYrEMvBeym5VqJH0fSHmBmy
+	 x/XaXmDTIZBfTxfP8lGesNC8FB5PvWosnzfMuR9XfxJQPX5NWvv0Lqv7eiTKU1geD+
+	 ZPiSUZ3aOT1Qw==
+Date: Tue, 1 Apr 2025 17:03:49 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jason Andryuk <jason.andryuk@amd.com>
-cc: Jan Beulich <jbeulich@suse.com>, 
+cc: xen-devel@lists.xenproject.org, 
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Michal Orzel <michal.orzel@amd.com>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     Anthony PERARD <anthony.perard@vates.tech>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 4/6] xen/arm: dom0less seed xenstore grant table
- entry
-In-Reply-To: <3d800459-7762-427e-8765-044adbb6459e@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2504011648360.3098208@ubuntu-linux-20-04-desktop>
-References: <20250331214321.205331-1-jason.andryuk@amd.com> <20250331214321.205331-5-jason.andryuk@amd.com> <6765d129-66dc-48d9-aaac-2b973edfda80@suse.com> <3d800459-7762-427e-8765-044adbb6459e@amd.com>
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v2 6/6] xen/arm: Add capabilities to dom0less
+In-Reply-To: <20250331214321.205331-7-jason.andryuk@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2504011654320.3098208@ubuntu-linux-20-04-desktop>
+References: <20250331214321.205331-1-jason.andryuk@amd.com> <20250331214321.205331-7-jason.andryuk@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 1 Apr 2025, Jason Andryuk wrote:
-> On 2025-04-01 08:16, Jan Beulich wrote:
-> > On 31.03.2025 23:43, Jason Andryuk wrote:
+On Mon, 31 Mar 2025, Jason Andryuk wrote:
+> Add capabilities property to dom0less to allow building a
+> disaggregated system.  Only a single hardware domain and single xenstore
+> domain can be specified.  Multiple control domains are possible.
 > 
-> > > --- a/xen/arch/arm/dom0less-build.c
-> > > +++ b/xen/arch/arm/dom0less-build.c
-> > > @@ -865,6 +865,10 @@ static void __init initialize_domU_xenstore(void)
-> > >           rc = alloc_xenstore_evtchn(d);
-> > >           if ( rc < 0 )
-> > >               panic("%pd: Failed to allocate xenstore_evtchn\n", d);
-> > > +
-> > > +        if ( gfn != ~0ULL )
-> > 
-> > Is this an odd open-coding of INVALID_GFN? And even if not - why ULL when
-> > "gfn" is unsigned long? The way you have it the condition will always be
-> > false on Arm32, if I'm not mistaken.
+> Introduce bootfdt.h to contain these constants.
 > 
-> The gfn is pulled out of the HVM_PARAMS, which is a uint64_t.  It is set like:
+> When using the hardware or xenstore capabilities, adjust the grant and
+> event channel limits similar to dom0.
 > 
-> d->arch.hvm.params[HVM_PARAM_STORE_PFN] = ~0ULL;
+> For a hardware domain, require an IOMMU and disallow specifying a vpl011
+> console or nr_spis.
 > 
-> But pulled out by:
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+> v2:
+> Fix comment style
+> Make DOMAIN_CAPS_* unsigned
+> Remove forced directmap & iommu
+> Require iommu with use of hardware domain
+> Limit to a single xenstore domain
 > 
-> unsigned long gfn = d->arch.hvm.params[HVM_PARAM_STORE_PFN];
+> There is overlap with hyperlaunch.  The numeric values are the same.
+> Hyperlaunch doesn't expose the values in a public header as done here.
+> Is this to be expected for dom0less?  It seems most of dom0less isn't in
+> a header, but just in docs.
 > 
-> So your comment highlights that unsigned long is incorrect for ARM32.
+> Hyperlaunch uses BUILD_CAPS_, but I chose DOMAIN_CAPS_ since there are
+> domain-level capabilities.
 > 
-> While I realize fixed types are discouraged, I'd prefer to use uint64_t for
-> the replacement.  That is the type of HVM_PARAMS, and uint64_t is used on the
-> init-dom0less side as well.  Using unsigned long long to get a 64bit value on
-> ARM32 seems less clear to me.
+> Only a single xenstore and hardware domain make sense.  Hardware domain
+> receiving all hardware can only have a single domain.
+> 
+> For Xenstore, the logic latches the single xs_domid and uses that for
+> all domains.  Also, only a single domain can register for VIRQ_DOM_EXC.
+> ---
+>  docs/misc/arm/device-tree/booting.txt | 11 ++++++++
+>  xen/arch/arm/dom0less-build.c         | 39 +++++++++++++++++++++++++++
+>  xen/arch/arm/domain.c                 |  3 ++-
+>  xen/include/public/bootfdt.h          | 31 +++++++++++++++++++++
+>  4 files changed, 83 insertions(+), 1 deletion(-)
+>  create mode 100644 xen/include/public/bootfdt.h
+> 
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index ac781c9cc8..490c792ddf 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -167,6 +167,17 @@ with the following properties:
+>      Refer to docs/misc/cache_coloring.rst for syntax. This option is applicable
+>      only to Arm64 guests.
+>  
+> +- capabilities
+> +    Optional.  A bit field of domain capabilities for a disaggregated
 
-The types that correspond to hypercall struct field types should match
-the hypercall struct field types.
+Please reword as:
 
-I think gfn should be uint64_t to match the definition of params.
+Optional.  A 32-bit integer representing a bit field...
 
-Similarly among the arguments of gnttab_seed_entry, flags should be
-uint16_t and I think frame should be uint32_t. This last one I am
-confused why you defined it as uint64_t, maybe I am missing something.
+That is because there is no native bit field type in device tree.
+
+
+
+> +    system.  A traditional dom0 has all all of these capabilities, and a
+> +    domU has none of them.
+> +
+> +    0x1 DOMAIN_CAPS_CONTROL  - A privileged, control domain
+> +    0x2 DOMAIN_CAPS_HARDWARE - The hardware domain - there can be only 1
+> +    0x4 DOMAIN_CAPS_XENSTORE - The xenstore domain - there can be only 1
+> +
+> +    The default is no capabilities.
+> +
+>  - vpl011
+>  
+>      An empty property to enable/disable a virtual pl011 for the guest to
+> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+> index fc515c9852..1cb6c170a7 100644
+> --- a/xen/arch/arm/dom0less-build.c
+> +++ b/xen/arch/arm/dom0less-build.c
+> @@ -12,6 +12,7 @@
+>  #include <xen/sizes.h>
+>  #include <xen/vmap.h>
+>  
+> +#include <public/bootfdt.h>
+>  #include <public/io/xs_wire.h>
+>  
+>  #include <asm/arm64/sve.h>
+> @@ -906,6 +907,8 @@ static int __init construct_domU(struct domain *d,
+>             d->max_vcpus, mem);
+>  
+>      kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
+> +    if ( kinfo.vpl011 && is_hardware_domain(d) )
+> +        panic("hardware domain cannot specify vpl011\n");
+>  
+>      rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
+>      if ( rc == -EILSEQ ||
+> @@ -1020,6 +1023,40 @@ void __init create_domUs(void)
+>          if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
+>              panic("No more domain IDs available\n");
+>  
+> +        if ( dt_property_read_u32(node, "capabilities", &val) )
+> +        {
+> +            if ( val & ~DOMAIN_CAPS_MASK )
+> +                panic("Invalid capabilities (%"PRIx32")\n", val);
+> +
+> +            if ( val & DOMAIN_CAPS_CONTROL )
+> +                flags |= CDF_privileged;
+> +
+> +            if ( val & DOMAIN_CAPS_HARDWARE )
+> +            {
+> +                if ( hardware_domain )
+> +                    panic("Only 1 hardware domain can be specified! (%pd)\n",
+> +                           hardware_domain);
+> +
+> +                if ( !iommu_enabled )
+> +                    panic("iommu required for dom0less hardware domain\n");
+
+The panic is OK if "direct-map" is not specified. We need to check for
+direct-map before panic'ing.
+
+Other than these two comments it looks good to me.
+
+
+> +
+> +                d_cfg.max_grant_frames = gnttab_dom0_frames();
+> +                d_cfg.max_evtchn_port = -1;
+> +                flags |= CDF_hardware;
+> +                iommu = true;
+> +            }
+> +
+> +            if ( val & DOMAIN_CAPS_XENSTORE )
+> +            {
+> +                if ( xs_domid != DOMID_INVALID )
+> +                    panic("Only 1 xenstore domain can be specified! (%u)\n",
+> +                          xs_domid);
+> +
+> +                d_cfg.flags |= XEN_DOMCTL_CDF_xs_domain;
+> +                d_cfg.max_evtchn_port = -1;
+> +            }
+> +        }
+> +
+>          if ( dt_find_property(node, "xen,static-mem", NULL) )
+>          {
+>              if ( llc_coloring_enabled )
+> @@ -1082,6 +1119,8 @@ void __init create_domUs(void)
+>                  d_cfg.arch.nr_spis = MAX(d_cfg.arch.nr_spis,
+>                                           vpl011_virq - 32 + 1);
+>          }
+> +        else if ( flags & CDF_hardware )
+> +            panic("nr_spis cannot be specified for hardware domain\n");
+>  
+>          /* Get the optional property domain-cpupool */
+>          cpupool_node = dt_parse_phandle(node, "domain-cpupool", 0);
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 3ba959f866..dc4b4e84c1 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -608,7 +608,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>  {
+>      unsigned int max_vcpus;
+>      unsigned int flags_required = (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap);
+> -    unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu);
+> +    unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu |
+> +                                   XEN_DOMCTL_CDF_xs_domain );
+>      unsigned int sve_vl_bits = sve_decode_vl(config->arch.sve_vl);
+>  
+>      if ( (config->flags & ~flags_optional) != flags_required )
+> diff --git a/xen/include/public/bootfdt.h b/xen/include/public/bootfdt.h
+> new file mode 100644
+> index 0000000000..86c46b42a9
+> --- /dev/null
+> +++ b/xen/include/public/bootfdt.h
+> @@ -0,0 +1,31 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/*
+> + * Xen Device Tree boot information
+> + *
+> + * Information for configuring Xen domains created at boot time.
+> + */
+> +
+> +#ifndef __XEN_PUBLIC_BOOTFDT_H__
+> +#define __XEN_PUBLIC_BOOTFDT_H__
+> +
+> +/*
+> + * Domain Capabilities specified in the "capabilities" property.  Use of
+> + * this property allows splitting up the monolithic dom0 into separate,
+> + * less privileged components.  A regular domU has no capabilities
+> + * (which is the default if nothing is specified).  A traditional dom0
+> + * has all three capabilities.
+> + */
+> +
+> +/* Control/Privileged domain capable of affecting other domains. */
+> +#define DOMAIN_CAPS_CONTROL  (1U << 0)
+> +/*
+> + * Hardware domain controlling physical hardware.  Typically providing
+> + * backends to other domains.
+> + */
+> +#define DOMAIN_CAPS_HARDWARE (1U << 1)
+> +/* Xenstore domain. */
+> +#define DOMAIN_CAPS_XENSTORE (1U << 2)
+> +#define DOMAIN_CAPS_MASK     (DOMAIN_CAPS_CONTROL | DOMAIN_CAPS_HARDWARE | \
+> +                              DOMAIN_CAPS_XENSTORE)
+> +
+> +#endif /* __XEN_PUBLIC_BOOTFDT_H__ */
+> -- 
+> 2.49.0
+> 
 
