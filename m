@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C38EEA7907C
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 15:58:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.935742.1337135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5942DA7907D
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Apr 2025 15:58:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.935747.1337146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzybS-0005n3-4c; Wed, 02 Apr 2025 13:58:02 +0000
+	id 1tzybl-0006BE-CW; Wed, 02 Apr 2025 13:58:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 935742.1337135; Wed, 02 Apr 2025 13:58:02 +0000
+Received: by outflank-mailman (output) from mailman id 935747.1337146; Wed, 02 Apr 2025 13:58:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1tzybS-0005lT-1e; Wed, 02 Apr 2025 13:58:02 +0000
-Received: by outflank-mailman (input) for mailman id 935742;
- Wed, 02 Apr 2025 13:58:00 +0000
+	id 1tzybl-000682-9a; Wed, 02 Apr 2025 13:58:21 +0000
+Received: by outflank-mailman (input) for mailman id 935747;
+ Wed, 02 Apr 2025 13:58:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=T645=WU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1tzybQ-0005kV-M0
- for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 13:58:00 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1tzybj-0005kV-Qk
+ for xen-devel@lists.xenproject.org; Wed, 02 Apr 2025 13:58:19 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7c8ce4f1-0fca-11f0-9ea9-5ba50f476ded;
- Wed, 02 Apr 2025 15:57:59 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-39c266c2dd5so1280170f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 02 Apr 2025 06:57:59 -0700 (PDT)
+ id 879344c6-0fca-11f0-9ea9-5ba50f476ded;
+ Wed, 02 Apr 2025 15:58:19 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-399749152b4so3295683f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Apr 2025 06:58:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c0b7a41f5sm16850495f8f.84.2025.04.02.06.57.58
+ 5b1f17b1804b1-43eb6135dc4sm21915525e9.33.2025.04.02.06.58.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Apr 2025 06:57:58 -0700 (PDT)
+ Wed, 02 Apr 2025 06:58:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c8ce4f1-0fca-11f0-9ea9-5ba50f476ded
+X-Inumbo-ID: 879344c6-0fca-11f0-9ea9-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743602279; x=1744207079; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743602298; x=1744207098; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Wvo15DS2o3owPyk9r+14HmKhMwdf4HpSiy1AYZEx6FU=;
-        b=gUd6KJWJo66qrP3F+gJnG3Bh7b5qYyhSon4t+AE0K5Jttk8C+5zMF4S3H7y/tDKrmZ
-         0EcNb0LepAa7d75GnJC6Fda6HPKDCBFC8b5rZMzysWLduCQ89MeKd7OcVXLWtqyZkMx4
-         Ov4XaT0yX/sSLfGax1jAXf2F+rdkpavjalJbhR+mMD5MSQm5kfVvfXHU8dtVkC9i+RGR
-         fWBmHg7PrteXBTok8xq9EJkDWOjomlD2tk2FgpiWuVViaNhR9E9jP6A61/5Itzc6IdUD
-         TYc70fM7htk11cE7gnptEz8VnV7k1Y9YhF8CZ1zvFn8Niqb5aEA1+JTulDCBLGYORQH7
-         VXxA==
+        bh=P+LOVlzxlWAhiyLhRnyUc5EdBZYUf7MC1TaE2FmTLf4=;
+        b=ZVZ3Iw/qtaE/AnBK3ohe8LRCktJ4RD+ZeblpFnP+oHoD12GfiqJZf9IxkUNHJDgODk
+         VPBjnOS00WnLAyRtaplMkWZ/UitzVuVdLZdIfUGicMKE9w2xfhSnsx5rdpjNxDOvYHDU
+         Bwafz8XzYiLucos3uP+bhNR5FEwPZMvPa/ledbccFGjAPMUTbIFJHN2dKYtjuKBJuga9
+         3USC6R41Yh6tZZkKDSm5HWvwvgmmLj/z7hB0qKtbLCwmupXbJl3vHZOaEgsKy3Wiv7rD
+         4L7hYqXUE7ONFXfmrf1MWQnxo/BVTAmjBODLctHocxR93Z0CLGGP+sLjsgzaD60nQrw2
+         VGWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743602279; x=1744207079;
+        d=1e100.net; s=20230601; t=1743602298; x=1744207098;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Wvo15DS2o3owPyk9r+14HmKhMwdf4HpSiy1AYZEx6FU=;
-        b=jNEfrgk5EUCs52bkOmDpi3OdSKQme/5VRF7LP8tbqD50egjC9ucuGpg0S3qrhu2650
-         havtBG1TgKUY0B41+gHyd1FuCNETkRPM+oP6AnLD+Kyt34L1l+rXYb2JcYxh2qTtc7B0
-         guixg2nygv9coG/RB33YJhPNZS6Mm6VxSf/jLWHdf7/5zucl8u+78vDX4l7rtI5jltbI
-         9iNdpjF6P37R39SMwPDZZ3/x0mN4M1Ue9iOaTmdFRUN3FpfTFqAzXzfGVjcHKs5h5pVY
-         Vc+oRc5C6+YMRICnP3l666EBPgTUJBKUKk87mrdJ8gPOSDVOtelcc8I0gOmy4MjHGsp9
-         9LOQ==
-X-Gm-Message-State: AOJu0YyO44j9PnEs0lj/89TQfWZRHNeJVjowV770zYSUDVnbcBTCNvxL
-	eDZXJXUDjEgUk+9rHiR7wtWfcVRv5bbq1fy8LgRiuvNqliNNF5C5JogScY+PmijjRDdQkUqaeZo
+        bh=P+LOVlzxlWAhiyLhRnyUc5EdBZYUf7MC1TaE2FmTLf4=;
+        b=r9+DxBOmiMhNmvTOY4sXR4h0tdXT3EHITBHCkJlhmZ/fxoGp1mOHdW6ZOGmIcuGZ68
+         fsmBcONNljMT1/HS5XD5LURB1vbhH+L1vHhUHZ4R0dYq7ei90MV+39V89mbddDgimlSc
+         7ExJ7uUzsA78iQfZPBqz7gGcuzOjSn6wRovumEfXQS5NiyWGBrdnBcUqM7wpmZUV/XcS
+         ztxmSrwkrFJzrztJ5c+MJCJr+tw4tdlw735AdFvewGNUoD4GyPzw0PS70ozinTEOXy5/
+         WoXt0xB9qBLs4qpxBY3vaRNXV1Usunaa7hH9rME/+jX6wM43gwOoAllW7L15T7KRb+K7
+         lxOw==
+X-Gm-Message-State: AOJu0YzA6rI5BIXNzc2ar+R1G94HYYxo/ueJ+9J0+GOmfmkjKqHslmOP
+	2+82uguikX9PEHv8ahU5dkdIqI7TFrInJiE5SEdkL0o23MumicX4/EyGpI+K9cBTRLR0CFPsYI8
 	=
-X-Gm-Gg: ASbGncsDdeBTcaG5bfsAAt7sNRusdkXqJcVIHp/Cp7Jvn239vRNukaR2RJyq/p4tzCX
-	hiHxxVV9x0j5Kl1/4aXU/JfQa5ihTq+oH08o4kcU+UC0uPgGd09XIP+PdjzcUc5gIWIldVJ0tNl
-	ygWTiJt0KbrpVRkMOMAV+x5zw1BSBGdWRVcRZs7zBaLRVv74mUbI8Hz/QfqkoI66QF0M3idsOVw
-	7sVb4w0fy4UNmXAJEcKwnKQO3eX+1j5myQUC57wGOPFshO4B7wkTlnU9awzNmWqEil8zsgIlmI+
-	qs4UJ1HKaoH92GFC26PDUBM8WNLt9GssbY01ND2razzmY7Y53b+xhLKQn3z/dt+Ld3xgKxmjidU
-	EdpX+dzpuprhWtJqf+ELj0OFZC7jhrQ==
-X-Google-Smtp-Source: AGHT+IEvAMaGKn2Ttwk6M7eKwGqm0dtPoHP8cqbSjO8/vuoj4E5L4kwjV5UwiuRxQkhnHa0WG3iBUw==
-X-Received: by 2002:a05:6000:2a10:b0:39c:1257:ccad with SMTP id ffacd0b85a97d-39c1257ccdamr9248107f8f.56.1743602279222;
-        Wed, 02 Apr 2025 06:57:59 -0700 (PDT)
-Message-ID: <879646dd-b55e-4b42-b637-d3b14570b880@suse.com>
-Date: Wed, 2 Apr 2025 15:57:57 +0200
+X-Gm-Gg: ASbGncuPKARzE++rjr8hFD6Ol8q233VHTjXQLkMWtwB0rpAxVAksbEjMIj5FU7bENQb
+	fp4nWsQNE+ao/LrNS3d2PINlX1/8P5Xudc55nRYYo+BfzO0+HqjkBnSaCwgY+Vh5ToTibAV6C6m
+	OgPppieaWFZxyOa69HkRoICgy01apTT+FFvSWyactDqzeERd2gWxK5Cj/jmv3S3wgjRL0zs7X+I
+	YIOmeWZfYGOKTIo3IoGYWy0EFt+I1qK5HFDqvf/1hZuwDeL/zWFijzfrlb7TkYhlnLujtXO6mit
+	+VCAqc8SuDI0MQzyu0SBmKQdLgXwFZ83yOUVBXbgndrtYnk2Y0YfhvGK8CRTPr9Bq+npOA+nMtx
+	KTyvSFHc+/LYIbpNh0JgNXCjese4BGwZ+ZHQQr5PI
+X-Google-Smtp-Source: AGHT+IEPWM4pLIvNJKv9hvi5KcBEPkQlR1qwBmNSaJR90hRsMiKg3Eqggx0tBeXaRir6xP01k69eGw==
+X-Received: by 2002:a05:6000:420c:b0:390:f902:f973 with SMTP id ffacd0b85a97d-39c23646776mr5682274f8f.8.1743602297716;
+        Wed, 02 Apr 2025 06:58:17 -0700 (PDT)
+Message-ID: <5015ce6d-a961-491b-9fe7-f6628329f3f0@suse.com>
+Date: Wed, 2 Apr 2025 15:58:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 1/5] symbols: add minimal self-test
+Subject: [PATCH v2 2/5] symbols: split symbols_num_syms
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
@@ -124,66 +124,178 @@ In-Reply-To: <ceef1876-8759-465c-9a74-309b6b92f773@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-... before making changes to the involved logic.
+In preparation for inserting address entries into symbols_addresses[] /
+symbols_offsets[] without enlarging symbols_sorted_offsets[], split
+symbols_num_syms into symbols_num_addrs (counting entries in the former
+plus symbols_names[] as well as, less directly, symbols_markers[]) and
+symbols_num_names (counting entries in the latter).
+
+While doing the adjustment move declarations to a new private symbols.h,
+to be used by both symbols.c and symbols-dummy.c. Replace u8/u16 while
+doing so.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-While Andrew validly suggests cf_check isn't a requirement for selecting
-which function(s) to use (with the non-upstream gcc patch that we're
-using in CI), that's only because of how the non-upstream patch works.
-Going function-pointer -> unsigned long -> function-pointer without it
-being diagnosed that the cf_check is missing is a shortcoming there, and
-might conceivably be fixed at some point. (Imo any address-taking on a
-function should require it to be cf_check.) Hence I'd like to stick to
-using cf_check functions only for passing to test_lookup().
-
-With this FAST_SYMBOL_LOOKUP may make sense to permit enabling even
-when LIVEPATCH=n. Thoughts? (In this case "symbols: centralize and re-
-arrange $(all_symbols) calculation" would want pulling ahead.)
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 --- a/xen/common/symbols.c
 +++ b/xen/common/symbols.c
-@@ -260,6 +260,41 @@ unsigned long symbols_lookup_by_name(con
-     return 0;
- }
+@@ -10,7 +10,6 @@
+  *      compression (see tools/symbols.c for a more complete description)
+  */
  
-+#ifdef CONFIG_SELF_TESTS
+-#include <xen/symbols.h>
+ #include <xen/kernel.h>
+ #include <xen/init.h>
+ #include <xen/lib.h>
+@@ -21,22 +20,7 @@
+ #include <xen/guest_access.h>
+ #include <xen/errno.h>
+ 
+-#ifdef SYMBOLS_ORIGIN
+-extern const unsigned int symbols_offsets[];
+-#define symbols_address(n) (SYMBOLS_ORIGIN + symbols_offsets[n])
+-#else
+-extern const unsigned long symbols_addresses[];
+-#define symbols_address(n) symbols_addresses[n]
+-#endif
+-extern const unsigned int symbols_num_syms;
+-extern const u8 symbols_names[];
+-
+-extern const struct symbol_offset symbols_sorted_offsets[];
+-
+-extern const u8 symbols_token_table[];
+-extern const u16 symbols_token_index[];
+-
+-extern const unsigned int symbols_markers[];
++#include "symbols.h"
+ 
+ /* expand a compressed symbol data into the resulting uncompressed string,
+    given the offset to where the symbol is in the compressed stream */
+@@ -124,7 +108,7 @@ const char *symbols_lookup(unsigned long
+ 
+         /* do a binary search on the sorted symbols_addresses array */
+     low = 0;
+-    high = symbols_num_syms;
++    high = symbols_num_addrs;
+ 
+     while (high-low > 1) {
+         mid = (low + high) / 2;
+@@ -141,7 +125,7 @@ const char *symbols_lookup(unsigned long
+     symbols_expand_symbol(get_symbol_offset(low), namebuf);
+ 
+     /* Search for next non-aliased symbol */
+-    for (i = low + 1; i < symbols_num_syms; i++) {
++    for (i = low + 1; i < symbols_num_addrs; i++) {
+         if (symbols_address(i) > symbols_address(low)) {
+             symbol_end = symbols_address(i);
+             break;
+@@ -182,9 +166,9 @@ int xensyms_read(uint32_t *symnum, char
+     static unsigned int next_symbol, next_offset;
+     static DEFINE_SPINLOCK(symbols_mutex);
+ 
+-    if ( *symnum > symbols_num_syms )
++    if ( *symnum > symbols_num_addrs )
+         return -ERANGE;
+-    if ( *symnum == symbols_num_syms )
++    if ( *symnum == symbols_num_addrs )
+     {
+         /* No more symbols */
+         name[0] = '\0';
+@@ -227,7 +211,7 @@ unsigned long symbols_lookup_by_name(con
+ 
+ #ifdef CONFIG_FAST_SYMBOL_LOOKUP
+     low = 0;
+-    high = symbols_num_syms;
++    high = symbols_num_names;
+     while ( low < high )
+     {
+         unsigned long mid = low + ((high - low) / 2);
+--- /dev/null
++++ b/xen/common/symbols.h
+@@ -0,0 +1,31 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#include <xen/stdint.h>
++#include <xen/symbols.h>
 +
-+static void __init test_lookup(unsigned long addr, const char *expected)
-+{
-+    char buf[KSYM_NAME_LEN + 1];
-+    const char *name, *symname;
-+    unsigned long size, offs;
++#ifdef SYMBOLS_ORIGIN
++extern const unsigned int symbols_offsets[];
++#define symbols_address(n) (SYMBOLS_ORIGIN + symbols_offsets[n])
++#else
++extern const unsigned long symbols_addresses[];
++#define symbols_address(n) symbols_addresses[n]
++#endif
++extern const unsigned int symbols_num_addrs;
++extern const unsigned char symbols_names[];
 +
-+    name = symbols_lookup(addr, &size, &offs, buf);
-+    if ( !name )
-+        panic("%s: address not found\n", expected);
-+    if ( offs )
-+        panic("%s: non-zero offset (%#lx) unexpected\n", expected, offs);
++extern const unsigned int symbols_num_names;
++extern const struct symbol_offset symbols_sorted_offsets[];
 +
-+    /* Cope with static symbols, where varying file names/paths may be used. */
-+    symname = strchr(name, '#');
-+    symname = symname ? symname + 1 : name;
-+    if ( strcmp(symname, expected) )
-+        panic("%s: unexpected symbol name: '%s'\n", expected, symname);
++extern const uint8_t symbols_token_table[];
++extern const uint16_t symbols_token_index[];
 +
-+    offs = symbols_lookup_by_name(name);
-+    if ( offs != addr )
-+        panic("%s: address %#lx unexpected; wanted %#lx\n",
-+              expected, offs, addr);
-+}
++extern const unsigned int symbols_markers[];
 +
-+static void __init __constructor test_symbols(void)
-+{
-+    /* Be sure to only try this for cf_check functions. */
-+    test_lookup((unsigned long)dump_execstate, "dump_execstate");
-+    test_lookup((unsigned long)test_symbols, __func__);
-+}
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+--- a/xen/common/symbols-dummy.c
++++ b/xen/common/symbols-dummy.c
+@@ -3,22 +3,22 @@
+  *                  link of the hypervisor image.
+  */
+ 
+-#include <xen/types.h>
+-#include <xen/symbols.h>
++#include "symbols.h"
+ 
+ #ifdef SYMBOLS_ORIGIN
+ const unsigned int symbols_offsets[1];
+ #else
+ const unsigned long symbols_addresses[1];
+ #endif
+-const unsigned int symbols_num_syms;
+-const u8 symbols_names[1];
++const unsigned int symbols_num_addrs;
++const unsigned char symbols_names[1];
+ 
+ #ifdef CONFIG_FAST_SYMBOL_LOOKUP
++const unsigned int symbols_num_names;
+ const struct symbol_offset symbols_sorted_offsets[1];
+ #endif
+ 
+-const u8 symbols_token_table[1];
+-const u16 symbols_token_index[1];
++const uint8_t symbols_token_table[1];
++const uint16_t symbols_token_index[1];
+ 
+ const unsigned int symbols_markers[1];
+--- a/xen/tools/symbols.c
++++ b/xen/tools/symbols.c
+@@ -323,7 +323,7 @@ static void write_src(void)
+ 	}
+ 	printf("\n");
+ 
+-	output_label("symbols_num_syms");
++	output_label("symbols_num_addrs");
+ 	printf("\t.long\t%d\n", table_cnt);
+ 	printf("\n");
+ 
+@@ -373,6 +373,10 @@ static void write_src(void)
+ 		return;
+ 	}
+ 
++	output_label("symbols_num_names");
++	printf("\t.long\t%d\n", table_cnt);
++	printf("\n");
 +
-+#endif /* CONFIG_SELF_TESTS */
-+
- /*
-  * Local variables:
-  * mode: C
+ 	/* Sorted by original symbol names and type. */
+ 	qsort(table, table_cnt, sizeof(*table), compare_name_orig);
+ 
 
 
