@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C9CBA7AB19
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 21:18:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.937212.1338228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 692D0A7AB94
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 21:22:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.937226.1338239 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0Q4k-0001kg-3f; Thu, 03 Apr 2025 19:18:06 +0000
+	id 1u0Q8Y-0004jh-Jf; Thu, 03 Apr 2025 19:22:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 937212.1338228; Thu, 03 Apr 2025 19:18:06 +0000
+Received: by outflank-mailman (output) from mailman id 937226.1338239; Thu, 03 Apr 2025 19:22:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0Q4k-0001iS-14; Thu, 03 Apr 2025 19:18:06 +0000
-Received: by outflank-mailman (input) for mailman id 937212;
- Thu, 03 Apr 2025 19:18:03 +0000
+	id 1u0Q8Y-0004iA-G9; Thu, 03 Apr 2025 19:22:02 +0000
+Received: by outflank-mailman (input) for mailman id 937226;
+ Thu, 03 Apr 2025 19:22:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JbNy=WV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u0Q4h-0001Wd-SH
- for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 19:18:03 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1u0Q8X-0004i4-If
+ for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 19:22:01 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d469487-10c0-11f0-9eaa-5ba50f476ded;
- Thu, 03 Apr 2025 21:18:03 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-39c0e0bc733so1064650f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 12:18:03 -0700 (PDT)
+ id ea3a35b7-10c0-11f0-9eaa-5ba50f476ded;
+ Thu, 03 Apr 2025 21:22:00 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43690d4605dso9129315e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 12:21:59 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c3009644dsm2488484f8f.6.2025.04.03.12.18.02
+ 5b1f17b1804b1-43ec169abd7sm29503565e9.18.2025.04.03.12.21.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Apr 2025 12:18:02 -0700 (PDT)
+ Thu, 03 Apr 2025 12:21:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d469487-10c0-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: ea3a35b7-10c0-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743707883; x=1744312683; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1743708119; x=1744312919; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pgScJpYzfdf3yrTeCXwBMPpTsWOi7+2uJ0f7z4rWw9k=;
-        b=dcHbUU+EXd/n6i6ypVpSHBu+4kB6f78R1QaOEVQJfZIDX/NW1wmcsEQbQHOeOEHvBw
-         DD0gMH4jfhxQHNuZoo2uBF+Vy4A4oRu8sWxmxIvSJ87ZL9g2GzQYeY4b5are3K+GiFCK
-         +wv2GSm76i7cl5DErh+yVRcdv8mpWxFMZF4MA=
+        bh=lrFEpHrIilUSSMkgYQI2gbZruyjnulK5DcIoWs+kEOA=;
+        b=iFwB/I2UKk0lWt8jYiSfTolpDc7OKkZpNLRzv5JL+QdJ0UmGgivwd3oVp1UsjuPVpG
+         TwWz/eliR/Ks/3OLZ5LImz2uvbVQMgdyRSriBNmiE00F1YdS54pFBk1CFmweJUfl1Qp+
+         NU7sByFeaeOHPfVJDxC97pnxe0VpVgtifr76w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743707883; x=1744312683;
+        d=1e100.net; s=20230601; t=1743708119; x=1744312919;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pgScJpYzfdf3yrTeCXwBMPpTsWOi7+2uJ0f7z4rWw9k=;
-        b=s+W6+AII/aE1MkmzmY4MVDCk99bqs6263YpCTO513oFpfbDJaUjTOAjtc3n8Nsd+JN
-         0B0n58YtoEFUz/iXZyc6z16NXLl9BduoAfbgijhjC3I5w5aOszTlRBwPesISfKXce2e0
-         wb5GD9F505IiwlvNJKv0Z3mJQsWJv1VVx8Sz00I5xIhZne65vI3DcA9NFVnmz1gD5van
-         qa7FNAvq3uTD7w9zzUfLTxg+yoIuKPt9gurphmlnZI4ghXJV28SUFelMDyLxs823r48Z
-         j9JvOgfZE3VVqQxdvI6JbGkqOp2lmAVHbu0FJdkVCUEys9VSeiM1mbUWOz+7LkLIiIeM
-         f4ag==
-X-Forwarded-Encrypted: i=1; AJvYcCXeHrHMCY7oifmeMbSuazup14003D0EqNBZa29Cgk68/ACxAkct3Pe/BXBXXMvKqh2diuBXBHSWn1w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxPsUdR0KITNGx+FsEnewayDc0cvtR7QcfUpw9L+Sh3Sl8FSlA1
-	s6phd135PZ63xqEhiruF3rYMvhQKMTAsZeiwqDz4KEOLO2G5aXPPMIkalQ/o1OBi6dvY9S+jaIy
-	HRwQ=
-X-Gm-Gg: ASbGncvnj7iD0jHTINIIpU+l3YVPkAPPoSBN+90zqeE30iXGQIOPxakq+BRS59tGvB9
-	7j7UbNDoumZkxYtYaiFXjsudn9o4tXRxxGAXNOmQkU+2p9XWeYmVs29J/mor+idRzEqoRirxQ9R
-	4c2IJQtROm/jU1vHScmG4hcWoe9IQ6NUGQLoIdQVGj1Aw2/qWfAMhHLYEkN8zCSQbX5hJ4K51aQ
-	dErsYx6CVh9PBq8CfRyHIDQTJ5J1s/6bEYi9dJHd2bVnrgWltPqvsbdX8m3ygxqLGEItHuk9QTF
-	lx1cIsQj1WLeOStFqV/QilWsC5Jp1Keiwpdfd13+go044QnlO6SYYO6dbLFGYOKPG0LDUxhT6Il
-	yUTtG2ZXBZTJiikUOIEDH
-X-Google-Smtp-Source: AGHT+IEW1FBg++6BOv5OQPdnQnm+WybqdYpt1ghja6bxjN5m4PczJKfT/Weh1sk5pGFXwrIg7lL/4w==
-X-Received: by 2002:a05:6000:18ac:b0:39a:c6c4:f877 with SMTP id ffacd0b85a97d-39cba9332c6mr377933f8f.20.1743707882803;
-        Thu, 03 Apr 2025 12:18:02 -0700 (PDT)
-Message-ID: <4b127cf0-b12c-4988-b030-d775bc3d6700@citrix.com>
-Date: Thu, 3 Apr 2025 20:18:01 +0100
+        bh=lrFEpHrIilUSSMkgYQI2gbZruyjnulK5DcIoWs+kEOA=;
+        b=hhFpWK5EsrWq/cQOukAr1B4aeTaDtAtLZIgzzF7TABmB1rV7jdmSQ6r2oO45qj2lJq
+         E2dgKO8JSBEJNnLTzwteOLb5eGDg6ugg5CaVDPCkhQzCoAHN4A9/5CQStdow6iSzPYNe
+         QU1Cp5IcWZyI2MDZDzQQRZF6LwwZ4ZrS2b4hYZ6K3z9CECrVsKKSSKauq1CIwv82jJF2
+         Xw54FuL+yUBWoQG6OzuBmMuGw6gea6rIV/03Ck8inbhHYmA9TZl5KolQh0BOSt+jKnqd
+         ZYPXlm2UGnQWd9fLi8ID4iCJRyym7IPpkn+htO3D6jXKR28q9ofmwOd8pUYHiXiBCfVV
+         H7Eg==
+X-Forwarded-Encrypted: i=1; AJvYcCX3aO5UqVivqa25DCDc6+Z2Rr7uFkkI/wRE4aGbRz8cBEHI32xNgqlRdzgIRgbRD5Wj1SVriFSJmNI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZx3vN+1gsyb4+Iw1N7Z9VIC7aceDwIwGeqnGF9HValBvMpHi6
+	z2Fg542yV9rxuGde1jJpj/IAZDIF/uM0gqcVdC/rSgJFvWnCv8BG3GvDHLYn45YACAMkS34lJSA
+	7B6I=
+X-Gm-Gg: ASbGnct3XYSgqNSBC9E4FnNopR1dO125WqVQLXMta0MX/8CqTnCvlhiQnKJPXDlwCnq
+	9pUXGMb/6WJ1sOESZvYNPW+F3fnmRUggwDOFYk31cu/7xMoCZ1z77BFOjsOvAeJCpudM5XLtJGD
+	ZVNLoX0Rz4ZIfoVDH/2fV9z5D3e1bBcgdj1p8NXmJiCjQjynQX6NNzc4OsJrqD8S1mhDry8BQMO
+	tnHqyZsn8+yJNuGBMbqO23+yZeOQ7Fn0106Ref8sNMExiWyBoMIsdJb2ACI4BNxpGy5k48dAI/f
+	liRysoVytVQIehmXkAkUZ2qyscaWPoIVpKUnerYkDpGvdeAr6RCjyxiXySuZ5/lllB8G1M+F37X
+	15lLAN/WTmg==
+X-Google-Smtp-Source: AGHT+IEcVS2Nukkf75qDp4Y8gHYwy4QOHWIrScAyx0xit3ZNnjWmmwvLaLWmRVV4gYZRustacrc3fg==
+X-Received: by 2002:a05:600c:c07:b0:43d:224:86b5 with SMTP id 5b1f17b1804b1-43ecf81c5a4mr3679645e9.4.1743708119299;
+        Thu, 03 Apr 2025 12:21:59 -0700 (PDT)
+Message-ID: <de2ef26a-f999-4962-abbc-3ffcc684e7f7@citrix.com>
+Date: Thu, 3 Apr 2025 20:21:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/6] x86/emulate: remove HAVE_AS_SSE4_2
+Subject: Re: [PATCH v2 5/6] x86/emulate: remove HAVE_AS_RDRAND and
+ HAVE_AS_RDSEED
 To: dmkhn@proton.me, xen-devel@lists.xenproject.org
 Cc: anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
  dmukhin@ford.com
 References: <20250403182250.3329498-1-dmukhin@ford.com>
- <20250403182250.3329498-5-dmukhin@ford.com>
+ <20250403182250.3329498-6-dmukhin@ford.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,18 +138,30 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250403182250.3329498-5-dmukhin@ford.com>
+In-Reply-To: <20250403182250.3329498-6-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 03/04/2025 7:23 pm, dmkhn@proton.me wrote:
 > From: Denis Mukhin <dmukhin@ford.com>
 >
-> The new toolchain baseline knows the crc32 instructions,
+> The new toolchain baseline knows the rdrand/rdseed instructions,
 > no need to carry the workaround in the code.
 >
-> Resolves: https://gitlab.com/xen-project/xen/-/work_items/206
+> Resolves: https://gitlab.com/xen-project/xen/-/work_items/208
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+>  xen/arch/x86/arch.mk            |  2 --
+>  xen/arch/x86/x86_emulate/0fc7.c | 15 +++++----------
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Huh...
+
+I was expecting a hunk in xen/arch/x86/include/asm/random.h but lookin
+at it, I see that didn't even get the HAVE_AS_RDRAND treatment in the
+first place.  Also, the + constraint, rather than =, looks suspicious.
+
+Could I ask you to clean those up too please?  The rest of this patch
+looks fine.
+
+~Andrew
 
