@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35B44A7A8F2
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 19:58:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.937030.1338109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F348A7A940
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 20:23:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.937045.1338118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0Op8-0001WE-N0; Thu, 03 Apr 2025 17:57:54 +0000
+	id 1u0PDZ-0000iU-Jq; Thu, 03 Apr 2025 18:23:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 937030.1338109; Thu, 03 Apr 2025 17:57:54 +0000
+Received: by outflank-mailman (output) from mailman id 937045.1338118; Thu, 03 Apr 2025 18:23:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0Op8-0001Te-K1; Thu, 03 Apr 2025 17:57:54 +0000
-Received: by outflank-mailman (input) for mailman id 937030;
- Thu, 03 Apr 2025 17:57:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JbNy=WV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u0Op7-0001TY-Q0
- for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 17:57:53 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 274ae536-10b5-11f0-9ffb-bf95429c2676;
- Thu, 03 Apr 2025 19:57:48 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43cfe574976so8308105e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 10:57:48 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ec16a3aefsm28059365e9.21.2025.04.03.10.57.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Apr 2025 10:57:46 -0700 (PDT)
+	id 1u0PDZ-0000fz-GZ; Thu, 03 Apr 2025 18:23:09 +0000
+Received: by outflank-mailman (input) for mailman id 937045;
+ Thu, 03 Apr 2025 18:23:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Em9L=WV=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1u0PDW-0000KX-Ux
+ for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 18:23:07 +0000
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
+ [79.135.106.30]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id af87bf9a-10b8-11f0-9eaa-5ba50f476ded;
+ Thu, 03 Apr 2025 20:23:05 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +36,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 274ae536-10b5-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743703067; x=1744307867; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=QMLfFfEVVO6Pdzym9UcJtEbdmrCa6bNJDvfvnZ9B4rs=;
-        b=jYDdcba7n6rKBREApevDsBg4hGk89e6bYmNHE35tiWq5T2QPkB4d0rhSD3uDBakRB5
-         Izb6oyjDnsPVaNJoc+uEFvbV1Ky9V6c6lUffcBLaJS/521Dh/4nmjCSfAxoZmun7S4wo
-         FiDGADVaMuccBBJN41Q1d1PTThUpIJ2L4alrY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743703067; x=1744307867;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QMLfFfEVVO6Pdzym9UcJtEbdmrCa6bNJDvfvnZ9B4rs=;
-        b=SdTIu/wNliK4BBp45Lk+/l1EwITn8bu6llY4Y7+EQ2FTRyhyZtorhn3g2YOo5oCBU1
-         Ixxe95z6S7JU9MRaOMEhsA9IuACRfmIf3HClYMXMvjVUq7FmRCieS9YBvPaL3cXPD0XI
-         Hnp6BMRQbUU4oUrOqmz3njFfU7osnlgSTnVVR6RxsQ2UWmSDQAwpTVUmCvDj20UTa7Jm
-         qHKgp8JCYNNWdtZGeFuk0CQ6SW/o0XXlsXiFhFQ38WpQZVEpiPfKjme9wh8Y31rMAHje
-         YGsDcGwQqtLRJ0VR3PB8hFF+6RedoHOnut8/OJMtWLe1dBU0naoW9iUOPvRsS+ns7Ykd
-         corg==
-X-Gm-Message-State: AOJu0YzZVAqMTFtX3MiBn7guaUcmrxRDI6gV6QxHL/fpShNJNDrH9jnM
-	N0upu0sBdNHRAG664p6kjahbyz5OpWgErqE84P90FgoBU2cpgM9k1D2s6snlB7IoWXTMFlLDqw/
-	s7gg=
-X-Gm-Gg: ASbGncuk14rruRzT8EHaizpUeo+cQjJW27xzrwQFTnU6xpuRCbEnG7rgr7cCcYjsLZa
-	dVitqWqCf0GJvEjZLtjgqf+0mbv6zgXNJTZBNjEqrCMgJJFbrZNYBKQLaauRqNEIoDOQS/J6Ro3
-	Es8VbvJP3ljZT0uqzmjYYOYC7+0XrADfC4AaqJsWAdTgJPKoPXA3FNGF7kZZvC0hWya6EsdQlS5
-	PafxIE5tTKuffa9iikZOnHb1LX0Xt71PgaMy49qzZPsTUZFB1UpzzK8GxGYw5h+Zda7R3oGRnOP
-	ZS3D0jLUEfCMSKnHzC+TjaT/qf/B/DbdQC0IfWRJmeM21DWcNyXhA24i97oQk6/6YoF8VsVXCVU
-	5UQ1QuTX2JwNkvsZPQw==
-X-Google-Smtp-Source: AGHT+IGfwMp+56Qs1OEYK4UnorKSjvuglUgtfooOg4rsz6ozzUVwuSjlcQgNtunhGdOYmxeFSyNEdw==
-X-Received: by 2002:a05:600c:348b:b0:43b:b756:f0a9 with SMTP id 5b1f17b1804b1-43ecf85dd6bmr663715e9.11.1743703067501;
-        Thu, 03 Apr 2025 10:57:47 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/amd: Convert wrmsr_amd_safe() to use asm goto()
-Date: Thu,  3 Apr 2025 18:57:44 +0100
-Message-Id: <20250403175744.1538469-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: af87bf9a-10b8-11f0-9eaa-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1743704583; x=1743963783;
+	bh=4s46GxMWhgvHm0rgQ170PYzaHXK6NdimNxre7vDtwbA=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+	 List-Unsubscribe:List-Unsubscribe-Post;
+	b=hcCkmAN0K7QWL9/QTiLfzme/Vp8SxO3wPugckz1mCAGoW3KcGvCvN2ztCX3i+nlhe
+	 RZipxVpoicJ+BuwT+53cgzpH9U72hTfbJa5qEchfsTsEcZsxlINGG37QN3KNUHJ9jC
+	 XKklu2Qytvsp2/dJT3FzURU+IUw4umejq90h1rdM6wl4oVoQzl6moaPbUk+d93ppcW
+	 Pj+TRJIjrmGND5h6DitUU8WdHhkkArc/cbn0nOsmLegCLsVjf6EbC97x3Yh+olkH/f
+	 8R9g7i9eXSy8xPP36xUyq+0IekYgJwsYcMZ/BNkNXTYc1ECvm0ioVBu/cK/U8dDBcy
+	 eo27uCGGaApRA==
+Date: Thu, 03 Apr 2025 18:22:58 +0000
+To: xen-devel@lists.xenproject.org
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH v2 0/6] x86/asm: cleanups after toolchain baseline upgrade
+Message-ID: <20250403182250.3329498-1-dmukhin@ford.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: d9d3b846cb5f0f8ce1df0778aed580181b1fd1d9
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Bloat-o-meter reports:
+Patches 1-5 remove various workarounds under HAVE_AS_XXX for older compiler=
+s,
+as the minimally required GCC 5.1 / Binutils 2.25, and Clang 11 natively
+support instructions worked around in the hypervisor code.
 
-  add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-29 (-29)
-  Function                                     old     new   delta
-  _probe_mask_msr                               99      94      -5
-  init_amd                                    2418    2394     -24
+Patch 6 cleans up error handling in VMX asm wrappers using `asm goto`.
 
-but that's because .fixup doesn't contain sized/typed symbols.  This also
-drops two "mov -EFAULT, %reg; jmp ...;" sequences too.  The net saving is -50.
+[1] Link to v1: https://lore.kernel.org/xen-devel/20250401222105.79309-1-dm=
+ukhin@ford.com/
+[2] CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/17510=
+06178=20
 
-wrmsr_amd_safe()'s return value is only checked against 0 (if at all), and
-because of this, the compiler can now avoid manifesting 0/-EFAULT entirely,
-and the %[fault] label simply lands on the right basic block.
+Denis Mukhin (6):
+  x86/vmx: remove HAVE_AS_{EPT,VMX}, GAS_VMX_OP() and *_OPCODE
+  x86/msr: remove HAVE_AS_FSGSBASE
+  x86/asm: remove HAVE_AS_INVPCID
+  x86/emulate: remove HAVE_AS_SSE4_2
+  x86/emulate: remove HAVE_AS_RDRAND and HAVE_AS_RDSEED
+  x86/vmx: rework VMX wrappers to use `asm goto()`
 
-Convert to Xen style while rewriting.
+ xen/arch/x86/arch.mk                   |   9 +-
+ xen/arch/x86/hvm/vmx/vmcs.c            |   2 +-
+ xen/arch/x86/include/asm/hvm/vmx/vmx.h | 236 ++++++++-----------------
+ xen/arch/x86/include/asm/invpcid.h     |  12 +-
+ xen/arch/x86/include/asm/msr.h         |  22 ---
+ xen/arch/x86/x86_emulate/0fc7.c        |  15 +-
+ xen/arch/x86/x86_emulate/x86_emulate.c |   7 +-
+ 7 files changed, 87 insertions(+), 216 deletions(-)
 
-No functional change.
+--=20
+2.34.1
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-
-Slightly RFC.  We use -EIO elsewhere for this purpose, and nothing in this
-logic cares.
-
-I was pleasently surprised by the manifestation of -EFAULT going away
-entirely.  I expect converting wrmsr_safe() is going to be far greater win.
-
-Converting rdmsr_amd_safe() (and friends) is going to be much harder, because
-they have outputs, which GCCs before this year cannot do safely (there was a
-serious bug, found and backported).
-
-I think I'm going to port Linux's CC_HAS_ASM_GOTO_OUTPUT infrastructure, so we
-can at least provide a better wrapper on new-enough toolchains.
----
- xen/arch/x86/cpu/amd.c | 22 ++++++++++------------
- 1 file changed, 10 insertions(+), 12 deletions(-)
-
-diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-index 597b0f073d55..ce4e1df71064 100644
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -74,21 +74,19 @@ static inline int rdmsr_amd_safe(unsigned int msr, unsigned int *lo,
- }
- 
- static inline int wrmsr_amd_safe(unsigned int msr, unsigned int lo,
--				 unsigned int hi)
-+                                 unsigned int hi)
- {
--	int err;
-+    asm goto ( "1: wrmsr\n\t"
-+               _ASM_EXTABLE(1b, %l[fault])
-+               :
-+               : "c" (msr), "a" (lo), "d" (hi), "D" (0x9c5a203a)
-+               :
-+               : fault );
- 
--	asm volatile("1: wrmsr\n2:\n"
--		     ".section .fixup,\"ax\"\n"
--		     "3: movl %6,%0\n"
--		     "   jmp 2b\n"
--		     ".previous\n"
--		     _ASM_EXTABLE(1b, 3b)
--		     : "=r" (err)
--		     : "c" (msr), "a" (lo), "d" (hi), "D" (0x9c5a203a),
--		       "0" (0), "i" (-EFAULT));
-+    return 0;
- 
--	return err;
-+ fault:
-+    return -EFAULT;
- }
- 
- static void wrmsr_amd(unsigned int msr, uint64_t val)
--- 
-2.39.5
 
 
