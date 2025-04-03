@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F41C8A7A24F
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 14:03:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.936726.1337903 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F39EA7A266
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 14:03:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.936737.1337913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0JHB-0006Jx-OF; Thu, 03 Apr 2025 12:02:29 +0000
+	id 1u0JII-0006nl-16; Thu, 03 Apr 2025 12:03:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 936726.1337903; Thu, 03 Apr 2025 12:02:29 +0000
+Received: by outflank-mailman (output) from mailman id 936737.1337913; Thu, 03 Apr 2025 12:03:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0JHB-0006Gs-La; Thu, 03 Apr 2025 12:02:29 +0000
-Received: by outflank-mailman (input) for mailman id 936726;
- Thu, 03 Apr 2025 12:02:28 +0000
+	id 1u0JIH-0006lH-UR; Thu, 03 Apr 2025 12:03:37 +0000
+Received: by outflank-mailman (input) for mailman id 936737;
+ Thu, 03 Apr 2025 12:03:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JbNy=WV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u0JHA-0006Gl-4o
- for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 12:02:28 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=lWYu=WV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u0JIG-0006Gl-P1
+ for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 12:03:36 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8283cfbb-1083-11f0-9eaa-5ba50f476ded;
- Thu, 03 Apr 2025 14:02:26 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-4394036c0efso5315275e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 05:02:26 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c301a6ae5sm1649257f8f.32.2025.04.03.05.02.25
+ id abd57c05-1083-11f0-9eaa-5ba50f476ded;
+ Thu, 03 Apr 2025 14:03:36 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4394345e4d5so5048805e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 05:03:35 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43ec1660eb3sm20179915e9.11.2025.04.03.05.03.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Apr 2025 05:02:25 -0700 (PDT)
+ Thu, 03 Apr 2025 05:03:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,124 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8283cfbb-1083-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: abd57c05-1083-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743681746; x=1744286546; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743681815; x=1744286615; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XH0JeYAt408M7KR9d9UEq3IEkO53yY1KEgdqn7A9GBw=;
-        b=NhykE5Z2oTmWgcwxWxrcksgI6TjQVKZ58JbLjxSJ2lJMd+XSq2oE0KvMNvQbuQ2bu4
-         a+OuLo0G5WU7kcIlwB4s9OnV1rRLXfioXcEU1C5VMRbB4uNfezLK6bUmrV/7VHxedCye
-         C+8e7abyuzEexMIf3vyIlm75ngaLtyK7Y0FjQ=
+        bh=Sgg1/ugnyIOc1WIKoA/Z0SxgW5B3RMyuYwm4J7+mjxc=;
+        b=NK+Ryc+Cufgo4p/tdLIf3FyAfyiTAJeGPQp9Qw2Tpes4yJS2RiNpZZb+7ZpwztI+WC
+         xbAcJ2yuglrdclMJBw39YEW79d7anizqTU9vd4cSNN1dtA526y/sCwJxdXDysWc2MRUZ
+         NP9sgF9a34mtQjl2Wjf8S/JEBQB8AJZS5DYEjNHctGqqW+BdZdGikjiVbMFTjd2M6Fqy
+         /Cf5wLi+Umbs364XxZr4ARbqsFN5LuUqtINRrZUgGCRPAFW+KMcoy50vw78/nuMTix+C
+         gSX2cLj57+BsQLc0Tb5KKrtPv5fDkNPQF7OqZl+vfl5mFsBn2VIdfdUD3GxBMejUxiOm
+         xVGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743681746; x=1744286546;
+        d=1e100.net; s=20230601; t=1743681815; x=1744286615;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XH0JeYAt408M7KR9d9UEq3IEkO53yY1KEgdqn7A9GBw=;
-        b=q69+kbUZ56m6F2ZKlk7R9x0BiMR+ewesRsFSXtkn47TsTeyBNNfspoh2aSY18OQ6xG
-         7zgPaq0s6A+omz+wcVNuhk4DMN8smanKGT0CGol3nwAYIcgJvF5PDkmMctztV8vcxqXX
-         IasWh7X202AI82e3ivW9aD6S1DIqiUeGFBfNq9Qgl9cpSUDp/rNooQyp21YUf/3cs4MA
-         4DdWn7HJWaY4m3rxqOPeOkPN+Jtd6pENgm7uYIFrdZpXUJN9VtfO9Bk4ym349tJFqPse
-         lPAcdYgicwPLMCUHuUwomfCoMWkqU/40EtenUTxBsLlQqWjUDzHLSlbq4ToeHmLz+Xy3
-         AXPA==
-X-Forwarded-Encrypted: i=1; AJvYcCWUS+mbXXhpdMGqWIFEq04iOCGCnOYGNDj6/217h+ceCFAt4MKJcRnLYo1Cot9aGCCAiJ9H7c22v88=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYf9ssDImxUOm/5uYLDE3oH5NyH/PlLJ/DqaVM8LVqHrunliOr
-	z+laLrEnmvMY14oY02TcWs5aEsJ4kHdMXBSSZaz8JU5g31gkuJeY2vQ3UEQugKU=
-X-Gm-Gg: ASbGncvOXMDvar3/NaB/tkdzPVLSH9+a0ANPwF+sMj4M9FROyGhey5i8v0bWgo5zOUP
-	W37uZkDGyJTpMKge6Z0yO6Ssl4dec6wXGTBKcftU27w3jzvLjHE0vaN9AK24NbZNlGfkxKSuaGa
-	GLOpIxMfVfETmhHiDh1NrL20EXCjVo6lS9AdDIdBwU6d2pvyKSCcHaXrtWYAUty3J6l7bGhwZqZ
-	dpkhvSjhS1tctx5XWypKA3el0JaGlYXzi9hqCfQ6ifShPlOM5EY1ekkeGcEphl/47Wmt2tF9s6K
-	CR9K2QpWNXaAKI0lBIbWO+K1TUZd6Jz2gx6f6Y6cgzEuK9IhJlhVBNWhBWoaDDirNHic062S+Io
-	8VymzI+N0Ig==
-X-Google-Smtp-Source: AGHT+IHJLS4DCDlaws9WDiSZYdYjhFMnrLTDL0HvD10KLRcHGdlGST1clDJTPVoM5HhsKbrwva1OpQ==
-X-Received: by 2002:a05:6000:42c6:b0:391:2e97:5788 with SMTP id ffacd0b85a97d-39c1211ca8amr13938983f8f.55.1743681745886;
-        Thu, 03 Apr 2025 05:02:25 -0700 (PDT)
-Message-ID: <b8200dc3-35a9-4ae5-a345-45f4c6143e55@citrix.com>
-Date: Thu, 3 Apr 2025 13:02:24 +0100
+        bh=Sgg1/ugnyIOc1WIKoA/Z0SxgW5B3RMyuYwm4J7+mjxc=;
+        b=f6U8oHiu2DRIxSc1MysAWZlsV9CAiJWsJyVeBbn7UyQuorwwlIlxJLrnBQ5OFykmpc
+         2fbuxwwas8JWIg2sbGDU36afWq1bLMcr4LL81mLsz+5etcID4uRL+Jm+Wzs781fPDYtC
+         8QMA7Ue4DXgxO0K/QrRSAnRF3ngUq7LMgoHJJWd3jGHwE8jzzYDd8qQ4kwSVX+5c8cWw
+         56KD3Unj9VFgoU1MXQxMQCaek9h3ti71mXAUzVlT90B5pIIY+m0NnuYLFYTx032X2Q1W
+         u57zzYyquDNT1zFsP61PLLNxsBl5k85w7U45Xfk1X4TdXbmcZkgnzp3G2bb1OYPF0no7
+         avhg==
+X-Forwarded-Encrypted: i=1; AJvYcCWe3MueXbQ5MZzIx9z03EyrM1QH5donUc/XBY1GRJuGp9+M4Ow/ZyG64jZUnZJ8PnZ8j1fN7UNsxZ0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwxLNlWgYagBjV1gFifcEmUjLrCOPjZZphTchMhTeyzMAGqxCUg
+	tz3QsKaChXdTDck0DW6Me8LC1pPsz9Twm8VTz6IoHk4jHszDCz3dkzLoKxqrP+m0ho7yd/T8nzs
+	=
+X-Gm-Gg: ASbGncuO/H9WLjNLUri+m+ZI+WPKIPvay1pajck/ModECXpg7EBNE4nKC5QZxFulTGF
+	90vvu2XVXtZYntzhEhwUXixjpXxFPFYnD+2gfL/ws0/rBZ0cFi3xfRK8PXXc8QK14H2BP9TJBCI
+	6eSKXf2klxPUllD2FZopVPJzsjmW03yTRf5+shNG+9mMu+RVQ1vAv2eKKPbgVHWnfSRKZ5zH3ag
+	dfI5Cjn7Bf183+H6fM5YdidcAq8YFFxJT7cTEAEP4Do4s70eTz2ge1IVd64dn+okSiQt7AvjisO
+	5YEnt5rNmLNipzvy9cwybDYJwSFJRxS39H0Pl7O6g8IM31bt2wlIIL1kxvHoaoRoUap/FWM2+w+
+	z44wgVoc+Cb5W+NZYTu7d05rpQdrYgA==
+X-Google-Smtp-Source: AGHT+IHVwKBg9QjNQFncCiQkszkDM9a1epLnklZTwdUssNj1L9LvAOGT5P0auVL6emjxxl3Kqf4aVA==
+X-Received: by 2002:a05:600c:190b:b0:43d:94:2d1e with SMTP id 5b1f17b1804b1-43eb5c188b3mr64118545e9.13.1743681815329;
+        Thu, 03 Apr 2025 05:03:35 -0700 (PDT)
+Message-ID: <fd08e366-7da6-45d2-b3c6-a63d732c5cc3@suse.com>
+Date: Thu, 3 Apr 2025 14:03:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: re-order .init.data contributions
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <b0266c19-d0e5-4de7-b2fb-a50e2766168c@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <b0266c19-d0e5-4de7-b2fb-a50e2766168c@suse.com>
+Subject: Re: [PATCH v1 01/11] ci: prevent grub unpacking initramfs
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <cover.59b4d1e66776c1e577aa5dd5460605dc6c240613.1743678257.git-series.marmarek@invisiblethingslab.com>
+ <e1d07b26a92a45ed387594dd789453def1ef1eb2.1743678257.git-series.marmarek@invisiblethingslab.com>
+ <a64136e8-c74e-4f47-b52f-cd5b25c57b2e@suse.com>
+ <d832f7c5-5a59-46c5-b5c6-109dd13a77e3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <d832f7c5-5a59-46c5-b5c6-109dd13a77e3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01/04/2025 6:56 am, Jan Beulich wrote:
-> Putting a few bytes ahead of page tables isn't very efficient; there's
-> a gap almost worth a full page. To avoid re-ordering of items in the
-> source file, simply put the few small items in sub-section 1, for them
-> to end up after the page tables, followed (in the final binary) by non-
-> page-aligned items from other CUs.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->
-> --- a/xen/arch/x86/boot/head.S
-> +++ b/xen/arch/x86/boot/head.S
-> @@ -136,6 +136,7 @@ multiboot2_header:
->  .Lno_nx_msg:   .asciz "ERR: Not an NX-capable CPU!"
->  
->          .section .init.data, "aw", @progbits
-> +        .subsection 1 /* Put data here after the page tables (in x86_64.S). */
->          .align 4
->  
->          .word   0
+On 03.04.2025 13:39, Andrew Cooper wrote:
+> On 03/04/2025 12:29 pm, Jan Beulich wrote:
+>> On 03.04.2025 13:04, Marek Marczykowski-Górecki wrote:
+>>> It fails on larger initramfs (~250MB one) and sometimes even smaller
+>>> depending on memory size/memory map, let Linux do it.
+>> Iirc grub only unpacks gzip-ed modules, so wouldn't a yet better approach
+>> be to use a better compressing algorithm, which simply as a side effect
+>> would keep grub from decompressing it, while at the same time moving
+>> farther away from any critical boundaries?
+> 
+> Yes and no.
+> 
+> This is going to change anyway when I (or a delgee) moves initrd
+> generation from the test step itself into the test artefacts repo.
+> 
+> Switching to a slower algorithm will impact every test step right now.
+> 
+> Real systems doesn't see this in general, because it there's an
+> uncompressed microcode container at the front, and it's not identified
+> as being compressed at all.
+> 
+> I'd prefer to stick with Marek's patch in the short term.
 
-Just as a note, this depends on the toolchain baseline bump, so can't be
-backported.
+Fair enough.
 
-Clang-11 does now like subsection, so we can remove the !__clang__
-specialisation for UNLIKELY_{START,END}_SECTION.
-
-~Andrew
+Jan
 
