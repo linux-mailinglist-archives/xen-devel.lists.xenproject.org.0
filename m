@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6FA8A7AA50
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 21:11:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.937157.1338199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 839FBA7AAE7
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 21:16:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.937190.1338208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0PxR-0007GL-Tq; Thu, 03 Apr 2025 19:10:33 +0000
+	id 1u0Q3K-0000h7-Fb; Thu, 03 Apr 2025 19:16:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 937157.1338199; Thu, 03 Apr 2025 19:10:33 +0000
+Received: by outflank-mailman (output) from mailman id 937190.1338208; Thu, 03 Apr 2025 19:16:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0PxR-0007D3-Po; Thu, 03 Apr 2025 19:10:33 +0000
-Received: by outflank-mailman (input) for mailman id 937157;
- Thu, 03 Apr 2025 19:10:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u0Q3K-0000eo-D1; Thu, 03 Apr 2025 19:16:38 +0000
+Received: by outflank-mailman (input) for mailman id 937190;
+ Thu, 03 Apr 2025 19:16:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JbNy=WV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u0PxQ-0007BV-B5
- for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 19:10:32 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4fca58ba-10bf-11f0-9eaa-5ba50f476ded;
- Thu, 03 Apr 2025 21:10:31 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43d0618746bso9147355e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 12:10:31 -0700 (PDT)
+ id 1u0Q3J-0000eh-1V
+ for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 19:16:37 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 28368531-10c0-11f0-9ffb-bf95429c2676;
+ Thu, 03 Apr 2025 21:16:35 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-38f2f391864so713706f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 12:16:34 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ec1663053sm29317565e9.15.2025.04.03.12.10.29
+ ffacd0b85a97d-39c301a67a1sm2483502f8f.24.2025.04.03.12.16.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Apr 2025 12:10:30 -0700 (PDT)
+ Thu, 03 Apr 2025 12:16:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4fca58ba-10bf-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 28368531-10c0-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743707431; x=1744312231; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1743707794; x=1744312594; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Jzuj1M8SOFjW4JeG6HeNXSF+X7+jyBYmetNErkmeqCc=;
-        b=ANCa6yYWUlIqvpkOE/xFsiqaf4pQ6dnE1aoioveQa+c+8Hdeet2cLzEYzSEXO4u//b
-         M4/OeKYN8p3MkbpMajbYOCn0NK8SCmKurYZCSk2Srlxy1tP5KXS/ilQ9QOjg2D4tXXk4
-         ijx24cYpvMBgryMjIU6+Wdj01bK+yzaDem/DQ=
+        bh=0JnEDoYlTFRHgSnQxnYJjeyx6TDcDB2dZ0/ffJJWSFQ=;
+        b=Xs0qVTWI+0sCAmthGySOc3U/8jJb2HYuIQe/kuF+E+Ic0hiNNUOi8LCUkGc75F2Uhn
+         jGfQdylkoqJizG5IUj2LRZ8UX+xi0oPIccfYWF159Ma0Cp2b1L6VCWQSQl+X3vZeHHGG
+         FAQiTyqdKQLgv5SmFrBdF53AWke4ppWX3ULEo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743707431; x=1744312231;
+        d=1e100.net; s=20230601; t=1743707794; x=1744312594;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Jzuj1M8SOFjW4JeG6HeNXSF+X7+jyBYmetNErkmeqCc=;
-        b=VuRi4h70sSfUXUa3tqN68kJUtoYbM6mxM34TbwteBtrfrp24wsiA6oQqQKpmiAjWC3
-         B79/ZMz47FvyKyWgGPZwPbXNY37AoYC6Wy1cjA1cZVTywOSKp2kFxJyWoq57kCTsrsXs
-         cKerEbaPrzKjelKvP7FEFHAN11AcSOH8ccKbJHGgd5CoXOAkvXCq5O/8RchZQp2m/ZsC
-         loLQtxy3xHYyHKFaRn53A9z0Tt7juXEPLH7DZVZgyDrZs77sPYl0qL4Ez7XrWbNQqaP7
-         gpOldE/2f+HnOqmZxtxrXiuvYyjofLx6vqHtx8JxgGS655cHWeCjBu1+pSSAcX8GmPWs
-         rK5Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUaYGtorJxslVl89DbcRVRcxX/AcBxWJLyNwGoQd2pph+lHohtjN9g64JkaNrig7b5h2sHoikEUGP0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzkf3JSYd7ykz0XGaqdsRDAJlsJGIf6iCyes2czrNKlWPxA8YAz
-	jAdRUQ/F7wf83Bs2VkGFXHDhh+jpfielDiK+wtzaglPG00c7jnvHo/T26/k6ub0=
-X-Gm-Gg: ASbGncvv3ZSvJkWg+ENxnhywEkDDIEmEcf3pKHH6oEvmDj+mBzFAghxjskReRAYMSju
-	/MzvnA8IHUlVd4jKheBHmWmET+uMkn7gFi+1TwTsXQXrqF5UtPDt/vjbv1OOvwrJ18MKE3P4sX0
-	TpuaSBXNzDbsGL+ntNvV10FkKFfbLdZc38QXQcQTbZYO1UCLTG5MX1ftfYmW9MNtx9jI/NxS5fF
-	sPX5vKwtoYneBS3yg3ZRlNzXecIDUqARMZMTWJUQ6R8x1BPl8dN1aCsvV6DSOoMB3lcRn7K2eOq
-	YJxmRsbfIzp+dIK5RCc7H56HEs+cK6G1Yl1Ew5Dx3GUO6j+3tIyLxzlMIfU0aCGmsVxk6DPjdM8
-	YhZ25euwJaFbdwD4A3VyR
-X-Google-Smtp-Source: AGHT+IEY8RH13JnZ9zEAewyZcY17wd7nDi/+zKodTU+dQ0iFeN1LtUPvT9J1qSUdv2J+XDMo3W5eVw==
-X-Received: by 2002:a05:600c:3487:b0:43c:f3e4:d6f6 with SMTP id 5b1f17b1804b1-43ecfa19260mr2824895e9.31.1743707430640;
-        Thu, 03 Apr 2025 12:10:30 -0700 (PDT)
-Message-ID: <9079e1dd-3c2c-43e3-8afb-bf92fd13d3ee@citrix.com>
-Date: Thu, 3 Apr 2025 20:10:29 +0100
+        bh=0JnEDoYlTFRHgSnQxnYJjeyx6TDcDB2dZ0/ffJJWSFQ=;
+        b=X+M+8kPwgd8NFDOle3XUqGSS5h0G+QB14n21ddgPLWROlcbVlEiPp46KKUd3ZHkYjy
+         mqVwydDmVYJWpxpkdcMfXSU4TvV5sy1jwtltaqC3/EVAfJlxgoZqrfj6QdP0tLeQ6p4g
+         TF1wRcP2Xqpq0nldTn5Ouzbgr19CiCizV1XDAKhW8Mqy9tkrNEP7KkEc3dW/9kkPpyVZ
+         ZsaytF4jSsF/aoytex1Pb28+B4FLYWNo5CirQ7PXyB7x8LifbJndzV3qx45QGDsKU81z
+         ue3OadiHbT4CAE6i8GV+e4FgyZZhjG14myaDL4IhChxEtWlJu9hxyKoTacmIVCfjKXBo
+         7ecA==
+X-Forwarded-Encrypted: i=1; AJvYcCVbCPPQ9pRrBditNatCk66kKoZa2PM2viKep7KW2hLHdYBlf7kgO7lxuOJw7jXL2SGYSwIDYStiB/U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyigh2SsAk1SuV3Ffb6dmP0E3j/HpwQb7yBrcn0r7EvSlVWHwx7
+	F9An0Riy1Q/eK9afN6iv1iaKkKaCewCZEiIh7HmS4BaachuDHtDhYBtYeUeDlV8=
+X-Gm-Gg: ASbGncuGJ8ifw4b0GzcxZ/CfsQdRbIeW3yxFnlrLihsifQqN73epDdZYwzD+zTD2cwr
+	3AuhByRfMcoiOr09U9eoOvopoD7mPxeclyicFY7dc45uQwg5x2CUyIywLEJXo+ypXSh1C/II8cP
+	thoJmfHG+XhJT19PUA4NxixkEVT7PGzvdjxRgr00ETyu4oUSVG8esQ69qZuVSyxA3AJe6eqB8f1
+	FSlKXRQV/8hYMOiNNK2Cs0r/EyemKQzY3JmgxOu69inA4E5JfAVMO3/+4z8JAiZWzT8Y7/h9/kz
+	pQMV5XsotJJH9KDo9h5WLe8y5Fbn6IE+iWZM4IBU2GjoJddJYYfw6SmrXj8lfMmizttILYhPjYN
+	vDMrySk2nWw==
+X-Google-Smtp-Source: AGHT+IHEl8m8cA2rMU1EYJf/p24ZniZRUAT42WV0uEALlU5L0kv5wpl8oEnqbzsEeTTlJ/cT781rdw==
+X-Received: by 2002:a5d:64ec:0:b0:39c:1efb:ec9a with SMTP id ffacd0b85a97d-39d07ad8ab2mr38421f8f.6.1743707793838;
+        Thu, 03 Apr 2025 12:16:33 -0700 (PDT)
+Message-ID: <539dde2f-8b48-430a-9534-76a58b4c1b4f@citrix.com>
+Date: Thu, 3 Apr 2025 20:16:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] x86/vmx: remove HAVE_AS_{EPT,VMX}, GAS_VMX_OP()
- and *_OPCODE
+Subject: Re: [PATCH v2 2/6] x86/msr: remove HAVE_AS_FSGSBASE
 To: dmkhn@proton.me, xen-devel@lists.xenproject.org
 Cc: anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
  dmukhin@ford.com
 References: <20250403182250.3329498-1-dmukhin@ford.com>
- <20250403182250.3329498-2-dmukhin@ford.com>
+ <20250403182250.3329498-3-dmukhin@ford.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,155 +136,18 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250403182250.3329498-2-dmukhin@ford.com>
+In-Reply-To: <20250403182250.3329498-3-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 03/04/2025 7:23 pm, dmkhn@proton.me wrote:
 > From: Denis Mukhin <dmukhin@ford.com>
 >
-> The new toolchain baseline knows the VMX instructions,
+> The new toolchain baseline knows the {rd,wr}{f,g}sbase instructions,
 > no need to carry the workaround in the code.
 >
-> Move asm for vmxoff directly on the only callsite in vmcs.c
-
-Ideally VMXOFF in capitals as it's an instruction name.  But, this type
-of thing is more commonly phrased as "Inline __vmxoff() into it's single
-caller", or so.
-
->
-> Updated formatting for all __xxx() calls to be consistent.
-
-I'd suggest "for the other wrappers to be".
-
->
-> Resolves: https://gitlab.com/xen-project/xen/-/work_items/202
+> Resolves: https://gitlab.com/xen-project/xen/-/work_items/207
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
->  xen/arch/x86/arch.mk                   |   4 +-
->  xen/arch/x86/hvm/vmx/vmcs.c            |   2 +-
->  xen/arch/x86/include/asm/hvm/vmx/vmx.h | 119 ++++---------------------
 
-Just as a note, you're CC-ing The Rest, but this is an x86-only change,
-so should really only be CCing myself, Jan and Roger.
-
-> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-> index 1d427100ce..aef746a293 100644
-> --- a/xen/arch/x86/hvm/vmx/vmcs.c
-> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-> @@ -811,7 +811,7 @@ void cf_check vmx_cpu_down(void)
->  
->      BUG_ON(!(read_cr4() & X86_CR4_VMXE));
->      this_cpu(vmxon) = 0;
-> -    __vmxoff();
-> +    asm volatile ("vmxoff" : : : "memory");
-
-asm volatile ( "vmxoff" ::: "memory" );
-
->  
->      local_irq_restore(flags);
->  }
-> diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-> index 7c6ba73407..ed6a6986b9 100644
-> --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-> @@ -310,97 +292,54 @@ extern uint8_t posted_intr_vector;
->  #define INVVPID_ALL_CONTEXT                     2
->  #define INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL 3
->  
-> -#ifdef HAVE_AS_VMX
-> -# define GAS_VMX_OP(yes, no) yes
-> -#else
-> -# define GAS_VMX_OP(yes, no) no
-> -#endif
-> -
->  static always_inline void __vmptrld(u64 addr)
->  {
-> -    asm volatile (
-> -#ifdef HAVE_AS_VMX
-> -                   "vmptrld %0\n"
-> -#else
-> -                   VMPTRLD_OPCODE MODRM_EAX_06
-> -#endif
-> +    asm volatile ( "vmptrld %0\n"
-
-As you're changing the line anyway, this ought to be \n\t.  It's
-cosmetic, but comes in handy if you need to read the intermediate assembly.
-
->                     /* CF==1 or ZF==1 --> BUG() */
->                     UNLIKELY_START(be, vmptrld)
->                     _ASM_BUGFRAME_TEXT(0)
->                     UNLIKELY_END_SECTION
->                     :
-> -#ifdef HAVE_AS_VMX
->                     : "m" (addr),
-> -#else
-> -                   : "a" (&addr),
-> -#endif
->                       _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
-> -                   : "memory");
-> +                   : "memory" );
->  }
->  
->  static always_inline void __vmpclear(u64 addr)
->  {
-> -    asm volatile (
-> -#ifdef HAVE_AS_VMX
-> -                   "vmclear %0\n"
-> -#else
-> -                   VMCLEAR_OPCODE MODRM_EAX_06
-> -#endif
-> +    asm volatile ( "vmclear %0\n"
->                     /* CF==1 or ZF==1 --> BUG() */
->                     UNLIKELY_START(be, vmclear)
->                     _ASM_BUGFRAME_TEXT(0)
->                     UNLIKELY_END_SECTION
->                     :
-> -#ifdef HAVE_AS_VMX
->                     : "m" (addr),
-> -#else
-> -                   : "a" (&addr),
-> -#endif
->                       _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
-> -                   : "memory");
-> +                   : "memory" );
->  }
->  
->  static always_inline void __vmread(unsigned long field, unsigned long *value)
->  {
-> -    asm volatile (
-> -#ifdef HAVE_AS_VMX
-> -                   "vmread %1, %0\n\t"
-> -#else
-> -                   VMREAD_OPCODE MODRM_EAX_ECX
-> -#endif
-> +    asm volatile ( "vmread %1, %0\n\t"
->                     /* CF==1 or ZF==1 --> BUG() */
->                     UNLIKELY_START(be, vmread)
->                     _ASM_BUGFRAME_TEXT(0)
->                     UNLIKELY_END_SECTION
-> -#ifdef HAVE_AS_VMX
->                     : "=rm" (*value)
->                     : "r" (field),
-> -#else
-> -                   : "=c" (*value)
-> -                   : "a" (field),
-> -#endif
->                       _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
->          );
-
-Fold this onto the previous line, as you're fixing up all the other
-closing brackets.
-
-> @@ -494,24 +422,14 @@ static always_inline void __invvpid(unsigned long type, u16 vpid, u64 gva)
->      }  operand = {vpid, 0, gva};
->  
->      /* Fix up #UD exceptions which occur when TLBs are flushed before VMXON. */
-
-I find this comment deeply troubling, but lets not go changing that
-right now.
-
-I'm happy to fix this all on commit.
-
-~Andrew
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
