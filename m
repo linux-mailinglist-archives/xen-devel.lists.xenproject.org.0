@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95164A7A180
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 13:01:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.936461.1337697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9C87A7A193
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 13:07:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.936473.1337707 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0IIv-0003Np-9C; Thu, 03 Apr 2025 11:00:13 +0000
+	id 1u0IPJ-0005F5-Rw; Thu, 03 Apr 2025 11:06:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 936461.1337697; Thu, 03 Apr 2025 11:00:13 +0000
+Received: by outflank-mailman (output) from mailman id 936473.1337707; Thu, 03 Apr 2025 11:06:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0IIv-0003LN-5J; Thu, 03 Apr 2025 11:00:13 +0000
-Received: by outflank-mailman (input) for mailman id 936461;
- Thu, 03 Apr 2025 11:00:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u0IPJ-0005Cj-PN; Thu, 03 Apr 2025 11:06:49 +0000
+Received: by outflank-mailman (input) for mailman id 936473;
+ Thu, 03 Apr 2025 11:06:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JbNy=WV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u0IIu-0003LH-GR
- for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 11:00:12 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cd660fdd-107a-11f0-9ffb-bf95429c2676;
- Thu, 03 Apr 2025 13:00:06 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43cf257158fso4620315e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 04:00:06 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ec1692ba4sm18302915e9.16.2025.04.03.04.00.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Apr 2025 04:00:05 -0700 (PDT)
+ <SRS0=X4pi=WV=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1u0IPI-0005Cd-QN
+ for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 11:06:48 +0000
+Received: from fout-a5-smtp.messagingengine.com
+ (fout-a5-smtp.messagingengine.com [103.168.172.148])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bb2a0096-107b-11f0-9eaa-5ba50f476ded;
+ Thu, 03 Apr 2025 13:06:46 +0200 (CEST)
+Received: from phl-compute-12.internal (phl-compute-12.phl.internal
+ [10.202.2.52])
+ by mailfout.phl.internal (Postfix) with ESMTP id 2F9DA1380212;
+ Thu,  3 Apr 2025 07:06:45 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-12.internal (MEProxy); Thu, 03 Apr 2025 07:06:45 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 3 Apr 2025 07:06:44 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,123 +45,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd660fdd-107a-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743678006; x=1744282806; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=08NszHezCOETcMiXOyrzLaeHkX918KHLikx4QSFS/rU=;
-        b=EogBNckk10AFC6jtUmOc+2t4ucpdPzSQfUGlQ/tmOajscxb233kpleHmb8iIySFx3e
-         +4GMC971bjrtU1GNIhYNxXSXTrjqJcRU9Fk42eWFwwu9AdVzniOQYEQmzR45UfJMjKqx
-         qAKgH4q7/YoFQIoKRErF124kwSaX/NunHLdew=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743678006; x=1744282806;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=08NszHezCOETcMiXOyrzLaeHkX918KHLikx4QSFS/rU=;
-        b=UVLW1c8gh7Adk4KEQOMEyeaEm4K9NlclkO6Jlw8Ym1pCetDBNmvj4ybAP7xaOsowPY
-         XA+bPVA3t1gH5vKzWDaLE4KK0zxV0/KGinXOca6Z8MiNe/6OcbROX/yZOcWam+BMxPBc
-         HfPfzGO1ls4hykn1IhXklvfYs91iThmT54qlqFrZ7Ph4kgVwmV1qdu8DzQQg0H8LYRft
-         JdCzhH16868g71EZmC0Q5oM2rzLTfQ7oiETDIOOL9eFyaPabZNtj3RTdHilocaTIFAzc
-         36dQGXDV1FgNSwQsZO7wc9rDSz0zAQZrG3kC8zSbdbjTa4LhccreJ3eraIftuAOnrNev
-         8Jog==
-X-Gm-Message-State: AOJu0YwbOBn6Mt8ikDjqLeDcYIAU8asq/zGPMZmW0JBzrn5xVgWCVmKd
-	ji9WN/XPAmLWSHA833lRIPPDAoKtVnt5Iyr2NsNGw0LOiRwgt6CvhNncykw19Gkp4/NhdpVhiKm
-	NVFg=
-X-Gm-Gg: ASbGncv2SU+Xh/OPIp8EZgs20JIem2R8xBp7QYkEejLa1lihmj0NvsPgEBehEzm7Cij
-	je5GY0xfZNLHtDLtaT7v42KarAAV52hhUYs8V1l5fK5Xo/RbeCCA8R371KkWVCuq6a3b29MYl77
-	e8UvL+ONtJ0U0L4rmgW5GJwyoUOWrgSWW82GhlFBN53mgRp7uyWb0oj538oyfBZon1pNoWB/b99
-	y2HnKvu0E5m1wJTIPP97mmHLYvAdUytHd91lgPCDF6j56SMnmTWdF1Y3aEMOLEr/5MBXc9CLFVD
-	UBSwVt78x6J0t4eLxIPXlgw4GlU9t+s3VmAOd6txgIUNAgoLEZPUiulPoFtDtBYiwBce1YYreZ7
-	9FmAPvVbdWXIFjD+uq72kwx2+VZGf
-X-Google-Smtp-Source: AGHT+IF48VQh9DG8vVnIIJIFW2/gfFQBVofNPlg6Nu2o+qvbGc42nX+p+3lzniXif1vJnYON1IhApw==
-X-Received: by 2002:a05:600c:314f:b0:43d:53c:1ad6 with SMTP id 5b1f17b1804b1-43ec14d8015mr19152055e9.26.1743678005954;
-        Thu, 03 Apr 2025 04:00:05 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
+X-Inumbo-ID: bb2a0096-107b-11f0-9eaa-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
+	 t=1743678405; x=1743764805; bh=hcPUC6lyGcOBvjwSAqWIcFQ6cB01R6VL
+	ke5S96EY+H0=; b=LKucaZ8vQoWMtuHVE3tJNQedV8TnKv8dNrcZFfAcAvk2lLD3
+	zjr2SsD1xNrtF/OykYFOmjInQh/FvbkFQThyQSC0UUkDC4t4YkmBxTpZE+8cNNgO
+	krJPmQmjvTmT4X4fO2PVy8EJbc2eQF30p+e+0x+XKd8R3jKRMbp2l5iasVlWZKtj
+	iL476iqq5h4MNM7Hhspujyuw+Y1g/nUj2ahI6c7F+n+r7Y0zhlNW5doyVz2jGn/s
+	j8lRhtLIjk6VAv3iFsNpIEaxOi8yxa6/MX40J5xdUwmc0nQ2Vf9H4Bukk6qRtT/P
+	L+9PZ8ffJo1yqPe/ikjtgk7nlzYjsRhf79NZeA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1743678405; x=1743764805; bh=hcPUC6lyGcOBvjwSAqWIcFQ6cB01
+	R6VLke5S96EY+H0=; b=WA4SciCuuXtoKTSXjQ0/Fi3foS/FQkisBNm9dU20+i8F
+	eE3/ieo0QchhyRa1kjhZ9StaZDzROQgWS4LeQ6NqBk4/k5Xo0rkaaGs+jfITr8dc
+	aRQIevvTPBKQkTcxdSfaAxckrTEa4A0igiLMBGHwJJF98Vp/HDRhHeuyPos2RqMA
+	cf05oYCHZ1AdL7IdlLHm/TaRNCE6nMcSjkXUztbYGIU8EtKEnNJqUEQ3JoEc7I3W
+	Ji6WWIkhJIeDN0JiI+pUJM7BrCzfIU0g6KsPoSeFzCXd7HUBpo9WM0NNBrvcDUmI
+	MZCbh73Q2WZ/JUDUbpQnepQ/B7jycB/Wanhi7xWoGw==
+X-ME-Sender: <xms:xGvuZ4qVaiaNJEuRPFl7aH6JIE-O0J3kkU0VytwWvWQUDuOWgi0fEw>
+    <xme:xGvuZ-rD6exUdMM6oDQWng4S72iRnWMT1aTHl62tgdNT_LLuOXaNJynA_Eg9wvsou
+    YAaS2RVCuNkeg>
+X-ME-Received: <xmr:xGvuZ9P-pGSErAfUjtOyegH9BqgV3deh01EMOK022-zsPxDtj1CY5zd3YbKiNv2q1GxTluCmSEOgYLkk_gA1KbGZSRE5TackSRUyw20IUhEevbUezaI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddukeekfeelucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhephffvvefufffkofggtgfgsehtkeertdertdej
+    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
+    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
+    tffrrghtthgvrhhnpeelkefhudelteelleelteetveeffeetffekteetjeehlefggeekle
+    eghefhtdehvdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
+    ohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpd
+    hnsggprhgtphhtthhopeefpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopeigvghn
+    qdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhope
+    grnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtohepmhgr
+    rhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:xGvuZ_59mUAXsy7RIWJZlFJ-dJWxwiqEfvy03fo0uS3B83ogtEbm3A>
+    <xmx:xGvuZ36d-A6NrZx3CcvyoQSb3xvXerS-YIDYEDR1daSe8lmEN3D7Aw>
+    <xmx:xGvuZ_jeaLIvKPXTSh64dowAO5WlIurtl5AweY0FmuY88hbAQAaISw>
+    <xmx:xGvuZx5RNz62-UZoZvKXnWtlaAXzs8HVKEcTL_XLeJPVV1bB1s_moQ>
+    <xmx:xWvuZwVMieYau97ZYyoeSOeCbLu3sognyqqiWFcTaGzAbSnH7FWgenRZ>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH] xen/link: Drop .fixup section from non-x86 architectures
-Date: Thu,  3 Apr 2025 12:00:03 +0100
-Message-Id: <20250403110003.1461522-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v1 00/11] Several CI cleanups and improvements, plus yet another new runner
+Date: Thu,  3 Apr 2025 13:04:35 +0200
+Message-ID: <cover.59b4d1e66776c1e577aa5dd5460605dc6c240613.1743678257.git-series.marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The fixup section is only used by x86, and we're working to remove it there
-too.  Logic in the fixup section is unconnected to it's origin site, and
-interferes with backtraces/etc.
+Some of those patches are collected from my stubdomain test series, others are
+made while getting the new runner working. All of the cleanups can be applied
+independently, but most if not all are needed for the final patch adding new
+runner.
 
-Remove the section from the architectures which don't use it.
+As usual, besides the patches, somebody need to click on "hal9012" runner in
+the relevant projects.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
-CC: Shawn Anastasio <sanastasio@raptorengineering.com>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- xen/arch/arm/xen.lds.S   | 1 -
- xen/arch/ppc/xen.lds.S   | 1 -
- xen/arch/riscv/xen.lds.S | 1 -
- 3 files changed, 3 deletions(-)
+Marek Marczykowski-Górecki (11):
+  ci: prevent grub unpacking initramfs
+  ci: increase timeout for hw tests
+  ci: enable XHCI console in Xen debug build on Alpine
+  ci: include domU kernel messages in the console output log
+  ci: increase verbosity of starting a domain
+  ci: consistently use DOCKER_CMD in makefiles
+  ci: wait for the network interface in PCI passthrough tests
+  ci: switch test kernel from 6.1.19 to 6.12.21
+  ci: adjust resolving network interface into PCI device
+  ci: add AMD Zen 4 HW runner
+  [DO NOT MERGE] container
 
-diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
-index 86a6e311cfc5..ae1903246f69 100644
---- a/xen/arch/arm/xen.lds.S
-+++ b/xen/arch/arm/xen.lds.S
-@@ -45,7 +45,6 @@ SECTIONS
-        *(.text.*)
- #endif
- 
--       *(.fixup)
-        *(.gnu.warning)
-        _etext = .;             /* End of text section */
-   } :text = 0x9090
-diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
-index 3f2a7676ec96..1366e2819eed 100644
---- a/xen/arch/ppc/xen.lds.S
-+++ b/xen/arch/ppc/xen.lds.S
-@@ -38,7 +38,6 @@ SECTIONS
-         *(.text.*)
- #endif
- 
--        *(.fixup)
-         *(.gnu.warning)
-         . = ALIGN(POINTER_ALIGN);
-         _etext = .;             /* End of text section */
-diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
-index dffc6ae11913..818aa4366949 100644
---- a/xen/arch/riscv/xen.lds.S
-+++ b/xen/arch/riscv/xen.lds.S
-@@ -33,7 +33,6 @@ SECTIONS
-         *(.text.ident)
-         _ident_end = .;
- 
--        *(.fixup)
-         *(.gnu.warning)
-         . = ALIGN(POINTER_ALIGN);
-         _etext = .;             /* End of text section */
+ automation/build/Makefile                            |  4 +-
+ automation/gitlab-ci/build.yaml                      |  5 +-
+ automation/gitlab-ci/test.yaml                       | 58 ++++++++++++-
+ automation/scripts/qemu-alpine-x86_64.sh             |  2 +-
+ automation/scripts/qemu-smoke-dom0-arm32.sh          |  2 +-
+ automation/scripts/qemu-smoke-dom0-arm64.sh          |  2 +-
+ automation/scripts/qubes-x86-64.sh                   | 14 +--
+ automation/tests-artifacts/Makefile                  |  4 +-
+ automation/tests-artifacts/kernel/6.1.19.dockerfile  | 41 +---------
+ automation/tests-artifacts/kernel/6.12.21.dockerfile | 43 ++++++++++-
+ 10 files changed, 119 insertions(+), 56 deletions(-)
+ delete mode 100644 automation/tests-artifacts/kernel/6.1.19.dockerfile
+ create mode 100644 automation/tests-artifacts/kernel/6.12.21.dockerfile
 
-base-commit: ae5fd39be98c6219a302045aec7c25bdafa81781
+base-commit: 35910ed65f1d188774ce90ba9898ca33f7a9fe4d
 -- 
-2.39.5
-
+git-series 0.9.1
 
