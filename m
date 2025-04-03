@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5493A7A277
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 14:07:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.936748.1337923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26C5CA7A2CF
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 14:26:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.936767.1337933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0JLZ-0007OL-Ei; Thu, 03 Apr 2025 12:07:01 +0000
+	id 1u0Jdg-0006D8-Uz; Thu, 03 Apr 2025 12:25:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 936748.1337923; Thu, 03 Apr 2025 12:07:01 +0000
+Received: by outflank-mailman (output) from mailman id 936767.1337933; Thu, 03 Apr 2025 12:25:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0JLZ-0007M4-Ba; Thu, 03 Apr 2025 12:07:01 +0000
-Received: by outflank-mailman (input) for mailman id 936748;
- Thu, 03 Apr 2025 12:06:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lWYu=WV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u0JLX-0007Lw-La
- for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 12:06:59 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 24a4aba7-1084-11f0-9eaa-5ba50f476ded;
- Thu, 03 Apr 2025 14:06:58 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-43d0782d787so5195775e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 05:06:58 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ea8d1673dsm63722155e9.0.2025.04.03.05.06.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Apr 2025 05:06:57 -0700 (PDT)
+	id 1u0Jdg-0006Aw-QM; Thu, 03 Apr 2025 12:25:44 +0000
+Received: by outflank-mailman (input) for mailman id 936767;
+ Thu, 03 Apr 2025 12:25:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=X4pi=WV=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1u0Jdf-0006Aq-6W
+ for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 12:25:43 +0000
+Received: from fhigh-b4-smtp.messagingengine.com
+ (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bf1eae95-1086-11f0-9ffb-bf95429c2676;
+ Thu, 03 Apr 2025 14:25:37 +0200 (CEST)
+Received: from phl-compute-11.internal (phl-compute-11.phl.internal
+ [10.202.2.51])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 27A4825401BD;
+ Thu,  3 Apr 2025 08:25:36 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-11.internal (MEProxy); Thu, 03 Apr 2025 08:25:36 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 3 Apr 2025 08:25:34 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24a4aba7-1084-11f0-9eaa-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743682018; x=1744286818; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oUOEEAT0fdYR1j+yOGrKrOC7UgZ4pcUGyDF96IOo+iQ=;
-        b=Q7qsLqA2hBW1+qj38AJ0y/r/w1UXCkblpkxJS8Z/sxjaam1FMmWhCIeFTqp7TUDVnd
-         Waa73VxRLOh51v2L/iAHQoTZ36sQVHe3ruhI192u4Q+S9+IIX/0hkzFidjy+trushFfk
-         AWwPPBRxKyhV1t+9/ltMQJD0bKRWtmDY0GbGvfAxKMt+JJKPNxl5SsFfsQSuO4aeJUzx
-         wbr3Q3U/QhzdZvOptt8mfiDtI9JG7ijPsyMQP3wG5w+kixRheqt1FcsuGNp7I2Wkkojv
-         ClCSLkKKYt4dALyR6K7l9fzm44EnIDNcRKY0cAi7NjjknKkfGZ0mZ059Qu3smQmZMAfp
-         Q0wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743682018; x=1744286818;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oUOEEAT0fdYR1j+yOGrKrOC7UgZ4pcUGyDF96IOo+iQ=;
-        b=iHt4jMgj5nR03KBvcGbRug7FprLFb90j1QqoNaHTShl6sReVAd45KO2TJLr3zA/MW7
-         lv+EcBhskeCcYmy3guZnbsXQjAh77X97UwGdjUjxkH2d4TA0FjuGF3rWLivVYQZqG+2b
-         9qZFVlHS4LMwOPrHA2O91y8go+qHA/5im8tE6T3NU4cJfsmj/NK/uReooHAybA+pETqq
-         y4Wy+1yXS46W5NIHgKzT5qOim3VeLcUAerwKxaIhn5H05vYSTdwtJpaFcoAtcpei1+Pt
-         ZxyJWEKk6Lp6yxM+kx6Hc9LN4GGI8/ewfcvkp07j49RjPJhxsqfMb9kykAIXffwPRUn1
-         Cy1g==
-X-Forwarded-Encrypted: i=1; AJvYcCUSSGYwlsv6U+hRlYusDIROB680eDK+EBT8Ip/s66TM9g8g+csSoLeeftxqLk9CGDXhkyL44kYwBTM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzFhV+ZEITfAa5tnVLpiIUwkVO/2fKGOLzthvMSsIP+HvuQphlF
-	hzBEAT3UIaIVD2ICH4K2Wv4UtiaqhqIvcTXGwPaRxACExCdY+nSQuf8xT6QhxA==
-X-Gm-Gg: ASbGnct54eP9TLfXZ/y1LSfnBrXxQuKCpfA45YYyysEH5J0mTEthgU6cxMFj8ZpBSFu
-	C3C2IV4rLHUNWOxtvapS1+0c2/0JIJPPHlj6OUTRzelPWe0ceh1nSG8rUBdHF27uNoK9MzNmciJ
-	0i2HTN0RIhmJXHOOunwXSAQiq/V2LF1tQ5JvtijyrufjJrwkhqIQj8CPUkN2fgk3FgkmE1RpcHt
-	LNZtdhzPFfRB9AZ7yITkR5lqYNCaA2eCSMN1VVWW2gVMj36Ddox+/vWwBaYnSnpj2QFqdQz96sH
-	yh/6SmQZ1bEz3ueL3L7gJFfsJO5mT+/uiyi/dU48CW4mv24pucEtEYhTblTBT6cDhK4DGW6TQ7P
-	aTUcV4P0TRNDTPX68nM2E+xqeHrd9FUIERP+Ts00l
-X-Google-Smtp-Source: AGHT+IGGEZvIwxMbdelq1TpjPwnitRk0RvL7PSiSTkCyTEwrYm0b/X77NTIKN9hiauMpV1B05XBwPg==
-X-Received: by 2002:a05:600c:1382:b0:43d:b32:40aa with SMTP id 5b1f17b1804b1-43db61dc79bmr198048405e9.3.1743682018065;
-        Thu, 03 Apr 2025 05:06:58 -0700 (PDT)
-Message-ID: <3928bdd8-56d8-489a-ba6a-42ca3d93964b@suse.com>
-Date: Thu, 3 Apr 2025 14:06:56 +0200
+X-Inumbo-ID: bf1eae95-1086-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1743683136;
+	 x=1743769536; bh=zgwlwTNzCGdH3NPWh11FkbzBozSDnxWC3ARCo8yyOWE=; b=
+	AdSndEGCF42eQiNxOUZuRnxr3fTJpbrWkDW0FRED+gWedy7aXp86BJGkWwbcTBot
+	ZUPpjW1tfpY2ZVN7McGZJ01RJJ8py8BPsltFDQfVYxD7xbEoyFF3RcvZBR5ixWSl
+	nSOLDUDui0bQKPr2bSP8yfnuapV8sosEdMaIIxytWw58kZTlRdaa0r0lt6Obj3HZ
+	HoS9KxvzLFxJ8DNfBoPaPgvMvaZ8CRsd2wQZoHIEbesRtkU7ODC8nxRVZzHXIJWu
+	B4xic6Miti0/S1cYs+MLGcoWsmdeWQIz5LiZ+HGSM/wq6IOrDTzi7CqrClRCwXp3
+	Ly3Rmt3QJ3E5B3gLXQIoIg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1743683136; x=1743769536; bh=zgwlwTNzCGdH3NPWh11FkbzBozSDnxWC3AR
+	Co8yyOWE=; b=umk23coZ0SlmfUhXM8KXJvrKzQXK5GCg2zgdeh7Ppc1OqgikOdQ
+	dI64l1LP8uHWsmvH3hL75IahnzeTiISr/i3dMN/WJpd7xBZvKetAHFLT0jKihV+5
+	G5bsdGPE4/CEQlDQzC4nMd0As88QRL8HHfHxd5W6JFYeGYgAHWG8ML4Fb2JXtcw+
+	jNZTrUJ62CYRybRL5Ks7LtcqSSqdLt/+eKNK6tOcLEFwfhpOTGGXwHaEFA8nndsP
+	/BFw5rrcLE1SEJENmIht9BxVQ9SQhvskRjfjfR6upvmh9bQmJQhMXXr11ck++eYr
+	NWFhagBZIk3RuJEL8L3V57P/Aiv2JEjUq7g==
+X-ME-Sender: <xms:P37uZ50uZMhwHBbP84-1gNLuaK-lkbDQneyM2LsgG-3eBtuoXd0qkA>
+    <xme:P37uZwEDO7utwRX4C0z2zcH0P1NvLg3Aq-dkDcTr_fwPScAmw3NoueBvlj-Wd5B1w
+    qCuIVTyGsPt9g>
+X-ME-Received: <xmr:P37uZ56FH1d24wqUnKYFfwv1hU1U_V89xNSzAyQePwUGoD7qZo96iiqqci_P08vPrqhxyYOy7vENn4WY6py9-71_IADL5B6B7w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddukeekheehucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
+    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
+    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+    dpnhgspghrtghpthhtohephedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgs
+    vghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvg
+    hrfeestghithhrihigrdgtohhmpdhrtghpthhtoheptggrrhguohgvsegtrghrughovgdr
+    tghomhdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprh
+    gtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhr
+    gh
+X-ME-Proxy: <xmx:P37uZ21EA-Fbh5xj5QRdna_2kDkzKz4llOspPnZTgVMwJyx5T1ViAA>
+    <xmx:P37uZ8HUnZRhfdHl5lKA1okNBvC0lR9h5XrXb8Fdrw-4j9WmmWW5AQ>
+    <xmx:P37uZ3-YKxWu5ubGYlu-jQDo88r2NTcJOmonK-oYSovsubE-CWv98g>
+    <xmx:P37uZ5mZQ1h14TiYCbtmq3V3-PmobQnGlXsbtzpas302Kbj4mDhmgw>
+    <xmx:P37uZx2KhALQNJBnfTMSmeyiY7bo-GhZbr6HyPC37D9gzg1giEjlHMVK>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 3 Apr 2025 14:25:32 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 02/11] ci: increase timeout for hw tests
+Message-ID: <Z-5-PBcbtUOCSAiv@mail-itl>
+References: <cover.59b4d1e66776c1e577aa5dd5460605dc6c240613.1743678257.git-series.marmarek@invisiblethingslab.com>
+ <7578489af5c7df525d4c82231b68bbb7d955d2b4.1743678257.git-series.marmarek@invisiblethingslab.com>
+ <9e4660fc-b78f-4323-8a1b-aca3d410edd3@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: re-order .init.data contributions
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <b0266c19-d0e5-4de7-b2fb-a50e2766168c@suse.com>
- <b8200dc3-35a9-4ae5-a345-45f4c6143e55@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b8200dc3-35a9-4ae5-a345-45f4c6143e55@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="HpxtcURhaqsRspkz"
+Content-Disposition: inline
+In-Reply-To: <9e4660fc-b78f-4323-8a1b-aca3d410edd3@suse.com>
 
-On 03.04.2025 14:02, Andrew Cooper wrote:
-> On 01/04/2025 6:56 am, Jan Beulich wrote:
->> Putting a few bytes ahead of page tables isn't very efficient; there's
->> a gap almost worth a full page. To avoid re-ordering of items in the
->> source file, simply put the few small items in sub-section 1, for them
->> to end up after the page tables, followed (in the final binary) by non-
->> page-aligned items from other CUs.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
->> --- a/xen/arch/x86/boot/head.S
->> +++ b/xen/arch/x86/boot/head.S
->> @@ -136,6 +136,7 @@ multiboot2_header:
->>  .Lno_nx_msg:   .asciz "ERR: Not an NX-capable CPU!"
->>  
->>          .section .init.data, "aw", @progbits
->> +        .subsection 1 /* Put data here after the page tables (in x86_64.S). */
->>          .align 4
->>  
->>          .word   0
-> 
-> Just as a note, this depends on the toolchain baseline bump, so can't be
-> backported.
-> 
-> Clang-11 does now like subsection, so we can remove the !__clang__
-> specialisation for UNLIKELY_{START,END}_SECTION.
 
-Funny you should mention that: I did check before even making the change, and
-in assembly code we used .subsection already before. We just needed to be
-careful about inline assembly. See UNLIKELY_START() vs the two forms of
-UNLIKELY_START_SECTION.
+--HpxtcURhaqsRspkz
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 3 Apr 2025 14:25:32 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 02/11] ci: increase timeout for hw tests
 
-Irrespective of that: I had no intention to backport this.
+On Thu, Apr 03, 2025 at 01:32:38PM +0200, Jan Beulich wrote:
+> On 03.04.2025 13:04, Marek Marczykowski-G=C3=B3recki wrote:
+> > It appears as sometimes it takes more time for Xen even start booting,
+> > mostly due to firmware and fetching large boot files by grub. In some
+> > jobs the current timeout is pretty close to the actual time needed, and
+> > sometimes (rarely for now) test fails due to timeout expiring in the
+> > middle of dom0 booting. This will be happening more often if the
+> > initramfs will grow (and with more complex tests).
+>=20
+> With that, ...
+>=20
+> > This has been observed on some dom0pvh-hvm jobs, at least on runners hw3
+> > and hw11.
+> >=20
+> > Increase the timeout by yet another 60s (up to 180s now).
+>=20
+> ... is this little a bump going to be sufficient? How about moving straig=
+ht
+> to 5min?
 
-Jan
+I don't like this, as many (most) actual failures are visible as timeout
+(for example panic that prevents reaching Alpine prompt). One
+improvement I can see is splitting this into two separate timeouts: one
+before seeing the first line from Xen and then the second one for
+reaching Alpine login prompt. The first one can be longer as its mostly
+about firmware+fetching boot files and shouldn't hit on crashes (unless
+a crash happen before printing anything on the console - but those are
+rare).
+
+> As to observed failing jobs - the PV Dom0 boot failure seen today looks to
+> also be due to too short a timeout.
+
+As responded on Matrix, I'm not so sure, there is over 1m wait after
+"Built 1 zonelists, mobility grouping on.  Total pages: 8228487" line
+=66rom dom0 (or a bit later, due to buffering by sed), while in successful
+test next lines follow instantaneously.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--HpxtcURhaqsRspkz
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmfufjwACgkQ24/THMrX
+1yxQfwf7B3erNxfwdP8M6xErtOisjCkENZOPtm63gUzStPJakX2qEqycfCGncf7D
+4rfprv321vgK9+zO+/jl6QlwW3rpIKLlpt7koBSwDF1cvd761uZl7nCwcHXSI+t4
+voHSxHB7PEWG8K4yDFwo0KyWc6ijQ3FWzoAzTnFECQXHc03W1GCHg/ewh8AycLM0
+5gii3JUBFb4DAku+JyoirZY7VsfLG8yr2bbfW2BaukkpU0Vlj7+N37E1Gw6GZ9WO
+FLv1cQKaJaTeWgk3TFhG8asmvOOplf0ocAdZimi8RjJtM4478OpYcEUw73otbuYh
+NK7121JFR5L4FK7xLQEeBgIAsOMHaA==
+=CnYR
+-----END PGP SIGNATURE-----
+
+--HpxtcURhaqsRspkz--
 
