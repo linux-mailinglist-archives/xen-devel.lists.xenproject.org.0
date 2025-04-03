@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C12A7A1DB
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 13:29:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.936646.1337837 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01926A7A1F2
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 13:33:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.936657.1337847 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0Il7-0001EQ-0u; Thu, 03 Apr 2025 11:29:21 +0000
+	id 1u0IoN-0004ev-Fj; Thu, 03 Apr 2025 11:32:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 936646.1337837; Thu, 03 Apr 2025 11:29:20 +0000
+Received: by outflank-mailman (output) from mailman id 936657.1337847; Thu, 03 Apr 2025 11:32:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0Il6-0001Cy-UT; Thu, 03 Apr 2025 11:29:20 +0000
-Received: by outflank-mailman (input) for mailman id 936646;
- Thu, 03 Apr 2025 11:29:19 +0000
+	id 1u0IoN-0004dS-CH; Thu, 03 Apr 2025 11:32:43 +0000
+Received: by outflank-mailman (input) for mailman id 936657;
+ Thu, 03 Apr 2025 11:32:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lWYu=WV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u0Il5-0001Cq-TR
- for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 11:29:19 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1u0IoL-0004dM-Rb
+ for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 11:32:41 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1d52477-107e-11f0-9eaa-5ba50f476ded;
- Thu, 03 Apr 2025 13:29:19 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43cf257158fso4820225e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 04:29:19 -0700 (PDT)
+ id 5a17a5c4-107f-11f0-9eaa-5ba50f476ded;
+ Thu, 03 Apr 2025 13:32:40 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43cfe63c592so7476955e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 04:32:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c301b8ae1sm1577366f8f.51.2025.04.03.04.29.17
+ 5b1f17b1804b1-43ec34ae0c5sm16068655e9.15.2025.04.03.04.32.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Apr 2025 04:29:18 -0700 (PDT)
+ Thu, 03 Apr 2025 04:32:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1d52477-107e-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 5a17a5c4-107f-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743679758; x=1744284558; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743679960; x=1744284760; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=F1hgtLHeUx0/BP7kMGb1rHCPAsT4+st2ctrCwWoIE24=;
-        b=QlbPrgATGLG/r71ZN0XDhjxaJ9KUzmEKHYa//CabgwL7V+v4WGPujbFMtwT9JXNC4R
-         xOR5edtRz/QJMNZ6OSvP8jiqHq7kmxYqur922KL+Igg3NVYpq4aK7LJRn/Dwd7gPEMG5
-         6MTWu1GOLyTd+g4fHxtCpPoAmZBEIJ45sYMYj4ummKUHrK2vw6e44YSMjjCN0yVhXwdH
-         QTRPWlW/kI9Xz9JmIc+CJLY+PpKIO+sYedj2DuPwYVDwrZKqkLVi2zQtCc4G5UKHQSAL
-         fNJ0a/1GBlnPOE2vy1XMIjKFFBG415l83omY7RpaOMtm5mW6jJQNug2nrWd80dY+4KBj
-         0AVg==
+        bh=i5pZZco6E76e1EG3F3nlkL9lhN/8NZwEMQ1WVZgezSc=;
+        b=MtUt+Bui1lHVM3vlZKs4d5gg6QJ6JzEVmW8JeE87EiuKe8dK40wwRzpHSrR10t0JOD
+         YbmtJWY7xMpOwQaQArzEDOu6k21/vhaONyrxHsh3hFabMVEv6YGLFcHEDkBw0nRB8bnJ
+         iEwFGW97UBH4EtVMVf6FiaYVGUpBx7p6oG1WFbeOhVwetHOziZV3YUWil0zZNlsobvft
+         uRvifJNuYgnXTl9z0ZQcCyA1tfX4M9pCe7YPB/V1EBPWgWMBplhiaGU3mMELpV4GfxVr
+         A0YTxKkwdmnE8Bkiv6g9DCJcDnmWoQMFTxpF+E0ztJ7mTjJjHcsYZOcHOUYY51BzSqKD
+         lBYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743679758; x=1744284558;
+        d=1e100.net; s=20230601; t=1743679960; x=1744284760;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=F1hgtLHeUx0/BP7kMGb1rHCPAsT4+st2ctrCwWoIE24=;
-        b=mS73NgLnSk2Lxi1wzvon3DDkjcgxsF2LOztLkH6FI74+5eG4ufSZ44JZfYI6OMbccm
-         I8lkXupZjCUXeKdG/yg7Vte1C0H3BVCGKOjq75hBjWvUogAPtr24pHZaXXzuZwzIwcTp
-         NU21z/sAXkp0G8/grx0A8hCbOIYtItfiMm1fDc8ZiiVIPe/r5A75tvRhYzfwbLIzaASp
-         evpIV65XNVcbsUjPzagzow698buM+xYzjS8koKp02iLfvSknDGAXuZhnJIao9YsbK0Pz
-         1wc2H9jAVNHWQcZVN92w+qw+ESndJCJgNQHV3aZx/wDIwAWto2ADwCEK1cnZYhoWXwId
-         zBtg==
-X-Forwarded-Encrypted: i=1; AJvYcCUKyj5kwpgujOZo3mgEcRsYU3T4/6WfgDvCd4nlJp2Vge8yORxtrMuN1BOluXgIf6l0ERH71NK/kW8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/xHtVv0jTHaEbQlmUeV4FSqdgT4MnAXCTbdP75QCaQfw0InhO
-	OSxLitrmvZrTUH0oyE/4z3yNK96w6Jx7VR6BtAt77PbFNjaQOvjMyNscpddycg==
-X-Gm-Gg: ASbGncuzbVQaV/PmTQDv7Rqbv+pOwYTztxDdqm/22kz5mkLFx8xyaCXxKBKLyGE8nSO
-	Va5bXDxf2fNk6qPe5pModRn1ztplP8o3KYDD9FoUiGmibtLGwVohaRdVCy9PXdwjm2Y1Hf4ajvU
-	puEFTxutMBeRWeXEc1FlCUwKkcMgwoFx3GJXzlenv790I38EdkoNZkt9KjUBfiSG2J1rEolLifC
-	qZjyUqjkwdPQahYeEOyfIFtnYQ4X6E5y5N2i8DEeTfWrXPdQOqvDQR0QJEZ0f3/atiNs2+Bn2hW
-	lz5Qy4wTmKzXP3sbg5V8V8MgM3u6+yDm50GY9wCFBNWniij2LTi40XHB/+CYpyBEndX/bT5f/OZ
-	CRVHP8nLSwF4LP0n9Rm3POnSoyhtD2Q==
-X-Google-Smtp-Source: AGHT+IGt8LsZupWO8aiGn8SX51kaAd5qf6N8nzOIlNcu6sHqWTXKpLFBgSTG2HFpxWfO/QB2F8jesA==
-X-Received: by 2002:a05:600c:190b:b0:43d:10a:1b90 with SMTP id 5b1f17b1804b1-43ec13fdf41mr23281975e9.16.1743679758550;
-        Thu, 03 Apr 2025 04:29:18 -0700 (PDT)
-Message-ID: <a64136e8-c74e-4f47-b52f-cd5b25c57b2e@suse.com>
-Date: Thu, 3 Apr 2025 13:29:16 +0200
+        bh=i5pZZco6E76e1EG3F3nlkL9lhN/8NZwEMQ1WVZgezSc=;
+        b=O8DpaWrVYH0CJNHdNkgycdeBhhOGvNrWKcgtV6ekpT657kRsujxqjXaZH5yaylZfYS
+         C5IdsVoyOdv+wYkx/pQ+4qX/K1XonvYNl6xF6SGlTfp2XFKJ/QE5y0XkeNX7JJU4Rk1r
+         wXu6My5lEyAkidIGjAq5wW/LSncY7D1TwDoQn4EDn7/nSV5lk8lKWkm5I4YOri+hcDJu
+         sA3Bk9i13+YYBrsdp6F+ovHM6RJY5VhLaZ5afokFtYdnRbiBr0uPZwcz8ANm514inVqi
+         0K+jVjhIgk1biaiOP8lIRvVWllfExQJVj6agpQNXwA7iRg1N6NFFahxJ7zw/9PwRPFUm
+         F6hQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWMxywjQsxwGLfunKI0Dy3snv2qTOeAPeiyQdMjBdae2rMXKUbHCRDsEwTj32n8yLfEHIPABls/l+I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzy6YmJL5Q4yFvBcjPl7jcrMdTR8z83Vy50h+MjuP+YgQIOH6tN
+	IzTqh38VBt/GWtIo9DVn4LODRXa5cFevDK4gXe7AaYsfbAiTRfn4S60PcREftA==
+X-Gm-Gg: ASbGnctz8X7MRgTpO8mvEhHsyeSiZm4Ya7P8o1y6klTXT1k6UFZD3LZtlu/uA1qUUbL
+	gxhiQzErz5ALLHiwi5Yu2QD1AiUFrx/clK2TViY+hlpBH1vIiOREB0LXb+nGke0NPtLN7DUedrb
+	Qs9zFJSvlzUcHh1250MyU72dclb7UzDRZG1Y5HBwMmNVcY98rgxO+lthwSZ718xBMZyoltaE15g
+	jmPewjOFQwH+rlrWATeFA9YnJehohIYWTMl4bfkfEJg4Nkv+SHm9wkolLIzm65FDWq+hoeL+F5l
+	H0PNb1dMXs9Evd2faLHZHbE5QtaLOenGVIGZRbBfgTc7rXypRTqGop1/ieGpZrRilaD7ijvtQWp
+	lGSftxoWsJiE64FDQAGZ8o/9An2vhww==
+X-Google-Smtp-Source: AGHT+IGQrdOSvgUSqPSOjLurAzzucnpBSQIk3jA0WVH2CjlndY2mf4mXxnt7ptT3Eymf8ZL/ZxfADA==
+X-Received: by 2002:a05:600c:4fd1:b0:43c:f6b0:e807 with SMTP id 5b1f17b1804b1-43db8527142mr219466125e9.31.1743679960224;
+        Thu, 03 Apr 2025 04:32:40 -0700 (PDT)
+Message-ID: <9e4660fc-b78f-4323-8a1b-aca3d410edd3@suse.com>
+Date: Thu, 3 Apr 2025 13:32:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 01/11] ci: prevent grub unpacking initramfs
+Subject: Re: [PATCH v1 02/11] ci: increase timeout for hw tests
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Doug Goldstein <cardoe@cardoe.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.59b4d1e66776c1e577aa5dd5460605dc6c240613.1743678257.git-series.marmarek@invisiblethingslab.com>
- <e1d07b26a92a45ed387594dd789453def1ef1eb2.1743678257.git-series.marmarek@invisiblethingslab.com>
+ <7578489af5c7df525d4c82231b68bbb7d955d2b4.1743678257.git-series.marmarek@invisiblethingslab.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,18 +120,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e1d07b26a92a45ed387594dd789453def1ef1eb2.1743678257.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <7578489af5c7df525d4c82231b68bbb7d955d2b4.1743678257.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 03.04.2025 13:04, Marek Marczykowski-Górecki wrote:
-> It fails on larger initramfs (~250MB one) and sometimes even smaller
-> depending on memory size/memory map, let Linux do it.
+> It appears as sometimes it takes more time for Xen even start booting,
+> mostly due to firmware and fetching large boot files by grub. In some
+> jobs the current timeout is pretty close to the actual time needed, and
+> sometimes (rarely for now) test fails due to timeout expiring in the
+> middle of dom0 booting. This will be happening more often if the
+> initramfs will grow (and with more complex tests).
 
-Iirc grub only unpacks gzip-ed modules, so wouldn't a yet better approach
-be to use a better compressing algorithm, which simply as a side effect
-would keep grub from decompressing it, while at the same time moving
-farther away from any critical boundaries?
+With that, ...
+
+> This has been observed on some dom0pvh-hvm jobs, at least on runners hw3
+> and hw11.
+> 
+> Increase the timeout by yet another 60s (up to 180s now).
+
+... is this little a bump going to be sufficient? How about moving straight
+to 5min?
+
+As to observed failing jobs - the PV Dom0 boot failure seen today looks to
+also be due to too short a timeout.
 
 Jan
 
