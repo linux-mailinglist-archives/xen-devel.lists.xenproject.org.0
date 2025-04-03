@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F39EA7A266
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 14:03:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.936737.1337913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5493A7A277
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 14:07:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.936748.1337923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0JII-0006nl-16; Thu, 03 Apr 2025 12:03:38 +0000
+	id 1u0JLZ-0007OL-Ei; Thu, 03 Apr 2025 12:07:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 936737.1337913; Thu, 03 Apr 2025 12:03:37 +0000
+Received: by outflank-mailman (output) from mailman id 936748.1337923; Thu, 03 Apr 2025 12:07:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0JIH-0006lH-UR; Thu, 03 Apr 2025 12:03:37 +0000
-Received: by outflank-mailman (input) for mailman id 936737;
- Thu, 03 Apr 2025 12:03:36 +0000
+	id 1u0JLZ-0007M4-Ba; Thu, 03 Apr 2025 12:07:01 +0000
+Received: by outflank-mailman (input) for mailman id 936748;
+ Thu, 03 Apr 2025 12:06:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lWYu=WV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u0JIG-0006Gl-P1
- for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 12:03:36 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1u0JLX-0007Lw-La
+ for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 12:06:59 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id abd57c05-1083-11f0-9eaa-5ba50f476ded;
- Thu, 03 Apr 2025 14:03:36 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-4394345e4d5so5048805e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 05:03:35 -0700 (PDT)
+ id 24a4aba7-1084-11f0-9eaa-5ba50f476ded;
+ Thu, 03 Apr 2025 14:06:58 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43d0782d787so5195775e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 05:06:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ec1660eb3sm20179915e9.11.2025.04.03.05.03.34
+ 5b1f17b1804b1-43ea8d1673dsm63722155e9.0.2025.04.03.05.06.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Apr 2025 05:03:35 -0700 (PDT)
+ Thu, 03 Apr 2025 05:06:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: abd57c05-1083-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 24a4aba7-1084-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743681815; x=1744286615; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743682018; x=1744286818; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Sgg1/ugnyIOc1WIKoA/Z0SxgW5B3RMyuYwm4J7+mjxc=;
-        b=NK+Ryc+Cufgo4p/tdLIf3FyAfyiTAJeGPQp9Qw2Tpes4yJS2RiNpZZb+7ZpwztI+WC
-         xbAcJ2yuglrdclMJBw39YEW79d7anizqTU9vd4cSNN1dtA526y/sCwJxdXDysWc2MRUZ
-         NP9sgF9a34mtQjl2Wjf8S/JEBQB8AJZS5DYEjNHctGqqW+BdZdGikjiVbMFTjd2M6Fqy
-         /Cf5wLi+Umbs364XxZr4ARbqsFN5LuUqtINRrZUgGCRPAFW+KMcoy50vw78/nuMTix+C
-         gSX2cLj57+BsQLc0Tb5KKrtPv5fDkNPQF7OqZl+vfl5mFsBn2VIdfdUD3GxBMejUxiOm
-         xVGQ==
+        bh=oUOEEAT0fdYR1j+yOGrKrOC7UgZ4pcUGyDF96IOo+iQ=;
+        b=Q7qsLqA2hBW1+qj38AJ0y/r/w1UXCkblpkxJS8Z/sxjaam1FMmWhCIeFTqp7TUDVnd
+         Waa73VxRLOh51v2L/iAHQoTZ36sQVHe3ruhI192u4Q+S9+IIX/0hkzFidjy+trushFfk
+         AWwPPBRxKyhV1t+9/ltMQJD0bKRWtmDY0GbGvfAxKMt+JJKPNxl5SsFfsQSuO4aeJUzx
+         wbr3Q3U/QhzdZvOptt8mfiDtI9JG7ijPsyMQP3wG5w+kixRheqt1FcsuGNp7I2Wkkojv
+         ClCSLkKKYt4dALyR6K7l9fzm44EnIDNcRKY0cAi7NjjknKkfGZ0mZ059Qu3smQmZMAfp
+         Q0wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743681815; x=1744286615;
+        d=1e100.net; s=20230601; t=1743682018; x=1744286818;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Sgg1/ugnyIOc1WIKoA/Z0SxgW5B3RMyuYwm4J7+mjxc=;
-        b=f6U8oHiu2DRIxSc1MysAWZlsV9CAiJWsJyVeBbn7UyQuorwwlIlxJLrnBQ5OFykmpc
-         2fbuxwwas8JWIg2sbGDU36afWq1bLMcr4LL81mLsz+5etcID4uRL+Jm+Wzs781fPDYtC
-         8QMA7Ue4DXgxO0K/QrRSAnRF3ngUq7LMgoHJJWd3jGHwE8jzzYDd8qQ4kwSVX+5c8cWw
-         56KD3Unj9VFgoU1MXQxMQCaek9h3ti71mXAUzVlT90B5pIIY+m0NnuYLFYTx032X2Q1W
-         u57zzYyquDNT1zFsP61PLLNxsBl5k85w7U45Xfk1X4TdXbmcZkgnzp3G2bb1OYPF0no7
-         avhg==
-X-Forwarded-Encrypted: i=1; AJvYcCWe3MueXbQ5MZzIx9z03EyrM1QH5donUc/XBY1GRJuGp9+M4Ow/ZyG64jZUnZJ8PnZ8j1fN7UNsxZ0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwxLNlWgYagBjV1gFifcEmUjLrCOPjZZphTchMhTeyzMAGqxCUg
-	tz3QsKaChXdTDck0DW6Me8LC1pPsz9Twm8VTz6IoHk4jHszDCz3dkzLoKxqrP+m0ho7yd/T8nzs
-	=
-X-Gm-Gg: ASbGncuO/H9WLjNLUri+m+ZI+WPKIPvay1pajck/ModECXpg7EBNE4nKC5QZxFulTGF
-	90vvu2XVXtZYntzhEhwUXixjpXxFPFYnD+2gfL/ws0/rBZ0cFi3xfRK8PXXc8QK14H2BP9TJBCI
-	6eSKXf2klxPUllD2FZopVPJzsjmW03yTRf5+shNG+9mMu+RVQ1vAv2eKKPbgVHWnfSRKZ5zH3ag
-	dfI5Cjn7Bf183+H6fM5YdidcAq8YFFxJT7cTEAEP4Do4s70eTz2ge1IVd64dn+okSiQt7AvjisO
-	5YEnt5rNmLNipzvy9cwybDYJwSFJRxS39H0Pl7O6g8IM31bt2wlIIL1kxvHoaoRoUap/FWM2+w+
-	z44wgVoc+Cb5W+NZYTu7d05rpQdrYgA==
-X-Google-Smtp-Source: AGHT+IHVwKBg9QjNQFncCiQkszkDM9a1epLnklZTwdUssNj1L9LvAOGT5P0auVL6emjxxl3Kqf4aVA==
-X-Received: by 2002:a05:600c:190b:b0:43d:94:2d1e with SMTP id 5b1f17b1804b1-43eb5c188b3mr64118545e9.13.1743681815329;
-        Thu, 03 Apr 2025 05:03:35 -0700 (PDT)
-Message-ID: <fd08e366-7da6-45d2-b3c6-a63d732c5cc3@suse.com>
-Date: Thu, 3 Apr 2025 14:03:33 +0200
+        bh=oUOEEAT0fdYR1j+yOGrKrOC7UgZ4pcUGyDF96IOo+iQ=;
+        b=iHt4jMgj5nR03KBvcGbRug7FprLFb90j1QqoNaHTShl6sReVAd45KO2TJLr3zA/MW7
+         lv+EcBhskeCcYmy3guZnbsXQjAh77X97UwGdjUjxkH2d4TA0FjuGF3rWLivVYQZqG+2b
+         9qZFVlHS4LMwOPrHA2O91y8go+qHA/5im8tE6T3NU4cJfsmj/NK/uReooHAybA+pETqq
+         y4Wy+1yXS46W5NIHgKzT5qOim3VeLcUAerwKxaIhn5H05vYSTdwtJpaFcoAtcpei1+Pt
+         ZxyJWEKk6Lp6yxM+kx6Hc9LN4GGI8/ewfcvkp07j49RjPJhxsqfMb9kykAIXffwPRUn1
+         Cy1g==
+X-Forwarded-Encrypted: i=1; AJvYcCUSSGYwlsv6U+hRlYusDIROB680eDK+EBT8Ip/s66TM9g8g+csSoLeeftxqLk9CGDXhkyL44kYwBTM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzFhV+ZEITfAa5tnVLpiIUwkVO/2fKGOLzthvMSsIP+HvuQphlF
+	hzBEAT3UIaIVD2ICH4K2Wv4UtiaqhqIvcTXGwPaRxACExCdY+nSQuf8xT6QhxA==
+X-Gm-Gg: ASbGnct54eP9TLfXZ/y1LSfnBrXxQuKCpfA45YYyysEH5J0mTEthgU6cxMFj8ZpBSFu
+	C3C2IV4rLHUNWOxtvapS1+0c2/0JIJPPHlj6OUTRzelPWe0ceh1nSG8rUBdHF27uNoK9MzNmciJ
+	0i2HTN0RIhmJXHOOunwXSAQiq/V2LF1tQ5JvtijyrufjJrwkhqIQj8CPUkN2fgk3FgkmE1RpcHt
+	LNZtdhzPFfRB9AZ7yITkR5lqYNCaA2eCSMN1VVWW2gVMj36Ddox+/vWwBaYnSnpj2QFqdQz96sH
+	yh/6SmQZ1bEz3ueL3L7gJFfsJO5mT+/uiyi/dU48CW4mv24pucEtEYhTblTBT6cDhK4DGW6TQ7P
+	aTUcV4P0TRNDTPX68nM2E+xqeHrd9FUIERP+Ts00l
+X-Google-Smtp-Source: AGHT+IGGEZvIwxMbdelq1TpjPwnitRk0RvL7PSiSTkCyTEwrYm0b/X77NTIKN9hiauMpV1B05XBwPg==
+X-Received: by 2002:a05:600c:1382:b0:43d:b32:40aa with SMTP id 5b1f17b1804b1-43db61dc79bmr198048405e9.3.1743682018065;
+        Thu, 03 Apr 2025 05:06:58 -0700 (PDT)
+Message-ID: <3928bdd8-56d8-489a-ba6a-42ca3d93964b@suse.com>
+Date: Thu, 3 Apr 2025 14:06:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 01/11] ci: prevent grub unpacking initramfs
+Subject: Re: [PATCH] x86/boot: re-order .init.data contributions
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-References: <cover.59b4d1e66776c1e577aa5dd5460605dc6c240613.1743678257.git-series.marmarek@invisiblethingslab.com>
- <e1d07b26a92a45ed387594dd789453def1ef1eb2.1743678257.git-series.marmarek@invisiblethingslab.com>
- <a64136e8-c74e-4f47-b52f-cd5b25c57b2e@suse.com>
- <d832f7c5-5a59-46c5-b5c6-109dd13a77e3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <b0266c19-d0e5-4de7-b2fb-a50e2766168c@suse.com>
+ <b8200dc3-35a9-4ae5-a345-45f4c6143e55@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,34 +118,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d832f7c5-5a59-46c5-b5c6-109dd13a77e3@citrix.com>
+In-Reply-To: <b8200dc3-35a9-4ae5-a345-45f4c6143e55@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 03.04.2025 13:39, Andrew Cooper wrote:
-> On 03/04/2025 12:29 pm, Jan Beulich wrote:
->> On 03.04.2025 13:04, Marek Marczykowski-Górecki wrote:
->>> It fails on larger initramfs (~250MB one) and sometimes even smaller
->>> depending on memory size/memory map, let Linux do it.
->> Iirc grub only unpacks gzip-ed modules, so wouldn't a yet better approach
->> be to use a better compressing algorithm, which simply as a side effect
->> would keep grub from decompressing it, while at the same time moving
->> farther away from any critical boundaries?
+On 03.04.2025 14:02, Andrew Cooper wrote:
+> On 01/04/2025 6:56 am, Jan Beulich wrote:
+>> Putting a few bytes ahead of page tables isn't very efficient; there's
+>> a gap almost worth a full page. To avoid re-ordering of items in the
+>> source file, simply put the few small items in sub-section 1, for them
+>> to end up after the page tables, followed (in the final binary) by non-
+>> page-aligned items from other CUs.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/xen/arch/x86/boot/head.S
+>> +++ b/xen/arch/x86/boot/head.S
+>> @@ -136,6 +136,7 @@ multiboot2_header:
+>>  .Lno_nx_msg:   .asciz "ERR: Not an NX-capable CPU!"
+>>  
+>>          .section .init.data, "aw", @progbits
+>> +        .subsection 1 /* Put data here after the page tables (in x86_64.S). */
+>>          .align 4
+>>  
+>>          .word   0
 > 
-> Yes and no.
+> Just as a note, this depends on the toolchain baseline bump, so can't be
+> backported.
 > 
-> This is going to change anyway when I (or a delgee) moves initrd
-> generation from the test step itself into the test artefacts repo.
-> 
-> Switching to a slower algorithm will impact every test step right now.
-> 
-> Real systems doesn't see this in general, because it there's an
-> uncompressed microcode container at the front, and it's not identified
-> as being compressed at all.
-> 
-> I'd prefer to stick with Marek's patch in the short term.
+> Clang-11 does now like subsection, so we can remove the !__clang__
+> specialisation for UNLIKELY_{START,END}_SECTION.
 
-Fair enough.
+Funny you should mention that: I did check before even making the change, and
+in assembly code we used .subsection already before. We just needed to be
+careful about inline assembly. See UNLIKELY_START() vs the two forms of
+UNLIKELY_START_SECTION.
+
+Irrespective of that: I had no intention to backport this.
 
 Jan
 
