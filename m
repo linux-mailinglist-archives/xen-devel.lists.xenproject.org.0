@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FAEBA7A384
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 15:16:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.936822.1337972 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B534A7A45A
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 15:51:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.936834.1337982 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0KQJ-0003lM-7D; Thu, 03 Apr 2025 13:15:59 +0000
+	id 1u0Ky4-00057V-I6; Thu, 03 Apr 2025 13:50:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 936822.1337972; Thu, 03 Apr 2025 13:15:59 +0000
+Received: by outflank-mailman (output) from mailman id 936834.1337982; Thu, 03 Apr 2025 13:50:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0KQJ-0003j4-4U; Thu, 03 Apr 2025 13:15:59 +0000
-Received: by outflank-mailman (input) for mailman id 936822;
- Thu, 03 Apr 2025 13:15:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u0Ky4-00055P-FA; Thu, 03 Apr 2025 13:50:52 +0000
+Received: by outflank-mailman (input) for mailman id 936834;
+ Thu, 03 Apr 2025 13:50:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AIOE=WV=bounce.vates.tech=bounce-md_30504962.67ee8a09.v1-2714fdff1a4e4d1da47dff16fb2cf74c@srs-se1.protection.inumbo.net>)
- id 1u0KQG-0003iy-Qg
- for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 13:15:57 +0000
-Received: from mail180-44.suw31.mandrillapp.com
- (mail180-44.suw31.mandrillapp.com [198.2.180.44])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c5e151eb-108d-11f0-9eaa-5ba50f476ded;
- Thu, 03 Apr 2025 15:15:55 +0200 (CEST)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-44.suw31.mandrillapp.com (Mailchimp) with ESMTP id
- 4ZT2L14npzz7064Cq
- for <xen-devel@lists.xenproject.org>; Thu,  3 Apr 2025 13:15:53 +0000 (GMT)
+ <SRS0=veT/=WV=bounce.vates.tech=bounce-md_30504962.67ee922c.v1-f726adaef1844703bcd15d87ca759d97@srs-se1.protection.inumbo.net>)
+ id 1u0Ky2-00050L-Up
+ for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 13:50:51 +0000
+Received: from mail186-2.suw21.mandrillapp.com
+ (mail186-2.suw21.mandrillapp.com [198.2.186.2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9f57a323-1092-11f0-9ffb-bf95429c2676;
+ Thu, 03 Apr 2025 15:50:38 +0200 (CEST)
+Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail186-2.suw21.mandrillapp.com (Mailchimp) with ESMTP id 4ZT3644XCWzS62QKQ
+ for <xen-devel@lists.xenproject.org>; Thu,  3 Apr 2025 13:50:36 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 2714fdff1a4e4d1da47dff16fb2cf74c; Thu, 03 Apr 2025 13:15:53 +0000
+ f726adaef1844703bcd15d87ca759d97; Thu, 03 Apr 2025 13:50:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,74 +42,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5e151eb-108d-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 9f57a323-1092-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1743686153; x=1743956153;
-	bh=pzx4TDn/ynKuZwN05x58kluDiwnrY6WdDIR6vuLWe6Y=;
+	s=mte1; t=1743688236; x=1743958236;
+	bh=v8m0m53wPhMYCjDNngI1b33QpaUIzevS7ajRoSVZcEg=;
 	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=gOco+M8k3kveeT5THqmORh+oGihqtl8NbCopgeVvoezWsS5wMxU69aUY22v6TiB38
-	 dR2zJazdnb1j5qroSNUTboydxSj9p/z/uws8EtyEOoH6Pp8tz25TEDrqXhB3qMjVb4
-	 s/wLRQz5ExTEdFPvnyVePzuK44L7s9Aq4pxhej3RiYomA3F5Q+j1h8ONN9JkqfiUPC
-	 EVaVpJLoTW5Eg+P78bGrEZOFnrgcxzA0BEFOoHHGz//cS3QCEDpKKUHt3Ld0DCRxRR
-	 PiTOpAeEyc4V5wn/Hfz3kmFw0ReBgoPw0JUKTzB74PLJZe0pYNhLWp3a5+y63F96Dl
-	 z4fB3aWGwWnvg==
+	b=tlccBWJpBnvFY3UiqC6Cou8EUwh1it7HFb3en8xQYFgXuEktjXHXTxRfszmQw0mZp
+	 ri8hZBULwy6+1+hgFnUoHgtOXjtl3H0VmHiMVemh014kNPpk/j+GZr2aJABcIB3f8T
+	 RqQiiIu9A58O6PPhjydNk7AgolDDSNulHy8XV7ICZKsD3MkDUletmNCPwYy3BBm5/n
+	 u5Pp2i8GVIDD5CIUdd/PDoo4H+WCeQGNqpKfPefcv2E87il0J9aHOCvgjbg/GNIEBo
+	 k/cPL2+wSRbo8K4DAgQDClYNuvXLy41bNSf9Sw6f9Mg+oyeyR7537MuFDAivj2uy9O
+	 oevmA28D11FZg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1743686153; x=1743946653; i=anthony.perard@vates.tech;
-	bh=pzx4TDn/ynKuZwN05x58kluDiwnrY6WdDIR6vuLWe6Y=;
+	t=1743688236; x=1743948736; i=anthony.perard@vates.tech;
+	bh=v8m0m53wPhMYCjDNngI1b33QpaUIzevS7ajRoSVZcEg=;
 	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=RaSkQ2Fj8B1xDu4KFQ1mQ2efXIh31OPoKHAOuJEXhOBbY+ac1NxtIiBYMSeEA+kdm
-	 MfpYcdBh5t3JzvMAOjYeuKdkF7Am4CpAhzC3Cxu/5MteJinzIC0lABj0bRh7pxvyZw
-	 kwXLh2RW0q0SUSCyxuiZp6Xesi/c/W01938NuyjfH3YvoJrRXQKg00janj5jtMwPp6
-	 ssQ/HmbD85gRCW01t7nzy9CXNEqT/QAvsBmjYv19BdlfMBdTZymUcbMslTEX6NpKC7
-	 /sVSjnWGJ/VeZGm2kcO1m7DDmF4kPNAm01Pv3UEEqI48C5X6huONReksgJyp3CSIKF
-	 kk8t62obf0mIw==
+	b=qLR2RWZGseN23SRUWwKrdM7wWV1ue9WfFwFnQgjv3lHyE8au/j/Y7ULCjA0b+YpgP
+	 LGxHWlDDyQlkOcuAvhhMQCx5RXdlkIMD76ielgp9Pj30QNahTw+AOyV3IFIoERTLaA
+	 T0/eRe5sczw03yAe/3PYiOakcOpd9vUeQqPl2fPOH+uw5X0P3DwEwkOV7/4pwswpFi
+	 G26LQ01ka6CN+2F28X08soBOpih7mCqKrZgkTdI6QDE2GK6HbBsnAN7DhudMkLy99f
+	 BIUpwYV5xTzcGxbP7Shkko6IYuRLbwQ2MD7vKIDNlC3Jj4WQS6PoD0KF9pJTFM+t8s
+	 wucJZX1Bnd10A==
 From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v3=203/3]=20xen:=20debug:=20gcov:=20add=20condition=20coverage=20support?=
+Subject: =?utf-8?Q?Re:=20[PATCH]=20automation:=20Add=20Arm64=20MPU=20build=20job?=
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1743686152338
+X-Bm-Transport-Timestamp: 1743688235027
 To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Message-Id: <Z-6KA1Kto8PIJJkI@l14>
-References: <20250401011744.2267367-1-volodymyr_babchuk@epam.com> <20250401011744.2267367-4-volodymyr_babchuk@epam.com> <7281b7d8-ba7b-4658-82f1-a63d66c1baff@suse.com>
-In-Reply-To: <7281b7d8-ba7b-4658-82f1-a63d66c1baff@suse.com>
+Cc: "Orzel, Michal" <michal.orzel@amd.com>, "Doug Goldstein" <cardoe@cardoe.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Luca Fancellu" <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
+Message-Id: <Z-6SKIEk3wjheg1j@l14>
+References: <20250403081916.6834-1-michal.orzel@amd.com> <20ac780b-f5ac-4531-997e-362d72adddd2@suse.com> <2a8ab261-480f-4bfe-b2b7-7fdff4516078@amd.com> <a67d260e-fe1a-44bb-8b49-fa0509716da2@suse.com> <44500161-1346-4c9e-bcb3-a4301c197913@amd.com> <235cb577-b28f-49ab-b0a3-94ab35572d83@suse.com> <65d12272-0ceb-4570-bade-5a0901264e16@amd.com> <921c6250-9485-4d66-a568-15045ecc17bb@suse.com>
+In-Reply-To: <921c6250-9485-4d66-a568-15045ecc17bb@suse.com>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.2714fdff1a4e4d1da47dff16fb2cf74c?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.f726adaef1844703bcd15d87ca759d97?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20250403:md
-Date: Thu, 03 Apr 2025 13:15:53 +0000
+Date: Thu, 03 Apr 2025 13:50:36 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-On Thu, Apr 03, 2025 at 09:30:21AM +0200, Jan Beulich wrote:
-> On 01.04.2025 03:17, Volodymyr Babchuk wrote:
-> > --- a/xen/Rules.mk
-> > +++ b/xen/Rules.mk
-> > @@ -138,6 +138,9 @@ ifeq ($(CONFIG_CC_IS_CLANG),y)
-> >      COV_FLAGS := -fprofile-instr-generate -fcoverage-mapping
-> >  else
-> >      COV_FLAGS := -fprofile-arcs -ftest-coverage
-> > +ifeq ($(CONFIG_CONDITION_COVERAGE),y)
-> > +    COV_FLAGS += -fcondition-coverage
-> > +endif
-> >  endif
+On Thu, Apr 03, 2025 at 12:00:39PM +0200, Jan Beulich wrote:
+> On 03.04.2025 11:35, Orzel, Michal wrote:
+> > A different question (also to other people who knows this stuff).
+> > MPU requires to specify Xen start address using CONFIG_XEN_START_ADDRESS that is
+> > set to invalid default value to catch user attention. Provided that randconfig
+> > can select UNSUPPORTED and MPU, we should somehow set CONFIG_XEN_START_ADDRESS
+> > to e.g. 0 to be able to build successfully. Is this where we need to add
+> > EXTRA_FIXED_RANDCONFIG to existing arm64 and arm32 randconfig jobs?
 > 
-> Personally I find ifeq() uses like this unhelpful, and would prefer
+> In principle some override like this will be needed, I think, yet that undermines
+> the randomness of the build. From what I can tell the sole constraint on
+> XEN_START_ADDRESS is that it needs to be page aligned (for whatever reason; I
+> didn't think there was the concept of "pages" without an MMU [1]). Arbitrary
+> values satisfying this constraint ought to be selectable by random configurations.
+> Which would then - hopefully - also trigger the case where XEN_START_ADDRESS is
+> e.g. so large that Xen can't fit in the remaining address space anymore. Plus
+> perhaps any other constraints presently not enforced.
 > 
-> COV_FLAGS-$(CONFIG_CONDITION_COVERAGE) += -fcondition-coverage
-> together with an eventual
-> 
-> COV_FLAGS += $(COV_FLAGS-y)
-> 
-> (if we don't already have one).
+> How to deal with all of this, i.e. how to leave as much flexibility as possible
+> to randconfig, I simply don't know. Extending the Cc list in the hope for someone
+> to provide some insight.
 
-Not we don't. About renaming $(COV_FLAGS) to $(cov-flags-y) instead? It
-is simpler as we stay with a single variable for coverage flags.
+It doesn't looks like kconfig have support for randomizing hex values.
+So you'll have to provide a value for XEN_START_ADDRESS that actually
+respect the contrain written in prose, since the default doesn't.
+
+Ah, the prompt of that config value is way to long and contain
+explanation that ought to be in the help message instead. So I guess the
+default value is the choose default value option, so probably fine for
+randconfig.
+
+Cheers,
 
 -- 
 
