@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26C5CA7A2CF
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 14:26:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.936767.1337933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D09AFA7A311
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 14:45:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.936782.1337943 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0Jdg-0006D8-Uz; Thu, 03 Apr 2025 12:25:44 +0000
+	id 1u0Jw4-0003IM-Gh; Thu, 03 Apr 2025 12:44:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 936767.1337933; Thu, 03 Apr 2025 12:25:44 +0000
+Received: by outflank-mailman (output) from mailman id 936782.1337943; Thu, 03 Apr 2025 12:44:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0Jdg-0006Aw-QM; Thu, 03 Apr 2025 12:25:44 +0000
-Received: by outflank-mailman (input) for mailman id 936767;
- Thu, 03 Apr 2025 12:25:43 +0000
+	id 1u0Jw4-0003G5-Da; Thu, 03 Apr 2025 12:44:44 +0000
+Received: by outflank-mailman (input) for mailman id 936782;
+ Thu, 03 Apr 2025 12:44:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X4pi=WV=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1u0Jdf-0006Aq-6W
- for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 12:25:43 +0000
-Received: from fhigh-b4-smtp.messagingengine.com
- (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+ <SRS0=K4Uf=WV=bounce.vates.tech=bounce-md_30504962.67ee82b4.v1-ef2deb9bb0604966a35dd64b54b3996a@srs-se1.protection.inumbo.net>)
+ id 1u0Jw3-0003Fv-4v
+ for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 12:44:43 +0000
+Received: from mail186-2.suw21.mandrillapp.com
+ (mail186-2.suw21.mandrillapp.com [198.2.186.2])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bf1eae95-1086-11f0-9ffb-bf95429c2676;
- Thu, 03 Apr 2025 14:25:37 +0200 (CEST)
-Received: from phl-compute-11.internal (phl-compute-11.phl.internal
- [10.202.2.51])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 27A4825401BD;
- Thu,  3 Apr 2025 08:25:36 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-11.internal (MEProxy); Thu, 03 Apr 2025 08:25:36 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 3 Apr 2025 08:25:34 -0400 (EDT)
+ id 66a76c71-1089-11f0-9ffb-bf95429c2676;
+ Thu, 03 Apr 2025 14:44:37 +0200 (CEST)
+Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail186-2.suw21.mandrillapp.com (Mailchimp) with ESMTP id 4ZT1dw2K9fzS62T5h
+ for <xen-devel@lists.xenproject.org>; Thu,  3 Apr 2025 12:44:36 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ ef2deb9bb0604966a35dd64b54b3996a; Thu, 03 Apr 2025 12:44:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,143 +42,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf1eae95-1086-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1743683136;
-	 x=1743769536; bh=zgwlwTNzCGdH3NPWh11FkbzBozSDnxWC3ARCo8yyOWE=; b=
-	AdSndEGCF42eQiNxOUZuRnxr3fTJpbrWkDW0FRED+gWedy7aXp86BJGkWwbcTBot
-	ZUPpjW1tfpY2ZVN7McGZJ01RJJ8py8BPsltFDQfVYxD7xbEoyFF3RcvZBR5ixWSl
-	nSOLDUDui0bQKPr2bSP8yfnuapV8sosEdMaIIxytWw58kZTlRdaa0r0lt6Obj3HZ
-	HoS9KxvzLFxJ8DNfBoPaPgvMvaZ8CRsd2wQZoHIEbesRtkU7ODC8nxRVZzHXIJWu
-	B4xic6Miti0/S1cYs+MLGcoWsmdeWQIz5LiZ+HGSM/wq6IOrDTzi7CqrClRCwXp3
-	Ly3Rmt3QJ3E5B3gLXQIoIg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1743683136; x=1743769536; bh=zgwlwTNzCGdH3NPWh11FkbzBozSDnxWC3AR
-	Co8yyOWE=; b=umk23coZ0SlmfUhXM8KXJvrKzQXK5GCg2zgdeh7Ppc1OqgikOdQ
-	dI64l1LP8uHWsmvH3hL75IahnzeTiISr/i3dMN/WJpd7xBZvKetAHFLT0jKihV+5
-	G5bsdGPE4/CEQlDQzC4nMd0As88QRL8HHfHxd5W6JFYeGYgAHWG8ML4Fb2JXtcw+
-	jNZTrUJ62CYRybRL5Ks7LtcqSSqdLt/+eKNK6tOcLEFwfhpOTGGXwHaEFA8nndsP
-	/BFw5rrcLE1SEJENmIht9BxVQ9SQhvskRjfjfR6upvmh9bQmJQhMXXr11ck++eYr
-	NWFhagBZIk3RuJEL8L3V57P/Aiv2JEjUq7g==
-X-ME-Sender: <xms:P37uZ50uZMhwHBbP84-1gNLuaK-lkbDQneyM2LsgG-3eBtuoXd0qkA>
-    <xme:P37uZwEDO7utwRX4C0z2zcH0P1NvLg3Aq-dkDcTr_fwPScAmw3NoueBvlj-Wd5B1w
-    qCuIVTyGsPt9g>
-X-ME-Received: <xmr:P37uZ56FH1d24wqUnKYFfwv1hU1U_V89xNSzAyQePwUGoD7qZo96iiqqci_P08vPrqhxyYOy7vENn4WY6py9-71_IADL5B6B7w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddukeekheehucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
-    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
-    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
-    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
-    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-    dpnhgspghrtghpthhtohephedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgs
-    vghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvg
-    hrfeestghithhrihigrdgtohhmpdhrtghpthhtoheptggrrhguohgvsegtrghrughovgdr
-    tghomhdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprh
-    gtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhr
-    gh
-X-ME-Proxy: <xmx:P37uZ21EA-Fbh5xj5QRdna_2kDkzKz4llOspPnZTgVMwJyx5T1ViAA>
-    <xmx:P37uZ8HUnZRhfdHl5lKA1okNBvC0lR9h5XrXb8Fdrw-4j9WmmWW5AQ>
-    <xmx:P37uZ3-YKxWu5ubGYlu-jQDo88r2NTcJOmonK-oYSovsubE-CWv98g>
-    <xmx:P37uZ5mZQ1h14TiYCbtmq3V3-PmobQnGlXsbtzpas302Kbj4mDhmgw>
-    <xmx:P37uZx2KhALQNJBnfTMSmeyiY7bo-GhZbr6HyPC37D9gzg1giEjlHMVK>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 3 Apr 2025 14:25:32 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 02/11] ci: increase timeout for hw tests
-Message-ID: <Z-5-PBcbtUOCSAiv@mail-itl>
-References: <cover.59b4d1e66776c1e577aa5dd5460605dc6c240613.1743678257.git-series.marmarek@invisiblethingslab.com>
- <7578489af5c7df525d4c82231b68bbb7d955d2b4.1743678257.git-series.marmarek@invisiblethingslab.com>
- <9e4660fc-b78f-4323-8a1b-aca3d410edd3@suse.com>
+X-Inumbo-ID: 66a76c71-1089-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1743684276; x=1743954276;
+	bh=x3Lf/29479RVu7L2xkSakMwsgOtskg4f3A7BD13Z4KM=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=w8N28Lq92U3OwTReyaXPxGw/bdOvk3kwLUnFKDA6pTMooDUSMBJBzLrIaObtndvwa
+	 F4hY8+yozwzk7PgohieIvJmWkflRYrAb7Z7bziclRoLpSeovRZFLJ/YAair4yQ2ZhX
+	 O6z214kMVofN+9pB/HwRuUXDZoOe1k4cEVoVuIMvAL1cq589direVXM7yVndhQUckF
+	 UdBFDtUdm053l6BmjSHKcvjxhzax4bdBDg5Aux8MaPZogoFLGrzXxfnyzx+cvELECC
+	 lLaB8dpsZP5nWtwjIQf+lj8tcEUr499kBmfCRUBl++e0HVKRsXcBhCuwhcDKyuJs5q
+	 db15XbC8ew4kw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1743684276; x=1743944776; i=teddy.astie@vates.tech;
+	bh=x3Lf/29479RVu7L2xkSakMwsgOtskg4f3A7BD13Z4KM=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=yKEjCQdx0SgeHMTDk9ttmbzS5qlY3zWYUdvK3/KApcG87YIh21qh8KV2aFi2rLtCJ
+	 Y03ZHQIzOXdHVeHhEAvtHhTx1BEaUAWVi1Y9GwaU4j/9pHkAM+qR2v9Q2CeQJ4FqF5
+	 YJpvWFf2PT+rU9XkV0NSChJSDXP9uFm6mnQqVq7hYQTBxybl9VbgQBjSC3QyzWQfC5
+	 TYicGEzdSYy+rI59wcVvRD8kR6T3Rg+TAqv1X1v+GX6rx0jSR6EoSMbMNOFZee2xan
+	 DhPvo/r3/YBdbhZOFPd2argFYWJeovY/+/TTHV6bMGD2Qa2AKtI1QkJM2JxHDZv0OP
+	 N+uodlHl/uGDA==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[RFC=20PATCH]=20x86/amd:=20Add=20support=20for=20AMD=20TCE?=
+X-Mailer: git-send-email 2.47.2
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1743684275373
+To: xen-devel@lists.xenproject.org
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
+Message-Id: <6b751a400df49217defc89a19b3ac2ca33ab7690.1743683787.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.ef2deb9bb0604966a35dd64b54b3996a?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250403:md
+Date: Thu, 03 Apr 2025 12:44:36 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="HpxtcURhaqsRspkz"
-Content-Disposition: inline
-In-Reply-To: <9e4660fc-b78f-4323-8a1b-aca3d410edd3@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+AMD Translation Cache Extension is a flag that can be enabled in the EFER MSR to optimize
+some TLB flushes. Enable this flag if supported by hardware.
+
+AMD Architecture Developer Manual describe this feature as follow
+> Setting this bit to 1 changes how the INVLPG, INVLPGB, and INVPCID instructions operate
+> on TLB entries. When this bit is 0, these instructions remove the target PTE from the
+> TLB as well as all upper-level table entries that are cached in the TLB, whether or not
+> they are associated with the target PTE. When this bit is set, these instructions will
+> remove the target PTE and only those upper-level entries that lead to the target PTE in
+> the page table hierarchy, leaving unrelated upper-level entries intact. This may provide
+> a performance benefit.
+
+Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+---
+RFC:
+ - is this change actually safe ?
+ - should we add a tce/no-tce option to opt-in/out this feature ?
+ - is this flag enabled at the right moment during boot ?
+---
+ xen/arch/x86/include/asm/cpufeature.h       | 1 +
+ xen/arch/x86/include/asm/msr-index.h        | 1 +
+ xen/arch/x86/setup.c                        | 7 +++++++
+ xen/arch/x86/smpboot.c                      | 3 +++
+ xen/include/public/arch-x86/cpufeatureset.h | 1 +
+ 5 files changed, 13 insertions(+)
+
+diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
+index 05399fb9c9..ab6d07b767 100644
+--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+@@ -114,6 +114,7 @@ static inline bool boot_cpu_has(unsigned int feat)
+ #define cpu_has_xop             boot_cpu_has(X86_FEATURE_XOP)
+ #define cpu_has_skinit          boot_cpu_has(X86_FEATURE_SKINIT)
+ #define cpu_has_fma4            boot_cpu_has(X86_FEATURE_FMA4)
++#define cpu_has_tce             boot_cpu_has(X86_FEATURE_TCE)
+ #define cpu_has_tbm             boot_cpu_has(X86_FEATURE_TBM)
+ 
+ /* CPUID level 0x0000000D:1.eax */
+diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
+index 22d9e76e55..d7b3a4bc40 100644
+--- a/xen/arch/x86/include/asm/msr-index.h
++++ b/xen/arch/x86/include/asm/msr-index.h
+@@ -200,6 +200,7 @@
+ #define  EFER_NXE                           (_AC(1, ULL) << 11) /* No Execute Enable */
+ #define  EFER_SVME                          (_AC(1, ULL) << 12) /* Secure Virtual Machine Enable */
+ #define  EFER_FFXSE                         (_AC(1, ULL) << 14) /* Fast FXSAVE/FXRSTOR */
++#define  EFER_TCE                           (_AC(1, ULL) << 15) /* Translation Cache Extensions */
+ #define  EFER_AIBRSE                        (_AC(1, ULL) << 21) /* Automatic IBRS Enable */
+ 
+ #define EFER_KNOWN_MASK \
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index d70abb7e0c..96f200f853 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -2008,6 +2008,13 @@ void asmlinkage __init noreturn __start_xen(void)
+     if ( cpu_has_pku )
+         set_in_cr4(X86_CR4_PKE);
+ 
++    if ( boot_cpu_has(X86_FEATURE_TCE) )
++    {
++        printk("Enabling AMD TCE\n");
++
++        write_efer(read_efer() | EFER_TCE);
++    }
++
+     if ( opt_invpcid && cpu_has_invpcid )
+         use_invpcid = true;
+ 
+diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
+index 54207e6d88..fbd1710720 100644
+--- a/xen/arch/x86/smpboot.c
++++ b/xen/arch/x86/smpboot.c
+@@ -372,6 +372,9 @@ void asmlinkage start_secondary(void *unused)
+ 
+     microcode_update_one();
+ 
++    if ( boot_cpu_has(X86_FEATURE_TCE) )
++        write_efer(read_efer() | EFER_TCE);
++
+     /*
+      * If any speculative control MSRs are available, apply Xen's default
+      * settings.  Note: These MSRs may only become available after loading
+diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
+index cc6e984a88..a0c8d561fb 100644
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -170,6 +170,7 @@ XEN_CPUFEATURE(SKINIT,        3*32+12) /*   SKINIT/STGI instructions */
+ XEN_CPUFEATURE(WDT,           3*32+13) /*   Watchdog timer */
+ XEN_CPUFEATURE(LWP,           3*32+15) /*   Light Weight Profiling */
+ XEN_CPUFEATURE(FMA4,          3*32+16) /*A  4 operands MAC instructions */
++XEN_CPUFEATURE(TCE,           3*32+17) /*   Translation Cache Extension support */
+ XEN_CPUFEATURE(NODEID_MSR,    3*32+19) /*   NodeId MSR */
+ XEN_CPUFEATURE(TBM,           3*32+21) /*A  trailing bit manipulations */
+ XEN_CPUFEATURE(TOPOEXT,       3*32+22) /*   topology extensions CPUID leafs */
+-- 
+2.47.2
 
 
---HpxtcURhaqsRspkz
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 3 Apr 2025 14:25:32 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 02/11] ci: increase timeout for hw tests
 
-On Thu, Apr 03, 2025 at 01:32:38PM +0200, Jan Beulich wrote:
-> On 03.04.2025 13:04, Marek Marczykowski-G=C3=B3recki wrote:
-> > It appears as sometimes it takes more time for Xen even start booting,
-> > mostly due to firmware and fetching large boot files by grub. In some
-> > jobs the current timeout is pretty close to the actual time needed, and
-> > sometimes (rarely for now) test fails due to timeout expiring in the
-> > middle of dom0 booting. This will be happening more often if the
-> > initramfs will grow (and with more complex tests).
->=20
-> With that, ...
->=20
-> > This has been observed on some dom0pvh-hvm jobs, at least on runners hw3
-> > and hw11.
-> >=20
-> > Increase the timeout by yet another 60s (up to 180s now).
->=20
-> ... is this little a bump going to be sufficient? How about moving straig=
-ht
-> to 5min?
+Teddy Astie | Vates XCP-ng Developer
 
-I don't like this, as many (most) actual failures are visible as timeout
-(for example panic that prevents reaching Alpine prompt). One
-improvement I can see is splitting this into two separate timeouts: one
-before seeing the first line from Xen and then the second one for
-reaching Alpine login prompt. The first one can be longer as its mostly
-about firmware+fetching boot files and shouldn't hit on crashes (unless
-a crash happen before printing anything on the console - but those are
-rare).
+XCP-ng & Xen Orchestra - Vates solutions
 
-> As to observed failing jobs - the PV Dom0 boot failure seen today looks to
-> also be due to too short a timeout.
-
-As responded on Matrix, I'm not so sure, there is over 1m wait after
-"Built 1 zonelists, mobility grouping on.  Total pages: 8228487" line
-=66rom dom0 (or a bit later, due to buffering by sed), while in successful
-test next lines follow instantaneously.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---HpxtcURhaqsRspkz
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmfufjwACgkQ24/THMrX
-1yxQfwf7B3erNxfwdP8M6xErtOisjCkENZOPtm63gUzStPJakX2qEqycfCGncf7D
-4rfprv321vgK9+zO+/jl6QlwW3rpIKLlpt7koBSwDF1cvd761uZl7nCwcHXSI+t4
-voHSxHB7PEWG8K4yDFwo0KyWc6ijQ3FWzoAzTnFECQXHc03W1GCHg/ewh8AycLM0
-5gii3JUBFb4DAku+JyoirZY7VsfLG8yr2bbfW2BaukkpU0Vlj7+N37E1Gw6GZ9WO
-FLv1cQKaJaTeWgk3TFhG8asmvOOplf0ocAdZimi8RjJtM4478OpYcEUw73otbuYh
-NK7121JFR5L4FK7xLQEeBgIAsOMHaA==
-=CnYR
------END PGP SIGNATURE-----
-
---HpxtcURhaqsRspkz--
+web: https://vates.tech
 
