@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0AF1A7AFF2
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 23:04:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.937286.1338295 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84556A7B029
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 23:10:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.937298.1338304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0RjW-000621-Iw; Thu, 03 Apr 2025 21:04:18 +0000
+	id 1u0RpJ-0007WL-6Y; Thu, 03 Apr 2025 21:10:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 937286.1338295; Thu, 03 Apr 2025 21:04:18 +0000
+Received: by outflank-mailman (output) from mailman id 937298.1338304; Thu, 03 Apr 2025 21:10:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0RjW-000601-Ft; Thu, 03 Apr 2025 21:04:18 +0000
-Received: by outflank-mailman (input) for mailman id 937286;
- Thu, 03 Apr 2025 21:04:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u0RpJ-0007Ux-3d; Thu, 03 Apr 2025 21:10:17 +0000
+Received: by outflank-mailman (input) for mailman id 937298;
+ Thu, 03 Apr 2025 21:10:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FCKq=WV=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1u0RjU-0005zv-AB
- for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 21:04:17 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3075b84d-10cf-11f0-9ffb-bf95429c2676;
- Thu, 03 Apr 2025 23:04:10 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id E39ED4EE0760;
- Thu,  3 Apr 2025 23:04:09 +0200 (CEST)
+ <SRS0=JbNy=WV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u0RpH-0007Ur-SY
+ for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 21:10:15 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 087e501b-10d0-11f0-9eaa-5ba50f476ded;
+ Thu, 03 Apr 2025 23:10:13 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43948021a45so12891115e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 14:10:13 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c3020d980sm2752115f8f.61.2025.04.03.14.10.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 03 Apr 2025 14:10:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,135 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3075b84d-10cf-11f0-9ffb-bf95429c2676
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1743714250;
-	b=m65MH6PMh+Z8sP6Yz+fDgP2Gov3kBRHobRa2erME6vUMbXSpxx7vzXm7eagrWQzMf59c
-	 t45OASjT+fxNIFRBoA3M7qVzdORDw++tBZqpVpFstrCEj+KSx2kUPDY3zg8/y0gS+jfVI
-	 gdMjb81a2KTvc0XsiVtoxVNpx6GwA69WOkjeMCGgPiyB1qTRdVoEa6gwL78ed3/Z2Vr0L
-	 TNjL9OhMdWwgdgRNm8sm+E2PEX06vdn0U5aJT/DRtwXt/lGr7o6BqDxw2D8F5Lq99q3Mo
-	 KfW1++tpiyqr1gcRq1wbBflwlUuCXRy1fBHFnjDbzdH4tcTO27HkSV24N6awUVGcYsE4b
-	 H4hO4kR+E3ngZ5nTHUBx9uPt+3HVdWxA9qNuEovrVEno5ckKaPVkVubuz9yU298upCGXF
-	 D9dU0T5ZtM+9O8nXe2+dwj/rTUzBOKXW/vyyaR2V7P8NYpq7tQPS9UdSLFMhHUTUdEQn7
-	 +uWd5XtyrD34ub05yHKKJr5K2gSFIQhYoVU/c6jxoAO6Udqr0y0corql3N8cEAjk1eYRj
-	 wNhat0ICqCEvq7dxJYo8p5edLPv0NC44fJx+ZEeZjXwGaxesxNwalJTSoP3kWW82Hb6KF
-	 c3LGl0M7CUIfRNZsL+bAE3v0GheGdvLlo087/XMUE2wCrg5gjXxGZsNxiGVbb4M=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1743714250;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=bNKV1CpW/BD9WuAo7027O2LdhCDRUgtWGbEKGY7b5BY=;
-	b=vunKxsNRNwoZgcPCVFvhd+682pCGuiqJhqvxmrK61zx4xZpQoGcO1n7x1e1W8YFNBEEH
-	 5+WX+MxkrhqNWvY6gF4D0Ip0IwQrv+dtI6/jVwjs+abdP22wCrPMvF6+T3QuIGmvspCY8
-	 +4KC8otF77Xv2TjW9dfsxeF9k1KGc+luzexw5XRfIWv53Z3hMtORgQM0PmFOmSBqEP3CO
-	 g2SEgMTx7CiUG2zcCV2Nap5l/8BC4DjJNka2V49w+ZWoqkj5eWC88m3bkgB0E7CTunRV6
-	 vNAT9OfZMTBA5nQzc3MY2yzXVRIxzkUoav6EvIR7MNlXhWi1sfyEhD52ZacvgHnUxSHAo
-	 ktQEDsCw/ROlgTs4o26QHJ5JpQYqIUUzUo+t++o95Qt4G6tb4SecHfSJyrl/MZ52tqn+y
-	 8KCK1T6E5ucX6sdia0kdscxcRaunvXYQ4qCHrMph7hjoh+7rC7uank1SvwkUYTWBN9H7Q
-	 tXVM5LnCDqzGM4ItQP/9ffUPZLt5IdAEDnZ7tIgqFvXhOIJnHljCNY1A8vddpqOQGK1yh
-	 OfjeakZ1+Q1e3wyqqq+eP/dX3YZS/RBRtoAM8iAJirfzUYnY9BteNtF8YreGs1puWhq+I
-	 /1UtJ/GyKqMGrrjKNAe/9Ty4R4SMDUcORbpruUWC1t7OUB6a50Z3q/6JjVZ1U+E=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1743714250; bh=2ZKvMUyb4z3UnsmvX2bhdj7iNZfotJQrDzWdLFcDreY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=g5JgpjNlumeEskw6kOv1vaOz/dm/qUr3/l3z3pm9TMduTAdF5T+EvB2FUeOjUMrHY
-	 VwT8pVEFzHFDOlze2sUdvtEY0919llAyxcIuZ6E/qFDyP/lu2m7Etw3Lm0SUdjOeDA
-	 zIG3X2Once4xQ7cEJw39vkmamU1Jzc6koOHKdICOKYzu8RMAslNdSFuFdrSGXqmEGZ
-	 2QoHsQrsIGNae5kERavZqvQayKSiE8JUrf0PqMB5qyObeJCtgdjlcdqjf3HzYALZnN
-	 a64uskjl8PgGJ3f9vibNuRYqpGegFPA5udk4n36PoeOa+u1Ypydy0NvZMYEhJ0cWoy
-	 nfhqUzGzgR6lA==
+X-Inumbo-ID: 087e501b-10d0-11f0-9eaa-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1743714612; x=1744319412; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TW8Oroj/D4tDzD3qVELBJ6TjX64+nF5h2ffccKh1nBc=;
+        b=anjJYv+YOa874TnXkyG1AtUEUVi2+d6BtOHJSD/SvcnmfVGv1EzSP7hpLn25Ils7Q3
+         uBE5JpALugzacA6i69vDubg6mgxvZfbeIs2wa9fQA538E0tFx+15b4KUxkrPTgbSNbTx
+         2lkiKrDRsinelQxsRy9jRQ0GarlNvl9VamIhc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743714612; x=1744319412;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TW8Oroj/D4tDzD3qVELBJ6TjX64+nF5h2ffccKh1nBc=;
+        b=ooH/sawsXohJHoq1JaioM3FEDUE90hDAAVnROhl75TpK995VoVYx7jv3lWJo9rg+jM
+         FF541ARVSibGa13Hq9bo1Q7Lkjye3/ZvqIf9RI2edfRdCl1korzmRI6sh51aBVD3ZXx4
+         x0tQpXdyRzraLTfPhgo1hIO5yrZ7YtttZmeD0OvjYJQ8eiHpPujJXfGIjHn44gwoe38+
+         UhnqgvAK10SvWayGFPRZWWLpJ2UqNmvcRS7gTYHiCdD1Q3N0y1Ph3KC60KHy2hgOTg2w
+         EPM8VCn/Te8t1IcW1LTHh686EaTp+olZS8ApQaR8gazd5cnAdIusmlhMC4yZGdyvVlQ7
+         +95w==
+X-Gm-Message-State: AOJu0Yw28TWaBJTSFMbcVAQXdtG8P4tepoHqWWGqqJKyWiIyjbD+/JOK
+	dCE3KC6a309MwyjCnTeVJEcRebwKbD0RZBPXvg5yfqA4DcxOIfP67C4o/Dnk/OY=
+X-Gm-Gg: ASbGncsiv9FatxpjT36ioWpmWfPZj28zCUAbjiSsxMMtvv+KFJtFJ10a60CTNltB8em
+	cepMN8SYwuftq00TxWULSIuj+CGQ4azwX3HmtwxruWsj1dsbqbhx9AfrLlNYMrg0P2hULbzetHG
+	kolXXUeRMUcUO6gJ7ICRFKDuCz/Wl1hug6Cx2Zq4iCL4KdO6TUG4WamZTcLbVSdZEOf0isaZhfX
+	3TqBbcJzrbwjjv8SHMWSxdU4oP4HmTBk9so7amSw9rZ85MfjKPYEVuln/OCXBN4MNJk1omIdhMk
+	asWRUeng9RgxCW5i7IyFY2BwMZGwyGSiTHay05JBLzOBxGwVLREahIHjxSLGcsHOpjqkWuIb4Vt
+	uT0gFlgwtWg==
+X-Google-Smtp-Source: AGHT+IE9J3Y7cAR/abYni8N7xA7IBS/suZQtN0NT21A9PxblcnyN9Cp+qvzPooiTan7B97n31YW9DA==
+X-Received: by 2002:a05:600c:3d94:b0:43c:fceb:91f with SMTP id 5b1f17b1804b1-43ed0bc8d58mr2542905e9.11.1743714612399;
+        Thu, 03 Apr 2025 14:10:12 -0700 (PDT)
+Message-ID: <99c9bfee-cf7a-4a38-a3bd-2475197ba3f7@citrix.com>
+Date: Thu, 3 Apr 2025 22:10:10 +0100
 MIME-Version: 1.0
-Date: Thu, 03 Apr 2025 23:04:09 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
- <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien
- Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
- <michal.orzel@amd.com>, consulting@bugseng.com
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] xen: Swap 'const static' for 'static const'
-In-Reply-To: <20250403204301.1658436-1-andrew.cooper3@citrix.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, consulting@bugseng.com
 References: <20250403204301.1658436-1-andrew.cooper3@citrix.com>
-Message-ID: <5e92df092cc323b061716004fdd41c33@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+ <5e92df092cc323b061716004fdd41c33@bugseng.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <5e92df092cc323b061716004fdd41c33@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 2025-04-03 22:43, Andrew Cooper wrote:
-> MISRA C:2012 Ammendment 3 (which is under consideration, but not used 
-> by Xen
-                ^ typo
-> yet) is more particular about the order of keywords.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 03/04/2025 10:04 pm, Nicola Vetrini wrote:
+> On 2025-04-03 22:43, Andrew Cooper wrote:
+>> MISRA C:2012 Ammendment 3 (which is under consideration, but not used
+>> by Xen
+>                ^ typo
+>> yet) is more particular about the order of keywords.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>
+> Any specific reason not to give [1] and [2] the same treatment? Other
+> than that, looks good to me.
+>
+> [1]
+> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MISRA_C_AMD3/X86_64/9616508934/PROJECT.ecd;/sources/xen/arch/x86/genapic/x2apic.c.html#R4145_1
+> [2]
+> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MISRA_C_AMD3/X86_64/9616508934/PROJECT.ecd;/sources/xen/arch/x86/hvm/dom0_build.c.html#R13937_1
 
-Any specific reason not to give [1] and [2] the same treatment? Other 
-than that, looks good to me.
+Oh, inattention to detail with my `git grep`.
 
-[1] 
-https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MISRA_C_AMD3/X86_64/9616508934/PROJECT.ecd;/sources/xen/arch/x86/genapic/x2apic.c.html#R4145_1
-[2] 
-https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MISRA_C_AMD3/X86_64/9616508934/PROJECT.ecd;/sources/xen/arch/x86/hvm/dom0_build.c.html#R13937_1
+I'll update to include these.  Thanks.
 
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> CC: Bertrand Marquis <bertrand.marquis@arm.com>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> CC: consulting@bugseng.com
-> ---
->  xen/arch/arm/gic-v2.c  | 2 +-
->  xen/include/xen/init.h | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
-> index 02043c0d4b1f..b23e72a3d05d 100644
-> --- a/xen/arch/arm/gic-v2.c
-> +++ b/xen/arch/arm/gic-v2.c
-> @@ -1311,7 +1311,7 @@ static void gicv2_do_LPI(unsigned int lpi)
->      BUG();
->  }
-> 
-> -const static struct gic_hw_operations gicv2_ops = {
-> +static const struct gic_hw_operations gicv2_ops = {
->      .info                = &gicv2_info,
->      .init                = gicv2_init,
->      .secondary_init      = gicv2_secondary_cpu_init,
-> diff --git a/xen/include/xen/init.h b/xen/include/xen/init.h
-> index 0a4223833755..abf275f0eb72 100644
-> --- a/xen/include/xen/init.h
-> +++ b/xen/include/xen/init.h
-> @@ -63,9 +63,9 @@ typedef int (*initcall_t)(void);
->  typedef void (*exitcall_t)(void);
-> 
->  #define presmp_initcall(fn) \
-> -    const static initcall_t __initcall_##fn __init_call("presmp") = 
-> (fn)
-> +    static const initcall_t __initcall_##fn __init_call("presmp") = 
-> (fn)
->  #define __initcall(fn) \
-> -    const static initcall_t __initcall_##fn __init_call("1") = (fn)
-> +    static const initcall_t __initcall_##fn __init_call("1") = (fn)
->  #define __exitcall(fn) \
->      static exitcall_t __exitcall_##fn __exit_call = fn
-> 
-> 
-> base-commit: befc384d21784affa3daf2abc85b02500e4dc545
-
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+~Andrew
 
