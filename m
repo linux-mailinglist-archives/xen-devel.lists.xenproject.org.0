@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84556A7B029
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 23:10:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.937298.1338304 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99F79A7B18F
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Apr 2025 23:42:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.937318.1338315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0RpJ-0007WL-6Y; Thu, 03 Apr 2025 21:10:17 +0000
+	id 1u0SJm-0007zB-Gw; Thu, 03 Apr 2025 21:41:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 937298.1338304; Thu, 03 Apr 2025 21:10:17 +0000
+Received: by outflank-mailman (output) from mailman id 937318.1338315; Thu, 03 Apr 2025 21:41:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0RpJ-0007Ux-3d; Thu, 03 Apr 2025 21:10:17 +0000
-Received: by outflank-mailman (input) for mailman id 937298;
- Thu, 03 Apr 2025 21:10:15 +0000
+	id 1u0SJm-0007xa-DW; Thu, 03 Apr 2025 21:41:46 +0000
+Received: by outflank-mailman (input) for mailman id 937318;
+ Thu, 03 Apr 2025 21:41:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JbNy=WV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u0RpH-0007Ur-SY
- for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 21:10:15 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1u0SJk-0007xU-Oz
+ for xen-devel@lists.xenproject.org; Thu, 03 Apr 2025 21:41:44 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 087e501b-10d0-11f0-9eaa-5ba50f476ded;
- Thu, 03 Apr 2025 23:10:13 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43948021a45so12891115e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 14:10:13 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c3020d980sm2752115f8f.61.2025.04.03.14.10.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Apr 2025 14:10:11 -0700 (PDT)
+ id 6f082bbb-10d4-11f0-9eaa-5ba50f476ded;
+ Thu, 03 Apr 2025 23:41:43 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43d07ca6a80so7190435e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Apr 2025 14:41:43 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c301b760bsm2794473f8f.55.2025.04.03.14.41.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 03 Apr 2025 14:41:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +45,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 087e501b-10d0-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 6f082bbb-10d4-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743714612; x=1744319412; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TW8Oroj/D4tDzD3qVELBJ6TjX64+nF5h2ffccKh1nBc=;
-        b=anjJYv+YOa874TnXkyG1AtUEUVi2+d6BtOHJSD/SvcnmfVGv1EzSP7hpLn25Ils7Q3
-         uBE5JpALugzacA6i69vDubg6mgxvZfbeIs2wa9fQA538E0tFx+15b4KUxkrPTgbSNbTx
-         2lkiKrDRsinelQxsRy9jRQ0GarlNvl9VamIhc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743714612; x=1744319412;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=citrix.com; s=google; t=1743716502; x=1744321302; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TW8Oroj/D4tDzD3qVELBJ6TjX64+nF5h2ffccKh1nBc=;
-        b=ooH/sawsXohJHoq1JaioM3FEDUE90hDAAVnROhl75TpK995VoVYx7jv3lWJo9rg+jM
-         FF541ARVSibGa13Hq9bo1Q7Lkjye3/ZvqIf9RI2edfRdCl1korzmRI6sh51aBVD3ZXx4
-         x0tQpXdyRzraLTfPhgo1hIO5yrZ7YtttZmeD0OvjYJQ8eiHpPujJXfGIjHn44gwoe38+
-         UhnqgvAK10SvWayGFPRZWWLpJ2UqNmvcRS7gTYHiCdD1Q3N0y1Ph3KC60KHy2hgOTg2w
-         EPM8VCn/Te8t1IcW1LTHh686EaTp+olZS8ApQaR8gazd5cnAdIusmlhMC4yZGdyvVlQ7
-         +95w==
-X-Gm-Message-State: AOJu0Yw28TWaBJTSFMbcVAQXdtG8P4tepoHqWWGqqJKyWiIyjbD+/JOK
-	dCE3KC6a309MwyjCnTeVJEcRebwKbD0RZBPXvg5yfqA4DcxOIfP67C4o/Dnk/OY=
-X-Gm-Gg: ASbGncsiv9FatxpjT36ioWpmWfPZj28zCUAbjiSsxMMtvv+KFJtFJ10a60CTNltB8em
-	cepMN8SYwuftq00TxWULSIuj+CGQ4azwX3HmtwxruWsj1dsbqbhx9AfrLlNYMrg0P2hULbzetHG
-	kolXXUeRMUcUO6gJ7ICRFKDuCz/Wl1hug6Cx2Zq4iCL4KdO6TUG4WamZTcLbVSdZEOf0isaZhfX
-	3TqBbcJzrbwjjv8SHMWSxdU4oP4HmTBk9so7amSw9rZ85MfjKPYEVuln/OCXBN4MNJk1omIdhMk
-	asWRUeng9RgxCW5i7IyFY2BwMZGwyGSiTHay05JBLzOBxGwVLREahIHjxSLGcsHOpjqkWuIb4Vt
-	uT0gFlgwtWg==
-X-Google-Smtp-Source: AGHT+IE9J3Y7cAR/abYni8N7xA7IBS/suZQtN0NT21A9PxblcnyN9Cp+qvzPooiTan7B97n31YW9DA==
-X-Received: by 2002:a05:600c:3d94:b0:43c:fceb:91f with SMTP id 5b1f17b1804b1-43ed0bc8d58mr2542905e9.11.1743714612399;
-        Thu, 03 Apr 2025 14:10:12 -0700 (PDT)
-Message-ID: <99c9bfee-cf7a-4a38-a3bd-2475197ba3f7@citrix.com>
-Date: Thu, 3 Apr 2025 22:10:10 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Swap 'const static' for 'static const'
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, consulting@bugseng.com
-References: <20250403204301.1658436-1-andrew.cooper3@citrix.com>
- <5e92df092cc323b061716004fdd41c33@bugseng.com>
-Content-Language: en-GB
+        bh=rUR1hjnfI2SJbwOWct6yvBmR39QiKHrxlQlFmPq5U4c=;
+        b=UaDMjHcdK2uIkNoYlmX9okudcetL4EZux2YHhL+AMqiXxuNMe1sUZWiJ0Fe29mWjw7
+         ZaajsDrJma2w7Q97KV0lwWVbUoqV9UesZWs+fVs4ay7lD2kisis28eOMavRPF8lAMO8z
+         1311ade2q41nf/Iq40HRR9x3ZvQSaPrjScr3E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743716502; x=1744321302;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=rUR1hjnfI2SJbwOWct6yvBmR39QiKHrxlQlFmPq5U4c=;
+        b=PIMTe09t9j2y9TOVJFiC2TjqIIZTLWj8IBV4f2maJv/avVzHgrFOn8ZsdjtIK8X2CQ
+         E2CYrML+Vdyx46tE7Smwp8O2XJ7CodJyKBVz3NRfmgVOI5oFxSAXLPdJC76NgTp4uUW/
+         2JI/s2lKcTchXhyIbWf1aYGWumy8w701Cj8InqdJgy2ZG+uH8Elx6gm/rvgG+7MxISIs
+         Is7VO2Q5+4/OE/jbloH9fbm7U5RYajH5H6kKsh9qIGGw3KpTPOKSTTkVfqzdK9bkut/W
+         NXAEqDHn3mZOxePRJMD7qRivkMY1+6fJhliASWh/bw8nIY6FskfT6YlcFiR/Vq2nL0+C
+         of1w==
+X-Gm-Message-State: AOJu0YzlowtpoNsb+zCQYnSqw8QBmjf+8QVur3bI/6URq0joiJnV6Kq6
+	2gKSCqlUADlVEgKWvDdCeiRlu2OgwG8la1AsSYtAebNa5zxAfrUafGX60KYDLZPGWwOX+KUa9j5
+	2xz0=
+X-Gm-Gg: ASbGncuAXglXoUZuM016WfutRpO0c5ISzmhMuks7fuPudBppunLuzi5pU2yrzebBbck
+	k+0qlWEhzQpJ7DEAiuYbL0rc8MFgaC8bGjKkaI+lWqZkHM5ll9axUUuSTPKZy7Jf3Bp/7xRgfE8
+	vtEQuly2RSlgiui/UIWin+2/bTNFiAQESdqHCb4H0ySMbkTaacb6U9/79QK//kivDtRvwPIStBN
+	MG1y+28o/rm24dpDhEn6V5Aqx1wk0YXRQQ5nIPv4NgFW2gfjyjU97EQOIM8744u9SKvw9FclG4U
+	vvrY6PKSWwjXmHj19pzEwx/scjkPyiV+ewBd3lLbd8eZkMld3aRLEYSbqnJ7JJud6CGVaNQypkg
+	aF/zcm8rN0XFfPPY/4w==
+X-Google-Smtp-Source: AGHT+IHCykEcsylS6NMJv4p0nnIz6MtOy71k6bWh5aUT36LJcHYC3kIWfLkf2yOV9wJp9csmkaHTgw==
+X-Received: by 2002:a5d:64c3:0:b0:390:f9d0:5e4 with SMTP id ffacd0b85a97d-39cb3595eb1mr604540f8f.21.1743716502629;
+        Thu, 03 Apr 2025 14:41:42 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <5e92df092cc323b061716004fdd41c33@bugseng.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	consulting@bugseng.com
+Subject: [PATCH v2] xen: Consistently use 'static' first
+Date: Thu,  3 Apr 2025 22:41:39 +0100
+Message-Id: <20250403214139.1671954-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250403204301.1658436-1-andrew.cooper3@citrix.com>
+References: <20250403204301.1658436-1-andrew.cooper3@citrix.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/04/2025 10:04 pm, Nicola Vetrini wrote:
-> On 2025-04-03 22:43, Andrew Cooper wrote:
->> MISRA C:2012 Ammendment 3 (which is under consideration, but not used
->> by Xen
->                ^ typo
->> yet) is more particular about the order of keywords.
->>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->
-> Any specific reason not to give [1] and [2] the same treatment? Other
-> than that, looks good to me.
->
-> [1]
-> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MISRA_C_AMD3/X86_64/9616508934/PROJECT.ecd;/sources/xen/arch/x86/genapic/x2apic.c.html#R4145_1
-> [2]
-> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/bugseng/xen/ECLAIR_normal/MISRA_C_AMD3/X86_64/9616508934/PROJECT.ecd;/sources/xen/arch/x86/hvm/dom0_build.c.html#R13937_1
+MISRA C:2012 Amendment 3 (which is under consideration, but not used by Xen
+yet) is more particular about having the storage class specifier first.
 
-Oh, inattention to detail with my `git grep`.
+No functional change.
 
-I'll update to include these.  Thanks.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+CC: consulting@bugseng.com
 
-~Andrew
+v2:
+ * Fix x2apic_mode and orders[] too.
+---
+ xen/arch/arm/gic-v2.c         | 2 +-
+ xen/arch/x86/genapic/x2apic.c | 4 ++--
+ xen/arch/x86/hvm/dom0_build.c | 4 ++--
+ xen/include/xen/init.h        | 4 ++--
+ 4 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+index 02043c0d4b1f..b23e72a3d05d 100644
+--- a/xen/arch/arm/gic-v2.c
++++ b/xen/arch/arm/gic-v2.c
+@@ -1311,7 +1311,7 @@ static void gicv2_do_LPI(unsigned int lpi)
+     BUG();
+ }
+ 
+-const static struct gic_hw_operations gicv2_ops = {
++static const struct gic_hw_operations gicv2_ops = {
+     .info                = &gicv2_info,
+     .init                = gicv2_init,
+     .secondary_init      = gicv2_secondary_cpu_init,
+diff --git a/xen/arch/x86/genapic/x2apic.c b/xen/arch/x86/genapic/x2apic.c
+index 74a6d808ac30..1d55eb6b8a41 100644
+--- a/xen/arch/x86/genapic/x2apic.c
++++ b/xen/arch/x86/genapic/x2apic.c
+@@ -216,9 +216,9 @@ static struct notifier_block x2apic_cpu_nfb = {
+ static int8_t __initdata x2apic_phys = -1;
+ boolean_param("x2apic_phys", x2apic_phys);
+ 
+-enum {
++static enum {
+    unset, physical, mixed
+-} static __initdata x2apic_mode = unset;
++} x2apic_mode __initdata = unset;
+ 
+ static int __init cf_check parse_x2apic_mode(const char *s)
+ {
+diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+index daf1b6f88b14..9fd68df7b936 100644
+--- a/xen/arch/x86/hvm/dom0_build.c
++++ b/xen/arch/x86/hvm/dom0_build.c
+@@ -91,10 +91,10 @@ static int __init pvh_populate_memory_range(struct domain *d,
+                                             unsigned long start,
+                                             unsigned long nr_pages)
+ {
+-    struct {
++    static const struct {
+         unsigned long align;
+         unsigned int order;
+-    } static const __initconst orders[] = {
++    } orders[] __initconst = {
+         /* NB: must be sorted by decreasing size. */
+         { .align = PFN_DOWN(GB(1)), .order = PAGE_ORDER_1G },
+         { .align = PFN_DOWN(MB(2)), .order = PAGE_ORDER_2M },
+diff --git a/xen/include/xen/init.h b/xen/include/xen/init.h
+index 0a4223833755..abf275f0eb72 100644
+--- a/xen/include/xen/init.h
++++ b/xen/include/xen/init.h
+@@ -63,9 +63,9 @@ typedef int (*initcall_t)(void);
+ typedef void (*exitcall_t)(void);
+ 
+ #define presmp_initcall(fn) \
+-    const static initcall_t __initcall_##fn __init_call("presmp") = (fn)
++    static const initcall_t __initcall_##fn __init_call("presmp") = (fn)
+ #define __initcall(fn) \
+-    const static initcall_t __initcall_##fn __init_call("1") = (fn)
++    static const initcall_t __initcall_##fn __init_call("1") = (fn)
+ #define __exitcall(fn) \
+     static exitcall_t __exitcall_##fn __exit_call = fn
+ 
+
+base-commit: befc384d21784affa3daf2abc85b02500e4dc545
+-- 
+2.39.5
+
 
