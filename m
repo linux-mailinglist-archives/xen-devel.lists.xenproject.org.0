@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B511A7B54F
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 03:09:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.937702.1338610 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FFC2A7B55F
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 03:13:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.937714.1338621 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0VYu-0006eB-06; Fri, 04 Apr 2025 01:09:36 +0000
+	id 1u0Vc9-0001NC-Eg; Fri, 04 Apr 2025 01:12:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 937702.1338610; Fri, 04 Apr 2025 01:09:35 +0000
+Received: by outflank-mailman (output) from mailman id 937714.1338621; Fri, 04 Apr 2025 01:12:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0VYt-0006bz-Tb; Fri, 04 Apr 2025 01:09:35 +0000
-Received: by outflank-mailman (input) for mailman id 937702;
- Fri, 04 Apr 2025 01:09:34 +0000
+	id 1u0Vc9-0001Ky-BC; Fri, 04 Apr 2025 01:12:57 +0000
+Received: by outflank-mailman (input) for mailman id 937714;
+ Fri, 04 Apr 2025 01:12:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8oGR=WW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1u0VYs-0006bt-HR
- for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 01:09:34 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org
- [2600:3c04:e001:324:0:1991:8:25])
+ id 1u0Vc7-0001Kc-Ny
+ for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 01:12:55 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 775c36b5-10f1-11f0-9eaa-5ba50f476ded;
- Fri, 04 Apr 2025 03:09:33 +0200 (CEST)
+ id edac53ff-10f1-11f0-9eaa-5ba50f476ded;
+ Fri, 04 Apr 2025 03:12:51 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C0DF86113B;
- Fri,  4 Apr 2025 01:09:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07FA1C4CEE3;
- Fri,  4 Apr 2025 01:09:29 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id B7653A4351E;
+ Fri,  4 Apr 2025 01:07:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DFEAC4CEE3;
+ Fri,  4 Apr 2025 01:12:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 775c36b5-10f1-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: edac53ff-10f1-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1743728971;
-	bh=f3IUdbus24FfNz8uOfqVdlG/NWA4NVaQvT2LwoGluzQ=;
+	s=k20201202; t=1743729170;
+	bh=jwnXwt4wQtNBkUetU0ySAwwrAE6n7F/J5GjR4hoY78o=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=aXwZzZxgMInjuOsAUvwDxwGP6ojyH7GvkUEOh69mFqDHdlux2jIqljiFyC4dCT+PH
-	 6fFhRlxNsSiBzDvFS3Ti97tZ8MR1PEFKqxGUAOkHZMR+F8hvKTbGdHuA31XAKl/NWt
-	 9FC59pUlzfyvvFZ0WiLtmgzOaTxu1LNTi/OpKZD0ene5rO7ZQU1EZoPAEr5F87gg5l
-	 sIqe09QRMyCrVFafrcsdqOpA0Ngej71GFkH8XjE4895QrZW9uqt72A6PUKHrkmORTG
-	 TGL5GAT5w9t/fw4ZzjvcjsSW9P8IyAGVh+bIkQQsbCmJsA/W1faPb+IBtWgXQ76j32
-	 LAlQLK8wPhkvA==
-Date: Thu, 3 Apr 2025 18:09:28 -0700 (PDT)
+	b=KHzsYAD7Kfnb9CYtrnYOKnt/SDm8m2PXlWb37kX8z5zSDJI1mvHLEmN/gv+edE5+4
+	 Pyp2jSE34vgofslmELN01uEnfoT1kWrfWsVmSDeoyAEU7b129pJh/VVVWUv6VbNzMB
+	 KPiCeK4Ghe4RkuIkd526Zu7j46IrfKYZ5x52GDj6M/IsqxlNzZReEC4jU8WqmiDxAM
+	 i8Ba+WtU/zEe3l3kY1B5qFscLCMgXooXqUbM+SYZZiv4xKkcF+MSUrThPE/o1YTkHC
+	 MdfFGsBjUKZuDxyuDo6cFzPwZjX8TnkFYv/w8ahOiC6UN89pRJM0EO4EZIdfNqFvEe
+	 mfizUmQYHwPvw==
+Date: Thu, 3 Apr 2025 18:12:48 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jason Andryuk <jason.andryuk@amd.com>
@@ -61,124 +60,59 @@ cc: xen-devel@lists.xenproject.org,
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v3 4/7] xen/arm: dom0less seed xenstore grant table
- entry
-In-Reply-To: <20250403214608.152954-5-jason.andryuk@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2504031809200.3529306@ubuntu-linux-20-04-desktop>
-References: <20250403214608.152954-1-jason.andryuk@amd.com> <20250403214608.152954-5-jason.andryuk@amd.com>
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v3 6/7] xen/arm: dom0less use has_dtb local variable
+In-Reply-To: <20250403214608.152954-7-jason.andryuk@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2504031812420.3529306@ubuntu-linux-20-04-desktop>
+References: <20250403214608.152954-1-jason.andryuk@amd.com> <20250403214608.152954-7-jason.andryuk@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 3 Apr 2025, Jason Andryuk wrote:
-> xenstored maps other domains' xenstore pages.  Currently this relies on
-> init-dom0less or xl to seed the grants from Dom0.  With split
-> hardware/control/xenstore domains, this is problematic since we don't
-> want the hardware domain to be able to map other domains' resources
-> without their permission.  Instead have the hypervisor seed the grant
-> table entry for every dom0less domain.  The grant is then accessible as
-> normal.
-> 
-> C xenstored uses grants, so it can map the xenstore pages from a
-> non-dom0 xenstore domain.  OCaml xenstored uses foreign mappings, so it
-> can only run from a privileged domain (dom0).
+> Store the result of finding a "multiboot,device-tree" node.  This will
+> simplity adding hardware domain checks.
 > 
 > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-
 > ---
 > v3:
-> Expand commit message about C vs. OCaml xenstored.
-> Remove __init and flags from gnttab_seed_entry()
-> Change frame to uint32_t
-> ASSERT gfn fits in a uint32_t
-> Rebase on mem paging changes
+> New
 > 
-> v2:
-> Tweak commit message
-> Mark gnttab_seed_entry() __init and put inside CONFIG_DOM0LESS_BOOT
-> Add ASSERT(!d->creation_finished) and ASSERT(gt->gt_version == 1);
-> const struct domain & struct grant_table
+> Could be squashed into the next patch, but this helps make the next one
+> cleaner.
 > ---
->  xen/arch/arm/dom0less-build.c |  6 ++++++
->  xen/common/grant_table.c      | 14 ++++++++++++++
->  xen/include/xen/grant_table.h |  7 +++++++
->  3 files changed, 27 insertions(+)
+>  xen/arch/arm/dom0less-build.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
 > 
 > diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-> index bb8cc3be43..284190d54f 100644
+> index 284190d54f..a72961dfb4 100644
 > --- a/xen/arch/arm/dom0less-build.c
 > +++ b/xen/arch/arm/dom0less-build.c
-> @@ -788,6 +788,12 @@ static void __init initialize_domU_xenstore(void)
->          rc = alloc_xenstore_evtchn(d);
->          if ( rc < 0 )
->              panic("%pd: Failed to allocate xenstore_evtchn\n", d);
+> @@ -1031,6 +1031,7 @@ void __init create_domUs(void)
+>              .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
+>          };
+>          unsigned int flags = 0U;
+> +        bool has_dtb = false;
+>          uint32_t val;
+>          int rc;
+>  
+> @@ -1065,9 +1066,10 @@ void __init create_domUs(void)
+>               !strcmp(dom0less_iommu, "enabled") )
+>              iommu = true;
+>  
+> -        if ( iommu_enabled &&
+> -             (iommu || dt_find_compatible_node(node, NULL,
+> -                                               "multiboot,device-tree")) )
+> +        if ( dt_find_compatible_node(node, NULL, "multiboot,device-tree") )
+> +            has_dtb = true;
 > +
-> +        if ( gfn != ~0ULL )
-> +        {
-> +            ASSERT(gfn <= UINT_MAX);
-> +            gnttab_seed_entry(d, GNTTAB_RESERVED_XENSTORE, xs_domid, gfn);
-> +        }
->      }
->  }
+> +        if ( iommu_enabled && (iommu || has_dtb) )
+>              d_cfg.flags |= XEN_DOMCTL_CDF_iommu;
 >  
-> diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-> index 6c77867f8c..e75ff98aff 100644
-> --- a/xen/common/grant_table.c
-> +++ b/xen/common/grant_table.c
-> @@ -4346,6 +4346,20 @@ static void gnttab_usage_print(struct domain *rd)
->          printk("no active grant table entries\n");
->  }
->  
-> +#ifdef CONFIG_DOM0LESS_BOOT
-> +void __init gnttab_seed_entry(const struct domain *d, unsigned int idx,
-> +                              domid_t be_domid, uint32_t frame)
-> +{
-> +    const struct grant_table *gt = d->grant_table;
-> +
-> +    ASSERT(!d->creation_finished);
-> +    ASSERT(gt->gt_version == 1);
-> +    shared_entry_v1(gt, idx).flags = GTF_permit_access;
-> +    shared_entry_v1(gt, idx).domid = be_domid;
-> +    shared_entry_v1(gt, idx).frame = frame;
-> +}
-> +#endif
-> +
->  static void cf_check gnttab_usage_print_all(unsigned char key)
->  {
->      struct domain *d;
-> diff --git a/xen/include/xen/grant_table.h b/xen/include/xen/grant_table.h
-> index 50edfecfb6..936a52ff10 100644
-> --- a/xen/include/xen/grant_table.h
-> +++ b/xen/include/xen/grant_table.h
-> @@ -45,6 +45,10 @@ void grant_table_destroy(
->      struct domain *d);
->  void grant_table_init_vcpu(struct vcpu *v);
->  
-> +/* Seed a gnttab entry for Hyperlaunch/dom0less. */
-> +void gnttab_seed_entry(const struct domain *d, unsigned int idx,
-> +                       domid_t be_domid, uint32_t frame);
-> +
->  /*
->   * Check if domain has active grants and log first 10 of them.
->   */
-> @@ -85,6 +89,9 @@ static inline void grant_table_destroy(struct domain *d) {}
->  
->  static inline void grant_table_init_vcpu(struct vcpu *v) {}
->  
-> +static inline void gnttab_seed_entry(struct domain *d, int idx,
-> +                                     domid_t be_domid, uint32_t frame) {}
-> +
->  static inline void grant_table_warn_active_grants(struct domain *d) {}
->  
->  static inline int gnttab_release_mappings(struct domain *d) { return 0; }
+>          if ( !dt_property_read_u32(node, "nr_spis", &d_cfg.arch.nr_spis) )
 > -- 
 > 2.49.0
 > 
