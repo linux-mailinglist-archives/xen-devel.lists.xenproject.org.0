@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B9EFA7BA76
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 12:14:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.938055.1338871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2E2DA7BA7F
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 12:16:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.938066.1338881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0e3P-0006C2-5N; Fri, 04 Apr 2025 10:13:39 +0000
+	id 1u0e67-0006mQ-IM; Fri, 04 Apr 2025 10:16:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 938055.1338871; Fri, 04 Apr 2025 10:13:39 +0000
+Received: by outflank-mailman (output) from mailman id 938066.1338881; Fri, 04 Apr 2025 10:16:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0e3P-00069y-2H; Fri, 04 Apr 2025 10:13:39 +0000
-Received: by outflank-mailman (input) for mailman id 938055;
- Fri, 04 Apr 2025 10:13:37 +0000
+	id 1u0e67-0006kx-Ez; Fri, 04 Apr 2025 10:16:27 +0000
+Received: by outflank-mailman (input) for mailman id 938066;
+ Fri, 04 Apr 2025 10:16:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9O5F=WW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u0e3N-00069q-Kr
- for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 10:13:37 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1u0e65-0006kp-P9
+ for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 10:16:25 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 754c1ef2-113d-11f0-9ffb-bf95429c2676;
- Fri, 04 Apr 2025 12:13:30 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-39c13fa05ebso1131732f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 03:13:30 -0700 (PDT)
+ id dc55da0f-113d-11f0-9ffb-bf95429c2676;
+ Fri, 04 Apr 2025 12:16:23 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43cf848528aso14414675e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 03:16:23 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c301b9d55sm3915740f8f.42.2025.04.04.03.13.29
+ 5b1f17b1804b1-43ec163156asm45685745e9.7.2025.04.04.03.16.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Apr 2025 03:13:29 -0700 (PDT)
+ Fri, 04 Apr 2025 03:16:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 754c1ef2-113d-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: dc55da0f-113d-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743761610; x=1744366410; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1743761783; x=1744366583; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yGUsM5+jPzlnfJ5bAbq9/oKLsYAhkdxGHQHjv8Nnp/k=;
-        b=Jx0ReJ1cpl6SNUfpHIeLm9tiQqKs2lkRHn0HLsAsKyrcWqqtjcqMdMR4+BS1Ozr4CM
-         0h/seKl+riVzvb2li9Yvn9hvoJ6M0q6GN/jCjJPUQWmK0Ka/x5L9Lfy0p/ly1XfRvRDM
-         40RwioP4heH/4clknApo0OPaHY0R9V4AZryHE=
+        bh=5w+anvyU5uARgyeOesFvzYUy6gS0Y8DmfhEOLxh99N4=;
+        b=pKWF17/XEuyOcVQ+BFp3FnaAwVZ80MGSw97xkijbsuICo14S8dD4mbfK/kOoYAyfHe
+         zrIo3BQJdT9CXjJvNZ5hiUmfZxYewcBwClf6N6QKcGry5GamjKXYf2Jz0TyY6LqAkEZj
+         Schdz90+WyXkFNa/w9erjuERkPNa1rkRHO130=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743761610; x=1744366410;
+        d=1e100.net; s=20230601; t=1743761783; x=1744366583;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yGUsM5+jPzlnfJ5bAbq9/oKLsYAhkdxGHQHjv8Nnp/k=;
-        b=XKFD7RY44X9wTF/I3RPRkXl5V4ArQoBoqozvFQfDRI999bhL+rgKFI8MQa2M6xTVFz
-         S42QKANR59M7stBYi966NgAmBaD8HGzujLeWPAIMyk5FqY9WkZSnwpdYApRH3BNNjbkS
-         Mqmh+kU1GkZpUK8mjTRr79qFTdWiJLks6TtD5lUzcjlZMzvm+7Le0OPljeOsGKGi/7/j
-         WJC56PFyZr84YmG5j0EP3kQO7Vpi7J2hSwjX9eWCxIR03aLlk3HRwrbXEproum01uck+
-         4kFVscarC4mgyetRsd93cxyVGS2CoyDFUEzpqapuhK3bKaQuPsDlvV0Uj4OwJvKPdcWK
-         oWBg==
-X-Forwarded-Encrypted: i=1; AJvYcCVwFmo8g+PLVKLPz+jv2uYSQZ52ZcK4PGxCcMHoM9L40oSyhT2RBEIzntv8/jFpfCi6gA8Jko7YPpw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/xSNbS3w+FoCWpUoNh/E203V13Uorg5fnupUy817J2fzIOVFs
-	aDd21HijYy5gysMxsPJH/tlJDSg1X/rQnreK/OPdlNcJFPILVqwfe89mGX1Bsls=
-X-Gm-Gg: ASbGncuZi6vtYaNMgv1pkArUhXSJHUjh6i+zlGuptqxktLZcebO+NTr6Dn4CKh9uwND
-	fHfHj1X8LAzIcCla+m2hpUHraJELzfbQg0g9hodaYVeCfKDe7s2qgmX2qfJcaiWPDQcyUK+WLqk
-	VxN3eYk6EinkSmuv+H1LNCVPFbRrBp+BY62MHT9YcWj7yH2qdxXAy97jZR3zUNrHtq481b/sKZJ
-	eYslTboXdbXuGMBd1zNlMgYm5YB0jnQZrVLBJ4rVqfIPf1KJhs0IeXSUm+eMmIcJOR733mAwmt3
-	Dh498KgC0Rf9IZ2MsDbMPQDbu32v1N6Ev8n930cHI7anIyUvNYok6IOiFzSo7Gmfo/VSuzVtsUE
-	FtvFsSUysSg==
-X-Google-Smtp-Source: AGHT+IHJJNPW2W105EM5DK6F+bhsO5kf+WWcf/t540sAKpSVBUDw7Klv3H30ZCpqHF31QfIH8y+w2w==
-X-Received: by 2002:a05:6000:4283:b0:391:40bd:6222 with SMTP id ffacd0b85a97d-39cb35958femr2009722f8f.22.1743761610247;
-        Fri, 04 Apr 2025 03:13:30 -0700 (PDT)
-Message-ID: <16da47b7-f11c-4cc5-aa60-70aa32932910@citrix.com>
-Date: Fri, 4 Apr 2025 11:13:29 +0100
+        bh=5w+anvyU5uARgyeOesFvzYUy6gS0Y8DmfhEOLxh99N4=;
+        b=PFqqutafoV3g2OlUmxjXTmRMv6GH2YrZft1ijTzo6Om7xvDnSpThTaYt1HVzOcdTNK
+         zWZ4u9QnRi+vMUL3o5a1oE7bBvFTiGkjN67jczntUkaXJXifPo+MfTbNR1LW2RWVxR4f
+         WJApD9On8Wmgwezjdjfr+DBYAs94x4fFF4djuETdsbK+bqxpcIHqtApoObGveCSJFuqV
+         xxdpsVEwDv5dz7nLE1ulXsjO9P6bAH5ICQh61Kr1ZUWarAPuGbjCH1YQAjZFlDuf4doq
+         zkrl5ma3Vpp8R9yYe+7Ot5eoxbmJFfSXYZrjpggdWnEbnqSWO++rL2yqf8e2exqBcsDt
+         wVGg==
+X-Forwarded-Encrypted: i=1; AJvYcCWDkMF5maJoMcMnVHjuK2m39ejRr9mpnkdqSwdE8AYeVobuZKQyWszXq2A6szb3Qzjo+nZtW/Frn+k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy2TzRMQRF4FcehGEd8o0O5U/01mXi/4PPYn2vNVFLWwVvI+g+Y
+	maolyoM4zrQk8qup2dW4EG3xicfA+Ic04CuroPz6XZC/HRlixxTIcDTkSOFG76E=
+X-Gm-Gg: ASbGncsaNiXDrJD9pogPsyPdMszvUfv1ZfBZPg074NKctGGjRB3ngsbHllqfNZxIi+2
+	2HH0OFJlq02A1SpTZjpbkTZlKhIi4TTmCry4xdMcP2rRVCrqZX9Rzg9FrRI9t3Ki/w0IfXRoOsZ
+	0GS1i223NPa6MnruCIW3wHtiMxtOaaO8htYrtDx/Gz0idizEAq5s/0T86MBz7XQN6HxBXhHfuAN
+	27KKqvtRnv4dpIAKrpXMgAbnMevCtQfMRq6T6gwPSynQb/facrbSUCxZrMBwXNLttyokDku9Buy
+	ge/+pVcdtTLFdq6HJLIoui44EsDJg49oDSVORb2ehVHEHe6A+dvYL0TXWQn/pyrPsUM+ImvTLVa
+	wIOQI6PQuOw==
+X-Google-Smtp-Source: AGHT+IF6AScUI84ywdEk+EE8R4+vWdhKkCCO/4TJZm5yu4GdESpXPKgipwPsOa4hqx72+sWNI1yoJA==
+X-Received: by 2002:a05:600c:4594:b0:43c:ec28:d310 with SMTP id 5b1f17b1804b1-43ecf8837d8mr26413965e9.10.1743761783200;
+        Fri, 04 Apr 2025 03:16:23 -0700 (PDT)
+Message-ID: <c37d84be-9679-4132-9a46-cd75344db941@citrix.com>
+Date: Fri, 4 Apr 2025 11:16:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: drop XSAVEOPT and CLWB build flags
-To: Jan Beulich <jbeulich@suse.com>,
- "Alexander M. Merritt" <alexander@edera.dev>
+Subject: Re: [PATCH] x86/amd: Convert wrmsr_amd_safe() to use asm goto()
+To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <3de09e4e2a3320e0f314803e349fbe6520d04b12.1743719892.git.alexander@edera.dev>
- <046801a7-1990-4629-a8ec-395c7fb233af@suse.com>
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250403175744.1538469-1-andrew.cooper3@citrix.com>
+ <9b3b8397-943e-4171-9ec4-27fe45ba1a60@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,29 +135,56 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <046801a7-1990-4629-a8ec-395c7fb233af@suse.com>
+In-Reply-To: <9b3b8397-943e-4171-9ec4-27fe45ba1a60@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 04/04/2025 8:21 am, Jan Beulich wrote:
-> On 04.04.2025 01:22, Alexander M. Merritt wrote:
->> The new toolchain baseline knows both the XSAVEOPT and CLWB instructions.
+On 04/04/2025 8:48 am, Jan Beulich wrote:
+> On 03.04.2025 19:57, Andrew Cooper wrote:
+>> Bloat-o-meter reports:
 >>
->> Resolves: https://gitlab.com/xen-project/xen/-/work_items/205
->> Signed-off-by: Alexander M. Merritt <alexander@edera.dev>
+>>   add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-29 (-29)
+>>   Function                                     old     new   delta
+>>   _probe_mask_msr                               99      94      -5
+>>   init_amd                                    2418    2394     -24
+>>
+>> but that's because .fixup doesn't contain sized/typed symbols.  This also
+>> drops two "mov -EFAULT, %reg; jmp ...;" sequences too.  The net saving is -50.
+>>
+>> wrmsr_amd_safe()'s return value is only checked against 0 (if at all), and
+>> because of this, the compiler can now avoid manifesting 0/-EFAULT entirely,
+>> and the %[fault] label simply lands on the right basic block.
+>>
+>> Convert to Xen style while rewriting.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >> ---
->>  xen/arch/x86/arch.mk              |  2 --
->>  xen/arch/x86/flushtlb.c           | 28 +---------------------------
->>  xen/arch/x86/include/asm/system.h |  7 -------
->>  3 files changed, 1 insertion(+), 36 deletions(-)
-> For XSAVEOPT there's more work to do, even if not connected via HAVE_AS_XSAVEOPT.
-> Look for "xsaveopt" (case-insensitively) in xstate.c. Imo (just like was asked
-> for for the RDRAND counterpart patch) this wants doing all in one go.
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>
+>> Slightly RFC.  We use -EIO elsewhere for this purpose, and nothing in this
+>> logic cares.
+> {rd,wr}msr_safe() both use -EFAULT. What's "elsewhere" here?
 
-I've got a different task pending for xsave.  It's a bit more involved
-than simply dropping the -D's.
+Oh, that would be Linux.  Sorry, too much time spent staring at the same
+logic in different codebases.
 
-We'll get to it.
+>
+>> I was pleasently surprised by the manifestation of -EFAULT going away
+>> entirely.
+> I fear I don't understand this, given the -EFAULT is still there in the
+> new code.
+
+I meant about what the optimiser can do.  It hadn't occurred to me that
+that was a valid transformation.
+
+>
+> Irrespective of these remarks:
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Thanks.
 
 ~Andrew
 
