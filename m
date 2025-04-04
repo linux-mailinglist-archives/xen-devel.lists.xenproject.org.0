@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35549A7B834
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 09:21:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.937796.1338681 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34D33A7B838
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 09:24:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.937810.1338691 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0bMu-0000Si-0x; Fri, 04 Apr 2025 07:21:36 +0000
+	id 1u0bPo-00015o-Hb; Fri, 04 Apr 2025 07:24:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 937796.1338681; Fri, 04 Apr 2025 07:21:36 +0000
+Received: by outflank-mailman (output) from mailman id 937810.1338691; Fri, 04 Apr 2025 07:24:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0bMt-0000Qw-UI; Fri, 04 Apr 2025 07:21:35 +0000
-Received: by outflank-mailman (input) for mailman id 937796;
- Fri, 04 Apr 2025 07:21:34 +0000
+	id 1u0bPo-00014M-Ec; Fri, 04 Apr 2025 07:24:36 +0000
+Received: by outflank-mailman (input) for mailman id 937810;
+ Fri, 04 Apr 2025 07:24:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=56zs=WW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u0bMs-0000Qq-7L
- for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 07:21:34 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1u0bPm-00014G-N6
+ for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 07:24:34 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e93c556-1125-11f0-9eaa-5ba50f476ded;
- Fri, 04 Apr 2025 09:21:33 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-391342fc1f6so1441971f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 00:21:31 -0700 (PDT)
+ id db14ce15-1125-11f0-9eaa-5ba50f476ded;
+ Fri, 04 Apr 2025 09:24:33 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-39149bccb69so1512108f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 00:24:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c301b69a8sm3609287f8f.49.2025.04.04.00.21.30
+ 5b1f17b1804b1-43ec342827fsm38816255e9.6.2025.04.04.00.24.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Apr 2025 00:21:30 -0700 (PDT)
+ Fri, 04 Apr 2025 00:24:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e93c556-1125-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: db14ce15-1125-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743751291; x=1744356091; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743751473; x=1744356273; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LMnymf/VfBwR0jIoVq/ftYd/r6MZUFff08R2K/rxggc=;
-        b=IDlL+XC0lwycS4DOCatUX2xzv2lsFsI5Rw1xLfMXsaMP0/U1wUxXzW+7oE6LeZEdp5
-         7QMRakPx8WuuxTNWTGGhs58lcBrALZEDikfD3uUMiWDywTPaJUWbRV4QZ113UdAEpptg
-         VcluCz36djNkY2f7mnKCwSjjvfzYO7jdWD97uO6vETgXLyPZQrOibXopj4GpG0TJbR0C
-         J9qMj0Wm0B1ONv5utCbuFHpKzrSiIccEQfao7CJQoMMVGCT0fHu1j0qYVngCukDf6zjE
-         qEHKrQEep54/Dc7racD0oT8ML7z1IcnQz14R89Cu2kheNj8u4vK81IELit4bnHUnlVJS
-         AhNw==
+        bh=auaLW4yTsvLHaj2Z9Q+BT39O3gn1EqNmt23dPTPni8I=;
+        b=aXK6mYaAXrO3BfPfjIAo5pS0Ey/UK8z12x3/06Kad+SCzHGIhIXPiaNaQy3kggouR/
+         86QHnAiA7y/O0kgKEZTJk0omxsHtD0oICKPk7DQuwt4HO6YW9ynfrv7HaPjlQ+YXxkGh
+         Of3YZaxkuhwMvl728whO4NJsK7F2DFcXTgj4o4/M7vBq0KKKsVTc5Z06Z+qlPR9kYvXh
+         YWhuOfkmNT0bpdPxlPwVVA32ilWu+ZQffwEksVUQYDfZTdEuspfWSPvHa/bYGmxtAiNT
+         a7XG3YYF8oPk9GHBuqvhfmR8c71BTu80rvU6ycKmki66El0mg0DZuPultCpZWuwF1y/9
+         i+Eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743751291; x=1744356091;
+        d=1e100.net; s=20230601; t=1743751473; x=1744356273;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LMnymf/VfBwR0jIoVq/ftYd/r6MZUFff08R2K/rxggc=;
-        b=vmZtDlWB06CHEHX6GmqhCjSzNiJzeq0kVFIMKbYR9Vj7BN6Y8Z+rGCF7WKCE7ULIIn
-         0pcfp89l4IVDBIYBxqg87O4c4KTZP5izEybWrfeEONh7U/kRZdXjINqrMO2qoJm7xHDH
-         QNdzR9e4Xh8hEHFViBiruIPCrwLB9+Bwz4926PC8D/D/5QrJi6xW4e64TqP+Zp8lcIYh
-         RioGO8x/GIT9koz4s4bcJqx85Yn67/KenroPAibP6xl41kaw0rWpFFv15Zm6cJBX02XH
-         xsP9Raki4MXdwpMc2AxmMs2d+8rytW2pJT+wZmlZFZDUnO6K58U3G8J9xbEqlngbz9/1
-         j97A==
-X-Forwarded-Encrypted: i=1; AJvYcCU7ve6rjQxADSTNw3sjQQgmy74vm2I9uC9NgcOBG0YqoY5KQRTBnWznVPq8k2iRsG37JelytxpU3zM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxj2HVa4YovO1B0Z9pwWUleSLoTPtEhekf5XsQRWuQCQsR+7JMy
-	BCX5KpxvaB7LYvXCEaSY1EUXR7BrEUo4p4Ml4RnfV4wZau+m3sosBS0+GsHp2Q==
-X-Gm-Gg: ASbGncsJVYvEGXbg1hmhkq1WO39/5IlnxSbQW7NlCTFa2VdhH8c4GHgtrer8BRkRLjZ
-	7zzte4rAsc7xMOTuZwTKk4gY8FX9rX+pwKZydDHB/gQXFpx0XsNms+Kez5gxCBIXe3Q3uZnROvH
-	lwzgO0jRs4gVxuyr5PPs/1lnBhMHBZ9oqkDtf6MejoH4EkxPH5kzTUthCyGOpMldmxHN9YONH5j
-	4jIk8Gmmjzn/AJwyy1W3GsDddJfZ88nZGw9ztgjPF5v/2vTt79kVBGEEE6C9bmi22RvruAC+iDd
-	fw8+D3ixJpqRNygCIaYxtTTykEsvKA7CbvUeiFYc+HjGS9nJ8wAXcc+Y+EX3DQeD9AYQNIGfder
-	rcO7hZXNjI2lcAgVwY5E9F7772PA0Jg==
-X-Google-Smtp-Source: AGHT+IGzprJQUAUbYFvLAn+CAXMfk0V0XcJhdi3H1UJJxCaX2LLBFEEcTxtcj4OEjLAQoU93XJ0UYg==
-X-Received: by 2002:a5d:64ce:0:b0:39c:cd5:4bc0 with SMTP id ffacd0b85a97d-39d1475e1acmr1231574f8f.52.1743751291049;
-        Fri, 04 Apr 2025 00:21:31 -0700 (PDT)
-Message-ID: <046801a7-1990-4629-a8ec-395c7fb233af@suse.com>
-Date: Fri, 4 Apr 2025 09:21:29 +0200
+        bh=auaLW4yTsvLHaj2Z9Q+BT39O3gn1EqNmt23dPTPni8I=;
+        b=eX8Pp8Q4awwfLuRNBq3eru0re5tYLtHdcPkKgJF+PRn+5W4Owy+6j+yfp3p7GRASU/
+         Qc97lV/HJ1Ct7cL1T6e8DcmKe3bZt6mHrfWyeSt7YjzBBwSgAsThmHOG8nOTzSyzP6Ni
+         toteu+rfP3mlP3KHc9iBN3p/lcv8JN8KZZ0RSnsOymcGCRjM0nYU7H1zXSyW84AjVCNf
+         rZVv7o6zowMBP2t7Xd2BRczaj0ZnnaVYimNAxCNzhMT/k+KfOzExF6gXzVmnlITZL537
+         VdVq+U8JSRC1qcae8UjCiDPnOjxaWTkmzBiYWvMVKyjUUYdWrWYTXUmZ7yVN7rhvb0ba
+         b1TA==
+X-Forwarded-Encrypted: i=1; AJvYcCW3dmVPfmtcBpGT8MIFCdYdY3vIqYujVgel8PXOPizYOPBXzbJnyX6ftGXdmjVjHBhUIXNdBHRXjls=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YysiR/RHZr1ro7b4YvK6l1ZQz5ESIUSTzBSzUK9/+vhr2lnwx/m
+	TPCRsDKGddCsldlX1+u9di/FGIdx6ks3X9qSx2/5dBMbN58qsg012GFqVaDzkA==
+X-Gm-Gg: ASbGncvkwLsz9Nf4CrsAG3IuprLV/K3vtNGO0iSVo0Ximxb49aGloulggIBKIlZb6FN
+	Uq+4nfXFQXhhvyel01QBSVpzE1sWZ72+l4YSO2cDt6yqrCiny79bqHPtlN5bB8LVg1kCCcteaKP
+	x04ypZzbHtQ0ylV3QUrYYvPTlAI6N+mLOL2EzH3VuoayaEo1gkidPM2RoK7A04WXA3AkRqe8ANP
+	lA2eoG5aAA39GUNABaSfboCwUeUj7L7aYS3KF4/GGo4AMvJ65S/UHClltRS63drNWp3/NZXXwIy
+	qQBEa9POUo3yp2JvV3wt5i3rBqQoQgE0K1H+zKYBSHwf5by1eXLQNVROvEIinf6KEwx88stZe46
+	hDROCGlRIqWnPVMBpzyFcLtihzoKaDA==
+X-Google-Smtp-Source: AGHT+IHCw7F2XYeanlCsOs3S2P/DpGIpfoRjdAL2xzj1ger/vwpFJy1ALPYxKTYYrhwcZexPZyZ70g==
+X-Received: by 2002:a05:6000:40ce:b0:391:39bd:a381 with SMTP id ffacd0b85a97d-39cb35ac94fmr1616530f8f.30.1743751473173;
+        Fri, 04 Apr 2025 00:24:33 -0700 (PDT)
+Message-ID: <2b8e33f7-7e51-4ab5-ba1e-9d30d14be3bb@suse.com>
+Date: Fri, 4 Apr 2025 09:24:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: drop XSAVEOPT and CLWB build flags
-To: "Alexander M. Merritt" <alexander@edera.dev>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <3de09e4e2a3320e0f314803e349fbe6520d04b12.1743719892.git.alexander@edera.dev>
+Subject: Re: [PATCH] sched/null: avoid another crash after failed domU
+ creation
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <gwd@xenproject.org>, xen-devel@lists.xenproject.org
+References: <20250403214829.128294-1-stewart.hildebrand@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,24 +118,65 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3de09e4e2a3320e0f314803e349fbe6520d04b12.1743719892.git.alexander@edera.dev>
+In-Reply-To: <20250403214829.128294-1-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.04.2025 01:22, Alexander M. Merritt wrote:
-> The new toolchain baseline knows both the XSAVEOPT and CLWB instructions.
+On 03.04.2025 23:48, Stewart Hildebrand wrote:
+> The following sequence of events may lead a debug build of Xen to crash
+> when using the null scheduler:
 > 
-> Resolves: https://gitlab.com/xen-project/xen/-/work_items/205
-> Signed-off-by: Alexander M. Merritt <alexander@edera.dev>
-> ---
->  xen/arch/x86/arch.mk              |  2 --
->  xen/arch/x86/flushtlb.c           | 28 +---------------------------
->  xen/arch/x86/include/asm/system.h |  7 -------
->  3 files changed, 1 insertion(+), 36 deletions(-)
+> 1. domain creation (e.g. d1) failed due to bad configuration
+> 2. complete_domain_destroy() was deferred
+> 3. domain creation (e.g. d2) succeeds
+> 
+> At this point, d2 is running, while the zombie d1 is not fully cleaned
+> up:
+> 
+> (XEN) Online Cpus: 0-3
+> (XEN) Cpupool 0:
+> (XEN) Cpus: 0-3
+> (XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
+> (XEN) Scheduler: null Scheduler (null)
+> (XEN)   cpus_free = 3
+> (XEN) Domain info:
+> (XEN)   Domain: 0
+> (XEN)     1: [0.0] pcpu=0
+> (XEN)     2: [0.1] pcpu=1
+> (XEN)   Domain: 1
+> (XEN)     3: [1.0] pcpu=2
+> (XEN)   Domain: 2
+> (XEN)     4: [2.0] pcpu=2
+> 
+> 4. complete_domain_destroy() gets called for d1 and triggers the
+> following:
+> 
+> (XEN) Xen call trace:
+> (XEN)    [<00000a0000322ed4>] null.c#unit_deassign+0x2d8/0xb70 (PC)
+> (XEN)    [<00000a000032457c>] null.c#null_unit_remove+0x670/0xba8 (LR)
+> (XEN)    [<00000a000032457c>] null.c#null_unit_remove+0x670/0xba8
+> (XEN)    [<00000a0000336404>] sched_destroy_vcpu+0x354/0x8fc
+> (XEN)    [<00000a0000227324>] domain.c#complete_domain_destroy+0x11c/0x49c
+> (XEN)    [<00000a000029fbd0>] rcupdate.c#rcu_do_batch+0x94/0x3d0
+> (XEN)    [<00000a00002a10c0>] rcupdate.c#__rcu_process_callbacks+0x160/0x5f4
+> (XEN)    [<00000a00002a1e60>] rcupdate.c#rcu_process_callbacks+0xcc/0x1b0
+> (XEN)    [<00000a00002a3460>] softirq.c#__do_softirq+0x1f4/0x3d8
+> (XEN)    [<00000a00002a37c4>] do_softirq+0x14/0x1c
+> (XEN)    [<00000a0000465260>] traps.c#check_for_pcpu_work+0x30/0xb8
+> (XEN)    [<00000a000046bb08>] leave_hypervisor_to_guest+0x28/0x198
+> (XEN)    [<00000a0000409c84>] entry.o#guest_sync_slowpath+0xac/0xd8
+> (XEN)
+> (XEN) ****************************************
+> (XEN) Panic on CPU 0:
+> (XEN) Assertion 'npc->unit == unit' failed at common/sched/null.c:383
+> (XEN) ****************************************
+> 
+> Fix by skipping unit_deassign() when the unit to be removed does not
+> match the pcpu's currently assigned unit.
+> 
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
-For XSAVEOPT there's more work to do, even if not connected via HAVE_AS_XSAVEOPT.
-Look for "xsaveopt" (case-insensitively) in xstate.c. Imo (just like was asked
-for for the RDRAND counterpart patch) this wants doing all in one go.
+Just one remark here: This almost certainly wants a Fixes: tag.
 
 Jan
 
