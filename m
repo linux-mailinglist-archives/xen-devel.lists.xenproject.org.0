@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C919A7B845
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 09:32:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.937825.1338700 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07A47A7B847
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 09:35:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.937837.1338711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0bWn-0004Af-8b; Fri, 04 Apr 2025 07:31:49 +0000
+	id 1u0bZl-0004jp-MU; Fri, 04 Apr 2025 07:34:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 937825.1338700; Fri, 04 Apr 2025 07:31:49 +0000
+Received: by outflank-mailman (output) from mailman id 937837.1338711; Fri, 04 Apr 2025 07:34:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0bWn-00048R-5s; Fri, 04 Apr 2025 07:31:49 +0000
-Received: by outflank-mailman (input) for mailman id 937825;
- Fri, 04 Apr 2025 07:31:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iWoU=WW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u0bWl-00048J-3B
- for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 07:31:47 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dcdb3184-1126-11f0-9eaa-5ba50f476ded;
- Fri, 04 Apr 2025 09:31:46 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-ac29af3382dso267729666b.2
- for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 00:31:46 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac7c0186550sm210660966b.144.2025.04.04.00.31.44
+	id 1u0bZl-0004hw-Jg; Fri, 04 Apr 2025 07:34:53 +0000
+Received: by outflank-mailman (input) for mailman id 937837;
+ Fri, 04 Apr 2025 07:34:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=56zs=WW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u0bZk-0004hq-Q0
+ for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 07:34:52 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4ade192e-1127-11f0-9ffb-bf95429c2676;
+ Fri, 04 Apr 2025 09:34:50 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-43948f77f1aso12363825e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 00:34:50 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43ec34be2f4sm37934475e9.19.2025.04.04.00.34.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Apr 2025 00:31:44 -0700 (PDT)
+ Fri, 04 Apr 2025 00:34:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,196 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dcdb3184-1126-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 4ade192e-1127-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743751905; x=1744356705; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LQfoTEG4MRtopApKswk9oTRymy8zhlkI+bcVVGiZ9Ws=;
-        b=QVwWco4Ah8HyfWhO1IAMm+BgsPXnyrJLads95yhTrUaHlIvvlF4PwVKB6p/V4PXV08
-         UGaTr23QgEHGwb9J6CXq7OyIdHa33Yg636tqvJ30sNeZTqElGknzy82+uJjrN037V91o
-         PAYwfiRmOyL2mWBN9HsZubGugAbHALxiC2ZLupX9ZoP+2TawYuKzYnEwk+FKNIFzQa+9
-         URR67QTxSiEs5OQ75vZYndWBgmkY5FFduQ0yVo1lv1+/hDRjwBE5sOct9b78akDxHoXZ
-         xLtNlzOm4ffbncq5x95bZhnIVXjM/aQKqH0ctStIYkF3bl8Qa9shhw7iEKbBa05NhLJL
-         YNOQ==
+        d=suse.com; s=google; t=1743752090; x=1744356890; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=F6LuLu7ttBbu+6ihLL7tsvFTfwKTtU6/PD4fs3YDkzI=;
+        b=OKaC+FMT1NEu+ntkvz387753jfzh6R7bWkY6ovvXi/nCriqii1r37Ec49MhjMt4u4P
+         dmOnqLcLXaiWpzJL4CpPlqICyuP1Z6Ny/rclCTbLMVJORRRFHmI/wUJuWH0Gm9NX/tYr
+         144vMJ3BI+ANeDQpb/D8DpACf3jecE/euin03vA2LbhN4XsB4RZfrpU9xQgesDpA649D
+         449n9ISLniAoKcY0XP9Gn+5vOf9wniyeA4F1B4+1HX7anUJmrX4gn2TN3S5sGYa7J5xt
+         fv3cbHL2MVhJ6purBOsd6MleVMgyKY4toK/tn07zSwIs1Ih4F4QP2gTKM1FSP44qTS/5
+         larg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743751905; x=1744356705;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=LQfoTEG4MRtopApKswk9oTRymy8zhlkI+bcVVGiZ9Ws=;
-        b=rcJDqJPYnh59E2ek7WMJE5/xL1ZGxZXHWaAxUct1sMsXsuuhPcdt114vHM/CbSMrNP
-         9zvPW8+ZMjXvyXfMbYFkzgzXe4FwuRNGgY4A67CTgAqesj7VWp8YPH3vjeNDhiqSKCf9
-         dE9IN+GDlzL6WWDwgtHQjgM0Ez+QFJSDFSUbZ/VJh1Rh4wclC2dSYt3SDC8AgvVNiGF+
-         9e34imHYEppTKzu/0Lon0XqbJRjny93kN2EcdHLUt5vUOv4XAH2St4aEbMkddggDLf6g
-         6Zzqh8eSoxLUGxTYGTEePV2Uy8GY0GMGOfTs6N7aKpdiAoIIH9m+UDYYDoQaY+Uzb/sJ
-         bcLA==
-X-Forwarded-Encrypted: i=1; AJvYcCXU7xRY4xDZ8jEGTTb7z3ZqOPZ6w8drskMK8rh28ggTBEQWIEqia8GDs/1GYLOYci1ighprkesK1AM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzkajYCfTHC9J0gBKXt9RM+VuYfrlmkYoWmPT5+M1xNjwic7XMj
-	ZTG6/k11vKYdM1uUjqQJJmeHWlQM4P9D0cjUo2OGvTVeybLjCU7L
-X-Gm-Gg: ASbGncskL3zrPUS8y1tTHjsenmqoVTHgGQxVxzRXaPHRwFsojClzVBWdnuKiTmB2uU/
-	qdYETCR2Dz8i6TvMe/FLbGwKg11uIboBnRL2unhS8IVdJJtxef7XXNzPcpqD8RxjvYWBGMdoPy5
-	zYo6lPFJPsFoAMArahSrxonfRynWrB1v7yLOgLjVpcmTsKKFYZsoWULE4BL86viv98f3Dv+Sh8L
-	svU89TG6nXeFrPYpgAhhCj57Kuq7mKXBCzjZDISxG/QUxZolFpddTuKdZYeNKfYQvPcbeWbuyTd
-	TPxVDThHKaMg9Hx6NqogwCEYb32WBTQsEBT/pgrI9FKJ/qsVc0TmZ6iIYplluvwpuCNaHR1TBe2
-	gZPAIGpMElwsyhEmg2aqb
-X-Google-Smtp-Source: AGHT+IE6IbDhoZkauGtEsyUa8q+rskPMQVnFt7mg56kOCVeRHAc9QwTajmQJnoYrA/TPOhJWLSyawg==
-X-Received: by 2002:a17:907:1c9d:b0:ac2:7a6d:c927 with SMTP id a640c23a62f3a-ac7d6f1b67cmr154085566b.50.1743751905245;
-        Fri, 04 Apr 2025 00:31:45 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------SMRczfIP04OYxOzm0S6CJdGW"
-Message-ID: <a4eb8bcf-7043-4661-8879-cdb33d1ca252@gmail.com>
-Date: Fri, 4 Apr 2025 09:31:43 +0200
+        d=1e100.net; s=20230601; t=1743752090; x=1744356890;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=F6LuLu7ttBbu+6ihLL7tsvFTfwKTtU6/PD4fs3YDkzI=;
+        b=V4GEW/pu4ypssZ+xmx1oxhlOmcTYu3o+hM4MszsPAEUvoiKvhi0eEYWBo794mHECRF
+         +2DTa9My36LjzxYZYOn/867MIepv4FsuMZ46CpI3PzQ8OhCgR/BSmQIW7Vc3LauSvPO0
+         Ug5ZFpHzVO98QYQiL5F3VqfSmMUwEqsYIKIV+iZbjvCvXbXFUKiEh1KZfCSX7459+adF
+         pszIJ+3eRhwPYppq3ziMcNOOXz0SqNuxjGfRB9r2QUQr4FLRzqZgqdgy/GpAwiIV0kMu
+         t7Hk6WukLZtfhVosCYDzrGLBEgXjX+Jh4NMZoctJdJtehQuO7FtK31uiiZMdF7EuBLTv
+         3HdQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXK9p1H4UQH+ccG7P97wBRDYO4tc4NIlh7m6gUW8602I11WjGGAcxJICOfgyjor5kMvxILUuwUaxSI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyFDQXM2QVZbhBUbFJjxopkEWrJfFz6gqKb5ww/8tuevqg/jOe2
+	9JVQjiIK/fikKPODe7+2oExXhjHhGmtUJTUl/YShhAkhl4uLpAmf7u5FgJK3rw==
+X-Gm-Gg: ASbGncvqCiRR72EqR4QVB9TDteAjqUKkpQR9CEC0GvtQvqCNorOv5+DYe5K9ln9tts4
+	cI/53aDCcGgoSII9Ad7CgRSYRp/+kObrnOoK5RoLBp+h1Ay+8TAgIHrWfAHHmCf8CLobIMVmM2E
+	GaPPKwVGazsgGcrgnO34kSfGCFDKWeqS83nRuwcnP0c9E83Fm0Qqtw8bgFfqesauAFeJSWrxRT9
+	0MzYEPVrwy9pfuqwgHurWp6qyCdOFg+GhDKIyXLcBEWYx2FXK8Y/M89gFmzPmchXqeT8Hhq6UbY
+	ui5scMBHqtd/SZYVKE7OK/tf74oSnAqegAIBSyUOrbujaau8zocqarL0d5kJ12nA259hB5GKuyu
+	HvLmNcq4uTQ7zUpIPevu7Zj+e7lcPgA==
+X-Google-Smtp-Source: AGHT+IH872JyRDvaIpe3yJLc3SOHwNB/QQplWT9MK/smPHfiL3IcW9r3+E+sSFWZ0M8Vq9zMz/TX3Q==
+X-Received: by 2002:a05:600c:4e09:b0:43c:eeee:b706 with SMTP id 5b1f17b1804b1-43ecf9fe6d2mr18430255e9.24.1743752090183;
+        Fri, 04 Apr 2025 00:34:50 -0700 (PDT)
+Message-ID: <2d0259da-f617-4fda-bc23-840e54a16527@suse.com>
+Date: Fri, 4 Apr 2025 09:34:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] xen/riscv: Increase XEN_VIRT_SIZE
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3 4/7] xen/arm: dom0less seed xenstore grant table entry
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <e5fa4219ccf43125e2489cc8c49b4404e6ed22ce.1743434164.git.oleksii.kurochko@gmail.com>
- <54ebdcb7-071f-411f-803a-930dc330a497@suse.com>
- <32264ccb-e566-41e0-973f-5bc7d874f970@gmail.com>
- <9d7e1553-3af8-4fc3-a400-8714d9b68411@suse.com>
- <30d8e316-aff5-498a-b2bd-448e0b2518ae@gmail.com>
- <3c2127ec-63fb-457b-8229-fc8a2b9fbf00@suse.com>
+ xen-devel@lists.xenproject.org
+References: <20250403214608.152954-1-jason.andryuk@amd.com>
+ <20250403214608.152954-5-jason.andryuk@amd.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <3c2127ec-63fb-457b-8229-fc8a2b9fbf00@suse.com>
-
-This is a multi-part message in MIME format.
---------------SMRczfIP04OYxOzm0S6CJdGW
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250403214608.152954-5-jason.andryuk@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 03.04.2025 23:46, Jason Andryuk wrote:
+> xenstored maps other domains' xenstore pages.  Currently this relies on
+> init-dom0less or xl to seed the grants from Dom0.  With split
+> hardware/control/xenstore domains, this is problematic since we don't
+> want the hardware domain to be able to map other domains' resources
+> without their permission.  Instead have the hypervisor seed the grant
+> table entry for every dom0less domain.  The grant is then accessible as
+> normal.
+> 
+> C xenstored uses grants, so it can map the xenstore pages from a
+> non-dom0 xenstore domain.  OCaml xenstored uses foreign mappings, so it
+> can only run from a privileged domain (dom0).
+> 
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+> v3:
+> Expand commit message about C vs. OCaml xenstored.
+> Remove __init and flags from gnttab_seed_entry()
+> Change frame to uint32_t
+> ASSERT gfn fits in a uint32_t
 
-On 4/4/25 8:56 AM, Jan Beulich wrote:
-> On 03.04.2025 18:20, Oleksii Kurochko wrote:
->> On 4/1/25 6:04 PM, Jan Beulich wrote:
->>> On 01.04.2025 17:58, Oleksii Kurochko wrote:
->>>> On 3/31/25 6:14 PM, Jan Beulich wrote:
->>>>> On 31.03.2025 17:20, Oleksii Kurochko wrote:
->>>>>> +        _AC(XEN_VIRT_START, UL) >> vpn1_shift;
->>>>>> +    const unsigned long xen_virt_end_vpn =
->>>>>> +        xen_virt_starn_vpn + ((XEN_VIRT_SIZE >> vpn1_shift) - 1);
->>>>>> +
->>>>>>         if ((va >= DIRECTMAP_VIRT_START) &&
->>>>>>             (va <= DIRECTMAP_VIRT_END))
->>>>>>             return directmapoff_to_maddr(va - directmap_virt_start);
->>>>>>     
->>>>>> -    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
->>>>>> -    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
->>>>>> -           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
->>>>>> +    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(8));
->>>>> Is it necessary to be != ? Won't > suffice?
->>>> It could be just > MB(2). Or perphaps >=.
->>>> = would make the build fail, wouldn't it?
->> I just realized that BUILD_BUG_ON() condition is compared to zero so actually everything what
->> will make the condition true will cause a build fail as inside it used !(condition).
-> ???
+Ehem. For this you need to use ...
 
-|BUILD_BUG_ON()| forces a compilation error if the given condition is true. Therefore, if the condition
-|XEN_VIRT_SIZE != MB(2)| is changed to|XEN_VIRT_SIZE > MB(2)|, the condition will always evaluate to true
-(assuming|XEN_VIRT_SIZE| is greater than 2 MB), which will result in a compilation error.
+> --- a/xen/arch/arm/dom0less-build.c
+> +++ b/xen/arch/arm/dom0less-build.c
+> @@ -788,6 +788,12 @@ static void __init initialize_domU_xenstore(void)
+>          rc = alloc_xenstore_evtchn(d);
+>          if ( rc < 0 )
+>              panic("%pd: Failed to allocate xenstore_evtchn\n", d);
+> +
+> +        if ( gfn != ~0ULL )
+> +        {
+> +            ASSERT(gfn <= UINT_MAX);
 
-~ Oleksii
+... UINT32_MAX here. Furthermore may I remind you that INVALID_GFN ==
+UINT32_MAX in 32-bit environments.
 
->
->> So it seems like we have to check for XEN_VIRT_SIZE != MB(16) and change each time when XEN_VIRT_SIZE
->> is increased.
-> I don't think so, but I need to first understand the point you make above.
+The ~0ULL may also better be UINT64_MAX.
 
---------------SMRczfIP04OYxOzm0S6CJdGW
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+> @@ -85,6 +89,9 @@ static inline void grant_table_destroy(struct domain *d) {}
+>  
+>  static inline void grant_table_init_vcpu(struct vcpu *v) {}
+>  
+> +static inline void gnttab_seed_entry(struct domain *d, int idx,
+> +                                     domid_t be_domid, uint32_t frame) {}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/4/25 8:56 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:3c2127ec-63fb-457b-8229-fc8a2b9fbf00@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 03.04.2025 18:20, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 4/1/25 6:04 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 01.04.2025 17:58, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">On 3/31/25 6:14 PM, Jan Beulich wrote:
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">On 31.03.2025 17:20, Oleksii Kurochko wrote:
-</pre>
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">+        _AC(XEN_VIRT_START, UL) &gt;&gt; vpn1_shift;
-+    const unsigned long xen_virt_end_vpn =
-+        xen_virt_starn_vpn + ((XEN_VIRT_SIZE &gt;&gt; vpn1_shift) - 1);
-+
-       if ((va &gt;= DIRECTMAP_VIRT_START) &amp;&amp;
-           (va &lt;= DIRECTMAP_VIRT_END))
-           return directmapoff_to_maddr(va - directmap_virt_start);
-   
--    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
--    ASSERT((va &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)) ==
--           (_AC(XEN_VIRT_START, UL) &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)));
-+    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(8));
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">Is it necessary to be != ? Won't &gt; suffice?
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">It could be just &gt; MB(2). Or perphaps &gt;=.
-= would make the build fail, wouldn't it?
-</pre>
-          </blockquote>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-I just realized that BUILD_BUG_ON() condition is compared to zero so actually everything what
-will make the condition true will cause a build fail as inside it used !(condition).
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-???</pre>
-    </blockquote>
-    <pre><code data-start="71" data-end="87">BUILD_BUG_ON()</code> forces a compilation error if the given condition is true. Therefore, if the condition
-<code data-start="177" data-end="201">XEN_VIRT_SIZE != MB(2)</code> is changed to <code
-    data-start="216" data-end="239">XEN_VIRT_SIZE &gt; MB(2)</code>, the condition will always evaluate to true
-(assuming <code data-start="294" data-end="309" data-is-only-node="">XEN_VIRT_SIZE</code> is greater than 2 MB), which will result in a compilation error.
+Hmm. While generally I prefer using such wrappers, I wonder if in this
+case it wouldn't end up more clear if a conditional was added in
+initialize_domU_xenstore(). Ideally using IS_ENABLED(), which - aiui -
+would require moving the declaration of the function.
 
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:3c2127ec-63fb-457b-8229-fc8a2b9fbf00@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">So it seems like we have to check for XEN_VIRT_SIZE != MB(16) and change each time when XEN_VIRT_SIZE
-is increased.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I don't think so, but I need to first understand the point you make above.</pre>
-    </blockquote>
-    <pre>
-</pre>
-  </body>
-</html>
-
---------------SMRczfIP04OYxOzm0S6CJdGW--
+Jan
 
