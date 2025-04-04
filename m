@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FCE5A7B86C
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 09:52:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.937915.1338771 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E643A7B88E
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 10:08:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.937928.1338780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0br5-0005Gc-BN; Fri, 04 Apr 2025 07:52:47 +0000
+	id 1u0c4x-00011a-Go; Fri, 04 Apr 2025 08:07:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 937915.1338771; Fri, 04 Apr 2025 07:52:47 +0000
+Received: by outflank-mailman (output) from mailman id 937928.1338780; Fri, 04 Apr 2025 08:07:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0br5-0005En-82; Fri, 04 Apr 2025 07:52:47 +0000
-Received: by outflank-mailman (input) for mailman id 937915;
- Fri, 04 Apr 2025 07:52:46 +0000
+	id 1u0c4x-0000zp-Dq; Fri, 04 Apr 2025 08:07:07 +0000
+Received: by outflank-mailman (input) for mailman id 937928;
+ Fri, 04 Apr 2025 08:07:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=56zs=WW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u0br4-0005Eg-HT
- for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 07:52:46 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1u0c4w-0000zh-Ij
+ for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 08:07:06 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cac06101-1129-11f0-9ffb-bf95429c2676;
- Fri, 04 Apr 2025 09:52:44 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-43cf034d4abso18325235e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 00:52:44 -0700 (PDT)
+ id ca6189d2-112b-11f0-9ffb-bf95429c2676;
+ Fri, 04 Apr 2025 10:07:02 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43690d4605dso11663125e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 01:07:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ec34ae0c5sm38675885e9.15.2025.04.04.00.52.42
+ ffacd0b85a97d-39c301a0a90sm3693968f8f.21.2025.04.04.01.07.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Apr 2025 00:52:43 -0700 (PDT)
+ Fri, 04 Apr 2025 01:07:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cac06101-1129-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: ca6189d2-112b-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743753164; x=1744357964; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743754022; x=1744358822; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QcY3//PJ1WPeXM90v4eyQhxXTyvAF1pYYiS2pveoGuI=;
-        b=JQykXNeLa8KP3da7Feeu4AipzJook0AAgDEBDRZUfZq/p1BHPKfouW1XpZhhXVBU6A
-         EFBTjTRFAE7SiLnS+zWL+nMOKXHdo5+n7sVUHf5S9cbtzesfbr20SVmezKZddGaCcdTQ
-         VMiEmkbI2Jca84t1ZBXkOPHG9IhZxb980nT2FBE/lhV1dVh49lWPp/LBsV/lkrq+Sp4G
-         VQDZEzCTre0nHRWx0SO0gwns1htu187qAve3cb+SwvsZuT+jvajvP6AqKZVv1FBfyp8P
-         W1fBN3w38vFCjRYa1iHNUXDDyYXU+1lfKoIGDHSbAUh+yjo0UZ+O55RuvQmso4h8FeZ0
-         G77w==
+        bh=V9cC4/6Nx56k5u/OU29yv3NZMWQZ7a/TTzf+o5t6MrU=;
+        b=WcByEIPe+3QR8MWaCSbbbNBqBjenajAoqG7L7VohvGVXCKSKk9uCKS0ABWnudsPdCr
+         Qx/Ro2tGEEFPt9WcinSg8CDTy7TOyMIEKLJs3kTPMMS1fGQdf79mzhOr6trjF1/ut7td
+         qTXkbBYNf3aGpBl1v8N1/o7lgDMalp1iI8yQWDAi2U9iO8QS4EgpV5NF8hWhsrWiWlP3
+         x9V9k5LgJY5DZs7XqCMADNycuKNw9+M5Y4RAVZnJKMtq8rPeS/lKxB7VylocqYOscOlP
+         XPp1QSHdS52V/wgSWuD/HKZGv0Afc90c5+lrHy3LDRnj8KZHTTplRh4PERgmMeXq7m+j
+         pqxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743753164; x=1744357964;
+        d=1e100.net; s=20230601; t=1743754022; x=1744358822;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QcY3//PJ1WPeXM90v4eyQhxXTyvAF1pYYiS2pveoGuI=;
-        b=DKXi6jD5JQMhzlHxgMqz6pbD3myP3CfyczIP10Gd5/kXT5sGsZTb7ytWSlUJdMVUst
-         PQSz6X0lVfdStnnsOUX7872iUV0RkCAZQHwuBJ//GTY1YRtHzu5a0PUeMKDOdBLl64Bk
-         2QunzAnsJkNRcJv3qrUnYsbWQWvK5yx7+FC0b6eZt8LJOMtNmIA+IX5Go6k8aEs8ofpd
-         gcyvsTCtOrtU3RUjQo7CFK/qErm3KCcYNmLD61McnCwM4dnDdUVyUfRM1DPNMGPZt4+M
-         +WhpY/E6/ZEkE4IVGF3eROIqkL3Iwc8wQE9ewWxrbSR5jI6jd9BGcaJ9IeTqhbuF9/ZG
-         y3gQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVJtVLgVLLEFkQrDnGVMcg+cIdfQSoo/sRTKzlMMgWtPWo69EF98JPQuD7XvwZzb42PTjv4Pr4dHAE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/8TNIzkaA3RrI8vRA3wXuJFdRyVWrcMzaMk7wStss6EDPo1eP
-	D/R8Yy1SlgWmjKySkWonihCeW2j5hUegZn7NZeUGi8jhzpuxEQvYiFzett1xng==
-X-Gm-Gg: ASbGncullTTnW2+UfQNKiFYm7Sk2IwBiLPHFySNuJrwF3EfapMX8de6nIBjgotBYz/O
-	PQXANzrBsUq1xw43wwzGZE5JzNrCaxYXGM/8o4Md0JAreFEjOFqxpenwEOVzzZQtLxNzbrrQ4BI
-	NkZLELxuhHs3PHexwfBGNOe2dsBPVP9RKtYbwQO0NNbZ7oW2FNubaCZ+nZaKZ0+Z/kHV20sgOA0
-	M/m9+OUtA1+nebE9jCyR1xQKLXLXD6entlsgU5k9paqTvCumcSOP6XKrJoSG8Xr7FRGKt0O6hc1
-	3JOqwlVGz/KukObvo4CVnqK/qoZyKf0mnBYx/IF/PuJYr/O3SzW+WpR4bjjhAeChtSSQClqHqmj
-	o+WNvKkrLkMw7Vtj9fXzILWFiRFg58Q==
-X-Google-Smtp-Source: AGHT+IHTpaJG5j78XKVkstL5sycTbjF6h8kOA9ndCtqnv5LEs0Ckwg6fosWe1MWeqtW05BZxV/+aQw==
-X-Received: by 2002:a05:600c:1d88:b0:43d:7a:471f with SMTP id 5b1f17b1804b1-43ecf8ece15mr21202555e9.18.1743753163675;
-        Fri, 04 Apr 2025 00:52:43 -0700 (PDT)
-Message-ID: <14ac3e72-d21d-4b45-a434-d123152c0113@suse.com>
-Date: Fri, 4 Apr 2025 09:52:41 +0200
+        bh=V9cC4/6Nx56k5u/OU29yv3NZMWQZ7a/TTzf+o5t6MrU=;
+        b=Xlb9lOs1aQ4QlwYwnn91U10GpKLzYKSRPO5GhOqK/ewpuTmT52ya3xP8bbqXToIbSY
+         6FZ9pnWtmCZcXbE2z5WptFB0jhsfV7aBYoMwq9PWNLCVymf7uFlJ8Cd+ebJGZmVFrB4e
+         ycqt4xIfbDd+z/L5xJh5MpEs9PRZG+NMsY5i3pQYRpcFTlgEookrvHduVpNd/2dOysx/
+         r0zwOuIVqbQ56DuilrIjrj8wiKgX24K8R9Yya1gh4Qy2vhTgkWtvUiwoKbrPU5wWYyQ9
+         KvZv2cLzd8ht/56gzZgj6ZmSUAI1hGbGioTikbpe+/IeKJGOZGyy82kSJwHkFyRbVi9d
+         P9pA==
+X-Forwarded-Encrypted: i=1; AJvYcCW6cSbXD/03fSzpdxs1qhfYvgPGD2QzKDbGE9ysurGJFKnBg/3SEU1xdcFkDih/cOf+7K/To8IRgbI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwrUKbffNlSC4G7am0h4bJeQzSzxlgqaeUo+s2Je1PrFj4RUavA
+	X2N9isHXrF8nsFIkZq25QRRfd33bhQt0wzAYT5OomHLb62OB4ee9y1skqTVyfw==
+X-Gm-Gg: ASbGncs8yb0peDOqNtqB+wRdbEym84ZN430bz6vKnaRXxQ0FFEKUKRtb+//md3ToVI+
+	Y2g70VoztmNcoVh1mhQN6OQLrKLF3dbEIIhkP+V0Z4IC/hewoRO6gvcDZ4O9XMRu7U6G8wZJHVi
+	ktZBjdiUOiweEqTO37ZmDyCFDa/aUk4rl0L1Crbey0JLaZEt16PxXaLCqcNK06ID/j6nPf6IqqD
+	Qxyy6Mt2vorf7WRSTdDO590zoxa8BSo/wTQbqiHoXnZ/7RRSsZln3bXGyJ2t4s80IbB/wUjrIMO
+	6tjqhnhDvnPw6PWKqN4cWcdLWPDUzBJl/7k7Z9eRQs96wYH9R1c4KO0UdaYYF1cPN3UwrN9Ca/O
+	YkYaQ9oJLiR75/CxOCn/tKS37KEYZEA==
+X-Google-Smtp-Source: AGHT+IGUPQmpF7Fv+nXkAslbU/N0jhb+hDckkfHFeYRoE0VlqUL01brmVeHfvgaKwRWCtHib+N5gFw==
+X-Received: by 2002:a5d:584c:0:b0:391:43cb:43fa with SMTP id ffacd0b85a97d-39cba93cf0emr1782833f8f.51.1743754022014;
+        Fri, 04 Apr 2025 01:07:02 -0700 (PDT)
+Message-ID: <e8ca1efb-384f-4c60-94b2-95528301a156@suse.com>
+Date: Fri, 4 Apr 2025 10:07:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] xen/riscv: Increase XEN_VIRT_SIZE
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [RFC] xen/x86: allow overlaps with non-RAM regions
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <e5fa4219ccf43125e2489cc8c49b4404e6ed22ce.1743434164.git.oleksii.kurochko@gmail.com>
- <54ebdcb7-071f-411f-803a-930dc330a497@suse.com>
- <32264ccb-e566-41e0-973f-5bc7d874f970@gmail.com>
- <9d7e1553-3af8-4fc3-a400-8714d9b68411@suse.com>
- <30d8e316-aff5-498a-b2bd-448e0b2518ae@gmail.com>
- <3c2127ec-63fb-457b-8229-fc8a2b9fbf00@suse.com>
- <a4eb8bcf-7043-4661-8879-cdb33d1ca252@gmail.com>
+ jason.andryuk@amd.com, Xenia.Ragiadakou@amd.com,
+ Alejandro.GarciaVallejo@amd.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2504031755440.3529306@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,47 +119,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a4eb8bcf-7043-4661-8879-cdb33d1ca252@gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2504031755440.3529306@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.04.2025 09:31, Oleksii Kurochko wrote:
+On 04.04.2025 03:01, Stefano Stabellini wrote:
+> On one Sapphire AMD x86 board, I see this:
 > 
-> On 4/4/25 8:56 AM, Jan Beulich wrote:
->> On 03.04.2025 18:20, Oleksii Kurochko wrote:
->>> On 4/1/25 6:04 PM, Jan Beulich wrote:
->>>> On 01.04.2025 17:58, Oleksii Kurochko wrote:
->>>>> On 3/31/25 6:14 PM, Jan Beulich wrote:
->>>>>> On 31.03.2025 17:20, Oleksii Kurochko wrote:
->>>>>>> +        _AC(XEN_VIRT_START, UL) >> vpn1_shift;
->>>>>>> +    const unsigned long xen_virt_end_vpn =
->>>>>>> +        xen_virt_starn_vpn + ((XEN_VIRT_SIZE >> vpn1_shift) - 1);
->>>>>>> +
->>>>>>>         if ((va >= DIRECTMAP_VIRT_START) &&
->>>>>>>             (va <= DIRECTMAP_VIRT_END))
->>>>>>>             return directmapoff_to_maddr(va - directmap_virt_start);
->>>>>>>     
->>>>>>> -    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
->>>>>>> -    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
->>>>>>> -           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
->>>>>>> +    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(8));
->>>>>> Is it necessary to be != ? Won't > suffice?
->>>>> It could be just > MB(2). Or perphaps >=.
->>>>> = would make the build fail, wouldn't it?
->>> I just realized that BUILD_BUG_ON() condition is compared to zero so actually everything what
->>> will make the condition true will cause a build fail as inside it used !(condition).
->> ???
 > 
-> |BUILD_BUG_ON()| forces a compilation error if the given condition is true. Therefore, if the condition
-> |XEN_VIRT_SIZE != MB(2)| is changed to|XEN_VIRT_SIZE > MB(2)|, the condition will always evaluate to true
-> (assuming|XEN_VIRT_SIZE| is greater than 2 MB), which will result in a compilation error.
+> (XEN) [0000003943ca6ff2]  [00000000f0000000, 00000000f7ffffff] (reserved)
+> (XEN) [00000039460886d9]  [00000000fd000000, 00000000ffffffff] (reserved)
+> [...]
+> (XEN) [    4.612235] 0000:02:00.0: not mapping BAR [fea00, fea03] invalid position
 
-Well, it was you who used MB(2) in a reply, when previously talk was of MB(8),
-and that to grow to MB(16). The BUILD_BUG_ON() is - aiui - about you having set
-aside enough page table space. Quite possibly the need for this BUILD_BUG_ON()
-then disappears altogether when XEN_VIRT_SIZE is properly taken into account
-for the number-of-page-tables calculation. In no event do I see why the MB(2)
-boundary would be relevant for anything going forward.
+I, too, see something like this on an SPR system. That's a firmware issue,
+which hence first of all should be dealt with at the firmware side.
+
+> Linux boots fine on this platform but Linux as Dom0 on Xen does not.
+> This is because the pci_check_bar->is_memory_hole check fails due to the
+> MMIO region overlapping with the EFI reserved region.
+
+And then what's the actual, observable problem? On my system I haven't
+noticed anything going wrong yet, albeit the affected device is also left
+without a driver.
+
+Also aiui you strictly mean PVH Dom0 here?
+
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -797,6 +797,9 @@ bool is_memory_hole(mfn_t start, mfn_t end)
+>          if ( !entry->size )
+>              continue;
+>  
+> +        if ( entry->type > 1 )
+> +            continue;
+
+I'm sorry to ask, but what's a literal 1 here? I'm pretty convinced we
+would want to still object to overlaps with unusable ranges, for example.
+Yet by open-coding what E820_RAM expands to you completely hide what this
+check is about. Yes, this is an RFC, but even there such context is
+important.
+
+Furthermore my general take here is: We shouldn't simply silence issues
+arising from firmware doing odd things. My take here is still the same
+as the position I took when I still was maintainer of the EFI code in
+Xen: We shouldn't by default work around such issues, when doing so may
+negatively affect systems not exposing such odd behavior.
+
+Finally a Misra-related observation while looking at this: Isn't
+is_memory_hole() unreachable code in a !HVM configuration?
 
 Jan
 
