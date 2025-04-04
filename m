@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02AA7A7BB76
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 13:22:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.938150.1339025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3336A7BDFF
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 15:37:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.938207.1339139 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0f7g-0002kL-1A; Fri, 04 Apr 2025 11:22:08 +0000
+	id 1u0hD9-00028h-Bj; Fri, 04 Apr 2025 13:35:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 938150.1339025; Fri, 04 Apr 2025 11:22:07 +0000
+Received: by outflank-mailman (output) from mailman id 938207.1339139; Fri, 04 Apr 2025 13:35:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0f7f-0002ij-SS; Fri, 04 Apr 2025 11:22:07 +0000
-Received: by outflank-mailman (input) for mailman id 938150;
- Fri, 04 Apr 2025 11:22:07 +0000
+	id 1u0hD9-00026V-8W; Fri, 04 Apr 2025 13:35:55 +0000
+Received: by outflank-mailman (input) for mailman id 938207;
+ Fri, 04 Apr 2025 13:35:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9O5F=WW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u0f7f-0002ia-1f
- for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 11:22:07 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ <SRS0=C8GG=WW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1u0hD7-00026N-Bn
+ for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 13:35:53 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0a089aa2-1147-11f0-9eaa-5ba50f476ded;
- Fri, 04 Apr 2025 13:22:05 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43d0359b1fcso13199335e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 04:22:05 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ec366b571sm43611045e9.40.2025.04.04.04.22.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Apr 2025 04:22:04 -0700 (PDT)
+ id ba4409d6-1159-11f0-9eaa-5ba50f476ded;
+ Fri, 04 Apr 2025 15:35:52 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5e677f59438so3237085a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 06:35:52 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ a640c23a62f3a-ac7c01c1085sm253747966b.183.2025.04.04.06.35.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Apr 2025 06:35:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +44,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a089aa2-1147-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: ba4409d6-1159-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743765725; x=1744370525; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8LesR/SGC8EeZNPqAcM23dHESKkyarxpefBGVTvvUoY=;
-        b=jSBOJ8fBuXelAfX1WfhMyX/BbXcpTf/Ys3XeNSshyykns48wiAqYN1F5DXeFBH6TIU
-         AKgDQuNCJKRkth1zwhvs5B/dt7pMyTS5JhiEaSVK5jKKrt0pbFqdJ1Hs6WUzExAaPhPA
-         X0ErSu2hHPT0E2KJLD1RE3fJX/xZZyZG7diyo=
+        d=citrix.com; s=google; t=1743773752; x=1744378552; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=7zMVCjKwCi74UMVT2Q8AVcMCSyrZzJQzum19Wgp9Wls=;
+        b=G/8OAaRSf/EGEBA8ExySYSEhkCDck64ZXPHODmkaosH8bE7i50tSAaASe2BALh+y46
+         03U5g37JNy1fA+jk/fWUOm2R8ZmfGloeaMwgI1Z6Ie1cp73M7WtYxFugYsnnWFW+aV/1
+         3HhRqb0GRfC6N+v5mdCG3d0ZZC527FdEbwaZQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743765725; x=1744370525;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8LesR/SGC8EeZNPqAcM23dHESKkyarxpefBGVTvvUoY=;
-        b=TxARkN495PyS6DhZC/jtL0mysmOTXRTOzhzPddcIi3Yi01oMKzAZsNwy2kJSU5yzfj
-         ZurLLMrPYVmpGM1BA7McTIq7H7dl28Dfom6PBBuRn9rAHqM6z+xAT26tVnCfN1o8Y/FG
-         PmrfW6aexhvQuUJYSU28tvlqBTnmmu0RIhnQDECXvQRa1QOGoKrmmMr7xXNCi1vrX/It
-         xFA1jnQ4G5Z8vK6Oll5C/0bgRwiHCDSDodtYmkfWoht/ABve58YX130rzwF4aC6fA1ou
-         hN6sMC6NyV5FY6moSebR+yF3pkRYW2jkoC8WNYMgEPHpXyihABTLjzTrq7Cuh+iW3PtA
-         R0iA==
-X-Forwarded-Encrypted: i=1; AJvYcCXkVxr+eW/+rge0y3XuU4BpjvjhQinqk9G+nkl2xqjTb7eJDd81qNn7qIjrCqiPJHXDibRI4kw+iZI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx1xtq8UHFPSyb64IeBPlnfyIMh3yXm7aHmfJOqegrKnteGGULu
-	NfbnUKc7XbRd+ucmfCTw1pZ3Zt/L6HJ1WyN9JTShZE6K6+MiXGOIE7o8PjZa+U0=
-X-Gm-Gg: ASbGncuQD2y/FQD22kQ6AIZwVnkCnWrZFqOuFwI4XmkZS5fNTBpFWD11FaCbnT6X5pO
-	FNF1QDZr7Bv4EOyVmjnIOF2L2F7ooPY0NmDjv44n8cX42lO/zKRp2wuWd11wXM991s60xrNCa3X
-	eyu2SkiHlYMDCZfwZpwAjdSbP5D2LFs8hsh5Cdjuf4kFZLtMhIIZn39AWrZO3ijADZiONlP/vq8
-	AVc55XeNJCjjAKqJ6t4KgH6rCf2LhCd+TulKhX/s9Q07EBq6PxeopQPt7ZceEb3tjcoT7shygJI
-	USlv/32+TXgbwJdHpMrQnsxEulY1gsyytlxYM9Z9N7MmwnRIEN4zSoNtteOlHWEKoU4mkwr5UpE
-	ucLuYFJdcxg==
-X-Google-Smtp-Source: AGHT+IGshNrsYh++Jd6BAG9tWRzyY47uKo+cB11OBjMRZyLvB8cOAr5HXZu1gTm3Ova/r1CcfGvtWA==
-X-Received: by 2002:a05:600c:1e1b:b0:43d:16a0:d98d with SMTP id 5b1f17b1804b1-43eceee3375mr28424645e9.15.1743765725169;
-        Fri, 04 Apr 2025 04:22:05 -0700 (PDT)
-Message-ID: <4059e6bd-5538-4f6f-ba05-1d9e32ec04c0@citrix.com>
-Date: Fri, 4 Apr 2025 12:22:04 +0100
+        d=1e100.net; s=20230601; t=1743773752; x=1744378552;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7zMVCjKwCi74UMVT2Q8AVcMCSyrZzJQzum19Wgp9Wls=;
+        b=Rnz7BcVJVWlN8sq5NvaU3QyPcqED9ntsMMcEOh0bqsRUSHvxZyAhQw970EX7HYV/yh
+         As/IoI2K0cNnvndbr8f+WckuBpGHLx+8YF+u8ZQJOggQ6J782I0YgNY2/IsENZv3y3F0
+         HgnqhL5QNds0+WMhQC4dwmtnJMdyufmHZ0VnKfnlkeLGBGKWhn6fVNK0nBh7B6LRKKcf
+         x3VHFGZUa3v5KXsRDNfd7EVsGoqeO6Pq2jd5gRrOTQ0u49RAQ/NOOfsG3LMfKEz8EZhy
+         Gqos0HypiJ3S7WwD+MOcAky4GiYAZ6iazKS11APLH8A6aDKH1nwhRnCt6Pd3gNMzg87g
+         2nog==
+X-Forwarded-Encrypted: i=1; AJvYcCW3FhgeRpVKbLHHgNCvpU5edlumhaEXKVRqHLOnb9uCqF7daY1Tsp3Jk7lrWsA+eD8X8Tauc2QMkMM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yypm4NtL1s3GH0voChk2eYVNr6uEocFx2RF9h2J24Atoh9dnl2G
+	C2FprmiCn8sG5pev2GfwHQ56tfpNPmbqrSe/FQcwnizhnb95qq7lyRlMOCh0EIw=
+X-Gm-Gg: ASbGncuqLA1MOD5MrWHCtd+xCHiswGyHqy9oWUCD11040D0OatupUPNrX0XegpyMsUT
+	2yfYpkjJMyW8NAQwP1mR/RxBxy6QFrUtDwiP7Nx7eWD1rZE2mdRawK8fe6diFd+rO5zkM+huTuG
+	VMruZK7Aw/qE9jbhk9s2JxHApQYYotDA+YspNduEtVqOu0wm0iOVYa9Nh++Xc2EOAeLWozr8TiE
+	eF/kox0xGBeCdCWNxUfMMU1WmCNx8Y2zSLIwu63bKwNeylYH2ecdXgwWIcZxtqTMx5wtmixplPl
+	fhvaoFGqaQPhXmHBHKJ05VWQcmZMQRWfJufZF19dndcAWzFbyA==
+X-Google-Smtp-Source: AGHT+IFSKCngGbRbwdtl+C7MsVBdbETjJAdfQeZKdojq/dV5G705u6R+N4qeFiZ9coPdcBWaR16zzw==
+X-Received: by 2002:a17:907:3d8d:b0:ac7:391a:e2d4 with SMTP id a640c23a62f3a-ac7d6e9fe27mr218999966b.59.1743773751706;
+        Fri, 04 Apr 2025 06:35:51 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: Juergen Gross <jgross@suse.com>,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: [PATCH v2] x86/xen: fix balloon target initialization for PVH dom0
+Date: Fri,  4 Apr 2025 15:34:58 +0200
+Message-ID: <20250404133459.16125-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] x86/amd: Enable TCE in Xen
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <cover.1743756934.git.teddy.astie@vates.tech>
- <460c58c78e956ca62cc80356536dbdb45fa73779.1743756934.git.teddy.astie@vates.tech>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <460c58c78e956ca62cc80356536dbdb45fa73779.1743756934.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 04/04/2025 10:49 am, Teddy Astie wrote:
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index d70abb7e0c..0e2e7d012f 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -2008,6 +2008,14 @@ void asmlinkage __init noreturn __start_xen(void)
->      if ( cpu_has_pku )
->          set_in_cr4(X86_CR4_PKE);
->  
-> +    if ( cpu_has_tce )
-> +    {
-> +        printk("Enabling AMD TCE\n");
-> +
-> +        write_efer(read_efer() | EFER_TCE);
-> +        trampoline_efer |= EFER_TCE;
+PVH dom0 re-uses logic from PV dom0, in which RAM ranges not assigned to
+dom0 are re-used as scratch memory to map foreign and grant pages.  Such
+logic relies on reporting those unpopulated ranges as RAM to Linux, and
+mark them as reserved.  This way Linux creates the underlying page
+structures required for metadata management.
 
-This doesn't do what you think it does. (it writes into the copy of the
-trampoline in .init, not the one placed in low memory).
+Such approach works fine on PV because the initial balloon target is
+calculated using specific Xen data, that doesn't take into account the
+memory type changes described above.  However on HVM and PVH the initial
+balloon target is calculated using get_num_physpages(), and that function
+does take into account the unpopulated RAM regions used as scratch space
+for remote domain mappings.
 
-You need to use bootsym() to get to the real trampoline.
+This leads to PVH dom0 having an incorrect initial balloon target, which
+causes malfunction (excessive memory freeing) of the balloon driver if the
+dom0 memory target is later adjusted from the toolstack.
 
-I'm also not sure the prinkt() is useful.  It's about universal on AMD
-systems.
+Fix this by using xen_released_pages to account for any pages that are part
+of the memory map, but are already unpopulated when the balloon driver is
+initialized.  This accounts for any regions used for scratch remote
+mappings.
 
-~Andrew
+Take the opportunity to unify PV with PVH/HVM guests regarding the usage of
+get_num_physpages(), as that avoids having to add different logic for PV vs
+PVH in both balloon_add_regions() and arch_xen_unpopulated_init().
+
+Much like a6aa4eb994ee, the code in this changeset should have been part of
+38620fc4e893.
+
+Fixes: a6aa4eb994ee ('xen/x86: add extra pages to unpopulated-alloc if available')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Changes since v1:
+ - Replace BUG_ON() with a WARN and failure to initialize the balloon
+   driver.
+---
+ arch/x86/xen/enlighten.c |  7 +++++++
+ drivers/xen/balloon.c    | 34 ++++++++++++++++++++++++----------
+ 2 files changed, 31 insertions(+), 10 deletions(-)
+
+diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
+index 43dcd8c7badc..651bb206434c 100644
+--- a/arch/x86/xen/enlighten.c
++++ b/arch/x86/xen/enlighten.c
+@@ -466,6 +466,13 @@ int __init arch_xen_unpopulated_init(struct resource **res)
+ 			xen_free_unpopulated_pages(1, &pg);
+ 		}
+ 
++		/*
++		 * Account for the region being in the physmap but unpopulated.
++		 * The value in xen_released_pages is used by the balloon
++		 * driver to know how much of the physmap is unpopulated and
++		 * set an accurate initial memory target.
++		 */
++		xen_released_pages += xen_extra_mem[i].n_pfns;
+ 		/* Zero so region is not also added to the balloon driver. */
+ 		xen_extra_mem[i].n_pfns = 0;
+ 	}
+diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
+index 163f7f1d70f1..ee165f4f7fe6 100644
+--- a/drivers/xen/balloon.c
++++ b/drivers/xen/balloon.c
+@@ -675,7 +675,7 @@ void xen_free_ballooned_pages(unsigned int nr_pages, struct page **pages)
+ }
+ EXPORT_SYMBOL(xen_free_ballooned_pages);
+ 
+-static void __init balloon_add_regions(void)
++static int __init balloon_add_regions(void)
+ {
+ 	unsigned long start_pfn, pages;
+ 	unsigned long pfn, extra_pfn_end;
+@@ -698,26 +698,38 @@ static void __init balloon_add_regions(void)
+ 		for (pfn = start_pfn; pfn < extra_pfn_end; pfn++)
+ 			balloon_append(pfn_to_page(pfn));
+ 
+-		balloon_stats.total_pages += extra_pfn_end - start_pfn;
++		/*
++		 * Extra regions are accounted for in the physmap, but need
++		 * decreasing from current_pages to balloon down the initial
++		 * allocation, because they are already accounted for in
++		 * total_pages.
++		 */
++		if (extra_pfn_end - start_pfn >= balloon_stats.current_pages) {
++			WARN(1, "Extra pages underflow current target");
++			return -ERANGE;
++		}
++		balloon_stats.current_pages -= extra_pfn_end - start_pfn;
+ 	}
++
++	return 0;
+ }
+ 
+ static int __init balloon_init(void)
+ {
+ 	struct task_struct *task;
++	int rc;
+ 
+ 	if (!xen_domain())
+ 		return -ENODEV;
+ 
+ 	pr_info("Initialising balloon driver\n");
+ 
+-#ifdef CONFIG_XEN_PV
+-	balloon_stats.current_pages = xen_pv_domain()
+-		? min(xen_start_info->nr_pages - xen_released_pages, max_pfn)
+-		: get_num_physpages();
+-#else
+-	balloon_stats.current_pages = get_num_physpages();
+-#endif
++	if (xen_released_pages >= get_num_physpages()) {
++		WARN(1, "Released pages underflow current target");
++		return -ERANGE;
++	}
++
++	balloon_stats.current_pages = get_num_physpages() - xen_released_pages;
+ 	balloon_stats.target_pages  = balloon_stats.current_pages;
+ 	balloon_stats.balloon_low   = 0;
+ 	balloon_stats.balloon_high  = 0;
+@@ -734,7 +746,9 @@ static int __init balloon_init(void)
+ 	register_sysctl_init("xen/balloon", balloon_table);
+ #endif
+ 
+-	balloon_add_regions();
++	rc = balloon_add_regions();
++	if (rc)
++		return rc;
+ 
+ 	task = kthread_run(balloon_thread, NULL, "xen-balloon");
+ 	if (IS_ERR(task)) {
+-- 
+2.48.1
+
 
