@@ -2,38 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693C5A7B921
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 10:43:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.937941.1338791 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA142A7B938
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 10:48:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.937956.1338800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0cdp-00043Z-4f; Fri, 04 Apr 2025 08:43:09 +0000
+	id 1u0cjD-0004kQ-Py; Fri, 04 Apr 2025 08:48:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 937941.1338791; Fri, 04 Apr 2025 08:43:09 +0000
+Received: by outflank-mailman (output) from mailman id 937956.1338800; Fri, 04 Apr 2025 08:48:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0cdp-00041z-07; Fri, 04 Apr 2025 08:43:09 +0000
-Received: by outflank-mailman (input) for mailman id 937941;
- Fri, 04 Apr 2025 08:43:07 +0000
+	id 1u0cjD-0004hr-N0; Fri, 04 Apr 2025 08:48:43 +0000
+Received: by outflank-mailman (input) for mailman id 937956;
+ Fri, 04 Apr 2025 08:48:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iWoU=WW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u0cdn-00041t-3l
- for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 08:43:07 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ <SRS0=YWcl=WW=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1u0cjB-0004hl-MU
+ for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 08:48:41 +0000
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20a::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d3b67d83-1130-11f0-9eaa-5ba50f476ded;
- Fri, 04 Apr 2025 10:43:05 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5e6167d0536so3191620a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 01:43:05 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f0880a45bdsm1942187a12.71.2025.04.04.01.43.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Apr 2025 01:43:04 -0700 (PDT)
+ id 9ab565a9-1131-11f0-9eaa-5ba50f476ded;
+ Fri, 04 Apr 2025 10:48:39 +0200 (CEST)
+Received: from DU2P250CA0015.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:231::20)
+ by DU0PR08MB8322.eurprd08.prod.outlook.com (2603:10a6:10:40d::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.44; Fri, 4 Apr
+ 2025 08:48:34 +0000
+Received: from DB1PEPF000509EC.eurprd03.prod.outlook.com
+ (2603:10a6:10:231:cafe::cf) by DU2P250CA0015.outlook.office365.com
+ (2603:10a6:10:231::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.26 via Frontend Transport; Fri,
+ 4 Apr 2025 08:48:34 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB1PEPF000509EC.mail.protection.outlook.com (10.167.242.70) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.22
+ via Frontend Transport; Fri, 4 Apr 2025 08:48:33 +0000
+Received: from DB7PR08MB2987.eurprd08.prod.outlook.com (2603:10a6:5:1c::25) by
+ AS2PR08MB9101.eurprd08.prod.outlook.com (2603:10a6:20b:5fd::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.50; Fri, 4 Apr
+ 2025 08:47:58 +0000
+Received: from DB7PR08MB2987.eurprd08.prod.outlook.com
+ ([fe80::d53f:b16d:70a5:8668]) by DB7PR08MB2987.eurprd08.prod.outlook.com
+ ([fe80::d53f:b16d:70a5:8668%4]) with mapi id 15.20.8583.041; Fri, 4 Apr 2025
+ 08:47:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,272 +61,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3b67d83-1130-11f0-9eaa-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743756185; x=1744360985; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nMdlDnFeE/ugQuOKWKolBfE2c+xXSu7MDrl9WQXcshg=;
-        b=H0R2BVeTL4Ep3WWQDlLm8RVPEKjK4PoMZgo8V6U+/VaBheHflCXGtWzH3T+NT5D4yx
-         84QTen+300uaIpxtgJR6Cu1/954irJO5/bhmHmFm+KYvsf0kn9ooVp0DRdHFQUiJfYw9
-         alyrrm/HHrhaw3zUbtB1HFD45z0nQSrFS2r4NKVqeiYI07WcZALA33Cj6LTNP0OQttqf
-         EdPw/C3r2fpFRQbSYgxuMMwqNvwYJwJyG1gFWz/HtSosESsD788xi6P5i7Owzu4olB0L
-         1hk4VYCy4B3Tf5gD/tRFDuh9V0sK69lj1MbGLGe2VrwYhE6izzDF2L0gTFNngD9Pf+mb
-         VCxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743756185; x=1744360985;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=nMdlDnFeE/ugQuOKWKolBfE2c+xXSu7MDrl9WQXcshg=;
-        b=RrWJurI8lWYh1Kqg/8yL5EKGmpde7+g6YFhP0uAMyr1JRAUzBzK+B7xbsFu7q6B3xb
-         SlV+Uz8K8vD4bhkAZF1DBI8JYh8aEcHG3mwFgWyWtinPNUs8aSu5JAfD3fmmJvAgI96i
-         cO+T8PnnSZLWyMA4VbknTjGoR5R/wtcyFOZA9RnUkl7W9uuxf/dODaMLSPJkXDqXm4qc
-         6H3m/sRGZF1VGPR3u4FGKJI2KPsmWYR0ljnNFo/66J7rc3c3i4YJanfjtHubbAGmNXl+
-         YyZO6dR1ZitjzwI649e5rnWSS20MfZF2MJv5kObAPaC+JA4axKNH+wy3+khyBSNt94W2
-         5t0A==
-X-Forwarded-Encrypted: i=1; AJvYcCUahxY62Zk+q2Y/IVQ9mgFBboupYx67VIxjgIfYDWK88wk2n5MBxJRc0Ad1R5BKTEV/nzBh/dU/TVI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxUeg/dmMf5t2zmDaPrXIKzJkwSXOXiEfrUHGrurJKfndc7nPNE
-	6PU7OHKfksRnJEM1am/TsjGLE3ds+lrji2XyaM9/LPcQgLKRbEal
-X-Gm-Gg: ASbGncugY6+QVsCMjjETiCEvjySpTe3mX+ASGB4xzXXPOt6BfGGlfk8N+6b8nFmD4gO
-	HTmA40HiKTm53Z9z18wmltorZBQBbQjRenQk1oEz2k5eoIEHuHlYMzAzbzQCL7SvvAk0CLp5ryo
-	bdov4KGHyqCE7+csuZgNOG3WdiFWSwybWvtgl/PbxGq0eNR5x1YpR1FCd1tCfLORck6h/W6BntA
-	hyPUndbalxAxuKD3rGdsUEozek3wXjwTeBTL7CNJm6kDkxxGp7/oPdf5jufTIF5a42Uqlr2cHrV
-	XU0DoqXufyy1wy8xxtcciJoIhQDTDULV2TgIhOcLRdYisfZZUwQFZrWGLopPn5B+uW+J4PCuumX
-	D0RNgIaqX1HcD1R5QuRVeCls5KwkuWZs=
-X-Google-Smtp-Source: AGHT+IEHTyJ5tHtqj733uXfBNO2G4B2FU3pL1edfgEnysxMnpkFXh3GXyjk14+1hOV+RpizrQDrWKQ==
-X-Received: by 2002:a05:6402:2708:b0:5f0:9eb3:8e71 with SMTP id 4fb4d7f45d1cf-5f0b3e34eafmr1943326a12.27.1743756184949;
-        Fri, 04 Apr 2025 01:43:04 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------3yWG1vJgau96FWZoQYQnAYCa"
-Message-ID: <d954c167-8243-43ab-9bfb-2e47c8ea171a@gmail.com>
-Date: Fri, 4 Apr 2025 10:43:02 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] xen/riscv: Increase XEN_VIRT_SIZE
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <e5fa4219ccf43125e2489cc8c49b4404e6ed22ce.1743434164.git.oleksii.kurochko@gmail.com>
- <54ebdcb7-071f-411f-803a-930dc330a497@suse.com>
- <32264ccb-e566-41e0-973f-5bc7d874f970@gmail.com>
- <9d7e1553-3af8-4fc3-a400-8714d9b68411@suse.com>
- <30d8e316-aff5-498a-b2bd-448e0b2518ae@gmail.com>
- <3c2127ec-63fb-457b-8229-fc8a2b9fbf00@suse.com>
- <a4eb8bcf-7043-4661-8879-cdb33d1ca252@gmail.com>
- <14ac3e72-d21d-4b45-a434-d123152c0113@suse.com>
+X-Inumbo-ID: 9ab565a9-1131-11f0-9eaa-5ba50f476ded
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=jkkeV+2ibPp9TdCJOVrDgGFZysf1fW7M/QFM73tGaM529auMRL+YwI4Y2VUIAHoWnkfEw+xQco19dOi/mN+l3MAZ7tG/Bt6XwHGVRrtoLddJoVdsxgLTjZ8sJAZTO/KA7csgsU9jX4RVx2gCt9jVj1+tIde1dQWrwGSrzRtJSsuR3txncW9ogAU2Ew9ejzwAn0ki91eNwbUJLiqn7MrZqY7HNoAXG0VeMrUyCmkZ3wFNhx17Ge5RwuU4AeLiwKFgavYAFQrWbs20+70yfw2LHEyW9miVzAqWaolIrL3sTkTaunYLEAOE6ZJoCzKjrHlklIyzQQlbrvc+sQzTILa12g==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S9DgsYlvnjv/AwiHinyPUoFGfa2bfYT7PouZ1r+EIFs=;
+ b=KLkvb+3yKtxIJceCUBcukydyfvHhAGoQSyly5M2taRMxVGr1cU3vDeb1BWajWuslAHBbw+DoghFEcffh7kIWVc8fikaYBXqXlV1MCeZYLt7wFfivLPTAlVfS7j04eFYYHiGywhA86wFVXO83u3v5jnazyyZSsj9EYzpMKEt6DbcGQKiYh0KU+5GmScBTOF3V9K6yz8dVPQ9V1SzVDbaZ/zOc4wSfaLAq7yTz62oDXMheBq2KCJlKFbI0j586flzG1fPdxKCvTAJVVLZC2CN98WXgtPVOYUuelRkDeafSwzbjmxGgSyZlb51NpTlCQjuCY0PcB3LZX5Gn/5QzbG6e0w==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=fail (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=amd.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S9DgsYlvnjv/AwiHinyPUoFGfa2bfYT7PouZ1r+EIFs=;
+ b=LcGmbKbtWzOIv4WR+kaGYgX6XG7E8pxIenqxj1QdHExS1M+QpYBm1z6zFOyfqSjFLxMyTpezbj/WJGiQ2f91EsdPTZeD5yPzmBfFs2I4VeR+1szwcR080j7LOu8UXVx8uBvMezx3l8lLhEGHXrsa+9NYLPDA38S4z6ZGKyDiX3Q=
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Fail (protection.outlook.com: domain of arm.com does not
+ designate 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VYazvq73dnzhIGcK78jIN7O1pQECKGJc6mRQsoVAdRHB4uiTL8IufXFw9XgbZFvLpx45dGjD2Xi73iE0FSAklbqMWhHC0ntavybfxJUTqmNqJGrGjTVmmyoHh+ufCv2DsQwj3SLCzujGz7e+9KunQFWhZEoBwsxAZUsmclGp7xQWui1EPqlblke2r9d1xtVmmBLLUZA8eYAM40M6fu1r3f52mKzwE/6f10EuPicONf0ZGy6Rj/di20am9yY5CewBhURz03eF3APxn+Sw9oKxYUk/bR/+fuHps224/hAmSIkY5DcKGcgSt0WH2p1dRJVs0LwlFbDuulhxdDw2mCRuxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S9DgsYlvnjv/AwiHinyPUoFGfa2bfYT7PouZ1r+EIFs=;
+ b=Ngob0RluAYbitTy/0uALMj5ghFgBAiDcAX6Jv3Ah84dp1ekV6+O4Hs5ysi2vKGa0V9E0ZxxxW7XEOk/U7hs6K67Y/RajxkZp+AjiGnpVyypyVaQ2tvSML1NVZlASEfcVwDIZZiM3VPr1fCfVQz59kOYvzep++htn0q1gcnuTL3SVYHAANd7Sa0aCETEAtanSr/j80f04vPRWT3C0e5BJ5lK2Yq0Vyftr07KrczWf4AXLRlu2R9Jim9pazkX2c2IqdAVSPk81c4sSt+DuQZjfMfwiI1Nh5JT+6AYheFAX7+m97J2MeKNfXwaUrC6q3/0z2kG1G4tb8f6p7K08OCUBrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S9DgsYlvnjv/AwiHinyPUoFGfa2bfYT7PouZ1r+EIFs=;
+ b=LcGmbKbtWzOIv4WR+kaGYgX6XG7E8pxIenqxj1QdHExS1M+QpYBm1z6zFOyfqSjFLxMyTpezbj/WJGiQ2f91EsdPTZeD5yPzmBfFs2I4VeR+1szwcR080j7LOu8UXVx8uBvMezx3l8lLhEGHXrsa+9NYLPDA38S4z6ZGKyDiX3Q=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
+ Marquis <Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v4 0/3] Enable early bootup of Armv8-R AArch32 systems
+Thread-Topic: [PATCH v4 0/3] Enable early bootup of Armv8-R AArch32 systems
+Thread-Index: AQHbpLu5GfFGjlHeZU6shwRT92O93bOTMuuA
+Date: Fri, 4 Apr 2025 08:47:58 +0000
+Message-ID: <6E6B9795-B3AC-4BEA-88CA-091F4608652D@arm.com>
+References: <20250403171241.975377-1-ayan.kumar.halder@amd.com>
+In-Reply-To: <20250403171241.975377-1-ayan.kumar.halder@amd.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <14ac3e72-d21d-4b45-a434-d123152c0113@suse.com>
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.400.131.1.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DB7PR08MB2987:EE_|AS2PR08MB9101:EE_|DB1PEPF000509EC:EE_|DU0PR08MB8322:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f74e014-f321-4a02-8157-08dd73557b1e
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?utf-8?B?MGdPVGx4RWRwRGhISkxOaGE0OXFiZW5UL0piVHZTYmtJU3BpZmlxSmpyZFAr?=
+ =?utf-8?B?NCtyTllOaCtaME91blVjbkFiVmVzcnhpY2xrSzZMUEYyZjhoVE4zQkNrNTBN?=
+ =?utf-8?B?NlZlUjdQMWJwSFR4c1NFazc2a0RGeEIwaTJjMUJVbDNBdFV5aHhXOVRXd2lX?=
+ =?utf-8?B?RW1ZWEpqVWpPMCtxNEc0YlZWY0QrOFhTMG5tcEdEMmdvdmFGSGN0eGhJQzVL?=
+ =?utf-8?B?OVpxUWhvSDNuK2wrYjZXNThQbDB3NnF0OFljS2xtT0hyMUtQeTluTkM5YStp?=
+ =?utf-8?B?WWV1WDB1RC9YZzduZk1xekZUWW9DTjdqNkdFdFYveG5MZXNSQUpJQzNmRWtk?=
+ =?utf-8?B?d1hnNjJHRlVmVzFsVnRNTVBNWEJGOHRtY1RBUWEvSHNkZlp4Zit1amJrRlRE?=
+ =?utf-8?B?VCt1Y0dNRlRrTFNqSFl4YjBqbTVXMUJ2VEpvdW82T1liOXdGb3EvdE9Hb05P?=
+ =?utf-8?B?U1hOb05KZmFzVzRDOE8wallaUHJhRjBSYnFEUEtJUUdLUEJxbExYYTEwNmJL?=
+ =?utf-8?B?K0pSb2dESnVHYzVCa1plSFJtdG90eDFFc0RMSzN1c0tvWVdzWnlOS3Rqa1lC?=
+ =?utf-8?B?MWcrbEY0MklmVEdJdE1ITWY2T29DK1YrSEUvZVZ5cDl5WjZnSzV4ODFmbFBD?=
+ =?utf-8?B?WWNaTUdqbU5Sc3VPMk1lR3p1blBDc0g4eVV3Z1lIOHRIejZwSG9lVHJGdXFF?=
+ =?utf-8?B?VWd0MmpERUlrWmFGRXBLRks4cllDN29NWm0xYUlVVEEyU3U2aTIxSU5ybUY1?=
+ =?utf-8?B?aStxcG9OZ1VpdGdzRStwRUhHTjE1d2hMYXBXQTY5M1hTZHJZYVFHWVlXbDgr?=
+ =?utf-8?B?WnM4R3dGVXUwZlo4VWRDajJSc3N3dDF2c2hvSkhIRU1iVFp6NnNnU3pUY2hp?=
+ =?utf-8?B?bW1DUDBwZ0FWNzUzN1R6T01WWTRQR2dCdzJCeTRtazNxejA0dDQ2MWhMRHgz?=
+ =?utf-8?B?aEU5NHBsVWl6Zmo4VnBXQzlzWnRQdnk2d0FVbm9CelVweHpyTEJNc29PcHFs?=
+ =?utf-8?B?Q3BxNWhPSllrOE5veDlhV1N2VjVsNlZLVWdndjFmRlRFQktpRXdUMHlFUmdp?=
+ =?utf-8?B?cFp1UFZPM25ra1duTW1hRDVwQzV1MVFDS0VjNDdLdjlzOEtGM2MrOFREOVlj?=
+ =?utf-8?B?VzZvZmM1QUVsMHV6ZmpkeUpYMERub2NGallnWFE4Zks1QWZMcytTSmhSWDdh?=
+ =?utf-8?B?ci9ob3IycyswT1RIRHAzcGRpSzY3alFLRXgzU0YyekpGZERCQ2FHOC94SU8x?=
+ =?utf-8?B?Y0tDQnRhSGMzUjVEMXBMcCtVQ2ZDaHBkZjZVM3ZFL01ScWNLVlRVTnQxenJV?=
+ =?utf-8?B?dkRsZUJFS3NnL2NlOUtzVXNYa3NDb2w2YmwyakRLRnRPMTdvZDI3aVZTOTZT?=
+ =?utf-8?B?ak5UR3JFUkcvUXF0QmFnMHRObkIwZjUrdi9rU3E0SU5wUmEwd3F2TjQxaXFP?=
+ =?utf-8?B?Y2hEYWdJQ3FuQXMreEI5WGF5YmJPZHhiK001YlkxckwyL2FqekVPRkpiQnRL?=
+ =?utf-8?B?WlJ1RW41b1FNSStCQUVqaGM0elZuK1pTaWJZamFidDFoaEYvd01rbUFnOHZy?=
+ =?utf-8?B?RXdmcDFxVU42bU9CVS82b1B2T1M5bmR1T1NpU255N0thMytkMXRZYUpSS2FY?=
+ =?utf-8?B?Q21FcFdlZWxvTnNsRC8zV1BqTThCWDkzYXJRNUlUUWpXWFYxUmdUckp5WEFv?=
+ =?utf-8?B?QzczTE84TWNiRHhQTGt0Ymh6MlZlL3dvZHFYVVd6WDRGMjBSOFAzUVdMVG9x?=
+ =?utf-8?B?Q1NJQ3ExcjFqeTJrRjBvV3hlVHR6VDFsTmhYUEsraUczdUxUSnYxTUI4S1Zu?=
+ =?utf-8?B?dEJWcnhrUlh1S2o3VXBTS3UvVEpyZGw1RE1rSkJURk82MVJQbkhCSjduelVh?=
+ =?utf-8?B?MWdmTHJIWHlqcDZPZlJFKzR3K0F2eGlncE5nV3FvMnF5bkJQRDYyTXJ0QkxY?=
+ =?utf-8?Q?36KL/NedE2fffzgz7NihYoU0eb5tO3lK?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB2987.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <E5A6B9FB233C9A468371667113363511@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9101
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB1PEPF000509EC.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	62190c69-9136-478f-536b-08dd73556651
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|14060799003|82310400026|35042699022|36860700013|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?MnE0SkowT0NONHAvekRSekZHajV1em5FcjJFSVVJS1BUWnJaeU9xbUtEWTIr?=
+ =?utf-8?B?OGdaREFnNlNIRkU5Y1lueVNvbkE2SnFUU2hWV2UzU3JNUnBZVE5aMGtuN2hG?=
+ =?utf-8?B?OTg1TFRFUnQ2TVZ2dER1SEtvOHVBajhEOGlVVk55U0pQckRvYmpzaUV3Wm41?=
+ =?utf-8?B?NTdrS3ZKOHkxTk82TWp3anRtVklRaEQyTFZFSlU5QVRiVi9KZ0haTmxXOGpN?=
+ =?utf-8?B?TGFKa0twdTFNZDdrQnkwOHVvVzZQRittSjhRdXFXRTBkdElwK3ZrTFZiZnZu?=
+ =?utf-8?B?cG5OYVVMWGdBSW52cHgyRFc0ZlVENG1MSzlxYTZ1QVlzT0pyZGNha2RycTFT?=
+ =?utf-8?B?S2wycmZKVXlRcFdvRVVzY2dCTmxtK0lTSnBmUmdmUEdldi9MWnNMcmNzTGlz?=
+ =?utf-8?B?SXFIV255RS95SXBOZ3VHWjdOSzBpeG1YN0E5MndyWUVGaGxCbjI2cDVIVFl0?=
+ =?utf-8?B?TEZUVXoxTk9hdlNsdllaT3dvUEZkbzNoNzFnalo4RlhjRm9YTktneTRYa1dP?=
+ =?utf-8?B?d09jMWdmTHI5RVI2L2RXUERHVlhVZS9ndEdBS21zQmN5Q2xXZzJNRVU3OWNs?=
+ =?utf-8?B?VkRHSmVoZ3BxTzN2QW5wRUlEV0cwamJ1SzN3dURYc2R5SXlBWllpdFk0QUZR?=
+ =?utf-8?B?OGg4NWk1MW9iT09IQUp2N052ZjNCTUhRdVhMSlZ0d0lyVHV3VWxxNHA2WnNs?=
+ =?utf-8?B?NDR0NHVJY3ZYb2MwdnF1SHFkS2M5S1FyNUtrTFovUW1YcERoL0xiYVR6YzM2?=
+ =?utf-8?B?VCs3UUprUnNMN0lkdWFoRExBMzFJUVZ2VU5RQnlYT3RhVGFad0s2V1RWbGxW?=
+ =?utf-8?B?SjBQeVhsdWxOem42Q3I0VXAzekd4VWRibS93U0JickZ0bWx5TzFzbmxUa1ht?=
+ =?utf-8?B?R05zVTJQNllka3J4K3l2NEFBQmRnN2Y2dU1kaEw3bGVrd0VVbW1ZMEFraEcx?=
+ =?utf-8?B?cWtkV1B3RTRxOXlqZW5iSDM4ZFhydjRiZTkvdEtENVpOZEdxMzZnaWlPb2Q2?=
+ =?utf-8?B?Wmh5UVdKelJ3L1dXSGtDNzJGQWprdUVVNGs2cFduQklTd3gyNHUzc1l0Z1pU?=
+ =?utf-8?B?aTRVRjQva0E1U2prWUdqK3VrZ1dCbVdyUkRZM2JZUStwSlFJMlN2MWIyR1FR?=
+ =?utf-8?B?dUd1OTNtVG5WSTI5aVpyUllXL09NMlkzRmVxS0lVWGdUTjZmcXBjbjlGTGZj?=
+ =?utf-8?B?bVd6Zi9qNGlLbEU1bVplWFFYZlViNCtzQlpPZWVveE56dEorUU8zamZ2VSt6?=
+ =?utf-8?B?dWM4b04xR0lNZFk4NkJVMDZiTlRRc0YzdnBMSnVnMkkrcmIzaCtUYWFDQ1Y2?=
+ =?utf-8?B?RmU2N1BxMFFneDFXcEFRdmorMGx5eG5VTUFDNlQ0SXN5NmNxU1JjZkw5a0NU?=
+ =?utf-8?B?WTlrbWxkQ1poUHdLeDlzL041NndKUnFGSlk1UTVnekt6WTh6NVFSc3dmbHZW?=
+ =?utf-8?B?L0NXUEUrVDBRbVM1UkZkdFhwcThidXZmZlJLRFRlK21DeVFPT2QzQkpTdEJ5?=
+ =?utf-8?B?ekFqNzQwc045SVRhL0ladHBQWE4wUWNWalM1OHg4b2RJR0duNU5uSGlRMml0?=
+ =?utf-8?B?Mm14N1BnNW96ZlV5VEhpN1gxdXd1bFNQV0Y5cm1VbTh4czJZR2RaV01KNm4y?=
+ =?utf-8?B?d0p2YzZVQnlkOEM4WC9aVkFZeXBYNXcrTmpnajZONzg4MXUvVWMra0pMMm83?=
+ =?utf-8?B?WHMzb0ViR3YrOVpwOGpnM09ZUlZzTDI2R0ZpREZUdjkwbWc4cnhjb2lpQ3M5?=
+ =?utf-8?B?dFlwN0ZDSVMrV3pRRGYwYlR6QUM0bjMreGZIZFU2MzVia255MDd6NTQveFBP?=
+ =?utf-8?B?SURraFRhdTczRE1QTFIzQ2s4NjJSVTlFRVJ0Qks1YVVxM1FzKzE1TDhyUWE4?=
+ =?utf-8?B?RmZxVUxwWnNSbEplNTEzRjByTjJzNWppNGQxSXpVWTJQMTAweHA4SGFqTTJW?=
+ =?utf-8?B?SXRlZjJQZWhiNTBYM1FkcGNhZHJUTjNwRlUyRDV0cEZoeVgxRDBrZVRWMVdz?=
+ =?utf-8?Q?qP6H/nSL9iw0speg1pwYIOlX9yBuyo=3D?=
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(14060799003)(82310400026)(35042699022)(36860700013)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2025 08:48:33.0552
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f74e014-f321-4a02-8157-08dd73557b1e
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509EC.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8322
 
-This is a multi-part message in MIME format.
---------------3yWG1vJgau96FWZoQYQnAYCa
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 4/4/25 9:52 AM, Jan Beulich wrote:
-> On 04.04.2025 09:31, Oleksii Kurochko wrote:
->> On 4/4/25 8:56 AM, Jan Beulich wrote:
->>> On 03.04.2025 18:20, Oleksii Kurochko wrote:
->>>> On 4/1/25 6:04 PM, Jan Beulich wrote:
->>>>> On 01.04.2025 17:58, Oleksii Kurochko wrote:
->>>>>> On 3/31/25 6:14 PM, Jan Beulich wrote:
->>>>>>> On 31.03.2025 17:20, Oleksii Kurochko wrote:
->>>>>>>> +        _AC(XEN_VIRT_START, UL) >> vpn1_shift;
->>>>>>>> +    const unsigned long xen_virt_end_vpn =
->>>>>>>> +        xen_virt_starn_vpn + ((XEN_VIRT_SIZE >> vpn1_shift) - 1);
->>>>>>>> +
->>>>>>>>          if ((va >= DIRECTMAP_VIRT_START) &&
->>>>>>>>              (va <= DIRECTMAP_VIRT_END))
->>>>>>>>              return directmapoff_to_maddr(va - directmap_virt_start);
->>>>>>>>      
->>>>>>>> -    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
->>>>>>>> -    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
->>>>>>>> -           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
->>>>>>>> +    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(8));
->>>>>>> Is it necessary to be != ? Won't > suffice?
->>>>>> It could be just > MB(2). Or perphaps >=.
->>>>>> = would make the build fail, wouldn't it?
->>>> I just realized that BUILD_BUG_ON() condition is compared to zero so actually everything what
->>>> will make the condition true will cause a build fail as inside it used !(condition).
->>> ???
->> |BUILD_BUG_ON()| forces a compilation error if the given condition is true. Therefore, if the condition
->> |XEN_VIRT_SIZE != MB(2)| is changed to|XEN_VIRT_SIZE > MB(2)|, the condition will always evaluate to true
->> (assuming|XEN_VIRT_SIZE| is greater than 2 MB), which will result in a compilation error.
-> Well, it was you who used MB(2) in a reply, when previously talk was of MB(8),
-> and that to grow to MB(16). The BUILD_BUG_ON() is - aiui - about you having set
-> aside enough page table space. Quite possibly the need for this BUILD_BUG_ON()
-> then disappears altogether when XEN_VIRT_SIZE is properly taken into account
-> for the number-of-page-tables calculation. In no event do I see why the MB(2)
-> boundary would be relevant for anything going forward.
-
-Also, doesn’t|BUILD_BUG_ON()| affect how the|ASSERT()| that follows it is written?
-
-The changes, at the moment, look like:
-+    const unsigned int vpn1_shift = PAGETABLE_ORDER + PAGE_SHIFT;
-+    const unsigned long va_vpn = va >> vpn1_shift;
-+    const unsigned long xen_virt_start_vpn =
-+        _AC(XEN_VIRT_START, UL) >> vpn1_shift;
-+    const unsigned long xen_virt_end_vpn =
-+        xen_virt_start_vpn + ((XEN_VIRT_SIZE >> vpn1_shift) - 1);
-+
-      if ((va >= DIRECTMAP_VIRT_START) &&
-          (va <= DIRECTMAP_VIRT_END))
-          return directmapoff_to_maddr(va - directmap_virt_start);
-  
--    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
--    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
--           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
-+    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(16));
-+    ASSERT((va_vpn >= xen_virt_start_vpn) && (va_vpn <= xen_virt_end_vpn));
-
-
-If|XEN_VIRT_SIZE| is greater than|GB(1)|, then|xen_virt_end_vpn| may be calculated
-incorrectly.
-
-For example, if|XEN_VIRT_START| is|0xFFFFFFFF80000000| and|XEN_VIRT_SIZE| is|0x40200000|,
-then|(XEN_VIRT_SIZE >> vpn1_shift)| equals 513, whereas|va_vpn| is always in the range [0, 511],
-but xen_virt_end_vpn will be greater then 511.
-
-So shouldn't it  be checked before ASSERT() that XEN_VIRT_SIZE is <= GB(1):
-   BUILD_BUG_ON(XEN_VIRT_SIZE <= GB(1))?
-
-~ Oleksii
-
-
---------------3yWG1vJgau96FWZoQYQnAYCa
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/4/25 9:52 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:14ac3e72-d21d-4b45-a434-d123152c0113@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 04.04.2025 09:31, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 4/4/25 8:56 AM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 03.04.2025 18:20, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">On 4/1/25 6:04 PM, Jan Beulich wrote:
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">On 01.04.2025 17:58, Oleksii Kurochko wrote:
-</pre>
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">On 3/31/25 6:14 PM, Jan Beulich wrote:
-</pre>
-                <blockquote type="cite">
-                  <pre wrap="" class="moz-quote-pre">On 31.03.2025 17:20, Oleksii Kurochko wrote:
-</pre>
-                  <blockquote type="cite">
-                    <pre wrap="" class="moz-quote-pre">+        _AC(XEN_VIRT_START, UL) &gt;&gt; vpn1_shift;
-+    const unsigned long xen_virt_end_vpn =
-+        xen_virt_starn_vpn + ((XEN_VIRT_SIZE &gt;&gt; vpn1_shift) - 1);
-+
-        if ((va &gt;= DIRECTMAP_VIRT_START) &amp;&amp;
-            (va &lt;= DIRECTMAP_VIRT_END))
-            return directmapoff_to_maddr(va - directmap_virt_start);
-    
--    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
--    ASSERT((va &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)) ==
--           (_AC(XEN_VIRT_START, UL) &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)));
-+    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(8));
-</pre>
-                  </blockquote>
-                  <pre wrap="" class="moz-quote-pre">Is it necessary to be != ? Won't &gt; suffice?
-</pre>
-                </blockquote>
-                <pre wrap="" class="moz-quote-pre">It could be just &gt; MB(2). Or perphaps &gt;=.
-= would make the build fail, wouldn't it?
-</pre>
-              </blockquote>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">I just realized that BUILD_BUG_ON() condition is compared to zero so actually everything what
-will make the condition true will cause a build fail as inside it used !(condition).
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">???
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-|BUILD_BUG_ON()| forces a compilation error if the given condition is true. Therefore, if the condition
-|XEN_VIRT_SIZE != MB(2)| is changed to|XEN_VIRT_SIZE &gt; MB(2)|, the condition will always evaluate to true
-(assuming|XEN_VIRT_SIZE| is greater than 2 MB), which will result in a compilation error.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Well, it was you who used MB(2) in a reply, when previously talk was of MB(8),
-and that to grow to MB(16). The BUILD_BUG_ON() is - aiui - about you having set
-aside enough page table space. Quite possibly the need for this BUILD_BUG_ON()
-then disappears altogether when XEN_VIRT_SIZE is properly taken into account
-for the number-of-page-tables calculation. In no event do I see why the MB(2)
-boundary would be relevant for anything going forward.</pre>
-    </blockquote>
-    <pre data-start="105" data-end="189" class="">Also, doesn’t <code
-    data-start="119" data-end="135">BUILD_BUG_ON()</code> affect how the <code
-    data-start="151" data-end="161">ASSERT()</code> that follows it is written?
-
-The changes, at the moment, look like:
-+    const unsigned int vpn1_shift = PAGETABLE_ORDER + PAGE_SHIFT;
-+    const unsigned long va_vpn = va &gt;&gt; vpn1_shift;
-+    const unsigned long xen_virt_start_vpn =
-+        _AC(XEN_VIRT_START, UL) &gt;&gt; vpn1_shift;
-+    const unsigned long xen_virt_end_vpn =
-+        xen_virt_start_vpn + ((XEN_VIRT_SIZE &gt;&gt; vpn1_shift) - 1);
-+
-     if ((va &gt;= DIRECTMAP_VIRT_START) &amp;&amp;
-         (va &lt;= DIRECTMAP_VIRT_END))
-         return directmapoff_to_maddr(va - directmap_virt_start);
- 
--    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
--    ASSERT((va &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)) ==
--           (_AC(XEN_VIRT_START, UL) &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)));
-+    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(16));
-+    ASSERT((va_vpn &gt;= xen_virt_start_vpn) &amp;&amp; (va_vpn &lt;= xen_virt_end_vpn));
-
-
-If <code data-start="754" data-end="769">XEN_VIRT_SIZE</code> is greater than <code
-    data-start="786" data-end="793">GB(1)</code>, then <code
-    data-start="800" data-end="818">xen_virt_end_vpn</code> may be calculated
-incorrectly.
-
-For example, if <code data-start="866" data-end="882">XEN_VIRT_START</code> is <code
-    data-start="886" data-end="906">0xFFFFFFFF80000000</code> and <code
-    data-start="911" data-end="926">XEN_VIRT_SIZE</code> is <code
-    data-start="930" data-end="942">0x40200000</code>,
-then <code data-start="949" data-end="980">(XEN_VIRT_SIZE &gt;&gt; vpn1_shift)</code> equals 513, whereas <code
-    data-start="1001" data-end="1009">va_vpn</code> is always in the range [0, 511],
-but xen_virt_end_vpn will be greater then 511.
-
-So shouldn't it  be checked before ASSERT() that XEN_VIRT_SIZE is &lt;= GB(1):
-  BUILD_BUG_ON(XEN_VIRT_SIZE &lt;= GB(1))?
-
-~ Oleksii
-
-
-</pre>
-  </body>
-</html>
-
---------------3yWG1vJgau96FWZoQYQnAYCa--
+SGkgQXlhbiwNCg0KPiBPbiAzIEFwciAyMDI1LCBhdCAxODoxMiwgQXlhbiBLdW1hciBIYWxkZXIg
+PGF5YW4ua3VtYXIuaGFsZGVyQGFtZC5jb20+IHdyb3RlOg0KPiANCj4gRW5hYmxlIGVhcmx5IGJv
+b3Rpbmcgb2YgQXJtdjgtUiBBQXJjaDMyIGJhc2VkIHN5c3RlbXMuDQo+IA0KPiBBeWFuIEt1bWFy
+IEhhbGRlciAoMyk6DQo+ICB4ZW4vYXJtOiBNb3ZlIHNvbWUgb2YgdGhlIGZ1bmN0aW9ucyB0byBj
+b21tb24gZmlsZQ0KPiAgeGVuL2FybTMyOiBDcmVhdGUgdGhlIHNhbWUgYm9vdC10aW1lIE1QVSBy
+ZWdpb25zIGFzIGFybTY0DQo+ICB4ZW4vYXJtMzI6IG1wdTogU3R1YnMgdG8gYnVpbGQgTVBVIGZv
+ciBhcm0zMg0KDQp0aGUgc2VyaWUgaXMgYnJlYWtpbmcgdGhlIGNvbXBpbGF0aW9uIG9mIEFybTY0
+IE1QVToNCg0KW+KApl0NCnhlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9tcHUvY3ByZWdzLmg6Njog
+ZXJyb3I6ICJSRUdJT05fVEVYVF9QUkJBUiIgcmVkZWZpbmVkIFstV2Vycm9yXQ0KICAgIDYgfCAj
+ZGVmaW5lIFJFR0lPTl9URVhUX1BSQkFSICAgICAgIDB4MTggICAgLyogU0g9MTEgQVA9MTAgWE49
+MCAqLw0KICAgICAgfCANClvigKZdDQoNCkNoZWVycywNCkx1Y2ENCg0KDQo=
 
