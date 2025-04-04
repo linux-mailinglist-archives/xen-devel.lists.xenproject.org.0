@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 207A9A7BA3A
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 11:50:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.938000.1338841 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D3CEA7BA58
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 12:01:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.938026.1338851 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0dgF-00055J-Sm; Fri, 04 Apr 2025 09:49:43 +0000
+	id 1u0drA-0001a0-TD; Fri, 04 Apr 2025 10:01:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 938000.1338841; Fri, 04 Apr 2025 09:49:43 +0000
+Received: by outflank-mailman (output) from mailman id 938026.1338851; Fri, 04 Apr 2025 10:01:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0dgF-00053J-Or; Fri, 04 Apr 2025 09:49:43 +0000
-Received: by outflank-mailman (input) for mailman id 938000;
- Fri, 04 Apr 2025 09:49:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yoQk=WW=bounce.vates.tech=bounce-md_30504962.67efab2f.v1-c3e6aab71ed94423bea11c3c0a6a19ba@srs-se1.protection.inumbo.net>)
- id 1u0dgE-0004pH-1U
- for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 09:49:42 +0000
-Received: from mail186-2.suw21.mandrillapp.com
- (mail186-2.suw21.mandrillapp.com [198.2.186.2])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1de0ab3a-113a-11f0-9eaa-5ba50f476ded;
- Fri, 04 Apr 2025 11:49:36 +0200 (CEST)
-Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail186-2.suw21.mandrillapp.com (Mailchimp) with ESMTP id 4ZTYjW1nSvzS62PwT
- for <xen-devel@lists.xenproject.org>; Fri,  4 Apr 2025 09:49:35 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- c3e6aab71ed94423bea11c3c0a6a19ba; Fri, 04 Apr 2025 09:49:35 +0000
+	id 1u0drA-0001YY-QT; Fri, 04 Apr 2025 10:01:00 +0000
+Received: by outflank-mailman (input) for mailman id 938026;
+ Fri, 04 Apr 2025 10:01:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=56zs=WW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u0drA-0001YS-6m
+ for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 10:01:00 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ac9a15af-113b-11f0-9ffb-bf95429c2676;
+ Fri, 04 Apr 2025 12:00:44 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43ce71582e9so12418905e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 03:00:44 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c30226bbfsm4028951f8f.90.2025.04.04.03.00.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 04 Apr 2025 03:00:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,136 +45,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1de0ab3a-113a-11f0-9eaa-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1743760175; x=1744030175;
-	bh=L6j027iimQgxGcnmldIIXGn1WhbaXyI2jdeQ52zotUM=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=Ke4Q9YBpahNvj6SX0beD4t4f6eTW79lJByjoNk/qYYCcJRENMiyMVMMCm6j5sMWVp
-	 CHlkdSFfhbxAqJ+O1p6uSSl8x204nOaoKhQmPLEskLsFOKYHosBfIaa1w8FQ4o7TEp
-	 3XLp0sjMEMaON3Os034DJZFyw+cABLE8r26rWzwQoAxc6OXd2SJcCwqIT4TtB6zaSP
-	 MnyO1+OHEjazvjVLp32maXXRntZ0njO6nXd0SWSiOE0/DxPEcVdcfW/fIJzSoGxjaa
-	 VOkFJlXoiairinZQvOHCKWTtsNBhWtp1n48xcSPv2FZDFwGcKIV/dSo/SaiKgjn5m1
-	 8WSFkSsBvSD/g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1743760175; x=1744020675; i=teddy.astie@vates.tech;
-	bh=L6j027iimQgxGcnmldIIXGn1WhbaXyI2jdeQ52zotUM=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=M9TEAbZx34JpPJfz1gHk2GzHZmQxKFd2+n3ZWaOQ7bl7RzIteCwtz0o8fHBzOHo1L
-	 HIb/xk0C7UUC8MrwBkU9vlz4GKdcJsdWSxvvtn+MCtGRXcPd0KKKfQf+/4mtD6nHvy
-	 IWdfYZPBieChbYNu0uJivHvx/phLycPViSzatuJCDcG98Tx6bB1+A41WJLm5fOnyNB
-	 RmXDN9d+PzQ+KrqrUvNGNtAkJYF7usgR13iAJnDK4KDexWlPq1OsmdtVTrySJEmzU8
-	 rxeQ+yzCFFXXpCl/ItxgZ5Cncv8awSTnwhLd01V2LD5wNaEaZP7fTSYqOvrwTtH0Jb
-	 Nf29GRb+rSelg==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[PATCH=20v2=201/2]=20x86/amd:=20Add=20guest=20support=20for=20AMD=20TCE?=
-X-Mailer: git-send-email 2.47.2
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1743760173257
-To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, "Community Manager" <community.manager@xenproject.org>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-Message-Id: <885867a86eb41fd78df24b6599312b54be8e20ca.1743756934.git.teddy.astie@vates.tech>
-In-Reply-To: <cover.1743756934.git.teddy.astie@vates.tech>
-References: <cover.1743756934.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.c3e6aab71ed94423bea11c3c0a6a19ba?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250404:md
-Date: Fri, 04 Apr 2025 09:49:35 +0000
+X-Inumbo-ID: ac9a15af-113b-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1743760844; x=1744365644; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Me87VXmAugcGrPspPCXCRCagC1gzwknzvFTp2wEZ5wo=;
+        b=FmKK9xty0o8M0cBSDFnrHpumpeaMolZ4ttDHuEvh1D2SYHdt7u22PlRW0ktrF4id1J
+         vQV8E7W/STpczAj8GzuhI+rwdPwzOG7khq3Cg5X7Apt0R+3Ve0Sx6ptmJz11mZ8nMLNB
+         iRBDeJW38uIsteN1wyX0q5OboVqAqQk2EC8e0QYIdfWoGFdZRyawdPkjC+N94Ovg/dNK
+         mejb5WzktLGVO0h0BlIYNDSGBNoT0fAeCyoDIGNSsez+skO5G9jsSugo5frG0b3An2mB
+         PVJUzds/N4kJZkBaqRgvnRdb1ah9lg2wJyBTgdlsrpuLHkmALFwvuOVq3bf186Muvvvg
+         4pXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743760844; x=1744365644;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Me87VXmAugcGrPspPCXCRCagC1gzwknzvFTp2wEZ5wo=;
+        b=RMogJE84Z5Yc7jc9D201yJ63oeuq2wLxYMsLnoJXKYE3rpv81vKwjXwXNbA+jBCCww
+         RrNYAMqrfBaJRaha7738+7kiYCM53NqgLRIVBfci12FqZVQuTTuBp6lm6mziIweWSPDG
+         fZPx6tC/Wlx0ejZ5C4nZKEfsCK0y4OniIRsaunT2teNE+b42CpyYzaGG4I0P0hOaQv1L
+         cxEYlRn7wDt0s/9dp6OGQ7dkQPrNW9JPVrbb+rBR+kxfvneMEWbZsrw7US2FpAALZHEg
+         aAGa9o5loF5Pyxb+NotIpmt61iQRiutxl862S3XjShxIRx2PqdTF+wkF2ehkpenTxbBO
+         iVLg==
+X-Forwarded-Encrypted: i=1; AJvYcCUH/u0UZVuaYuAqUN0uHJaAQeYgMUJ2n6UnNvDmISOBjC3N/p9Kjdy0cFbuirZWh6HxCpbOGZfZUrY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxHzz7jxm1AXLtYfrt/oy00rnQzSyha2sGW9Tw83yfsiIon2ELy
+	qq6AEakJ8H7H4bryGqYzjZJO25oAhZM+2HbYXPQ8Ld5M75B1TYdbql86o3t3vQ==
+X-Gm-Gg: ASbGncsOjayhlaYFHTpI1VlhnwBRJs/526z4hf4CxM+NLQD4XJhdwXnje6S07MXyD4f
+	7mAlPBpyQI0tH1jZu+mIfNrcHKBzFl+/8i7H9BsswGIfgyUbnMzdTOW5yuTQnjaBkg0YDWKxbrl
+	Ig7RgqVRRcnBgxc00jfsOPhlzLyWtb5tbwIpEsHpM9jcZVhOVVezTypxFfevzWxoB+wotOJCXL8
+	Lng2D82j56m1JdbnJfj6Lz+Q1HscC4ilcSndxFl2JavoR3g30aSwbr1LixowSUU3vXyUUP/g1aT
+	5InfFFs+ghyrRoKhHSGZFCz558PxyHmaRBJEP9MxJsh9+WA0Xl1XiRsvxDX4xFwlU83Sga0L9An
+	S3abojOT47asCUZVUxyi/8ekqsBvH7Q==
+X-Google-Smtp-Source: AGHT+IHTs98WHl+62U/uhRijRpW2h4WgPUu0QKRXESthvEe6HsHQCshJEtpr3lb+dmMHEPZl5szBDg==
+X-Received: by 2002:a05:600c:a03:b0:43d:db5:7af8 with SMTP id 5b1f17b1804b1-43ed0d9ce99mr13167355e9.21.1743760844068;
+        Fri, 04 Apr 2025 03:00:44 -0700 (PDT)
+Message-ID: <93111e6d-976f-45b1-810c-c52c74efa215@suse.com>
+Date: Fri, 4 Apr 2025 12:00:41 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] xen/riscv: Increase XEN_VIRT_SIZE
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <e5fa4219ccf43125e2489cc8c49b4404e6ed22ce.1743434164.git.oleksii.kurochko@gmail.com>
+ <54ebdcb7-071f-411f-803a-930dc330a497@suse.com>
+ <32264ccb-e566-41e0-973f-5bc7d874f970@gmail.com>
+ <9d7e1553-3af8-4fc3-a400-8714d9b68411@suse.com>
+ <30d8e316-aff5-498a-b2bd-448e0b2518ae@gmail.com>
+ <3c2127ec-63fb-457b-8229-fc8a2b9fbf00@suse.com>
+ <a4eb8bcf-7043-4661-8879-cdb33d1ca252@gmail.com>
+ <14ac3e72-d21d-4b45-a434-d123152c0113@suse.com>
+ <d954c167-8243-43ab-9bfb-2e47c8ea171a@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <d954c167-8243-43ab-9bfb-2e47c8ea171a@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-AMD Translation Cache Extension is a flag that can be enabled in the EFER MSR to optimize
-some TLB flushes. Expose this flag to guest if supported by hardware.
+On 04.04.2025 10:43, Oleksii Kurochko wrote:
+> 
+> On 4/4/25 9:52 AM, Jan Beulich wrote:
+>> On 04.04.2025 09:31, Oleksii Kurochko wrote:
+>>> On 4/4/25 8:56 AM, Jan Beulich wrote:
+>>>> On 03.04.2025 18:20, Oleksii Kurochko wrote:
+>>>>> On 4/1/25 6:04 PM, Jan Beulich wrote:
+>>>>>> On 01.04.2025 17:58, Oleksii Kurochko wrote:
+>>>>>>> On 3/31/25 6:14 PM, Jan Beulich wrote:
+>>>>>>>> On 31.03.2025 17:20, Oleksii Kurochko wrote:
+>>>>>>>>> +        _AC(XEN_VIRT_START, UL) >> vpn1_shift;
+>>>>>>>>> +    const unsigned long xen_virt_end_vpn =
+>>>>>>>>> +        xen_virt_starn_vpn + ((XEN_VIRT_SIZE >> vpn1_shift) - 1);
+>>>>>>>>> +
+>>>>>>>>>          if ((va >= DIRECTMAP_VIRT_START) &&
+>>>>>>>>>              (va <= DIRECTMAP_VIRT_END))
+>>>>>>>>>              return directmapoff_to_maddr(va - directmap_virt_start);
+>>>>>>>>>      
+>>>>>>>>> -    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
+>>>>>>>>> -    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
+>>>>>>>>> -           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
+>>>>>>>>> +    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(8));
+>>>>>>>> Is it necessary to be != ? Won't > suffice?
+>>>>>>> It could be just > MB(2). Or perphaps >=.
+>>>>>>> = would make the build fail, wouldn't it?
+>>>>> I just realized that BUILD_BUG_ON() condition is compared to zero so actually everything what
+>>>>> will make the condition true will cause a build fail as inside it used !(condition).
+>>>> ???
+>>> |BUILD_BUG_ON()| forces a compilation error if the given condition is true. Therefore, if the condition
+>>> |XEN_VIRT_SIZE != MB(2)| is changed to|XEN_VIRT_SIZE > MB(2)|, the condition will always evaluate to true
+>>> (assuming|XEN_VIRT_SIZE| is greater than 2 MB), which will result in a compilation error.
+>> Well, it was you who used MB(2) in a reply, when previously talk was of MB(8),
+>> and that to grow to MB(16). The BUILD_BUG_ON() is - aiui - about you having set
+>> aside enough page table space. Quite possibly the need for this BUILD_BUG_ON()
+>> then disappears altogether when XEN_VIRT_SIZE is properly taken into account
+>> for the number-of-page-tables calculation. In no event do I see why the MB(2)
+>> boundary would be relevant for anything going forward.
+> 
+> Also, doesn’t|BUILD_BUG_ON()| affect how the|ASSERT()| that follows it is written?
+> 
+> The changes, at the moment, look like:
+> +    const unsigned int vpn1_shift = PAGETABLE_ORDER + PAGE_SHIFT;
+> +    const unsigned long va_vpn = va >> vpn1_shift;
+> +    const unsigned long xen_virt_start_vpn =
+> +        _AC(XEN_VIRT_START, UL) >> vpn1_shift;
+> +    const unsigned long xen_virt_end_vpn =
+> +        xen_virt_start_vpn + ((XEN_VIRT_SIZE >> vpn1_shift) - 1);
+> +
+>       if ((va >= DIRECTMAP_VIRT_START) &&
+>           (va <= DIRECTMAP_VIRT_END))
+>           return directmapoff_to_maddr(va - directmap_virt_start);
+>   
+> -    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
+> -    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
+> -           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
+> +    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(16));
+> +    ASSERT((va_vpn >= xen_virt_start_vpn) && (va_vpn <= xen_virt_end_vpn));
+> 
+> 
+> If|XEN_VIRT_SIZE| is greater than|GB(1)|, then|xen_virt_end_vpn| may be calculated
+> incorrectly.
+> 
+> For example, if|XEN_VIRT_START| is|0xFFFFFFFF80000000| and|XEN_VIRT_SIZE| is|0x40200000|,
+> then|(XEN_VIRT_SIZE >> vpn1_shift)| equals 513, whereas|va_vpn| is always in the range [0, 511],
+> but xen_virt_end_vpn will be greater then 511.
+> 
+> So shouldn't it  be checked before ASSERT() that XEN_VIRT_SIZE is <= GB(1):
+>    BUILD_BUG_ON(XEN_VIRT_SIZE <= GB(1))?
 
-AMD Architecture Developer Manual describe this feature as follow
-> Setting this bit to 1 changes how the INVLPG, INVLPGB, and INVPCID instructions operate
-> on TLB entries. When this bit is 0, these instructions remove the target PTE from the
-> TLB as well as all upper-level table entries that are cached in the TLB, whether or not
-> they are associated with the target PTE. When this bit is set, these instructions will
-> remove the target PTE and only those upper-level entries that lead to the target PTE in
-> the page table hierarchy, leaving unrelated upper-level entries intact. This may provide
-> a performance benefit.
+Yes, that would make sense.
 
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
----
- CHANGELOG.md                                | 1 +
- xen/arch/x86/hvm/hvm.c                      | 3 +++
- xen/arch/x86/include/asm/msr-index.h        | 3 ++-
- xen/include/public/arch-x86/cpufeatureset.h | 1 +
- 4 files changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 8f6afa5c85..dbfecefbd4 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-    - Support PCI passthrough for HVM domUs when dom0 is PVH (note SR-IOV
-      capability usage is not yet supported on PVH dom0).
-    - Smoke tests for the FreeBSD Xen builds in Cirrus CI.
-+   - Guest support for AMD Translation Cache Extension feature.
- 
- ### Removed
- 
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 5950f3160f..184357b042 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -959,6 +959,9 @@ const char *hvm_efer_valid(const struct vcpu *v, uint64_t value,
-     if ( (value & EFER_FFXSE) && !p->extd.ffxsr )
-         return "FFXSE without feature";
- 
-+    if ( (value & EFER_TCE) && !p->extd.tce )
-+        return "TCE without feature";
-+
-     if ( (value & EFER_AIBRSE) && !p->extd.auto_ibrs )
-         return "AutoIBRS without feature";
- 
-diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
-index 22d9e76e55..d8576aec1c 100644
---- a/xen/arch/x86/include/asm/msr-index.h
-+++ b/xen/arch/x86/include/asm/msr-index.h
-@@ -200,11 +200,12 @@
- #define  EFER_NXE                           (_AC(1, ULL) << 11) /* No Execute Enable */
- #define  EFER_SVME                          (_AC(1, ULL) << 12) /* Secure Virtual Machine Enable */
- #define  EFER_FFXSE                         (_AC(1, ULL) << 14) /* Fast FXSAVE/FXRSTOR */
-+#define  EFER_TCE                           (_AC(1, ULL) << 15) /* Translation Cache Extensions */
- #define  EFER_AIBRSE                        (_AC(1, ULL) << 21) /* Automatic IBRS Enable */
- 
- #define EFER_KNOWN_MASK \
-     (EFER_SCE | EFER_LME | EFER_LMA | EFER_NXE | EFER_SVME | EFER_FFXSE | \
--     EFER_AIBRSE)
-+     EFER_TCE | EFER_AIBRSE)
- 
- #define MSR_STAR                            _AC(0xc0000081, U) /* legacy mode SYSCALL target */
- #define MSR_LSTAR                           _AC(0xc0000082, U) /* long mode SYSCALL target */
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index cc6e984a88..8182d2dbed 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -170,6 +170,7 @@ XEN_CPUFEATURE(SKINIT,        3*32+12) /*   SKINIT/STGI instructions */
- XEN_CPUFEATURE(WDT,           3*32+13) /*   Watchdog timer */
- XEN_CPUFEATURE(LWP,           3*32+15) /*   Light Weight Profiling */
- XEN_CPUFEATURE(FMA4,          3*32+16) /*A  4 operands MAC instructions */
-+XEN_CPUFEATURE(TCE,           3*32+17) /*H  Translation Cache Extension support */
- XEN_CPUFEATURE(NODEID_MSR,    3*32+19) /*   NodeId MSR */
- XEN_CPUFEATURE(TBM,           3*32+21) /*A  trailing bit manipulations */
- XEN_CPUFEATURE(TOPOEXT,       3*32+22) /*   topology extensions CPUID leafs */
--- 
-2.47.2
-
-
-
- | Vates
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Jan
 
