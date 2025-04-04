@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3336A7BDFF
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 15:37:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.938207.1339139 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0818A7BE0E
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 15:39:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.938218.1339149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0hD9-00028h-Bj; Fri, 04 Apr 2025 13:35:55 +0000
+	id 1u0hGl-0002iG-Qx; Fri, 04 Apr 2025 13:39:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 938207.1339139; Fri, 04 Apr 2025 13:35:55 +0000
+Received: by outflank-mailman (output) from mailman id 938218.1339149; Fri, 04 Apr 2025 13:39:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0hD9-00026V-8W; Fri, 04 Apr 2025 13:35:55 +0000
-Received: by outflank-mailman (input) for mailman id 938207;
- Fri, 04 Apr 2025 13:35:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u0hGl-0002g1-NY; Fri, 04 Apr 2025 13:39:39 +0000
+Received: by outflank-mailman (input) for mailman id 938218;
+ Fri, 04 Apr 2025 13:39:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=C8GG=WW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1u0hD7-00026N-Bn
- for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 13:35:53 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ba4409d6-1159-11f0-9eaa-5ba50f476ded;
- Fri, 04 Apr 2025 15:35:52 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5e677f59438so3237085a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 06:35:52 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-ac7c01c1085sm253747966b.183.2025.04.04.06.35.51
+ <SRS0=Z71V=WW=edera.dev=alexander@srs-se1.protection.inumbo.net>)
+ id 1u0hGk-0002fv-9g
+ for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 13:39:38 +0000
+Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
+ [2607:f8b0:4864:20::82f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3d9f7b16-115a-11f0-9ffb-bf95429c2676;
+ Fri, 04 Apr 2025 15:39:33 +0200 (CEST)
+Received: by mail-qt1-x82f.google.com with SMTP id
+ d75a77b69052e-476b89782c3so21929301cf.1
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 06:39:33 -0700 (PDT)
+Received: from localhost ([64.201.234.99]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-4791aef3455sm22191591cf.0.2025.04.04.06.39.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Apr 2025 06:35:51 -0700 (PDT)
+ Fri, 04 Apr 2025 06:39:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,190 +44,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba4409d6-1159-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 3d9f7b16-115a-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1743773752; x=1744378552; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=7zMVCjKwCi74UMVT2Q8AVcMCSyrZzJQzum19Wgp9Wls=;
-        b=G/8OAaRSf/EGEBA8ExySYSEhkCDck64ZXPHODmkaosH8bE7i50tSAaASe2BALh+y46
-         03U5g37JNy1fA+jk/fWUOm2R8ZmfGloeaMwgI1Z6Ie1cp73M7WtYxFugYsnnWFW+aV/1
-         3HhRqb0GRfC6N+v5mdCG3d0ZZC527FdEbwaZQ=
+        d=edera.dev; s=google; t=1743773972; x=1744378772; darn=lists.xenproject.org;
+        h=content-transfer-encoding:organization:message-id:references
+         :in-reply-to:subject:cc:to:from:date:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=QUCJwb9m9tu/I12JKrhIwcxMqFCd6xmTpVJfD7tqRDY=;
+        b=YCWVz7xNYeWZJTuYR7+m/MXT1971yRjgVdXe90QVfvOSmRIzVPnTEvwsGGDnRwl6pL
+         0LOCnixBDgz3Kr9ved7YUifqOzFjL7GpraVqrxnXGvOJWRItbjyx61mrCm/HYvv4HCv4
+         knEzzIOssEanVkRV9o6j2yfnSeV7JmsS0akbHOb3RfcNLHCtUNHhyQFPSt1IZkukXy9p
+         Wci/zkKfaJcyGh75YASmteGKZlaLGeHjANQbRZRlqYOcgA7q2588NpPGILVzev4VG9xX
+         mrGbmRSwTsYgo4a0J5nCLfJho1R+MBDCt6YOIG1vxRVrvRKPwmfOrM1wy4GCAX+QIGO1
+         i5Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743773752; x=1744378552;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7zMVCjKwCi74UMVT2Q8AVcMCSyrZzJQzum19Wgp9Wls=;
-        b=Rnz7BcVJVWlN8sq5NvaU3QyPcqED9ntsMMcEOh0bqsRUSHvxZyAhQw970EX7HYV/yh
-         As/IoI2K0cNnvndbr8f+WckuBpGHLx+8YF+u8ZQJOggQ6J782I0YgNY2/IsENZv3y3F0
-         HgnqhL5QNds0+WMhQC4dwmtnJMdyufmHZ0VnKfnlkeLGBGKWhn6fVNK0nBh7B6LRKKcf
-         x3VHFGZUa3v5KXsRDNfd7EVsGoqeO6Pq2jd5gRrOTQ0u49RAQ/NOOfsG3LMfKEz8EZhy
-         Gqos0HypiJ3S7WwD+MOcAky4GiYAZ6iazKS11APLH8A6aDKH1nwhRnCt6Pd3gNMzg87g
-         2nog==
-X-Forwarded-Encrypted: i=1; AJvYcCW3FhgeRpVKbLHHgNCvpU5edlumhaEXKVRqHLOnb9uCqF7daY1Tsp3Jk7lrWsA+eD8X8Tauc2QMkMM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yypm4NtL1s3GH0voChk2eYVNr6uEocFx2RF9h2J24Atoh9dnl2G
-	C2FprmiCn8sG5pev2GfwHQ56tfpNPmbqrSe/FQcwnizhnb95qq7lyRlMOCh0EIw=
-X-Gm-Gg: ASbGncuqLA1MOD5MrWHCtd+xCHiswGyHqy9oWUCD11040D0OatupUPNrX0XegpyMsUT
-	2yfYpkjJMyW8NAQwP1mR/RxBxy6QFrUtDwiP7Nx7eWD1rZE2mdRawK8fe6diFd+rO5zkM+huTuG
-	VMruZK7Aw/qE9jbhk9s2JxHApQYYotDA+YspNduEtVqOu0wm0iOVYa9Nh++Xc2EOAeLWozr8TiE
-	eF/kox0xGBeCdCWNxUfMMU1WmCNx8Y2zSLIwu63bKwNeylYH2ecdXgwWIcZxtqTMx5wtmixplPl
-	fhvaoFGqaQPhXmHBHKJ05VWQcmZMQRWfJufZF19dndcAWzFbyA==
-X-Google-Smtp-Source: AGHT+IFSKCngGbRbwdtl+C7MsVBdbETjJAdfQeZKdojq/dV5G705u6R+N4qeFiZ9coPdcBWaR16zzw==
-X-Received: by 2002:a17:907:3d8d:b0:ac7:391a:e2d4 with SMTP id a640c23a62f3a-ac7d6e9fe27mr218999966b.59.1743773751706;
-        Fri, 04 Apr 2025 06:35:51 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: Juergen Gross <jgross@suse.com>,
-	Roger Pau Monne <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH v2] x86/xen: fix balloon target initialization for PVH dom0
-Date: Fri,  4 Apr 2025 15:34:58 +0200
-Message-ID: <20250404133459.16125-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.48.1
+        d=1e100.net; s=20230601; t=1743773972; x=1744378772;
+        h=content-transfer-encoding:organization:message-id:references
+         :in-reply-to:subject:cc:to:from:date:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QUCJwb9m9tu/I12JKrhIwcxMqFCd6xmTpVJfD7tqRDY=;
+        b=GRBrn7bgMniKD/qI9LubcjXQUud1U8NXR4DFngJgNMQ9g2AX60P7f6V9RhX2euvIDt
+         qrejQxDwXlfPW/00DBJJSTRgbQyMLBXsKgGLJTaTTw06db86vbmPzkueWPmM76U8snrx
+         W7oUhxSZKEcnq6LVX5KSFcLYjgWeSxZgV7YrI/4adilmV+5zABLB4fWZw74fZLY7iRR7
+         mOwZZxcnS3bRaKwDaue7U8fALgwwSAzmTsi29NQ1B3Vd49ef5c2cl8DZsn32PRo2CRqr
+         dIpfQ88r8Wt6NQEwozVzwa3RFy6xRdTO2jErKkq/jNThQ7UVuW61y9qHqAEitjwFKJ66
+         RvjQ==
+X-Gm-Message-State: AOJu0YxIGuEiTc2yIZEvvYjCPTKl+y0He7qH+uyAz3wDTzfi36W3b3Ix
+	oorNMGiIFhmqTOgwxlyUOcDT3Ia3F/n2SKc0PWXsb08VpyTpaDxa5fOcANbkpZE=
+X-Gm-Gg: ASbGnctKnWmbn48SvNGFsNqg1OqymbSnfYdn1TsXfLypzOpRXjCVN5XxTxjdaCyKbQO
+	Vv2TDJChppfr2sdm8kmLxnFCainddy4RQN1SfxPclxekAEniLVMQqaF5uO+2UOYyGyyz416OWtI
+	cbIu7hQ/ux+hyOVhzAuLm6viIijtDIwpOvz5KgBwqilRuP84+dFpyp0GDnG6XAUOkSYXq9Nyvr5
+	9elowPPzyNr1+7r7AXD8cYodtbIH1T1gtlQt4RCADmVm13qLLRj9h7lh1xi2mnNSeXi+ZyRpydU
+	9Ms+e5jMftS97IOzNI9fvJIlSWFBxd7M9017xuB00VylNDXKSuwBXRln7+t7YmS6WuY=
+X-Google-Smtp-Source: AGHT+IGXs1kC6jEltSQfpuNBmoTism/EM7BjBD2UI0CDNkmWauZN8F6oZnv5rBq6z8rQ3ktmhfaNmQ==
+X-Received: by 2002:ac8:7d11:0:b0:476:8ee8:d8a1 with SMTP id d75a77b69052e-479249d584fmr44886621cf.45.1743773972159;
+        Fri, 04 Apr 2025 06:39:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Apr 2025 09:39:30 -0400
+From: Alexander Merritt <alexander@edera.dev>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH] x86: drop XSAVEOPT and CLWB build flags
+In-Reply-To: <9870999d-3a45-4c2b-a37b-2651e4d53c3b@citrix.com>
+References: <3de09e4e2a3320e0f314803e349fbe6520d04b12.1743719892.git.alexander@edera.dev>
+ <c07ec835-3c69-4cf9-ba6a-39d6152393bf@citrix.com>
+ <9870999d-3a45-4c2b-a37b-2651e4d53c3b@citrix.com>
+Message-ID: <b8f4e43e93bac45204ff5fb43af3b589@edera.dev>
+X-Sender: alexander@edera.dev
+Organization: Edera
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
 
-PVH dom0 re-uses logic from PV dom0, in which RAM ranges not assigned to
-dom0 are re-used as scratch memory to map foreign and grant pages.  Such
-logic relies on reporting those unpopulated ranges as RAM to Linux, and
-mark them as reserved.  This way Linux creates the underlying page
-structures required for metadata management.
+On 2025-04-03 19:34, Andrew Cooper wrote:
+> On 04/04/2025 12:28 am, Andrew Cooper wrote:
+> Also, I forgot to write in the ticket, clflushopt wants similar
+> treatment, even if there isn't an outward define for it.  I think the
+> following two hunks should do:
+> 
+> ~Andrew
+> 
+> diff --git a/xen/arch/x86/flushtlb.c b/xen/arch/x86/flushtlb.c
+> index 18748b2bc805..ef30ef546336 100644
+> --- a/xen/arch/x86/flushtlb.c
+> +++ b/xen/arch/x86/flushtlb.c
+> @@ -287,7 +287,7 @@ void cache_flush(const void *addr, unsigned int 
+> size)
+>           * of letting the alternative framework fill the gap by
+> appending nops.
+>           */
+>          alternative_io("ds; clflush %[p]",
+> -                       "data16 clflush %[p]", /* clflushopt */
+> +                       "clflushopt %[p]",
 
-Such approach works fine on PV because the initial balloon target is
-calculated using specific Xen data, that doesn't take into account the
-memory type changes described above.  However on HVM and PVH the initial
-balloon target is calculated using get_num_physpages(), and that function
-does take into account the unpopulated RAM regions used as scratch space
-for remote domain mappings.
+Agree on these changes. However, I see branch staging uses 
+alternative_input and the below /* no outputs */ does not exist.
 
-This leads to PVH dom0 having an incorrect initial balloon target, which
-causes malfunction (excessive memory freeing) of the balloon driver if the
-dom0 memory target is later adjusted from the toolstack.
-
-Fix this by using xen_released_pages to account for any pages that are part
-of the memory map, but are already unpopulated when the balloon driver is
-initialized.  This accounts for any regions used for scratch remote
-mappings.
-
-Take the opportunity to unify PV with PVH/HVM guests regarding the usage of
-get_num_physpages(), as that avoids having to add different logic for PV vs
-PVH in both balloon_add_regions() and arch_xen_unpopulated_init().
-
-Much like a6aa4eb994ee, the code in this changeset should have been part of
-38620fc4e893.
-
-Fixes: a6aa4eb994ee ('xen/x86: add extra pages to unpopulated-alloc if available')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - Replace BUG_ON() with a WARN and failure to initialize the balloon
-   driver.
----
- arch/x86/xen/enlighten.c |  7 +++++++
- drivers/xen/balloon.c    | 34 ++++++++++++++++++++++++----------
- 2 files changed, 31 insertions(+), 10 deletions(-)
-
-diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
-index 43dcd8c7badc..651bb206434c 100644
---- a/arch/x86/xen/enlighten.c
-+++ b/arch/x86/xen/enlighten.c
-@@ -466,6 +466,13 @@ int __init arch_xen_unpopulated_init(struct resource **res)
- 			xen_free_unpopulated_pages(1, &pg);
- 		}
- 
-+		/*
-+		 * Account for the region being in the physmap but unpopulated.
-+		 * The value in xen_released_pages is used by the balloon
-+		 * driver to know how much of the physmap is unpopulated and
-+		 * set an accurate initial memory target.
-+		 */
-+		xen_released_pages += xen_extra_mem[i].n_pfns;
- 		/* Zero so region is not also added to the balloon driver. */
- 		xen_extra_mem[i].n_pfns = 0;
- 	}
-diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-index 163f7f1d70f1..ee165f4f7fe6 100644
---- a/drivers/xen/balloon.c
-+++ b/drivers/xen/balloon.c
-@@ -675,7 +675,7 @@ void xen_free_ballooned_pages(unsigned int nr_pages, struct page **pages)
- }
- EXPORT_SYMBOL(xen_free_ballooned_pages);
- 
--static void __init balloon_add_regions(void)
-+static int __init balloon_add_regions(void)
- {
- 	unsigned long start_pfn, pages;
- 	unsigned long pfn, extra_pfn_end;
-@@ -698,26 +698,38 @@ static void __init balloon_add_regions(void)
- 		for (pfn = start_pfn; pfn < extra_pfn_end; pfn++)
- 			balloon_append(pfn_to_page(pfn));
- 
--		balloon_stats.total_pages += extra_pfn_end - start_pfn;
-+		/*
-+		 * Extra regions are accounted for in the physmap, but need
-+		 * decreasing from current_pages to balloon down the initial
-+		 * allocation, because they are already accounted for in
-+		 * total_pages.
-+		 */
-+		if (extra_pfn_end - start_pfn >= balloon_stats.current_pages) {
-+			WARN(1, "Extra pages underflow current target");
-+			return -ERANGE;
-+		}
-+		balloon_stats.current_pages -= extra_pfn_end - start_pfn;
- 	}
-+
-+	return 0;
- }
- 
- static int __init balloon_init(void)
- {
- 	struct task_struct *task;
-+	int rc;
- 
- 	if (!xen_domain())
- 		return -ENODEV;
- 
- 	pr_info("Initialising balloon driver\n");
- 
--#ifdef CONFIG_XEN_PV
--	balloon_stats.current_pages = xen_pv_domain()
--		? min(xen_start_info->nr_pages - xen_released_pages, max_pfn)
--		: get_num_physpages();
--#else
--	balloon_stats.current_pages = get_num_physpages();
--#endif
-+	if (xen_released_pages >= get_num_physpages()) {
-+		WARN(1, "Released pages underflow current target");
-+		return -ERANGE;
-+	}
-+
-+	balloon_stats.current_pages = get_num_physpages() - xen_released_pages;
- 	balloon_stats.target_pages  = balloon_stats.current_pages;
- 	balloon_stats.balloon_low   = 0;
- 	balloon_stats.balloon_high  = 0;
-@@ -734,7 +746,9 @@ static int __init balloon_init(void)
- 	register_sysctl_init("xen/balloon", balloon_table);
- #endif
- 
--	balloon_add_regions();
-+	rc = balloon_add_regions();
-+	if (rc)
-+		return rc;
- 
- 	task = kthread_run(balloon_thread, NULL, "xen-balloon");
- 	if (IS_ERR(task)) {
--- 
-2.48.1
-
+>                         X86_FEATURE_CLFLUSHOPT,
+>                         /* no outputs */,
+>                         [p] "m" (*(const char *)(addr)));
+> diff --git a/xen/arch/x86/include/asm/system.h
+> b/xen/arch/x86/include/asm/system.h
+> index 73cb16ca68d6..6f5b6d502911 100644
+> --- a/xen/arch/x86/include/asm/system.h
+> +++ b/xen/arch/x86/include/asm/system.h
+> @@ -23,7 +23,7 @@ static inline void clflush(const void *p)
+>  
+>  static inline void clflushopt(const void *p)
+>  {
+> -    asm volatile ( "data16 clflush %0" :: "m" (*(const char *)p) );
+> +    asm volatile ( "clflushopt %0" :: "m" (*(const char *)p) );
+>  }
+>  
+>  static inline void clwb(const void *p)
 
