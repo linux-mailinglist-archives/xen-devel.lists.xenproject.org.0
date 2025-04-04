@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E643A7B88E
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 10:08:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.937928.1338780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 693C5A7B921
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 10:43:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.937941.1338791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0c4x-00011a-Go; Fri, 04 Apr 2025 08:07:07 +0000
+	id 1u0cdp-00043Z-4f; Fri, 04 Apr 2025 08:43:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 937928.1338780; Fri, 04 Apr 2025 08:07:07 +0000
+Received: by outflank-mailman (output) from mailman id 937941.1338791; Fri, 04 Apr 2025 08:43:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0c4x-0000zp-Dq; Fri, 04 Apr 2025 08:07:07 +0000
-Received: by outflank-mailman (input) for mailman id 937928;
- Fri, 04 Apr 2025 08:07:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=56zs=WW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u0c4w-0000zh-Ij
- for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 08:07:06 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca6189d2-112b-11f0-9ffb-bf95429c2676;
- Fri, 04 Apr 2025 10:07:02 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43690d4605dso11663125e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 01:07:02 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c301a0a90sm3693968f8f.21.2025.04.04.01.07.01
+	id 1u0cdp-00041z-07; Fri, 04 Apr 2025 08:43:09 +0000
+Received: by outflank-mailman (input) for mailman id 937941;
+ Fri, 04 Apr 2025 08:43:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iWoU=WW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u0cdn-00041t-3l
+ for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 08:43:07 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d3b67d83-1130-11f0-9eaa-5ba50f476ded;
+ Fri, 04 Apr 2025 10:43:05 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5e6167d0536so3191620a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 01:43:05 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5f0880a45bdsm1942187a12.71.2025.04.04.01.43.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Apr 2025 01:07:01 -0700 (PDT)
+ Fri, 04 Apr 2025 01:43:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,129 +45,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca6189d2-112b-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: d3b67d83-1130-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743754022; x=1744358822; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=V9cC4/6Nx56k5u/OU29yv3NZMWQZ7a/TTzf+o5t6MrU=;
-        b=WcByEIPe+3QR8MWaCSbbbNBqBjenajAoqG7L7VohvGVXCKSKk9uCKS0ABWnudsPdCr
-         Qx/Ro2tGEEFPt9WcinSg8CDTy7TOyMIEKLJs3kTPMMS1fGQdf79mzhOr6trjF1/ut7td
-         qTXkbBYNf3aGpBl1v8N1/o7lgDMalp1iI8yQWDAi2U9iO8QS4EgpV5NF8hWhsrWiWlP3
-         x9V9k5LgJY5DZs7XqCMADNycuKNw9+M5Y4RAVZnJKMtq8rPeS/lKxB7VylocqYOscOlP
-         XPp1QSHdS52V/wgSWuD/HKZGv0Afc90c5+lrHy3LDRnj8KZHTTplRh4PERgmMeXq7m+j
-         pqxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743754022; x=1744358822;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1743756185; x=1744360985; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=V9cC4/6Nx56k5u/OU29yv3NZMWQZ7a/TTzf+o5t6MrU=;
-        b=Xlb9lOs1aQ4QlwYwnn91U10GpKLzYKSRPO5GhOqK/ewpuTmT52ya3xP8bbqXToIbSY
-         6FZ9pnWtmCZcXbE2z5WptFB0jhsfV7aBYoMwq9PWNLCVymf7uFlJ8Cd+ebJGZmVFrB4e
-         ycqt4xIfbDd+z/L5xJh5MpEs9PRZG+NMsY5i3pQYRpcFTlgEookrvHduVpNd/2dOysx/
-         r0zwOuIVqbQ56DuilrIjrj8wiKgX24K8R9Yya1gh4Qy2vhTgkWtvUiwoKbrPU5wWYyQ9
-         KvZv2cLzd8ht/56gzZgj6ZmSUAI1hGbGioTikbpe+/IeKJGOZGyy82kSJwHkFyRbVi9d
-         P9pA==
-X-Forwarded-Encrypted: i=1; AJvYcCW6cSbXD/03fSzpdxs1qhfYvgPGD2QzKDbGE9ysurGJFKnBg/3SEU1xdcFkDih/cOf+7K/To8IRgbI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwrUKbffNlSC4G7am0h4bJeQzSzxlgqaeUo+s2Je1PrFj4RUavA
-	X2N9isHXrF8nsFIkZq25QRRfd33bhQt0wzAYT5OomHLb62OB4ee9y1skqTVyfw==
-X-Gm-Gg: ASbGncs8yb0peDOqNtqB+wRdbEym84ZN430bz6vKnaRXxQ0FFEKUKRtb+//md3ToVI+
-	Y2g70VoztmNcoVh1mhQN6OQLrKLF3dbEIIhkP+V0Z4IC/hewoRO6gvcDZ4O9XMRu7U6G8wZJHVi
-	ktZBjdiUOiweEqTO37ZmDyCFDa/aUk4rl0L1Crbey0JLaZEt16PxXaLCqcNK06ID/j6nPf6IqqD
-	Qxyy6Mt2vorf7WRSTdDO590zoxa8BSo/wTQbqiHoXnZ/7RRSsZln3bXGyJ2t4s80IbB/wUjrIMO
-	6tjqhnhDvnPw6PWKqN4cWcdLWPDUzBJl/7k7Z9eRQs96wYH9R1c4KO0UdaYYF1cPN3UwrN9Ca/O
-	YkYaQ9oJLiR75/CxOCn/tKS37KEYZEA==
-X-Google-Smtp-Source: AGHT+IGUPQmpF7Fv+nXkAslbU/N0jhb+hDckkfHFeYRoE0VlqUL01brmVeHfvgaKwRWCtHib+N5gFw==
-X-Received: by 2002:a5d:584c:0:b0:391:43cb:43fa with SMTP id ffacd0b85a97d-39cba93cf0emr1782833f8f.51.1743754022014;
-        Fri, 04 Apr 2025 01:07:02 -0700 (PDT)
-Message-ID: <e8ca1efb-384f-4c60-94b2-95528301a156@suse.com>
-Date: Fri, 4 Apr 2025 10:07:00 +0200
+        bh=nMdlDnFeE/ugQuOKWKolBfE2c+xXSu7MDrl9WQXcshg=;
+        b=H0R2BVeTL4Ep3WWQDlLm8RVPEKjK4PoMZgo8V6U+/VaBheHflCXGtWzH3T+NT5D4yx
+         84QTen+300uaIpxtgJR6Cu1/954irJO5/bhmHmFm+KYvsf0kn9ooVp0DRdHFQUiJfYw9
+         alyrrm/HHrhaw3zUbtB1HFD45z0nQSrFS2r4NKVqeiYI07WcZALA33Cj6LTNP0OQttqf
+         EdPw/C3r2fpFRQbSYgxuMMwqNvwYJwJyG1gFWz/HtSosESsD788xi6P5i7Owzu4olB0L
+         1hk4VYCy4B3Tf5gD/tRFDuh9V0sK69lj1MbGLGe2VrwYhE6izzDF2L0gTFNngD9Pf+mb
+         VCxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743756185; x=1744360985;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=nMdlDnFeE/ugQuOKWKolBfE2c+xXSu7MDrl9WQXcshg=;
+        b=RrWJurI8lWYh1Kqg/8yL5EKGmpde7+g6YFhP0uAMyr1JRAUzBzK+B7xbsFu7q6B3xb
+         SlV+Uz8K8vD4bhkAZF1DBI8JYh8aEcHG3mwFgWyWtinPNUs8aSu5JAfD3fmmJvAgI96i
+         cO+T8PnnSZLWyMA4VbknTjGoR5R/wtcyFOZA9RnUkl7W9uuxf/dODaMLSPJkXDqXm4qc
+         6H3m/sRGZF1VGPR3u4FGKJI2KPsmWYR0ljnNFo/66J7rc3c3i4YJanfjtHubbAGmNXl+
+         YyZO6dR1ZitjzwI649e5rnWSS20MfZF2MJv5kObAPaC+JA4axKNH+wy3+khyBSNt94W2
+         5t0A==
+X-Forwarded-Encrypted: i=1; AJvYcCUahxY62Zk+q2Y/IVQ9mgFBboupYx67VIxjgIfYDWK88wk2n5MBxJRc0Ad1R5BKTEV/nzBh/dU/TVI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxUeg/dmMf5t2zmDaPrXIKzJkwSXOXiEfrUHGrurJKfndc7nPNE
+	6PU7OHKfksRnJEM1am/TsjGLE3ds+lrji2XyaM9/LPcQgLKRbEal
+X-Gm-Gg: ASbGncugY6+QVsCMjjETiCEvjySpTe3mX+ASGB4xzXXPOt6BfGGlfk8N+6b8nFmD4gO
+	HTmA40HiKTm53Z9z18wmltorZBQBbQjRenQk1oEz2k5eoIEHuHlYMzAzbzQCL7SvvAk0CLp5ryo
+	bdov4KGHyqCE7+csuZgNOG3WdiFWSwybWvtgl/PbxGq0eNR5x1YpR1FCd1tCfLORck6h/W6BntA
+	hyPUndbalxAxuKD3rGdsUEozek3wXjwTeBTL7CNJm6kDkxxGp7/oPdf5jufTIF5a42Uqlr2cHrV
+	XU0DoqXufyy1wy8xxtcciJoIhQDTDULV2TgIhOcLRdYisfZZUwQFZrWGLopPn5B+uW+J4PCuumX
+	D0RNgIaqX1HcD1R5QuRVeCls5KwkuWZs=
+X-Google-Smtp-Source: AGHT+IEHTyJ5tHtqj733uXfBNO2G4B2FU3pL1edfgEnysxMnpkFXh3GXyjk14+1hOV+RpizrQDrWKQ==
+X-Received: by 2002:a05:6402:2708:b0:5f0:9eb3:8e71 with SMTP id 4fb4d7f45d1cf-5f0b3e34eafmr1943326a12.27.1743756184949;
+        Fri, 04 Apr 2025 01:43:04 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------3yWG1vJgau96FWZoQYQnAYCa"
+Message-ID: <d954c167-8243-43ab-9bfb-2e47c8ea171a@gmail.com>
+Date: Fri, 4 Apr 2025 10:43:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] xen/x86: allow overlaps with non-RAM regions
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v1] xen/riscv: Increase XEN_VIRT_SIZE
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- jason.andryuk@amd.com, Xenia.Ragiadakou@amd.com,
- Alejandro.GarciaVallejo@amd.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2504031755440.3529306@ubuntu-linux-20-04-desktop>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <e5fa4219ccf43125e2489cc8c49b4404e6ed22ce.1743434164.git.oleksii.kurochko@gmail.com>
+ <54ebdcb7-071f-411f-803a-930dc330a497@suse.com>
+ <32264ccb-e566-41e0-973f-5bc7d874f970@gmail.com>
+ <9d7e1553-3af8-4fc3-a400-8714d9b68411@suse.com>
+ <30d8e316-aff5-498a-b2bd-448e0b2518ae@gmail.com>
+ <3c2127ec-63fb-457b-8229-fc8a2b9fbf00@suse.com>
+ <a4eb8bcf-7043-4661-8879-cdb33d1ca252@gmail.com>
+ <14ac3e72-d21d-4b45-a434-d123152c0113@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2504031755440.3529306@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <14ac3e72-d21d-4b45-a434-d123152c0113@suse.com>
 
-On 04.04.2025 03:01, Stefano Stabellini wrote:
-> On one Sapphire AMD x86 board, I see this:
-> 
-> 
-> (XEN) [0000003943ca6ff2]  [00000000f0000000, 00000000f7ffffff] (reserved)
-> (XEN) [00000039460886d9]  [00000000fd000000, 00000000ffffffff] (reserved)
-> [...]
-> (XEN) [    4.612235] 0000:02:00.0: not mapping BAR [fea00, fea03] invalid position
+This is a multi-part message in MIME format.
+--------------3yWG1vJgau96FWZoQYQnAYCa
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-I, too, see something like this on an SPR system. That's a firmware issue,
-which hence first of all should be dealt with at the firmware side.
 
-> Linux boots fine on this platform but Linux as Dom0 on Xen does not.
-> This is because the pci_check_bar->is_memory_hole check fails due to the
-> MMIO region overlapping with the EFI reserved region.
+On 4/4/25 9:52 AM, Jan Beulich wrote:
+> On 04.04.2025 09:31, Oleksii Kurochko wrote:
+>> On 4/4/25 8:56 AM, Jan Beulich wrote:
+>>> On 03.04.2025 18:20, Oleksii Kurochko wrote:
+>>>> On 4/1/25 6:04 PM, Jan Beulich wrote:
+>>>>> On 01.04.2025 17:58, Oleksii Kurochko wrote:
+>>>>>> On 3/31/25 6:14 PM, Jan Beulich wrote:
+>>>>>>> On 31.03.2025 17:20, Oleksii Kurochko wrote:
+>>>>>>>> +        _AC(XEN_VIRT_START, UL) >> vpn1_shift;
+>>>>>>>> +    const unsigned long xen_virt_end_vpn =
+>>>>>>>> +        xen_virt_starn_vpn + ((XEN_VIRT_SIZE >> vpn1_shift) - 1);
+>>>>>>>> +
+>>>>>>>>          if ((va >= DIRECTMAP_VIRT_START) &&
+>>>>>>>>              (va <= DIRECTMAP_VIRT_END))
+>>>>>>>>              return directmapoff_to_maddr(va - directmap_virt_start);
+>>>>>>>>      
+>>>>>>>> -    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
+>>>>>>>> -    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
+>>>>>>>> -           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
+>>>>>>>> +    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(8));
+>>>>>>> Is it necessary to be != ? Won't > suffice?
+>>>>>> It could be just > MB(2). Or perphaps >=.
+>>>>>> = would make the build fail, wouldn't it?
+>>>> I just realized that BUILD_BUG_ON() condition is compared to zero so actually everything what
+>>>> will make the condition true will cause a build fail as inside it used !(condition).
+>>> ???
+>> |BUILD_BUG_ON()| forces a compilation error if the given condition is true. Therefore, if the condition
+>> |XEN_VIRT_SIZE != MB(2)| is changed to|XEN_VIRT_SIZE > MB(2)|, the condition will always evaluate to true
+>> (assuming|XEN_VIRT_SIZE| is greater than 2 MB), which will result in a compilation error.
+> Well, it was you who used MB(2) in a reply, when previously talk was of MB(8),
+> and that to grow to MB(16). The BUILD_BUG_ON() is - aiui - about you having set
+> aside enough page table space. Quite possibly the need for this BUILD_BUG_ON()
+> then disappears altogether when XEN_VIRT_SIZE is properly taken into account
+> for the number-of-page-tables calculation. In no event do I see why the MB(2)
+> boundary would be relevant for anything going forward.
 
-And then what's the actual, observable problem? On my system I haven't
-noticed anything going wrong yet, albeit the affected device is also left
-without a driver.
+Also, doesn’t|BUILD_BUG_ON()| affect how the|ASSERT()| that follows it is written?
 
-Also aiui you strictly mean PVH Dom0 here?
+The changes, at the moment, look like:
++    const unsigned int vpn1_shift = PAGETABLE_ORDER + PAGE_SHIFT;
++    const unsigned long va_vpn = va >> vpn1_shift;
++    const unsigned long xen_virt_start_vpn =
++        _AC(XEN_VIRT_START, UL) >> vpn1_shift;
++    const unsigned long xen_virt_end_vpn =
++        xen_virt_start_vpn + ((XEN_VIRT_SIZE >> vpn1_shift) - 1);
++
+      if ((va >= DIRECTMAP_VIRT_START) &&
+          (va <= DIRECTMAP_VIRT_END))
+          return directmapoff_to_maddr(va - directmap_virt_start);
+  
+-    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
+-    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
+-           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
++    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(16));
++    ASSERT((va_vpn >= xen_virt_start_vpn) && (va_vpn <= xen_virt_end_vpn));
 
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -797,6 +797,9 @@ bool is_memory_hole(mfn_t start, mfn_t end)
->          if ( !entry->size )
->              continue;
->  
-> +        if ( entry->type > 1 )
-> +            continue;
 
-I'm sorry to ask, but what's a literal 1 here? I'm pretty convinced we
-would want to still object to overlaps with unusable ranges, for example.
-Yet by open-coding what E820_RAM expands to you completely hide what this
-check is about. Yes, this is an RFC, but even there such context is
-important.
+If|XEN_VIRT_SIZE| is greater than|GB(1)|, then|xen_virt_end_vpn| may be calculated
+incorrectly.
 
-Furthermore my general take here is: We shouldn't simply silence issues
-arising from firmware doing odd things. My take here is still the same
-as the position I took when I still was maintainer of the EFI code in
-Xen: We shouldn't by default work around such issues, when doing so may
-negatively affect systems not exposing such odd behavior.
+For example, if|XEN_VIRT_START| is|0xFFFFFFFF80000000| and|XEN_VIRT_SIZE| is|0x40200000|,
+then|(XEN_VIRT_SIZE >> vpn1_shift)| equals 513, whereas|va_vpn| is always in the range [0, 511],
+but xen_virt_end_vpn will be greater then 511.
 
-Finally a Misra-related observation while looking at this: Isn't
-is_memory_hole() unreachable code in a !HVM configuration?
+So shouldn't it  be checked before ASSERT() that XEN_VIRT_SIZE is <= GB(1):
+   BUILD_BUG_ON(XEN_VIRT_SIZE <= GB(1))?
 
-Jan
+~ Oleksii
+
+
+--------------3yWG1vJgau96FWZoQYQnAYCa
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/4/25 9:52 AM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:14ac3e72-d21d-4b45-a434-d123152c0113@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 04.04.2025 09:31, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 4/4/25 8:56 AM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 03.04.2025 18:20, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 4/1/25 6:04 PM, Jan Beulich wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">On 01.04.2025 17:58, Oleksii Kurochko wrote:
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">On 3/31/25 6:14 PM, Jan Beulich wrote:
+</pre>
+                <blockquote type="cite">
+                  <pre wrap="" class="moz-quote-pre">On 31.03.2025 17:20, Oleksii Kurochko wrote:
+</pre>
+                  <blockquote type="cite">
+                    <pre wrap="" class="moz-quote-pre">+        _AC(XEN_VIRT_START, UL) &gt;&gt; vpn1_shift;
++    const unsigned long xen_virt_end_vpn =
++        xen_virt_starn_vpn + ((XEN_VIRT_SIZE &gt;&gt; vpn1_shift) - 1);
++
+        if ((va &gt;= DIRECTMAP_VIRT_START) &amp;&amp;
+            (va &lt;= DIRECTMAP_VIRT_END))
+            return directmapoff_to_maddr(va - directmap_virt_start);
+    
+-    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
+-    ASSERT((va &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)) ==
+-           (_AC(XEN_VIRT_START, UL) &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)));
++    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(8));
+</pre>
+                  </blockquote>
+                  <pre wrap="" class="moz-quote-pre">Is it necessary to be != ? Won't &gt; suffice?
+</pre>
+                </blockquote>
+                <pre wrap="" class="moz-quote-pre">It could be just &gt; MB(2). Or perphaps &gt;=.
+= would make the build fail, wouldn't it?
+</pre>
+              </blockquote>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">I just realized that BUILD_BUG_ON() condition is compared to zero so actually everything what
+will make the condition true will cause a build fail as inside it used !(condition).
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">???
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+|BUILD_BUG_ON()| forces a compilation error if the given condition is true. Therefore, if the condition
+|XEN_VIRT_SIZE != MB(2)| is changed to|XEN_VIRT_SIZE &gt; MB(2)|, the condition will always evaluate to true
+(assuming|XEN_VIRT_SIZE| is greater than 2 MB), which will result in a compilation error.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Well, it was you who used MB(2) in a reply, when previously talk was of MB(8),
+and that to grow to MB(16). The BUILD_BUG_ON() is - aiui - about you having set
+aside enough page table space. Quite possibly the need for this BUILD_BUG_ON()
+then disappears altogether when XEN_VIRT_SIZE is properly taken into account
+for the number-of-page-tables calculation. In no event do I see why the MB(2)
+boundary would be relevant for anything going forward.</pre>
+    </blockquote>
+    <pre data-start="105" data-end="189" class="">Also, doesn’t <code
+    data-start="119" data-end="135">BUILD_BUG_ON()</code> affect how the <code
+    data-start="151" data-end="161">ASSERT()</code> that follows it is written?
+
+The changes, at the moment, look like:
++    const unsigned int vpn1_shift = PAGETABLE_ORDER + PAGE_SHIFT;
++    const unsigned long va_vpn = va &gt;&gt; vpn1_shift;
++    const unsigned long xen_virt_start_vpn =
++        _AC(XEN_VIRT_START, UL) &gt;&gt; vpn1_shift;
++    const unsigned long xen_virt_end_vpn =
++        xen_virt_start_vpn + ((XEN_VIRT_SIZE &gt;&gt; vpn1_shift) - 1);
++
+     if ((va &gt;= DIRECTMAP_VIRT_START) &amp;&amp;
+         (va &lt;= DIRECTMAP_VIRT_END))
+         return directmapoff_to_maddr(va - directmap_virt_start);
+ 
+-    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
+-    ASSERT((va &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)) ==
+-           (_AC(XEN_VIRT_START, UL) &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)));
++    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(16));
++    ASSERT((va_vpn &gt;= xen_virt_start_vpn) &amp;&amp; (va_vpn &lt;= xen_virt_end_vpn));
+
+
+If <code data-start="754" data-end="769">XEN_VIRT_SIZE</code> is greater than <code
+    data-start="786" data-end="793">GB(1)</code>, then <code
+    data-start="800" data-end="818">xen_virt_end_vpn</code> may be calculated
+incorrectly.
+
+For example, if <code data-start="866" data-end="882">XEN_VIRT_START</code> is <code
+    data-start="886" data-end="906">0xFFFFFFFF80000000</code> and <code
+    data-start="911" data-end="926">XEN_VIRT_SIZE</code> is <code
+    data-start="930" data-end="942">0x40200000</code>,
+then <code data-start="949" data-end="980">(XEN_VIRT_SIZE &gt;&gt; vpn1_shift)</code> equals 513, whereas <code
+    data-start="1001" data-end="1009">va_vpn</code> is always in the range [0, 511],
+but xen_virt_end_vpn will be greater then 511.
+
+So shouldn't it  be checked before ASSERT() that XEN_VIRT_SIZE is &lt;= GB(1):
+  BUILD_BUG_ON(XEN_VIRT_SIZE &lt;= GB(1))?
+
+~ Oleksii
+
+
+</pre>
+  </body>
+</html>
+
+--------------3yWG1vJgau96FWZoQYQnAYCa--
 
