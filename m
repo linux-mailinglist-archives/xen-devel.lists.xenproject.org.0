@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58748A7B820
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 09:12:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.937771.1338661 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28968A7B826
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Apr 2025 09:15:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.937783.1338670 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0bDQ-0005Mr-0P; Fri, 04 Apr 2025 07:11:48 +0000
+	id 1u0bGZ-0005wN-CY; Fri, 04 Apr 2025 07:15:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 937771.1338661; Fri, 04 Apr 2025 07:11:47 +0000
+Received: by outflank-mailman (output) from mailman id 937783.1338670; Fri, 04 Apr 2025 07:15:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0bDP-0005Kl-Ss; Fri, 04 Apr 2025 07:11:47 +0000
-Received: by outflank-mailman (input) for mailman id 937771;
- Fri, 04 Apr 2025 07:11:46 +0000
+	id 1u0bGZ-0005v9-9m; Fri, 04 Apr 2025 07:15:03 +0000
+Received: by outflank-mailman (input) for mailman id 937783;
+ Fri, 04 Apr 2025 07:15:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=56zs=WW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u0bDO-0005Kf-IV
- for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 07:11:46 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1u0bGY-0005v3-Hk
+ for xen-devel@lists.xenproject.org; Fri, 04 Apr 2025 07:15:02 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1088a8af-1124-11f0-9ffb-bf95429c2676;
- Fri, 04 Apr 2025 09:11:44 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43cfecdd8b2so13085985e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 00:11:44 -0700 (PDT)
+ id 854cb93f-1124-11f0-9ffb-bf95429c2676;
+ Fri, 04 Apr 2025 09:15:00 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-4394036c0efso11772905e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Apr 2025 00:15:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ec16a3aefsm41348975e9.21.2025.04.04.00.11.43
+ 5b1f17b1804b1-43ec3174cf0sm39619435e9.0.2025.04.04.00.14.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Apr 2025 00:11:43 -0700 (PDT)
+ Fri, 04 Apr 2025 00:14:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1088a8af-1124-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 854cb93f-1124-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1743750704; x=1744355504; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1743750900; x=1744355700; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gKfb0YXiZ+F4WZnW8J7fJxrVl657tqA94N9IAZy6bRg=;
-        b=b1YsGs57bfnNvvxi11hsQ9kyPU7sf/8BkWZxZq5f3ub/yBOQM6q0SoQYOWeyMjxNmD
-         lfZsD4yXNQEpG7qZgae+sBMu4dNJ3kcvASEf+V56zjH6iixZzaG1mPZBLZBaRzEDxxx+
-         IKRaUY4cLcl7na3Ng27Fj75XvUuWJnYCNJq4taBpcDXFfUUpa8g3W/tUJHDDJN+DLJsM
-         wMD8vjIwNnw+o1mZuxvMtdV8duZU+TbwMMSuInAcRNKmArmAZtuwTMWO0NdksH5uzj7F
-         DAX6s06v9rquUy5vnWP8DxsdKeRNdh+MRnxyA2RLdfrHITbO81hIUrOSTZjZS2t474Hj
-         F27Q==
+        bh=TsSqE5qEVthIS9WBDBAL9NQk8rriV1c+RZxCh5djVj8=;
+        b=WoHvDqFAikHFRTRJGQ5xyg8xBnJ3LjlFss5RCJ9RDAKoeKq15+MmZLygt6dnbUEq0c
+         ZIEQqsQC6BFmjGGGrNqFfQBz86maPmO5/WpunaUrcFH+/mw4Q/NRxQqzph8RPu7N4hbU
+         yH6yqPUhTietndrklWx71xH6R7cDy7iKo3QJ4jENu3E7mo+5TCoGugloLJZx9YzJzrxM
+         LTDHEOk7/XTbdl5Tx114NmbQ1ZHpZGS7h7GQFHRKDj8rnB6yVSrfh1zZ7tT8AqQwhnuM
+         6uvh3PcadDVP5RfvWiDmmrJBZdDqOfyho9KxeiXpP9XeuEg68RQzEUlLdxVsP62QQ0KZ
+         qujA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743750704; x=1744355504;
+        d=1e100.net; s=20230601; t=1743750900; x=1744355700;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gKfb0YXiZ+F4WZnW8J7fJxrVl657tqA94N9IAZy6bRg=;
-        b=QpTtENEPOkhLTNj5WIzqq3Dmhw5sZAN1zxMaE/gUEQ/QGdLEcCh3Z7PFyLygifVlkE
-         iZzSw3W3ZWqLpkhX0t7yjdMLv+Kp7nQRZc4rcPsERZ1MHeanreINO33W/eTOig4nmkqM
-         QYxtnwkRD45ZLZA2RPxqqdfD8V8lZwKbGXYC0GAo+CzJxRWMuNTgHYd+f6krKtE7926n
-         JrMZOS+X1hCWUvXjJ/XAIpNpB3ZyDhLK0I8SCyaoJ98HpxxAxRdfXCO7J4yE+eBwsIFv
-         m6UBAb+SATtcq8JqQh9a9V5asIh3IXl/44WboW4JW1CSvKz1sBadQT3IoW07htduO1oW
-         HwIw==
-X-Forwarded-Encrypted: i=1; AJvYcCVQnQks+STj/6R0xYTXfuLbXVp9QsexTe1aGEJiDH1bT3YWS+Do3CoJrvYOw2RxtE2G7fLGt6isNkg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw15WOOuwEptub9ogzR51N1Qy7+xI/Zd4SrebQTW3W3Hqs34mTe
-	bXzPtjLdWCdfpUM3J0/rn6NOTh66JGnjwmypY0FbEcwbkvscO5DE5ydsv9xoIw==
-X-Gm-Gg: ASbGncvmuDul7S34/8As68iaq8PWv6Vot+6sw+kI/vjvbB/hMwIhDgvFdxp5Or9TexH
-	kQJfGv97EbyZXZPJ7cPU2PTfRrk3EJrqbJZcLN0Vq8PXrjWf+2YlDroQ2mhx0D7UqRQYFmDFDHq
-	z/ie+hQ49NITAUUGS8mPZkpz6Ezx624cpwtXMruXBf7fW5IQlR8eFarwhzTaXspYRg8esa9MRDi
-	DsMOkCchwmN6JdrK1b3/ASUysu0QUj+yaPu23Qmr/c/FFsaK7XSRLpJE0I/Fbi2UN9bIV/GTxd+
-	s/HrByHFKnnL3DNbJ0B/rnrAwNjNxKRGQrkAZDzlPReYTfqFRfr3J1SfO3oY1AjJ7Dzdkwv8Bgk
-	DFkj5icezXJZcDH7VVURFdJJX51h9gQ==
-X-Google-Smtp-Source: AGHT+IHlo8OKIE92JKyXXJp0cSRoM0TBs5BNF0W+RWg0HBtg4tCj28v2WUZkQkuGqJ4sfD7LNZ3j7g==
-X-Received: by 2002:a05:600c:1e13:b0:43c:fbbf:7bf1 with SMTP id 5b1f17b1804b1-43ed0da49e6mr18224555e9.30.1743750703788;
-        Fri, 04 Apr 2025 00:11:43 -0700 (PDT)
-Message-ID: <733e19a7-189c-4f98-af1d-e2f880d999be@suse.com>
-Date: Fri, 4 Apr 2025 09:11:40 +0200
+        bh=TsSqE5qEVthIS9WBDBAL9NQk8rriV1c+RZxCh5djVj8=;
+        b=Ko4oz+enO10mNsT3QWTvw3XrBs8vSEyN3Qy/oFtlPscCW4pGQLSNMcOkCaZxvUAd+P
+         zqZlN4zUtLZveZh+ARDThTRVtat4AI55cvcDXrQrJZwP4solIpF/lleA+9OhtU5EzF95
+         JxbFd3bSFjfMSWq+42PcZcOtOi96YNmXoAng+Y75xXGy5gocfOyv6Bvq0G7Q4NLXdwHi
+         vWr6WwJZm3GffAaxfl2mCWpTHxsVeCc4PpvoVYPJ7rOfMqXAHJ91/Lvy1033ntsVq+Od
+         EeZNec/czNe30ah9iLiSBcZpYN4pUANcHaNtIYDNklfGT7reBAwEOIA/nT9bYy53efq0
+         aVZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWr+QvzO3XkvbGqLH2qo9PL8uM0Vl+s4fBCCP52BHuuUVh51bp1hPuJdVIly8ZO9KTMg9URP8uFz54=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxqA9NUNHNOLFCkdlfK3hDcdbVOt5XfGze/elxRwunTB8gH6CZy
+	CCfzbkUr8Pe/QaCbPpMQ50gcQMIau7B1XGFpK4cNAs8E7kVekZ9KfWJKJfHRdA==
+X-Gm-Gg: ASbGncv+Gy/+jMPih8YymbAt8KUDQ9fY0G5o6mjxfnkz4jntVgLfiqpJjmdANaWClcn
+	pJwQxqnKsdvYJD+n9g+uJWsBYTfBz0ZYARNH81bXurjXWwL0dSQs5X0/N+3XO+h5MpAo0RUVu42
+	jcDjmbHLO1VtDxVqO9eKY6TFYioltzB4NBANhAZIBU0GIpM+22ATdWv2igJgU2viXk2a9r/a+D6
+	sx0FOU1zcsVecwrvN213812k6vRz5yJwBr4drZq2hC5KV5VM+54LjukuidJ929wNN5T9cWFeJvE
+	rghZgux5CS6GYcQnFrw0jBXaXDDXELv3/7z53QAkReMZZqFr1NySfa8ekM7shYE5kiEhsNMSo2A
+	CFU7pFGwXfPx9RW5QpDZdUhhN/wGMew==
+X-Google-Smtp-Source: AGHT+IFD8tDWCbnnTCZNkOjcxWMDiNdE3fzZqDHQkr39NzAOb2Gz8SlC6SGz8bD7VFxHDI0dFXtW+Q==
+X-Received: by 2002:a05:600c:c07:b0:439:86fb:7340 with SMTP id 5b1f17b1804b1-43ed0db3c4bmr17435485e9.30.1743750899714;
+        Fri, 04 Apr 2025 00:14:59 -0700 (PDT)
+Message-ID: <05063353-93c6-4ca6-8155-bf42bd23bacd@suse.com>
+Date: Fri, 4 Apr 2025 09:14:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/6] x86/emulate: remove HAVE_AS_RDRAND and
- HAVE_AS_RDSEED
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 6/6] x86/vmx: rework VMX wrappers to use `asm goto()`
+To: dmkhn@proton.me
 Cc: anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
  roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com,
- dmkhn@proton.me, xen-devel@lists.xenproject.org
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20250403182250.3329498-1-dmukhin@ford.com>
- <20250403182250.3329498-6-dmukhin@ford.com>
- <de2ef26a-f999-4962-abbc-3ffcc684e7f7@citrix.com>
+ <20250403182250.3329498-7-dmukhin@ford.com>
+ <c452a1d7-4a57-4c5f-8a83-36a74ff228ec@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,32 +120,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <de2ef26a-f999-4962-abbc-3ffcc684e7f7@citrix.com>
+In-Reply-To: <c452a1d7-4a57-4c5f-8a83-36a74ff228ec@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 03.04.2025 21:21, Andrew Cooper wrote:
+On 03.04.2025 22:10, Andrew Cooper wrote:
 > On 03/04/2025 7:23 pm, dmkhn@proton.me wrote:
->> From: Denis Mukhin <dmukhin@ford.com>
->>
->> The new toolchain baseline knows the rdrand/rdseed instructions,
->> no need to carry the workaround in the code.
->>
->> Resolves: https://gitlab.com/xen-project/xen/-/work_items/208
->> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
->> ---
->>  xen/arch/x86/arch.mk            |  2 --
->>  xen/arch/x86/x86_emulate/0fc7.c | 15 +++++----------
+>> --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+>> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+>> @@ -294,54 +294,57 @@ extern uint8_t posted_intr_vector;
+>>  
+>>  static always_inline void __vmptrld(u64 addr)
+>>  {
+>> -    asm volatile ( "vmptrld %0\n"
+>> -                   /* CF==1 or ZF==1 --> BUG() */
+>> -                   UNLIKELY_START(be, vmptrld)
+>> -                   _ASM_BUGFRAME_TEXT(0)
+>> -                   UNLIKELY_END_SECTION
+>> -                   :
+>> -                   : "m" (addr),
+>> -                     _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
+>> -                   : "memory" );
+>> +    asm goto ( "vmptrld %[addr]\n"
+>> +               "jbe %l[vmfail]\n\t"
 > 
-> Huh...
-> 
-> I was expecting a hunk in xen/arch/x86/include/asm/random.h but lookin
-> at it, I see that didn't even get the HAVE_AS_RDRAND treatment in the
-> first place.  Also, the + constraint, rather than =, looks suspicious.
+> Also cosmetic, but the very final line in the asm block ideally doesn't
+> want the \n\t.
 
-Might that have been for a similar reason as the one you recently added
-a XOR ahead of POPCNT for? IOW us wanting the clearing of the output to
-happen irrespective of whether the if() condition is true?
+And to clarify (Andrew gave a similar comment elsewhere) the \t instead
+wants to appear on the first of these two lines.
 
 Jan
 
