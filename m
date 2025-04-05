@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32C19A7C6CE
-	for <lists+xen-devel@lfdr.de>; Sat,  5 Apr 2025 02:05:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.938623.1339259 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0887BA7C717
+	for <lists+xen-devel@lfdr.de>; Sat,  5 Apr 2025 02:29:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.938763.1339269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0r1R-0002jX-1U; Sat, 05 Apr 2025 00:04:29 +0000
+	id 1u0rOi-0001Rw-QZ; Sat, 05 Apr 2025 00:28:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 938623.1339259; Sat, 05 Apr 2025 00:04:29 +0000
+Received: by outflank-mailman (output) from mailman id 938763.1339269; Sat, 05 Apr 2025 00:28:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u0r1Q-0002hS-UO; Sat, 05 Apr 2025 00:04:28 +0000
-Received: by outflank-mailman (input) for mailman id 938623;
- Sat, 05 Apr 2025 00:04:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u0rOi-0001Pc-N2; Sat, 05 Apr 2025 00:28:32 +0000
+Received: by outflank-mailman (input) for mailman id 938763;
+ Sat, 05 Apr 2025 00:28:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bjOG=WX=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1u0r1O-0002hC-RI
- for xen-devel@lists.xenproject.org; Sat, 05 Apr 2025 00:04:26 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8777c148-11b1-11f0-9eaa-5ba50f476ded;
- Sat, 05 Apr 2025 02:04:24 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1743811453000532.8431359068024;
- Fri, 4 Apr 2025 17:04:13 -0700 (PDT)
+ <SRS0=SPaY=WX=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1u0rOh-0001PO-9q
+ for xen-devel@lists.xenproject.org; Sat, 05 Apr 2025 00:28:31 +0000
+Received: from fhigh-b2-smtp.messagingengine.com
+ (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e253ebc9-11b4-11f0-9ffb-bf95429c2676;
+ Sat, 05 Apr 2025 02:28:25 +0200 (CEST)
+Received: from phl-compute-04.internal (phl-compute-04.phl.internal
+ [10.202.2.44])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 1540725401F8;
+ Fri,  4 Apr 2025 20:28:23 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-04.internal (MEProxy); Fri, 04 Apr 2025 20:28:23 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 4 Apr 2025 20:28:21 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,93 +45,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8777c148-11b1-11f0-9eaa-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; t=1743811456; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=IdH6HNLTVA041BI1mapHx+T7Qsy2ijLfRU+vpzf4KV7AhRTtNWMAdQwvg9PZZ6VBASRXl9V6+ZRM1G49lj7fAnPD8mB5SpkQCcVec9MjpZaBBpcyBU+gDpUScRO/HTrj91HcfkNKMKRV0HGo4bzU5JiR9JEsL1h6kGdij3EIwZw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1743811456; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=8hKCOaWwdJHEsUQNGcdpFlZdOftpd09n3MbhbhX7oAM=; 
-	b=hPeRF/V+2gYHjC8iJ1Wn2iwuiajV5LiltWhd2I3YJa0ZVUwlMr8caa1/I/k0AfJ2IE87/s8QFzcyZhJxn+OXmZrJNltIr2MT6pRldPre/4/PF8h7Ye3u3A+sGXj1afNsGz0BFDrszwxgXJyFUxLIfy7WvC4fDK5j8yjt++RXFtM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1743811456;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=8hKCOaWwdJHEsUQNGcdpFlZdOftpd09n3MbhbhX7oAM=;
-	b=lqRGgz3IZYBuNvK5UeegHPl64ID9bboxjERnYWKWS8IIy0pwkexANAC6rPLTAiAH
-	88EBHO21biHmabsrrI1zUq9Wp0ERtn8QceR0y8mOfZF0uW12Vaw19FX54wr2DpDbuH2
-	qvfNcVVUlFE2jHAZwLhETdWMOJOJWgWsA4HI1J5o=
-Message-ID: <4aa999f4-48d3-400c-9dc4-21d3f31f3d78@apertussolutions.com>
-Date: Fri, 4 Apr 2025 20:04:11 -0400
+X-Inumbo-ID: e253ebc9-11b4-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1743812902;
+	 x=1743899302; bh=zsaUbvW20l/czplj88g6L7K4iAZfyvXqaJTjw8kaLhg=; b=
+	axM21uAZbB/vYpQTdDMexvN8p+hrMR0d5H+4MX6W2AqsByzm56oWZgwO/g7CbAIn
+	WMDltSNpjnPBjXK2blcEc/klk1H0kI30MJmrqdPTTb8eW/sR71XSoaED8VXI82y3
+	zU8uzwaL+uWENIB305u8B4aztwOHwASJbfHcsLmWzkIFfoWrX3+8Ur59BlryyU/j
+	jp74VzR0S2wosl1zWA+imTNNdUgkdEX6WMquzJCGwMNAV67wNXDOnnV0Fs+XfGsq
+	pLjO2KE8DNgkHOk3/QpDKb8Vn5Ye3vbFy70P+IsnGJctzIR1ZS+jYzIaDqwPr2qs
+	18IXpsP8I9e0EBFNxGS7oQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1743812902; x=1743899302; bh=zsaUbvW20l/czplj88g6L7K4iAZfyvXqaJT
+	jw8kaLhg=; b=NUUGoaPWr2mbflsJRrgEYWCO+Jk78DZTgmijB+fro3wmVESWi42
+	dZsc4XuJ3vbv1be6diYdOwRQF9EQm/rD4z1+kgQjp/ewslHi0N/q77q8A/9HIF3W
+	Wgisd0kdiZUrdupZOi3fSmmU/gtHtaOUMPB6I9wnjpO0UQdF2PB76k6DjhQCncr8
+	9trip81SuWHXfrWwtcU2EZUwj+fDmBd/IK8Y6jdlhW5OdhsC2QX8XNuGjAlJsnxg
+	8D0yrGr+j6zT0LMlmdwuZep6z87wdVEYX6dKTb3KswmLRdHO5QUVT9LG52TLC6p0
+	8+11vlaEVC1GOQmo06SIeu8zqAsNdcETu+A==
+X-ME-Sender: <xms:JnnwZ48WJ55saYv4Rmw3UMdsjNN-DkNWPNjqhP5tvnqP_qKvqf_Z2Q>
+    <xme:JnnwZwsxs4rWDnDnizjPPN6XmR0lwbX6dFPsMB6LQqTWuGmctbmJm5L141rLqndV1
+    2HwwcKnmKvXKg>
+X-ME-Received: <xmr:JnnwZ-Ab4MOXHOtDa7vZ_8HFACDrBENs9oYdAmMCYHdjvouieF0e3QPG1rFMtxnJ4D3uVRP_SuMHn_xEYKMrNkH7MSqxYY6KUA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdduledvkeekucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepveeujeetgeelleetudeuvefhtefgffejvedtvdfgieevheethe
+    elgeeuledvjeevnecuffhomhgrihhnpehgihhtlhgrsgdrtghomhenucevlhhushhtvghr
+    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeehpdhmohgu
+    vgepshhmthhpohhuthdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghith
+    hrihigrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgt
+    phhtthhopegtrghrughovgestggrrhguohgvrdgtohhmpdhrtghpthhtohepshhsthgrsg
+    gvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepgigvnhdquggvvhgvlhes
+    lhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhg
+X-ME-Proxy: <xmx:JnnwZ4eK2vZ_TXpoPacsw1Xhu5I9Pt0qEwJQtpNx45WVXXt-tCWlyw>
+    <xmx:JnnwZ9MJOnaZZ9F0lJI9s0ZoYKhmKJXqnLGknwAdbGHDlAj-zdKnrw>
+    <xmx:JnnwZyld9AReYNl1s0AQ9j6Ht_IwHiwEa7vU0_KweAKdP7fFlqo1Tg>
+    <xmx:JnnwZ_sRKIruXK5X2krkZKndjYEWPgnRLj-P3tixtEi-UhdyhEhf4Q>
+    <xmx:JnnwZ0fkr6PnfyntLmx281JHplCxSL-wG_qOK2qK9lH1f9wG3mgcelw8>
+Feedback-ID: i1568416f:Fastmail
+Date: Sat, 5 Apr 2025 02:28:19 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 01/11] ci: prevent grub unpacking initramfs
+Message-ID: <Z_B5I-cKaLU0xcxL@mail-itl>
+References: <cover.59b4d1e66776c1e577aa5dd5460605dc6c240613.1743678257.git-series.marmarek@invisiblethingslab.com>
+ <e1d07b26a92a45ed387594dd789453def1ef1eb2.1743678257.git-series.marmarek@invisiblethingslab.com>
+ <a64136e8-c74e-4f47-b52f-cd5b25c57b2e@suse.com>
+ <d832f7c5-5a59-46c5-b5c6-109dd13a77e3@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/15] x86/boot: introduce boot domain
-To: Jan Beulich <jbeulich@suse.com>
-Cc: jason.andryuk@amd.com, christopher.w.clark@gmail.com,
- stefano.stabellini@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20241226165740.29812-1-dpsmith@apertussolutions.com>
- <20241226165740.29812-2-dpsmith@apertussolutions.com>
- <2e02b7d6-fe71-4ed8-a09d-5bde7438718c@suse.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <2e02b7d6-fe71-4ed8-a09d-5bde7438718c@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Z9yLbrtw/D6qN8wq"
+Content-Disposition: inline
+In-Reply-To: <d832f7c5-5a59-46c5-b5c6-109dd13a77e3@citrix.com>
 
-On 1/30/25 08:45, Jan Beulich wrote:
-> On 26.12.2024 17:57, Daniel P. Smith wrote:
->> @@ -596,9 +597,10 @@ int __init dom0_setup_permissions(struct domain *d)
->>       return rc;
->>   }
->>   
->> -int __init construct_dom0(struct boot_info *bi, struct domain *d)
->> +int __init construct_dom0(struct boot_domain *bd)
-> 
-> Pointer-to-const? Domain construction should only be consuming data
-> supplied, I expect.
-> 
->> --- /dev/null
->> +++ b/xen/arch/x86/include/asm/bootdomain.h
-> 
-> Maybe boot-domain.h? Or was that suggested before and discarded for
-> whatever reason?
-> 
->> @@ -0,0 +1,28 @@
->> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->> +/*
->> + * Copyright (c) 2024 Apertus Solutions, LLC
->> + * Author: Daniel P. Smith <dpsmith@apertussolutions.com>
->> + * Copyright (c) 2024 Christopher Clark <christopher.w.clark@gmail.com>
->> + */
->> +
->> +#ifndef __XEN_X86_BOOTDOMAIN_H__
->> +#define __XEN_X86_BOOTDOMAIN_H__
->> +
->> +struct boot_domain {
->> +    struct boot_module *kernel;
->> +    struct boot_module *ramdisk;
-> 
-> "ramdisk" is Linux-centric, I think. Can we name this more generically?
-> "module" perhaps, despite it then being the same name as we use for the
-> modules Xen is passed?
 
-Ramdisk is not a linux-centric, take OpenBSD for example [1]. Calling 
-the field "module" is a recipe for confusion. Especially considering 
-that we are more or less providing a lightweight version of the 
-toolstack interface which use the name ramdisk.
+--Z9yLbrtw/D6qN8wq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 5 Apr 2025 02:28:19 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 01/11] ci: prevent grub unpacking initramfs
 
-[1] https://openbsd.fandom.com/wiki/Creating_a_custom_OpenBSD_RAM_disk
+On Thu, Apr 03, 2025 at 12:39:11PM +0100, Andrew Cooper wrote:
+> On 03/04/2025 12:29 pm, Jan Beulich wrote:
+> > On 03.04.2025 13:04, Marek Marczykowski-G=C3=B3recki wrote:
+> >> It fails on larger initramfs (~250MB one) and sometimes even smaller
+> >> depending on memory size/memory map, let Linux do it.
+> > Iirc grub only unpacks gzip-ed modules, so wouldn't a yet better approa=
+ch
+> > be to use a better compressing algorithm, which simply as a side effect
+> > would keep grub from decompressing it, while at the same time moving
+> > farther away from any critical boundaries?
+>=20
+> Yes and no.
+>=20
+> This is going to change anyway when I (or a delgee) moves initrd
+> generation from the test step itself into the test artefacts repo.
 
-> Also, are consumers of this struct supposed to be able to modify what
-> the pointers point to? I'd expect they aren't, in which case const will
-> want adding here, too.
-> 
-> Jan
+Out of curiosity, I tried this:
+https://gitlab.com/xen-project/people/marmarek/xen/-/commit/51b5fde81680620=
+6e6e0c72ec0146c5ab3da4351
+pipeline:
+https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1753304751
 
+It avoids repacking base alpine initrd, but it still needs to pack
+per-job stuff (test script, but also toolstack). The gains are not
+great, that step still takes over a minute. The overall job time went
+down by just 40-50s (for example from 6m50s to 6m03s). This isn't very
+surprising, because the base initrd.cpio.gz is 60MB and the final one is
+over 200MB, so the part that was needlessly re-compressed is about 30%.
+The numbers checks out, as the (debug) build artifacts zip is about
+150MB.
+
+One further idea would be to produce cpio.gz archive as part of the
+build artifact, to avoid zip (used by gitlab for artifacts) -> cpio.gz
+recompression. But that either makes build artifacts bigger for every
+job, or need setting a variable for jobs that are used later for tests.
+Unless we decide to store toolstack _only_ as cpio.gz in artifacts?
+
+I tried the latter idea here:
+https://gitlab.com/xen-project/people/marmarek/xen/-/commit/a4774213d83ca05=
+c0b0b0fff80e49cf3aa32b67b
+pipeline:
+https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1753312631
+
+This helped quite a bit more. The 1m of compressing initrd is gone now.
+Compressing remaining test-specific files and concatenating it all
+together takes 2-3s. Now that 6m50s job is down to 3m40s. I'm not
+exactly sure where that extra minute went (maybe related to number of
+files in the build artifact? Fetching/extracting artifacts seems to be
+faster a bit), but those times are not very consistent anyway, so it
+could be also just random fluctuation.=20
+
+Looking further at the test log, some time is used for fetching
+artifacts. I've looked into gitlab docs if those can be cached on the
+runner, but I haven't found a solution that would really help (you can
+cache arbitrary paths, including artifacts, but it doesn't prevent
+re-downloading them and unpacking over the cached version...).
+So, I'll stop here, polish the above patches and submit them in v2 of
+this series.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--Z9yLbrtw/D6qN8wq
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmfweSMACgkQ24/THMrX
+1yzu2QgAhhXLPl5Z2+W25OsSPCeqCzA7pmaEcKm4F1LtqHaNZDE7Q6hIWKk1D8zJ
+AUXw+IfPzPdzRSZZwJJXpPFnBhYyMGJxRiTpfJSy6ANiwargyu7hPYD96bTiZa7P
+cW8EFABxUKkjAf8d53b7xNsSWIxQPFdVQCoCWlsVxdKzNcYmyuVpyUhVLmDN2Nyh
+j6caD5XgWbBTevv64+jKBa2ZI5JwfUgArVVkN0G11v5CBkJRzYcyg4PWP2hiDbjM
+JwA+JqDzgi/Z6gy747xDmZW9EfGftMD1vlDnFGEEpMqrM0POaD49JB0DLafin6Xd
+ew6DAcAJ1IpL2+KQTl8XG1J8XBMgRw==
+=9JlT
+-----END PGP SIGNATURE-----
+
+--Z9yLbrtw/D6qN8wq--
 
