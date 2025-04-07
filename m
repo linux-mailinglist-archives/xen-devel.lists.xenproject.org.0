@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF190A7DDE6
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 14:41:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.939957.1339919 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9643EA7DDB4
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 14:33:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.939822.1339789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1lmr-0005sx-7s; Mon, 07 Apr 2025 12:41:13 +0000
+	id 1u1leK-0005ie-HQ; Mon, 07 Apr 2025 12:32:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 939957.1339919; Mon, 07 Apr 2025 12:41:13 +0000
+Received: by outflank-mailman (output) from mailman id 939822.1339789; Mon, 07 Apr 2025 12:32:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1lmr-0005py-4Y; Mon, 07 Apr 2025 12:41:13 +0000
-Received: by outflank-mailman (input) for mailman id 939957;
- Mon, 07 Apr 2025 12:41:11 +0000
+	id 1u1leK-0005fW-EB; Mon, 07 Apr 2025 12:32:24 +0000
+Received: by outflank-mailman (input) for mailman id 939822;
+ Mon, 07 Apr 2025 12:32:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uyK1=WZ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1u1lgp-0006Bg-OG
- for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 12:34:59 +0000
-Received: from fout-a8-smtp.messagingengine.com
- (fout-a8-smtp.messagingengine.com [103.168.172.151])
+ <SRS0=Q09o=WZ=bounce.vates.tech=bounce-md_30504962.67f3c5d2.v1-b2322e5eb47c47b59d64832e3500a175@srs-se1.protection.inumbo.net>)
+ id 1u1leI-0005fQ-RL
+ for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 12:32:22 +0000
+Received: from mail180-44.suw31.mandrillapp.com
+ (mail180-44.suw31.mandrillapp.com [198.2.180.44])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b4947446-13ac-11f0-9eaa-5ba50f476ded;
- Mon, 07 Apr 2025 14:34:54 +0200 (CEST)
-Received: from phl-compute-11.internal (phl-compute-11.phl.internal
- [10.202.2.51])
- by mailfout.phl.internal (Postfix) with ESMTP id 2DE761380319;
- Mon,  7 Apr 2025 08:34:53 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-11.internal (MEProxy); Mon, 07 Apr 2025 08:34:53 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Apr 2025 08:34:51 -0400 (EDT)
+ id 58f14cd8-13ac-11f0-9eaa-5ba50f476ded;
+ Mon, 07 Apr 2025 14:32:20 +0200 (CEST)
+Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail180-44.suw31.mandrillapp.com (Mailchimp) with ESMTP id
+ 4ZWT9t6t3Tz705bCL
+ for <xen-devel@lists.xenproject.org>; Mon,  7 Apr 2025 12:32:18 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ b2322e5eb47c47b59d64832e3500a175; Mon, 07 Apr 2025 12:32:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +43,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4947446-13ac-11f0-9eaa-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1744029293; x=1744115693; bh=va+AU7XSH2
-	JkS6D22fCg+3+hIvHKU1o8Xr6qRtSJn7c=; b=R09hXLgAxPzDGlVzqYC/BPPTPv
-	Wl4LfZ6146rX4XbczO1P7cKNJYbhOCCzGcGpUCu22SdxHHDoJyRz6VTLss8RjgDV
-	uXFG2YSIQExJpkWbH/FDIRDrbXqGV6PON5xAaNFNSCv7/35fHrKysE5IZTrNkfmo
-	7/mgK9AQxEVKJ9OMUe3EBcAEfnr3mjKBP84Bs7Mdb5Cw2THqBjyn02CSc48JAqYH
-	imMz7z5fLODwI0Pi3SJFBUX35xYVnQZOIuR8RowM29CVXja5+HrSZJy//Kj3cTQi
-	egS0oVRPiT2NYxQYb8eisjgPVzbhyFFAHF27e8fUzRg5u0iHuSB0fEYOAiKg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1744029293; x=
-	1744115693; bh=va+AU7XSH2JkS6D22fCg+3+hIvHKU1o8Xr6qRtSJn7c=; b=Z
-	3z/i1anbVVS9SbprXuMHD4y/D5Y34SbaYFVB+YU9cHKy2wJohEEtRQ324UgZuJal
-	lZP+lqG2AFVLpxyGfBkDcy8wbTV/IBNQJ9DPG6sKFwIiem/AzwMbv7zKZFefwZ5/
-	a30JaPEGlS7n3OzKYkbPAh3hn0QKTEi7DzE0OK0K2xRffnHfIIq/2Go9ofj1xeqF
-	uBovQoXplWubAPUFd7kKZ3x/xK0ownJ2912AuRxWujUqE1+nHbnCIl4cJEOJmmUn
-	k+8kxE1P19Dg7prXEW6cDw6yKlJ9hYsScaTyr1GeAgiKbhKHX8/6kwdE0eO0ch46
-	KYen0vbJ5k6x09kIfZ5Qg==
-X-ME-Sender: <xms:bMbzZ0VEUMzATHViLa4crr8KdXVUHxqicCfACuChe52TWPucQc3-zw>
-    <xme:bMbzZ4krFSlF6Z6ZX5BdVF9i6Y4D41RFceI2t2Vz4P3rBezoS1Uz-FlkcV7gbb9Ai
-    fJoImXGX8uzVA>
-X-ME-Received: <xmr:bMbzZ4b3zGpoKMmCstlEVPFZB-3r7VTDkdYId_U9bPC42GHMpQeTQ_xJc146OxdfB8Pywc4KxDprnWvjB-kiOwaZ8hoIT85rm1n5TELp5prUQE2aMoY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtddtvddtucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhggtgfgsehtkeertder
-    tdejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkih
-    cuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeen
-    ucggtffrrghtthgvrhhnpefgueduhefgvdefheehudejheefudevueeghfekhfehleegve
-    duteeuiedugffgffenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhl
-    fhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
-    hmpdhnsggprhgtphhtthhopeelpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopeig
-    vghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtth
-    hopehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhr
-    tghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoh
-    eprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopegr
-    nhhthhhonhihrdhpvghrrghrugesvhgrthgvshdrthgvtghhpdhrtghpthhtohepmhhitg
-    hhrghlrdhorhiivghlsegrmhgurdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehs
-    uhhsvgdrtghomhdprhgtphhtthhopehjuhhlihgvnhesgigvnhdrohhrghdprhgtphhtth
-    hopehrohhgvghrrdhprghusegtihhtrhhigidrtghomh
-X-ME-Proxy: <xmx:bMbzZzU0E0hMQupzEDl12pHusv8IPwLpaqzUQYnWgl5y3NYGBJQ86A>
-    <xmx:bMbzZ-mcNERAc7ILsfFqjnmW0aiCs_edQtTLTSmrloz2fy_QpIMJAg>
-    <xmx:bMbzZ4fBEoXaXCSKbvz8XFcP9Y1RY3ZdjNCrc185DATvNjXm9CBlWw>
-    <xmx:bMbzZwFC7W9ef89Dp91pteb_YIwmt79933DuuEvI7AM9rhTV9J7XKw>
-    <xmx:bcbzZyxUrVaIipPYeoByBX8ih31QgBLy6w180fBE99Y6yX_JcFWCsjTc>
-Feedback-ID: i1568416f:Fastmail
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH test-artifacts v2 14/12] scripts: build initrd cpio
-Date: Mon,  7 Apr 2025 14:31:14 +0200
-Message-ID: <20250407123448.1520451-2-marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <cover.7da1777882774486a13e6f39ff4a2096f6b7901e.1744028549.git-series.marmarek@invisiblethingslab.com>
-References: <cover.7da1777882774486a13e6f39ff4a2096f6b7901e.1744028549.git-series.marmarek@invisiblethingslab.com>
+X-Inumbo-ID: 58f14cd8-13ac-11f0-9eaa-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1744029139; x=1744299139;
+	bh=O+9ndxKaq8ZvMLtReJ/Moc8XlsyvhrJhqOJbn+VuPGI=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=utsYKeYkJRbTQMKXRrW3ub6CTpWzXho0MRzik7as09ALbyr1HlFqEJmPbvjpc/za+
+	 Wtf7zQY814xyk4Thh6OXfZaqunZeWJWxQHZc0SiWF9HX4pu0pfv8ises+baIRzJ0JW
+	 aBaPjcfSvCvnp3jD5Qd2ZKFPqmyEJRrv8sC9qSiHYzRXWsA1+lSNFjCFSyf82/kvXd
+	 UO8s1n865chnypqjqfnl+IaGX8VJepcHZHub6sYoJOpa1WYNw19OwYyPwnQuZD4yps
+	 +qCD6zErIbEFkAP9J8+pI9L1XUPlWeZllIe66yHC8R59WixepxH66ozRy+dZhw0e9d
+	 1Xw5GUr7Y5n2Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1744029139; x=1744289639; i=anthony.perard@vates.tech;
+	bh=O+9ndxKaq8ZvMLtReJ/Moc8XlsyvhrJhqOJbn+VuPGI=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=FU6DMGYtAcr5C9CgUgsOHyE6JpjhHFT2eGIYaXvj1M191QtGheZxjhC2RiGsaIAYG
+	 S++kah9AJZ4NhNbUfP3HXTcaKaXerUfzM68evN5yVncuAtPW70NiK/A4a7+bZR/soN
+	 i7mkSNEUD2g70wWK8BVvZ9YjbBu3mtHTgvzm5RBmmIr903edRgk2LFQj1rPon4Z1Vg
+	 k/MahTsOHzAy6RsHG2AYcFS5kuf3OY3fOA9HTY0+hLuZpP5GbGpBCsd26pArCYUphX
+	 /2P6XEzoDQxtXDcx6wadezHBSD7NCeGtY68a6blx70TuDvmwoTA074XJ0v/kq1jJc/
+	 q6qB0KdU3N3CQ==
+From: "Anthony PERARD" <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20libxl{,u}:=20replace=20TOSTRING()?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1744029137811
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, "Juergen Gross" <jgross@suse.com>
+Message-Id: <Z_PF0LZpcqMwmmVn@l14>
+References: <8b16c210-4a2f-4d06-8fab-624394f06e5f@suse.com>
+In-Reply-To: <8b16c210-4a2f-4d06-8fab-624394f06e5f@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.b2322e5eb47c47b59d64832e3500a175?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250407:md
+Date: Mon, 07 Apr 2025 12:32:18 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Build initrd format directly digestable by the kernel. Additionally,
-include it itself inside as boot/initrd-domU file, for domU booting in
-tests.
-This should avoid the need to repack tar -> cpio as part of the test
-job.
+On Mon, Apr 07, 2025 at 01:29:29PM +0200, Jan Beulich wrote:
+> Now that common-macros.h has STR() available, which is even slightly
+> more flexible, use that and drop the custom macros.
+> 
+> No difference in generated code (except for line numbers, of course,
+> where embedded in code/data).
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Keep generating initrd.tar.gz as that's still used by older branches.
+Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
-Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
----
- scripts/x86_64-rootfs-alpine.sh | 5 +++++
- 1 file changed, 5 insertions(+)
+Thanks,
 
-diff --git a/scripts/x86_64-rootfs-alpine.sh b/scripts/x86_64-rootfs-alpine.sh
-index b70b3a5..13e85fa 100755
---- a/scripts/x86_64-rootfs-alpine.sh
-+++ b/scripts/x86_64-rootfs-alpine.sh
-@@ -58,3 +58,8 @@ passwd -d "root" root
- cd /
- tar cvzf "${WORKDIR}/binaries/initrd.tar.gz" \
-     bin dev etc home init lib mnt opt root sbin usr var
-+mkdir boot
-+find bin dev etc home init lib mnt opt root sbin usr var |\
-+    cpio -o -H newc | gzip > boot/initrd-domU
-+find bin boot dev etc home init lib mnt opt root sbin usr var |\
-+    cpio -o -H newc | gzip > "${WORKDIR}/binaries/initrd.cpio.gz" \
 -- 
-2.48.1
+
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
 
