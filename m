@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2D4DA7DCD6
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 13:51:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.939765.1339752 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65568A7DCFB
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 14:00:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.939797.1339777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1l13-0003qI-0R; Mon, 07 Apr 2025 11:51:49 +0000
+	id 1u1l9V-0005sV-4l; Mon, 07 Apr 2025 12:00:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 939765.1339752; Mon, 07 Apr 2025 11:51:48 +0000
+Received: by outflank-mailman (output) from mailman id 939797.1339777; Mon, 07 Apr 2025 12:00:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1l12-0003o8-Th; Mon, 07 Apr 2025 11:51:48 +0000
-Received: by outflank-mailman (input) for mailman id 939765;
- Mon, 07 Apr 2025 11:51:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZxXC=WZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u1l11-0003nd-Hm
- for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 11:51:47 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ae8a6aa4-13a6-11f0-9eaa-5ba50f476ded;
- Mon, 07 Apr 2025 13:51:46 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3912d2c89ecso3767096f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 04:51:46 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c30096889sm11731134f8f.2.2025.04.07.04.51.45
+	id 1u1l9V-0005qJ-0Y; Mon, 07 Apr 2025 12:00:33 +0000
+Received: by outflank-mailman (input) for mailman id 939797;
+ Mon, 07 Apr 2025 12:00:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=C/xl=WZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u1l9U-0005jy-Fx
+ for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 12:00:32 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e70bd0d1-13a7-11f0-9ffb-bf95429c2676;
+ Mon, 07 Apr 2025 14:00:30 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43cf58eea0fso21790575e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 05:00:30 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c3009680dsm11734751f8f.7.2025.04.07.05.00.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Apr 2025 04:51:45 -0700 (PDT)
+ Mon, 07 Apr 2025 05:00:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae8a6aa4-13a6-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: e70bd0d1-13a7-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744026706; x=1744631506; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744027230; x=1744632030; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ahkD8yK0tcJ0Bfkp0qSiHNm0biQmUBYr4AYDgWLpoRE=;
-        b=FaJ5+qyz8hMlo2b4UxKKxTh7yc9tyJfWoBEwaeOGexeJKBUHlMYCHNVsghBs5IwPzC
-         jnUksAz60BdVg88ctO70zLW5SkPZBUSwLV+bT6MgpQuMvXq6UY141NKv86X0h3VpdIIj
-         4h0uZts/ZSr9BTwLgbfuXROh9X2f/YXVaDgOM=
+        bh=aqfKJMvwGX4LpMTuXlSMbjl0TlfSILIguDWkPVcjdS0=;
+        b=edWYBTxfv9LkH03BJvgNa/bt8dp+aRUkkfZfn+ZRVIvQwMutIJJ3au8kEoUWPn5bM4
+         kvGc+PxeMQy+9MC1f/27Sh4w7icsNOaqPkhn1E200MlDLJGYIJlzjBdkcxHk4UYnG9/E
+         /PlD9ZrA3Mrb6zhi8v7rbka16amuCnV9pt0DINH0ZqkvdoGTNCuBbphpoByDngbPk5tE
+         QdZoNwiIXMF1B0rzhjrVhYb1X/QyRnOFDnp3du/0b+8VpitUJJ2keib5wi8SwO7Gce1b
+         wROiPHo3VDZoyRH0fDhN0cIEFA7hCQmZyIogF5WnVS55mnC/x42PVhG/foE/Xa1R+DXE
+         6sVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744026706; x=1744631506;
+        d=1e100.net; s=20230601; t=1744027230; x=1744632030;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ahkD8yK0tcJ0Bfkp0qSiHNm0biQmUBYr4AYDgWLpoRE=;
-        b=NPZcmZfsTOZ58MgDnNcjALb9bjAuTrNnY+DeABdVmUajjYBVsns4n0QIaTqerhKA+S
-         Sh/GYwDzmvs/RmLqj5rf/RjFu3sVlWkR7O3HMIuVm1T7/GoRQOf24FcaP2mPzGOD/psj
-         N0WOPC29W45t+SvSNqqIr56FbtM7D63xweQQQ0AAd0Fjy9R8nI4x++vpCLkwN0UE+IXR
-         PTiiuAJKV/TQj5O2/ODlqfrkOZ7FJvtH2ofyZEwaCxSrl2Lps8RaprfiFeZZuGI7+hPb
-         0Z7a24//6Qf54fec1dTl/w8toN312ddGAsetF/cVxUzNye5CjISE9BGtIdcyQhY0AMxt
-         QJkA==
-X-Forwarded-Encrypted: i=1; AJvYcCU67tU9zOP1+zgHll0oYiHldXClbo6w6lWXeXzX/9vKSo87arxpJEEak1qTU/nwzr8j+hhmiP5kcpg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyL70Ddbe++1zWQyOfzNX04PCUrmtSVwYCIFr+w78/n4hfwO55X
-	IHPn08I8LYOsfMWWEZm1DfAwwkFSWcFpaU4VNH0iMk0pZPUw8Qxw2+ZqAeEm72E=
-X-Gm-Gg: ASbGncukFKnBB1/DFje4eOE/jzBZr9U/WgKnoHzqT4Snb9JN6Sup3A+YIestXVZ2wnq
-	xV9XRkVdadi1pU9IGnMyX4dc+7QByXeeZVnz/Mz6wjVmvr+BUrjzEyE2Muwe2jRVONO5zWBuikV
-	/BWSQcD0mds87B693uPEzIPJD7xEfQT7ZoYMlDvKiys7wojXeJkJ7idP6QuNOl3LMeOv0VcChsr
-	aK1+HCr8E54Fuu7OtuXZPWiAPLg4uqDlMRkUTgBtAsTCjQ3cqv1N6bmeatAGwmciOJifGuZ0LAg
-	kzeScKdggm0rrA69paVtReGMSBsi0bWWgCzEujVEqB+sDCqtWuTq2dUtBi53kmMQMD51m/WKHvh
-	1w2Pi5RqCNQ==
-X-Google-Smtp-Source: AGHT+IGYi7r9Jadm+DiNI4FNOVg0LQ88bnh9AGpDvBYxAC78yJiaIz6Vec+q55it2JNhz5TzUX/ebg==
-X-Received: by 2002:a05:6000:178c:b0:391:45e9:face with SMTP id ffacd0b85a97d-39d14662fc6mr10679380f8f.54.1744026705780;
-        Mon, 07 Apr 2025 04:51:45 -0700 (PDT)
-Message-ID: <8d4d7407-2d59-4b91-b320-de694ec71ad2@citrix.com>
-Date: Mon, 7 Apr 2025 12:51:44 +0100
+        bh=aqfKJMvwGX4LpMTuXlSMbjl0TlfSILIguDWkPVcjdS0=;
+        b=lgR6Cva9ZsnMMOZYutVvDYRbe6mZmCCZHqdwZUqzRcVw/bM20T7QXahk1eYxxTu1ZN
+         yjdFlyOWaGIOuYNI0owVKqiQvU0sHGfIS5WxjWVk+SSz0PHdy4avROL04dbd4QnzpPZg
+         l64j+kuTWAzQDyu8MNtUYe8LxM1lk4nD04WT1+M5GdSahPS7ZfbzhvTXN5ymo7JJk2+6
+         379cD4NqPCRu3xVXmKt944FFx2pz1b4H7KT4usbJmER5sLri6rvhLPD9K7Sjhq5ShYM3
+         ahmClbiRw4eZYZvEVk+8iwyKnXerAhgMvCy8EMoOczthqm62rviuWdhRuj7euQzlWRGp
+         VvmQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUnruxrMVmwwrvwvF5GiPMbJXfEAm4x72xaYagKjPE8zGY33bCTgil8BjDGNRfTXvKHDM5mZ3DUJ5M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzdF2Ulvf7W7ekdmt9/BsB1z4apc47s4H6EwsB0ZW/ffxmrUHlZ
+	wUcGT1F8ZDaB/NRCEsmg5tw4sykiE4pfw7gptcI1REb3hcVNDnLRvf2PAKJvpw==
+X-Gm-Gg: ASbGncu/GpoX7J1ikK0xz8ism7J6s1yHcNvmECRyNFw6IqJKyOm+TjvlXGDwRcH7t0K
+	PkMgPWtEf2ZfMewSLlERLTspeTF7v+A3gU5C4RZZZweqFDkAasUYAar+PSourgVwR7ywTim+Ri6
+	/xfJQwPRshbgE0iYmmZUeomr7NQDnpENEtCxw6UYqoWnB2uEg0v4OPos0x+OQb6LtHKltidMRs/
+	6XFceweo4qFxGQrgbxPHeSJMmOGhQ71aij6KbA3f4Ah2VEkr/WaOyxpJaV6n9lnfnDwKlCZ3vfi
+	aOIxf02TuSQYFP84we8khv3exbuKtgAhBpGbwHhdfw+fPOCcW892RuO8kdG760IY9xBk9gYBtKl
+	P1KnDuObMQT/E4IhUyzINU1l1F9rkDA==
+X-Google-Smtp-Source: AGHT+IFKZTVY4txPuJi3hXyloAtONm8YueuCP+xVrtVl1zetYUSRJ1CFrJyR1kfvzz5uJkABw3SuGg==
+X-Received: by 2002:a5d:584a:0:b0:399:737f:4de3 with SMTP id ffacd0b85a97d-39cba932615mr10964187f8f.29.1744027229947;
+        Mon, 07 Apr 2025 05:00:29 -0700 (PDT)
+Message-ID: <b400a011-e173-4d6f-b0b7-bcbe59e994cd@suse.com>
+Date: Mon, 7 Apr 2025 14:00:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/MTRR: make hold_mtrr_updates_on_aps static and bool
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <55d1c198-79a8-4011-93b0-b36580e23c24@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <55d1c198-79a8-4011-93b0-b36580e23c24@suse.com>
+Subject: Re: [PATCH] x86/vmx: Drop memory clobbers on VMX instruction wrappers
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250407104544.1823150-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250407104544.1823150-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07/04/2025 12:28 pm, Jan Beulich wrote:
-> It's not used outside of the CU defining it, and it is clearly of
-> boolean nature.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 07.04.2025 12:45, Andrew Cooper wrote:
+> The use, or not, of memory clobbers on the VMX instructions is complicated.
+> 
+> There are two separate aspects to consider:
+> 
+> 1. Originally, the VMX instructions used hardcoded bytes, including memory
+>    encodings.  Therefore, the compiler couldn't see the correct relationship
+>    between parameters.  The memory clobber for this purpose should have been
+>    dropped when switching to mnemonics.
+> 
+>    This covers INVEPT and INVVPID, each of which has no change in memory, nor
+>    in fact the current address space in use.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Yet then they need to come after respective table modifications.
+
+> 2. Most of these instructions operate on a VMCS region.  This is a (mostly)
+>    opaque data structure, operated on by physical address.  Again, this hides
+>    the relationship between the instructions and the VMCS from the compiler.
+> 
+>    The processor might use internal state to cache the VMCS (writing it back
+>    to memory on VMCLEAR), or it might operate on memory directly.
+> 
+>    Because the VMCS is opaque (so the compiler has nothing interesting to know
+>    about it), and because VMREAD/VMWRITE have chosen not to use a memory
+>    clobber (to tell the compiler that something changed), none of the other
+>    VMX instructions should use a memory clobber either.
+
+For this, there's actually a good example below, with everything needed in
+context.
+
+>    This covers VMXON, VMXOFF, VMPTRLD and VMPTCLEAR.
+
+Nit: The last insn is VMCLEAR.
+
+> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+> @@ -754,7 +754,7 @@ static int _vmx_cpu_up(bool bsp)
+>                 _ASM_EXTABLE(1b, %l[vmxon_fault])
+>                 :
+>                 : [addr] "m" (this_cpu(vmxon_region))
+> -               : "memory"
+> +               :
+>                 : vmxon_fail, vmxon_fault );
+>  
+>      this_cpu(vmxon) = 1;
+> @@ -811,7 +811,7 @@ void cf_check vmx_cpu_down(void)
+>  
+>      BUG_ON(!(read_cr4() & X86_CR4_VMXE));
+>      this_cpu(vmxon) = 0;
+> -    asm volatile ( "vmxoff" ::: "memory" );
+> +    asm volatile ( "vmxoff" );
+
+With the clobber dropped, the compiler is free to re-order the prior store
+with the asm(), despite the "volatile", isn't it? [1] This may then be
+applicable elsewhere as well.
+
+Jan
+
+[1] Quote: "Note that the compiler can move even volatile asm instructions
+            relative to other code, including across jump instructions."
 
