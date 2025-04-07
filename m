@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EE26A7DC3D
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 13:28:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.939722.1339713 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E58DA7DC45
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 13:29:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.939733.1339722 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1keK-0003ZP-FA; Mon, 07 Apr 2025 11:28:20 +0000
+	id 1u1kfS-00047H-OO; Mon, 07 Apr 2025 11:29:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 939722.1339713; Mon, 07 Apr 2025 11:28:20 +0000
+Received: by outflank-mailman (output) from mailman id 939733.1339722; Mon, 07 Apr 2025 11:29:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1keK-0003XV-CB; Mon, 07 Apr 2025 11:28:20 +0000
-Received: by outflank-mailman (input) for mailman id 939722;
- Mon, 07 Apr 2025 11:28:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u1kfS-00044s-LJ; Mon, 07 Apr 2025 11:29:30 +0000
+Received: by outflank-mailman (input) for mailman id 939733;
+ Mon, 07 Apr 2025 11:29:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=C/xl=WZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u1keJ-0003XN-Am
- for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 11:28:19 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 667541ee-13a3-11f0-9ffb-bf95429c2676;
- Mon, 07 Apr 2025 13:28:17 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43d0782d787so29131175e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 04:28:17 -0700 (PDT)
+ id 1u1kfQ-0003pB-Mm
+ for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 11:29:28 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 908c1693-13a3-11f0-9eaa-5ba50f476ded;
+ Mon, 07 Apr 2025 13:29:28 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-39129fc51f8so3372661f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 04:29:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c30226ecdsm12274194f8f.99.2025.04.07.04.28.15
+ 5b1f17b1804b1-43ea97904b7sm125663975e9.1.2025.04.07.04.29.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Apr 2025 04:28:16 -0700 (PDT)
+ Mon, 07 Apr 2025 04:29:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 667541ee-13a3-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 908c1693-13a3-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744025296; x=1744630096; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744025367; x=1744630167; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=5zJMnaTe7KA8HRPsBczfCVAMH2wJrxOTuP8r+JNshAs=;
-        b=X1uwf/46wPIeeHqQlTx08d7SLpWKiAN+TpnnQjxpxf4gh2YuRorJI+SSlQ+Itk3K/p
-         5MIDbnnL/XkRDHegawvgTiw59tGDUXKDPabIYAUmcW48pTE4xNTRj4afaP4M5j3+AzOT
-         yt5ipSHrwCg0mD5QxY/7DZ7lgg57D3rjwq9oAZEbqsVmK4MqkLQ/l+lzfHfD/0c7zuNe
-         HWgCew0JrSJ0JNMT4s90NIW24fHJJzpC/n7XE1IuAZMjABBpLCRjYxsM6jCqukLjAKl/
-         yQZ7bOugxuq2MrVBiDGux6gst46BwmxrCMpVDGbH2Z45mRnxezLmVXCZW/eJ8MWEXYzm
-         77EQ==
+        bh=W/6cLRblqhSUTeW8vQg0u+UKNboItlBAEZ9UsTsqQKU=;
+        b=F/r/RbSn2Gihete5ChJRGokwJCmoM5Vgbr2hu/AugNun/rJ6HfNpT2iwCPjjv7BggM
+         sk4TX6YYhapDDUAcyYAnAI7SDjXgqhw9rpo96V8jvIdfuNxqN67JY7JAhpsxqy6INOMi
+         OpWc9rIOzyzB53eovgzSuPyarWPEZjJGtDeqNmWqQmscRb5x29EzcEpNCauFWeiC2Ck6
+         OYTDhYGYRullt+gaG0zv+XnoLffmH/qXdlBvpLFLhwDf6ROvNWXdVgPl1SAPF4tkkd2x
+         NqHgUz1Pu5ZFq3NdEOu+c5NilzwRCtn40XAG+RcRomIPvV+Zf+TREyTT4HnrP8HYDu5+
+         pnQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744025296; x=1744630096;
+        d=1e100.net; s=20230601; t=1744025367; x=1744630167;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5zJMnaTe7KA8HRPsBczfCVAMH2wJrxOTuP8r+JNshAs=;
-        b=VI/LxgGZYj0MI7oFbv73MRUvPP+xu6SE0SCZx+ZvQPaAmuQuFFXJByWEUtF+F0dC15
-         YbawxNTQZlmBMWcQmTnoPB9YolAY73uhex4c6vEohX3QUc/BE/LlyLR+Ml0wAkbIL8Ik
-         rVf2jzygMJ4sKSA3+LOBFNAFxV9c3DCuh8DQMkf15/g3aPnht7VgmCxS4QnlFlAcp2Zy
-         EA6N25xM008fw8RDJNK/Ec2z5jX+mvVaHCUMpOVjk4u9rljnpbIuwqyAbDOOpHUcEpSU
-         Nj4gFoDxjIQg2UmOrxGBH9WuyMnBhDxcnWWT/jZkGzwDqRyAlDTbKfNJMnMWY8JUgMp2
-         +ynw==
-X-Gm-Message-State: AOJu0YyeQ6Y+jIJJFpPfgJInyAyixNomobT2efD/SGU3XtUXML+Y3xke
-	USV91Ut1Fdn3BbDjfvozjlG18qdgKArO8FBVqg8W+18NdWfg6eMVUDc8tEt4fDXi7jmCu+iC9yk
+        bh=W/6cLRblqhSUTeW8vQg0u+UKNboItlBAEZ9UsTsqQKU=;
+        b=Zm7RnXJewZ38YvLaVfDXMYvScLOVeXosDiBlPQljtko9gfhoCbmtGJCFBeY4FAeX12
+         eP1mZ7Fev4jmMNLROcs4WutFU/1T7Yn+ijMuv+P+8UZQfIoYinIr3HcnuVnfxrWC/VLD
+         48EZ+g1pXdaSrsduPA0VeyQAPI10/J2q4fuCSwxePmiAO/UsDKKb50AFQesDEpH+62ns
+         dDb9lE+cwV7+IsAS4W5Qu10lMKkAdrXEaDzTUaIfwzL7tX5a3Z6m8r1RFa1PBCdsUhE4
+         +RTLTg88KXkp/wM4RsbascSFXmF6iF5jBrAnGnLQwPqaNoWDhKvct1A772VR6RHwNmmb
+         v26g==
+X-Gm-Message-State: AOJu0Ywbt9rzFiN6iDne458q9DEu+GLpWgnARTXDw22t17K3tthOqi/t
+	vqGcCbqPExeuB3MrLQDNOmp58GQINh5YncaNxk+xmD3TA59yBva8bZ1p6HU7EC7GveSzFJgq408
 	=
-X-Gm-Gg: ASbGncva86Xz8z43RhmBiLDR06Ui1UlR9tyyz59OP/uYu58zBbwOT8o3vZdCTuQbXIc
-	yZyZz46n18HzdPbgMVDQUO+nliq07qP4/I4v5DOCnLUXtuzvEvmi+MckHUH0zNQQ0Wl5tXOm+ne
-	EEg2kfBx8dQRpsiWGapJK8o2rB6vDP/RBtPoLtK5NY2g6/fuH80nRRtDjAhhd1Ph911tfczBBck
-	Dj4BB54YCQgJnkK02oApRL6z69w4X7UAQmYq5oZqxPUjtC408Gdr7/Nw/L3SbjyTGhUPiZHU1gZ
-	EHx8QYjsT24J+oKuPhKupUoD/OQWzYMoHguBVS50ZRdSVsDhtwkx8pq5bLyKzP2hqG52cNIN1XS
-	g3yelhgs4Cjt3a9MAOxvla18zo8u4mCvM0Fr+niSB
-X-Google-Smtp-Source: AGHT+IGaANFiZGM91BR7xvByJYm6s4E+ZdTKbSODbjHtv9l3bmDj0JthQfamXYuAy71s4EVqLH/Dcg==
-X-Received: by 2002:a05:600c:3484:b0:43c:f44c:72a6 with SMTP id 5b1f17b1804b1-43ed0b80b30mr118536185e9.2.1744025296346;
-        Mon, 07 Apr 2025 04:28:16 -0700 (PDT)
-Message-ID: <55d1c198-79a8-4011-93b0-b36580e23c24@suse.com>
-Date: Mon, 7 Apr 2025 13:28:18 +0200
+X-Gm-Gg: ASbGncufuSjWONskdbM/v96ErpApqrgn46IeLzEcNHFlBX8zQQUPVb2Ba4ptQ7SA1+R
+	oOx4LUqwRo56qV9VEz7ImCHgj890MhbP1LkuB9K+Q2EDmwP0tmoo959AkOx/eKON/ReB/dYpayB
+	KW53x5Hca88BJd1Ee0ZoW3Ccekz0TwJ67SVroaOSfcRRGLXWCrlEBcB+NUS07+GQ3XnJtQc2NFb
+	fCc9bVp8HBV2n9GMn6UwPp9XmF+RpK/DkEN7y1gREDguP4Xem198gkaJ98y7Yaqbr6qnlv9GqlE
+	aMRTuJm/70YgqWf9+tMiNgyHeHZieCXOhuM7/LOXUuGyVzeWitrT91wHRHk4yrNpqSYRe2tGOgw
+	cQBEdJtAri8CH5F/RbtTi9wxqRE748A==
+X-Google-Smtp-Source: AGHT+IFMkBYsiwuE15Hn1ImClCdy7ep6ZvPxYVVHN3z3WUb+vcRXpbPu4uvewvuUwZYPfjv8SaM5DQ==
+X-Received: by 2002:a05:6000:1a8d:b0:39c:1f10:d294 with SMTP id ffacd0b85a97d-39d0de28a44mr9965525f8f.26.1744025366967;
+        Mon, 07 Apr 2025 04:29:26 -0700 (PDT)
+Message-ID: <8b16c210-4a2f-4d06-8fab-624394f06e5f@suse.com>
+Date: Mon, 7 Apr 2025 13:29:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/MTRR: make hold_mtrr_updates_on_aps static and bool
+Subject: [PATCH] libxl{,u}: replace TOSTRING()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -118,47 +118,79 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-It's not used outside of the CU defining it, and it is clearly of
-boolean nature.
+Now that common-macros.h has STR() available, which is even slightly
+more flexible, use that and drop the custom macros.
+
+No difference in generated code (except for line numbers, of course,
+where embedded in code/data).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/cpu/mtrr/main.c
-+++ b/xen/arch/x86/cpu/mtrr/main.c
-@@ -118,7 +118,7 @@ struct set_mtrr_data {
-  * After all the cpus have came up, then mtrr_aps_sync_end() synchronizes all 
-  * the cpus and updates mtrrs on all of them. Then this flag is turned off.
-  */
--int hold_mtrr_updates_on_aps;
-+static bool hold_mtrr_updates_on_aps;
+--- a/tools/libs/light/libxl_disk.c
++++ b/tools/libs/light/libxl_disk.c
+@@ -53,7 +53,7 @@ static void disk_eject_xswatch_callback(
+     }
  
- static void cf_check ipi_handler(void *info)
- /*  [SUMMARY] Synchronisation handler. Executed by "other" CPUs.
-@@ -600,14 +600,14 @@ void mtrr_save_state(void)
+     sscanf(backend,
+-            "/local/domain/%d/backend/%" TOSTRING(BACKEND_STRING_SIZE)
++           "/local/domain/%d/backend/%" STR(BACKEND_STRING_SIZE)
+            "[a-z]/%*d/%*d",
+            &disk->backend_domid, backend_type);
+     if (!strcmp(backend_type, "tap") ||
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -2093,9 +2093,6 @@ _hidden int libxl__init_recursive_mutex(
  
- void mtrr_aps_sync_begin(void)
- {
--	hold_mtrr_updates_on_aps = 1;
-+	hold_mtrr_updates_on_aps = true;
- }
+ _hidden int libxl__gettimeofday(libxl__gc *gc, struct timeval *now_r);
  
- void mtrr_aps_sync_end(void)
- {
- 	if (mtrr_if)
- 		set_mtrr(~0U, 0, 0, 0);
--	hold_mtrr_updates_on_aps = 0;
-+	hold_mtrr_updates_on_aps = false;
- }
+-#define STRINGIFY(x) #x
+-#define TOSTRING(x) STRINGIFY(x)
+-
+ /* from libxl_qmp */
+ typedef struct libxl__qmp_handler libxl__qmp_handler;
  
- void asmlinkage mtrr_bp_restore(void)
---- a/xen/arch/x86/include/asm/mtrr.h
-+++ b/xen/arch/x86/include/asm/mtrr.h
-@@ -63,7 +63,6 @@ extern uint32_t get_pat_flags(struct vcp
-                               paddr_t gpaddr, paddr_t spaddr,
-                               uint8_t gmtrr_mtype);
- extern uint8_t pat_type_2_pte_flags(uint8_t pat_type);
--extern int hold_mtrr_updates_on_aps;
- extern void mtrr_aps_sync_begin(void);
- extern void mtrr_aps_sync_end(void);
+--- a/tools/libs/util/libxlu_disk_l.c
++++ b/tools/libs/util/libxlu_disk_l.c
+@@ -1152,7 +1152,7 @@ void xlu__disk_yyset_column(int  column_
+ #define DSET(dpc,member,enumname,str,valname) do{			\
+ 	if (dpc->disk->member != LIBXL_DISK_##enumname##_UNKNOWN &&	\
+ 	    dpc->disk->member != LIBXL_DISK_##enumname##_##valname) {	\
+-	    xlu__disk_err(dpc, str, TOSTRING(member) " respecified");	\
++	    xlu__disk_err(dpc, str, STR(member) " respecified");	\
+ 	} else {							\
+ 	    dpc->disk->member = LIBXL_DISK_##enumname##_##valname;	\
+ 	}								\
+--- a/tools/libs/util/libxlu_disk_l.l
++++ b/tools/libs/util/libxlu_disk_l.l
+@@ -64,7 +64,7 @@ void xlu__disk_yyset_column(int  column_
+ #define DSET(dpc,member,enumname,str,valname) do{			\
+ 	if (dpc->disk->member != LIBXL_DISK_##enumname##_UNKNOWN &&	\
+ 	    dpc->disk->member != LIBXL_DISK_##enumname##_##valname) {	\
+-	    xlu__disk_err(dpc, str, TOSTRING(member) " respecified");	\
++	    xlu__disk_err(dpc, str, STR(member) " respecified");	\
+ 	} else {							\
+ 	    dpc->disk->member = LIBXL_DISK_##enumname##_##valname;	\
+ 	}								\
+--- a/tools/libs/util/libxlu_internal.h
++++ b/tools/libs/util/libxlu_internal.h
+@@ -25,6 +25,8 @@
  
+ #include "libxlutil.h"
+ 
++#include <xen-tools/common-macros.h>
++
+ struct XLU_ConfigList {
+     int avalues; /* available slots */
+     int nvalues; /* actual occupied slots */
+@@ -69,10 +71,6 @@ typedef struct {
+     void *scanner;
+ } CfgParseContext;
+ 
+-
+-#define STRINGIFY(x) #x
+-#define TOSTRING(x) STRINGIFY(x)
+-
+ #endif /*LIBXLU_INTERNAL_H*/
+ 
+ /*
 
