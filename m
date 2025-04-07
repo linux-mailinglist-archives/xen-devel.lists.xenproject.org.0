@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 941F4A7DEF2
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 15:24:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.940111.1339987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0590BA7DF00
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 15:25:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.940123.1339997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1mS5-0003uY-Ed; Mon, 07 Apr 2025 13:23:49 +0000
+	id 1u1mTM-0004RH-Oo; Mon, 07 Apr 2025 13:25:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 940111.1339987; Mon, 07 Apr 2025 13:23:49 +0000
+Received: by outflank-mailman (output) from mailman id 940123.1339997; Mon, 07 Apr 2025 13:25:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1mS5-0003sp-Bb; Mon, 07 Apr 2025 13:23:49 +0000
-Received: by outflank-mailman (input) for mailman id 940111;
- Mon, 07 Apr 2025 13:23:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u1mTM-0004On-M3; Mon, 07 Apr 2025 13:25:08 +0000
+Received: by outflank-mailman (input) for mailman id 940123;
+ Mon, 07 Apr 2025 13:25:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=C/xl=WZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u1mS4-0003sh-95
- for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 13:23:48 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 890a0267-13b3-11f0-9eaa-5ba50f476ded;
- Mon, 07 Apr 2025 15:23:46 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3912d2c89ecso3860663f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 06:23:46 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c3009644dsm11901825f8f.6.2025.04.07.06.23.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Apr 2025 06:23:46 -0700 (PDT)
+ (envelope-from <SRS0=FUjn=WZ=atlas.cz=arkamar@srs-se1.protection.inumbo.net>)
+ id 1u1mTK-0004Of-Mi
+ for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 13:25:07 +0000
+Received: from gmmr-2.centrum.cz (gmmr-2.centrum.cz [46.255.227.203])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b73a7266-13b3-11f0-9ffb-bf95429c2676;
+ Mon, 07 Apr 2025 15:25:04 +0200 (CEST)
+Received: from gmmr-2.centrum.cz (localhost [127.0.0.1])
+ by gmmr-2.centrum.cz (Postfix) with ESMTP id 48222204E52E
+ for <xen-devel@lists.xenproject.org>; Mon,  7 Apr 2025 15:25:03 +0200 (CEST)
+Received: from antispam31.centrum.cz (antispam31.cent [10.30.208.31])
+ by gmmr-2.centrum.cz (Postfix) with ESMTP id 456C82042DF5
+ for <xen-devel@lists.xenproject.org>; Mon,  7 Apr 2025 15:25:03 +0200 (CEST)
+Received: from unknown (HELO gm-smtp11.centrum.cz) ([46.255.227.75])
+ by antispam31.centrum.cz with ESMTP; 07 Apr 2025 15:25:02 +0200
+Received: from localhost.localdomain (ip-213-220-240-96.bb.vodafone.cz
+ [213.220.240.96])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by gm-smtp11.centrum.cz (Postfix) with ESMTPSA id B408C100AE104;
+ Mon,  7 Apr 2025 15:25:02 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +51,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 890a0267-13b3-11f0-9eaa-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744032226; x=1744637026; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9USyALrpeP0OYfedjByv0DH4++pn62o9g8P7qYdlchU=;
-        b=WANbhXCi3bBGaAsIsCrN+2ZxaJHip8PbRqvv+nyMdCVVKsPn/8mtTc71sShmvm6LU/
-         2cc5KzGc/peaJBdfyh5ZT+YXjMZSUOnRJoWfpehxrY1DdGVRSB0Hpxj6mMxLF8tic4nh
-         560MO7j8K4CaP0U27yHUEIP6cAa2Z/+MSSzMuHnNfpsiaoM3HOTypYu9AO9k8NHgBM+v
-         NmMTrbDp7f4ubjX55snKE3BfvJYxqJlVZ60dkrc7/9BlAyiPYykuueSrd8dwE859vbVI
-         NdGr8h0n3qh2lYs2e18XyizL1nOh/lSU2qPAqMLAqCviKVgmntx0MwtC7EJpiv3KNQN/
-         yi8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744032226; x=1744637026;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9USyALrpeP0OYfedjByv0DH4++pn62o9g8P7qYdlchU=;
-        b=iNKKVzxrFQh47dUABLzZQgqMW7Qi7SadG4Epk3M/YGAP36NLsATj6gRtow3mlvMgX2
-         LpZZssLKLo++LJDgKA5rvDqiujGAcxmAVdJluCS1zSTfuqBVIlN3Hqa9cyHgY6xwDBXM
-         y2JHzFodOtULApXH7+McuFjtLLuJoCjaTSRNOtlUR0JhglCIecklc0dDX0mphxDuD2qf
-         GVbwdRoK97ZZiJ8H8tHtwHL3gPnrSv1t2sR+gHC48Io/mbbkIMrInP9sBHp/uDjsDUmV
-         /WMthXM0KhiUynhkvaLtzFdbS87VHPK1V4f3bpaUXk6gQX7fgN6X90iKPoN1JcU++bXm
-         LRsA==
-X-Forwarded-Encrypted: i=1; AJvYcCWQBvCt6EjyHVsGSG6OIXx+FPzfsDKfrBE5GfJdpWF5ZlXs12c42pLUzgM1gh9RzNwTAaAqDyv3h84=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwTtbbzsxJE60dktO0OaqUDqtvzmhRqxB24Yoqyiq1Q6v9sxotQ
-	d1Xqfysf0yAbJi2XhuL1V1ZymXblAyCCU+4mCaT4z7OPsiGpQSPV0Yx3CmeRww==
-X-Gm-Gg: ASbGncuWtRxMTxuiAeMUYK/zc02/IbEe5Xm2ECy6N7hgw+QiS59l68lRfVkzmvwVk4j
-	CoZLBSWUopxvAQK5apqkEYstWJROc+QvU5Bi0+rU3jCkzh6lrLt7jQPiJczeGKMdy5giUztG7sG
-	hccCMHvGHPmLGCR95Mc3BOm0puCOAYiaENPkuiHspD88fNgvReOf5s21mbyW/ASbLEe0NqrJ9my
-	qgAPtqDlq3d63jOF5OCf3K1ex0KDeg0Ptw819mr1YqdwRdUJ4ax9gsR9RFFk5l6pORpYWL3DaFW
-	c+C4Fj6S5oTUWHfJJLrmaqfkVsDYO6GeNCLz+PIACIXsCOXD9znjBpZdiMKL/+h3dyDFS2pjb4n
-	cBJwKC1x2worLcmPq8aqPl4YO2HmkJA==
-X-Google-Smtp-Source: AGHT+IEniUsG8UFqru+L4SUu+0qnO6euSTiI2Rw0ZDcsY88hUgNy5uiLxHqF+9Q4kdrn0/5hUxZpxQ==
-X-Received: by 2002:a5d:64a9:0:b0:391:4bcb:828f with SMTP id ffacd0b85a97d-39d0de1233emr10022140f8f.14.1744032226347;
-        Mon, 07 Apr 2025 06:23:46 -0700 (PDT)
-Message-ID: <75d288ba-1006-46f4-8f51-6d49c5e8449d@suse.com>
-Date: Mon, 7 Apr 2025 15:23:48 +0200
+X-Inumbo-ID: b73a7266-13b3-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=atlas.cz; s=mail;
+	t=1744032303; bh=kiYJQhPO9bK188tvzcgK+tflLcoJpt76+LU/uqMEgG0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=kxxOzJQ0P6GLAuQTlOjnqZNKg/UGOpr+RUEKzDYxwBBcPfASASQ0pfF1lriUHs51g
+	 gXZuldOPgZmnoDXdyZs0JQWUWQkbvnVN6cQpwlmG7LcmQPcmbqnzHZmnkNF/uiQ5Bt
+	 FXyFjFa/8ScmHKobTu//880y/QwKnJgALZDVo88A=
+X-CSE-ConnectionGUID: JISPTSTgQ0+NWz5v7Bd6/g==
+X-CSE-MsgGUID: WG/Zq+uhSNeWMb8Z2bJYQQ==
+X-ThreatScanner-Verdict: Negative
+X-IPAS-Result: =?us-ascii?q?A2EHAADz0PNn/0vj/y5aGgEBAQEBAQEBAQEDAQEBARIBA?=
+ =?us-ascii?q?QEBAgIBAQEBQAmBOAMBAQEBCwGDM4ZGkXIDi3aGM4tqgX4PAQEBAQEBAQEBC?=
+ =?us-ascii?q?UQEAQGEfQoCiyonNgcOAQIEAQEBAQMCAwEBAQEBAQEBAQ0BAQYBAQEBAQEGB?=
+ =?us-ascii?q?gECgR2FNVOCYgGDfwEBAQECASMPAUYFCwsNAQoCAiYCAlYGgxWCMAERI6wwe?=
+ =?us-ascii?q?oEyGgJl3HACgSNkgSmBGi4BiE8BhHxwG4RcQoINgRWCeTE+hBuEA4JpBIItR?=
+ =?us-ascii?q?VWUEoxjSAp7HANZLAFVEw0KCwcFgSlDAzUMCy4VIw9EBTMdgXyDcoU4ghGBX?=
+ =?us-ascii?q?AMDIgGDFXUchG6EWi1PgzM8HUADCxgNSBEsNxQbBj0BbgeadFmBWwo+AsdOh?=
+ =?us-ascii?q?CWETZx7GjOXUh4DkmSYfqRLhGiBbguCBDMiMIMjURmOaMwBgTICBwEKAQEDC?=
+ =?us-ascii?q?YI7jS4zgUsBAQ?=
+IronPort-PHdr: A9a23:/eJw7xHX04iMZwfbeyb7tJ1Gf35KhN3EVzX9CrIZgr5DOp6u447ld
+ BSGo6k21hmRBc6Bs6oe26L/iOPJZy8p2d65qncMcZhBBVcuqP49uEgNJvDAImDAaMDQUiohA
+ c5ZX0Vk9XzoeWJcGcL5ekGA6ibqtW1aFRrwLxd6KfroEYDOkcu3y/qy+5rOaAlUmTaxe7x/I
+ RuooQnLqsUanYRuJrgtxhfVvHdFePldyH91K16Ugxvz6cC88YJ5/S9Nofwh7clAUav7f6Q8U
+ 7NVCSktPn426sP2qxTNVBOD6HQEXGoZixZFHQfL4gziUpj+riX1uOx92DKHPcLtVrA7RS6i7
+ 6ZwRxD2jioMKiM0/3vWisx0i6JbvQ6hqhliyIPafI2ZKPxzdb7GcNgEWWROQNpeVy1ZAoO9c
+ YQPCfYBPf1FpIX5vlcCsAeyCRWpCO7p1zRGhGL53bci3uohDw/LwhEuEdwNvnrTrtr1OqgdX
+ vy6wqTT0TXObOlb1Svn5YTUcB0sp+yHU7JqccrWzEkiDxnLgUuMqYz/Ijia2f4Cs26F6upjS
+ OmijHQoqxtyoje1w8cjkJPJi5kPxVDY8SV22p01KcekR096eNOpFoZbuC6GOYVsWMwiX31ot
+ zggyr0AoZO3YTQGxZsnyRLCb/GJc5WF7w7jWuieLjp1h3Nodb2wihiy8kWt1OLyW8q23VtEr
+ ydIktbBum0O2hHR68WLV/hw80G80jiMzwDe8u5JLEEumabFK5MswqQ8moQNvUnBBCP7mkX7g
+ LeIekk59OWk8frrbqv6qpOGKYN5hR3yPr4ql8G+B+kzLxIAUHKB+eum0b3u5Uj5QLJXgfIoi
+ qTZq5XaJdgDpq6+Hg9Vzp4v6xahADei19QVhXYHLFdcdBKciojpJ0nOLO3lAfuln1ujjjFrx
+ +zcPr38B5XBNGTMkbb5cbZ87U5T1hYzwMhQ6p9VEL0NPvL+V0/ruNDGEBM0MRa4zuTnBdll0
+ 4MRQ2OPAquXMKPItl+I4/oiLPOWZI8Wojn9LuIq5+T1gHAjhV8debOm3YANZH+kH/VqO1+Zb
+ mb0gtcdDWcKuRIzQ/bwiF2BSzFTYmy9X7gn6z4hFIKmCZ3MRpu3jLOd3Sa3BodWaXxeClCQD
+ XfocJ2JVO0KaC2POM9ujDIFWaK9RI8m0hGurBH1y6BpI+fP5iIYtI7j1MJ05+zcjx096Tt0D
+ 8GF32GXU250hn8IRyMx3K1nrk1wyVaO3LN7g/NGD9xT4e1GUgMgOZ7b1ex6BMj+WhjdcdeRV
+ FamXtKmDCktTtI+x98PbF1wG9GjjhDFwiqqH6UVl7uNBJw1/aPQxWX+KNhlx3bcyKYhl0UmQ
+ tdINWC+ia9w6Q7TC5fUnEqHiaala6Ac0TXJ9GeC1mqOoFpYXBR/UKrbW3AfflHWrdP75kzcU
+ 7CuFa4rMgxbyc6NMqdKcMHmjU1aRPf/P9TTe2Cxm2iqBRaP3bOMd5Hne34A3CXGFkcIiRwc/
+ XGDNQQmHCeuv3reDCByFVLoe07s9eh+qHWmTk471g2FdVFu16K0+hMOm/ycRO0c3qgetCcit
+ Tp0BlC90MzSC9aaoAphZqpcbcsn4FhbzWLZqxB9Ppu4IqBmh14edRl3vkz32xV0FIpAi84qo
+ 20uzAdpN6KY301OdymC0ZDzJLLXMG/y8w6ra6LM3VHeytmWqe8z76EEq1LmtRrhOU4v8mVh3
+ sMdh2eT4oXiCAsUTI7rVUA25152queJTDM64tbs2GF2eZe9tJzBk4YgHugszx+6V95DNKqfU
+ gTgRZ5JT/OyIfAnzgD6JikPO/pfoettZ5vOSg==
+IronPort-Data: A9a23:qYR9uqv9Qc3XtNVlAKtlOG8abefnVKtfMUV32f8akzHdYApBsoF/q
+ tZmKWqAaPmCMGv2L913YdjioUIOvsPWytIyHlM/+3szQi8WgMeUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokf0/0rrb/646yEhiMlkf5KkYMbcICd9WAR4fykojBNnioYRj5Vh6TSDK1rlV
+ eja/YuGZTdJ5xYuajhJs/7b90sz1BjPkGpwUmIWNK0jUGD2yCF94KI3fcmZM3b+S49IKe+2L
+ 86r5K255G7Q4yA2AdqjlLvhGmVSKlIFFVXmZtJ+AsBOszAazsAA+v9T2Mk0NS+7vw60c+VZk
+ 72hg7TrEFt0Yfec8Agqe0Iw/ylWZcWq8VJcSJS1mZT7I0buKxMAzxjyZa2f0EJxFutfWAlzG
+ fIkxD8lTDG4v96N/L2CEqpKudZ+MpbBMN1YtSQ1pd3ZJa5OrZHrTKCP/tpExG5pwMtDG+rEe
+ s9fYigHgBboP0MJYApKTshkw6H32xETcBUBwL6RjaMt4GHWxRZZ2aTpOcGTcc7iqcB9xx7F9
+ jqWoz6kav0cHOOwjgicsW+svcnCogbxCLBIHp+Jz8c/1TV/wURWUnX6T2CTqOO6g0u3QfpWN
+ 0gd4Wwlv8Aa/UqnVNTiGRa/p2aJpEU0UNtMCewqrgqKz8L881bHLmsJVDhMbJohrsBebSAl0
+ k+hm9LvGCB1t7uUWTSR+9+8vT60fCQYM2IGTSsFVhcepcnuppkpiRDCRcolF7S65vX3Fiv32
+ CuitzUlivMYistj/6G6+03XxjunvpnhUAE4/EPUU3ij4wc/Y5SqD6Ss6F7G/bNDIZyfQ12po
+ ncJgY6d4foIAJXLkzaCKM0WALij4/utLjLRmxhsEoMn+jDr/GSsFb28+xkiegEzb5tCI2W2J
+ hCO0e9M2KJu0LKRRfcfS+qM5w4CkMAMyfyNuijoU+dz
+IronPort-HdrOrdr: A9a23:7g/t9KFVCio9xU1RpLqE5ceALOsnbusQ8zAXPo5KJSC9Ffbo8P
+ xG/c5rsSMc5wx+ZJhNo7q90ey7MBDhHP1OkOws1NWZPTUO0VHAROpfBMnZsl/d8kbFmdK1u5
+ 0MT0EHMr3NMWQ=
+X-Talos-CUID: 9a23:SieH+GBevB5e4mn6EwtGz3YoIfwqSyWe6kjCflHnI2o3D7LAHA==
+X-Talos-MUID: 9a23:y4XipQiW3w/A4lkwXJIGTsMpC+gv0b3tFUA2t5g5nsPUB3Z6GQaktWHi
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.15,194,1739833200"; 
+   d="scan'208";a="105808425"
+From: =?UTF-8?q?Petr=20Van=C4=9Bk?= <arkamar@atlas.cz>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	arkamar@atlas.cz,
+	Juergen Gross <jgross@suse.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	x86@kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-acpi@vger.kernel.org
+Subject: Re: [PATCH 1/1] x86/cpu/topology: Don't limit CPUs to 1 for Xen PV guests due to disabled APIC
+Date: Mon,  7 Apr 2025 15:24:26 +0200
+Message-ID: <20250407132445.6732-1-arkamar@atlas.cz>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <87ecy5wqjm.ffs@tglx>
+References: <87ecy5wqjm.ffs@tglx>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Ping: [PATCH] libxc/PM: correct (not just) error handling in
- xc_get_cpufreq_para()
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <df676738-19e7-47e6-977f-25d6d13ccc50@suse.com>
- <e0028d85-668a-464b-aac5-ac8a79ea9bf5@suse.com> <Z_PI2UNn2C4GKqYw@l14>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z_PI2UNn2C4GKqYw@l14>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07.04.2025 14:45, Anthony PERARD wrote:
-> On Mon, Apr 07, 2025 at 01:38:24PM +0200, Jan Beulich wrote:
->> On 27.03.2025 14:32, Jan Beulich wrote:
->>> From their introduction all xc_hypercall_bounce_pre() uses, when they
->>> failed, would properly cause exit from the function including cleanup,
->>> yet without informing the caller of the failure. Purge the unlock_1
->>> label for being both pointless and mis-named.
->>>
->>> An earlier attempt to switch to the usual split between return value and
->>> errno wasn't quite complete.
->>>
->>> HWP work made the cleanup of the "available governors" array
->>> conditional, neglecting the fact that the condition used may not be the
->>> condition that was used to allocate the buffer (as the structure field
->>> is updated upon getting back EAGAIN). Throughout the function, use the
->>> local variable being introduced to address that.
->>>
->>> Fixes: 4513025a8790 ("libxc: convert sysctl interfaces over to hypercall buffers")
->>> Amends: 73367cf3b4b4 ("libxc: Fix xc_pm API calls to return negative error and stash error in errno")
->>> Fixes: 31e264c672bc ("pmstat&xenpm: Re-arrage for cpufreq union")
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
->> May I ask for an ack or comments towards what needs changing?
+On Sun, Apr 06, 2025 at 12:08:29PM +0200, Thomas Gleixner wrote:
+> On Sat, Apr 05 2025 at 20:16, Petr Vaněk wrote:
 > 
-> Calling xc_get_cpufreq_para with:
+> > Xen PV guests in DomU have APIC disabled by design, which causes
+> > topology_apply_cmdline_limits_early() to limit the number of possible
+> > CPUs to 1, regardless of the configured number of vCPUs.
 > 
->     user_para = {
->         .cpu_num = 0,
->         .freq_num = 0,
->         .gov_num = 9,
->     };
-> 
-> seems broken. It's looks like the `scaling_available_governors` bounce
-> buffer is going to be used without been allocated properly handled, with
-> this patch.
+> PV guests have a APIC emulation and there is no code which actually
+> disables the APIC by design unconditionally. There is one way though,
+> which disables the APIC indirectly.
 
-The local variable "in_gov_num" controls its allocation and use, together with
-has_num. "Use" as in passing to set_xen_guest_handle(). The only further use
-of that bounce buffer is on the exit path, i.e. it being passed to
-xc_hypercall_bounce_post(). The backing function xc__hypercall_bounce_post()
-is dealing fine with the buffer being NULL. And that's what it would be left
-at from DECLARE_NAMED_HYPERCALL_BOUNCE() if buffer allocation is skipped.
+It seems I have got a bit lost in APIC/ACPI abbreviations. Sorry.
 
-Jan
+> xen_arch_setup() disables ACPI, which in turn causes acpi_mps_check() to
+> return 1, which disables the APIC. This only happens when the kernel
+> configuration has:
+> 
+>      CONFIG_X86_MPPARSE=n
+>      CONFIG_ACPI=y
+> 
+> If you enable MPPARSE the problem goes away, no?
+
+Yes, it goes away.
+
+> > +	/* 'maxcpus=0' 'nosmp' 'nolapic'
+> > +	 *
+> > +	 * The apic_is_disabled check is ignored for Xen PV domains because Xen
+> > +	 * disables ACPI in unprivileged PV DomU guests, which would otherwise limit
+> > +	 * CPUs to 1, even if multiple vCPUs were configured.
+> 
+> This is the wrong place as it invalidates the effect of 'nolapic' on the
+> kernel command line for XEN PV.
+> 
+> You actually explain in the comment that XEN disables ACPI, so why are
+> you slapping this xen check into this code instead of doing the obvious
+> and prevent acpi_mps_check() to cause havoc?
+
+Thank you for your explanation and suggestion. I will correct acpi_mps_check()
+in following patch.
+
+Thanks,
+Petr
 
