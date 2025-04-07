@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6150AA7E8BF
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 19:45:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.940745.1340407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EE0EA7E928
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 19:56:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.940761.1340418 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1qWv-00067l-65; Mon, 07 Apr 2025 17:45:05 +0000
+	id 1u1qhc-00014R-4A; Mon, 07 Apr 2025 17:56:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 940745.1340407; Mon, 07 Apr 2025 17:45:05 +0000
+Received: by outflank-mailman (output) from mailman id 940761.1340418; Mon, 07 Apr 2025 17:56:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1qWv-00064r-2O; Mon, 07 Apr 2025 17:45:05 +0000
-Received: by outflank-mailman (input) for mailman id 940745;
- Mon, 07 Apr 2025 17:45:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u1qhc-00011M-10; Mon, 07 Apr 2025 17:56:08 +0000
+Received: by outflank-mailman (input) for mailman id 940761;
+ Mon, 07 Apr 2025 17:56:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZxXC=WZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u1qWu-00064l-08
- for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 17:45:04 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 085a848a-13d8-11f0-9eaa-5ba50f476ded;
- Mon, 07 Apr 2025 19:45:02 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43cfecdd8b2so37040105e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 10:45:02 -0700 (PDT)
+ id 1u1qhb-00011G-7K
+ for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 17:56:07 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 93475f01-13d9-11f0-9ffb-bf95429c2676;
+ Mon, 07 Apr 2025 19:56:05 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3995ff6b066so2551991f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 10:56:05 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43ec1f27a55sm139366985e9.2.2025.04.07.10.45.01
+ 5b1f17b1804b1-43ec1660bcesm139223385e9.10.2025.04.07.10.56.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Apr 2025 10:45:01 -0700 (PDT)
+ Mon, 07 Apr 2025 10:56:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 085a848a-13d8-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 93475f01-13d9-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744047902; x=1744652702; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1744048564; x=1744653364; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AVNc7OnAjoT3b/S1PH1VwrsvCJ+F9v01z0Slij1FWJQ=;
-        b=eSmdAiBvTvcCuxiWmPDlQ9UxreKs7oiONJrr4IRWdCLs+zPkEdDYQO63EFdtkMI+Dr
-         cKIiH+pLzHdWCPcuwZVqZnk21aIDZJTHvaRqgAzuU2CAltpQrYMXbi5rb6eYu9iQ3iIQ
-         hM0YyHXCeSFghVQrkO5wvH/TV1ehkx7ueB3jE=
+        bh=sccB/u/DRvlsrKjAXwvtw6qRfXGtz85CHFzhqnsOEAA=;
+        b=TUxdF88rFZLEJ8AYvRASAxkTddqGJA7U4TNe28OtbcjQpaYY3FC1J7lkiAm++S5uQE
+         ZWT0sF3QYM2fhVlz7D+zVSR41Q7cqW2jHdwo7JePJ62s9X/v8REPk0urtczotT2mtNvc
+         E9hiOHA3NolDh/f9dd+51lvZTeuDr2UNa+8YQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744047902; x=1744652702;
+        d=1e100.net; s=20230601; t=1744048564; x=1744653364;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AVNc7OnAjoT3b/S1PH1VwrsvCJ+F9v01z0Slij1FWJQ=;
-        b=YnTGu3cqZN9z5TNaSEmY1xGskZt2UM4nYsDlgztweKMSNnBf9Ig9cjLOkqk5gOcCQ/
-         bnq82owavssn8inrEjthpvlbuYjZ2PZGJEyZqevuuIoIRFCuoSrFjw/eplh+0ksxouVY
-         q1jIdOEBLtfu+PSaLqXkCjG4y6ZVOIxuM1scQb1yeLHNY0TwFlw3evD6auZDY6WlnQ0l
-         7Zzx2cF6wGNhxm3n5XkCsXwgdmogkWk/VEyPJqeIkNnTPf5rtmMyzIjOlwPgrNFWmt/J
-         nnSKPw2P+COKAKeEhWJKPLP2m74y3XBNpcdeNsVXvVCcLFEXvWclG9SXdbcrLgX7XIPs
-         N5ww==
-X-Forwarded-Encrypted: i=1; AJvYcCW5blTbvKuL1O4dumolZHR/Q/FU3hvHc74Hzalqw2SPw6R9FYuIC8AjRXQ4boMSGW4SgDI+OSrBIVQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/jTpuoig99yYBhG1I6rwOh6iFJ+MtI4HQQQRVTuS4OoQwiLt8
-	MhZZbmSLcPT1HHWMAHE6gSp5cMVi+t4dXknazi/yjzt3okcTAarmlcAQvWm4prQ=
-X-Gm-Gg: ASbGnct8n4tGa2kZ9GAg0fdNA4/WE+D3sbk8IGJgLiug3ZJZAz/1y5q0nDMExUNt/dR
-	VigM2U8GsDZWlXFNmJ8PD+HJreSGv3W0wNPuHk5bajbMxVYjL+wd2kbb3YYxYZd2hVSRWDjkmyr
-	OBoaLYnTX5ugYahsQxNAgx0Qv/owLEYn5Snm6QD3pJJqrXMCLD/ay7gqdYfGWp41JxoGjpeOdbS
-	wV8eornf3VRWToEWfDYDuuN29Uzq0r/IVsaG0IEXFKMhhi0VNTe7H3ujk/8hFr57J7EUfUANEES
-	Du9IDHxdndISlrvlYg0+OV1eWIiFn5AQAa9rpSbPAEZhtYLoPAp/uZaN10iBLuS5c2oldfQdtrp
-	WlZuBWf/NjA==
-X-Google-Smtp-Source: AGHT+IHYvgMDDUb9UY8rJjruIbtNgNFl5/5i3l8vM1OwfFSyqu84dAN4TKt16ul+yi7Wg17MVcak1w==
-X-Received: by 2002:a05:600c:1e13:b0:43c:fbbf:7bf1 with SMTP id 5b1f17b1804b1-43ed0da49e6mr158184175e9.30.1744047901807;
-        Mon, 07 Apr 2025 10:45:01 -0700 (PDT)
-Message-ID: <0da3e304-ceef-4a1d-9c65-b55a975559d4@citrix.com>
-Date: Mon, 7 Apr 2025 18:45:00 +0100
+        bh=sccB/u/DRvlsrKjAXwvtw6qRfXGtz85CHFzhqnsOEAA=;
+        b=mDvZb0D2WMG6Zs42EwFpAx/BRePY9gTw3OZTHwIEmXSxi2U6Dp1zHWTtkGJVAfGhAB
+         G8VA1TMMsJvwmPoNKRKvLxBy5KfIrA26hEZ9TEOj25BXma1niBFA2RoSOFTXltbn4nM1
+         HXxqZkUPRN4JPCVAONvPWGP9Jz7R+facdqnK9cQIhvTbwzHWFW4nH/IoEKOLeYqNVtAi
+         80XYfgo62EPE/VWY7G9GSb2CdxS0A+u4WcmTOgQXr5VJGbqa0kbC94/vckIbHrxdm0KE
+         iB7QBVDcwIND3U1g/+5L6c9S8cmrf6NV53JRhJJK/dWTsltrIho/B/2vNo0QqYuTC72n
+         G+kg==
+X-Forwarded-Encrypted: i=1; AJvYcCXAgASPJLMP5LmbEDPmM94SSS85VWlXxgHBX+rTAdDIDPevsKlSbgtYYyQlfHnu1G4cDYJ9PXlddfo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywa6rKIneOTrJVClRkzXBua9uwDIYhl14eAacgw89BiVgxJo7ML
+	dZfjK12IPBKBn3M5e7kc2AanYMTDKK0e78d/hHXd06HjmeIpkA+15k2y02ri8A4=
+X-Gm-Gg: ASbGncvmgJNbedHcPD50by3Z7wuTm7joi36Q97KyMYwxDR6G5aM2loAErz5eKPH+1fi
+	yzQ/f2UhVRkmNzWv+L2RbiYBPN0FdolTmp/Y44iDJYbeQX5Y3B34vkkmD9uQXWYEBardUKEjcJC
+	70gd8v4lWDePxl5IKndc4NOeHtYkskuxttev4avHQu7aqjdO1OMQhdVCM0pCnRpoGqkFFkvU3gY
+	goGkwajKY/vaLwCdqQLl/AgnbSTs/w15zFjZeC69irk8Jra4Dx9CjMOp+/6sY/J60dsIR1QDMjy
+	+r+40nyj1TPye2btCRl6k0Pf51BMhYbASlsV19nqnQfumny4/BdxM/8/XUji4oUWwJ9RHYcY6E0
+	4q6IJydUpiw==
+X-Google-Smtp-Source: AGHT+IHF4aeeG/3FO4TS03v3o41m4GXhZP3Hmm4fw0jPsAWSldpRYhI2cRtTU1hNmMHXaPJdyQEa7w==
+X-Received: by 2002:a05:6000:4284:b0:39c:1f11:ead with SMTP id ffacd0b85a97d-39cb35a8860mr12648944f8f.26.1744048564422;
+        Mon, 07 Apr 2025 10:56:04 -0700 (PDT)
+Message-ID: <a10a7c12-90de-4f1b-9ee0-d5b85055a368@citrix.com>
+Date: Mon, 7 Apr 2025 18:56:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/12] CI: consistently use DOCKER_CMD in makefiles
+Subject: Re: [PATCH v2 08/12] CI: switch test kernel from 6.1.19 to 6.12.21
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Doug Goldstein <cardoe@cardoe.com>
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.7da1777882774486a13e6f39ff4a2096f6b7901e.1744028549.git-series.marmarek@invisiblethingslab.com>
- <3e28c1267125641ed3212c0366678474692913b2.1744028549.git-series.marmarek@invisiblethingslab.com>
+ <eda734d64c0b73e5de6ca0d70fe3de02d40cf00d.1744028549.git-series.marmarek@invisiblethingslab.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,52 +136,27 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <3e28c1267125641ed3212c0366678474692913b2.1744028549.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <eda734d64c0b73e5de6ca0d70fe3de02d40cf00d.1744028549.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 07/04/2025 1:31 pm, Marek Marczykowski-Górecki wrote:
-> This allows rebuilding containers using podman too.
+> The jump is pretty big, but should be enough for a longer time. The
+> change right now is motivated adding new runner with AMD Zen4.
 >
 > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 > ---
->  automation/build/Makefile           | 4 ++--
->  automation/tests-artifacts/Makefile | 4 ++--
->  2 files changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/automation/build/Makefile b/automation/build/Makefile
-> index 4df43b040777..fedf7524dacd 100644
-> --- a/automation/build/Makefile
-> +++ b/automation/build/Makefile
-> @@ -31,8 +31,8 @@ clean:
->  define CLEAN_RULE
->  .PHONY: clean-$(1)
->  clean-$(1):
-> -	if [ -n "$$$$(docker image ls -q $(REGISTRY)/$(subst /,:,$(1)))" ]; then \
-> -		docker image rm $(REGISTRY)/$(subst /,:,$(1)); \
-> +	if [ -n "$$$$($(DOCKER_CMD) image ls -q $(REGISTRY)/$(subst /,:,$(1)))" ]; then \
-> +		$(DOCKER_CMD) image rm $(REGISTRY)/$(subst /,:,$(1)); \
->  	fi
->  
->  endef
-> diff --git a/automation/tests-artifacts/Makefile b/automation/tests-artifacts/Makefile
-> index d055cd696bed..80a60a94f3f7 100644
-> --- a/automation/tests-artifacts/Makefile
-> +++ b/automation/tests-artifacts/Makefile
-> @@ -10,9 +10,9 @@ help:
->  	@echo "To push container builds, set the env var PUSH"
->  
->  %: %.dockerfile ## Builds containers
-> -	docker build --pull -t $(REGISTRY)/$(@D):$(@F) -f $< $(<D)
-> +	$(DOCKER_CMD) build --pull -t $(REGISTRY)/$(@D):$(@F) -f $< $(<D)
->  	@if [ ! -z $${PUSH+x} ]; then \
-> -		docker push $(REGISTRY)/$(@D):$(@F); \
-> +		$(DOCKER_CMD) push $(REGISTRY)/$(@D):$(@F); \
->  	fi
->  
->  .PHONY: all
+>  automation/gitlab-ci/build.yaml                      |  4 +-
+>  automation/gitlab-ci/test.yaml                       |  2 +-
+>  automation/tests-artifacts/kernel/6.1.19.dockerfile  | 41 +-------------
+>  automation/tests-artifacts/kernel/6.12.21.dockerfile | 41 +++++++++++++-
+>  4 files changed, 44 insertions(+), 44 deletions(-)
+>  delete mode 100644 automation/tests-artifacts/kernel/6.1.19.dockerfile
+>  create mode 100644 automation/tests-artifacts/kernel/6.12.21.dockerfile
 
-I'm going to apply this commit to the test artefacts repo too, as it's
-got a copy of this Makefile in need of the same change.
+I'd really prefer not to continue extending the *-export mess, but that
+in turn needs fixes in the test-artefacts repo first.  It should
+simplify later parts of this series.
+
+~Andrew
 
