@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC3C0A7D934
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 11:14:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.939434.1339575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65259A7D94B
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 11:17:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.939470.1339591 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1iZA-0005da-02; Mon, 07 Apr 2025 09:14:52 +0000
+	id 1u1ibJ-0008A0-6N; Mon, 07 Apr 2025 09:17:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 939434.1339575; Mon, 07 Apr 2025 09:14:51 +0000
+Received: by outflank-mailman (output) from mailman id 939470.1339591; Mon, 07 Apr 2025 09:17:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1iZ9-0005Xg-ON; Mon, 07 Apr 2025 09:14:51 +0000
-Received: by outflank-mailman (input) for mailman id 939434;
- Mon, 07 Apr 2025 09:14:49 +0000
+	id 1u1ibJ-00088U-3Y; Mon, 07 Apr 2025 09:17:05 +0000
+Received: by outflank-mailman (input) for mailman id 939470;
+ Mon, 07 Apr 2025 09:17:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U9Ey=WZ=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1u1iZ7-0003xy-Fd
- for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 09:14:49 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id c11750d6-1390-11f0-9eaa-5ba50f476ded;
- Mon, 07 Apr 2025 11:14:48 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4A8181424;
- Mon,  7 Apr 2025 02:14:49 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 184E03F59E;
- Mon,  7 Apr 2025 02:14:46 -0700 (PDT)
+ <SRS0=ZxXC=WZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u1ibH-00087q-Jw
+ for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 09:17:03 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 10d9b3d7-1391-11f0-9eaa-5ba50f476ded;
+ Mon, 07 Apr 2025 11:17:02 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43690d4605dso26782005e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 02:17:02 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c301b8161sm11632032f8f.50.2025.04.07.02.17.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Apr 2025 02:17:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,122 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c11750d6-1390-11f0-9eaa-5ba50f476ded
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 7/7] arm/mpu: Implement setup_mpu for MPU system
-Date: Mon,  7 Apr 2025 10:14:30 +0100
-Message-Id: <20250407091430.2342709-8-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250407091430.2342709-1-luca.fancellu@arm.com>
-References: <20250407091430.2342709-1-luca.fancellu@arm.com>
+X-Inumbo-ID: 10d9b3d7-1391-11f0-9eaa-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1744017422; x=1744622222; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=M0zgClBelkDo/CuOY6YuLrBLty0Oi7g35/gnvO7XDjE=;
+        b=WCAjR+fTjI7MQA2qE5HpgfYjPIo8wITHVouYKkPwT4bZjQ8BVijeF2Ld6gQT4TlYLR
+         NdX+oFZOcEQRV693LJ9Ypk9wjb1JwtErKuUmRrf2fYB/lP9Eg9yeJ7vkefVDH4lgZ8AF
+         Fz+mmU/H3NEBf5ROtE/9bFLFtiziQEuzW3JPQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744017422; x=1744622222;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=M0zgClBelkDo/CuOY6YuLrBLty0Oi7g35/gnvO7XDjE=;
+        b=NyMV5U21i+kBP7/aA/J8v4Z12KVa3rzNj5q3GpGyM5x2AZVRZlofux1LT8Nr+ywN0G
+         nQE+apuQFvyw+OvO2F3NHsDyUhnhq+8Z4SvMkryg709ujVAVyn0glB1R0/6pSppxaarp
+         AJfm8zBfsLehYwFEPJg6eXxwp0OQlR+m5Gmqv0tAIW8RLhJGpacMCbmLVh9iPYz9AqyG
+         RArdzpN21lx9ftW48Ghz1PRZiEZdwWGXLgLZ226iSwOijnOyCR6Ue72FnEzeS4PLVdys
+         +gDDY3XPTtDl+vjxh2EhRj9N848tNAIdme9IyAf8AcxGJwrSvoQaoD7DrmHr+g6HGvBh
+         o6YQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW+253SCjn3twaA36tQpiScYR0S6rfc5uNLpJCcFOzS4vdi7zWcJ/RkkXTlYE/hU3emGomNLbwa/WU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx064965IPLvsw7mN4rhPJAt02v5GHniHYEcWcXqAeLLCX5jeDC
+	TB8kfsLF99U6WUIBenawAU2N91JTFBXdMmNpE46WR8VasbhX5iSaE9SwOCYUM6k=
+X-Gm-Gg: ASbGncuYmWU7+10tgEHrc/iEqGcs6YrfOV4eBmKTmZl5RAFAtLcSSQywJ3cydI6BLmr
+	wOr389izPtAgxnIanYlYtwDXq1/Fxc9eutgztwkqD4Co+gzIllLaE/Wj+gOPhRoF3KVuHS4Xq2F
+	Y4z8lM0gVkzvZ8JMkoOGcmohI63LyfWYTbMSzpq7+u2SqYCo2P/PhtX+ELvr0dytm3K76/Abz1I
+	FkTGC1fedUjaCXJTVvTzeWKREjPPf0fDZ1gbVEjiywYflcfVHsFyYfRoelF8qTFGbMx0NcpzfpX
+	8golWKaJDnzhgzwxOJibCTBzaJoJyHZoWkvhhkm43qhloZtog3DM2ZlXv52sQ4ujwsy7pZiXVd4
+	7AwZysejs2A==
+X-Google-Smtp-Source: AGHT+IFwOy1g9yIfu6d/+L4ZGCIujP53oxxtFgNv+3d24UXIcQWlCBxY/SWfZjyQEU55hsY2D3muiA==
+X-Received: by 2002:a5d:648a:0:b0:39c:1efc:b02 with SMTP id ffacd0b85a97d-39cb35a8952mr10263160f8f.28.1744017421653;
+        Mon, 07 Apr 2025 02:17:01 -0700 (PDT)
+Message-ID: <c34b4537-9563-452c-869f-a412749ebfad@citrix.com>
+Date: Mon, 7 Apr 2025 10:17:00 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] x86/emulate: Remove HAVE_AS_RDRAND and HAVE_AS_RDSEED
+To: dmkhn@proton.me, xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com, roger.pau@citrix.com, dmukhin@ford.com
+References: <20250405012417.3108759-1-dmukhin@ford.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250405012417.3108759-1-dmukhin@ford.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Implement the function setup_mpu that will logically track the MPU
-regions defined by hardware registers, start introducing data
-structures and functions to track the status from the C world.
+On 05/04/2025 2:25 am, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
+>
+> The new toolchain baseline knows the rdrand/rdseed instructions,
+> no need to carry the workaround in the code.
 
-The xen_mpumap_mask bitmap is used to track which MPU region are
-enabled at runtime.
+A few minor notes.  Instructions in CAPITALS please to make them easier
+to parse in context.  The comma ought to be a semi-colon.
 
-This function is called from setup_mm() which full implementation
-will be provided in a later stage.
+You should note that arch_get_random() is adjusted too.
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
- xen/arch/arm/include/asm/arm64/mpu.h |  2 ++
- xen/arch/arm/mpu/mm.c                | 49 +++++++++++++++++++++++++++-
- 2 files changed, 50 insertions(+), 1 deletion(-)
+Also, it's useful to state "No functional change." to help reviewers. 
+(Or to help archaeologies figure out the intent of the patch if they
+subsequently find a bug in it.)
 
-diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
-index 7cf8d355a1af..ff5a957bf085 100644
---- a/xen/arch/arm/include/asm/arm64/mpu.h
-+++ b/xen/arch/arm/include/asm/arm64/mpu.h
-@@ -6,6 +6,8 @@
- #ifndef __ARM_ARM64_MPU_H__
- #define __ARM_ARM64_MPU_H__
- 
-+#define PRENR_MASK  GENMASK(31, 0)
-+
- /*
-  * Excute never.
-  * Stage 1 EL2 translation regime.
-diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-index 2c5820a44f13..fe05c8097155 100644
---- a/xen/arch/arm/mpu/mm.c
-+++ b/xen/arch/arm/mpu/mm.c
-@@ -14,6 +14,17 @@
- 
- struct page_info *frame_table;
- 
-+/* Maximum number of supported MPU memory regions by the EL2 MPU. */
-+uint8_t __ro_after_init max_xen_mpumap;
-+
-+/*
-+ * Bitmap xen_mpumap_mask is to record the usage of EL2 MPU memory regions.
-+ * Bit 0 represents MPU memory region 0, bit 1 represents MPU memory
-+ * region 1, ..., and so on.
-+ * If a MPU memory region gets enabled, set the according bit to 1.
-+ */
-+DECLARE_BITMAP(xen_mpumap_mask, MAX_MPU_REGIONS);
-+
- /* EL2 Xen MPU memory region mapping table. */
- pr_t xen_mpumap[MAX_MPU_REGIONS];
- 
-@@ -224,9 +235,45 @@ pr_t pr_of_xenaddr(paddr_t base, paddr_t limit, unsigned attr)
-     return region;
- }
- 
-+/*
-+ * The code in this function needs to track the regions programmed in
-+ * arm64/mpu/head.S
-+ */
-+static void __init setup_mpu(void)
-+{
-+    register_t prenr;
-+    unsigned int i = 0;
-+
-+    /*
-+     * MPUIR_EL2.Region[0:7] identifies the number of regions supported by
-+     * the EL2 MPU.
-+     */
-+    max_xen_mpumap = (uint8_t)(READ_SYSREG(MPUIR_EL2) & NUM_MPU_REGIONS_MASK);
-+
-+    /* PRENR_EL2 has the N bit set if the N region is enabled, N < 32 */
-+    prenr = (READ_SYSREG(PRENR_EL2) & PRENR_MASK);
-+
-+    /*
-+     * Set the bitfield for regions enabled in assembly boot-time.
-+     * This code works under the assumption that the code in head.S has
-+     * allocated and enabled regions below 32 (N < 32).
-+     */
-+    while ( prenr > 0 )
-+    {
-+        if (prenr & 0x1)
-+        {
-+            set_bit(i, xen_mpumap_mask);
-+            read_protection_region(&xen_mpumap[i], i);
-+        }
-+
-+        prenr >>= 1;
-+        i++;
-+    }
-+}
-+
- void __init setup_mm(void)
- {
--    BUG_ON("unimplemented");
-+    setup_mpu();
- }
- 
- int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
--- 
-2.34.1
+> diff --git a/xen/arch/x86/include/asm/random.h b/xen/arch/x86/include/asm/random.h
+> index 9e1fe0bc1d..e1c1c765e1 100644
+> --- a/xen/arch/x86/include/asm/random.h
+> +++ b/xen/arch/x86/include/asm/random.h
+> @@ -8,7 +8,7 @@ static inline unsigned int arch_get_random(void)
+>      unsigned int val = 0;
+>  
+>      if ( cpu_has(&current_cpu_data, X86_FEATURE_RDRAND) )
+> -        asm volatile ( ".byte 0x0f,0xc7,0xf0" : "+a" (val) );
+> +        asm volatile ( "rdrand %0" : "=a" (val) );
 
+This was only tied to "a" because 0xf0 is the ModRM byte.  Now that we
+can use the mnemonic, it can become "=r".
+
+I've fixed all on commit.
+
+~Andrew
 
