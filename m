@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28AABA7E2B9
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 16:55:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.940279.1340107 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BC7DA7E2CB
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 16:57:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.940302.1340118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1nsY-0007In-8o; Mon, 07 Apr 2025 14:55:14 +0000
+	id 1u1nuZ-00089Y-OL; Mon, 07 Apr 2025 14:57:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 940279.1340107; Mon, 07 Apr 2025 14:55:14 +0000
+Received: by outflank-mailman (output) from mailman id 940302.1340118; Mon, 07 Apr 2025 14:57:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1nsY-0007HG-5Q; Mon, 07 Apr 2025 14:55:14 +0000
-Received: by outflank-mailman (input) for mailman id 940279;
- Mon, 07 Apr 2025 14:55:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u1nuZ-00086Q-KD; Mon, 07 Apr 2025 14:57:19 +0000
+Received: by outflank-mailman (input) for mailman id 940302;
+ Mon, 07 Apr 2025 14:57:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LsCM=WZ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1u1nsW-0007H9-Ho
- for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 14:55:12 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20610.outbound.protection.outlook.com
- [2a01:111:f403:2418::610])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4c8c39bd-13c0-11f0-9eaa-5ba50f476ded;
- Mon, 07 Apr 2025 16:55:09 +0200 (CEST)
-Received: from DM4PR12MB5277.namprd12.prod.outlook.com (2603:10b6:5:390::7) by
- SJ5PPFEB07C8E34.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::9a8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.33; Mon, 7 Apr
- 2025 14:55:06 +0000
-Received: from DM4PR12MB5277.namprd12.prod.outlook.com
- ([fe80::9ab:5367:ba51:af6e]) by DM4PR12MB5277.namprd12.prod.outlook.com
- ([fe80::9ab:5367:ba51:af6e%5]) with mapi id 15.20.8606.033; Mon, 7 Apr 2025
- 14:55:05 +0000
+ <SRS0=ZxXC=WZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u1nuY-00086I-1h
+ for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 14:57:18 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9850a1d9-13c0-11f0-9ffb-bf95429c2676;
+ Mon, 07 Apr 2025 16:57:16 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43cef035a3bso30112175e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 07:57:16 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c30226acfsm12104940f8f.88.2025.04.07.07.57.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Apr 2025 07:57:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,181 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c8c39bd-13c0-11f0-9eaa-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ktTA9n74uMDs18plg4sd/ARFWJwYPOAHutjq0c9+H3oIjC32KnwYZ/LuJy9SelpEyOKyTv1pcqbRuPzzaJ/sk1/or5Y2PmJcoKWEW9Cp0ch/UoJ+rzNokgmHt48vtO9ElOwgqc92YT39C14H+9w5i7tj3+HU45Z3Tv6KJ7Th9oAuBbg8rmuJc32gDkEh6GpIfLayF2+Mj9BPKv9l2EUqS9xTo0RQ5B7ALFV64AxgddYXmgCxIi4RUf4OUKXBbhe1MP+ztw/1xZHsAZJJnJv+eOiYrZNlWOc1QQgshE+UkibY0K+JdfWPCEN1DwJASexO6RUDZ+lyjN74e0jA3nq5gQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5rEJ+iPxXAe42dA7L7BcAV0Z4z1NmDsa561fHV6Pp0w=;
- b=NzgKmwY+vaq56tHC1qIT8f1bz0HCWUospGh0h3jIj5nVtjcQ/O+yb0UFI+aTutcb45n59oUiy/Sw9mzgfCSb42z7PzviqLDJoDmL6UpHNQKDP4Lr1iVesaqqIhVjZf0IA2EvJYqGM0JeqAk1loNHKkHzawDd7qaVUEybMn/yPoN0ZeW5G8HoEXSfOteaj2K1SVlKwFJ/pb8kIjhD2gNIMqOro8gFwN8Qf363dPKkiSRPpl+JUJSseEFKILWdulHDIbcLR6UGyLhwyDs4LLfAkuMYURDfu5UCcy6jkAyWsJV9Rv/M/PvzLK+X2iGsah2X70Vh75BuyaU2n71PwZ1YGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5rEJ+iPxXAe42dA7L7BcAV0Z4z1NmDsa561fHV6Pp0w=;
- b=IpcOW1pm0ubgVLHvZc+Lm4pjIMqp7OM/frb+cdrip6W61ustiEuekrfp0rh3PQ6oLenvnWDgw9ww0oNW3O9us/Rf7HGUjYaiVltncIbwlvEmGHm05ilZBIncJX8PIk7bJ61qez9ep3UKAcSJXebZZiZetgXPUvK4N19Rfqe0rXU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <4ae55251-38ed-461b-ab7a-1d1bce1f01ab@amd.com>
-Date: Mon, 7 Apr 2025 16:55:01 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] xen/arm: Move some of the functions to common file
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250403171241.975377-1-ayan.kumar.halder@amd.com>
- <20250403171241.975377-2-ayan.kumar.halder@amd.com>
- <45d47205-409c-492a-9841-3b162c05ec09@amd.com>
- <0ed34b41-0cf8-4bab-9304-d6c3f2ec276d@amd.com>
- <8C708752-ADB1-4904-ACCF-FDDAD965FAE3@arm.com>
- <4a88cea0-83bc-40ab-bd95-4acd2ce4ede5@amd.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <4a88cea0-83bc-40ab-bd95-4acd2ce4ede5@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR5P281CA0013.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f2::6) To DM4PR12MB5277.namprd12.prod.outlook.com
- (2603:10b6:5:390::7)
+X-Inumbo-ID: 9850a1d9-13c0-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1744037835; x=1744642635; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QU8b84z/G2cMAzWzl2yvboV0TtpbhH4ahq/+4ph3FjU=;
+        b=S0fWycpok9O/Vfo2Q4HDq65Z+IISFKPCbIRrDiohG+BvZiriKGc2/Dkgpqrb2KNzJL
+         rInIf2DwXnFU2Y8yc2kUWkRbOgwM19waZWbM2hr5U7QsPdSHUXzlp0rX2g47ScW0Sc5g
+         Oaun8V8mZkTovjXUlG6ipDD2CVVD+UuP6LvbI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744037835; x=1744642635;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QU8b84z/G2cMAzWzl2yvboV0TtpbhH4ahq/+4ph3FjU=;
+        b=K1eYCMu+t1YjhCHO7BA7ww4KefLeNRI5Zp7IkWS5U8AbBjurTOFLTLoyr83/I1ArUv
+         OBHO98KroBRlOnaMjSM/v8/A12uDxlNIh9tX7B5bGji7xy/hhblwdPzP/blKRURRmbbi
+         HMg+1sQ+yQ+Xmv5kZ2Hzj3Yl8uyScXUZ7uM2MeteShvLkMdNDWuKlrirzS7Qbfk8Bygz
+         dr3IjsaDqMvIU9shqj/Nn7P/FsgLmtpjVPXcBnVOeC2Id9jkthyunhqIYB9KUxQO+ZpY
+         sJ+5blrPt2ufg0sISxS5AcIgovhUIutypH+9lVPV9t+KgNn1VchOtdLLDmEAf62lXLqS
+         slnA==
+X-Forwarded-Encrypted: i=1; AJvYcCW9ClEFJtpylf2p19WuJPdIjl7uEAqYd4By7AzxSAq+JCJpXtm3/VGngZCbrdFudR8lNNjQgHz6BQs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwwZIBFwkevxkmBwjbwAnWGTEYPX35i75od+SESyJT8vnDY43fE
+	ThtJutAsjyZHhKVCWDRHiSW2OhLapYyZcXsTEdAg7aDAyz4Qk6aw8DQ9DaRV4AI=
+X-Gm-Gg: ASbGncuqMYvNM/+ol7MBbCY0wFulEhtV19NYVLP7zIzp4/iYBXIghUvP//mfP57HF9Y
+	cEhloA30abx7VMzbguN1DDHVxUzl5cYL2IJHciuY9feBCtl6Ti7iDxMI6DrJQJBFEgkiFGV8wGr
+	nBLZxvjvyTmKNk4MyNx3Z16Eus21/DbWfJBWTWnc9JfvuBjD2F/dYvg8p4YAfLctfRuNEIyWSzB
+	zZaEA/Js3OWkP3EZQy9XXvEW6106bLXloI2ZKVsqqzWjXkAiIHI45mBFoPtNhzCWqO+HYzgtBok
+	IYHaUOsZDX3Ve7wf+0hSbpVbNz27OgKw5LfYLBVwvyPIPQ+GjBm2ZOSWn3B369nsn9Yg3Uv/aHT
+	WLZcvi803T4mIEOPVAkKq
+X-Google-Smtp-Source: AGHT+IGOsF7nkmH3dR1t2H/bG9Wtg2dzQMaqDBl+c0+sCSB1MzKTln4kaIwSb45vzvI0Bm+IEtHiDQ==
+X-Received: by 2002:a05:600c:474e:b0:43d:fa5d:9315 with SMTP id 5b1f17b1804b1-43ecfa07060mr93759575e9.33.1744037835346;
+        Mon, 07 Apr 2025 07:57:15 -0700 (PDT)
+Message-ID: <20c0d40a-881b-489f-b4da-ed052ede29de@citrix.com>
+Date: Mon, 7 Apr 2025 15:57:14 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5277:EE_|SJ5PPFEB07C8E34:EE_
-X-MS-Office365-Filtering-Correlation-Id: 848b5035-3660-489a-e334-08dd75e42ec0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?aUZ0aEttWTZDRDM4SWZQZkdGbDFqQ010SFlGYTgxNEp1SnBJY1MzQXN6Q0Zq?=
- =?utf-8?B?N2FxNFRleVpmY3o1U0M2OThQb2toc3hTT3UwQzBMWHFiZHBuMFljWklxQ0VD?=
- =?utf-8?B?d29EWW9ESnphMGlRZkdTN2FVZ0VTeUdLU1hwQ2dVV0ovcVY5K1IzRUxZZlhS?=
- =?utf-8?B?M1QzbTR0cDEvYjBJRmFoZXBtZUdPN1FlNFdySks1NysvQXM1dnNpaGdCQmFY?=
- =?utf-8?B?TDhHNS9ybUNOdFVRMUl5aW1yRGhLeE5vaXpOQlVBYk1qQks0VktLemtNVERF?=
- =?utf-8?B?ZE9IUmVaN1pqVHo5bDUrNnJEczdUUlZXL1VZbmRTc3orTk80M2xnSEVseFls?=
- =?utf-8?B?SHdRQndUNmJPZ3N6dzNWNlczcndYcTVXK1JQOGhOVSsxWStFWWxRUmg4K1V2?=
- =?utf-8?B?MGg1Y0UyTWtXRVhNODQ4UEJwYk9SeUhOb2FRUDU4N0NmOG5QdTBBT2xPbzhz?=
- =?utf-8?B?K1hvVDBaL2ZkeVppOG1hdEJCMGFkcm9uT3pKcVJFamhuR2Q0Rm5GOThVUnhM?=
- =?utf-8?B?a0N1M3libGxrN2RnRDFmWUJEQUIvdmNkWGRFeWdHdmVrZWNWenpTOGt4MGpL?=
- =?utf-8?B?VCt6ZFNrYTk3NERpY2Qvb1BjZ2tjYVR6aTdhYkRoNVNWYThqODNvR3dHWUV5?=
- =?utf-8?B?SU9XWEJjeFVmdXY0cWUyc2FOKzlCSUc4bXVOTXhhRnhrZXdnRkpzdVpQK1Zp?=
- =?utf-8?B?Q1puUWQ0eEt0M2xFbWNkZXd1MEZpTWZPT0pTMVkyQlJIK21ndW53TWFpcDho?=
- =?utf-8?B?MjllNHFBRE90SWxTdUJQVGNLNlZnZ2c2OGV6RWJLcUJZMDF3dHJHK2pKTzI0?=
- =?utf-8?B?TkdKVnFXeDdyS1RkMjJrSW4rQlA5cDl1ZlJvSDYxVm9uMW9LSjdicDVta2RP?=
- =?utf-8?B?Z1FSckdUNDg4U01oTzdrZ0dQTkdjRkhDNncwcnZiYVZ4S3kvakNkZzZXcGhQ?=
- =?utf-8?B?SmhjeitzVWNpQlA3OThpSENFclZZcWIxTUtTTTlzY1dERkJXQU9yVnVwS0U2?=
- =?utf-8?B?dnoweVd2K0JBbUgrbHZGN2IxWGMvWEd1WXlJR1lHTHZkTmU3b21KZWZrTnda?=
- =?utf-8?B?T2lPVXNxNzdkc2hESFdXR1JvM0txRE1VUzJPbGJoSHV6RE5Tc2NrTlB5MFQr?=
- =?utf-8?B?SWlXZStnMWZiNUpLL1JTYlNrMHEzanFrK1h3eUs1Nis5VC8xYU5jZW9GQmN3?=
- =?utf-8?B?U1M5SDZuYzIrcXRQcEhYZEFQMWhTVjNXLzg2eWhHOGxSTHpPdGhZbFA4MTRi?=
- =?utf-8?B?NkhGUUg1T1FpdCs4YnJ2MFd3SHVlRitPMHpQOGhPN2pFZjBweXFPZWxzNGxR?=
- =?utf-8?B?YUZtdTFpMFM1RE4zNUd6azYyZktYTGxwV0JrNjBxZkplSzVqNHhvWWhQNGRu?=
- =?utf-8?B?Ymg4OVhZZk9XOWQ5V3RBbSttUVFRWG9jOVdYN28wSVdnYkhvQzQrMUNLUW5B?=
- =?utf-8?B?Wm1zSlNmSWE5T2Z0Z2NkazhvYjJzQkFFS3RTckk1U1VjcU1KeWllc2ZPazNo?=
- =?utf-8?B?Z3hQM1BsWndIVVNlMTl0UkFtV1hxcmMwTllXdWhtMEx1TmNMenBFbmtkbzB2?=
- =?utf-8?B?Vm03dm1IRVo3cmprWlVDaXJKTEdnaGVza2dEM1dXSFk1T2FNdEk2bS9rNlh6?=
- =?utf-8?B?RkYyRzZXUUx3NmtFbVpLKzNYcU1mV0phVCs2VjIzTnZYaG05d25kRGFKaWla?=
- =?utf-8?B?c2s5UnhnbkJmeXFZQVNJOXNpRTZ0dnltRlp2SUpyTlV3UituejJCUjR4dUtv?=
- =?utf-8?B?ek9yZUtOY21zODA1bmZzTUhJU0Y2cGJYVmVETjhyTWJFdkZpUTJGZlZxTnVz?=
- =?utf-8?B?OXZ5aU14Q2cydXd2V0w4aEVYR3ZuT2d0eUlBZTlqNUs0VXVHekZhblF6U21w?=
- =?utf-8?Q?PgaqfBvLq3bvZ?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5277.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MnlpaUJHRndrbkQzVWwrTklHdGNEWk45ZTJXMGxtdHd4TGJQMUJjeGl0alpD?=
- =?utf-8?B?VjA1NHZ6L05ZSDIrQUt6bDZ0N29UcXRINzI4a014WkdGcmtEUU9zWFBLTUJi?=
- =?utf-8?B?SEpJWUZSRmxocHBEMWpJYWd5RjVqR0NOanpNR3Irbm83cG5YQVJhMmsrNHFv?=
- =?utf-8?B?ZXhsUnRxaTdLQjJZVEJPZlhKR01kTjRla2lheERMeVZRWC9ZSy9tMXI0RDYw?=
- =?utf-8?B?YmlaMlI3cWNmTFBCNnBQUzkrU2E1M2pYRVhNSzV4MHpxSkF6YWlnUVBOV29Y?=
- =?utf-8?B?Sm5FYVB3ZzVMcXl4Z3NWNHM5RE1rbzc0UmdOU0FsYWhiS08rNS90K0lvT2tU?=
- =?utf-8?B?MDNacmEydExXcldMUFdkMzNrbjZuR3U2dmhCNTN5UmhQZ1VmRWxGV1hOZkpt?=
- =?utf-8?B?T0gzVjQ2SFBlWHJxUzM2YzEza0VOd1k4aEJueEc2bUlSTit3MkZKVUVlbThL?=
- =?utf-8?B?S1R3TFJzODBRS0RvbTVnL1JPakxWMkc3ZGYwdU5qM0gwdXlFYm9yM3NZOTBO?=
- =?utf-8?B?eWN5QmsyS3lLZy9pNS9VMEdvZHhHOXM5MHd0KzhES0lFY2N5Qkczbnd5a003?=
- =?utf-8?B?ZE1VZWtoRmxBSVBNZDNUckpYZEIvalZjYlg0ajkzYkxIbVkvMGx1eXR1eldX?=
- =?utf-8?B?aFUrSWNRYkFnV0FYNllkTjhnTHQ5WHFuenNJRGhoQ1RPdllwSDR3TWE5K25V?=
- =?utf-8?B?bG43bHZNc2hPVSt2UDY5RFNLWndoOHF0R2Rod2pSTG13VENIYWl2R1lOQVNT?=
- =?utf-8?B?N0xUNHNUcWxVbjBsQWJvYWU5eFN6WWI4ckgvSHpEelhYcUpORGs5ZGxFMWo2?=
- =?utf-8?B?UHpEV2p5cEFQTmhKT0NuZk0vcXJiNnFvZjluSCswSXJPenUxSjQ3RmN5R2pJ?=
- =?utf-8?B?WjRCZXhiSW80dGVWYW9YWU5kQkdXZUprdmJZKzBGWWdlMnMwdE5lSzhVa0Ez?=
- =?utf-8?B?VTJZL0tQVGdqZ1k1OXFrZkV3RUk3MlBnSjBqR0pHNVM2eDcybTVOUGlNcGhs?=
- =?utf-8?B?Tmxtd1c1U1dUWlE1blZpNy9vVFViWU9ORFdDVmJ0TjJpZURuTFJyNjRMRWpY?=
- =?utf-8?B?WmJQNG5icTJ1cW9xQWJwRGZldysrcmhRYlBZWnNxMkJDMStoUVJueFZxbEo3?=
- =?utf-8?B?M1FaTytOZ0FtWkg4RHlFbXNYYnBhVHEzZ1dlVlhxOWUyQkVkMlhOQW4wQzEv?=
- =?utf-8?B?aWVEdm5pMmdaejhTTldXZHNzY3pjT1dOMzVZVTNyRkNwUzJJOUtCcUhiclNm?=
- =?utf-8?B?QWNibHBlRVlteGpNMHhaVmJwZ0NFQmNDZjVpazRqeURpM00xTGE1VTBnS1BQ?=
- =?utf-8?B?bGJ5VGtON0J6WDNUcW9BMmI5aGhXamxQeExOQnFwUUR4YWJ6VXlKU1FRSFM3?=
- =?utf-8?B?bnlmdjFTUGFheXAwQ1hhakR0dmVQR0wwS1U4M1dvNWY4R3RRbHdCWTF6NnQr?=
- =?utf-8?B?c1RuODNpMlZiUzlkWHFCbHcyZCtKcEhxYXZPU0NrQnkyQXh4Wmx0akg0NURR?=
- =?utf-8?B?N05JSEVjRHVaT0Vkc0dCNXZrK0dQc1RZUmNQWjZWOHkyY0hvVElaVU9GU0Y2?=
- =?utf-8?B?WmpMbUorR3ZRZk1qUGdYYlhpTjl1UlFZcGVRSjZaUWZFY0ZRdWtRVWI1ZTRJ?=
- =?utf-8?B?dU5GY1NBYzk2emFRcnhaTllycG5jRGQxTlp5TUZWY2oxTzJmb0pNa1pPd0tV?=
- =?utf-8?B?MWpnNDVZdlpqMkNWRFk1aXFxV2NaUjZOUHVjRVpiWlgrU1IvRndJS2dRSHZP?=
- =?utf-8?B?bHQ2MXpMVHBXSGpGSnk5RzdUUi9WRE1KNzlQcGlDL2pEWDQvZ0VmZHVnSmlC?=
- =?utf-8?B?ZGJpWkdRTysrN0ZHemtvVkgvb0w5NTN3c3hVY0JQMk5WZmhmTnM3aVdjZ0Qy?=
- =?utf-8?B?YkhMWUtJUlRzdDNFRGd5cXErYW5NOWRwODZUdUpyZVJlODhXeVNFalQ5Qjhn?=
- =?utf-8?B?K1UyUk9KTnVjQUtTbTlNdHZGNFA0TEpCQ3ZmSHpJQk00ZlBjb2M3UFloMVRy?=
- =?utf-8?B?L05sOXB4WGJIUXhqYStFZnlXa2Y0SExhOWVZN0hTSGMyZjJWU1UwelJhZlU4?=
- =?utf-8?B?cTJ0S1IyczQ4aTNPMUFzbTk3cVEvZ0VWRXNhOUZhVVBwUjJISm1mQmFSNG52?=
- =?utf-8?Q?DgFIAj1043w8ImqMe4CPRgg32?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 848b5035-3660-489a-e334-08dd75e42ec0
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5277.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2025 14:55:05.8744
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3/pSu/OiCapOJtX8IbHY9Y97AwTVvEPm0PW3BHVTbqpMK0xi/o4gBqbz5M50gx3t
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFEB07C8E34
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/vmx: Drop memory clobbers on VMX instruction wrappers
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250407104544.1823150-1-andrew.cooper3@citrix.com>
+ <b400a011-e173-4d6f-b0b7-bcbe59e994cd@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <b400a011-e173-4d6f-b0b7-bcbe59e994cd@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 07/04/2025 16:07, Ayan Kumar Halder wrote:
-> 
-> On 07/04/2025 14:31, Luca Fancellu wrote:
->> Hi Ayan,
-> Hi,
+On 07/04/2025 1:00 pm, Jan Beulich wrote:
+> On 07.04.2025 12:45, Andrew Cooper wrote:
+>> The use, or not, of memory clobbers on the VMX instructions is complicated.
 >>
->>> On 7 Apr 2025, at 14:18, Ayan Kumar Halder <ayankuma@amd.com> wrote:
->>>
->>> Hi Michal,
->>>
->>> On 07/04/2025 10:04, Orzel, Michal wrote:
->>>> On 03/04/2025 19:12, Ayan Kumar Halder wrote:
->>>>> Added a new file prepare_xen_region.inc to hold the common earlyboot MPU regions
->>>>> configurations across arm64 and arm32.
->>>>>
->>>>> prepare_xen_region, fail_insufficient_regions() will be used by both arm32 and
->>>>> arm64. Thus, they have been moved to prepare_xen_region.inc.
->>>>>
->>>>> enable_secondary_cpu_mm() is a stub which is moved to prepare_xen_region.inc as
->>>>> SMP is currently not supported for MPU.
->>>> This does not sound right. If you want a place to keep some common MPU stuff
->>>> between Arm64 and Arm32, you need to come up with better name for a file. SMP
->>>> has nothing to do here with preparing regions so it feels odd to have
->>>> enable_secondary_cpu_mm stub there.
->>> Can I rename prepare-xen-region.inc to mpu.inc ?
->>>
->>> Julien/Luca - any thoughts ?
->> I would say we leave the SMP stuff out from the common file, at some point we could start working on the
->> SMP support and maybe there would be difference between arm64 and arm32.
-> Do you want to duplicate enable_secondary_cpu_mm() in arm32 and arm64 ? 
-> I am fine with that.
-+1
-
+>> There are two separate aspects to consider:
 >>
->> what about common-cpu.inc?
-> 
-> Sounds ok.
-common.inc should suffice. Let's not split hairs.
+>> 1. Originally, the VMX instructions used hardcoded bytes, including memory
+>>    encodings.  Therefore, the compiler couldn't see the correct relationship
+>>    between parameters.  The memory clobber for this purpose should have been
+>>    dropped when switching to mnemonics.
+>>
+>>    This covers INVEPT and INVVPID, each of which has no change in memory, nor
+>>    in fact the current address space in use.
+> Yet then they need to come after respective table modifications.
 
-~Michal
+They don't AFAICT, but the reasoning is complicated.  I'll expand on it
+in v2.
 
+>
+>> 2. Most of these instructions operate on a VMCS region.  This is a (mostly)
+>>    opaque data structure, operated on by physical address.  Again, this hides
+>>    the relationship between the instructions and the VMCS from the compiler.
+>>
+>>    The processor might use internal state to cache the VMCS (writing it back
+>>    to memory on VMCLEAR), or it might operate on memory directly.
+>>
+>>    Because the VMCS is opaque (so the compiler has nothing interesting to know
+>>    about it), and because VMREAD/VMWRITE have chosen not to use a memory
+>>    clobber (to tell the compiler that something changed), none of the other
+>>    VMX instructions should use a memory clobber either.
+> For this, there's actually a good example below, with everything needed in
+> context.
+>
+>>    This covers VMXON, VMXOFF, VMPTRLD and VMPTCLEAR.
+> Nit: The last insn is VMCLEAR.
+
+Oh, so it is, and we've got an incorrectly named wrapper.
+
+>
+>> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+>> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+>> @@ -754,7 +754,7 @@ static int _vmx_cpu_up(bool bsp)
+>>                 _ASM_EXTABLE(1b, %l[vmxon_fault])
+>>                 :
+>>                 : [addr] "m" (this_cpu(vmxon_region))
+>> -               : "memory"
+>> +               :
+>>                 : vmxon_fail, vmxon_fault );
+>>  
+>>      this_cpu(vmxon) = 1;
+>> @@ -811,7 +811,7 @@ void cf_check vmx_cpu_down(void)
+>>  
+>>      BUG_ON(!(read_cr4() & X86_CR4_VMXE));
+>>      this_cpu(vmxon) = 0;
+>> -    asm volatile ( "vmxoff" ::: "memory" );
+>> +    asm volatile ( "vmxoff" );
+> With the clobber dropped, the compiler is free to re-order the prior store
+> with the asm(), despite the "volatile", isn't it? [1] This may then be
+> applicable elsewhere as well.
+
+Yeah, these might better stay as they are.
+
+~Andrew
 
