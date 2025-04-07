@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5B90A7E5FC
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 18:17:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.940552.1340287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 326F3A7E62C
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Apr 2025 18:22:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.940566.1340297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1pA0-0007Od-8t; Mon, 07 Apr 2025 16:17:20 +0000
+	id 1u1pEf-0001cL-RQ; Mon, 07 Apr 2025 16:22:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 940552.1340287; Mon, 07 Apr 2025 16:17:20 +0000
+Received: by outflank-mailman (output) from mailman id 940566.1340297; Mon, 07 Apr 2025 16:22:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1pA0-0007Lr-5I; Mon, 07 Apr 2025 16:17:20 +0000
-Received: by outflank-mailman (input) for mailman id 940552;
- Mon, 07 Apr 2025 16:17:18 +0000
+	id 1u1pEf-0001ZM-NH; Mon, 07 Apr 2025 16:22:09 +0000
+Received: by outflank-mailman (input) for mailman id 940566;
+ Mon, 07 Apr 2025 16:22:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZxXC=WZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u1p9y-0007Ll-Q3
- for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 16:17:18 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1u1pEe-0001ZG-Ay
+ for xen-devel@lists.xenproject.org; Mon, 07 Apr 2025 16:22:08 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c686749d-13cb-11f0-9eaa-5ba50f476ded;
- Mon, 07 Apr 2025 18:17:18 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-39727fe912cso2022567f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 09:17:18 -0700 (PDT)
+ id 7309c43f-13cc-11f0-9eaa-5ba50f476ded;
+ Mon, 07 Apr 2025 18:22:07 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-39c266c2dd5so3983038f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 09:22:07 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c301b760bsm12598130f8f.55.2025.04.07.09.17.16
+ ffacd0b85a97d-39c30096b9csm12592341f8f.13.2025.04.07.09.22.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Apr 2025 09:17:17 -0700 (PDT)
+ Mon, 07 Apr 2025 09:22:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c686749d-13cb-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 7309c43f-13cc-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744042637; x=1744647437; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UGizbuRXYzF7nTZrASmKVPyPZOmxaFSBHvFc7XsqrCU=;
-        b=ifym7EN7NOtzFN44Zt6+Jr9kt2ZUpFTMz/BleLqQS2fR0QBRqboAefoQy1MjBWToPv
-         NHgVKgIUBFYSQGG9lGtRdFXawln+/13v92Oix7jWmNEbcasI9ohCCgk72neeKWJ6hJE2
-         zFfJhi9qnHjVZ18873qE4AHqM5/uCfKSr1ems=
+        d=citrix.com; s=google; t=1744042927; x=1744647727; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=y4DCdiXo5MWdVLP7PBUGlRhueoisa78PeAhavwphKo4=;
+        b=dke7Je477E1rfkUoEuYEHG+DJ51DtsHtg1E5zJETLTsQH0IwTrjcg/7K/TRqBEISXy
+         UEZXPYbCL3cMWS2lziUVhA5Ka/nBwlfyYXibsJGAPErEoJe0b9RUUQlynie1nt7MQwW+
+         ZTUfG4Y8UgLlQ7qG5wSbonMQkHczWtY96v9QQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744042637; x=1744647437;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UGizbuRXYzF7nTZrASmKVPyPZOmxaFSBHvFc7XsqrCU=;
-        b=mqDnOfwB9FH6k1Gr+KbisA9Ee//WmZB8wVr8UMykyRy176FWqgr4fMV6nQIS93MP/q
-         24reDXp17xHFhTGDH6HTFiGshawFK++TMLfI9KgNsWQi4Ei+CeGGMKOO6xh6nXfQ+m73
-         iaU+QXr0g0gWQfK8d3cfHNfwaA1D0IKFLp0elhqKnWa9VxvMyjyppj48Qw4q/3U3hq6I
-         HUzMW6Uc8PfjuH26PX2+TIkaADqtZxxV2X3qV9yBJot32yB1890LdKtTxS0T47iwvYII
-         D0qBFHUB8zjvxGceCePGGBWt0gij1AVreWrki/STFSZz3xRTI0xGTZzyBoppDp94/jvW
-         aS8w==
-X-Forwarded-Encrypted: i=1; AJvYcCVLPznif8u0w5uHXqlFtJQP1xfAUUT+FJEMiaOxxY4Ch91F1Tx9NADFfpO4RxpjuH82svEfG1gDJHE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywkm4XC3fo8lBqiw6aEG6mk1TkZD2c4RBbKjftMpGjVTXBmTKvF
-	L9VbY3mDthXx2MOLN3p8CFekx+bKvY1DM6vqB1CxK7cJblk2jwmFQB3GuSlujxM=
-X-Gm-Gg: ASbGncsOxekSaFS76iTm5bMPulukWA3W1CC2c5KlMRQzndpiHWdIAoD6JSIzk4Xl2zr
-	uXb8u6VED5YYEPURZUl+ASwd7sEv0HvbV/k4Y/RwQiCtX77rGSmqb9PuTbOevk3v/v/LPxmUAxd
-	V/r/b9paTUO6yGy4s775xKFJVb2VpSjjWAulY7230Pp6dLbTF5ucC4VdFqlnP6OINlmnnHC3XtT
-	QO+jCwUZDQkLUdSS1Qy8KfAqfZdb37elRUi2lwf8YPrWAK2GFWlLFXJdGR6QtQJZeruOxOSgQ+I
-	O1G7kOQONsyCAdHzpVFb5K8xZ5GSDLvmGbHp3qWOLsL6i5anC1Ypd1Q4suDqkJNrsx+1B9f501v
-	8GpvASxA8dw==
-X-Google-Smtp-Source: AGHT+IGP2yvZrB5Gu+fPKU+xYt1BGz981SHSVsXQfV3kh/3j9fBxQUAn/t4ydiv7GHWejaR8KEf2mg==
-X-Received: by 2002:a05:6000:440d:b0:399:7f44:5c74 with SMTP id ffacd0b85a97d-39d6fd06920mr5903580f8f.55.1744042637449;
-        Mon, 07 Apr 2025 09:17:17 -0700 (PDT)
-Message-ID: <a2b01279-4e67-4ce9-9752-21c16c33fe32@citrix.com>
-Date: Mon, 7 Apr 2025 17:17:16 +0100
+        d=1e100.net; s=20230601; t=1744042927; x=1744647727;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=y4DCdiXo5MWdVLP7PBUGlRhueoisa78PeAhavwphKo4=;
+        b=Sfds1OsEezTs8Mf/cEuy6VRXDa9Ol1NTiwuaOcdNDJhv3+lZWo4IPZhrP4yuAi34M9
+         d5k9ajpylA8zRJ4HYf2wo/fyFOTWdaWEBVZIhvpplLGoQ6/EFmuL6A6n8oKBSbZ1ampp
+         6GyPYiznv5vT48YCCQHJWg8QKCCnUCcRkvx09AItdKve3dXfqU31EsiAWOwPmy+iatUW
+         5Mn8ba+pC8FaZs8hrgYxCVEKMBmjKqLRMn771lR/xoXHp3EuCBJoKaAmtZYd/ImxpIux
+         jC+DS8JNMMSYvlv3ILRrxgGdY737vDiHZ0+74CNtJXjaKU/B4SVOvz0bcaowJNC6tABS
+         G1EA==
+X-Forwarded-Encrypted: i=1; AJvYcCVJeFuh60kEsk45LY8apR9cVqPh79cdJzESLsbZYqHJPE7wnr+8K6kUx4bnXEEPTatmwouKuzDlC98=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzm+3KG0SUYzZ3kSG4shnssZ+bIPyCefgRn25edtqkOmOgbAn1R
+	/0FZ3+z0IuJDvM1WX2lrpWF5brgA7QAo+/SdZPj7s59KTtKj4l2byxDBIucSLbc=
+X-Gm-Gg: ASbGncvZKk3wK/524t/djMg4MyKNmc/ULrhGG/T+6HPfuiFUsEgAz0/YTIJluXOHcJr
+	Pbw70ZitTDIERcjcjEAD+ShsN0WEQMXsnxTW5zHByNnmyCeP+TnVA0oB8lBk9IrSP2Qb1CbRm3q
+	kLIA0XgrRQF8BeQOKaagEzgHbTycE+ubRolc3L8nKe9cUrTubbr4ID+FGGuwBpLSCnbnKDOu5GC
+	NjaarhqdIVcecZlLyVan9l+ecl+u7N1XG/x1ahXwCMWMUcl8Z+c1DBBe9chTtNicmnAf2b6BC9U
+	JsI2T6Vdj4HBfj5ja3ZA4XVrrbnml5GmAfVn65jFUsMxLp3SUQsmtJr7HN/ZFHo0BEW4BiWywMT
+	CtF/4g1iDQQ==
+X-Google-Smtp-Source: AGHT+IHzx4Sgx/5mUTUx4EiEFYDazU/aox8sDVSbKGgeFXBMl7FOxm8k7oX8+6kocozqYX3orVJ9ew==
+X-Received: by 2002:a05:6000:4313:b0:38f:2413:2622 with SMTP id ffacd0b85a97d-39d0de679d1mr11660112f8f.47.1744042926868;
+        Mon, 07 Apr 2025 09:22:06 -0700 (PDT)
+Message-ID: <04ae4edc-8ea6-489d-8485-6e45aa750607@citrix.com>
+Date: Mon, 7 Apr 2025 17:22:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH test-artifacts v2 14/12] scripts: build initrd cpio
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -94,8 +95,8 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
  <roger.pau@citrix.com>
 References: <cover.7da1777882774486a13e6f39ff4a2096f6b7901e.1744028549.git-series.marmarek@invisiblethingslab.com>
  <20250407123448.1520451-2-marmarek@invisiblethingslab.com>
+ <a2b01279-4e67-4ce9-9752-21c16c33fe32@citrix.com>
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -139,43 +140,43 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250407123448.1520451-2-marmarek@invisiblethingslab.com>
+In-Reply-To: <a2b01279-4e67-4ce9-9752-21c16c33fe32@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 07/04/2025 1:31 pm, Marek Marczykowski-Górecki wrote:
-> Build initrd format directly digestable by the kernel. Additionally,
-> include it itself inside as boot/initrd-domU file, for domU booting in
-> tests.
-> This should avoid the need to repack tar -> cpio as part of the test
-> job.
+On 07/04/2025 5:17 pm, Andrew Cooper wrote:
+> On 07/04/2025 1:31 pm, Marek Marczykowski-Górecki wrote:
+>> Build initrd format directly digestable by the kernel. Additionally,
+>> include it itself inside as boot/initrd-domU file, for domU booting in
+>> tests.
+>> This should avoid the need to repack tar -> cpio as part of the test
+>> job.
+>>
+>> Keep generating initrd.tar.gz as that's still used by older branches.
+>>
+>> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >
-> Keep generating initrd.tar.gz as that's still used by older branches.
->
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>> ---
+>>  scripts/x86_64-rootfs-alpine.sh | 5 +++++
+>>  1 file changed, 5 insertions(+)
+>>
+>> diff --git a/scripts/x86_64-rootfs-alpine.sh b/scripts/x86_64-rootfs-alpine.sh
+>> index b70b3a5..13e85fa 100755
+>> --- a/scripts/x86_64-rootfs-alpine.sh
+>> +++ b/scripts/x86_64-rootfs-alpine.sh
+>> @@ -58,3 +58,8 @@ passwd -d "root" root
+>>  cd /
+>>  tar cvzf "${WORKDIR}/binaries/initrd.tar.gz" \
+>>      bin dev etc home init lib mnt opt root sbin usr var
+> What's required to drop the tar version?  Presumably merging the rest of
+> your series?
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+NVM, I can't read.  I'm tempted to fold in:
 
-> ---
->  scripts/x86_64-rootfs-alpine.sh | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/scripts/x86_64-rootfs-alpine.sh b/scripts/x86_64-rootfs-alpine.sh
-> index b70b3a5..13e85fa 100755
-> --- a/scripts/x86_64-rootfs-alpine.sh
-> +++ b/scripts/x86_64-rootfs-alpine.sh
-> @@ -58,3 +58,8 @@ passwd -d "root" root
->  cd /
->  tar cvzf "${WORKDIR}/binaries/initrd.tar.gz" \
->      bin dev etc home init lib mnt opt root sbin usr var
+#TODO, drop .tar.gz when Xen 4.20 drops out of testing
 
-What's required to drop the tar version?  Presumably merging the rest of
-your series?
+That said, I expect we'll be backporting these changes.
 
-> +mkdir boot
-> +find bin dev etc home init lib mnt opt root sbin usr var |\
-> +    cpio -o -H newc | gzip > boot/initrd-domU
-> +find bin boot dev etc home init lib mnt opt root sbin usr var |\
-> +    cpio -o -H newc | gzip > "${WORKDIR}/binaries/initrd.cpio.gz" \
-
+~Andrew
 
