@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A879A7F46A
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 07:51:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.941365.1340870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E904EA7F46D
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 07:53:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.941376.1340880 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u21qd-0002Z8-Pp; Tue, 08 Apr 2025 05:50:11 +0000
+	id 1u21tY-0004Cs-7L; Tue, 08 Apr 2025 05:53:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 941365.1340870; Tue, 08 Apr 2025 05:50:11 +0000
+Received: by outflank-mailman (output) from mailman id 941376.1340880; Tue, 08 Apr 2025 05:53:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u21qd-0002XS-N8; Tue, 08 Apr 2025 05:50:11 +0000
-Received: by outflank-mailman (input) for mailman id 941365;
- Tue, 08 Apr 2025 05:50:10 +0000
+	id 1u21tY-0004At-4b; Tue, 08 Apr 2025 05:53:12 +0000
+Received: by outflank-mailman (input) for mailman id 941376;
+ Tue, 08 Apr 2025 05:53:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FLbP=W2=kernel.org=krzk@srs-se1.protection.inumbo.net>)
- id 1u21qb-0002XM-Vl
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 05:50:10 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (envelope-from <SRS0=xdvb=W2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u21tV-0004Aj-SD
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 05:53:09 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 509df81b-143d-11f0-9ffb-bf95429c2676;
- Tue, 08 Apr 2025 07:50:03 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id BA0405C32CA;
- Tue,  8 Apr 2025 05:47:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86131C4CEE5;
- Tue,  8 Apr 2025 05:49:58 +0000 (UTC)
+ id b7d57523-143d-11f0-9ffb-bf95429c2676;
+ Tue, 08 Apr 2025 07:52:56 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-39c31e4c3e5so3134642f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 22:52:56 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c300968c4sm13960675f8f.9.2025.04.07.22.52.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Apr 2025 22:52:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,94 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 509df81b-143d-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1744091401;
-	bh=kkVwSVwfXJVe//HELD1zlesIU2ILjMowvyomBKYmVqM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=P6MfPwSoNIvENOsUtisX73ekz/4Xq33D0uGN/KkPhRyN/JMR2vLQJutb4vvIVIb4m
-	 gyW7y0CQV7Dc2C23Lj9bUEUJIkffi4xp7s3IwIBEOLSGwKcxwg5qIFtgcTdOJv0Rwl
-	 Tw2pQEitY3h8yEhQOYNxJ3GrCfYiCQPTME1BjulEf7Ka4HHs3VJoag1Hk0wKn005+5
-	 Jd1ZZxbCZGEVPsYFE5X39RLky3d9MXCfck0bk+o5KyB+oA0QkHA1YYo5Jn4LRMl0vp
-	 1yO/3/ExJaQtg4VamwCPykG6dLQnxZJ8PGn+tcu6D6I3Fux66r9djCvFIIwtIFfEhO
-	 diZ261yeOjisw==
-Message-ID: <b3bf70f9-0b8e-4499-974f-52f65c296873@kernel.org>
-Date: Tue, 8 Apr 2025 07:49:56 +0200
+X-Inumbo-ID: b7d57523-143d-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1744091575; x=1744696375; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=qTsJDkuDhWPBVq6ZjquOkDnlJYaELR6SwOAyima/J7A=;
+        b=WrIT0Tg0+1DHKOaqaizjQdc2mBXXDZyMxsJnjfMtSut+o2W4OMOOgUP6efAD1TAekQ
+         SaSb6xHDwit6z3moLTF95UiKOMZrLBycY790scexzoGQcFlcCxEhpLA1voyx1eJBVzgv
+         Iye0O4PybrW+lCqQa9rw7EK3xMvXB5n4waUxr6gCE/Vto9YpJ7ePd3ru0Hy7CtMjdjYg
+         M8U4Ndu0gm+3P9zmpws7VI4K1uXFAY7ajXxcKSwEhLKM1h7zo2e8cp9BQwSidsAT/OTG
+         LlzdU8gWABzf0BbII0cWCYuvWUIQevaMeltDqx9getdrbeJLkSxVllsOdfZWeZFpXV14
+         ZhLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744091575; x=1744696375;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qTsJDkuDhWPBVq6ZjquOkDnlJYaELR6SwOAyima/J7A=;
+        b=iyRwbR5253vKya2XmI3eOxmiiXshl53edApFkukrX5mWnltWHBouXb9WVveiHetUmU
+         MVVs2oAfHgvFU+Tw9iQOz5c9yRPmRuqCXOX7NEWzBxj5hp6fJxybsXPPJif7wBaOEqFi
+         H4mwA4unYPuh3zWlvMNGQ7wQi/PcYU75LgdmoA25c4E37WU3V7Xf8czUX96tCuDBdOXs
+         xIQotvVESQaRoKZah2ojWFWoBLe+6mP8w9EHHxe/iCWSNNVM2pVncWPxG9nT49FZFBKm
+         aschtm9Oa4PLbBUK3mQbDSrOK1+OMl4RQBcB9sB7kADLpUdbFkqEp1Ipq2veKSWOs95j
+         PCnw==
+X-Forwarded-Encrypted: i=1; AJvYcCUQzw+hncsC9IWBHkZ6nh3pW7npoW4Iosmq4pecsZer2jCDz/COoNeHHHRnIRxm5cbDSIdanwrsypU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxOUc0sAB7QwEnWzUlWI5x4yWzqPvauErVEJiwDXFDnCqunXc2A
+	peKjHFsLFtPK94FF2mB70bsQxUYsgHd8R2Yy8P2GVN6Mw2wG5XYsNvUTwnT/Ng==
+X-Gm-Gg: ASbGncu+TIY2bxO8Zs4odp5zOzbNUU1HGqWuVfpfxauLBFBVv6LG4oPaSniTqm7AwIh
+	VMcGLZsxv6tTLTqn6BVFAVldQOZuYesJXeIe3jHAmp7vQrDXMjyqIXDUDjzy+mnZiOWdFPeFBzJ
+	TUhwXMBvCCrvLTD9AGyf2lRyaBnnXsuR2gMImDf1OedUAvlwzb+KlL6DmqCamRsTns8PGVkkd5r
+	ubcimkr6R3Uu9a/f/ghVXjHCkkv0yJQwXX8N6HoWcbcB7RtnbO8fEBcju6g6KnI6PP/tbtpjWpr
+	xRVodOk6QjpNTwFrV+4u1ar39WUlcONbC70TVXkLpvbdy9TnHgNlzk5RLLzQZrtIsB85c7wnx7S
+	ix55l3rb9KW5q4zpUwds8Sq815V0YXA==
+X-Google-Smtp-Source: AGHT+IHoj10Jr7/EKr+Bq3mIqvGzHse6olJQ58nRof+sd2bJBYvGiYgy3KbzaYbLsOx2cQAMUTsYPg==
+X-Received: by 2002:a5d:64aa:0:b0:391:2f71:bbb3 with SMTP id ffacd0b85a97d-39cba9332f2mr13272847f8f.46.1744091575338;
+        Mon, 07 Apr 2025 22:52:55 -0700 (PDT)
+Message-ID: <8c5ab3fc-1e29-48f9-a7c6-bfda789e36f7@suse.com>
+Date: Tue, 8 Apr 2025 07:52:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/5] Switch more ARM plats to sys-off handler API
-To: Andrew Davis <afd@ti.com>, Arnd Bergmann <arnd@arndb.de>,
- Andre Przywara <andre.przywara@arm.com>, Russell King
- <linux@armlinux.org.uk>, Daniel Mack <daniel@zonque.org>,
- Haojian Zhuang <haojian.zhuang@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Alexey Charkov <alchark@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+Subject: Re: [PATCH v3 1/7] xen: introduce hardware domain create flag
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <20250407185650.411887-1-afd@ti.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+References: <20250403214608.152954-1-jason.andryuk@amd.com>
+ <20250403214608.152954-2-jason.andryuk@amd.com>
+ <332e0afc-9c43-4602-9bc0-dfe4ddd1b107@suse.com>
+ <64f6bf18-d3e4-4392-b924-4b779dbe5d69@amd.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20250407185650.411887-1-afd@ti.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <64f6bf18-d3e4-4392-b924-4b779dbe5d69@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07/04/2025 20:56, Andrew Davis wrote:
-> Hello all,
+On 07.04.2025 20:16, Jason Andryuk wrote:
+> On 2025-04-04 03:38, Jan Beulich wrote:
+>> On 03.04.2025 23:46, Jason Andryuk wrote:
+>>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+>>>
+>>> Add and use a new internal create domain flag to specify the hardware
+>>> domain.  This removes the hardcoding of domid 0 as the hardware domain.
+>>>
+>>> This allows more flexibility with domain creation.
+>>>
+>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> v3:
+>>> Or-in CDF_hardware for late hwdom case
+>>
+>> Except that ...
+>>
+>>> --- a/xen/common/domain.c
+>>> +++ b/xen/common/domain.c
+>>> @@ -820,13 +820,18 @@ struct domain *domain_create(domid_t domid,
+>>>       d->is_privileged = flags & CDF_privileged;
+>>>   
+>>>       /* Sort out our idea of is_hardware_domain(). */
+>>> -    if ( domid == 0 || domid == hardware_domid )
+>>> +    if ( (flags & CDF_hardware) || domid == hardware_domid )
+>>>       {
+>>>           if ( hardware_domid < 0 || hardware_domid >= DOMID_FIRST_RESERVED )
+>>>               panic("The value of hardware_dom must be a valid domain ID\n");
+>>>   
+>>> +        /* late_hwdom is only allowed for dom0. */
+>>> +        if ( hardware_domain && hardware_domain->domain_id )
+>>> +            return ERR_PTR(-EINVAL);
+>>> +
+>>>           old_hwdom = hardware_domain;
+>>>           hardware_domain = d;
+>>> +        flags |= CDF_hardware;
+>>>       }
+>>
+>> ... this isn't quite enough. You're only modifying what will go out of scope
+>> when returning from the function. What's at least equally important to OR into
+>> is d->cdf.
 > 
-> Continuing the quest to remove the legacy pm_power_off() global
-> function handler. Remove uses from arch/arm/ using the helper
-> register_platform_power_off().
+> Yes, thanks for catching that.
 > 
-> These have been sent for several cycles without feedback, not
-> sure if there are anymore active platform maintainers who
-> can take these individually, maybe these remaining could
-> go in directly though the arm-soc tree?
-I was waiting for explaining the dependencies, to know if I can or
-cannot pick up. I don't see much changed here.
+> I'll move d->cdf assignment to after here instead of or-ing in a second 
+> time.
 
-Best regards,
-Krzysztof
+Not sure that'll be good to do - intermediate code (in particular passing
+d to other functions) may need to have that set already. And even if not
+now, then maybe going forward.
+
+> With that, it seems like it should also be removed from old_hwdom?
+> 
+> old_hwdom->cdf &= ~CDF_hardware
+
+Oh, indeed. Thanks in turn for catching this further aspect.
+
+Jan
 
