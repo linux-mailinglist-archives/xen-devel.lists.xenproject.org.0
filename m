@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D638DA7F344
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 05:43:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.941351.1340860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A879A7F46A
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 07:51:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.941365.1340870 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1zrA-0000dg-Cl; Tue, 08 Apr 2025 03:42:36 +0000
+	id 1u21qd-0002Z8-Pp; Tue, 08 Apr 2025 05:50:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 941351.1340860; Tue, 08 Apr 2025 03:42:36 +0000
+Received: by outflank-mailman (output) from mailman id 941365.1340870; Tue, 08 Apr 2025 05:50:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u1zrA-0000cD-9e; Tue, 08 Apr 2025 03:42:36 +0000
-Received: by outflank-mailman (input) for mailman id 941351;
- Tue, 08 Apr 2025 03:42:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w6y1=W2=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1u1zr9-0000c7-5n
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 03:42:35 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 817dd42e-142b-11f0-9eaa-5ba50f476ded;
- Tue, 08 Apr 2025 05:42:33 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ac2dfdf3c38so188146766b.3
- for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 20:42:33 -0700 (PDT)
-Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f088085e3esm7333800a12.58.2025.04.07.20.42.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Apr 2025 20:42:31 -0700 (PDT)
+	id 1u21qd-0002XS-N8; Tue, 08 Apr 2025 05:50:11 +0000
+Received: by outflank-mailman (input) for mailman id 941365;
+ Tue, 08 Apr 2025 05:50:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FLbP=W2=kernel.org=krzk@srs-se1.protection.inumbo.net>)
+ id 1u21qb-0002XM-Vl
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 05:50:10 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 509df81b-143d-11f0-9ffb-bf95429c2676;
+ Tue, 08 Apr 2025 07:50:03 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id BA0405C32CA;
+ Tue,  8 Apr 2025 05:47:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86131C4CEE5;
+ Tue,  8 Apr 2025 05:49:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,85 +41,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 817dd42e-142b-11f0-9eaa-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744083752; x=1744688552; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TZvEWhHuJSEbLztqXreeKR9oWiRimT/W3RHZpT0C4Lg=;
-        b=huNRr39noUIoDXddUHOjMsALtw8Yi3j+1oPTJKsgz6+YxnV5vgMebKPXQ2OAE/GF3S
-         gFFQKpq3Aj1vQiirjvcYd8QpSMdGFDw4VSijezUJ6sotmDM0OlAZDRZcFZg3A/dw37pw
-         4PpLVkJIvNHX9yi/tIU5MgzuQlcGpwDLpIpRBDRJ0ppJvXZWL9hC9vGFt3wK9dMMd/ta
-         r46qtgxPe2afnD4+Kd/YLvGJR8wWPoe0854B36NlGMl6rAw4jwalOTpwtJHfPohnEyrm
-         MYT9DXIgb7V09qCU4L9wk9I43sx9xJD0swDFZmcuPWy2JAqOpGlaXw9y2q6QltcXHjrb
-         LXqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744083752; x=1744688552;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TZvEWhHuJSEbLztqXreeKR9oWiRimT/W3RHZpT0C4Lg=;
-        b=tAjxCp/VvZBXCNEjLGMla1gXJM3tsfzgZ5ktEhUpYoe5s7LbsPs7e6cEYfdCzQMgJ9
-         FvEADp/Q4sKuP86fzw9by/eOhy4rT2RsgijkVFPenUvRElO3vVuayYXXddS+eDd1CUdl
-         9AOvh+bYtObyuUad3TGzRIjN7lM14KcvwJYdPViajoHWrVPFXcF7i+VH5Qm1r0XF3Fu4
-         QH01pmB8wkedeQXkl6c9u44G2ZPC0g2Svmw/bf7y7sqaD2PpE7kmU77RjnIZciwDPkgW
-         3j5DxBmLdm15bF5ThwAXezuGPFIFqlej/ZGkVTGpwoNa3u+ZOFH+d9T00rQFD6qUz2Is
-         dhAw==
-X-Gm-Message-State: AOJu0YxlRb+uWBpQkiWpz5juG3up+mdfAUP3gIa+J5MMpQvdej8xq7GM
-	sFSbaSWumETLf/hxVZTbpFZ135KyogXMLeHvJNgqpKE8iE8Cw7xUHOpDHg==
-X-Gm-Gg: ASbGncu3v1xv9EEe2XiKeqllR4KdA5+rhRrkVcW61CAQuViSBAJLVboTtg5rKI+XgWq
-	iAfYwdOXNwltgtYKvT7BY8cL4GRliio44Cbg3vtkckf1+YleKzuDuvtqCKnF6aahzmizFGq5y7e
-	M+Xm5TmDc8/tsXanVzwP8UNZDfAF+A40LOo8tGw0l/HiA3DXQhM4cuLkWqzo+gNubTnNdCY0sf+
-	htyNZ5l9hHdDoSRzAA9iLfV1nHUx63W/MQbQP0d8KfQnZquV5RLIJ1SrB2i9nwbniMZmMDOCCDZ
-	impk/B6s90AqmuUINT9ZQuciqaH1Ko3PXg/ag/6ozdI27XNWKwZTiX77UYFjFCDWHgIXOLQTyrS
-	uUJ2a4h2c
-X-Google-Smtp-Source: AGHT+IF2fOvz80fE9n/Yh80u3wzai1N4km1pccrYaqNrXzgd79H8lSYcisPpz7zdtXsPwaBkkri2Cg==
-X-Received: by 2002:a17:906:c145:b0:ac6:b243:e480 with SMTP id a640c23a62f3a-ac7d1bcf86emr1097527966b.42.1744083752414;
-        Mon, 07 Apr 2025 20:42:32 -0700 (PDT)
-From: Mykola Kvach <xakep.amatop@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] arm/irq: Reduce size of irq_desc array to exclude local IRQs
-Date: Tue,  8 Apr 2025 06:42:19 +0300
-Message-ID: <eafaff031771902c44c101736de7e1b690cc8303.1744083392.git.mykola_kvach@epam.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: 509df81b-143d-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1744091401;
+	bh=kkVwSVwfXJVe//HELD1zlesIU2ILjMowvyomBKYmVqM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=P6MfPwSoNIvENOsUtisX73ekz/4Xq33D0uGN/KkPhRyN/JMR2vLQJutb4vvIVIb4m
+	 gyW7y0CQV7Dc2C23Lj9bUEUJIkffi4xp7s3IwIBEOLSGwKcxwg5qIFtgcTdOJv0Rwl
+	 Tw2pQEitY3h8yEhQOYNxJ3GrCfYiCQPTME1BjulEf7Ka4HHs3VJoag1Hk0wKn005+5
+	 Jd1ZZxbCZGEVPsYFE5X39RLky3d9MXCfck0bk+o5KyB+oA0QkHA1YYo5Jn4LRMl0vp
+	 1yO/3/ExJaQtg4VamwCPykG6dLQnxZJ8PGn+tcu6D6I3Fux66r9djCvFIIwtIFfEhO
+	 diZ261yeOjisw==
+Message-ID: <b3bf70f9-0b8e-4499-974f-52f65c296873@kernel.org>
+Date: Tue, 8 Apr 2025 07:49:56 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/5] Switch more ARM plats to sys-off handler API
+To: Andrew Davis <afd@ti.com>, Arnd Bergmann <arnd@arndb.de>,
+ Andre Przywara <andre.przywara@arm.com>, Russell King
+ <linux@armlinux.org.uk>, Daniel Mack <daniel@zonque.org>,
+ Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Alexey Charkov <alchark@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+References: <20250407185650.411887-1-afd@ti.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20250407185650.411887-1-afd@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Mykola Kvach <mykola_kvach@epam.com>
+On 07/04/2025 20:56, Andrew Davis wrote:
+> Hello all,
+> 
+> Continuing the quest to remove the legacy pm_power_off() global
+> function handler. Remove uses from arch/arm/ using the helper
+> register_platform_power_off().
+> 
+> These have been sent for several cycles without feedback, not
+> sure if there are anymore active platform maintainers who
+> can take these individually, maybe these remaining could
+> go in directly though the arm-soc tree?
+I was waiting for explaining the dependencies, to know if I can or
+cannot pick up. I don't see much changed here.
 
-SGI and PPI descriptors are banked and stored in the per-CPU local_irq_desc
-array, so not all elements of the global irq_desc array are used. This is
-already accounted for in the descriptor lookup logic inside __irq_to_desc:
-    return &irq_desc[irq - NR_LOCAL_IRQS];
-
-Therefore, the size of the irq_desc array can be reduced by NR_LOCAL_IRQS,
-saving (NR_LOCAL_IRQS * L1_CACHE_BYTES) bytes of memory.
-
-Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
----
- xen/arch/arm/irq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-index b9757d7ad3..03fbb90c6c 100644
---- a/xen/arch/arm/irq.c
-+++ b/xen/arch/arm/irq.c
-@@ -45,7 +45,7 @@ void irq_end_none(struct irq_desc *irq)
-     gic_hw_ops->gic_host_irq_type->end(irq);
- }
- 
--static irq_desc_t irq_desc[NR_IRQS];
-+static irq_desc_t irq_desc[NR_IRQS - NR_LOCAL_IRQS];
- static DEFINE_PER_CPU(irq_desc_t[NR_LOCAL_IRQS], local_irq_desc);
- 
- struct irq_desc *__irq_to_desc(unsigned int irq)
--- 
-2.43.0
-
+Best regards,
+Krzysztof
 
