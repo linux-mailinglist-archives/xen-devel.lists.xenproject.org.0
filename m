@@ -2,49 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCBD6A81196
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 18:10:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.942803.1341931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F957A81175
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 18:08:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.942727.1341815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BXD-0007qz-3F; Tue, 08 Apr 2025 16:10:47 +0000
+	id 1u2BUU-0000sr-8x; Tue, 08 Apr 2025 16:07:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 942803.1341931; Tue, 08 Apr 2025 16:10:47 +0000
+Received: by outflank-mailman (output) from mailman id 942727.1341815; Tue, 08 Apr 2025 16:07:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BXC-0007kx-RZ; Tue, 08 Apr 2025 16:10:46 +0000
-Received: by outflank-mailman (input) for mailman id 942803;
- Tue, 08 Apr 2025 16:10:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u2BUU-0000qA-3k; Tue, 08 Apr 2025 16:07:58 +0000
+Received: by outflank-mailman (input) for mailman id 942727;
+ Tue, 08 Apr 2025 16:07:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2sbj=W2=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1u2BVl-0000a6-NA
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 16:09:17 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20619.outbound.protection.outlook.com
- [2a01:111:f403:2009::619])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d18f198b-1493-11f0-9eaa-5ba50f476ded;
- Tue, 08 Apr 2025 18:09:15 +0200 (CEST)
-Received: from MN2PR19CA0071.namprd19.prod.outlook.com (2603:10b6:208:19b::48)
- by IA1PR12MB7519.namprd12.prod.outlook.com (2603:10b6:208:418::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.21; Tue, 8 Apr
- 2025 16:09:10 +0000
-Received: from BL6PEPF00020E62.namprd04.prod.outlook.com
- (2603:10b6:208:19b:cafe::b5) by MN2PR19CA0071.outlook.office365.com
- (2603:10b6:208:19b::48) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.31 via Frontend Transport; Tue,
- 8 Apr 2025 16:09:10 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF00020E62.mail.protection.outlook.com (10.167.249.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8606.22 via Frontend Transport; Tue, 8 Apr 2025 16:09:10 +0000
-Received: from xcbagarciav01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Apr
- 2025 11:09:07 -0500
+ <SRS0=Wtyq=W2=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
+ id 1u2BUS-0000p0-85
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 16:07:56 +0000
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9c82ee46-1493-11f0-9ffb-bf95429c2676;
+ Tue, 08 Apr 2025 18:07:47 +0200 (CEST)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 538DNidV028259;
+ Tue, 8 Apr 2025 16:07:36 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 45vv6a3cmj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 08 Apr 2025 16:07:36 +0000 (GMT)
+Received: from m0360083.ppops.net (m0360083.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.0.8/8.18.0.8) with ESMTP id 538G3Tpb014440;
+ Tue, 8 Apr 2025 16:07:36 GMT
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 45vv6a3cme-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 08 Apr 2025 16:07:35 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 538CRs5W013915;
+ Tue, 8 Apr 2025 16:07:34 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 45ufunkd23-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 08 Apr 2025 16:07:34 +0000
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com
+ [10.20.54.102])
+ by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 538G7WVI31982208
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 8 Apr 2025 16:07:32 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id AA33A2004B;
+ Tue,  8 Apr 2025 16:07:32 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 94D4920040;
+ Tue,  8 Apr 2025 16:07:32 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.152.85.9])
+ by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Tue,  8 Apr 2025 16:07:32 +0000 (GMT)
+Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 55669)
+ id 4E5B9E171E; Tue, 08 Apr 2025 18:07:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,353 +75,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d18f198b-1493-11f0-9eaa-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YTTlj3+45Pb8UqfujkGECq3peB1bsGS7aVzM+kJaDweVl5iqinCPtwILl6zj7VhGYYsUFBdzZNH9oF5ImnfMUfQhFLiLTElk8cuvIRC+0HKkejuNAfIr01SY1hzneC1qDfgXQcmNMr8AgxsHCZRIvDsHDU+YEMwK08EgbhANCIKDFp+kbNKeiGkURis04FuqUny5MDPCMIi6mQMGnv1oAAUMbrgB1oEcfUTMw780bi8v0MMufTzmrrcbPmKRpPYBEg4BUvioq+GApL8dhIPC89O3jMYouijcix9/qfhmplm731KuDbmI4+XYD6bbSJtXIghr4OxZzPbqtnjFMjt8jA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wb1RbJ/A2HZQ4CDL4kSnK/cd53lOCjG7RRR6aRmIDv8=;
- b=g+ZEibhEY85r/1ZFS0Lrngy3JXrM1sNBwdVL33tVpnANTbeeaNCJ6uOvYdwQ9pNX+ymvxKZEoeFw2BOlDsirxLSjwbcU6l4KZhD0UMQFf1vNyalBGWlsGR9QB6sAue049ogPPN0vfm8Udb1lyLoTjfmqlaqIG/8kwYI6k/lx9OEWXIalboebn/TbBJQ1/5wcu8YRgOr8JDLafayOB46x7Sy6AhSCv3CnmcXwwewEdzMtS+lyY668VzNACxMRxbUsphjrBUhSbWooYYq3j2w1jroTOCUv2P2+KXkbWXvTyUXGItOGoIL7Zf+CloWNdCqtxilTBjvQMZ03YupQ78W1pA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wb1RbJ/A2HZQ4CDL4kSnK/cd53lOCjG7RRR6aRmIDv8=;
- b=clOW0deNOJXpVcoG8LROfwvL7j89FUIhN5jHLGRAmMUz6QMYHc0CeBNwTbefsCUNyhGYyZs+M8JGaikEBBxKoOAH6scps0VNsOHUv0odWmtzqRDSQr0xrq7wE8Sat2ecPRtcHn6HtLdFi8uqc8dgFuEJMX0Qqt40SIIvvvZIOuo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Alejandro Vallejo <agarciav@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Alejandro Vallejo <agarciav@amd.com>, Jason Andryuk
-	<jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	"Stefano Stabellini" <sstabellini@kernel.org>, Michal Orzel
-	<michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>
-Subject: [PATCH v3 08/16] x86/hyperlaunch: Add helpers to locate multiboot modules
-Date: Tue, 8 Apr 2025 17:07:30 +0100
-Message-ID: <20250408160802.49870-9-agarciav@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250408160802.49870-1-agarciav@amd.com>
-References: <20250408160802.49870-1-agarciav@amd.com>
+X-Inumbo-ID: 9c82ee46-1493-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=xkRr3rYpnf+evzsRv
+	KXtHeEA6KSnGBV46B7GpE1ybMc=; b=tObfqwbcUm2umQrlxe8oOYdzi1e0gQjiF
+	aDe8g32J/reQTv52CrrHU7DoSqRqoHC/eOV5SgZSlBgUlqAYnSdM++/IgMp7n/cV
+	bgkWR0rPlz0F8WdJoj4DFM38xD6xJmeWCRhyQ98SrUrzzh9YLCkd39fEWuX0PcMy
+	euyfOwsFuQ6rqCSXBYaURGqJr8xKeZnkAiUlC4l236cVZhx+PvSC90bg4v0JQExD
+	5820Q7tR+S4eqPWfx18MOwO0o43pRNif9AsWMNrBMMcuEWT7+ylcsRTY4gA8LTe6
+	XO217yw0TDcXUi3Z3pEgb5YAA8sa7reYU2vZHGl6X3/hJDJ89Grbg==
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+        Andrey Ryabinin <ryabinin.a.a@gmail.com>
+Cc: Hugh Dickins <hughd@google.com>, Nicholas Piggin <npiggin@gmail.com>,
+        Guenter Roeck <linux@roeck-us.net>, Juergen Gross <jgross@suse.com>,
+        Jeremy Fitzhardinge <jeremy@goop.org>, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, kasan-dev@googlegroups.com,
+        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: [PATCH v2 2/3] mm: Cleanup apply_to_pte_range() routine
+Date: Tue,  8 Apr 2025 18:07:31 +0200
+Message-ID: <0c65bc334f17ff1d7d92d31c69d7065769bbce4e.1744128123.git.agordeev@linux.ibm.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <cover.1744128123.git.agordeev@linux.ibm.com>
+References: <cover.1744128123.git.agordeev@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E62:EE_|IA1PR12MB7519:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7710856c-f113-438c-15c5-08dd76b7b26d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700013|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?lRS/MJfbxThgBCfrh9sB6htGmo+nylnZs0PHtP98YJ2DnDuqPqca8vd9gkl3?=
- =?us-ascii?Q?rnmMFsbLd0Y1ZcLBiVeZ3Su4QCtZ4iuZw3hAfPJ92tPZLxmTecblm7AuN71E?=
- =?us-ascii?Q?jEV6ZH7HruxjtmmUT2SsX0XnOopVnwOdj1KXvHJJUYVHQ/Pzo6Vw0FunKz9y?=
- =?us-ascii?Q?T6Zqt8Mege/ZjkjN507h16+ApNH5iqIAK6W91Nz7I481PykxE7IrSdFCtJtV?=
- =?us-ascii?Q?w1hfPOTfn3Ls78242z/4I2TnaL1z+p5rnc+w4/vM2nmJf38Oa51aimSliFNH?=
- =?us-ascii?Q?HV99+cntY83i9LKUbIl4Nn8iOBhgXr+V09WICIQnmWjIOzuZsjQbJ16ak+Pv?=
- =?us-ascii?Q?cm1EveiG3TcuCot0jKPM7ngy2hcMwAE6/J0EMZWMCfqn5oQ7LUM7Wgcd4//Q?=
- =?us-ascii?Q?J3wMAMmNCiE/jrlAb54NFsu4w9G26iG+ZV0P5z1kyaR7gZfKU6zXiecALfyO?=
- =?us-ascii?Q?B9Njn9xHwKwTQPZsqL6VoDR2g97bmD4MfZpE39gOqfhTWJ9/wMxuQe2ihVyi?=
- =?us-ascii?Q?+GjUtIt5fgqtp94rJjGUbFamrmQlyEimOUy1W0mNEqP4005VfVNkrFQdOZre?=
- =?us-ascii?Q?feKmblI13FBfEEbIXGc3udr3u+Sjn1fHMS1YBl7CFm0UQTt4nd/6bdplfA8y?=
- =?us-ascii?Q?E6gHC9cI+B5COTQLitbgmkkU0Z2gqczOQ3ULWT8kguEq45wLSYaVYZM6Ozep?=
- =?us-ascii?Q?ixepmPG+5q+uezKKVXoO1Uiah1mYxAGTXkCW5guqLolsNGqFLi0xCiOaQxon?=
- =?us-ascii?Q?kUlRPS8fStvPaHaTD5PeEOSEtEPJzGXah8MPDxSdSGuC41vUU2aAWeyLCVJ5?=
- =?us-ascii?Q?XxAiDqmxvciIhInzO3PcvfchWj6YJzwfk6xv2KwH77QH+x6kWDboFbRNOlzR?=
- =?us-ascii?Q?f2M8HubsXNtYaK+CERL1nwx0VQAhfP+4lZcTMl7Irl9LqLLBhTLDGO+gFvnv?=
- =?us-ascii?Q?0SmPu7rAHuPm9Qy1A/UjD07qS8M9XUK6T7KtgZFYNbGz1fE2/ZBZATnHYZJa?=
- =?us-ascii?Q?MkEp1ubfQVsE0DtnRIHLypaC6LfLdrdLUU1nK9TXFWPF/hLhWtFEaoKFRCT9?=
- =?us-ascii?Q?4Ip5YFMx6dGmyuzDiV8z+HA998/hUaYNVMLGNnQNc2NEEStDu//7gXxRLj0i?=
- =?us-ascii?Q?lq4RaV7cEGW/KDlyk9ZctsxLCGCo1nroOxTz2ycchxzgxj2lCsMWWy/RRAiH?=
- =?us-ascii?Q?C6rEWOKneP1HA0bhPCUdkTTv/yl4MmdP6Me+a1/67RiNTdsnEh9ndZmd1Htd?=
- =?us-ascii?Q?bp5+LaI+gNp+N8OD5etocURkz5+jxES+d6hR15GP5QzNX64J+8puXR71wlCu?=
- =?us-ascii?Q?gRwP6118+VSi3gtQWUI1IMLaxdLZYlPb/9Tn9Tutx2l2BrUluUiFaj+QwrXM?=
- =?us-ascii?Q?5tJG1RlQNm9ENIX+tS75hhdrZKNDapkmOjya38N6/++fBgBa21Xuoy6Bm621?=
- =?us-ascii?Q?6m0UcKXBCqtU54YLJ1DEZnUhgpH+b4zDdCVwqQtrYILhtW+8a2RI2Q=3D=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2025 16:09:10.0597
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7710856c-f113-438c-15c5-08dd76b7b26d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00020E62.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7519
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: T7M0AXWlw4FgItjk33f-GC1E93-9rXMH
+X-Proofpoint-GUID: 9N-c1pIo8G5i8QLTXcZGYOAiygpOCwa1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-08_06,2025-04-08_03,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 phishscore=0
+ lowpriorityscore=0 spamscore=0 priorityscore=1501 adultscore=0
+ clxscore=1015 suspectscore=0 bulkscore=0 mlxlogscore=909 mlxscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2502280000 definitions=main-2504080110
 
-Hyperlaunch mandates either a reg or module-index DT prop on nodes that
-contain `multiboot,module" under their "compatible" prop. This patch
-introduces a helper to generically find such index, appending the module
-to the list of modules if it wasn't already (i.e: because it's given via
-the "reg" prop).
+Reverse 'create' vs 'mm == &init_mm' conditions and move
+page table mask modification out of the atomic context.
+This is a prerequisite for fixing missing kernel page
+tables lock.
 
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+Cc: stable@vger.kernel.org
+Fixes: 38e0edb15bd0 ("mm/apply_to_range: call pte function with lazy updates")
+Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
 ---
-v3:
-    * New on v3.
-    * Subsumes much of the dup code between kernel/initrd patches.
-    * Changes previous behaviour in v2 to look into "reg" and
-      "module-index" props, rather than just index.
-    * Use addr_cells/size_cells rather than size_size
----
- xen/arch/x86/domain-builder/fdt.c   | 142 ++++++++++++++++++++++++++++
- xen/arch/x86/domain-builder/fdt.h   |   2 +
- xen/include/xen/libfdt/libfdt-xen.h |  57 +++++++++++
- 3 files changed, 201 insertions(+)
+ mm/memory.c | 28 +++++++++++++++++-----------
+ 1 file changed, 17 insertions(+), 11 deletions(-)
 
-diff --git a/xen/arch/x86/domain-builder/fdt.c b/xen/arch/x86/domain-builder/fdt.c
-index 4c5b7747f5..9ebc8fd0e4 100644
---- a/xen/arch/x86/domain-builder/fdt.c
-+++ b/xen/arch/x86/domain-builder/fdt.c
-@@ -13,6 +13,148 @@
- 
- #include "fdt.h"
- 
-+/*
-+ * Unpacks a "reg" property into its address and size constituents.
-+ *
-+ * @param prop          Pointer to an FDT "reg" property.
-+ * @param address_cells Number of 4-octet cells that make up an "address".
-+ * @param size_cells    Number of 4-octet cells that make up a "size".
-+ * @param p_addr[out]   Address encoded in the property.
-+ * @param p_size[out]   Size encoded in the property.
-+ * @returns             -EINVAL on malformed property, 0 otherwise.
-+ */
-+static int __init read_fdt_prop_as_reg(const struct fdt_property *prop,
-+                                       int address_cells, int size_cells,
-+                                       uint64_t *p_addr, uint64_t *p_size)
-+{
-+    const fdt32_t *cell = (const fdt32_t *)prop->data;
-+    uint64_t addr, size;
-+
-+    if ( fdt32_to_cpu(prop->len) !=
-+         (address_cells + size_cells) * sizeof(*cell) )
-+    {
-+        printk("  Cannot read reg %lu+%lu from prop len %u\n",
-+            address_cells * sizeof(*cell), size_cells * sizeof(*cell),
-+            fdt32_to_cpu(prop->len));
-+        return -EINVAL;
-+    }
-+
-+    switch ( address_cells ) {
-+    case 1:
-+        addr = fdt32_to_cpu(*cell);
-+        break;
-+    case 2:
-+        addr = fdt64_to_cpu(*(const fdt64_t *)cell);
-+        break;
-+    default:
-+        printk("  unsupported sized address_cells\n");
-+        return -EINVAL;
-+    }
-+
-+    cell += address_cells;
-+    switch ( size_cells ) {
-+    case 1:
-+        size = fdt32_to_cpu(*cell);
-+        break;
-+    case 2:
-+        size = fdt64_to_cpu(*(const fdt64_t *)cell);
-+        break;
-+    default:
-+        printk("  unsupported sized size_cells\n");
-+        return -EINVAL;
-+    }
-+
-+    *p_addr = addr;
-+    *p_size = size;
-+
-+    return 0;
-+}
-+
-+/*
-+ * Locate a multiboot module given its node offset in the FDT.
-+ *
-+ * The module location may be given via either FDT property:
-+ *     * reg = <address, size>
-+ *         * Mutates `bi` to append the module.
-+ *     * module-index = <idx>
-+ *         * Leaves `bi` unchanged.
-+ *
-+ * @param fdt           Pointer to the full FDT.
-+ * @param node          Offset for the module node.
-+ * @param address_cells Number of 4-octet cells that make up an "address".
-+ * @param size_cells    Number of 4-octet cells that make up a "size".
-+ * @param bi[inout]     Xen's representation of the boot parameters.
-+ * @return              -EINVAL on malformed nodes, otherwise
-+ *                      index inside `bi->mods`
-+ */
-+int __init fdt_read_multiboot_module(const void *fdt, int node,
-+                                     int address_cells, int size_cells,
-+                                     struct boot_info *bi)
-+{
-+    const struct fdt_property *prop;
-+    uint64_t addr, size;
-+    int ret;
-+    int idx;
-+
-+    ASSERT(!fdt_node_check_compatible(fdt, node, "multiboot,module"));
-+
-+    /* Location given as a `module-index` property. */
-+    prop = fdt_get_property(fdt, node, "module-index", NULL);
-+
-+    if ( prop )
-+    {
-+        if ( fdt_get_property(fdt, node, "reg", NULL) )
-+        {
-+            printk("  Location of multiboot,module defined multiple times\n");
-+            return -EINVAL;
-+        }
-+        return fdt_cell_as_u32((const fdt32_t *)prop->data);
-+    }
-+
-+    /* Otherwise location given as a `reg` property. */
-+    prop = fdt_get_property(fdt, node, "reg", NULL);
-+
-+    if ( !prop )
-+    {
-+        printk("  No location for multiboot,module\n");
-+        return -EINVAL;
-+    }
-+    if ( fdt_get_property(fdt, node, "module-index", NULL) )
-+    {
-+        printk("  Location of multiboot,module defined multiple times\n");
-+        return -EINVAL;
-+    }
-+
-+    ret = read_fdt_prop_as_reg(prop, address_cells, size_cells, &addr, &size);
-+
-+    if ( ret < 0 )
-+    {
-+        printk("  Failed reading reg for multiboot,module\n");
-+        return -EINVAL;
-+    }
-+
-+    idx = bi->nr_modules + 1;
-+    if ( idx > MAX_NR_BOOTMODS )
-+    {
-+        /*
-+         * MAX_NR_BOOTMODS cannot exceed the max for MB1, represented by 32bits,
-+         * thus the cast down to a u32 will be safe due to the prior check.
-+         */
-+        BUILD_BUG_ON(MAX_NR_BOOTMODS >= (uint64_t)UINT32_MAX);
-+        printk("  idx %d exceeds maximum boot modules\n", idx);
-+        return -EINVAL;
-+    }
-+
-+    /* Append new module to the existing list */
-+
-+    bi->nr_modules = idx;
-+    bi->mods[idx].start = addr;
-+    bi->mods[idx].size = size;
-+    printk("  module[%d]: addr %lx size %lx\n", idx, addr, size);
-+
-+    return idx;
-+}
-+
- static int __init find_hyperlaunch_node(const void *fdt)
+diff --git a/mm/memory.c b/mm/memory.c
+index 2d8c265fc7d6..f0201c8ec1ce 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2915,24 +2915,28 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
+ 				     pte_fn_t fn, void *data, bool create,
+ 				     pgtbl_mod_mask *mask)
  {
-     int hv_node = fdt_path_offset(fdt, "/chosen/hypervisor");
-diff --git a/xen/arch/x86/domain-builder/fdt.h b/xen/arch/x86/domain-builder/fdt.h
-index 1849656571..e8769dc51c 100644
---- a/xen/arch/x86/domain-builder/fdt.h
-+++ b/xen/arch/x86/domain-builder/fdt.h
-@@ -3,6 +3,8 @@
- #define __XEN_X86_FDT_H__
++	int err = create ? -ENOMEM : -EINVAL;
+ 	pte_t *pte, *mapped_pte;
+-	int err = 0;
+ 	spinlock_t *ptl;
  
- #include <xen/init.h>
-+#include <xen/libfdt/libfdt.h>
-+#include <xen/libfdt/libfdt-xen.h>
+-	if (create) {
+-		mapped_pte = pte = (mm == &init_mm) ?
+-			pte_alloc_kernel_track(pmd, addr, mask) :
+-			pte_alloc_map_lock(mm, pmd, addr, &ptl);
++	if (mm == &init_mm) {
++		if (create)
++			pte = pte_alloc_kernel_track(pmd, addr, mask);
++		else
++			pte = pte_offset_kernel(pmd, addr);
+ 		if (!pte)
+-			return -ENOMEM;
++			return err;
+ 	} else {
+-		mapped_pte = pte = (mm == &init_mm) ?
+-			pte_offset_kernel(pmd, addr) :
+-			pte_offset_map_lock(mm, pmd, addr, &ptl);
++		if (create)
++			pte = pte_alloc_map_lock(mm, pmd, addr, &ptl);
++		else
++			pte = pte_offset_map_lock(mm, pmd, addr, &ptl);
+ 		if (!pte)
+-			return -EINVAL;
++			return err;
++		mapped_pte = pte;
+ 	}
  
- struct boot_info;
++	err = 0;
+ 	arch_enter_lazy_mmu_mode();
  
-diff --git a/xen/include/xen/libfdt/libfdt-xen.h b/xen/include/xen/libfdt/libfdt-xen.h
-index a5340bc9f4..2259c09a6a 100644
---- a/xen/include/xen/libfdt/libfdt-xen.h
-+++ b/xen/include/xen/libfdt/libfdt-xen.h
-@@ -13,6 +13,63 @@
+ 	if (fn) {
+@@ -2944,12 +2948,14 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
+ 			}
+ 		} while (addr += PAGE_SIZE, addr != end);
+ 	}
+-	*mask |= PGTBL_PTE_MODIFIED;
  
- #include <xen/libfdt/libfdt.h>
+ 	arch_leave_lazy_mmu_mode();
  
-+static inline int __init fdt_cell_as_u32(const fdt32_t *cell)
-+{
-+    return fdt32_to_cpu(*cell);
-+}
+ 	if (mm != &init_mm)
+ 		pte_unmap_unlock(mapped_pte, ptl);
 +
-+static inline uint64_t  __init fdt_cell_as_u64(const fdt32_t *cell)
-+{
-+    return ((uint64_t)fdt32_to_cpu(cell[0]) << 32) | fdt32_to_cpu(cell[1]);
-+}
++	*mask |= PGTBL_PTE_MODIFIED;
 +
-+/*
-+ * Property: reg
-+ *
-+ * Defined in Section 2.3.6 of the Device Tree Specification is the "reg"
-+ * standard property. The property is a prop-encoded-array that is encoded as
-+ * an arbitrary number of (address, size) pairs.  We only extract a single
-+ * pair since that is what is used in practice.
-+ */
-+static inline int __init fdt_get_reg_prop(
-+    const void *fdt, int node, unsigned int addr_cells, unsigned int size_cells,
-+    uint64_t *addr, uint64_t *size)
-+{
-+    int ret;
-+    const struct fdt_property *prop;
-+    fdt32_t *cell;
-+
-+    /* FDT spec max size is 4 (128bit int), but largest arch int size is 64 */
-+    if ( size_cells > 2 || addr_cells > 2 )
-+        return -EINVAL;
-+
-+    prop = fdt_get_property(fdt, node, "reg", &ret);
-+    if ( !prop || ret < sizeof(u32) )
-+        return ret < 0 ? ret : -EINVAL;
-+
-+    if ( fdt32_to_cpu(prop->len) !=
-+	 ((size_cells + addr_cells) * sizeof(*cell)) )
-+        return -EINVAL;
-+
-+    cell = (fdt32_t *)prop->data;
-+
-+    /* read address field */
-+    if ( addr_cells == 1 )
-+        *addr = fdt_cell_as_u32(cell);
-+    else
-+        *addr = fdt_cell_as_u64(cell);
-+
-+    cell += addr_cells;
-+
-+    /* read size field */
-+    if ( size_cells == 1 )
-+        *size = fdt_cell_as_u32(cell);
-+    else
-+        *size = fdt_cell_as_u64(cell);
-+
-+    return 0;
-+}
-+
- static inline int fdt_get_mem_rsv_paddr(const void *fdt, int n,
-                                         paddr_t *address,
-                                         paddr_t *size)
+ 	return err;
+ }
+ 
 -- 
-2.43.0
+2.45.2
 
 
