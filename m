@@ -2,40 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43D54A7F910
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 11:14:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.941631.1341071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D88EBA7F959
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 11:24:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.941646.1341082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u251p-0007tG-41; Tue, 08 Apr 2025 09:13:57 +0000
+	id 1u25Bk-0002I0-39; Tue, 08 Apr 2025 09:24:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 941631.1341071; Tue, 08 Apr 2025 09:13:57 +0000
+Received: by outflank-mailman (output) from mailman id 941646.1341082; Tue, 08 Apr 2025 09:24:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u251p-0007ro-1Q; Tue, 08 Apr 2025 09:13:57 +0000
-Received: by outflank-mailman (input) for mailman id 941631;
- Tue, 08 Apr 2025 09:13:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u25Bj-0002Fe-VH; Tue, 08 Apr 2025 09:24:11 +0000
+Received: by outflank-mailman (input) for mailman id 941646;
+ Tue, 08 Apr 2025 09:24:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h40A=W2=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1u251n-0007ri-CI
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 09:13:55 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20618.outbound.protection.outlook.com
- [2a01:111:f403:2418::618])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca0ba72c-1459-11f0-9eaa-5ba50f476ded;
- Tue, 08 Apr 2025 11:13:53 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by BY5PR12MB4066.namprd12.prod.outlook.com (2603:10b6:a03:207::22)
+ <SRS0=wetR=W2=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1u25Bi-0002FY-80
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 09:24:10 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on2061c.outbound.protection.outlook.com
+ [2a01:111:f403:260d::61c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 38b28820-145b-11f0-9ffb-bf95429c2676;
+ Tue, 08 Apr 2025 11:24:07 +0200 (CEST)
+Received: from AS4P251CA0013.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:5d2::18)
+ by PAWPR08MB9518.eurprd08.prod.outlook.com (2603:10a6:102:2ed::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8583.43; Tue, 8 Apr
- 2025 09:13:49 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8606.029; Tue, 8 Apr 2025
- 09:13:49 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.34; Tue, 8 Apr
+ 2025 09:23:59 +0000
+Received: from AMS1EPF00000042.eurprd04.prod.outlook.com
+ (2603:10a6:20b:5d2:cafe::f9) by AS4P251CA0013.outlook.office365.com
+ (2603:10a6:20b:5d2::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.33 via Frontend Transport; Tue,
+ 8 Apr 2025 09:23:59 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AMS1EPF00000042.mail.protection.outlook.com (10.167.16.39) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.22
+ via Frontend Transport; Tue, 8 Apr 2025 09:23:58 +0000
+Received: from DB7PR08MB2987.eurprd08.prod.outlook.com (2603:10a6:5:1c::25) by
+ GV1PR08MB8402.eurprd08.prod.outlook.com (2603:10a6:150:a7::17) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8606.32; Tue, 8 Apr 2025 09:23:23 +0000
+Received: from DB7PR08MB2987.eurprd08.prod.outlook.com
+ ([fe80::d53f:b16d:70a5:8668]) by DB7PR08MB2987.eurprd08.prod.outlook.com
+ ([fe80::d53f:b16d:70a5:8668%4]) with mapi id 15.20.8606.029; Tue, 8 Apr 2025
+ 09:23:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,382 +61,416 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca0ba72c-1459-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 38b28820-145b-11f0-9ffb-bf95429c2676
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=wot8TnMIWltg933+eJEQWH05aQ7tqBgYgMeBTox//scUoeOP1UY/lnvKznVNNfJx/9gtN0RgKmohof+nNrAdCA+yhcvIoNMcWwZaSHz/nPZhVyDhPfrm4ybZu8VAh/gxyGCt3FWRb+blNEgt3rIU6UBu4clEfbNniL9/C0o4Ym4qn2172zXHjBwYbwPVZXcljhYJY39wEHKINH21ZynZdhIrcxJgpUuN4VgxOJVeAEwvbgXE2H7tSUC91yzQP6fE/Hjl+DON3xk1hT9BPpXY707IR2zFQgE3WDSaiq4/31xc3cA8BDcoUKMSbVZypV0ocPzJcGvMTyXAhUm0kP8SjA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uqbh3V8DkGrmBjH/qQTtr5Z/jekRlOHlsfY5WUZHlGY=;
+ b=XxJmysfHYcOwP+bjxTjLC7u+cXaNEB0dQrfGJpYJf/rrO0NlRt1oLVF7BuLrkM4HKAFh3iPNCz8MvLLQcJyjZ6rLdU+V469NksmDbPgiGQAEl0+kedsvsATkS7g3OU2NuxzV3HH3F492/dJ4R6gn+feOu2c7e0xQXg6Mu1Y+Kcoebl6TdyOxV9/MQYIP3wBR4Q9vymsfO+N220SwJV1V75QaN0H/Gc4kZEBKhEnb6QTT0BLwbXzMXxnDBwBMKkf/d3cC4aTTD7caBLaz99hVMyIDf1dFME1RtjwKCDD1De2VLJj9jxW5K4B82rKk/jc6BZLeOhXNj1Ei3emBxzSDWQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=fail (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=amd.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uqbh3V8DkGrmBjH/qQTtr5Z/jekRlOHlsfY5WUZHlGY=;
+ b=oyXtUAU+HsUi0LeyzOCw+lbcwNjImwkrO+kf7zCui6YVoc6DMobkmNgnPBKmu8m3nyYVRO0dCAoEEHA1/R/1m66rhd9TW3I+hWgfx8WgjKgIWaY4/FYlwbDLg/2NWzixUpiDVIwHO05WYjljuQIvqgNEzGFw8HrBmIJ/IvXya2w=
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Fail (protection.outlook.com: domain of arm.com does not
+ designate 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com;
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IA1Hvo9WknF5zAsCHqlZIyb5SybETGmPTItm/nkshxKZexrltgmGsKRDzLZpFfF4W1qUM0jXgclbZfbGDEYzaAkTTclq5FL9MYJCN/kK/bo0dctx1lKij0OKJgwyw5+R/yYAx9RHvoS2SvUY8FWmR72nHZ1S0NWP+XMiGPGhoCljiQnFNtCVdXITOiz9Shyr/1UtTdd9whFAaLuh6G5Q/yAjol6SskZTQ9Y2VcpTmwvb0iITbiFfSNlPEiksI5QvYWF5WeATs4X0pXS8aV5GhLpJbYV/FlUqmXQKlo8Ew4/6qvZm+8pu6OtyE1p95Mp0EnoYzpM+K2Wy3y7vpL7Y+g==
+ b=xuchFA3Q41eoByYY4PskiDQaH2TaD2sdYGR/5qRbpsXFZ6vjnQkl8PMyFqYJGFlBeZ+CVgiY6RlEWOwdiiFrJTJ1m8fr+KZcAIyd5cMKyCCCZ3N+Fghz8aDWWLoaCeofHvdq73C9y6uTmuVyv4pOkn0U1y+9jFOPBVwxRWhwVbbWOXLdnV/lM3Sw8dPO82zs+17DGwLLwZTKF1u0rrVVCcyjMGUYlGTU/dxkEU+UZbdzBXyVY8IDC26Kmpt5wlPOst3r7+Xr0GZX+RQXTDAa0uD1j1kgr2vWmZZPPMkvrO3QhB/rPCO0v8O3/+5wmr6rrTxqKlwO3wzE3BLKZVkRBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YjJwMog5CwgG2/J0SzMadEKkgifi7kE1D/72iZ6uRkE=;
- b=VazbgEtZ4t2ldH9//vV3F5xzl/0LRL3Q5VxHZcWNkRRXr1L7nDOnoW1acvIdAL0w3As1DoW9HijDIb11RYUbz4twcKM4QVf7bbu/SH5NIWn61NOiujBJ3GyakuzZbngTzyZKhLMm96d9EweE1ByZHIgcNhxrFqNGtwTsJKYssIJk5nuOt48A7p/0TJard/lY193g/E/PfXyoE1FhG9StiDsiarbiv//bfULlJv/eyLXVszGg01MKvhpkr6rmhlz0XurgBDLdFZHS2OAVav1/NpNx7GwspST49GEiTqbFBKnLlv//HvVh/ZCyJ0WAFowlYZ4yigzNhx90VvCDfLNplQ==
+ bh=uqbh3V8DkGrmBjH/qQTtr5Z/jekRlOHlsfY5WUZHlGY=;
+ b=VIS7kf8iGH0Kel1SIrzzjpQEFbi5Q4I0xtqI/22uJWNiEOeeCvpxo7zwJEYjYZN2ANoQ7kRV6OpwTXJAeWHChvefZtgdigLQDZC+le46/SYPn7R7kkFJR/LJV6TlZ1RLRrSSM6AlUYp0jV35Js8ck8N4R/PKF6o0DxSIDsz5QpdD7DORJxjblbVbxjonEV+VdEdjPjn97dRwRfx73Ktp8iYAR51toQSOzQmIZlk0DOnTewemfChEbFZ21jpdp0iFxFAjfinLbEmv0lUKmp+7EUk4pM7vblMyGzOjFRU5v5Zv9uFV3rPR0NCvEQsCIYZ/OVf9ACUyU8tBzQW+ozXwgg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YjJwMog5CwgG2/J0SzMadEKkgifi7kE1D/72iZ6uRkE=;
- b=fikLFR7a2fLr2U5YsMrcEb7Hd/ois1SLQE571Et9pp8DbPObI0ph/PG0cHSbO0SOUmK86MQ2+/1KjTg8OSups6TTB9LVCm9oq6vnNCQJw2BG4QLaqsYJ0onHjXd221NF/G1HlF5EacD+srPZjEZHlw+j/kiryQQIegKzS3dhPAQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <1a58517e-e882-4ca6-898a-923d8a8fa8cd@amd.com>
-Date: Tue, 8 Apr 2025 11:13:45 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] xen/arm32: Create the same boot-time MPU regions
- as arm64
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+ bh=uqbh3V8DkGrmBjH/qQTtr5Z/jekRlOHlsfY5WUZHlGY=;
+ b=oyXtUAU+HsUi0LeyzOCw+lbcwNjImwkrO+kf7zCui6YVoc6DMobkmNgnPBKmu8m3nyYVRO0dCAoEEHA1/R/1m66rhd9TW3I+hWgfx8WgjKgIWaY4/FYlwbDLg/2NWzixUpiDVIwHO05WYjljuQIvqgNEzGFw8HrBmIJ/IvXya2w=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
+ Marquis <Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v5 3/3] xen/arm32: mpu: Stubs to build MPU for arm32
+Thread-Topic: [PATCH v5 3/3] xen/arm32: mpu: Stubs to build MPU for arm32
+Thread-Index: AQHbp+07/vC6GU4Tpk2NnzEwwALGgrOZf8AA
+Date: Tue, 8 Apr 2025 09:23:22 +0000
+Message-ID: <5CFB5A0F-E3A1-4F06-B89A-EDB5574F4910@arm.com>
 References: <20250407184443.1790995-1-ayan.kumar.halder@amd.com>
- <20250407184443.1790995-3-ayan.kumar.halder@amd.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+ <20250407184443.1790995-4-ayan.kumar.halder@amd.com>
+In-Reply-To: <20250407184443.1790995-4-ayan.kumar.halder@amd.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-In-Reply-To: <20250407184443.1790995-3-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0131.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:94::14) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|BY5PR12MB4066:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd5ef580-62d2-438a-2f00-08dd767dac37
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.400.131.1.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DB7PR08MB2987:EE_|GV1PR08MB8402:EE_|AMS1EPF00000042:EE_|PAWPR08MB9518:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b7ed85c-ba3e-43e5-f664-08dd767f1776
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?us-ascii?Q?mv2dBT+MxQkNTLDa+Gvy/p5HEeLuxD6JcKpT2Gq7uNrE2huTlhOV9v9oDFVX?=
+ =?us-ascii?Q?qkgKGAmCxShE/CP8fuAMe7oIe9G6bpKmObALfbjSgDaEVyjJC5EQJbB4Jxsw?=
+ =?us-ascii?Q?0NcKkxUMazkI+Xg3y6u4Mz9k8I8yFelne/nbCLTBKf6bF0/QIVQLPSkuQgrG?=
+ =?us-ascii?Q?96IdhV9znv8OGuUvX0UCuiwPwM1BqvEHW7AOLe8u9i/zSCjJZTbL6OJV+Vc+?=
+ =?us-ascii?Q?Jg8gcN32gOiC9JlxkA7RIKA/jDOqwbBBKFMVw1L2RSgNbZqq8uqid4vTMeYs?=
+ =?us-ascii?Q?e9IXje+W6/3QW2KS5J3FgAogEHgvzFrFyEaPMK50cj8y0D2KezZ5l+m+kP9y?=
+ =?us-ascii?Q?RMWYUsya0CHJMUXVTCGi9MbbTInhA309/HXJN3ChoGh3K5z9ImzgBOo1XmAE?=
+ =?us-ascii?Q?59jHwufQpTnAp+NAZa7QRpCOcoEg966GVhPw+YuTcSL/iHkJgj7bLoHcrUn5?=
+ =?us-ascii?Q?Y7hSIv0URgJ9S+bQ7rFAagA3cphZvGfMn3KIBfwu0rpWtiGsGTPRGCHjg+qr?=
+ =?us-ascii?Q?Y7CMPU3O8whWmrWvdr1K2ldIAHR7jd0GV3LJgygYDNKcdOkfYr7xGW4r7meA?=
+ =?us-ascii?Q?3O2kBFuTudCiSMrb6PDCnfZZKLYczFt9fnvaAtJPi+bWt1LvIl/Q33kPe7v4?=
+ =?us-ascii?Q?mhgXUYU0dQuXswGp4MLh+psV2kD+4EQcC+6u6R5WuBJOtaBcbc8w+/BDhKEN?=
+ =?us-ascii?Q?HXIPkrz9qCd868gAvuVLHyI9tqBgRDQ7ehn4E1YklpQSNi5byiUO4WE7I66z?=
+ =?us-ascii?Q?9GL1VG7fJBbzRuqValj+lShqrIh9tzIMcZOLIE9f4dOcC78eicYsIpBFOYzN?=
+ =?us-ascii?Q?I8xvzKZFrXrG3ZAOoyLd45juyokYllclkZNhnQfi44UuX3AGXpVkX3vJczKy?=
+ =?us-ascii?Q?Np5HPC4FHKeXJd2F7ThYry0wFOXdtN9KB9mXS1QGcjM/YtV0XH+9lab2vdBc?=
+ =?us-ascii?Q?Vy+4EKHnYYrd93DziFWtggHVsmlB/p47j/PqhlUgTD8KqdVQMTDTC+fkhSED?=
+ =?us-ascii?Q?VuA+ktHSdCTeI/joa7wbJJrtMSl3MxZgIoAoa8VKcWnhB7RhvHbhOchkpvjL?=
+ =?us-ascii?Q?ovM4QK71GqD7gIPkX7R+F/nCZBwdvNjn4h4xFDKe7o57ANBgcV8pOgsD5giC?=
+ =?us-ascii?Q?Ik8SxVFrFO8HiybUUjtlsyaxgTohlbOjbQctPyWnY1tIRkztIajhppPhI+HG?=
+ =?us-ascii?Q?P//zZSD5K/Dy7aLR2x8jqukjSRh29PjSa8hYh6zgwW3+riKEIugd2Do9mr4j?=
+ =?us-ascii?Q?TKOjtwy9HMSbTiu2fux/QuyGh9cTuFDn7wFaUpP8BRjvN6mETzRnWK12G5+U?=
+ =?us-ascii?Q?hcIimLXjkigz2zS+eRWZ8l9+jnhCWpCRGh0kabVrvonw7qU0e0TUFOKN+9nX?=
+ =?us-ascii?Q?yO1IEtbdmfbifYEEvmgj0HDy9DshiT2hDUIS6QqAAFmZCViHYouTECfbLFrz?=
+ =?us-ascii?Q?FAjJdV4ni7ld9KOb03/e4RENCcoL/u2RhJ1uUciQXGV5DEBzxagKCw=3D=3D?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB2987.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <7D6AA61CF7307046BB7C7127B0AA4B4F@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB8402
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AMS1EPF00000042.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	2d266475-c34d-4428-4e79-08dd767f0265
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|14060799003|82310400026|376014|36860700013|35042699022|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MU9pNms1SkhYaktyUkpLdVFscE9CRjN3bW5mUzV3RmYvSmJRRmtKQWtkRTRF?=
- =?utf-8?B?M2FXR29raWRmY0N4TGZJZi8yc1RPb1p2RWd5aFZzYkoxUzdkTVVXUXp1bXJR?=
- =?utf-8?B?MnZBMWJ3ekUxNVNUK2RJanlKazExdDRVeE1OdHFXSG5SeXUxV2kza3JPTTND?=
- =?utf-8?B?bmhQVDQrTzMzeXFjREhtQVR5ejdhSWtBdDdvOTNVY2dPdG5SZ0VrUFkxVi9Y?=
- =?utf-8?B?NUtPbktVOUFtekdjUzhxYzUvREF6ZzBjMmpTUXJKNy9XTVNnOHZEaUpMbm5r?=
- =?utf-8?B?VThOdmw1OENwMkVmSC9RaWNpbUZFZU5xb2EzYWJHTGdBbnI1aFFldDdFQmRt?=
- =?utf-8?B?T2ZLb2YxM1NqS25vRjVucDRvbjF4RUllT1lUclZDOGg1ZC9IcGQ5YXEwWTRn?=
- =?utf-8?B?Vjhhb3Z6cXJueU92R2M4TWVYRFJOc3M0Tnl3RVM4SGh5NjJpdmZpTlN3ZXRG?=
- =?utf-8?B?SS9jMkhzTjRkMWREZ3Y0RkxldUxkcW05NTdpeDlIOFhPamQ4SUxKVXNmWGtU?=
- =?utf-8?B?ZGJxMzVGbFNONE5wemdJcFFaVlRMYzRZNldCOTlKdnNEd2pLMGFIZ2ZpVC9O?=
- =?utf-8?B?UlB3MWtsRGJadG4rUGtjd2xGblVZbGc1YkErOXZBRy9EcUdBRkhIZm5pcnBX?=
- =?utf-8?B?VGUzVFpjWWhhZUozMWFpMmZNRHVEdklWSmtadGtaYUNUbmFBdnJTYndEZjdP?=
- =?utf-8?B?RTJSV3g4MkcwYWJuTGJyZWdRYmdvSFc2TDl3MUdOVVpGSEdqTlRKZ0QwSDN6?=
- =?utf-8?B?NVFTcDlSVVM3dzBWclkyVFlUejcwRTI5OFVQLzNoeHo0T0p6UnI3VGNuWXNC?=
- =?utf-8?B?SkxsaWxta2dtZWJDVXhNWWZLZTVHSlF3NE9SdHlIRUZKb01IOXVrd29nb0Ni?=
- =?utf-8?B?WnBadXZReVJEeDkwbHFrK2Z3bXV1MkhrdllyaFU0WDZidXlDV3FrWWhpc0lJ?=
- =?utf-8?B?TFQyK1VhZWNRY2hhajZvSktiMzMwRy9JT1FLYzhYWHczelllQnQ1ZVRqZU1S?=
- =?utf-8?B?dTN3cG1VOHNkcnlBRW1jSHpheXBHdFBkN3dIVWxHS0ExSXdNWUh5aFhvQy83?=
- =?utf-8?B?dUUxVWcrSXR3bStuTFFJY0dqTDdDY0tTakJmaENWK3J5UHZsNkhuRVN4c1pq?=
- =?utf-8?B?Yk9YME16UC9TVWF0U3BiajhUVTZTYWlvOGJNamhsTVJKMUFLZStwMTJrOXNC?=
- =?utf-8?B?VVJQTG9KV29wa2xFVTVGZVdadFpVOVF4czZ4RVpXMTF6RGpXZUp1Wmhqa2FO?=
- =?utf-8?B?Rk5lYktleHljd2xGS1RqSlNJdmEvRm9TOGNuOUl0T1k4OThGRlBLUU5KU1Jq?=
- =?utf-8?B?RXhOSHU0WXJiK3FVL0dkTGJka05Ock9QTmhILzk0cGRHKzhRbXhSd3RITmxm?=
- =?utf-8?B?RjE4OTZOeDF2ZFFHUC92TzZTdGF3YWJFN3lrcDdQYWtsdlRpWDJZRUZNMHFK?=
- =?utf-8?B?aUgrdjB0SDhMWDF1djBhV1VIVFhtTzR0Q2NDN0tpSWhVaVNtOVlobjJ5ZDFR?=
- =?utf-8?B?VDdhcUhKZHNYQXU2bVpLKzY2ZGZRc3ZaM1dpejRPd2ZzaWl4T215VXkxTGd1?=
- =?utf-8?B?SEdrVXNCZXhSeEFWNDBIQlF0Wnk3NGdaZzY0dkM2SEtvajhnVDExL0hjR0gx?=
- =?utf-8?B?dWhpOUpYWTQ5a2JZK2szWkJ3RzFuQjhjNDlqNmdPSGJUR01ZVW0zQUE3dnoz?=
- =?utf-8?B?UFQ1eGtCMXExZURzS0VqSmU0eXhodjZrR0FzdnhyVktFOExqeGMzYW9WQkYx?=
- =?utf-8?B?TDF3NHAraGNQZVhMNGY5UDlnQzc3dTk1QkVDbE1zQ2ZUQ1FzaHQ1WWxjQm41?=
- =?utf-8?B?bk1zd0kvUnU2aTlwSDU5b3pQM1AvMms3dkZGUjVOVFNJS29jZ3dQTnNWWW53?=
- =?utf-8?Q?NuvFxkiKuLdct?=
+	=?us-ascii?Q?BbzrLjftB4x99diE9nLmK/LzJNnYsmLonzXoRozTqumsCJYhoL16pPyF/qeG?=
+ =?us-ascii?Q?+djgRvdZ70Pl1aswEZRyEvvSmKr+A0rEbaqY6tCfmVp/ezte+lO7eP/+8w9w?=
+ =?us-ascii?Q?XQdncZ+iyntZ1TGbgCxfisGicsBq4vdMByQuwPvSX/j7tRmmQvstaHiJixV+?=
+ =?us-ascii?Q?8UJSAk+HBCybFwMpv/qO/AfG9FO0gn+1iQdDopu5KcsfEI7MICuQBDO/sleN?=
+ =?us-ascii?Q?+8G80oC6VerESJrb/XJHxvYsshPUgMU9fpZuVHJtG39acgXJ80V9eHETvj7C?=
+ =?us-ascii?Q?kF2VTGL0VgBclS9lC8dGkmJYFIEpNR4iraOt08X/6kQc3U3dGxqzm09HL7ZU?=
+ =?us-ascii?Q?P02jf/BkLICK0Gpm+00zPUPARgkeAcKiM6Rwjef9iEgjVbAIX4J723rUDkSd?=
+ =?us-ascii?Q?yT2W3hOf97jZjc2LXaYf37xMdFLP7za1YtUk2kgQFGbEuKpPFDFa1CMCFJWF?=
+ =?us-ascii?Q?NeGM0KKct6RIPOFBFTrdYIVsuabFyuLlrOE695WGOHvNHcz2vAhBCI8NriRD?=
+ =?us-ascii?Q?3Or5Lwxjq+Zzpgjziqu0GWwUynr9qiDY1vseeRXeSNY1Sqf1twZSlXyuJ3Au?=
+ =?us-ascii?Q?BgPLNeI9N/ylM1WBVzBIxrkIbHmItjprXOTmmrD4TYmu1V+zwpYBzuK9fMC+?=
+ =?us-ascii?Q?Ap6uK9A9pHADAme9GG65gpMEpmeYXI/3u1BBM5OewKiKEOnUN3hizHxSxf/A?=
+ =?us-ascii?Q?dedxHS3vM4cBrNSpJApcOcX0cicDyyPYbfLK4fPs1/vORWPSDU4f1vtsvkhi?=
+ =?us-ascii?Q?V8iA3l2S9NKOTfsACaPzPRWMaEqWL/0vS4CrSFWD1DT5OQ42Ky0BuzCFsvXo?=
+ =?us-ascii?Q?h48kduuCdVX/UZhlwt80EHWAoGJmOdIJIYqe+aZJx0eoSuxZxZpXJbL+Bzk3?=
+ =?us-ascii?Q?XZiQ6u9reS+mqR4CK/Yxa5iQnxK4ghHSbJC+jTH5ubtev2Xlqt/lO70fNrT4?=
+ =?us-ascii?Q?uYsfSacGQu+cOPdrci4MuTLCWta47Lvzd9Ll+SYOQFn6YAAky0bByxcmLmjc?=
+ =?us-ascii?Q?5/fUXHZNkiB+MC6epHLz3iafjJ5II3UUjtHjHaMpBDvJi792zj3M0edpt359?=
+ =?us-ascii?Q?p6TVVP6nDjTZGVJKylUUdOPM3rIhTQtkFEHQlBywgB+aswGf/LtPGlywW772?=
+ =?us-ascii?Q?El3p4s+NXj5UtlZTrn4keyQi+auL5WKD9KLl/fUcz0ni3GNgT5yaL9PqtSWr?=
+ =?us-ascii?Q?33pXVzAdqUG98WIS2Gt+/dFTNGy2E/ij7Nrf0LHUVysMTLS//bRlophcSUEI?=
+ =?us-ascii?Q?4+DUGvzb9XvKsbwa9K0T0d1xQXePC4e/FizI3aXF/CNgtbTlSP1VO4WKHuD2?=
+ =?us-ascii?Q?N5XTj0+yugAGoOay3RPqZ3oPPQ0evp7dTKQosYbVtLHGBDTngVJrT3UjuOqe?=
+ =?us-ascii?Q?2TnwNaN82me8iYk9pYx9Dj7NysMEOrRHgiPyjzqqHEhy2WsBDHCRZRraFwr5?=
+ =?us-ascii?Q?Rroh8J1RpXkVxJBYrLu7a9dO49ChzMZRNYc2arQz9AYKZspfylBP4ER+vDcv?=
+ =?us-ascii?Q?capPxGWJ4nwV1Tc=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z3pwV3ZHMWZwZVZxSGNJL0JMTk1uZTFkOUx2MFdzdXN2SHBkTndoR3JCQ2pS?=
- =?utf-8?B?OHJqNllGNWxtYlRwNnFzTHBDbUxiRXlFZUR2M0ovT2ZWUlA3cnVKZzQ2K215?=
- =?utf-8?B?c1pseThKWUd5RjcrdktFQkVac2Y3S3lxV21GOFlHNXhpcForRUFxZlRQcWpL?=
- =?utf-8?B?cDVYNlNHN3RJZVluenZ3UWYxbkdQaVRGU1pNN2xaYzBkUTREREkvbWE1d0Vx?=
- =?utf-8?B?YUQ1eDZYRHZTeEttRzJDcEtKaTRuZXBzdVoreGY2cS85cGJjbVNGV2wvRkxz?=
- =?utf-8?B?WE5IcTR5NE5nZnhGbldVdWxSNjdYbnZXNU5KNnhKckhJYzBHczJNUnY1QUpk?=
- =?utf-8?B?NlpiT0UrVGxrL1ZFYmluM3NUd01MZU9KcnVaQnFoQ1YxUTRiWitrUW15T0dQ?=
- =?utf-8?B?TEM3cFJIdzg2M3RxRTVaYkx4RXE5Umh6ak9jZXJhR0dKdm1XZCtzWXRHWmZQ?=
- =?utf-8?B?aUg5b0IvTGZxYWd1UGc3dkl3L29SbEh3bFRLZGM2K1BMR29QM2gzc1AzT1px?=
- =?utf-8?B?dEVzTGFTWTZpazltdkVTYXcxZEoxbGQ1dFVvMTQ3K055dUhuWCtUMXlHZVk2?=
- =?utf-8?B?cTUxMCtabTVVcnREbHBGc0gwbTBzYTNvUndXbnhvR0ZkR1Q5Q28zZnVrdTls?=
- =?utf-8?B?elgyUGJvTmF5Q2FhajBKZWFvakEybm43VHZpUk1SUy9CYXliSVh5U2VqSEd5?=
- =?utf-8?B?SmMrdEZkUFF6V3NBS2xaTG16d2tIK0ovaUpBSUhIR1ZwMHIzRXhtR2hHVWp3?=
- =?utf-8?B?MzZZTzUrS0FiS3lDN2U0aGdvZ0NwWjhUUVIvcjBLamYrcGI2MTA0NlVTUFVI?=
- =?utf-8?B?U3lCWlRaekw2b0RhNCtxci8zQmJXbzNBaUR4LzdjUnRKYWdIclVNZldGM0N6?=
- =?utf-8?B?cXJ1QUpmdG5UQmxXdW9ZalovemtFcFNGaEd2V3B6a3VXMGJSSlZLNHB0dVFi?=
- =?utf-8?B?ZDVCd3VnaXlOQUNvZzdBRG5WRHkzV0lVbzgyVjF5ZnYrSE9NRTNFWlJFemlY?=
- =?utf-8?B?Rm4ySGtDNUtpYUFuWmhnOERmdUFaSnIweERYNDdESUdkNithZkFjN3JNODRN?=
- =?utf-8?B?c3ltdDFSa1BkckdXVWgycWNWQktCU0lrYTdBb1JPYkZhRGNwcW9wUnJSeVZ3?=
- =?utf-8?B?bHR3TTMzVTQ0WGZyV1NZRDVTc3R5dFpFWlpzRVBTdStGN2p2UTBxTkh0YUtn?=
- =?utf-8?B?bEVmdXB2RHplNGs2enN2VGdyTlcvZnhpdkdMZHAwU1JjS0dWNDlBVXg5dXY3?=
- =?utf-8?B?RTFCVG1LSmQwSnVUcHUzTkI2U3JIcDVXRlNWaUlzOWMxcXdHMjJ2R0wvYm9y?=
- =?utf-8?B?V0hDRDkzS1MyYysxWEYyMlMzNkdVVDRmaStKMjFOSEtpeTh5Z3ByU2EyamhO?=
- =?utf-8?B?WTNETHJnby85c2dvNzljSFVDOWxQMkpzcS9tdk1iU2R5UGNSeWVoM3hheEda?=
- =?utf-8?B?eHVpNG9lMURXSkJzUnN3R00zdXBKMkZiaDdnY0s4R3dISlFnUEk0cENpc2xh?=
- =?utf-8?B?RlQvSDVVb2dLRE5DaE80M1k5WmM5SXUwNktOdlViZ2Nkb3dqek9tQ2FTS3pS?=
- =?utf-8?B?dU1KakxNd2NEckhKaFF0NE5ZTFUzMVVnbEYvRHJFSmpIbTVVRjBiOVhaWHR4?=
- =?utf-8?B?c0hrTlNHdmx5NjcwZGRpQWc4Nm9zRDRSNVpLUkpVK3UwOHlpNFI4TndjZzA4?=
- =?utf-8?B?U2E1TFJtTE5WMmZvTWVpWGxaMU5EQ2ZSYXhwWnRPemoyeGVCQ1pLSjJBNzdu?=
- =?utf-8?B?WEh1a2VKVldodVBaQi9SenJHNGhpMVlVWTFaTnNWMmRuVkMwcEUwRTJ0OE1R?=
- =?utf-8?B?VVFScHRtSTlGTXM4ZThUWG94VWxGUlY3a0FQQTltdm1STkJEZE15WDQ4VHBX?=
- =?utf-8?B?bGhoeFpCWmFFRnFWN0ZtV2JmNFVNbXlFek9ldXo2M3VzRHgwbUhjcGFCWGt0?=
- =?utf-8?B?ZkZJVUpxZUNlVFk4bTBvZ1VkajR6ME5tcVRRdXZWZllPUFFDNldyWDlMV1ZS?=
- =?utf-8?B?eEVVM3pWclFzdFp3K0pNeWpXZXlxSE1pWEU4NGxRMllodnJQTXFCWHRvTTdm?=
- =?utf-8?B?dkxBS2lBY0hJRmFEVThESFhKQUkrTlFnTFNiZ2lPNWVlUDc4a2F6Q2REK204?=
- =?utf-8?Q?Ctt5QsHZKArSOI1+yKjDyDmcA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd5ef580-62d2-438a-2f00-08dd767dac37
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2025 09:13:49.0488
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(14060799003)(82310400026)(376014)(36860700013)(35042699022)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2025 09:23:58.2137
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kt9/ChMIbD3tM6588nUMDUdpH38RoXXGPbe8TcI9AWmudOy/Xe3Mb88jSre8EoiH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4066
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b7ed85c-ba3e-43e5-f664-08dd767f1776
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS1EPF00000042.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB9518
 
+Hi Ayan,
 
-
-On 07/04/2025 20:44, Ayan Kumar Halder wrote:
-> We have created the same boot-time MPU protection regions as Armv8-R AArch64.
-> Also, we have defined *_PRBAR macros for arm32. The only difference from
-> arm64 is that XN is 1-bit for arm32.
-> The macros have been defined in mpu/cpregs.h.
-NIT: Describe your changes in imperative mood
-
-> 
-> Also defined WRITE_SYSREG_ASM() to write to system registers in assembly.
-> 
+> On 7 Apr 2025, at 19:44, Ayan Kumar Halder <ayan.kumar.halder@amd.com> wr=
+ote:
+>=20
+> Add stubs to enable compilation
+>=20
 > Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 > ---
-> Changes from
-> 
-> v1 -
-> 
-> 1. enable_mpu() now sets HMAIR{0,1} registers. This is similar to what is
-> being done in enable_mmu(). All the mm related configurations happen in this
-> function.
-> 
-> 2. Fixed some typos. 
-> 
-> v2 -
-> 1. Include the common prepare_xen_region.inc in head.S.
-> 
-> 2. Define LOAD_SYSREG()/STORE_SYSREG() for arm32.
-> 
+> Changes from :-
+>=20
+> v1, v2 -
+> 1. New patch introduced in v3.
+> 2. Should be applied on top of
+> https://patchwork.kernel.org/project/xen-devel/cover/20250316192445.23764=
+84-1-luca.fancellu@arm.com/
+>=20
 > v3 -
-> 1. Rename STORE_SYSREG() as WRITE_SYSREG_ASM()
-> 
-> 2. enable_boot_cpu_mm() is defined in head.S
-> 
-> v4 -
-> 1. *_PRBAR is moved to arm32/sysregs.h.
-> 
-> 2. MPU specific CP15 system registers are defined in mpu/cpregs.h. 
-> 
->  xen/arch/arm/arm32/Makefile              |   1 +
->  xen/arch/arm/arm32/mpu/Makefile          |   1 +
->  xen/arch/arm/arm32/mpu/head.S            | 101 +++++++++++++++++++++++
->  xen/arch/arm/include/asm/arm32/sysregs.h |   7 ++
->  xen/arch/arm/include/asm/cpregs.h        |   4 +
->  xen/arch/arm/include/asm/mpu/cpregs.h    |  24 ++++++
->  6 files changed, 138 insertions(+)
->  create mode 100644 xen/arch/arm/arm32/mpu/Makefile
->  create mode 100644 xen/arch/arm/arm32/mpu/head.S
->  create mode 100644 xen/arch/arm/include/asm/mpu/cpregs.h
-> 
-> diff --git a/xen/arch/arm/arm32/Makefile b/xen/arch/arm/arm32/Makefile
-> index 40a2b4803f..537969d753 100644
-> --- a/xen/arch/arm/arm32/Makefile
-> +++ b/xen/arch/arm/arm32/Makefile
-> @@ -1,5 +1,6 @@
->  obj-y += lib/
->  obj-$(CONFIG_MMU) += mmu/
-> +obj-$(CONFIG_MPU) += mpu/
->  
->  obj-$(CONFIG_EARLY_PRINTK) += debug.o
->  obj-y += domctl.o
-> diff --git a/xen/arch/arm/arm32/mpu/Makefile b/xen/arch/arm/arm32/mpu/Makefile
-> new file mode 100644
-> index 0000000000..3340058c08
-> --- /dev/null
+> 1. Add stubs for map_domain_page() and similar functions.
+>=20
+> 2. 'BUG_ON("unimplemented")' is kept in all the stubs.
+>=20
+> v4 -=20
+> 1. is_xen_heap_mfn() macros are defined across mpu/mm.h (ARM32 specific)
+> , mmu/mm.h (ARM32 specific) and asm/mm.h (ARM64 specific)
+>=20
+> 2. s/(void*)0/NULL
+>=20
+> xen/arch/arm/arm32/mpu/Makefile   |  2 ++
+> xen/arch/arm/arm32/mpu/p2m.c      | 18 ++++++++++++++
+> xen/arch/arm/arm32/mpu/smpboot.c  | 23 +++++++++++++++++
+> xen/arch/arm/include/asm/mm.h     |  9 +------
+> xen/arch/arm/include/asm/mmu/mm.h |  9 +++++++
+> xen/arch/arm/include/asm/mpu/mm.h |  5 ++++
+> xen/arch/arm/mpu/Makefile         |  1 +
+> xen/arch/arm/mpu/domain_page.c    | 41 +++++++++++++++++++++++++++++++
+> 8 files changed, 100 insertions(+), 8 deletions(-)
+> create mode 100644 xen/arch/arm/arm32/mpu/p2m.c
+> create mode 100644 xen/arch/arm/arm32/mpu/smpboot.c
+> create mode 100644 xen/arch/arm/mpu/domain_page.c
+>=20
+> diff --git a/xen/arch/arm/arm32/mpu/Makefile b/xen/arch/arm/arm32/mpu/Mak=
+efile
+> index 3340058c08..38797f28af 100644
+> --- a/xen/arch/arm/arm32/mpu/Makefile
 > +++ b/xen/arch/arm/arm32/mpu/Makefile
-> @@ -0,0 +1 @@
-> +obj-y += head.o
-> diff --git a/xen/arch/arm/arm32/mpu/head.S b/xen/arch/arm/arm32/mpu/head.S
+> @@ -1 +1,3 @@
+> obj-y +=3D head.o
+> +obj-y +=3D smpboot.o
+> +obj-y +=3D p2m.o
+> diff --git a/xen/arch/arm/arm32/mpu/p2m.c b/xen/arch/arm/arm32/mpu/p2m.c
 > new file mode 100644
-> index 0000000000..84e9f1f8ec
+> index 0000000000..df8de5c7d8
 > --- /dev/null
-> +++ b/xen/arch/arm/arm32/mpu/head.S
-> @@ -0,0 +1,101 @@
+> +++ b/xen/arch/arm/arm32/mpu/p2m.c
+> @@ -0,0 +1,18 @@
 > +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Start-of-day code for an Armv8-R MPU system.
-That's exactly the same text as for Aarch64. At least write Armv8A-R-AArch32.
+> +
 
-> + */
-> +
-> +#include <asm/arm32/macros.h>
-> +#include <asm/mpu/common.inc>
-> +#include <asm/page.h>
-> +
-> +/*
-> + * Set up the memory attribute type tables and enable EL2 MPU and data cache.
-> + * If the Background region is enabled, then the MPU uses the default memory
-> + * map as the Background region for generating the memory
-> + * attributes when MPU is disabled.
-> + * Since the default memory map of the Armv8-R AArch32 architecture is
-> + * IMPLEMENTATION DEFINED, we intend to turn off the Background region here.
-> + *
-> + * Clobbers r0 - r1
-> + */
-> +FUNC_LOCAL(enable_mpu)
-> +    /* Set up memory attribute type tables */
-> +    mov_w r0, MAIR0VAL
-> +    mov_w r1, MAIR1VAL
-> +    mcr   CP32(r0, HMAIR0)
-> +    mcr   CP32(r1, HMAIR1)
-Is there really a need to do these 2 writes one after another?
-Why can't we use only r0 and save one clobbered reg?
-mov_w r0, MAIR0VAL
-mcr   CP32(r0, HMAIR0)
-mov_w r0, MAIR1VAL
-mcr   CP32(r0, HMAIR1)
+I would add:
+#include <xen/bug.h>
+for BUG()
 
+> +#include <xen/init.h>
+> +#include <asm/p2m.h>
 > +
-> +    mrc   CP32(r0, HSCTLR)
-> +    bic   r0, r0, #SCTLR_ELx_BR       /* Disable Background region */
-> +    orr   r0, r0, #SCTLR_Axx_ELx_M    /* Enable MPU */
-> +    orr   r0, r0, #SCTLR_Axx_ELx_C    /* Enable D-cache */
-> +    mcr   CP32(r0, HSCTLR)
-> +    isb
-> +
-> +    ret
-> +END(enable_mpu)
-> +
-> +/*
-> + * Maps the various sections of Xen (described in xen.lds.S) as different MPU
-> + * regions.
-> + *
-> + * Clobbers r0 - r5
-> + *
-> + */
-> +FUNC(enable_boot_cpu_mm)
-> +    /* Get the number of regions specified in MPUIR_EL2 */
-> +    mrc   CP32(r5, MPUIR_EL2)
-> +    and   r5, r5, #NUM_MPU_REGIONS_MASK
-> +
-> +    /* x0: region sel */
-> +    mov   r0, #0
-> +    /* Xen text section. */
-> +    mov_w   r1, _stext
-> +    mov_w   r2, _etext
-> +    prepare_xen_region r0, r1, r2, r3, r4, r5, attr_prbar=REGION_TEXT_PRBAR
-> +
-> +    /* Xen read-only data section. */
-> +    mov_w   r1, _srodata
-> +    mov_w   r2, _erodata
-> +    prepare_xen_region r0, r1, r2, r3, r4, r5, attr_prbar=REGION_RO_PRBAR
-> +
-> +    /* Xen read-only after init and data section. (RW data) */
-> +    mov_w   r1, __ro_after_init_start
-> +    mov_w   r2, __init_begin
-> +    prepare_xen_region r0, r1, r2, r3, r4, r5
-> +
-> +    /* Xen code section. */
-> +    mov_w   r1, __init_begin
-> +    mov_w   r2, __init_data_begin
-> +    prepare_xen_region r0, r1, r2, r3, r4, r5, attr_prbar=REGION_TEXT_PRBAR
-> +
-> +    /* Xen data and BSS section. */
-> +    mov_w   r1, __init_data_begin
-> +    mov_w   r2, __bss_end
-> +    prepare_xen_region r0, r1, r2, r3, r4, r5
-> +
-> +#ifdef CONFIG_EARLY_PRINTK
-> +    /* Xen early UART section. */
-> +    mov_w   r1, CONFIG_EARLY_UART_BASE_ADDRESS
-> +    mov_w   r2, (CONFIG_EARLY_UART_BASE_ADDRESS + CONFIG_EARLY_UART_SIZE)
-> +    prepare_xen_region r0, r1, r2, r3, r4, r5, attr_prbar=REGION_DEVICE_PRBAR, attr_prlar=REGION_DEVICE_PRLAR
-> +#endif
-> +
-> +    b    enable_mpu
-> +END(enable_boot_cpu_mm)
-> +
-> +/*
-> + * We don't yet support secondary CPUs bring-up. Implement a dummy helper to
-> + * please the common code.
-> + */
-> +FUNC(enable_secondary_cpu_mm)
-> +    PRINT("- SMP not enabled yet -\r\n")
-> +1:  wfe
-> +    b 1b
-> +END(enable_secondary_cpu_mm)
+> +void __init setup_virt_paging(void)
+> +{
+> +    BUG_ON("unimplemented");
+> +}
 > +
 > +/*
 > + * Local variables:
-> + * mode: ASM
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
 > + * indent-tabs-mode: nil
 > + * End:
 > + */
-> diff --git a/xen/arch/arm/include/asm/arm32/sysregs.h b/xen/arch/arm/include/asm/arm32/sysregs.h
-> index 22871999af..a90d1610a1 100644
-> --- a/xen/arch/arm/include/asm/arm32/sysregs.h
-> +++ b/xen/arch/arm/include/asm/arm32/sysregs.h
-> @@ -20,6 +20,13 @@
->   * uses r0 as a placeholder register. */
->  #define CMD_CP32(name...)      "mcr " __stringify(CP32(r0, name)) ";"
->  
-> +#define REGION_TEXT_PRBAR       0x18    /* SH=11 AP=10 XN=0 */
-> +#define REGION_RO_PRBAR         0x1D    /* SH=11 AP=10 XN=1 */
-> +#define REGION_DATA_PRBAR       0x19    /* SH=11 AP=00 XN=1 */
-> +#define REGION_DEVICE_PRBAR     0x11    /* SH=10 AP=00 XN=1 */
-> +
-> +#define WRITE_SYSREG_ASM(v, name) mcr CP32(v, name)
-Same comment as for previous patch.
-
-> +
->  #ifndef __ASSEMBLY__
->  
->  /* C wrappers */
-> diff --git a/xen/arch/arm/include/asm/cpregs.h b/xen/arch/arm/include/asm/cpregs.h
-> index aec9e8f329..6019a2cbdd 100644
-> --- a/xen/arch/arm/include/asm/cpregs.h
-> +++ b/xen/arch/arm/include/asm/cpregs.h
-> @@ -1,6 +1,10 @@
->  #ifndef __ASM_ARM_CPREGS_H
->  #define __ASM_ARM_CPREGS_H
->  
-> +#ifdef CONFIG_MPU
-NIT: Do we really need to protect this include? I thought we do the ifdefery if
-we need to include either mmu or mpu. Here we don't have a choice and afaict
-there's nothing problematic in mpu/cpregs.h
-
-> +#include <asm/mpu/cpregs.h>
-> +#endif
-> +
->  /*
->   * AArch32 Co-processor registers.
->   *
-> diff --git a/xen/arch/arm/include/asm/mpu/cpregs.h b/xen/arch/arm/include/asm/mpu/cpregs.h
+> diff --git a/xen/arch/arm/arm32/mpu/smpboot.c b/xen/arch/arm/arm32/mpu/sm=
+pboot.c
 > new file mode 100644
-> index 0000000000..6b20c7ceae
+> index 0000000000..3f3e54294e
 > --- /dev/null
-> +++ b/xen/arch/arm/include/asm/mpu/cpregs.h
-> @@ -0,0 +1,24 @@
+> +++ b/xen/arch/arm/arm32/mpu/smpboot.c
+> @@ -0,0 +1,23 @@
 > +/* SPDX-License-Identifier: GPL-2.0-only */
 > +
-> +#ifndef __ASM_ARM_MPU_CPREGS_H
-> +#define __ASM_ARM_MPU_CPREGS_H
-> +
-> +/* CP15 CR0: MPU Type Register */
-> +#define HMPUIR          p15,4,c0,c0,4
-> +
-> +/* CP15 CR6: MPU Protection Region Base/Limit/Select Address Register */
-> +#define HPRSELR         p15,4,c6,c2,1
-> +#define PRBAR_EL2       p15,4,c6,c3,0
-> +#define PRLAR_EL2       p15,4,c6,c8,1
-> +
-> +#define MPUIR_EL2       HMPUIR
-> +#define PRSELR_EL2      HPRSELR
-AFAIK, these macros are there to use AArch64 sysreg names in common code when
-compiling Arm32. This would mean they should be protected with #ifdef CONFIG_ARM_32.
 
-~Michal
+I would add:
+#include <xen/bug.h>
+for BUG()
+
+#include <xen/errno.h>
+for EINVAL
+
+#include <xen/stdbool.h>
+for bool
+
+> +#include <xen/mm.h>
+> +
+> +int prepare_secondary_mm(int cpu)
+> +{
+> +    BUG_ON("unimplemented");
+> +    return -EINVAL;
+> +}
+> +
+> +void update_boot_mapping(bool enable)
+> +{
+> +    BUG_ON("unimplemented");
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.=
+h
+> index fbffaccef4..5b67c0f8bb 100644
+> --- a/xen/arch/arm/include/asm/mm.h
+> +++ b/xen/arch/arm/include/asm/mm.h
+> @@ -170,14 +170,7 @@ struct page_info
+> #define _PGC_need_scrub   _PGC_allocated
+> #define PGC_need_scrub    PGC_allocated
+>=20
+> -#ifdef CONFIG_ARM_32
+> -#define is_xen_heap_page(page) is_xen_heap_mfn(page_to_mfn(page))
+> -#define is_xen_heap_mfn(mfn) ({                                 \
+> -    unsigned long mfn_ =3D mfn_x(mfn);                            \
+> -    (mfn_ >=3D mfn_x(directmap_mfn_start) &&                      \
+> -     mfn_ < mfn_x(directmap_mfn_end));                          \
+> -})
+> -#else
+> +#ifdef CONFIG_ARM_64
+> #define is_xen_heap_page(page) ((page)->count_info & PGC_xen_heap)
+> #define is_xen_heap_mfn(mfn) \
+>     (mfn_valid(mfn) && is_xen_heap_page(mfn_to_page(mfn)))
+> diff --git a/xen/arch/arm/include/asm/mmu/mm.h b/xen/arch/arm/include/asm=
+/mmu/mm.h
+> index caba987edc..9b98d12b07 100644
+> --- a/xen/arch/arm/include/asm/mmu/mm.h
+> +++ b/xen/arch/arm/include/asm/mmu/mm.h
+> @@ -21,6 +21,15 @@ extern unsigned long directmap_base_pdx;
+>=20
+> #define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
+>=20
+> +#ifdef CONFIG_ARM_32
+> +#define is_xen_heap_page(page) is_xen_heap_mfn(page_to_mfn(page))
+> +#define is_xen_heap_mfn(mfn) ({                                 \
+> +    unsigned long mfn_ =3D mfn_x(mfn);                            \
+> +    (mfn_ >=3D mfn_x(directmap_mfn_start) &&                      \
+> +     mfn_ < mfn_x(directmap_mfn_end));                          \
+> +})
+> +#endif
+> +
+> #define virt_to_maddr(va) ({                                             =
+      \
+>     vaddr_t va_ =3D (vaddr_t)(va);                                       =
+        \
+>     (paddr_t)((va_to_par(va_) & PADDR_MASK & PAGE_MASK) | (va_ & ~PAGE_MA=
+SK)); \
+> diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm=
+/mpu/mm.h
+> index 86f33d9836..bfd840fa5d 100644
+> --- a/xen/arch/arm/include/asm/mpu/mm.h
+> +++ b/xen/arch/arm/include/asm/mpu/mm.h
+> @@ -13,6 +13,11 @@ extern struct page_info *frame_table;
+>=20
+> #define virt_to_maddr(va) ((paddr_t)((vaddr_t)(va) & PADDR_MASK))
+>=20
+> +#ifdef CONFIG_ARM_32
+> +#define is_xen_heap_page(page) ({ BUG_ON("unimplemented"); false; })
+> +#define is_xen_heap_mfn(mfn) ({ BUG_ON("unimplemented"); false; })
+> +#endif
+> +
+> /* On MPU systems there is no translation, ma =3D=3D va. */
+> static inline void *maddr_to_virt(paddr_t ma)
+> {
+> diff --git a/xen/arch/arm/mpu/Makefile b/xen/arch/arm/mpu/Makefile
+> index 21bbc517b5..ff221011d5 100644
+> --- a/xen/arch/arm/mpu/Makefile
+> +++ b/xen/arch/arm/mpu/Makefile
+> @@ -2,3 +2,4 @@ obj-y +=3D mm.o
+> obj-y +=3D p2m.o
+> obj-y +=3D setup.init.o
+> obj-y +=3D vmap.o
+> +obj-$(CONFIG_ARM_32) +=3D domain_page.o
+> diff --git a/xen/arch/arm/mpu/domain_page.c b/xen/arch/arm/mpu/domain_pag=
+e.c
+> new file mode 100644
+> index 0000000000..8859b24e04
+> --- /dev/null
+> +++ b/xen/arch/arm/mpu/domain_page.c
+> @@ -0,0 +1,41 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +#include <xen/domain_page.h>
+
+I would add:
+
+#include <xen/bug.h>
+for BUG()
+
+#include <xen/mm-frame.h>
+for mfn_t and INVALID_MFN
+
+#include <xen/types.h>
+for NULL
+
+
+> +
+> +void *map_domain_page_global(mfn_t mfn)
+> +{
+> +    BUG_ON("unimplemented");
+> +    return NULL;
+> +}
+> +
+> +/* Map a page of domheap memory */
+> +void *map_domain_page(mfn_t mfn)
+> +{
+> +    BUG_ON("unimplemented");
+> +    return NULL;
+> +}
+> +
+> +/* Release a mapping taken with map_domain_page() */
+> +void unmap_domain_page(const void *ptr)
+> +{
+> +    BUG_ON("unimplemented");
+> +}
+> +
+> +mfn_t domain_page_map_to_mfn(const void *ptr)
+> +{
+> +    BUG_ON("unimplemented");
+> +    return INVALID_MFN;
+> +}
+> +
+> +void unmap_domain_page_global(const void *va)
+> +{
+> +    BUG_ON("unimplemented");
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> --=20
+> 2.25.1
+
+with the above addressed, at least for me it looks good!
+
+Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+
+Cheers,
+Luca
 
 
