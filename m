@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBA0EA80692
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 14:29:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.941871.1341261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93773A80691
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 14:29:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.941872.1341268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u284P-0000M4-Vy; Tue, 08 Apr 2025 12:28:49 +0000
+	id 1u284Q-0000Sy-A9; Tue, 08 Apr 2025 12:28:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 941871.1341261; Tue, 08 Apr 2025 12:28:49 +0000
+Received: by outflank-mailman (output) from mailman id 941872.1341268; Tue, 08 Apr 2025 12:28:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u284P-0000KY-Sk; Tue, 08 Apr 2025 12:28:49 +0000
-Received: by outflank-mailman (input) for mailman id 941871;
- Tue, 08 Apr 2025 12:28:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=83+A=W2=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1u284N-0000KN-MS
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 12:28:47 +0000
-Received: from fout-b5-smtp.messagingengine.com
- (fout-b5-smtp.messagingengine.com [202.12.124.148])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 03546e33-1475-11f0-9eaa-5ba50f476ded;
- Tue, 08 Apr 2025 14:28:45 +0200 (CEST)
-Received: from phl-compute-03.internal (phl-compute-03.phl.internal
- [10.202.2.43])
- by mailfout.stl.internal (Postfix) with ESMTP id 1B1741140174;
- Tue,  8 Apr 2025 08:28:44 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-03.internal (MEProxy); Tue, 08 Apr 2025 08:28:44 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 8 Apr 2025 08:28:42 -0400 (EDT)
+	id 1u284Q-0000M8-6L; Tue, 08 Apr 2025 12:28:50 +0000
+Received: by outflank-mailman (input) for mailman id 941872;
+ Tue, 08 Apr 2025 12:28:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xdvb=W2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u284O-0000KM-HY
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 12:28:48 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 02cc1824-1475-11f0-9ffb-bf95429c2676;
+ Tue, 08 Apr 2025 14:28:44 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-391342fc1f6so4836226f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 05:28:44 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c301b42besm14584816f8f.41.2025.04.08.05.28.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Apr 2025 05:28:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,151 +45,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03546e33-1475-11f0-9eaa-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1744115323;
-	 x=1744201723; bh=A59KF7piw/VwMYMnYrIG0UZhvm3iMNK9GHVvAL+gTXc=; b=
-	oktU+xWniTHyiv7xjEKZL29ngPXJ5m5iXqP3CvHbkFgsRk834y62vpoU06NkEREN
-	pOovBG0WnLJVxiw57rixJEcwOl3/xzVP2aaZ1f5ow5/8wQI3M0mGxDABiYaX1Gp7
-	9aQMZf1hiirhKKS1MLP1Fayh1k6+Wt7myh9aNz5oCjg/GeWx5UNKmD/hUo2UCDE2
-	LiiMdH4UIdd0rqiRfOO8pCULByBJtdglm/5oj7JUYKe75HDBshvDCXRDh2ObSGeL
-	YjpD6xWdigqMCwXnvIDuKlzNXBbhotrZsp87em1FoSz+D/bdQpyVfptDyyVqLvzY
-	m/3C6QNpF7jA2prKcN+h5A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1744115323; x=1744201723; bh=A59KF7piw/VwMYMnYrIG0UZhvm3iMNK9GHV
-	vAL+gTXc=; b=HRnGjs+S0ZBe3rA+8Ml79NYMJHUSFDoVNC2IW4Q30oDyNLAPRYO
-	tYmSNSlfzeuYZSF2aZfg2POISwFQrmDBPXxeHo5inOW1xG0c5YjEiUZuQicT+hhp
-	YJSOBUelKv5AbrP01HIrmitbWBxIR9FH8sgy/khKR8zFp7jE4akfGssgEjDGUw28
-	cg2TD6SeNo/wI/yBJrY3xtUArheRJlrfQ5dVC6TtVswJI80v/FOhXinpH/JzyI+w
-	TKEy9+gNfRtDDZkQriudbeHXG6N3hW4QP0gjjf2wUMCKc4bnlgVka3Qk2HtrOEZK
-	z8SAVQOQqSh1Qq89DRWXvdEJ4H6Vr9BxLjQ==
-X-ME-Sender: <xms:exb1Z_HBKcAjzNC1bbVqalOOQ35IsLayRB5EgvSyn-oHvPQ6BI5tNA>
-    <xme:exb1Z8U1KGaLcwknVXNnWvH-_ap0P78WE28BW3AqmoslzM33CEB9PEEz75NDTV5PG
-    mr9_bNlamEXgw>
-X-ME-Received: <xmr:exb1ZxI7av6d8apJqsdZumnEBRbEsDFb2jdatL7bjAhYsq72_GtnNMkMxkLf_nB9i2nZr5OsGsYTZBU2iHRV-AJOjFte0uTHjg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtdeftdekucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
-    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
-    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
-    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
-    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-    dpnhgspghrtghpthhtohepkedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghn
-    thhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtthhopegrnhgurh
-    gvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtohepgigvnhdquggv
-    vhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtohepshhsth
-    grsggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepmhhitghhrghlrdho
-    rhiivghlsegrmhgurdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtg
-    homhdprhgtphhtthhopehjuhhlihgvnhesgigvnhdrohhrghdprhgtphhtthhopehrohhg
-    vghrrdhprghusegtihhtrhhigidrtghomh
-X-ME-Proxy: <xmx:exb1Z9G-yBkhSrcXWDLkOkYFuLSp2K-9KKpLkn18hA5cZiC5jfFvCw>
-    <xmx:exb1Z1XJ2LhXLxtWwxuxqz7_9dDpyC54hjTmA6A4qHx0prp5lO9eKw>
-    <xmx:exb1Z4OzckpIwusshfcPdvd912P4oXo1675WzTbZFRTAXDNZGuEPRQ>
-    <xmx:exb1Z02yf0mRc9ZAbE2waUS7My--gPVvO0th8dB7XTi6C1VhIHdW7Q>
-    <xmx:exb1Z7K6eLsYAw5bK4wVZmonT9Op3cu0qMDzqSWyHZL0mU3bc61ifqof>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 8 Apr 2025 14:28:39 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [PATCH test-artifacts v2 14/12] scripts: build initrd cpio
-Message-ID: <Z_UWeDXoj3Z2c1Db@mail-itl>
-References: <cover.7da1777882774486a13e6f39ff4a2096f6b7901e.1744028549.git-series.marmarek@invisiblethingslab.com>
- <20250407123448.1520451-2-marmarek@invisiblethingslab.com>
- <a2b01279-4e67-4ce9-9752-21c16c33fe32@citrix.com>
- <04ae4edc-8ea6-489d-8485-6e45aa750607@citrix.com>
- <Z_P9y8lxB_-kEcy6@mail-itl>
- <Z_URWuh2hrIWGBGV@l14>
+X-Inumbo-ID: 02cc1824-1475-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1744115323; x=1744720123; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=4dCDQhQWDptOSQpAbCQON+swqOWudMZFiH3TjbxrPU0=;
+        b=PbsNeB66nwt5Z1oBA7OT5cj+hsWJJFEU2iV4nwRG49K/EEbeJpaCqS/yzqBt0PnNYr
+         aa3IvZoD5J1BBPXeFisRA/S3LIzhlFiZex6j3et85V8lLbaemdj6FUKSxiBCMbqlCRHE
+         gmp9wYnRnx8UgbqGWIi9Nkrw2LRa29Rt01zH1jCbBmSqv565HG/DB9c+UeaMx8fVU1Yw
+         EYBTtAapbb3cNBHi8Za4AwUvbNaiJTmyoEOvF9hOwQYRsk1MHgPAyq4DkwVvWe15dgr9
+         8TQUmNkTLMpZgWRtgAmWKD3Rhe4f52kBf1pF8jtg4HRDZoeYQwwRmQXVto/6/Kb5cGMa
+         QIUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744115323; x=1744720123;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=4dCDQhQWDptOSQpAbCQON+swqOWudMZFiH3TjbxrPU0=;
+        b=mpWt1Q/WQLu8Yb5cojltkfqRdIRvlBgkS8/Fq8QmNSrrcHV3wXLTd8uKPd2iXVPSn3
+         BWrfvqOoNZx1VSTx38v5BJz+za/dyLjxvcn8HrLcxrzcS4Eq/zSVXU+n9Zkn+l0PPcRc
+         skIkdL8obyDAcuu6Nue01+mnBigUhyNll3rvbbZrkZa+1+s1yH2Y9auhDlT8iGKKyfiw
+         nfp7MCRZSTqmR1noj6Fnt34L6JlmCbFFxOOoHBQfD50ZyU+sPvFJF6Pmh0sKLvI6/MRX
+         usWHOE7W9v839U+91bIdnGUURLEoLgsafIzDrgZHbl0DtqzMTgX/WLilWX9422AfaKk5
+         4Obw==
+X-Gm-Message-State: AOJu0YyUOYciy2diYiyTJpa+CGEscQevI7KLxlwqPZIBvPFogKAj5H0N
+	IAUHMZZm0MvAdqmQEvgWWquRQ0UZdGGF7jr5gREfWpWYYUL22PHQ0DWkeZ94Zon7m4yaSjyHE7g
+	=
+X-Gm-Gg: ASbGncsbyaOuJcio5L4IGHQ/Z5tY10TwYxSZ1u1eyo/DVm18Y8fMlrFAouW0VOYyuUN
+	GWQYcPLdlOvICke0+dVZTwiq0phhP6ay5vPBoSahWYM8pPPTEwlxFFZ2q54qPpajAtY/AOYGU/L
+	8Z1cyh6ol535Dc0A8btqFWtp6eR4LOMep/e6HfhRq18hQSoF6UoQA20yLcvfYPB02bsedHkWe6A
+	zPDNUzWcSXCU7M0qkXTFb4sys4mbyDTuqxLCTaGM3doP6AQ4zAgjrfXN82N4QDvygDyJVM7aMUu
+	oSU4RaNos/ugbF5zmc3aWNH6GYS4h9MkQREMwvAU/ezGN5dv2/0bmg/v5L6lfxd1QWQJU/wLqaa
+	8bdMe2WUWN0DeZ8SCFlg405QBmpcghQ==
+X-Google-Smtp-Source: AGHT+IGc8wmmahf526OeOYgrBUQ2FhK07qOOMSd+0TvmGLrGPOi5CE55xp6Ksw8GxeXPf0YjT0cgfQ==
+X-Received: by 2002:a05:6000:228a:b0:39c:30d9:3b5c with SMTP id ffacd0b85a97d-39d0de67b78mr14094928f8f.39.1744115323517;
+        Tue, 08 Apr 2025 05:28:43 -0700 (PDT)
+Message-ID: <779957ca-3250-4b33-ac1d-ace1dcdaafc0@suse.com>
+Date: Tue, 8 Apr 2025 14:28:42 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="zEU1nonQ0q9tffLo"
-Content-Disposition: inline
-In-Reply-To: <Z_URWuh2hrIWGBGV@l14>
-
-
---zEU1nonQ0q9tffLo
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 8 Apr 2025 14:28:39 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Anthony PERARD <anthony.perard@vates.tech>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [PATCH test-artifacts v2 14/12] scripts: build initrd cpio
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86emul/test: drop check for AVX512-4FMAPS
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Apr 08, 2025 at 12:06:51PM +0000, Anthony PERARD wrote:
-> On Mon, Apr 07, 2025 at 06:31:06PM +0200, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > There is one more difference: the cpio.gz contains the whole thing
-> > twice. Once as rootfs for dom0 and then another as boot/initrd-domU.
-> > Dropping .tar.gz is probably a good idea at some point, so I'm okay with
-> > such comment added. But I imagine some future tests may benefit from
-> > just one layer, which may want introducing another cpio.gz without
-> > boot/initrd-domU included. In fact, even right now that might be useful
-> > - for example dom0less arm64 test uses just busybox for domU rootfs, not
-> > the whole archive (so with my changes dom0 rootfs has unused
-> > boot/initrd-domU included).
->=20
-> In such case, would it make sense to prepare several initrd.cpio.gz? A
-> common one, then having overlays of files we want to add or replace to
-> the initrd of spefic test. I think osstest used to do something like
-> that, with command that would be:
->     cat common.cpio.gz overlay.cpio.gz > initrd.cpio.gz
->=20
-> If it matter, is seem that the "file.cpio" used to be made with
-> `cpio -Hnewc -o`
+Use of Xeon Phi features was dropped earlier on; this one was overlooked.
 
-This is already how final initrd is constructed with my changes.
-Having said that, maybe test-artifacts should not include
-boot/initrd-domU in initrd.cpio.gz initially, but have a separate cpio
-that has just boot/initrd-domU there. Most tests do use this domU
-initrd, but since they need to concatenate something anyway, maybe
-starting with two files instead of one doesn't make much difference?
+Fixes: 85191cf32180 ("x86: drop Xeon Phi support")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+In principle it looks as if we could now drop all of this checking, as
+gcc5 supports all of the features we check for. AVX512-4FMAPS is an
+example though where checking helps, as this and other Xeon Phi features
+were supported by an intermediate range of gcc versions.
 
-So, it would be:
-- initrd.cpio.gz - plain rootfs, for dom0 (or domU in dom0less tests)
-- initrd-in-boot.cpio.gz - the above initrd.cpio.gz packed again as
-  boot/initrd-domU
-
-What do you think?
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---zEU1nonQ0q9tffLo
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmf1FngACgkQ24/THMrX
-1yxZKQf/d/Rq6DXP3PX4/Z0jB84sHjT3az49EhftqOx438Ijj5IWkZn+/sHXvvwO
-tTXAQ00UEb/95PXP5nBUiFTOxlIRm62WUWG6QHH50NV0+AePmvY2CsupJ1m3YT7H
-O9Q/5TdalMVYu6FgWuvGiOd+89fSsRdy9lB2vPqy2YqoafaEovQXVYhmOl9BYAHj
-KhE2hE0MB33GAkYQ1/XvLi1j+Dlxy1JTEQLaJiTRpHqH3rKR5xyV8y3fV0MNExH+
-A0usg8HLhmm3z7bgx1+VCuhIEdMPrJpwjX8IMuCwQ+JqUo1PVARTJUsJ0UEHtWw0
-rJcU7UBXjF5iB/hhJrBxKYNH/28Ndg==
-=X3/i
------END PGP SIGNATURE-----
-
---zEU1nonQ0q9tffLo--
+--- a/tools/tests/x86_emulator/Makefile
++++ b/tools/tests/x86_emulator/Makefile
+@@ -105,7 +105,7 @@ TARGET-$(shell echo 'int i;' | $(CC) -x
+ endef
+ 
+ ISA := bmi bmi2 tbm sse4.1 sse4.2 sse4a avx avx2 f16c
+-ISA += $(addprefix avx512,f bw dq 4fmaps)
++ISA += $(addprefix avx512,f bw dq)
+ $(foreach isa,$(ISA),$(eval $(call isa-check-cc,$(isa))))
+ 
+ # Also explicitly check for {evex} pseudo-prefix support, which got introduced
 
