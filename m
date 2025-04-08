@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0530DA810DF
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 17:57:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.942503.1341675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D446DA810E3
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 17:57:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.942505.1341684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BKN-0005cI-Cv; Tue, 08 Apr 2025 15:57:31 +0000
+	id 1u2BKP-0005uC-Or; Tue, 08 Apr 2025 15:57:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 942503.1341675; Tue, 08 Apr 2025 15:57:31 +0000
+Received: by outflank-mailman (output) from mailman id 942505.1341684; Tue, 08 Apr 2025 15:57:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BKN-0005ZV-9E; Tue, 08 Apr 2025 15:57:31 +0000
-Received: by outflank-mailman (input) for mailman id 942503;
- Tue, 08 Apr 2025 15:57:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u2BKP-0005rf-Hh; Tue, 08 Apr 2025 15:57:33 +0000
+Received: by outflank-mailman (input) for mailman id 942505;
+ Tue, 08 Apr 2025 15:57:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f4Vq=W2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u2BKL-0004Yr-4O
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 15:57:29 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2bf79871-1492-11f0-9eaa-5ba50f476ded;
- Tue, 08 Apr 2025 17:57:28 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-ac29fd22163so995725366b.3
- for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 08:57:28 -0700 (PDT)
+ id 1u2BKN-0004Yq-IU
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 15:57:31 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2ccb0e72-1492-11f0-9ffb-bf95429c2676;
+ Tue, 08 Apr 2025 17:57:29 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-ac25520a289so1006060566b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 08:57:29 -0700 (PDT)
 Received: from fedora.. (user-109-243-64-225.play-internet.pl.
  [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac7c018556bsm929934566b.156.2025.04.08.08.57.26
+ a640c23a62f3a-ac7c018556bsm929934566b.156.2025.04.08.08.57.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Apr 2025 08:57:27 -0700 (PDT)
+ Tue, 08 Apr 2025 08:57:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2bf79871-1492-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 2ccb0e72-1492-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744127848; x=1744732648; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1744127849; x=1744732649; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZT8rKSfyX7xZtUnDKHJfH2FXwyt339CMWYXyLpe8kCY=;
-        b=cTgnzBWIMzLA2uur8rlx6Wo6LNzZq9gXz3fG/9N3U696e0Y1qJHJWgWJ9ahPJ1RrcP
-         DGSrotC8uHZth+7jXFDSNK9XDIk6aAIJsep5CMfWSgiMfLLsbiz5iHmbBDPbYCpPz946
-         lYlCVIoIoMnwTaxTEzaMlhIDobfz/uAXZg8Fs0bZlvYIGgJ1c8dKVJI3sCCXqCt5fQvh
-         kz5VNyJE90P7HAfuLl2jQo3c/k+xorpJKivY9wE6ZfO4bd7li9ZHaQdb4/m9y4iyR0ty
-         Q1gGzcxaCroSkAe2cqziNfkfPH+vPZDs5kOgecANztJIPIGypsgD568Dzgmdmc5Da9Bt
-         RPUA==
+        bh=uCtnXnepMjQJ6WdYnFvlLVv3tm/yir71NGvOBIDdkhw=;
+        b=J8kt5T71PBmUAbha+/X33kUE2vjPDncWuh6r1TwYCbFLfOyAaPMICVQ7lvljkP5XcC
+         zRpFniX3N/KzVDG2TzpWKFJbvnNI2g36HNJX4esqQ4Bg6lvuB5pgmFCsX9bVUBgN6y5A
+         ZLxlfZsb+H3+JO5UeoqS9rkcJ4qlDW0YBQPtKoGMSxuUt1bDM3FxFKbk0eX0D9NIGkis
+         B8M3wUjZkiwkXTjpzKXw3+2oCoMtTlye7e7h/o+b4D8A3uKzmBDVUPK02lpdyAMQTIBq
+         qMFf5UHWv4NtCb4YwZg4Q29AsfdKi9XF2RTDLjx/+bAlZDnDKR9mAR+LETReouSHsz8T
+         m9Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744127848; x=1744732648;
+        d=1e100.net; s=20230601; t=1744127849; x=1744732649;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ZT8rKSfyX7xZtUnDKHJfH2FXwyt339CMWYXyLpe8kCY=;
-        b=Rvfn8oa6Gns3WdQv8RkQbroftWDp84F/EgEPCyTgMhxCKS3Fc7gOHMx7SqfA6ErQWY
-         DUNZbCRk1lJHJKDbea8n8ysT5lNhFui854PkrcN6R9kerjoKa4ngy/jq6O8g4hjh7PBY
-         pNEzypb09EDQRH8VygkhLSs1IMKbDV1CoNIG1bQFcekuQj2AKaXs8GrivRrYEg0g96Hh
-         JS3CHdzMd6z/qthqVB9ShOUyIMdHQQR++/A+wH5BnqLYynW6KTAMIc/abvh0vQg6eB4i
-         DWicXmhDUppjiB3jvsqFlD7oFelhlSsvCgrekJbox24ieRP3vnPEAhl42LLpT0yf8bLP
-         GKzg==
-X-Gm-Message-State: AOJu0Yx2JeiEcl7nzaXPbf3XKw2qTR+6PehSwzYWusqGxSn7f0veri6p
-	3my89b36cD5jppAQvG50nsz0m1nk0a2oRL/GG6otI2Mpxh6Ngjk4CHFjAw==
-X-Gm-Gg: ASbGncvlUs9mZhgPWbgRIEMvW+d34uynGrborgN2b9wCnsWM+eSELhknOK0GU25TUmX
-	b/BUffUppyuAyf1xYqH1KATwAVWRho67nc9doOEqDruTPE6Na9ck9+OntjxXSrnEH2UV6WZ/x7j
-	Ik7u8o0TeHKmXZSZEfBNSzGUBv30kEQI4osJ0IFrq3O7/iwPbSm4ObraWlxX1kIcdNB23iCG45o
-	WjcRxjw9pOrqbWD0HPApup2xBLYyrmpu0re9/F9P2xg6Zz8ntIqq3sGTDdwk9fB2gHGtkYSVGA4
-	O4mVOOuf8sIr4LSeGtlgPnkjBJk8OjT2NvFgNtEJIKsqWMAET1PLK2/PWjdvsgr265CE2ttFK5r
-	qHWsGKaaEXsl0uA==
-X-Google-Smtp-Source: AGHT+IEBhPbeHE6U5+TNIa3utiAycGcioh0lgV4ejRRW9dYFHNRnq6I7mJsucHWf/Rq1QAHevan8Mg==
-X-Received: by 2002:a17:907:c26:b0:ac3:bf36:80e2 with SMTP id a640c23a62f3a-ac7d6d29f49mr1725840666b.20.1744127847578;
-        Tue, 08 Apr 2025 08:57:27 -0700 (PDT)
+        bh=uCtnXnepMjQJ6WdYnFvlLVv3tm/yir71NGvOBIDdkhw=;
+        b=ojYnHaGd8IzXXci8xNMLT4+DzqA5OlRh7Y8aFEZKI5IfS3IaL36mFzIbIAve2dooRe
+         HjlJcrtcIlr/kDC1pzWd1NybvEL/NraW+7+dUpTU93fvuMPfFb0Cc1sUKZGkDecpf8XL
+         W2WcdGMbfmhHkw48mNZsLFc0HAn61nQOPg3JijRzRLjtyV+ZYrCIcrJhvykH/0NtZJDX
+         m2vdwQ98DebkC/Lq2ytaDE74k+3PUNwnv+DbV1LxY7KORUoG2nYkxc3g4znsEGAfeNO3
+         tKeZ4YgFBq0NmOdculg9IyKKvb3v3rmelD5InMJHXFTSdDAms6cTkPAJIGHB4gWir4Ku
+         +UsQ==
+X-Gm-Message-State: AOJu0YxBllLTTko1DidtLWy1cy3qDqiULD4pgvN7gU6XzKKSAQsx8Zkp
+	EyFl+msz5WrXqSP5a7xKhIgdZET0AA4kdffFYFvYl77eqmHrFFlQPWwq9Q==
+X-Gm-Gg: ASbGncvnxQvgQ9JPA6TYL1dzCZIEGHfreCDC0B5vJJkkxiRMmUlZm4XRjKSHA/aiNTU
+	hqwiu1HqWZDYXTagEJpSLIWHdqsaWuwp/eybW7rq9fNIAu00vKfWYnvkaakmIgNBidakWDMS+Cy
+	pI5o5XwDIb6FuPyvy/w1ZwlBEj1UReHtOJvsFHa9kcuzLdtOVMCIYNUj2Ozi/W5jeVp7+Q3TbgT
+	Hsqhk8un7bGWXlszgK6Ffdjsoz6XdoPo3daaBzvolZM8m5EzsxbBUigxx452etpCB9R/jhsj4TR
+	MRX5+y1Uk4W1jcpgVuaeIuRyiZMmf8CbmgVmvEVziUVJFFJj8+DWtoXgXnMcnwvAdOGX+HpGKHF
+	/gaYKUOi5CstEtA==
+X-Google-Smtp-Source: AGHT+IFJ1QvQ6CEjloJ0R8mMyvtVVCL9ldhwXDZiW0oswAHpDPPPugf5ISduozzVoTqxseYyEoUJXQ==
+X-Received: by 2002:a17:907:724a:b0:ac1:ddaa:2c03 with SMTP id a640c23a62f3a-ac7d690b353mr1371954466b.0.1744127848820;
+        Tue, 08 Apr 2025 08:57:28 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -93,184 +93,148 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 04/14] xen/riscv: introduce init_IRQ()
-Date: Tue,  8 Apr 2025 17:57:08 +0200
-Message-ID: <dff8b0a4a83fbd2b84c3427093a63fcee8a7122f.1744126720.git.oleksii.kurochko@gmail.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Romain Caritey <Romain.Caritey@microchip.com>
+Subject: [PATCH v1 05/14] xen/riscv: introduce platform_get_irq()
+Date: Tue,  8 Apr 2025 17:57:09 +0200
+Message-ID: <6c6e7482cc3b0332f5724c80bf16931fe2d793ae.1744126720.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1744126720.git.oleksii.kurochko@gmail.com>
 References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Implement init_IRQ() to initalize various IRQs.
+platform_get_irq() recieves information about device's irq ( type
+and irq number ) from device tree node and using this information
+update irq descriptor in irq_desc[] array.
 
-Currently, this function initializes the irq_desc[] array,
-which stores IRQ descriptors containing various information
-about each IRQ, such as the type of hardware handling, whether
-the IRQ is disabled, etc.
-The initialization is basic at this point and includes setting
-IRQ_TYPE_INVALID as the IRQ type, assigning the IRQ number ( which
-is just a consequent index of irq_desc[] array ) to
-desc->irq, and setting desc->action to NULL.
+Introduce dt_irq_xlate and initialize with aplic_irq_xlate() as
+it is used by dt_device_get_irq() which is called by
+platform_get_irq().
 
-Additionally, the function init_irq_data() is introduced to
-initialize the IRQ descriptors for all IRQs in the system.
-
-Also, define IRQ_TYPE_* which are the same as the existing device
-tree definitions for convenience.
-
+Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/Makefile          |  1 +
- xen/arch/riscv/include/asm/irq.h | 24 +++++++++++++++++
- xen/arch/riscv/irq.c             | 44 ++++++++++++++++++++++++++++++++
- xen/arch/riscv/setup.c           |  3 +++
- xen/arch/riscv/stubs.c           |  5 ----
- 5 files changed, 72 insertions(+), 5 deletions(-)
- create mode 100644 xen/arch/riscv/irq.c
+ xen/arch/riscv/aplic.c           | 19 +++++++++++++++
+ xen/arch/riscv/include/asm/irq.h |  3 +++
+ xen/arch/riscv/irq.c             | 41 ++++++++++++++++++++++++++++++++
+ 3 files changed, 63 insertions(+)
 
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index f551bf32a2..457e8e88a4 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -3,6 +3,7 @@ obj-y += cpufeature.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-y += entry.o
- obj-y += intc.o
-+obj-y += irq.o
- obj-y += mm.o
- obj-y += pt.o
- obj-$(CONFIG_RISCV_64) += riscv64/
+diff --git a/xen/arch/riscv/aplic.c b/xen/arch/riscv/aplic.c
+index caba8f8993..6dc040af6f 100644
+--- a/xen/arch/riscv/aplic.c
++++ b/xen/arch/riscv/aplic.c
+@@ -11,6 +11,7 @@
+ 
+ #include <xen/errno.h>
+ #include <xen/init.h>
++#include <xen/irq.h>
+ #include <xen/sections.h>
+ #include <xen/types.h>
+ 
+@@ -21,6 +22,22 @@ static struct intc_info __ro_after_init aplic_info = {
+     .hw_version = INTC_APLIC,
+ };
+ 
++static int aplic_irq_xlate(const uint32_t *intspec, unsigned int intsize,
++                           unsigned int *out_hwirq,
++                           unsigned int *out_type)
++{
++    if ( intsize < 2 )
++        return -EINVAL;
++
++    /* Mapping 1:1 */
++    *out_hwirq = intspec[0];
++
++    if ( out_type )
++        *out_type = intspec[1] & IRQ_TYPE_SENSE_MASK;
++
++    return 0;
++}
++
+ static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
+ {
+     if ( aplic_info.node )
+@@ -35,6 +52,8 @@ static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
+ 
+     aplic_info.node = node;
+ 
++    dt_irq_xlate = aplic_irq_xlate;
++
+     return 0;
+ }
+ 
 diff --git a/xen/arch/riscv/include/asm/irq.h b/xen/arch/riscv/include/asm/irq.h
-index 2a48da2651..8f936b7d01 100644
+index 8f936b7d01..ff1c95e0be 100644
 --- a/xen/arch/riscv/include/asm/irq.h
 +++ b/xen/arch/riscv/include/asm/irq.h
-@@ -3,6 +3,28 @@
- #define ASM__RISCV__IRQ_H
+@@ -47,6 +47,9 @@ static inline void arch_move_irqs(struct vcpu *v)
+     BUG_ON("unimplemented");
+ }
+ 
++struct dt_device_node;
++int platform_get_irq(const struct dt_device_node *device, int index);
++
+ void init_IRQ(void);
+ 
+ #endif /* ASM__RISCV__IRQ_H */
+diff --git a/xen/arch/riscv/irq.c b/xen/arch/riscv/irq.c
+index 99b8f2095e..c332e000c4 100644
+--- a/xen/arch/riscv/irq.c
++++ b/xen/arch/riscv/irq.c
+@@ -7,11 +7,52 @@
+  */
  
  #include <xen/bug.h>
 +#include <xen/device_tree.h>
-+
-+#define NR_IRQS 1024
-+
-+/*
-+ * TODO: Should IRQ_TYPE_* be moved to xen/irq.h and wrapped into
-+ * #ifdef CONFIG_HAS_DEVICE_TREE?
-+ */
-+/*
-+ * These defines correspond to the Xen internal representation of the
-+ * IRQ types. We choose to make them the same as the existing device
-+ * tree definitions for convenience.
-+ */
-+#define IRQ_TYPE_NONE           DT_IRQ_TYPE_NONE
-+#define IRQ_TYPE_EDGE_RISING    DT_IRQ_TYPE_EDGE_RISING
-+#define IRQ_TYPE_EDGE_FALLING   DT_IRQ_TYPE_EDGE_FALLING
-+#define IRQ_TYPE_EDGE_BOTH      DT_IRQ_TYPE_EDGE_BOTH
-+#define IRQ_TYPE_LEVEL_HIGH     DT_IRQ_TYPE_LEVEL_HIGH
-+#define IRQ_TYPE_LEVEL_LOW      DT_IRQ_TYPE_LEVEL_LOW
-+#define IRQ_TYPE_LEVEL_MASK     DT_IRQ_TYPE_LEVEL_MASK
-+#define IRQ_TYPE_SENSE_MASK     DT_IRQ_TYPE_SENSE_MASK
-+#define IRQ_TYPE_INVALID        DT_IRQ_TYPE_INVALID
- 
- /* TODO */
- #define nr_irqs 0U
-@@ -25,6 +47,8 @@ static inline void arch_move_irqs(struct vcpu *v)
-     BUG_ON("unimplemented");
- }
- 
-+void init_IRQ(void);
-+
- #endif /* ASM__RISCV__IRQ_H */
- 
- /*
-diff --git a/xen/arch/riscv/irq.c b/xen/arch/riscv/irq.c
-new file mode 100644
-index 0000000000..99b8f2095e
---- /dev/null
-+++ b/xen/arch/riscv/irq.c
-@@ -0,0 +1,44 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+
-+/*
-+ * RISC-V Trap handlers
-+ *
-+ * Copyright (c) 2024 Vates
-+ */
-+
-+#include <xen/bug.h>
-+#include <xen/init.h>
-+#include <xen/irq.h>
-+
-+static irq_desc_t irq_desc[NR_IRQS];
-+
-+int arch_init_one_irq_desc(struct irq_desc *desc)
-+{
-+    desc->arch.type = IRQ_TYPE_INVALID;
-+    return 0;
-+}
-+
-+static int __init init_irq_data(void)
-+{
-+    int irq;
-+
-+    for ( irq = 0; irq < NR_IRQS; irq++ )
-+    {
-+        struct irq_desc *desc = irq_to_desc(irq);
-+        int rc = init_one_irq_desc(desc);
-+
-+        if ( rc )
-+            return rc;
-+
-+        desc->irq = irq;
-+        desc->action  = NULL;
-+    }
-+
-+    return 0;
-+}
-+
-+void __init init_IRQ(void)
-+{
-+    if ( init_irq_data() < 0 )
-+        panic("initialization of IRQ data failed\n");
-+}
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 7f68f3f5b7..a3189697da 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -6,6 +6,7 @@
- #include <xen/compile.h>
- #include <xen/device_tree.h>
++#include <xen/errno.h>
  #include <xen/init.h>
-+#include <xen/irq.h>
- #include <xen/mm.h>
- #include <xen/shutdown.h>
- #include <xen/vmap.h>
-@@ -127,6 +128,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
-         panic("Booting using ACPI isn't supported\n");
-     }
+ #include <xen/irq.h>
  
-+    init_IRQ();
+ static irq_desc_t irq_desc[NR_IRQS];
+ 
++static bool irq_validate_new_type(unsigned int curr, unsigned int new)
++{
++    return (curr == IRQ_TYPE_INVALID || curr == new );
++}
 +
-     riscv_fill_hwcap();
- 
-     preinit_xen_time();
-diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-index fdcf91054e..e396b67cd3 100644
---- a/xen/arch/riscv/stubs.c
-+++ b/xen/arch/riscv/stubs.c
-@@ -107,11 +107,6 @@ void irq_ack_none(struct irq_desc *desc)
-     BUG_ON("unimplemented");
- }
- 
--int arch_init_one_irq_desc(struct irq_desc *desc)
--{
--    BUG_ON("unimplemented");
--}
--
- void smp_send_state_dump(unsigned int cpu)
++static int irq_set_type(unsigned int irq, unsigned int type)
++{
++    unsigned long flags;
++    struct irq_desc *desc = irq_to_desc(irq);
++    int ret = -EBUSY;
++
++    spin_lock_irqsave(&desc->lock, flags);
++
++    if ( !irq_validate_new_type(desc->arch.type, type) )
++        goto err;
++
++    desc->arch.type = type;
++
++    ret = 0;
++
++err:
++    spin_unlock_irqrestore(&desc->lock, flags);
++
++    return ret;
++}
++
++int platform_get_irq(const struct dt_device_node *device, int index)
++{
++    struct dt_irq dt_irq;
++
++    if ( dt_device_get_irq(device, index, &dt_irq) )
++        return -1;
++
++    if ( irq_set_type(dt_irq.irq, dt_irq.type) )
++        return -1;
++
++    return dt_irq.irq;
++}
++
+ int arch_init_one_irq_desc(struct irq_desc *desc)
  {
-     BUG_ON("unimplemented");
+     desc->arch.type = IRQ_TYPE_INVALID;
 -- 
 2.49.0
 
