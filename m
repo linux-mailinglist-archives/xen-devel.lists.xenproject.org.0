@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2B59A810DE
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 17:57:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.942506.1341690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D289CA810E6
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 17:57:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.942508.1341703 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BKQ-00060Y-Bu; Tue, 08 Apr 2025 15:57:34 +0000
+	id 1u2BKR-0006LG-Nx; Tue, 08 Apr 2025 15:57:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 942506.1341690; Tue, 08 Apr 2025 15:57:34 +0000
+Received: by outflank-mailman (output) from mailman id 942508.1341703; Tue, 08 Apr 2025 15:57:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BKQ-0005vT-4F; Tue, 08 Apr 2025 15:57:34 +0000
-Received: by outflank-mailman (input) for mailman id 942506;
- Tue, 08 Apr 2025 15:57:32 +0000
+	id 1u2BKR-0006He-DT; Tue, 08 Apr 2025 15:57:35 +0000
+Received: by outflank-mailman (input) for mailman id 942508;
+ Tue, 08 Apr 2025 15:57:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f4Vq=W2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u2BKO-0004Yq-Ih
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 15:57:32 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1u2BKP-0004Yq-Ii
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 15:57:33 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2d6a55dd-1492-11f0-9ffb-bf95429c2676;
- Tue, 08 Apr 2025 17:57:30 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-abf3d64849dso966383466b.3
- for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 08:57:30 -0700 (PDT)
+ id 2dee1f74-1492-11f0-9ffb-bf95429c2676;
+ Tue, 08 Apr 2025 17:57:31 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-ac2af2f15d1so776002666b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 08:57:31 -0700 (PDT)
 Received: from fedora.. (user-109-243-64-225.play-internet.pl.
  [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac7c018556bsm929934566b.156.2025.04.08.08.57.28
+ a640c23a62f3a-ac7c018556bsm929934566b.156.2025.04.08.08.57.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Apr 2025 08:57:29 -0700 (PDT)
+ Tue, 08 Apr 2025 08:57:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d6a55dd-1492-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 2dee1f74-1492-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744127850; x=1744732650; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1744127851; x=1744732651; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xpeQYUWMQ0EnXPhGUr9CwT2CGE1bPu9ktFLlbeAAZLE=;
-        b=EnztfdtDE76uFITi52RB2yffM3YmtgRORIfEZMJPVShuAj9PM5kqiqCdiBcFbzWyeD
-         2xZef6gnRIeaY8XsIEch64pBCAjxAxRyxO9/ts6N3FgvtWmirU/2txCagM5UgbamOWRc
-         KrGCFBd2sFdaeNpSTtcCKNCc7Yd+C8oVzioYCvoezAQt4gHH3DOvAE2FzBXfblW1MMlY
-         3EUPkSURAS478wqIlF7dRNp9ofNxGvjDRbJxDBCg1XxjoM+kvoaPqP1H6FujMJ/vFvPB
-         tI+pYfqY6okGCNmxZEY+Qq0xaBgQDtvf0JU/QhAxGDq0UFG7S+yvoXOt0Xyo6EPP0qwL
-         /yRg==
+        bh=IiCk6l0j5WiAsBCvt03FXOQepiOD85wA7EDe/CpLmKg=;
+        b=jhEXWqruMyRd6bqsiZMLZ9Sr2SpaWC4DVVxerLond0rk1Hi0eTLLFw3go7X12c3X7r
+         CN7lxruNGVFMLbt7CryhjEliPqVwoDSdjnLOeXSz3aqUoFaovgX9KyXUfUWPWWX7Y8u0
+         Az0sjZ1MaD+Vc2mCAFiesgoizH/SK5DaWxIfeoDMm5f4exzDN+gHQxfEXP0iXPEOSm/W
+         flf59RwZZx/24pbik/KSa/nZQYFP9aokkGWyUFb2PRl3CofOtgti0z39VQV1Ygie0go7
+         igfFulqO77BbdN9tw5/3+OiPLgBiV9QwDETet/2B9kcZ1mL26yqEPj9iuLkFjuA90uSc
+         L1uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744127850; x=1744732650;
+        d=1e100.net; s=20230601; t=1744127851; x=1744732651;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xpeQYUWMQ0EnXPhGUr9CwT2CGE1bPu9ktFLlbeAAZLE=;
-        b=sF7rMK0iRkOk0ePdto/DMFPe2l5vIqZfChIMLW8xOkxbx3IPslhXoy0oQT5g8kwNor
-         7ssZ49atMxwBkyNFSkDUOPFhtZWQSz+Ut4zVriVhB0tO2dnPH4soRNCrIYtNBx4Yf/+A
-         v6OL75wF+DFVWViXWOWo58QTrRHTZvYNg9C/eXgmDAKXpnbma92pewMjxsMKHB3qkIfk
-         GT+ZaqxlhFM9ZJ87nVDTmgQX1sYJ+aV7lEh+lilRsF6AEgPg0NyqimknnUYb040jfG6T
-         aj0HcTss/Cy01TwxCt4U2mg/RoI+c6mxWzSqVUDWiF7nFhdQwN5ketGVpBYdqSXbp/k1
-         rCWg==
-X-Gm-Message-State: AOJu0YwZomf5I32b+fBpUBwOBnWUgNY/wCIkw+CD0uGU5vb522/x+4Az
-	Rj4eZuPBIqwDLNBUlAjj9RFmmFlazGauxVQOzpNzmouMaMsTshOr4n1uMw==
-X-Gm-Gg: ASbGncsVIWn9x5SPi3bxUBftXXgIiGE1uPj2hFAdqrtGJpl3246RIfNCEBGAZOvwJKi
-	pffPaQLFNzh5uya/FUi1ACmx082mm3x13nlGu11bc7lZjpTYsOntFqdMGZ3QKSMm0sfMb1HPzOE
-	PoalE/9ozZg514FXAyhFq1WCfGJDh2SwD0nLzEkNgUIlDeWsv6+udk8Cpb4fZTpU92JxJyUu7pl
-	C76Mn3M2AShWe6zjQhKfvfVoMVXjjelmF9zmhLFyBZTwA3Nd1EAaP6kbUwMh8XpGM4EAtRuvRI7
-	B+BmcSxB1qxVj/IuoX4hSfWn7MM+BzyGDXLb9gwnoWOk9t5bcqKcbQ3n0z45b8eSpovXSxzVrT8
-	68HU94Mi/xyMzzBJKypZD923t
-X-Google-Smtp-Source: AGHT+IEn04y7KC86eE2BNh70/HPXwqPH/Y/Yt0uP5OBEdcsZQ7+/Gzni+H8MI0kgZ0n6U3pjDLL+rQ==
-X-Received: by 2002:a17:907:1ca7:b0:ac4:85b:f973 with SMTP id a640c23a62f3a-ac7d1819306mr1292149166b.34.1744127849988;
-        Tue, 08 Apr 2025 08:57:29 -0700 (PDT)
+        bh=IiCk6l0j5WiAsBCvt03FXOQepiOD85wA7EDe/CpLmKg=;
+        b=tUk0GjcMHru9zVkVhcfxMu+Ayo8FZPRNNYySlnfDpoFw7kWlS6pNomzWO9eIoOmSyc
+         AXf+mlyyv8E8LhmjrLOWru1bncjrpt9Oe/DlBIQv5xze28C3YBwpEzX2vcTZZdlK3PG3
+         H1bFXUWMIt7PqXVSO/PcjHW0rRSHUl1bdkmvg9OEEza/Mwj3AKICwoCgjyHO9Zhzdtx9
+         Td/aDqGoy3kZjUjRrHaimHSjECnlCi7qNNoyJTVhc8+D2qaV3gs7xoo8zRMcRBGLKgz7
+         lSRxzzs9uLpjj3NEmbnhVj+zb+K0hGTIG/86hqAUVbDRQgZmAbKiTCRGygW1JVG0nNtY
+         GObQ==
+X-Gm-Message-State: AOJu0YwGk18ahEm4vrxn5berhDXecJN70iGDSf2mHN9qyP7/o+lrmXmc
+	GajcJdLn/BZueT06SaCITr1ZbFaY4jYyntLhh89fONWt/TUfO42eGrLi4g==
+X-Gm-Gg: ASbGnctszoaB9IbjJjRnMfGtjKmEpgXXHKELVFtVWLxbMtXVBS/jZrxmAQCqqkeOCSI
+	rsphoC7jza2eh62XtQ24U+fwfLcQmpjOaROEflGZmQES9Rl69eNhPl2ZoglspUBsRs7TOWmiujy
+	xjC2ikYGQhJqx12RUYnY1slLUwhJ1ljGcapRkZ7cC+1ARIRWvbb2V5z4Oh0ZTsb4cQOElqdi0sG
+	89h1De2dEbLePoHRSjjMc4+ZRFl7zJhyFpI0LJMVW7oDLjol01EL0V8wkt5MrxiNdaWi/y1i7MV
+	57EKTPb8lEc6u9Wj5g7uyVqb5cvmyj7Mtyabw+0rsSNE3MvkDB8HwvunKSOUuTLSfYYkLGIwb2U
+	nBAHkIRvmjWdFZQ==
+X-Google-Smtp-Source: AGHT+IFgwfOxXVHfVYqu1wdOQ9GYxprRsQ4/F7xJSCdqFJTVN4OXyfi5h1a5KmgqZzyh/NYVvTBqEA==
+X-Received: by 2002:a17:907:9488:b0:ac3:4139:9346 with SMTP id a640c23a62f3a-ac7e717034fmr947478766b.9.1744127850991;
+        Tue, 08 Apr 2025 08:57:30 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -93,124 +93,148 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 06/14] xen/riscv: riscv_of_processor_hartid() implementation
-Date: Tue,  8 Apr 2025 17:57:10 +0200
-Message-ID: <ab592d50ad161ffed3950bdf58ade49ae90a3c0e.1744126720.git.oleksii.kurochko@gmail.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Romain Caritey <Romain.Caritey@microchip.com>
+Subject: [PATCH v1 07/14] wqriscv/intc: Introduce intc_hw_operations abstraction
+Date: Tue,  8 Apr 2025 17:57:11 +0200
+Message-ID: <7c1e0a9c36e92e993ae10d74b3cf816669282d6f.1744126665.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <cover.1744126720.git.oleksii.kurochko@gmail.com>
-References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <cover.1744126665.git.oleksii.kurochko@gmail.com>
+References: <cover.1744126665.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Implements riscv_of_processor_hartid() to get the hart ID of the given
-device tree node and do some checks if CPU is available and given device
-tree node has proper riscv,isa property.
+Introduce the `intc_hw_operations` structure to encapsulate interrupt
+controller-specific data and operations. This structure includes:
+- A pointer to interrupt controller information (`intc_info`)
+- Callbacks to initialize the controller and set IRQ type/priority
+- A reference to an interupt controller descriptor (`host_irq_type`)
 
-As a helper function of_get_cpu_hwid() is introduced to deal specifically
-with reg propery of a CPU device node.
+Also introduce generic helper functions:
+- `intc_init()`: Initializes the interrupt controller
+- `register_intc_ops()`: Registers the `intc_hw_operations` implementation
+- `intc_route_irq_to_xen()`: Configures IRQ routing to Xen, setting handler,
+  type, and priority
 
+Most of these functions act as thin wrappers around the corresponding
+callbacks in `intc_hw_operations`.
+
+This abstraction lays the groundwork for supporting multiple interrupt
+controller types (e.g., PLIC, APLIC) in extensible way.
+
+This patch is based on the changes from [1].
+
+[1] https://gitlab.com/xen-project/people/olkur/xen/-/commit/7cfb4bd4748ca268142497ac5c327d2766fb342d
+
+Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/include/asm/smp.h |  3 ++
- xen/arch/riscv/smpboot.c         | 68 ++++++++++++++++++++++++++++++++
- 2 files changed, 71 insertions(+)
+ xen/arch/riscv/include/asm/intc.h | 23 ++++++++++++++
+ xen/arch/riscv/intc.c             | 51 +++++++++++++++++++++++++++++++
+ 2 files changed, 74 insertions(+)
 
-diff --git a/xen/arch/riscv/include/asm/smp.h b/xen/arch/riscv/include/asm/smp.h
-index 188c033718..9b68f1e27a 100644
---- a/xen/arch/riscv/include/asm/smp.h
-+++ b/xen/arch/riscv/include/asm/smp.h
-@@ -26,6 +26,9 @@ static inline void set_cpuid_to_hartid(unsigned long cpuid,
+diff --git a/xen/arch/riscv/include/asm/intc.h b/xen/arch/riscv/include/asm/intc.h
+index 52ba196d87..0d498b10f4 100644
+--- a/xen/arch/riscv/include/asm/intc.h
++++ b/xen/arch/riscv/include/asm/intc.h
+@@ -17,6 +17,29 @@ struct intc_info {
+     const struct dt_device_node *node;
+ };
  
- void setup_tp(unsigned int cpuid);
- 
-+struct dt_device_node;
-+int riscv_of_processor_hartid(struct dt_device_node *node, unsigned long *hart);
++struct intc_hw_operations {
++    /* Hold intc hw information */
++    const struct intc_info *info;
++    /* Initialize the intc and the boot CPU */
++    int (*init)(void);
 +
- void smp_clear_cpu_maps(void);
++    /* hw_irq_controller to enable/disable/eoi host irq */
++    hw_irq_controller *host_irq_type;
++
++    /* Set IRQ type */
++    void (*set_irq_type)(struct irq_desc *desc, unsigned int type);
++    /* Set IRQ priority */
++    void (*set_irq_priority)(struct irq_desc *desc, unsigned int priority);
++
++};
++
+ void intc_preinit(void);
  
- #endif
-diff --git a/xen/arch/riscv/smpboot.c b/xen/arch/riscv/smpboot.c
-index 0f4dcc28e1..3193639f00 100644
---- a/xen/arch/riscv/smpboot.c
-+++ b/xen/arch/riscv/smpboot.c
-@@ -1,5 +1,8 @@
- #include <xen/cpumask.h>
-+#include <xen/device_tree.h>
-+#include <xen/errno.h>
++void intc_init(void);
++
++void register_intc_ops(const struct intc_hw_operations *ops);
++
++struct irq_desc;
++void intc_route_irq_to_xen(struct irq_desc *desc, unsigned int priority);
++
+ #endif /* ASM__RISCV__INTERRUPT_CONTOLLER_H */
+diff --git a/xen/arch/riscv/intc.c b/xen/arch/riscv/intc.c
+index 4061a3c457..8274897d8c 100644
+--- a/xen/arch/riscv/intc.c
++++ b/xen/arch/riscv/intc.c
+@@ -1,9 +1,21 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ 
+ #include <xen/acpi.h>
++#include <xen/bug.h>
+ #include <xen/device_tree.h>
  #include <xen/init.h>
-+#include <xen/types.h>
++#include <xen/irq.h>
+ #include <xen/lib.h>
++#include <xen/spinlock.h>
++
++#include <asm/intc.h>
++
++static const struct intc_hw_operations *intc_hw_ops;
++
++void register_intc_ops(const struct intc_hw_operations *ops)
++{
++    intc_hw_ops = ops;
++}
  
- cpumask_t cpu_online_map;
- cpumask_t cpu_present_map;
-@@ -13,3 +16,68 @@ void __init smp_clear_cpu_maps(void)
-     cpumask_set_cpu(0, &cpu_online_map);
-     cpumask_copy(&cpu_present_map, &cpu_possible_map);
+ void __init intc_preinit(void)
+ {
+@@ -12,3 +24,42 @@ void __init intc_preinit(void)
+     else
+         panic("ACPI interrupt controller preinit() isn't implemented\n");
  }
 +
-+/**
-+ * of_get_cpu_hwid - Get the hardware ID from a CPU device node
-+ *
-+ * @cpun: CPU number(logical index) for which device node is required
-+ * @thread: The local thread number to get the hardware ID for.
-+ *
-+ * Return: The hardware ID for the CPU node or ~0ULL if not found.
-+ */
-+static uint64_t of_get_cpu_hwid(struct dt_device_node *cpun, unsigned int thread)
++void __init intc_init(void)
 +{
-+    const __be32 *cell;
-+    int ac;
-+    uint32_t len;
++    ASSERT(intc_hw_ops);
 +
-+    ac = dt_n_addr_cells(cpun);
-+    cell = dt_get_property(cpun, "reg", &len);
-+    if ( !cell || !ac || ((sizeof(*cell) * ac * (thread + 1)) > len) )
-+        return ~0ULL;
-+
-+    cell += ac * thread;
-+    return dt_read_number(cell, ac);
++    if ( intc_hw_ops->init() )
++        panic("Failed to initialize the interrupt controller drivers\n");
 +}
 +
-+/*
-+ * Returns the hart ID of the given device tree node, or -ENODEV if the node
-+ * isn't an enabled and valid RISC-V hart node.
-+ */
-+int riscv_of_processor_hartid(struct dt_device_node *node, unsigned long *hart)
++/* desc->irq needs to be disabled before calling this function */
++static void intc_set_irq_type(struct irq_desc *desc, unsigned int type)
 +{
-+    const char *isa;
++    ASSERT(test_bit(_IRQ_DISABLED, &desc->status));
++    ASSERT(spin_is_locked(&desc->lock));
++    ASSERT(type != IRQ_TYPE_INVALID);
++    ASSERT(intc_hw_ops && intc_hw_ops->set_irq_type);
 +
-+    if ( !dt_device_is_compatible(node, "riscv") )
-+    {
-+        printk("Found incompatible CPU\n");
-+        return -ENODEV;
-+    }
++    intc_hw_ops->set_irq_type(desc, type);
++}
 +
-+    *hart = (unsigned long) of_get_cpu_hwid(node, 0);
-+    if ( *hart == ~0UL )
-+    {
-+        printk("Found CPU without hart ID\n");
-+        return -ENODEV;
-+    }
++static void intc_set_irq_priority(struct irq_desc *desc, unsigned int priority)
++{
++    ASSERT(intc_hw_ops && intc_hw_ops->set_irq_priority);
 +
-+    if ( !dt_device_is_available(node))
-+    {
-+        printk("CPU with hartid=%lu is not available\n", *hart);
-+        return -ENODEV;
-+    }
++    intc_hw_ops->set_irq_priority(desc, priority);
++}
 +
-+    if ( dt_property_read_string(node, "riscv,isa", &isa) )
-+    {
-+        printk("CPU with hartid=%lu has no \"riscv,isa\" property\n", *hart);
-+        return -ENODEV;
-+    }
++void intc_route_irq_to_xen(struct irq_desc *desc, unsigned int priority)
++{
++    ASSERT(test_bit(_IRQ_DISABLED, &desc->status));
++    ASSERT(spin_is_locked(&desc->lock));
++    /* Can't route interrupts that don't exist */
++    ASSERT(intc_hw_ops && desc->irq < intc_hw_ops->info->nr_irqs);
 +
-+    if ( isa[0] != 'r' || isa[1] != 'v' )
-+    {
-+        printk("CPU with hartid=%lu has an invalid ISA of \"%s\"\n", *hart, isa);
-+        return -ENODEV;
-+    }
++    desc->handler = intc_hw_ops->host_irq_type;
 +
-+    return 0;
++    intc_set_irq_type(desc, desc->arch.type);
++    intc_set_irq_priority(desc, priority);
 +}
 -- 
 2.49.0
