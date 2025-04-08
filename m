@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E904EA7F46D
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 07:53:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.941376.1340880 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02B01A7F4E8
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 08:25:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.941390.1340890 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u21tY-0004Cs-7L; Tue, 08 Apr 2025 05:53:12 +0000
+	id 1u22Nz-0002nH-KW; Tue, 08 Apr 2025 06:24:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 941376.1340880; Tue, 08 Apr 2025 05:53:12 +0000
+Received: by outflank-mailman (output) from mailman id 941390.1340890; Tue, 08 Apr 2025 06:24:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u21tY-0004At-4b; Tue, 08 Apr 2025 05:53:12 +0000
-Received: by outflank-mailman (input) for mailman id 941376;
- Tue, 08 Apr 2025 05:53:10 +0000
+	id 1u22Nz-0002ln-GS; Tue, 08 Apr 2025 06:24:39 +0000
+Received: by outflank-mailman (input) for mailman id 941390;
+ Tue, 08 Apr 2025 06:24:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xdvb=W2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u21tV-0004Aj-SD
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 05:53:09 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1u22Nx-0002lh-OE
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 06:24:37 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b7d57523-143d-11f0-9ffb-bf95429c2676;
- Tue, 08 Apr 2025 07:52:56 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-39c31e4c3e5so3134642f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 22:52:56 -0700 (PDT)
+ id 23e59561-1442-11f0-9ffb-bf95429c2676;
+ Tue, 08 Apr 2025 08:24:35 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43ed8d32a95so28921435e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 23:24:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c300968c4sm13960675f8f.9.2025.04.07.22.52.54
+ ffacd0b85a97d-39c3020d62fsm14143832f8f.79.2025.04.07.23.24.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Apr 2025 22:52:55 -0700 (PDT)
+ Mon, 07 Apr 2025 23:24:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7d57523-143d-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 23e59561-1442-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744091575; x=1744696375; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744093475; x=1744698275; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qTsJDkuDhWPBVq6ZjquOkDnlJYaELR6SwOAyima/J7A=;
-        b=WrIT0Tg0+1DHKOaqaizjQdc2mBXXDZyMxsJnjfMtSut+o2W4OMOOgUP6efAD1TAekQ
-         SaSb6xHDwit6z3moLTF95UiKOMZrLBycY790scexzoGQcFlcCxEhpLA1voyx1eJBVzgv
-         Iye0O4PybrW+lCqQa9rw7EK3xMvXB5n4waUxr6gCE/Vto9YpJ7ePd3ru0Hy7CtMjdjYg
-         M8U4Ndu0gm+3P9zmpws7VI4K1uXFAY7ajXxcKSwEhLKM1h7zo2e8cp9BQwSidsAT/OTG
-         LlzdU8gWABzf0BbII0cWCYuvWUIQevaMeltDqx9getdrbeJLkSxVllsOdfZWeZFpXV14
-         ZhLA==
+        bh=pA/+y89GygcF27xI/j0rBkt6oEtfvfg6wfVfnDG5Zfc=;
+        b=MZSFZyTzCkWlfYJcWKdvpdq29dD7TaGMbWq5yQyn6WKsIzalDQxKCqmaz5NfvuX6/N
+         l+ti/FguRdjEn3jkImtRwIqioH+To0lvOSqFvIMFjgjO/NdV8k3mmPYmps/qMk7CE4bz
+         tor/pg+uqPJrFDDLKASjzyAXXr+UNgHKAST8fVFqy/2YILECUVb+5m8E6DbB4O2dtb0P
+         2tH3C4uih20oGZT/bE61wz4c9e1VshRmzc1Z00cbQD2eCf0yHI74SJXLsmW3f/XK58WJ
+         vcbHpinKGOAMSqHbRG45Q22PvZ5l6ZA9p9nTIgiild7lkYHgNQ0p+ks3INktpBMXe95m
+         bDkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744091575; x=1744696375;
+        d=1e100.net; s=20230601; t=1744093475; x=1744698275;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qTsJDkuDhWPBVq6ZjquOkDnlJYaELR6SwOAyima/J7A=;
-        b=iyRwbR5253vKya2XmI3eOxmiiXshl53edApFkukrX5mWnltWHBouXb9WVveiHetUmU
-         MVVs2oAfHgvFU+Tw9iQOz5c9yRPmRuqCXOX7NEWzBxj5hp6fJxybsXPPJif7wBaOEqFi
-         H4mwA4unYPuh3zWlvMNGQ7wQi/PcYU75LgdmoA25c4E37WU3V7Xf8czUX96tCuDBdOXs
-         xIQotvVESQaRoKZah2ojWFWoBLe+6mP8w9EHHxe/iCWSNNVM2pVncWPxG9nT49FZFBKm
-         aschtm9Oa4PLbBUK3mQbDSrOK1+OMl4RQBcB9sB7kADLpUdbFkqEp1Ipq2veKSWOs95j
-         PCnw==
-X-Forwarded-Encrypted: i=1; AJvYcCUQzw+hncsC9IWBHkZ6nh3pW7npoW4Iosmq4pecsZer2jCDz/COoNeHHHRnIRxm5cbDSIdanwrsypU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxOUc0sAB7QwEnWzUlWI5x4yWzqPvauErVEJiwDXFDnCqunXc2A
-	peKjHFsLFtPK94FF2mB70bsQxUYsgHd8R2Yy8P2GVN6Mw2wG5XYsNvUTwnT/Ng==
-X-Gm-Gg: ASbGncu+TIY2bxO8Zs4odp5zOzbNUU1HGqWuVfpfxauLBFBVv6LG4oPaSniTqm7AwIh
-	VMcGLZsxv6tTLTqn6BVFAVldQOZuYesJXeIe3jHAmp7vQrDXMjyqIXDUDjzy+mnZiOWdFPeFBzJ
-	TUhwXMBvCCrvLTD9AGyf2lRyaBnnXsuR2gMImDf1OedUAvlwzb+KlL6DmqCamRsTns8PGVkkd5r
-	ubcimkr6R3Uu9a/f/ghVXjHCkkv0yJQwXX8N6HoWcbcB7RtnbO8fEBcju6g6KnI6PP/tbtpjWpr
-	xRVodOk6QjpNTwFrV+4u1ar39WUlcONbC70TVXkLpvbdy9TnHgNlzk5RLLzQZrtIsB85c7wnx7S
-	ix55l3rb9KW5q4zpUwds8Sq815V0YXA==
-X-Google-Smtp-Source: AGHT+IHoj10Jr7/EKr+Bq3mIqvGzHse6olJQ58nRof+sd2bJBYvGiYgy3KbzaYbLsOx2cQAMUTsYPg==
-X-Received: by 2002:a5d:64aa:0:b0:391:2f71:bbb3 with SMTP id ffacd0b85a97d-39cba9332f2mr13272847f8f.46.1744091575338;
-        Mon, 07 Apr 2025 22:52:55 -0700 (PDT)
-Message-ID: <8c5ab3fc-1e29-48f9-a7c6-bfda789e36f7@suse.com>
-Date: Tue, 8 Apr 2025 07:52:53 +0200
+        bh=pA/+y89GygcF27xI/j0rBkt6oEtfvfg6wfVfnDG5Zfc=;
+        b=ecGfQjejC3TpKR7o7Wc+hItyxOLVetXliMFIT9RlJYguqTaS1yeWjj3MFblK5cCTQO
+         OWwCgYGjWzdeOjxqqZBOn19d/dWLm2FwGZ5bavLfso6PAvC3e0tN3AG5FwO9u92ONItc
+         O9S0xP0QhPSGpOI5kcc5cTtto/1VMQhJC3p3t2Izir4hSrc0l2ZcExq3h3mAS62KO8xy
+         Jj20VjRAp4X+OMzNT/e09lc0k5LCtll0CfK9HhsL8Pomy0Wagm694XDGjR4khhADp3DH
+         OQL+iRTxQaCmW0ixXXNgxfGZ9MQdYmhhtX76DC0oDobOHd4lgzig3xJY2n8AcgWD6F8x
+         caVA==
+X-Forwarded-Encrypted: i=1; AJvYcCXQtrRPTFudqM5c4ggfSOwoZJ3PclPhrvr8sEhq3uUC/ePe+uTpgxh4TC8jhBiQ4BYeJia/v36O0B8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxy+yZkw24ncP0/W4oyyUwkL1SdizsTkNs5Q3PurfBi9ByGf54g
+	l8kmsGdG7Y1pbw3GhQG+odXutbcgOrqK3aQPB8zWZvxgn8yL7A790YXoGTCwfw==
+X-Gm-Gg: ASbGncscpoKse179T/bYfufQmgdkQnd3ImIreCbIwExKznU/lTLkOIkJzNCUxXXyQ/X
+	CkiX6ncc0tR1nkGtXvxNJEf8Ij1IDEuh4pfedy8oDsSWdbDAEX6KhHWEJPXsDvSRoHVKGvLIjbB
+	fMp8YowUHYUjgqWt4MQu/ApyaQq275J0OigNg7r4w1UAETmUDYeRefQoCH+BSQ/DhuV/0TXIsTq
+	g9nGQYA9HqTMYh1xLvC9cIyfeB5WQsKKSUHWo8J7aAaosR6DR9S5yb8xpOolKcQrVybq2lu7GoK
+	Zh9PtvLMs73whrjg/9IxAl2a+hcwiPtXOt94SiLQNWS0XZgMpRP6JfdtWZGgM5BSn1nadXh3t+5
+	8psDX698NJJtLBW8IMJ82v5eiQvur8w==
+X-Google-Smtp-Source: AGHT+IFfThN7YJ6vZ1/32KfNbGWCqB+PDQooJ/9koYkX9YkPBkrgy7uWY/AQpVX39pXfBWxWoYbc0A==
+X-Received: by 2002:a05:600c:1c03:b0:43c:e6d1:efe7 with SMTP id 5b1f17b1804b1-43f114ef8d8mr8061295e9.26.1744093474635;
+        Mon, 07 Apr 2025 23:24:34 -0700 (PDT)
+Message-ID: <3ddc038e-9792-4eb7-a1bc-3ce0cf3fe33f@suse.com>
+Date: Tue, 8 Apr 2025 08:24:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] xen: introduce hardware domain create flag
+Subject: Re: [PATCH] tools/libxl: Skip invalid IRQs
 To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Anthony PERARD
+ <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
  xen-devel@lists.xenproject.org
-References: <20250403214608.152954-1-jason.andryuk@amd.com>
- <20250403214608.152954-2-jason.andryuk@amd.com>
- <332e0afc-9c43-4602-9bc0-dfe4ddd1b107@suse.com>
- <64f6bf18-d3e4-4392-b924-4b779dbe5d69@amd.com>
+References: <20250407192641.83554-1-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,68 +119,79 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <64f6bf18-d3e4-4392-b924-4b779dbe5d69@amd.com>
+In-Reply-To: <20250407192641.83554-1-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07.04.2025 20:16, Jason Andryuk wrote:
-> On 2025-04-04 03:38, Jan Beulich wrote:
->> On 03.04.2025 23:46, Jason Andryuk wrote:
->>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
->>>
->>> Add and use a new internal create domain flag to specify the hardware
->>> domain.  This removes the hardcoding of domid 0 as the hardware domain.
->>>
->>> This allows more flexibility with domain creation.
->>>
->>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>> ---
->>> v3:
->>> Or-in CDF_hardware for late hwdom case
->>
->> Except that ...
->>
->>> --- a/xen/common/domain.c
->>> +++ b/xen/common/domain.c
->>> @@ -820,13 +820,18 @@ struct domain *domain_create(domid_t domid,
->>>       d->is_privileged = flags & CDF_privileged;
->>>   
->>>       /* Sort out our idea of is_hardware_domain(). */
->>> -    if ( domid == 0 || domid == hardware_domid )
->>> +    if ( (flags & CDF_hardware) || domid == hardware_domid )
->>>       {
->>>           if ( hardware_domid < 0 || hardware_domid >= DOMID_FIRST_RESERVED )
->>>               panic("The value of hardware_dom must be a valid domain ID\n");
->>>   
->>> +        /* late_hwdom is only allowed for dom0. */
->>> +        if ( hardware_domain && hardware_domain->domain_id )
->>> +            return ERR_PTR(-EINVAL);
->>> +
->>>           old_hwdom = hardware_domain;
->>>           hardware_domain = d;
->>> +        flags |= CDF_hardware;
->>>       }
->>
->> ... this isn't quite enough. You're only modifying what will go out of scope
->> when returning from the function. What's at least equally important to OR into
->> is d->cdf.
-> 
-> Yes, thanks for catching that.
-> 
-> I'll move d->cdf assignment to after here instead of or-ing in a second 
-> time.
+On 07.04.2025 21:26, Jason Andryuk wrote:
+> A PCI device's irq field is an 8-bit number.  A value of 0xff indicates
+> that the device is not connected.
 
-Not sure that'll be good to do - intermediate code (in particular passing
-d to other functions) may need to have that set already. And even if not
-now, then maybe going forward.
+Nit: "... that the device IRQ is not ..."
 
-> With that, it seems like it should also be removed from old_hwdom?
+>  Additionally, the Linux ACPI code can
+> convert these 0xff values to IRQ_NOTCONNECTED(0x80000000) because
+> "0x80000000 is guaranteed to be outside the available range of
+> interrupts and easy to distinguish from other possible incorrect
+> values."  When the hypercall to assign that IRQ fails, device
+> passthrough as a whole fails.
 > 
-> old_hwdom->cdf &= ~CDF_hardware
+> Add checking for a valid IRQ and skip the IRQ handling for PCI devices
+> outside that range.  This allows for passthrough of devices without
+> legacy IRQs.
 
-Oh, indeed. Thanks in turn for catching this further aspect.
+Which makes the code here even more Linux-centric, I guess.
+
+A couple of related notes, yet most not directly affecting this patch:
+
+> --- a/tools/libs/light/libxl_pci.c
+> +++ b/tools/libs/light/libxl_pci.c
+> @@ -26,6 +26,9 @@
+>  #define PCI_BDF_XSPATH         "%04x-%02x-%02x-%01x"
+>  #define PCI_PT_QDEV_ID         "pci-pt-%02x_%02x.%01x"
+>  
+> +/* PCI Interrupt Line is an 8-bit value, 0xff means disconnected. */
+> +#define PCI_IRQ_LINE_LIMIT     0xff
+> +
+>  static unsigned int pci_encode_bdf(libxl_device_pci *pci)
+>  {
+>      unsigned int value;
+> @@ -1495,7 +1498,8 @@ static void pci_add_dm_done(libxl__egc *egc,
+>              LOGED(ERROR, domainid, "Couldn't open %s", sysfs_path);
+>              goto out_no_irq;
+>          }
+> -        if ((fscanf(f, "%u", &irq) == 1) && irq) {
+> +        if ((fscanf(f, "%u", &irq) == 1) &&
+
+For this, "irq" ought to be unsigned int. Same below.
+
+> +            irq > 0 && irq < PCI_IRQ_LINE_LIMIT) {
+
+Not sure about this in libxl's style, but it feels inconsistent to have
+parentheses around one relational expression but then not around the
+others. Personally I'd drop them all, but the alternative clearly is to
+add missing ones.
+
+>              r = xc_physdev_map_pirq(ctx->xch, domid, irq, &irq);
+>              if (r < 0) {
+>                  LOGED(ERROR, domainid, "xc_physdev_map_pirq irq=%d (error=%d)",
+> @@ -2257,7 +2261,8 @@ skip_bar:
+>              goto skip_legacy_irq;
+>          }
+>  
+> -        if ((fscanf(f, "%u", &irq) == 1) && irq) {
+> +        if ((fscanf(f, "%u", &irq) == 1) &&
+> +            irq > 0 && irq < PCI_IRQ_LINE_LIMIT) {
+>              rc = xc_physdev_unmap_pirq(ctx->xch, domid, irq);
+>              if (rc < 0) {
+>                  /*
+
+This is doing things in sensible order: unmap, then remove permissions.
+The map side though adds permissions only after mapping. That's kind of
+necessary because the value to pass into xc_domain_irq_permission() is
+an output of xc_physdev_map_pirq(). Yet then the latter should have
+failed for lack of permissions, unless permissions were granted another
+way? In which case what's the point of granting permissions here?
 
 Jan
 
