@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11F88A810E1
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 17:57:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.942502.1341661 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C24AA810DB
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 17:57:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.942501.1341656 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BKL-00059Q-5X; Tue, 08 Apr 2025 15:57:29 +0000
+	id 1u2BKK-00054T-Ss; Tue, 08 Apr 2025 15:57:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 942502.1341661; Tue, 08 Apr 2025 15:57:29 +0000
+Received: by outflank-mailman (output) from mailman id 942501.1341656; Tue, 08 Apr 2025 15:57:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BKK-00054C-Va; Tue, 08 Apr 2025 15:57:28 +0000
-Received: by outflank-mailman (input) for mailman id 942502;
+	id 1u2BKK-00052G-N8; Tue, 08 Apr 2025 15:57:28 +0000
+Received: by outflank-mailman (input) for mailman id 942501;
  Tue, 08 Apr 2025 15:57:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f4Vq=W2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u2BKK-0004Yq-2s
+ id 1u2BKK-0004Yr-2j
  for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 15:57:28 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2abb371a-1492-11f0-9ffb-bf95429c2676;
- Tue, 08 Apr 2025 17:57:26 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-abbd96bef64so1115126066b.3
- for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 08:57:26 -0700 (PDT)
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2b5b3c4e-1492-11f0-9eaa-5ba50f476ded;
+ Tue, 08 Apr 2025 17:57:27 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5e61da95244so9512345a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 08:57:27 -0700 (PDT)
 Received: from fedora.. (user-109-243-64-225.play-internet.pl.
  [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac7c018556bsm929934566b.156.2025.04.08.08.57.24
+ a640c23a62f3a-ac7c018556bsm929934566b.156.2025.04.08.08.57.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Apr 2025 08:57:24 -0700 (PDT)
+ Tue, 08 Apr 2025 08:57:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2abb371a-1492-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 2b5b3c4e-1492-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744127846; x=1744732646; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1744127847; x=1744732647; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4hi1xjODCV/sXPERE+O05f5Q95fvnC5BVyDMZVpi670=;
-        b=X/Pk5RkKEXtsxMOxRQrqB/hhe2XGq7K5S6nOokSU4rNfzYgH3lNUvC7uZbsFQ8MniX
-         H8Gd9gjKhPWhCZDydOV5tfT7AYmsMiCCXwcRByo4uexz7I7W6ntqIKilbUQ1DcS6OTXy
-         xX3bBxYm4eJf2I3Hw1B1zEb0w0Mm8sB/WJ7rxrHja5Sa3q55UIr0CzHhtmOo46M8Q3D5
-         pGj8zEaUvea5MUPoVLRns3Mu5jHVjKcJxZAo4sPoep5aPSKPq59BcFYa9eMNZ6EisnZK
-         zjHQnptWgbPHcxSROGP9AZZRQMi7PwhzkezCPBwHZ6BmLxqxBpzKG/FVJLbeaoF9A1pc
-         nuIQ==
+        bh=kU7wsZPZG6Jt+l3y2KLJ3T9BEs2rZOcJCuT+jz/Pauw=;
+        b=ZVDls60PEf4GVo5x4srEf145NjbuN9QKyztGQ+LY2HZ3Zt0SE70Yhwf7E6WuwL12QP
+         UugRYQNwBaek2d2F+6l5fAB3iac7d2IxxeH6at8zt+wa8ia+9EuHo5zo0zG57TyVN70l
+         4KywEZYJ0GwGvfUYqFaK9cKJb8Yb+FEX6TKeT1Y7fN9me1xC78H6961OvBmKUHGOA3SK
+         m42yuw9iHV4frwLR0fRqhN3eLmiCRuWZ3thra3IgKoQW56c6RhwMX+AU/D6EYeI2UWli
+         0XbXXCbvDQCfK/wIYBRVlxhQnC0Emf8EsD5bmODnR+B3aeHxjZ36JPL6R3u8vMgXdAuY
+         bXUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744127846; x=1744732646;
+        d=1e100.net; s=20230601; t=1744127847; x=1744732647;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=4hi1xjODCV/sXPERE+O05f5Q95fvnC5BVyDMZVpi670=;
-        b=K5Dq8RpMjdHSkrwPWsCFt9OB+mWgwlB3G8GETyacMqCdorlHnrDtD3RSCkIyhzWy0w
-         9+ZBH3MhNj+iFEheDxfdBJoxVp1gp6+pVnB/LCQEPltfthAMnTMODFwQCscxMHPqCCFJ
-         r2ZjDgMNST4S0OcWCpplKRl+sg5V+BgMPCSWrmGn25YYNcDghJGAQQxM8KBOVyC0sJn0
-         ww+UiLLHUuebzWyV8iyp/tNgMk2WonLtze/VMbj4r2SaPliIV1cQDNGXWWCnLG2v0nqB
-         I4+vXzNTYryfT8fefVoVJJLt/7BTSNDczrpEegPN6WjBxXZHmZFfRUF8C/EtFLdBbO1L
-         G5KQ==
-X-Gm-Message-State: AOJu0Yyhe1U2+gbxjZI85+pKZf7d5hndaqKcpz4GKWziMz+QDP04J1KE
-	ncLqzS6+CNcwoImBVFEuBKsfMkWT9Ng5JMnaatU+B4yDXmSJ8AILU+fgJA==
-X-Gm-Gg: ASbGncvx1+FvwLShhn6V1J97guv8p4IPgRbp7h2PPXQj4KbN259JBF9mxl9E+1FYVKZ
-	nInMPEp4/C2hVYHU022rVwa8FXu9oNPvwV+YYcGc3KQtQEf4MiUJDnODFfP+0ap5cRP5PmXtt3x
-	uQftVtf08Hj8k7gtWnICN83QapJoGDOEhRg/C77EGn2+wQszZECorVEZ1O82g2DrMoiRCBckHbX
-	bvWn6/yI6og6r9PkDq6bOAhwnQP3iryrWQuFbn3TlcsMVokJVRbKOfMv+s7HwgewgvZ/aQcPKSx
-	mtl3vnBm7PfQ6L1dFfREF5VwZQTzMznxMMfvWZCXQwSWuqqFDptgiXBoAx0usoL7cafd05PZINi
-	QGKmMnHXZKIzJTg==
-X-Google-Smtp-Source: AGHT+IGPZLQUmzRVvlQPHpMLUPk5BR/JAj1Ppc1lOSe7dGvIQ+x4G3kqQ5tkLmaV6Dmf0Dg7h9DOjQ==
-X-Received: by 2002:a17:907:7e88:b0:ac6:bf3d:bf45 with SMTP id a640c23a62f3a-ac7d19671efmr1737640366b.36.1744127845398;
-        Tue, 08 Apr 2025 08:57:25 -0700 (PDT)
+        bh=kU7wsZPZG6Jt+l3y2KLJ3T9BEs2rZOcJCuT+jz/Pauw=;
+        b=bVgqyH894xaOI6V+pRONqx7wWJhG/r6Cv+3LQ/nWIpzqq0k57rFITz7MuQSQWnewbr
+         bcziUHW2d9idAofv0GJPmoi7Zymesy6FsApUlYJfD+wW6/yWflAViIOEp2PhOnIwR06g
+         wUrKqCt33n1g9SouQneVkTtlHgRYe7K4Eg5a+aA08k5UopK1BTtNT557vX/CLeZzp91q
+         bavUOdkKaQBYr7Waau9z+f2ttYrH5zrebMPg4SH0RVz2Lf8kJCwrDT0ZcHmuxivMzQH1
+         cFrFnBFkLoXRU8PleFhd+saJ24cxOl55vU+dSFqsqGCa72rOWGvLAsX2c1GUSArbMoZk
+         sn+w==
+X-Gm-Message-State: AOJu0YyMn+AsJXQwnEGfnC0Mr67A2GQzVotYyTYqA61sZJSrYRyyYCUk
+	UN9TR9Ogvf2VwDy2cBvTZG7NCj+OEuSCWZsfz8WPolw6iDsTK2qR4oVd5w==
+X-Gm-Gg: ASbGncs154T7lWE7CICHpx1otucimFSbyUFSthVd7hDeuTx+C5nJoAke/Sq2QKlX6RF
+	zecDkHhl4i8iOwiDfAVp/0mupWyY3Lzawl1RBJP08vTTLSTI3N1dDLxHrEWypaocTz3J1lfqYxm
+	hezNo/UDVMh5Sc+NgoMYZRhl6strIMx6SPbIUWOsrQ8KJgapLHMr67wtLGCqj/LQF5hzgp7irLM
+	2o066xtP8OEnrpBjrhUpFgkahHjUleUqgjg7HRk1jrannJ0Fn/jM5uBkzwnO5qkLkMPLxah+MfP
+	tYVls6A2Ta+xFbHKbUk6hBg86voKKzIXDPnoylv+mzXO5zdFioSh8QkAHF82JPwP5TRjpF5kfFT
+	FxWxnqW5Eyw9R8w==
+X-Google-Smtp-Source: AGHT+IE4/qpCIySBMg3ov9R9hgBZJWxsHPDuOZW48C5VOl0DA8+oya1HsNnoBAh7Uk/lve1nLXUgRw==
+X-Received: by 2002:a17:906:c153:b0:ac3:ec70:18ae with SMTP id a640c23a62f3a-ac7d184ec8dmr1533408566b.3.1744127846506;
+        Tue, 08 Apr 2025 08:57:26 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -94,111 +94,120 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 02/14] xen/riscv: introduce smp_clear_cpu_maps()
-Date: Tue,  8 Apr 2025 17:57:06 +0200
-Message-ID: <ce3460b3857cca9e6f3072a8ddd50b31cb46b855.1744126720.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 03/14] xen/riscv: introduce ioremap()
+Date: Tue,  8 Apr 2025 17:57:07 +0200
+Message-ID: <6d91eeabe2735de93bfcf2a2420e2059a8f35e52.1744126720.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1744126720.git.oleksii.kurochko@gmail.com>
 References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Initialize cpu_{possible, online, present}_map by using smp_clear_cpu_maps().
+Based on RISC-V unpriviliged spec ( Version 20240411 ):
+```
+For implementations that conform to the RISC-V Unix Platform Specification,
+I/O devices and DMA operations are required to access memory coherently and
+via strongly ordered I/O channels. Therefore, accesses to regular main memory
+regions that are concurrently accessed by external devices can also use the
+standard synchronization mechanisms. Implementations that do not conform
+to the Unix Platform Specification and/or in which devices do not access
+memory coherently will need to use mechanisms
+(which are currently platform-specific or device-specific) to enforce
+coherency.
 
-Drop DEFINE_PER_CPU(unsigned int, cpu_id) from stubs.c as this variable isn't
-expected to be used in RISC-V at all.
+I/O regions in the address space should be considered non-cacheable
+regions in the PMAs for those regions. Such regions can be considered coherent
+by the PMA if they are not cached by any agent.
+```
+and [1]:
+```
+The current riscv linux implementation requires SOC system to support
+memory coherence between all I/O devices and CPUs. But some SOC systems
+cannot maintain the coherence and they need support cache clean/invalid
+operations to synchronize data.
 
-Move declaration of cpu_{possible,online,present}_map from stubs.c to smpboot.c
-as now smpboot.c is now introduced.
-Other defintions keep in stubs.c as they are not initialized and not needed, at
-the moment.
+Current implementation is no problem with SiFive FU540, because FU540
+keeps all IO devices and DMA master devices coherence with CPU. But to a
+traditional SOC vendor, it may already have a stable non-coherency SOC
+system, the need is simply to replace the CPU with RV CPU and rebuild
+the whole system with IO-coherency is very expensive.
+```
+
+and the fact that all known ( to me ) CPUs that support the H-extension
+and that ones is going to be supported by Xen have memory coherency
+between all I/O devices and CPUs, so it is currently safe to use the
+PAGE_HYPERVISOR attribute.
+However, in cases where a platform does not support memory coherency, it
+should support CMO extensions and Svpbmt. In this scenario, updates to
+ioremap will be necessary.
+For now, a compilation error will be generated to ensure that the need to
+update ioremap() is not overlooked.
+
+[1] https://patchwork.kernel.org/project/linux-riscv/patch/1555947870-23014-1-git-send-email-guoren@kernel.org/
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/Makefile          |  1 +
- xen/arch/riscv/include/asm/smp.h |  2 ++
- xen/arch/riscv/setup.c           |  2 ++
- xen/arch/riscv/smpboot.c         | 15 +++++++++++++++
- xen/arch/riscv/stubs.c           |  6 ------
- 5 files changed, 20 insertions(+), 6 deletions(-)
- create mode 100644 xen/arch/riscv/smpboot.c
+ xen/arch/riscv/Kconfig | 12 ++++++++++++
+ xen/arch/riscv/pt.c    | 19 +++++++++++++++++++
+ 2 files changed, 31 insertions(+)
 
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index 0c6c4a38a3..f551bf32a2 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -10,6 +10,7 @@ obj-y += sbi.o
- obj-y += setup.o
- obj-y += shutdown.o
- obj-y += smp.o
-+obj-y += smpboot.o
- obj-y += stubs.o
- obj-y += time.o
- obj-y += traps.o
-diff --git a/xen/arch/riscv/include/asm/smp.h b/xen/arch/riscv/include/asm/smp.h
-index 5e170b57b3..188c033718 100644
---- a/xen/arch/riscv/include/asm/smp.h
-+++ b/xen/arch/riscv/include/asm/smp.h
-@@ -26,6 +26,8 @@ static inline void set_cpuid_to_hartid(unsigned long cpuid,
+diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
+index d882e0a059..27086cca9c 100644
+--- a/xen/arch/riscv/Kconfig
++++ b/xen/arch/riscv/Kconfig
+@@ -15,6 +15,18 @@ config ARCH_DEFCONFIG
+ 	string
+ 	default "arch/riscv/configs/tiny64_defconfig"
  
- void setup_tp(unsigned int cpuid);
- 
-+void smp_clear_cpu_maps(void);
++config HAS_SVPBMT
++	bool
++	help
++	  This config enables usage of Svpbmt ISA-extension ( Supervisor-mode:
++	  page-based memory types).
 +
- #endif
- 
- /*
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 4e416f6e44..7f68f3f5b7 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -72,6 +72,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
- 
-     remove_identity_mapping();
- 
-+    smp_clear_cpu_maps();
++	  The memory type for a page contains a combination of attributes
++	  that indicate the cacheability, idempotency, and ordering
++	  properties for access to that page.
 +
-     set_processor_id(0);
++	  The Svpbmt extension is only available on 64-bit cpus.
++
+ menu "Architecture Features"
  
-     set_cpuid_to_hartid(0, bootcpu_id);
-diff --git a/xen/arch/riscv/smpboot.c b/xen/arch/riscv/smpboot.c
-new file mode 100644
-index 0000000000..0f4dcc28e1
---- /dev/null
-+++ b/xen/arch/riscv/smpboot.c
-@@ -0,0 +1,15 @@
-+#include <xen/cpumask.h>
-+#include <xen/init.h>
+ source "arch/Kconfig"
+diff --git a/xen/arch/riscv/pt.c b/xen/arch/riscv/pt.c
+index 857619d48d..e2f49e2f97 100644
+--- a/xen/arch/riscv/pt.c
++++ b/xen/arch/riscv/pt.c
+@@ -7,6 +7,7 @@
+ #include <xen/pfn.h>
+ #include <xen/pmap.h>
+ #include <xen/spinlock.h>
++#include <xen/vmap.h>
+ 
+ #include <asm/fixmap.h>
+ #include <asm/flushtlb.h>
+@@ -548,3 +549,21 @@ void clear_fixmap(unsigned int map)
+                               FIXMAP_ADDR(map) + PAGE_SIZE) != 0 )
+         BUG();
+ }
 +
-+cpumask_t cpu_online_map;
-+cpumask_t cpu_present_map;
-+cpumask_t cpu_possible_map;
-+
-+void __init smp_clear_cpu_maps(void)
++void *ioremap(paddr_t pa, size_t len)
 +{
-+    cpumask_clear(&cpu_possible_map);
-+    cpumask_clear(&cpu_online_map);
-+    cpumask_set_cpu(0, &cpu_possible_map);
-+    cpumask_set_cpu(0, &cpu_online_map);
-+    cpumask_copy(&cpu_present_map, &cpu_possible_map);
++    mfn_t mfn = _mfn(PFN_DOWN(pa));
++    unsigned int offs = pa & (PAGE_SIZE - 1);
++    unsigned int nr = PFN_UP(offs + len);
++
++#ifdef CONFIG_HAS_SVPBMT
++    #error "an introduction of PAGE_HYPERVISOR_IOREMAP is needed for __vmap()"
++#endif
++
++    void *ptr = __vmap(&mfn, nr, 1, 1, PAGE_HYPERVISOR, VMAP_DEFAULT);
++
++    if ( !ptr )
++        return NULL;
++
++    return ptr + offs;
 +}
-diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-index 83416d3350..fdcf91054e 100644
---- a/xen/arch/riscv/stubs.c
-+++ b/xen/arch/riscv/stubs.c
-@@ -11,12 +11,6 @@
- 
- /* smpboot.c */
- 
--cpumask_t cpu_online_map;
--cpumask_t cpu_present_map;
--cpumask_t cpu_possible_map;
--
--/* ID of the PCPU we're running on */
--DEFINE_PER_CPU(unsigned int, cpu_id);
- /* XXX these seem awfully x86ish... */
- /* representing HT siblings of each logical CPU */
- DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_sibling_mask);
 -- 
 2.49.0
 
