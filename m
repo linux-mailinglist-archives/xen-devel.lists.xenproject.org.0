@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D417A7FF8D
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 13:22:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.941780.1341175 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A62CA80282
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 13:48:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.941796.1341187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u271G-0000lO-0U; Tue, 08 Apr 2025 11:21:30 +0000
+	id 1u27QY-0005g6-Vn; Tue, 08 Apr 2025 11:47:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 941780.1341175; Tue, 08 Apr 2025 11:21:29 +0000
+Received: by outflank-mailman (output) from mailman id 941796.1341187; Tue, 08 Apr 2025 11:47:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u271F-0000jw-Tx; Tue, 08 Apr 2025 11:21:29 +0000
-Received: by outflank-mailman (input) for mailman id 941780;
- Tue, 08 Apr 2025 11:21:28 +0000
+	id 1u27QY-0005cy-SV; Tue, 08 Apr 2025 11:47:38 +0000
+Received: by outflank-mailman (input) for mailman id 941796;
+ Tue, 08 Apr 2025 11:47:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7fLb=W2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1u271E-0000jq-Ps
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 11:21:28 +0000
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [2607:f8b0:4864:20::429])
+ <SRS0=lbxa=W2=bounce.vates.tech=bounce-md_30504962.67f50cd6.v1-6add6fcaea3f497a8fe23b192498d509@srs-se1.protection.inumbo.net>)
+ id 1u27QX-0005cs-IV
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 11:47:37 +0000
+Received: from mail186-2.suw21.mandrillapp.com
+ (mail186-2.suw21.mandrillapp.com [198.2.186.2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9bab774d-146b-11f0-9eaa-5ba50f476ded;
- Tue, 08 Apr 2025 13:21:26 +0200 (CEST)
-Received: by mail-pf1-x429.google.com with SMTP id
- d2e1a72fcca58-736aa9d0f2aso6436162b3a.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 04:21:26 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- d2e1a72fcca58-739da0b2db4sm10244774b3a.126.2025.04.08.04.21.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Apr 2025 04:21:24 -0700 (PDT)
+ id 43408b0b-146f-11f0-9eaa-5ba50f476ded;
+ Tue, 08 Apr 2025 13:47:35 +0200 (CEST)
+Received: from pmta10.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail186-2.suw21.mandrillapp.com (Mailchimp) with ESMTP id 4ZX47p23Y6zS62GxB
+ for <xen-devel@lists.xenproject.org>; Tue,  8 Apr 2025 11:47:34 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 6add6fcaea3f497a8fe23b192498d509; Tue, 08 Apr 2025 11:47:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,203 +42,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9bab774d-146b-11f0-9eaa-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744111285; x=1744716085; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Qf0wy7L4O942D22Kbiabal5KHmDdSB8OgsY2GBka7Ko=;
-        b=QFSsy2JaNwopNUW5ot4YUahjbPiVOlm7MxVZNGvvEJZbH1jh+Dk97ltZlKQZR2WYWh
-         vEAG4QS6B3W/h8xFNkf8IMt8W+/ZkEFwo4WQDMfHF/c6esCHIFeRJJAqQzKzW5O2Pk0Q
-         O25OpDXZKhDyleW1jLxL/O0pJp8oSVm0NU1y0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744111285; x=1744716085;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qf0wy7L4O942D22Kbiabal5KHmDdSB8OgsY2GBka7Ko=;
-        b=NJ3T8E9dFQs03Zl7udDq6NPZc2zFZqBjEUt4q8/qfNdQEfjLtdOMnjb/6xRSMI0nYA
-         Wbn/E7r3zE02K6n2xQF8slitR/A5R9tU4aTv2tkvIePU0A6pKQI0yYNCrrZz03AzcQ4w
-         f8iDBc+7elvgT5IEpVR0lepTYCJtZ9YeW049Hhd8fCy9VE9QESWMiPMh+E+SP87PY9mp
-         lpQPrOx9coItZMswuRdpsaYXDk8+utHrdtfvRAiC1zLj0TgcIeV6J4rwhNVA7+jKhBgh
-         0EI8xbQg45O5VpTSAPO41s5+W4WDwAwst2BRZw7ycvxlYSkO6tgaiULbFUq/esIWYW5I
-         hDkw==
-X-Forwarded-Encrypted: i=1; AJvYcCX54qfDVArnUtYo++toAyDIt5yCSzY5ju6nAkw0mfcQJ+8Cdq63DFaZGHijmywBdUKQnuHJLlrK8LU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YywBtbNThCuJzNnSY6lN4ypfhE1iXjdzTvUhZAJJgE8HGWHsPNp
-	d9vuVp0H8GMdAH/g2F9+0VS4K8A6XGohjF9i/3jbhnF0GBDwwwyrQUnel9QTUd8=
-X-Gm-Gg: ASbGncvUvoXtNeVs4aW56EMiZ/Xi5z4oKV/UXXJQjOuBTXG/qHjuSaW8G9shDqSWxho
-	0E/w1hDQOKyIRaFO/KF7+aung995tvIRoml0XIUJiozm8oHN3XhdCfZtt/tuCE32KbBMpkHIKQa
-	hOznOcBUFaZQ2ZwRm6C/T9C2uY+zfuIfP5KVWYkxk48o4HW6oxynihJQa55J8trK2xbx6Q5bfIL
-	gUvAA/UhJdV9Rcr0AiRyi9n4bH9aRybHFHyUjNj41dVqRtpQaYlQXpv1CXJSOHKB7asKAUC01C9
-	ggyrhcagb7b3xxB4jFR1Dnh/0VLmDpSF3wy76EPGcvrt3d2z3A==
-X-Google-Smtp-Source: AGHT+IEjJJ4rOEF1asoT/6cfO01WLwUJrm2urETYpYKdML3wTFO1CX2lak3BUUxMnl1XefFjdc6jfA==
-X-Received: by 2002:a05:6a21:8cc9:b0:1f8:d245:616d with SMTP id adf61e73a8af0-20113c71a02mr17951874637.21.1744111284790;
-        Tue, 08 Apr 2025 04:21:24 -0700 (PDT)
-Date: Tue, 8 Apr 2025 13:21:19 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 02/11] x86/mkreloc: fix obtaining PE image base address
-Message-ID: <Z_UGr0A8LetHDJvB@macbook.lan>
-References: <20250401130840.72119-1-roger.pau@citrix.com>
- <20250401130840.72119-3-roger.pau@citrix.com>
- <6c37ad18-a830-453e-a7ff-fb4978e3f0df@suse.com>
- <a14a7a42-cf7e-463b-a87d-e302ce32371b@suse.com>
+X-Inumbo-ID: 43408b0b-146f-11f0-9eaa-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1744112854; x=1744382854;
+	bh=YfNQ6hRfzm8uz2wsvkuZLO3cvqePYwKdvDhIOCJV7ZY=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=jQ/Kv+raJRbuq6l7++0SFHZuTnB6BD0lxTWie7VnsJbAoqM0IDWLbGZ+8wrWAuM4e
+	 cEkbKDgZlJbSR1mF796oe0emD3lwJXPn96wk+o2fe2U5CUAC5YFEeAyZJOurh/hP2I
+	 WlleZHsUVdmxazvMqLSvK6swFhIfHn6B5ILADAhHTNRhCbKLbZWlziKqKvwWrLvWhz
+	 Gmz2viqwBhF7Yi9jOXmVDhP18mggIaF2I72CZwAXmfJuZdZTi2Cx2mrc7Zl/21NgKg
+	 ZKP1rt2IsVd7Z+nNjEbG/+T13DaowE72/AHsoU8LbcP1luyd932iG00YYpatgAjICU
+	 hmDrEk9OdfTBA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1744112854; x=1744373354; i=anthony.perard@vates.tech;
+	bh=YfNQ6hRfzm8uz2wsvkuZLO3cvqePYwKdvDhIOCJV7ZY=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=HEtJ3/O37//1s0YmB6yP7yuMucLorJ7L4NnZHde3b4Wqag46k5WnE20bxjxh45vck
+	 rIJ21z7k9vJDkgjE6fNj9ghk4KMg8FEzJ0tGrKSg4HAmONEP1/IyJCJuGe/nlUYlsf
+	 2+509S3c8kgpp1jEazRVRRkmRNSpiaDEDA14gqWne3XLHVRSYK2vYSvA7qcsQ4mE/8
+	 XT+zOi3u9d9bJ4HVMewd++1yHkxaaDrTncrui7icipsI/cxxcY3SmxktDDzfEuWnOa
+	 K2cYmyxijm0kMytifU39RTpFEd+O/oXiWUCDZAPXQOGHQN05dHTELEXFB1aGbO6vCU
+	 EyR9MmJAxIaQw==
+From: "Anthony PERARD" <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20Ping:=20[PATCH]=20libxc/PM:=20correct=20(not=20just)=20error=20handling=20in=20xc=5Fget=5Fcpufreq=5Fpara()?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1744112853666
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Juergen Gross" <jgross@suse.com>, xen-devel@lists.xenproject.org
+Message-Id: <Z_UM1KaELOPAtQ7l@l14>
+References: <df676738-19e7-47e6-977f-25d6d13ccc50@suse.com> <e0028d85-668a-464b-aac5-ac8a79ea9bf5@suse.com> <Z_PI2UNn2C4GKqYw@l14> <75d288ba-1006-46f4-8f51-6d49c5e8449d@suse.com> <Z_Pt6Pv8_RrV4J2U@l14> <8f29b0b3-dc57-417c-937a-50f5aac6f6f8@suse.com> <Z_Tze0pQFrU-9pNq@l14> <38df7f46-4468-4d0a-92a7-92f0fad13ede@suse.com>
+In-Reply-To: <38df7f46-4468-4d0a-92a7-92f0fad13ede@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.6add6fcaea3f497a8fe23b192498d509?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250408:md
+Date: Tue, 08 Apr 2025 11:47:34 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a14a7a42-cf7e-463b-a87d-e302ce32371b@suse.com>
+Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 02, 2025 at 09:46:53AM +0200, Jan Beulich wrote:
-> On 01.04.2025 16:17, Jan Beulich wrote:
-> > On 01.04.2025 15:08, Roger Pau Monne wrote:
-> >> The base address is in the pe32_opt_hdr, not after it.
-> 
-> Which is a result of pe.h munging both the optional and the NT header into
-> a single structure.
-> 
-> >> Previous to commit f7f42accbbbb the base was read standalone (as the first
-> >> field of pe32_opt_hdr).  However with the addition of reading the full
-> >> contents of pe32_opt_hdr, such read will also fetch the base.  The current
-> >> attempt to read the base after pe32_opt_hdr is bogus, and could only work
-> >> if the file cursor is repositioned using lseek(), but there's no need for
-> >> that as the data is already fetched in pe32_opt_hdr.
+On Tue, Apr 08, 2025 at 12:47:58PM +0200, Jan Beulich wrote:
+> On 08.04.2025 11:59, Anthony PERARD wrote:
+> > On Mon, Apr 07, 2025 at 05:38:57PM +0200, Jan Beulich wrote:
+> >> On 07.04.2025 17:23, Anthony PERARD wrote:
+> >>> On Mon, Apr 07, 2025 at 03:23:48PM +0200, Jan Beulich wrote:
+> >>>> On 07.04.2025 14:45, Anthony PERARD wrote:
+> >>>>> Calling xc_get_cpufreq_para with:
+> >>>>>
+> >>>>>     user_para = {
+> >>>>>         .cpu_num = 0,
+> >>>>>         .freq_num = 0,
+> >>>>>         .gov_num = 9,
+> >>>>>     };
+> >>>>>
+> >>>>> seems broken. It's looks like the `scaling_available_governors` bounce
+> >>>>> buffer is going to be used without been allocated properly handled, with
+> >>>>> this patch.
+> >>>>
+> >>>> The local variable "in_gov_num" controls its allocation and use, together with
+> >>>> has_num. "Use" as in passing to set_xen_guest_handle(). The only further use
+> >>>
+> >>> When has_num == 0, `in_gov_num` is only used to set `sys_para->gov_num`.
+> >>> It also make a conditional call to xc_hypercall_bounce_post() but
+> >>> there's nothing to do.
+> >>>
+> >>> Why user_para.gov_num seems to control the size of a buffer, but then
+> >>> that buffer is just discarded under some condition with this patch?
+> >>
+> >> That's nothing this patch changes. Previously has_num would also have been
+> >> false in the example you give.
 > > 
-> > Yes, but: How did things work at all then with this bug?
+> > Right, sorry. I was persuaded that `has_num` meant "any" of the buffers
+> > are allocated, instead of the written "all" of them are allocated in C.
+> > The logic in this function is really hard to follow because it doesn't
+> > make sense, especially the conditional on `has_num`.
+> > 
+> > Your patch does make requesting governors actually optional now (and now
+> > that I realise the calculation of `has_num` doesn't really reflect the
+> > name). The introduced `in_gov_num` local variable isn't very useful as
+> > the only real need is in the cleaning path (and we discussed earlier
+> > that cleaning can be done unconditionally).
 > 
-> It simply didn't. We got away only because apparently no-one tried a build
-> with a linker old enough for this tool to come into play.
+> Hmm, yes. See below.
 > 
-> I'd like to suggest the replacement patch below, though.
+> > So the patch is fine:
+> > 
+> > Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 > 
-> Jan
+> Thanks.
 > 
-> x86/EFI: correct mkreloc header (field) reading
+> > Oh, one more thing, it's funny that a lot of faff is done toward making
+> > the cleaning optional, with all the "unlock_*" label, but then cleaning
+> > code path can be executed when e.g. cpu_num=0,freq_num=4 (unless the
+> > hypercall return an error in such case, but the code shouldn't rely on
+> > that...).
 > 
-> With us now reading the full combined optional and NT headers, the
-> subsequent reading of (and seeking to) NT header fields is wrong. Since
-> PE32 and PE32+ NT headers are different anyway (beyond the image base
-> oddity extending across both headers), switch to using a union. This
-> allows to fetch the image base more directly then.
-> 
-> Additionally add checking to map_section(), which would have caught at
-> least the wrong (zero) image size that we previously used.
-> 
-> Fixes: f7f42accbbbb ("x86/efi: Use generic PE/COFF structures")
-> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Of the two checks added to map_section(), the 1st ends up being largely
-> redundant with the 2nd one. Should we use just the latter?
-> 
-> Also sanity checking the image base would be possible, but more
-> cumbersome if we wanted to check moret than just "is in high half of
-> address space). Therefore I've left out doing so.
+> Yeah, perhaps I could have dropped the conditional there, rather than updating
+> it. Are you happy for me to do so, dropping in_gov_num again (adjusting the
+> description some, of course)?
 
-We could likely check that image_base >= XEN_VIRT_START?  However I'm
-not sure how easy it is to make XEN_VIRT_START available to mkreloc.
+Yes, sounds good, thanks.
 
-> --- a/xen/arch/x86/efi/mkreloc.c
-> +++ b/xen/arch/x86/efi/mkreloc.c
-> @@ -28,14 +28,16 @@ static void usage(const char *cmd, int r
->  static unsigned int load(const char *name, int *handle,
->                           struct section_header **sections,
->                           uint_fast64_t *image_base,
-> -                         uint32_t *image_size,
-> +                         uint_fast32_t *image_size,
->                           unsigned int *width)
->  {
->      int in = open(name, O_RDONLY);
->      struct mz_hdr mz_hdr;
->      struct pe_hdr pe_hdr;
-> -    struct pe32_opt_hdr pe32_opt_hdr;
-> -    uint32_t base;
-> +    union {
-> +        struct pe32_opt_hdr pe;
-> +        struct pe32plus_opt_hdr pep;
-> +    } pe32_opt_hdr;
->  
->      if ( in < 0 ||
->           read(in, &mz_hdr, sizeof(mz_hdr)) != sizeof(mz_hdr) )
-> @@ -54,31 +56,40 @@ static unsigned int load(const char *nam
->  
->      if ( lseek(in, mz_hdr.peaddr, SEEK_SET) < 0 ||
->           read(in, &pe_hdr, sizeof(pe_hdr)) != sizeof(pe_hdr) ||
-> -         read(in, &pe32_opt_hdr, sizeof(pe32_opt_hdr)) != sizeof(pe32_opt_hdr) ||
-> -         read(in, &base, sizeof(base)) != sizeof(base) ||
-> -         /*
-> -          * Luckily the image size field lives at the
-> -          * same offset for both formats.
-> -          */
-> -         lseek(in, 24, SEEK_CUR) < 0 ||
-> -         read(in, image_size, sizeof(*image_size)) != sizeof(*image_size) )
-> +         (read(in, &pe32_opt_hdr.pe, sizeof(pe32_opt_hdr.pe)) !=
-> +          sizeof(pe32_opt_hdr.pe)) )
->      {
->          perror(name);
->          exit(3);
->      }
->  
->      switch ( (pe_hdr.magic == PE_MAGIC &&
-> -              pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr)) *
-> -              pe32_opt_hdr.magic )
-> +              pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr.pe)) *
-> +              pe32_opt_hdr.pe.magic )
->      {
->      case PE_OPT_MAGIC_PE32:
->          *width = 32;
-> -        *image_base = base;
-> +        *image_base = pe32_opt_hdr.pe.image_base;
-> +        *image_size = pe32_opt_hdr.pe.image_size;
->          break;
->      case PE_OPT_MAGIC_PE32PLUS:
-> -        *width = 64;
-> -        *image_base = ((uint64_t)base << 32) | pe32_opt_hdr.data_base;
-> -        break;
-> +        if ( pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr.pep) )
-> +        {
-> +            if ( read(in,
-> +                      &pe32_opt_hdr.pe + 1,
-> +                      sizeof(pe32_opt_hdr.pep) - sizeof(pe32_opt_hdr.pe)) !=
-> +                 sizeof(pe32_opt_hdr.pep) - sizeof(pe32_opt_hdr.pe) )
-> +            {
-> +                perror(name);
-> +                exit(3);
-> +            }
-> +
-> +            *width = 64;
-> +            *image_base = pe32_opt_hdr.pep.image_base;
-> +            *image_size = pe32_opt_hdr.pep.image_size;
-> +            break;
-> +        }
+-- 
 
-Since you are already refactoring much of this code, won't it be
-clearer to fetch the header inside of the switch cases.  So that
-there's a single read call for each header type?
+Anthony Perard | Vates XCP-ng Developer
 
-> +        /* Fall through. */
->      default:
->          fprintf(stderr, "%s: Wrong PE file format\n", name);
->          exit(3);
-> @@ -108,11 +119,28 @@ static unsigned int load(const char *nam
->  static long page_size;
->  
->  static const void *map_section(const struct section_header *sec, int in,
-> -                               const char *name)
-> +                               const char *name, uint_fast32_t image_size)
->  {
->      const char *ptr;
->      unsigned long offs;
->  
-> +    if ( sec->rva > image_size )
+XCP-ng & Xen Orchestra - Vates solutions
 
-Strictly, should this be >=, as rva is a position, and image_size is a
-size, so the last allowed bit would be image_size - 1?
+web: https://vates.tech
 
-Thanks, Roger.
+
 
