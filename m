@@ -2,49 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57BA0A8119A
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 18:11:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.942826.1341945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96FC7A81265
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 18:33:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.943109.1342014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BXK-0000ND-Br; Tue, 08 Apr 2025 16:10:54 +0000
+	id 1u2Bsx-0005NB-P4; Tue, 08 Apr 2025 16:33:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 942826.1341945; Tue, 08 Apr 2025 16:10:54 +0000
+Received: by outflank-mailman (output) from mailman id 943109.1342014; Tue, 08 Apr 2025 16:33:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BXK-0000KA-57; Tue, 08 Apr 2025 16:10:54 +0000
-Received: by outflank-mailman (input) for mailman id 942826;
- Tue, 08 Apr 2025 16:10:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u2Bsx-0005LU-M4; Tue, 08 Apr 2025 16:33:15 +0000
+Received: by outflank-mailman (input) for mailman id 943109;
+ Tue, 08 Apr 2025 16:33:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2sbj=W2=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1u2BW1-0002e3-3e
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 16:09:33 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20602.outbound.protection.outlook.com
- [2a01:111:f403:2408::602])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d74ffb5b-1493-11f0-9ffb-bf95429c2676;
- Tue, 08 Apr 2025 18:09:26 +0200 (CEST)
-Received: from BN9PR03CA0485.namprd03.prod.outlook.com (2603:10b6:408:130::10)
- by PH8PR12MB6673.namprd12.prod.outlook.com (2603:10b6:510:1c0::20)
+ <SRS0=23Rw=W2=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1u2Bsw-0005KN-64
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 16:33:14 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060b.outbound.protection.outlook.com
+ [2a01:111:f403:2009::60b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 284c5345-1497-11f0-9eaa-5ba50f476ded;
+ Tue, 08 Apr 2025 18:33:12 +0200 (CEST)
+Received: from MW4PR12MB7334.namprd12.prod.outlook.com (2603:10b6:303:219::21)
+ by SA1PR12MB5615.namprd12.prod.outlook.com (2603:10b6:806:229::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.21; Tue, 8 Apr
- 2025 16:09:21 +0000
-Received: from BL6PEPF00020E65.namprd04.prod.outlook.com
- (2603:10b6:408:130:cafe::69) by BN9PR03CA0485.outlook.office365.com
- (2603:10b6:408:130::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.28 via Frontend Transport; Tue,
- 8 Apr 2025 16:09:21 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF00020E65.mail.protection.outlook.com (10.167.249.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8606.22 via Frontend Transport; Tue, 8 Apr 2025 16:09:21 +0000
-Received: from xcbagarciav01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Apr
- 2025 11:09:19 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.31; Tue, 8 Apr
+ 2025 16:33:06 +0000
+Received: from MW4PR12MB7334.namprd12.prod.outlook.com
+ ([fe80::2e77:557:17d5:86f8]) by MW4PR12MB7334.namprd12.prod.outlook.com
+ ([fe80::2e77:557:17d5:86f8%3]) with mapi id 15.20.8606.028; Tue, 8 Apr 2025
+ 16:33:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,189 +47,327 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d74ffb5b-1493-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 284c5345-1497-11f0-9eaa-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KhKWTPh5+j5ubY28Lc8y3jGM9Q0MXXLh54mpD5gHAMO0+i6MleGisXfDKlGgCf6AftSm9n1D4PCnTSAORjWATgLT1YV4XRTrNMYJ9ZjJPyaouGb1/xcx8PqIoGywNa2J4CKPk/mY5HFwaomZmqPZ+ofcmqTYrNhi3OtLZK1ek3XEwkSKOUbeOg5GyMzYfrVrtj0IP1hPvJ/A+iJs07VvXVChBJzDHjbQvjuduCY1dWLs3AY11GJJFM/afPON/oPPgt6j6SY12m4uoYWk3bRHeidmYeKYIgVq4irgsfrJdvfxsM0CVVqMoDG86fyoSmUUUS8FRdmAhnyGrifo52JDVQ==
+ b=oz1MRE7guYFK5uBy8lGphrYnDJMd24EPlByX0jgF4ZYD46TonWVJnhWSLcFhLjIYAZ/bo5PgdxdKYyMGj+P4YGpXsHSDydggjyJ+USVh7Ym2p8zC3xlgLQea3qvwdTVvwsiSemz2xNXPtEr2tRMkGUcGE10GlPGdBhgP458r4gYy3E3NlV0ZZXZYZt27RgBkwq8O4teJDI7zBjdl0zBhoprNe/vE7+Wdnkzo5ACoQXIM9e+Os9mDI0bkhzoncsvHMopAbDUwBgSvIJKNwR6CZyQuKkJm58sQu5r7044EkGGFJ9dCIXG4yKi3hYDnosBDxYRfvqKTtToPDap775VT6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CdZjJno4ZP28T5tdzAN4JY6E44clyK3Mj7hHKvRrs5s=;
- b=lB7ZIj1ZIiXVAmchV7DjXZCmzB1VDTbIJhDqluy9kMKiRTdzvx5a/5KgQdE5XcYCskbzmADEP/+a8flGm6ArLBgOj6dPzyNwL6dDlO/co20ktRxkErKAeY0j6/PJrN0SOv+4QvfPl4xSzvKkYpR9iSd75eqCudLtHjMueX0UI7cFuTEWsuuXLGbtWKZK73u4ojRaDK4vI5w5TxloQhRdefhaGWACiHj0V8uRTcRHbO6p4GLCHMfbcnRY1a+bxpkb4JZDcsJ4qrOgLTdyTroFe99HxzKydwXnMBOUxzbKjBKuz8v6lsiWNkXhBztVw/q7Ze5lskQlse+zshZ4LiW1pQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=U5HMYBzBPyw+/+xhanZrfwRNnOpeY1ZmNP1ij1VuV9c=;
+ b=cooyP71+DUhvBw5xMJEQSEUWTi4yKTG/Fdvv5EPxLNIiw+WKgI9dVYmEJio1a9E0zenEyo89TM/K3DfP9QdXg6zfpgA+QL8X034gcQPA9oYIOyonerK6DqvzMzQR0Si2gklmt2kN/JMgWNXLc2jS4KscH5W15rVSXMGhC3L32E/Y9Y0HyiUBmkOr10peZsmvFr2ZdI5/aD0ivzzR4/7HVoCE80AV004UMTD12K5mfwNxUFny0ftRvFKBQd6D3TlxjbQJyy6vKG2luLd7x5S1POauZNsFvRQ2FEmXYAqpTnW/AT/dzFHz8ldnMsaa2JgNvcu68EJnViZvTOACTJ/s5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CdZjJno4ZP28T5tdzAN4JY6E44clyK3Mj7hHKvRrs5s=;
- b=dfwvcWzQDr/phsYUaUxulKPOYesaO0TXOMIIgcrA1B2aa952Ug7Dgjrvas5kVHoFEQ0qTVGlgwZi7IqmQMu0FAv6Odrjt7mXf3OeeU/8vgIoEK29M48iHn4DWQ/tztgoJSJUWZJ9Rot8lMv0INr5WoS5sfsEsiFUqV+eHS8nLuA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Alejandro Vallejo <agarciav@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jason Andryuk
-	<jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	"Stefano Stabellini" <sstabellini@kernel.org>, Michal Orzel
-	<michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>
-Subject: [PATCH v3 16/16] x86/hyperlaunch: add capabilities to boot domain
-Date: Tue, 8 Apr 2025 17:07:38 +0100
-Message-ID: <20250408160802.49870-17-agarciav@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250408160802.49870-1-agarciav@amd.com>
-References: <20250408160802.49870-1-agarciav@amd.com>
-MIME-Version: 1.0
+ bh=U5HMYBzBPyw+/+xhanZrfwRNnOpeY1ZmNP1ij1VuV9c=;
+ b=ch9spC8gRNec+iVN2dyPJaWVyzTCg9CRybgjRS60eAaUnMcKJXPHLFs39BD8dskMJ6i+XhewStOAW4KaS6DILIBnVmQQmaYLAOWitfHNZLo6HAS8WuzDM99c1sjyf8l2S0VRpBNFxPWLIROPwGkbSfKzE22B1ieoWQ/j53JuxG0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <4f860a56-5536-455b-9490-196bfc220556@amd.com>
+Date: Tue, 8 Apr 2025 17:33:02 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/7] arm/mpu: Provide access to the MPU region from the
+ C code
+Content-Language: en-GB
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250407091430.2342709-1-luca.fancellu@arm.com>
+ <20250407091430.2342709-3-luca.fancellu@arm.com>
+ <0acf63c0-267e-44c0-b629-fa576307497c@amd.com>
+ <1AC85CBD-02B1-4AA4-B9A3-68DFC06137AA@arm.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <1AC85CBD-02B1-4AA4-B9A3-68DFC06137AA@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: LO2P265CA0390.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:f::18) To MW4PR12MB7334.namprd12.prod.outlook.com
+ (2603:10b6:303:219::21)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E65:EE_|PH8PR12MB6673:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5767b228-3ba6-4589-58cb-08dd76b7b929
+X-MS-TrafficTypeDiagnostic: MW4PR12MB7334:EE_|SA1PR12MB5615:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4ed8412-b847-4135-5b2d-08dd76bb0a63
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?rSS4UDZQQUy8bV8VFukunITNWbb0gAtrNnAustEYq+J9v26STnFrAGFdEgd0?=
- =?us-ascii?Q?zbIfM9PmKWjmaYbkm9PNTMWQ+PxDAwY2QPtxOM/JaGWtM+bIKAJaIDJkMjsf?=
- =?us-ascii?Q?RoBj6bDC/jHksj2wqNoU0XavYUNZDCRrAxG/gr2GML2n4+lZd0cC+O4b9tlv?=
- =?us-ascii?Q?Z4XXckAkuq+vfF8mj0Jizwzz4sqiiH3E61YZm7QQcpvMd5uiY7VmRohC6vq1?=
- =?us-ascii?Q?mzfN1Ghk1pqhlYK2T7LPY2fs+T1+i67Zg5CwOfPGHCUkaaEbEx7Nm/gdXAIT?=
- =?us-ascii?Q?t+NhR2D02T5GHdvs8QP3wdJPQmPwQs0ZMGQ1MMbI9T6AwX28XEeUoNTiPCKd?=
- =?us-ascii?Q?+yJW1ziZa9whe6zdK3l5gHlG33VU7EjPJ25DgcUQyMGNRoBmEYGHCJWcjOHo?=
- =?us-ascii?Q?txqFbJx6GTqjJuKfMC9Gqnx0CHR4rn+nQwWq0qf7e86WDia9fr/FLrjvgX5k?=
- =?us-ascii?Q?Fw9vhOTUFSgCw4bN0J+s0luY5GalJS+Ya9h2/8Bw3O53Oaylnb01V6pULQLS?=
- =?us-ascii?Q?KH9ilVoHbwE1OYP/n0N94Wdmasi3gP9H7MZzd4VQaisoABqr/d2LcQ5p8/b8?=
- =?us-ascii?Q?Qgyyvp6Q5jUCQm3g+7UICjLJgRo3a+/PYsQvmso9XXGtIV5LTy6vD1QblXZA?=
- =?us-ascii?Q?2mbjcRycpYPG/XLbdFkYxp26n5jhyHeLRTiMaYyt2aQyyE7SwHSe3CSAk0hA?=
- =?us-ascii?Q?Hlh8Jm3Ycnu9NahYn+ScFctD+eav+6m3g/BuG+3CyPxAA8LHXyIcP6Xp5YZc?=
- =?us-ascii?Q?1tpmqdVhSfmyWW4GtU+LcgjlbsOMA2Y9dmqrgLtb4NUCOeHxjnfp+19FGP3T?=
- =?us-ascii?Q?nAhD8LxmaYivOtknmTCup8YtI5f1Keo59y+xAHDSUFt4A9X+ZSA+gqLgedsc?=
- =?us-ascii?Q?dgw3G8TZeC0O5kGA3wXajM42O5JdF2pkmVICI9KTcRTrhkEsbGNQpO0PAX67?=
- =?us-ascii?Q?ssh8fqs4ZlhMxBqx4VeXAzOzxxh/PbN5K2Ed3hd/GXaNoAITghoszhXt4dg6?=
- =?us-ascii?Q?L9bHRpOGTjm7Ecuy6pqen7ulwNm1+oPkRb8pDuHMCGY0qT5XDn8ciuilIZYg?=
- =?us-ascii?Q?hOvop/vLh4h36Xl4N+8aA2RFRcmcu/UT8gnv0ynj77BATEpXIWD0VIE9HLSV?=
- =?us-ascii?Q?ObhYRY7J9N+O2ibPynW1LHxjrD0lKelm1LadlwuWEe6/zdQh804/w4KwZ5rA?=
- =?us-ascii?Q?MKK7TUlYtRGBYHca6u3anbo+fMQfgiC92sVvxxEqpAmCZYfj9gdNnjZRm78I?=
- =?us-ascii?Q?OcMqQ64cbNV+YqRjBoO653bBCP6thWo8vOuysPFsEcg5ij8scofpmJN3HQVM?=
- =?us-ascii?Q?T8aDh7gpoMAF9WjRw8yY8qbexUxJRZipOC/VHdjj26kl2g/lokiWwADE5rMu?=
- =?us-ascii?Q?1prTCAjWkDvpOcxyPrpsBm2L5J14Um7zKYebIbn+m1p5fLgY+O5Rm7jw9iMO?=
- =?us-ascii?Q?ZtyO+SvRIREneOv26hRiD9KP9U1DJ4NoA8CxaCeqfhCuoXfXrTgGYA7rUXlF?=
- =?us-ascii?Q?awQsa+KU/YKzoSZd7Px+MRM1WEqoeamdAKxY?=
+	=?utf-8?B?bVBKa1lacE16MUliMWRkWnNqdG1UM1IvbC9rR1AvMDc0TmJvdWhvUWMvSDNP?=
+ =?utf-8?B?MHY4cjIrZGhMQ2VIdFpCRHFZU2hXOVRoQWwyZ1NjSXRQaTJLTjVLd3pnVkJN?=
+ =?utf-8?B?M2QrYWE4Vzg3c3JzdktEbTFlS09mbXNoWmNkaGpnTlhodjM1ZW9MalFuY1ZX?=
+ =?utf-8?B?NDBHaDdMWVBNWUNlUGROdE5TNUhQQkFlZFVrZWl3T05SbCtKb1p5N1ppWVhv?=
+ =?utf-8?B?TjJPTXpNNzk2dUFLNkJTaEtmSXh0ZFRxMWo1Ri9CMGlxTm9XVXdNSTRCMnl5?=
+ =?utf-8?B?ZjBDM0N6YjI1MHNTVU03alltUERUNDlaZWg4R3hwM096OFpUODNtMDBBWVJT?=
+ =?utf-8?B?NXNnUWxXK2d0WkxtNTdKRC9UY3UwZEl2ckpPNzlDeVcxSCtyTmxlM1JJaFdJ?=
+ =?utf-8?B?dGVuUjlGMkZYVTNDbE5OZ05hd0ZMYXppMHB3OTBSNXp3djkwVE9lYnQrMThY?=
+ =?utf-8?B?NlgyMisveHZ1U05nY2VsVUpFRUw5OWNlUlY1UjNwaHJVVVFISW1aS3cxc3Ex?=
+ =?utf-8?B?aEhmSVdsd2pRaUdDaDJYdHoxZ29tZVczYUhvMUhjaTI0NjFlSFRYbmRtdlZt?=
+ =?utf-8?B?S1AxT2NxRnFwNThBN2d5M2Q3U1FjaHQyVTJwNnIvemJCSVlCNHhtVjNYcmgv?=
+ =?utf-8?B?cVlWU3k3Q283VG44SlQrYk55TWRGOTVURkYvaGxwQUFLMkFKUXZRMEF3b0dC?=
+ =?utf-8?B?VDVjMmRJYkZpc3NWMkNZRVBFS0xSYnlHR20vNlpWTTlyVTdaWk9TNW82S2Rn?=
+ =?utf-8?B?ckNDcUpDcWd2WHVXeStTLzlnaktXNmRPNjFtdzVIWGpSNlJ2aVNVaG5rUGE4?=
+ =?utf-8?B?RjRiNXRqa1BzaEtMVVZNYm5kOUpEZnJGaXFrTEdYcWMwZ3k1Y2pFTm00UDlI?=
+ =?utf-8?B?c3dUQ21IYU1wZHBta2ZwWnVrUnJQWGkwaldOcXU5d0VoSGEzTEJhOVdSaWlG?=
+ =?utf-8?B?YXJDRFVISmZYOXVRN2lpVE1FWDFKQ2hhSFpra3pTZDd4a3U4Y1NmNTY4bmNO?=
+ =?utf-8?B?aWlVSDhRQWJUdDBubjZ2dkxjd1A2UGVrNEFNcW4yL1U1cXB5UytOajhqNlRz?=
+ =?utf-8?B?Z3JOVVh0L0J2c0FzNlFtbFFCRno4YW0xMUxSNXhyV3dzVDdDVFN0US9tZmdU?=
+ =?utf-8?B?eHJRR3h1WTArU3FnN1h0WWhoZVVIR3RpUFdOZjJKK0dDTytjcWR6aldnSEF2?=
+ =?utf-8?B?THJoYnErdnJQZlZGNGhCZHBGa2NFNlhEcFEyWEtWSEo4Q1kzZzZBOTFDbkxG?=
+ =?utf-8?B?WGxqTnQ3aEkxRkpYVFZjQzY5TlNOKzJXNldBSEdJWnlLTi90Z3RnSURTbXlP?=
+ =?utf-8?B?dzlscHMwREVFekl5TDFJdVFoTzRmeS9vY0JRMDI4MGY0bFlSY2hXVEJYTnR4?=
+ =?utf-8?B?dk1rVC81MmVzQ2dYbGhUZW9zWEFCNzhXVW9VU0FycHgvRnRMMzFBVE9sRzB1?=
+ =?utf-8?B?M2RyUzNFMU16WlpMWGJOTUNNUlFLcW5EcXBLSVB3WFY2QlRSZlJyUUlNRHor?=
+ =?utf-8?B?NjhzSU9GQXNwRmhIY1hlbWNodUthOVROTHpWbDR5MmNDQXlNR25yRjJKM0dD?=
+ =?utf-8?B?VU9LQ0d2aUpBTjhwci9ieXlIOE12ejA4MmNNY3BMa1hLUDZHQTJ0NGhMNVQ2?=
+ =?utf-8?B?ZWN6dWtkNjVnTXJPeFdrbWZGOFhSZFM5M1hjenBiaEFVWWZaM2tEUjBUeFAz?=
+ =?utf-8?B?a1BmdFF6bUhlbDdGbTBWMUZoRGs3eGdZd3dGeXEyWUlEdEo2TmR0T25PN2Rr?=
+ =?utf-8?B?Z1cyTTUrUjNxMko2T0pOREZkeGdXTFJpaDJ3V0hZZjcxSUdWN1R3eHpMTnY5?=
+ =?utf-8?B?M3ZqeEhuWFpIOWhLcTdFcStGaW1WcUJzZS9yQUgvRDJHd28yQ3RTWXRxaUhw?=
+ =?utf-8?Q?3gvka7qmW9LAs?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB7334.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WmhoSjFoQWtOQU8wak5ndnhkTWpJRkxOYmoya1ZoWEJoTWtzcXNOUlVRTXJC?=
+ =?utf-8?B?L3BUMlJCV0xUeFFMN0N4RTVsQzJwSitZdXUxcmpObFllandrcmxpbm02eXFi?=
+ =?utf-8?B?SzF1bEhhbjQwZEtTSStKc0JhNEVDVkRrUlB2VXIrUThRdE1RY0tGNmM3dVRk?=
+ =?utf-8?B?R29rSExaaG9FZ3pjOVZCTW1aS1g4ZWVTNk8xdUY4akxENG1jTkFrcFlIYW1M?=
+ =?utf-8?B?UG1wSEFjNUthaEJBMm9QQTB1eTUySjJDOXRsUTlOYTk1MkhDOFE5aU4wcTJm?=
+ =?utf-8?B?bHAweENvVWVBMDZLTi9nR3FWb2hNNi9JakRORVhFL1NpQkNvdXJHWkZoZjJp?=
+ =?utf-8?B?R2dIbUVhRUd6RFN3STg1cHNqaFI2aUZLM0ZHblhmQVdORGJ6VDhrZnk1cVVE?=
+ =?utf-8?B?L2dMcDJ1MUhOZ01NZ0FwQ05XdG5yc0lmS3k2UjNmOFJXb2tUYkd6cE5OUTFN?=
+ =?utf-8?B?ZGpKQkhkdHA2WHN2TXhvdnc3WjNBVFRJSERMTmx3c29NNmNBTk04WmhRUzRU?=
+ =?utf-8?B?aFdzQ2hibVpVYVpVWE55VXZtalhaeUpsaDhKZFQ5TFV5SzRmZUYvanJsZTU0?=
+ =?utf-8?B?WkxpMzNHVEhxb3hnUm01WGNWZGIwbnF5RGl4aGIvNjRkRTFJMmlxdFVVK00z?=
+ =?utf-8?B?a3ZXRUZROXVudnZpR2s5Uzg5eEE4VlE0aVVDQU5pamVjZXlSK1k4VmhqVHk2?=
+ =?utf-8?B?a1RQaUliOExvNVU5eVA5WldabzZjK21sa3lQdldZWnBTR1BpdUYweXFxam5L?=
+ =?utf-8?B?QVlyWXNONDdBTzduVWw0VWZpVW5aOTRDQ2pTSjBzQW1yNlBDV2dFRjhWSzRD?=
+ =?utf-8?B?aU5QdGlaTGhuclIvYzkzaUV0QTBFTmluQWZtdityYWFEa2VJbFBlNStjWEtK?=
+ =?utf-8?B?MHo5cll1V0RDY3F3S1Zvckxzd3BpU3Q4bGlhNVlYcXVVRkQrWW1SVXZXZ0s2?=
+ =?utf-8?B?N3RkdG1pNEQ0Y0MrUkhVVWFHUklqYm1oOGp2bWUydnkxR1A5cnY5QmlOR3Zz?=
+ =?utf-8?B?YUd6ZG1mcnNpY09kVUpIbUZqdXNTeTdyRlBnSGRRQThiK1FFVklFam12cXNt?=
+ =?utf-8?B?SzYzcWRJVmEvZTBTUHhhUVY1aDBZdTJISlk0NlBrVXRSWkJvbGhQMUk3MU02?=
+ =?utf-8?B?Y1ppN2wwUmRxcTVveUJyMDlOQnhjNnloMnBIcEl0TFYxZGZOY0Z4bXBRSzhZ?=
+ =?utf-8?B?SVJZd3NjT2Q4akYwZTA4SDE3QlJ4b05DemNWSEhldDZzRC9ZaGRodGRJS2pK?=
+ =?utf-8?B?bVRxRUlMSU9Ic0VBL1JZSkF0R1BjcnlLV0theTJ0MWxPczBGZUl6Y1JlRnFG?=
+ =?utf-8?B?WkFzaHc5VTJlenpMOFhlUlBYbmFOcTk3Y09mRkRubnlST2lRdHU0ZnRJMUlG?=
+ =?utf-8?B?Z2lsV0JTVFFENTJ1Si90Uk85bzJsQ0JnSEtIazF1T08yY1VYMTJXS21LQk1X?=
+ =?utf-8?B?QVBrcmVkQmlLeXV3c2p5aENRUHFWRTVnTHo3Nkt0NUdNdlplNk04TGFHcjdI?=
+ =?utf-8?B?YWYrYmRpT3NoU2M2YzJic1N1eHo5a3lUNkNtenhoWUYvWXZER3M2aG9oMS9Q?=
+ =?utf-8?B?YTE0cFZmSUJsTklSQW45K3dKYkpGV2dpaUlkK21jWm9ibDNEZExCNE13KzIw?=
+ =?utf-8?B?LzJyd2RJY1IvSmdKQTQxWmZ2SzJvcThabm1HRHRhaXltRjdjTHRoNkFsa1BZ?=
+ =?utf-8?B?UTZ6MHczcVpNL2loL2E3aXlrLzNCVGxsMHVWWk5MS1B0VU9PeGFJeXV0YklH?=
+ =?utf-8?B?ZUFKTk8vZlljMjRKb1VrS3RJTzkxS3NxeEp4aWZTbUJScERXN2k1U0RSTEtV?=
+ =?utf-8?B?aHpVb2M0R3VVRUNvQnd6MHZNbXZZY3ZEWm94SkhMbHFzaW1ncnpHN1Z0TFQw?=
+ =?utf-8?B?OVpIdUpyN0JLN3gwZkF0WmxYcVhENUJYdU9RVHA5U081ejFhUkRRZG9uaXB4?=
+ =?utf-8?B?M1pRWWNFYzRhMERUQWxPWnI3K1o3cHorQ2Y2UnVTWkp1eWZuZDhGWDlTUElo?=
+ =?utf-8?B?Kzg1YS8wc2RtbWxqMHRwamlMQm1hTWk5MjhVTEJhUnhUSUFwSkhuaTBjRmlx?=
+ =?utf-8?B?WnJFNFRsM25DRFI2cFEzd3ExOEMydjl5MjJDN1FZM1gvWWxwajdVK1NGbnhM?=
+ =?utf-8?Q?EEKh+lmtJEaADs5uBDnG2uLor?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2025 16:09:21.3752
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4ed8412-b847-4135-5b2d-08dd76bb0a63
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB7334.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2025 16:33:06.4971
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5767b228-3ba6-4589-58cb-08dd76b7b929
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00020E65.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6673
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MnU9HjIdxntzPEe4o/YojYcp64y9x+ZAoXV+bDC8rEiy79KBUREKJLh1/WA5VS6rAojiADO3myMmnHZ6zc2RSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5615
 
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 
-Introduce the ability to assign capabilities to a domain via its definition in
-device tree. The first capability enabled to select is the control domain
-capability. The capability property is a bitfield in both the device tree and
-`struct boot_domain`.
+On 08/04/2025 15:29, Luca Fancellu wrote:
+> Hi Ayan,
+Hi Luca,
+>
+>> On 8 Apr 2025, at 15:02, Ayan Kumar Halder <ayankuma@amd.com> wrote:
+>>
+>> Hi Luca,
+>>
+>>> +static void prepare_selector(uint8_t sel)
+>>> +{
+>>> +    /*
+>>> +     * {read,write}_protection_region works using the direct access to the 0..15
+>>> +     * regions, so in order to save the isb() overhead, change the PRSELR_EL2
+>>> +     * only when needed, so when the upper 4 bits of the selector will change.
+>>> +     */
+>>> +    sel &= 0xF0U;
+>>> +    if ( READ_SYSREG(PRSELR_EL2) != sel )
+>>> +    {
+>>> +        WRITE_SYSREG(sel, PRSELR_EL2);
+>>> +        isb();
+>>> +    }
+>> This needs to be arm64 specific. Refer ARM DDI 0600A.d ID120821
+>>
+>> G1.3.19  PRBAR<n>_EL2, /* I guess this is what you are following */
+>>
+>> Provides access to the base address for the MPU region determined by the value of 'n' and
+>> PRSELR_EL2.REGION as PRSELR_EL2.REGION<7:4>:n.
+>>
+>>
+>> Whereas for arm32 . Refer ARM DDI 0568A.c ID110520
+>>
+>> E2.2.3 HPRBAR<n>,
+>>
+>> Provides access to the base addresses for the first 32 defined EL2 MPU regions.
+>>
+>> /* Here we do not need to use HPRSELR for region selection */
+>>
+>>
+>> If you want to make the code similar between arm32 and arm64, then I can suggest you can use these registers.
+>>
+>> G1.3.17 PRBAR_EL2
+>>
+>> Provides access to the base addresses for the EL2 MPU region. PRSELR_EL2.REGION determines
+>> which MPU region is selected.
+>>
+>> E2.2.2 HPRBAR
+>>
+>> Provides indirect access to the base address of the EL2 MPU region currently defined by
+>> HPRSELR.
+>>
+>> Let me know if it makes sense.
+>>
+>> - Ayan
+> Ok I didin’t get that before, what do you think if I modify the code as in this diff (not tested):
+>
+> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+> index fe05c8097155..1bc6d7a77296 100644
+> --- a/xen/arch/arm/mpu/mm.c
+> +++ b/xen/arch/arm/mpu/mm.c
+> @@ -58,19 +58,21 @@ static void __init __maybe_unused build_assertions(void)
+>       BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
+>   }
+>   
+> -static void prepare_selector(uint8_t sel)
+> +static void prepare_selector(uint8_t *sel)
+>   {
+> +    uint8_t cur_sel = *sel;
+>       /*
+>        * {read,write}_protection_region works using the direct access to the 0..15
+>        * regions, so in order to save the isb() overhead, change the PRSELR_EL2
+>        * only when needed, so when the upper 4 bits of the selector will change.
+>        */
+> -    sel &= 0xF0U;
+> -    if ( READ_SYSREG(PRSELR_EL2) != sel )
+> +    cur_sel &= 0xF0U;
+> +    if ( READ_SYSREG(PRSELR_EL2) != cur_sel )
+>       {
+> -        WRITE_SYSREG(sel, PRSELR_EL2);
+> +        WRITE_SYSREG(cur_sel, PRSELR_EL2);
+>           isb();
+>       }
+> +    *sel = *sel & 0xFU;
+>   }
+>   
+>   /*
+> @@ -102,7 +104,7 @@ void read_protection_region(pr_t *pr_read, uint8_t sel)
+>        */
+>       prepare_selector(sel);
+>   
+> -    switch ( sel & 0xFU )
+> +    switch ( sel )
+>       {
+>           GENERATE_READ_PR_REG_CASE(0, pr_read);
+>           GENERATE_READ_PR_REG_CASE(1, pr_read);
+> @@ -140,7 +142,7 @@ void write_protection_region(const pr_t *pr_write, uint8_t sel)
+>        */
+>       prepare_selector(sel);
+>   
+> -    switch ( sel & 0xFU )
+> +    switch ( sel )
+>       {
+>           GENERATE_WRITE_PR_REG_CASE(0, pr_write);
+>           GENERATE_WRITE_PR_REG_CASE(1, pr_write);
+>
+> And later you will use some #ifdef CONFIG_ARM_32 inside prepare_selector() to check
+> that the code is passing up to the max supported region or panic.
+> And in {read,write}_protection_region() you could add some #ifdef CONFIG_ARM_32 to add
+> the case generators for regions from 16 to 23 since R52 can address them directly.
+>
+> What do you think?
 
-Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
- xen/arch/x86/domain-builder/core.c     |  1 +
- xen/arch/x86/domain-builder/fdt.c      | 12 ++++++++++++
- xen/arch/x86/include/asm/boot-domain.h |  4 ++++
- xen/arch/x86/setup.c                   |  6 +++++-
- 4 files changed, 22 insertions(+), 1 deletion(-)
+I got this diff working as it is for R82. This looks much lesser code
 
-diff --git a/xen/arch/x86/domain-builder/core.c b/xen/arch/x86/domain-builder/core.c
-index 510a74a675..6ab4e6fe53 100644
---- a/xen/arch/x86/domain-builder/core.c
-+++ b/xen/arch/x86/domain-builder/core.c
-@@ -96,6 +96,7 @@ void __init builder_init(struct boot_info *bi)
-         i = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
-         bi->mods[i].type = BOOTMOD_KERNEL;
-         bi->domains[0].kernel = &bi->mods[i];
-+        bi->domains[0].capabilities |= BUILD_CAPS_CONTROL;
-         bi->nr_domains = 1;
-     }
- }
-diff --git a/xen/arch/x86/domain-builder/fdt.c b/xen/arch/x86/domain-builder/fdt.c
-index 5fcb767bdd..dbfbcffb0a 100644
---- a/xen/arch/x86/domain-builder/fdt.c
-+++ b/xen/arch/x86/domain-builder/fdt.c
-@@ -257,6 +257,18 @@ static int __init process_domain_node(
-             bd->max_vcpus = val;
-             printk("  max vcpus: %d\n", bd->max_vcpus);
-         }
-+        else if ( strncmp(prop_name, "capabilities", name_len) == 0 )
-+        {
-+            if ( fdt_prop_as_u32(prop, &bd->capabilities) != 0 )
-+            {
-+                printk("  failed processing domain id for domain %s\n", name);
-+                return -EINVAL;
-+            }
-+            printk("  caps: ");
-+            if ( bd->capabilities & BUILD_CAPS_CONTROL )
-+                printk("c");
-+            printk("\n");
-+        }
-     }
- 
-     fdt_for_each_subnode(node, fdt, dom_node)
-diff --git a/xen/arch/x86/include/asm/boot-domain.h b/xen/arch/x86/include/asm/boot-domain.h
-index 969c02a6ea..29a7d806de 100644
---- a/xen/arch/x86/include/asm/boot-domain.h
-+++ b/xen/arch/x86/include/asm/boot-domain.h
-@@ -13,6 +13,10 @@
- struct boot_domain {
-     domid_t domid;
- 
-+#define BUILD_CAPS_NONE          (0)
-+#define BUILD_CAPS_CONTROL       (1 << 0)
-+    uint32_t capabilities;
-+
-                                           /* On     | Off    */
- #define BUILD_MODE_PARAVIRT      (1 << 0) /* PV     | PVH/HVM */
- #define BUILD_MODE_ENABLE_DM     (1 << 1) /* HVM    | PVH     */
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 4127a0105d..7e1a26b4d2 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1006,6 +1006,7 @@ static struct domain *__init create_dom0(struct boot_info *bi)
- {
-     char *cmdline = NULL;
-     size_t cmdline_size;
-+    unsigned int create_flags = 0;
-     struct xen_domctl_createdomain dom0_cfg = {
-         .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
-         .max_evtchn_port = -1,
-@@ -1037,7 +1038,10 @@ static struct domain *__init create_dom0(struct boot_info *bi)
-     if ( bd->domid == DOMID_INVALID )
-         /* Create initial domain.  Not d0 for pvshim. */
-         bd->domid = get_initial_domain_id();
--    d = domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
-+    if ( bd->capabilities & BUILD_CAPS_CONTROL )
-+        create_flags |= CDF_privileged;
-+    d = domain_create(bd->domid, &dom0_cfg,
-+                      pv_shim ? 0 : create_flags);
-     if ( IS_ERR(d) )
-         panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
- 
--- 
-2.43.0
+diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+index fe05c80971..63627c85dc 100644
+--- a/xen/arch/arm/mpu/mm.c
++++ b/xen/arch/arm/mpu/mm.c
+@@ -28,23 +28,19 @@ DECLARE_BITMAP(xen_mpumap_mask, MAX_MPU_REGIONS);
+  /* EL2 Xen MPU memory region mapping table. */
+  pr_t xen_mpumap[MAX_MPU_REGIONS];
 
+-/* The following are needed for the case generator with num==0 */
+-#define PRBAR0_EL2 PRBAR_EL2
+-#define PRLAR0_EL2 PRLAR_EL2
+-
+  #define GENERATE_WRITE_PR_REG_CASE(num, 
+pr)                                 \
+      case num: \
+{ \
+-        WRITE_SYSREG(pr->prbar.bits & ~MPU_REGION_RES0, 
+PRBAR##num##_EL2);  \
+-        WRITE_SYSREG(pr->prlar.bits & ~MPU_REGION_RES0, 
+PRLAR##num##_EL2);  \
++        WRITE_SYSREG(pr->prbar.bits & ~MPU_REGION_RES0, PRBAR_EL2);  \
++        WRITE_SYSREG(pr->prlar.bits & ~MPU_REGION_RES0, PRLAR_EL2);  \
+break; \
+      }
+
+  #define GENERATE_READ_PR_REG_CASE(num, pr)                      \
+      case num:                                                   \
+      {                                                           \
+-        pr->prbar.bits = READ_SYSREG(PRBAR##num##_EL2);         \
+-        pr->prlar.bits = READ_SYSREG(PRLAR##num##_EL2);         \
++        pr->prbar.bits = READ_SYSREG(PRBAR_EL2);         \
++        pr->prlar.bits = READ_SYSREG(PRLAR_EL2);         \
+          break;                                                  \
+      }
+
+@@ -65,7 +61,6 @@ static void prepare_selector(uint8_t sel)
+       * regions, so in order to save the isb() overhead, change the 
+PRSELR_EL2
+       * only when needed, so when the upper 4 bits of the selector will 
+change.
+       */
+-    sel &= 0xF0U;
+      if ( READ_SYSREG(PRSELR_EL2) != sel )
+      {
+          WRITE_SYSREG(sel, PRSELR_EL2);
+
+Please give it a try to see if it works at your end.
+
+
+And then, the code can be reduced further as
+
+void read_protection_region(pr_t *pr_read, uint8_t sel)
+{
+     /*
+      * Before accessing EL2 MPU region register PRBAR_EL2/PRLAR_EL2,
+      * make sure PRSELR_EL2 is set, as it determines which MPU region
+      * is selected.
+      */
+     prepare_selector(sel);
+
+     pr_read->prbar.bits = READ_SYSREG(PRBAR_EL2);
+
+     pr_read->prlar.bits = READ_SYSREG(PRLAR_EL2);
+
+}
+
+The same can be done for write_protection_region(...)
+
+- Ayan
+
+>
+> Cheers,
+> Luca
+>
+>
+>
+>
 
