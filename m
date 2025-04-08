@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DFCEA8103C
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 17:38:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.942441.1341595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBC3EA81053
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 17:41:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.942453.1341605 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2B22-00068P-04; Tue, 08 Apr 2025 15:38:34 +0000
+	id 1u2B4F-0007pX-Cn; Tue, 08 Apr 2025 15:40:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 942441.1341595; Tue, 08 Apr 2025 15:38:33 +0000
+Received: by outflank-mailman (output) from mailman id 942453.1341605; Tue, 08 Apr 2025 15:40:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2B21-00065w-Tl; Tue, 08 Apr 2025 15:38:33 +0000
-Received: by outflank-mailman (input) for mailman id 942441;
- Tue, 08 Apr 2025 15:38:32 +0000
+	id 1u2B4F-0007mE-9e; Tue, 08 Apr 2025 15:40:51 +0000
+Received: by outflank-mailman (input) for mailman id 942453;
+ Tue, 08 Apr 2025 15:40:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jpS5=W2=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
- id 1u2B20-00065p-Ef
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 15:38:32 +0000
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20a::7])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xdvb=W2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u2B4D-0007m3-RP
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 15:40:49 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8584dd4e-148f-11f0-9ffb-bf95429c2676;
- Tue, 08 Apr 2025 17:38:30 +0200 (CEST)
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- (2603:10a6:150:16a::21) by PA4PR03MB7469.eurprd03.prod.outlook.com
- (2603:10a6:102:105::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.35; Tue, 8 Apr
- 2025 15:38:25 +0000
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e%5]) with mapi id 15.20.8606.033; Tue, 8 Apr 2025
- 15:38:24 +0000
+ id d58ecbb6-148f-11f0-9ffb-bf95429c2676;
+ Tue, 08 Apr 2025 17:40:44 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-39c1efc4577so3159833f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 08:40:44 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39c301b72d5sm15064301f8f.47.2025.04.08.08.40.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Apr 2025 08:40:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,171 +45,289 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8584dd4e-148f-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IR8wM8Wa87nrD8Ek0gEU8yq3habFvj8rOzQm2Xhv4ht2wH3gBlkF85NNxZuo5Y4+mQfFR8EEebCZyqRsYmBOAQ7ah6UJ4lXp5vkTLkG4tzPk+eNoD9lAEZKjj0yTf4xkeD+uV2atscny8Zh3u8ax+tJl4PGIYHyHr4Ocnjjx43jrLuciSQIzggUfQNsN2dIgDgebpmT/UYrw/Dhv98zykUOmlxxU3Q7gcN9xJKWXhLdcMZacSn0ubVK8JlrLhtQ73yJ+7e0hzjX1tkQv2op7py5z7/EIWJ31kyLLL87WekEWUCytKxsGtCP16CfKFbKCjn6pouqBFagrISfqhKpz/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7urgFuUcv9ekelw8kTvRAD/6Qy+f/RzS8svHaMji6CM=;
- b=lU34akrX/jE4CmSz+uSz6p/F3T/+yw9w4oE0QUwm/DEgtih9qDDrcnDrXsdpA/W5OD7UView80LSXfWtm04Av6dfFgoYYqy2Eh/2H1aEhGlZjSp2QDUzaL6fhP0sAzJ/jdJfpFsUBjsn7J3/iSZpsG/mbZqK5U2tAFWivDnTiWV6YlT8kqjiBDnpW8r6BvIDus3H0NEqcY2vf2B9qkqQUvUqLYssW3A668zZjbbkCCu9Cw2qFwlle3fdxHlHKUD8R9pdCzIGiEsKb5rPEpM5q2Fxxul0Tl/nZ6zu9YBcSmLTaViMne8Ex3P3OVSDQwPqFSDA7c4s0fBBLTFU+5ea8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7urgFuUcv9ekelw8kTvRAD/6Qy+f/RzS8svHaMji6CM=;
- b=Z1hNR7CXou49EIZPDAoq0biTPnYR/OrL09CCFejACvRgWPT9uEIajxIlxUUVh2QFB3gqBAe69D8oAk+hKOeElplWGvnJOC+HERmSrlro9VM4JMfifVA0Lx5TmTQDxSzsVi7yzan/+eZhvqOOmfIDJr2Ucjq6seBHfHC37xtk82v9i2cUwwNifM7cwdBuYaJvbtXY5kq3+NW0yZKxT75E158JHk7Tobvr0B2cYYbasZHsUUJB/K7+vfoobt+kAO6+pLWJ/liHDbb34Z8BPC8crhRwPG66112BdLzMBtg38XTJ/XWGKRh0C7xLFWn4A5g/7kh1gUCFutnP1cQngsOeYw==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
- Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v4 2/2] xen: debug: gcov: add condition coverage support
-Thread-Topic: [PATCH v4 2/2] xen: debug: gcov: add condition coverage support
-Thread-Index: AQHbp9yW2b5GBLlgDka417bnQFIpfQ==
-Date: Tue, 8 Apr 2025 15:38:24 +0000
-Message-ID: <8734eifyts.fsf@epam.com>
-References: <20250407164608.2558071-1-volodymyr_babchuk@epam.com>
-	<20250407164608.2558071-3-volodymyr_babchuk@epam.com>
-	<abf11b31-0bf0-4add-a49a-17d7723c74f2@suse.com>
-In-Reply-To: <abf11b31-0bf0-4add-a49a-17d7723c74f2@suse.com> (Jan Beulich's
-	message of "Tue, 8 Apr 2025 08:34:44 +0200")
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|PA4PR03MB7469:EE_
-x-ms-office365-filtering-correlation-id: 4579a674-47c4-40c6-d919-08dd76b36677
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?0KimHD/adE5LpCIzxKfdO+bny5IB8q/Iqf8wbOaj/KtwwyVIjWL7SlFCY6?=
- =?iso-8859-1?Q?MCaJecEmMCHry4QXLwepEOJLLjzbbzaDT8lSG2mbyHJyV8jQq5e3Xo4x8O?=
- =?iso-8859-1?Q?wSH3NUKxxbS55LyQlQkh6ACDuKRFxtED9KVaj6LrGiaFVti0+9iRk63yfW?=
- =?iso-8859-1?Q?vTW5Sw23TDY6arzjdz2R6fhQRVBRW3WRkN9AcVdgFHRjjnhtG2+yD7z69v?=
- =?iso-8859-1?Q?ZQxFsu2Vl8dQlgZDehqS700qaCgk2SQsGL84gs8fEivLMljzmpmR2JjrJL?=
- =?iso-8859-1?Q?AdgKn15bTpI2BEY5W/HiKZa23vlZP6n8wMmU9k6EN5sK9SRDEsy2nAbevG?=
- =?iso-8859-1?Q?g3oVibnR96zUNRslyskyqcNzHGPhqrGzkRAMouHL4aMJq52m0AuPPyTnQr?=
- =?iso-8859-1?Q?F39CHNQWJK3fHKHbBl1wG2hXLaPnDbBag7V1FjkKjkc1GxtMgvGxetDs66?=
- =?iso-8859-1?Q?dFAGYlzRmS9fNzTYaW0DoGiNdQ2Rvr5hirt30SOvV6WjuZfq1kgBO/d/9Y?=
- =?iso-8859-1?Q?m4mZvEtgOfjF7IBUTjqWD6V92QnCaVDQCtTHNY481hobuzttwTCrx4pCwy?=
- =?iso-8859-1?Q?k5jb14JNzUpCi6TMT4wMTSfsEycv/YAu8YXRRYvVJ/LvscWcdc2VW52txC?=
- =?iso-8859-1?Q?Wowh+LRmnu1dJ67BgT+kd+R4U7k/t7JLt5RrRKmN1I0ScQxCOJuY3CKXih?=
- =?iso-8859-1?Q?ATb+3M/O2Z682v4pyZhg5MvtTFNK4aGuEc46kuJnSsDuM20lRVQpGqU9lr?=
- =?iso-8859-1?Q?88ervNYudnKNblwWm3Yec4wwEUuioyl0b0eSDCSORsmgGZcn3/9x8NkzJ5?=
- =?iso-8859-1?Q?jfc7eJnY7ECveIV9kH0txT+lBKn1kokSYGMFusjb+/4CqbCJzUY8hCiw5W?=
- =?iso-8859-1?Q?Rk0hfL4YJo5K539LbXUZIVEQ7z7PtA/dhJaM7YtyDnIAQGzq7cwpFw+q16?=
- =?iso-8859-1?Q?GrtQJR60+IxHGCm8mEZyDKdzDfg2lbCqIav1RY1JW07kWofMjVhUOrBrTN?=
- =?iso-8859-1?Q?b+ZJvPCIfEaCgF+Wqa++0Fq7dzoPMCHgNxaFr1D7vqxd66bPENWTJuefqW?=
- =?iso-8859-1?Q?sHdR24FNfwvc7MvAqRBQOX6Z1lMWC8Xmq6VBmfU1Bp4GBLp8sVeTs1cxyf?=
- =?iso-8859-1?Q?98L/bYuIPtq2WuluTkBUe9hFQtFQbNz98Di9tGHeYVo4q1d+MRT0pHHcbX?=
- =?iso-8859-1?Q?m/Vg0ZlLVFtBn2TzfEBoJBrVHKn36Dsct3upcGXen5/BL17/8OilOx5D37?=
- =?iso-8859-1?Q?73copU9TXwz8PqvoApKaWERI+DumW3rAkPTEgpX8GOGuR5dZ19rklGyC4B?=
- =?iso-8859-1?Q?Bc+oEB4zmEJrnfS41kfKPbH8UJFq1VyDQRbjMQkzj7+fNEve3POXAoRWqi?=
- =?iso-8859-1?Q?G5KJHrh2TAN8xarCICH3UFqRgX4hBDr383PYGlCr87eqKKNJ7c1KKOcl6D?=
- =?iso-8859-1?Q?d/zbR9A8SVoGmTlGDNlmRHrBtXYIX52AduURgkHs2EtE+IRk/IFlRW+48Z?=
- =?iso-8859-1?Q?oKRALYubBp8h0JlLinqJsT/+f6wZY68YFN9/1v6nFZ+Q=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?leoacIC/bOEQjL/h7LjGUtIqFwIMRiMmhJNCDa9pdYpFhSKPMMqbcGEu+w?=
- =?iso-8859-1?Q?+su+naDXRSZdq7m2J3gAe0kkwPZmIfGFOsTpiwO1jbQqDwi8UGBucQsGju?=
- =?iso-8859-1?Q?GG55ICA4+Ceunz4aGtjasO0KUNVoDUR+08Va/ay0Og8bN7eFLX4nsj/Feg?=
- =?iso-8859-1?Q?LZH5yeTpurfR1GZUQvdrIGN1e0gvV00WX/Xf7XtnfLHGXvZ8mGJu8NoONM?=
- =?iso-8859-1?Q?gVPvydu3GwmJti9qZgYRH3IcFFVgYC2CuTDwjhKxT/kM8BL364FAhjcbcp?=
- =?iso-8859-1?Q?7pDi68p3eWBzGddhw+cMTzsS07QHfUlTTg+sYd5Eo/xneMowTFts+ImqjL?=
- =?iso-8859-1?Q?I0RkWAOO4aK5IksKzWCN1Y69QNqecF4YZ3XfBsW0Kh0aUj4U19CxzVMjGP?=
- =?iso-8859-1?Q?uGtHInUop3R7SaEtD7C50Pun033T8/mpU0G/oTTXFtb4Nz3y6YByBNPQYE?=
- =?iso-8859-1?Q?wO1zlpv7nt5RAer9FxXodwWBaV0A47cKEr2UuLe1E7VOo7m3aZm3QXvpLk?=
- =?iso-8859-1?Q?v1KYDhQPHojB6y0Gl5MCg1weCAEzk5KGheVuWOlLA8E6yUp4W6bDIXlBJc?=
- =?iso-8859-1?Q?sBLUw6o4ubQKwNXYDPKyddo/l01MyAskGveWJE+N5wRtdIyS+hlN8bi7zZ?=
- =?iso-8859-1?Q?KeNh273eRTqid1Z3mQn0XpPfl5i6dMzD91gwOSO3SUcSpFFOw27f5r63YV?=
- =?iso-8859-1?Q?xV29FDEkUgNR0cEFvRADdFn//d61ov0EvpWta5g10Exf3ht/0abpYOPdKr?=
- =?iso-8859-1?Q?Dq3sDbPDBk33xzw8FEmFTOHUFsWsRVABLk0CAL+sHIJJFM255AnuSQ1OpN?=
- =?iso-8859-1?Q?UifwNwfwbT4OHrhBPrMQtGEH0Lf9lrNYT9olTkhQ51dWbMT6g+JheG7pqi?=
- =?iso-8859-1?Q?bPAsF7QfYu2cGYS3YAztbzLlLgta035aF0f3JrKiCgATVwpd4543OJ/bQO?=
- =?iso-8859-1?Q?dal9fYCO59J9IEEZboeYbgm2NHR37LEvWdkbdXmosHOh6JU1mjIC9HrXri?=
- =?iso-8859-1?Q?r4hsz0casV9MIMV7BTVzO50nIkXnLMcZTgJb9vkGvw1CEtkvSwxH4EpLof?=
- =?iso-8859-1?Q?48vK4K7f7yEltFRv89movypfFJNrohGtbrdQRrZFCns8sYCGuAZsHP7v+H?=
- =?iso-8859-1?Q?XN/slVOSQ2zZTAJN4c7HWGER8FNhI6lBVhtqpa6Bb11/GfF4P6018zqN+j?=
- =?iso-8859-1?Q?62n101NH6Ok0qzF2NoKlaVHiJ0x/WF1y/ngxUJcGFufdEFfZQVWqIbensc?=
- =?iso-8859-1?Q?6PwcrEGgiTOff5ui40DiqFHeP1YffF+WnWZxRjQyl0EP0Fta0iNNw5z/ae?=
- =?iso-8859-1?Q?60v00RcAEWkeip7VCtmoz1Mq1LW+N2bLeFpKPeJd8Fwjhbfu2m7+xPv+zt?=
- =?iso-8859-1?Q?wezfZ/gVk90Ww5j1z/G8uAkUNS8lQVLiib7P6BZsMYFJbKWRiLSzQUENry?=
- =?iso-8859-1?Q?/Qa7um3T093IW/T95CJ7OiYi91tvxIbSoXXv1vLKeJUha471rdivUxZkMK?=
- =?iso-8859-1?Q?/ck5DJdEiK0NrRDq9BtTXdu/NDu7rtUvexDpW5jN46xvHEWiTof//sDnBQ?=
- =?iso-8859-1?Q?VP12syS8Okv2tvTvQpTTbfxpVMjZTcNAPBKNX/5RsjQryGCl8jM29YT8hx?=
- =?iso-8859-1?Q?xN7U6qvKTjf8GVV+UHHIBGOtOicH+n8lwT5GN9pxttV41PNJmB+gsFfA?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: d58ecbb6-148f-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1744126844; x=1744731644; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=lktp0SVhv6T4bZkfaCjU+MiKyH31xZ7UmCeKpYNo/84=;
+        b=Oglkjw1Y3Fmwpyz4SjX/PH0+JN9eWlZdfle7He4lg5sYTvHWQBD/c7nrH1Ld+bI2a/
+         nl++riOGdyNjeoqdZ6tCp6UnRTehrn/2DYTiysmcmf1zR4eJ0Ro/Sa8N6csQU/hAEWv3
+         IdVwSUtestAFIwqvYsomfCvK2qJX7ZerjivWVNWiFmnXZimbYfkjj0MLZ0p+pq0A8EWj
+         1x/yM5XO2nIjCsJmbfjsou5myFJJ2Nfj+k/i8Gij0j7LNl7z7vTFaxYyHNdxz7zZ/szb
+         NydrvV4mmGLNw6JZ1j+4WZRuxeUeJGP4ex/72NNc9OwRMTaztDSDLVcs3nwOsln2JG6l
+         6b/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744126844; x=1744731644;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lktp0SVhv6T4bZkfaCjU+MiKyH31xZ7UmCeKpYNo/84=;
+        b=kFey8UKdHyW7A+BKoNQMj/XAicWbbshgcRUI2BsfNHsBdyAzELm0aU+tKfOWmk3Hzo
+         s0g/uQSXfwlOEP3WlvrArY5rajY8acroT1+7/4u5VONCKf4YkvVT5hwzyBFYQCiybfEo
+         y20PuzAGx4GcYjUdkCWOkGRvTMSbE76wC5TKpeMhUmBwXFBZ1fDCSOTgmK+FFh+Klge2
+         +N1LeOV1xjS7yXNuTSvR+L86uxoU7huhrBMqGUdyhWG4OwPrMwfJ3qcDxbZeEDD79ay8
+         BfaBo4DXOfpc5XpyYzgZyMN4LouwhFZfozK1993aR0kH38dpEEHxahOeM7jOmIzXX2Er
+         DALQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUgFyH40t+gCDAXF5qgC2imwtkt4Q1ATBY38YansI/wMp5VLBwwlrbeRMRVCNsGvpqKjqwLAUcRftM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw2F1bATG9iwse9AqOuNaiKR+3N2bDupkDzMOsesV+fOHdjBOVi
+	hgi75O0Q5X1hRszgVTBNCvqalM5x+4fOPcPKTm5VnZMwwgyvwXWjJ4aPrzuwQw==
+X-Gm-Gg: ASbGncusQS9HCxq+ihhLU8iPQuLqu+xBwhoM3EEnzsmO2TEh5omvd0rxwqEiiO58+9g
+	XJr1P+yQ+mbtqcHnI9+QatCu4jBLMHHurPP34tUFmB4vt3bpK0f2i4l+EbQaoWrR4pbmXEQkRa3
+	x6ArzMqcxFW5KGGPuorvmmpUkMHV0VVWLpjkKKYIhAa5D7xYREMhhcE7RxljIfJglnrM2cijTZ6
+	Jl+gUpYaUo4FJwdRGauH9aKgLTEFkKqZ4vMVvEK7+hllXFJODnRaj+1ifxO8D4Tu92/IXOH17/O
+	87RuCvt5LRIq8BpvJIrINS2OLhwWhOgPyCW0T0r37SJT7Y7h6Y6fnmC7MTLoP8fxyldoVGOaXZa
+	YxG53msi/PYtNzrfNQAK9RZP9GIICSw==
+X-Google-Smtp-Source: AGHT+IF39j5Q4NtjQ8M47ptLlKOyOsP4Vq2B054nqi5SiZF2GeVyma2DUp6GrV09iOizMaVj2SzdYg==
+X-Received: by 2002:a05:6000:2509:b0:39c:30d8:3290 with SMTP id ffacd0b85a97d-39cb35b196bmr12784115f8f.7.1744126843910;
+        Tue, 08 Apr 2025 08:40:43 -0700 (PDT)
+Message-ID: <550f2eab-cf33-4e80-8991-b913afa81e69@suse.com>
+Date: Tue, 8 Apr 2025 17:40:42 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4579a674-47c4-40c6-d919-08dd76b36677
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Apr 2025 15:38:24.6705
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: X6lcYCI4NtByTrdROdvxTklO6stQFr56b+3VNpRylLP0VcZqcn/1cef5rlFKxIWe4P5THYYYPvGoO2R5KQeM/eN4x736HyUs124PViDU49A=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB7469
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2] xen: add libafl-qemu fuzzer support
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <gwd@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250315003544.1101488-1-volodymyr_babchuk@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250315003544.1101488-1-volodymyr_babchuk@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 15.03.2025 01:36, Volodymyr Babchuk wrote:
+> LibAFL, which is a part of AFL++ project is a instrument that allows
+> us to perform fuzzing on beremetal code (Xen hypervisor in this case)
+> using QEMU as an emulator. It employs QEMU's ability to create
+> snapshots to run many tests relatively quickly: system state is saved
+> right before executing a new test and restored after the test is
+> finished.
+> 
+> This patch adds all necessary plumbing to run aarch64 build of Xen
+> inside that LibAFL-QEMU fuzzer. From the Xen perspective we need to
+> do following things:
+> 
+> 1. Able to communicate with LibAFL-QEMU fuzzer. This is done by
+> executing special opcodes, that only LibAFL-QEMU can handle.
+> 
+> 2. Use interface from p.1 to tell the fuzzer about code Xen section,
+> so fuzzer know which part of code to track and gather coverage data.
+> 
+> 3. Report fuzzer about crash. This is done in panic() function.
+> 
+> 4. Prevent test harness from shooting itself in knee.
+> 
+> Right now test harness is an external component, because we want to
+> test external Xen interfaces, but it is possible to fuzz internal code
+> if we want to.
+> 
+> Test harness is implemented XTF-based test-case(s). As test harness
+> can issue hypercall that shuts itself down, KConfig option
+> CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING was added. It basically tells
+> fuzzer that test was completed successfully if Dom0 tries to shut
+> itself (or the whole machine) down.
+> 
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> 
+> ---
+> 
+> I tried to fuzz the vGIC emulator and hypercall interface. While vGIC
+> fuzzing didn't yield any interesting results, hypercall fuzzing found a
+> way to crash the hypervisor from Dom0 on aarch64, using
+> "XEN_SYSCTL_page_offline_op" with "sysctl_query_page_offline" sub-op,
+> because it leads to page_is_ram_type() call which is marked
+> UNREACHABLE on ARM.
+> 
+> In v2:
+> 
+>  - Moved to XTF-based test harness
+>  - Severely reworked the fuzzer itself. Now it has user-friendly
+>    command-line interface and is capable of running in CI, as it now
+>    returns an appropriate error code if any faults were found
+>  - Also I found, debugged and fixed a nasty bug in LibAFL-QEMU fork,
+>    which crashed the whole fuzzer.
+> 
+> Right now the fuzzer is lockated at Xen Troops repo:
+> 
+> https://github.com/xen-troops/xen-fuzzer-rs
+> 
+> But I believe that it is ready to be included into
+> gitlab.com/xen-project/
+> 
+> XTF-based harness is at
+> 
+> https://gitlab.com/vlad.babchuk/xtf/-/tree/mr_libafl
+> 
+> and there is corresponding MR for including it into
+> 
+> https://gitlab.com/xen-project/fusa/xtf/-/tree/xtf-arm
+> 
+> So, to sum up. All components are basically ready for initial
+> inclusion. There will be smaller, integration-related changes
+> later. For example - we will need to update URLs for various
+> components after they are moved to correct places.
+> ---
+>  docs/hypervisor-guide/fuzzing.rst           |  90 ++++++++++++
+>  xen/arch/arm/Kconfig.debug                  |  26 ++++
+>  xen/arch/arm/Makefile                       |   1 +
+>  xen/arch/arm/include/asm/libafl_qemu.h      |  54 +++++++
+>  xen/arch/arm/include/asm/libafl_qemu_defs.h |  37 +++++
+>  xen/arch/arm/libafl_qemu.c                  | 152 ++++++++++++++++++++
+>  xen/arch/arm/psci.c                         |  13 ++
+>  xen/common/sched/core.c                     |  17 +++
+>  xen/common/shutdown.c                       |   7 +
+>  xen/drivers/char/console.c                  |   8 ++
+>  10 files changed, 405 insertions(+)
+>  create mode 100644 docs/hypervisor-guide/fuzzing.rst
+>  create mode 100644 xen/arch/arm/include/asm/libafl_qemu.h
+>  create mode 100644 xen/arch/arm/include/asm/libafl_qemu_defs.h
+>  create mode 100644 xen/arch/arm/libafl_qemu.c
 
-Hi Jan,
+This looks to be about Arm only, which would be nice if that was visible
+right from the subject.
 
-Jan Beulich <jbeulich@suse.com> writes:
+Also, nit: New files' names are to use dashes in favor of underscores.
 
-> On 07.04.2025 18:46, Volodymyr Babchuk wrote:
->> --- a/xen/Rules.mk
->> +++ b/xen/Rules.mk
->> @@ -31,6 +31,7 @@ CFLAGS-y :=3D
->>  AFLAGS-y :=3D
->>  nocov-y :=3D
->>  noubsan-y :=3D
->> +cov-flags-y :=3D
->
-> Personally I would have put this slightly higher up, at least ahead of th=
-e two
-> no*-y. Thinking of it only now (sorry), also maybe cov-cflags-y might be
-> slightly better a name?
+> --- a/xen/common/sched/core.c
+> +++ b/xen/common/sched/core.c
+> @@ -47,6 +47,10 @@
+>  #define pv_shim false
+>  #endif
+>  
+> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER
+> +#include <asm/libafl_qemu.h>
+> +#endif
+> +
+>  /* opt_sched: scheduler - default to configured value */
+>  static char __initdata opt_sched[10] = CONFIG_SCHED_DEFAULT;
+>  string_param("sched", opt_sched);
+> @@ -1452,6 +1456,10 @@ static long do_poll(const struct sched_poll *sched_poll)
+>      if ( !guest_handle_okay(sched_poll->ports, sched_poll->nr_ports) )
+>          return -EFAULT;
+>  
+> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
+> +    libafl_qemu_end(LIBAFL_QEMU_END_OK);
+> +#endif
+> +
+>      set_bit(_VPF_blocked, &v->pause_flags);
+>      v->poll_evtchn = -1;
+>      set_bit(v->vcpu_id, d->poll_mask);
+> @@ -1904,12 +1912,18 @@ ret_t do_sched_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>      {
+>      case SCHEDOP_yield:
+>      {
+> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
+> +        libafl_qemu_end(LIBAFL_QEMU_END_OK);
+> +#endif
+>          ret = vcpu_yield();
+>          break;
+>      }
+>  
+>      case SCHEDOP_block:
+>      {
+> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
+> +        libafl_qemu_end(LIBAFL_QEMU_END_OK);
+> +#endif
+>          vcpu_block_enable_events();
+>          break;
+>      }
+> @@ -1924,6 +1938,9 @@ ret_t do_sched_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>  
+>          TRACE_TIME(TRC_SCHED_SHUTDOWN, current->domain->domain_id,
+>                     current->vcpu_id, sched_shutdown.reason);
+> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
+> +        libafl_qemu_end(LIBAFL_QEMU_END_OK);
+> +#endif
+>          ret = domain_shutdown(current->domain, (u8)sched_shutdown.reason);
+>  
+>          break;
 
-Okay, I'll do this in the next version.
+If I was a scheduler maintainer, I'd likely object to this kind of #ifdef-ary.
 
->
->> @@ -133,19 +134,18 @@ $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)=
-): CFLAGS-y +=3D -DINIT_SECTIONS
->> =20
->>  non-init-objects =3D $(filter-out %.init.o, $(obj-y) $(obj-bin-y) $(ext=
-ra-y))
->> =20
->> -ifeq ($(CONFIG_COVERAGE),y)
->>  ifeq ($(CONFIG_CC_IS_CLANG),y)
->> -    COV_FLAGS :=3D -fprofile-instr-generate -fcoverage-mapping
->> +    cov-flags-$(CONFIG_COVERAGE) :=3D -fprofile-instr-generate -fcovera=
-ge-mapping
->>  else
->> -    COV_FLAGS :=3D -fprofile-arcs -ftest-coverage
->> +    cov-flags-$(CONFIG_COVERAGE) :=3D -fprofile-arcs -ftest-coverage
->> +    cov-flags-$(CONFIG_CONDITION_COVERAGE) +=3D -fcondition-coverage
->
-> Why's this inside the remaining ifeq(,)? Surely there's at least a chance=
- for
-> Clang to also support the option at some point?
+> --- a/xen/common/shutdown.c
+> +++ b/xen/common/shutdown.c
+> @@ -11,6 +11,10 @@
+>  #include <xen/kexec.h>
+>  #include <public/sched.h>
+>  
+> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER
+> +#include <asm/libafl_qemu.h>
+> +#endif
+> +
+>  /* opt_noreboot: If true, machine will need manual reset on error. */
+>  bool __ro_after_init opt_noreboot;
+>  boolean_param("noreboot", opt_noreboot);
+> @@ -32,6 +36,9 @@ static void noreturn reboot_or_halt(void)
+>  
+>  void hwdom_shutdown(unsigned char reason)
+>  {
+> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
+> +    libafl_qemu_end(LIBAFL_QEMU_END_OK);
+> +#endif
+>      switch ( reason )
+>      {
+>      case SHUTDOWN_poweroff:
 
-Yes, but Clang uses different option: -fcoverage-mcdc. I see no sense in
-adding it right now, as Xen does not support version 10 of llvm
-profiling format, in which they added MC/DC support.
+It's not as bad here and ...
 
---=20
-WBR, Volodymyr=
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -40,6 +40,9 @@
+>  #ifdef CONFIG_SBSA_VUART_CONSOLE
+>  #include <asm/vpl011.h>
+>  #endif
+> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER
+> +#include <asm/libafl_qemu.h>
+> +#endif
+>  
+>  /* console: comma-separated list of console outputs. */
+>  static char __initdata opt_console[30] = OPT_CONSOLE_STR;
+> @@ -1289,6 +1292,11 @@ void panic(const char *fmt, ...)
+>  
+>      kexec_crash(CRASHREASON_PANIC);
+>  
+> +    #ifdef CONFIG_LIBAFL_QEMU_FUZZER
+> +    /* Tell the fuzzer that we crashed */
+> +    libafl_qemu_end(LIBAFL_QEMU_END_CRASH);
+> +    #endif
+
+... here, but still.
+
+Also, pre-processor directives want their # to live at the beginning of the
+line.
+
+Jan
 
