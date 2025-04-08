@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD5DAA7F5B9
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 09:12:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.941483.1340949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64604A7F615
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 09:22:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.941497.1340960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u237z-0000ZE-8F; Tue, 08 Apr 2025 07:12:11 +0000
+	id 1u23I4-0003Ih-5H; Tue, 08 Apr 2025 07:22:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 941483.1340949; Tue, 08 Apr 2025 07:12:11 +0000
+Received: by outflank-mailman (output) from mailman id 941497.1340960; Tue, 08 Apr 2025 07:22:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u237z-0000Wg-5Q; Tue, 08 Apr 2025 07:12:11 +0000
-Received: by outflank-mailman (input) for mailman id 941483;
- Tue, 08 Apr 2025 07:12:09 +0000
+	id 1u23I4-0003HD-2D; Tue, 08 Apr 2025 07:22:36 +0000
+Received: by outflank-mailman (input) for mailman id 941497;
+ Tue, 08 Apr 2025 07:22:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xdvb=W2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u237x-0000Wa-Bt
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 07:12:09 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1u23I2-0003H7-Kt
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 07:22:34 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c849a350-1448-11f0-9eaa-5ba50f476ded;
- Tue, 08 Apr 2025 09:12:08 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-39c13fa05ebso2962624f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 00:12:08 -0700 (PDT)
+ id 3cc2a884-144a-11f0-9eaa-5ba50f476ded;
+ Tue, 08 Apr 2025 09:22:33 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3913958ebf2so4607510f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 00:22:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f11eb708fsm7312485e9.1.2025.04.08.00.12.06
+ ffacd0b85a97d-39c301b72d5sm13882720f8f.47.2025.04.08.00.22.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Apr 2025 00:12:07 -0700 (PDT)
+ Tue, 08 Apr 2025 00:22:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c849a350-1448-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 3cc2a884-144a-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744096327; x=1744701127; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QUObOkx8rvFp79ELXW671pjeJwSoCSeHjS0UtDC6N8w=;
-        b=gX65NG8OU4McaSZmFVzp3UD0E5lYP93ofoa0jukHndmXXJf9YWmN1JC6K9CiF64Ixc
-         wdAK31VWa3/uqv8GkxDuVtgSfPfcDr5OUegNY8AZzwrpCf01K/+cI6od53agT2IJ5JYy
-         I8lRKdCUZjayOVTg8pYueOj7r/qRH38PKrViMbn2oKHxajs6AwWETu25zMis8WpILQ3K
-         colY511N48K5ye1KWp2SFIFAlqWiKpQ9dTvtJ9+L2eONnj4vL7x31VPmS0WJ+zXM1fAQ
-         CS/MJr7fvUxZT7vghQ2e+xyFdPRGiGXOweJzZ/oNz4qxh8fcTwDitPOPf2GHZB5coqEc
-         nnhg==
+        d=suse.com; s=google; t=1744096952; x=1744701752; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=PBJ1/01DLy56cXg76sfjWaapcTytbNbg4uSVjJPNke8=;
+        b=bngiWC3SiOt2NmhXaDfhvcTlSgAgPfkvWvfVVebVXteIrY/WNCRFHZ71a2d9YOA+nL
+         RIWwhS4mNy4MyY6KUadZaT5t7BiguHVvh369fYiw5oOl8u86Zvo0R3K9HfLPDeglACtL
+         ulBUEQmb4jqjqMu8nMgHFef156KQ+MgrsOiZM5l/u8OfZF2Q2HcaA6sbSRj7D/2g7caG
+         dCmwzfFtneh3Hmo16YnjAJt6nGVLhj8A8o/Ek2+eRJY9afyy5j4yE9SK+q0cNe8sZQaA
+         IBiAQZlTLrctVgEbHCmMkRGxvLmwibJrdIHL4Kg4QgEGlpWO3HYojM1y6BmGpSMNVo5F
+         7kVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744096327; x=1744701127;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QUObOkx8rvFp79ELXW671pjeJwSoCSeHjS0UtDC6N8w=;
-        b=BloIW242KTXV5C531V3yROOCXPMchJPvxvVs7kh3eL1p+yQXiy1uG1IRzXEmj53hD9
-         CoQ81VZ2Igbt0F1QflIw7GB6nC6rHgWtCHDEBdIJB4D3ggKcuAp+iWAr//QGlunbTrF4
-         CsFROdMoajZu2OQKe1S+Yd6evSqnonJwbNIHWHqizF9XY/77RF0PTzpI9i/vWYSNvJ+f
-         Zo2womE8SAplU6inmRxw70lqaK+LOM2YbPYrXypumJZwcK/5mdcBUQiHAmelSbYEFBfz
-         StnjfPEnEbAef/5F/8qk/1SgZZTKnoGdRrHtD+8279hpTRPExVffpRHYPr2MhBBw+gRU
-         9rtA==
-X-Forwarded-Encrypted: i=1; AJvYcCVi4EuzZn27byLgtzcqjtCn3pYIPTig8MYK3WTK4s5qI/o6EbeVitAzEDJ4oM/rCUMU8bNZsQP8zS0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzIpC2+E8Leoh6uiuKlRcZu+t1O9ZvrZK/26f0hVfrfhJ9k1fJb
-	G3qzjVRB2nNs9lkwTdIHGHVKe3Da3+7YkQCA/vKBAS2aOCf0mFFGjscrF+Ub5qWPmMyrQCrIlKQ
-	=
-X-Gm-Gg: ASbGncs/a8guzlX7RA18SRvtgX0kegN598pkfPdUZ9QM5eZo1IE9I3jDozUJdvy2cMn
-	FLrwy3HM75RQYNaVTNqfNDk53zI8ZFY1zpVJZptzttW5Y5TW9ZkPsn73QlxhdOPnnjOIGrplb8K
-	n8QZo5GfzY7XgcbEqiIO3c6NJa9mbm/ORV82KDchW0gB0aHfNL80PFpV8vvLipyxx83eJUboHhV
-	CChdnQyRV8TBF7U5XAenYqal512CPUrY9NhkYP5jfTz6+6jXcDENisIJHRN9alAZGSleVsAQk17
-	UoqTmtgBMhlOUNGRLg9pRzj7gaTKRdqbXirYmQ3X/7gnvnxswKshOrQw4NNFbBSubO1Ca+9w1XC
-	xN4TeRnkeAoC7IBVSqWIceUN9GWMFklDqYYG2IdzB
-X-Google-Smtp-Source: AGHT+IGTz0jyl6RnH4mLNAZ1D3WSdUx45SXfk0hNe40adJtF7GPpmEaRtYSS6k958U2bbikQLBsn0Q==
-X-Received: by 2002:a5d:648b:0:b0:39a:d336:16 with SMTP id ffacd0b85a97d-39cb35aa6ffmr13095348f8f.34.1744096327434;
-        Tue, 08 Apr 2025 00:12:07 -0700 (PDT)
-Message-ID: <e6e43d87-4e6d-498f-b234-a2b577fce7b6@suse.com>
-Date: Tue, 8 Apr 2025 09:12:06 +0200
+        d=1e100.net; s=20230601; t=1744096952; x=1744701752;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PBJ1/01DLy56cXg76sfjWaapcTytbNbg4uSVjJPNke8=;
+        b=D9n57JaJD7B7bHQG88pZORdi1kVsMtSvD9VSgyn7sKYx/tWnNyaAZbqL85AELd9wJm
+         HFZvwbg+tEJRLeTb2DDUM7fUHbwxGmTsXsNlKMTBkPhbwUVT5rZ2ZgdKE73qGOtE+HBT
+         Vp2RPGy3BJFi610zyF6oVoxqHpXL8dUccV92LN0Hf1KTCi6Olt8lEf7vMdmMjGafMRw0
+         XpyqlN0SfLgl5KIWvLwD3asDz/sD3uO5e7ociS+0NML8LWcNNRROsE/qoJipYXmh1KDu
+         KKuws3+8nCJajsErZIZ1HHeUcMSkWZLwDlHKSLidcoqHwU/jN10QUeJpUu8Xk+YxIPhN
+         YVJQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVp2hRHjIqB8Vo2IB2tWzFJ/Ax3iqFymGZx5ShkYV6pr2/GaGvJJFHmFhxYDeqI8v7f0jhqefHmmEE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwaIJJFMDgADrEFQYdLlnGbPqaFUyS/dHW7uJ2gPOr0pr0v9XxK
+	mQcl+zPKqBraTmM254L8jBPlBkTYLBtNAR2p9aSEySu3+fitEpWkYxhVPNh97g==
+X-Gm-Gg: ASbGnctf+p8OJapPCGSKdhWxbjWCB45PRCfKVCn+jIdLZ/PXSODrXIfziuRKsq7rcJA
+	3q1J4JL2O1m7PiA4CRZw/zmJoyhhlxyq2mx9wpDralFsx/SxJEOvionNk7pjtvknL+QeM4F87tf
+	xTOAo5A1ZxvGJbuhft5QdU14goedeEIzfIIAB8fkkY2Mtge30cmeUoTCFySVNqwM0TPB8UOESvZ
+	iwfCiO93CyFqcpIfW4QF1xa3a6I59xdOjd8GUmRxmRTlvAIr7Vq2p49f8YYvjKse5VQU06S3ANP
+	bwO7t2W6kFUbx8YfLLhzrJOR3THlT9Vc4I6ekcQWOFch2tX3cqyw8kaUkilWVuVNw6GjfZD0uFX
+	RLacBjTvbCr7IoyKBTV2UPAEli1ARMg==
+X-Google-Smtp-Source: AGHT+IFNLk+NG3lepXxkK26KmqCiTe8sd0qK6nwP/ufLeFE8bESZVz7+0vnn7je/mIf/USzxjQQYsg==
+X-Received: by 2002:a05:6000:2909:b0:39a:c80b:8283 with SMTP id ffacd0b85a97d-39d6fc7c97emr8286894f8f.31.1744096952409;
+        Tue, 08 Apr 2025 00:22:32 -0700 (PDT)
+Message-ID: <5eb838a3-b18b-4d7d-8f09-93d92c2e2728@suse.com>
+Date: Tue, 8 Apr 2025 09:22:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v1] x86/vmx: Rework __vmread()/vmread_safe()/vmr()
+From: Jan Beulich <jbeulich@suse.com>
 To: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, dmukhin@ford.com,
  xen-devel@lists.xenproject.org
 References: <20250408011454.2274613-1-dmukhin@ford.com>
+ <e6e43d87-4e6d-498f-b234-a2b577fce7b6@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -118,167 +118,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250408011454.2274613-1-dmukhin@ford.com>
+In-Reply-To: <e6e43d87-4e6d-498f-b234-a2b577fce7b6@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.04.2025 03:15, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
+On 08.04.2025 09:12, Jan Beulich wrote:
+> On 08.04.2025 03:15, dmkhn@proton.me wrote:
+>> +static inline enum vmx_insn_errno vmread_safe(unsigned long field,
+>> +                                              unsigned long *value)
+>> +{
+>> +    asm goto ( "vmread %[field], %[value]\n\t"
+>> +               "jc %l[vmfail_invalid]\n\t"
+>> +               "jz %l[vmfail_error]"
+>> +               :
+>> +               : [field] "r" (field), [value] "m" (*value)
 > 
-> Use `asm goto()` in vmread_safe() to simplify the error handling logic.
+> See comments on the vmr() adjustments you're making.
 
-This can't be quite right, considering we need to avoid outputs there.
-
-> Update __vmread() to return `unsigned long` as per suggestion in [1].
-> Rename __vmread() to vmread_unsafe() to match the behavior.
-
-I disagree with this renaming: See e.g. rdmsr() and rdmsr_safe() that we have.
-The common case function wants to not have unnecessary verbosity in its name.
-And there's nothing unsafe about it in the general case. Plus if there was
-anything unsafe, many of the call sites would require some form of error
-handling.
-
-> @@ -1957,38 +1955,44 @@ void cf_check vmx_do_resume(void)
->      hvm_do_resume(v);
->  
->      /* Sync host CR4 in case its value has changed. */
-> -    __vmread(HOST_CR4, &host_cr4);
-> -    if ( host_cr4 != read_cr4() )
-> +    if ( vmread_unsafe(HOST_CR4) != read_cr4() )
->          __vmwrite(HOST_CR4, read_cr4());
->  
->      reset_stack_and_jump(vmx_asm_do_vmentry);
->  }
->  
-> -static inline unsigned long vmr(unsigned long field)
-> +static inline unsigned long vmread(unsigned long field)
->  {
-> -    unsigned long val;
-> +    unsigned long value = 0;
->  
-> -    return vmread_safe(field, &val) ? 0 : val;
-> +    asm goto ( "vmread %[field], %[value]\n\t"
-> +               "jmp %l[out]"
-
-Why's the JMP needed here? With it dropped, why's open-coding of vmread_unsafe()
-necessary here? And why's the "safe" variant being replaced by the "unsafe" one?
-
-> +               :
-> +               : [field] "r" (field), [value] "m" (value)
-
-"value" is an output and hence cannot be just "m" (and hence be an input").
-The only option to make such work correctly would be to ...
-
-> +               :
-
-... add a "memory" clobber here. Which may have other unwanted side effects.
-
-> +               : out );
-> +out:
-
-Nit (here and elsewhere): Labels indented by at least one blank please. See
-./CODING_STYLE.
-
-> +    return value;
->  }
->  
-> -#define vmr16(fld) ({             \
-> +#define vmread16(fld) ({          \
->      BUILD_BUG_ON((fld) & 0x6001); \
-> -    (uint16_t)vmr(fld);           \
-> +    (uint16_t)vmread(fld);        \
->  })
->  
-> -#define vmr32(fld) ({                         \
-> +#define vmread32(fld) ({                      \
->      BUILD_BUG_ON(((fld) & 0x6001) != 0x4000); \
-> -    (uint32_t)vmr(fld);                       \
-> +    (uint32_t)vmread(fld);                    \
->  })
->  
->  static void vmx_dump_sel(const char *name, uint32_t selector)
->  {
->      uint32_t sel, attr, limit;
->      uint64_t base;
-> -    sel = vmr(selector);
-> -    attr = vmr(selector + (GUEST_ES_AR_BYTES - GUEST_ES_SELECTOR));
-> -    limit = vmr(selector + (GUEST_ES_LIMIT - GUEST_ES_SELECTOR));
-> -    base = vmr(selector + (GUEST_ES_BASE - GUEST_ES_SELECTOR));
-> +    sel = vmread(selector);
-> +    attr = vmread(selector + (GUEST_ES_AR_BYTES - GUEST_ES_SELECTOR));
-> +    limit = vmread(selector + (GUEST_ES_LIMIT - GUEST_ES_SELECTOR));
-> +    base = vmread(selector + (GUEST_ES_BASE - GUEST_ES_SELECTOR));
-
-The renaming causes entirely unnecessary extra churn here (and of course
-elsewhere). The patch is already big enough without this.
-
-> --- a/xen/arch/x86/include/asm/domain.h
-> +++ b/xen/arch/x86/include/asm/domain.h
-> @@ -595,7 +595,7 @@ struct arch_vcpu
->  
->      /* Debug registers. */
->      unsigned long dr[4];
-> -    unsigned long dr7; /* Ideally int, but __vmread() needs long. */
-> +    unsigned long dr7; /* Ideally int, but vmread_unsafe() needs unsigned long. */
->      unsigned int dr6;
-
-If you left this comment alone, all would be (largely) fine - this particular
-aspect could then be tidied in a follow-on path. But vmread_unsafe() specifically
-does not need "unsigned long" anymore. The issue was with __vmread() taking a
-pointer argument.
-
-> --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-> @@ -320,16 +320,40 @@ static always_inline void __vmpclear(u64 addr)
->      BUG();
->  }
->  
-> -static always_inline void __vmread(unsigned long field, unsigned long *value)
-> +static always_inline unsigned long vmread_unsafe(unsigned long field)
->  {
-> -    asm volatile ( "vmread %1, %0\n\t"
-> -                   /* CF==1 or ZF==1 --> BUG() */
-> -                   UNLIKELY_START(be, vmread)
-> -                   _ASM_BUGFRAME_TEXT(0)
-> -                   UNLIKELY_END_SECTION
-> -                   : "=rm" (*value)
-> -                   : "r" (field),
-> -                     _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0) );
-> +    unsigned long value;
-> +
-> +    asm volatile ( "vmread %[field], %[value]\n\t"
-> +                   "jc 1f\n\t"
-> +                   "jz 1f\n\t"
-
-Why not JBE as it was before?
-
-> +                   "jmp 2f\n\t"
-> +                   "1:\n\t"
-> +                   "    ud2\n\t"
-> +                   "2:"
-
-This is specifically why we used UNLIKELY_*() before. There's no justification
-whatsoever in the description for the dropping of its use here.
-
-Plus - where did _ASM_BUGFRAME_TEXT(0) go? A bare UD2 isn't acceptable, as it
-won't be possible to associate it back with the respective source line.
-
-> +                   : [value] "=rm" (value)
-> +                   : [field] "r" (field) );
-> +
-> +    return value;
-> +}
-> +
-> +static inline enum vmx_insn_errno vmread_safe(unsigned long field,
-> +                                              unsigned long *value)
-> +{
-> +    asm goto ( "vmread %[field], %[value]\n\t"
-> +               "jc %l[vmfail_invalid]\n\t"
-> +               "jz %l[vmfail_error]"
-> +               :
-> +               : [field] "r" (field), [value] "m" (*value)
-
-See comments on the vmr() adjustments you're making.
+Oh, and - why is "+rm" lost here and there? We shouldn't be taking away from
+the compiler the option of not going through memory here. Aiui that's solely
+because you figured that you can't use "rm" (i.e. an input). But then you
+drew the wrong conclusion.
 
 Jan
 
