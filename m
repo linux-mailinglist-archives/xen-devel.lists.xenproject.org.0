@@ -2,68 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F957A81175
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 18:08:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.942727.1341815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20B59A811A5
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 18:12:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.942919.1341984 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BUU-0000sr-8x; Tue, 08 Apr 2025 16:07:58 +0000
+	id 1u2BYB-0004cy-JC; Tue, 08 Apr 2025 16:11:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 942727.1341815; Tue, 08 Apr 2025 16:07:58 +0000
+Received: by outflank-mailman (output) from mailman id 942919.1341984; Tue, 08 Apr 2025 16:11:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BUU-0000qA-3k; Tue, 08 Apr 2025 16:07:58 +0000
-Received: by outflank-mailman (input) for mailman id 942727;
- Tue, 08 Apr 2025 16:07:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u2BYB-0004aO-FF; Tue, 08 Apr 2025 16:11:47 +0000
+Received: by outflank-mailman (input) for mailman id 942919;
+ Tue, 08 Apr 2025 16:11:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Wtyq=W2=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
- id 1u2BUS-0000p0-85
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 16:07:56 +0000
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c82ee46-1493-11f0-9ffb-bf95429c2676;
- Tue, 08 Apr 2025 18:07:47 +0200 (CEST)
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 538DNidV028259;
- Tue, 8 Apr 2025 16:07:36 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 45vv6a3cmj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 08 Apr 2025 16:07:36 +0000 (GMT)
-Received: from m0360083.ppops.net (m0360083.ppops.net [127.0.0.1])
- by pps.reinject (8.18.0.8/8.18.0.8) with ESMTP id 538G3Tpb014440;
- Tue, 8 Apr 2025 16:07:36 GMT
-Received: from ppma21.wdc07v.mail.ibm.com
- (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 45vv6a3cme-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 08 Apr 2025 16:07:35 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 538CRs5W013915;
- Tue, 8 Apr 2025 16:07:34 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
- by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 45ufunkd23-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 08 Apr 2025 16:07:34 +0000
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com
- [10.20.54.102])
- by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 538G7WVI31982208
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 8 Apr 2025 16:07:32 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AA33A2004B;
- Tue,  8 Apr 2025 16:07:32 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 94D4920040;
- Tue,  8 Apr 2025 16:07:32 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.152.85.9])
- by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Tue,  8 Apr 2025 16:07:32 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 55669)
- id 4E5B9E171E; Tue, 08 Apr 2025 18:07:32 +0200 (CEST)
+ <SRS0=2sbj=W2=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1u2BVk-0000a6-Mx
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 16:09:16 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20617.outbound.protection.outlook.com
+ [2a01:111:f403:2414::617])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d110691c-1493-11f0-9eaa-5ba50f476ded;
+ Tue, 08 Apr 2025 18:09:16 +0200 (CEST)
+Received: from MN2PR19CA0045.namprd19.prod.outlook.com (2603:10b6:208:19b::22)
+ by BY5PR12MB4083.namprd12.prod.outlook.com (2603:10b6:a03:20d::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.21; Tue, 8 Apr
+ 2025 16:09:11 +0000
+Received: from BL6PEPF00020E62.namprd04.prod.outlook.com
+ (2603:10b6:208:19b:cafe::b7) by MN2PR19CA0045.outlook.office365.com
+ (2603:10b6:208:19b::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.36 via Frontend Transport; Tue,
+ 8 Apr 2025 16:09:11 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF00020E62.mail.protection.outlook.com (10.167.249.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8606.22 via Frontend Transport; Tue, 8 Apr 2025 16:09:11 +0000
+Received: from xcbagarciav01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Apr
+ 2025 11:09:09 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -75,118 +56,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c82ee46-1493-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=xkRr3rYpnf+evzsRv
-	KXtHeEA6KSnGBV46B7GpE1ybMc=; b=tObfqwbcUm2umQrlxe8oOYdzi1e0gQjiF
-	aDe8g32J/reQTv52CrrHU7DoSqRqoHC/eOV5SgZSlBgUlqAYnSdM++/IgMp7n/cV
-	bgkWR0rPlz0F8WdJoj4DFM38xD6xJmeWCRhyQ98SrUrzzh9YLCkd39fEWuX0PcMy
-	euyfOwsFuQ6rqCSXBYaURGqJr8xKeZnkAiUlC4l236cVZhx+PvSC90bg4v0JQExD
-	5820Q7tR+S4eqPWfx18MOwO0o43pRNif9AsWMNrBMMcuEWT7+ylcsRTY4gA8LTe6
-	XO217yw0TDcXUi3Z3pEgb5YAA8sa7reYU2vZHGl6X3/hJDJ89Grbg==
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-        Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: Hugh Dickins <hughd@google.com>, Nicholas Piggin <npiggin@gmail.com>,
-        Guenter Roeck <linux@roeck-us.net>, Juergen Gross <jgross@suse.com>,
-        Jeremy Fitzhardinge <jeremy@goop.org>, linux-kernel@vger.kernel.org,
-        linux-mm@kvack.org, kasan-dev@googlegroups.com,
-        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: [PATCH v2 2/3] mm: Cleanup apply_to_pte_range() routine
-Date: Tue,  8 Apr 2025 18:07:31 +0200
-Message-ID: <0c65bc334f17ff1d7d92d31c69d7065769bbce4e.1744128123.git.agordeev@linux.ibm.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <cover.1744128123.git.agordeev@linux.ibm.com>
-References: <cover.1744128123.git.agordeev@linux.ibm.com>
+X-Inumbo-ID: d110691c-1493-11f0-9eaa-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hzm/TIM1ny5JgA7mzykF9Vyeavjk9uTGOAmJc8QZ1cQkLOnwKqJYEHOgL5brX21equcvMMycejEnVNJJ6sqDgG1QkRq5jg5EunMgAVg2/98X2jwc23SuQLf4Ev8j42xhPfblnecvtp4Ixc4M/2MdKfSV8AH+Et/XCtu6+cz0OcuKezwpvCeQMgSfUO/nIT8OlmeJgLXVeu1BCu8iieBBrrGtkQTwQSsZnc3iUxzaN23zWE7wW+zhrIav10DdsRM6hyzk0FJGOsZ+VVp04zOs03RfxO9jc3oBwJByUFALU+wlz9/wa65+NhjwchvDTGVd/XbJAD6BWNafzzIcIfG4Wg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YluEnmN5WD5jS/lkB8HBr2wUzOPxNHNZCrXAZnkx2Wg=;
+ b=Xuc7uRtvpgRIGGP2DcqcE2drWDL+0DBfQDPU5eQ3WVUOdj1sKCYYIUv/ru+hyWMzb2822t5KxPTUrzWfmSMpwDQ4Yq1vZkgkwdvb/L4GwSTiMYd1DOslJvRBulpibPCyfIeCyfaVaQ/c5BaayVJG8B+lYP+MbU4vu3CkF7Qf+0eO0JErufRK8xCKCDx/i7M4erAqzi74zWkoFqru81hC8EY1Zvxji+iyUATz44eQ3WhYo3N1Zf4wq1z0R1vtTJPbTKLXY78q6t3judwQNM2dRh3Y6ixqepEE+iG5SKD5eRCXIprX0DtUhM+2p/5p8rjJxZYa8/oK8f7lDL/JvQaSlg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YluEnmN5WD5jS/lkB8HBr2wUzOPxNHNZCrXAZnkx2Wg=;
+ b=nx84FO/8Ix2pseCt7b6yqX+aKzS8mLqBW4RyDEpKJEycqtqvnc5P2bdcyETBB+pKkWdwzZFG5HJJa6NITD6SWHdxZcyTj8UUDuvQD2kIKHoQlRWkWE+qHrd0Kd11QXey7jK32CPXKzUw7kxc8iaOwHSAjE9T7uGtWkCcdKbQTJI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Alejandro Vallejo <agarciav@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jason Andryuk
+	<jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+	"Stefano Stabellini" <sstabellini@kernel.org>, Michal Orzel
+	<michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, "Alejandro Vallejo" <agarciav@amd.com>
+Subject: [PATCH v3 09/16] x86/hyperlaunch: locate dom0 kernel with hyperlaunch
+Date: Tue, 8 Apr 2025 17:07:31 +0100
+Message-ID: <20250408160802.49870-10-agarciav@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250408160802.49870-1-agarciav@amd.com>
+References: <20250408160802.49870-1-agarciav@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: T7M0AXWlw4FgItjk33f-GC1E93-9rXMH
-X-Proofpoint-GUID: 9N-c1pIo8G5i8QLTXcZGYOAiygpOCwa1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-08_06,2025-04-08_03,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 phishscore=0
- lowpriorityscore=0 spamscore=0 priorityscore=1501 adultscore=0
- clxscore=1015 suspectscore=0 bulkscore=0 mlxlogscore=909 mlxscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2502280000 definitions=main-2504080110
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E62:EE_|BY5PR12MB4083:EE_
+X-MS-Office365-Filtering-Correlation-Id: b0545932-d22c-4e9e-fa44-08dd76b7b313
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?+2Ml4vNicD7HtgRvk5bbZzEPQyWKatkoFyXXhKYJpJzbhGYiM/NCeLjNRitW?=
+ =?us-ascii?Q?mS1EKQTGfAptR7Sy+ZsvG6ykHdsLW+jJZC+QM2ym2ZNMW1JZQfk3jma888B6?=
+ =?us-ascii?Q?QIkwyp7hs8inA599uUVcroW6LSCEy9b9ylc8HbxX+px9nirJ1e66lAaj4dmg?=
+ =?us-ascii?Q?Z+rkFhkTN623hRFvLsU20Jdu3AWHtuGn3V+/8H6mm5TfYPi1dmffzomclxEY?=
+ =?us-ascii?Q?hvzzN7oEPmhREx3rAPQ+zN4YbzUluNCCNGRN4T3o5DBtFSNIzelhRTePigWF?=
+ =?us-ascii?Q?iBmn9rWKGzWnD8Dcz3wZVNp7eDf92Rz7wc/tfW4HDO+X80bSEc+O50gFYsfq?=
+ =?us-ascii?Q?5CK4p/ip2jaSL1Dm8Dntxt2Dz4B8hAUp2MDn0/wHHcpSLCf/e2x9XkwvFdjk?=
+ =?us-ascii?Q?AnjGVze9DSt3i/yCLTJpakBBViJ13ufTfVwQ8o2h0kcFhfvlTEmtLz4Mzl4n?=
+ =?us-ascii?Q?rTSCGlly82bsda2RxNZ4QOplIAIiaJmO0zFeTUCsZCvpOqZAsrp4mo/gKvBx?=
+ =?us-ascii?Q?9lXYykArP6Pwvjxho6+E+5rZwBVk81jQTl8/ReyrfsZnDqtkIZIHgA4MHelg?=
+ =?us-ascii?Q?gRKgaxpXop72Rf9q3Xgag7PrZ2hd/b7f65SiiLlylYkbAE9pe/gGkJG2WmTO?=
+ =?us-ascii?Q?H/g9U52yX+6gK1VKPdU+3FS+SoFG8ywZeLt6UrQ2EFM5x2NKVizW2i6ySnB8?=
+ =?us-ascii?Q?AsbsTu7b+FRJC2uMTVQZABso1uDyCwuT8c68uxyVfTQfM1NsZLTiwAvZBBSM?=
+ =?us-ascii?Q?nYnLq5zXi/FcG4G+SRsMVDJtFl1D63rJg9M0e9wfJtQ0A/8H7dtPH/tqIqqf?=
+ =?us-ascii?Q?ECZwlcSxATVpfBvp//3/kRCj3eB/wjIqQWAKsMqPUzIQIaRLRsnFt21Xd+rF?=
+ =?us-ascii?Q?ZtNNhZlv5UAwpMOGoz4qo7Bvujd+Hg+60qRlIoyZ4sdc4N3VD8L2QtzWDqTd?=
+ =?us-ascii?Q?ZQybBE54NP1338Oh9Woh1Q+QSEZSMf8naUZDJLthHrdvA7MmN8tmeHWDB0SJ?=
+ =?us-ascii?Q?es+/NMcpYo04lrWXtMPZhjxxP5WNS3a23dQ7Ku+gBFp6BOaVfdrjRm0mdiSf?=
+ =?us-ascii?Q?YMC1ryhlROwG5GdIuylUtVeGA/4iyLwHQp/hrJkao3w/F00vdYK5HqnL8Mp9?=
+ =?us-ascii?Q?WiEZvj3fpXqyfa4j0++WB/dvZCqcYiO5DQzD0L0we+xjL7Nq02cGxWnUr8tm?=
+ =?us-ascii?Q?Ieqta0mIgh2KYNLteo6E1FMnmEWNlEU8ek+CfV0WGA1C0Prs27uxyPuosGpM?=
+ =?us-ascii?Q?3o3ZsbtfoZg3ZuXbp5E9WmeGUlWYuyEvJgCyT2unk5s5svQRbPA3M5JuXxFG?=
+ =?us-ascii?Q?5+RbvXf0KxLMgXxJEW1qaBFs4gZ28n0UF1/R2VT8rpobygqOa+IzHe8zJ/hf?=
+ =?us-ascii?Q?RxcmeHrDIDFev7U4krmReDu+ooEOVfdGxuZ4aUwJ7FfSY0Y21bp1jAu/HqaD?=
+ =?us-ascii?Q?ZOi5Qb9yqyFObANsXFrJr/2oyW9KjPcI2/TRchuE6CY5akkKoKFltJ3IbjMf?=
+ =?us-ascii?Q?LWLfuDj/mHzG7TgDhnr/eqhQezCZhM4da0ua?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2025 16:09:11.1533
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0545932-d22c-4e9e-fa44-08dd76b7b313
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00020E62.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4083
 
-Reverse 'create' vs 'mm == &init_mm' conditions and move
-page table mask modification out of the atomic context.
-This is a prerequisite for fixing missing kernel page
-tables lock.
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 
-Cc: stable@vger.kernel.org
-Fixes: 38e0edb15bd0 ("mm/apply_to_range: call pte function with lazy updates")
-Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
+Look for a subnode of type `multiboot,kernel` within a domain node. If
+found, locate it using the multiboot module helper to generically ensure
+it lives in the module list. If the bootargs property is present and
+there was not an MB1 string, then use the command line from the device
+tree definition.
+
+Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
 ---
- mm/memory.c | 28 +++++++++++++++++-----------
- 1 file changed, 17 insertions(+), 11 deletions(-)
+v3:
+    * Add const to fdt
+    * Remove idx == NULL checks
+    * Add BUILD_BUG_ON for MAX_NR_BOOTMODS fitting in a uint32_t
+    * Remove trailing ) from printks
+    * Return ENODATA for missing kernel
+    * Re-work "max domains" warning and print limit
+    * fdt_cell_as_u32/directly return values
+    * Remove "pairs" looping from fdt_get_reg_prop() and only grab 1.
+    * Use addr_cells and size_cells
+---
+ xen/arch/x86/domain-builder/core.c | 11 ++++++
+ xen/arch/x86/domain-builder/fdt.c  | 57 ++++++++++++++++++++++++++++++
+ xen/arch/x86/setup.c               |  5 ---
+ 3 files changed, 68 insertions(+), 5 deletions(-)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 2d8c265fc7d6..f0201c8ec1ce 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2915,24 +2915,28 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
- 				     pte_fn_t fn, void *data, bool create,
- 				     pgtbl_mod_mask *mask)
- {
-+	int err = create ? -ENOMEM : -EINVAL;
- 	pte_t *pte, *mapped_pte;
--	int err = 0;
- 	spinlock_t *ptl;
+diff --git a/xen/arch/x86/domain-builder/core.c b/xen/arch/x86/domain-builder/core.c
+index c50eff34fb..eda7fa7a8f 100644
+--- a/xen/arch/x86/domain-builder/core.c
++++ b/xen/arch/x86/domain-builder/core.c
+@@ -59,6 +59,17 @@ void __init builder_init(struct boot_info *bi)
  
--	if (create) {
--		mapped_pte = pte = (mm == &init_mm) ?
--			pte_alloc_kernel_track(pmd, addr, mask) :
--			pte_alloc_map_lock(mm, pmd, addr, &ptl);
-+	if (mm == &init_mm) {
-+		if (create)
-+			pte = pte_alloc_kernel_track(pmd, addr, mask);
-+		else
-+			pte = pte_offset_kernel(pmd, addr);
- 		if (!pte)
--			return -ENOMEM;
-+			return err;
- 	} else {
--		mapped_pte = pte = (mm == &init_mm) ?
--			pte_offset_kernel(pmd, addr) :
--			pte_offset_map_lock(mm, pmd, addr, &ptl);
-+		if (create)
-+			pte = pte_alloc_map_lock(mm, pmd, addr, &ptl);
-+		else
-+			pte = pte_offset_map_lock(mm, pmd, addr, &ptl);
- 		if (!pte)
--			return -EINVAL;
-+			return err;
-+		mapped_pte = pte;
- 	}
- 
-+	err = 0;
- 	arch_enter_lazy_mmu_mode();
- 
- 	if (fn) {
-@@ -2944,12 +2948,14 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
- 			}
- 		} while (addr += PAGE_SIZE, addr != end);
- 	}
--	*mask |= PGTBL_PTE_MODIFIED;
- 
- 	arch_leave_lazy_mmu_mode();
- 
- 	if (mm != &init_mm)
- 		pte_unmap_unlock(mapped_pte, ptl);
+         printk(XENLOG_INFO "  Number of domains: %d\n", bi->nr_domains);
+     }
++    else
++    {
++        unsigned int i;
 +
-+	*mask |= PGTBL_PTE_MODIFIED;
-+
- 	return err;
++        /* Find first unknown boot module to use as Dom0 kernel */
++        printk("Falling back to using first boot module as dom0\n");
++        i = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
++        bi->mods[i].type = BOOTMOD_KERNEL;
++        bi->domains[0].kernel = &bi->mods[i];
++        bi->nr_domains = 1;
++    }
  }
  
+ /*
+diff --git a/xen/arch/x86/domain-builder/fdt.c b/xen/arch/x86/domain-builder/fdt.c
+index 9ebc8fd0e4..a037c8b6cb 100644
+--- a/xen/arch/x86/domain-builder/fdt.c
++++ b/xen/arch/x86/domain-builder/fdt.c
+@@ -155,6 +155,52 @@ int __init fdt_read_multiboot_module(const void *fdt, int node,
+     return idx;
+ }
+ 
++static int __init process_domain_node(
++    struct boot_info *bi, const void *fdt, int dom_node)
++{
++    int node;
++    struct boot_domain *bd = &bi->domains[bi->nr_domains];
++    const char *name = fdt_get_name(fdt, dom_node, NULL) ?: "unknown";
++    int address_cells = fdt_address_cells(fdt, dom_node);
++    int size_cells = fdt_size_cells(fdt, dom_node);
++
++    fdt_for_each_subnode(node, fdt, dom_node)
++    {
++        if ( fdt_node_check_compatible(fdt, node, "multiboot,kernel") == 0 )
++        {
++            int idx;
++
++            if ( bd->kernel )
++            {
++                printk(XENLOG_ERR "Duplicate kernel module for domain %s\n",
++                       name);
++                continue;
++            }
++
++            idx = fdt_read_multiboot_module(fdt, node, address_cells,
++                                            size_cells, bi);
++            if ( idx < 0 )
++            {
++                printk("  failed processing kernel module for domain %s\n",
++                       name);
++                return idx;
++            }
++
++            printk("  kernel: boot module %d\n", idx);
++            bi->mods[idx].type = BOOTMOD_KERNEL;
++            bd->kernel = &bi->mods[idx];
++        }
++    }
++
++    if ( !bd->kernel )
++    {
++        printk(XENLOG_ERR "ERR: no kernel assigned to domain\n");
++        return -ENODATA;
++    }
++
++    return 0;
++}
++
+ static int __init find_hyperlaunch_node(const void *fdt)
+ {
+     int hv_node = fdt_path_offset(fdt, "/chosen/hypervisor");
+@@ -217,9 +263,20 @@ int __init walk_hyperlaunch_fdt(struct boot_info *bi)
+ 
+     fdt_for_each_subnode(node, fdt, hv_node)
+     {
++        if ( bi->nr_domains >= MAX_NR_BOOTDOMS )
++        {
++            printk(XENLOG_WARNING
++                   "WARN: only creating first %u domains\n", MAX_NR_BOOTDOMS);
++            break;
++        }
++
+         ret = fdt_node_check_compatible(fdt, node, "xen,domain");
+         if ( ret == 0 )
++        {
++            if ( (ret = process_domain_node(bi, fdt, node)) < 0 )
++                break;
+             bi->nr_domains++;
++        }
+     }
+ 
+     /* Until multi-domain construction is added, throw an error */
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index e5d78bcb48..00e8c8a2a3 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1284,11 +1284,6 @@ void asmlinkage __init noreturn __start_xen(void)
+ 
+     builder_init(bi);
+ 
+-    /* Find first unknown boot module to use as Dom0 kernel */
+-    i = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
+-    bi->mods[i].type = BOOTMOD_KERNEL;
+-    bi->domains[0].kernel = &bi->mods[i];
+-
+     if ( pvh_boot )
+     {
+         /* pvh_init() already filled in e820_raw */
 -- 
-2.45.2
+2.43.0
 
 
