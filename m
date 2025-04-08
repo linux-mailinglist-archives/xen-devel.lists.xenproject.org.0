@@ -2,38 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02B01A7F4E8
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 08:25:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.941390.1340890 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED12AA7F4EE
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 08:25:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.941404.1340900 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u22Nz-0002nH-KW; Tue, 08 Apr 2025 06:24:39 +0000
+	id 1u22Oy-0003LK-WB; Tue, 08 Apr 2025 06:25:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 941390.1340890; Tue, 08 Apr 2025 06:24:39 +0000
+Received: by outflank-mailman (output) from mailman id 941404.1340900; Tue, 08 Apr 2025 06:25:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u22Nz-0002ln-GS; Tue, 08 Apr 2025 06:24:39 +0000
-Received: by outflank-mailman (input) for mailman id 941390;
- Tue, 08 Apr 2025 06:24:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xdvb=W2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u22Nx-0002lh-OE
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 06:24:37 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 23e59561-1442-11f0-9ffb-bf95429c2676;
- Tue, 08 Apr 2025 08:24:35 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43ed8d32a95so28921435e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 07 Apr 2025 23:24:35 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c3020d62fsm14143832f8f.79.2025.04.07.23.24.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Apr 2025 23:24:34 -0700 (PDT)
+	id 1u22Oy-0003JS-S3; Tue, 08 Apr 2025 06:25:40 +0000
+Received: by outflank-mailman (input) for mailman id 941404;
+ Tue, 08 Apr 2025 06:25:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JFBl=W2=boeing.com=gihwan.kwon@srs-se1.protection.inumbo.net>)
+ id 1u22Ox-000319-D5
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 06:25:39 +0000
+Received: from clt-mbsout-01.mbs.boeing.net (clt-mbsout-01.mbs.boeing.net
+ [130.76.144.162]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 47d8c043-1442-11f0-9eaa-5ba50f476ded;
+ Tue, 08 Apr 2025 08:25:37 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by clt-mbsout-01.mbs.boeing.net (8.15.2/8.15.2/DOWNSTREAM_MBSOUT) with SMTP id
+ 5386PVnD012424; Tue, 8 Apr 2025 02:25:34 -0400
+Received: from XCH16-06-12.nos.boeing.com (xch16-06-12.nos.boeing.com
+ [144.115.66.108])
+ by clt-mbsout-01.mbs.boeing.net (8.15.2/8.15.2/8.15.2/UPSTREAM_MBSOUT) with
+ ESMTPS id 5386PM1t012356
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Tue, 8 Apr 2025 02:25:22 -0400
+Received: from XCH16-06-12.nos.boeing.com (144.115.66.108) by
+ XCH16-06-12.nos.boeing.com (144.115.66.108) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Mon, 7 Apr 2025 23:25:21 -0700
+Received: from XCH19-EDGE-C02.nos.boeing.com (130.76.144.198) by
+ XCH16-06-12.nos.boeing.com (144.115.66.108) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44 via Frontend Transport; Mon, 7 Apr 2025 23:25:21 -0700
+Received: from USG02-BN3-obe.outbound.protection.office365.us (23.103.199.145)
+ by boeing.com (130.76.144.198) with Microsoft SMTP Server
+ (version=TLS1_2, 
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 7 Apr
+ 2025 23:25:20 -0700
+Received: from SA1P110MB2252.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:198::5)
+ by PH1P110MB1699.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:18b::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.31; Tue, 8 Apr
+ 2025 06:25:20 +0000
+Received: from SA1P110MB2252.NAMP110.PROD.OUTLOOK.COM
+ ([fe80::e652:58c7:c916:3735]) by SA1P110MB2252.NAMP110.PROD.OUTLOOK.COM
+ ([fe80::e652:58c7:c916:3735%5]) with mapi id 15.20.8583.043; Tue, 8 Apr 2025
+ 06:25:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,153 +67,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23e59561-1442-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 47d8c043-1442-11f0-9eaa-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=boeing.com;
+	s=boeing-s1912; t=1744093534;
+	bh=WoDTeEyU7d7mtmlWrzsmr8QzD3GpVbhHENRMwROJlQA=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+	b=rj2KuDXdKJZUPhz2poxqiXbXkz38DAroJsgayYTnVIPp4aPIWqWSGi/RTajjsX11S
+	 LR/9w4V8KYxSZXjNxf2WkV9UseEgAyVVwSDcOXzcaaX8dw+aKbGot4Y7yRYjRYsrvv
+	 Om4mb6W0oq/KeL1jRTNmOLT/K7/ezQYVcCxG5QBMZYizgkZzWdR2y7b6hcE7sJu+IJ
+	 ktXNt7yODNHXFagc3g3Gz8LKl8SPxmm/pjBbWHtLktzZkGsVwF6xgMk7p0AahQrRlE
+	 /+kpi5oaKnDE+aUuu8gUiHi865Mcesj5Hj/pGod7tbLuAq1Cc8uWp+1JNCLoTsfMxb
+	 bnnLxSQjMex4w==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector5401; d=microsoft.com; cv=none;
+ b=WaMw1La/kfA2VL2bWXzuPrdv3xSkeqvmFEdY61S4mZ8fI8SvGBv1GaOyBIep78YXKKAWWLG6QyY6Lkn2UP7qgcZXWH8x7h9H6IOtZIumCjjKI2oeyyE2ng24QRFSIkjvRj6Ag1CW1ONvOowubp6e/pKlSscjcx9f6AowNY3lwn41Db/DTFBh71T6r4qcYraq4oNBWmpg4BLHBQlEQGTlOzLI88dDA6GzAxnMne2YNvTrpOsgU5vybqdyQiv49ipdY0WCgdxzuU0A9axTr40jtHBfi7cyQimMCoHfnl/wPESJKzfDF/VRW8lVpwWrPLO+UuA/craEMqINbwu+hCx6jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector5401;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WoDTeEyU7d7mtmlWrzsmr8QzD3GpVbhHENRMwROJlQA=;
+ b=RKbsMOwJy6e+WWMbK8DwWKOtYOOoWfOxY0WUvYvfDgtVKTjgHWgpB+VHHiKzGXC7GeLQHE9m5FLURHfO1oYrDNLPcMqie59pfzACI2vZXM/egfNHPEIcUui5X/6aCa4NYUaZjlgFM1FXkGQQVIfKtG18OCHIviSF50HX/PdOXK/G1ml/V9ZH3mbN3IZdpO+Ag90shsw3AdYBGd02b1JSCg/gYic39Muah3gEEjCUEGRamPHWWO7ONa0ylMWJF5JwN/eK8PhclGc2X4dCdaeiYMGj84lzaTOS+c4P5II1Y9A6s0C9hx6GpiXZKaU7diMZRXC7MC6jesx7MHf9/4eoqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=boeing.com; dmarc=pass action=none header.from=boeing.com;
+ dkim=pass header.d=boeing.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744093475; x=1744698275; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pA/+y89GygcF27xI/j0rBkt6oEtfvfg6wfVfnDG5Zfc=;
-        b=MZSFZyTzCkWlfYJcWKdvpdq29dD7TaGMbWq5yQyn6WKsIzalDQxKCqmaz5NfvuX6/N
-         l+ti/FguRdjEn3jkImtRwIqioH+To0lvOSqFvIMFjgjO/NdV8k3mmPYmps/qMk7CE4bz
-         tor/pg+uqPJrFDDLKASjzyAXXr+UNgHKAST8fVFqy/2YILECUVb+5m8E6DbB4O2dtb0P
-         2tH3C4uih20oGZT/bE61wz4c9e1VshRmzc1Z00cbQD2eCf0yHI74SJXLsmW3f/XK58WJ
-         vcbHpinKGOAMSqHbRG45Q22PvZ5l6ZA9p9nTIgiild7lkYHgNQ0p+ks3INktpBMXe95m
-         bDkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744093475; x=1744698275;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pA/+y89GygcF27xI/j0rBkt6oEtfvfg6wfVfnDG5Zfc=;
-        b=ecGfQjejC3TpKR7o7Wc+hItyxOLVetXliMFIT9RlJYguqTaS1yeWjj3MFblK5cCTQO
-         OWwCgYGjWzdeOjxqqZBOn19d/dWLm2FwGZ5bavLfso6PAvC3e0tN3AG5FwO9u92ONItc
-         O9S0xP0QhPSGpOI5kcc5cTtto/1VMQhJC3p3t2Izir4hSrc0l2ZcExq3h3mAS62KO8xy
-         Jj20VjRAp4X+OMzNT/e09lc0k5LCtll0CfK9HhsL8Pomy0Wagm694XDGjR4khhADp3DH
-         OQL+iRTxQaCmW0ixXXNgxfGZ9MQdYmhhtX76DC0oDobOHd4lgzig3xJY2n8AcgWD6F8x
-         caVA==
-X-Forwarded-Encrypted: i=1; AJvYcCXQtrRPTFudqM5c4ggfSOwoZJ3PclPhrvr8sEhq3uUC/ePe+uTpgxh4TC8jhBiQ4BYeJia/v36O0B8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxy+yZkw24ncP0/W4oyyUwkL1SdizsTkNs5Q3PurfBi9ByGf54g
-	l8kmsGdG7Y1pbw3GhQG+odXutbcgOrqK3aQPB8zWZvxgn8yL7A790YXoGTCwfw==
-X-Gm-Gg: ASbGncscpoKse179T/bYfufQmgdkQnd3ImIreCbIwExKznU/lTLkOIkJzNCUxXXyQ/X
-	CkiX6ncc0tR1nkGtXvxNJEf8Ij1IDEuh4pfedy8oDsSWdbDAEX6KhHWEJPXsDvSRoHVKGvLIjbB
-	fMp8YowUHYUjgqWt4MQu/ApyaQq275J0OigNg7r4w1UAETmUDYeRefQoCH+BSQ/DhuV/0TXIsTq
-	g9nGQYA9HqTMYh1xLvC9cIyfeB5WQsKKSUHWo8J7aAaosR6DR9S5yb8xpOolKcQrVybq2lu7GoK
-	Zh9PtvLMs73whrjg/9IxAl2a+hcwiPtXOt94SiLQNWS0XZgMpRP6JfdtWZGgM5BSn1nadXh3t+5
-	8psDX698NJJtLBW8IMJ82v5eiQvur8w==
-X-Google-Smtp-Source: AGHT+IFfThN7YJ6vZ1/32KfNbGWCqB+PDQooJ/9koYkX9YkPBkrgy7uWY/AQpVX39pXfBWxWoYbc0A==
-X-Received: by 2002:a05:600c:1c03:b0:43c:e6d1:efe7 with SMTP id 5b1f17b1804b1-43f114ef8d8mr8061295e9.26.1744093474635;
-        Mon, 07 Apr 2025 23:24:34 -0700 (PDT)
-Message-ID: <3ddc038e-9792-4eb7-a1bc-3ce0cf3fe33f@suse.com>
-Date: Tue, 8 Apr 2025 08:24:33 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/libxl: Skip invalid IRQs
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Anthony PERARD
- <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
- xen-devel@lists.xenproject.org
-References: <20250407192641.83554-1-jason.andryuk@amd.com>
+ d=boeing.onmicrosoft.com; s=selector1-boeing-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WoDTeEyU7d7mtmlWrzsmr8QzD3GpVbhHENRMwROJlQA=;
+ b=KrGY1ciGfFBnd0emcU6FCp2nmKzIncH02NPwuG1Bd5sQojR/vGcwhbVUmRdtm5IBUxWWBl3PnhIKxfWLTfhhIsGylgDbfDN2F0aSzc5a/rAfhHNJ2swL5MQS576vjU34lV0FWQBw38Nn7/5yJSuYYewGp8OCp8CNtzgtfuP/ep0=
+From: "Kwon, Gihwan" <gihwan.kwon@boeing.com>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+        Nicola Vetrini
+	<nicola.vetrini@bugseng.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        "stewart.hildebrand@amd.com" <stewart.hildebrand@amd.com>
+Subject: RE: [QUESTION] Minimal Xen Configuration
+Thread-Topic: [QUESTION] Minimal Xen Configuration
+Thread-Index: AQHbp4d8CTfihWvrfUi9wdjpxoA8O7OZTdEw
+Date: Tue, 8 Apr 2025 06:25:20 +0000
+Message-ID: <SA1P110MB2252D220AD05DCCB7E9B79BF90B5A@SA1P110MB2252.NAMP110.PROD.OUTLOOK.COM>
+References: <PH3P110MB2246A9D7AFA0A73000781B0390A0A@PH3P110MB2246.NAMP110.PROD.OUTLOOK.COM>
+ <f4803fc17047a9d74928c66d39bf9632@bugseng.com>
+ <alpine.DEB.2.22.394.2504021409170.3098208@ubuntu-linux-20-04-desktop>
+ <SA1P110MB2252BBBB6801DBDB88B828BE90AAA@SA1P110MB2252.NAMP110.PROD.OUTLOOK.COM>
+In-Reply-To: <SA1P110MB2252BBBB6801DBDB88B828BE90AAA@SA1P110MB2252.NAMP110.PROD.OUTLOOK.COM>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250407192641.83554-1-jason.andryuk@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=boeing.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1P110MB2252:EE_|PH1P110MB1699:EE_
+x-ms-office365-filtering-correlation-id: 46186b03-d0fc-403a-e879-08dd7666231e
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?EUIdVixRixpB8MCw6wXPHqsowmBz4+GXMuSoGfDXPT8tJVdU1vTUiKcrQsqw?=
+ =?us-ascii?Q?n/JO3DkgLOh+2xISAIzXawaQTKapaIRQxFJipmXFESimr3Wm2FzwkPjh9efZ?=
+ =?us-ascii?Q?SmyYAV1vpjARVYM9F6o2MySH14MxFCUAFTLdaUtFqQthDC3DmZUCyA3OzaoA?=
+ =?us-ascii?Q?gPjdNMIva1KnZ+dLh2PsgebtFPuyscmbd8oW37xLoPjtXnO8Y1R5rBvymAsB?=
+ =?us-ascii?Q?K9gpDB95jFlZM02L6XLaDyrp6y5avNICjgaZW+QTO7JUZ2GWHiJ8+SVyubu5?=
+ =?us-ascii?Q?aPnhO0P7UTVU/VO6v1r9AH2YrbH9W06yj3AvLc7Oz001+XiLmLCx2EAaq5Ff?=
+ =?us-ascii?Q?ynf3Z4t3QbkRGCoOgiqD5a4eyNJMc9DpMEknihWlJdx7svaLe04cNUfdDDwl?=
+ =?us-ascii?Q?CUeubKxBlBI7cD68IjKZ1ifKcXtk0/axYd1Bj8pkeSueSus5pmxfwM3CZLcN?=
+ =?us-ascii?Q?leoJXRfXNiKK7wnhefXE4MJFKSMXfS4pIY/ixnopop0mmdzL+xi/QtFCfo6i?=
+ =?us-ascii?Q?zgPK0TrsZdIBeuW6PdeXwOMPZja1GAk917qZ+U5AQpVcwM1yQ6Ba8NvLtXW7?=
+ =?us-ascii?Q?mCdH4i3m7EFGVRVpI1PFL1SEX925lYvt6r2DBAaatlALu8IkOfkc+2dBM699?=
+ =?us-ascii?Q?3akBl54NeFdX8YCnWZRzvXFWzcCxQkramLsDyQ2EVTOWgAShCW+H9jwxr3Q3?=
+ =?us-ascii?Q?xu7hKZhH9iux5uaaLOzyTqMCYfTftmmeSsqg7XGDMeJ/SyP8EzBY+m0maRGU?=
+ =?us-ascii?Q?Dh25AqsBaqO4d2rUnlB/MsWpAB3t27UE2jLLk8dzIXFpdUPov0jTLPzWVh5G?=
+ =?us-ascii?Q?haVonPRd7ZoFk9XmPfJoXTfJlLwBhTEapanssgKDIrbLTM2/9udEZ1hc0aIa?=
+ =?us-ascii?Q?Xnq+rYwxJxNKZPVp6HRdTO11aEC8d3cS+HmCfrJWQE5J82UkoK6Q+QQEW89P?=
+ =?us-ascii?Q?4TrPJ9rjS1pLLivHElmCsZ1gqCKDzBMzoSSJwVMxFuurPBqmjmJKaJZikC9r?=
+ =?us-ascii?Q?s9qaHaQ1SN9++N5h+ATvTdc1NkQY57GFLgv7Dckven8Fez83VzWbmlf1uCej?=
+ =?us-ascii?Q?VE5sKWIt+OdTLUUEY0bPdNMXP1Dl0VQ94lLQQp3xdwABPzJKEb0FPliI6kV5?=
+ =?us-ascii?Q?ipB9+OxG/R5FsnBT+pmYGGB112jY5bEr2AP8+cw6lKUKMonq/LBpmdy0Jfbo?=
+ =?us-ascii?Q?YNG3AlJfFd9em15dxXgeAsjKh2ia256ACZqHV4/jshebMMzVv6ttHkz2I1D0?=
+ =?us-ascii?Q?yDB4lKKXs+JKhWfwFdp2BmwCnJxdu6zppzB8mY8rOcsuWJDWvPLT2Vuuq4oG?=
+ =?us-ascii?Q?FtT9jfwQJCKtbG6UlmFiqRi4xxTo0ONNK2889su8ctB9Olvk8lVRcFmVSxEw?=
+ =?us-ascii?Q?oGOcZ14+fmGSfqS0FS3sk0bBJsk9?=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1P110MB2252.NAMP110.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?zQ3IaCoDg9NG7EKFNsCk090JeusduKVi+WlUdRQ/UfHh9NdyOcJp94aJlvOC?=
+ =?us-ascii?Q?U/G9ytStmp1ovqdg404suKYYChfSihKjGBy8y9DX+x3yoG1opiEMShGhObz8?=
+ =?us-ascii?Q?MwQM/J5gHN9sIvBAXHu1Req3lFf+rhLD1U3YmvaQlmaf+/J4cOBdxPRsDBXv?=
+ =?us-ascii?Q?+SOJeCc+ErRe3zfSkHiKEleBuNrN0qmtRlhp96UYFL5T21+UKfGFUjA95B42?=
+ =?us-ascii?Q?1/+2s2bWdD0PRlE093uDKhmDPgYhGpgfwreLK8ZY2PHegvvPcpDWe+xQLkaV?=
+ =?us-ascii?Q?CC3Z2q5MXPHVR13Z4kDqk5hJbEg4pWIlkcdMQepaLxrfEpCj3z2hwuvQ761I?=
+ =?us-ascii?Q?PIN+xpaDmkf2oqhcH4ZlemhmFpV+67BZEItZyf2C27Y7TDZyEK8NaySqgbVr?=
+ =?us-ascii?Q?hCBQC6S2jEFBe58HgAw0SzJGKHJaKoO1t0ZrrbUQP6NI0x42rgqJ0urJMdg3?=
+ =?us-ascii?Q?h+3aru1anGg6noF8JJKL0R583BUysS+/djhmp+3OorAm6v6MfpL5i4hZB/bs?=
+ =?us-ascii?Q?8nEB/NGwUbGk+WKkqTx8hgTMypUMs5JKEW4B0/88K6raeWT/95gTnpnlz9TX?=
+ =?us-ascii?Q?La2SLVDUeUo7dZQvlE2WklsB1F3XmwZfTDm0voqHovHGkcU1dvZLjt8v6O4X?=
+ =?us-ascii?Q?aDYoqCd+1kbJEA5LsUM2cMxY+lQf9BTTGA+5GT4m1ViBksmcVKIbH0c6MUZS?=
+ =?us-ascii?Q?goVVa1VOntlnk5xKxweARSzKgK/Mu9ZJHX18ijw58u22Q3NhpxRB8jmpIAai?=
+ =?us-ascii?Q?UUWHJc8wvWmltlGiHFXu67odcj1p4CpVqa9yET6LXBAHWupqbl/rdXibAZ+h?=
+ =?us-ascii?Q?RD3OAvi0frUfCsjBt7U71tydC+jGn3kRB28D6r8ZSdi0U4q7MD0ek0mysnbz?=
+ =?us-ascii?Q?tz7LSjlObPN9ZZdV9csTsoE5KNoOH89E/JYP4KLLL95s6yz0dSmOpm4zL3y4?=
+ =?us-ascii?Q?knHXN3hrdm/31bLFx0TAZeeYRgkOp2fk/eV2GrJ4TIUCcJ4+N2cxg2ilI/4r?=
+ =?us-ascii?Q?y8RnJQvbkDEMrN7cmxUUzJO7eiFCXe1RgFhkSk4Davf2Zqbp9l0enNePe9X7?=
+ =?us-ascii?Q?N8wH2d72NJkf+MiRBDm5WU8A5jGfcQ2gFK9Rxa1hSBJggza8L/s5XtCrZMsA?=
+ =?us-ascii?Q?txF/8s87/snhv2BLvxb7xLxVNiym9G7UmP8dKcJAeuvTpTBBWJh7BMjlZC0w?=
+ =?us-ascii?Q?DKoJTiSzNYa2juvmplMt3uYNbevIWOvUI+cyvmLkUHsnnJbj1WaV7FcHXzD6?=
+ =?us-ascii?Q?GaZtOhgUn1+pZyBSOiV0I4nvohR/zcYNxgencfFCZwy0paKOHK6rn3mp63XM?=
+ =?us-ascii?Q?FMPrICzW/Ts+0RZc3vkXBHjoPno8n2xnbN+LRLqs7mO3md2Y0LrxrwhHrBT4?=
+ =?us-ascii?Q?ZFEPcJO2t03ZrhjIzE89rWrknNlbv4EZPDSIomJynxVF1AuEJsZjrvu74zP0?=
+ =?us-ascii?Q?CeZWp+KXOTxh7E22wR7t0kQRAUFiLqbMCXbI/YVMIRTah8VB+eoONXXLWad/?=
+ =?us-ascii?Q?fvxEdsELsMm6hX4=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1P110MB2252.NAMP110.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46186b03-d0fc-403a-e879-08dd7666231e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Apr 2025 06:25:20.4159
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bcf48bba-4d6f-4dee-a0d2-7df59cc36629
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH1P110MB1699
+X-OriginatorOrg: boeing.com
+X-TM-AS-GCONF: 00
 
-On 07.04.2025 21:26, Jason Andryuk wrote:
-> A PCI device's irq field is an 8-bit number.  A value of 0xff indicates
-> that the device is not connected.
+Stefano and Nicola,
 
-Nit: "... that the device IRQ is not ..."
+> Stefano, Nicola
+>=20
+>> On Wed, 2 Apr 2025, Nicola Vetrini wrote:
+>>> On 2025-03-28 07:43, Kwon, Gihwan wrote:
+>>>> Dear Xen Community,
+>>>>=20
+>>>> I hope this message finds you well.
+>>>>=20
+>>>> I have heard that there exists a minimal Xen configuration optimized
+>>>> for safety-critical products, particularly in automotive applications,
+>>>> with the code size reduced to approximately 50k SLOC.
+>>>>=20
+>>>> Could anyone provide guidance or point me to relevant resources
+>>>> regarding this minimal Xen configuration? Any insights or references
+>>>> would be greatly appreciated.
+>>>>=20
+>>>> Thank you in advance for your assistance.
+>>>>=20
+>>>> Best regards,
+>>>> Gihwan Kwon
+>>>=20
+>>> Hello,
+>>>=20
+>>> I am part of the team that provides static analysis for Xen, mainly
+>>> towards the objective to make Xen compliant with MISRA C guidelines.
+>>> As part of that effort, a minimal Xen configuration has been defined
+>>> (for Arm and x86_64) at [1], which is the one currently analyzed for
+>>> static analysis for each commit [2]. It starts from the default
+>>> configuration for the architecture (i.e., make defconfig) and then
+>>> turns on or off various Kconfig options, as specified by
+>>> EXTRA_XEN_CONFIG.
+>>>=20
+>>> @Stefano Stabellini (Cc'ed) is the main driving force behind the Xen
+>>> certification effort for automotive, therefore he's probably the best
+>>> person to approach to get more information on this matter.
+>>=20
+>> Thanks Nicola. In addition to what Nicola wrote, there is an outstanding
+>> activity to further reduce the code size by adding more kconfig options.
+>> There are a couple of patch series on the list right now to that effect.
+>>=20
+>> https://marc.info/?l=3Dxen-devel&m=3D173745442831026
+>>=20
+>> Last year we ran some experiments and for ARM we should be able to go
+>> below 35K LOC. The tools measuring LOC are very imprecise as they do
+>> not account for #ifdefs and kconfig options. So we switched to text
+>> binary size for measurements as it is more accurate. do not account for
+>> kconfig options and #ifdefs. Hence, we switch to using text size as
+>> size measurement for Xen. One of the figure was XXX.
+>=20
+> Thank you for sharing information regarding the current minimal config
+> and additional activities. I have reviewed the configuration applied to t=
+he
+>  CI and have a question.
+> Currently, `CONFIG_SCHED_RTDS` is enabled instead of
+> `CONFIG_SCHED_CREDIT2` and `CONFIG_SCHED_CREDIT`. Is this because
+> ARINC653 scheduler cannot be used as default scheduler, as well as, rt
+> scheduler is smaller than credit2 or credit scheduler?
 
->  Additionally, the Linux ACPI code can
-> convert these 0xff values to IRQ_NOTCONNECTED(0x80000000) because
-> "0x80000000 is guaranteed to be outside the available range of
-> interrupts and easy to distinguish from other possible incorrect
-> values."  When the hypercall to assign that IRQ fails, device
-> passthrough as a whole fails.
-> 
-> Add checking for a valid IRQ and skip the IRQ handling for PCI devices
-> outside that range.  This allows for passthrough of devices without
-> legacy IRQs.
+Please disregard my previous message. I have double checked that=20
+mentioned configurations are set 'n'. Therefore,  `CONFIG_SCHED_NULL`=20
+and  `CONFIG_SCHED_CREDIT2` is being set and used in the minimal xen=20
+configuration.
 
-Which makes the code here even more Linux-centric, I guess.
+>=20
+> - Gihwan
+>=20
+>
 
-A couple of related notes, yet most not directly affecting this patch:
+- Gihwan
 
-> --- a/tools/libs/light/libxl_pci.c
-> +++ b/tools/libs/light/libxl_pci.c
-> @@ -26,6 +26,9 @@
->  #define PCI_BDF_XSPATH         "%04x-%02x-%02x-%01x"
->  #define PCI_PT_QDEV_ID         "pci-pt-%02x_%02x.%01x"
->  
-> +/* PCI Interrupt Line is an 8-bit value, 0xff means disconnected. */
-> +#define PCI_IRQ_LINE_LIMIT     0xff
-> +
->  static unsigned int pci_encode_bdf(libxl_device_pci *pci)
->  {
->      unsigned int value;
-> @@ -1495,7 +1498,8 @@ static void pci_add_dm_done(libxl__egc *egc,
->              LOGED(ERROR, domainid, "Couldn't open %s", sysfs_path);
->              goto out_no_irq;
->          }
-> -        if ((fscanf(f, "%u", &irq) == 1) && irq) {
-> +        if ((fscanf(f, "%u", &irq) == 1) &&
 
-For this, "irq" ought to be unsigned int. Same below.
-
-> +            irq > 0 && irq < PCI_IRQ_LINE_LIMIT) {
-
-Not sure about this in libxl's style, but it feels inconsistent to have
-parentheses around one relational expression but then not around the
-others. Personally I'd drop them all, but the alternative clearly is to
-add missing ones.
-
->              r = xc_physdev_map_pirq(ctx->xch, domid, irq, &irq);
->              if (r < 0) {
->                  LOGED(ERROR, domainid, "xc_physdev_map_pirq irq=%d (error=%d)",
-> @@ -2257,7 +2261,8 @@ skip_bar:
->              goto skip_legacy_irq;
->          }
->  
-> -        if ((fscanf(f, "%u", &irq) == 1) && irq) {
-> +        if ((fscanf(f, "%u", &irq) == 1) &&
-> +            irq > 0 && irq < PCI_IRQ_LINE_LIMIT) {
->              rc = xc_physdev_unmap_pirq(ctx->xch, domid, irq);
->              if (rc < 0) {
->                  /*
-
-This is doing things in sensible order: unmap, then remove permissions.
-The map side though adds permissions only after mapping. That's kind of
-necessary because the value to pass into xc_domain_irq_permission() is
-an output of xc_physdev_map_pirq(). Yet then the latter should have
-failed for lack of permissions, unless permissions were granted another
-way? In which case what's the point of granting permissions here?
-
-Jan
 
