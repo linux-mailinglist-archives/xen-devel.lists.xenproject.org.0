@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3DA3A80D24
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 16:00:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.942215.1341461 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44D1FA80D23
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 16:00:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.942216.1341472 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u29V6-0000FH-AV; Tue, 08 Apr 2025 14:00:28 +0000
+	id 1u29VB-0000Ui-J5; Tue, 08 Apr 2025 14:00:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 942215.1341461; Tue, 08 Apr 2025 14:00:28 +0000
+Received: by outflank-mailman (output) from mailman id 942216.1341472; Tue, 08 Apr 2025 14:00:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u29V6-0000D5-7p; Tue, 08 Apr 2025 14:00:28 +0000
-Received: by outflank-mailman (input) for mailman id 942215;
- Tue, 08 Apr 2025 14:00:27 +0000
+	id 1u29VB-0000Sh-Ds; Tue, 08 Apr 2025 14:00:33 +0000
+Received: by outflank-mailman (input) for mailman id 942216;
+ Tue, 08 Apr 2025 14:00:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xdvb=W2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u29V5-0000Cz-6O
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 14:00:27 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6Iqs=W2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u29VA-0000Cz-KU
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 14:00:32 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d270161a-1481-11f0-9eaa-5ba50f476ded;
- Tue, 08 Apr 2025 16:00:26 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3914bc3e01aso3345933f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 07:00:26 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f11eb0511sm16461605e9.1.2025.04.08.07.00.25
+ id d5d23d72-1481-11f0-9eaa-5ba50f476ded;
+ Tue, 08 Apr 2025 16:00:32 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43cf05f0c3eso36414375e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 07:00:32 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43ec1795782sm165572205e9.26.2025.04.08.07.00.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Apr 2025 07:00:25 -0700 (PDT)
+ Tue, 08 Apr 2025 07:00:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,138 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d270161a-1481-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: d5d23d72-1481-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744120826; x=1744725626; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1744120831; x=1744725631; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Xj23WDm9CsdK9bxr0xNjZLGeA3vVy1BDgAe+9GNRJJY=;
-        b=IyMX38OaptOoNlcMygvQQi82gmCj4E8sZXT2Nc0cqNAeGMpTp46KJvP5SkVtEZVeLz
-         ijSRglBlArx/aCywN9pxz5F9UzPGyKeB77Qus1LUxBvBYPw+NlGVlbIOu6cMyRj5aTjY
-         orWv4Y2/EkLMCAQhzsyY2+3mpd0JayiSGREIjxZUpeu2zJ5bSjxSPX2jEw9lfhSNeLSN
-         Cv7fT8Io6KP1Fca13GiDp2HIH8PeX5tAJGcwt2WN4eJtv2QtmzwUTeX8q8Kqt8XieegA
-         jWKHRyeGF5vr19l7loviWUBRa9yoV4LP+ivL2qJvgNy3Lbel7aUqZ9XxRmmShnSSjvXG
-         ofBg==
+        bh=YAOIzRWwLxvqNlDKa5BpgqiF6ziLZrF9ZJOL7ZbPezo=;
+        b=nhMkPxGAFsiRbcNefnGGVaL+0FNDhy83dWgPUlnG8tULP0oft6a4aV9IP00+WM2bN9
+         ucenXUOJFT3YeVurLw1/777zPKAmsHs3EFR4XaydxARrX8j7ElYvgQ4t07g0oWEmnpvw
+         kgsjx+NWotN65KDDH0y94vN1ViYo7FKA8Q02U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744120826; x=1744725626;
+        d=1e100.net; s=20230601; t=1744120831; x=1744725631;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Xj23WDm9CsdK9bxr0xNjZLGeA3vVy1BDgAe+9GNRJJY=;
-        b=cMgpFQYvzuANl5YylxrkXj0YMmp0jJDPfd54nVrGT5A9H7sAZ8E8ruq1V1E5TH8BpV
-         jf83vzpJCMEFRLfHezEnZV4ltTXgiryEerp5+8AYMEsm7DvyYabmAVbQVv53t5WSvzsQ
-         5akbmmfp2UoziQtWWghfKmeVHfGT5JQ8WIzxXa/9rMCQLhKrg+A2o0AJLYOm1NRmRd4l
-         C9k/4TlqVE0bF8UeqN1c+bNzEfTQD3ZeXbrPJEbxo9e8KcyIgDVwTSiCAGspNUx25/hr
-         noO+5+0x4DPwdhqovaEdieCwlI3kPkrgsRXdTTkMk/3c6CecANCNaDx3ergo+rOKEdae
-         crAA==
-X-Forwarded-Encrypted: i=1; AJvYcCVcrW0+vv4a8OUKRU3sMTV5UZFbn8UStYPi2s2dm+GgW7w1tG87k9jcG2smzQc2XjzVPIv9K2jEHqQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwL42CSSCuMT3OEl8cuqRNDYyliqZ10bgp2sn9Np3fJgDiEwypR
-	srj9zNwPdeYr2eNH/ziGrMPcd7BOhTdOy4g6jtbY9EcI1J+yLwOesqOcj7HOkg==
-X-Gm-Gg: ASbGncsMi0YlqvDoQaH4b7sGLoI0u0baVd5Gjf8/WyECs9Cr60bL1YdoXGGqN+ifUx4
-	tIgrXP5Mz9rylsW+MPEbmP4FPcRBHneClJfX1NyTcI8PYKk3TR4ycOD//+MCgrqdg1XIIOuiYOE
-	EfJOLTK4kZQ4Ixwz7T2V9pMVjBPpU8BsN3umLXRnzB6M/v5T+VLOv4CbAADBZ484/OOODbM6mxS
-	zMt8xUbziErHZjwlYd3mdRdaEYiom4wb0wqS563KOJwapZc26QRpQsnuELrZM+GncZMI/yjFjfA
-	9IFErvuxnoC7tJodkgWt8phZf4f3CNtP1FQYyBD+3jFtKrfQKNfgJ+DL58jNDkc0hB6HZwkZa1s
-	VRXSGAMzu4rvcEVO0MiqsVTNDJW26jw==
-X-Google-Smtp-Source: AGHT+IFwtYKCP5H2PQnrhPnNxwj7f8FOrMCdWsrwL2NifX555uh4QOscmVRUPeUsRSvk7ZQVEm2EhA==
-X-Received: by 2002:a05:6000:2512:b0:391:253b:405d with SMTP id ffacd0b85a97d-39d0de62927mr13320013f8f.41.1744120825830;
-        Tue, 08 Apr 2025 07:00:25 -0700 (PDT)
-Message-ID: <b8771688-bd89-4a38-a03d-1ee1cb3d8799@suse.com>
-Date: Tue, 8 Apr 2025 16:00:24 +0200
+        bh=YAOIzRWwLxvqNlDKa5BpgqiF6ziLZrF9ZJOL7ZbPezo=;
+        b=Z4moksrsTPuivXjwzNKP0gpQuAEDB2iYlB2DPaKOck+MJmDkwBydB/PoNtLWwY15Gz
+         2Wf4o6SDiMXC2JKvjOuIE6K59IiVSxJ7RwAFVbDN9SJhn3OCDykG9+ouXNT25mysVmw3
+         XWymyUu066QiSe4K9fPjJyFWDWisEUKDQ2M/bXKtY9B+ROPJN8jYw8SfGn873J+aX0+U
+         Df0kOfjDxPvViv3aAHkqmP7f8bAcN0YuEL/wAH2yqpgbbnKKeAEqXKsFmGin/F2j80ME
+         AIGjtpzuTd0WuhKzXa+QVQs0Mb1h7pMa51UsEYtmPsoOqtYYo6mTBwQZEWNxkYuUR59u
+         j3pA==
+X-Forwarded-Encrypted: i=1; AJvYcCVvHGCBvt8hi83hWHW7H0h8C7r772FAjDO0j5Oxj/dGx3RMVS8DFuroydmq3XCiuel2pFlxYStZo+Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxT8HYGP2eLCPjCm3bMcdROQVYh016z/l/THPhGDkeedNH9puun
+	ify85hINYDaGdEBVlCIB+H3EHVg6pWHAr6bnO2n6aOGNaMHZLYU3G6q3Ydn+XOQ=
+X-Gm-Gg: ASbGnctv3jrFWs+KBV40lvnFmPEHoZthTOrrZl09HdGk/7BkJAN67WeNzsJ+fykRHFf
+	3vnbe+QId4H3LPqS2Ww7GDF15IxyET6t2e7yV4f5/y5CRjKjr11WCKxULPK4hHPeR/z39wODpOS
+	nT2gLsXf62Q2LCkOO6hZXTNOm/SW/LFAD5WosMWXeFxlFzom2uoRzXOZpGDV/LHZXwhfui7kyBw
+	b41Wi2MGO9fddVg1M3PCNBzPJ8FVWuW9SPLsikkZJtArzs83QBhikRe+HDsMEAsz8D8ox8YXCee
+	vZI9ceFRdm05AztIcydDtZl5F1waLgVo2N+GDzD+WFZgOmc1J4R1feIOngoF3TQxBB1IbEkz4R/
+	g7AvcXweAcA==
+X-Google-Smtp-Source: AGHT+IHPg5hlqfghRtfiHNeoaQjs0a11wEh14Py8zQx95ZQx+g7ONR6y632jPXwQCKfLyg8kV41yqQ==
+X-Received: by 2002:a05:600c:1d28:b0:43d:7de:16e3 with SMTP id 5b1f17b1804b1-43ed0d9d18emr137494485e9.24.1744120829908;
+        Tue, 08 Apr 2025 07:00:29 -0700 (PDT)
+Message-ID: <13127adf-4feb-4039-b859-27d68bef751d@citrix.com>
+Date: Tue, 8 Apr 2025 15:00:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/7] xen: introduce hardware domain create flag
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250407194038.83860-1-jason.andryuk@amd.com>
- <20250407194038.83860-2-jason.andryuk@amd.com>
- <b032e7bc-61a4-4dac-97c1-171771869156@suse.com>
- <2843a46d-0b30-4fa1-b8de-b0030a98e636@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2843a46d-0b30-4fa1-b8de-b0030a98e636@amd.com>
+Subject: Re: [PATCH 2/2] x86/hvm: fix write emulation of RO ranges
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20250408093156.83277-1-roger.pau@citrix.com>
+ <20250408093156.83277-3-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250408093156.83277-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.04.2025 15:54, Jason Andryuk wrote:
-> On 2025-04-08 02:37, Jan Beulich wrote:
->> On 07.04.2025 21:40, Jason Andryuk wrote:
->>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
->>>
->>> Add and use a new internal create domain flag to specify the hardware
->>> domain.  This removes the hardcoding of domid 0 as the hardware domain.
->>>
->>> This allows more flexibility with domain creation.
->>>
->>> The assignment of d->cdf is moved later so CDF_hardware is added for the
->>> late_hwdom case.  Also old_hwdom has the flag removed to reflect the
->>> change.
->>>
->>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->> i.e. ...
-> 
-> Thanks.
-> 
->>> ---
->>> v4:
->>> Move d->cdf assignment later
->>
->> ... despite my earlier concern this movement looks fine to me.
-> 
-> Double checking today, I see that in the failure case, hardware_domain 
-> is restored from old_hwdom.  So in that case, CDF_hardware should be 
-> restored:
-> 
-> @@ -986,7 +987,11 @@ struct domain *domain_create(domid_t domid,
-> 
->       d->is_dying = DOMDYING_dead;
->       if ( hardware_domain == d )
-> +    {
-> +        if ( old_hwdom )
-> +            old_hwdom->cdf |= CDF_hardware;
->           hardware_domain = old_hwdom;
-> +    }
->       atomic_set(&d->refcnt, DOMAIN_DESTROYED);
-> 
->       sched_destroy_domain(d);
+On 08/04/2025 10:31 am, Roger Pau Monne wrote:
+> When running on AMD hardware in HVM mode the guest linear address (GLA)
+> will not be provided to hvm_emulate_one_mmio(), and instead is
+> unconditionally set of ~0.  As a consequence mmio_ro_emulated_write() will
+> always report an error, as the fault GLA generated by the emulation of the
+> access won't be ~0.
+>
+> Fix this by only checking for the fault GLA in mmio_ro_emulated_write()
+> when the guest is PV.
+>
+> Fixes: 33c19df9a5a0 ('x86/PCI: intercept accesses to RO MMIO from dom0s in HVM containers')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Oh, right. Please retain my R-b with this added.
+I think there are several bugs here.
 
-Jan
+We do get %cr2 reliably for PV and Shadow guests.
+
+Intel EPT may or may not give us GLA.  e.g. writes for pagetable A/D
+updates don't get GLA.
+
+Defaulting to ~0 isn't ok.  We need some kind of GLA-valid signal,
+except for HAP guests, it isn't even the GLA we care about, it's the GPA
+which identifies the MMIO region.
+
+We shouldn't terminate the emulation if there's no GLA to check.  In the
+case that we don't have a GLA, we should translate the memory operand
+and cross-check the GPA.  We'll definitely have one of the two to hand.
+
+~Andrew
 
