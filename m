@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C0A9A810E2
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 17:57:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.942513.1341726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A1A4A81122
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 18:01:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.942606.1341756 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BKU-00073c-Md; Tue, 08 Apr 2025 15:57:38 +0000
+	id 1u2BOF-0004jg-Cj; Tue, 08 Apr 2025 16:01:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 942513.1341726; Tue, 08 Apr 2025 15:57:38 +0000
+Received: by outflank-mailman (output) from mailman id 942606.1341756; Tue, 08 Apr 2025 16:01:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2BKU-0006pW-Ai; Tue, 08 Apr 2025 15:57:38 +0000
-Received: by outflank-mailman (input) for mailman id 942513;
- Tue, 08 Apr 2025 15:57:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u2BOF-0004ga-7a; Tue, 08 Apr 2025 16:01:31 +0000
+Received: by outflank-mailman (input) for mailman id 942606;
+ Tue, 08 Apr 2025 16:01:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f4Vq=W2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u2BKR-0004Yr-PD
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 15:57:35 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2fe81a6b-1492-11f0-9eaa-5ba50f476ded;
- Tue, 08 Apr 2025 17:57:35 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5e5cded3e2eso8998947a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 08:57:35 -0700 (PDT)
+ id 1u2BKW-0004Yq-Jf
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 15:57:40 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 30a2b2f0-1492-11f0-9ffb-bf95429c2676;
+ Tue, 08 Apr 2025 17:57:36 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-ac29af3382dso936870166b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 08:57:36 -0700 (PDT)
 Received: from fedora.. (user-109-243-64-225.play-internet.pl.
  [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac7c018556bsm929934566b.156.2025.04.08.08.57.33
+ a640c23a62f3a-ac7c018556bsm929934566b.156.2025.04.08.08.57.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Apr 2025 08:57:33 -0700 (PDT)
+ Tue, 08 Apr 2025 08:57:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fe81a6b-1492-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 30a2b2f0-1492-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744127854; x=1744732654; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1744127855; x=1744732655; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Qs/V9bH5HfCVD/a2CF4cR56cAvFz6TnsciyGeIqgJxk=;
-        b=RdC84H7L9m2g99RTxVjKF/mbFE+KpDYvXwX2eSqmawPsDqIfKXk3uA3CjYXdV49eYg
-         8FFFpZxuo4aJ69novGTx5ZvPGjHqgIslYBHI4qeUNqZBC1KezQOj68791urR/40cN/xg
-         x6ZJRdWMK4E6TSD+qe3btCeHXVcD/NXXdn980RevAiu9vXAvI0nDMYK5IRzG77T4K170
-         ZlKCvj9oGxS6GXWgLfuvKKiCocUUIqP6rDDMfOMnF/rm/QkjBUDJGUsxJVGnZIVAMv14
-         X44tjKAsRyJV7r7Zl6NgS+gcCbaMYBDLrIrP+n1NExOBCb/SNSf0c+Nz3ruEtPVOcGd8
-         jKAA==
+        bh=obosTziijTFYXfPLbOAwqyMHx7uiRBVtztO5FdIKDt0=;
+        b=WTecgZ75a8WNbXJ4hgvY9ID1Hs5jEjE/lJzgKv7ikrrSjl1SeDFDG14YKzlAISkhCX
+         P26IEAlpsPnuow0Oui6GPe6qHtFpRx6B75FaKkmSyWMoF1LJka7lFUxASvPWmR3yD/Cx
+         vFyI2BsXXJNXoQQJvrtxwrVubJITjmBd1lp4Xe61SQe4tKvPsg0604Vq5vpr35IV7QLD
+         5WBRDL5mQMoPMk1pDqpWiztjBRJShbHDfG1fZl7T8XqJ2yOZ2UbKrVR1FIwZiAVI9F/w
+         f8LTr1QV0rB45O+O5qZUFgK7Qb2rnJiUIvGfaD8UyMnhgHUqSSfpWYUelCB1dLh+nS5w
+         gRtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744127854; x=1744732654;
+        d=1e100.net; s=20230601; t=1744127855; x=1744732655;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Qs/V9bH5HfCVD/a2CF4cR56cAvFz6TnsciyGeIqgJxk=;
-        b=uEiLROtcbRbQ2n4OoqSIbPnu4rim0ZpTFRdgkVhwITQ7jIM1lZIMBFhGctgBmmHQQ8
-         rZFYUJtVMEORwd9VE8Uz0JgrRJpDrg/MGlBGhQDye4P732BqVTUM8tkmtteyNcCbWxdl
-         TKn2ko4I4Tn5k/koOux/yFRga3Aq7JpMcRGGt0DwAa8ayvWDBkYfFDH4YtN175iIy3uK
-         uOTV2adLMnyCLbACWCcbuwQ9Ssn/OHJYs9yQy8sYc8ccaRran4lyIXnY2swI+H7qyARZ
-         HG2W78RWUwxAxoX8VwOolgzR39qCyCHQrwyz8ZL5s1P0HAG/j3HwHudBBYIDoCj51+Rt
-         /Wbg==
-X-Gm-Message-State: AOJu0YzLKnNtAqjgZQXsEnAMN3lWuZ3SPVziUs9cr/Mn5b7okL7U8WXE
-	SQuXLCdneUBeEFrffX9ql9ShpwmokeXrLnjBvM+aNqXZar9z9rnQXrxxHw==
-X-Gm-Gg: ASbGncuxnYKLHhshopm1Dp1Q3Agkkl1RFdLsWddlvRbP1Mj4HvIBujz669AiKUAWAQN
-	pS+3sDR0CFUr6bnXMDjnf3qoFLd3seDUsk9noia2GnFCnmMNXBQtY9jc1g9qYqZ6xwRczbrQoGZ
-	5Va8XwbyFiP8EgUfnW2nKBZMneSwKMXqNJRsvHS7A1Hug/tm7VZiuVP0WogCFSjL/eMO62ght7c
-	vQTdwisfjrhQE/r+nVXoofZx40a8eO//MhQNqs4zipQ0bfdPKPwnsCcH4ovTN/V2khK4CBM5LPm
-	jHuzCThA+PaYojr+xiwM6H3PnE87744YrzypuF2ahTZMChj6aMRddDXL/a8Z7R5szU1dRbNFV4X
-	+UhF2NrOlGDJefGuLBJ41a+gW
-X-Google-Smtp-Source: AGHT+IH+3EweEJgBkf1lttSk7L5OsPOi7EG3brnsFTKjOXpiyfN2/5t9qu/jwSxpPD5AeEF7mZxXDA==
-X-Received: by 2002:a17:907:1b03:b0:abf:6ec7:65e9 with SMTP id a640c23a62f3a-ac7e761e34amr1185527266b.43.1744127854164;
-        Tue, 08 Apr 2025 08:57:34 -0700 (PDT)
+        bh=obosTziijTFYXfPLbOAwqyMHx7uiRBVtztO5FdIKDt0=;
+        b=KEiTAQpmWcSpcQoVoi3lJ0rgSpypYJc6/YBRqnDC47iCNjUBmiPfHXIsaSzNwn22uS
+         fzHsSIsT4koco61/AhzlVo+0SOd9RQizmOfcCPr3Ie9Vt1VOcQ+SkMGninV0i+FuHZJR
+         nrTUi2GkiOEvxuQ4v4BJSZ6234XYtZhAcjgS9p9XBvpW6Ib4FjaaeEhRnzTDwNVFs7+m
+         pWcbV6SSppn0h3dshmlMR97CfYrpQiofMHO2pMTM4PpedznVtoQitAH/nXoLLP2lxrxL
+         bv9QYuYXAjezfLtt8kiSwntvMs1EQvq7eL2uq77v7lftA4aT9PuGiylICeISdttkSbFb
+         lWQw==
+X-Gm-Message-State: AOJu0Yx4Laz8P1v5nka0ZCPzvWePg1Z5HFtDJDiEvcJk7fx1WQUOX4Pc
+	pSIcGHjc4/lt+mO6VchYDcUweyL0XBQ3Cv4h25NtYVLwij8RqnyEkJCTvA==
+X-Gm-Gg: ASbGnctUFOMTA+PikQd6582BsnDomEfClj3ljVDWbJSI8Xp/VZ0fIUlP9jiBuWsd+0v
+	YekJu7Jrcsn/KHJrSidFD0IT1FTMH5UyNowZuYG1Y80sEyjQO4qD4SxvEyt62T/xqWpHjReofp0
+	uXqIw62kpLoeSmULzh6n3TxhWQjixXFuGHD62ldBlh2rd+K/z9+TCwDKyYrp+pWXwnp5XhYaudY
+	y3wp9vv9kUgTrQ6V9UQfvJJdGjyaHnH+xHiKOo0VyjQn/HeNw76tgH559yHGuuyv54fJuefAMKP
+	ZqMM/AzhN9GAc9JMBeiHQsP8bwuUMVj6eS5DvkyIj8NJFryzoNanCpekG6TEKCzubqwHNx1xmlU
+	Ihe02CkwAEQkIYw==
+X-Google-Smtp-Source: AGHT+IEGspGPs+MME//LE3RWoyJqDPz+WYmt7DGj67vMc+ReaBhJ3Bcm6MIfxc1z+iw9GyXf45JObA==
+X-Received: by 2002:a17:907:724f:b0:ac2:cdcb:6a85 with SMTP id a640c23a62f3a-ac7d6d2b3f4mr1436812166b.22.1744127855300;
+        Tue, 08 Apr 2025 08:57:35 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -95,283 +95,409 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Romain Caritey <Romain.Caritey@microchip.com>
-Subject: [PATCH v1 09/14] xen/riscv: aplic_init() implementation
-Date: Tue,  8 Apr 2025 17:57:14 +0200
-Message-ID: <1d023045be49ae93d41d552f9c9a79972fa4e84b.1744126720.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 10/14] xen/riscv: implementation of aplic and imsic operations
+Date: Tue,  8 Apr 2025 17:57:15 +0200
+Message-ID: <74a07ed7c596bbcf581010685e01bfdfa19164f5.1744126720.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1744126720.git.oleksii.kurochko@gmail.com>
 References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-aplic_init() function does the following few things:
- - checks that IMSIC in device tree node  ( by checking msi-parent property
-   in APLIC node ) is present as current one implmenetaion of AIA is
-   supported only MSI method.
- - initialize IMSIC based on IMSIC device tree node
- - Read value of APLIC's paddr start/end and size.
- - Map aplic.regs
- - Setup APLIC initial state interrupts (disable all interrupts, set
-   interrupt type and default priority, confgifure APLIC domaincfg) by
-   calling aplic_init_hw_interrutps().
+Introduce interrupt controller descriptor for host APLIC to describe
+the low-lovel hardare. It includes implementation of the following functions:
+ - aplic_irq_startup()
+ - aplic_irq_shutdown()
+ - aplic_irq_enable()
+ - aplic_irq_disable()
+ - aplic_irq_ack()
+ - aplic_host_irq_end()
+ - aplic_set_irq_affinity()
 
-aplic_init() is based on the code from [1] and [2].
+As APLIC is used in MSI mode it requires to enable/disable interrupts not
+only for APLIC but also for IMSIC. Thereby for the purpose of
+aplic_irq_{enable,disable}() it is introduced imsic_irq_{enable,disable)().
 
-Since Microchip originally developed aplic.c, an internal discussion with
-them led to the decision to use the MIT license.
+For the purpose of aplic_set_irq_affinity() aplic_get_cpu_from_mask() is
+introduced to get hart id.
 
-[1] https://gitlab.com/xen-project/people/olkur/xen/-/commit/7cfb4bd4748ca268142497ac5c327d2766fb342d
-[2] https://gitlab.com/xen-project/people/olkur/xen/-/commit/392a531bfad39bf4656ce8128e004b241b8b3f3e
+Also, introduce additional interrupt controller h/w operations and
+host_irq_type for APLIC:
+ - aplic_host_irq_type
+ - aplic_set_irq_priority()
+ - aplic_set_irq_type()
+
+Patch is based on the code from [1].
+
+[1] https://gitlab.com/xen-project/people/olkur/xen/-/commit/7390e2365828b83e27ead56b03114a56e3699dd5
 
 Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/aplic.c             | 97 ++++++++++++++++++++++++++++++
- xen/arch/riscv/include/asm/aplic.h | 77 ++++++++++++++++++++++++
- xen/arch/riscv/include/asm/intc.h  |  3 +
- xen/arch/riscv/include/asm/irq.h   |  1 -
- 4 files changed, 177 insertions(+), 1 deletion(-)
- create mode 100644 xen/arch/riscv/include/asm/aplic.h
+ xen/arch/riscv/aplic.c             | 169 ++++++++++++++++++++++++++++-
+ xen/arch/riscv/imsic.c             |  63 +++++++++++
+ xen/arch/riscv/include/asm/aplic.h |  12 ++
+ xen/arch/riscv/include/asm/imsic.h |  15 +++
+ 4 files changed, 258 insertions(+), 1 deletion(-)
 
 diff --git a/xen/arch/riscv/aplic.c b/xen/arch/riscv/aplic.c
-index 6dc040af6f..d1aa835c3e 100644
+index d1aa835c3e..4b60cb9a77 100644
 --- a/xen/arch/riscv/aplic.c
 +++ b/xen/arch/riscv/aplic.c
-@@ -9,19 +9,112 @@
-  * Copyright (c) 2024-2025 Vates
-  */
- 
-+#include <xen/device_tree.h>
- #include <xen/errno.h>
- #include <xen/init.h>
+@@ -15,6 +15,7 @@
  #include <xen/irq.h>
-+#include <xen/mm.h>
+ #include <xen/mm.h>
  #include <xen/sections.h>
++#include <xen/spinlock.h>
  #include <xen/types.h>
-+#include <xen/vmap.h>
+ #include <xen/vmap.h>
  
-+#include <asm/aplic.h>
- #include <asm/device.h>
-+#include <asm/imsic.h>
- #include <asm/intc.h>
-+#include <asm/riscv_encoding.h>
-+
-+#define APLIC_DEFAULT_PRIORITY  1
-+
-+static struct aplic_priv aplic;
+@@ -110,9 +111,173 @@ static int __init aplic_init(void)
+     return 0;
+ }
  
- static struct intc_info __ro_after_init aplic_info = {
-     .hw_version = INTC_APLIC,
- };
- 
-+static void __init aplic_init_hw_interrupts(void)
+-static const struct intc_hw_operations __ro_after_init aplic_ops = {
++static void aplic_set_irq_type(struct irq_desc *desc, unsigned int type)
 +{
-+    int i;
++    unsigned int irq = desc->irq - 1;
 +
-+    /* Disable all interrupts */
-+    for ( i = 0; i <= aplic_info.nr_irqs; i += 32 )
-+        aplic.regs->clrie[i] = -1U;
-+
-+    /* Set interrupt type and default priority for all interrupts */
-+    for ( i = 1; i <= aplic_info.nr_irqs; i++ )
-+    {
-+        aplic.regs->sourcecfg[i - 1] = 0;
-+        aplic.regs->target[i - 1] = APLIC_DEFAULT_PRIORITY;
++    spin_lock(&aplic.lock);
++    switch(type) {
++        case IRQ_TYPE_EDGE_RISING:
++            aplic.regs->sourcecfg[irq] = APLIC_SOURCECFG_SM_EDGE_RISE;
++            break;
++        case IRQ_TYPE_EDGE_FALLING:
++            aplic.regs->sourcecfg[irq] = APLIC_SOURCECFG_SM_EDGE_FALL;
++            break;
++        case IRQ_TYPE_LEVEL_HIGH:
++            aplic.regs->sourcecfg[irq] = APLIC_SOURCECFG_SM_LEVEL_HIGH;
++            break;
++        case IRQ_TYPE_LEVEL_LOW:
++            aplic.regs->sourcecfg[irq] = APLIC_SOURCECFG_SM_LEVEL_LOW;
++            break;
++        default:
++            aplic.regs->sourcecfg[irq] = APLIC_SOURCECFG_SM_INACTIVE;
++            break;
 +    }
-+
-+    /* Clear APLIC domaincfg */
-+    aplic.regs->domaincfg = APLIC_DOMAINCFG_IE | APLIC_DOMAINCFG_DM;
++    spin_unlock(&aplic.lock);
 +}
 +
-+static int __init aplic_init(void)
++static void aplic_set_irq_priority(struct irq_desc *desc,
++                                   unsigned int priority)
 +{
-+    int rc;
-+    dt_phandle imsic_phandle;
-+    uint32_t irq_range[2];
-+    const __be32 *prop;
-+    uint64_t size, paddr;
-+    struct dt_device_node *imsic_node;
-+    const struct dt_device_node *node = aplic_info.node;
++    /* No priority, do nothing */
++}
 +
-+    /* check for associated imsic node */
-+    rc = dt_property_read_u32(node, "msi-parent", &imsic_phandle);
-+    if ( !rc )
-+        panic("%s: IDC mode not supported\n", node->full_name);
++static void aplic_irq_enable(struct irq_desc *desc)
++{
++    unsigned long flags;
 +
-+    imsic_node = dt_find_node_by_phandle(imsic_phandle);
-+    if ( !imsic_node )
-+        panic("%s: unable to find IMSIC node\n", node->full_name);
++    /*
++     * TODO: Currently, APLIC is supported only with MSI interrupts.
++     *       If APLIC without MSI interrupts is required in the future,
++     *       this function will need to be updated accordingly.
++     */
++    ASSERT(aplic.imsic_cfg->is_used);
 +
-+    /* check imsic mode */
-+    rc = dt_property_read_u32_array(imsic_node, "interrupts-extended",
-+                                    irq_range, ARRAY_SIZE(irq_range));
-+    if ( rc && (rc != -EOVERFLOW) )
-+        panic("%s: unable to find interrupt-extended in %s node\n",
-+               node->full_name, imsic_node->full_name);
++    ASSERT(spin_is_locked(&desc->lock));
 +
-+    if ( irq_range[1] == IRQ_M_EXT )
-+        /* machine mode imsic node, ignore this aplic node */
-+        return 0;
++    spin_lock_irqsave(&aplic.lock, flags);
 +
-+    rc = imsic_init(imsic_node);
-+    if ( rc )
-+        panic("%s: Failded to initialize IMSIC\n", node->full_name);
++    clear_bit(_IRQ_DISABLED, &desc->status);
 +
-+    /* Find out number of interrupt sources */
-+    rc = dt_property_read_u32(node, "riscv,num-sources", &aplic_info.nr_irqs);
-+    if ( !rc )
-+        panic("%s: failed to get number of interrupt sources\n",
-+              node->full_name);
++    /* enable interrupt in IMSIC */
++    imsic_irq_enable(desc->irq);
 +
-+    prop = dt_get_property(node, "reg", NULL);
-+    dt_get_range(&prop, node, &paddr, &size);
-+    if ( !paddr )
-+        panic("%s: first MMIO resource not found\n", node->full_name);
++    /* enable interrupt in APLIC */
++    aplic.regs->setienum = desc->irq;
 +
-+    aplic.paddr_start = paddr;
-+    aplic.paddr_end = paddr + size;
-+    aplic.size = size;
++    spin_unlock_irqrestore(&aplic.lock, flags);
++}
 +
-+    aplic.regs = ioremap(paddr, size);
-+    if ( !aplic.regs )
-+        panic("%s: unable to map\n", node->full_name);
++static void aplic_irq_disable(struct irq_desc *desc)
++{
++    unsigned long flags;
 +
-+    /* Setup initial state APLIC interrupts */
-+    aplic_init_hw_interrupts();
++    /*
++     * TODO: Currently, APLIC is supported only with MSI interrupts.
++     *       If APLIC without MSI interrupts is required in the future,
++     *       this function will need to be updated accordingly.
++     */
++    ASSERT(aplic.imsic_cfg->is_used);
++
++    ASSERT(spin_is_locked(&desc->lock));
++
++    spin_lock_irqsave(&aplic.lock, flags);
++
++    set_bit(_IRQ_DISABLED, &desc->status);
++
++    /* disable interrupt in APLIC */
++    aplic.regs->clrienum = desc->irq;
++
++    /* disable interrupt in IMSIC */
++    imsic_irq_disable(desc->irq);
++
++    spin_unlock_irqrestore(&aplic.lock, flags);
++}
++
++static unsigned int aplic_irq_startup(struct irq_desc *desc)
++{
++    aplic_irq_enable(desc);
 +
 +    return 0;
 +}
 +
-+static const struct intc_hw_operations __ro_after_init aplic_ops = {
-+    .info                = &aplic_info,
-+    .init                = aplic_init,
++static void aplic_irq_shutdown(struct irq_desc *desc)
++{
++    aplic_irq_disable(desc);
++}
++
++static void aplic_irq_ack(struct irq_desc *desc)
++{
++    /* nothing to do */
++}
++
++static void aplic_host_irq_end(struct irq_desc *desc)
++{
++    /* nothing to do */
++}
++
++static unsigned int aplic_get_cpu_from_mask(const cpumask_t *cpumask)
++{
++    unsigned int cpu;
++    cpumask_t possible_mask;
++
++    cpumask_and(&possible_mask, cpumask, &cpu_possible_map);
++    cpu = cpumask_any(&possible_mask);
++
++    return cpu;
++}
++
++static void aplic_set_irq_affinity(struct irq_desc *desc, const cpumask_t *mask)
++{
++    unsigned int cpu;
++    uint64_t group_index, base_ppn;
++    uint32_t hhxw, lhxw ,hhxs, value;
++    const struct imsic_config *imsic = aplic.imsic_cfg;
++
++    /*
++     * TODO: Currently, APLIC is supported only with MSI interrupts.
++     *       If APLIC without MSI interrupts is required in the future,
++     *       this function will need to be updated accordingly.
++     */
++    ASSERT(aplic.imsic_cfg->is_used);
++
++    ASSERT(!cpumask_empty(mask));
++
++    spin_lock(&aplic.lock);
++
++    cpu = cpuid_to_hartid(aplic_get_cpu_from_mask(mask));
++    hhxw = imsic->group_index_bits;
++    lhxw = imsic->hart_index_bits;
++    hhxs = imsic->group_index_shift - IMSIC_MMIO_PAGE_SHIFT * 2;
++    base_ppn = imsic->msi[cpu].base_addr >> IMSIC_MMIO_PAGE_SHIFT;
++
++    /* update hart and EEID in the target register */
++    group_index = (base_ppn >> (hhxs + 12)) & (BIT(hhxw, UL) - 1);
++    value = desc->irq;
++    value |= cpu << APLIC_TARGET_HART_IDX_SHIFT;
++    value |= group_index << (lhxw + APLIC_TARGET_HART_IDX_SHIFT) ;
++    aplic.regs->target[desc->irq - 1] = value;
++
++    spin_unlock(&aplic.lock);
++}
++
++static hw_irq_controller aplic_host_irq_type = {
++    .typename     = "aplic",
++    .startup      = aplic_irq_startup,
++    .shutdown     = aplic_irq_shutdown,
++    .enable       = aplic_irq_enable,
++    .disable      = aplic_irq_disable,
++    .ack          = aplic_irq_ack,
++    .end          = aplic_host_irq_end,
++    .set_affinity = aplic_set_irq_affinity,
 +};
 +
- static int aplic_irq_xlate(const uint32_t *intspec, unsigned int intsize,
-                            unsigned int *out_hwirq,
-                            unsigned int *out_type)
-@@ -52,8 +145,12 @@ static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
- 
-     aplic_info.node = node;
- 
-+    aplic.imsic_cfg = imsic_get_config();
-+
-     dt_irq_xlate = aplic_irq_xlate;
- 
-+    register_intc_ops(&aplic_ops);
-+
-     return 0;
- }
- 
-diff --git a/xen/arch/riscv/include/asm/aplic.h b/xen/arch/riscv/include/asm/aplic.h
-new file mode 100644
-index 0000000000..94b3d0b616
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/aplic.h
-@@ -0,0 +1,77 @@
-+/* SPDX-License-Identifier: MIT */
-+
-+/*
-+ * xen/arch/riscv/aplic.h
-+ *
-+ * RISC-V Advanced Platform-Level Interrupt Controller support
-+ *
-+ * Copyright (c) 2023 Microchip.
-+ */
-+
-+#ifndef ASM__RISCV__APLIC_H
-+#define ASM__RISCV__APLIC_H
-+
-+#include <xen/types.h>
-+
-+#include <asm/imsic.h>
-+
-+#define APLIC_DOMAINCFG_IE      BIT(8, UL)
-+#define APLIC_DOMAINCFG_DM      BIT(2, UL)
-+
-+struct aplic_regs {
-+    uint32_t domaincfg;
-+    uint32_t sourcecfg[1023];
-+    uint8_t _reserved1[0xBC0];
-+
-+    uint32_t mmsiaddrcfg;
-+    uint32_t mmsiaddrcfgh;
-+    uint32_t smsiaddrcfg;
-+    uint32_t smsiaddrcfgh;
-+    uint8_t _reserved2[0x30];
-+
-+    uint32_t setip[32];
-+    uint8_t _reserved3[92];
-+
-+    uint32_t setipnum;
-+    uint8_t _reserved4[0x20];
-+
-+    uint32_t in_clrip[32];
-+    uint8_t _reserved5[92];
-+
-+    uint32_t clripnum;
-+    uint8_t _reserved6[32];
-+
-+    uint32_t setie[32];
-+    uint8_t _reserved7[92];
-+
-+    uint32_t setienum;
-+    uint8_t _reserved8[32];
-+
-+    uint32_t clrie[32];
-+    uint8_t _reserved9[92];
-+
-+    uint32_t clrienum;
-+    uint8_t _reserved10[32];
-+
-+    uint32_t setipnum_le;
-+    uint32_t setipnum_be;
-+    uint8_t _reserved11[4088];
-+
-+    uint32_t genmsi;
-+    uint32_t target[1023];
-+};
-+
-+struct aplic_priv {
-+    /* base physical address and size */
-+    paddr_t paddr_start;
-+    paddr_t paddr_end;
-+    size_t  size;
-+
-+    /* registers */
-+    volatile struct aplic_regs *regs;
-+
-+    /* imsic configuration */
-+    const struct imsic_config *imsic_cfg;
-+};
-+
-+#endif /* ASM__RISCV__APLIC_H */
-diff --git a/xen/arch/riscv/include/asm/intc.h b/xen/arch/riscv/include/asm/intc.h
-index 0d498b10f4..db53caa07b 100644
---- a/xen/arch/riscv/include/asm/intc.h
-+++ b/xen/arch/riscv/include/asm/intc.h
-@@ -15,6 +15,9 @@ enum intc_version {
- struct intc_info {
-     enum intc_version hw_version;
-     const struct dt_device_node *node;
-+
-+    /* number of irqs */
-+    unsigned int nr_irqs;
++static const struct intc_hw_operations aplic_ops = {
+     .info                = &aplic_info,
+     .init                = aplic_init,
++    .host_irq_type       = &aplic_host_irq_type,
++    .set_irq_priority    = aplic_set_irq_priority,
++    .set_irq_type        = aplic_set_irq_type,
  };
  
- struct intc_hw_operations {
-diff --git a/xen/arch/riscv/include/asm/irq.h b/xen/arch/riscv/include/asm/irq.h
-index ff1c95e0be..163a478d78 100644
---- a/xen/arch/riscv/include/asm/irq.h
-+++ b/xen/arch/riscv/include/asm/irq.h
-@@ -27,7 +27,6 @@
- #define IRQ_TYPE_INVALID        DT_IRQ_TYPE_INVALID
+ static int aplic_irq_xlate(const uint32_t *intspec, unsigned int intsize,
+@@ -149,6 +314,8 @@ static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
  
- /* TODO */
--#define nr_irqs 0U
- #define nr_static_irqs 0
- #define arch_hwdom_irqs(domid) 0U
+     dt_irq_xlate = aplic_irq_xlate;
  
++    spin_lock_init(&aplic.lock);
++
+     register_intc_ops(&aplic_ops);
+ 
+     return 0;
+diff --git a/xen/arch/riscv/imsic.c b/xen/arch/riscv/imsic.c
+index 99def9af2d..8198d008ef 100644
+--- a/xen/arch/riscv/imsic.c
++++ b/xen/arch/riscv/imsic.c
+@@ -14,12 +14,68 @@
+ #include <xen/errno.h>
+ #include <xen/init.h>
+ #include <xen/macros.h>
++#include <xen/spinlock.h>
+ #include <xen/xmalloc.h>
+ 
+ #include <asm/imsic.h>
+ 
+ static struct imsic_config imsic_cfg;
+ 
++#define imsic_csr_set(c, v)     \
++do {                            \
++    csr_write(CSR_SISELECT, c); \
++    csr_set(CSR_SIREG, v);      \
++} while (0)
++
++#define imsic_csr_clear(c, v)   \
++do {                            \
++    csr_write(CSR_SISELECT, c); \
++    csr_clear(CSR_SIREG, v);    \
++} while (0)
++
++static void imsic_local_eix_update(unsigned long base_id, unsigned long num_id,
++                                   bool pend, bool val)
++{
++    unsigned long i, isel, ireg;
++    unsigned long id = base_id, last_id = base_id + num_id;
++
++    while ( id < last_id )
++    {
++        isel = id / __riscv_xlen;
++        isel *= __riscv_xlen / IMSIC_EIPx_BITS;
++        isel += (pend) ? IMSIC_EIP0 : IMSIC_EIE0;
++
++        ireg = 0;
++        for ( i = id & (__riscv_xlen - 1);
++              (id < last_id) && (i < __riscv_xlen);
++              i++, id++ )
++            ireg |= (1 << i);
++
++        if ( val )
++            imsic_csr_set(isel, ireg);
++        else
++            imsic_csr_clear(isel, ireg);
++    }
++}
++
++void imsic_irq_enable(unsigned int hwirq)
++{
++    unsigned long flags;
++
++    spin_lock_irqsave(&imsic_cfg.lock, flags);
++    imsic_local_eix_update(hwirq, 1, false, true);
++    spin_unlock_irqrestore(&imsic_cfg.lock, flags);
++}
++
++void imsic_irq_disable(unsigned int hwirq)
++{
++    unsigned long flags;
++
++    spin_lock_irqsave(&imsic_cfg.lock, flags);
++    imsic_local_eix_update(hwirq, 1, false, false);
++    spin_unlock_irqrestore(&imsic_cfg.lock, flags);
++}
++
+ const struct imsic_config *imsic_get_config(void)
+ {
+     return &imsic_cfg;
+@@ -277,6 +333,13 @@ int __init imsic_init(struct dt_device_node *node)
+         goto imsic_init_err;
+     }
+ 
++    spin_lock_init(&imsic_cfg.lock);
++
++    /* Enable local interrupt delivery */
++    imsic_ids_local_delivery(true);
++
++    imsic_cfg.is_used = true;
++
+     return 0;
+ 
+ imsic_init_err:
+diff --git a/xen/arch/riscv/include/asm/aplic.h b/xen/arch/riscv/include/asm/aplic.h
+index 94b3d0b616..ce858663a9 100644
+--- a/xen/arch/riscv/include/asm/aplic.h
++++ b/xen/arch/riscv/include/asm/aplic.h
+@@ -18,6 +18,15 @@
+ #define APLIC_DOMAINCFG_IE      BIT(8, UL)
+ #define APLIC_DOMAINCFG_DM      BIT(2, UL)
+ 
++#define APLIC_SOURCECFG_SM_INACTIVE     0x0
++#define APLIC_SOURCECFG_SM_DETACH       0x1
++#define APLIC_SOURCECFG_SM_EDGE_RISE    0x4
++#define APLIC_SOURCECFG_SM_EDGE_FALL    0x5
++#define APLIC_SOURCECFG_SM_LEVEL_HIGH   0x6
++#define APLIC_SOURCECFG_SM_LEVEL_LOW    0x7
++
++#define APLIC_TARGET_HART_IDX_SHIFT 18
++
+ struct aplic_regs {
+     uint32_t domaincfg;
+     uint32_t sourcecfg[1023];
+@@ -70,6 +79,9 @@ struct aplic_priv {
+     /* registers */
+     volatile struct aplic_regs *regs;
+ 
++    /* lock */
++    spinlock_t lock;
++
+     /* imsic configuration */
+     const struct imsic_config *imsic_cfg;
+ };
+diff --git a/xen/arch/riscv/include/asm/imsic.h b/xen/arch/riscv/include/asm/imsic.h
+index 126e651863..d2c0178529 100644
+--- a/xen/arch/riscv/include/asm/imsic.h
++++ b/xen/arch/riscv/include/asm/imsic.h
+@@ -11,6 +11,7 @@
+ #ifndef ASM__RISCV__IMSIC_H
+ #define ASM__RISCV__IMSIC_H
+ 
++#include <xen/spinlock.h>
+ #include <xen/types.h>
+ 
+ #define IMSIC_MMIO_PAGE_SHIFT   12
+@@ -19,6 +20,11 @@
+ #define IMSIC_MIN_ID            63
+ #define IMSIC_MAX_ID            2048
+ 
++#define IMSIC_EIP0              0x80
++#define IMSIC_EIPx_BITS         32
++
++#define IMSIC_EIE0              0xC0
++
+ struct imsic_msi {
+     paddr_t base_addr;
+     unsigned long offset;
+@@ -55,6 +61,12 @@ struct imsic_config {
+ 
+     /* MSI */
+     struct imsic_msi msi[NR_CPUS];
++
++    /* a check that IMSIC is used */
++    bool is_used;
++
++    /* lock */
++    spinlock_t lock;
+ };
+ 
+ struct dt_device_node;
+@@ -63,4 +75,7 @@ int imsic_init(struct dt_device_node *n);
+ struct imsic_config;
+ const struct imsic_config *imsic_get_config(void);
+ 
++void imsic_irq_enable(unsigned int hwirq);
++void imsic_irq_disable(unsigned int hwirq);
++
+ #endif /* ASM__RISCV__IMSIC_H */
 -- 
 2.49.0
 
