@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1063A7F725
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 09:57:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.941546.1341022 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73CEAA7F79A
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 10:19:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.941571.1341031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u23ox-0003OT-Gk; Tue, 08 Apr 2025 07:56:35 +0000
+	id 1u24An-0000sR-A6; Tue, 08 Apr 2025 08:19:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 941546.1341022; Tue, 08 Apr 2025 07:56:35 +0000
+Received: by outflank-mailman (output) from mailman id 941571.1341031; Tue, 08 Apr 2025 08:19:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u23ox-0003LC-DV; Tue, 08 Apr 2025 07:56:35 +0000
-Received: by outflank-mailman (input) for mailman id 941546;
- Tue, 08 Apr 2025 07:56:33 +0000
+	id 1u24An-0000pg-7U; Tue, 08 Apr 2025 08:19:09 +0000
+Received: by outflank-mailman (input) for mailman id 941571;
+ Tue, 08 Apr 2025 08:19:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xdvb=W2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u23ov-00030n-Kb
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 07:56:33 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1u24Al-0000pa-Rg
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 08:19:07 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fc0de5c0-144e-11f0-9ffb-bf95429c2676;
- Tue, 08 Apr 2025 09:56:31 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43cfb6e9031so47576455e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 00:56:31 -0700 (PDT)
+ id 20f91b99-1452-11f0-9ffb-bf95429c2676;
+ Tue, 08 Apr 2025 10:19:02 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43cfa7e7f54so33274215e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 01:19:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39c300968cfsm14334914f8f.16.2025.04.08.00.56.30
+ 5b1f17b1804b1-43ec1795243sm158691225e9.32.2025.04.08.01.19.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Apr 2025 00:56:31 -0700 (PDT)
+ Tue, 08 Apr 2025 01:19:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc0de5c0-144e-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 20f91b99-1452-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744098991; x=1744703791; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744100342; x=1744705142; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wH+DNb7xG/dYEb1AC7qIscZbABMw2gGqyyblCrsHwCs=;
-        b=SysU3U88SsqEq+eGZlk7E4rNBU11laTdDqYipJRwjOdLhEXYmXIkan24y2DT70KcOJ
-         LlJSS6pyvkscqCeqM67+LXKA6eglzsBlG/ukLIeRFLh/mR2XH54UkU+GK/GuZ9RqEF08
-         rZ8EwI5ThfLRw9UTHv204PVtv2KKfUS0+WDD+sEUAoUqfzbKkEON/an1/bjKTQP5GptY
-         C9P4VnJLcINhudf/p5SwqO+dWZA2AZhLkh53M19jT3Q3c2a6AbziJN4hkRXFN6Blqipt
-         +BYOY01Du7KqSxTWczEM763wUXYBGCWk1LncGYpQRXgJbhQimqi0T+5wGBPQQ6sPw/wB
-         32zw==
+        bh=/BOlXnJqy6WPPz8PyZ03GnhoMg9nLwJQOZ9ItVxfCS4=;
+        b=GoF41IXO3Lek5khwflVgXqoz2AMFpaqpngF9XsNpUOLXGWnCDXQz+Sl4DnweUi+LXD
+         GcIkYcILiJjfJBQKsrw09lajMrndSWHY2BBctcfkqgH1r+rdYKQ2mFK8bAXtAImhiHj6
+         HcTAepZoUeZZPkHd2IqbAN+lAQdLO6xuRwsK6P9JZrorcrvUjwj1uqVJdBGMYemNuZNh
+         XuLDlSFzJvXgX61t5A0UTaKBLCdSsqiHyWjfWePKEfrjBrCswLKRXW5eC+pVt0IRutgF
+         cMk8hHok+XgTRBfK/CqBa5aLstorjKJwxoi5kL75WmSy8TWaIXtpFrcKwBMDc9SL8wzm
+         PeoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744098991; x=1744703791;
+        d=1e100.net; s=20230601; t=1744100342; x=1744705142;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wH+DNb7xG/dYEb1AC7qIscZbABMw2gGqyyblCrsHwCs=;
-        b=DAsRxswUgRCvAv41XPzP+enmIwdnaW1s++LNUisVomadn8sRLx4UssStrWHAdVdn0D
-         sIVqVTA6RV0elDrN4PGHnlD+aHWkoBSvj7teNkvhQHLSfVBduwmm7Bpa86aD+v8LCrkz
-         vik+Tcm0hTwL5x5q7YxgjlVpE2yXgQ4lTd5ySE54NBwDavLPd+Sb0o4B4SU0gpZKqBWC
-         SqjZqsnp+c6+0n0UrAPf+g+9Hx37ipB4ffAPTGg4uI1yy/rjlek2X88O0ywfKRXtu9ph
-         mjwd364wozcKcJRIzw4Lr4x+KTadk34AqmUAvrAAxMTWgaDhrm8iRwLaHRo6yRhpSecg
-         jgbg==
-X-Forwarded-Encrypted: i=1; AJvYcCWektlU86XLYfC8knV10OjLnahpU+AJBKln4vpP2RPXwY30m093kgUFxorIXgYwwBLvnFuGBSMvfTQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwldplXcPOvYX9Fusz4sZFa+bnAa9YIKDFnSbq3HfcFCrnICpdz
-	96uMEMh+LDw4HtGNLa3HtOLjDWm2QvuKntna9tKh1ubj3rroBS80icmNPmmVhA==
-X-Gm-Gg: ASbGncvZ3XbWQ8rssyFLGQ4RB+Td4uPWN2FCZrV3bnyPYa57/NQ5xyB69TVa+Xz+vEj
-	petA/kOl5hDGllolzWmy+hjAXm1UtRRdK1EFL5eKsGk8gqT/YdjQfjrElO+rbu2CX4KAzUqoqDj
-	WYAsnQo/rxck52olfbVPTTcfGxIWiQ6oT6uU6SqeUHVKLiF+WLAC4LfKlJdx8NRTIj5oad5ic1U
-	bCatKcS8c8VYYcgwbEylv+Xlu/c41Chld2020obp+4eBLN7awkhgJZGqTRi4MsI0h0GtyuXe7FF
-	o3pcyMg4Xkfs/7TePt+gpPQz0f6eVkUZLxm1JFh5Uz1gjZZkM9keEhuG7VqVf8HNlcQo2uU/lif
-	DKsyMFD5atHtwSG/ipXzqq8RHknGIyA==
-X-Google-Smtp-Source: AGHT+IH82w03gA2heZiLFVa9qchWrk3kH2ybNU03Fl5c4c9NBp6lCSbvGDFAXZqpnXU+6TPVt5Z8DA==
-X-Received: by 2002:a05:600c:1e03:b0:43d:683:8cb2 with SMTP id 5b1f17b1804b1-43ecf8ceb2dmr142615685e9.14.1744098991318;
-        Tue, 08 Apr 2025 00:56:31 -0700 (PDT)
-Message-ID: <ddd716cd-88c9-4146-ae4d-405d66cf08ab@suse.com>
-Date: Tue, 8 Apr 2025 09:56:30 +0200
+        bh=/BOlXnJqy6WPPz8PyZ03GnhoMg9nLwJQOZ9ItVxfCS4=;
+        b=FTzty2Ypv+kRvzu8mwhYcLu1KJf0SeF8WGM7M3V/A0vajqAFynIiDD3pZv3lzKDtg0
+         1YR35JBw7nIeW1BJpHBTL9if1JqRWyyKH27VT4qdl0Vg/+XflJaRoN6ubDIxpyZbjF1W
+         kydC5I6+F212p5VhZ4/fprW0krnpPAuSXnzd79XX6VRDRkjGm2D7m70krY+D3miTfhhH
+         OfRw5BMM1ci4cwMtSEacHY4y45c5f4j+RdtHwAIII7X+gCN+/uQb1eQs+sxiypp4Q0yQ
+         bKhES8h9Mi2cimaQx6MYiIHro4PZuuNSOF3bu5wQfnkCxmvArG4VeB/8zvBGURUlcrEa
+         sewg==
+X-Forwarded-Encrypted: i=1; AJvYcCViV+909A8IgvNmRW7BqhtSooDRoZmuXXYgznA6qbl+88d8x7maxm9/ca71urUstiJH8GwPb6jSjMg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy9zOK0ouR5Tg7pxTtJ/oaaNFgOn2EtzUD8y2Hs7/7qiNdYZ/Oy
+	csMrQTS5Gdke5CTgEpCduJWJEk0RzVFkCW1wi026dbld7jKhOvM5k+VIudsvIg==
+X-Gm-Gg: ASbGncsXRIeGnorv5IQq+0UlFEPXknU+N3DdGne2OlRL+XTV+2Wacf6Ar3ueN42bzSP
+	FQxV33zq5wqr4S6RlML7THV56Ecys9sN4W0kMCwyFKSYGbR/D5qfDp8rFDKOE1TWF8Bim6kfPDB
+	ySVoKcjROmRI0i5jHU+VTQ5Mjmtkb/U7tYWMW2j4F9vvgopjbNxw5gnWCPYFXioFOWW5cR4H8gW
+	36pl5AZFEyJdRaIipDTyk3VFi1GIOda8Fa94zWLVub3rI5eoMSTIjwy4E6bNvdO3N8ZByRZSnUQ
+	WtJw+s4JpXXY3XMuYx8vk+y33d7yQ4e2b5GLbPFIcD1c3ki3ld5u/notIDE7JIpvWPl/R1YkEUV
+	ZR3FhnZqE5xJg5iYq4qAConKslEpO+Q==
+X-Google-Smtp-Source: AGHT+IFpNS9t7CEGtvmvNlNQyAxkYYfjyp80ls4XP3DYQtvnBiDocE/F+Ftdnz95Vkkxq0Vsd6JBXA==
+X-Received: by 2002:a05:600c:83ca:b0:43d:186d:a4bf with SMTP id 5b1f17b1804b1-43f0e442cf4mr20255865e9.0.1744100341713;
+        Tue, 08 Apr 2025 01:19:01 -0700 (PDT)
+Message-ID: <694d554e-0919-425b-9e62-b7ecf7fce421@suse.com>
+Date: Tue, 8 Apr 2025 10:18:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] xen: x86: irq: initialize irq desc in create_irq()
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250407164608.2558071-1-volodymyr_babchuk@epam.com>
- <20250407164608.2558071-2-volodymyr_babchuk@epam.com>
+Subject: Re: [PATCH v2 00/11] x86/EFI: prevent write-execute sections
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
+References: <20250401130840.72119-1-roger.pau@citrix.com>
+ <c686844c-4cb8-43d0-a762-7f93a30f9388@suse.com>
+ <Z-vpoh858ldjXok_@macbook.local>
+ <f71c3298-24df-4d6f-b73c-382d4a112e01@suse.com>
+ <Z_TWm1rll_0PyzNQ@macbook.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,39 +133,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250407164608.2558071-2-volodymyr_babchuk@epam.com>
+In-Reply-To: <Z_TWm1rll_0PyzNQ@macbook.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 07.04.2025 18:46, Volodymyr Babchuk wrote:
-> While building xen with GCC 14.2.1 with "-fcondition-coverage" option
-> or with "-Og", the compiler produces a false positive warning:
+On 08.04.2025 09:56, Roger Pau Monné wrote:
+> On Mon, Apr 07, 2025 at 04:04:18PM +0200, Jan Beulich wrote:
+>> On 01.04.2025 15:26, Roger Pau Monné wrote:
+>>> nxcompat should be enabled by default I think?  I can of course make
+>>> it explicit by adding to the PE link command line.
+>>
+>> --nxcompat wasn't the default originally, then was made the default for MinGW
+>> (and by mistake for everything else as well), then it being the default was
+>> undone for Cygwin. I've meanwhile submitted a patch to undo it for everything
+>> that isn't MinGW [1]. I simply don't think the linker is in the position to
+>> declare that every binary is NX-compatible. It's the programmers who have to
+>> determine that. With the flag not being honored everywhere one also can't
+>> simply test an EFI binary on a couple of hosts, at least as long as the EFI
+>> implementation there is a black box.
 > 
->   arch/x86/irq.c: In function ‘create_irq’:
->   arch/x86/irq.c:281:11: error: ‘desc’ may be used uninitialized [-Werror=maybe-uninitialized]
->     281 |     ret = init_one_irq_desc(desc);
->         |           ^~~~~~~~~~~~~~~~~~~~~~~
->   arch/x86/irq.c:269:22: note: ‘desc’ was declared here
->     269 |     struct irq_desc *desc;
->         |                      ^~~~
->   cc1: all warnings being treated as errors
->   make[2]: *** [Rules.mk:252: arch/x86/irq.o] Error 1
+> I think I looked at this reference:
 > 
-> While we have signed/unsigned comparison both in "for" loop and in
-> "if" statement, this still can't lead to use of uninitialized "desc",
-> as either loop will be executed at least once, or the function will
-> return early. So this is a clearly false positive warning due to a
-> bug [1] in GCC.
+> https://sourceware.org/binutils/docs/ld/Options.html
 > 
-> Initialize "desc" with NULL to make GCC happy.
+> When saying that nxcompat was enabled by default:
 > 
-> [1] https://gcc.gnu.org/bugzilla/show_bug.cgi?id=119665
-> 
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> --nxcompat
+> --disable-nxcompat The image is compatible with the Data Execution
+> Prevention. This feature was introduced with MS Windows XP SP2 for
+> i386 PE targets. The option is enabled by default.
 
-Just one other remark here: Personally I dislike the use of multiple or otherwise
-excessive patch subject prefixes. xen/x86/irq: or even x86/irq: would have been
-better here, imo.
+Oh, I shall correct that, too, then. Thanks for pointing out.
 
 Jan
 
