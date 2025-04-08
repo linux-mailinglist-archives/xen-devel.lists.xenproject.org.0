@@ -2,38 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 394ACA80CC2
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 15:46:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.942160.1341422 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96E29A80CE5
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Apr 2025 15:52:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.942173.1341432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u29HC-00031T-Bz; Tue, 08 Apr 2025 13:46:06 +0000
+	id 1u29Mw-0005vw-03; Tue, 08 Apr 2025 13:52:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 942160.1341422; Tue, 08 Apr 2025 13:46:06 +0000
+Received: by outflank-mailman (output) from mailman id 942173.1341432; Tue, 08 Apr 2025 13:52:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u29HC-000300-99; Tue, 08 Apr 2025 13:46:06 +0000
-Received: by outflank-mailman (input) for mailman id 942160;
- Tue, 08 Apr 2025 13:46:05 +0000
+	id 1u29Mv-0005uJ-TH; Tue, 08 Apr 2025 13:52:01 +0000
+Received: by outflank-mailman (input) for mailman id 942173;
+ Tue, 08 Apr 2025 13:52:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f4Vq=W2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u29HB-0002zu-1U
- for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 13:46:05 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ <SRS0=wetR=W2=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1u29Mu-0005uD-9s
+ for xen-devel@lists.xenproject.org; Tue, 08 Apr 2025 13:52:00 +0000
+Received: from EUR03-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur03on2060c.outbound.protection.outlook.com
+ [2a01:111:f403:260c::60c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cf9eb2d6-147f-11f0-9ffb-bf95429c2676;
- Tue, 08 Apr 2025 15:46:02 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5ed43460d6bso8656957a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 06:46:02 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ac7c0185726sm908930666b.137.2025.04.08.06.46.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Apr 2025 06:46:01 -0700 (PDT)
+ id a17f6265-1480-11f0-9ffb-bf95429c2676;
+ Tue, 08 Apr 2025 15:51:55 +0200 (CEST)
+Received: from DB8PR09CA0007.eurprd09.prod.outlook.com (2603:10a6:10:a0::20)
+ by AS2PR08MB8623.eurprd08.prod.outlook.com (2603:10a6:20b:55e::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.33; Tue, 8 Apr
+ 2025 13:51:52 +0000
+Received: from DB1PEPF00050A00.eurprd03.prod.outlook.com
+ (2603:10a6:10:a0:cafe::d) by DB8PR09CA0007.outlook.office365.com
+ (2603:10a6:10:a0::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.34 via Frontend Transport; Tue,
+ 8 Apr 2025 13:51:52 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB1PEPF00050A00.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.22
+ via Frontend Transport; Tue, 8 Apr 2025 13:51:51 +0000
+Received: from DB7PR08MB2987.eurprd08.prod.outlook.com (2603:10a6:5:1c::25) by
+ AM8PR08MB5649.eurprd08.prod.outlook.com (2603:10a6:20b:1dd::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.32; Tue, 8 Apr
+ 2025 13:51:16 +0000
+Received: from DB7PR08MB2987.eurprd08.prod.outlook.com
+ ([fe80::d53f:b16d:70a5:8668]) by DB7PR08MB2987.eurprd08.prod.outlook.com
+ ([fe80::d53f:b16d:70a5:8668%4]) with mapi id 15.20.8606.029; Tue, 8 Apr 2025
+ 13:51:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,344 +61,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf9eb2d6-147f-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744119962; x=1744724762; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=atE7JgGo/K0tbOC7QuthhawOjaJgontp98STjwk8QFc=;
-        b=eqlqnu0QSFErWJRE5z7v84eUPJighnQmzb3hrP+PQg5FHsRJF0I2ZXw0MfL1r6Y//o
-         yROWH3FoMMn0rD2UAXk8SluF/7grSTofAme/L3Vc++tOnTvdjRCqfOpmgRSSFevJcbi5
-         VUtD/KMExVFGMXVP7Z3CMh1zDJDZ65fdxHUN8QNqhVrbhocm7KP0PNOiUQC/cdn4blI5
-         jV2Oq0BMUiFDszQ+9qJpum7Rd2Zo1xPB/P/AOAiHm1yzMJLt+hF94RQ0WY1dqxX04cbm
-         Zg0LkuUcMYL2xJOkjdvlF2Xxv2ptdC2aPQ8xaK8/HBqcGzFP++coJgJs78kwVT9iuLoM
-         OIEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744119962; x=1744724762;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=atE7JgGo/K0tbOC7QuthhawOjaJgontp98STjwk8QFc=;
-        b=IwyQtSH0b5Sd3x3AWBJmbCVJHLvO5s9WJgK5SxHZBjuo7FIyHRtEvdJiKjTfrVq78w
-         iqt165n9KxL/7lRqYYD4T1UNYFRosMzpbKmNUInFqLCsSl6TwDHV0E7WUCuP7QfM4aze
-         wrkuJVMxYwihSTZ3qJ4LsDe86XUbmF32PY6LfIAtjCC5LPh2QmB6VkUYa6LSg+edNAno
-         CKagTQxpUdYPJBAWl9Tfp605RBCqrVdvq1yqU9bQj7z0uFj4OJeKwCmHoBE5spdWIpgM
-         91TD4hNVvABB3D64NXY8TJzXtbLb59xthrCAI3F2DWQDZ+goGFawiIVrUmxzHhhkTMR9
-         FPzg==
-X-Forwarded-Encrypted: i=1; AJvYcCWjlk7qQuzwZ8Qb7LwJ3LXI01k7MaHIuJWcaEJw9vItrfaZYbRBSnA8dBOcky/OITNVFfl+oKqX+H0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyG66IZk3FmWbpYeQ+3MPOIavOPvFU2+QkWdg07PigmxJVtvFa+
-	ojlaN1PXzzScEfD2Ww3mN02U5WbaU19HJaz7nfBIdV6/76VvgwYI
-X-Gm-Gg: ASbGnctmbU1/EPvjMPzT3/i+ntnlY+n40Y/GS/Z3cMpYkAv7ko2kArt7TukRTlhr447
-	HhikJS8Au/6qNYv8NUn/jpr9Lq3etEGc4ZHEPFrZECP2jkkBF6TXqoOzGw3OIymS3aYhCBFAVlS
-	ohZmEZkDjYRYfsDJlP9nLbAiC8oq7P9OIOTxCgg5yudZzbvF0j41R/FcIWQTd/StA6wTtR7Kx9i
-	mfLBJdNGVI845Ct1GnU2U37ZcCRWVcVRzOg5DtI11l+uH8NeDUFMKt4n+iR/2RJhuVumSsMZ+T5
-	vID/o0pf0kQgrMiQgjGLQAPeqsTNMmhCMtnrnqvXgvUHEslTwBsBJ8w1WL5Y/+eS+csGKC0NI2r
-	e2LZv8g1eCFCx3RP8w7Be
-X-Google-Smtp-Source: AGHT+IHgamdUI5YlQzGy+tywp2WFIt6eICFuddEACvBztvsWio9ZOGbAiBOCCMJpfYlREEW3FdCiog==
-X-Received: by 2002:a17:907:9813:b0:ac3:3e40:e182 with SMTP id a640c23a62f3a-ac7d6d05fcfmr1419204366b.19.1744119961574;
-        Tue, 08 Apr 2025 06:46:01 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------XvnKCZqwJdqMgXTIWtLshsvG"
-Message-ID: <c3b1be9a-d5f5-4cac-a675-7485a99bf51c@gmail.com>
-Date: Tue, 8 Apr 2025 15:46:00 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/riscv: Increase XEN_VIRT_SIZE
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <808d1b346bc90dde38fd19a6b92ab78d78e42936.1743766932.git.oleksii.kurochko@gmail.com>
- <e5f6ccb3-498f-44cf-8c06-61fa502d93db@suse.com>
- <f35a9969-6154-4e9a-b997-16ca135e85ee@gmail.com>
- <8b2e50f2-1f89-41df-be88-afc9ef24b51a@suse.com>
+X-Inumbo-ID: a17f6265-1480-11f0-9ffb-bf95429c2676
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=pelgwOq0hkBQ2jc5lg5ROGXduz5tcigKhz0LcEbPm8vWhmebdUhrrmDT+6WHQfZ5MjJf9gBdf36UL97bh48byCNH3HBLM58SDgdWIs57CJ/PZEyBifX400FLspTcM689ZqaU8d75+nmWqW5dNfUd7sWKVZffF43BOZNyHUZeMqaudLfT3vH8QVElcD6fPSszV2hu1ZGnjpsHwAoN1csYkfZqHZ7TWTuBgReWmdwQliKM/GJnc8biWEGZgIId0WDb4fSRxvb8lOXUre5MFbtASOVsOTQglfX0rmIF9YojtrGGUhGQzVzn2iEa+H0P2pZba7SXGJL57RWFUjyFoW4UNA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WkAhJGFZ8z9K8xfbv6VdMslWE50kNgMXq4B/WMozGCc=;
+ b=JZzjyg4xUA2SmL3MYlX8n0lX28zvgKLycLqRDL+ZZL4szZlXeSHyRYCRH2PVP5hBAeelAbomPiBEZDpfXPaBgIqMu+M9Qp1nyu6R61WtKj7IWjKBLVX2uh4+oC2ywhzeS6E25CkFzQkHJZ8QfXbGwd+aEKs7LNK3JeDMsDvUSdL881BYVYkvLGKNxbTCPntiULwyTWMypews4UtqY8CYmIEHDvqOshf+aqQ3SyyNWG2WBnz2VZyBZEEDv5n31FXU9IibIpPXanGBEuWn7fx4IMzi6E2Yq/MzvWuF0Ipt4e5ky8sHsO7FEghkFzxAyHiduueGIAgFwhd/X9UUWiH5pw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=fail (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=amd.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WkAhJGFZ8z9K8xfbv6VdMslWE50kNgMXq4B/WMozGCc=;
+ b=iUr4Z0cKdkiYoz+4aZOH1pEnIi6eq2h2Z1wNy4f/mkZGkAjPr3fML9vlS8fw2r2lRvUma78QqofCUoJV2hG8SPlvQNDkt4NmijbeU8Rw7Fpe+lzuxEgcT9rVmecjvKcFkdJVzh+DUWUQwPMkh+s9Z2JfNfW/RoL5ZSk+ACeZezs=
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Fail (protection.outlook.com: domain of arm.com does not
+ designate 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fzOv7Y0lRSB9lPobNqLV7XH+rebaS62irV5jPW49o1jAqJJ0UuPIi7FkL4W5bYIj3TyXBd8cemG7KEx3yOHas8nzgAPdAWhnSHuWQpyNJlGEpabEifs3FZgvnc9DROOgpOA9hdRzpeSxHMr+HdPAlCUTROqNoQtPpFFnHSRZWLwLIk1m30eI3gbGz7R87PxiL0WvRdbDQfW/HZFVVntDGjlD4LWizJKQAWTLcoLgiMpDE+SsWueI//VWHSPQ8/uHFrNlo4YVU/htidA/m+Q8AZOtUYlsDTvQnKj54JmUUgMeNJQwHwXDkqzCn1wpsiKRlUlKl27HaGwhULp+QLRsZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WkAhJGFZ8z9K8xfbv6VdMslWE50kNgMXq4B/WMozGCc=;
+ b=aPMFLgYmXsFYpfIK2rfkoD2yG6BgCfLq5hn0+nHVLrHARSTnxT4fNlhDVxO7jfiCba4KoRzWnFJ3AmhmUd7vUSvzGtjSEK2RcfxW+c2GmenEcUfxrTxC786NVRFEmiDzYvEopYwaoPv04PIXcxGas/TJLakkUlE9FOKEH+WhcqbXY3fu2P9u8eU4VmxI5x1qQjROeAnSxlxbhuRxixfmJA6/IxUuQW1ECECYUeHtXA6aoBh+io8RYlBb70FcRV/EdxTRSQlmtuzAZr698USvPl0FRQkVaSAK9da6K8I3teGXDQ/v2EWuxCHYPIhTGMF+wAqmd/e8xn9SVj8Vg6bqbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WkAhJGFZ8z9K8xfbv6VdMslWE50kNgMXq4B/WMozGCc=;
+ b=iUr4Z0cKdkiYoz+4aZOH1pEnIi6eq2h2Z1wNy4f/mkZGkAjPr3fML9vlS8fw2r2lRvUma78QqofCUoJV2hG8SPlvQNDkt4NmijbeU8Rw7Fpe+lzuxEgcT9rVmecjvKcFkdJVzh+DUWUQwPMkh+s9Z2JfNfW/RoL5ZSk+ACeZezs=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Ayan Kumar Halder <ayankuma@amd.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
+ Marquis <Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2 7/7] arm/mpu: Implement setup_mpu for MPU system
+Thread-Topic: [PATCH v2 7/7] arm/mpu: Implement setup_mpu for MPU system
+Thread-Index: AQHbp52TIeRvK12Zd0u5W6JGpYxUxbOZxiEAgAAFGAA=
+Date: Tue, 8 Apr 2025 13:51:16 +0000
+Message-ID: <7591A04F-8BEF-4FE7-A895-90E5DA0D9936@arm.com>
+References: <20250407091430.2342709-1-luca.fancellu@arm.com>
+ <20250407091430.2342709-8-luca.fancellu@arm.com>
+ <d6c12013-235a-405f-a87f-529648d6f340@amd.com>
+In-Reply-To: <d6c12013-235a-405f-a87f-529648d6f340@amd.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <8b2e50f2-1f89-41df-be88-afc9ef24b51a@suse.com>
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.400.131.1.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DB7PR08MB2987:EE_|AM8PR08MB5649:EE_|DB1PEPF00050A00:EE_|AS2PR08MB8623:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8048fd2f-1c3e-40ec-f9ab-08dd76a483f5
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?utf-8?B?MGJxMW5TM0JRTkRBWDBwa2pOMytpR2FIa0l2V05DTEIyejFZT2xGMnNIRStW?=
+ =?utf-8?B?cTZ4THRRUFpybisrOGFjNkJaaG1TcjhKN2lObWdFZDRva3BjWVErYTRwTmlt?=
+ =?utf-8?B?NkRkeEloekdqQktkWW5sdWIzdWZpeGdjemRBN1NTZ2o5NFpuS0tSVmxsL2dw?=
+ =?utf-8?B?cVZJTUVEbVZJOEpJc0Exa2kzY2hUcGpheXNLVzlBRkM1SFpmcnA5eVV5NGRj?=
+ =?utf-8?B?VHBwTzkvWCsyTE1OWEI1OFpVek9QVmRHSmRzM0FIWUMvU0VwTjVhcVZRMjlP?=
+ =?utf-8?B?T3VzZUlWbDJPOVNjS2prOUF0aEhnZ2N6MUFCcjhzUjhhRkRiL3Rpb2tSWkU1?=
+ =?utf-8?B?K1JyRGRLenNBblZKSDdzSGtROGhseUtGeEVES1VIR0dZL2xNbkFnUjZTNFds?=
+ =?utf-8?B?L0tYRUdsaEw0R0RhdWl2MUxibExzV212aFg0bGRkYndaUXJ1MHFPT1pHNnYy?=
+ =?utf-8?B?dVVkNlduMDYyTzlobVRMOGx5ZHdjUjNFa2dYNFB0dm5EOFI3eHdBMDVKQVIv?=
+ =?utf-8?B?WVdTeE9lRlMwY2NMVWVVZ2w5M0FXTk9aUTBETVNqK3JTM2QyMU5oVTZzRUxI?=
+ =?utf-8?B?U0syRDZ5dzluVEFCVis0Rk9FZGN2VjFzOFgvL0hDOGlGM0xLN1QwQUxkRkg1?=
+ =?utf-8?B?Zjg5ZU1EandPSGlmMnJIbjVwYVhqYmhCdEo5eDJTNFFCbk4rQlBESFFlRms5?=
+ =?utf-8?B?disvOFBmbzYwZEVrN09xNkYwbDF5cmpUVkloUXZUeWg5bmgvYUJHTEZKbjN5?=
+ =?utf-8?B?T3hNaFZyMTBsVlpNR3N4YzhVcDM1TTIvV3o3elYrNlNzQnFuaDNrWE8yY0tS?=
+ =?utf-8?B?MW81SUI2eHR0N2I5b2Rxa0ZIa3ByNWRLQTdwRXRKend0ZlYreXhObXpTVXFN?=
+ =?utf-8?B?K1h0eWlseFgyMEVaTmRwY1dTRGVTQk1XQzl0NWpUU0x5Q0QzbWx5dGNud2tt?=
+ =?utf-8?B?UVppaUlLMk5rZXQ2bmx4UU5OLy9YNWlBVmR4blVuZlVOdEE3anVBbktkY2Qz?=
+ =?utf-8?B?eStMVHhJR1NSdFd2Rm9NazFwdmd2UlpscHk5Z2Vra25UMlgzOElLUnVPTVNX?=
+ =?utf-8?B?Zjlsb2NFSHhPWXA5UzFLZnU5WUVMVS94eEx2STdqZTlqNTR5TkZkQVFkc0lZ?=
+ =?utf-8?B?bnhOY3huTGhqNlRWRTZ0RjFGc2NaTTAvd1h2K2FZMEJ2bXE2aTBSRnhhLzFj?=
+ =?utf-8?B?djBIbWs4NDVkVUFkd1Q0ci9lbWxCeE1yVGI3SGhMNEpOU01neExTMFlHR1I2?=
+ =?utf-8?B?b255OEVQcDV4WjRzbkJzeklheHZZaUhBWWpXVDNqSy9sWTJ4OTBDV09sd29W?=
+ =?utf-8?B?MG9ENzEyUDhqQ25zR25uRGJJc2hLcW9Xa3N1aS9NYUZwUnl3S2NBTUYvbUFn?=
+ =?utf-8?B?TmdYOEt2cjFJSzM3UHhMa3p3SGRlRmNNYVBwVGM0ZHgrc2hkRGYwTElMcFlD?=
+ =?utf-8?B?RTlvQUU5bTQyeUZPUjI5MjFuMUQ2UWdDQ20vcnkveXpHbXZodExzT1VPNmlY?=
+ =?utf-8?B?S1h5TjNNS2ZvaWs4VlRMVWhUN1Q1SGU2eDRzaFYxK0gzbWtUMytHY1liV21J?=
+ =?utf-8?B?WUowTUhzanVTaGZKK1dDLy9UTy82MlI4UE9HZTRYczVaY0lYSUQ5Q1ovUmNm?=
+ =?utf-8?B?Vk1HUG5JTmhvOXV0RXFBNmJ5RzFSVTlaaWZyTndNUm5iNEltN3NHTWhmZGU2?=
+ =?utf-8?B?SmV5eDRQdS9rTTdiaFZEaXJZMkVKdmtIWi8vMnJDbHZsNmpja0s3OVVUYVQy?=
+ =?utf-8?B?ZWxjeWVSU2tOQmhoM2RrUFY4ZXVuVHdXdGJ3MDQ4N1lMZTJLS2p1UGM2c2tx?=
+ =?utf-8?B?Nk5JUzEyaks1VFhVZHhXTW9XOXVUQkE4TUlPb3BVSlBEc1RDRWxwdUl5UWpz?=
+ =?utf-8?B?aVc0Tno3RExnUHpRRzBhM2FMbHZUTVdpaXZNNTArTjlVdUE5SFhIdE45UG9D?=
+ =?utf-8?Q?TiRuilvVWOFtQrHLuOzvoVA1bgL9BHEu?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB2987.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <10EA152A5EC984439750A27FBC5130A3@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5649
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB1PEPF00050A00.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	11f920f1-fb46-4f32-cf19-08dd76a46f05
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700013|35042699022|1800799024|14060799003|82310400026|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Q2JFQWNMS3N5ZXJyclhxR2NjV2pXNFgweE1qdG54QnRaV09EMkNxTEh6dTU5?=
+ =?utf-8?B?bzJXMlJTWXd1SUt2MWduMWZPV05aT2ZyRUVkR3k4UWVqVTNIMVZka24zYkl6?=
+ =?utf-8?B?a2VrK3pEelQ1QzVFT0Y4cnJ2Y2Nla2djUkRURWk0ekh2UFBWNG9oOUxaZnc0?=
+ =?utf-8?B?SGw0VVNsdmlPZFRQMkU0SjdtTmlERnYvVEVNb1pzWkNnODYwQ2dDYmdzaFZ1?=
+ =?utf-8?B?eDgyOE0vbnVZam5QNjlTaVdWVFl0M2xsZ1B6U3FMUnNyalV4dE1JMVhncXB5?=
+ =?utf-8?B?Uzc2aHZ0WUo5UzVxWTZiM0dVdXBpUmVEQUNOUVJCbURBMWpmRHp1UnUrdUh1?=
+ =?utf-8?B?VVdJZmNxYktueDhhcjkwcXVGSjNVdmR1cEYwOC96QXRyNkZ3emdPeENtTTVs?=
+ =?utf-8?B?WkhLRHdNVGR0b01OdWltYWJjeW96TmRsb0JENWF6UGhSQ2R5NWh0cVlRVk4r?=
+ =?utf-8?B?K0RLbFVvVTllRkVrZTdjTnU5ZkMybE5aclNPODFlZ3JHR2dQbE55S0RLSGpC?=
+ =?utf-8?B?V1RpWXNuRVFqRFd1L1h2bzRaZHlmdGlPMW9xR1VMRTRNRCsyU2wyelJZYjcx?=
+ =?utf-8?B?N1FXWFhsUEZGemJBY2tKTkthNUlCT0RPK1Z6T1pWdFl2dmlOUWg1NXE2U0RI?=
+ =?utf-8?B?ZWJEbGJUeVpXODgxbnlTNU1pYk5aeFZrVWdpYWd1Q2FQeUNBYUdMY2w3MUpn?=
+ =?utf-8?B?c01Fbk9wbmdYVEMraFFaY3J0UTQ4L2lMZjR1bHRJRnRWKzhaZ0VSY2t0bUh3?=
+ =?utf-8?B?RlRiVTJLK2QyRmFtMlRUS3BmbzNoWHZvTENDcXlCem1CMlI1TmZjUTV5SGVy?=
+ =?utf-8?B?NTI3S1JrMDNYYlVPdlVFaHdaYWZtSzFzL0svUkVLTnZwNi9DSDZKdm9iWXZi?=
+ =?utf-8?B?eFlRblF2T3hoeEpZQ3JVNlBIYUZ3bGdNR3hXMC96ZW5uRWYwR1c0MEY1QlBX?=
+ =?utf-8?B?Wkp5NVFxektqR0JnRUFHM2lCeURPRzlndWk4L0JSMVBLdTRTY0loQ0VSZllX?=
+ =?utf-8?B?bml3eXJxSnVWcVdNUm5ydGxrMkduaEx1bWJtbU9ZWG9zdnlLUlV0aW9uK2E4?=
+ =?utf-8?B?TFI3Mm1qa3paY0haWFprTldrWDhaSm5uRWhrYUgwdHpieGZITDc3QXdhZ25J?=
+ =?utf-8?B?K1FKclZvTnB0U0MrUzFDaXg3SkhkVUtUaVJYaXZaaklFeUdnZmdqTm1IUk0w?=
+ =?utf-8?B?bllCOHVURnFEK1Z0ajhqWHRqMnEwcW04SGg1WE96RzdiS2JGZTZycW0xOEda?=
+ =?utf-8?B?THZaS3lOeXpzN2pWL2VWMUorUUYxRno2RE52M080Ylg5MGZIaTJoWStQZWdq?=
+ =?utf-8?B?a2Y3OXFrUWlEN0UwWkQxaDdVUmd6YlN0RFhGdHlNd2dPMWgrSjdqZjhxQWVy?=
+ =?utf-8?B?a2FJem82Y0pFN2M1N2gweGIvWmJraXZiTkRXekUxZ05qbzM2clVud2VaRmtP?=
+ =?utf-8?B?U0xkYkE5b0w4MkJMdU96NFNqYU8xZTVRM2o4L3ZmdEw3L2pLWHZFOXNOVFpN?=
+ =?utf-8?B?MEpOTDdXUmIvZ0dpakhrVHN4TEFiYVgzbStPcUZjV2IrRVF1SFdNWUVBMm92?=
+ =?utf-8?B?eG5mTHRLSnJyR25ObkVEQzdzK2tQSWFnWVpXaEtPUzlITng1emtpdGduaTl6?=
+ =?utf-8?B?YUdIazM1bzBZZ2YyM09teHE4RENQZTlmZ2p3UWtPRm1ZMlBEeUdPalFyOWYz?=
+ =?utf-8?B?bGY3NkxQazhpZ2poM3JJeUJtNU5QNVc2bUFoSE1IVlVhQUpzUmZVZlBGd1Vm?=
+ =?utf-8?B?VkxlUlVCajRVU3dBZDdmc3loc3FSdDN6UkRLZGErVUsrRHNkUHRPd3JGWkZJ?=
+ =?utf-8?B?NHpRTzJHYW50OE00RXoyUFcyV2w4a0pCUmYxWlNuWUk2TXBkNHdscHE4QXRZ?=
+ =?utf-8?B?bzFvRFNyOUlpT1A4TGxPdGxjNmQ4ZFRxc2RPQlJJTWl6R3lpTmt4SWdqbFhZ?=
+ =?utf-8?B?Z0hyU0xOVENHZHVIU05kSDIrYnVPRE1tdFZwU21GdGtPTzNiblY3U1Y3WkNM?=
+ =?utf-8?Q?ECO66ZV6C9bMPqpwJzo92Bcyp+vVW4=3D?=
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(35042699022)(1800799024)(14060799003)(82310400026)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2025 13:51:51.6190
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8048fd2f-1c3e-40ec-f9ab-08dd76a483f5
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF00050A00.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB8623
 
-This is a multi-part message in MIME format.
---------------XvnKCZqwJdqMgXTIWtLshsvG
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 4/8/25 2:02 PM, Jan Beulich wrote:
-> On 08.04.2025 13:51, Oleksii Kurochko wrote:
->> On 4/7/25 12:09 PM, Jan Beulich wrote:
->>> On 04.04.2025 18:04, Oleksii Kurochko wrote:
->>>> --- a/xen/arch/riscv/include/asm/mm.h
->>>> +++ b/xen/arch/riscv/include/asm/mm.h
->>>> @@ -43,13 +43,19 @@ static inline void *maddr_to_virt(paddr_t ma)
->>>>     */
->>>>    static inline unsigned long virt_to_maddr(unsigned long va)
->>>>    {
->>>> +    const unsigned int vpn1_shift = PAGETABLE_ORDER + PAGE_SHIFT;
->>>> +    const unsigned long va_vpn = va >> vpn1_shift;
->>>> +    const unsigned long xen_virt_start_vpn =
->>>> +        _AC(XEN_VIRT_START, UL) >> vpn1_shift;
->>>> +    const unsigned long xen_virt_end_vpn =
->>>> +        xen_virt_start_vpn + ((XEN_VIRT_SIZE >> vpn1_shift) - 1);
->>>> +
->>>>        if ((va >= DIRECTMAP_VIRT_START) &&
->>>>            (va <= DIRECTMAP_VIRT_END))
->>>>            return directmapoff_to_maddr(va - directmap_virt_start);
->>>>    
->>>> -    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
->>>> -    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
->>>> -           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
->>>> +    BUILD_BUG_ON(XEN_VIRT_SIZE > GB(1));
->>>> +    ASSERT((va_vpn >= xen_virt_start_vpn) && (va_vpn <= xen_virt_end_vpn));
->>> Not all of the range is backed by memory, and for the excess space the
->>> translation is therefore (likely) wrong. Which better would be caught by
->>> the assertion?
->> Backed here means that the memory is actually mapped?
->>
->> IIUC it is needed to check only for the range [XEN_VIRT_START, XEN_VIRT_START+xen_phys_size]
->> where xen_phys_size=(unsigned long)_end - (unsigned long)_start.
->>
->> Did I understand you correctly?
-> I think so, yes. Depending on what you (intend to) do to .init.* at the
-> end of boot, that range may later also want excluding.
-
-I planned to release everything between __init_begin and __init_end in the following way:
-   destroy_xen_mappings((unsigned long)__init_begin, (unsigned long)__init_end);
-
-So yes, then I think I have to come up with new ASSERT, add is_init_memory_freed variable and
-if is_init_memory_freed=true then also check that `va` isn't from .init.* range.
-
-But I'm not quire sure that mapping for .got* should be destroyed after the end of boot. (now it is
-part of [__init_begin,__init_end] range.
-
->>>> --- a/xen/arch/riscv/mm.c
->>>> +++ b/xen/arch/riscv/mm.c
->>>> @@ -31,20 +31,27 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
->>>>    #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
->>>>    
->>>>    /*
->>>> - * It is expected that Xen won't be more then 2 MB.
->>>> + * It is expected that Xen won't be more then XEN_VIRT_SIZE MB.
->>>>     * The check in xen.lds.S guarantees that.
->>>> - * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
->>>> - * One for each page level table with PAGE_SIZE = 4 Kb.
->>>>     *
->>>> - * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
->>>> + * Root page table is shared with the initial mapping and is declared
->>>> + * separetely. (look at stage1_pgtbl_root)
->>>>     *
->>>> - * It might be needed one more page table in case when Xen load address
->>>> - * isn't 2 MB aligned.
->>>> + * An amount of page tables between root page table and L0 page table
->>>> + * (in the case of Sv39 it covers L1 table):
->>>> + *   (CONFIG_PAGING_LEVELS - 2) are needed for an identity mapping and
->>>> + *   the same amount are needed for Xen.
->>>>     *
->>>> - * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
->>>> - * except that the root page table is shared with the initial mapping
->>>> + * An amount of L0 page tables:
->>>> + *   (512 entries of one L0 page table covers 2MB == 1<<XEN_PT_LEVEL_SHIFT(1))
->>>> + *   XEN_VIRT_SIZE >> XEN_PT_LEVEL_SHIFT(1) are needed for Xen and
->>>> + *   one L0 is needed for indenity mapping.
->>>> + *
->>>> + *   It might be needed one more page table in case when Xen load
->>>> + *   address isn't 2 MB aligned.
->>> Shouldn't we guarantee that?
->> I think it's sufficient to guarantee 4KB alignment.
->>
->> The only real benefit I see in enforcing larger alignment is that it likely enables
->> the use of superpages for mapping, which would reduce TLB pressure.
->> But perhaps I'm missing something?
-> No, it's indeed mainly that.
-
-But then the linker address and the load address should both be aligned to a 2MB or 1GB boundary.
-This likely isn't an issue at all, but could it be a problem if we require 1GB alignment for the
-load address? In that case, might it be difficult for the platform to find a suitable place in
-memory to load Xen for some reason? (I don't think so but maybe I'm missing something)
-
-These changes should probably be part of a separate patch, as currently,|setup_initial_mapping() |only works with 4KB mapping.
-Perhaps it would make sense to add a comment around|setup_initial_mapping()| indicating that if
-this function is modified, it may require updating|PGTBL_INITIAL_COUNT|.
-
-~ Oleksii
-
->
->> Or did you mean that if 2MB alignment isn't guaranteed, then we might need two extra
->> page tables—one if the start address isn't 2MB aligned, and the Xen size is larger than 2MB?
->> Then yes one more page table should be added to PGTBL_INITIAL_COUNT.
-> Well, of course - if alignment isn't guaranteed, crossing whatever boundaries
-> of course needs accounting for.
->
-> Jan
---------------XvnKCZqwJdqMgXTIWtLshsvG
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/8/25 2:02 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:8b2e50f2-1f89-41df-be88-afc9ef24b51a@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 08.04.2025 13:51, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On 4/7/25 12:09 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 04.04.2025 18:04, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -43,13 +43,19 @@ static inline void *maddr_to_virt(paddr_t ma)
-   */
-  static inline unsigned long virt_to_maddr(unsigned long va)
-  {
-+    const unsigned int vpn1_shift = PAGETABLE_ORDER + PAGE_SHIFT;
-+    const unsigned long va_vpn = va &gt;&gt; vpn1_shift;
-+    const unsigned long xen_virt_start_vpn =
-+        _AC(XEN_VIRT_START, UL) &gt;&gt; vpn1_shift;
-+    const unsigned long xen_virt_end_vpn =
-+        xen_virt_start_vpn + ((XEN_VIRT_SIZE &gt;&gt; vpn1_shift) - 1);
-+
-      if ((va &gt;= DIRECTMAP_VIRT_START) &amp;&amp;
-          (va &lt;= DIRECTMAP_VIRT_END))
-          return directmapoff_to_maddr(va - directmap_virt_start);
-  
--    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
--    ASSERT((va &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)) ==
--           (_AC(XEN_VIRT_START, UL) &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)));
-+    BUILD_BUG_ON(XEN_VIRT_SIZE &gt; GB(1));
-+    ASSERT((va_vpn &gt;= xen_virt_start_vpn) &amp;&amp; (va_vpn &lt;= xen_virt_end_vpn));
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Not all of the range is backed by memory, and for the excess space the
-translation is therefore (likely) wrong. Which better would be caught by
-the assertion?
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Backed here means that the memory is actually mapped?
-
-IIUC it is needed to check only for the range [XEN_VIRT_START, XEN_VIRT_START+xen_phys_size]
-where xen_phys_size=(unsigned long)_end - (unsigned long)_start.
-
-Did I understand you correctly?
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I think so, yes. Depending on what you (intend to) do to .init.* at the
-end of boot, that range may later also want excluding.</pre>
-    </blockquote>
-    <pre>I planned to release everything between __init_begin and __init_end in the following way:
-  destroy_xen_mappings((unsigned long)__init_begin, (unsigned long)__init_end);
-
-So yes, then I think I have to come up with new ASSERT, add is_init_memory_freed variable and
-if is_init_memory_freed=true then also check that `va` isn't from .init.* range.
-
-But I'm not quire sure that mapping for .got* should be destroyed after the end of boot. (now it is
-part of [__init_begin,__init_end] range.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:8b2e50f2-1f89-41df-be88-afc9ef24b51a@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/mm.c
-+++ b/xen/arch/riscv/mm.c
-@@ -31,20 +31,27 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
-  #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
-  
-  /*
-- * It is expected that Xen won't be more then 2 MB.
-+ * It is expected that Xen won't be more then XEN_VIRT_SIZE MB.
-   * The check in xen.lds.S guarantees that.
-- * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
-- * One for each page level table with PAGE_SIZE = 4 Kb.
-   *
-- * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
-+ * Root page table is shared with the initial mapping and is declared
-+ * separetely. (look at stage1_pgtbl_root)
-   *
-- * It might be needed one more page table in case when Xen load address
-- * isn't 2 MB aligned.
-+ * An amount of page tables between root page table and L0 page table
-+ * (in the case of Sv39 it covers L1 table):
-+ *   (CONFIG_PAGING_LEVELS - 2) are needed for an identity mapping and
-+ *   the same amount are needed for Xen.
-   *
-- * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
-- * except that the root page table is shared with the initial mapping
-+ * An amount of L0 page tables:
-+ *   (512 entries of one L0 page table covers 2MB == 1&lt;&lt;XEN_PT_LEVEL_SHIFT(1))
-+ *   XEN_VIRT_SIZE &gt;&gt; XEN_PT_LEVEL_SHIFT(1) are needed for Xen and
-+ *   one L0 is needed for indenity mapping.
-+ *
-+ *   It might be needed one more page table in case when Xen load
-+ *   address isn't 2 MB aligned.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Shouldn't we guarantee that?
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-I think it's sufficient to guarantee 4KB alignment.
-
-The only real benefit I see in enforcing larger alignment is that it likely enables
-the use of superpages for mapping, which would reduce TLB pressure.
-But perhaps I'm missing something?
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-No, it's indeed mainly that.</pre>
-    </blockquote>
-    <pre>But then the linker address and the load address should both be aligned to a 2MB or 1GB boundary.
-This likely isn't an issue at all, but could it be a problem if we require 1GB alignment for the
-load address? In that case, might it be difficult for the platform to find a suitable place in
-memory to load Xen for some reason? (I don't think so but maybe I'm missing something)
-
-These changes should probably be part of a separate patch, as currently, <code
-    data-start="120" data-end="145">setup_initial_mapping()
-</code>only works with 4KB mapping.
-Perhaps it would make sense to add a comment around <code
-    data-start="227" data-end="252">setup_initial_mapping()</code> indicating that if
-this function is modified, it may require updating <code
-    data-start="323" data-end="344">PGTBL_INITIAL_COUNT</code>.</pre>
-    <pre>~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:8b2e50f2-1f89-41df-be88-afc9ef24b51a@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Or did you mean that if 2MB alignment isn't guaranteed, then we might need two extra
-page tables—one if the start address isn't 2MB aligned, and the Xen size is larger than 2MB?
-Then yes one more page table should be added to PGTBL_INITIAL_COUNT.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Well, of course - if alignment isn't guaranteed, crossing whatever boundaries
-of course needs accounting for.
-
-Jan
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------XvnKCZqwJdqMgXTIWtLshsvG--
+SGkgQXlhbiwNCg0KPiBPbiA4IEFwciAyMDI1LCBhdCAxNDozMiwgQXlhbiBLdW1hciBIYWxkZXIg
+PGF5YW5rdW1hQGFtZC5jb20+IHdyb3RlOg0KPiANCj4gSGkgTHVjYSwNCj4gDQo+IE9uIDA3LzA0
+LzIwMjUgMTA6MTQsIEx1Y2EgRmFuY2VsbHUgd3JvdGU6DQo+PiBDQVVUSU9OOiBUaGlzIG1lc3Nh
+Z2UgaGFzIG9yaWdpbmF0ZWQgZnJvbSBhbiBFeHRlcm5hbCBTb3VyY2UuIFBsZWFzZSB1c2UgcHJv
+cGVyIGp1ZGdtZW50IGFuZCBjYXV0aW9uIHdoZW4gb3BlbmluZyBhdHRhY2htZW50cywgY2xpY2tp
+bmcgbGlua3MsIG9yIHJlc3BvbmRpbmcgdG8gdGhpcyBlbWFpbC4NCj4+IA0KPj4gDQo+PiBJbXBs
+ZW1lbnQgdGhlIGZ1bmN0aW9uIHNldHVwX21wdSB0aGF0IHdpbGwgbG9naWNhbGx5IHRyYWNrIHRo
+ZSBNUFUNCj4+IHJlZ2lvbnMgZGVmaW5lZCBieSBoYXJkd2FyZSByZWdpc3RlcnMsIHN0YXJ0IGlu
+dHJvZHVjaW5nIGRhdGENCj4+IHN0cnVjdHVyZXMgYW5kIGZ1bmN0aW9ucyB0byB0cmFjayB0aGUg
+c3RhdHVzIGZyb20gdGhlIEMgd29ybGQuDQo+PiANCj4+IFRoZSB4ZW5fbXB1bWFwX21hc2sgYml0
+bWFwIGlzIHVzZWQgdG8gdHJhY2sgd2hpY2ggTVBVIHJlZ2lvbiBhcmUNCj4+IGVuYWJsZWQgYXQg
+cnVudGltZS4NCj4+IA0KPj4gVGhpcyBmdW5jdGlvbiBpcyBjYWxsZWQgZnJvbSBzZXR1cF9tbSgp
+IHdoaWNoIGZ1bGwgaW1wbGVtZW50YXRpb24NCj4+IHdpbGwgYmUgcHJvdmlkZWQgaW4gYSBsYXRl
+ciBzdGFnZS4NCj4+IA0KPj4gU2lnbmVkLW9mZi1ieTogTHVjYSBGYW5jZWxsdSA8bHVjYS5mYW5j
+ZWxsdUBhcm0uY29tPg0KPj4gLS0tDQo+PiAgeGVuL2FyY2gvYXJtL2luY2x1ZGUvYXNtL2FybTY0
+L21wdS5oIHwgIDIgKysNCj4+ICB4ZW4vYXJjaC9hcm0vbXB1L21tLmMgICAgICAgICAgICAgICAg
+fCA0OSArKysrKysrKysrKysrKysrKysrKysrKysrKystDQo+PiAgMiBmaWxlcyBjaGFuZ2VkLCA1
+MCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+PiANCj4+IGRpZmYgLS1naXQgYS94ZW4v
+YXJjaC9hcm0vaW5jbHVkZS9hc20vYXJtNjQvbXB1LmggYi94ZW4vYXJjaC9hcm0vaW5jbHVkZS9h
+c20vYXJtNjQvbXB1LmgNCj4+IGluZGV4IDdjZjhkMzU1YTFhZi4uZmY1YTk1N2JmMDg1IDEwMDY0
+NA0KPj4gLS0tIGEveGVuL2FyY2gvYXJtL2luY2x1ZGUvYXNtL2FybTY0L21wdS5oDQo+PiArKysg
+Yi94ZW4vYXJjaC9hcm0vaW5jbHVkZS9hc20vYXJtNjQvbXB1LmgNCj4+IEBAIC02LDYgKzYsOCBA
+QA0KPj4gICNpZm5kZWYgX19BUk1fQVJNNjRfTVBVX0hfXw0KPj4gICNkZWZpbmUgX19BUk1fQVJN
+NjRfTVBVX0hfXw0KPj4gDQo+PiArI2RlZmluZSBQUkVOUl9NQVNLICBHRU5NQVNLKDMxLCAwKQ0K
+PiBUaGlzIGNhbiBiZSBtb3ZlZCB0byB4ZW4vYXJjaC9hcm0vaW5jbHVkZS9hc20vbXB1LmgNCg0K
+SSBjYW4gc2VlIGZyb20gdGhlIEFybcKuIENvcnRleMKuLVI1MiBQcm9jZXNzb3IgVFJNLCByMXAx
+LCAzLjMuNDYgSHlwIE1QVSBSZWdpb24gRW5hYmxlIFJlZ2lzdGVyLA0KdGhhdCBIUFJFTlIgY2Fu
+IGhhdmUgMTYvMjAvMjQgZW5hYmxlZCBiaXRzLCB0aGUgcmVzdCBpcyBSQVouDQoNCkJlY2F1c2Ug
+b2YgdGhhdCBJ4oCZdmUgcHV0IHRoYXQgaGVyZSwgbWF5YmUgeW91IHNob3VsZCBpbXBsZW1lbnQg
+aXQgaW4gdGhlIGFybTMyIHBhcnQgc2luY2UgeW91IGhhdmUgdGhpcw0KZGlmZmVyZW5jZSBmcm9t
+IEFybTY0Lg0KDQpDaGVlcnMsDQpMdWNhDQoNCg==
 
