@@ -2,40 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A306A821CE
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 12:11:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.943760.1342403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B2C8A821E6
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 12:20:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.943776.1342412 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2SP4-0002uP-Uy; Wed, 09 Apr 2025 10:11:30 +0000
+	id 1u2SXC-0003b3-Q9; Wed, 09 Apr 2025 10:19:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 943760.1342403; Wed, 09 Apr 2025 10:11:30 +0000
+Received: by outflank-mailman (output) from mailman id 943776.1342412; Wed, 09 Apr 2025 10:19:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2SP4-0002rz-RD; Wed, 09 Apr 2025 10:11:30 +0000
-Received: by outflank-mailman (input) for mailman id 943760;
- Wed, 09 Apr 2025 10:11:29 +0000
+	id 1u2SXC-0003Yu-NU; Wed, 09 Apr 2025 10:19:54 +0000
+Received: by outflank-mailman (input) for mailman id 943776;
+ Wed, 09 Apr 2025 10:19:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Cwso=W3=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
- id 1u2SP3-0002rt-8X
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 10:11:29 +0000
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazlp170130004.outbound.protection.outlook.com
- [2a01:111:f403:c200::4])
+ <SRS0=Yx2+=W3=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1u2SXC-0003Yo-3n
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 10:19:54 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20610.outbound.protection.outlook.com
+ [2a01:111:f403:2418::610])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff61ac26-152a-11f0-9ffb-bf95429c2676;
- Wed, 09 Apr 2025 12:11:26 +0200 (CEST)
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- (2603:10a6:150:16a::21) by AS8PR03MB7718.eurprd03.prod.outlook.com
- (2603:10a6:20b:402::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.34; Wed, 9 Apr
- 2025 10:11:23 +0000
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e%5]) with mapi id 15.20.8606.033; Wed, 9 Apr 2025
- 10:11:23 +0000
+ id 2c149ece-152c-11f0-9ffb-bf95429c2676;
+ Wed, 09 Apr 2025 12:19:52 +0200 (CEST)
+Received: from SN7PR04CA0224.namprd04.prod.outlook.com (2603:10b6:806:127::19)
+ by MW4PR12MB7031.namprd12.prod.outlook.com (2603:10b6:303:1ef::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.29; Wed, 9 Apr
+ 2025 10:19:47 +0000
+Received: from SN1PEPF0002BA50.namprd03.prod.outlook.com
+ (2603:10b6:806:127:cafe::81) by SN7PR04CA0224.outlook.office365.com
+ (2603:10b6:806:127::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8606.35 via Frontend Transport; Wed,
+ 9 Apr 2025 10:19:47 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002BA50.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8606.22 via Frontend Transport; Wed, 9 Apr 2025 10:19:46 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 9 Apr
+ 2025 05:19:44 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,238 +56,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff61ac26-152a-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 2c149ece-152c-11f0-9ffb-bf95429c2676
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dugBDF4+4VNS0EQa/+M4xaIzUUe6W6giLg3brpmj1AYszEoI7dlFZEt0QAS4kBuWAv4j+MvsXHpIJT8xPV0aOH3HQM4gtdAvCMSZBPW7FdI+SErqMyACbDWwfEiINlfFzmBpoNnfBd0StKK9p4JlYR/lb8wT3QD4Yjj2HUbnqsMxM0S/VmlJWINUYeNjreq0yLt7WTXNZP/8pUJ/HzHfX9EDSie3F3/2NF+RWX3V5LFs9KK9v1vvgV2w8fJx1eYlsyv6oDIq1bX0sCmtUkFMlS6fvB/6FV1c9Nzu+8fgUzXQVaAfIP5AKbdXGNL84SXXi41sRk+mKAtGwOWhwo8xxw==
+ b=KApGUgmYthx8hS4IhTbp7QlwGK94PckHNS3iiX9RRQSWRtJ4BO7px3PYjxNE4ZbqqEyCElF5Nrn+/8VHTI/ZcZWogJEWlhG9nRUsWYgQ4nXJJn1DB52vGwQX6vnZkecXjlJN2eqBGY0cAc0aXQQX94u4EoXuTmbpZNoemG/7YbeFtwG1sBKgSymbv0kon7ziaIqIYDFPyrvWaW35+R89QG28jjYMA1BI4YN/8PX+TDjzhrNzJ5OqnMNZiItk3TnowOVSx5rLcdQUpmQG4MmyyBuhCp7vkbKhixMjcA0XRi2TWLLJdCVNyKXc7C2imbqSTm+Fi4WcvgQbL0hICp0GPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LqWWxpDoYDsBPgqho41u5hwxdBWPF+k3b6j7HgGhvwM=;
- b=ySXbc+Uamzr2Q3ZmpeP8IZInTkNX/g9EDMGgrsh22X24ZIBSyIxNmqO2XQzsTPaXvYJHtq7YBToo9j9FEJiPWJAASV7W/9sNQC/WdM8ahp3dHPwk5gLa+RmoxenO89bJ+uI9yw0xBF5CHl2v+LrcbJbEG0AVgYAqkGwoNCXpcOlsCUZKlhZD+h/CbRa8E/WLUOeO/eEO++8zRX20Q+Nv6tBaw0N7vRRm4spV5B/AgHkmBcO7MjLX0sQwKtADK/o4j1Qc6ZDaCTu6stMQ7Kr99WjHF2z7MZgdyBL7tqdktX3qpTorWB8Kp0i3uREfXBbEg8St5YrAU69U3blEktkFuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ bh=GlAKGnRoQUjpY8Xm997hHWannmGhk1xufV4ideu0GvU=;
+ b=txlSejfkl4YuIhBMK43cyNj6AePZKxOfrdUiFHy3La+21UVT3gzlfq2txnQX1N6szlTK2sarQG/IEHAtqUTdTZRRZbarpwozrZqLX8hJz58rax8bInAeQDc/DjsP6kUsdQk21TRpts7MgxseGAkTpFq8P9oAzBcCbkVZgzVGY9bfME87EAhJsDyio/KnYc2FGXF086vfklUFUfAgp2D9/EDGgCyiI19Lq8GyeycA/B0LsvQvVAgIOjjZPzOqORnPcK6iOpRACVunXM8uNiMGEIM5VqjOEs4L6If23zk+BW+wn7pjn+QRie/UUIWMlZ4SmpdCHhrFco/HJhs9WlsFvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LqWWxpDoYDsBPgqho41u5hwxdBWPF+k3b6j7HgGhvwM=;
- b=PopLVEFMw6CtjarbLXMJH/y2OXcc2RF/JUl1UTkLMUnqPAk36I963KmGsPCeT9uDdGMFyyyuLCQshDzTGnV5S6JiQ3ZcageeobleOuEB12OIx1t83X+48iazLMqonv2mdU9UifAWBS6CbvzaL8E9ILcBc5OQi+3XidJBnM/EMFIuI7FlKUCXe7LtJlzKMWI3UVbDDv3bcIlhwdIxgdJbQi1x0BWK67pDckwLCysWDt694GmUukQgnpd4rr6p/v4Wy2Ci1FhGiQERtNcaa95sZZD76TMjsE7NpLvfNaKK7FLWT6uAThwHs6wJyLVr959Q2r1TqGoawJ0P9hmZ8df6Rw==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5] xen: debug: gcov: add condition coverage support
-Thread-Topic: [PATCH v5] xen: debug: gcov: add condition coverage support
-Thread-Index: AQHbqTe/Csu/ncsNI0mulEQya+sOaA==
-Date: Wed, 9 Apr 2025 10:11:23 +0000
-Message-ID: <20250409101105.2733236-1-volodymyr_babchuk@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: git-send-email 2.48.1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|AS8PR03MB7718:EE_
-x-ms-office365-filtering-correlation-id: de90aab4-7977-4ff8-fc7d-08dd774ee199
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?07WlaSmorn+BTWPHbUntTo5+JBYF8VwenhPqgvVQY1SYGAS+5scW0+jPiP?=
- =?iso-8859-1?Q?22WoDwwZa5sQe+ttJsM74bYR4xKCXECbFQI3fGDZBYxE7ZKIs25mB3G8HJ?=
- =?iso-8859-1?Q?xjsnNSnX56vnsUNBbtRMgaDazREHXz0UN0UH6odpNVAJ0OC883NLQ38H+7?=
- =?iso-8859-1?Q?1PTKQ40v88e2JECXpfulWSIckA/1lSNeq99S+y6J0yEMvvqJCMUj7/GKEO?=
- =?iso-8859-1?Q?xj5ykgtu9GDTXnU0QQR3iDZJax0z2FDVaNwx1eEKM9zZGOI/HGCBnIfhaS?=
- =?iso-8859-1?Q?asxbWehEt/NghMKgpa8dV3Wccb6eGpouIR1/rH5DH0G5QcUY0zCfKVZ56R?=
- =?iso-8859-1?Q?LEq97s4fLB3bAvEn1l9GTn6C113TWE3cC5RnZkOPPU/svJvxLcoM+j0lzt?=
- =?iso-8859-1?Q?eQkDDHJU+ALDCPkYNBHg8ozB7J6UTQtSA92z795W2zthLFFPppnLqKsafK?=
- =?iso-8859-1?Q?WJDbHcW5tAb7EfBNbyBOQEp6dU8VXzExSi1DUqtJHW6TOVAlE0c00Vtl0a?=
- =?iso-8859-1?Q?pv2/YFy9pSqqJ7muOgBEgzhoGEeIY/H+Ksv/rA/9Qu4TXcowBWrGqfWFSX?=
- =?iso-8859-1?Q?x367uF4n3076acmaNtzml6hnDjPIrdjvmOjoLSnZ4yFN9D3vZCWp/5sK91?=
- =?iso-8859-1?Q?Bry+ZmavN4w/y5933m3iNhL7y25VFiB7XwHyfYqAZd6v6ecDnAw2JbP1ER?=
- =?iso-8859-1?Q?sYwcxQu4orJlBBvOZUgm9R0RiSC9xiIZoQ+arohjoGucsgB7M6CwB8yJn+?=
- =?iso-8859-1?Q?tFuC2GS23Tlq5nKgOPMoWZ08mPKLIl4eO8KQuwiK9grtoOCWzgYnQG+/5D?=
- =?iso-8859-1?Q?zp7WBuxAwscVsubwAoAaSdcRdQyHpQtwGvcsPdGI6oVRwOO6IC0+6qcMi6?=
- =?iso-8859-1?Q?DYxT12IQLb7M2iTQWrZmaG2lvlOrhyCZZUlbXVns7w8EGsiMzcefgkcDna?=
- =?iso-8859-1?Q?un3iQdcbnNRuZuN/olc24XCq+/8ZblYPI7KQrTmBYYP3HxAV9uELjoPvj5?=
- =?iso-8859-1?Q?jvHuRM4LMrCR4rh0Fn/k7+GmYM91lqtpy6wNEfnn+STFL/jF3g+VoOxKxT?=
- =?iso-8859-1?Q?8f8Rq+oeoz5VHTwmqTwtRAvkdXjyswh69fMDNVqkfzf6iJ/5ZYPitdb7hU?=
- =?iso-8859-1?Q?mwtbYWyd1ZyVctCUlKFFv8xcnTJu57PGSZQ56SrDkPfbRXVdhZ0INTBuBn?=
- =?iso-8859-1?Q?ve/CHN6mQhG4h1CHuDvxm05KMnHij9aYDzIFDUJZCIDE9r8OV8CpaJqSG6?=
- =?iso-8859-1?Q?1+74DcvwZRV4BDXZUCOSbWZQCvgrFPhyCk3skwmoMonfy7KjWdZLp3GHwq?=
- =?iso-8859-1?Q?V8JpigA4FK+V2l9OjXqWHCluyB7ehvhWS2vnfpPr8Vf9E62IYEFUWAR9G3?=
- =?iso-8859-1?Q?jnU3iWBt8d+j+e8Ni9bQ8NBjKQt4Xv52wuYtOUtn+sHxGg6I1DK0cb7Czj?=
- =?iso-8859-1?Q?mrDJhpp7IXhAwZW/1iDGZcFsteCpxDUBGQDyqmpLfEnBdR73ENBzYRPZBH?=
- =?iso-8859-1?Q?NGDEwqHRDXSWEfUugJ1UUDHXvCUsOwpzpJYYUSoq+l2t340iMSa6YRoprN?=
- =?iso-8859-1?Q?Pa/NivM=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?yXwCLoLu1ZkpjvREFC64bZ0sP3qD9Db+LMdRZlIsAAemucYId5ULUXVpzB?=
- =?iso-8859-1?Q?0HJo9w0wn01OSat8/TqA1YDT2VlJmap8+aaSkvGy6eMfXs0FHvwmOzc8hh?=
- =?iso-8859-1?Q?6u3M5haXtLEt9k1VkAD2FePtS4FW4Tbungt0fspbd6NPAxRFcDeUm+2tTb?=
- =?iso-8859-1?Q?Xy4aniOg13cVpYZ8FzWrm0OdRopkePDhZPdSxcoomythHQrqapR/4t/jwW?=
- =?iso-8859-1?Q?3vNtwimaxHg1o8zpM+3zpTship5dfXQ9I/mc2nrAzHkZwVPwqDU8GrfavU?=
- =?iso-8859-1?Q?0VQd+pJJfyvgjZwdt9WzyYvO5Bl/qwl4iRXU5cz3v4IH8Ncjj/aP1otL8k?=
- =?iso-8859-1?Q?VOBVSfvyOtsWGKc1/H6Byw8vcqjPtbKEhyywnbu1EI5FiLcbQ3F/5Fo+WM?=
- =?iso-8859-1?Q?ejc/Hoe8FxPTV4CQX2VDYhOuIUqBn9ne4mFuXVLZd1wygBsrdVwhyuDuKK?=
- =?iso-8859-1?Q?RGAZGFzceSLGJUm7N7nOCJvR1MUpvph00J++MJAurApBzxRxD5sX/xvFwg?=
- =?iso-8859-1?Q?gdxRH2FgQJifcaGLzUJ5Ipu956anRwDpzRshTnadNSogZE0Lj7wJcH6Ovd?=
- =?iso-8859-1?Q?2sg0KJGl6w2IfPg3BBKwKfSDJDNQXQAqe4SpHUHRQxtF9v6pssDd0AyxsQ?=
- =?iso-8859-1?Q?z5/mWhynpIzj4Yo8SH+ZyZUgp2oYFHYIf4u7EKKphzdEyNx/DWOclndjqO?=
- =?iso-8859-1?Q?bAzYMFdOsXLNbfU7T4LMoJCLyaP7MHaHXQR0X6D+POK+Q+dmVO/6nzIhG0?=
- =?iso-8859-1?Q?88w6+5Ozvf4T5cRNw2Y9iSwRZ48l+/9v4tr39jnvtxY7ZaYAvbIuq9NRBb?=
- =?iso-8859-1?Q?p4DOOKCbSTrf+gz3vnv2LZzVsFTEzNv9llh2OvrFrjYWMKHKN94hel84ok?=
- =?iso-8859-1?Q?b1M9mTsox9SnqTGc/7oxih+4ejgBDaE1W0lFEr8C8+0HvrnoM55C6FYCj3?=
- =?iso-8859-1?Q?Z6rAbuBZ55YyqcqU3uTDAh9mACST5HkkC4/ln591UXxwn/ABv7NtMqFKk2?=
- =?iso-8859-1?Q?YbCcOFC662ce8NB49sCU5QzXme1ld2jb60ooOoRt5O/5xG4fZadEKSmRfK?=
- =?iso-8859-1?Q?zMubEdoLECKLJKHwNBwq6htafU/fDlUzEZN0S1/MN/dzS4lIbzKkJ29TiV?=
- =?iso-8859-1?Q?eQPeFe5NPWTFry1bT7uxVlDUVcogqtn1P1KlmHk2ltBMXlh0tpSQ0QXGQW?=
- =?iso-8859-1?Q?VVD9JLiprL6qMnoacq8YRCzJvIR5ShYDykQAGJ808bOfNYyB8gsICuH+g4?=
- =?iso-8859-1?Q?b+Jk9t0rwgkkG5xLVtyVoB9/RSwvYAb8/9RDRlFTTbGyEbtwPSk93hIaju?=
- =?iso-8859-1?Q?To2avUXPhfhNCG95nYLyT7e6VxeEnkSFGCKTrPMrKZIhP9ZrCe8SgCYCKF?=
- =?iso-8859-1?Q?yvOhYQOC1zumGxV2JAA8IBdm/QEowuqRZQd4A2wMkZXTzXxfdbs3NZCIF0?=
- =?iso-8859-1?Q?Ul/rBBSCoXkeqQUrwtvghoVBc30RAyd7K7fS1H8wULFkUCb2qjNDZUqF9R?=
- =?iso-8859-1?Q?m4RYGSlk8Sl2ljTznZJtNbR4Fw2+++dzzSb7T8C/nxFsgR7S4+YSnTZn4p?=
- =?iso-8859-1?Q?sid1n6a0if51TTfGuVmDDgY+f0vhIQ1hKH8yVNb9hXI3x+PBicHVO1OmQV?=
- =?iso-8859-1?Q?5l/NDwBsBbkT1fGFuWzUxW9vFIbM/CwWDepn/s9RlEaOIqFRlJTpx3Jw?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=GlAKGnRoQUjpY8Xm997hHWannmGhk1xufV4ideu0GvU=;
+ b=foQgaw5FdcUWtpoNasamWkQrqxPuFYo9CDoqGLInIbSURytZEWPNxIYD2zMNKzqreAQ7ThNT1suBfIBYf0BRE/tbeHeyCeQJ9xPANuPtAmxi/sy4Jztl0QJm7PNJXWdOuCXyaoNP/cq6UzC+9NEyWmnIXNbMNlmcXFrwkdWoDU0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de90aab4-7977-4ff8-fc7d-08dd774ee199
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Apr 2025 10:11:23.2206
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Wed, 9 Apr 2025 11:19:42 +0100
+Message-ID: <D9215Y1EFDAG.ORR7VWT2BSLX@amd.com>
+CC: Jason Andryuk <jason.andryuk@amd.com>, Xenia Ragiadakou
+	<xenia.ragiadakou@amd.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Julien
+ Grall" <julien@xen.org>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>, <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 00/16] Hyperlaunch device tree for dom0
+From: Alejandro Vallejo <agarciav@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+X-Mailer: aerc 0.20.1
+References: <20250408160802.49870-1-agarciav@amd.com>
+ <1d809170-bef0-482e-bf6f-6da84204bfad@suse.com>
+In-Reply-To: <1d809170-bef0-482e-bf6f-6da84204bfad@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA50:EE_|MW4PR12MB7031:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52d109bd-30be-47b4-747d-08dd77500de4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?OWxVV292dU5DVGMzajNMejFsNnVhWllzRkg1OGt2ZnZtcjFiQzgzeGRGdnA4?=
+ =?utf-8?B?ZTJDM2FTS3ZzTDUzYWxNbzNrc2hnL1VSbSsxUVBSNjYyakJGVWRkWTRYajV1?=
+ =?utf-8?B?NC9ZSzlabmpuWlh2a1d3QVVLMGlaakE4c0RXNnc5UnMwelRXNTRRK25EczZv?=
+ =?utf-8?B?dktKSGVMK0hpaWVyL1JZd1ZjRXN2M3pDeVZQRlJDZ2kvSG1mTkU2cUFveFdY?=
+ =?utf-8?B?a0VtSUU1aUpSK0tFeDFiVEJQa2szRWpDZTVIK0RLMUVOR1NXRXFwdkNqcVZY?=
+ =?utf-8?B?SnFSdFZPQ2RRbDRueElsb2lhYkdjQW5wNUFrY2RLaGpYSGp3djBsNXZwK0No?=
+ =?utf-8?B?ZTg3TFl4bUlFMHZDaG5xS2VFenUvR09XWGFVY1RDTklaSmhFeG42WFBVdGtI?=
+ =?utf-8?B?VElrNys0ZENWY0V3MVo1MytMVlU1cldGNThuQkpPUFNPTG9JakZ3QTd4MWZ2?=
+ =?utf-8?B?QzM5ZFd6QTJ4bGk1RitSRUpKZUQyVU9walVPRVkwd0VGUy9EUTdpNmpKYWxv?=
+ =?utf-8?B?SWtJMEh1N3h5amJscTNLQ2V0SjM1NmJ4UG1WZlBKNFBEQmlJZlA2TTl3V2hI?=
+ =?utf-8?B?YVJkT0hFbVp3L0RPcVBORkI5OWJscWdrdjdqLzFndGljeUI3UXMrdExwK3VG?=
+ =?utf-8?B?WmpETU1kaW1FT1ZUd2RaUzE5c05Ecjc1bzJhdndRaEJqdTg5bUxvRDRtcGxM?=
+ =?utf-8?B?YUJOWGFqenNlUlQ4NVdxd0JXTWxYcGNvRExlNzcvcTJDbVRscW12M2NlRzJm?=
+ =?utf-8?B?L3B2a1dCakZYamJCNFkrYkp4ZC9jNEZnV0FUVldrTFpRNWM1eWZjL01LVXJu?=
+ =?utf-8?B?M244V2JiTy9rRk9lNWZJa0hwQndNUnlWeFErSkp1Szh2MHJHUFBDakw5blRj?=
+ =?utf-8?B?Q2NDbXBSOVB3d3RSUFFUYUgrbE4xTWk4ditYRmwwRnRrc2UyUWpYN3E0UFVt?=
+ =?utf-8?B?WkNiTmJrbnVSb2E3OWtsbUZWeU9EbC80UC9rSUhCZDFtNUgrUUtyKzRMaHhk?=
+ =?utf-8?B?VjZWbmFoOEdOVDc4OXlLV3R5ZWxPOXlkYkNGcDcwbEFyN0pnckRhMis5Szgr?=
+ =?utf-8?B?V1lvWjFpUUxkQWFWR1FuRTNiQU9sUE9nQnA1THZ3TXliVDJLeERuZjJTOVRy?=
+ =?utf-8?B?amF5TkZPcE5SdDlZTWFLM0l3Z3lGZmxCS0RKYXJTeFpTVnFyaW15Y0NZNThZ?=
+ =?utf-8?B?WjRsVDdQOGJRTmZ5TVhHWUlISDYyV0V0R0pMdVcyZVlnRlVPU3grdXNwdWI1?=
+ =?utf-8?B?VUZLSFFnUmI5NWpVVXErY3RQNG0rZFdHMldhQnNuOFU2ZldHdnN1am44UmRU?=
+ =?utf-8?B?cXgvc1hGYkIwcFpYY0UxMU40YUJVKzE0aDdnNlg5djcrVDlRYll6QWZhQ29W?=
+ =?utf-8?B?ZFRmSGtaMGNKdlVxSnowM0lsQVc2SG5LUXdjbkQyUWQyWXJYYWRJZlhkTGMw?=
+ =?utf-8?B?R1cvNWpuUEpHZTlNc2c2dVRnbU9YdmlVQTQ1djd5eEtuTmVGdDZTQWxRZXYv?=
+ =?utf-8?B?ajRVdyt5cGFxSDBITHBacFdGWXhscEMxeG9FV2hBNUNPOUNNNXYvRVlDdk1I?=
+ =?utf-8?B?QVBmZmtFc0U0TlY1V2NwVzZGZEtWY0gyTUdMenltVmZNODNiU1VoVExvWlBh?=
+ =?utf-8?B?YkpuTWowTUFqUXI1SDJpMWo5YTQzT3lLVkpiTThwMXVuZkc1dlVNRnM2Z3py?=
+ =?utf-8?B?NlU4UEsybUxhbUNSUE9UTzdSM1V3T3d3YkRQZmwvaWlUUzVvWUI2L2w5YStr?=
+ =?utf-8?B?SEp6d0p2MEVuUGhaUytXV0ExVCtKeVYvRWVoUEdiVTdQZ0Jka2dLYlZUb2hG?=
+ =?utf-8?B?c29xVUZmbGJES1M2K2VPL05XYjBFbFhpUW9JZFRRVzl1cmhqdGYwVVFQRVMz?=
+ =?utf-8?B?RVgyTmRFaU9ObXhieFJnS3o4MENlbktjVGl4MkkwK3oxRTRPMzlKZlErbDhq?=
+ =?utf-8?B?MXhsaDVBU25VYzF4cmtPa0xwRDZmbjQ0N0Zwa3EvSS92UnRmRGI3V01IZTRa?=
+ =?utf-8?B?VWthcm4wSXFTaU5sQUIxNzVuVHZDekdQNm1mK2hhdWNGMTdtdDNaVnZzVWFZ?=
+ =?utf-8?Q?VWTo5o?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2025 10:19:46.9862
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: o4mKf0aHQgw5vdJf5cWJguj3lTPfw/FdwLlFlsQTtNiHS56s08u7wcjpWG6NZDZWGwznJ/hyANi9zigdyys1RpZYnk+uzr6skrwFmHc7rz4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB7718
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52d109bd-30be-47b4-747d-08dd77500de4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002BA50.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7031
 
-Condition coverage, also known as MC/DC (modified condition/decision
-coverage) is a coverage metric that tracks separate outcomes in
-boolean expressions.
+On Wed Apr 9, 2025 at 7:29 AM BST, Jan Beulich wrote:
+> On 08.04.2025 18:07, Alejandro Vallejo wrote:
+>> I've purposefully not added my S-by on anything I haven't touched
+>> (besides rebasing) as most of the feedback had already been addressed by
+>> Jason by the time I looked at it and it would be utterly nonsensical to
+>> give myself authorship over it.
+>
+> My understanding of it is that S-o-b doesn't indicate (only) authorship.
+> See docs/process/sending-patches.pandoc "Developer's Certificate of Origi=
+n
+> 1.1" point (c). And what you would want to demonstrate with adding your
+> own one is agreement with (d) there. With this I'm not even sure I could
+> commit patches becoming ready in their present form.
+>
+> Jan
 
-This patch adds CONFIG_CONDITION_COVERAGE option to enable MC/DC for
-GCC. Clang is not supported right now because Xen can't emit version
-10 of LLVM profile data, where MC/DC support was added.
+Fair enough. Will add myself everywhere on v4, then. Seeing as there's
+still changes to go through.
 
-Also, use the opportunity to convert COV_FLAGS to cov-cflags-y, which
-reduces amount of ifeqs in Rules.mk. Otherwise this patch had to add
-another nesting level with "ifeq ($(CONFIG_CONDITION_COVERAGE),y)".
-
-Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-
----
-Changes in v5:
- - cov-flags-y -> cov-cflags-y
- - Clarified why Clang is not supported right now
-
-Changes in v4:
- - Slight formatting fixes
- - COV_FLAGS  -> cov-flags-y
-
-Changes in v3:
- - Introduced CC_HAS_MCDC that checks if compiler supports
-   required feature
-
-Changes in v2:
- - Move gcc version check from .c file to Rules.mk (I can't find
-   an easy way to check GCC version at Kconfig level)
- - Check for gcc 14, not gcc 14.1
----
- xen/Kconfig       |  4 ++++
- xen/Kconfig.debug |  9 +++++++++
- xen/Rules.mk      | 14 +++++++-------
- 3 files changed, 20 insertions(+), 7 deletions(-)
-
-diff --git a/xen/Kconfig b/xen/Kconfig
-index 2128f0ccfc..3a723db8ea 100644
---- a/xen/Kconfig
-+++ b/xen/Kconfig
-@@ -41,6 +41,10 @@ config CC_SPLIT_SECTIONS
- config CC_HAS_UBSAN
- 	def_bool $(cc-option,-fsanitize=3Dundefined)
-=20
-+# Compiler supports -fcondition-coverage aka MC/DC
-+config CC_HAS_MCDC
-+	def_bool $(cc-option,-fcondition-coverage)
-+
- # Set code alignment.
- #
- # Allow setting on a boolean basis, and then convert such selection to an
-diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
-index f7cc5ffaab..f89cbd823b 100644
---- a/xen/Kconfig.debug
-+++ b/xen/Kconfig.debug
-@@ -44,6 +44,15 @@ config COVERAGE
-=20
- 	  If unsure, say N here.
-=20
-+config CONDITION_COVERAGE
-+	bool "Condition coverage support"
-+	depends on COVERAGE && CC_HAS_MCDC
-+	help
-+	  Enable condition coverage support. Used for collecting MC/DC
-+	  (Modified Condition/Decision Coverage) metrics.
-+
-+	  If unsure, say N here.
-+
- config DEBUG_LOCK_PROFILE
- 	bool "Lock Profiling"
- 	select DEBUG_LOCKS
-diff --git a/xen/Rules.mk b/xen/Rules.mk
-index d759cccee3..da21850926 100644
---- a/xen/Rules.mk
-+++ b/xen/Rules.mk
-@@ -29,6 +29,7 @@ targets :=3D
- subdir-y :=3D
- CFLAGS-y :=3D
- AFLAGS-y :=3D
-+cov-cflags-y :=3D
- nocov-y :=3D
- noubsan-y :=3D
-=20
-@@ -133,19 +134,18 @@ $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): =
-CFLAGS-y +=3D -DINIT_SECTIONS
-=20
- non-init-objects =3D $(filter-out %.init.o, $(obj-y) $(obj-bin-y) $(extra-=
-y))
-=20
--ifeq ($(CONFIG_COVERAGE),y)
- ifeq ($(CONFIG_CC_IS_CLANG),y)
--    COV_FLAGS :=3D -fprofile-instr-generate -fcoverage-mapping
-+    cov-cflags-$(CONFIG_COVERAGE) :=3D -fprofile-instr-generate -fcoverage=
--mapping
- else
--    COV_FLAGS :=3D -fprofile-arcs -ftest-coverage
-+    cov-cflags-$(CONFIG_COVERAGE) :=3D -fprofile-arcs -ftest-coverage
-+    cov-cflags-$(CONFIG_CONDITION_COVERAGE) +=3D -fcondition-coverage
- endif
-=20
--# Reset COV_FLAGS in cases where an objects has another one as prerequisit=
-e
-+# Reset cov-cflags-y in cases where an objects has another one as prerequi=
-site
- $(nocov-y) $(filter %.init.o, $(obj-y) $(obj-bin-y) $(extra-y)): \
--    COV_FLAGS :=3D
-+    cov-cflags-y :=3D
-=20
--$(non-init-objects): _c_flags +=3D $(COV_FLAGS)
--endif
-+$(non-init-objects): _c_flags +=3D $(cov-cflags-y)
-=20
- ifeq ($(CONFIG_UBSAN),y)
- # Any -fno-sanitize=3D options need to come after any -fsanitize=3D option=
-s
---=20
-2.48.1
+Cheers,
+Alejandro
 
