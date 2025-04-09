@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EA97A828FE
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 16:57:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.944284.1342797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78140A82A86
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 17:35:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.944303.1342807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2WrY-0002aP-Sq; Wed, 09 Apr 2025 14:57:12 +0000
+	id 1u2XRI-0005L7-J9; Wed, 09 Apr 2025 15:34:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 944284.1342797; Wed, 09 Apr 2025 14:57:12 +0000
+Received: by outflank-mailman (output) from mailman id 944303.1342807; Wed, 09 Apr 2025 15:34:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2WrY-0002Y7-PH; Wed, 09 Apr 2025 14:57:12 +0000
-Received: by outflank-mailman (input) for mailman id 944284;
- Wed, 09 Apr 2025 14:57:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u2XRI-0005JV-Eg; Wed, 09 Apr 2025 15:34:08 +0000
+Received: by outflank-mailman (input) for mailman id 944303;
+ Wed, 09 Apr 2025 15:34:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L8O5=W3=gmail.com=ryabinin.a.a@srs-se1.protection.inumbo.net>)
- id 1u2WrX-0002Xz-CS
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 14:57:11 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e9ce0b73-1552-11f0-9eab-5ba50f476ded;
- Wed, 09 Apr 2025 16:57:10 +0200 (CEST)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-30bec442a25so8991001fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 07:57:10 -0700 (PDT)
-Received: from [172.27.52.232] (auburn-lo423.yndx.net. [93.158.190.104])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30f4649d61csm1929521fa.7.2025.04.09.07.57.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Apr 2025 07:57:09 -0700 (PDT)
+ <SRS0=Ii2m=W3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1u2XRG-0005JP-Td
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 15:34:06 +0000
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
+ [2607:f8b0:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0f4a8084-1558-11f0-9ffb-bf95429c2676;
+ Wed, 09 Apr 2025 17:34:01 +0200 (CEST)
+Received: by mail-pf1-x42a.google.com with SMTP id
+ d2e1a72fcca58-736ab1c43c4so6754492b3a.1
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 08:34:01 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d2e1a72fcca58-73bb1d6b213sm1477854b3a.81.2025.04.09.08.33.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Apr 2025 08:33:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +44,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9ce0b73-1552-11f0-9eab-5ba50f476ded
+X-Inumbo-ID: 0f4a8084-1558-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744210630; x=1744815430; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XTxp3qW+KPuzf+zXWuGUYa2ldWHd+1dpKttsCAAJnR4=;
-        b=UKxVpbEHCWM1jk/52cEX1EyDYb/4ziG1hh+P/Ecq6+kjEWalrvnwkRBxGQ7tXHnUT/
-         cHb+UWieav5jX2iQSVHh2SCuBY2GoxWkEQA/l/5oRqITbZykQdI/bboQ+pdOXrR/Dhdf
-         GhTS0jqphvrvp/2zFtGghhwPKasp7DGrnJO5kVBJtyDFY4/8H/biJ/HcOy0hJTuQuRQl
-         cfvASKlXzAUdhLxZFnONzYGtWna+EI+N2LS4Rns3YnTAV9EgvE1PcjcuugXcXk/2m3QF
-         x0DAiY6ULWyw5txWKo+vELJ8giUHiW6X1ECfHIG2xiDy7uFIakKDo8wcqcdqG3pZKdnI
-         mprA==
+        d=citrix.com; s=google; t=1744212840; x=1744817640; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=w/W5F+qYt8PXbLAtoEpok03W4FU6RWVBrJ3vedp3TnE=;
+        b=wCy/rZxwS3HiKgY45d+WKlOY1NdyuU7Ng/no5CpyAr5guiFpe33DRbXLAmJ9FZ/wMZ
+         b4bHEMjrlSaSyJO0/r2wA9BnnofpLrwvAMGi8JW+truzP6wMINVoN0xbyu8/TzOAWCOD
+         CS0lwAT2olUWiBVOZmN4zCG/a5BTa7RkYHk3Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744210630; x=1744815430;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1744212840; x=1744817640;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=XTxp3qW+KPuzf+zXWuGUYa2ldWHd+1dpKttsCAAJnR4=;
-        b=vAaFK3M2UaWY7r7owl9Ff4TF7aSiCLm67Q4I4CFfj6v8c5waoQZWayx+bYC1z5AVJ1
-         uRQAyK/SvbIsercs1bShT9fUsJAnBNLKoewpO0ualFNLhAxJekrEQh6fAPRg9nDpIFIq
-         ntlrS2wHw3IwKS2Z+UMXYOd9aLaxJ9zdVE7CYzpCu7zrgLhxBaYvipCKRZG6LGzudt6p
-         ++wwXZ7u0DA0Jb7LVWJUROBQEpZW2ExPXIl91tj/V2CwgMlGopzxXE0wiHG2PcRjYezk
-         8rVXeFTvU1wZneFQqC/apW+vPFMb0e74L/lub5qdtrSIj77vReiEdW3LVC/i10zjAcnP
-         zysA==
-X-Forwarded-Encrypted: i=1; AJvYcCUilEp1QAj6uv2eLDQ70Fd+DRN8rdTcZlrJp/rxzscDFk/neaQ93405tcBOshT4DiBrdgSkdovXczA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzYCLQ7o8cV9LXGcLBX0SyBNLSp1ulvZXK//G+FdcLptD1grRdo
-	94c4w++fpgLjgzTXUrTkJvCDa6E+92zL/zg6P+AYtf5XZaK9yuWi
-X-Gm-Gg: ASbGncu5c2jsHk1hKg7tVb/yfAJF75FzMCjAGJo8aKs0vjVgR4Hy4qdUbhkzoSUqDAJ
-	6eS1rhREMtzdgvR1R8teLK6C9+/lRuBt6hz6WpTh7HMzZICjwvfmG0LEB7CqoPQZmGp/gDotSwR
-	xCWIY214qTP4RbtA6C9pa9NIq0YIhgwt27I4k02W7J/sZ4Zk7+Lu6Wbr7GBwxVdzrKORs8NJEcx
-	sY/KVCIqo5ifmfsv4muom4dTMRnZs9mGPmjvEZ+DA+lycGAX7vZlw2rTQRbrwuy1/LQIJ59f1qS
-	zoj/eTE82/FIf5POZEhymKKf/hs4Y7HeuzLGF1K8hd0M9np6w4cBzmJ5vG7rJXXLIuN0Kg==
-X-Google-Smtp-Source: AGHT+IG7fk9emZaqKs/kKGowvaUASd2CDo9SSBq5dR2zvDPKxRK4W1C4hr7cqLTnQPNN0OUJNfi0kg==
-X-Received: by 2002:a05:651c:221a:b0:30d:62c1:3bfc with SMTP id 38308e7fff4ca-30f4387ba49mr2911011fa.7.1744210629436;
-        Wed, 09 Apr 2025 07:57:09 -0700 (PDT)
-Message-ID: <02d570de-001b-4622-b4c4-cfedf1b599a1@gmail.com>
-Date: Wed, 9 Apr 2025 16:56:29 +0200
+        bh=w/W5F+qYt8PXbLAtoEpok03W4FU6RWVBrJ3vedp3TnE=;
+        b=rN5MQP0LrtVdLit6WSnEeXR4D/sIAh0GYbq2uG8yq50DcwQ3mT5HUeKEuvqVxqsyuQ
+         N7omLPKvKIEQD6qEgWiOi2t+nfQTablZ+uxvd0EqC1oUbAcso6v5FDg2R+zExGq2AQMA
+         Njy9Z2X2eOqKurfJS3Yo9mElvdKJXOU6ZtldveNSW2Dq4sMl0zxM+CrYvJKxVXb9hIwQ
+         d2nHJSPz+W1xED1GGEWO1JxH9DE1qq8mpT41XMNvf12/kzwhsTgmnRXa8BclxFzygWHM
+         amKgkU8FvG4Uu4B4gbLi2wvPVGr6UwmjZMhKotnmdLDAhXFND/GywZxZHwGxgWkMk8yq
+         mFHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWARW2K4pJv1Vv25rHTD23H6XSsUTEsMrNHbvp9VWCRIz5XVUJfX2ODE/r9OY1oz4XdDsBB4Inj5R8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyHht9z03+iM5U1TEjjt+zuPJys/GxHVDDnVDWbZ/9LXSMUOALw
+	lolU6r1Wp9mcU7UHzwsHTGBv2R2xtPjWl+v82peNOKcZRaQcgiCkx9fPg5syN1U=
+X-Gm-Gg: ASbGncuHHuJBuoeqj5ELCpro20GsC1BOHWYAVo7ZXPtXY9MqGeVvAIAyfr3BwUPuKXQ
+	Sq85mTsMBR9IbOHRNU2Y5smu/tIqmwdf0i9GPotZKAe6RETzWRb1oVOjq7Z4SAjitpp4fn8EfhG
+	vpPX98U87KI0xEJJuI//J2+qU3dz50QvEjRxDsQ+DHpqKIZZmYeXgbuzeErWDZ6SZYLCDNuWLkp
+	+g4N8Hv4FmwdFUB2C1qJR0h5zw+9KrzCbwAq02nA7BX4501RwVvtemN3kfQ6jTDu5e5kd9RQ5AP
+	koWMvdra5NSQtj8IRadWe0z1b+R26srrpfg+kg6EA8Zr0g==
+X-Google-Smtp-Source: AGHT+IFA3j+02TX+d+gpiwEmkg5gbhJ3HVHY9+LymeFqmgaU98z+MWKDoXpJGL54adO/mFdehScKAA==
+X-Received: by 2002:a05:6a00:2186:b0:736:53f2:87bc with SMTP id d2e1a72fcca58-73bafc16c54mr3523882b3a.13.1744212839913;
+        Wed, 09 Apr 2025 08:33:59 -0700 (PDT)
+Date: Wed, 9 Apr 2025 17:33:54 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 2/2] x86/hvm: fix write emulation of RO ranges
+Message-ID: <Z_aTYmiOLEfKTend@macbook.lan>
+References: <20250408093156.83277-3-roger.pau@citrix.com>
+ <16c73cae-2ac0-4811-97d3-b25c95ed5abc@suse.com>
+ <Z_Y4xFzaltr_XKO4@macbook.lan>
+ <ef0b6eea-a7e5-406d-a8ba-062b3c6e17e1@suse.com>
+ <Z_ZOWAttoFNoFYCV@macbook.lan>
+ <2df78a5d-2f9f-4866-81cc-03ae09c76d50@suse.com>
+ <Z_Z3PYYSBH3QWioF@macbook.lan>
+ <8709e7af-5827-4c96-9f6b-1f548045040d@suse.com>
+ <Z_Z9unJ-wS2dXxUV@macbook.lan>
+ <b1e8e761-ddf9-4e4f-b5bb-624b2e7d012c@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] kasan: Avoid sleepable page allocation from atomic
- context
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Hugh Dickins
- <hughd@google.com>, Nicholas Piggin <npiggin@gmail.com>,
- Guenter Roeck <linux@roeck-us.net>, Juergen Gross <jgross@suse.com>,
- Jeremy Fitzhardinge <jeremy@goop.org>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, kasan-dev@googlegroups.com, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, stable@vger.kernel.org
-References: <cover.1744128123.git.agordeev@linux.ibm.com>
- <2d9f4ac4528701b59d511a379a60107fa608ad30.1744128123.git.agordeev@linux.ibm.com>
- <3e245617-81a5-4ea3-843f-b86261cf8599@gmail.com>
- <Z/aDckdBFPfg2h/P@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
-Content-Language: en-US
-From: Andrey Ryabinin <ryabinin.a.a@gmail.com>
-In-Reply-To: <Z/aDckdBFPfg2h/P@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b1e8e761-ddf9-4e4f-b5bb-624b2e7d012c@suse.com>
 
-
-
-On 4/9/25 4:25 PM, Alexander Gordeev wrote:
-> On Wed, Apr 09, 2025 at 04:10:58PM +0200, Andrey Ryabinin wrote:
+On Wed, Apr 09, 2025 at 04:08:47PM +0200, Jan Beulich wrote:
+> On 09.04.2025 16:01, Roger Pau Monné wrote:
+> > On Wed, Apr 09, 2025 at 03:50:13PM +0200, Jan Beulich wrote:
+> >> On 09.04.2025 15:33, Roger Pau Monné wrote:
+> >>> On Wed, Apr 09, 2025 at 02:59:45PM +0200, Jan Beulich wrote:
+> >>>> On 09.04.2025 12:39, Roger Pau Monné wrote:
+> >>>>> On Wed, Apr 09, 2025 at 12:00:16PM +0200, Jan Beulich wrote:
+> >>>>>> On 09.04.2025 11:07, Roger Pau Monné wrote:
+> >>>>>>> On Tue, Apr 08, 2025 at 03:57:17PM +0200, Jan Beulich wrote:
+> >>>>>>>> On 08.04.2025 11:31, Roger Pau Monne wrote:
+> >>>>>>>>> When running on AMD hardware in HVM mode the guest linear address (GLA)
+> >>>>>>>>> will not be provided to hvm_emulate_one_mmio(), and instead is
+> >>>>>>>>> unconditionally set of ~0.  As a consequence mmio_ro_emulated_write() will
+> >>>>>>>>> always report an error, as the fault GLA generated by the emulation of the
+> >>>>>>>>> access won't be ~0.
+> >>>>>>>>
+> >>>>>>>> Which means subpage_mmio_write_accept() is flawed, too, on AMD (or more
+> >>>>>>>> generally whenever .gla_valid isn't set).
+> >>>>>>>
+> >>>>>>> Oh, yes, good catch.  I didn't notice that one.  We should move all
+> >>>>>>> those checks to use a paddr rather than a gla.
+> >>>>>>
+> >>>>>> Really that function could just be passed the offset into the page.
+> >>>>>>
+> >>>>>>>>> Fix this by only checking for the fault GLA in mmio_ro_emulated_write()
+> >>>>>>>>> when the guest is PV.
+> >>>>>>>>
+> >>>>>>>> This narrows checking too much, imo. For VT-x we could continue to do so,
+> >>>>>>>> provided we pass e.g. npfec down into hvm_emulate_one_mmio(), i.e. make
+> >>>>>>>> the gla_valid flag visible there.
+> >>>>>>>
+> >>>>>>> I don't think we should rely on the gla at all in
+> >>>>>>> mmio_ro_emulated_write(), and instead just use the physical address.
+> >>>>>>
+> >>>>>> But you can't validate a physical address against a CR2 value. And I view
+> >>>>>> this validation as meaningful, to guard (best effort, but still) against
+> >>>>>> e.g. insn re-writing under our feet.
+> >>>>>
+> >>>>> But we have the mfn in mmio_ro_ctxt, and could possibly use that to
+> >>>>> validate?  I could expand the context to include the offset also, so
+> >>>>> that we could fully validate it.
+> >>>>
+> >>>> How would you use the MFN to validate against the VA in CR2?
+> >>>
+> >>> I would use hvmemul_virtual_to_linear()
+> >>
+> >> If you mean to use the CR2 as input, you wouldn't need this. I said VA in
+> >> my earlier reply, yes, but strictly speaking that's a linear address.
+> > 
+> > I was thinking about using the segment and offset parameters of the
+> > mmio_ro_emulated_write() call.
+> > 
+> >>> and hvm_translate_get_page()
+> >>> to get the underlying mfn of the linear address.  But maybe there's a
+> >>> part of this that I'm missing, I've certainly haven't tried to
+> >>> implement any of it.
+> >>
+> >> Hmm, I see. I didn't think of doing it this way round. There's certainly
+> >> at least one caveat with this approach: Multiple linear addresses can all
+> >> map to the same GFN and hence MFN. Checking against the original linear
+> >> address (when available) doesn't have such an issue.
+> > 
+> > I see... Yet for AMD that address is not uniformly available as part
+> > of the vmexit information?
 > 
-> Hi Andrey,
+> Even stronger, I thought: It's uniformly not available.
+
+Oh yes, that's what I meant to say but got the words the other way
+around.
+
+> >  As I understand the checks done in
+> > mmio_ro_emulated_write() are to ensure correctness, but carrying the
+> > access even when the %cr2 check fail wouldn't cause issues to Xen
+> > itself?
 > 
->>> @@ -301,7 +301,7 @@ static int kasan_populate_vmalloc_pte(pte_t *ptep, unsigned long addr,
->>>  	if (likely(!pte_none(ptep_get(ptep))))
->>>  		return 0;
->>>  
->>> -	page = __get_free_page(GFP_KERNEL);
->>> +	page = __get_free_page(GFP_ATOMIC);
->>>  	if (!page)
->>>  		return -ENOMEM;
->>>  
->>
->> I think a better way to fix this would be moving out allocation from atomic context. Allocate page prior
->> to apply_to_page_range() call and pass it down to kasan_populate_vmalloc_pte().
-> 
-> I think the page address could be passed as the parameter to kasan_populate_vmalloc_pte().
+> Well, "wouldn't" is too strong for my taste, "shouldn't" would fit. The
+> checking is there to avoid guests playing games. Whether that prevents
+> merely in-guest just-bugs or actual XSAs we can't know until we find a
+> case where the game playing might make us do something wrong. I expect
+> it's unlikely for Xen itself to be affected. But an in-guest privilege
+> escalation would already be bad enough.
 
-We'll need to pass it as 'struct page **page' or maybe as pointer to some struct, e.g.:
-struct page_data {
- struct page *page;
-};
+I see.  That was kind of my understanding of the checks.  At least on
+HVM it feels a bit weird to handle r/o regions this way.  It would IMO
+be more natural to use an hvm_io_handler, but that's maybe because I'm
+more familiar with those.
 
+And in that regard, hvm_io_handler don't seem to do any of the extra
+checking that mmio_ro_emulated_write() does with the %cr2, but maybe
+that's done by some higher layer?  AFAICT that would ultimately get
+called by hvmemul_read(), and there are no checks there at all.
 
-So, the kasan_populate_vmalloc_pte() would do something like this:
+> So why don't we do the linear address check as we do today (provided a
+> linear address is available), and only use the alternative approach when
+> no linear address is available?
 
-kasan_populate_vmalloc_pte() {
-	if (!pte_none)
-		return 0;
-	if (!page_data->page)
-		return -EAGAIN;
+I can try to do that, albeit as said above, at least for HVM guests
+that checking of %cr2 seems to be quite inconsistent, as
+hvmemul_{read,write}() won't do any of it.
 
-	//use page to set pte
-
-        //NULLify pointer so that next kasan_populate_vmalloc_pte() will bail
-	// out to allocate new page
-	page_data->page = NULL; 
-}
-
-And it might be good idea to add 'last_addr' to page_data, so that we know where we stopped
-so that the next apply_to_page_range() call could continue, instead of starting from the beginning. 
-
-
-> 
->> Whenever kasan_populate_vmalloc_pte() will require additional page we could bail out with -EAGAIN,
->> and allocate another one.
-> 
-> When would it be needed? kasan_populate_vmalloc_pte() handles just one page.
-> 
-
-apply_to_page_range() goes over range of addresses and calls kasan_populate_vmalloc_pte()
-multiple times (each time with different 'addr' but the same '*unused' arg). Things will go wrong
-if you'll use same page multiple times for different addresses.
-
-
-> Thanks!
-
+Thanks, Roger.
 
