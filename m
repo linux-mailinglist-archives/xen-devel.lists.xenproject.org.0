@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A3FAA82D12
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 19:02:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.944456.1342916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EBFAA82D2B
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 19:05:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.944471.1342927 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2YoA-0000Sq-N9; Wed, 09 Apr 2025 17:01:50 +0000
+	id 1u2Yri-0002Dz-5j; Wed, 09 Apr 2025 17:05:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 944456.1342916; Wed, 09 Apr 2025 17:01:50 +0000
+Received: by outflank-mailman (output) from mailman id 944471.1342927; Wed, 09 Apr 2025 17:05:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2YoA-0000R0-KJ; Wed, 09 Apr 2025 17:01:50 +0000
-Received: by outflank-mailman (input) for mailman id 944456;
- Wed, 09 Apr 2025 17:01:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u2Yri-0002Br-2n; Wed, 09 Apr 2025 17:05:30 +0000
+Received: by outflank-mailman (input) for mailman id 944471;
+ Wed, 09 Apr 2025 17:05:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fbf/=W3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u2Yo9-0000Qu-CF
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 17:01:49 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 53336650-1564-11f0-9eab-5ba50f476ded;
- Wed, 09 Apr 2025 19:01:48 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-43cebe06e9eso48708085e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 10:01:48 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f20a303absm18707835e9.1.2025.04.09.10.01.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Apr 2025 10:01:47 -0700 (PDT)
+ <SRS0=np/6=W3=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1u2Yrg-0002Bl-Mg
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 17:05:28 +0000
+Received: from fout-b7-smtp.messagingengine.com
+ (fout-b7-smtp.messagingengine.com [202.12.124.150])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d4ce2ead-1564-11f0-9ffb-bf95429c2676;
+ Wed, 09 Apr 2025 19:05:26 +0200 (CEST)
+Received: from phl-compute-12.internal (phl-compute-12.phl.internal
+ [10.202.2.52])
+ by mailfout.stl.internal (Postfix) with ESMTP id 4E91211401B4;
+ Wed,  9 Apr 2025 13:05:25 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-12.internal (MEProxy); Wed, 09 Apr 2025 13:05:25 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 9 Apr 2025 13:05:23 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +45,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53336650-1564-11f0-9eab-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744218108; x=1744822908; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=i3TrEbMccdsRhbn/idqNe9LKVko5Ekd7qBDhP27PvVY=;
-        b=kM9ML5xSnsjPHqj1RfmBqwinLqbfSV+33cxxvXlyMIEXM9EZhr12i+VBzDAd/awwJ2
-         t4Hc4/xs3rLe3vxhVpzg/uGYTZXS1odtn6gda2hHmFNiDgTohOuF48RjClv3LPvP7Vzz
-         zqqeKXSnyRmSutrEGgfQ/QWYTC79YlwItg3nk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744218108; x=1744822908;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=i3TrEbMccdsRhbn/idqNe9LKVko5Ekd7qBDhP27PvVY=;
-        b=bGiQI2gRv/nelAOB8tTrZD9hQfBHaTXDd4Wczd+lxi+y5GbTTudn53NEuLj1+KKPma
-         lbQFCp7VHbNdCUx/k/y4DMdfRBH4NuBOr8V16dS4wEViI3oirjxewLgt2h391eT9ImUo
-         qI96d4Dj5ClT0BbsBng8HrG0UibETL35blAEDGZbNcqi4Kc9SK2D8gUDFmLsyFv6KRhG
-         dTaBCRs2M0pQTDNOlA4pVQ0WHqSbP5Xbhg01sWFQEZMlG8M/KJshBzwcowjNL3pfgqPB
-         OHxMpvSssDl1sbU2zMIkcuskWYwJIO18iH+K9dPMAZlOP78dC3OPI/Ns6yN8hMZUclcp
-         1UJA==
-X-Gm-Message-State: AOJu0Yyu2VrjanhWbqdH1Ma/u4dZorocIRJxR41fXvXroGfjnzmhWFVF
-	kXS1FYhw0scMRSuX//RziLSWyd5ReUYbopsnkMmPnKTfpI84IojqfSbHFAgUmlJ9XdeznauyV07
-	Z1fY=
-X-Gm-Gg: ASbGncu1aFUa8/cHRhSAI5Gw+qiOZK7gS8NuzBtpgqJrpH/LxzD80hpBB4qMolLG37M
-	rMFeN7CFgzjGaiONYtT3agpXp4bLkGxipDdyG4jl7Gh8eykGqk85gFDlysHDHQ8jX9PFr1iRoF+
-	vLMHvz6MezOt8324I/Z/jnMzhGWVW7HAglHPxElxZPtF7WxSHXJO97bxIfxgxHgiTyfoFnpiZJx
-	fEa3hk/mLamSSJq4L0idPT2drb8jRYcnGAgNF7qIPZRdj6UcZWqdHJ1ELk2tPvBfZQajWiZK8vO
-	jPjyAvy8L4oqxJb7HEr+PbiGYs0O/xIr5C4q42TKnkSCwDAhBKLPcUsKnPmPB/yoWb+DPvwB65O
-	OsVcUzA==
-X-Google-Smtp-Source: AGHT+IFlJXUhbgTo7tOXdmSpEVosJm3bJLBgjMyaaPHFF/OXA3xO85hu3q2+n5zKt8q/o63DMPMnbQ==
-X-Received: by 2002:a05:600c:5107:b0:43c:f8fc:f69a with SMTP id 5b1f17b1804b1-43f1fdbf975mr31372345e9.4.1744218107463;
-        Wed, 09 Apr 2025 10:01:47 -0700 (PDT)
-Message-ID: <828cabc9-512f-4c2f-a7d7-b9c8963c1300@citrix.com>
-Date: Wed, 9 Apr 2025 18:01:46 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH TEST-ARTEFACTS 0/8] Cleanup and Linux ARM64 support
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Anthony PERARD
- <anthony.perard@vates.tech>, Jason Andryuk <jason.andryuk@amd.com>,
- Juergen Gross <jgross@suse.com>
+X-Inumbo-ID: d4ce2ead-1564-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1744218325;
+	 x=1744304725; bh=xx0nHWKHf+Zskp6NtrRD6qV2xV28XOz7LauZoiISX4o=; b=
+	PO7A+DO6qKaEPPcY6Vyj91g/hEt0ebSY24j8tfuCUoVPFelMuMO1LehxBFvRBk8R
+	ydYygaauCfR5aliAQnleQlVMTTNkN44W5tLGPhl7qbGNsUeQDJIYrGjBsHEJKYWc
+	btqSqeCKS98whIoPibOi8CAbwfwlbFDhPGMYXoUuo4Hezkhn8kwW58B4JeqVZBup
+	X4U8tA/vjzJM9La66Lq+Ds/4mMBJxfxHS8vQ9ltFgeljc7n9cgTX614Zk4yvmKYV
+	+vuyBOdskgJrHqwsLiVJ9YTas/IRM8oQhhxOg8jZhDMAmwQZZJ4K2BFuBSp5SkDj
+	PzbiTKLurVSF4EQ1Puu9pQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1744218325; x=1744304725; bh=xx0nHWKHf+Zskp6NtrRD6qV2xV28XOz7Lau
+	ZoiISX4o=; b=PjWdxj02lbLqhRoff+Sd38OcVqi+OQV+96ta37L6cyPZsT1crEh
+	G9wLTLek24wGvnof91JTWZyUM+FscNV32I2RBlVChyzNDp3JYAA7sclr7juPBJuO
+	SuL26lKZDVSExI3PSw6VzKYN4cWgYrP3aSM4dPPk53+RZO+2CbGrxiAJQNupv9vF
+	WRzxyx3KO3BZ6Zf1uRX8X11055qDKQ/Yyza3VcqRy8+UPpwhOOra4Ni044Gqh/Ma
+	BEW1TGS0juNCCAQoiS3a/3AFdO8cL9kgZeAEBWjoY1RtV1of95x96fiTTy9M5k2l
+	0jdysJQR9/YnqQxfOaIoS2/gjmqnbEl+8JQ==
+X-ME-Sender: <xms:1Kj2Z_W4jiu_NZE8tpgqyu2YFn6UeOC1a4ovGSBKGPfG24jMQ1Xubw>
+    <xme:1Kj2Z3n6wgWxuwLr7Y2y0a2l-ILQNiYUBR-cdMgHMxqUmkFZoh4cBQMgGEdS2sgXq
+    CWoAEuaBMrW6Q>
+X-ME-Received: <xmr:1Kj2Z7az-W3MQSWqwfcDdSZmXfm3kLUgEy2EnZjKMmCPAJ9LlkzVwppliMXPG1J_I8ULDmsF6AjQPHzzlrtMIcyUP_pmcX4Tqg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtdeiheehucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepieeluddvkeejueekhfffteegfeeiffefjeejvdeijedvgfejhe
+    etuddvkeffudeinecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghr
+    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeeipdhmohgu
+    vgepshhmthhpohhuthdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghith
+    hrihigrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhp
+    rhhojhgvtghtrdhorhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrd
+    gtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhr
+    tghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgurdgtohhmpdhrtghpthhtoheprg
+    hnthhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthh
+X-ME-Proxy: <xmx:1Kj2Z6V0cu-0co0WQyKokvWWKYcictAjDg9hWT5okLaM_GXXwzLjRQ>
+    <xmx:1Kj2Z5ms56I7GUfySTI5hNLlIzvvya1S2WQwD5_ktE9tesZSUKcb5A>
+    <xmx:1Kj2Z3ePqM27srt6RJQHbriIhens1bwg_SZW4LcYM0B11dOeAntJsw>
+    <xmx:1Kj2ZzGR--ePWGPD5XrnLBlPYCcKNy8GfRVEYUZK481_QfEBDPupAg>
+    <xmx:1aj2ZxXDUOzycjES_6AKnPpHkMeh5Ct3DSxKMYwBKB2VnFQSGJANzp1o>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 9 Apr 2025 19:05:21 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: Re: [PATCH 6/8] Factor our x86-isms in the linux build script
+Message-ID: <Z_ao0d530OwAUqGW@mail-itl>
 References: <20250409163702.2037301-1-andrew.cooper3@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250409163702.2037301-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <20250409163702.2037301-7-andrew.cooper3@citrix.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="W86cjPxvxVxLs5Mx"
+Content-Disposition: inline
+In-Reply-To: <20250409163702.2037301-7-andrew.cooper3@citrix.com>
 
-On 09/04/2025 5:36 pm, Andrew Cooper wrote:
-> Various bits of cleanup, and support for arm64 Linux builds.
->
-> Run using the new Linux 6.6.86 on (most) x86, and ARM64:
->   https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1760667411
 
-Lovely, Linux 6.6.86 is broken for x86 PVH.  It triple faults very early on.
+--W86cjPxvxVxLs5Mx
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 9 Apr 2025 19:05:21 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: Re: [PATCH 6/8] Factor our x86-isms in the linux build script
 
-Sample log:
-https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/9673797450
+On Wed, Apr 09, 2025 at 05:37:00PM +0100, Andrew Cooper wrote:
+> ... in preparation to use it for arm64 too.  Rename the script.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I guess we'll have to stay on 6.6.56 for now.  (Only affects the final
-patch.)
+Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
+om>
+> ---
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> ---
+>  .gitlab-ci.yml                                |  3 +-
+>  ...{x86_64-kernel-linux.sh =3D> build-linux.sh} | 34 +++++++++++++------
+>  2 files changed, 24 insertions(+), 13 deletions(-)
+>  rename scripts/{x86_64-kernel-linux.sh =3D> build-linux.sh} (55%)
+>=20
+> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+> index 5a0a853e551d..ff8dce7be05d 100644
+> --- a/.gitlab-ci.yml
+> +++ b/.gitlab-ci.yml
+> @@ -31,8 +31,7 @@ stages:
+>  #
+>  x86_64-kernel-linux-6.6.56:
+>    extends: .x86_64-artifacts
+> -  script:
+> -    - . scripts/x86_64-kernel-linux.sh
+> +  script: ./scripts/build-linux.sh
+>    variables:
+>      LINUX_VERSION: 6.6.56
+> =20
+> diff --git a/scripts/x86_64-kernel-linux.sh b/scripts/build-linux.sh
+> similarity index 55%
+> rename from scripts/x86_64-kernel-linux.sh
+> rename to scripts/build-linux.sh
+> index 5a0160655bea..5e25e958c0f3 100755
+> --- a/scripts/x86_64-kernel-linux.sh
+> +++ b/scripts/build-linux.sh
+> @@ -9,6 +9,7 @@ set -ex -o pipefail
+> =20
+>  WORKDIR=3D"${PWD}"
+>  COPYDIR=3D"${WORKDIR}/binaries/"
+> +UNAME=3D$(uname -m)
+> =20
+>  # Build Linux
+>  MAJOR=3D${LINUX_VERSION%%.*}
+> @@ -16,17 +17,28 @@ curl -fsSLO \
+>      https://cdn.kernel.org/pub/linux/kernel/v"${MAJOR}".x/linux-"${LINUX=
+_VERSION}".tar.xz
+>  tar oxf linux-"${LINUX_VERSION}".tar.xz
+>  cd linux-"${LINUX_VERSION}"
+> -make ARCH=3Dx86 defconfig
+> -make ARCH=3Dx86 xen.config
+> +
+> +make defconfig
+>  ./scripts/config --enable BRIDGE
+>  ./scripts/config --enable IGC
+>  ./scripts/config --enable TUN
+> -cp .config .config.orig
+> -cat .config.orig \
+> -    | grep 'XEN' \
+> -    | grep '=3Dm' \
+> -    | sed 's/=3Dm/=3Dy/g' \
+> -    >> .config
+> -make ARCH=3Dx86 olddefconfig
+> -make -s -j "$(nproc)" ARCH=3Dx86
+> -cp arch/x86/boot/bzImage "${COPYDIR}"
+> +
+> +case $UNAME in
+> +    x86_64)
+> +        make xen.config
+> +        cp .config .config.orig
+> +        cat .config.orig \
+> +            | grep 'XEN' \
+> +            | grep '=3Dm' \
+> +            | sed 's/=3Dm/=3Dy/g' >> .config
+> +        ;;
+> +esac
+> +
+> +make olddefconfig
+> +
+> +case $UNAME in
+> +    x86_64)
+> +        make -j$(nproc) bzImage
+> +        cp arch/x86/boot/bzImage "${COPYDIR}"
+> +        ;;
+> +esac
+> --=20
+> 2.39.5
+>=20
 
-~Andrew
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--W86cjPxvxVxLs5Mx
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmf2qNEACgkQ24/THMrX
+1yxmswgAgUXcg2pbwLf6EQ8CVuwZoFadWbi2nksXxuBs88rR+ACpatjEaXcQoLGi
+e2Mu9BOo+lGoc4gfN7Uoysa9Gnh12sZEbgW1K6eBVvETCe96DMC8O4pDWLzIYXbo
+z4koPYK1GEylQnKzxG8PmkCMYCJnedqcgwZMPOo+jdxitUJfllrSI8qnM7ujT2Ha
+ouck+6Qe0m90PTEhQrdz/4worrfGAJz3vxGyZVKVgk+tkwBZHWxn2aPFlcQQIfGz
+5b/12gEyCBc4t0IR7RCWGOrp3U8dtjUIu3fZUDW6+37pCS5tM8wn4WmYV+HOmWhF
+cZutksf28EwqarhIqMXIB1rzmPD6sQ==
+=qOfE
+-----END PGP SIGNATURE-----
+
+--W86cjPxvxVxLs5Mx--
 
