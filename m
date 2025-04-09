@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E12DFA820A0
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 10:58:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.943645.1342323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5747AA820B1
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 11:06:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.943659.1342332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2RFt-0004oL-1Z; Wed, 09 Apr 2025 08:57:57 +0000
+	id 1u2ROG-0007l6-SV; Wed, 09 Apr 2025 09:06:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 943645.1342323; Wed, 09 Apr 2025 08:57:57 +0000
+Received: by outflank-mailman (output) from mailman id 943659.1342332; Wed, 09 Apr 2025 09:06:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2RFs-0004mr-VA; Wed, 09 Apr 2025 08:57:56 +0000
-Received: by outflank-mailman (input) for mailman id 943645;
- Wed, 09 Apr 2025 08:57:55 +0000
+	id 1u2ROG-0007jV-PI; Wed, 09 Apr 2025 09:06:36 +0000
+Received: by outflank-mailman (input) for mailman id 943659;
+ Wed, 09 Apr 2025 09:06:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1psM=W3=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1u2RFr-0004ml-JM
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 08:57:55 +0000
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [2607:f8b0:4864:20::22c])
+ <SRS0=pLOg=W3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u2ROF-0007jP-UZ
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 09:06:36 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b54561c3-1520-11f0-9ffb-bf95429c2676;
- Wed, 09 Apr 2025 10:57:48 +0200 (CEST)
-Received: by mail-oi1-x22c.google.com with SMTP id
- 5614622812f47-3f94b7bd964so4134634b6e.1
- for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 01:57:48 -0700 (PDT)
+ id ee82b6d1-1521-11f0-9ffb-bf95429c2676;
+ Wed, 09 Apr 2025 11:06:32 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-ac7bd86f637so102443066b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 02:06:33 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acaa1bee20asm60870866b.73.2025.04.09.02.06.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Apr 2025 02:06:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,231 +45,366 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b54561c3-1520-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: ee82b6d1-1521-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1744189067; x=1744793867; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1744189593; x=1744794393; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+3ywWvIwQq+ipvE0c3NvvVQAwDl/6TI7v4y7Q8XiRtY=;
-        b=JWhi+HWq/Vlws2MM4xNCql6UPXDriLmCnzqRsv77g//2h7o9fko292L3v+FtnNM2T7
-         Oc8aU7D9kCLlnhwFqCbvrGofV9/0lMPGQAY5i0IZMoFtUMxxLYxRbipyQSuN59u8e7Qj
-         chVB+JcBrDuCibS4SWSh8wDrs6twmNPXT8UcY=
+        bh=TSFfbL2L6mXYxrY/TGHW3ERtOMRqs8QMomzKjfXajuo=;
+        b=aMrtjWiB2ijp94zDsz9xlfEjbsFyAyRtAlGWxU738vZJXsTLVFaXuoi528W0emBxb8
+         KmD2Zd30Ns4hmm+daXCRNJj6u9bnXTisKIeiAabYH+7vnVohcV+KJkSHdCxNu44p0ySB
+         k5hnVFXzwAlWkKbUnNuEEFKR3OVydtgX9hVGm/Xo4UsSP2OM5dxDKhNLaM8b5xtEY2fZ
+         10bedvibWijzeT3wzdaIijRO6w/u1Vbwnlf7Z3n72D9MRKQHnjEyq66pVTPlLZHfoHIH
+         Ym93XICm6JtRZ0IPI7Ee6MxXr6G8OFuLV51KIinFsR4pUO3TTdkexEFy0gQqUcYjSmF+
+         zOCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744189067; x=1744793867;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=+3ywWvIwQq+ipvE0c3NvvVQAwDl/6TI7v4y7Q8XiRtY=;
-        b=F7aSiYJZ+HUFczslHKfnEh4Eys7QQvr+QOWRHrnkl+dBsKKzIJgbFNhM5idJoHG+bQ
-         1jDpMQCJvxitsByw9tafnFm3KlFGlcqm0PLXqMfILcA4NFGuxP2/qRMUFh1k3ieIpU+7
-         kqgNiJLhRHOQYnNPVWeI4VnTb/x4+MIqt38mOhp8Rf9t9BjBr7ioqXtWKlzAkJ5wV5/4
-         vfXne9ZxxD20W3O0sNFjOAaJTLt4ePhJxMxbNiK3zAKGGwwR4JdaI2DibbE2fKBM/hek
-         TrPLfzvHlORXsJaU89GVeh046oqhRm1KLtgoLgP8f292hsPk+FCn299bFd9lLOslU+nr
-         PGPw==
-X-Gm-Message-State: AOJu0YyS26WMqQobX743GbPegCWSfEP2KR5fxsY03ZyEEWPw5Z2tg/fo
-	jl/oENKog+Cb1wDFAPKzq3zYXSohHT86JFh3M9Vje1mMVdrE8S50Fu+82JDAX/BjlSv5yvVjUIu
-	d1W0a/Jyzroq5O+YK3mdXha+83HcV8pdQ/8m/xRk7KGJaoZVFDms=
-X-Gm-Gg: ASbGncuOrAICLBdGthkULBWHEnW8z+DjTwTmxGF9VYj0KcJCZr1DueHW+Ct8F7mnIPZ
-	ZiJ6XRW584FYWduhosgLxkV6KyDludN0PHpNvcIvSwdtCBSjZ4Ocg5D+LESlPDVhqLEU6fbY1F3
-	KPQ4idRPSaSsPVVQO18trIrQ==
-X-Google-Smtp-Source: AGHT+IHR651bSbgRsrgI4pqhW4FJ2gBp7vsB8vRUUplQkk3pN57W4A2L/ufvRxL6KIFYTuzEWQqltuyOfqc4R/egQjA=
-X-Received: by 2002:a05:6808:159a:b0:3f7:c2f9:43f4 with SMTP id
- 5614622812f47-400736d9b1fmr1093067b6e.18.1744189066898; Wed, 09 Apr 2025
- 01:57:46 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1744189593; x=1744794393;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=TSFfbL2L6mXYxrY/TGHW3ERtOMRqs8QMomzKjfXajuo=;
+        b=fJOynXGNGQ9lMCfhcCZBhVMhuTBz37DhBJFhNwtIeAVlldzVirjjZHICMV42/Pe5ZS
+         NAjzh418xydi9CAFbjN1UgK/ma9lWKXmn5wr/wf6IZGX5OVJMddpekZiJbI6Gk51L8N+
+         YORW7iaPu/xXTTaBweb2pqGFZorAWGmq1an/gamCC84PBwyILBF1un4IsYONgp9c9Cb/
+         4sovWpkzXSIEC8IjJIENtkcftUDZYdSeyvZ42zI6Cn+usnUZwvA1T6yK/jWjjZxvH2uL
+         xYF4iiQEbYqRrficM+cvyQVJavIfqfmfptq7TILG3/Vkdji7ogolUsIx5J3dLVzcN4wV
+         nuDg==
+X-Forwarded-Encrypted: i=1; AJvYcCWdt1aTda0Q5tM85+WjnslRfaHQGJDP8XzkGoZ77PzVUuDFsmAyXVJd7evvYH2EzrJjpEtEgWTYSN0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzwBy8Kgz4wozY+zWX/Q9KGcT1KePDvB5LrmbELruez/0yDavTn
+	lZYKqJj4IXTEvGfJ1wEuPZIc8ks5c7JKwqVRyqaKxZQRoi6FdsKN
+X-Gm-Gg: ASbGncs5zMugJ/jEFXD3d8+8at8/8Y6T1hlGY0yzwjJoKRDtv/scdoGbW9JGJiHvhta
+	MNnCUM0I0r0Xk+yujxLIdL2x4rfK/q/mRB6VeWErmbi/xHnm4eBpcqkUsfEqKNXCsiCAUTLudio
+	oafkRt/1FIyQcZW5mJW58dWWy7mREgNqWEdxyPQ2SKhvJoHGNENtyyDmckjYkqW6fpebCQDW3hp
+	x/xevG5DvlK2kR/myjG/7pwtv+knuR82TW1vTiDUmJeRZiXqcEeybcBnroIIiVG8uIu8GfRDcJo
+	/Jw3VdTUeZCffvdawqhCxRMrfCKIwx2IMQ6I/gYA7RP/J/7hxGk3IrTEKzgzX+HYNfWOwI7mxwO
+	g7SxGzPdx/3hRfjPHMvfMUrB2iRw=
+X-Google-Smtp-Source: AGHT+IHf28Yjg8ZUP00aNbQzM8e/DV4aunjLfvCJ+4qqbtht+pmQgVoN0fdeAsaRe+67xW1AUvO/EA==
+X-Received: by 2002:a17:907:c1d:b0:ac7:b494:8c0c with SMTP id a640c23a62f3a-ac81a68be24mr598161966b.16.1744189592215;
+        Wed, 09 Apr 2025 02:06:32 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------3VbIvQuZ34doO0coDiX8W00t"
+Message-ID: <3bd6cdb7-8de0-4559-bc56-b20c52fd73db@gmail.com>
+Date: Wed, 9 Apr 2025 11:06:30 +0200
 MIME-Version: 1.0
-References: <20250321103258.37425-1-frediano.ziglio@cloud.com>
-In-Reply-To: <20250321103258.37425-1-frediano.ziglio@cloud.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Wed, 9 Apr 2025 09:57:35 +0100
-X-Gm-Features: ATxdqUHazeVxPOaWT4Q-gDvp5YdSftndRcnsI8J3YN_nAXgE0m5CnMjZFY7mza4
-Message-ID: <CACHz=Zgtcbd0P0Pp7p1mAMA4ivbdELn4BUUaP_VdWwXdkhiuWw@mail.gmail.com>
-Subject: Re: [PATCH v7] Avoid crash calling PrintErrMesg from efi_multiboot2
-To: xen-devel@lists.xenproject.org
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] xen/riscv: Increase XEN_VIRT_SIZE
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <808d1b346bc90dde38fd19a6b92ab78d78e42936.1743766932.git.oleksii.kurochko@gmail.com>
+ <e5f6ccb3-498f-44cf-8c06-61fa502d93db@suse.com>
+ <f35a9969-6154-4e9a-b997-16ca135e85ee@gmail.com>
+ <8b2e50f2-1f89-41df-be88-afc9ef24b51a@suse.com>
+ <c3b1be9a-d5f5-4cac-a675-7485a99bf51c@gmail.com>
+ <fde6c1c2-c439-4020-9301-025b7e8af804@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <fde6c1c2-c439-4020-9301-025b7e8af804@suse.com>
 
-ping
+This is a multi-part message in MIME format.
+--------------3VbIvQuZ34doO0coDiX8W00t
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Mar 21, 2025 at 10:33=E2=80=AFAM Frediano Ziglio
-<frediano.ziglio@cloud.com> wrote:
+
+On 4/8/25 4:04 PM, Jan Beulich wrote:
+> On 08.04.2025 15:46, Oleksii Kurochko wrote:
+>> On 4/8/25 2:02 PM, Jan Beulich wrote:
+>>> On 08.04.2025 13:51, Oleksii Kurochko wrote:
+>>>> On 4/7/25 12:09 PM, Jan Beulich wrote:
+>>>>> On 04.04.2025 18:04, Oleksii Kurochko wrote:
+>>>>>> --- a/xen/arch/riscv/include/asm/mm.h
+>>>>>> +++ b/xen/arch/riscv/include/asm/mm.h
+>>>>>> @@ -43,13 +43,19 @@ static inline void *maddr_to_virt(paddr_t ma)
+>>>>>>      */
+>>>>>>     static inline unsigned long virt_to_maddr(unsigned long va)
+>>>>>>     {
+>>>>>> +    const unsigned int vpn1_shift = PAGETABLE_ORDER + PAGE_SHIFT;
+>>>>>> +    const unsigned long va_vpn = va >> vpn1_shift;
+>>>>>> +    const unsigned long xen_virt_start_vpn =
+>>>>>> +        _AC(XEN_VIRT_START, UL) >> vpn1_shift;
+>>>>>> +    const unsigned long xen_virt_end_vpn =
+>>>>>> +        xen_virt_start_vpn + ((XEN_VIRT_SIZE >> vpn1_shift) - 1);
+>>>>>> +
+>>>>>>         if ((va >= DIRECTMAP_VIRT_START) &&
+>>>>>>             (va <= DIRECTMAP_VIRT_END))
+>>>>>>             return directmapoff_to_maddr(va - directmap_virt_start);
+>>>>>>     
+>>>>>> -    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
+>>>>>> -    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
+>>>>>> -           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
+>>>>>> +    BUILD_BUG_ON(XEN_VIRT_SIZE > GB(1));
+>>>>>> +    ASSERT((va_vpn >= xen_virt_start_vpn) && (va_vpn <= xen_virt_end_vpn));
+>>>>> Not all of the range is backed by memory, and for the excess space the
+>>>>> translation is therefore (likely) wrong. Which better would be caught by
+>>>>> the assertion?
+>>>> Backed here means that the memory is actually mapped?
+>>>>
+>>>> IIUC it is needed to check only for the range [XEN_VIRT_START, XEN_VIRT_START+xen_phys_size]
+>>>> where xen_phys_size=(unsigned long)_end - (unsigned long)_start.
+>>>>
+>>>> Did I understand you correctly?
+>>> I think so, yes. Depending on what you (intend to) do to .init.* at the
+>>> end of boot, that range may later also want excluding.
+>> I planned to release everything between __init_begin and __init_end in the following way:
+>>     destroy_xen_mappings((unsigned long)__init_begin, (unsigned long)__init_end);
+>>
+>> So yes, then I think I have to come up with new ASSERT, add is_init_memory_freed variable and
+>> if is_init_memory_freed=true then also check that `va` isn't from .init.* range.
+>>
+>> But I'm not quire sure that mapping for .got* should be destroyed after the end of boot. (now it is
+>> part of [__init_begin,__init_end] range.
+> Isn't this a non-issue considering
 >
-> Although code is compiled with -fpic option data is not position
-> independent. This causes data pointer to become invalid if
-> code is not relocated properly which is what happens for
-> efi_multiboot2 which is called by multiboot entry code.
+> ASSERT(!SIZEOF(.got),      ".got non-empty")
+> ASSERT(!SIZEOF(.got.plt),  ".got.plt non-empty")
 >
-> Code tested adding
->    PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
-> in efi_multiboot2 before calling efi_arch_edd (this function
-> can potentially call PrintErrMesg).
+> near the bottom of xen.lds.S?
+
+I forgot about that|ASSERT()|, so it's expected that|.got*| isn't used in Xen anyway.
+Therefore, it shouldn't be an issue to destroy the mapping for the|[__init_begin, __init_end]| range.
+
 >
-> Before the patch (XenServer installation on Qemu, xen replaced
-> with vanilla xen.gz):
->   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
->   Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Apic =
-ID - 00000000 !!!!
->   ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
->   RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 0000000000210=
-246
->   RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 0000000000000010
->   RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 000000007FF0C210
->   RSI  - FFFF82D040467CE8, RDI - 0000000000000000
->   R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 0000000000000000
->   R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 000000007FF0C1B8
->   R14  - 000000007EA33328, R15 - 000000007EA332D8
->   DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000000000030
->   GS   - 0000000000000030, SS  - 0000000000000030
->   CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 000000007FC01000
->   CR4  - 0000000000000668, CR8 - 0000000000000000
->   DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000000000000
->   DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000000000400
->   GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000000
->   IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000000
->   FXSAVE_STATE - 000000007FF0BDE0
->   !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=3D00000000=
-7EE20000, EntryPoint=3D000000007EE23935) !!!!
->
-> After the patch:
->   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
->   Test message: Buffer too small
->   BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF=
-6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
->   BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4A=
-F6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
->
-> This partially rollback commit 00d5d5ce23e6.
->
-> Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI platfo=
-rms")
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
-> Changes since v1:
-> - added "Fixes:" tag;
-> - fixed cast style change.
->
-> Changes since v2:
-> - wrap long line.
->
-> Changes since v3:
-> - fixed "Fixes:" tag.
->
-> Changes since v4:
-> - use switch instead of tables.
->
-> Changes since v5:
-> - added -fno-jump-tables option.
->
-> Changes since v6:
-> - rebased.
-> ---
->  xen/common/efi/boot.c        | 58 ++++++++++++++++++++++++------------
->  xen/common/efi/efi-common.mk |  1 +
->  2 files changed, 40 insertions(+), 19 deletions(-)
->
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index efbec00af9..143b5681ba 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -287,33 +287,53 @@ static bool __init match_guid(const EFI_GUID *guid1=
-, const EFI_GUID *guid2)
->  /* generic routine for printing error messages */
->  static void __init PrintErrMesg(const CHAR16 *mesg, EFI_STATUS ErrCode)
->  {
-> -    static const CHAR16* const ErrCodeToStr[] __initconstrel =3D {
-> -        [~EFI_ERROR_MASK & EFI_NOT_FOUND]           =3D L"Not found",
-> -        [~EFI_ERROR_MASK & EFI_NO_MEDIA]            =3D L"The device has=
- no media",
-> -        [~EFI_ERROR_MASK & EFI_MEDIA_CHANGED]       =3D L"Media changed"=
-,
-> -        [~EFI_ERROR_MASK & EFI_DEVICE_ERROR]        =3D L"Device error",
-> -        [~EFI_ERROR_MASK & EFI_VOLUME_CORRUPTED]    =3D L"Volume corrupt=
-ed",
-> -        [~EFI_ERROR_MASK & EFI_ACCESS_DENIED]       =3D L"Access denied"=
-,
-> -        [~EFI_ERROR_MASK & EFI_OUT_OF_RESOURCES]    =3D L"Out of resourc=
-es",
-> -        [~EFI_ERROR_MASK & EFI_VOLUME_FULL]         =3D L"Volume is full=
-",
-> -        [~EFI_ERROR_MASK & EFI_SECURITY_VIOLATION]  =3D L"Security viola=
-tion",
-> -        [~EFI_ERROR_MASK & EFI_CRC_ERROR]           =3D L"CRC error",
-> -        [~EFI_ERROR_MASK & EFI_COMPROMISED_DATA]    =3D L"Compromised da=
-ta",
-> -        [~EFI_ERROR_MASK & EFI_BUFFER_TOO_SMALL]    =3D L"Buffer too sma=
-ll",
-> -    };
-> -    EFI_STATUS ErrIdx =3D ErrCode & ~EFI_ERROR_MASK;
-> -
->      StdOut =3D StdErr;
->      PrintErr(mesg);
->      PrintErr(L": ");
->
-> -    if( (ErrIdx < ARRAY_SIZE(ErrCodeToStr)) && ErrCodeToStr[ErrIdx] )
-> -        mesg =3D ErrCodeToStr[ErrIdx];
-> -    else
-> +    switch (ErrCode)
->      {
-> +    case EFI_NOT_FOUND:
-> +        mesg =3D L"Not found";
-> +        break;
-> +    case EFI_NO_MEDIA:
-> +        mesg =3D L"The device has no media";
-> +        break;
-> +    case EFI_MEDIA_CHANGED:
-> +        mesg =3D L"Media changed";
-> +        break;
-> +    case EFI_DEVICE_ERROR:
-> +        mesg =3D L"Device error";
-> +        break;
-> +    case EFI_VOLUME_CORRUPTED:
-> +        mesg =3D L"Volume corrupted";
-> +        break;
-> +    case EFI_ACCESS_DENIED:
-> +        mesg =3D L"Access denied";
-> +        break;
-> +    case EFI_OUT_OF_RESOURCES:
-> +        mesg =3D L"Out of resources";
-> +        break;
-> +    case EFI_VOLUME_FULL:
-> +        mesg =3D L"Volume is full";
-> +        break;
-> +    case EFI_SECURITY_VIOLATION:
-> +        mesg =3D L"Security violation";
-> +        break;
-> +    case EFI_CRC_ERROR:
-> +        mesg =3D L"CRC error";
-> +        break;
-> +    case EFI_COMPROMISED_DATA:
-> +        mesg =3D L"Compromised data";
-> +        break;
-> +    case EFI_BUFFER_TOO_SMALL:
-> +        mesg =3D L"Buffer too small";
-> +        break;
-> +    default:
->          PrintErr(L"ErrCode: ");
->          DisplayUint(ErrCode, 0);
->          mesg =3D NULL;
-> +        break;
->      }
->      blexit(mesg);
->  }
-> diff --git a/xen/common/efi/efi-common.mk b/xen/common/efi/efi-common.mk
-> index 23cafcf20c..06b1c19674 100644
-> --- a/xen/common/efi/efi-common.mk
-> +++ b/xen/common/efi/efi-common.mk
-> @@ -2,6 +2,7 @@ EFIOBJ-y :=3D boot.init.o pe.init.o ebmalloc.o runtime.o
->  EFIOBJ-$(CONFIG_COMPAT) +=3D compat.o
->
->  CFLAGS-y +=3D -fshort-wchar
-> +CFLAGS-y +=3D -fno-jump-tables
->  CFLAGS-y +=3D -iquote $(srctree)/common/efi
->  CFLAGS-y +=3D -iquote $(srcdir)
->
-> --
-> 2.43.0
->
+>>>>>> --- a/xen/arch/riscv/mm.c
+>>>>>> +++ b/xen/arch/riscv/mm.c
+>>>>>> @@ -31,20 +31,27 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
+>>>>>>     #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
+>>>>>>     
+>>>>>>     /*
+>>>>>> - * It is expected that Xen won't be more then 2 MB.
+>>>>>> + * It is expected that Xen won't be more then XEN_VIRT_SIZE MB.
+>>>>>>      * The check in xen.lds.S guarantees that.
+>>>>>> - * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
+>>>>>> - * One for each page level table with PAGE_SIZE = 4 Kb.
+>>>>>>      *
+>>>>>> - * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
+>>>>>> + * Root page table is shared with the initial mapping and is declared
+>>>>>> + * separetely. (look at stage1_pgtbl_root)
+>>>>>>      *
+>>>>>> - * It might be needed one more page table in case when Xen load address
+>>>>>> - * isn't 2 MB aligned.
+>>>>>> + * An amount of page tables between root page table and L0 page table
+>>>>>> + * (in the case of Sv39 it covers L1 table):
+>>>>>> + *   (CONFIG_PAGING_LEVELS - 2) are needed for an identity mapping and
+>>>>>> + *   the same amount are needed for Xen.
+>>>>>>      *
+>>>>>> - * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
+>>>>>> - * except that the root page table is shared with the initial mapping
+>>>>>> + * An amount of L0 page tables:
+>>>>>> + *   (512 entries of one L0 page table covers 2MB == 1<<XEN_PT_LEVEL_SHIFT(1))
+>>>>>> + *   XEN_VIRT_SIZE >> XEN_PT_LEVEL_SHIFT(1) are needed for Xen and
+>>>>>> + *   one L0 is needed for indenity mapping.
+>>>>>> + *
+>>>>>> + *   It might be needed one more page table in case when Xen load
+>>>>>> + *   address isn't 2 MB aligned.
+>>>>> Shouldn't we guarantee that?
+>>>> I think it's sufficient to guarantee 4KB alignment.
+>>>>
+>>>> The only real benefit I see in enforcing larger alignment is that it likely enables
+>>>> the use of superpages for mapping, which would reduce TLB pressure.
+>>>> But perhaps I'm missing something?
+>>> No, it's indeed mainly that.
+>> But then the linker address and the load address should both be aligned to a 2MB or 1GB boundary.
+>> This likely isn't an issue at all, but could it be a problem if we require 1GB alignment for the
+>> load address? In that case, might it be difficult for the platform to find a suitable place in
+>> memory to load Xen for some reason? (I don't think so but maybe I'm missing something)
+> Why would load address need to be 1Gb aligned? That (as well as 2Mb-)alignment
+> matters only once you set up paging?
+
+Mostly yes, it matters only once during paging set up.
+
+I was thinking that if, one day, 2MB (or larger) alignment is used and the load address isn't
+properly aligned, some space in a page might be lost.
+(The word "should" above wasn't entirely accurate.)
+
+But this likely isn't a big deal and can be safely ignored.
+
+~ Oleksii
+
+
+--------------3VbIvQuZ34doO0coDiX8W00t
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/8/25 4:04 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:fde6c1c2-c439-4020-9301-025b7e8af804@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 08.04.2025 15:46, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 4/8/25 2:02 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 08.04.2025 13:51, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 4/7/25 12:09 PM, Jan Beulich wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">On 04.04.2025 18:04, Oleksii Kurochko wrote:
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/mm.h
++++ b/xen/arch/riscv/include/asm/mm.h
+@@ -43,13 +43,19 @@ static inline void *maddr_to_virt(paddr_t ma)
+    */
+   static inline unsigned long virt_to_maddr(unsigned long va)
+   {
++    const unsigned int vpn1_shift = PAGETABLE_ORDER + PAGE_SHIFT;
++    const unsigned long va_vpn = va &gt;&gt; vpn1_shift;
++    const unsigned long xen_virt_start_vpn =
++        _AC(XEN_VIRT_START, UL) &gt;&gt; vpn1_shift;
++    const unsigned long xen_virt_end_vpn =
++        xen_virt_start_vpn + ((XEN_VIRT_SIZE &gt;&gt; vpn1_shift) - 1);
++
+       if ((va &gt;= DIRECTMAP_VIRT_START) &amp;&amp;
+           (va &lt;= DIRECTMAP_VIRT_END))
+           return directmapoff_to_maddr(va - directmap_virt_start);
+   
+-    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
+-    ASSERT((va &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)) ==
+-           (_AC(XEN_VIRT_START, UL) &gt;&gt; (PAGETABLE_ORDER + PAGE_SHIFT)));
++    BUILD_BUG_ON(XEN_VIRT_SIZE &gt; GB(1));
++    ASSERT((va_vpn &gt;= xen_virt_start_vpn) &amp;&amp; (va_vpn &lt;= xen_virt_end_vpn));
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">Not all of the range is backed by memory, and for the excess space the
+translation is therefore (likely) wrong. Which better would be caught by
+the assertion?
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">Backed here means that the memory is actually mapped?
+
+IIUC it is needed to check only for the range [XEN_VIRT_START, XEN_VIRT_START+xen_phys_size]
+where xen_phys_size=(unsigned long)_end - (unsigned long)_start.
+
+Did I understand you correctly?
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">I think so, yes. Depending on what you (intend to) do to .init.* at the
+end of boot, that range may later also want excluding.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+I planned to release everything between __init_begin and __init_end in the following way:
+   destroy_xen_mappings((unsigned long)__init_begin, (unsigned long)__init_end);
+
+So yes, then I think I have to come up with new ASSERT, add is_init_memory_freed variable and
+if is_init_memory_freed=true then also check that `va` isn't from .init.* range.
+
+But I'm not quire sure that mapping for .got* should be destroyed after the end of boot. (now it is
+part of [__init_begin,__init_end] range.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Isn't this a non-issue considering
+
+ASSERT(!SIZEOF(.got),      ".got non-empty")
+ASSERT(!SIZEOF(.got.plt),  ".got.plt non-empty")
+
+near the bottom of xen.lds.S?</pre>
+    </blockquote>
+    <pre>I forgot about that <code data-start="82" data-end="92">ASSERT()</code>, so it's expected that <code
+    data-start="116" data-end="123">.got*</code> isn't used in Xen anyway.
+Therefore, it shouldn't be an issue to destroy the mapping for the <code
+    data-start="217" data-end="245">[__init_begin, __init_end]</code> range.
+</pre>
+    <blockquote type="cite"
+      cite="mid:fde6c1c2-c439-4020-9301-025b7e8af804@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/mm.c
++++ b/xen/arch/riscv/mm.c
+@@ -31,20 +31,27 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
+   #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
+   
+   /*
+- * It is expected that Xen won't be more then 2 MB.
++ * It is expected that Xen won't be more then XEN_VIRT_SIZE MB.
+    * The check in xen.lds.S guarantees that.
+- * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
+- * One for each page level table with PAGE_SIZE = 4 Kb.
+    *
+- * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
++ * Root page table is shared with the initial mapping and is declared
++ * separetely. (look at stage1_pgtbl_root)
+    *
+- * It might be needed one more page table in case when Xen load address
+- * isn't 2 MB aligned.
++ * An amount of page tables between root page table and L0 page table
++ * (in the case of Sv39 it covers L1 table):
++ *   (CONFIG_PAGING_LEVELS - 2) are needed for an identity mapping and
++ *   the same amount are needed for Xen.
+    *
+- * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
+- * except that the root page table is shared with the initial mapping
++ * An amount of L0 page tables:
++ *   (512 entries of one L0 page table covers 2MB == 1&lt;&lt;XEN_PT_LEVEL_SHIFT(1))
++ *   XEN_VIRT_SIZE &gt;&gt; XEN_PT_LEVEL_SHIFT(1) are needed for Xen and
++ *   one L0 is needed for indenity mapping.
++ *
++ *   It might be needed one more page table in case when Xen load
++ *   address isn't 2 MB aligned.
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">Shouldn't we guarantee that?
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">I think it's sufficient to guarantee 4KB alignment.
+
+The only real benefit I see in enforcing larger alignment is that it likely enables
+the use of superpages for mapping, which would reduce TLB pressure.
+But perhaps I'm missing something?
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">No, it's indeed mainly that.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+But then the linker address and the load address should both be aligned to a 2MB or 1GB boundary.
+This likely isn't an issue at all, but could it be a problem if we require 1GB alignment for the
+load address? In that case, might it be difficult for the platform to find a suitable place in
+memory to load Xen for some reason? (I don't think so but maybe I'm missing something)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Why would load address need to be 1Gb aligned? That (as well as 2Mb-)alignment
+matters only once you set up paging?
+</pre>
+    </blockquote>
+    <pre>Mostly yes, it matters only once during paging set up.
+
+I was thinking that if, one day, 2MB (or larger) alignment is used and the load address isn't
+properly aligned, some space in a page might be lost.
+(The word "should" above wasn't entirely accurate.)
+
+But this likely isn't a big deal and can be safely ignored.
+
+~ Oleksii</pre>
+    <br>
+  </body>
+</html>
+
+--------------3VbIvQuZ34doO0coDiX8W00t--
 
