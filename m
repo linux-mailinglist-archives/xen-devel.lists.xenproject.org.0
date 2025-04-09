@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7118CA82D6B
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 19:16:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.944522.1342967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31795A82D79
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 19:18:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.944538.1342977 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2Z1t-000790-PM; Wed, 09 Apr 2025 17:16:01 +0000
+	id 1u2Z4F-0007p0-5A; Wed, 09 Apr 2025 17:18:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 944522.1342967; Wed, 09 Apr 2025 17:16:01 +0000
+Received: by outflank-mailman (output) from mailman id 944538.1342977; Wed, 09 Apr 2025 17:18:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2Z1t-00076b-Md; Wed, 09 Apr 2025 17:16:01 +0000
-Received: by outflank-mailman (input) for mailman id 944522;
- Wed, 09 Apr 2025 17:16:00 +0000
+	id 1u2Z4F-0007n2-1v; Wed, 09 Apr 2025 17:18:27 +0000
+Received: by outflank-mailman (input) for mailman id 944538;
+ Wed, 09 Apr 2025 17:18:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fbf/=W3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u2Z1s-0006gc-0m
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 17:16:00 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1u2Z4D-0007mg-1K
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 17:18:25 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4e4d5d82-1566-11f0-9eab-5ba50f476ded;
- Wed, 09 Apr 2025 19:15:59 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43d04dc73b7so74014085e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 10:15:59 -0700 (PDT)
+ id a472566b-1566-11f0-9eab-5ba50f476ded;
+ Wed, 09 Apr 2025 19:18:24 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43edecbfb94so50374415e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 10:18:24 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39d893904d1sm2218519f8f.60.2025.04.09.10.15.58
+ 5b1f17b1804b1-43f206264a1sm26607505e9.9.2025.04.09.10.18.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Apr 2025 10:15:58 -0700 (PDT)
+ Wed, 09 Apr 2025 10:18:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e4d5d82-1566-11f0-9eab-5ba50f476ded
+X-Inumbo-ID: a472566b-1566-11f0-9eab-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744218959; x=1744823759; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1744219103; x=1744823903; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ssMBqOKQD3Rvz60WikKAkv4Rg4CtQJZpJW1d2+tdi4A=;
-        b=lcVAsFt9dITzKYZ0Ph9Zk2meTrg68qGv5hL37qtM813LY0xek/m8dFi1c4w1aU4zH1
-         n79oWETBl2r1UDZy4mopscW1Fl7tLrDys6ANG1TED9fDjA350WsDhPI3d5rfsUY9C1Pb
-         CjvgZLyhU6OfvdRDNPvIeU3pnaff84lt88bCs=
+        bh=LqXW+EhIjzZ9DBBxM/0Fkm2/XTe1O3oFuaez7I6vNxY=;
+        b=WvADR0e4l/X0Xbo4PGrRhYsJBfXb2ieZ9bGbt1p+nQvIvSg5Vd3PHBmX3QJzcCczM4
+         oidoVHiyZrctfMYDcgNM9vNS97kvJ/Ffx5yMc+2qPsiLmWXnxW0E1h0+F2flBbp0xpTe
+         KtLe38v0PLRaosiYDM2r3G2EQahTjI8yB1DQE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744218959; x=1744823759;
+        d=1e100.net; s=20230601; t=1744219103; x=1744823903;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ssMBqOKQD3Rvz60WikKAkv4Rg4CtQJZpJW1d2+tdi4A=;
-        b=nD/f58OJII+wKJrel+CJqTToXG6z4pqq5v1FRB8YtYoejY3YKRL14uOOSsU+AMtIAo
-         jdpFpAo1AIg4JjnY18i98Y3tzEKJKEXemtPXb+V9JYcoyr9+CIrGrMsPNvK7dI3nQkGx
-         z1UtFcqSjF9zS2mQ0ZTuR+PVAEhRim4fWEZ81rEACM67qiN6FQ5O34X5LcmNbDCDd6cN
-         6BOlBLAb8kunhrPiRNDaQTBEoUYGAQTD0L99Ax3FurRxuA2+aJB1MmBrkZtIcbMNgHlI
-         10eKy/lbtWdBv+cmYG6chp7O9I3q8eO46RqBPe4I5eR2h8LvvJAgs5skiVE5LahuB9KB
-         G9MQ==
-X-Gm-Message-State: AOJu0YzGhTWf+1mjFulm3NfoxY2F2BsbxbgQNhFfzd1ShJL69T6fOKkr
-	enUqljrNLVaYnwFYmzRM4OONSHFZc7rDRI2EsQstSdqH27nL40beRTlCjZoWOzM=
-X-Gm-Gg: ASbGncu/pRGlHTruGGFebMfadj7DG/wr+fF/nl63DUIXg4O6tbXOtlLIzJJjR0htFXB
-	GhvY9UoJAvkIDRBg8LOOoR92ZdOK4kPWChwf095f5Q33NsT0cgprA0MrkLXVSIq7EF6x+pyt9lI
-	GDp9tOSo4mNL2AVUPPkJt9L5zEb4NYDP+NiCQCpHg0r3Dpi3+A93G8PNdqpmkKILCpYSZQeKuM2
-	sR6WVWRI3IlGbTYiMCN8/YAbpU8bcc5dFKMAv3PRlB4VLRTYnLH15ov3cJdw619GJ9dKE36yuBV
-	ENg3N6z5+45D01A5e6rGOqT9cUr9+UhKdFo11d8z+vGi9CyOH+CrI2oYB3NZYS0lEPhl2oNZmYy
-	sqQYsGw==
-X-Google-Smtp-Source: AGHT+IEIIDRjeipzvi556nrQQ7IPqkw34Ka8DV18+V5HKED5LI6pIuvwWJmysHBqIHpQHs4+J+ZDbw==
-X-Received: by 2002:a05:600c:3b0d:b0:43d:878c:7c40 with SMTP id 5b1f17b1804b1-43f1ecad85bmr47858665e9.10.1744218958784;
-        Wed, 09 Apr 2025 10:15:58 -0700 (PDT)
-Message-ID: <21a35c38-ce2e-48c4-9586-9c232f77affa@citrix.com>
-Date: Wed, 9 Apr 2025 18:15:57 +0100
+        bh=LqXW+EhIjzZ9DBBxM/0Fkm2/XTe1O3oFuaez7I6vNxY=;
+        b=uv7nxsdobITyIXqsTNxADzZunMBoZnVSN6Uy6YGRYOg/a0J4fdF/1N1gVUD3IW1Mcd
+         HDpA7qZ38fE/AVYSfKRkMX3KZtnPzT6v6sXZQ09SGkvU83CvutC4J9nwL4IVB0WYdfcq
+         HyXLcPOCG62bWtkJCi/hRuK1AFhRzHNeP1hILZkN27/ZZcXa8E7MaSGt/n4+IlFxV3/c
+         F4zKVczOvXV3Z4ajF7qEGPBEsuIgMp9VD7C05h9GlacNPNFN1pFvBi7toFtQ8VLse98Z
+         wO2WI/hae0rNg9alWeuQ5eG/MnMt65QdUB6hxqn0mfnIEotERJCe43fBuLp8WG5c47K3
+         NZ6g==
+X-Gm-Message-State: AOJu0YxSSESkwdp/xxL3JtGzlXSlxJldoLgYihUFEsDKkm9iLjfWItDW
+	bvHwnVZ9VKvJbSRjJBQkABaJlFbBbA6B/z855uFMlIxfQJBFZvXX6O0Cbd4/iwA=
+X-Gm-Gg: ASbGncsOrOTDkb/vJvTCaauRsrdTI/Inkgh462QTgsnCEIi1ETPfi+8/njt5om3iicC
+	AGWqoBaUGGuXDl9EKM8uFtmqhtSkVhCF5KtwnIUr1d3OisuGTaBnOALuQQJh5GXaqZQv5JpqRwV
+	KOP1BivSUp2ran3/2thjJxHOn/EGMCtIT8Nd8wxgYEuRqXaKdp5g+bu1RbFqsIfLsGAvZ7FPBgL
+	rTHnn5qHooc8ITOrc0DGs9eLKrkw48Sl01q6pczjrGusG3rs7sAJAV4K63lD8zTGFUDM2HXcAw/
+	3XfALZsfJcieMq2ThcLWnjFjW7IcWjG47WVZUThsvVzcDR58BIlrEJTaCG/oGzic2WTnWgtqSG0
+	RwtcbJn37P7iy7yvS
+X-Google-Smtp-Source: AGHT+IG44bQUdXmwD6R8KSBqmw0ncOhbdNKyfWrLfLf9y0vpEmOzR0qxPFebuum4MuWUTHn/AMTaQw==
+X-Received: by 2002:a05:600c:3542:b0:43d:ac5:11e8 with SMTP id 5b1f17b1804b1-43f1ed67314mr29325195e9.21.1744219103387;
+        Wed, 09 Apr 2025 10:18:23 -0700 (PDT)
+Message-ID: <16f4bf31-9469-4a3c-b145-6c75785befb9@citrix.com>
+Date: Wed, 9 Apr 2025 18:18:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] Infrastructure for arm64 linux builds
+Subject: Re: [PATCH 5/8] Adjust Linux build script to work with other major
+ versions
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
@@ -92,8 +93,8 @@ Cc: Xen-devel <xen-devel@lists.xenproject.org>,
  Michal Orzel <michal.orzel@amd.com>,
  Anthony PERARD <anthony.perard@vates.tech>
 References: <20250409163702.2037301-1-andrew.cooper3@citrix.com>
- <20250409163702.2037301-8-andrew.cooper3@citrix.com>
- <Z_aqUikDqi1UEOHb@mail-itl>
+ <20250409163702.2037301-6-andrew.cooper3@citrix.com>
+ <Z_anEWAVTD5tjbg5@mail-itl>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -139,57 +140,19 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <Z_aqUikDqi1UEOHb@mail-itl>
+In-Reply-To: <Z_anEWAVTD5tjbg5@mail-itl>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 09/04/2025 6:11 pm, Marek Marczykowski-Górecki wrote:
-> On Wed, Apr 09, 2025 at 05:37:01PM +0100, Andrew Cooper wrote:
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Michal Orzel <michal.orzel@amd.com>
->> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->> CC: Anthony PERARD <anthony.perard@vates.tech>
->> ---
->>  .gitlab-ci.yml                            |  7 ++++++
->>  containerize                              |  1 +
->>  images/alpine/3.18-arm64-build.dockerfile | 27 +++++++++++++++++++++++
->>  scripts/build-linux.sh                    | 10 +++++++++
->>  4 files changed, 45 insertions(+)
->>  create mode 100644 images/alpine/3.18-arm64-build.dockerfile
->>
->> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
->> index ff8dce7be05d..6e38c2f2a108 100644
->> --- a/.gitlab-ci.yml
->> +++ b/.gitlab-ci.yml
->> @@ -19,6 +19,13 @@ stages:
->>      exclude:
->>        - binaries/.gitignore
->>  
->> +.arm64-artifacts:
->> +  extends: .artifacts
->> +  tags:
->> +    - arm64
->> +  variables:
->> +    CONTAINER: alpine:3.18-arm64-build
-> Arm64 kernel used to be built in a Bookworm container.
+On 09/04/2025 5:57 pm, Marek Marczykowski-Górecki wrote:
+> On Wed, Apr 09, 2025 at 05:36:59PM +0100, Andrew Cooper wrote:
+>> Also use 'tar o' to decompress based on file name.
+> Do you mean 'tar a'? -o is --no-same-owner. Anyway, just 'tar xf'
+> works too, even in alpine.
 
-So did x86 before they were moved across.
+Hmm...  Muscle memory from long enough ago that I don't recall why.
 
->  The build in alpine
-> has "find: unrecognized: -printf" in the middle of the build. It doesn't
-> fail outright, but something might be broken. I guess it's related to
-> initramfs - maybe some option can be disabled, to avoid this message?
-
-Nothing seems to break...
-
-There's also a bad awk regex.  Alpine seem to fix this by using mawk,
-except they then have to patch the Linux build system to take the
-override properly.
-
-I can't see anything obvious they do to fix this -printf warning.
+Lets go with just xf then.
 
 ~Andrew
 
