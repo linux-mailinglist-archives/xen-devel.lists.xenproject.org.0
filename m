@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F2E2A82C99
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 18:37:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.944345.1342870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0207A82C95
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 18:37:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.944346.1342885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2YQN-0005oB-1s; Wed, 09 Apr 2025 16:37:15 +0000
+	id 1u2YQO-0006Fs-Cc; Wed, 09 Apr 2025 16:37:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 944345.1342870; Wed, 09 Apr 2025 16:37:14 +0000
+Received: by outflank-mailman (output) from mailman id 944346.1342885; Wed, 09 Apr 2025 16:37:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2YQM-0005k6-Pr; Wed, 09 Apr 2025 16:37:14 +0000
-Received: by outflank-mailman (input) for mailman id 944345;
- Wed, 09 Apr 2025 16:37:13 +0000
+	id 1u2YQO-0006BE-4f; Wed, 09 Apr 2025 16:37:16 +0000
+Received: by outflank-mailman (input) for mailman id 944346;
+ Wed, 09 Apr 2025 16:37:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fbf/=W3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u2YQL-0004du-GQ
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 16:37:13 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1u2YQM-0004du-GT
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 16:37:14 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3873bf4-1560-11f0-9eab-5ba50f476ded;
+ id e40489f6-1560-11f0-9eab-5ba50f476ded;
  Wed, 09 Apr 2025 18:37:13 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43d2d952eb1so47453455e9.1
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43690d4605dso48219915e9.0
  for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 09:37:13 -0700 (PDT)
 Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
  [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f233c817dsm20947455e9.23.2025.04.09.09.37.10
+ 5b1f17b1804b1-43f233c817dsm20947455e9.23.2025.04.09.09.37.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Apr 2025 09:37:11 -0700 (PDT)
+ Wed, 09 Apr 2025 09:37:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3873bf4-1560-11f0-9eab-5ba50f476ded
+X-Inumbo-ID: e40489f6-1560-11f0-9eab-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744216632; x=1744821432; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1744216633; x=1744821433; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IltmhtHT5BBVSpsleYVnDmlWB3S52pBC6IXbUI4pNWI=;
-        b=AK5staHq0nth2sCdNcGTytOj1Tl8l7+R88tjEXHf95zrS+j+b5O7FLmL2o4awBtLo2
-         UQA/sWIYNvibLf7SKSPdd/FIHIdMFWMDrzkq4ONjhy9ZZlwQuSn2DnoowvTgA92xF0s3
-         93QOO8pXpfQTH1D+I3eEmDVHns6qIH8ZdrpJA=
+        bh=I2mT/JfncdqV5tSU+jW+RQIjWQnr3c8c6UD7AZjsbPw=;
+        b=tflH/FYjDwX7xQc0Ia9LGU84CfnbLIXcTvbwtUHYYrdbsWUAMGqgRikS0cOx+cwORv
+         qseHPNuC+6EeGZHrp2mRF8wGpjejY3QwGX8zM9ujCd/gy83ADxzp0ikGDWp1xQFrVn2t
+         G5o7cvpfUnsYb97zvjUOY8Zrm7R/egfYbkrws=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744216632; x=1744821432;
+        d=1e100.net; s=20230601; t=1744216633; x=1744821433;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=IltmhtHT5BBVSpsleYVnDmlWB3S52pBC6IXbUI4pNWI=;
-        b=GLrH4jm3y3H4TTvEqRWmKpCOdVibwoJwwacwY2thCNdUoaVfcEL0UsaRhIBqqltK32
-         mdt4hd8afD3gdIQjVP/GbR9MimodE7pKxM/tx2M3qosg5ANow1aPYfYvVfOMFn84NK8y
-         GKz8Scog2/4dpcCzApnfUwWuU+g4ZjAZ18hAGSnujPn11+R1EmZgS8WdmEm4dyYkQfEc
-         wZCBJrvnH2fuoUdBnlJDyGcZ2l0tvM2qgs8UYNmuXZ7lK3Tuh7vXj7HFXVumCdCpVHWw
-         4YWIGqE7wHUA+mgOwb/2gpd28+fWkdezg560Ox7blLZMmV0T8z+I1ZXjYJCqRBuZlZ8g
-         pGwA==
-X-Gm-Message-State: AOJu0YxVZxZMgNSonAvj6RhAvnR8uhIviB0Zd0UlKqLqalfwb1c4Uxi1
-	U9kS9ToQcJzHhr3NitxEs0Pxk9+uVsFxZ7P1rZCzp3afNS83vzWbQGW8BTxz+sdcUU8TSv+KQrh
-	9xUQ=
-X-Gm-Gg: ASbGncvCrw+VMJF1LXzjiEdZsWoflovsyoXrBgT+JQCTxw+YEzurRWndUtjxg+SjD9u
-	MfsxBG9Xl8GO6waznamcC/T2rz7RGxZtnXEX3Wb5LbkPUUndJWnRAtKxXd0UOrxHPO1Eaw+9vun
-	+RZ9syhg/63jmAWLKNzmDqOcd3oWtGcJLa48fCpRLmQDv/WANjHh3y0JSx6t+aS0EPrFy1cPoLc
-	GlUZxlnYIewVrdyvzkuhD6e6E2UiZ35anKY05vLmwWovJD25fDYdBoJMj2qbRFON4IA6xjd/Ni/
-	C7L4qtR2OIRxeQ6txhG0KNarAo2zFL1gxctW01JXxcT308eQfgBEOfl5w78CaGz/ws1SeEOS3og
-	3HAHop6bKwEGt/4ZUD1HOs0e+
-X-Google-Smtp-Source: AGHT+IEWpUEEFYkSqnG+ZB6hcoZyumqk8nW6Xhw9oFU/OuNIS9ePZMvLjHfUbXh/CYGghUEQluNSXQ==
-X-Received: by 2002:a05:600c:46ca:b0:43d:fa58:700d with SMTP id 5b1f17b1804b1-43f1ed6f0abmr33987875e9.32.1744216632086;
+        bh=I2mT/JfncdqV5tSU+jW+RQIjWQnr3c8c6UD7AZjsbPw=;
+        b=Lu0tdoAItzoYStkBI7a/Yv5BdHO0qmPTG16DkftYO/e8SxN8EU/n9kMNxk+bdjd+Mm
+         Delr1oA26YfCtREZhJoh8h37DVBaRIiI8Jha6ZNOYEQyckteCkMGyEjkitk+/aZm1PZS
+         KerNPPvCyiWWGHd6uqHkgiKW37daRIQXXIU3OTXuSQLwXrePaCtI+soqx7PndB0TOFOP
+         0beXwN3ge7aB7ltbLjbFazBANLzP+VOagxggIoEDAFoENA0wxzwbn+3oHXiP+Q1iqfpx
+         8SU2gbX/0fQCmBbURbgf1RiakFW11XMlo+4DZAsWMXm73Km0DZx6KlFCPc7pB2S6j4rX
+         VB1A==
+X-Gm-Message-State: AOJu0YweKRBvBnsRyUsE4oQTu2eWcoNX10OnK4Y9n80l83+aIWrxzMx+
+	C/HK5ik730Zy2BDZ7gtEMp3pf5R7IdI1ytJ7Ic7C4cgTVNlBZqJgNXA2l7MWSJ+CNMa1ZsjSM8X
+	Na8o=
+X-Gm-Gg: ASbGncvlwWkczXAWWpfqpWCMHE7N9ZvyL7qw/CbbCB3cMN9qWNaE2SK8gotUoF4yNoh
+	J+I3nYhZc/XscCR2rqexy7svQjcfNsG+j4Tnu4Be5NQ0VpI1Pw9aP0gVPyTA5GITib45D2DcUrd
+	61y1sLqm9qNljeh0LNCY7pKeAUW7Hekp0Carr5lKKhJN0BQcZrxSUGt4xpixsqTzLl1op44ysq9
+	hXBSa5UP0paVewGvSIKhAPJ7aDvfk+cWLfke9ou+KjxxlBbp5kq6xMwYCbVzpzm2WsHiBytJuXh
+	fd1MV4d5a4oZRpO2taOwxrufPuTyXwxMgoCMBam2ViK2e/ERR46K9pUQH2JfBnyTQVuOTp4VJkC
+	PLrrQXIsoh7SanksRHx9h/ydu
+X-Google-Smtp-Source: AGHT+IFeAOIEsPP+PKgdQeDrOa66hkGlAAR3QFoVe90GA0l/Y3sZ1wzkRcbvByRiqErOlzaGnHWv8Q==
+X-Received: by 2002:a05:6000:40d9:b0:39a:c9ed:8555 with SMTP id ffacd0b85a97d-39d88539008mr3376723f8f.23.1744216632825;
         Wed, 09 Apr 2025 09:37:12 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
@@ -87,17 +87,15 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH 6/8] Factor our x86-isms in the linux build script
-Date: Wed,  9 Apr 2025 17:37:00 +0100
-Message-Id: <20250409163702.2037301-7-andrew.cooper3@citrix.com>
+Subject: [PATCH 7/8] Infrastructure for arm64 linux builds
+Date: Wed,  9 Apr 2025 17:37:01 +0100
+Message-Id: <20250409163702.2037301-8-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250409163702.2037301-1-andrew.cooper3@citrix.com>
 References: <20250409163702.2037301-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-
-... in preparation to use it for arm64 too.  Rename the script.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -107,80 +105,109 @@ CC: Michal Orzel <michal.orzel@amd.com>
 CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 CC: Anthony PERARD <anthony.perard@vates.tech>
 ---
- .gitlab-ci.yml                                |  3 +-
- ...{x86_64-kernel-linux.sh => build-linux.sh} | 34 +++++++++++++------
- 2 files changed, 24 insertions(+), 13 deletions(-)
- rename scripts/{x86_64-kernel-linux.sh => build-linux.sh} (55%)
+ .gitlab-ci.yml                            |  7 ++++++
+ containerize                              |  1 +
+ images/alpine/3.18-arm64-build.dockerfile | 27 +++++++++++++++++++++++
+ scripts/build-linux.sh                    | 10 +++++++++
+ 4 files changed, 45 insertions(+)
+ create mode 100644 images/alpine/3.18-arm64-build.dockerfile
 
 diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-index 5a0a853e551d..ff8dce7be05d 100644
+index ff8dce7be05d..6e38c2f2a108 100644
 --- a/.gitlab-ci.yml
 +++ b/.gitlab-ci.yml
-@@ -31,8 +31,7 @@ stages:
- #
- x86_64-kernel-linux-6.6.56:
-   extends: .x86_64-artifacts
--  script:
--    - . scripts/x86_64-kernel-linux.sh
-+  script: ./scripts/build-linux.sh
-   variables:
-     LINUX_VERSION: 6.6.56
+@@ -19,6 +19,13 @@ stages:
+     exclude:
+       - binaries/.gitignore
  
-diff --git a/scripts/x86_64-kernel-linux.sh b/scripts/build-linux.sh
-similarity index 55%
-rename from scripts/x86_64-kernel-linux.sh
-rename to scripts/build-linux.sh
-index 5a0160655bea..5e25e958c0f3 100755
---- a/scripts/x86_64-kernel-linux.sh
-+++ b/scripts/build-linux.sh
-@@ -9,6 +9,7 @@ set -ex -o pipefail
- 
- WORKDIR="${PWD}"
- COPYDIR="${WORKDIR}/binaries/"
-+UNAME=$(uname -m)
- 
- # Build Linux
- MAJOR=${LINUX_VERSION%%.*}
-@@ -16,17 +17,28 @@ curl -fsSLO \
-     https://cdn.kernel.org/pub/linux/kernel/v"${MAJOR}".x/linux-"${LINUX_VERSION}".tar.xz
- tar oxf linux-"${LINUX_VERSION}".tar.xz
- cd linux-"${LINUX_VERSION}"
--make ARCH=x86 defconfig
--make ARCH=x86 xen.config
++.arm64-artifacts:
++  extends: .artifacts
++  tags:
++    - arm64
++  variables:
++    CONTAINER: alpine:3.18-arm64-build
 +
-+make defconfig
+ .x86_64-artifacts:
+   extends: .artifacts
+   tags:
+diff --git a/containerize b/containerize
+index c32e40f5a6d9..6664ef9821d0 100755
+--- a/containerize
++++ b/containerize
+@@ -24,6 +24,7 @@ die() {
+ #
+ BASE="registry.gitlab.com/xen-project/hardware/test-artifacts"
+ case "_${CONTAINER}" in
++    _alpine-3.18-arm64-build) CONTAINER="${BASE}/alpine:3.18-arm64-build" ;;
+     _alpine-x86_64-base) CONTAINER="${BASE}/alpine:x86_64-base" ;;
+     _alpine-x86_64-build|_) CONTAINER="${BASE}/alpine:x86_64-build" ;;
+ esac
+diff --git a/images/alpine/3.18-arm64-build.dockerfile b/images/alpine/3.18-arm64-build.dockerfile
+new file mode 100644
+index 000000000000..c76ac435e8dd
+--- /dev/null
++++ b/images/alpine/3.18-arm64-build.dockerfile
+@@ -0,0 +1,27 @@
++# syntax=docker/dockerfile:1
++FROM --platform=linux/arm64/v8 alpine:3.18
++LABEL maintainer.name="The Xen Project" \
++      maintainer.email="xen-devel@lists.xenproject.org"
++
++RUN apk --no-cache add bash
++
++RUN bash -ex <<EOF
++      adduser -D user --shell bash
++
++      DEPS=(# Base environment
++            musl-dev
++            build-base
++            curl
++
++            # Linux build deps
++            flex
++            bison
++            perl
++            openssl-dev
++      )
++
++      apk add --no-cache "\${DEPS[@]}"
++EOF
++
++USER user
++WORKDIR /build
+diff --git a/scripts/build-linux.sh b/scripts/build-linux.sh
+index 5e25e958c0f3..1be20a38071d 100755
+--- a/scripts/build-linux.sh
++++ b/scripts/build-linux.sh
+@@ -21,6 +21,7 @@ cd linux-"${LINUX_VERSION}"
+ make defconfig
  ./scripts/config --enable BRIDGE
  ./scripts/config --enable IGC
++./scripts/config --enable IPV6
  ./scripts/config --enable TUN
--cp .config .config.orig
--cat .config.orig \
--    | grep 'XEN' \
--    | grep '=m' \
--    | sed 's/=m/=y/g' \
--    >> .config
--make ARCH=x86 olddefconfig
--make -s -j "$(nproc)" ARCH=x86
--cp arch/x86/boot/bzImage "${COPYDIR}"
+ 
+ case $UNAME in
+@@ -32,6 +33,10 @@ case $UNAME in
+             | grep '=m' \
+             | sed 's/=m/=y/g' >> .config
+         ;;
 +
-+case $UNAME in
-+    x86_64)
-+        make xen.config
-+        cp .config .config.orig
-+        cat .config.orig \
-+            | grep 'XEN' \
-+            | grep '=m' \
-+            | sed 's/=m/=y/g' >> .config
++    aarch64)
++        ./scripts/config --enable XEN_NETDEV_BACKEND
 +        ;;
-+esac
+ esac
+ 
+ make olddefconfig
+@@ -41,4 +46,9 @@ case $UNAME in
+         make -j$(nproc) bzImage
+         cp arch/x86/boot/bzImage "${COPYDIR}"
+         ;;
 +
-+make olddefconfig
-+
-+case $UNAME in
-+    x86_64)
-+        make -j$(nproc) bzImage
-+        cp arch/x86/boot/bzImage "${COPYDIR}"
++    aarch64)
++        make -j$(nproc) Image
++        cp arch/arm64/boot/Image "${COPYDIR}"
 +        ;;
-+esac
+ esac
 -- 
 2.39.5
 
