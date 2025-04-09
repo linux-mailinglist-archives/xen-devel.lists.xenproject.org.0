@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB2B5A821AB
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 12:05:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.943731.1342383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EC84A821B4
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 12:07:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.943746.1342393 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2SIv-0007sI-VC; Wed, 09 Apr 2025 10:05:09 +0000
+	id 1u2SLF-0008Tj-E7; Wed, 09 Apr 2025 10:07:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 943731.1342383; Wed, 09 Apr 2025 10:05:09 +0000
+Received: by outflank-mailman (output) from mailman id 943746.1342393; Wed, 09 Apr 2025 10:07:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2SIv-0007pd-Ri; Wed, 09 Apr 2025 10:05:09 +0000
-Received: by outflank-mailman (input) for mailman id 943731;
- Wed, 09 Apr 2025 10:05:09 +0000
+	id 1u2SLF-0008Qv-B7; Wed, 09 Apr 2025 10:07:33 +0000
+Received: by outflank-mailman (input) for mailman id 943746;
+ Wed, 09 Apr 2025 10:07:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5vFf=W3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u2SIv-0007pX-2z
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 10:05:09 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IAcD=W3=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1u2SLD-0008Qm-P1
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 10:07:32 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2062d.outbound.protection.outlook.com
+ [2a01:111:f403:2414::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1cf3e80c-152a-11f0-9ffb-bf95429c2676;
- Wed, 09 Apr 2025 12:05:06 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-43cec5cd73bso37562475e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 03:05:06 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f2075a593sm14804205e9.25.2025.04.09.03.05.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Apr 2025 03:05:05 -0700 (PDT)
+ id 719dffee-152a-11f0-9ffb-bf95429c2676;
+ Wed, 09 Apr 2025 12:07:29 +0200 (CEST)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by SJ2PR12MB9113.namprd12.prod.outlook.com (2603:10b6:a03:560::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.31; Wed, 9 Apr
+ 2025 10:07:25 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%6]) with mapi id 15.20.8632.017; Wed, 9 Apr 2025
+ 10:07:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,155 +47,378 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1cf3e80c-152a-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744193106; x=1744797906; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+MZ9LDlQVLzJKHK3NbI489Yx+hBmX1ikt6QAEymnCZ4=;
-        b=ETvmZhZl/i0jTMu9YP6JA/Zm8wtMg1IeVpCBYXcbwsNRxm5/P6tmzcyfZPmvmTbDCU
-         1hqPuZqueL5/rujHqR1whQFmbUUbj21MHbbRH4FHUbKaqPeTLkQZu8DcEWUmwwAjQQtU
-         nW7qxjwQhfivaVy/0yWicsibXSabHpUTKk6fawT0L0KtJh6ykbi2gspiAZibSuNTXrN6
-         vzxBzyMQjrnCk+Dml9YoPUuoz25cAVyZs1zhq+0i3BcnAnAJHT4oCtImTDHOohxarnPZ
-         FMRInbh/IxWZvt/6Z8G3i5PThcriA19rGVzh6GoVl4KpZ/qGCzm6gWhR4qJAsr1GWv+I
-         QMlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744193106; x=1744797906;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+MZ9LDlQVLzJKHK3NbI489Yx+hBmX1ikt6QAEymnCZ4=;
-        b=MiIR7kH99CYcc6LO1AXNgq2cpfUc/LnaavBTRsEngsvRIm5k7D9/ek0yC+C+30qfKQ
-         iRLNP+g/+9TttErg/e2kN9/2iTIBOQSP+PJ50CfXfw00y9ev1krVAlKVQV143vLKDjB3
-         aAamu+WTzFxIbkjpHASxAjjDZkIHPp6Az4OqLjo0aUP8vSqf4kNpgHIE88oO16+GrotT
-         raNgHffLe/Ad3zO5/TgzK9e8AxLfsYx3BWU/+7LBymF+v6QZcreZooptSoMFecFU40H4
-         B0JnzwO4ZUf2pHAghIRVxOM3ZIRiE1xeWWgDmwOXS+rZamI1VYKaqvD6sGzZInxRiYdt
-         A3nA==
-X-Forwarded-Encrypted: i=1; AJvYcCVkUnBuyHRymjR5+Bz7kw1u1SkR+KkKmSciM7FnCjqhsBfKZwcGIL+f6MOxZkTupz7vIlaU2qWlHdo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyK2thDLCPM4YY8sgDT/cBhBGUX90j9YBtrpkk8DedYwT87FhDh
-	UOHy9ZjITwxwq6NxtgI9/637srzzPWUcgWv18e0+Y8vTGiQm4148lnKHhnTE4g==
-X-Gm-Gg: ASbGncsu9t3ukbNvuW4VwM/9gC+ZhkMuDWk0S58ssoGeWh5+T1tgj8yOr/PNIbmxBR/
-	KD6jmCP+VuFp4O0AknLAwJb57lus9haFQrDLZdCd8N+17HQI6iEiX8eaUd0NwPZ3ggL++5DuvXk
-	xhv0fOPeh2owqzl0r4VfM9r7O9VIAQhImhQU+pU8WuALRcmvveMNmRuwFuhJk4eVQ8lIAs9wZZU
-	vg2mqJZuAzRzaHVEbshy9vkCaqtYKUjjvcHK9/Na/NGmynYd97YE2Ulo0TBp/0fUWghdqiN6t/Y
-	SJaxGGm6rRMIHBYm615QNZbm57gXgceB0d65fpC9r1YqBlbxjjuUA+13hA1ZdHvXh48zX2xHd86
-	7E6QNFu8oHicxGfMR19yK0B9tBQ==
-X-Google-Smtp-Source: AGHT+IErNWXpyMTxwRgUr2hbvUpv+Fw/FkUwSN/akl0zSUlwJziWYsIpIgP7DRjTOhQ9UjJnd24fTg==
-X-Received: by 2002:a05:600c:1913:b0:43d:24d:bbe2 with SMTP id 5b1f17b1804b1-43f1ed6e71cmr16549325e9.28.1744193106274;
-        Wed, 09 Apr 2025 03:05:06 -0700 (PDT)
-Message-ID: <223f03ce-e157-4583-9b64-3cff0cd5823d@suse.com>
-Date: Wed, 9 Apr 2025 12:05:04 +0200
-MIME-Version: 1.0
+X-Inumbo-ID: 719dffee-152a-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tAnEnEuKHBifvZpxk0oDIV1V42eIFTvSme3whSjWqGLRBqT2Cbf7PgqeaE2NSZRyyuLOFmAWjsJqxT1Skvbq7iWKIurr59+jW6zg/WpsrbDONJFFGrA5IMkM46xMxmkTxl5Id6KJjhFIfp7xRb2KmSpuz3jU2gyi2PoIwExcGaSskx6Tl0E8ShORwdvTOOSUo7tH3uQQrT3K+oAI+GjDe/y9+lWq3ranXSPusmZ2IjIIuPvWHSORf7DBNc4R6EwN0cWr2ah4kf8baQ3Whtg8xDHS733NI1SqadzIuMpBoI/LlSt7k42QXQr89rSStBD/EIvqBpspk7XMGbeDVyHrag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=itsvSOHDa/JofITWNJrqo7QvmHh5ZCvOhzeTlBr5pbM=;
+ b=g3uMLeU9eDNuIz2v4Fkk36xkZvcejU1/I+WzIzU6vV0ysZOrdKzkv55ybuiwTR/82AykDALkX4dnEGnCMffFJhKZSUSg1VlvKt/2Tgfn3aojPQFBrDUNPjMuZEFgTFJ9byzWOI+bKnYxGN6aRELs07xK6zvSEB0UHNg4hFeFt4yTNcIoNyiaxfkSTbf5PK8QJTUGjmLrhb6xHSgX0Jb1MEiN16HKT5dSalQyaf/dPNF7jCOERZ3ZantYqR67Yam6y9it3pjznWSXMLiA3PILKsILYFhmRkKJ/Rnc9xG0YXUjjqDWZCCr7MU1InAOCzNvaHsv084HeaKyhCcJwqfx1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=itsvSOHDa/JofITWNJrqo7QvmHh5ZCvOhzeTlBr5pbM=;
+ b=IdG3Ru9k7Uhr2ID7+zByuiMZFxrxVyjawZ8SlQ9aWcaAnv242Fcv/JTuwQMV6YxKefiXTdi8n3aKkOpMvRdO3h9/Hc264mBVh5I5mTaEAZHEjN0+Qk98Z1cyTIQAokKNcg1wk2+ukBr/Qd84+w9Hpqpllt9okhin5MZHL/h6mB0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <aded1d6f-0e6f-4903-a5a3-127e06e3803f@amd.com>
+Date: Wed, 9 Apr 2025 11:07:21 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/riscv: Increase XEN_VIRT_SIZE
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <808d1b346bc90dde38fd19a6b92ab78d78e42936.1743766932.git.oleksii.kurochko@gmail.com>
- <e5f6ccb3-498f-44cf-8c06-61fa502d93db@suse.com>
- <f35a9969-6154-4e9a-b997-16ca135e85ee@gmail.com>
- <8b2e50f2-1f89-41df-be88-afc9ef24b51a@suse.com>
- <c3b1be9a-d5f5-4cac-a675-7485a99bf51c@gmail.com>
- <fde6c1c2-c439-4020-9301-025b7e8af804@suse.com>
- <3bd6cdb7-8de0-4559-bc56-b20c52fd73db@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3bd6cdb7-8de0-4559-bc56-b20c52fd73db@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 2/7] arm/mpu: Provide access to the MPU region from the
+ C code
+Content-Language: en-GB
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250407091430.2342709-1-luca.fancellu@arm.com>
+ <20250407091430.2342709-3-luca.fancellu@arm.com>
+ <0acf63c0-267e-44c0-b629-fa576307497c@amd.com>
+ <1AC85CBD-02B1-4AA4-B9A3-68DFC06137AA@arm.com>
+ <4f860a56-5536-455b-9490-196bfc220556@amd.com>
+ <40C7A4DC-0216-4981-A501-AFDA0E8671DD@arm.com>
+ <9f637d98-c8f8-49e0-9f0a-002cdfefc296@amd.com>
+ <EABA5C5E-4FE3-4E7A-8E29-B37A4CFCC18D@arm.com>
+ <F2C6FC52-386A-4417-B592-151ECE079E52@arm.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <F2C6FC52-386A-4417-B592-151ECE079E52@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0463.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1aa::18) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|SJ2PR12MB9113:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8eb84d9a-746b-477e-9027-08dd774e53bb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?UHl5ajBBRU5jR0tLNk5BUDdPTkNIaUp4KzdicFE5YmplWHBpeUIyWUJTc3By?=
+ =?utf-8?B?SXp2aGc1YUFmMTlJb3p6UGY1dHJHV1FPcnRYdDZPL0oxSzRsU0lCVFlsTnU2?=
+ =?utf-8?B?d0lsd0h2WkVOTmdiSi9UZ09qdnVZTjZyRTdNOU9Dc0JZc1NXekx6eEpmSXBW?=
+ =?utf-8?B?bXo3NkpDSnBSdk44UzFDVGZ2bC8xc3pia09lUUNKNXZ6a25XL0dia0hyNU8z?=
+ =?utf-8?B?S3JPNHFJeEpiSS8zUmNSbjhUc0UxU3FWWFpTT3VBVmFzd28yTlZCN2w1cEFS?=
+ =?utf-8?B?KzVnc2V4U1RhbVZucnIrZG1vWHpGM1ArZHhKZzk3TmRaUkdWc2xUS2w0dEpz?=
+ =?utf-8?B?VVJiZHNkeElIOGgyNGFLNnQ2MGpOT3pvZE42eExoaFRWb2lzL2dXZGFMbUFl?=
+ =?utf-8?B?YS9MQnIzZHhpZ21iYU5DaFFWRXFveVJUSHJpRSs3R21tcktYMXdFcGRtMmtC?=
+ =?utf-8?B?ejRxaVlJcW9qTlh4Q29vbHpJSTZ3RTZ3QVBRbVd5bWNQMmFEcWxPZjlrOVlZ?=
+ =?utf-8?B?WlZYNFQvc1AzWjJmWDJLdFU5U0FPTHpKR0dMOFVSMG1qOEkzMTJvT21kcjJW?=
+ =?utf-8?B?N01sYjA3ajZIRVRKckdod3lWbmxhYWxKSXlVWHZLM0xJbnZvd3VHR1dmUm82?=
+ =?utf-8?B?TWZnYUx5WHBmcUoyaHVIR3BmajZteGF2cE9qd1ZnVEZmMlBhSzQ2Smc3WHNt?=
+ =?utf-8?B?Zm1ld2grR2V1RVRJRkNqUUg3REJnTm5nTEdEaHp6RFVsSGh0T3I5dldYOXJ6?=
+ =?utf-8?B?YjFZYS9YOTdjZTVQdVB5Tjk4MkdUOC9NM0JQa25xWXlWZEJvMnRLMVJweWx2?=
+ =?utf-8?B?SHBTdU5iVHBTR0M3WlprdUFRNVRNaVZBR3FwNU1wK0ZvK0ErTTB2N3I4N0Jo?=
+ =?utf-8?B?RmpIa0xDZUpUWTV5NEVMT2FRR1A1MFl3RXM4V3JXaHlkeW0zWUQxZmIwdnlH?=
+ =?utf-8?B?endpWldMRlI0aUJ1YVI0R1RtdHhxQ1pjTENQcWEyU3J4V0R6TWc3M3dDT1Qz?=
+ =?utf-8?B?dWZnbENEejRkbzVOeHROdE5vZ3lHVVVFQVVNclA4aXBRaDNjNXRqUEJYc3Jv?=
+ =?utf-8?B?NDhqck5iMWRjaFBOam4rN3NhSkVSR0VpYkZoR082R1RLbzhBY2hLU0Zwakgy?=
+ =?utf-8?B?L1NvQlFLanc4NUlPM2RJb2FtTDdOWU5OS1lEbzVzWDVKNU1QQlkxcmV2Qktv?=
+ =?utf-8?B?dERVRE5jcDJISTVLRDRWVGptcis0TXhGZURzT2FxNS9hMUFUMjhBUmY5YU9a?=
+ =?utf-8?B?RGlBcDRHb2RoRDFCOCtYMlorSy9rWnpjcXFnaUhUdm9iK0FmZW9EaVNIaDRl?=
+ =?utf-8?B?MlZzbTFFbXFHRS9WYUVtNGNjZ0w0NUdPWkV4Rlh4ZGh4cFN6TUhocGsrUFov?=
+ =?utf-8?B?UnpzR3RhV0JjMGVtcVA1NWt0aWJaUE92UmhyN3pxUm8wRnVqNWZtemIyTjdl?=
+ =?utf-8?B?b0tWUW9kSVNtRGVMbm93R0RNTG9iVmtPa25mWVprNDljV0JCZ2JELzFBbXIv?=
+ =?utf-8?B?YVNDeHF6QUtXd29OYnFmc2wxdE5CTVhBU1Rzb3JFWTdPNW45bC9kOUZwSEF1?=
+ =?utf-8?B?bnVtdGwvbTd3dHlqUURQSkZaNkhpdU1KTVd2Q2IwelFoMVpGNkltVXJ2ZTM2?=
+ =?utf-8?B?Sll2WlFtc2tYenRhalJjWTVPelhZdHI4MU9iaWRVdFc5bGdjdHBhNjNjT2U5?=
+ =?utf-8?B?REJKc1hwMElNa3I5MVFtOVZIN2xCZVI2NTRsVlFUZUtCL3Vvd0V5NVNvb2F0?=
+ =?utf-8?B?SjQ2SXJabXJGdTkwTTlXY3pKMFR5Rlo1M09JdzRZU3pwVW4xV2c3Q3JvNXc1?=
+ =?utf-8?B?Z290UWd1ZFdHSHc3aHdyMXRhcUFVSmRaSGtvNWgySjA4TzJxTGZPN1FINWxX?=
+ =?utf-8?Q?ztNhEeX+7wOiG?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TUVwMHhlbUttaXRzSGJNTEtSRTlsZitlZFRrWUIzUnJiOU5sR2diV3lNcnhP?=
+ =?utf-8?B?aEFJc2NNdkFoc0hoYUU4MlhFNkVHenExUnlkRHkxUHU2NU5hQldCYzF5S25E?=
+ =?utf-8?B?cGRXYjlUbzdVWHVOYVhHVzY3MnYxb3B5cmtua1IzMllmazhWb0d3WlBHOUNL?=
+ =?utf-8?B?UEh5UUJ5SjF6cXcvUDFOdnhjaWs2WTJFc0lrRklIUzhmeVEvR3RlcUdHbzJG?=
+ =?utf-8?B?Wk5uL3BFdjVNZzFpWEEzRUN4bHA2WWZ4NmE2QlJ5SFJoNStodTJYdTN2SDN0?=
+ =?utf-8?B?TGtNT0MrVXY2WTdHbXFTL1RnUE9Zb2VxR3krNWY1RHJUUUU2NEU0RFFDMjAv?=
+ =?utf-8?B?Y3NxeUdWUDJteUQ0MUVRajZnVzR1dnYvTHB5K3hnejhrcm84S2xrcWw3clE1?=
+ =?utf-8?B?bnZFSXVuSTZpSzNzZm5aQm8wakJTZG0rOHB4bktTa1FhUkpYWU9IaFVTS2x2?=
+ =?utf-8?B?Q2VqTlJPRXE1US95TjJ5OFhVWFJCL085SmZZZVZaNGR6dzJPbzd5Y3ljTUpl?=
+ =?utf-8?B?enExSktSSXpUcEd5OEUyc3llZE5qNHZBWXAwcWJWUkY3c1Mrekl6czNPMXFl?=
+ =?utf-8?B?aTRoUkFrSjZvMmJKc1NzYnR3cUZTNUluL3daSnJocFNaK1FGUktWTjQ1aVlD?=
+ =?utf-8?B?c09SS3JIVHpNNUFtZWxyWWNRZG5nUFMwdzU0ZVp3ZjdiNks5cFd4dzJRV0Jq?=
+ =?utf-8?B?NEovc2dCa3hmd0orS0hkVTI0aEtrK0s3eGNmdVFDUVJvNUd6cTdGRTB5UUZD?=
+ =?utf-8?B?N3dLQ3lNdUZVTXFpeStpckVFa3F5Qzh0aWV2eTc1amk2Y2tjeVVha2dFQ2FR?=
+ =?utf-8?B?ZGE3RWE1UWVQUE1GQ056ZTRSdUErYXYyWU1obElHallNQWduT3MyQ1FDVEJw?=
+ =?utf-8?B?M3VEUWZIbjJLYkh1ODlaR0I0S2VITGJmUVFRdk1OYzJJeTZnWDlRTDU4MUY0?=
+ =?utf-8?B?c1Jzbmd1S2NjajVVMnp6amtNMGxMTWQrdmt2V2dxaEZoTGpLVmlYekVtd3FP?=
+ =?utf-8?B?b1VhRmNyU0RKUFR0aGFDVVFEMXdUeEE0Zzl4OWRmTWxTcERyY245dmhMSldZ?=
+ =?utf-8?B?THZ0MXRtMXhBU3YzTlE1QnpMdzQ3Q1Q3d05sRkNZN3Z2WVNZUlFxVko0NjJK?=
+ =?utf-8?B?RUNDa0pHdXE1ZDNSSmVGTTVBUHlES2tXQ3NvNlBHd1YwY2xOdmN3VGZIWW55?=
+ =?utf-8?B?ZzlORjZHSW1aVkJOV3RMNm8wMkFReWJaRzByY25aMS8rRWZPQ3d0YVAyWUtJ?=
+ =?utf-8?B?T3RET256bVUwVEFRT0xnamdDSE1vR094VEdNQVRwY2d6dDJnWFhCc1dpb243?=
+ =?utf-8?B?SWtlUGF0ZGFDV2NwTm1JRkRpdlFSOXdoVWo0YzRWYjlaQWMzc1EwV3J2NnZo?=
+ =?utf-8?B?MDNvaGFNa0FrcDdLT0pPdUl4L01Ra3VPSjhXWS96WlBGRG9BN1pHa3FlMFNC?=
+ =?utf-8?B?bnFsemhscHZxK3NXc3ErcGhXSjRYbkRHTmdHRktqb0tYUEtVVmhZUzJuY1dY?=
+ =?utf-8?B?RmVYdDNyNHNmSWU4czA1QjJ3ZlJlTzc5VllqRkR3RGdHY1p6NE9pUWJUc3I2?=
+ =?utf-8?B?dUFqdU9HRmVjajN0TTVsbDc0UFpuS0V0Smt3ZlpwYjB6Q0FielZieFZoVGFS?=
+ =?utf-8?B?dnRoN1RDTVZvT0xzd0VCc3NwdmkrNmp1WVNrZXFoY05hZkNhUkVCamNKdlNF?=
+ =?utf-8?B?SUphZGtvK1V6UmNqa01xbDRNSTZ3ZS8va1NpdkxJckxqSkhOT213Snl1c1VM?=
+ =?utf-8?B?ZnZzRGxROEhjM0VONkcxQXUwYmpBR3VTNTdxSmtvMUhGYXFGQmh5aUF2QzVy?=
+ =?utf-8?B?TjZiclVQVlVzeU1NbEppYUNhU3R4S0NBWXpCN3hMaXNpMEZDeis0TzFob0dG?=
+ =?utf-8?B?NHpBWGc2c2ZUTGhBVUxhZUxwc3VEWlZtU3BuNHhGbWJPOEk4ZlpoN0xNTkhS?=
+ =?utf-8?B?T2VSMEFsR1p0V2JWdHEvZVJqTVRDZ3RDeTlzQWtqT2tFTG1TTytkWHlad0dr?=
+ =?utf-8?B?MmlNNC80UENIa0w2bnNzVEFVZkZINkFKWnhSWE9DbDc4R0RkUW9pZ3Z1MnQ0?=
+ =?utf-8?B?NzNVVmFZTTZHZEhZWGVoQWFWcjAyRk1rWHBVVTFBeVczdmtzZEdwNjM4L3Fp?=
+ =?utf-8?Q?KlZqFiCfeZO8jV6PaqdM1EE4p?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8eb84d9a-746b-477e-9027-08dd774e53bb
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2025 10:07:25.4800
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: X12ne5eGNjx7MWemsxJR+5Lj7GFHtIpeqdKG9407Z+EDEfpFhJyX+bx3aiwt+TMOU1Iw6tUc/r/LHYkF8G7r3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9113
 
-On 09.04.2025 11:06, Oleksii Kurochko wrote:
-> On 4/8/25 4:04 PM, Jan Beulich wrote:
->> On 08.04.2025 15:46, Oleksii Kurochko wrote:
->>> On 4/8/25 2:02 PM, Jan Beulich wrote:
->>>> On 08.04.2025 13:51, Oleksii Kurochko wrote:
->>>>> On 4/7/25 12:09 PM, Jan Beulich wrote:
->>>>>> On 04.04.2025 18:04, Oleksii Kurochko wrote:
->>>>>>> --- a/xen/arch/riscv/mm.c
->>>>>>> +++ b/xen/arch/riscv/mm.c
->>>>>>> @@ -31,20 +31,27 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
->>>>>>>     #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
->>>>>>>     
->>>>>>>     /*
->>>>>>> - * It is expected that Xen won't be more then 2 MB.
->>>>>>> + * It is expected that Xen won't be more then XEN_VIRT_SIZE MB.
->>>>>>>      * The check in xen.lds.S guarantees that.
->>>>>>> - * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
->>>>>>> - * One for each page level table with PAGE_SIZE = 4 Kb.
->>>>>>>      *
->>>>>>> - * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
->>>>>>> + * Root page table is shared with the initial mapping and is declared
->>>>>>> + * separetely. (look at stage1_pgtbl_root)
->>>>>>>      *
->>>>>>> - * It might be needed one more page table in case when Xen load address
->>>>>>> - * isn't 2 MB aligned.
->>>>>>> + * An amount of page tables between root page table and L0 page table
->>>>>>> + * (in the case of Sv39 it covers L1 table):
->>>>>>> + *   (CONFIG_PAGING_LEVELS - 2) are needed for an identity mapping and
->>>>>>> + *   the same amount are needed for Xen.
->>>>>>>      *
->>>>>>> - * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
->>>>>>> - * except that the root page table is shared with the initial mapping
->>>>>>> + * An amount of L0 page tables:
->>>>>>> + *   (512 entries of one L0 page table covers 2MB == 1<<XEN_PT_LEVEL_SHIFT(1))
->>>>>>> + *   XEN_VIRT_SIZE >> XEN_PT_LEVEL_SHIFT(1) are needed for Xen and
->>>>>>> + *   one L0 is needed for indenity mapping.
->>>>>>> + *
->>>>>>> + *   It might be needed one more page table in case when Xen load
->>>>>>> + *   address isn't 2 MB aligned.
->>>>>> Shouldn't we guarantee that?
->>>>> I think it's sufficient to guarantee 4KB alignment.
->>>>>
->>>>> The only real benefit I see in enforcing larger alignment is that it likely enables
->>>>> the use of superpages for mapping, which would reduce TLB pressure.
->>>>> But perhaps I'm missing something?
->>>> No, it's indeed mainly that.
->>> But then the linker address and the load address should both be aligned to a 2MB or 1GB boundary.
->>> This likely isn't an issue at all, but could it be a problem if we require 1GB alignment for the
->>> load address? In that case, might it be difficult for the platform to find a suitable place in
->>> memory to load Xen for some reason? (I don't think so but maybe I'm missing something)
->> Why would load address need to be 1Gb aligned? That (as well as 2Mb-)alignment
->> matters only once you set up paging?
-> 
-> Mostly yes, it matters only once during paging set up.
-> 
-> I was thinking that if, one day, 2MB (or larger) alignment is used and the load address isn't
-> properly aligned, some space in a page might be lost.
-> (The word "should" above wasn't entirely accurate.)
 
-Actually I think I was wrong with my question. Load address of course matters to
-a sufficient degree, especially if at 2Mb boundaries to want to be able to change
-what permissions to use (without sacrificing the 2Mb mappings).
+On 09/04/2025 09:26, Luca Fancellu wrote:
+> Hi Ayan,
+Hi Luca,
+>
+>>>> The point of the code was to don’t issue an isb() every time we change the selector,
+>>>> of course the code would be easier otherwise, but do we want to do that?
+>>> Not sure if it is beneficial as you would need to use isb() from region16 onwards.
+>> The isb() is issued only when changing the selector, so when you go from reading/writing regions
+>> from 0-15 to 16-31 for example, of course there is a case that if you continuously write on region 15
+>> and 16 you would have to always change the selector, but it’s the less impact we could have.
+>>
+>> armv8-R is even better since it’s able to address regions from 0 to 23 without flushing the pipeline,
+>                   ^— aarch32 :)
+Can you point me to the document where you got this info ?
+>
+>> so I would say we should exploit this big advantage.
+>>
+>> I’ll send shortly in this thread the code I would use and the code I was thinking you could use.
+> Here the code I have in mind:
+>
+> static void prepare_selector(uint8_t *sel)
+> {
+>      uint8_t cur_sel = *sel;
+>      /*
+>       * {read,write}_protection_region works using the direct access to the 0..15
+>       * regions, so in order to save the isb() overhead, change the PRSELR_EL2
+>       * only when needed, so when the upper 4 bits of the selector will change.
+>       */
+>      cur_sel &= 0xF0U;
+>      if ( READ_SYSREG(PRSELR_EL2) != cur_sel )
+>      {
+>          WRITE_SYSREG(cur_sel, PRSELR_EL2);
+>          isb();
+>      }
+>      *sel = *sel & 0xFU;
+> }
+>
+> void read_protection_region(pr_t *pr_read, uint8_t sel)
+> {
+>      /*
+>       * Before accessing EL2 MPU region register PRBAR_EL2/PRLAR_EL2,
+>       * make sure PRSELR_EL2 is set, as it determines which MPU region
+>       * is selected.
+>       */
+>      prepare_selector(&sel);
+>
+>      switch ( sel )
+>      {
+>          GENERATE_READ_PR_REG_CASE(0, pr_read);
+>          GENERATE_READ_PR_REG_CASE(1, pr_read);
+>          GENERATE_READ_PR_REG_CASE(2, pr_read);
+>          GENERATE_READ_PR_REG_CASE(3, pr_read);
+>          GENERATE_READ_PR_REG_CASE(4, pr_read);
+>          GENERATE_READ_PR_REG_CASE(5, pr_read);
+>          GENERATE_READ_PR_REG_CASE(6, pr_read);
+>          GENERATE_READ_PR_REG_CASE(7, pr_read);
+>          GENERATE_READ_PR_REG_CASE(8, pr_read);
+>          GENERATE_READ_PR_REG_CASE(9, pr_read);
+>          GENERATE_READ_PR_REG_CASE(10, pr_read);
+>          GENERATE_READ_PR_REG_CASE(11, pr_read);
+>          GENERATE_READ_PR_REG_CASE(12, pr_read);
+>          GENERATE_READ_PR_REG_CASE(13, pr_read);
+>          GENERATE_READ_PR_REG_CASE(14, pr_read);
+>          GENERATE_READ_PR_REG_CASE(15, pr_read);
+>      default:
+>          BUG(); /* Can't happen */
+>      }
+> }
+>
+> void write_protection_region(const pr_t *pr_write, uint8_t sel)
+> {
+>      /*
+>       * Before accessing EL2 MPU region register PRBAR_EL2/PRLAR_EL2,
+>       * make sure PRSELR_EL2 is set, as it determines which MPU region
+>       * is selected.
+>       */
+>      prepare_selector(&sel);
+>
+>      switch ( sel )
+>      {
+>          GENERATE_WRITE_PR_REG_CASE(0, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(1, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(2, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(3, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(4, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(5, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(6, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(7, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(8, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(9, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(10, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(11, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(12, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(13, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(14, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(15, pr_write);
+>      default:
+>          BUG(); /* Can't happen */
+>      }
+> }
+Till here I am fine if you think this is the correct approach for arm64.
+>
+> Here the code I thought you could add for arm32:
+>
+> static void prepare_selector(uint8_t *sel)
+> {
+>      uint8_t cur_sel = *sel;
+>
+> #ifdef CONFIG_ARM_64
+>      /*
+>       * {read,write}_protection_region works using the direct access to the 0..15
+>       * regions, so in order to save the isb() overhead, change the PRSELR_EL2
+>       * only when needed, so when the upper 4 bits of the selector will change.
+>       */
+>      cur_sel &= 0xF0U;
+>      if ( READ_SYSREG(PRSELR_EL2) != cur_sel )
+>      {
+>          WRITE_SYSREG(cur_sel, PRSELR_EL2);
+>          isb();
+>      }
+>      *sel = *sel & 0xFU;
+> #else
+>      if ( cur_sel > 23 )
+>          panic("Armv8-R AArch32 region selector exceeds maximum allowed range!");
+I am not sure about this. See my question before. However ...
+> #endif
+> }
 
-Jan
+ From ARM DDI 0568A.c ID110520
+
+E2.2.3 HPRBAR<n> - Provides access to the base addresses for the first 
+32 defined EL2 MPU regions.
+
+E2.2.6 HPRLAR<n> - Provides access to the limit addresses for the first 
+32 defined EL2 MPU regions.
+
+I understand that HPRSELR is not used when directly accessing the above 
+two registers. Thus, this function will be a nop for Arm32. Please let 
+me know if I am mistaken.
+
+>
+> void read_protection_region(pr_t *pr_read, uint8_t sel)
+> {
+>      /*
+>       * Before accessing EL2 MPU region register PRBAR_EL2/PRLAR_EL2,
+>       * make sure PRSELR_EL2 is set, as it determines which MPU region
+>       * is selected.
+>       */
+>      prepare_selector(&sel);
+>
+>      switch ( sel )
+>      {
+>          GENERATE_READ_PR_REG_CASE(0, pr_read);
+>          GENERATE_READ_PR_REG_CASE(1, pr_read);
+>          GENERATE_READ_PR_REG_CASE(2, pr_read);
+>          GENERATE_READ_PR_REG_CASE(3, pr_read);
+>          GENERATE_READ_PR_REG_CASE(4, pr_read);
+>          GENERATE_READ_PR_REG_CASE(5, pr_read);
+>          GENERATE_READ_PR_REG_CASE(6, pr_read);
+>          GENERATE_READ_PR_REG_CASE(7, pr_read);
+>          GENERATE_READ_PR_REG_CASE(8, pr_read);
+>          GENERATE_READ_PR_REG_CASE(9, pr_read);
+>          GENERATE_READ_PR_REG_CASE(10, pr_read);
+>          GENERATE_READ_PR_REG_CASE(11, pr_read);
+>          GENERATE_READ_PR_REG_CASE(12, pr_read);
+>          GENERATE_READ_PR_REG_CASE(13, pr_read);
+>          GENERATE_READ_PR_REG_CASE(14, pr_read);
+>          GENERATE_READ_PR_REG_CASE(15, pr_read);
+> #ifdef CONFIG_ARM_32
+>          GENERATE_READ_PR_REG_CASE(16, pr_read);
+>          GENERATE_READ_PR_REG_CASE(17, pr_read);
+>          GENERATE_READ_PR_REG_CASE(18, pr_read);
+>          GENERATE_READ_PR_REG_CASE(19, pr_read);
+>          GENERATE_READ_PR_REG_CASE(20, pr_read);
+>          GENERATE_READ_PR_REG_CASE(21, pr_read);
+>          GENERATE_READ_PR_REG_CASE(22, pr_read);
+>          GENERATE_READ_PR_REG_CASE(23, pr_read);
+At least 32 regions are directly accessible, thus thisn should go till 
+31 (0-31). Same ..
+> #endif
+>      default:
+>          BUG(); /* Can't happen */
+>      }
+> }
+>
+> void write_protection_region(const pr_t *pr_write, uint8_t sel)
+> {
+>      /*
+>       * Before accessing EL2 MPU region register PRBAR_EL2/PRLAR_EL2,
+>       * make sure PRSELR_EL2 is set, as it determines which MPU region
+>       * is selected.
+>       */
+>      prepare_selector(&sel);
+>
+>      switch ( sel )
+>      {
+>          GENERATE_WRITE_PR_REG_CASE(0, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(1, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(2, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(3, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(4, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(5, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(6, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(7, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(8, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(9, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(10, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(11, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(12, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(13, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(14, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(15, pr_write);
+> #ifdef CONFIG_ARM_32
+>          GENERATE_WRITE_PR_REG_CASE(16, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(17, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(18, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(19, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(20, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(21, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(22, pr_write);
+>          GENERATE_WRITE_PR_REG_CASE(23, pr_write);
+for here.
+> #endif
+>      default:
+>          BUG(); /* Can't happen */
+>      }
+> }
+>
+> Please let me know your thoughts.
+- Ayan
+>
+> Cheers,
+> Luca
+>
+>
+>
 
