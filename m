@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D17A4A81D73
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 08:48:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.943426.1342232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12398A81DA1
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 08:58:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.943520.1342243 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2PEk-0000WF-Rh; Wed, 09 Apr 2025 06:48:38 +0000
+	id 1u2PO7-00042a-Ny; Wed, 09 Apr 2025 06:58:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 943426.1342232; Wed, 09 Apr 2025 06:48:38 +0000
+Received: by outflank-mailman (output) from mailman id 943520.1342243; Wed, 09 Apr 2025 06:58:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2PEk-0000Tn-Og; Wed, 09 Apr 2025 06:48:38 +0000
-Received: by outflank-mailman (input) for mailman id 943426;
- Wed, 09 Apr 2025 06:48:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u2PO7-00040l-Jn; Wed, 09 Apr 2025 06:58:19 +0000
+Received: by outflank-mailman (input) for mailman id 943520;
+ Wed, 09 Apr 2025 06:58:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5vFf=W3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u2PEj-0000TU-HK
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 06:48:37 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a8b6d9a5-150e-11f0-9ffb-bf95429c2676;
- Wed, 09 Apr 2025 08:48:35 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43cfe574976so43597115e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 23:48:35 -0700 (PDT)
+ id 1u2PO6-00040L-8a
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 06:58:18 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fe3cdee3-150f-11f0-9eaa-5ba50f476ded;
+ Wed, 09 Apr 2025 08:58:08 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43cfecdd8b2so49723245e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Apr 2025 23:58:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f2066d92csm9850385e9.24.2025.04.08.23.48.22
+ 5b1f17b1804b1-43f2075fc99sm10043395e9.29.2025.04.08.23.58.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Apr 2025 23:48:22 -0700 (PDT)
+ Tue, 08 Apr 2025 23:58:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8b6d9a5-150e-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: fe3cdee3-150f-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744181315; x=1744786115; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744181888; x=1744786688; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WvYHZ2ohepgi0c0hKQInC4JLDSkuPsQaO80VHvx7THs=;
-        b=EDjv7XDlzkDxOG/9ywtB5PNrri83a01/NVt0NCsWo1thRfKuojBiY2fUzr05EzY/MX
-         5nZOdmgi0XQ0wpNrbFiIEbTdaG5rujDAmP38qQuxDAwpNhKf6IeTwPTEOWOEvIobWyHu
-         2F92lPUlUvDQtIN8nwiRHQWiKS2A0ILsXl42GJDiWyogDDOcpdMll4HzHzvczq0ybDrj
-         nrLTqCgXO2YebfbO7Aj7LegvdLAzckCrp4/kNQQQ2MSI+DAMz4Kjqjo4mL2KXauPx/NN
-         72VekEhBa5fgpSIvkwit4vfLlfoXgq+iv8Xr2j1HLzIub5E1TAfn/46S3A3kid/2gwFG
-         oyZA==
+        bh=TSoyB05TL8WuycFnakL5CCjT6Fv6bYixSt7QB1XJSis=;
+        b=aN0X6l6m1QOPpk+zBBDDKrC5+nF3189wC2j2SfpUod48qXugUj4oZiW5UKwmSIpDJc
+         SU05rJKBitbWr0wNm0KhBBQ2/yJIPt/ZA5Cw3qpLxMnuToC+Vr/UFHw228waLeAtsw6G
+         zO9gw2UF5iiDRcub5uysKSH2VfdpWrUuV0jRMIR5gHHZvwQ5Yr+SBQrHwjXBFlTh5IPt
+         Is6kMEvSvyji9lN9ec5PMyHFAbxT31NS7iQ7ZJcg1Cu+tUJ9z3kLKkSEN9tluShbXLbt
+         kDhVK22dLE6HoKEBfXiANJcXY3jr4amkA74dxEKUPGJ5LeGd2oKToTXXBuN8cZKxq1gX
+         2eEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744181315; x=1744786115;
+        d=1e100.net; s=20230601; t=1744181888; x=1744786688;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WvYHZ2ohepgi0c0hKQInC4JLDSkuPsQaO80VHvx7THs=;
-        b=tXtYjhagjV4VjU7w2RaGDFGYJ6eAiFGCf1TVryVSNcr2EGBrTU6mvPVkGxXhraGziR
-         oxFj2dxdh5aLFOl6JEErhmFpKCD5c9ATs14xNt4U0RrcUq+c0XpZO+zGSAIvUk/QlurV
-         ODJsdIfgaLDJL/N1PJydp2Vu6L3dmSSpcFJJrbQU+Rc19tjlIYRsfoSK74ws1fOBzxDA
-         7H/f3ijxjqXhiQnzGfebVGomjidAY+j2zTupNawp9kScfFp67/I3UCj2i5anEl73SUoy
-         qLdIZRHv7UbRyE5B55X+RI4n+h6QsslRCLXMhqFa6DrXV8cVqWMokwepPHroM83/s1rR
-         Qwpg==
-X-Forwarded-Encrypted: i=1; AJvYcCVxDtcJp/EgDL2B/HTGhW5K+dTw0CJ5MAGFU1UHHRYvYerOLrWnJ7YeCl0WbdEbDS5eOPJNfQa8wwE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YygNurHXsQhC9jTCJYrUDTS2KgrgrXIOIRdCnge2l80ZkFRcyRG
-	pc+NxxZ2SLqAQLrVpynMVawKqxNm+R/RolOXEN7ThLdo4+GmWWPOYSPD8H2JEg==
-X-Gm-Gg: ASbGncvxugVbtyLMSpeMWtCfyJCo0WvBV5jdZyZWMbQ08swwjmZxfoihjuiBf0AoZcf
-	FRdH6O3B/rZik4h00dsZKlYf9aUDfe+n05RjnRkM4XPQMQOrn5ZilP1QuI7839Ay5YVJGsovXO7
-	urDJIj01TD3H7YsiC6EXr60wU2FvqEnvmW/kgsM8kJKSl2c4NJMC3etLbjlcQMTrNryZCg90fCw
-	9tPz+Fb/DQCmRgXtXYcLLUIIX6gW4tDI/WoeJg0au+xRG12+f0+Io4VIPQoeleoRPOe5pODdmZB
-	b/Zq3BBf3vNh0f7RzsjuztrlYAcpz23c0F76VzKfIlW2iyopOACPvx9f501XVfVjj0eawR76O8U
-	hrLSGbCpcjPoWvjrTcrb1KsfUMkWfV1F6W6RZ
-X-Google-Smtp-Source: AGHT+IEWVL0PB4RWdW7R1dRQiA52jMMvZtAo7x2u6d5Az80ULjeCT5JrJVuR2Ge7vCd6Rs8G34VgEw==
-X-Received: by 2002:a05:600c:1d86:b0:43d:7588:66a5 with SMTP id 5b1f17b1804b1-43f1ed671d7mr15313805e9.31.1744181303150;
-        Tue, 08 Apr 2025 23:48:23 -0700 (PDT)
-Message-ID: <cdf00f8c-2143-48d6-abdc-8f56dafcc84c@suse.com>
-Date: Wed, 9 Apr 2025 08:48:21 +0200
+        bh=TSoyB05TL8WuycFnakL5CCjT6Fv6bYixSt7QB1XJSis=;
+        b=F0kavGPFrLRz6Fy/rUo/iqSovn268cLntNuZ8EbYCAv4GRmvHFq3mzPjpvN6nziFXK
+         DPi0uqo1B7uJAcTThGlCrYYJL1eWb47cCSSHKPqP5kpDQYbI6ArY8WqABCNJL1wN0tio
+         Wn6hX8J0FNG2ISoAcHDEjqPubBjbZZok+RpbDYYXCCaXgbOiGeHILkQi2vSOdP5F1/cf
+         ZECDzl2fofSLUK0oCZwZb2PYTQIaLpKmWF3W+w5xmHZdqMlXXieOzrZd+dsGSBJ4xFwY
+         hrgAToFQr8Z+rCrZPWJHeO7HBwADcExocS+v4ytlWPvBBq4qvKziRSFxbcx9qmVB62QE
+         +Gag==
+X-Forwarded-Encrypted: i=1; AJvYcCWrkU9qSy2OcsCYmyVmYen+cPBH93K92mGOKyM0B4s7WZWSFMZcc3uEzrriQs1PJigLim8d/vqyR90=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxtruKkCNdvKT2Fp/35jMxg3Gkaf6b94u7r18a+UZ0MG1YRhY1t
+	HA03N4FVFLq3F+rYOcxuEHqRGuNAdmv/6AVQEu+SieSczA/XAbJ3pcByrp9lBw==
+X-Gm-Gg: ASbGnct9Ili/Q9hi99nd4bjWDlfue8t1MzrrbkSl6Z39RA6ddIS86NcrZGTqXbzu1vF
+	n9l6Kc/Qb+QZN0JxfpDTWleGwjkbXcS7GTLzltmnNcXfiufoxM9CtZv4zLDaj0323Dh6pIxsli+
+	4GjSuZrP/g3nlxq/tdjsgmZJteQHJSWQHNHi+GTqgAHiRL8DjsqGpikjltSE5Maj+vDO3J++reA
+	nj18d2MltWF2VxGv51idY9G7eyccSLCksPZ7/IKhs/qExrAbAEPEYAP5T4QPhVGnSA+GZiygs4p
+	MkQeBBPlbAGBEoBo2pHssmOw9PCPL5WaB013c67LkCLFBE01ydqEFmhw4Pq2gCEsTHZB0cP4Pk4
+	gkPHZ71Iv8oiNKinJHpKKqzAzjH0dVoIyPhBv
+X-Google-Smtp-Source: AGHT+IE1lcXtXm4BXdVngqc6cQlfsOXVJ2Wyk/5GCVtHaG/TR9askv1tIRtxHGk2pyo/69x0Dlnn+w==
+X-Received: by 2002:a05:6000:186c:b0:390:f699:8c27 with SMTP id ffacd0b85a97d-39d87aa0c65mr1482256f8f.12.1744181887849;
+        Tue, 08 Apr 2025 23:58:07 -0700 (PDT)
+Message-ID: <4e5c77f3-c6ff-45f6-b517-39a88a76ad04@suse.com>
+Date: Wed, 9 Apr 2025 08:58:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/16] x86/boot: add cmdline to struct boot_domain
-To: Alejandro Vallejo <agarciav@amd.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Jason Andryuk <jason.andryuk@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-4-agarciav@amd.com>
+Subject: Re: [PATCH v2 2/7] xen/domain: introduce domid_alloc()
+To: Denis Mukhin <dmkhn@proton.me>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250331230508.440198-1-dmukhin@ford.com>
+ <20250331230508.440198-3-dmukhin@ford.com>
+ <32a01662-3f34-4670-b38f-7d660acd3d2c@suse.com>
+ <Y8GhEKf3_4HeHTMCpwHkIF1k7ESinA0tL_jlCQsxKamzi8wEc7vSK3DtzXb22qF6xzFbS2yDtP0EGUqvCBVcHn9ggIxwKcES4sdyOpVAoos=@proton.me>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,136 +121,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250408160802.49870-4-agarciav@amd.com>
+In-Reply-To: <Y8GhEKf3_4HeHTMCpwHkIF1k7ESinA0tL_jlCQsxKamzi8wEc7vSK3DtzXb22qF6xzFbS2yDtP0EGUqvCBVcHn9ggIxwKcES4sdyOpVAoos=@proton.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.04.2025 18:07, Alejandro Vallejo wrote:
-> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+On 09.04.2025 03:44, Denis Mukhin wrote:
+> On Tuesday, April 8th, 2025 at 7:26 AM, Jan Beulich <jbeulich@suse.com> wrote:
+>> On 01.04.2025 01:05, dmkhn@proton.me wrote:
+>>
+>>> From: Denis Mukhin dmukhin@ford.com
+>>>
+>>> Move domain ID allocation during domain creation to a dedicated
+>>> function domid_alloc().
+>>>
+>>> Allocation algorithm:
+>>> - If an explicit domain ID is provided, verify its availability and
+>>> use it if ID is unused;
+>>> - Otherwise, perform an exhaustive search for the first available ID
+>>> within the [0..DOMID_FIRST_RESERVED) range, excluding hardware_domid.
+>>>
+>>> This minimizes the use of max_init_domid in the code and, thus, is a
+>>> prerequisite change for enabling console input rotation across domains
+>>> with console input permission on x86 platforms (which currently is
+>>> limited to dom0, PV shim and Xen).
+>>
+>>
+>> By removing the updating of max_init_domid you do - afaict - break the
+>> remaining use site(s) of the variable.
 > 
-> Add a container for the "cooked" command line for a domain. This
-> provides for the backing memory to be directly associated with the
-> domain being constructed.  This is done in anticipation that the domain
-> construction path may need to be invoked multiple times, thus ensuring
-> each instance had a distinct memory allocation.
+> Unfortunately, this patch should go together with the next patch in
+> this series:
+>   xen/domain: introduce domid_top()
 > 
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
-> ---
-> No changes on ACPI cmdline handling on PVH, as it's orthogonal to the
-> purpose of this patch.
-> 
-> v3:
->   * s/xfree/XFREE/ on failed construct_dom0() to avoid a dangling
-> cmdline ptr.
->   * Re-flow hvm_copy_to_guest_phys() into a multi-line call.
->   * s/bd->cmdline != NULL/b->cmdline/ (to homogenise with the previous
->     cmdline pointer check)
-> ---
->  xen/arch/x86/hvm/dom0_build.c          | 12 +++----
->  xen/arch/x86/include/asm/boot-domain.h |  1 +
->  xen/arch/x86/pv/dom0_build.c           |  4 +--
->  xen/arch/x86/setup.c                   | 50 +++++++++++++++++++-------
->  4 files changed, 47 insertions(+), 20 deletions(-)
-> 
-> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
-> index 2a094b3145..ebad5a49b8 100644
-> --- a/xen/arch/x86/hvm/dom0_build.c
-> +++ b/xen/arch/x86/hvm/dom0_build.c
-> @@ -653,7 +653,6 @@ static int __init pvh_load_kernel(
->      void *image_start = image_base + image->headroom;
->      unsigned long image_len = image->size;
->      unsigned long initrd_len = initrd ? initrd->size : 0;
-> -    const char *cmdline = image->cmdline_pa ? __va(image->cmdline_pa) : NULL;
->      const char *initrd_cmdline = NULL;
->      struct elf_binary elf;
->      struct elf_dom_parms parms;
-> @@ -736,8 +735,8 @@ static int __init pvh_load_kernel(
->              initrd = NULL;
->      }
->  
-> -    if ( cmdline )
-> -        extra_space += elf_round_up(&elf, strlen(cmdline) + 1);
-> +    if ( bd->cmdline )
-> +        extra_space += elf_round_up(&elf, strlen(bd->cmdline) + 1);
->  
->      last_addr = find_memory(d, &elf, extra_space);
->      if ( last_addr == INVALID_PADDR )
-> @@ -778,9 +777,10 @@ static int __init pvh_load_kernel(
->      /* Free temporary buffers. */
->      free_boot_modules();
->  
-> -    if ( cmdline != NULL )
-> +    if ( bd->cmdline )
->      {
-> -        rc = hvm_copy_to_guest_phys(last_addr, cmdline, strlen(cmdline) + 1, v);
-> +        rc = hvm_copy_to_guest_phys(last_addr, bd->cmdline,
-> +                                    strlen(bd->cmdline) + 1, v);
->          if ( rc )
->          {
->              printk("Unable to copy guest command line\n");
-> @@ -791,7 +791,7 @@ static int __init pvh_load_kernel(
->           * Round up to 32/64 bits (depending on the guest kernel bitness) so
->           * the modlist/start_info is aligned.
->           */
-> -        last_addr += elf_round_up(&elf, strlen(cmdline) + 1);
-> +        last_addr += elf_round_up(&elf, strlen(bd->cmdline) + 1);
->      }
->      if ( initrd != NULL )
->      {
+> I mentioned dependency in the cover letter.
 
-Perhaps better introduce a local variable cmdline_len? That would allow the first
-if() to go away (but of course not its body).
+No, that would still break bisectability. Also such dependencies would
+better be mentioned in both the cover letter and the patch(es).
 
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -978,10 +978,30 @@ static unsigned int __init copy_bios_e820(struct e820entry *map, unsigned int li
->      return n;
->  }
->  
-> -static struct domain *__init create_dom0(struct boot_info *bi)
-> +static size_t __init domain_cmdline_size(
-> +    struct boot_info *bi, struct boot_domain *bd)
-
-const for both? And perhaps s/domain/dom0/ in the function name?
-
->  {
-> -    static char __initdata cmdline[MAX_GUEST_CMDLINE];
-> +    size_t s = bi->kextra ? strlen(bi->kextra) : 0;
-> +
-> +    s += bd->kernel->cmdline_pa ? strlen(__va(bd->kernel->cmdline_pa)) : 0;
->  
-> +    if ( s == 0 )
-> +        return s;
-
-While this retains prior behavior, that prior behavior was certainly odd (and
-pretty likely not meant to be like that).
-
-> @@ -1043,17 +1067,19 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->  
->          if ( (strlen(acpi_param) != 0) && !strstr(cmdline, "acpi=") )
->          {
-> -            safe_strcat(cmdline, " acpi=");
-> -            safe_strcat(cmdline, acpi_param);
-> +            strlcat(cmdline, " acpi=", cmdline_size);
-> +            strlcat(cmdline, acpi_param, cmdline_size);
->          }
-> -
-> -        bd->kernel->cmdline_pa = __pa(cmdline);
-> +        bd->kernel->cmdline_pa = 0;
-> +        bd->cmdline = cmdline;
->      }
->  
->      bd->d = d;
->      if ( construct_dom0(bd) != 0 )
->          panic("Could not construct domain 0\n");
->  
-> +    XFREE(cmdline);
-
-While this tidies the local variable, what about bd->cmdline? As it stands this
-gives the impression that you're freeing a pointer here which may still be used
-through passing bd elsewhere.
+Going back to the cover letter, all I find is "Patch 3 depends on patch
+2." That's the natural thing in a series.
 
 Jan
 
