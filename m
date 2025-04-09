@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BEBEA8218F
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 12:01:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.943718.1342373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB2B5A821AB
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 12:05:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.943731.1342383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2SEI-0005xY-Ca; Wed, 09 Apr 2025 10:00:22 +0000
+	id 1u2SIv-0007sI-VC; Wed, 09 Apr 2025 10:05:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 943718.1342373; Wed, 09 Apr 2025 10:00:22 +0000
+Received: by outflank-mailman (output) from mailman id 943731.1342383; Wed, 09 Apr 2025 10:05:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2SEI-0005ul-9b; Wed, 09 Apr 2025 10:00:22 +0000
-Received: by outflank-mailman (input) for mailman id 943718;
- Wed, 09 Apr 2025 10:00:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u2SIv-0007pd-Ri; Wed, 09 Apr 2025 10:05:09 +0000
+Received: by outflank-mailman (input) for mailman id 943731;
+ Wed, 09 Apr 2025 10:05:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5vFf=W3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u2SEG-0005uP-9A
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 10:00:20 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 713c4fd4-1529-11f0-9eaa-5ba50f476ded;
- Wed, 09 Apr 2025 12:00:18 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43edecbfb94so45406125e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 03:00:18 -0700 (PDT)
+ id 1u2SIv-0007pX-2z
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 10:05:09 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1cf3e80c-152a-11f0-9ffb-bf95429c2676;
+ Wed, 09 Apr 2025 12:05:06 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43cec5cd73bso37562475e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 03:05:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39d893f0a80sm1172850f8f.68.2025.04.09.03.00.17
+ 5b1f17b1804b1-43f2075a593sm14804205e9.25.2025.04.09.03.05.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Apr 2025 03:00:17 -0700 (PDT)
+ Wed, 09 Apr 2025 03:05:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 713c4fd4-1529-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 1cf3e80c-152a-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744192818; x=1744797618; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744193106; x=1744797906; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5cRYYtEYKApOJth6FY32FTm/VcHgLQzSmgOZwKZX/ws=;
-        b=MguLpULJ0y3S+RgUK+yztw0FnTBxoGbShfdODqidsamiWZkd0ADhmDWoT+byH2/gke
-         oRM0lImhQ0djlRCA7cAa+7W3Ow3GeANFDnHeYVkIULegQST8D5dWS+QZGvjhvMQ2Pw4M
-         nm+nzy1ffJVoL3TU3yr3YDJTEfmLqf8TM/26YoxdRm10qsInm2i0gH2rH0N7dmH7TrZI
-         3HAFzN0mItMD7bNCC4WwHqX+AV7ssmptmC9C7Jg6nTvMzP5RUokKZiPa1sIKlXSeC76W
-         +bpFm023neYaVdiefMWS8D0zvo7F8Sj9JXEg5ZaXtnRVoL75UTwvZK5rRpOw7CzbEn/2
-         We9Q==
+        bh=+MZ9LDlQVLzJKHK3NbI489Yx+hBmX1ikt6QAEymnCZ4=;
+        b=ETvmZhZl/i0jTMu9YP6JA/Zm8wtMg1IeVpCBYXcbwsNRxm5/P6tmzcyfZPmvmTbDCU
+         1hqPuZqueL5/rujHqR1whQFmbUUbj21MHbbRH4FHUbKaqPeTLkQZu8DcEWUmwwAjQQtU
+         nW7qxjwQhfivaVy/0yWicsibXSabHpUTKk6fawT0L0KtJh6ykbi2gspiAZibSuNTXrN6
+         vzxBzyMQjrnCk+Dml9YoPUuoz25cAVyZs1zhq+0i3BcnAnAJHT4oCtImTDHOohxarnPZ
+         FMRInbh/IxWZvt/6Z8G3i5PThcriA19rGVzh6GoVl4KpZ/qGCzm6gWhR4qJAsr1GWv+I
+         QMlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744192818; x=1744797618;
+        d=1e100.net; s=20230601; t=1744193106; x=1744797906;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5cRYYtEYKApOJth6FY32FTm/VcHgLQzSmgOZwKZX/ws=;
-        b=TNLRP2/AEzvgh1Pic3e0KbrCrIFCa6G0AaBTSRFMbndRiR7rx45Sr7HAO20lNCAS3m
-         lGUBUa11zLHnTDlb6Hy1kRyhbcA49/LAmPeOeb9Vmoeq5jF/W1FHSibHR8XYvPfLbxy4
-         l8/jD5FE9j7rsTInjhcUKP2syOXU5nIclarzqdhBuIHsZo6TMIuI0o/P0UJgTHUcG4gG
-         P3ghFBmcM74luAh2rT6lzNujadf1m2gLOK1P7MDUaLP+1U1zV5gLjtkS0aAQcAMOuscD
-         lYRzZekWIEJqOJkspRj4pTpwC8g1bcU6uZTnriP1WqU1mtQsjCDn88ea17i7CZ7tCvW7
-         QvJA==
-X-Forwarded-Encrypted: i=1; AJvYcCUm37H494QOZ/X9IY1sHKrncazzmp4AWBO//j3SD8PxhDAqmHiL+r9xModPuZp8dOIMrp3HuDmWbAU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxuivZNUZfaYe1TGmdSVsg3YgzQSnreITctimv9SVqiGKPtf6qo
-	oyV5RG6YyDmKnjW/U4OuKh/xSAVEt9Pg7Fk6TSBz5r4RCY+eyY9jmwshHX+auw==
-X-Gm-Gg: ASbGncvjoNuFLfNJtwAk2Ri1v0POhvaT4U+noo8JGGWtmAaTXEpd+P1jyy3RDHYqiZH
-	ozK6DD+qJ2FI0QLau+dlOIBPb3p/J4L5IKQgycIi17lpA+F2DM52FoQ8izqpGQvxCNE713EYAIP
-	vPtAdxuffeP4yYh7c3KBYTQ11QtwJOv27RGwjDKgVxhX4jZriV1WRkvREbsyJwQettTvvv/ac0g
-	2idxCZRqCs8BS6e4KnrEDBRt4wxzv9C9yqByf66JOyP7BIJLCn/9TEClTkqDRRtowlQdlKiXeJn
-	VM30ouOvinOu39VDbzig4c27LtTLoKTMQ1kPJUfG2LBvKB1ptHmOJJcSM1ve8u1ggQPZbOYcf5H
-	XBQ3yQfWJaTsQSadfyoM6GybVZg==
-X-Google-Smtp-Source: AGHT+IH1fdyvBFo4kIbhc+fZkuIuPYp5DFiegcW8IHwN8SuXq0/Kjv4FnaZ37cB5Drll15kjfDDxvg==
-X-Received: by 2002:a05:600c:8508:b0:43d:9f2:6274 with SMTP id 5b1f17b1804b1-43f252f558fmr11624555e9.14.1744192818103;
-        Wed, 09 Apr 2025 03:00:18 -0700 (PDT)
-Message-ID: <ef0b6eea-a7e5-406d-a8ba-062b3c6e17e1@suse.com>
-Date: Wed, 9 Apr 2025 12:00:16 +0200
+        bh=+MZ9LDlQVLzJKHK3NbI489Yx+hBmX1ikt6QAEymnCZ4=;
+        b=MiIR7kH99CYcc6LO1AXNgq2cpfUc/LnaavBTRsEngsvRIm5k7D9/ek0yC+C+30qfKQ
+         iRLNP+g/+9TttErg/e2kN9/2iTIBOQSP+PJ50CfXfw00y9ev1krVAlKVQV143vLKDjB3
+         aAamu+WTzFxIbkjpHASxAjjDZkIHPp6Az4OqLjo0aUP8vSqf4kNpgHIE88oO16+GrotT
+         raNgHffLe/Ad3zO5/TgzK9e8AxLfsYx3BWU/+7LBymF+v6QZcreZooptSoMFecFU40H4
+         B0JnzwO4ZUf2pHAghIRVxOM3ZIRiE1xeWWgDmwOXS+rZamI1VYKaqvD6sGzZInxRiYdt
+         A3nA==
+X-Forwarded-Encrypted: i=1; AJvYcCVkUnBuyHRymjR5+Bz7kw1u1SkR+KkKmSciM7FnCjqhsBfKZwcGIL+f6MOxZkTupz7vIlaU2qWlHdo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyK2thDLCPM4YY8sgDT/cBhBGUX90j9YBtrpkk8DedYwT87FhDh
+	UOHy9ZjITwxwq6NxtgI9/637srzzPWUcgWv18e0+Y8vTGiQm4148lnKHhnTE4g==
+X-Gm-Gg: ASbGncsu9t3ukbNvuW4VwM/9gC+ZhkMuDWk0S58ssoGeWh5+T1tgj8yOr/PNIbmxBR/
+	KD6jmCP+VuFp4O0AknLAwJb57lus9haFQrDLZdCd8N+17HQI6iEiX8eaUd0NwPZ3ggL++5DuvXk
+	xhv0fOPeh2owqzl0r4VfM9r7O9VIAQhImhQU+pU8WuALRcmvveMNmRuwFuhJk4eVQ8lIAs9wZZU
+	vg2mqJZuAzRzaHVEbshy9vkCaqtYKUjjvcHK9/Na/NGmynYd97YE2Ulo0TBp/0fUWghdqiN6t/Y
+	SJaxGGm6rRMIHBYm615QNZbm57gXgceB0d65fpC9r1YqBlbxjjuUA+13hA1ZdHvXh48zX2xHd86
+	7E6QNFu8oHicxGfMR19yK0B9tBQ==
+X-Google-Smtp-Source: AGHT+IErNWXpyMTxwRgUr2hbvUpv+Fw/FkUwSN/akl0zSUlwJziWYsIpIgP7DRjTOhQ9UjJnd24fTg==
+X-Received: by 2002:a05:600c:1913:b0:43d:24d:bbe2 with SMTP id 5b1f17b1804b1-43f1ed6e71cmr16549325e9.28.1744193106274;
+        Wed, 09 Apr 2025 03:05:06 -0700 (PDT)
+Message-ID: <223f03ce-e157-4583-9b64-3cff0cd5823d@suse.com>
+Date: Wed, 9 Apr 2025 12:05:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/hvm: fix write emulation of RO ranges
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250408093156.83277-1-roger.pau@citrix.com>
- <20250408093156.83277-3-roger.pau@citrix.com>
- <16c73cae-2ac0-4811-97d3-b25c95ed5abc@suse.com>
- <Z_Y4xFzaltr_XKO4@macbook.lan>
+Subject: Re: [PATCH v2] xen/riscv: Increase XEN_VIRT_SIZE
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <808d1b346bc90dde38fd19a6b92ab78d78e42936.1743766932.git.oleksii.kurochko@gmail.com>
+ <e5f6ccb3-498f-44cf-8c06-61fa502d93db@suse.com>
+ <f35a9969-6154-4e9a-b997-16ca135e85ee@gmail.com>
+ <8b2e50f2-1f89-41df-be88-afc9ef24b51a@suse.com>
+ <c3b1be9a-d5f5-4cac-a675-7485a99bf51c@gmail.com>
+ <fde6c1c2-c439-4020-9301-025b7e8af804@suse.com>
+ <3bd6cdb7-8de0-4559-bc56-b20c52fd73db@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,40 +128,72 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z_Y4xFzaltr_XKO4@macbook.lan>
+In-Reply-To: <3bd6cdb7-8de0-4559-bc56-b20c52fd73db@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 09.04.2025 11:07, Roger Pau Monné wrote:
-> On Tue, Apr 08, 2025 at 03:57:17PM +0200, Jan Beulich wrote:
->> On 08.04.2025 11:31, Roger Pau Monne wrote:
->>> When running on AMD hardware in HVM mode the guest linear address (GLA)
->>> will not be provided to hvm_emulate_one_mmio(), and instead is
->>> unconditionally set of ~0.  As a consequence mmio_ro_emulated_write() will
->>> always report an error, as the fault GLA generated by the emulation of the
->>> access won't be ~0.
->>
->> Which means subpage_mmio_write_accept() is flawed, too, on AMD (or more
->> generally whenever .gla_valid isn't set).
+On 09.04.2025 11:06, Oleksii Kurochko wrote:
+> On 4/8/25 4:04 PM, Jan Beulich wrote:
+>> On 08.04.2025 15:46, Oleksii Kurochko wrote:
+>>> On 4/8/25 2:02 PM, Jan Beulich wrote:
+>>>> On 08.04.2025 13:51, Oleksii Kurochko wrote:
+>>>>> On 4/7/25 12:09 PM, Jan Beulich wrote:
+>>>>>> On 04.04.2025 18:04, Oleksii Kurochko wrote:
+>>>>>>> --- a/xen/arch/riscv/mm.c
+>>>>>>> +++ b/xen/arch/riscv/mm.c
+>>>>>>> @@ -31,20 +31,27 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
+>>>>>>>     #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
+>>>>>>>     
+>>>>>>>     /*
+>>>>>>> - * It is expected that Xen won't be more then 2 MB.
+>>>>>>> + * It is expected that Xen won't be more then XEN_VIRT_SIZE MB.
+>>>>>>>      * The check in xen.lds.S guarantees that.
+>>>>>>> - * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
+>>>>>>> - * One for each page level table with PAGE_SIZE = 4 Kb.
+>>>>>>>      *
+>>>>>>> - * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
+>>>>>>> + * Root page table is shared with the initial mapping and is declared
+>>>>>>> + * separetely. (look at stage1_pgtbl_root)
+>>>>>>>      *
+>>>>>>> - * It might be needed one more page table in case when Xen load address
+>>>>>>> - * isn't 2 MB aligned.
+>>>>>>> + * An amount of page tables between root page table and L0 page table
+>>>>>>> + * (in the case of Sv39 it covers L1 table):
+>>>>>>> + *   (CONFIG_PAGING_LEVELS - 2) are needed for an identity mapping and
+>>>>>>> + *   the same amount are needed for Xen.
+>>>>>>>      *
+>>>>>>> - * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
+>>>>>>> - * except that the root page table is shared with the initial mapping
+>>>>>>> + * An amount of L0 page tables:
+>>>>>>> + *   (512 entries of one L0 page table covers 2MB == 1<<XEN_PT_LEVEL_SHIFT(1))
+>>>>>>> + *   XEN_VIRT_SIZE >> XEN_PT_LEVEL_SHIFT(1) are needed for Xen and
+>>>>>>> + *   one L0 is needed for indenity mapping.
+>>>>>>> + *
+>>>>>>> + *   It might be needed one more page table in case when Xen load
+>>>>>>> + *   address isn't 2 MB aligned.
+>>>>>> Shouldn't we guarantee that?
+>>>>> I think it's sufficient to guarantee 4KB alignment.
+>>>>>
+>>>>> The only real benefit I see in enforcing larger alignment is that it likely enables
+>>>>> the use of superpages for mapping, which would reduce TLB pressure.
+>>>>> But perhaps I'm missing something?
+>>>> No, it's indeed mainly that.
+>>> But then the linker address and the load address should both be aligned to a 2MB or 1GB boundary.
+>>> This likely isn't an issue at all, but could it be a problem if we require 1GB alignment for the
+>>> load address? In that case, might it be difficult for the platform to find a suitable place in
+>>> memory to load Xen for some reason? (I don't think so but maybe I'm missing something)
+>> Why would load address need to be 1Gb aligned? That (as well as 2Mb-)alignment
+>> matters only once you set up paging?
 > 
-> Oh, yes, good catch.  I didn't notice that one.  We should move all
-> those checks to use a paddr rather than a gla.
-
-Really that function could just be passed the offset into the page.
-
->>> Fix this by only checking for the fault GLA in mmio_ro_emulated_write()
->>> when the guest is PV.
->>
->> This narrows checking too much, imo. For VT-x we could continue to do so,
->> provided we pass e.g. npfec down into hvm_emulate_one_mmio(), i.e. make
->> the gla_valid flag visible there.
+> Mostly yes, it matters only once during paging set up.
 > 
-> I don't think we should rely on the gla at all in
-> mmio_ro_emulated_write(), and instead just use the physical address.
+> I was thinking that if, one day, 2MB (or larger) alignment is used and the load address isn't
+> properly aligned, some space in a page might be lost.
+> (The word "should" above wasn't entirely accurate.)
 
-But you can't validate a physical address against a CR2 value. And I view
-this validation as meaningful, to guard (best effort, but still) against
-e.g. insn re-writing under our feet.
+Actually I think I was wrong with my question. Load address of course matters to
+a sufficient degree, especially if at 2Mb boundaries to want to be able to change
+what permissions to use (without sacrificing the 2Mb mappings).
 
 Jan
 
