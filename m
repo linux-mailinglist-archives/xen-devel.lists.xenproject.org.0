@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3498AA82591
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 15:05:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.943969.1342555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 154A2A825DD
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 15:15:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.943978.1342566 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2V7B-0002Nq-Aj; Wed, 09 Apr 2025 13:05:13 +0000
+	id 1u2VGp-0005Gx-7e; Wed, 09 Apr 2025 13:15:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 943969.1342555; Wed, 09 Apr 2025 13:05:13 +0000
+Received: by outflank-mailman (output) from mailman id 943978.1342566; Wed, 09 Apr 2025 13:15:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2V7B-0002MB-83; Wed, 09 Apr 2025 13:05:13 +0000
-Received: by outflank-mailman (input) for mailman id 943969;
- Wed, 09 Apr 2025 13:05:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fbf/=W3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u2V79-0002M3-Ow
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 13:05:11 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 443160c6-1543-11f0-9eab-5ba50f476ded;
- Wed, 09 Apr 2025 15:05:10 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43cfebc343dso45002965e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 06:05:10 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f20626c19sm20023245e9.15.2025.04.09.06.05.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Apr 2025 06:05:08 -0700 (PDT)
+	id 1u2VGp-0005Dp-49; Wed, 09 Apr 2025 13:15:11 +0000
+Received: by outflank-mailman (input) for mailman id 943978;
+ Wed, 09 Apr 2025 13:15:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5vFf=W3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u2VGn-0005Dj-PS
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 13:15:09 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a7db4c70-1544-11f0-9ffb-bf95429c2676;
+ Wed, 09 Apr 2025 15:15:06 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43ede096d73so31356605e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 06:15:06 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43f2075fc83sm19961815e9.26.2025.04.09.06.15.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Apr 2025 06:15:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 443160c6-1543-11f0-9eab-5ba50f476ded
+X-Inumbo-ID: a7db4c70-1544-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744203909; x=1744808709; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=wA19nJTTFlLi2S5i3hNhxXNAIAEva6dxvHNqQxRQqxM=;
-        b=hzN9tgJ2Kkz+wwpsptk/NlUFrwhMOcCJG1pmBoXaLIhi5exqKyNpFQoJxt+mITqXcg
-         XpqmmPo+YWDO5/4vse+cDoSg0YjGEaAvMy/e9c33D/7hZj+auWyJlXdqVOiP+iQJQAY1
-         zKFcIq81+1rU5mbp8d2lrzFvoZG3rxzuRghMQ=
+        d=suse.com; s=google; t=1744204506; x=1744809306; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=359++Fx7n3tcb9o1gRWcBstwZPRV3RIAe6brpygAlrc=;
+        b=RUiJvATi2O8bKaTYSzIXHG6tY24EXkHOdI727Be0b7Zf2T7qwpzU7sq8WLAFAuh/En
+         RTqV+/sx2IKs8qN5VupGXp3LrvUzVilw30D5Crb1gJ6uUSFNDStNYNcmTDj6elZxpxnK
+         L7q00PiczbUEIO3wjEgBI8yNPLIslMwJ+BaMLr4Aoe1copIcBAlcFmiTDYs8ya4/JLIJ
+         blbsBRCq7z86nBsJSXWfYtpB6JNvzaquY+5dX3//xgruZ6lWHfmjHhhTWvPf9r5qpuS6
+         ppkIo9Skr961Q8dtTOdH10T0n+vss8cwiQ+niD4RPZezS9+ZVNj/xri8w6dO1HmzoDwI
+         bUKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744203909; x=1744808709;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=wA19nJTTFlLi2S5i3hNhxXNAIAEva6dxvHNqQxRQqxM=;
-        b=ThC7cVroGdfcAdNca8z9S5FHV1GPjDTpch/cUZYUVDymeoUXlvbvhYyPiICITY58VL
-         wk2pkBeGNEs+5Y84VtoIyKZ4o64EVOI96vigFQ+WoHtONrnoJBz0kF7Nb8Z52G8Fer5e
-         Fr/gtxDvM+GX1ZHdw2qlQBuPiReS79/cKVghbwRJMB+ZF6pI1nHY8OLrxh7IMVlZfr8L
-         PtIS0s8+rV6GvKWl7gVUnPl9rFGMMfTnYQacb4sw+LQdCfhW0LbdkQI2m7Ow2yh4dgXg
-         Uo6CVRDIVvRnmPwDKpVN4TtFL5WuW8YsglcGkBBDP2w8HL5Ps/vLYwnvTWn8LUxJiwSq
-         aiig==
-X-Gm-Message-State: AOJu0YzrE4ijhpQafpvvo3zEx84/TJbHy7MYEA088r7mkecCiBOZEXLV
-	1q3qY3pabPYognlDQb60HwvV23aRWNR0oOWmB84Pla2RkdhMmljtZ9wfii6uVR8bXYODJf9z+X7
-	sP64=
-X-Gm-Gg: ASbGncvqnl4TEy1wfJD5jRS3H0wtwogq5osPvwx0KpyWI6Gda73mHdACXVcozzPDXzt
-	QBz4GzTmxapv0L4oZHJ11i+mKHiNCuQbqHG2EQ59kxxJ0u2nh7sEKNpA/rFtafEEfKudnrnmdjv
-	Et2pKrUSc8TlFr6YOmFzW0GkiF5+F7+qS3/fqNYp8fx4IZkksGa1U/MxroO9J5pzFEqlahr+gUK
-	5+XdMrKHbhB65BpAKpZC2D8/Ur4ObVw61GDAY6JgjpleR37/4+Byoq4PZhKMIVo0VFxlwDsah6n
-	IX5TZES2vO/wg3qIxNkrOSrk3TQoAY5lYgrvwf5OelzjYiZtwmFvTNwCin3TS2zJv8j+ywR2Gn4
-	wz3bALggTsW2wbA==
-X-Google-Smtp-Source: AGHT+IHbin4zC3V9XaEOrFCp7aQ8gNdG+iIzLugTZiDUx08Rv9idObhZ1zUuQYRxWhzz3cLcmZIkmw==
-X-Received: by 2002:a05:600c:1d86:b0:43d:7588:66a5 with SMTP id 5b1f17b1804b1-43f1ed671d7mr29515485e9.31.1744203909039;
-        Wed, 09 Apr 2025 06:05:09 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH] CI: Update x86 tests from Linux 6.1.19 to 6.6.56
-Date: Wed,  9 Apr 2025 14:05:05 +0100
-Message-Id: <20250409130505.2011604-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20230601; t=1744204506; x=1744809306;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=359++Fx7n3tcb9o1gRWcBstwZPRV3RIAe6brpygAlrc=;
+        b=isAF4JWqEUbuuIIUiGHPuF0gQqXEDrqIKVPhk1IOju4QN2dhLRaloKPCEA6HF8rk/n
+         FR3NMrwnOtA7CuFv94xE5w0V+c9mxv+hbDt+LumG1nD944rk12Q5ZWt0tGtVnzgCdxKG
+         tIqZLInUrWq6fPc/3Ll3WTQO1QesjsrFhdt3zdJQ8CT4w6SYm1i/FVxKbs4uRtLfHsmV
+         VgqcO37BAft4sO9DYeffQsq+BcOFsD2jv5mPiUqDZedC02SsT/YK6uqDnX6MlzuIyp9D
+         LJ4V82dkyYBdUoslp0sNWZog3prVjXiBbp0tbpbqpJ2HEBAcQoPMo0eA9IyWk6SD3WK7
+         DFSA==
+X-Gm-Message-State: AOJu0YyBkcZB2wsWXilBcDJvDub8aDvlsd0sd8tMPGlXwMxc6JODJWiY
+	57Pt9iOh93VIl9OmciyLKIgldr1FrP8fVyWWm4oOwQl83vj612uE6Pr5E7kM60KjpgSK06cgq3E
+	=
+X-Gm-Gg: ASbGncsqQLULobbizCjZoOqmsykkr9Ny1dfsGKFQcs2JrAcVFQChN3RHcayjCBDyNg3
+	pfGb864LhdF5zJnDZ6iNIqCXWdlk0RVzN2Va4Q6+mlt8RoExXShGxpsbbWFwqIpMBh/kn+qhzVV
+	KixYCZhIgbKylsaeBEjY0v5B54SuQC80RemyIyJaNWCRujyJAUsruvsWE2Vz4KXt7FL4zMV8vwJ
+	je4f8cesI4WYbMVvEk1OGfy56w6c0Vsz4otGWvbTPlLgaERqYBWRK77o/AthIpTBSSaKJAsRmeS
+	Y9xHNOV0aqSsjDS/f9mEvZVuXBYkv/M+Ho3N55YbVP7O7MdXC0v3ztYutRa2TZyh3oyKYDj0a0m
+	7v7W32dTaid188n3Dy1Ub1mtpuw==
+X-Google-Smtp-Source: AGHT+IElOFxLA2a3fXBesCjNIJVZK6RCABoTRCshg1ERAF2uS43drs+Vg09VwZER4aZ93qVAXIJrYg==
+X-Received: by 2002:a05:600c:c0a:b0:43d:585f:ebf5 with SMTP id 5b1f17b1804b1-43f1ec7d133mr27469635e9.1.1744204506184;
+        Wed, 09 Apr 2025 06:15:06 -0700 (PDT)
+Message-ID: <41aa7f80-7d27-4b37-83a6-239e2380168f@suse.com>
+Date: Wed, 9 Apr 2025 15:15:04 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] include: sort $(wildcard ...) results
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Linux 6.6.56 was already added to test-artifacts for the argo testing, and
-this removes one moving part while cleaning things up.
+The order of items is stored in .*.chk.cmd, and hence variations between
+how items are ordered would result in re-invocation of the checking rule
+during "make install-xen" despite that already having successfully run
+earlier on. The difference can become noticable when building (as non-
+root) and installing (as root) use different GNU make versions: In 3.82
+the sorting was deliberately undone, just for it to be restored in 4.3.
 
-Drop the associated export job, and dockerfile.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Doug Goldstein <cardoe@cardoe.com>
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+While this was an issue already before, it became noticable with the
+toolchain baseline bump: The custom-built compilers I use, run directly
+from their build areas, wouldn't find the C++ header files when run as
+root. Hence the C++ checking rule would fail during "make install-xen",
+when needlessly re-run there.
 
-https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1760198654
----
- automation/gitlab-ci/build.yaml               | 13 ------
- automation/gitlab-ci/test.yaml                |  4 +-
- .../tests-artifacts/kernel/6.1.19.dockerfile  | 41 -------------------
- 3 files changed, 3 insertions(+), 55 deletions(-)
- delete mode 100644 automation/tests-artifacts/kernel/6.1.19.dockerfile
-
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 169bebe3c775..ab758243c1ec 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -308,19 +308,6 @@ qemu-system-aarch64-6.0.0-arm32-export:
-   tags:
-     - arm64
+--- a/xen/include/Makefile
++++ b/xen/include/Makefile
+@@ -41,8 +41,8 @@ cppflags-$(CONFIG_X86)    += -m32
  
--# x86_64 test artifacts
--
--kernel-6.1.19-export:
--  extends: .test-jobs-artifact-common
--  image: registry.gitlab.com/xen-project/xen/tests-artifacts/kernel:6.1.19
--  script:
--    - mkdir binaries && cp /bzImage binaries/bzImage
--  artifacts:
--    paths:
--      - binaries/bzImage
--  tags:
--    - x86_64
--
- # Jobs below this line
+ endif
  
- # Build jobs needed for tests
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index d05b9a98afa6..58620b32da5d 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -16,7 +16,9 @@
-   - qemu-system-aarch64-6.0.0-arm32-export
+-public-$(CONFIG_X86) := $(wildcard $(srcdir)/public/arch-x86/*.h $(srcdir)/public/arch-x86/*/*.h)
+-public-$(CONFIG_ARM) := $(wildcard $(srcdir)/public/arch-arm/*.h $(srcdir)/public/arch-arm/*/*.h)
++public-$(CONFIG_X86) := $(sort $(wildcard $(srcdir)/public/arch-x86/*.h $(srcdir)/public/arch-x86/*/*.h))
++public-$(CONFIG_ARM) := $(sort $(wildcard $(srcdir)/public/arch-arm/*.h $(srcdir)/public/arch-arm/*/*.h))
  
- .x86-64-test-needs: &x86-64-test-needs
--  - kernel-6.1.19-export
-+  - project: xen-project/hardware/test-artifacts
-+    job: x86_64-kernel-linux-6.6.56
-+    ref: master
-   - project: xen-project/hardware/test-artifacts
-     job: x86_64-rootfs-alpine-3.18
-     ref: master
-diff --git a/automation/tests-artifacts/kernel/6.1.19.dockerfile b/automation/tests-artifacts/kernel/6.1.19.dockerfile
-deleted file mode 100644
-index 073eaa0e11fa..000000000000
---- a/automation/tests-artifacts/kernel/6.1.19.dockerfile
-+++ /dev/null
-@@ -1,41 +0,0 @@
--# syntax=docker/dockerfile:1
--FROM --platform=linux/amd64 debian:bookworm
--LABEL maintainer.name="The Xen Project" \
--      maintainer.email="xen-devel@lists.xenproject.org"
--
--ENV DEBIAN_FRONTEND=noninteractive
--ENV LINUX_VERSION=6.1.19
--ENV USER root
--
--RUN mkdir /build
--WORKDIR /build
--
--# build depends
--RUN apt-get update && \
--    apt-get --quiet --yes install \
--        build-essential \
--        bc \
--        curl \
--        flex \
--        bison \
--        libelf-dev \
--        && \
--    apt-get autoremove -y && \
--    apt-get clean && \
--    rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
--
--# Build the kernel
--RUN curl -fsSLO https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-"$LINUX_VERSION".tar.xz && \
--    tar xvJf linux-"$LINUX_VERSION".tar.xz && \
--    cd linux-"$LINUX_VERSION" && \
--    make defconfig && \
--    make xen.config && \
--    scripts/config --enable BRIDGE && \
--    scripts/config --enable IGC && \
--    scripts/config --enable TUN && \
--    cp .config .config.orig && \
--    cat .config.orig | grep XEN | grep =m |sed 's/=m/=y/g' >> .config && \
--    make -j$(nproc) bzImage && \
--    cp arch/x86/boot/bzImage / && \
--    cd /build && \
--    rm -rf linux-"$LINUX_VERSION"*
-
-base-commit: 59bb316ea89e7f9461690fe00547d7d2af96321d
--- 
-2.39.5
-
+ .PHONY: all
+ all: $(addprefix $(obj)/,$(headers-y) $(headers-n))
+@@ -130,7 +130,7 @@ all: $(obj)/headers.chk $(obj)/headers99
+ 
+ public-hdrs-path := $(srcdir)/public
+ 
+-public-list-headers = $(wildcard $1/*.h $1/*/*.h)
++public-list-headers = $(sort $(wildcard $1/*.h $1/*/*.h))
+ public-filter-headers = $(filter-out $(addprefix $(public-hdrs-path)/, $($1-filter)), $($1))
+ 
+ public-headers := $(call public-list-headers, $(public-hdrs-path)) $(public-y)
 
