@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA395A81EFA
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 10:00:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.943589.1342282 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 900C6A81F70
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 10:12:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.943603.1342294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2QLi-0004y0-5k; Wed, 09 Apr 2025 07:59:54 +0000
+	id 1u2QX8-0002Cc-8H; Wed, 09 Apr 2025 08:11:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 943589.1342282; Wed, 09 Apr 2025 07:59:54 +0000
+Received: by outflank-mailman (output) from mailman id 943603.1342294; Wed, 09 Apr 2025 08:11:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2QLi-0004ve-2l; Wed, 09 Apr 2025 07:59:54 +0000
-Received: by outflank-mailman (input) for mailman id 943589;
- Wed, 09 Apr 2025 07:59:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u2QX8-00029h-4N; Wed, 09 Apr 2025 08:11:42 +0000
+Received: by outflank-mailman (input) for mailman id 943603;
+ Wed, 09 Apr 2025 08:11:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5vFf=W3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u2QLh-0004vY-4K
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 07:59:53 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9d26ed5b-1518-11f0-9ffb-bf95429c2676;
- Wed, 09 Apr 2025 09:59:51 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3912d2c89ecso5664843f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 00:59:51 -0700 (PDT)
+ id 1u2QX6-00029b-MB
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 08:11:40 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4081c2d3-151a-11f0-9eaa-5ba50f476ded;
+ Wed, 09 Apr 2025 10:11:34 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43cfb6e9031so58245895e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 01:11:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39d89402a08sm828929f8f.100.2025.04.09.00.59.49
+ ffacd0b85a97d-39d893f0ba0sm882009f8f.64.2025.04.09.01.11.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Apr 2025 00:59:49 -0700 (PDT)
+ Wed, 09 Apr 2025 01:11:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d26ed5b-1518-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 4081c2d3-151a-11f0-9eaa-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744185590; x=1744790390; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744186294; x=1744791094; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zv9/QU/d75fYM3hHGscnkbWcHBxfuQSaowy/czXNBu8=;
-        b=feW78lI54K4pBrZnNh3ek0sOZVyQlOtoD+l9xakdCHr6GKM0+nk+djPfMz6lrTz03m
-         x6UPRz1qwwqtLUPHIQMAzn6zckYQrpYtsHRFOFK8bbcAzihUSlVI4WKWQNCVISmKT0Ey
-         pGH2Y7Zmlhch8WruZPelHGKuPsQzGZxSWcqIsoSIdiRipIiWrxGaLz+z891MSQBjWyQy
-         pT8jkMYtObYpvrvXhnmnC3x/DQVAXWzRVAEt37niTvECJfDhJuNhC7AuPGiiDFwof9k8
-         hL3j7ackoUSk1pRjdDhtpRC7rD1AFlSoXu+YJ7WNHbv/H6Z7tckVtVuffrJzNUP3U+p7
-         YP/A==
+        bh=f3/bACEeHbPBEiNZHDVeNPQYoGbCfAKE8jLbl/6Ek1Y=;
+        b=CCN8jfNsdSAAxAhUi4VV3uub7Q/X2jvGECtXmmx/banLYh6awshUTZLkmoNEUPYPoq
+         3VPFv3cXGusuUJKS+QRgYn8zarvQVs8ks6ExxITvZJZf9RVqJ/PzPG5Mh9loMqAaZAtJ
+         K5HUL76EPb/NKcei8VP3ptprIShLApV+49ci373NI8SZB0GMfs3q35PFBfpqOkVEQ4sW
+         qhu7z9CSVhuI5u2lKuFIa+/oPFJIomj8HtSKaD5fZKD9qyjlt7GSedgi7wvGQj9b9IQq
+         YZsCI+83iLq//SfDKxmr2ennzl8A5fzEune1GNy3pLGDzpw40kfHhDa2ZQk4uIIqihlf
+         uLRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744185590; x=1744790390;
+        d=1e100.net; s=20230601; t=1744186294; x=1744791094;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=zv9/QU/d75fYM3hHGscnkbWcHBxfuQSaowy/czXNBu8=;
-        b=eu67Jj+bIZjCTNALLJk+9hPRP8yV4K+VeW1xso5UkM/ElS5mh4XQFv6UtkvrpRbHO+
-         VqHaTWCSB/ITMRH9dOeFW9lsLi9jLxn6HJCaDGVfMrNwllirkg7zOO9Y2NEBFZV8HQ38
-         vSZEHMFdQyO+HhqndmB1/zu97Ck+mBGxVnczf65AMlqhkXV4CFvTpZrLo1aq/T8jy0wl
-         fKV+nGVQKqGHKuPlUCDG7Y6Pap6HhMxvVv+7a4k6Lcw6sOISetMz+lDX2zorJIJFB/cj
-         ZvjUJ5zZG9Ayy0VlHPr5fc/RBC+sM7LO/TOquS14s/BArYxBrsjJw15SbCPYwMqzwJHJ
-         WF3g==
-X-Gm-Message-State: AOJu0Yxdn7hERtoBsDZOVc9yrBAXSf8/ya+pusV4t/Ah7gl33vQB9XK4
-	BzYccWr9LF8Zs7xNhh88teA62XPKIfq8EbM9bBo1ikdsBJvB0epSTQhu+lHf4sum01XcSKaiLtI
-	=
-X-Gm-Gg: ASbGncsuI5cyTRHRCgG/uIJMqG0IW88F08Z+c3mSyv3HXA05L6qhsAGGWoGtS2dDAUg
-	VtyJhqfrU/DbZ166FmXBVhYl0Qtd76QYh/4ByhIy++xyYDveaR35VMqE9Ko7rHlqB/Demr4RuXm
-	8cTe75B1+PAgxDwW6lS0YO5LH+hcuhERnUQF3UJ8Mr2lNYBlIkAVh85OSu345uTgZaWqyFINiBN
-	nV6B7gMPh96/G16hfE7A+13AelJI8Ety0UaoHOOP284vH5yOUyNb8X4x4kOz84BhwvZsmd1Ix9n
-	6lTpv58SW0AP3GK2MDNMjSa5V/wxiL0HswxrQ9Y/Wi0ax7WFq+FaNxtLER6lGRjbyLh11M9IyHp
-	U5N6jLFDXUhnrwPbYnRQ2kcE/Mw==
-X-Google-Smtp-Source: AGHT+IH3mqUOs5w/o1/b+wuFUgk36fhFXwj/h2RfGWKXnDnBj6SQat2Y9eyCYGHRo+FPLY+0b6ZjIg==
-X-Received: by 2002:a05:6000:40df:b0:391:4559:876a with SMTP id ffacd0b85a97d-39d87cd02f5mr1686437f8f.46.1744185590347;
-        Wed, 09 Apr 2025 00:59:50 -0700 (PDT)
-Message-ID: <d9fb7408-aff9-4b43-abd1-233fe74dbd20@suse.com>
-Date: Wed, 9 Apr 2025 09:59:48 +0200
+        bh=f3/bACEeHbPBEiNZHDVeNPQYoGbCfAKE8jLbl/6Ek1Y=;
+        b=avhV5kNnVtNVsf/FT7tpX29y06qaT1AlOKjLPo/w0u1NnUN5teLj1mPOjwVwv4J5VZ
+         nrSx2zQy2yY71IKT0lPoDl2/x/LU8Blcx5Vmy6PG8cmpLtZ2msLNbVlRom5ND521NaMl
+         mJ7X+KzvF/1Z8pq7fVKFdo2na6tumpEitDZRE4ifzEwmO/Sw9Sce4Hactg+ZqEYMfnm8
+         V/z3Q7nMEgpwdapdhQNzVRO/FaD+gq6/Y9pypMsPR9ZUsNXLITgkH/Cyqhn0yWE4KcFF
+         9HKZ3plmcDBy1XIdXyIMU3Pyq2Lljo423NREbf7VjPTwdRqJ8YxXOPRiGcJdcbfYeLRW
+         dzvQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW6UfTwNPlNeWfwbX0SNDbig4I9XSPDPDCNC5Pw0YwPI0x13VMhG8hKB/F+GZ2Ntnb6KbDs1PbfxC0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy3r/gjLSicUREo/VZ2y8EZCFbAYQWwp15//uF2PJqKwsMLHU35
+	p5ZAxCaze0u/r4oUALumjbLaAfj/MSQmL5mJXY0AL8ongW5b+PkEHzGfL4IenQ==
+X-Gm-Gg: ASbGncslHJyHT1OyUNOO4aaxCbJ/6JCmU7lKhZI8KuTp3HnnmTSzco6TJgR0lZytd5v
+	zgvdiyVMDb6PE2XQDwLfX9R4B1ybyR++6GyoiRVHWlCrDXg2A7lH3+n8h3VuMry3065sc7WFg8c
+	ZGDRW7XQHLMeOZG0n4TbuvrQG31LRnrreZv61zGS5XsaKO5ZyRxZjLoSDk/zhLnaC35FWHgiG7K
+	xiUPmOfkkPvqvagTLvzA/aBBFHwarRPtOJW8N+0sNziLkc2Yah8KPdd7zmZmIKTlVqFlfwicxqk
+	xJPS5+IMPRgulhxveIqAx4sWOBva6sBHhA6XW3oRzFRYbaRPJFoC5pZImaz9TE4RAG2D5wJzBmi
+	hiUxNZDZp1g9tlDXer1AEb8RcrA==
+X-Google-Smtp-Source: AGHT+IEObVlXIrBjk2z5fbJElPCx+qkw3LZwRk0Al6/g5aSpUTRrAUgiFemBvMu97RXLAQlotyhoLg==
+X-Received: by 2002:a05:600c:3b18:b0:43c:fffc:7855 with SMTP id 5b1f17b1804b1-43f1fe7f6famr16419905e9.15.1744186293933;
+        Wed, 09 Apr 2025 01:11:33 -0700 (PDT)
+Message-ID: <0ee42612-7f3e-451b-9844-7e61aaf0ba38@suse.com>
+Date: Wed, 9 Apr 2025 10:11:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/6] x86: suppress ERMS for internal use when
- MISC_ENABLE.FAST_STRING is clear
+Subject: Re: [PATCH v3.1 2/2] x86/amd: Enable TCE in Xen
 From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <14b65231-b83b-43fb-bbcf-dec5c07d285b@suse.com>
- <2e61ad8d-3b1f-49bb-bc93-61c820d6caf3@suse.com>
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <2bac0ded3456e04b49b48cf0808203e76fc6a622.1743771654.git.teddy.astie@vates.tech>
+ <79b08632b74dc13b8c399003eb76d198cb73ac32.1743771654.git.teddy.astie@vates.tech>
+ <699022cf-ca2a-4500-92b9-914fbbc2c12d@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,65 +122,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2e61ad8d-3b1f-49bb-bc93-61c820d6caf3@suse.com>
+In-Reply-To: <699022cf-ca2a-4500-92b9-914fbbc2c12d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.01.2025 11:11, Jan Beulich wrote:
-> --- a/xen/arch/x86/cpu-policy.c
-> +++ b/xen/arch/x86/cpu-policy.c
-> @@ -487,6 +487,12 @@ static void __init guest_common_max_feat
->       */
->      if ( test_bit(X86_FEATURE_RTM, fs) )
->          __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
-> +
-> +    /*
-> +     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
-> +     * FAST_STRING is not set should not affect the view of migrating-in guests.
-> +     */
-> +    __set_bit(X86_FEATURE_ERMS, fs);
->  }
->  
->  static void __init guest_common_default_feature_adjustments(uint32_t *fs)
-> @@ -591,6 +597,15 @@ static void __init guest_common_feature_
->       */
->      if ( host_cpu_policy.feat.ibrsb )
->          __set_bit(X86_FEATURE_IBPB, fs);
-> +
-> +    /*
-> +     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
-> +     * FAST_STRING is not set should not propagate to guest view.  Guests can
-> +     * judge on their own whether to ignore the CPUID bit when the MSR bit is
-> +     * clear.
-> +     */
-> +    if ( raw_cpu_policy.feat.erms )
-> +        __set_bit(X86_FEATURE_ERMS, fs);
->  }
->  
->  static void __init calculate_pv_max_policy(void)
+On 09.04.2025 09:11, Jan Beulich wrote:
+> On 07.04.2025 11:10, Teddy Astie wrote:
+>> Aside exposing this flag to guests, Xen can also make use of it to reduce the cost of
+>> some TLB flushes. Enable this flag if supported by hardware.
+> 
+> As said before: This needs to come with (perhaps a lot of) justification as
+> to it being safe for Xen to use without any adjustments anywhere else. This
+> exercise may not be left to the reviewer(s).
 
-While doing unrelated work in this area I noticed that this hunk is wrong,
-and wants to be
-
-@@ -567,6 +573,16 @@ static void __init guest_common_default_
-         __clear_bit(X86_FEATURE_RTM, fs);
-         __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
-     }
-+
-+    /*
-+     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
-+     * FAST_STRING is not set should not propagate to guest view.  Guests can
-+     * judge on their own whether to ignore the CPUID bit when the MSR bit is
-+     * clear.  The bit being uniformly set in the max policies, we only need
-+     * to clear it here (if hardware doesn't have it).
-+     */
-+    if ( !raw_cpu_policy.feat.erms )
-+        __clear_bit(X86_FEATURE_ERMS, fs);
- }
- 
- static void __init guest_common_feature_adjustments(uint32_t *fs)
-
-instead. Fixed locally.
+One case to consider in particular is a shadow guest (EFER.TCE clear as per
+patch 1) running with host EFER.TCE set. The TLB flushes we do may then simply
+be insufficient for the guest's expectations.
 
 Jan
 
