@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31795A82D79
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 19:18:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.944538.1342977 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E075A82F67
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 20:55:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.944567.1342986 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2Z4F-0007p0-5A; Wed, 09 Apr 2025 17:18:27 +0000
+	id 1u2aYo-0000aW-Qr; Wed, 09 Apr 2025 18:54:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 944538.1342977; Wed, 09 Apr 2025 17:18:27 +0000
+Received: by outflank-mailman (output) from mailman id 944567.1342986; Wed, 09 Apr 2025 18:54:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2Z4F-0007n2-1v; Wed, 09 Apr 2025 17:18:27 +0000
-Received: by outflank-mailman (input) for mailman id 944538;
- Wed, 09 Apr 2025 17:18:25 +0000
+	id 1u2aYo-0000YR-O9; Wed, 09 Apr 2025 18:54:06 +0000
+Received: by outflank-mailman (input) for mailman id 944567;
+ Wed, 09 Apr 2025 18:54:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fbf/=W3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u2Z4D-0007mg-1K
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 17:18:25 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a472566b-1566-11f0-9eab-5ba50f476ded;
- Wed, 09 Apr 2025 19:18:24 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-43edecbfb94so50374415e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 10:18:24 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f206264a1sm26607505e9.9.2025.04.09.10.18.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Apr 2025 10:18:23 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ywx6=W3=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1u2aYm-0000YJ-Nc
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 18:54:05 +0000
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
+ [79.135.106.30]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 000aba72-1574-11f0-9eab-5ba50f476ded;
+ Wed, 09 Apr 2025 20:54:01 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +36,401 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a472566b-1566-11f0-9eab-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744219103; x=1744823903; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LqXW+EhIjzZ9DBBxM/0Fkm2/XTe1O3oFuaez7I6vNxY=;
-        b=WvADR0e4l/X0Xbo4PGrRhYsJBfXb2ieZ9bGbt1p+nQvIvSg5Vd3PHBmX3QJzcCczM4
-         oidoVHiyZrctfMYDcgNM9vNS97kvJ/Ffx5yMc+2qPsiLmWXnxW0E1h0+F2flBbp0xpTe
-         KtLe38v0PLRaosiYDM2r3G2EQahTjI8yB1DQE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744219103; x=1744823903;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LqXW+EhIjzZ9DBBxM/0Fkm2/XTe1O3oFuaez7I6vNxY=;
-        b=uv7nxsdobITyIXqsTNxADzZunMBoZnVSN6Uy6YGRYOg/a0J4fdF/1N1gVUD3IW1Mcd
-         HDpA7qZ38fE/AVYSfKRkMX3KZtnPzT6v6sXZQ09SGkvU83CvutC4J9nwL4IVB0WYdfcq
-         HyXLcPOCG62bWtkJCi/hRuK1AFhRzHNeP1hILZkN27/ZZcXa8E7MaSGt/n4+IlFxV3/c
-         F4zKVczOvXV3Z4ajF7qEGPBEsuIgMp9VD7C05h9GlacNPNFN1pFvBi7toFtQ8VLse98Z
-         wO2WI/hae0rNg9alWeuQ5eG/MnMt65QdUB6hxqn0mfnIEotERJCe43fBuLp8WG5c47K3
-         NZ6g==
-X-Gm-Message-State: AOJu0YxSSESkwdp/xxL3JtGzlXSlxJldoLgYihUFEsDKkm9iLjfWItDW
-	bvHwnVZ9VKvJbSRjJBQkABaJlFbBbA6B/z855uFMlIxfQJBFZvXX6O0Cbd4/iwA=
-X-Gm-Gg: ASbGncsOrOTDkb/vJvTCaauRsrdTI/Inkgh462QTgsnCEIi1ETPfi+8/njt5om3iicC
-	AGWqoBaUGGuXDl9EKM8uFtmqhtSkVhCF5KtwnIUr1d3OisuGTaBnOALuQQJh5GXaqZQv5JpqRwV
-	KOP1BivSUp2ran3/2thjJxHOn/EGMCtIT8Nd8wxgYEuRqXaKdp5g+bu1RbFqsIfLsGAvZ7FPBgL
-	rTHnn5qHooc8ITOrc0DGs9eLKrkw48Sl01q6pczjrGusG3rs7sAJAV4K63lD8zTGFUDM2HXcAw/
-	3XfALZsfJcieMq2ThcLWnjFjW7IcWjG47WVZUThsvVzcDR58BIlrEJTaCG/oGzic2WTnWgtqSG0
-	RwtcbJn37P7iy7yvS
-X-Google-Smtp-Source: AGHT+IG44bQUdXmwD6R8KSBqmw0ncOhbdNKyfWrLfLf9y0vpEmOzR0qxPFebuum4MuWUTHn/AMTaQw==
-X-Received: by 2002:a05:600c:3542:b0:43d:ac5:11e8 with SMTP id 5b1f17b1804b1-43f1ed67314mr29325195e9.21.1744219103387;
-        Wed, 09 Apr 2025 10:18:23 -0700 (PDT)
-Message-ID: <16f4bf31-9469-4a3c-b145-6c75785befb9@citrix.com>
-Date: Wed, 9 Apr 2025 18:18:22 +0100
+X-Inumbo-ID: 000aba72-1574-11f0-9eab-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1744224838; x=1744484038;
+	bh=FDls02VgMpWoqgWr9HzHcZaFpa4GILRpy8zPLpQzUXI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=ng3ZKYfbF21wqn9L+CQ7wzdcoskCPLA9kI6cB2DusvgkaZoj5vFA2HQmWQkAfuB1X
+	 jzCiZOOHJ82fEqvqRBPCEAtw4oeTwktZ+OZSfaUpi/xxSb3wCU2oNVoimODer/BjcX
+	 EPtV+Es5qaMAlZuz7tR6/K3k2oMbuX+PSO/UIqTObi/RG9UARbs4WCr1eJEp+3/c9N
+	 1dc8vaFklhZXWFAlHijt6kt3KdgXK76sAEtZHC4rRPgjowuQeJHTzqilafpMU3lu8A
+	 G2Ed5LADeq6196qei6VwFZmkk8Ff///o4pxUchAzBazllkQW6kXZC3GitLG7wxhtyr
+	 LzLsy0sNlvVSg==
+Date: Wed, 09 Apr 2025 18:53:55 +0000
+To: Alejandro Vallejo <agarciav@amd.com>
+From: Denis Mukhin <dmkhn@proton.me>
+Cc: xen-devel@lists.xenproject.org, "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jason Andryuk <jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Denis Mukhin <dmkhn@proton.me>
+Subject: Re: [PATCH v3 06/16] x86/hyperlaunch: introduce the domain builder
+Message-ID: <FxuO_b3q9bY4mPUG3KmuO_YTqqsPhI1sMXykQ5UkxaLzhMlAoAZtQKzl9puHPW29hxCx_Fm1y_YfmBquI1Cm0QA0Y3TKYTy4waHKKaODj9c=@proton.me>
+In-Reply-To: <20250408160802.49870-7-agarciav@amd.com>
+References: <20250408160802.49870-1-agarciav@amd.com> <20250408160802.49870-7-agarciav@amd.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 169f3cbaafa468075511cacba74c7c3ecf1bf2f5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] Adjust Linux build script to work with other major
- versions
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Anthony PERARD <anthony.perard@vates.tech>
-References: <20250409163702.2037301-1-andrew.cooper3@citrix.com>
- <20250409163702.2037301-6-andrew.cooper3@citrix.com>
- <Z_anEWAVTD5tjbg5@mail-itl>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <Z_anEWAVTD5tjbg5@mail-itl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 09/04/2025 5:57 pm, Marek Marczykowski-Górecki wrote:
-> On Wed, Apr 09, 2025 at 05:36:59PM +0100, Andrew Cooper wrote:
->> Also use 'tar o' to decompress based on file name.
-> Do you mean 'tar a'? -o is --no-same-owner. Anyway, just 'tar xf'
-> works too, even in alpine.
+On Tuesday, April 8th, 2025 at 9:07 AM, Alejandro Vallejo <agarciav@amd.com=
+> wrote:
 
-Hmm...  Muscle memory from long enough ago that I don't recall why.
+>=20
+>=20
+> From: "Daniel P. Smith" dpsmith@apertussolutions.com
+>=20
+>=20
+> Introduce the domain builder which is capable of consuming a device tree =
+as the
+> first boot module. If it finds a device tree as the first boot module, it=
+ will
+> set its type to BOOTMOD_FDT. This change only detects the boot module and
+> continues to boot with slight change to the boot convention that the dom0
+> kernel is no longer first boot module but is the second.
+>=20
+> No functional change intended.
+>=20
+> Signed-off-by: Daniel P. Smith dpsmith@apertussolutions.com
+>=20
+> Signed-off-by: Jason Andryuk jason.andryuk@amd.com
+>=20
+> ---
+> v3:
+> * Move obj-y +=3D domain-builder/
+> * Remove blank line in Makefile
+> * const in has_hyperlaunch_fdt()
+> * CONFIG_LIBFDT rename
+> * Use boot_info forward declaration
+> * Rename domainbuilder.h to domain-builder.h
+> * Add fdt NULL check
+> ---
+> xen/arch/x86/Makefile | 1 +
+> xen/arch/x86/domain-builder/Kconfig | 2 +-
+> xen/arch/x86/domain-builder/Makefile | 2 +
+> xen/arch/x86/domain-builder/core.c | 57 +++++++++++++++++++++++
+> xen/arch/x86/domain-builder/fdt.c | 37 +++++++++++++++
+> xen/arch/x86/domain-builder/fdt.h | 21 +++++++++
 
-Lets go with just xf then.
+I have a general question.
 
-~Andrew
+Wouldn't that make sense to use arch-independent placeholder for domain bui=
+lder
+code right from the starting point?
+
+For example something like xen/common/domain-builder ?
+
+My understanding is that there's a lot of code in the domain builder which
+can be potentially shared/re-used with non-x86 architectures.
+
+Also, that seems to align with the intention to have common arch-independen=
+t
+subsystems in the code base:
+
+   https://docs.google.com/presentation/d/1q9cjJZLUxUo1YzMpCxVHuL-ZOGoFaO9h=
+aHfRBK4i4Uc/edit?slide=3Did.g32afc87aef4_0_18#slide=3Did.g32afc87aef4_0_18
+
+> xen/arch/x86/include/asm/bootinfo.h | 3 ++
+> xen/arch/x86/include/asm/domain-builder.h | 8 ++++
+> xen/arch/x86/setup.c | 17 ++++---
+> 9 files changed, 141 insertions(+), 7 deletions(-)
+> create mode 100644 xen/arch/x86/domain-builder/Makefile
+> create mode 100644 xen/arch/x86/domain-builder/core.c
+> create mode 100644 xen/arch/x86/domain-builder/fdt.c
+> create mode 100644 xen/arch/x86/domain-builder/fdt.h
+> create mode 100644 xen/arch/x86/include/asm/domain-builder.h
+>=20
+> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+> index f59c9665fd..deae31d627 100644
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -1,6 +1,7 @@
+> obj-y +=3D acpi/
+> obj-y +=3D boot/
+> obj-y +=3D cpu/
+> +obj-y +=3D domain-builder/
+> obj-y +=3D efi/
+> obj-y +=3D genapic/
+> obj-$(CONFIG_GUEST) +=3D guest/
+> diff --git a/xen/arch/x86/domain-builder/Kconfig b/xen/arch/x86/domain-bu=
+ilder/Kconfig
+> index 8ed493c3b5..51d549c20d 100644
+> --- a/xen/arch/x86/domain-builder/Kconfig
+> +++ b/xen/arch/x86/domain-builder/Kconfig
+> @@ -3,7 +3,7 @@ menu "Domain Builder Features"
+>=20
+> config DOMAIN_BUILDER
+> bool "Domain builder (UNSUPPORTED)" if UNSUPPORTED
+> - select LIB_DEVICE_TREE
+> + select LIBFDT
+> help
+> Enables the domain builder capability to configure boot domain
+> construction using a flattened device tree.
+> diff --git a/xen/arch/x86/domain-builder/Makefile b/xen/arch/x86/domain-b=
+uilder/Makefile
+> new file mode 100644
+> index 0000000000..b10cd56b28
+> --- /dev/null
+> +++ b/xen/arch/x86/domain-builder/Makefile
+> @@ -0,0 +1,2 @@
+> +obj-$(CONFIG_DOMAIN_BUILDER) +=3D fdt.init.o
+> +obj-y +=3D core.init.o
+> diff --git a/xen/arch/x86/domain-builder/core.c b/xen/arch/x86/domain-bui=
+lder/core.c
+> new file mode 100644
+> index 0000000000..d6ae94f45c
+> --- /dev/null
+> +++ b/xen/arch/x86/domain-builder/core.c
+> @@ -0,0 +1,57 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only /
+> +/
+> + * Copyright (C) 2024, Apertus Solutions, LLC
+> + */
+> +#include <xen/err.h>
+>=20
+> +#include <xen/init.h>
+>=20
+> +#include <xen/kconfig.h>
+>=20
+> +#include <xen/lib.h>
+>=20
+> +
+> +#include <asm/bootinfo.h>
+>=20
+> +
+> +#include "fdt.h"
+> +
+> +void __init builder_init(struct boot_info *bi)
+> +{
+> + if ( IS_ENABLED(CONFIG_DOMAIN_BUILDER) )
+> + {
+> + int ret;
+> +
+> + switch ( ret =3D has_hyperlaunch_fdt(bi) )
+> + {
+> + case 0:
+> + printk("Hyperlaunch device tree detected\n");
+> + bi->hyperlaunch_enabled =3D true;
+>=20
+> + bi->mods[0].type =3D BOOTMOD_FDT;
+>=20
+> + break;
+> +
+> + case -EINVAL:
+> + printk("Hyperlaunch device tree was not detected\n");
+> + bi->hyperlaunch_enabled =3D false;
+>=20
+> + break;
+> +
+> + case -ENOENT:
+> + case -ENODATA:
+> + printk("Device tree found, but not hyperlaunch (%d)\n", ret);
+> + bi->hyperlaunch_enabled =3D false;
+>=20
+> + bi->mods[0].type =3D BOOTMOD_FDT;
+>=20
+> + break;
+> +
+> + default:
+> + printk("Unknown error (%d) occured checking for hyperlaunch device tree=
+\n",
+> + ret);
+> + bi->hyperlaunch_enabled =3D false;
+>=20
+> + break;
+> + }
+> + }
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + /
+> diff --git a/xen/arch/x86/domain-builder/fdt.c b/xen/arch/x86/domain-buil=
+der/fdt.c
+> new file mode 100644
+> index 0000000000..aaf8c1cc16
+> --- /dev/null
+> +++ b/xen/arch/x86/domain-builder/fdt.c
+> @@ -0,0 +1,37 @@
+> +/ SPDX-License-Identifier: GPL-2.0-only /
+> +/
+> + * Copyright (C) 2024, Apertus Solutions, LLC
+> + */
+> +#include <xen/err.h>
+>=20
+> +#include <xen/init.h>
+>=20
+> +#include <xen/lib.h>
+>=20
+> +#include <xen/libfdt/libfdt.h>
+>=20
+> +
+> +#include <asm/bootinfo.h>
+>=20
+> +#include <asm/page.h>
+>=20
+> +#include <asm/setup.h>
+>=20
+> +
+> +#include "fdt.h"
+> +
+> +int __init has_hyperlaunch_fdt(const struct boot_info *bi)
+> +{
+> + int ret =3D 0;
+> + const void *fdt =3D bootstrap_map_bm(&bi->mods[HYPERLAUNCH_MODULE_IDX])=
+;
+>=20
+> +
+> + if ( !fdt || fdt_check_header(fdt) < 0 )
+> + ret =3D -EINVAL;
+> +
+> + bootstrap_unmap();
+> +
+> + return ret;
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + /
+> diff --git a/xen/arch/x86/domain-builder/fdt.h b/xen/arch/x86/domain-buil=
+der/fdt.h
+> new file mode 100644
+> index 0000000000..8e62cd843e
+> --- /dev/null
+> +++ b/xen/arch/x86/domain-builder/fdt.h
+> @@ -0,0 +1,21 @@
+> +/ SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause) */
+> +#ifndef XEN_X86_FDT_H
+> +#define XEN_X86_FDT_H
+> +
+> +#include <xen/init.h>
+>=20
+> +
+> +struct boot_info;
+> +
+> +/* hyperlaunch fdt is required to be module 0 */
+> +#define HYPERLAUNCH_MODULE_IDX 0
+> +
+> +#ifdef CONFIG_DOMAIN_BUILDER
+> +int has_hyperlaunch_fdt(const struct boot_info *bi);
+> +#else
+> +static inline int __init has_hyperlaunch_fdt(const struct boot_info bi)
+> +{
+> + return -EINVAL;
+> +}
+> +#endif
+> +
+> +#endif / XEN_X86_FDT_H */
+> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/a=
+sm/bootinfo.h
+> index 3afc214c17..82c2650fcf 100644
+> --- a/xen/arch/x86/include/asm/bootinfo.h
+> +++ b/xen/arch/x86/include/asm/bootinfo.h
+> @@ -27,6 +27,7 @@ enum bootmod_type {
+> BOOTMOD_RAMDISK,
+> BOOTMOD_MICROCODE,
+> BOOTMOD_XSM_POLICY,
+> + BOOTMOD_FDT,
+> };
+>=20
+> struct boot_module {
+> @@ -80,6 +81,8 @@ struct boot_info {
+> paddr_t memmap_addr;
+> size_t memmap_length;
+>=20
+> + bool hyperlaunch_enabled;
+> +
+> unsigned int nr_modules;
+> struct boot_module mods[MAX_NR_BOOTMODS + 1];
+> struct boot_domain domains[MAX_NR_BOOTDOMS];
+> diff --git a/xen/arch/x86/include/asm/domain-builder.h b/xen/arch/x86/inc=
+lude/asm/domain-builder.h
+> new file mode 100644
+> index 0000000000..b6d9ba94de
+> --- /dev/null
+> +++ b/xen/arch/x86/include/asm/domain-builder.h
+> @@ -0,0 +1,8 @@
+> +#ifndef XEN_X86_DOMBUILDER_H
+> +#define XEN_X86_DOMBUILDER_H
+> +
+> +struct boot_info;
+> +
+> +void builder_init(struct boot_info *bi);
+> +
+> +#endif
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index 83cb66e309..e5d78bcb48 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -36,6 +36,7 @@
+> #include <asm/bzimage.h>
+>=20
+> #include <asm/cpu-policy.h>
+>=20
+> #include <asm/desc.h>
+>=20
+> +#include <asm/domain-builder.h>
+>=20
+> #include <asm/e820.h>
+>=20
+> #include <asm/edd.h>
+>=20
+> #include <asm/genapic.h>
+>=20
+> @@ -1281,9 +1282,12 @@ void asmlinkage __init noreturn __start_xen(void)
+> bi->nr_modules);
+>=20
+> }
+>=20
+> - /* Dom0 kernel is always first */
+> - bi->mods[0].type =3D BOOTMOD_KERNEL;
+>=20
+> - bi->domains[0].kernel =3D &bi->mods[0];
+>=20
+> + builder_init(bi);
+> +
+> + /* Find first unknown boot module to use as Dom0 kernel */
+> + i =3D first_boot_module_index(bi, BOOTMOD_UNKNOWN);
+> + bi->mods[i].type =3D BOOTMOD_KERNEL;
+>=20
+> + bi->domains[0].kernel =3D &bi->mods[i];
+>=20
+>=20
+> if ( pvh_boot )
+> {
+> @@ -1466,8 +1470,9 @@ void asmlinkage __init noreturn __start_xen(void)
+> xen->size =3D __2M_rwdata_end - _stext;
+>=20
+> }
+>=20
+> - bi->mods[0].headroom =3D
+>=20
+> - bzimage_headroom(bootstrap_map_bm(&bi->mods[0]), bi->mods[0].size);
+>=20
+> + bi->domains[0].kernel->headroom =3D
+>=20
+> + bzimage_headroom(bootstrap_map_bm(bi->domains[0].kernel),
+>=20
+> + bi->domains[0].kernel->size);
+>=20
+> bootstrap_unmap();
+>=20
+> #ifndef highmem_start
+> @@ -1591,7 +1596,7 @@ void asmlinkage __init noreturn __start_xen(void)
+> #endif
+> }
+>=20
+> - if ( bi->mods[0].headroom && !bi->mods[0].relocated )
+>=20
+> + if ( bi->domains[0].kernel->headroom && !bi->domains[0].kernel->relocat=
+ed )
+>=20
+> panic("Not enough memory to relocate the dom0 kernel image\n");
+> for ( i =3D 0; i < bi->nr_modules; ++i )
+>=20
+> {
+> --
+> 2.43.0
 
