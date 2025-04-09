@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78140A82A86
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 17:35:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.944303.1342807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE642A82C94
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 18:37:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.944339.1342816 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2XRI-0005L7-J9; Wed, 09 Apr 2025 15:34:08 +0000
+	id 1u2YQH-0004fi-3g; Wed, 09 Apr 2025 16:37:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 944303.1342807; Wed, 09 Apr 2025 15:34:08 +0000
+Received: by outflank-mailman (output) from mailman id 944339.1342816; Wed, 09 Apr 2025 16:37:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2XRI-0005JV-Eg; Wed, 09 Apr 2025 15:34:08 +0000
-Received: by outflank-mailman (input) for mailman id 944303;
- Wed, 09 Apr 2025 15:34:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u2YQH-0004e0-0m; Wed, 09 Apr 2025 16:37:09 +0000
+Received: by outflank-mailman (input) for mailman id 944339;
+ Wed, 09 Apr 2025 16:37:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ii2m=W3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1u2XRG-0005JP-Td
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 15:34:06 +0000
-Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
- [2607:f8b0:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f4a8084-1558-11f0-9ffb-bf95429c2676;
- Wed, 09 Apr 2025 17:34:01 +0200 (CEST)
-Received: by mail-pf1-x42a.google.com with SMTP id
- d2e1a72fcca58-736ab1c43c4so6754492b3a.1
- for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 08:34:01 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- d2e1a72fcca58-73bb1d6b213sm1477854b3a.81.2025.04.09.08.33.57
+ <SRS0=fbf/=W3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u2YQG-0004du-FR
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 16:37:08 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e03dd8f9-1560-11f0-9eab-5ba50f476ded;
+ Wed, 09 Apr 2025 18:37:07 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-39c31e4c3e5so4386323f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 09:37:07 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43f233c817dsm20947455e9.23.2025.04.09.09.37.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Apr 2025 08:33:59 -0700 (PDT)
+ Wed, 09 Apr 2025 09:37:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,162 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f4a8084-1558-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: e03dd8f9-1560-11f0-9eab-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744212840; x=1744817640; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=w/W5F+qYt8PXbLAtoEpok03W4FU6RWVBrJ3vedp3TnE=;
-        b=wCy/rZxwS3HiKgY45d+WKlOY1NdyuU7Ng/no5CpyAr5guiFpe33DRbXLAmJ9FZ/wMZ
-         b4bHEMjrlSaSyJO0/r2wA9BnnofpLrwvAMGi8JW+truzP6wMINVoN0xbyu8/TzOAWCOD
-         CS0lwAT2olUWiBVOZmN4zCG/a5BTa7RkYHk3Q=
+        d=citrix.com; s=google; t=1744216626; x=1744821426; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=o7f6YtoFpANmOKJW9HXTVsTqmlMIMm/vITFVLirPZXE=;
+        b=MwhdD3nYX6yGWBjBWntvrQl2kcvH+Wl6j5VrS+dovmWCuX8Q4VCPtkEabzOYIVEWGM
+         Em5XmmyTKW+/m96yAzSKppfCikyMtYHEZaACHRmTyzIA5cJsa7zmbAs7RPYeveK8TcMc
+         fA81wtZcAP0YtuW+K3F6WwEwePRWHtXK1GEyc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744212840; x=1744817640;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=w/W5F+qYt8PXbLAtoEpok03W4FU6RWVBrJ3vedp3TnE=;
-        b=rN5MQP0LrtVdLit6WSnEeXR4D/sIAh0GYbq2uG8yq50DcwQ3mT5HUeKEuvqVxqsyuQ
-         N7omLPKvKIEQD6qEgWiOi2t+nfQTablZ+uxvd0EqC1oUbAcso6v5FDg2R+zExGq2AQMA
-         Njy9Z2X2eOqKurfJS3Yo9mElvdKJXOU6ZtldveNSW2Dq4sMl0zxM+CrYvJKxVXb9hIwQ
-         d2nHJSPz+W1xED1GGEWO1JxH9DE1qq8mpT41XMNvf12/kzwhsTgmnRXa8BclxFzygWHM
-         amKgkU8FvG4Uu4B4gbLi2wvPVGr6UwmjZMhKotnmdLDAhXFND/GywZxZHwGxgWkMk8yq
-         mFHQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWARW2K4pJv1Vv25rHTD23H6XSsUTEsMrNHbvp9VWCRIz5XVUJfX2ODE/r9OY1oz4XdDsBB4Inj5R8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyHht9z03+iM5U1TEjjt+zuPJys/GxHVDDnVDWbZ/9LXSMUOALw
-	lolU6r1Wp9mcU7UHzwsHTGBv2R2xtPjWl+v82peNOKcZRaQcgiCkx9fPg5syN1U=
-X-Gm-Gg: ASbGncuHHuJBuoeqj5ELCpro20GsC1BOHWYAVo7ZXPtXY9MqGeVvAIAyfr3BwUPuKXQ
-	Sq85mTsMBR9IbOHRNU2Y5smu/tIqmwdf0i9GPotZKAe6RETzWRb1oVOjq7Z4SAjitpp4fn8EfhG
-	vpPX98U87KI0xEJJuI//J2+qU3dz50QvEjRxDsQ+DHpqKIZZmYeXgbuzeErWDZ6SZYLCDNuWLkp
-	+g4N8Hv4FmwdFUB2C1qJR0h5zw+9KrzCbwAq02nA7BX4501RwVvtemN3kfQ6jTDu5e5kd9RQ5AP
-	koWMvdra5NSQtj8IRadWe0z1b+R26srrpfg+kg6EA8Zr0g==
-X-Google-Smtp-Source: AGHT+IFA3j+02TX+d+gpiwEmkg5gbhJ3HVHY9+LymeFqmgaU98z+MWKDoXpJGL54adO/mFdehScKAA==
-X-Received: by 2002:a05:6a00:2186:b0:736:53f2:87bc with SMTP id d2e1a72fcca58-73bafc16c54mr3523882b3a.13.1744212839913;
-        Wed, 09 Apr 2025 08:33:59 -0700 (PDT)
-Date: Wed, 9 Apr 2025 17:33:54 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] x86/hvm: fix write emulation of RO ranges
-Message-ID: <Z_aTYmiOLEfKTend@macbook.lan>
-References: <20250408093156.83277-3-roger.pau@citrix.com>
- <16c73cae-2ac0-4811-97d3-b25c95ed5abc@suse.com>
- <Z_Y4xFzaltr_XKO4@macbook.lan>
- <ef0b6eea-a7e5-406d-a8ba-062b3c6e17e1@suse.com>
- <Z_ZOWAttoFNoFYCV@macbook.lan>
- <2df78a5d-2f9f-4866-81cc-03ae09c76d50@suse.com>
- <Z_Z3PYYSBH3QWioF@macbook.lan>
- <8709e7af-5827-4c96-9f6b-1f548045040d@suse.com>
- <Z_Z9unJ-wS2dXxUV@macbook.lan>
- <b1e8e761-ddf9-4e4f-b5bb-624b2e7d012c@suse.com>
+        d=1e100.net; s=20230601; t=1744216626; x=1744821426;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=o7f6YtoFpANmOKJW9HXTVsTqmlMIMm/vITFVLirPZXE=;
+        b=fXIGGX405EwIJ8j0DeAYYtBLb1iZ+/Fz316FulJJvPpFL3VHowhpLWA/jmwU6664WH
+         Obu/yw8O3fndAM37f3WT/1PtZ5ki8XVyqZPjL814BYx9Buy/3pGS9Fw+pG0CLGMn+hWk
+         pM2NhODGoRDez2ltM3K4AL0uDfyQeNx4U8yvjjbr/ldrYjRWgy0yVwC+vav/L64L1jy/
+         r/j7gExTc4WU4kfm1sotDAeJtxi/QJjA0jWqPuXEVkmPb3NOJXt3VcLIZ+t75rUssWgb
+         wDQeHlPcA00zFjzQP7/BZE8dKiPCQf2mVU3wYt9L5mBHcvzdOq+vYQJtdbA8GQJptYfO
+         vbZg==
+X-Gm-Message-State: AOJu0YyrU1q/JbDfMSd5r4sV9OUhsvfBoiiHf0BRQWOCF8KqBQNAYfWI
+	02eMxpK8XyWgvMXhQbSA1zZHR/2NnLQoNxQrThjvVybli0BkkKrg8F4NKrm9opyz6iWLQ0bsNwS
+	haQw=
+X-Gm-Gg: ASbGnctqIk5FsKWYP6eg+f4xEow0P1R2ostkDTvyCfzho9Hdu5QcXFcXwHr494nmejo
+	ijkmoQLAplgeaF/fCOyPIAebML4YEBzX4lOs3h9IRXR6M6nZnObmAK7jaIYWfZ4eUpb0PrATtdL
+	ryWeDr+8Q4U+JLFfD+JdV2P9Rapf35PbXDZN54zW4UikUINtcnFoXBZ2//Dp3A+SI+5boqY/u6C
+	iq2KyOkJyn4EsbB2BdFXmIn38r6rUfYECyDHlP9t26r6MORoIlTO12mJMjLXZWdddCROyyR3ELM
+	xjixZ4i/Z/oHm2YmiTGV+dZoCUfgeUihmq8qH0f/3S/0e/RqJR3POj/lBldB9/yQyH3Ai6fE3aM
+	7oM29Jb88G3as8g==
+X-Google-Smtp-Source: AGHT+IHwZLdULMDOr4DV788g/vpvaXTaDzDUcYrg+MHb78FBAIzgpTfHNCyYHyJQLfDwAZ87GDElJw==
+X-Received: by 2002:a5d:6da7:0:b0:391:2f15:c1f4 with SMTP id ffacd0b85a97d-39d8856a0a1mr3093712f8f.55.1744216626423;
+        Wed, 09 Apr 2025 09:37:06 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: [PATCH TEST-ARTEFACTS 0/8] Cleanup and Linux ARM64 support
+Date: Wed,  9 Apr 2025 17:36:54 +0100
+Message-Id: <20250409163702.2037301-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b1e8e761-ddf9-4e4f-b5bb-624b2e7d012c@suse.com>
 
-On Wed, Apr 09, 2025 at 04:08:47PM +0200, Jan Beulich wrote:
-> On 09.04.2025 16:01, Roger Pau Monné wrote:
-> > On Wed, Apr 09, 2025 at 03:50:13PM +0200, Jan Beulich wrote:
-> >> On 09.04.2025 15:33, Roger Pau Monné wrote:
-> >>> On Wed, Apr 09, 2025 at 02:59:45PM +0200, Jan Beulich wrote:
-> >>>> On 09.04.2025 12:39, Roger Pau Monné wrote:
-> >>>>> On Wed, Apr 09, 2025 at 12:00:16PM +0200, Jan Beulich wrote:
-> >>>>>> On 09.04.2025 11:07, Roger Pau Monné wrote:
-> >>>>>>> On Tue, Apr 08, 2025 at 03:57:17PM +0200, Jan Beulich wrote:
-> >>>>>>>> On 08.04.2025 11:31, Roger Pau Monne wrote:
-> >>>>>>>>> When running on AMD hardware in HVM mode the guest linear address (GLA)
-> >>>>>>>>> will not be provided to hvm_emulate_one_mmio(), and instead is
-> >>>>>>>>> unconditionally set of ~0.  As a consequence mmio_ro_emulated_write() will
-> >>>>>>>>> always report an error, as the fault GLA generated by the emulation of the
-> >>>>>>>>> access won't be ~0.
-> >>>>>>>>
-> >>>>>>>> Which means subpage_mmio_write_accept() is flawed, too, on AMD (or more
-> >>>>>>>> generally whenever .gla_valid isn't set).
-> >>>>>>>
-> >>>>>>> Oh, yes, good catch.  I didn't notice that one.  We should move all
-> >>>>>>> those checks to use a paddr rather than a gla.
-> >>>>>>
-> >>>>>> Really that function could just be passed the offset into the page.
-> >>>>>>
-> >>>>>>>>> Fix this by only checking for the fault GLA in mmio_ro_emulated_write()
-> >>>>>>>>> when the guest is PV.
-> >>>>>>>>
-> >>>>>>>> This narrows checking too much, imo. For VT-x we could continue to do so,
-> >>>>>>>> provided we pass e.g. npfec down into hvm_emulate_one_mmio(), i.e. make
-> >>>>>>>> the gla_valid flag visible there.
-> >>>>>>>
-> >>>>>>> I don't think we should rely on the gla at all in
-> >>>>>>> mmio_ro_emulated_write(), and instead just use the physical address.
-> >>>>>>
-> >>>>>> But you can't validate a physical address against a CR2 value. And I view
-> >>>>>> this validation as meaningful, to guard (best effort, but still) against
-> >>>>>> e.g. insn re-writing under our feet.
-> >>>>>
-> >>>>> But we have the mfn in mmio_ro_ctxt, and could possibly use that to
-> >>>>> validate?  I could expand the context to include the offset also, so
-> >>>>> that we could fully validate it.
-> >>>>
-> >>>> How would you use the MFN to validate against the VA in CR2?
-> >>>
-> >>> I would use hvmemul_virtual_to_linear()
-> >>
-> >> If you mean to use the CR2 as input, you wouldn't need this. I said VA in
-> >> my earlier reply, yes, but strictly speaking that's a linear address.
-> > 
-> > I was thinking about using the segment and offset parameters of the
-> > mmio_ro_emulated_write() call.
-> > 
-> >>> and hvm_translate_get_page()
-> >>> to get the underlying mfn of the linear address.  But maybe there's a
-> >>> part of this that I'm missing, I've certainly haven't tried to
-> >>> implement any of it.
-> >>
-> >> Hmm, I see. I didn't think of doing it this way round. There's certainly
-> >> at least one caveat with this approach: Multiple linear addresses can all
-> >> map to the same GFN and hence MFN. Checking against the original linear
-> >> address (when available) doesn't have such an issue.
-> > 
-> > I see... Yet for AMD that address is not uniformly available as part
-> > of the vmexit information?
-> 
-> Even stronger, I thought: It's uniformly not available.
+Various bits of cleanup, and support for arm64 Linux builds.
 
-Oh yes, that's what I meant to say but got the words the other way
-around.
+Run using the new Linux 6.6.86 on (most) x86, and ARM64:
+  https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1760667411
 
-> >  As I understand the checks done in
-> > mmio_ro_emulated_write() are to ensure correctness, but carrying the
-> > access even when the %cr2 check fail wouldn't cause issues to Xen
-> > itself?
-> 
-> Well, "wouldn't" is too strong for my taste, "shouldn't" would fit. The
-> checking is there to avoid guests playing games. Whether that prevents
-> merely in-guest just-bugs or actual XSAs we can't know until we find a
-> case where the game playing might make us do something wrong. I expect
-> it's unlikely for Xen itself to be affected. But an in-guest privilege
-> escalation would already be bad enough.
+Still to go:
+ - Merge argo into the linux build (as it builds a module), strip devel artefacts
+ - Rootfs generation, both x86 and ARM64
 
-I see.  That was kind of my understanding of the checks.  At least on
-HVM it feels a bit weird to handle r/o regions this way.  It would IMO
-be more natural to use an hvm_io_handler, but that's maybe because I'm
-more familiar with those.
+The argo kernel module and userspace should be a CPIO fragment too, as it's
+embedded into both dom0 and domU in the relevant test.
 
-And in that regard, hvm_io_handler don't seem to do any of the extra
-checking that mmio_ro_emulated_write() does with the %cr2, but maybe
-that's done by some higher layer?  AFAICT that would ultimately get
-called by hvmemul_read(), and there are no checks there at all.
+Switching from tar to cpio can happen when the artefact name changes; which
+fixes the backwards comptibility concerns.  In hindsight, domU shouldn't be
+automatically embedded in dom0, as several tests further customise it; the
+test job can adjust, then wrap the whole lot in a CPIO and append it to
+dom0's.
 
-> So why don't we do the linear address check as we do today (provided a
-> linear address is available), and only use the alternative approach when
-> no linear address is available?
+Xen's main build jobs should either build with --prefix=/usr, or the common
+rootfs wants to set up /usr/local/, because right now it's done by all jobs.
 
-I can try to do that, albeit as said above, at least for HVM guests
-that checking of %cr2 seems to be quite inconsistent, as
-hvmemul_{read,write}() won't do any of it.
+Andrew Cooper (7):
+  Port containerise
+  Fix container user setup
+  Clean up Gitlab yaml
+  Adjust Linux build script to work with other major versions
+  Factor our x86-isms in the linux build script
+  Infrastructure for arm64 linux builds
+  Linux 6.6.86 for x86 and arm64
 
-Thanks, Roger.
+Marek Marczykowski-Górecki (1):
+  Consistently use DOCKER_CMD in makefiles
+
+ .gitlab-ci.yml                                | 43 ++++++---
+ containerize                                  | 95 +++++++++++++++++++
+ images/Makefile                               |  5 +-
+ ...dockerfile => 3.18-arm64-build.dockerfile} | 22 ++---
+ images/alpine/x86_64-build.dockerfile         |  7 +-
+ scripts/build-linux.sh                        | 54 +++++++++++
+ scripts/x86_64-kernel-linux.sh                | 31 ------
+ 7 files changed, 197 insertions(+), 60 deletions(-)
+ create mode 100755 containerize
+ copy images/alpine/{x86_64-build.dockerfile => 3.18-arm64-build.dockerfile} (55%)
+ create mode 100755 scripts/build-linux.sh
+ delete mode 100755 scripts/x86_64-kernel-linux.sh
+
+-- 
+2.39.5
+
 
