@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FA8CA83400
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 00:15:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.944731.1343097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2EB6A8340D
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 00:25:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.944744.1343106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2dhe-0002uj-CZ; Wed, 09 Apr 2025 22:15:26 +0000
+	id 1u2dqi-0005h9-8X; Wed, 09 Apr 2025 22:24:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 944731.1343097; Wed, 09 Apr 2025 22:15:26 +0000
+Received: by outflank-mailman (output) from mailman id 944744.1343106; Wed, 09 Apr 2025 22:24:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2dhe-0002rd-A4; Wed, 09 Apr 2025 22:15:26 +0000
-Received: by outflank-mailman (input) for mailman id 944731;
- Wed, 09 Apr 2025 22:15:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u2dqi-0005fk-5Y; Wed, 09 Apr 2025 22:24:48 +0000
+Received: by outflank-mailman (input) for mailman id 944744;
+ Wed, 09 Apr 2025 22:24:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ywx6=W3=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1u2dhd-0002rX-BO
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 22:15:25 +0000
+ id 1u2dqf-0005fe-F5
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 22:24:46 +0000
 Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
- [109.224.244.16]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 20b8d06b-1590-11f0-9eab-5ba50f476ded;
- Thu, 10 Apr 2025 00:15:21 +0200 (CEST)
+ [109.224.244.16]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6f137545-1591-11f0-9ffb-bf95429c2676;
+ Thu, 10 Apr 2025 00:24:43 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,29 +36,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20b8d06b-1590-11f0-9eab-5ba50f476ded
+X-Inumbo-ID: 6f137545-1591-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1744236921; x=1744496121;
-	bh=jeqCwqalJSPMaR0Xhvw51Ys30KIthxLHnNwjUYleNxA=;
+	s=r2vywgm525fbfgj4b3ozb7p33a.protonmail; t=1744237481; x=1744496681;
+	bh=7bBwzYfBsLxZwTZZxLQYXiMT1FEp0YZdK1R7rHBQVes=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=YftAORGUqR3Ech0ajTk2icv8X8lgVAunbtRgbeMc/F+0JHD7MBLPymoJalYekk+P/
-	 AEpQTvNfFtYqGOGxFl00SKv05vy9f4HfqC3btTSmff2h1Sh/Pz33ZLUctDWpXlh/9M
-	 cqSqUKHxBBO0FF+TkJDrUQPfDYnxF4QZGAnHbIh1v6UFc+pyI0Qu82zYjEfehW9/w6
-	 QU4kRFypbZxIiAHlvSzYJ9U2i2veudIuWE4IWyBGAkcQA3kek/+uuIaSjeRLJGPt+7
-	 4r2gvfpp7OnwH3QguU262UW/JbQdxzxmcMzPN9vEiyHiHsmV39GMunosc/DIgmVLmn
-	 QQBxGvJw5JJ6w==
-Date: Wed, 09 Apr 2025 22:15:18 +0000
+	b=a1gxk0NkcyPxCdEsRUTAr+7BKqZ4U9tT8lkb5mr8Bx6rUH59Y2AJ0DlXRwas9+euC
+	 JUyWa3HZeSxp3pUuWDKhMcLvB4Hk5SjiwtTDwiN99qIlUSVAXb7bT5KzCi12ONtX9W
+	 rXss0s+ZqVmIr8ctB2vCk53DWXjx/4UKQlDmw7XxRrPp0q176T5jNbd3geUJxTcUAz
+	 el18YfDYQFU8We1jeNm6tytro+DCipGLuULj/aQMahXA/A9q3uzGq28gVf7vZvBLSI
+	 GDrEZAmmHf8Fw24pgh4etpX2SreHIQ0DFpgicmRoMjCTZjavgi+fNSZXOVckuqq5Fn
+	 3MisVMBVjcTkw==
+Date: Wed, 09 Apr 2025 22:24:36 +0000
 To: Alejandro Vallejo <agarciav@amd.com>
 From: Denis Mukhin <dmkhn@proton.me>
-Cc: xen-devel@lists.xenproject.org, "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jason Andryuk <jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH v3 12/16] x86/hyperlaunch: add domain id parsing to domain config
-Message-ID: <tRYKTDKcoIBHId12LOD4EHCmAF-AN3V3PmkMqmyIjYCqQJ3TS_0ctt3WMCq1Ez3W7oIGxwU3UsAioyP9T9fMCO78_61AI01oYEknYF_h1_I=@proton.me>
-In-Reply-To: <20250408160802.49870-13-agarciav@amd.com>
-References: <20250408160802.49870-1-agarciav@amd.com> <20250408160802.49870-13-agarciav@amd.com>
+Cc: xen-devel@lists.xenproject.org, "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jason Andryuk <jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v3 13/16] x86/hyperlaunch: specify dom0 mode with device tree
+Message-ID: <zz01k2KPjivL5-avbZJmfIKFKTodzbdL80XbXNBdrZP_7Kk9oips4Ox0aG-MYZUe74V8Rm5gHDbLjdUNlZLzmYD0MboIVY5XeUq_DmYXz6s=@proton.me>
+In-Reply-To: <20250408160802.49870-14-agarciav@amd.com>
+References: <20250408160802.49870-1-agarciav@amd.com> <20250408160802.49870-14-agarciav@amd.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: b809612eb6f56e3c5894e96c1e9cd261539d1355
+X-Pm-Message-ID: 071d7e756c0c57185b32676e31b7e0b53658acf2
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -71,174 +71,115 @@ On Tuesday, April 8th, 2025 at 9:07 AM, Alejandro Vallejo <agarciav@amd.com=
 > From: "Daniel P. Smith" dpsmith@apertussolutions.com
 >=20
 >=20
-> Introduce the ability to specify the desired domain id for the domain
-> definition. The domain id will be populated in the domid property of the
-> domain
-> node in the device tree configuration.
+> Enable selecting the mode in which the domain will be built and ran. This
+> includes:
+>=20
+> - whether it will be either a 32/64 bit domain
+> - if it will be run as a PV or HVM domain
+> - and if it will require a device model (not applicable for dom0)
+>=20
+> In the device tree, this will be represented as a bit map that will be ca=
+rried
+> through into struct boot_domain.
 >=20
 > Signed-off-by: Daniel P. Smith dpsmith@apertussolutions.com
 >=20
+> Reviewed-by: Jason Andryuk jason.andryuk@amd.com
+>=20
 > ---
-> v3:
-> * Remove ramdisk parsing
-> * Add missing xen/errno.h include
-> ---
-> xen/arch/x86/domain-builder/fdt.c | 39 ++++++++++++++++++++++++++++-
-> xen/arch/x86/setup.c | 5 ++--
-> xen/include/xen/libfdt/libfdt-xen.h | 11 ++++++++
-> 3 files changed, 52 insertions(+), 3 deletions(-)
+> xen/arch/x86/domain-builder/fdt.c | 19 +++++++++++++++++++
+> xen/arch/x86/include/asm/boot-domain.h | 5 +++++
+> xen/arch/x86/setup.c | 3 ++-
+> 3 files changed, 26 insertions(+), 1 deletion(-)
 >=20
 > diff --git a/xen/arch/x86/domain-builder/fdt.c b/xen/arch/x86/domain-buil=
 der/fdt.c
-> index 0f5fd01557..4c6aafe195 100644
+> index 4c6aafe195..da65f6a5a0 100644
 > --- a/xen/arch/x86/domain-builder/fdt.c
 > +++ b/xen/arch/x86/domain-builder/fdt.c
-> @@ -8,6 +8,7 @@
-> #include <xen/libfdt/libfdt.h>
+> @@ -193,6 +193,25 @@ static int __init process_domain_node(
+> bd->domid =3D (domid_t)val;
 >=20
+> printk(" domid: %d\n", bd->domid);
 >=20
-> #include <asm/bootinfo.h>
->=20
-> +#include <asm/guest.h>
->=20
-> #include <asm/page.h>
->=20
-> #include <asm/setup.h>
->=20
->=20
-> @@ -158,12 +159,42 @@ int __init fdt_read_multiboot_module(const void *fd=
-t, int node,
-> static int __init process_domain_node(
-> struct boot_info *bi, const void *fdt, int dom_node)
-> {
-> - int node;
-> + int node, property;
-> struct boot_domain *bd =3D &bi->domains[bi->nr_domains];
->=20
-> const char *name =3D fdt_get_name(fdt, dom_node, NULL) ?: "unknown";
-> int address_cells =3D fdt_address_cells(fdt, dom_node);
-> int size_cells =3D fdt_size_cells(fdt, dom_node);
->=20
-> + fdt_for_each_property_offset(property, fdt, dom_node)
+> }
+> + else if ( strncmp(prop_name, "mode", name_len) =3D=3D 0 )
 > + {
-> + const struct fdt_property *prop;
-> + const char prop_name;
-> + int name_len;
-> +
-> + prop =3D fdt_get_property_by_offset(fdt, property, NULL);
-> + if ( !prop )
-> + continue; / silently skip */
-> +
-> + prop_name =3D fdt_get_string(fdt, fdt32_to_cpu(prop->nameoff), &name_le=
-n);
+> + if ( fdt_prop_as_u32(prop, &bd->mode) !=3D 0 )
 >=20
-> +
-> + if ( strncmp(prop_name, "domid", name_len) =3D=3D 0 )
 > + {
-> + uint32_t val =3D DOMID_INVALID;
-> + if ( fdt_prop_as_u32(prop, &val) !=3D 0 )
-> + {
-> + printk(" failed processing domain id for domain %s\n", name);
-
-Add XENLOG_ERR ?
-
+> + printk(" failed processing mode for domain %s\n", name);
 > + return -EINVAL;
 > + }
-> + if ( val >=3D DOMID_FIRST_RESERVED )
+> +
+> + printk(" mode: ");
+> + if ( !(bd->mode & BUILD_MODE_PARAVIRT) )
 >=20
 > + {
-> + printk(" invalid domain id for domain %s\n", name);
-
-Add XENLOG_ERR ?
-
-> + return -EINVAL;
-> + }
-> + bd->domid =3D (domid_t)val;
+> + if ( bd->mode & BUILD_MODE_ENABLE_DM )
 >=20
-> + printk(" domid: %d\n", bd->domid);
+> + printk("HVM\n");
+> + else
+> + printk("PVH\n");
+> + }
+> + else
+> + printk("PV\n");
+> + }
+> }
+
+I would re-write so the positive condition is processed first, e.g.:
+
+    if ( bd->mode & BUILD_MODE_PARAVIRT )
+        printk("PV\n");
+    else if ( bd->mode & BUILD_MODE_ENABLE_DM )
+        printk("HVM\n");
+    else
+        printk("PVH\n");
+
+I think it will reduce indentation and make code block a bit easier to read=
+.
+
+Also, if there are more uses for printing string representation of a
+boot module mode in the future, perhaps move it to a separate function?
+
+What do you think?
+
 >=20
-> + }
-> + }
-> +
 > fdt_for_each_subnode(node, fdt, dom_node)
-> {
-> if ( fdt_node_check_compatible(fdt, node, "multiboot,kernel") =3D=3D 0 )
-> @@ -233,6 +264,12 @@ static int __init process_domain_node(
-> return -ENODATA;
-> }
+> diff --git a/xen/arch/x86/include/asm/boot-domain.h b/xen/arch/x86/includ=
+e/asm/boot-domain.h
+> index d7c6042e25..e316d4bcde 100644
+> --- a/xen/arch/x86/include/asm/boot-domain.h
+> +++ b/xen/arch/x86/include/asm/boot-domain.h
+> @@ -13,6 +13,11 @@
+> struct boot_domain {
+> domid_t domid;
 >=20
-> + if ( bd->domid =3D=3D DOMID_INVALID )
->=20
-> + bd->domid =3D get_initial_domain_id();
->=20
-> + else if ( bd->domid !=3D get_initial_domain_id() )
->=20
-> + printk(XENLOG_WARNING
-> + "WARN: Booting without initial domid not supported.\n");
-
-Drop WARN since the log message is XENLOG_WARNING level already?
-
+> + /* On | Off /
+> +#define BUILD_MODE_PARAVIRT (1 << 0) / PV | PVH/HVM /
+> +#define BUILD_MODE_ENABLE_DM (1 << 1) / HVM | PVH */
+> + uint32_t mode;
 > +
-> return 0;
-> }
->=20
+> struct boot_module *kernel;
+> struct boot_module *module;
+> const char *cmdline;
 > diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index 3dfa81b48c..db7280225e 100644
+> index db7280225e..4127a0105d 100644
 > --- a/xen/arch/x86/setup.c
 > +++ b/xen/arch/x86/setup.c
-> @@ -1033,8 +1033,9 @@ static struct domain *__init create_dom0(struct boo=
-t_info bi)
-> if ( iommu_enabled )
-> dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
+> @@ -1020,7 +1020,8 @@ static struct domain *__init create_dom0(struct boo=
+t_info *bi)
+> struct boot_domain *bd =3D &bi->domains[0];
 >=20
-> - / Create initial domain. Not d0 for pvshim. */
-> - bd->domid =3D get_initial_domain_id();
+> struct domain *d;
 >=20
-> + if ( bd->domid =3D=3D DOMID_INVALID )
+> - if ( opt_dom0_pvh )
+> + if ( opt_dom0_pvh ||
+> + (bi->hyperlaunch_enabled && !(bd->mode & BUILD_MODE_PARAVIRT)) )
 >=20
-> + /* Create initial domain. Not d0 for pvshim. */
-> + bd->domid =3D get_initial_domain_id();
->=20
-> d =3D domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
->=20
-> if ( IS_ERR(d) )
-> panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
->=20
-> diff --git a/xen/include/xen/libfdt/libfdt-xen.h b/xen/include/xen/libfdt=
-/libfdt-xen.h
-> index e473fbaf0c..3031bec90e 100644
-> --- a/xen/include/xen/libfdt/libfdt-xen.h
-> +++ b/xen/include/xen/libfdt/libfdt-xen.h
-> @@ -12,6 +12,7 @@
-> #define LIBFDT_XEN_H
->=20
-> #include <xen/libfdt/libfdt.h>
->=20
-> +#include <xen/errno.h>
->=20
->=20
-> static inline int __init fdt_cell_as_u32(const fdt32_t *cell)
 > {
-> @@ -23,6 +24,16 @@ static inline uint64_t __init fdt_cell_as_u64(const fd=
-t32_t *cell)
-> return ((uint64_t)fdt32_to_cpu(cell[0]) << 32) | fdt32_to_cpu(cell[1]);
-> }
->=20
-> +static inline int __init fdt_prop_as_u32(
-> + const struct fdt_property *prop, uint32_t *val)
-> +{
-> + if ( !prop || fdt32_to_cpu(prop->len) < sizeof(u32) )
->=20
-> + return -EINVAL;
-> +
-> + *val =3D fdt_cell_as_u32((fdt32_t *)prop->data);
->=20
-> + return 0;
-> +}
-> +
-> static inline bool __init fdt_get_prop_offset(
-> const void *fdt, int node, const char *name, unsigned long *offset)
-> {
+> dom0_cfg.flags |=3D (XEN_DOMCTL_CDF_hvm |
+> ((hvm_hap_supported() && !opt_dom0_shadow) ?
 > --
 > 2.43.0
 
