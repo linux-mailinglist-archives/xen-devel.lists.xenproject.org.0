@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 323EEA8257F
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 15:00:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.943957.1342545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3498AA82591
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 15:05:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.943969.1342555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2V1z-00083J-QS; Wed, 09 Apr 2025 12:59:51 +0000
+	id 1u2V7B-0002Nq-Aj; Wed, 09 Apr 2025 13:05:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 943957.1342545; Wed, 09 Apr 2025 12:59:51 +0000
+Received: by outflank-mailman (output) from mailman id 943969.1342555; Wed, 09 Apr 2025 13:05:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2V1z-00080l-NC; Wed, 09 Apr 2025 12:59:51 +0000
-Received: by outflank-mailman (input) for mailman id 943957;
- Wed, 09 Apr 2025 12:59:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5vFf=W3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u2V1y-00080f-PO
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 12:59:50 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 83bf811e-1542-11f0-9ffb-bf95429c2676;
- Wed, 09 Apr 2025 14:59:47 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-39ac9aea656so5675597f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 05:59:47 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f2338d6ebsm16387265e9.2.2025.04.09.05.59.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Apr 2025 05:59:46 -0700 (PDT)
+	id 1u2V7B-0002MB-83; Wed, 09 Apr 2025 13:05:13 +0000
+Received: by outflank-mailman (input) for mailman id 943969;
+ Wed, 09 Apr 2025 13:05:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fbf/=W3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u2V79-0002M3-Ow
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 13:05:11 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 443160c6-1543-11f0-9eab-5ba50f476ded;
+ Wed, 09 Apr 2025 15:05:10 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-43cfebc343dso45002965e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 06:05:10 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43f20626c19sm20023245e9.15.2025.04.09.06.05.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Apr 2025 06:05:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +45,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83bf811e-1542-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 443160c6-1543-11f0-9eab-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744203587; x=1744808387; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6t/2Nq+ydaUI82ZJ+n6IUwFM49DRh+4TKkeUHQXyDME=;
-        b=S8g5QNUWjTCcGT8/Qks1BFtreNaCP/qQpt6wSClK5LcGatIZnO0e8LBm/bAsjgYy07
-         11Kl6CDH4dSAN0qJA/KeprfXh7FyKnhivA7/pI/LM3jigtZra7Ib7ylFSU94hUeOK5yr
-         oCi8WFxeXPz8FTd+OaqDvmUplnSwQP51sH+CBBw1wBaqJGHISdAmpqWjxGUIdbk9g/GO
-         U5MSHA5HyvqnwbNzPV81pAlqvZbfC53NbKFoxSg3nNgF4DyiMD7k5dKX8VCI2oNIRbas
-         bGX994h9QdP629hI3aCCM7xU4W4+rELsWR42L9PxZSiTGVOlR4XlpmsidDwh1T6mOuQb
-         4q3A==
+        d=citrix.com; s=google; t=1744203909; x=1744808709; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wA19nJTTFlLi2S5i3hNhxXNAIAEva6dxvHNqQxRQqxM=;
+        b=hzN9tgJ2Kkz+wwpsptk/NlUFrwhMOcCJG1pmBoXaLIhi5exqKyNpFQoJxt+mITqXcg
+         XpqmmPo+YWDO5/4vse+cDoSg0YjGEaAvMy/e9c33D/7hZj+auWyJlXdqVOiP+iQJQAY1
+         zKFcIq81+1rU5mbp8d2lrzFvoZG3rxzuRghMQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744203587; x=1744808387;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6t/2Nq+ydaUI82ZJ+n6IUwFM49DRh+4TKkeUHQXyDME=;
-        b=HkdKChVmF/25B0p2/e3r4xZt3c36NQwTlVxc5i7nJIG8nwjvvmycAzkAf3iqSEqYhp
-         ERY10EXHTLerhhD+El14jv7s62zqk8iYOoh70grKnrBfJf6bXgafu06UbCG3Qg77DTQe
-         /U3nEfKlO5XuKA1PkyjYW3gv80qGf36g/GLM57mPtfccAZYvTbyWdCkFqCzTjmKVKQsT
-         FVl6TT4I8lfPH1/HIA0itN9ikX1lSymnnXZS3nlicPx0IUJoP/Oojq3SHowDH0gjMN/r
-         2HGYPbFyjy4yBfXkYmKZy2wk26p4d5T9cBVVvcyWE6W5iKCwO/ui+WG4rftqFlCjcN7h
-         zY1A==
-X-Forwarded-Encrypted: i=1; AJvYcCUr/e4XUAUrahXk8V160NkgMqD6O5/TB+6gGPSpF1bEgpiYAX+dGBXf7WVcieKmUUACyHEtc9yR78I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy1YeqMY2W1lyOGgUi+WkVBwwwaQ5TZQy1jifFWZFCZyHreHI4k
-	LUHwPK9LMRTjupvatSnkB+ddgq021FGVbAkEpaGP6eVRO45v4T/ejElpIE9lnA==
-X-Gm-Gg: ASbGncseu9q88Qa8hIzta+xqLZrc0fzD8rbEUuLwYBaOPWkJm3MRFSl34Ai99CylbK1
-	di3QonUl+12O3SKX1ih38NYDl8B/CxLtTLwbJtcYQK0jwY7Y6wJfIkjImtMtfAaZgSpXORJfIso
-	qHoyTa1OW1UxQQ7YPb3W7e8sW4nNHC7CAUFou/A+AKrESKYQEsXjym+NxuoebSwbvYbYaYruJBr
-	TceNujJiXPKtiIoQDh4bBSWMIoGfIG6Rp7TZODmAoiZTr1OUrplqkqfHN7tUIzkVj6rc9axD1vk
-	7UIY43xovVWu0tSKvYClASgQYETHSQrTMJecyfsWl/5XKwoaNAzc454p9S9WIlltwnYVGk+YeZX
-	er5yKToOYde9CSeQLLq8w41Ijig==
-X-Google-Smtp-Source: AGHT+IHb2LOBQwP2oPnA9pHBf40M/Cp6GktTUQzd71g8pUnOWZ49tDRxZxNLt7JFPfXICxyI1GqxCw==
-X-Received: by 2002:a05:6000:250d:b0:39c:cc7:3db6 with SMTP id ffacd0b85a97d-39d87aa7edfmr2506677f8f.19.1744203586570;
-        Wed, 09 Apr 2025 05:59:46 -0700 (PDT)
-Message-ID: <2df78a5d-2f9f-4866-81cc-03ae09c76d50@suse.com>
-Date: Wed, 9 Apr 2025 14:59:45 +0200
+        d=1e100.net; s=20230601; t=1744203909; x=1744808709;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wA19nJTTFlLi2S5i3hNhxXNAIAEva6dxvHNqQxRQqxM=;
+        b=ThC7cVroGdfcAdNca8z9S5FHV1GPjDTpch/cUZYUVDymeoUXlvbvhYyPiICITY58VL
+         wk2pkBeGNEs+5Y84VtoIyKZ4o64EVOI96vigFQ+WoHtONrnoJBz0kF7Nb8Z52G8Fer5e
+         Fr/gtxDvM+GX1ZHdw2qlQBuPiReS79/cKVghbwRJMB+ZF6pI1nHY8OLrxh7IMVlZfr8L
+         PtIS0s8+rV6GvKWl7gVUnPl9rFGMMfTnYQacb4sw+LQdCfhW0LbdkQI2m7Ow2yh4dgXg
+         Uo6CVRDIVvRnmPwDKpVN4TtFL5WuW8YsglcGkBBDP2w8HL5Ps/vLYwnvTWn8LUxJiwSq
+         aiig==
+X-Gm-Message-State: AOJu0YzrE4ijhpQafpvvo3zEx84/TJbHy7MYEA088r7mkecCiBOZEXLV
+	1q3qY3pabPYognlDQb60HwvV23aRWNR0oOWmB84Pla2RkdhMmljtZ9wfii6uVR8bXYODJf9z+X7
+	sP64=
+X-Gm-Gg: ASbGncvqnl4TEy1wfJD5jRS3H0wtwogq5osPvwx0KpyWI6Gda73mHdACXVcozzPDXzt
+	QBz4GzTmxapv0L4oZHJ11i+mKHiNCuQbqHG2EQ59kxxJ0u2nh7sEKNpA/rFtafEEfKudnrnmdjv
+	Et2pKrUSc8TlFr6YOmFzW0GkiF5+F7+qS3/fqNYp8fx4IZkksGa1U/MxroO9J5pzFEqlahr+gUK
+	5+XdMrKHbhB65BpAKpZC2D8/Ur4ObVw61GDAY6JgjpleR37/4+Byoq4PZhKMIVo0VFxlwDsah6n
+	IX5TZES2vO/wg3qIxNkrOSrk3TQoAY5lYgrvwf5OelzjYiZtwmFvTNwCin3TS2zJv8j+ywR2Gn4
+	wz3bALggTsW2wbA==
+X-Google-Smtp-Source: AGHT+IHbin4zC3V9XaEOrFCp7aQ8gNdG+iIzLugTZiDUx08Rv9idObhZ1zUuQYRxWhzz3cLcmZIkmw==
+X-Received: by 2002:a05:600c:1d86:b0:43d:7588:66a5 with SMTP id 5b1f17b1804b1-43f1ed671d7mr29515485e9.31.1744203909039;
+        Wed, 09 Apr 2025 06:05:09 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH] CI: Update x86 tests from Linux 6.1.19 to 6.6.56
+Date: Wed,  9 Apr 2025 14:05:05 +0100
+Message-Id: <20250409130505.2011604-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/hvm: fix write emulation of RO ranges
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250408093156.83277-1-roger.pau@citrix.com>
- <20250408093156.83277-3-roger.pau@citrix.com>
- <16c73cae-2ac0-4811-97d3-b25c95ed5abc@suse.com>
- <Z_Y4xFzaltr_XKO4@macbook.lan>
- <ef0b6eea-a7e5-406d-a8ba-062b3c6e17e1@suse.com>
- <Z_ZOWAttoFNoFYCV@macbook.lan>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Z_ZOWAttoFNoFYCV@macbook.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 09.04.2025 12:39, Roger Pau Monné wrote:
-> On Wed, Apr 09, 2025 at 12:00:16PM +0200, Jan Beulich wrote:
->> On 09.04.2025 11:07, Roger Pau Monné wrote:
->>> On Tue, Apr 08, 2025 at 03:57:17PM +0200, Jan Beulich wrote:
->>>> On 08.04.2025 11:31, Roger Pau Monne wrote:
->>>>> When running on AMD hardware in HVM mode the guest linear address (GLA)
->>>>> will not be provided to hvm_emulate_one_mmio(), and instead is
->>>>> unconditionally set of ~0.  As a consequence mmio_ro_emulated_write() will
->>>>> always report an error, as the fault GLA generated by the emulation of the
->>>>> access won't be ~0.
->>>>
->>>> Which means subpage_mmio_write_accept() is flawed, too, on AMD (or more
->>>> generally whenever .gla_valid isn't set).
->>>
->>> Oh, yes, good catch.  I didn't notice that one.  We should move all
->>> those checks to use a paddr rather than a gla.
->>
->> Really that function could just be passed the offset into the page.
->>
->>>>> Fix this by only checking for the fault GLA in mmio_ro_emulated_write()
->>>>> when the guest is PV.
->>>>
->>>> This narrows checking too much, imo. For VT-x we could continue to do so,
->>>> provided we pass e.g. npfec down into hvm_emulate_one_mmio(), i.e. make
->>>> the gla_valid flag visible there.
->>>
->>> I don't think we should rely on the gla at all in
->>> mmio_ro_emulated_write(), and instead just use the physical address.
->>
->> But you can't validate a physical address against a CR2 value. And I view
->> this validation as meaningful, to guard (best effort, but still) against
->> e.g. insn re-writing under our feet.
-> 
-> But we have the mfn in mmio_ro_ctxt, and could possibly use that to
-> validate?  I could expand the context to include the offset also, so
-> that we could fully validate it.
+Linux 6.6.56 was already added to test-artifacts for the argo testing, and
+this removes one moving part while cleaning things up.
 
-How would you use the MFN to validate against the VA in CR2?
+Drop the associated export job, and dockerfile.
 
-Jan
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Doug Goldstein <cardoe@cardoe.com>
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1760198654
+---
+ automation/gitlab-ci/build.yaml               | 13 ------
+ automation/gitlab-ci/test.yaml                |  4 +-
+ .../tests-artifacts/kernel/6.1.19.dockerfile  | 41 -------------------
+ 3 files changed, 3 insertions(+), 55 deletions(-)
+ delete mode 100644 automation/tests-artifacts/kernel/6.1.19.dockerfile
+
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index 169bebe3c775..ab758243c1ec 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -308,19 +308,6 @@ qemu-system-aarch64-6.0.0-arm32-export:
+   tags:
+     - arm64
+ 
+-# x86_64 test artifacts
+-
+-kernel-6.1.19-export:
+-  extends: .test-jobs-artifact-common
+-  image: registry.gitlab.com/xen-project/xen/tests-artifacts/kernel:6.1.19
+-  script:
+-    - mkdir binaries && cp /bzImage binaries/bzImage
+-  artifacts:
+-    paths:
+-      - binaries/bzImage
+-  tags:
+-    - x86_64
+-
+ # Jobs below this line
+ 
+ # Build jobs needed for tests
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index d05b9a98afa6..58620b32da5d 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -16,7 +16,9 @@
+   - qemu-system-aarch64-6.0.0-arm32-export
+ 
+ .x86-64-test-needs: &x86-64-test-needs
+-  - kernel-6.1.19-export
++  - project: xen-project/hardware/test-artifacts
++    job: x86_64-kernel-linux-6.6.56
++    ref: master
+   - project: xen-project/hardware/test-artifacts
+     job: x86_64-rootfs-alpine-3.18
+     ref: master
+diff --git a/automation/tests-artifacts/kernel/6.1.19.dockerfile b/automation/tests-artifacts/kernel/6.1.19.dockerfile
+deleted file mode 100644
+index 073eaa0e11fa..000000000000
+--- a/automation/tests-artifacts/kernel/6.1.19.dockerfile
++++ /dev/null
+@@ -1,41 +0,0 @@
+-# syntax=docker/dockerfile:1
+-FROM --platform=linux/amd64 debian:bookworm
+-LABEL maintainer.name="The Xen Project" \
+-      maintainer.email="xen-devel@lists.xenproject.org"
+-
+-ENV DEBIAN_FRONTEND=noninteractive
+-ENV LINUX_VERSION=6.1.19
+-ENV USER root
+-
+-RUN mkdir /build
+-WORKDIR /build
+-
+-# build depends
+-RUN apt-get update && \
+-    apt-get --quiet --yes install \
+-        build-essential \
+-        bc \
+-        curl \
+-        flex \
+-        bison \
+-        libelf-dev \
+-        && \
+-    apt-get autoremove -y && \
+-    apt-get clean && \
+-    rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
+-
+-# Build the kernel
+-RUN curl -fsSLO https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-"$LINUX_VERSION".tar.xz && \
+-    tar xvJf linux-"$LINUX_VERSION".tar.xz && \
+-    cd linux-"$LINUX_VERSION" && \
+-    make defconfig && \
+-    make xen.config && \
+-    scripts/config --enable BRIDGE && \
+-    scripts/config --enable IGC && \
+-    scripts/config --enable TUN && \
+-    cp .config .config.orig && \
+-    cat .config.orig | grep XEN | grep =m |sed 's/=m/=y/g' >> .config && \
+-    make -j$(nproc) bzImage && \
+-    cp arch/x86/boot/bzImage / && \
+-    cd /build && \
+-    rm -rf linux-"$LINUX_VERSION"*
+
+base-commit: 59bb316ea89e7f9461690fe00547d7d2af96321d
+-- 
+2.39.5
+
 
