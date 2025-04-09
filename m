@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFACFA833F2
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 00:08:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.944717.1343087 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FA8CA83400
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 00:15:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.944731.1343097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2dZs-0008WF-Ky; Wed, 09 Apr 2025 22:07:24 +0000
+	id 1u2dhe-0002uj-CZ; Wed, 09 Apr 2025 22:15:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 944717.1343087; Wed, 09 Apr 2025 22:07:24 +0000
+Received: by outflank-mailman (output) from mailman id 944731.1343097; Wed, 09 Apr 2025 22:15:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2dZs-0008VG-Hs; Wed, 09 Apr 2025 22:07:24 +0000
-Received: by outflank-mailman (input) for mailman id 944717;
- Wed, 09 Apr 2025 22:07:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u2dhe-0002rd-A4; Wed, 09 Apr 2025 22:15:26 +0000
+Received: by outflank-mailman (input) for mailman id 944731;
+ Wed, 09 Apr 2025 22:15:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ywx6=W3=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1u2dZs-0008V3-1m
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 22:07:24 +0000
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 01f7cb67-158f-11f0-9ffb-bf95429c2676;
- Thu, 10 Apr 2025 00:07:20 +0200 (CEST)
+ id 1u2dhd-0002rX-BO
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 22:15:25 +0000
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
+ [109.224.244.16]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 20b8d06b-1590-11f0-9eab-5ba50f476ded;
+ Thu, 10 Apr 2025 00:15:21 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,29 +36,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01f7cb67-158f-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 20b8d06b-1590-11f0-9eab-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1744236439; x=1744495639;
-	bh=PNuIUhsAmMV6/d5Q6RNUKcnjFlmnkJduQNv20ezEKN8=;
+	s=protonmail; t=1744236921; x=1744496121;
+	bh=jeqCwqalJSPMaR0Xhvw51Ys30KIthxLHnNwjUYleNxA=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=GRE6BCcFFXV0+ULCceQLt7gGvgXfrTzOFs+dFoVmZN3uHVSQl7jSaXTuqfrQi5P9e
-	 qBnUbreiUSCjME8FJ8FGPhDPQE08kN6Lpk5lmDPojxPpd/vdic1YUgZNOCP+YFgwZg
-	 4UzWa3m4jkc3qFNdl6CG92cJZHu+Wlged1u3EE4b0utcVWnwRRqXfve7qPpJl6CgRu
-	 aazGHimfkPeYVaje4Mz1j75PExu+3Uu54+MfVxi/8gOSqp+8h0xTlejJPJsckI1Dih
-	 6rj06CdBjq0s0XrKYdYP3tf4LBMy8uZ64SUcdhcW9mF0dJaiZ/+EKW5pzR/ygruyVu
-	 FAIKCq55MXZQA==
-Date: Wed, 09 Apr 2025 22:07:13 +0000
+	b=YftAORGUqR3Ech0ajTk2icv8X8lgVAunbtRgbeMc/F+0JHD7MBLPymoJalYekk+P/
+	 AEpQTvNfFtYqGOGxFl00SKv05vy9f4HfqC3btTSmff2h1Sh/Pz33ZLUctDWpXlh/9M
+	 cqSqUKHxBBO0FF+TkJDrUQPfDYnxF4QZGAnHbIh1v6UFc+pyI0Qu82zYjEfehW9/w6
+	 QU4kRFypbZxIiAHlvSzYJ9U2i2veudIuWE4IWyBGAkcQA3kek/+uuIaSjeRLJGPt+7
+	 4r2gvfpp7OnwH3QguU262UW/JbQdxzxmcMzPN9vEiyHiHsmV39GMunosc/DIgmVLmn
+	 QQBxGvJw5JJ6w==
+Date: Wed, 09 Apr 2025 22:15:18 +0000
 To: Alejandro Vallejo <agarciav@amd.com>
 From: Denis Mukhin <dmkhn@proton.me>
-Cc: xen-devel@lists.xenproject.org, "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jason Andryuk <jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v3 11/16] x86/hyperlaunch: locate dom0 initrd with hyperlaunch
-Message-ID: <7yfsIOlu7485oxHgd2L0b32KqzOfx7cJg8-ZwVb41T2NljBamLliFUysp7IM4fSh-DvmZD1H-9Gh2pjpSdIrXkUbbo3pxRV3h3P2TglHJlA=@proton.me>
-In-Reply-To: <20250408160802.49870-12-agarciav@amd.com>
-References: <20250408160802.49870-1-agarciav@amd.com> <20250408160802.49870-12-agarciav@amd.com>
+Cc: xen-devel@lists.xenproject.org, "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jason Andryuk <jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>, Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [PATCH v3 12/16] x86/hyperlaunch: add domain id parsing to domain config
+Message-ID: <tRYKTDKcoIBHId12LOD4EHCmAF-AN3V3PmkMqmyIjYCqQJ3TS_0ctt3WMCq1Ez3W7oIGxwU3UsAioyP9T9fMCO78_61AI01oYEknYF_h1_I=@proton.me>
+In-Reply-To: <20250408160802.49870-13-agarciav@amd.com>
+References: <20250408160802.49870-1-agarciav@amd.com> <20250408160802.49870-13-agarciav@amd.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 8fd149f369090f74b21d3581e55e2525ca4e7619
+X-Pm-Message-ID: b809612eb6f56e3c5894e96c1e9cd261539d1355
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -71,109 +71,174 @@ On Tuesday, April 8th, 2025 at 9:07 AM, Alejandro Vallejo <agarciav@amd.com=
 > From: "Daniel P. Smith" dpsmith@apertussolutions.com
 >=20
 >=20
-> Look for a subnode of type `multiboot,ramdisk` within a domain node and
-> parse via the fdt_read_multiboot_module() helper. After a successful
-> helper call, the module index is returned and the module is guaranteed
-> to be in the module list.
->=20
-> Fix unused typo in adjacent comment.
+> Introduce the ability to specify the desired domain id for the domain
+> definition. The domain id will be populated in the domid property of the
+> domain
+> node in the device tree configuration.
 >=20
 > Signed-off-by: Daniel P. Smith dpsmith@apertussolutions.com
 >=20
-> Signed-off-by: Jason Andryuk jason.andryuk@amd.com
->=20
-> Signed-off-by: Alejandro Vallejo agarciav@amd.com
->=20
 > ---
 > v3:
-> * Reworded commit message to state the helper postconditions.
-> * Wrapped long line
-> * Fix ramdisk -> module rename
->=20
-> * Move ramdisk parsing from later patch
-> * Remove initrdidx indent
+> * Remove ramdisk parsing
+> * Add missing xen/errno.h include
 > ---
-> xen/arch/x86/domain-builder/fdt.c | 29 +++++++++++++++++++++++++++++
-> xen/arch/x86/setup.c | 4 ++--
-> 2 files changed, 31 insertions(+), 2 deletions(-)
+> xen/arch/x86/domain-builder/fdt.c | 39 ++++++++++++++++++++++++++++-
+> xen/arch/x86/setup.c | 5 ++--
+> xen/include/xen/libfdt/libfdt-xen.h | 11 ++++++++
+> 3 files changed, 52 insertions(+), 3 deletions(-)
 >=20
 > diff --git a/xen/arch/x86/domain-builder/fdt.c b/xen/arch/x86/domain-buil=
 der/fdt.c
-> index bc9903a9de..0f5fd01557 100644
+> index 0f5fd01557..4c6aafe195 100644
 > --- a/xen/arch/x86/domain-builder/fdt.c
 > +++ b/xen/arch/x86/domain-builder/fdt.c
-> @@ -195,6 +195,35 @@ static int __init process_domain_node(
-> !((char *)__va(bd->kernel->cmdline_pa))[0] )
+> @@ -8,6 +8,7 @@
+> #include <xen/libfdt/libfdt.h>
 >=20
-> bd->kernel->fdt_cmdline =3D fdt_get_prop_offset(
 >=20
-> fdt, node, "bootargs", &bd->kernel->cmdline_pa);
+> #include <asm/bootinfo.h>
+>=20
+> +#include <asm/guest.h>
+>=20
+> #include <asm/page.h>
+>=20
+> #include <asm/setup.h>
+>=20
+>=20
+> @@ -158,12 +159,42 @@ int __init fdt_read_multiboot_module(const void *fd=
+t, int node,
+> static int __init process_domain_node(
+> struct boot_info *bi, const void *fdt, int dom_node)
+> {
+> - int node;
+> + int node, property;
+> struct boot_domain *bd =3D &bi->domains[bi->nr_domains];
+>=20
+> const char *name =3D fdt_get_name(fdt, dom_node, NULL) ?: "unknown";
+> int address_cells =3D fdt_address_cells(fdt, dom_node);
+> int size_cells =3D fdt_size_cells(fdt, dom_node);
+>=20
+> + fdt_for_each_property_offset(property, fdt, dom_node)
+> + {
+> + const struct fdt_property *prop;
+> + const char prop_name;
+> + int name_len;
+> +
+> + prop =3D fdt_get_property_by_offset(fdt, property, NULL);
+> + if ( !prop )
+> + continue; / silently skip */
+> +
+> + prop_name =3D fdt_get_string(fdt, fdt32_to_cpu(prop->nameoff), &name_le=
+n);
 >=20
 > +
-> + continue;
-> + }
-> + else if ( fdt_node_check_compatible(fdt, node,
-> + "multiboot,ramdisk") =3D=3D 0 )
+> + if ( strncmp(prop_name, "domid", name_len) =3D=3D 0 )
 > + {
-> + int idx;
-> +
-> + if ( bd->module )
->=20
+> + uint32_t val =3D DOMID_INVALID;
+> + if ( fdt_prop_as_u32(prop, &val) !=3D 0 )
 > + {
-> + printk(XENLOG_ERR "Duplicate ramdisk module for domain %s)\n",
+> + printk(" failed processing domain id for domain %s\n", name);
 
-I would start the message with lower case so it is consistent with the othe=
-r one.
-
-> + name);
-> + continue;
-> + }
-> +
-> + idx =3D fdt_read_multiboot_module(fdt, node, address_cells,
-> + size_cells,bi);
-> + if ( idx < 0 )
-> + {
-> + printk(" failed processing ramdisk module for domain %s\n",
-> + name);
-
-Prepend the log message with XENLOG_ERR ?
+Add XENLOG_ERR ?
 
 > + return -EINVAL;
 > + }
-> +
-> + printk(" ramdisk: boot module %d\n", idx);
-> + bi->mods[idx].type =3D BOOTMOD_RAMDISK;
+> + if ( val >=3D DOMID_FIRST_RESERVED )
 >=20
-> + bd->module =3D &bi->mods[idx];
+> + {
+> + printk(" invalid domain id for domain %s\n", name);
+
+Add XENLOG_ERR ?
+
+> + return -EINVAL;
+> + }
+> + bd->domid =3D (domid_t)val;
 >=20
+> + printk(" domid: %d\n", bd->domid);
+>=20
+> + }
+> + }
 > +
-> + continue;
+> fdt_for_each_subnode(node, fdt, dom_node)
+> {
+> if ( fdt_node_check_compatible(fdt, node, "multiboot,kernel") =3D=3D 0 )
+> @@ -233,6 +264,12 @@ static int __init process_domain_node(
+> return -ENODATA;
 > }
+>=20
+> + if ( bd->domid =3D=3D DOMID_INVALID )
+>=20
+> + bd->domid =3D get_initial_domain_id();
+>=20
+> + else if ( bd->domid !=3D get_initial_domain_id() )
+>=20
+> + printk(XENLOG_WARNING
+> + "WARN: Booting without initial domid not supported.\n");
+
+Drop WARN since the log message is XENLOG_WARNING level already?
+
+> +
+> return 0;
 > }
 >=20
 > diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index ca4415d020..3dfa81b48c 100644
+> index 3dfa81b48c..db7280225e 100644
 > --- a/xen/arch/x86/setup.c
 > +++ b/xen/arch/x86/setup.c
-> @@ -2149,11 +2149,11 @@ void asmlinkage __init noreturn __start_xen(void)
-> * At this point all capabilities that consume boot modules should have
-> * claimed their boot modules. Find the first unclaimed boot module and
-> * claim it as the initrd ramdisk. Do a second search to see if there are
-> - * any remaining unclaimed boot modules, and report them as unusued init=
-rd
-> + * any remaining unclaimed boot modules, and report them as unused initr=
-d
-> * candidates.
-> */
-> initrdidx =3D first_boot_module_index(bi, BOOTMOD_UNKNOWN);
-> - if ( initrdidx < MAX_NR_BOOTMODS )
-> + if ( !bi->hyperlaunch_enabled && initrdidx < MAX_NR_BOOTMODS )
+> @@ -1033,8 +1033,9 @@ static struct domain *__init create_dom0(struct boo=
+t_info bi)
+> if ( iommu_enabled )
+> dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
 >=20
+> - / Create initial domain. Not d0 for pvshim. */
+> - bd->domid =3D get_initial_domain_id();
+>=20
+> + if ( bd->domid =3D=3D DOMID_INVALID )
+>=20
+> + /* Create initial domain. Not d0 for pvshim. */
+> + bd->domid =3D get_initial_domain_id();
+>=20
+> d =3D domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
+>=20
+> if ( IS_ERR(d) )
+> panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
+>=20
+> diff --git a/xen/include/xen/libfdt/libfdt-xen.h b/xen/include/xen/libfdt=
+/libfdt-xen.h
+> index e473fbaf0c..3031bec90e 100644
+> --- a/xen/include/xen/libfdt/libfdt-xen.h
+> +++ b/xen/include/xen/libfdt/libfdt-xen.h
+> @@ -12,6 +12,7 @@
+> #define LIBFDT_XEN_H
+>=20
+> #include <xen/libfdt/libfdt.h>
+>=20
+> +#include <xen/errno.h>
+>=20
+>=20
+> static inline int __init fdt_cell_as_u32(const fdt32_t *cell)
 > {
-> bi->mods[initrdidx].type =3D BOOTMOD_RAMDISK;
+> @@ -23,6 +24,16 @@ static inline uint64_t __init fdt_cell_as_u64(const fd=
+t32_t *cell)
+> return ((uint64_t)fdt32_to_cpu(cell[0]) << 32) | fdt32_to_cpu(cell[1]);
+> }
 >=20
-> bi->domains[0].module =3D &bi->mods[initrdidx];
+> +static inline int __init fdt_prop_as_u32(
+> + const struct fdt_property *prop, uint32_t *val)
+> +{
+> + if ( !prop || fdt32_to_cpu(prop->len) < sizeof(u32) )
 >=20
+> + return -EINVAL;
+> +
+> + *val =3D fdt_cell_as_u32((fdt32_t *)prop->data);
+>=20
+> + return 0;
+> +}
+> +
+> static inline bool __init fdt_get_prop_offset(
+> const void *fdt, int node, const char *name, unsigned long *offset)
+> {
 > --
 > 2.43.0
 
