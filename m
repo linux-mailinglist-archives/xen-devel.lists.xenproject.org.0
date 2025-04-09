@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A8CEA82646
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 15:29:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.944041.1342621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21AA8A82648
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 15:29:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.944043.1342645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2VUj-00024z-TB; Wed, 09 Apr 2025 13:29:33 +0000
+	id 1u2VUl-0002gl-O4; Wed, 09 Apr 2025 13:29:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 944041.1342621; Wed, 09 Apr 2025 13:29:33 +0000
+Received: by outflank-mailman (output) from mailman id 944043.1342645; Wed, 09 Apr 2025 13:29:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2VUj-0001x9-NQ; Wed, 09 Apr 2025 13:29:33 +0000
-Received: by outflank-mailman (input) for mailman id 944041;
- Wed, 09 Apr 2025 13:29:31 +0000
+	id 1u2VUl-0002bp-J7; Wed, 09 Apr 2025 13:29:35 +0000
+Received: by outflank-mailman (input) for mailman id 944043;
+ Wed, 09 Apr 2025 13:29:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=scqd=W3=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1u2VUh-0001T2-R9
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 13:29:31 +0000
+ id 1u2VUj-0001T2-CP
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 13:29:33 +0000
 Received: from EUR05-AM6-obe.outbound.protection.outlook.com
  (mail-am6eur05on20602.outbound.protection.outlook.com
  [2a01:111:f403:2612::602])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ab31a413-1546-11f0-9eab-5ba50f476ded;
- Wed, 09 Apr 2025 15:29:31 +0200 (CEST)
+ id abb57ebc-1546-11f0-9eab-5ba50f476ded;
+ Wed, 09 Apr 2025 15:29:32 +0200 (CEST)
 Received: from AS2PR03MB10110.eurprd03.prod.outlook.com
  (2603:10a6:20b:57a::22) by DB9PR03MB7468.eurprd03.prod.outlook.com
  (2603:10a6:10:22d::15) with Microsoft SMTP Server (version=TLS1_2,
@@ -47,21 +47,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab31a413-1546-11f0-9eab-5ba50f476ded
+X-Inumbo-ID: abb57ebc-1546-11f0-9eab-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kcCj1DB1oObqtTUJiEstRW6edVxF/ROrdj0Szbku5laLFo9OxVXceszt97NPbWaeFwxj60fsf3FA68GbEa/63xwNaUmM9mQwdF6/DS4EVn4Mxt00kNH7gqbeokwb7UedKr1JFPPDNcOHiAKhnQXk95F4ROW6+GdbUFWsg5nV/br3pIzj95iz4BKDusvR/DJ7dVugUv5ozm3NTLexYRnXpnDmYwTKs4gbMPl/zibLj2UiDsCoyet9nn1abrJgrKjGcGU4fVKslXWJNZ9F7HK0EaW4jCmN9vobutBBcrA1ggpPjvraWm+zhsmEU6HbF7nRbUenmTJ//ZPio4EEFY9DJw==
+ b=G3RL8nHftxqKZqqoN+IayV9NvT5z8mk9yC1c0/Epf+NOhVirJCetPQJJ8U+VWy7DUDVT5T0nH7A+Z0of/8EgmeOrrwlT+X2lyECH2YBwpRcuRI/CjzxDS3J/p96VpXjS8WQkIoM3ejxua0mszdbwdBaSR0Vj6GZg+hZLQbXo4nFcVsIZQNhCexiNwngk+oK4lATUedqmJI4M/5nKGcJD8KdS2sFcuRVWBpK1pf6WCanJAZ6fD2G+2xl4LME8oDSRYlq1KWYr8aWBMvKLjdHz2xP69Ed1VKB7Hg/s3dp44lqgea0xOxGpL24T2WPE6lUz3rBc2YopWO6p+KZF5yszGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W+i5jbotZlWjB6/+feELzrSWWgwAgHoqmM5jq2AI9Eo=;
- b=gSw/6M4m9MO80YW3lQyYMoYBKf1jhaL9VcIaaun1y4gO2CahGw1mU7AUi04HSrXycTRKgffwSoGNlNWEAqAtiGiMIz3S/+lRuvh0Hj13na+X/19bhM9/0CwjDK3uxvRL/zSscx8Y5X/IDa1ta111lh7R/IsHsjZ41UhxIxhRx4/m+fa5UkRg1vqcmTPAmGXGAxmcsjw0f9S1z9oYmAI0HnxrQkqRPbOwN/MnczPPyHOWVIUYLmJBJqCKbSNYpKzEYPB04B+gXOXZK3jRU7bbhqFLTVc775T26Ef1ZC54jsXSWgKUJptnIiSm21h5/S824TV8kQzYektuAWsHT9W4kQ==
+ bh=WyBcA+yWQnOCSNF/kUVEX+WjJUIBXqs8G1+6ttzX/UI=;
+ b=tZbDY/H0MfxkA9VMWH8tVRUP10vJPBajn4536zfAXQ3eunVI02n1tR9Md9sQyPW7x1CMH4+PRcJFoF2mOcicRygJK/RZzj0zoV87StjsZ0wE9QyHU4xb7mFy7ww0pNDDifS9lBQK9mPDhlJRDGdAkfYRHFnmxbi/ORnCmGOcU+2gLAdHW2aaCC4ChBRuR65v78sHGfoEvhCqDL/SNwkHR7Z3U+eaomlDKmfm7zPzLlyVSyZa1WqyGGmTwGakAbkutX5mefACTnD8QKfHngp1131UVlETteYcB/TUhsjm1HZx25lxIFJiIMIzKHHChn1tkCA/qlHIt1M+ROvUV8c92w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W+i5jbotZlWjB6/+feELzrSWWgwAgHoqmM5jq2AI9Eo=;
- b=vLk3fwExC7GDmaTQohUupxkCG816xC2wS5rXYz7aKpgFwjU3XyEhigEl/dERysMdy83siCAL6RInVKpxO6zdaxrAIApC4vGPz6bHICu+7ibUJTsORAA/Vrl6qZ7lLthkScgbZb/7h5x+T6o3iRd4NnZVe7LpwG6bq6GuAsjeaaF06TD1y6TS6fPhsCDUJEdjYymtqTJJC9dRoNpQoGXc8dnRdmTmIq3D6JtNXxYH3ZpdSrC9DuAEZ3vtkDZGZOkXsLA53JkgJYOAadO7B/KYuXA7n83kFMcIv9FzIiGlTjno0m116VHXf0qHtL5G8RCmA+4Ry+wjUOPfoLC7D293fg==
+ bh=WyBcA+yWQnOCSNF/kUVEX+WjJUIBXqs8G1+6ttzX/UI=;
+ b=iVa441bxpPw/kxphP2bB0EhDfSfUU+AEpae7MNiooEnE3iXm04rZyAJ9vfSz95sTh2t35U5G8cdIRIHjS/DXBtmhXYNVMUaT/U1CsxdNIKSWas5diylnZ9eVmdVUCb5cdTjq10J/5wjTeHJX/CYzR5Gb9VLbhZsPnpMVPpbrxKBHBvvsm6V0PMbEpJc7hUK8jfYeujY71Er0ZzjbrEO3jeFRBr7MncZqxaAa0iqmaOj2JTsele+Ir+SnPiR5teobrifK75AbvIRl99fDLck29PvZDRffMhed5vM1ULC+yTLy8/sbKAaqfC6g0z7hhrF8oYBTkoYAjpNrdz+mOiIaKw==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, Stefano
@@ -69,13 +69,12 @@ CC: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, Stefano
  Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Mykyta Poturai
 	<Mykyta_Poturai@epam.com>
-Subject: [PATCH v3 2/4] xen/arm: make pci_host_common_probe return the bridge
-Thread-Topic: [PATCH v3 2/4] xen/arm: make pci_host_common_probe return the
- bridge
-Thread-Index: AQHbqVNqJOpNy64us0q429PoDyckxg==
+Subject: [PATCH v3 3/4] xen/arm: add support for PCI child bus
+Thread-Topic: [PATCH v3 3/4] xen/arm: add support for PCI child bus
+Thread-Index: AQHbqVNqEyexvvIpgke1QVGEurkh9Q==
 Date: Wed, 9 Apr 2025 13:29:27 +0000
 Message-ID:
- <0abee55bcc632ba1be356461e22eca2ceb11dadd.1744203405.git.mykyta_poturai@epam.com>
+ <24a9ed02f049d3187a14a0c0ad847ff97d346b79.1744203405.git.mykyta_poturai@epam.com>
 References: <cover.1744203405.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1744203405.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -86,69 +85,68 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: AS2PR03MB10110:EE_|DB9PR03MB7468:EE_
-x-ms-office365-filtering-correlation-id: b3c3be0a-7090-4b01-bad1-08dd776a8d22
+x-ms-office365-filtering-correlation-id: 6cd07f39-65b3-4635-7305-08dd776a8d52
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?gcaYfPFUoYIhZuZZWByt0/CjswGVD8NmkM6zUtahQ8hFQIXvyeNctcDG8/?=
- =?iso-8859-1?Q?2Zt2+jt6UySC5v7WV7qQC9Q/D8QpbN5CJbgnz1f5PEe177b+rENXWf1idv?=
- =?iso-8859-1?Q?BIUeOkQ+D+8RmfUWN3TXPMgvBk3ZHvHDaJTIdUIIe9cien5cftJgBXSz6o?=
- =?iso-8859-1?Q?b4vM1vBWpEJO8gT+q0OfJOIKOlReX686WcWfqDG8z2e6pKxFkzWabuMIC8?=
- =?iso-8859-1?Q?wBmYAOUwN/0+aBIn9zTLRtTph0v5nFOT+T89sZLf4pJ3kLiJ6A9V88AQKE?=
- =?iso-8859-1?Q?mTymo80ZjKuVqP7EVrh7YcreFhD+e0zvjTTv0oLVosDjZEPFjL4zOuqOfU?=
- =?iso-8859-1?Q?uJZMbL1hHoEB4Qs4B9s3w0usCi4mcq5sfn9f3rYG7ckGsSQa2u0LU/Uhb9?=
- =?iso-8859-1?Q?PCUn/OiIsCB7OfDLBvh1HtqG0uxQ+6bffr3qqSo36shEFGDUph/OHRvI2K?=
- =?iso-8859-1?Q?dsLIQt3lhjP0rK67HsYQkf/LCpawRxU4mrMaB4+6Gq61FpBrzJS0MnhB8c?=
- =?iso-8859-1?Q?++1nxAUBk82FLHrySICNIM5jCEsNhFxitAr62mdhL0VJN20P75Fw+bEh1A?=
- =?iso-8859-1?Q?jIFKj3AiF9idiAEoKdrdLmgZoiAXiYWjJdiLgtrg7pMfaaEmdoQp9q5jkv?=
- =?iso-8859-1?Q?GKjlAL0Z9ghelQH0wJIHwsXqdfv1GqKFNZt3QOs9mtoi+X7t8GVRbbU0t2?=
- =?iso-8859-1?Q?QwPcGoOGmn+WkXqWeOzBVp7dB1hxZz69Swt0uLYkY8QCgplCp8/B57sfBK?=
- =?iso-8859-1?Q?z1f4sYHvePQ9MgUNE6qMPWr5Q67s6RKNq85WVo2nT4BJdc1g3lUBRbD4jD?=
- =?iso-8859-1?Q?J+H3LpUDTBlnxA6YOsXzwl3FA/Szv3aEs5IDTtLGymxgyMiJ2nVXzoQeKT?=
- =?iso-8859-1?Q?96H5P9ORnWKZRBoXAbX8fFQaLywwuj+NTWzISJP9bGlDZFU7hN095aQqNy?=
- =?iso-8859-1?Q?YDWROmYb6dESYDBoGqil5+/dqDqvNHhU6+CmacL02an+qybOJDzabYW/YJ?=
- =?iso-8859-1?Q?TNN66n6HKEp8noA25oZhSTuF6ONcJi0GwpXXvBe4Z62sAYzJQMj4gdaor6?=
- =?iso-8859-1?Q?0/XdeC5SpuDmOilyLuh0Av2AJ12qzwxM0OPKyXP57aZpBZmzYDzxq2WS1z?=
- =?iso-8859-1?Q?K9puhwkGOL81+quBXXiYRcRTc1CtgXBDsOBbEBLtqaI2ru9Bi1RcciwSzV?=
- =?iso-8859-1?Q?NFmAdi0h/twcWaIr8KGJ64VBJpcEpUS3CJQ03bJjPlQymKTmqWTPqipXZr?=
- =?iso-8859-1?Q?zGaskis5ilK1kAD8YOTclB8oRF9PkF5quZ5c2qs1MrRFLszJDdvXusJn88?=
- =?iso-8859-1?Q?W7/Bs0fXINPBwm2mxVMt/0NgrD6+AV7QfwfopOpmu6HwcSAhsOBgkMdgpF?=
- =?iso-8859-1?Q?pjcYEcy4Oc3PvrZejGhZQRNOYZorr+Hn3lQP9KsfiKEpekpo9gFP8h7i4C?=
- =?iso-8859-1?Q?HtkD/Jy/+87/3H1/N7cs6IO/CWbjvIEDgZBwWoForwibLqJ4HH0QI7TBju?=
- =?iso-8859-1?Q?FR7GaJHYwS8PAMnWbHSEMZ?=
+ =?iso-8859-1?Q?SP5LoL2tRoOwHXiymLZSK4BOmk4UivX8OP7w2Hz2rl2WxKYmWVBSuWGDcE?=
+ =?iso-8859-1?Q?jq9N0Gp4tVs8ussBXn+spMgiisPcTWiQKLU7VXpqKlEBOURIwjlBJVC3wt?=
+ =?iso-8859-1?Q?M0u+438uh84BnKHmHxGygrd1vSJ3sIkSqGmI/JQdracPWCLkV0kxwKSm9Y?=
+ =?iso-8859-1?Q?ozMBu5UgPPyYSs85rERVYff6tPKoO0GuQgLb9RZaGkQ2jlJFIQq/rJR9Ul?=
+ =?iso-8859-1?Q?/pCl+ZBgeNHQTf4ylklk00+iwYH5lS39s4N21dI2TlbzZyFbL9Y9+ovGCh?=
+ =?iso-8859-1?Q?lbpmQU3Pa2QUBXw+U4WQVur6reXqLEFldRZuqbcJO3903S31H1ABVysJk0?=
+ =?iso-8859-1?Q?JK71NTmEyaewZSgFYzwmC9rw0/onXDmKueoCiP+8CmDPc2DW6boEXaCPs5?=
+ =?iso-8859-1?Q?AbY/a1Kv4oZnr0Rey6stCrFbl4q2M5h8geFV1Rg7gqum5W1z4WduLjljqX?=
+ =?iso-8859-1?Q?BnCQotKM2peQ7qDk+hYwRx/z4ihk5LSApZLNFdoml0ki5GF5DOl9hh81Iq?=
+ =?iso-8859-1?Q?LnRky9cL2AEWAoNk53DqD8A7Q9vtfQThS5OlhEqQ72JpzUq/S7I9qKtysf?=
+ =?iso-8859-1?Q?ia9Y4Ie0nh2QhBzNrQ+L6oVa3ZDDhGTlM8wBD/1F/hH0ri/U19Frm6F6+S?=
+ =?iso-8859-1?Q?9FEp8AIy4DD5rYV+Ago12XL6i/uquyVA3gm4nIR897QUqJOTVJcGg2/R2S?=
+ =?iso-8859-1?Q?yTR95c7mUSfQIzULKYa7yvKzSay2ix1CKsTvzWMKmmBzZbiZSIZczNG31H?=
+ =?iso-8859-1?Q?ejZYJBWxIqoOgBlfmYebuDgNAGzuZrOVi+ZKstk07LBynPnhQ6OnTSmniu?=
+ =?iso-8859-1?Q?u3kscXUXl1t7MNnBaW+rfQezhpcM7f1hTERhs8zQZj8q1m7ULzD4KE7Q+M?=
+ =?iso-8859-1?Q?Wn/qRbwQlReXoakZaxsr4DC/dNZm0atf7R5bi4l0ZW4/VVHarCqQ/Dcoxh?=
+ =?iso-8859-1?Q?nPOL+GDbUX3YzbZCwuhvp2Widhk6YKkm9ZOr+hvqTJz2qkfPos/2vwBZnE?=
+ =?iso-8859-1?Q?2naPU+0dwebisaM8RdrHC8DrScf9kaIbjd3DCidQHWk+B5w0SLEfu/NzjW?=
+ =?iso-8859-1?Q?GFb0OqCWegxgwIVUagxp1B0Emmout3UVjc2r9zRtBhy18Y81xiuVoQ7h/k?=
+ =?iso-8859-1?Q?rZh4foauR7bn+oBSQ4J0VGA6qEXCiz+Y1asL7l2qRtPkUbs6OFGTVWyS8v?=
+ =?iso-8859-1?Q?OhdmDeiBHwM22+aR87BGrmIuHxSuvJfkPqs5tIfe/KVdIGRRK3G4tpRaxN?=
+ =?iso-8859-1?Q?D95hafWRp4tfjN9tYat2KVGZ0UGYN9HV1bjG2nPzqlvQp4+ZJnYIIPGjVx?=
+ =?iso-8859-1?Q?oWSsXn0huld5tJQlfprtLBQb9XVZavMHrtWXyJq+5eOawQsb7MGyVJju1U?=
+ =?iso-8859-1?Q?ZWxWkdZFZIC0sARCs7YWzVdoJxLaP1342BqR6diLNTQ6ILlwvvApOxRb4a?=
+ =?iso-8859-1?Q?wFtSxLCg7fyPnG0GwzHebJX33ZCq584BT9ryyQ=3D=3D?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB10110.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?lCH+RsoikKdIFEDN+PWR3DMVeWEaFvQ5nc8UANTyqs9pcfCMtBONzGAPlQ?=
- =?iso-8859-1?Q?UpweR9Eby3WPyIulSEDa3POoFuJd6AoD8syrI1wiPFu3i/soKKv/HZBDvh?=
- =?iso-8859-1?Q?ybfrUdUR/q/SXik6olsfBka5d5aL7z7k+giijhSD1ZGXoIbP7f3jyvzcuX?=
- =?iso-8859-1?Q?5KJcLBdCYoSZzUNYjA+iO3cYj6UniMkk9j+bFsl733MW2xSjsYVkw3zrgv?=
- =?iso-8859-1?Q?6Mpfxo9Cn6eu6cjuQuy/CauwcnxMVyrY1IbcI8MNzHUfkHue1t2BO7PM7v?=
- =?iso-8859-1?Q?f/CcLogs1QLX90VxDIcvjptEvRzY2JjpgHxutnqPAU7EtQynKBZcPmV0zi?=
- =?iso-8859-1?Q?vLS8C/vm5PvzJ++Ho8tojPbpqX/H7KF0KcTbms3UQa5fMyiUk/auFloOiR?=
- =?iso-8859-1?Q?a7L2k3Jaca8F4TQTfJfei6b3TtUUPT2U4M3IuX6fRHlaYO+18j9QOtH0vT?=
- =?iso-8859-1?Q?pzjVtj+md/3gXLYivnemvJlNLVQlXnPLowTm7TK0XexN2ah/pdJliy6iId?=
- =?iso-8859-1?Q?fnKSrFQLCM58X6hE3zTXRXxkgu4phmoBGV+qMC9vYJViJxxrIgGqzHI5rm?=
- =?iso-8859-1?Q?cjoOp1PNlMOvvltwVYbvoyNRvUIKUqYplDq/9zpWN5T0vho+zxhJAXhD/B?=
- =?iso-8859-1?Q?pRjFl1VFRz/n+jgE7mwj1bZLCfOXAlfwR7VZxpTgXGfCmF2SgsxiGpVL4A?=
- =?iso-8859-1?Q?DzTILZjwc9B5O/RdCNHwtlXDqWvcud8HaxF5indgUfngzLkFzSG+4rINXt?=
- =?iso-8859-1?Q?18i46hS90ZbzpIrlHzDX13yTums17zSiV/S/+m5WANaXXWW93bPfehGUIK?=
- =?iso-8859-1?Q?LbrdGxsJy3+ajYwrt95b7LIt6mzyV+Tx805/F2FakhBshLaKGpJJ4Z92tY?=
- =?iso-8859-1?Q?AMhX4AWfFYDH4fR9B/SGji3jqBg/c7nkAEg+rD+eW4j6XEFP9Smw9ic+wl?=
- =?iso-8859-1?Q?rAcoBuw7HdmYnkqk2YiNwGkcbJhKE8wxTej9Qt7KFJ7QgDLn5Cuqt21UPq?=
- =?iso-8859-1?Q?OpeMt2/+xVEGEdhRLEmamb0gMrvB/WIv4gJ6oCv/YLzLNxIpWL3/y3H7id?=
- =?iso-8859-1?Q?3VxE2qLOQoFVfIacUE/wl85txCP2DdypeZ+By5Ufgt6oHKE/lXQb512nlb?=
- =?iso-8859-1?Q?d2RW1D6WoSJoVRDSru4h41nLRh3ehMs+aTLUMqXIeG2EbuXjbCTKiFtquD?=
- =?iso-8859-1?Q?r16hR2Cnq3IPkF9P+6MxJNdjLe36O1L0FXsfz4ei7zCoDErrASGleXvqRU?=
- =?iso-8859-1?Q?llwcDz2HPq3jYO1t9WBSjHJq6rmOo2rtMKCUi4FYWkfhrepFFkDb39b/dq?=
- =?iso-8859-1?Q?ZXZFF/xzZO+V8a2zUtBmwu2mece07mTWMyAc6bvRgbvXLcGdQRn0kss2lV?=
- =?iso-8859-1?Q?rFzJeQRN8iZZgUJxZIADD10RigI8GYpA1VtHu4opJJrvGCLji7q8eByIz2?=
- =?iso-8859-1?Q?9bXZsbVLsBHmPKiQ/viLQJuknLnUz+iSJfQi8H/el/6etqb5G1Vxq+5SfI?=
- =?iso-8859-1?Q?pbn8bEWgBBLefiXbWx11XG9W/MIoqPi3Yp+Mc9xT0d66rVPUzEtT3AK5b2?=
- =?iso-8859-1?Q?uKNbkL0ysFhwQbln2HrPcGCvI+Zu/C/u41pD4PxWZqJtkZ0jQEmMLcH9Es?=
- =?iso-8859-1?Q?gFMc5MHCy3qqFjUj+irIw3F7ikNwucuak9p3uvxxfPPaewXibz0cPfmA?=
+ =?iso-8859-1?Q?YBhKs217EGqrhCYW70CAGi+WeQmAyNv/vhBQacOk2C3Nk5Czvyc9jcRsD/?=
+ =?iso-8859-1?Q?0TYgtI0ZWR5NrOPj77BkWi0SLgw2SKmhLtT/lxak8rO/Trt1larWI2Q28p?=
+ =?iso-8859-1?Q?2HWz/KBdpxWUcFuF6Z+ibaCg8gNmzBlnC24lgS0m0BHnVnZbO6WslpHmTg?=
+ =?iso-8859-1?Q?0B4ar+x2ZOAz8uJARDvG4mKMhoDBodUM+QsyCscr01dlLEmPr3WnQUlz3+?=
+ =?iso-8859-1?Q?0iBVyWN4T9IoaxPQegJ1aYV33WKH1I95kbBN9VXL/0pQctrTZ7XaiDyVsT?=
+ =?iso-8859-1?Q?OlO/OkwMrZ5ZENzBVJhFxmNObOZmas/ZH0J2DAG/3HbfSl3/5FR6tqInQa?=
+ =?iso-8859-1?Q?dJLhKs0mCZue4nhdYs4+VRbRHHwjMfXzMFzUbJYGuBSZM7GctiAA98PbZi?=
+ =?iso-8859-1?Q?CATF58Om3R0kbN4PnMrPs5vF7EqeedSySkz6Po02BssjsLoSZd6JjOr6a9?=
+ =?iso-8859-1?Q?Ho6KbFjwtUCm44bit+J1o/W7sC+um9IvhNq9ehwMzPXYnlOBuGQB6UDSa5?=
+ =?iso-8859-1?Q?upASdS6mYmc71arlDdswV7uPFV/NbzMzMPieuQ/zDqo/h6yVGd5xA6meha?=
+ =?iso-8859-1?Q?Rq63aJ0JxSNlbyeTK9AVYrw2t5DQ4VXkelsCXQNbjdUTy/rqhFhaLpYOD3?=
+ =?iso-8859-1?Q?NPauy+VYUbiPe3aZYlD4S5I4yFm/uGoKlKB7I5il5GnNGRL9zTLZTAj6zv?=
+ =?iso-8859-1?Q?CERWcLOiRVoyiaFqbkRrSzxFF5ZM1r4iHywQZp3x0RYRwAxadzhQdPBGeI?=
+ =?iso-8859-1?Q?r4fN8j5D+k3Sv+3T8dJoNOVb6wA4o2bc+CBcFCa5jiUa4zxaczFXpcPGMZ?=
+ =?iso-8859-1?Q?NyMM2fOU2X+BkwL7s0OXrkgei6HC1MScEMOSZq1nTel7sUr66Z1GW93eI9?=
+ =?iso-8859-1?Q?7i2Wo32rJyO35XRSCPs5j88PGXcNN2fpdbMGeNcJZ7B6D3ywGa/3daeowr?=
+ =?iso-8859-1?Q?eyK5CGjpBxRBhfFmhBpX+nCByviQLho15jjcaB5ldfh87BRXZw4VpbJIhR?=
+ =?iso-8859-1?Q?0QhASB5Wkd/P88Nnu1+0b4W+N6JkwTnS2hrFYnSz4gDQ0BtaFhxxrhkejq?=
+ =?iso-8859-1?Q?s+/nOvP2YLbGFOBdUx+El9Qs51/uGgCkF/5hKxq5WJs3bk8dgSTzUO3e7p?=
+ =?iso-8859-1?Q?wFAG2j0/g+ogvoAGFQOijfMExpt5pBihPGp0Z0iDI8dXlNpS1/tjBJArpl?=
+ =?iso-8859-1?Q?NjNl7/i0bSh1Q27rJjyCxtyOomoUDfpG47uFi+47yQof4wdi0yuC0gyvBn?=
+ =?iso-8859-1?Q?1dZn1dhqwQz8dmdH/gubsrR5UhQeyTTBYGlbFEBLOTNaFig1kmqdS9q+Oa?=
+ =?iso-8859-1?Q?uYsbCzhgfz4f3yccPEQceJObACIVJLY4aaCin1Pt+kJEi5hS9Pc+jl1GeT?=
+ =?iso-8859-1?Q?F5p4uTjqrrhQtTcRTjcOK/k81a7m/lbZ6uV6L/Xg5jCqKhGtTxPF12RNyj?=
+ =?iso-8859-1?Q?cRKaaHiASClgFMRhfHdE0tZnWTGIO0uXM8xzSeDThk45jsI80LdtIHdewC?=
+ =?iso-8859-1?Q?nZw+sZg2PXWj2N6h1zUdhHgffqRfzVwjW0W1dMF9jgpaRHKCoVav3+YMWK?=
+ =?iso-8859-1?Q?gNOT870gWt76FbueZvUQZnlSSJMWTPu1ks6jKPlsxhEi7vzkMN16FT68zE?=
+ =?iso-8859-1?Q?Z8G+jeVbGl4GmzhpSM8vpS3wCrjBKAKIUdmp3DvdvSrGkILQNImYrjeg?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -156,20 +154,46 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB10110.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3c3be0a-7090-4b01-bad1-08dd776a8d22
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Apr 2025 13:29:27.4291
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6cd07f39-65b3-4635-7305-08dd776a8d52
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Apr 2025 13:29:27.7368
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dwY1R/HjfImts7EWDrsOYuqYJ0AXW9UUcOkkWZv7xv1mshxUO+Hy7IO+hzD5G80wuHupBtrEzu/i/+HEX7A57w==
+X-MS-Exchange-CrossTenant-userprincipalname: 6gK7yvPJtNmOaMY0YWWcJJqKHs/xO/oBHHaCvUGUZyu/Q9XTgL5usg4me9cq4Jadv3o+V5/MPj9dWBqxyPn1Zw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7468
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Some of the PCI host bridges require additional processing during the
-probe phase. For that they need to access struct bridge of the probed
-host, so return pointer to the new bridge from pci_host_common_probe.
+PCI host bridges often have different ways to access the root and child
+bus configuration spaces. One of the examples is Designware's host bridge
+and its multiple clones [1].
+
+Linux kernel implements this by instantiating a child bus when device
+drivers provide not only the usual pci_ops to access ECAM space (this is
+the case for the generic host bridge), but also means to access the child
+bus which has a dedicated configuration space and own implementation for
+accessing the bus, e.g. child_ops.
+
+For Xen it is not feasible to fully implement PCI bus infrastructure as
+Linux kernel does, but still child bus can be supported.
+
+Add support for the PCI child bus which includes the following changes:
+- introduce bus mapping functions depending on SBDF
+- assign bus start and end for the child bus and re-configure the same for
+  the parent (root) bus
+- make pci_find_host_bridge be aware of multiple busses behind the same bri=
+dge
+- update pci_host_bridge_mappings, so it also doesn't map to guest the memo=
+ry
+  spaces belonging to the child bus
+- make pci_host_common_probe accept one more pci_ops structure for the chil=
+d bus
+- install MMIO handlers for the child bus
+- re-work vpci_mmio_{write|read} with parent and child approach in mind
+
+[1] https://elixir.bootlin.com/linux/v5.15/source/drivers/pci/controller/dw=
+c
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
@@ -178,86 +202,362 @@ v2->v3:
 * no change
 
 v1->v2:
-* no change
+* fixed compilation issues
 ---
- xen/arch/arm/include/asm/pci.h      |  5 +++--
- xen/arch/arm/pci/pci-host-common.c  | 10 +++++-----
+ xen/arch/arm/include/asm/pci.h      | 12 +++-
+ xen/arch/arm/pci/ecam.c             | 17 ++++--
+ xen/arch/arm/pci/pci-access.c       | 37 +++++++++++--
+ xen/arch/arm/pci/pci-host-common.c  | 86 +++++++++++++++++++++++------
  xen/arch/arm/pci/pci-host-generic.c |  2 +-
  xen/arch/arm/pci/pci-host-zynqmp.c  |  2 +-
- 4 files changed, 10 insertions(+), 9 deletions(-)
+ xen/arch/arm/vpci.c                 | 83 ++++++++++++++++++++++------
+ 7 files changed, 192 insertions(+), 47 deletions(-)
 
 diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.=
 h
-index a87672d834..3d2ca9b5b0 100644
+index 3d2ca9b5b0..addec31791 100644
 --- a/xen/arch/arm/include/asm/pci.h
 +++ b/xen/arch/arm/include/asm/pci.h
-@@ -18,6 +18,7 @@
- #ifdef CONFIG_HAS_PCI
+@@ -67,6 +67,9 @@ struct pci_host_bridge {
+     uint16_t segment;                /* Segment number */
+     struct pci_config_window* cfg;   /* Pointer to the bridge config windo=
+w */
+     const struct pci_ops *ops;
++    /* Child bus */
++    struct pci_config_window *child_cfg;
++    const struct pci_ops *child_ops;
+     void *priv;                      /* Private data of the bridge. */
+ };
 =20
- #include <asm/p2m.h>
-+#include <xen/err.h>
-=20
- #define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
-=20
-@@ -95,8 +96,8 @@ struct pci_ecam_ops {
+@@ -96,14 +99,19 @@ struct pci_ecam_ops {
  /* Default ECAM ops */
  extern const struct pci_ecam_ops pci_generic_ecam_ops;
 =20
--int pci_host_common_probe(struct dt_device_node *dev,
--                          const struct pci_ecam_ops *ops);
-+struct pci_host_bridge *pci_host_common_probe(struct dt_device_node *dev,
-+                                              const struct pci_ecam_ops *o=
+-struct pci_host_bridge *pci_host_common_probe(struct dt_device_node *dev,
+-                                              const struct pci_ecam_ops *o=
 ps);
++struct pci_host_bridge *
++pci_host_common_probe(struct dt_device_node *dev,
++                      const struct pci_ecam_ops *ops,
++                      const struct pci_ecam_ops *child_ops);
  int pci_generic_config_read(struct pci_host_bridge *bridge, pci_sbdf_t sbd=
 f,
                              uint32_t reg, uint32_t len, uint32_t *value);
  int pci_generic_config_write(struct pci_host_bridge *bridge, pci_sbdf_t sb=
 df,
-diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host=
--common.c
-index c0faf0f436..7ce9675551 100644
---- a/xen/arch/arm/pci/pci-host-common.c
-+++ b/xen/arch/arm/pci/pci-host-common.c
-@@ -208,8 +208,8 @@ static int pci_bus_find_domain_nr(struct dt_device_node=
- *dev)
-     return domain;
+                              uint32_t reg, uint32_t len, uint32_t value);
+ void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
+                                pci_sbdf_t sbdf, uint32_t where);
++void __iomem *pci_ecam_map_bus_generic(const struct pci_config_window *cfg=
+,
++                                       const struct pci_ecam_ops *ops,
++                                       pci_sbdf_t sbdf, uint32_t where);
+ bool pci_ecam_need_p2m_hwdom_mapping(struct domain *d,
+                                      struct pci_host_bridge *bridge,
+                                      uint64_t addr);
+diff --git a/xen/arch/arm/pci/ecam.c b/xen/arch/arm/pci/ecam.c
+index 3987f96b01..ad0b2c35f9 100644
+--- a/xen/arch/arm/pci/ecam.c
++++ b/xen/arch/arm/pci/ecam.c
+@@ -20,12 +20,10 @@
+ /*
+  * Function to implement the pci_ops->map_bus method.
+  */
+-void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
+-                               pci_sbdf_t sbdf, uint32_t where)
++void __iomem *pci_ecam_map_bus_generic(const struct pci_config_window *cfg=
+,
++                                       const struct pci_ecam_ops *ops,
++                                       pci_sbdf_t sbdf, uint32_t where)
+ {
+-    const struct pci_config_window *cfg =3D bridge->cfg;
+-    const struct pci_ecam_ops *ops =3D
+-        container_of(bridge->ops, const struct pci_ecam_ops, pci_ops);
+     unsigned int devfn_shift =3D ops->bus_shift - 8;
+     void __iomem *base;
+     unsigned int busn =3D sbdf.bus;
+@@ -39,6 +37,15 @@ void __iomem *pci_ecam_map_bus(struct pci_host_bridge *b=
+ridge,
+     return base + (sbdf.devfn << devfn_shift) + where;
  }
 =20
--int pci_host_common_probe(struct dt_device_node *dev,
--                          const struct pci_ecam_ops *ops)
-+struct pci_host_bridge *pci_host_common_probe(struct dt_device_node *dev,
-+                                              const struct pci_ecam_ops *o=
-ps)
++void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge, pci_sbdf_t =
+sbdf,
++                               uint32_t where)
++{
++    const struct pci_ecam_ops *ops =3D
++        container_of(bridge->ops, const struct pci_ecam_ops, pci_ops);
++
++    return pci_ecam_map_bus_generic(bridge->cfg, ops, sbdf, where);
++}
++
+ bool __init pci_ecam_need_p2m_hwdom_mapping(struct domain *d,
+                                             struct pci_host_bridge *bridge=
+,
+                                             uint64_t addr)
+diff --git a/xen/arch/arm/pci/pci-access.c b/xen/arch/arm/pci/pci-access.c
+index 9f9aac43d7..cc4787f2b5 100644
+--- a/xen/arch/arm/pci/pci-access.c
++++ b/xen/arch/arm/pci/pci-access.c
+@@ -18,10 +18,31 @@
+ #define INVALID_VALUE (~0U)
+ #define PCI_ERR_VALUE(len) GENMASK(0, len * 8)
+=20
++static const struct pci_ops *get_ops(struct pci_host_bridge *bridge,
++                                     pci_sbdf_t sbdf)
++{
++    if ( bridge->child_ops )
++    {
++        struct pci_config_window *cfg =3D bridge->child_cfg;
++
++        if ( (sbdf.bus >=3D cfg->busn_start) && (sbdf.bus <=3D cfg->busn_e=
+nd) )
++            return bridge->child_ops;
++    }
++    return bridge->ops;
++}
++
++static void __iomem *map_bus(struct pci_host_bridge *bridge, pci_sbdf_t sb=
+df,
++                             uint32_t reg)
++{
++    const struct pci_ops *ops =3D get_ops(bridge, sbdf);
++
++    return ops->map_bus(bridge, sbdf, reg);
++}
++
+ int pci_generic_config_read(struct pci_host_bridge *bridge, pci_sbdf_t sbd=
+f,
+                             uint32_t reg, uint32_t len, uint32_t *value)
  {
-     struct pci_host_bridge *bridge;
-     struct pci_config_window *cfg;
-@@ -221,7 +221,7 @@ int pci_host_common_probe(struct dt_device_node *dev,
+-    void __iomem *addr =3D bridge->ops->map_bus(bridge, sbdf, reg);
++    void __iomem *addr =3D map_bus(bridge, sbdf, reg);
 =20
-     bridge =3D pci_alloc_host_bridge();
-     if ( !bridge )
--        return -ENOMEM;
-+        return ERR_PTR(-ENOMEM);
+     if ( !addr )
+     {
+@@ -50,7 +71,7 @@ int pci_generic_config_read(struct pci_host_bridge *bridg=
+e, pci_sbdf_t sbdf,
+ int pci_generic_config_write(struct pci_host_bridge *bridge, pci_sbdf_t sb=
+df,
+                              uint32_t reg, uint32_t len, uint32_t value)
+ {
+-    void __iomem *addr =3D bridge->ops->map_bus(bridge, sbdf, reg);
++    void __iomem *addr =3D map_bus(bridge, sbdf, reg);
 =20
-     /* Parse and map our Configuration Space windows */
-     cfg =3D gen_pci_init(dev, ops);
-@@ -244,12 +244,12 @@ int pci_host_common_probe(struct dt_device_node *dev,
-     bridge->segment =3D domain;
-     pci_add_host_bridge(bridge);
+     if ( !addr )
+         return -ENODEV;
+@@ -78,14 +99,16 @@ static uint32_t pci_config_read(pci_sbdf_t sbdf, unsign=
+ed int reg,
+ {
+     uint32_t val =3D PCI_ERR_VALUE(len);
+     struct pci_host_bridge *bridge =3D pci_find_host_bridge(sbdf.seg, sbdf=
+.bus);
++    const struct pci_ops *ops;
 =20
--    return 0;
-+    return bridge;
+     if ( unlikely(!bridge) )
+         return val;
 =20
- err_exit:
-     xfree(bridge);
+-    if ( unlikely(!bridge->ops->read) )
++    ops =3D get_ops(bridge, sbdf);
++    if ( unlikely(!ops->read) )
+         return val;
 =20
--    return err;
-+    return ERR_PTR(err);
+-    bridge->ops->read(bridge, sbdf, reg, len, &val);
++    ops->read(bridge, sbdf, reg, len, &val);
+=20
+     return val;
+ }
+@@ -94,14 +117,16 @@ static void pci_config_write(pci_sbdf_t sbdf, unsigned=
+ int reg,
+                              unsigned int len, uint32_t val)
+ {
+     struct pci_host_bridge *bridge =3D pci_find_host_bridge(sbdf.seg, sbdf=
+.bus);
++    const struct pci_ops *ops;
+=20
+     if ( unlikely(!bridge) )
+         return;
+=20
+-    if ( unlikely(!bridge->ops->write) )
++    ops =3D get_ops(bridge, sbdf);
++    if ( unlikely(!ops->write) )
+         return;
+=20
+-    bridge->ops->write(bridge, sbdf, reg, len, val);
++    ops->write(bridge, sbdf, reg, len, val);
  }
 =20
  /*
+diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host=
+-common.c
+index 7ce9675551..2b058b5f5e 100644
+--- a/xen/arch/arm/pci/pci-host-common.c
++++ b/xen/arch/arm/pci/pci-host-common.c
+@@ -57,17 +57,12 @@ static void pci_ecam_free(struct pci_config_window *cfg=
+)
+     xfree(cfg);
+ }
+=20
+-static struct pci_config_window * __init
+-gen_pci_init(struct dt_device_node *dev, const struct pci_ecam_ops *ops)
++static void __init gen_pci_init_bus_range(struct dt_device_node *dev,
++                                          struct pci_host_bridge *bridge,
++                                          struct pci_config_window *cfg)
+ {
+-    int err, cfg_reg_idx;
+     u32 bus_range[2];
+-    paddr_t addr, size;
+-    struct pci_config_window *cfg;
+-
+-    cfg =3D xzalloc(struct pci_config_window);
+-    if ( !cfg )
+-        return NULL;
++    int err;
+=20
+     err =3D dt_property_read_u32_array(dev, "bus-range", bus_range,
+                                      ARRAY_SIZE(bus_range));
+@@ -82,6 +77,36 @@ gen_pci_init(struct dt_device_node *dev, const struct pc=
+i_ecam_ops *ops)
+         if ( cfg->busn_end > cfg->busn_start + 0xff )
+             cfg->busn_end =3D cfg->busn_start + 0xff;
+     }
++}
++
++static void __init gen_pci_init_bus_range_child(struct dt_device_node *dev=
+,
++                                                struct pci_host_bridge *br=
+idge,
++                                                struct pci_config_window *=
+cfg)
++{
++    cfg->busn_start =3D bridge->cfg->busn_start + 1;
++    cfg->busn_end =3D bridge->cfg->busn_end;
++    bridge->cfg->busn_end =3D bridge->cfg->busn_start;
++
++    printk(XENLOG_INFO "Root bus end updated: [bus %x-%x]\n",
++           bridge->cfg->busn_start, bridge->cfg->busn_end);
++}
++
++static struct pci_config_window *__init
++gen_pci_init(struct dt_device_node *dev, struct pci_host_bridge *bridge,
++             const struct pci_ecam_ops *ops,
++             void (*init_bus_range)(struct dt_device_node *dev,
++                                    struct pci_host_bridge *bridge,
++                                    struct pci_config_window *cfg))
++{
++    int err, cfg_reg_idx;
++    paddr_t addr, size;
++    struct pci_config_window *cfg;
++
++    cfg =3D xzalloc(struct pci_config_window);
++    if ( !cfg )
++        return NULL;
++
++    init_bus_range(dev, bridge, cfg);
+=20
+     if ( ops->cfg_reg_index )
+     {
+@@ -208,8 +233,10 @@ static int pci_bus_find_domain_nr(struct dt_device_nod=
+e *dev)
+     return domain;
+ }
+=20
+-struct pci_host_bridge *pci_host_common_probe(struct dt_device_node *dev,
+-                                              const struct pci_ecam_ops *o=
+ps)
++struct pci_host_bridge *
++pci_host_common_probe(struct dt_device_node *dev,
++                      const struct pci_ecam_ops *ops,
++                      const struct pci_ecam_ops *child_ops)
+ {
+     struct pci_host_bridge *bridge;
+     struct pci_config_window *cfg;
+@@ -224,7 +251,7 @@ struct pci_host_bridge *pci_host_common_probe(struct dt=
+_device_node *dev,
+         return ERR_PTR(-ENOMEM);
+=20
+     /* Parse and map our Configuration Space windows */
+-    cfg =3D gen_pci_init(dev, ops);
++    cfg =3D gen_pci_init(dev, bridge, ops, gen_pci_init_bus_range);
+     if ( !cfg )
+     {
+         err =3D -ENOMEM;
+@@ -242,10 +269,29 @@ struct pci_host_bridge *pci_host_common_probe(struct =
+dt_device_node *dev,
+         BUG();
+     }
+     bridge->segment =3D domain;
++
++    if ( child_ops )
++    {
++        /* Parse and map child's Configuration Space windows */
++        cfg =3D gen_pci_init(dev, bridge, child_ops,
++                           gen_pci_init_bus_range_child);
++        if ( !cfg )
++        {
++            err =3D -ENOMEM;
++            goto err_child;
++        }
++
++        bridge->child_cfg =3D cfg;
++        bridge->child_ops =3D &child_ops->pci_ops;
++    }
++
+     pci_add_host_bridge(bridge);
+=20
+     return bridge;
+=20
++err_child:
++    xfree(bridge->cfg);
++
+ err_exit:
+     xfree(bridge);
+=20
+@@ -280,9 +326,12 @@ struct pci_host_bridge *pci_find_host_bridge(uint16_t =
+segment, uint8_t bus)
+     {
+         if ( bridge->segment !=3D segment )
+             continue;
+-        if ( (bus < bridge->cfg->busn_start) || (bus > bridge->cfg->busn_e=
+nd) )
+-            continue;
+-        return bridge;
++        if ( bridge->child_cfg && (bus >=3D bridge->child_cfg->busn_start)=
+ &&
++             (bus <=3D bridge->child_cfg->busn_end) )
++            return bridge;
++        if ( (bus >=3D bridge->cfg->busn_start) &&
++             (bus <=3D bridge->cfg->busn_end) )
++            return bridge;
+     }
+=20
+     return NULL;
+@@ -348,6 +397,7 @@ int __init pci_host_bridge_mappings(struct domain *d)
+     {
+         const struct dt_device_node *dev =3D bridge->dt_node;
+         unsigned int i;
++        bool need_mapping;
+=20
+         for ( i =3D 0; i < dt_number_of_address(dev); i++ )
+         {
+@@ -363,7 +413,11 @@ int __init pci_host_bridge_mappings(struct domain *d)
+                 return err;
+             }
+=20
+-            if ( bridge->ops->need_p2m_hwdom_mapping(d, bridge, addr) )
++            need_mapping =3D bridge->ops->need_p2m_hwdom_mapping(d, bridge=
+, addr);
++            if ( need_mapping && bridge->child_ops )
++                need_mapping =3D
++                    bridge->child_ops->need_p2m_hwdom_mapping(d, bridge, a=
+ddr);
++            if ( need_mapping )
+             {
+                 err =3D map_range_to_domain(dev, addr, size, &mr_data);
+                 if ( err )
 diff --git a/xen/arch/arm/pci/pci-host-generic.c b/xen/arch/arm/pci/pci-hos=
 t-generic.c
-index 46de6e43cc..a6ffbda174 100644
+index a6ffbda174..47cf144831 100644
 --- a/xen/arch/arm/pci/pci-host-generic.c
 +++ b/xen/arch/arm/pci/pci-host-generic.c
 @@ -29,7 +29,7 @@ static const struct dt_device_match __initconstrel gen_pc=
@@ -265,14 +565,15 @@ i_dt_match[] =3D
  static int __init pci_host_generic_probe(struct dt_device_node *dev,
                                           const void *data)
  {
--    return pci_host_common_probe(dev, &pci_generic_ecam_ops);
-+    return PTR_RET(pci_host_common_probe(dev, &pci_generic_ecam_ops));
+-    return PTR_RET(pci_host_common_probe(dev, &pci_generic_ecam_ops));
++    return PTR_RET(pci_host_common_probe(dev, &pci_generic_ecam_ops, NULL)=
+);
  }
 =20
  DT_DEVICE_START(pci_gen, "PCI HOST GENERIC", DEVICE_PCI_HOSTBRIDGE)
 diff --git a/xen/arch/arm/pci/pci-host-zynqmp.c b/xen/arch/arm/pci/pci-host=
 -zynqmp.c
-index 101edb8593..a38f2e019e 100644
+index a38f2e019e..75d1235aaf 100644
 --- a/xen/arch/arm/pci/pci-host-zynqmp.c
 +++ b/xen/arch/arm/pci/pci-host-zynqmp.c
 @@ -47,7 +47,7 @@ static const struct dt_device_match __initconstrel nwl_pc=
@@ -280,11 +581,159 @@ ie_dt_match[] =3D
  static int __init pci_host_generic_probe(struct dt_device_node *dev,
                                           const void *data)
  {
--    return pci_host_common_probe(dev, &nwl_pcie_ops);
-+    return PTR_RET(pci_host_common_probe(dev, &nwl_pcie_ops));
+-    return PTR_RET(pci_host_common_probe(dev, &nwl_pcie_ops));
++    return PTR_RET(pci_host_common_probe(dev, &nwl_pcie_ops, NULL));
  }
 =20
  DT_DEVICE_START(pci_gen, "PCI HOST ZYNQMP", DEVICE_PCI_HOSTBRIDGE)
+diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
+index b63a356bb4..468aee1db7 100644
+--- a/xen/arch/arm/vpci.c
++++ b/xen/arch/arm/vpci.c
+@@ -8,15 +8,17 @@
+ #include <asm/mmio.h>
+=20
+ static pci_sbdf_t vpci_sbdf_from_gpa(const struct pci_host_bridge *bridge,
+-                                     paddr_t gpa)
++                                     paddr_t gpa, bool use_root)
+ {
+     pci_sbdf_t sbdf;
+=20
+     if ( bridge )
+     {
+-        sbdf.sbdf =3D VPCI_ECAM_BDF(gpa - bridge->cfg->phys_addr);
++        const struct pci_config_window *cfg =3D use_root ? bridge->cfg
++                                                       : bridge->child_cfg=
+;
++        sbdf.sbdf =3D VPCI_ECAM_BDF(gpa - cfg->phys_addr);
+         sbdf.seg =3D bridge->segment;
+-        sbdf.bus +=3D bridge->cfg->busn_start;
++        sbdf.bus +=3D cfg->busn_start;
+     }
+     else
+         sbdf.sbdf =3D VPCI_ECAM_BDF(gpa - GUEST_VPCI_ECAM_BASE);
+@@ -24,11 +26,9 @@ static pci_sbdf_t vpci_sbdf_from_gpa(const struct pci_ho=
+st_bridge *bridge,
+     return sbdf;
+ }
+=20
+-static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
+-                          register_t *r, void *p)
++static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info, register_t *r=
+,
++                          pci_sbdf_t sbdf)
+ {
+-    struct pci_host_bridge *bridge =3D p;
+-    pci_sbdf_t sbdf =3D vpci_sbdf_from_gpa(bridge, info->gpa);
+     const unsigned int access_size =3D (1U << info->dabt.size) * 8;
+     const register_t invalid =3D GENMASK_ULL(access_size - 1, 0);
+     /* data is needed to prevent a pointer cast on 32bit */
+@@ -46,31 +46,78 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *=
+info,
+     return 0;
+ }
+=20
+-static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
+-                           register_t r, void *p)
++static int vpci_mmio_read_root(struct vcpu *v, mmio_info_t *info, register=
+_t *r,
++                               void *p)
++{
++    struct pci_host_bridge *bridge =3D p;
++    pci_sbdf_t sbdf =3D vpci_sbdf_from_gpa(bridge, info->gpa, true);
++
++    return vpci_mmio_read(v, info, r, sbdf);
++}
++
++static int vpci_mmio_read_child(struct vcpu *v, mmio_info_t *info,
++                                register_t *r, void *p)
+ {
+     struct pci_host_bridge *bridge =3D p;
+-    pci_sbdf_t sbdf =3D vpci_sbdf_from_gpa(bridge, info->gpa);
++    pci_sbdf_t sbdf =3D vpci_sbdf_from_gpa(bridge, info->gpa, false);
++
++    return vpci_mmio_read(v, info, r, sbdf);
++}
+=20
++static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info, register_t r=
+,
++                           pci_sbdf_t sbdf)
++{
+     return vpci_ecam_write(sbdf, ECAM_REG_OFFSET(info->gpa),
+                            1U << info->dabt.size, r);
+ }
+=20
++static int vpci_mmio_write_root(struct vcpu *v, mmio_info_t *info, registe=
+r_t r,
++                                void *p)
++{
++    struct pci_host_bridge *bridge =3D p;
++    pci_sbdf_t sbdf =3D vpci_sbdf_from_gpa(bridge, info->gpa, true);
++
++    return vpci_mmio_write(v, info, r, sbdf);
++}
++
++static int vpci_mmio_write_child(struct vcpu *v, mmio_info_t *info,
++                                 register_t r, void *p)
++{
++    struct pci_host_bridge *bridge =3D p;
++    pci_sbdf_t sbdf =3D vpci_sbdf_from_gpa(bridge, info->gpa, false);
++
++    return vpci_mmio_write(v, info, r, sbdf);
++}
++
+ static const struct mmio_handler_ops vpci_mmio_handler =3D {
+-    .read  =3D vpci_mmio_read,
+-    .write =3D vpci_mmio_write,
++    .read =3D vpci_mmio_read_root,
++    .write =3D vpci_mmio_write_root,
++};
++
++static const struct mmio_handler_ops vpci_mmio_handler_child =3D {
++    .read =3D vpci_mmio_read_child,
++    .write =3D vpci_mmio_write_child,
+ };
+=20
+ static int vpci_setup_mmio_handler_cb(struct domain *d,
+                                       struct pci_host_bridge *bridge)
+ {
+     struct pci_config_window *cfg =3D bridge->cfg;
++    int count =3D 1;
+=20
+     register_mmio_handler(d, &vpci_mmio_handler,
+                           cfg->phys_addr, cfg->size, bridge);
+=20
+-    /* We have registered a single MMIO handler. */
+-    return 1;
++    if ( bridge->child_ops )
++    {
++        struct pci_config_window *cfg =3D bridge->child_cfg;
++
++        register_mmio_handler(d, &vpci_mmio_handler_child, cfg->phys_addr,
++                              cfg->size, bridge);
++        count++;
++    }
++
++    return count;
+ }
+=20
+ int domain_vpci_init(struct domain *d)
+@@ -101,8 +148,12 @@ int domain_vpci_init(struct domain *d)
+ static int vpci_get_num_handlers_cb(struct domain *d,
+                                     struct pci_host_bridge *bridge)
+ {
+-    /* Each bridge has a single MMIO handler for the configuration space. =
+*/
+-    return 1;
++    int count =3D 1;
++
++    if ( bridge->child_cfg )
++        count++;
++
++    return count;
+ }
+=20
+ unsigned int domain_vpci_get_num_mmio_handlers(struct domain *d)
 --=20
 2.34.1
 
