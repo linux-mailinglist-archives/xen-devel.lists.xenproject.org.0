@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DF69A81D6A
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 08:46:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.943390.1342205 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AE00A81D66
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 08:46:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.943387.1342192 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2PCe-0005d5-NE; Wed, 09 Apr 2025 06:46:28 +0000
+	id 1u2PCd-0005RN-MY; Wed, 09 Apr 2025 06:46:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 943390.1342205; Wed, 09 Apr 2025 06:46:28 +0000
+Received: by outflank-mailman (output) from mailman id 943387.1342192; Wed, 09 Apr 2025 06:46:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2PCe-0005YO-BE; Wed, 09 Apr 2025 06:46:28 +0000
-Received: by outflank-mailman (input) for mailman id 943390;
- Wed, 09 Apr 2025 06:46:26 +0000
+	id 1u2PCd-0005PG-Hm; Wed, 09 Apr 2025 06:46:27 +0000
+Received: by outflank-mailman (input) for mailman id 943387;
+ Wed, 09 Apr 2025 06:46:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3VhX=W3=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1u2PCc-0004jx-Dk
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 06:46:26 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20623.outbound.protection.outlook.com
- [2a01:111:f403:2405::623])
+ id 1u2PCb-0004jx-DY
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 06:46:25 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20620.outbound.protection.outlook.com
+ [2a01:111:f403:2416::620])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5a5ebc31-150e-11f0-9eaa-5ba50f476ded;
+ id 5a0bd2f3-150e-11f0-9eaa-5ba50f476ded;
  Wed, 09 Apr 2025 08:46:24 +0200 (CEST)
-Received: from BN9P220CA0027.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::32)
- by MN2PR12MB4222.namprd12.prod.outlook.com (2603:10b6:208:19a::21)
+Received: from BN9P220CA0030.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::35)
+ by CY3PR12MB9554.namprd12.prod.outlook.com (2603:10b6:930:109::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.35; Wed, 9 Apr
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.21; Wed, 9 Apr
  2025 06:46:21 +0000
 Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
- (2603:10b6:408:13e:cafe::12) by BN9P220CA0027.outlook.office365.com
- (2603:10b6:408:13e::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.20 via Frontend Transport; Wed,
+ (2603:10b6:408:13e:cafe::f) by BN9P220CA0030.outlook.office365.com
+ (2603:10b6:408:13e::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.22 via Frontend Transport; Wed,
  9 Apr 2025 06:46:21 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8606.22 via Frontend Transport; Wed, 9 Apr 2025 06:46:20 +0000
+ 15.20.8606.22 via Frontend Transport; Wed, 9 Apr 2025 06:46:21 +0000
 Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 9 Apr
- 2025 01:46:17 -0500
+ 2025 01:46:18 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a5ebc31-150e-11f0-9eaa-5ba50f476ded
+X-Inumbo-ID: 5a0bd2f3-150e-11f0-9eaa-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rzQFwHKRF0Mlqc+zjTMkmp3v3FjDmMKYiL3EU9m3SmLTHyHiz4A9lnBAaRs7n5SJzCCQ2EV2r7hDnMXGT0ttz9xseiXTAmm1qZ4JuqyYhlLiUcX9UFg3oYBOUoMB87D5kMOwxd2LN8kUvE6Cgt2OyG9cUlatx85BoXBujNwbLyX3lxQxQP1gMcVPcd6hmzOnIJuxdjsXSXfG+Ox9trD8ar2r6xIKWfKF+yu8AFJWK76bomYegdQjYyWrQHLbCo1D7ikikFnEWCgtVfb7lVnIyXrjIJC16ixmWcfZkeoh8iU5HFobvMSJ/XP3xilpNUNSyYIVRNgKe6yz/4Svi/loGQ==
+ b=ksd9NBKnC2DpIdQt7wmhlmectJGksMJIPnIXO+HSBBsQhuFDZ8Us+SD+Wa7LV7evidrgndjDqy8GfR8l62+P2r0USMgP+3VedRAun2WIon/HV960vyhRuzEnYjPINjnwwXTPSFApkLGfEw+R5S6R5m+de9uFzGGYEE3sidlD0scr92RyQJmXxDNtczyEF5L3Hz7UJ3uHjJEqfLOcXzszlRCJsGvKwb319DLnqxr2p1tXsNWD4MKBge167GBgXEuGkLqvRxGqgVtPkuhGqvmtOO9T3MmOEcxjtrbT8zktBCSQUf+YuOW+Jh9YtkPMW3AdwFgNMqRHQRUj8cuqw+nf+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r0p34/jpXG5FC1Q0PYSnU3Xkg8VviJxZCXtcGrEqUC8=;
- b=OcvorMZWBS0dOMgOVj/P8HJeX3ujt4dUFAzmKQvckCe6DwbYqrkJW2oJc8wpPJV1UcJ5f0GIgucwzEzIekuGtQUfygkChzbmMk/DLHYpK0ze6U833/r/0YT6PY9qo6ribI3vXlwsvWnGsRI04IHm67rrJJgYMiZ39P8+t7nF+3ePDjI28dBkwCAolG6/eLwwybzGvxtn4++dl4sZRv5JzUfOk5Z/B/KI+V9hcQXJ4Eaj7kcs1f3KBbgYFDdkwcXv2G4NdJCkwruK/A5myj5TV68BBmUo8GO0lxFRHRs6zaKB0MhJ7hHmpwidf8PY16ADhwqM0dgLVGgpKU0+Bh05mA==
+ bh=F4Ti2Z/GvBJAwx+bvK2L7kcEL+RfV9q/pK8cHYDjclg=;
+ b=IW5Ln5v8KnXrTBy7hUsXpy2FY8o+O2YxvTEBZq7K7waIRBKH1lvUWxgMRu55OKvzdAqNDjUP8ojVteulIl2j7KPNg3KD18yWctfn6j+GKb/Qv7Osf6pipwhHSo4ukAb/dRI+bn2OJMGQlSSEStjdrSUTP3RIjTK4Z5xN3GgEmgr5n2ilN3JJRK2jHnUTSaD5XznzUunO+U3Hbsv5GJVhB/N9vI/UmrJ1fQnZn1t2BooDbKPLZhmL/dYFkBGADJOClX3q2Vw1hImwvO1q4VMxxTKs0Bsj+ON9mD0C5q3Bk8yKF3GIgSm2vEpft4ivode8hDYHFaSmuqBrLhWW1BP5Hw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r0p34/jpXG5FC1Q0PYSnU3Xkg8VviJxZCXtcGrEqUC8=;
- b=JhqctnH9sb5JL0icFBsFsqNUYP0m6vpYXZDH/HWxV9+qzsG8cW2KiDSF2V9yRDLA2JWvBWevt46zKeu3HWizIwiQBJ0yYopK88yuGRdHY2CDIQEo+n6vZZk3SJso9Bbm+TbMYgyTib+AG/hwYVwya3CxgC9iNkJrRKNU8QjKjoQ=
+ bh=F4Ti2Z/GvBJAwx+bvK2L7kcEL+RfV9q/pK8cHYDjclg=;
+ b=nO5BAZIRSBytL9k9lf8NbJyxsB1d6anIHDE+gYclVEuAHehfmoOu4WXTreyWinskL6R9mavxUPCDx5UXFHNCXL7N83R9PkPRJWCwzbGCNAhZrBvowhrO3m6JjTSgUs01DYQeJdUqafTtrV7Q/IwoLitmVWS75p5wDbldQDb3e2U=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,11 +80,12 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Jiqian Chen <Jiqian.Chen@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>,
+CC: Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 7/8] vpci/msi: Free MSI resources when init_msi() fails
-Date: Wed, 9 Apr 2025 14:45:27 +0800
-Message-ID: <20250409064528.405573-8-Jiqian.Chen@amd.com>
+Subject: [PATCH v2 8/8] vpci/msix: Add function to clean MSIX resources
+Date: Wed, 9 Apr 2025 14:45:28 +0800
+Message-ID: <20250409064528.405573-9-Jiqian.Chen@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250409064528.405573-1-Jiqian.Chen@amd.com>
 References: <20250409064528.405573-1-Jiqian.Chen@amd.com>
@@ -96,175 +97,238 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|MN2PR12MB4222:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96b59b37-7a9a-4c6f-04ee-08dd77323ce3
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|CY3PR12MB9554:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ae12941-be2c-4c6e-b3f1-08dd77323d12
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
+	BCL:0;ARA:13230040|376014|36860700013|1800799024|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?alNNbDRGV0RyRjBCU09ETU54WVlBQVdGdEdDMWlaT0dySlZ6S040RHFEdnhr?=
- =?utf-8?B?Y2wwV2FoYmVlTDg4bEc1WER1cm10NVlUM1VHVXVXTVQ1aS9yaUlnYndYSGNU?=
- =?utf-8?B?Z1I1VTRiWDJDMmtuTDc4TzEydUkxNngvM2NIWVoyVU9TcmxDS08rU2wxRGZ0?=
- =?utf-8?B?U2dZU21zNzBmUjhMN0pyL3J5bFZrdkgrUU5XcU0vak1GWHEzQjhFeVR4dThI?=
- =?utf-8?B?R2N0UlFrUmdSOHA2aDBMdXFaVWdCYVVuNlZpeVU3cTMwU0V0R3FZRDN3eTUv?=
- =?utf-8?B?Ym1INit6SUo0L3dvNEhsK0xiWUp5K2t1ZjRxY0VKUTdmZEYwUjR6Y1F2UUc0?=
- =?utf-8?B?dU8rZFJsZjdNcytrKzlDNHNXbVFXRCsrSjVGRHVIbVdLWFlkRHVWZ2pjQ3gr?=
- =?utf-8?B?UzVVT3I1cFY1TUxTTUhkWmQ5dmV3TnRRSVYvbUtEczgxK2NWb253U0ZTR09v?=
- =?utf-8?B?eS82c1VFeGxCRGpzTWtZNktPNXF3NFJJcHJRbEx5dzhCSGFEdUV4SjZrU1k0?=
- =?utf-8?B?bHRVMkRySzdXZlBSNUNyaHMxQ1B2Q3lnZjJkd2IvTkNINWduU2pFTkN5Z0xW?=
- =?utf-8?B?SHNIRWJLVU1obUtxb0RQMlFOUUtsS1VNbHJIN1owaHVJWVJCZk0ybU5POFRx?=
- =?utf-8?B?MjVBYXNIeGZKYVlCaVUrZkFYUmhTUk5vT3NTc2dyZnhuOXNOQ20wTTlGOXdn?=
- =?utf-8?B?Y0pOUm42R2FHTmZncUc1QUViQ2srNmh2VWdpSkhLZ3ZlVzB3YXRqL2NxWTZp?=
- =?utf-8?B?TGtZUVpqR0JvWU1WS0JRditQZWFLUjRySzE4TjFtMjNjSUVFbm9IT1JKeW0r?=
- =?utf-8?B?bFpVaEk3MHBJeTI2UHc5Q0VDamdsNWNNS09namxncmR6SDRoTTZJWUYrWVZM?=
- =?utf-8?B?WXNNMk0wSFpPVGl0eFFnN3VUQStPVmVReDM0NmVTdzkzZDM3cno3bU4rcERh?=
- =?utf-8?B?SHlVZXBERkxvUkJVTGlTOXdJczJxSkJZeC9zR2F5d0VVeUMvTnZQNDg4Z2V3?=
- =?utf-8?B?blhTam45MFpGY1ppdHFiNEswZ0lZNC9OYnd3Vmc3cnZCM1BEN1FBUGVrbU1C?=
- =?utf-8?B?eE41UWdaVWgyR3p2bjhUci83TmR3RGw5bVFjS2FPWXNVU3dhdUk5VTdGck5Z?=
- =?utf-8?B?bnRrSS9wOFMzeVRnYlFRV2xXNXV5T1pnS29iUkdzRHN2NFFPcjQ0UzF3NUZr?=
- =?utf-8?B?ZzF5K2JGT2lTVHhwQkNjUStyZ2NlMEZadjNxdG5Ec3dPQ0NQQmcrNlR3all2?=
- =?utf-8?B?TThKSU9Bb3BJRzlBSmlPRCtFOUtUNW1MdWNEd0kzdWtQWGxtd2huUS9Md0Yr?=
- =?utf-8?B?d2xhVGhpa3hhelBVZ0VTVUwzei9KMGVFcDhKcUIvSS9WY0RFT29QS1EwWFBi?=
- =?utf-8?B?UlpDWjY4cWdXK3h5SlM5RVh3c082TGFwK3VuN200LzNYcWYyekZ5ejFpQjY5?=
- =?utf-8?B?YWRPWGNxVDVaT2NKUjdZUEVYdUM5NmhLUjBuMnNsZlU0WkFOdlo3eEx4YkhH?=
- =?utf-8?B?ZnBBdzVaU2VHaVBVTUY4Qjhvc1FhSXFCS0JRNnQwbnhpUmo5QkdQUkl6aWxl?=
- =?utf-8?B?V1hwM1NFMmt5a2hFSUVlaTBjQ0k4R0p2L0tyRDRnN1ZCSzhHczFuL2NFaEpr?=
- =?utf-8?B?eHhhZUEvN3JqdXgyWC9rbUFLZVF4WjhkZER6Vm92a3pmKzdTU0hTdUZoVDV6?=
- =?utf-8?B?bS9DZTF4enMyY1Y0VjdQOHM1TXBIT0tPMDlQY0FaK1JuQjA1aFk1aDViOFFO?=
- =?utf-8?B?dUNpZUNPRlRWSVZzS0dHZzMxZFA4MkF2c0RCTm1ncHlqV0M4U1g4U3VzK0dQ?=
- =?utf-8?B?ejNZOXJOa2szZSthUXBqMTVTZ3dnZEVoaGx2K0ZsS1pFUmpmNU96aGRpcVNl?=
- =?utf-8?B?RXRnQ3RxVlo1Uml2RndoWnBWeDlyb0Ria2lRWTN2Q2pwVnBSRjBrZTVZZGty?=
- =?utf-8?B?QmhUb05kNXNLTkc3MzFXZXpxTE54REo5a3dZU3FpQ2JaR01OeFU2T0VWTzlz?=
- =?utf-8?B?QU5LVUI1Qko3eXZKbEJ6V3RXVE1rckVJV0dIWHJuSnA3WndndFpCdmtLR3JM?=
- =?utf-8?Q?8MNq/X?=
+	=?utf-8?B?TlVqZklKSzVGTmkrcXN2M3gyeDhzOHRQRElKRzRBN1NhR05FZnp2c3BvYUJo?=
+ =?utf-8?B?UUZQZFNybHdxRC9JTXBlMGIxanhac05keXJoY2dmcFVOK0VEdnZWTWRXbkRk?=
+ =?utf-8?B?ZkdmRExxSEtzQis5OW5LcmpQSHo0WjJhRXpUbXJiUHFwdjBPQlFJcVU3UnRF?=
+ =?utf-8?B?aVNCM0poZ2drREdOY2t0WW1DSUVoWTQrMzVFQVUwdFpEVDZpUGpjWERXaTRw?=
+ =?utf-8?B?KzBZM1d1SkhVcXl3anljOGdadUJyYStoNVgyUWFhcTNHL0UwcEw0UjNUeUJq?=
+ =?utf-8?B?ZGxtVmZqbXNKYUNwVVljcGFJclVrcmtWb0JTV3IxTmwxNUtyVFZseGM3YXp6?=
+ =?utf-8?B?UlcreUdVU1dlU3RuUlJBQnF2V0E1QUNlemE1eVhPQ1BVYTVvSFlIbHFXa3NB?=
+ =?utf-8?B?eUQxdGg5NmxpMWIwMXc2MlZhZ1pFK3JzRit4WE5NTmcxaWw3QTBoeTJGTXN5?=
+ =?utf-8?B?S0VFOG9ua1g1S1MzRlplVEd4UHBjd0E5aUttbGZqUHp5ZU13TG1DcUhJdm9V?=
+ =?utf-8?B?ay9RVnU2VHNZOWNUN3FKb3FSVEwrRXZsT01Zdzc1N0dKSW9QajJjNHVsejFV?=
+ =?utf-8?B?b2ZKVjE3a2g3S1JiSHV1UHF4dUNmSXZiR3UrNGM0a2lQb3ovN1R3cHl2YjNt?=
+ =?utf-8?B?OXlwOW9CdGFzWXYzSVZIcWtxcGw0TWE2WU9sczh2eVJCbENST05iWlJReU9B?=
+ =?utf-8?B?cVNkV0diNVk3cXZGZEdreFV4Z21nV21oQnptaVp1REtZdzdPQ1B6N2FoQk5j?=
+ =?utf-8?B?dXdDU2h1bUlxT1BVWVZEL3FIbjNDK1pwaWVsVG1jU0RiNEZMS0hhQkI0T3Vm?=
+ =?utf-8?B?UHRPN0dlYzNGQmc1VTRDd2lBckt0dzA1aHVXYmRod3FMbTZySnE0SzIxY2ZX?=
+ =?utf-8?B?SElCRVdoNFI5TzNQOHJyQVVLRkNzWFpzd3RESjN5SzFaQ2psd3k0RmxYTDVS?=
+ =?utf-8?B?QUJsY3FZcG1qVzdYaGtDRENIQ3RiR2N3UVFHdk5HMU9Pam9wZUM4a1dLcHZp?=
+ =?utf-8?B?NEVybTYvV3UwTnA4RVFWRzRpZlBYaFFMaFZhRjNvaU82ZUpiQlFVbVlkRGpa?=
+ =?utf-8?B?THRCTXNNMmVFWVhOMitZdDVOMklHMXI3cG4zbUdvang3dGhsNGRjeXVMazdH?=
+ =?utf-8?B?aG56QjJ1amFpamN5U2ppTUU4OC9QcGt0RVhhUUsvOTliS2pLUk1zOEJmY1Yx?=
+ =?utf-8?B?bzdSWUt0MnRFL1NvMk5aWGlRd2JkZDJwOXh4YVJoT0VRenB4b2IyZ0l2cUVU?=
+ =?utf-8?B?aFZEbmw2SldzVlYzNjJhVmRwWHdDaUYvYiswRmVnenRZaHdTZUJZQklVeW1n?=
+ =?utf-8?B?UDJuN0xxVW5OM0YvNGNqZ1BOOE93S3IrUlZEVGI2cUhNVnM1RUJOYzRoay83?=
+ =?utf-8?B?MExxT1VMeTQrZmF2UGZYNmppNWZhWFVabVVNRmhBenFhcm5VY3c0cmVPRjFG?=
+ =?utf-8?B?ZkRzakVHU044dE5TdVg3VFFsdU5kUlFoQkx4Y1lYRDBOOUJmSDN0QXg4K3JB?=
+ =?utf-8?B?NlZBWFRVSEkxMlI2TU8zSytpSmxhU21RRXc0cVR2U3R6YXpERjIycTdZcXpv?=
+ =?utf-8?B?aWN2REcyTEFqQUlyLzdtTDk3bEl6LytzNGhhak92NjZKcTZBQUM1SmZlblUr?=
+ =?utf-8?B?WW1STUlydDZZNUhRQlJ6T1FRd3AxTlB4UU83cjVwSmRXNXVWaUxhekx3cVlQ?=
+ =?utf-8?B?TkgvL0tFajJLYWFVTEo1TW9qSmROa0xRbk5rQlVZMDl6dlExR1NOMHBsV2FK?=
+ =?utf-8?B?bkRBRTAxZzZEZkVxZWNEUTVZb0Zpa3Z3djhWOW5LYUZ2T0FWc0N0L0NhTjc2?=
+ =?utf-8?B?S0ZxeE40Qi9nVVJNcnFYVzBQZWkxN1Ria1lJNkkweERzMEVLbWFoVW4vMlA2?=
+ =?utf-8?B?aTBvRmNLaGdDNnFTQ2lLUm0rUFNGLzY3cFNFa3RGbHpQcmlZaFcwd2Q3L1NP?=
+ =?utf-8?B?K09yd3p1Q2x0LzA1WGxZRUpuYVhtYVF3cVNaeHUxVTl6THF0bzYwUlcyN1hl?=
+ =?utf-8?Q?1KHR9aglyJKcWy+dZLok0IzNSIup3A=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2025 06:46:20.9590
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2025 06:46:21.2715
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96b59b37-7a9a-4c6f-04ee-08dd77323ce3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ae12941-be2c-4c6e-b3f1-08dd77323d12
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	BN2PEPF00004FBA.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4222
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9554
 
-When init_msi() fails, the previous new changes will hide MSI
-capability, it can't rely on vpci_deassign_device() to remove
-all MSI related resources anymore, those resources must be
-cleaned up in failure path of init_msi.
+When init_msix() fails, it needs to clean all MSIX resources.
+So, add a new function fini_msix() to do that.
 
-To do that, add a new function to free MSI resources.
+And to unregister the mmio handler of vpci_msix_table_ops, add
+a new function.
 
 Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 ---
+cc: Jan Beulich <jbeulich@suse.com>
+cc: Andrew Cooper <andrew.cooper3@citrix.com>
 cc: "Roger Pau Monné" <roger.pau@citrix.com>
 ---
 v1->v2 changes:
-* Added a new function fini_msi to free all MSI resources instead of using an array to record registered registers.
----
- xen/drivers/vpci/msi.c | 47 +++++++++++++++++++++++++++++++++---------
- 1 file changed, 37 insertions(+), 10 deletions(-)
+new patch.
 
-diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
-index ca89ae9b9c22..48a466dba0ef 100644
---- a/xen/drivers/vpci/msi.c
-+++ b/xen/drivers/vpci/msi.c
-@@ -193,6 +193,33 @@ static void cf_check mask_write(
-     msi->mask = val;
+Best regards,
+Jiqian Chen.
+---
+ xen/arch/x86/hvm/intercept.c      | 44 ++++++++++++++++++++++
+ xen/arch/x86/include/asm/hvm/io.h |  3 ++
+ xen/drivers/vpci/msix.c           | 61 ++++++++++++++++++++++++++++---
+ 3 files changed, 103 insertions(+), 5 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/intercept.c b/xen/arch/x86/hvm/intercept.c
+index da22c386763e..5eacf51d4d2c 100644
+--- a/xen/arch/x86/hvm/intercept.c
++++ b/xen/arch/x86/hvm/intercept.c
+@@ -276,6 +276,50 @@ void register_mmio_handler(struct domain *d,
+     handler->mmio.ops = ops;
  }
  
-+/* 12 is size of MSI structure for 32-bit Message Address without PVM */
-+#define MSI_STRUCTURE_SIZE_32 12
-+
-+static void fini_msi(struct pci_dev *pdev)
++void unregister_mmio_handler(struct domain *d,
++                             const struct hvm_mmio_ops *ops)
 +{
-+    unsigned int size = MSI_STRUCTURE_SIZE_32;
++    unsigned int i, count = d->arch.hvm.io_handler_count;
 +
-+    if ( !pdev->vpci->msi )
++    ASSERT(d->arch.hvm.io_handler);
++
++    if ( !count )
 +        return;
 +
-+    if ( pdev->vpci->msi->address64 )
-+        size += 4;
-+    if ( pdev->vpci->msi->masking )
-+        size += 4;
++    for ( i = 0; i < count; i++ )
++        if ( d->arch.hvm.io_handler[i].type == IOREQ_TYPE_COPY &&
++             d->arch.hvm.io_handler[i].mmio.ops == ops )
++            break;
 +
-+    /*
-+     * Remove all possible registered registers except capability ID
-+     * register and next capability pointer register, which will be
-+     * removed in mask function.
-+     */
-+    vpci_remove_registers(pdev->vpci,
-+                          msi_control_reg(pdev->msi_pos),
-+                          size - PCI_MSI_FLAGS);
-+    xfree(pdev->vpci->msi);
-+    pdev->vpci->msi = NULL;
++    if ( i == count )
++        return;
++
++    for ( ; i < count - 1; i++ )
++    {
++        struct hvm_io_handler *curr = &d->arch.hvm.io_handler[i];
++        struct hvm_io_handler *next = &d->arch.hvm.io_handler[i + 1];
++
++        curr->type = next->type;
++        curr->ops = next->ops;
++        if ( next->type == IOREQ_TYPE_COPY )
++        {
++            curr->portio.port = 0;
++            curr->portio.size = 0;
++            curr->portio.action = 0;
++            curr->mmio.ops = next->mmio.ops;
++        }
++        else
++        {
++            curr->mmio.ops = 0;
++            curr->portio.port = next->portio.port;
++            curr->portio.size = next->portio.size;
++            curr->portio.action = next->portio.action;
++        }
++    }
++
++    d->arch.hvm.io_handler_count--;
 +}
 +
- static int cf_check init_msi(struct pci_dev *pdev)
+ void register_portio_handler(struct domain *d, unsigned int port,
+                              unsigned int size, portio_action_t action)
  {
-     unsigned int pos = pdev->msi_pos;
-@@ -209,12 +236,7 @@ static int cf_check init_msi(struct pci_dev *pdev)
-     ret = vpci_add_register(pdev->vpci, control_read, control_write,
-                             msi_control_reg(pos), 2, pdev->vpci->msi);
-     if ( ret )
--        /*
--         * NB: there's no need to free the msi struct or remove the register
--         * handlers form the config space, the caller will take care of the
--         * cleanup.
--         */
--        return ret;
-+        goto fail;
+diff --git a/xen/arch/x86/include/asm/hvm/io.h b/xen/arch/x86/include/asm/hvm/io.h
+index 565bad300d20..018d2745fd99 100644
+--- a/xen/arch/x86/include/asm/hvm/io.h
++++ b/xen/arch/x86/include/asm/hvm/io.h
+@@ -75,6 +75,9 @@ bool hvm_mmio_internal(paddr_t gpa);
+ void register_mmio_handler(struct domain *d,
+                            const struct hvm_mmio_ops *ops);
  
-     /* Get the maximum number of vectors the device supports. */
-     control = pci_conf_read16(pdev->sbdf, msi_control_reg(pos));
-@@ -237,20 +259,20 @@ static int cf_check init_msi(struct pci_dev *pdev)
-     ret = vpci_add_register(pdev->vpci, address_read, address_write,
-                             msi_lower_address_reg(pos), 4, pdev->vpci->msi);
-     if ( ret )
--        return ret;
-+        goto fail;
- 
-     ret = vpci_add_register(pdev->vpci, data_read, data_write,
-                             msi_data_reg(pos, pdev->vpci->msi->address64), 2,
-                             pdev->vpci->msi);
-     if ( ret )
--        return ret;
-+        goto fail;
- 
-     if ( pdev->vpci->msi->address64 )
-     {
-         ret = vpci_add_register(pdev->vpci, address_hi_read, address_hi_write,
-                                 msi_upper_address_reg(pos), 4, pdev->vpci->msi);
-         if ( ret )
--            return ret;
-+            goto fail;
-     }
- 
-     if ( pdev->vpci->msi->masking )
-@@ -260,7 +282,7 @@ static int cf_check init_msi(struct pci_dev *pdev)
-                                                   pdev->vpci->msi->address64),
-                                 4, pdev->vpci->msi);
-         if ( ret )
--            return ret;
-+            goto fail;
-         /*
-          * FIXME: do not add any handler for the pending bits for the hardware
-          * domain, which means direct access. This will be revisited when
-@@ -269,6 +291,11 @@ static int cf_check init_msi(struct pci_dev *pdev)
-     }
- 
++void unregister_mmio_handler(struct domain *d,
++                             const struct hvm_mmio_ops *ops);
++
+ void register_portio_handler(
+     struct domain *d, unsigned int port, unsigned int size,
+     portio_action_t action);
+diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+index 6537374c79a0..60654d4f6d0b 100644
+--- a/xen/drivers/vpci/msix.c
++++ b/xen/drivers/vpci/msix.c
+@@ -703,6 +703,54 @@ int vpci_make_msix_hole(const struct pci_dev *pdev)
      return 0;
+ }
+ 
++static void fini_msix(struct pci_dev *pdev)
++{
++    struct vpci *vpci = pdev->vpci;
++
++    if ( !vpci->msix )
++        return;
++
++    list_del(&vpci->msix->next);
++    if ( list_empty(&pdev->domain->arch.hvm.msix_tables) )
++        unregister_mmio_handler(pdev->domain, &vpci_msix_table_ops);
++
++    /* Remove any MSIX regions if present. */
++    for ( unsigned int i = 0;
++          vpci->msix && i < ARRAY_SIZE(vpci->msix->tables);
++          i++ )
++    {
++        unsigned long start = PFN_DOWN(vmsix_table_addr(pdev->vpci, i));
++        unsigned long end = PFN_DOWN(vmsix_table_addr(pdev->vpci, i) +
++                                     vmsix_table_size(pdev->vpci, i) - 1);
++
++        for ( unsigned int j = 0; j < ARRAY_SIZE(vpci->header.bars); j++ )
++        {
++            int rc;
++            const struct vpci_bar *bar = &vpci->header.bars[j];
++
++            if ( rangeset_is_empty(bar->mem) )
++                continue;
++
++            rc = rangeset_remove_range(bar->mem, start, end);
++            if ( rc )
++            {
++                gprintk(XENLOG_WARNING,
++                       "%pp: failed to remove MSIX table [%lx, %lx]: %d\n",
++                        &pdev->sbdf, start, end, rc);
++                return;
++            }
++        }
++    }
++
++    for ( unsigned int i = 0; i < ARRAY_SIZE(vpci->msix->table); i++ )
++        if ( vpci->msix->table[i] )
++            iounmap(vpci->msix->table[i]);
++
++    vpci_remove_registers(vpci, msix_control_reg(pdev->msix_pos), 2);
++    xfree(vpci->msix);
++    vpci->msix = NULL;
++}
++
+ static int cf_check init_msix(struct pci_dev *pdev)
+ {
+     struct domain *d = pdev->domain;
+@@ -726,10 +774,7 @@ static int cf_check init_msix(struct pci_dev *pdev)
+     rc = vpci_add_register(pdev->vpci, control_read, control_write,
+                            msix_control_reg(msix_offset), 2, msix);
+     if ( rc )
+-    {
+-        xfree(msix);
+-        return rc;
+-    }
++        goto fail;
+ 
+     msix->max_entries = max_entries;
+     msix->pdev = pdev;
+@@ -755,7 +800,13 @@ static int cf_check init_msix(struct pci_dev *pdev)
+     rc = vpci_make_msix_hole(pdev);
+     spin_unlock(&pdev->vpci->lock);
+ 
+-    return rc
++    if ( !rc )
++        return 0;
 +
 + fail:
-+    fini_msi(pdev);
++    fini_msix(pdev);
 +
-+    return ret;
++    return rc;
  }
- REGISTER_VPCI_LEGACY_CAP(PCI_CAP_ID_MSI, init_msi);
+ REGISTER_VPCI_LEGACY_CAP(PCI_CAP_ID_MSIX, init_msix);
  
 -- 
 2.34.1
