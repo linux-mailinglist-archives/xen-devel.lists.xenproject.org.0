@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 154A2A825DD
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 15:15:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.943978.1342566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5964EA825F6
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Apr 2025 15:17:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.943990.1342575 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2VGp-0005Gx-7e; Wed, 09 Apr 2025 13:15:11 +0000
+	id 1u2VJF-0005nX-KT; Wed, 09 Apr 2025 13:17:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 943978.1342566; Wed, 09 Apr 2025 13:15:11 +0000
+Received: by outflank-mailman (output) from mailman id 943990.1342575; Wed, 09 Apr 2025 13:17:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2VGp-0005Dp-49; Wed, 09 Apr 2025 13:15:11 +0000
-Received: by outflank-mailman (input) for mailman id 943978;
- Wed, 09 Apr 2025 13:15:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u2VJF-0005lP-Fe; Wed, 09 Apr 2025 13:17:41 +0000
+Received: by outflank-mailman (input) for mailman id 943990;
+ Wed, 09 Apr 2025 13:17:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5vFf=W3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u2VGn-0005Dj-PS
- for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 13:15:09 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a7db4c70-1544-11f0-9ffb-bf95429c2676;
- Wed, 09 Apr 2025 15:15:06 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-43ede096d73so31356605e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 06:15:06 -0700 (PDT)
+ id 1u2VJE-0005lC-27
+ for xen-devel@lists.xenproject.org; Wed, 09 Apr 2025 13:17:40 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 028995cc-1545-11f0-9eab-5ba50f476ded;
+ Wed, 09 Apr 2025 15:17:39 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43cef035a3bso45952215e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 06:17:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f2075fc83sm19961815e9.26.2025.04.09.06.15.05
+ ffacd0b85a97d-39d893f0b14sm1634041f8f.65.2025.04.09.06.17.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Apr 2025 06:15:05 -0700 (PDT)
+ Wed, 09 Apr 2025 06:17:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7db4c70-1544-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 028995cc-1545-11f0-9eab-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744204506; x=1744809306; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744204658; x=1744809458; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=359++Fx7n3tcb9o1gRWcBstwZPRV3RIAe6brpygAlrc=;
-        b=RUiJvATi2O8bKaTYSzIXHG6tY24EXkHOdI727Be0b7Zf2T7qwpzU7sq8WLAFAuh/En
-         RTqV+/sx2IKs8qN5VupGXp3LrvUzVilw30D5Crb1gJ6uUSFNDStNYNcmTDj6elZxpxnK
-         L7q00PiczbUEIO3wjEgBI8yNPLIslMwJ+BaMLr4Aoe1copIcBAlcFmiTDYs8ya4/JLIJ
-         blbsBRCq7z86nBsJSXWfYtpB6JNvzaquY+5dX3//xgruZ6lWHfmjHhhTWvPf9r5qpuS6
-         ppkIo9Skr961Q8dtTOdH10T0n+vss8cwiQ+niD4RPZezS9+ZVNj/xri8w6dO1HmzoDwI
-         bUKA==
+        bh=+WBgpIGZijaunSknpbdMvhEhWqabmIbHp9KZM49gqIg=;
+        b=Xngs/F50saxzORVCUSwVGFyfYEh7N5WIKtvfyw9CT9c/F5aVFWGxGAvneslNiYjWKg
+         boXlf6ghV9TNSV7geseyOHiw9eyUd3c39uveFLM+p+S1Ii8dMNqOayLSREce59VLalDm
+         XQpmf9SYmgYAvpidG5XJtGNrosZTnWfJBp5FapN9DCe9pFLDaixFQ4Fi7GyLL1bIIaiW
+         TMDYjzU6Mzy/mjXEI+i2T3c9zobynkZM3zYNcFdRgOnx5d3KeYjylQQo5PBhhb9Y/yF/
+         nOuCdaHtM3p5L/TkWrjsRmuI4m0HlrswVbJcXcCmnTtk98St9i0pwuHMT+pqDtqJyMq7
+         FyIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744204506; x=1744809306;
+        d=1e100.net; s=20230601; t=1744204658; x=1744809458;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=359++Fx7n3tcb9o1gRWcBstwZPRV3RIAe6brpygAlrc=;
-        b=isAF4JWqEUbuuIIUiGHPuF0gQqXEDrqIKVPhk1IOju4QN2dhLRaloKPCEA6HF8rk/n
-         FR3NMrwnOtA7CuFv94xE5w0V+c9mxv+hbDt+LumG1nD944rk12Q5ZWt0tGtVnzgCdxKG
-         tIqZLInUrWq6fPc/3Ll3WTQO1QesjsrFhdt3zdJQ8CT4w6SYm1i/FVxKbs4uRtLfHsmV
-         VgqcO37BAft4sO9DYeffQsq+BcOFsD2jv5mPiUqDZedC02SsT/YK6uqDnX6MlzuIyp9D
-         LJ4V82dkyYBdUoslp0sNWZog3prVjXiBbp0tbpbqpJ2HEBAcQoPMo0eA9IyWk6SD3WK7
-         DFSA==
-X-Gm-Message-State: AOJu0YyBkcZB2wsWXilBcDJvDub8aDvlsd0sd8tMPGlXwMxc6JODJWiY
-	57Pt9iOh93VIl9OmciyLKIgldr1FrP8fVyWWm4oOwQl83vj612uE6Pr5E7kM60KjpgSK06cgq3E
+        bh=+WBgpIGZijaunSknpbdMvhEhWqabmIbHp9KZM49gqIg=;
+        b=QZWb0xmq3p1eKt45pzF1H4HVfS9qmDo/PacTa1jp7yXoiOfKanxUrL+E5ydUbpZlds
+         OLxPpBi2zCZD8RgAsGJQZ3ITAsusqiBzrHEQzQWQmV62pWHVm7EfpakFaahvy5a23o3Z
+         5vGWa7JbdvB4zbkhYulkbLnqrtLHCHoSPmXlsJ7iYU/+lXMq8nJlHSl9iguuEh+kofYz
+         q5N7rK8TstbFbxHDyKrLmrS3K3GqbyEYbcr/fhr9Gbp6QEO/wws8bRjikbAuFAx0tTrd
+         vQvLoBMD6sGUD8EHldPcdW1jdd4REMX7+byNwO5KSL/tqJrq1Y76AyxrD0lMiYp116mA
+         kzFw==
+X-Gm-Message-State: AOJu0Yxw+dobowLCUJMAgAXG2kEAb7feEwjKizWS//hol6tCUrqMtb+s
+	/05hVa8/vvvPf7Q86YmuW2hLLT0CjiWtL5xdH1l9d6V8cROWyWv5H4BSN6nKMeqPlt+0pYOnzcE
 	=
-X-Gm-Gg: ASbGncsqQLULobbizCjZoOqmsykkr9Ny1dfsGKFQcs2JrAcVFQChN3RHcayjCBDyNg3
-	pfGb864LhdF5zJnDZ6iNIqCXWdlk0RVzN2Va4Q6+mlt8RoExXShGxpsbbWFwqIpMBh/kn+qhzVV
-	KixYCZhIgbKylsaeBEjY0v5B54SuQC80RemyIyJaNWCRujyJAUsruvsWE2Vz4KXt7FL4zMV8vwJ
-	je4f8cesI4WYbMVvEk1OGfy56w6c0Vsz4otGWvbTPlLgaERqYBWRK77o/AthIpTBSSaKJAsRmeS
-	Y9xHNOV0aqSsjDS/f9mEvZVuXBYkv/M+Ho3N55YbVP7O7MdXC0v3ztYutRa2TZyh3oyKYDj0a0m
-	7v7W32dTaid188n3Dy1Ub1mtpuw==
-X-Google-Smtp-Source: AGHT+IElOFxLA2a3fXBesCjNIJVZK6RCABoTRCshg1ERAF2uS43drs+Vg09VwZER4aZ93qVAXIJrYg==
-X-Received: by 2002:a05:600c:c0a:b0:43d:585f:ebf5 with SMTP id 5b1f17b1804b1-43f1ec7d133mr27469635e9.1.1744204506184;
-        Wed, 09 Apr 2025 06:15:06 -0700 (PDT)
-Message-ID: <41aa7f80-7d27-4b37-83a6-239e2380168f@suse.com>
-Date: Wed, 9 Apr 2025 15:15:04 +0200
+X-Gm-Gg: ASbGncuvCt4MpnZK3gAqkS8RppZP2ZhRdUnDe9So7MzdWamJNiQOn5tkMs0/yJw/VAv
+	lVPmkNA9D/xzi76oA6ntooECulZ79DEYkDXktyqbasbiKMO4BVSPxIWogmZymtVsf9f8lN4r7+u
+	IlYxlCj31XBTDhwMq1b8EbrrTsag8i8Vvcryzc+hZKWcjH4y/UfZc3o0BWbP5hjYTxtk2tjFQoQ
+	qxrl84jAyQFAyixtetpz/Bt+UZUwLHb75GkDdRyOVOORWaY3++YvJ20b90v0atIBMp0ztKXigLd
+	KHnvr4bU76nEti80Gs4Lfn9Q4jKazCVH74eMGdj3cGWutp0IKA2akdWtqn+IlVPv2gLh1xnuc6M
+	jS6iI+sZ5H9vHBw/exts1N4G3Ew==
+X-Google-Smtp-Source: AGHT+IF865JH7by6iBsNz4B6dY3pcY4yWaOQEa+Vq0KEK+MOs2N36CzfXVC3s9zAnY4YoVtTR1qLIA==
+X-Received: by 2002:a05:600c:19cf:b0:43c:e2dd:98f3 with SMTP id 5b1f17b1804b1-43f1ff3ba52mr17752025e9.21.1744204658374;
+        Wed, 09 Apr 2025 06:17:38 -0700 (PDT)
+Message-ID: <055d3235-7ee0-472b-b520-6426b51d3927@suse.com>
+Date: Wed, 9 Apr 2025 15:17:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] include: sort $(wildcard ...) results
+Subject: [PATCH] x86/HVM: improve local variable use in
+ hvm_hap_nested_page_fault()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -121,41 +119,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The order of items is stored in .*.chk.cmd, and hence variations between
-how items are ordered would result in re-invocation of the checking rule
-during "make install-xen" despite that already having successfully run
-earlier on. The difference can become noticable when building (as non-
-root) and installing (as root) use different GNU make versions: In 3.82
-the sorting was deliberately undone, just for it to be restored in 4.3.
+First gfn can be set just once, rather than (conditionally) twice.
+
+And then gfn can be used in two function calls, rather than re-
+calculating the value there.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-While this was an issue already before, it became noticable with the
-toolchain baseline bump: The custom-built compilers I use, run directly
-from their build areas, wouldn't find the C++ header files when run as
-root. Hence the C++ checking rule would fail during "make install-xen",
-when needlessly re-run there.
+I wasn't quite sure about continuing to use an open-coded shift.
+PFN_DOWN() could be used, or paddr_to_pfn(). Neither looks to be an
+overly good fit to translate a gaddr to a gfn, yet gaddr_to_gfn() can't
+be used quite nicely either as long as gfn isn't of type gfn_t.
 
---- a/xen/include/Makefile
-+++ b/xen/include/Makefile
-@@ -41,8 +41,8 @@ cppflags-$(CONFIG_X86)    += -m32
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -1794,7 +1794,7 @@ void hvm_inject_event(const struct x86_e
+ int hvm_hap_nested_page_fault(paddr_t gpa, unsigned long gla,
+                               struct npfec npfec)
+ {
+-    unsigned long gfn = gpa >> PAGE_SHIFT;
++    unsigned long gfn;
+     p2m_type_t p2mt;
+     p2m_access_t p2ma;
+     mfn_t mfn;
+@@ -1841,12 +1841,13 @@ int hvm_hap_nested_page_fault(paddr_t gp
+                 hvm_inject_hw_exception(X86_EXC_GP, 0);
+             return 1;
+         case NESTEDHVM_PAGEFAULT_L0_ERROR:
+-            /* gpa is now translated to l1 guest address, update gfn. */
+-            gfn = gpa >> PAGE_SHIFT;
++            /* gpa is now translated to l1 guest address. */
+             break;
+         }
+     }
  
- endif
- 
--public-$(CONFIG_X86) := $(wildcard $(srcdir)/public/arch-x86/*.h $(srcdir)/public/arch-x86/*/*.h)
--public-$(CONFIG_ARM) := $(wildcard $(srcdir)/public/arch-arm/*.h $(srcdir)/public/arch-arm/*/*.h)
-+public-$(CONFIG_X86) := $(sort $(wildcard $(srcdir)/public/arch-x86/*.h $(srcdir)/public/arch-x86/*/*.h))
-+public-$(CONFIG_ARM) := $(sort $(wildcard $(srcdir)/public/arch-arm/*.h $(srcdir)/public/arch-arm/*/*.h))
- 
- .PHONY: all
- all: $(addprefix $(obj)/,$(headers-y) $(headers-n))
-@@ -130,7 +130,7 @@ all: $(obj)/headers.chk $(obj)/headers99
- 
- public-hdrs-path := $(srcdir)/public
- 
--public-list-headers = $(wildcard $1/*.h $1/*/*.h)
-+public-list-headers = $(sort $(wildcard $1/*.h $1/*/*.h))
- public-filter-headers = $(filter-out $(addprefix $(public-hdrs-path)/, $($1-filter)), $($1))
- 
- public-headers := $(call public-list-headers, $(public-hdrs-path)) $(public-y)
++    gfn = gpa >> PAGE_SHIFT;
++
+     /*
+      * No need to do the P2M lookup for internally handled MMIO, benefiting
+      * - 32-bit WinXP (& older Windows) on AMD CPUs for LAPIC accesses,
+@@ -1854,7 +1855,7 @@ int hvm_hap_nested_page_fault(paddr_t gp
+      */
+     if ( !nestedhvm_vcpu_in_guestmode(curr) && hvm_mmio_internal(gpa) )
+     {
+-        if ( !handle_mmio_with_translation(gla, gpa >> PAGE_SHIFT, npfec) )
++        if ( !handle_mmio_with_translation(gla, gfn, npfec) )
+             hvm_inject_hw_exception(X86_EXC_GP, 0);
+         rc = 1;
+         goto out;
+@@ -1982,7 +1983,7 @@ int hvm_hap_nested_page_fault(paddr_t gp
+          (npfec.write_access &&
+           (p2m_is_discard_write(p2mt) || (p2mt == p2m_ioreq_server))) )
+     {
+-        if ( !handle_mmio_with_translation(gla, gpa >> PAGE_SHIFT, npfec) )
++        if ( !handle_mmio_with_translation(gla, gfn, npfec) )
+             hvm_inject_hw_exception(X86_EXC_GP, 0);
+         rc = 1;
+         goto out_put_gfn;
 
