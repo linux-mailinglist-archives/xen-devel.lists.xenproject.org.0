@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D65E0A842F3
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 14:22:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.945583.1343762 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 982A4A84313
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 14:26:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.945602.1343772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2qvI-0001rD-MN; Thu, 10 Apr 2025 12:22:24 +0000
+	id 1u2qyk-0003pJ-3L; Thu, 10 Apr 2025 12:25:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 945583.1343762; Thu, 10 Apr 2025 12:22:24 +0000
+Received: by outflank-mailman (output) from mailman id 945602.1343772; Thu, 10 Apr 2025 12:25:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2qvI-0001o8-J6; Thu, 10 Apr 2025 12:22:24 +0000
-Received: by outflank-mailman (input) for mailman id 945583;
- Thu, 10 Apr 2025 12:22:23 +0000
+	id 1u2qyk-0003nG-0k; Thu, 10 Apr 2025 12:25:58 +0000
+Received: by outflank-mailman (input) for mailman id 945602;
+ Thu, 10 Apr 2025 12:25:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=w6Mj=W4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u2qvH-0001cw-8z
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 12:22:23 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=S0bf=W4=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1u2qyi-0003nA-KZ
+ for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 12:25:56 +0000
+Received: from fout-b3-smtp.messagingengine.com
+ (fout-b3-smtp.messagingengine.com [202.12.124.146])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 73b3c20c-1606-11f0-9ffb-bf95429c2676;
- Thu, 10 Apr 2025 14:22:21 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43ea40a6e98so6954625e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 05:22:21 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f2066d0fcsm53197075e9.19.2025.04.10.05.22.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Apr 2025 05:22:20 -0700 (PDT)
+ id f2244db9-1606-11f0-9ffb-bf95429c2676;
+ Thu, 10 Apr 2025 14:25:54 +0200 (CEST)
+Received: from phl-compute-01.internal (phl-compute-01.phl.internal
+ [10.202.2.41])
+ by mailfout.stl.internal (Postfix) with ESMTP id 50619114017E;
+ Thu, 10 Apr 2025 08:25:53 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-01.internal (MEProxy); Thu, 10 Apr 2025 08:25:53 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 10 Apr 2025 08:25:51 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +45,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73b3c20c-1606-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744287741; x=1744892541; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JpR1IWtnC+kJ0PDE7ywEcjhjjCmDWrQDcDdKwWsu6uM=;
-        b=ZOlejGGBm+qBKCktjb1EMblWONnatZdzAIqXGZvqmZ39qRhRDCekQYWOkH41drlHp4
-         fms5D6OqGvUhqJ1YiRavpSrh9p4KX2QUD3cPG07VGZZhZ73nrpwBIt9mHle/eT/pl/k6
-         T9x3aWuc3cq2Owq4QNP8Xwk0Bfrd+TYJqvRRyjfFtWBDfcRpEp1E0XEHwb5RQlmRwbW1
-         B9/F7hg8e83cEkVTIHb6ib+VDlVHfp7wO4gvQfhHyxJpcmcmaap6y2lmTnh3Uq1ochu0
-         wZKziZwV906cGBbIzmFEauUAa67fToOmG34mW9N7z/2CgAhphY7kbImk2dHsq2EYFK3a
-         q+sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744287741; x=1744892541;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=JpR1IWtnC+kJ0PDE7ywEcjhjjCmDWrQDcDdKwWsu6uM=;
-        b=EzhANOy15tU3ZVHOsulgaVHwFQr+gzvYFIGZvZYbsEFsFqM9DUrppe7iT5DVK3Ti/m
-         Cxf1XSogprnrY4BTU1DQJQKPW2s3dDi5SrCCh9Hsq366HqjBsGNF0HsMMEwwHxhDEac8
-         W30X26A7883gs4MeQkx1LZDM3+rVc3O+xOomHXE2k71mSJDjat7SeG8i5AQMtCHUfRlP
-         xogK40jeY3OUM4cla4X3vjcOS8KXUkH8SN6S/bCHiA3hEUVXUihQ7BPo2nMyx1oCJwoq
-         XR6NbKLpg/RKrkV3TuC2FR7qOZeinA1PyCyEfLkc6HL+InRzcktSPnEVmqOzfcL/QG2j
-         /mwg==
-X-Forwarded-Encrypted: i=1; AJvYcCX/jNLXsYqwvb4ABJu23b1J2uqwh6Cv2+vwNWotu3oOcwHWTgDYweD6y52A/n3+1GAMQ+Bewsf9fVU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzuQEW8/T7X2FPPvfPynxbmI65RE9keQj7ef4T9xksDNFumHahD
-	wvtU6r1WTd/vNhs1EI/NiERKmiFPYZZD8Dl419mZ/2yCbOCueft92nvPKyHiFA==
-X-Gm-Gg: ASbGncta3D0qx5OI/w4WX4E+vAa5yd3si6G8lJipC00M/foQ4/NtUTjCpVXYITJBttd
-	AMiOwoPrm7vXgkc2WFJnftpF4w7siGPri1ZAzsKd5xQo8HM5v7ptMOZ1aTOnoCgH0z/g+zSAja9
-	KSbFeM/0PiyCFBq0iaM8TPMcL2ReF2lIRBotvLoAEg5QNW5zx78Z0NQt4GnDVNSbVYPGb/pBYg+
-	cDINq0ucLMqmTbmVZeRocZqtvgnt0v00jYAwS7lz89xnOon+sXDMq+gjPJN5NWuZRYdLNGg+vMA
-	JRytgFd0tJCQMfWcz/8Om7NzxvZbK8pQvKWcZz7tVaEJ3WrfHriVgyOeTs9QKnb0ggJfsumhHXr
-	yWv2JDQGTHj1DWL7SzYBxKMK3Qw==
-X-Google-Smtp-Source: AGHT+IHK1qSl663r+jjkyC6KyW8qC3rvJw2g3Qt7UK3PaD9noYbOlTg1BLFshxOUSyxIiMeF4h/icQ==
-X-Received: by 2002:a05:600c:511c:b0:43c:fa24:873e with SMTP id 5b1f17b1804b1-43f2d7b88d3mr28494835e9.13.1744287741052;
-        Thu, 10 Apr 2025 05:22:21 -0700 (PDT)
-Message-ID: <6f37afce-7901-45a8-80ed-86f43313bbfe@suse.com>
-Date: Thu, 10 Apr 2025 14:22:19 +0200
+X-Inumbo-ID: f2244db9-1606-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1744287953;
+	 x=1744374353; bh=DfLCFzu8PFo6+vzQj8Gc87r0NwjsjlrKy6uU5YmqphQ=; b=
+	Evq2F7BJgE5iT9WCvzdbEagytKHl7kPsqZ3h+a3n/HEeFrSGBqA3KlPZQEOQefAs
+	3H9c67cTx+3L3Ckl8DwdNCrjj5qpee9CdIwksbZtfFknzKWy9Kr81d9EiEHQL2Le
+	OEcG0QQQa7HFgVtZbDLurpyIQXZIT7Ca/N7nVQjdBOHzG8js3N1ad910XP6s+gz1
+	5XE09yd4FLBq+johPUioXQnPq2bUUIA6pzSNUg4ENGIUt2cNddAHYY6cbln/hGbT
+	EBxQYSzf2Rnl4Vc1apAUlE/7vX7mSSwAaPz7OEYDOOsDKNd8775V8n/MeUJWVHE0
+	N7DYdeVvUY+crmQTssVDbg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1744287953; x=1744374353; bh=DfLCFzu8PFo6+vzQj8Gc87r0NwjsjlrKy6u
+	U5YmqphQ=; b=l3umyN0cFDfjTotjlBMG5iCIe4VAoN1y7c+iXMfa6WDB3XRkTWg
+	2vw4ShnejKYMVHdVFXPrQrHcvqh/0l0ubOefu79qCsNMxy7SJTxVravLEULviqPQ
+	qLA4rDVoFfcelil7cQrnTq69YDzFfuG/AtTH7+VukyJ4JqEOZ2HIWsKgpgxz3ZCb
+	c5DPAxrDUJXbrrgiyD6hpyi2VXisvNpfguUvY9yRGz3CzJBi4151o3buOK9FH43G
+	5v5YHljhyEVzx4W+zYoByWQqxnqIAsvAc9lj80VPvwCX5CC8VVJfI8cPftdg81Nj
+	voE0YAZ5fl6hnppXfl07Ba9AaI+V7EAbUJA==
+X-ME-Sender: <xms:0Lj3Z8ktY7_P1wqzjikXR5G5bA6NaQuyktq96T75MXSPd6_4CgZQZA>
+    <xme:0Lj3Z70wn2MOf4CIfgY2Vzc_vT0I9WBw-7f1yx1iE86asi-rIw3bDTWcklbWZVDqM
+    ao854BRxTVFrQ>
+X-ME-Received: <xmr:0Lj3Z6rmLTzfQJuDa1r1-8W8iYSd3mI27PEgKPNukwfi15LKnZeoNcFsKkdq9mWv84JG2ntaNjzBsuuBYKAtcMR_P--b7dUeUA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtdekleduucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepveeujeetgeelleetudeuvefhtefgffejvedtvdfgieevheethe
+    elgeeuledvjeevnecuffhomhgrihhnpehgihhtlhgrsgdrtghomhenucevlhhushhtvghr
+    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeeipdhmohgu
+    vgepshhmthhpohhuthdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghith
+    hrihigrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhp
+    rhhojhgvtghtrdhorhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrd
+    gtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhr
+    tghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgurdgtohhmpdhrtghpthhtoheprg
+    hnthhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthh
+X-ME-Proxy: <xmx:0Lj3Z4leYzLEfn-IKHwNudRyh7NgU_UpCPg3yLUp_qiUABDbaZmvIg>
+    <xmx:0Lj3Z60azusxSGmmUiIwhKJovueNXy-neRJD8JwQviX8RszP88_DyQ>
+    <xmx:0Lj3Z_tlG7HGJMHMZm7hf1p3sH4QnSewEfR-UBAc_qRQUpAnRkEStQ>
+    <xmx:0Lj3Z2V_SybD4T8YusKXpgGADR4AtZXqJOZCRKCSqC2ahFOVe1E9Hg>
+    <xmx:0bj3Z90BGw6vuID7fsKDcd6rSq079togZdrLDGdbNYUa7KRgUoppHt2t>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 10 Apr 2025 14:25:49 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: Re: [PATCH 2/6] Clean up Gitlab yaml
+Message-ID: <Z_e4zbUVVDrDmFUf@mail-itl>
+References: <20250410114628.2060072-1-andrew.cooper3@citrix.com>
+ <20250410114628.2060072-3-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Ping: [PATCH] x86/EFI: sanitize DLL characteristics in binary
-From: Jan Beulich <jbeulich@suse.com>
-To: Marek Marczykowski <marmarek@invisiblethingslab.com>,
- Daniel Smith <dpsmith@apertussolutions.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <90354241-4ebb-4d52-809c-0af788d2b860@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <90354241-4ebb-4d52-809c-0af788d2b860@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="/4Mq+QJ+tWL6h2hY"
+Content-Disposition: inline
+In-Reply-To: <20250410114628.2060072-3-andrew.cooper3@citrix.com>
 
-On 02.04.2025 10:51, Jan Beulich wrote:
-> In GNU ld --disable-reloc-section implies --disable-dynamicbase (and
-> also --disable-high-entropy-va, just fyi). Therefore to yield
-> functionally identical binaries independent of whether mkreloc needs to
-> come into play, add --dynamicbase as well.
-> 
-> GNU ld further defaults to --high-entropy-va (along with --dynamicbase
-> and --nxcompat) unless "Cygwin-like". This seems wrong to me; that
-> default should be dependent upon "MinGW-like" instead; for the purpose
-> of building EFI binaries with a PE32+-capable ELF linker neither
-> "Cygwin-like" nor "MinGW-like" ought to be true. We certainly don't mean
-> to have this bit set in the DLL characteristics, so suppress its
-> setting.
-> 
-> Sadly while --high-entropy-va is supported by GNU ld 2.25,
-> --disable-high-entropy-va was introduced only in 2.36. Luckily the
-> defaulting to --high-entropy-va was also only introduced in 2.36. Plus
-> --disable-reloc-section was introduced precisely there, too. Hence
-> leverage the probing we do as to base relocation generation, to also
-> determine whether to pass --disable-high-entropy-va.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Despite the file being modified suggesting this needs an x86 maintainer
-ack, I think it's rather one of the two of you who should ack (or
-otherwise comment on) this.
+--/4Mq+QJ+tWL6h2hY
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Apr 2025 14:25:49 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: Re: [PATCH 2/6] Clean up Gitlab yaml
 
-Jan
+On Thu, Apr 10, 2025 at 12:46:24PM +0100, Andrew Cooper wrote:
+> Factor out the registry into a common location.  Drop the worflow name, a=
+s all
+> it does is hide the commit message of the change that triggered the pipel=
+ine.
+> List all the stages.  Set a default expiry of 1 month.
+>=20
+> Note all the current jobs as legacy.  Their naming scheme needs changing,=
+ and
+> we'll use this opportunity to switch formats too.  However, the artefacts=
+ need
+> to stay using the old name until the final staging-* branch using them is
+> phased out.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
+om>
 
 > ---
-> I remain uncertain about the applicability of DLL characteristics to
-> non-DLLs, i.e. images without IMAGE_FILE_DLL set; current MS doc says
-> nothing either way. Yet producing consistent binaries still seems
-> desirable, even if the field wasn't to be used by loaders.
-> 
-> --- a/xen/arch/x86/arch.mk
-> +++ b/xen/arch/x86/arch.mk
-> @@ -113,6 +113,7 @@ efi-nr-fixups := $(shell LC_ALL=C $(OBJD
->  
->  ifeq ($(efi-nr-fixups),2)
->  MKRELOC := :
-> +EFI_LDFLAGS += --disable-high-entropy-va
->  else
->  MKRELOC := arch/x86/efi/mkreloc
->  # If the linker produced fixups but not precisely two of them, we need to
-> @@ -123,6 +124,8 @@ EFI_LDFLAGS += --disable-reloc-section
->  endif
->  endif
->  
-> +EFI_LDFLAGS += --dynamicbase
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+>=20
+> v2:
+>  * Drop the workflow name.
+> ---
+>  .gitlab-ci.yml | 13 ++++++++++---
+>  1 file changed, 10 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+> index 36ec6a7e1ee5..734f3982c46f 100644
+> --- a/.gitlab-ci.yml
+> +++ b/.gitlab-ci.yml
+> @@ -1,12 +1,16 @@
+> -workflow:
+> -  name: "xen test artifacts"
+> +variables:
+> +  REGISTRY: registry.gitlab.com/xen-project/hardware/test-artifacts
 > +
->  endif # $(XEN_BUILD_PE)
->  
->  export XEN_BUILD_EFI XEN_BUILD_PE
+> +stages:
+> +  - build
+> =20
+>  .artifacts:
+>    stage: build
+>    image:
+> -    name: registry.gitlab.com/xen-project/hardware/test-artifacts/${CONT=
+AINER}
+> +    name: ${REGISTRY}/${CONTAINER}
+>    artifacts:
+>      name: "${CI_JOB_NAME_SLUG}"
+> +    expire_in: 1 month
+>      paths:
+>        - binaries/
+>      exclude:
+> @@ -19,6 +23,9 @@ workflow:
+>    variables:
+>      CONTAINER: alpine:x86_64-build
+> =20
+> +#
+> +# The jobs below here are legacy and being phased out.
+> +#
+>  x86_64-kernel-linux-6.6.56:
+>    extends: .x86_64-artifacts
+>    script:
+> --=20
+> 2.39.5
+>=20
 
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--/4Mq+QJ+tWL6h2hY
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmf3uM0ACgkQ24/THMrX
+1yxZDAf7B9vcz9oi7ppXQpHd5uBt0JSqvsMWo0Vt9+gq/fxhgjtX3bUnhNVT4mRv
+Jn6yDqFjBPg6dLg4nCyhC7a4fJTZDOt4PVP0QAT/nQPyr9H8DflC1JdQhL5/Z72I
++l0wHOpTIFNKWFQovUCcR+pQGE7cgxmzwpWLq2xk7a8wWj7Oi0Q6k7iDXtnaQRs6
+Qdgyd8JJLQiZtA+LL7J/3GQDP3m2QTxQTMqiHY7yQCiBDr+qFKErUuFs0cvO39/t
+nUwoIOnjzUdWfKg8QnhH/r7NxJk5Ea4QGaPoKiLOsewwv56EmhymzFrkRhqGjKcH
+hfoiBjHSex6oGeoTv14Y9SHMGk/ckg==
+=vlDd
+-----END PGP SIGNATURE-----
+
+--/4Mq+QJ+tWL6h2hY--
 
