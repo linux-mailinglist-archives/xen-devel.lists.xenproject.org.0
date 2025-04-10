@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22ABBA848B9
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 17:54:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.946034.1344063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B68DDA84902
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 17:59:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.946047.1344072 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2uE5-0005bA-UY; Thu, 10 Apr 2025 15:54:01 +0000
+	id 1u2uJ2-0006Bn-E4; Thu, 10 Apr 2025 15:59:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 946034.1344063; Thu, 10 Apr 2025 15:54:01 +0000
+Received: by outflank-mailman (output) from mailman id 946047.1344072; Thu, 10 Apr 2025 15:59:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2uE5-0005ZI-RN; Thu, 10 Apr 2025 15:54:01 +0000
-Received: by outflank-mailman (input) for mailman id 946034;
- Thu, 10 Apr 2025 15:54:00 +0000
+	id 1u2uJ2-00069e-BR; Thu, 10 Apr 2025 15:59:08 +0000
+Received: by outflank-mailman (input) for mailman id 946047;
+ Thu, 10 Apr 2025 15:59:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=w6Mj=W4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u2uE4-0005ZA-D8
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 15:54:00 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=C125=W4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u2uJ0-00069Y-Dx
+ for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 15:59:06 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fecb8031-1623-11f0-9ffb-bf95429c2676;
- Thu, 10 Apr 2025 17:53:50 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3914a5def6bso557287f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 08:53:50 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39d89361170sm5189958f8f.2.2025.04.10.08.53.49
+ id b7f927a7-1624-11f0-9ffb-bf95429c2676;
+ Thu, 10 Apr 2025 17:59:01 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-43edecbfb94so10945595e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 08:59:01 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43f2338d802sm60117725e9.1.2025.04.10.08.58.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Apr 2025 08:53:49 -0700 (PDT)
+ Thu, 10 Apr 2025 08:59:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,155 +45,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fecb8031-1623-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: b7f927a7-1624-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744300430; x=1744905230; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1744300740; x=1744905540; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YDYezsBzyIUsRamwn96y/lgFzZ7ye0bSGn7Wc4J8kYA=;
-        b=U7Gg43ABrOL/FZ8FF3N132ZYLJwp0vOM7IEyqxURzlhF6DMs1blzCLHDFiFLDFFXfb
-         Ns9M9YWehNig7BPAVkdqc6CIjJlK22Pu3+fq2V3BmnAt4UgyVBnlRSqcNjd+4oKpyR8K
-         OhDcD0xALgb25QkucqzN3nIbGdcZaQoys80IKxg6K8zs+Chr/sPPWXiXZFD7t6fwbyLU
-         sIFJmSJPGXXKSQYjaW8rWtcoGEazwwdNY2a+n0HnEQCtwNFxipfhAQHuOYWqmULBBizl
-         SeZFc2OK8EA/jSaNzW17LIDpb00Y1qMEpFQoMBPOzoHHkZ9rZIGDIi0SU3Qqr2qL4NkO
-         NJnQ==
+        bh=2QEiA9FdsnEKwRKDmE3tUvD7/i0SnEOny2Zcohbc88M=;
+        b=DBlvqtonT7ajvAdnIVwkYASYZjkT+dhDx3faBxJJRx1rNACunGBsi1xUYpqI+dKWcD
+         zUnx1owOKf17Q4RaeLd5/74FyrxcD8cjpjlWbgvFpaqLjIoaC4Iwd9/cMTbGoD4NP3mY
+         Hw/k6Tk3zQI+LckxZ9vxbpmJQao5+sUBXqYxw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744300430; x=1744905230;
+        d=1e100.net; s=20230601; t=1744300740; x=1744905540;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YDYezsBzyIUsRamwn96y/lgFzZ7ye0bSGn7Wc4J8kYA=;
-        b=Rf4uPXLpLuXnbf02firoGUNxd1v7LI6L7cq/OeeN7wxGtvbVKAFbVgbHvc+u1h7y3f
-         hpIM7aPJ1UDrkkpPoS5uUsknu87E0qHnWX+hUovHgNlkBR9wRLf624DAyXx895uM48e6
-         Wen62orZKECz4dI1rNQOSGyNUi4hQOEFq/5Csz3Safa5wJHIOkvr67aPRSekeSlJaCqK
-         pzy0e7XQKwH+1HiV3BIoHf2IqDi1iIajRDNU6PwrcJlZy37Kgi0rjJmsJ3b+s/cH0vY5
-         Zehv2mytRzA+TKdK6S4pMP/yJTYRJTGB/6t4TXyhtmdX4Er+QglBoy4N92nCdZqF1Z5N
-         Rw6A==
-X-Forwarded-Encrypted: i=1; AJvYcCX84QCwYF19EL4BKXePE+YSVmHobKuw7EkMo8r4rAQapnEl8jW10Rqcm/AGzfxHPDq8jxI1S76PSgw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx8/yiNoQAt/7RGHH9Nsp3LF3vRI9iqutuCAELdSG0cD1q3KSaH
-	I0YLN0KRP8vLmRpYiNlY3koktqW5um6C575t268Fph4hd9vwJHjUvpMLpMDcCw==
-X-Gm-Gg: ASbGncvcmNZ4rcL8nsOd0k3Ij6+5mA6so6pY26lcvntCik3wfIW7gaMjOC8wOGvK1b+
-	2C5Y00kT9haHe+JeO2ThumzssApf+ZfaiiBvecjYtSX/ramNtwbiA2MBogqMvmnggUbfMtLiNiJ
-	yyzOkNoBc2H5Uwd9ohn6GOUxUpKy+aYOs3ZHD/gk/Uvgwhik9uZt9o5C3+n1X9HnBGZ3cAImPu3
-	bjY58iaHTSqhtW6h8A0RZ2tvWcT9wVdb9MjwSjsZZ/UFx7AHxS635mQJWKSoMtf8CvpfP9XP82O
-	Nm5j2bSK48ed5dD4c6FP44p/hsDAZhZ80eYveetpGUmU/TwiMHDtH3k9HI7Y8Ho1tKUyFyBx9kD
-	f1RIgaPkQToOkVDKka0OCScymJQ==
-X-Google-Smtp-Source: AGHT+IED5e5p6/xo0Q9r1t4T+qpDN4g9xuNa8GepOI7o5ZD/7Zf+VVB9/GmNzCOySXEwCl8xnfVKfg==
-X-Received: by 2002:a5d:64e3:0:b0:390:e853:85bd with SMTP id ffacd0b85a97d-39d8f4f0f98mr2654873f8f.48.1744300429776;
-        Thu, 10 Apr 2025 08:53:49 -0700 (PDT)
-Message-ID: <65f5952a-8d2a-499c-bd66-53e9e2fbfa9c@suse.com>
-Date: Thu, 10 Apr 2025 17:53:48 +0200
+        bh=2QEiA9FdsnEKwRKDmE3tUvD7/i0SnEOny2Zcohbc88M=;
+        b=uL9Eryb2mTtWV+CkULLRRJkYRSGWbL8c2++ksysRKvdUOwmXo3Dzt0ksQzhKBq2LTF
+         8dRUqFj6PAj9GsrHi29nT5E6vnRArCls3x3fZ07l+yne0vIxXQ7pgAX05HPDlwdA0/ms
+         MM9YTkyFzvPzIGPiMngbqsKDg76uWq7CQDSqCn2UNWgQycbgYWxdNCDocAHJYPvHH+kJ
+         XhSMILhtFUNV6sUTVJ9j6dCgT1oynrdedMRe0QvzRAef3trsarDtTMa+MXqVAS1HkbIU
+         InuAZcz69CqQm/LMJrmoUA2tETCz7OnF4tCglvCl0LeRZNr09MQiczF1z0tKea4a7WnF
+         nSLw==
+X-Forwarded-Encrypted: i=1; AJvYcCV+Zy+TjgmcxWwKFXfQqj/Ue8Ik0tP+43wZp1eAOFy81mZyWFbvsB/RYfRV9f3N42U0bpCy4TUlLLs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy1FTyJFQG/zJhL4DQLhAbVWEkNZxy+fdRFXACGCtfVO1IoE2zf
+	smbzUXaT+dnL7aP5ijENyq+STxhSWsWH6romLs2bE7OMJnAbgs7e+OQYiC+HKdhJG6v3R5TarwC
+	xVQo=
+X-Gm-Gg: ASbGncu/ixep1oYtrxuVKNM6I20QDouzJY5uF7EgUpKSwuGlOgpe3/uIasPz7zT/W7H
+	KBK2MhfihH0OGLmEG348T+JU2MHu9OwWy/sXrhe4L5a+s8aXmoRd1QuEw+fEJfA/F+R3NudjMVl
+	LPCB7uCs8rL/Ja0Fhhc/U5RH8yH94z0DGfNhDbposnv9xf7+91EDfo8KPdQmXqPLNDMppfelINT
+	SCCCYW85Rmn7NDeGMqT5KSInvCFfq1GKIQsIecJRpd0is83hKEHyipozmgToZb+ifMWfDFK1vK9
+	1If7GmIGjc3PDw4H1+MDyKjyHIU2jKL/31WCuNv/n00R3ZNNBBnuXnTcHCtVotHS2LY8c2rOhbF
+	XWLx5XcwF5HkOz7h5
+X-Google-Smtp-Source: AGHT+IE7Iid/8kutM6eZ3b/lqbsvnP3KxKUtnooveMgBistXn6ltMr7wDcE4djrx+CjxZ7KRt1DWNQ==
+X-Received: by 2002:a05:6000:40c9:b0:391:4559:876a with SMTP id ffacd0b85a97d-39d8fd8a19bmr2432317f8f.46.1744300740427;
+        Thu, 10 Apr 2025 08:59:00 -0700 (PDT)
+Message-ID: <6046d30b-b5ca-4867-9f24-831b469d1ee3@citrix.com>
+Date: Thu, 10 Apr 2025 16:58:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 06/14] xen/riscv: riscv_of_processor_hartid()
- implementation
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <ab592d50ad161ffed3950bdf58ade49ae90a3c0e.1744126720.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ab592d50ad161ffed3950bdf58ade49ae90a3c0e.1744126720.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH TEST-ARTEFACTS] Fix adduser --shell path
+To: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20250410155531.29570-1-anthony.perard@vates.tech>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250410155531.29570-1-anthony.perard@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.04.2025 17:57, Oleksii Kurochko wrote:
-> @@ -13,3 +16,68 @@ void __init smp_clear_cpu_maps(void)
->      cpumask_set_cpu(0, &cpu_online_map);
->      cpumask_copy(&cpu_present_map, &cpu_possible_map);
->  }
-> +
-> +/**
-> + * of_get_cpu_hwid - Get the hardware ID from a CPU device node
-> + *
-> + * @cpun: CPU number(logical index) for which device node is required
-> + * @thread: The local thread number to get the hardware ID for.
-> + *
-> + * Return: The hardware ID for the CPU node or ~0ULL if not found.
-> + */
-> +static uint64_t of_get_cpu_hwid(struct dt_device_node *cpun, unsigned int thread)
+On 10/04/2025 4:56 pm, Anthony PERARD wrote:
+> We need the full path to a shell in `/etc/passwd`, otherwise `su user`
+> doesn't work.
+>
+>     $ su user
+>     su: can't execute 'bash': No such file or directory
+>
+> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
 
-What does the "of" prefix stand for here? Looking at the function body I'm
-really at a loss. (I was first guessing something like OpenFirmware, but
-there's nothing here that would support that.)
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-As you're only fetching data - can cpun be pointer-to-const?
+Would you like me to pick this up?
 
-> +{
-> +    const __be32 *cell;
-> +    int ac;
-> +    uint32_t len;
-> +
-> +    ac = dt_n_addr_cells(cpun);
-> +    cell = dt_get_property(cpun, "reg", &len);
-> +    if ( !cell || !ac || ((sizeof(*cell) * ac * (thread + 1)) > len) )
-> +        return ~0ULL;
+> ---
+>
+> Although, I don't know when this shell is been used, it seems that we
+> get /bin/sh unless we start the container explicitly with `bash`, like
+> containerize is doing.
 
-I'm sorry for my lack of DT knowledge, but what's "thread" representing here?
-You only pass in 0 below, so it's unclear whether it's what one might expect
-(the thread number on a multi-threaded core).
+I'm not sure why the x86 side is like that, but I didn't want to change
+it gratuitously...
 
-> +    cell += ac * thread;
-> +    return dt_read_number(cell, ac);
-
-Nit (you know what)
-
-> +/*
-> + * Returns the hart ID of the given device tree node, or -ENODEV if the node
-> + * isn't an enabled and valid RISC-V hart node.
-> + */
-> +int riscv_of_processor_hartid(struct dt_device_node *node, unsigned long *hart)
-
-Similar question as above: What's "of" and what significance does the "riscv"
-prefix have in RISC-V code?
-
-Const-ness question again for "node".
-
-> +{
-> +    const char *isa;
-> +
-> +    if ( !dt_device_is_compatible(node, "riscv") )
-> +    {
-> +        printk("Found incompatible CPU\n");
-> +        return -ENODEV;
-> +    }
-> +
-> +    *hart = (unsigned long) of_get_cpu_hwid(node, 0);
-> +    if ( *hart == ~0UL )
-
-While for RV64 this won't matter, the difference in types (uint64_t returned,
-unsigned long used) is still puzzling me. What's the deal?
-
-Jan
+~Andrew
 
