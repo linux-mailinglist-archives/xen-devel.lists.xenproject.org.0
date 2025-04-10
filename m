@@ -2,38 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE24FA8492A
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 18:02:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.946058.1344083 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51C54A84944
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 18:08:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.946077.1344093 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2uMG-00012e-Sj; Thu, 10 Apr 2025 16:02:28 +0000
+	id 1u2uS8-0002OZ-Jt; Thu, 10 Apr 2025 16:08:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 946058.1344083; Thu, 10 Apr 2025 16:02:28 +0000
+Received: by outflank-mailman (output) from mailman id 946077.1344093; Thu, 10 Apr 2025 16:08:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2uMG-0000zy-PC; Thu, 10 Apr 2025 16:02:28 +0000
-Received: by outflank-mailman (input) for mailman id 946058;
- Thu, 10 Apr 2025 16:02:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=w6Mj=W4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u2uME-0000zr-GP
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 16:02:26 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 31d97a01-1625-11f0-9eac-5ba50f476ded;
- Thu, 10 Apr 2025 18:02:25 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-39c1efc4577so548650f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 09:02:25 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f205ecb20sm60115305e9.3.2025.04.10.09.02.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Apr 2025 09:02:23 -0700 (PDT)
+	id 1u2uS8-0002Ls-GU; Thu, 10 Apr 2025 16:08:32 +0000
+Received: by outflank-mailman (input) for mailman id 946077;
+ Thu, 10 Apr 2025 16:08:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kj+o=W4=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
+ id 1u2uS6-0002Lm-Tw
+ for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 16:08:30 +0000
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 08e35061-1626-11f0-9ffb-bf95429c2676;
+ Thu, 10 Apr 2025 18:08:27 +0200 (CEST)
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53A9vhWL025345;
+ Thu, 10 Apr 2025 16:07:54 GMT
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 45ww2xettf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 10 Apr 2025 16:07:54 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 53ADaw5Y013858;
+ Thu, 10 Apr 2025 16:07:53 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 45ufunxs3e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 10 Apr 2025 16:07:53 +0000
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
+ [10.20.54.101])
+ by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 53AG7p5N34996542
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 10 Apr 2025 16:07:51 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3550B2004B;
+ Thu, 10 Apr 2025 16:07:51 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A52D020040;
+ Thu, 10 Apr 2025 16:07:50 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.152.85.9])
+ by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Thu, 10 Apr 2025 16:07:50 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,204 +66,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31d97a01-1625-11f0-9eac-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744300945; x=1744905745; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oXbrqxyLG3Khq8o0Q5Jjleb4/z4VA5gtTTQndqxNTRk=;
-        b=PCpNRhV8dA4tvOpyioubo1NA1lf3DYzTQPGFRAe1aj+RgRXm+3xgV739TAXTftVyQw
-         /ohnMxe5wmU3IgQG6L4VJBJ/cZvSUPXEXfekU7E6Zm+xLrj75F/fXpLE0dOe2IGZun0Y
-         PwuNT/x+SyCR0ZomSMK22D4jZ7CYZf3xNLj0ekiWniz+cpReiz6XnpeWznzH4UTugaS8
-         B65jhB3MI1qQdg0k9iBpDQvqwULzmm17rUACgj0LuFiC0qAAKXNw2Nmu/CPJ0CWwzcMg
-         ALITPqhERl+3LfLMAv4RZncO8MuxX6JoKgXqBf8WivfB66ChejHwvUA6rM0nVknLO0v9
-         DG2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744300945; x=1744905745;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oXbrqxyLG3Khq8o0Q5Jjleb4/z4VA5gtTTQndqxNTRk=;
-        b=SyPgCPlJvhnwrp7IZNPmmSSmbZrNGWuRDrZsga1V6Sl5Bx4Lu2X2A3g1sZflvTnz/g
-         tp2/1bHfV8pgrMn+vFK2HRjMRqZLt9s36sk+ph+BrMX881B87Z3U+L10Uy9dDFN0ZNAI
-         boJxiQ37v8CuOc/7lwDcxLywV8OYNpAeocN99JAMuGzO5poHHn+UYcJtcz8QbQo6oaTs
-         7yOoPkiQhKnwfGkilP2vyi9OU/h3Ln3h1dgYC3vp95Em22Egrxq6SxlVnwgKv0FQwEiV
-         2yNfLYAIiF16Wi1bzfuFePnquVl3fB7S1m5xDNfMQU1XMtaaR5alUDTwPWGQMecwa44p
-         SmUg==
-X-Forwarded-Encrypted: i=1; AJvYcCVac4a9zPQ5bG8RrcC/63hqWBC0vMcLGYn+vhJrPGUfER/JKTdEblxK+ZC7vKiyoGIXBr6TFyNBoF8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzJ57a/OSsp2g8gy6Us2xRqOLfnHTwwazV52gwtHksc/B4LGoXW
-	2+lMAv17mkWLty0T9KU7N6SU4MfqEHXx+dgLGZ2lzSCAkdwREWKNhvsRjqQplg==
-X-Gm-Gg: ASbGncvYh0uD3iIo8MoN6NaPlJqmHmdjZ2N4R0Gv3RNLeeL5W56g/otZgh4NPLIzd99
-	npYRfS4OiQJs5JlC2TfAYyUhTzKLjfFQnDHhnPnfkuXrHZOBjT/iLYl54CIY78xDVBtEiWNRPR1
-	UvQBjuh6T3iPUJLSQ1GLw+KbiSZfKVp/G2UtJKQybPZUHKoLALm+bZdqZzy79AYDXkpU1AAHqWA
-	kAeRa9Quklr11HFqPKD2iGp/7tz6NIMcf9vhk6/RmcC8TthV1813MRaSiqtB1cOwLJFxk0w5MAZ
-	bJRXtdpQXdZAYpRDztac2YSm+Xbf2xAaxuXXYLxXSkYpAFPYnxGFD9YtGUsgf6JueaxLruqqGfn
-	R4NsWA2DIR3X2mvfpHWRNSluApg==
-X-Google-Smtp-Source: AGHT+IF4CqnyBVX7Z2L95TCyCfHbLn+pkNZM3mRhtI1JU39Q2cd//i6rl9CgqdrRxLJFvtHjXJ4b6g==
-X-Received: by 2002:a05:6000:2906:b0:390:fbba:e65e with SMTP id ffacd0b85a97d-39d8f474ademr2624608f8f.32.1744300944272;
-        Thu, 10 Apr 2025 09:02:24 -0700 (PDT)
-Message-ID: <b799c1f9-16ff-4af1-8b57-6e5360f10c47@suse.com>
-Date: Thu, 10 Apr 2025 18:02:22 +0200
+X-Inumbo-ID: 08e35061-1626-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=Jmp1TuG2rk5K6Ce5PuPbd2zgfuoBes
+	e75oMt4oJEqFw=; b=KeFXTRMrvncRLBLOSZihPcfH8PnGHMOqw/mHIMC9+jcV7r
+	3tbCvVZgLf/TazLxRstYbgeSilvo9dnkQrP8GLZmdCLP7hdgfS+pkqs9INITQDkg
+	T2HE3mA0tY6cCiOjFIeFG4XrbkilmiOfe4bJ2uXJGkSGYpDWZPzJpRf8Q8UfqalD
+	1CebmuMJfdmCLXHOg3FqkHKYI/Ii9HIld7NTTOecyj72tFJzSX9SlqDWmWk5FBk1
+	ZqLBZaAIh98rcIrrrmwglOKbYKDbWtxoar9QCagJyJPXCGZkd7ppURgrDNEYz5xA
+	RkTJiRkBoXLMNPSqxBNFta7pxtSKrRmzyuagJ/7g==
+Date: Thu, 10 Apr 2025 18:07:49 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+        "David S. Miller" <davem@davemloft.net>,
+        Andreas Larsson <andreas@gaisler.com>, Juergen Gross <jgross@suse.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "H. Peter Anvin" <hpa@zytor.com>,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        Catalin Marinas <catalin.marinas@arm.com>, linux-mm@kvack.org,
+        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] Fix lazy mmu mode
+Message-ID: <912c7a32-b39c-494f-a29c-4865cd92aeba@agordeev.local>
+References: <20250303141542.3371656-1-ryan.roberts@arm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 07/14] xen/riscv: Introduce intc_hw_operations
- abstraction
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <139b37478b4ca7e2ec3a04b73f462197227f57fa.1744126720.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <139b37478b4ca7e2ec3a04b73f462197227f57fa.1744126720.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250303141542.3371656-1-ryan.roberts@arm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: JX9GiUvvsSXRJxqGU54xz_Dphrw8Y78U
+X-Proofpoint-ORIG-GUID: JX9GiUvvsSXRJxqGU54xz_Dphrw8Y78U
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-10_04,2025-04-10_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxlogscore=896 bulkscore=0
+ impostorscore=0 mlxscore=0 suspectscore=0 clxscore=1011 priorityscore=1501
+ spamscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2502280000
+ definitions=main-2504100116
 
-On 08.04.2025 17:57, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/intc.h
-> +++ b/xen/arch/riscv/include/asm/intc.h
-> @@ -17,6 +17,29 @@ struct intc_info {
->      const struct dt_device_node *node;
->  };
->  
-> +struct intc_hw_operations {
-> +    /* Hold intc hw information */
-> +    const struct intc_info *info;
-> +    /* Initialize the intc and the boot CPU */
-> +    int (*init)(void);
-> +
-> +    /* hw_irq_controller to enable/disable/eoi host irq */
-> +    hw_irq_controller *host_irq_type;
+On Mon, Mar 03, 2025 at 02:15:34PM +0000, Ryan Roberts wrote:
 
-Pointer-to-const perhaps?
+Hi Ryan,
 
-> +    /* Set IRQ type */
-> +    void (*set_irq_type)(struct irq_desc *desc, unsigned int type);
-> +    /* Set IRQ priority */
-> +    void (*set_irq_priority)(struct irq_desc *desc, unsigned int priority);
-> +
-> +};
-> +
->  void intc_preinit(void);
->  
-> +void intc_init(void);
-> +
-> +void register_intc_ops(const struct intc_hw_operations *ops);
-> +
-> +struct irq_desc;
+> I'm planning to implement lazy mmu mode for arm64 to optimize vmalloc. As part
+> of that, I will extend lazy mmu mode to cover kernel mappings in vmalloc table
+> walkers. While lazy mmu mode is already used for kernel mappings in a few
+> places, this will extend it's use significantly.
+> 
+> Having reviewed the existing lazy mmu implementations in powerpc, sparc and x86,
+> it looks like there are a bunch of bugs, some of which may be more likely to
+> trigger once I extend the use of lazy mmu.
 
-If it's needed here at all, it needs to move up, as some of the hook pointers
-already use the type.
+Do you have any idea about generic code issues as result of not adhering to
+the originally stated requirement:
 
-> --- a/xen/arch/riscv/intc.c
-> +++ b/xen/arch/riscv/intc.c
-> @@ -1,9 +1,21 @@
->  /* SPDX-License-Identifier: GPL-2.0-only */
->  
->  #include <xen/acpi.h>
-> +#include <xen/bug.h>
->  #include <xen/device_tree.h>
->  #include <xen/init.h>
-> +#include <xen/irq.h>
->  #include <xen/lib.h>
-> +#include <xen/spinlock.h>
-> +
-> +#include <asm/intc.h>
-> +
-> +static const struct intc_hw_operations *intc_hw_ops;
+  /*
+   ...
+   * the PTE updates which happen during this window.  Note that using this
+   * interface requires that read hazards be removed from the code.  A read
+   * hazard could result in the direct mode hypervisor case, since the actual
+   * write to the page tables may not yet have taken place, so reads though
+   * a raw PTE pointer after it has been modified are not guaranteed to be
+   * up to date.
+   ...
+   */
 
-__ro_after_init perhaps?
+I tried to follow few code paths and at least this one does not look so good:
 
-> +
-> +void register_intc_ops(const struct intc_hw_operations *ops)
+copy_pte_range(..., src_pte, ...)
+	ret = copy_nonpresent_pte(..., src_pte, ...)
+		try_restore_exclusive_pte(..., src_pte, ...)	// is_device_exclusive_entry(entry)
+			restore_exclusive_pte(..., ptep, ...)
+				set_pte_at(..., ptep, ...)
+					set_pte(ptep, pte);	// save in lazy mmu mode
 
-__init perhaps?
+	// ret == -ENOENT
 
-> +{
-> +    intc_hw_ops = ops;
-> +}
->  
->  void __init intc_preinit(void)
->  {
-> @@ -12,3 +24,42 @@ void __init intc_preinit(void)
->      else
->          panic("ACPI interrupt controller preinit() isn't implemented\n");
->  }
-> +
-> +void __init intc_init(void)
-> +{
-> +    ASSERT(intc_hw_ops);
-> +
-> +    if ( intc_hw_ops->init() )
-> +        panic("Failed to initialize the interrupt controller drivers\n");
-> +}
-> +
-> +/* desc->irq needs to be disabled before calling this function */
-> +static void intc_set_irq_type(struct irq_desc *desc, unsigned int type)
-> +{
-> +    ASSERT(test_bit(_IRQ_DISABLED, &desc->status));
-> +    ASSERT(spin_is_locked(&desc->lock));
-> +    ASSERT(type != IRQ_TYPE_INVALID);
-> +    ASSERT(intc_hw_ops && intc_hw_ops->set_irq_type);
-> +
-> +    intc_hw_ops->set_irq_type(desc, type);
-> +}
-> +
-> +static void intc_set_irq_priority(struct irq_desc *desc, unsigned int priority)
-> +{
-> +    ASSERT(intc_hw_ops && intc_hw_ops->set_irq_priority);
-> +
-> +    intc_hw_ops->set_irq_priority(desc, priority);
-> +}
-> +
-> +void intc_route_irq_to_xen(struct irq_desc *desc, unsigned int priority)
-> +{
-> +    ASSERT(test_bit(_IRQ_DISABLED, &desc->status));
-> +    ASSERT(spin_is_locked(&desc->lock));
-> +    /* Can't route interrupts that don't exist */
-> +    ASSERT(intc_hw_ops && desc->irq < intc_hw_ops->info->nr_irqs);
-> +
-> +    desc->handler = intc_hw_ops->host_irq_type;
-> +
-> +    intc_set_irq_type(desc, desc->arch.type);
-> +    intc_set_irq_priority(desc, priority);
+	ptent = ptep_get(src_pte);				// lazy mmu save is not observed
+	ret = copy_present_ptes(..., ptent, ...);		// wrong ptent used
 
-If these are going to remain the sole callers of the two functions, I'd question
-the need for the separate functions. Some of the assertions done there would then
-actually be redundant.
+I am not aware whether the effort to "read hazards be removed from the code"
+has ever been made and the generic code is safe in this regard.
 
-If not, is there a reason intc_set_irq_priority() doesn't have a lock-held check?
+What is your take on this?
 
-Jan
+Thanks!
 
