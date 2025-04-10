@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E413A843B4
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 14:53:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.945641.1343803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D9D7A843CA
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 14:57:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.945662.1343823 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2rOl-0005lf-Mt; Thu, 10 Apr 2025 12:52:51 +0000
+	id 1u2rSx-0007Mu-Cn; Thu, 10 Apr 2025 12:57:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 945641.1343803; Thu, 10 Apr 2025 12:52:51 +0000
+Received: by outflank-mailman (output) from mailman id 945662.1343823; Thu, 10 Apr 2025 12:57:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2rOl-0005j4-Jr; Thu, 10 Apr 2025 12:52:51 +0000
-Received: by outflank-mailman (input) for mailman id 945641;
- Thu, 10 Apr 2025 12:52:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u2rSx-0007LB-9v; Thu, 10 Apr 2025 12:57:11 +0000
+Received: by outflank-mailman (input) for mailman id 945662;
+ Thu, 10 Apr 2025 12:57:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=w6Mj=W4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u2rOj-0005iy-UX
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 12:52:49 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1ab2039-160a-11f0-9eac-5ba50f476ded;
- Thu, 10 Apr 2025 14:52:43 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43cf06eabdaso6949495e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 05:52:43 -0700 (PDT)
+ id 1u2rSv-0007L5-On
+ for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 12:57:09 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4eb20abf-160b-11f0-9ffb-bf95429c2676;
+ Thu, 10 Apr 2025 14:57:07 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-43ede096d73so5907315e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 05:57:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f233a273fsm50147495e9.9.2025.04.10.05.52.42
+ 5b1f17b1804b1-43f235a5d82sm51392595e9.37.2025.04.10.05.57.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Apr 2025 05:52:42 -0700 (PDT)
+ Thu, 10 Apr 2025 05:57:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1ab2039-160a-11f0-9eac-5ba50f476ded
+X-Inumbo-ID: 4eb20abf-160b-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744289563; x=1744894363; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744289826; x=1744894626; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZfgM1l/4dmks/gLxsp9QrtjrUBAsLktsGldJ/L0y2NA=;
-        b=gW+ganqIx3VCGuhnISo1Ejksw/QJMpxztgPO64nFp6wRFTjbZfUHHhDxhXmV6CjL8T
-         0TIGmhpsVSQiiW5V744SJE+csmot7+nsL4OXhbV8HO3N3Xyx9Oz0fK/UbX4aVU8SYk6x
-         VQDK2OUNDfw67aWfQcIC0pknqH23r1vm4Njc+Z8mQjy+R3CP6QqwOtMViD0DAsg8sJdr
-         cJ6ObWBDLAJKu2C9goLWbkC++OcLyJ6UbbuCVWoEIpN+sn45kU1Dha2A8HPReDUa5E8U
-         6ntbQAif8iMmhi8kxU8NhHSN4HoMuwLqKw6LM7HFluDYsTBLfCzIRr2CiZ8lOjy7DJwi
-         3kfw==
+        bh=t37rVdDE6IVN360bNct2aeXWCt8oeno05sRf0qm9MIU=;
+        b=f7q36OvQz196RymSvfDwftNoCToWsotEU0gRZJ0SQDi3JHAW9ruN7+LXu1l1QG0w58
+         JFPJGlDeRV1RUvS9p2TQ7fadNFvxJP8T35lZPxNgrkuvUq9xK/BpmP36m8p+2XX/l/rQ
+         tE/Z8bH8RcS0RZVNVpfzqjIz9rsjbckM/EhWG0PhJY+zdCoHU3XPJg2xCWb9O5sW40+R
+         fsqpTTX39RetPvkGUgNEos1eskfIM1onFUmb4HkLpxFkbKbKnfv92weA6eg27bIHqOPA
+         RxVud7Z0FV/44JPtnWYio//eB3fjstTnz5+0HSArJbWtBXgD7g/L5gPuftrLOEvuS5Sj
+         xp2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744289563; x=1744894363;
+        d=1e100.net; s=20230601; t=1744289826; x=1744894626;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZfgM1l/4dmks/gLxsp9QrtjrUBAsLktsGldJ/L0y2NA=;
-        b=WdTQ3k+tVw0H/GqOkhyOAx+fOFlkEkFznScAXm+0KHB7AhI4t9HGUluktdF0AorTTT
-         4IwOKDKgONVPuPZEvxqNrEmkG824JfidyzIMWcJzwEsR7RL0OSkNZCmPS0/hWVVjzlsA
-         rauSfxeFLi0H+vWENZr/1D00U8DsAs/am7Sk63NhP9mT2biG/Wq40iHCJwikWj3omT0m
-         imeHBM6ejhf8XEwlRSdbU1v20qKGAFROktGu2dGPJIusHgHCkEa3B9sIR0/wpzSAaJ6E
-         9/s04FhV++ZnOl/sqJUT/0xInODAdhlsjhg0yIFIx/AzgE3qkeIHIbar/1my8gk6VmXF
-         Ct6Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXbFGp4IsXUCvHejkQrfQnPXBJdiiIjDrm40Id83J8tl1+Yrqs1VQvi8RPeUFNX/V32cgtVUXDZEg0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyrjKourTnI5b1RUPdL9acSgu5ZhZdAPO0CDFSnADOSAblWEFv0
-	jBcdXz0zZRNJFWQ2+x+3ebgjbDBV0n+RgVTQa0uxAdJkHKUE++mLcF0Iuq/WjA==
-X-Gm-Gg: ASbGncsV8zVgvElsdJGLD8lADLqeSYkLVhiD9CG0lyHKHB0gdfEsIgsVEodzY3SuJAk
-	9Bg6v89YI/6LDUrLUaX2Fp6T+haiANTzv57iND+oBsSIS1CY6m3BF6OXYExtjBY6cZnkWgTddgX
-	rD+96VsjzSTBGnp+qy6H8WeO9G709BEh3NwYk/t4HPu94sJsEYjeukZ5Myo7rgv1eaCG8x1sV32
-	7whfnjdkfMYZ34suApEUhbySsM3uoX5EjbLAGm/vqVpaEtg+Ds//8qK187ZbL+YSCszhRwoAtzq
-	bs7NP0Yvz6CkjSy18dGaaM1rvstQl+dxcBY/h41gJtYV6Uf139RYd+bzgqrrCT8IrOc8Mpj84Wx
-	y5tLAUZGlK0KOiVTDsQG1PUL5gA==
-X-Google-Smtp-Source: AGHT+IEOvJkiigP6QOYZx/eZD8GkV7eMy3tM/VHVtVelGX34hLwm+/ZSV71vMpd6Ig62fmkxQSwgmQ==
-X-Received: by 2002:a05:6000:40c9:b0:391:2d76:baaa with SMTP id ffacd0b85a97d-39d8f4d3a7cmr2251782f8f.46.1744289563050;
-        Thu, 10 Apr 2025 05:52:43 -0700 (PDT)
-Message-ID: <7f26a9cb-a685-4a2a-a470-8c5e94ddc31e@suse.com>
-Date: Thu, 10 Apr 2025 14:52:41 +0200
+        bh=t37rVdDE6IVN360bNct2aeXWCt8oeno05sRf0qm9MIU=;
+        b=FJHoXpGtOR9h3qIAeSG1qWCoatYFT7bbWmCqZL5bZQ5CEuiJ4P5l5HmLzXIkzCkqbl
+         Z3t6gO1LC3B6KRT3vRupPh1ErSAtOWe8jKhOrAwIxsY5CJfhduda6cxOOrLcQ/AhI/9P
+         oANt7p8R1S42BBUhhAOtKSdHTuVufDZKXk8+DglvGQS0EYk6d+k7lpzjiMqj3InNpEvi
+         RpzkNjKuyj+Vuzl5/Yqo67lUv6HW/Vypsf4+rKys/wc093Cw62Elgj6opU+w8BGzbtVq
+         qFa8d8HhSyZMMqdxvNd8/i/yw6lEjlxhxUbslYdUbL00qQz8X135TH8iH3hy0sYNi34L
+         h5Bg==
+X-Forwarded-Encrypted: i=1; AJvYcCUR5ko4AtuEV27P1DIpNEWWdlfep7mnusagIKdr9xV0QECeWDXBcTH46th5og1nFAl+sg1U2/0m2hM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwTMtymOE0jg08986yXW30f3031xPZ2f+4gmlHxWny9+9Mhoo44
+	hCAymjMGVPhP7wgZXOAxQXMvnZeB+5cg+XD3TbGlzG+er5SVJqf/8uS+DRQYpw==
+X-Gm-Gg: ASbGncsrMDRFBtCUfpFlvr1rVhoZ20/nryyafryjD+16Isu1yfprFKsRKYiXp1Y7dub
+	YVj/Y5SeC+ELjWxi7Dv2bQ1NO0J3a/5j1O1kcQqkewUQjVyrV5P1cmMnZUewXsukS8Lj9I+Q9R5
+	ZWHZBZ28HHU8RbfeopGWVSbrkZ/G+UxQ37Qx4zcEshR7TAxT2cK9QsFfaAkf7txoz0vGQrJ+iDl
+	mtxakms0hub8oiFHl14R52upw2C00eCPSBspSalgcfwhr7GWI5Rd0kegyJ6gNPdjHW+MVrwZ0ZO
+	FeNTWely3FUKPNHw3TPq16jXPTW6TCTTEoxcm+iNth/TqmJ59g/UsHnFo5kmQ1kUDXiQ9J3Nbwg
+	Dhyx3QE/nrpqaiVmppQq+9F8zUA==
+X-Google-Smtp-Source: AGHT+IGMd1IWHnpfhoFlx3N9wTsAkDG9PcbHScfDXyYccZtOk1XqNHHSyFuc0REzsdencLa1We9iYQ==
+X-Received: by 2002:a05:600c:1e0e:b0:43d:7de:16e3 with SMTP id 5b1f17b1804b1-43f2ff9b182mr21621585e9.24.1744289826559;
+        Thu, 10 Apr 2025 05:57:06 -0700 (PDT)
+Message-ID: <13ab7e75-1c2c-499c-9174-047a319a3106@suse.com>
+Date: Thu, 10 Apr 2025 14:57:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 01/14] xen/riscv: implement get_s_time()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v3 05/16] kconfig: introduce domain builder config option
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Jason Andryuk <jason.andryuk@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <e503aee3ef743210a8188a7da9e70a169dec1287.1744126720.git.oleksii.kurochko@gmail.com>
+ xen-devel@lists.xenproject.org
+References: <20250408160802.49870-1-agarciav@amd.com>
+ <20250408160802.49870-6-agarciav@amd.com>
+ <d61f5fbc-8e28-454b-9931-c267d67cb491@suse.com>
+ <D92Z1LECR2VA.3FW5H7ZIRVXU7@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,46 +126,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e503aee3ef743210a8188a7da9e70a169dec1287.1744126720.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <D92Z1LECR2VA.3FW5H7ZIRVXU7@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.04.2025 17:57, Oleksii Kurochko wrote:
-> @@ -23,6 +24,11 @@ static inline cycles_t get_cycles(void)
->      return csr_read(CSR_TIME);
->  }
->  
-> +static inline s_time_t ticks_to_ns(uint64_t ticks)
-> +{
-> +    return muldiv64(ticks, SECONDS(1), 1000 * cpu_khz);
-> +}
+On 10.04.2025 14:52, Alejandro Vallejo wrote:
+> On Thu Apr 10, 2025 at 10:08 AM BST, Jan Beulich wrote:
+>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
+>>> --- /dev/null
+>>> +++ b/xen/arch/x86/domain-builder/Kconfig
+>>
+>> This really looks to be the first patch where it needs settling on whether
+>> all of this is to live under arch/x86/. If it is to, the reasons need writing
+>> down somewhere - maybe not here, but at least in the cover letter.
+> 
+> I need to think about it. I haven't yet reviewed all the history about
+> the series and the related discussions on the matter. Moving this to
+> common code ought to be simple enough, but merging dom0less into it
+> seems like a pretty big undertaking. Presumably you merely mean the code
+> location and the scope of the Kconfig?
 
-Why the extra multiplication by 1000? I.e. why not
-"muldiv64(ticks, MILLISECONDS(1), cpu_khz)", getting away with just one
-multiplication and a reduced risk of encountering intermediate overflow
-(affecting only hypothetical above 4THz CPUs then)?
-
-> --- a/xen/arch/riscv/time.c
-> +++ b/xen/arch/riscv/time.c
-> @@ -4,10 +4,17 @@
->  #include <xen/init.h>
->  #include <xen/lib.h>
->  #include <xen/sections.h>
-> +#include <xen/types.h>
->  
->  unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
->  uint64_t __ro_after_init boot_clock_cycles;
->  
-> +s_time_t get_s_time(void)
-> +{
-> +    uint64_t ticks = get_cycles() - boot_clock_cycles;
-> +    return ticks_to_ns(ticks);
-
-Nit: Blank line between declaration(s) and statement(s) please, as well as
-ahead of the main "return" of a function.
-
-Happy to make both adjustments upon committing, so long as you agree; then:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Code location only: Yes, definitely. Kconfig: The scope would presumably still
+be x86-only, until e.g. Arm was enabled, too.
 
 Jan
 
