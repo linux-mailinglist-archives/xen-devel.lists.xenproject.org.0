@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9807BA834EF
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 02:09:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.944850.1343176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8346BA83937
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 08:29:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.944884.1343186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2fTx-00009D-D8; Thu, 10 Apr 2025 00:09:25 +0000
+	id 1u2lOJ-0004yV-Gk; Thu, 10 Apr 2025 06:27:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 944850.1343176; Thu, 10 Apr 2025 00:09:25 +0000
+Received: by outflank-mailman (output) from mailman id 944884.1343186; Thu, 10 Apr 2025 06:27:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2fTx-00007T-AF; Thu, 10 Apr 2025 00:09:25 +0000
-Received: by outflank-mailman (input) for mailman id 944850;
- Thu, 10 Apr 2025 00:09:24 +0000
+	id 1u2lOJ-0004vq-BI; Thu, 10 Apr 2025 06:27:59 +0000
+Received: by outflank-mailman (input) for mailman id 944884;
+ Thu, 10 Apr 2025 06:27:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z2Tv=W4=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1u2fTw-00007N-9N
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 00:09:24 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20622.outbound.protection.outlook.com
- [2a01:111:f403:2415::622])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=w6Mj=W4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u2lOH-0004vj-Fl
+ for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 06:27:57 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0c3f2718-15a0-11f0-9ffb-bf95429c2676;
- Thu, 10 Apr 2025 02:09:21 +0200 (CEST)
-Received: from BN9PR03CA0946.namprd03.prod.outlook.com (2603:10b6:408:108::21)
- by MW4PR12MB6852.namprd12.prod.outlook.com (2603:10b6:303:207::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.22; Thu, 10 Apr
- 2025 00:09:16 +0000
-Received: from BN1PEPF00004689.namprd05.prod.outlook.com
- (2603:10b6:408:108:cafe::53) by BN9PR03CA0946.outlook.office365.com
- (2603:10b6:408:108::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.54 via Frontend Transport; Thu,
- 10 Apr 2025 00:09:15 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN1PEPF00004689.mail.protection.outlook.com (10.167.243.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8632.13 via Frontend Transport; Thu, 10 Apr 2025 00:09:15 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 9 Apr
- 2025 19:09:15 -0500
-Received: from [172.25.231.87] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 9 Apr 2025 19:09:14 -0500
+ id ed9ac316-15d4-11f0-9ffb-bf95429c2676;
+ Thu, 10 Apr 2025 08:27:51 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-39129fc51f8so272666f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Apr 2025 23:27:51 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39d89362fbfsm3762894f8f.13.2025.04.09.23.27.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 09 Apr 2025 23:27:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,169 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c3f2718-15a0-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n8KvLqn4vDw6BFDVexnKfhU9xi4qcTcApnzxTiK2RVJRlNBLJE3SILIMa/lWJfRtdhfkgbla7hoCcxbYptLL4SXWblJ+sTIFSxnezy7TcAtSdR8B2e1ZEwLYREO/tAUVKpH0R8rMvMnRAd9pHaLOLzEnLIAh87YpLOBBa3WE902BeOhBhKfIWOntxieS9FXAb+PxH+OUc9sA+wQvGIAlaPTlgbDsBN1SA+o8zXyhIbgpIQSgfE+jJGFeC/oM2OUpeNqUNO8BKs8TpL8l0v3eh41LjwRDtjx3EU4iQ00mPDY049FLcSgsOe3puNy9ly8HTlPdn1HhuIE1K+qIK67T/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JZlT5Us7mIiHxX89uKFrbQyqvHBxoaXWK3lidXiSWHM=;
- b=lFUGKRnhSkG0wG7yIdTAugkNyPsJOcewJW75CiEE3Skbtw0YXt38iuXVjzFqaxL9LIMiYOnkRZw/8n2JwKm1sbaihO0sq12oxoHI+3kLKe9bCPrgqTl3zk7lck+FDETMhlssMnTSFmnQcJLlPEaj7Cp+xKxvQMlUO1VQafZC/BdouEY3P7TDGv5xDesnl1xa/dW8HQDxtJHp0sIhszjgyYmQWScSwVy4zMzJqZDS7QENMCgflAo2qalcch4vP/bzsy9DXFFv5GPbi2asNoZ7DC+jJyqtTFnyHIO2ij8m0eY4P8is+6iwm7Frztp5DZ0u6WUoM/R83AP46XCnmzyYLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JZlT5Us7mIiHxX89uKFrbQyqvHBxoaXWK3lidXiSWHM=;
- b=VKyWTmM9hQYdd/7oys+3GAkp6P4l52UiwboxVNZMTf4pcyKGOYycb/jbVz+edjvsWPs3bYP99O0uZO8SbPFnUlcfovtjHmx0Od2N8B0m0WP0gWbykwyqvtHizQqNIuJQbjbme7j6izJuIcGmXgLzO0o9jAMVB9+q9dSLX2Bll9Y=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <f7b820af-b548-4dc3-9af7-9d2214a232b2@amd.com>
-Date: Wed, 9 Apr 2025 20:09:09 -0400
+X-Inumbo-ID: ed9ac316-15d4-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1744266471; x=1744871271; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=c7W+30oyUtP2UW9K/V3HqdmoS8/ihSVVZkzIjQf+ZbQ=;
+        b=WKU5f8n9RNiW7ML95sQ5zcDNmCTeZBl1H1ozYZ9wt5yRyKqxTnBC7qJXjLz5kbcDrz
+         vZ/oxgj0OUkwZjgmbJ/XRdhK/0CQAuS83h/8oagrOzI8XEWvo3Ql/L13ELQSApRcVNiz
+         gRKChyrpFFraUzA2HtiuCM6gvesfmPACcJ9oDWVeLqDL6jTeJPkAvxGjMyPz0sJNNBqk
+         v5i5VHaCY6JHwXT+yXN3FXEtRN3BxgceeCjnTPQnkT9B0g+70pjIgD7E0pNxN3NzU5lB
+         BCmlAyg+gVqQOkTbtLsGW6pkWuAAG9dvJv7XOxDUsD9ZVkXO6mFYtAMBi5PZZd+ggoBR
+         6xRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744266471; x=1744871271;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=c7W+30oyUtP2UW9K/V3HqdmoS8/ihSVVZkzIjQf+ZbQ=;
+        b=Dos13AWnCRf1znOcOSeDE0BaiJnSPO+GkxdZGN+wK7kBZN0f/R0yj3sKkkcvJAvHEx
+         /OjvrHUsb7vLBYENgmQozllw4cKo+zydOhVpPW4PZP7YYHUgIdbe+KpLaFsEc2yK239+
+         9MiigEcmKvH85ivJ17Ekd1pfA+cB1J93UWs3BpCRZfKx6oYyIm/dUMvd4uhDmK+0x0zt
+         JM43OmQXQdwuDuTbfxoijfDDKmWob5Kk0O3QJSdsydW/6oV3lmZ6ahoXkdLa0dHRAaY2
+         JLuRq6NA/l6puNntPM1dujdpxocl7XjZ4E74soczcqxhsl2yQJ2LHoNBfDZBTu2qzTHm
+         2cCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWf1pgyRaKnb7Sul5U+O4C7KKyHrk0QQfQenMHFlyqB9PkCZ0USu5aO/7suykcshhIMzr3A2zCr4bI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVE2OuxxEVp66eWIWXFrF/nM5W8e3yQMju2WMHWcmTBEwzdRAw
+	1hbicgdMUj1Ax/G8+wlXNIovIQhksrmLXDhG9gXQKA9t0X9LpM+zzVrw5UrOiA==
+X-Gm-Gg: ASbGnctdI4oY57vZRUH7bO2CPGdxqpqxvlDd1YH+0uBP8S4V4v3rBWXwUrJb5AvkTDl
+	zmwkcrdz9cT0OfY3W5OYJv6CC4/hlDiFNYcD3Py22PoO2Cc+G4f9VeK+2UjV5yLEAjEfOsLXXPz
+	tcKq6BLeeoi/zQwv72wVOUIV2haZ/UWyLrXi6X9SNKOATG7b1jbRVw16nWRnoPf/G5YuS4u4qvA
+	wmmle2O3ZzK16R+GGoB+5DFkg2TaX0ZMtGVYO2Io32NWXQScPzlfN6lV2UCFtmUOe0Pzdl+N+4A
+	sJTjVRw1akW2wxLeiYX+05orLimwWbb/WNJeO5K/1V7VolWUTQ3ZVIR2NkJrDeKSRWISgGRLrn1
+	THcqAvmb9w323wk2nrqTaZS1xa7/OfnXHWgyk
+X-Google-Smtp-Source: AGHT+IG1Ajzd+q6omwd33ZaTirfargnMms0ksAY2uPv4TpCk5mpBi0zGyLRT7UeDBFRL3EJ/EOz0ag==
+X-Received: by 2002:a05:6000:1a87:b0:390:f358:85db with SMTP id ffacd0b85a97d-39d8fd8c84bmr827763f8f.30.1744266470748;
+        Wed, 09 Apr 2025 23:27:50 -0700 (PDT)
+Message-ID: <d0d6cdf2-e436-4a72-8a02-5ec331cc950d@suse.com>
+Date: Thu, 10 Apr 2025 08:27:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH TEST-ARTEFACTS 0/8] Cleanup and Linux ARM64 support
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-CC: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>,
-	=?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
-References: <20250409163702.2037301-1-andrew.cooper3@citrix.com>
- <828cabc9-512f-4c2f-a7d7-b9c8963c1300@citrix.com>
+Subject: Re: [PATCH 2/2] x86/hvm: fix write emulation of RO ranges
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250408093156.83277-3-roger.pau@citrix.com>
+ <16c73cae-2ac0-4811-97d3-b25c95ed5abc@suse.com>
+ <Z_Y4xFzaltr_XKO4@macbook.lan>
+ <ef0b6eea-a7e5-406d-a8ba-062b3c6e17e1@suse.com>
+ <Z_ZOWAttoFNoFYCV@macbook.lan>
+ <2df78a5d-2f9f-4866-81cc-03ae09c76d50@suse.com>
+ <Z_Z3PYYSBH3QWioF@macbook.lan>
+ <8709e7af-5827-4c96-9f6b-1f548045040d@suse.com>
+ <Z_Z9unJ-wS2dXxUV@macbook.lan>
+ <b1e8e761-ddf9-4e4f-b5bb-624b2e7d012c@suse.com>
+ <Z_aTYmiOLEfKTend@macbook.lan>
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <828cabc9-512f-4c2f-a7d7-b9c8963c1300@citrix.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <Z_aTYmiOLEfKTend@macbook.lan>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004689:EE_|MW4PR12MB6852:EE_
-X-MS-Office365-Filtering-Correlation-Id: 104316ec-62c4-425d-47a0-08dd77c3ee23
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?KzRLTTV4MENjeDdicmtDSlJGTW5sbEp5d29KMng5RXUwSndJenVDOGt4cFpp?=
- =?utf-8?B?SjVQYml6aUVnOFdhYmJjMVZONml6WVRibkdvM3NDTCtmbjVuZG9CL0lad3Vv?=
- =?utf-8?B?bjlKRXN6N1ZZVW83RFI5cXZETmpkZW5FR25ITlhTaG1zT01STWgvc1FKUisx?=
- =?utf-8?B?akZlUGYzUERSeVlNK0tPRGIrQ0IxSjdXU3ZaWHowbGs5TXYxYjgxMk1XNTVt?=
- =?utf-8?B?Z1ByZllCT1ozRHg0dFVOOGNBajRaRUYrQ3BzM25vL3hUZjVKbWRrMzNiMHht?=
- =?utf-8?B?ZElRaGlaWDBNeEFCcHQxUmJlT0VYVmtaenY5WW1zazdnRkovRDBlRjlTUjM2?=
- =?utf-8?B?b0NsYzJNSWNHdk5zcmFxdkZ5cWovc2RHbHd0QjdnNngwTHBSaFR6RzRDSFVK?=
- =?utf-8?B?UVRqaWk4MEtkU2Zuc2RXL3ZSbFI2MFNOMXNPTWVPUFdvY29oQVFzL3BDaThN?=
- =?utf-8?B?Rlk0aHFCcnBuSjkybFpiSnBQRFZHcVBPZCtkWitwQzdPRytoK1hIYUd2NExv?=
- =?utf-8?B?VkNyemg4U1Rwb1ZUc1BrSUlCbGlYSnlxZUhldUJ0Sk1RdHhCdzlXYTNSZHg2?=
- =?utf-8?B?MFU1OHNGWmFTWEVVdDdXc2ZzMTI2Vm9VZjg1V25NVklueUU1VG1mVW5yKzBU?=
- =?utf-8?B?azdnbXdtVXJpa0orbm5vd21QNHM0QlRINTJQcVkvSHFUNXhTN2QxMTRocVJN?=
- =?utf-8?B?QXI4dVFnbjV4bEZqZlN5empwVlQyNEgrK3ZEdXNUU3Uxa1NlYlcwSnkxYldG?=
- =?utf-8?B?NWVVdDZFbW1DdUVROTdtOEFaUUZSMGlaN3FUZzVwUUh5WStXS2VnQ05tWDZx?=
- =?utf-8?B?cU9OQUFMT2hYR2lzOHdyQ2JvWWpzM3poaThLZHQwSlU4djZmR2h4R24zY3JL?=
- =?utf-8?B?SDdWeHY1b0tucmNySDRsR3dkZEY5SEtzWXEwM0dyS2p4aFg5Rkc2WEtjQzYy?=
- =?utf-8?B?dnR2bHVxZXArYmdOdWZDMDU2WVYraFZweVh5dVRJOWdVc3ZDNGJJQSs5aE1n?=
- =?utf-8?B?aHdpNFpyR09lQVNQN0xJVTRoQk1YV2Zocmh5M2hoak5PdTZDcGh0bTdxL3hk?=
- =?utf-8?B?Sk9OOUJNTEVnZjBPb1BWOEQzbWdHSDZhcVIwQ1kxYmRFOWF2RzV0N2lqN2s1?=
- =?utf-8?B?L2JtQ2ZwRHhrQVh4Qk9McmhmcCt2cjBqQ2kxenBZUENvdEIxSVVGT0RHalNF?=
- =?utf-8?B?TFllWkJHMWtIc0xBTTdmaVJtaktCTFhKbUQzalB2RGY1dk1XeFJVWGZ1aTZi?=
- =?utf-8?B?OEx1N1JBazlZQTRGQmMyMkRMdDcvWU93UDhwZnU2dG1peVBtMFFTdlRoWHhX?=
- =?utf-8?B?K05kQ3lERkt1UTdUT0NtQ2tQNnVzUStMUzZxK2huZFJSWHRVeEpBUldhVUdn?=
- =?utf-8?B?Z243eVV3VHhyS0IxQ2F4dlUvRU1JanZMaHBVbklkLzB5U1o5Y3JpZEVPSVpO?=
- =?utf-8?B?aGM3MWlJczZOeFA0NW5XMlVDY1QyWmMzcGFCN2QzQmczZENVQ0xCcjVsaUVU?=
- =?utf-8?B?RVIyMksydnN2bHEwQjZ3VzQ4M1EyYmwweVpNYjFtbUs4dGhiNEc5eVFiODJC?=
- =?utf-8?B?ZnhoR2FyTUxMTElLS3pGSU5ZMXR1b1hyMENmUnhEekcza1JVelVkZkErS2or?=
- =?utf-8?B?cExEUWlnZXhIaVdVbVBaZmNLY1hKck9jR0dyZlE0eWFGQjMyeEpxVk5sNVRJ?=
- =?utf-8?B?OElnYnMrV21wazJYVGhNMkpLSDNlMys4S2N5QmxLaTRvV2NXcko4TzJLYjdJ?=
- =?utf-8?B?WWV0eVczSnJzYWNtcEZEU2dkbEVlVTFCZXRHZDhaMDlaWTUvNlVhR2VtUThD?=
- =?utf-8?B?NkxEQ0ZTaGlaemMxUVRCSkx1S3RtOHArWHllMWN5V3VDWmt2RHF1Q0NmSjcz?=
- =?utf-8?B?QnBERTlncmJ1aG1MSUFJaWtjU3M5QVlRSmFsK1pNYThGZzM1bkhMOE1YSGJR?=
- =?utf-8?Q?VQ6J/tW5fmA3pWVfyoafAvib2ED6PH9w?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013)(13003099007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2025 00:09:15.3659
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 104316ec-62c4-425d-47a0-08dd77c3ee23
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004689.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6852
 
-On 2025-04-09 13:01, Andrew Cooper wrote:
-> On 09/04/2025 5:36 pm, Andrew Cooper wrote:
->> Various bits of cleanup, and support for arm64 Linux builds.
+On 09.04.2025 17:33, Roger Pau Monné wrote:
+> On Wed, Apr 09, 2025 at 04:08:47PM +0200, Jan Beulich wrote:
+>> On 09.04.2025 16:01, Roger Pau Monné wrote:
+>>>  As I understand the checks done in
+>>> mmio_ro_emulated_write() are to ensure correctness, but carrying the
+>>> access even when the %cr2 check fail wouldn't cause issues to Xen
+>>> itself?
 >>
->> Run using the new Linux 6.6.86 on (most) x86, and ARM64:
->>    https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1760667411
+>> Well, "wouldn't" is too strong for my taste, "shouldn't" would fit. The
+>> checking is there to avoid guests playing games. Whether that prevents
+>> merely in-guest just-bugs or actual XSAs we can't know until we find a
+>> case where the game playing might make us do something wrong. I expect
+>> it's unlikely for Xen itself to be affected. But an in-guest privilege
+>> escalation would already be bad enough.
 > 
-> Lovely, Linux 6.6.86 is broken for x86 PVH.  It triple faults very early on.
-> 
-> Sample log:
-> https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/9673797450
-> 
-> I guess we'll have to stay on 6.6.56 for now.  (Only affects the final
-> patch.)
+> I see.  That was kind of my understanding of the checks.  At least on
+> HVM it feels a bit weird to handle r/o regions this way.  It would IMO
+> be more natural to use an hvm_io_handler, but that's maybe because I'm
+> more familiar with those.
 
-This is an AMD system:
+I guess this would be an option; I assume it's the way it is because PVHv1
+inherited it from PV, and PVHv2 inherited it from PVHv1.
 
-(XEN) [    2.577549] d0v0 Triple fault - invoking HVM shutdown action 1
-(XEN) [    2.577557] RIP:    0008:[<0000000001f851d4>]
+> And in that regard, hvm_io_handler don't seem to do any of the extra
+> checking that mmio_ro_emulated_write() does with the %cr2, but maybe
+> that's done by some higher layer?  AFAICT that would ultimately get
+> called by hvmemul_read(), and there are no checks there at all.
 
-The instruction:
-ffffffff81f851d4:       0f 01 c1                vmcall
+That more general framework isn't page-fault specific, and hence there's
+no CR2 recorded to check against.
 
-vmcall is the Intel instruction, and vmmcall is the AMD one, so CPU 
-detection is malfunctioning.
-
-(Early PVH is running identity mapped, so it's offset from ffffffff80000000)
-
-There are no debug symbols in the vmlinux I extracted from the bzImage 
-from gitlab, but I can repro locally with on 6.6.86.  It's unclear to me 
-why it's failing.
-
-Trying:
-diff --git i/arch/x86/xen/enlighten.c w/arch/x86/xen/enlighten.c
-index 0219f1c90202..fb4ad7fe3e34 100644
---- i/arch/x86/xen/enlighten.c
-+++ w/arch/x86/xen/enlighten.c
-@@ -123,11 +123,10 @@ noinstr void *__xen_hypercall_setfunc(void)
-         if (!boot_cpu_has(X86_FEATURE_CPUID))
-                 xen_get_vendor();
-
--       if ((boot_cpu_data.x86_vendor == X86_VENDOR_AMD ||
--            boot_cpu_data.x86_vendor == X86_VENDOR_HYGON))
--               func = xen_hypercall_amd;
--       else
-+       if (boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
-                 func = xen_hypercall_intel;
-+       else
-+               func = xen_hypercall_amd;
-
-         static_call_update_early(xen_hypercall, func);
-
-But it still calls xen_hypercall_intel().  So maybe x86_vendor isn't 
-getting set and ends up as 0 (X86_VENDOR_INTEL)?
-
-That's as far as I got here.
-
-Different but related, on mainline master, I also get a fail in vmcall. 
-There, I see in the disassembly that __xen_hypercall_setfunc()'s calls 
-to xen_get_vendor() is gone.  xen_get_vendor() seems to have been 
-DCE-ed.  There is some new code that hardcodes features - 
-"x86/cpufeatures: Add {REQUIRED,DISABLED} feature configs" - which may 
-be responsible.
-
-Regards,
-Jason
+Jan
 
