@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5197EA83AD3
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 09:20:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.944937.1343236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0190DA83AFC
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 09:25:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.944949.1343246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2mDA-0003Eb-T5; Thu, 10 Apr 2025 07:20:32 +0000
+	id 1u2mIC-0005GY-F0; Thu, 10 Apr 2025 07:25:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 944937.1343236; Thu, 10 Apr 2025 07:20:32 +0000
+Received: by outflank-mailman (output) from mailman id 944949.1343246; Thu, 10 Apr 2025 07:25:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2mDA-0003CU-QX; Thu, 10 Apr 2025 07:20:32 +0000
-Received: by outflank-mailman (input) for mailman id 944937;
- Thu, 10 Apr 2025 07:20:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u2mIC-0005Ed-C9; Thu, 10 Apr 2025 07:25:44 +0000
+Received: by outflank-mailman (input) for mailman id 944949;
+ Thu, 10 Apr 2025 07:25:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lSg0=W4=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1u2mD9-0003CO-9i
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 07:20:31 +0000
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
- [2607:f8b0:4864:20::535])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47bc0bd9-15dc-11f0-9eac-5ba50f476ded;
- Thu, 10 Apr 2025 09:20:29 +0200 (CEST)
-Received: by mail-pg1-x535.google.com with SMTP id
- 41be03b00d2f7-af908bb32fdso435947a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 00:20:29 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 98e67ed59e1d1-306df082327sm2747941a91.15.2025.04.10.00.20.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Apr 2025 00:20:27 -0700 (PDT)
+ <SRS0=D8yV=W4=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1u2mIA-0005EX-Eo
+ for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 07:25:42 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2060f.outbound.protection.outlook.com
+ [2a01:111:f403:200a::60f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ff2ffe55-15dc-11f0-9ffb-bf95429c2676;
+ Thu, 10 Apr 2025 09:25:36 +0200 (CEST)
+Received: from DM4PR12MB5277.namprd12.prod.outlook.com (2603:10b6:5:390::7) by
+ DM4PR12MB7693.namprd12.prod.outlook.com (2603:10b6:8:103::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8632.21; Thu, 10 Apr 2025 07:25:28 +0000
+Received: from DM4PR12MB5277.namprd12.prod.outlook.com
+ ([fe80::9ab:5367:ba51:af6e]) by DM4PR12MB5277.namprd12.prod.outlook.com
+ ([fe80::9ab:5367:ba51:af6e%5]) with mapi id 15.20.8632.021; Thu, 10 Apr 2025
+ 07:25:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,192 +47,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47bc0bd9-15dc-11f0-9eac-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744269628; x=1744874428; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=PDCqJtAPc6HHrC0t+DZCAA6aySNFallXOlf5pYlO0lA=;
-        b=jy4sYv6njxN7aoFbI9HQ34psfG7RWmYEvmSleL25onVZjhtYAEN82hA1QP5BNzDS/W
-         tJ1RtlpkZNDrZOL3iCDFljzDHk0I/F4N+Ri7A9I7Zo3NuwjdoIq0f56BRUVkmrIHCKOV
-         Lcp2Ad5r1cCegS9LISZWuUNGWPkf8OjmIDrec=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744269628; x=1744874428;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PDCqJtAPc6HHrC0t+DZCAA6aySNFallXOlf5pYlO0lA=;
-        b=TCTEztfOvtWi/cVLPOAnhe476X34QYzwssz5YsFlRLzm9hLrHwhdZkNdrb7tiFbm6R
-         IYVCl6/TBx/1RuiRRlRa4+pAIRAuXZ4ZJy/Jq+edfPDH0v0JP0Y/WoTmVwTjd3eYl8WT
-         jW8lS+PC37NLE5foMJKcHUdeEGen/tnRHXUpjNM9vUPJUjnqEgNl2UdQ8HIsiEW8xOF7
-         8xhVzB2Kwv493X+xcbWp3voaNhYbQt5e014xmx4KUG84KgfPPsyFF1OCqFUoSiAX2Pt+
-         MucdV9HQSj/YWGsLXxetzGCNavZCNuS56+kI2jXkwVEmU0nymGdafCkSKoCanZ3ndn3Y
-         zSig==
-X-Forwarded-Encrypted: i=1; AJvYcCVGr8uiryJJ6o/Q+apowNm8Bjfde6B4a393x9bbZUJ4VcXPbe1Qz0BDMT7+da5VXpJFOu0ua7CZcSY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz103D28qGjid1ZtsMioRagGDg/IWNqT/r6V8u9TpGX1c0p9yF1
-	MtobH6+YqL/Hjtx5uNqBBKLUEdmuEp/FnAKHZbm/0+yQzMobVxHhXJebofoo13M=
-X-Gm-Gg: ASbGnct09yyitELCR6hwNojF6dPzznQYbCoB8WLytZY/Bmg5OqaLJTuTm7PGB+8WCMH
-	4hnLefwmb+0ttMtDADB4LkUChzAiG8e5iQMhWiVS6CX69usKmAjFKs9oWw6coQUdBv8hbLwHsPo
-	kcKyTHWCGZIRashFzXd4BP/KaXcCvA6yeWRtjNVFQyzBHrAbCnhk4bohjylB8JfNnT/7V7lVrE0
-	xHC/T73yLPTLj0aSZV4EVcrO+i67Gw9P0hu5b4SWkjvY2t7OyPhZ0PEHz34pCi5ePoVfPNBJcOy
-	MyxSDAumDkLi321S0gXKyYkeX34rq+rNCrUBHm5cAsGZqQ==
-X-Google-Smtp-Source: AGHT+IFvjBsEY9oy67/6GwJV3SWUtqOBNcur6SiammS+rKDWPEF+uzJOMO6vM77Mlh7PAFXCcn4G+g==
-X-Received: by 2002:a17:90b:368b:b0:302:fc48:4f0a with SMTP id 98e67ed59e1d1-30784d83870mr2191019a91.0.1744269627848;
-        Thu, 10 Apr 2025 00:20:27 -0700 (PDT)
-Date: Thu, 10 Apr 2025 09:20:22 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 02/11] x86/mkreloc: fix obtaining PE image base address
-Message-ID: <Z_dxNnfBOP88tAKi@macbook.lan>
-References: <20250401130840.72119-1-roger.pau@citrix.com>
- <20250401130840.72119-3-roger.pau@citrix.com>
- <6c37ad18-a830-453e-a7ff-fb4978e3f0df@suse.com>
- <a14a7a42-cf7e-463b-a87d-e302ce32371b@suse.com>
- <Z_UGr0A8LetHDJvB@macbook.lan>
- <3364268c-41c9-47ed-a6d1-b8ee04118a46@suse.com>
+X-Inumbo-ID: ff2ffe55-15dc-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qqflodGbQxH/hJLCA+6h59A9qKd92IEykBW+HCj2U/TS70UbiabMSty62gr5JwSzTsZi0dnJ7ZojzA2iMk+8lB7/nwa/lLaicgeuGFzjmRs6MOPNFtD+f8QvK3AWnHoggAEhzcXEBBHnxmvMy+N8PyPcod2qY6RNzY1owcv8pyHsV3l0PJfzb1F3c85vzw7kZTqHfazcwutVA5ZA++vhgRHXb8Hhy30q+o1i70GNj7Fi+D1ZHUuHclfMaivmePbeFyOc2BfIDlAp1/u2udrbcYOC/Dry43ajWsIgJF3mTA+ICj/G2LesIwcNEVCx+FKp8Jzp5LBUNDtaMznXHufLgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fMYTeH1/HV9XnW+AM2SSXm/F6djSjySFeTaO2Dx7NGQ=;
+ b=sS/glz1A1EnEA9nUUIL7Ccq/xXHDYO7rTpjy/5UReNchcCDQbTchXy3xgvN4SwvtZ7eX/ZTYGhE3+N8X8gjiJhintnMnjd/HK8b2IJjDPfE4hqkvgVaxrFq52/NDpTSU/RM/c1/evsXIvsl7INunAJ6h6/s42cjSpvHvXHG0mGTvznpUU0fj6kROpk0i+V+abajzd9oGjkg/o+1LQi7m46jomPPvWgFhHH6IGkcA5lB2nRV/apMYc0p6nVh2WKP7I9l+U/+hoVGpWMt/a0Kg4iGx5ruk2x8jW06jwav2o8MdF/Tqhk9EOXndCZcBfKVDVMuRKHmHUvwdOgC5g4L4aA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fMYTeH1/HV9XnW+AM2SSXm/F6djSjySFeTaO2Dx7NGQ=;
+ b=urPgopek2lUeq4biJMeCNvwH8Myk4S1z71ijXmpIGnO7BKI9pdG29jADaOCWjlUnfOS7J95am4gQVTP/z8mSFO36WsbW/Fm7ECLv3jXrQToQBru/qKkaM9j2ZzMdQy9LB/toEmCYeA+OtNLw+3yzes3oeoDWaD0TINX0YY+rUzQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <8e15d185-7f04-432b-a091-a83a6f42e056@amd.com>
+Date: Thu, 10 Apr 2025 09:25:19 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm/irq: Reduce size of irq_desc array to exclude local
+ IRQs
+To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <eafaff031771902c44c101736de7e1b690cc8303.1744083392.git.mykola_kvach@epam.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <eafaff031771902c44c101736de7e1b690cc8303.1744083392.git.mykola_kvach@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0103.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a1::19) To DM4PR12MB5277.namprd12.prod.outlook.com
+ (2603:10b6:5:390::7)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3364268c-41c9-47ed-a6d1-b8ee04118a46@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5277:EE_|DM4PR12MB7693:EE_
+X-MS-Office365-Filtering-Correlation-Id: 532cc480-9ccc-4ece-f3b6-08dd7800de3e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dmlhUllRdTYya3BTcEwzVGFyS0hFQXM1Vmc2cnBkNkhVSjFFTHlSZVk3Yjdo?=
+ =?utf-8?B?UGN3bXdPeThEZ01LRFpZcEEvWDk4aUJxelhFbFh5Rk5jeDhYN2F4WVFhRHEr?=
+ =?utf-8?B?WmlQN21TemkwQ09lWm45UUdJeW1McjVselhDbVhGdHNXU2s0OGNaVmU1YzFt?=
+ =?utf-8?B?dmpjYzlLUzFSYTkwVmFoVVJDR1lJdFNQOFQ3YkI5cHllOXltYTV4ZFl3QVFJ?=
+ =?utf-8?B?ZU1MV2N3aFlKenZnOGowYUQyMUk2YlEzb0pkQnNZaGV5cDB6K0VwRDRsQnNx?=
+ =?utf-8?B?VHpjbXZGaGtOUmtJVWY3djhKV3BvYWZBc0ducmora09VYjJmeURjTDNaeTJt?=
+ =?utf-8?B?NlI4bGhQSGVUeWFzSW9pUHNyckdaejJNankzdkQ3cldzblNQTEp6dElQRE1G?=
+ =?utf-8?B?RU9XNEU3bGt6YjQvQzNEOFJrU052NDcvelZDM1V6cW94d1I0UnhMa21ZSVJW?=
+ =?utf-8?B?SWFDNEhPaGlKSzJuOHU3T1JMVmZ2L1JZcGxXK3F5RkpkMDZCVTgyNXR3RitN?=
+ =?utf-8?B?UGZyYjJMdGFiRndSQnRnNlJKR1pibDdaYkZNUmZJSjBBZG1Ta1N0NDRrRHEv?=
+ =?utf-8?B?SldOY09tbkhFVFJ2Mlg5VDdHQjVZb0ljWW9oN1crOXFSZWVWcHJqaG5nS01K?=
+ =?utf-8?B?TGpwOVdzV0V5R1JHWGsxVkNtNi8rNFVlaldDN2ZOSy9rTkZMbHhpSVVJYXhH?=
+ =?utf-8?B?S09NTWk3aVc4SFp6NWlYRmEzU0FjUTRyUVBhWU9zZ3drNkpMQkxLUnF0L2Nj?=
+ =?utf-8?B?Znp4RFhXSXVqazZZUE4rbzVaT2xNUFBHWTBwQkxOYk54RXl3bHYxRzNIcmF1?=
+ =?utf-8?B?SHQwYmt6bE5CYnBaMitqV1VqQTBzWExla0w0R09YTVcyVDB3WlZCc0pVaVR5?=
+ =?utf-8?B?YVJrS1VjUUhGVGI5bFI2c1hnSjJoanY5M2N3UHpUaHVwWWJ1OVZHdnFnUVdP?=
+ =?utf-8?B?eDViL21kMEQzWG9Oa0lmTU16M3ZsR1duMmV4NTJRaWhsSGNubnNxa1g4YVIy?=
+ =?utf-8?B?ZzJvYTEzc0NqQzlzWXRJS2VPbWtDUElkbmxteWlTTHQwN0dya2NNTGd2MkdV?=
+ =?utf-8?B?Mnl3LzRJRlZWNTlkV3ZMRUc3cGdoRlZwcncrNzcyUjBCMEhCcGY1OFp6Ykx5?=
+ =?utf-8?B?UUtSb0c5V3I3R3VlUCtFQmVPaVNrUU5XQnJMamZrVCtVMENZVUJValg5YWZy?=
+ =?utf-8?B?eW9ITWd5NzJpSHZiQmNLUURaWWVvQ2JnNHhTQjFTcEdkZFI4TkptZjlXODZh?=
+ =?utf-8?B?MmtIdGd1NVp3S0E3cHkvaVN2dGFQc3VJTHdUQ0J5R2F5MWFGeTR5dnhiSFMx?=
+ =?utf-8?B?Y0tKdHpOelJMQmI5L2FGeUR1VGNJbnFRQkFlNi9rYStxSVB3RUtXNjhlTlRr?=
+ =?utf-8?B?VkpmRGVZamlIOTlKZnlWL2hDK1NuU1phQXp4ODRTa3V4b0JrUzVNR2R0OE9p?=
+ =?utf-8?B?Q2c3T2EyMUtxOE96cWN6d0svR01BYU93d1RJbkVndm4xMmNMeWQvYjVsN3Qx?=
+ =?utf-8?B?TVdCaTBSODMyeDhTR2Vqc1JEUkk3S1hMS1BmMTNCa25MbU1vWkNERnBFRTQw?=
+ =?utf-8?B?eXYxWCsrN3hIMFlMWFNvM3FmVHFoV1FIR3pmU1AzMzVadGIyK1JFMC9QNDZk?=
+ =?utf-8?B?MUU5Zm1NbW9GVXgxTDZuVDV1OHBPWVBSZDVkQStuRnZVR2VXbG9jYVpHM3RE?=
+ =?utf-8?B?K2RMMWN0NWF6ZTh0RlZhZWQ4WTNGTlFvZnJreVB4ck5WSlJxSWxDSXR4clpm?=
+ =?utf-8?B?c2lUTTZzN2tQanc5bXdUcVpjdktQTnRIWko2Vk9qY2wyazIwcWUvRlFsVFAx?=
+ =?utf-8?B?R2tGZWsrWXhEOWtXQ0xKVzlpNllrbUUyUGxxWFdkTDd6VHF2blJvZlBFalNS?=
+ =?utf-8?Q?TIF7PdqKmY9sP?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5277.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dWdpWTI1UTFyR1ByVkpadGVncFEzUDJMWnNTbDN4KzhqL3B6U3F2bzdJcTI1?=
+ =?utf-8?B?SkhXdGtabGxnRUlEanY3N0w3Nk9rVnZXS3FxNmJnNmZwbmkvRjI4RnFYSExK?=
+ =?utf-8?B?KzhXK1A3QmV0Rk52ckNXZEwxR1M5dXNkT3dXajZVZk9ZbFhUQ2ZPODNYL0tv?=
+ =?utf-8?B?SWFRc2NyZSt0M1hDTXI3OVB3WHEwdHJmbXE1N1RZc1dWRkVSTVI3U2I2Vm5o?=
+ =?utf-8?B?R1FoVENvZ1ZsOFgvY2ZrU3hnS1ZTckZzcmZUTlhMeFc2by8vRUFlbGRZczhK?=
+ =?utf-8?B?TE5jalp2RkdWY0xrYkNsaTArbk5GblN1MHk4UWpOekFlbDhEbVk1UDBjTlly?=
+ =?utf-8?B?V3Yrejd0L25LRVFNN2JwLzZJaHZNdnZvNnBHK3BRNmVIdFlGMnQweGJTQXc2?=
+ =?utf-8?B?VitEMG5mVThzTkFya2xxZE85eXBDcytTc2JOMnJFWVF1SjI5TkZDOHFjcG9o?=
+ =?utf-8?B?aDdocTdBSkFwaEhjeXdhV25PRTNEc0Z4V2ZPeWVCbXR2cEphM1pVeTNvMFk3?=
+ =?utf-8?B?M3dsSFQ4dW4rbnBaNjRhWnRPUVBRQ29hdWZlcVA2VkJlVzhNYW1IUjlxZzN2?=
+ =?utf-8?B?aXU2RGhQNnU3eHpBd1E4d3Z1WHE4NnFMK1RiTzgrcjloT2FEQTQ4QXUySUpr?=
+ =?utf-8?B?ZndseEdhRFNVZFkwZjBmeW5VajdQV1JHZUxsZG1CZnJhM3djLzgvRmR5VG83?=
+ =?utf-8?B?TFJxUU8vRkYreTNWNTBORmtwUHN6NG1YcDFlWHpSTUIrbnJOaGJEdnZ5dVkr?=
+ =?utf-8?B?cmtGUHFweldxTlVTS3k5d2dWT0lCNml4V1hmblZXMmF5RnJYV0RWcUhqRUlh?=
+ =?utf-8?B?V1k5RUtKTW9tdWNRT2JtWEJNSVAzTlZORURFdTZxdy9nY1N0bS9qUjA3Mm1k?=
+ =?utf-8?B?RjI4MU9taklucU1rMGNUVmVWMFFqTVYya01OZUdGTERsbDc2bmxlbmZtZ1lC?=
+ =?utf-8?B?OUI2QjRrUFVaK2lpcFgyY1BmbjE3dzU3Y203TlhnQmU5a2ZxVDRzcjRta0ts?=
+ =?utf-8?B?WUdzU2ozbzdoVmt3dThsZlBzK09sNlhoNlBSelJxNWhWUTlqRWRBSFREbmd3?=
+ =?utf-8?B?b2Jja0tESXpDNmNvdFlaUUxQUm8yOVMyb2hNakVrSWIrbjR2UXpWcjFmZXhj?=
+ =?utf-8?B?cEc5MjdSRmt5UFluWDRsOGNLZERnalVEZmtUL1oyWTdhZE5zd01uOW1QaVpS?=
+ =?utf-8?B?TWZHdFNkZS8zN3VrS0tHZkdjN2J0UmgvNk1KQ2JFeXVSVnZvUnpVRHYzQ2JY?=
+ =?utf-8?B?cHYwK21SMnFUbzV4dlFuZWhDMXc4c0F5OU0vZkZ5RWpyY2liSlhiV29PbHVs?=
+ =?utf-8?B?WmJvS3gwNzhQMUdJZEpRWGlxZWxRcVVjYVhrNGIzUDRZRTdwczVPcDdOdGlD?=
+ =?utf-8?B?Sm5yUmc1ZkY5VEg2ZkIvWlIyNitXQitiNkdhbEwrRENwWnUvTThoTHQ4ZVV5?=
+ =?utf-8?B?Rkw1R3VLcUEzYTlvTXVpaFZqdThnWE9uUVg2OE5pZkZjS2NJYmUvbjllbTJP?=
+ =?utf-8?B?YUdDem5Fa3dPQk84aHk1b0JYcy9ERlIrbUR0VnNBU1RQbmdCS2NUTFlISlVE?=
+ =?utf-8?B?ZUx5RjlIcmFaTUNaOE1qRnUrYW56WTNGbTAwU1JSalAzM1dsaFh6UWxyTjJk?=
+ =?utf-8?B?d2owTHVkZ0FkN2xpVTRyRFNRVDgrRmRVTXZuZHFNYThLLzhnM3NJSFlheVo5?=
+ =?utf-8?B?NFN0bk1rVGdDQjlKdWJNZXpPRGpQVjVCTFRWVnE2TjkraVd2dE9Ta2d1OTN2?=
+ =?utf-8?B?ZENUOEpMQ3dGeEF4NDJXZ3VlY283NXp0ZjAvdVV3dnJNRGdadkFXWkFjcE9i?=
+ =?utf-8?B?bG1BL0VGY1RzRjhwUkU4RHZhSGpLRHplQlkzc0ZPZzVHOGU5Z1hNZ3FmL1lp?=
+ =?utf-8?B?Q3hBSnJCQ1FpSUs2bWR2aWZJS1Ewd3gxTy83MCtCZndnalZUOW5wKzIrUHZD?=
+ =?utf-8?B?REhGVW5oMUcrdG5UOXFRZzN4c1VKeDNjeTBYZmtqTkllejlPb1Y1akFWcmhO?=
+ =?utf-8?B?eHdtb0NudXUvdTZzdVo5aDhBdXYyRlhDWXBPUTBFa1pzZnNNWFZ2aXY4ak5i?=
+ =?utf-8?B?ZXhicnROTFhySVlENkVtY1FKZ1k3OGViRHgyOTYyanVwMVB2b1pSZEdDS3V2?=
+ =?utf-8?Q?8uv74+w7UPbv/mQgX/i1N6JLC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 532cc480-9ccc-4ece-f3b6-08dd7800de3e
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5277.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2025 07:25:28.3006
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Oe4TzYrkLDSc09X79jf/d2UtsyDAuh8p6ihm8cA3cfSMBebbLZ4vSaj38eywmxOU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7693
 
-On Tue, Apr 08, 2025 at 02:34:48PM +0200, Jan Beulich wrote:
-> On 08.04.2025 13:21, Roger Pau Monné wrote:
-> > On Wed, Apr 02, 2025 at 09:46:53AM +0200, Jan Beulich wrote:
-> >> x86/EFI: correct mkreloc header (field) reading
-> >>
-> >> With us now reading the full combined optional and NT headers, the
-> >> subsequent reading of (and seeking to) NT header fields is wrong. Since
-> >> PE32 and PE32+ NT headers are different anyway (beyond the image base
-> >> oddity extending across both headers), switch to using a union. This
-> >> allows to fetch the image base more directly then.
-> >>
-> >> Additionally add checking to map_section(), which would have caught at
-> >> least the wrong (zero) image size that we previously used.
-> >>
-> >> Fixes: f7f42accbbbb ("x86/efi: Use generic PE/COFF structures")
-> >> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >> ---
-> >> Of the two checks added to map_section(), the 1st ends up being largely
-> >> redundant with the 2nd one. Should we use just the latter?
-> >>
-> >> Also sanity checking the image base would be possible, but more
-> >> cumbersome if we wanted to check moret than just "is in high half of
-> >> address space). Therefore I've left out doing so.
-> > 
-> > We could likely check that image_base >= XEN_VIRT_START?  However I'm
-> > not sure how easy it is to make XEN_VIRT_START available to mkreloc.
+
+
+On 08/04/2025 05:42, Mykola Kvach wrote:
 > 
-> This is precisely why I said "more cumbersome".
 > 
-> >> @@ -54,31 +56,40 @@ static unsigned int load(const char *nam
-> >>  
-> >>      if ( lseek(in, mz_hdr.peaddr, SEEK_SET) < 0 ||
-> >>           read(in, &pe_hdr, sizeof(pe_hdr)) != sizeof(pe_hdr) ||
-> >> -         read(in, &pe32_opt_hdr, sizeof(pe32_opt_hdr)) != sizeof(pe32_opt_hdr) ||
-> >> -         read(in, &base, sizeof(base)) != sizeof(base) ||
-> >> -         /*
-> >> -          * Luckily the image size field lives at the
-> >> -          * same offset for both formats.
-> >> -          */
-> >> -         lseek(in, 24, SEEK_CUR) < 0 ||
-> >> -         read(in, image_size, sizeof(*image_size)) != sizeof(*image_size) )
-> >> +         (read(in, &pe32_opt_hdr.pe, sizeof(pe32_opt_hdr.pe)) !=
-> >> +          sizeof(pe32_opt_hdr.pe)) )
-> >>      {
-> >>          perror(name);
-> >>          exit(3);
-> >>      }
-> >>  
-> >>      switch ( (pe_hdr.magic == PE_MAGIC &&
-> >> -              pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr)) *
-> >> -              pe32_opt_hdr.magic )
-> >> +              pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr.pe)) *
-> >> +              pe32_opt_hdr.pe.magic )
-> >>      {
-> >>      case PE_OPT_MAGIC_PE32:
-> >>          *width = 32;
-> >> -        *image_base = base;
-> >> +        *image_base = pe32_opt_hdr.pe.image_base;
-> >> +        *image_size = pe32_opt_hdr.pe.image_size;
-> >>          break;
-> >>      case PE_OPT_MAGIC_PE32PLUS:
-> >> -        *width = 64;
-> >> -        *image_base = ((uint64_t)base << 32) | pe32_opt_hdr.data_base;
-> >> -        break;
-> >> +        if ( pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr.pep) )
-> >> +        {
-> >> +            if ( read(in,
-> >> +                      &pe32_opt_hdr.pe + 1,
-> >> +                      sizeof(pe32_opt_hdr.pep) - sizeof(pe32_opt_hdr.pe)) !=
-> >> +                 sizeof(pe32_opt_hdr.pep) - sizeof(pe32_opt_hdr.pe) )
-> >> +            {
-> >> +                perror(name);
-> >> +                exit(3);
-> >> +            }
-> >> +
-> >> +            *width = 64;
-> >> +            *image_base = pe32_opt_hdr.pep.image_base;
-> >> +            *image_size = pe32_opt_hdr.pep.image_size;
-> >> +            break;
-> >> +        }
-> > 
-> > Since you are already refactoring much of this code, won't it be
-> > clearer to fetch the header inside of the switch cases.  So that
-> > there's a single read call for each header type?
+> From: Mykola Kvach <mykola_kvach@epam.com>
 > 
-> Except that the switch() itself uses not only pe_hdr, but also
-> pe32_opt_hdr. That could be re-arranged, but I'm a little reluctant to
-> do so.
-
-Hm, I see, the magic field checked here is in the extended header, so
-we would need to fetch it ahead of the switch in any case.  How
-unhelpful.
-
-One thing that I find weird about this code is the obfuscation of the
-switch condition, won't it be easier to read as:
-
-if ( pe_hdr.magic != PE_MAGIC ||
-     pe_hdr.opt_hdr_size < sizeof(pe32_opt_hdr) )
-    fprintf(stderr,
-            "%s: Wrong PE magic or missing optional header\n", name);
-    exit(3);
-}
-
-switch ( pe32_opt_hdr.magic )
-{
-...
-
-I would assume the current arrangement is done as to reuse the
-`default` error label, but IMO that switch condition is too hard to
-parse.
-
-> >> @@ -108,11 +119,28 @@ static unsigned int load(const char *nam
-> >>  static long page_size;
-> >>  
-> >>  static const void *map_section(const struct section_header *sec, int in,
-> >> -                               const char *name)
-> >> +                               const char *name, uint_fast32_t image_size)
-> >>  {
-> >>      const char *ptr;
-> >>      unsigned long offs;
-> >>  
-> >> +    if ( sec->rva > image_size )
-> > 
-> > Strictly, should this be >=, as rva is a position, and image_size is a
-> > size, so the last allowed bit would be image_size - 1?
+> SGI and PPI descriptors are banked and stored in the per-CPU local_irq_desc
+> array, so not all elements of the global irq_desc array are used. This is
+> already accounted for in the descriptor lookup logic inside __irq_to_desc:
+>     return &irq_desc[irq - NR_LOCAL_IRQS];
 > 
-> Yes and no. No in so far as this would be wrong for zero-size sections.
-> Yet see also the first of the two post-commit-message remarks.
+> Therefore, the size of the irq_desc array can be reduced by NR_LOCAL_IRQS,
+> saving (NR_LOCAL_IRQS * L1_CACHE_BYTES) bytes of memory.
+Good finding. History shows that local_irq_desc was introduced after irq_desc
+that could explain the mistake.
 
-Hm, yes, don't have a strong opinion really, just leave it like that
-I guess.
+> 
+> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-Thanks, Roger.
+~Michal
+
+
 
