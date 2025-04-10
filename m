@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83828A847BA
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 17:25:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.945995.1344042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E13CA8480F
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 17:35:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.946010.1344053 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2tmQ-0003dC-F6; Thu, 10 Apr 2025 15:25:26 +0000
+	id 1u2tvr-0007Kq-EL; Thu, 10 Apr 2025 15:35:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 945995.1344042; Thu, 10 Apr 2025 15:25:26 +0000
+Received: by outflank-mailman (output) from mailman id 946010.1344053; Thu, 10 Apr 2025 15:35:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2tmQ-0003ax-By; Thu, 10 Apr 2025 15:25:26 +0000
-Received: by outflank-mailman (input) for mailman id 945995;
- Thu, 10 Apr 2025 15:25:25 +0000
+	id 1u2tvr-0007JY-Ao; Thu, 10 Apr 2025 15:35:11 +0000
+Received: by outflank-mailman (input) for mailman id 946010;
+ Thu, 10 Apr 2025 15:35:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=w6Mj=W4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u2tmP-0003ar-OG
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 15:25:25 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1u2tvq-0007JS-D6
+ for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 15:35:10 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 060deba0-1620-11f0-9eac-5ba50f476ded;
- Thu, 10 Apr 2025 17:25:24 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-39c1efc4577so524274f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 08:25:24 -0700 (PDT)
+ id 62495709-1621-11f0-9eac-5ba50f476ded;
+ Thu, 10 Apr 2025 17:35:09 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-39727fe912cso456275f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 08:35:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39d893fdf6dsm5188373f8f.90.2025.04.10.08.25.23
+ ffacd0b85a97d-39d893773b6sm5138082f8f.27.2025.04.10.08.35.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Apr 2025 08:25:23 -0700 (PDT)
+ Thu, 10 Apr 2025 08:35:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 060deba0-1620-11f0-9eac-5ba50f476ded
+X-Inumbo-ID: 62495709-1621-11f0-9eac-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744298724; x=1744903524; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744299308; x=1744904108; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Zxu3SVgIp9H96/Jfns/jSUY3Ym1A7Fnc2GgfUfxwAcY=;
-        b=dOzsJ4CMKufbaAUM2F70zKwD22NEMMDechC5rNw7gqBCApw66l02UCWQaKA0XjERPd
-         dhUh1jtXXGGcUcEJVV0140UQlONu4zaMSBv9SyO30i1JiIY+dPZYeLgs88b7YYYS2vKd
-         iT2GBv5zYQa6GgHiIe+LvIJWyduDh4sYmhRMN3b7yBgduONytX6aLt2GAzvH9RQyZ12h
-         AVcbKS+YCqwvfIFNyiCH8wiGqcokhTByZHIbmkDHlnMxSjgvCWpoimjmT2mIYjEsMpiT
-         l/fHPU5kAoCJ5lhxm3cZUStchyMkqXlPMseQK5tnlijscDP2wSIzAcsOYcDp6VA3jaUM
-         ioNw==
+        bh=HIA5sWh6Y0ceJnTmeADu8j738HgVYYEGj8eBEzCdEYY=;
+        b=epgwfj33qdjURK3WnHMz4OzBl6P5PsH0XMkcoYiIeqeXNpplAHy4LbKlPpDrt85LR4
+         xDZBNjEIqzwdrRM54GNTLbGYAfYrbqMKlf6wjB/EJm+SG/VDFCCJyQfxEyqam6QCo8WN
+         hIHiTHWYTIne1Kwdz2+vFm+t2N687c0Ratbg2oHNc0NCr1iqaWC1HXYeM53eEojnyUoY
+         0f6TDvKPmkjcgdV3m+IHUYcd72MZozcawvGG9WDtTnKOp+ijH72A5eJVCLhXnzb+WjLV
+         fLvVpV5iPO1vObTP4DE+GvlKC0FfEnXH9s+nk/22MZIL8F5ie3IHnQtKMM+hfp9M8zvu
+         9uqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744298724; x=1744903524;
+        d=1e100.net; s=20230601; t=1744299308; x=1744904108;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Zxu3SVgIp9H96/Jfns/jSUY3Ym1A7Fnc2GgfUfxwAcY=;
-        b=tJc8FmxiG64MtUz1V3sTebV7jQxEzhd97igvl9ZrKZBwFvEwthBbEMkVFLS14Vbfvi
-         kCB/rlvXw9K9FYw2kbfLSP/XhaVt1o7Ip2VPfWfOAL5TDtsMW7ezpiwBv1eqnQopOiLq
-         tcayIOQSHDRoElcvpRG0a2NsCqy5/f5sPfIfSS1qOf78/Rm4ruyLTSJfBlESfZjx2pjg
-         QyyqFE0ztxLowF5T0JlR0rIZFk1xAahV9PtB2TQJ2gLBOKAq2Bf+L8W4aI9FIPXf6ah8
-         5tbxUbXF3ZmZS4BZYB3qTdfcANEFwVWOt/HGRpW/smRdiVNc3sNTxaNFekuCZ1JYuC6l
-         HkQA==
-X-Forwarded-Encrypted: i=1; AJvYcCUv4LBqLk/ySOB2MeFh+hCr3Q8gP1H9uoLbS1ycKDhXDyZEypCl+6012yXMMnkH5UHRvuRst/tD2mQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzqs2VVgCUEKvXdn4PPJpsF0G2jd7b8ezO+Qe6JyIpoFugHJRRV
-	5RrVOjqxkIB5wvVRlbh8iVL39kaWJO7y8kz9wDs0qtPpvh9gbBClih7F6Y2FLw==
-X-Gm-Gg: ASbGncuQjO4kh7Hgg2UF2Chx7gaJBpNhKvK5fo+YdZmoAf23yQtZCBfl+8EaXuTOwPp
-	hoVDs1Aqf38aZ8qt8SY7XNKGWyxJjf/hD11vbHuntlkK103LV+hzpnrhkyv/nsNN66VawHi0sQR
-	ES0o+CXs1iL9Fg4lfD/hDva0mJ/8xRC5NkcaTOC33MIv1+6QujcJsSjctUzPtWXJ5Jz6Y2Pqv5l
-	vSQUE7NcWlShysmSxxJ0/MNb6o7NWOM5tmlv2G/aDj8K/7m6SYBvGO3foILUHUrH0aKvNQQLqbC
-	yVzcUEmoVCoK0+2lTn5ormqfgcfGiw32M7EZeadXBK2qlxBV17kPgexb07mY5jDMnL0Vn5GU3xD
-	hQQcvVTC0KywwptO8GG89mtIlgoJUn7fTVtmd
-X-Google-Smtp-Source: AGHT+IHDCTzJMaNYN6jB00mMzBvxY5wSFlZC/mlFC4YMtMw/ca1HQgiUwg6foJ9rhfTaL8x5yRqCMg==
-X-Received: by 2002:a05:6000:2283:b0:39c:1257:feba with SMTP id ffacd0b85a97d-39d8f4f0fa3mr2273586f8f.58.1744298724042;
-        Thu, 10 Apr 2025 08:25:24 -0700 (PDT)
-Message-ID: <f9e118ff-85fb-4bde-b313-740b1ea7ae4f@suse.com>
-Date: Thu, 10 Apr 2025 17:25:22 +0200
+        bh=HIA5sWh6Y0ceJnTmeADu8j738HgVYYEGj8eBEzCdEYY=;
+        b=PCGU/RN5NchtK6dFOg9Z9IioTCpl3wROhAV4CHWr0qodkAOOr9Dc5mmbCX3V24wfPV
+         aJexSPWtscIAt47HbAiLmPV7IED5EjaHiwep93mtFMtuWlU7VwxOlES6o0evhSGNHq8M
+         Dpn6ZdagP5ZefKSA48uR98f17eZqh/xW1xUqQa9l6UjYKpJnYt0ZZyGJVnCnEY38Bv03
+         Mho5vmLE6pkr+lz35gpAsBHSQgF0/a9qavEMgVwpsxsKn782OE1yPRxEVmLsA11LiwIR
+         vcjXbYvxijquptzHYHu4zcZu1zuAc0E8yMGn4Gy/15Orw9+hN81EzQqrKK06w1MYgqfb
+         9a9A==
+X-Forwarded-Encrypted: i=1; AJvYcCWID9LOU4xoLYoPhak6iMDETkgI89bY1vYNmb6NV2MnaWOxPas/QPeWtzFEwM8nyNi0GsLVEP0/uN0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwBeeDcysQzzgGH2I9fMV+3Mq6wt6wA5zh5YtNjZ9gmVxk2Rd1F
+	+yYC6z1LCSYVK5f68EoExkwhw6PAgjdUdC3ftHcbJeiF2ZQ787l8CqupwZHfgA==
+X-Gm-Gg: ASbGncsro196LQWQT+QyjnCzj7ezfOa4+2CWfCApt2qwKAF4QuU0vnSqSMkDhEskfB6
+	ClHJHPiVb7Tp+M/ePPbBN6HNndOEFAcdS9KmGkHhd99TEF0Cu8aL2lzrVTUIa2y/8CNSxfMcJ7G
+	FToQOrQYMiofHcymtjdDYGvT7q3H5VhWsadHWomD8HaZq5zDR+B/M1KwgP761MNZH9wFhmw0Aor
+	mvG+LJ0EyllH5kHW0T9VKbYS0Clj3HXbPjIbgjpoNYYCzlLa43QQeFV2lmg30SLhPa22ojRycAL
+	BcKsDg5rwk+/1K36ddd618EgO7PYNEYJcI7egDYdJPU+7yUmlRjrAq6kTdw+XXQqx/wQ+IZuWgy
+	KzlMRi/aQE5WpGhHSQneAOoUi+h4iWOMNqi5+
+X-Google-Smtp-Source: AGHT+IFGzG8Mfy5FdYKmOnJsiPL6isuXs46HLwYZoFJAbv0f4EnVM1fMb3QlUXzCBUXP+cyOHhorxQ==
+X-Received: by 2002:a5d:64aa:0:b0:39d:8128:978 with SMTP id ffacd0b85a97d-39d8f473b76mr3123945f8f.34.1744299308068;
+        Thu, 10 Apr 2025 08:35:08 -0700 (PDT)
+Message-ID: <31de00cb-b3b4-4d15-a128-930dc1c7ccdf@suse.com>
+Date: Thu, 10 Apr 2025 17:35:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 04/14] xen/riscv: introduce init_IRQ()
+Subject: Re: [PATCH v1 05/14] xen/riscv: introduce platform_get_irq()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -95,9 +95,10 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
 References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <dff8b0a4a83fbd2b84c3427093a63fcee8a7122f.1744126720.git.oleksii.kurochko@gmail.com>
+ <6c6e7482cc3b0332f5724c80bf16931fe2d793ae.1744126720.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,71 +124,113 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <dff8b0a4a83fbd2b84c3427093a63fcee8a7122f.1744126720.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <6c6e7482cc3b0332f5724c80bf16931fe2d793ae.1744126720.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 08.04.2025 17:57, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/irq.h
-> +++ b/xen/arch/riscv/include/asm/irq.h
-> @@ -3,6 +3,28 @@
->  #define ASM__RISCV__IRQ_H
+> @@ -21,6 +22,22 @@ static struct intc_info __ro_after_init aplic_info = {
+>      .hw_version = INTC_APLIC,
+>  };
 >  
->  #include <xen/bug.h>
-> +#include <xen/device_tree.h>
-> +
-> +#define NR_IRQS 1024
-> +
-> +/*
-> + * TODO: Should IRQ_TYPE_* be moved to xen/irq.h and wrapped into
-> + * #ifdef CONFIG_HAS_DEVICE_TREE?
-> + */
+> +static int aplic_irq_xlate(const uint32_t *intspec, unsigned int intsize,
 
-Wouldn't that be more like asm-generic/dt-irq.h (or irq-dt.h)? The field where
-these values are stored is an arch-specific one, after all.
+As you start adding functions calling indirectly, please consider adding cf_check
+right away, even if right now this has no effect on RISC-V. That'll save you from
+going through the entire RISC-V subtree later on to find them all.
 
-> --- /dev/null
-> +++ b/xen/arch/riscv/irq.c
-> @@ -0,0 +1,44 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +/*
-> + * RISC-V Trap handlers
-> + *
-> + * Copyright (c) 2024 Vates
-> + */
-> +
-> +#include <xen/bug.h>
-> +#include <xen/init.h>
-> +#include <xen/irq.h>
-> +
-> +static irq_desc_t irq_desc[NR_IRQS];
-> +
-> +int arch_init_one_irq_desc(struct irq_desc *desc)
+> +                           unsigned int *out_hwirq,
+> +                           unsigned int *out_type)
 > +{
-> +    desc->arch.type = IRQ_TYPE_INVALID;
+> +    if ( intsize < 2 )
+> +        return -EINVAL;
+> +
+> +    /* Mapping 1:1 */
+> +    *out_hwirq = intspec[0];
+> +
+> +    if ( out_type )
+> +        *out_type = intspec[1] & IRQ_TYPE_SENSE_MASK;
+> +
 > +    return 0;
 > +}
 > +
-> +static int __init init_irq_data(void)
+>  static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
+>  {
+>      if ( aplic_info.node )
+> @@ -35,6 +52,8 @@ static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
+>  
+>      aplic_info.node = node;
+>  
+> +    dt_irq_xlate = aplic_irq_xlate;
+> +
+>      return 0;
+>  }
+>  
+> --- a/xen/arch/riscv/include/asm/irq.h
+> +++ b/xen/arch/riscv/include/asm/irq.h
+> @@ -47,6 +47,9 @@ static inline void arch_move_irqs(struct vcpu *v)
+>      BUG_ON("unimplemented");
+>  }
+>  
+> +struct dt_device_node;
+> +int platform_get_irq(const struct dt_device_node *device, int index);
+
+And I assume callers of this will appear later in the series.
+
+> --- a/xen/arch/riscv/irq.c
+> +++ b/xen/arch/riscv/irq.c
+> @@ -7,11 +7,52 @@
+>   */
+>  
+>  #include <xen/bug.h>
+> +#include <xen/device_tree.h>
+> +#include <xen/errno.h>
+>  #include <xen/init.h>
+>  #include <xen/irq.h>
+>  
+>  static irq_desc_t irq_desc[NR_IRQS];
+>  
+> +static bool irq_validate_new_type(unsigned int curr, unsigned int new)
 > +{
-> +    int irq;
+> +    return (curr == IRQ_TYPE_INVALID || curr == new );
+> +}
 > +
-> +    for ( irq = 0; irq < NR_IRQS; irq++ )
-
-For this the variable would better be of unsigned type. I realize though that ...
-
-> +    {
-> +        struct irq_desc *desc = irq_to_desc(irq);
-> +        int rc = init_one_irq_desc(desc);
+> +static int irq_set_type(unsigned int irq, unsigned int type)
+> +{
+> +    unsigned long flags;
+> +    struct irq_desc *desc = irq_to_desc(irq);
+> +    int ret = -EBUSY;
 > +
-> +        if ( rc )
-> +            return rc;
+> +    spin_lock_irqsave(&desc->lock, flags);
 > +
-> +        desc->irq = irq;
+> +    if ( !irq_validate_new_type(desc->arch.type, type) )
+> +        goto err;
+> +
+> +    desc->arch.type = type;
+> +
+> +    ret = 0;
+> +
+> +err:
 
-... it's a plain int field that we're storing into here. I don't think I can spot
-any place where a negative value would be stored into there.
+Labels indented by at least one blank please.
+
+> +    spin_unlock_irqrestore(&desc->lock, flags);
+> +
+> +    return ret;
+> +}
+> +
+> +int platform_get_irq(const struct dt_device_node *device, int index)
+> +{
+> +    struct dt_irq dt_irq;
+> +
+> +    if ( dt_device_get_irq(device, index, &dt_irq) )
+> +        return -1;
+> +
+> +    if ( irq_set_type(dt_irq.irq, dt_irq.type) )
+> +        return -1;
+
+Can you please return proper -E... values, perhaps ones coming back from the
+functions called?
 
 Jan
 
