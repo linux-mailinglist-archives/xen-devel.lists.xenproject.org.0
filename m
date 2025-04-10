@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14473A83EE2
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 11:35:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.945113.1343376 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00BD2A83F02
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 11:38:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.945126.1343386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2oJo-0002zA-4j; Thu, 10 Apr 2025 09:35:32 +0000
+	id 1u2oMK-0003Yj-JE; Thu, 10 Apr 2025 09:38:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 945113.1343376; Thu, 10 Apr 2025 09:35:32 +0000
+Received: by outflank-mailman (output) from mailman id 945126.1343386; Thu, 10 Apr 2025 09:38:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2oJo-0002w0-1s; Thu, 10 Apr 2025 09:35:32 +0000
-Received: by outflank-mailman (input) for mailman id 945113;
- Thu, 10 Apr 2025 09:35:30 +0000
+	id 1u2oMK-0003Va-Ep; Thu, 10 Apr 2025 09:38:08 +0000
+Received: by outflank-mailman (input) for mailman id 945126;
+ Thu, 10 Apr 2025 09:38:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=C125=W4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u2oJm-0002vs-BV
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 09:35:30 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1u2oMI-0003VU-RF
+ for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 09:38:06 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 23e025fb-15ef-11f0-9eac-5ba50f476ded;
- Thu, 10 Apr 2025 11:35:29 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-399749152b4so237796f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 02:35:29 -0700 (PDT)
+ id 80fc8fad-15ef-11f0-9eac-5ba50f476ded;
+ Thu, 10 Apr 2025 11:38:05 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43edecbfb94so6743335e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 02:38:05 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39d893fdf3bsm4133990f8f.83.2025.04.10.02.35.28
+ ffacd0b85a97d-39d89389f72sm4137248f8f.42.2025.04.10.02.38.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Apr 2025 02:35:28 -0700 (PDT)
+ Thu, 10 Apr 2025 02:38:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23e025fb-15ef-11f0-9eac-5ba50f476ded
+X-Inumbo-ID: 80fc8fad-15ef-11f0-9eac-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744277729; x=1744882529; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1744277885; x=1744882685; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SW4Ik/wV4z/V5OEQf+s0ow10uVY0kYF6K9B8ww7eMD0=;
-        b=k15DCjLcxjgzL0fnbRTXNzyzu8zi84OMRtEy1fMvZWq4KGD5fRICOQyAHzwDSTGf44
-         oqHUAqGqjx+ZnV6jmtgz/GuVPER4b5cF7KgcXrUsLz8JoaQJKmz+Jzf6A/SRY4u/GS9E
-         yqnACsXRwUaYWXtlIYkkw15rb7V/jVML/i7AU=
+        bh=Ehf6MDnNuOD0ctLpObTA1Oi+jvFLRouboCnaqmlEZuw=;
+        b=ApZjQjoO23Frp9HknV7MNKaEMsCt9VP0rKN5Whh2Vga7wBnywnnHvca+OETZnFLFdG
+         xt3nDTcfX31Nlcqs9yHUh5QjTa0uE1WA86u8vw8BFTiooCZekpvckYci5I4bF9LUxpvX
+         ZxYpEyVfQFrR/ITeAcbf1MrlCk8+/kQ0+ynkc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744277729; x=1744882529;
+        d=1e100.net; s=20230601; t=1744277885; x=1744882685;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SW4Ik/wV4z/V5OEQf+s0ow10uVY0kYF6K9B8ww7eMD0=;
-        b=LHmXFbVQj0QNR5vnJXoE4t3JH8vMjKAiOzWx3nFPfe04JcRk8hpFyGIfSj1imO6emq
-         kKljSQOoNaZDnPYiP/MSixXqrLGRZQjya9oeLDRS8NRwCYgfP+w3Ou2+Bfzq5DKl5OaI
-         Wz7APzoZi0ahRfCSF6EnLzcdT37z+0JR4hJcidd1yLBzGnXCu4X6EiBHPong0FaF9l3J
-         3ytqrXWqHH5cK2H4bEmxNqKagVNESHGoacYzOFqRCdoNYzq3OXNwlWhRjLOs+gqsEyEe
-         R8M87yBMzbX5Dioujzp+gTp5BgG2td15oJnoW2bNkmgTVKXWk8C4pzcbK5iVWGaih3gQ
-         n8hg==
-X-Gm-Message-State: AOJu0Yxf3U7oQWM5SZbaLOvfW33YqwthtqSTBZ2PErikI8bLWDWwMCjn
-	CP54Be9btgv8yGI6gK0D4IW78I2zFW/SEdhq9oDOWjB9vJ6Ndbj5nPcn2ONTxjs=
-X-Gm-Gg: ASbGncvyw8ShOk2kc/cegXgdv2MDARoS/2Tkgf2j6ThIFflG/ElpuBFprUkCAvQ2qHA
-	NjCo1Ch4hVlK/u895ltp2TI785IXv9QLvEQy9tbz/b9mVwRNnWq80AQEdd+t7DBJa2ppxI+JvLX
-	Oksg2+4t4yvkCLSSN35cVtUK38rOisvWtKSWOVRcTz9+HKbsFbqv4kLXgahtMhQ9hzJKHHL0EUb
-	cZBLEBF9J8eVgZOtVeVUQLrDeElH9wCsf6QtKlAzeU1/9fitJt6iJgFwp/keGkpMSn0bR5dc1IS
-	Dq/pVzSQvPGB28kqqcNjGeddo3Zyf8NomCRQ9hgRHcWLoD8Odh8krckyjtf6QgqcmQbdUbRPBRB
-	JOKzmZg==
-X-Google-Smtp-Source: AGHT+IFFAl/14o92Zmo3bXPV6LuunUDfSA8a0XSTE1s/v39muvzzlQR54qlDKHOofFAAFrfsz+DZ1A==
-X-Received: by 2002:a05:6000:381:b0:391:4231:40a with SMTP id ffacd0b85a97d-39d8f474c13mr1745867f8f.33.1744277728741;
-        Thu, 10 Apr 2025 02:35:28 -0700 (PDT)
-Message-ID: <a065d9fc-e0ff-4f02-9baf-24ee6a25338a@citrix.com>
-Date: Thu, 10 Apr 2025 10:35:27 +0100
+        bh=Ehf6MDnNuOD0ctLpObTA1Oi+jvFLRouboCnaqmlEZuw=;
+        b=mmyR9aYdIMC9V9Ujcad8DemysDQ/ecUUmE7RX9eVcd6INR3xqyJqmxS78lBgqUYuix
+         3LUXazneLXymstn6CTjG5vAPKR51XkHvt0WvyuX5qp3/U4bwsLj716UKxMPXaHazjIc3
+         7tJxF/3n7Lz0hgJx3hOmQkYPskImb1+1Cs5Fy1k99c0GHr4VRI9OE8RP5Z43fiFFqhMx
+         jLnE8qn+H04/tBTfVzjTifELrhYqxt0HNEoB2ACYI12xeJgJBxA4wNPIUTyl89PhulEF
+         +IM06P35eRUCs2zA/NPKJX/tssW5O0JsR1mie4bUJ1dn1LWWn1fw47O3yFzc6TDx+YD1
+         PxiQ==
+X-Gm-Message-State: AOJu0YyGHa+HuDr1aro0IDwkAtsWQD1s4qE56rLtJkTpFZ8ir/TwN696
+	JBrJd2eAL8jilKJxGeKfgyzE7I7MU0satuYoOSwoHqgmLiU/1DmxXfWhB1nQtaM=
+X-Gm-Gg: ASbGncueikMDX2fNEITMvmalip6FlWy+mw2nRyuNMAPp93gGm01aOrHT7gg+skib+16
+	/p6Ti3hdtbm3Ol7Jq0yo7vDhhJKsSVurAy8yR53D0bgqCVQIh9e6lObskZ64VilMRTT0hAOoOy7
+	b9/dPOQOFTLje4S1KIjhfHDbE/U3LkpoRYKgz93q/2KlYzFGdd3kpQyFAkZ4UlSDpeEu2jzs/Qq
+	BODa3Pn8xx+ReYYGjQuxz38WMA77Sz9wvDGXJ4nxNVdv0OKtea0ry5SWPrlAkeudClQ1b7MM9rg
+	Q+94fNBiQzfSSm6iToy2u4kQpcvcD2w7bmajHoAUHk7AqlF5xc/A+yFRiD4131mxxUTRTi6mzzC
+	ymQX9yQ==
+X-Google-Smtp-Source: AGHT+IEXbs8xYmJ8tQGevFdbb4W/6yjlxQVQ0VtS11ykeXmVH2iLMq7lcy0iU/7rhFX5MOYH9jZdMw==
+X-Received: by 2002:adf:9dc1:0:b0:39a:d20b:5c14 with SMTP id ffacd0b85a97d-39d8fd8a268mr1210053f8f.36.1744277884938;
+        Thu, 10 Apr 2025 02:38:04 -0700 (PDT)
+Message-ID: <fa1875a7-3267-447f-b96e-ce92e31887e8@citrix.com>
+Date: Thu, 10 Apr 2025 10:38:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/8] Port containerise
-To: Anthony PERARD <anthony.perard@vates.tech>
+Subject: Re: [PATCH 4/8] Clean up Gitlab yaml
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Michal Orzel <michal.orzel@amd.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+ Anthony PERARD <anthony.perard@vates.tech>
 References: <20250409163702.2037301-1-andrew.cooper3@citrix.com>
- <20250409163702.2037301-3-andrew.cooper3@citrix.com> <Z_eQfmVjH5Z4TQ5K@l14>
+ <20250409163702.2037301-5-andrew.cooper3@citrix.com>
+ <Z_arM5JqPuyt7dFm@mail-itl>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,22 +139,26 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <Z_eQfmVjH5Z4TQ5K@l14>
+In-Reply-To: <Z_arM5JqPuyt7dFm@mail-itl>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/04/2025 10:33 am, Anthony PERARD wrote:
-> On Wed, Apr 09, 2025 at 05:36:56PM +0100, Andrew Cooper wrote:
->> +BASE="registry.gitlab.com/xen-project/hardware/test-artifacts"
->> +case "_${CONTAINER}" in
->> +    _alpine-x86_64-base) CONTAINER="${BASE}/alpine:x86_64-base" ;;
-> There's no "images/alpine/x86_64-base.dockerfile" in the repo, do you
-> mean "alpine:x86_64-rootfs" instead?
+On 09/04/2025 6:15 pm, Marek Marczykowski-Górecki wrote:
+> On Wed, Apr 09, 2025 at 05:36:58PM +0100, Andrew Cooper wrote:
+>> Factor out the registry into a common location.  Fix the worflow name.  List
+>> all the stages.  Set a default expiry of 1 month.
+> This is okay, since last artifacts for a branch are preserved even if
+> expired.
+>
+>> Note all the current jobs as legacy.  Their naming scheme needs changing, and
+>> we'll use this opportunity to switch formats too.  However, the artefacts need
+>> to stay using the old name until the final staging-* branch using them is
+>> phased out.
+> This could use a comment what should the new naming be.
 
-Yes and no.  I'm renaming the containers, but haven't posted that part
-of the series yet.
-
-This wants to go back to rootfs in the short term.
+Same as we use in Xen.  linux-$VER-$ARCH, as shown later in the series,
+and alpine-$VER-$ARCH-rootfs (currently there's no $VER, and this is
+going to break horribly when moving off 3.18).
 
 ~Andrew
 
