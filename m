@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEC18A84FCD
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 00:48:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.946487.1344367 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1FBFA85015
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 01:25:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.946504.1344377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u30gZ-0006do-7u; Thu, 10 Apr 2025 22:47:51 +0000
+	id 1u31G4-0000yJ-15; Thu, 10 Apr 2025 23:24:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 946487.1344367; Thu, 10 Apr 2025 22:47:51 +0000
+Received: by outflank-mailman (output) from mailman id 946504.1344377; Thu, 10 Apr 2025 23:24:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u30gZ-0006b4-3U; Thu, 10 Apr 2025 22:47:51 +0000
-Received: by outflank-mailman (input) for mailman id 946487;
- Thu, 10 Apr 2025 22:47:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u31G3-0000wr-T5; Thu, 10 Apr 2025 23:24:31 +0000
+Received: by outflank-mailman (input) for mailman id 946504;
+ Thu, 10 Apr 2025 23:24:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sQhE=W4=linux-foundation.org=akpm@srs-se1.protection.inumbo.net>)
- id 1u30gX-0006ay-I0
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 22:47:49 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2ae8c65-165d-11f0-9ead-5ba50f476ded;
- Fri, 11 Apr 2025 00:47:47 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B03A260008;
- Thu, 10 Apr 2025 22:47:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72DF3C4CEDD;
- Thu, 10 Apr 2025 22:47:45 +0000 (UTC)
+ <SRS0=BGYy=W4=flex--seanjc.bounces.google.com=3JFP4ZwYKCfElXTgcVZhhZeX.VhfqXg-WXoXeeblml.qXgikhcXVm.hkZ@srs-se1.protection.inumbo.net>)
+ id 1u31G2-0000wj-OL
+ for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 23:24:30 +0000
+Received: from mail-pf1-x449.google.com (mail-pf1-x449.google.com
+ [2607:f8b0:4864:20::449])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eed3d97f-1662-11f0-9ffb-bf95429c2676;
+ Fri, 11 Apr 2025 01:24:23 +0200 (CEST)
+Received: by mail-pf1-x449.google.com with SMTP id
+ d2e1a72fcca58-736cd36189bso1663716b3a.2
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 16:24:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,56 +40,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2ae8c65-165d-11f0-9ead-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
-	s=korg; t=1744325266;
-	bh=1tnfPuvkdBHhkMd126G0IxK9k3gsj3KHkqYbgp6rqwk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=e6xef16qlSCuaWmvesXMrxudpX3PdJoqdNQrXzsVNJrRRrc/hIgkchadNM34Ppb4j
-	 YRP22ogIXwogTnAqDkh7D1n1YtKcQftorM0XAqg0S2/V4Yun6qCg+vGECTW9UKKua2
-	 l9Tu9D3P64Os0dK/iz7clScFQuOJTR8wIZOF5Qj8=
-Date: Thu, 10 Apr 2025 15:47:44 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>, Hugh Dickins
- <hughd@google.com>, Nicholas Piggin <npiggin@gmail.com>, Guenter Roeck
- <linux@roeck-us.net>, Juergen Gross <jgross@suse.com>, Jeremy Fitzhardinge
- <jeremy@goop.org>, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- kasan-dev@googlegroups.com, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] mm: Protect kernel pgtables in
- apply_to_pte_range()
-Message-Id: <20250410154744.44991b2abe5f842e34320917@linux-foundation.org>
-In-Reply-To: <Z/fauW5hDSt+ciwr@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
-References: <cover.1744128123.git.agordeev@linux.ibm.com>
-	<ef8f6538b83b7fc3372602f90375348f9b4f3596.1744128123.git.agordeev@linux.ibm.com>
-	<Z/fauW5hDSt+ciwr@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+X-Inumbo-ID: eed3d97f-1662-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1744327461; x=1744932261; darn=lists.xenproject.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=+8Hj0FhxYq298MEgk+A50ezX9To9apyasGONCk8/EIY=;
+        b=nRjbiHgQcTnQuFFINhx7Raz0zuWHaWfKoQPFi2fGDAHU/n2b2lhFoaSxms3aCh8J0R
+         /PBzC81zxmQEqI+JIDoW7WnJs+eHm1OinfjVuWGALfd2oyKI4nX7hJPSQv+4BXai7W1S
+         k7npYGDlqiybRH1lAL4ejDnI5HUo0gEPcXroex+oh5H0uhGuJMovUPi5knuqEBtUVPXh
+         Hz3xNBDb4mrSYQ+C6tdhNAOzbdLhpxxonu1oGKH9crfs2at9Xp7G/tx2fXZifXRXEdhA
+         1AIwEGfiaruqUrjsS8gki2tSl+cXcyXkfmFuzdOMVQhVTUMX2iWktjrwAE5SoKbFOEGz
+         ODGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744327461; x=1744932261;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+8Hj0FhxYq298MEgk+A50ezX9To9apyasGONCk8/EIY=;
+        b=Mh9A/koIh750A/0QWWTEEabkPSC5knrxccMOzhBb/HhM0g7J50Po6LHhz8J+h0S8bg
+         FMFwOHoaJBNNsPbMonsj00Jm2UhX2Omt47c8LpUALoa6AueTjNUk15in8eExbAu1RMtA
+         TI9C3xI98WYlBkTB7Q8towS3OHweLJd3cPQVjwulH46vJv9XeEXXMjT5+/oLznCiYr0j
+         A44iFiQOWuTo6ccJi7FfM6v0ZuV7nQsZRgnD5HRRAlYcx+qiVQ1tYF/5d1rdVBssnGBA
+         fSSDL03W6OoZoQYpKj9du37X/xz3jJd+3DgBltOwJ50JlzxusGa2cvOpGfNVtC3zfBoF
+         BY2A==
+X-Forwarded-Encrypted: i=1; AJvYcCXCPrfEk4KQWDoeP5z1m9faHF0RCu5hPpW+fKz97N57ngxs4YJe5LNWIERGu++Pr1MalHCuVHQf09I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyrHLuQz4un56EZKVTWhllwvx6+skp2FA4dzueV4mfl4RWBUHRC
+	yOgnK8bHkxLiRDD6XsNIGX6lEjDM/RzSq6SnJNna7UReoubhY4XW8GlNXdIf6IlSGwTV/RZG/l9
+	gIw==
+X-Google-Smtp-Source: AGHT+IHWYnK2BwFW7Mr5VmhaaxwX1jXjykj9i9MFxC3vV2mlnL+NePMyv0dJBUjVtFSac3MvKiuBJyLqfxA=
+X-Received: from pfbfj37.prod.google.com ([2002:a05:6a00:3a25:b0:730:8b4c:546c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:21c7:b0:736:5c8e:baaa
+ with SMTP id d2e1a72fcca58-73bd119427emr706022b3a.2.1744327460939; Thu, 10
+ Apr 2025 16:24:20 -0700 (PDT)
+Date: Thu, 10 Apr 2025 16:24:19 -0700
+In-Reply-To: <20250331082251.3171276-11-xin@zytor.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20250331082251.3171276-1-xin@zytor.com> <20250331082251.3171276-11-xin@zytor.com>
+Message-ID: <Z_hTI8ywa3rTxFaz@google.com>
+Subject: Re: [RFC PATCH v1 10/15] KVM: VMX: Use WRMSRNS or its immediate form
+ when available
+From: Sean Christopherson <seanjc@google.com>
+To: "Xin Li (Intel)" <xin@zytor.com>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev, 
+	linux-edac@vger.kernel.org, kvm@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, linux-ide@vger.kernel.org, 
+	linux-pm@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
+	tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, jgross@suse.com, 
+	andrew.cooper3@citrix.com, peterz@infradead.org, acme@kernel.org, 
+	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
+	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, 
+	kan.liang@linux.intel.com, wei.liu@kernel.org, ajay.kaher@broadcom.com, 
+	alexey.amakhalov@broadcom.com, bcm-kernel-feedback-list@broadcom.com, 
+	tony.luck@intel.com, pbonzini@redhat.com, vkuznets@redhat.com, 
+	luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com, 
+	haiyangz@microsoft.com, decui@microsoft.com
+Content-Type: text/plain; charset="us-ascii"
 
-On Thu, 10 Apr 2025 16:50:33 +0200 Alexander Gordeev <agordeev@linux.ibm.com> wrote:
+On Mon, Mar 31, 2025, Xin Li (Intel) wrote:
+> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+> ---
+>  arch/x86/include/asm/msr-index.h |  6 ++++++
+>  arch/x86/kvm/vmx/vmenter.S       | 28 ++++++++++++++++++++++++----
+>  2 files changed, 30 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
+> index e6134ef2263d..04244c3ba374 100644
+> --- a/arch/x86/include/asm/msr-index.h
+> +++ b/arch/x86/include/asm/msr-index.h
+> @@ -1226,4 +1226,10 @@
+>  						* a #GP
+>  						*/
+>  
+> +/* Instruction opcode for WRMSRNS supported in binutils >= 2.40 */
+> +#define ASM_WRMSRNS		_ASM_BYTES(0x0f,0x01,0xc6)
+> +
+> +/* Instruction opcode for the immediate form RDMSR/WRMSRNS */
+> +#define ASM_WRMSRNS_RAX		_ASM_BYTES(0xc4,0xe7,0x7a,0xf6,0xc0)
+> +
+>  #endif /* _ASM_X86_MSR_INDEX_H */
+> diff --git a/arch/x86/kvm/vmx/vmenter.S b/arch/x86/kvm/vmx/vmenter.S
+> index f6986dee6f8c..9fae43723c44 100644
+> --- a/arch/x86/kvm/vmx/vmenter.S
+> +++ b/arch/x86/kvm/vmx/vmenter.S
+> @@ -64,6 +64,29 @@
+>  	RET
+>  .endm
+>  
+> +/*
+> + * Write EAX to MSR_IA32_SPEC_CTRL.
+> + *
+> + * Choose the best WRMSR instruction based on availability.
+> + *
+> + * Replace with 'wrmsrns' and 'wrmsrns %rax, $MSR_IA32_SPEC_CTRL' once binutils support them.
+> + */
+> +.macro WRITE_EAX_TO_MSR_IA32_SPEC_CTRL
+> +	ALTERNATIVE_2 __stringify(mov $MSR_IA32_SPEC_CTRL, %ecx;		\
+> +				  xor %edx, %edx;				\
+> +				  mov %edi, %eax;				\
+> +				  ds wrmsr),					\
+> +		      __stringify(mov $MSR_IA32_SPEC_CTRL, %ecx;		\
+> +				  xor %edx, %edx;				\
+> +				  mov %edi, %eax;				\
+> +				  ASM_WRMSRNS),					\
+> +		      X86_FEATURE_WRMSRNS,					\
+> +		      __stringify(xor %_ASM_AX, %_ASM_AX;			\
+> +				  mov %edi, %eax;				\
+> +				  ASM_WRMSRNS_RAX; .long MSR_IA32_SPEC_CTRL),	\
+> +		      X86_FEATURE_MSR_IMM
+> +.endm
 
-> On Tue, Apr 08, 2025 at 06:07:32PM +0200, Alexander Gordeev wrote:
-> 
-> Hi Andrew,
-> 
-> > The lazy MMU mode can only be entered and left under the protection
-> > of the page table locks for all page tables which may be modified.
-> 
-> Heiko Carstens noticed that the above claim is not valid, since
-> v6.15-rc1 commit 691ee97e1a9d ("mm: fix lazy mmu docs and usage"),
-> which restates it to:
-> 
-> "In the general case, no lock is guaranteed to be held between entry and exit
-> of the lazy mode. So the implementation must assume preemption may be enabled"
-> 
-> That effectively invalidates this patch, so it needs to be dropped.
-> 
-> Patch 2 still could be fine, except -stable and Fixes tags and it does
-> not need to aim 6.15-rcX. Do you want me to repost it?
+This is quite hideous.  I have no objection to optimizing __vmx_vcpu_run(), but
+I would much prefer that a macro like this live in generic code, and that it be
+generic.  It should be easy enough to provide an assembly friendly equivalent to
+__native_wrmsr_constant().
 
-I dropped the whole series - let's start again.
+
+> +
+>  .section .noinstr.text, "ax"
+>  
+>  /**
+> @@ -123,10 +146,7 @@ SYM_FUNC_START(__vmx_vcpu_run)
+>  	movl PER_CPU_VAR(x86_spec_ctrl_current), %esi
+>  	cmp %edi, %esi
+>  	je .Lspec_ctrl_done
+> -	mov $MSR_IA32_SPEC_CTRL, %ecx
+> -	xor %edx, %edx
+> -	mov %edi, %eax
+> -	wrmsr
+> +	WRITE_EAX_TO_MSR_IA32_SPEC_CTRL
+>  
+>  .Lspec_ctrl_done:
+>  
+> -- 
+> 2.49.0
+> 
 
