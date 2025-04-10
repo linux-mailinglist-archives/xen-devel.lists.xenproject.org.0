@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95945A8403A
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 12:12:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.945216.1343455 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A461A840F2
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 12:41:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.945236.1343464 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2ot0-0001kY-CR; Thu, 10 Apr 2025 10:11:54 +0000
+	id 1u2pLV-0001ju-IF; Thu, 10 Apr 2025 10:41:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 945216.1343455; Thu, 10 Apr 2025 10:11:54 +0000
+Received: by outflank-mailman (output) from mailman id 945236.1343464; Thu, 10 Apr 2025 10:41:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2ot0-0001iF-9T; Thu, 10 Apr 2025 10:11:54 +0000
-Received: by outflank-mailman (input) for mailman id 945216;
- Thu, 10 Apr 2025 10:11:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u2pLV-0001hL-Fa; Thu, 10 Apr 2025 10:41:21 +0000
+Received: by outflank-mailman (input) for mailman id 945236;
+ Thu, 10 Apr 2025 10:41:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=C125=W4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u2osy-0001i9-Pr
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 10:11:52 +0000
+ id 1u2pLU-0001hF-0l
+ for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 10:41:20 +0000
 Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
  [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 382e6922-15f4-11f0-9ffb-bf95429c2676;
- Thu, 10 Apr 2025 12:11:50 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 55d411c2-15f8-11f0-9eac-5ba50f476ded;
+ Thu, 10 Apr 2025 12:41:18 +0200 (CEST)
 Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43cfb6e9031so5862245e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 03:11:50 -0700 (PDT)
+ 5b1f17b1804b1-43cef035a3bso4621145e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 03:41:18 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39d8936115asm4407210f8f.12.2025.04.10.03.11.49
+ 5b1f17b1804b1-43f233c49f7sm46281065e9.17.2025.04.10.03.41.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Apr 2025 03:11:49 -0700 (PDT)
+ Thu, 10 Apr 2025 03:41:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 382e6922-15f4-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 55d411c2-15f8-11f0-9eac-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744279910; x=1744884710; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DcN7auf3s/RSmxKl5bmo+zlo3eyaeJm+WxAIcMe2E8w=;
-        b=rPnKH2uLjTldeEQLxe82TzBpSUdHjt8hp7b5zSE1TFMN7B3YUNBFxLVl+E2u2i56vh
-         FFnDRFUgg5mYfeWksz6cJaTbB0wiP7acIt9Ke4bOuFHyDS0Y3ezhi+HWFKXyFrE19t7n
-         wF9arbgliy0t//8vi2IOE5u/i+iWcnB8tn8ak=
+        d=citrix.com; s=google; t=1744281678; x=1744886478; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Je6SzOfgaeR0dKqxUOU/vL7hL2d4Km4Irm8S8cFhees=;
+        b=nPV9oqPwkEF1SYhBeKwRTOS27fyIuZsZM+bM+q9LHTl+4InuywjwtVd2duHkQ3z0R3
+         e1rTj9BFt7pp3ETiOHhdk2wZfr5uy4535Ye/BBIQlrzeY0RbJwPoOwSqEbCbmgTTLxGM
+         +SzOISavX1G3Z4cBdErjGrEk3wVN9dmQsW0ws=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744279910; x=1744884710;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DcN7auf3s/RSmxKl5bmo+zlo3eyaeJm+WxAIcMe2E8w=;
-        b=QysLGtCJITLL/4oX/1HmfFy9I39tW7KUcPb/ZLBy0Px1b3OUIub+jYI0EhXOeWxoc0
-         Z84iCsu7sDQwtVlqArs4GftSrsYzeywVoTbbu2lLC5vJJYPFqyz/OgM2BUrscS0TjjOU
-         wqdwdPTfL5aFm6FAl+9DTJubAxr6sN0fqtJv95idbl9OHKKBo7GQF8qZQg/cC2c9RwZ4
-         fQVgK7mqR5eZEogXMLM5Zwnxqs5Zi4XTPhXSC2EjkRODTbhmePsibl6lSFALILnod9MM
-         ab3ktjGQsb+JDd5YoFGG7FuGjRkyu0HiCKCUGX/vcmoXKoS5HRY0LxQ5Wka+oTyiFBCI
-         oraw==
-X-Gm-Message-State: AOJu0YzDQvHP8rp4YQPHGdGuJPCHu7qZAQKmSSCXTwXfu+0OmVuxsyvM
-	mhfokbRLyUcSYX5B18ylNv00l9UsD5pFp4wldKmzZxEaRo1i3ThvObOKsOvR4jE=
-X-Gm-Gg: ASbGncsWvI4zcEDgl7YgHSZnq7IgWHrGgPTrWUvTCB14ToS+Nfjfv+NHeIiaVfBh3st
-	Vqd79lwXLIi667Zr3Y4CilfKw0NjOLL8rbuW4JhfKXlc6C2QOd4UFkAC4guX0O90GKBTIAt+H+a
-	ZevzVzPY89bWLLV1R/KM8DL7MACnvZbgr788mejPGXcNmYFn5yrH1nncHsL2exHJXs8CyHzPmbI
-	OY89pnAp79VXTx8tWuK4q76T0eFlGNsJl7oqZ2jZmsaaCf7pdmVOpcI1IWb2qbC8MgQhIkOyH+v
-	ET6GwBguHkQHC2clu1niuWU87PcVFwm6M8KCU9FTOm2mxdVpTyrXh/hdquCQgbbLsp/kfmiYyTf
-	EkKgaAA==
-X-Google-Smtp-Source: AGHT+IHbSrKSoSvXGKpxBTKh81SdPDIIUenpf5mQqHcOnTUWu3XGpuqS0X1PUuDvFEtejWa7/NOfcg==
-X-Received: by 2002:a05:600c:4e54:b0:43c:efed:732d with SMTP id 5b1f17b1804b1-43f2d7da910mr27479575e9.16.1744279910327;
-        Thu, 10 Apr 2025 03:11:50 -0700 (PDT)
-Message-ID: <51de54c6-4540-4b84-ad96-9d2edc487016@citrix.com>
-Date: Thu, 10 Apr 2025 11:11:49 +0100
+        d=1e100.net; s=20230601; t=1744281678; x=1744886478;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Je6SzOfgaeR0dKqxUOU/vL7hL2d4Km4Irm8S8cFhees=;
+        b=qxajbglzHIeTFDg4ypqEbyJOFmgLwaQ4gIcXUCM9KsrIQdtWnYy+iA+Ou8h+n82tb0
+         cIyFx3PAMGN8/wdyr9kTnneYv9b6xznM29ljy0vuY34Y4uuz2NbPeW8a8dlYpdzncv/t
+         vgu99GCtjqZ2rTH7ZxgMFkEgW/S3SsjPmQhG1AffFAT1exZSoE0M/o9Hwn0/Mxe9RQmJ
+         SZiggag0l/c6zqY7465KAyAnq0YoDCFzmS8p2s326CL5uBgaYze5UmFbjLdJKixrYl1H
+         H5K1R9IcYzSTYQfei3HoWRmGMAbN71Zs/eCH8NoD78MN/ZYnI4kXpqt9yi2nfN9RWnYJ
+         Yu/Q==
+X-Gm-Message-State: AOJu0YyXxkixU43lKuduugK/0AUaHdQ32fv6FOFa/xEvVQYD295eyEZc
+	EKQyUbN0kRRQAT6TNBoPXDb3pCGtzlbwsXb3kfWEWJhLfpWbmbbl15AGBZNoIhs=
+X-Gm-Gg: ASbGncsXnxA3pTy0L7eZkKSWv9CqfOrBxcipp0Udov+Wzga8ZY4oZz19YbEAX+EQAKy
+	HKqX/EOy/4qqyIW4VUEtxSKXCF09EiNgo/wevu2qOEEWy5dRCqdXC8yQudF/yDNtBJ74JuPcOdT
+	N4UuudAu5RuUeWMqR23Y3CCFHgqudEArPb85XrpQ2ltFBLK8+tiQpypRO6IIG56qNwpHxFBCBnB
+	LKxkBDdJysxg1qJfRpYjo1NmtVwih1My+EfQ4L71dZon2z5yV8njBPi5qxW70MVsMF1Elf7lWG0
+	AYq0Mawm3m8W2CTVGoHrxW2dRCATCp4hKKi+4vpvKV1Q4LtdTNsL8Zc/Bg9vVDk5ybGem3aMwXy
+	qbvpsGA==
+X-Google-Smtp-Source: AGHT+IHLwUO0lpjzZhtOJxcqeisrxrpLjf097gOkNsjGwZVM4zeE6iOQJH0aMiJv7Ci11VecaXv09Q==
+X-Received: by 2002:a05:600c:4e4b:b0:43c:efed:732c with SMTP id 5b1f17b1804b1-43f2d9a11efmr17466545e9.28.1744281677976;
+        Thu, 10 Apr 2025 03:41:17 -0700 (PDT)
+Message-ID: <8ef0f462-a487-4d76-84e7-9552c75995b7@citrix.com>
+Date: Thu, 10 Apr 2025 11:41:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] Clean up Gitlab yaml
-To: Anthony PERARD <anthony.perard@vates.tech>
+Subject: Re: [PATCH 7/8] Infrastructure for arm64 linux builds
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Michal Orzel <michal.orzel@amd.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+ Anthony PERARD <anthony.perard@vates.tech>
 References: <20250409163702.2037301-1-andrew.cooper3@citrix.com>
- <20250409163702.2037301-5-andrew.cooper3@citrix.com> <Z_eYagfQ8vlMYenK@l14>
+ <20250409163702.2037301-8-andrew.cooper3@citrix.com>
+ <Z_aqUikDqi1UEOHb@mail-itl> <21a35c38-ce2e-48c4-9586-9c232f77affa@citrix.com>
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -137,42 +139,60 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <Z_eYagfQ8vlMYenK@l14>
+In-Reply-To: <21a35c38-ce2e-48c4-9586-9c232f77affa@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/04/2025 11:07 am, Anthony PERARD wrote:
-> On Wed, Apr 09, 2025 at 05:36:58PM +0100, Andrew Cooper wrote:
->> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
->> index 36ec6a7e1ee5..5a0a853e551d 100644
->> --- a/.gitlab-ci.yml
->> +++ b/.gitlab-ci.yml
->> @@ -1,12 +1,19 @@
->> +variables:
->> +  REGISTRY: registry.gitlab.com/xen-project/hardware/test-artifacts
-> Did you consider naming that variable XEN_REGISTRY like in the xen.git
-> repo? REGISTRY is a fine name too.
-
-I did, except the makefile for rebuilding takes REGISTRY, so this
-removes a REGISTERY=$XEN_REGISTRY from the container rebuild logic.
-
-Which is another thing I haven't posted, because it turns out our
-docker-in-docker only works for x86, not for ARM.
-
+On 09/04/2025 6:15 pm, Andrew Cooper wrote:
+> On 09/04/2025 6:11 pm, Marek Marczykowski-Górecki wrote:
+>> On Wed, Apr 09, 2025 at 05:37:01PM +0100, Andrew Cooper wrote:
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>> CC: Michal Orzel <michal.orzel@amd.com>
+>>> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>>> CC: Anthony PERARD <anthony.perard@vates.tech>
+>>> ---
+>>>  .gitlab-ci.yml                            |  7 ++++++
+>>>  containerize                              |  1 +
+>>>  images/alpine/3.18-arm64-build.dockerfile | 27 +++++++++++++++++++++++
+>>>  scripts/build-linux.sh                    | 10 +++++++++
+>>>  4 files changed, 45 insertions(+)
+>>>  create mode 100644 images/alpine/3.18-arm64-build.dockerfile
+>>>
+>>> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+>>> index ff8dce7be05d..6e38c2f2a108 100644
+>>> --- a/.gitlab-ci.yml
+>>> +++ b/.gitlab-ci.yml
+>>> @@ -19,6 +19,13 @@ stages:
+>>>      exclude:
+>>>        - binaries/.gitignore
+>>>  
+>>> +.arm64-artifacts:
+>>> +  extends: .artifacts
+>>> +  tags:
+>>> +    - arm64
+>>> +  variables:
+>>> +    CONTAINER: alpine:3.18-arm64-build
+>> Arm64 kernel used to be built in a Bookworm container.
+> So did x86 before they were moved across.
 >
->> +
->>  workflow:
->> -  name: "xen test artifacts"
->> +  name: "Xen test artifacts"
-> Isn't this a very useless workflow:name? Can I suggest to remove it
-> instead? I mean, currently, all pipeline appear to do the same thing:
+>>  The build in alpine
+>> has "find: unrecognized: -printf" in the middle of the build. It doesn't
+>> fail outright, but something might be broken. I guess it's related to
+>> initramfs - maybe some option can be disabled, to avoid this message?
+> Nothing seems to break...
 >
->     https://gitlab.com/xen-project/hardware/test-artifacts/-/pipelines
+> There's also a bad awk regex.  Alpine seem to fix this by using mawk,
+> except they then have to patch the Linux build system to take the
+> override properly.
 >
-> Without "workflow:name" set, the default name will be the subject of the
-> top commit.
+> I can't see anything obvious they do to fix this -printf warning.
 
-I did wonder about the utility of it.  I'll drop.
+Yes I can.  We want findutils too.
+
+x86 also wants diffutils too. (as I'm fixing that side of things too)
 
 ~Andrew
 
