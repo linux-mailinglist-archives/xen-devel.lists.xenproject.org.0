@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26D6AA84292
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 14:09:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.945519.1343713 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E02EA842DB
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 14:19:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.945548.1343733 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2qip-0002SE-JW; Thu, 10 Apr 2025 12:09:31 +0000
+	id 1u2qro-0006vf-LJ; Thu, 10 Apr 2025 12:18:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 945519.1343713; Thu, 10 Apr 2025 12:09:31 +0000
+Received: by outflank-mailman (output) from mailman id 945548.1343733; Thu, 10 Apr 2025 12:18:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2qip-0002Pq-Fg; Thu, 10 Apr 2025 12:09:31 +0000
-Received: by outflank-mailman (input) for mailman id 945519;
- Thu, 10 Apr 2025 12:09:29 +0000
+	id 1u2qro-0006sa-Hw; Thu, 10 Apr 2025 12:18:48 +0000
+Received: by outflank-mailman (input) for mailman id 945548;
+ Thu, 10 Apr 2025 12:18:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=S0bf=W4=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1u2qin-0002PR-L4
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 12:09:29 +0000
-Received: from fout-b2-smtp.messagingengine.com
- (fout-b2-smtp.messagingengine.com [202.12.124.145])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=w6Mj=W4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u2qrm-0006sP-RU
+ for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 12:18:46 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a3838602-1604-11f0-9ffb-bf95429c2676;
- Thu, 10 Apr 2025 14:09:23 +0200 (CEST)
-Received: from phl-compute-11.internal (phl-compute-11.phl.internal
- [10.202.2.51])
- by mailfout.stl.internal (Postfix) with ESMTP id 14F5F11401D4;
- Thu, 10 Apr 2025 08:09:22 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-11.internal (MEProxy); Thu, 10 Apr 2025 08:09:22 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Apr 2025 08:09:20 -0400 (EDT)
+ id f260b7f0-1605-11f0-9ffb-bf95429c2676;
+ Thu, 10 Apr 2025 14:18:44 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-39d83782ef6so1166740f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 05:18:44 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39d893fdf6dsm4681065f8f.90.2025.04.10.05.18.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Apr 2025 05:18:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,156 +45,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3838602-1604-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1744286961;
-	 x=1744373361; bh=PZEgb330gVH7BSPCy/LRDnWpvZBO+8QSuPUnDifhoOI=; b=
-	hxetcrME6n8V5x5WPAT2PN2HRiHVgCgxgqrLHCSuPIlTfCxz4gY1DhbEjYXlpkFY
-	h58eYgdYSAwOX2RymLU5cB2LsWErTf3Y1Z1prFXFU/rEZQQeRH8jM+mEbhD1ackx
-	WaLWRX4LtPJ5IElrZPLYq0S/ipndhiI7BSRJSq3EdEudahoqbajjrn30NRO/IE9g
-	juXEygtnfvSafbzai4TdMo1cPFbqdxew+fPAM83tDySdNpnouPOu+X08zvCJUDLB
-	JrWAZOWBPId1ZxoaudAhl8eVCoQa7Lf/fOnM3+4xWwjy38jSnpcFhZiOu3uuJlrs
-	gJG3bDXfobF7EupOuCjA/w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1744286961; x=1744373361; bh=PZEgb330gVH7BSPCy/LRDnWpvZBO+8QSuPU
-	nDifhoOI=; b=Vvdj5Ja2S0KfNcahYILg5QG537UBuBFKdhRW7iDmFQ151Sai9ue
-	ABpGLpxXTZ1KCFQadXiMErtRHW41iDOw2POCDz3FnbrmTV3yb9ZhtmpPyC0WKgr9
-	rBX90gQ75FkBnE58Pkjx/OTzhUbVWzVLnOil09UyhoYU6ZqTVaW5zU5IctwaHXwJ
-	IaJ7yWTq2cDbbcXt43pYbPF7HbwYbxR6Drld/E16bi0NtQSJAMnPIrodgGxIeztO
-	IgxVrOPI0OSi7gJmr3WNiCCWjxgXDRUo+cuWQ//3Z1mawBx2kTQ6DVp8USyZ19Ns
-	DWTg11F+TaxNBO45RTBwJlquHfwAQ20ffcQ==
-X-ME-Sender: <xms:8bT3Z4esBlj6zAq-LtLUW2rLN8AYbp4bCc3i46RN7WknT6VhUKA3YQ>
-    <xme:8bT3Z6PbQuByUGMuny3Jc-c-8XfmNETdyLQQYtxSQM5_jp-5c2Y-_qRp-lzWNvqnJ
-    kdJXw6HwLIBHA>
-X-ME-Received: <xmr:8bT3Z5hOcFnU4JlFPpjiC5BhfG6zVp_Z1PrxGhSCAd-AUbnxg191WTMxQKviBX67u-L0lK2bzoQ1NONguVdc_ZcZf6LTpiTQfQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtdekkeejucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
-    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
-    ggftrfgrthhtvghrnhepieeluddvkeejueekhfffteegfeeiffefjeejvdeijedvgfejhe
-    etuddvkeffudeinecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghr
-    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeeipdhmohgu
-    vgepshhmthhpohhuthdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghith
-    hrihigrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhp
-    rhhojhgvtghtrdhorhhgpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrd
-    gtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhr
-    tghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgurdgtohhmpdhrtghpthhtoheprg
-    hnthhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthh
-X-ME-Proxy: <xmx:8bT3Z99ycYTMckaibyVdoWslBxOGdu4kRrZIJXao5GVPy1xnJFZ8pw>
-    <xmx:8bT3Z0sHWtWVRtaUiqWyy9hfR-6cCHRj1hh2uKQ14LJ4_44kMVt7CQ>
-    <xmx:8bT3Z0EZ7f1E48KAuOaHXfjOlsm3ECTxsn-86rBRzcLi6Q08RQlsKA>
-    <xmx:8bT3ZzO4LTuTWj6PhBUt916kwp-mxglFWe9Xaxphe0X7VVmdX1d1_g>
-    <xmx:8bT3Z_sGI2AVkjsIjXbr91t4gHYJUCw_Nd4mnQd2gYRDXG0hmGCS5dxP>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 10 Apr 2025 14:09:17 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: Re: [PATCH 3/6] Adjust Linux build script to work with other major
- versions
-Message-ID: <Z_e07sow3o0bv-W9@mail-itl>
-References: <20250410114628.2060072-1-andrew.cooper3@citrix.com>
- <20250410114628.2060072-4-andrew.cooper3@citrix.com>
+X-Inumbo-ID: f260b7f0-1605-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1744287524; x=1744892324; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=XlbzHtSp4pngYxsCukm4n0mN9sBjwgHb/MkNTr7262w=;
+        b=hDJjkYg8T2/bIklgHBlpe/1Q2/rcL6VyglJ9lqEBb67/Q0D1zIXbrchGmv/oxJn1A2
+         JpBcnuKc1bmb5OjyiK+FZxpDobSf7aldUTt6yqy7qD6h+7ASPGORYQoX0we9iX99TL46
+         SRW9PDTgk6W8QRflfTpswHkMIsFwpi7bm8ID7xUW+VAR5TdQoEMyfWvM3INGnUT4p9At
+         NcSxSnrgF6mP0PTzlvXtO2KTJNu3iX5Iyt3qKuoJ2L2cOQmYJ4XH+aaufGQE4byG2QRZ
+         wjSLyu5xUsa4K59RVv7fz6zRItt+ZcwYZ3kNn7wO4OwOhUMOpD6qyW/fSukpUedJA7HG
+         xBjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744287524; x=1744892324;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XlbzHtSp4pngYxsCukm4n0mN9sBjwgHb/MkNTr7262w=;
+        b=aM7ef5pmlOZKbo+UU414FlP/kvvZlmjrKTaO2GFxtxcocv2gU6c1XhGQlrIrT8ZNwH
+         f8gNmwxg/zz1aC/l7dBvSyBvjT928ojZczW9Y3KYS2NYNT++6fd03Izn2w0FEEB6LA7a
+         ar+o1LLRpuYmrpG8guCXVW3NX7QFIuJylXY38fGgnlzC3QJTuVgl0T3Kns8JrRJkYsjY
+         k3Yfl8a0nIf7xOL3aimF/lOQpEZiAQhQnckPw/8Ll7EDzQkIAGFN/oo0GgKiaqZ3Prig
+         j/5rBWrW8bCEZqF8sv++XVpxqxo05i9mOkKk99tKnZOP79OoPYYZrMDQN9Asp2LoZ6H2
+         ZsQA==
+X-Forwarded-Encrypted: i=1; AJvYcCWkP6IrvMOZ+q0Whg+4Mp12tNmVlkqz+eird3tajg5CNW5T8+YSIgHKL+vSvu99ZHEqPM2zWw7mlF8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwmuG64xwkzSdzlVgmsmC4MdiF3sUEY0kCArhcnWCTA1LAyjSKe
+	bBgl9YpydH87jDQiNCTyqVOPvfm+n82/JrIba32JJBnzc43oiNqXDZ1dQavOTQ==
+X-Gm-Gg: ASbGncs8eO/Tny/uNnPdyzQ3aKmUvGak/VNYIYtFMQpwLtOyNZA51JV92YIHe3haZR1
+	Ctuh2dfM1XgryqM6ZsV2Za0B0BHFCsoxf1XdniMEt83MQk4EYZkadF+3sghV+LSoONtD1le+8M8
+	ywUVRNKRDKJhkK5Sbe6BPZ4De+vgkO1MVL/UJTZ3Ny3fhDCvIYnRa7k43ZE/VjQMLgWLVhbdN+m
+	2vbMzAkdUaS7BTD5i92/diS6sivvf6EzBsWNuknvTIAK5QKoS8K6mtC5gDMWlQIS03ZW9Wx5j8a
+	hLmzV/fFsEkYWwx1tPLQ8tUhkGQx4swRcEWTB4m9/VoHeIlJGdoetqJ/MzeX57arlav6mp6Rf8W
+	Q7LLtshniii+b8RYxQHqBLExpuw==
+X-Google-Smtp-Source: AGHT+IFUxoYospM08dB5ll/oZ0HYxDNrvKouoT3ly+keG/wXUDfL+NIjU0zBlAc/5xjsaFoP70Sdtw==
+X-Received: by 2002:a05:6000:2209:b0:38f:3224:65e5 with SMTP id ffacd0b85a97d-39d8f5f4353mr2059647f8f.12.1744287524090;
+        Thu, 10 Apr 2025 05:18:44 -0700 (PDT)
+Message-ID: <93bad6aa-57a8-427d-a0f6-924f03f0db34@suse.com>
+Date: Thu, 10 Apr 2025 14:18:42 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="3cyWOqAS0erRWFr1"
-Content-Disposition: inline
-In-Reply-To: <20250410114628.2060072-4-andrew.cooper3@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 16/16] x86/hyperlaunch: add capabilities to boot domain
+To: Alejandro Vallejo <agarciav@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20250408160802.49870-1-agarciav@amd.com>
+ <20250408160802.49870-17-agarciav@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250408160802.49870-17-agarciav@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 08.04.2025 18:07, Alejandro Vallejo wrote:
+> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+> 
+> Introduce the ability to assign capabilities to a domain via its definition in
+> device tree. The first capability enabled to select is the control domain
+> capability. The capability property is a bitfield in both the device tree and
+> `struct boot_domain`.
+> 
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 
---3cyWOqAS0erRWFr1
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Apr 2025 14:09:17 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: Re: [PATCH 3/6] Adjust Linux build script to work with other major
- versions
+The R-b feels kind of redundant with the subsequent S-o-b.
 
-On Thu, Apr 10, 2025 at 12:46:25PM +0100, Andrew Cooper wrote:
-> Simply the tar expression, as 'tar xf' can figure out the compression
-> automatically.
->=20
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> --- a/xen/arch/x86/domain-builder/fdt.c
+> +++ b/xen/arch/x86/domain-builder/fdt.c
+> @@ -257,6 +257,18 @@ static int __init process_domain_node(
+>              bd->max_vcpus = val;
+>              printk("  max vcpus: %d\n", bd->max_vcpus);
+>          }
+> +        else if ( strncmp(prop_name, "capabilities", name_len) == 0 )
+> +        {
+> +            if ( fdt_prop_as_u32(prop, &bd->capabilities) != 0 )
+> +            {
+> +                printk("  failed processing domain id for domain %s\n", name);
+> +                return -EINVAL;
+> +            }
+> +            printk("  caps: ");
+> +            if ( bd->capabilities & BUILD_CAPS_CONTROL )
+> +                printk("c");
+> +            printk("\n");
+> +        }
 
-Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
-om>
+Like for the other patch: What about other bits being set in the value read?
 
-> ---
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> CC: Anthony PERARD <anthony.perard@vates.tech>
->=20
-> v2:
->  * Use 'tar xf'
-> ---
->  scripts/x86_64-kernel-linux.sh | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->=20
-> diff --git a/scripts/x86_64-kernel-linux.sh b/scripts/x86_64-kernel-linux=
-=2Esh
-> index 2a816f0b3204..5ed5608628bc 100755
-> --- a/scripts/x86_64-kernel-linux.sh
-> +++ b/scripts/x86_64-kernel-linux.sh
-> @@ -11,9 +11,10 @@ WORKDIR=3D"${PWD}"
->  COPYDIR=3D"${WORKDIR}/binaries/"
-> =20
->  # Build Linux
-> +MAJOR=3D${LINUX_VERSION%%.*}
->  curl -fsSLO \
-> -    https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-"${LINUX_VERSION}=
-".tar.xz
-> -tar xJf linux-"${LINUX_VERSION}".tar.xz
-> +    https://cdn.kernel.org/pub/linux/kernel/v"${MAJOR}".x/linux-"${LINUX=
-_VERSION}".tar.xz
-> +tar xf linux-"${LINUX_VERSION}".tar.xz
->  cd linux-"${LINUX_VERSION}"
->  make ARCH=3Dx86 defconfig
->  make ARCH=3Dx86 xen.config
-> --=20
-> 2.39.5
->=20
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -1006,6 +1006,7 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>  {
+>      char *cmdline = NULL;
+>      size_t cmdline_size;
+> +    unsigned int create_flags = 0;
+>      struct xen_domctl_createdomain dom0_cfg = {
+>          .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
+>          .max_evtchn_port = -1,
+> @@ -1037,7 +1038,10 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>      if ( bd->domid == DOMID_INVALID )
+>          /* Create initial domain.  Not d0 for pvshim. */
+>          bd->domid = get_initial_domain_id();
+> -    d = domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
+> +    if ( bd->capabilities & BUILD_CAPS_CONTROL )
+> +        create_flags |= CDF_privileged;
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Seeing that builder_init() in the non-DT case sets the new bit unconditionally,
+isn't the shim's only domain suddenly getting CDF_privileged set this way? Oh,
+no, you then ...
 
---3cyWOqAS0erRWFr1
-Content-Type: application/pgp-signature; name=signature.asc
+> +    d = domain_create(bd->domid, &dom0_cfg,
+> +                      pv_shim ? 0 : create_flags);
 
------BEGIN PGP SIGNATURE-----
+... hide the flag here. Any reason to have the intermediate variable in the
+first place (can't resist: when there's already a wall of local variables here)?
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmf3tO4ACgkQ24/THMrX
-1yxI7Af+OVkmKGKJ6zOctC1A2aKkc5h2u0Bm/WVvT3dQE+DLCqmu0TQqTOEIy3H9
-ArLEkAxhsZus0EEunhMRQcBE8vLdVoiKH7gsmbumkAGQ0g0fttn4GrzQJ9teLD8k
-dEHneRZvXEfXkunc4O9CZpNehAmZTBIros3gaXdZc8UWO2szHgXSqLwzXDeJSPiR
-8Ii6logeY30QWs0OMkSSsx6+iQn0YUCrpyvFyKG/gTNhHerH0mJz2F0NHmp9hzqC
-Kh+IuHcg8lg8ZhP9VvUspfqwykK7LV1VKjAZA4xaH99PVPToW9/sspoOpn7EGfro
-xvYWdb9YQLPEcMl7Flnu+9iIAq65nA==
-=x4ZY
------END PGP SIGNATURE-----
-
---3cyWOqAS0erRWFr1--
+Jan
 
