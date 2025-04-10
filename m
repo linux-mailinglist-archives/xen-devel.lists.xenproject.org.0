@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0190DA83AFC
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 09:25:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.944949.1343246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72EDDA83B80
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Apr 2025 09:42:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.944961.1343258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2mIC-0005GY-F0; Thu, 10 Apr 2025 07:25:44 +0000
+	id 1u2mXy-0002MN-Qe; Thu, 10 Apr 2025 07:42:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 944949.1343246; Thu, 10 Apr 2025 07:25:44 +0000
+Received: by outflank-mailman (output) from mailman id 944961.1343258; Thu, 10 Apr 2025 07:42:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u2mIC-0005Ed-C9; Thu, 10 Apr 2025 07:25:44 +0000
-Received: by outflank-mailman (input) for mailman id 944949;
- Thu, 10 Apr 2025 07:25:42 +0000
+	id 1u2mXy-0002JJ-N3; Thu, 10 Apr 2025 07:42:02 +0000
+Received: by outflank-mailman (input) for mailman id 944961;
+ Thu, 10 Apr 2025 07:42:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D8yV=W4=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1u2mIA-0005EX-Eo
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 07:25:42 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2060f.outbound.protection.outlook.com
- [2a01:111:f403:200a::60f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=w6Mj=W4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u2mXw-0002JD-TM
+ for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 07:42:00 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff2ffe55-15dc-11f0-9ffb-bf95429c2676;
- Thu, 10 Apr 2025 09:25:36 +0200 (CEST)
-Received: from DM4PR12MB5277.namprd12.prod.outlook.com (2603:10b6:5:390::7) by
- DM4PR12MB7693.namprd12.prod.outlook.com (2603:10b6:8:103::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8632.21; Thu, 10 Apr 2025 07:25:28 +0000
-Received: from DM4PR12MB5277.namprd12.prod.outlook.com
- ([fe80::9ab:5367:ba51:af6e]) by DM4PR12MB5277.namprd12.prod.outlook.com
- ([fe80::9ab:5367:ba51:af6e%5]) with mapi id 15.20.8632.021; Thu, 10 Apr 2025
- 07:25:28 +0000
+ id 487431a8-15df-11f0-9ffb-bf95429c2676;
+ Thu, 10 Apr 2025 09:41:58 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43cf848528aso3842775e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 00:41:58 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39d89362fd6sm3988887f8f.16.2025.04.10.00.41.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Apr 2025 00:41:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,156 +45,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff2ffe55-15dc-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qqflodGbQxH/hJLCA+6h59A9qKd92IEykBW+HCj2U/TS70UbiabMSty62gr5JwSzTsZi0dnJ7ZojzA2iMk+8lB7/nwa/lLaicgeuGFzjmRs6MOPNFtD+f8QvK3AWnHoggAEhzcXEBBHnxmvMy+N8PyPcod2qY6RNzY1owcv8pyHsV3l0PJfzb1F3c85vzw7kZTqHfazcwutVA5ZA++vhgRHXb8Hhy30q+o1i70GNj7Fi+D1ZHUuHclfMaivmePbeFyOc2BfIDlAp1/u2udrbcYOC/Dry43ajWsIgJF3mTA+ICj/G2LesIwcNEVCx+FKp8Jzp5LBUNDtaMznXHufLgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fMYTeH1/HV9XnW+AM2SSXm/F6djSjySFeTaO2Dx7NGQ=;
- b=sS/glz1A1EnEA9nUUIL7Ccq/xXHDYO7rTpjy/5UReNchcCDQbTchXy3xgvN4SwvtZ7eX/ZTYGhE3+N8X8gjiJhintnMnjd/HK8b2IJjDPfE4hqkvgVaxrFq52/NDpTSU/RM/c1/evsXIvsl7INunAJ6h6/s42cjSpvHvXHG0mGTvznpUU0fj6kROpk0i+V+abajzd9oGjkg/o+1LQi7m46jomPPvWgFhHH6IGkcA5lB2nRV/apMYc0p6nVh2WKP7I9l+U/+hoVGpWMt/a0Kg4iGx5ruk2x8jW06jwav2o8MdF/Tqhk9EOXndCZcBfKVDVMuRKHmHUvwdOgC5g4L4aA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fMYTeH1/HV9XnW+AM2SSXm/F6djSjySFeTaO2Dx7NGQ=;
- b=urPgopek2lUeq4biJMeCNvwH8Myk4S1z71ijXmpIGnO7BKI9pdG29jADaOCWjlUnfOS7J95am4gQVTP/z8mSFO36WsbW/Fm7ECLv3jXrQToQBru/qKkaM9j2ZzMdQy9LB/toEmCYeA+OtNLw+3yzes3oeoDWaD0TINX0YY+rUzQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <8e15d185-7f04-432b-a091-a83a6f42e056@amd.com>
-Date: Thu, 10 Apr 2025 09:25:19 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm/irq: Reduce size of irq_desc array to exclude local
- IRQs
-To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <eafaff031771902c44c101736de7e1b690cc8303.1744083392.git.mykola_kvach@epam.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <eafaff031771902c44c101736de7e1b690cc8303.1744083392.git.mykola_kvach@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0103.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::19) To DM4PR12MB5277.namprd12.prod.outlook.com
- (2603:10b6:5:390::7)
+X-Inumbo-ID: 487431a8-15df-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1744270918; x=1744875718; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=XjRhhVX2nojq0Dt8H3iGowC6FJrHqQ54cR6D41QMAiQ=;
+        b=a6iMriDToIXDSNdwXtFkNSjlcJKFYKmgCksbMXrwdrXJZPeYLN5Es2x5gHsW2ztdLL
+         aPGRFFROd2EPXo5Ydf5CUclJOVeHwzhIWbKIIvSZBNhpfNnzJ94dE1ovj0VevalhDUkj
+         2KA1v4AU4UXEOTxqz01FN78g0oSUpkKx0wLNDgWRNplWoXsXxGe8AhXaQ550ty7jsYRC
+         6CLbSOmKCAX+S5GMU0/vKHJtHGF87NniJxEBK+wrq+ylrMTOWhecn7rmV7wRmWJdquNO
+         fbiRwDG85niV0Kzdadmt6t7efMLfrtm1ZJmsdJIXHugAh8wb4XmdOFH94b4/Yo0hrPrt
+         yGEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744270918; x=1744875718;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XjRhhVX2nojq0Dt8H3iGowC6FJrHqQ54cR6D41QMAiQ=;
+        b=w7PBi1mpKa07EqYQ8XrNzu8McdOSLFCssYQqT7N96KIHXA0rI/TTlxON5WYIoVkYfR
+         s7cbXqyUczEHnQGlGSw3lSQbSl55mkiBPG6BoA2gYPYYyOCrl+zof0HO7takKN8UlYOL
+         RA/Vsau9EaiEvVnBSFHdEk50LnMHeBCCecwYFsDs666TIumEF/OsVtz57xbm76UFOsNC
+         nJss9uBv42SROPvdKgPF8Z9KvnjT1f+u6A6XArfQOekhAiMBNY6WAfrsZ5B0NY69Jd51
+         1aK/potRTevk16TLPUFMFQ4db7vZfHTNX/yz1gPYDpVxHj8QIM+zpqKYbrbboQ5B9H4Y
+         D5mQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUrj2ZGEFR5OlEg1GRDGD1I/IxETO/N75TOJ7xndh1BJcsmsyTmBFQyEovhW1wWEOEK751geUSkn1c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwnOCTdPg4u/8+FzMNRlULd9l7THvCMDFI9pwqKE0sCZyi/651k
+	Ff2+1rFtf4aHqqg7gyDQJo5bIuFye0LKvvbldv92htusOQOp8PSDMpZAllsDtw==
+X-Gm-Gg: ASbGncut/ljBVEUJSrbFEJVMy22D8xC0rt06JNMxFo7bLIs2ry7AsTgRTRN+wexYUgb
+	mQWGeYNlDnOnbvLHGJGF3RJDI7h9a4ofSiLC9zqJ9Qv5hceI26H2xEsNejEzkIx7LFwjL92FzG2
+	dlQbOmY91A8lgRSoyCMeOtuGOc8n6HNM6+GL5kgCpG4vUrKC/QDkIXLr7oaO7TONvHJuQptRYgd
+	VJ/axzBkyGGcQHKAojWTigPwFrscAEUaRVXeX9sic4HamhK7pURGUK6kdmGV/UTxlSrRKeomAFF
+	hdcm3wxwlGt0PaBUOUpOpLpBotZIYHAz42YiHyKP4Kv9apd2BiZJG9JsrMGJREOrFcmPbVCBfcA
+	aaM2LF6zYKtIzhva+zR6yk6RYiw==
+X-Google-Smtp-Source: AGHT+IGkfreKLo5aUa5O4oSTtfus8YA/q+W6MFLV9KJCspejiY5REvbuJhW0OrslwtFv/KcV5XMMxQ==
+X-Received: by 2002:a05:6000:250e:b0:39a:ca59:a626 with SMTP id ffacd0b85a97d-39d8f4988acmr1328447f8f.28.1744270918071;
+        Thu, 10 Apr 2025 00:41:58 -0700 (PDT)
+Message-ID: <44ecdfc2-2bf5-4445-b861-71b43b435c31@suse.com>
+Date: Thu, 10 Apr 2025 09:41:56 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5277:EE_|DM4PR12MB7693:EE_
-X-MS-Office365-Filtering-Correlation-Id: 532cc480-9ccc-4ece-f3b6-08dd7800de3e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dmlhUllRdTYya3BTcEwzVGFyS0hFQXM1Vmc2cnBkNkhVSjFFTHlSZVk3Yjdo?=
- =?utf-8?B?UGN3bXdPeThEZ01LRFpZcEEvWDk4aUJxelhFbFh5Rk5jeDhYN2F4WVFhRHEr?=
- =?utf-8?B?WmlQN21TemkwQ09lWm45UUdJeW1McjVselhDbVhGdHNXU2s0OGNaVmU1YzFt?=
- =?utf-8?B?dmpjYzlLUzFSYTkwVmFoVVJDR1lJdFNQOFQ3YkI5cHllOXltYTV4ZFl3QVFJ?=
- =?utf-8?B?ZU1MV2N3aFlKenZnOGowYUQyMUk2YlEzb0pkQnNZaGV5cDB6K0VwRDRsQnNx?=
- =?utf-8?B?VHpjbXZGaGtOUmtJVWY3djhKV3BvYWZBc0ducmora09VYjJmeURjTDNaeTJt?=
- =?utf-8?B?NlI4bGhQSGVUeWFzSW9pUHNyckdaejJNankzdkQ3cldzblNQTEp6dElQRE1G?=
- =?utf-8?B?RU9XNEU3bGt6YjQvQzNEOFJrU052NDcvelZDM1V6cW94d1I0UnhMa21ZSVJW?=
- =?utf-8?B?SWFDNEhPaGlKSzJuOHU3T1JMVmZ2L1JZcGxXK3F5RkpkMDZCVTgyNXR3RitN?=
- =?utf-8?B?UGZyYjJMdGFiRndSQnRnNlJKR1pibDdaYkZNUmZJSjBBZG1Ta1N0NDRrRHEv?=
- =?utf-8?B?SldOY09tbkhFVFJ2Mlg5VDdHQjVZb0ljWW9oN1crOXFSZWVWcHJqaG5nS01K?=
- =?utf-8?B?TGpwOVdzV0V5R1JHWGsxVkNtNi8rNFVlaldDN2ZOSy9rTkZMbHhpSVVJYXhH?=
- =?utf-8?B?S09NTWk3aVc4SFp6NWlYRmEzU0FjUTRyUVBhWU9zZ3drNkpMQkxLUnF0L2Nj?=
- =?utf-8?B?Znp4RFhXSXVqazZZUE4rbzVaT2xNUFBHWTBwQkxOYk54RXl3bHYxRzNIcmF1?=
- =?utf-8?B?SHQwYmt6bE5CYnBaMitqV1VqQTBzWExla0w0R09YTVcyVDB3WlZCc0pVaVR5?=
- =?utf-8?B?YVJrS1VjUUhGVGI5bFI2c1hnSjJoanY5M2N3UHpUaHVwWWJ1OVZHdnFnUVdP?=
- =?utf-8?B?eDViL21kMEQzWG9Oa0lmTU16M3ZsR1duMmV4NTJRaWhsSGNubnNxa1g4YVIy?=
- =?utf-8?B?ZzJvYTEzc0NqQzlzWXRJS2VPbWtDUElkbmxteWlTTHQwN0dya2NNTGd2MkdV?=
- =?utf-8?B?Mnl3LzRJRlZWNTlkV3ZMRUc3cGdoRlZwcncrNzcyUjBCMEhCcGY1OFp6Ykx5?=
- =?utf-8?B?UUtSb0c5V3I3R3VlUCtFQmVPaVNrUU5XQnJMamZrVCtVMENZVUJValg5YWZy?=
- =?utf-8?B?eW9ITWd5NzJpSHZiQmNLUURaWWVvQ2JnNHhTQjFTcEdkZFI4TkptZjlXODZh?=
- =?utf-8?B?MmtIdGd1NVp3S0E3cHkvaVN2dGFQc3VJTHdUQ0J5R2F5MWFGeTR5dnhiSFMx?=
- =?utf-8?B?Y0tKdHpOelJMQmI5L2FGeUR1VGNJbnFRQkFlNi9rYStxSVB3RUtXNjhlTlRr?=
- =?utf-8?B?VkpmRGVZamlIOTlKZnlWL2hDK1NuU1phQXp4ODRTa3V4b0JrUzVNR2R0OE9p?=
- =?utf-8?B?Q2c3T2EyMUtxOE96cWN6d0svR01BYU93d1RJbkVndm4xMmNMeWQvYjVsN3Qx?=
- =?utf-8?B?TVdCaTBSODMyeDhTR2Vqc1JEUkk3S1hMS1BmMTNCa25MbU1vWkNERnBFRTQw?=
- =?utf-8?B?eXYxWCsrN3hIMFlMWFNvM3FmVHFoV1FIR3pmU1AzMzVadGIyK1JFMC9QNDZk?=
- =?utf-8?B?MUU5Zm1NbW9GVXgxTDZuVDV1OHBPWVBSZDVkQStuRnZVR2VXbG9jYVpHM3RE?=
- =?utf-8?B?K2RMMWN0NWF6ZTh0RlZhZWQ4WTNGTlFvZnJreVB4ck5WSlJxSWxDSXR4clpm?=
- =?utf-8?B?c2lUTTZzN2tQanc5bXdUcVpjdktQTnRIWko2Vk9qY2wyazIwcWUvRlFsVFAx?=
- =?utf-8?B?R2tGZWsrWXhEOWtXQ0xKVzlpNllrbUUyUGxxWFdkTDd6VHF2blJvZlBFalNS?=
- =?utf-8?Q?TIF7PdqKmY9sP?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5277.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dWdpWTI1UTFyR1ByVkpadGVncFEzUDJMWnNTbDN4KzhqL3B6U3F2bzdJcTI1?=
- =?utf-8?B?SkhXdGtabGxnRUlEanY3N0w3Nk9rVnZXS3FxNmJnNmZwbmkvRjI4RnFYSExK?=
- =?utf-8?B?KzhXK1A3QmV0Rk52ckNXZEwxR1M5dXNkT3dXajZVZk9ZbFhUQ2ZPODNYL0tv?=
- =?utf-8?B?SWFRc2NyZSt0M1hDTXI3OVB3WHEwdHJmbXE1N1RZc1dWRkVSTVI3U2I2Vm5o?=
- =?utf-8?B?R1FoVENvZ1ZsOFgvY2ZrU3hnS1ZTckZzcmZUTlhMeFc2by8vRUFlbGRZczhK?=
- =?utf-8?B?TE5jalp2RkdWY0xrYkNsaTArbk5GblN1MHk4UWpOekFlbDhEbVk1UDBjTlly?=
- =?utf-8?B?V3Yrejd0L25LRVFNN2JwLzZJaHZNdnZvNnBHK3BRNmVIdFlGMnQweGJTQXc2?=
- =?utf-8?B?VitEMG5mVThzTkFya2xxZE85eXBDcytTc2JOMnJFWVF1SjI5TkZDOHFjcG9o?=
- =?utf-8?B?aDdocTdBSkFwaEhjeXdhV25PRTNEc0Z4V2ZPeWVCbXR2cEphM1pVeTNvMFk3?=
- =?utf-8?B?M3dsSFQ4dW4rbnBaNjRhWnRPUVBRQ29hdWZlcVA2VkJlVzhNYW1IUjlxZzN2?=
- =?utf-8?B?aXU2RGhQNnU3eHpBd1E4d3Z1WHE4NnFMK1RiTzgrcjloT2FEQTQ4QXUySUpr?=
- =?utf-8?B?ZndseEdhRFNVZFkwZjBmeW5VajdQV1JHZUxsZG1CZnJhM3djLzgvRmR5VG83?=
- =?utf-8?B?TFJxUU8vRkYreTNWNTBORmtwUHN6NG1YcDFlWHpSTUIrbnJOaGJEdnZ5dVkr?=
- =?utf-8?B?cmtGUHFweldxTlVTS3k5d2dWT0lCNml4V1hmblZXMmF5RnJYV0RWcUhqRUlh?=
- =?utf-8?B?V1k5RUtKTW9tdWNRT2JtWEJNSVAzTlZORURFdTZxdy9nY1N0bS9qUjA3Mm1k?=
- =?utf-8?B?RjI4MU9taklucU1rMGNUVmVWMFFqTVYya01OZUdGTERsbDc2bmxlbmZtZ1lC?=
- =?utf-8?B?OUI2QjRrUFVaK2lpcFgyY1BmbjE3dzU3Y203TlhnQmU5a2ZxVDRzcjRta0ts?=
- =?utf-8?B?WUdzU2ozbzdoVmt3dThsZlBzK09sNlhoNlBSelJxNWhWUTlqRWRBSFREbmd3?=
- =?utf-8?B?b2Jja0tESXpDNmNvdFlaUUxQUm8yOVMyb2hNakVrSWIrbjR2UXpWcjFmZXhj?=
- =?utf-8?B?cEc5MjdSRmt5UFluWDRsOGNLZERnalVEZmtUL1oyWTdhZE5zd01uOW1QaVpS?=
- =?utf-8?B?TWZHdFNkZS8zN3VrS0tHZkdjN2J0UmgvNk1KQ2JFeXVSVnZvUnpVRHYzQ2JY?=
- =?utf-8?B?cHYwK21SMnFUbzV4dlFuZWhDMXc4c0F5OU0vZkZ5RWpyY2liSlhiV29PbHVs?=
- =?utf-8?B?WmJvS3gwNzhQMUdJZEpRWGlxZWxRcVVjYVhrNGIzUDRZRTdwczVPcDdOdGlD?=
- =?utf-8?B?Sm5yUmc1ZkY5VEg2ZkIvWlIyNitXQitiNkdhbEwrRENwWnUvTThoTHQ4ZVV5?=
- =?utf-8?B?Rkw1R3VLcUEzYTlvTXVpaFZqdThnWE9uUVg2OE5pZkZjS2NJYmUvbjllbTJP?=
- =?utf-8?B?YUdDem5Fa3dPQk84aHk1b0JYcy9ERlIrbUR0VnNBU1RQbmdCS2NUTFlISlVE?=
- =?utf-8?B?ZUx5RjlIcmFaTUNaOE1qRnUrYW56WTNGbTAwU1JSalAzM1dsaFh6UWxyTjJk?=
- =?utf-8?B?d2owTHVkZ0FkN2xpVTRyRFNRVDgrRmRVTXZuZHFNYThLLzhnM3NJSFlheVo5?=
- =?utf-8?B?NFN0bk1rVGdDQjlKdWJNZXpPRGpQVjVCTFRWVnE2TjkraVd2dE9Ta2d1OTN2?=
- =?utf-8?B?ZENUOEpMQ3dGeEF4NDJXZ3VlY283NXp0ZjAvdVV3dnJNRGdadkFXWkFjcE9i?=
- =?utf-8?B?bG1BL0VGY1RzRjhwUkU4RHZhSGpLRHplQlkzc0ZPZzVHOGU5Z1hNZ3FmL1lp?=
- =?utf-8?B?Q3hBSnJCQ1FpSUs2bWR2aWZJS1Ewd3gxTy83MCtCZndnalZUOW5wKzIrUHZD?=
- =?utf-8?B?REhGVW5oMUcrdG5UOXFRZzN4c1VKeDNjeTBYZmtqTkllejlPb1Y1akFWcmhO?=
- =?utf-8?B?eHdtb0NudXUvdTZzdVo5aDhBdXYyRlhDWXBPUTBFa1pzZnNNWFZ2aXY4ak5i?=
- =?utf-8?B?ZXhicnROTFhySVlENkVtY1FKZ1k3OGViRHgyOTYyanVwMVB2b1pSZEdDS3V2?=
- =?utf-8?Q?8uv74+w7UPbv/mQgX/i1N6JLC?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 532cc480-9ccc-4ece-f3b6-08dd7800de3e
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5277.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2025 07:25:28.3006
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Oe4TzYrkLDSc09X79jf/d2UtsyDAuh8p6ihm8cA3cfSMBebbLZ4vSaj38eywmxOU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7693
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/11] x86/mkreloc: fix obtaining PE image base address
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250401130840.72119-1-roger.pau@citrix.com>
+ <20250401130840.72119-3-roger.pau@citrix.com>
+ <6c37ad18-a830-453e-a7ff-fb4978e3f0df@suse.com>
+ <a14a7a42-cf7e-463b-a87d-e302ce32371b@suse.com>
+ <Z_UGr0A8LetHDJvB@macbook.lan>
+ <3364268c-41c9-47ed-a6d1-b8ee04118a46@suse.com>
+ <Z_dxNnfBOP88tAKi@macbook.lan>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <Z_dxNnfBOP88tAKi@macbook.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 08/04/2025 05:42, Mykola Kvach wrote:
+On 10.04.2025 09:20, Roger Pau Monné wrote:
+> On Tue, Apr 08, 2025 at 02:34:48PM +0200, Jan Beulich wrote:
+>> On 08.04.2025 13:21, Roger Pau Monné wrote:
+>>> On Wed, Apr 02, 2025 at 09:46:53AM +0200, Jan Beulich wrote:
+>>>> @@ -54,31 +56,40 @@ static unsigned int load(const char *nam
+>>>>  
+>>>>      if ( lseek(in, mz_hdr.peaddr, SEEK_SET) < 0 ||
+>>>>           read(in, &pe_hdr, sizeof(pe_hdr)) != sizeof(pe_hdr) ||
+>>>> -         read(in, &pe32_opt_hdr, sizeof(pe32_opt_hdr)) != sizeof(pe32_opt_hdr) ||
+>>>> -         read(in, &base, sizeof(base)) != sizeof(base) ||
+>>>> -         /*
+>>>> -          * Luckily the image size field lives at the
+>>>> -          * same offset for both formats.
+>>>> -          */
+>>>> -         lseek(in, 24, SEEK_CUR) < 0 ||
+>>>> -         read(in, image_size, sizeof(*image_size)) != sizeof(*image_size) )
+>>>> +         (read(in, &pe32_opt_hdr.pe, sizeof(pe32_opt_hdr.pe)) !=
+>>>> +          sizeof(pe32_opt_hdr.pe)) )
+>>>>      {
+>>>>          perror(name);
+>>>>          exit(3);
+>>>>      }
+>>>>  
+>>>>      switch ( (pe_hdr.magic == PE_MAGIC &&
+>>>> -              pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr)) *
+>>>> -              pe32_opt_hdr.magic )
+>>>> +              pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr.pe)) *
+>>>> +              pe32_opt_hdr.pe.magic )
+>>>>      {
+>>>>      case PE_OPT_MAGIC_PE32:
+>>>>          *width = 32;
+>>>> -        *image_base = base;
+>>>> +        *image_base = pe32_opt_hdr.pe.image_base;
+>>>> +        *image_size = pe32_opt_hdr.pe.image_size;
+>>>>          break;
+>>>>      case PE_OPT_MAGIC_PE32PLUS:
+>>>> -        *width = 64;
+>>>> -        *image_base = ((uint64_t)base << 32) | pe32_opt_hdr.data_base;
+>>>> -        break;
+>>>> +        if ( pe_hdr.opt_hdr_size > sizeof(pe32_opt_hdr.pep) )
+>>>> +        {
+>>>> +            if ( read(in,
+>>>> +                      &pe32_opt_hdr.pe + 1,
+>>>> +                      sizeof(pe32_opt_hdr.pep) - sizeof(pe32_opt_hdr.pe)) !=
+>>>> +                 sizeof(pe32_opt_hdr.pep) - sizeof(pe32_opt_hdr.pe) )
+>>>> +            {
+>>>> +                perror(name);
+>>>> +                exit(3);
+>>>> +            }
+>>>> +
+>>>> +            *width = 64;
+>>>> +            *image_base = pe32_opt_hdr.pep.image_base;
+>>>> +            *image_size = pe32_opt_hdr.pep.image_size;
+>>>> +            break;
+>>>> +        }
+>>>
+>>> Since you are already refactoring much of this code, won't it be
+>>> clearer to fetch the header inside of the switch cases.  So that
+>>> there's a single read call for each header type?
+>>
+>> Except that the switch() itself uses not only pe_hdr, but also
+>> pe32_opt_hdr. That could be re-arranged, but I'm a little reluctant to
+>> do so.
 > 
+> Hm, I see, the magic field checked here is in the extended header, so
+> we would need to fetch it ahead of the switch in any case.  How
+> unhelpful.
 > 
-> From: Mykola Kvach <mykola_kvach@epam.com>
+> One thing that I find weird about this code is the obfuscation of the
+> switch condition, won't it be easier to read as:
 > 
-> SGI and PPI descriptors are banked and stored in the per-CPU local_irq_desc
-> array, so not all elements of the global irq_desc array are used. This is
-> already accounted for in the descriptor lookup logic inside __irq_to_desc:
->     return &irq_desc[irq - NR_LOCAL_IRQS];
+> if ( pe_hdr.magic != PE_MAGIC ||
+>      pe_hdr.opt_hdr_size < sizeof(pe32_opt_hdr) )
+>     fprintf(stderr,
+>             "%s: Wrong PE magic or missing optional header\n", name);
+>     exit(3);
+> }
 > 
-> Therefore, the size of the irq_desc array can be reduced by NR_LOCAL_IRQS,
-> saving (NR_LOCAL_IRQS * L1_CACHE_BYTES) bytes of memory.
-Good finding. History shows that local_irq_desc was introduced after irq_desc
-that could explain the mistake.
-
+> switch ( pe32_opt_hdr.magic )
+> {
+> ...
 > 
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> I would assume the current arrangement is done as to reuse the
+> `default` error label, but IMO that switch condition is too hard to
+> parse.
 
-~Michal
+Well, yes, I have a tendency to code things like this to re-use code
+where possible, but I (meanwhile) understand many people don't like
+the result. Doing this differently would be a separate patch though, I
+think. Anyway - to catch the maintainers' attention I guess I'll (re-)
+submit the patch outside of this thread.
 
-
+Jan
 
