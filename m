@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32679A86753
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 22:38:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.947877.1345492 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9A86A86766
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 22:40:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.947899.1345501 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3L8P-0003nT-6W; Fri, 11 Apr 2025 20:37:57 +0000
+	id 1u3LAy-0005Pm-JZ; Fri, 11 Apr 2025 20:40:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 947877.1345492; Fri, 11 Apr 2025 20:37:57 +0000
+Received: by outflank-mailman (output) from mailman id 947899.1345501; Fri, 11 Apr 2025 20:40:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3L8P-0003kO-1X; Fri, 11 Apr 2025 20:37:57 +0000
-Received: by outflank-mailman (input) for mailman id 947877;
- Fri, 11 Apr 2025 20:37:55 +0000
+	id 1u3LAy-0005Nh-GZ; Fri, 11 Apr 2025 20:40:36 +0000
+Received: by outflank-mailman (input) for mailman id 947899;
+ Fri, 11 Apr 2025 20:40:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cS7z=W5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u3L8N-0003Gz-6d
- for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 20:37:55 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1u3LAx-0005Nb-Gg
+ for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 20:40:35 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d7809178-1714-11f0-9ffb-bf95429c2676;
- Fri, 11 Apr 2025 22:37:53 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-39c266c2dd5so1996066f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 11 Apr 2025 13:37:53 -0700 (PDT)
+ id 371f13c9-1715-11f0-9ffb-bf95429c2676;
+ Fri, 11 Apr 2025 22:40:33 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-391342fc0b5so1775506f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Apr 2025 13:40:33 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39eae979620sm3107518f8f.52.2025.04.11.13.37.51
+ ffacd0b85a97d-39eaf4458a8sm3191239f8f.99.2025.04.11.13.40.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Apr 2025 13:37:52 -0700 (PDT)
+ Fri, 11 Apr 2025 13:40:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7809178-1714-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 371f13c9-1715-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744403872; x=1745008672; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1744404033; x=1745008833; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JzBENLeE+61Pc4t7dtnNaPo2e2yH9jenXq3NFXWnvOg=;
-        b=AhUkkQpoHnoAbtM6rjzNvN7niUZcEN1yh+zsaxiYh5zDzAOWo2gLYMX+PeF9syVYjr
-         MLMp+R+VjBRfjKLNxx3ljAi1eOd7N3zRuQJzLKfpPi+wJN4x3Y625lqTkFBzUk07Udjo
-         mvusJATyYDF85NDZOo1yR9uEt5Lm2CfxhhTqQ=
+        bh=/jhkdQYzSi2KV1XIfQ25etCfDjFCQLLMxRgqOhVmfbk=;
+        b=MkF/mE4Azj/A7jbt/IoWYVQV2CakbWhx8whSY9FUO9c1ZyelxWvx0z9YTvQJ4kpcus
+         2xGtASKX7RfVBZIXWH9sk8YhNhF8J7WHGaYWKN+hKnWtfKaxvF7K7N/L2LUm/XPJoBZF
+         ZCtcpr+xlyRp3w5rwMHfAYUaDLeCNlpmpq+M0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744403872; x=1745008672;
+        d=1e100.net; s=20230601; t=1744404033; x=1745008833;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JzBENLeE+61Pc4t7dtnNaPo2e2yH9jenXq3NFXWnvOg=;
-        b=OQQ0RGTyUOWBeyy9vDut9k0KjfsXQQLD3AqjlQGZ/2hVAdIFsV2SkX6OiHuKlHoxRk
-         3IkhqZNKsUka2GLzIWVoufEurM2PwYI5ErYzeOwxuDSlOJZM1GRqaUEb/YiuooRzqn7d
-         e7OSpBW0jNHFb6lNkK/ZOLk2GAfVcI6GWEqvkoT4tlai7JD8SzsRBQOZysuywQO4KLsj
-         BREtn9TcoU6hD0Mb1cArFh6P9dDT60kfi7PGjOwhtpimoOk3cdJYsOGRgj7P2crLZlim
-         L0l8BnWBb4t7VhUjSWEqFNRb60pqfWQcxrtVjLZehwtIuQv4dKFOMRuko6E+zR2VWbRv
-         44vA==
-X-Forwarded-Encrypted: i=1; AJvYcCWsxhTmBezDPf+UjYsEIUTLL2hAgA79z4nvbi5aQbbGS3ijVSUIVHTvJvx6LcJRM8e1tAou/hKz6Oo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxwGLCREbSYm/d6M5ezFhwUsd461B+NWs9Fsp4AHHoBpGQoQoE2
-	CBocA1hJJltA33B14BEDRCTxiXjp1i37mk9ldhm4vjcEmVYt6Rw6Wsh44N2Is1Y=
-X-Gm-Gg: ASbGncupEgGMWsQfY2qjOvWy7s9r46ATYqhiGA/cl36c+M6qiT0eQGgZBrMcrA9WHHJ
-	OwfR8Wx7NYma1zY4bSatS+Uhr18ZNHYj+fHYo9BjgpXmiwW5UA/Z43wAzNLhqKsfYeCwF3bqB8e
-	psTmfqFMuRl7r4UqcEqIumjAoju2j1dD9k5zYrmwy1tOz9iTO3AnCacx2j0WxK63AZK1jzJrs33
-	rTExUiT3n4Ek+yLkhFHNbOl0ZJ0yQS+YRKiPUcgVTEHWSJohSb4uyO7+Dk9levlBdjFnPg5FSqI
-	dRgZr4yXc8smAZcKoAsLX8WaKqSr9n8p+zJJ5jYWYUdq9RCYbHzu0/yZm9b3tMLmBT7zT7OSc+y
-	0t5JaEw==
-X-Google-Smtp-Source: AGHT+IEaNCgRQGqbTgs9ZMdxnWmnLGIrTtyufmQWly/IkKrDebyAc/AomGwyOIQj1UuXjFBHnKe15A==
-X-Received: by 2002:a05:6000:4205:b0:391:3cb0:3d8d with SMTP id ffacd0b85a97d-39ea5201388mr2692321f8f.19.1744403872498;
-        Fri, 11 Apr 2025 13:37:52 -0700 (PDT)
-Message-ID: <108d72f6-c384-4d80-b354-9115c1bb0355@citrix.com>
-Date: Fri, 11 Apr 2025 21:37:51 +0100
+        bh=/jhkdQYzSi2KV1XIfQ25etCfDjFCQLLMxRgqOhVmfbk=;
+        b=kvZvCFmu7U/hQTKtuG9/Rh4l4SrMqisQJFVZen6p3Op4u/Qp4EBRKKiN2OeMZi+zf3
+         /DbWkCoe9MlB6Xylc5yX4P0gsQLoJqI8vfhyGj9P8sICW3btRLkp9n8F5ZNvUhbfw9OB
+         4iJkAsC7MY+7BjEIvKw51QybPizZGg5PvfVL/SEAB4hAKyKjezeCAMSKZeOyYgxvh77k
+         SWjvrMC+E+9OZHBAO5pcfQbsyQIB27b+Z7M1iDQrGwX5XOzHtgl9MoK9xYQxin6lWwgf
+         Wqf6Zn4KN1NGb3jnxvRLM7KdOPgzL3hDlsQ0qn5UutVSX/t8HbDlCgMjcXAIeSa4esYy
+         6t+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUpyE5WU3u8VrxboL14TpzoE96V/1hjHPauxhc630YNvn5QCWJxgujO8fc/mgOFg7IM8MTvaft5+r8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxj9dIXZ5Y9NAnhxWQc/s9SWZ+c2GhPAV0QHBy1Om8QF8FhFTwM
+	FHU4EXk/BKyUDS8cZlKD8iP0IJWwrlkh/qJ7tAdXakbdTRZSQZQJDz0PYCLl9vkTWDedPvK/2O5
+	sF2A=
+X-Gm-Gg: ASbGnctwUg6kn3mzkL26ZCgR7CUpDuqQHByKzXqvjPJ3ESOfwZyqr6TDX79lE+vJCOj
+	A3iwdhugV1bmXBEElQbERnhYmpIyeRRmDrWD/WxJSA6VJ5JmyloqriGzdK8jwVTp24STO0Au51R
+	P/QdrHBFMH7DujN90PUFGPe78nKgekKuI0ufGjalxI6+h/cDcgNKYO5vrtMzS5XHUSI3Lf/QRNy
+	3XayPwAGbahuccDOmvrdjr/X3UiFyWc0nGjOZuTJ2TRuSbEu2+71a18yozpegjTPpf5h5XKAW3m
+	u9F0NttB8xHirXkbvxh1Q8WfYogvpWD0iRt6k+alXL64iHkoubQv0S2qfugskt2W7zzNtSUBpqH
+	bZPNWmw==
+X-Google-Smtp-Source: AGHT+IGd8P4AgZgVdN+aNRRRavW0QQ+G8dloJ3221pXYb6klRgveiEITpMR/TqoeYiOJiVT5zLxu0g==
+X-Received: by 2002:a05:6000:1448:b0:39c:140b:feec with SMTP id ffacd0b85a97d-39ea51f4081mr4166508f8f.7.1744404032940;
+        Fri, 11 Apr 2025 13:40:32 -0700 (PDT)
+Message-ID: <fde17938-a7e9-4e31-9b77-77080525294e@citrix.com>
+Date: Fri, 11 Apr 2025 21:40:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] CI: fix waiting for final test message
+Subject: Re: [PATCH v3 3/7] CI: switch qubes runners to use console.exp
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
 Cc: Doug Goldstein <cardoe@cardoe.com>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.146eb3617cc9cf442dd4fc7a0a8950fb1bc191c8.1744403499.git-series.marmarek@invisiblethingslab.com>
- <ad1db17ffa1883b1aa21a8480e4fb628a6d0c929.1744403499.git-series.marmarek@invisiblethingslab.com>
+ <668fb90bbc5e418f6aea85e81d90343d834a066f.1744403499.git-series.marmarek@invisiblethingslab.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,26 +137,26 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <ad1db17ffa1883b1aa21a8480e4fb628a6d0c929.1744403499.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <668fb90bbc5e418f6aea85e81d90343d834a066f.1744403499.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 11/04/2025 9:32 pm, Marek Marczykowski-Górecki wrote:
-> Expect normally discards initial part of its buffer after matching the
-> patter, before looking for the next one. If both PASSED and LOG_MSG
-> happen to be in the buffer at the same time, depending on their order,
-> only one will be matched and the waiting for the other will timeout.
-> Example expect -d output of this happening (parts eclipsed for brevity):
->
->     expect: does "\r\r\r\nWelcome to Alpine Linux 3.18\r\r\r\n...\r\r\r\r\n(domU) + echo 'pci test passed'\r\r\r\r\n(domU) pci test passed\r\r\r\r..." (spawn_id exp4) match regular expression "pci test passed"? Gate "pci test passed"? gate=yes re=yes
->     ...
->     Gate keeper glob pattern for '\nWelcome to Alpine Linux' is '
->     Welcome to Alpine Linux'. Activating booster.
->     expect: does "'\r\r\r\r\n(domU) pci test passed\r\r\r\r\n(domU)  [ ok ]\r\r\r\r\n(domU)  [ ok ]\r\r\r\r\n(domU) \r\r\r\r\r\n(domU) domU Welcome to Alpine Linux 3.18\r\r\r\r\n(domU) \rKernel 6.6.56 on an x86_64 (/dev/hvc0)\r\r\r\r\n(domU) \r\r\r\r\r\n" (spawn_id exp4) match regular expression "\nWelcome to Alpine Linux"? Gate "\nWelcome to Alpine Linux"? gate=no
->
-> Fix this by using -notransfer flag to keep matched part in the buffer.
->
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> diff --git a/automation/scripts/console.exp b/automation/scripts/console.exp
+> index 834a08db1b95..bdb1dd982003 100755
+> --- a/automation/scripts/console.exp
+> +++ b/automation/scripts/console.exp
+> @@ -45,6 +49,15 @@ if {[info exists env(BOOT_MSG)]} {
+>      expect -re "$env(BOOT_MSG)"
+>  }
+>  
+> +if {[info exists env(WAKEUP_CMD)]} {
+> +    expect -re "$env(SUSPEND_MSG)"
+> +
+> +    # keep it suspended a bit, then wakeup
+> +    sleep 30
 
-Acked-by: Andrew Cooper <andrew.cooper3@citix.com>
+Do we need 30s here?  Couldn't we get away with 10?
+
+Either way, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
