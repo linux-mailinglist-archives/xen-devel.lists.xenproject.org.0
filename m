@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B0F6A866BB
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 22:00:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.947803.1345391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37221A86743
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 22:33:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.947816.1345401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3KX2-0004dG-FE; Fri, 11 Apr 2025 19:59:20 +0000
+	id 1u3L47-0007Tr-UO; Fri, 11 Apr 2025 20:33:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 947803.1345391; Fri, 11 Apr 2025 19:59:20 +0000
+Received: by outflank-mailman (output) from mailman id 947816.1345401; Fri, 11 Apr 2025 20:33:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3KX2-0004bB-CQ; Fri, 11 Apr 2025 19:59:20 +0000
-Received: by outflank-mailman (input) for mailman id 947803;
- Fri, 11 Apr 2025 19:59:19 +0000
+	id 1u3L47-0007R2-RT; Fri, 11 Apr 2025 20:33:31 +0000
+Received: by outflank-mailman (input) for mailman id 947816;
+ Fri, 11 Apr 2025 20:33:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cS7z=W5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u3KX1-0004b5-Ez
- for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 19:59:19 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ <SRS0=5hfk=W5=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1u3L46-0007Qw-Uv
+ for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 20:33:31 +0000
+Received: from fout-a8-smtp.messagingengine.com
+ (fout-a8-smtp.messagingengine.com [103.168.172.151])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7329f20e-170f-11f0-9eae-5ba50f476ded;
- Fri, 11 Apr 2025 21:59:17 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-39c0dfba946so1417446f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 11 Apr 2025 12:59:17 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f23572ce4sm94448555e9.30.2025.04.11.12.59.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Apr 2025 12:59:16 -0700 (PDT)
+ id 39553918-1714-11f0-9eae-5ba50f476ded;
+ Fri, 11 Apr 2025 22:33:28 +0200 (CEST)
+Received: from phl-compute-01.internal (phl-compute-01.phl.internal
+ [10.202.2.41])
+ by mailfout.phl.internal (Postfix) with ESMTP id 229421380214;
+ Fri, 11 Apr 2025 16:33:27 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-01.internal (MEProxy); Fri, 11 Apr 2025 16:33:27 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 11 Apr 2025 16:33:26 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,158 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7329f20e-170f-11f0-9eae-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744401556; x=1745006356; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=c+hnH5laC8XFET4cC5pzAhie//+QnKI8CmY2LPWGGck=;
-        b=maVt7TrBck5hb4WlSVxo6CsrCSkvMVIs9NU3KUfe6U0V8kuyvhNqjsDIr17Sa63Lw5
-         ikJorOHZ4sVutxvBz0KvuDVOzFtuqzUHdDJSG3Hj8BYh3BhG5GCTRsEQ5WCjAyXrta25
-         c97WMO3hYHBGrjs/bBekUP5k/J5Xs8C/tumLw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744401556; x=1745006356;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=c+hnH5laC8XFET4cC5pzAhie//+QnKI8CmY2LPWGGck=;
-        b=u+jbqTrRpLK+Z78dUcgMMbgTJduNhXFRmBuABMOZpgO1cAAK8nd15RFs6Qyv9J5LU0
-         jLe6PgULewsmaqlVuj5X2kYJY6YsDaHoGFABM8kP0m+sbsDbwG7TfzbYuMkQVxj2dSuV
-         Ce5hcTpK/rTJIZoX1TptE3H42QyoxWuO5H5eE5XHqOgkEj+WpN62BirwoDRG0rU+22SX
-         TC92llFGgciwdx5wBeKF5ojApb8cJewltRWAmImRj419mCrKaee0EgofDyY/JJqyA4JD
-         zPAAjcsCLrLGMFydaICe8Z7dIIQeTMoblhxtVPSoiD3TOF4acV09WkoPNBCdjqkfGyde
-         pWSw==
-X-Gm-Message-State: AOJu0YzyY//Etq5/VsSsAxnnmm6+1crLIWQuSEsga8r47wg353TRO/4n
-	Jxe+5lSquZ0b6YR45FUUfHoKDRx8Gh489iYYGBo7STRQQ4XOtw3CeDpJIWisI/vUY73BoInuxlS
-	whLg=
-X-Gm-Gg: ASbGnctR0jPR6xD2TNmT9qIwNUWYsPYXS1emQ4GipMEu6T+jCmMvNF7tjDiIyssb5qM
-	yM7wjqK3sJ57oUICAaJF0f5FBLOVS1Ek2H84uyKe0PEkdzJwGwRuBbbcb98ZlZHuLchmcU+sFCJ
-	DzgWVUC+fO80haR7hia/J1kPM86P1y0PGLjcrZZp3cxSKsmtayp3OGSSNfnWrshJw/vtRBHzcJv
-	A4hzJFNNxt9bqXn3LMGdBeJogYgF0O37QNxNkShVWfnQgL9NgtIo88cuMSfx8D7BORrabhHCGTz
-	814BSAx5L9rMkXTTqWybBFwPeo1Vv6ESOXLmcngl5aYI83kiz6j2PTh0ZqKPO74OyUHhLnrrqNu
-	ibXNPG6X8WgudBg==
-X-Google-Smtp-Source: AGHT+IFsSGj90KiuAdcCPUWX4xbif6MThlDR9w3BG85TWdKtYUYL8EJ3RAIcAcAZKnJzL3FtC6fxTg==
-X-Received: by 2002:a05:6000:178e:b0:39a:d336:16 with SMTP id ffacd0b85a97d-39ea5215dc6mr3569905f8f.34.1744401556598;
-        Fri, 11 Apr 2025 12:59:16 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
+X-Inumbo-ID: 39553918-1714-11f0-9eae-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
+	 t=1744403607; x=1744490007; bh=C/hTXG+MPNyrw9iV2eCibw2i0F8RAuek
+	lbURE1Ptgjc=; b=lBMvOkCXbDvLVoa+TRYGbYsePy4uk+nYMVkC3QY9s+jLlyvM
+	SC04MITv7TFABVbaH7hBV+tpQztm7Nmlnb051x0HoC4eLp5aPWgP0qC4X2mfNTnN
+	dScvTw0sEMrWIC0ZxCCTduTt5sMmSvHns5eEY6x5ZvNSs+cCjWrXJuDcJcGyJ5bC
+	kl/XeprKAY4wApUwlIWlE18G6LzBhnslZVCPxcEnNVdC/HubJhgGVGHCsGs1fh8v
+	lEkQeRjnVqU/gJJK+lny8ldujX+aiH78Rut21bvxghXRccY7NXuWxOFAcAyr9Jn2
+	PFni5h3fOgnKWEujzXBKywrw6pgdfoUl7kRZ8g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1744403607; x=1744490007; bh=C/hTXG+MPNyrw9iV2eCibw2i0F8R
+	AueklbURE1Ptgjc=; b=RUOyfbl36v+ALKsgwftHzMdt2hT5Go2K37AT4DZ532rF
+	1lT16LEcRfB6hFVOnaa2f5qvCPXVeT38nq3ewSSfTHaPYiE8CWr4c7xHYIynZcKl
+	omG6qVC5agdI5g88j3nv6Gvp8XpI1a9ETRF8hiTGDTmuhU2EQUAw01gH1Ro/Knfz
+	3hQguU9Pqi1bpSmGPvfcxY6etO00VyCA7ReT258f/34UljfeMNJEPGigGC7KaPXx
+	g/FX964XvVtvAE2QbEjxhjAKW84iDq7L+6zJD38E6Ppw9HstyD9fARGMQhIoWRk2
+	1pLsfahLMQpUxI6CF84tff8mL5yJPkXszgzDn0+4Nw==
+X-ME-Sender: <xms:lnz5Z_1chf7gritI3zLu6QHOaizJXfZyX39x6k0c0zkucDrN0XrOzQ>
+    <xme:lnz5Z-EBhpemVJYhyZFPKBP-hjC2B9dKPzailhDmUMKSc0jyGLpYTIm8fZYk3afBM
+    Imc4cYr3Subiw>
+X-ME-Received: <xmr:lnz5Z_5Ki7rMeqDzaBu6FGdXblu1M6fGazlLFEvr6eILtOA4Wc8XGDvp9mHWwTcUli4MddB7JWnGeWLwKOBn8-oNDIBljUOOKdUeBg-h5DGVH_DzjK8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvuddvjeelucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhephffvvefufffkofggtgfgsehtkeertdertdej
+    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
+    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
+    tffrrghtthgvrhhnpeelkefhudelteelleelteetveeffeetffekteetjeehlefggeekle
+    eghefhtdehvdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
+    ohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpd
+    hnsggprhgtphhtthhopeefpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopeigvghn
+    qdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhope
+    grnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtohepmhgr
+    rhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:lnz5Z02Ouj2CQYAuw060a0W7hWGXTiCbNY7m8MLPaIN5edOU3FZEng>
+    <xmx:lnz5ZyGJhxW6RNeKrpN214oATSbJqWuJSgzFw_hD_3d_C863gcWzZw>
+    <xmx:lnz5Z1-lO3nDsI6T0tvuC2U9-DHyqGmvoXFv8prs0YfzmXdY1HhV_Q>
+    <xmx:lnz5Z_lUKn0-MOLiWgMZPxMxz6k88kPaf7zqLyXPrJZZD-NyDiTM6Q>
+    <xmx:l3z5Z6xDUNdSBwlA6lWPDirLI2IFg3qQmHkI8X-ZUNKqWznjWNsAnsmE>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH] Package microcode for the x86 hardware runners
-Date: Fri, 11 Apr 2025 20:59:14 +0100
-Message-Id: <20250411195914.2256882-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+Subject: [PATCH v3 0/7] Several CI cleanups and improvements around initrd/rootfs
+Date: Fri, 11 Apr 2025 22:32:12 +0200
+Message-ID: <cover.146eb3617cc9cf442dd4fc7a0a8950fb1bc191c8.1744403499.git-series.marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-They are all out of date, to different degrees.
+Some of those patches are collected from my stubdomain test series, others are
+made while getting the new runner working. This series initially included
+adding Zen4 runner, but drop it in this version as there is quite enough stuff
+here already, and there are few more dependencies for the new runner (fixing
+some PVH issues, getting 6.12 kernel to build etc).
 
-Install jq into the x86_64 build container so we can parse the Github latest
-release information in an acceptable way.
+This series also evolved into refactoring initrd/rootfs handling and now
+depends on test-artifacts changes posted by Andrew. This significantly reduces
+hw test jobs time.
 
-The resulting archive must be uncompressed, in order to work during early
-boot.
+Marek Marczykowski-Górecki (7):
+  CI: wait for Xen to start before waiting for test to complete
+  CI: fix waiting for final test message
+  CI: switch qubes runners to use console.exp
+  CI: write whole etc/issue for domU initrd
+  CI: avoid repacking initrd as part of the test job
+  CI: remove now unused alpine-3.18-arm64-rootfs job and its container
+  CI: save toolstack artifact as cpio.gz
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Doug Goldstein <cardoe@cardoe.com>
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+ automation/build/alpine/3.18-arm64v8.dockerfile           |  1 +-
+ automation/gitlab-ci/build.yaml                           | 11 +-
+ automation/gitlab-ci/test.yaml                            |  6 +-
+ automation/scripts/build                                  |  2 +-
+ automation/scripts/console.exp                            | 40 +++-
+ automation/scripts/qemu-alpine-x86_64.sh                  | 12 +-
+ automation/scripts/qemu-smoke-dom0-arm32.sh               |  1 +-
+ automation/scripts/qemu-smoke-dom0-arm64.sh               | 10 +-
+ automation/scripts/qemu-smoke-dom0less-arm32.sh           |  1 +-
+ automation/scripts/qemu-smoke-dom0less-arm64.sh           |  9 +-
+ automation/scripts/qemu-xtf-dom0less-arm64.sh             |  1 +-
+ automation/scripts/qubes-x86-64.sh                        | 79 ++------
+ automation/scripts/xilinx-smoke-dom0-x86_64.sh            | 23 +-
+ automation/scripts/xilinx-smoke-dom0less-arm64.sh         | 17 +--
+ automation/tests-artifacts/alpine/3.18-arm64v8.dockerfile | 66 +-------
+ 15 files changed, 108 insertions(+), 171 deletions(-)
+ delete mode 100644 automation/tests-artifacts/alpine/3.18-arm64v8.dockerfile
 
-Example working in Xen:
-  https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/9700756054#L206
----
- .gitlab-ci.yml                             |  4 +++
- images/alpine/3.18-x86_64-build.dockerfile |  3 ++
- scripts/x86-microcode.sh                   | 42 ++++++++++++++++++++++
- 3 files changed, 49 insertions(+)
- create mode 100755 scripts/x86-microcode.sh
-
-diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-index 3587d660aa62..63722233dc6f 100644
---- a/.gitlab-ci.yml
-+++ b/.gitlab-ci.yml
-@@ -64,6 +64,10 @@ linux-6.6.56-x86_64:
-     ARGO_SHA: "ca5473a56f62e2b4d59697c8552d151391d3fec1"
-     ARGOEXEC_SHA: "d900429f6640acc6f68a3d3a4c945d7da60625d8"
- 
-+microcode-x86:
-+  extends: .x86_64-artifacts
-+  script: ./scripts/x86-microcode.sh
-+
- #
- # The jobs below here are legacy and being phased out.
- #
-diff --git a/images/alpine/3.18-x86_64-build.dockerfile b/images/alpine/3.18-x86_64-build.dockerfile
-index eac0cda4fed3..c4ff30e1f138 100644
---- a/images/alpine/3.18-x86_64-build.dockerfile
-+++ b/images/alpine/3.18-x86_64-build.dockerfile
-@@ -27,6 +27,9 @@ RUN <<EOF
-             openssl-dev
-             perl
- 
-+            # Microcode
-+            jq
-+
-             # Argo build deps
-             autoconf
-             automake
-diff --git a/scripts/x86-microcode.sh b/scripts/x86-microcode.sh
-new file mode 100755
-index 000000000000..cb55a3bd2d52
---- /dev/null
-+++ b/scripts/x86-microcode.sh
-@@ -0,0 +1,42 @@
-+#!/bin/bash
-+
-+set -eux -o pipefail
-+
-+WORKDIR="${PWD}"
-+COPYDIR="${WORKDIR}/binaries"
-+
-+ROOTDIR="${WORKDIR}/root"
-+UCODEDIR="${ROOTDIR}/kernel/x86/microcode"
-+mkdir -p "${UCODEDIR}"
-+
-+#
-+# Intel microcode comes from github
-+#
-+curl -fsSL https://api.github.com/repos/intel/Intel-Linux-Processor-Microcode-Data-Files/releases/latest > intel-latest.json
-+TARBALL_URL="$(jq -r .tarball_url intel-latest.json)"
-+curl -fsSL "${TARBALL_URL}" > intel-latest.tar
-+tar xf intel-latest.tar --strip-components=1
-+
-+(
-+    cd intel-ucode
-+    cat 06-97-02 # adl-*
-+    cat 06-8e-09 # kbl-*
-+) > "${UCODEDIR}/GenuineIntel.bin"
-+
-+#
-+# AMD microcode comes from linux-firmware
-+#
-+curl -fsSLO https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/amd-ucode/microcode_amd_fam17h.bin
-+curl -fsSLO https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/amd-ucode/microcode_amd_fam19h.bin
-+
-+(
-+    cat microcode_amd_fam17h.bin # zen2-*, xilinux-*-x86_64-*
-+    cat microcode_amd_fam19h.bin # zen3p-*
-+) > "${UCODEDIR}/AuthenticAMD.bin"
-+
-+# Package everything up.  It must be uncompressed
-+cd "${ROOTDIR}"
-+find . | cpio -R 0:0 -H newc -o > "${COPYDIR}/ucode.cpio"
-+
-+# Print the contents for the build log
-+cpio -tv < "${COPYDIR}/ucode.cpio"
+base-commit: 7bf777b42cade81d4f20f78cb85c4bc0f638de7b
 -- 
-2.39.5
-
+git-series 0.9.1
 
