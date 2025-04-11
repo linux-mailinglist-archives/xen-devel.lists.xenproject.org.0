@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1FBFA85015
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 01:25:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.946504.1344377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6093AA850EE
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 03:05:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.946530.1344391 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u31G4-0000yJ-15; Thu, 10 Apr 2025 23:24:32 +0000
+	id 1u32ox-0002bh-F4; Fri, 11 Apr 2025 01:04:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 946504.1344377; Thu, 10 Apr 2025 23:24:31 +0000
+Received: by outflank-mailman (output) from mailman id 946530.1344391; Fri, 11 Apr 2025 01:04:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u31G3-0000wr-T5; Thu, 10 Apr 2025 23:24:31 +0000
-Received: by outflank-mailman (input) for mailman id 946504;
- Thu, 10 Apr 2025 23:24:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u32ox-0002aF-CL; Fri, 11 Apr 2025 01:04:39 +0000
+Received: by outflank-mailman (input) for mailman id 946530;
+ Fri, 11 Apr 2025 01:04:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BGYy=W4=flex--seanjc.bounces.google.com=3JFP4ZwYKCfElXTgcVZhhZeX.VhfqXg-WXoXeeblml.qXgikhcXVm.hkZ@srs-se1.protection.inumbo.net>)
- id 1u31G2-0000wj-OL
- for xen-devel@lists.xenproject.org; Thu, 10 Apr 2025 23:24:30 +0000
-Received: from mail-pf1-x449.google.com (mail-pf1-x449.google.com
- [2607:f8b0:4864:20::449])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eed3d97f-1662-11f0-9ffb-bf95429c2676;
- Fri, 11 Apr 2025 01:24:23 +0200 (CEST)
-Received: by mail-pf1-x449.google.com with SMTP id
- d2e1a72fcca58-736cd36189bso1663716b3a.2
- for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 16:24:22 -0700 (PDT)
+ <SRS0=eOtD=W5=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1u32ow-0002a9-CV
+ for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 01:04:38 +0000
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ee74113f-1670-11f0-9ead-5ba50f476ded;
+ Fri, 11 Apr 2025 03:04:35 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1744333469385638.7964735969545;
+ Thu, 10 Apr 2025 18:04:29 -0700 (PDT)
+Received: by mail-oo1-f54.google.com with SMTP id
+ 006d021491bc7-6040465b9e2so737207eaf.0
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 18:04:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,140 +41,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eed3d97f-1662-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1744327461; x=1744932261; darn=lists.xenproject.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=+8Hj0FhxYq298MEgk+A50ezX9To9apyasGONCk8/EIY=;
-        b=nRjbiHgQcTnQuFFINhx7Raz0zuWHaWfKoQPFi2fGDAHU/n2b2lhFoaSxms3aCh8J0R
-         /PBzC81zxmQEqI+JIDoW7WnJs+eHm1OinfjVuWGALfd2oyKI4nX7hJPSQv+4BXai7W1S
-         k7npYGDlqiybRH1lAL4ejDnI5HUo0gEPcXroex+oh5H0uhGuJMovUPi5knuqEBtUVPXh
-         Hz3xNBDb4mrSYQ+C6tdhNAOzbdLhpxxonu1oGKH9crfs2at9Xp7G/tx2fXZifXRXEdhA
-         1AIwEGfiaruqUrjsS8gki2tSl+cXcyXkfmFuzdOMVQhVTUMX2iWktjrwAE5SoKbFOEGz
-         ODGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744327461; x=1744932261;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+8Hj0FhxYq298MEgk+A50ezX9To9apyasGONCk8/EIY=;
-        b=Mh9A/koIh750A/0QWWTEEabkPSC5knrxccMOzhBb/HhM0g7J50Po6LHhz8J+h0S8bg
-         FMFwOHoaJBNNsPbMonsj00Jm2UhX2Omt47c8LpUALoa6AueTjNUk15in8eExbAu1RMtA
-         TI9C3xI98WYlBkTB7Q8towS3OHweLJd3cPQVjwulH46vJv9XeEXXMjT5+/oLznCiYr0j
-         A44iFiQOWuTo6ccJi7FfM6v0ZuV7nQsZRgnD5HRRAlYcx+qiVQ1tYF/5d1rdVBssnGBA
-         fSSDL03W6OoZoQYpKj9du37X/xz3jJd+3DgBltOwJ50JlzxusGa2cvOpGfNVtC3zfBoF
-         BY2A==
-X-Forwarded-Encrypted: i=1; AJvYcCXCPrfEk4KQWDoeP5z1m9faHF0RCu5hPpW+fKz97N57ngxs4YJe5LNWIERGu++Pr1MalHCuVHQf09I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyrHLuQz4un56EZKVTWhllwvx6+skp2FA4dzueV4mfl4RWBUHRC
-	yOgnK8bHkxLiRDD6XsNIGX6lEjDM/RzSq6SnJNna7UReoubhY4XW8GlNXdIf6IlSGwTV/RZG/l9
-	gIw==
-X-Google-Smtp-Source: AGHT+IHWYnK2BwFW7Mr5VmhaaxwX1jXjykj9i9MFxC3vV2mlnL+NePMyv0dJBUjVtFSac3MvKiuBJyLqfxA=
-X-Received: from pfbfj37.prod.google.com ([2002:a05:6a00:3a25:b0:730:8b4c:546c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:21c7:b0:736:5c8e:baaa
- with SMTP id d2e1a72fcca58-73bd119427emr706022b3a.2.1744327460939; Thu, 10
- Apr 2025 16:24:20 -0700 (PDT)
-Date: Thu, 10 Apr 2025 16:24:19 -0700
-In-Reply-To: <20250331082251.3171276-11-xin@zytor.com>
-Mime-Version: 1.0
-References: <20250331082251.3171276-1-xin@zytor.com> <20250331082251.3171276-11-xin@zytor.com>
-Message-ID: <Z_hTI8ywa3rTxFaz@google.com>
-Subject: Re: [RFC PATCH v1 10/15] KVM: VMX: Use WRMSRNS or its immediate form
- when available
-From: Sean Christopherson <seanjc@google.com>
-To: "Xin Li (Intel)" <xin@zytor.com>
-Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev, 
-	linux-edac@vger.kernel.org, kvm@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, linux-ide@vger.kernel.org, 
-	linux-pm@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
-	tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, jgross@suse.com, 
-	andrew.cooper3@citrix.com, peterz@infradead.org, acme@kernel.org, 
-	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, 
-	kan.liang@linux.intel.com, wei.liu@kernel.org, ajay.kaher@broadcom.com, 
-	alexey.amakhalov@broadcom.com, bcm-kernel-feedback-list@broadcom.com, 
-	tony.luck@intel.com, pbonzini@redhat.com, vkuznets@redhat.com, 
-	luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com, 
-	haiyangz@microsoft.com, decui@microsoft.com
-Content-Type: text/plain; charset="us-ascii"
+X-Inumbo-ID: ee74113f-1670-11f0-9ead-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; t=1744333471; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=iXTcrXk885wj3zze+M5BZXFb4LHht6SaOkzV62qw4bWRgVNAIAnlBlY9S/S+YMx6KYUE495aKu6XpiKxctr5SpWAIMJGV/hUFF4UzkCMM1PLryE4goDKB8yQdC7CxSicZffO4PjgB9VpzNA6LYuXupZcdW/HSdXl6fcFGaok7pA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1744333471; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=EA8LXa/Kr1rDhgq7fsazy42w7N5pCyv4+5e8QlYl2DQ=; 
+	b=fJKknIg+K5CxxdFre0LuscTZUBbnEj7xgCLAfO6UngiZbdS1LumZm+qj51MOY4BW0T/keD5c3tNzfwM/wP4oNGD+G8o9Y6ZXVkZ3Jly28OhsYGc6JQNmmHS30wzGR+CnFy6H5nvxaT6kVnHbbAG67SsK5rvZqcDfW3X8CaucKgg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1744333471;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=EA8LXa/Kr1rDhgq7fsazy42w7N5pCyv4+5e8QlYl2DQ=;
+	b=GX+ugA4rMWHsGaENSWbnUnkKmMM47UfdFahpvXyVAD1ek4CblzEaoLKxxP9jYa0Y
+	H6MXAPwkP8z4Xd/++rjyQMC28D+gUqzeilEBXUhxOstpjYGg6ctVZhcZl2NldDn/wVQ
+	rIT+jVUiC1d+UDKc7A5YknMDjIsZ9bPsaZ5kHCaI=
+X-Gm-Message-State: AOJu0YwjWjZI6Lj9LMSL7WGCBwHCBDyCvYBfeLw9HZlHS3ub8U+p1cz1
+	vOLOaEFabDf+pwcFzgiuaTMmsrJZgEzqXKfeXMK4lolUYNEvUjW0rE64mYGJCNE4LL+1lwMmfqZ
+	ys0zNNeBCIROML34diXhftCZaJQU=
+X-Google-Smtp-Source: AGHT+IHjwYW8cL5XafIlvrDzPaYvWb1Avh+hLCIRwzt5wbdiDQ3xE5fjLS//zN5sM5mRmtPoCdvMav26Atud1SIO2A4=
+X-Received: by 2002:a05:6820:543:b0:602:47ec:3df0 with SMTP id
+ 006d021491bc7-6046f5941a0mr492446eaf.5.1744333468554; Thu, 10 Apr 2025
+ 18:04:28 -0700 (PDT)
+MIME-Version: 1.0
+References: <5a261173-d225-44fc-9078-4030ba11cfd8@suse.com>
+In-Reply-To: <5a261173-d225-44fc-9078-4030ba11cfd8@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Thu, 10 Apr 2025 21:03:52 -0400
+X-Gmail-Original-Message-ID: <CABfawh=2RzTvHfOaSO83b4gW9ZW2P8hXqUZp5HAmCmiEo0Uddg@mail.gmail.com>
+X-Gm-Features: ATxdqUEmIGNnNTl9NUSWNOedQ4dqZGhg3OStCLJgGEVRZns_NxfqSmq6v4C-FE4
+Message-ID: <CABfawh=2RzTvHfOaSO83b4gW9ZW2P8hXqUZp5HAmCmiEo0Uddg@mail.gmail.com>
+Subject: Re: [PATCH] x86/mem-sharing: short-circuit p2m_is_shared() when MEM_SHARING=n
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Mar 31, 2025, Xin Li (Intel) wrote:
-> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+On Thu, Apr 3, 2025 at 4:42=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+>
+> Some of the uses of dom_cow aren't easily DCE-able (without extra
+> #ifdef-ary), and hence it being constantly NULL when MEM_SHARING=3Dn
+> misguides Coverity into thinking that there may be a NULL deref in
+>
+>         if ( p2m_is_shared(t) )
+>             d =3D dom_cow;
+>
+>         if ( get_page(page, d) )
+>             return page;
+>
+> (in get_page_from_mfn_and_type()). Help the situation by making
+> p2m_is_shared() be compile-time false when MEM_SHARING=3Dn, thus also
+> permitting the compiler to DCE some other code.
+>
+> Note that p2m_is_sharable() isn't used outside of mem_sharing.c, and
+> hence P2M_SHARABLE_TYPES can simply be left undefined when
+> MEM_SHARING=3Dn.
+>
+> Coverity ID: 1645573
+> Fixes: 79d91e178a1a ("dom_cow is needed for mem-sharing only")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+Reviewed-by: Tamas K Lengyel <tamas@tklengyel.com>
+
 > ---
->  arch/x86/include/asm/msr-index.h |  6 ++++++
->  arch/x86/kvm/vmx/vmenter.S       | 28 ++++++++++++++++++++++++----
->  2 files changed, 30 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
-> index e6134ef2263d..04244c3ba374 100644
-> --- a/arch/x86/include/asm/msr-index.h
-> +++ b/arch/x86/include/asm/msr-index.h
-> @@ -1226,4 +1226,10 @@
->  						* a #GP
->  						*/
->  
-> +/* Instruction opcode for WRMSRNS supported in binutils >= 2.40 */
-> +#define ASM_WRMSRNS		_ASM_BYTES(0x0f,0x01,0xc6)
-> +
-> +/* Instruction opcode for the immediate form RDMSR/WRMSRNS */
-> +#define ASM_WRMSRNS_RAX		_ASM_BYTES(0xc4,0xe7,0x7a,0xf6,0xc0)
-> +
->  #endif /* _ASM_X86_MSR_INDEX_H */
-> diff --git a/arch/x86/kvm/vmx/vmenter.S b/arch/x86/kvm/vmx/vmenter.S
-> index f6986dee6f8c..9fae43723c44 100644
-> --- a/arch/x86/kvm/vmx/vmenter.S
-> +++ b/arch/x86/kvm/vmx/vmenter.S
-> @@ -64,6 +64,29 @@
->  	RET
->  .endm
->  
-> +/*
-> + * Write EAX to MSR_IA32_SPEC_CTRL.
-> + *
-> + * Choose the best WRMSR instruction based on availability.
-> + *
-> + * Replace with 'wrmsrns' and 'wrmsrns %rax, $MSR_IA32_SPEC_CTRL' once binutils support them.
-> + */
-> +.macro WRITE_EAX_TO_MSR_IA32_SPEC_CTRL
-> +	ALTERNATIVE_2 __stringify(mov $MSR_IA32_SPEC_CTRL, %ecx;		\
-> +				  xor %edx, %edx;				\
-> +				  mov %edi, %eax;				\
-> +				  ds wrmsr),					\
-> +		      __stringify(mov $MSR_IA32_SPEC_CTRL, %ecx;		\
-> +				  xor %edx, %edx;				\
-> +				  mov %edi, %eax;				\
-> +				  ASM_WRMSRNS),					\
-> +		      X86_FEATURE_WRMSRNS,					\
-> +		      __stringify(xor %_ASM_AX, %_ASM_AX;			\
-> +				  mov %edi, %eax;				\
-> +				  ASM_WRMSRNS_RAX; .long MSR_IA32_SPEC_CTRL),	\
-> +		      X86_FEATURE_MSR_IMM
-> +.endm
+> Might be nice to also eliminate p2m_ram_shared (and for MEM_PAGING=3Dn
+> also the three paging types) entirely from such builds, to eliminate the
+> risk of accidental use. Yet that would apparently also come at the price
+> of more #ifdef-ary. Opinions?
 
-This is quite hideous.  I have no objection to optimizing __vmx_vcpu_run(), but
-I would much prefer that a macro like this live in generic code, and that it be
-generic.  It should be easy enough to provide an assembly friendly equivalent to
-__native_wrmsr_constant().
+I don't think the risk of accidental use is a concern. I wouldn't
+touch them unless they lead to similar confusion with coverity or some
+other tool.
 
-
-> +
->  .section .noinstr.text, "ax"
->  
->  /**
-> @@ -123,10 +146,7 @@ SYM_FUNC_START(__vmx_vcpu_run)
->  	movl PER_CPU_VAR(x86_spec_ctrl_current), %esi
->  	cmp %edi, %esi
->  	je .Lspec_ctrl_done
-> -	mov $MSR_IA32_SPEC_CTRL, %ecx
-> -	xor %edx, %edx
-> -	mov %edi, %eax
-> -	wrmsr
-> +	WRITE_EAX_TO_MSR_IA32_SPEC_CTRL
->  
->  .Lspec_ctrl_done:
->  
-> -- 
-> 2.49.0
-> 
+Cheers,
+Tamas
 
