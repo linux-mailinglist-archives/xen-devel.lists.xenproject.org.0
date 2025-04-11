@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AA80A8674F
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 22:37:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.947868.1345482 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32679A86753
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 22:38:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.947877.1345492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3L7v-0003K2-SZ; Fri, 11 Apr 2025 20:37:27 +0000
+	id 1u3L8P-0003nT-6W; Fri, 11 Apr 2025 20:37:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 947868.1345482; Fri, 11 Apr 2025 20:37:27 +0000
+Received: by outflank-mailman (output) from mailman id 947877.1345492; Fri, 11 Apr 2025 20:37:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3L7v-0003H5-P3; Fri, 11 Apr 2025 20:37:27 +0000
-Received: by outflank-mailman (input) for mailman id 947868;
- Fri, 11 Apr 2025 20:37:26 +0000
+	id 1u3L8P-0003kO-1X; Fri, 11 Apr 2025 20:37:57 +0000
+Received: by outflank-mailman (input) for mailman id 947877;
+ Fri, 11 Apr 2025 20:37:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cS7z=W5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u3L7u-0003Gz-Fv
- for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 20:37:26 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1u3L8N-0003Gz-6d
+ for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 20:37:55 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c65037a9-1714-11f0-9ffb-bf95429c2676;
- Fri, 11 Apr 2025 22:37:24 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43ea40a6e98so21656695e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 11 Apr 2025 13:37:24 -0700 (PDT)
+ id d7809178-1714-11f0-9ffb-bf95429c2676;
+ Fri, 11 Apr 2025 22:37:53 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-39c266c2dd5so1996066f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Apr 2025 13:37:53 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f2075fc99sm99736345e9.29.2025.04.11.13.37.22
+ ffacd0b85a97d-39eae979620sm3107518f8f.52.2025.04.11.13.37.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Apr 2025 13:37:22 -0700 (PDT)
+ Fri, 11 Apr 2025 13:37:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c65037a9-1714-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: d7809178-1714-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744403844; x=1745008644; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1744403872; x=1745008672; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BldrPVfIQESeMIsapKQksSXRFPvAdGURowrke8ew/hQ=;
-        b=lg4/9otxwtXpIYiIjJUsP1AaDLiLcPAixfZdvj+wahCslPJM5FvWUvPHgg18On0ID+
-         7HJ3T4rjS5o0hujX7gwZo5FSWtYCuzdJ8ZvDMvvX0l/61GnY3ZtZXGJvXmlZquCcq7+s
-         cyw9Xu4eTqRLd/odnWbUD9z9ILy/D7k6iXVEs=
+        bh=JzBENLeE+61Pc4t7dtnNaPo2e2yH9jenXq3NFXWnvOg=;
+        b=AhUkkQpoHnoAbtM6rjzNvN7niUZcEN1yh+zsaxiYh5zDzAOWo2gLYMX+PeF9syVYjr
+         MLMp+R+VjBRfjKLNxx3ljAi1eOd7N3zRuQJzLKfpPi+wJN4x3Y625lqTkFBzUk07Udjo
+         mvusJATyYDF85NDZOo1yR9uEt5Lm2CfxhhTqQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744403844; x=1745008644;
+        d=1e100.net; s=20230601; t=1744403872; x=1745008672;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BldrPVfIQESeMIsapKQksSXRFPvAdGURowrke8ew/hQ=;
-        b=NeUQL00VzOlqZNQgs1Jnv76B+TlWb9fVC5KISynmtzhomFz/82fIGV6agWpwjwwrRE
-         S4LB1uAHcuVbu89brOYiuG4vN00+7/hBQ9yKJxQqMhyQm8if1CjRDnH9K0dQZDz8eAde
-         ZzVc7kuDlfTNrP9B44ohbQplPhUfx6uRh/aoJSNOCPqkM6Z/c9d59zzgj0wzOdslWwo/
-         hwKoMs1Kv+z6953D6oBGxxWo3GTwgr9TQPRXKVtio0PIY8zrA3p51R5r9+/i86GXdIkf
-         My5k0M8Q14wBssrbm5FQ0GlUXEr3bw65KMIj1xyWpxWe4LXnNfoPqCdFVMQLaauMTI58
-         Cy8g==
-X-Forwarded-Encrypted: i=1; AJvYcCVRL6IwmYx1HYbCeqolNsvAcVjSRqd3XIjLrpw1OyqLn4bjHl7xGwLSYhBjyXEl/cX+FnsmEvuo7K0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwouvsXj8QR34Awl2jDY/XCiiD84IYyiYDcCD8JdHiXgVtPcajn
-	33Lggi9j9UzWk8e+HnDW4omCK44AZBi5yXMuCdWi27ZMWEWqbNmezXzd66bH9Y4=
-X-Gm-Gg: ASbGncvz7ea5kTX3fGP6txfeS9omPbOnOsW3X12b/sOIq/Z2DLZb0juEH6h2cdKqCmf
-	xsNJsImY9LiXOuMXaJY6f/WcdVqEW85OrTauhAxieHlFj/1U/RQzoqTUghVgwEwWPw6A4qRD1j4
-	pTlRRGhWIIRN0DwZ+9yISRGmP2SnaT8Lpv22MqPtmld2/FQd+9gVjtKVaoIhl7uea91acCvgX12
-	EHmORXg0SGPeYYexUc4mMyaGmZx2//9Znk0vxNyl8IhfD5qvP+UOjf+PV7zIlTgJodLwLv1Yw25
-	U/K2cY7EWPrbYxKC7hKv2ERYKomBHyUz6dXOHSQaKVqur8iTRWx3idc9eamLHpnSpEEX7A4IyEO
-	VvNjhmw==
-X-Google-Smtp-Source: AGHT+IH0QL9ucguHRKkteX//RYL6CZhIksBdPwm28e/uI1U15yPd0MwmCGPPFqt6ygOJ+MbiagncUw==
-X-Received: by 2002:a05:600c:4e13:b0:43d:4686:5cfb with SMTP id 5b1f17b1804b1-43f3a9add63mr42820185e9.27.1744403843830;
-        Fri, 11 Apr 2025 13:37:23 -0700 (PDT)
-Message-ID: <76cbff87-3afd-43f1-a1e0-716a14074a32@citrix.com>
-Date: Fri, 11 Apr 2025 21:37:22 +0100
+        bh=JzBENLeE+61Pc4t7dtnNaPo2e2yH9jenXq3NFXWnvOg=;
+        b=OQQ0RGTyUOWBeyy9vDut9k0KjfsXQQLD3AqjlQGZ/2hVAdIFsV2SkX6OiHuKlHoxRk
+         3IkhqZNKsUka2GLzIWVoufEurM2PwYI5ErYzeOwxuDSlOJZM1GRqaUEb/YiuooRzqn7d
+         e7OSpBW0jNHFb6lNkK/ZOLk2GAfVcI6GWEqvkoT4tlai7JD8SzsRBQOZysuywQO4KLsj
+         BREtn9TcoU6hD0Mb1cArFh6P9dDT60kfi7PGjOwhtpimoOk3cdJYsOGRgj7P2crLZlim
+         L0l8BnWBb4t7VhUjSWEqFNRb60pqfWQcxrtVjLZehwtIuQv4dKFOMRuko6E+zR2VWbRv
+         44vA==
+X-Forwarded-Encrypted: i=1; AJvYcCWsxhTmBezDPf+UjYsEIUTLL2hAgA79z4nvbi5aQbbGS3ijVSUIVHTvJvx6LcJRM8e1tAou/hKz6Oo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxwGLCREbSYm/d6M5ezFhwUsd461B+NWs9Fsp4AHHoBpGQoQoE2
+	CBocA1hJJltA33B14BEDRCTxiXjp1i37mk9ldhm4vjcEmVYt6Rw6Wsh44N2Is1Y=
+X-Gm-Gg: ASbGncupEgGMWsQfY2qjOvWy7s9r46ATYqhiGA/cl36c+M6qiT0eQGgZBrMcrA9WHHJ
+	OwfR8Wx7NYma1zY4bSatS+Uhr18ZNHYj+fHYo9BjgpXmiwW5UA/Z43wAzNLhqKsfYeCwF3bqB8e
+	psTmfqFMuRl7r4UqcEqIumjAoju2j1dD9k5zYrmwy1tOz9iTO3AnCacx2j0WxK63AZK1jzJrs33
+	rTExUiT3n4Ek+yLkhFHNbOl0ZJ0yQS+YRKiPUcgVTEHWSJohSb4uyO7+Dk9levlBdjFnPg5FSqI
+	dRgZr4yXc8smAZcKoAsLX8WaKqSr9n8p+zJJ5jYWYUdq9RCYbHzu0/yZm9b3tMLmBT7zT7OSc+y
+	0t5JaEw==
+X-Google-Smtp-Source: AGHT+IEaNCgRQGqbTgs9ZMdxnWmnLGIrTtyufmQWly/IkKrDebyAc/AomGwyOIQj1UuXjFBHnKe15A==
+X-Received: by 2002:a05:6000:4205:b0:391:3cb0:3d8d with SMTP id ffacd0b85a97d-39ea5201388mr2692321f8f.19.1744403872498;
+        Fri, 11 Apr 2025 13:37:52 -0700 (PDT)
+Message-ID: <108d72f6-c384-4d80-b354-9115c1bb0355@citrix.com>
+Date: Fri, 11 Apr 2025 21:37:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] CI: wait for Xen to start before waiting for test
- to complete
+Subject: Re: [PATCH v3 2/7] CI: fix waiting for final test message
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
 Cc: Doug Goldstein <cardoe@cardoe.com>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.146eb3617cc9cf442dd4fc7a0a8950fb1bc191c8.1744403499.git-series.marmarek@invisiblethingslab.com>
- <3f1ef15b54a84573576e647314ec61ea43d4e3af.1744403499.git-series.marmarek@invisiblethingslab.com>
+ <ad1db17ffa1883b1aa21a8480e4fb628a6d0c929.1744403499.git-series.marmarek@invisiblethingslab.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,29 +136,26 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <3f1ef15b54a84573576e647314ec61ea43d4e3af.1744403499.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <ad1db17ffa1883b1aa21a8480e4fb628a6d0c929.1744403499.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 11/04/2025 9:32 pm, Marek Marczykowski-Górecki wrote:
-> Add additional stage in console output parsing - wait for first message
-> from Xen. The message is defined via BOOT_MSG variable. This has two
-> effects:
-> - distinguishes failing Xen to load at all from later test failures
-> - resets timeout when Xen starts loading
+> Expect normally discards initial part of its buffer after matching the
+> patter, before looking for the next one. If both PASSED and LOG_MSG
+> happen to be in the buffer at the same time, depending on their order,
+> only one will be matched and the waiting for the other will timeout.
+> Example expect -d output of this happening (parts eclipsed for brevity):
 >
-> The latter is especially relevant for hardware tests where firmware +
-> network boot may take some time before Xen starts booting. The two-stage
-> timeout is more robust solution than increasing the overall timeout.
-> The issue has been observed on some dom0pvh-hvm jobs, at least on
-> runners hw3 and hw11. This patch is a first stage before qubes-x86-64.sh
-> is switched to use expect in the next stage.
+>     expect: does "\r\r\r\nWelcome to Alpine Linux 3.18\r\r\r\n...\r\r\r\r\n(domU) + echo 'pci test passed'\r\r\r\r\n(domU) pci test passed\r\r\r\r..." (spawn_id exp4) match regular expression "pci test passed"? Gate "pci test passed"? gate=yes re=yes
+>     ...
+>     Gate keeper glob pattern for '\nWelcome to Alpine Linux' is '
+>     Welcome to Alpine Linux'. Activating booster.
+>     expect: does "'\r\r\r\r\n(domU) pci test passed\r\r\r\r\n(domU)  [ ok ]\r\r\r\r\n(domU)  [ ok ]\r\r\r\r\n(domU) \r\r\r\r\r\n(domU) domU Welcome to Alpine Linux 3.18\r\r\r\r\n(domU) \rKernel 6.6.56 on an x86_64 (/dev/hvc0)\r\r\r\r\n(domU) \r\r\r\r\r\n" (spawn_id exp4) match regular expression "\nWelcome to Alpine Linux"? Gate "\nWelcome to Alpine Linux"? gate=no
 >
-> While at it, consistently use 'expect -re' for all matches. This
-> especially allows matching newlines ("\n"), which will become relevant
-> in the next patch. And document variables used in console.exp.
+> Fix this by using -notransfer flag to keep matched part in the buffer.
 >
 > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citix.com>
 
