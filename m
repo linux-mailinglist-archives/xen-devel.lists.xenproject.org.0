@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEC1CA854B8
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 08:53:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.946632.1344452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE99FA854BF
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 08:54:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.946645.1344462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u38Gj-0003mZ-HX; Fri, 11 Apr 2025 06:53:41 +0000
+	id 1u38Hb-0004NV-Uq; Fri, 11 Apr 2025 06:54:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 946632.1344452; Fri, 11 Apr 2025 06:53:41 +0000
+Received: by outflank-mailman (output) from mailman id 946645.1344462; Fri, 11 Apr 2025 06:54:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u38Gj-0003kx-Ec; Fri, 11 Apr 2025 06:53:41 +0000
-Received: by outflank-mailman (input) for mailman id 946632;
- Fri, 11 Apr 2025 06:53:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u38Hb-0004LK-Rk; Fri, 11 Apr 2025 06:54:35 +0000
+Received: by outflank-mailman (input) for mailman id 946645;
+ Fri, 11 Apr 2025 06:54:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8esB=W5=gmail.com=npiggin@srs-se1.protection.inumbo.net>)
- id 1u38Gi-0003kr-4S
- for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 06:53:40 +0000
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [2607:f8b0:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b005288e-16a1-11f0-9ffb-bf95429c2676;
- Fri, 11 Apr 2025 08:53:35 +0200 (CEST)
-Received: by mail-pl1-x62d.google.com with SMTP id
- d9443c01a7336-227b650504fso15887755ad.0
- for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 23:53:37 -0700 (PDT)
+ id 1u38Ha-00045y-JH
+ for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 06:54:34 +0000
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [2607:f8b0:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d2d14cf0-16a1-11f0-9ead-5ba50f476ded;
+ Fri, 11 Apr 2025 08:54:34 +0200 (CEST)
+Received: by mail-pl1-x62f.google.com with SMTP id
+ d9443c01a7336-22435603572so16171025ad.1
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 23:54:33 -0700 (PDT)
 Received: from localhost ([220.253.99.94]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-73bd2333841sm728200b3a.160.2025.04.10.23.53.31
+ d2e1a72fcca58-73bd23342ddsm728537b3a.164.2025.04.10.23.54.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Apr 2025 23:53:35 -0700 (PDT)
+ Thu, 10 Apr 2025 23:54:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,148 +44,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b005288e-16a1-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: d2d14cf0-16a1-11f0-9ead-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744354416; x=1744959216; darn=lists.xenproject.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
+        d=gmail.com; s=20230601; t=1744354472; x=1744959272; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
          :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=q0GUgempXeR1Ai6jdCUdrwnFpwuRrrfXxvPcXnoqanQ=;
-        b=Ldia82s7as7tJlNW8WcmKpre+QshRcjt+jfeTjK49Abm5XAAPDksxahSlkEvujV+Kk
-         GuyM2Jvwiu4JcJaAWR+5a2Z0p6Ea/8KkUAoSyit1ahZ9MRDdpMvVkw0u13OCo1NtEMUC
-         ODbUxVrQsTSJdPT6xXn2NnbcP0jkcqZ0wfP/fFVRWMaSQOd/wIqPh6K3s5z+MRxVhHau
-         S+VWizpVq4lfv6nf2DU8Do/c+gJ3l1AZKbFp0IH8Th2BbDqTI6qHZIyhCERZl8cQJwmm
-         LN/MGXzH4h+PwwN7WS4qRx1xdBiVXXfmIce3DEBOjlY7xgNuz6e1yU9wEmapY6dr4byw
-         s10w==
+        bh=EMrPec0FtWGKoKqlWKZKVYlPugkOpwSx2KisPfbkQKU=;
+        b=TjWk9vHbuWglbg5m6Kd0xzDb5o3I0Todz+A9K7VDQoAjIXc6GwKtFkY/NROiHfqaqQ
+         AT0Iy4BcF5FgRGzAVhXdfaXfmPRyAte5P3MS9aOzTBPoVpRbJZ9Q/D6jcbNtoLPJ9moe
+         BRBotqe4TBfDp6+WFlAtqfZoJ2HVQt9K6ndO50RsRX46nufSbXtTzlSuPaQF2pHBONxv
+         2eZXHG5nKvoLbJHRz8h1iIcQFcsH1Lf/x8UkAQez3t02ShqYVHzofAV22NN+C1GGaWOg
+         L74zVRyY+OENbX5TLqvnzoKA++jKFpDhnR/rVNIm2EIxGoAp9Pi9qCJ0WxzU/SxncDpb
+         5yug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744354416; x=1744959216;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
+        d=1e100.net; s=20230601; t=1744354472; x=1744959272;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
          :content-transfer-encoding:mime-version:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=q0GUgempXeR1Ai6jdCUdrwnFpwuRrrfXxvPcXnoqanQ=;
-        b=BVzN0e/puqIftkc6MlotBie9p1pXZDSwDfq05itKsIuUi9jEtMqgI8Gs/Hkc+wYCgP
-         RKmDXOxre8N1/f9jBjA5uE6lpcFQka68CZWWh4Vfsg1a0Jp9x8vuOypX8w0LlPiKp3x9
-         +KGshgPaqwxITl1MUnwDf3aBwsJMWsHtd23Ef6f7MwpttFnoS8vVAMxwND8rGJvy6Zgz
-         TUQC5v8G3/dxjLIm30rPN7cejABxEaeknaCSiwhCFLhHsjUGtfuurx1wAA5q9AAW6aOD
-         7NqM09z07QFHFS7CnXM/rn650hmvdiLCD3bDfCqy/JLL2jstSFMZYoxqmDdjrMb5LRNN
-         SpnA==
-X-Forwarded-Encrypted: i=1; AJvYcCW9wApi3kVgcmUjAp/i8shFDE4E3n2frUsUrRtLTatFNEDU3qWZkEZ7o8x4YpIhygPNKLFLOkx56dY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzzp00BvVLn/SBgAWY/tiyKjYuw9nEecVaNWbME1FA2hnQC2SMG
-	gIYjopZNcYCVr9dxWTiXFNoNUPKKYqX7wdKxZPM3vU50+nS9eKZ2
-X-Gm-Gg: ASbGncsSEbwnjtcw+jfLHSfTQA2GpJUL57pUDbNGmCC9VizVV2iGWXpkt8EDyRb8KMj
-	n+sGO3PoT8Jg7/0g8fgXNWvwRjs9E//2ny0OGXjW9R59WGYWxy/7Aw4YH2TcHiIbwAV3hg9dgXg
-	brJRfN9YtWH50zz7uMgIKsrzHEMeXg2hOde6N33ugeTVyTe8fcHnmMfCJPmYE18CLVPRnJxrZXo
-	RuSYJfX0TmuTcqrMRDCCIcUkLRyhI7giqxFLYeGcwNCX0ygDtGERzCWElrh0SjEIBf0LGF3pBAU
-	D7dVC7Xrytp0Evtz8PR6g6JTj6DyyB3N2g==
-X-Google-Smtp-Source: AGHT+IGl0nL5wKmwFlWsQ9ssGXCB2kOLf/x4PGlQUnJhSihZMIEaJP/+c7G4d96OdeU+R8O+pnzM/Q==
-X-Received: by 2002:a17:902:cec4:b0:224:e33:889b with SMTP id d9443c01a7336-22bea4ade03mr24590165ad.12.1744354416369;
-        Thu, 10 Apr 2025 23:53:36 -0700 (PDT)
+        bh=EMrPec0FtWGKoKqlWKZKVYlPugkOpwSx2KisPfbkQKU=;
+        b=eW/4XYtel1XDoHOc39iJ2Uk9GZavj3mV9ZT0c0LP3o2s2k1di1UG88h7KvsCQG8/vp
+         2pcpqLbq/kwUnDWPNQcgrCzGH38jX2AQc147Jho4Gg0flNKKle7w1sz+/0eDPXzDJW5g
+         OQ+9QXwTRIBIRqKsu/Y+falr66YTEpLZ3Y2jbV8jSt/osOcotyBVbBsF9eVOMMtWgXF1
+         GTeMCb4dgImBH9gxr8w5PEhlY101UeQe7edAx6EbQ4sQcPV97veUm03aUs1+Itt2FwBY
+         xUKfX2DGecGz0iRmqy6OQFo2xina+YahFpSQ5HyFZo166CfR3G/vfhnCWRqvu0v1gtN3
+         0mMg==
+X-Forwarded-Encrypted: i=1; AJvYcCXf6yIqQLwuGqPQCZEcuz42n7AH2YY0JBx7xAHohXexRzH4we+WXinueNBbFnyQ3d3jwbm8BKcsSE4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YydXRDuIwKR2MurG2hudz0B7+X+lbs30SAJ3QRqwgrGUDj4BQqu
+	R4JGUiFF3DcIpaG0I/cKmJbtXIsVz42wpgyk6P1+0y0V9tpD+GIL
+X-Gm-Gg: ASbGncvMfZ5rAwTSmIwmfP/mgq/yKghhGv7PhWrnZZxZUIThFmPqbQcylJEMSER89Gm
+	aLzQzba52tK0yZg9WAFV33xzirKm8BMucKkm1b8nKCiTZospCCypRHdQ7pIBwbLGblgNozHJep7
+	fL42hd5e00jT5ZOCaRrX3Pn962PgaagQp1VntyW3hPZilToAtcgS/8vdcHivAcG1qShiaU3QS9C
+	upxDujGWTiuI8Kf5jrqJrfwLp3fPNh/86URsy7viCKOpGCnIN1vdOs2ml/iFWs2giqj/RISMFdj
+	zWeT8Nhzm2iOOc3q1/TBM/UW5Gy3r4og7w==
+X-Google-Smtp-Source: AGHT+IGSH0OgLf53VF7UhNZNnJ/VcLJp7S3R1+Mq4jeyNCKlAufgShNsDG1jyYvvXL3wLn/jNMdw9A==
+X-Received: by 2002:a17:902:ce8a:b0:224:191d:8a87 with SMTP id d9443c01a7336-22bea4bc62emr24301425ad.26.1744354472347;
+        Thu, 10 Apr 2025 23:54:32 -0700 (PDT)
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Apr 2025 16:53:29 +1000
-Message-Id: <D93M14UCYU7Y.39ZQIH7VON6DG@gmail.com>
-From: "Nicholas Piggin" <npiggin@gmail.com>
-To: "Alexander Gordeev" <agordeev@linux.ibm.com>, "Andrew Morton"
- <akpm@linux-foundation.org>, "Andrey Ryabinin" <ryabinin.a.a@gmail.com>
+Date: Fri, 11 Apr 2025 16:54:25 +1000
+Message-Id: <D93M1ULKMFVB.FY9I2463RQ68@gmail.com>
 Cc: "Hugh Dickins" <hughd@google.com>, "Guenter Roeck" <linux@roeck-us.net>,
  "Juergen Gross" <jgross@suse.com>, "Jeremy Fitzhardinge" <jeremy@goop.org>,
  <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
  <kasan-dev@googlegroups.com>, <sparclinux@vger.kernel.org>,
  <xen-devel@lists.xenproject.org>, <linuxppc-dev@lists.ozlabs.org>,
  <linux-s390@vger.kernel.org>
-Subject: Re: [PATCH v1 3/4] mm: Protect kernel pgtables in
- apply_to_pte_range()
+Subject: Re: [PATCH v1 1/4] kasan: Avoid sleepable page allocation from
+ atomic context
+From: "Nicholas Piggin" <npiggin@gmail.com>
+To: "Alexander Gordeev" <agordeev@linux.ibm.com>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Andrey Ryabinin" <ryabinin.a.a@gmail.com>
 X-Mailer: aerc 0.19.0
 References: <cover.1744037648.git.agordeev@linux.ibm.com>
- <11dbe3ac88130dbd2b8554f9369cd93fe138c655.1744037648.git.agordeev@linux.ibm.com>
-In-Reply-To: <11dbe3ac88130dbd2b8554f9369cd93fe138c655.1744037648.git.agordeev@linux.ibm.com>
+ <ad1b313b6e3e1a84d2df6f686680ad78ae99710c.1744037648.git.agordeev@linux.ibm.com>
+In-Reply-To: <ad1b313b6e3e1a84d2df6f686680ad78ae99710c.1744037648.git.agordeev@linux.ibm.com>
 
 On Tue Apr 8, 2025 at 1:11 AM AEST, Alexander Gordeev wrote:
-> The lazy MMU mode can only be entered and left under the protection
-> of the page table locks for all page tables which may be modified.
-> Yet, when it comes to kernel mappings apply_to_pte_range() does not
-> take any locks. That does not conform arch_enter|leave_lazy_mmu_mode()
-> semantics and could potentially lead to re-schedulling a process while
-> in lazy MMU mode or racing on a kernel page table updates.
+> apply_to_page_range() enters lazy MMU mode and then invokes
+> kasan_populate_vmalloc_pte() callback on each page table walk
+> iteration. The lazy MMU mode may only be entered only under
+> protection of the page table lock. However, the callback can
+> go into sleep when trying to allocate a single page.
+>
+> Change __get_free_page() allocation mode from GFP_KERNEL to
+> GFP_ATOMIC to avoid scheduling out while in atomic context.
 >
 > Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
 > ---
->  mm/kasan/shadow.c | 7 ++-----
->  mm/memory.c       | 5 ++++-
->  2 files changed, 6 insertions(+), 6 deletions(-)
+>  mm/kasan/shadow.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
 > diff --git a/mm/kasan/shadow.c b/mm/kasan/shadow.c
-> index edfa77959474..6531a7aa8562 100644
+> index 88d1c9dcb507..edfa77959474 100644
 > --- a/mm/kasan/shadow.c
 > +++ b/mm/kasan/shadow.c
-> @@ -308,14 +308,14 @@ static int kasan_populate_vmalloc_pte(pte_t *ptep, =
-unsigned long addr,
->  	__memset((void *)page, KASAN_VMALLOC_INVALID, PAGE_SIZE);
->  	pte =3D pfn_pte(PFN_DOWN(__pa(page)), PAGE_KERNEL);
+> @@ -301,7 +301,7 @@ static int kasan_populate_vmalloc_pte(pte_t *ptep, un=
+signed long addr,
+>  	if (likely(!pte_none(ptep_get(ptep))))
+>  		return 0;
 > =20
-> -	spin_lock(&init_mm.page_table_lock);
->  	if (likely(pte_none(ptep_get(ptep)))) {
->  		set_pte_at(&init_mm, addr, ptep, pte);
->  		page =3D 0;
->  	}
-> -	spin_unlock(&init_mm.page_table_lock);
-> +
->  	if (page)
->  		free_page(page);
-> +
->  	return 0;
->  }
+> -	page =3D __get_free_page(GFP_KERNEL);
+> +	page =3D __get_free_page(GFP_ATOMIC);
+>  	if (!page)
+>  		return -ENOMEM;
 > =20
 
-kasan_populate_vmalloc_pte() is really the only thing that
-takes the ptl in the apply_to_page_range fn()... Looks like
-you may be right. I wonder why they do and nobody else? Just
-luck?
+Oh of course you can't make it GFP_KERNEL after the
+patch to take ptl even for archs that don't use lazy
+mmu.
 
-Seems okay.
-
-Reviewed-by: Nicholas Piggin <npiggin@gmail.com>
-
-> @@ -401,13 +401,10 @@ static int kasan_depopulate_vmalloc_pte(pte_t *ptep=
-, unsigned long addr,
-> =20
->  	page =3D (unsigned long)__va(pte_pfn(ptep_get(ptep)) << PAGE_SHIFT);
-> =20
-> -	spin_lock(&init_mm.page_table_lock);
-> -
->  	if (likely(!pte_none(ptep_get(ptep)))) {
->  		pte_clear(&init_mm, addr, ptep);
->  		free_page(page);
->  	}
-> -	spin_unlock(&init_mm.page_table_lock);
-> =20
->  	return 0;
->  }
-> diff --git a/mm/memory.c b/mm/memory.c
-> index f0201c8ec1ce..1f3727104e99 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -2926,6 +2926,7 @@ static int apply_to_pte_range(struct mm_struct *mm,=
- pmd_t *pmd,
->  			pte =3D pte_offset_kernel(pmd, addr);
->  		if (!pte)
->  			return err;
-> +		spin_lock(&init_mm.page_table_lock);
->  	} else {
->  		if (create)
->  			pte =3D pte_alloc_map_lock(mm, pmd, addr, &ptl);
-> @@ -2951,7 +2952,9 @@ static int apply_to_pte_range(struct mm_struct *mm,=
- pmd_t *pmd,
-> =20
->  	arch_leave_lazy_mmu_mode();
-> =20
-> -	if (mm !=3D &init_mm)
-> +	if (mm =3D=3D &init_mm)
-> +		spin_unlock(&init_mm.page_table_lock);
-> +	else
->  		pte_unmap_unlock(mapped_pte, ptl);
-> =20
->  	*mask |=3D PGTBL_PTE_MODIFIED;
-
+Thanks,
+Nick
 
