@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80C00A8564E
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 10:15:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.946826.1344592 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49238A85654
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 10:16:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.946836.1344602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u39Xv-0004oM-J3; Fri, 11 Apr 2025 08:15:31 +0000
+	id 1u39Yk-0005IF-SE; Fri, 11 Apr 2025 08:16:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 946826.1344592; Fri, 11 Apr 2025 08:15:31 +0000
+Received: by outflank-mailman (output) from mailman id 946836.1344602; Fri, 11 Apr 2025 08:16:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u39Xv-0004lg-G3; Fri, 11 Apr 2025 08:15:31 +0000
-Received: by outflank-mailman (input) for mailman id 946826;
- Fri, 11 Apr 2025 08:15:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u39Yk-0005Fh-P1; Fri, 11 Apr 2025 08:16:22 +0000
+Received: by outflank-mailman (input) for mailman id 946836;
+ Fri, 11 Apr 2025 08:16:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kzGk=W5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u39Xt-0004la-La
- for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 08:15:29 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 20d294de-16ad-11f0-9ead-5ba50f476ded;
- Fri, 11 Apr 2025 10:15:28 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-399737f4fa4so899331f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 11 Apr 2025 01:15:28 -0700 (PDT)
+ id 1u39Yj-00056O-HR
+ for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 08:16:21 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3f5bddc9-16ad-11f0-9ffb-bf95429c2676;
+ Fri, 11 Apr 2025 10:16:19 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4394a0c65fcso17997355e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Apr 2025 01:16:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f205ecb20sm79568525e9.3.2025.04.11.01.15.27
+ 5b1f17b1804b1-43f233c824bsm75708535e9.24.2025.04.11.01.16.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Apr 2025 01:15:27 -0700 (PDT)
+ Fri, 11 Apr 2025 01:16:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20d294de-16ad-11f0-9ead-5ba50f476ded
+X-Inumbo-ID: 3f5bddc9-16ad-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744359328; x=1744964128; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744359379; x=1744964179; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BWlf9YaDq6iwb91Y497OMIUiV89XVUHF/KmI3fZZwr4=;
-        b=A4HFX8bgF4hl0QuBHtHMoutUKpMeoJnhJfYh3ARed6FsvX/Vlvw/xX1WzFZUG6T6Zp
-         9rcOaqqGaFp5/SzjkfhVd2TvjFJYYfg1JK2n+aD/qRxalcDxcweW9t5tM941EN2YME+I
-         fO7zfgmJH3sXwE3sMf3ZtjxxjCaLOuRIV9M/nG6Ms3y9QUmH022wFPTE3vixT44cJfgI
-         +gnYLy7CuAaztogCkKTnzoeunlX0223WwM+andcgGAg8CDCrus9gEwJB70xtKJNhjyBt
-         Vv8KtlJ19ZLJVtHvGrWsAMhjdU0JfxD/fiqSHAjMqwynvqHPwvwsrCxy8Y1FKy4UZLO/
-         dnIQ==
+        bh=4fRZ7QfsMr17EG/vuJ/EwZlyZHa0zUFcl/IsUD8t/8g=;
+        b=dFAKTlpR8PoQL1Vv3+JsJDaJn1ZVdfhrxm8SuKO8uxld5LJvbIWIEW6Nf8wcFSdFfF
+         bKtQqZI+4p8N9wGyXizRFKxtW1aNM73EtfRiuRhyheDuS65m1P6R4s6Ye1oftO4PJDgI
+         +/wA0twaQPqZlVtmrwNyiwS9RW9lrM3bLG+cLM4MQ5TiSW/gls1udCK0q6RD0+OKLnDu
+         PtAw+KLwXy4esQnR8nWcK39H73gE9a1NZhAaruUvHcpyT/FgCa3miituO2Ut0RMli6Wb
+         lRUQR1/fKSbpAZaE20q6+vkYg6WOeuVh+6q8UDp4HdpyoyPhmloUNg9nOXIlQAHjDVjc
+         Aifw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744359328; x=1744964128;
+        d=1e100.net; s=20230601; t=1744359379; x=1744964179;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BWlf9YaDq6iwb91Y497OMIUiV89XVUHF/KmI3fZZwr4=;
-        b=kGes5UJWnCooy1W+IYxCF7GcEqde9h1lYRrHabKodWwBEBkVEQxE/pIfMABFJFU4dr
-         nI84AtJp0I1DHTJflSyXdashsrWe8b6ww7HJnxtRle92bIt1l4XJagG1z42tiZM8kt91
-         rY6EIkctWl8dFtXUBiF7RuXvpBWoc9iajSOMyi2v6R5hzpCyoj91jqUmhXzT1UMBACFe
-         8asl/jeaLH6F6obCv4/f9su56JWEbTPeG/c3sZBLvrGNlFr3abnowBqMysY+7k5SyRop
-         Ik4QMXMi7RoqovuGzgSRSNLWIE1FZyO5i0ZTczIhx+8FXmlGMdSwFFq4PY8Qo2729+Bt
-         CM3g==
-X-Gm-Message-State: AOJu0YwNitNvHo6wezLvArJBKwctayWrYjwsjdZpOa4Cb2+v5c9PFhjx
-	eMdGfGdm6XbgQw3OxFZZKfhL2fWXMv4xR1ISb6/A1yZELXn17mEU93uDBszLLA==
-X-Gm-Gg: ASbGncvWBK6VhRndcqLbm6321znO4mKsvR6SIIUzbH/wWDFBo/JAPDO0I4NFGZybtVz
-	yChBS56p7mkzMGU7+WQgpbKxLcl/UiNjLHDIGLEapcqYRsKJ577dJCdUfZGx6Zm+Lev/hwxn447
-	V6W7SAwXjbgDiNTZ26cTx3Ed907Gu63YCmubmwDKPGqISbREfCt3BAMo5DChUjX0BUCK9+210Uz
-	CdlIPVCrlLELCrCgwzbciUPeP0wrNZ2PNZNSGWfA05uJCqmA8Fhoq966t0rvmiZ/lj5hlDmqtRr
-	37vQRYWDYZ5IqIdQ5KUloK9ZXH7kh44ic4jmVueEyyR4xxlXpVfizVq1xx1mILqv90hFXXAWtV6
-	VUkzLcaxe4OViIhzWB+mHZ/tgEw==
-X-Google-Smtp-Source: AGHT+IHSXGtFsYBgSxAgklm/GFX5NMwgP4ahM93VdQjTzuzyyfco/pfpuUiWqcf+ftXswZUqO0NCGg==
-X-Received: by 2002:a5d:64e8:0:b0:390:f745:bbfb with SMTP id ffacd0b85a97d-39ea52171f7mr1388235f8f.26.1744359327892;
-        Fri, 11 Apr 2025 01:15:27 -0700 (PDT)
-Message-ID: <87349713-cdc4-4d54-adcb-27db20a2a210@suse.com>
-Date: Fri, 11 Apr 2025 10:15:26 +0200
+        bh=4fRZ7QfsMr17EG/vuJ/EwZlyZHa0zUFcl/IsUD8t/8g=;
+        b=W9uN/6W4TcHAsVcTo3tBbD4tPBlsc0U83eSEbZNE5cRHFOo/AlI8KIZqoWLoFil/xU
+         p9zjUUCNhAQQ8J91OfhwNk2EeLALjJCzRG486S2T9Ljx4U4xKIOpIFMai1MIFpOE3FCV
+         bpR6hmq80REUbAOAXDBMKXTbxREk+6qnHKY3iBIq95Qk53t2dNqNeqEAJ6243c5e5pJd
+         OtCVkabI6oUDH4Bx3xV9KGhwAViYI68oGGPTwlfK99bEziJ6IoliTxwuXAL17th2hD0m
+         j+iCMWiGQCs9/1304F2UnZpSyRS3WWN0lhu2QBnpMXuxTE6xeqxXJlKMKJ7lk62L2s5e
+         OeBg==
+X-Forwarded-Encrypted: i=1; AJvYcCUlcNZPZvJvDapgQvgTr1iDbtNjDoZwN6Il5oUhsSsVEzwdxFmcR55LJi9AuK44pZ3q7AFhNMGrYXk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyKtVbe2x7AhJK73fpKWxOq+ZRktKGqAT0a90V5u+Y8kiOXgm6z
+	rzGp1zlq/BJ9IwySk083xWZDvtglLH2y0wyE6zNJuDoNtKd7eanXGAOqoqwHrw==
+X-Gm-Gg: ASbGncuuT7/SoN2ujTmbKtH3zsM7xvxXZ+Mra0odHc8MZeff8LeJEtZQL0AX4nSMyEL
+	9t/TqSHqRLrraXCERqriTlLnn5DunKHUrmOVbzvUSZtTnuZ7MQY1lh4ssQDckx3oOwNkEVpksJh
+	3aGTmp147ZIVnoL9kxTaualwXCEVHosjXb91JWTnN6pn4XpDwb2ch1lkxI80TIPBnebmR/tvOQr
+	s2ek4KMoa1xsyQq8045tEVxp8lpxX+PsEe10CpBQvbpsf7K8DWBr+HT/tcY/PAuOf8cebKYRDVT
+	YGtzgec/2EBuF/0WMGo5DVCs3phXk3D4rsGE5CFLrPEk9wXDnrz18dmIK27xCzPg9eFDTL7QceT
+	nhLaKcI4MHfLfoMzfmK/dioJWeTAKTIXgu2d1
+X-Google-Smtp-Source: AGHT+IHmFYuKedKUFop1hP073T1jhN2/bNx5hG7vDrgE3niVKR1nm/UmVDRL4R1kd1wcD8NPnAWtiw==
+X-Received: by 2002:a05:600c:4ed1:b0:43c:fbe2:df3c with SMTP id 5b1f17b1804b1-43f3a9aa716mr9874145e9.26.1744359379241;
+        Fri, 11 Apr 2025 01:16:19 -0700 (PDT)
+Message-ID: <70599849-d010-48fe-922d-268e70cac410@suse.com>
+Date: Fri, 11 Apr 2025 10:16:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] xen/x86: allow overlaps with non-RAM regions
-To: Jason Andryuk <jason.andryuk@amd.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Xenia.Ragiadakou@amd.com,
- Alejandro.GarciaVallejo@amd.com, "Lira, Victor M" <VictorM.Lira@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <alpine.DEB.2.22.394.2504031755440.3529306@ubuntu-linux-20-04-desktop>
- <Z--0USril0UIhR4R@macbook.lan> <3c5dfd26-3c12-498b-aca4-0beac4e991a5@amd.com>
+Subject: Re: [PATCH 1/2] xen/rangeset: fix incorrect subtraction
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250411075502.19926-1-roger.pau@citrix.com>
+ <20250411075502.19926-2-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,50 +120,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3c5dfd26-3c12-498b-aca4-0beac4e991a5@amd.com>
+In-Reply-To: <20250411075502.19926-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10.04.2025 22:55, Jason Andryuk wrote:
-> On 2025-04-04 06:28, Roger Pau Monné wrote:
->> On Thu, Apr 03, 2025 at 06:01:42PM -0700, Stefano Stabellini wrote:
->>> On one Sapphire AMD x86 board, I see this:
->>>
->>>
->>> (XEN) [0000003943ca6ff2]  [00000000f0000000, 00000000f7ffffff] (reserved)
->>> (XEN) [00000039460886d9]  [00000000fd000000, 00000000ffffffff] (reserved)
->>> [...]
->>> (XEN) [    4.612235] 0000:02:00.0: not mapping BAR [fea00, fea03] invalid position
->>>
->>>
->>> Linux boots fine on this platform but Linux as Dom0 on Xen does not.
->>> This is because the pci_check_bar->is_memory_hole check fails due to the
->>> MMIO region overlapping with the EFI reserved region.
->>
->> That's weird.  (Partially) the reason to not attempt to map such BAR
->> is that it should already be mapped, because at dom0 creation time all
->> reserved regions are added to the p2m (see arch_iommu_hwdom_init()).
->> If that's not the case we should figure out why this reserved region
->> is not added to dom0 p2m as part of arch_iommu_hwdom_init().
+On 11.04.2025 09:55, Roger Pau Monne wrote:
+> Given the following rangset operation:
 > 
-> Victor discovered these regions are type 11 EfiMemoryMappedIO, but they 
-> get converted to e820 RESERVED.  The BAR points into it.
+> { [0, 1], [4, 5] } - { [3, 4] }
 > 
-> 00000f0000000-00000f7ffffff type=11 attr=800000000000100d
-> 00000fd000000-00000fedfffff type=11 attr=800000000000100d
-> 00000fee00000-00000fee00fff type=11 attr=8000000000000001
-> 00000fee01000-00000ffffffff type=11 attr=800000000000100d
+> The current rangeset logic will output a rangeset:
 > 
-> Xenia discovered Linux keeps small regions like this reserved, but lets 
-> larger ones (>= 256kb) become holes.  See the comment in Linux 
-> arch/x86/platform/efi/efi.c:efi_remove_e820_mmio() around line 301.
+> { [0, 2], [5, 5] }
+> 
+> This is incorrect, and also has the undesirable property of being bogus in
+> a way that the resulting rangeset is expanded.
+> 
+> Fix this by making sure the bounds are correctly checked before modifying
+> the previous range.
+> 
+> Fixes: 484a058c4828 ('Add auto-destructing per-domain rangeset data structure...')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-What a hack. And the mentioning of MMCFG space isn't even correct there,
-I think. That space may legitimately be reserved (and at least older
-Linux actually checked for that), unlike any ranges where BARs may live.
-As to host bridge windows - I dare to question that they always need to
-be "large". Similarly nothing guarantees the some non-window space
-included in _CRS may not point at a "large" region.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
