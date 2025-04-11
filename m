@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9A86A86766
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 22:40:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.947899.1345501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F28DFA86773
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 22:43:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.947958.1345512 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3LAy-0005Pm-JZ; Fri, 11 Apr 2025 20:40:36 +0000
+	id 1u3LDY-0008A8-Vh; Fri, 11 Apr 2025 20:43:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 947899.1345501; Fri, 11 Apr 2025 20:40:36 +0000
+Received: by outflank-mailman (output) from mailman id 947958.1345512; Fri, 11 Apr 2025 20:43:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3LAy-0005Nh-GZ; Fri, 11 Apr 2025 20:40:36 +0000
-Received: by outflank-mailman (input) for mailman id 947899;
- Fri, 11 Apr 2025 20:40:35 +0000
+	id 1u3LDY-00087k-Sl; Fri, 11 Apr 2025 20:43:16 +0000
+Received: by outflank-mailman (input) for mailman id 947958;
+ Fri, 11 Apr 2025 20:43:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cS7z=W5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u3LAx-0005Nb-Gg
- for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 20:40:35 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ <SRS0=5hfk=W5=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1u3LDX-00087Z-Q0
+ for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 20:43:15 +0000
+Received: from fhigh-a3-smtp.messagingengine.com
+ (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 371f13c9-1715-11f0-9ffb-bf95429c2676;
- Fri, 11 Apr 2025 22:40:33 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-391342fc0b5so1775506f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 11 Apr 2025 13:40:33 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39eaf4458a8sm3191239f8f.99.2025.04.11.13.40.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 11 Apr 2025 13:40:32 -0700 (PDT)
+ id 966b037b-1715-11f0-9ffb-bf95429c2676;
+ Fri, 11 Apr 2025 22:43:14 +0200 (CEST)
+Received: from phl-compute-11.internal (phl-compute-11.phl.internal
+ [10.202.2.51])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id EB5ED1140282;
+ Fri, 11 Apr 2025 16:43:12 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-11.internal (MEProxy); Fri, 11 Apr 2025 16:43:12 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 11 Apr 2025 16:43:11 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 371f13c9-1715-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744404033; x=1745008833; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/jhkdQYzSi2KV1XIfQ25etCfDjFCQLLMxRgqOhVmfbk=;
-        b=MkF/mE4Azj/A7jbt/IoWYVQV2CakbWhx8whSY9FUO9c1ZyelxWvx0z9YTvQJ4kpcus
-         2xGtASKX7RfVBZIXWH9sk8YhNhF8J7WHGaYWKN+hKnWtfKaxvF7K7N/L2LUm/XPJoBZF
-         ZCtcpr+xlyRp3w5rwMHfAYUaDLeCNlpmpq+M0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744404033; x=1745008833;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/jhkdQYzSi2KV1XIfQ25etCfDjFCQLLMxRgqOhVmfbk=;
-        b=kvZvCFmu7U/hQTKtuG9/Rh4l4SrMqisQJFVZen6p3Op4u/Qp4EBRKKiN2OeMZi+zf3
-         /DbWkCoe9MlB6Xylc5yX4P0gsQLoJqI8vfhyGj9P8sICW3btRLkp9n8F5ZNvUhbfw9OB
-         4iJkAsC7MY+7BjEIvKw51QybPizZGg5PvfVL/SEAB4hAKyKjezeCAMSKZeOyYgxvh77k
-         SWjvrMC+E+9OZHBAO5pcfQbsyQIB27b+Z7M1iDQrGwX5XOzHtgl9MoK9xYQxin6lWwgf
-         Wqf6Zn4KN1NGb3jnxvRLM7KdOPgzL3hDlsQ0qn5UutVSX/t8HbDlCgMjcXAIeSa4esYy
-         6t+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUpyE5WU3u8VrxboL14TpzoE96V/1hjHPauxhc630YNvn5QCWJxgujO8fc/mgOFg7IM8MTvaft5+r8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxj9dIXZ5Y9NAnhxWQc/s9SWZ+c2GhPAV0QHBy1Om8QF8FhFTwM
-	FHU4EXk/BKyUDS8cZlKD8iP0IJWwrlkh/qJ7tAdXakbdTRZSQZQJDz0PYCLl9vkTWDedPvK/2O5
-	sF2A=
-X-Gm-Gg: ASbGnctwUg6kn3mzkL26ZCgR7CUpDuqQHByKzXqvjPJ3ESOfwZyqr6TDX79lE+vJCOj
-	A3iwdhugV1bmXBEElQbERnhYmpIyeRRmDrWD/WxJSA6VJ5JmyloqriGzdK8jwVTp24STO0Au51R
-	P/QdrHBFMH7DujN90PUFGPe78nKgekKuI0ufGjalxI6+h/cDcgNKYO5vrtMzS5XHUSI3Lf/QRNy
-	3XayPwAGbahuccDOmvrdjr/X3UiFyWc0nGjOZuTJ2TRuSbEu2+71a18yozpegjTPpf5h5XKAW3m
-	u9F0NttB8xHirXkbvxh1Q8WfYogvpWD0iRt6k+alXL64iHkoubQv0S2qfugskt2W7zzNtSUBpqH
-	bZPNWmw==
-X-Google-Smtp-Source: AGHT+IGd8P4AgZgVdN+aNRRRavW0QQ+G8dloJ3221pXYb6klRgveiEITpMR/TqoeYiOJiVT5zLxu0g==
-X-Received: by 2002:a05:6000:1448:b0:39c:140b:feec with SMTP id ffacd0b85a97d-39ea51f4081mr4166508f8f.7.1744404032940;
-        Fri, 11 Apr 2025 13:40:32 -0700 (PDT)
-Message-ID: <fde17938-a7e9-4e31-9b77-77080525294e@citrix.com>
-Date: Fri, 11 Apr 2025 21:40:31 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+X-Inumbo-ID: 966b037b-1715-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1744404192;
+	 x=1744490592; bh=ms9fonwwnF6/fn9N0WAjY/BQCiY5wjtYy62hczZ2QEs=; b=
+	cAeF61xUMlKZJ1BsDFsYJjaX3MHVCF0n17JtasanGWHys+lDcbd9WyP0rsgzAogV
+	rw+mnf933m4zV5rKgoGlxiD7ZajVQ+6hiUzOQWYcQczxctNru9wqM1h7LTWrDI8j
+	CcC5Bv3LlrOWe/WN161Vj525w6WoqF1/xmdoBAwc7L2SRIerykVb1/I1rTm1ZuIs
+	LRgl+aWQtG+1W0MLwViKBjq07dg0ZHc/scOhBg5pufH31FKLLo+0XqwaTl+g3vn0
+	fjEm03424qLuWJ/dQ4xuH4JtKmv9BFSsJhsi8bATM7nEFnQysQdcHfacjR0WqbOR
+	eE6KWe/zmaZXOgvA7A/prg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1744404192; x=1744490592; bh=ms9fonwwnF6/fn9N0WAjY/BQCiY5wjtYy62
+	hczZ2QEs=; b=pw0evbTROkex5XByFpqbYxihXGX7/l6iIgdq02sxADAyrP2MN3n
+	s0piqb3/k1wJhWL4k6J1+QckmDeQNJ2nxY8T9eD/A8VnUDoZU97++zCebxjQAGOU
+	hRxPXMBrKp1sw81dYS5IX6MOPsOYnBJw9/czFJwd/5wRD46MpvrtGQQp1LMysw8u
+	dWJsGZsu4V7+XUzLqM6PoJ+eym4DeKZoC4qgUcUBmXPIcVBh9kIbGtAebtlpfHoq
+	ml4Qq2PDwzF8mmsvjKFYyjvA/FEzGOYUeTw30nsm4Pmr4Q6mGQyL7nCezjgiJH38
+	waapm6mSCnMytx/OEu3QLo4ChSr6/gZ0hFg==
+X-ME-Sender: <xms:4H75Z5Vmqipkee03QoN590tm9H-n8HjWxe4XLuG92yVA9Z3h8SN_lQ>
+    <xme:4H75Z5mnCVLRu8Bhk-l5qus6y0HRB4TPB7dGrNjmxpIAPM-KVwwt5gde2HVlCc5rP
+    _gScpw5Kj8n3g>
+X-ME-Received: <xmr:4H75Z1YqHMEYHnpSrKzpcoTvEhIytm7y5O1fkfQWWpbFREF9-WoBPKXXHUTSkccedx-n5DDLwj_Tnmv3nEqslhQJvsmJqsDFOg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvuddvkedtucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
+    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
+    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+    dpnhgspghrtghpthhtohepgedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghn
+    ughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopeigvghnqd
+    guvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegt
+    rghrughovgestggrrhguohgvrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhnih
+    eskhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:4H75Z8W2Mmdvh-_GLi6Wc-00ok8jtSQhPkBFQCXA_nz9y6GL_pLTdg>
+    <xmx:4H75ZzmUrBCv4ZE4kM-_MTcOvex-7q7VcxztfouC2PPhCtl-B2XRnQ>
+    <xmx:4H75Z5fuGLoXdeRGphDBKV3VMQaqWdRf2QhoYY1VCK6fD9LsMDpjaQ>
+    <xmx:4H75Z9HRyvpYRXxTwVNJnJjcS2_vgddrK5W6-yFGU4Z4kxnhTv8NKQ>
+    <xmx:4H75Z12HFn7w8YieSzmKG0vabO4xV8z2lyBm5OBL3NmJtOCRbZIHpyO5>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 11 Apr 2025 22:43:09 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
 Subject: Re: [PATCH v3 3/7] CI: switch qubes runners to use console.exp
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
+Message-ID: <Z_l-3fXeTHA6N4Z_@mail-itl>
 References: <cover.146eb3617cc9cf442dd4fc7a0a8950fb1bc191c8.1744403499.git-series.marmarek@invisiblethingslab.com>
  <668fb90bbc5e418f6aea85e81d90343d834a066f.1744403499.git-series.marmarek@invisiblethingslab.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <668fb90bbc5e418f6aea85e81d90343d834a066f.1744403499.git-series.marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <fde17938-a7e9-4e31-9b77-77080525294e@citrix.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="M+7URqF4FjX/zdFP"
+Content-Disposition: inline
+In-Reply-To: <fde17938-a7e9-4e31-9b77-77080525294e@citrix.com>
 
-On 11/04/2025 9:32 pm, Marek Marczykowski-Górecki wrote:
-> diff --git a/automation/scripts/console.exp b/automation/scripts/console.exp
-> index 834a08db1b95..bdb1dd982003 100755
-> --- a/automation/scripts/console.exp
-> +++ b/automation/scripts/console.exp
-> @@ -45,6 +49,15 @@ if {[info exists env(BOOT_MSG)]} {
->      expect -re "$env(BOOT_MSG)"
->  }
->  
-> +if {[info exists env(WAKEUP_CMD)]} {
-> +    expect -re "$env(SUSPEND_MSG)"
-> +
-> +    # keep it suspended a bit, then wakeup
-> +    sleep 30
 
-Do we need 30s here?  Couldn't we get away with 10?
+--M+7URqF4FjX/zdFP
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Apr 2025 22:43:09 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v3 3/7] CI: switch qubes runners to use console.exp
 
-Either way, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On Fri, Apr 11, 2025 at 09:40:31PM +0100, Andrew Cooper wrote:
+> On 11/04/2025 9:32 pm, Marek Marczykowski-G=C3=B3recki wrote:
+> > diff --git a/automation/scripts/console.exp b/automation/scripts/consol=
+e.exp
+> > index 834a08db1b95..bdb1dd982003 100755
+> > --- a/automation/scripts/console.exp
+> > +++ b/automation/scripts/console.exp
+> > @@ -45,6 +49,15 @@ if {[info exists env(BOOT_MSG)]} {
+> >      expect -re "$env(BOOT_MSG)"
+> >  }
+> > =20
+> > +if {[info exists env(WAKEUP_CMD)]} {
+> > +    expect -re "$env(SUSPEND_MSG)"
+> > +
+> > +    # keep it suspended a bit, then wakeup
+> > +    sleep 30
+>=20
+> Do we need 30s here?=C2=A0 Couldn't we get away with 10?
+
+I want to be absolutely sure it got suspended (target system actually
+suspends only after printing the message), and I've seen some drivers
+taking a bit more time...
+
+> Either way, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--M+7URqF4FjX/zdFP
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmf5ft0ACgkQ24/THMrX
+1ywlowf/W6xtAonQYU0G4f9NiAEYVKRgXyyVIHPYmpcU06Bu2mvvDYTpqMlgTnYL
+c8CEX+2b3zD95t4afTO/0yKeln0JX4772Z8WOOE851uwX/pm/J+5AyTJV3iwKXW9
+PPfZmGGDhNQO0yhPtME0yQlv8h0evhuVy2gFxDsrnDMUs79Y1HyJN+zKlwHM4XTC
+ClnnMpsPNJ5W5I57E35/FyrimdwoeG46MPTbpZjZnfEffc+rAH2RQyciBkzxg3JS
++n6B1O3DhyZDXJYojboOa1d3+8aLx6v+6ybQAaJhBuaL4gUheDxt0e0Eq2U/+Vut
+GQhKL0E3juW2nNvjKP/+qgkdxWxcaQ==
+=qn1J
+-----END PGP SIGNATURE-----
+
+--M+7URqF4FjX/zdFP--
 
