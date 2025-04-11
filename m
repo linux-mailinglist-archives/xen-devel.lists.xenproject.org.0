@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6093AA850EE
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 03:05:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.946530.1344391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D77C5A8518A
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 04:23:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.946545.1344402 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u32ox-0002bh-F4; Fri, 11 Apr 2025 01:04:39 +0000
+	id 1u342N-0006z4-RU; Fri, 11 Apr 2025 02:22:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 946530.1344391; Fri, 11 Apr 2025 01:04:39 +0000
+Received: by outflank-mailman (output) from mailman id 946545.1344402; Fri, 11 Apr 2025 02:22:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u32ox-0002aF-CL; Fri, 11 Apr 2025 01:04:39 +0000
-Received: by outflank-mailman (input) for mailman id 946530;
- Fri, 11 Apr 2025 01:04:38 +0000
+	id 1u342N-0006wf-OW; Fri, 11 Apr 2025 02:22:35 +0000
+Received: by outflank-mailman (input) for mailman id 946545;
+ Fri, 11 Apr 2025 02:22:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eOtD=W5=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1u32ow-0002a9-CV
- for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 01:04:38 +0000
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ee74113f-1670-11f0-9ead-5ba50f476ded;
- Fri, 11 Apr 2025 03:04:35 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1744333469385638.7964735969545;
- Thu, 10 Apr 2025 18:04:29 -0700 (PDT)
-Received: by mail-oo1-f54.google.com with SMTP id
- 006d021491bc7-6040465b9e2so737207eaf.0
- for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 18:04:29 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=vbRy=W5=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1u342L-0006wZ-7Q
+ for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 02:22:34 +0000
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
+ [79.135.106.30]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d223a6fa-167b-11f0-9ead-5ba50f476ded;
+ Fri, 11 Apr 2025 04:22:31 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,84 +36,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee74113f-1670-11f0-9ead-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; t=1744333471; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=iXTcrXk885wj3zze+M5BZXFb4LHht6SaOkzV62qw4bWRgVNAIAnlBlY9S/S+YMx6KYUE495aKu6XpiKxctr5SpWAIMJGV/hUFF4UzkCMM1PLryE4goDKB8yQdC7CxSicZffO4PjgB9VpzNA6LYuXupZcdW/HSdXl6fcFGaok7pA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1744333471; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=EA8LXa/Kr1rDhgq7fsazy42w7N5pCyv4+5e8QlYl2DQ=; 
-	b=fJKknIg+K5CxxdFre0LuscTZUBbnEj7xgCLAfO6UngiZbdS1LumZm+qj51MOY4BW0T/keD5c3tNzfwM/wP4oNGD+G8o9Y6ZXVkZ3Jly28OhsYGc6JQNmmHS30wzGR+CnFy6H5nvxaT6kVnHbbAG67SsK5rvZqcDfW3X8CaucKgg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=tklengyel.com;
-	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
-	dmarc=pass header.from=<tamas@tklengyel.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1744333471;
-	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
-	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=EA8LXa/Kr1rDhgq7fsazy42w7N5pCyv4+5e8QlYl2DQ=;
-	b=GX+ugA4rMWHsGaENSWbnUnkKmMM47UfdFahpvXyVAD1ek4CblzEaoLKxxP9jYa0Y
-	H6MXAPwkP8z4Xd/++rjyQMC28D+gUqzeilEBXUhxOstpjYGg6ctVZhcZl2NldDn/wVQ
-	rIT+jVUiC1d+UDKc7A5YknMDjIsZ9bPsaZ5kHCaI=
-X-Gm-Message-State: AOJu0YwjWjZI6Lj9LMSL7WGCBwHCBDyCvYBfeLw9HZlHS3ub8U+p1cz1
-	vOLOaEFabDf+pwcFzgiuaTMmsrJZgEzqXKfeXMK4lolUYNEvUjW0rE64mYGJCNE4LL+1lwMmfqZ
-	ys0zNNeBCIROML34diXhftCZaJQU=
-X-Google-Smtp-Source: AGHT+IHjwYW8cL5XafIlvrDzPaYvWb1Avh+hLCIRwzt5wbdiDQ3xE5fjLS//zN5sM5mRmtPoCdvMav26Atud1SIO2A4=
-X-Received: by 2002:a05:6820:543:b0:602:47ec:3df0 with SMTP id
- 006d021491bc7-6046f5941a0mr492446eaf.5.1744333468554; Thu, 10 Apr 2025
- 18:04:28 -0700 (PDT)
+X-Inumbo-ID: d223a6fa-167b-11f0-9ead-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1744338148; x=1744597348;
+	bh=D5QPqp3tVroZiLmq2yLVV5UP1gY3K0swbHcuTIFG+cw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=M8o6MqS1dww3bXUuXx72yMuVwiI+PK/qDWpiePpNXc63xXGdVSUTpQ89DU8H+KBwZ
+	 uV2ftXmc9GB+Ol73F3jfbVAUo38Hjjiw8fu+oN5FUmhfNbQDhNFytb3/Ac0yc15nUk
+	 Tf+JIXtf0Iac138p2fqvsti60THRVKq+0BG2An9IoRtRqDs0zcxqRRIUsRSwXPuKr/
+	 mirzQvyypyWitP4WVaRuryjzHxRgaMAjzQH/Pg2wclSK4fp+hd4I6Mop5xiio+1s3P
+	 ih0vysijHEqr5bFhp0Ibab8JsY9fJnIvZjAuCA7ZBmU2IqqcQKR20ybQ22TgScjxpF
+	 RrrechEsf+MWQ==
+Date: Fri, 11 Apr 2025 02:22:23 +0000
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+From: Denis Mukhin <dmkhn@proton.me>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Anthony PERARD <anthony.perard@vates.tech>, Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>, =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, Jason Andryuk <jason.andryuk@amd.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH 2/4] Overhaul how Argo is built and packged
+Message-ID: <YPFuP6hQq0myBCOddL4tzFCBWAxGuKFkxdWlMOo5EkBkQVOjBoimEYoBywJD4vXGRatlf81hAvyLekktbrbH1zvWyEH_OUY97aF0YZtEfnA=@proton.me>
+In-Reply-To: <20250410213724.2098383-3-andrew.cooper3@citrix.com>
+References: <20250410213724.2098383-1-andrew.cooper3@citrix.com> <20250410213724.2098383-3-andrew.cooper3@citrix.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 9795aab1b2c9d217c95823a8944a1f72206f4407
 MIME-Version: 1.0
-References: <5a261173-d225-44fc-9078-4030ba11cfd8@suse.com>
-In-Reply-To: <5a261173-d225-44fc-9078-4030ba11cfd8@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Thu, 10 Apr 2025 21:03:52 -0400
-X-Gmail-Original-Message-ID: <CABfawh=2RzTvHfOaSO83b4gW9ZW2P8hXqUZp5HAmCmiEo0Uddg@mail.gmail.com>
-X-Gm-Features: ATxdqUEmIGNnNTl9NUSWNOedQ4dqZGhg3OStCLJgGEVRZns_NxfqSmq6v4C-FE4
-Message-ID: <CABfawh=2RzTvHfOaSO83b4gW9ZW2P8hXqUZp5HAmCmiEo0Uddg@mail.gmail.com>
-Subject: Re: [PATCH] x86/mem-sharing: short-circuit p2m_is_shared() when MEM_SHARING=n
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 3, 2025 at 4:42=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> Some of the uses of dom_cow aren't easily DCE-able (without extra
-> #ifdef-ary), and hence it being constantly NULL when MEM_SHARING=3Dn
-> misguides Coverity into thinking that there may be a NULL deref in
->
->         if ( p2m_is_shared(t) )
->             d =3D dom_cow;
->
->         if ( get_page(page, d) )
->             return page;
->
-> (in get_page_from_mfn_and_type()). Help the situation by making
-> p2m_is_shared() be compile-time false when MEM_SHARING=3Dn, thus also
-> permitting the compiler to DCE some other code.
->
-> Note that p2m_is_sharable() isn't used outside of mem_sharing.c, and
-> hence P2M_SHARABLE_TYPES can simply be left undefined when
-> MEM_SHARING=3Dn.
->
-> Coverity ID: 1645573
-> Fixes: 79d91e178a1a ("dom_cow is needed for mem-sharing only")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Thursday, April 10th, 2025 at 2:37 PM, Andrew Cooper <andrew.cooper3@cit=
+rix.com> wrote:
 
-Reviewed-by: Tamas K Lengyel <tamas@tklengyel.com>
-
+>=20
+>=20
+> Right now, the argo artefacts are a pile of files which the test has to t=
+urn
+> back into something which resembles a filesystem. Furthermore, because we=
+ do
+> not build modules for the main kernel, it is extra important to make sure=
+ that
+> xen-argo.ko doesn't get out of sync.
+>=20
+> Build argo unconditionally as part of the linux artefact. It's ~100kb all
+> together, compared to ~14M for the kernel.
+>=20
+> Produce a single argo.cpio.gz with xen-argo.ko in the standard location.
+> Prune userspace down to just the executables and libraries.
+>=20
+> This is cribbed from the existing scripts/x86_64-linux-argo.sh, which sta=
+ys in
+> place in the short term until Xen can be updated to use the new scheme.
+>=20
+> Signed-off-by: Andrew Cooper andrew.cooper3@citrix.com
+>=20
 > ---
-> Might be nice to also eliminate p2m_ram_shared (and for MEM_PAGING=3Dn
-> also the three paging types) entirely from such builds, to eliminate the
-> risk of accidental use. Yet that would apparently also come at the price
-> of more #ifdef-ary. Opinions?
+> CC: Anthony PERARD anthony.perard@vates.tech
+>=20
+> CC: Stefano Stabellini sstabellini@kernel.org
+>=20
+> CC: Michal Orzel michal.orzel@amd.com
+>=20
+> CC: Doug Goldstein cardoe@cardoe.com
+>=20
+> CC: Marek Marczykowski-G=C3=B3recki marmarek@invisiblethingslab.com
+>=20
+> CC: Jason Andryuk jason.andryuk@amd.com
+>=20
+> CC: Daniel P. Smith dpsmith@apertussolutions.com
+>=20
+>=20
+> I tried to make MODPOST work properly, but we don't build enough of it fo=
+r the
+> kernel, and I didn't feel like adding an extra 10 mins to the build (all
+> modules) just to get the metadata right.
+> ---
+> .gitlab-ci.yml | 2 ++
+> scripts/build-argo.sh | 67 ++++++++++++++++++++++++++++++++++++++++++
+> scripts/build-linux.sh | 6 +++-
+> 3 files changed, 74 insertions(+), 1 deletion(-)
+> create mode 100644 scripts/build-argo.sh
+>=20
+> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+> index fb997cc62162..790a6d9f9896 100644
+> --- a/.gitlab-ci.yml
+> +++ b/.gitlab-ci.yml
+> @@ -47,6 +47,8 @@ linux-6.6.56-x86_64:
+> script: ./scripts/build-linux.sh
+> variables:
+> LINUX_VERSION: 6.6.56
+> + ARGO_SHA: "705a7a8a624b42e13e655d3042059b8a85cdf6a3"
+> + ARGOEXEC_SHA: "d900429f6640acc6f68a3d3a4c945d7da60625d8"
+>=20
+> #
+> # The jobs below here are legacy and being phased out.
+> diff --git a/scripts/build-argo.sh b/scripts/build-argo.sh
+> new file mode 100644
+> index 000000000000..0b4005f3b9a0
+> --- /dev/null
+> +++ b/scripts/build-argo.sh
+> @@ -0,0 +1,67 @@
+> +#
+> +# This is a partial script, sourced by build-linux.sh
+> +# It has expectations about the environment
+> +#
+> +
+> +cd "${WORKDIR}"
+> +
+> +#
+> +# We're going to collect everything in argo.cpio.gz. Construct it under
+> +# $ARGODIR as we go.
+> +#
+> +ARGODIR=3D"${WORKDIR}/argo-root"
+> +
+> +git clone https://github.com/OpenXT/linux-xen-argo.git --depth=3D1
+> +git -C "${WORKDIR}/linux-xen-argo" fetch origin "${ARGO_SHA}"
+> +git -C "${WORKDIR}/linux-xen-argo" switch --detach FETCH_HEAD
+> +
+> +# Build xen-argo.ko against the target kernel, and install it. Install
+> +# linux/argo.h too because userspace needs it.
+> +make -C "linux-${LINUX_VERSION}" \
+> + M=3D"${WORKDIR}/linux-xen-argo/argo-linux" \
+> + KBUILD_MODPOST_WARN=3D1 \
+> + CFLAGS_MODULE=3D"-Wno-error" \
 
-I don't think the risk of accidental use is a concern. I wouldn't
-touch them unless they lead to similar confusion with coverity or some
-other tool.
+Suggest adding `W=3De` for catching problems and `V=3D1` to help debugging =
+a bit.
 
-Cheers,
-Tamas
+> + modules
+> +install -D -m644 "${WORKDIR}/linux-xen-argo/argo-linux/xen-argo.ko" \
+> + "${ARGODIR}/lib/modules/${LINUX_VERSION}/updates/xen-argo.ko"
+> +install -D -m644 "${WORKDIR}/linux-xen-argo/argo-linux/include/linux/arg=
+o.h" \
+> + "${ARGODIR}/usr/include/linux/argo.h"
+> +
+> +# Build and install libargo, applying fixes to build in Alpine Linux
+> +cd "${WORKDIR}/linux-xen-argo/libargo"
+> +sed -e "s|AM_INIT_AUTOMAKE|AC_CONFIG_AUX_DIR(.)\nAM_INIT_AUTOMAKE|" \
+> + -i configure.ac
+> +sed -e "s/_SOCKADDR_COMMON (sxenargo)/sa_family_t sxenargo_family/" \
+> + -e "s/__SOCKADDR_COMMON_SIZE/(sizeof (unsigned short int))/" \
+> + -i src/libargo.h
+> +
+> +autoreconf --install
+> +./configure --prefix=3D/usr CPPFLAGS=3D"-I${PWD}/../argo-linux/include"
+> +make
+
+Perhaps add something like `make -j$(nproc)`?
+
+> +make install DESTDIR=3D"${ARGODIR}"
+> +
+> +# Build and install argo-exec, modifying for xilinx argo test
+> +cd "${WORKDIR}"
+> +curl -fsSLO \
+> + https://raw.githubusercontent.com/OpenXT/xenclient-oe/${ARGOEXEC_SHA}/r=
+ecipes-openxt/argo-exec/argo-exec/argo-exec.c
+> +sed -e "/#include <xen\/xen.h>/d" \
+>=20
+> + -e "s|ret =3D shuffle(s, fds\[0\], fds\[1\]);|ret =3D shuffle(s, 0, 1);=
+|" \
+> + -i argo-exec.c
+> +
+> +gcc -I"${ARGODIR}/usr/include" -L"${ARGODIR}/usr/lib/" \
+> + argo-exec.c -o "${ARGODIR}/usr/bin/argo-exec" -largo
+> +
+> +#
+> +# Building is now complete. Strip the devel components and the nointerpo=
+ser
+> +# lib, which we don't care to deploy to the test system.
+> +#
+> +cd $ARGODIR
+> +rm -r usr/include usr/lib/pkgconfig
+> +find usr/lib -name \nointerposer\ -delete
+> +find usr/lib \( -name \.a -o -name \.so -o -name \*.la \) -delete
+> +
+> +# Package everything up
+> +find . | cpio -R 0:0 -H newc -o | gzip > "$COPYDIR/argo.cpio.gz"
+>=20
+> +
+> +# Print the contents for the build log
+> +zcat "$COPYDIR/argo.cpio.gz" | cpio -tv
+> diff --git a/scripts/build-linux.sh b/scripts/build-linux.sh
+> index 652fdba7b9d1..49b5ebed6424 100755
+> --- a/scripts/build-linux.sh
+> +++ b/scripts/build-linux.sh
+> @@ -8,7 +8,7 @@ fi
+> set -ex -o pipefail
+>=20
+> WORKDIR=3D"${PWD}"
+> -COPYDIR=3D"${WORKDIR}/binaries/"
+> +COPYDIR=3D"${WORKDIR}/binaries"
+> UNAME=3D$(uname -m)
+>=20
+> # Build Linux
+> @@ -45,6 +45,10 @@ case $UNAME in
+> x86_64)
+> make -j$(nproc) bzImage
+> cp arch/x86/boot/bzImage "${COPYDIR}"
+> +
+> + # Build argo
+> + make modules_prepare
+> + . "${WORKDIR}/scripts/build-argo.sh"
+
+Nit: I would use `source` instead of `.` which is simple to overlook.
+
+> ;;
+>=20
+> aarch64)
+> --
+> 2.39.5
 
