@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6521EA861F0
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 17:32:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.947588.1345182 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1640A86262
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 17:53:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.947603.1345191 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3GMh-0004qI-7m; Fri, 11 Apr 2025 15:32:23 +0000
+	id 1u3Gh2-0002Cn-RJ; Fri, 11 Apr 2025 15:53:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 947588.1345182; Fri, 11 Apr 2025 15:32:23 +0000
+Received: by outflank-mailman (output) from mailman id 947603.1345191; Fri, 11 Apr 2025 15:53:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3GMh-0004nL-4p; Fri, 11 Apr 2025 15:32:23 +0000
-Received: by outflank-mailman (input) for mailman id 947588;
- Fri, 11 Apr 2025 15:32:21 +0000
+	id 1u3Gh2-0002BL-OW; Fri, 11 Apr 2025 15:53:24 +0000
+Received: by outflank-mailman (input) for mailman id 947603;
+ Fri, 11 Apr 2025 15:53:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=r/J2=W5=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1u3GMf-0004nF-N6
- for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 15:32:21 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 26582db5-16ea-11f0-9ffb-bf95429c2676;
- Fri, 11 Apr 2025 17:32:18 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2C3544A50D
- for <xen-devel@lists.xenproject.org>; Fri, 11 Apr 2025 15:32:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB22C4CEE2
- for <xen-devel@lists.xenproject.org>; Fri, 11 Apr 2025 15:32:15 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-54954fa61c9so2712200e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 11 Apr 2025 08:32:15 -0700 (PDT)
+ (envelope-from <SRS0=vbRy=W5=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1u3Gh0-0002BF-Sm
+ for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 15:53:23 +0000
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
+ [79.135.106.30]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1699f79e-16ed-11f0-9ffb-bf95429c2676;
+ Fri, 11 Apr 2025 17:53:19 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +36,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26582db5-16ea-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1744385536;
-	bh=qecDzYE+xh/y37TaBMAK4HUM7O6HCzXfS50lOtKKy20=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=FPAH74J/y8zwAFWZKQQfqbeLsiq4qPpjrxrk4F5FSlyTp11m3AZa3QGQGm2lXrtjn
-	 TuESbiH1QdckFzDP82bHkrrDyOdKvWh/JSbQ9LTvtSoO6U6Sez4RzhqkAiBuNG7W/u
-	 bO8pHf+EObcKIPgOL1fQa6P6Nj52RmvcJ20YPrR3QM5TfvmrAkjYFmmoEHdvUpU/y4
-	 1baVUrCx3AdKgIdfu6Dpbf9uKDGZINFm20LT6qaJ1CX5f0BS//LQbfgERG5Ojc9IZF
-	 K8/8wXi3M5i1zayri5eIDMac33QbQMIIYSMExp68fu44u3GNYmWHeKHebSTXNGJIGn
-	 QICWuk9K1WZsA==
-X-Forwarded-Encrypted: i=1; AJvYcCWrKFr96wDatnnInkkWtB1zphZra9gSbxkqA9RJKF4Maz1SF8wMvRK0FEfSVVyxH/XmQiRfyJ4Bdl4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxzSauRd/aMvrPpNJZpyNZz4Jupanrx479eTMpfYxM/Q8UHpR/d
-	OjcealVorPDDU3TiP6WJT38cT523X/WDz9MbyGYtvD26eF6j3AlNRNzoU4pXl4ORU/1aqH8W4m0
-	4VU8+L/2dUXeP9yUe+PgutpnwVlc=
-X-Google-Smtp-Source: AGHT+IHcffy9EjRZN6cWiTG4eam2IzF6P4Zw/emfa+loK4jdqfntj3DmrBwnZHyx45V0Av1WtulyaUY4bIz89dZiIcM=
-X-Received: by 2002:a05:6512:31c5:b0:545:743:cf44 with SMTP id
- 2adb3069b0e04-54d4528be9bmr1203789e87.12.1744385534307; Fri, 11 Apr 2025
- 08:32:14 -0700 (PDT)
+X-Inumbo-ID: 1699f79e-16ed-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1744386797; x=1744645997;
+	bh=/lQPWvbIwhsx4tizVgVKuuHOW/ThZO4jYZyRewSO0nQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=WpPCTGd1o/CboW/AgNwVwPUPwzi46JpTCaGJxJyJVKz+hDJofp4zFxfsIvVXWAx8h
+	 2r1wFeOnUd1F7fCdUsJaOMTuNhgywS1ouBcYFvrRDbcPu0G9iPg1KOe2zYbBBI80Uy
+	 1Bwye1v9IPCg/ST9z36leEA2acsYn1zre6HAWKIZ24QP3DCZ1XwufjiZvy7vYbn7EG
+	 f2yDuE1Tmfh/kVra01Q+la2241nDV0T9LMa0Z9yRY3mdkCI9uogbMTK9yOLdPvk8QX
+	 Mi3e+/A5cL2B4j7EMDP6w4GN1uaZriwoWCLhXkGNpDFThg3Xy+OVH+eCd2gqTT1qTs
+	 0OKNoDOsIu6DQ==
+Date: Fri, 11 Apr 2025 15:53:12 +0000
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+From: Denis Mukhin <dmkhn@proton.me>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Anthony PERARD <anthony.perard@vates.tech>, Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>, =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH 1/3] Rework rootfs generation to make a cpio archive
+Message-ID: <Z0-Vwr2two0iaVg5FoxYWjiImFDeS3tDPssc0X1D0iAcnbK2X4TpJlSRbwugx0mW2_nWjgKQ5nSioBtuRNkjLG3mhDzhuDmZCa3Mz2e5R-E=@proton.me>
+In-Reply-To: <20250411105217.2141356-2-andrew.cooper3@citrix.com>
+References: <20250411105217.2141356-1-andrew.cooper3@citrix.com> <20250411105217.2141356-2-andrew.cooper3@citrix.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 163903897d9af93aa4020ae0ff58fc76327dbb76
 MIME-Version: 1.0
-References: <D9366FPHFS9F.2OP8KH7C8OJTF@amd.com> <20250410195012.363658-1-jason.andryuk@amd.com>
- <84c03f50-638b-4df4-af52-8f79bf00dc20@citrix.com> <CAMj1kXGCSSHvokAB5bq4vJv-xPPQf1P468dvoBmpJ-0kNsm6Dg@mail.gmail.com>
- <8d2bfccc-37e9-4f36-8909-58c398938ea4@amd.com>
-In-Reply-To: <8d2bfccc-37e9-4f36-8909-58c398938ea4@amd.com>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Fri, 11 Apr 2025 17:32:03 +0200
-X-Gmail-Original-Message-ID: <CAMj1kXGQeUsWEPQjP4RMTf6y8Ua23fOsyVfm6gHEkKOKMJGPRQ@mail.gmail.com>
-X-Gm-Features: ATxdqUF3SKqlDgQSzwbhzi2zfunOX3JsmGKzwfq8ojR4jx2GN1WLYoHtpwolgxc
-Message-ID: <CAMj1kXGQeUsWEPQjP4RMTf6y8Ua23fOsyVfm6gHEkKOKMJGPRQ@mail.gmail.com>
-Subject: Re: [RFC PATCH] x86/xen: Fix PVH dom0 xen_hypercall detection
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, agarciav@amd.com, jgross@suse.com, 
-	anthony.perard@vates.tech, marmarek@invisiblethingslab.com, 
-	michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 11 Apr 2025 at 16:28, Jason Andryuk <jason.andryuk@amd.com> wrote:
->
->
->
-> On 2025-04-11 07:35, Ard Biesheuvel wrote:
-> > On Thu, 10 Apr 2025 at 23:49, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
-> >>
-> >> On 10/04/2025 8:50 pm, Jason Andryuk wrote:
-> >>> A Xen PVH dom0 on an AMD processor triple faults early in boot on
-> >>> 6.6.86.  CPU detection appears to fail, as the faulting instruction is
-> >>> vmcall in xen_hypercall_intel() and not vmmcall in xen_hypercall_amd().
-> >>>
-> >>> Detection fails because __xen_hypercall_setfunc() returns the full
-> >>> kernel mapped address of xen_hypercall_amd() or xen_hypercall_intel() -
-> >>> e.g. 0xffffffff815b93f0.  But this is compared against the rip-relative
-> >>> xen_hypercall_amd(%rip), which when running from identity mapping, is
-> >>> only 0x015b93f0.
-> >>>
-> >>> Replace the rip-relative address with just loading the actual address to
-> >>> restore the proper comparision.
-> >>>
-> >>> This only seems to affect PVH dom0 boot.  This is probably because the
-> >>> XENMEM_memory_map hypercall is issued early on from the identity
-> >>> mappings.  With a domU, the memory map is provided via hvm_start_info
-> >>> and the hypercall is skipped.  The domU is probably running from the
-> >>> kernel high mapping when it issues hypercalls.
-> >>>
-> >>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> >>> ---
-> >>> I think this sort of address mismatch would be addresed by
-> >>> e8fbc0d9cab6 ("x86/pvh: Call C code via the kernel virtual mapping")
-> >>>
-> >>> That could be backported instead, but it depends on a fair number of
-> >>> patches.
-> >>
-> >> I've just spoken to Ard, and he thinks that it's standalone.  Should be
-> >> ok to backport as a fix.
-> >>
-> >
-> > I've tried building and booting 6.6.y with the patch applied - GS will
-> > still be set to the 1:1 mapped address but that shouldn't matter,
-> > given that it is only used for the stack canary, and we don't do
-> > address comparisons on that afaik.
->
-> Yes, it seems to work - I tested with dom0 and it booted.  I removed the
-> use of phys_base - the diff is included below.  Does that match what you
-> did?
->
+On Friday, April 11th, 2025 at 3:52 AM, Andrew Cooper <andrew.cooper3@citri=
+x.com> wrote:
 
-The stable tree maintainers generally prefer the backports to be as
-close to the originals as possible, and given that phys_base is
-guaranteed to be 0x0, you might as well keep the subtraction.
+>=20
+>=20
+> Rename the script as we're going to use it for ARM64 shortly, and have it=
+ take
+> a tar or cpio parameter to determine the output format.
+>=20
+> Turn it into a proper bash script, and provide the cpio form under the ne=
+w
+> artefact naming scheme.
+>=20
+> No functional change.
+>=20
+> Signed-off-by: Andrew Cooper andrew.cooper3@citrix.com
+>=20
+> ---
+> CC: Anthony PERARD anthony.perard@vates.tech
+>=20
+> CC: Stefano Stabellini sstabellini@kernel.org
+>=20
+> CC: Michal Orzel michal.orzel@amd.com
+>=20
+> CC: Doug Goldstein cardoe@cardoe.com
+>=20
+> CC: Marek Marczykowski-G=C3=B3recki marmarek@invisiblethingslab.com
+>=20
+> ---
+> .gitlab-ci.yml | 9 +++++++-
+> ...6_64-rootfs-alpine.sh =3D> alpine-rootfs.sh} | 21 +++++++++++++++++--
+>=20
+> 2 files changed, 27 insertions(+), 3 deletions(-)
+> rename scripts/{x86_64-rootfs-alpine.sh =3D> alpine-rootfs.sh} (75%)
+>=20
+>=20
+> diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+> index 1d2c72b268a3..916c5ae9d508 100644
+> --- a/.gitlab-ci.yml
+> +++ b/.gitlab-ci.yml
+> @@ -42,6 +42,13 @@ linux-6.6.86-arm64:
+> #
+> # x86_64 artifacts
+> #
+> +alpine-3.18-x86_64-rootfs:
+> + extends: .x86_64-artifacts
+> + script:
+> + - ./scripts/alpine-rootfs.sh cpio
+> + variables:
+> + CONTAINER: alpine:3.18-x86_64-base
+> +
+> linux-6.6.56-x86_64:
+> extends: .x86_64-artifacts
+> script: ./scripts/build-linux.sh
+> @@ -62,7 +69,7 @@ x86_64-kernel-linux-6.6.56:
+> x86_64-rootfs-alpine-3.18:
+> extends: .x86_64-artifacts
+> script:
+> - - . scripts/x86_64-rootfs-alpine.sh
+> + - ./scripts/alpine-rootfs.sh tar
+> variables:
+> CONTAINER: alpine:3.18-x86_64-base
+>=20
+> diff --git a/scripts/x86_64-rootfs-alpine.sh b/scripts/alpine-rootfs.sh
+> similarity index 75%
+> rename from scripts/x86_64-rootfs-alpine.sh
+> rename to scripts/alpine-rootfs.sh
+> index b70b3a54ede5..c29c92d1c682 100755
+> --- a/scripts/x86_64-rootfs-alpine.sh
+> +++ b/scripts/alpine-rootfs.sh
+> @@ -1,4 +1,9 @@
+> +#!/bin/bash
+> +
+> +set -eu
+> +
+> WORKDIR=3D"${PWD}"
+> +COPYDIR=3D"${WORKDIR}/binaries"
+>=20
+> apk update
+>=20
+> @@ -56,5 +61,17 @@ passwd -d "root" root
+>=20
+> # Create rootfs
+> cd /
+> -tar cvzf "${WORKDIR}/binaries/initrd.tar.gz" \
+> - bin dev etc home init lib mnt opt root sbin usr var
+> +PATHS=3D"bin dev etc home init lib mnt opt root sbin usr var"
+> +
+> +case $1 in
+> + cpio)
+> + find $PATHS | cpio -o -H newc | gzip > "${COPYDIR}/rootfs.cpio.gz"
+>=20
+> +
+> + # Print the contents for the build log
+> + zcat "${COPYDIR}/rootfs.cpio.gz" | cpio -tv
 
-> >>> Not sure on how getting a patch just into 6.6 would work.  This patch
-> >>> could go into upstream Linux though it's not strictly necessary when the
-> >>> rip-relative address is a high address.
-> >>
-> >> Do we know which other trees are broken?  I only found 6.6 because I was
-> >> messing around with other bits of CI that happen to use 6.6.
-> >>
-> >
-> > I'd assume all trees that had the hypercall page removal patch
-> > backported to them will be broken in the same way.
->
-> Yes, I think so.  Looks like it went back to 5.10 but not to 5.4.
->
-> Ard, I can submit the stable request unless you want to.
->
+Maybe allow $1 to be a filename? E. g. rootfs.cpio.gz or initrd.tar.gz.
+This way $1 will contain an explicit output artifact format along with
+the output filename.
 
-Please go ahead.
+What do you think?
+
+> + ;;
+> +
+> + tar)
+> + tar cvzf "${COPYDIR}/initrd.tar.gz" $PATHS
+> + ;;
+
+I would add the default case and error out in case of possible mis-use.
+
+> +esac
+> --
+> 2.39.5
 
