@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE99FA854BF
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 08:54:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.946645.1344462 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B28FBA8552E
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Apr 2025 09:13:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.946668.1344472 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u38Hb-0004NV-Uq; Fri, 11 Apr 2025 06:54:35 +0000
+	id 1u38Z6-0002WQ-F6; Fri, 11 Apr 2025 07:12:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 946645.1344462; Fri, 11 Apr 2025 06:54:35 +0000
+Received: by outflank-mailman (output) from mailman id 946668.1344472; Fri, 11 Apr 2025 07:12:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u38Hb-0004LK-Rk; Fri, 11 Apr 2025 06:54:35 +0000
-Received: by outflank-mailman (input) for mailman id 946645;
- Fri, 11 Apr 2025 06:54:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u38Z6-0002U1-CG; Fri, 11 Apr 2025 07:12:40 +0000
+Received: by outflank-mailman (input) for mailman id 946668;
+ Fri, 11 Apr 2025 07:12:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8esB=W5=gmail.com=npiggin@srs-se1.protection.inumbo.net>)
- id 1u38Ha-00045y-JH
- for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 06:54:34 +0000
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [2607:f8b0:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2d14cf0-16a1-11f0-9ead-5ba50f476ded;
- Fri, 11 Apr 2025 08:54:34 +0200 (CEST)
-Received: by mail-pl1-x62f.google.com with SMTP id
- d9443c01a7336-22435603572so16171025ad.1
- for <xen-devel@lists.xenproject.org>; Thu, 10 Apr 2025 23:54:33 -0700 (PDT)
+ id 1u38Z5-0002Tv-FO
+ for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 07:12:39 +0000
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [2607:f8b0:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 58724771-16a4-11f0-9ffb-bf95429c2676;
+ Fri, 11 Apr 2025 09:12:37 +0200 (CEST)
+Received: by mail-pg1-x52a.google.com with SMTP id
+ 41be03b00d2f7-af5a4cd980dso1259429a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Apr 2025 00:12:37 -0700 (PDT)
 Received: from localhost ([220.253.99.94]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-73bd23342ddsm728537b3a.164.2025.04.10.23.54.27
+ 98e67ed59e1d1-306dd171942sm4948139a91.33.2025.04.11.00.12.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Apr 2025 23:54:31 -0700 (PDT)
+ Fri, 11 Apr 2025 00:12:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,96 +44,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2d14cf0-16a1-11f0-9ead-5ba50f476ded
+X-Inumbo-ID: 58724771-16a4-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744354472; x=1744959272; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1744355555; x=1744960355; darn=lists.xenproject.org;
         h=in-reply-to:references:to:from:subject:cc:message-id:date
          :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EMrPec0FtWGKoKqlWKZKVYlPugkOpwSx2KisPfbkQKU=;
-        b=TjWk9vHbuWglbg5m6Kd0xzDb5o3I0Todz+A9K7VDQoAjIXc6GwKtFkY/NROiHfqaqQ
-         AT0Iy4BcF5FgRGzAVhXdfaXfmPRyAte5P3MS9aOzTBPoVpRbJZ9Q/D6jcbNtoLPJ9moe
-         BRBotqe4TBfDp6+WFlAtqfZoJ2HVQt9K6ndO50RsRX46nufSbXtTzlSuPaQF2pHBONxv
-         2eZXHG5nKvoLbJHRz8h1iIcQFcsH1Lf/x8UkAQez3t02ShqYVHzofAV22NN+C1GGaWOg
-         L74zVRyY+OENbX5TLqvnzoKA++jKFpDhnR/rVNIm2EIxGoAp9Pi9qCJ0WxzU/SxncDpb
-         5yug==
+        bh=KzShCwppEme7OMOnT5z5FD+rJw9aaKOfx1ISsPkjuh4=;
+        b=m7N655dXREtApFKttX0G4028arbSmwSal0RkViShQbHMYhP5+4gMUYfsV1Ew0P2jv/
+         Oo1KopnuHkxAKRyq6IehN8GNUa0bm9KeiBXb20EUj9/zA3esLLsPLABck/YAYasStGGN
+         O9i/fQjuVvXZO+0xYtJRao3DV6CCHbFnGQMTM6ACAzQNDelgywRi28o8t5JY13/jc8xt
+         6GsJ37+KP68fsr1ppacZuKJkvTFjHVp+CGdJPYbsdw5SYVCcdwyTNt+1bSpUG+jCsKMs
+         3FwHm4Oo0p8SXS3ZH4E4svl6OQwat3sn/0BvMRIdKqsPCa5GgADh7duaD3m3AlpqCvQN
+         B+3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744354472; x=1744959272;
+        d=1e100.net; s=20230601; t=1744355555; x=1744960355;
         h=in-reply-to:references:to:from:subject:cc:message-id:date
          :content-transfer-encoding:mime-version:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=EMrPec0FtWGKoKqlWKZKVYlPugkOpwSx2KisPfbkQKU=;
-        b=eW/4XYtel1XDoHOc39iJ2Uk9GZavj3mV9ZT0c0LP3o2s2k1di1UG88h7KvsCQG8/vp
-         2pcpqLbq/kwUnDWPNQcgrCzGH38jX2AQc147Jho4Gg0flNKKle7w1sz+/0eDPXzDJW5g
-         OQ+9QXwTRIBIRqKsu/Y+falr66YTEpLZ3Y2jbV8jSt/osOcotyBVbBsF9eVOMMtWgXF1
-         GTeMCb4dgImBH9gxr8w5PEhlY101UeQe7edAx6EbQ4sQcPV97veUm03aUs1+Itt2FwBY
-         xUKfX2DGecGz0iRmqy6OQFo2xina+YahFpSQ5HyFZo166CfR3G/vfhnCWRqvu0v1gtN3
-         0mMg==
-X-Forwarded-Encrypted: i=1; AJvYcCXf6yIqQLwuGqPQCZEcuz42n7AH2YY0JBx7xAHohXexRzH4we+WXinueNBbFnyQ3d3jwbm8BKcsSE4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YydXRDuIwKR2MurG2hudz0B7+X+lbs30SAJ3QRqwgrGUDj4BQqu
-	R4JGUiFF3DcIpaG0I/cKmJbtXIsVz42wpgyk6P1+0y0V9tpD+GIL
-X-Gm-Gg: ASbGncvMfZ5rAwTSmIwmfP/mgq/yKghhGv7PhWrnZZxZUIThFmPqbQcylJEMSER89Gm
-	aLzQzba52tK0yZg9WAFV33xzirKm8BMucKkm1b8nKCiTZospCCypRHdQ7pIBwbLGblgNozHJep7
-	fL42hd5e00jT5ZOCaRrX3Pn962PgaagQp1VntyW3hPZilToAtcgS/8vdcHivAcG1qShiaU3QS9C
-	upxDujGWTiuI8Kf5jrqJrfwLp3fPNh/86URsy7viCKOpGCnIN1vdOs2ml/iFWs2giqj/RISMFdj
-	zWeT8Nhzm2iOOc3q1/TBM/UW5Gy3r4og7w==
-X-Google-Smtp-Source: AGHT+IGSH0OgLf53VF7UhNZNnJ/VcLJp7S3R1+Mq4jeyNCKlAufgShNsDG1jyYvvXL3wLn/jNMdw9A==
-X-Received: by 2002:a17:902:ce8a:b0:224:191d:8a87 with SMTP id d9443c01a7336-22bea4bc62emr24301425ad.26.1744354472347;
-        Thu, 10 Apr 2025 23:54:32 -0700 (PDT)
+        bh=KzShCwppEme7OMOnT5z5FD+rJw9aaKOfx1ISsPkjuh4=;
+        b=OfCfcjfROtNwMd1lsKPT3i5VuThS8knabfwsGZUhLobjMF9X4jYTI3LHUCUcerrpnO
+         Ne1GxIgl6golKKxee7QEYuY4nQo6ySvmkMZ9B7z3I2q5fJQXjVe0YpIu3k6cEs+TYVc1
+         Hc0dP5938qjVyjlccerS5qRAuR298I4IrgpA9IrLOPZxOC/JXwNU/ldU3aNuc5+D/JVn
+         HOUfcyx7Tf6u7kDlBW+jEU4IzcT60OVbb1RYqZU2R5bQRK7aHEtSyybF4c56r0RLG3xW
+         OHeQ/p35MKuEQ6HslK7/IQ/CbH11tyZEr6+QLOjhWx43ZJeLvIwwBOa7lQyrk2mPFKTx
+         Ofzg==
+X-Forwarded-Encrypted: i=1; AJvYcCXMpmL0/9lFCl+JgoVHUC/PSkVwEAPuhPGoAUaUtAiLDP8GCzugiKFJjc1GLZwvRUzOB7aB2iFEMeo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwZvvdavf8X5neidBE5DCwNHJ1ODWNiuzbDhI9bB+NQZd76eHMh
+	RiUO37XQfvSjmERioxFoLtSJuwk6FSOKH7CGHsFAMNwCpWKuHta9
+X-Gm-Gg: ASbGncsGjzjCENQyDzz/UVnhglo2WeUtTtgiOsocgbQ2PTXkYSer2Rx2Ad4cnPcdPGI
+	tcSSOHNWlqU8YGMz0ETnF4CNqMze/gACclx6GevQswup5Ucjj/bS7h5UEZjbwRzn0l/09+EQhx2
+	Xq9XVgNwmHi9fMe/lWQ6+o/DQTLYmoEMTsPUHPa47u/O0BQQ76mJFoPkfXOI7qUArnASMSp2L+m
+	5Me9HFSuhr9iQBToJmzjxwPZwJDavwT50AEVi5WQaOc0PWLSyfnvsXIXqwDAo1bVFqVcd2unNV6
+	TcdEnVYKL6LP22RemEeOA0IF3VuIkr651w==
+X-Google-Smtp-Source: AGHT+IHpSOk8rGIiMZXty/hbuCSKlXyveZLgB4pNTJ04Shha/BPkKtAvaM61qadHeDDYt8o+ld2JZA==
+X-Received: by 2002:a17:90b:5245:b0:2ff:784b:ffe with SMTP id 98e67ed59e1d1-3082377c271mr2980340a91.11.1744355555591;
+        Fri, 11 Apr 2025 00:12:35 -0700 (PDT)
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Apr 2025 16:54:25 +1000
-Message-Id: <D93M1ULKMFVB.FY9I2463RQ68@gmail.com>
+Date: Fri, 11 Apr 2025 17:12:28 +1000
+Message-Id: <D93MFO5IGN4M.2FWKFWQ9G807P@gmail.com>
 Cc: "Hugh Dickins" <hughd@google.com>, "Guenter Roeck" <linux@roeck-us.net>,
  "Juergen Gross" <jgross@suse.com>, "Jeremy Fitzhardinge" <jeremy@goop.org>,
  <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
  <kasan-dev@googlegroups.com>, <sparclinux@vger.kernel.org>,
  <xen-devel@lists.xenproject.org>, <linuxppc-dev@lists.ozlabs.org>,
  <linux-s390@vger.kernel.org>
-Subject: Re: [PATCH v1 1/4] kasan: Avoid sleepable page allocation from
- atomic context
+Subject: Re: [PATCH v1 0/4] mm: Fix apply_to_pte_range() vs lazy MMU mode
 From: "Nicholas Piggin" <npiggin@gmail.com>
 To: "Alexander Gordeev" <agordeev@linux.ibm.com>, "Andrew Morton"
  <akpm@linux-foundation.org>, "Andrey Ryabinin" <ryabinin.a.a@gmail.com>
 X-Mailer: aerc 0.19.0
 References: <cover.1744037648.git.agordeev@linux.ibm.com>
- <ad1b313b6e3e1a84d2df6f686680ad78ae99710c.1744037648.git.agordeev@linux.ibm.com>
-In-Reply-To: <ad1b313b6e3e1a84d2df6f686680ad78ae99710c.1744037648.git.agordeev@linux.ibm.com>
+In-Reply-To: <cover.1744037648.git.agordeev@linux.ibm.com>
 
 On Tue Apr 8, 2025 at 1:11 AM AEST, Alexander Gordeev wrote:
-> apply_to_page_range() enters lazy MMU mode and then invokes
-> kasan_populate_vmalloc_pte() callback on each page table walk
-> iteration. The lazy MMU mode may only be entered only under
-> protection of the page table lock. However, the callback can
-> go into sleep when trying to allocate a single page.
+> Hi All,
 >
-> Change __get_free_page() allocation mode from GFP_KERNEL to
-> GFP_ATOMIC to avoid scheduling out while in atomic context.
+> This series is an attempt to fix the violation of lazy MMU mode context
+> requirement as described for arch_enter_lazy_mmu_mode():
 >
-> Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
-> ---
->  mm/kasan/shadow.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>     This mode can only be entered and left under the protection of
+>     the page table locks for all page tables which may be modified.
 >
-> diff --git a/mm/kasan/shadow.c b/mm/kasan/shadow.c
-> index 88d1c9dcb507..edfa77959474 100644
-> --- a/mm/kasan/shadow.c
-> +++ b/mm/kasan/shadow.c
-> @@ -301,7 +301,7 @@ static int kasan_populate_vmalloc_pte(pte_t *ptep, un=
-signed long addr,
->  	if (likely(!pte_none(ptep_get(ptep))))
->  		return 0;
-> =20
-> -	page =3D __get_free_page(GFP_KERNEL);
-> +	page =3D __get_free_page(GFP_ATOMIC);
->  	if (!page)
->  		return -ENOMEM;
-> =20
+> On s390 if I make arch_enter_lazy_mmu_mode() -> preempt_enable() and
+> arch_leave_lazy_mmu_mode() -> preempt_disable() I am getting this:
+>
+>     [  553.332108] preempt_count: 1, expected: 0
+>     [  553.332117] no locks held by multipathd/2116.
+>     [  553.332128] CPU: 24 PID: 2116 Comm: multipathd Kdump: loaded Taint=
+ed:
+>     [  553.332139] Hardware name: IBM 3931 A01 701 (LPAR)
+>     [  553.332146] Call Trace:
+>     [  553.332152]  [<00000000158de23a>] dump_stack_lvl+0xfa/0x150
+>     [  553.332167]  [<0000000013e10d12>] __might_resched+0x57a/0x5e8
+>     [  553.332178]  [<00000000144eb6c2>] __alloc_pages+0x2ba/0x7c0
+>     [  553.332189]  [<00000000144d5cdc>] __get_free_pages+0x2c/0x88
+>     [  553.332198]  [<00000000145663f6>] kasan_populate_vmalloc_pte+0x4e/=
+0x110
+>     [  553.332207]  [<000000001447625c>] apply_to_pte_range+0x164/0x3c8
+>     [  553.332218]  [<000000001448125a>] apply_to_pmd_range+0xda/0x318
+>     [  553.332226]  [<000000001448181c>] __apply_to_page_range+0x384/0x76=
+8
+>     [  553.332233]  [<0000000014481c28>] apply_to_page_range+0x28/0x38
+>     [  553.332241]  [<00000000145665da>] kasan_populate_vmalloc+0x82/0x98
+>     [  553.332249]  [<00000000144c88d0>] alloc_vmap_area+0x590/0x1c90
+>     [  553.332257]  [<00000000144ca108>] __get_vm_area_node.constprop.0+0=
+x138/0x260
+>     [  553.332265]  [<00000000144d17fc>] __vmalloc_node_range+0x134/0x360
+>     [  553.332274]  [<0000000013d5dbf2>] alloc_thread_stack_node+0x112/0x=
+378
+>     [  553.332284]  [<0000000013d62726>] dup_task_struct+0x66/0x430
+>     [  553.332293]  [<0000000013d63962>] copy_process+0x432/0x4b80
+>     [  553.332302]  [<0000000013d68300>] kernel_clone+0xf0/0x7d0
+>     [  553.332311]  [<0000000013d68bd6>] __do_sys_clone+0xae/0xc8
+>     [  553.332400]  [<0000000013d68dee>] __s390x_sys_clone+0xd6/0x118
+>     [  553.332410]  [<0000000013c9d34c>] do_syscall+0x22c/0x328
+>     [  553.332419]  [<00000000158e7366>] __do_syscall+0xce/0xf0
+>     [  553.332428]  [<0000000015913260>] system_call+0x70/0x98
+>
+> This exposes a KASAN issue fixed with patch 1 and apply_to_pte_range()
+> issue fixed with patches 2-3. Patch 4 is a debug improvement on top,
+> that could have helped to notice the issue.
+>
+> Commit b9ef323ea168 ("powerpc/64s: Disable preemption in hash lazy mmu
+> mode") looks like powerpc-only fix, yet not entirely conforming to the
+> above provided requirement (page tables itself are still not protected).
+> If I am not mistaken, xen and sparc are alike.
 
-Oh of course you can't make it GFP_KERNEL after the
-patch to take ptl even for archs that don't use lazy
-mmu.
+Huh. powerpc actually has some crazy code in __switch_to() that is
+supposed to handle preemption while in lazy mmu mode. So we probably
+don't even need to disable preemption, just use the raw per-cpu
+accessors (or keep disabling preemption and remove the now dead code
+from context switch).
+
+IIRC all this got built up over a long time with some TLB flush
+rules changing at the same time, we could probably stay in lazy mmu
+mode for a longer time until it was discovered we really need to
+flush before dropping the PTL.
+
+ppc64 and sparc I think don't even need lazy mmu mode for kasan (TLBs
+do not require flushing) and will function just fine if not in lazy
+mode (they just flush one TLB at a time), not sure about xen. We could
+actually go the other way and require that archs operate properly when
+not in lazy mode (at least for kernel page tables) and avoid it for
+apply_to_page_range()?
 
 Thanks,
 Nick
