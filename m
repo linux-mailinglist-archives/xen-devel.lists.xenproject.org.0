@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2466A868FA
-	for <lists+xen-devel@lfdr.de>; Sat, 12 Apr 2025 00:53:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.948040.1345574 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78EF2A86ADF
+	for <lists+xen-devel@lfdr.de>; Sat, 12 Apr 2025 06:30:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.948084.1345583 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3NES-000742-1B; Fri, 11 Apr 2025 22:52:20 +0000
+	id 1u3SUy-00033I-Oq; Sat, 12 Apr 2025 04:29:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 948040.1345574; Fri, 11 Apr 2025 22:52:20 +0000
+Received: by outflank-mailman (output) from mailman id 948084.1345583; Sat, 12 Apr 2025 04:29:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3NER-00071U-Uh; Fri, 11 Apr 2025 22:52:19 +0000
-Received: by outflank-mailman (input) for mailman id 948040;
- Fri, 11 Apr 2025 22:52:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5hfk=W5=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1u3NEP-00071O-V2
- for xen-devel@lists.xenproject.org; Fri, 11 Apr 2025 22:52:18 +0000
-Received: from fhigh-a5-smtp.messagingengine.com
- (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c853723-1727-11f0-9ffb-bf95429c2676;
- Sat, 12 Apr 2025 00:52:15 +0200 (CEST)
-Received: from phl-compute-04.internal (phl-compute-04.phl.internal
- [10.202.2.44])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 172541140196;
- Fri, 11 Apr 2025 18:52:14 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-04.internal (MEProxy); Fri, 11 Apr 2025 18:52:14 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 11 Apr 2025 18:52:12 -0400 (EDT)
+	id 1u3SUy-00031t-IR; Sat, 12 Apr 2025 04:29:44 +0000
+Received: by outflank-mailman (input) for mailman id 948084;
+ Sat, 12 Apr 2025 04:29:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9996=W6=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1u3SUw-00031m-Ab
+ for xen-devel@lists.xenproject.org; Sat, 12 Apr 2025 04:29:42 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bf0db386-1756-11f0-9eae-5ba50f476ded;
+ Sat, 12 Apr 2025 06:29:40 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53C4Slu6870108
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Fri, 11 Apr 2025 21:28:47 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +40,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c853723-1727-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1744411934;
-	 x=1744498334; bh=wqozk/RFam4IjYxYRXTsUpMx51UJpKLSjj8qd0C5t0c=; b=
-	TTE+Tlj3r2pWXkXkhgXTgWgx1oeYhaY/PKpa4PfqllSQrKE4vulfIjyMvn02ye5W
-	oeE5h897or/yo1IFtEtdw97yAlv0PO7PTgD/MG/6gJ+qen0fBgf+6GSgrTPmXdTH
-	UKR59nGMayjCbKEzhmw3X0k4GSYVtsaKQtAXZQzEmU3igb7Ho8lpQIN3Hyf2hrp3
-	n2G/x0GNcb+XBAQkEk9rB/Z8wPscjJInKQ93/J+p//TpDxf5lZXWlnXUJxZ6acUz
-	Jlf1Q8ZUlTsUYaWjUZBRVQiqrT/7dyF3MbDpvgJ8+OkCWMU8+H7gbZU+4d/W5dLQ
-	dg2PtquZDMIHIiWyQsnzeA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1744411934; x=1744498334; bh=wqozk/RFam4IjYxYRXTsUpMx51UJpKLSjj8
-	qd0C5t0c=; b=gLG5tJrNTXZZfrdr2liHveJAFnPXC+3cffWiBk+QHkT8ee89EID
-	jBCj8DqghRCEV54Na6EWrh+ZIDi7S/TAjF7XlegwfNe4ggUiAnt/+qJcorXmjjY/
-	yq50XM9fBwuqrMkY1k/w2Y9kcTf9LACtEkpBBAm5fkwnbytvrSgYTNFfx8Cny/CG
-	9G/TCoI+HoC9173eJPk4Tl1w4w+XRcxvjRPuP8FCms9mkqXSEQq+2uDi+O/+pxNB
-	5tgQZ3JOrId/5/9LaGSnxu7A6I+uMrYUO6E+wZ9+h5Z4V951JM8ZI4nWmKXA+FAJ
-	44KvWqPBKUsWiQYJSI35kLzqWDNlERpua0g==
-X-ME-Sender: <xms:HZ35Z2mtdhBuFjl0KLZ1nEMNYLvbYN7UJGJ_ZDHy9f_RKAW8DWRq9Q>
-    <xme:HZ35Z91HFtWEnywI4k6SwFlnAgfVIGcu1jdqh2NkDxxabALpFEURJgFDQgDotQOzX
-    BPcNBVxymyKuA>
-X-ME-Received: <xmr:HZ35Z0p_KZxWCO29lRnh58ujLajX1IaCFZAB9n5H4I2AvS9t51AWZHadVpHtTiizlXblY5LNjve-6NgVj0hotmzfQ8vN-ZIAYA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvudeftdeiucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
-    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
-    ggftrfgrthhtvghrnhepueekteetgefggfekudehteegieeljeejieeihfejgeevhfetgf
-    fgteeuteetueetnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghr
-    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeegpdhmohgu
-    vgepshhmthhpohhuthdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghith
-    hrihigrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhp
-    rhhojhgvtghtrdhorhhgpdhrtghpthhtoheptggrrhguohgvsegtrghrughovgdrtghomh
-    dprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrgh
-X-ME-Proxy: <xmx:HZ35Z6kaI4-ZeM5cSAUXQnY26saKru_I5ArehYEK6WjBufqZX0m2iQ>
-    <xmx:HZ35Z0309dnqd4I2dplvGDX7-8p0xslM6lXmhTpOfpPuHsJHUEmxyA>
-    <xmx:HZ35ZxvPGEU2cs3DhxO5GH5dYWgD4wl2OiLdkazTKrb5TS_Pqzgo1w>
-    <xmx:HZ35ZwUCJH9tpnHPRSWATuHEsSBaE8yZtUHUFLia3mRsyD3CF8RyVg>
-    <xmx:Hp35ZxFIU84JLT6EtoRErhHvXHR5CqZweQCdsXzv_4m0uyQpVNWVQPEJ>
-Feedback-ID: i1568416f:Fastmail
-Date: Sat, 12 Apr 2025 00:52:10 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v3 4/7] CI: write whole etc/issue for domU initrd
-Message-ID: <Z_mdGunBR9LZfGyU@mail-itl>
-References: <cover.146eb3617cc9cf442dd4fc7a0a8950fb1bc191c8.1744403499.git-series.marmarek@invisiblethingslab.com>
- <526ec153b1cabc1d5b111be27ded8d0d4da5178a.1744403499.git-series.marmarek@invisiblethingslab.com>
- <107fe18c-e72c-49b4-8b48-e11817f2cf9b@citrix.com>
+X-Inumbo-ID: bf0db386-1756-11f0-9eae-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53C4Slu6870108
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025032001; t=1744432131;
+	bh=FXvWlC8cZ0c5rZvfhCZWv2G6gDWGLrU6c2dfFP+ocqY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=VRPOWZvbRcqn1EMY2mNRL9aN3N/c3MyZF0mdY259h4YB1tWna+5wI8moYEe13BQrV
+	 Y7VxgVfWa/tVrQnCfTeJI+jR+mXuFWbKp1foVl/RfgDxEvVEcU1OReNbo3FKsyzDsS
+	 IUz1Bg6FQJOpybPqDAwkpjirXvLuxVP/OGIHZ7SyeJM7r5PCYnsymYO0HJ236p08Kn
+	 dkuauEUlLLatvA9E1RQNU6sG1uL18fyy/377y0CpobGu/GgaJRIVx9ZcbEtirZuNa+
+	 r+lDqtaYkKQKAbzpZ2JxRaUoFWbSSsykVtmXOfUWdDZWzwmhNWRAo/oRdIU4DO6UVF
+	 EXRIghMJiBfug==
+Message-ID: <46f17b70-bdbb-4d6c-bf49-2384364e7fc5@zytor.com>
+Date: Fri, 11 Apr 2025 21:28:46 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="3pUXHbnBmlYgbiql"
-Content-Disposition: inline
-In-Reply-To: <107fe18c-e72c-49b4-8b48-e11817f2cf9b@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 10/15] KVM: VMX: Use WRMSRNS or its immediate form
+ when available
+To: "H. Peter Anvin" <hpa@zytor.com>, Sean Christopherson <seanjc@google.com>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+        linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+        linux-edac@vger.kernel.org, kvm@vger.kernel.org,
+        xen-devel@lists.xenproject.org, linux-ide@vger.kernel.org,
+        linux-pm@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, jgross@suse.com,
+        andrew.cooper3@citrix.com, peterz@infradead.org, acme@kernel.org,
+        namhyung@kernel.org, mark.rutland@arm.com,
+        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
+        wei.liu@kernel.org, bcm-kernel-feedback-list@broadcom.com,
+        tony.luck@intel.com, pbonzini@redhat.com, vkuznets@redhat.com,
+        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
+        haiyangz@microsoft.com, decui@microsoft.com
+References: <20250331082251.3171276-1-xin@zytor.com>
+ <20250331082251.3171276-11-xin@zytor.com> <Z_hTI8ywa3rTxFaz@google.com>
+ <41eb2d08-1b2d-4ca8-bcb7-f5f4611f91a9@zytor.com>
+ <39ECA4CA-9CBC-4F72-B52E-9BD06DBF9B6D@zytor.com>
+Content-Language: en-US
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <39ECA4CA-9CBC-4F72-B52E-9BD06DBF9B6D@zytor.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 4/11/2025 1:50 PM, H. Peter Anvin wrote:
+>>> This is quite hideous.  I have no objection to optimizing __vmx_vcpu_run(), but
+>>> I would much prefer that a macro like this live in generic code, and that it be
+>>> generic.  It should be easy enough to provide an assembly friendly equivalent to
+>>> __native_wrmsr_constant().
+>> Will do.
+> This should be coming anyway, right?
 
---3pUXHbnBmlYgbiql
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Apr 2025 00:52:10 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v3 4/7] CI: write whole etc/issue for domU initrd
+Absolutely.
 
-On Fri, Apr 11, 2025 at 10:07:28PM +0100, Andrew Cooper wrote:
-> On 11/04/2025 9:32 pm, Marek Marczykowski-G=C3=B3recki wrote:
-> > diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qu=
-bes-x86-64.sh
-> > index 861e302d845b..dd88a1398f2b 100755
-> > --- a/automation/scripts/qubes-x86-64.sh
-> > +++ b/automation/scripts/qubes-x86-64.sh
-> > @@ -182,7 +182,10 @@ ${domU_check}
-> >  " > etc/local.d/xen.start
-> >      chmod +x etc/local.d/xen.start
-> >      echo "rc_verbose=3Dyes" >> etc/rc.conf
-> > -    sed -i -e 's/^Welcome/domU \0/' etc/issue
-> > +    echo "domU Welcome to Alpine Linux 3.18
->=20
-> This 3.18 is going to go stale shortly.
->=20
-> Because of LOG_MSG=3D"Welcome to Alpine Linux", the version doesn't matte=
-r.
->=20
-> Alpine does have /etc/os-release, but busybox's getty doesn't translate
-> \S.=C2=A0
-> https://github.com/brgl/busybox/blob/abbf17abccbf832365d9acf1c280369ba7d5=
-f8b2/libbb/login.c#L84-L86
->=20
-> I'd suggest just dropping the 3.18.
+Totally stupid me: we have it ready to use here, but ...
 
-Fine with me.
-
-> Otherwise, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---3pUXHbnBmlYgbiql
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmf5nRoACgkQ24/THMrX
-1yz4SQf/U+0PmzwfEUdzSPaQwv4F3/Dr2wujWLmv0ryISpY48NhIuepzbLy3sZ26
-6k6JPMzbYQgoF2mopyK4zCJ7Q0zh08kY8jMTvUdb7jKirNaXYl2eGn4PbHSb6KUA
-kuV15+QnuYAbLvs+AYXMsTKx6kd4YNd0RH8GeF6RiPvRZRYwlkiUC1GhpR4dhGI1
-qlP5p15d8eqziwye+HJsNZoIUdKvwotbB4hhpfvDkA/w5tIfACEwQwZhSU1eALM2
-SgJ65H1REAQJQDthM2MtbuQKWDDzLQHP4ifBAyNItkZNi7OX3NkgQXnO+ZV5Gsq/
-2z/ac212s6EkFHxnZHTLwr8RrzE2Iw==
-=TfXA
------END PGP SIGNATURE-----
-
---3pUXHbnBmlYgbiql--
 
