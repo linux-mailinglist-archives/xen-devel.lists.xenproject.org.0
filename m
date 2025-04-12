@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2AF7A86AE4
-	for <lists+xen-devel@lfdr.de>; Sat, 12 Apr 2025 06:33:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.948094.1345593 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B63A86D6C
+	for <lists+xen-devel@lfdr.de>; Sat, 12 Apr 2025 16:06:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.948247.1345615 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3SYP-00069l-2X; Sat, 12 Apr 2025 04:33:17 +0000
+	id 1u3bU1-0008Tg-G0; Sat, 12 Apr 2025 14:05:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 948094.1345593; Sat, 12 Apr 2025 04:33:17 +0000
+Received: by outflank-mailman (output) from mailman id 948247.1345615; Sat, 12 Apr 2025 14:05:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3SYO-00067n-W5; Sat, 12 Apr 2025 04:33:16 +0000
-Received: by outflank-mailman (input) for mailman id 948094;
- Sat, 12 Apr 2025 04:33:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9996=W6=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1u3SYO-00067h-7F
- for xen-devel@lists.xenproject.org; Sat, 12 Apr 2025 04:33:16 +0000
-Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f22e1c8-1757-11f0-9eae-5ba50f476ded;
- Sat, 12 Apr 2025 06:33:15 +0200 (CEST)
-Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53C4WWUM871113
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Fri, 11 Apr 2025 21:32:32 -0700
+	id 1u3bU1-0008RY-AO; Sat, 12 Apr 2025 14:05:21 +0000
+Received: by outflank-mailman (input) for mailman id 948247;
+ Sat, 12 Apr 2025 14:05:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YsqC=W6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u3bTz-0008RO-6M
+ for xen-devel@lists.xenproject.org; Sat, 12 Apr 2025 14:05:19 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 28bf487d-17a7-11f0-9ffb-bf95429c2676;
+ Sat, 12 Apr 2025 16:05:16 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43ce71582e9so23424385e9.1
+ for <xen-devel@lists.xenproject.org>; Sat, 12 Apr 2025 07:05:16 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43f23158849sm119975865e9.0.2025.04.12.07.05.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 12 Apr 2025 07:05:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,88 +45,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f22e1c8-1757-11f0-9eae-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53C4WWUM871113
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025032001; t=1744432355;
-	bh=8HY4pXq4/0sgSGqWKzYB0xMabci34z/M8SocsQbtjIc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=UmkMzcYFMOohEYDvst/+wSrvJqxBWNM3y8pTlydtS9u0Vr7uRFr3Z3pCuQCca14kO
-	 ACsIUaW4DWSFZQk6os5w5N7c+E5hX8uOXvMG58Zw1ACWcaqL0evKoHrKsjwK2mCmbu
-	 3fbVO1XRm3rPuvtxsvqFa40+ZJdSrPdyFPMsAPCRm9EzVpscdqiU1jHIOYNpql0/Q+
-	 A4rJGWpOKXJ4rM8Ry7S9QSfW5JMyxnLBqri634s7bqAxLMEVGyTj2wxY2EKLJiAwY7
-	 7S3D+HGa8zlLeI3TPeDpXLNu9OHcHMD6lAYjW/h+oxH9TUSCd3g/AuG8/qoXjh0Ibr
-	 awatBQNumv6Tw==
-Message-ID: <fa16949e-7842-45f7-9715-1bdda13b762a@zytor.com>
-Date: Fri, 11 Apr 2025 21:32:32 -0700
+X-Inumbo-ID: 28bf487d-17a7-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1744466715; x=1745071515; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3Z6fVRPX9Pt5YkoZ34E9hxS7unoAhfIreaWAiVO6kNA=;
+        b=qpUHhVEEr48WqiMZWIfcmDGVz6i+w//BI6+arXoF6dViujpWiwv6D8u9tvVk9qKdU1
+         QyOV+ILwZG9PlsLjMIUyNOG9Aa/wLksev4XOPpBUHnBX57XvUjMaMwp9tWOm9FxSd/Jh
+         VUImraMZGwBewjOrfrIsBhTyn22SvP+39xKHg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744466715; x=1745071515;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3Z6fVRPX9Pt5YkoZ34E9hxS7unoAhfIreaWAiVO6kNA=;
+        b=TtvV+g6hpsAv07+21IhDolaCAOs5VavE0fU4xqhup4RyS5fVYpvGRt05qjfg/neTCB
+         9bhsAg8NNTjiLyEBeJDrYPbZTTFnwBhOUJLxas1fCE/TL9FBC6fIHanXNl6F9BRKP7pN
+         vZPMPq01LIoW/VCR6EYger9xPP0joubOejNn7N5+Gu6vpBzWsXK3BGF0OnmDD2Xj6Vw6
+         0W5zZ6mOHjzmtlic9lJ45/q3ZBoplDGv9NdE0GYNW8HxcITb+sQ6FmYxof5zKQUHtwgy
+         YpeZk8rbfZBMqS2WbuEf11Y7Fqar77zHxx+eQQf8+87P32+8dhddcSoZZgJpwX83mw3U
+         92SA==
+X-Forwarded-Encrypted: i=1; AJvYcCXmrTDiC6vbQxZLb0vENzkRqQ/J+D6AewgngNI229VaeyglKrMOiT4S76TBxJrVNendeHNCMTkb3hQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz38DOZ+fqD9vZkoAgnwHofgVjFZqCuJni+uF9rZz71qjYSbdi5
+	m1FFxyC8+waU101B5uX20u4waxt7jvP6VXAyJwMq7qNLxsu9Dn0tVEyFkQim7JA=
+X-Gm-Gg: ASbGncuSTrl4gI8xccBY0QcVM8ualHTPCG5VqNiLAqLDas6OKUFN0LH3xg8e06D0D5X
+	U80nq3C0D4/QM8Mpt+jeZVbZGfLgjVdveVl2Yfo+ZfEljU5qrPu6wyNpcwKqNXd8CfC+awgDyCR
+	51w60wloh6R7821IKeH2dHQFGumMtrYuJEE9S+nmyTm1XugJ9LSiC4dlGxk/XYYBv7sw71hID4k
+	I11CwAvzCgqQ2W9zTGhb+y8d2eqSJ9UYLeKm8p4FoxGtsymE23DVCDEPR7Nru0FrESlDG68ySSD
+	f8IqRxwkCqI/Hcsuq0OZw42S+Re5Eo7sHJZKdjQ0IZL8Fqay50LyYZ7Zff0z1wIYPWenfLxz02p
+	URAGqRw==
+X-Google-Smtp-Source: AGHT+IGqPNnYR73RZw4WdNeN2Kl4NEpYwFllR0FMwTaUdKgr/RatX3Oj/WwFYBK6lyMhxNF7DdorVg==
+X-Received: by 2002:a05:600c:5494:b0:43c:f050:fed3 with SMTP id 5b1f17b1804b1-43f3a93d850mr58733745e9.11.1744466715331;
+        Sat, 12 Apr 2025 07:05:15 -0700 (PDT)
+Message-ID: <b1ffc4df-bd79-47ec-b80c-8bd935f5f2ed@citrix.com>
+Date: Sat, 12 Apr 2025 15:05:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 10/15] KVM: VMX: Use WRMSRNS or its immediate form
- when available
-To: Jim Mattson <jmattson@google.com>, Sean Christopherson <seanjc@google.com>
-Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-        linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
-        linux-edac@vger.kernel.org, kvm@vger.kernel.org,
-        xen-devel@lists.xenproject.org, linux-ide@vger.kernel.org,
-        linux-pm@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
-        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-        jgross@suse.com, andrew.cooper3@citrix.com, peterz@infradead.org,
-        acme@kernel.org, namhyung@kernel.org, mark.rutland@arm.com,
-        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
-        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
-        wei.liu@kernel.org, ajay.kaher@broadcom.com,
-        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
-        pbonzini@redhat.com, vkuznets@redhat.com, luto@kernel.org,
-        boris.ostrovsky@oracle.com, kys@microsoft.com, haiyangz@microsoft.com,
-        decui@microsoft.com
-References: <20250331082251.3171276-1-xin@zytor.com>
- <20250331082251.3171276-11-xin@zytor.com> <Z_hTI8ywa3rTxFaz@google.com>
- <CALMp9eRJkzA2YXf1Dfxt3ONP+P9aTA=WPraOPJPJ6C6j677+6Q@mail.gmail.com>
-Content-Language: en-US
-From: Xin Li <xin@zytor.com>
-Autocrypt: addr=xin@zytor.com; keydata=
- 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
- l75w1xInsg==
-In-Reply-To: <CALMp9eRJkzA2YXf1Dfxt3ONP+P9aTA=WPraOPJPJ6C6j677+6Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 5/7] CI: avoid repacking initrd as part of the test job
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.146eb3617cc9cf442dd4fc7a0a8950fb1bc191c8.1744403499.git-series.marmarek@invisiblethingslab.com>
+ <c7bd8aa95e8bd85f3e42ed4f07d69444f5435e25.1744403499.git-series.marmarek@invisiblethingslab.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <c7bd8aa95e8bd85f3e42ed4f07d69444f5435e25.1744403499.git-series.marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 4/11/2025 2:12 PM, Jim Mattson wrote:
-> Surely, any CPU that has WRMSRNS also supports "Virtualize
-> IA32_SPEC_CTRL," right? Shouldn't we be using that feature rather than
-> swapping host and guest values with some form of WRMSR?
+On 11/04/2025 9:32 pm, Marek Marczykowski-Górecki wrote:
+> The prerequisite for this is building rootfs.cpio.gz, not only
+> initrd.tar.gz. That's a change in the test-artifacts repository in the
+> "Rootfs generation" series from Andrew.
+>
+> Having that, do not repack the whole initrd, but only pack modified
+> files and rely on Linux handling of concatenated archives.
+> This allows packing just test-related files (which includes the whole
+> toolstack), instead of the whole initrd.
+>
+> DomU initrd handling is a bit more complicated thing. It's sent to the
+> target host as part of the dom0 initrd. For now include prepared domU
+> initrd as a whole in dom0's rootfs "overlay", which means compressing it
+> (again) each job (this takes 3s). This can be later improved by
+> splitting domU initrd into two parts (base + overlay) and concatenate
+> them in target dom0 already. For this to be useful, test-artifacts would
+> need to provide pre-made double-cpio version too (rootfs.cpio.gz wrapper
+> in yet another cpio.gz as boot/domU-initrd).
+>
+> Since full initrd is not unpacked now when preparing domU (and dom0)
+> rootfs, a couple of minor changes are needed to how they are prepared.
+> This includes creating whole etc/issue file, instead of modifying
+> existing one, and a need to create a couple directories.
+>
+> Finally, move adding "rc_verbose=yes" to /etc/rc.conf to initrd
+> building.
+>
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> ---
+> Changes in v3:
+> - adjust for Andrew's version of cpio rootfs artifacts
+> - don't require double-cpio archive for domU initrd, instead add it via
+>   dom0 initrd as plain cpio to avoid re-compressing the same thing
+> New in v2
+>
+> Jobs xilinx-* are untested, as I don't have necessary access.
 
-Good question, the simple answer is that they are irrelevant.
+I can test these.
+
+> ---
+>  automation/gitlab-ci/test.yaml                    |  6 +++--
+>  automation/scripts/qemu-alpine-x86_64.sh          |  9 +++-----
+>  automation/scripts/qemu-smoke-dom0-arm64.sh       |  7 ++----
+>  automation/scripts/qemu-smoke-dom0less-arm64.sh   |  7 ++----
+>  automation/scripts/qubes-x86-64.sh                | 18 +++++++---------
+>  automation/scripts/xilinx-smoke-dom0-x86_64.sh    | 15 ++++++-------
+>  automation/scripts/xilinx-smoke-dom0less-arm64.sh | 14 +++++-------
+>  7 files changed, 35 insertions(+), 41 deletions(-)
+>
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index 59a2de28c864..3e02bf0e4d21 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -11,7 +11,9 @@
+>    - project: xen-project/hardware/test-artifacts
+>      job: linux-6.6.86-arm64
+>      ref: master
+> -  - alpine-3.18-arm64-rootfs-export
+> +  - project: xen-project/hardware/test-artifacts
+> +    job: alpine-3.18-arm64-rootfs
+> +    ref: master
+>    - qemu-system-aarch64-6.0.0-arm64-export
+>  
+>  .arm32-test-needs: &arm32-test-needs
+> @@ -22,7 +24,7 @@
+>      job: linux-6.6.56-x86_64
+>      ref: master
+>    - project: xen-project/hardware/test-artifacts
+> -    job: x86_64-rootfs-alpine-3.18
+> +    job: alpine-3.18-x86_64-rootfs
+>      ref: master
+>  
+>  .qemu-arm64:
+> diff --git a/automation/scripts/qemu-alpine-x86_64.sh b/automation/scripts/qemu-alpine-x86_64.sh
+> index 89bdb4df7dac..6e0a67b4018c 100755
+> --- a/automation/scripts/qemu-alpine-x86_64.sh
+> +++ b/automation/scripts/qemu-alpine-x86_64.sh
+
+There are some very poor choices of name in this script.  I'll do a prep
+patch to make them consistent.
+
+> @@ -28,16 +28,15 @@ cd initrd
+>  find . | cpio --create --format='newc' | gzip > ../initrd.cpio.gz
+>  cd ..
+>  
+> -# initrd.tar.gz is Dom0 rootfs
+> +# Dom0 rootfs - overlay on top of rootfs.cpio.gz
+>  mkdir -p rootfs
+>  cd rootfs
+> -tar xvzf ../initrd.tar.gz
+>  mkdir proc
+>  mkdir run
+>  mkdir srv
+>  mkdir sys
+> -rm var/run
+
+I'm not sure why we need to make proc, run, srv, sys in the overlay
+image, but this is repeated everywhere.
+
+srv is just a plain empty dir.  It's missing from $PATHS in the rootfs
+generation, so that's easy.
+
+proc, run and sys are more complicated, because we don't want to simply
+copy them from the rootfs generation environment.
+
+dev is also in the same boat, and what we do now seems to cause openrc
+not to seed it normally, which seems unwise.
+
+I'll see what I can do to clean this all up.
+
+> diff --git a/automation/scripts/xilinx-smoke-dom0-x86_64.sh b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+> index 4db249530823..52a0e05e3f1b 100755
+> --- a/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+> +++ b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
+> @@ -80,6 +80,7 @@ argo-exec -l -p 28333 -- /bin/echo
+>  "
+>  copy_dom0_files ()
+>  {
+> +    mkdir -p root usr/local/lib
+>      cp "${WORKDIR}/binaries/xen-argo.ko" "root/"
+>      cp -ar "${WORKDIR}/binaries/lib/"* "usr/local/lib/"
+>      cp "${WORKDIR}/binaries/argo-exec" "usr/local/bin/"
+
+This would be better based on top of my patch to switch to the new argo,
+at which point it will simply be to append argo.cpio.gz.
+
+~Andrew
 
