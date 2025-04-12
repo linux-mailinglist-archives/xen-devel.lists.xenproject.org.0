@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78EF2A86ADF
-	for <lists+xen-devel@lfdr.de>; Sat, 12 Apr 2025 06:30:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.948084.1345583 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2AF7A86AE4
+	for <lists+xen-devel@lfdr.de>; Sat, 12 Apr 2025 06:33:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.948094.1345593 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3SUy-00033I-Oq; Sat, 12 Apr 2025 04:29:44 +0000
+	id 1u3SYP-00069l-2X; Sat, 12 Apr 2025 04:33:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 948084.1345583; Sat, 12 Apr 2025 04:29:44 +0000
+Received: by outflank-mailman (output) from mailman id 948094.1345593; Sat, 12 Apr 2025 04:33:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3SUy-00031t-IR; Sat, 12 Apr 2025 04:29:44 +0000
-Received: by outflank-mailman (input) for mailman id 948084;
- Sat, 12 Apr 2025 04:29:42 +0000
+	id 1u3SYO-00067n-W5; Sat, 12 Apr 2025 04:33:16 +0000
+Received: by outflank-mailman (input) for mailman id 948094;
+ Sat, 12 Apr 2025 04:33:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9996=W6=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1u3SUw-00031m-Ab
- for xen-devel@lists.xenproject.org; Sat, 12 Apr 2025 04:29:42 +0000
+ id 1u3SYO-00067h-7F
+ for xen-devel@lists.xenproject.org; Sat, 12 Apr 2025 04:33:16 +0000
 Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf0db386-1756-11f0-9eae-5ba50f476ded;
- Sat, 12 Apr 2025 06:29:40 +0200 (CEST)
+ id 3f22e1c8-1757-11f0-9eae-5ba50f476ded;
+ Sat, 12 Apr 2025 06:33:15 +0200 (CEST)
 Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53C4Slu6870108
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53C4WWUM871113
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Fri, 11 Apr 2025 21:28:47 -0700
+ Fri, 11 Apr 2025 21:32:32 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,44 +40,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf0db386-1756-11f0-9eae-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53C4Slu6870108
+X-Inumbo-ID: 3f22e1c8-1757-11f0-9eae-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53C4WWUM871113
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025032001; t=1744432131;
-	bh=FXvWlC8cZ0c5rZvfhCZWv2G6gDWGLrU6c2dfFP+ocqY=;
+	s=2025032001; t=1744432355;
+	bh=8HY4pXq4/0sgSGqWKzYB0xMabci34z/M8SocsQbtjIc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VRPOWZvbRcqn1EMY2mNRL9aN3N/c3MyZF0mdY259h4YB1tWna+5wI8moYEe13BQrV
-	 Y7VxgVfWa/tVrQnCfTeJI+jR+mXuFWbKp1foVl/RfgDxEvVEcU1OReNbo3FKsyzDsS
-	 IUz1Bg6FQJOpybPqDAwkpjirXvLuxVP/OGIHZ7SyeJM7r5PCYnsymYO0HJ236p08Kn
-	 dkuauEUlLLatvA9E1RQNU6sG1uL18fyy/377y0CpobGu/GgaJRIVx9ZcbEtirZuNa+
-	 r+lDqtaYkKQKAbzpZ2JxRaUoFWbSSsykVtmXOfUWdDZWzwmhNWRAo/oRdIU4DO6UVF
-	 EXRIghMJiBfug==
-Message-ID: <46f17b70-bdbb-4d6c-bf49-2384364e7fc5@zytor.com>
-Date: Fri, 11 Apr 2025 21:28:46 -0700
+	b=UmkMzcYFMOohEYDvst/+wSrvJqxBWNM3y8pTlydtS9u0Vr7uRFr3Z3pCuQCca14kO
+	 ACsIUaW4DWSFZQk6os5w5N7c+E5hX8uOXvMG58Zw1ACWcaqL0evKoHrKsjwK2mCmbu
+	 3fbVO1XRm3rPuvtxsvqFa40+ZJdSrPdyFPMsAPCRm9EzVpscdqiU1jHIOYNpql0/Q+
+	 A4rJGWpOKXJ4rM8Ry7S9QSfW5JMyxnLBqri634s7bqAxLMEVGyTj2wxY2EKLJiAwY7
+	 7S3D+HGa8zlLeI3TPeDpXLNu9OHcHMD6lAYjW/h+oxH9TUSCd3g/AuG8/qoXjh0Ibr
+	 awatBQNumv6Tw==
+Message-ID: <fa16949e-7842-45f7-9715-1bdda13b762a@zytor.com>
+Date: Fri, 11 Apr 2025 21:32:32 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [RFC PATCH v1 10/15] KVM: VMX: Use WRMSRNS or its immediate form
  when available
-To: "H. Peter Anvin" <hpa@zytor.com>, Sean Christopherson <seanjc@google.com>
+To: Jim Mattson <jmattson@google.com>, Sean Christopherson <seanjc@google.com>
 Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
         linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
         linux-edac@vger.kernel.org, kvm@vger.kernel.org,
         xen-devel@lists.xenproject.org, linux-ide@vger.kernel.org,
         linux-pm@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
         tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, jgross@suse.com,
-        andrew.cooper3@citrix.com, peterz@infradead.org, acme@kernel.org,
-        namhyung@kernel.org, mark.rutland@arm.com,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        jgross@suse.com, andrew.cooper3@citrix.com, peterz@infradead.org,
+        acme@kernel.org, namhyung@kernel.org, mark.rutland@arm.com,
         alexander.shishkin@linux.intel.com, jolsa@kernel.org,
         irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
-        wei.liu@kernel.org, bcm-kernel-feedback-list@broadcom.com,
-        tony.luck@intel.com, pbonzini@redhat.com, vkuznets@redhat.com,
-        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
-        haiyangz@microsoft.com, decui@microsoft.com
+        wei.liu@kernel.org, ajay.kaher@broadcom.com,
+        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
+        pbonzini@redhat.com, vkuznets@redhat.com, luto@kernel.org,
+        boris.ostrovsky@oracle.com, kys@microsoft.com, haiyangz@microsoft.com,
+        decui@microsoft.com
 References: <20250331082251.3171276-1-xin@zytor.com>
  <20250331082251.3171276-11-xin@zytor.com> <Z_hTI8ywa3rTxFaz@google.com>
- <41eb2d08-1b2d-4ca8-bcb7-f5f4611f91a9@zytor.com>
- <39ECA4CA-9CBC-4F72-B52E-9BD06DBF9B6D@zytor.com>
+ <CALMp9eRJkzA2YXf1Dfxt3ONP+P9aTA=WPraOPJPJ6C6j677+6Q@mail.gmail.com>
 Content-Language: en-US
 From: Xin Li <xin@zytor.com>
 Autocrypt: addr=xin@zytor.com; keydata=
@@ -114,20 +114,14 @@ Autocrypt: addr=xin@zytor.com; keydata=
  PYbAkjBbm+tuJ/Sm+5Yp5T/BnKz21FoCS8uvTiziHj2H7Cuekn6F8EYhegONm+RVg3vikOpn
  gao85i4HwQTK9/D1wgJIQkdwWXVMZ6q/OALaBp82vQ2U9sjTyFXgDjglgh00VRAHP7u1Rcu4
  l75w1xInsg==
-In-Reply-To: <39ECA4CA-9CBC-4F72-B52E-9BD06DBF9B6D@zytor.com>
+In-Reply-To: <CALMp9eRJkzA2YXf1Dfxt3ONP+P9aTA=WPraOPJPJ6C6j677+6Q@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 4/11/2025 1:50 PM, H. Peter Anvin wrote:
->>> This is quite hideous.  I have no objection to optimizing __vmx_vcpu_run(), but
->>> I would much prefer that a macro like this live in generic code, and that it be
->>> generic.  It should be easy enough to provide an assembly friendly equivalent to
->>> __native_wrmsr_constant().
->> Will do.
-> This should be coming anyway, right?
+On 4/11/2025 2:12 PM, Jim Mattson wrote:
+> Surely, any CPU that has WRMSRNS also supports "Virtualize
+> IA32_SPEC_CTRL," right? Shouldn't we be using that feature rather than
+> swapping host and guest values with some form of WRMSR?
 
-Absolutely.
-
-Totally stupid me: we have it ready to use here, but ...
-
+Good question, the simple answer is that they are irrelevant.
 
