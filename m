@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A0F9A8722D
-	for <lists+xen-devel@lfdr.de>; Sun, 13 Apr 2025 15:49:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.948964.1345673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FED1A8742D
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 00:10:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.949019.1345683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3xhS-000553-Ve; Sun, 13 Apr 2025 13:48:42 +0000
+	id 1u45Va-0006GP-C1; Sun, 13 Apr 2025 22:08:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 948964.1345673; Sun, 13 Apr 2025 13:48:42 +0000
+Received: by outflank-mailman (output) from mailman id 949019.1345683; Sun, 13 Apr 2025 22:08:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u3xhS-00052i-PI; Sun, 13 Apr 2025 13:48:42 +0000
-Received: by outflank-mailman (input) for mailman id 948964;
- Sun, 13 Apr 2025 13:48:41 +0000
+	id 1u45Va-0006Ez-5t; Sun, 13 Apr 2025 22:08:58 +0000
+Received: by outflank-mailman (input) for mailman id 949019;
+ Sun, 13 Apr 2025 22:08:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hQaa=W7=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1u3xhR-00052c-LW
- for xen-devel@lists.xenproject.org; Sun, 13 Apr 2025 13:48:41 +0000
-Received: from fhigh-b7-smtp.messagingengine.com
- (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=seIn=W7=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1u45VY-0006Er-Fd
+ for xen-devel@lists.xenproject.org; Sun, 13 Apr 2025 22:08:56 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 00037112-186e-11f0-9eae-5ba50f476ded;
- Sun, 13 Apr 2025 15:48:38 +0200 (CEST)
-Received: from phl-compute-02.internal (phl-compute-02.phl.internal
- [10.202.2.42])
- by mailfhigh.stl.internal (Postfix) with ESMTP id C0D42254009D;
- Sun, 13 Apr 2025 09:48:36 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-02.internal (MEProxy); Sun, 13 Apr 2025 09:48:36 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 13 Apr 2025 09:48:35 -0400 (EDT)
+ id e1f83374-18b3-11f0-9eae-5ba50f476ded;
+ Mon, 14 Apr 2025 00:08:53 +0200 (CEST)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:8ac4:0:0:0:0:f7])
+ by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 53DM8hFY066692
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Sun, 13 Apr 2025 18:08:48 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.18.1/8.15.2/Submit) id 53DM8gZb066691;
+ Sun, 13 Apr 2025 15:08:42 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +43,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00037112-186e-11f0-9eae-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
-	 t=1744552116; x=1744638516; bh=65+6xqnS0v0IeL+vIucI1i3MsAbiGj9z
-	Lb6pCAV3vYM=; b=anjin7aYA4VJ89goijEEvyAdCON0mVAHvsx59LZpsLgmYBsx
-	ODHO5fyJWpx0hvhzc1ztCMq49yuRQZU1Y7PlbXyNZbIQ1OXNzO72gNPwnz4bQshJ
-	NRXuk+L4xMj3hHMstYJSRgnrTKjT+qWUtntwcnZFmi9MUuzwySq4dDvkdh33ALZw
-	7+XmZNODMIes6O9jRAJC1bahwSwfdIWdcxDoyvsL3XC6p6sLytz8QllILHZsV3wd
-	zV0PsNNUqwyhHrHu/N/T3cQjBxYd4/CUzfX3IzMJ51eNdZWbLmf1ya88Qy9luhDv
-	NyJMwiLokXmfsmlGssZGtfFbBtO6w5S33A7BTA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1744552116; x=1744638516; bh=65+6xqnS0v0IeL+vIucI1i3MsAbi
-	Gj9zLb6pCAV3vYM=; b=V+mr2BKshYHokSf1u4N6Pw/cjQKELSGlX8UVcjo2DATd
-	oTyjllcqo2YQTqO4Qx9e2FxHJuHE0s8FrB8aj2Ga5NyHJRDOoJdyNmAV/oZvr5zY
-	VP4EFEPU+8Q6GUA+KcUPgQ7daA7/Q6AsOGddTbObf/ePI86+SZQfrYw4L0MkQFTI
-	pinkxZ0CcNX/xc9qJRnVMs7ZK9+494Dv19KSKwyDjPbVPc1kg7h4wpceOJZ/pPkq
-	Y47LdRS6reKR2juQSgAISwUSvGlMBigsuvt/Q0TwB8VRGq0AbcHDYLqhblE9k7oX
-	h8IM+57sC/s0udR4np1PJGLqvNEZ5rLEA64eq0IAug==
-X-ME-Sender: <xms:tMD7Z69nPjafj8jTtVDDUadcmsokE4lt6QPn7kbSS5Gq54MntTBZsA>
-    <xme:tMD7Z6t7A8nmQxs7km7l_Sy1JRJnaMNlBhR89F--EeRNdcrNq_SQGgPjRDL1_coR6
-    cszlLjc7yOCXw>
-X-ME-Received: <xmr:tMD7ZwCim_oVMxvyMFXVVaiVlG96PQlOsx-TccVu4RcL6-HEU2AXS5_L8X6xp3YxcSFwRxfJPobNWO1ngjBG3ReyzVe3BgogUOOKFxL0HD4fMydKVFQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvudejkedtucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhephffvvefufffkofggtgfgsehtkeertdertdej
-    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
-    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
-    tffrrghtthgvrhhnpeelkefhudelteelleelteetveeffeetffekteetjeehlefggeekle
-    eghefhtdehvdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
-    ohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpd
-    hnsggprhgtphhtthhopeehpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopeigvghn
-    qdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhope
-    grnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtohepmhgr
-    rhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdprhgtphhtth
-    hopegtrghrughovgestggrrhguohgvrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhl
-    ihhniheskhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:tMD7ZydmsyRn3vA5x8_JP3aloF9PMDQIc8WtNlQrmHzzclzvSPxTtQ>
-    <xmx:tMD7Z_NMYQh3ltbF1sXBBa5ZIFlxs6hbsf3xpJA6Se1EK1KFfZbb_w>
-    <xmx:tMD7Z8mxeif3BNN9TJBNSSblM2K9_gX8hwS6TFJmpdLqsGgE74Rn2w>
-    <xmx:tMD7Zxva4bCNuD2k3PcclBfUvQqjbF8EsmCDZKUBas0SLxl_m9kWvg>
-    <xmx:tMD7Z8WfI5glGWCiTi_5FaezT9S0fd6Lk9xg0EXvx7P6opQrnDdup9bn>
-Feedback-ID: i1568416f:Fastmail
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] CI: fix waiting for final test message (again)
-Date: Sun, 13 Apr 2025 15:47:31 +0200
-Message-ID: <20250413134826.1366350-1-marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.48.1
+X-Inumbo-ID: e1f83374-18b3-11f0-9eae-5ba50f476ded
+Date: Sun, 13 Apr 2025 15:08:42 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+        Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: Serious AMD-Vi issue
+Message-ID: <Z_w16tOkcg4_tpg2@mattapan.m5p.com>
+References: <ZbLDlRi0vctlhsNp@mattapan.m5p.com>
+ <Z5OkQgjd4Lt_rtr0@macbook.local>
+ <Z5QFf5Ipk3GHd27H@mattapan.m5p.com>
+ <Z5dVgd3aF_n9Q3hZ@macbook.local>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <Z5dVgd3aF_n9Q3hZ@macbook.local>
+X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on mattapan.m5p.com
 
-The previous attempt has correct diagnosis, but added -notransfer flag
-in a wrong place - it should be used in the first (outer) match out of
-two, not the second (inner) one.
+On Mon, Jan 27, 2025 at 10:44:33AM +0100, Roger Pau Monné wrote:
+> On Fri, Jan 24, 2025 at 01:26:23PM -0800, Elliott Mitchell wrote:
+> > 
+> > In fact what seems a likely reproduction on Intel hardware is the Intel
+> > sound card issue.  I notice that issue occurs when sound *starts*
+> > playing.  When a sound device starts, its buffers would be empty and the
+> > first DMA request would be turned around with minimal latency.  In such
+> > case this matches the Samsung SATA devices handling DMA with low
+> > latency.
+> 
+> Can you reproduce the data loss issue without using RAID in Linux?
+> You can use fio with verify or similar to stress test it.
 
-Fixes: 1e12cbd6af2c ("CI: fix waiting for final test message")
-Signed-off-by: Marek Marczykowski-GÃ³recki <marmarek@invisiblethingslab.com>
----
-This actually fixes the issue described in the referenced commit. When
-that issue happens, it can be seen as a complete console output (up to
-Alpine login prompt), but test still failed.
-But that is not all the issues, sometimes it hangs really in the middle
-of dom0 boot, for example with last lines as:
+This seems rather unlikely.  The first reportter tried without software
+RAID and didn't observe the issue.  If the problem occurred without
+software RAID, there would be massive numbers of data loss reports.
 
-    [    1.816052] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
-    Poking KASLR using RDRAND RDTSC...
-    [    1.818089] Dynamic Preempt: voluntary
-    [    1.818251] rcu: Preemptible hierarchical RCU implementation.
-    [    1.818254] rcu: 	RCU event tracing is ena
+> Can you reproduce if dom0 is PVH instead of PV?
 
-and sits there for over 120s.
+Haven't gotten Domain 0 PVH to work yet.  I was planning to try again
+when Debian updates to 4.20, but until then this isn't working.
 
-It's unclear to me yet whether it's a real dom0 hang, or an issue with
-grabbing console output. Debugging...
----
- automation/scripts/console.exp | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+> Can you reproduce with dom0-iommu=strict mode in the Xen command line?
 
-diff --git a/automation/scripts/console.exp b/automation/scripts/console.exp
-index bdb1dd982003..fc80513dfb35 100755
---- a/automation/scripts/console.exp
-+++ b/automation/scripts/console.exp
-@@ -60,12 +60,12 @@ if {[info exists env(WAKEUP_CMD)]} {
- 
- if {[info exists env(LOG_MSG)]} {
-     expect {
--        -re "$env(PASSED)" {
--            expect -notransfer -re "$env(LOG_MSG)"
-+        -notransfer -re "$env(PASSED)" {
-+            expect -re "$env(LOG_MSG)"
-             exit 0
-         }
--        -re "$env(LOG_MSG)" {
--            expect -notransfer -re "$env(PASSED)"
-+        -notransfer -re "$env(LOG_MSG)" {
-+            expect -re "$env(PASSED)"
-             exit 0
-         }
-     }
+Alas, this is now a definite "yes".  Took a bunch of waiting, but now
+confirmed to occur with "dom0-iommu=strict".
+
+
 -- 
-2.48.1
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
 
 
