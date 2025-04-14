@@ -2,49 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29AE4A8837E
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 15:59:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.950328.1346688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E421FA883C3
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 16:05:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.950341.1346697 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4KL1-00039y-G9; Mon, 14 Apr 2025 13:59:03 +0000
+	id 1u4KR7-0006Nf-4a; Mon, 14 Apr 2025 14:05:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 950328.1346688; Mon, 14 Apr 2025 13:59:03 +0000
+Received: by outflank-mailman (output) from mailman id 950341.1346697; Mon, 14 Apr 2025 14:05:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4KL1-00037G-DO; Mon, 14 Apr 2025 13:59:03 +0000
-Received: by outflank-mailman (input) for mailman id 950328;
- Mon, 14 Apr 2025 13:59:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u4KR7-0006M1-1r; Mon, 14 Apr 2025 14:05:21 +0000
+Received: by outflank-mailman (input) for mailman id 950341;
+ Mon, 14 Apr 2025 14:05:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B3Nx=XA=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1u4KKz-000378-Om
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 13:59:01 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20605.outbound.protection.outlook.com
- [2a01:111:f403:2412::605])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c318acf-1938-11f0-9ffb-bf95429c2676;
- Mon, 14 Apr 2025 15:58:59 +0200 (CEST)
-Received: from CH0P221CA0016.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::18)
- by CH3PR12MB8509.namprd12.prod.outlook.com (2603:10b6:610:157::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.35; Mon, 14 Apr
- 2025 13:58:54 +0000
-Received: from CH2PEPF000000A0.namprd02.prod.outlook.com
- (2603:10b6:610:11c:cafe::5e) by CH0P221CA0016.outlook.office365.com
- (2603:10b6:610:11c::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.35 via Frontend Transport; Mon,
- 14 Apr 2025 13:58:54 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF000000A0.mail.protection.outlook.com (10.167.244.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Mon, 14 Apr 2025 13:58:54 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 14 Apr
- 2025 08:58:52 -0500
+ <SRS0=VMrm=XA=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
+ id 1u4KR6-0006Lv-A4
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 14:05:20 +0000
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7e7b1f8f-1939-11f0-9eae-5ba50f476ded;
+ Mon, 14 Apr 2025 16:05:18 +0200 (CEST)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53EA4ATV027370;
+ Mon, 14 Apr 2025 14:04:44 GMT
+Received: from ppma11.dal12v.mail.ibm.com
+ (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 46109f167h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Apr 2025 14:04:44 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 53EDcZPO016703;
+ Mon, 14 Apr 2025 14:04:42 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+ by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 460571x6a5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 14 Apr 2025 14:04:42 +0000
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
+ [10.20.54.103])
+ by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 53EE4f4G48300418
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 14 Apr 2025 14:04:41 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 212F720043;
+ Mon, 14 Apr 2025 14:04:41 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 30D1920040;
+ Mon, 14 Apr 2025 14:04:40 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.171.13.82]) by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Mon, 14 Apr 2025 14:04:40 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,185 +66,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c318acf-1938-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MBrQFPeTp2Ij8psBv0GNxFriMoEARRmMleDV4Qsg1Fxp+ZCLGwIuGuY2sSZ9QQw5gQlHN3pECdtJSyLQ4S1HQaAlXOO4Ha4wYzt/VFoG2HQGbQvieCMV6sFTuAA9SkZsA1qwkMbvF+GBXeJbsi7qMrpMqjcG7R77FzekfRgwX+vcTwz+Trj0zkkNbMiaGk4I2exrSmAiDtD+ZUoiZNzTu7M7asWLgXsLYXYWSnYJaIGrgFdjRvU8G9u4+teSlxnqCdsxLOYm5XrO0AAZxkEQ0DjEVNAYgd5KZ+LZzd8GGhxxi57bnrxca+odTqDTy435y5OpOdJmyeKDT+Lsd/fH4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sy597cODJ56+FOhqRWzJ1gQXGTJKR+k+qSI6Gh93lO4=;
- b=SPye6g24xVvBclyayiqfAiqpA+PDfRMo2hr7Wl1tT5bJHzSxzmuwhM3534d2PifKVkR7vFau2UYz//s8KAOxQoR7xvvxgYcCKt/jCJpt9Bh5FApqh8CK6lJrzDWLa1WPOeOAS3GsPsWvX7sVxKU6uLAhFXXrjyKFo+nZfvFem+fXKhP0x0297vX7CLKCH6J4plfmUQKg5c4bJIpG8BZSNxzYaN9Moy0LYFls4dsXj4SWJ1F2BEPdoVZ7+vVIuh3fEwk0QHyVzOvB6e5oEStsDQzgu0lgqMczsivPLsA8YQCMRqWTzu9k1HVbH+ABT59QlF5DJeSr2zh22AU3j/S3WQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sy597cODJ56+FOhqRWzJ1gQXGTJKR+k+qSI6Gh93lO4=;
- b=Y9hpojLeZYcgm/4b0JXkSsuYkMmbGwz4H9azwJPzY/suDkx+Xpi1Bq5igTrV4F3aawE9oKYLYOzccN/7QQb6s4kvyTgd2WmGVgtm341bCNgttsfm0fMHvapMEy35BkiMYiv1mtnwXlVZrjhrP8sxbpXi+Wc/1tZqdHvGVzpBVhs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: 7e7b1f8f-1939-11f0-9eae-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=mR/z8wqlahqEQEIdoTwi+iagtqGDJe
+	kWvs0xnEoJMPE=; b=DpyD6Udw88tqaPr0fYcs3CazdQ5QWENJPynzyhJZnbNOi5
+	zY0G9Hu7PEsJ3TjJG7rVrb/GbHvfITN3AIbtoLh/H0aKWaZX+1eKMHjVLpwTeAUE
+	lRbqHvx0K9kSyQT0HXlbLRn1suq7p1N21lpak5cyhNJDX+1kLb81jLSzQe19TM2X
+	xKrKJV6i/xFFC2mKilEeszzr+tgbhoVNSPBwhEulRvMdF1Ct68oZPbXVDMaG0p/U
+	WXYRkSiwc4AJlRENzE7s4q7aNYIHCvE9+ZUHe6U9seSlEUrtTlhISJ0ht+Fdm4uA
+	x4K+2XDTVTvm98SnPR0wm7k4SM2+vbROYs8t7LSA==
+Date: Mon, 14 Apr 2025 16:04:38 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+        "David S. Miller" <davem@davemloft.net>,
+        Andreas Larsson <andreas@gaisler.com>, Juergen Gross <jgross@suse.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "H. Peter Anvin" <hpa@zytor.com>,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        Catalin Marinas <catalin.marinas@arm.com>, linux-mm@kvack.org,
+        sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] Fix lazy mmu mode
+Message-ID: <Z/0V9r6rjEjSH3fh@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
+References: <20250303141542.3371656-1-ryan.roberts@arm.com>
+ <912c7a32-b39c-494f-a29c-4865cd92aeba@agordeev.local>
+ <5b0609c9-95ee-4e48-bb6d-98f57c5d2c31@arm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 14 Apr 2025 14:58:51 +0100
-Message-ID: <D96EYGKI9INQ.2W2TCBO8XHGST@amd.com>
-CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jason Andryuk
-	<jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	"Stefano Stabellini" <sstabellini@kernel.org>, Michal Orzel
-	<michal.orzel@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 09/16] x86/hyperlaunch: locate dom0 kernel with
- hyperlaunch
-From: Alejandro Vallejo <agarciav@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: aerc 0.20.1
-References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-10-agarciav@amd.com>
- <09e1b9f3-6660-4cdd-9bcf-af075f95bb63@suse.com>
-In-Reply-To: <09e1b9f3-6660-4cdd-9bcf-af075f95bb63@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000000A0:EE_|CH3PR12MB8509:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a6a20b3-6be9-41d6-f3ad-08dd7b5c7e4e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?V1Awdzd4ajBHRFp0elBzSmdnaTFEL2l1R2dyS3BkOTBBYWxkRjJPaGdhVGh0?=
- =?utf-8?B?cjBNbjVJMXhzZkJ3SjBmMjhmSHhQT3dRQVZEWWh6d2J5R01tMmEvOHkraGQz?=
- =?utf-8?B?UytUNTBJS3FVUEZJWVVGQk5jd3VtQmZQZ28yMG5BVXora2gxanVBcGhzMXBY?=
- =?utf-8?B?K0kwamhMYWIrdS8yZWtJR29kQ3lldlc1NkMyUzBwYnB5U3JRSWt4TE95b3V5?=
- =?utf-8?B?bTlqeWJOM3JlYUR0VDQ4MzBGeGF4bGdLMEJ2dnlYcURUdFY1TUVZbEIyR29w?=
- =?utf-8?B?UUdUZVZNQ1plY0M1dFVHMFc5T3BlNDVzNk1OVUFOWXc5UUdJQ0VlUmkxTmFn?=
- =?utf-8?B?SFo5c1hCM0FCOEszeFBERm9zdXBnTytOVDFEdTAxQ1ordm9WRXRjanlnWHNn?=
- =?utf-8?B?ZlBWMzVDNEswMzRvSWRUS0x5cGUyOEpncTNMLzN1SEh2QXowb3hYVU5QK09j?=
- =?utf-8?B?aVRCRXNuUlhSa3JlUEpLTjZ1MG5LK21EQ2ROQ0F1NVl6QWZ0RnJIY3VPMU9u?=
- =?utf-8?B?UXRJOWhmQStaYmlIMGpXU3RLeDZnamtYYTVuOEJIU0dPZUg0Z0ZnZ2wyc1Vw?=
- =?utf-8?B?VGVoM3Ztalc1MVRiYURoQmZMbWhDSHJpb1FOVkRWViswTzA2cFhLWjRwU1lZ?=
- =?utf-8?B?UmRXVWNsa1JYZURhT2V1a1NZVFNZOXVCYjlXL3BQQmJjckYrMk9UUy9IbFJE?=
- =?utf-8?B?U2lTeWxtcVJBVEJaVzU1eldtSkpBcWJaeTFuOUhVQkZydDEzeEVkNUNjOTZv?=
- =?utf-8?B?YjRXOVgvc280VTI4cjhzVEtsUDlCZS9tOXNKZ0l6ZkhUVGUwNGx4K1BpeGht?=
- =?utf-8?B?L0VnNENDMkhNMW8wU0YwR3ZZaFRhQlptVURLUTRRQWFyYUZScENtamVWVHNp?=
- =?utf-8?B?R09uOUl6L1liZVVzRGR2VjVEdnk3bVljdXZwcllJbnBSaTB3REp3cTh5VElv?=
- =?utf-8?B?WFZxMFBjcHd4ZnZqMTFDNkJKV0FWU2hUa25VS29nUXJrVC9HTUNISS95MHlS?=
- =?utf-8?B?bVNNVktZNWZMUjhpUmJZb3JsemdITTQ0b21mQ0RFQ3ZvQk4wZmNaR01uTUVX?=
- =?utf-8?B?WDljN043YTN6QTAvQ3B0NXc3OWtnR1ZpNjgvN2wwU1VkdHRVRG9NWGsyZHp5?=
- =?utf-8?B?U1lmRDZ4Y1VtbmwwdGljbjVOQk9jTXdWQ0NmaDdzZ2VUTndPeEY0bkVhWDQw?=
- =?utf-8?B?NWR2Uk03R2EzVHA1WVRxaTJzTXMrUis0OWJtTUdnM285UklSTUZldTRCYmRt?=
- =?utf-8?B?SmlOd1UvbWlrbmVkY2ZqMUxzRDkraUhMVUdqSEZ0ZHJndjl4UVFxK2s5bjFF?=
- =?utf-8?B?TktXdkhadnA5U3NLMSs0Wlo5VGpYV2RXb3hrdjVOeE80d0ZzK0R1RkJJeXlM?=
- =?utf-8?B?VlFHcDBIRG1kTWllQi9NdDcwaXk1UzRGaWE1aXZmcC9Lbm12OE1JaENXWkVa?=
- =?utf-8?B?SFR1dWRBWFBaVGtWZnFtMnRPRDNJQkY2K1hkdm1EcmlUbzJjUndWMUZWdk9o?=
- =?utf-8?B?cmlBa0pPTmg5YnRBcTB0bmhtQ0owekMwMGM4QkEwS2k5blFJaURsREV6L29B?=
- =?utf-8?B?ZlcxNmxMTDZJRlVUcFBYWUlHNVExQVhEYWpDdVdydUdwZnh4SzRacUxoUkkx?=
- =?utf-8?B?MUdyZnRMUzNoWVU4bE5ZNjhyOEsyU3kwOXdWbHpyVnlMQlJIekQzTGZ6TjMy?=
- =?utf-8?B?OWtDQm5qL2pPYkxQQ1Fjb1UwVWZyZThVclBhNE1EQ1FOMGticXlBV2NVcTha?=
- =?utf-8?B?WiszdHhFSXIzekJzOVBTWDZVM3k4dmtGNU9Ib2ZNODZ3UGZCZ1NiSjgyUzhz?=
- =?utf-8?B?Y0Y3QS9oM0h5cnMzaDNQd1ZLV2NMYnJMS1VCK1h6VkM4Q2tMK1dsRFgyNDNJ?=
- =?utf-8?B?dDBobk1VeldmdytiKzRvbWREMTZVb2orM01sb1NjcVZhMGNFZjQyYjk1Kzgz?=
- =?utf-8?B?SHlNQUQ2Ukp1QlBOWWhtdVlMOXhtQmh5U1Q2NVZ5YmRLVlFkSmIrbnkvQ1hU?=
- =?utf-8?B?UHpxclZKNGJSZUowNkJsVEswdXZsbmZJeENPRWl0M0ZMWHlYMU1KLzRpd2Vq?=
- =?utf-8?Q?9virur?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 13:58:54.2164
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a6a20b3-6be9-41d6-f3ad-08dd7b5c7e4e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF000000A0.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8509
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5b0609c9-95ee-4e48-bb6d-98f57c5d2c31@arm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: Xm9MkOqhRW8-TUfXNY7yPIc4SjJFzfI0
+X-Proofpoint-ORIG-GUID: Xm9MkOqhRW8-TUfXNY7yPIc4SjJFzfI0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
+ definitions=2025-04-14_04,2025-04-10_01,2024-11-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0
+ suspectscore=0 phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501
+ mlxlogscore=999 malwarescore=0 clxscore=1015 spamscore=0 mlxscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2502280000 definitions=main-2504140102
 
-On Thu Apr 10, 2025 at 11:58 AM BST, Jan Beulich wrote:
-> On 08.04.2025 18:07, Alejandro Vallejo wrote:
->> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
->>=20
->> Look for a subnode of type `multiboot,kernel` within a domain node. If
->> found, locate it using the multiboot module helper to generically ensure
->> it lives in the module list. If the bootargs property is present and
->> there was not an MB1 string, then use the command line from the device
->> tree definition.
->>=20
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
->> ---
->> v3:
->>     * Add const to fdt
->>     * Remove idx =3D=3D NULL checks
->>     * Add BUILD_BUG_ON for MAX_NR_BOOTMODS fitting in a uint32_t
->
-> At least this one looks to rather belong into patch 08?
+On Mon, Apr 14, 2025 at 02:22:53PM +0100, Ryan Roberts wrote:
+> On 10/04/2025 17:07, Alexander Gordeev wrote:
+> >> I'm planning to implement lazy mmu mode for arm64 to optimize vmalloc. As part
+> >> of that, I will extend lazy mmu mode to cover kernel mappings in vmalloc table
+> >> walkers. While lazy mmu mode is already used for kernel mappings in a few
+> >> places, this will extend it's use significantly.
+> >>
+> >> Having reviewed the existing lazy mmu implementations in powerpc, sparc and x86,
+> >> it looks like there are a bunch of bugs, some of which may be more likely to
+> >> trigger once I extend the use of lazy mmu.
+> > 
+> > Do you have any idea about generic code issues as result of not adhering to
+> > the originally stated requirement:
+> > 
+> >   /*
+> >    ...
+> >    * the PTE updates which happen during this window.  Note that using this
+> >    * interface requires that read hazards be removed from the code.  A read
+> >    * hazard could result in the direct mode hypervisor case, since the actual
+> >    * write to the page tables may not yet have taken place, so reads though
+> >    * a raw PTE pointer after it has been modified are not guaranteed to be
+> >    * up to date.
+> >    ...
+> >    */
+> > 
+> > I tried to follow few code paths and at least this one does not look so good:
+> > 
+> > copy_pte_range(..., src_pte, ...)
+> > 	ret = copy_nonpresent_pte(..., src_pte, ...)
+> > 		try_restore_exclusive_pte(..., src_pte, ...)	// is_device_exclusive_entry(entry)
+> > 			restore_exclusive_pte(..., ptep, ...)
+> > 				set_pte_at(..., ptep, ...)
+> > 					set_pte(ptep, pte);	// save in lazy mmu mode
+> > 
+> > 	// ret == -ENOENT
+> > 
+> > 	ptent = ptep_get(src_pte);				// lazy mmu save is not observed
+> > 	ret = copy_present_ptes(..., ptent, ...);		// wrong ptent used
+> > 
+> > I am not aware whether the effort to "read hazards be removed from the code"
+> > has ever been made and the generic code is safe in this regard.
+> > 
+> > What is your take on this?
+> 
+> Hmm, that looks like a bug to me, at least based on the stated requirements.
+> Although this is not a "read through a raw PTE *pointer*", it is a ptep_get().
+> The arch code can override that so I guess it has an opportunity to flush. But I
+> don't think any arches are currently doing that.
+> 
+> Probably the simplest fix is to add arch_flush_lazy_mmu_mode() before the
+> ptep_get()?
 
-Urg, yes. Sorry. There was a lot of code motion when I factored out the
-helpers.
+Which would completely revert the very idea of the lazy mmu mode?
+(As one would flush on every PTE page table iteration).
 
->
->> --- a/xen/arch/x86/domain-builder/fdt.c
->> +++ b/xen/arch/x86/domain-builder/fdt.c
->> @@ -155,6 +155,52 @@ int __init fdt_read_multiboot_module(const void *fd=
-t, int node,
->>      return idx;
->>  }
->> =20
->> +static int __init process_domain_node(
->> +    struct boot_info *bi, const void *fdt, int dom_node)
->> +{
->> +    int node;
->> +    struct boot_domain *bd =3D &bi->domains[bi->nr_domains];
->> +    const char *name =3D fdt_get_name(fdt, dom_node, NULL) ?: "unknown"=
-;
->> +    int address_cells =3D fdt_address_cells(fdt, dom_node);
->> +    int size_cells =3D fdt_size_cells(fdt, dom_node);
->
-> Oh, okay - regarding my earlier comment elsewhere: If the sizes come from=
- DT,
-> then of course ASSERT_UNREACHABLE() can't be used at the place where bogu=
-s
-> ones are rejected.
->
->> +    fdt_for_each_subnode(node, fdt, dom_node)
->> +    {
->> +        if ( fdt_node_check_compatible(fdt, node, "multiboot,kernel") =
-=3D=3D 0 )
->> +        {
->
-> When the loop body is merely an if() with a non-negligible body, invertin=
-g
-> the condition and using "continue" is usually better. Much like you do ..=
-.
+> It won't be a problem in practice for arm64, since the pgtables are always
+> updated immediately. I just want to use these hooks to defer/batch barriers in
+> certain cases.
+> 
+> And this is a pre-existing issue for the arches that use lazy mmu with
+> device-exclusive mappings, which my extending lazy mmu into vmalloc won't
+> exacerbate.
+> 
+> Would you be willing/able to submit a fix?
 
-This becomes a chain of if conditions later on, one per property.
+Well, we have a dozen of lazy mmu cases and I would guess it is not the
+only piece of code that seems affected. I was thinking about debug feature
+that could help spotting all troubled locations.
 
->
->> +            int idx;
->> +
->> +            if ( bd->kernel )
->> +            {
->> +                printk(XENLOG_ERR "Duplicate kernel module for domain %=
-s\n",
->> +                       name);
->> +                continue;
->
-> ... here already.
->
-> Jan
+Then we could assess and decide if it is feasible to fix. Just turning the
+code above into the PTE read-modify-update pattern is quite an exercise...
 
-Cheers,
-Alejandro
-
+> Thanks,
+> Ryan
 
