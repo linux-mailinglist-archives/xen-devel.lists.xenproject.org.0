@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B060DA87D5D
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 12:19:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.949557.1346094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3747CA87D61
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 12:19:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.949559.1346116 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4Gtz-0006PA-Mq; Mon, 14 Apr 2025 10:18:55 +0000
+	id 1u4Gu2-0006wF-Gk; Mon, 14 Apr 2025 10:18:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 949557.1346094; Mon, 14 Apr 2025 10:18:55 +0000
+Received: by outflank-mailman (output) from mailman id 949559.1346116; Mon, 14 Apr 2025 10:18:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4Gtz-0006Mk-G7; Mon, 14 Apr 2025 10:18:55 +0000
-Received: by outflank-mailman (input) for mailman id 949557;
- Mon, 14 Apr 2025 10:18:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u4Gu2-0006uZ-4X; Mon, 14 Apr 2025 10:18:58 +0000
+Received: by outflank-mailman (input) for mailman id 949559;
+ Mon, 14 Apr 2025 10:18:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KxE1=XA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u4Gtx-0005Nh-On
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 10:18:53 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dd23d9a6-1919-11f0-9eae-5ba50f476ded;
- Mon, 14 Apr 2025 12:18:52 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-43ede096d73so29815775e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 03:18:52 -0700 (PDT)
+ id 1u4Gu0-0006cA-Ea
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 10:18:56 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dd8d35ce-1919-11f0-9ffb-bf95429c2676;
+ Mon, 14 Apr 2025 12:18:53 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43cfdc2c8c9so21765845e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 03:18:53 -0700 (PDT)
 Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
  [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f233a2f08sm171340495e9.12.2025.04.14.03.18.50
+ 5b1f17b1804b1-43f233a2f08sm171340495e9.12.2025.04.14.03.18.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Apr 2025 03:18:51 -0700 (PDT)
+ Mon, 14 Apr 2025 03:18:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +45,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd23d9a6-1919-11f0-9eae-5ba50f476ded
+X-Inumbo-ID: dd8d35ce-1919-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=citrix.com; s=google; t=1744625932; x=1745230732; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wlk2C2qbHJoC+R/qrRgQwbQ441YQiHB5rm1pXRjQnSc=;
-        b=sz0ZQO+H82rgAbZ7eplpczt/+u+akZusZPjcGAxJX5gCh4hIwEAtlNzn34AMcfRXT/
-         5QOxAWqpA7ZqsLIaCypmE2OhsdGLYxfEQJF1V3AJkOsNnjxs3djGdHclP7oH3bc4Ag7i
-         kDXtzO0wHmsWtJ4HXSk8m/nMlMCxqWG5bL/9k=
+        bh=/ALhgfa8xDZiAvk4KRkCYhHo7ZCFxaNbuuSEWDWlOxI=;
+        b=hx1iT8nLetYOZcZnTYrqHr6i4nFuFaKjkDUBKiqgBbh8HNzTnI3G+xkYzXU6roc7ir
+         bxyHlhk3U9VN1SKYABrxBIxaPiXIH3MxeC0ENh2Dk1DN9yu+z5JwN2lUfWrmP++/Ir2O
+         +hS6JJmHPlnZp2daQIV0gegApoc33kKJK2Zc4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1744625932; x=1745230732;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=wlk2C2qbHJoC+R/qrRgQwbQ441YQiHB5rm1pXRjQnSc=;
-        b=TKBotqxpqyTLcUziIeLviGkztIPAOYNcxnwSeaVVSUDTj+2aj/qF0k8r2+czorhkbh
-         BrvSDn3Zeffh6e9t9I+PG/NFZSw3w2cKG059QEyBPGzYMkvFPCELoT3vhsjYSa1I3MuB
-         JnKCwdAf+VMlPyQ6uZP7hSrEuSOLBD2T59Lw9p5+cNY+E4Udpj5feW/XmLMa7UdDcZjV
-         mFmtLIlkLlDuJCEc7SVXec/qlr8zURSliVFYswqWXGmAGL40asnHoZJkO5m6+GeO+oZL
-         dz+ZMywapb5uNTjKDUsn3DA3EWY9XGeDQCv1tdk4brqegkCIeO0LuzvjBin/GG+6pt92
-         /MjA==
-X-Gm-Message-State: AOJu0YySjKx5hvDI9ag6cuZqT/AKyuUZi69gAdLZwaRsH3L4ajx1vzSo
-	MbZ4z5YB201QErupGeewy1737JLZlTTq0aRhkVwRXEkpY6GNyvSEklnsVnToO9kfdEIPGdpJsWp
-	xiTQ=
-X-Gm-Gg: ASbGnctgNyMdCFyd9lWLBvfHL/noi+sB7uDQpvpCMkB4o7VJvKGkoKZB3eqKxfabWOY
-	jJfDyaoxgJuRAplLqqZXZMmILR99oWTAx2sMNrqVD3jiKtBmhX5m2WOPp3liMEmb8tFN+POMh0I
-	LzUIxizHC349+jK1Ra8dzmBCFupjfxos+zXswzZO8MLR0ZDrsSTJ1CC5jf800S++03UV7wjfuJO
-	P+HLZ5RD1ubhXM1MP5ust14QW7ORTkSGFPlp/EJ8yOCUu/BCwKyWfm9C99K3qaBH010lxu+mfzQ
-	P7ZHbZ1jZlQR+d1bayiNcWD28Q2m3ihs+32xJfg8NadzPMx8+rQqatE4CbNhmBLki8fSvZiti5f
-	yeb+OE+X85LPzCg==
-X-Google-Smtp-Source: AGHT+IEYbjX2/qPltvHzwBvhqVGJSlcIvueTuo9Pe0SPfLBl1RG9OOR//v0UwuHwn84+dlnokajXwQ==
-X-Received: by 2002:a05:600c:46d1:b0:43d:36c:f24 with SMTP id 5b1f17b1804b1-43f3a93de33mr103346745e9.13.1744625931696;
-        Mon, 14 Apr 2025 03:18:51 -0700 (PDT)
+        bh=/ALhgfa8xDZiAvk4KRkCYhHo7ZCFxaNbuuSEWDWlOxI=;
+        b=bklqnJ0hEAm9gVsi95E7LRTJQkQes3ElD+UeVywnBIXzSihOCLtzO3zBur7pngwM1t
+         528PrK1FWhIJNsImX38TKlSjgu7UeDoWroD/t4fVToycUiaRj7/tFS0rNdH8HooMsT2U
+         zxe86AzjjQtZFk0DiVstOnEtpfsTX7QQLOZfnQ0ARtWoU1vj0a41rTe3eFXQPxTap6d4
+         uQSyG5rJzXsUHe9x8DMLAW9MhEiqgEuO8oX818LhRSHwYW0I9URb+pk31Z6U9UDcoH4r
+         MIW9X5tKVrn0Zq9STKaF2m9HnzNQsBiSxJLP7pVgqilTYI9+42HTQkxRQ8JHBSIgkzRF
+         I+TA==
+X-Gm-Message-State: AOJu0YwCiknDRdysgDR621S+Bw6XP915fyr0o8cAdfuRnmoAzm+WGib8
+	CT0NVx6jpeiiih0B4mmZlFyP0PpeIlD8l9al2FAdVC+LFG72ynRfncOXacjVIfhjCQgaE5T50lF
+	GNtY=
+X-Gm-Gg: ASbGnctz1bV3E6+Mq9OyDNgx/NLFZML+/vUqydnsRQDvG4kbeuk6W9XbJCuSTSAE8KU
+	eYAb26A4B1E9FJsfXt9SH0sHqgO36xBPN5XOGnfvT54CBLyyRFYEeBx0AuTblEtUMudwsHLsFqB
+	e0qdLksmn8tLGQcI3tSENyLNPsXZj1eioXMjUlTzw/6xfYe735F0sOaj9mOhY8BprGShCBZTlJi
+	OrRSH9aFaHJYPcy9QFAiTNJTfHx835L6yRG7lM0WL1A77kYUpz7Vh+Kal3otlfEo/WTUhKfn0jH
+	lXRnn6xvLHG1bAXTsMQrWjvjqpC1ATeLk0b+oQ55x2i6oTEwR0iC7ElqLQKYq27kn1Ii19h/jpq
+	7GWlHlGZfazs4iHjJpMRqsWyG
+X-Google-Smtp-Source: AGHT+IGUOhJ8hOJ+FLCHu2qubXmKfJOTDyLGchtAUpKntvTfEbGETJQ7zhU/aAU5N7j+PXHlWs1cbw==
+X-Received: by 2002:a05:600c:1911:b0:43d:526:e0ce with SMTP id 5b1f17b1804b1-43f3a9ab03bmr80051015e9.21.1744625932482;
+        Mon, 14 Apr 2025 03:18:52 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -87,9 +87,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Doug Goldstein <cardoe@cardoe.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v2 4/7] Shrink the rootfs substantially
-Date: Mon, 14 Apr 2025 11:18:40 +0100
-Message-Id: <20250414101843.2348330-5-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 5/7] Adjust directory layout for rootfs.cpio.gz
+Date: Mon, 14 Apr 2025 11:18:41 +0100
+Message-Id: <20250414101843.2348330-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250414101843.2348330-1-andrew.cooper3@citrix.com>
 References: <20250414101843.2348330-1-andrew.cooper3@citrix.com>
@@ -97,23 +97,22 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-bash, busybox, musl and zlib are all in the base container.
+All tests using the rootfs currently modify it with:
 
-python3 and ncurses are in principle used by bits of Xen, but not in anything
-we test in CI.  argp-standlone, curl, dbus, libfdt, libgcc and sudo aren't
-used at all (for x86 at least).
+  mkdir proc
+  mkdir run
+  mkdir srv
+  mkdir sys
+  rm var/run
 
-libbz2 and libuuid were pulled in transitively before, and need to be included
-explicitly now.
+This is because the rootfs doesn't have the correct top level directories.
+Furthermore, dev is currently included when it oughtn't to be.
 
-Use apk --no-cache to avoid keeping a ~2M package index on disk.
+srv is easy.  It's an empty directory and can be included in PATHS.
 
-Remove the modules scan on boot.  We don't have or build any.  This removes a
-chunk of warnings on boot.
-
-This shrinks the rootfs from ~30M down to ~8M.
-
-No practical change.
+dev, proc, run and sys are all mount points, which OpenRC knows how to
+populate on boot.  Create only the top level directories in rootfs, without
+`find` recursing into them.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -122,90 +121,31 @@ CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Michal Orzel <michal.orzel@amd.com>
 CC: Doug Goldstein <cardoe@cardoe.com>
 CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+
+v2:
+ * New
 ---
- scripts/alpine-rootfs.sh | 60 +++++++++++++++++++++++-----------------
- 1 file changed, 34 insertions(+), 26 deletions(-)
+ scripts/alpine-rootfs.sh | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/scripts/alpine-rootfs.sh b/scripts/alpine-rootfs.sh
-index 75e2f8648ce5..72c29e0a0a13 100755
+index 72c29e0a0a13..53547b5c5282 100755
 --- a/scripts/alpine-rootfs.sh
 +++ b/scripts/alpine-rootfs.sh
-@@ -4,33 +4,42 @@ set -eu
- 
- WORKDIR="${PWD}"
- COPYDIR="${WORKDIR}/binaries"
-+UNAME=$(uname -m)
- 
--apk update
-+apk --no-cache update
- 
--# xen runtime deps
--apk add musl
--apk add libgcc
--apk add openrc
--apk add busybox
--apk add sudo
--apk add dbus
--apk add bash
--apk add python3
--apk add zlib
--apk add lzo
--apk add ncurses
--apk add yajl
--apk add libaio
--apk add xz
--apk add util-linux
--apk add argp-standalone
--apk add libfdt
--apk add glib
--apk add pixman
--apk add curl
--apk add udev
--apk add pciutils
--apk add libelf
-+PKGS=(
-+    # System
-+    openrc
-+    udev
-+    util-linux
-+
-+    # Xen toolstack runtime deps
-+    libbz2
-+    libuuid
-+    lzo
-+    xz
-+    yajl
-+
-+    # QEMU
-+    glib
-+    libaio
-+    pixman
-+    )
-+
-+case $UNAME in
-+    x86_64)
-+        PKGS+=(
-+            # System
-+            pciutils
-+
-+            # QEMU
-+            libelf
-+            )
-+        ;;
-+esac
-+
-+apk add --no-cache "${PKGS[@]}"
- 
- # Xen
+@@ -71,8 +71,11 @@ passwd -d "root" root
  cd /
-@@ -45,7 +54,6 @@ rc-update add dmesg sysinit
- rc-update add hostname boot
- rc-update add hwclock boot
- rc-update add hwdrivers sysinit
--rc-update add modules boot
- rc-update add killprocs shutdown
- rc-update add mount-ro shutdown
- rc-update add savecache shutdown
+ case $1 in
+     cpio)
+-        PATHS="bin dev etc home init lib mnt opt root sbin usr var"
+-        find $PATHS -print0 | cpio -0 -H newc -o | gzip > "${COPYDIR}/rootfs.cpio.gz"
++        {
++            PATHS="bin etc home init lib mnt opt root sbin srv usr var"
++            find $PATHS -print0
++            echo -ne "dev\0proc\0run\0sys\0"
++        } | cpio -0 -H newc -o | gzip > "${COPYDIR}/rootfs.cpio.gz"
+ 
+         # Print the contents for the build log
+         zcat "${COPYDIR}/rootfs.cpio.gz" | cpio -tv
 -- 
 2.39.5
 
