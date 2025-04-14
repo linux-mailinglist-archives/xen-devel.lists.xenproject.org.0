@@ -2,54 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E13C3A885B9
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 16:51:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.950534.1346820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14378A885DC
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 16:54:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.950548.1346830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4L9u-0001Ze-70; Mon, 14 Apr 2025 14:51:38 +0000
+	id 1u4LCl-0002Lq-Ka; Mon, 14 Apr 2025 14:54:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 950534.1346820; Mon, 14 Apr 2025 14:51:38 +0000
+Received: by outflank-mailman (output) from mailman id 950548.1346830; Mon, 14 Apr 2025 14:54:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4L9u-0001WW-3H; Mon, 14 Apr 2025 14:51:38 +0000
-Received: by outflank-mailman (input) for mailman id 950534;
- Mon, 14 Apr 2025 14:51:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u4LCl-0002Jj-HK; Mon, 14 Apr 2025 14:54:35 +0000
+Received: by outflank-mailman (input) for mailman id 950548;
+ Mon, 14 Apr 2025 14:54:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Bm2T=XA=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1u4L9s-0007Vp-GS
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 14:51:36 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on2061b.outbound.protection.outlook.com
- [2a01:111:f403:260d::61b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f522c8ba-193f-11f0-9eae-5ba50f476ded;
- Mon, 14 Apr 2025 16:51:33 +0200 (CEST)
-Received: from PAZP264CA0096.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1fb::11)
- by AS8PR08MB6472.eurprd08.prod.outlook.com (2603:10a6:20b:336::11)
+ <SRS0=B3Nx=XA=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1u4LCj-0002Jd-Gy
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 14:54:33 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20608.outbound.protection.outlook.com
+ [2a01:111:f403:200a::608])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 55f796f2-1940-11f0-9ffb-bf95429c2676;
+ Mon, 14 Apr 2025 16:54:17 +0200 (CEST)
+Received: from CH5PR04CA0024.namprd04.prod.outlook.com (2603:10b6:610:1f4::9)
+ by IA1PR12MB7710.namprd12.prod.outlook.com (2603:10b6:208:422::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.33; Mon, 14 Apr
- 2025 14:51:30 +0000
-Received: from AM4PEPF00025F9B.EURPRD83.prod.outlook.com
- (2603:10a6:102:1fb:cafe::cb) by PAZP264CA0096.outlook.office365.com
- (2603:10a6:102:1fb::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.34 via Frontend Transport; Mon,
- 14 Apr 2025 14:51:30 +0000
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AM4PEPF00025F9B.mail.protection.outlook.com (10.167.16.10) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8678.4
- via Frontend Transport; Mon, 14 Apr 2025 14:51:30 +0000
-Received: from DB7PR08MB2987.eurprd08.prod.outlook.com (2603:10a6:5:1c::25) by
- GV1PR08MB8741.eurprd08.prod.outlook.com (2603:10a6:150:85::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8632.27; Mon, 14 Apr 2025 14:50:55 +0000
-Received: from DB7PR08MB2987.eurprd08.prod.outlook.com
- ([fe80::d53f:b16d:70a5:8668]) by DB7PR08MB2987.eurprd08.prod.outlook.com
- ([fe80::d53f:b16d:70a5:8668%4]) with mapi id 15.20.8632.030; Mon, 14 Apr 2025
- 14:50:55 +0000
+ 2025 14:54:07 +0000
+Received: from CH2PEPF000000A0.namprd02.prod.outlook.com
+ (2603:10b6:610:1f4:cafe::6f) by CH5PR04CA0024.outlook.office365.com
+ (2603:10b6:610:1f4::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.35 via Frontend Transport; Mon,
+ 14 Apr 2025 14:54:07 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH2PEPF000000A0.mail.protection.outlook.com (10.167.244.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.12 via Frontend Transport; Mon, 14 Apr 2025 14:54:07 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 14 Apr
+ 2025 09:54:05 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,283 +56,404 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f522c8ba-193f-11f0-9eae-5ba50f476ded
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=aIrgXBIqxKO4U1vPOPDhh01aw5EBgFX5/hZKutzV+rVhCsJbJtO2Vb5W7HiBzU1Py56HwoWwa+sUvqjbIfojkdjACzMSoVYSQzAbQEyS2ZPMiiJYNE86GjKcVVn8FgIa7hTWo0BSZCemtv42A6bU8brbbNXru7kXx+4n/Q0fl7i/oAuFiNCiBWgf49TSS98tnSuPfld788klIlqZswCuzJ8b+FTgL6UrUEYpNDcALMsqolghAAH+0ObFJ8XaQA9eYo2NfVOQtEDxaMeoKp4rtQvD09aWeHljvHkSAIpGia10zma0/g4jgnXfXpafyTZao4NxI4tN0WLiivZRc2RM/w==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IZ9JwRmV2mBzMtx9v9RYjZunck0Kd8DU6/udbxMQ77s=;
- b=cqqPYO2qebtApw3M+kQSOP4OT1Ln+e/jpz4aRb/urKVwc/LxbcVDyAAGFdzVBD1TlnwBnreKz+DfiZc0uG4itRLfnjd5F37515M1PVQBpDz4MiOQ2dQxolYvvW9evEcT4/N+l0RGs1Hf6cWkd3+u0UbDgX/g4W0zRreVw8ioeBKuXb/WNRDL0sftFUgvXjV02EysgT7I4Rxga9pUpai138HdHEb00l+Dvde1wwJ9WIunrXiQ8YZtGixFtET2uy0ssJ88ISlApTybuXQUb+mubYhS2cK7d4ztPnwoQbMts8QuaXCXqQkAV76kmvZ2/w94mIj2s40N7tMwOe380M3x8Q==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=amd.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IZ9JwRmV2mBzMtx9v9RYjZunck0Kd8DU6/udbxMQ77s=;
- b=rI6+OSFNMWWOA4yZcYgu42lzWvUm7z9QHyGGVgD+Z3+aSrMXFRU8GXzy3R9fws11y1yxT7n1VJHT0NqcWpsDpC7nnaEZuWIJielD7RX3VZx9TFuEKIt0RRvzJDjg8KmZyqpp0z1ilgmqyHsw3Lq+xWuZ/yxOcmgOiRTNZgBj+18=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+X-Inumbo-ID: 55f796f2-1940-11f0-9ffb-bf95429c2676
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eA0J4ybIqdup5ZAv2R1c/6OxBsoZHxk3u2VytZoJyXi43G9R6smTHbN/0JeU6cg80FbxjPwJe+GwaUpvxlUeXTYWry2otroNCHNfCRj26VrhLkoL54EXT0Om+1l2CEM/jdtRxBqhh1ya7q/FD7E2TsxobaeMIx+xgwfDWKrUZ6WUck9mzykHGTTVvVaGQtxa762Zhr4t86BRGP0XCbPgCTJzLtvcbmv8SZJ7sX6GC5U9Kh7nUTxE4JCFv+9WqpSHKv/DrhjaFs/gel+fveXZ6fzGWbQUnGxiiTs3EeagHf9wq1TuIzvIldIXPi7avdOBR1ukNCEglmB8avynGiXcVQ==
+ b=bT6NmHq7zxT1/7EEgrgOx3EMF8eB3R7VkwW1QmUFOSycQRqqf8yzwjrh3KtsbEHcU/FxvZuT1s+G3fAId4qTAU/Mftgmgx/4ZCoeLJmgOnbXh+OVEg3RjrmncBtFWwNKiRC4Q+LZ3J8oB2fU1ATRhQweiXit6FXVd0PLjXcYGVIQXMLrZF86KNtA30eKDZD2Ta0eQQ+6RNj3mvhh4De3s6pQx7a3WaXUAbXyBERSSf9htF5HBS8L8VvhpDxrd8QoynD/jNsBQb51C5YhHihRlpp2e7cAVb2Vnb5D3mFvGNLsaEZhsNQSXgtXahzNZpakGoeCfrwy3PtqkUxCPjyfBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IZ9JwRmV2mBzMtx9v9RYjZunck0Kd8DU6/udbxMQ77s=;
- b=vApjAEu3uNtgqLAJsK7SA9pTJkzwXin0VkjcveToZlHHpHN6hr/xLVH6kw/DSKrjGQPyXZm5uBlNf9z0ZbQu6Y5pYmP4HFOA9tT4QgSeL5iuwDaVcLF/oqH7/y3z/vRmrMG9yoWfZRuNe4Ao2mURnlRfQ3564Du+Ulfr8hLx96uPdhNyvlISAC6EbtAhQmglui7OczgA/w3tpEKQ+5RpXPCXI/Zw/fOn2JDn8rj2dPnDmgFv/3RONdqOdpvbBm2sNQ9z7PWHclOjxgaXEBk+1bz6mQd7A3VLZGqAqTfF3ouWC0qj1U9PiMcsteTdd9hzyD2EfWOnymOIe/LsekXq7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ bh=jb/hnyHFNdmRYRtM5XdCo8TvkhaFEljRLZwprbWEQSc=;
+ b=Vb4KikXrxOxh+mnXME9ySCh5JnhrbNwVzvspinIRO8q3jCF0RltfRyK2ul0HgIoIDPFCnxMFeRTN+25X3E0J1rXaQH7qVZPTsfvkH9PK3V48I0lw8bE2eEwZQi4YEJP8xt2FTBBblXXyzcm+qVcariZmG7O0evuEgQ29mbQ0/YmKoCpZTRir7j1u4/pfzQSnlr5aZFH/VFw8kTdl/1hFwLzoZET542tCoIIDm72gEC5S/dMxggArqGIGWhxs2hKCqbs+5Bfnqjmrf/zDl/Bqq+TZWUB6Tiz4zriMs2UATECvDojQCOz+GOZMi6BjPqSFVMeJSTq2lPH5EWrnd3DWYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=proton.me smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IZ9JwRmV2mBzMtx9v9RYjZunck0Kd8DU6/udbxMQ77s=;
- b=rI6+OSFNMWWOA4yZcYgu42lzWvUm7z9QHyGGVgD+Z3+aSrMXFRU8GXzy3R9fws11y1yxT7n1VJHT0NqcWpsDpC7nnaEZuWIJielD7RX3VZx9TFuEKIt0RRvzJDjg8KmZyqpp0z1ilgmqyHsw3Lq+xWuZ/yxOcmgOiRTNZgBj+18=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: "Orzel, Michal" <michal.orzel@amd.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Penny
- Zheng <Penny.Zheng@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <Wei.Chen@arm.com>
-Subject: Re: [PATCH v3 1/7] arm/mpu: Introduce MPU memory region map structure
-Thread-Topic: [PATCH v3 1/7] arm/mpu: Introduce MPU memory region map
- structure
-Thread-Index: AQHbqvIQP3h8YyZqYkSDv4tGWZWI7LOi9uCAgABMVgA=
-Date: Mon, 14 Apr 2025 14:50:54 +0000
-Message-ID: <FCB86533-FFE9-4A79-AC8F-E2DBA2B1F553@arm.com>
-References: <20250411145655.140667-1-luca.fancellu@arm.com>
- <20250411145655.140667-2-luca.fancellu@arm.com>
- <d323425d-b266-49d6-95d4-0e1acb5e489e@amd.com>
-In-Reply-To: <d323425d-b266-49d6-95d4-0e1acb5e489e@amd.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3826.400.131.1.6)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DB7PR08MB2987:EE_|GV1PR08MB8741:EE_|AM4PEPF00025F9B:EE_|AS8PR08MB6472:EE_
-X-MS-Office365-Filtering-Correlation-Id: b526f507-0bbf-4c0b-7934-08dd7b63d763
-x-checkrecipientrouted: true
-nodisclaimer: true
+ bh=jb/hnyHFNdmRYRtM5XdCo8TvkhaFEljRLZwprbWEQSc=;
+ b=4RtlAUEkzB1KiIVx1falGLGaGZNOSjRWPvifeVbqOcJOvIUVJtS3BZfg+VvIpfRs6G/X4yED8GRq/UKlc/mOKLVJR9LI4B9lOUit2vh3dewwZsmkRouU19HPswYSR0h5PEwBnXhMExMTek2sekYtkij9woqMVp+7wu5PNqXXRfI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 14 Apr 2025 15:54:04 +0100
+Message-ID: <D96G4QICTBWX.193DL39JIUJ9K@amd.com>
+CC: <xen-devel@lists.xenproject.org>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>, Jason Andryuk <jason.andryuk@amd.com>, "Xenia
+ Ragiadakou" <xenia.ragiadakou@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [PATCH v3 10/16] x86/hyperlaunch: obtain cmdline from device
+ tree
+From: Alejandro Vallejo <agarciav@amd.com>
+To: Denis Mukhin <dmkhn@proton.me>
+X-Mailer: aerc 0.20.1
+References: <20250408160802.49870-1-agarciav@amd.com>
+ <20250408160802.49870-11-agarciav@amd.com>
+ <AOApTL7inEgfBXUrdPTzjM3e6XyK-nDlfQz5j7gpcrOIHEJfLC9sXSTgbSthCSkzDqjRK8vAY-_5yDSXiKSEnEkoBvDIvCU9Rw-ZbsIZRh4=@proton.me>
+In-Reply-To: <AOApTL7inEgfBXUrdPTzjM3e6XyK-nDlfQz5j7gpcrOIHEJfLC9sXSTgbSthCSkzDqjRK8vAY-_5yDSXiKSEnEkoBvDIvCU9Rw-ZbsIZRh4=@proton.me>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF000000A0:EE_|IA1PR12MB7710:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5cb620fb-b3fc-44ce-5732-08dd7b64353d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
-X-Microsoft-Antispam-Message-Info-Original:
- =?us-ascii?Q?ZQoDSMnIRHUSwAEBPi3kqlocaCwureBePocm4jfxqrvA/9ZDWaxUJ6qwoVSB?=
- =?us-ascii?Q?LA/rVBJlZdsAVKNuRxJtRmEEGU4KFLW+31UaDKJMSnvxijHsRWbhLw/ZD0i8?=
- =?us-ascii?Q?EW00NLURb3loVpnJ4eGkj9MBQP6waHcg1Gk+l1N982APbEIVy5pLPQVtq0dR?=
- =?us-ascii?Q?sganJly5FkgnIj5nwh7IXvI3TayuCHB6yNSnkrp/lou7YeC4EQ/jHN25XX+i?=
- =?us-ascii?Q?ceQF5UHNULz7pCJiFyxVEyTCS/xOoKycEg0mgLFWaAAd2qpd6OhLEcMtr2tQ?=
- =?us-ascii?Q?5+h0vRGFEBDtfMxbv8hkwuBbZDLc3Z/wXvNZRaC4FzRC1+Duyjm1tDjQfREB?=
- =?us-ascii?Q?u3Sxw5+y/C4ggLAN/MJfyLlamX00bSEVxKaYfdY6DyXCZP1EIzAnk8Ns7lre?=
- =?us-ascii?Q?COqVQl9Yd4nuuLKzVK/T7U8GErN4A1oM27buNdu6cx+2HL5Vwrx05b7tXsKs?=
- =?us-ascii?Q?ygpx2jkbGgTk9D5VekHJmBt6vRNiuxZgIuofK2yYMlpEYTcfyUjDICZnVBKX?=
- =?us-ascii?Q?PhxEO4RDEbZvCZSsyQOJB+vawt9uMHeWZyFwkgXVfUHq9CX14Uf5sXGKsHKJ?=
- =?us-ascii?Q?Q6rQu6zQT5K5we2LCyXmhV0nfYRFi1ZncR8v0ypTKvsUnXOs7MVsJbsSb+s0?=
- =?us-ascii?Q?LjnrXdjAR+oG6ILlJ1LO9Y6Pu/bmO8qDPpJnU7vKL8HhWgHzyVdnRctK4mH7?=
- =?us-ascii?Q?t0Bxnq1M8vnOB65p/nqHB+EQD9tyMkE1jVsPCOACa47d8dx4QCDSS2Bg36Sv?=
- =?us-ascii?Q?LLb/+Ud+hwPNvW36eR7QP9ABE4lcUZaAXHuEWE7bOAD2N9nRsEROhImMUo0P?=
- =?us-ascii?Q?WdvHDvQAhMkuKEJAsVt0qTcaePTJI5q17KhONzx02xInM3plU0FYYKi/TpcY?=
- =?us-ascii?Q?rvwDLantjZNZbF6l5eeVQ5w8ksi7Gho8dlKs3BFCvgRbY1iGD2B2pNjNzMFr?=
- =?us-ascii?Q?GONeqRSqdrHt4MLTmxxwwOgRThsX7x3TorRKKzhDyNLP0NJRJF4eB93qNC72?=
- =?us-ascii?Q?G4bq6JFBA5DPdo5G+f9OC+fMhOkfJ261a2szuXGgRUNhF8sOin+p2Yk/EWLN?=
- =?us-ascii?Q?ppMYE2e3/J2fDFFCSSqTZpxxVBZxfe4jQcc80xnTy1n0pxjW8paigiLdWDt3?=
- =?us-ascii?Q?g+Rzm23OMl0Kj0fqd5NCWoX72OrkwpuBGviyWvXOQzY0Jjq7qKv6rc9H99uy?=
- =?us-ascii?Q?bGmb5ZAZ3IOt3n/z5xAO8U3TBPIcjNg6WnUWUtHc+hH7/kmsAh/FESfMTBhI?=
- =?us-ascii?Q?eXI29rnaip+EkaMGoJWQVJNj1KsG9P/DIBzECiJ6rhLVeF+5A2FSdgr3w4ZE?=
- =?us-ascii?Q?yvH4qV5RQuAl/EUHQDoJ3xtxiJAo4ELeqRlkmgcPoqMMTU9omEsXW7ReGqMJ?=
- =?us-ascii?Q?arVwmvQR/E3e9piaucaWKlYvK3h9r9JbwUnLNhOF60EhD+Lh+s6VYGiBDz+V?=
- =?us-ascii?Q?0kKw8ObToIY7Zj5w42+Al4xX3d/E961IowuLFPqdppRX4cFAFUh+2w=3D=3D?=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB2987.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1CDE58025A897C40BFBC4654EF04AD90@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB8741
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM4PEPF00025F9B.EURPRD83.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	47f0ce16-8edd-4231-3796-08dd7b63c26a
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|35042699022|14060799003|82310400026|36860700013|7053199007;
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?TmwA+eTPFtzhuFTIam5eiHEbHIT+U7IbNuRK02lu2IMCaZHYZkXz16VQMyXG?=
- =?us-ascii?Q?uk39TJQrrIuWR3oaR56K5fECPST67cOafkLKHlM4vVareGMDz3p2qoYjcv5m?=
- =?us-ascii?Q?95Wdy3uIhvyOjeUiEANyzuyu0oafCeOXY9P0Iik7Qet5HSEq5LG0JE71BIH0?=
- =?us-ascii?Q?21KrLg8o+WxKK54OV0tYmQCX4Cz+xDYLxSDujXo2Mm8dyKUWDtD7u/xmMRGk?=
- =?us-ascii?Q?WOw9TMTJxmgxk7OmsVssHufTwgfzWHuiDrC1cFiOeq83+DZ7g+stmy+e5iEC?=
- =?us-ascii?Q?HcM8Jc2Az2+XGavAwz5kEIrz4rXeOYmqqG89eo+AHWNSHvDjXBdHBSDg2YM8?=
- =?us-ascii?Q?fdoa65ss5OaN9HcNhUN6oRahCxraVbrDqGTk23URgkABMXHg4D8TLYDpsOMX?=
- =?us-ascii?Q?yTZA8hby11f0aBBNduw2QM1vjrX8Y9DCmGZTBgxDytyKX7tyBytpWRsyvfQH?=
- =?us-ascii?Q?jkoKxx/vse+pNSlgLQPv8vRlBiPDyADljgoSqFnbeflRIKd5kobdJprGzj7Z?=
- =?us-ascii?Q?BoKkc5PhsaR3Qtdau8UmKb2wJRRqASQ0Ot47P4CyUjssz/4S2K8v4/6rlSEL?=
- =?us-ascii?Q?4gZUs39Klj/FYo+PphV/eiRkDOLvTL0nsC3bP+vzHsu2BA1E/D36f1Kh+Meo?=
- =?us-ascii?Q?2sL1yE5B6l/9S/RuBVsz9YmuyY2wuq85W5XcY7WuCt7iK62x50CPQTVqrFUN?=
- =?us-ascii?Q?O7ri8lXJbsuzFSLiEjEOK4IXWNolbRAC9vTBmrF6H2xLdZFnM9vG8IhctNFj?=
- =?us-ascii?Q?rBXGc5C6R533c8SJ9u2sFa5beYpbwaf/YAxNm+5EeQpM5D5dccIduWRNGvF/?=
- =?us-ascii?Q?RyCZ88dLJ4i2Z4sEKn+dzj3ywPbQQ3MJxf+h0cPtvDH9h6u5OfXbcAJgL0j1?=
- =?us-ascii?Q?o39w/DN+i26fyoRGAZPjrsW+8jHJouTGV4ZgT8vog86viIy7iTjtFRsiaopt?=
- =?us-ascii?Q?1+4hE3Y1oenRE1FBVk4YiTQYJjNX8iwDwnNCvfQeIrqYuiGRlloEsa4TUyz+?=
- =?us-ascii?Q?UX9n40nsuCxeMZaClHl4Q0w5ofHKwFBMAS0ScH0n/5oo4cCasJCXmfH8LpXr?=
- =?us-ascii?Q?Goebg4EQ/pmPhIZPTNX3eqbUKIv5G7iCyTTvPii8dC/4bbmUC++VZXLZSnxo?=
- =?us-ascii?Q?XI7//6TN0GQmXLrTZppx5rWPPamVTqQT7g2B/otyASqsEvi5RGheQTL0iaZl?=
- =?us-ascii?Q?QrMIdF0KXXY0lWrrCgc/erxWehR7Cag1nAqQUBaP89zsAWyg6ga9tqOg9Z0A?=
- =?us-ascii?Q?+gocNhKT9k8AoC/Y//8EcJe83z7hU3KB1UKDMA+nZCBREbcFo/lHYnu/+f6b?=
- =?us-ascii?Q?zDxxGGBdG2O0lKWqin+ld624IE1zShQ6jqQ7TmUntuGl+GfH0kaIVtV2f2Fg?=
- =?us-ascii?Q?q/9tVoemedibAPYHdT3UI9usurBhNXNcsEDFapY98Db68tqg0zI6LhDSVPL5?=
- =?us-ascii?Q?dT8M43qqn16+i/KWPL1yGy9G3bEV2E86R3+XDfBsZcaJA2Hgp+VvOKfiIElH?=
- =?us-ascii?Q?nMlmzkrv3F1VL2XKMlGEXvZVRe/eBBhNoNp1?=
+	=?utf-8?B?UDVtUXVjTEh5d2tYYTJqaVRzMTdaNnd3dHBYQUFGVXd5VTZVZjZMZ3JiM1BH?=
+ =?utf-8?B?WWpuTTdwdVdZR3k0cndrKzZoWmtsODF0RUVzT1k5SWxWQUQrVGcrM2FvRGpx?=
+ =?utf-8?B?WFNqZEZ3OVNMYUpiVXIxU0xZMEtOdEt2djNXcldsT3J1NWVzVDcxaW9oVnpy?=
+ =?utf-8?B?VkVrQkNkVXRjdTFrYjdQZjRCZzZSWi92M3VnUkovdkMyZUFNcFhCQlpiQWg5?=
+ =?utf-8?B?NHQ4STFmeVQvTDM4cHFVQU1Fb0sxT2xPam9wVjhUcFZzOU5jTnp0RkNrbnNn?=
+ =?utf-8?B?Q05UWDBneTFUQWlVSjEyQmRuaUxLcHVhTGdBeURPeTcyRFVDTEE3dUsySmdO?=
+ =?utf-8?B?NE1mOW8raUVpSUhwQlorQnJvNGlBbjd1ZXRHeTVpVVZZQjZYc0g4UGwzY0My?=
+ =?utf-8?B?Z29tVUI1aXhnMEY0dGVQMkpsd0k3dzVab1N0Z05tQTBqVmNSOWh3OG9nYXAw?=
+ =?utf-8?B?QUJCV1Q4dmhSdnN5RU5UdktrdGxsTTBJS01ZeVFvN09BaG9FNWVsRFhUNERh?=
+ =?utf-8?B?QTAwMmk2eFV6N1A1SzgzNXJSMjZ2SDh1ek8rdmRFREZYazA1RW5KanAzeTVi?=
+ =?utf-8?B?ZmJ4NjMxT3kwcS8xdGZlZVN5SVNlZU4zdldOcldvUlhIKy94dEdEdjVpYlVy?=
+ =?utf-8?B?a3NBOHpWU0RGd1IyUjY3YVZRQWdsSWNaaU5oZEpteVBiQy9zajhPdUtXZWsz?=
+ =?utf-8?B?T21NNFNEQi9FR2ZkMkN6MG1QSkZCVWFNcFhzTHdpL0x2TmRGc2tqdHdHMUlY?=
+ =?utf-8?B?eEFKUEpoNEd0L0ViUVJmc2NyM3VDWEZhODVWSElCcjR5bituYnpLbHNvRktH?=
+ =?utf-8?B?UlIvOE1ER0ZpVXhncy9UMUtWM1lQaW9POUhhLzV0bUY3T3hPeWNsK0oxNjk4?=
+ =?utf-8?B?Uitxei9GWFV0SDBlVzJZcm1jRDk5akFIdXBNQmlDTEJyMkNIRzJndllHY2hv?=
+ =?utf-8?B?WWQ0eTUzeEU5cjRudjkvbEJnYjBiai8vM0pvMU1sVkoyWDQ5bHlhTjdxS0x6?=
+ =?utf-8?B?NkNJK3VCK1kycUdYMi9wK05OcHBzZ2lpcWRNL1RlVWhVNVp1YWpJTWdCZytY?=
+ =?utf-8?B?NWh4UzM2ZUI0T2c5bkZzVXNzS1RXMnBtRDQxRzhxaE4xSUc5Rlh2OStqTVNJ?=
+ =?utf-8?B?SEE4b2ZlRGhHWkl2K1krQlRIZFhlaWQrUXdiTmMrWXYwUjR6TDQyRnNGcVJu?=
+ =?utf-8?B?M1ZLRnF3SC9NdlNMcHR1bGlTekQ5ZHdwdUNNWjIwbU1kdkUzbzNBV25BbkhQ?=
+ =?utf-8?B?L3dIM1luOU5wbWZ5OGduTUgzaVNLcUpzUmIvZTBTekp5L21QdDVtdTBTUmZQ?=
+ =?utf-8?B?MFVHK1RudDlxbnNPcnJkTmNMT1d0d2VBUE9JclQzcjlwQlNlK293UVI5S2My?=
+ =?utf-8?B?SCtxMGc5VUx4UzcxTDVKMFRQeVRyNzdEZk4zL01mTEx6UzZPSldPQndNWHU0?=
+ =?utf-8?B?azNOWkladXZCTUszRFdFbVMxRjBNam9aY1FUVkd6Wm91ZllIQWpCdjY5a0RK?=
+ =?utf-8?B?SCtCTXBYdjZLT2Z1ZlBkWGxMbnVSOVQ2UWJQUDRPM1NTdTJjOE9GUUFKN29J?=
+ =?utf-8?B?Mi9iTGRGRXVvUTJYWXQzZ1FZd3poZXFKOGJaSHN2M0xwZUx3RFRrVmdLcEZw?=
+ =?utf-8?B?L2FIdVZBY2cvTlhDenZyWFRjSVc5OVg0bFUwVzRyUHUvN0xUOFNWYkpDMnB0?=
+ =?utf-8?B?dlhmbXFrZ0JuU2xZc3F1S2lsRm9xMitaL1dLV0JPTENtVWs5M3NFYkhxNkVh?=
+ =?utf-8?B?TFovM0ZXQUh0TUpXR3RBWHdET1QwV2Y5OW9aTmo5SGEwZXd5ZVA0Sk5PdE1V?=
+ =?utf-8?B?NnY2T3BOL3VyR243dDl0ektzUDBFYXdpMnphdXRMYnJNQ2hWM3NVSTZtZ3I0?=
+ =?utf-8?B?YmZzYU9KZ0swSTErWlBvM2E0a0V1ZDRXU1JhSmRvTmx2cFNXS05VR1M5Q2Rs?=
+ =?utf-8?B?azgrREVwaEIwdzd3ejVKUkh6OVNCS2xmbmphbzRkVlR5QktlSXBYMW44WU9Q?=
+ =?utf-8?B?WUk5ckJGSTZqeC9oSVRITklWR05tMnJieTd6bGRqN2s3ZWhWeHZSNENwUk01?=
+ =?utf-8?Q?tn1tTr?=
 X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(35042699022)(14060799003)(82310400026)(36860700013)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 14:51:30.1219
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 14:54:07.6011
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b526f507-0bbf-4c0b-7934-08dd7b63d763
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cb620fb-b3fc-44ce-5732-08dd7b64353d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM4PEPF00025F9B.EURPRD83.prod.outlook.com
+	CH2PEPF000000A0.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6472
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7710
 
-Hi Michal,
-
-> On 14 Apr 2025, at 11:17, Orzel, Michal <michal.orzel@amd.com> wrote:
->=20
->=20
->=20
-> On 11/04/2025 16:56, Luca Fancellu wrote:
->> From: Penny Zheng <Penny.Zheng@arm.com>
+On Wed Apr 9, 2025 at 11:04 PM BST, Denis Mukhin wrote:
+> On Tuesday, April 8th, 2025 at 9:07 AM, Alejandro Vallejo <agarciav@amd.c=
+om> wrote:
+>
 >>=20
->> Introduce pr_t typedef which is a structure having the prbar
->> and prlar members, each being structured as the registers of
->> the aarch64 armv8-r architecture.
 >>=20
->> Introduce the array 'xen_mpumap' that will store a view of
->> the content of the MPU regions.
+>> From: "Daniel P. Smith" dpsmith@apertussolutions.com
 >>=20
->> Introduce MAX_MPU_REGIONS macro that uses the value of
->> NUM_MPU_REGIONS_MASK just for clarity, because using the
->> latter as number of elements of the xen_mpumap array might
->> be misleading.
-> What should be the size of this array? I thought NUM_MPU_REGIONS indicate=
-s how
-> many regions there can be (i.e. 256) and this should be the size. Yet you=
- use
-> MASK for size which is odd.
-
-So the maximum number of regions for aarch64 armv8-r are 255, MPUIR_EL2.REG=
-ION is an
-8 bit field advertising the number of region supported.
-
-Is it better if I use just the below?
-
-#define MAX_MPU_REGIONS 255
-
->=20
 >>=20
->> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->> Signed-off-by: Wei Chen <wei.chen@arm.com>
->> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>> Add support to read the command line from the hyperlauunch device tree.
+>> The device tree command line is located in the "bootargs" property of th=
+e
+>> "multiboot,kernel" node.
+>>=20
+>> A boot loader command line, e.g. a grub module string field, takes
+>> precendence ove the device tree one since it is easier to modify.
+>>=20
+>> Signed-off-by: Daniel P. Smith dpsmith@apertussolutions.com
+>>=20
+>> Signed-off-by: Jason Andryuk jason.andryuk@amd.com
+>>=20
 >> ---
->> xen/arch/arm/include/asm/arm64/mpu.h | 44 ++++++++++++++++++++++++++++
->> xen/arch/arm/include/asm/mpu.h       |  5 ++++
->> xen/arch/arm/mpu/mm.c                |  4 +++
->> 3 files changed, 53 insertions(+)
->> create mode 100644 xen/arch/arm/include/asm/arm64/mpu.h
+>> v3:
+>> * Rename to fdt_get_prop_offset()
+>> * Remove size_t cast from builder_get_cmdline_size()
+>> * fdt_get_prop_offset() use strcmp()
+>> * fdt_get_prop_offset() return bool
+>> ---
+>> xen/arch/x86/domain-builder/core.c | 28 +++++++++++++++++++++++
+>> xen/arch/x86/domain-builder/fdt.c | 6 +++++
+>> xen/arch/x86/domain-builder/fdt.h | 25 ++++++++++++++++++++
+>> xen/arch/x86/include/asm/bootinfo.h | 6 +++--
+>> xen/arch/x86/include/asm/domain-builder.h | 4 ++++
+>> xen/arch/x86/setup.c | 12 +++++++---
+>> xen/include/xen/libfdt/libfdt-xen.h | 23 +++++++++++++++++++
+>> 7 files changed, 99 insertions(+), 5 deletions(-)
 >>=20
->> diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include=
-/asm/arm64/mpu.h
->> new file mode 100644
->> index 000000000000..4d2bd7d7877f
->> --- /dev/null
->> +++ b/xen/arch/arm/include/asm/arm64/mpu.h
->> @@ -0,0 +1,44 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +/*
->> + * mpu.h: Arm Memory Protection Unit definitions for aarch64.
-> NIT: Do we really see the benefit in having such generic comments? What i=
-f you
-> add a prototype of some function here. Will it fit into a definition scop=
-e?
+>> diff --git a/xen/arch/x86/domain-builder/core.c b/xen/arch/x86/domain-bu=
+ilder/core.c
+>> index eda7fa7a8f..510a74a675 100644
+>> --- a/xen/arch/x86/domain-builder/core.c
+>> +++ b/xen/arch/x86/domain-builder/core.c
+>> @@ -8,9 +8,37 @@
+>> #include <xen/lib.h>
+>>=20
+>>=20
+>> #include <asm/bootinfo.h>
+>>=20
+>> +#include <asm/setup.h>
+>>=20
+>>=20
+>> #include "fdt.h"
+>>=20
+>> +size_t __init builder_get_cmdline_size(struct boot_info *bi, int offset=
+)
+>> +{
+>> +#ifdef CONFIG_DOMAIN_BUILDER
+>> + const void *fdt =3D bootstrap_map_bm(&bi->mods[HYPERLAUNCH_MODULE_IDX]=
+);
+>>=20
+>> + int size =3D fdt_cmdline_prop_size(fdt, offset);
+>> +
+>> + bootstrap_unmap();
+>> + return size < 0 ? 0 : size;
+>> +#else
+>> + return 0;
+>> +#endif
+>> +}
+>> +
+>> +int __init builder_get_cmdline(
+>> + struct boot_info *bi, int offset, char *cmdline, size_t size)
+>> +{
+>> +#ifdef CONFIG_DOMAIN_BUILDER
+>> + const void *fdt =3D bootstrap_map_bm(&bi->mods[HYPERLAUNCH_MODULE_IDX]=
+);
+>>=20
+>> + int ret =3D fdt_cmdline_prop_copy(fdt, offset, cmdline, size);
+>> +
+>> + bootstrap_unmap();
+>> + return ret;
+>> +#else
+>> + return 0;
+>> +#endif
+>> +}
+>> +
+>> void __init builder_init(struct boot_info *bi)
+>> {
+>> if ( IS_ENABLED(CONFIG_DOMAIN_BUILDER) )
+>> diff --git a/xen/arch/x86/domain-builder/fdt.c b/xen/arch/x86/domain-bui=
+lder/fdt.c
+>> index a037c8b6cb..bc9903a9de 100644
+>> --- a/xen/arch/x86/domain-builder/fdt.c
+>> +++ b/xen/arch/x86/domain-builder/fdt.c
+>> @@ -189,6 +189,12 @@ static int __init process_domain_node(
+>> printk(" kernel: boot module %d\n", idx);
+>> bi->mods[idx].type =3D BOOTMOD_KERNEL;
+>>=20
+>> bd->kernel =3D &bi->mods[idx];
+>>=20
+>> +
+>> + /* If bootloader didn't set cmdline, see if FDT provides one. */
+>> + if ( bd->kernel->cmdline_pa &&
+>>=20
+>> + !((char *)__va(bd->kernel->cmdline_pa))[0] )
+>>=20
+>> + bd->kernel->fdt_cmdline =3D fdt_get_prop_offset(
+>>=20
+>> + fdt, node, "bootargs", &bd->kernel->cmdline_pa);
+>>=20
+>> }
+>> }
+>>=20
+>> diff --git a/xen/arch/x86/domain-builder/fdt.h b/xen/arch/x86/domain-bui=
+lder/fdt.h
+>> index e8769dc51c..91f665c8fd 100644
+>> --- a/xen/arch/x86/domain-builder/fdt.h
+>> +++ b/xen/arch/x86/domain-builder/fdt.h
+>> @@ -12,6 +12,31 @@ struct boot_info;
+>> #define HYPERLAUNCH_MODULE_IDX 0
+>>=20
+>> #ifdef CONFIG_DOMAIN_BUILDER
+>> +
+>> +static inline int __init fdt_cmdline_prop_size(const void *fdt, int off=
+set)
+>> +{
+>> + int ret;
+>> +
+>> + fdt_get_property_by_offset(fdt, offset, &ret);
+>> +
+>> + return ret;
+>> +}
+>> +
+>> +static inline int __init fdt_cmdline_prop_copy(
+>> + const void *fdt, int offset, char *cmdline, size_t size)
+>> +{
+>> + int ret;
+>> + const struct fdt_property *prop =3D
+>> + fdt_get_property_by_offset(fdt, offset, &ret);
+>> +
+>> + if ( ret < 0 )
+>> + return ret;
+>> +
+>> + ASSERT(size > ret);
+>>=20
+>> +
+>> + return strlcpy(cmdline, prop->data, ret);
+>>=20
+>> +}
+>> +
+>> int has_hyperlaunch_fdt(const struct boot_info *bi);
+>> int walk_hyperlaunch_fdt(struct boot_info bi);
+>> #else
+>> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/=
+asm/bootinfo.h
+>> index 1e3d582e45..5b2c93b1ef 100644
+>> --- a/xen/arch/x86/include/asm/bootinfo.h
+>> +++ b/xen/arch/x86/include/asm/bootinfo.h
+>> @@ -35,11 +35,13 @@ struct boot_module {
+>>=20
+>> /
+>> * Module State Flags:
+>> - * relocated: indicates module has been relocated in memory.
+>> - * released: indicates module's pages have been freed.
+>> + * relocated: indicates module has been relocated in memory.
+>> + * released: indicates module's pages have been freed.
+>> + * fdt_cmdline: indicates module's cmdline is in the FDT.
+>> /
+>> bool relocated:1;
+>> bool released:1;
+>> + bool fdt_cmdline:1;
+>>=20
+>> /
+>> * A boot module may need decompressing by Xen. Headroom is an estimate o=
+f
+>> diff --git a/xen/arch/x86/include/asm/domain-builder.h b/xen/arch/x86/in=
+clude/asm/domain-builder.h
+>> index b6d9ba94de..7518b6ddf3 100644
+>> --- a/xen/arch/x86/include/asm/domain-builder.h
+>> +++ b/xen/arch/x86/include/asm/domain-builder.h
+>> @@ -3,6 +3,10 @@
+>>=20
+>> struct boot_info;
+>>=20
+>> +size_t __init builder_get_cmdline_size(struct boot_info *bi, int offset=
+);
+>> +int __init builder_get_cmdline(
+>> + struct boot_info *bi, int offset, char *cmdline, size_t size);
+>> +
+>> void builder_init(struct boot_info *bi);
+>>=20
+>> #endif
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index 00e8c8a2a3..ca4415d020 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -984,7 +984,10 @@ static size_t __init domain_cmdline_size(
+>> {
+>> size_t s =3D bi->kextra ? strlen(bi->kextra) : 0;
+>>=20
+>>=20
+>> - s +=3D bd->kernel->cmdline_pa ? strlen(__va(bd->kernel->cmdline_pa)) :=
+ 0;
+>>=20
+>> + if ( bd->kernel->fdt_cmdline )
+>>=20
+>> + s +=3D builder_get_cmdline_size(bi, bd->kernel->cmdline_pa);
+>>=20
+>> + else
+>> + s +=3D strlen(__va(bd->kernel->cmdline_pa));
+>>=20
+>>=20
+>> if ( s =3D=3D 0 )
+>> return s;
+>> @@ -1047,9 +1050,12 @@ static struct domain *__init create_dom0(struct b=
+oot_info *bi)
+>> if ( !(cmdline =3D xzalloc_array(char, cmdline_size)) )
+>> panic("Error allocating cmdline buffer for %pd\n", d);
+>>=20
+>> - if ( bd->kernel->cmdline_pa )
+>>=20
+>> + if ( bd->kernel->fdt_cmdline )
+>>=20
+>> + builder_get_cmdline(
+>> + bi, bd->kernel->cmdline_pa, cmdline, cmdline_size);
+>>=20
+>> + else
+>> strlcpy(cmdline,
+>> - cmdline_cook(__va(bd->kernel->cmdline_pa), bi->loader),
+>>=20
+>> + cmdline_cook(__va(bd->kernel->cmdline_pa),bi->loader),
+>
+> Add extra space before bi->loader?
 
-I can remove the comment, but I would say that if I put some function proto=
-type here
-it should be related to arm64, being this file under arm64.
+Yes, was a spurious diff.
 
->=20
->> + */
+>
+>>=20
+>> cmdline_size);
+>>=20
+>> if ( bi->kextra )
+>>=20
+>> diff --git a/xen/include/xen/libfdt/libfdt-xen.h b/xen/include/xen/libfd=
+t/libfdt-xen.h
+>> index 2259c09a6a..e473fbaf0c 100644
+>> --- a/xen/include/xen/libfdt/libfdt-xen.h
+>> +++ b/xen/include/xen/libfdt/libfdt-xen.h
+>> @@ -23,6 +23,29 @@ static inline uint64_t __init fdt_cell_as_u64(const f=
+dt32_t *cell)
+>> return ((uint64_t)fdt32_to_cpu(cell[0]) << 32) | fdt32_to_cpu(cell[1]);
+>> }
+>>=20
+>> +static inline bool __init fdt_get_prop_offset(
+>> + const void *fdt, int node, const char *name, unsigned long *offset)
+>> +{
+>> + int ret, poffset;
+>> + const char *pname;
 >> +
->> +#ifndef __ARM_ARM64_MPU_H__
->> +#define __ARM_ARM64_MPU_H__
->> +
->> +#ifndef __ASSEMBLY__
->> +
->> +/* Protection Region Base Address Register */
->> +typedef union {
->> +    struct __packed {
->> +        unsigned long xn:2;       /* Execute-Never */
->> +        unsigned long ap:2;       /* Acess Permission */
-> s/Acess/Access/
->=20
->> +        unsigned long sh:2;       /* Sharebility */
-> s/Sharebility/Shareability/
->=20
->> +        unsigned long base:46;    /* Base Address */
->> +        unsigned long pad:12;
-> If you describe the register 1:1, why "pad" and not "res" or "res0"?
->=20
->> +    } reg;
->> +    uint64_t bits;
->> +} prbar_t;
->> +
->> +/* Protection Region Limit Address Register */
->> +typedef union {
->> +    struct __packed {
->> +        unsigned long en:1;     /* Region enable */
->> +        unsigned long ai:3;     /* Memory Attribute Index */
->> +        unsigned long ns:1;     /* Not-Secure */
->> +        unsigned long res:1;    /* Reserved 0 by hardware */
-> res0 /* RES0 */
->=20
->> +        unsigned long limit:46; /* Limit Address */
->> +        unsigned long pad:12;
-> res1 /* RES0 */
->=20
->> +    } reg;
->> +    uint64_t bits;
->> +} prlar_t;
->> +
->> +/* MPU Protection Region */
->> +typedef struct {
->> +    prbar_t prbar;
->> +    prlar_t prlar;
->> +} pr_t;
->> +
->> +#endif /* __ASSEMBLY__ */
->> +
->> +#endif /* __ARM_ARM64_MPU_H__ */
->> \ No newline at end of file
-> Please add a new line at the end
->=20
-> Also, EMACS comment is missing.
+>> + fdt_for_each_property_offset(poffset, fdt, node)
+>> + {
+>> + fdt_getprop_by_offset(fdt, poffset, &pname, &ret);
+>
+> Return value is not checked.
 
-Thanks I will fix all these findings
+The pointer itself is ignored, but the error code is placed in "ret"
+(when there is an error). Hence the ret < 0 that follows this.
+
+>
+>> +
+>> + if ( ret < 0 )
+>> + continue;
+>> +
+>> + if ( strcmp(pname, name) =3D=3D 0 )
+>
+> I got an impression that the preferred form is=20
+>    if ( !strcmp(pname, name) )
+
+It varies per file. Doesn't matter much, but sure. Will change.
+
+>
+>> + {
+>> + offset =3D poffset;
+>> + return true;
+>> + }
+>> + }
+>> +
+>> + return false;
+>> +}
+>> +
+>> /
+>> * Property: reg
+>> *
+>> --
+>> 2.43.0
 
 Cheers,
-Luca
-
+Alejandro
 
