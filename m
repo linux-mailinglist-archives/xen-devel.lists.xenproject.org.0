@@ -2,40 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D5E5A87803
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 08:38:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.949080.1345723 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26B47A87925
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 09:42:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.949116.1345759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4DS7-0000ls-Vf; Mon, 14 Apr 2025 06:37:55 +0000
+	id 1u4ERm-0000Rb-7P; Mon, 14 Apr 2025 07:41:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 949080.1345723; Mon, 14 Apr 2025 06:37:55 +0000
+Received: by outflank-mailman (output) from mailman id 949116.1345759; Mon, 14 Apr 2025 07:41:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4DS7-0000jf-SQ; Mon, 14 Apr 2025 06:37:55 +0000
-Received: by outflank-mailman (input) for mailman id 949080;
- Mon, 14 Apr 2025 06:37:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ezPI=XA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u4DS6-0000jU-E4
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 06:37:54 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fd9ffa5c-18fa-11f0-9ffb-bf95429c2676;
- Mon, 14 Apr 2025 08:37:52 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43cf680d351so28268195e9.0
- for <xen-devel@lists.xenproject.org>; Sun, 13 Apr 2025 23:37:52 -0700 (PDT)
-Received: from ?IPV6:2003:ca:b71f:2f7e:1407:af3a:2658:6d8d?
- (p200300cab71f2f7e1407af3a26586d8d.dip0.t-ipconnect.de.
- [2003:ca:b71f:2f7e:1407:af3a:2658:6d8d])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f20a9f14csm105752055e9.1.2025.04.13.23.37.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 13 Apr 2025 23:37:51 -0700 (PDT)
+	id 1u4ERm-0000Ny-1U; Mon, 14 Apr 2025 07:41:38 +0000
+Received: by outflank-mailman (input) for mailman id 949116;
+ Mon, 14 Apr 2025 07:41:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KQal=XA=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
+ id 1u4ERl-0000Ks-E8
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 07:41:37 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20606.outbound.protection.outlook.com
+ [2a01:111:f403:2414::606])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id deeda027-1903-11f0-9eae-5ba50f476ded;
+ Mon, 14 Apr 2025 09:41:27 +0200 (CEST)
+Received: from CH5PR02CA0003.namprd02.prod.outlook.com (2603:10b6:610:1ed::23)
+ by MN0PR12MB6246.namprd12.prod.outlook.com (2603:10b6:208:3c2::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.32; Mon, 14 Apr
+ 2025 07:41:21 +0000
+Received: from CH1PEPF0000AD79.namprd04.prod.outlook.com
+ (2603:10b6:610:1ed:cafe::2e) by CH5PR02CA0003.outlook.office365.com
+ (2603:10b6:610:1ed::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.35 via Frontend Transport; Mon,
+ 14 Apr 2025 07:41:20 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD79.mail.protection.outlook.com (10.167.244.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.12 via Frontend Transport; Mon, 14 Apr 2025 07:41:20 +0000
+Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Mon, 14 Apr 2025 02:41:17 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,108 +56,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd9ffa5c-18fa-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744612672; x=1745217472; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LwVGuxOkXG6Et+whwlTdqzC4aYYwzHMjz7sVeyBD/yc=;
-        b=LW3/C+Ex0/BO4YyB7QyKgcFXtG5rswffdU/S2jakIfNSbhVEsfqiGQ5TRwEMgvJZh6
-         XjEOh7MEX8ydmgcSkJclyyQdV4cXE46iVZnsMkB70BNc3R7zUhs1I3B4jBTd34rspZz5
-         aKICBr6bEfq59YAF0Z8INK9BstgwtV8IbQK0H4RuuUTHm7X7raHTi7UfOEU2pa5k0t43
-         Y6OvRX1ANTSw8XIrvUyfgD+C4MUaoi3GV2KEcEGFXA3CF8UfZhPifbKDU0wJOdLsG7g3
-         NhUnhwpQboZBKRUWehGHM2FKBfBcmlbgV1b6a91c67Yy0i9dsAn0SDQXcoMUglefXoz6
-         X3+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744612672; x=1745217472;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LwVGuxOkXG6Et+whwlTdqzC4aYYwzHMjz7sVeyBD/yc=;
-        b=Lp8fu/ayFxDn7ETw46eg3pSvY0csH4x8Zcu+gysfFeSVn4SgFrz8AjTckETnEfVcWG
-         dGPj1jQKZOicsdfqG6UgX0nWFki86BBgCnvc5TixImK5/jXJfUIleoSWPMVSDMZe9D+C
-         oI53WhRtXhQcg5eqN3VmW/XUfvG20VD1ykwbyLZjGemn3bAkYrkkEmwULtNUtnoFSgy8
-         7YS0nc1svg2oEfxCXqNTuYbbtnt8glFLtP9s3rXRxQvZJGXLPlHPtSUlySF7M1jG/r5G
-         M0qdWvQ49R3PGycLsyb+nmQzajBG3xvlQ0LKh3NSBT/SLHOL+7zAi/12oumSLFK1i1HD
-         35Xg==
-X-Forwarded-Encrypted: i=1; AJvYcCW7XMaFCtgF3F0UekwXaLEwwmExvKSy4CWvL5B6HSGZDJv4W1Io+dDVMEYPxtQdxAMClBY7+IfxNDE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxSt0Nxjt1f29WcRm60P4dwe7lxTrJHk9VfnHq2+z21h1LT8+UP
-	L+ZUZ2EjcAalbxYv+MbnH2X9Bl7oqKySeNFDwKbym9veQf4NY9ikjFNdN1dc7A==
-X-Gm-Gg: ASbGncu9IpxmAIgyGRx38obFhoUx4i2i7Atiq2le8t/m9teMJ0QLMZyHR0WkRBf+iDm
-	Qm+HcCr6Q6NLOQcOl4ZN2LZFebfp6B/oy7Zri5okZu/ywohZuMKdVt0nc5vkaveynmI4JXzwVn5
-	02Pm9+DmZBje65a+AkwgTE6MtyfjVAKROGet7iC4b4DC2F88SoNyF0ocRoDNbDcjsO2eSotU/j4
-	/mdefLbASZDtb1TpcliPucNEAfsdTsQFdnxYbT7OW0JjPEfZtWq5Zy59ZVtGwflheALxu6HXpu+
-	y6vDeW4aSj9uT89CanoGBpCWR5CwhGPr1UZ2Ox1iltfygi644Zjhiarz+CD7JAu7D6mz+ATBeWY
-	00w36UvAM/wXWcWsCo6lUIazmBsAptWjgvC8BOFWbEkuMqtHRbfhoy+uRFI7hg5SBlFXrLycuRW
-	Y=
-X-Google-Smtp-Source: AGHT+IG6MiEKjmB5j8Tbtg/BKEJK45adl/qjMiPo/7xgHk/SJMQtaLJMNDUrJY9X6893AA4DE1BeeQ==
-X-Received: by 2002:a05:600c:3c84:b0:439:91c7:895a with SMTP id 5b1f17b1804b1-43f2ea651bcmr138989925e9.7.1744612672081;
-        Sun, 13 Apr 2025 23:37:52 -0700 (PDT)
-Message-ID: <07c71107-a08b-4407-bf5d-9cd4314bf9cb@suse.com>
-Date: Mon, 14 Apr 2025 08:37:50 +0200
+X-Inumbo-ID: deeda027-1903-11f0-9eae-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j7qIhwNTKoLnyXI5kyEG03uWRU7k3Gld9QLJKo1Rc82L2BudtxqyokrY8rlKBFM/a6b4zL+4NYRu0hYNps2Iwdu9yZAZ8ZJdBSGR6LtOiaQwtPebTAc58ALFPWQ/745n4PaWdhqkYSjp/qSi9o0qjLYjMoC2xFE2/DcGqf/E3zupJ//X+PKBrWShBYuyP21+UvESmr8Qov8sLekHE581NwEe3GEolKqTfDm5dV+FYxOCB8HaU+DYlWBsSPPD/X15eseyTSuWFkZgnwyLl1ksk5vUbkWsiwPc8FVa8cgLWvq//T+s2rWaySNK1sCoDtNH8hgK91pMJF6VN3sEdTNuNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9aWSOaLrDAtsZ68wXr0GvYxggqEV3GwqC9s74GUmA2Y=;
+ b=pkR/MRkHNNLRo27CppXiS717O1OHBGCspSXSbWRJzk6DLHEkRoFoSuboyCVs1uPu9RLDiVyi2C1+2SsG0PoGyXr5YRP5vQpZPg7QL8rpS9izPat7iaXOay0SSc+6mfpcaANIkGcBHMy9/NblFu9u1swmWNp/JBECZQwgftOobn6vSFSH35XrOSWiwJF3P0OjsWZV1jJwExjO1JHmphtgx7UARRYc2ZMwZiLOBp/R4FzH/TBJhwz1h6Bon6lqjYJXZBov2ah5VkmK4Fhv1fQNI1+W9xE7HidNpFZMkJSg0Ai3sij5X2hiFHNQMKqTShlNRFy6y7fYOteEbg8FXExnqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9aWSOaLrDAtsZ68wXr0GvYxggqEV3GwqC9s74GUmA2Y=;
+ b=qnNbo9P9TkYCM2PaJBj2hc21xeHiVXmlcK9AiVmnU4OWCPsd056pwH296wH93RKAyVc4dC3cSOnfaIcEzA+qaGI5YvLR4W7Fo+xwn3bFfxw29cUZPIQpE5tvyJVQ/3P+pcDXVb8LTq9dhqcFTFc+PMjhgT8rjFXi1kKSVFi6Atg=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Penny Zheng <Penny.Zheng@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Anthony
+ PERARD" <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
+	Julien Grall <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, "Juergen
+ Gross" <jgross@suse.com>
+Subject: [PATCH v4 00/15] amd-cppc CPU Performance Scaling Driver
+Date: Mon, 14 Apr 2025 15:40:41 +0800
+Message-ID: <20250414074056.3696888-1-Penny.Zheng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] x86/mm: move mmio_ro_emulated_write() to PV only file
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250411105411.22334-1-roger.pau@citrix.com>
- <20250411105411.22334-6-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250411105411.22334-6-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD79:EE_|MN0PR12MB6246:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5797dcd2-ecb9-46f8-4df0-08dd7b27bf9e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?eKW5+5mMMvtnGkqKx5M/LJ8GPGJxV7wWbw6LaXDyjZaiJ034uPN2i9cfOyJF?=
+ =?us-ascii?Q?REZoEQFyoY85tuOZBT+oDYSS9RddfaiKf8/WL1S14eiyOq/cah+PoKS3qnLy?=
+ =?us-ascii?Q?3KJjs1K2xm1xtkz+5m+yBHZ6DBP7eXrQRRj5q98TYikV2U1kyTCLoWgyRhG6?=
+ =?us-ascii?Q?Y6z41NjlWQXNYOj474YjY5G48bKHXg16+1aV0I2VesODigI9miPE+dueWzVT?=
+ =?us-ascii?Q?tg+EyjP+5z5uktclpkJN98u9PPPKKdDIu23pk5EcgcgAWYTfYrNTMyXYxnHm?=
+ =?us-ascii?Q?EnnyRBZS1koLpqL0y+NVoh8uhRxlalnmH6Di0dPAmcRs85v8CrYPaJ6/q54M?=
+ =?us-ascii?Q?lMkoIE2cgMb4qnEpTc5Akq79iYbsSgJa+GmUHM/6m3mpPH9w9joh+NPEnVKc?=
+ =?us-ascii?Q?5zcog412O3fgwLAurRu6nW+PGnYDPbmAb2SbjFbaSi+dkZr/fzK4yiB9WYdF?=
+ =?us-ascii?Q?xTTwoEq6h2Gk/K3Zv/aYepHeDrtCNBJ6xfhglSWVjJcaYOd8EQCekN+9kgOe?=
+ =?us-ascii?Q?xnabKtFpDGrRkTt5tXXbvW098RUbJf9/yfuzeCR6z4WW0Jw2ngUypld2mWzP?=
+ =?us-ascii?Q?x8AOZEEcVs5Mn0xmroA7i5OTqqgfg1rMUNhsH4jlik+vUf2P/cyyVZ18W3/A?=
+ =?us-ascii?Q?REBo3bsQktIigx/0Wc1jshzMIc/fkjQMXJnGT4RRnlhWfd+ciT4YmAOjTZ8q?=
+ =?us-ascii?Q?tIXqwoiO8JCTTyPvGwAbsJUtKevtVHAzuvb/ue/8breU0OHRBinSaCQClN0i?=
+ =?us-ascii?Q?ZsQ9zJehamiqCk2hfAom4rIHsBFfijUFklwxzwUzkvaeeRGBFfmUkxOV4jni?=
+ =?us-ascii?Q?NCR2DgS27ccEAa7O0FyWugHAcBeZJYlAnWkIPu6LtoghUKZoxDZrYK+gYuRr?=
+ =?us-ascii?Q?S5xgchK0z1klqlyofs/cXLxJZsP4QJ1flmyUHP4DISFA2IvhbAKW/3G9HCDp?=
+ =?us-ascii?Q?Sg7snMNQLFIpQDS7nkXtSqojFWOTN2fNq2/uMLpYpH53HbkHJHmrBzoK/TDc?=
+ =?us-ascii?Q?Bry1+b48UB5iQmmHtC+eK2zszFsc/xHgeY/Em44JrLAmtjNEvkqhhCqTKdws?=
+ =?us-ascii?Q?hYboxrUeSVPm6asi1+Sxu3+YDjSuwWZBIVZBC9qnyb/GdL3TBlEWG96KTkZT?=
+ =?us-ascii?Q?Bm1pcHjbGSUNe83uR+W7BhU0LMQRkvcxBEzcGW/YxJ7X/zUAT0VKBnMVVreR?=
+ =?us-ascii?Q?JvtNAzVJP3ClpFSNYhfg+3N7jDGhiUJXkwIwa8HsqwhqNOm2NG5n4rrsuTCG?=
+ =?us-ascii?Q?k//i7mtf8NEFCeXTPDHOWzJW50UYWGTr4YmrXT/5dqcAOSdAmPKsssR1Jbsc?=
+ =?us-ascii?Q?XGf8n9kmnkH0aZi83eYf/uNJ1rA/klUop2rbFI3p7XOLwP8a3EanI1eZt8BW?=
+ =?us-ascii?Q?AFxdJYAoZczT50eZgKOF9oc9DQT6JQCjK4Hbe2yD6n8LDb0JfSORjjlvgdos?=
+ =?us-ascii?Q?GvxN0UjkV1kK53ynFpd+2vDw53bu218MGcklcjTGHpDxXXMl1QqOrhNjhCWm?=
+ =?us-ascii?Q?wuQNd2KYMW2CINOTuUHup47hO89GRjNi/+Jr?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 07:41:20.4461
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5797dcd2-ecb9-46f8-4df0-08dd7b27bf9e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD79.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6246
 
-On 11.04.2025 12:54, Roger Pau Monne wrote:
-> mmio_ro_emulated_write() is only used in pv/ro-page-fault.c, move the
-> function to that file and make it static.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+amd-cppc is the AMD CPU performance scaling driver that introduces a
+new CPU frequency control mechanism on modern AMD APU and CPU series in
+Xen. The new mechanism is based on Collaborative Processor Performance
+Control (CPPC) which provides finer grain frequency management than
+legacy ACPI hardware P-States. Current AMD CPU/APU platforms are using
+the ACPI P-states driver to manage CPU frequency and clocks with
+switching only in 3 P-states. CPPC replaces the ACPI P-states controls
+and allows a flexible, low-latency interface for Xen to directly
+communicate the performance hints to hardware.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with ...
+amd_cppc driver has 2 operation modes: autonomous (active) mode,
+and non-autonomous (passive) mode. We register different CPUFreq driver
+for different modes, "amd-cppc" for passive mode and "amd-cppc-epp"
+for active mode.
 
-> --- a/xen/arch/x86/pv/ro-page-fault.c
-> +++ b/xen/arch/x86/pv/ro-page-fault.c
-> @@ -298,6 +298,14 @@ static int ptwr_do_page_fault(struct x86_emulate_ctxt *ctxt,
->   * fault handling for read-only MMIO pages
->   */
->  
-> +struct mmio_ro_emulate_ctxt {
-> +        unsigned long cr2;
-> +        /* Used only for mmcfg case */
-> +        unsigned int seg, bdf;
-> +        /* Used only for non-mmcfg case */
-> +        mfn_t mfn;
+The passive mode leverages common governors such as *ondemand*,
+*performance*, etc, to manage the performance hints. And the active mode
+uses epp to provides a hint to the hardware if software wants to bias
+toward performance (0x0) or energy efficiency (0xff). CPPC power algorithm
+in hardware will automatically calculate the runtime workload and adjust the
+realtime cpu cores frequency according to the power supply and thermal, core
+voltage and some other hardware conditions.
 
-... the unnecessarily deep indentation corrected here.
+amd-cppc is enabled on passive mode with a top-level `cpufreq=amd-cppc` option,
+while users add extra `active` flag to select active mode.
 
-Jan
+With `cpufreq=amd-cppc,active`, we did a 60s sampling test to see the CPU
+frequency change, through tweaking the energy_perf preference from
+`xenpm set-cpufreq-cppc powersave` to `xenpm set-cpufreq-cppc performance`.
+The outputs are as follows:
+```
+Setting CPU in powersave mode
+Sampling and Outputs:
+  Avg freq      2000000 KHz
+  Avg freq      2000000 KHz
+  Avg freq      2000000 KHz
+Setting CPU in performance mode
+Sampling and Outputs:
+  Avg freq      4640000 KHz
+  Avg freq      4220000 KHz
+  Avg freq      4640000 KHz
+
+Penny Zheng (15):
+  xen/cpufreq: move "init" flag into common structure
+  xen/cpufreq: extract _PSD info from "struct xen_processor_performance"
+  xen/x86: introduce new sub-hypercall to propagate CPPC data
+  xen/cpufreq: refactor cmdline "cpufreq=xxx"
+  xen/x86: introduce "cpufreq=amd-cppc" xen cmdline
+  xen/cpufreq: disable px statistic info in amd-cppc mode
+  xen/cpufreq: fix core frequency calculation for AMD Family 1Ah CPUs
+  xen/amd: introduce amd_process_freq() to get processor frequency
+  xen/x86: introduce a new amd cppc driver for cpufreq scaling
+  xen/cpufreq: only set gov NULL when cpufreq_driver.setpolicy is NULL
+  xen/x86: implement EPP support for the amd-cppc driver in active mode
+  tools/xenpm: Print CPPC parameters for amd-cppc driver
+  tools/xenpm: fix unnecessary scaling_available_frequencies in CPPC
+    mode
+  tools/xenpm: remove px_cap dependency check for average frequency
+  xen/xenpm: Adapt SET/GET_CPUFREQ_CPPC xen_sysctl_pm_op for amd-cppc
+    driver
+
+ docs/misc/xen-command-line.pandoc         |  13 +-
+ tools/libs/ctrl/xc_pm.c                   |  45 +-
+ tools/misc/xenpm.c                        |  20 +-
+ xen/arch/x86/acpi/cpufreq/Makefile        |   1 +
+ xen/arch/x86/acpi/cpufreq/acpi.c          |  14 +-
+ xen/arch/x86/acpi/cpufreq/amd-cppc.c      | 708 ++++++++++++++++++++++
+ xen/arch/x86/acpi/cpufreq/cpufreq.c       |  34 +-
+ xen/arch/x86/cpu/amd.c                    |  81 ++-
+ xen/arch/x86/include/asm/amd.h            |   4 +
+ xen/arch/x86/include/asm/msr-index.h      |   6 +
+ xen/arch/x86/platform_hypercall.c         |  16 +
+ xen/drivers/acpi/pmstat.c                 |  42 +-
+ xen/drivers/cpufreq/cpufreq.c             | 306 ++++++++--
+ xen/drivers/cpufreq/utility.c             |  14 +
+ xen/include/acpi/cpufreq/cpufreq.h        |  22 +-
+ xen/include/acpi/cpufreq/processor_perf.h |  11 +-
+ xen/include/public/platform.h             |  36 +-
+ xen/include/public/sysctl.h               |   2 +
+ xen/include/xen/pmstat.h                  |   2 +
+ xen/include/xlat.lst                      |   1 +
+ 20 files changed, 1268 insertions(+), 110 deletions(-)
+ create mode 100644 xen/arch/x86/acpi/cpufreq/amd-cppc.c
+
+-- 
+2.34.1
+
 
