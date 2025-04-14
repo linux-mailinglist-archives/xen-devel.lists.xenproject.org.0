@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6E77A87E2D
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 12:56:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.949686.1346164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 309E9A87E5D
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 13:05:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.949699.1346174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4HTk-0005CH-Vy; Mon, 14 Apr 2025 10:55:52 +0000
+	id 1u4HcS-0008F9-PT; Mon, 14 Apr 2025 11:04:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 949686.1346164; Mon, 14 Apr 2025 10:55:52 +0000
+Received: by outflank-mailman (output) from mailman id 949699.1346174; Mon, 14 Apr 2025 11:04:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4HTk-0005A2-SL; Mon, 14 Apr 2025 10:55:52 +0000
-Received: by outflank-mailman (input) for mailman id 949686;
- Mon, 14 Apr 2025 10:55:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WQ6e=XA=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1u4HTj-00059w-7L
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 10:55:51 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 05366dcd-191f-11f0-9ffb-bf95429c2676;
- Mon, 14 Apr 2025 12:55:48 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 174462813434859.3700064685022;
- Mon, 14 Apr 2025 03:55:34 -0700 (PDT)
+	id 1u4HcS-0008Dg-Lo; Mon, 14 Apr 2025 11:04:52 +0000
+Received: by outflank-mailman (input) for mailman id 949699;
+ Mon, 14 Apr 2025 11:04:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1u4HcR-0008DZ-A3
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 11:04:51 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1u4HcQ-00Eo8v-2p;
+ Mon, 14 Apr 2025 11:04:50 +0000
+Received: from [143.198.24.140] (helo=[100.81.22.8])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1u4HcQ-00D037-1G;
+ Mon, 14 Apr 2025 11:04:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,93 +39,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05366dcd-191f-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; t=1744628138; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Sa6jod9clnDXltSiK3j64TYbnRi16onrxpz+pQRkJU33jt8usrYPP5VJjKM8l7wc2E1d2Xk6FhyD6xKiTj0akr0pjpPIjUYd+lHyW85TgB5Xa3BG6wTkc9hDbUA6zH7xZZGj+3H5kANZFPuy0VEgFnonQ9tCjcTELgHY5Ewbrws=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1744628138; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=3qxW2S6Y12elxpXa9zWIVpq0Hu/W0KkQgrU1ZIN4dYM=; 
-	b=nNToWZhm0sQRF4AL5Gfj20arm3h9y+AeAaHY68KWha4MdBbhZqslSZAXtgDGF3HHxjpUoKQjco0WX9p7nnndnQq3bEyny7LriwnXOa3U50NoGriadXsB9/4fmX6edYSraw53t6PkjlkWVbrLZhSqVCII/fpX0TgEc1VOs4Pl24o=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1744628138;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=3qxW2S6Y12elxpXa9zWIVpq0Hu/W0KkQgrU1ZIN4dYM=;
-	b=lUHcWHSV4dKibn6lz9Kj1F3Y5T6kFZExL9rskWBkHlPcScaLf9zTFLLHKysjBrdL
-	oPqyE1S9r/CAYiQKfcREDuuxxROAQTmT0S4ZsJHBKR6YUI3iqxHCDvTdiZUS3OlvyiL
-	NiOOec4rF5HF8lcbD+h9Iex/aYSEHoFo9RXRZAcQ=
-Message-ID: <5bd8d3a7-6f2b-4bee-9bd5-6e7679de6fee@apertussolutions.com>
-Date: Mon, 14 Apr 2025 06:55:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=0gP/shSGUpzC8drtdlKzLA6kHVprm2PhBn6p+p9W21k=; b=3439mjXWgc/dY7lKo5aOXAJA7y
+	70gTd0gw2hEtN7Vn2y4hMyFvWYm2yVpbSJhSFYdVa8lC28dhz9XUbnQwDZPwnhXpB/KXpEkDjs0S0
+	HBEy/9X37gxDOEV3I3GVha84FSKnHbccYnkaZH1LKyNWjPtf+yzODB4lMhvO0czEARH0=;
+Message-ID: <44f897c3-1ff4-43cb-b0d6-ae8a84a386e6@xen.org>
+Date: Mon, 14 Apr 2025 20:04:44 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] Overhaul how Argo is built and packged
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Jason Andryuk <jason.andryuk@amd.com>
-References: <20250414101843.2348330-1-andrew.cooper3@citrix.com>
- <20250414101843.2348330-3-andrew.cooper3@citrix.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <20250414101843.2348330-3-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 1/2] arm: vgic: Add the ability to trigger MSIs from
+ the Hypervisor
+Content-Language: en-GB
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1744621166.git.mykyta_poturai@epam.com>
+ <3dba1b51984f24e36d5fbd81396ab7dd53d8ac95.1744621166.git.mykyta_poturai@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <3dba1b51984f24e36d5fbd81396ab7dd53d8ac95.1744621166.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 4/14/25 06:18, Andrew Cooper wrote:
-> Right now, the argo artefacts are a pile of files which the test has to turn
-> back into something which resembles a filesystem.  Furthermore, because we do
-> not build modules for the main kernel, it is extra important to make sure that
-> xen-argo.ko doesn't get out of sync.
-> 
-> Build argo conditionally as part of the linux artefact.  It's ~100kb all
-> together, compared to ~14M for the kernel.
-> 
-> Produce a single argo.cpio.gz with xen-argo.ko in the standard location.
-> Prune userspace down to just the executables and libraries.
-> 
-> This is cribbed from the existing scripts/x86_64-linux-argo.sh, which stays in
-> place in the short term until Xen can be updated to use the new scheme.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hi,
 
-Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+On 14/04/2025 18:51, Mykyta Poturai wrote:
+> From: Mykyta Poturai <Mykyta_Poturai@epam.com>
+> 
+> Add the vgic_its_trigger_msi() function to the vgic interface. This
+> function allows to inject MSIs from the Hypervisor to the guest.
+> Which is useful for userspace PCI backend drivers.
+> 
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> ---
+> v1->v2:
+> * replace -1 with -ENOENT
+> * reduce guest memory access in vgic_its_trigger_msi
+> ---
+>   xen/arch/arm/include/asm/vgic.h | 11 +++++++++++
+>   xen/arch/arm/vgic-v3-its.c      | 19 +++++++++++++++++++
+>   2 files changed, 30 insertions(+)
+> 
+> diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/asm/vgic.h
+> index e309dca1ad..3d8e3a8343 100644
+> --- a/xen/arch/arm/include/asm/vgic.h
+> +++ b/xen/arch/arm/include/asm/vgic.h
+> @@ -318,6 +318,17 @@ extern bool vgic_migrate_irq(struct vcpu *old, struct vcpu *new, unsigned int ir
+>   extern void vgic_check_inflight_irqs_pending(struct vcpu *v,
+>                                                unsigned int rank, uint32_t r);
+>   
+> +#ifdef CONFIG_HAS_ITS
+> +int vgic_its_trigger_msi(struct domain *d, paddr_t doorbell_address,
+> +                                u32 devid, u32 eventid);
+> +#else
+> +static inline int vgic_its_trigger_msi(struct domain *d, paddr_t doorbell_address,
+> +                                u32 devid, u32 eventid)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+> +#endif /* CONFIG_HAS_ITS */
+> +
+>   #endif /* !CONFIG_NEW_VGIC */
+>   
+>   /*** Common VGIC functions used by Xen arch code ****/
+> diff --git a/xen/arch/arm/vgic-v3-its.c b/xen/arch/arm/vgic-v3-its.c
+> index c65c1dbf52..be5bfe0d21 100644
+> --- a/xen/arch/arm/vgic-v3-its.c
+> +++ b/xen/arch/arm/vgic-v3-its.c
+> @@ -1484,6 +1484,25 @@ static int vgic_v3_its_init_virtual(struct domain *d, paddr_t guest_addr,
+>       return 0;
+>   }
+>   
+> +int vgic_its_trigger_msi(struct domain *d, paddr_t doorbell_address,
+> +                                u32 devid, u32 eventid)
+
+Looking at how this is used in the next patch, you are assuming that 
+devid == sbdf. However, given there is no support for guest vITS yet, I 
+don't think we took a decision on whether the device ID match the SBDF.
+
+This goes back to what I wrote in the cover letter. It seems that there 
+are more work needed to be merged before this series.
+
+Also coding style: we use uint32_t in newer code.
+
+> +{
+> +    struct pending_irq *pend;
+> +    unsigned int vcpu_id;
+> +
+> +    pend = gicv3_its_get_event_pending_irq(d,doorbell_address, devid, eventid);
+
+A couple of questions:
+
+  1. What prevents pending_irq to be freed behind our back?
+  2. Going back to my point about the missing guest ITS support, it is 
+unclear how virtual device will work and whether we want QEMU to inject 
+interrupts which belongs to a physical device.
+
+coding style: Missing space before the comma.
+
+> +    if ( !pend )
+> +        return -ENOENT;
+> +
+> +    vcpu_id = ACCESS_ONCE(pend->lpi_vcpu_id);
+> +    if ( vcpu_id >= d->max_vcpus )
+> +          return -ENOENT;
+> +
+> +    vgic_inject_irq(d, d->vcpu[vcpu_id], pend->irq, true);
+> +
+> +    return 0;
+> +}
+> +
+>   unsigned int vgic_v3_its_count(const struct domain *d)
+>   {
+>       struct host_its *hw_its;
+
+Cheers,
+
+-- 
+Julien Grall
+
 
