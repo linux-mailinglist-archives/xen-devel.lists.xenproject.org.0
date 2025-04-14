@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C8ADA88923
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 18:57:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.950930.1347100 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7694EA88927
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 18:58:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.950939.1347109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4N7h-000077-JL; Mon, 14 Apr 2025 16:57:29 +0000
+	id 1u4N8E-0000a6-Q7; Mon, 14 Apr 2025 16:58:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 950930.1347100; Mon, 14 Apr 2025 16:57:29 +0000
+Received: by outflank-mailman (output) from mailman id 950939.1347109; Mon, 14 Apr 2025 16:58:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4N7h-0008VW-Fr; Mon, 14 Apr 2025 16:57:29 +0000
-Received: by outflank-mailman (input) for mailman id 950930;
- Mon, 14 Apr 2025 16:57:28 +0000
+	id 1u4N8E-0000Yc-NH; Mon, 14 Apr 2025 16:58:02 +0000
+Received: by outflank-mailman (input) for mailman id 950939;
+ Mon, 14 Apr 2025 16:58:01 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>) id 1u4N7g-0008VP-GC
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 16:57:28 +0000
+ (envelope-from <anthony@xenproject.org>) id 1u4N8D-0000YU-2D
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 16:58:01 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1u4N7f-00EyIu-2u;
- Mon, 14 Apr 2025 16:57:27 +0000
+ (envelope-from <anthony@xenproject.org>) id 1u4N8C-00EyJU-2H;
+ Mon, 14 Apr 2025 16:58:00 +0000
 Received: from [2a01:e0a:1da:8420:b77:bd5:6e45:7633] (helo=l14)
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1u4N7f-00GJiv-1v;
- Mon, 14 Apr 2025 16:57:27 +0000
+ (envelope-from <anthony@xenproject.org>) id 1u4N8C-00GJrm-1I;
+ Mon, 14 Apr 2025 16:58:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,10 +42,10 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
-	bh=vYEY+HR6qgtd6JjfOtYgs7C/AAwqxupyDV4G4O2eBfc=; b=iPTqBY/82X4hTFlTFFqhdJdT0M
-	qiRwBjelZ57ZQQnwhuEXGeEhm3NEgZMHVtT+i2lJqnvciVICmMX0lyBlddy7PPZmbfIsg6LqJ4Q+5
-	kO6fzZ7EoetW46SYtBhmpz7Gen+YaxcHLmubQsDbP/9uhCduLtG5DASuXdN6fWkfw27k=;
-Date: Mon, 14 Apr 2025 18:57:25 +0200
+	bh=QDBNyrOki4VVdkTzrDXnmVSkOdnWjHz8q50pLsj96Ew=; b=3GFesXgblOpS7Dsymj2SMwujTF
+	5NencoTLsb83O4yoXkVD94hSD5ze7Fq+ZwrMxgmadVPKm5gzVVoxJ45PnZF7rdTKWAxS5eKk/jHqE
+	guCzWmBY4XBBH4tv2z7QqLuhW32ZmKkJ347tilZa1rPnin4DPPJWL8g6F3EkOd/CadT8=;
+Date: Mon, 14 Apr 2025 18:57:58 +0200
 From: Anthony PERARD <anthony@xenproject.org>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
@@ -54,55 +54,26 @@ Cc: Xen-devel <xen-devel@lists.xenproject.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v3 2/6] CI: avoid repacking initrd as part of the test job
-Message-ID: <Z_0-dX2FkS6TCv-U@l14>
+Subject: Re: [PATCH v3 3/6] CI: remove now unused alpine-3.18-arm64-rootfs
+ job and its container
+Message-ID: <Z_0-lvABpxaclFeA@l14>
 References: <20250414110903.2355303-1-andrew.cooper3@citrix.com>
- <20250414110903.2355303-3-andrew.cooper3@citrix.com>
+ <20250414110903.2355303-4-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250414110903.2355303-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20250414110903.2355303-4-andrew.cooper3@citrix.com>
 
-On Mon, Apr 14, 2025 at 12:08:59PM +0100, Andrew Cooper wrote:
+On Mon, Apr 14, 2025 at 12:09:00PM +0100, Andrew Cooper wrote:
 > From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 > 
-> Use the new test-artifacts which provide rootfs.cpio.gz rather than
-> initrd.tar.gz.  rootfs.cpio.gz also has all the necessary top-level
-> directories, and includes the rc_verbose setting, so these modifications can
-> be dropped.
-> 
-> Having that, do not repack the whole initrd, but only pack modified
-> files and rely on Linux handling of concatenated archives.
-> This allows packing just test-related files (which includes the whole
-> toolstack), instead of the whole initrd.
-> 
-> For xilinx-smoke-dom0-x86_64.sh, this involves instructing grub not to unzip
-> the archive, as doing so corrupts it.
+> This got moved to test-artifacts.
 > 
 > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-This patch seems to depends on the other patch series for
-"test-artifacts" repo.
-
-I've tried to compare the rootfs fs generated by this repo, and the one
-generated in the "test-artifacts" repo, and I think there's a few
-changes, at least for the arm64 rootfs as the changes have probably
-already sailed for x86_64, namely:
-
-    Those don't exist in the new rootfs:
-        rc-update add networking sysinit
-        rc-update add modloop sysinit
-        rc-update add modules boot
-        rc-update add sysctl boot
-    There's `echo > /etc/modules` been added.
-
-But I guess none of those matter, as it already works on x86_64 tests.
-
-Overall, looks good, more common code between tests!
-
-Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+Acked-by: Anthony PERARD <anthony.perard@vates.tech>
 
 Thanks,
 
