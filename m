@@ -2,33 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2A35A88BF7
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 21:09:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.951228.1347339 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F787A88BFF
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 21:12:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.951251.1347349 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4PBE-0002tb-2x; Mon, 14 Apr 2025 19:09:16 +0000
+	id 1u4PEM-0004wX-KZ; Mon, 14 Apr 2025 19:12:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 951228.1347339; Mon, 14 Apr 2025 19:09:16 +0000
+Received: by outflank-mailman (output) from mailman id 951251.1347349; Mon, 14 Apr 2025 19:12:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4PBD-0002rs-Ut; Mon, 14 Apr 2025 19:09:15 +0000
-Received: by outflank-mailman (input) for mailman id 951228;
- Mon, 14 Apr 2025 19:09:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u4PEM-0004un-HZ; Mon, 14 Apr 2025 19:12:30 +0000
+Received: by outflank-mailman (input) for mailman id 951251;
+ Mon, 14 Apr 2025 19:12:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=32Qc=XA=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1u4PBC-0002ZC-1O
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 19:09:14 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f363b820-1963-11f0-9eae-5ba50f476ded;
- Mon, 14 Apr 2025 21:09:12 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id ADCD34EE3C14;
- Mon, 14 Apr 2025 21:09:11 +0200 (CEST)
+ <SRS0=B3Nx=XA=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1u4PEL-0004uh-7n
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 19:12:29 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2062a.outbound.protection.outlook.com
+ [2a01:111:f403:2412::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 665782d2-1964-11f0-9ffb-bf95429c2676;
+ Mon, 14 Apr 2025 21:12:26 +0200 (CEST)
+Received: from DM6PR11CA0033.namprd11.prod.outlook.com (2603:10b6:5:190::46)
+ by CY5PR12MB6383.namprd12.prod.outlook.com (2603:10b6:930:3d::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.34; Mon, 14 Apr
+ 2025 19:12:20 +0000
+Received: from DS3PEPF000099E1.namprd04.prod.outlook.com
+ (2603:10b6:5:190:cafe::7e) by DM6PR11CA0033.outlook.office365.com
+ (2603:10b6:5:190::46) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.34 via Frontend Transport; Mon,
+ 14 Apr 2025 19:12:20 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS3PEPF000099E1.mail.protection.outlook.com (10.167.17.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.12 via Frontend Transport; Mon, 14 Apr 2025 19:12:20 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 14 Apr
+ 2025 14:12:18 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,241 +56,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f363b820-1963-11f0-9eae-5ba50f476ded
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1744657751;
-	b=DEEUJizZ1LpqiHDWEfCdkn5b0ma6TCTmdB37RV/7MSwV1pOWwgt0G7RDQzfsx97k4niF
-	 r42KqYPz9/IXVNh5rW0cLRQPI52eu7yzfr2qo6fM5GDVEs1paGx1mWz2zYLmlbhF5CQSv
-	 yul9heuL8pJOrrBqwnDn6VbXtOzypobTATBy0H19EML+UCf8s8CkbVM9EVORdhYZp0UiQ
-	 JyMpEtUcYS71ncHakg6x9/chjQ4OHu1lW6Tmb9PckasfeYrCSj6j389jgCtzu4Qa9PE73
-	 7nnSFkF07ycUjFg7AIXyN4fsUBA3d4UkAanIOK3mY9q/GNNTefNGtpIOtdjigdh1DSSQv
-	 Ehteim3bxcPH8Rx/pnddPV8G3+o3y8MHtXWeRY8vcTU/exNmCI/fDmGqrty1p1o6aZPuJ
-	 3R6f99vwBqXLPC0fVuyq6eTIYklUgF0OG/5+JLPAeyqar1vWh06vvnicq7I5DB/dGtznP
-	 wmGsjgK6J3jKCrFgqrD6Qbf3xraBCu/lbw9dFMmCY5AKwPFZSVLAT8QE2HlLl4nzyCdjh
-	 MbEQx1TKz1aL46hZ1mFWmWCDMKfFVMKtMrR0mG/jWYnFcajs1ceZqeovvuPN4rUw3Rc57
-	 2OCMPTImaoJTYLdQC6s/Pa5FTwYY4+Nh8IkuWtj11Va9iRO1hLJjzgO1SRsKZck=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1744657751;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=obLVzBishn44rrIqlR8qQtY8ZY5QviDNYe9TAS8H07I=;
-	b=m0BrZGig+SDdWgV3E92xSsUvdWzWzfxaT6AIuFG9G2N8IdJNpMQ862aisCI3sd5eIeNa
-	 TXIg2gjQG6voaWpspPA17PquO4bj6I/DJaRZx6S/f7kY8fN4vbaYSSw1mJj8D4yDkVq7d
-	 r9ClE9eUOIPj7/08wgd3xRvRO9mb3+0BOguCePo8/qP2016lAzP7z5nGtrU39iiyTEt9R
-	 V4Ud1jyau7zmoMaPgaWFo6mXYo/WCJBspuQXL+y2dQ1c+P/MshtH8+EL2rtVdhHHBanod
-	 Q85k4DT2SU/g1VRwCsHnOeBJZHmvy3QTcsErbzYOcIkcvPEfzVDfOoi4x4SilJ4K1rQhE
-	 phSNsRDBFy2Z/xTrYlZXeKHwelTSmVbx6YUwiJ0LnWbiDcdW32OZoPEFAU9vCYq5S4S1P
-	 nQvGrY1eKmUVPHDfQ78gd2MgYh6zc2L/Gc8f7eIAyUD7fEFIp9qj8KT1HART9+H86aTWM
-	 PBDiVBDGvyr6QSJYX1YSUoDfJP1hqhF3iqVE/8erHtM3kArrAXyJ6DdOrPZ3V1MidMhR1
-	 H6pIhia6di1XszUO/LTUfcHNChLyfZUnbQHWXxASm/bbWRhFYE+6rM/BuNFJB2zVDDoMA
-	 Xi83y4ozjv0AaGeMG56e0nZT00Nn1JHv0KSwlEYrqYaIZEOospFY51vQVUXhIwI=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1744657751; bh=zHqx5XqrXub69fFu0ibfCDExIyovSoUMYjXFUxNl16I=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=cRujBOvsy3cciOgpyK8AlbzlGICNjiwm+O+d+MOrut/XY0DpDg+dNpn9xYndBx0JN
-	 vltcR5EP3NmQ5ENc1M51OFdLVfkUvMSkb8Rupwbpfn/tM582GbUYKUuVlNgbFnRjoj
-	 eW1AJTN6FZD2DtkWNbuUjfo/S8Kz/vSFnuviooG/BR7O/SzbPXkz6M99YJpBaPOKvG
-	 JIcRP8FXJ5SEOAlup/HbuOvCkk27mXpthu5wqdfE2NwKmUEftnYc+kwetvHJYx+/Xt
-	 NqrsKUEc1eRrb6bBqwBfj9wLLtbTfsTmZKX4OuH41pugKGiPHMsOct6Zy6vAaeQrPY
-	 AL1emHux+RAqg==
+X-Inumbo-ID: 665782d2-1964-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LxrJnQ4FGTlpR5o25I+oefC87vpXeBdesxfIYfD/kscRV5S+tB5ti0dMV2BieiEYLsRSAeK6X5uhjRG63bMwZrgZaKMePxwE1Iz4C2EeQp/tfMYJh4fi3KvUXlIrWspuhedRMkoC/dd1bEVq1oAsMDgBZbS/cVvcRV6SyfTeWCP6qfq/XyWszIsbIUY2fxng5V1eC6tsCYrIC7CyD/P4yPJ07s4x1gFW6IS/YnHAWBvyIUzvkgds2RK/K5bSIV7S7FZticGmcU8ShnHDmGqsFl0qFOdTuDUk3jWRhX6PDhaUkDmaP9O9nmCjXqsL92s/gDNg8KLKHMHDtLLL6mmDvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3/dBCQNIEY1Zf5BiUnfHn+bavnDnFJgkzYF7mcfJGSs=;
+ b=plDJ8nfhUsL/c6quk3UlUXt6sKiD49KqUxeOhOexEoL/dPZrdf7S+dZXeFLuk7uMXcM2n7ASJERiJrTiBofDk0QrVj4uC/kkUXhUkZarNXGGSYPPYWvR+sKQpmttC4PNsghhil+Uw6pR90LQ/9sap0aYmZjrLogEeV1NZUtGdWVTTb8UrwO/0xCu7vcjOYg1EDTbTcjiLBODkAJ65BaWxrsK305ANSwmsjwDYjk9sF8DOAzGVEOMJ5sg6kdYIfQdbr1opsm8B5ZRplg7xl29rR/lLzK3hU5t32BDBGX/9FbjC0DGuHK12/K5SHF016QubjfLQB2WWlpm2VHLoIQegw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3/dBCQNIEY1Zf5BiUnfHn+bavnDnFJgkzYF7mcfJGSs=;
+ b=1qhFOGDOE2BlAUpeJQcaMoUMap9D9v/iymOtJAMEKTJ6DKZ3fjLseutLTkqB+bJhcC/qzqMG51NUrWV8Boa9ToLeLQvElGI6WmvGVOMthrWqwlAPnUmh54lLaqDWFQ3cHqX/6gahUbXH3g8FVLnwbS0kDqh1zrL/w+qtriv/jkY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
-Date: Mon, 14 Apr 2025 21:09:11 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 14 Apr 2025 20:12:17 +0100
+Message-ID: <D96LMFYIE1I7.HKMK9UZR2KIV@amd.com>
+CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jason Andryuk
+	<jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+	"Stefano Stabellini" <sstabellini@kernel.org>, Michal Orzel
+	<michal.orzel@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 15/16] x86/hyperlaunch: add max vcpu parsing of
+ hyperlaunch device tree
+From: Alejandro Vallejo <agarciav@amd.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Alejandro Vallejo <agarciav@amd.com>, Jason Andryuk
- <jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Michal Orzel
- <michal.orzel@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- xen-devel@lists.xenproject.org, consulting@bugseng.com
-Subject: Re: [PATCH v3 08/16] x86/hyperlaunch: Add helpers to locate multiboot
- modules
-In-Reply-To: <3d2aa870-a1cb-4e33-841d-aee7b6b6db83@suse.com>
+X-Mailer: aerc 0.20.1
 References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-9-agarciav@amd.com>
- <fe282aa0-fe2d-49b8-a2aa-325c9825304b@suse.com>
- <D96EI9O4XII2.195QNQNT1T3FG@amd.com>
- <3d2aa870-a1cb-4e33-841d-aee7b6b6db83@suse.com>
-Message-ID: <a9bc6ee3736774558301dda06fb959a0@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+ <20250408160802.49870-16-agarciav@amd.com>
+ <c1e5af91-8f84-458d-a9b8-ab9758b5cbce@suse.com>
+In-Reply-To: <c1e5af91-8f84-458d-a9b8-ab9758b5cbce@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099E1:EE_|CY5PR12MB6383:EE_
+X-MS-Office365-Filtering-Correlation-Id: eee1f85d-51a3-4d58-6bfe-08dd7b8847ae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dTlpZkxLb3RxZXd6azFLRm8zSUVhcGVKeittdzRKYXVYSXd6bk1CTFZzMWZX?=
+ =?utf-8?B?SUlCQXEwS0E0dmhnSU1ZTW0vVkc0YlFkSTFDanU0bnJ1OEVNZjJEWk1WeUhY?=
+ =?utf-8?B?YWRCU0dwZHkzMTQyQWtvY21Pcm9FZWJyS0grYUhYZU5rQnc2a09zdVR5NTdq?=
+ =?utf-8?B?Wi9zMllVYU01Wm5PRzRNdTVTUFVyODFjVTRITjFOM1ZVKyt6K2lFcXd1enhp?=
+ =?utf-8?B?WW0zMzArWkR4dTVOZXo5MmRvSXVoMFF4azhUL2dyUmVRd09PMjl5Sjl3MVE2?=
+ =?utf-8?B?MkF4cnY2NUg3Z2d0RnVPQVVyYldDNnlYRkx5K2ZHYXRSdHRsUC9MalhkQktp?=
+ =?utf-8?B?NW5Wc1Zxa0xVREFKak9GNjJuNzBQZng5NkVMTGRLSk9NRXlFUk1hNW5oSzN4?=
+ =?utf-8?B?OHAvZVRaNVJsMVBGUDRpNVlQVHNWQldVRVlNMmIreEduT2g3aGx6aFVCL2NQ?=
+ =?utf-8?B?MUhhQytUdElSTHhiSTExL1dMOW1pY0k4L1pKRWl2UUFGbWdpNFpQczNZRmZm?=
+ =?utf-8?B?MGE1N29HU2MxSlUwUHgxenVlUGkzejVEa04ybTRKZlczb09qSnk1VTV5cy9E?=
+ =?utf-8?B?QU5BbVhONUZoUWRXVGlnbHB1djkzaDRVZ0Z1WVdZLzR6b2NoNFlJQUp5SlFm?=
+ =?utf-8?B?SFVCeGxZMEZXMUpmOGtaQ3ROOVl4OXcvQ3NyakJZNlE0RnE5SU95ZTFBK3Jq?=
+ =?utf-8?B?enhROFZTSWtBTnIrc1hKMW1RSkN1dHBVWTQrM3F6bEhSSXRJSVlia0FMWTBo?=
+ =?utf-8?B?WXZlTHVmZTBVZ0ZxZEVQWVhCa1Y2M3VsWE1EZUgvajJxZUgyRStzajhLTmxh?=
+ =?utf-8?B?aUgzcGtXUVk3Z0hpVFJ2UXhsYXBpbjIrWTlIQUNpc0NqUnd5WGVtVnZzSjRi?=
+ =?utf-8?B?Q3dEbzJWWnNPOGdEdDY2bUZOeDRNZUZIa051MU1rK3FEWE53ZndwcUd1NU1U?=
+ =?utf-8?B?SFpyaHpSbjZRTk90dzVoeEQwTW9RSWpKbnZVS2lFRGlERysrQVZCZWc2YUtH?=
+ =?utf-8?B?ckNpMGR2c1VNNmVCa3ZpOVNOMi9tQlBYdU9QVkRLY3JJNTdOSWlYd3ZuYkgv?=
+ =?utf-8?B?eFF6MUd3VzFUSHZHM1JJUy9rSTNtSFlCYXRQR3N0YlhCaHZRL1U1d0VYK3FQ?=
+ =?utf-8?B?ZHB1ZEtsRnR6L3FQMVRMOFhzY3VkTWtEcmhkNWtqMDZTZ3FIRmtJa2tqRi91?=
+ =?utf-8?B?MmRkd2NUcHUyMTZCam9mbGVjcFZvZ0svU0NZZnBWY0pTUUxCUnUxcTZuM2c2?=
+ =?utf-8?B?QWhGaWQreVU2b2QwY3kzWWZVNEN6ZkpTUGs1aXRJcFErdWVqVm9ncVpLUERY?=
+ =?utf-8?B?NUx0NlFRTHVDU3BpUFQwU0ZyOTdra1NHUXgrcndrcW9tNGZOUmVHcmpscDhi?=
+ =?utf-8?B?TDYyYzlzUUVsVnc0aXc4Qks2dW01NzVaREFUV0lWZkZGNHpIUmhUYkRpVjVW?=
+ =?utf-8?B?SWlJYndyWHpqTzdlUmxoaGtVTnc1THhRREJWcFRLN1NnR0JEU2dtbjMwWVhD?=
+ =?utf-8?B?Z09DRjY1ZGpkbFlBSHhHOGQ3RnN6WGhhUGZQMWNEZWJKczVzeExkWE9TRzFW?=
+ =?utf-8?B?Z0xMUkY2RDVoUkVMa1B1elJEK0JycDFXQ3pNMVl5ZXFPWUZScm96V0RzRlhO?=
+ =?utf-8?B?K0VONDhMbW5FRmYzTFA2d056RFAwNHRtZDR2NHZ2UWgxYVFaU2gvbXk2bk1o?=
+ =?utf-8?B?d3JFN1UwV3c1bWUvNkdwTW1JV1MxMXdRV2wzdDVSNldSbXp4cVllM0ZaU2hr?=
+ =?utf-8?B?ZzlGS3VRUDB2L1Y5cGRLbDUrOW90WmRhTWVIWlh2VWVSdEtQMTQyNVowU3B6?=
+ =?utf-8?B?WU9QK2NHWXUrUzI4cDVMdFRtaHpqcE5Wa2RBa1lUaENPYlBsclcxbTl6YSs5?=
+ =?utf-8?B?VGdaYURobFlnMzBUR3ZoTEhjTTJ6ODR3eWhhSmJKYXIxZEs4dEk4THZmUldU?=
+ =?utf-8?B?NTFhMTRkUCtWcmRxZjh6d0JjQThNbDdXRVBuTlY0SkpkaUJsdGhGWGUxaUZI?=
+ =?utf-8?B?akVGU1pVd0t6Nmw4b1JYam1Zakc0VHBPSnJQaE9HaTN1djI2c0lhTzEveFZX?=
+ =?utf-8?Q?nc+AU3?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 19:12:20.3922
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eee1f85d-51a3-4d58-6bfe-08dd7b8847ae
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF000099E1.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6383
 
-On 2025-04-14 17:05, Jan Beulich wrote:
-> On 14.04.2025 15:37, Alejandro Vallejo wrote:
->> On Thu Apr 10, 2025 at 11:42 AM BST, Jan Beulich wrote:
->>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
->>>> +/*
->>>> + * Locate a multiboot module given its node offset in the FDT.
->>>> + *
->>>> + * The module location may be given via either FDT property:
->>>> + *     * reg = <address, size>
->>>> + *         * Mutates `bi` to append the module.
->>>> + *     * module-index = <idx>
->>>> + *         * Leaves `bi` unchanged.
->>>> + *
->>>> + * @param fdt           Pointer to the full FDT.
->>>> + * @param node          Offset for the module node.
->>>> + * @param address_cells Number of 4-octet cells that make up an 
->>>> "address".
->>>> + * @param size_cells    Number of 4-octet cells that make up a 
->>>> "size".
->>>> + * @param bi[inout]     Xen's representation of the boot 
->>>> parameters.
->>>> + * @return              -EINVAL on malformed nodes, otherwise
->>>> + *                      index inside `bi->mods`
->>>> + */
->>>> +int __init fdt_read_multiboot_module(const void *fdt, int node,
->>>> +                                     int address_cells, int 
->>>> size_cells,
->>>> +                                     struct boot_info *bi)
->>> 
->>> Functions without callers and non-static ones without declarations 
->>> are
->>> disliked by Misra.
->> 
->> Can't do much about it if I want them to stand alone in a single 
->> patch.
->> Otherwise the following ones become quite unwieldy to look at. All I 
->> can
->> say is that this function becomes static and with a caller on the next
->> patch.
-> 
-> Which means you need to touch this again anyway. Perhaps we need a 
-> Misra
-> deviation for __maybe_unused functions / data, in which case you could
-> use that here and strip it along with making the function static. 
-> Cc-ing
-> Bugseng folks.
-> 
+On Thu Apr 10, 2025 at 1:08 PM BST, Jan Beulich wrote:
+> On 08.04.2025 18:07, Alejandro Vallejo wrote:
+>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+>>=20
+>> Introduce the `cpus` property, named as such for dom0less compatibility,=
+ that
+>> represents the maximum number of vpcus to allocate for a domain. In the =
+device
+>
+> Nit: vcpus
 
-There is already an exception for __maybe_unused on labels (Rule 2.6). 
-In principle it could be easily extended to encompass unused functions 
-(which are verified by another rule), with a suitable rationale.
+Ack, and same below
 
->>>> +    /* Otherwise location given as a `reg` property. */
->>>> +    prop = fdt_get_property(fdt, node, "reg", NULL);
->>>> +
->>>> +    if ( !prop )
->>>> +    {
->>>> +        printk("  No location for multiboot,module\n");
->>>> +        return -EINVAL;
->>>> +    }
->>>> +    if ( fdt_get_property(fdt, node, "module-index", NULL) )
->>>> +    {
->>>> +        printk("  Location of multiboot,module defined multiple 
->>>> times\n");
->>>> +        return -EINVAL;
->>>> +    }
->>>> +
->>>> +    ret = read_fdt_prop_as_reg(prop, address_cells, size_cells, 
->>>> &addr, &size);
->>>> +
->>>> +    if ( ret < 0 )
->>>> +    {
->>>> +        printk("  Failed reading reg for multiboot,module\n");
->>>> +        return -EINVAL;
->>>> +    }
->>>> +
->>>> +    idx = bi->nr_modules + 1;
->>> 
->>> This at least looks like an off-by-one. If the addition of 1 is 
->>> really
->>> intended, I think it needs commenting on.
->> 
->> Seems to be, yes. The underlying array is a bit bizarre. It's sizes as
->> MAX_NR_BOOTMODS + 1, with the first one being the DTB itself. I guess
->> the intent was to take it into account, but bi->nr_modules is
->> initialised to the number of multiboot modules, so it SHOULD be 
->> already
->> taking it into account.
->> 
->> Also, the logic for bounds checking seems... off (because of the + 1 I
->> mentioned before). Or at least confusing, so I've moved to using
->> ARRAY_SIZE(bi->mods) rather than explicitly comparing against
->> MAX_NR_BOOTMODS.
->> 
->> The array is MAX_NR_BOOTMODS + 1 in length, so it's just more 
->> cognitive
->> load than I'm comfortable with.
-> 
-> If I'm not mistaken the +1 is inherited from the modules array we had 
-> in
-> the past, where we wanted 1 extra slot for Xen itself. Hence before you
-> move to using ARRAY_SIZE() everywhere it needs to really be clear what
-> the +1 here is used for.
-> 
->>>> --- a/xen/include/xen/libfdt/libfdt-xen.h
->>>> +++ b/xen/include/xen/libfdt/libfdt-xen.h
->>>> @@ -13,6 +13,63 @@kkk
->>>> 
->>>>  #include <xen/libfdt/libfdt.h>
->>>> 
->>>> +static inline int __init fdt_cell_as_u32(const fdt32_t *cell)
->>> 
->>> Why plain int here, but ...
->>> 
->>>> +{
->>>> +    return fdt32_to_cpu(*cell);
->>>> +}
->>>> +
->>>> +static inline uint64_t  __init fdt_cell_as_u64(const fdt32_t *cell)
->>> 
->>> ... a fixed-width and unsigned type here? Question is whether the 
->>> former
->>> helper is really warranted.
->>> 
->>> Also nit: Stray double blank.
->>> 
->>>> +{
->>>> +    return ((uint64_t)fdt32_to_cpu(cell[0]) << 32) | 
->>>> fdt32_to_cpu(cell[1]);
->>> 
->>> That is - uniformly big endian?
->> 
->> These helpers are disappearing, so it doesn't matter. This is 
->> basically
->> an open coded:
->> 
->>   fdt64_to_cpu(*(const fdt64_t *)fdt32)
->> 
->> And, yes. DTBs are standardised as having big-endian properties, for
->> better or worse :/
->> 
->>> 
->>>> +}
->>> 
->>> Marking such relatively generic inline functions __init is also 
->>> somewhat
->>> risky.
->> 
->> They were originally in domain-builder/fdt.c and moved here as a 
->> result
->> of a request to have them on libfdt. libfdt proved to be somewhat
->> annoying because it would be hard to distinguish accessors for the
->> flattened and the unflattened tree.
->> 
->> I'd personally have them in domain-builder instead, where they are 
->> used.
->> Should they be needed somewhere else, we can always fator them out
->> somewhere else.
->> 
->> Thoughts?
-> 
-> As long as they're needed only by domain-builder, it's probably fine to 
-> have
-> them just there.
-> 
+>
+>> --- a/xen/arch/x86/domain-builder/fdt.c
+>> +++ b/xen/arch/x86/domain-builder/fdt.c
+>> @@ -246,6 +246,17 @@ static int __init process_domain_node(
+>>              bd->max_pages =3D PFN_DOWN(kb * SZ_1K);
+>>              printk("  max memory: %ld kb\n", kb);
+>>          }
+>> +        else if ( strncmp(prop_name, "cpus", name_len) =3D=3D 0 )
+>> +        {
+>> +            uint32_t val =3D UINT_MAX;
+>> +            if ( fdt_prop_as_u32(prop, &val) !=3D 0 )
+>
+> And again the same nit.
+>
+>> +            {
+>> +                printk("  failed processing max_vcpus for domain %s\n",=
+ name);
+>
+> There's no "max_vcpus" being processed here; that purely ...
+>
+>> +                return -EINVAL;
+>> +            }
+>> +            bd->max_vcpus =3D val;
+>
+> ... the internal name we use for the struct field etc. The user observing=
+ the
+> message ought to be able to easily associate it back with the DT item.
+>
 > Jan
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Very true. I agree, and will change accordingly.
+
+Cheers,
+Alejandro
 
