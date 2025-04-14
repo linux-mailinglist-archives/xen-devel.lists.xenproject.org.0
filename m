@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1D3FA88A42
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 19:47:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.951058.1347200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3CDAA88A55
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 19:49:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.951070.1347211 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4Ntr-0000q9-W5; Mon, 14 Apr 2025 17:47:15 +0000
+	id 1u4Nw2-0001NO-CG; Mon, 14 Apr 2025 17:49:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 951058.1347200; Mon, 14 Apr 2025 17:47:15 +0000
+Received: by outflank-mailman (output) from mailman id 951070.1347211; Mon, 14 Apr 2025 17:49:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4Ntr-0000nN-Sx; Mon, 14 Apr 2025 17:47:15 +0000
-Received: by outflank-mailman (input) for mailman id 951058;
- Mon, 14 Apr 2025 17:47:13 +0000
+	id 1u4Nw2-0001L8-82; Mon, 14 Apr 2025 17:49:30 +0000
+Received: by outflank-mailman (input) for mailman id 951070;
+ Mon, 14 Apr 2025 17:49:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KxE1=XA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u4Ntp-0000nF-RC
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 17:47:13 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JTcu=XA=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1u4Nw0-0001L2-Rs
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 17:49:29 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7c906ffe-1958-11f0-9ffb-bf95429c2676;
- Mon, 14 Apr 2025 19:47:08 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43d04ea9d9aso23234385e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 10:47:08 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f206332d9sm183888295e9.13.2025.04.14.10.47.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Apr 2025 10:47:07 -0700 (PDT)
+ id cd7d9dae-1958-11f0-9ffb-bf95429c2676;
+ Mon, 14 Apr 2025 19:49:26 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53EHmldx2305377
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Mon, 14 Apr 2025 10:48:48 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +40,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c906ffe-1958-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744652828; x=1745257628; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D+ZTLK5F4QVm4cBK91Izai1MfaPaGvYckIVB8q61zuc=;
-        b=q4oE+Rm28MkNZQ2xQvTcbH0ZF2l+tyx1GrwSYKtKmkSVKryzqFXm9MGkMfm4xlgziw
-         VwleRAS8h580DSrUHEeJ4puqmpSLNu+4WQedXs9WEVcW7rrSHiUEZXyKQQ7bhPPsw2iW
-         kd53KGZB9RvenevsIhqcShn40bf2t6eJclWGo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744652828; x=1745257628;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=D+ZTLK5F4QVm4cBK91Izai1MfaPaGvYckIVB8q61zuc=;
-        b=MWk1PZlK0E7/W0ZIBd8P5yWUax1oVEe/VGUoqvt3tSf0YNudNv6z9ZncBAaOigQfOq
-         mmLPhFOEq5asRE1bM/IvTENFRHRjnX2UHofEA/MGwvP0zFywp+TxoCNTAWBmLxOesl3C
-         udGCvXYHw0TP5kaPQOOaI7QaDmdoJyB5czMPl/DZq5dla8YzFo3OJ8om4VbxBbx9aS74
-         j6NgOuq9ymTMe6Pwca2LAz0PcP6XHFsEL4j6Wxb8kwn0eS0csfUDkIxcgJKUhArpbN1s
-         YZMctVrF/Dzn1EY3/JGq+tJbwBOAfoOzSuWIzMqspUb7TdMKR/Qb+zazKurhpvkloFVe
-         qvig==
-X-Gm-Message-State: AOJu0YypCxfGkgHb8dPgfyOmBDPyOF14nADzRw2wuG14cMWbjWQiQ/R1
-	o8RJWjv5TUqm+6NC/I4bUSHp9eswm8Oo8ZSyiFhKiRIDmbe3xYU7Ml2JBFoV4YY=
-X-Gm-Gg: ASbGncv7+bJDr2v8F5n100NMFP8eKevXOz5Pkk9NIy5dT9lTRY5OlaovYibhepkafgh
-	W5DyU9ca22e7M/QbzKnxjF5r8zKTbA57xwFPPT8o8hwN+pGmpYovWkqbNSNa8JM0+rzOcuKDfq5
-	VCQUYOxbqnUkWsBZLg578nYWgj2jWkBkyovsY0cz+aYgpTEqKvhJazfCjGgZ6TjS0BM0lLm4guK
-	ifY/XmZJzQs1y9TJ/Z+9fem7xVGZd2KI8FVQaXkOr2JuL5Zmn+kRfSPsf6H+YSIybGgJ8NhaI+L
-	EXMLfRkIk/rzXhqdA2k2IfNFsS3VNOAYH65gLzFUHwhKqpL63DXwF7sWbjde1gLWg2+TzbE6aO1
-	Brq0nNQ==
-X-Google-Smtp-Source: AGHT+IFaDO2xIi4Yj5rfEf+6nj7BF5o/eAKXslRPECIMjhNNbCZKs6CTaWT9c0CRkbIkuFwr1rJe1w==
-X-Received: by 2002:a05:600c:4f83:b0:43d:47e:3205 with SMTP id 5b1f17b1804b1-43f3a93d78amr114342985e9.11.1744652828124;
-        Mon, 14 Apr 2025 10:47:08 -0700 (PDT)
-Message-ID: <e0bfbfa1-4130-420c-8db3-4ac520ac49de@citrix.com>
-Date: Mon, 14 Apr 2025 18:47:07 +0100
+X-Inumbo-ID: cd7d9dae-1958-11f0-9ffb-bf95429c2676
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53EHmldx2305377
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025032001; t=1744652930;
+	bh=pCf6zl5WWMLk499XrU3ze5XCG4TXFPjHsQDAk9yq3ts=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=OWsAVJsJQtReNkvBxn4n90Jw5b4hgpiiMsQMj1kLj82PEd0mx8nuHiF2kM8Mvx3Xw
+	 LqxRXhBr5R0xxDPh57nO2hOouAGBLY3AKdZeqNoPCmA97JPCWtZ0UYmnsK+6p053w2
+	 lqlg5oeia/VCC2I4n1QOzlzq2Q+EByucHb13DRq32ZiCSS+Txt0R8+YpBvAIWB7Gct
+	 FuwsCZqp8vL1531axOppQPBxHdE0eB7iOltYssLVQ7RMeDVsVCMmRKTPxkgHRBImAx
+	 dIJ72y7yKeVu96cbY7s+wNxgXc4DZJO3Heom3U0XoQS1v8gYW+MgQaG/x5uDeQr3y+
+	 wlW0XdVD1zBrA==
+Message-ID: <0cad1e0b-2bfd-4258-90cd-8d319bf0e74a@zytor.com>
+Date: Mon, 14 Apr 2025 10:48:47 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/6] CI: Include microcode for x86 hardware jobs
-To: Anthony PERARD <anthony@xenproject.org>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-References: <20250414110903.2355303-1-andrew.cooper3@citrix.com>
- <20250414110903.2355303-7-andrew.cooper3@citrix.com> <Z_1JuudeZAXihzwb@l14>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <Z_1JuudeZAXihzwb@l14>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [RFC PATCH v1 10/15] KVM: VMX: Use WRMSRNS or its immediate form
+ when available
+To: "H. Peter Anvin" <hpa@zytor.com>, Jim Mattson <jmattson@google.com>,
+        Sean Christopherson <seanjc@google.com>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+        linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+        linux-edac@vger.kernel.org, kvm@vger.kernel.org,
+        xen-devel@lists.xenproject.org, linux-ide@vger.kernel.org,
+        linux-pm@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, jgross@suse.com,
+        andrew.cooper3@citrix.com, peterz@infradead.org, acme@kernel.org,
+        namhyung@kernel.org, mark.rutland@arm.com,
+        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
+        wei.liu@kernel.org, ajay.kaher@broadcom.com,
+        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
+        pbonzini@redhat.com, vkuznets@redhat.com, luto@kernel.org,
+        boris.ostrovsky@oracle.com, kys@microsoft.com, haiyangz@microsoft.com,
+        decui@microsoft.com
+References: <20250331082251.3171276-1-xin@zytor.com>
+ <20250331082251.3171276-11-xin@zytor.com> <Z_hTI8ywa3rTxFaz@google.com>
+ <CALMp9eRJkzA2YXf1Dfxt3ONP+P9aTA=WPraOPJPJ6C6j677+6Q@mail.gmail.com>
+ <fa16949e-7842-45f7-9715-1bdda13b762a@zytor.com>
+ <EAB44BB2-99BB-4D4A-8306-0235D2931E72@zytor.com>
+Content-Language: en-US
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ xsDNBGUPz1cBDACS/9yOJGojBFPxFt0OfTWuMl0uSgpwk37uRrFPTTLw4BaxhlFL0bjs6q+0
+ 2OfG34R+a0ZCuj5c9vggUMoOLdDyA7yPVAJU0OX6lqpg6z/kyQg3t4jvajG6aCgwSDx5Kzg5
+ Rj3AXl8k2wb0jdqRB4RvaOPFiHNGgXCs5Pkux/qr0laeFIpzMKMootGa4kfURgPhRzUaM1vy
+ bsMsL8vpJtGUmitrSqe5dVNBH00whLtPFM7IbzKURPUOkRRiusFAsw0a1ztCgoFczq6VfAVu
+ raTye0L/VXwZd+aGi401V2tLsAHxxckRi9p3mc0jExPc60joK+aZPy6amwSCy5kAJ/AboYtY
+ VmKIGKx1yx8POy6m+1lZ8C0q9b8eJ8kWPAR78PgT37FQWKYS1uAroG2wLdK7FiIEpPhCD+zH
+ wlslo2ETbdKjrLIPNehQCOWrT32k8vFNEMLP5G/mmjfNj5sEf3IOKgMTMVl9AFjsINLHcxEQ
+ 6T8nGbX/n3msP6A36FDfdSEAEQEAAc0WWGluIExpIDx4aW5Aenl0b3IuY29tPsLBDQQTAQgA
+ NxYhBIUq/WFSDTiOvUIqv2u9DlcdrjdRBQJlD89XBQkFo5qAAhsDBAsJCAcFFQgJCgsFFgID
+ AQAACgkQa70OVx2uN1HUpgv/cM2fsFCQodLArMTX5nt9yqAWgA5t1srri6EgS8W3F+3Kitge
+ tYTBKu6j5BXuXaX3vyfCm+zajDJN77JHuYnpcKKr13VcZi1Swv6Jx1u0II8DOmoDYLb1Q2ZW
+ v83W55fOWJ2g72x/UjVJBQ0sVjAngazU3ckc0TeNQlkcpSVGa/qBIHLfZraWtdrNAQT4A1fa
+ sWGuJrChBFhtKbYXbUCu9AoYmmbQnsx2EWoJy3h7OjtfFapJbPZql+no5AJ3Mk9eE5oWyLH+
+ QWqtOeJM7kKvn/dBudokFSNhDUw06e7EoVPSJyUIMbYtUO7g2+Atu44G/EPP0yV0J4lRO6EA
+ wYRXff7+I1jIWEHpj5EFVYO6SmBg7zF2illHEW31JAPtdDLDHYcZDfS41caEKOQIPsdzQkaQ
+ oW2hchcjcMPAfyhhRzUpVHLPxLCetP8vrVhTvnaZUo0xaVYb3+wjP+D5j/3+hwblu2agPsaE
+ vgVbZ8Fx3TUxUPCAdr/p73DGg57oHjgezsDNBGUPz1gBDAD4Mg7hMFRQqlzotcNSxatlAQNL
+ MadLfUTFz8wUUa21LPLrHBkUwm8RujehJrzcVbPYwPXIO0uyL/F///CogMNx7Iwo6by43KOy
+ g89wVFhyy237EY76j1lVfLzcMYmjBoTH95fJC/lVb5Whxil6KjSN/R/y3jfG1dPXfwAuZ/4N
+ cMoOslWkfZKJeEut5aZTRepKKF54T5r49H9F7OFLyxrC/uI9UDttWqMxcWyCkHh0v1Di8176
+ jjYRNTrGEfYfGxSp+3jYL3PoNceIMkqM9haXjjGl0W1B4BidK1LVYBNov0rTEzyr0a1riUrp
+ Qk+6z/LHxCM9lFFXnqH7KWeToTOPQebD2B/Ah5CZlft41i8L6LOF/LCuDBuYlu/fI2nuCc8d
+ m4wwtkou1Y/kIwbEsE/6RQwRXUZhzO6llfoN96Fczr/RwvPIK5SVMixqWq4QGFAyK0m/1ap4
+ bhIRrdCLVQcgU4glo17vqfEaRcTW5SgX+pGs4KIPPBE5J/ABD6pBnUUAEQEAAcLA/AQYAQgA
+ JhYhBIUq/WFSDTiOvUIqv2u9DlcdrjdRBQJlD89ZBQkFo5qAAhsMAAoJEGu9DlcdrjdR4C0L
+ /RcjolEjoZW8VsyxWtXazQPnaRvzZ4vhmGOsCPr2BPtMlSwDzTlri8BBG1/3t/DNK4JLuwEj
+ OAIE3fkkm+UG4Kjud6aNeraDI52DRVCSx6xff3bjmJsJJMb12mWglN6LjdF6K+PE+OTJUh2F
+ dOhslN5C2kgl0dvUuevwMgQF3IljLmi/6APKYJHjkJpu1E6luZec/lRbetHuNFtbh3xgFIJx
+ 2RpgVDP4xB3f8r0I+y6ua+p7fgOjDLyoFjubRGed0Be45JJQEn7A3CSb6Xu7NYobnxfkwAGZ
+ Q81a2XtvNS7Aj6NWVoOQB5KbM4yosO5+Me1V1SkX2jlnn26JPEvbV3KRFcwV5RnDxm4OQTSk
+ PYbAkjBbm+tuJ/Sm+5Yp5T/BnKz21FoCS8uvTiziHj2H7Cuekn6F8EYhegONm+RVg3vikOpn
+ gao85i4HwQTK9/D1wgJIQkdwWXVMZ6q/OALaBp82vQ2U9sjTyFXgDjglgh00VRAHP7u1Rcu4
+ l75w1xInsg==
+In-Reply-To: <EAB44BB2-99BB-4D4A-8306-0235D2931E72@zytor.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 14/04/2025 6:45 pm, Anthony PERARD wrote:
-> On Mon, Apr 14, 2025 at 12:09:03PM +0100, Andrew Cooper wrote:
->> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
->> index 1b82b359d01f..ac5367874526 100644
->> --- a/automation/gitlab-ci/build.yaml
->> +++ b/automation/gitlab-ci/build.yaml
->> @@ -306,6 +306,7 @@ alpine-3.18-gcc-debug:
->>        CONFIG_ARGO=y
->>        CONFIG_UBSAN=y
->>        CONFIG_UBSAN_FATAL=y
->> +      CONFIG_UCODE_SCAN_DEFAULT=y
-> Is there a change
+On 4/12/2025 4:10 PM, H. Peter Anvin wrote:
+> Also,*in this specific case* IA32_SPEC_CTRL is architecturally nonserializing, i.e. WRMSR executes as WRMSRNS anyway.
 
-DYM "chance" ?
-
->  that this patch series gets backported? Because that
-> new Kconfig option won't exist.
-
-Yes, I do intend to backport this whole series in due course, and yes,
-I'm aware.
-
-> Othewise, patch looks fine:
-> Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
-
-Thanks.
-
-~Andrew
+While the immediate form WRMSRNS could be faster because the MSR index
+is available *much* earlier in the pipeline, right?
 
