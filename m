@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3696A884A3
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 16:24:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.950490.1346800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CA9AA885B4
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 16:51:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.950522.1346810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4Kip-0000Li-OO; Mon, 14 Apr 2025 14:23:39 +0000
+	id 1u4L8v-0007YC-TK; Mon, 14 Apr 2025 14:50:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 950490.1346800; Mon, 14 Apr 2025 14:23:39 +0000
+Received: by outflank-mailman (output) from mailman id 950522.1346810; Mon, 14 Apr 2025 14:50:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4Kip-0000J5-Jv; Mon, 14 Apr 2025 14:23:39 +0000
-Received: by outflank-mailman (input) for mailman id 950490;
- Mon, 14 Apr 2025 14:23:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u4L8v-0007Vx-QD; Mon, 14 Apr 2025 14:50:37 +0000
+Received: by outflank-mailman (input) for mailman id 950522;
+ Mon, 14 Apr 2025 14:50:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B3Nx=XA=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1u4Kin-0008UW-Vs
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 14:23:38 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20601.outbound.protection.outlook.com
- [2a01:111:f403:2415::601])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ca43d90-193c-11f0-9ffb-bf95429c2676;
- Mon, 14 Apr 2025 16:23:36 +0200 (CEST)
-Received: from SJ0PR03CA0338.namprd03.prod.outlook.com (2603:10b6:a03:39c::13)
- by IA1PR12MB6353.namprd12.prod.outlook.com (2603:10b6:208:3e3::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.32; Mon, 14 Apr
- 2025 14:23:29 +0000
-Received: from CO1PEPF000044F8.namprd21.prod.outlook.com
- (2603:10b6:a03:39c:cafe::17) by SJ0PR03CA0338.outlook.office365.com
- (2603:10b6:a03:39c::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.34 via Frontend Transport; Mon,
- 14 Apr 2025 14:23:29 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F8.mail.protection.outlook.com (10.167.241.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8678.4 via Frontend Transport; Mon, 14 Apr 2025 14:23:28 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 14 Apr
- 2025 09:23:26 -0500
+ <SRS0=YdIb=XA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u4L8u-0007Vp-FX
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 14:50:36 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d24a5b25-193f-11f0-9eae-5ba50f476ded;
+ Mon, 14 Apr 2025 16:50:35 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5e63162a0so7306993a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 07:50:35 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acaa1ccd255sm910312666b.156.2025.04.14.07.50.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Apr 2025 07:50:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,300 +45,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ca43d90-193c-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jDi9yO2iI5QXGXwlxFWQB/lQlskYgJ2sUOAFgcvsrcLNTnQTOpCSknQ30fqNfcogsSwslUuKOscTRU2D2wb1xU5YJf7pq3604TA5kSWZ1o5psxVJzplbr4u9Qq1lyXK7yBKRTTb1XWSUZ5ZwaZETJuHggHbM7koeptlSMTic4SJeLaraXf6S7LpULxNntLQTkaHZSkQfSgs94cdxu4u4JIk++YpcYHqWzXwreqb/huXE7fHut6SjJ8g3WnmZFJ8vRVfwEJKMkVSnLXs3+mZSy9hsRoe7rhWo+1U3apZPKnQiXq2+mtufz69SPvZVwIiKURNRFpuU+cE98X/nsfTIbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pp9xxz8ykLGzTW+jm5pxYvxvYog1N8ZMeDHRKQyyLHM=;
- b=X6rD1mtmkS6LguWvSO2dV1HDs1avans1F36O+gnOFR5GGU8hv9Y345fPHkbO+EdqOUYUnLm3ZcHtRnQLfeus9O3oLnjMicbYLFLaFy0rMQHP2//ZlgBYYDeQ0DlNtTZcr+w4RUIRqhEyftsnLveU578G20Yw9CqX8sUpTm/6fqMisHK7vEU/tr61Q94J2hWglWcMo19d/EHemW3KmBZv9RB1zzVLlM7BtdAxnz/32J4HE5azVVgyfAkGqQ6ERMR8Ujs90NZHHyndY4HJmlIk0OYC+R64owiyTkHxes+FAB8aRyxofnwrsnuDGxyx/zLMN061gYtfgcwOuEzF1lQQ/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pp9xxz8ykLGzTW+jm5pxYvxvYog1N8ZMeDHRKQyyLHM=;
- b=rQRLIV5+o4EE+ug0rLsUuTUYL5zsaRjnHWgBt3nbSH5Mbv1IuhFd8cDXvbrb44FDL5/zSfC1OIJ0viy73qCyPeZoFxhBylcwETgm5DVL5Y9DN4QobqwzzqTvgYqeBcQ69ffuJXnwvhy6RhKQs247AqIxZtLtpnTq+FXRvxgnVZg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: d24a5b25-193f-11f0-9eae-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1744642234; x=1745247034; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ssKW7qnqudOt5C98+v8q6rM8aAHHrH+UyYnvLLgTX8U=;
+        b=SbWA9Ty7U8IcCD1AUu0jsRXtEjPVKlIjV0pV2VNvfCVzDNkJih0FsHAVH8bm9p+ksI
+         X3R6FtBJDvP24wmhqLrvgfeHZYYkCFMso5QwDZ1nhMx2iLnJMcUCh73HiNWdeQlazYi1
+         Un78xquxEJeypb3RaNn7COKDjXOXYSeYIc4jwJDY8BTFXMInytNqz65uADRYgHO4o61v
+         ueEsRpOUE8k7C0fSvFNdKcBCYtylk8bnykzDFjVRV3qj6QY0EbQFZjJLoXsch1JLEtnP
+         GeRBht1YgopsDWOdnA3CIez4F6xgpp6NK/J3yzR2WMcnJq1F1ftQ8l6xkKGOs+Y2n/1S
+         k4wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744642234; x=1745247034;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ssKW7qnqudOt5C98+v8q6rM8aAHHrH+UyYnvLLgTX8U=;
+        b=OwmnD6KlWUmhFuvUX+DxQMdnfamI2b/QUEQmfuRdkjPsY6BihzD/VkvZSaG+ZNiCC7
+         BUud/hTEQPc3khkAY3oK7StJHcepd/AczSQTbxbCGy7EPENpa9fusS0D4FAbLfZsLPA2
+         n5UTCrVGODPNqhZelvUYatLOVQxR4ilTfumzRMLdpPk8+csipbK7c8fraL5OFDohMDn6
+         jxQw7+Wv4cCLRcyVbZtrQq4k6LsZsYPy4ETIEbQAcXeMRo2Odct51Ph3tEXrSux+IlVI
+         2KVnbeYd9RIen7toLEzEgB5sYs4ny8TafknarFq70KpOrjm1Yd6VEhiIAVxksfY7mMr7
+         pNSw==
+X-Forwarded-Encrypted: i=1; AJvYcCW+InS63g2DwXpzUZexX1IqUYBpDb/Qb3vxhUNkuJ3j2reszi5mP3OM3/IDHimwga20KxRsJtrJ5fE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyWzm+U4AUA+fqlzMQrO37sn1VzYNYdf4A4G21of+DVLhZsE00T
+	whDteyiiEmYUYcvaXVt7TclEKewS0vyrKCpXGeIstp1ZDoErMQN5
+X-Gm-Gg: ASbGnctyMLHVhTQKUzcMdcdg8tr76dCky6KCtPWm1v/+k71XbSSride2/DhCSduofe8
+	U33UN1wFCSoenjSNGOquACn0tGqpqSbpzYbQUv33gyHUEKj9laN1BCZA/vJ2q1X2cr76rZiITvW
+	T9zsC7RIgXQZRC3xaGZ7Oay33KKUO87fygQ4ZFwRFTjEzXFbQbPNVkdTXxGOBTGXHqXxOEcWWGW
+	Rq20DU4XZKJZoP+FaFgALZZaCcU0iEZONMjrKM7kLSjg3Cz/do97nu6KgZznvf0nZp2u3FrgG23
+	e63KvIsYRXnXDdachdufYZhPHrBovFva8qkkQ6RNEVdfhfB3yc9klfjUBwjmlEWfcsRIIBYxfNv
+	rgA6HI36LaJoE2cr5
+X-Google-Smtp-Source: AGHT+IGtmczYQE2lLO/Swp2K6JUtF5S6Nrpq2iEg9+A5Yci3N77obqbyzsh9pHd7VA9g4kSe773q1g==
+X-Received: by 2002:a17:907:3d0e:b0:ac7:ec75:c65b with SMTP id a640c23a62f3a-acad34dd659mr1171271866b.36.1744642234150;
+        Mon, 14 Apr 2025 07:50:34 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------yo4C76a0szgaZfAxZHH92FIz"
+Message-ID: <cedc9b5f-0a90-433c-957c-ecd2f6f26e7d@gmail.com>
+Date: Mon, 14 Apr 2025 16:50:33 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 14 Apr 2025 15:23:25 +0100
-Message-ID: <D96FH9LMHYXJ.2BDEIEANJSYVD@amd.com>
-Subject: Re: [PATCH v3 10/16] x86/hyperlaunch: obtain cmdline from device
- tree
-From: Alejandro Vallejo <agarciav@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 01/14] xen/riscv: implement get_s_time()
 To: Jan Beulich <jbeulich@suse.com>
-CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jason Andryuk
-	<jason.andryuk@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	"Stefano Stabellini" <sstabellini@kernel.org>, Michal Orzel
-	<michal.orzel@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	<xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.20.1
-References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-11-agarciav@amd.com>
- <dccb3dd3-eac8-40b4-8ffb-a0ccb688ac0e@suse.com>
-In-Reply-To: <dccb3dd3-eac8-40b4-8ffb-a0ccb688ac0e@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F8:EE_|IA1PR12MB6353:EE_
-X-MS-Office365-Filtering-Correlation-Id: 708cd3e4-156c-49d4-72a8-08dd7b5fed2e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Z3ZaS09lcTJ1TnVXKzdvV0pPZ2JQVjA3YVpidGE4dWZHeTBqM0RxUjRuczVS?=
- =?utf-8?B?NExRWkVDQXp0UHcrc3FZNW5nN3ZZcmVhL0RuVlhjK2dtY2dFK05xdG9hN1V4?=
- =?utf-8?B?MEZ6eGFORDNIZGx0Vk5xZzV1VTlPa0FNV01OampWYlBNcTkrMUk5TmxZY0RW?=
- =?utf-8?B?Rm9iOVM4aUJ1ZVdTNUd5TEpNSWZaQ0w3SjdKdDFEWFQ2d2J5NExBdVF6eHBk?=
- =?utf-8?B?WE9Cc2creGhZYjF6TXMxOG5OTWdrbFdheUsyWGJmUGNtS0hhUmQrOU5hNSt2?=
- =?utf-8?B?MmFCa2hxUzZURDVGYVRwRlpWNWRnc2FxVkZSRzRNNVZkZHJlNlV0NVhqRkN4?=
- =?utf-8?B?RDhYRWlHMWlHd1llUFhFT0J4bEtUUFRvcDhRVXNCN2JIbS8rcDBkUGFBdmxU?=
- =?utf-8?B?TVVuV0kvUE9aTCtzOXZqeGM3blFHRWdZdW0xek9VM09xc0Fab2tqdG9tUjZK?=
- =?utf-8?B?VG4zRXVnQlo3c1dQbmlWWjB3emswK2xBQk5idytvQXZITktRYjhJNnUwLzF4?=
- =?utf-8?B?RFR1ZVJDYTdKVFVtT3p3MWFwNzVITm42d09PbmJrcEpvb2w3MTRIK3FBZ3Q4?=
- =?utf-8?B?L3lNYUg5Nm5kVnFGYVowbnRFcE0rS1NXbzVuaGJUQ1daaWlYZDFURkNScDBB?=
- =?utf-8?B?cnc3Zzdidmdqa0tlNWZ3Mys0T3YwcUJEamVUbFZBQThXSFBqb3kvUU9Zak85?=
- =?utf-8?B?NUNVRmFsaW5VU1RmM04vOFVHcHBnT3NUaHVjejdhY003b3lPTldVamZFRElL?=
- =?utf-8?B?MmtGQkVUL1FYTFNvbDhNNmNPVHRKOXBrT0ZvZmVtcXR0UjBCenUvMHcwelVU?=
- =?utf-8?B?NjlEaFBpZVNEdVdEYVVrSGlKWElKSUtLdmZaUjNhOGgvZEVvdGpCRHU5dWRD?=
- =?utf-8?B?bFRRdFFlVHU3TzhZcVVqSkRaTnNQQ29qOTdsbDlFQkRXcUhpdXU3aEQ3TnVL?=
- =?utf-8?B?WVNobHUrVS9ya3Y1dTMyTWljS2RueGRwRzQwaUU0aWpqREx0dzNKVWhid2Y5?=
- =?utf-8?B?MnUvclpqRGlrckgxMXBlUWQ4N1VRTzdPRjdsc0xuTEU5dkxXVWQwZE5VdjlR?=
- =?utf-8?B?YXAzZEw0RzRCWDV4T01GSGJzeEZ0MkFMZEM1VXNZV2RXWjh5MkI3ZmN3WWJr?=
- =?utf-8?B?dVEwWTRyMDdPQlJYQ3BIS1Z3QWFXZGJXQzBVeWhxc2RZQitNQWo1N0hscXlj?=
- =?utf-8?B?Y0NhTWkvT1hIcVRUUFg3dm4zRTRKUkZhdmVYTDZ2VHl3THRFY2UzR1M0Ujhm?=
- =?utf-8?B?NDFnaGI4S1N3N2NPbDVRYkhhL2lEOCtQa0JGZWZGUTFvbG5wZjFKRDVwYit4?=
- =?utf-8?B?VThmcmNUOXZvQjlrUjh1NnpHbVRyeWQxeFN5V1VVUGpTZkVQZ0oyWjJyNWxo?=
- =?utf-8?B?ZERPa3RYakoyWFRzWTBlMTJWSXovTk42VjlmZEpxL1pQUzlmQ1Z4VTBCZnY0?=
- =?utf-8?B?SVlSZ0h2blhjVHcyT01xaWQzVnFWdUlVUHRsUFQ5TjR2L1dwWEtET0pBbXpI?=
- =?utf-8?B?NnY4OExpa0ZBSURLMmdjV1prS2RPS0N4VnZTRzdEKzArVUhUWmFtcFB1c3Jk?=
- =?utf-8?B?dWJXUUd3cTZ6RXJYSlF4RkFwRkdUYTVucGgzL3FxdGJMNWhBc2VKbE1FaGg0?=
- =?utf-8?B?WGxka21Od2c4Y1ZZNUQxdHJlbG9uckRDY01qSS9xRG96c2lTUUVvbHNKeU9P?=
- =?utf-8?B?eFVQbkQrK214WGZkZ0FGb1dWSjFOakdJdmZyeUxtczB1akwxYXdQTWRIRzds?=
- =?utf-8?B?VGtna0FHSXo4UTZTK3ByNVdPZG9HcWpKOVY0ejJ4ZEJGbDlWdkxoRDdEWFlh?=
- =?utf-8?B?a2RsNzZ5UUdOYXBhVHhBalhETFVna0Vrbkxtb1lrSHRQM3QrZVNTY2lMR2Z0?=
- =?utf-8?B?M0JHaVErVzM2ZXJQQmRFei8xaExjVm4xVnorRkxyeGZDUTZ6VkpWZnNrWlZt?=
- =?utf-8?B?UFJMZWxCYmpVMGpZR0FOQXZPS2hCOW5GcnNWNDZvem0vQ0p1YW94SkxsUjc0?=
- =?utf-8?B?WHZ1S0FpMndINHpMQThmVEZ3bk9kK0FQYUtubm11UjU5bVJhS2ttTFlaeUNB?=
- =?utf-8?Q?fYT6jA?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 14:23:28.6286
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 708cd3e4-156c-49d4-72a8-08dd7b5fed2e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044F8.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6353
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <e503aee3ef743210a8188a7da9e70a169dec1287.1744126720.git.oleksii.kurochko@gmail.com>
+ <7f26a9cb-a685-4a2a-a470-8c5e94ddc31e@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <7f26a9cb-a685-4a2a-a470-8c5e94ddc31e@suse.com>
 
-On Thu Apr 10, 2025 at 12:12 PM BST, Jan Beulich wrote:
-> On 08.04.2025 18:07, Alejandro Vallejo wrote:
->> --- a/xen/arch/x86/domain-builder/core.c
->> +++ b/xen/arch/x86/domain-builder/core.c
->> @@ -8,9 +8,37 @@
->>  #include <xen/lib.h>
->> =20
->>  #include <asm/bootinfo.h>
->> +#include <asm/setup.h>
->> =20
->>  #include "fdt.h"
->> =20
->> +size_t __init builder_get_cmdline_size(struct boot_info *bi, int offset=
-)
+This is a multi-part message in MIME format.
+--------------yo4C76a0szgaZfAxZHH92FIz
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+On 4/10/25 2:52 PM, Jan Beulich wrote:
+> On 08.04.2025 17:57, Oleksii Kurochko wrote:
+>> @@ -23,6 +24,11 @@ static inline cycles_t get_cycles(void)
+>>       return csr_read(CSR_TIME);
+>>   }
+>>   
+>> +static inline s_time_t ticks_to_ns(uint64_t ticks)
 >> +{
->> +#ifdef CONFIG_DOMAIN_BUILDER
->> +    const void *fdt =3D bootstrap_map_bm(&bi->mods[HYPERLAUNCH_MODULE_I=
-DX]);
->> +    int size =3D fdt_cmdline_prop_size(fdt, offset);
->> +
->> +    bootstrap_unmap();
->> +    return size < 0 ? 0 : size;
->
-> Use max() instead of open-coding it?
-
-Sure. On an unrelated matter, I've also removed the ifdef and relied on
-DCE for v4 for this and the next helper.
-
->
->> --- a/xen/arch/x86/domain-builder/fdt.c
->> +++ b/xen/arch/x86/domain-builder/fdt.c
->> @@ -189,6 +189,12 @@ static int __init process_domain_node(
->>              printk("  kernel: boot module %d\n", idx);
->>              bi->mods[idx].type =3D BOOTMOD_KERNEL;
->>              bd->kernel =3D &bi->mods[idx];
->> +
->> +            /* If bootloader didn't set cmdline, see if FDT provides on=
-e. */
->> +            if ( bd->kernel->cmdline_pa &&
->> +                 !((char *)__va(bd->kernel->cmdline_pa))[0] )
->> +                bd->kernel->fdt_cmdline =3D fdt_get_prop_offset(
->> +                    fdt, node, "bootargs", &bd->kernel->cmdline_pa);
->
-> Somewhat orthogonal question: Should there perhaps be a way for the boot =
-loader
-> provided cmdline to go at the tail of the DT provided one?
-
-That would preclude the bootloader fully overriding what's on the DT.
-One can always just copy the cmdline in the DT to the bootloader and
-adjust whatever is necessary there for testing. Adding append behaviour
-sounds more like a hindrance rather than helpful. To me at least.
-
->
->> --- a/xen/arch/x86/domain-builder/fdt.h
->> +++ b/xen/arch/x86/domain-builder/fdt.h
->> @@ -12,6 +12,31 @@ struct boot_info;
->>  #define HYPERLAUNCH_MODULE_IDX 0
->> =20
->>  #ifdef CONFIG_DOMAIN_BUILDER
->> +
->> +static inline int __init fdt_cmdline_prop_size(const void *fdt, int off=
-set)
->> +{
->> +    int ret;
->> +
->> +    fdt_get_property_by_offset(fdt, offset, &ret);
->> +
->> +    return ret;
+>> +    return muldiv64(ticks, SECONDS(1), 1000 * cpu_khz);
 >> +}
->> +
->> +static inline int __init fdt_cmdline_prop_copy(
->> +    const void *fdt, int offset, char *cmdline, size_t size)
+> Why the extra multiplication by 1000? I.e. why not
+> "muldiv64(ticks, MILLISECONDS(1), cpu_khz)", getting away with just one
+> multiplication and a reduced risk of encountering intermediate overflow
+> (affecting only hypothetical above 4THz CPUs then)?
+
+Multiplication by 1000 was needed to convert khz to hz, but yes, your option
+would be better.
+
+>
+>> --- a/xen/arch/riscv/time.c
+>> +++ b/xen/arch/riscv/time.c
+>> @@ -4,10 +4,17 @@
+>>   #include <xen/init.h>
+>>   #include <xen/lib.h>
+>>   #include <xen/sections.h>
+>> +#include <xen/types.h>
+>>   
+>>   unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
+>>   uint64_t __ro_after_init boot_clock_cycles;
+>>   
+>> +s_time_t get_s_time(void)
 >> +{
->> +    int ret;
->> +    const struct fdt_property *prop =3D
->> +        fdt_get_property_by_offset(fdt, offset, &ret);
->> +
->> +    if ( ret < 0 )
->> +        return ret;
->> +
->> +    ASSERT(size > ret);
->> +
->> +    return strlcpy(cmdline, prop->data, ret);
->> +}
+>> +    uint64_t ticks = get_cycles() - boot_clock_cycles;
+>> +    return ticks_to_ns(ticks);
+> Nit: Blank line between declaration(s) and statement(s) please, as well as
+> ahead of the main "return" of a function.
 >
-> What's the rationale for these to be separate functions, rather then the =
-code
-> being integrated into their sole callers? Especially for the former the e=
-xtra
-> layer feels excessive.
+> Happy to make both adjustments upon committing, so long as you agree; then:
+> Reviewed-by: Jan Beulich<jbeulich@suse.com>
 
-I've moved them onto domain-builder/fdt.c (where I believe they were
-originally?) for v4.
+I'll be happy with that.
 
->
->> --- a/xen/arch/x86/include/asm/domain-builder.h
->> +++ b/xen/arch/x86/include/asm/domain-builder.h
->> @@ -3,6 +3,10 @@
->> =20
->>  struct boot_info;
->> =20
->> +size_t __init builder_get_cmdline_size(struct boot_info *bi, int offset=
-);
->> +int __init builder_get_cmdline(
->> +    struct boot_info *bi, int offset, char *cmdline, size_t size);
->
-> No __init on declarations please.
+Thank you very much.
 
-Ack.
+~ Oleksii
 
->
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -984,7 +984,10 @@ static size_t __init domain_cmdline_size(
->>  {
->>      size_t s =3D bi->kextra ? strlen(bi->kextra) : 0;
->> =20
->> -    s +=3D bd->kernel->cmdline_pa ? strlen(__va(bd->kernel->cmdline_pa)=
-) : 0;
->> +    if ( bd->kernel->fdt_cmdline )
->> +        s +=3D builder_get_cmdline_size(bi, bd->kernel->cmdline_pa);
->> +    else
->> +        s +=3D strlen(__va(bd->kernel->cmdline_pa));
->
-> Why's the check lost for bd->kernel->cmdline_pa being non-zero?
+--------------yo4C76a0szgaZfAxZHH92FIz
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Shouldn't have been, indeed.
->
->> @@ -1047,9 +1050,12 @@ static struct domain *__init create_dom0(struct b=
-oot_info *bi)
->>          if ( !(cmdline =3D xzalloc_array(char, cmdline_size)) )
->>              panic("Error allocating cmdline buffer for %pd\n", d);
->> =20
->> -        if ( bd->kernel->cmdline_pa )
->> +        if ( bd->kernel->fdt_cmdline )
->> +            builder_get_cmdline(
->> +                bi, bd->kernel->cmdline_pa, cmdline, cmdline_size);
->> +        else
->
-> Same here.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/10/25 2:52 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:7f26a9cb-a685-4a2a-a470-8c5e94ddc31e@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 08.04.2025 17:57, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">@@ -23,6 +24,11 @@ static inline cycles_t get_cycles(void)
+     return csr_read(CSR_TIME);
+ }
+ 
++static inline s_time_t ticks_to_ns(uint64_t ticks)
++{
++    return muldiv64(ticks, SECONDS(1), 1000 * cpu_khz);
++}
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Why the extra multiplication by 1000? I.e. why not
+"muldiv64(ticks, MILLISECONDS(1), cpu_khz)", getting away with just one
+multiplication and a reduced risk of encountering intermediate overflow
+(affecting only hypothetical above 4THz CPUs then)?</pre>
+    </blockquote>
+    <pre>Multiplication by 1000 was needed to convert khz to hz, but yes, your option
+would be better.
 
-Ack.
+</pre>
+    <blockquote type="cite"
+      cite="mid:7f26a9cb-a685-4a2a-a470-8c5e94ddc31e@suse.com">
+      <pre wrap="" class="moz-quote-pre">
 
->
->>              strlcpy(cmdline,
->> -                    cmdline_cook(__va(bd->kernel->cmdline_pa), bi->load=
-er),
->> +                    cmdline_cook(__va(bd->kernel->cmdline_pa),bi->loade=
-r),
->
-> The change to this line is bogus altogether.
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/time.c
++++ b/xen/arch/riscv/time.c
+@@ -4,10 +4,17 @@
+ #include &lt;xen/init.h&gt;
+ #include &lt;xen/lib.h&gt;
+ #include &lt;xen/sections.h&gt;
++#include &lt;xen/types.h&gt;
+ 
+ unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
+ uint64_t __ro_after_init boot_clock_cycles;
+ 
++s_time_t get_s_time(void)
++{
++    uint64_t ticks = get_cycles() - boot_clock_cycles;
++    return ticks_to_ns(ticks);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Nit: Blank line between declaration(s) and statement(s) please, as well as
+ahead of the main "return" of a function.
 
-Ugh, yes.
+Happy to make both adjustments upon committing, so long as you agree; then:
+Reviewed-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a></pre>
+    </blockquote>
+    <pre>I'll be happy with that.
 
->
->> --- a/xen/include/xen/libfdt/libfdt-xen.h
->> +++ b/xen/include/xen/libfdt/libfdt-xen.h
->> @@ -23,6 +23,29 @@ static inline uint64_t  __init fdt_cell_as_u64(const =
-fdt32_t *cell)
->>      return ((uint64_t)fdt32_to_cpu(cell[0]) << 32) | fdt32_to_cpu(cell[=
-1]);
->>  }
->> =20
->> +static inline bool __init fdt_get_prop_offset(
->> +    const void *fdt, int node, const char *name, unsigned long *offset)
->> +{
->> +    int ret, poffset;
->> +    const char *pname;
->> +
->> +    fdt_for_each_property_offset(poffset, fdt, node)
->> +    {
->> +        fdt_getprop_by_offset(fdt, poffset, &pname, &ret);
->> +
->> +        if ( ret < 0 )
->> +            continue;
->> +
->> +        if ( strcmp(pname, name) =3D=3D 0 )
->> +        {
->> +            *offset =3D poffset;
->
-> Variable naming looks backwards here.
->
-> Jan
+Thank you very much.
 
-I think the leading p stands for "property" (for the sake of giving it a
-name). But I see how that might be confusing when interpreted with a
-Hungarian notation lens.
+~ Oleksii</pre>
+  </body>
+</html>
 
-I'll invert it. It doesn't matter which is which, after all.
-
-Cheers,
-Alejandro
+--------------yo4C76a0szgaZfAxZHH92FIz--
 
