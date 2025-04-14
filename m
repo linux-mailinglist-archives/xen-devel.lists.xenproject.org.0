@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18C62A87F1D
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 13:35:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.949899.1346356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39F02A87F62
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 13:41:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.949911.1346367 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4I62-0000Pj-85; Mon, 14 Apr 2025 11:35:26 +0000
+	id 1u4IBv-0002gJ-TU; Mon, 14 Apr 2025 11:41:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 949899.1346356; Mon, 14 Apr 2025 11:35:26 +0000
+Received: by outflank-mailman (output) from mailman id 949911.1346367; Mon, 14 Apr 2025 11:41:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4I62-0000N0-4d; Mon, 14 Apr 2025 11:35:26 +0000
-Received: by outflank-mailman (input) for mailman id 949899;
- Mon, 14 Apr 2025 11:35:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KxE1=XA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u4I61-0000Mu-5C
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 11:35:25 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8dd5dfb8-1924-11f0-9eae-5ba50f476ded;
- Mon, 14 Apr 2025 13:35:24 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-39ac8e7688aso2518285f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 04:35:24 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39eaf445515sm10518953f8f.89.2025.04.14.04.35.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Apr 2025 04:35:22 -0700 (PDT)
+	id 1u4IBv-0002dh-PT; Mon, 14 Apr 2025 11:41:31 +0000
+Received: by outflank-mailman (input) for mailman id 949911;
+ Mon, 14 Apr 2025 11:41:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1u4IBu-0002db-1e
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 11:41:30 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1u4IBt-00Ep7I-25;
+ Mon, 14 Apr 2025 11:41:29 +0000
+Received: from [143.198.24.140] (helo=[100.81.22.8])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1u4IBt-00DBnQ-0D;
+ Mon, 14 Apr 2025 11:41:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,163 +39,308 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8dd5dfb8-1924-11f0-9eae-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744630523; x=1745235323; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=S4SqS9nQ4FqsgFnLIzFWParOl7LFNGdBrqQwijjIBbU=;
-        b=oJlkJCLUn3ujEZ1ZWGL2hGT+K9+MTnPVP7jAdlbxbSiJ44BWnLPr/GyBUPDLo0B33T
-         /6IGg7MA7ZUv0o/wux7A3TMJoQIKmrteIoEB09TVt3e7SKTZVAo6ACBwYSyStg7ao7LX
-         vH3g42Raq+x5ZUQZWkh1WJ7ap8jxO51qtCasY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744630523; x=1745235323;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=S4SqS9nQ4FqsgFnLIzFWParOl7LFNGdBrqQwijjIBbU=;
-        b=WaC4YB9Eu3suQCLxWrJTw6ppwyQVPXXbYODumhXUWZAVxhqPASRSyJNO7FXvqwngGQ
-         OjuX7uezpwJEm8s7M+kGrDCw2SrGHCrSwkfcpUgH+0enmAnHIy17wPBP9Dduj4DOzJFY
-         jdg2t8w2JQpfSh3KovnCqSqpbirXyZ94iEfOvHJ1zKwZID6NXJ2CQmT+Rly86geoCKEx
-         u3W+JIaXHZeeTAI4eNb3tEYJ/Sx2MspD5eOy8ybdt5kHkqf9THKNNkuTEobh4N16nEMD
-         9KgLVu5/kL9DKTMoAslNcjyBG4jTkSJGsCAhgvq0LqB3jF8VGnHyKANZU5lD/7NmkhaO
-         87WA==
-X-Gm-Message-State: AOJu0Yw14cFv5HzE1WX2B8pxqzYs6VT2PriVj5S6m8HUYo6OowIU79+p
-	HqQTx5GEnMIPdGZsEAB61abFvHGc0wRERs5e3L4CYg0dstPS4oZjCwDrqJ3wBUI=
-X-Gm-Gg: ASbGncvkIVWHWIctkZApYJFIKutxXUH1kh+h/j4+8awjzP1x++ITTJvBxkIgv7HXkxx
-	iAkD9y+3hfdjkR8PMAImTqJDDujrZa2kXUOCxvLCg/d2W5n2vS6SMSExTnX8tcLh1FdfCKIIOWS
-	3XXOUTNj0DH0pvp3T1rcidS/Hyw54CwNnMjLDBRkPaAmfFrN0QphQg9Z8mI/FZWewThEr2+slF7
-	vBpCiFE43K5X4jCVHS06l/Pdlz4NlNgYq3QTAJRXcz11PTYeRzqMnWZ4Wy0bQkUhhSJZk0JBq41
-	2HcxsKmQLZvZ8Sr9yvSv7qHSB5KnrjrIeNuRBvqZpznXeh2D2jXJbGuKCrDTbNue9HDzO+sfx6v
-	dm/hsiQ==
-X-Google-Smtp-Source: AGHT+IGGkuUxWnEoYVj0GSv651HpNCsSicy5MOntbO86Xo7S0HylEQmWkwHj9dNvddGO0dSsMl1fyw==
-X-Received: by 2002:a05:6000:40c9:b0:39c:1258:2dc7 with SMTP id ffacd0b85a97d-39eaaec9f18mr8701015f8f.56.1744630523245;
-        Mon, 14 Apr 2025 04:35:23 -0700 (PDT)
-Message-ID: <d68aacb7-b192-4baf-8d03-042ca5236838@citrix.com>
-Date: Mon, 14 Apr 2025 12:35:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=IF8aZV7X3I5v5I/+XPXr7UKHWMNbyaU1EuXYq5Spy/M=; b=z1NjWOD5VjgWSlneBfIP3Ax5Ms
+	Y2iVVPESNbGCpURr6e2T8D8u5mrLCpnK3zat9mL9hK4XDohQVMtHsvzTLrE8NowyhkwSjTVcrhoOK
+	VixN3A8K8m1Lme0YocbBpxkRHaZBrLwwkm9IeaoMVCPHIMLHLs2aRXjOq3c1pyKLWq6s=;
+Message-ID: <d58be435-fd83-42bc-9fd0-a8884f358704@xen.org>
+Date: Mon, 14 Apr 2025 20:41:22 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] Shrink the rootfs substantially
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>
-References: <20250414101843.2348330-1-andrew.cooper3@citrix.com>
- <20250414101843.2348330-5-andrew.cooper3@citrix.com>
- <Z_zwnpmO_6VLwoMM@mail-itl>
+Subject: Re: [PATCH v3 2/7] arm/mpu: Provide access to the MPU region from the
+ C code
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <Z_zwnpmO_6VLwoMM@mail-itl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250411145655.140667-1-luca.fancellu@arm.com>
+ <20250411145655.140667-3-luca.fancellu@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20250411145655.140667-3-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 14/04/2025 12:25 pm, Marek Marczykowski-Górecki wrote:
-> On Mon, Apr 14, 2025 at 11:18:40AM +0100, Andrew Cooper wrote:
->> bash, busybox, musl and zlib are all in the base container.
->>
->> python3 and ncurses are in principle used by bits of Xen, but not in anything
->> we test in CI.  argp-standlone, curl, dbus, libfdt, libgcc and sudo aren't
->> used at all (for x86 at least).
->>
->> libbz2 and libuuid were pulled in transitively before, and need to be included
->> explicitly now.
->>
->> Use apk --no-cache to avoid keeping a ~2M package index on disk.
->>
->> Remove the modules scan on boot.  We don't have or build any.  This removes a
->> chunk of warnings on boot.
-> Strictly speaking there is xen-argo.ko, but that's handled manually
-> anyway, so probably not worth mentioning.
+Hi Luca,
 
-Hmm, it's an awkward way around in the series, but yes.  The lack of
-doing any of the normal module work in the kernel build is what causes
-xen-argo.ko to be more special than I'd like.
+On 11/04/2025 23:56, Luca Fancellu wrote:
+> Implement some utility function in order to access the MPU regions
+> from the C world.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+> v3 changes:
+>   - Moved PRBAR0_EL2/PRLAR0_EL2 to arm64 specific
+>   - Modified prepare_selector() to be easily made a NOP
+>     for Arm32, which can address up to 32 region without
+>     changing selector and it is also its maximum amount
+>     of MPU regions.
+> ---
+> ---
+>   xen/arch/arm/include/asm/arm64/mpu.h |   7 ++
+>   xen/arch/arm/include/asm/mpu.h       |   1 +
+>   xen/arch/arm/include/asm/mpu/mm.h    |  24 +++++
+>   xen/arch/arm/mpu/mm.c                | 125 +++++++++++++++++++++++++++
+>   4 files changed, 157 insertions(+)
+> 
+> diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
+> index 4d2bd7d7877f..b4e1ecdf741d 100644
+> --- a/xen/arch/arm/include/asm/arm64/mpu.h
+> +++ b/xen/arch/arm/include/asm/arm64/mpu.h
+> @@ -8,6 +8,13 @@
+>   
+>   #ifndef __ASSEMBLY__
+>   
+> +/*
+> + * The following are needed for the case generators GENERATE_WRITE_PR_REG_CASE
+> + * and GENERATE_READ_PR_REG_CASE with num==0
+> + */
+> +#define PRBAR0_EL2 PRBAR_EL2
+> +#define PRLAR0_EL2 PRLAR_EL2
 
->
->> This shrinks the rootfs from ~30M down to ~8M.
->>
->> No practical change.
-> This also adds some preparation (the case on `uname -m`) for ARM64
-> rootfs, would be nice to mention it too. Especially since libfdt removed
-> here will be re-added for ARM.
+Rather than aliasing, shouldn't we just rename PR{B,L}AR_EL2 to 
+PR{B,L}AR0_EL2? This would the code mixing between the two.
 
-"Factor out some x86-isms in preparation for ARM64 support."
+> +
+>   /* Protection Region Base Address Register */
+>   typedef union {
+>       struct __packed {
+> diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
+> index e148c705b82c..59ff22c804c1 100644
+> --- a/xen/arch/arm/include/asm/mpu.h
+> +++ b/xen/arch/arm/include/asm/mpu.h
+> @@ -13,6 +13,7 @@
+>   #define MPU_REGION_SHIFT  6
+>   #define MPU_REGION_ALIGN  (_AC(1, UL) << MPU_REGION_SHIFT)
+>   #define MPU_REGION_MASK   (~(MPU_REGION_ALIGN - 1))
+> +#define MPU_REGION_RES0   (0xFFFULL << 52)
+>   
+>   #define NUM_MPU_REGIONS_SHIFT   8
+>   #define NUM_MPU_REGIONS         (_AC(1, UL) << NUM_MPU_REGIONS_SHIFT)
+> diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
+> index 86f33d9836b7..5cabe9d111ce 100644
+> --- a/xen/arch/arm/include/asm/mpu/mm.h
+> +++ b/xen/arch/arm/include/asm/mpu/mm.h
+> @@ -8,6 +8,7 @@
+>   #include <xen/page-size.h>
+>   #include <xen/types.h>
+>   #include <asm/mm.h>
+> +#include <asm/mpu.h>
+>   
+>   extern struct page_info *frame_table;
+>   
+> @@ -29,6 +30,29 @@ static inline struct page_info *virt_to_page(const void *v)
+>       return mfn_to_page(mfn);
+>   }
+>   
+> +/* Utility function to be used whenever MPU regions are modified */
+> +static inline void context_sync_mpu(void)
+> +{
+> +    /*
+> +     * ARM DDI 0600B.a, C1.7.1
+> +     * Writes to MPU registers are only guaranteed to be visible following a
+> +     * Context synchronization event and DSB operation.
 
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Anthony PERARD <anthony.perard@vates.tech>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Michal Orzel <michal.orzel@amd.com>
->> CC: Doug Goldstein <cardoe@cardoe.com>
->> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->> ---
->>  scripts/alpine-rootfs.sh | 60 +++++++++++++++++++++++-----------------
->>  1 file changed, 34 insertions(+), 26 deletions(-)
->>
->> diff --git a/scripts/alpine-rootfs.sh b/scripts/alpine-rootfs.sh
->> index 75e2f8648ce5..72c29e0a0a13 100755
->> --- a/scripts/alpine-rootfs.sh
->> +++ b/scripts/alpine-rootfs.sh
->> @@ -4,33 +4,42 @@ set -eu
->>  
->>  WORKDIR="${PWD}"
->>  COPYDIR="${WORKDIR}/binaries"
->> +UNAME=$(uname -m)
->>  
->> -apk update
->> +apk --no-cache update
-> This is no-op, no? IIUC the only thing `apk update` does is updating the
-> cache, which you disabled...
+I know we discussed about this before. I find odd that the specification 
+says "context synchronization event and DSB operation". At least to me, 
+it implies "isb + dsb" not the other way around. Has this been clarified 
+in newer version of the specification?
 
-Lovely.  This ought to be upgrade, so we pull in updates to the packages
-in the base image.
+> +     */
+> +    dsb(sy);
+> +    isb();
+> +}
+> +
+> +/*
+> + * The following API require context_sync_mpu() after being used to modifiy MPU
 
-~Andrew
+typo: s/require/requires/ and s/modifiy/modify/
+
+> + * regions:
+> + *  - write_protection_region
+> + */
+> +
+> +/* Reads the MPU region with index 'sel' from the HW */
+> +extern void read_protection_region(pr_t *pr_read, uint8_t sel);
+
+I am probably missing something. But don't you have a copy of pr_t in 
+xen_mpumap? If so, can't we use the cached version to avoid accessing 
+the system registers?
+
+> +/* Writes the MPU region with index 'sel' to the HW */
+> +extern void write_protection_region(const pr_t *pr_write, uint8_t sel);
+> +
+>   #endif /* __ARM_MPU_MM_H__ */
+>   
+>   /*
+> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+> index f83ce04fef8a..e522ce53c357 100644
+> --- a/xen/arch/arm/mpu/mm.c
+> +++ b/xen/arch/arm/mpu/mm.c
+> @@ -8,12 +8,30 @@
+>   #include <xen/sizes.h>
+>   #include <xen/types.h>
+>   #include <asm/mpu.h>
+> +#include <asm/mpu/mm.h>
+> +#include <asm/sysregs.h>
+>   
+>   struct page_info *frame_table;
+>   
+>   /* EL2 Xen MPU memory region mapping table. */
+>   pr_t xen_mpumap[MAX_MPU_REGIONS];
+>   
+> +#define GENERATE_WRITE_PR_REG_CASE(num, pr)                                 \
+> +    case num:                                                               \
+> +    {                                                                       \
+> +        WRITE_SYSREG(pr->prbar.bits & ~MPU_REGION_RES0, PRBAR##num##_EL2);  \
+> +        WRITE_SYSREG(pr->prlar.bits & ~MPU_REGION_RES0, PRLAR##num##_EL2);  \
+> +        break;                                                              \
+> +    }
+> +
+> +#define GENERATE_READ_PR_REG_CASE(num, pr)                      \
+> +    case num:                                                   \
+> +    {                                                           \
+> +        pr->prbar.bits = READ_SYSREG(PRBAR##num##_EL2);         \
+> +        pr->prlar.bits = READ_SYSREG(PRLAR##num##_EL2);         \
+> +        break;                                                  \
+> +    }
+> +
+>   static void __init __maybe_unused build_assertions(void)
+>   {
+>       /*
+> @@ -24,6 +42,113 @@ static void __init __maybe_unused build_assertions(void)
+>       BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
+>   }
+>   
+> +static void prepare_selector(uint8_t *sel)
+> +{
+> +    uint8_t cur_sel = *sel;
+
+Coding style: Missing newline.
+
+> +    /*
+> +     * {read,write}_protection_region works using the direct access to the 0..15
+> +     * regions, so in order to save the isb() overhead, change the PRSELR_EL2
+> +     * only when needed, so when the upper 4 bits of the selector will change.
+> +     */
+> +    cur_sel &= 0xF0U;
+> +    if ( READ_SYSREG(PRSELR_EL2) != cur_sel )
+> +    {
+> +        WRITE_SYSREG(cur_sel, PRSELR_EL2);
+> +        isb();
+> +    }
+> +    *sel = *sel & 0xFU;
+> +}
+> +
+> +/*
+> + * Armv8-R AArch64 at most supports 255 MPU protection regions.
+> + * See section G1.3.18 of the reference manual for Armv8-R AArch64,
+> + * PRBAR<n>_EL2 and PRLAR<n>_EL2 provide access to the EL2 MPU region
+> + * determined by the value of 'n' and PRSELR_EL2.REGION as
+> + * PRSELR_EL2.REGION<7:4>:n(n = 0, 1, 2, ... , 15)
+> + * For example to access regions from 16 to 31 (0b10000 to 0b11111):
+> + * - Set PRSELR_EL2 to 0b1xxxx
+> + * - Region 16 configuration is accessible through PRBAR_EL2 and PRLAR_EL2
+> + * - Region 17 configuration is accessible through PRBAR1_EL2 and PRLAR1_EL2
+> + * - Region 18 configuration is accessible through PRBAR2_EL2 and PRLAR2_EL2
+> + * - ...
+> + * - Region 31 configuration is accessible through PRBAR15_EL2 and PRLAR15_EL2
+> + */
+
+I am a bit confused. This function is implemented in the common MPU 
+code. Yet, then comment only refer to 64-bit. Is the code the same on 
+32-bit? If not, then I think this function wants to be moved in arm64/mpu/
+
+> +/*
+> + * Read EL2 MPU Protection Region.
+> + *
+> + * @pr_read: mpu protection region returned by read op.
+> + * @sel: mpu protection region selector
+> + */
+
+NIT: Usually we add documentation on the prototype in the header and not 
+in the definition.
+
+> +void read_protection_region(pr_t *pr_read, uint8_t sel)
+> +{
+> +    /*
+> +     * Before accessing EL2 MPU region register PRBAR_EL2/PRLAR_EL2,
+> +     * make sure PRSELR_EL2 is set, as it determines which MPU region
+> +     * is selected.
+> +     */
+> +    prepare_selector(&sel);
+> +
+> +    switch ( sel )
+> +    {
+> +        GENERATE_READ_PR_REG_CASE(0, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(1, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(2, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(3, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(4, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(5, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(6, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(7, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(8, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(9, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(10, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(11, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(12, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(13, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(14, pr_read);
+> +        GENERATE_READ_PR_REG_CASE(15, pr_read);
+> +    default:
+> +        BUG(); /* Can't happen */
+> +    }
+> +}
+> +
+> +/*
+> + * Write EL2 MPU Protection Region.
+> + *
+> + * @pr_write: const mpu protection region passed through write op.
+> + * @sel: mpu protection region selector
+> + */
+> +void write_protection_region(const pr_t *pr_write, uint8_t sel)
+> +{
+> +    /*
+> +     * Before accessing EL2 MPU region register PRBAR_EL2/PRLAR_EL2,
+> +     * make sure PRSELR_EL2 is set, as it determines which MPU region
+> +     * is selected.
+> +     */
+> +    prepare_selector(&sel);
+> +
+> +    switch ( sel )
+> +    {
+> +        GENERATE_WRITE_PR_REG_CASE(0, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(1, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(2, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(3, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(4, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(5, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(6, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(7, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(8, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(9, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(10, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(11, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(12, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(13, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(14, pr_write);
+> +        GENERATE_WRITE_PR_REG_CASE(15, pr_write);
+> +    default:
+> +        BUG(); /* Can't happen */
+> +    }
+> +}
+> +
+>   void __init setup_mm(void)
+>   {
+>       BUG_ON("unimplemented");
+
+Cheers,
+
+-- 
+Julien Grall
+
 
