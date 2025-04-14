@@ -2,38 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CA9AA885B4
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 16:51:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.950522.1346810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E13C3A885B9
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 16:51:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.950534.1346820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4L8v-0007YC-TK; Mon, 14 Apr 2025 14:50:37 +0000
+	id 1u4L9u-0001Ze-70; Mon, 14 Apr 2025 14:51:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 950522.1346810; Mon, 14 Apr 2025 14:50:37 +0000
+Received: by outflank-mailman (output) from mailman id 950534.1346820; Mon, 14 Apr 2025 14:51:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4L8v-0007Vx-QD; Mon, 14 Apr 2025 14:50:37 +0000
-Received: by outflank-mailman (input) for mailman id 950522;
- Mon, 14 Apr 2025 14:50:36 +0000
+	id 1u4L9u-0001WW-3H; Mon, 14 Apr 2025 14:51:38 +0000
+Received: by outflank-mailman (input) for mailman id 950534;
+ Mon, 14 Apr 2025 14:51:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YdIb=XA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u4L8u-0007Vp-FX
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 14:50:36 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ <SRS0=Bm2T=XA=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1u4L9s-0007Vp-GS
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 14:51:36 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on2061b.outbound.protection.outlook.com
+ [2a01:111:f403:260d::61b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d24a5b25-193f-11f0-9eae-5ba50f476ded;
- Mon, 14 Apr 2025 16:50:35 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5e5e63162a0so7306993a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 07:50:35 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-acaa1ccd255sm910312666b.156.2025.04.14.07.50.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Apr 2025 07:50:33 -0700 (PDT)
+ id f522c8ba-193f-11f0-9eae-5ba50f476ded;
+ Mon, 14 Apr 2025 16:51:33 +0200 (CEST)
+Received: from PAZP264CA0096.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1fb::11)
+ by AS8PR08MB6472.eurprd08.prod.outlook.com (2603:10a6:20b:336::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.33; Mon, 14 Apr
+ 2025 14:51:30 +0000
+Received: from AM4PEPF00025F9B.EURPRD83.prod.outlook.com
+ (2603:10a6:102:1fb:cafe::cb) by PAZP264CA0096.outlook.office365.com
+ (2603:10a6:102:1fb::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.34 via Frontend Transport; Mon,
+ 14 Apr 2025 14:51:30 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AM4PEPF00025F9B.mail.protection.outlook.com (10.167.16.10) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8678.4
+ via Frontend Transport; Mon, 14 Apr 2025 14:51:30 +0000
+Received: from DB7PR08MB2987.eurprd08.prod.outlook.com (2603:10a6:5:1c::25) by
+ GV1PR08MB8741.eurprd08.prod.outlook.com (2603:10a6:150:85::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8632.27; Mon, 14 Apr 2025 14:50:55 +0000
+Received: from DB7PR08MB2987.eurprd08.prod.outlook.com
+ ([fe80::d53f:b16d:70a5:8668]) by DB7PR08MB2987.eurprd08.prod.outlook.com
+ ([fe80::d53f:b16d:70a5:8668%4]) with mapi id 15.20.8632.030; Mon, 14 Apr 2025
+ 14:50:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,193 +61,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d24a5b25-193f-11f0-9eae-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744642234; x=1745247034; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ssKW7qnqudOt5C98+v8q6rM8aAHHrH+UyYnvLLgTX8U=;
-        b=SbWA9Ty7U8IcCD1AUu0jsRXtEjPVKlIjV0pV2VNvfCVzDNkJih0FsHAVH8bm9p+ksI
-         X3R6FtBJDvP24wmhqLrvgfeHZYYkCFMso5QwDZ1nhMx2iLnJMcUCh73HiNWdeQlazYi1
-         Un78xquxEJeypb3RaNn7COKDjXOXYSeYIc4jwJDY8BTFXMInytNqz65uADRYgHO4o61v
-         ueEsRpOUE8k7C0fSvFNdKcBCYtylk8bnykzDFjVRV3qj6QY0EbQFZjJLoXsch1JLEtnP
-         GeRBht1YgopsDWOdnA3CIez4F6xgpp6NK/J3yzR2WMcnJq1F1ftQ8l6xkKGOs+Y2n/1S
-         k4wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744642234; x=1745247034;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ssKW7qnqudOt5C98+v8q6rM8aAHHrH+UyYnvLLgTX8U=;
-        b=OwmnD6KlWUmhFuvUX+DxQMdnfamI2b/QUEQmfuRdkjPsY6BihzD/VkvZSaG+ZNiCC7
-         BUud/hTEQPc3khkAY3oK7StJHcepd/AczSQTbxbCGy7EPENpa9fusS0D4FAbLfZsLPA2
-         n5UTCrVGODPNqhZelvUYatLOVQxR4ilTfumzRMLdpPk8+csipbK7c8fraL5OFDohMDn6
-         jxQw7+Wv4cCLRcyVbZtrQq4k6LsZsYPy4ETIEbQAcXeMRo2Odct51Ph3tEXrSux+IlVI
-         2KVnbeYd9RIen7toLEzEgB5sYs4ny8TafknarFq70KpOrjm1Yd6VEhiIAVxksfY7mMr7
-         pNSw==
-X-Forwarded-Encrypted: i=1; AJvYcCW+InS63g2DwXpzUZexX1IqUYBpDb/Qb3vxhUNkuJ3j2reszi5mP3OM3/IDHimwga20KxRsJtrJ5fE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyWzm+U4AUA+fqlzMQrO37sn1VzYNYdf4A4G21of+DVLhZsE00T
-	whDteyiiEmYUYcvaXVt7TclEKewS0vyrKCpXGeIstp1ZDoErMQN5
-X-Gm-Gg: ASbGnctyMLHVhTQKUzcMdcdg8tr76dCky6KCtPWm1v/+k71XbSSride2/DhCSduofe8
-	U33UN1wFCSoenjSNGOquACn0tGqpqSbpzYbQUv33gyHUEKj9laN1BCZA/vJ2q1X2cr76rZiITvW
-	T9zsC7RIgXQZRC3xaGZ7Oay33KKUO87fygQ4ZFwRFTjEzXFbQbPNVkdTXxGOBTGXHqXxOEcWWGW
-	Rq20DU4XZKJZoP+FaFgALZZaCcU0iEZONMjrKM7kLSjg3Cz/do97nu6KgZznvf0nZp2u3FrgG23
-	e63KvIsYRXnXDdachdufYZhPHrBovFva8qkkQ6RNEVdfhfB3yc9klfjUBwjmlEWfcsRIIBYxfNv
-	rgA6HI36LaJoE2cr5
-X-Google-Smtp-Source: AGHT+IGtmczYQE2lLO/Swp2K6JUtF5S6Nrpq2iEg9+A5Yci3N77obqbyzsh9pHd7VA9g4kSe773q1g==
-X-Received: by 2002:a17:907:3d0e:b0:ac7:ec75:c65b with SMTP id a640c23a62f3a-acad34dd659mr1171271866b.36.1744642234150;
-        Mon, 14 Apr 2025 07:50:34 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------yo4C76a0szgaZfAxZHH92FIz"
-Message-ID: <cedc9b5f-0a90-433c-957c-ecd2f6f26e7d@gmail.com>
-Date: Mon, 14 Apr 2025 16:50:33 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 01/14] xen/riscv: implement get_s_time()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <e503aee3ef743210a8188a7da9e70a169dec1287.1744126720.git.oleksii.kurochko@gmail.com>
- <7f26a9cb-a685-4a2a-a470-8c5e94ddc31e@suse.com>
+X-Inumbo-ID: f522c8ba-193f-11f0-9eae-5ba50f476ded
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=aIrgXBIqxKO4U1vPOPDhh01aw5EBgFX5/hZKutzV+rVhCsJbJtO2Vb5W7HiBzU1Py56HwoWwa+sUvqjbIfojkdjACzMSoVYSQzAbQEyS2ZPMiiJYNE86GjKcVVn8FgIa7hTWo0BSZCemtv42A6bU8brbbNXru7kXx+4n/Q0fl7i/oAuFiNCiBWgf49TSS98tnSuPfld788klIlqZswCuzJ8b+FTgL6UrUEYpNDcALMsqolghAAH+0ObFJ8XaQA9eYo2NfVOQtEDxaMeoKp4rtQvD09aWeHljvHkSAIpGia10zma0/g4jgnXfXpafyTZao4NxI4tN0WLiivZRc2RM/w==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IZ9JwRmV2mBzMtx9v9RYjZunck0Kd8DU6/udbxMQ77s=;
+ b=cqqPYO2qebtApw3M+kQSOP4OT1Ln+e/jpz4aRb/urKVwc/LxbcVDyAAGFdzVBD1TlnwBnreKz+DfiZc0uG4itRLfnjd5F37515M1PVQBpDz4MiOQ2dQxolYvvW9evEcT4/N+l0RGs1Hf6cWkd3+u0UbDgX/g4W0zRreVw8ioeBKuXb/WNRDL0sftFUgvXjV02EysgT7I4Rxga9pUpai138HdHEb00l+Dvde1wwJ9WIunrXiQ8YZtGixFtET2uy0ssJ88ISlApTybuXQUb+mubYhS2cK7d4ztPnwoQbMts8QuaXCXqQkAV76kmvZ2/w94mIj2s40N7tMwOe380M3x8Q==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=amd.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IZ9JwRmV2mBzMtx9v9RYjZunck0Kd8DU6/udbxMQ77s=;
+ b=rI6+OSFNMWWOA4yZcYgu42lzWvUm7z9QHyGGVgD+Z3+aSrMXFRU8GXzy3R9fws11y1yxT7n1VJHT0NqcWpsDpC7nnaEZuWIJielD7RX3VZx9TFuEKIt0RRvzJDjg8KmZyqpp0z1ilgmqyHsw3Lq+xWuZ/yxOcmgOiRTNZgBj+18=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eA0J4ybIqdup5ZAv2R1c/6OxBsoZHxk3u2VytZoJyXi43G9R6smTHbN/0JeU6cg80FbxjPwJe+GwaUpvxlUeXTYWry2otroNCHNfCRj26VrhLkoL54EXT0Om+1l2CEM/jdtRxBqhh1ya7q/FD7E2TsxobaeMIx+xgwfDWKrUZ6WUck9mzykHGTTVvVaGQtxa762Zhr4t86BRGP0XCbPgCTJzLtvcbmv8SZJ7sX6GC5U9Kh7nUTxE4JCFv+9WqpSHKv/DrhjaFs/gel+fveXZ6fzGWbQUnGxiiTs3EeagHf9wq1TuIzvIldIXPi7avdOBR1ukNCEglmB8avynGiXcVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IZ9JwRmV2mBzMtx9v9RYjZunck0Kd8DU6/udbxMQ77s=;
+ b=vApjAEu3uNtgqLAJsK7SA9pTJkzwXin0VkjcveToZlHHpHN6hr/xLVH6kw/DSKrjGQPyXZm5uBlNf9z0ZbQu6Y5pYmP4HFOA9tT4QgSeL5iuwDaVcLF/oqH7/y3z/vRmrMG9yoWfZRuNe4Ao2mURnlRfQ3564Du+Ulfr8hLx96uPdhNyvlISAC6EbtAhQmglui7OczgA/w3tpEKQ+5RpXPCXI/Zw/fOn2JDn8rj2dPnDmgFv/3RONdqOdpvbBm2sNQ9z7PWHclOjxgaXEBk+1bz6mQd7A3VLZGqAqTfF3ouWC0qj1U9PiMcsteTdd9hzyD2EfWOnymOIe/LsekXq7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IZ9JwRmV2mBzMtx9v9RYjZunck0Kd8DU6/udbxMQ77s=;
+ b=rI6+OSFNMWWOA4yZcYgu42lzWvUm7z9QHyGGVgD+Z3+aSrMXFRU8GXzy3R9fws11y1yxT7n1VJHT0NqcWpsDpC7nnaEZuWIJielD7RX3VZx9TFuEKIt0RRvzJDjg8KmZyqpp0z1ilgmqyHsw3Lq+xWuZ/yxOcmgOiRTNZgBj+18=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: "Orzel, Michal" <michal.orzel@amd.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Penny
+ Zheng <Penny.Zheng@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <Wei.Chen@arm.com>
+Subject: Re: [PATCH v3 1/7] arm/mpu: Introduce MPU memory region map structure
+Thread-Topic: [PATCH v3 1/7] arm/mpu: Introduce MPU memory region map
+ structure
+Thread-Index: AQHbqvIQP3h8YyZqYkSDv4tGWZWI7LOi9uCAgABMVgA=
+Date: Mon, 14 Apr 2025 14:50:54 +0000
+Message-ID: <FCB86533-FFE9-4A79-AC8F-E2DBA2B1F553@arm.com>
+References: <20250411145655.140667-1-luca.fancellu@arm.com>
+ <20250411145655.140667-2-luca.fancellu@arm.com>
+ <d323425d-b266-49d6-95d4-0e1acb5e489e@amd.com>
+In-Reply-To: <d323425d-b266-49d6-95d4-0e1acb5e489e@amd.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <7f26a9cb-a685-4a2a-a470-8c5e94ddc31e@suse.com>
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.400.131.1.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DB7PR08MB2987:EE_|GV1PR08MB8741:EE_|AM4PEPF00025F9B:EE_|AS8PR08MB6472:EE_
+X-MS-Office365-Filtering-Correlation-Id: b526f507-0bbf-4c0b-7934-08dd7b63d763
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?us-ascii?Q?ZQoDSMnIRHUSwAEBPi3kqlocaCwureBePocm4jfxqrvA/9ZDWaxUJ6qwoVSB?=
+ =?us-ascii?Q?LA/rVBJlZdsAVKNuRxJtRmEEGU4KFLW+31UaDKJMSnvxijHsRWbhLw/ZD0i8?=
+ =?us-ascii?Q?EW00NLURb3loVpnJ4eGkj9MBQP6waHcg1Gk+l1N982APbEIVy5pLPQVtq0dR?=
+ =?us-ascii?Q?sganJly5FkgnIj5nwh7IXvI3TayuCHB6yNSnkrp/lou7YeC4EQ/jHN25XX+i?=
+ =?us-ascii?Q?ceQF5UHNULz7pCJiFyxVEyTCS/xOoKycEg0mgLFWaAAd2qpd6OhLEcMtr2tQ?=
+ =?us-ascii?Q?5+h0vRGFEBDtfMxbv8hkwuBbZDLc3Z/wXvNZRaC4FzRC1+Duyjm1tDjQfREB?=
+ =?us-ascii?Q?u3Sxw5+y/C4ggLAN/MJfyLlamX00bSEVxKaYfdY6DyXCZP1EIzAnk8Ns7lre?=
+ =?us-ascii?Q?COqVQl9Yd4nuuLKzVK/T7U8GErN4A1oM27buNdu6cx+2HL5Vwrx05b7tXsKs?=
+ =?us-ascii?Q?ygpx2jkbGgTk9D5VekHJmBt6vRNiuxZgIuofK2yYMlpEYTcfyUjDICZnVBKX?=
+ =?us-ascii?Q?PhxEO4RDEbZvCZSsyQOJB+vawt9uMHeWZyFwkgXVfUHq9CX14Uf5sXGKsHKJ?=
+ =?us-ascii?Q?Q6rQu6zQT5K5we2LCyXmhV0nfYRFi1ZncR8v0ypTKvsUnXOs7MVsJbsSb+s0?=
+ =?us-ascii?Q?LjnrXdjAR+oG6ILlJ1LO9Y6Pu/bmO8qDPpJnU7vKL8HhWgHzyVdnRctK4mH7?=
+ =?us-ascii?Q?t0Bxnq1M8vnOB65p/nqHB+EQD9tyMkE1jVsPCOACa47d8dx4QCDSS2Bg36Sv?=
+ =?us-ascii?Q?LLb/+Ud+hwPNvW36eR7QP9ABE4lcUZaAXHuEWE7bOAD2N9nRsEROhImMUo0P?=
+ =?us-ascii?Q?WdvHDvQAhMkuKEJAsVt0qTcaePTJI5q17KhONzx02xInM3plU0FYYKi/TpcY?=
+ =?us-ascii?Q?rvwDLantjZNZbF6l5eeVQ5w8ksi7Gho8dlKs3BFCvgRbY1iGD2B2pNjNzMFr?=
+ =?us-ascii?Q?GONeqRSqdrHt4MLTmxxwwOgRThsX7x3TorRKKzhDyNLP0NJRJF4eB93qNC72?=
+ =?us-ascii?Q?G4bq6JFBA5DPdo5G+f9OC+fMhOkfJ261a2szuXGgRUNhF8sOin+p2Yk/EWLN?=
+ =?us-ascii?Q?ppMYE2e3/J2fDFFCSSqTZpxxVBZxfe4jQcc80xnTy1n0pxjW8paigiLdWDt3?=
+ =?us-ascii?Q?g+Rzm23OMl0Kj0fqd5NCWoX72OrkwpuBGviyWvXOQzY0Jjq7qKv6rc9H99uy?=
+ =?us-ascii?Q?bGmb5ZAZ3IOt3n/z5xAO8U3TBPIcjNg6WnUWUtHc+hH7/kmsAh/FESfMTBhI?=
+ =?us-ascii?Q?eXI29rnaip+EkaMGoJWQVJNj1KsG9P/DIBzECiJ6rhLVeF+5A2FSdgr3w4ZE?=
+ =?us-ascii?Q?yvH4qV5RQuAl/EUHQDoJ3xtxiJAo4ELeqRlkmgcPoqMMTU9omEsXW7ReGqMJ?=
+ =?us-ascii?Q?arVwmvQR/E3e9piaucaWKlYvK3h9r9JbwUnLNhOF60EhD+Lh+s6VYGiBDz+V?=
+ =?us-ascii?Q?0kKw8ObToIY7Zj5w42+Al4xX3d/E961IowuLFPqdppRX4cFAFUh+2w=3D=3D?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB2987.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <1CDE58025A897C40BFBC4654EF04AD90@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB8741
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM4PEPF00025F9B.EURPRD83.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	47f0ce16-8edd-4231-3796-08dd7b63c26a
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|35042699022|14060799003|82310400026|36860700013|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?TmwA+eTPFtzhuFTIam5eiHEbHIT+U7IbNuRK02lu2IMCaZHYZkXz16VQMyXG?=
+ =?us-ascii?Q?uk39TJQrrIuWR3oaR56K5fECPST67cOafkLKHlM4vVareGMDz3p2qoYjcv5m?=
+ =?us-ascii?Q?95Wdy3uIhvyOjeUiEANyzuyu0oafCeOXY9P0Iik7Qet5HSEq5LG0JE71BIH0?=
+ =?us-ascii?Q?21KrLg8o+WxKK54OV0tYmQCX4Cz+xDYLxSDujXo2Mm8dyKUWDtD7u/xmMRGk?=
+ =?us-ascii?Q?WOw9TMTJxmgxk7OmsVssHufTwgfzWHuiDrC1cFiOeq83+DZ7g+stmy+e5iEC?=
+ =?us-ascii?Q?HcM8Jc2Az2+XGavAwz5kEIrz4rXeOYmqqG89eo+AHWNSHvDjXBdHBSDg2YM8?=
+ =?us-ascii?Q?fdoa65ss5OaN9HcNhUN6oRahCxraVbrDqGTk23URgkABMXHg4D8TLYDpsOMX?=
+ =?us-ascii?Q?yTZA8hby11f0aBBNduw2QM1vjrX8Y9DCmGZTBgxDytyKX7tyBytpWRsyvfQH?=
+ =?us-ascii?Q?jkoKxx/vse+pNSlgLQPv8vRlBiPDyADljgoSqFnbeflRIKd5kobdJprGzj7Z?=
+ =?us-ascii?Q?BoKkc5PhsaR3Qtdau8UmKb2wJRRqASQ0Ot47P4CyUjssz/4S2K8v4/6rlSEL?=
+ =?us-ascii?Q?4gZUs39Klj/FYo+PphV/eiRkDOLvTL0nsC3bP+vzHsu2BA1E/D36f1Kh+Meo?=
+ =?us-ascii?Q?2sL1yE5B6l/9S/RuBVsz9YmuyY2wuq85W5XcY7WuCt7iK62x50CPQTVqrFUN?=
+ =?us-ascii?Q?O7ri8lXJbsuzFSLiEjEOK4IXWNolbRAC9vTBmrF6H2xLdZFnM9vG8IhctNFj?=
+ =?us-ascii?Q?rBXGc5C6R533c8SJ9u2sFa5beYpbwaf/YAxNm+5EeQpM5D5dccIduWRNGvF/?=
+ =?us-ascii?Q?RyCZ88dLJ4i2Z4sEKn+dzj3ywPbQQ3MJxf+h0cPtvDH9h6u5OfXbcAJgL0j1?=
+ =?us-ascii?Q?o39w/DN+i26fyoRGAZPjrsW+8jHJouTGV4ZgT8vog86viIy7iTjtFRsiaopt?=
+ =?us-ascii?Q?1+4hE3Y1oenRE1FBVk4YiTQYJjNX8iwDwnNCvfQeIrqYuiGRlloEsa4TUyz+?=
+ =?us-ascii?Q?UX9n40nsuCxeMZaClHl4Q0w5ofHKwFBMAS0ScH0n/5oo4cCasJCXmfH8LpXr?=
+ =?us-ascii?Q?Goebg4EQ/pmPhIZPTNX3eqbUKIv5G7iCyTTvPii8dC/4bbmUC++VZXLZSnxo?=
+ =?us-ascii?Q?XI7//6TN0GQmXLrTZppx5rWPPamVTqQT7g2B/otyASqsEvi5RGheQTL0iaZl?=
+ =?us-ascii?Q?QrMIdF0KXXY0lWrrCgc/erxWehR7Cag1nAqQUBaP89zsAWyg6ga9tqOg9Z0A?=
+ =?us-ascii?Q?+gocNhKT9k8AoC/Y//8EcJe83z7hU3KB1UKDMA+nZCBREbcFo/lHYnu/+f6b?=
+ =?us-ascii?Q?zDxxGGBdG2O0lKWqin+ld624IE1zShQ6jqQ7TmUntuGl+GfH0kaIVtV2f2Fg?=
+ =?us-ascii?Q?q/9tVoemedibAPYHdT3UI9usurBhNXNcsEDFapY98Db68tqg0zI6LhDSVPL5?=
+ =?us-ascii?Q?dT8M43qqn16+i/KWPL1yGy9G3bEV2E86R3+XDfBsZcaJA2Hgp+VvOKfiIElH?=
+ =?us-ascii?Q?nMlmzkrv3F1VL2XKMlGEXvZVRe/eBBhNoNp1?=
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(35042699022)(14060799003)(82310400026)(36860700013)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 14:51:30.1219
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b526f507-0bbf-4c0b-7934-08dd7b63d763
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM4PEPF00025F9B.EURPRD83.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6472
 
-This is a multi-part message in MIME format.
---------------yo4C76a0szgaZfAxZHH92FIz
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Hi Michal,
 
+> On 14 Apr 2025, at 11:17, Orzel, Michal <michal.orzel@amd.com> wrote:
+>=20
+>=20
+>=20
+> On 11/04/2025 16:56, Luca Fancellu wrote:
+>> From: Penny Zheng <Penny.Zheng@arm.com>
+>>=20
+>> Introduce pr_t typedef which is a structure having the prbar
+>> and prlar members, each being structured as the registers of
+>> the aarch64 armv8-r architecture.
+>>=20
+>> Introduce the array 'xen_mpumap' that will store a view of
+>> the content of the MPU regions.
+>>=20
+>> Introduce MAX_MPU_REGIONS macro that uses the value of
+>> NUM_MPU_REGIONS_MASK just for clarity, because using the
+>> latter as number of elements of the xen_mpumap array might
+>> be misleading.
+> What should be the size of this array? I thought NUM_MPU_REGIONS indicate=
+s how
+> many regions there can be (i.e. 256) and this should be the size. Yet you=
+ use
+> MASK for size which is odd.
 
-On 4/10/25 2:52 PM, Jan Beulich wrote:
-> On 08.04.2025 17:57, Oleksii Kurochko wrote:
->> @@ -23,6 +24,11 @@ static inline cycles_t get_cycles(void)
->>       return csr_read(CSR_TIME);
->>   }
->>   
->> +static inline s_time_t ticks_to_ns(uint64_t ticks)
->> +{
->> +    return muldiv64(ticks, SECONDS(1), 1000 * cpu_khz);
->> +}
-> Why the extra multiplication by 1000? I.e. why not
-> "muldiv64(ticks, MILLISECONDS(1), cpu_khz)", getting away with just one
-> multiplication and a reduced risk of encountering intermediate overflow
-> (affecting only hypothetical above 4THz CPUs then)?
+So the maximum number of regions for aarch64 armv8-r are 255, MPUIR_EL2.REG=
+ION is an
+8 bit field advertising the number of region supported.
 
-Multiplication by 1000 was needed to convert khz to hz, but yes, your option
-would be better.
+Is it better if I use just the below?
 
->
->> --- a/xen/arch/riscv/time.c
->> +++ b/xen/arch/riscv/time.c
->> @@ -4,10 +4,17 @@
->>   #include <xen/init.h>
->>   #include <xen/lib.h>
->>   #include <xen/sections.h>
->> +#include <xen/types.h>
->>   
->>   unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
->>   uint64_t __ro_after_init boot_clock_cycles;
->>   
->> +s_time_t get_s_time(void)
->> +{
->> +    uint64_t ticks = get_cycles() - boot_clock_cycles;
->> +    return ticks_to_ns(ticks);
-> Nit: Blank line between declaration(s) and statement(s) please, as well as
-> ahead of the main "return" of a function.
->
-> Happy to make both adjustments upon committing, so long as you agree; then:
-> Reviewed-by: Jan Beulich<jbeulich@suse.com>
+#define MAX_MPU_REGIONS 255
 
-I'll be happy with that.
+>=20
+>>=20
+>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+>> Signed-off-by: Wei Chen <wei.chen@arm.com>
+>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>> ---
+>> xen/arch/arm/include/asm/arm64/mpu.h | 44 ++++++++++++++++++++++++++++
+>> xen/arch/arm/include/asm/mpu.h       |  5 ++++
+>> xen/arch/arm/mpu/mm.c                |  4 +++
+>> 3 files changed, 53 insertions(+)
+>> create mode 100644 xen/arch/arm/include/asm/arm64/mpu.h
+>>=20
+>> diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include=
+/asm/arm64/mpu.h
+>> new file mode 100644
+>> index 000000000000..4d2bd7d7877f
+>> --- /dev/null
+>> +++ b/xen/arch/arm/include/asm/arm64/mpu.h
+>> @@ -0,0 +1,44 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * mpu.h: Arm Memory Protection Unit definitions for aarch64.
+> NIT: Do we really see the benefit in having such generic comments? What i=
+f you
+> add a prototype of some function here. Will it fit into a definition scop=
+e?
 
-Thank you very much.
+I can remove the comment, but I would say that if I put some function proto=
+type here
+it should be related to arm64, being this file under arm64.
 
-~ Oleksii
+>=20
+>> + */
+>> +
+>> +#ifndef __ARM_ARM64_MPU_H__
+>> +#define __ARM_ARM64_MPU_H__
+>> +
+>> +#ifndef __ASSEMBLY__
+>> +
+>> +/* Protection Region Base Address Register */
+>> +typedef union {
+>> +    struct __packed {
+>> +        unsigned long xn:2;       /* Execute-Never */
+>> +        unsigned long ap:2;       /* Acess Permission */
+> s/Acess/Access/
+>=20
+>> +        unsigned long sh:2;       /* Sharebility */
+> s/Sharebility/Shareability/
+>=20
+>> +        unsigned long base:46;    /* Base Address */
+>> +        unsigned long pad:12;
+> If you describe the register 1:1, why "pad" and not "res" or "res0"?
+>=20
+>> +    } reg;
+>> +    uint64_t bits;
+>> +} prbar_t;
+>> +
+>> +/* Protection Region Limit Address Register */
+>> +typedef union {
+>> +    struct __packed {
+>> +        unsigned long en:1;     /* Region enable */
+>> +        unsigned long ai:3;     /* Memory Attribute Index */
+>> +        unsigned long ns:1;     /* Not-Secure */
+>> +        unsigned long res:1;    /* Reserved 0 by hardware */
+> res0 /* RES0 */
+>=20
+>> +        unsigned long limit:46; /* Limit Address */
+>> +        unsigned long pad:12;
+> res1 /* RES0 */
+>=20
+>> +    } reg;
+>> +    uint64_t bits;
+>> +} prlar_t;
+>> +
+>> +/* MPU Protection Region */
+>> +typedef struct {
+>> +    prbar_t prbar;
+>> +    prlar_t prlar;
+>> +} pr_t;
+>> +
+>> +#endif /* __ASSEMBLY__ */
+>> +
+>> +#endif /* __ARM_ARM64_MPU_H__ */
+>> \ No newline at end of file
+> Please add a new line at the end
+>=20
+> Also, EMACS comment is missing.
 
---------------yo4C76a0szgaZfAxZHH92FIz
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Thanks I will fix all these findings
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/10/25 2:52 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:7f26a9cb-a685-4a2a-a470-8c5e94ddc31e@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 08.04.2025 17:57, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -23,6 +24,11 @@ static inline cycles_t get_cycles(void)
-     return csr_read(CSR_TIME);
- }
- 
-+static inline s_time_t ticks_to_ns(uint64_t ticks)
-+{
-+    return muldiv64(ticks, SECONDS(1), 1000 * cpu_khz);
-+}
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Why the extra multiplication by 1000? I.e. why not
-"muldiv64(ticks, MILLISECONDS(1), cpu_khz)", getting away with just one
-multiplication and a reduced risk of encountering intermediate overflow
-(affecting only hypothetical above 4THz CPUs then)?</pre>
-    </blockquote>
-    <pre>Multiplication by 1000 was needed to convert khz to hz, but yes, your option
-would be better.
+Cheers,
+Luca
 
-</pre>
-    <blockquote type="cite"
-      cite="mid:7f26a9cb-a685-4a2a-a470-8c5e94ddc31e@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/time.c
-+++ b/xen/arch/riscv/time.c
-@@ -4,10 +4,17 @@
- #include &lt;xen/init.h&gt;
- #include &lt;xen/lib.h&gt;
- #include &lt;xen/sections.h&gt;
-+#include &lt;xen/types.h&gt;
- 
- unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
- uint64_t __ro_after_init boot_clock_cycles;
- 
-+s_time_t get_s_time(void)
-+{
-+    uint64_t ticks = get_cycles() - boot_clock_cycles;
-+    return ticks_to_ns(ticks);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Nit: Blank line between declaration(s) and statement(s) please, as well as
-ahead of the main "return" of a function.
-
-Happy to make both adjustments upon committing, so long as you agree; then:
-Reviewed-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a></pre>
-    </blockquote>
-    <pre>I'll be happy with that.
-
-Thank you very much.
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------yo4C76a0szgaZfAxZHH92FIz--
 
