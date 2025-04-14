@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A117BA87CD2
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 12:05:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.949524.1346034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E7C6A87D57
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 12:17:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.949541.1346044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4GgJ-0001yE-2s; Mon, 14 Apr 2025 10:04:47 +0000
+	id 1u4GsW-0004uc-8p; Mon, 14 Apr 2025 10:17:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 949524.1346034; Mon, 14 Apr 2025 10:04:47 +0000
+Received: by outflank-mailman (output) from mailman id 949541.1346044; Mon, 14 Apr 2025 10:17:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4GgI-0001vC-Vs; Mon, 14 Apr 2025 10:04:46 +0000
-Received: by outflank-mailman (input) for mailman id 949524;
- Mon, 14 Apr 2025 10:04:45 +0000
+	id 1u4GsW-0004sa-5P; Mon, 14 Apr 2025 10:17:24 +0000
+Received: by outflank-mailman (input) for mailman id 949541;
+ Mon, 14 Apr 2025 10:17:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ezPI=XA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u4GgH-0001v6-UA
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 10:04:45 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=m6tK=XA=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1u4GsU-0004sU-BQ
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 10:17:22 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2062e.outbound.protection.outlook.com
+ [2a01:111:f403:2412::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3c4c55b-1917-11f0-9eae-5ba50f476ded;
- Mon, 14 Apr 2025 12:04:44 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43d2d952eb1so33012135e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 03:04:44 -0700 (PDT)
-Received: from ?IPV6:2003:ca:b71f:2f7e:5948:62cb:7cd1:ada3?
- (p200300cab71f2f7e594862cb7cd1ada3.dip0.t-ipconnect.de.
- [2003:ca:b71f:2f7e:5948:62cb:7cd1:ada3])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f2338d802sm179956965e9.1.2025.04.14.03.04.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Apr 2025 03:04:43 -0700 (PDT)
+ id a55efce1-1919-11f0-9eae-5ba50f476ded;
+ Mon, 14 Apr 2025 12:17:20 +0200 (CEST)
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
+ by SA0PR12MB4478.namprd12.prod.outlook.com (2603:10b6:806:9c::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.34; Mon, 14 Apr
+ 2025 10:17:16 +0000
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8632.030; Mon, 14 Apr 2025
+ 10:17:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,311 +47,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3c4c55b-1917-11f0-9eae-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744625084; x=1745229884; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lZByXNsJeVL76OgNfArCw/XNKZ9DCbfDK2JLJrf2OGk=;
-        b=UaOlZp4LtnL2pDKsHkYU2QSq4Gai3mzQdizeeRrzuRDtQhLjqjlDpQp73krOJ8uQzY
-         5CSmCUC3p/cROLKdMNMw4zWTHCrndbGNthzQZNd8ylWIxKFgGElQUSjS4NZdWxD39PGZ
-         DmcDqH7lHjXEPrffIbpXxQ/3JQWv/znyUco6cHPtnYYR/ILE6YLfK7LwwpY7EUaj/RpN
-         pwelYwcrD4S7f7hlGkHr9kZofNLfabJJplJZgXIJa94F4xHW+1H8BbU3uxpAQRcfY1Md
-         gUsrlPBgEKJ98ZEi/QlL+BW7bTjwapfyevFt1STU1SB1Ff6raTpj3SgqA/fq2zi5VErZ
-         vQFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744625084; x=1745229884;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lZByXNsJeVL76OgNfArCw/XNKZ9DCbfDK2JLJrf2OGk=;
-        b=ko3+WP84NNrXw7b0cZxcSB+jJLjTyKS3zBnezg61jMWkoICOQHTWW+gl4lEy4zV110
-         YQRbKKVT6wpJU/ZAmCUrYtaKmq4v/3KHQR0MQVKJM+0ZmDtKEYh+fze0BFoVS39AMDtS
-         Sf3Bz8LDuKS+3zCUxsC5jvCaUpzydOGQ6mjxR2CzXvi3VdC5k02LsM1wLLQwBHa8u1Hx
-         EcYjYoWJNb2bmQgKsIYnPQ0Zaf+JBvScon+tA4GXZaV4pV56sjG5NX+dVDIyG4Fk5Ol9
-         EPmIXRpNRIrwX4VWgHBZixLpjKk7qPxHG0uzRFnjJsfm9ennr7x7k0wFSEfSso74Ub12
-         S8cA==
-X-Forwarded-Encrypted: i=1; AJvYcCXBA3hjvbQJUgrwtXHqf0JqzT/jicWAT/HYTRjA7hOmlEYzOWBjvDy6S11EtcCixBbI2wwBHJ5EH1s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwFHfq4ufxhkR6arJCdBLsVRUhbPU/p56wgMh0nBYyWxuKXE5TH
-	IGVekHrsdzBOhzFBVIa4Bhc1MnHrAl6W5LG5rvkt1/HxwBAANfWu9mukesXzAA==
-X-Gm-Gg: ASbGnctJ2Oxlm5hHMY/smkFr2EBS10xlZgN5jyrVBEf1kFswsVTkg89j2iWzc3n25yq
-	cw99FoII/QTen1P6wIMYB5BCiIQJcnl0clIWUPi5FYIaXIgo/aYWlh+/xxi89fR+KyHlJSL10K1
-	f9l2rK7CVyxaTiy3YF450euAmzYWTP6lJSSd3yK3S/pJMdHGBzjjldTXdys/EWJG38hSEz1lIw3
-	cXa2IXi41NAlQkQhUnjAqdReXU2ZtnTmk5bYI8B0vDG9KzFHNXN6Lgfm4yKshuJqMrveCWvkAjp
-	lTR5XwAjrwgTEmRlYmVulq6I/IDUvBSAPPPQjkPXnaVrqRxX5FAfObVLmgKYOhISG3bTAWXrZow
-	BRGBMuezg+xbv+IVzWBLojSQswgkX7oq5fNCLGHkGBowPyT0MwXBBRZRro/mtSQF2mpn7mAnje5
-	7HAXVcCb5ifA==
-X-Google-Smtp-Source: AGHT+IHd8upMeByDfn/olWGXLzs55OeXoe6mWiwDybNxH3bRqfZ16tPeRdHpqd6fy5hAjLtA0dTs7g==
-X-Received: by 2002:a05:600c:8705:b0:43c:ee62:33f5 with SMTP id 5b1f17b1804b1-43f3a9b0201mr117257715e9.27.1744625083851;
-        Mon, 14 Apr 2025 03:04:43 -0700 (PDT)
-Message-ID: <a7008eee-04d2-4e61-b66a-ff659e3b99db@suse.com>
-Date: Mon, 14 Apr 2025 12:04:41 +0200
-MIME-Version: 1.0
+X-Inumbo-ID: a55efce1-1919-11f0-9eae-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mIxeIuJYhS+2D/PH6273bTvQpqhfrY8BMS9I8AoduZ5rcEJcuswCMzKFphTAm3WCBiW1yEHnqsN501FwaHWGf/HzAjZpkQds9A56uwy0kWGESoyCUZe0X2dOSTYFpKZ2mn1F5uE18SrwK0XwWK32v2lPWSc393XM90YvQpCFTwjqp3EJgJ4E8Gsww6SzGHzwvO1t1NPoe4eVtlEyExFO5PiPnSWznONNkgQVckP/+64Vsq6nxHJ2QrS1lZjMP7z7inuKQCmhWLyc6nihSc3a9U7D+Er8wwpSBDOK4MFRm/mZWh2AUrQZLOT5m56xb7OD14vS4eYP4YoHDsRBz/didA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5euiR6XBoBo/bwRaO8bLXWl9so0RPt7EqR1RZMS50ls=;
+ b=BqQeU9R28tw07BKqLjUol0WrZqylRYpEOV+0Gqb6GYtzMaV2GZOcfiPxwqlvIus7JBhIkBTBeDNrLgVI2xqCIrrqNbYncE/ABvLBHSFzf4rz2RH1aHeYi1M5w9PRV2bEWaIZPUV3gPd7ySVcUubmP5F7xSfTrELXy3lszOyKtqe2wNiuHh+Rs0yJ/DmcECDFnDzcELjrl2/Mc1zsmCAQtPvODYl4k2WdcIBMGjY0Thz2RWkktNnb6KwHy1Mcfkk3SWJSB4Y8PieG5PWHY68sOkK6yXtskZPIwnrfKCjZVqlLIM67n7yRcu+XdAz+6BxiaHltjyTxvqmeZhvsc4GIFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5euiR6XBoBo/bwRaO8bLXWl9so0RPt7EqR1RZMS50ls=;
+ b=UDuK0dvFxmxfmAUnYWd0yMRktl5AuqfxYNpswjMP7hzkgkD2ZXPgu+gdAAoHo3eIqDzmRAaELUVZNFmqPEv9ZgcNPhOmwSUtEUaTNGylLb0srncCraZDznWxdIvEOEmw6nQzaFbhy0PmxcO3goIogA1Bl4BP0voRZG/Ol4p728k=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <d323425d-b266-49d6-95d4-0e1acb5e489e@amd.com>
+Date: Mon, 14 Apr 2025 12:17:11 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 09/14] xen/riscv: aplic_init() implementation
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <1d023045be49ae93d41d552f9c9a79972fa4e84b.1744126720.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v3 1/7] arm/mpu: Introduce MPU memory region map structure
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: Penny Zheng <Penny.Zheng@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>
+References: <20250411145655.140667-1-luca.fancellu@arm.com>
+ <20250411145655.140667-2-luca.fancellu@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1d023045be49ae93d41d552f9c9a79972fa4e84b.1744126720.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20250411145655.140667-2-luca.fancellu@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0123.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:97::9) To BN9PR12MB5273.namprd12.prod.outlook.com
+ (2603:10b6:408:11e::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|SA0PR12MB4478:EE_
+X-MS-Office365-Filtering-Correlation-Id: c77b526b-a123-4c43-a421-08dd7b3d86cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?UlhJdXpiMWhLd2Y3TngyeWVKNjlaQTRRREZ5aHJ6b2QzVHRvN1JxOWtRMjlo?=
+ =?utf-8?B?TW81d2RhWlF1dXNtOGFoWFA5eXVCand6a2pxMmc1T3Q4UmV4M2pJMUg3WUlL?=
+ =?utf-8?B?TlJWMDJvT1plUVYydllOSGZkajJpRGhBK3d5TnV4MG5venYxamlxL1R0T0Ur?=
+ =?utf-8?B?ZkRzSkVQdzErdlY4bUtzZXlzRVVQWVBMSEVCMkhONjA4K25BUytMY1RFQm9W?=
+ =?utf-8?B?QzBOa3ZYM2FtTTMvVCtIVVd2OTFFM2kySWZ0TzFxOFlTdDJSYTlSRVE5alVa?=
+ =?utf-8?B?b01UOForK2tJL0F5YkhCVDliZU9ieTNTS2M2eTNWU3dtMlRWSlhTRnMrSUpJ?=
+ =?utf-8?B?Q05SeVR4WTd2SWYxUDdzU0RLMmlMdUFTRCtza3kvZVBrVFhlRnpNcnprdTMw?=
+ =?utf-8?B?SnNiOFQ4MDdISXo2KzQweDVaMlRHbzVEWCsyT0VLeTU4MU5tR3dtMUFXUWxV?=
+ =?utf-8?B?OHVoZlpjVHFoVDk3bk9ybWx1QktpYW5uZTcyM2c1UWpmTTNkNlVraGtrdTF2?=
+ =?utf-8?B?YTZPT2RHL1FWMDE1NHlod2hCcE5UVUNiUFNuMjRtRWZlQkV3Q2xRb1JxT2hZ?=
+ =?utf-8?B?Tzh4SUFnMjZOZmtFRjZNNVgzOHZ3ejlLT01FZS9NY0FFWFNKQzE5d0tWMHgv?=
+ =?utf-8?B?Z1h1ZGhIaFhHNUZnSzNCcEVKMmN1S1dqeUZhaFVzcjhZUEQ2NktuWlIvWjlB?=
+ =?utf-8?B?K3Z5ZzZjSm9Wc3FvNE1wa2dCeExYV3ArZXUyNE84Q2VCcVVoL2JJSjg0OEJS?=
+ =?utf-8?B?YVNOcXRUdjFBTGU2QkZrZE84cFdiQ2Z4SDN4anlnMUJFbTF1NjErVFZXQ1RR?=
+ =?utf-8?B?K3B4clNnZUduSlpTTERYU0dHcUs4SzZaZldaZmlTZjJhMFk2cjJZSVFmelky?=
+ =?utf-8?B?bVNmUUFBYUFIRUZPWVhSU0hhK2FWS3E0RkpwVFFGU2RTTVMrcDZQSjdwR1NV?=
+ =?utf-8?B?V0ozelhERDBabkN4TXdCdG4zNDkvKys3TjFyaTY3V2Fka29Ca1NZRjBZY1VD?=
+ =?utf-8?B?S3Bod3d3V0dBME5aUlBRcEg4OEFLVXFzRE1LaGw1VU94eGcvZklkWjZkOTZt?=
+ =?utf-8?B?VjZDOW1TVi8wMDRKbkdvVGpidHE4d0NyZ0pDMzBwbzdoUDFRd2JOQ0dMdnJ5?=
+ =?utf-8?B?MVYweXdZb2o0Q0dsQldhU1JTMHp3c3pwUkpKRnh5by85OTFVN2pHaDMvNU4r?=
+ =?utf-8?B?TDNMU09xdmxVYWdEdlN4U1NsbU5ZS2RGZmV1VDhCWk1ydGtvMnJ4MStLY1hY?=
+ =?utf-8?B?Nmc5Z2hJbVRYZzVFZWMvRHRYamM2YnlSU3hnMkRYcW9pcTJPOVRBNDRObk5S?=
+ =?utf-8?B?TURyTTZBdnJodjhKams3aWFrbEVmcFg2a3N0aXBBbHBydGhtTXJzc3JybmNq?=
+ =?utf-8?B?VlRaaGk2UXppZGJlenQzbzJXQlRWSG9NZ2pOY2RuSy9LVitGTm9HUUNpazZ2?=
+ =?utf-8?B?aU93OTU0ZE1kMXQzeXU0dXp3em80MlltMFErdDh0SzJvUGFGUGVSQWM0b3pZ?=
+ =?utf-8?B?Qm5RNHlqTmdYYzU3ZWRwV2xQZGZNOVdBMWZ2WEJBcUFXeERxcnJoNklJZFhn?=
+ =?utf-8?B?T05ZRjlNOU1RdTc2OVFPd0IwaDhDemZQL3RmRklGODVWUHlNeGU4WmZUaVM0?=
+ =?utf-8?B?eExpenc5TVlLZUJIYURPb202VG1TMFBxanlpN2N5R25DQkR5eE0wWkdiMkJo?=
+ =?utf-8?B?TWk3cm1nd0FCZUVVU1pDZjVHZEQ2aG4rVEM4RDV1S0JxeGRJWFZvUWtjN1p0?=
+ =?utf-8?B?UzdqbktndzZDeGNMN2N2UTVNNWpudFhaa2VSUDd2VFo1V2hKcW9BNkwwQS8r?=
+ =?utf-8?B?TjlkSU5yS0t4SU5VWXBTbFVRbDhncEdjSHlqdHVScC9FQkJ3aUVKK3dkT0hl?=
+ =?utf-8?B?ZkwrQnhoMlFralNicHRXbnNvN2Q1dFJMRUE1aUNwWTZxb3VuYTl0SktMUjB1?=
+ =?utf-8?Q?3szvPBYOnwo=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Zzh2cnNiQUdzVWdlbmFFcUVWKzVnQWdoaDFXTWlFdnpDNmlDYzRhdjQ3eFI4?=
+ =?utf-8?B?NXA5ampHYm1PdTJLWUpCeklKNHdoeW1maEl5RGJUR1JjSFlGRlh3WC9KRFE4?=
+ =?utf-8?B?bWtaeTRzWit2QldnK2x2b3BjRFp4MFhscFFGcEorclR6aExnREU4WGx2MnJw?=
+ =?utf-8?B?d2txSFJCLzYwQVRuQkRUaGt1VnNDNVQ5ZnIzUkxLK2lPTloxOFVScDc5RklE?=
+ =?utf-8?B?dzlRMkNQbnU5dndrZzFXQXozempRZzNtMkw2UHpkNk1ZVHpHQTVHZG9oRDcy?=
+ =?utf-8?B?bFRKd3dWNHRCNkZDOS9WcWxLdkZDdUJzeW55ZWhyTk91Z1FXWTN4aFh2UWRZ?=
+ =?utf-8?B?WnFLTnc2M1IyRUZCNDM5NlY1RVhSTS84dmpzRVhaY3l0WjQ4TVc0a0kyQTM0?=
+ =?utf-8?B?RHoxYzRFQ24yQ2FsQXNCUUlNQjU2MEswUytRSnEwTWxaNlVnZDVCYUg0R0pP?=
+ =?utf-8?B?STA1TFF0VWdWc1B4bmwzMnArTEk3ZGNURDE0a1hoQXRHYS8rSDRFUkU4WW5q?=
+ =?utf-8?B?d1VDLzVXNzlQRHZJQU56ZjhKcVJ2aHhWdUJNNlQvRDg2Z25RKzlVckFFUFV6?=
+ =?utf-8?B?aWRVN0pnNlo0NlQvZXE5U3VOSjBzY0xlYXJuYmV4ODcwblMzSkJDZ0xIV0Zl?=
+ =?utf-8?B?VFZQdllpM0ptYkp1dDRoSTJWalo4a3V4eUorVUQzL0kzdlNUcWNZL3VaaDYr?=
+ =?utf-8?B?WmM2dGV4cEJFclpzWHdUZzJrZmdScCtJNStwU3pTUjBnTTBqWDl1Q25FVjZK?=
+ =?utf-8?B?ZzBnM2N1d3c5ZWdxVG9zR3RCeGlyelFwU1dwN0lGanlMM2FXWkRjb2lDWW9l?=
+ =?utf-8?B?N1gzMzhHMGlzNlJ5VWg2d2VFM3plWklpNlBKTytsUDMraFRLaExkOWZiKzNm?=
+ =?utf-8?B?S1hrZWpaakxmbHRSWEQ5cEFkZ3JuVlgrRmFobmNxMVc2c0dBaCthRFZyNCtJ?=
+ =?utf-8?B?RVcwS2RiSXRmNTQ2WkJJbGk0OFpPb0xjMW1NWW9CKzBJR2RhOEJFRDcvTlZG?=
+ =?utf-8?B?RXdJNzdFSXo2S1R2d0h1OWV5Mk5laWZ5bHRiaUlaQy9kTDR5d0FPdS9yQkJP?=
+ =?utf-8?B?S0l4RUJtNmtlTkxCRGlJU3JIcnRiU01YUE5nRnlnbURWR3lDTlRQRlBGNnli?=
+ =?utf-8?B?VDRtYm45RE9WZkhoSWNSV3lHZURFYUd5VTFkeWliSEVvRzdDbkhzTHdxSTRN?=
+ =?utf-8?B?RGlPV2V1TjBuYy9kM25tc2s0QmRJUktBUmhoVVc3N0tQdTgwVzJEM2tHV3dU?=
+ =?utf-8?B?QUMyZHRqY0wvZFFyalRSenNvYkZ4MU41Tm5wNzRoVGY4N2pTcWg1aHROT3FU?=
+ =?utf-8?B?T0dhbjB4d2tiVjBMZXpDM3ZVeG4zdnlXS0FSN2orS2dzMnhvaGZ3ODVyeHF1?=
+ =?utf-8?B?SkViY2lML0VhWmQzRk42MXlpaWhNdHdlTGdkSWJ1dVhnMWE3UXV0SktOWE1K?=
+ =?utf-8?B?OXRpQklGbXBTVE5ZSkZRd3l4ZkNuekVsOEtpK1pLemZnQTYxVjVrLzRwR1Vk?=
+ =?utf-8?B?NmQyMnQxMVU1anN4ZVRHcS9JNEJnOEJ3U2VZWlZiMzlxelZUS1R6QlJqK3FH?=
+ =?utf-8?B?aDBzaHViNW5CeEpFUDNIS2VxSVRZSUxTSHRyS1loU3gyTHNNR1UwdFdjNGI3?=
+ =?utf-8?B?dTdOTW00ZFhrbmZLYU8vZk8wd1A3RkZBRXkzTXU4UFV5cWtOUFBSb3RSdUww?=
+ =?utf-8?B?VHczOG9rM05kNjBBSXE0VmlzNHZVWmcxaUo4aXFlQ0dqYkdtMVRBdVdKL2h1?=
+ =?utf-8?B?Z0F3SmVHcFJ3dWFTMzlKNFFjYnpGck5XMTZmWVhqc3RoZ3d6eEozNUZWM1ZF?=
+ =?utf-8?B?YXE5M3JpSlhRUW1nUVNUSUpqbDBFRW1acWM4MURrNks2L05NcWtUaG9OWGVu?=
+ =?utf-8?B?OXUxWXd1U2R4OGdPVkZycHkwT3lzWC9RN283Qzh6bXdObGJQMUdwZWR6TVRV?=
+ =?utf-8?B?TCtBSnF4QW5nMTBNSmVaTk45bFdNMGJRUU1FaVJULy93SHBUUFZFMkJqWGNF?=
+ =?utf-8?B?by9aTVBiUjFMenVnS044M1Q5akdBOW1wNjJVS3F2aEZTOUJIazUwd0U3QnJ6?=
+ =?utf-8?B?b1k0ampzRmRJZVgxNGplRlpBQUNsOFpIc2lHL3RKT0VOZWNQQlpXOEtvQVNW?=
+ =?utf-8?Q?aOkQM/fBXCt8ke+omQW2s7LrS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c77b526b-a123-4c43-a421-08dd7b3d86cf
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 10:17:14.3296
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RiWkSxOJJT6CGtJifxKCAaZulA5UlqRkaLvPKwsluKD1fdg1MDRs/jDNRbIxXjev
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4478
 
-On 08.04.2025 17:57, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/aplic.c
-> +++ b/xen/arch/riscv/aplic.c
-> @@ -9,19 +9,112 @@
->   * Copyright (c) 2024-2025 Vates
->   */
->  
-> +#include <xen/device_tree.h>
->  #include <xen/errno.h>
->  #include <xen/init.h>
->  #include <xen/irq.h>
-> +#include <xen/mm.h>
->  #include <xen/sections.h>
->  #include <xen/types.h>
-> +#include <xen/vmap.h>
->  
-> +#include <asm/aplic.h>
->  #include <asm/device.h>
-> +#include <asm/imsic.h>
->  #include <asm/intc.h>
-> +#include <asm/riscv_encoding.h>
-> +
-> +#define APLIC_DEFAULT_PRIORITY  1
-> +
-> +static struct aplic_priv aplic;
->  
->  static struct intc_info __ro_after_init aplic_info = {
->      .hw_version = INTC_APLIC,
->  };
->  
-> +static void __init aplic_init_hw_interrupts(void)
-> +{
-> +    int i;
-> +
-> +    /* Disable all interrupts */
-> +    for ( i = 0; i <= aplic_info.nr_irqs; i += 32 )
-> +        aplic.regs->clrie[i] = -1U;
-> +
-> +    /* Set interrupt type and default priority for all interrupts */
-> +    for ( i = 1; i <= aplic_info.nr_irqs; i++ )
-> +    {
-> +        aplic.regs->sourcecfg[i - 1] = 0;
-> +        aplic.regs->target[i - 1] = APLIC_DEFAULT_PRIORITY;
 
-A field named "target" is written with a priority value?
 
-> +    }
-> +
-> +    /* Clear APLIC domaincfg */
-> +    aplic.regs->domaincfg = APLIC_DOMAINCFG_IE | APLIC_DOMAINCFG_DM;
+On 11/04/2025 16:56, Luca Fancellu wrote:
+> From: Penny Zheng <Penny.Zheng@arm.com>
+> 
+> Introduce pr_t typedef which is a structure having the prbar
+> and prlar members, each being structured as the registers of
+> the aarch64 armv8-r architecture.
+> 
+> Introduce the array 'xen_mpumap' that will store a view of
+> the content of the MPU regions.
+> 
+> Introduce MAX_MPU_REGIONS macro that uses the value of
+> NUM_MPU_REGIONS_MASK just for clarity, because using the
+> latter as number of elements of the xen_mpumap array might
+> be misleading.
+What should be the size of this array? I thought NUM_MPU_REGIONS indicates how
+many regions there can be (i.e. 256) and this should be the size. Yet you use
+MASK for size which is odd.
 
-The statement doesn't like like there was any "clearing" here.
-
-> +}
-> +
-> +static int __init aplic_init(void)
-> +{
-> +    int rc;
-> +    dt_phandle imsic_phandle;
-> +    uint32_t irq_range[2];
-> +    const __be32 *prop;
-> +    uint64_t size, paddr;
-> +    struct dt_device_node *imsic_node;
-> +    const struct dt_device_node *node = aplic_info.node;
-> +
-> +    /* check for associated imsic node */
-
-Nit: Comment style (also elsewhere).
-
-> +    rc = dt_property_read_u32(node, "msi-parent", &imsic_phandle);
-> +    if ( !rc )
-> +        panic("%s: IDC mode not supported\n", node->full_name);
-> +
-> +    imsic_node = dt_find_node_by_phandle(imsic_phandle);
-> +    if ( !imsic_node )
-> +        panic("%s: unable to find IMSIC node\n", node->full_name);
-> +
-> +    /* check imsic mode */
-> +    rc = dt_property_read_u32_array(imsic_node, "interrupts-extended",
-> +                                    irq_range, ARRAY_SIZE(irq_range));
-> +    if ( rc && (rc != -EOVERFLOW) )
-> +        panic("%s: unable to find interrupt-extended in %s node\n",
-> +               node->full_name, imsic_node->full_name);
-
-Why exactly is EOVERFLOW tolerable here?
-
-> +    if ( irq_range[1] == IRQ_M_EXT )
-> +        /* machine mode imsic node, ignore this aplic node */
-> +        return 0;
-> +
-> +    rc = imsic_init(imsic_node);
-> +    if ( rc )
-> +        panic("%s: Failded to initialize IMSIC\n", node->full_name);
-> +
-> +    /* Find out number of interrupt sources */
-> +    rc = dt_property_read_u32(node, "riscv,num-sources", &aplic_info.nr_irqs);
-> +    if ( !rc )
-> +        panic("%s: failed to get number of interrupt sources\n",
-> +              node->full_name);
-> +
-> +    prop = dt_get_property(node, "reg", NULL);
-> +    dt_get_range(&prop, node, &paddr, &size);
-> +    if ( !paddr )
-> +        panic("%s: first MMIO resource not found\n", node->full_name);
-> +
-> +    aplic.paddr_start = paddr;
-> +    aplic.paddr_end = paddr + size;
-> +    aplic.size = size;
-
-Why do all three need recording? Isn't a (start,size) tuple sufficient
-(and unambiguous)?
-
-> +    aplic.regs = ioremap(paddr, size);
-> +    if ( !aplic.regs )
-> +        panic("%s: unable to map\n", node->full_name);
-> +
-> +    /* Setup initial state APLIC interrupts */
-> +    aplic_init_hw_interrupts();
-> +
-> +    return 0;
-> +}
-> +
-> +static const struct intc_hw_operations __ro_after_init aplic_ops = {
-
-const or __ro_after_init?
-
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+>  xen/arch/arm/include/asm/arm64/mpu.h | 44 ++++++++++++++++++++++++++++
+>  xen/arch/arm/include/asm/mpu.h       |  5 ++++
+>  xen/arch/arm/mpu/mm.c                |  4 +++
+>  3 files changed, 53 insertions(+)
+>  create mode 100644 xen/arch/arm/include/asm/arm64/mpu.h
+> 
+> diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
+> new file mode 100644
+> index 000000000000..4d2bd7d7877f
 > --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/aplic.h
-> @@ -0,0 +1,77 @@
-> +/* SPDX-License-Identifier: MIT */
-> +
+> +++ b/xen/arch/arm/include/asm/arm64/mpu.h
+> @@ -0,0 +1,44 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
 > +/*
-> + * xen/arch/riscv/aplic.h
-> + *
-> + * RISC-V Advanced Platform-Level Interrupt Controller support
-> + *
-> + * Copyright (c) 2023 Microchip.
+> + * mpu.h: Arm Memory Protection Unit definitions for aarch64.
+NIT: Do we really see the benefit in having such generic comments? What if you
+add a prototype of some function here. Will it fit into a definition scope?
+
 > + */
 > +
-> +#ifndef ASM__RISCV__APLIC_H
-> +#define ASM__RISCV__APLIC_H
+> +#ifndef __ARM_ARM64_MPU_H__
+> +#define __ARM_ARM64_MPU_H__
 > +
-> +#include <xen/types.h>
+> +#ifndef __ASSEMBLY__
 > +
-> +#include <asm/imsic.h>
-> +
-> +#define APLIC_DOMAINCFG_IE      BIT(8, UL)
-> +#define APLIC_DOMAINCFG_DM      BIT(2, UL)
-> +
-> +struct aplic_regs {
-> +    uint32_t domaincfg;
-> +    uint32_t sourcecfg[1023];
-> +    uint8_t _reserved1[0xBC0];
-> +
-> +    uint32_t mmsiaddrcfg;
-> +    uint32_t mmsiaddrcfgh;
-> +    uint32_t smsiaddrcfg;
-> +    uint32_t smsiaddrcfgh;
-> +    uint8_t _reserved2[0x30];
-> +
-> +    uint32_t setip[32];
-> +    uint8_t _reserved3[92];
-> +
-> +    uint32_t setipnum;
-> +    uint8_t _reserved4[0x20];
-> +
-> +    uint32_t in_clrip[32];
-> +    uint8_t _reserved5[92];
-> +
-> +    uint32_t clripnum;
-> +    uint8_t _reserved6[32];
-> +
-> +    uint32_t setie[32];
-> +    uint8_t _reserved7[92];
-> +
-> +    uint32_t setienum;
-> +    uint8_t _reserved8[32];
-> +
-> +    uint32_t clrie[32];
-> +    uint8_t _reserved9[92];
-> +
-> +    uint32_t clrienum;
-> +    uint8_t _reserved10[32];
-> +
-> +    uint32_t setipnum_le;
-> +    uint32_t setipnum_be;
-> +    uint8_t _reserved11[4088];
-> +
-> +    uint32_t genmsi;
-> +    uint32_t target[1023];
-> +};
-> +
-> +struct aplic_priv {
-> +    /* base physical address and size */
-> +    paddr_t paddr_start;
-> +    paddr_t paddr_end;
-> +    size_t  size;
-> +
-> +    /* registers */
-> +    volatile struct aplic_regs *regs;
-> +
-> +    /* imsic configuration */
-> +    const struct imsic_config *imsic_cfg;
-> +};
-> +
-> +#endif /* ASM__RISCV__APLIC_H */
+> +/* Protection Region Base Address Register */
+> +typedef union {
+> +    struct __packed {
+> +        unsigned long xn:2;       /* Execute-Never */
+> +        unsigned long ap:2;       /* Acess Permission */
+s/Acess/Access/
 
-Does all of this really need to live in a non-private header?
+> +        unsigned long sh:2;       /* Sharebility */
+s/Sharebility/Shareability/
 
-> --- a/xen/arch/riscv/include/asm/irq.h
-> +++ b/xen/arch/riscv/include/asm/irq.h
-> @@ -27,7 +27,6 @@
->  #define IRQ_TYPE_INVALID        DT_IRQ_TYPE_INVALID
+> +        unsigned long base:46;    /* Base Address */
+> +        unsigned long pad:12;
+If you describe the register 1:1, why "pad" and not "res" or "res0"?
+
+> +    } reg;
+> +    uint64_t bits;
+> +} prbar_t;
+> +
+> +/* Protection Region Limit Address Register */
+> +typedef union {
+> +    struct __packed {
+> +        unsigned long en:1;     /* Region enable */
+> +        unsigned long ai:3;     /* Memory Attribute Index */
+> +        unsigned long ns:1;     /* Not-Secure */
+> +        unsigned long res:1;    /* Reserved 0 by hardware */
+res0 /* RES0 */
+
+> +        unsigned long limit:46; /* Limit Address */
+> +        unsigned long pad:12;
+res1 /* RES0 */
+
+> +    } reg;
+> +    uint64_t bits;
+> +} prlar_t;
+> +
+> +/* MPU Protection Region */
+> +typedef struct {
+> +    prbar_t prbar;
+> +    prlar_t prlar;
+> +} pr_t;
+> +
+> +#endif /* __ASSEMBLY__ */
+> +
+> +#endif /* __ARM_ARM64_MPU_H__ */
+> \ No newline at end of file
+Please add a new line at the end
+
+Also, EMACS comment is missing.
+
+> diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
+> index d4ec4248b62b..e148c705b82c 100644
+> --- a/xen/arch/arm/include/asm/mpu.h
+> +++ b/xen/arch/arm/include/asm/mpu.h
+> @@ -6,6 +6,10 @@
+>  #ifndef __ARM_MPU_H__
+>  #define __ARM_MPU_H__
 >  
->  /* TODO */
-> -#define nr_irqs 0U
+> +#if defined(CONFIG_ARM_64)
+> +# include <asm/arm64/mpu.h>
+> +#endif
+> +
+>  #define MPU_REGION_SHIFT  6
+>  #define MPU_REGION_ALIGN  (_AC(1, UL) << MPU_REGION_SHIFT)
+>  #define MPU_REGION_MASK   (~(MPU_REGION_ALIGN - 1))
+> @@ -13,6 +17,7 @@
+>  #define NUM_MPU_REGIONS_SHIFT   8
+>  #define NUM_MPU_REGIONS         (_AC(1, UL) << NUM_MPU_REGIONS_SHIFT)
+>  #define NUM_MPU_REGIONS_MASK    (NUM_MPU_REGIONS - 1)
+> +#define MAX_MPU_REGIONS         NUM_MPU_REGIONS_MASK
+>  
+>  #endif /* __ARM_MPU_H__ */
+>  
+> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+> index 07c8959f4ee9..f83ce04fef8a 100644
+> --- a/xen/arch/arm/mpu/mm.c
+> +++ b/xen/arch/arm/mpu/mm.c
+> @@ -7,9 +7,13 @@
+>  #include <xen/mm.h>
+>  #include <xen/sizes.h>
+>  #include <xen/types.h>
+> +#include <asm/mpu.h>
+>  
+>  struct page_info *frame_table;
+>  
+> +/* EL2 Xen MPU memory region mapping table. */
+> +pr_t xen_mpumap[MAX_MPU_REGIONS];
+> +
+>  static void __init __maybe_unused build_assertions(void)
+>  {
+>      /*
 
-How come this is simply no longer needed, i.e. without any replacement?
-Hmm, looks like the only use in common code has gone away. Yet then this
-still doesn't really look to belong here (especially if not mentioned in
-the description).
+~Michal
 
-Jan
 
