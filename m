@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B800A88642
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 17:05:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.950588.1346860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D81CA88643
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 17:05:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.950589.1346869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4LMw-0005ha-5v; Mon, 14 Apr 2025 15:05:06 +0000
+	id 1u4LN2-0005zI-Ea; Mon, 14 Apr 2025 15:05:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 950588.1346860; Mon, 14 Apr 2025 15:05:06 +0000
+Received: by outflank-mailman (output) from mailman id 950589.1346869; Mon, 14 Apr 2025 15:05:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4LMw-0005g5-0k; Mon, 14 Apr 2025 15:05:06 +0000
-Received: by outflank-mailman (input) for mailman id 950588;
- Mon, 14 Apr 2025 15:05:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ezPI=XA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u4LMu-0005fz-HP
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 15:05:04 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d732ca55-1941-11f0-9ffb-bf95429c2676;
- Mon, 14 Apr 2025 17:05:02 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43cef035a3bso32422005e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 08:05:02 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f20625592sm181899245e9.10.2025.04.14.08.05.00
+	id 1u4LN2-0005wy-B6; Mon, 14 Apr 2025 15:05:12 +0000
+Received: by outflank-mailman (input) for mailman id 950589;
+ Mon, 14 Apr 2025 15:05:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YdIb=XA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u4LN0-0005AN-N9
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 15:05:10 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id da85e723-1941-11f0-9eae-5ba50f476ded;
+ Mon, 14 Apr 2025 17:05:08 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-39c0e0bc733so3838560f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 08:05:07 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acaa1bb3548sm918035966b.5.2025.04.14.08.05.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Apr 2025 08:05:00 -0700 (PDT)
+ Mon, 14 Apr 2025 08:05:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,229 +45,347 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d732ca55-1941-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: da85e723-1941-11f0-9eae-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744643102; x=1745247902; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=10HvP2AvrbKid+VqXPQLkxNVZRQw5YvJvqRZW+lYFKw=;
-        b=PfpL1yTjpPvkQ3+11DCEJNaaLCv+z/8wAAElO5q9s3L6l282q/B8NsEj1MPsSxnTzU
-         LCRmAytjQzm/AeauSJ0yanb5CbTFWEuZF+gaIa873QD9OhJTXkiJLh0Aoboe/8854Q1h
-         Lf8MVkRmkLk0X0P6l23mLbnNKrcXoa/oQgdSLpJN1B5rIrdLA2J6m9nzTR5HDvnqvcG3
-         cbKqblf3H+1CjseHAh1FHXKKlcQhO2wjbXwtnzLWndoLTjTnLT3ArYVvL1fuzXxDriXD
-         psJhmN0tfn/3SptCfFkqnk+ifWkV251+ouQVI/Zm2mrLins54pOzTuHa+IxXkA38lnSC
-         iY2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744643102; x=1745247902;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1744643107; x=1745247907; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=10HvP2AvrbKid+VqXPQLkxNVZRQw5YvJvqRZW+lYFKw=;
-        b=dD9O37c8t9IaKv9tRCsO2ugbQWUqsKRlNnm3h9hDKWAVyQVJHEv4HDAJ79D03KKRMf
-         xnH9mzOq7HRlcg2ETa311fcWeYIf9Xv+W42S64TczOhXy8RcKFJRXp2++AtXCFp5zgyp
-         CnUt2v4cm9Eiug9m1ti3F32zNSLcFR+34+XaOHT2B3zXr5vne1roD8OPPsDWLzDh8c8v
-         /T1ACPFeV+zN8vefHQykNyEdA4u1aOemV+f5OiduqqCkX7jj9RFqYhpgpeCa1p+SZBJB
-         uU2yGO4TiReyM39OiqSqGSL2Ff0XD7n2z5/aT1DfFZ17H+0TLMuIyZ4sflU9q/nsaqha
-         tc9g==
-X-Forwarded-Encrypted: i=1; AJvYcCU4q9omErtpu8j3J20A02g2g4gCweGN3RIeuSj83XflIM06naHEnElL/Z+0TYegfBOHaN0XfLzORsw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxbCrCYWTO1bC1EDq2echEhcfKLOXjzxga7VPsfgRqz/32rQtSp
-	GVDLrw8YB9VG46MGs8Ap8ylISAnAAaLyzL5C5MyvQdet9ccXTj8CXxqLG89OAg==
-X-Gm-Gg: ASbGncti5cSYZj7j6UdU9/X84uGaHG0a9hJEo8JGb5obs6kr1oP73s/WhDnQ2rSG5+U
-	pX4GEYedM++d4IDlsqE3m9sX0Scpe/JLEYoFvYeU2t8C5LzPvIAkQcknCwxh0qGKRueBNv4TkGv
-	Mi+KX4EM/xdkVCRKVS9rRKMv/n92NhRIcQWgfFbGAIJ/MCTqst3BgPHnnuEEB/B0334SurN6GAP
-	O/9PCAt1iVKkKQPnMHqW5/VK7wSWVQtPhBwE/FjaqzZB+q1unIz0GL8h0ryQqzmFZkqa7itfM7j
-	aUPEiVRxr+Y9VSz7Ccc3DjP8An2b9a5muW6V9xvlS8Gyu1MxBR4cq7L8V6V7dzLWeWpi2e5YnQ7
-	Co1svj+AlhDcRX0HsfExfLjnNgQ==
-X-Google-Smtp-Source: AGHT+IEpd4v6mazVBuJkZrHBoMZai40BSoUmHIdSCdM4Kzdg6y1iJO+yV8iF7NyI6ueJVBL6NTYMdg==
-X-Received: by 2002:a05:600c:a43:b0:43d:bb9:ad00 with SMTP id 5b1f17b1804b1-43f3a959edemr116396215e9.15.1744643101095;
-        Mon, 14 Apr 2025 08:05:01 -0700 (PDT)
-Message-ID: <3d2aa870-a1cb-4e33-841d-aee7b6b6db83@suse.com>
-Date: Mon, 14 Apr 2025 17:05:02 +0200
+        bh=j0byfp7Rqg8Q+pED+Y9wuf++L9wQ5yzjkxPMim1JtiU=;
+        b=CSY+dRev1hgmPDSQsCqhaUD8OTrNX2xtaDf18u9TVnQei5qLRar5kpV687X1YfVB/j
+         iVRK/w3bWRYL+IHXCyj0gQTmRW+c2kwKNFLvI7HZLMErYVEAuMz8QDoCB93ewgXQ55sD
+         EZ9Os2pljRiW0MkgLcFrdaIgrrjZG2z2/j2Apkpe2mH6EqhNhhdkbIIzTLGApEfEXW7f
+         NvfHS//qiJKnWyFDY1lnz/XJvBszzBjY+4ujww9M5qTRa00eL4G5qZTfomCSYUhnxO0h
+         21kcC1yJAOJ2+cbU2xGC9RJVSJhj3KOYqkGwH4LVya4reNevxiQSOWXy/jdNTCLK3P2b
+         1oSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744643107; x=1745247907;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=j0byfp7Rqg8Q+pED+Y9wuf++L9wQ5yzjkxPMim1JtiU=;
+        b=rjMAp6P3XuPusQW4zvNImuj4ldhpV7QWHi5CgWQ+YXEO18D9NtdSjBrcbpvB9kZuym
+         zlBEJ+e7jOYXQIFYqhco7LhOUOFI5NlVIxHPop60MCAy9/hMhrSt6ekiREsqJjSVfkQD
+         X0aLB4Y3C5Fs6+FEted4B72xLwhuGuyMPVUAA/GMJDWpn175+JB/EoYFl52ElFd26Stn
+         jlfFJ+Q7MnLGln5nOZY2f6uTDRGmC20/+q+6d43BaqNYUlrhAkpombnE5mkNB4OGvwr7
+         ZuAD1UMZNe3RFPJb9pFBmVG8aBidMMgguW3Z2gNoELflzUjoOdtDLjWv+CtjoUCi1EBj
+         5OBg==
+X-Forwarded-Encrypted: i=1; AJvYcCUruQJ5v7AynmFk4Ls4NUkPYvvsNQLJYFd2/dbaowNohKhoPWlwIP/t2r+t66Bn7kW5fpVLli7Ov60=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyvsyfwK8fWFp8g96Km9Bi5/6cLvsgJrOsGg7pl6Ijcz6R/hO7d
+	gCepuAL9pXbBOSGCA3H8WuDQ9B1Ixv4P+K9A+I+tmf3vKWvveD57
+X-Gm-Gg: ASbGncsS7Yw6qMhHDKqx/iKtGSFuElJ6nOrBHM7TkdzJ4qZwTO6XqVK3l6z/RXiDwz5
+	tXrGU7ibD0L2Rw5T6SiRQUYH3/8hCdJPcU7mhu+cy53+Cf6u3L2eZeuRdg7soVYCd3aBEHUhFx5
+	VuCknJNMPHACrwbrmZpET+AcgI+iZ/V3hQjLB3NwcYepnZKB1SIqxrgF9FXZoxJo7LW2MOxoKs4
+	OOGdtL7aw/Wn2may/iBsL+h2AmzFo8/DPeCTldcRvH4SojOFTntv3q8vAgj8f1zFEiudZXDOcvz
+	rQTebOGBFka/FyNXK2Al8ywUdP1kzTE1gHTHMinuX30P8SjgW5nk1QauCN57+0qj7TXSqmZ14kB
+	9c49jHiUPZFDszb30
+X-Google-Smtp-Source: AGHT+IHUrd9mB2qRaOgWgaHSQmymZY6nQJOFd9XZsrmxFtpzP8ez9JaxmSQBvhHMd09IuC6min1S8A==
+X-Received: by 2002:a05:6000:1867:b0:39c:1429:fa57 with SMTP id ffacd0b85a97d-39ea51f42ccmr10609415f8f.3.1744643107051;
+        Mon, 14 Apr 2025 08:05:07 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------RzsczeltER0pW6JLHs0ZZMOZ"
+Message-ID: <127265c3-b572-4763-932a-4bb1d53af0b9@gmail.com>
+Date: Mon, 14 Apr 2025 17:05:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/16] x86/hyperlaunch: Add helpers to locate multiboot
- modules
-To: Alejandro Vallejo <agarciav@amd.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v1 02/14] xen/riscv: introduce smp_clear_cpu_maps()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- xen-devel@lists.xenproject.org,
- "consulting@bugseng.com" <consulting@bugseng.com>
-References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-9-agarciav@amd.com>
- <fe282aa0-fe2d-49b8-a2aa-325c9825304b@suse.com>
- <D96EI9O4XII2.195QNQNT1T3FG@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <ce3460b3857cca9e6f3072a8ddd50b31cb46b855.1744126720.git.oleksii.kurochko@gmail.com>
+ <18277077-2cf0-466f-8bde-f7955806bcb2@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D96EI9O4XII2.195QNQNT1T3FG@amd.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <18277077-2cf0-466f-8bde-f7955806bcb2@suse.com>
+
+This is a multi-part message in MIME format.
+--------------RzsczeltER0pW6JLHs0ZZMOZ
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 14.04.2025 15:37, Alejandro Vallejo wrote:
-> On Thu Apr 10, 2025 at 11:42 AM BST, Jan Beulich wrote:
->> On 08.04.2025 18:07, Alejandro Vallejo wrote:
->>> +/*
->>> + * Locate a multiboot module given its node offset in the FDT.
->>> + *
->>> + * The module location may be given via either FDT property:
->>> + *     * reg = <address, size>
->>> + *         * Mutates `bi` to append the module.
->>> + *     * module-index = <idx>
->>> + *         * Leaves `bi` unchanged.
->>> + *
->>> + * @param fdt           Pointer to the full FDT.
->>> + * @param node          Offset for the module node.
->>> + * @param address_cells Number of 4-octet cells that make up an "address".
->>> + * @param size_cells    Number of 4-octet cells that make up a "size".
->>> + * @param bi[inout]     Xen's representation of the boot parameters.
->>> + * @return              -EINVAL on malformed nodes, otherwise
->>> + *                      index inside `bi->mods`
->>> + */
->>> +int __init fdt_read_multiboot_module(const void *fdt, int node,
->>> +                                     int address_cells, int size_cells,
->>> +                                     struct boot_info *bi)
->>
->> Functions without callers and non-static ones without declarations are
->> disliked by Misra.
-> 
-> Can't do much about it if I want them to stand alone in a single patch.
-> Otherwise the following ones become quite unwieldy to look at. All I can
-> say is that this function becomes static and with a caller on the next
-> patch.
 
-Which means you need to touch this again anyway. Perhaps we need a Misra
-deviation for __maybe_unused functions / data, in which case you could
-use that here and strip it along with making the function static. Cc-ing
-Bugseng folks.
+On 4/10/25 3:10 PM, Jan Beulich wrote:
+> On 08.04.2025 17:57, Oleksii Kurochko wrote:
+>> Initialize cpu_{possible, online, present}_map by using smp_clear_cpu_maps().
+>>
+>> Drop DEFINE_PER_CPU(unsigned int, cpu_id) from stubs.c as this variable isn't
+>> expected to be used in RISC-V at all.
+>>
+>> Move declaration of cpu_{possible,online,present}_map from stubs.c to smpboot.c
+>> as now smpboot.c is now introduced.
+>> Other defintions keep in stubs.c as they are not initialized and not needed, at
+>> the moment.
+>>
+>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>> ---
+>>   xen/arch/riscv/Makefile          |  1 +
+>>   xen/arch/riscv/include/asm/smp.h |  2 ++
+>>   xen/arch/riscv/setup.c           |  2 ++
+>>   xen/arch/riscv/smpboot.c         | 15 +++++++++++++++
+>>   xen/arch/riscv/stubs.c           |  6 ------
+>>   5 files changed, 20 insertions(+), 6 deletions(-)
+>>   create mode 100644 xen/arch/riscv/smpboot.c
+>>
+>> diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+>> index 0c6c4a38a3..f551bf32a2 100644
+>> --- a/xen/arch/riscv/Makefile
+>> +++ b/xen/arch/riscv/Makefile
+>> @@ -10,6 +10,7 @@ obj-y += sbi.o
+>>   obj-y += setup.o
+>>   obj-y += shutdown.o
+>>   obj-y += smp.o
+>> +obj-y += smpboot.o
+>>   obj-y += stubs.o
+>>   obj-y += time.o
+>>   obj-y += traps.o
+>> diff --git a/xen/arch/riscv/include/asm/smp.h b/xen/arch/riscv/include/asm/smp.h
+>> index 5e170b57b3..188c033718 100644
+>> --- a/xen/arch/riscv/include/asm/smp.h
+>> +++ b/xen/arch/riscv/include/asm/smp.h
+>> @@ -26,6 +26,8 @@ static inline void set_cpuid_to_hartid(unsigned long cpuid,
+>>   
+>>   void setup_tp(unsigned int cpuid);
+>>   
+>> +void smp_clear_cpu_maps(void);
+>> +
+>>   #endif
+>>   
+>>   /*
+>> diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+>> index 4e416f6e44..7f68f3f5b7 100644
+>> --- a/xen/arch/riscv/setup.c
+>> +++ b/xen/arch/riscv/setup.c
+>> @@ -72,6 +72,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>>   
+>>       remove_identity_mapping();
+>>   
+>> +    smp_clear_cpu_maps();
+>> +
+>>       set_processor_id(0);
+>>   
+>>       set_cpuid_to_hartid(0, bootcpu_id);
+>> diff --git a/xen/arch/riscv/smpboot.c b/xen/arch/riscv/smpboot.c
+>> new file mode 100644
+>> index 0000000000..0f4dcc28e1
+>> --- /dev/null
+>> +++ b/xen/arch/riscv/smpboot.c
+>> @@ -0,0 +1,15 @@
+>> +#include <xen/cpumask.h>
+>> +#include <xen/init.h>
+>> +
+>> +cpumask_t cpu_online_map;
+>> +cpumask_t cpu_present_map;
+>> +cpumask_t cpu_possible_map;
+> __read_mostly for all of them, perhaps (if CPU hotplug isn't expected to
+> be supported) even __ro_after_init for the latter two?
 
->>> +    /* Otherwise location given as a `reg` property. */
->>> +    prop = fdt_get_property(fdt, node, "reg", NULL);
->>> +
->>> +    if ( !prop )
->>> +    {
->>> +        printk("  No location for multiboot,module\n");
->>> +        return -EINVAL;
->>> +    }
->>> +    if ( fdt_get_property(fdt, node, "module-index", NULL) )
->>> +    {
->>> +        printk("  Location of multiboot,module defined multiple times\n");
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    ret = read_fdt_prop_as_reg(prop, address_cells, size_cells, &addr, &size);
->>> +
->>> +    if ( ret < 0 )
->>> +    {
->>> +        printk("  Failed reading reg for multiboot,module\n");
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    idx = bi->nr_modules + 1;
->>
->> This at least looks like an off-by-one. If the addition of 1 is really
->> intended, I think it needs commenting on.
-> 
-> Seems to be, yes. The underlying array is a bit bizarre. It's sizes as
-> MAX_NR_BOOTMODS + 1, with the first one being the DTB itself. I guess
-> the intent was to take it into account, but bi->nr_modules is
-> initialised to the number of multiboot modules, so it SHOULD be already
-> taking it into account.
-> 
-> Also, the logic for bounds checking seems... off (because of the + 1 I
-> mentioned before). Or at least confusing, so I've moved to using
-> ARRAY_SIZE(bi->mods) rather than explicitly comparing against
-> MAX_NR_BOOTMODS.
-> 
-> The array is MAX_NR_BOOTMODS + 1 in length, so it's just more cognitive
-> load than I'm comfortable with.
+We have been living without CPU hotplug support for a long time in the downstream
+branch, but I can't say whether it is expected to be supported in the future or not.
+To ensure we can add such an option later without changing the attributes of
+cpu_online_map variable, I prefer to use|__read_mostly| here and __ro_after_init for
+cpu_possible_map.
 
-If I'm not mistaken the +1 is inherited from the modules array we had in
-the past, where we wanted 1 extra slot for Xen itself. Hence before you
-move to using ARRAY_SIZE() everywhere it needs to really be clear what
-the +1 here is used for.
+>
+> As to cpu_possible_map - do you predict that you'll actually use it? Arm
+> does (and instead has only a fake cpu_present_map), but on x86 we get away
+> without.
 
->>> --- a/xen/include/xen/libfdt/libfdt-xen.h
->>> +++ b/xen/include/xen/libfdt/libfdt-xen.h
->>> @@ -13,6 +13,63 @@kkk
->>>  
->>>  #include <xen/libfdt/libfdt.h>
->>>  
->>> +static inline int __init fdt_cell_as_u32(const fdt32_t *cell)
->>
->> Why plain int here, but ...
->>
->>> +{
->>> +    return fdt32_to_cpu(*cell);
->>> +}
->>> +
->>> +static inline uint64_t  __init fdt_cell_as_u64(const fdt32_t *cell)
->>
->> ... a fixed-width and unsigned type here? Question is whether the former
->> helper is really warranted.
->>
->> Also nit: Stray double blank.
->>
->>> +{
->>> +    return ((uint64_t)fdt32_to_cpu(cell[0]) << 32) | fdt32_to_cpu(cell[1]);
->>
->> That is - uniformly big endian?
-> 
-> These helpers are disappearing, so it doesn't matter. This is basically
-> an open coded:
-> 
->   fdt64_to_cpu(*(const fdt64_t *)fdt32)
-> 
-> And, yes. DTBs are standardised as having big-endian properties, for
-> better or worse :/
-> 
->>
->>> +}
->>
->> Marking such relatively generic inline functions __init is also somewhat
->> risky. 
-> 
-> They were originally in domain-builder/fdt.c and moved here as a result
-> of a request to have them on libfdt. libfdt proved to be somewhat
-> annoying because it would be hard to distinguish accessors for the
-> flattened and the unflattened tree.
-> 
-> I'd personally have them in domain-builder instead, where they are used.
-> Should they be needed somewhere else, we can always fator them out
-> somewhere else.
-> 
-> Thoughts?
+I checked how it is used now in downstream latest branch and it isn't really used
+only during initialization smp_clear_cpu_maps() and smp_prepare_cpus() so we can
+skip it for RISC-V too.
 
-As long as they're needed only by domain-builder, it's probably fine to have
-them just there.
+>
+>> +void __init smp_clear_cpu_maps(void)
+>> +{
+>> +    cpumask_clear(&cpu_possible_map);
+>> +    cpumask_clear(&cpu_online_map);
+> What's the point of these? All three maps start out fully zeroed.
 
-Jan
+It could be really dropped. I saw your patch for Arm, I'll align the current
+patch with that changes.
+
+
+>
+>> +    cpumask_set_cpu(0, &cpu_possible_map);
+>> +    cpumask_set_cpu(0, &cpu_online_map);
+> These are contradicting the name of the function. The somewhat equivalent
+> function we have on x86 is smp_prepare_boot_cpu().
+>
+>> +    cpumask_copy(&cpu_present_map, &cpu_possible_map);
+> Another cpumask_set_cpu() is probably cheaper here then.
+
+What do you mean by cheaper here?
+
+~ Oleksii
+
+--------------RzsczeltER0pW6JLHs0ZZMOZ
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/10/25 3:10 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:18277077-2cf0-466f-8bde-f7955806bcb2@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 08.04.2025 17:57, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Initialize cpu_{possible, online, present}_map by using smp_clear_cpu_maps().
+
+Drop DEFINE_PER_CPU(unsigned int, cpu_id) from stubs.c as this variable isn't
+expected to be used in RISC-V at all.
+
+Move declaration of cpu_{possible,online,present}_map from stubs.c to smpboot.c
+as now smpboot.c is now introduced.
+Other defintions keep in stubs.c as they are not initialized and not needed, at
+the moment.
+
+Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+---
+ xen/arch/riscv/Makefile          |  1 +
+ xen/arch/riscv/include/asm/smp.h |  2 ++
+ xen/arch/riscv/setup.c           |  2 ++
+ xen/arch/riscv/smpboot.c         | 15 +++++++++++++++
+ xen/arch/riscv/stubs.c           |  6 ------
+ 5 files changed, 20 insertions(+), 6 deletions(-)
+ create mode 100644 xen/arch/riscv/smpboot.c
+
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index 0c6c4a38a3..f551bf32a2 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -10,6 +10,7 @@ obj-y += sbi.o
+ obj-y += setup.o
+ obj-y += shutdown.o
+ obj-y += smp.o
++obj-y += smpboot.o
+ obj-y += stubs.o
+ obj-y += time.o
+ obj-y += traps.o
+diff --git a/xen/arch/riscv/include/asm/smp.h b/xen/arch/riscv/include/asm/smp.h
+index 5e170b57b3..188c033718 100644
+--- a/xen/arch/riscv/include/asm/smp.h
++++ b/xen/arch/riscv/include/asm/smp.h
+@@ -26,6 +26,8 @@ static inline void set_cpuid_to_hartid(unsigned long cpuid,
+ 
+ void setup_tp(unsigned int cpuid);
+ 
++void smp_clear_cpu_maps(void);
++
+ #endif
+ 
+ /*
+diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+index 4e416f6e44..7f68f3f5b7 100644
+--- a/xen/arch/riscv/setup.c
++++ b/xen/arch/riscv/setup.c
+@@ -72,6 +72,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+ 
+     remove_identity_mapping();
+ 
++    smp_clear_cpu_maps();
++
+     set_processor_id(0);
+ 
+     set_cpuid_to_hartid(0, bootcpu_id);
+diff --git a/xen/arch/riscv/smpboot.c b/xen/arch/riscv/smpboot.c
+new file mode 100644
+index 0000000000..0f4dcc28e1
+--- /dev/null
++++ b/xen/arch/riscv/smpboot.c
+@@ -0,0 +1,15 @@
++#include &lt;xen/cpumask.h&gt;
++#include &lt;xen/init.h&gt;
++
++cpumask_t cpu_online_map;
++cpumask_t cpu_present_map;
++cpumask_t cpu_possible_map;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+__read_mostly for all of them, perhaps (if CPU hotplug isn't expected to
+be supported) even __ro_after_init for the latter two?</pre>
+    </blockquote>
+    <pre>We have been living without CPU hotplug support for a long time in the downstream
+branch, but I can't say whether it is expected to be supported in the future or not.
+To ensure we can add such an option later without changing the attributes of
+cpu_online_map variable, I prefer to use <code data-start="311"
+    data-end="326">__read_mostly</code> here and __ro_after_init for
+cpu_possible_map.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:18277077-2cf0-466f-8bde-f7955806bcb2@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+As to cpu_possible_map - do you predict that you'll actually use it? Arm
+does (and instead has only a fake cpu_present_map), but on x86 we get away
+without.</pre>
+    </blockquote>
+    <pre>I checked how it is used now in downstream latest branch and it isn't really used
+only during initialization smp_clear_cpu_maps() and smp_prepare_cpus() so we can
+skip it for RISC-V too.</pre>
+    <blockquote type="cite"
+      cite="mid:18277077-2cf0-466f-8bde-f7955806bcb2@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+void __init smp_clear_cpu_maps(void)
++{
++    cpumask_clear(&amp;cpu_possible_map);
++    cpumask_clear(&amp;cpu_online_map);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+What's the point of these? All three maps start out fully zeroed.</pre>
+    </blockquote>
+    <pre>It could be really dropped. I saw your patch for Arm, I'll align the current
+patch with that changes.
+</pre>
+    <p><br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:18277077-2cf0-466f-8bde-f7955806bcb2@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    cpumask_set_cpu(0, &amp;cpu_possible_map);
++    cpumask_set_cpu(0, &amp;cpu_online_map);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+These are contradicting the name of the function. The somewhat equivalent
+function we have on x86 is smp_prepare_boot_cpu().
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    cpumask_copy(&amp;cpu_present_map, &amp;cpu_possible_map);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Another cpumask_set_cpu() is probably cheaper here then.</pre>
+    </blockquote>
+    <pre>What do you mean by cheaper here?
+</pre>
+    <pre>~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------RzsczeltER0pW6JLHs0ZZMOZ--
 
