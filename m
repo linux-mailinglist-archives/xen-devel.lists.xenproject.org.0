@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39F02A87F62
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 13:41:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.949911.1346367 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 623EDA87F93
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 13:49:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.949924.1346376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4IBv-0002gJ-TU; Mon, 14 Apr 2025 11:41:31 +0000
+	id 1u4IIb-0004Nb-Hv; Mon, 14 Apr 2025 11:48:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 949911.1346367; Mon, 14 Apr 2025 11:41:31 +0000
+Received: by outflank-mailman (output) from mailman id 949924.1346376; Mon, 14 Apr 2025 11:48:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4IBv-0002dh-PT; Mon, 14 Apr 2025 11:41:31 +0000
-Received: by outflank-mailman (input) for mailman id 949911;
- Mon, 14 Apr 2025 11:41:30 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1u4IBu-0002db-1e
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 11:41:30 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1u4IBt-00Ep7I-25;
- Mon, 14 Apr 2025 11:41:29 +0000
-Received: from [143.198.24.140] (helo=[100.81.22.8])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1u4IBt-00DBnQ-0D;
- Mon, 14 Apr 2025 11:41:29 +0000
+	id 1u4IIb-0004Ld-Ee; Mon, 14 Apr 2025 11:48:25 +0000
+Received: by outflank-mailman (input) for mailman id 949924;
+ Mon, 14 Apr 2025 11:48:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YdIb=XA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u4IIZ-0004LX-TF
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 11:48:24 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5c928cd1-1926-11f0-9ffb-bf95429c2676;
+ Mon, 14 Apr 2025 13:48:20 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5e6c18e2c7dso7889114a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 04:48:20 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acaa1bb2ddasm896384766b.36.2025.04.14.04.48.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Apr 2025 04:48:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,308 +45,279 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=IF8aZV7X3I5v5I/+XPXr7UKHWMNbyaU1EuXYq5Spy/M=; b=z1NjWOD5VjgWSlneBfIP3Ax5Ms
-	Y2iVVPESNbGCpURr6e2T8D8u5mrLCpnK3zat9mL9hK4XDohQVMtHsvzTLrE8NowyhkwSjTVcrhoOK
-	VixN3A8K8m1Lme0YocbBpxkRHaZBrLwwkm9IeaoMVCPHIMLHLs2aRXjOq3c1pyKLWq6s=;
-Message-ID: <d58be435-fd83-42bc-9fd0-a8884f358704@xen.org>
-Date: Mon, 14 Apr 2025 20:41:22 +0900
+X-Inumbo-ID: 5c928cd1-1926-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1744631300; x=1745236100; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JfZWSJnE0NE7T4QEDHs8FQo1WPSW148W0ACegppMNmU=;
+        b=SopOP7he+Ah/nD4UuBl4486jZAYSET+3uhtibidx+R09SYqADufnec1jsoxG62137W
+         aRdgBTGYztUujtCg7NVUf7y3SSfM5Vv5/DCjBoRBdBK0UX/VRwrid1KNOdcT9IvwK4LF
+         W55iscma9vKrKBW3Q3ks1jgrGiph+D2LfT376oP2H4ynym3klgroLmglYyKd1J2VYe6H
+         49hy2xiq9TK8WIc/Qm3FU9mQ6ZaATti85m0jlu8Iry7Q3NNDF7XtZ8osa5/bUT4h/0Zz
+         uV919Q8z/YokrgMcMuCavFK2hsWvlJJebhiKvebRjfCAn7lilkEqjyV6/eGzLyp6T0vU
+         mPeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744631300; x=1745236100;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=JfZWSJnE0NE7T4QEDHs8FQo1WPSW148W0ACegppMNmU=;
+        b=HCR/z/sAil4yo7MSo7gmnZvTiaQo6EkuvnfnRif9mEegTbNlMGya3nuE45UJRKuSo1
+         uveeri5eUPSY7cab5ji5G/AN+jyuuzCntUOCB+WhbRhhCuidGqcZJgIQK9FJtSzp4A7O
+         ybKBbP7KihyoO+y9XXD4RGjdhpT3KaGWRqYm7Z537TpZua2SD0xw48lAUM8/v9H7yjO0
+         6s9TVD4XC2uO8IdpTaWknaNNDjV+jZcAGIB3qkdknlNskDVE+WD8B7bRDf19EnVvPaaJ
+         nVSBklD4lBr7/NDbjfRn40Tux7Vtkz0bdN+CJ2Zly077Ru+PMdAsRQNWPOkZuhHeElNy
+         lNTA==
+X-Forwarded-Encrypted: i=1; AJvYcCUuNn5Z9QTzq2DmHBUNlcAWykcc9eoVPTctbTHXkgqDGsljM/GqEn4+RAMXS4akj6Y1mRbI9bbK/VI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyXJ8QutyAQbJ8Xb/OdQJwO4k+73qzxkbkVT4nZQg54ch6IhdeH
+	LZE+8jax9zHPQZjGl5CCvCQzqndhdReZkyqSYDeZXxC0m4ZmVwdj
+X-Gm-Gg: ASbGnctwm7OmCGtm00E5LRQRoLQGe858gPseGDWQ7sDYwf+xb4gajX2w+bWVtLWfpN9
+	2lpARjKGwVEnD96Gjj+qxTUi56+cJfEvBfX3dB7g3cRRwjNkO6b+FLyFicEWbtSJ/AH6orgm4og
+	0p7BKUwpLG0OLaF6Qi/0SgHt5Ne2+XXDM1cGXeHg8CpKhCJMWm9oN90UYRsaLwy0vIhjDUpdCGt
+	DAa/E+cQux65HRsfmgfcbNZppZ41K7BGUjo0YLFazHJOUMv36VEQUEbXsN30huTWTrlC/Z0p3lQ
+	8WWhGLYW9xjLBE388mvmkRRj+rqZCimen69S5DNylAaQ18fqDfkCO2xwu6hNqYNcmCA2OlbTN2r
+	vqC+JdXOot4Ym9m5a
+X-Google-Smtp-Source: AGHT+IFEwp+ojTk1arnpufloQ9jimHCntlE37hBFlvvJSzbOHPzLG12gIkRo+EBeuoeKjxqCAiWkDQ==
+X-Received: by 2002:a17:907:7b8d:b0:aca:c4d4:15a0 with SMTP id a640c23a62f3a-acad343caffmr784645066b.8.1744631299295;
+        Mon, 14 Apr 2025 04:48:19 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------X1Dg8pzsxfI0bhLGsZfq0Npn"
+Message-ID: <35a0256f-cb48-4e39-b60d-8ee698154e77@gmail.com>
+Date: Mon, 14 Apr 2025 13:48:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] arm/mpu: Provide access to the MPU region from the
- C code
-Content-Language: en-GB
-To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250411145655.140667-1-luca.fancellu@arm.com>
- <20250411145655.140667-3-luca.fancellu@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20250411145655.140667-3-luca.fancellu@arm.com>
+Subject: Re: [PATCH v3] xen/riscv: Increase XEN_VIRT_SIZE
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <eb20a5730b55c1731324cc3970c3a3c9ea666a85.1744214442.git.oleksii.kurochko@gmail.com>
+ <a173245f-531a-434d-b3ce-1d8e35dec8ec@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <a173245f-531a-434d-b3ce-1d8e35dec8ec@suse.com>
+
+This is a multi-part message in MIME format.
+--------------X1Dg8pzsxfI0bhLGsZfq0Npn
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Luca,
 
-On 11/04/2025 23:56, Luca Fancellu wrote:
-> Implement some utility function in order to access the MPU regions
-> from the C world.
-> 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> ---
-> v3 changes:
->   - Moved PRBAR0_EL2/PRLAR0_EL2 to arm64 specific
->   - Modified prepare_selector() to be easily made a NOP
->     for Arm32, which can address up to 32 region without
->     changing selector and it is also its maximum amount
->     of MPU regions.
-> ---
-> ---
->   xen/arch/arm/include/asm/arm64/mpu.h |   7 ++
->   xen/arch/arm/include/asm/mpu.h       |   1 +
->   xen/arch/arm/include/asm/mpu/mm.h    |  24 +++++
->   xen/arch/arm/mpu/mm.c                | 125 +++++++++++++++++++++++++++
->   4 files changed, 157 insertions(+)
-> 
-> diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
-> index 4d2bd7d7877f..b4e1ecdf741d 100644
-> --- a/xen/arch/arm/include/asm/arm64/mpu.h
-> +++ b/xen/arch/arm/include/asm/arm64/mpu.h
-> @@ -8,6 +8,13 @@
->   
->   #ifndef __ASSEMBLY__
->   
-> +/*
-> + * The following are needed for the case generators GENERATE_WRITE_PR_REG_CASE
-> + * and GENERATE_READ_PR_REG_CASE with num==0
-> + */
-> +#define PRBAR0_EL2 PRBAR_EL2
-> +#define PRLAR0_EL2 PRLAR_EL2
+On 4/10/25 10:48 AM, Jan Beulich wrote:
+> On 09.04.2025 21:01, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/include/asm/mm.h
+>> +++ b/xen/arch/riscv/include/asm/mm.h
+>> @@ -9,6 +9,7 @@
+>>   #include <xen/mm-frame.h>
+>>   #include <xen/pdx.h>
+>>   #include <xen/pfn.h>
+>> +#include <xen/sections.h>
+>>   #include <xen/types.h>
+>>   
+>>   #include <asm/page-bits.h>
+>> @@ -35,6 +36,11 @@ static inline void *maddr_to_virt(paddr_t ma)
+>>       return (void *)va;
+>>   }
+>>   
+>> +#define is_init_section(p) ({                   \
+>> +    char *p_ = (char *)(unsigned long)(p);      \
+>> +    (p_ >= __init_begin) && (p_ < __init_end);  \
+>> +})
+> I think this wants to be put in xen/sections.h, next to where __init_{begin,end}
+> are declared. But first it wants making const-correct, to eliminate the potential
+> of it indirectly casting away const-ness from the incoming argument.
+>
+> (At some point related stuff wants moving from kernel.h to sections.h, I suppose.
+> And at that point they will all want to have const added.)
 
-Rather than aliasing, shouldn't we just rename PR{B,L}AR_EL2 to 
-PR{B,L}AR0_EL2? This would the code mixing between the two.
+Sure, I'll change to 'const char *p_ = (const char*)(unsigned long)(p)'.
 
-> +
->   /* Protection Region Base Address Register */
->   typedef union {
->       struct __packed {
-> diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
-> index e148c705b82c..59ff22c804c1 100644
-> --- a/xen/arch/arm/include/asm/mpu.h
-> +++ b/xen/arch/arm/include/asm/mpu.h
-> @@ -13,6 +13,7 @@
->   #define MPU_REGION_SHIFT  6
->   #define MPU_REGION_ALIGN  (_AC(1, UL) << MPU_REGION_SHIFT)
->   #define MPU_REGION_MASK   (~(MPU_REGION_ALIGN - 1))
-> +#define MPU_REGION_RES0   (0xFFFULL << 52)
->   
->   #define NUM_MPU_REGIONS_SHIFT   8
->   #define NUM_MPU_REGIONS         (_AC(1, UL) << NUM_MPU_REGIONS_SHIFT)
-> diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
-> index 86f33d9836b7..5cabe9d111ce 100644
-> --- a/xen/arch/arm/include/asm/mpu/mm.h
-> +++ b/xen/arch/arm/include/asm/mpu/mm.h
-> @@ -8,6 +8,7 @@
->   #include <xen/page-size.h>
->   #include <xen/types.h>
->   #include <asm/mm.h>
-> +#include <asm/mpu.h>
->   
->   extern struct page_info *frame_table;
->   
-> @@ -29,6 +30,29 @@ static inline struct page_info *virt_to_page(const void *v)
->       return mfn_to_page(mfn);
->   }
->   
-> +/* Utility function to be used whenever MPU regions are modified */
-> +static inline void context_sync_mpu(void)
-> +{
-> +    /*
-> +     * ARM DDI 0600B.a, C1.7.1
-> +     * Writes to MPU registers are only guaranteed to be visible following a
-> +     * Context synchronization event and DSB operation.
+>> --- a/xen/arch/riscv/mm.c
+>> +++ b/xen/arch/riscv/mm.c
+>> @@ -31,20 +31,24 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
+>>   #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
+>>   
+>>   /*
+>> - * It is expected that Xen won't be more then 2 MB.
+>> + * It is expected that Xen won't be more then XEN_VIRT_SIZE MB.
+> Why "MB" when the macro already expands to MB(16)?
 
-I know we discussed about this before. I find odd that the specification 
-says "context synchronization event and DSB operation". At least to me, 
-it implies "isb + dsb" not the other way around. Has this been clarified 
-in newer version of the specification?
+It should be really dropped, no need for MB in the comment.
 
-> +     */
-> +    dsb(sy);
-> +    isb();
-> +}
-> +
-> +/*
-> + * The following API require context_sync_mpu() after being used to modifiy MPU
+>
+>>    * The check in xen.lds.S guarantees that.
+>> - * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
+>> - * One for each page level table with PAGE_SIZE = 4 Kb.
+>>    *
+>> - * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
+>> + * Root page table is shared with the initial mapping and is declared
+>> + * separetely. (look at stage1_pgtbl_root)
+> Nit: separately
+>
+>>    *
+>> - * It might be needed one more page table in case when Xen load address
+>> - * isn't 2 MB aligned.
+>> + * An amount of page tables between root page table and L0 page table
+>> + * (in the case of Sv39 it covers L1 table):
+>> + *   (CONFIG_PAGING_LEVELS - 2) are needed for an identity mapping and
+>> + *   the same amount are needed for Xen.
+>>    *
+>> - * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
+>> - * except that the root page table is shared with the initial mapping
+>> + * An amount of L0 page tables:
+>> + *   (512 entries of one L0 page table covers 2MB == 1<<XEN_PT_LEVEL_SHIFT(1))
+>> + *   XEN_VIRT_SIZE >> XEN_PT_LEVEL_SHIFT(1) are needed for Xen and
+>> + *   one L0 is needed for indenity mapping.
+> Nit: identity
+>
+> But more importantly, where's this one L0 ...
+>
+>>    */
+>> -#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2 + 1)
+>> +#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 2) * 2 + \
+>> +                             (XEN_VIRT_SIZE >> XEN_PT_LEVEL_SHIFT(1)))
+> .... in this calculation?
 
-typo: s/require/requires/ and s/modifiy/modify/
+L0 for identity mapping is really missed.
 
-> + * regions:
-> + *  - write_protection_region
-> + */
-> +
-> +/* Reads the MPU region with index 'sel' from the HW */
-> +extern void read_protection_region(pr_t *pr_read, uint8_t sel);
+Thanks.
 
-I am probably missing something. But don't you have a copy of pr_t in 
-xen_mpumap? If so, can't we use the cached version to avoid accessing 
-the system registers?
+~ Oleksii
 
-> +/* Writes the MPU region with index 'sel' to the HW */
-> +extern void write_protection_region(const pr_t *pr_write, uint8_t sel);
-> +
->   #endif /* __ARM_MPU_MM_H__ */
->   
->   /*
-> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-> index f83ce04fef8a..e522ce53c357 100644
-> --- a/xen/arch/arm/mpu/mm.c
-> +++ b/xen/arch/arm/mpu/mm.c
-> @@ -8,12 +8,30 @@
->   #include <xen/sizes.h>
->   #include <xen/types.h>
->   #include <asm/mpu.h>
-> +#include <asm/mpu/mm.h>
-> +#include <asm/sysregs.h>
->   
->   struct page_info *frame_table;
->   
->   /* EL2 Xen MPU memory region mapping table. */
->   pr_t xen_mpumap[MAX_MPU_REGIONS];
->   
-> +#define GENERATE_WRITE_PR_REG_CASE(num, pr)                                 \
-> +    case num:                                                               \
-> +    {                                                                       \
-> +        WRITE_SYSREG(pr->prbar.bits & ~MPU_REGION_RES0, PRBAR##num##_EL2);  \
-> +        WRITE_SYSREG(pr->prlar.bits & ~MPU_REGION_RES0, PRLAR##num##_EL2);  \
-> +        break;                                                              \
-> +    }
-> +
-> +#define GENERATE_READ_PR_REG_CASE(num, pr)                      \
-> +    case num:                                                   \
-> +    {                                                           \
-> +        pr->prbar.bits = READ_SYSREG(PRBAR##num##_EL2);         \
-> +        pr->prlar.bits = READ_SYSREG(PRLAR##num##_EL2);         \
-> +        break;                                                  \
-> +    }
-> +
->   static void __init __maybe_unused build_assertions(void)
->   {
->       /*
-> @@ -24,6 +42,113 @@ static void __init __maybe_unused build_assertions(void)
->       BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
->   }
->   
-> +static void prepare_selector(uint8_t *sel)
-> +{
-> +    uint8_t cur_sel = *sel;
+--------------X1Dg8pzsxfI0bhLGsZfq0Npn
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Coding style: Missing newline.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/10/25 10:48 AM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:a173245f-531a-434d-b3ce-1d8e35dec8ec@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 09.04.2025 21:01, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/mm.h
++++ b/xen/arch/riscv/include/asm/mm.h
+@@ -9,6 +9,7 @@
+ #include &lt;xen/mm-frame.h&gt;
+ #include &lt;xen/pdx.h&gt;
+ #include &lt;xen/pfn.h&gt;
++#include &lt;xen/sections.h&gt;
+ #include &lt;xen/types.h&gt;
+ 
+ #include &lt;asm/page-bits.h&gt;
+@@ -35,6 +36,11 @@ static inline void *maddr_to_virt(paddr_t ma)
+     return (void *)va;
+ }
+ 
++#define is_init_section(p) ({                   \
++    char *p_ = (char *)(unsigned long)(p);      \
++    (p_ &gt;= __init_begin) &amp;&amp; (p_ &lt; __init_end);  \
++})
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I think this wants to be put in xen/sections.h, next to where __init_{begin,end}
+are declared. But first it wants making const-correct, to eliminate the potential
+of it indirectly casting away const-ness from the incoming argument.
 
-> +    /*
-> +     * {read,write}_protection_region works using the direct access to the 0..15
-> +     * regions, so in order to save the isb() overhead, change the PRSELR_EL2
-> +     * only when needed, so when the upper 4 bits of the selector will change.
-> +     */
-> +    cur_sel &= 0xF0U;
-> +    if ( READ_SYSREG(PRSELR_EL2) != cur_sel )
-> +    {
-> +        WRITE_SYSREG(cur_sel, PRSELR_EL2);
-> +        isb();
-> +    }
-> +    *sel = *sel & 0xFU;
-> +}
-> +
-> +/*
-> + * Armv8-R AArch64 at most supports 255 MPU protection regions.
-> + * See section G1.3.18 of the reference manual for Armv8-R AArch64,
-> + * PRBAR<n>_EL2 and PRLAR<n>_EL2 provide access to the EL2 MPU region
-> + * determined by the value of 'n' and PRSELR_EL2.REGION as
-> + * PRSELR_EL2.REGION<7:4>:n(n = 0, 1, 2, ... , 15)
-> + * For example to access regions from 16 to 31 (0b10000 to 0b11111):
-> + * - Set PRSELR_EL2 to 0b1xxxx
-> + * - Region 16 configuration is accessible through PRBAR_EL2 and PRLAR_EL2
-> + * - Region 17 configuration is accessible through PRBAR1_EL2 and PRLAR1_EL2
-> + * - Region 18 configuration is accessible through PRBAR2_EL2 and PRLAR2_EL2
-> + * - ...
-> + * - Region 31 configuration is accessible through PRBAR15_EL2 and PRLAR15_EL2
-> + */
+(At some point related stuff wants moving from kernel.h to sections.h, I suppose.
+And at that point they will all want to have const added.)</pre>
+    </blockquote>
+    <pre>Sure, I'll change to 'const char *p_ = (const char*)(unsigned long)(p)'.
 
-I am a bit confused. This function is implemented in the common MPU 
-code. Yet, then comment only refer to 64-bit. Is the code the same on 
-32-bit? If not, then I think this function wants to be moved in arm64/mpu/
+</pre>
+    <blockquote type="cite"
+      cite="mid:a173245f-531a-434d-b3ce-1d8e35dec8ec@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/mm.c
++++ b/xen/arch/riscv/mm.c
+@@ -31,20 +31,24 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
+ #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
+ 
+ /*
+- * It is expected that Xen won't be more then 2 MB.
++ * It is expected that Xen won't be more then XEN_VIRT_SIZE MB.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Why "MB" when the macro already expands to MB(16)?</pre>
+    </blockquote>
+    <pre>It should be really dropped, no need for MB in the comment.
 
-> +/*
-> + * Read EL2 MPU Protection Region.
-> + *
-> + * @pr_read: mpu protection region returned by read op.
-> + * @sel: mpu protection region selector
-> + */
+</pre>
+    <blockquote type="cite"
+      cite="mid:a173245f-531a-434d-b3ce-1d8e35dec8ec@suse.com">
+      <pre wrap="" class="moz-quote-pre">
 
-NIT: Usually we add documentation on the prototype in the header and not 
-in the definition.
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">  * The check in xen.lds.S guarantees that.
+- * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
+- * One for each page level table with PAGE_SIZE = 4 Kb.
+  *
+- * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
++ * Root page table is shared with the initial mapping and is declared
++ * separetely. (look at stage1_pgtbl_root)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Nit: separately
 
-> +void read_protection_region(pr_t *pr_read, uint8_t sel)
-> +{
-> +    /*
-> +     * Before accessing EL2 MPU region register PRBAR_EL2/PRLAR_EL2,
-> +     * make sure PRSELR_EL2 is set, as it determines which MPU region
-> +     * is selected.
-> +     */
-> +    prepare_selector(&sel);
-> +
-> +    switch ( sel )
-> +    {
-> +        GENERATE_READ_PR_REG_CASE(0, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(1, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(2, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(3, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(4, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(5, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(6, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(7, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(8, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(9, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(10, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(11, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(12, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(13, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(14, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(15, pr_read);
-> +    default:
-> +        BUG(); /* Can't happen */
-> +    }
-> +}
-> +
-> +/*
-> + * Write EL2 MPU Protection Region.
-> + *
-> + * @pr_write: const mpu protection region passed through write op.
-> + * @sel: mpu protection region selector
-> + */
-> +void write_protection_region(const pr_t *pr_write, uint8_t sel)
-> +{
-> +    /*
-> +     * Before accessing EL2 MPU region register PRBAR_EL2/PRLAR_EL2,
-> +     * make sure PRSELR_EL2 is set, as it determines which MPU region
-> +     * is selected.
-> +     */
-> +    prepare_selector(&sel);
-> +
-> +    switch ( sel )
-> +    {
-> +        GENERATE_WRITE_PR_REG_CASE(0, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(1, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(2, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(3, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(4, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(5, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(6, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(7, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(8, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(9, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(10, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(11, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(12, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(13, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(14, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(15, pr_write);
-> +    default:
-> +        BUG(); /* Can't happen */
-> +    }
-> +}
-> +
->   void __init setup_mm(void)
->   {
->       BUG_ON("unimplemented");
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">  *
+- * It might be needed one more page table in case when Xen load address
+- * isn't 2 MB aligned.
++ * An amount of page tables between root page table and L0 page table
++ * (in the case of Sv39 it covers L1 table):
++ *   (CONFIG_PAGING_LEVELS - 2) are needed for an identity mapping and
++ *   the same amount are needed for Xen.
+  *
+- * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
+- * except that the root page table is shared with the initial mapping
++ * An amount of L0 page tables:
++ *   (512 entries of one L0 page table covers 2MB == 1&lt;&lt;XEN_PT_LEVEL_SHIFT(1))
++ *   XEN_VIRT_SIZE &gt;&gt; XEN_PT_LEVEL_SHIFT(1) are needed for Xen and
++ *   one L0 is needed for indenity mapping.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Nit: identity
 
-Cheers,
+But more importantly, where's this one L0 ...
 
--- 
-Julien Grall
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">  */
+-#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2 + 1)
++#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 2) * 2 + \
++                             (XEN_VIRT_SIZE &gt;&gt; XEN_PT_LEVEL_SHIFT(1)))
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+.... in this calculation?</pre>
+    </blockquote>
+    <pre>L0 for identity mapping is really missed.
 
+Thanks.
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------X1Dg8pzsxfI0bhLGsZfq0Npn--
 
