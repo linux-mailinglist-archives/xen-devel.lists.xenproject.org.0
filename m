@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D29EAA87C59
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5D8A87C5A
 	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 11:51:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.949485.1346010 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.949486.1346018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4GTK-0006LZ-Hr; Mon, 14 Apr 2025 09:51:22 +0000
+	id 1u4GTK-0006U8-V5; Mon, 14 Apr 2025 09:51:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 949485.1346010; Mon, 14 Apr 2025 09:51:22 +0000
+Received: by outflank-mailman (output) from mailman id 949486.1346018; Mon, 14 Apr 2025 09:51:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4GTK-0006F9-E4; Mon, 14 Apr 2025 09:51:22 +0000
-Received: by outflank-mailman (input) for mailman id 949485;
- Mon, 14 Apr 2025 09:51:20 +0000
+	id 1u4GTK-0006P1-RT; Mon, 14 Apr 2025 09:51:22 +0000
+Received: by outflank-mailman (input) for mailman id 949486;
+ Mon, 14 Apr 2025 09:51:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qHXw=XA=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1u4GTI-0006C8-Kb
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 09:51:20 +0000
+ id 1u4GTJ-0006C8-Kc
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 09:51:21 +0000
 Received: from EUR03-AM7-obe.outbound.protection.outlook.com
  (mail-am7eur03on2061a.outbound.protection.outlook.com
  [2a01:111:f403:260e::61a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 03f79f7f-1916-11f0-9eae-5ba50f476ded;
- Mon, 14 Apr 2025 11:51:19 +0200 (CEST)
+ id 04410c13-1916-11f0-9eae-5ba50f476ded;
+ Mon, 14 Apr 2025 11:51:20 +0200 (CEST)
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  (2603:10a6:102:30d::12) by AS8PR03MB6872.eurprd03.prod.outlook.com
  (2603:10a6:20b:294::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.33; Mon, 14 Apr
- 2025 09:51:15 +0000
+ 2025 09:51:16 +0000
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::35ac:8893:c31c:b971]) by PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::35ac:8893:c31c:b971%4]) with mapi id 15.20.8632.030; Mon, 14 Apr 2025
- 09:51:15 +0000
+ 09:51:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,36 +47,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03f79f7f-1916-11f0-9eae-5ba50f476ded
+X-Inumbo-ID: 04410c13-1916-11f0-9eae-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ezpq3xkgoIJ3LcQ5OcA2VWMP8axnTD2P0e7WQRt7iSRfHubGFByGaQ6TWCqxlGffFkgu8KSm4z97wiQ380eZ6v+ti1CeZtqYd2b9R6qS7M1BDvpBu+zXyn71cbL6o94bjXZRoxvIoGZ0HUZuBq7CA0bwTb3tWqchGcGIwmaZLiYiJRjkhfEWr8rgwGdQ3uuIh+o59Ikw2ATKyR5z6fPuI2xcuZ9yHmwIKsZxzre6uGzcIOqH3xpT9Y7aNipU6Lt6vnc7NkBYUGqhDH229NlRigI7ZWRvqtEHT+IjqOowTEFmEntcXztsVp/71foU01EK8MQvzj4PUNPAU7gTkZcKfA==
+ b=NFQ5dgZrv0fkg1sFb4wfi/0HGvOyl9P5UkdgddWG4iQlO2ULIOTwKnP1h+2RpoI5SmQF11F/xpUw/6ep8LywMzzYyIpaTvEweNf1iV7+ArYsewkEHayKX01F3uLgMtPvc6DOvHXNvCZvolNEfaHNmPhZm7TLuKRtY1S6VDLhSQaBFWSS6SYAgpdDiU54E3D77gn6PCA3OlXWpj35RfaKWQMxyy/f5N6/Suz+PfOfM47NRrGXsqRDzPiRCv89yoB3hCOc8/+j3HTYT1zIVDuVDS4U5Aihu7bvoSDZ+NhwZ/DzOi0MrsOEYvBIqH9rfYxMzfM3OOLusQnXzHG32ZgbEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N+vR8dRTwJ+Uk8oCJ0o0/7hbQ9YNMpt9YztKzxqFNpE=;
- b=AJ1pSWiP8qcehQ6Zg+sU257L3gKnCqwyKg2IXI445CI7ZMsjjn7vZCM4yHkKuy8QQPOqusUZHmeZHh8hgDlYOFS7Su67j8l3xxNuXm8xAA31HPasUwuv/0LWVJaeuQcWDevxln5HgIhbEmwpFIfDPScWmoyuMXg7nPZpmB8dSidX4DUVXUWd8VZGrcNidWhZkR0PjRP38OID7hm/yxFIk5j2VkZnADYnQBKoxfIpzABbYBZJdB2MGvVhDPyaxG1nkYb94dp221EMOXhsxtStlyfSsCHSOaYG37cpVzPC9hJnKPpjtVwaZskV8nHMI92GH8pB09iiVDdp4zborcqo2w==
+ bh=DCUrpCPZhHZRdV45SQAWMseE8AkytIb8kJ3NzO6GCss=;
+ b=VlvEjAmwuwxM1DE6D1XxCSusxMZkHGkqOm7oRzD8x0L3yzz2xLuvSa+0GXSmkmAQaBMG8ESLbrY2/vh0lLgOFcim3GPMJIHPRps3xH4ngWeqgfgWwW6nf4kZdC+WQ8J10mmAprmw6xcGoxlCrjO0NuIBiPRTx3rpzG9/5iZdYtf9+D11WbrXX1xTPWruh/TzbwnDHGpi/SBR34cfmrnROo3qU2jHQWLmk2gYjiNLgnuZX77/Zi1P7fTp9dWAPFZlFo7AyDl4MtLR+oE/JOLrvh+EWlvlV9G+ySu/qqY1TI4g4CQs1BzFxWbhsy3zKeurEi3KGGw15+lX5m5kU3PAqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N+vR8dRTwJ+Uk8oCJ0o0/7hbQ9YNMpt9YztKzxqFNpE=;
- b=cYdUNIOkXt3B6NhLw2tQMhA+FKkZbcjjBC9qsDuL/qP58J4NTubVVHDd81Y/C+k1pAzBs4od5B7Xli12fxodPETO/D/7j75j3s9w5Ro1r555ZEJvq2vJPlU0mIgc1qU0fembM/XpdAt08L/X1VwsIxOEXf6sfPS/JE9z1gnr0a29IJutCJn4ieT8vD59rucSA+3H4R30JW3E6XPvzhCEJSNn+41EnG0NtDfa0ueq/m4lqVNFcCVZWCR/rzvbKjREPNlVIkcBKaM4lNfFBG15JQJ3A6HHSPUI80I3TwGfzBJuHLiGtyRvixcISbgh1e96UtkByqS55oPNjhZMiCB1xw==
+ bh=DCUrpCPZhHZRdV45SQAWMseE8AkytIb8kJ3NzO6GCss=;
+ b=nUoWioedMYBYmsLu7u24mjZXYi8H7QZgsIMEIbUAbyCVG+Cp1efyMd6/in3XtkCgCzOY66XSa+Wr4F8DMX22RSWIsugk4+YixCU4yn8M0B3tHS8eBnhmMIb1loeT17t+T9JHgSZd0OYLMMIIufon3wvvNRZsnYVlnNPITgG2Ax1fqYc2Y3UqLqHA7mh6iPUZyrQ2Ouh/iri0BBuH272kkNfUPzf9dR8qaCkuHkxhKvCxHGXpMk+FB3ugrBV2Eo+4SGP5kERzZynXk6vN6HPLbQUhceDUQCzZxLMYl6lGfiSS/mI/x1rvrBmNcZzesAXmvIXJ0traow1ZAkoGVKMZBw==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Mykyta Poturai
+CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
+ Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Mykyta Poturai
 	<Mykyta_Poturai@epam.com>
-Subject: [PATCH v2 1/2] arm: vgic: Add the ability to trigger MSIs from the
- Hypervisor
-Thread-Topic: [PATCH v2 1/2] arm: vgic: Add the ability to trigger MSIs from
- the Hypervisor
-Thread-Index: AQHbrSLDj8+kM3eLrkyegn+x6Pj4JA==
-Date: Mon, 14 Apr 2025 09:51:15 +0000
+Subject: [PATCH v2 2/2] xen/dm: arm: Introduce inject_msi2 DM op
+Thread-Topic: [PATCH v2 2/2] xen/dm: arm: Introduce inject_msi2 DM op
+Thread-Index: AQHbrSLDkG1zT9bAeU6MKrLu8tJrtQ==
+Date: Mon, 14 Apr 2025 09:51:16 +0000
 Message-ID:
- <3dba1b51984f24e36d5fbd81396ab7dd53d8ac95.1744621166.git.mykyta_poturai@epam.com>
+ <e9e7d722eeac100048ddd5a4032e3d7af39f8c3f.1744621166.git.mykyta_poturai@epam.com>
 References: <cover.1744621166.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1744621166.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -87,69 +88,70 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|AS8PR03MB6872:EE_
-x-ms-office365-filtering-correlation-id: ed3fa4f8-0175-4168-4c3a-08dd7b39e5fd
+x-ms-office365-filtering-correlation-id: 00afb2a2-3706-48c0-36be-08dd7b39e640
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|366016|38070700018;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?350i9P1tHmLqHNSITUqD6QajRUgIrX+mfuEiivy3heQqEYHpujU3TXu7S3?=
- =?iso-8859-1?Q?guZpeKRhJweZgxXLBNJDACtLggujJVQz1OY4qfc3m92lW3ysJxSm0QnMas?=
- =?iso-8859-1?Q?IODF64ybQI7BjdiqaEi2R9nhT8pnBeJQSmfDb23FcinXZrUMXth7dE7cpK?=
- =?iso-8859-1?Q?O7bBcgerd7i5+rLw3XLIurJAgALUrgjGbI5B33yYN0Llc//woOGxkdqUXx?=
- =?iso-8859-1?Q?kZwWNS0PVgIBiLZVxxRPn8eVesmm7+FAz61nK0xVAH4wxEu/hYfhaTVBEy?=
- =?iso-8859-1?Q?g9/+EcvKHfuHhE9a0acEHQFJHWtRrsNVdtLHjSxosVUEzcPzc3Ja8wuggs?=
- =?iso-8859-1?Q?OzJp89p117i1PPoqeJdwlTfFcL8yuoYUq5Q/TvBH5M8dVHhueTtUWIwyhi?=
- =?iso-8859-1?Q?LxvR2SImWzsH+z2EHH7eClOHOrbyJ+Qv9AuARPVNU+s4Yfs+hT1Hr4mP3V?=
- =?iso-8859-1?Q?EnzCA6M3EBn+6BM0i+4M9r+BOLNo09qt/DbYdo82xYk2vyappDuQNn5s1G?=
- =?iso-8859-1?Q?MfRquipDTg/M282W4dvJuTeNKfd8u+hkT1SyFb2X9Wc9TCfsrHa62WUf8p?=
- =?iso-8859-1?Q?5j9WS6EP2fXpaVsruPHwqPUnCk2yetWFYfV/qGbxoWYa5s/NN6RznyBzfr?=
- =?iso-8859-1?Q?ZrCjGUwIyl2rkF5vpt5ldEWMD55O4J45BzWkEeghFs4nXjn0rCb/qijcBR?=
- =?iso-8859-1?Q?pCFbt+RgXjrNWxYRuo6o6M95N9bkdzOOHMG0fsP0Hkufo86bnCxoDZAusB?=
- =?iso-8859-1?Q?l+osGJgAtw2WzWlU3Hg+hFZXfE/xMv5TqNW87Q3L1z+O+mkcUvbOkFdIlp?=
- =?iso-8859-1?Q?wYIOZCHcKng2sUJVzQc3rLiuCkJW7W2ErK9ju+rZEQgp2VQBlGz3aee0VP?=
- =?iso-8859-1?Q?MxGTI+E/8v/0HHJJ3+G+jMk6ecF9V0l4PhjpiGF4MuE0XbejooTkXSpfSq?=
- =?iso-8859-1?Q?KGmdAvzy267cFX0SxklxRrZamrV3XQGOldXpK+ngZqmYm3CJtDH7jNlyW6?=
- =?iso-8859-1?Q?qtTIC5fDr9B8Olt5obaD962SRM2WipZHVvTFlf473gzTsRG9w76yuB9lre?=
- =?iso-8859-1?Q?yMsekiGtqaIViKgSkge9q5ph6lMoXpBvWSJ1Vi0GFz+g5kmZmHjmI0cmJb?=
- =?iso-8859-1?Q?veEbTFAyta2A52QJ5Vq6VYe6o0YwInDXAaJq6T9ogCv23o4iKPdD0nzOa+?=
- =?iso-8859-1?Q?fZP4aWQIAMgdQ48mjgxbQSVgFbMTsUDEuqYtq+ODlNdCQLYm7sbiv20JlU?=
- =?iso-8859-1?Q?oVOkn15TClRkwXCv3BFWu8yJFupQv5NNcPOuog6AkhqbQ6fh6nZnL1euDB?=
- =?iso-8859-1?Q?bOsdbmu6eUeeagDwEhEltHzq1ItKTOJ1jr8CtvP8EeDW8sBU4hf96j80jo?=
- =?iso-8859-1?Q?jEJtoIZaSIGAJ+kQMqFcBg64t+AvJMlZ9EnES/k5wjK1ua+EfHSnznxc7a?=
- =?iso-8859-1?Q?fP1oLSnAd9sAu5EEL2t17nJWB6UB5wmIDJ8ADLpXwp2WHOB7ZoOxothQTw?=
- =?iso-8859-1?Q?+rwiWABQ5IwRkEPiF2ExBiA5e7uwenXRsUEgp7sxtG7g=3D=3D?=
+ =?iso-8859-1?Q?HatIaZQtJ7x7qAQ9R/od3DDTYomVlrt9+1mhL5nf4KJnFZDMkuYjZ961L6?=
+ =?iso-8859-1?Q?lhU2B6s3FIsA51eM/i44PkauREwOlAXBw1mz00DtsaEfioMCRThJ+nPnY6?=
+ =?iso-8859-1?Q?+QR9OIgb0F7AZ7Jgkx1lBike9GO/udJSAIfkSiuwebsb9rCTVX2RWOpmH8?=
+ =?iso-8859-1?Q?OfYA4B1bwXWNQffsmnVZKJV15CCsbeVjKlfph9bUJ41X5ec5rdkzL8olZJ?=
+ =?iso-8859-1?Q?zM/ymuiWZFTRlL7n4HP3V6/AZ71nWBnObdqLRydPvxXr7QZOZ/GYwjd1Tr?=
+ =?iso-8859-1?Q?8/Gw/j0Cihdpus1EIS3Mp0dVBs8EqhD36w4YCkoeOA/t16YdbpGSOduBOs?=
+ =?iso-8859-1?Q?QhqWsoLk1Y5Rpxts6U0YhiyWRvCY0aHCSiPuYnc1Hfix5v2bygHFC9mlCh?=
+ =?iso-8859-1?Q?uCjVLVMokuWGZeiO0Ejc+sCYRqb6vqOsQep/vx7OedNWQS1rxGmWKB5Zhz?=
+ =?iso-8859-1?Q?2nUk7PfzWFDBwF/gkhXzee0TVlIKm6zOetdM/M/ib6XSIA0GhvGSkF47iX?=
+ =?iso-8859-1?Q?7szJwUadYjohEbtqQuDOpetZNjPLRrzytLIkeVJe3tgH1uuub4WYNQXyW/?=
+ =?iso-8859-1?Q?gPl/nzFQLyk5yto0FSJk/UvXsnxRa29kW+MtuRNg72jpvDgKZZPO4qAKKo?=
+ =?iso-8859-1?Q?eTSK+gl+ee32v5eTEnIMtUtSMxpHEk561o3VadjJyPTOcwQOLKYgobUHVd?=
+ =?iso-8859-1?Q?9SA9COTzHpdLD2IpN4Qvp4v1MWBAqHWpBBIvyDppIm0WLx29H+lEKSaHgu?=
+ =?iso-8859-1?Q?P5UH7bHbCQwIqiPahUQ2PK+ZEyXCdb/wb5MuwvFrBlkdBurHsy4sl4eeAF?=
+ =?iso-8859-1?Q?MWGEVR0yqr3RaFZZOqcS2GeL/F5DKPhgLav2LaKJSTE2Txc9YyoQifYLGo?=
+ =?iso-8859-1?Q?ULGBny9HpOFKtH4KVebXYAJK86JU4GHueD9EGpferWJWSoQYhdkQJaCF0L?=
+ =?iso-8859-1?Q?nifMfc/mxuN3M/7YBqOaVRBfyuNJurWxo3rHhW/wmN/sZ4jJ7/gTyrW3Ix?=
+ =?iso-8859-1?Q?9HjJ3t/GVa+qdi0Z/98NrV5RhCmaZ+c7OTxTNwA5m3QT14T98gzjAw/em7?=
+ =?iso-8859-1?Q?/IQ67RqYr8aOj8gb6XzPPtILy7ogLFrL7LCfCJmKhEVdCFpWcCh8j7NVVd?=
+ =?iso-8859-1?Q?ctwyaZEPb85LdTrS38ph8cnz+GoNQBtgku7AuFdYhz4EDwS/ku/8IzR3eX?=
+ =?iso-8859-1?Q?yQKQ1zdcY4dVlHt8UViSgUVAEn1MjAXvxukRLVmFiaOgyMDCBIWZjWv7BX?=
+ =?iso-8859-1?Q?uLSSyx1u/x/AzeCgHsMamvdH7cDo4VlSHXmbiH+c9jp5qIIKulTN2O2Gzz?=
+ =?iso-8859-1?Q?ZKKICyntRZdJD9FSPrb3TsItts+4HwVANfZxI5c3CDxmDH4shGaGmNyG7z?=
+ =?iso-8859-1?Q?SWPXGL+yh6y3gsXgNisilYlwXYu1vxboef/J3+9xhzRXjwAE0S5tyj1LvB?=
+ =?iso-8859-1?Q?DDtuIevO8pDpxfPkaNQd60R3UVE6lcP3+XZR8PS4QU3TbSkylQsJVOdtsH?=
+ =?iso-8859-1?Q?d2DHmvoltztxh0LKCWaPLJvu1bdrEb5gG+PxhsaSLlsw=3D=3D?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?TYi35JLBSO1NTgJilvIwsxjevbQZZnt1EFeet7whPPNhsbP+3HuaWP2fG+?=
- =?iso-8859-1?Q?cuDoU4ofAFUf1VVyjKXpqppeQRrRkbVrU7nCep66rV4lGvEc8RixknDdfU?=
- =?iso-8859-1?Q?pJFso4C3MLOt/Y2rQdXlN2OdjqG45pkHJGhb946HSgcixTo6Tttn/Knc9T?=
- =?iso-8859-1?Q?EYWuhsBo1ZqobvqrCsg8LfNknP2BjYh7aYUUtrpkoJyj/DbW6GG8XrdOYK?=
- =?iso-8859-1?Q?6NRUJwsETGRCz6w8mBydlFyseeY9ZIxN2blp73i6OiBuhv0HXSv2q/CV7S?=
- =?iso-8859-1?Q?zcVjjc3cri1MO7CX0YB9jagYTpsM0jFw1TQPWZUp/yovIJsuIwS+uDbbqk?=
- =?iso-8859-1?Q?rc24gNuSZwkjxTztRIgrWttB/ZlzvRJU4WTrsXHJOfenBJtU8wHiGhVC14?=
- =?iso-8859-1?Q?MDXLxQEX/eD57aHPV5bNvWht6aU0ASPNjIblZJsRdJ8pj7EXBsvl6/VTzr?=
- =?iso-8859-1?Q?R0ai5GIr3SMIxguSO6vJzC9ZyNn2vNXVTImjdYTLwrKaikeNHZw8+72fuQ?=
- =?iso-8859-1?Q?pUIwi2fQNYBu/H8x7lro+qb/SsmbUjryuxjL4omYnQ4158vb11Zw/WsY5x?=
- =?iso-8859-1?Q?UKMp8msHspycZt7/rhlOpkUP67CG+8dCW2AyW8njcC9e1+PHxG8dUumqrc?=
- =?iso-8859-1?Q?LBjCe0URMhti66iEauahIxIlutW2Fcs7h/jWEc7t9vBukiK0FCuEpQshMD?=
- =?iso-8859-1?Q?DvuIBHi9zR0SBd/2KIwFZd6X4H2IwxzzYHLN+i7pqCQHK2Lica/8IN6YVI?=
- =?iso-8859-1?Q?F4pjE7B10UWF9vuDte5myDjuGS+AhXa8r16f2EnnfY0yhZfqgYLeQBQ4sQ?=
- =?iso-8859-1?Q?J4YstOWEDSq9JdnJEdjKFiVYmDq8SBgZGaPMPDMKBVDZl8rO3/anmMCprf?=
- =?iso-8859-1?Q?ec44B8v5PqUtp5XnIxSgOIzTuj1BjUTtX1lo9Ga1Stp3xNXfs032krQg9P?=
- =?iso-8859-1?Q?IWYafE3xEJzxhU8XEJAHmt7EzJ6LItWxrXI+bdD2rx+vkaVBhqnQLn/Fde?=
- =?iso-8859-1?Q?/eKRayRfgXh9R+L+YaV1gvKU0VX7BWH132C19XV2Kr0Vkpmfx8oPc4EUgg?=
- =?iso-8859-1?Q?2oxrNV76DokowdX1k6zped+8zbRNi/ToBbStRjm2nxzLkKXnI5dK+7zDtb?=
- =?iso-8859-1?Q?EcEdWvkIKPxtjIETau1N37Rw3+TpAyoUHNUEjYIVz2AKrdweWiB81vfDNk?=
- =?iso-8859-1?Q?SPysN+vo885OWzeL3e0kB+NA+2tghNUiCtT35moCjT41BOpp9WUwFVGvwn?=
- =?iso-8859-1?Q?suHMgLep4CswwnViZqgMUdCWcghUfiBLjrDbleFAd+xlKhh3MSFTH21RnG?=
- =?iso-8859-1?Q?tFVxgpPvPf9t+ASqgPnRjhByGi0Swh+oRlys09Biy9EJqSjSUgyeoUBiPf?=
- =?iso-8859-1?Q?XkfoeBkQ2RA1BHXEFGkQxuluHSeqYIrum8QtoOO5zuwm2iNaCoOzBEsrKQ?=
- =?iso-8859-1?Q?yxsLlM8T/DB5Kp1NZMg0CvODNxlMzp0BFrUx/IaCOMCqkqVP/mPexsZ980?=
- =?iso-8859-1?Q?tGHO0uoERsdIQMRmX00Xv4b7U481ZHJWb1w6e6guF8sQDZJ2V3DK/AAO2u?=
- =?iso-8859-1?Q?x8714GRo1xVGahhwPj0daC1pRPO0tjXNHdv6o+wfwm4unVf9tTn3+vbehe?=
- =?iso-8859-1?Q?WtnGV+woxDtdMofLGZW8bwJi2B+4H6mjE/ZN+rkY1bNr22ukzyBcdzZw?=
+ =?iso-8859-1?Q?gZD94UDwIR0+ybymvK9cOSBnivzBqiLEtUHrYAryWeFiUQNcWZ5CbG8cGB?=
+ =?iso-8859-1?Q?WgiRGJKvx1ZENprZTbx8icSOZZ+H0ILmxKnawhGugdHAUArP42/sxadQOl?=
+ =?iso-8859-1?Q?LMu6aOodWiNo0asE9Qeyr0woq9Upsz8kzZpMCo5ZGvZUc1aJru4X1R7UoW?=
+ =?iso-8859-1?Q?ehzbJuP6KWTEY10n770IoYHJ/uYIMRYRXPV4XS9BZx+SQN/Vc31JG7ccOK?=
+ =?iso-8859-1?Q?ipSllhOdNFgOs91SH5ywDe/t8ecm02DSdCxR/FFnxJeHnQ5sSHu1DztLvM?=
+ =?iso-8859-1?Q?t4MyyHw6ZZ0ojqqEwRpk6zOdUGRSfp8Rj+Z2Rd+Y5gqBQv/x7H32d43OcM?=
+ =?iso-8859-1?Q?Hxn4Rqrz8a7guZZ/WeVkv0ojdRJuNMkjPu0FfZb5gq3dIx1XdrH2aAC9Rc?=
+ =?iso-8859-1?Q?lapktyBiYjhNqtA6wYWvq+c+/fRMtBlDG2VyCLSh/g+0Je2FPjxrxgRMDU?=
+ =?iso-8859-1?Q?91686uy5yafs9Hu12O1Vo8RbfVGv2BHchcQokozlyk9jiDpVl8cy4vU6zE?=
+ =?iso-8859-1?Q?s8jEDkjQkBA2l0K5P/TwegOrKUDzwxh5lnlZ5pcVS8g4IwUwSVPgoJyc4G?=
+ =?iso-8859-1?Q?B3cNC7HMpxa9+ZfIIFY9ahryaMdmPotN26E9drtI406DCiRnrro9QZN6e+?=
+ =?iso-8859-1?Q?mYNxkt2oOgAVNkenj7ibzQLDjNn7d1geg9SodbYJF0orQmn81VuXVSMTSz?=
+ =?iso-8859-1?Q?ccLTVj3ZqRMi+pHLeOLJ8H07Dn2/oXwV6A7SzNWl/G3uIIVE9GAzBeliXB?=
+ =?iso-8859-1?Q?MZ3gGSo/TiGbJivZep/XJmR5iXL2NLBWOMAGlYGnSJ1wLa0xcjJWYqGmS0?=
+ =?iso-8859-1?Q?cwJmMkMKHgS77CdgEKpOea8kUINMigzrXiaipTsGwh8i+XlRVK3T/DXABm?=
+ =?iso-8859-1?Q?wQUGYoFUVU1ZBrxTJuhZyVARUzD9D8BTku017gX69kZ2cRop09DjP0SuDb?=
+ =?iso-8859-1?Q?502tXnuG5FZxA0Q9tiPdJsYJx2thBE/cGZ2IXrbbk9fHD1Guuei7RgVTfH?=
+ =?iso-8859-1?Q?q1obm7T8FcVQEXdpQUF2Ld7g78Eah+HyI09zWgoeAhLIpBTjsujAqo8aVH?=
+ =?iso-8859-1?Q?lDGFbhAtshftNGvjNQrTC6BFU9srBhtW+DqaAOlB61raJw57s0+dvx9Hbi?=
+ =?iso-8859-1?Q?6c5st3RWdgX2HVNn8eNKF1xrv6Z1Jc3ZEvnDx8daK45PQdJ3zZoz3gKrHr?=
+ =?iso-8859-1?Q?wvLTDY9iKSF11+1ACA03bsXlD18G9B8TfN3WES144viRw/jOZI0VPtkoJB?=
+ =?iso-8859-1?Q?7TksGX01QcF09D0Zz+9Ier/F23qJLgByttb7nOdgL/GTEZfXg0vQ8lHyp3?=
+ =?iso-8859-1?Q?rcz/iJO+il8LxyDufMbfYlg3r5mZsTzuV4W78a4fPLrMNZa900/USkqr88?=
+ =?iso-8859-1?Q?qCQAjCDsHSrRbTtF5E1V7IfhaQBjh/jNYMiYPujqx1p+FYNuqnNPyLEDYV?=
+ =?iso-8859-1?Q?fNaUh/5Nid1e4FsIHO8osb1qREJBANkX/sD0y+vrZlXu+eQ/Uae1XvjKZ4?=
+ =?iso-8859-1?Q?1gsfqeOn1dCn1FaZsLhb89QPzmsrixJq7XH9x4cf/uAANmz7uG1lI65HDs?=
+ =?iso-8859-1?Q?OVPRblpXDXo3q+U8HQlG/qe3qcooyPdO5OPHz5eNgEnD1KcY0zaThSfigF?=
+ =?iso-8859-1?Q?JkxXc+GukD5ubHWgjGhU5IkwxFPEVyDZ94ss6Ab83VJg/VxJILg8ObOg?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -157,89 +159,237 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed3fa4f8-0175-4168-4c3a-08dd7b39e5fd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2025 09:51:15.7913
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00afb2a2-3706-48c0-36be-08dd7b39e640
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2025 09:51:16.2252
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ez8qfmnrv1AQV4QRm+FRt4LeTPzMJJEROla4dUrZeUtBc80w/ApJugkVKA1hKg0af92x46I0jie+LGf0jLKx8A==
+X-MS-Exchange-CrossTenant-userprincipalname: ypg7E5VFDg85D3v9NetfqsiB3SU+P2vVTQrWtyfqQE74snVUTJnM+mqPYY7A+natRp0935CY2QNrr5sjYKFv7Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB6872
 
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 
-Add the vgic_its_trigger_msi() function to the vgic interface. This
-function allows to inject MSIs from the Hypervisor to the guest.
-Which is useful for userspace PCI backend drivers.
+Add the second version of inject_msi DM op, which allows to specify
+the source_id of an MSI interrupt. This is needed for correct MSI
+injection on ARM.
+
+It would not be safe to include the source_id in the original inject_msi
+in the pad field, because we have no way to know if it is set or not.
 
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 ---
 v1->v2:
-* replace -1 with -ENOENT
-* reduce guest memory access in vgic_its_trigger_msi
+* fix warning for ignored source_id
+* rework xen_dm_op_inject_msi2 struct
+* rework xendevicemodel_inject_msi2 params
 ---
- xen/arch/arm/include/asm/vgic.h | 11 +++++++++++
- xen/arch/arm/vgic-v3-its.c      | 19 +++++++++++++++++++
- 2 files changed, 30 insertions(+)
+ tools/include/xendevicemodel.h               | 14 ++++++++++++++
+ tools/libs/devicemodel/core.c                | 20 ++++++++++++++++++++
+ tools/libs/devicemodel/libxendevicemodel.map |  5 +++++
+ xen/arch/arm/dm.c                            | 17 +++++++++++++++++
+ xen/arch/x86/hvm/dm.c                        | 18 ++++++++++++++++++
+ xen/include/public/hvm/dm_op.h               | 18 ++++++++++++++++++
+ 6 files changed, 92 insertions(+)
 
-diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/asm/vgi=
-c.h
-index e309dca1ad..3d8e3a8343 100644
---- a/xen/arch/arm/include/asm/vgic.h
-+++ b/xen/arch/arm/include/asm/vgic.h
-@@ -318,6 +318,17 @@ extern bool vgic_migrate_irq(struct vcpu *old, struct =
-vcpu *new, unsigned int ir
- extern void vgic_check_inflight_irqs_pending(struct vcpu *v,
-                                              unsigned int rank, uint32_t r=
-);
+diff --git a/tools/include/xendevicemodel.h b/tools/include/xendevicemodel.=
+h
+index 227e7fd810..d0847dfdc8 100644
+--- a/tools/include/xendevicemodel.h
++++ b/tools/include/xendevicemodel.h
+@@ -236,6 +236,20 @@ int xendevicemodel_inject_msi(
+     xendevicemodel_handle *dmod, domid_t domid, uint64_t msi_addr,
+     uint32_t msi_data);
 =20
-+#ifdef CONFIG_HAS_ITS
-+int vgic_its_trigger_msi(struct domain *d, paddr_t doorbell_address,
-+                                u32 devid, u32 eventid);
-+#else
-+static inline int vgic_its_trigger_msi(struct domain *d, paddr_t doorbell_=
-address,
-+                                u32 devid, u32 eventid)
-+{
-+    return -EOPNOTSUPP;
-+}
-+#endif /* CONFIG_HAS_ITS */
++/**
++ * This function injects an MSI into a guest.
++ *
++ * @parm dmod a handle to an open devicemodel interface.
++ * @parm domid the domain id to be serviced
++ * @parm msi_addr the MSI address
++ * @parm source_id the PCI SBDF of the source device
++ * @parm msi_data the MSI data
++ * @return 0 on success, -1 on failure.
++*/
++int xendevicemodel_inject_msi2(
++    xendevicemodel_handle *dmod, domid_t domid, uint64_t addr, uint32_t so=
+urce_id,
++    uint32_t data);
 +
- #endif /* !CONFIG_NEW_VGIC */
-=20
- /*** Common VGIC functions used by Xen arch code ****/
-diff --git a/xen/arch/arm/vgic-v3-its.c b/xen/arch/arm/vgic-v3-its.c
-index c65c1dbf52..be5bfe0d21 100644
---- a/xen/arch/arm/vgic-v3-its.c
-+++ b/xen/arch/arm/vgic-v3-its.c
-@@ -1484,6 +1484,25 @@ static int vgic_v3_its_init_virtual(struct domain *d=
-, paddr_t guest_addr,
-     return 0;
+ /**
+  * This function enables tracking of changes in the VRAM area.
+  *
+diff --git a/tools/libs/devicemodel/core.c b/tools/libs/devicemodel/core.c
+index 8e619eeb0a..92db92e89b 100644
+--- a/tools/libs/devicemodel/core.c
++++ b/tools/libs/devicemodel/core.c
+@@ -448,6 +448,26 @@ int xendevicemodel_set_irq_level(
+     return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
  }
 =20
-+int vgic_its_trigger_msi(struct domain *d, paddr_t doorbell_address,
-+                                u32 devid, u32 eventid)
++int xendevicemodel_inject_msi2(
++    xendevicemodel_handle *dmod, domid_t domid, uint64_t addr, uint32_t so=
+urce_id,
++    uint32_t data)
 +{
-+    struct pending_irq *pend;
-+    unsigned int vcpu_id;
++    uint16_t segment =3D source_id >> 16;
++    uint16_t bdf =3D source_id & 0xffff;
++    struct xen_dm_op op =3D {
++        .op =3D XEN_DMOP_inject_msi2,
++        .u.inject_msi2 =3D {
++            .addr =3D addr,
++            .data =3D data,
++            .segment =3D segment,
++            .source_id =3D bdf,
++            .flags =3D XEN_DMOP_MSI_SOURCE_ID_VALID,
++        },
++    };
 +
-+    pend =3D gicv3_its_get_event_pending_irq(d,doorbell_address, devid, ev=
-entid);
-+    if ( !pend )
-+        return -ENOENT;
-+   =20
-+    vcpu_id =3D ACCESS_ONCE(pend->lpi_vcpu_id);
-+    if ( vcpu_id >=3D d->max_vcpus )
-+          return -ENOENT;
-+
-+    vgic_inject_irq(d, d->vcpu[vcpu_id], pend->irq, true);
-+
-+    return 0;
++    return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
 +}
 +
- unsigned int vgic_v3_its_count(const struct domain *d)
+ int xendevicemodel_set_pci_link_route(
+     xendevicemodel_handle *dmod, domid_t domid, uint8_t link, uint8_t irq)
  {
-     struct host_its *hw_its;
+diff --git a/tools/libs/devicemodel/libxendevicemodel.map b/tools/libs/devi=
+cemodel/libxendevicemodel.map
+index f7f9e3d932..aa05768642 100644
+--- a/tools/libs/devicemodel/libxendevicemodel.map
++++ b/tools/libs/devicemodel/libxendevicemodel.map
+@@ -44,3 +44,8 @@ VERS_1.4 {
+ 		xendevicemodel_set_irq_level;
+ 		xendevicemodel_nr_vcpus;
+ } VERS_1.3;
++
++VERS_1.5 {
++	global:
++		xendevicemodel_inject_msi2;
++} VERS_1.4;
+diff --git a/xen/arch/arm/dm.c b/xen/arch/arm/dm.c
+index 773a0a2592..a1340b45a3 100644
+--- a/xen/arch/arm/dm.c
++++ b/xen/arch/arm/dm.c
+@@ -27,6 +27,7 @@ int dm_op(const struct dmop_args *op_args)
+         [XEN_DMOP_set_ioreq_server_state]           =3D sizeof(struct xen_=
+dm_op_set_ioreq_server_state),
+         [XEN_DMOP_destroy_ioreq_server]             =3D sizeof(struct xen_=
+dm_op_destroy_ioreq_server),
+         [XEN_DMOP_set_irq_level]                    =3D sizeof(struct xen_=
+dm_op_set_irq_level),
++        [XEN_DMOP_inject_msi2]                      =3D sizeof(struct xen_=
+dm_op_inject_msi2),
+         [XEN_DMOP_nr_vcpus]                         =3D sizeof(struct xen_=
+dm_op_nr_vcpus),
+     };
+=20
+@@ -112,6 +113,22 @@ int dm_op(const struct dmop_args *op_args)
+         break;
+     }
+=20
++    case XEN_DMOP_inject_msi2:
++    {
++        const struct xen_dm_op_inject_msi2 *data =3D &op.u.inject_msi2;
++        uint32_t pci_sbdf =3D data->segment << 16 | data->source_id;
++
++        if ( !(data->flags & XEN_DMOP_MSI_SOURCE_ID_VALID) || data->pad ||=
+=20
++             data->flags & ~XEN_DMOP_MSI_SOURCE_ID_VALID )
++        {
++            rc =3D -EINVAL;
++            break;
++        }
++
++        rc =3D vgic_its_trigger_msi(d, data->addr, pci_sbdf, data->data);
++        break;
++
++    }
+     case XEN_DMOP_nr_vcpus:
+     {
+         struct xen_dm_op_nr_vcpus *data =3D &op.u.nr_vcpus;
+diff --git a/xen/arch/x86/hvm/dm.c b/xen/arch/x86/hvm/dm.c
+index 462691f91d..da0a00844b 100644
+--- a/xen/arch/x86/hvm/dm.c
++++ b/xen/arch/x86/hvm/dm.c
+@@ -344,6 +344,7 @@ int dm_op(const struct dmop_args *op_args)
+         [XEN_DMOP_set_mem_type]                     =3D sizeof(struct xen_=
+dm_op_set_mem_type),
+         [XEN_DMOP_inject_event]                     =3D sizeof(struct xen_=
+dm_op_inject_event),
+         [XEN_DMOP_inject_msi]                       =3D sizeof(struct xen_=
+dm_op_inject_msi),
++        [XEN_DMOP_inject_msi2]                      =3D sizeof(struct xen_=
+dm_op_inject_msi2),
+         [XEN_DMOP_map_mem_type_to_ioreq_server]     =3D sizeof(struct xen_=
+dm_op_map_mem_type_to_ioreq_server),
+         [XEN_DMOP_remote_shutdown]                  =3D sizeof(struct xen_=
+dm_op_remote_shutdown),
+         [XEN_DMOP_relocate_memory]                  =3D sizeof(struct xen_=
+dm_op_relocate_memory),
+@@ -539,6 +540,23 @@ int dm_op(const struct dmop_args *op_args)
+         break;
+     }
+=20
++    case XEN_DMOP_inject_msi2:
++    {
++        const struct xen_dm_op_inject_msi2 *data =3D &op.u.inject_msi2;
++
++        if ( data->pad || data->flags & ~XEN_DMOP_MSI_SOURCE_ID_VALID )
++        {
++            rc =3D -EINVAL;
++            break;
++        }
++
++        if ( data->flags & XEN_DMOP_MSI_SOURCE_ID_VALID )
++            gprintk(XENLOG_WARNING "XEN_DMOP_inject_msi2: source_id is ign=
+ored\n");
++
++        rc =3D hvm_inject_msi(d, data->addr, data->data);
++        break;
++    }
++
+     case XEN_DMOP_remote_shutdown:
+     {
+         const struct xen_dm_op_remote_shutdown *data =3D
+diff --git a/xen/include/public/hvm/dm_op.h b/xen/include/public/hvm/dm_op.=
+h
+index 2bf0fdc1ae..4141af4300 100644
+--- a/xen/include/public/hvm/dm_op.h
++++ b/xen/include/public/hvm/dm_op.h
+@@ -444,6 +444,23 @@ struct xen_dm_op_nr_vcpus {
+ };
+ typedef struct xen_dm_op_nr_vcpus xen_dm_op_nr_vcpus_t;
+=20
++#define XEN_DMOP_inject_msi2 21
++
++struct xen_dm_op_inject_msi2 {
++      /* IN - MSI data */
++      uint32_t data;
++      /* IN - next two fields form an ID of the device triggering the MSI =
+*/
++      uint16_t segment; /* The segment number */
++      uint16_t source_id; /* The source ID that is local to segment (PCI B=
+DF) */
++      /* IN - types of source ID */
++      uint32_t flags;
++#define XEN_DMOP_MSI_SOURCE_ID_VALID (1u << 0)
++      uint32_t pad;
++      /* IN - MSI address */
++      uint64_aligned_t addr;
++};
++typedef struct xen_dm_op_inject_msi2 xen_dm_op_inject_msi2_t;
++
+ struct xen_dm_op {
+     uint32_t op;
+     uint32_t pad;
+@@ -463,6 +480,7 @@ struct xen_dm_op {
+         xen_dm_op_set_mem_type_t set_mem_type;
+         xen_dm_op_inject_event_t inject_event;
+         xen_dm_op_inject_msi_t inject_msi;
++        xen_dm_op_inject_msi2_t inject_msi2;
+         xen_dm_op_map_mem_type_to_ioreq_server_t map_mem_type_to_ioreq_ser=
+ver;
+         xen_dm_op_remote_shutdown_t remote_shutdown;
+         xen_dm_op_relocate_memory_t relocate_memory;
 --=20
 2.34.1
 
