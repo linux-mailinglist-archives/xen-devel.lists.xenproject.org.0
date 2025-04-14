@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26B89A88A77
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 19:56:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.951085.1347220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 314D4A88A7E
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 19:57:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.951096.1347229 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4O2T-0004Md-1d; Mon, 14 Apr 2025 17:56:09 +0000
+	id 1u4O43-0004v2-Be; Mon, 14 Apr 2025 17:57:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 951085.1347220; Mon, 14 Apr 2025 17:56:09 +0000
+Received: by outflank-mailman (output) from mailman id 951096.1347229; Mon, 14 Apr 2025 17:57:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4O2S-0004L8-V5; Mon, 14 Apr 2025 17:56:08 +0000
-Received: by outflank-mailman (input) for mailman id 951085;
- Mon, 14 Apr 2025 17:56:07 +0000
+	id 1u4O43-0004sa-8o; Mon, 14 Apr 2025 17:57:47 +0000
+Received: by outflank-mailman (input) for mailman id 951096;
+ Mon, 14 Apr 2025 17:57:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JTEa=XA=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1u4O2R-0004L2-AU
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 17:56:07 +0000
-Received: from fhigh-b8-smtp.messagingengine.com
- (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+ <SRS0=Dta6=XA=hotmail.com=dcb314@srs-se1.protection.inumbo.net>)
+ id 1u4O42-0004sS-2t
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 17:57:46 +0000
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazolkn190110001.outbound.protection.outlook.com
+ [2a01:111:f403:d207::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bac73af3-1959-11f0-9ffb-bf95429c2676;
- Mon, 14 Apr 2025 19:56:03 +0200 (CEST)
-Received: from phl-compute-09.internal (phl-compute-09.phl.internal
- [10.202.2.49])
- by mailfhigh.stl.internal (Postfix) with ESMTP id DA8AE25403B7;
- Mon, 14 Apr 2025 13:56:01 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-09.internal (MEProxy); Mon, 14 Apr 2025 13:56:02 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 14 Apr 2025 13:55:59 -0400 (EDT)
+ id f729ab7a-1959-11f0-9ffb-bf95429c2676;
+ Mon, 14 Apr 2025 19:57:44 +0200 (CEST)
+Received: from AS8PR02MB10217.eurprd02.prod.outlook.com
+ (2603:10a6:20b:63e::17) by AS2PR02MB10374.eurprd02.prod.outlook.com
+ (2603:10a6:20b:545::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8606.33; Mon, 14 Apr
+ 2025 17:57:41 +0000
+Received: from AS8PR02MB10217.eurprd02.prod.outlook.com
+ ([fe80::58c3:9b65:a6fb:b655]) by AS8PR02MB10217.eurprd02.prod.outlook.com
+ ([fe80::58c3:9b65:a6fb:b655%7]) with mapi id 15.20.8632.030; Mon, 14 Apr 2025
+ 17:57:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +47,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bac73af3-1959-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1744653361;
-	 x=1744739761; bh=E2vAnQ2nWIORvuBrKUPST8gjtXEElzj8oljLr0bXZH4=; b=
-	h/PzIIacovfHBE5dO7uzyYPFpJN+Q4v7Ymb9zWH6ggukOFiLeOZIaFRQLmn6A/hu
-	qPjpm4Xn8RalP3z6Yh48mkZ4NzIrg4mb/Zq+aL1PMLZ9LCQVEJIYLawBP7MpzZzJ
-	FLwmmUuhuDi3XkmHBJiCpeTiuibGfpKv5+oQ7MkZAgk87Pwa07TxdCEsy3Zla19K
-	BF1w5qHsb4+ye4/DwNdR58YEV1cxn4BhQj+xPHXYwZwyED6E5EF10fXhDjDjrVa8
-	38oYlH4t1lWWcmIdjzSXd8BSE0lZkT6S2RhaLgIZCziH2FANmMvSh5z3Bc5cj9Rh
-	oHcVR5TV1lmSRCnVmkRxpw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1744653361; x=1744739761; bh=E2vAnQ2nWIORvuBrKUPST8gjtXEElzj8olj
-	Lr0bXZH4=; b=jDzkN99G6IovQwIZCceMmsxMd2Id881TYtL7GouoSf4KQkRS1PE
-	+xuGw2Zv5XHZpCG+c7h1iczOBxyenHkJPBSQsQP3wCQ6LkoqL7cMeSOoY/JcP1VD
-	CQJ7f18dDfv6ohbJz5rwxUOceDf2Fh0EsS3IMBdVnxmJdNPaTyhbpQiz+wTwuWkM
-	rLT8PUvM4TCm85hGw3D4TMhVJZMWR4G7f0DHhFEg2egMVchOudtkzGbl5uK6yyA2
-	V+GjoC+hg7w4pkchwnlDpAiizsA4ATrV9VnypXuzGzdlPxIvJq/YX7S28ohzpvkC
-	QQe2Kt+Qwln5RY/+1Jq3O91xeop/XSVslLg==
-X-ME-Sender: <xms:MUz9ZweljTIhKi9b6gdS-_r8HAcY0UUiQDZ8JkXtFYfGHMEbOxeH0Q>
-    <xme:MUz9ZyOq_USGx_CpwKKUiWsLtSQQWBBZ4Y9tIc4EfbteBCPQOWywHRy5vWPZOgNAC
-    ZWG3inW5El33Q>
-X-ME-Received: <xmr:MUz9Zxg7gXC3Fw6g1bOpbMgExk6opnkQHpSAhbrdU17j-Q4ptXMj19craS7An2fPvo2nE9pgCuYDOCgdbRsenWuAeRoHtdmtYA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvvdduvdduucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
-    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
-    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
-    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
-    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-    dpnhgspghrtghpthhtohepjedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghn
-    ughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopegrnhhthh
-    honhihseigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopeigvghnqdguvghvvghl
-    sehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegrnhhthhhonh
-    ihrdhpvghrrghrugesvhgrthgvshdrthgvtghhpdhrtghpthhtohepshhsthgrsggvlhhl
-    ihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlse
-    grmhgurdgtohhmpdhrtghpthhtoheptggrrhguohgvsegtrghrughovgdrtghomh
-X-ME-Proxy: <xmx:MUz9Z18lIZEP7rAV1qEznJ3Kk2RHYhSEH-hazpla6akEUgD83Ocdpg>
-    <xmx:MUz9Z8sHiKQ6xMjebDHmcqi42rQT-uUzBCyzAWTrA7ijZirvCvhmKw>
-    <xmx:MUz9Z8FP9v6I-rOXVkZrttV7zmjblwcbwk_-pZ0NT5xVvwwD_g7OhA>
-    <xmx:MUz9Z7PsEDHiGV-gqwsYSdyYmxd-FVRD6oncUBfKa7MU2dj4ZeXIdg>
-    <xmx:MUz9ZyUsMCXqAwAy3gl0Tm6vCqzhfzE5YJfrnMWpATJbE5uqgb3M_a99>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 14 Apr 2025 19:55:57 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony@xenproject.org>,
-	Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v3 6/6] CI: Include microcode for x86 hardware jobs
-Message-ID: <Z_1MLobG_FyndTg4@mail-itl>
-References: <20250414110903.2355303-1-andrew.cooper3@citrix.com>
- <20250414110903.2355303-7-andrew.cooper3@citrix.com>
- <Z_1JuudeZAXihzwb@l14>
- <e0bfbfa1-4130-420c-8db3-4ac520ac49de@citrix.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="3VLxp8zmwVXi9/Zg"
-Content-Disposition: inline
-In-Reply-To: <e0bfbfa1-4130-420c-8db3-4ac520ac49de@citrix.com>
-
-
---3VLxp8zmwVXi9/Zg
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: f729ab7a-1959-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ljJtg35ZLPw/HSHxhU8H5lxouC70c2fbV6D380ktGw1rsUkszOIAwhrFxtMimIzSIf6vYfHfnKWf1yzuJbRvn8acGtTSylUvoeVel97j3E/01mgeUC/x31pPDGPNn9PdOmsBzgtDBwBg4z966TvieKL7lDPe5wM1NzvpOSCMwyBNDPCUEu5TnA9aikWPOaJibX3aqPndjiORI1STACo2528DyHorKvwbcvFBh9Mo0tl3pTAoKv1czCgfhemvxHlLNVJ8Yqe+CTzasUQnmEMrzOFydagHj7MH97E1SgMu+hhNjg3cRmSNw2ZikHvavI1k8Y9YRV3ITwI56mJDYoLr/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Kai0UgTYPyvlFlO/J0jfVcAaIfZPhexchYdyJmtwQbk=;
+ b=YGUAzcnHoBfSqhSBdqvvEuwgiZA9j1GKhY9KuTDqKn+if3LkwRxnT9PdskRIOpj2yEc5M+ZdeGtHgeExEtb21mmJul3nNpYJM/BqotAbuApw+D3MT6gla6wah/MQGyRjlqMpsePYrfgWH2eck6xnE78CSwalBwRVFgHR0zrMSXbsanaiYjhjpDwakOWCv1GXvGMiTIFAFW//pP3G9G9i9Fi8/tsrZUmGhMk7TnuEWT5xcOP+uvcRkQoO4AGh5l0y9cT8/wWF04cQMnIQAJJCRQxCjz3PHWOTxptNtFuWJzJxf1lEbBC7rTtMQS4QKAiwWCWLkZaBGp6L/fj0cGn3GA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Kai0UgTYPyvlFlO/J0jfVcAaIfZPhexchYdyJmtwQbk=;
+ b=tHqgWEv14YSHEDMl9DVvCyzveSQDCSOms59bxNiOiL8H28EAeP7Ahd2IPFhNWPHLY918xke/tEuLMCkCY+HWukYhWRibRD3zfEhlUJaYqCkzgV3+MiHOfdPcIoUuHkCjV5sXRm/7sugj9HwGhlgtrog7fwkkB8hofaVMdKVS95W+1TFECbBVWNZJFitakzXE3+oph7jCmBtZ04ctuLj7Pv/+DPWX3umhX3sU1dycgOmK5toAa6DWWZhka/zS0Kupv4S4aWEObe2eiwmz2wmNVWCCIYCOPzjCZjA4zAVtckxf+oJZ1MTJ+fjJ7qF+gPi/uQXOlcxsuiSfwrofauOqNw==
+From: David Binderman <dcb314@hotmail.com>
+To: "jgross@suse.com" <jgross@suse.com>, "sstabellini@kernel.org"
+	<sstabellini@kernel.org>, "oleksandr_tyshchenko@epam.com"
+	<oleksandr_tyshchenko@epam.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, Linux Kernel Mailing List
+	<linux-kernel@vger.kernel.org>
+Subject: linux-6.15-rc2/drivers/xen/balloon.c:346: Possible int/long mixup
+Thread-Topic: linux-6.15-rc2/drivers/xen/balloon.c:346: Possible int/long
+ mixup
+Thread-Index: AQHbrWZTlrpkrx2gg0SWv5xq+subcg==
+Date: Mon, 14 Apr 2025 17:57:41 +0000
+Message-ID:
+ <AS8PR02MB1021776B93FEF6D425C7223389CB32@AS8PR02MB10217.eurprd02.prod.outlook.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS8PR02MB10217:EE_|AS2PR02MB10374:EE_
+x-ms-office365-filtering-correlation-id: 2838e0d5-97ff-430c-2fee-08dd7b7dd9cb
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|7092599003|19110799003|15030799003|15080799006|461199028|8062599003|8060799006|3412199025|440099028|21999032|102099032;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?9KEpoXN0OIAabFtfiO6Ud3abovtlN8cBIyI85vnAh/7fZBi8vRtA9WSi5m?=
+ =?iso-8859-1?Q?Jdmd6P3p4qBKK4Z2we+iRS3NEtKDFuTvJAmPC7/f+goaHN1NXmkG3t7Mc0?=
+ =?iso-8859-1?Q?aqoHth3EMZ41hUf+/ntMtL/6nKjGIrPQUC3R0EcvniVOkMpHkeMXPdLf71?=
+ =?iso-8859-1?Q?Y5KHiW6fQRI1ZRVwqTsbaNTtHWSb8aMmlpFeHxwPZrt22srLlemGCA3ZjL?=
+ =?iso-8859-1?Q?mSznN92vK5crJl8NDSjDF0gUHkKA2qwQEj1zgN4e9kMHzsiDDs/kxdez6U?=
+ =?iso-8859-1?Q?wUBsOl2pZ3ve+zSlj+J+o8divHJqsmXAJTLHP8DhTRVST0i3aIStPZpQBM?=
+ =?iso-8859-1?Q?k7QOdmABMM9pfJRWBnMwLCYtwRu2kLv9wmTAcE0qaXpqH2/GlQ2YwZ27ag?=
+ =?iso-8859-1?Q?g00Xf4PDDHJmC2CuOB/thTLIAkvteEusMjnkBNu9DeOGau/n0s1WPoS8E9?=
+ =?iso-8859-1?Q?X7d1qAjyAQOvzcr6nshd0dsd/JQlwHwhzBOUJqxGDPFGihabJic+FsJPTL?=
+ =?iso-8859-1?Q?L/B9woXQxLq7iz1SklXyhy6hUNW3F2zulEm8kFWSbRP5y9AQ8VDV+SweL1?=
+ =?iso-8859-1?Q?pGmPPkcyY7J9KPpsymiQ4JC4igphnR9r72zHyDnJjuDnBvs4EcFJfPXRKV?=
+ =?iso-8859-1?Q?TKmKdb3Zxu4BRrHD5ZgRhc4qs8bdJ2pvIZcHdL/TsPJbI+pMc8vY1G846/?=
+ =?iso-8859-1?Q?1g3nOlKWmtfYDiyATkwsQHYJ4ZWUm7xsQeINUGAEzx3rlQV18Ju3nvNXuF?=
+ =?iso-8859-1?Q?i67rbXiaAoLeZT+XjrpY+vOTRhaJgxdf6ZfrfWzLtsumeT5Mi1sBs7/XRf?=
+ =?iso-8859-1?Q?+8iwyC4pMeG0uKMxdAG77BrNTXw48/WmewckNEBtqLEz72QbrKjOYYK2s3?=
+ =?iso-8859-1?Q?MjhPBumV3NYnEk2VRqJJYjQs0VhO5UfUL6pCrf/Z4DIeDJE62MDRcSUxRk?=
+ =?iso-8859-1?Q?VxcQ6F4AaK/mp5ifP5c7Nx1mmA5zB3zr/cToLtlgNJW5G4ZR1P31nS/ZYr?=
+ =?iso-8859-1?Q?vNTIJd697SsDMhZHoq+5FsM2Xtzp2etEwYvtKbGCUeGV0QqUm0yQwHLGNQ?=
+ =?iso-8859-1?Q?9qFwFxuHl1HcjXwq143PumXsig2uFkydAhH4vnUNbIifasgjTIGgs7CPwm?=
+ =?iso-8859-1?Q?lBT6U1HiRo1P7QdUJ1ili4X1f326uutA34fInMVwzZ+7G3sa9xcNTv0bdO?=
+ =?iso-8859-1?Q?WK9xHvksPNoMyg=3D=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?/JkNyDEdXDk3TKgi9aeSGuFcR02deHBSsFf+shsRuFPC0tUddNadn8LjRc?=
+ =?iso-8859-1?Q?2YBB17miKez0Zsk519dDqaZ7R7Ubq62YRD1Hn88dc8NpK6CvcMPkh8YtLj?=
+ =?iso-8859-1?Q?FsjubJ0yd2n3N0YdJIFDjuvD/2tApzgDXBlQ2uUfEms1N/Bv9jbL8mukv+?=
+ =?iso-8859-1?Q?7zlcKggoY8TSkR4JWVHyS4ZX7GbUzNsnLJekLHW/P5pXg++ns8DsViZFBl?=
+ =?iso-8859-1?Q?okabTGTQePtOjjS7Djglyrxd+RzwFxaEVuSo0+gKu0jPcAOoRrKYC440sa?=
+ =?iso-8859-1?Q?Wmex6Ox/Bze+jIfrcrxl4DI/btIPuY+Q//vlu5MztZ3WEYSnzofVTNN4MS?=
+ =?iso-8859-1?Q?0fX3Jy+sSKHCSeR9NZDg+a74/jIowU3rccDBJFHtCsQuLyR6yMXJWnFDyN?=
+ =?iso-8859-1?Q?3r44TYqVEQEYhH8lwpHdR+DJZKyxYcrmmbMHHETzgJajBNMgN61AQe00P/?=
+ =?iso-8859-1?Q?WzYJ3NEdQVUf7zCTfe8AS2/xjFhMcZ+UJ1FgEWh9/HU2mT146Krvu30syL?=
+ =?iso-8859-1?Q?vxhumCyssKWsHV0oavKvATHMxtEZKruiCrFEKbs0TBhmpmHOhCighzf+FQ?=
+ =?iso-8859-1?Q?3PeK8fPzQkWtb9UHJOr0Di2Yym4669p/7ut19mcv3YWjhQVjhWYo2YWOTW?=
+ =?iso-8859-1?Q?JHrAEzIDOBCWapRtxY/D+XhU4LpPEoU+b++AVyAqg0aXPtNL+VYR9Fkn7B?=
+ =?iso-8859-1?Q?8TtGNz0Z7bKsQ03TvFmnqZroDbOY25mKE7pS6MQW1IMBTlqMDv3OW1cFUy?=
+ =?iso-8859-1?Q?4orJcDaoHQN5kTsMjXerjSA9sInuLKP2LHg4g7W5JsCZQ3giqLsuOHJDUm?=
+ =?iso-8859-1?Q?YcDqZus/dXX6t3/B0gNX4wnTRF17GOwmwMys9+FGFJivKlmndTrNPw7/6o?=
+ =?iso-8859-1?Q?WbRrwUaV0CoYVHnuTcSJg0S+t24C98gMmrZoS0TYM8tigyrH0n/Nm9mbb3?=
+ =?iso-8859-1?Q?hpgnOzDUq5VyaIYkhSRV1l5DjFMzrzKxO1RQZDcN1OZMc4kcYYngQqv6xk?=
+ =?iso-8859-1?Q?qFqF5y3pJuxr5sirDUNUBOVKGXhGtSHj+Gfm18/hoWuEU0McQNvvwy+YKH?=
+ =?iso-8859-1?Q?lV8bXpg48TZXG61Ic7Vjymaar6bXp1q9KfO0hYtLWmxhRKEEuyWR4T31b/?=
+ =?iso-8859-1?Q?xxgke6fNWKHK+S2aIo9oWbRB4D2rmeijuo1sadtIi4UQREb9RghFNuvuFJ?=
+ =?iso-8859-1?Q?p8rNQV2uezQ2t1WTnTPEoFcVz6TanLGOPqOZIaB8rIiNpfhKoHros3EOBT?=
+ =?iso-8859-1?Q?zpoIm9vHm0weTVHw0B0Q=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Apr 2025 19:55:57 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony@xenproject.org>,
-	Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v3 6/6] CI: Include microcode for x86 hardware jobs
+MIME-Version: 1.0
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-ab7de.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR02MB10217.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2838e0d5-97ff-430c-2fee-08dd7b7dd9cb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2025 17:57:41.0969
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR02MB10374
 
-On Mon, Apr 14, 2025 at 06:47:07PM +0100, Andrew Cooper wrote:
-> On 14/04/2025 6:45 pm, Anthony PERARD wrote:
-> > On Mon, Apr 14, 2025 at 12:09:03PM +0100, Andrew Cooper wrote:
-> >> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/bu=
-ild.yaml
-> >> index 1b82b359d01f..ac5367874526 100644
-> >> --- a/automation/gitlab-ci/build.yaml
-> >> +++ b/automation/gitlab-ci/build.yaml
-> >> @@ -306,6 +306,7 @@ alpine-3.18-gcc-debug:
-> >>        CONFIG_ARGO=3Dy
-> >>        CONFIG_UBSAN=3Dy
-> >>        CONFIG_UBSAN_FATAL=3Dy
-> >> +      CONFIG_UCODE_SCAN_DEFAULT=3Dy
-> > Is there a change
->=20
-> DYM "chance" ?
->=20
-> >  that this patch series gets backported? Because that
-> > new Kconfig option won't exist.
->=20
-> Yes, I do intend to backport this whole series in due course, and yes,
-> I'm aware.
-
-A more backport-friendly way would be add ucode=3Dscan to xen cmdline.
-
-> > Othewise, patch looks fine:
-> > Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
->=20
-> Thanks.
->=20
-> ~Andrew
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---3VLxp8zmwVXi9/Zg
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmf9TC0ACgkQ24/THMrX
-1yzbCQf/TWg+sP0fVOEnCGGQSW7bW1DS7I8x8ApLaJyz2XrtBI5GSP8t8ai+/o/Q
-3Bi4Jiy6ufzeqoUD300ePH/eCDHnybw139bsRssZjR+W2FxumKhp/f/BMmogM6FH
-TObPoaxSHPn/Qxw4wTvITFArlN+FH/tEH2T63j4Iu/I3kDrbbDanmaiPY/LVhtJx
-RVN2ZXper6zGMwhfzRHO7nT5Gj4wXmPFBlYwVGEFGezWjk/myG845wrMxuy9vz2Y
-887yNvBKnLcDLwn/A2UMLE1TGBUiheekxRWlNEMaG4MlkbXFGXM+gKQns8xX4kcj
-DD+jilwxx+M3H8/9mQJFOl9Y5tRtdA==
-=jacF
------END PGP SIGNATURE-----
-
---3VLxp8zmwVXi9/Zg--
+Hello there,=0A=
+=0A=
+Static analyser cppcheck says:=0A=
+=0A=
+linux-6.15-rc2/drivers/xen/balloon.c:346:24: style: int result is assigned =
+to long variable. If the variable is long to avoid loss of information, the=
+n you have loss of information. [truncLongCastAssignment]=0A=
+=0A=
+Source code is=0A=
+=0A=
+    unsigned long i, size =3D (1 << order);=0A=
+=0A=
+Maybe better code:=0A=
+=0A=
+    unsigned long i, size =3D (1UL << order);=0A=
+=0A=
+Regards=0A=
+=0A=
+David Binderman=0A=
+=0A=
 
