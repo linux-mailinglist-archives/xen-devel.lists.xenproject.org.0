@@ -2,49 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14378A885DC
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 16:54:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.950548.1346830 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 110B9A88629
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 17:01:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.950564.1346840 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4LCl-0002Lq-Ka; Mon, 14 Apr 2025 14:54:35 +0000
+	id 1u4LJO-0004Bd-F4; Mon, 14 Apr 2025 15:01:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 950548.1346830; Mon, 14 Apr 2025 14:54:35 +0000
+Received: by outflank-mailman (output) from mailman id 950564.1346840; Mon, 14 Apr 2025 15:01:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4LCl-0002Jj-HK; Mon, 14 Apr 2025 14:54:35 +0000
-Received: by outflank-mailman (input) for mailman id 950548;
- Mon, 14 Apr 2025 14:54:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u4LJO-00048s-C2; Mon, 14 Apr 2025 15:01:26 +0000
+Received: by outflank-mailman (input) for mailman id 950564;
+ Mon, 14 Apr 2025 15:01:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B3Nx=XA=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1u4LCj-0002Jd-Gy
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 14:54:33 +0000
+ <SRS0=m6tK=XA=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1u4LJN-00048m-0I
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 15:01:25 +0000
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20608.outbound.protection.outlook.com
- [2a01:111:f403:200a::608])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 55f796f2-1940-11f0-9ffb-bf95429c2676;
- Mon, 14 Apr 2025 16:54:17 +0200 (CEST)
-Received: from CH5PR04CA0024.namprd04.prod.outlook.com (2603:10b6:610:1f4::9)
- by IA1PR12MB7710.namprd12.prod.outlook.com (2603:10b6:208:422::14)
+ (mail-mw2nam12on20606.outbound.protection.outlook.com
+ [2a01:111:f403:200a::606])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 53cff488-1941-11f0-9eae-5ba50f476ded;
+ Mon, 14 Apr 2025 17:01:23 +0200 (CEST)
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
+ by MN6PR12MB8470.namprd12.prod.outlook.com (2603:10b6:208:46d::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.33; Mon, 14 Apr
- 2025 14:54:07 +0000
-Received: from CH2PEPF000000A0.namprd02.prod.outlook.com
- (2603:10b6:610:1f4:cafe::6f) by CH5PR04CA0024.outlook.office365.com
- (2603:10b6:610:1f4::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.35 via Frontend Transport; Mon,
- 14 Apr 2025 14:54:07 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF000000A0.mail.protection.outlook.com (10.167.244.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Mon, 14 Apr 2025 14:54:07 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 14 Apr
- 2025 09:54:05 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.34; Mon, 14 Apr
+ 2025 15:01:11 +0000
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8632.030; Mon, 14 Apr 2025
+ 15:01:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,404 +47,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55f796f2-1940-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 53cff488-1941-11f0-9eae-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bT6NmHq7zxT1/7EEgrgOx3EMF8eB3R7VkwW1QmUFOSycQRqqf8yzwjrh3KtsbEHcU/FxvZuT1s+G3fAId4qTAU/Mftgmgx/4ZCoeLJmgOnbXh+OVEg3RjrmncBtFWwNKiRC4Q+LZ3J8oB2fU1ATRhQweiXit6FXVd0PLjXcYGVIQXMLrZF86KNtA30eKDZD2Ta0eQQ+6RNj3mvhh4De3s6pQx7a3WaXUAbXyBERSSf9htF5HBS8L8VvhpDxrd8QoynD/jNsBQb51C5YhHihRlpp2e7cAVb2Vnb5D3mFvGNLsaEZhsNQSXgtXahzNZpakGoeCfrwy3PtqkUxCPjyfBw==
+ b=LLqqCA2vduWnFXtHCVS1+suG9zW48ukq3bCsTFd+o+V8ZgTkAQJR1BSu17bt8QClGw/MBW2cICgU3oErAdQRoloBtz1A38niZDO7iXjimy1a9v7DHvHATBlCZ3ZAbKLswDSMt//56EJ3dW1QWhcT6bu21NsQgl1QYulf0hUDN5/K8hUEgV1KHTfSadL7Y+RciDHP1bArGga+86RJgj5slLejfapB79E6KBp8myTcPai4TeMHxRRzzk8FqrwvyY3+L6bOOL6GLm09C4WNncPQSSk+ZZAlhabHx3jDQdcxR1aUIhOOrK/mUDNzhkTIY9pz049YBCSa/itKkRnl+UQ3Xw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jb/hnyHFNdmRYRtM5XdCo8TvkhaFEljRLZwprbWEQSc=;
- b=Vb4KikXrxOxh+mnXME9ySCh5JnhrbNwVzvspinIRO8q3jCF0RltfRyK2ul0HgIoIDPFCnxMFeRTN+25X3E0J1rXaQH7qVZPTsfvkH9PK3V48I0lw8bE2eEwZQi4YEJP8xt2FTBBblXXyzcm+qVcariZmG7O0evuEgQ29mbQ0/YmKoCpZTRir7j1u4/pfzQSnlr5aZFH/VFw8kTdl/1hFwLzoZET542tCoIIDm72gEC5S/dMxggArqGIGWhxs2hKCqbs+5Bfnqjmrf/zDl/Bqq+TZWUB6Tiz4zriMs2UATECvDojQCOz+GOZMi6BjPqSFVMeJSTq2lPH5EWrnd3DWYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=proton.me smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=30Gw0EOu8RcewQf3B3k1hxG965TJxUvi9TbFYyyZxl4=;
+ b=ac4rQTAvEOW4LeacAWsxqxPf8hXCHezZ7oGhHlJ+Vns0BEAeKQgVSQSYsOCSA+C5eQvRcgpnpLwVIubHctZU7cA7+NM8Tw3sPyTW3pBLzESb0wlzfyMNjyJSJqOGYbFHHBYCALD02aUBGkMK7eTBcFAeFRFwZeaAAwRuxN/CZPRTZl/kS+G5KC6oiI6umnkCT2Vdnow3VJaW95CBoGO8zZS+ug4Oj6xlRnGvlfZJD5yKFxDKWx8J0KpDnCp/wvtqkcoNVyHrh6ktUmTT3UXqRTnFU92UxHe1OBmM0JHAxc/+XFmF8EDftwAL7Wxq80Lp+b2Lr1DfLsrQR6JUPN+J/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jb/hnyHFNdmRYRtM5XdCo8TvkhaFEljRLZwprbWEQSc=;
- b=4RtlAUEkzB1KiIVx1falGLGaGZNOSjRWPvifeVbqOcJOvIUVJtS3BZfg+VvIpfRs6G/X4yED8GRq/UKlc/mOKLVJR9LI4B9lOUit2vh3dewwZsmkRouU19HPswYSR0h5PEwBnXhMExMTek2sekYtkij9woqMVp+7wu5PNqXXRfI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ bh=30Gw0EOu8RcewQf3B3k1hxG965TJxUvi9TbFYyyZxl4=;
+ b=O63cwa53kHohPHNgIP8Hji4N7GGAOMwENvN3amzDN8wgPmJqhRjKZy5XOOKwju7gDRLkcTxyZJ2AXtlKx0A76zU+/YMnzzQ1kEc4VD78c0FUdRyGNowo7Tz4rFLOIhEi66xf86yvzASZrmFBjKe6IS00KGWG5bAfxmU1wgg8JU0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <d85090b5-43f4-41dd-a423-ada90d572001@amd.com>
+Date: Mon, 14 Apr 2025 17:01:07 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/7] arm/mpu: Introduce MPU memory region map structure
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Penny Zheng <Penny.Zheng@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <Wei.Chen@arm.com>
+References: <20250411145655.140667-1-luca.fancellu@arm.com>
+ <20250411145655.140667-2-luca.fancellu@arm.com>
+ <d323425d-b266-49d6-95d4-0e1acb5e489e@amd.com>
+ <FCB86533-FFE9-4A79-AC8F-E2DBA2B1F553@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <FCB86533-FFE9-4A79-AC8F-E2DBA2B1F553@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0252.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f5::17) To BN9PR12MB5273.namprd12.prod.outlook.com
+ (2603:10b6:408:11e::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 14 Apr 2025 15:54:04 +0100
-Message-ID: <D96G4QICTBWX.193DL39JIUJ9K@amd.com>
-CC: <xen-devel@lists.xenproject.org>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>, Jason Andryuk <jason.andryuk@amd.com>, "Xenia
- Ragiadakou" <xenia.ragiadakou@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH v3 10/16] x86/hyperlaunch: obtain cmdline from device
- tree
-From: Alejandro Vallejo <agarciav@amd.com>
-To: Denis Mukhin <dmkhn@proton.me>
-X-Mailer: aerc 0.20.1
-References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-11-agarciav@amd.com>
- <AOApTL7inEgfBXUrdPTzjM3e6XyK-nDlfQz5j7gpcrOIHEJfLC9sXSTgbSthCSkzDqjRK8vAY-_5yDSXiKSEnEkoBvDIvCU9Rw-ZbsIZRh4=@proton.me>
-In-Reply-To: <AOApTL7inEgfBXUrdPTzjM3e6XyK-nDlfQz5j7gpcrOIHEJfLC9sXSTgbSthCSkzDqjRK8vAY-_5yDSXiKSEnEkoBvDIvCU9Rw-ZbsIZRh4=@proton.me>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000000A0:EE_|IA1PR12MB7710:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cb620fb-b3fc-44ce-5732-08dd7b64353d
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|MN6PR12MB8470:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9dd14393-8387-4464-612c-08dd7b65315c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UDVtUXVjTEh5d2tYYTJqaVRzMTdaNnd3dHBYQUFGVXd5VTZVZjZMZ3JiM1BH?=
- =?utf-8?B?WWpuTTdwdVdZR3k0cndrKzZoWmtsODF0RUVzT1k5SWxWQUQrVGcrM2FvRGpx?=
- =?utf-8?B?WFNqZEZ3OVNMYUpiVXIxU0xZMEtOdEt2djNXcldsT3J1NWVzVDcxaW9oVnpy?=
- =?utf-8?B?VkVrQkNkVXRjdTFrYjdQZjRCZzZSWi92M3VnUkovdkMyZUFNcFhCQlpiQWg5?=
- =?utf-8?B?NHQ4STFmeVQvTDM4cHFVQU1Fb0sxT2xPam9wVjhUcFZzOU5jTnp0RkNrbnNn?=
- =?utf-8?B?Q05UWDBneTFUQWlVSjEyQmRuaUxLcHVhTGdBeURPeTcyRFVDTEE3dUsySmdO?=
- =?utf-8?B?NE1mOW8raUVpSUhwQlorQnJvNGlBbjd1ZXRHeTVpVVZZQjZYc0g4UGwzY0My?=
- =?utf-8?B?Z29tVUI1aXhnMEY0dGVQMkpsd0k3dzVab1N0Z05tQTBqVmNSOWh3OG9nYXAw?=
- =?utf-8?B?QUJCV1Q4dmhSdnN5RU5UdktrdGxsTTBJS01ZeVFvN09BaG9FNWVsRFhUNERh?=
- =?utf-8?B?QTAwMmk2eFV6N1A1SzgzNXJSMjZ2SDh1ek8rdmRFREZYazA1RW5KanAzeTVi?=
- =?utf-8?B?ZmJ4NjMxT3kwcS8xdGZlZVN5SVNlZU4zdldOcldvUlhIKy94dEdEdjVpYlVy?=
- =?utf-8?B?a3NBOHpWU0RGd1IyUjY3YVZRQWdsSWNaaU5oZEpteVBiQy9zajhPdUtXZWsz?=
- =?utf-8?B?T21NNFNEQi9FR2ZkMkN6MG1QSkZCVWFNcFhzTHdpL0x2TmRGc2tqdHdHMUlY?=
- =?utf-8?B?eEFKUEpoNEd0L0ViUVJmc2NyM3VDWEZhODVWSElCcjR5bituYnpLbHNvRktH?=
- =?utf-8?B?UlIvOE1ER0ZpVXhncy9UMUtWM1lQaW9POUhhLzV0bUY3T3hPeWNsK0oxNjk4?=
- =?utf-8?B?Uitxei9GWFV0SDBlVzJZcm1jRDk5akFIdXBNQmlDTEJyMkNIRzJndllHY2hv?=
- =?utf-8?B?WWQ0eTUzeEU5cjRudjkvbEJnYjBiai8vM0pvMU1sVkoyWDQ5bHlhTjdxS0x6?=
- =?utf-8?B?NkNJK3VCK1kycUdYMi9wK05OcHBzZ2lpcWRNL1RlVWhVNVp1YWpJTWdCZytY?=
- =?utf-8?B?NWh4UzM2ZUI0T2c5bkZzVXNzS1RXMnBtRDQxRzhxaE4xSUc5Rlh2OStqTVNJ?=
- =?utf-8?B?SEE4b2ZlRGhHWkl2K1krQlRIZFhlaWQrUXdiTmMrWXYwUjR6TDQyRnNGcVJu?=
- =?utf-8?B?M1ZLRnF3SC9NdlNMcHR1bGlTekQ5ZHdwdUNNWjIwbU1kdkUzbzNBV25BbkhQ?=
- =?utf-8?B?L3dIM1luOU5wbWZ5OGduTUgzaVNLcUpzUmIvZTBTekp5L21QdDVtdTBTUmZQ?=
- =?utf-8?B?MFVHK1RudDlxbnNPcnJkTmNMT1d0d2VBUE9JclQzcjlwQlNlK293UVI5S2My?=
- =?utf-8?B?SCtxMGc5VUx4UzcxTDVKMFRQeVRyNzdEZk4zL01mTEx6UzZPSldPQndNWHU0?=
- =?utf-8?B?azNOWkladXZCTUszRFdFbVMxRjBNam9aY1FUVkd6Wm91ZllIQWpCdjY5a0RK?=
- =?utf-8?B?SCtCTXBYdjZLT2Z1ZlBkWGxMbnVSOVQ2UWJQUDRPM1NTdTJjOE9GUUFKN29J?=
- =?utf-8?B?Mi9iTGRGRXVvUTJYWXQzZ1FZd3poZXFKOGJaSHN2M0xwZUx3RFRrVmdLcEZw?=
- =?utf-8?B?L2FIdVZBY2cvTlhDenZyWFRjSVc5OVg0bFUwVzRyUHUvN0xUOFNWYkpDMnB0?=
- =?utf-8?B?dlhmbXFrZ0JuU2xZc3F1S2lsRm9xMitaL1dLV0JPTENtVWs5M3NFYkhxNkVh?=
- =?utf-8?B?TFovM0ZXQUh0TUpXR3RBWHdET1QwV2Y5OW9aTmo5SGEwZXd5ZVA0Sk5PdE1V?=
- =?utf-8?B?NnY2T3BOL3VyR243dDl0ektzUDBFYXdpMnphdXRMYnJNQ2hWM3NVSTZtZ3I0?=
- =?utf-8?B?YmZzYU9KZ0swSTErWlBvM2E0a0V1ZDRXU1JhSmRvTmx2cFNXS05VR1M5Q2Rs?=
- =?utf-8?B?azgrREVwaEIwdzd3ejVKUkh6OVNCS2xmbmphbzRkVlR5QktlSXBYMW44WU9Q?=
- =?utf-8?B?WUk5ckJGSTZqeC9oSVRITklWR05tMnJieTd6bGRqN2s3ZWhWeHZSNENwUk01?=
- =?utf-8?Q?tn1tTr?=
+	=?utf-8?B?U1pNNGllR2d3N1BiUnRkMms1b0gzY2Nla3c5NFZMbSs5REUwcURVb3BkR3c5?=
+ =?utf-8?B?UHJPaG1hOCtBK2lseXUyT0QxVHRwd0FTbGNOSHZsVW4rWFEvK08wSmRvd0c1?=
+ =?utf-8?B?RHMzSHBtZ2lxc1lKQlMrWEQ2MCt1MC9kZzI2aFhmTlJpMHppUlFpVWloMHR0?=
+ =?utf-8?B?UmVQT0Y5dkVPYWxYMFZDOTh3SGFSQSsxQjBUeHZNYTVZTDB1anJlZitSaUta?=
+ =?utf-8?B?eVNnOVJuU09JZnZOMk9PaCtZY3pkOG5ydDBkZk9MNC92RFdGT05RSUdMMWgx?=
+ =?utf-8?B?NzB4bzZhTnRaQWx0SU9DY0Q4UzBRc3Q1MFdCTlBGK3VlUGJCWFdEM1RBNTIz?=
+ =?utf-8?B?WEV6ZUVMb1dEMWxPUG5qaFNyeXZwME9aK3czclBMY3JoaEQrL1hpUjg4VTBl?=
+ =?utf-8?B?VjBRNlF0eHhPckJlSUhhOTQyV3lFT3FjSGRLdVdIZDZMaVN2L1pOWE9HMkZn?=
+ =?utf-8?B?NkQ5TFBrK09wSXdXakZEdDY5QzZ4ZFY0QTRvN3llSTFjT1A1VkRoeHBvYWRW?=
+ =?utf-8?B?a3BqcEkrdlMySDlKVm4zeURLUzNCdmZwcFY5dGJhR1l2VWVNVVEwWlVYYTN0?=
+ =?utf-8?B?VUJDR0pRRXZvY3dJekVpK25NSmJjR1VMOTljQ2kvaDErbXN5UTd5bm1CQmZl?=
+ =?utf-8?B?ckE5MkJpUWZrdGdROFhESzgrUTRyL25aMTI2WjJDQnkzOGJTZS9ibWVKU2p2?=
+ =?utf-8?B?cm55b1dWME0rREFSZlpqTlpPUzArbjUrR2FHSzZ5ZFN6eXN1dWF2ZFp2R1RW?=
+ =?utf-8?B?QmU4a1JXNGRtT1FJdWtwMmUvclRYbnYrRDM1emFIek56KzdmTWFFeDRmSUZs?=
+ =?utf-8?B?NW4xTGtBMS91WWVwa2dWYmx4RjNvYXdpdFBOZGdlcVJrYlZrblRPczJWMHhh?=
+ =?utf-8?B?RWwrdXQrWWxJMjBSQWVHSkV6dmhQZUJlU042aFo4M1ljaVZ4Vmx6aTVQdGVJ?=
+ =?utf-8?B?dFBJNGk2eGZGSlFURjZQWE1xbnhZQndsb2pUZ2FUc1hyOGdHSzNnSjBHeHVM?=
+ =?utf-8?B?WFBGU2NzRXl6bTNUVnR0Z3BLR1M4ODByRjNNN2RVOWo0YWxiTGlRZzhEMEQ2?=
+ =?utf-8?B?VGJpckJkQk11dEhnZGczc3llZlBmTGhZdjZqeFNuZ3pMZmV1OXRYMjZ5VGVw?=
+ =?utf-8?B?LzZMc3pQMzhkR2hIYzlHYlJuK1E1VG5NNlNwd2pGZm0wVWF0QU51Zy9UdmRs?=
+ =?utf-8?B?RlV4YUtySGRwYUoyRGNWbHIyOFZnVUpvRU82Mi8vWllYcU56WWtSL1UvSnhv?=
+ =?utf-8?B?ajN5MkNDbzZlMWFvRmtNanRQS25RZXoxNEgxZU96a3hONWNMNXZ5VWNaL01a?=
+ =?utf-8?B?enZtQ010MlRaa0NzMUg2NDZTSVh3K09jOUF6T29NMzlJU2x1aXBobzhCL2s5?=
+ =?utf-8?B?MjBYUXY1VmxmNGRYRXpMcHVjTDJaRW5OR3NxOGhPais0UitDdk45TXVzR3pZ?=
+ =?utf-8?B?UkZldVBQcldpSlpmYzhxaityNVBZbjlkLzBsN3F1clJXc3ByUmIxRHFGNVRj?=
+ =?utf-8?B?VHdQVDNTNEFETFRhMDhuQlBBMVcyTndpdEVWbGRUTHVaVnFJUmZzRloveDk1?=
+ =?utf-8?B?OU80cG9BamZBbzJqQVlwNCtRVCtEWS9Hc2tFU2VVSkRVMUY4YmIzSUFHd3Rz?=
+ =?utf-8?B?WEVGdWNwRHVPbHo3bWF5MG1UeG1Xdlp1bVJ1S0FodmNFUlBaQTBHZ2tBbVZp?=
+ =?utf-8?B?UWpOaEs2VFRjRmJBSXR5Z1JSRzhHSURLanhMaVlPc3RGNWZNR1g3SXlvRTdP?=
+ =?utf-8?B?a1hDOXRReCsyVDhxcHE0UVFmYVMrSHRvVVRCUlZMN2t5cUJ2YTdnNEpaWlRZ?=
+ =?utf-8?B?MTRsWXNmUkdYdVc3cExNR2U3M01ZTmVVRnptSkNZcGFYYmhHQm9odWhqZGtp?=
+ =?utf-8?B?UTlZdCt1TkczUG1wT3N2c3QrUlppTzVUN3hFNkh1WkV2NmRrckVwWEo1b3ZO?=
+ =?utf-8?Q?+8TVY1/GTpE=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YWhUUlpyS2RqN0Q3dnZPanNoaGFxeUdMck10cU9Cbkh0QXRSRHRMc1VkS2JQ?=
+ =?utf-8?B?dmhycHNiMGRuZUhZSml0WGxkb1FqYTRiUndPNDR0U25WNzEwSFlBWjBNSDZG?=
+ =?utf-8?B?TTMzcXVTL055VGlSYjBNc0daUWk4c05PWTcrMkxnTytDNThNcmZNb3QrWWRl?=
+ =?utf-8?B?bmoybTY3Z0c5cVBFZ254eDlPUG52MkdYVXNqWUdsQ3dMVU4rZEZTUDhFVEtG?=
+ =?utf-8?B?ZSt6cW51QjMvQ2JFV3lvNEcwS0lBRUVMZHdxdmtxam5JQmYyQ1NjbW9PNHVX?=
+ =?utf-8?B?NXNqY2hPOVNsWTZadUJ4UVR6VlpjZ3MzQXQwOFc0ZGpGcDRhc1FyYU53UzFU?=
+ =?utf-8?B?UUpKUVJvQ1dKdlVpUjZCZDhqd2VTUk13NmJJZTkzcGhOWHhjZVNkOTdPVitC?=
+ =?utf-8?B?eWJOOHlDc2dTRGVZVytCMzBmZjN5aVFxckNHSHRrb210V0FrVVJ4ekZ1YVJq?=
+ =?utf-8?B?N09WNk5wMXc2K0RIZHBVcGZHSTJiNXBBL1o2VHF3R0R1TUNJVE9NTHVJYlRh?=
+ =?utf-8?B?enlRY2dLOHd2QnFJbTRNRVJVZFFOOVRUcEpPSmxURi9yMkcxVmFUU3VDMjRB?=
+ =?utf-8?B?a0NXbEVlUEVhWDF4aFNQN0QwMVlzVVQwTHV2Z2tOUWh5Z05vbjNyUDF2UlFN?=
+ =?utf-8?B?VWxXVjlGRUpCUlovMS9XVml3N2hNaWRWOWdhVE9aUFBoT0JoTjVSMEFvTGlm?=
+ =?utf-8?B?NDl2dmNjUlZCYktJaFlUQmJISGJNT29xazNYVDYvTVh6YW9PZldQYlAzaXA4?=
+ =?utf-8?B?OE54ZE44S2NRV3dIWXBpcUtVWVZCSis4aERyLytpejFKV1NabWZsTkg3dDZM?=
+ =?utf-8?B?NTM4N3FzKzQ1cVpOOHI5TjdJSUw1K0d4c0QxR29UamFKdU1GU0xreFVHYTN6?=
+ =?utf-8?B?WEhUWG5EMVJ3WngwVXhubStuRU1PSHpvYThiRWs4NEdCcFFMRHE0Qk9PTDN5?=
+ =?utf-8?B?TjZYK2owTkVuMEdSaXhaSVFFa3ZuSStVZHlPM0NIUHdoTEpJRkErZEFVSXNK?=
+ =?utf-8?B?aFhJSDlRZUE3cmNiZnUzSnhmcjZUYXdaUzMvNnNjRWxmYWJxQ3pBZ3Y0UEpE?=
+ =?utf-8?B?OVZXNThwUVB3ZEgrQWp1Y1Y4ZTFOL0xZcWhZRko4eEZWNkROWWgyREQ0aVlO?=
+ =?utf-8?B?d0k3NTFjSm5mTlhHdmhjLzFLYlFub3FkR0hyNTM2VDNzc1VWRno4RUQ5WTRK?=
+ =?utf-8?B?Mi96NVBOK2svVnBIZWlMWEt4elYwUjh3allHZHduMEIwWU04VlRkNGc2WFF4?=
+ =?utf-8?B?Mkk5amtxU1JUbnhZM3VxSDdEN042Qy9ldXF4dlcwbFFtd01PVTYzMzZaeTFC?=
+ =?utf-8?B?TzJYa0doNXpBTjFTMWF2Q2dVV0FJU3dLSnZzVTFmRG44U3YzSkQ4ejhaanBp?=
+ =?utf-8?B?Nk9zQitlWlJLY1pQOUt0T3RtUEJ0TEFROVBuTlFobWs4Y21uS2pZdDRhVDdW?=
+ =?utf-8?B?SUJKM0VEQXcxb1M3N1hud04zaUJpRS8rOHBiUUh3QTFPeVh6TEpIT2dHQmJh?=
+ =?utf-8?B?dXlLcWJqWHFxWXp6emxmczhlTHRBQ2ZQYmNxMlpQVC9mcndsLzBTVTBiQmZo?=
+ =?utf-8?B?WnovbjVFdXVNSm5nbjhSUkVGOXB2Zlk1azNCQmJQM1JTVm93cVV3RXpDemNB?=
+ =?utf-8?B?VTY4NlNmdFVLWnB5R1RqRVlPNk43VGF4d1ZhcUFnaUJ0OGd4cWRpRVZlUDdk?=
+ =?utf-8?B?TWI1NEZnbGxodGZRUHpvRFFncUM5MzkyYUc5Mld3RkFXYXJVZ3ZlOFg2THVh?=
+ =?utf-8?B?a1JGQ1p0dGJKVkFFSGlUYVpLMGE4TDlZZEZEN2E3ZHpMVWdSd3BUUjJSb0cz?=
+ =?utf-8?B?TytGK2xvazJMVlpoL2xYQm1keWNtMVhncHg5VFd5QVNIU2dWUzNjRFBzaUxW?=
+ =?utf-8?B?dWNxQWFLRXc3YXBQU3hIVW5vT3NZMnRibCtKYm5zaWlMWkVpWWl3QnhwVC9p?=
+ =?utf-8?B?QU9RZkVUYXdHVkM3MmFjQzZBSWY5N2JiK3ErbkFsTnVJeDBpYnQ4UEI5UGdu?=
+ =?utf-8?B?dU1LUEJCaW1za1doVWl3d05rUmtLa1RRRVpBTjhjUVhmc29BMEYrRyswK2NZ?=
+ =?utf-8?B?eWZvUW5Da2ozM29Ud0NkaExaT05nTTZyTWhBVmRBdm5ULy9NdzdkSW1BR1lj?=
+ =?utf-8?Q?VnbWKLfcfJUWyXBww3fIWGwVj?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 14:54:07.6011
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9dd14393-8387-4464-612c-08dd7b65315c
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2025 15:01:10.8768
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cb620fb-b3fc-44ce-5732-08dd7b64353d
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF000000A0.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7710
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jzuMtSD0skvLM2NtEl29DQyY8bW//DnkIaAV2eYoKmCZ/wYkAPDA+k0Xyar1cSl7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8470
 
-On Wed Apr 9, 2025 at 11:04 PM BST, Denis Mukhin wrote:
-> On Tuesday, April 8th, 2025 at 9:07 AM, Alejandro Vallejo <agarciav@amd.c=
-om> wrote:
->
->>=20
->>=20
->> From: "Daniel P. Smith" dpsmith@apertussolutions.com
->>=20
->>=20
->> Add support to read the command line from the hyperlauunch device tree.
->> The device tree command line is located in the "bootargs" property of th=
-e
->> "multiboot,kernel" node.
->>=20
->> A boot loader command line, e.g. a grub module string field, takes
->> precendence ove the device tree one since it is easier to modify.
->>=20
->> Signed-off-by: Daniel P. Smith dpsmith@apertussolutions.com
->>=20
->> Signed-off-by: Jason Andryuk jason.andryuk@amd.com
->>=20
->> ---
->> v3:
->> * Rename to fdt_get_prop_offset()
->> * Remove size_t cast from builder_get_cmdline_size()
->> * fdt_get_prop_offset() use strcmp()
->> * fdt_get_prop_offset() return bool
->> ---
->> xen/arch/x86/domain-builder/core.c | 28 +++++++++++++++++++++++
->> xen/arch/x86/domain-builder/fdt.c | 6 +++++
->> xen/arch/x86/domain-builder/fdt.h | 25 ++++++++++++++++++++
->> xen/arch/x86/include/asm/bootinfo.h | 6 +++--
->> xen/arch/x86/include/asm/domain-builder.h | 4 ++++
->> xen/arch/x86/setup.c | 12 +++++++---
->> xen/include/xen/libfdt/libfdt-xen.h | 23 +++++++++++++++++++
->> 7 files changed, 99 insertions(+), 5 deletions(-)
->>=20
->> diff --git a/xen/arch/x86/domain-builder/core.c b/xen/arch/x86/domain-bu=
-ilder/core.c
->> index eda7fa7a8f..510a74a675 100644
->> --- a/xen/arch/x86/domain-builder/core.c
->> +++ b/xen/arch/x86/domain-builder/core.c
->> @@ -8,9 +8,37 @@
->> #include <xen/lib.h>
->>=20
->>=20
->> #include <asm/bootinfo.h>
->>=20
->> +#include <asm/setup.h>
->>=20
->>=20
->> #include "fdt.h"
->>=20
->> +size_t __init builder_get_cmdline_size(struct boot_info *bi, int offset=
-)
->> +{
->> +#ifdef CONFIG_DOMAIN_BUILDER
->> + const void *fdt =3D bootstrap_map_bm(&bi->mods[HYPERLAUNCH_MODULE_IDX]=
-);
->>=20
->> + int size =3D fdt_cmdline_prop_size(fdt, offset);
->> +
->> + bootstrap_unmap();
->> + return size < 0 ? 0 : size;
->> +#else
->> + return 0;
->> +#endif
->> +}
->> +
->> +int __init builder_get_cmdline(
->> + struct boot_info *bi, int offset, char *cmdline, size_t size)
->> +{
->> +#ifdef CONFIG_DOMAIN_BUILDER
->> + const void *fdt =3D bootstrap_map_bm(&bi->mods[HYPERLAUNCH_MODULE_IDX]=
-);
->>=20
->> + int ret =3D fdt_cmdline_prop_copy(fdt, offset, cmdline, size);
->> +
->> + bootstrap_unmap();
->> + return ret;
->> +#else
->> + return 0;
->> +#endif
->> +}
->> +
->> void __init builder_init(struct boot_info *bi)
->> {
->> if ( IS_ENABLED(CONFIG_DOMAIN_BUILDER) )
->> diff --git a/xen/arch/x86/domain-builder/fdt.c b/xen/arch/x86/domain-bui=
-lder/fdt.c
->> index a037c8b6cb..bc9903a9de 100644
->> --- a/xen/arch/x86/domain-builder/fdt.c
->> +++ b/xen/arch/x86/domain-builder/fdt.c
->> @@ -189,6 +189,12 @@ static int __init process_domain_node(
->> printk(" kernel: boot module %d\n", idx);
->> bi->mods[idx].type =3D BOOTMOD_KERNEL;
->>=20
->> bd->kernel =3D &bi->mods[idx];
->>=20
->> +
->> + /* If bootloader didn't set cmdline, see if FDT provides one. */
->> + if ( bd->kernel->cmdline_pa &&
->>=20
->> + !((char *)__va(bd->kernel->cmdline_pa))[0] )
->>=20
->> + bd->kernel->fdt_cmdline =3D fdt_get_prop_offset(
->>=20
->> + fdt, node, "bootargs", &bd->kernel->cmdline_pa);
->>=20
->> }
->> }
->>=20
->> diff --git a/xen/arch/x86/domain-builder/fdt.h b/xen/arch/x86/domain-bui=
-lder/fdt.h
->> index e8769dc51c..91f665c8fd 100644
->> --- a/xen/arch/x86/domain-builder/fdt.h
->> +++ b/xen/arch/x86/domain-builder/fdt.h
->> @@ -12,6 +12,31 @@ struct boot_info;
->> #define HYPERLAUNCH_MODULE_IDX 0
->>=20
->> #ifdef CONFIG_DOMAIN_BUILDER
->> +
->> +static inline int __init fdt_cmdline_prop_size(const void *fdt, int off=
-set)
->> +{
->> + int ret;
->> +
->> + fdt_get_property_by_offset(fdt, offset, &ret);
->> +
->> + return ret;
->> +}
->> +
->> +static inline int __init fdt_cmdline_prop_copy(
->> + const void *fdt, int offset, char *cmdline, size_t size)
->> +{
->> + int ret;
->> + const struct fdt_property *prop =3D
->> + fdt_get_property_by_offset(fdt, offset, &ret);
->> +
->> + if ( ret < 0 )
->> + return ret;
->> +
->> + ASSERT(size > ret);
->>=20
->> +
->> + return strlcpy(cmdline, prop->data, ret);
->>=20
->> +}
->> +
->> int has_hyperlaunch_fdt(const struct boot_info *bi);
->> int walk_hyperlaunch_fdt(struct boot_info bi);
->> #else
->> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/=
-asm/bootinfo.h
->> index 1e3d582e45..5b2c93b1ef 100644
->> --- a/xen/arch/x86/include/asm/bootinfo.h
->> +++ b/xen/arch/x86/include/asm/bootinfo.h
->> @@ -35,11 +35,13 @@ struct boot_module {
->>=20
->> /
->> * Module State Flags:
->> - * relocated: indicates module has been relocated in memory.
->> - * released: indicates module's pages have been freed.
->> + * relocated: indicates module has been relocated in memory.
->> + * released: indicates module's pages have been freed.
->> + * fdt_cmdline: indicates module's cmdline is in the FDT.
->> /
->> bool relocated:1;
->> bool released:1;
->> + bool fdt_cmdline:1;
->>=20
->> /
->> * A boot module may need decompressing by Xen. Headroom is an estimate o=
-f
->> diff --git a/xen/arch/x86/include/asm/domain-builder.h b/xen/arch/x86/in=
-clude/asm/domain-builder.h
->> index b6d9ba94de..7518b6ddf3 100644
->> --- a/xen/arch/x86/include/asm/domain-builder.h
->> +++ b/xen/arch/x86/include/asm/domain-builder.h
->> @@ -3,6 +3,10 @@
->>=20
->> struct boot_info;
->>=20
->> +size_t __init builder_get_cmdline_size(struct boot_info *bi, int offset=
-);
->> +int __init builder_get_cmdline(
->> + struct boot_info *bi, int offset, char *cmdline, size_t size);
->> +
->> void builder_init(struct boot_info *bi);
->>=20
->> #endif
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index 00e8c8a2a3..ca4415d020 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -984,7 +984,10 @@ static size_t __init domain_cmdline_size(
->> {
->> size_t s =3D bi->kextra ? strlen(bi->kextra) : 0;
->>=20
->>=20
->> - s +=3D bd->kernel->cmdline_pa ? strlen(__va(bd->kernel->cmdline_pa)) :=
- 0;
->>=20
->> + if ( bd->kernel->fdt_cmdline )
->>=20
->> + s +=3D builder_get_cmdline_size(bi, bd->kernel->cmdline_pa);
->>=20
->> + else
->> + s +=3D strlen(__va(bd->kernel->cmdline_pa));
->>=20
->>=20
->> if ( s =3D=3D 0 )
->> return s;
->> @@ -1047,9 +1050,12 @@ static struct domain *__init create_dom0(struct b=
-oot_info *bi)
->> if ( !(cmdline =3D xzalloc_array(char, cmdline_size)) )
->> panic("Error allocating cmdline buffer for %pd\n", d);
->>=20
->> - if ( bd->kernel->cmdline_pa )
->>=20
->> + if ( bd->kernel->fdt_cmdline )
->>=20
->> + builder_get_cmdline(
->> + bi, bd->kernel->cmdline_pa, cmdline, cmdline_size);
->>=20
->> + else
->> strlcpy(cmdline,
->> - cmdline_cook(__va(bd->kernel->cmdline_pa), bi->loader),
->>=20
->> + cmdline_cook(__va(bd->kernel->cmdline_pa),bi->loader),
->
-> Add extra space before bi->loader?
 
-Yes, was a spurious diff.
 
->
->>=20
->> cmdline_size);
->>=20
->> if ( bi->kextra )
->>=20
->> diff --git a/xen/include/xen/libfdt/libfdt-xen.h b/xen/include/xen/libfd=
-t/libfdt-xen.h
->> index 2259c09a6a..e473fbaf0c 100644
->> --- a/xen/include/xen/libfdt/libfdt-xen.h
->> +++ b/xen/include/xen/libfdt/libfdt-xen.h
->> @@ -23,6 +23,29 @@ static inline uint64_t __init fdt_cell_as_u64(const f=
-dt32_t *cell)
->> return ((uint64_t)fdt32_to_cpu(cell[0]) << 32) | fdt32_to_cpu(cell[1]);
->> }
->>=20
->> +static inline bool __init fdt_get_prop_offset(
->> + const void *fdt, int node, const char *name, unsigned long *offset)
->> +{
->> + int ret, poffset;
->> + const char *pname;
->> +
->> + fdt_for_each_property_offset(poffset, fdt, node)
->> + {
->> + fdt_getprop_by_offset(fdt, poffset, &pname, &ret);
->
-> Return value is not checked.
+On 14/04/2025 16:50, Luca Fancellu wrote:
+> Hi Michal,
+> 
+>> On 14 Apr 2025, at 11:17, Orzel, Michal <michal.orzel@amd.com> wrote:
+>>
+>>
+>>
+>> On 11/04/2025 16:56, Luca Fancellu wrote:
+>>> From: Penny Zheng <Penny.Zheng@arm.com>
+>>>
+>>> Introduce pr_t typedef which is a structure having the prbar
+>>> and prlar members, each being structured as the registers of
+>>> the aarch64 armv8-r architecture.
+>>>
+>>> Introduce the array 'xen_mpumap' that will store a view of
+>>> the content of the MPU regions.
+>>>
+>>> Introduce MAX_MPU_REGIONS macro that uses the value of
+>>> NUM_MPU_REGIONS_MASK just for clarity, because using the
+>>> latter as number of elements of the xen_mpumap array might
+>>> be misleading.
+>> What should be the size of this array? I thought NUM_MPU_REGIONS indicates how
+>> many regions there can be (i.e. 256) and this should be the size. Yet you use
+>> MASK for size which is odd.
+> 
+> So the maximum number of regions for aarch64 armv8-r are 255, MPUIR_EL2.REGION is an
+> 8 bit field advertising the number of region supported.
+So there can be max 255 regions. Ok.
 
-The pointer itself is ignored, but the error code is placed in "ret"
-(when there is an error). Hence the ret < 0 that follows this.
+> 
+> Is it better if I use just the below?
+> 
+> #define MAX_MPU_REGIONS 255
+If there are 255 regions, what NUM_MPU_REGIONS macro is for which stores 256?
+These two macros confuse me. Or is it that by your macro you want to denote the
+max region number? In that case, the macro should be named MAX_MPU_REGION_NR or
+alike.
 
->
->> +
->> + if ( ret < 0 )
->> + continue;
->> +
->> + if ( strcmp(pname, name) =3D=3D 0 )
->
-> I got an impression that the preferred form is=20
->    if ( !strcmp(pname, name) )
+> 
+>>
+>>>
+>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+>>> Signed-off-by: Wei Chen <wei.chen@arm.com>
+>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>> ---
+>>> xen/arch/arm/include/asm/arm64/mpu.h | 44 ++++++++++++++++++++++++++++
+>>> xen/arch/arm/include/asm/mpu.h       |  5 ++++
+>>> xen/arch/arm/mpu/mm.c                |  4 +++
+>>> 3 files changed, 53 insertions(+)
+>>> create mode 100644 xen/arch/arm/include/asm/arm64/mpu.h
+>>>
+>>> diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
+>>> new file mode 100644
+>>> index 000000000000..4d2bd7d7877f
+>>> --- /dev/null
+>>> +++ b/xen/arch/arm/include/asm/arm64/mpu.h
+>>> @@ -0,0 +1,44 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>> +/*
+>>> + * mpu.h: Arm Memory Protection Unit definitions for aarch64.
+>> NIT: Do we really see the benefit in having such generic comments? What if you
+>> add a prototype of some function here. Will it fit into a definition scope?
+> 
+> I can remove the comment, but I would say that if I put some function prototype here
+> it should be related to arm64, being this file under arm64.
+Sorry, I don't see why you mention arm64 here. It is under arm64 directory, so
+it's clear. I was referring to the word "definition".
 
-It varies per file. Doesn't matter much, but sure. Will change.
+~Michal
 
->
->> + {
->> + offset =3D poffset;
->> + return true;
->> + }
->> + }
->> +
->> + return false;
->> +}
->> +
->> /
->> * Property: reg
->> *
->> --
->> 2.43.0
-
-Cheers,
-Alejandro
 
