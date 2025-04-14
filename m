@@ -2,66 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA34FA8845F
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 16:18:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.950411.1346750 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2546A8848C
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 16:22:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.950461.1346770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4KdX-0003Rb-4y; Mon, 14 Apr 2025 14:18:11 +0000
+	id 1u4Kh0-0006oD-U8; Mon, 14 Apr 2025 14:21:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 950411.1346750; Mon, 14 Apr 2025 14:18:11 +0000
+Received: by outflank-mailman (output) from mailman id 950461.1346770; Mon, 14 Apr 2025 14:21:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4KdX-0003Po-03; Mon, 14 Apr 2025 14:18:11 +0000
-Received: by outflank-mailman (input) for mailman id 950411;
- Mon, 14 Apr 2025 14:18:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u4Kh0-0006mi-QZ; Mon, 14 Apr 2025 14:21:46 +0000
+Received: by outflank-mailman (input) for mailman id 950461;
+ Mon, 14 Apr 2025 14:21:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VMrm=XA=linux.ibm.com=agordeev@srs-se1.protection.inumbo.net>)
- id 1u4KdV-0003PQ-C0
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 14:18:09 +0000
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 482a78ca-193b-11f0-9ffb-bf95429c2676;
- Mon, 14 Apr 2025 16:18:06 +0200 (CEST)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 53EAKA71029133;
- Mon, 14 Apr 2025 14:17:54 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 460nc4bs6s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Apr 2025 14:17:54 +0000 (GMT)
-Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
- by pps.reinject (8.18.0.8/8.18.0.8) with ESMTP id 53EEDPx6027591;
- Mon, 14 Apr 2025 14:17:53 GMT
-Received: from ppma23.wdc07v.mail.ibm.com
- (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 460nc4bs6k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Apr 2025 14:17:53 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 53ECwxMl017183;
- Mon, 14 Apr 2025 14:17:52 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
- by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 46040kpeha-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 14 Apr 2025 14:17:52 +0000
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
- [10.20.54.103])
- by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 53EEHorV51577248
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 14 Apr 2025 14:17:50 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2CE2320043;
- Mon, 14 Apr 2025 14:17:50 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2BFC320040;
- Mon, 14 Apr 2025 14:17:49 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.171.13.82]) by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Mon, 14 Apr 2025 14:17:49 +0000 (GMT)
+ <SRS0=JTEa=XA=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1u4Kgz-0006gm-Fm
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 14:21:45 +0000
+Received: from fhigh-b6-smtp.messagingengine.com
+ (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c9b7f9cd-193b-11f0-9eae-5ba50f476ded;
+ Mon, 14 Apr 2025 16:21:43 +0200 (CEST)
+Received: from phl-compute-12.internal (phl-compute-12.phl.internal
+ [10.202.2.52])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 092E525402F3;
+ Mon, 14 Apr 2025 10:21:42 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-12.internal (MEProxy); Mon, 14 Apr 2025 10:21:42 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 14 Apr 2025 10:21:40 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -73,92 +45,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 482a78ca-193b-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=J1d9DTJcE/z+4d1uC+sEutnQDyUt9v
-	5FZ9je4Eup1Ko=; b=ah561KinZjNqF6zq76DxnVBTSvamBRxYEhr7Z+gu/wYeYJ
-	j7dAB+GRAIBgfgcT4RReFRSB7Mggil+evOZs4y5hwzSYaWE4QeQ1gjZ+HGRkUdNu
-	pwXrRfEYgphoKE29KKWj5DPPBxTAdadEXNR3p1tOzlSCoHUJ64LwlntS5prWHWM/
-	ypBEt8HygnTXrT6MFoIK9aXcP6Apa1XfK3rhxUyJOl2bhpNUByVTq6q6beBiPmV1
-	wjohaUUBJj7eE9ivNowExDlwR07lfFYP7j7RrqeB2X+koXmdx0GpvTziQRFy8s24
-	0VxXFpeXm2aqdcwNxTwNhj/bC9jcAny5HST8QorQ==
-Date: Mon, 14 Apr 2025 16:17:47 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Nicholas Piggin <npiggin@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-        Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-        Hugh Dickins <hughd@google.com>, Guenter Roeck <linux@roeck-us.net>,
-        Juergen Gross <jgross@suse.com>, Jeremy Fitzhardinge <jeremy@goop.org>,
-        linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-        kasan-dev@googlegroups.com, sparclinux@vger.kernel.org,
-        xen-devel@lists.xenproject.org, linuxppc-dev@lists.ozlabs.org,
-        linux-s390@vger.kernel.org
-Subject: Re: [PATCH v1 2/4] mm: Cleanup apply_to_pte_range() routine
-Message-ID: <Z/0ZC7HcSmoOEglw@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
-References: <cover.1744037648.git.agordeev@linux.ibm.com>
- <93102722541b1daf541fce9fb316a1a2614d8c86.1744037648.git.agordeev@linux.ibm.com>
- <D93LW58FLXOS.2U8X0CO2H9H5S@gmail.com>
+X-Inumbo-ID: c9b7f9cd-193b-11f0-9eae-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1744640501;
+	 x=1744726901; bh=Mbt7L1xWIl5Ld+tmGpuhRHYWq5CPpb5A8BVIw8O6Yxk=; b=
+	BmLNj1IWkJNmQBakWgV0eOVlTnyAKscVCgjz5OfXRi3IfahNz45MPrajZ3NcAOWT
+	ysrYxxn7QBnvinOLey2VQ4tLkr+ay4hTWe1tw4/tdhdX+yKypJaJfomxMhTTgT/D
+	lLIzOlDB7MdysJCq7Vax2i5QWyM0E0g4lknh1Q9pRlk98Tw9jinte/zrbYikpvyd
+	PEX8DtsOHC9zgVQ9dbKaRxGt0ad12Cq7v2VoppKhpWy/IaI/x345yq3xp9VuT5Dj
+	Wbi0xpKE7cpamOGWZfHGX/HGmhVoQ1TOu+6QRvVfBUOmlzAwy+cG6S828yJffJkZ
+	X74XqEygnPMw53fdeYg5ug==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1744640501; x=1744726901; bh=Mbt7L1xWIl5Ld+tmGpuhRHYWq5CPpb5A8BV
+	Iw8O6Yxk=; b=n9X+XYDDlcgmqi9ZlzgIKmvDg5rMpX6w5kGYmVSIAYwwPEETFL1
+	3AannwupRA21URGceezoObryTCUNx05jHwMrxm88OsKZ1EYOgvpGREiw9+Nc5Bsf
+	4AVs6nc5g5WVtm8ZZglfKmApphJcmJ7TfwFM+vmXnMMKZuToa4JsRO3XV/PLFRIS
+	exxTAxWWK2fDFoJToxT500kYugHtws6mvW2yxy8UuaZY+MKq5/Mo8k+abGrUbDm5
+	T0qFKvrQ3+kQwHtZVNuNomgwBhf3L0mwqA9yZJuUAlp8/McxL5u8bE6E546CqJL/
+	+O0HizW2w0pW1YRb4YeBv6aV2nWzLmyhN4Q==
+X-ME-Sender: <xms:9Rn9ZyItP0LNYFsvUb8WyyW1jYw1yrC9HCn-hvmQcU9ln06cM3jSVA>
+    <xme:9Rn9Z6LfwFY_GNlQhSJqUQ-YiWTBGTPowysdyCcU81-RpgG8fbBRd98n6fiib2D4t
+    a8AcN6l2Jnaow>
+X-ME-Received: <xmr:9Rn9Zyscw9Vm1SOnUqNcPH40vIKBKxolF85jbXina3-f36UAr7wB0cdqOUpUAdY3rFz8CUOjpVm-V7K5O9uiA0h1rbCe8KY9XQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvvddtjeejucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
+    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
+    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+    dpnhgspghrtghpthhtohepiedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghn
+    ughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopeigvghnqd
+    guvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegr
+    nhhthhhonhihrdhpvghrrghrugesvhgrthgvshdrthgvtghhpdhrtghpthhtohepshhsth
+    grsggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepmhhitghhrghlrdho
+    rhiivghlsegrmhgurdgtohhmpdhrtghpthhtoheptggrrhguohgvsegtrghrughovgdrtg
+    homh
+X-ME-Proxy: <xmx:9Rn9Z3YM6dWow6XPAj35MYONG2hC1w3dMwz7mIjlVpqzZZwyCPnaww>
+    <xmx:9Rn9Z5YWeIJpfGO4IkVbTSXtMBBIiNfaiNA8S7GpQCmCx-NU8I8ICA>
+    <xmx:9Rn9ZzD-mtiorCUgoqhYvvCIV_Cly133JBsjs_reK83-ZeNNt78J-Q>
+    <xmx:9Rn9Z_brOuFNrGj2MVc1g45F4YDtTb0QjT6r-Tnsk4sdEX9NGFwWIQ>
+    <xmx:9Rn9Z2tDcNGX9TNmvttxMlZQvY4N8qcs9j_bpk-ZkCM689HL3Ba4FyRw>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 14 Apr 2025 16:21:38 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH v2 5/7] Adjust directory layout for rootfs.cpio.gz
+Message-ID: <Z_0Z8ottaFVxxlu1@mail-itl>
+References: <20250414101843.2348330-1-andrew.cooper3@citrix.com>
+ <20250414101843.2348330-6-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="xR1UuYPl7b5TtVyB"
 Content-Disposition: inline
-In-Reply-To: <D93LW58FLXOS.2U8X0CO2H9H5S@gmail.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: u44-EjcfNgIEy_4sPtFf7SZelDSyFVJd
-X-Proofpoint-ORIG-GUID: DiJ-rrsNSTwxXUpWJqT680rFpek1uPzj
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1095,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-04-14_04,2025-04-10_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 bulkscore=0
- priorityscore=1501 mlxscore=0 spamscore=0 adultscore=0 mlxlogscore=844
- phishscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2502280000 definitions=main-2504140102
+In-Reply-To: <20250414101843.2348330-6-andrew.cooper3@citrix.com>
 
-On Fri, Apr 11, 2025 at 04:46:58PM +1000, Nicholas Piggin wrote:
-> On Tue Apr 8, 2025 at 1:11 AM AEST, Alexander Gordeev wrote:
-> > Reverse 'create' vs 'mm == &init_mm' conditions and move
-> > page table mask modification out of the atomic context.
-> >
-> > Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
-> > ---
-> >  mm/memory.c | 28 +++++++++++++++++-----------
-> >  1 file changed, 17 insertions(+), 11 deletions(-)
-> >
-> > diff --git a/mm/memory.c b/mm/memory.c
-> > index 2d8c265fc7d6..f0201c8ec1ce 100644
-> > --- a/mm/memory.c
-> > +++ b/mm/memory.c
-> > @@ -2915,24 +2915,28 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
-> >  				     pte_fn_t fn, void *data, bool create,
-> >  				     pgtbl_mod_mask *mask)
-> >  {
-> > +	int err = create ? -ENOMEM : -EINVAL;
-> 
-> Could you make this a new variable instead of reusing
-> existing err? 'const int pte_err' or something?
 
-Will do, when/if repost.
+--xR1UuYPl7b5TtVyB
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Apr 2025 16:21:38 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH v2 5/7] Adjust directory layout for rootfs.cpio.gz
 
-...
+On Mon, Apr 14, 2025 at 11:18:41AM +0100, Andrew Cooper wrote:
+> All tests using the rootfs currently modify it with:
+>=20
+>   mkdir proc
+>   mkdir run
+>   mkdir srv
+>   mkdir sys
+>   rm var/run
+>=20
+> This is because the rootfs doesn't have the correct top level directories.
+> Furthermore, dev is currently included when it oughtn't to be.
+>=20
+> srv is easy.  It's an empty directory and can be included in PATHS.
+>=20
+> dev, proc, run and sys are all mount points, which OpenRC knows how to
+> populate on boot.  Create only the top level directories in rootfs, witho=
+ut
+> `find` recursing into them.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-> > @@ -2944,12 +2948,14 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
-> >  			}
-> >  		} while (addr += PAGE_SIZE, addr != end);
-> >  	}
-> > -	*mask |= PGTBL_PTE_MODIFIED;
-> >  
-> >  	arch_leave_lazy_mmu_mode();
-> >  
-> >  	if (mm != &init_mm)
-> >  		pte_unmap_unlock(mapped_pte, ptl);
-> > +
-> > +	*mask |= PGTBL_PTE_MODIFIED;
-> 
-> This is done just because we might as well? Less work in critical
-> section?
+Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
+om>
 
-Yes.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-Thanks!
+--xR1UuYPl7b5TtVyB
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmf9GfIACgkQ24/THMrX
+1ywC3Qf+PcQDHTlDkI9WWEw7kIE6kA3MdpOHcvx4W36K1D8J8rARqHuqIC33J+q2
+TgggXKY9S2nI22aTol20fIjI1JxioOiN1V90EPrk8tSySJfZxDJuxqvHn61Wz8Tv
+MgXXajxKFcUZ/+/vYPKpLBQ/UhMkSfFDjYOz57WDi9l9WU51DUjoVT4cHQ5GS2Y5
+XPy7j3aJeIB32aez5jVRjuKe+7MO+HqNIfsUdMPaR+Q5et9R0F/4U4ahPScEz6Sy
+bbHMk0+KK2NaRBzBxsyaCGeMUCyPrFlFF16wEuQ2wT92/JJt45Pqev4r7Vlf3849
+5mpDrIx9Wd2GQJsylHaEDAsD5+zciA==
+=DChZ
+-----END PGP SIGNATURE-----
+
+--xR1UuYPl7b5TtVyB--
 
