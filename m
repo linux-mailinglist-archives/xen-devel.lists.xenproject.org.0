@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49EA3A87B06
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 10:52:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.949422.1345964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A994AA87B9B
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 11:14:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.949438.1345974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4FY3-0006rP-87; Mon, 14 Apr 2025 08:52:11 +0000
+	id 1u4Fsk-00044r-T5; Mon, 14 Apr 2025 09:13:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 949422.1345964; Mon, 14 Apr 2025 08:52:11 +0000
+Received: by outflank-mailman (output) from mailman id 949438.1345974; Mon, 14 Apr 2025 09:13:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4FY3-0006og-4f; Mon, 14 Apr 2025 08:52:11 +0000
-Received: by outflank-mailman (input) for mailman id 949422;
- Mon, 14 Apr 2025 08:52:09 +0000
+	id 1u4Fsk-00042E-Q4; Mon, 14 Apr 2025 09:13:34 +0000
+Received: by outflank-mailman (input) for mailman id 949438;
+ Mon, 14 Apr 2025 09:13:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ezPI=XA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u4FY1-0006oa-Hj
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 08:52:09 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ALkD=XA=huawei.com=ruanjinjie@srs-se1.protection.inumbo.net>)
+ id 1u4Fsj-000428-DF
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 09:13:33 +0000
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id be1ce030-190d-11f0-9eae-5ba50f476ded;
- Mon, 14 Apr 2025 10:52:06 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-39129fc51f8so3457185f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 01:52:06 -0700 (PDT)
-Received: from ?IPV6:2003:ca:b71f:2f7e:5948:62cb:7cd1:ada3?
- (p200300cab71f2f7e594862cb7cd1ada3.dip0.t-ipconnect.de.
- [2003:ca:b71f:2f7e:5948:62cb:7cd1:ada3])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f20625ea4sm172331955e9.12.2025.04.14.01.52.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Apr 2025 01:52:05 -0700 (PDT)
+ id b8f127c8-1910-11f0-9eae-5ba50f476ded;
+ Mon, 14 Apr 2025 11:13:28 +0200 (CEST)
+Received: from mail.maildlp.com (unknown [172.19.88.214])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4ZbhR32MCFz1j5vR;
+ Mon, 14 Apr 2025 17:13:19 +0800 (CST)
+Received: from kwepemg200008.china.huawei.com (unknown [7.202.181.35])
+ by mail.maildlp.com (Postfix) with ESMTPS id CEA761A016C;
+ Mon, 14 Apr 2025 17:13:23 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemg200008.china.huawei.com (7.202.181.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 14 Apr 2025 17:13:21 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,172 +46,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be1ce030-190d-11f0-9eae-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744620726; x=1745225526; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JLEITPsRGuaDBlNiL3Cg9aRDspa2iBoLM6N5LZCmTHI=;
-        b=H3ugIS8sLf5nRldFKDv5qjtiqbD/fDpHo337XZe3zMxxJQI/Fmo9WBUSl3C/WvOzaB
-         TZ4bGpFpAlEIPOHkk2UAFNzd7l7tT1UoOGvC07EcMdRx9qFxPyT46hzvNxk45hxF4yGi
-         JT/VF5v2R30YIcY4wYngJ6qTgN6UPiA1A6ukHfIUrb3dz71k7GCjyLEBjqM62qUsWb1X
-         fm3+ereOkt6w9ccvFkDrtqsv/sb52xSsJpkB3b2QBb+jvK6kh6ukEbUtNlYVspNyX/1G
-         +fPOIxmQ5YrzTKMMHwkLJdPBdH+1naTMh8CQiEzPvCF7yyJHOKhpgVTzuw1KmYV/+r0x
-         I9FQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744620726; x=1745225526;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JLEITPsRGuaDBlNiL3Cg9aRDspa2iBoLM6N5LZCmTHI=;
-        b=UiNsq4cgRRo+gcruAVRBakdvc2gM3iAHBTCgdzTEdjlTkY3Q6UzZVMuhKb/fU6gXL/
-         2gmG9HSpwrs2Hw6SZKKNyaWOBH1RzXyxu0fpjrAyo/PKCUy6RAGwOxUjBObYFPusUViG
-         w/CffDeZ2/g2gxAKcfxA2q1tdAX3rwd6qxs9I1Zz91/tawp2IldejCRZRPa0hDxM45WZ
-         y4r+Zmql3bV4Sxi370uNTR6mcr7CkdWnAWSNsilDOLqv86k9ED0o9POmZXFWOhNZl/r9
-         h5XVk3XQBKLeS+0q5WR4BW6eaZFrwss/zMOaMA5FNGcFzvCpTCqZvP6GNm3qGfopnDUT
-         kd8A==
-X-Forwarded-Encrypted: i=1; AJvYcCU6ji0eZZTXnSgIesY5jn6p72eZqUmoRRxySfF6O6PRCuj5OWqfwTQVwwDIP7Ko2rYJwM7VdQMR25Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzYUhBkNHe9Te6ehe9PWQ1A9MkEE/oGAE4xhbh6OTEB9p1OUoW+
-	SCWSvllcXb9WWsremQvmgtvlIdhsy5KsML8+jRfKNIjVZCTfvue8vST/HkPw0Q==
-X-Gm-Gg: ASbGncsiOQ/WXqL/ZhWPJx6sKXsRk2bTX5SeR0Wk+uT4AQMKeJMr2S8PVukKzqpD3Zo
-	NawiaXhh02a/q6nwvBSKjrNpjGxogUui6VcPnUc3apxEjCV0ImwGVvI/GkzsCZf4pB6h/NhIfdF
-	jcd2SIeY7c8afYaSx49UA7wVerswdZWk5PTokmGG4mBbpLu+73fL9G8V/afewNK0QdFWVQhqZYi
-	+beF5wNvTgeiPZDFtCspSh+sKq0INUctjaVIpEScCWSEpoqccyjjv6eTvnW6b8bb5ReJfD4w97Y
-	N6etv3Ilv9Q+rJ9pc6ENBMTCFu8/xgHXtQiaS/e0DrcNkUth4ot7MF8x5Oa9jThm9ctb3RdtyPj
-	03VyeKEAy64QGxxUnPBmltv0uOW+T+pbOb2RmaTI1qSS9zPm9CrsY8KvRH6NHRAJ4Yw/Kjj7BW2
-	I=
-X-Google-Smtp-Source: AGHT+IF+ODqiNKlfUWt/Ayadib48xRMJUlvoiJZhhsSSQRcjYzBk93c6Scs93eZ68SBC3KzqCPvIlQ==
-X-Received: by 2002:a05:6000:248a:b0:39b:f12c:385e with SMTP id ffacd0b85a97d-39ea52019d7mr8001118f8f.20.1744620725754;
-        Mon, 14 Apr 2025 01:52:05 -0700 (PDT)
-Message-ID: <2bc5ae09-34b9-48e2-840a-2d42c1138e38@suse.com>
-Date: Mon, 14 Apr 2025 10:52:03 +0200
+X-Inumbo-ID: b8f127c8-1910-11f0-9eae-5ba50f476ded
+Message-ID: <f090fcbf-5593-2e37-efc7-3ec14990ab27@huawei.com>
+Date: Mon, 14 Apr 2025 17:13:20 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] xen/io: provide helpers for multi size MMIO accesses
-To: Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Roger Pau Monne <roger.pau@citrix.com>
-References: <20250411105411.22334-1-roger.pau@citrix.com>
- <20250411105411.22334-3-roger.pau@citrix.com>
- <bd77106c-7e5c-4e6f-98f9-faacf4f9deef@suse.com>
- <28db4a69-ea60-4c4d-a6e8-0dcc548a9e75@xen.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.0
+Subject: Re: [PATCH -next v6 0/8] arm64: entry: Convert to generic irq entry
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <28db4a69-ea60-4c4d-a6e8-0dcc548a9e75@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <oleg@redhat.com>,
+	<sstabellini@kernel.org>, <tglx@linutronix.de>, <peterz@infradead.org>,
+	<luto@kernel.org>, <mingo@redhat.com>, <juri.lelli@redhat.com>,
+	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
+	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
+	<vschneid@redhat.com>, <kees@kernel.org>, <aliceryhl@google.com>,
+	<ojeda@kernel.org>, <samitolvanen@google.com>, <masahiroy@kernel.org>,
+	<rppt@kernel.org>, <xur@google.com>, <paulmck@kernel.org>, <arnd@arndb.de>,
+	<mark.rutland@arm.com>, <puranjay@kernel.org>, <broonie@kernel.org>,
+	<mbenes@suse.cz>, <sudeep.holla@arm.com>, <guohanjun@huawei.com>,
+	<prarit@redhat.com>, <liuwei09@cestc.cn>, <Jonathan.Cameron@huawei.com>,
+	<dwmw@amazon.co.uk>, <kristina.martsenko@arm.com>, <liaochang1@huawei.com>,
+	<ptosi@google.com>, <thiago.bauermann@linaro.org>, <kevin.brodsky@arm.com>,
+	<Dave.Martin@arm.com>, <joey.gouly@arm.com>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <xen-devel@lists.xenproject.org>
+References: <20250213130007.1418890-1-ruanjinjie@huawei.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20250213130007.1418890-1-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.67.109.254]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ kwepemg200008.china.huawei.com (7.202.181.35)
 
-On 14.04.2025 09:49, Julien Grall wrote:
-> On 14/04/2025 15:07, Jan Beulich wrote:
->> On 11.04.2025 12:54, Roger Pau Monne wrote:
->>> Several handlers have the same necessity of reading from an MMIO region
->>> using 1, 2, 4 or 8 bytes accesses.  So far this has been open-coded in the
->>> function itself.  Instead provide a new handler that encapsulates the
->>> accesses.
->>>
->>> Since the added helpers are not architecture specific, introduce a new
->>> generic io.h header.
->>
->> Except that ...
->>
->>> --- /dev/null
->>> +++ b/xen/include/xen/io.h
->>> @@ -0,0 +1,63 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>> +/*
->>> + * Generic helpers for doing MMIO accesses.
->>> + *
->>> + * Copyright (c) 2025 Cloud Software Group
->>> + */
->>> +#ifndef XEN_IO_H
->>> +#define XEN_IO_H
->>> +
->>> +#include <xen/bug.h>
->>> +
->>> +#include <asm/io.h>
->>> +
->>> +static inline uint64_t read_mmio(const volatile void __iomem *mem,
->>> +                                 unsigned int size)
->>> +{
->>> +    switch ( size )
->>> +    {
->>> +    case 1:
->>> +        return readb(mem);
->>> +
->>> +    case 2:
->>> +        return readw(mem);
->>> +
->>> +    case 4:
->>> +        return readl(mem);
->>> +
->>> +    case 8:
->>> +        return readq(mem);
->>
->> ... this and ...
->>
->>> +    }
->>> +
->>> +    ASSERT_UNREACHABLE();
->>> +    return ~0UL;
->>> +}
->>> +
->>> +static inline void write_mmio(volatile void __iomem *mem, uint64_t data,
->>> +                              unsigned int size)
->>> +{
->>> +    switch ( size )
->>> +    {
->>> +    case 1:
->>> +        writeb(data, mem);
->>> +        break;
->>> +
->>> +    case 2:
->>> +        writew(data, mem);
->>> +        break;
->>> +
->>> +    case 4:
->>> +        writel(data, mem);
->>> +        break;
->>> +
->>> +    case 8:
->>> +        writeq(data, mem);
->>> +        break;
->>
->> ... this may (generally will) not work on 32-bit architectures. Add
->> CONFIG_64BIT conditionals? At which point return type / last parameter
->> type could move from uint64_t to unsigned long.
+
+
+On 2025/2/13 20:59, Jinjie Ruan wrote:
+> Currently, x86, Riscv, Loongarch use the generic entry. Convert arm64
+> to use the generic entry infrastructure from kernel/entry/*. The generic
+> entry makes maintainers' work easier and codes more elegant, which will
+> make PREEMPT_DYNAMIC and PREEMPT_LAZY available and remove a lot of
+> duplicate code.
 > 
-> Technically arm32 bit supports 64-bit write because we mandate LPAE. I see this is used by the vPCI code. Are we expecting to have any 64-bit access?
+> This patch series split the generic entry into generic irq entry and
+> generic syscall entry first, and then convert arm64 to use the generic
+> irq entry. arm64 will be completely converted to generic entry in another
+> patch series.
+> 
+> The main convert steps are as follows:
+> - Split generic entry into generic irq entry and generic syscall to
+>   make the single patch more concentrated in switching to one thing.
+> - Make arm64 easier to use irqentry_enter/exit().
+> - Make arm64 closer to the PREEMPT_DYNAMIC code of generic entry.
+> - Switch to generic irq entry.
 
-vPCI is, I think, supposed to not see 64-bit accesses (to config space).
-However, vMSI-X already may see such.
+Gentle Ping.
 
-Jan
+> 
+> Changes in v6:
+> - Rebased on 6.14 rc2 next.
+> - Put the syscall bits aside and split it out.
+> - Have the split patch before the arm64 changes.
+> - Merge some tightly coupled patches.
+> - Adjust the order of some patches to make them more reasonable.
+> - Define regs_irqs_disabled() by inline function.
+> - Define interrupts_enabled() in terms of regs_irqs_disabled().
+> - Delete the fast_interrupts_enabled() macro.
+> - irqentry_state_t -> arm64_irqentry_state_t.
+> - Remove arch_exit_to_user_mode_prepare() and pull local_daif_mask() later
+>   in the arm64 exit sequence
+> - Update the commit message.
+> 
+> Changes in v5:
+> - Not change arm32 and keep inerrupts_enabled() macro for gicv3 driver.
+> - Move irqentry_state definition into arch/arm64/kernel/entry-common.c.
+> - Avoid removing the __enter_from_*() and __exit_to_*() wrappers.
+> - Update "irqentry_state_t ret/irq_state" to "state"
+>   to keep it consistently.
+> - Use generic irq entry header for PREEMPT_DYNAMIC after split
+>   the generic entry.
+> - Also refactor the ARM64 syscall code.
+> - Introduce arch_ptrace_report_syscall_entry/exit(), instead of
+>   arch_pre/post_report_syscall_entry/exit() to simplify code.
+> - Make the syscall patches clear separation.
+> - Update the commit message.
+> 
+> Changes in v4:
+> - Rework/cleanup split into a few patches as Mark suggested.
+> - Replace interrupts_enabled() macro with regs_irqs_disabled(), instead
+>   of left it here.
+> - Remove rcu and lockdep state in pt_regs by using temporary
+>   irqentry_state_t as Mark suggested.
+> - Remove some unnecessary intermediate functions to make it clear.
+> - Rework preempt irq and PREEMPT_DYNAMIC code
+>   to make the switch more clear.
+> - arch_prepare_*_entry/exit() -> arch_pre_*_entry/exit().
+> - Expand the arch functions comment.
+> - Make arch functions closer to its caller.
+> - Declare saved_reg in for block.
+> - Remove arch_exit_to_kernel_mode_prepare(), arch_enter_from_kernel_mode().
+> - Adjust "Add few arch functions to use generic entry" patch to be
+>   the penultimate.
+> - Update the commit message.
+> - Add suggested-by.
+> 
+> Changes in v3:
+> - Test the MTE test cases.
+> - Handle forget_syscall() in arch_post_report_syscall_entry()
+> - Make the arch funcs not use __weak as Thomas suggested, so move
+>   the arch funcs to entry-common.h, and make arch_forget_syscall() folded
+>   in arch_post_report_syscall_entry() as suggested.
+> - Move report_single_step() to thread_info.h for arm64
+> - Change __always_inline() to inline, add inline for the other arch funcs.
+> - Remove unused signal.h for entry-common.h.
+> - Add Suggested-by.
+> - Update the commit message.
+> 
+> Changes in v2:
+> - Add tested-by.
+> - Fix a bug that not call arch_post_report_syscall_entry() in
+>   syscall_trace_enter() if ptrace_report_syscall_entry() return not zero.
+> - Refactor report_syscall().
+> - Add comment for arch_prepare_report_syscall_exit().
+> - Adjust entry-common.h header file inclusion to alphabetical order.
+> - Update the commit message.
+> 
+> Jinjie Ruan (8):
+>   entry: Split generic entry into generic exception and syscall entry
+>   arm64: ptrace: Replace interrupts_enabled() with regs_irqs_disabled()
+>   arm64: entry: Refactor the entry and exit for exceptions from EL1
+>   arm64: entry: Rework arm64_preempt_schedule_irq()
+>   arm64: entry: Use preempt_count() and need_resched() helper
+>   arm64: entry: Refactor preempt_schedule_irq() check code
+>   arm64: entry: Move arm64_preempt_schedule_irq() into
+>     __exit_to_kernel_mode()
+>   arm64: entry: Switch to generic IRQ entry
+> 
+>  MAINTAINERS                           |   1 +
+>  arch/Kconfig                          |   9 +
+>  arch/arm64/Kconfig                    |   1 +
+>  arch/arm64/include/asm/daifflags.h    |   2 +-
+>  arch/arm64/include/asm/entry-common.h |  56 ++++
+>  arch/arm64/include/asm/preempt.h      |   2 -
+>  arch/arm64/include/asm/ptrace.h       |  13 +-
+>  arch/arm64/include/asm/xen/events.h   |   2 +-
+>  arch/arm64/kernel/acpi.c              |   2 +-
+>  arch/arm64/kernel/debug-monitors.c    |   2 +-
+>  arch/arm64/kernel/entry-common.c      | 378 ++++++++-----------------
+>  arch/arm64/kernel/sdei.c              |   2 +-
+>  arch/arm64/kernel/signal.c            |   3 +-
+>  include/linux/entry-common.h          | 382 +------------------------
+>  include/linux/irq-entry-common.h      | 389 ++++++++++++++++++++++++++
+>  kernel/entry/Makefile                 |   3 +-
+>  kernel/entry/common.c                 | 176 ++----------
+>  kernel/entry/syscall-common.c         | 159 +++++++++++
+>  kernel/sched/core.c                   |   8 +-
+>  19 files changed, 766 insertions(+), 824 deletions(-)
+>  create mode 100644 arch/arm64/include/asm/entry-common.h
+>  create mode 100644 include/linux/irq-entry-common.h
+>  create mode 100644 kernel/entry/syscall-common.c
+> 
 
