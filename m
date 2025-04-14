@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0CB6A87D5E
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 12:19:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.949554.1346073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95008A87D5A
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Apr 2025 12:19:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.949555.1346084 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4Gtx-0005qx-4u; Mon, 14 Apr 2025 10:18:53 +0000
+	id 1u4Gty-00068f-CR; Mon, 14 Apr 2025 10:18:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 949554.1346073; Mon, 14 Apr 2025 10:18:53 +0000
+Received: by outflank-mailman (output) from mailman id 949555.1346084; Mon, 14 Apr 2025 10:18:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4Gtx-0005pG-0l; Mon, 14 Apr 2025 10:18:53 +0000
-Received: by outflank-mailman (input) for mailman id 949554;
- Mon, 14 Apr 2025 10:18:51 +0000
+	id 1u4Gty-00066I-7k; Mon, 14 Apr 2025 10:18:54 +0000
+Received: by outflank-mailman (input) for mailman id 949555;
+ Mon, 14 Apr 2025 10:18:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KxE1=XA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u4Gtv-0005Nh-OW
- for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 10:18:51 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1u4Gtw-0005Nh-OX
+ for xen-devel@lists.xenproject.org; Mon, 14 Apr 2025 10:18:52 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dc23f48b-1919-11f0-9eae-5ba50f476ded;
+ id dca5438c-1919-11f0-9eae-5ba50f476ded;
  Mon, 14 Apr 2025 12:18:51 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-39d83782ef6so3268719f8f.0
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-43cfa7e7f54so25789315e9.1
  for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 03:18:51 -0700 (PDT)
 Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
  [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f233a2f08sm171340495e9.12.2025.04.14.03.18.49
+ 5b1f17b1804b1-43f233a2f08sm171340495e9.12.2025.04.14.03.18.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Apr 2025 03:18:49 -0700 (PDT)
+ Mon, 14 Apr 2025 03:18:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc23f48b-1919-11f0-9eae-5ba50f476ded
+X-Inumbo-ID: dca5438c-1919-11f0-9eae-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744625930; x=1745230730; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1744625931; x=1745230731; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Banuvmf0avtg5GZqgl/5tNKpXlLxwAiYOanpenznEWY=;
-        b=InSDfBjOi0Dp/gZZzOGM3AuiHXcMXiMuPGW11IV2QbKcniYWNYIQ06R4VPQnfg+80i
-         xofDR/IbcXN4t9+8DSj2UrJ4KiPRabnHt11zKXPyAXVHJWiAStm3dzTZoat3QgTlZQAD
-         KA/aEvPd6Z1ZQet+HUZV6ZN3TdT8gRQltN6DE=
+        bh=hY27kwUeC0aHdjJMCw3sLatm4tQzjVnnxCoVdjVXbD0=;
+        b=B6IuDxLqou4Xy83jA7+GhRD9EuQos3td7i2HrQAztXP74wgvwLWPYmz8pXjndN37dQ
+         tZuhYgZF2PtsC8L9aj7z6toOUewfzI/M2LWt9ICBAvjsdGTt6x4OO2LwT+rXX3YEwiSC
+         bURjqhBsTSqr+FsMf5XpHMdd5ZaiXgFurx9wo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744625930; x=1745230730;
+        d=1e100.net; s=20230601; t=1744625931; x=1745230731;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Banuvmf0avtg5GZqgl/5tNKpXlLxwAiYOanpenznEWY=;
-        b=fJl3lwPBIZD7LDdHy6IhjFD6L2sZ6vzvhMPGazJ+fUllsGJUKF35AbkTqZuqymXQRw
-         hp5mb7kKPkdel464gWopNwcOjrNGV1VJns0iWBxA7Zr8z93grWNlnaPpPkCZkv3b6Yxo
-         bgFlhAHlK/fSC0H8KDOjGRrgZ8i4SSPCcQjeFYMU1BEb8fR5RgfVisSZ/7GtWJii5xeO
-         uf1le4ddAeAptw6xLYbAgzf3E2lsn+dUN7gztbZ7pw6XGJXewSmuJIYa4sPrDOYX+cYE
-         OY43jso7pzK3lRSMoxLdhyJknwpyldzmVkDDmAjl0NX3paDMfENPBvvY0jf8pf5zORZQ
-         Q1ow==
-X-Gm-Message-State: AOJu0Yy21RP+8HGJl4X1lko1cudXTr5pU2bPGaGbuAlD56rsqon+Q7UV
-	L5ZWN0IyxhPR+Rz0uC6AyUXioINyvPOSGFeiRzQQ4W43KVlV2wi/HT+sPG5HuFtlwO2FdADQNyT
-	OPY0=
-X-Gm-Gg: ASbGnctwroIEmmy8WecdKM/7vLHIr6l8AR5KCKL8K4tiPmODhzu+pFAmDUQmsBJBKOv
-	0KLFW08CntNh83V+DKQBmQaPKZ7pqaUijiCczWE3dNcDZghRGTl3bm+UEDOkQL89mofOiUJC8c3
-	PcsGg0jcjGfDhAa7APVAeGgPGJJYbw/YyksXSo/9lS+ZLVbKltoqdALaMDkvSi+jejV+Z3wAKMZ
-	lz3ANSjPPWfD5DNSZp/dE9MMNMxIJtHKXSnG4Fj0kgaP+Lx7KIIMA+qHLaIeoC8PqW0lKRPj30Z
-	VLOyIBpT3lhmSjPI1rsU2nDqlMyVlTbeCj9GslT8Rf3UTla5aVb7kKcbSM2orXSFFJew5IGDERc
-	uolJT9YQtU5iF/g==
-X-Google-Smtp-Source: AGHT+IEmJqI7t0Kh8X8h67YqDiQPbsg7zKhYbL8TN0p5wsbjshqI/5fQpkHN8lGUZSl8wj27xJBFyA==
-X-Received: by 2002:a5d:648c:0:b0:39c:2c0b:8db4 with SMTP id ffacd0b85a97d-39d8f275fbamr12192494f8f.10.1744625929963;
-        Mon, 14 Apr 2025 03:18:49 -0700 (PDT)
+        bh=hY27kwUeC0aHdjJMCw3sLatm4tQzjVnnxCoVdjVXbD0=;
+        b=UJ2dtenEzsFrftLfydNgjVTgu6ygeKlgTslNP0pUWGsM3dTgPr+O/QP2TjQvnauPbL
+         1tvq9N171WqLL4z8/8BJ/WyUiIOvsOpDEwDr557EuZrjlkU3EBRQYcrGSb+t8Eir0T+c
+         vUs/HQ0QMZzi/P80bq/7iXuHccDfmgaMMUtCQ00YKA62mfOKEGayyZFzOjcQhfAfu3D5
+         f/19exDh9glR4v0FPjAPc6Keg3Xg96fmc4psnxpHETKtseADEEF9oHijzm+MRvHZfHP2
+         e160CnhG0BM5BQK63h1/LzXs7GT9v0ysOsg70n/QjMfVbl7sklDxln9KrUMaIWJeZBG8
+         miKg==
+X-Gm-Message-State: AOJu0YzHdasUu8BYCAqJL8HNbEtU8KlcAVXV1oI5Au1H8hcdmeyMyoHr
+	F1MkmeJCMAa02wO2kBL/mLG098IM7hiaWYR3e6ymOSEZAranVYvms0ZepXYSNET94ZZzx1K8SdP
+	m9FU=
+X-Gm-Gg: ASbGncsXFZSsChUSgmKlRY4oCxMu5uVKD1n3yzOnfY4wPb2EIQO0tNPAWyUiD5L+D0J
+	2Ljz5KOnywYWDJext8hBPT296Py6EsAPHPkaE0+HmC6AWItbE24qRWZZ1UG/Jn/VTv8CUrBqm21
+	0xDKBZ2/OpPcxEH/DW5bk5YQph4AFTOtTu5RSpJr/VykGfWvhs6jRPGSILnuv6re/Z3KG8QxTeb
+	6UF+HF5G5ncL6COiH007jtt/52IPyOs65IBPPfE2Vj9eJpTF5OtrFrke+0cG8HE5SxobA7SY3pV
+	EgMyQSO1mbSYtedwC9SiAZo18Us0xaI9gaM0VVrHTWqrlN1nM4qtfj6OCiMN29YMuKKEFFpiKX4
+	mefKF/BwW1IlI9pzk3YNKai8V
+X-Google-Smtp-Source: AGHT+IHlhWTC657aAMaj6w7SXwH//jsWWtI2psvQ130N/dELSD5E/ipKReX8rEgxNL5sTAFtLI/UVA==
+X-Received: by 2002:a7b:ce90:0:b0:43b:c592:7e16 with SMTP id 5b1f17b1804b1-43f337c2b5bmr112863215e9.3.1744625930811;
+        Mon, 14 Apr 2025 03:18:50 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Denis Mukhin <dmukhin@ford.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Doug Goldstein <cardoe@cardoe.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Jason Andryuk <jason.andryuk@amd.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH v2 2/7] Overhaul how Argo is built and packged
-Date: Mon, 14 Apr 2025 11:18:38 +0100
-Message-Id: <20250414101843.2348330-3-andrew.cooper3@citrix.com>
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v2 3/7] Rework rootfs generation to make a cpio archive
+Date: Mon, 14 Apr 2025 11:18:39 +0100
+Message-Id: <20250414101843.2348330-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250414101843.2348330-1-andrew.cooper3@citrix.com>
 References: <20250414101843.2348330-1-andrew.cooper3@citrix.com>
@@ -99,158 +98,97 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Right now, the argo artefacts are a pile of files which the test has to turn
-back into something which resembles a filesystem.  Furthermore, because we do
-not build modules for the main kernel, it is extra important to make sure that
-xen-argo.ko doesn't get out of sync.
+Rename the script as we're going to use it for ARM64 shortly, and have it take
+a tar or cpio parameter to determine the output format.
 
-Build argo conditionally as part of the linux artefact.  It's ~100kb all
-together, compared to ~14M for the kernel.
+Turn it into a proper bash script, and provide the cpio form under the new
+artefact naming scheme.
 
-Produce a single argo.cpio.gz with xen-argo.ko in the standard location.
-Prune userspace down to just the executables and libraries.
-
-This is cribbed from the existing scripts/x86_64-linux-argo.sh, which stays in
-place in the short term until Xen can be updated to use the new scheme.
+No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Denis Mukhin <dmukhin@ford.com>
 ---
 CC: Anthony PERARD <anthony.perard@vates.tech>
 CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Michal Orzel <michal.orzel@amd.com>
 CC: Doug Goldstein <cardoe@cardoe.com>
 CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-CC: Jason Andryuk <jason.andryuk@amd.com>
-CC: Daniel P. Smith <dpsmith@apertussolutions.com>
 
 v2:
- * Only build conditionally.  Argo is bust with Linux 6.12, which is needed
-   for new hardware runners.
- * Parallel build of xen-argo.ko and libargo.
  * Use -print0
-
-I tried to make MODPOST work properly, but we don't build enough of it for the
-kernel, and I didn't feel like adding an extra 10 mins to the build (all
-modules) just to get the metadata right.
+ * Don't dedup $PATHS.  It's going to change between cpio and tar in
+   subsequent patches.
 ---
- .gitlab-ci.yml         |  2 ++
- scripts/build-argo.sh  | 67 ++++++++++++++++++++++++++++++++++++++++++
- scripts/build-linux.sh |  8 ++++-
- 3 files changed, 76 insertions(+), 1 deletion(-)
- create mode 100755 scripts/build-argo.sh
+ .gitlab-ci.yml                                |  9 +++++++-
+ ...6_64-rootfs-alpine.sh => alpine-rootfs.sh} | 21 +++++++++++++++++--
+ 2 files changed, 27 insertions(+), 3 deletions(-)
+ rename scripts/{x86_64-rootfs-alpine.sh => alpine-rootfs.sh} (71%)
 
 diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-index fb997cc62162..790a6d9f9896 100644
+index 790a6d9f9896..b7d187168df2 100644
 --- a/.gitlab-ci.yml
 +++ b/.gitlab-ci.yml
-@@ -47,6 +47,8 @@ linux-6.6.56-x86_64:
-   script: ./scripts/build-linux.sh
-   variables:
-     LINUX_VERSION: 6.6.56
-+    ARGO_SHA: "705a7a8a624b42e13e655d3042059b8a85cdf6a3"
-+    ARGOEXEC_SHA: "d900429f6640acc6f68a3d3a4c945d7da60625d8"
- 
+@@ -42,6 +42,13 @@ linux-6.6.86-arm64:
  #
- # The jobs below here are legacy and being phased out.
-diff --git a/scripts/build-argo.sh b/scripts/build-argo.sh
-new file mode 100755
-index 000000000000..ef7057d847d4
---- /dev/null
-+++ b/scripts/build-argo.sh
-@@ -0,0 +1,67 @@
-+#
-+# This is a partial script, sourced by build-linux.sh
-+# It has expectations about the environment
-+#
+ # x86_64 artifacts
+ #
++alpine-3.18-x86_64-rootfs:
++  extends: .x86_64-artifacts
++  script:
++    - ./scripts/alpine-rootfs.sh cpio
++  variables:
++    CONTAINER: alpine:3.18-x86_64-base
 +
-+cd "${WORKDIR}"
-+
-+#
-+# We're going to collect everything in argo.cpio.gz.  Construct it under
-+# $ARGODIR as we go.
-+#
-+ARGODIR="${WORKDIR}/argo-root"
-+
-+git clone https://github.com/OpenXT/linux-xen-argo.git --depth=1
-+git -C "${WORKDIR}/linux-xen-argo" fetch origin "${ARGO_SHA}"
-+git -C "${WORKDIR}/linux-xen-argo" switch --detach FETCH_HEAD
-+
-+# Build xen-argo.ko against the target kernel, and install it.  Install
-+# linux/argo.h too because userspace needs it.
-+make -j$(nproc) -C "linux-${LINUX_VERSION}" \
-+     M="${WORKDIR}/linux-xen-argo/argo-linux" \
-+     KBUILD_MODPOST_WARN=1 \
-+     CFLAGS_MODULE="-Wno-error" \
-+     modules
-+install -D -m644 "${WORKDIR}/linux-xen-argo/argo-linux/xen-argo.ko" \
-+     "${ARGODIR}/lib/modules/${LINUX_VERSION}/updates/xen-argo.ko"
-+install -D -m644 "${WORKDIR}/linux-xen-argo/argo-linux/include/linux/argo.h" \
-+     "${ARGODIR}/usr/include/linux/argo.h"
-+
-+# Build and install libargo, applying fixes to build in Alpine Linux
-+cd "${WORKDIR}/linux-xen-argo/libargo"
-+sed -e "s|AM_INIT_AUTOMAKE|AC_CONFIG_AUX_DIR(.)\nAM_INIT_AUTOMAKE|" \
-+    -i configure.ac
-+sed -e "s/__SOCKADDR_COMMON (sxenargo_)/sa_family_t sxenargo_family/" \
-+    -e "s/__SOCKADDR_COMMON_SIZE/(sizeof (unsigned short int))/" \
-+    -i src/libargo.h
-+
-+autoreconf --install
-+./configure --prefix=/usr CPPFLAGS="-I${PWD}/../argo-linux/include"
-+make -j$(nproc)
-+make install DESTDIR="${ARGODIR}"
-+
-+# Build and install argo-exec, modifying for xilinx argo test
-+cd "${WORKDIR}"
-+curl -fsSLO \
-+    https://raw.githubusercontent.com/OpenXT/xenclient-oe/${ARGOEXEC_SHA}/recipes-openxt/argo-exec/argo-exec/argo-exec.c
-+sed -e "/#include <xen\/xen.h>/d" \
-+    -e "s|ret = shuffle(s, fds\[0\], fds\[1\]);|ret = shuffle(s, 0, 1);|" \
-+    -i argo-exec.c
-+
-+gcc -I"${ARGODIR}/usr/include" -L"${ARGODIR}/usr/lib/" \
-+    argo-exec.c -o "${ARGODIR}/usr/bin/argo-exec" -largo
-+
-+#
-+# Building is now complete.  Strip the devel components and the nointerposer
-+# lib, which we don't care to deploy to the test system.
-+#
-+cd $ARGODIR
-+rm -r usr/include usr/lib/pkgconfig
-+find usr/lib -name \*nointerposer\* -delete
-+find usr/lib \( -name \*.a -o -name \*.so -o -name \*.la \) -delete
-+
-+# Package everything up
-+find . -print0 | cpio -0 -R 0:0 -H newc -o | gzip > "$COPYDIR/argo.cpio.gz"
-+
-+# Print the contents for the build log
-+zcat "${COPYDIR}/argo.cpio.gz" | cpio -tv
-diff --git a/scripts/build-linux.sh b/scripts/build-linux.sh
-index 652fdba7b9d1..441b8721a490 100755
---- a/scripts/build-linux.sh
-+++ b/scripts/build-linux.sh
-@@ -8,7 +8,7 @@ fi
- set -ex -o pipefail
+ linux-6.6.56-x86_64:
+   extends: .x86_64-artifacts
+   script: ./scripts/build-linux.sh
+@@ -62,7 +69,7 @@ x86_64-kernel-linux-6.6.56:
+ x86_64-rootfs-alpine-3.18:
+   extends: .x86_64-artifacts
+   script:
+-    - . scripts/x86_64-rootfs-alpine.sh
++    - ./scripts/alpine-rootfs.sh tar
+   variables:
+     CONTAINER: alpine:3.18-x86_64-base
  
+diff --git a/scripts/x86_64-rootfs-alpine.sh b/scripts/alpine-rootfs.sh
+similarity index 71%
+rename from scripts/x86_64-rootfs-alpine.sh
+rename to scripts/alpine-rootfs.sh
+index b70b3a54ede5..75e2f8648ce5 100755
+--- a/scripts/x86_64-rootfs-alpine.sh
++++ b/scripts/alpine-rootfs.sh
+@@ -1,4 +1,9 @@
++#!/bin/bash
++
++set -eu
++
  WORKDIR="${PWD}"
--COPYDIR="${WORKDIR}/binaries/"
 +COPYDIR="${WORKDIR}/binaries"
- UNAME=$(uname -m)
  
- # Build Linux
-@@ -45,6 +45,12 @@ case $UNAME in
-     x86_64)
-         make -j$(nproc) bzImage
-         cp arch/x86/boot/bzImage "${COPYDIR}"
+ apk update
+ 
+@@ -56,5 +61,17 @@ passwd -d "root" root
+ 
+ # Create rootfs
+ cd /
+-tar cvzf "${WORKDIR}/binaries/initrd.tar.gz" \
+-    bin dev etc home init lib mnt opt root sbin usr var
++case $1 in
++    cpio)
++        PATHS="bin dev etc home init lib mnt opt root sbin usr var"
++        find $PATHS -print0 | cpio -0 -H newc -o | gzip > "${COPYDIR}/rootfs.cpio.gz"
 +
-+        # Build argo if requested
-+        if [[ -n "${ARGO_SHA}" ]]; then
-+            make modules_prepare
-+            . "${WORKDIR}/scripts/build-argo.sh"
-+        fi
-         ;;
- 
-     aarch64)
++        # Print the contents for the build log
++        zcat "${COPYDIR}/rootfs.cpio.gz" | cpio -tv
++        ;;
++
++    tar)
++        PATHS="bin dev etc home init lib mnt opt root sbin usr var"
++        tar cvzf "${COPYDIR}/initrd.tar.gz" $PATHS
++        ;;
++esac
 -- 
 2.39.5
 
