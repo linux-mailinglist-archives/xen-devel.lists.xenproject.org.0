@@ -2,54 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B6DDA895C0
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 09:56:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.952222.1347740 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E326BA895C1
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 09:56:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.952226.1347749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4b9H-00063F-Ps; Tue, 15 Apr 2025 07:56:03 +0000
+	id 1u4b9b-0006Mh-0U; Tue, 15 Apr 2025 07:56:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 952222.1347740; Tue, 15 Apr 2025 07:56:03 +0000
+Received: by outflank-mailman (output) from mailman id 952226.1347749; Tue, 15 Apr 2025 07:56:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4b9H-000609-Lr; Tue, 15 Apr 2025 07:56:03 +0000
-Received: by outflank-mailman (input) for mailman id 952222;
- Tue, 15 Apr 2025 07:56:02 +0000
+	id 1u4b9a-0006KF-T3; Tue, 15 Apr 2025 07:56:22 +0000
+Received: by outflank-mailman (input) for mailman id 952226;
+ Tue, 15 Apr 2025 07:56:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JN3i=XB=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1u4b9G-0005zx-2f
- for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 07:56:02 +0000
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazlp170130004.outbound.protection.outlook.com
- [2a01:111:f403:c200::4])
+ <SRS0=0g1d=XB=gmail.com=sultanovandriy@srs-se1.protection.inumbo.net>)
+ id 1u4b9Z-0005zx-Ia
+ for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 07:56:21 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f7695fc-19cf-11f0-9ffb-bf95429c2676;
- Tue, 15 Apr 2025 09:55:56 +0200 (CEST)
-Received: from AM0PR01CA0111.eurprd01.prod.exchangelabs.com
- (2603:10a6:208:168::16) by AM9PR08MB6099.eurprd08.prod.outlook.com
- (2603:10a6:20b:286::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.32; Tue, 15 Apr
- 2025 07:55:50 +0000
-Received: from AMS0EPF000001B2.eurprd05.prod.outlook.com
- (2603:10a6:208:168:cafe::63) by AM0PR01CA0111.outlook.office365.com
- (2603:10a6:208:168::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.32 via Frontend Transport; Tue,
- 15 Apr 2025 07:55:48 +0000
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AMS0EPF000001B2.mail.protection.outlook.com (10.167.16.166) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.12
- via Frontend Transport; Tue, 15 Apr 2025 07:55:49 +0000
-Received: from DB7PR08MB2987.eurprd08.prod.outlook.com (2603:10a6:5:1c::25) by
- AS2PR08MB9474.eurprd08.prod.outlook.com (2603:10a6:20b:5e9::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.34; Tue, 15 Apr
- 2025 07:55:17 +0000
-Received: from DB7PR08MB2987.eurprd08.prod.outlook.com
- ([fe80::d53f:b16d:70a5:8668]) by DB7PR08MB2987.eurprd08.prod.outlook.com
- ([fe80::d53f:b16d:70a5:8668%4]) with mapi id 15.20.8632.030; Tue, 15 Apr 2025
- 07:55:16 +0000
+ id 1d7c5541-19cf-11f0-9ffb-bf95429c2676;
+ Tue, 15 Apr 2025 09:56:19 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43ce71582e9so42255475e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 00:56:19 -0700 (PDT)
+Received: from [192.168.0.18]
+ (cpc92320-cmbg19-2-0-cust1786.5-4.cable.virginm.net. [82.13.70.251])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43f235b050fsm205717085e9.40.2025.04.15.00.56.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Apr 2025 00:56:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,236 +46,636 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f7695fc-19cf-11f0-9ffb-bf95429c2676
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=pxfv9bblthxMq/mmOkSFvCX0ko3V7HhV8MaPgCHWI6fHQXHjqeQIz06zOYh45LMHZPmiLM/gyyoOPR5WvU1DmR/x8WH1RuUBKYSoIgND1qdvhzPDJ9+gJh+cEfNfs63ejGnCevHcVN7G6uSdVsqEHfYxPv6sbSxJGP4hkbD32G5gXT2WWBv9Ek/9w0NBtZk95cNqrwdH6kr535pXYyoDIdF0BQCTV9FZDCVtt+LbHSGcJnSxFwzTzjXxoA++sF5QvOWXNmxfyZe5n0omLjqYjmyfOstf0Frqb8Qowsi0rAoVzVBqrR8VHuyU3OdRYcAHYZxN2wS9MOfotn01l3sV4g==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/2fKqZ5wnNPzUBs4RD7wTwKYGvs3QOO9TxGt/wG8g08=;
- b=STsHQhkiqYVia/kyjRIfg2MrU9+zhq2Sb8hCHSKxzNraMmebQ4kF5+N/gyX9jmYaH+j1zEBUfX+Gl0B8UeS8EDLJ1Fzf5qzbATgIU85KgGP8R7ao65VFXDG26fNUA42UTb86zlHMqcd9KJi58I/I1zUEI/baAbJytBtJgkbcCyvdiOaYK5srj1bF8acuXRA8SBS98UWt8COv9c29uxbYhL5cK9+jAjsa6dENW/owVkAwiV37gwyRNcyY8y7Fa0KIrEv++EXlqzHvZAa3VDYqksHlZbYv3ATgurDkSVaFxYpF5+zlN3pVImNeLJnKPxA88F4BlTHMD6ixdgQXdGG2jw==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=xen.org smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/2fKqZ5wnNPzUBs4RD7wTwKYGvs3QOO9TxGt/wG8g08=;
- b=ISsSnblHvvxMGGLU4GoilifI+xDJeGSKvl2aD7xkzdoOwW+xqqeYtXz88uWPr3HcXnpq3iyxrTI+aLZbhIASVc0lS2dv1zZC10wARdtvHVla+N3BQOcaF0wnaP3S3amNK2eDpynn0weQjVqIqLPVYF9uajaXQgAT1kdEmPNhqJk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vDDjOA6m+AqvZ38NVh7VmlrzjRWTAT/2nh5ZGw7AGOrzq4NDxmLlK+tvEbHYZ6Hg+vR/fO5BacQFnkiOL1WsVLWGhT1iyFW6q4SqaXkJWRs98NRj9ZgUPkiqBwZYnWlkLXb4KggOcNFHo/DmB6pfb7qycejg0Rr9jKDkfebU8gBJ42RJVcCCnxIoSg9ROReSxd2XsYpjpz1gNS5lqpvhbTZpsfISKahaWDtUFI53m2wVUVfiPInA0mKxbYRTXVAn7Tul7X0rfuImfDvd8dLIfyfjNU10G9UuFODQ1O9sBTBzU5I1Zj6kNOqqhQ78eVmPp/dYjRcZVtxPwbAqz5IvKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/2fKqZ5wnNPzUBs4RD7wTwKYGvs3QOO9TxGt/wG8g08=;
- b=GDeGhgUWs9/uThmwXm4pRSTwv316vh2DOkf20Be68/OAp9OrlU43dP+fib1G8sxqCHVqyTq8eTxkWAg/pFGjxhdhzfaVCgsmqqtiBJz6rs0DBrVKi0vaBbqoPnuca/3RfXWQJeRkKzFAT/7+6YfZPyFBJSGqEfrGVnSU7Ya3quEW5FQ89Xhb4ebS0wr8iW60pELpI7h/RdSK5qb1uWuFb2HgItRvQjkjDJLlXCrIGPKbyYGjdkoBXFjDojqv9rig9H1q5vMFHkrYXIdAVAJ4G22mXc/lk6KlrUJoi9q0HjRwaOfj7zckb9RAP6vKj5ncZNzbSi7ZbuwkDUevyxeP/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/2fKqZ5wnNPzUBs4RD7wTwKYGvs3QOO9TxGt/wG8g08=;
- b=ISsSnblHvvxMGGLU4GoilifI+xDJeGSKvl2aD7xkzdoOwW+xqqeYtXz88uWPr3HcXnpq3iyxrTI+aLZbhIASVc0lS2dv1zZC10wARdtvHVla+N3BQOcaF0wnaP3S3amNK2eDpynn0weQjVqIqLPVYF9uajaXQgAT1kdEmPNhqJk=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v3 7/7] arm/mpu: Implement setup_mpu for MPU system
-Thread-Topic: [PATCH v3 7/7] arm/mpu: Implement setup_mpu for MPU system
-Thread-Index: AQHbqvIOcqFIKG0Dnkidmosr/dM7hLOjFvuAgAAzsICAAJ2ngIAAeRkA
-Date: Tue, 15 Apr 2025 07:55:16 +0000
-Message-ID: <A053DC71-B301-4D64-8EDB-C225E2ED3FA7@arm.com>
-References: <20250411145655.140667-1-luca.fancellu@arm.com>
- <20250411145655.140667-8-luca.fancellu@arm.com>
- <923a2fc0-4eeb-4e09-a56d-7471a56fe3bf@xen.org>
- <4771188E-B307-4452-A900-2ACACC1CE333@arm.com>
- <fcacc6b6-ea4b-4917-ac46-5264ac3e4039@xen.org>
-In-Reply-To: <fcacc6b6-ea4b-4917-ac46-5264ac3e4039@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3826.400.131.1.6)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DB7PR08MB2987:EE_|AS2PR08MB9474:EE_|AMS0EPF000001B2:EE_|AM9PR08MB6099:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5858de2b-8714-4688-1862-08dd7bf2f051
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
-X-Microsoft-Antispam-Message-Info-Original:
- =?utf-8?B?bmFMSjByR0VxblF0eSsvdmFXM29MTDhkQVhMV2FsN2crSmptYUt6T3RxS3lL?=
- =?utf-8?B?cmk1eCtCUlVrWHk1cTl0VElLNWpEYXhKbUlyc3d0Zy9oU0xoSUhWZlpnWm9o?=
- =?utf-8?B?M0sxT3NuL3p5T1ROWE5uS3BSM2pNdTNkTzkwQUZNRHkxUk55c2t0R2lFQk1h?=
- =?utf-8?B?dWxHN0hWMzEyZW0zNVBFNTBuVWx0S3JpUmNJWlpvTDk0Ky85QjNTY3ZYelFS?=
- =?utf-8?B?UWtGZjNGUlR5T3RWaUZDTDVxd25OZS9rKzRLYmYvUXcxR3hmOGxkUURhZzZC?=
- =?utf-8?B?aFR2bFE0SkM2NHVUZUprbmZGUVVIblI5ODM3eS9EVUk2RzZkcVRmQVZyOFdJ?=
- =?utf-8?B?N09Zb3ZnTmNTZGJYdDhydnFnMjA4cnhLRHlFUEdqaXZvKzJIdFVBbm5KeXQv?=
- =?utf-8?B?eVhkRys2VU9wenhXWG9MQ2FRNlBVakVlRmVzQUp1S05jcmhORk00VVJZK1Ru?=
- =?utf-8?B?RmxMWk9wS29UMHFoL0F6b0h4U2VNRHU3V3dQMmU1VTBveU9kMUREdGlOdVJ1?=
- =?utf-8?B?bHZkdjJTTEx6bVArbkxvd3RDczl3cXZodlRGMjZDNzJXVFdxYTJRWlZqZHBZ?=
- =?utf-8?B?UlZyblU1cmxEMkFKakQvZzU0RVhLOXZrWkVwYjRnRlhMWUhpZ3RGTFNGRXBK?=
- =?utf-8?B?ZUdvNUdyUzdYWDFUaHliVmo3Rkc5S2x0Q3hwN3ZtR1pjVzI2VFB6czk0dlha?=
- =?utf-8?B?bzZEcGhSWmRXV0tRd0ZBNUR5NjhtUmFJcFAwRzF2ZVQ5ZEJVdXJOTHM4VE9v?=
- =?utf-8?B?NmtYWnRMTmJZR1VxVkY1QTYzN1BiZlZDQjU2ZlFpakdhYWtyNnMzb0t2TFhz?=
- =?utf-8?B?WWh2UkU2RzNxcDY5YTlNY3YxUit1ajNuZFNuZ1hlVjBKei90RGlMZDFUcGVi?=
- =?utf-8?B?a3JwNmwxYzFvVC9yNHUzMUwvMFlVV1MweHdqNkg0bi9XRmxLOXNZL1RYN2hP?=
- =?utf-8?B?TTk2U3Q2QjJhQy9VYU9rZHAybXVYWWtIK2dPU3BZcWx0L3AyQWR6TDdVYTJ1?=
- =?utf-8?B?OEtZWTBWUFlObEhqN2tFOVBtb004dHBaNFM1amlKeHoxcFhKamJYTnluLzNI?=
- =?utf-8?B?NDF1bDEwREVqS1JxNmY0SkVMNFYzM094bGE5b2swWE01SDRVRkY5T0wrMkov?=
- =?utf-8?B?NTAzRlRwTFBFZTRRT2hWL29PU2ZyRHF2QVJGc1UxeDRtcXlQb1RhVTZqc1ZJ?=
- =?utf-8?B?T0o3bFpPRWhubTJWbTY1RitqNlpwd0NUcjlHTElNK0ZhbGhFVHJ5ajZlcUNj?=
- =?utf-8?B?ZjZUd2ZodG0vUFprUm5mWDE2Y0gyOHYvb1pTR255b0xad1lUeUl0b3I3YTRT?=
- =?utf-8?B?ZkxqelN5MEJIQk5aME00Y0JFdWV0TkJUVXJRK3ZXbk9KdnV3aGJVclcvMzlI?=
- =?utf-8?B?T3M2MFV6aUdCVWR2aCt4TzBzSlJKdk5LWFYxOGl3WTdKY3E1Y2xSQUJPZ3FG?=
- =?utf-8?B?QkJLL0k2bkRCVzhkdm1WMEFkdXhuYlFMWkpxd3B1Y1N3VWlFeTdtU0plcHZs?=
- =?utf-8?B?b1RmZy9kdmExZnhwZFF3OVhDQ0s5RmZSVXRMSmc3RkdpM0pwVklueDl4YUlL?=
- =?utf-8?B?allRajhCZWt4a3JKZ3NKcjBLZzdUTU9peGdudUM2bkRnYXFxV1o2TkxkOE9m?=
- =?utf-8?B?Mk9VOGl0bUhheHpTUmo2bFd6bDMzY3hWdTUzV2NuUVUrZnJGa2xNUElaR00w?=
- =?utf-8?B?RFNaL0I3dERDLzZIMS9pYUtZUHdaM0hGZUxUdjdwZCsxeWlMdFVFVnNqRHVZ?=
- =?utf-8?B?dS8zZjNtS2ZHTk5hYzE2ckxuUjFGRm5VZmUrYzVPanAwTTZqN3p3TE1tQlhR?=
- =?utf-8?B?MkZBdnpZcDhpQUQ5akhJZ0JVSXVuSFFQVSs4UWs2RW41TDZqTkx1Vjk1V1Mv?=
- =?utf-8?B?cS9UZG4yeEdJd2hIZ3A2cGFHMDQ4NXY4ZFZEK1o4a3lnRkduby9JT1cwaWNm?=
- =?utf-8?B?aktMR1VBNTR5eGpXZGJweHh2OW04aWk1cXFBNDdEWDY5N0N6NmVDbHdoNGRw?=
- =?utf-8?B?dVl6dU90WmNRPT0=?=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR08MB2987.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <9973B1466AB8EB48BE599C4166B48289@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 1d7c5541-19cf-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1744703779; x=1745308579; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=D3qT7lZ6wYNs5aL82TRAFgnicl/JTUH1PYLikDCBGHo=;
+        b=XxIED8W7+rhyLAJzUtbeZH0drHTcsL3wYV/CaKM4e07zntRVEvXMtHBHI1OQa8vnBk
+         FTLYmfaUIKwzbH9u5MHQ/hW4JVKSM34Kz6faYTnNvN83Mi0j8BcKhkXa0yuID8dciL91
+         51uwBt60OuMjn0cvumEiz2dXJFCbu9PO9vC1qT9ZDOpzdcYwbwJ5pE/qptRcKHIALwB1
+         8LwlWSqorOCv5bVZGBBTC3CtPFesLhJViu/Q7Q9DIa46EHY3xi82fcDYmXxXXzz34nWu
+         KLLri3w1GgGTrofPRjf8Ay+6HDB316JQ9dLY+rlFVvX3kKxVlk9TbPCADfpeo9Tr7lr8
+         qtXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744703779; x=1745308579;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=D3qT7lZ6wYNs5aL82TRAFgnicl/JTUH1PYLikDCBGHo=;
+        b=jW8vqo6SDKAxpRWBmuNu2I8jGjZIPafRsJA5ds1snc7wu4BUjHaAe5VLhS+ikor4fN
+         3n+rRalxPEJGhs9Rdbep9q8e5j6GxsyNkTjsYVHf/XoOi/hRriTD2XCpeDEmLs/gKjk7
+         nktFAHfYE73X1HSR+RKWDryg4nrDNaR/avynMQ2nIUO7FEeuee01zvtwQdQKuLUK2JmA
+         LC4ioKfPkKQHRsqKep7A/Mw82XEBTFlcnwOn3b6pFemHMx4nw06kXm5zi8NexipS5B3G
+         FhlkkYUGKpiiqXB2zBQ7KxhtJpWErbPaiwXwYoIUb8NnYRTQtxazxIb8Ie88yVyJ6QAL
+         Wzyw==
+X-Gm-Message-State: AOJu0Yxtau9srxd2Z8NRglxLq2JEbBY0h3f8tjGuRA1IlpOhbccPq4o6
+	MIwRbOikygXKyOIno8iYJsfJrT411XIGPdSMGXwHwgR2UXIPGqBd
+X-Gm-Gg: ASbGnctE/qL5PibQAaGykvmFUGPoG+xL5sfUycsNLR+NUjuTb7nN4WpI61ccu7Rv4gn
+	lYDozM5Sd6SDOo2xvUQgOqNLKFHkbpWI4BMopz3OLbhfxpVdj3aBMk1s8e4cfNVYtBmQ94OMwp+
+	iUP9hZr6e/HRLYJQR83gGVclwfV504innh+hvW3xAlbwBTpjykZjcpSxS3SSfdefeck+d1J6M0f
+	HtMozmN7X+6KQ8U1Ot1leD0yuEf4iIJfQKObkHiOtL2IaFyJohPUFzpl2AMF2LmQhht2YZxPMWY
+	g6ZLljQ3ojAwa02/SoviB9zRzXsHZF8jYMaPKxYYOTTKeDWoKYp9oabvBr8A82gxaWxqXnGeVfs
+	oI6OLDZSXyauo3sW14iUUiilzZ9JT1FM=
+X-Google-Smtp-Source: AGHT+IEgyAzCH1F9qaK+EcUTcKfvapWzlndZ412BNEkZGFER8PURicE6QuBF+5vBnqWkQWet/zU0kQ==
+X-Received: by 2002:a5d:64a9:0:b0:39c:2264:43ea with SMTP id ffacd0b85a97d-39ea51d36a4mr12068312f8f.3.1744703778303;
+        Tue, 15 Apr 2025 00:56:18 -0700 (PDT)
+Message-ID: <0fd070a8-8045-4df1-a1d6-c9701e3deba1@gmail.com>
+Date: Tue, 15 Apr 2025 08:56:16 +0100
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9474
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS0EPF000001B2.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	e26ec59d-5dbc-4bd0-fa02-08dd7bf2dc89
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|35042699022|82310400026|14060799003|36860700013|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?OTVtWkpHRWRjaTdOZDM0NVd0eUpZNmpRTDZ6YVhjenVpVmIwRzZoN0t3Ukxl?=
- =?utf-8?B?Ums5Q2cwRlgwdnFIL21YQkg3V21KVHBRb1lhUTR4ZHRmKzNRV1JqQjBjRDZK?=
- =?utf-8?B?azhxV1h1d2ppMFdZUmRDclNVOG5GcTFaRDQxTDJMWXdSSExjdEVCbHpDemRO?=
- =?utf-8?B?Sjg0SzluUThRR0RZMFVrTzc3NHhZTURHWVpRcmJjQVo5NlYwZVo5S3dEOTJr?=
- =?utf-8?B?MURyYkE3UTFveTBzS3lmK0tjT0YzYzJuRFhLNHJVb2R3dkdEclRac0NQYWc4?=
- =?utf-8?B?UTlXS3VZbDJuY2FSRlVUekVtTDFGWWlvajN3YW14M21Ib2hXTXVyOE82SFdn?=
- =?utf-8?B?anhrMXNpS0dHcXFlYURNL3NWQlNMYS8wWGMxZkY3WU1hbk54RDZiZ2FGNUxN?=
- =?utf-8?B?ckRLMmFKd2JZSXJkeHIrb1Rvbkh0dVB4VDdRUzhYaCs3VlF5TTRSR3N3Njdj?=
- =?utf-8?B?Q0pjZDhPdWFKQ2FwSFY5V0x0QitDSk9pS0VqckdGaWw3a3JTald0RHc4Y0Rn?=
- =?utf-8?B?RWFEVEtyTDhQRHd5MUVTcW9MOWZlcFpsWGYreWNib2RFeU4zR1RJSW9UTU1C?=
- =?utf-8?B?aGRHa3pzMVBRVXNZRXlzMnVBOGh6V0dBTmlOeXZrVUxldjQ1V1lRTGJ1WldQ?=
- =?utf-8?B?QlQ3TDdDN2VBVmEzcUtDQ2d0aUd0VllvTVgwY3QwKzB5UjgvS2s2TTA3MjJQ?=
- =?utf-8?B?M3RyYk9KMjlmSHpKeUFQWlJMMXhhVGM1Nmc3cHRLODg2MUJCOEQwdHBGbkZC?=
- =?utf-8?B?Z2JjUGF6U2VEM1p5L204dWJ2K0dPSDVLVExQSnJoalRCeGgzWWt0VUs0am9i?=
- =?utf-8?B?aFdxV05Kc2dXTG9kTURjWkV6Z2dmaWtKSThRTEg5SGNteTlDejZMeUpid1Zt?=
- =?utf-8?B?ZnJqMWhnQVlDbWJyQmtrS2d2Nmx4R29UYlc0Ti82dDNDaldMRHNMYWxBZng5?=
- =?utf-8?B?cHB2SU1xbG0xcDdib1k0UFI2S1ZjRGRVNVdHbjUwZjAraEx3NTdXWFhJbGhT?=
- =?utf-8?B?WGNmYk9PS1VNZUlnbm1Lc1h5WDdhYXBMd090NURQZXAyOGZnS0Y4NXhwRVY0?=
- =?utf-8?B?bmNxUWJ6ZHZCOXdCb05WWEh2RVUzenZmYUNvZlVyQWNZQWw4RmtnZDkyZ2Rq?=
- =?utf-8?B?YmNZMVpRSVVjYzFkZlRKemxpVlhsY1pibVAycDBaeFZzMkoxMGZqNVB5UnA4?=
- =?utf-8?B?dUdYR3hPR0tpNENMZUkrZVlNN3MwSGN4R0NiUkhEenRhSjBFK2MwOHhqa1Va?=
- =?utf-8?B?a2RjYVRlR0VPdVRoSW1Kck5DVFFlZWZCd2hYYUpvZ08ra2dQaEUxdUxLM2ZF?=
- =?utf-8?B?N2ZsbGlQeUwrM0ZnK1dRWnRrdGZuUmtsWGU0SDFNSXNzeEd5eWhzQWhZT2ZC?=
- =?utf-8?B?MnRpbDFBa0VvZmFlaGFyLzROZ08yY2FtaDVaVzFzTTFPUklYYzhHdTBYVVFD?=
- =?utf-8?B?dG5Ebnp4ekV3UHNocGIreXdrbE5LSDFsUlRnekh1M05HTC9EVUJHMzV2MVB6?=
- =?utf-8?B?WjdDTXZHOTl3NVVMemRDZkRlRVhlajJKN1ByKzV1Z0I1cG91d2RTZTRYSVg5?=
- =?utf-8?B?NG1UcGVmNzFlTGpuaC81OUZzN01oYmxCZUFjMmJIZ0ZWRGE2NGNUWHFLajEy?=
- =?utf-8?B?djRiMnBycUNsbGgyMDk5bGNCcC9NWm90dUFRNnNCVWo0SzBsbUtIRENPRDda?=
- =?utf-8?B?bDNPZUFSSzFmUFZoSzZHaFBuQVl6T29ZWXNld2xSSXFJY1pXa0xDWk9qQ04y?=
- =?utf-8?B?dkMrQzI3SWNvcnhncm1HNG9NTUFLTWFPZEw2MCs2VVNobkxVM1dHYm9UbnFM?=
- =?utf-8?B?NFdweWZBUERqVC9hc1hEMzJvd0c5OTcxc25ycXJKK1BBT1Uya25qVUE1OVdz?=
- =?utf-8?B?Z2pzajZyZzlicmEzREpxcUJXaUxialZaaHZxbFRpdXc0YmFubEdNVFNSL1dZ?=
- =?utf-8?B?M0sxNjZaMlM3SDFaVFllVUh2Q3pmaWFRUXRMMWZQTzlEUGxPRkxobjlzZ2ZZ?=
- =?utf-8?B?T1NpSjFTZ0tEb2QwR1ZlVHczTnN0eStPZDY2ZUlpNGRRR0dHSXpyOUNZRVBv?=
- =?utf-8?Q?wIu5/p?=
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(82310400026)(14060799003)(36860700013)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2025 07:55:49.9689
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5858de2b-8714-4688-1862-08dd7bf2f051
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF000001B2.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB6099
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] drivers: Change amd_iommu struct to contain
+ pci_sbdf_t, simplify code
+To: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <cover.1744657012.git.andriy.sultanov@vates.tech>
+ <40f504017d71c16a3e2bc8945ac5e674a3e791ed.1744657012.git.andriy.sultanov@vates.tech>
+ <Z/4MCopF/j5357Mf@starscream>
+Content-Language: en-US
+From: Andriy Sultanov <sultanovandriy@gmail.com>
+In-Reply-To: <Z/4MCopF/j5357Mf@starscream>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGkgSnVsaWVuLA0KDQo+Pj4+ICtzdGF0aWMgdm9pZCBfX2luaXQgc2V0dXBfbXB1KHZvaWQpDQo+
-Pj4+ICt7DQo+Pj4+ICsgICAgcmVnaXN0ZXJfdCBwcmVucjsNCj4+Pj4gKyAgICB1bnNpZ25lZCBp
-bnQgaSA9IDA7DQo+Pj4+ICsNCj4+Pj4gKyAgICAvKg0KPj4+PiArICAgICAqIE1QVUlSX0VMMi5S
-ZWdpb25bMDo3XSBpZGVudGlmaWVzIHRoZSBudW1iZXIgb2YgcmVnaW9ucyBzdXBwb3J0ZWQgYnkN
-Cj4+Pj4gKyAgICAgKiB0aGUgRUwyIE1QVS4NCj4+Pj4gKyAgICAgKi8NCj4+Pj4gKyAgICBtYXhf
-eGVuX21wdW1hcCA9ICh1aW50OF90KShSRUFEX1NZU1JFRyhNUFVJUl9FTDIpICYgTlVNX01QVV9S
-RUdJT05TX01BU0spOw0KPj4+PiArDQo+Pj4+ICsgICAgLyogUFJFTlJfRUwyIGhhcyB0aGUgTiBi
-aXQgc2V0IGlmIHRoZSBOIHJlZ2lvbiBpcyBlbmFibGVkLCBOIDwgMzIgKi8NCj4+Pj4gKyAgICBw
-cmVuciA9IChSRUFEX1NZU1JFRyhQUkVOUl9FTDIpICYgUFJFTlJfTUFTSyk7DQo+Pj4+ICsNCj4+
-Pj4gKyAgICAvKg0KPj4+PiArICAgICAqIFNldCB0aGUgYml0ZmllbGQgZm9yIHJlZ2lvbnMgZW5h
-YmxlZCBpbiBhc3NlbWJseSBib290LXRpbWUuDQo+Pj4+ICsgICAgICogVGhpcyBjb2RlIHdvcmtz
-IHVuZGVyIHRoZSBhc3N1bXB0aW9uIHRoYXQgdGhlIGNvZGUgaW4gaGVhZC5TIGhhcw0KPj4+PiAr
-ICAgICAqIGFsbG9jYXRlZCBhbmQgZW5hYmxlZCByZWdpb25zIGJlbG93IDMyIChOIDwgMzIpLg0K
-Pj4+PiArDQo+Pj4gVGhpcyBpcyBhIGJpdCBmcmFnaWxlLiBJIHRoaW5rIGl0IHdvdWxkIGJlIGJl
-dHRlciBpZiB0aGUgYml0bWFwIGlzIHNldCBieSBoZWFkLlMgYXMgd2UgYWRkIHRoZSByZWdpb25z
-LiBTYW1lIGZvciAuLi4NCj4+IFNvLCBJIHdhcyB0cnlpbmcgdG8gYXZvaWQgdGhhdCBiZWNhdXNl
-IGluIHRoYXQgY2FzZSB3ZSBuZWVkIHRvIHBsYWNlIHhlbl9tcHVtYXAgb3V0IG9mIHRoZSBCU1Mg
-YW5kIHN0YXJ0DQo+PiBtYW5pcHVsYXRpbmcgdGhlIGJpdG1hcCBmcm9tIGFzbSwgaW5zdGVhZCBJ
-IHdhcyBob3BpbmcgdG8gdXNlIHRoZSBDIGNvZGUsIEkgdW5kZXJzdGFuZCB0aGF0IGlmIHNvbWVv
-bmUNCj4+IHdhbnRzIHRvIGhhdmUgbW9yZSB0aGFuIDMxIHJlZ2lvbiBhcyBib290IHJlZ2lvbiB0
-aGlzIG1pZ2h0IGJyZWFrLCBidXQgaXTigJlzIGFsc28gYSBiaXQgdW5saWtlbHk/DQo+IA0KPiBU
-aGUgMzEgaXMgb25seSBwYXJ0IG9mIHRoZSBwcm9ibGVtLiBUaGUgb3RoZXIgcHJvYmxlbSBpcyB0
-aGVyZSBpcyBhdCBsZWFzdCBvbmUgb3RoZXIgcGxhY2VzIGluIFhlbiAoaS5lLiBhcyBlYXJseV9m
-ZHRfbWFwKCkpIHdoaWNoIHdpbGwgYWxzbyBjcmVhdGUgYW4gZW50cnkgaW4gdGhlIE1QVSBiZWZv
-cmUgc2V0dXBfbW0oKS9zZXR1cF9tcHUoKSBpcyBjYWxsZWQuIEkgYW0gYSBiaXQgY29uY2VybmVk
-IHRoYXQgdGhlIGFzc3VtcHRpb24gaXMgZ29pbmcgdG8gc3ByZWFkIGFuZCB5ZXQgd2UgaGF2ZSBu
-byB3YXkgdG8gcHJvZ3JhbW1hdGljYWxseSBjaGVjayBpZiB0aGlzIHdpbGwgYmUgYnJva2VuLg0K
-DQpJZiB3ZSB3b3VsZCBsaWtlIHRvIGZpbmQgd2F5cywgd2UgY291bGQgY2hlY2sgZXZlbnR1YWxs
-eSBmb3IgY2xhc2hlcyBvbiBlbmFibGVkIE1QVSByZWdpb25zOw0Kc28gdGhlIG9ubHkgcGFydCB3
-aGVyZSBhIHJlZ2lvbiBpcyBjcmVhdGVkIGluIHRoZSBDIHdvcmxkIHdpdGhvdXQgdGhlIGFzc2lz
-dGFuY2Ugb2YgeGVuX21wdW1hcCBpcyBlYXJseV9mZHRfbWFwKCksDQphc3NlcnRzIGV0YyBjb3Vs
-ZCBiZSB1c2VkIGluIG9uZSBvciBib3RoIHNldHVwX21wdSBhbmQgZWFybHlfZmR0X21hcCB0byBw
-cmV2ZW50IGJyZWFrYWdlLg0KDQo+IA0KPiBGdXJ0aGVybW9yZSwgcmlnaHQgbm93LCB5b3UgYXJl
-IGhhcmRjb2RpbmcgdGhlIHNsb3QgdXNlZCBhbmQgdXBkYXRpbmcgdGhlIE1QVS4gQnV0IGlmIHlv
-dSBoYWQgdGhlIGJpdG1hcCB1cGRhdGVkLCB5b3UgY291bGQganVzdCBsb29rIHVwIGZvciBhIGZy
-ZWUgc2xvdC4NCg0Kb2YgY291cnNlLCBidXQgc3RpbGwgdGhlIGVhcmx5IERUQiBtYXAgaXMgdGVt
-cG9yYXJ5IGFuZCBpdCB3aWxsIGJlIGdvbmUgYWZ0ZXIgYm9vdCwgc28gaXQgd29u4oCZdCBpbXBh
-Y3QgbXVjaCB1bmxlc3MgSeKAmW0NCm1pc3Npbmcgc29tZXRoaW5nLiANCg0KPiANCj4+IFNvIEkg
-d2FzIGJhbGFuY2luZyB0aGUgcHJvcyB0byBtYW5pcHVsYXRlIGV2ZXJ5dGhpbmcgZnJvbSB0aGUg
-QyB3b3JsZCBhZ2FpbnN0IHRoZSBjb25zIChib290IHJlZ2lvbiA+IDMxKS4NCj4+IElzIGl0IHN0
-aWxsIHlvdXIgcHJlZmVycmVkIHdheSB0byBoYW5kbGUgZXZlcnl0aGluZyBmcm9tIGFzbT8NCj4g
-DQo+IFllcy4gSSBkb24ndCB0aGluayB0aGUgY2hhbmdlIGluIGFzbSB3aWxsIGJlIGxhcmdlIGFu
-ZCB0aGlzIHdvdWxkIGFsbG93IHRvIHJlbW92ZSBvdGhlciBhc3N1bXB0aW9ucyAobGlrZSBpbiB0
-aGUgRkRUIG1hcHBpbmcgY29kZSkuDQoNCm5vdCBsYXJnZSwgYnV0IHN0aWxsIHNvbWV0aGluZyB0
-byBiZSBtYWludGFpbmVkLCB3ZSB3aWxsIG5lZWQgYXJtNjQvYXJtMzIgY29kZSB0byBzZXQvY2xl
-YXIgYml0cyBvbiB0aGUgYml0bWFwDQooY2F1c2luZyBkdXBsaWNhdGlvbiB3aXRoIGJpdG9wcy5j
-KSwgY29kZSB0byBzYXZlIHRoaW5ncyBvbiB0aGUgeGVuX21wdW1hcCwgY29kZSB0byBjbGVhbi9p
-bnZhbGlkYXRlIGRjYWNoZSBmb3IgdGhlIGVudHJpZXMgaW4geGVuX21wdW1hcCBhbmQgZmluYWxs
-eSB3ZSB3aWxsIG5lZWQgdG8ga2VlcCB0aGUgY29kZSBhbGlnbmVkIHRvIHRoZSBpbXBsZW1lbnRh
-dGlvbiBvZiB0aGUgYml0bWFwDQood2hpY2ggaXMgZmFpcmx5IHN0YWJsZSwgYnV0IHN0aWxsIG5l
-ZWRzIHRvIGJlIHRha2VuIGludG8gYWNjb3VudCkuDQoNCj4gDQo+IEFzIGEgc2lkZSBub3RlLCBJ
-IG5vdGljZWQgdGhhdCB0aGUgTVBVIGVudHJpZXMgYXJlIG5vdCBjbGVhcmVkIGJlZm9yZSB3ZSBl
-bmFibGUgdGhlIE1QVS4gSXMgdGhlcmUgYW55dGhpbmcgaW4gdGhlIGJvb3QgcHJvdG9jb2wgdGhh
-dCBndWFyYW50ZWUgYWxsIHRoZSBlbnRyaWVzIHdpbGwgYmUgaW52YWxpZD8gSWYgbm90LCB0aGVu
-IEkgdGhpbmsgd2UgbmVlZCB0byBjbGVhciB0aGUgZW50cmllcy4NCj4gDQo+IE90aGVyd2lzZSwg
-eW91ciBjdXJyZW50IGxvZ2ljIGRvZXNuJ3Qgd29yay4gVGhhdCBzYWlkLCBJIHRoaW5rIGl0IHdv
-dWxkIHN0aWxsIGJlIG5lY2Vzc2FyeSBldmVuIGlmIHdlIGdldCByaWQgb2YgeW91ciBsb2dpYyBi
-ZWNhdXNlIHdlIGRvbid0IGtub3cgdGhlIGNvbnRlbnQgb2YgdGhlIE1QVSBlbnRyaWVzLg0KDQpU
-aGUgUFJMQVIuRU4gYml0IHJlc2V0cyB0byB6ZXJvIG9uIGEgd2FybSByZXNldCwgc28gYW55IHJl
-Z2lvbiB3aWxsIGJlIGFsd2F5cyBkaXNhYmxlZCB1bmxlc3MgcHJvZ3JhbW1lZCwgSSB0aG91Z2h0
-IGl0IGlzIGVub3VnaC4NCg0KQ2hlZXJzLA0KTHVjYQ0KDQo=
+
+On 4/15/25 8:34 AM, dmkhn@proton.me wrote:
+> On Mon, Apr 14, 2025 at 08:19:16PM +0100, Andrii Sultanov wrote:
+>> From: Andrii Sultanov <sultanovandriy@gmail.com>
+>>
+>> Following on from 250d87dc3ff9 ("x86/msi: Change __msi_set_enable() to
+>> take pci_sbdf_t"), make struct amd_iommu contain pci_sbdf_t directly
+>> instead of specifying seg+bdf separately and regenerating sbdf_t from them,
+>> which simplifies code.
+>>
+>> Bloat-o-meter reports:
+>> add/remove: 0/0 grow/shrink: 4/13 up/down: 121/-377 (-256)
+>> Function                                     old     new   delta
+>> _einittext                                 22028   22092     +64
+>> amd_iommu_prepare                            853     897     +44
+>> __mon_lengths                               2928    2936      +8
+>> _invalidate_all_devices                      133     138      +5
+>> _hvm_dpci_msi_eoi                            157     155      -2
+>> build_info                                   752     744      -8
+>> amd_iommu_add_device                         856     844     -12
+>> amd_iommu_msi_enable                          33      20     -13
+>> update_intremap_entry_from_msi_msg           879     859     -20
+>> amd_iommu_msi_msg_update_ire                 472     448     -24
+>> send_iommu_command                           251     224     -27
+>> amd_iommu_get_supported_ivhd_type             86      54     -32
+>> amd_iommu_detect_one_acpi                    918     886     -32
+>> iterate_ivrs_mappings                        169     129     -40
+>> flush_command_buffer                         460     417     -43
+>> set_iommu_interrupt_handler                  421     377     -44
+>> enable_iommu                                1745    1665     -80
+>>
+>> Resolves: https://gitlab.com/xen-project/xen/-/issues/198
+>>
+>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Signed-off-by: Andrii Sultanov <sultanovandriy@gmail.com>
+>>
+>> ---
+>> Changes in V4:
+>> * Dropped references to the order of seg/bdf in the commit message
+>> * Dropped unnecessary detail from the commit message
+>> * Reverted to a macro usage in one case where it was mistakenly dropped
+>> * Folded several separate seg+bdf comparisons into a single one between
+>>    sbdf_t, folded separate assignments with a macro.
+>> * More code size improvements with the changes, so I've refreshed the
+>>    bloat-o-meter report
+>>
+>> Changes in V3:
+>> * Dropped the union with seg+bdf/pci_sbdf_t to avoid aliasing, renamed
+>>    all users appropriately
+>>
+>> Changes in V2:
+>> * Split single commit into several patches
+>> * Added the commit title of the referenced patch
+>> * Dropped brackets around &(iommu->sbdf) and &(sbdf)
+>> ---
+>>   xen/drivers/passthrough/amd/iommu.h         |  4 +--
+>>   xen/drivers/passthrough/amd/iommu_acpi.c    | 16 +++++-----
+>>   xen/drivers/passthrough/amd/iommu_cmd.c     |  8 ++---
+>>   xen/drivers/passthrough/amd/iommu_detect.c  | 18 +++++------
+>>   xen/drivers/passthrough/amd/iommu_init.c    | 35 ++++++++++-----------
+>>   xen/drivers/passthrough/amd/iommu_intr.c    | 29 ++++++++---------
+>>   xen/drivers/passthrough/amd/iommu_map.c     |  4 +--
+>>   xen/drivers/passthrough/amd/pci_amd_iommu.c | 22 ++++++-------
+>>   8 files changed, 67 insertions(+), 69 deletions(-)
+>>
+>> diff --git a/xen/drivers/passthrough/amd/iommu.h b/xen/drivers/passthrough/amd/iommu.h
+>> index 00e81b4b2a..ba541f7943 100644
+>> --- a/xen/drivers/passthrough/amd/iommu.h
+>> +++ b/xen/drivers/passthrough/amd/iommu.h
+>> @@ -77,8 +77,8 @@ struct amd_iommu {
+>>       struct list_head list;
+>>       spinlock_t lock; /* protect iommu */
+>>
+>> -    u16 seg;
+>> -    u16 bdf;
+>> +    pci_sbdf_t sbdf;
+>> +
+>>       struct msi_desc msi;
+>>
+>>       u16 cap_offset;
+>> diff --git a/xen/drivers/passthrough/amd/iommu_acpi.c b/xen/drivers/passthrough/amd/iommu_acpi.c
+>> index 5bdbfb5ba8..025d9be40f 100644
+>> --- a/xen/drivers/passthrough/amd/iommu_acpi.c
+>> +++ b/xen/drivers/passthrough/amd/iommu_acpi.c
+>> @@ -58,7 +58,7 @@ static void __init add_ivrs_mapping_entry(
+>>       uint16_t bdf, uint16_t alias_id, uint8_t flags, unsigned int ext_flags,
+>>       bool alloc_irt, struct amd_iommu *iommu)
+>>   {
+>> -    struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(iommu->seg);
+>> +    struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(iommu->sbdf.seg);
+>>
+>>       ASSERT( ivrs_mappings != NULL );
+>>
+>> @@ -70,7 +70,7 @@ static void __init add_ivrs_mapping_entry(
+>>       ivrs_mappings[bdf].device_flags = flags;
+>>
+>>       /* Don't map an IOMMU by itself. */
+>> -    if ( iommu->bdf == bdf )
+>> +    if ( iommu->sbdf.bdf == bdf )
+>>           return;
+>>
+>>       /* Allocate interrupt remapping table if needed. */
+>> @@ -96,7 +96,7 @@ static void __init add_ivrs_mapping_entry(
+>>
+>>               if ( !ivrs_mappings[alias_id].intremap_table )
+>>                   panic("No memory for %pp's IRT\n",
+>> -                      &PCI_SBDF(iommu->seg, alias_id));
+>> +                      &PCI_SBDF(iommu->sbdf.seg, alias_id));
+>>           }
+>>       }
+>>
+>> @@ -112,7 +112,7 @@ static struct amd_iommu * __init find_iommu_from_bdf_cap(
+>>       struct amd_iommu *iommu;
+>>
+>>       for_each_amd_iommu ( iommu )
+>> -        if ( (iommu->seg == seg) && (iommu->bdf == bdf) &&
+>> +        if ( (iommu->sbdf.seg == seg) && (iommu->sbdf.bdf == bdf) &&
+> Perhaps something like
+>
+>             if ( (iommu->sbdf.sbdf == PCI_SBDF(seg, bdf).sbdf &&
+>
+> ?
+>
+>>                (iommu->cap_offset == cap_offset) )
+>>               return iommu;
+>>
+>> @@ -297,13 +297,13 @@ static int __init register_range_for_iommu_devices(
+>>       /* reserve unity-mapped page entries for devices */
+>>       for ( bdf = rc = 0; !rc && bdf < ivrs_bdf_entries; bdf++ )
+>>       {
+>> -        if ( iommu != find_iommu_for_device(iommu->seg, bdf) )
+>> +        if ( iommu != find_iommu_for_device(iommu->sbdf.seg, bdf) )
+>>               continue;
+>>
+>> -        req = get_ivrs_mappings(iommu->seg)[bdf].dte_requestor_id;
+>> -        rc = reserve_unity_map_for_device(iommu->seg, bdf, base, length,
+>> +        req = get_ivrs_mappings(iommu->sbdf.seg)[bdf].dte_requestor_id;
+>> +        rc = reserve_unity_map_for_device(iommu->sbdf.seg, bdf, base, length,
+>>                                             iw, ir, false) ?:
+>> -             reserve_unity_map_for_device(iommu->seg, req, base, length,
+>> +             reserve_unity_map_for_device(iommu->sbdf.seg, req, base, length,
+>>                                             iw, ir, false);
+>>       }
+>>
+>> diff --git a/xen/drivers/passthrough/amd/iommu_cmd.c b/xen/drivers/passthrough/amd/iommu_cmd.c
+>> index 83c525b84f..eefd626161 100644
+>> --- a/xen/drivers/passthrough/amd/iommu_cmd.c
+>> +++ b/xen/drivers/passthrough/amd/iommu_cmd.c
+>> @@ -40,7 +40,7 @@ static void send_iommu_command(struct amd_iommu *iommu,
+>>                        IOMMU_RING_BUFFER_PTR_MASK) )
+>>       {
+>>           printk_once(XENLOG_ERR "AMD IOMMU %pp: no cmd slot available\n",
+>> -                    &PCI_SBDF(iommu->seg, iommu->bdf));
+>> +                    &iommu->sbdf);
+>>           cpu_relax();
+>>       }
+>>
+>> @@ -85,7 +85,7 @@ static void flush_command_buffer(struct amd_iommu *iommu,
+>>               threshold |= threshold << 1;
+>>               printk(XENLOG_WARNING
+>>                      "AMD IOMMU %pp: %scompletion wait taking too long\n",
+>> -                   &PCI_SBDF(iommu->seg, iommu->bdf),
+>> +                   &iommu->sbdf,
+>>                      timeout_base ? "iotlb " : "");
+>>               timeout = 0;
+>>           }
+>> @@ -95,7 +95,7 @@ static void flush_command_buffer(struct amd_iommu *iommu,
+>>       if ( !timeout )
+>>           printk(XENLOG_WARNING
+>>                  "AMD IOMMU %pp: %scompletion wait took %lums\n",
+>> -               &PCI_SBDF(iommu->seg, iommu->bdf),
+>> +               &iommu->sbdf,
+>>                  timeout_base ? "iotlb " : "",
+>>                  (NOW() - start) / 10000000);
+>>   }
+>> @@ -300,7 +300,7 @@ void amd_iommu_flush_iotlb(u8 devfn, const struct pci_dev *pdev,
+>>       if ( !iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) )
+>>           return;
+>>
+>> -    req_id = get_dma_requestor_id(iommu->seg, PCI_BDF(pdev->bus, devfn));
+>> +    req_id = get_dma_requestor_id(iommu->sbdf.seg, PCI_BDF(pdev->bus, devfn));
+>>       queueid = req_id;
+>>       maxpend = pdev->ats.queue_depth & 0xff;
+>>
+>> diff --git a/xen/drivers/passthrough/amd/iommu_detect.c b/xen/drivers/passthrough/amd/iommu_detect.c
+>> index cede44e651..72cc554b08 100644
+>> --- a/xen/drivers/passthrough/amd/iommu_detect.c
+>> +++ b/xen/drivers/passthrough/amd/iommu_detect.c
+>> @@ -162,8 +162,8 @@ int __init amd_iommu_detect_one_acpi(
+>>       spin_lock_init(&iommu->lock);
+>>       INIT_LIST_HEAD(&iommu->ats_devices);
+>>
+>> -    iommu->seg = ivhd_block->pci_segment_group;
+>> -    iommu->bdf = ivhd_block->header.device_id;
+>> +    iommu->sbdf = PCI_SBDF(ivhd_block->pci_segment_group,
+>> +                           ivhd_block->header.device_id);
+>>       iommu->cap_offset = ivhd_block->capability_offset;
+>>       iommu->mmio_base_phys = ivhd_block->base_address;
+>>
+>> @@ -210,16 +210,16 @@ int __init amd_iommu_detect_one_acpi(
+>>       /* override IOMMU HT flags */
+>>       iommu->ht_flags = ivhd_block->header.flags;
+>>
+>> -    bus = PCI_BUS(iommu->bdf);
+>> -    dev = PCI_SLOT(iommu->bdf);
+>> -    func = PCI_FUNC(iommu->bdf);
+>> +    bus = PCI_BUS(iommu->sbdf.bdf);
+>> +    dev = PCI_SLOT(iommu->sbdf.bdf);
+>> +    func = PCI_FUNC(iommu->sbdf.bdf);
+>>
+>> -    rt = get_iommu_capabilities(iommu->seg, bus, dev, func,
+>> +    rt = get_iommu_capabilities(iommu->sbdf.seg, bus, dev, func,
+> I would update signature of get_iommu_capabilities() so it takes pci_sbdf_t
+> as an agument instead of disaggregated PCI address. I think it will simplify
+> the code futher.
+>
+>>                                   iommu->cap_offset, iommu);
+>>       if ( rt )
+>>           goto out;
+>>
+>> -    rt = get_iommu_msi_capabilities(iommu->seg, bus, dev, func, iommu);
+>> +    rt = get_iommu_msi_capabilities(iommu->sbdf.seg, bus, dev, func, iommu);
+> ... and same idea for get_iommu_msi_capabilities()
+>
+> What do you think?
+>
+>>       if ( rt )
+>>           goto out;
+>>
+>> @@ -228,10 +228,10 @@ int __init amd_iommu_detect_one_acpi(
+>>       if ( !iommu->domid_map )
+>>           goto out;
+>>
+>> -    rt = pci_ro_device(iommu->seg, bus, PCI_DEVFN(dev, func));
+>> +    rt = pci_ro_device(iommu->sbdf.seg, bus, PCI_DEVFN(dev, func));
+> There's not so many users of pci_ro_device(). I think it makes sense to update
+> pci_ro_device() to something like:
+>
+>      int pci_ro_device(pci_sbdf_t pciaddr);
+>
+> But probably in a separate code change.
+>
+>>       if ( rt )
+>>           printk(XENLOG_ERR "Could not mark config space of %pp read-only (%d)\n",
+>> -               &PCI_SBDF(iommu->seg, iommu->bdf), rt);
+>> +               &iommu->sbdf, rt);
+>>
+>>       list_add_tail(&iommu->list, &amd_iommu_head);
+>>       rt = 0;
+>> diff --git a/xen/drivers/passthrough/amd/iommu_init.c b/xen/drivers/passthrough/amd/iommu_init.c
+>> index bb25b55c85..58d657060a 100644
+>> --- a/xen/drivers/passthrough/amd/iommu_init.c
+>> +++ b/xen/drivers/passthrough/amd/iommu_init.c
+>> @@ -409,9 +409,7 @@ static void iommu_reset_log(struct amd_iommu *iommu,
+>>
+>>   static void amd_iommu_msi_enable(struct amd_iommu *iommu, int flag)
+>>   {
+>> -    pci_sbdf_t sbdf = { .seg = iommu->seg, .bdf = iommu->bdf };
+>> -
+>> -    __msi_set_enable(sbdf, iommu->msi.msi_attrib.pos, flag);
+>> +    __msi_set_enable(iommu->sbdf, iommu->msi.msi_attrib.pos, flag);
+>>   }
+>>
+>>   static void cf_check iommu_msi_unmask(struct irq_desc *desc)
+>> @@ -566,7 +564,7 @@ static void cf_check parse_event_log_entry(struct amd_iommu *iommu, u32 entry[])
+>>
+>>           printk(XENLOG_ERR "AMD-Vi: %s: %pp d%u addr %016"PRIx64
+>>                  " flags %#x%s%s%s%s%s%s%s%s%s%s\n",
+>> -               code_str, &PCI_SBDF(iommu->seg, device_id),
+>> +               code_str, &PCI_SBDF(iommu->sbdf.seg, device_id),
+>>                  domain_id, addr, flags,
+>>                  (flags & 0xe00) ? " ??" : "",
+>>                  (flags & 0x100) ? " TR" : "",
+>> @@ -583,8 +581,8 @@ static void cf_check parse_event_log_entry(struct amd_iommu *iommu, u32 entry[])
+>>               amd_iommu_print_entries(iommu, device_id, daddr_to_dfn(addr));
+>>
+>>           for ( bdf = 0; bdf < ivrs_bdf_entries; bdf++ )
+>> -            if ( get_dma_requestor_id(iommu->seg, bdf) == device_id )
+>> -                pci_check_disable_device(iommu->seg, PCI_BUS(bdf),
+>> +            if ( get_dma_requestor_id(iommu->sbdf.seg, bdf) == device_id )
+>> +                pci_check_disable_device(iommu->sbdf.seg, PCI_BUS(bdf),
+>>                                            PCI_DEVFN(bdf));
+>>       }
+>>       else
+>> @@ -643,7 +641,7 @@ static void cf_check parse_ppr_log_entry(struct amd_iommu *iommu, u32 entry[])
+>>       struct pci_dev *pdev;
+>>
+>>       pcidevs_lock();
+>> -    pdev = pci_get_real_pdev(PCI_SBDF(iommu->seg, device_id));
+>> +    pdev = pci_get_real_pdev(PCI_SBDF(iommu->sbdf.seg, device_id));
+>>       pcidevs_unlock();
+>>
+>>       if ( pdev )
+>> @@ -752,12 +750,11 @@ static bool __init set_iommu_interrupt_handler(struct amd_iommu *iommu)
+>>       }
+>>
+>>       pcidevs_lock();
+>> -    iommu->msi.dev = pci_get_pdev(NULL, PCI_SBDF(iommu->seg, iommu->bdf));
+>> +    iommu->msi.dev = pci_get_pdev(NULL, iommu->sbdf);
+>>       pcidevs_unlock();
+>>       if ( !iommu->msi.dev )
+>>       {
+>> -        AMD_IOMMU_WARN("no pdev for %pp\n",
+>> -                       &PCI_SBDF(iommu->seg, iommu->bdf));
+>> +        AMD_IOMMU_WARN("no pdev for %pp\n", &iommu->sbdf);
+>>           return 0;
+>>       }
+>>
+>> @@ -779,7 +776,7 @@ static bool __init set_iommu_interrupt_handler(struct amd_iommu *iommu)
+>>           hw_irq_controller *handler;
+>>           u16 control;
+>>
+>> -        control = pci_conf_read16(PCI_SBDF(iommu->seg, iommu->bdf),
+>> +        control = pci_conf_read16(iommu->sbdf,
+>>                                     iommu->msi.msi_attrib.pos + PCI_MSI_FLAGS);
+>>
+>>           iommu->msi.msi.nvec = 1;
+>> @@ -843,22 +840,22 @@ static void amd_iommu_erratum_746_workaround(struct amd_iommu *iommu)
+>>            (boot_cpu_data.x86_model > 0x1f) )
+>>           return;
+>>
+>> -    pci_conf_write32(PCI_SBDF(iommu->seg, iommu->bdf), 0xf0, 0x90);
+>> -    value = pci_conf_read32(PCI_SBDF(iommu->seg, iommu->bdf), 0xf4);
+>> +    pci_conf_write32(iommu->sbdf, 0xf0, 0x90);
+>> +    value = pci_conf_read32(iommu->sbdf, 0xf4);
+>>
+>>       if ( value & (1 << 2) )
+>>           return;
+>>
+>>       /* Select NB indirect register 0x90 and enable writing */
+>> -    pci_conf_write32(PCI_SBDF(iommu->seg, iommu->bdf), 0xf0, 0x90 | (1 << 8));
+>> +    pci_conf_write32(iommu->sbdf, 0xf0, 0x90 | (1 << 8));
+>>
+>> -    pci_conf_write32(PCI_SBDF(iommu->seg, iommu->bdf), 0xf4, value | (1 << 2));
+>> +    pci_conf_write32(iommu->sbdf, 0xf4, value | (1 << 2));
+>>       printk(XENLOG_INFO
+>>              "AMD-Vi: Applying erratum 746 workaround for IOMMU at %pp\n",
+>> -           &PCI_SBDF(iommu->seg, iommu->bdf));
+>> +           &iommu->sbdf);
+>>
+>>       /* Clear the enable writing bit */
+>> -    pci_conf_write32(PCI_SBDF(iommu->seg, iommu->bdf), 0xf0, 0x90);
+>> +    pci_conf_write32(iommu->sbdf, 0xf0, 0x90);
+>>   }
+>>
+>>   static void enable_iommu(struct amd_iommu *iommu)
+>> @@ -1095,7 +1092,7 @@ static int __init amd_iommu_init_one(struct amd_iommu *iommu, bool intr)
+>>           goto error_out;
+>>
+>>       /* Make sure that the device table has been successfully allocated. */
+>> -    ivrs_mappings = get_ivrs_mappings(iommu->seg);
+>> +    ivrs_mappings = get_ivrs_mappings(iommu->sbdf.seg);
+>>       if ( !IVRS_MAPPINGS_DEVTAB(ivrs_mappings) )
+>>           goto error_out;
+>>
+>> @@ -1363,7 +1360,7 @@ static bool __init amd_sp5100_erratum28(void)
+>>
+>>   static int __init amd_iommu_prepare_one(struct amd_iommu *iommu)
+>>   {
+>> -    int rc = alloc_ivrs_mappings(iommu->seg);
+>> +    int rc = alloc_ivrs_mappings(iommu->sbdf.seg);
+>>
+>>       if ( !rc )
+>>           rc = map_iommu_mmio_region(iommu);
+>> diff --git a/xen/drivers/passthrough/amd/iommu_intr.c b/xen/drivers/passthrough/amd/iommu_intr.c
+>> index 9abdc38053..a7347fcbad 100644
+>> --- a/xen/drivers/passthrough/amd/iommu_intr.c
+>> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
+>> @@ -132,7 +132,7 @@ static int get_intremap_requestor_id(int seg, int bdf)
+>>   static unsigned int alloc_intremap_entry(const struct amd_iommu *iommu,
+>>                                            unsigned int bdf, unsigned int nr)
+>>   {
+>> -    const struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(iommu->seg);
+>> +    const struct ivrs_mappings *ivrs_mappings = get_ivrs_mappings(iommu->sbdf.seg);
+>>       unsigned long *inuse = ivrs_mappings[bdf].intremap_inuse;
+>>       unsigned int nr_ents =
+>>           intremap_table_entries(ivrs_mappings[bdf].intremap_table, iommu);
+>> @@ -167,7 +167,7 @@ static union irte_ptr get_intremap_entry(const struct amd_iommu *iommu,
+>>                                            unsigned int bdf, unsigned int index)
+>>   {
+>>       union irte_ptr table = {
+>> -        .ptr = get_ivrs_mappings(iommu->seg)[bdf].intremap_table
+>> +        .ptr = get_ivrs_mappings(iommu->sbdf.seg)[bdf].intremap_table
+>>       };
+>>
+>>       ASSERT(table.ptr && (index < intremap_table_entries(table.ptr, iommu)));
+>> @@ -184,7 +184,7 @@ static void free_intremap_entry(const struct amd_iommu *iommu,
+>>                                   unsigned int bdf, unsigned int index)
+>>   {
+>>       union irte_ptr entry = get_intremap_entry(iommu, bdf, index);
+>> -    struct ivrs_mappings *ivrs = get_ivrs_mappings(iommu->seg);
+>> +    struct ivrs_mappings *ivrs = get_ivrs_mappings(iommu->sbdf.seg);
+>>
+>>       if ( iommu->ctrl.ga_en )
+>>       {
+>> @@ -281,8 +281,8 @@ static int update_intremap_entry_from_ioapic(
+>>       unsigned int dest, offset;
+>>       bool fresh = false;
+>>
+>> -    req_id = get_intremap_requestor_id(iommu->seg, bdf);
+>> -    lock = get_intremap_lock(iommu->seg, req_id);
+>> +    req_id = get_intremap_requestor_id(iommu->sbdf.seg, bdf);
+>> +    lock = get_intremap_lock(iommu->sbdf.seg, req_id);
+>>
+>>       delivery_mode = rte->delivery_mode;
+>>       vector = rte->vector;
+>> @@ -419,10 +419,10 @@ static int update_intremap_entry_from_msi_msg(
+>>       unsigned int dest, offset, i;
+>>       bool fresh = false;
+>>
+>> -    req_id = get_dma_requestor_id(iommu->seg, bdf);
+>> -    alias_id = get_intremap_requestor_id(iommu->seg, bdf);
+>> +    req_id = get_dma_requestor_id(iommu->sbdf.seg, bdf);
+>> +    alias_id = get_intremap_requestor_id(iommu->sbdf.seg, bdf);
+>>
+>> -    lock = get_intremap_lock(iommu->seg, req_id);
+>> +    lock = get_intremap_lock(iommu->sbdf.seg, req_id);
+>>       spin_lock_irqsave(lock, flags);
+>>
+>>       if ( msg == NULL )
+>> @@ -486,10 +486,10 @@ static int update_intremap_entry_from_msi_msg(
+>>        */
+>>
+>>       if ( ( req_id != alias_id ) &&
+>> -         get_ivrs_mappings(iommu->seg)[alias_id].intremap_table != NULL )
+>> +         get_ivrs_mappings(iommu->sbdf.seg)[alias_id].intremap_table != NULL )
+>>       {
+>> -        BUG_ON(get_ivrs_mappings(iommu->seg)[req_id].intremap_table !=
+>> -               get_ivrs_mappings(iommu->seg)[alias_id].intremap_table);
+>> +        BUG_ON(get_ivrs_mappings(iommu->sbdf.seg)[req_id].intremap_table !=
+>> +               get_ivrs_mappings(iommu->sbdf.seg)[alias_id].intremap_table);
+>>       }
+>>
+>>       return fresh;
+>> @@ -498,16 +498,17 @@ static int update_intremap_entry_from_msi_msg(
+>>   static struct amd_iommu *_find_iommu_for_device(int seg, int bdf)
+>>   {
+>>       struct amd_iommu *iommu;
+>> +    pci_sbdf_t sbdf = PCI_SBDF(seg, bdf);
+>>
+>>       for_each_amd_iommu ( iommu )
+>> -        if ( iommu->seg == seg && iommu->bdf == bdf )
+>> +        if ( iommu->sbdf.sbdf == sbdf.sbdf )
+>>               return NULL;
+>>
+>>       iommu = find_iommu_for_device(seg, bdf);
+>>       if ( iommu )
+>>           return iommu;
+>>
+>> -    AMD_IOMMU_DEBUG("No IOMMU for MSI dev = %pp\n", &PCI_SBDF(seg, bdf));
+>> +    AMD_IOMMU_DEBUG("No IOMMU for MSI dev = %pp\n", &sbdf);
+>>       return ERR_PTR(-EINVAL);
+>>   }
+>>
+>> @@ -730,7 +731,7 @@ static void dump_intremap_table(const struct amd_iommu *iommu,
+>>           if ( ivrs_mapping )
+>>           {
+>>               printk("  %pp:\n",
+>> -                   &PCI_SBDF(iommu->seg, ivrs_mapping->dte_requestor_id));
+>> +                   &PCI_SBDF(iommu->sbdf.seg, ivrs_mapping->dte_requestor_id));
+>>               ivrs_mapping = NULL;
+>>           }
+>>
+>> diff --git a/xen/drivers/passthrough/amd/iommu_map.c b/xen/drivers/passthrough/amd/iommu_map.c
+>> index dde393645a..d28c475650 100644
+>> --- a/xen/drivers/passthrough/amd/iommu_map.c
+>> +++ b/xen/drivers/passthrough/amd/iommu_map.c
+>> @@ -558,14 +558,14 @@ void amd_iommu_print_entries(const struct amd_iommu *iommu, unsigned int dev_id,
+>>
+>>       if ( !dt[dev_id].tv )
+>>       {
+>> -        printk("%pp: no root\n", &PCI_SBDF(iommu->seg, dev_id));
+>> +        printk("%pp: no root\n", &PCI_SBDF(iommu->sbdf.seg, dev_id));
+>>           return;
+>>       }
+>>
+>>       pt_mfn = _mfn(dt[dev_id].pt_root);
+>>       level = dt[dev_id].paging_mode;
+>>       printk("%pp root @ %"PRI_mfn" (%u levels) dfn=%"PRI_dfn"\n",
+>> -           &PCI_SBDF(iommu->seg, dev_id), mfn_x(pt_mfn), level, dfn_x(dfn));
+>> +           &PCI_SBDF(iommu->sbdf.seg, dev_id), mfn_x(pt_mfn), level, dfn_x(dfn));
+>>
+>>       while ( level )
+>>       {
+>> diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+>> index d00697edb3..6b58e3380b 100644
+>> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
+>> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+>> @@ -43,7 +43,7 @@ struct amd_iommu *find_iommu_for_device(int seg, int bdf)
+>>       {
+>>           unsigned int bd0 = bdf & ~PCI_FUNC(~0);
+>>
+>> -        if ( ivrs_mappings[bd0].iommu && ivrs_mappings[bd0].iommu->bdf != bdf )
+>> +        if ( ivrs_mappings[bd0].iommu && ivrs_mappings[bd0].iommu->sbdf.bdf != bdf )
+>>           {
+>>               struct ivrs_mappings tmp = ivrs_mappings[bd0];
+>>
+>> @@ -121,7 +121,7 @@ static bool use_ats(
+>>   {
+>>       return !ivrs_dev->block_ats &&
+>>              iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) &&
+>> -           pci_ats_device(iommu->seg, pdev->bus, pdev->devfn);
+>> +           pci_ats_device(iommu->sbdf.seg, pdev->bus, pdev->devfn);
+> Same idea about updating signature to take pci_sbdf_t.
+>
+>>   }
+>>
+>>   static int __must_check amd_iommu_setup_domain_device(
+>> @@ -147,17 +147,17 @@ static int __must_check amd_iommu_setup_domain_device(
+>>       if ( rc )
+>>           return rc;
+>>
+>> -    req_id = get_dma_requestor_id(iommu->seg, pdev->sbdf.bdf);
+>> -    ivrs_dev = &get_ivrs_mappings(iommu->seg)[req_id];
+>> +    req_id = get_dma_requestor_id(iommu->sbdf.seg, pdev->sbdf.bdf);
+>> +    ivrs_dev = &get_ivrs_mappings(iommu->sbdf.seg)[req_id];
+>>       sr_flags = (iommu_hwdom_passthrough && is_hardware_domain(domain)
+>>                   ? 0 : SET_ROOT_VALID)
+>>                  | (ivrs_dev->unity_map ? SET_ROOT_WITH_UNITY_MAP : 0);
+>>
+>>       /* get device-table entry */
+>> -    req_id = get_dma_requestor_id(iommu->seg, PCI_BDF(bus, devfn));
+>> +    req_id = get_dma_requestor_id(iommu->sbdf.seg, PCI_BDF(bus, devfn));
+>>       table = iommu->dev_table.buffer;
+>>       dte = &table[req_id];
+>> -    ivrs_dev = &get_ivrs_mappings(iommu->seg)[req_id];
+>> +    ivrs_dev = &get_ivrs_mappings(iommu->sbdf.seg)[req_id];
+>>
+>>       if ( domain != dom_io )
+>>       {
+>> @@ -275,7 +275,7 @@ static int __must_check amd_iommu_setup_domain_device(
+>>       ASSERT(pcidevs_locked());
+>>
+>>       if ( use_ats(pdev, iommu, ivrs_dev) &&
+>> -         !pci_ats_enabled(iommu->seg, bus, pdev->devfn) )
+>> +         !pci_ats_enabled(iommu->sbdf.seg, bus, pdev->devfn) )
+> ... and same for pci_ats_enabled()
+>
+>>       {
+>>           if ( devfn == pdev->devfn )
+>>               enable_ats_device(pdev, &iommu->ats_devices);
+>> @@ -418,12 +418,12 @@ static void amd_iommu_disable_domain_device(const struct domain *domain,
+>>
+>>       ASSERT(pcidevs_locked());
+>>
+>> -    if ( pci_ats_device(iommu->seg, bus, pdev->devfn) &&
+>> -         pci_ats_enabled(iommu->seg, bus, pdev->devfn) )
+>> +    if ( pci_ats_device(iommu->sbdf.seg, bus, pdev->devfn) &&
+>> +         pci_ats_enabled(iommu->sbdf.seg, bus, pdev->devfn) )
+>>           disable_ats_device(pdev);
+>>
+>>       BUG_ON ( iommu->dev_table.buffer == NULL );
+>> -    req_id = get_dma_requestor_id(iommu->seg, PCI_BDF(bus, devfn));
+>> +    req_id = get_dma_requestor_id(iommu->sbdf.seg, PCI_BDF(bus, devfn));
+>>       table = iommu->dev_table.buffer;
+>>       dte = &table[req_id];
+>>
+>> @@ -578,7 +578,7 @@ static int cf_check amd_iommu_add_device(u8 devfn, struct pci_dev *pdev)
+>>           return -EINVAL;
+>>
+>>       for_each_amd_iommu(iommu)
+>> -        if ( pdev->seg == iommu->seg && pdev->sbdf.bdf == iommu->bdf )
+>> +        if ( pdev->sbdf.sbdf == iommu->sbdf.sbdf )
+>>               return is_hardware_domain(pdev->domain) ? 0 : -ENODEV;
+>>
+>>       iommu = find_iommu_for_device(pdev->seg, pdev->sbdf.bdf);
+>> --
+>> 2.49.0
+>>
+>>
+I'll leave pci_ats_device and similar functions from directories above 
+passthrough/amd for the next cleanup in a separate patch. Will change 
+local functions like get_iommu.*_capabilities and resend.
+
+
+Thank you!
+
 
