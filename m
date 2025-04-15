@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0758BA89409
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 08:39:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.952048.1347616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCB1CA89437
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 08:55:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.952069.1347626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4ZwP-0005Dr-L6; Tue, 15 Apr 2025 06:38:41 +0000
+	id 1u4aCT-0002CP-V1; Tue, 15 Apr 2025 06:55:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 952048.1347616; Tue, 15 Apr 2025 06:38:41 +0000
+Received: by outflank-mailman (output) from mailman id 952069.1347626; Tue, 15 Apr 2025 06:55:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4ZwP-0005BR-IB; Tue, 15 Apr 2025 06:38:41 +0000
-Received: by outflank-mailman (input) for mailman id 952048;
- Tue, 15 Apr 2025 06:38:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u4aCT-0002Aw-SC; Tue, 15 Apr 2025 06:55:17 +0000
+Received: by outflank-mailman (input) for mailman id 952069;
+ Tue, 15 Apr 2025 06:55:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ai1O=XB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u4ZwN-0005BL-Rn
- for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 06:38:39 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4356cb8d-19c4-11f0-9eae-5ba50f476ded;
- Tue, 15 Apr 2025 08:38:38 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3912fdddf8fso4121320f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 23:38:38 -0700 (PDT)
+ id 1u4aCR-0002An-U2
+ for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 06:55:15 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 949241f8-19c6-11f0-9ffb-bf95429c2676;
+ Tue, 15 Apr 2025 08:55:13 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-39149bccb69so5077700f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Apr 2025 23:55:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39eae963f2bsm13465826f8f.18.2025.04.14.23.38.37
+ ffacd0b85a97d-39eae97751fsm13077921f8f.41.2025.04.14.23.55.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Apr 2025 23:38:37 -0700 (PDT)
+ Mon, 14 Apr 2025 23:55:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4356cb8d-19c4-11f0-9eae-5ba50f476ded
+X-Inumbo-ID: 949241f8-19c6-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744699118; x=1745303918; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744700113; x=1745304913; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QGsc9ohzQ+jFOw1phaOx5A5zWdCF/Jc01ofBHhvwoBE=;
-        b=KH/N6NChmcFPNpRFW5zASyj56PE/4nJQ+Xb/1ONLmhnIJSElfVj1ppcW/SmnKTAwTn
-         Aw1zHwX7kP3guk5vnoFFZusd2mVlxVrqMzk+vfcK36CUkGsGOiJAeC09oZXJTkDcIETo
-         Q7uzmDvTkUj2my0ELB3rhSqg5B7F4nI3vIxOYS6bl4FcN4SSBd/9NVuaXbgEvkFOMN/4
-         dY7xMcZSVIPWLx2rbQONu9y+DIr2CESB7rtZNBnwTFdMEPkIiOdkgqp3KgSuRUVbpXeM
-         fuiH9Mb48IxHuOrH5/MW5RWFnc5MIabEM8EqOV9xMggGItW3PbUre30ckBooYALb/ASe
-         PHrA==
+        bh=gVd76tjTv5/XUW3W/5Md6xJyV/ZhfKtKIm9FZyTKt9g=;
+        b=A8OFApkPqokrHdshWIjx2U6yHvL8DwIf6p2FPhevWHHeNN2TmFXvssVhIBmHdUUA/i
+         V8tX47NPCMF13oNT/Tcd2WrLiP4twh6YWeT5aueHnmx4s16BcK7i3T14xQ4GrSoMWYBI
+         jy4oKGHUQCfyzab8IXgwMxGzwEPNb5qun4We9CCmc+M8+rjwOdNQoThXZVCrDN7iZSIq
+         25UxWLGXp4XPEAqMR90h75LdXwDze+AiOUM2GfObMiNSTXQxUFiCfGUJkGDPilpHahXH
+         KeeJP7NxdeTGHiEkhhJrEgefynhpkpq6p4sv7SAU06ep9JStpSCA/Hgx9Z+Qow9Mh0D4
+         oypQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744699118; x=1745303918;
+        d=1e100.net; s=20230601; t=1744700113; x=1745304913;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QGsc9ohzQ+jFOw1phaOx5A5zWdCF/Jc01ofBHhvwoBE=;
-        b=Og0W3nyuNhf9LqmcKjzb3HKBwn23vHG7ChKPU8Ga9Pa5PPM6GrrOymnwets+WJq256
-         ibA8iLoLHoymz7W7Oht0Nr+CYwD698b8S1COZB8CMK7whSLTKrZvT+s32x6Ug8P/5UN2
-         wFXUq+/bcdqCim/ZnkLVb0gfJjj/c+F73PHaSzq0XvMDqmKyeHyEfumCAf0mt2qYz80l
-         wrp3FhJnCFU5joUWOAuL5LWUggqt5YUxUyLHX8F/70COg5l+n4SKGO+fcGOVgY1xZ33A
-         P0ZtT/+pdyLFmGYd3pvVJWNukHt5wxtTrn1VGs5cUOgnuwkZCJ8XZTo/cGspTmiHowof
-         8udA==
-X-Forwarded-Encrypted: i=1; AJvYcCUv6L9HJgGmjRJQVQlxwrnFsN8/MYcvV16i2v8iVJJxKkdDwSkXWa6rjGfjb2V3AOuxQKOj8rD2iRU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyyLvRC9OKV2R2yTL/9EnI75+PVykZVit2lcN7WEdTF2GSPklFd
-	PlNUdIAGEfgtJjw5Dxbc3DZ4lJolRrW5iW99Z7UQKVRkDov0hVeHvy1LVwrjGg==
-X-Gm-Gg: ASbGncv6+drhyw61Iwdb5jCFVLKXv+8Wt8MPw9Gua2mTan6gbT3v7lNsWI2Li1/4lbO
-	dcb2GoLg6qWmKVlX78hd2NsjlVXPgkrj+nrt8Qu7XQVf3Y1Y26ux5eRwjC9F7KV1qedBvlderMp
-	5LYGAJrW4MKt4iZqUTbmuoyjqQdunM420g8J1aDkkraG8GMviDVcvR2w9KJvVGYysTt4Dw1M26A
-	4GMmmFu3QFSl5Q7wsLtIW7+l5OHH37oUusR9Qsc/C0jNcupLH1Rw6K7bJ2TF6nShhaAyR+9UPfj
-	z7xCyL7m2UxVg3sYvOXZxu/CQkiUYfGXB+UQXdiWhtotquZOcnu2Ls6ULHA2jJKwBmDx1sXBh/F
-	Xv7CSzBgcua2qtMYf3uJCQmCEZw==
-X-Google-Smtp-Source: AGHT+IEVulrVV7MX/X3UqpvXBeR2h/phekkl0kt6skWmkULPWJEctiexPJeH2p7TQdEuxiEAqCnJiQ==
-X-Received: by 2002:a5d:47cb:0:b0:39c:1efb:eec9 with SMTP id ffacd0b85a97d-39edc30c5bbmr1559381f8f.13.1744699117761;
-        Mon, 14 Apr 2025 23:38:37 -0700 (PDT)
-Message-ID: <2b269381-d002-4aa5-bad4-8c677b8a4b0d@suse.com>
-Date: Tue, 15 Apr 2025 08:38:36 +0200
+        bh=gVd76tjTv5/XUW3W/5Md6xJyV/ZhfKtKIm9FZyTKt9g=;
+        b=d3QFo5RT/FkXh3zDVtl6Tt5b/PYjqRK/UtGMcjnc7StpRHGinIpMcULh7uUIcufrwH
+         M6m2xWaAMWQ8c2Pi4Q61Y15yKTmNVe95Cq0RXCP+NqlFwO2R5VLrBgtbFEfqNa0G3xSY
+         VH4PIg40gJgd5V/VXkH3clZArU4U0L9FiUAYkTjkK9oe1mNjhxRx9AIFDzmhwBSi1DdO
+         Y+3i027QHaWtvVd6JZcXsU53PB8cZ4f5Fc4eAxofJwwGnGp/QQxglFfE9vSTuqMz7DE1
+         uCwozXfyAHQfqcdOKiBZTsGYdhyeeJ6ePZ/zRTnVU1EBaO11Cky6aT6YAQOvwwa31xIX
+         n75w==
+X-Forwarded-Encrypted: i=1; AJvYcCX3WjHPt5uE+DW32z/9AwtzaulLWq8afFgQY74pfFQyZO5EFcieeiBoJeMfhfw7Nw9t/wI+RUwIb5Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyhP9JVJb+Eqrfm2pDG3DR+9XU32/afkgvbYqd3YDQxqvD/khKR
+	YL+a36yp55ewBBrdxN2wkxEinuIG5n7NKWlae6ryj8B5pWw5pPXTkJ3Cg1qT2g==
+X-Gm-Gg: ASbGnctQHoqBJxgchiaoZNeF6JmcqVqh0C7NnzrLR0x0sheRjrHJ+9ts4ei4s65pmdy
+	7nXeHPhlCmUp2e0XOB3C0073nrZ73GDcQiCwQ0GO9FozZ+uX6P1ukVzIYeTcSSVN5opuZcj7U0g
+	IArewl/Xp+KorZA8woLbTNw+uJnglOaKBiZ6PInHarT8lQMKVnlPgw4cSr4tih77cElJq0JmX07
+	Mh6M1bK383nLBrqZyLGDeOOv+S3vhy1YkPnBzrAbfUnxm8s+AP5RMgizCwKMAtQidlffDZy8ZMY
+	Y3uvCTvd+IzEQdAqMorS07/x+XVuDbJpZwCoUuloNJBbT6xtP2OU9PO0vvMycVtv95lGtYj5Grg
+	eSLaSgOC8jWO5fJgnysW6w39pGQ==
+X-Google-Smtp-Source: AGHT+IGB+msyiasKsP6rPoLzITW40AtpkR9+FyARS3qGHU5XdM65GDzO6PiLjM2S55QaZjGC/SWHBg==
+X-Received: by 2002:a5d:5f52:0:b0:39c:12ce:67d with SMTP id ffacd0b85a97d-39ea51d0fd7mr12234943f8f.9.1744700113107;
+        Mon, 14 Apr 2025 23:55:13 -0700 (PDT)
+Message-ID: <47fc3dad-3f7b-4a9b-89c1-99e79a048ad9@suse.com>
+Date: Tue, 15 Apr 2025 08:55:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 16/16] x86/hyperlaunch: add capabilities to boot domain
-To: Alejandro Vallejo <agarciav@amd.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v7 0/3] Enable early bootup of Armv8-R AArch32 systems
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Jason Andryuk <jason.andryuk@amd.com>
-References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-17-agarciav@amd.com>
- <93bad6aa-57a8-427d-a0f6-924f03f0db34@suse.com>
- <D96M14WZ37ZW.D7AAHJ3RMV9D@amd.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20250414164514.588373-1-ayan.kumar.halder@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,84 +120,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D96M14WZ37ZW.D7AAHJ3RMV9D@amd.com>
+In-Reply-To: <20250414164514.588373-1-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.04.2025 21:31, Alejandro Vallejo wrote:
-> On Thu Apr 10, 2025 at 1:18 PM BST, Jan Beulich wrote:
->> On 08.04.2025 18:07, Alejandro Vallejo wrote:
->>> --- a/xen/arch/x86/domain-builder/fdt.c
->>> +++ b/xen/arch/x86/domain-builder/fdt.c
->>> @@ -257,6 +257,18 @@ static int __init process_domain_node(
->>>              bd->max_vcpus = val;
->>>              printk("  max vcpus: %d\n", bd->max_vcpus);
->>>          }
->>> +        else if ( strncmp(prop_name, "capabilities", name_len) == 0 )
->>> +        {
->>> +            if ( fdt_prop_as_u32(prop, &bd->capabilities) != 0 )
->>> +            {
->>> +                printk("  failed processing domain id for domain %s\n", name);
->>> +                return -EINVAL;
->>> +            }
->>> +            printk("  caps: ");
->>> +            if ( bd->capabilities & BUILD_CAPS_CONTROL )
->>> +                printk("c");
->>> +            printk("\n");
->>> +        }
->>
->> Like for the other patch: What about other bits being set in the value read?
+On 14.04.2025 18:45, Ayan Kumar Halder wrote:
+> Enable early booting of Armv8-R AArch32 based systems.
 > 
-> I take it that the non-worded suggestion is to have a mask of reserved
-> bits for each case and check they are not set (giving a warning if they are)?
-
-Whether a warning is sufficient I can't tell. I would have expected such to be
-outright rejected.
-
->>> --- a/xen/arch/x86/setup.c
->>> +++ b/xen/arch/x86/setup.c
->>> @@ -1006,6 +1006,7 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->>>  {
->>>      char *cmdline = NULL;
->>>      size_t cmdline_size;
->>> +    unsigned int create_flags = 0;
->>>      struct xen_domctl_createdomain dom0_cfg = {
->>>          .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
->>>          .max_evtchn_port = -1,
->>> @@ -1037,7 +1038,10 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->>>      if ( bd->domid == DOMID_INVALID )
->>>          /* Create initial domain.  Not d0 for pvshim. */
->>>          bd->domid = get_initial_domain_id();
->>> -    d = domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
->>> +    if ( bd->capabilities & BUILD_CAPS_CONTROL )
->>> +        create_flags |= CDF_privileged;
->>
->> Seeing that builder_init() in the non-DT case sets the new bit unconditionally,
->> isn't the shim's only domain suddenly getting CDF_privileged set this way? Oh,
->> no, you then ...
->>
->>> +    d = domain_create(bd->domid, &dom0_cfg,
->>> +                      pv_shim ? 0 : create_flags);
->>
->> ... hide the flag here. Any reason to have the intermediate variable in the
->> first place
+> Added Luca's R-b in all the patches.
+> Added Michal's R-b in patch 1 and 3.
 > 
-> Well, the logic would end up fairly convoluted otherwise. As things
-> stand this can be encoded in an if-else fashion with 2 calls, but
-> there's 2 capability flags coming that need integrating together.
+> Ayan Kumar Halder (3):
+>   xen/arm: Move some of the functions to common file
+>   xen/arm32: Create the same boot-time MPU regions as arm64
+>   xen/arm32: mpu: Stubs to build MPU for arm32
 > 
-> This is just avoiding further code motion down the line.
+>  xen/arch/arm/arm32/Makefile              |   1 +
+>  xen/arch/arm/arm32/mpu/Makefile          |   3 +
+>  xen/arch/arm/arm32/mpu/head.S            | 104 +++++++++++++++++++++++
+>  xen/arch/arm/arm32/mpu/p2m.c             |  19 +++++
+>  xen/arch/arm/arm32/mpu/smpboot.c         |  26 ++++++
+>  xen/arch/arm/arm64/mpu/head.S            |  78 +----------------
+>  xen/arch/arm/include/asm/arm32/sysregs.h |  13 ++-
+>  xen/arch/arm/include/asm/arm64/sysregs.h |  13 +++
+>  xen/arch/arm/include/asm/cpregs.h        |   2 +
+>  xen/arch/arm/include/asm/mm.h            |   9 +-
+>  xen/arch/arm/include/asm/mmu/mm.h        |   7 ++
+>  xen/arch/arm/include/asm/mpu/cpregs.h    |  32 +++++++
+>  xen/arch/arm/include/asm/mpu/mm.h        |   5 ++
+>  xen/arch/arm/include/asm/mpu/regions.inc |  79 +++++++++++++++++
+>  xen/arch/arm/mpu/Makefile                |   1 +
+>  xen/arch/arm/mpu/domain_page.c           |  45 ++++++++++
+>  16 files changed, 350 insertions(+), 87 deletions(-)
+>  create mode 100644 xen/arch/arm/arm32/mpu/Makefile
+>  create mode 100644 xen/arch/arm/arm32/mpu/head.S
+>  create mode 100644 xen/arch/arm/arm32/mpu/p2m.c
+>  create mode 100644 xen/arch/arm/arm32/mpu/smpboot.c
+>  create mode 100644 xen/arch/arm/include/asm/mpu/cpregs.h
+>  create mode 100644 xen/arch/arm/include/asm/mpu/regions.inc
+>  create mode 100644 xen/arch/arm/mpu/domain_page.c
 
-Is it?
-
--    d = domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
-+    d = domain_create(bd->domid, &dom0_cfg,
-+                      ((bd->capabilities & BUILD_CAPS_CONTROL) && !pv_shim
-+                       ? CDF_privileged : 0));
-
-isn't really worse (imo), but is highlighting the problem more clearly: Why
-would the shim have BUILD_CAPS_CONTROL set in the first place? Without that
-the statement would remain pretty similar to what it was before.
+Even if we have files of this name elsewhere, it would imo be nice if new ones
+still used dash(es) instead of underscore(s) in their names.
 
 Jan
 
