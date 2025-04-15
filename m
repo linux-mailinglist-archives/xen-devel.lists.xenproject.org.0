@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBE25A89A79
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 12:40:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.952637.1348031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B646EA89AD8
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 12:47:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.952652.1348041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4diF-00006s-VZ; Tue, 15 Apr 2025 10:40:19 +0000
+	id 1u4dpA-0002FC-LX; Tue, 15 Apr 2025 10:47:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 952637.1348031; Tue, 15 Apr 2025 10:40:19 +0000
+Received: by outflank-mailman (output) from mailman id 952652.1348041; Tue, 15 Apr 2025 10:47:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4diF-0008Vs-SL; Tue, 15 Apr 2025 10:40:19 +0000
-Received: by outflank-mailman (input) for mailman id 952637;
- Tue, 15 Apr 2025 10:40:18 +0000
+	id 1u4dpA-0002Dg-IN; Tue, 15 Apr 2025 10:47:28 +0000
+Received: by outflank-mailman (input) for mailman id 952652;
+ Tue, 15 Apr 2025 10:47:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hH2Z=XB=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1u4diE-0008Vm-KB
- for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 10:40:18 +0000
-Received: from fout-b3-smtp.messagingengine.com
- (fout-b3-smtp.messagingengine.com [202.12.124.146])
+ <SRS0=OGoX=XB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1u4dp9-0002Da-1B
+ for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 10:47:27 +0000
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [2607:f8b0:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04a71d7e-19e6-11f0-9eae-5ba50f476ded;
- Tue, 15 Apr 2025 12:40:16 +0200 (CEST)
-Received: from phl-compute-12.internal (phl-compute-12.phl.internal
- [10.202.2.52])
- by mailfout.stl.internal (Postfix) with ESMTP id 5CA3A11402E6;
- Tue, 15 Apr 2025 06:40:15 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-12.internal (MEProxy); Tue, 15 Apr 2025 06:40:15 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Apr 2025 06:40:14 -0400 (EDT)
+ id 0456f1ee-19e7-11f0-9eae-5ba50f476ded;
+ Tue, 15 Apr 2025 12:47:25 +0200 (CEST)
+Received: by mail-pl1-x62f.google.com with SMTP id
+ d9443c01a7336-2295d78b45cso75278255ad.0
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 03:47:26 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d9443c01a7336-22ac7b8b2ccsm114491095ad.70.2025.04.15.03.47.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Apr 2025 03:47:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,289 +44,472 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04a71d7e-19e6-11f0-9eae-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1744713615;
-	 x=1744800015; bh=3QI00x+H5wZTnrF69vSppg9W+nDIPR5j+TnbKBDihJA=; b=
-	b2Vl6ojs71mSvv8cTuJYarJns4Sw+vE+I/Vv2ZYV5v9DW0GdrumWqikGfCn+1D0D
-	TXZUITim3sv9+Ut5Zd2PLUSGrbJWSNSKJ9hrJk8ThY5+U1bz9ce9HQOhFZBmLS9j
-	vroYYC/70WpMCMmtUfvVhKM9bCwbHgWC3LkY8JjnqF4xUatfEyeGI2BDRWdmFR1b
-	1yEqHBsjhIyHNYTUdiRHU3Zubg02BTISlQgK+bfkX1U9IWV3NVG64nSEPHZuUcz/
-	Pd72L4YWfB+OAez15vv/3h3fNY7vK/jW9YvIwTUHVO8MGZQsPC+hfZTq2trB+08V
-	Ar5yF/d95mIdZ8Sr+5jtrQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1744713615; x=1744800015; bh=3QI00x+H5wZTnrF69vSppg9W+nDIPR5j+Tn
-	bKBDihJA=; b=qw9y/hvRY/9zeICGN9IyYw+ZV+LS/jME+FGKyxfbP80ogb5mMU0
-	YjnC7e4RSD4MctqRlCghACylFwXc4+/58IlawQETy+sAG4JyiScfiSxr2H+wkYLn
-	m/KpgaKAIXunGpBbiaxcXDvGXKCtvstuOGWINyvw/ttqGIR0s4hZK361svi88NtS
-	pMIQTYS11MqPAiVw5c/Vrx96LPME8998sLZQLoWsV3WlW4sHAuc8j0XxsV4SAc9b
-	DPNJGNUWlfK+crNXhBu4tW01IM6B+ip46qsISBPp7BUkdOYz0rGd//vl5m3L7ZrX
-	e+sSKnMdbNvqKkC6LSDHiflBGkAL91JUAUQ==
-X-ME-Sender: <xms:jzf-Zzw46zuW3nMHpAuy8YIZP36TVgeUdNasc0_20JuYFTlYkWkeuA>
-    <xme:jzf-Z7T18v42c3kGKCDhyS6arWXFNCTUH3P-yVkwioCgpKsyho3eHLu2uP_JPkMhg
-    yybB-8S1lkK_w>
-X-ME-Received: <xmr:jzf-Z9WtgmcUsx_-nPlvHpriKm8SAuuDg_ZibeiYdd4nrxpcrErga0djnxUaCq4F4BiMnvPk08Q6oKz2l5p3V-8LVLe0MBsDRg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvvdefvdejucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiuceomhgrrhhmrghrvg
-    hksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghr
-    nhepgfekuddtffettefhieeuheffkeeuffelvdffuddtteetledtveekfeekleehjefgne
-    cuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhm
-    rghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpth
-    htohepgedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghulhhitghhsehs
-    uhhsvgdrtghomhdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomh
-    dprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhr
-    tghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorh
-    hg
-X-ME-Proxy: <xmx:jzf-Z9jNELZX51SUMBwWrbak_1KlhON7X4CM7WhABr8O-mEJZcco6A>
-    <xmx:jzf-Z1B5e-2YoZN3oHd7eLlzUVab7-lcnFsRoCffSYIQT2JHrfP32Q>
-    <xmx:jzf-Z2IjN8Mo0IAxjAeB5x8mWg0aQvzf2AieVippp2RaBZFkDgYAmw>
-    <xmx:jzf-Z0CuObWAy67LTT5_qbw7bDKgbfm3RLpJ375xk51ckg48MhzKrQ>
-    <xmx:jzf-Zy6IOURDE_8MBUKrGhQVUn4g289J52XDZ2RwiWNBit_ZKYvlnRH3>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 15 Apr 2025 12:40:11 +0200
-From: Marek Marczykowski <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+X-Inumbo-ID: 0456f1ee-19e7-11f0-9eae-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1744714044; x=1745318844; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=i8ggSNG4Ain+nVBtLmQKrY6ENfgBxO5nmTN1kEbu23I=;
+        b=UiiIkrBcMUXWsdNrLKnejdtQWzHoGaYt1x1YQAF9/hVv7+OLWFvJsbWN4Ma9nrQgBO
+         ruYM7+a7NdibwPMB7GRHISN9IIZI8F/OoW0FWzynOBZVGHRVxGZZtko0PLbp6N+HDkWM
+         PM27v2i+qg1dmWH1lhgHXMNUqpKBv8TPU0iwc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744714044; x=1745318844;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=i8ggSNG4Ain+nVBtLmQKrY6ENfgBxO5nmTN1kEbu23I=;
+        b=cE+eMzI+j9Q539C13i3ylDlPNVrsnCpK0FKYiEanYBy4F2/oG67VOdwNhBxb7v3beg
+         f2C5KmCxHCHgXNFBE6j7ymRhab/1Cf7dF8d5B2Hj2oEFTwQAeiVCvc6yVR4sH02NKdA0
+         n8CLiLsI64JnK3rQqJoKJ51q66mcla/ou9UILzwmjqVAb2djD99ZFlMscKYrahyfWjNu
+         aCn9/Kg78h4qXGW/gf+fJyBcjI4P+cgfsG42Vmme+exIzGSicYU/hC2xGZ5vG83HNBZ8
+         QNzuwA5gy6znx5AyCZQ2hZ31tzwGBEQy6L/aTM/YKKgCU36213w5WgfWHNyACl0y2J8L
+         l28Q==
+X-Gm-Message-State: AOJu0YwKkVgnbtuV9tTqR1Meyv+hlADoNin9O82nIYTCh/DscEVniPcy
+	2hRdpdqUtgzeOYkdiSCReacdAvo/pguLMCCg8QxzgG6mVStyz3Xwi4x3BAigvuQ=
+X-Gm-Gg: ASbGncvAeujL+bL5JrWmGTY2LhdG+MvwluEhcEDbDXaIrqDx/w0vFGlcOjCCpFOKtE7
+	bxSHgnswppmFtMiDofphtyQeYS2TCSUknnSQflAApSpnmr76FoobXqdLq00hVvW+HY3+7q9C6vF
+	2l/eSPOIeB7BOkroROIzcGIyPhI3PZMRlMf9sljOVOa4s7/svVZ1/oyCU6/9j9WtkB9jEWIMz9K
+	MlMIC1+BTqoJMULdKIPNmr5aKKKkcdh2OeGJtHr/FM6xCrbal3WT4p96qpcZUmsVrRxQMf5xUrx
+	oyi4bzIUtqiKDc+n0MQJCXfy4dbKrJiWVrWT+wIks+lQyQ==
+X-Google-Smtp-Source: AGHT+IEmLbh5IDTYF/5LL7fOBUg3vJkRKdxLbaa1/KSmhEKsTRCtAYbEnu20kQKns6gKSIT61sNd1A==
+X-Received: by 2002:a17:903:1a2b:b0:21f:c67:a68a with SMTP id d9443c01a7336-22bea4c6c69mr239420195ad.31.1744714044464;
+        Tue, 15 Apr 2025 03:47:24 -0700 (PDT)
+Date: Tue, 15 Apr 2025 12:47:19 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 3/5] x86/hvm: fix handling of accesses to partial r/o
- MMIO pages
-Message-ID: <Z_43iyD0Sod4uTN2@mail-itl>
-References: <20250411105411.22334-4-roger.pau@citrix.com>
- <eaf5f71b-2c56-4bd8-a45f-35280af16466@suse.com>
- <Z_0TXKMe6tfrYR9T@macbook.lan>
- <c92d5665-0940-40b5-8cbb-81889adf40c5@suse.com>
- <Z_00JReo7Ji7RwkD@macbook.lan>
- <7c3c91d9-4de8-4910-b26e-8782a0f0d364@suse.com>
- <Z_4aBL7JhTv_oxWR@macbook.lan>
- <4dd5ada8-32e7-4b94-b2a4-51b20e09eb79@suse.com>
- <Z_4vE1qHlvGliqXY@macbook.lan>
- <0c74e9c9-c01d-4213-af01-cc287d1ef76b@suse.com>
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 4/8] vpci: Hide capability when it fails to initialize
+Message-ID: <Z_45NzpRLkfLveug@macbook.lan>
+References: <20250409064528.405573-1-Jiqian.Chen@amd.com>
+ <20250409064528.405573-5-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="4rqauA1srzC8XHdr"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <0c74e9c9-c01d-4213-af01-cc287d1ef76b@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250409064528.405573-5-Jiqian.Chen@amd.com>
 
+On Wed, Apr 09, 2025 at 02:45:24PM +0800, Jiqian Chen wrote:
+> When vpci fails to initialize a capability of a device, it just
+> return error instead of catching and processing exception. That
+> makes the entire device unusable.
+> 
+> So, refactor REGISTER_VPCI_INIT to contain more capability specific
+> information, and use new functions to hide capability when
+> initialization fails in vpci_assign_device().
+> 
+> Those new functions remove the failed legacy/extended capability
+> from the emulated legacy/extended capability list.
 
---4rqauA1srzC8XHdr
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Apr 2025 12:40:11 +0200
-From: Marek Marczykowski <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 3/5] x86/hvm: fix handling of accesses to partial r/o
- MMIO pages
+I think this needs to be at least 2 different changes.
 
-On Tue, Apr 15, 2025 at 12:18:04PM +0200, Jan Beulich wrote:
-> On 15.04.2025 12:04, Roger Pau Monn=C3=A9 wrote:
-> > On Tue, Apr 15, 2025 at 11:41:27AM +0200, Jan Beulich wrote:
-> >> On 15.04.2025 10:34, Roger Pau Monn=C3=A9 wrote:
-> >>> On Tue, Apr 15, 2025 at 09:32:37AM +0200, Jan Beulich wrote:
-> >>>> On 14.04.2025 18:13, Roger Pau Monn=C3=A9 wrote:
-> >>>>> On Mon, Apr 14, 2025 at 05:24:32PM +0200, Jan Beulich wrote:
-> >>>>>> On 14.04.2025 15:53, Roger Pau Monn=C3=A9 wrote:
-> >>>>>>> On Mon, Apr 14, 2025 at 08:33:44AM +0200, Jan Beulich wrote:
-> >>>>>>>> I'm also concerned of e.g. VT-x'es APIC access MFN, which is
-> >>>>>>>> p2m_mmio_direct.
-> >>>>>>>
-> >>>>>>> But that won't go into hvm_hap_nested_page_fault() when using
-> >>>>>>> cpu_has_vmx_virtualize_apic_accesses (and thus having an APIC page
-> >>>>>>> mapped as p2m_mmio_direct)?
-> >>>>>>>
-> >>>>>>> It would instead be an EXIT_REASON_APIC_ACCESS vmexit which is ha=
-ndled
-> >>>>>>> differently?
-> >>>>>>
-> >>>>>> All true as long as things work as expected (potentially including=
- the guest
-> >>>>>> also behaving as expected). Also this was explicitly only an examp=
-le I could
-> >>>>>> readily think of. I'm simply wary of handle_mmio_with_translation(=
-) now
-> >>>>>> getting things to handle it's not meant to ever see.
-> >>>>>
-> >>>>> How was access to MMIO r/o regions supposed to be handled before
-> >>>>> 33c19df9a5a0 (~2015)?  I see that setting r/o MMIO p2m entries was
-> >>>>> added way before to p2m_type_to_flags() and ept_p2m_type_to_flags()
-> >>>>> (~2010), yet I can't figure out how writes would be handled back th=
-en
-> >>>>> that didn't result in a p2m fault and crashing of the domain.
-> >>>>
-> >>>> Was that handled at all before said change?
-> >>>
-> >>> Not really AFAICT, hence me wondering how where write accesses to r/o
-> >>> MMIO regions supposed to be handled by (non-priv) domains.  Was the
-> >>> expectation that those writes trigger an p2m violation thus crashing
-> >>> the domain?
-> >>
-> >> I think so, yes. Devices with such special areas weren't (aren't?) sup=
-posed
-> >> to be handed to DomU-s.
-> >=20
-> > Oh, I see.  That makes stuff a bit clearer.  I think we would then
-> > also want to add some checks to {ept_}p2m_type_to_flags()?
-> >=20
-> > I wonder why handling of mmio_ro_ranges was added to the HVM p2m code
-> > in ~2010 then.  If mmio_ro_ranges is only supposed to be relevant for
-> > the hardware domain in ~2010 an HVM dom0 was not even in sight?
->=20
-> I fear because I was wrong with what I said in the earlier reply: There's
-> one exception - the MSI-X tables of devices. DomU-s (and even Dom0) aren't
-> supposed to access them directly, but we'd permit reads (which, at least
-> back at the time, were also required to keep qemu working).
+First change adds the usage of REGISTER_VPCI_{LEGACY,EXTENDED}_CAP()
+helpers, while second change introduces the masking of capabilities on
+initialization failure.
 
-And there is also a case where some devices have other registers on the
-same page as MSI-X tables. But this case is handled specially in the
-MSI-X code, not via sub-page R/O API.
+Otherwise review is a bit complicated.
 
-> > Sorry to ask so many questions, I'm a bit confused about how this
-> > was/is supposed to work.
->=20
-> No worries - as you can see, I'm not getting it quite straight either.
->=20
-> >>>> mmio_ro_do_page_fault() was
-> >>>> (and still is) invoked for the hardware domain only, and quite likely
-> >>>> the need for handling (discarding) writes for PVHv1 had been overloo=
-ked
-> >>>> until someone was hit by the lack thereof.
-> >>>
-> >>> I see, I didn't realize r/o MMIO was only handled for PV hardware
-> >>> domains only.  I could arguably do the same for HVM in
-> >>> hvm_hap_nested_page_fault().
-> >>>
-> >>> Not sure whether the subpage stuff is supposed to be functional for
-> >>> domains different than the hardware domain?  It seems to be available
-> >>> to the hanrdware domain only for PV guests, while for HVM is available
-> >>> for both PV and HVM domains:
-> >>
-> >> DYM Dom0 and DomU here?
-> >=20
-> > Indeed, sorry.
+> What's more, change the definition of init_header() since it is
+> not a capability and it is needed for all devices' PCI config space.
+> 
+> Note: call vpci_make_msix_hole() in the end of init_msix() since the
+> change of sequence of init_header() and init_msix().
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+> cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> cc: Anthony PERARD <anthony.perard@vates.tech>
+> cc: Michal Orzel <michal.orzel@amd.com>
+> cc: Jan Beulich <jbeulich@suse.com>
+> cc: Julien Grall <julien@xen.org>
+> cc: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+> v1->v2 changes:
+> * Removed the "priorities" of initializing capabilities since it isn't used anymore.
+> * Added new function vpci_capability_mask() and vpci_ext_capability_mask() to remove failed capability from list.
+> * Called vpci_make_msix_hole() in the end of init_msix().
+> 
+> Best regards,
+> Jiqian Chen.
+> ---
+>  xen/drivers/vpci/header.c  |   3 +-
+>  xen/drivers/vpci/msi.c     |   2 +-
+>  xen/drivers/vpci/msix.c    |   8 +-
+>  xen/drivers/vpci/rebar.c   |   2 +-
+>  xen/drivers/vpci/vpci.c    | 175 +++++++++++++++++++++++++++++++------
+>  xen/include/xen/pci_regs.h |   1 +
+>  xen/include/xen/vpci.h     |  26 ++++--
+>  xen/include/xen/xen.lds.h  |   2 +-
+>  8 files changed, 179 insertions(+), 40 deletions(-)
+> 
+> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+> index 6833d456566b..51a67d76ad8a 100644
+> --- a/xen/drivers/vpci/header.c
+> +++ b/xen/drivers/vpci/header.c
+> @@ -848,7 +848,7 @@ static int vpci_init_ext_capability_list(struct pci_dev *pdev)
+>      return 0;
+>  }
+>  
+> -static int cf_check init_header(struct pci_dev *pdev)
+> +int vpci_init_header(struct pci_dev *pdev)
+>  {
+>      uint16_t cmd;
+>      uint64_t addr, size;
+> @@ -1044,7 +1044,6 @@ static int cf_check init_header(struct pci_dev *pdev)
+>      pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
+>      return rc;
+>  }
+> -REGISTER_VPCI_INIT(init_header, VPCI_PRIORITY_MIDDLE);
+>  
+>  /*
+>   * Local variables:
+> diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
+> index 66e5a8a116be..ca89ae9b9c22 100644
+> --- a/xen/drivers/vpci/msi.c
+> +++ b/xen/drivers/vpci/msi.c
+> @@ -270,7 +270,7 @@ static int cf_check init_msi(struct pci_dev *pdev)
+>  
+>      return 0;
+>  }
+> -REGISTER_VPCI_INIT(init_msi, VPCI_PRIORITY_LOW);
+> +REGISTER_VPCI_LEGACY_CAP(PCI_CAP_ID_MSI, init_msi);
+>  
+>  void vpci_dump_msi(void)
+>  {
+> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+> index 6bd8c55bb48e..6537374c79a0 100644
+> --- a/xen/drivers/vpci/msix.c
+> +++ b/xen/drivers/vpci/msix.c
+> @@ -751,9 +751,13 @@ static int cf_check init_msix(struct pci_dev *pdev)
+>      pdev->vpci->msix = msix;
+>      list_add(&msix->next, &d->arch.hvm.msix_tables);
+>  
+> -    return 0;
+> +    spin_lock(&pdev->vpci->lock);
+> +    rc = vpci_make_msix_hole(pdev);
+> +    spin_unlock(&pdev->vpci->lock);
+> +
+> +    return rc
+>  }
+> -REGISTER_VPCI_INIT(init_msix, VPCI_PRIORITY_HIGH);
+> +REGISTER_VPCI_LEGACY_CAP(PCI_CAP_ID_MSIX, init_msix);
+>  
+>  /*
+>   * Local variables:
+> diff --git a/xen/drivers/vpci/rebar.c b/xen/drivers/vpci/rebar.c
+> index 793937449af7..79858e5dc92f 100644
+> --- a/xen/drivers/vpci/rebar.c
+> +++ b/xen/drivers/vpci/rebar.c
+> @@ -118,7 +118,7 @@ static int cf_check init_rebar(struct pci_dev *pdev)
+>  
+>      return 0;
+>  }
+> -REGISTER_VPCI_INIT(init_rebar, VPCI_PRIORITY_LOW);
+> +REGISTER_VPCI_EXTEND_CAP(PCI_EXT_CAP_ID_REBAR, init_rebar);
+>  
+>  /*
+>   * Local variables:
+> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+> index 1e6aa5d799b9..f1f125bfdab1 100644
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -35,9 +35,25 @@ struct vpci_register {
+>      uint32_t rsvdz_mask;
+>  };
+>  
+> +static int vpci_register_cmp(const struct vpci_register *r1,
+> +                             const struct vpci_register *r2)
+> +{
+> +    /* Return 0 if registers overlap. */
+> +    if ( r1->offset < r2->offset + r2->size &&
+> +         r2->offset < r1->offset + r1->size )
+> +        return 0;
+> +    if ( r1->offset < r2->offset )
+> +        return -1;
+> +    if ( r1->offset > r2->offset )
+> +        return 1;
+> +
+> +    ASSERT_UNREACHABLE();
+> +    return 0;
+> +}
+> +
+>  #ifdef __XEN__
+> -extern vpci_register_init_t *const __start_vpci_array[];
+> -extern vpci_register_init_t *const __end_vpci_array[];
+> +extern vpci_capability_t *const __start_vpci_array[];
+> +extern vpci_capability_t *const __end_vpci_array[];
+>  #define NUM_VPCI_INIT (__end_vpci_array - __start_vpci_array)
+>  
+>  #ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+> @@ -83,6 +99,133 @@ static int assign_virtual_sbdf(struct pci_dev *pdev)
+>  
+>  #endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
+>  
+> +static void vpci_capability_mask(struct pci_dev *pdev,
+> +                                 const unsigned int cap)
+> +{
+> +    const unsigned int size = 1;
+> +    const unsigned int offset = pci_find_cap_offset(pdev->sbdf, cap);
+> +    const struct vpci_register r = { .offset = offset, .size = size };
+> +    struct vpci_register *rm;
+> +    struct vpci *vpci = pdev->vpci;
+> +
+> +    spin_lock(&vpci->lock);
+> +    list_for_each_entry ( rm, &vpci->handlers, node )
+> +    {
+> +        int cmp = vpci_register_cmp(&r, rm);
+> +
+> +        if ( !cmp && rm->offset == offset && rm->size == size )
+> +        {
+> +            struct vpci_register *pre = list_entry(rm->node.prev,
+> +                                                   struct vpci_register,
+> +                                                   node);
+> +            struct vpci_register *next = list_entry(rm->node.next,
+> +                                                    struct vpci_register,
+> +                                                    node);
+> +
+> +            pre->private = next->private;
+> +
+> +            /* PCI_CAP_LIST_ID register of current capability */
+> +            list_del(&rm->node);
+> +            /* PCI_CAP_LIST_NEXT register of current capability */
+> +            list_del(&next->node);
+> +            spin_unlock(&vpci->lock);
 
-I'm not sure about the PV case and domU. I think I tested it at some
-iteration, but it isn't configuration that I care much about. If it
-doesn't work (and fixing it would make it even more complex), IMO we can
-simply adjust documentation of XHCI_SHARE_ANY to say it works only with
-HVM domU.
+Are you sure this works as intended?  The list is sorted, so if there
+further handlers in between the two capabilities, like when handling
+MSI capability, the next handler in the list won't point to the next
+capability list handler.
 
-The domU case exists mostly (only?) to enable automated testing. I do a
-lot of that on laptops, which have only a single USB controller (no way
-to plug any extra one), and I need that USB controller in a domU for
-several tests. In fact, the XHCI console is a debugging feature in the
-first place. So, the domU part doesn't need security support, can
-require extra hoops to jump through etc.
+> +
+> +            xfree(rm);
+> +            xfree(next);
+> +            return;
+> +        }
+> +        if ( cmp <= 0 )
+> +            break;
+> +    }
+> +    spin_unlock(&vpci->lock);
+> +}
+> +
+> +static void vpci_ext_capability_mask(struct pci_dev *pdev,
+> +                                     const unsigned int cap)
+> +{
+> +    const unsigned int size = 4;
+> +    const unsigned int offset = pci_find_ext_capability(pdev->sbdf, cap);
+> +    const struct vpci_register r = { .offset = offset, .size = size };
+> +    struct vpci_register *rm;
+> +    struct vpci *vpci = pdev->vpci;
+> +
+> +    spin_lock(&vpci->lock);
+> +    list_for_each_entry ( rm, &vpci->handlers, node )
+> +    {
+> +        int cmp = vpci_register_cmp(&r, rm);
+> +
+> +        if ( !cmp && rm->offset == offset && rm->size == size )
+> +        {
+> +            struct vpci_register *pre;
+> +            u32 pre_header, header = (u32)(uintptr_t)rm->private;
+> +
+> +            if ( offset == 0x100U && PCI_EXT_CAP_NEXT(header) == 0 )
 
-> >>> is_hardware_domain(currd) || subpage_mmio_write_accept(mfn, gla)
-> >>>
-> >>> In hvm_hap_nested_page_fault().
-> >>
-> >> See the three XHCI_SHARE_* modes. When it's XHCI_SHARE_ANY, even DomU-s
-> >> would require this handling. It looks like a mistake that we permit the
-> >> path to be taken for DomU-s even when the mode is XHCI_SHARE_HWDOM.
-> >=20
-> > Arguable a domU will never get the device assigned in the first place
-> > unless the share mode is set to XHCI_SHARE_ANY.  For the other modes
-> > the device is hidden, and hence couldn't be assigned to a domU anyway.
->=20
-> Correct. Yet then we permit a code path to be taken which is supposedly
-> unnecessary, but potentially (if something went wrong) harmful.
+It would be safer to check for next < 0x100 rather than explicitly
+0.
 
-Since the XHCI_SHARE_ANY case is rare (and not security-supported),
-maybe there should be a global variable guarding this part? It would be
-set to true only if XHCI_SHARE_ANY is used (or some future use of this
-subpage-ro API with a domU). Then, that code would still be potentially
-reachable for all domUs (if XHCI_SHARE_ANY is used), but that's still
-better?
-Anyway, I'm still not sure what the concern is. What is the (not purely
-theoretical) case where domU gains access to the emulator, where without
-this feature it wouldn't have it already? Any HVM can hit the emulator
-already, regardless of this feature, no?
+> +            {
+> +                rm->private = (void *)(uintptr_t)0;
+> +                spin_unlock(&vpci->lock);
+> +                return;
+> +            }
+> +            else if ( offset == 0x100U )
 
-> >>>>> I'm happy to look at other ways to handling this, but given there's
-> >>>>> current logic for handling accesses to read-only regions in
-> >>>>> hvm_hap_nested_page_fault() I think re-using that was the best way =
-to
-> >>>>> also handle accesses to MMIO read-only regions.
-> >>>>>
-> >>>>> Arguably it would already be the case that for other reasons Xen wo=
-uld
-> >>>>> need to emulate an instruction that accesses a read-only MMIO regio=
-n?
-> >>>>
-> >>>> Aiui hvm_translate_get_page() will yield HVMTRANS_bad_gfn_to_mfn for
-> >>>> p2m_mmio_direct (after all, "direct" means we expect no emulation is
-> >>>> needed; while arguably wrong for the introspection case, I'm not sure
-> >>>> that and pass-through actually go together). Hence it's down to
-> >>>> hvmemul_linear_mmio_access() -> hvmemul_phys_mmio_access() ->
-> >>>> hvmemul_do_mmio_buffer() -> hvmemul_do_io_buffer() -> hvmemul_do_io(=
-),
-> >>>> which means that if hvm_io_intercept() can't handle it, the access
-> >>>> will be forwarded to the responsible DM, or be "processed" by the
-> >>>> internal null handler.
-> >>>>
-> >>>> Given this, perhaps what you do is actually fine. At the same time
-> >>>> note how several functions in hvm/emulate.c simply fail upon
-> >>>> encountering p2m_mmio_direct. These are all REP handlers though, so
-> >>>> the main emulator would then try emulating the insn the non-REP way.
-> >>>
-> >>> I'm open to alternative ways of handling such accesses, just used what
-> >>> seemed more natural in the context of hvm_hap_nested_page_fault().
-> >>>
-> >>> Emulation of r/o MMIO accesses failing wouldn't be an issue from Xen's
-> >>> perspective, that would "just" result in the guest getting a #GP
-> >>> injected.
-> >>
-> >> That's not the part I'm worried about. What worries me is that we open=
- up
-> >> another (or better: we're widening a) way to hit the emulator in the f=
-irst
-> >> place. (Plus, as said, the issue with the not really tidy P2M type sys=
-tem.)
-> >=20
-> > But the hit would be limited to domains having r/o p2m_mmio_direct
-> > entries in the p2m, as otherwise the path would be unreachable?
->=20
-> I fear I don't follow - all you look for in the newly extended conditional
-> is the type being p2m_mmio_direct. There's no r/o-ness being checked for
-> until we'd make it through the emulator and into subpage_mmio_accept().
+There's no need for the else branch, as the previous if has a return.
 
-But EPT violation can be hit on p2m_mmio_direct page only if it's a
-write and the page is read-only, no? Is there any other case that exists
-today?
+> +            {
+> +                pre = rm;
+> +                rm = list_entry(rm->node.next, struct vpci_register, node);
+> +                pre->private = rm->private;
+> +            }
+> +            else
+> +            {
+> +                pre = list_entry(rm->node.prev, struct vpci_register, node);
+> +                pre_header = (u32)(uintptr_t)pre->private;
+> +                pre->private =
+> +                    (void *)(uintptr_t)((pre_header & !PCI_EXT_CAP_NEXT_MASK) |
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+I think you want ~PCI_EXT_CAP_NEXT_MASK rather than !PCI_EXT_CAP_NEXT_MASK?
 
---4rqauA1srzC8XHdr
-Content-Type: application/pgp-signature; name=signature.asc
+> +                                        (header & PCI_EXT_CAP_NEXT_MASK));
+> +            }
+> +            list_del(&rm->node);
+> +            spin_unlock(&vpci->lock);
+> +            xfree(rm);
+> +            return;
 
------BEGIN PGP SIGNATURE-----
+Kind of the same complaint I had on the previous patch, this seems to
+assume that capability handlers are always consecutive in the list of
+handlers, which I don't think it's the case.
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmf+N4sACgkQ24/THMrX
-1yyRvwf/VKD94EZl++2o6AR8vMk7Rh5dFwOvlcwfyZ1VTrVNbFA3Gi03Li2sseYI
-Vv1f7DHlpJmhjAvz/5eAkDGn9vhKLzp9C53AkYqrVDrFCJOhEjDQ95y8dhFPptRY
-dHzrrwWRell8WqtvlZHj2CkX35vbV6UPbm+c1hsUBsIWgp7rR8WQdK01YQ/uZZem
-lSVT7UU6VcOoNDHC+KPnGcILY8GwQP6bm8/NIywMMUqPbULpd0Uw24MTTeuM59AM
-04kEYSHGQ4IaPtPXVX+xRKt4TzFoV7SpqS3BJgz0Tj2IZQP/wS2Rztx4sddTcJ1m
-mbr0hE9Ydm5QMPHrgxbx2O1LTcwxcw==
-=gDib
------END PGP SIGNATURE-----
+> +        }
+> +        if ( cmp <= 0 )
+> +            break;
+> +    }
+> +    spin_unlock(&vpci->lock);
+> +}
+> +
+> +static void vpci_init_capabilities(struct pci_dev *pdev)
+> +{
+> +    for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
+> +    {
+> +        const vpci_capability_t *capability = __start_vpci_array[i];
+> +        const unsigned int cap = capability->id;
+> +        const bool is_ext = capability->is_ext;
+> +        unsigned int pos;
+> +        int rc;
+> +
+> +        if ( !is_hardware_domain(pdev->domain) && is_ext )
+> +            continue;
+> +
+> +        if ( is_ext )
+> +            pos = pci_find_ext_capability(pdev->sbdf, cap);
+> +        else
+> +            pos = pci_find_cap_offset(pdev->sbdf, cap);
+> +
+> +        if ( !pos )
+> +            continue;
+> +
+> +        rc = capability->init(pdev);
+> +
+> +        if ( rc )
+> +        {
+> +            printk(XENLOG_WARNING "%pd %pp: %s cap %u init fail rc=%d, mask it\n",
+> +                   pdev->domain, &pdev->sbdf,
+> +                   is_ext ? "extended" : "legacy", cap, rc);
+> +            if ( is_ext )
+> +                vpci_ext_capability_mask(pdev, cap);
+> +            else
+> +                vpci_capability_mask(pdev, cap);
+> +        }
+> +    }
+> +}
+> +
+>  void vpci_deassign_device(struct pci_dev *pdev)
+>  {
+>      unsigned int i;
+> @@ -128,7 +271,6 @@ void vpci_deassign_device(struct pci_dev *pdev)
+>  
+>  int vpci_assign_device(struct pci_dev *pdev)
+>  {
+> -    unsigned int i;
+>      const unsigned long *ro_map;
+>      int rc = 0;
+>  
+> @@ -159,12 +301,11 @@ int vpci_assign_device(struct pci_dev *pdev)
+>          goto out;
+>  #endif
+>  
+> -    for ( i = 0; i < NUM_VPCI_INIT; i++ )
+> -    {
+> -        rc = __start_vpci_array[i](pdev);
+> -        if ( rc )
+> -            break;
+> -    }
+> +    rc = vpci_init_header(pdev);
+> +    if ( rc )
+> +        goto out;
 
---4rqauA1srzC8XHdr--
+If you use the out label here you can remove the __maybe_unused
+attribute from it.
+
+> +
+> +    vpci_init_capabilities(pdev);
+>  
+>   out: __maybe_unused;
+>      if ( rc )
+> @@ -174,22 +315,6 @@ int vpci_assign_device(struct pci_dev *pdev)
+>  }
+>  #endif /* __XEN__ */
+>  
+> -static int vpci_register_cmp(const struct vpci_register *r1,
+> -                             const struct vpci_register *r2)
+> -{
+> -    /* Return 0 if registers overlap. */
+> -    if ( r1->offset < r2->offset + r2->size &&
+> -         r2->offset < r1->offset + r1->size )
+> -        return 0;
+> -    if ( r1->offset < r2->offset )
+> -        return -1;
+> -    if ( r1->offset > r2->offset )
+> -        return 1;
+> -
+> -    ASSERT_UNREACHABLE();
+> -    return 0;
+> -}
+> -
+>  /* Dummy hooks, writes are ignored, reads return 1's */
+>  static uint32_t cf_check vpci_ignored_read(
+>      const struct pci_dev *pdev, unsigned int reg, void *data)
+> diff --git a/xen/include/xen/pci_regs.h b/xen/include/xen/pci_regs.h
+> index 27b4f44eedf3..5fe6653fded4 100644
+> --- a/xen/include/xen/pci_regs.h
+> +++ b/xen/include/xen/pci_regs.h
+> @@ -449,6 +449,7 @@
+>  #define PCI_EXT_CAP_ID(header)		((header) & 0x0000ffff)
+>  #define PCI_EXT_CAP_VER(header)		(((header) >> 16) & 0xf)
+>  #define PCI_EXT_CAP_NEXT(header)	(((header) >> 20) & 0xffc)
+> +#define PCI_EXT_CAP_NEXT_MASK		0xFFC00000U
+>  
+>  #define PCI_EXT_CAP_ID_ERR	1
+>  #define PCI_EXT_CAP_ID_VC	2
+> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+> index 807401b2eaa2..5016ded64d89 100644
+> --- a/xen/include/xen/vpci.h
+> +++ b/xen/include/xen/vpci.h
+> @@ -13,11 +13,11 @@ typedef uint32_t vpci_read_t(const struct pci_dev *pdev, unsigned int reg,
+>  typedef void vpci_write_t(const struct pci_dev *pdev, unsigned int reg,
+>                            uint32_t val, void *data);
+>  
+> -typedef int vpci_register_init_t(struct pci_dev *dev);
+> -
+> -#define VPCI_PRIORITY_HIGH      "1"
+> -#define VPCI_PRIORITY_MIDDLE    "5"
+> -#define VPCI_PRIORITY_LOW       "9"
+> +typedef struct {
+> +    unsigned int id;
+> +    bool is_ext;
+> +    int (*init)(struct pci_dev *pdev);
+> +} vpci_capability_t;
+>  
+>  #define VPCI_ECAM_BDF(addr)     (((addr) & 0x0ffff000) >> 12)
+>  
+> @@ -29,9 +29,19 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
+>   */
+>  #define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
+>  
+> -#define REGISTER_VPCI_INIT(x, p)                \
+> -  static vpci_register_init_t *const x##_entry  \
+> -               __used_section(".data.vpci." p) = (x)
+> +#define REGISTER_VPCI_CAP(cap, x, ext) \
+> +  static vpci_capability_t x##_t = { \
+> +        .id = (cap), \
+> +        .init = (x), \
+> +        .is_ext = (ext), \
+> +  }; \
+> +  static vpci_capability_t *const x##_entry  \
+> +               __used_section(".data.vpci.") = &(x##_t)
+> +
+> +#define REGISTER_VPCI_LEGACY_CAP(cap, x) REGISTER_VPCI_CAP(cap, x, false)
+> +#define REGISTER_VPCI_EXTEND_CAP(cap, x) REGISTER_VPCI_CAP(cap, x, true)
+
+Nit: I would use EXTENDED here, there's no need to keep both defines
+the same length.
+
+Thanks, Roger.
 
