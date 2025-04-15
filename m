@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF0E4A8A2D3
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 17:34:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.954132.1348471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EFA4A8A2D1
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 17:34:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.954133.1348482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4iIl-0004sg-Rf; Tue, 15 Apr 2025 15:34:19 +0000
+	id 1u4iIr-0005AB-5R; Tue, 15 Apr 2025 15:34:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 954132.1348471; Tue, 15 Apr 2025 15:34:19 +0000
+Received: by outflank-mailman (output) from mailman id 954133.1348482; Tue, 15 Apr 2025 15:34:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4iIl-0004q9-OY; Tue, 15 Apr 2025 15:34:19 +0000
-Received: by outflank-mailman (input) for mailman id 954132;
- Tue, 15 Apr 2025 15:34:18 +0000
+	id 1u4iIr-00057C-0O; Tue, 15 Apr 2025 15:34:25 +0000
+Received: by outflank-mailman (input) for mailman id 954133;
+ Tue, 15 Apr 2025 15:34:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OGoX=XB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1u4iIk-0004bx-A0
- for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 15:34:18 +0000
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
- [2607:f8b0:4864:20::433])
+ id 1u4iIo-0004bx-Tj
+ for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 15:34:23 +0000
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [2607:f8b0:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 17866889-1a0f-11f0-9eae-5ba50f476ded;
- Tue, 15 Apr 2025 17:34:17 +0200 (CEST)
-Received: by mail-pf1-x433.google.com with SMTP id
- d2e1a72fcca58-736a7e126c7so4972880b3a.3
- for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 08:34:17 -0700 (PDT)
+ id 1a3e08f7-1a0f-11f0-9eae-5ba50f476ded;
+ Tue, 15 Apr 2025 17:34:22 +0200 (CEST)
+Received: by mail-pf1-x432.google.com with SMTP id
+ d2e1a72fcca58-736bfa487c3so5018054b3a.1
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 08:34:22 -0700 (PDT)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 41be03b00d2f7-b02a2d3a2b8sm11127529a12.58.2025.04.15.08.34.13
+ d2e1a72fcca58-73bd21c670esm8893775b3a.69.2025.04.15.08.34.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Apr 2025 08:34:14 -0700 (PDT)
+ Tue, 15 Apr 2025 08:34:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,51 +44,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17866889-1a0f-11f0-9eae-5ba50f476ded
+X-Inumbo-ID: 1a3e08f7-1a0f-11f0-9eae-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744731255; x=1745336055; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1744731260; x=1745336060; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qeT5t+7PLGgLUSY6R9I0jYmGVga2OLQ/Zvlwarpqm88=;
-        b=tnPUrM9ejR3LnKuwxDBe92fXkZAPkq4Trm4WFYxqn1gjIecVrEBDCpeO4sm5r0dH1P
-         0JH/eAyTjHla7AtkmUDvhQekrvGA2XST+i1WOUOYOus/q8Kf2oZodEjlJEy6FTOV7DwH
-         zouSJlFoKyJK4urpszslE2XNi06OIJGZcRF4E=
+        bh=NqJO2WNEI84OX8hveo+xemBR8F7EcK50+XUU/oRndbc=;
+        b=tTKeiCNb376prT01ZrOAoGY7VdSG+sUzo3M73lr1fkSkoSOb6MFdb277D1pTEr7HbC
+         eSknaIBGvP7uDiu7EySTOjLNnAOgsU0Zda3qrKqbSE83yfSTt4UXdTh4pX/+y+DpjqtJ
+         82q68ig1egb+GxgLZ4ZVMR0VHwGGn+2jw30Mk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744731255; x=1745336055;
+        d=1e100.net; s=20230601; t=1744731260; x=1745336060;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=qeT5t+7PLGgLUSY6R9I0jYmGVga2OLQ/Zvlwarpqm88=;
-        b=RSrTb45OSgG8TEtvWP6GB9sgrgV4ZISzX8+RksOcgl3sAHkTyiM68VAdwk5H+qj/2S
-         1DFEqMTO2ekWDg41AIp/Ca485GtOpZIHd1dLFparPLL49rJSNuigPr1OsjYhaPhVeiVh
-         hw+h2sKvS2FZFUzbyVarpN5TktrFNP/IIMClZsQb6cjIo+4jdeJ+6O7ZWt8iQJGYfCqc
-         wd6VIf3LY0Hs2nIcCxgvcNmVYyOdkhQn13GjStrR0lXobgH5FGKQYb/0vt8IVZ8Z/Km3
-         lJNQyvm7sXHH1id/63nDEKoKoc+HS+utQ1e4VXRdvNNLf5okasvJaImBqV3kWLgvrfkk
-         87ug==
-X-Gm-Message-State: AOJu0YxWlkebzB/QYKjLAVv3uckRcUmdZr7zQMzwGmA2nwPkbncOihOO
-	5FI61YVYfkmxhhQ3i0tIhNj2GkClQtkp5CeKfVphI7tqpI2wkwBMHAg3wi3iJEeHm0HIbvqr2KR
-	7
-X-Gm-Gg: ASbGncsQh+wLqXfXB/t2BHeVPYLUxwlkkT75UBfko+p20BnBGUr/faHm0RnevGxYTv5
-	inXFAhHLmSmBw7PVs8ILPfpQcvTqC9am0N3hKgKIeT/mhAeIAWB0AtDYHeQucuWz9JF9ScG6h3k
-	g9CZwtlVIb/J2ZEWXUkzMeESyNVFjwkQb9y4axaMdRh66orDUOFvMRgwyYMv1lZ6nN19PYSs2EO
-	tTEOIBirGz8xMKwObT9Yj2gxX5lfG9E1QH3+M5JlNoC0OFGz2N2zuUJ3FnnOWcrWbuFrGEjs5tW
-	U997r/8w9jsFLX29mYn4GJWfuI6/jzYKGAwlZona3LUV/Q==
-X-Google-Smtp-Source: AGHT+IFi+8H6UVpnUZrRJSN4ByTR3JG4By1EKozq/qxPY0SaQWQcDguT8MKM+uJa2BQR3YhWpSynaw==
-X-Received: by 2002:a05:6a21:1346:b0:1f5:63f9:9ea1 with SMTP id adf61e73a8af0-201797a2f99mr26786130637.13.1744731254961;
-        Tue, 15 Apr 2025 08:34:14 -0700 (PDT)
+        bh=NqJO2WNEI84OX8hveo+xemBR8F7EcK50+XUU/oRndbc=;
+        b=VnAruEigk8TCriZRMGq9AyVtm0W8BJRFDf2QnnaMOxrzMwd48EGVv6/M1O6+MWif8o
+         wlNOPj3o5fvdj/uwzwtloUkZ3M0v51LcODgDrK4NXP5yxyp5mgYxh4RQUNQ1cNYzJ3DN
+         /4pPnDNr3MuMySncVDulDEZ4xMqO2Z5lZWx/NlnOFO8iKoeg4w4IVDj3UDPg9mapgZYv
+         Eboo5i73bc58cs0tXFK90rzShEnLmqAx7Cl+WN3xKITkgu9I41Sac97YnNnSectm2zD4
+         FiW+G0aijNZMFKzCA24daSosMQpPlN5rCYjBY5vbMoUImvPvjX6NC4q+CgX59RKoxSOH
+         Wbwg==
+X-Gm-Message-State: AOJu0YzYdoyoCNHcnA1pXhqOrh6Oc9feGxS3uHq5NpyVgBEqQc+VSWEu
+	qV4p2AXsGupxBkfjqHsrqCPbxZUENr+3JoQUrvJv8MRcwfrRC3p3jbwrhCtPQhAHzXZG3OVyhmo
+	O
+X-Gm-Gg: ASbGncuRED75IhzxAWaHbyttkVyK95VOK6mQKcvIQu0IdN2PICMv/FHtjxLADyeyid5
+	vl5cmWymk2p9LSxFHo/H/5wQzT8NiqF80ZWzYdKU5goB+B1cGQdJrZYVcPCFooyuolFdyaUvLza
+	I88RBxNftlsZsbvDGWIj/Ew20LTC/V2kX815Rg701VLrIR6o3q5e+IjyvwijBG/RJYgYNhcaC5X
+	7nXVjMB7wahhFUmw6wPLjOoQ3NLGEjtsaitds3q2ErOCgKqAqa7doJkJUBMGYzZYqfVpD7Yz3Rw
+	HoNb0gU1AHMaKKXBmtCAdqrq5rj5wYK8DZ663JVRT5ML/A==
+X-Google-Smtp-Source: AGHT+IHCz8A0W6NoRJ+ZPBXZlEco0yWr8f0vrf0Rgna4FL7cDXqgQdL1jkSgNJN5kFOA+B2fS33S0w==
+X-Received: by 2002:a05:6a00:2c94:b0:73c:b86:b47f with SMTP id d2e1a72fcca58-73c0b86b4f5mr5871486b3a.4.1744731260346;
+        Tue, 15 Apr 2025 08:34:20 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 1/4] xen/io: provide helpers for multi size MMIO accesses
-Date: Tue, 15 Apr 2025 17:32:43 +0200
-Message-ID: <20250415153246.81688-2-roger.pau@citrix.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH v2 2/4] x86/hvm: fix handling of accesses to partial r/o MMIO pages
+Date: Tue, 15 Apr 2025 17:32:44 +0200
+Message-ID: <20250415153246.81688-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250415153246.81688-1-roger.pau@citrix.com>
 References: <20250415153246.81688-1-roger.pau@citrix.com>
@@ -96,335 +92,422 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Several handlers have the same necessity of reading or writing from or to
-an MMIO region using 1, 2, 4 or 8 bytes accesses.  So far this has been
-open-coded in the function itself.  Instead provide a new set of handlers
-that encapsulate the accesses.
+The current logic to handle accesses to MMIO pages partially read-only is
+based on the (now removed) logic used to handle accesses to the r/o MMCFG
+region(s) for PVH v1 dom0.  However that has issues when running on AMD
+hardware, as in that case the guest linear address that triggered the fault
+is not provided as part of the VM exit.  This caused
+mmio_ro_emulated_write() to always fail before calling
+subpage_mmio_write_emulate() when running on AMD and called from an HVM
+context.
 
-Since the added helpers are not architecture specific, introduce a new
-generic io.h header.
+Take a different approach and convert the handling of partial read-only
+MMIO page accesses into an HVM MMIO ops handler, as that's the more natural
+way to handle this kind of emulation for HVM domains.
 
-No functional change intended.
+This allows getting rid of hvm_emulate_one_mmio() and it's single call site
+in hvm_hap_nested_page_fault().  As part of the fix r/o MMIO accesses are
+now handled by handle_mmio_with_translation(), re-using the same logic that
+was used for other read-only types part of p2m_is_discard_write().  The
+usage of emulation for faulting p2m_mmio_direct types is limited to
+addresses in the r/o MMIO range. The page present check is dropped as type
+p2m_mmio_direct must have the present bit set in the PTE.
 
+Note a small adjustment is needed to the `pf-fixup` dom0 PVH logic: avoid
+attempting to fixup faults resulting from accesses to read-only MMIO
+regions, as handling of those accesses is now done by handle_mmio().
+
+Fixes: 33c19df9a5a0 ('x86/PCI: intercept accesses to RO MMIO from dom0s in HVM containers')
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v1:
- - Limit {read,write}q() to 64bit architectures.
- - Always have a default case in switch statement.
+ - Introduce hvm/mmio.c to place the r/o MMIO handlers.
+ - Add comment about pf-fixup and r/o MMIO range checking.
+ - Expand commit message about dropping the PTE present check and usage of
+   the emulator.
+ - Return X86EMUL_OKAY in the read handler if the MMIO region is not found.
+ - Check the faulting address is in the mmio_ro_ranges before sending for
+   emulation.
 ---
- xen/arch/x86/hvm/vmsi.c | 47 ++--------------------------
- xen/arch/x86/mm.c       | 32 +++++--------------
- xen/drivers/vpci/msix.c | 47 ++--------------------------
- xen/include/xen/io.h    | 68 +++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 81 insertions(+), 113 deletions(-)
- create mode 100644 xen/include/xen/io.h
+ xen/arch/x86/hvm/Makefile              |   1 +
+ xen/arch/x86/hvm/emulate.c             |  51 ++-----------
+ xen/arch/x86/hvm/hvm.c                 |  17 ++---
+ xen/arch/x86/hvm/mmio.c                | 100 +++++++++++++++++++++++++
+ xen/arch/x86/include/asm/hvm/emulate.h |   1 -
+ xen/arch/x86/include/asm/hvm/io.h      |   3 +
+ xen/arch/x86/include/asm/mm.h          |  12 +++
+ xen/arch/x86/mm.c                      |  37 +--------
+ 8 files changed, 132 insertions(+), 90 deletions(-)
+ create mode 100644 xen/arch/x86/hvm/mmio.c
 
-diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
-index fd83abb929ec..61b89834d97d 100644
---- a/xen/arch/x86/hvm/vmsi.c
-+++ b/xen/arch/x86/hvm/vmsi.c
-@@ -24,6 +24,7 @@
-  * Will be merged it with virtual IOAPIC logic, since most is the same
- */
- 
-+#include <xen/io.h>
- #include <xen/types.h>
- #include <xen/mm.h>
- #include <xen/xmalloc.h>
-@@ -304,28 +305,7 @@ static void adjacent_read(
- 
-     hwaddr = fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
- 
--    switch ( len )
--    {
--    case 1:
--        *pval = readb(hwaddr);
--        break;
--
--    case 2:
--        *pval = readw(hwaddr);
--        break;
--
--    case 4:
--        *pval = readl(hwaddr);
--        break;
--
--    case 8:
--        *pval = readq(hwaddr);
--        break;
--
--    default:
--        ASSERT_UNREACHABLE();
--        break;
--    }
-+    *pval = read_mmio(hwaddr, len);
+diff --git a/xen/arch/x86/hvm/Makefile b/xen/arch/x86/hvm/Makefile
+index 4c1fa5c6c2bf..6ec2c8f2db56 100644
+--- a/xen/arch/x86/hvm/Makefile
++++ b/xen/arch/x86/hvm/Makefile
+@@ -15,6 +15,7 @@ obj-y += intercept.o
+ obj-y += io.o
+ obj-y += ioreq.o
+ obj-y += irq.o
++obj-y += mmio.o
+ obj-y += monitor.o
+ obj-y += mtrr.o
+ obj-y += nestedhvm.o
+diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
+index 9fff1b82f7c6..fbe8dd6ccb0b 100644
+--- a/xen/arch/x86/hvm/emulate.c
++++ b/xen/arch/x86/hvm/emulate.c
+@@ -370,7 +370,12 @@ static int hvmemul_do_io(
+         /* If there is no suitable backing DM, just ignore accesses */
+         if ( !s )
+         {
+-            if ( is_mmio && is_hardware_domain(currd) )
++            if ( is_mmio && is_hardware_domain(currd) &&
++                 /*
++                  * Do not attempt to fixup accesses to r/o MMIO regions, they
++                  * are expected to be terminated by the null handler below.
++                  */
++                 !rangeset_contains_singleton(mmio_ro_ranges, PFN_DOWN(addr)) )
+             {
+                 /*
+                  * PVH dom0 is likely missing MMIO mappings on the p2m, due to
+@@ -2856,50 +2861,6 @@ int hvm_emulate_one(
+     return _hvm_emulate_one(hvmemul_ctxt, &hvm_emulate_ops, completion);
  }
  
- static void adjacent_write(
-@@ -344,28 +324,7 @@ static void adjacent_write(
- 
-     hwaddr = fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
- 
--    switch ( len )
+-int hvm_emulate_one_mmio(unsigned long mfn, unsigned long gla)
+-{
+-    static const struct x86_emulate_ops hvm_ro_emulate_ops_mmio = {
+-        .read       = x86emul_unhandleable_rw,
+-        .insn_fetch = hvmemul_insn_fetch,
+-        .write      = mmio_ro_emulated_write,
+-        .validate   = hvmemul_validate,
+-    };
+-    struct mmio_ro_emulate_ctxt mmio_ro_ctxt = { .cr2 = gla, .mfn = _mfn(mfn) };
+-    struct hvm_emulate_ctxt ctxt;
+-    unsigned int seg, bdf;
+-    int rc;
+-
+-    if ( pci_ro_mmcfg_decode(mfn, &seg, &bdf) )
 -    {
--    case 1:
--        writeb(val, hwaddr);
--        break;
--
--    case 2:
--        writew(val, hwaddr);
--        break;
--
--    case 4:
--        writel(val, hwaddr);
--        break;
--
--    case 8:
--        writeq(val, hwaddr);
--        break;
--
--    default:
+-        /* Should be always handled by vPCI for PVH dom0. */
+-        gdprintk(XENLOG_ERR, "unhandled MMCFG access for %pp\n",
+-                 &PCI_SBDF(seg, bdf));
 -        ASSERT_UNREACHABLE();
+-        return X86EMUL_UNHANDLEABLE;
+-    }
+-
+-    hvm_emulate_init_once(&ctxt, x86_insn_is_mem_write,
+-                          guest_cpu_user_regs());
+-    ctxt.ctxt.data = &mmio_ro_ctxt;
+-
+-    switch ( rc = _hvm_emulate_one(&ctxt, &hvm_ro_emulate_ops_mmio,
+-                                   VIO_no_completion) )
+-    {
+-    case X86EMUL_UNHANDLEABLE:
+-    case X86EMUL_UNIMPLEMENTED:
+-        hvm_dump_emulation_state(XENLOG_G_WARNING, "r/o MMIO", &ctxt, rc);
+-        break;
+-    case X86EMUL_EXCEPTION:
+-        hvm_inject_event(&ctxt.ctxt.event);
+-        /* fallthrough */
+-    default:
+-        hvm_emulate_writeback(&ctxt);
 -        break;
 -    }
-+    write_mmio(hwaddr, val, len);
- }
- 
- static int cf_check msixtbl_read(
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 1cf236516789..989e62e7ce6f 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -95,6 +95,7 @@
- #include <xen/guest_access.h>
- #include <xen/hypercall.h>
- #include <xen/init.h>
-+#include <xen/io.h>
- #include <xen/iocap.h>
- #include <xen/ioreq.h>
- #include <xen/irq.h>
-@@ -116,7 +117,6 @@
- #include <asm/flushtlb.h>
- #include <asm/guest.h>
- #include <asm/idt.h>
--#include <asm/io.h>
- #include <asm/io_apic.h>
- #include <asm/ldt.h>
- #include <asm/mem_sharing.h>
-@@ -5102,7 +5102,7 @@ static void __iomem *subpage_mmio_map_page(
- static void subpage_mmio_write_emulate(
-     mfn_t mfn,
-     unsigned int offset,
--    const void *data,
-+    unsigned long data,
-     unsigned int len)
+-
+-    return rc;
+-}
+-
+ void hvm_emulate_one_vm_event(enum emul_kind kind, unsigned int trapnr,
+     unsigned int errcode)
  {
-     struct subpage_ro_range *entry;
-@@ -5115,7 +5115,6 @@ static void subpage_mmio_write_emulate(
- 
-     if ( test_bit(offset / MMIO_RO_SUBPAGE_GRAN, entry->ro_elems) )
-     {
-- write_ignored:
-         gprintk(XENLOG_WARNING,
-                 "ignoring write to R/O MMIO 0x%"PRI_mfn"%03x len %u\n",
-                 mfn_x(mfn), offset, len);
-@@ -5131,26 +5130,7 @@ static void subpage_mmio_write_emulate(
-         return;
-     }
- 
--    addr += offset;
--    switch ( len )
--    {
--    case 1:
--        writeb(*(const uint8_t*)data, addr);
--        break;
--    case 2:
--        writew(*(const uint16_t*)data, addr);
--        break;
--    case 4:
--        writel(*(const uint32_t*)data, addr);
--        break;
--    case 8:
--        writeq(*(const uint64_t*)data, addr);
--        break;
--    default:
--        /* mmio_ro_emulated_write() already validated the size */
--        ASSERT_UNREACHABLE();
--        goto write_ignored;
--    }
-+    write_mmio(addr + offset, data, len);
- }
- 
- #ifdef CONFIG_HVM
-@@ -5185,18 +5165,20 @@ int cf_check mmio_ro_emulated_write(
-     struct x86_emulate_ctxt *ctxt)
- {
-     struct mmio_ro_emulate_ctxt *mmio_ro_ctxt = ctxt->data;
-+    unsigned long data = 0;
- 
-     /* Only allow naturally-aligned stores at the original %cr2 address. */
-     if ( ((bytes | offset) & (bytes - 1)) || !bytes ||
--         offset != mmio_ro_ctxt->cr2 )
-+         offset != mmio_ro_ctxt->cr2 || bytes > sizeof(data) )
-     {
-         gdprintk(XENLOG_WARNING, "bad access (cr2=%lx, addr=%lx, bytes=%u)\n",
-                 mmio_ro_ctxt->cr2, offset, bytes);
-         return X86EMUL_UNHANDLEABLE;
-     }
- 
-+    memcpy(&data, p_data, bytes);
-     subpage_mmio_write_emulate(mmio_ro_ctxt->mfn, PAGE_OFFSET(offset),
--                               p_data, bytes);
-+                               data, bytes);
- 
-     return X86EMUL_OKAY;
- }
-diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-index 6bd8c55bb48e..6455f2a03a01 100644
---- a/xen/drivers/vpci/msix.c
-+++ b/xen/drivers/vpci/msix.c
-@@ -17,6 +17,7 @@
-  * License along with this program; If not, see <http://www.gnu.org/licenses/>.
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 6f1174c5127e..6b998387e3d8 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -8,6 +8,7 @@
   */
  
+ #include <xen/init.h>
 +#include <xen/io.h>
- #include <xen/sched.h>
- #include <xen/vpci.h>
+ #include <xen/ioreq.h>
+ #include <xen/lib.h>
+ #include <xen/trace.h>
+@@ -35,7 +36,6 @@
+ #include <asm/current.h>
+ #include <asm/debugreg.h>
+ #include <asm/e820.h>
+-#include <asm/io.h>
+ #include <asm/regs.h>
+ #include <asm/cpufeature.h>
+ #include <asm/processor.h>
+@@ -692,6 +692,8 @@ int hvm_domain_initialise(struct domain *d,
  
-@@ -344,28 +345,7 @@ static int adjacent_read(const struct domain *d, const struct vpci_msix *msix,
-         return X86EMUL_OKAY;
+     register_portio_handler(d, XEN_HVM_DEBUGCONS_IOPORT, 1, hvm_print_line);
+ 
++    register_subpage_ro_handler(d);
++
+     if ( hvm_tsc_scaling_supported )
+         d->arch.hvm.tsc_scaling_ratio = hvm_default_tsc_scaling_ratio;
+ 
+@@ -1981,7 +1983,10 @@ int hvm_hap_nested_page_fault(paddr_t gpa, unsigned long gla,
+      */
+     if ( (p2mt == p2m_mmio_dm) ||
+          (npfec.write_access &&
+-          (p2m_is_discard_write(p2mt) || (p2mt == p2m_ioreq_server))) )
++          (p2m_is_discard_write(p2mt) || (p2mt == p2m_ioreq_server) ||
++           /* MMIO entries can be r/o if the target mfn is in mmio_ro_ranges. */
++           (p2mt == p2m_mmio_direct &&
++            rangeset_contains_singleton(mmio_ro_ranges, mfn_x(mfn))))) )
+     {
+         if ( !handle_mmio_with_translation(gla, gfn, npfec) )
+             hvm_inject_hw_exception(X86_EXC_GP, 0);
+@@ -2033,14 +2038,6 @@ int hvm_hap_nested_page_fault(paddr_t gpa, unsigned long gla,
+         goto out_put_gfn;
      }
  
--    switch ( len )
+-    if ( (p2mt == p2m_mmio_direct) && npfec.write_access && npfec.present &&
+-         (is_hardware_domain(currd) || subpage_mmio_write_accept(mfn, gla)) &&
+-         (hvm_emulate_one_mmio(mfn_x(mfn), gla) == X86EMUL_OKAY) )
 -    {
--    case 1:
--        *data = readb(mem + PAGE_OFFSET(addr));
--        break;
--
--    case 2:
--        *data = readw(mem + PAGE_OFFSET(addr));
--        break;
--
--    case 4:
--        *data = readl(mem + PAGE_OFFSET(addr));
--        break;
--
--    case 8:
--        *data = readq(mem + PAGE_OFFSET(addr));
--        break;
--
--    default:
--        ASSERT_UNREACHABLE();
--        break;
+-        rc = 1;
+-        goto out_put_gfn;
 -    }
-+    *data = read_mmio(mem + PAGE_OFFSET(addr), len);
-     spin_unlock(&vpci->lock);
- 
-     return X86EMUL_OKAY;
-@@ -493,28 +473,7 @@ static int adjacent_write(const struct domain *d, const struct vpci_msix *msix,
-         return X86EMUL_OKAY;
-     }
- 
--    switch ( len )
--    {
--    case 1:
--        writeb(data, mem + PAGE_OFFSET(addr));
--        break;
 -
--    case 2:
--        writew(data, mem + PAGE_OFFSET(addr));
--        break;
--
--    case 4:
--        writel(data, mem + PAGE_OFFSET(addr));
--        break;
--
--    case 8:
--        writeq(data, mem + PAGE_OFFSET(addr));
--        break;
--
--    default:
--        ASSERT_UNREACHABLE();
--        break;
--    }
-+    write_mmio(mem + PAGE_OFFSET(addr), data, len);
-     spin_unlock(&vpci->lock);
- 
-     return X86EMUL_OKAY;
-diff --git a/xen/include/xen/io.h b/xen/include/xen/io.h
+     /* If we fell through, the vcpu will retry now that access restrictions have
+      * been removed. It may fault again if the p2m entry type still requires so.
+      * Otherwise, this is an error condition. */
+diff --git a/xen/arch/x86/hvm/mmio.c b/xen/arch/x86/hvm/mmio.c
 new file mode 100644
-index 000000000000..4495a04c403e
+index 000000000000..ee29d9e5039e
 --- /dev/null
-+++ b/xen/include/xen/io.h
-@@ -0,0 +1,68 @@
++++ b/xen/arch/x86/hvm/mmio.c
+@@ -0,0 +1,100 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
-+ * IO related routines.
++ * MMIO related routines.
 + *
 + * Copyright (c) 2025 Cloud Software Group
 + */
-+#ifndef XEN_IO_H
-+#define XEN_IO_H
 +
-+#include <xen/bug.h>
++#include <xen/io.h>
++#include <xen/mm.h>
 +
-+#include <asm/io.h>
++#include <asm/p2m.h>
 +
-+static inline unsigned long read_mmio(const volatile void __iomem *mem,
-+                                      unsigned int size)
++static int cf_check subpage_mmio_accept(struct vcpu *v, unsigned long addr)
 +{
-+    switch ( size )
-+    {
-+    case 1:
-+        return readb(mem);
++    p2m_type_t t;
++    mfn_t mfn = get_gfn_query_unlocked(v->domain, addr, &t);
 +
-+    case 2:
-+        return readw(mem);
-+
-+    case 4:
-+        return readl(mem);
-+
-+#ifdef CONFIG_64BIT
-+    case 8:
-+        return readq(mem);
-+#endif
-+
-+    default:
-+        ASSERT_UNREACHABLE();
-+        return ~0UL;
-+    }
++    return !mfn_eq(mfn, INVALID_MFN) && t == p2m_mmio_direct &&
++           subpage_mmio_find_page(mfn);
 +}
 +
-+static inline void write_mmio(volatile void __iomem *mem, unsigned long data,
-+                              unsigned int size)
++static int cf_check subpage_mmio_read(
++    struct vcpu *v, unsigned long addr, unsigned int len, unsigned long *data)
 +{
-+    switch ( size )
++    struct domain *d = v->domain;
++    p2m_type_t t;
++    mfn_t mfn = get_gfn_query(d, addr, &t);
++    struct subpage_ro_range *entry;
++    volatile void __iomem *mem;
++
++    *data = ~0UL;
++
++    if ( mfn_eq(mfn, INVALID_MFN) || t != p2m_mmio_direct )
 +    {
-+    case 1:
-+        writeb(data, mem);
-+        break;
-+
-+    case 2:
-+        writew(data, mem);
-+        break;
-+
-+    case 4:
-+        writel(data, mem);
-+        break;
-+
-+#ifdef CONFIG_64BIT
-+    case 8:
-+        writeq(data, mem);
-+        break;
-+#endif
-+
-+    default:
-+        ASSERT_UNREACHABLE();
-+        break;
++        put_gfn(d, addr);
++        return X86EMUL_RETRY;
 +    }
++
++    entry = subpage_mmio_find_page(mfn);
++    if ( !entry )
++    {
++        put_gfn(d, addr);
++        return X86EMUL_OKAY;
++    }
++
++    mem = subpage_mmio_map_page(entry);
++    if ( !mem )
++    {
++        put_gfn(d, addr);
++        gprintk(XENLOG_ERR,
++                "Failed to map page for MMIO read at %#lx -> %#lx\n",
++                addr, mfn_to_maddr(mfn) + PAGE_OFFSET(addr));
++        return X86EMUL_OKAY;
++    }
++
++    *data = read_mmio(mem + PAGE_OFFSET(addr), len);
++
++    put_gfn(d, addr);
++    return X86EMUL_OKAY;
 +}
 +
-+#endif /* XEN_IO_H */
++static int cf_check subpage_mmio_write(
++    struct vcpu *v, unsigned long addr, unsigned int len, unsigned long data)
++{
++    struct domain *d = v->domain;
++    p2m_type_t t;
++    mfn_t mfn = get_gfn_query(d, addr, &t);
++
++    if ( mfn_eq(mfn, INVALID_MFN) || t != p2m_mmio_direct )
++    {
++        put_gfn(d, addr);
++        return X86EMUL_RETRY;
++    }
++
++    subpage_mmio_write_emulate(mfn, PAGE_OFFSET(addr), data, len);
++
++    put_gfn(d, addr);
++    return X86EMUL_OKAY;
++}
++
++void register_subpage_ro_handler(struct domain *d)
++{
++    static const struct hvm_mmio_ops subpage_mmio_ops = {
++        .check = subpage_mmio_accept,
++        .read = subpage_mmio_read,
++        .write = subpage_mmio_write,
++    };
++
++    register_mmio_handler(d, &subpage_mmio_ops);
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/arch/x86/include/asm/hvm/emulate.h b/xen/arch/x86/include/asm/hvm/emulate.h
+index c7a2d2a5be4e..178ac32e151f 100644
+--- a/xen/arch/x86/include/asm/hvm/emulate.h
++++ b/xen/arch/x86/include/asm/hvm/emulate.h
+@@ -86,7 +86,6 @@ void hvmemul_cancel(struct vcpu *v);
+ struct segment_register *hvmemul_get_seg_reg(
+     enum x86_segment seg,
+     struct hvm_emulate_ctxt *hvmemul_ctxt);
+-int hvm_emulate_one_mmio(unsigned long mfn, unsigned long gla);
+ 
+ static inline bool handle_mmio(void)
+ {
+diff --git a/xen/arch/x86/include/asm/hvm/io.h b/xen/arch/x86/include/asm/hvm/io.h
+index 565bad300d20..c12f099a037c 100644
+--- a/xen/arch/x86/include/asm/hvm/io.h
++++ b/xen/arch/x86/include/asm/hvm/io.h
+@@ -135,6 +135,9 @@ void destroy_vpci_mmcfg(struct domain *d);
+ /* Remove MMCFG regions from a domain ->iomem_caps. */
+ int vpci_mmcfg_deny_access(struct domain *d);
+ 
++/* r/o MMIO subpage access handler. */
++void register_subpage_ro_handler(struct domain *d);
++
+ #endif /* __ASM_X86_HVM_IO_H__ */
+ 
+ 
+diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
+index a1bc8cc27451..c2e9ef6e5023 100644
+--- a/xen/arch/x86/include/asm/mm.h
++++ b/xen/arch/x86/include/asm/mm.h
+@@ -554,6 +554,18 @@ int cf_check mmio_ro_emulated_write(
+     enum x86_segment seg, unsigned long offset, void *p_data,
+     unsigned int bytes, struct x86_emulate_ctxt *ctxt);
+ 
++/* r/o MMIO subpage access handlers. */
++struct subpage_ro_range {
++    struct list_head list;
++    mfn_t mfn;
++    void __iomem *mapped;
++    DECLARE_BITMAP(ro_elems, PAGE_SIZE / MMIO_RO_SUBPAGE_GRAN);
++};
++struct subpage_ro_range *subpage_mmio_find_page(mfn_t mfn);
++void __iomem *subpage_mmio_map_page(struct subpage_ro_range *entry);
++void subpage_mmio_write_emulate(
++    mfn_t mfn, unsigned int offset, unsigned long data, unsigned int len);
++
+ int audit_adjust_pgtables(struct domain *d, int dir, int noisy);
+ 
+ extern int pagefault_by_memadd(unsigned long addr, struct cpu_user_regs *regs);
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index 989e62e7ce6f..f59c7816fba5 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -157,13 +157,6 @@ struct rangeset *__read_mostly mmio_ro_ranges;
+ static uint32_t __ro_after_init base_disallow_mask;
+ 
+ /* Handling sub-page read-only MMIO regions */
+-struct subpage_ro_range {
+-    struct list_head list;
+-    mfn_t mfn;
+-    void __iomem *mapped;
+-    DECLARE_BITMAP(ro_elems, PAGE_SIZE / MMIO_RO_SUBPAGE_GRAN);
+-};
+-
+ static LIST_HEAD_RO_AFTER_INIT(subpage_ro_ranges);
+ static DEFINE_SPINLOCK(subpage_ro_lock);
+ 
+@@ -4929,7 +4922,7 @@ long arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+     return rc;
+ }
+ 
+-static struct subpage_ro_range *subpage_mmio_find_page(mfn_t mfn)
++struct subpage_ro_range *subpage_mmio_find_page(mfn_t mfn)
+ {
+     struct subpage_ro_range *entry;
+ 
+@@ -5074,7 +5067,7 @@ int __init subpage_mmio_ro_add(
+     return rc;
+ }
+ 
+-static void __iomem *subpage_mmio_map_page(
++void __iomem *subpage_mmio_map_page(
+     struct subpage_ro_range *entry)
+ {
+     void __iomem *mapped_page;
+@@ -5099,7 +5092,7 @@ static void __iomem *subpage_mmio_map_page(
+     return entry->mapped;
+ }
+ 
+-static void subpage_mmio_write_emulate(
++void subpage_mmio_write_emulate(
+     mfn_t mfn,
+     unsigned int offset,
+     unsigned long data,
+@@ -5133,30 +5126,6 @@ static void subpage_mmio_write_emulate(
+     write_mmio(addr + offset, data, len);
+ }
+ 
+-#ifdef CONFIG_HVM
+-bool subpage_mmio_write_accept(mfn_t mfn, unsigned long gla)
+-{
+-    unsigned int offset = PAGE_OFFSET(gla);
+-    const struct subpage_ro_range *entry;
+-
+-    entry = subpage_mmio_find_page(mfn);
+-    if ( !entry )
+-        return false;
+-
+-    if ( !test_bit(offset / MMIO_RO_SUBPAGE_GRAN, entry->ro_elems) )
+-    {
+-        /*
+-         * We don't know the write size at this point yet, so it could be
+-         * an unaligned write, but accept it here anyway and deal with it
+-         * later.
+-         */
+-        return true;
+-    }
+-
+-    return false;
+-}
+-#endif
+-
+ int cf_check mmio_ro_emulated_write(
+     enum x86_segment seg,
+     unsigned long offset,
 -- 
 2.48.1
 
