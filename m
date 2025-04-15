@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A85DA8A383
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 17:59:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.954220.1348535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D3B3A8A39C
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 18:04:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.954235.1348544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4igo-0003du-1x; Tue, 15 Apr 2025 15:59:10 +0000
+	id 1u4ilP-0006FI-LZ; Tue, 15 Apr 2025 16:03:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 954220.1348535; Tue, 15 Apr 2025 15:59:10 +0000
+Received: by outflank-mailman (output) from mailman id 954235.1348544; Tue, 15 Apr 2025 16:03:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4ign-0003b3-V7; Tue, 15 Apr 2025 15:59:09 +0000
-Received: by outflank-mailman (input) for mailman id 954220;
- Tue, 15 Apr 2025 15:59:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u4ilP-0006DC-It; Tue, 15 Apr 2025 16:03:55 +0000
+Received: by outflank-mailman (input) for mailman id 954235;
+ Tue, 15 Apr 2025 16:03:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ai1O=XB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u4ign-0003ax-Dt
- for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 15:59:09 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9052607a-1a12-11f0-9eae-5ba50f476ded;
- Tue, 15 Apr 2025 17:59:08 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-43690d4605dso45698565e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 08:59:08 -0700 (PDT)
+ id 1u4ilO-0006D6-6s
+ for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 16:03:54 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 37c4db56-1a13-11f0-9ffb-bf95429c2676;
+ Tue, 15 Apr 2025 18:03:49 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-39d83782ef6so4429950f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 09:03:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4404352a536sm17754635e9.1.2025.04.15.08.59.07
+ ffacd0b85a97d-39eae96c123sm15148995f8f.36.2025.04.15.09.03.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Apr 2025 08:59:07 -0700 (PDT)
+ Tue, 15 Apr 2025 09:03:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9052607a-1a12-11f0-9eae-5ba50f476ded
+X-Inumbo-ID: 37c4db56-1a13-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744732748; x=1745337548; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744733028; x=1745337828; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GzVYbEzQU8nRqKLFEPqZDDIRnDjKZ3QtN4ZRIJgoFM0=;
-        b=BfgSFrL3FYDFxAQ6l0eCF/VL8suAmhgRGyGeB55KJn7n2AJc/CaPvA6Rp7HN8ZTkqH
-         6X/OlSp7h0Myui4M9hbZEguPr1Adga6rLqhvkh41CbFj4I1+DrWAFy/0r78qJwbw7dln
-         o+ZuHvpzMlBOJUd/hXD436pviJpHCf2h/I5ILx0+M4mWXdJuNNtHxxP8p/72ML5UaOhg
-         7jcnSaP4xFaQuYNu5nzPgR9fLva2mk8HOzkAwvwIbmbSTKLe0NEkTzXYqLCEmsuFXgtP
-         v1b9Kn9LNcwv2BPHV7vVprTCuRLianmCyHTUchxT27HdbEWCLOfzYncbrRHUlZTsTrZa
-         eJiw==
+        bh=kxsIpmo9ZJVc7T2LzxyfgjDWKUnGEdYE20guLjNDjwQ=;
+        b=fm9HQeP2uvnE61HFATpDXe76I0ekkYj3oPJWSfvMV2VIc/A6O8SiSEkpGcFu3uXdd9
+         jipX9brnwtgVvDNceeRZpoNjOKbCXhUUZrR+BlS3pzwASpWROASTI91WXpsU/CLz+zME
+         LYnJ7Jr7j9mVo3SWa0IdVEU/tLdEKi3Hj3N1Ez4ka9bfu5YmvAEM4i+F7ISBZTU52U+o
+         3R2S9DF0Iw+975LQIkltpwIbbIZS1EDA12SfE0GkwZMnRSvG9ZSd41+w4Obum2cC5wU4
+         HDKq8VmD2i8TkSg8WoKCiLIm3wF/oeIWEMfe0WVtoKHSpZ7irRo0TUAxKHc8LQNL6kCF
+         aAOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744732748; x=1745337548;
+        d=1e100.net; s=20230601; t=1744733028; x=1745337828;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GzVYbEzQU8nRqKLFEPqZDDIRnDjKZ3QtN4ZRIJgoFM0=;
-        b=jjYoBH+lOIMPMk/TcVgT4VqDeUyY2RZoB9LkIY4UM4tXOxEjoH5WMaof2vf8LS16rH
-         TJotb7ywqI5XhwN49Jq7fXCY6RurHcyyhCQr9BU7Dw7rzJdRCsq0twLR/ovQgxnX1Zn2
-         Tepa0fQ2nmJUW5SPfVqcw9rhWdcvxeQ0RQ5VEsUzaUCHxji34D0cKqPG3r5AqmDhBwTa
-         LwW4PsGngnNUnW3V+1x4SQCpvo0BIs8Cu7b4mIKqAcBIDhmb9KsHuQ6/mLBtsUBK5UgN
-         4NgAf7CcF2IDg02qUPRT/d6nfymVyRCyp6t8V68cDOc8JZw257u7wBxZEAG/B/a4Bae3
-         l0Fg==
-X-Forwarded-Encrypted: i=1; AJvYcCXrpid3rY+scgVwOO+uxU3Gw98uYrCM//4SAthw9sy5WdebojExRxzAp0DUYOvVpa0TOaJzw9K+g1k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzOPN0J0n/qUU08nij6MJt1afXPgE4mqLflFZNmIjxtzuMsgkOp
-	t1zjWWxd/wP2Oexkc9vSHjPBtgchTC+vG8jGq+qBy4g+gkn3HtReEJEWRQuJVg==
-X-Gm-Gg: ASbGncvydE4eutlFiOvEcpxcwRJI18pqxrR3zwe9U60bLGT62KCALPQ0FVn5h6Hn7tl
-	vFuYYJpOlMCZEh33GPrzVnbI6jpVo7cyWtreyMU4dUHfXa0aRyG7bmtX1eCPGR61Q45NxrpQJhw
-	OjvG5ERmaWI46lcByqxbMazV4Q9WwrCmIGtKZjxG5IFtDw40Ju4iZqU0XQrPejZIXv0tpPooaiJ
-	bbxD3UHARsH6qMRekoq7fTrOeslmtv731g/B+YOdhCu+T3D4cKDaHsRWEQ4iPyOLyiwKXvUW/tL
-	Kyi6IsPEQFq0XQzaKJ3EeI1Ri1/i3nBasbq8hLE4C+xC4/iOuc5RxQjV60Jada7TIRXoB9Pl07E
-	Jh9CRJ0mYpYVaW9bdhBFxiF4ITw==
-X-Google-Smtp-Source: AGHT+IHxGakBHJ2xoeBl9k4MvubIfjVAFIdHmQGRBF6ec+T95X1za+Dt7VxYKweCoFzLvTxBf41W+w==
-X-Received: by 2002:a05:600c:4e09:b0:43d:45a:8fca with SMTP id 5b1f17b1804b1-43f3a9b035fmr183593425e9.30.1744732747733;
-        Tue, 15 Apr 2025 08:59:07 -0700 (PDT)
-Message-ID: <bcffc56a-5518-4bcc-9124-d49a98ae727a@suse.com>
-Date: Tue, 15 Apr 2025 17:59:06 +0200
+        bh=kxsIpmo9ZJVc7T2LzxyfgjDWKUnGEdYE20guLjNDjwQ=;
+        b=vrzrGGfXcYUBpzBqAXfGvYergnX2vSItZxJqHN3RHG9mD2vo3WoX0nRdeZFMWP2U7d
+         03zYrDSpm8fsiH0lUGMZWIxNxUAEPbbmDpg2q4u9nMw4vBbTYQG+cMStiT2TRIVgkoNf
+         aHrLuD8QiGEO7uP0t2VbyYO1jej+y4JgBYMjTr4n6ke9OlzttUKmUUtSTvL17P8WZ7y9
+         kFykh7SquBd79ykJ0e6MmkJMOREt6d6xN6oz3yOiLFmz/KONXUv+OfcrPuSfovds/yce
+         AjEf7vq7+mTjS9aw9iYNNsuCazySNX1JZnichNuHXwpg65B0uy/t/tOdAhUo9nmBAkZB
+         oOVQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWfFwwrkHH/7YYi/SJhAuAnMnr5qXhsKPmO4WJhdbHrLp2g8kHBQQouKUcVTtwEW9LxP/zFgOsZKDw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxWdYUCHu9Puxuf0i4ZtLoQ+l9qd9eEClDolVfv2kBHJgf9STFw
+	eyX/NUdCkMkqg9guL0Suu1wZ5DRDs5C+f5k/pizZzVXKEpuB+BlPrsOQeYeb6g==
+X-Gm-Gg: ASbGncvUiFGbAj/mznjce1h2FJmWey3KilA9vU1hftWrg9bXM8q4qJwuZZ9ndzq9zIh
+	YaQV+846/Rxxfvr1uHBGH5vopuTPaqjXauYys/6GXOZMACWt1IWc+COkhtyf5akT3LdAFZI69zX
+	GIIR3LM360XJpos6FAwIB+U+4u5UnAdW94hqbewLDT+0nZJUKLHc49imNzGM1f3se1PcWrBeFfL
+	RId3TcwOMvBFmOUkB4Z19hOkYK9WEzvhqv7y0uXkoMFW59xTGtnPqxU5pGvCgmZZJ7OBsyn1cwX
+	b7BucUSbO697uMbguvfsORohTxBPMGM0dktyIFzEbmunxZB0pXqzzsTQO852pj0xZoLp7x07ujk
+	9AKR+NytIOZiubSmuEL5vCm1FZQ==
+X-Google-Smtp-Source: AGHT+IHBMNU0gIljQQ/2NY4lh1tbSBWYpzAx3gOkXf1rT/7oc19yNvW+DW2Tfoyijq1j595Dx5mtAQ==
+X-Received: by 2002:a05:6000:1ace:b0:39b:32fc:c025 with SMTP id ffacd0b85a97d-39edc2fe0acmr3407864f8f.2.1744733028517;
+        Tue, 15 Apr 2025 09:03:48 -0700 (PDT)
+Message-ID: <49889d22-55b6-4dd4-b497-13b50d19d607@suse.com>
+Date: Tue, 15 Apr 2025 18:03:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 13/14] xen/riscv: initialize interrupt controller
+Subject: Re: [PATCH v1 14/14] xen/riscv: add basic UART support
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -97,7 +97,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <cb730a1293f14dd7fd58f98f5ecda4e2523b2d90.1744126720.git.oleksii.kurochko@gmail.com>
+ <3e96851da8751ac17cbf0cb5a649c0d86259460a.1744126720.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,32 +123,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cb730a1293f14dd7fd58f98f5ecda4e2523b2d90.1744126720.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <3e96851da8751ac17cbf0cb5a649c0d86259460a.1744126720.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 08.04.2025 17:57, Oleksii Kurochko wrote:
-> Call intc_init() to do basic initialization steps for APLIC and IMISC.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
-yet ...
-
 > --- a/xen/arch/riscv/setup.c
 > +++ b/xen/arch/riscv/setup.c
-> @@ -136,6 +136,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
->  
->      intc_preinit();
->  
-> +    intc_init();
-> +
->      printk("All set up\n");
->  
->      machine_halt();
+> @@ -4,11 +4,16 @@
+>  #include <xen/bug.h>
+>  #include <xen/bootfdt.h>
+>  #include <xen/compile.h>
+> +#include <xen/console.h>
+>  #include <xen/device_tree.h>
+>  #include <xen/init.h>
+>  #include <xen/irq.h>
+> +#include <xen/keyhandler.h>
 
-... this being everything here I wonder if this can't be folded with the
-patch where the function is introduced.
+Why's this one needed?
+
+>  #include <xen/mm.h>
+> +#include <xen/percpu.h>
+> +#include <xen/serial.h>
+>  #include <xen/shutdown.h>
+> +#include <xen/timer.h>
+>  #include <xen/vmap.h>
+>  #include <xen/xvmalloc.h>
+>  
+> @@ -73,6 +78,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>  
+>      remove_identity_mapping();
+>  
+> +    percpu_init_areas();
+
+I'll trust you that it's needed now, but the addition looks unrelated here,
+and also isn't mentioned as intentional in the description.
+
+> --- a/xen/drivers/char/Kconfig
+> +++ b/xen/drivers/char/Kconfig
+> @@ -3,7 +3,6 @@ config GENERIC_UART_INIT
+>  
+>  config HAS_NS16550
+>  	bool "NS16550 UART driver" if ARM
+> -	default n if RISCV
+>  	default y
+
+Just to double-check: Unlike Arm you don't want this to be user-(un)selectable
+on RISC-V?
 
 Jan
 
