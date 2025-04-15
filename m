@@ -2,40 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01F98A89460
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 09:01:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.952106.1347656 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD9CDA8946C
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 09:05:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.952120.1347666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4aIe-0005eS-33; Tue, 15 Apr 2025 07:01:40 +0000
+	id 1u4aM8-0006tk-Hn; Tue, 15 Apr 2025 07:05:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 952106.1347656; Tue, 15 Apr 2025 07:01:40 +0000
+Received: by outflank-mailman (output) from mailman id 952120.1347666; Tue, 15 Apr 2025 07:05:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4aIe-0005bN-07; Tue, 15 Apr 2025 07:01:40 +0000
-Received: by outflank-mailman (input) for mailman id 952106;
- Tue, 15 Apr 2025 07:01:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ubua=XB=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1u4aIc-0005XY-S1
- for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 07:01:38 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on20605.outbound.protection.outlook.com
- [2a01:111:f403:2606::605])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7662acb9-19c7-11f0-9ffb-bf95429c2676;
- Tue, 15 Apr 2025 09:01:33 +0200 (CEST)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by DU0PR03MB9397.eurprd03.prod.outlook.com (2603:10a6:10:418::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.32; Tue, 15 Apr
- 2025 07:01:30 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8632.030; Tue, 15 Apr 2025
- 07:01:29 +0000
+	id 1u4aM8-0006rf-E9; Tue, 15 Apr 2025 07:05:16 +0000
+Received: by outflank-mailman (input) for mailman id 952120;
+ Tue, 15 Apr 2025 07:05:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Xs7D=XB=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1u4aM5-0006rY-CD
+ for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 07:05:14 +0000
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f8d080ba-19c7-11f0-9eae-5ba50f476ded;
+ Tue, 15 Apr 2025 09:05:11 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,211 +36,395 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7662acb9-19c7-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qFuYu+mJ3TNgxWIPAu1pgtw4VyVNQSKm7IvOIdRc3o9Tt3Y6quHV3ZswYoWUUPOiR9gkBJZAyep8Cs2qBHZFiOaPrqEhenAxFX2JhOzop+6kkltYG5gEIY+VAfPx9nEBn/A+1fddf86n5Sv+bhIMnizeSmynjQAirk5eyFug9dSAWbpHLBYP80Z98BR4Kiu+k/IYWw+osTC3JJ3RbKKukfd12tJ9b7fmVRMYqmvNtdB4fqQyVOfVMd9sZOPmAsi4doy+XRMQMhhENPjR5kHhahrea+Zi9Xeo+LB3vW33sANSTULqxtKwA0SMsMq28VsnXL+KP+PLIvJhMctpqw0jew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ed65JedvtLixGMrjW7VTHPtzpGPSaax4H5aGaB13iL8=;
- b=DHFDAikZ1TREnnO+SgGkYdTxrfPds6hluL0qtpV6Av+ZqKdprEWh5JIeGqh5+pR4vsopP9Ia8yAJq+c5EeiR2AsGYQnaXkMemlV+/I1B4YlVCC9hoVXb3ZGY67HFVoI45vLR/bkJf20Pd55MdEOTes0JhU0bjj7PbHb1z4XQFKFJ9oNpOBMEGzD2A4JX+bMcdnVGQEnT0EvCA7C4DrTms465KI7/MtdME04PkfYAmTmOpV/5cuhcvogKroyNOrBoQl3k+NhOxgbHDdcKCvevNFv+RcrWCsLx6SN1oHdGDLMcSA5b4Yxuz0Y2ujhhWjYwJ+RwbLEUKTSLof/sr4Ijtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ed65JedvtLixGMrjW7VTHPtzpGPSaax4H5aGaB13iL8=;
- b=eLFwanCq82qhMOtpmCltIvq0xTvedAmEIVosBwGtKb21WLny7xKPpo9pxGjoc2jBjhB4Y4eFVj6YrFEeD+XT5NJcBUapLQ7I/LH1UNkxSnv710kL9nxfOuf/xQaPR7aCGlR45zjghQtAktlWd3cMWPPCHXf7DRzarRf+Q8s9v3N5P9dC72lGMP1jforaQDzI8V0faxd4ZPv3+mxfSs3PdCH+7B+GFRpw381Y7uoBtcVBLnIeOtiF52g3ObS5oYP1iA3b+qoMsau54goILcMfhc5sK0/feqtTMsPtlj6psVs1ZwQFoC2UaVS/yTPkZJL/AYtOqrPwV4DuOXzo5/QNEQ==
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>
-CC: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Alejandro Vallejo
-	<agarciav@amd.com>, Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: [ImageBuilder v2] uboot-script-gen: add xen xsm policy loading
- support
-Thread-Topic: [ImageBuilder v2] uboot-script-gen: add xen xsm policy loading
- support
-Thread-Index: AQHbrdQ23X0WxR72F0K7gBcSDAVLlQ==
-Date: Tue, 15 Apr 2025 07:01:29 +0000
-Message-ID: <20250415070128.1938253-1-grygorii_strashko@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS2PR03MB8907:EE_|DU0PR03MB9397:EE_
-x-ms-office365-filtering-correlation-id: 62cc0094-2b32-4269-bb2a-08dd7beb58c6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?d1Et/N3d6paRx4ppl0asyM/l2FLyb3TF5f9X5DTb1HYHXY2zmCydm1f6Fn?=
- =?iso-8859-1?Q?kaHTnCz8poJu+oKn2/CtNyN122uVnXyv2T7M+Pp52WlTP83xJWRGbqBs82?=
- =?iso-8859-1?Q?z8YLLVylGwKj6gJPNGnyUoRKTRaYXm4nN5SWceD1A4UFMrGTsZJj9tBHQ+?=
- =?iso-8859-1?Q?/6sTYmvsZRtzeyWl/XdPTj397I8O077IKxevzHYZU9nOLBXT1SlXOQECfb?=
- =?iso-8859-1?Q?jHaukfKyLF1+GsUUd8A9nIj89xMVVF9ofeOm3fhf211ZOSPPthrWKwfec4?=
- =?iso-8859-1?Q?E2AO7mXdz4W9ifqZ5RPgeg/2FunF9QKdTk8/eAiTGS9fOerWID2QhWGL9Y?=
- =?iso-8859-1?Q?faZCrFAVzjeHM65S6YvrIVcqY+Jpekdu5X+eQ9Z/RjCW0HCT6m3wimUvtv?=
- =?iso-8859-1?Q?xGPhEAgqSjye3/70zP/aJyV61/XEo+p01MI3SeGEcCSso5NVcpogctMvbQ?=
- =?iso-8859-1?Q?+pz6OvPoBWNNGlt79BQJvCrX0xEkrk71+GS6HJX3TqNlFI2gdZdX7djFNi?=
- =?iso-8859-1?Q?0e6UZ5rD/vxO9PKzniG/nrfhtJqfvZWcc6x79gD4kILUESQKi6FPiLSYjv?=
- =?iso-8859-1?Q?HnOclgr4grkOPPaQobZdkRsgwFYX4cW9nAmYzL+bcVYMX1U2gfWC6mvIvv?=
- =?iso-8859-1?Q?4568MDiPM4Z2EVcEkvvhWWhDG9MDPQQr7NJzBAnrmcEP8DeeF7WTIAHXMu?=
- =?iso-8859-1?Q?A8yX9yjMhEA3NOdYp47kenb5QzhDhz9mkffqMyyHNiZEbf4xAOn0bGtezJ?=
- =?iso-8859-1?Q?7eKH6fIS9GfVW6jNPaOYzaP25zyhFtwo3dYe/ZRB/w0+ST0ZQz22mSYO9W?=
- =?iso-8859-1?Q?V2eRbTXZCtguLpjYFxj+/xIKt8cpcKPjCcWVgC4nG/wUTetskGucpIe+dB?=
- =?iso-8859-1?Q?cZQmYY6fAQvNzVmjmLo5CBSfIf3IxT0QhvA1oDksBg/6v3HlDCU+lecDXg?=
- =?iso-8859-1?Q?UsnBhkXDjjEfnSyz7bh3CU1/UhEJj2ERaEHTW+27pbnvQkUV2RHb9RKT1L?=
- =?iso-8859-1?Q?bZLqJM4BXWcckLI4L+wto0OXUOM+N7C3L2zLWpCD+Qk1wLMq+SXh9xDicQ?=
- =?iso-8859-1?Q?az5FGy0OcXcgnUKvB8QJnoUR1fT+UTlxwio5O13KZWfUv/PEMfp4oLDANd?=
- =?iso-8859-1?Q?iF9hpBo+uP40VsWVcrFGZQRnNC9AkQKpdMPLGEHUkx0Gius1MagvSnVOvr?=
- =?iso-8859-1?Q?hRLly1IZVWdopvhnWO7Sb5OqvMXBs1rXL5UNwgaqCRnsULclOjWWkLEhX6?=
- =?iso-8859-1?Q?+BEyewRT8uoDUAIe4L2xL07vDrcHboAjUQV97k7CoW6meGYYWlZS3SJ7Vw?=
- =?iso-8859-1?Q?3sHzM6e/4P/0TiaPf+XbT61+sVm0Lw+7zx7TH7ynxVKZIXEDkt/FYLE6Gh?=
- =?iso-8859-1?Q?l+1z7UO9rS4vGwyXPcmSd4Vmyb2RpwzCHiARBP2fKvSegVEiO8l/bdE5mk?=
- =?iso-8859-1?Q?GgjPVjLaPIFzXVfzYq6I+u/FJVKkzD7Giqlvp1o8KqnG/RqeHw6dx93HGe?=
- =?iso-8859-1?Q?LtG3SZ1jNQxn+EWKCTW4JMPbVpr9/IRRzeRfZFrBqoww=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?ltJctMfObRdkSzBynK76gqpMex0P8be+corhUYMqDTAcRqxURQSashTyer?=
- =?iso-8859-1?Q?FNyTc3+1sGLr4IbSgy3E7pfjJQ+oDl+CzZQY01R71RUwld22avGRB9RIpo?=
- =?iso-8859-1?Q?5C5sUEEdZywNUPLbRg2ubCdAEN7JKfcYHkWwTlqGCI517eVUg5XbuAywUK?=
- =?iso-8859-1?Q?Rm1dE+AREZtS54LDEtxu3Vt0h4vRbqXc5pUHom6VkrEk98jVTajN1r6lRg?=
- =?iso-8859-1?Q?TlhVh+Y/z0Qy+ttosYzxYVKSuMJGaVP4i0vRNRdIBkHE7aGFGgFRjedqT1?=
- =?iso-8859-1?Q?Q4Auo2aHQcEY5xSsgiW+zxaqleozvQxg7hMGg8vRM4HIOmfrNy/zzM6RdI?=
- =?iso-8859-1?Q?GoCATv1c0MVdKiq+4SQmQ28RfsJ92gfST2iU521yW7O/fKse523AJzcLGQ?=
- =?iso-8859-1?Q?+i2M70S7KUZgcvLiQHYR1pL9cvPoZNl2RH/UoInFo2EWI+LsW5OWSuui9N?=
- =?iso-8859-1?Q?tpJRuiKayeCfGfIAJmbHqwvDvIlyftiQItjVSpm3qQvcI9Nz3wpUmW83i4?=
- =?iso-8859-1?Q?GL/0yF+cH1DPHCDnV5K5mqT333YLHSCaECIHvWrwhXYIcWwKGBLet9++b/?=
- =?iso-8859-1?Q?4YetdA1e3lSPJ4Us2218tEHrRi1oPNmJjwI9PRJIkUdKPvtjabDtHVYZv1?=
- =?iso-8859-1?Q?HEPTc2NLDx7Txt/FNejyIjNsriAEHXCREZZmCk41H3qAQjcyIriuBOD95/?=
- =?iso-8859-1?Q?Xy+4cJIUYDs+m41azCYqumRU33Kavlp7bCw+dL526W0s6wvvMXOudl4m0R?=
- =?iso-8859-1?Q?uam0Xc4I2AwdhbzWcjmdPiA1EQklDm9aT912HFcRt4Az1nUGuSdvlA1ul3?=
- =?iso-8859-1?Q?3bRT0L8SQRjqY+XllXyfS2lUzUxYfe4yLW/XmRrlGbJpXCwi+FEQsTKUKL?=
- =?iso-8859-1?Q?xKxfTAPqm4MKuvlMwPwomWlwkJySbbv85Exv+fdwZjsDK0yhuTDz+OZo1a?=
- =?iso-8859-1?Q?DLAiVuer0xUYtxheEL+Ylo9/tD5UE5Vt7tYhuOdJXGEGcv1a1vwvhz9fKC?=
- =?iso-8859-1?Q?HSSVZyZvBqBud/1fE9p5OS0mfETiJY8ubO+guzSM43ydMNhbRrsdsCHfH2?=
- =?iso-8859-1?Q?Nyw5wK/CDGKX+ZM+wo46+fCmBgpo1FvqnoJkAtifwLnJl5Qg5b+cvNs0zX?=
- =?iso-8859-1?Q?sgTTXTRdnj+KAEFVzYJ4SkRsAlIxNiEf1gGp1ihgyi8Mz99xjec6ANI5EH?=
- =?iso-8859-1?Q?DegLQDUeYc1s/9NTzmJkdWgXkJs9MEQjO0KQYvaUbBPgLtjvBMC+HZ5iZz?=
- =?iso-8859-1?Q?wcJakD63YqrEozru7DpmEbuSIXvwONs6CYiP87WYOd8FP5jK9Fb5hIlqqQ?=
- =?iso-8859-1?Q?mbI+h7W+RhmSHAnqC47FmAwAuD2Xd24vJmR8f3uu7isU8xgghHAeKo1+C8?=
- =?iso-8859-1?Q?BG7FB/RT8Bbcn9/zkBR8jMmX8J8HqB0vWysKo9eRhqqb3Rwr/MUo7ScEog?=
- =?iso-8859-1?Q?SYQvAuOYo/8nPq5EY6K9dqr57wpR75t5A1i0kIUDPq1c6YLhWt2o84eWF5?=
- =?iso-8859-1?Q?PDfPZUajVF7PTgdCYGtNtlCwdsQVO0lSP2zx79wMS069Ed/BHoYRmSzbTA?=
- =?iso-8859-1?Q?Kz3QL63KKsje0EuECRd+avlx6yFnHQMB88o6DcJX7eV8xd1BK5NNPdTRYK?=
- =?iso-8859-1?Q?FCtQwNt3tPn0PK3K90qj6r2e2RlOcJcnfMj1bOB0Zt0sPF6tbHLc2oxQ?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: f8d080ba-19c7-11f0-9eae-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1744700710; x=1744959910;
+	bh=vUMWoyIye/a6gsm/yX2JyP9ot09HNMrcEvx2SGShXek=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=RrQV6eMqao4+5+kFh6VlLNbWI8G4jr+UYIk96MTkYk/6ViJ3f2VUnSkAoEeCQiJNX
+	 xx6/+ygL9UNjB1L+I8smPehfA/FUdY4rVdsA2miWyNnKKB1pKsJsyTqVffS1N5spVC
+	 QrkuvVeLFAzu0mi8wj9trpzUBv6fReIn0f9MGi6TtaMOdEZbFZAF79mx2WAVBPUDTp
+	 vISO003x9E3q/dn0zgkrXIQIQi8MKzrfj97wpydHxzwEEEKLwZ3cQkJiGAMyjj2Duo
+	 iO8GinVHp3HeAn6CIzK8weev7qA6q/R699kshxtaUC+kEAnKG3AaVNpufQ7ITcU4SV
+	 p8n64wGp3Sp7g==
+Date: Tue, 15 Apr 2025 07:05:07 +0000
+To: Andrii Sultanov <sultanovandriy@gmail.com>
+From: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v4 3/3] drivers: Make ioapic_sbdf and hpet_sbdf contain pci_sbdf_t
+Message-ID: <Z/4FH68RJtMp34qU@starscream>
+In-Reply-To: <af7536c3234bc7a9d048b4cb1d45f084b4343bdb.1744657012.git.andriy.sultanov@vates.tech>
+References: <cover.1744657012.git.andriy.sultanov@vates.tech> <af7536c3234bc7a9d048b4cb1d45f084b4343bdb.1744657012.git.andriy.sultanov@vates.tech>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 8b9c3038f4a2b704db04344a9fe36331e1650b18
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62cc0094-2b32-4269-bb2a-08dd7beb58c6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Apr 2025 07:01:29.3279
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: teOZMG27cE4PWvZeNXqnF3bvWkhlDXcsnQUjyZ64nEI4xmeGHxHLhN/XfqtFFheJGF9eh+O7cfacMXqvv5J8mhr/gxUtWIB3oqXv4sWkxxY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB9397
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Grygorii Strashko <grygorii_strashko@epam.com>
+On Mon, Apr 14, 2025 at 08:19:18PM +0100, Andrii Sultanov wrote:
+> From: Andrii Sultanov <sultanovandriy@gmail.com>
+>=20
+> Following a similar change to amd_iommu struct, make two more structs
+> take pci_sbdf_t directly instead of seg and bdf separately. This lets us
+> drop several conversions from the latter to the former and simplifies
+> several comparisons and assignments.
+>=20
+> Bloat-o-meter reports:
+> add/remove: 0/0 grow/shrink: 1/10 up/down: 256/-320 (-64)
+> Function                                     old     new   delta
+> _einittext                                 22092   22348    +256
+> parse_ivrs_hpet                              248     245      -3
+> amd_iommu_detect_one_acpi                    876     868      -8
+> iov_supports_xt                              275     264     -11
+> amd_iommu_read_ioapic_from_ire               344     332     -12
+> amd_setup_hpet_msi                           237     224     -13
+> amd_iommu_ioapic_update_ire                  575     555     -20
+> reserve_unity_map_for_device                 453     424     -29
+> _hvm_dpci_msi_eoi                            160     128     -32
+> amd_iommu_get_supported_ivhd_type             86      30     -56
+> parse_ivrs_table                            3966    3830    -136
+>=20
+> Signed-off-by: Andrii Sultanov <sultanovandriy@gmail.com>
+>=20
+> ---
+> Changes in V4:
+> * Folded several separate seg+bdf comparisons and assignments into one
+>   with sbdf_t
+> * With reshuffling in the prior commits, this commit is no longer
+>   neutral in terms of code size
+>=20
+> Changes in V3:
+> * Dropped aliasing of seg and bdf, renamed users.
+>=20
+> Changes in V2:
+> * Split single commit into several patches
+> * Change the format specifier to %pp in amd_iommu_ioapic_update_ire
+> ---
+>  xen/drivers/passthrough/amd/iommu.h      |  5 +--
+>  xen/drivers/passthrough/amd/iommu_acpi.c | 30 +++++++---------
+>  xen/drivers/passthrough/amd/iommu_intr.c | 44 +++++++++++-------------
+>  3 files changed, 37 insertions(+), 42 deletions(-)
+>=20
+> diff --git a/xen/drivers/passthrough/amd/iommu.h b/xen/drivers/passthroug=
+h/amd/iommu.h
+> index 2599800e6a..52f748310b 100644
+> --- a/xen/drivers/passthrough/amd/iommu.h
+> +++ b/xen/drivers/passthrough/amd/iommu.h
+> @@ -262,7 +262,7 @@ int cf_check amd_setup_hpet_msi(struct msi_desc *msi_=
+desc);
+>  void cf_check amd_iommu_dump_intremap_tables(unsigned char key);
+>=20
+>  extern struct ioapic_sbdf {
+> -    u16 bdf, seg;
+> +    pci_sbdf_t sbdf;
+>      u8 id;
+>      bool cmdline;
+>      u16 *pin_2_idx;
+> @@ -273,7 +273,8 @@ unsigned int ioapic_id_to_index(unsigned int apic_id)=
+;
+>  unsigned int get_next_ioapic_sbdf_index(void);
+>=20
+>  extern struct hpet_sbdf {
+> -    u16 bdf, seg, id;
+> +    pci_sbdf_t sbdf;
+> +    uint16_t id;
+>      enum {
+>          HPET_NONE,
+>          HPET_CMDL,
+> diff --git a/xen/drivers/passthrough/amd/iommu_acpi.c b/xen/drivers/passt=
+hrough/amd/iommu_acpi.c
+> index 9e4fbee953..14845766e6 100644
+> --- a/xen/drivers/passthrough/amd/iommu_acpi.c
+> +++ b/xen/drivers/passthrough/amd/iommu_acpi.c
+> @@ -707,8 +707,7 @@ static int __init cf_check parse_ivrs_ioapic(const ch=
+ar *str)
+>          }
+>      }
+>=20
+> -    ioapic_sbdf[idx].bdf =3D PCI_BDF(bus, dev, func);
+> -    ioapic_sbdf[idx].seg =3D seg;
+> +    ioapic_sbdf[idx].sbdf =3D PCI_SBDF( seg, PCI_BDF(bus, dev, func) );
 
-This patch adds Xen XSM policy loading support.
+PCI_SBDF() is a variadic macro, so, IMO, the line above can be simplified a=
+s:
 
-The configuration file XEN_POLICY specifies Xen hypervisor
-XSM policy binary to load.
+       ioapic_sbdf[idx].sbdf =3D PCI_SBDF( seg, bus, dev, func );
 
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
----
-changes in v2:
-- fix conditional statements for XEN_POLICY
-- add XSM policy binary check
+Ex: pdev_type() in xen/drivers/passthrough/pci.c
 
- README.md                |  2 ++
- scripts/uboot-script-gen | 34 ++++++++++++++++++++++++++++++++++
- 2 files changed, 36 insertions(+)
+Can you please double check in the modified code?
 
-diff --git a/README.md b/README.md
-index 137abef153ce..9106d2a07302 100644
---- a/README.md
-+++ b/README.md
-@@ -91,6 +91,8 @@ Where:
- - XEN specifies the Xen hypervisor binary to load. Note that it has to
-   be a regular Xen binary, not a u-boot binary.
-=20
-+- XEN_POLICY specifies the Xen hypervisor XSM policy binary to load.
-+
- - XEN_COLORS specifies the colors (cache coloring) to be used for Xen
-   and is in the format startcolor-endcolor
-=20
-diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index c4d26caf5e0e..208eafdecfeb 100755
---- a/scripts/uboot-script-gen
-+++ b/scripts/uboot-script-gen
-@@ -315,6 +315,15 @@ function xen_device_tree_editing()
-     dt_set "/chosen" "#size-cells" "hex" "0x2"
-     dt_set "/chosen" "xen,xen-bootargs" "str" "$XEN_CMD"
-=20
-+    if test -n "$XEN_POLICY" && test "$xen_policy_addr" !=3D "-"
-+    then
-+        local node_name=3D"xen-policy@${xen_policy_addr#0x}"
-+
-+        dt_mknode "/chosen" "$node_name"
-+        dt_set "/chosen/$node_name" "compatible" "str_a" "xen,xsm-policy x=
-en,multiboot-module multiboot,module"
-+        dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $xen_po=
-licy_addr $xen_policy_size)"
-+    fi
-+
-     if test "$DOM0_KERNEL"
-     then
-         local node_name=3D"dom0@${dom0_kernel_addr#0x}"
-@@ -900,6 +909,15 @@ xen_file_loading()
-     kernel_addr=3D$memaddr
-     kernel_path=3D$XEN
-     load_file "$XEN" "host_kernel"
-+
-+    xen_policy_addr=3D"-"
-+    if test -n "$XEN_POLICY"
-+    then
-+        check_file_type "${XEN_POLICY}" "SE Linux policy"
-+        xen_policy_addr=3D$memaddr
-+        load_file "$XEN_POLICY" "xen_policy"
-+        xen_policy_size=3D$filesize
-+    fi
- }
-=20
- linux_file_loading()
-@@ -939,6 +957,22 @@ bitstream_load_and_config()
-=20
- create_its_file_xen()
- {
-+    if test -n "$XEN_POLICY" && test "$xen_policy_addr" !=3D "-"
-+    then
-+        cat >> "$its_file" <<- EOF
-+        xen_policy {
-+            description =3D "Xen XSM policy binary";
-+            data =3D /incbin/("$XEN_POLICY");
-+            type =3D "kernel";
-+            arch =3D "arm64";
-+            os =3D "linux";
-+            compression =3D "none";
-+            load =3D <$xen_policy_addr>;
-+            $fit_algo
-+        };
-+	EOF
-+    fi
-+
-     if test "$DOM0_KERNEL"
-     then
-         if test "$ramdisk_addr" !=3D "-"
---=20
-2.34.1
+>      ioapic_sbdf[idx].id =3D id;
+>      ioapic_sbdf[idx].cmdline =3D true;
+>=20
+> @@ -734,8 +733,7 @@ static int __init cf_check parse_ivrs_hpet(const char=
+ *str)
+>          return -EINVAL;
+>=20
+>      hpet_sbdf.id =3D id;
+> -    hpet_sbdf.bdf =3D PCI_BDF(bus, dev, func);
+> -    hpet_sbdf.seg =3D seg;
+> +    hpet_sbdf.sbdf =3D PCI_SBDF( seg, PCI_BDF(bus, dev, func) );
+
+                        ^^
+                        e.g. here it can be simplified too.
+
+>      hpet_sbdf.init =3D HPET_CMDL;
+>=20
+>      return 0;
+> @@ -748,6 +746,7 @@ static u16 __init parse_ivhd_device_special(
+>  {
+>      u16 dev_length, bdf;
+>      unsigned int apic, idx;
+> +    pci_sbdf_t sbdf;
+>=20
+>      dev_length =3D sizeof(*special);
+>      if ( header_length < (block_length + dev_length) )
+> @@ -757,6 +756,7 @@ static u16 __init parse_ivhd_device_special(
+>      }
+>=20
+>      bdf =3D special->used_id;
+> +    sbdf =3D PCI_SBDF(seg, bdf);
+>      if ( bdf >=3D ivrs_bdf_entries )
+>      {
+>          AMD_IOMMU_ERROR("IVHD: invalid Device_Entry Dev_Id %#x\n", bdf);
+> @@ -764,7 +764,7 @@ static u16 __init parse_ivhd_device_special(
+>      }
+>=20
+>      AMD_IOMMU_DEBUG("IVHD Special: %pp variety %#x handle %#x\n",
+> -                    &PCI_SBDF(seg, bdf), special->variety, special->hand=
+le);
+> +                    &sbdf, special->variety, special->handle);
+>      add_ivrs_mapping_entry(bdf, bdf, special->header.data_setting, 0, tr=
+ue,
+>                             iommu);
+>=20
+> @@ -780,8 +780,7 @@ static u16 __init parse_ivhd_device_special(
+>           */
+>          for ( idx =3D 0; idx < nr_ioapic_sbdf; idx++ )
+>          {
+> -            if ( ioapic_sbdf[idx].bdf =3D=3D bdf &&
+> -                 ioapic_sbdf[idx].seg =3D=3D seg &&
+> +            if ( ioapic_sbdf[idx].sbdf.sbdf =3D=3D sbdf.sbdf &&
+>                   ioapic_sbdf[idx].cmdline )
+>                  break;
+>          }
+> @@ -790,7 +789,7 @@ static u16 __init parse_ivhd_device_special(
+>              AMD_IOMMU_DEBUG("IVHD: Command line override present for IO-=
+APIC %#x"
+>                              "(IVRS: %#x devID %pp)\n",
+>                              ioapic_sbdf[idx].id, special->handle,
+> -                            &PCI_SBDF(seg, bdf));
+> +                            &sbdf);
+>              break;
+>          }
+>=20
+> @@ -805,8 +804,7 @@ static u16 __init parse_ivhd_device_special(
+>                                  special->handle);
+>              else if ( idx !=3D MAX_IO_APICS && ioapic_sbdf[idx].pin_2_id=
+x )
+>              {
+> -                if ( ioapic_sbdf[idx].bdf =3D=3D bdf &&
+> -                     ioapic_sbdf[idx].seg =3D=3D seg )
+> +                if ( ioapic_sbdf[idx].sbdf.sbdf =3D=3D sbdf.sbdf )
+>                      AMD_IOMMU_WARN("IVHD: duplicate IO-APIC %#x entries\=
+n",
+>                                      special->handle);
+>                  else
+> @@ -827,8 +825,7 @@ static u16 __init parse_ivhd_device_special(
+>                  }
+>=20
+>                  /* set device id of ioapic */
+> -                ioapic_sbdf[idx].bdf =3D bdf;
+> -                ioapic_sbdf[idx].seg =3D seg;
+> +                ioapic_sbdf[idx].sbdf =3D sbdf;
+>                  ioapic_sbdf[idx].id =3D special->handle;
+>=20
+>                  ioapic_sbdf[idx].pin_2_idx =3D xmalloc_array(
+> @@ -862,13 +859,12 @@ static u16 __init parse_ivhd_device_special(
+>              AMD_IOMMU_DEBUG("IVHD: Command line override present for HPE=
+T %#x "
+>                              "(IVRS: %#x devID %pp)\n",
+>                              hpet_sbdf.id, special->handle,
+> -                            &PCI_SBDF(seg, bdf));
+> +                            &sbdf);
+>              break;
+>          case HPET_NONE:
+>              /* set device id of hpet */
+>              hpet_sbdf.id =3D special->handle;
+> -            hpet_sbdf.bdf =3D bdf;
+> -            hpet_sbdf.seg =3D seg;
+> +            hpet_sbdf.sbdf =3D sbdf;
+>              hpet_sbdf.init =3D HPET_IVHD;
+>              break;
+>          default:
+> @@ -1139,9 +1135,9 @@ static int __init cf_check parse_ivrs_table(struct =
+acpi_table_header *table)
+>                  return -ENXIO;
+>          }
+>=20
+> -        if ( !ioapic_sbdf[idx].seg &&
+> +        if ( !ioapic_sbdf[idx].sbdf.seg &&
+>               /* SB IO-APIC is always on this device in AMD systems. */
+> -             ioapic_sbdf[idx].bdf =3D=3D PCI_BDF(0, 0x14, 0) )
+> +             ioapic_sbdf[idx].sbdf.bdf =3D=3D PCI_BDF(0, 0x14, 0) )
+
+Looks like something like the following should work:
+
+          if ( ioapic_sbdf[idx].sbdf.sbdf =3D=3D PCI_SBDF(0, 0, 0x14, 0).sb=
+df )
+
+What do you think?
+
+>              sb_ioapic =3D 1;
+>=20
+>          if ( ioapic_sbdf[idx].pin_2_idx )
+> diff --git a/xen/drivers/passthrough/amd/iommu_intr.c b/xen/drivers/passt=
+hrough/amd/iommu_intr.c
+> index 16075cd5a1..b788675be2 100644
+> --- a/xen/drivers/passthrough/amd/iommu_intr.c
+> +++ b/xen/drivers/passthrough/amd/iommu_intr.c
+> @@ -323,7 +323,8 @@ void cf_check amd_iommu_ioapic_update_ire(
+>      unsigned int apic, unsigned int pin, uint64_t rte)
+>  {
+>      struct IO_APIC_route_entry new_rte;
+> -    int seg, bdf, rc;
+> +    pci_sbdf_t sbdf;
+> +    int rc;
+>      struct amd_iommu *iommu;
+>      unsigned int idx;
+>=20
+> @@ -335,20 +336,18 @@ void cf_check amd_iommu_ioapic_update_ire(
+>      new_rte.raw =3D rte;
+>=20
+>      /* get device id of ioapic devices */
+> -    bdf =3D ioapic_sbdf[idx].bdf;
+> -    seg =3D ioapic_sbdf[idx].seg;
+> -    iommu =3D find_iommu_for_device(PCI_SBDF(seg, bdf));
+> +    sbdf =3D ioapic_sbdf[idx].sbdf;
+> +    iommu =3D find_iommu_for_device(sbdf);
+>      if ( !iommu )
+>      {
+> -        AMD_IOMMU_WARN("failed to find IOMMU for IO-APIC @ %04x:%04x\n",
+> -                       seg, bdf);
+> +        AMD_IOMMU_WARN("failed to find IOMMU for IO-APIC @ %pp\n", &sbdf=
+);
+>          __ioapic_write_entry(apic, pin, true, new_rte);
+>          return;
+>      }
+>=20
+>      /* Update interrupt remapping entry */
+>      rc =3D update_intremap_entry_from_ioapic(
+> -             bdf, iommu, &new_rte,
+> +             sbdf.bdf, iommu, &new_rte,
+>               &ioapic_sbdf[idx].pin_2_idx[pin]);
+>=20
+>      if ( rc )
+> @@ -369,7 +368,8 @@ unsigned int cf_check amd_iommu_read_ioapic_from_ire(
+>      unsigned int offset;
+>      unsigned int val =3D __io_apic_read(apic, reg);
+>      unsigned int pin =3D (reg - 0x10) / 2;
+> -    uint16_t seg, bdf, req_id;
+> +    pci_sbdf_t sbdf;
+> +    uint16_t req_id;
+>      const struct amd_iommu *iommu;
+>      union irte_ptr entry;
+>=20
+> @@ -381,12 +381,11 @@ unsigned int cf_check amd_iommu_read_ioapic_from_ir=
+e(
+>      if ( offset >=3D INTREMAP_MAX_ENTRIES )
+>          return val;
+>=20
+> -    seg =3D ioapic_sbdf[idx].seg;
+> -    bdf =3D ioapic_sbdf[idx].bdf;
+> -    iommu =3D find_iommu_for_device(PCI_SBDF(seg, bdf));
+> +    sbdf =3D ioapic_sbdf[idx].sbdf;
+> +    iommu =3D find_iommu_for_device(sbdf);
+>      if ( !iommu )
+>          return val;
+> -    req_id =3D get_intremap_requestor_id(seg, bdf);
+> +    req_id =3D get_intremap_requestor_id(sbdf.seg, sbdf.bdf);
+>      entry =3D get_intremap_entry(iommu, req_id, offset);
+>=20
+>      if ( !(reg & 1) )
+> @@ -515,15 +514,15 @@ int cf_check amd_iommu_msi_msg_update_ire(
+>      struct msi_desc *msi_desc, struct msi_msg *msg)
+>  {
+>      struct pci_dev *pdev =3D msi_desc->dev;
+> -    int bdf, seg, rc;
+> +    pci_sbdf_t sbdf;
+> +    int rc;
+>      struct amd_iommu *iommu;
+>      unsigned int i, nr =3D 1;
+>      u32 data;
+>=20
+> -    bdf =3D pdev ? pdev->sbdf.bdf : hpet_sbdf.bdf;
+> -    seg =3D pdev ? pdev->seg : hpet_sbdf.seg;
+> +    sbdf =3D pdev ? pdev->sbdf : hpet_sbdf.sbdf;
+>=20
+> -    iommu =3D _find_iommu_for_device(PCI_SBDF(seg, bdf));
+> +    iommu =3D _find_iommu_for_device(sbdf);
+>      if ( IS_ERR_OR_NULL(iommu) )
+>          return PTR_ERR(iommu);
+>=20
+> @@ -532,7 +531,7 @@ int cf_check amd_iommu_msi_msg_update_ire(
+>=20
+>      if ( msi_desc->remap_index >=3D 0 && !msg )
+>      {
+> -        update_intremap_entry_from_msi_msg(iommu, bdf, nr,
+> +        update_intremap_entry_from_msi_msg(iommu, sbdf.bdf, nr,
+>                                             &msi_desc->remap_index,
+>                                             NULL, NULL);
+>=20
+> @@ -543,7 +542,7 @@ int cf_check amd_iommu_msi_msg_update_ire(
+>      if ( !msg )
+>          return 0;
+>=20
+> -    rc =3D update_intremap_entry_from_msi_msg(iommu, bdf, nr,
+> +    rc =3D update_intremap_entry_from_msi_msg(iommu, sbdf.bdf, nr,
+>                                              &msi_desc->remap_index,
+>                                              msg, &data);
+>      if ( rc > 0 )
+> @@ -660,8 +659,7 @@ bool __init cf_check iov_supports_xt(void)
+>          if ( idx =3D=3D MAX_IO_APICS )
+>              return false;
+>=20
+> -        if ( !find_iommu_for_device(PCI_SBDF(ioapic_sbdf[idx].seg,
+> -                                             ioapic_sbdf[idx].bdf)) )
+> +        if ( !find_iommu_for_device(ioapic_sbdf[idx].sbdf) )
+>          {
+>              AMD_IOMMU_WARN("no IOMMU for IO-APIC %#x (ID %x)\n",
+>                             apic, IO_APIC_ID(apic));
+> @@ -690,14 +688,14 @@ int __init cf_check amd_setup_hpet_msi(struct msi_d=
+esc *msi_desc)
+>          return -ENODEV;
+>      }
+>=20
+> -    iommu =3D find_iommu_for_device(PCI_SBDF(hpet_sbdf.seg, hpet_sbdf.bd=
+f));
+> +    iommu =3D find_iommu_for_device(hpet_sbdf.sbdf);
+>      if ( !iommu )
+>          return -ENXIO;
+>=20
+> -    lock =3D get_intremap_lock(hpet_sbdf.seg, hpet_sbdf.bdf);
+> +    lock =3D get_intremap_lock(hpet_sbdf.sbdf.seg, hpet_sbdf.sbdf.bdf);
+>      spin_lock_irqsave(lock, flags);
+>=20
+> -    msi_desc->remap_index =3D alloc_intremap_entry(iommu, hpet_sbdf.bdf,=
+ 1);
+> +    msi_desc->remap_index =3D alloc_intremap_entry(iommu, hpet_sbdf.sbdf=
+.bdf, 1);
+>      if ( msi_desc->remap_index >=3D INTREMAP_MAX_ENTRIES )
+>      {
+>          msi_desc->remap_index =3D -1;
+> --
+> 2.49.0
+>=20
+>=20
+
+Thanks,
+Denis
+
 
