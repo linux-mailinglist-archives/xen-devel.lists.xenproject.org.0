@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ADF0A89FD2
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 15:45:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.953978.1348349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8568CA89FD3
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 15:45:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.953979.1348359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4gbN-0005Mj-JN; Tue, 15 Apr 2025 13:45:25 +0000
+	id 1u4gbR-0005e0-Rx; Tue, 15 Apr 2025 13:45:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 953978.1348349; Tue, 15 Apr 2025 13:45:25 +0000
+Received: by outflank-mailman (output) from mailman id 953979.1348359; Tue, 15 Apr 2025 13:45:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4gbN-0005Js-G9; Tue, 15 Apr 2025 13:45:25 +0000
-Received: by outflank-mailman (input) for mailman id 953978;
- Tue, 15 Apr 2025 13:45:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OGoX=XB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1u4gbM-0004pm-Rk
- for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 13:45:24 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1afc2d8-19ff-11f0-9eae-5ba50f476ded;
- Tue, 15 Apr 2025 15:45:24 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43cf257158fso39945945e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 06:45:24 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-43f233a2f71sm208580835e9.15.2025.04.15.06.45.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Apr 2025 06:45:23 -0700 (PDT)
+	id 1u4gbR-0005Zk-OX; Tue, 15 Apr 2025 13:45:29 +0000
+Received: by outflank-mailman (input) for mailman id 953979;
+ Tue, 15 Apr 2025 13:45:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ai1O=XB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u4gbQ-0005Z6-HN
+ for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 13:45:28 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e2f6df32-19ff-11f0-9ffb-bf95429c2676;
+ Tue, 15 Apr 2025 15:45:26 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-39ac56756f6so4863573f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 06:45:26 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39eae96c05asm14070965f8f.26.2025.04.15.06.45.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Apr 2025 06:45:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,224 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1afc2d8-19ff-11f0-9eae-5ba50f476ded
+X-Inumbo-ID: e2f6df32-19ff-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744724724; x=1745329524; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=5SYfiysPdG/42yMMYMhRphTDfMvWBf/wNO2XCbt2Hss=;
-        b=d62RjP4Uaf46bgrtOuDNdUTvNruzjDns4lUpWzPqgAMPHFcelHjdALIOK+1ibgagWA
-         eyt2n7bk1Adw+dm7L9/xwXRAcK1XUpe9RDXVcnozRxBmNztXgXrO2LLAITmfgTK9FoPV
-         iEGLtWDC9O2JHDy3/74n44AMo5He6KMHtgS4Q=
+        d=suse.com; s=google; t=1744724726; x=1745329526; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=IO+DijkSHnrAyb5ZOzmqtwUZyE04LXM/7oREU+Iq+F8=;
+        b=NjTmmMcDL3eEh3yDXvuTUk3uBEHzEfTvXXdDwEHwGQVDT86WNK2mp9PDoLq8B3zRVk
+         i6+UyoxLgWk1Sx3wwoCXsT8jWB2kCJr/FWwsxg+wC/xCY3NMsCbn/xXTAg6LXCRRHvqE
+         8KvCmuFUjkQ39xaf57vPKwkQZiiLDBSpauuf4G+DT5qdx5D/9F9qEGBDqoEEJRJ0MWkA
+         TTMiCHxXMesQs6hQvKp6PLand/TAt87RwTyj0bbj8xrvOFU/SBzzSiDvSlHAQQwHYebP
+         9eSezjPT479RP0sfQIZ2jaajgI9T5LGfx2kJciHfYFoj2asMQVo5+Gk6xR/51EySatgd
+         Q7LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744724724; x=1745329524;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5SYfiysPdG/42yMMYMhRphTDfMvWBf/wNO2XCbt2Hss=;
-        b=GfkBOybgF9fr0AespOvrt3onREjBpL27lv9J49y72oqsdV/59RxptYWA5xEtHZJfpz
-         fazYjt3KTxf+oIPheYhvWr97RvYp4ccuB0Vk0d7reEpSncRkfELQWoTiZaaKOfrM+Ql/
-         ALCEXjTh6TjE2opD1/VCQ5MmE8qbTCkim3EC8m5ry0tMvdpuSISAl+REzEtoECSWSGzz
-         b5th+cOs+FfVp1mUABnPMr6ID1GoYMXSunSHvoGlkskk9JhUwFAN/hnpsXf7dJSpv2eM
-         r1AW2Swr0YZKR2CCROtVAFBNEdEE8VyTS64GGvvKFLMlSGCWR7uo3S2Z8rf1twTOwQYm
-         SyXA==
-X-Gm-Message-State: AOJu0YyN2jzvwlB6GsgcBJx3kcyIzvIoJos81UtO3B1A21m5yCCZtgPf
-	FXVYspud58A74YhISVAv5xHUasJIRFTAPqwqh6Qy814e5KHj3FFFeDK6STrsHS8=
-X-Gm-Gg: ASbGncs7AqK5lIzdnUSBtWGIfUPBBgwPqSdTv3ramFGu2fwbTuoC7NjkTHU4zwQOHRp
-	TEBXZ3F3h1Lt/0IGtBb4LWhL2WsBQVyFJ0aa1ZiWqYKXBrtLzwzC4ux+PuMGlXx7SsG2PPydAjd
-	qtutkQ9XJ4ArdX9yQEFuZ+IEFqoLtCmyXAhR5O5iWcH1s7x7Zf1gSLlCUGb5o4C7XAxNETS+AAP
-	72V6LC5K5CePlbRpIzAmRSrutu4FoIwp/CtsazOS2ol4QsU/MMRd6ZhxJ6alHiiNdNvCbVacjmX
-	cyI/WAjw26jbu3HFZ7AJP6+8Fk94qVDU75/uwVIowAkZnmXQOr10YYXF
-X-Google-Smtp-Source: AGHT+IHL33KCzKlFjR9o0V7DIEPwXQgX55PoAMz0zEzmguqqxRWWkXu+4BBrj7xFANk9BRDGILFNsg==
-X-Received: by 2002:a05:600c:3ac6:b0:43c:f8fc:f69a with SMTP id 5b1f17b1804b1-43f3a925e28mr160006645e9.4.1744724723758;
-        Tue, 15 Apr 2025 06:45:23 -0700 (PDT)
-Date: Tue, 15 Apr 2025 15:45:19 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v2 8/8] vpci/msix: Add function to clean MSIX resources
-Message-ID: <Z_5i7zZJ7lRjFr7G@macbook.lan>
-References: <20250409064528.405573-1-Jiqian.Chen@amd.com>
- <20250409064528.405573-9-Jiqian.Chen@amd.com>
+        d=1e100.net; s=20230601; t=1744724726; x=1745329526;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IO+DijkSHnrAyb5ZOzmqtwUZyE04LXM/7oREU+Iq+F8=;
+        b=JIVf1qJqhqBrtVQlPqLNTO/irBlz1ifnccVcWk+SBVTrg3oNRbccPlInijbJ7Gc9xg
+         RiaPLGLvCJ9Rx6KsRbTerL9u5YvzgVroIE6EiZJeSuz06uqTPrpko95UoOary8KuXmZp
+         A5O7Xz1/fFJGckDz59GIIA1gyagSm4e62ZwkqT+SEo6BHGoYQ8HX9JpN9cfx4t44kshy
+         vOdpRjr26OwwT+uVUYbcghsdN8r7hSeYY5dNTECa3lFtwntPAtI4L+jejF4iAFNC12TJ
+         4hR/LBVy8PsE9Kqx2ZJyEYrcR507aXpWQlbkEaAqG1M1YQKrp9L++6T+v02PNPKT8FBf
+         MzVA==
+X-Forwarded-Encrypted: i=1; AJvYcCWG+punus65KPpvgFpSLkQnS3PCVr4IchWLW67GPBHR/IuHFZFbn6jHGsQ4ZE2Ck9SQeY1qzVVO/7E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxuamDgDxUudqhHzHFbsQB1kUEJIGSXwY2gyGHLe6gTYNgbtMeW
+	q7m6gtQVdKex6OZc1Pys7X2OvlfsPFzp71DITLrwK+e+E6cx2p28BCk1C9rCgg==
+X-Gm-Gg: ASbGncuk4ys86+ugIBB5i4U/mqxrjYBABFDntPdcGNDhiHhsj9hGV90dll5BDFCBOqk
+	FdjnxW1W9nlMVeZb8YsLvooCq6C9iLD+Qlw9cGy1UGTrM07F1+5fB9l3PTsw68pnyZIa029ksVd
+	lqyJcZKgqWNg/e/KIlOLMlFhlt49k6A9/wKYs5nw37/APc5wzKyxHaSjt9HffOUWSiykcm3NMgM
+	MBZsZQT1D8Ij/syniJZs8h0QpAuW8XUnj9pWQKlM8d5DFYMlRklFGY9Pxz8vrDOV1BLTZ0P4w5x
+	/beriL4T/Ti0Je1Tyynk6lbsCGqid6hCLjTaX+FLrL/2i/GwK419eVcbdVQsZy0ChdzBb55/R3S
+	t5oDCWHUeweWdfRtin+HMt6Lr+Q==
+X-Google-Smtp-Source: AGHT+IGpwNKjNC3xFlGwjr4kmKIQkJXgO5WI/LPQO4QvhWW/9JzlmoTz9ZDyTGb3Y3JEC//kkDLiig==
+X-Received: by 2002:a5d:64c2:0:b0:39a:c9d9:8f95 with SMTP id ffacd0b85a97d-39eaaed2296mr14603104f8f.52.1744724725879;
+        Tue, 15 Apr 2025 06:45:25 -0700 (PDT)
+Message-ID: <859d0c87-dc90-44c2-ab30-5164eec0705c@suse.com>
+Date: Tue, 15 Apr 2025 15:45:24 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 06/14] xen/riscv: riscv_of_processor_hartid()
+ implementation
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <ab592d50ad161ffed3950bdf58ade49ae90a3c0e.1744126720.git.oleksii.kurochko@gmail.com>
+ <65f5952a-8d2a-499c-bd66-53e9e2fbfa9c@suse.com>
+ <d10323b7-d95d-4b96-9bf1-7ae8edda153e@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <d10323b7-d95d-4b96-9bf1-7ae8edda153e@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250409064528.405573-9-Jiqian.Chen@amd.com>
 
-On Wed, Apr 09, 2025 at 02:45:28PM +0800, Jiqian Chen wrote:
-> When init_msix() fails, it needs to clean all MSIX resources.
-> So, add a new function fini_msix() to do that.
+On 15.04.2025 15:39, Oleksii Kurochko wrote:
+> On 4/10/25 5:53 PM, Jan Beulich wrote:
+>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
+>>> +{
+>>> +    const __be32 *cell;
+>>> +    int ac;
+>>> +    uint32_t len;
+>>> +
+>>> +    ac = dt_n_addr_cells(cpun);
+>>> +    cell = dt_get_property(cpun, "reg", &len);
+>>> +    if ( !cell || !ac || ((sizeof(*cell) * ac * (thread + 1)) > len) )
+>>> +        return ~0ULL;
+>> I'm sorry for my lack of DT knowledge, but what's "thread" representing here?
+>> You only pass in 0 below, so it's unclear whether it's what one might expect
+>> (the thread number on a multi-threaded core).
 > 
-> And to unregister the mmio handler of vpci_msix_table_ops, add
-> a new function.
+> Based on the DT specification alone, the|`reg`| value could refer to either a CPU or a thread ID:
+> ```
+> The value of reg is a <prop-encoded-array> that defines a unique CPU/thread id for
+> the CPU/threads represented by the CPU node. If a CPU supports more than one thread
+> (i.e. multiple streams of execution) the reg prop-erty is an array with 1 element
+> per thread.
+> ```
 > 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> ---
-> cc: Jan Beulich <jbeulich@suse.com>
-> cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> ---
-> v1->v2 changes:
-> new patch.
+> My understanding is that the term/thread/ was used in the Linux kernel to cover both
+> cases.
+> When SMT isn't supported, the CPU can be considered to have a single thread.
+> For example, RISC-V uses the term/hardware thread/ to describe a hart (i.e., a CPU).
 > 
-> Best regards,
-> Jiqian Chen.
-> ---
->  xen/arch/x86/hvm/intercept.c      | 44 ++++++++++++++++++++++
->  xen/arch/x86/include/asm/hvm/io.h |  3 ++
->  xen/drivers/vpci/msix.c           | 61 ++++++++++++++++++++++++++++---
->  3 files changed, 103 insertions(+), 5 deletions(-)
+> Interestingly, the Linux kernel always uses|thread = 0|.
 > 
-> diff --git a/xen/arch/x86/hvm/intercept.c b/xen/arch/x86/hvm/intercept.c
-> index da22c386763e..5eacf51d4d2c 100644
-> --- a/xen/arch/x86/hvm/intercept.c
-> +++ b/xen/arch/x86/hvm/intercept.c
-> @@ -276,6 +276,50 @@ void register_mmio_handler(struct domain *d,
->      handler->mmio.ops = ops;
->  }
->  
-> +void unregister_mmio_handler(struct domain *d,
-> +                             const struct hvm_mmio_ops *ops)
-> +{
-> +    unsigned int i, count = d->arch.hvm.io_handler_count;
-> +
-> +    ASSERT(d->arch.hvm.io_handler);
-> +
-> +    if ( !count )
-> +        return;
-> +
-> +    for ( i = 0; i < count; i++ )
-> +        if ( d->arch.hvm.io_handler[i].type == IOREQ_TYPE_COPY &&
-> +             d->arch.hvm.io_handler[i].mmio.ops == ops )
-> +            break;
-> +
-> +    if ( i == count )
-> +        return;
-> +
-> +    for ( ; i < count - 1; i++ )
-> +    {
-> +        struct hvm_io_handler *curr = &d->arch.hvm.io_handler[i];
-> +        struct hvm_io_handler *next = &d->arch.hvm.io_handler[i + 1];
-> +
-> +        curr->type = next->type;
-> +        curr->ops = next->ops;
-> +        if ( next->type == IOREQ_TYPE_COPY )
-> +        {
-> +            curr->portio.port = 0;
-> +            curr->portio.size = 0;
-> +            curr->portio.action = 0;
-> +            curr->mmio.ops = next->mmio.ops;
-> +        }
-> +        else
-> +        {
-> +            curr->mmio.ops = 0;
-> +            curr->portio.port = next->portio.port;
-> +            curr->portio.size = next->portio.size;
-> +            curr->portio.action = next->portio.action;
-> +        }
-> +    }
+> We could potentially drop this ambiguity and introduce an|ASSERT()| to check that
+> the|`reg`| property contains only one entry, representing the HART (CPU) ID:
+> ```
+>    Software can determine the number of threads by dividing the size of reg by the parent
+>    node’s #address-cells. If `|reg`| has more than one entry, it would simply SMT support
+>    is required.
+> ```
+> 
+> Does that approach make sense, or should we stick with the current implementation?
 
-Can't you use memmove() instead of a for loop?
+If extra enabling is required to make multi-thread CPUs work, then panic()ing
+(not so much ASSERT()ing) may make sense, for the time being. Better would be
+if we could use all threads in a system right away.
 
-memmove(&d->arch.hvm.io_handler[i], &d->arch.hvm.io_handler[i + 1],
-	sizeof(d->arch.hvm.io_handler[0]) * (count - i - 1));
-
-> +
-> +    d->arch.hvm.io_handler_count--;
-> +}
-> +
->  void register_portio_handler(struct domain *d, unsigned int port,
->                               unsigned int size, portio_action_t action)
->  {
-> diff --git a/xen/arch/x86/include/asm/hvm/io.h b/xen/arch/x86/include/asm/hvm/io.h
-> index 565bad300d20..018d2745fd99 100644
-> --- a/xen/arch/x86/include/asm/hvm/io.h
-> +++ b/xen/arch/x86/include/asm/hvm/io.h
-> @@ -75,6 +75,9 @@ bool hvm_mmio_internal(paddr_t gpa);
->  void register_mmio_handler(struct domain *d,
->                             const struct hvm_mmio_ops *ops);
->  
-> +void unregister_mmio_handler(struct domain *d,
-> +                             const struct hvm_mmio_ops *ops);
-> +
->  void register_portio_handler(
->      struct domain *d, unsigned int port, unsigned int size,
->      portio_action_t action);
-> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-> index 6537374c79a0..60654d4f6d0b 100644
-> --- a/xen/drivers/vpci/msix.c
-> +++ b/xen/drivers/vpci/msix.c
-> @@ -703,6 +703,54 @@ int vpci_make_msix_hole(const struct pci_dev *pdev)
->      return 0;
->  }
->  
-> +static void fini_msix(struct pci_dev *pdev)
-> +{
-> +    struct vpci *vpci = pdev->vpci;
-> +
-> +    if ( !vpci->msix )
-> +        return;
-> +
-> +    list_del(&vpci->msix->next);
-> +    if ( list_empty(&pdev->domain->arch.hvm.msix_tables) )
-> +        unregister_mmio_handler(pdev->domain, &vpci_msix_table_ops);
-
-At the point the MMIO handler is added the capability initialization
-cannot fail, so arguably if the MSI-X handler is registered there will
-always be at least one functional MSI-X capability that requires it.
-
-IOW: you can likely drop the addition of unregister_mmio_handler() and
-avoid the removal of the MMIO handler.  Worst case a domain will end
-up with a dummy handler that does nothing, but it won't cause
-malfunctions.
-
-> +
-> +    /* Remove any MSIX regions if present. */
-> +    for ( unsigned int i = 0;
-> +          vpci->msix && i < ARRAY_SIZE(vpci->msix->tables);
-> +          i++ )
-> +    {
-> +        unsigned long start = PFN_DOWN(vmsix_table_addr(pdev->vpci, i));
-> +        unsigned long end = PFN_DOWN(vmsix_table_addr(pdev->vpci, i) +
-> +                                     vmsix_table_size(pdev->vpci, i) - 1);
-> +
-> +        for ( unsigned int j = 0; j < ARRAY_SIZE(vpci->header.bars); j++ )
-> +        {
-> +            int rc;
-> +            const struct vpci_bar *bar = &vpci->header.bars[j];
-> +
-> +            if ( rangeset_is_empty(bar->mem) )
-> +                continue;
-> +
-> +            rc = rangeset_remove_range(bar->mem, start, end);
-> +            if ( rc )
-> +            {
-> +                gprintk(XENLOG_WARNING,
-> +                       "%pp: failed to remove MSIX table [%lx, %lx]: %d\n",
-> +                        &pdev->sbdf, start, end, rc);
-> +                return;
-> +            }
-> +        }
-> +    }
-
-There's no need to do any of this rangeset manipulation.  The BAR
-rangesets are re-created for any map/unmap request, and hence should
-be empty unless there's a concurrent operation going on (which won't
-be the case when initializing the capabilities).
-
-> +
-> +    for ( unsigned int i = 0; i < ARRAY_SIZE(vpci->msix->table); i++ )
-> +        if ( vpci->msix->table[i] )
-> +            iounmap(vpci->msix->table[i]);
-
-The MSI-X init function never maps tables, so the code here (given
-it's current usage) will also never unmap anything.  However I would
-also like to use this code for vPCI deassing, at which point the logic
-will get used.
-
-Thanks, Roger.
+Jan
 
