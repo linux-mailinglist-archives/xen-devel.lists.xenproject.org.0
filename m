@@ -2,40 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D27EEA89C2D
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 13:26:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.953679.1348130 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C000FA89C59
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 13:30:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.953695.1348140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4eQF-00015I-Fo; Tue, 15 Apr 2025 11:25:47 +0000
+	id 1u4eUj-0002df-3z; Tue, 15 Apr 2025 11:30:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 953679.1348130; Tue, 15 Apr 2025 11:25:47 +0000
+Received: by outflank-mailman (output) from mailman id 953695.1348140; Tue, 15 Apr 2025 11:30:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4eQF-00013S-DB; Tue, 15 Apr 2025 11:25:47 +0000
-Received: by outflank-mailman (input) for mailman id 953679;
- Tue, 15 Apr 2025 11:25:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u4eUj-0002cA-17; Tue, 15 Apr 2025 11:30:25 +0000
+Received: by outflank-mailman (input) for mailman id 953695;
+ Tue, 15 Apr 2025 11:30:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mbqe=XB=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1u4eQD-00013M-Eq
- for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 11:25:45 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2062e.outbound.protection.outlook.com
- [2a01:111:f403:2415::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b512903-19ec-11f0-9ffb-bf95429c2676;
- Tue, 15 Apr 2025 13:25:39 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by DS0PR12MB9398.namprd12.prod.outlook.com (2603:10b6:8:1b3::19) with
+ <SRS0=moIN=XB=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1u4eUi-0002c4-0O
+ for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 11:30:24 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20620.outbound.protection.outlook.com
+ [2a01:111:f403:2412::620])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 00f1ae75-19ed-11f0-9eae-5ba50f476ded;
+ Tue, 15 Apr 2025 13:30:17 +0200 (CEST)
+Received: from DM6PR08CA0045.namprd08.prod.outlook.com (2603:10b6:5:1e0::19)
+ by SN7PR12MB7450.namprd12.prod.outlook.com (2603:10b6:806:29a::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.31; Tue, 15 Apr
- 2025 11:25:36 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8632.036; Tue, 15 Apr 2025
- 11:25:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.32; Tue, 15 Apr
+ 2025 11:30:12 +0000
+Received: from CY4PEPF0000EDD1.namprd03.prod.outlook.com
+ (2603:10b6:5:1e0:cafe::f9) by DM6PR08CA0045.outlook.office365.com
+ (2603:10b6:5:1e0::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.15 via Frontend Transport; Tue,
+ 15 Apr 2025 11:30:11 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD1.mail.protection.outlook.com (10.167.241.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.12 via Frontend Transport; Tue, 15 Apr 2025 11:30:11 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 15 Apr
+ 2025 06:30:09 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,228 +56,266 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b512903-19ec-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 00f1ae75-19ed-11f0-9eae-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=byfxC0yYTNv4oW9FmBGU9AVZE8dhZorAC6iMC0n1iekkrFqzZfnJeN+i7tMqpVJf9MgIBneKOb2SZwkEaCYYKmwX+pTrz1ZEWusGjtqEcrbrscmQo3+cDTP5S7cw08drWZpbrrTh/Tc4quVEMEIckr65Peg2qJI/XJZUWHC8V5zoDb9wOMP188WwgbWChJr3YtVhhyfl6KTEIffEWWC+oubvuDLsrAVKpdglMyD/q6sOYGICs5eAa4GGHDJtgw4JhLxYLNOYV2DTKrr6N9Xoay68oUvBeKu5KQjsLcI8e/wBAeMqcdDjJVdBJ/ZYaQ4TVhpm8A++EAiER6m9MS42/A==
+ b=jX+/5NCTi6MMGdMIkI+NbXL/z0hreaZxI0j0vi2pWx5eZCfBsGswhEio016nMUWdPcsEPQl8ycohvhnlO7yfvL5Pe3TUe79ANQZqEfUEpvw7LYnQ7WQmWaOvZCHRZ2b/Cn+xrddblFM93/DdpKIuqxpm+mI4s+4fazGb6jSwsvhdlOJzHJ2AihyECHTPwXEy3FMRd7qj3BScrKZHO1yKGHh8jo5vdg+kqFKfIKJ2UkHSwaAq9PGC+4wHb+4y6cDkqLJ2UR17/ZxHIEH7LbYGRdYAvx3fCxBiGnHcRN6oGPl7jO2I2kzXyAgpwjccQZ3H9GZMRSqb/rcbWRCqMYpVlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aF0X0EOR7KbMeuIcbzNNJTOzpB6njaxE1Lpwg1TlxSs=;
- b=l73jRp5aC1mHlssdl9Yfl/1PjAX/EVSgajAsJwfeQ1OdbzFIlsRCIZpJt9B53BUwSCOnbgB4nNz5Y1eTftLgR59WLNazII0JiJksozkkg2BKyxP2p0Rlec2u90m5kBUJ5+28f2kOKsWtJLvmA6dhT+hC27Tjlz6aKVvjAIiIEpyCpfddma+9ia2tK3JM4SWS2+YgmLCPXd07ivdIfd/GjuLhOjf6IkolVAXH5OEk9Wjjz6tNRNRijPK7UemmUG9x5YFaMvUKzPIxvKIKWTuq9iTGRzl290jMblgTbMin/hJ2acKMevAA896HZdqDyK3fEz9u1vS/hnzXe+3HJ0vZLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=bdTQNjf+VgUX7VAhqcNa0cFGyH1w/Dfx1UHX/MDtVpo=;
+ b=hP6epBNcvD/pG3pT6F2PeTbPT4N3FRjdZz8nitbBusg7YKMX+vlN3wUNnZs1GYoRiXmXSGLhN5uFIORwBO0c3/5n7/N0a8t44WIX3QctkgDOzSe7VC98jEvaiLV2oQGrvm5xn8R7rY393i3Gg9mFqsm+RDTDCzsvPXOfyoSdbCAqeHmvCj2feCUmi+lT9cAVjF/gwkmUT01IL8o/5nJiTxcdRvcmUZXFfrNavbEd9RlAjUqCHPuOl60KfXTBbMIBtWEMJGiTbQsYTRUFCE0YT4FsVz1raa0sXawocUuL5W8iUom4JC15avaGmO8TTQV6497dOvq3oH+p8XmmXCA2bw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aF0X0EOR7KbMeuIcbzNNJTOzpB6njaxE1Lpwg1TlxSs=;
- b=CPt2ZoCMfseGx2r8KgiVwK91zfy9tjUid/qRNH5CS7sP4aUUd2vVTVZqWV5rqiI2REC7Xhl1I5n3oZih/Jf3GyrFNG8uS0dXQAK+WCXmN84uanVOPyCcGP3KNDz2rSn0QC1O0ahBhJ5pWWTd7H6G/zqCx+8z2nza7sknu7tOb2M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <105b0e9c-6991-445f-af36-6e76a916a15a@amd.com>
-Date: Tue, 15 Apr 2025 13:25:33 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] arm/mpu: Implement setup_mpu for MPU system
-To: Luca Fancellu <Luca.Fancellu@arm.com>, Julien Grall <julien@xen.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250411145655.140667-1-luca.fancellu@arm.com>
- <20250411145655.140667-8-luca.fancellu@arm.com>
- <923a2fc0-4eeb-4e09-a56d-7471a56fe3bf@xen.org>
- <4771188E-B307-4452-A900-2ACACC1CE333@arm.com>
- <fcacc6b6-ea4b-4917-ac46-5264ac3e4039@xen.org>
- <A053DC71-B301-4D64-8EDB-C225E2ED3FA7@arm.com>
- <9eec0359-e9e9-4d38-abc0-3cde6eb94e3b@xen.org>
- <0CED25FD-5706-420A-BDB7-EB36BB7FEE71@arm.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <0CED25FD-5706-420A-BDB7-EB36BB7FEE71@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0049.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::22) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
+ bh=bdTQNjf+VgUX7VAhqcNa0cFGyH1w/Dfx1UHX/MDtVpo=;
+ b=B5oExZlzCgMOo6iDhmNfex/LJwhtU229f7HDG5togsn9t2x5oNxbSAIQJKa/bV/l3BKtqQy7jF0dyVHfNKtggDlOIOUVTvsTvxXsYAnpr6MMpcrBkJNCLSJh/YQMWUyaH1fjH83WMQuDu5QG/4URaDIVGe0q+Kvt9EwCD1NfSHI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Tue, 15 Apr 2025 12:30:08 +0100
+Message-ID: <D976F4QPLMB9.2AZGDR11JD5OI@amd.com>
+CC: Jason Andryuk <jason.andryuk@amd.com>, Xenia Ragiadakou
+	<xenia.ragiadakou@amd.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, <xen-devel@lists.xenproject.org>,
+	"consulting@bugseng.com" <consulting@bugseng.com>
+Subject: Re: [PATCH v3 08/16] x86/hyperlaunch: Add helpers to locate
+ multiboot modules
+From: Alejandro Vallejo <agarciav@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+X-Mailer: aerc 0.20.1
+References: <20250408160802.49870-1-agarciav@amd.com>
+ <20250408160802.49870-9-agarciav@amd.com>
+ <fe282aa0-fe2d-49b8-a2aa-325c9825304b@suse.com>
+ <D96EI9O4XII2.195QNQNT1T3FG@amd.com>
+ <3d2aa870-a1cb-4e33-841d-aee7b6b6db83@suse.com>
+ <D96K3ZYDCY4D.11Q4T2TZLNNEU@amd.com>
+ <ea28d057-5fd5-4cc2-8833-5427015a4190@suse.com>
+In-Reply-To: <ea28d057-5fd5-4cc2-8833-5427015a4190@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|DS0PR12MB9398:EE_
-X-MS-Office365-Filtering-Correlation-Id: 517b0357-3cc4-4f3a-2ae9-08dd7c103e40
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD1:EE_|SN7PR12MB7450:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96b16d25-0523-4c14-32c6-08dd7c10e265
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MExnTHMyYUhMVXVpVXovNDhadEZCYXM4MURZeGJRZzZBRnBuV1ZCTXYvcWE1?=
- =?utf-8?B?T05ZL0xRQjdKa1l5M3QyNTBMVC91ZHFISXdrQitWSUlaWmtuWEcxNGZDUHg5?=
- =?utf-8?B?d0NadENPd2N2TDRoclZ1amQ1SjBKM2cxS0dKOVdoVW1yNCtZc05ITFNhNzhk?=
- =?utf-8?B?VkYwTkNDT2RxbU15K0FxbkNSV0hheXVrTG9pVkVLS04rWG85WnFDNXlBbEJ5?=
- =?utf-8?B?ODFVWk1HdXA4R05xeUFqQzlKZytUMVY0YWlYM3pWcFhKWXdSWkhvd1dkV01j?=
- =?utf-8?B?bjc0c2pteVdvUUZQTUFNSCthWG5FSlo2MlVUajFMWWJRQ21tQm9DWUVvbDZh?=
- =?utf-8?B?cmVYWG94L01oQUc1MUl0QldGakVmaDNkRDlHZmlPVHRxclRUdDV4amg5aklX?=
- =?utf-8?B?QW1wQXRzRVFiOTR4Rk5tNkN2U00xc21nTE55YXdQTUdpRW5ZYmxWQ0IwZi9C?=
- =?utf-8?B?SGU5UzVRQWY4NVZ3KytjcU9QRWFMZDVSdFRpTXE0ME8xNjdxdHY1WmFMYnFi?=
- =?utf-8?B?SmM1WlZTSEw3dXdreW83ZXNZU2g5L2J4TTZTbm1Gc3N2aUZBbUM4eEFUNFNM?=
- =?utf-8?B?a3owUnVGQ2RnY2RmWlJ5SkZiTVRZdW8vaHdHbE5hOFo0SGRtY3dHUm1UMllP?=
- =?utf-8?B?K2JEMnVmR2UxVGRuU2VvNHN2U2VYZHZvRDFnY1NHd1JpRlNTUThJSGtTZDhs?=
- =?utf-8?B?L3EwbWlvWE8rcnhKcVhxcDVIQzNhY3R4dkx1QTc3TERPMVJxT2NKOTYrWmdk?=
- =?utf-8?B?RjJUb1dpbVgwRW41SnBkMzBrUklkRkgrV3RZZnZOUExrbVEvUkkxbFNTRXZl?=
- =?utf-8?B?ay9abkF0VTdReVRldnBEVzNyZDdtUk52RjJpd3BDcUhjeFhIWlJ5ODNxaTdZ?=
- =?utf-8?B?Y3ViWTU1QmtJaUpQWWpuTEs0WXFQb2N3cnRvMkpLaTFUWjQrOGdLRWloOURQ?=
- =?utf-8?B?VmhLTzJHNjJmdHkySXhoS2NQaFY4dEsxYTVETGZPWGJYOVFHSHBpUlIrY043?=
- =?utf-8?B?RDNGL0xVZE5FY0pWSURsZmpLdmFtVHNWUEhEalE4ak01RTQzQjBBZ3lQblpp?=
- =?utf-8?B?QndEWGxPNUhZQ3FKMWt0TlIrOWxoT1ZMZGxIRURnakNVamwzMjI3QlNFSldX?=
- =?utf-8?B?amZOelRLS1BoLys1L2xnaGxQVDN0djkzbk9jQkdtVzhEbzNGVENuNHY4azNp?=
- =?utf-8?B?WlRDN3Z1UDYzQTdYQkdGOUQvdUpEUTE4ajNaa2hLYUp0d3BGVDJGSGd3bG5J?=
- =?utf-8?B?QjZrNnJHZFN3Rk44ckpVRDM3azEwQzRzdjc4dzV5RGxPeDVyU0t6RTg3QVB0?=
- =?utf-8?B?UzcrTFhvRlp0YnRvZTgyR0hWSSttTWVjazhQZFRKRWdVbnEwbnlHUFNONHpD?=
- =?utf-8?B?V2gydk5jbFFhemlTREJnYVkvNjcvaVp0SFNncnJ2RnBEdzJFRkRCbVF0Z1l5?=
- =?utf-8?B?RGh1K3JNcjJvQmtBU1RyVkM2Mmttek1TTzd1akx4ZEZ0R3NSWDEwTjl4a3B6?=
- =?utf-8?B?UUppdE00SjZkcjg1c0lPQTRZK2Z6NitacmYzeE8wenBOdzc3Q3RjZjNxS3Ra?=
- =?utf-8?B?MG5Kb2RIWEVZU3Z0dCtadFFrRkw2c2ZURWllcFNtQWppK2UrY1V1RUIzV2Yx?=
- =?utf-8?B?VUR1MXEwRFArSzRJakdmbVJHd3R6ZTVQUHZmODIyUStiVnp2ZDR0M0g2Q3Bi?=
- =?utf-8?B?alN3cG1LdW9XQ3Bjc25UWVVqbXBkanFGWDBTZ2JHa2RDSzBaSXFoZnNXWUpz?=
- =?utf-8?B?L2NuOTdIQ1dHL2F2d1lHSDVDYVN4VEExZlpEOVE0SmJWQWh2M3NvaVZMQXgz?=
- =?utf-8?B?STdEa3BWRWh1S1ZELzd2V1pFL0ZXZ3BkZVA3b1BSVjZJQ2RhbXRKM0dzcUZz?=
- =?utf-8?B?WElpeGpiVDVXeU1rdFF5WWowdGk1dVdvWWcwNks2MHo0SFVjV1lJc0ordFk2?=
- =?utf-8?Q?LJpFMJ1bSAQ=3D?=
+	=?utf-8?B?ck9PekdqR3J1Z0xTeGpLbmZmYkc5c2pLWC9KdU5keTlvcTlNc2NtYUlDWWE5?=
+ =?utf-8?B?ZzVSZ1BpNlRaMzYyUk9DYnFBL0thWmc0RU5ocUh0dURvNG4xWW9YOVhNK0hG?=
+ =?utf-8?B?byt6UkRvVUJ1eldsZ2ZBTmhCZTBrVWtCamRnTmUvREwyQWJkdWcxY3FTNG5Y?=
+ =?utf-8?B?amZWMlBDNFFHRjlsQkcwVDdlMHByei9udVpNamdCYkN2OUN0UUlQZmFZM1R1?=
+ =?utf-8?B?VkNHZzZWZlNnZFBDQ21jRFZWSnd1Z2c5WHdOWmpKYXA2aVh4T0JtWm5MejNJ?=
+ =?utf-8?B?Yisxa3gzZW9mOHNNeDh3Si95OUVpUVhBREtSNDhVemV0MFI5akN3OWJ3MGIw?=
+ =?utf-8?B?MHZZTGZHOVhKdUMwMGdHdTJTWkFNejhoTWxTZ1A0aW96L2FDNzVNaWswNXVM?=
+ =?utf-8?B?b29aTHpUQ0tzWTNQaDFnZ2trNndJbmViQ3YyNWlHUVdVajIxUktzNjM3eVRE?=
+ =?utf-8?B?d0l1UEJtaThqRFNoZzFoZUVUWUppUitqWUNrNGVXRDhtdXZnMko5VDF5NGRo?=
+ =?utf-8?B?Y1NCNnVUNUhSMEhxQ2x3eko5cm1HVUJtZGJpZTRXTE9KR29EZWJhdURGY3Bw?=
+ =?utf-8?B?Qklna0Iwc3IxYlBlNjJKVVlOeEJ5M1ZOVk8vRjVDbGRNTFZMcVFVQU5UVUUv?=
+ =?utf-8?B?UDg4UFRyblJocjFtcEd4bnR2RDhJdXEwaWRpc2NLL2FLcU9lYmtmbzI4Mms0?=
+ =?utf-8?B?NjIwSitxS05hdXZRTnVBbk44cFhsQWhiK3hNRFM3ZDVnN1Joekkwc2pZd05x?=
+ =?utf-8?B?STdXajNLdFh3c0djL3htcEJwa3BxUDJST08yRk1OMFF4aWlReGpjbjNURFVh?=
+ =?utf-8?B?L2orZU9lTnhIMExOampBYkJGWTkyMmhwTGIyWTVzanBaRzZmUVN2b282eFdW?=
+ =?utf-8?B?MVR6NldGS0k2QWdsekE5V0gyb2tMbUJKNzJuK1k1ZTZ2K2FWNURPaU5nUnda?=
+ =?utf-8?B?TmhWTUsxajRGb2g0cnJNTzlLUGsxcGhCcjJKV1hrU3l3bWVIQkJwenFzOUU1?=
+ =?utf-8?B?VWtlS2cvVEZWLzRvSnF2dEFPY1ZpMDNkdUJKaThZS09aWHZucjU0YXdLaURK?=
+ =?utf-8?B?SW9xTEVqRHZBSmNVNDdVSzBkNUg3VWVjNWlvMDZyTXorcXc0dmpZYXdCY2pu?=
+ =?utf-8?B?bGJxdE5YQUtnTTR6T0UyUy9IN1ZoUVFQekh4U0RtVENpc3ZPV2t1U2daZEhI?=
+ =?utf-8?B?Q1k3cURHeitmdjh0THlZM2FaSnVBWTlFRjQ0ZDllc3pIbTRlUDhqNHl5blJo?=
+ =?utf-8?B?MFFmTC9LRkRoeHYzMEJPLzRRK1cyNmorOGptNGI5T1BDZTgzZVFiaUE4aUJV?=
+ =?utf-8?B?TjhibWpkZnI4WW1Ia1FRUEFVVk1aTkdYN0xJSkdleG83VUVHWkppK3NiNDlE?=
+ =?utf-8?B?Y29CYkFTSm40SXg3VklQcXd3S3BIREVsMExvOUF1REVzaXBIZXVBWWdsSFhP?=
+ =?utf-8?B?Qm5paUNXOUR0OUFNWTBTMmhZdDhZRklpTE1DT3N2aXpPNVl1WHdBYzRib0Zk?=
+ =?utf-8?B?dnNXUmhQeXBaeng0bTlIcWI0TXgvWjdRdDQzRnJKamdOQzE2OHlkRzJ2ZHFa?=
+ =?utf-8?B?NVhSbmUvclQwSms2N0pic2E0SjdEQzVxaWo1WTlIazBPRk9FVGV3T1ZpdXdG?=
+ =?utf-8?B?SWxSMVlOKzRSbFQ0d1BtOXB2UUNoQWhsS1NHQ3I4b3IyY29iTzdGUlhkVm1p?=
+ =?utf-8?B?KzllNkl6SXdCTE5oUDMvNGtsbTh1YzVOU1NFYmdTOWY3bWV4Y1pETlBmdnNK?=
+ =?utf-8?B?cENjazRsa2NqZmFvVjVWR0Q2NlBnS0JTNGFQTU9vdExCQWxWNGFoUmlva2ZX?=
+ =?utf-8?B?N3czc2dIZldicGJzUnVwR2dsanVWc2ljMTZvelBMYU9KMkVTQm04MjN4THNk?=
+ =?utf-8?B?QUN4SFN2VERWbE1yd3BVOGtWNmg4NUpMNkdGS1RmNDVWeHhWR1lCVjlyODFS?=
+ =?utf-8?B?bWRkdVRYMGFQYXpOTE5NV0JKV0pPb0ZjWitBS0h3aHFad1hVenZrVmhLUWlE?=
+ =?utf-8?B?RllDNG5pZjkzd2E3OTk3dEp6bFYySVdsMUVnRCt4NzlydkxhZUxXQ0F0ZjBB?=
+ =?utf-8?Q?dTyZg/?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?em9JNmVoVVY5cWhoU3N1bDZlMFp0WmtFUWdKWW5JRGhqNHY2aFpIUDRTYWhF?=
- =?utf-8?B?VGVVTUpoNyt0aTZnOVpzS1lCd3ZXQXR3aHVkSEN6RVZFU2dNMHduZTJ4dU9m?=
- =?utf-8?B?czNyWlVkcWplZEMrdnFnY3lJVEtzVk56L21KelF4aUhtTVErL3M2V3ZXM05p?=
- =?utf-8?B?dlZ2VkErTlBkeU9NU3c1Y0hoR2o4ZC9ZemxSVWx3TkY4ZXZKeEtxT01GZDRV?=
- =?utf-8?B?TmNIZHJ2ekthSjJmaXJPa0pKRjhsSlByRDJtT2l2dGlTWWRpOHJ0YjhqN0Fn?=
- =?utf-8?B?Y0t5bnZSZWpxc3Q2Y3BPMWU1YnBvbmwyQVVmREdOa3A5eno0RzZSMGdscFp4?=
- =?utf-8?B?M2ZZbkw1K1FOdjdJRlNveElWRnBEYi9HNkxxdFRkd1pLU2RzelpDUzhLWENC?=
- =?utf-8?B?d1lEREk1NitLWkZzY1dDVHZtSlh5alBERURFUmdSWExnUE5iUWlSNGhzMXhj?=
- =?utf-8?B?QVhBMVRRMi9scy9QYi8vbkF6NDM1YlUzT0tDUUtsa0JMVEIwTE05Q1VyVjl0?=
- =?utf-8?B?K0tDRG5VbE81ZFBlaDhod2FSS2hkV1RmN1JJd3FFMTJZc0dsV1dnSEg5dWhX?=
- =?utf-8?B?UjBuOE9UdzdnRDh4bk9XdSt0NGdNM2xHMGF2WkdMVER0dVFKT2lqL3k3ckpC?=
- =?utf-8?B?cTBQTjJDYVpTVm4ycjNuTGl3OTNoeUJVZ0tSRHByNnJqNXFlZm5ESjJJWC8v?=
- =?utf-8?B?VFE3OGQ3MFNvSlNPU1l3dXBOQ2xUK21YVVRTVW9Bd0NET0dKUjd5UWZxVWk4?=
- =?utf-8?B?UjQ2a0czTFhkUkNqVGEwUDUvYlZGeTNWMERzTHpsMGZ0NnFrNTNudDh2Q21u?=
- =?utf-8?B?OGNzeHRtQmM0NWNkOUlXaGZyMWxRNnZ5ck1QUWVzYWhGOHpNMlBERUIvcEdO?=
- =?utf-8?B?WXluYzNvLzVUTjdFODZIS2ZtTzAvR0t1L002TmIwYzhiVzRKZjd5cTZkR1Jh?=
- =?utf-8?B?Rm40KzB4anduTzJSMGdoT3B2TUVRYXJFckZXck9jVXVOSVJNZ1gyOW9NcU1Z?=
- =?utf-8?B?UWk2Qm1vWnVWekVycFhTclNVekdSVHY0aEtISnJqb21ab20za2N0UFQ1eWYr?=
- =?utf-8?B?YVdMM0JHb0lkTTI0cGF1K3NoNTQvbXdiRzVoNnU5cExKZFpJbjJxUGd1YnJB?=
- =?utf-8?B?dWFyMllwemhqbFNubXRMUUxrUlJXSjFHVWp1Z3hBWXNOVGUvQVF3UlcyWmxS?=
- =?utf-8?B?bVZyVThXWG92K1NkdkpVU2ZqcVdhZ1pjc0d4UitxdEdKMFl1WWg2Y2VhNmxa?=
- =?utf-8?B?MWxWYlBPN2h4RXNMTFNlRTM0aHdjTXNldmU4Nnl0TmtwV0k5dDlZN3FyR3lJ?=
- =?utf-8?B?a01POEJONnhkWUMxLyt4emZZYVB1T1ZjeE1kQ29kR2czMmt0akE4bmFsaGZD?=
- =?utf-8?B?eUJra3FTWHEwV1NkdGZRUDBXeEhxYnhyMFRQYnhLTWxRd3hOSzNFdEQxRTE2?=
- =?utf-8?B?Sm4zTzhEaDJXZDJPUHVlL1MyRU1PQ3Z3SmtXTkJVWWlTaExGdUFRcmFUcHZu?=
- =?utf-8?B?NHBwWE9JTi8vU0Q0RCtsTHg3akd6OVVyYzYzOUl6VVJUSFJoY2VNdkxFWWhI?=
- =?utf-8?B?OHNURVJDbXMzOGpzSm4rSWZuM1I2VTZhbmt6YzBLSFNyTGtsZm5xU0tkc1RX?=
- =?utf-8?B?Qlhma2RCYnd3NGNmNzVid1Vmc2N5R2ZCRTU0K3NNemxmQ1RoVzZvZ2ZqNWhp?=
- =?utf-8?B?dU9kaXRGVTh0OWUrN2pnWERDSTQrTFBXYVNkRWJnZ2J3cEl3b3FPTzd0ZThh?=
- =?utf-8?B?SERObStkeFhTSC96dkxJdzhaTG5STncwamw0V25iZWk5Y0FKYWdVbEU2YW5z?=
- =?utf-8?B?WFV6MjQ1MnNOOUVzZzU5OWR3N09SNUU2a1RzOFM1OGFaMktwM3Jkc3RxcG9k?=
- =?utf-8?B?c1VBaVJVblhlMmhkTVJVOWRIQTVTVnR2R2N4UWd6L0V6MnNpT0VYN2ZHNUFB?=
- =?utf-8?B?NTZUUmtzSjNuRWFkbkdVbnNacVdsQkJLSnErT0E0WURQYzJpdzJMZkRBZW9Y?=
- =?utf-8?B?SkFKQXlCNmdBb0xxeEYwaG13MWc3aXZSdmMvbVZpa0hIQjVJR0tMdkNZTlJZ?=
- =?utf-8?B?ZEp2MnJ5WTJKcG13YjI4bVlPa2RNZVE1M3pBME5CSDVuMXphVEt3WG5sM0o0?=
- =?utf-8?Q?I/lM911IjoIEiJ6sNtdyEkF1T?=
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 517b0357-3cc4-4f3a-2ae9-08dd7c103e40
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2025 11:25:36.4002
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2025 11:30:11.5144
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96b16d25-0523-4c14-32c6-08dd7c10e265
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oZL4WPKHvUIYrS9WEKf8s5FyVfJyuKjRA3f/C4kbbNoW9n87l9V/UHGRy8IN6OQS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9398
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EDD1.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7450
 
-
-
-On 15/04/2025 13:10, Luca Fancellu wrote:
-> Hi Julien,
-> 
->> On 15 Apr 2025, at 11:20, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Luca,
->>
->> On 15/04/2025 16:55, Luca Fancellu wrote:
->>> Hi Julien,
->>>>>>> +static void __init setup_mpu(void)
->>>>>>> +{
->>>>>>> +    register_t prenr;
->>>>>>> +    unsigned int i = 0;
->>>>>>> +
->>>>>>> +    /*
->>>>>>> +     * MPUIR_EL2.Region[0:7] identifies the number of regions supported by
->>>>>>> +     * the EL2 MPU.
->>>>>>> +     */
->>>>>>> +    max_xen_mpumap = (uint8_t)(READ_SYSREG(MPUIR_EL2) & NUM_MPU_REGIONS_MASK);
->>>>>>> +
->>>>>>> +    /* PRENR_EL2 has the N bit set if the N region is enabled, N < 32 */
->>>>>>> +    prenr = (READ_SYSREG(PRENR_EL2) & PRENR_MASK);
->>>>>>> +
->>>>>>> +    /*
->>>>>>> +     * Set the bitfield for regions enabled in assembly boot-time.
->>>>>>> +     * This code works under the assumption that the code in head.S has
->>>>>>> +     * allocated and enabled regions below 32 (N < 32).
->>>>>>> +
->>>>>> This is a bit fragile. I think it would be better if the bitmap is set by head.S as we add the regions. Same for ...
->>>>> So, I was trying to avoid that because in that case we need to place xen_mpumap out of the BSS and start
->>>>> manipulating the bitmap from asm, instead I was hoping to use the C code, I understand that if someone
->>>>> wants to have more than 31 region as boot region this might break, but it’s also a bit unlikely?
->>>>
->>>> The 31 is only part of the problem. The other problem is there is at least one other places in Xen (i.e. as early_fdt_map()) which will also create an entry in the MPU before setup_mm()/setup_mpu() is called. I am a bit concerned that the assumption is going to spread and yet we have no way to programmatically check if this will be broken.
->>> If we would like to find ways, we could check eventually for clashes on enabled MPU regions;
->>> so the only part where a region is created in the C world without the assistance of xen_mpumap is early_fdt_map(),
->>> asserts etc could be used in one or both setup_mpu and early_fdt_map to prevent breakage.
+On Tue Apr 15, 2025 at 7:05 AM BST, Jan Beulich wrote:
+> On 14.04.2025 20:01, Alejandro Vallejo wrote:
+>> On Mon Apr 14, 2025 at 4:05 PM BST, Jan Beulich wrote:
+>>> On 14.04.2025 15:37, Alejandro Vallejo wrote:
+>>>> On Thu Apr 10, 2025 at 11:42 AM BST, Jan Beulich wrote:
+>>>>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
+>>>>>> +/*
+>>>>>> + * Locate a multiboot module given its node offset in the FDT.
+>>>>>> + *
+>>>>>> + * The module location may be given via either FDT property:
+>>>>>> + *     * reg =3D <address, size>
+>>>>>> + *         * Mutates `bi` to append the module.
+>>>>>> + *     * module-index =3D <idx>
+>>>>>> + *         * Leaves `bi` unchanged.
+>>>>>> + *
+>>>>>> + * @param fdt           Pointer to the full FDT.
+>>>>>> + * @param node          Offset for the module node.
+>>>>>> + * @param address_cells Number of 4-octet cells that make up an "ad=
+dress".
+>>>>>> + * @param size_cells    Number of 4-octet cells that make up a "siz=
+e".
+>>>>>> + * @param bi[inout]     Xen's representation of the boot parameters=
+.
+>>>>>> + * @return              -EINVAL on malformed nodes, otherwise
+>>>>>> + *                      index inside `bi->mods`
+>>>>>> + */
+>>>>>> +int __init fdt_read_multiboot_module(const void *fdt, int node,
+>>>>>> +                                     int address_cells, int size_ce=
+lls,
+>>>>>> +                                     struct boot_info *bi)
 >>>>>
->>>> Furthermore, right now, you are hardcoding the slot used and updating the MPU. But if you had the bitmap updated, you could just look up for a free slot.
->>> of course, but still the early DTB map is temporary and it will be gone after boot, so it won’t impact much unless I’m
->>> missing something.
->>
->> It doesn't really matter whether the region is temporary or not. My concern is you are making assumption that are difficult to track (they are not documented where a developper would most likely look at).
->>
->> So if we still want to hardcode the value, then this should be documented in head.S and probably in a layout.h (or similar) so there is a single place where the MPU layout is described.
-> 
-> Sure, I’m fine with documenting everything, let’s see ...
-> 
->>
+>>>>> Functions without callers and non-static ones without declarations ar=
+e
+>>>>> disliked by Misra.
 >>>>
->>>>> So I was balancing the pros to manipulate everything from the C world against the cons (boot region > 31).
->>>>> Is it still your preferred way to handle everything from asm?
+>>>> Can't do much about it if I want them to stand alone in a single patch=
+.
+>>>> Otherwise the following ones become quite unwieldy to look at. All I c=
+an
+>>>> say is that this function becomes static and with a caller on the next
+>>>> patch.
+>>>
+>>> Which means you need to touch this again anyway. Perhaps we need a Misr=
+a
+>>> deviation for __maybe_unused functions / data, in which case you could
+>>> use that here and strip it along with making the function static. Cc-in=
+g
+>>> Bugseng folks.
+>>=20
+>> It's a transient violation, sure. Do we care about transient MISRA
+>> violations though? I understand the importance of bisectability, but
+>> AUIU MISRA compliance matters to the extent that that the tip is
+>> compliant rather than the intermediate steps?
+>
+> Thing is that quite a few rules are blocking now. I haven't checked wheth=
+er
+> the one here (already) is; if it isn't, we can't exclude it will be by th=
+e
+> time this patch is committed. If then the next patch isn't committed
+> together with it, we'd face a CI failure.
+>
+>> Another option would be to fold them this patch and the next together
+>> after both get their R-by. As I said, I assumed you'd rather see them in
+>> isolation for purposes of review.
+>
+> As it looks it's all plain code additions, so reviewability would merely
+> mildly suffer from patch size. But afaict there would be no loss of clari=
+ty.
+>
+>>>>>> +    /* Otherwise location given as a `reg` property. */
+>>>>>> +    prop =3D fdt_get_property(fdt, node, "reg", NULL);
+>>>>>> +
+>>>>>> +    if ( !prop )
+>>>>>> +    {
+>>>>>> +        printk("  No location for multiboot,module\n");
+>>>>>> +        return -EINVAL;
+>>>>>> +    }
+>>>>>> +    if ( fdt_get_property(fdt, node, "module-index", NULL) )
+>>>>>> +    {
+>>>>>> +        printk("  Location of multiboot,module defined multiple tim=
+es\n");
+>>>>>> +        return -EINVAL;
+>>>>>> +    }
+>>>>>> +
+>>>>>> +    ret =3D read_fdt_prop_as_reg(prop, address_cells, size_cells, &=
+addr, &size);
+>>>>>> +
+>>>>>> +    if ( ret < 0 )
+>>>>>> +    {
+>>>>>> +        printk("  Failed reading reg for multiboot,module\n");
+>>>>>> +        return -EINVAL;
+>>>>>> +    }
+>>>>>> +
+>>>>>> +    idx =3D bi->nr_modules + 1;
+>>>>>
+>>>>> This at least looks like an off-by-one. If the addition of 1 is reall=
+y
+>>>>> intended, I think it needs commenting on.
 >>>>
->>>> Yes. I don't think the change in asm will be large and this would allow to remove other assumptions (like in the FDT mapping code).
->>> not large, but still something to be maintained, we will need arm64/arm32 code to set/clear bits on the bitmap
->>> (causing duplication with bitops.c), code to save things on the xen_mpumap, code to clean/invalidate dcache for the entries in xen_mpumap and finally we will need to keep the code aligned to the implementation of the bitmap
->>> (which is fairly stable, but still needs to be taken into account).
->>
->> I understand the changes and risks, but I still think this is the right approach. Let see what the other maintainers think.
-> 
-> what the other maintainers thinks about this one. 
-I read the thread and my opinion is that we should do that in ASM even it if
-means more code and possible duplication. From maintainer perspective this is
-easier to handle than assumptions which are more error prone and difficult to
-change in the future.
+>>>> Seems to be, yes. The underlying array is a bit bizarre. It's sizes as
+>>>> MAX_NR_BOOTMODS + 1, with the first one being the DTB itself. I guess
+>>>> the intent was to take it into account, but bi->nr_modules is
+>>>> initialised to the number of multiboot modules, so it SHOULD be alread=
+y
+>>>> taking it into account.
+>>>>
+>>>> Also, the logic for bounds checking seems... off (because of the + 1 I
+>>>> mentioned before). Or at least confusing, so I've moved to using
+>>>> ARRAY_SIZE(bi->mods) rather than explicitly comparing against
+>>>> MAX_NR_BOOTMODS.
+>>>>
+>>>> The array is MAX_NR_BOOTMODS + 1 in length, so it's just more cognitiv=
+e
+>>>> load than I'm comfortable with.
+>>>
+>>> If I'm not mistaken the +1 is inherited from the modules array we had i=
+n
+>>> the past, where we wanted 1 extra slot for Xen itself. Hence before you
+>>> move to using ARRAY_SIZE() everywhere it needs to really be clear what
+>>> the +1 here is used for.
+>>=20
+>> Ew.  Ok, just looked at the code in multiboot_fill_boot_info and indeed
+>> the arrangement is for all multiboot modules to be in front, and Xen to
+>> be appended. But bi->nr_modules only lists multiboot modules, so
+>> increasing that value is therefore not enough (or
+>> next_boot_module_index() would fail).
+>>=20
+>> I need to have a proper read on how this is all stitched together.  I
+>> may simply swap BOOTMOD_XEN with the next entry on append. Though my
+>> preference would be to _not_ have Xen as part of the module list to
+>> begin with. Before boot_info that was probably a place as good as any,
+>> but this would be much better off in a dedicated field.
+>>=20
+>> I don't see much in terms of usage though. Why is it being added at all?
+>
+> For hyperlaunch I fear it's you who needs to answer this question. For
+> pre-hyperlaunch it's (primarily?) for consider_modules(), iirc. See two
+> of the three comments ahead of its non-recursive invocations.
+>
+> Jan
 
-> 
->>
->>>>
->>>> As a side note, I noticed that the MPU entries are not cleared before we enable the MPU. Is there anything in the boot protocol that guarantee all the entries will be invalid? If not, then I think we need to clear the entries.
->>>>
->>>> Otherwise, your current logic doesn't work. That said, I think it would still be necessary even if we get rid of your logic because we don't know the content of the MPU entries.
->>> The PRLAR.EN bit resets to zero on a warm reset, so any region will be always disabled unless programmed, I thought it is enough.
->>
->> This is only telling me the state PRLAR.EN when the CPU is initially turn on. This doesn't tell me the value of the bit when jumping in Xen.
->>
->> I am making the difference because there might be another software running at EL2 before jumping into Xen (e.g. bootloader, or even a previous Xen if we were using Kexec) which could use the MPU.
->>
->> So I am looking for some details on how the expected state of the system when jumping to an OS/hypervisor. For a comparison, on the MMU side, we have the Linux arm64 Image protocol that will specific how
->> a bootloader needs to configure the system.
-> 
-> Ok I now understand the question, so I think we still could use the Linux arm64 Image protocol, but we will need to define what we expect for the MPU, is docs/misc/arm/booting.txt
-> the right place for it? Shall we start a different thread?
-Please start a new thread for documenting booting protocol for ARMv8-R.
+There's no specific need for it on hyperlaunch AFAIK. Fixing
+consider_modules to not require Xen being on the list of modules is easy
+enough on both arm and x86 (it's a matter of passing the boot_info in
+full rather than array + size), but I fear there may be more instances of
+such checks.
 
-~Michal
+I'll let it be for the time being and take a mental note to untangle
+it later on. For this I'll simply ensure the append logic maintains Xen
+at the back, as a sentinel of sorts for the module list, and document
+that behaviour in the boot_info itself.
 
+Cheers,
+Alejandro
 
