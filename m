@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 056E8A89B9B
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 13:13:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.953651.1348110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C13B9A89C1B
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 13:23:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.953669.1348121 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4eDo-0006Lm-6m; Tue, 15 Apr 2025 11:12:56 +0000
+	id 1u4eNl-0000L1-3Z; Tue, 15 Apr 2025 11:23:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 953651.1348110; Tue, 15 Apr 2025 11:12:56 +0000
+Received: by outflank-mailman (output) from mailman id 953669.1348121; Tue, 15 Apr 2025 11:23:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4eDo-0006JG-3k; Tue, 15 Apr 2025 11:12:56 +0000
-Received: by outflank-mailman (input) for mailman id 953651;
- Tue, 15 Apr 2025 11:12:54 +0000
+	id 1u4eNl-0000IP-0l; Tue, 15 Apr 2025 11:23:13 +0000
+Received: by outflank-mailman (input) for mailman id 953669;
+ Tue, 15 Apr 2025 11:23:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ai1O=XB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u4eDm-0006J3-Rh
- for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 11:12:54 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1u4eNi-0000IE-Vu
+ for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 11:23:10 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 93860b41-19ea-11f0-9eae-5ba50f476ded;
- Tue, 15 Apr 2025 13:12:53 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43d07ca6a80so25784835e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 04:12:53 -0700 (PDT)
+ id 0224577a-19ec-11f0-9eae-5ba50f476ded;
+ Tue, 15 Apr 2025 13:23:09 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-43d0618746bso41879105e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 04:23:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f204c500bsm214506275e9.0.2025.04.15.04.12.52
+ 5b1f17b1804b1-43f23572c38sm207139645e9.32.2025.04.15.04.23.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Apr 2025 04:12:52 -0700 (PDT)
+ Tue, 15 Apr 2025 04:23:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93860b41-19ea-11f0-9eae-5ba50f476ded
+X-Inumbo-ID: 0224577a-19ec-11f0-9eae-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744715573; x=1745320373; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744716188; x=1745320988; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jDdI8MdXwll1K4LJK1H0y7rVkGm3Yd4SWMdwH75ZV1g=;
-        b=C9Kci9EB8SF6lhJsXeJ/GommEJdu6f9Y8ue/AxeO7MUOLW0vJFFy/+MDT+rnJQ6EKk
-         4ENMlB0HWHuPn8jZpqn7UFSBb601bFivYMCv5RVFGaHE3LKtKQC0odQPRAzX2ZjhMcgb
-         kq+Vbi6b8cToPbbyfJAhRSog2vK2bRzzlh5nbcePwkTCOGY5kQqJxuzOuBrd/y02g7p9
-         4CHgzk8JKDdUjwk1pE2LRMs8jMhT6Q/a3ISqLLiviOd2vC5tt7Sm0JfbI938wqtQegfq
-         OIeIwoWS4hhZH9kRh8gI5k4iVdRbvYUiFefPtPg2IrtOYTBD5MLAFq0XgSdE9ez+dO8q
-         bZFA==
+        bh=/i5hE4OADgvjPStn1D42+mVG0FXCCZTURSG3ANRzQkE=;
+        b=TIJNn+4PzWBFQPsoghhsO7roIa+jcebck1EKlW3x9PUVOmWQmn+BNbi5SdcA1jVbBR
+         IGKZdB2hPLAMeD+2bcNTrnRL4mjDEwbtPyquNN8Wr7RMq72IgqHHsmmX79mE/qXs1VQd
+         jLVWg9YzvEz29mzcoZWVBYCBxetdo3OMTQ48rVcKmd3mLrpbo5gtX21bRzTD5q4DrmQ4
+         zgn84wu8/vdGY58nF6ypMTNjao6621plivHKWuQbEgiiOQGm1vvKaMF37dk6On8bIuWd
+         tppNicHJTMdPqMGmI53gzRZjZk71sFkamTd2iH0y5H7wpjTlZaE8pyyQFQ0L4BO1X8qT
+         tBuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744715573; x=1745320373;
+        d=1e100.net; s=20230601; t=1744716188; x=1745320988;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jDdI8MdXwll1K4LJK1H0y7rVkGm3Yd4SWMdwH75ZV1g=;
-        b=wpq+DUXdLajlSohI7HhBG3ttl+xuIX3MdO1neRdbvQMTpqbWF+PMDujLCq+91HYD++
-         Cxm7EnTnpEd1GP5g0CRZjAFUlDqo5nF9I6idGhFvxCeVk8sHT5Djs+i1pi0zQI151dDa
-         V/W5AvQzwe4JAMc0Qy51zcI23oWwXD8vscaszu/4BGiOefS3SmRXHITqbOOUgcS3zme5
-         dqrc9X8cx03CAKkHNmWc4V/7vvERIaLEtBsOs/qCwIVXB0fRJ0pd9GolgPQR1VJ3MQEP
-         vhwpxyDq4zhTs1ITNFR2P9V3gyEvhdRvgWNZSHGrWURQfJ/QqxhQ9H2giPCbiY12JAAe
-         NtrA==
-X-Forwarded-Encrypted: i=1; AJvYcCWtRBdpGNC/+nqDU0jIH8xDBeOmSr0iOfEF0C/+zeDYeDSkSkk1aA3elNwc4WPzhDC1NDOp0zMfCcA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxOgJejMF+Fgg1GjW5njMu6+v0hpyRNO5RHJVQQVmfcd7Lnptmj
-	cBWkfWPA1crhc/kmhEqKhIZ5z4zFTfNU9mCaMS09xPE+f47vZTISkO1tgulQvg==
-X-Gm-Gg: ASbGncu1O2OtybT7Jjl+FeOz3bYjwMXPqVPQ8ZhCH3qjBxd1BF95LrTlBbRkmnCjSBw
-	wtdFeRl32KsVkPnt6trfedBpCgkiV/PQ0WiGapYiqGxQ/qswGW33qJattmGyw9hGAEthpyCNcj/
-	hCH31oETyX/zz8OAU4VHJCahmFNcWIY/0//YZVzIHL+XXDDK4tMXvcO1c1g1gMPlteOvuKE8K8T
-	THNThAD/txP92brYW6AqU9HVRtMJyKInw7bL0eHMDnOWKUnEdn3G6b2HJvp8yJQIYrSWOGh/sfi
-	EnIdj8i6j2vPJO40GALz60TovSB2pEkpBoXggYt3Hjdi0WO4R89g/4LNYOg7kWCF7txcaGrPGdu
-	M7MNvuNJsOhsOBLqUXNNxlu6T0A==
-X-Google-Smtp-Source: AGHT+IEyNTMio2FiflKOuRaRu0N3PgiccXYuUcw+9K538QVDKI5zFZDeITfMBPcvG69HSMfRQNVr9A==
-X-Received: by 2002:a05:600c:500e:b0:43d:7588:667b with SMTP id 5b1f17b1804b1-43f3a93ca20mr168528415e9.10.1744715573161;
-        Tue, 15 Apr 2025 04:12:53 -0700 (PDT)
-Message-ID: <8f2f9dab-a7db-42a5-a359-ef45a64cd065@suse.com>
-Date: Tue, 15 Apr 2025 13:12:52 +0200
+        bh=/i5hE4OADgvjPStn1D42+mVG0FXCCZTURSG3ANRzQkE=;
+        b=VBoKpF2idIkNq89YC2RlkDFIJyHnS01O5HuzdfeXtF2nOPJefKtynFHGelObzSVCZ5
+         0JumUIISKPl7oJQJz8bWc6BCxG2aTX8HZhAuEgrs/xkk8P8ISlhCqRetRSkQdoG9mqgi
+         5GVSEAltzYKYPNx7se4qT9Q4W+MJlAS1JxhsgawKS4PE6dBEWQJeDrC/UIKgHlHeDk4N
+         mzeYcDbju45dE5t1MAalQUD+kfGwR6kl/HByMLNPqSWGfogaP/3Bh0pJuBpY0J+GA1m/
+         ox12+OmaAugrPvi5R1SIHfbr9tGaHlDPx1DUw99XMJCbpyMoHy3VKG4wpJawAQIzhz28
+         DqpQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWGh0X3a/mdcdyT5iPqrCn3LCTqufMA7fQtg5DlUh0eMUWvmSK1J2cQMJkZfrKUDpoufvDE3FQmPpA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx/fmyipAt9M6zKXBoJdIRKZCI+bkhUkThVzHsYEMLE+2XMVio4
+	jwfP1mtiM1jgfFQYC93SxoQE6/5QvDo4oJJUNnBi+KaTLOTb47yRoD7WZeGhpg==
+X-Gm-Gg: ASbGncvbo0PPdu++wMBC0lMRQ+2doiw+0uzkPPsUihGA6UEeLwSWu/EcSgPN8ONir88
+	Tm96VtYwu2wzZX5wBC+Djtfu98lk/SehpznQVDWuTUUMYkllZl3Xv50jft0qcbhTBOuX/qLvu1+
+	RknjDTzrTR2jC57iJcSiMYfL0OkElhK8QOSAhCad6BznLMGKLepww0R36DYAXPMOMO6oE8KqvNZ
+	9b04n5qRunvTBrayOlp0foc+jwmHYvO01nBbrwVp20iXpBWuYFv0B+63sFaC0SFuuDPboaZF2Mo
+	QgCpRiV4BBKrWMmulMhcHgyuc6059yTmaAVQlSmcIWHkoN0nltsuU99ZI0LplIkxEjyG9M7hjHm
+	E8GI5tvUVYvVlvGSyUh0vMjDTXrcgz4X8hzLv
+X-Google-Smtp-Source: AGHT+IEOOg7sk9jlC8aYAivLEqasAEGiX7jCiLOTrNfm4KQfOcFwHbTBUm6Uc/LwJzjVs17KLwB8jw==
+X-Received: by 2002:a05:600c:5494:b0:43d:10c:2f60 with SMTP id 5b1f17b1804b1-43f3a9ab0c2mr117201425e9.24.1744716188127;
+        Tue, 15 Apr 2025 04:23:08 -0700 (PDT)
+Message-ID: <664560b3-400d-485c-b50b-0614f0a3e49e@suse.com>
+Date: Tue, 15 Apr 2025 13:23:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] drivers: Make ioapic_sbdf and hpet_sbdf contain
- pci_sbdf_t
-To: Andrii Sultanov <sultanovandriy@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v1 05/14] xen/riscv: introduce platform_get_irq()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1744657012.git.andriy.sultanov@vates.tech>
- <af7536c3234bc7a9d048b4cb1d45f084b4343bdb.1744657012.git.andriy.sultanov@vates.tech>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <6c6e7482cc3b0332f5724c80bf16931fe2d793ae.1744126720.git.oleksii.kurochko@gmail.com>
+ <31de00cb-b3b4-4d15-a128-930dc1c7ccdf@suse.com>
+ <16139d54-fc6f-4ecb-9b3e-ea1e110a1f0d@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,65 +126,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <af7536c3234bc7a9d048b4cb1d45f084b4343bdb.1744657012.git.andriy.sultanov@vates.tech>
+In-Reply-To: <16139d54-fc6f-4ecb-9b3e-ea1e110a1f0d@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.04.2025 21:19, Andrii Sultanov wrote:
-> @@ -748,6 +746,7 @@ static u16 __init parse_ivhd_device_special(
->  {
->      u16 dev_length, bdf;
->      unsigned int apic, idx;
-> +    pci_sbdf_t sbdf;
+On 15.04.2025 13:11, Oleksii Kurochko wrote:
+> On 4/10/25 5:35 PM, Jan Beulich wrote:
+>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
+>>> @@ -21,6 +22,22 @@ static struct intc_info __ro_after_init aplic_info = {
+>>>       .hw_version = INTC_APLIC,
+>>>   };
+>>>   
+>>> +static int aplic_irq_xlate(const uint32_t *intspec, unsigned int intsize,
+>> As you start adding functions calling indirectly, please consider adding cf_check
+>> right away, even if right now this has no effect on RISC-V. That'll save you from
+>> going through the entire RISC-V subtree later on to find them all.
+> 
+> Sure. I thought that it is a feature for x86 as I haven't seen such attribute for
+> Arm and RISC-V in GCC manuals.
 
-Why does bdf need keeping around here?
-
-> @@ -335,20 +336,18 @@ void cf_check amd_iommu_ioapic_update_ire(
->      new_rte.raw = rte;
->  
->      /* get device id of ioapic devices */
-> -    bdf = ioapic_sbdf[idx].bdf;
-> -    seg = ioapic_sbdf[idx].seg;
-> -    iommu = find_iommu_for_device(PCI_SBDF(seg, bdf));
-> +    sbdf = ioapic_sbdf[idx].sbdf;
-> +    iommu = find_iommu_for_device(sbdf);
->      if ( !iommu )
->      {
-> -        AMD_IOMMU_WARN("failed to find IOMMU for IO-APIC @ %04x:%04x\n",
-> -                       seg, bdf);
-> +        AMD_IOMMU_WARN("failed to find IOMMU for IO-APIC @ %pp\n", &sbdf);
-
-Hmm, this one's somewhat questionable: An IO-APIC isn't a PCI device, so
-making its "coordinates" look like one can be confusing.
-
-> @@ -369,7 +368,8 @@ unsigned int cf_check amd_iommu_read_ioapic_from_ire(
->      unsigned int offset;
->      unsigned int val = __io_apic_read(apic, reg);
->      unsigned int pin = (reg - 0x10) / 2;
-> -    uint16_t seg, bdf, req_id;
-> +    pci_sbdf_t sbdf;
-> +    uint16_t req_id;
->      const struct amd_iommu *iommu;
->      union irte_ptr entry;
->  
-> @@ -381,12 +381,11 @@ unsigned int cf_check amd_iommu_read_ioapic_from_ire(
->      if ( offset >= INTREMAP_MAX_ENTRIES )
->          return val;
->  
-> -    seg = ioapic_sbdf[idx].seg;
-> -    bdf = ioapic_sbdf[idx].bdf;
-> -    iommu = find_iommu_for_device(PCI_SBDF(seg, bdf));
-> +    sbdf = ioapic_sbdf[idx].sbdf;
-> +    iommu = find_iommu_for_device(sbdf);
->      if ( !iommu )
->          return val;
-> -    req_id = get_intremap_requestor_id(seg, bdf);
-> +    req_id = get_intremap_requestor_id(sbdf.seg, sbdf.bdf);
->      entry = get_intremap_entry(iommu, req_id, offset);
->  
->      if ( !(reg & 1) )
-
-Is a local variable here warranted in the first place?
+And that looks to be correct. I was under the (admittedly vague) impression
+Arm64 had something equivalent in hardware, which then merely needs enabling
+in the compiler. Not sure about RISC-V, but seeing the endless flow of
+patches enabling new extensions in binutils, it would perhaps even be
+surprising if nothing along these lines was already in the works somewhere.
 
 Jan
 
