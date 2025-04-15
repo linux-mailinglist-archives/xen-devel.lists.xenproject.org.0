@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03217A89893
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 11:49:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.952429.1347870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E905CA89951
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 12:04:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.952444.1347880 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4cup-0003fk-JN; Tue, 15 Apr 2025 09:49:15 +0000
+	id 1u4d9N-0000Bn-Px; Tue, 15 Apr 2025 10:04:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 952429.1347870; Tue, 15 Apr 2025 09:49:15 +0000
+Received: by outflank-mailman (output) from mailman id 952444.1347880; Tue, 15 Apr 2025 10:04:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4cup-0003dG-Ga; Tue, 15 Apr 2025 09:49:15 +0000
-Received: by outflank-mailman (input) for mailman id 952429;
- Tue, 15 Apr 2025 09:49:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ai1O=XB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u4cuo-0003dA-6Q
- for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 09:49:14 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e251591e-19de-11f0-9ffb-bf95429c2676;
- Tue, 15 Apr 2025 11:49:12 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3913958ebf2so4701397f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 02:49:12 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43f20625592sm205418325e9.10.2025.04.15.02.49.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Apr 2025 02:49:11 -0700 (PDT)
+	id 1u4d9N-00009I-N7; Tue, 15 Apr 2025 10:04:17 +0000
+Received: by outflank-mailman (input) for mailman id 952444;
+ Tue, 15 Apr 2025 10:04:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OGoX=XB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1u4d9M-00009C-SS
+ for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 10:04:16 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f6defdea-19e0-11f0-9eae-5ba50f476ded;
+ Tue, 15 Apr 2025 12:04:05 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-ac3b12e8518so893670266b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 03:04:05 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ a640c23a62f3a-acaa1ccc135sm1069658566b.157.2025.04.15.03.04.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Apr 2025 03:04:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,121 +44,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e251591e-19de-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: f6defdea-19e0-11f0-9eae-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744710551; x=1745315351; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PpZHgBn5hw3UIf2qEEE8zreim0QjF0JCfQqrEIjsV9k=;
-        b=AwOjLQS0lCkMN/EgdEJ0wuQA8tzQAiB341rtCWKXNvblXucCl1CFLXHrgexQzyJnxT
-         dA+/oKbv20FxQfMRA8rTVZwQTTVQa7j0bvdj0pD800NlYMCAeO6J7YbMFeZG9EO8EYJ/
-         0nPF4EE8Y/eZc1v3VC4aWgtEozl2MKUi0jIFdJrZAXGDfAWezUdRKHsEBq8/bQ+wUGYU
-         5qUf/F3r/zSsnqHo4DfiFKjGxo39Hk5FDhW4k+oNBjlCVxZviqVv/a9tlwusCqBMprbk
-         HDGYtUwxly+XNb/X+0y5TVF2WUYCx8zRU3FaUZ4KI7Nk6zpIhaZTkMMaDjggDC2KnNF5
-         P+aw==
+        d=citrix.com; s=google; t=1744711445; x=1745316245; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=gpPBqdbVg5LstLE2FO9qS/9lR3THiGzgfVosT1uJr7I=;
+        b=nfiMPUuqwoae94N+iqHT62y84+Ld5dHbiEdEVotCznKF3RoVtK3YwEng3JIRv9tguS
+         7VmMwvLEgCOIQE+iuDnLsAjQ0sAf3aSPPLVayKXwdv5MoV8e7YlZaoJMkewsMQo2nhs5
+         r/zpYgoKoK3TXRNzzcfF/OMLM+lJIY8ur4EXk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744710551; x=1745315351;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PpZHgBn5hw3UIf2qEEE8zreim0QjF0JCfQqrEIjsV9k=;
-        b=A1Xh9bqFefRFYNePtRT3sforYmsNMZmbia/CP6BVJUFvNigvZqHC/KqkpoO9i0uDL8
-         +x5/REgRMQvPJqjXpISPTllkXjwdQKpIi+J5BTWni3su1PX3NAI5ch/O7xmyIUbRCyCt
-         zX795tpkGc2Jtxt/PHfqaZHu1YKCBos46t0M5x76cZTNnIw+ELbZKyhOtg9KU+e67l+n
-         /chD6HDXT2EuF5vaByRUEeCzsMPl4S/fogGk878BSDKz3eI1EmyJ8IOo3zVv+YhtHDrB
-         gdfy8C3efhWxcj0y4CXgPrmrZkARZ+f2IAKygLQI0JkNhBY4sa1P9a7c7jlV2UlOcjPd
-         Mmvw==
-X-Forwarded-Encrypted: i=1; AJvYcCVV7B5F7Y5R0Ti3yytJ3HVKf5q/UdpHS6i8UahuYN/GyNGvrdG3DtqFzgqC2czWzbpiJrT5wNmX3f0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyOUNleYLpDMzVoMg9kHpfaHHVwGpP0BzzEUo6+r8d30jfL4+sY
-	RFTWqIYyvDF/Jn2ZsgpmrD0PrODs+FKzPHj3CLVMBwglpyXuAVT+ImRY1Cd3VA==
-X-Gm-Gg: ASbGncsBdOcCi4K+qWdF/Up//aX6qS/XGvlhoDPL9oiJ8RMYTqv1VZFrJja7StQBLhF
-	1UUAaY/0TxOkFqtab6bc4agyBb+M60xpKWJhnm/a2oAXWQYINWLCo28Ohqv5nZlp8W/BCKRhohP
-	eaalrNDukb1QgXy0WUJqGrKApzb8wpqEb/B798kpvIiNwklh0/4r5DdYcA9lLaanOwnc1V3QfsS
-	TID8ohJnYFfzRYtocShkY0S5YLO+JQDVFi5FwJmuSaYYRqdVLL9S769rIM6j3/3w22/yiM423V6
-	RmmlyOLbbtnpWM3Hadax/7fQmMSjjXucuYALkWGkGZ0MPNGQTO7gsiSYJ6Xpz0x/5Gsy/uKX2FM
-	j1HHx2y7NUQccW+AAZRXhGvxTtFPLzBXmn4LE
-X-Google-Smtp-Source: AGHT+IH4qUe7Xw/UQuCk7ZMH7VCXJezvF8Ia9xlWeeMnwBBslrDwQ5qSWuy4J7ZnD/OYH5uTWRtfwQ==
-X-Received: by 2002:a5d:64cd:0:b0:39c:268b:8b66 with SMTP id ffacd0b85a97d-39eaaebab7bmr13205299f8f.43.1744710551425;
-        Tue, 15 Apr 2025 02:49:11 -0700 (PDT)
-Message-ID: <dd4dd741-b063-4619-a893-a9c02c0ca791@suse.com>
-Date: Tue, 15 Apr 2025 11:49:10 +0200
+        d=1e100.net; s=20230601; t=1744711445; x=1745316245;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=gpPBqdbVg5LstLE2FO9qS/9lR3THiGzgfVosT1uJr7I=;
+        b=L0wib2odx2T7v5nEhL8K0wdt5txNRoE1IUcYhcGlecgtGO3yc6AOTsdNxqRIwPk6bO
+         Iw9yO3imTcnSGt0eNZSYGFEguGkUYm+DW+sLx1ynghTdeonosEZ3slQdfkWqyXgHm/BQ
+         PH7Jd8VjeiyMfmISXhxFHDCg2PUA0SN8RLUHDFGZam7OCKObNfe/ohOXyTcnvyx80LTM
+         /zJH0P1EZy73kHs+jEgmJgn4bin3YOopfkZ/vlGkDfM4Sr45QbdSt2KTjWWy7fqr4n3+
+         vBeB6OkCFdkeiRN0ZPtjdqr73LDKyJMJuqOVwa2/QZictNlQ5wsdE3rXoz64zg9GMGmB
+         7gtw==
+X-Forwarded-Encrypted: i=1; AJvYcCVBMQkt9PUcL4DW1ouBRO75vyAYEzlbYlahx92lIglPU+0abuiHwNZ4HAWcKsiRtBtMD1Lh8Ubqa3A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyZMC8cqxaRReyOrSAhc5Rw79FmWxB6GWpcsuoUo9TRrhwnuOaT
+	4ONRiw3bIqUDD4/yxWNXGquWshTB6UR+aoNVIvHvGZTAtLxRztKJI0QyLiGuXw0=
+X-Gm-Gg: ASbGncvBfyqh6PdLugxDyAABHpbTVoB0UBRcanPxMGra0wrhX755s4MCHHg15JBnN+l
+	OLtnRf6dTElDJohvtEedmsDWFCYrEA/fjvE39gxCajo79RlNUMNST7gfdbv/tm5PW4ILuPglXZX
+	7tA0DQUMShmKebH3prYFQQdLbdhs5eTvNn6u4DDuPVJN2xSkuxOaHSUXZ6bG00VYyAVQslYxsO3
+	0G4dlz6ROwVCZ8337xrxxat5wYxjEPOeti47ZWl2iJqvoAofPdTuyYZIGxJ/9ubyquytrglxytN
+	3A0cMR0Hg3eg+LW/r2ttdEZ7/VNevIv+pwFdpl7prv/XiA==
+X-Google-Smtp-Source: AGHT+IFUOYLmAHomVvTtFMO/m85cHIk0QOzpGzS+Gg+9RDAM9uU3gf6f/5d29+sSvR83i+d2g9hnDw==
+X-Received: by 2002:a17:907:9715:b0:ac7:c79d:f8ce with SMTP id a640c23a62f3a-acad36d7acbmr1291226966b.57.1744711444779;
+        Tue, 15 Apr 2025 03:04:04 -0700 (PDT)
+Date: Tue, 15 Apr 2025 12:04:03 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org,
+	Marek Marczykowski <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH 3/5] x86/hvm: fix handling of accesses to partial r/o
+ MMIO pages
+Message-ID: <Z_4vE1qHlvGliqXY@macbook.lan>
+References: <20250411105411.22334-1-roger.pau@citrix.com>
+ <20250411105411.22334-4-roger.pau@citrix.com>
+ <eaf5f71b-2c56-4bd8-a45f-35280af16466@suse.com>
+ <Z_0TXKMe6tfrYR9T@macbook.lan>
+ <c92d5665-0940-40b5-8cbb-81889adf40c5@suse.com>
+ <Z_00JReo7Ji7RwkD@macbook.lan>
+ <7c3c91d9-4de8-4910-b26e-8782a0f0d364@suse.com>
+ <Z_4aBL7JhTv_oxWR@macbook.lan>
+ <4dd5ada8-32e7-4b94-b2a4-51b20e09eb79@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/8] vpci/header: Emulate extended capability list for
- host
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250409064528.405573-1-Jiqian.Chen@amd.com>
- <20250409064528.405573-4-Jiqian.Chen@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250409064528.405573-4-Jiqian.Chen@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4dd5ada8-32e7-4b94-b2a4-51b20e09eb79@suse.com>
 
-On 09.04.2025 08:45, Jiqian Chen wrote:
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -815,6 +815,39 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
->      return rc;
->  }
->  
-> +static int vpci_init_ext_capability_list(struct pci_dev *pdev)
-> +{
-> +    int rc;
-> +    u32 header;
-> +    unsigned int pos = 0x100U, ttl = 480;
-> +
-> +    if ( !is_hardware_domain(pdev->domain) )
-> +    {
-> +        /* Extended capabilities read as zero, write ignore */
-> +        rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
-> +                               pos, 4, (void *)0);
-> +        if ( rc )
-> +            return rc;
-> +    }
-> +
-> +    while ( pos && ttl-- )
-> +    {
-> +        header = pci_conf_read32(pdev->sbdf, pos);
-> +
-> +        rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
-> +                               pos, 4, (void *)(uintptr_t)header);
-> +        if ( rc )
-> +            return rc;
-> +
-> +        if ( (header == 0) || (header == -1) )
-> +            return 0;
+On Tue, Apr 15, 2025 at 11:41:27AM +0200, Jan Beulich wrote:
+> On 15.04.2025 10:34, Roger Pau Monné wrote:
+> > On Tue, Apr 15, 2025 at 09:32:37AM +0200, Jan Beulich wrote:
+> >> On 14.04.2025 18:13, Roger Pau Monné wrote:
+> >>> On Mon, Apr 14, 2025 at 05:24:32PM +0200, Jan Beulich wrote:
+> >>>> On 14.04.2025 15:53, Roger Pau Monné wrote:
+> >>>>> On Mon, Apr 14, 2025 at 08:33:44AM +0200, Jan Beulich wrote:
+> >>>>>> I'm also concerned of e.g. VT-x'es APIC access MFN, which is
+> >>>>>> p2m_mmio_direct.
+> >>>>>
+> >>>>> But that won't go into hvm_hap_nested_page_fault() when using
+> >>>>> cpu_has_vmx_virtualize_apic_accesses (and thus having an APIC page
+> >>>>> mapped as p2m_mmio_direct)?
+> >>>>>
+> >>>>> It would instead be an EXIT_REASON_APIC_ACCESS vmexit which is handled
+> >>>>> differently?
+> >>>>
+> >>>> All true as long as things work as expected (potentially including the guest
+> >>>> also behaving as expected). Also this was explicitly only an example I could
+> >>>> readily think of. I'm simply wary of handle_mmio_with_translation() now
+> >>>> getting things to handle it's not meant to ever see.
+> >>>
+> >>> How was access to MMIO r/o regions supposed to be handled before
+> >>> 33c19df9a5a0 (~2015)?  I see that setting r/o MMIO p2m entries was
+> >>> added way before to p2m_type_to_flags() and ept_p2m_type_to_flags()
+> >>> (~2010), yet I can't figure out how writes would be handled back then
+> >>> that didn't result in a p2m fault and crashing of the domain.
+> >>
+> >> Was that handled at all before said change?
+> > 
+> > Not really AFAICT, hence me wondering how where write accesses to r/o
+> > MMIO regions supposed to be handled by (non-priv) domains.  Was the
+> > expectation that those writes trigger an p2m violation thus crashing
+> > the domain?
+> 
+> I think so, yes. Devices with such special areas weren't (aren't?) supposed
+> to be handed to DomU-s.
 
-I realize pci_find_next_ext_capability() also has such a check, but even
-there it's not really clear to me why compare not only against 0, but also
-again -1 (aka ~0).
+Oh, I see.  That makes stuff a bit clearer.  I think we would then
+also want to add some checks to {ept_}p2m_type_to_flags()?
 
-Jan
+I wonder why handling of mmio_ro_ranges was added to the HVM p2m code
+in ~2010 then.  If mmio_ro_ranges is only supposed to be relevant for
+the hardware domain in ~2010 an HVM dom0 was not even in sight?
+
+Sorry to ask so many questions, I'm a bit confused about how this
+was/is supposed to work.
+
+> >> mmio_ro_do_page_fault() was
+> >> (and still is) invoked for the hardware domain only, and quite likely
+> >> the need for handling (discarding) writes for PVHv1 had been overlooked
+> >> until someone was hit by the lack thereof.
+> > 
+> > I see, I didn't realize r/o MMIO was only handled for PV hardware
+> > domains only.  I could arguably do the same for HVM in
+> > hvm_hap_nested_page_fault().
+> > 
+> > Not sure whether the subpage stuff is supposed to be functional for
+> > domains different than the hardware domain?  It seems to be available
+> > to the hanrdware domain only for PV guests, while for HVM is available
+> > for both PV and HVM domains:
+> 
+> DYM Dom0 and DomU here?
+
+Indeed, sorry.
+
+> > is_hardware_domain(currd) || subpage_mmio_write_accept(mfn, gla)
+> > 
+> > In hvm_hap_nested_page_fault().
+> 
+> See the three XHCI_SHARE_* modes. When it's XHCI_SHARE_ANY, even DomU-s
+> would require this handling. It looks like a mistake that we permit the
+> path to be taken for DomU-s even when the mode is XHCI_SHARE_HWDOM.
+
+Arguable a domU will never get the device assigned in the first place
+unless the share mode is set to XHCI_SHARE_ANY.  For the other modes
+the device is hidden, and hence couldn't be assigned to a domU anyway.
+
+> It
+> also looks like a mistake that the PV path has remained Dom0-only, even
+> in the XHCI_SHARE_ANY case. Cc-ing Marek once again ...
+> 
+> >>> I'm happy to look at other ways to handling this, but given there's
+> >>> current logic for handling accesses to read-only regions in
+> >>> hvm_hap_nested_page_fault() I think re-using that was the best way to
+> >>> also handle accesses to MMIO read-only regions.
+> >>>
+> >>> Arguably it would already be the case that for other reasons Xen would
+> >>> need to emulate an instruction that accesses a read-only MMIO region?
+> >>
+> >> Aiui hvm_translate_get_page() will yield HVMTRANS_bad_gfn_to_mfn for
+> >> p2m_mmio_direct (after all, "direct" means we expect no emulation is
+> >> needed; while arguably wrong for the introspection case, I'm not sure
+> >> that and pass-through actually go together). Hence it's down to
+> >> hvmemul_linear_mmio_access() -> hvmemul_phys_mmio_access() ->
+> >> hvmemul_do_mmio_buffer() -> hvmemul_do_io_buffer() -> hvmemul_do_io(),
+> >> which means that if hvm_io_intercept() can't handle it, the access
+> >> will be forwarded to the responsible DM, or be "processed" by the
+> >> internal null handler.
+> >>
+> >> Given this, perhaps what you do is actually fine. At the same time
+> >> note how several functions in hvm/emulate.c simply fail upon
+> >> encountering p2m_mmio_direct. These are all REP handlers though, so
+> >> the main emulator would then try emulating the insn the non-REP way.
+> > 
+> > I'm open to alternative ways of handling such accesses, just used what
+> > seemed more natural in the context of hvm_hap_nested_page_fault().
+> > 
+> > Emulation of r/o MMIO accesses failing wouldn't be an issue from Xen's
+> > perspective, that would "just" result in the guest getting a #GP
+> > injected.
+> 
+> That's not the part I'm worried about. What worries me is that we open up
+> another (or better: we're widening a) way to hit the emulator in the first
+> place. (Plus, as said, the issue with the not really tidy P2M type system.)
+
+But the hit would be limited to domains having r/o p2m_mmio_direct
+entries in the p2m, as otherwise the path would be unreachable?
+
+> > Would you like me to add some of your reasoning above to the commit
+> > message?
+> 
+> While I'd still be a little hesitant as to ack-ing of the result, I think
+> that's all I'm really asking for, yes.
+
+As said before - I'm happy to consider suggestions here, I don't want
+to fix this with yet another bodge that will cause us further issues
+down the road.  What I proposed seemed like the most natural way to
+handle those accesses IMO, but I'm not an expert on the emulator.
+
+Thanks, Roger.
 
