@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4154A8A0BE
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 16:14:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.954033.1348388 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CE4AA8A0CA
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 16:17:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.954046.1348399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4h32-0004aY-GP; Tue, 15 Apr 2025 14:14:00 +0000
+	id 1u4h5w-0005AA-Tg; Tue, 15 Apr 2025 14:17:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 954033.1348388; Tue, 15 Apr 2025 14:14:00 +0000
+Received: by outflank-mailman (output) from mailman id 954046.1348399; Tue, 15 Apr 2025 14:17:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4h32-0004Ys-DC; Tue, 15 Apr 2025 14:14:00 +0000
-Received: by outflank-mailman (input) for mailman id 954033;
- Tue, 15 Apr 2025 14:13:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u4h5w-00057U-QJ; Tue, 15 Apr 2025 14:17:00 +0000
+Received: by outflank-mailman (input) for mailman id 954046;
+ Tue, 15 Apr 2025 14:16:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ai1O=XB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u4h31-0004Yk-Cb
- for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 14:13:59 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dcf062e5-1a03-11f0-9ffb-bf95429c2676;
- Tue, 15 Apr 2025 16:13:54 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-391342fc1f6so4815386f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 07:13:54 -0700 (PDT)
+ id 1u4h5v-00057O-PI
+ for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 14:16:59 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4ab8aff6-1a04-11f0-9eae-5ba50f476ded;
+ Tue, 15 Apr 2025 16:16:58 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-39c1ef4ae3aso3466820f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 07:16:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39eaf4458a8sm14855414f8f.99.2025.04.15.07.13.53
+ ffacd0b85a97d-39eaf43cd17sm14442480f8f.78.2025.04.15.07.16.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Apr 2025 07:13:53 -0700 (PDT)
+ Tue, 15 Apr 2025 07:16:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dcf062e5-1a03-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 4ab8aff6-1a04-11f0-9eae-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744726434; x=1745331234; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744726618; x=1745331418; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Hm4W118zBeGzTyKnujUkc9j9Lg9Ss/sI645SNDDBUZc=;
-        b=IY4f10uQqQS4MZlTJNMuQTIN6Cuv8lPYKldGgOl9SNGHYiXWuW/z7bkKkMrmailimj
-         SeaBcWz9KKmqt72GoV4QXxCe2QLuTWSmnXhnlLqYFkSFN/Vd8vHNZAfxVcFPly35zGc4
-         xR2OKJFf6B1qTbRFhqojAvgbZXJpcmlnrGs95F3re2st9qHfilZE0s/A111uFTbDPZW5
-         PTQovGiVA65lIgGGdJECBAYx8gB87Q5Mme3fwLFxHtOqgl28qsDoK/YCDNGNlg8pMe9B
-         R8NA7tvDkD0NgahTLxZJ3wC06A7vyfZ9dzikM9PW21qrf2XYUwrEfPuLHGEqPfl6Xk1N
-         jwXQ==
+        bh=LRtdgeRagpRv7px4EPnGp+fta7KHRAH3sy3fLzPUH1o=;
+        b=au5HZADdBtIG0WgRNcN3aoFRaj5sMREXfuf+i/hD8mHq91AD5oD4l7RTV+Q7PiCQEw
+         lUqXzfKAvCofPzWrbBD5pOr2jxX4YhVnrJo6JmzCjEw4mRIyT4RC0F5Xs2DzTRXfzSmv
+         ayi2OJ2X0kJVN9fvW0cC7vUBjYZC/04Nkfa4kZxnHA8rntIedgnl2E7Go65RaWkdMtqw
+         ta/U3wNxvz2hCpMEqdkv3BzG/pqTkAnj7wFFd/n+EziXiKaBJdgnFqH+m9OopY6Ml8+0
+         a38lztAs35fDRX6HBVqySWuLF8e3VzxE6frkKYhBL6OpH/yRItlmXXgOLD/qnkKPhTb5
+         C7Kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744726434; x=1745331234;
+        d=1e100.net; s=20230601; t=1744726618; x=1745331418;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Hm4W118zBeGzTyKnujUkc9j9Lg9Ss/sI645SNDDBUZc=;
-        b=qATNoMaHJUAMeub054u1nmoHmXQi6MVREgtstuJscvsY58OYE8jNvCrVR84CaEaO58
-         Uq2GjSNCiHb3tNVNUCavfV2GduAGhuoYVymzbHwREK8w0UU6P3lwoFUGzk+ffywDA3Yg
-         9l9i83CKEctLqzrMl0/ZzGkTPx4O26n/QMFdduxDayC/z+LKni1PXIPJqdgFmjVbasOt
-         4iX2pz1yl7l5HIedHneg7vH1Wyf0AzKYS/G7mY9OOxZR+2l16pjOeVSqUtNghsI4rnM9
-         8IWdGg01rIeRuab3DjPffE5hkyyHo8rl+Ne/DMqWd+HGuMTs5ljFEIV1GLbyPNzx1OKF
-         1d9A==
-X-Gm-Message-State: AOJu0YzXbgKwaCqrhaJLvTP2kmW0N0NsSA9WcHwUfc82wur1JGnM3YvH
-	gXL6OCMnrwK9RqpHoOb8R+mHS2jC6LOppYkj68ZAa3f+SzIuIYsnKQA4mtmTVg==
-X-Gm-Gg: ASbGncvxRXXsadhm0SzWOASirGhsqQ2X6GXbTlgetSxBqnNRDEs2GuK0XDL8wmDrLkf
-	mZEGc30guqZ2f7v47pgzMrGnbl8EwZ/ejuuOS1ZNe4FbNWHBgfVIkvwmiQbuWxwjYzICwx3MSt9
-	AzCfNKjVFGns4KRZvmpNIKpwD6kgzz1Fa4gCrIwFIe6ft75auAUixWN4ewFw8Ovw0GbXAo8Vdui
-	68jQjDVrQaV9hDG/H9KYuKfQgyPDORoAK28IRk48ZNznk0/x6ZZW8iWfo4G7diPRWM7z6NWRRw8
-	8FzDzGTBwZd3O3ueovZzCwomJyXmmjNB3cZLER+MCK4BdDQNTypHzcr18JU1hYY5OG6uMXLryK2
-	N0IaWj/yCJkAGNWROvJB1uLsjQrgnL2kVsced
-X-Google-Smtp-Source: AGHT+IEFIxyWCs6/Pc/gG3TEVoFIvTkT1Auv4gi/DePlR9+opNV9161yH/GgAtO2TUFK68C1uwkE9g==
-X-Received: by 2002:a05:6000:1a8f:b0:391:41c9:7a8d with SMTP id ffacd0b85a97d-39eaaecb033mr13723715f8f.54.1744726433830;
-        Tue, 15 Apr 2025 07:13:53 -0700 (PDT)
-Message-ID: <d503177b-de52-4068-90b5-5284ebc14854@suse.com>
-Date: Tue, 15 Apr 2025 16:13:52 +0200
+        bh=LRtdgeRagpRv7px4EPnGp+fta7KHRAH3sy3fLzPUH1o=;
+        b=q+Y+3LGVxY6Zm778GvHqTVHGfzbLvncrStAZ5R502nowH/fnffVXyuledKZKk+TatQ
+         DWWEVnAr4mnsoIbYPixX4mDKqNq2QcwsYHBd9NQhoAZD/SrADqS3SZ/U7B04ZK3yCwog
+         tiUKGZxnMiQGoFMCthUD+NbpfmUyH8TFoXdEFEED8jIReRhM6To2ZolhK3q6d2IEt5Xh
+         NOQKVwPMgmXjZ8XFMibhevhUZNBbEl9GfohBufZU6AyZebKIKqSE1axidKysFN3xDFHj
+         RqTIOv5v9AJoZ/PMALWcbGwGGh/1gujbCX1M6hDQThT/0Qv991nZ96FmHziz8y1gVubo
+         MLkQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUAMQ/y5bkbMLSCNNufFmuxR/rY/ZM4Ns/uZ9SksZJZBfhTKuzUbBbuX0csOcRNVwCsfus8HXOvN4E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwV+JEshuu+PXeVsywntJBXz2iUBw1qE10LHVN023yGqsBDZDUM
+	g7AO3ZbS8H+yP7wIMw+JlDxmivc71hQJnH6nOT+lsGLHaAPcGH1Sq/lrltlpFQ==
+X-Gm-Gg: ASbGncsMS1EEwl0ZAY88oe3GsP5AgXfqLdSKw/4r0b7jO8EPdqeWqy4z/bxWKGevfuf
+	zGvc55pB3os0cwJOO1gDgztAYfPA+kW2fj4MGba5AhEb8xEO4uA5NxmFJaMXTMUn5+9fWV2G2fT
+	T4qohd/dMN4FM7HzBGdWAnTfGYLzFi7VeWbQMV6BrsbNAxY+1g+Q7U6jcUNuWUWTpS48JQrkcrq
+	WLlIm+ETGed64ELF8XDVMVh0kFj2VifaUC3NEOcgZiAPWJL/4qiPkDf0xfDwn0U+a8W52MJxQo+
+	+qgJQyjIvwnNrsz1Xt6h6cmE5dsZCEdU8k3ZE6PSImyQ9w7rdaKqnObbSn79vJWaVSmVKZuB4vH
+	f4ScH2JppwTjRv/gZYFT4v2jrc+YPL4ycJmun
+X-Google-Smtp-Source: AGHT+IGNiLXXMxoogEGHExKNDMv3SltP1SjyDzTKtNREQ3BT6XWItmRAP+F48JLvSYhGPYxV/eR6Qg==
+X-Received: by 2002:a05:6000:1847:b0:38d:dc03:a3d6 with SMTP id ffacd0b85a97d-39edc2fe0ffmr3272616f8f.4.1744726618000;
+        Tue, 15 Apr 2025 07:16:58 -0700 (PDT)
+Message-ID: <9f43c460-0564-4289-a60d-481fb342f7be@suse.com>
+Date: Tue, 15 Apr 2025 16:16:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 12/16] x86/hyperlaunch: add domain id parsing to domain
  config
 To: Alejandro Vallejo <agarciav@amd.com>
-Cc: xen-devel@lists.xenproject.org,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  Jason Andryuk <jason.andryuk@amd.com>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
@@ -98,13 +98,13 @@ Cc: xen-devel@lists.xenproject.org,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Denis Mukhin <dmkhn@proton.me>
+ xen-devel@lists.xenproject.org
 References: <20250408160802.49870-1-agarciav@amd.com>
  <20250408160802.49870-13-agarciav@amd.com>
- <tRYKTDKcoIBHId12LOD4EHCmAF-AN3V3PmkMqmyIjYCqQJ3TS_0ctt3WMCq1Ez3W7oIGxwU3UsAioyP9T9fMCO78_61AI01oYEknYF_h1_I=@proton.me>
- <D96K8KED132J.3C79EPWZM813D@amd.com>
- <1e86b0e1-fa1d-49b3-8718-db43099772c2@suse.com>
- <D976L0UZ7GJJ.2IKE0CKO5Z7EC@amd.com>
+ <6ce79cc0-1fec-4ad9-834e-680ef1f81549@suse.com>
+ <D96KUGJTQO7F.39OKDX33SSKYH@amd.com>
+ <1235d73d-ec62-4223-a92f-7a19d802c306@suse.com>
+ <D9775TTK4FZG.3E5KDTZHDHVE@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,52 +130,102 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D976L0UZ7GJJ.2IKE0CKO5Z7EC@amd.com>
+In-Reply-To: <D9775TTK4FZG.3E5KDTZHDHVE@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.04.2025 13:37, Alejandro Vallejo wrote:
-> On Tue Apr 15, 2025 at 7:21 AM BST, Jan Beulich wrote:
->> On 14.04.2025 20:07, Alejandro Vallejo wrote:
->>> On Wed Apr 9, 2025 at 11:15 PM BST, Denis Mukhin wrote:
->>>> On Tuesday, April 8th, 2025 at 9:07 AM, Alejandro Vallejo <agarciav@amd.com> wrote:
->>>>> @@ -233,6 +264,12 @@ static int __init process_domain_node(
->>>>> return -ENODATA;
->>>>> }
->>>>>
->>>>> + if ( bd->domid == DOMID_INVALID )
->>>>>
->>>>> + bd->domid = get_initial_domain_id();
->>>>>
->>>>> + else if ( bd->domid != get_initial_domain_id() )
->>>>>
->>>>> + printk(XENLOG_WARNING
->>>>> + "WARN: Booting without initial domid not supported.\n");
+On 15.04.2025 14:05, Alejandro Vallejo wrote:
+> On Tue Apr 15, 2025 at 7:27 AM BST, Jan Beulich wrote:
+>> On 14.04.2025 20:35, Alejandro Vallejo wrote:
+>>> On Thu Apr 10, 2025 at 12:49 PM BST, Jan Beulich wrote:
+>>>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
+>>>>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+>>>>> @@ -158,12 +159,42 @@ int __init fdt_read_multiboot_module(const void *fdt, int node,
+>>>>>  static int __init process_domain_node(
+>>>>>      struct boot_info *bi, const void *fdt, int dom_node)
+>>>>>  {
+>>>>> -    int node;
+>>>>> +    int node, property;
+>>>>>      struct boot_domain *bd = &bi->domains[bi->nr_domains];
+>>>>>      const char *name = fdt_get_name(fdt, dom_node, NULL) ?: "unknown";
+>>>>>      int address_cells = fdt_address_cells(fdt, dom_node);
+>>>>>      int size_cells = fdt_size_cells(fdt, dom_node);
+>>>>>  
+>>>>> +    fdt_for_each_property_offset(property, fdt, dom_node)
+>>>>> +    {
+>>>>> +        const struct fdt_property *prop;
+>>>>> +        const char *prop_name;
+>>>>> +        int name_len;
+>>>>> +
+>>>>> +        prop = fdt_get_property_by_offset(fdt, property, NULL);
+>>>>> +        if ( !prop )
+>>>>> +            continue; /* silently skip */
+>>>>> +
+>>>>> +        prop_name = fdt_get_string(fdt, fdt32_to_cpu(prop->nameoff), &name_len);
+>>>>> +
+>>>>> +        if ( strncmp(prop_name, "domid", name_len) == 0 )
+>>>>> +        {
+>>>>> +            uint32_t val = DOMID_INVALID;
+>>>>> +            if ( fdt_prop_as_u32(prop, &val) != 0 )
+>>>>> +            {
+>>>>> +                printk("  failed processing domain id for domain %s\n", name);
+>>>>> +                return -EINVAL;
+>>>>> +            }
+>>>>> +            if ( val >= DOMID_FIRST_RESERVED )
+>>>>> +            {
+>>>>> +                printk("  invalid domain id for domain %s\n", name);
+>>>>> +                return -EINVAL;
+>>>>> +            }
+>>>>> +            bd->domid = (domid_t)val;
 >>>>
->>>> Drop WARN since the log message is XENLOG_WARNING level already?
+>>>> And a conflict with other domains' IDs will not be complained about?
 >>>
->>> As mentioned elsewhere, the point of those prefixes are to be readable.
+>>> Hmmm... sure, I can iterate the domlist and check.
 >>
->> This, however, imo is a matter of consistency across the codebase, not just
->> within hyperlaunch.
+>> Well, just to clarify: The checking doesn't necessarily need to happen here
+>> and now. It may also happen as domains are actually created. Yet then I
+>> think a pointer there (in a code comment) would be helpful here.
 > 
-> I agree. There is precedent though for certain printks to have a
-> collective pattern for ease of reading (e.g: spec_ctrl.c when printing
-> mitigations). With I'm merely justifying the 2 spaces followed by
-> lowercase.
-> 
-> I did try to remove them and it was strictly harder to know what they
-> referred to.
-> 
->> Plus (again imo) if anything, prefixes that are part of
->> the log output should contain proper words ("Warning:" or "Error:"), and
->> they shouldn't needlessly "shout" (i.e. "FATAL:" is okay-ish to be all caps,
->> but the others aren't).
-> 
-> Right. I'm happy to rewrite them as "Warning: ..." and "Error: ..."
+> That'd be fairly unsafe. In the case of parallel boot it'd be
+> indeterminate which VMs end up running if they happen to have a domid
+> clash. It's better to detect the error earlier and crash before any get
+> to start up.
 
-FTAOD - in the common case I'd prefer such prefixes to be omitted. Which
-still means that there may be special cases where having them is warranted.
+What's the unsafe aspect here? We'd crash either way; the domain(s) that
+may be successfully launched wouldn't make it very far.
+
+Yet irrespective - my request is _that_ collisions are checked for. I
+don't mind much _where_ that checking lives.
+
+>>>>> @@ -233,6 +264,12 @@ static int __init process_domain_node(
+>>>>>          return -ENODATA;
+>>>>>      }
+>>>>>  
+>>>>> +    if ( bd->domid == DOMID_INVALID )
+>>>>> +        bd->domid = get_initial_domain_id();
+>>>>> +    else if ( bd->domid != get_initial_domain_id() )
+>>>>> +        printk(XENLOG_WARNING
+>>>>> +               "WARN: Booting without initial domid not supported.\n");
+>>>>
+>>>> I'm not a native speaker, but (or perhaps because of that) "without" feels
+>>>> wrong here.
+>>>
+>>> It's probably the compound effect of without and "not supported". The
+>>> statement is correct, but it's arguably a bit obtuse.
+>>>
+>>> I'll replace it with "WARN: Unsupported boot with missing initial domid.".
+>>
+>> But that still doesn't fit the check, which compares the given ID (i.e.
+>> there's nothing "missing" here) with the expected one. The "no ID given"
+>> is handled by the plain if() that's first.
+> 
+> It's not that the domid is missing from the node, but that the domid in
+> the node doesn't match the initial domid. Maybe s/domid/domain, then?
+> 
+>   "Warning: Unsupported boot with missing initial domain"
+
+I must be missing something: When it's "don't match" why would the message
+say "missing"?
 
 Jan
 
