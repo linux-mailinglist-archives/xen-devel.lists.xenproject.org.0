@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9626EA89F0B
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 15:11:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.953909.1348299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27FFCA89F72
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Apr 2025 15:29:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.953943.1348319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4g3t-0004bv-U8; Tue, 15 Apr 2025 13:10:49 +0000
+	id 1u4gLo-00009D-MQ; Tue, 15 Apr 2025 13:29:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 953909.1348299; Tue, 15 Apr 2025 13:10:49 +0000
+Received: by outflank-mailman (output) from mailman id 953943.1348319; Tue, 15 Apr 2025 13:29:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4g3t-0004ZD-Qa; Tue, 15 Apr 2025 13:10:49 +0000
-Received: by outflank-mailman (input) for mailman id 953909;
- Tue, 15 Apr 2025 13:10:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u4gLo-00007f-Jg; Tue, 15 Apr 2025 13:29:20 +0000
+Received: by outflank-mailman (input) for mailman id 953943;
+ Tue, 15 Apr 2025 13:29:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OWT/=XB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u4g3s-0004Z7-KS
- for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 13:10:48 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b3e751b-19fb-11f0-9ffb-bf95429c2676;
- Tue, 15 Apr 2025 15:10:46 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43d04ea9d9aso27777835e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 06:10:46 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39eaf43ce0asm14260805f8f.70.2025.04.15.06.10.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Apr 2025 06:10:45 -0700 (PDT)
+ <SRS0=OGoX=XB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1u4gLn-00007W-CN
+ for xen-devel@lists.xenproject.org; Tue, 15 Apr 2025 13:29:19 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a1d0e524-19fd-11f0-9eae-5ba50f476ded;
+ Tue, 15 Apr 2025 15:29:18 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3912fdddf8fso4426461f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Apr 2025 06:29:18 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-39eaf445315sm14200627f8f.82.2025.04.15.06.29.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Apr 2025 06:29:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +44,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b3e751b-19fb-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: a1d0e524-19fd-11f0-9eae-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744722646; x=1745327446; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jrF1SgrU7NO9DLAVzPzl65G+IMzhYeK0lQpRH9r4w+s=;
-        b=nfY+mOTCoL3dfBk4+nSmhAYL5BOqERINAZBsOf0kJqfVODUh5RXCyNim0AnQvNU9DO
-         OAibQkjB/Vi8LszPRnsn2RjHXZoH/h/mJHfy88axbiKF9TPNqEcjCraWko0J5PFF6sb5
-         FWe2rlVErg9JJ8ONfyYX2HJwHp6GgRi5oWo0A=
+        d=citrix.com; s=google; t=1744723758; x=1745328558; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=umVEFvvhuAUX9tcOJFZJ1jDYZ4/gde0SM32dXszM3eM=;
+        b=uHS8T5RNvPS5oAuKDYJhWVSG2pOpw4S5Q0LOE2S/0zQQqsCLQPSMjjOBj+OnHQyWSZ
+         Qeeq3LEdXIWakkfqWnfeYI1KVVGRGVz5KYY/Qlou+x+tj6JCFlq1vQvkb7AX03E/zT+V
+         rihdde4d76SPDl2dBNvZFATXRXiiGtFQAq/J8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744722646; x=1745327446;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jrF1SgrU7NO9DLAVzPzl65G+IMzhYeK0lQpRH9r4w+s=;
-        b=RJt9hzCUEyJK0wyBtE345xrufr4XM1li2yeqhMkyuq1PNAV1snAPqzyD7me2n7rB3f
-         Br1ETdrzW3HxurkgNzMqHBM13NlW+6gmNbi684ZUSTE1MuZW+dHajhOixIUGEBeJTomN
-         nNtPxpi4hKMzVhBHrz5k9gRaQrjP8aHfEcyWkTazq7XoGIwTGAC2hWv+5ebGHpoiS1t4
-         h/3R/7KwxYqKhWwj3Trdqwog+QDgHZRwbA6HxeVRZupWPeYq1sTjNFJSoMn9iOcF+hDH
-         WjzXnIBzmEyLU+FZLjfLuLjmHjfRrrq0TYZyBYcfc5SD6a8ZzxRtSmoKFMqu4ABe7hV6
-         GKcg==
-X-Forwarded-Encrypted: i=1; AJvYcCXQQOGwqu/5ji9nsyhAA1gSIoEZoyQhyeTNqeSy+H4iWdurSxoAoRJwdR3fw0TSc2TYMb4I5BZwAQY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzNMr1XPV0x9UIENf/AY8RK0UvaxylJG6+fjSWJd62YGi1GikVF
-	Qz0h3uF0gsOf7wowJmGhjC8Pz4xzz4Ztk+dYXicYgO8n3c/Fo59dl+mGhwpwAAY=
-X-Gm-Gg: ASbGncv24Us4cElaAurZ4V2uCffLq9vDUaLahGlZFV9255MaJj/KQMEQyLIRebgwbD/
-	fDNuwcO1CBDbve914q2TTJEI1aXmL7/Uvmo6IXWqCDMRCPLCLmokJEprBdAkEqGfpSNlhfGE46C
-	al3e0kXZe5YPldFE64LJ/FxyyiN3H8zehU4zXRPLG7IQKoN20J+bcWuGbQnTuqX/KonYhuE5WZk
-	sFKJOyvB422a94c96AFcrv6vU9TzyLR8Fv0lH9x157xeSS3wDQAgBryUOtpsVCuWACEhjvgtKxy
-	NEd1aYcrMhMgFqD1rw8Oa6JyujC17UMw6i8iAsu2HoPo1t/fNCZtkIhn/DYekrl+t/f/HA0IKi2
-	D83iCxA==
-X-Google-Smtp-Source: AGHT+IHOxPop5nErwl5Bhz/A8XO3wpDcZG/9u9PSqeByuk3jSS69wt49CwaE0rvm+wVTAwzNUnYjGA==
-X-Received: by 2002:a05:600c:4e09:b0:43d:45a:8fca with SMTP id 5b1f17b1804b1-43f3a9b035fmr175404995e9.30.1744722645951;
-        Tue, 15 Apr 2025 06:10:45 -0700 (PDT)
-Message-ID: <2bdfe772-1229-4214-9391-b5ba66c499e6@citrix.com>
-Date: Tue, 15 Apr 2025 14:10:44 +0100
+        d=1e100.net; s=20230601; t=1744723758; x=1745328558;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=umVEFvvhuAUX9tcOJFZJ1jDYZ4/gde0SM32dXszM3eM=;
+        b=toGac0ncJC7QeeWt6tu4XVB+68MQdePBu/6iI2AH2zhiMen6ckK+bI8Sk/AQuD5LQ1
+         40CjyP9fvuUPuhNs6dk/1PQhaKDz/6hfvdWZTp2IdH1yFmhhGX27NJuKlv+WESHmLnuL
+         bXbPApKTGuw5PwgKNhwbvaqJ0XTKJnMoIOgO8SGGxdHpM8Qv7XefaPXvuKWFwmBhXNNs
+         ij2gna6RVl1eXrK8t3NlPU4hd7xKZZcRhBe9354pyyhv0q3ibqW0KMwvsqoXhZ602Rvc
+         66qgRNw3yU1PjvE80JkMP0SeRILThulexbpNkw3a7jFzUseZ9Qf+zGdK4YZSHDrqGdPw
+         YAPg==
+X-Gm-Message-State: AOJu0YxHduKbkZysY7YE8KU3eHeLcfn4/hAbZ9LcFCeoTsbUIprz6ogN
+	DwzH5mL4eFGiA+Ntg3FPfOisOitmsIqVuxxdfxwDBQh2MGAhA5TkHI8ut00apN8=
+X-Gm-Gg: ASbGncuCnOlakHSIMkgK4ViE4tu5qjx2gl2VN9j1iBbaMhD7mBHH97/0ZzdVMFAt7ZA
+	cKdrunuFvmvtoqdH+i6Sb9Jhc03Wl2KAAMpHEfAQQcSqBuOD+sPB1r32hqXkcsnatvMx9pJ2GGz
+	bqdpjCti/OyREWrxw7aAnViKivzqWvyZL7QzLqaD4+tx7y5DqXB1DZu972SmDZm2IHh4wwH6+3V
+	5nXIMcL9JmtLkWdAy9K94mLQt/q5l0GrP1v72q4dR03fUx8659K6jFYnmSEMXJ+CO0PKyuLYJJy
+	p1ktKu0qPJqkDVrOuX/jRMux+UZ+Zl1M4DbVp2mgcxXT0g==
+X-Google-Smtp-Source: AGHT+IFROwtiwJ5KZFONniBUiV+I9IwTrDxDpn1CBaINhRuV2gxIm4xsWxCciTlENcrdxUBDIr3ovA==
+X-Received: by 2002:a05:6000:2905:b0:38d:ae1e:2f3c with SMTP id ffacd0b85a97d-39edc317e60mr2913352f8f.25.1744723757529;
+        Tue, 15 Apr 2025 06:29:17 -0700 (PDT)
+Date: Tue, 15 Apr 2025 15:29:16 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>
+Subject: Re: [PATCH v2 7/8] vpci/msi: Free MSI resources when init_msi() fails
+Message-ID: <Z_5fLB1GoyoxpuOL@macbook.lan>
+References: <20250409064528.405573-1-Jiqian.Chen@amd.com>
+ <20250409064528.405573-8-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/shadow: Fix UBSAN in hvm_emulate_insn_fetch
-To: Jan Beulich <jbeulich@suse.com>, Teddy Astie <teddy.astie@vates.tech>
-Cc: Tim Deegan <tim@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <91bd66eae876b940b09b3b650a21614e42ab0469.1744721279.git.teddy.astie@vates.tech>
- <9211cbe0-3674-41d5-8862-c819ada37140@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <9211cbe0-3674-41d5-8862-c819ada37140@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250409064528.405573-8-Jiqian.Chen@amd.com>
 
-On 15/04/2025 2:00 pm, Jan Beulich wrote:
-> On 15.04.2025 14:49, Teddy Astie wrote:
->> UBSAN complains when trying memcpy with a NULL pointer even if it's going to
->> copy zero bytes (which are the only cases where a NULL pointer is used).
-> If this really was a problem, I think we'd need to go through and find all
-> instances. However, ...
->
->> Fix this by only doing the memcpy if the pointer is non-NULL.
->>
->> (XEN) ================================================================================
->> (XEN) UBSAN: Undefined behaviour in arch/x86/mm/shadow/hvm.c:168:5
->> (XEN) null pointer passed as argument 1, declared with nonnull attribute
-> ... it can only be the compiler who has added the nonnull attribute; we
-> use it only in very few (other) places.
->
-> Personally I find it absurd to forbid NULL here when the size is zero. Yet
-> I agree that the spec can be interpreted this way.
+On Wed, Apr 09, 2025 at 02:45:27PM +0800, Jiqian Chen wrote:
+> When init_msi() fails, the previous new changes will hide MSI
+> capability, it can't rely on vpci_deassign_device() to remove
+> all MSI related resources anymore, those resources must be
+> cleaned up in failure path of init_msi.
+> 
+> To do that, add a new function to free MSI resources.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+> cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> ---
+> v1->v2 changes:
+> * Added a new function fini_msi to free all MSI resources instead of using an array to record registered registers.
+> ---
+>  xen/drivers/vpci/msi.c | 47 +++++++++++++++++++++++++++++++++---------
+>  1 file changed, 37 insertions(+), 10 deletions(-)
+> 
+> diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
+> index ca89ae9b9c22..48a466dba0ef 100644
+> --- a/xen/drivers/vpci/msi.c
+> +++ b/xen/drivers/vpci/msi.c
+> @@ -193,6 +193,33 @@ static void cf_check mask_write(
+>      msi->mask = val;
+>  }
+>  
+> +/* 12 is size of MSI structure for 32-bit Message Address without PVM */
+> +#define MSI_STRUCTURE_SIZE_32 12
 
-https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3322.pdf
+I'm confused by this.  The minimum size of the capability is 4 bytes
+for the capability pointer, plus 4 bytes for the message address,
+plus 2 bytes for the message data.  So that's 10 bytes in total.
 
-This is being proposed for fixing in C2Y, because lots of people think
-it's absurd.
+I think it would be best if you calculate the size based on the
+existing msi_ macros.
 
-However, until we can raise our -std, I think we're stuck with the
-current behaviour.
+if ( masking )
+    end = msi_pending_bits_reg(msi_pos, address64);
+else
+    end = msi_mask_bits_reg(msi_pos, address64) - 2;
 
-GCC-15 introduces the nonnull_if_nonzero attribute specifically for
-memcpy() etc, but I don't see how we could make use of it in this case.
+size = end - msi_control_reg(msi_pos);
 
-~Andrew
+> +
+> +static void fini_msi(struct pci_dev *pdev)
+> +{
+> +    unsigned int size = MSI_STRUCTURE_SIZE_32;
+> +
+> +    if ( !pdev->vpci->msi )
+> +        return;
+> +
+> +    if ( pdev->vpci->msi->address64 )
+> +        size += 4;
+> +    if ( pdev->vpci->msi->masking )
+> +        size += 4;
+> +
+> +    /*
+> +     * Remove all possible registered registers except capability ID
+> +     * register and next capability pointer register, which will be
+> +     * removed in mask function.
+> +     *msi_mask_bits_reg/
+> +    vpci_remove_registers(pdev->vpci,
+> +                          msi_control_reg(pdev->msi_pos),
+> +                          size - PCI_MSI_FLAGS);
+> +    xfree(pdev->vpci->msi);
+> +    pdev->vpci->msi = NULL;
+> +}
+> +
+>  static int cf_check init_msi(struct pci_dev *pdev)
+>  {
+>      unsigned int pos = pdev->msi_pos;
+> @@ -209,12 +236,7 @@ static int cf_check init_msi(struct pci_dev *pdev)
+>      ret = vpci_add_register(pdev->vpci, control_read, control_write,
+>                              msi_control_reg(pos), 2, pdev->vpci->msi);
+>      if ( ret )
+> -        /*
+> -         * NB: there's no need to free the msi struct or remove the register
+> -         * handlers form the config space, the caller will take care of the
+> -         * cleanup.
+> -         */
+> -        return ret;
+> +        goto fail;
+>  
+>      /* Get the maximum number of vectors the device supports. */
+>      control = pci_conf_read16(pdev->sbdf, msi_control_reg(pos));
+> @@ -237,20 +259,20 @@ static int cf_check init_msi(struct pci_dev *pdev)
+>      ret = vpci_add_register(pdev->vpci, address_read, address_write,
+>                              msi_lower_address_reg(pos), 4, pdev->vpci->msi);
+>      if ( ret )
+> -        return ret;
+> +        goto fail;
+>  
+>      ret = vpci_add_register(pdev->vpci, data_read, data_write,
+>                              msi_data_reg(pos, pdev->vpci->msi->address64), 2,
+>                              pdev->vpci->msi);
+>      if ( ret )
+> -        return ret;
+> +        goto fail;
+>  
+>      if ( pdev->vpci->msi->address64 )
+>      {
+>          ret = vpci_add_register(pdev->vpci, address_hi_read, address_hi_write,
+>                                  msi_upper_address_reg(pos), 4, pdev->vpci->msi);
+>          if ( ret )
+> -            return ret;
+> +            goto fail;
+>      }
+>  
+>      if ( pdev->vpci->msi->masking )
+> @@ -260,7 +282,7 @@ static int cf_check init_msi(struct pci_dev *pdev)
+>                                                    pdev->vpci->msi->address64),
+>                                  4, pdev->vpci->msi);
+>          if ( ret )
+> -            return ret;
+> +            goto fail;
+>          /*
+>           * FIXME: do not add any handler for the pending bits for the hardware
+>           * domain, which means direct access. This will be revisited when
+> @@ -269,6 +291,11 @@ static int cf_check init_msi(struct pci_dev *pdev)
+>      }
+>  
+>      return 0;
+> +
+> + fail:
+> +    fini_msi(pdev);
+> +
+> +    return ret;
+>  }
+>  REGISTER_VPCI_LEGACY_CAP(PCI_CAP_ID_MSI, init_msi);
+
+I wonder if the fini_msi should be referenced in
+REGISTER_VPCI_{EXTENDED,LEGACY}_CAP(), so that the caller of
+init_msi() can call fini_msi() on failure and thus avoid all those
+fail hooks and labels, as the caller can take care of the cleanup.
+
+Thanks, Roger.
 
