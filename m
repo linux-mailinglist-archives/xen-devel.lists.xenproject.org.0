@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B446A8B434
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 10:45:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.955369.1349161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE9CCA8B4A2
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 11:01:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.955381.1349170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4yOX-0007bN-KE; Wed, 16 Apr 2025 08:45:21 +0000
+	id 1u4ydh-0002em-TQ; Wed, 16 Apr 2025 09:01:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 955369.1349161; Wed, 16 Apr 2025 08:45:21 +0000
+Received: by outflank-mailman (output) from mailman id 955381.1349170; Wed, 16 Apr 2025 09:01:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4yOX-0007YF-H7; Wed, 16 Apr 2025 08:45:21 +0000
-Received: by outflank-mailman (input) for mailman id 955369;
- Wed, 16 Apr 2025 08:45:20 +0000
+	id 1u4ydh-0002cj-QG; Wed, 16 Apr 2025 09:01:01 +0000
+Received: by outflank-mailman (input) for mailman id 955381;
+ Wed, 16 Apr 2025 09:01:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yQHX=XC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u4yOW-0007Y9-Fp
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 08:45:20 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1u4ydg-0002cd-68
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 09:01:00 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 206598a9-1a9f-11f0-9eaf-5ba50f476ded;
- Wed, 16 Apr 2025 10:45:19 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-39149bccb69so6373122f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 01:45:19 -0700 (PDT)
+ id 5058c8ba-1aa1-11f0-9eaf-5ba50f476ded;
+ Wed, 16 Apr 2025 11:00:59 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-43d0782d787so46861345e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 02:00:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4404352a536sm33815325e9.1.2025.04.16.01.45.18
+ 5b1f17b1804b1-4405b4d33a6sm14844185e9.15.2025.04.16.02.00.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Apr 2025 01:45:18 -0700 (PDT)
+ Wed, 16 Apr 2025 02:00:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 206598a9-1a9f-11f0-9eaf-5ba50f476ded
+X-Inumbo-ID: 5058c8ba-1aa1-11f0-9eaf-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744793119; x=1745397919; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=45CtvZwSqAs9vVxuUalSwVD2CbjgjGDDcM9GvYrNg2A=;
-        b=NIHDz+U0+OA+9JU2VcSMVIT0iceVuEtV3Nom62CrTCey/tv7cnxwpO3B8T552p/MGI
-         7jSdoQtKtdwCDNn0T9Rc5znCwuYXv3gCM7Yp5JW87sFMO+IBf5IMlrj8LOnaVtjiHvPm
-         de5lwOTQAaBpWE/vj+hxzh+ze73bzo76lBhf9GQqOWpjYYtQPlqKH9PDU8j9OBOdj2Ra
-         vTofGfovWSwkAjsmdKgvubyF1qOiikE2RSSsXGMEicOgJB8o9KIK99IcMOzhQx5kkEkl
-         nmloyER2YqEba4VSSWDTCpquneHYpWu4KqIFY4zvzLFPFbVsX6aihVUMIo6NHny52Rqm
-         gwZw==
+        d=suse.com; s=google; t=1744794058; x=1745398858; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=WptL+d1Yor8MxanXfuO0rr+6GghDt4hm4bVV6+NuoCI=;
+        b=FYIr5Av2k1ngB2VwkHzXMw7BXS9yxMpXk9VEulhtr2sA56dcl5aKIoBoJ3l+5RA7Nt
+         K3jpztPj78dKZ3C3Ga0vdYWjW2qBBasR/Ote+sPd2Z8HqBhPWKIqAoxDRhzCvB0UzNwx
+         eX5hwM/xcSr72XOYfSLOGbkru4TRLCgKmXE2pnjfn0SlCSpP8rXJ/z4OvOO8mJSNJ2KM
+         2nYxtXsmItNpQwmVvz3igQbl/ll6lQ12qS5OMSLHDLCOhV9e833asFY8vXY/T4UdrEqD
+         KkM0s8s8ouASz4pRkc4wj1mNk+iBO3zEhE/zs6RWwU2VHrpZRIWQG09LB1t6TILIU3cn
+         EIeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744793119; x=1745397919;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=45CtvZwSqAs9vVxuUalSwVD2CbjgjGDDcM9GvYrNg2A=;
-        b=K5zMqcNzCfGXjgv9YxdpFvZzJy/fjJApf6Cef4uq6wY/RYYQ6yliplZdMGGutx9AhM
-         tf6islGdzrZk2UxBd/YCmW1/BkveeZsfR04K5UNv8ae/dfp0bSbzhthQswfSkWZYJsdD
-         US7MzH1ZHQ6jezafja96IQAiKI0nB30jjBZLouUAm6iyO0ImWB5DGjwJc8Fou5w+elc3
-         i4wKFfJEph/AGytjQW0XPx938JDD/vgL6N4CNOkYRoFe8rmDll93/wVadKFf25+ELsPY
-         ZhWBdAKPY5Kvob2bzzwTR+eI9SDw6ghCXoez3YKqRaLxT2Rr1rTypCVVVjvCinSnCqt9
-         tuNQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU3s4upMolSKndWQWc1vIht0PerlqpFs9eBAsl4xZCh/hFxNWYm2WYS9/mtDBZfL/F+V9gempvIC7k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYsKUGWD1vHwURqOClUFr0me/M96i6dJdzSMmlSJ3M83gCOrZx
-	2WZd6EPbAe5nlxXq/8J8MG21KebU1VyaOfIlAcnnLAU9Fuorsvp0toalxdbIXQ==
-X-Gm-Gg: ASbGncuMK3+L8ZVIuyLz6Wh4C9pfzP3xm/UlaAihIJqnsSF84rqCee9pJS+gtWHN5Kt
-	4N1zVK8tuS9PvT8qq7VbvPWRcQOHWwq8y9MAwLxnUSpe9B15u4lZG/cDRVt7k1t73LT1moS+81v
-	EUO9yVELG4veu4x+hlj2OcvPbamFDSshxVyxP0etEWcRGyUqAE7/mmlzWyHOOFB6AHSsIyluzgz
-	9xLuXsCm7ZXTQTDoZ4rIJptgIp3q8mMt9ARTXFhOYXhcc7PPPsEt1c2k51k+eXnDquXvx7a4V6h
-	Iz/VetwL+Tq5WY/xIZ37xK2V07NF7reFnw1cPrhc3+vC3CSChpfZ+UHXwm6lTacwRPzsy+LIctY
-	NZCWney8InMcDoSij47aSZBLknA==
-X-Google-Smtp-Source: AGHT+IFPPKMHIr5eRIcjgDwxOQDmwcYJqdvyQSMCmPhgthhwM50sbH/CUMd3CFHSKFBgyIigOFLZkQ==
-X-Received: by 2002:a05:6000:1ac5:b0:391:4231:414 with SMTP id ffacd0b85a97d-39ee5b8943bmr887350f8f.40.1744793118945;
-        Wed, 16 Apr 2025 01:45:18 -0700 (PDT)
-Message-ID: <137453c3-e6b2-498d-b17d-da57988f89ef@suse.com>
-Date: Wed, 16 Apr 2025 10:45:17 +0200
+        d=1e100.net; s=20230601; t=1744794058; x=1745398858;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=WptL+d1Yor8MxanXfuO0rr+6GghDt4hm4bVV6+NuoCI=;
+        b=hOnIRhw98XoufTChH5G3+a42er0WlOYOM2BKk7V9gGmB3YHfkYAnJzr2jPBF11OrWR
+         rxYyQ0smERob1im/QqYdcNF337wydHQb5W51nuU6nd5lUhdhq3uno4fbmUGVw9H1Cf7O
+         JUFCz1kuS3vJveHd88ki8Sr1jiLIduQsOEQ2tMCzvDEtRezhZf8WiHvSbaWzsMu1F3Ao
+         l08gL/41iEiS4hCIosUMN7qV6PZZO7ynrZqJhgF8lYF+OJstwz3bjfOFFlNEX0IgHzGh
+         aCKkzzQsCz1i79/M2AU4cq2qGBDjqZL9No81rmwBJtbD3DCKqdDi8T89dg6/dBdKY16G
+         LTlQ==
+X-Gm-Message-State: AOJu0Ywr8APdLqvjlXbVsJgLPQJ45TPPtHkRzwzfoHoNV7uU4gb1n0UY
+	UB8VaFcTPbGeUojrw2LKdg//IQbH5D6iRT/8HGi0HfcUQ/0KTSK3f54qBsT7XFLB6RmWvVOOhZE
+	=
+X-Gm-Gg: ASbGncvAU1gG9agM7aXqenamrnHAg5XNwUGi0gSJWsEJQ9LX7NXJAIqAjZfVtg0LcVQ
+	XlOptXvZ2WxJGgV3gVl/Z3PWdYJ67mUOm9g9IYyudabbu5BzAwf4rxymQX7/A4Xjyc/f4NUhYiL
+	HjqpWwsMqe8M7HEr8H/9WhbgQT+qzw6nYQo5QYAWjZQ1OI07hSkaox10pbgFQ/BmsdFd8/eVpHk
+	sRvM9Jut47VNABiyq+eq6WUj+l6hSAt9Tfp46SavZ38OHFCJhuditugqQHewGBI9FNM4/z2Y+k9
+	vJlb1stE2SU/2QD1lCRNTX0eVgesG5rf/gINLnxtpZVmCVSpa/eM+WPjWotkn4gujV+OzkaapRZ
+	Lj6akV3FrX7MDRY8BtsuAQ03QZg==
+X-Google-Smtp-Source: AGHT+IFxX22jXKEpL1oniT/+zpfJ6wQGZvSrZgDiZNXvOtETjK0kmmo/vrT0SSf67L+fTN20hgTRPA==
+X-Received: by 2002:a05:600c:8705:b0:43d:db5:7b21 with SMTP id 5b1f17b1804b1-4405d6cf812mr8290505e9.28.1744794058352;
+        Wed, 16 Apr 2025 02:00:58 -0700 (PDT)
+Message-ID: <2412a7a0-bdcd-4647-8ea2-8d2a927dcde3@suse.com>
+Date: Wed, 16 Apr 2025 11:00:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/19] xen/sysctl: introduce CONFIG_PM_STATS
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Stabellini, Stefano" <stefano.stabellini@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250326055053.3313146-1-Penny.Zheng@amd.com>
- <20250326055053.3313146-11-Penny.Zheng@amd.com>
- <df30d9fa-15dd-4923-bdaf-04f9476529d1@suse.com>
- <DM4PR12MB84519E18C6F4FA7724C03751E1BD2@DM4PR12MB8451.namprd12.prod.outlook.com>
- <6c5b4f07-0f7a-47aa-9469-a5a7adffe27f@suse.com>
- <DM4PR12MB8451C5EDCEAB4592434706EEE1BD2@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] symbols: discard stray file symbols
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -122,77 +118,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB8451C5EDCEAB4592434706EEE1BD2@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.04.2025 10:38, Penny, Zheng wrote:
-> [Public]
-> 
-> Hi,
-> 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Wednesday, April 16, 2025 2:37 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Stabellini, Stefano <stefano.stabellini@amd.com>; xen-
->> devel@lists.xenproject.org
->> Subject: Re: [PATCH v2 10/19] xen/sysctl: introduce CONFIG_PM_STATS
->>
->> On 16.04.2025 05:54, Penny, Zheng wrote:
->>>> -----Original Message-----
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: Tuesday, April 1, 2025 9:10 PM
->>>>
->>>> On 26.03.2025 06:50, Penny Zheng wrote:
->>>>> --- a/xen/common/Kconfig
->>>>> +++ b/xen/common/Kconfig
->>>>> @@ -557,4 +557,9 @@ config SYSCTL
->>>>>       to reduce Xen footprint.
->>>>>  endmenu
->>>>>
->>>>> +config PM_STATS
->>>>> +   bool "Enable Performance Management Statistics"
->>>>> +   depends on ACPI && HAS_CPUFREQ && SYSCTL
->>>>> +   default y
->>>>
->>>> As per above - either name, prompt and the description that Stefano
->>>> suggested are wrong, or it is too much that is being covered by this new
->> control.
->>>>
->>>
->>> We have two sysctl-op on performance, do_get_pm_info() and do_pm_op().
->>> I think do_get_pm_info() is to collect PM statistic info, which could
->>> be wrapped with CONFIG_PM_STATS, while maybe do_pm_op() is more
->> focusing on performance tuning.
->>> How about we introduce another Kconfig CONFIG_PM_TUNE to wrap
->>> do_pm_op() and related helpers? I suggest to introduce a new file pmtune.c to
->> contain.
->>> Or any better suggestion?
->>
->> "tune" is too narrow imo. "ctrl" may be an option, but how about simply pm-op.c,
->> fitting do_pm_op() pretty nicely? Question is what else is going to end up in that
->> file.
->>
-> 
-> The following functions will be included in pm_op.c
+By observation GNU ld 2.25 may emit file symbols for .data.read_mostly
+when linking xen.efi. Due to the nature of file symbols in COFF symbol
+tables (see the code comment) the symbols_offsets[] entries for such
+symbols would cause assembler warnings regarding value truncation. Of
+course the resulting entries would also be both meaningless and useless.
+Add a heuristic to get rid of them, really taking effect only when
+--all-symbols is specified (otherwise these symbols are discarded
+anyway).
 
-To avoid another round trip just for this - I wrote pm-op.c for a reason.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Factor 2 may in principle still be too small: We zap what looks like
+real file symbols already in read_symbol(), so table_cnt doesn't really
+reflect the number of symbol table entries encountered. It has proven to
+work for me in practice though, with still some leeway left.
 
-> and wrapped with PM_CTRL or PM_OP
->     - get_cpufreq_para()
->     - set_cpufreq_para()
->     - set_cpufreq_gov()
->     - set_cpufreq_cppc()
->     - cpufreq_driver_getavg()
->     - cpufreq_update_turbo()
->     - cpufreq_get_turbo_status()
-> And description for PM_STATS, I'll take stefano's suggestion and for PM_CTRL/PM_OP, maybe it will be
-> ```
-> Enable userspace performance management control to do power/performance analyzing and tuning
-> ```
-
-Reads okay at the first glance.
-
-Jan
+--- a/xen/tools/symbols.c
++++ b/xen/tools/symbols.c
+@@ -213,6 +213,16 @@ static int symbol_valid(struct sym_entry
+ 	if (strstr((char *)s->sym + offset, "_compiled."))
+ 		return 0;
+ 
++	/* At least GNU ld 2.25 may emit bogus file symbols referencing a
++	 * section name while linking xen.efi. In COFF symbol tables the
++	 * "value" of file symbols is a link (symbol table index) to the next
++	 * file symbol. Since file (and other) symbols (can) come with one
++	 * (or in principle more) auxiliary symbol table entries, the value in
++	 * this heuristic is bounded to twice the number of symbols we have
++	 * found. See also read_symbol() as to the '?' checked for here. */
++	if (s->sym[0] == '?' && s->sym[1] == '.' && s->addr < table_cnt * 2)
++		return 0;
++
+ 	return 1;
+ }
+ 
 
