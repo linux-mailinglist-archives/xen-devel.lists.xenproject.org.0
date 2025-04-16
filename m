@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CBDCA9056D
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 16:06:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956266.1349734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC80EA9058C
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 16:09:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.956278.1349744 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u53P1-0004L8-Bm; Wed, 16 Apr 2025 14:06:11 +0000
+	id 1u53SO-0004tt-Q5; Wed, 16 Apr 2025 14:09:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956266.1349734; Wed, 16 Apr 2025 14:06:11 +0000
+Received: by outflank-mailman (output) from mailman id 956278.1349744; Wed, 16 Apr 2025 14:09:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u53P1-0004Io-8M; Wed, 16 Apr 2025 14:06:11 +0000
-Received: by outflank-mailman (input) for mailman id 956266;
- Wed, 16 Apr 2025 14:06:10 +0000
+	id 1u53SO-0004sR-NH; Wed, 16 Apr 2025 14:09:40 +0000
+Received: by outflank-mailman (input) for mailman id 956278;
+ Wed, 16 Apr 2025 14:09:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yQHX=XC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u53P0-0004Ii-E3
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 14:06:10 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f1932962-1acb-11f0-9ffb-bf95429c2676;
- Wed, 16 Apr 2025 16:06:08 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3914bc3e01aso3969074f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 07:06:08 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39eae96c102sm17406756f8f.35.2025.04.16.07.06.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Apr 2025 07:06:07 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=S7a8=XC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1u53SN-0004sL-B5
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 14:09:39 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6cb90560-1acc-11f0-9ffb-bf95429c2676;
+ Wed, 16 Apr 2025 16:09:36 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1744812565751917.8576138284637;
+ Wed, 16 Apr 2025 07:09:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,175 +38,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1932962-1acb-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744812368; x=1745417168; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2YQA0bIWNvVtSiL+nWCvAaBrn83BvVRQW5HKrzobT9Y=;
-        b=cAphWckVmtvVAubA6spbnybMFl1nqCCw1EwY700XNLLuZy1qI3E8x0Tx3p4Jz3eRkH
-         T1yHhz9EHHdwasL9+IdfTCKO21ZJ9fjvYNIUEuhoM32EIqmES/zPjUdGFEQFYZ0Xdx8o
-         +LT1tqtLyNIiMQ4t1Y1sxSkL1py3j64v2P9QP3EuBNmSpmhi4BMHheqaIRArB49EqEie
-         nqw5EJYfIrnDZCOLssp/45xMRQtLtzEJ1VN2aan2LDbLJAd5qlhhiYxHoQLLUSCmejb/
-         Qm8DZ4V5BSWxN850y4FIfPE+HWXSV/ZaFUunJAx9CgvYCFOpX42/mhUyg/3bPjauRGCQ
-         fhKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744812368; x=1745417168;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2YQA0bIWNvVtSiL+nWCvAaBrn83BvVRQW5HKrzobT9Y=;
-        b=IYhlrb+9UnIQ6/NNOf0JcsAlRQaDP6s97naDuL4i+gjcN2/w+V1uXiy8yxG/LfzYS/
-         oQjGsPj1/1tooQGPM3/fGi80YGCIafI9+2Xtnj2zhFmdLmWnD2bnwT1JLyzaC2wzyls2
-         ZDq8kebTMCnm5ufl5moM5dHX6XO2U9bUGxwnyFY11gYBCgEo5uOuunBGAtPTYpbN3CyS
-         8/pOC5ODWsq4/1Fcx6w5qU5Jl98YORfOOdeKGHbL4RBDGyK/29AEMyGSVG55JrKaurug
-         mKQM6uD90iHzVGnED96D2xLykOHHF01EtbwXGmUeKeM3Zai7QeFXjviBYmU5LwPP5Y8+
-         9Esw==
-X-Forwarded-Encrypted: i=1; AJvYcCVaMjkcxBdLLJAc+QLyr3kERu6mH2qmS/Onp1u/Bfyk4aCKuguYW2f5ljXc7UVK/W3q1xxwZ8ijw/w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyLCz/s31nc5h8JUAfa4hY1Hui3b05QvBX67V2BQRmZWMnNfYP9
-	f4scw5Z2JqPb6PRQE9/JUwAgjYvueAPuNGLO242fDrcLPe+2/g8LBrjL534QDg==
-X-Gm-Gg: ASbGncsWPpuizoS+dKpNHSxrk22Njd/24qm4FxeOmHPiWRUePC5vhjGEcC4bDU3zfFL
-	wlgbDlclU91Uoy4+NUxDsmp0f21L/bFTJRWBfxJ8wUhXRYsMy30Nv0WGb9jeyJ8B+E4Blq4Dv1F
-	RMQrl0ns5JKpMHxMfex9AMvmySPvF5GKX+WpAxR795CZ3859Y0iAiTfmfJS9FLbwI4zo1l0TZdd
-	H8kbevlPC18oTwgOuzTf892P0ZYqR53ndbUs9E1WYG9dbtjXuA9bTJFW2474otWt8TvucG4xsC6
-	goqd0dHPUwVb9DjCOEZw3qriaWrnMttVIab2N6JD/gcW64tqK6acEINgfmRrJrhiJ39k3804tdx
-	XVcSkdnwvKKnQzpXaOSTMxjYFGJ8qbGDVh4o2
-X-Google-Smtp-Source: AGHT+IEfhZJRGv3RNolhLZwPY9WCeqQlING39Yfg/0MOuDHuaKQYbbZUuZtTaVxPXO6TuYTrkrfZlQ==
-X-Received: by 2002:a5d:64ae:0:b0:39c:1efb:ec9a with SMTP id ffacd0b85a97d-39ee5b13b3emr1921756f8f.6.1744812367724;
-        Wed, 16 Apr 2025 07:06:07 -0700 (PDT)
-Message-ID: <942e7f24-1ecc-465c-9cf2-54388a88173a@suse.com>
-Date: Wed, 16 Apr 2025 16:06:06 +0200
+X-Inumbo-ID: 6cb90560-1acc-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; t=1744812568; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=BCis9hV7oWV6F1kyeKaEJ497qn1iFleMTzUyoB/LysVY1/QFABhTJw8bLmyb4lEalxlkFRC6Hu0ypwvOamG1LepTf++3hB0z++hRphvYMc2cxEhgF0vRYXW6rMQp7LMDOr9X8yziXddAXE0LT5s/pwdpkXdARfUfcAudBW4KVJk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1744812568; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=bgJEe1PXQwKcecuib65KktJ9XTH1TD3iCEqg49HXt8g=; 
+	b=ilDT0vREVbrTOG/GO+eCIuKxW5CzAfa1WWmMqghmRyfUbNh4kKa5bKjP/ZyWYHv6iJFp3uTu1ZhO8WwlEGBarRUnttK7sD8QBOVnhymfAkATXagjVQOeD3Hfk2g6bhjUsAHtBpLXFPhVDogjn+HZPnafpiU3GzwluXBb7wMglxQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1744812568;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=bgJEe1PXQwKcecuib65KktJ9XTH1TD3iCEqg49HXt8g=;
+	b=RD30UROEt+Wn6aOC2gcDxhGk7CWXbxPmOrv4TNlZ42WEg4Xf8Q6hIIJGN+bIhj3D
+	8PlFlvwEfZxibvseHZw94jZLbPRj3/Tbng5oRAaEu69F/04UZf3QGx5rpDanC6pPug+
+	EnAPQcoZwipI5ZSTAuzZIZOsWAicVavu0AyBEJx0=
+Message-ID: <e78a9dcd-3fa3-4c66-860d-3d2b8206b67c@apertussolutions.com>
+Date: Wed, 16 Apr 2025 10:09:24 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/16] x86/boot: introduce boot domain
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+Subject: Re: [PATCH v3 13/16] x86/hyperlaunch: specify dom0 mode with device
+ tree
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Michal Orzel <michal.orzel@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Alejandro Vallejo <agarciav@amd.com>,
- Jason Andryuk <jason.andryuk@amd.com>
+ xen-devel@lists.xenproject.org, Alejandro Vallejo <agarciav@amd.com>
 References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-2-agarciav@amd.com>
- <141229a0-2cd2-4886-b5e5-02c85b0ca5ab@suse.com>
- <7fa754f8-d785-45d8-b9da-de5c85bc793b@apertussolutions.com>
- <f0a14866-0f38-4f8d-8e11-993a58c7da7b@suse.com>
- <644cdc5a-b96a-4e43-ae7a-4cadda1d1084@amd.com>
- <3832bb2b-978c-4990-928c-c18a003adcf4@apertussolutions.com>
- <73c8dacd-c1d7-459e-ac18-decaa5c9c5bd@suse.com>
- <6517f3ca-1329-4591-9ccc-e6be5af31e44@apertussolutions.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6517f3ca-1329-4591-9ccc-e6be5af31e44@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <20250408160802.49870-14-agarciav@amd.com>
+ <7a13e61b-8568-4852-bb46-974964e02d61@suse.com>
+ <82fe6290-ea16-4e4f-8be4-76b9b624e398@apertussolutions.com>
+ <c9290102-d29d-4c54-9052-995e960e4ea0@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ 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
+In-Reply-To: <c9290102-d29d-4c54-9052-995e960e4ea0@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 16.04.2025 16:00, Daniel P. Smith wrote:
-> 
-> 
-> V/r,
-> Daniel P. Smith
-> Apertus Solutions, LLC
-> 
-> On 4/16/25 09:33, Jan Beulich wrote:
->> On 16.04.2025 15:02, Daniel P. Smith wrote:
->>> On 4/10/25 16:56, Jason Andryuk wrote:
->>>> On 2025-04-10 11:01, Jan Beulich wrote:
->>>>> On 10.04.2025 15:09, Daniel P. Smith wrote:
->>>>>> On 4/9/25 02:24, Jan Beulich wrote:
->>>>>>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
->>>>>>>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
->>>>>>>>
->>>>>>>> To begin moving toward allowing the hypervisor to construct more
->>>>>>>> than one
->>>>>>>> domain at boot, a container is needed for a domain's build
->>>>>>>> information.
->>>>>>>> Introduce a new header, <xen/asm/bootdomain.h>, that contains the
->>>>>>>> initial
->>>>>>>> struct boot_domain that encapsulate the build information for a
->>>>>>>> domain.
->>>>>>>>
->>>>>>>> Add a kernel and ramdisk boot module reference along with a struct
->>>>>>>> domain
->>>>>>>> reference to the new struct boot_domain. This allows a struct
->>>>>>>> boot_domain
->>>>>>>> reference to be the only parameter necessary to pass down through
->>>>>>>> the domain
->>>>>>>> construction call chain.
->>>>>>>>
->>>>>>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->>>>>>>> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
->>>>>>>
->>>>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
->>>>>>
->>>>>> I have to object because the meaningless rename is going cause
->>>>>> significant pain in the rebase of the follow-on series for no improved
->>>>>> code clarity.
->>>>>
->>>>> Sorry, then an incremental patch undoing the rename that happened (with
->>>>> appropriate justification) will need proposing - the patch here has gone
->>>>> in already.
->>>>
->>>> Coming from a Linux background, ramdisk seemed more natural to me.  But
->>>> looking at hvm_start_info, the fields are called module there.  And
->>>> since we shouldn't tie this to the Linux naming, the more generic
->>>> "module" name seemed fine to me.
+On 4/16/25 09:38, Jan Beulich wrote:
+> On 16.04.2025 15:32, Daniel P. Smith wrote:
+>> On 4/10/25 07:57, Jan Beulich wrote:
+>>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
+>>>> --- a/xen/arch/x86/domain-builder/fdt.c
+>>>> +++ b/xen/arch/x86/domain-builder/fdt.c
+>>>> @@ -193,6 +193,25 @@ static int __init process_domain_node(
+>>>>                bd->domid = (domid_t)val;
+>>>>                printk("  domid: %d\n", bd->domid);
+>>>>            }
+>>>> +        else if ( strncmp(prop_name, "mode", name_len) == 0 )
+>>>> +        {
+>>>> +            if ( fdt_prop_as_u32(prop, &bd->mode) != 0 )
+>>>> +            {
+>>>> +                printk("  failed processing mode for domain %s\n", name);
+>>>> +                return -EINVAL;
+>>>> +            }
+>>>> +
+>>>> +            printk("  mode: ");
+>>>> +            if ( !(bd->mode & BUILD_MODE_PARAVIRT) )
+>>>> +            {
+>>>> +                if ( bd->mode & BUILD_MODE_ENABLE_DM )
+>>>> +                    printk("HVM\n");
+>>>> +                else
+>>>> +                    printk("PVH\n");
+>>>> +            }
+>>>> +            else
+>>>> +                printk("PV\n");
+>>>> +        }
 >>>
->>> Again, as I have stated, ramdisk is not a Linux only concept. In fact,
->>> as Jan points out, initrd/initramfs are Linux specific implementations
->>> of a ramdisk for which Xen doesn't even fully support. I am inclined to
->>> ask the inverse of why hvm_start_info uses the name module. But that
->>> aside, let's consider the fact that the field is only populated by the
->>> device tree when a module type of BOOTMOD_RAMDISK is matched. And all
->>> the uses of the field are when its value is stored into a local variable
->>> called initrd.
->>>
->>> Though the biggest irony is that generally obtuse abstraction are
->>> routinely blocked unless there is a tangible future case. Yet none was
->>> offered in the comment. Thus on that principle alone, a request for a
->>> tangible future use should have been requested and provided for the
->>> change to be considered.
+>>> My prior questions here remain: What's the significance of
+>>> BUILD_MODE_ENABLE_DM when set alongside BUILD_MODE_PARAVIRT? What about
+>>> any of the other bits being set?
 >>
->> Does it even need to be a _future_ use here? Aren't you working on
->> abstracting domain creation, suitable (in principle) for all architectures?
->> Isn't therefore a more generic name (as "module" is) preferable over a more
->> specific one?
+>>   From boot-domain.h:
+>>                                             /* On     | Off    */
+>> #define BUILD_MODE_PARAVIRT      (1 << 0) /* PV     | PVH/HVM */
+>> #define BUILD_MODE_ENABLE_DM     (1 << 1) /* HVM    | PVH     */
+>>
+>> The logic says, if BUILD_MODE_PARAVIRT bit is not set, thus an HVM
+>> domain, check if BUILD_MODE_ENABLE_DM has been set. This is determin if
+>> the domain is what the toolstack differentiates as either an HVM or PVH
+>> domain. As you should know, there is no case of a PV domain requiring a
+>> backing device mode (DM) domain. IOW, BUILD_MODE_ENABLE_DM is only
+>> relevant to an HVM domain.
 > 
-> Yes we are trying to build a future capability, but my point is let's 
-> consider all possible known OS's start up today. What other boot module 
-> could potentially be passed in that is exclusive of a ramdisk, thus 
-> allowing a multiplex of the field. And the answer is none.
+> And hence should (my conclusion) never be set for a PV one.
 
-Is it? What if you are to start a nested Xen with its own kernel, initrd
-and perhaps even an XSM policy "module"? Or anything else that is multi-
-module capable (possibly but not necessarily because of having started
-out as multiboot)?
+Yes and?
 
-Jan
+> Except - how wide or narrow do you mean "DM"? There are certainly cases
+> where a PV guest requires a qemu to serve as backend for one or more
+> devices. That's not what "DM" originally meant, but it goes in that
+> direction. Hence just to avoid such an ambiguity I think it's better to
+> properly reject any flags / flag combinations that we can't make sense
+> of.
+
+OpenXT has done this for since it was XenClientXT, and those are driver 
+domains. We do distinguish between the two because a device model domain 
+is specific to provide the larger core device plane to a domain. While a 
+driver domain is a much narrower scope of providing a specific emulated 
+hardware device to one or more domains. As a result, they have totally 
+different security policies applied to them.
+
+v/r,
+dps
 
