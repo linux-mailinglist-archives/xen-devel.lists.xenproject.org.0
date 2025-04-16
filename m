@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4578A9077D
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 17:17:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956403.1349833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 827CAA907CC
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 17:34:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.956420.1349844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u54VR-0000zK-9X; Wed, 16 Apr 2025 15:16:53 +0000
+	id 1u54lx-0005jR-PF; Wed, 16 Apr 2025 15:33:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956403.1349833; Wed, 16 Apr 2025 15:16:53 +0000
+Received: by outflank-mailman (output) from mailman id 956420.1349844; Wed, 16 Apr 2025 15:33:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u54VR-0000xs-6l; Wed, 16 Apr 2025 15:16:53 +0000
-Received: by outflank-mailman (input) for mailman id 956403;
- Wed, 16 Apr 2025 15:16:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u54lx-0005hh-Ld; Wed, 16 Apr 2025 15:33:57 +0000
+Received: by outflank-mailman (input) for mailman id 956420;
+ Wed, 16 Apr 2025 15:33:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yQHX=XC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u54VP-0000xm-V6
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 15:16:52 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2226e2f-1ad5-11f0-9eaf-5ba50f476ded;
- Wed, 16 Apr 2025 17:16:50 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3912fdddf8fso635854f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 08:16:50 -0700 (PDT)
+ id 1u54lw-0005hb-4x
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 15:33:56 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 342241ea-1ad8-11f0-9ffb-bf95429c2676;
+ Wed, 16 Apr 2025 17:33:54 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-ac3eb3fdd2eso1283129366b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 08:33:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39eae9640a9sm17523285f8f.10.2025.04.16.08.16.49
+ 5b1f17b1804b1-4405b3452fbsm24809425e9.0.2025.04.16.08.27.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Apr 2025 08:16:49 -0700 (PDT)
+ Wed, 16 Apr 2025 08:27:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2226e2f-1ad5-11f0-9eaf-5ba50f476ded
+X-Inumbo-ID: 342241ea-1ad8-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744816610; x=1745421410; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744817633; x=1745422433; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vfGREaRRFIs6sLlXNQLeapxmxkk1kNFlTdVUF2mbQvw=;
-        b=Y68U15mn8wr2tlSdwoC/r+d/WsKso7Mr1LStn1Mn10PFliVEe0NUlMyZz9lv9VkzqW
-         HqhJ/5sVOVumRhVPjRCx8X/28abT7IBv2enWqI6k063blh9bTs+roZZevU50itUZ0mEB
-         YPL1G+LAfml45KZXrMQRhRfep5MuNB6dfJ7FJ5qDVTozfs5rYTk53mdynjrqRXKVKof0
-         DtjjkZGbdbk319y1P43hAX1EnN/t9JfzAYY5uryv47LL+SrEFNNrOxhaMALRVgPDZ4Bp
-         Lhe7AelGW1Sg111+9lIp7O90TigdiLHxmwd6oMjFvyaYt7V+U/Myk8w8tYIW3jdCS0cQ
-         AgbA==
+        bh=7wRUbMj+4O4pgL6s1ZoExCgb2YAxupPE+TqeRPIC7OU=;
+        b=c5gTWc+VTcm9COj7pEDHMM5Fr6dS93PwPNJmQzvzV9AspDzcpPdkTV/p6+FInW9UUM
+         sNEc3baUxTa4CkGjI9nNmnlBu+atdsc0RBGVGWduUoKLSiCee/lpe6vo49ifMw9o7LMf
+         AdklW24GjNl+x7vUIrABO2hFht35sQxWb3VdVs3+qU0+yvtfqjKlmr34tX3EkD8WQS1X
+         DNH1Wlmo8Dy/O6neHJPCL+tIniDZP2h0QQ0OgCbX6Bqcz9JMAj/7mT9mmw+lqjVviV0S
+         Q2thtpg1++Yio1E7UrGktzOENvOhM721icdoNJHQ6HjV17O5TDUVged07UEz+pnm3FCZ
+         PZ4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744816610; x=1745421410;
+        d=1e100.net; s=20230601; t=1744817633; x=1745422433;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vfGREaRRFIs6sLlXNQLeapxmxkk1kNFlTdVUF2mbQvw=;
-        b=WlThA/5rBtBfADh2VOQA7bDq2z1sYgudPTJInc4mumTI3Bfk9lyUohW/26Ji38RkGT
-         sBzrP8sA0xsTXtpW4zvWNxBtDSEivbylq0HkMB91Fq9KbdLeS1dSzOFqg8asYncvAT5t
-         y1WjF71Gc5XT6Jy/D05QlEOElkWiMIpK3rlMG5HTHMnR/sX9ATQ0x7CnYUg+FBKr2KGK
-         6l4its9OAyWjCD0CpX6GqNuMa72fljuDpzBq2xBboVaIuFUajMXg9Q3lpUjGZq5mgqsh
-         DMlqGzwzuTm/0AIPzoizsBAwiYpHaCI2DI/mSBQ6t+Q+QeP7Z2rAGghw4254EdkgCUXq
-         UyxQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVdHyAmBHVCU9x+7H/3G5bKEJIM+6a39sCnl0TZkw51KdrT1gGMTFanISR1JN4DcCLlzRTDw5IWrwE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YymA6YKvwqbmgU5SfR6fTz2pkT9bAIe4ubxHGkUdM91z3FDmKwU
-	M3U5r+lrd8qjV3QCzJkdLj82jrA3EOtbJvZZf5MfM8nSwJJZBQnIUAiTifFgog==
-X-Gm-Gg: ASbGncsLYv/GvMrOLlMn0+pJFaa790Ix5/6JToNZdlDpDSYlQNjv/6ewlrfvUlgO1hx
-	KrudfvpT+VgfIoxIGRTfPFQYm4BEY5ekJYgfiHLnn0Gws/1970t0nz/a1rY3OHbfQTwaBo3mr4U
-	wd+Qr9MmV2ZXUVpvx7c1eh1fbsSEAeqV+I4I8INfIuac4SCTuzm6pDFeNtP76R9FcKpW1vErTOo
-	VQQD87YjAy3rkCXuyeNlShromWDrdEx1YhMFqGW870H7cK/TgKHD6H9trWc6E3G28d0ot/NJ32W
-	sYFwVVTBkeESHTlgGx0Oa3NGck5Xz24okooCnZRFvpcFV/2xoxPoJN1TArG24FcBKXlb5i3zykO
-	e3ffkKLaVF/RIlhDJ4ioyCxQnWgB91qtKLvCh
-X-Google-Smtp-Source: AGHT+IF8W1Uj6RU5OAZcewirpRyLkqcFNw/jxQgt6PeYdJvGHL0enBMUjUNiVWbU22et4iu3N0zR/A==
-X-Received: by 2002:a05:6000:178d:b0:38a:4184:14ec with SMTP id ffacd0b85a97d-39ee5e96ea2mr2343330f8f.1.1744816609884;
-        Wed, 16 Apr 2025 08:16:49 -0700 (PDT)
-Message-ID: <bc1ed3bf-4512-4d96-ab58-f8251896504d@suse.com>
-Date: Wed, 16 Apr 2025 17:16:48 +0200
+        bh=7wRUbMj+4O4pgL6s1ZoExCgb2YAxupPE+TqeRPIC7OU=;
+        b=CVcwH2HptQktOcN04PC5MhGJ6nw9cpkNnz/TyqbEh+bW8Rran0GfDzNOuZrrXIUtSi
+         SqwD6RKbDpw6r4wBfFLqEFvyR4vMummpyp27FY10c9iYZNxQLN5EyFMg2YSE8HimADvZ
+         xQvwAQhS44suAGwsunTz4d1vdfFq9ZPefRgFNNrfi9/tEGjlr+OZFgzS8fTX8BrsAcjp
+         dHRrdhJHM9tCdP39ZQ1UdRNw0l/Sjq/GGqlkUxW/bvexM442+PkXaPq1clTs+R+erHRR
+         Wkh0sY8BtXoVmBzY1VnlsOvBZ0kT2u9wVlOsaAFayZlkzgfmZlM8GXiyrc1O0i9SsasJ
+         3McQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXAJy9SoUdmbATsYOtTx61Pn4ve80Y8FYx3C33+IThRh1TGeX6DTPpQDRu5JhCahcQFMFh5AIp6fUo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyGwEmj54h6HWo56lrAyk/WbZmv2LQkmadEuJr4X5mfPC6CSjih
+	KUx7F07xj/FvzG8NRuRW1injmLCHXUurPYXEcn4btmgdEFLJFOawTy3daF8bzo0XeYyf7nNHLCE
+	=
+X-Gm-Gg: ASbGnct8BRIqHyE2T4K0DRMNlCdRUvfj4U7IHN4rtXh9f+GF/GUlAfFpNoJNtB2Xp9N
+	6CpeFGQnfViKzGEVYirzqlobqe80fD6WPbNJ4j/TXHYPXuOyqOuaFi7FefDXTLx/8GWk7kb1XZ6
+	JWxzs4VMv2OQUD1DY+SztimlQdSe+DArGYzwtqIfg+sDgBlXRkHwAs/nzAZbjCYd71igNSsa3NN
+	F2byJZ1ppU3ve/yNMvNzFW4AW29jgV8DcwsbFQWxou/ded1xNTUb0BLQ1xVt4/O6L1UkN84Ecsg
+	ZjCDLP3IiVJqSqMafCmFkeVIoPZpJ1NbRM0m/1v4QaNuEMt50jHdLaGmqxVnBDfF8gtyAb8jZ9E
+	7sv2s3wSRJvjiVoPC7qP/m8naaA==
+X-Google-Smtp-Source: AGHT+IEKm1ENKdWrh8MvcHnDkmDowktqv7M2sTcgIaOnXkW4JewO10Xbn72nuSiDDks3PwRgKOZvNA==
+X-Received: by 2002:a05:6000:430c:b0:397:5de8:6937 with SMTP id ffacd0b85a97d-39ee5b9f85fmr2351157f8f.41.1744817259294;
+        Wed, 16 Apr 2025 08:27:39 -0700 (PDT)
+Message-ID: <ab982710-0172-472b-b3eb-07914d6579cf@suse.com>
+Date: Wed, 16 Apr 2025 17:27:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] xen/dm: arm: Introduce inject_msi2 DM op
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+Subject: Re: [PATCH v19 2/3] vpci: acquire d->pci_lock in I/O handlers
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1744621166.git.mykyta_poturai@epam.com>
- <e9e7d722eeac100048ddd5a4032e3d7af39f8c3f.1744621166.git.mykyta_poturai@epam.com>
+ xen-devel@lists.xenproject.org
+References: <20250415165404.435506-1-stewart.hildebrand@amd.com>
+ <20250415165404.435506-3-stewart.hildebrand@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,63 +124,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e9e7d722eeac100048ddd5a4032e3d7af39f8c3f.1744621166.git.mykyta_poturai@epam.com>
+In-Reply-To: <20250415165404.435506-3-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.04.2025 11:51, Mykyta Poturai wrote:
-> From: Mykyta Poturai <Mykyta_Poturai@epam.com>
-> 
-> Add the second version of inject_msi DM op, which allows to specify
-> the source_id of an MSI interrupt. This is needed for correct MSI
-> injection on ARM.
+On 15.04.2025 18:54, Stewart Hildebrand wrote:
+> In preparation for translating virtual PCI bus topology (where a pdev
+> lookup will be needed in the vPCI I/O handlers), acquire d->pci_lock in
+> the vPCI I/O handlers.
 
-If this is about Arm, why does x86 also gain (incomplete) handling?
+I find it concerning that the locked regions (it's a domain-wide lock
+after all) are further grown.
 
-> @@ -539,6 +540,23 @@ int dm_op(const struct dmop_args *op_args)
->          break;
->      }
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -440,6 +440,8 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
+>      unsigned int data_offset = 0;
+>      uint32_t data = ~(uint32_t)0;
 >  
-> +    case XEN_DMOP_inject_msi2:
-> +    {
-> +        const struct xen_dm_op_inject_msi2 *data = &op.u.inject_msi2;
+> +    ASSERT(rw_is_locked(&d->pci_lock));
 > +
-> +        if ( data->pad || data->flags & ~XEN_DMOP_MSI_SOURCE_ID_VALID )
+>      if ( !size )
+>      {
+>          ASSERT_UNREACHABLE();
+> @@ -452,15 +454,11 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
+>       * If this is hwdom and the device is assigned to DomXEN, acquiring hwdom's
+>       * pci_lock is sufficient.
+>       */
+> -    read_lock(&d->pci_lock);
 
-Nit: If the x86 code is to stay in the first place, parentheses please
-around the & expression. Even if not, similar issues appear to exist
-in the Arm code.
+The comment now becomes meaningless in its context.
 
-> +        {
-> +            rc = -EINVAL;
-> +            break;
-> +        }
-> +
-> +        if ( data->flags & XEN_DMOP_MSI_SOURCE_ID_VALID )
-> +            gprintk(XENLOG_WARNING "XEN_DMOP_inject_msi2: source_id is ignored\n");
+> @@ -570,7 +569,6 @@ void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
+>       * TODO: We need to take pci_locks in exclusive mode only if we
+>       * are modifying BARs, so there is a room for improvement.
+>       */
+> -    write_lock(&d->pci_lock);
 
-Does this compile? It looks to me as if there was a missing comma.
-
-> --- a/xen/include/public/hvm/dm_op.h
-> +++ b/xen/include/public/hvm/dm_op.h
-> @@ -444,6 +444,23 @@ struct xen_dm_op_nr_vcpus {
->  };
->  typedef struct xen_dm_op_nr_vcpus xen_dm_op_nr_vcpus_t;
->  
-> +#define XEN_DMOP_inject_msi2 21
-> +
-> +struct xen_dm_op_inject_msi2 {
-> +      /* IN - MSI data */
-> +      uint32_t data;
-> +      /* IN - next two fields form an ID of the device triggering the MSI */
-> +      uint16_t segment; /* The segment number */
-> +      uint16_t source_id; /* The source ID that is local to segment (PCI BDF) */
-> +      /* IN - types of source ID */
-> +      uint32_t flags;
-> +#define XEN_DMOP_MSI_SOURCE_ID_VALID (1u << 0)
-
-What purpose does this flag serve? IOW what's the value of using this
-sub-op when one doesn't want to specify a source ID?
+Same here.
 
 Jan
 
