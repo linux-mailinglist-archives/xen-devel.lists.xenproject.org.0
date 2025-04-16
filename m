@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 943ADA90652
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 16:27:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956352.1349803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 968FEA90685
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 16:32:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.956376.1349813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u53jF-00043F-Cz; Wed, 16 Apr 2025 14:27:05 +0000
+	id 1u53nx-0006Qx-Tl; Wed, 16 Apr 2025 14:31:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956352.1349803; Wed, 16 Apr 2025 14:27:05 +0000
+Received: by outflank-mailman (output) from mailman id 956376.1349813; Wed, 16 Apr 2025 14:31:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u53jF-00041m-AD; Wed, 16 Apr 2025 14:27:05 +0000
-Received: by outflank-mailman (input) for mailman id 956352;
- Wed, 16 Apr 2025 14:27:03 +0000
+	id 1u53nx-0006O3-Qw; Wed, 16 Apr 2025 14:31:57 +0000
+Received: by outflank-mailman (input) for mailman id 956376;
+ Wed, 16 Apr 2025 14:31:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yQHX=XC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u53jD-0003yC-UV
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 14:27:03 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1u53nw-0006Mc-Bl
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 14:31:56 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dd827e19-1ace-11f0-9eaf-5ba50f476ded;
- Wed, 16 Apr 2025 16:27:03 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43ce71582e9so56844535e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 07:27:03 -0700 (PDT)
+ id 8b94d9f4-1acf-11f0-9eaf-5ba50f476ded;
+ Wed, 16 Apr 2025 16:31:55 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43cfba466b2so71837805e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 07:31:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4405b526ee9sm23005865e9.32.2025.04.16.07.27.01
+ ffacd0b85a97d-39eae9777absm17064754f8f.46.2025.04.16.07.31.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Apr 2025 07:27:02 -0700 (PDT)
+ Wed, 16 Apr 2025 07:31:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd827e19-1ace-11f0-9eaf-5ba50f476ded
+X-Inumbo-ID: 8b94d9f4-1acf-11f0-9eaf-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744813622; x=1745418422; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744813915; x=1745418715; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=47CxdK73KYnbTFRZ90C0mGuhK6mbbOJN6WVlbt81+AU=;
-        b=UXJbCtgpUbDtckbeexqL0urLUm9pCgLjHAER9pjb9T5vJzyBtSgYqWH5Qbyf2Ifa3J
-         BZQF0zcQDNBPEak/Dcmo15NlZZd87ANS0SumLbgZyUevprsXAn98TW5fXaZbmfq8FILX
-         yZqjY3DHMR5PXnQKB8bmbKDZOoYmuGssrzghDbHtGv7bz8X2W9DWUVBEQ4lOZMwRnyHh
-         jMmaeKFAW7PVOm7t4eJ7nW2OG+d7KY8E3mMzV2l3Y/BBR1SqON1rUryIc8HhG3bOocEJ
-         yncu3evFaLgSDy65lsKFP8+NeID8/3lFqivM5enzLf31iNHYOccJld0KcL8OnqjD1qhl
-         D7zg==
+        bh=q7xumUT/zjCR8C7rtHK77wqHNCrkpACurw5wPBGetJ0=;
+        b=URXkwwlP14NwIfVeD4erwxNcW84IxF7Ra8GvbnLmTdKJfqTjj1omIn/pOxYiXiAtfL
+         m4+I6q8Coyeshskt19cQkhoW/T0HincFGgyfml13Czg85jLyq6Lgr5Op9Qcc9fKs2erb
+         LQvQUSgWbFyrduroKAvLA/kRvN4ayWLm28hq1Z2oJ2otcujVdp4+aqzjDi+zcEeZTROX
+         ag6yyCmt5BZPJTILmwvirbhHEs6DslM0R/dA599Z/9QHbow2FHc7M9e4GwxcIWTmYieq
+         v922mgzpz3fmoO6yPUGFvGmhmoLtjuTU9Wa4SONLxkynMQXDDNQeQxMi2e36mYlcIpPs
+         FqKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744813622; x=1745418422;
+        d=1e100.net; s=20230601; t=1744813915; x=1745418715;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=47CxdK73KYnbTFRZ90C0mGuhK6mbbOJN6WVlbt81+AU=;
-        b=Ubdua6Tl6H7H76Xqs/pDmeAYkHGINH799ZTJczfGaKcUsMtj13b2TsE/6LpSlJChJk
-         eFXQ6qgVRNkg0OlqWK0ZXmh6d4Qe4mbeQ8dXCYkOBGLlT+Px8Jm/lS1xoErpLuTIh73l
-         jEFxKdDyS2RC5ZvQQcMHWjTvwsdfRD2J5rXpsBVUpmjMJfTv9SlI0p70OYKumAiXcJtx
-         jv2o7ZKWF+GWYhJ2EZYSUh7HnN01YdKkpxJkgjP/N0VLvjTDC94G+Jm0+EOHl2BPuXBu
-         YSVrtu3sFwcIXmaOJvywatfl9NJ8wVAEbLFz6bH7jFvb+RzFu8sRiVTurrVFdRrBtXeU
-         1KVA==
-X-Forwarded-Encrypted: i=1; AJvYcCUZ39d4IRi9jQ+FN034wwM5drcAtXifbCbutB3SaT2De1bpb89R85W9XRg7DnLAaqIOfJePDVbhoWk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz1LMsvuy0awp21Zsqu4i+HjCz4PgZhfc7JYQ4Vl6GDqbBI9/QC
-	wO7hSQOyqZmF7L9KtXFSrQG6FLEpF5B9EAoSqlTVTHZMjDcjOEUtTajIAhbQhA==
-X-Gm-Gg: ASbGncvcdV6uksPWZ6VgwNqbBM9j9SJH+6j5XYIkdsBbkKsYRkVX7daW02k0zaNaIOi
-	bghyxH4FnN2wWH32ypb2IlSGAYMuFwzHPHSjR9D2ht5z9fjpTzGw1wQPRLT9T9CdO1W/PwBvTGb
-	EPnlRS3zUuthbwL9MdPjkMtb5iuu26+mtP0dJweuqn06d+wLsJmOdEeXTUQ05upelOElEHroUXX
-	C6Na2YYngiRiItDfo3f7X1qpKlr6NLkDRdrnIRS7y6ep5SA9HcjRAmEFUC/bMudG77bpctDrgZ5
-	N+5SHfgy8veWurUdxOgfahmTu31feylTE3zPGML+T55O1l9oUJVJLe3yZOzIITpduLtT/CfGC6u
-	zAnOLqvJ0yjsMy3A+kmTHmTbnBg==
-X-Google-Smtp-Source: AGHT+IHgUFh3RrXwwMKBfGtb4sVQKZdI+PlnJxSfZ99Pltnj0crMpzfkqIh4e5NtXIsXRkcmJgxtow==
-X-Received: by 2002:a05:600c:3d0c:b0:43c:fc04:6d48 with SMTP id 5b1f17b1804b1-4405d5bd52emr23962325e9.0.1744813622472;
-        Wed, 16 Apr 2025 07:27:02 -0700 (PDT)
-Message-ID: <2c21fb56-3303-468a-8953-783ce2446aac@suse.com>
-Date: Wed, 16 Apr 2025 16:27:01 +0200
+        bh=q7xumUT/zjCR8C7rtHK77wqHNCrkpACurw5wPBGetJ0=;
+        b=byOSCidm0qcj0kS58BIs3vKy4XDHBQlsBMB9nnXSYO77/zkvwvU2fd8V+qoKRZpkfZ
+         hcOfBTNB6d0hXDsjIG3cCSeBu7ZhOAF7Abm5zBseIsn/CILb4eFHtQ/MkCyqKLSoJgDc
+         QiQVOZWw4Zz8ERDkGllDVL2QXiZsj4uYAQ/z4R5XYKV7SU1LfpJA1mcSB3GOTVndE3Bv
+         iycXAPvKPHN5cRWEGWr2gnlx1d5PElQpKCcGBS0RJ9xNCX6SVmKRXDjNWMBhEEKIh9lU
+         IDC4QYTKw7DWPljG8VdqFl8qVHSbj+Il3A9q7Hwu8GNsqcf7rEAa1B1Mvj6XNDo1xleM
+         P2OQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXYl+tTmVm5vgMdijCYlwzar8yd1jCIvlvnNyCRX1+fbOtDLyfyaIBHPuRVyS+FIdHN7KFga23y/UI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YySVQAqhGZ1HcSByViKdxBiaGdmTpHJmIH66IQQpwYFadNo2SJN
+	KtyzLhHLBt3Ky/HNi7a8U3kv2MbfUS/+eyJaiuQZz+rvZiZgKXODVIMq/VdRzw==
+X-Gm-Gg: ASbGncvNYylGyyiK4jCisG9R8XVSX10GAfFiPHk/6ST4KHRsJTH45VMBinASjVd5Kes
+	tNofP3bB5j38d8+FcjRq0v7DNtNiHdodyRhpFEpiOIfSMqIjJBorv6TcQPwrzfjGnbAW2TbdKAB
+	1lNi5vLFR2aSyi2Jk01XWH2x35PHOdA61goAEho6DCKxrddQ+eVklHGd7caFswVhQNlq+3RELmL
+	O2S9k/AT+IgAAnbu9I+RPIFNevldr1XkINWaicbxbmP7yV7e6AWNW1FsJX++kohwqk48hF3yuwf
+	4TIJ61bxjEsuRnOpO5+8zeK73ns/jGTP7kVelWQEg3Bd0/cOt+qh+w21yYiaNrRAi36GfHobWvY
+	E+airl+15gH2sWDx191gOaW6Csa0Lo/DsNtVg
+X-Google-Smtp-Source: AGHT+IH1CSr4Q112Zt+BY99T55bW3z+Hp+xPEb1Kx9H1BTPdnZlZMk2pybvbUI9lHui6/3MXqguiEw==
+X-Received: by 2002:a05:6000:40c7:b0:39c:1257:cc26 with SMTP id ffacd0b85a97d-39ee5badc09mr2166657f8f.57.1744813914640;
+        Wed, 16 Apr 2025 07:31:54 -0700 (PDT)
+Message-ID: <cde3523d-b163-4e18-bf40-856e80df8b0c@suse.com>
+Date: Wed, 16 Apr 2025 16:31:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 14/16] x86/hyperlaunch: add memory parsing to domain
- config
+Subject: Re: [PATCH v3 15/16] x86/hyperlaunch: add max vcpu parsing of
+ hyperlaunch device tree
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: Jason Andryuk <jason.andryuk@amd.com>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
@@ -96,14 +96,13 @@ Cc: Jason Andryuk <jason.andryuk@amd.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  xen-devel@lists.xenproject.org, Alejandro Vallejo <agarciav@amd.com>
 References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-15-agarciav@amd.com>
- <e78824bc-3b0a-406e-80ac-5a67b127254f@suse.com>
- <2fe06df0-ee92-4466-a532-ff246efffdac@apertussolutions.com>
- <1c12c10f-02e3-4b12-a890-205d3fa0ca39@suse.com>
- <d47ce533-bc0a-472f-ad11-e350150410b9@apertussolutions.com>
+ <20250408160802.49870-16-agarciav@amd.com>
+ <c1e5af91-8f84-458d-a9b8-ab9758b5cbce@suse.com>
+ <5a674e65-77bc-4d07-a4e3-2fa2c96bb37e@apertussolutions.com>
+ <71606cc7-8d9d-4b6b-ac64-bb7bcc54eee1@suse.com>
+ <fc3dc57a-523a-4158-9335-026b028e2bce@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,50 +128,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d47ce533-bc0a-472f-ad11-e350150410b9@apertussolutions.com>
+In-Reply-To: <fc3dc57a-523a-4158-9335-026b028e2bce@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.04.2025 16:12, Daniel P. Smith wrote:
-> On 4/16/25 09:41, Jan Beulich wrote:
->> On 16.04.2025 15:37, Daniel P. Smith wrote:
->>> On 4/10/25 08:03, Jan Beulich wrote:
->>>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
->>>>> @@ -212,6 +213,39 @@ static int __init process_domain_node(
->>>>>                else
->>>>>                    printk("PV\n");
->>>>>            }
->>>>> +        else if ( strncmp(prop_name, "memory", name_len) == 0 )
->>>>> +        {
->>>>> +            uint64_t kb;
->>>>> +            if ( fdt_prop_as_u64(prop, &kb) != 0 )
->>>>
->>>> Nit (you know what I have to say here, and again below.)
->>>>
->>>>> +            {
->>>>> +                printk("  failed processing memory for domain %s\n", name);
->>>>> +                return -EINVAL;
->>>>
->>>> Any reason to override fdt_prop_as_u64()'s return value here?
+On 16.04.2025 16:19, Daniel P. Smith wrote:
+> On 4/16/25 09:54, Jan Beulich wrote:
+>> On 16.04.2025 15:42, Daniel P. Smith wrote:
 >>>
->>> IMHO this should be a function that libfdt should provide, but altering
->>> libftd directly would make uprev'ing it challenging. The least I could
->>> do is make the function behave like the rest of libfdt's helper functions.
+>>> On 4/10/25 08:08, Jan Beulich wrote:
+>>>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
+>>>>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+>>>>>
+>>>>> Introduce the `cpus` property, named as such for dom0less compatibility, that
+>>>>> represents the maximum number of vpcus to allocate for a domain. In the device
+>>>>
+>>>> Nit: vcpus
+>>>
+>>> I agree with you here, the issue is that it was requested that we keep
+>>> this field in line with Arm's DT, and they unfortunately used `cpus` to
+>>> specify the vcpu allocation.
 >>
->> How's this related to the question that I raised? I didn't question the
->> function, but a particular aspect of the specific use that is being made
->> of it here.
+>> You misunderstood, I think. The comment was on the mis-spelling in the latter
+>> of the quoted lines.
 > 
-> Your question was, "Any reason to override fdt_prop_as_u64()'s return 
-> value here?"
-> 
-> And my answer was, I copied libfdt's behavior for its helper functions. 
-> IOW, to have the helper behave like libfdt's other helper functions.
+> Then your latter comment is that you want the internal field to be 
+> renamed to cpu?
 
-I'm sorry, but no. It meanwhile feels like you're intentionally
-misunderstanding. We're in process_domain_node() here. That's not a libfdt-
-like helper function? And the question was why this function throws away
-the return value it got from fdt_prop_as_u64().
+No? Where are you taking that from? My comment was that a log message refers
+to "max_vcpus", when no field / property of that name is being processed.
+Going back to my reply (and seeing that Alejandro understood what I meant,
+afaict) I see nothing ambiguous there at all.
+
+In any event, ftaod, there were three entirely independent comments in my
+original reply to that patch.
 
 Jan
+
+> Wouldn't that create further confusion of a physical cpu 
+> assignment vs virtual cpu allocation?
+> 
+> v/r,
+> dps
+> 
+
 
