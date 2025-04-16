@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61583A9060A
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 16:19:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956324.1349773 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A338A9063D
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 16:24:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.956337.1349783 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u53bu-0000LN-79; Wed, 16 Apr 2025 14:19:30 +0000
+	id 1u53gy-0003BZ-Ow; Wed, 16 Apr 2025 14:24:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956324.1349773; Wed, 16 Apr 2025 14:19:30 +0000
+Received: by outflank-mailman (output) from mailman id 956337.1349783; Wed, 16 Apr 2025 14:24:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u53bu-0000Iy-4A; Wed, 16 Apr 2025 14:19:30 +0000
-Received: by outflank-mailman (input) for mailman id 956324;
- Wed, 16 Apr 2025 14:19:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=S7a8=XC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1u53bs-0000Is-05
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 14:19:28 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cc276d72-1acd-11f0-9ffb-bf95429c2676;
- Wed, 16 Apr 2025 16:19:25 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1744813157619214.15615350572398;
- Wed, 16 Apr 2025 07:19:17 -0700 (PDT)
+	id 1u53gy-00039x-M3; Wed, 16 Apr 2025 14:24:44 +0000
+Received: by outflank-mailman (input) for mailman id 956337;
+ Wed, 16 Apr 2025 14:24:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yQHX=XC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u53gx-00039r-EV
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 14:24:43 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 89a53427-1ace-11f0-9eaf-5ba50f476ded;
+ Wed, 16 Apr 2025 16:24:42 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-39ac9aea656so7019054f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 07:24:42 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39eaf43d046sm17670763f8f.63.2025.04.16.07.24.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Apr 2025 07:24:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,33 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc276d72-1acd-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; t=1744813160; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=YkcbhI2HVQDFdlimkgF6ZsW7QU9BgfXjoblPsqCKMMo5qlBOXY4dXoprlxo+djXd0Oa8sJcg6L/BOX5+QmGY7LwCwdQTr5BU0uH1nAV68RA4soC50XKAYDO7ceMpOzXF3hvZ/0zeuE8zP4vI25lWOjiEy/RHObII7+nD/H3+Ue8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1744813160; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=7+h8zZWgtOoBiL/JwxBSef5YqUzwnwDsb58q8/2tavM=; 
-	b=du5CG2KMTEcnRJtRwDhfqrHLy3uJIJ+1319ly9e4PCms4gTVtf2LIi/AOVyQ3kf4c0VG4rTcIizN5Yq6id1q1BIDQfNYpmnW1R5Ub7czg9X00Bn3plaTtJKJPRifSlAXnV893unqV1KUjZufqHQXJoi7fAwoOe8xi/ZfcrbwxwA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1744813160;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=7+h8zZWgtOoBiL/JwxBSef5YqUzwnwDsb58q8/2tavM=;
-	b=VF/qa0hphXTSBqvRnruE/PdeNzkgSBmo1RzLafQjd24CUzDgDI1Ufv1N5bMmTf/h
-	Wwq8hWLFqDxs93YQbOs+QvHhNlQ5sMa5gSG+j2HGcV/cOYIJVjSoQgHkuSJaffFdoaL
-	NfiNswLKdrFvWDemXrtB94uBplJ9GkQ/b5/99MQU=
-Message-ID: <fc3dc57a-523a-4158-9335-026b028e2bce@apertussolutions.com>
-Date: Wed, 16 Apr 2025 10:19:16 -0400
+X-Inumbo-ID: 89a53427-1ace-11f0-9eaf-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1744813482; x=1745418282; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=9I08MHo288zprjOCbkzZa4+2BtbydBvcXk6zt6MOMj4=;
+        b=UTazrBbeS63RX8T8C+ufvwOqTQZE9ULJjlpgb+ROMf8DNKc3fpszJlYbIknDQHTNOK
+         rZzKEJ7JxCKBSkcnRUGGAl21TRrFNh8iuUfC2cqE1DkHbV3yXDTXBihepaqsemC09654
+         7OLMeVBJVJzwb40Qhpf9Qe73heyfFisRiRgTWPNrCW+uiZdBCqF835awbW2/fwtSqbMV
+         7qA/Os/Q5DdgRAq6fnugkrKliLy6aCd8PkJ0NnKu15TxrbZH+olp3SDmexM5szoSL+7p
+         jSXPf8ohsprNpKRqn+JxTjdYEAD08fpHajUFPXzlNv8emnz0p9ywSbips75hNqwAfM9y
+         svPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744813482; x=1745418282;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9I08MHo288zprjOCbkzZa4+2BtbydBvcXk6zt6MOMj4=;
+        b=pmKvx/aIxWjRwFT/IKehqdANL87k/8NZN0R17nzT2vjyxfyAOHFntI07Q8zdHjp6Pb
+         d3Cg/IRDQnUrdi48NAqja8wyy4NMLgPpzWt0O+uwjhDoWNDugsNDj21MOpIjcK6IZsAO
+         kz+zvDwz0mv0I7Wqvp8g8PslyjEL3G9daHLmqq0LrK15Y2TrmoMH4J8/s2C8Ny4Tdy8S
+         0xxkMRkg6tOKfwn/L/IkljemFfoQAv8t9OKbJaHbvrG0hJqrH2M+uVty+liHATkfgPBH
+         LXhG6K1rQqAzquUnUM4Fiqqad0LSVa5XbxeFw2550kW/S+Rw3Y/i8DgzLNUjpnrJ/fKe
+         SgzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXSZJXSwvRLzWn8znT+xwdEG5JLIeMukW0dpluzZLPyTZ0UNCDDupGSrmQH1N3syxh8C5trFzAXj+Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzncmhES24OpQNxik4FGsnab1BlA3FTPBnoKE8mw1aRErYQ2U1J
+	SOXwr69xjOj7uxlz0zViiGVo0pQ/gIQ61wqxyIQYpZLLzVyGmHaBQsO5hzWJlg==
+X-Gm-Gg: ASbGncuM7keb9yzuy0FUR1BnoFk2heVhpRSyXAz2HkOfAKos8BYOv8vPlfXqURWn92P
+	eZpnUR3q8HO7In5bXffxq/zaSDKAml0xbHdGrn6cI1De+NavGc36D1Z+qydRUYUroENDVEwUlBp
+	ZrgVHCiiLvDN42LXB2JXcuO2sYesmA7mlJmbDGwjNSI5Uj+o5i0H063dIHZQ7QzxsP2nHDpkQmI
+	aoqJPWMHJFWZ2+Rs1D7ykgleUGf/jIiJsCoNDmUJpoIeuWNClDLbrnX4rwTiQHhnyMlc/kmV1Ie
+	hQMPHQY32BRmtqBA8rrFzH4fEg2TOqbIEP7sb5cIkblhaw28PKxU2ZAq56EJV87FV+lk/aMLPbk
+	PNiT1yfoioczw4jzIW+5+LzLsEw==
+X-Google-Smtp-Source: AGHT+IFRNNG09xXQnvShTTfii99I1t+gHFsuqFVLj5e8IBprBNTuXvBGfNy8d5CpX2FDq4Vdk9jKHw==
+X-Received: by 2002:a5d:64ee:0:b0:399:737f:4e02 with SMTP id ffacd0b85a97d-39ee5b9d91bmr2121769f8f.39.1744813481938;
+        Wed, 16 Apr 2025 07:24:41 -0700 (PDT)
+Message-ID: <eee96b07-b927-4148-a586-1e9587e1beed@suse.com>
+Date: Wed, 16 Apr 2025 16:24:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 15/16] x86/hyperlaunch: add max vcpu parsing of
- hyperlaunch device tree
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v3 13/16] x86/hyperlaunch: specify dom0 mode with device
+ tree
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: Jason Andryuk <jason.andryuk@amd.com>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
@@ -73,73 +98,92 @@ Cc: Jason Andryuk <jason.andryuk@amd.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org, Alejandro Vallejo <agarciav@amd.com>
 References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-16-agarciav@amd.com>
- <c1e5af91-8f84-458d-a9b8-ab9758b5cbce@suse.com>
- <5a674e65-77bc-4d07-a4e3-2fa2c96bb37e@apertussolutions.com>
- <71606cc7-8d9d-4b6b-ac64-bb7bcc54eee1@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <71606cc7-8d9d-4b6b-ac64-bb7bcc54eee1@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <20250408160802.49870-14-agarciav@amd.com>
+ <7a13e61b-8568-4852-bb46-974964e02d61@suse.com>
+ <82fe6290-ea16-4e4f-8be4-76b9b624e398@apertussolutions.com>
+ <c9290102-d29d-4c54-9052-995e960e4ea0@suse.com>
+ <e78a9dcd-3fa3-4c66-860d-3d2b8206b67c@apertussolutions.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <e78a9dcd-3fa3-4c66-860d-3d2b8206b67c@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-
-On 4/16/25 09:54, Jan Beulich wrote:
-> On 16.04.2025 15:42, Daniel P. Smith wrote:
->>
->> On 4/10/25 08:08, Jan Beulich wrote:
->>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
->>>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+On 16.04.2025 16:09, Daniel P. Smith wrote:
+> On 4/16/25 09:38, Jan Beulich wrote:
+>> On 16.04.2025 15:32, Daniel P. Smith wrote:
+>>> On 4/10/25 07:57, Jan Beulich wrote:
+>>>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
+>>>>> --- a/xen/arch/x86/domain-builder/fdt.c
+>>>>> +++ b/xen/arch/x86/domain-builder/fdt.c
+>>>>> @@ -193,6 +193,25 @@ static int __init process_domain_node(
+>>>>>                bd->domid = (domid_t)val;
+>>>>>                printk("  domid: %d\n", bd->domid);
+>>>>>            }
+>>>>> +        else if ( strncmp(prop_name, "mode", name_len) == 0 )
+>>>>> +        {
+>>>>> +            if ( fdt_prop_as_u32(prop, &bd->mode) != 0 )
+>>>>> +            {
+>>>>> +                printk("  failed processing mode for domain %s\n", name);
+>>>>> +                return -EINVAL;
+>>>>> +            }
+>>>>> +
+>>>>> +            printk("  mode: ");
+>>>>> +            if ( !(bd->mode & BUILD_MODE_PARAVIRT) )
+>>>>> +            {
+>>>>> +                if ( bd->mode & BUILD_MODE_ENABLE_DM )
+>>>>> +                    printk("HVM\n");
+>>>>> +                else
+>>>>> +                    printk("PVH\n");
+>>>>> +            }
+>>>>> +            else
+>>>>> +                printk("PV\n");
+>>>>> +        }
 >>>>
->>>> Introduce the `cpus` property, named as such for dom0less compatibility, that
->>>> represents the maximum number of vpcus to allocate for a domain. In the device
+>>>> My prior questions here remain: What's the significance of
+>>>> BUILD_MODE_ENABLE_DM when set alongside BUILD_MODE_PARAVIRT? What about
+>>>> any of the other bits being set?
 >>>
->>> Nit: vcpus
+>>>   From boot-domain.h:
+>>>                                             /* On     | Off    */
+>>> #define BUILD_MODE_PARAVIRT      (1 << 0) /* PV     | PVH/HVM */
+>>> #define BUILD_MODE_ENABLE_DM     (1 << 1) /* HVM    | PVH     */
+>>>
+>>> The logic says, if BUILD_MODE_PARAVIRT bit is not set, thus an HVM
+>>> domain, check if BUILD_MODE_ENABLE_DM has been set. This is determin if
+>>> the domain is what the toolstack differentiates as either an HVM or PVH
+>>> domain. As you should know, there is no case of a PV domain requiring a
+>>> backing device mode (DM) domain. IOW, BUILD_MODE_ENABLE_DM is only
+>>> relevant to an HVM domain.
 >>
->> I agree with you here, the issue is that it was requested that we keep
->> this field in line with Arm's DT, and they unfortunately used `cpus` to
->> specify the vcpu allocation.
+>> And hence should (my conclusion) never be set for a PV one.
 > 
-> You misunderstood, I think. The comment was on the mis-spelling in the latter
-> of the quoted lines.
-> 
+> Yes and?
 
-Then your latter comment is that you want the internal field to be 
-renamed to cpu? Wouldn't that create further confusion of a physical cpu 
-assignment vs virtual cpu allocation?
+And it being wrongly set should be rejected, rather than silently ignored.
 
-v/r,
-dps
-
+Jan
 
