@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADA44A90509
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 15:55:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956208.1349703 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7B70A9053D
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 16:01:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.956233.1349714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u53EF-0000B8-S1; Wed, 16 Apr 2025 13:55:03 +0000
+	id 1u53K8-00026a-FJ; Wed, 16 Apr 2025 14:01:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956208.1349703; Wed, 16 Apr 2025 13:55:03 +0000
+Received: by outflank-mailman (output) from mailman id 956233.1349714; Wed, 16 Apr 2025 14:01:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u53EF-00008S-Or; Wed, 16 Apr 2025 13:55:03 +0000
-Received: by outflank-mailman (input) for mailman id 956208;
- Wed, 16 Apr 2025 13:55:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yQHX=XC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u53EE-0008L6-6g
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 13:55:02 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 638e27b3-1aca-11f0-9ffb-bf95429c2676;
- Wed, 16 Apr 2025 15:55:00 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43cfb6e9031so62869765e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 06:55:00 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39eae9640bcsm17072704f8f.1.2025.04.16.06.54.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Apr 2025 06:54:59 -0700 (PDT)
+	id 1u53K8-00024p-CR; Wed, 16 Apr 2025 14:01:08 +0000
+Received: by outflank-mailman (input) for mailman id 956233;
+ Wed, 16 Apr 2025 14:01:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=S7a8=XC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1u53K7-00024j-Ae
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 14:01:07 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3b416425-1acb-11f0-9eaf-5ba50f476ded;
+ Wed, 16 Apr 2025 16:01:03 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1744812050960164.61457083759592;
+ Wed, 16 Apr 2025 07:00:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +38,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 638e27b3-1aca-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744811700; x=1745416500; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4LE7SO23oBNqseUbjdnqWsdDCoydcN0FP17jywwiUYQ=;
-        b=FmF9OWubVPWpAD1p/06vlCjO3D88oC0P8UrG571YaWcNTEY3fvOw8NoD8MR3Ns17pb
-         7Ue9tR+4T8FTmUruWK/D70WJOdNt6XKJB3HOuPrna8WSSiO5yyQQWMrbzI5Ba6NqBIuo
-         v40ndQDDX3K8mKFnQAClJToHjtWe5pNxRvmBgC0hsbbJdeTTIK97TJfj0XYSA5ayY3El
-         DDlfzvV9GEeVPkDdKU3rqmmmoKgTdfA62HGJ9Xqbcsb2N/a5wOCsHvbg3DoTDO/E7wSe
-         BtqPcHfWh9SMaN0aFF7S1NVmiZZxwc7TZcXASgfrYSjWadutkizL9hQ+VGCcFywPO5SH
-         KoKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744811700; x=1745416500;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4LE7SO23oBNqseUbjdnqWsdDCoydcN0FP17jywwiUYQ=;
-        b=eME9WPn+Imwl1csb2e7o1FDsZQbR8LvP4O25Dy8PzUeQkdfo2dF3Q6zvpACMgjbpBX
-         iS7V/Fu/8YXELNjignPKKL0pIOdPRYSDp7I9hr39f47L5EjBJkGfoYVNzSPpBy2nS3nB
-         fSmKxL8HvStVJ62Ux59tT7Dv1N96OCXwPyUJ+GrQ9/FXe3sWWbecp42W4OSZfoutU7cD
-         VMLKFu6T6SqDTMlaDp7GZSQeDDO4rZOVy2i5ij919cScIVN8NcBNtAoN/uDZz42OBZCN
-         OMr+zckl2EbkR3prHtfEBCbCZQJVAstJm7ZbTB8jsWGqb9ztfGIWk3TZYBfW6hHcqKEO
-         ZY1A==
-X-Forwarded-Encrypted: i=1; AJvYcCUm/IZf3/SaZuqLrPvzj5rrYoxzqonxR9/fuiBSY7GxMvrqblhyA1paEajnq23NRRiYWxpsaT/ovwU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyO0mXR9lxQ8UL2YNQ2hzws5UIOSnveGzur691drBKId5W3eTOV
-	L8IHPqWZzw6K26gDNeFEzLR31An+oqMttQhXFZDSN8Kezlmzo5LAdJlY6WhyhQ==
-X-Gm-Gg: ASbGncsVv9R7H7MxzyeNLB0x2UNBS+x/EF2RniMqOFSPO5jWU8Flp8yLZdX4XBXStW9
-	97oiLQ/mg6WiQlh08+aUozRow7mkKXMMnKYUbXh+Uh1gCZW1BK/ZPfbweSw4AUgVD8eeU/H0Or0
-	PiSBS3I7bxTVy+fBN4kKJJYXjFUPBlWWI+xqYRoekHGkXseT2n4TFGdtv0shU4EYd1bVaURNWmj
-	hFJv2Zi/Cs8hkejvuX4TR9y/Wbo+nZQbAfwXGjs3OtF5rtG++ZsiPilK2VRY2ZAApz9I+1wq4ud
-	LaKVOH7kF4YHUxK2zs/9PF8BEGkdivHdZYpdjajf64MClC3D3jM98iD+cF2mu8l2MmSABjBaZml
-	rE1K+ZzcZpne8F/Fh0QVNW5IniA==
-X-Google-Smtp-Source: AGHT+IGTBHVqd+eNiCRxtt0FHijqG1BvOXqYxv4ua62MfGgSwVAdpGPcRx03eQWsaqocRZuK9rn4bQ==
-X-Received: by 2002:a05:6000:258a:b0:39a:c9d9:8f95 with SMTP id ffacd0b85a97d-39ee5bad5f7mr1966021f8f.52.1744811700087;
-        Wed, 16 Apr 2025 06:55:00 -0700 (PDT)
-Message-ID: <71606cc7-8d9d-4b6b-ac64-bb7bcc54eee1@suse.com>
-Date: Wed, 16 Apr 2025 15:54:58 +0200
+X-Inumbo-ID: 3b416425-1acb-11f0-9eaf-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; t=1744812054; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=JVLtopfxtjx2mbYVxSq8VJi+9S9cVQFd0FSzjmAZGe6Fd7h04Fn/uSKztCucU/pbMJa0uarZCN1mg5VAutKDd29jbqWFPhI+pxDjtzW1v5icyOh23vuIBwmd3+cRzroPZY21OV08tvb0GkfqkMLSy2QiRX+8V447wKcg2Qv2nJA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1744812054; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=7Tanzu67FF3cAQy6tnpCRBM7xvljrQD0cGctjLCbFsE=; 
+	b=DrOjOdGNbZhZ8AA1Oxv/LBolHckElf0l6KnFaD89GEj9DPzkscKz7yKyFYErwmQoJ3CWK8pmldf+XR4wlm7ld66X51neZ1VG1vzqqRk5wPydxT6XUjzcURZ7Rze1c4u7/NHGXt+NBlRs7cYIDNhaKqAfM5f8eKDmiCIUUUyOf1A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1744812054;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=7Tanzu67FF3cAQy6tnpCRBM7xvljrQD0cGctjLCbFsE=;
+	b=ELSIj+PRXXuUe4XPAVspSwqiaAQcsuhFfSpAr5G9y83sJs6Cx9ru3nLOZ4OVcGTt
+	wPZakPCY7+1ERpl3qq0owm2mRXma8fxN4mitoDG7K/7IoeNiT7vK3hbI2g60Px0mqz9
+	jf+Q94J3RchoP/wc59xuuWl/JIm5IKpuyiPk+nP8=
+Message-ID: <6517f3ca-1329-4591-9ccc-e6be5af31e44@apertussolutions.com>
+Date: Wed, 16 Apr 2025 10:00:49 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 15/16] x86/hyperlaunch: add max vcpu parsing of
- hyperlaunch device tree
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+Subject: Re: [PATCH v3 01/16] x86/boot: introduce boot domain
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Michal Orzel <michal.orzel@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Alejandro Vallejo <agarciav@amd.com>
+ xen-devel@lists.xenproject.org, Alejandro Vallejo <agarciav@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
 References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-16-agarciav@amd.com>
- <c1e5af91-8f84-458d-a9b8-ab9758b5cbce@suse.com>
- <5a674e65-77bc-4d07-a4e3-2fa2c96bb37e@apertussolutions.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5a674e65-77bc-4d07-a4e3-2fa2c96bb37e@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <20250408160802.49870-2-agarciav@amd.com>
+ <141229a0-2cd2-4886-b5e5-02c85b0ca5ab@suse.com>
+ <7fa754f8-d785-45d8-b9da-de5c85bc793b@apertussolutions.com>
+ <f0a14866-0f38-4f8d-8e11-993a58c7da7b@suse.com>
+ <644cdc5a-b96a-4e43-ae7a-4cadda1d1084@amd.com>
+ <3832bb2b-978c-4990-928c-c18a003adcf4@apertussolutions.com>
+ <73c8dacd-c1d7-459e-ac18-decaa5c9c5bd@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ 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
+In-Reply-To: <73c8dacd-c1d7-459e-ac18-decaa5c9c5bd@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On 16.04.2025 15:42, Daniel P. Smith wrote:
-> 
-> On 4/10/25 08:08, Jan Beulich wrote:
->> On 08.04.2025 18:07, Alejandro Vallejo wrote:
->>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+
+
+V/r,
+Daniel P. Smith
+Apertus Solutions, LLC
+
+On 4/16/25 09:33, Jan Beulich wrote:
+> On 16.04.2025 15:02, Daniel P. Smith wrote:
+>> On 4/10/25 16:56, Jason Andryuk wrote:
+>>> On 2025-04-10 11:01, Jan Beulich wrote:
+>>>> On 10.04.2025 15:09, Daniel P. Smith wrote:
+>>>>> On 4/9/25 02:24, Jan Beulich wrote:
+>>>>>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
+>>>>>>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+>>>>>>>
+>>>>>>> To begin moving toward allowing the hypervisor to construct more
+>>>>>>> than one
+>>>>>>> domain at boot, a container is needed for a domain's build
+>>>>>>> information.
+>>>>>>> Introduce a new header, <xen/asm/bootdomain.h>, that contains the
+>>>>>>> initial
+>>>>>>> struct boot_domain that encapsulate the build information for a
+>>>>>>> domain.
+>>>>>>>
+>>>>>>> Add a kernel and ramdisk boot module reference along with a struct
+>>>>>>> domain
+>>>>>>> reference to the new struct boot_domain. This allows a struct
+>>>>>>> boot_domain
+>>>>>>> reference to be the only parameter necessary to pass down through
+>>>>>>> the domain
+>>>>>>> construction call chain.
+>>>>>>>
+>>>>>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>>>>>> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+>>>>>>
+>>>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>>>>
+>>>>> I have to object because the meaningless rename is going cause
+>>>>> significant pain in the rebase of the follow-on series for no improved
+>>>>> code clarity.
+>>>>
+>>>> Sorry, then an incremental patch undoing the rename that happened (with
+>>>> appropriate justification) will need proposing - the patch here has gone
+>>>> in already.
 >>>
->>> Introduce the `cpus` property, named as such for dom0less compatibility, that
->>> represents the maximum number of vpcus to allocate for a domain. In the device
+>>> Coming from a Linux background, ramdisk seemed more natural to me.  But
+>>> looking at hvm_start_info, the fields are called module there.  And
+>>> since we shouldn't tie this to the Linux naming, the more generic
+>>> "module" name seemed fine to me.
 >>
->> Nit: vcpus
+>> Again, as I have stated, ramdisk is not a Linux only concept. In fact,
+>> as Jan points out, initrd/initramfs are Linux specific implementations
+>> of a ramdisk for which Xen doesn't even fully support. I am inclined to
+>> ask the inverse of why hvm_start_info uses the name module. But that
+>> aside, let's consider the fact that the field is only populated by the
+>> device tree when a module type of BOOTMOD_RAMDISK is matched. And all
+>> the uses of the field are when its value is stored into a local variable
+>> called initrd.
+>>
+>> Though the biggest irony is that generally obtuse abstraction are
+>> routinely blocked unless there is a tangible future case. Yet none was
+>> offered in the comment. Thus on that principle alone, a request for a
+>> tangible future use should have been requested and provided for the
+>> change to be considered.
 > 
-> I agree with you here, the issue is that it was requested that we keep 
-> this field in line with Arm's DT, and they unfortunately used `cpus` to 
-> specify the vcpu allocation.
+> Does it even need to be a _future_ use here? Aren't you working on
+> abstracting domain creation, suitable (in principle) for all architectures?
+> Isn't therefore a more generic name (as "module" is) preferable over a more
+> specific one?
 
-You misunderstood, I think. The comment was on the mis-spelling in the latter
-of the quoted lines.
+Yes we are trying to build a future capability, but my point is let's 
+consider all possible known OS's start up today. What other boot module 
+could potentially be passed in that is exclusive of a ramdisk, thus 
+allowing a multiplex of the field. And the answer is none. The other 
+potential modules that could be passed in will need to be able to be 
+coexist with a ramdisk module being passed. The immediate examples I can 
+point to are, an SELinux policy file or a guest device tree. I'm not too 
+familiar, perhaps a Zephyr guest may only take a guest DT, but a Linux 
+guest may take an initrd and a DT.
 
-Jan
+v/r,
+dps
+
+
 
