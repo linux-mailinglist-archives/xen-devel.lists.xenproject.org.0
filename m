@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBC44A9048F
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 15:43:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956151.1349644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3254A9049E
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 15:45:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.956165.1349653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5321-0003gy-Lo; Wed, 16 Apr 2025 13:42:25 +0000
+	id 1u534I-0004Gp-1R; Wed, 16 Apr 2025 13:44:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956151.1349644; Wed, 16 Apr 2025 13:42:25 +0000
+Received: by outflank-mailman (output) from mailman id 956165.1349653; Wed, 16 Apr 2025 13:44:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5321-0003ez-IR; Wed, 16 Apr 2025 13:42:25 +0000
-Received: by outflank-mailman (input) for mailman id 956151;
- Wed, 16 Apr 2025 13:42:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=S7a8=XC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1u5320-0003er-8Z
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 13:42:24 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9f4f2573-1ac8-11f0-9eaf-5ba50f476ded;
- Wed, 16 Apr 2025 15:42:23 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1744810933789804.2677586040728;
- Wed, 16 Apr 2025 06:42:13 -0700 (PDT)
+	id 1u534H-0004E9-Uq; Wed, 16 Apr 2025 13:44:45 +0000
+Received: by outflank-mailman (input) for mailman id 956165;
+ Wed, 16 Apr 2025 13:44:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yQHX=XC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u534G-0004E1-J2
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 13:44:44 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f32781db-1ac8-11f0-9ffb-bf95429c2676;
+ Wed, 16 Apr 2025 15:44:42 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3995ff6b066so3770119f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 06:44:42 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4405b5a98c3sm21248175e9.38.2025.04.16.06.44.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Apr 2025 06:44:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,119 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f4f2573-1ac8-11f0-9eaf-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; t=1744810937; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=PufVnEUYDqXm25HpzejKoYyVXRF1ZxsHdzEgGRVHA0uSJxlwduUeMI1z2i9baU70eBUiAzkFVsS09qBzTsZBhInQ3Tt3ZqD1IUcEjbCRiT223J20gen0wKMO7ZwxmNln8Seb8r2ZX1WQd7TFHfT181howi2RVYyctZuftBu0Kt4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1744810937; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=6iAo/Y4/j0+rr7AJ2gK12mUB5auIrBLkG1obeLFHd50=; 
-	b=nflARBpdPtl0YjTnOI58OWYV/DeiGN+CzIqcnU7u2P6f9VEhAnX9wu+xB+gbzkLUDDTq2J9RGXy00LEZdi8POwAIMtTQJGi8OaLhjvipV1xs6qL5Uk1Y4zvugjzK57UNOoa7AXIB2xvEg9n3DvdZfiAXMa+lNzjZOOqMop6XGPA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1744810937;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=6iAo/Y4/j0+rr7AJ2gK12mUB5auIrBLkG1obeLFHd50=;
-	b=aMMnOkohBNtF5MPJV9QIIRN72S06bKLrZefOf3r9M6TSGvuPbin3HE3mHZ4BdCxQ
-	IEIyD9g3pjbzZGn9EecqMKyre7Pwk58y/vF7AAJyPcrILSZMgnv8tRCRbTjYZQyqeSJ
-	PUun1krki0fLWiKmT+GYkLyVmzml5bkSC1YuXIzQ=
-Message-ID: <5a674e65-77bc-4d07-a4e3-2fa2c96bb37e@apertussolutions.com>
-Date: Wed, 16 Apr 2025 09:42:12 -0400
+X-Inumbo-ID: f32781db-1ac8-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1744811082; x=1745415882; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RgT/jigPVbrf9+jjKoqLzjywt4b2xWEJhEWDyTrJeWU=;
+        b=akakL/Trzktqpnnt7nyQ4JDQtAeyS4HOuTAvhblbhFawbXqvrMxztv8ZtDPel+3zHb
+         j+6zIUAkW3IkgiWVd7JZtt890KlXZKhAZ44HWw0JB3m7AaJzWFQcxtojk0leD9jIiYib
+         1XC2JKOHf/x+z4PaRjPS3OKoDfO7A9VQbh9jFCdyhxD/S3d3wKqZTTREtIwjL1l2Qx4b
+         E24R0+qMEyspCBH59oJ3OlGgfaQm/niJOx+eBUaYoEtJBFc4pzFU2aIS/h3CHNYezcQj
+         h0r9xQB67tugxRCDEY6xIwjQGQvvegcWsvBM9BOArMGirVTwZUqwjqc5xZnI8TqIVOkl
+         xfDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744811082; x=1745415882;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=RgT/jigPVbrf9+jjKoqLzjywt4b2xWEJhEWDyTrJeWU=;
+        b=mtLJ6ivC7A9dFpXr3f7uwFnnpMWcRQaXHVqJeKQV7TlbcRxE7E6Ch+3L2eckpAb/ZD
+         01hMebU3LOnWqXCZx0Z3IZjtJzrSeJYKWJq7Trgysi/RQU6jTtfkBTAzPbd6WOB2Svlq
+         iAJBSsriboP9JCUFaJiaQNqi8ZK6/URg6RMwyrIfjvZPmcDx5tAQGkAH+xz3omVloHCI
+         /sjn7KW4LCbRFBxt1kErfmmd+ee5Rrrq27k6TX9sBb2tWgSDgD7BEoH7ZcNcocKqeFJ2
+         ptUk/pg2tw3GNMLf41K+BoVDeXW1PdwNi2FtwtQaYrpr5Omw/0pRI7QIBVRrZt2rLD02
+         Gv7w==
+X-Gm-Message-State: AOJu0YxBiyoTOTSm9wku4cHwBoTkX5n69f/sTZMI94TkJBTdjbzSZLuQ
+	nRmhJ+bWS74zpGR820yWFkJNm/Mcbw1F4rju/EarAscVH1at2bhueEP3oP4FwIH0DMjqIqEmNS4
+	=
+X-Gm-Gg: ASbGnctzNBHg26ahdLEkm+dccTDVTXsJMVcmJx8MdcFFIcBBY/p4eqteeWwA1N46vA6
+	W0FCQirpJvmr3Tnsj/itvQzc8nBIHYALiqOZf04diX85qOzUEmNgzCSkMPNmV7G4aE6WMs8sB0o
+	A0Qxbw5pm0okFKFZGK2RGw2xEXgyplhdVeeKAVP+S8AijCHBnrPo1JkLwef7YvWiAV+y21nm3jP
+	QiHPqqZTTFE2rP6c359y4HAvi+RSaqp/9ghVPkzSBCrsntk7QWOnwgufDASGFS7O7yxArzpKyI2
+	I7BnVcytnZnH/ETN7KCsNln4L0fEBPHW6vwGeK5P6z+i6QtHAmnjUwgcF3tSlLe730TH03JRO8+
+	VdiWmIlvxNwAttO0ngr/VeiVwMQ==
+X-Google-Smtp-Source: AGHT+IF8jjDY9CdAEwKdwUT9DLwgbtmU8pErAjV8I2MfFVy7lHxzSQfVYkqs16zn+zwfu2EIyYFzKQ==
+X-Received: by 2002:a05:6000:40dc:b0:397:3900:ef80 with SMTP id ffacd0b85a97d-39ee5b16f89mr1754056f8f.22.1744811080972;
+        Wed, 16 Apr 2025 06:44:40 -0700 (PDT)
+Message-ID: <793580d3-3fd8-4715-8a34-bf9965dd5938@suse.com>
+Date: Wed, 16 Apr 2025 15:44:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 15/16] x86/hyperlaunch: add max vcpu parsing of
- hyperlaunch device tree
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, Alejandro Vallejo <agarciav@amd.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-16-agarciav@amd.com>
- <c1e5af91-8f84-458d-a9b8-ab9758b5cbce@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <c1e5af91-8f84-458d-a9b8-ab9758b5cbce@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Manuel Andreas <manuel.andreas@tum.de>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/HVM: update repeat count upon nested lin->phys failure
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
+For the X86EMUL_EXCEPTION case the repeat count must be correctly
+propagated back. Since for the recursive invocation we use a local
+helper variable, its value needs copying to the caller's one.
 
-On 4/10/25 08:08, Jan Beulich wrote:
-> On 08.04.2025 18:07, Alejandro Vallejo wrote:
->> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
->>
->> Introduce the `cpus` property, named as such for dom0less compatibility, that
->> represents the maximum number of vpcus to allocate for a domain. In the device
-> 
-> Nit: vcpus
+While there also correct the off-by-1 range in the comment ahead of the
+function (strictly speaking for the "DF set" case we'd need to put
+another, different range there as well).
 
-I agree with you here, the issue is that it was requested that we keep 
-this field in line with Arm's DT, and they unfortunately used `cpus` to 
-specify the vcpu allocation.
+Fixes: 53f87c03b4ea ("x86emul: generalize exception handling for rep_* hooks")
+Reported-by: Manuel Andreas <manuel.andreas@tum.de>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
->> --- a/xen/arch/x86/domain-builder/fdt.c
->> +++ b/xen/arch/x86/domain-builder/fdt.c
->> @@ -246,6 +246,17 @@ static int __init process_domain_node(
->>               bd->max_pages = PFN_DOWN(kb * SZ_1K);
->>               printk("  max memory: %ld kb\n", kb);
->>           }
->> +        else if ( strncmp(prop_name, "cpus", name_len) == 0 )
->> +        {
->> +            uint32_t val = UINT_MAX;
->> +            if ( fdt_prop_as_u32(prop, &val) != 0 )
-> 
-> And again the same nit.
-> 
->> +            {
->> +                printk("  failed processing max_vcpus for domain %s\n", name);
-> 
-> There's no "max_vcpus" being processed here; that purely ...
-> 
->> +                return -EINVAL;
->> +            }
->> +            bd->max_vcpus = val;
-> 
-> ... the internal name we use for the struct field etc. The user observing the
-> message ought to be able to easily associate it back with the DT item.
-> 
-> Jan
-
+--- a/xen/arch/x86/hvm/emulate.c
++++ b/xen/arch/x86/hvm/emulate.c
+@@ -825,7 +825,7 @@ static void hvmemul_unmap_linear_addr(
+ 
+ /*
+  * Convert addr from linear to physical form, valid over the range
+- * [addr, addr + *reps * bytes_per_rep]. *reps is adjusted according to
++ * [addr, addr + *reps * bytes_per_rep). *reps is adjusted according to
+  * the valid computed range. It is always >0 when X86EMUL_OKAY is returned.
+  * @pfec indicates the access checks to be performed during page-table walks.
+  */
+@@ -865,7 +865,10 @@ static int hvmemul_linear_to_phys(
+         int rc = hvmemul_linear_to_phys(
+             addr, &_paddr, bytes_per_rep, &one_rep, pfec, hvmemul_ctxt);
+         if ( rc != X86EMUL_OKAY )
++        {
++            *reps = one_rep;
+             return rc;
++        }
+         pfn = _paddr >> PAGE_SHIFT;
+     }
+     else if ( (pfn = paging_gva_to_gfn(curr, addr, &pfec)) == gfn_x(INVALID_GFN) )
 
