@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84FD8A90553
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 16:03:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956249.1349724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CBDCA9056D
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 16:06:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.956266.1349734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u53M8-00037d-VA; Wed, 16 Apr 2025 14:03:12 +0000
+	id 1u53P1-0004L8-Bm; Wed, 16 Apr 2025 14:06:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956249.1349724; Wed, 16 Apr 2025 14:03:12 +0000
+Received: by outflank-mailman (output) from mailman id 956266.1349734; Wed, 16 Apr 2025 14:06:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u53M8-00035X-Rm; Wed, 16 Apr 2025 14:03:12 +0000
-Received: by outflank-mailman (input) for mailman id 956249;
- Wed, 16 Apr 2025 14:03:11 +0000
+	id 1u53P1-0004Io-8M; Wed, 16 Apr 2025 14:06:11 +0000
+Received: by outflank-mailman (input) for mailman id 956266;
+ Wed, 16 Apr 2025 14:06:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yQHX=XC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u53M7-00035M-D3
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 14:03:11 +0000
+ id 1u53P0-0004Ii-E3
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 14:06:10 +0000
 Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
  [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 86fd3435-1acb-11f0-9ffb-bf95429c2676;
- Wed, 16 Apr 2025 16:03:09 +0200 (CEST)
+ id f1932962-1acb-11f0-9ffb-bf95429c2676;
+ Wed, 16 Apr 2025 16:06:08 +0200 (CEST)
 Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-39ee57c0b8cso609388f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 07:03:09 -0700 (PDT)
+ ffacd0b85a97d-3914bc3e01aso3969074f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 07:06:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39eaf43d053sm17422070f8f.68.2025.04.16.07.03.07
+ ffacd0b85a97d-39eae96c102sm17406756f8f.35.2025.04.16.07.06.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Apr 2025 07:03:08 -0700 (PDT)
+ Wed, 16 Apr 2025 07:06:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86fd3435-1acb-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: f1932962-1acb-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744812189; x=1745416989; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744812368; x=1745417168; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+wx+uDd8vzaHfR7KOsrw3bWeB/ycZnKz/FmtX6GOeSE=;
-        b=Wq5n5ykVuDTozuT/nxff18dsaZslcWdw+P9xbWYKjuKCH/qluZag01JAqMMf9BnjNF
-         nSxhOE5zOM47sEXa8X+wnpGfMOMtGhv7fvxknWctu+qRVkkRd3vuaxt2FWnfJtajzCYX
-         OO6t9YZncRo/i99uec6lJS8V99QY5SiimPlfSZOjfVMN3YWNCHxCT4RpclbH68oX5+kK
-         cuC0jlEHZ7aICdcXOVC+aFKGXPKDrWLLoBoezg5ZkpBEmsRTk2o/x127q4JPY9I9uCR/
-         dX2KON23eZCqxMCoVejimX7mk0Tdt9s27nLNf+k8s266mwG4rYcrRsgxmcITdPuyqr6Q
-         +UbA==
+        bh=2YQA0bIWNvVtSiL+nWCvAaBrn83BvVRQW5HKrzobT9Y=;
+        b=cAphWckVmtvVAubA6spbnybMFl1nqCCw1EwY700XNLLuZy1qI3E8x0Tx3p4Jz3eRkH
+         T1yHhz9EHHdwasL9+IdfTCKO21ZJ9fjvYNIUEuhoM32EIqmES/zPjUdGFEQFYZ0Xdx8o
+         +LT1tqtLyNIiMQ4t1Y1sxSkL1py3j64v2P9QP3EuBNmSpmhi4BMHheqaIRArB49EqEie
+         nqw5EJYfIrnDZCOLssp/45xMRQtLtzEJ1VN2aan2LDbLJAd5qlhhiYxHoQLLUSCmejb/
+         Qm8DZ4V5BSWxN850y4FIfPE+HWXSV/ZaFUunJAx9CgvYCFOpX42/mhUyg/3bPjauRGCQ
+         fhKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744812189; x=1745416989;
+        d=1e100.net; s=20230601; t=1744812368; x=1745417168;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+wx+uDd8vzaHfR7KOsrw3bWeB/ycZnKz/FmtX6GOeSE=;
-        b=i/r30b3zIASgHRJdsR4KoamzaV9SIQcbmOUxWQisT2uki+NBq0Q6yZK0V4G4bY1HXV
-         FmtFD9gf6OleUCbVBkJFuQc9cQdYx6saRsPnuR3ibLmPYIMTuccipnQNKmRYDoCPt704
-         sUrryg6dGt9b3xV9jgqPErcYrTsx94t9q1lHNGAMAcqsgF9Z1MZ+OVnGP1d5KqgPzYGC
-         dK/G8bTJxvtublXZcfxHNjxcREz7dcvG14l8vK7SP308mi7iTkFcvCm9B1tt+ONQbOUc
-         9/M8zEcjjQVHeNIDhVKhvPujIgQPcJ0uPac+vvPmb0VDi80pj8ec9muz/kUncH4C/CTf
-         zabg==
-X-Forwarded-Encrypted: i=1; AJvYcCVXilg5tO+GO/TXG/YsPTvof2f6KHgO79f4AtvgRnVuk0yUKOnw1lK3rHyHPVUTosf/DmktnA9tEso=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxymnFVN9EVqSSo0AU3JyMomq5ieP0Eselpxgy21pVDguld9gBm
-	TNAKn5UrhRXGAfINcKCfVKgRJW8jnWEv21ZMS73DRC6iUjjw8+FogvJ+nlzZKQ==
-X-Gm-Gg: ASbGncvv0Psfolb7nlHyA0i4Ro/tqwfD3DMX7PU547VgV6RX//81h0jzTIQha9FJASX
-	O/Tbu1DnpqM5NUJRXdVSpBJ/oiXCl4fs5e+FSRGaqyohy2wRW1a7u4sSbSYg2f426pA+gkYe+vu
-	4W6gZSgSSZKjc/AeX7DzrCm506vXtSbWF2lmB6P1v9Wv8VE46R1tyJZcwEpeXQep4DMlldsJ79g
-	vjIOg8YcFlkOiN+TYDGzgRrHHDTdqpHPHyBNzL7oP7CszgsJowMmXMH7/1Fw65P9e9hiewtROam
-	+sLXHfAQ1NwAhSPejQl9SOfSIpFZ8UbsNzybx9TRzZsfttdpJku0eqN5b8KBzWubZ3x9qmMbfLR
-	vOqEts3ju7R198bf1NFsYD8P2Og==
-X-Google-Smtp-Source: AGHT+IEAmsgDwHb8HzxHJPEIoOcUJ2fpf5l4HJUVVZOv1uu4PXfU5FbCZ5xkocVF2iCdUnmjw4ecPg==
-X-Received: by 2002:a5d:6dac:0:b0:39c:268e:ae04 with SMTP id ffacd0b85a97d-39ee5add7admr1912070f8f.0.1744812188745;
-        Wed, 16 Apr 2025 07:03:08 -0700 (PDT)
-Message-ID: <f6bd2fef-f3d8-46d6-9b65-d79974dd214c@suse.com>
-Date: Wed, 16 Apr 2025 16:03:07 +0200
+        bh=2YQA0bIWNvVtSiL+nWCvAaBrn83BvVRQW5HKrzobT9Y=;
+        b=IYhlrb+9UnIQ6/NNOf0JcsAlRQaDP6s97naDuL4i+gjcN2/w+V1uXiy8yxG/LfzYS/
+         oQjGsPj1/1tooQGPM3/fGi80YGCIafI9+2Xtnj2zhFmdLmWnD2bnwT1JLyzaC2wzyls2
+         ZDq8kebTMCnm5ufl5moM5dHX6XO2U9bUGxwnyFY11gYBCgEo5uOuunBGAtPTYpbN3CyS
+         8/pOC5ODWsq4/1Fcx6w5qU5Jl98YORfOOdeKGHbL4RBDGyK/29AEMyGSVG55JrKaurug
+         mKQM6uD90iHzVGnED96D2xLykOHHF01EtbwXGmUeKeM3Zai7QeFXjviBYmU5LwPP5Y8+
+         9Esw==
+X-Forwarded-Encrypted: i=1; AJvYcCVaMjkcxBdLLJAc+QLyr3kERu6mH2qmS/Onp1u/Bfyk4aCKuguYW2f5ljXc7UVK/W3q1xxwZ8ijw/w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyLCz/s31nc5h8JUAfa4hY1Hui3b05QvBX67V2BQRmZWMnNfYP9
+	f4scw5Z2JqPb6PRQE9/JUwAgjYvueAPuNGLO242fDrcLPe+2/g8LBrjL534QDg==
+X-Gm-Gg: ASbGncsWPpuizoS+dKpNHSxrk22Njd/24qm4FxeOmHPiWRUePC5vhjGEcC4bDU3zfFL
+	wlgbDlclU91Uoy4+NUxDsmp0f21L/bFTJRWBfxJ8wUhXRYsMy30Nv0WGb9jeyJ8B+E4Blq4Dv1F
+	RMQrl0ns5JKpMHxMfex9AMvmySPvF5GKX+WpAxR795CZ3859Y0iAiTfmfJS9FLbwI4zo1l0TZdd
+	H8kbevlPC18oTwgOuzTf892P0ZYqR53ndbUs9E1WYG9dbtjXuA9bTJFW2474otWt8TvucG4xsC6
+	goqd0dHPUwVb9DjCOEZw3qriaWrnMttVIab2N6JD/gcW64tqK6acEINgfmRrJrhiJ39k3804tdx
+	XVcSkdnwvKKnQzpXaOSTMxjYFGJ8qbGDVh4o2
+X-Google-Smtp-Source: AGHT+IEfhZJRGv3RNolhLZwPY9WCeqQlING39Yfg/0MOuDHuaKQYbbZUuZtTaVxPXO6TuYTrkrfZlQ==
+X-Received: by 2002:a5d:64ae:0:b0:39c:1efb:ec9a with SMTP id ffacd0b85a97d-39ee5b13b3emr1921756f8f.6.1744812367724;
+        Wed, 16 Apr 2025 07:06:07 -0700 (PDT)
+Message-ID: <942e7f24-1ecc-465c-9cf2-54388a88173a@suse.com>
+Date: Wed, 16 Apr 2025 16:06:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 05/15] xen/decompressors: Remove use of *_to_cpup()
- helpers
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Lin Liu <lin.liu@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v3 01/16] x86/boot: introduce boot domain
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250416115900.2491661-1-andrew.cooper3@citrix.com>
- <20250416115900.2491661-6-andrew.cooper3@citrix.com>
+ Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Alejandro Vallejo <agarciav@amd.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <20250408160802.49870-1-agarciav@amd.com>
+ <20250408160802.49870-2-agarciav@amd.com>
+ <141229a0-2cd2-4886-b5e5-02c85b0ca5ab@suse.com>
+ <7fa754f8-d785-45d8-b9da-de5c85bc793b@apertussolutions.com>
+ <f0a14866-0f38-4f8d-8e11-993a58c7da7b@suse.com>
+ <644cdc5a-b96a-4e43-ae7a-4cadda1d1084@amd.com>
+ <3832bb2b-978c-4990-928c-c18a003adcf4@apertussolutions.com>
+ <73c8dacd-c1d7-459e-ac18-decaa5c9c5bd@suse.com>
+ <6517f3ca-1329-4591-9ccc-e6be5af31e44@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,73 +130,90 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250416115900.2491661-6-andrew.cooper3@citrix.com>
+In-Reply-To: <6517f3ca-1329-4591-9ccc-e6be5af31e44@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16.04.2025 13:58, Andrew Cooper wrote:
-> From: Lin Liu <lin.liu@citrix.com>
+On 16.04.2025 16:00, Daniel P. Smith wrote:
 > 
-> These wrappers simply hide a deference, which adds to the cognitive complexity
-> of reading the code.  As such, they're not going to be included in the new
-> byteswap infrastructure.
 > 
-> No functional change.
+> V/r,
+> Daniel P. Smith
+> Apertus Solutions, LLC
 > 
-> Signed-off-by: Lin Liu <lin.liu@citrix.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> On 4/16/25 09:33, Jan Beulich wrote:
+>> On 16.04.2025 15:02, Daniel P. Smith wrote:
+>>> On 4/10/25 16:56, Jason Andryuk wrote:
+>>>> On 2025-04-10 11:01, Jan Beulich wrote:
+>>>>> On 10.04.2025 15:09, Daniel P. Smith wrote:
+>>>>>> On 4/9/25 02:24, Jan Beulich wrote:
+>>>>>>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
+>>>>>>>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+>>>>>>>>
+>>>>>>>> To begin moving toward allowing the hypervisor to construct more
+>>>>>>>> than one
+>>>>>>>> domain at boot, a container is needed for a domain's build
+>>>>>>>> information.
+>>>>>>>> Introduce a new header, <xen/asm/bootdomain.h>, that contains the
+>>>>>>>> initial
+>>>>>>>> struct boot_domain that encapsulate the build information for a
+>>>>>>>> domain.
+>>>>>>>>
+>>>>>>>> Add a kernel and ramdisk boot module reference along with a struct
+>>>>>>>> domain
+>>>>>>>> reference to the new struct boot_domain. This allows a struct
+>>>>>>>> boot_domain
+>>>>>>>> reference to be the only parameter necessary to pass down through
+>>>>>>>> the domain
+>>>>>>>> construction call chain.
+>>>>>>>>
+>>>>>>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>>>>>>> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+>>>>>>>
+>>>>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>>>>>
+>>>>>> I have to object because the meaningless rename is going cause
+>>>>>> significant pain in the rebase of the follow-on series for no improved
+>>>>>> code clarity.
+>>>>>
+>>>>> Sorry, then an incremental patch undoing the rename that happened (with
+>>>>> appropriate justification) will need proposing - the patch here has gone
+>>>>> in already.
+>>>>
+>>>> Coming from a Linux background, ramdisk seemed more natural to me.  But
+>>>> looking at hvm_start_info, the fields are called module there.  And
+>>>> since we shouldn't tie this to the Linux naming, the more generic
+>>>> "module" name seemed fine to me.
+>>>
+>>> Again, as I have stated, ramdisk is not a Linux only concept. In fact,
+>>> as Jan points out, initrd/initramfs are Linux specific implementations
+>>> of a ramdisk for which Xen doesn't even fully support. I am inclined to
+>>> ask the inverse of why hvm_start_info uses the name module. But that
+>>> aside, let's consider the fact that the field is only populated by the
+>>> device tree when a module type of BOOTMOD_RAMDISK is matched. And all
+>>> the uses of the field are when its value is stored into a local variable
+>>> called initrd.
+>>>
+>>> Though the biggest irony is that generally obtuse abstraction are
+>>> routinely blocked unless there is a tangible future case. Yet none was
+>>> offered in the comment. Thus on that principle alone, a request for a
+>>> tangible future use should have been requested and provided for the
+>>> change to be considered.
+>>
+>> Does it even need to be a _future_ use here? Aren't you working on
+>> abstracting domain creation, suitable (in principle) for all architectures?
+>> Isn't therefore a more generic name (as "module" is) preferable over a more
+>> specific one?
+> 
+> Yes we are trying to build a future capability, but my point is let's 
+> consider all possible known OS's start up today. What other boot module 
+> could potentially be passed in that is exclusive of a ramdisk, thus 
+> allowing a multiplex of the field. And the answer is none.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com> # hypervisor
-with a request below.
-
-> --- a/tools/libs/guest/xg_dom_decompress_unsafe_xz.c
-> +++ b/tools/libs/guest/xg_dom_decompress_unsafe_xz.c
-> @@ -19,18 +19,19 @@ typedef uint32_t __le32;
->  static inline u32 cpu_to_le32(const u32 v)
->  {
->  #if BYTE_ORDER == BIG_ENDIAN
-> -	return (((v & 0x000000ffUL) << 24) |
-> -	        ((v & 0x0000ff00UL) <<  8) |
-> -	        ((v & 0x00ff0000UL) >>  8) |
-> -	        ((v & 0xff000000UL) >> 24));
-> +        return __builtin_bswap32(v);
-
-Supposedly a hard tab is to be used for indentation here, if original code
-and ...
-
->  #else
->  	return v;
-
-... this is to be trusted.
-
->  #endif
->  }
->  
-> -static inline u32 le32_to_cpup(const u32 *p)
-> +static inline u32 le32_to_cpu(const u32 p)
->  {
-> -	return cpu_to_le32(*p);
-> +#if BYTE_ORDER == BIG_ENDIAN
-> +        return __builtin_bswap32(v);
-> +#else
-> +	return v;
-> +#endif
->  }
-
-Same here.
-
-> --- a/xen/common/lz4/defs.h
-> +++ b/xen/common/lz4/defs.h
-> @@ -18,7 +18,11 @@
->  
->  static inline u16 get_unaligned_le16(const void *p)
->  {
-> -	return le16_to_cpup(p);
-> +	u16 v;
-
-Here and below - I realize there's u16 in context (u32 elsewhere), yet it would
-still be nice if no new instances appeared and you used uint16_t here (and
-uint32_t in the other cases).
+Is it? What if you are to start a nested Xen with its own kernel, initrd
+and perhaps even an XSM policy "module"? Or anything else that is multi-
+module capable (possibly but not necessarily because of having started
+out as multiboot)?
 
 Jan
 
