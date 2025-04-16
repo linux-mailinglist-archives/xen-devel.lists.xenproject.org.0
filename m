@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 277D8A8B413
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 10:40:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.955351.1349146 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B446A8B434
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 10:45:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.955369.1349161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4yJw-0006AO-Te; Wed, 16 Apr 2025 08:40:36 +0000
+	id 1u4yOX-0007bN-KE; Wed, 16 Apr 2025 08:45:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 955351.1349146; Wed, 16 Apr 2025 08:40:36 +0000
+Received: by outflank-mailman (output) from mailman id 955369.1349161; Wed, 16 Apr 2025 08:45:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4yJw-00068Z-QH; Wed, 16 Apr 2025 08:40:36 +0000
-Received: by outflank-mailman (input) for mailman id 955351;
- Wed, 16 Apr 2025 08:40:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u4yOX-0007YF-H7; Wed, 16 Apr 2025 08:45:21 +0000
+Received: by outflank-mailman (input) for mailman id 955369;
+ Wed, 16 Apr 2025 08:45:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yQHX=XC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u4yJw-00067u-12
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 08:40:36 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7629091d-1a9e-11f0-9ffb-bf95429c2676;
- Wed, 16 Apr 2025 10:40:34 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43cfba466b2so67261945e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 01:40:34 -0700 (PDT)
+ id 1u4yOW-0007Y9-Fp
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 08:45:20 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 206598a9-1a9f-11f0-9eaf-5ba50f476ded;
+ Wed, 16 Apr 2025 10:45:19 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-39149bccb69so6373122f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 01:45:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39eaf44e9b6sm16175222f8f.101.2025.04.16.01.40.32
+ 5b1f17b1804b1-4404352a536sm33815325e9.1.2025.04.16.01.45.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Apr 2025 01:40:33 -0700 (PDT)
+ Wed, 16 Apr 2025 01:45:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7629091d-1a9e-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 206598a9-1a9f-11f0-9eaf-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744792833; x=1745397633; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744793119; x=1745397919; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jpgunm6uv52X3QNJzswTa4gAKlry5T3MKufXI5GqcgU=;
-        b=guUMzU8EggZPpfAsegkKO6W6+ahT9Jo2QgCCPurFz1crAUQuRFnxje+aBh8VkeWKsS
-         7awQfjxihHdpuWg04h2a77TqkNkHI0N1eD9KdY37CaVuooSXeRxUtp10JoWn6MP43RrO
-         4gcnJCdKUj+ehpVWxm2ulUFg0QYSFS9A6lpRIe6JPdN2YTrRdbH5mkmpJFfK+ZyacMqN
-         pTGaoceggnLuNIRdDqG0GtnkvclWErMAv3myBNV3VtHUzafYjdX4MIhdljFBxUnXQ9o1
-         dWeZIhDxRtvytmHekKyt5AMrVCHw+DVJ3i+7MM77FM4Zn7nEglmQ+ynlbvwA+4SxPdUp
-         N4Lg==
+        bh=45CtvZwSqAs9vVxuUalSwVD2CbjgjGDDcM9GvYrNg2A=;
+        b=NIHDz+U0+OA+9JU2VcSMVIT0iceVuEtV3Nom62CrTCey/tv7cnxwpO3B8T552p/MGI
+         7jSdoQtKtdwCDNn0T9Rc5znCwuYXv3gCM7Yp5JW87sFMO+IBf5IMlrj8LOnaVtjiHvPm
+         de5lwOTQAaBpWE/vj+hxzh+ze73bzo76lBhf9GQqOWpjYYtQPlqKH9PDU8j9OBOdj2Ra
+         vTofGfovWSwkAjsmdKgvubyF1qOiikE2RSSsXGMEicOgJB8o9KIK99IcMOzhQx5kkEkl
+         nmloyER2YqEba4VSSWDTCpquneHYpWu4KqIFY4zvzLFPFbVsX6aihVUMIo6NHny52Rqm
+         gwZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744792833; x=1745397633;
+        d=1e100.net; s=20230601; t=1744793119; x=1745397919;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jpgunm6uv52X3QNJzswTa4gAKlry5T3MKufXI5GqcgU=;
-        b=ox8JSEpMijQMc7UB0a/dFZybrTbuPjHOHCSfAXT2hDx+5m85r/tEPd+h72s5r91ZGy
-         bxEN/RZ5iTUdFSqIHjfFBE1eJRkbVF5fOe5wbs+Khv9/FwMbKSQbTdp3vPRMK794XscJ
-         zrtyP+1y2jCMacMDrqWA8+aeYH8B4/H+sAmmrrhf6WhrF1b3A7tq/QCcOk3pNgJzAVGH
-         kppCLtDzG12JeHTnF80amDP1dBEYbGX0wSTv0qZNoNcT5q123wMShJRD+dBe355CqV0e
-         OGGlUjHWtgRTiOQorz8Cp9nivXCSoF4ge3Eqr5cFYl4HHMtg/AwlWBsWIBDCpnPn/F7/
-         3wOQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUxZYbrCnG4vpYLRxhYX4S2OpEftj89YtgtoTgyOR/nFny2hx65bz7Lec+22ou3TB8S2M7E6pReEaI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy06cf8U4BbYvbd0IaKvcTlVbJC0jqlTj/HAdELhCqwVrUbYL5x
-	Cf6uMm/1rmCob8mZHPVGoHFgL5EdAfGeXCuqQcOlgyiTvknLSOai99sX+9JzXA==
-X-Gm-Gg: ASbGncvvLFElGIENyXgv2KZTVhVtMIfKOArnrC3rYZq7aUPKyN0RnYtxdpQroyw/apS
-	DzYvyah+5ebeBq6pL0AKdAbAaZasNVyaeEkDmz+Axn1Cd1GUlU7NW2cLsQR2s43AtI9KWpWpNQX
-	U+K84+LUtnRzjNTZPxngTD2zPlgYg9W028KZLaKoKRQyphsKU/fcXyCqkAgzV/c40G9RabdMCrq
-	qLBGfZ6S1xT4LCqL/ywbH9lPn2Q+xjRsEBYj1UYf/rvialrY2MQIit3aBC8CVIBHMYddxaNdZP/
-	S3oNfcYecUmi/nOgrCxvtg3y7W83Qi5zdgNutsfM3YhggS/zef1KhQnEgypQx01CviqwxNyjzMv
-	Wl9Qzkplc9HTAtykUv9cdnIFmCQ==
-X-Google-Smtp-Source: AGHT+IGXl/ytS5yXZyL5QOgRdyvab4rP3ObRj6kipU+BmEptImjPdGkK+n3Slmoz671AuKvHJ+LiQQ==
-X-Received: by 2002:a05:6000:18ab:b0:39c:1f02:44ae with SMTP id ffacd0b85a97d-39ee5b35dbemr1070834f8f.27.1744792833379;
-        Wed, 16 Apr 2025 01:40:33 -0700 (PDT)
-Message-ID: <ffec2189-dd44-45d2-ba63-992c3217438a@suse.com>
-Date: Wed, 16 Apr 2025 10:40:32 +0200
+        bh=45CtvZwSqAs9vVxuUalSwVD2CbjgjGDDcM9GvYrNg2A=;
+        b=K5zMqcNzCfGXjgv9YxdpFvZzJy/fjJApf6Cef4uq6wY/RYYQ6yliplZdMGGutx9AhM
+         tf6islGdzrZk2UxBd/YCmW1/BkveeZsfR04K5UNv8ae/dfp0bSbzhthQswfSkWZYJsdD
+         US7MzH1ZHQ6jezafja96IQAiKI0nB30jjBZLouUAm6iyO0ImWB5DGjwJc8Fou5w+elc3
+         i4wKFfJEph/AGytjQW0XPx938JDD/vgL6N4CNOkYRoFe8rmDll93/wVadKFf25+ELsPY
+         ZhWBdAKPY5Kvob2bzzwTR+eI9SDw6ghCXoez3YKqRaLxT2Rr1rTypCVVVjvCinSnCqt9
+         tuNQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU3s4upMolSKndWQWc1vIht0PerlqpFs9eBAsl4xZCh/hFxNWYm2WYS9/mtDBZfL/F+V9gempvIC7k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyYsKUGWD1vHwURqOClUFr0me/M96i6dJdzSMmlSJ3M83gCOrZx
+	2WZd6EPbAe5nlxXq/8J8MG21KebU1VyaOfIlAcnnLAU9Fuorsvp0toalxdbIXQ==
+X-Gm-Gg: ASbGncuMK3+L8ZVIuyLz6Wh4C9pfzP3xm/UlaAihIJqnsSF84rqCee9pJS+gtWHN5Kt
+	4N1zVK8tuS9PvT8qq7VbvPWRcQOHWwq8y9MAwLxnUSpe9B15u4lZG/cDRVt7k1t73LT1moS+81v
+	EUO9yVELG4veu4x+hlj2OcvPbamFDSshxVyxP0etEWcRGyUqAE7/mmlzWyHOOFB6AHSsIyluzgz
+	9xLuXsCm7ZXTQTDoZ4rIJptgIp3q8mMt9ARTXFhOYXhcc7PPPsEt1c2k51k+eXnDquXvx7a4V6h
+	Iz/VetwL+Tq5WY/xIZ37xK2V07NF7reFnw1cPrhc3+vC3CSChpfZ+UHXwm6lTacwRPzsy+LIctY
+	NZCWney8InMcDoSij47aSZBLknA==
+X-Google-Smtp-Source: AGHT+IFPPKMHIr5eRIcjgDwxOQDmwcYJqdvyQSMCmPhgthhwM50sbH/CUMd3CFHSKFBgyIigOFLZkQ==
+X-Received: by 2002:a05:6000:1ac5:b0:391:4231:414 with SMTP id ffacd0b85a97d-39ee5b8943bmr887350f8f.40.1744793118945;
+        Wed, 16 Apr 2025 01:45:18 -0700 (PDT)
+Message-ID: <137453c3-e6b2-498d-b17d-da57988f89ef@suse.com>
+Date: Wed, 16 Apr 2025 10:45:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] xen/io: provide helpers for multi size MMIO
- accesses
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250415153246.81688-1-roger.pau@citrix.com>
- <20250415153246.81688-2-roger.pau@citrix.com>
- <fdfed991-d95b-4290-ad98-025a789eecc2@citrix.com>
+Subject: Re: [PATCH v2 10/19] xen/sysctl: introduce CONFIG_PM_STATS
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Stabellini, Stefano" <stefano.stabellini@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250326055053.3313146-1-Penny.Zheng@amd.com>
+ <20250326055053.3313146-11-Penny.Zheng@amd.com>
+ <df30d9fa-15dd-4923-bdaf-04f9476529d1@suse.com>
+ <DM4PR12MB84519E18C6F4FA7724C03751E1BD2@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <6c5b4f07-0f7a-47aa-9469-a5a7adffe27f@suse.com>
+ <DM4PR12MB8451C5EDCEAB4592434706EEE1BD2@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,39 +122,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <fdfed991-d95b-4290-ad98-025a789eecc2@citrix.com>
+In-Reply-To: <DM4PR12MB8451C5EDCEAB4592434706EEE1BD2@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16.04.2025 10:29, Andrew Cooper wrote:
-> On 15/04/2025 4:32 pm, Roger Pau Monne wrote:
->> diff --git a/xen/include/xen/io.h b/xen/include/xen/io.h
->> new file mode 100644
->> index 000000000000..4495a04c403e
->> --- /dev/null
->> +++ b/xen/include/xen/io.h
->> @@ -0,0 +1,68 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +/*
->> + * IO related routines.
->> + *
->> + * Copyright (c) 2025 Cloud Software Group
->> + */
->> +#ifndef XEN_IO_H
->> +#define XEN_IO_H
->> +
->> +#include <xen/bug.h>
->> +
->> +#include <asm/io.h>
->> +
->> +static inline unsigned long read_mmio(const volatile void __iomem *mem,
+On 16.04.2025 10:38, Penny, Zheng wrote:
+> [Public]
 > 
-> void *__iomem.  (i.e. without the __iomem in the middle of the type). 
-> It seems most examples of this in Xen are wrong.
+> Hi,
+> 
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Wednesday, April 16, 2025 2:37 PM
+>> To: Penny, Zheng <penny.zheng@amd.com>
+>> Cc: Stabellini, Stefano <stefano.stabellini@amd.com>; xen-
+>> devel@lists.xenproject.org
+>> Subject: Re: [PATCH v2 10/19] xen/sysctl: introduce CONFIG_PM_STATS
+>>
+>> On 16.04.2025 05:54, Penny, Zheng wrote:
+>>>> -----Original Message-----
+>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>> Sent: Tuesday, April 1, 2025 9:10 PM
+>>>>
+>>>> On 26.03.2025 06:50, Penny Zheng wrote:
+>>>>> --- a/xen/common/Kconfig
+>>>>> +++ b/xen/common/Kconfig
+>>>>> @@ -557,4 +557,9 @@ config SYSCTL
+>>>>>       to reduce Xen footprint.
+>>>>>  endmenu
+>>>>>
+>>>>> +config PM_STATS
+>>>>> +   bool "Enable Performance Management Statistics"
+>>>>> +   depends on ACPI && HAS_CPUFREQ && SYSCTL
+>>>>> +   default y
+>>>>
+>>>> As per above - either name, prompt and the description that Stefano
+>>>> suggested are wrong, or it is too much that is being covered by this new
+>> control.
+>>>>
+>>>
+>>> We have two sysctl-op on performance, do_get_pm_info() and do_pm_op().
+>>> I think do_get_pm_info() is to collect PM statistic info, which could
+>>> be wrapped with CONFIG_PM_STATS, while maybe do_pm_op() is more
+>> focusing on performance tuning.
+>>> How about we introduce another Kconfig CONFIG_PM_TUNE to wrap
+>>> do_pm_op() and related helpers? I suggest to introduce a new file pmtune.c to
+>> contain.
+>>> Or any better suggestion?
+>>
+>> "tune" is too narrow imo. "ctrl" may be an option, but how about simply pm-op.c,
+>> fitting do_pm_op() pretty nicely? Question is what else is going to end up in that
+>> file.
+>>
+> 
+> The following functions will be included in pm_op.c
 
-Hmm, perhaps in turn because I don't see why it would need to be that
-placement. The attribute describes what's pointed to, not the variable
-(or parameter here) itself.
+To avoid another round trip just for this - I wrote pm-op.c for a reason.
+
+> and wrapped with PM_CTRL or PM_OP
+>     - get_cpufreq_para()
+>     - set_cpufreq_para()
+>     - set_cpufreq_gov()
+>     - set_cpufreq_cppc()
+>     - cpufreq_driver_getavg()
+>     - cpufreq_update_turbo()
+>     - cpufreq_get_turbo_status()
+> And description for PM_STATS, I'll take stefano's suggestion and for PM_CTRL/PM_OP, maybe it will be
+> ```
+> Enable userspace performance management control to do power/performance analyzing and tuning
+> ```
+
+Reads okay at the first glance.
 
 Jan
 
