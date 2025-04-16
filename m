@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A68AA9047B
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 15:38:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956124.1349623 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0F5CA90485
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 15:41:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.956137.1349633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u52yC-0000kj-Rh; Wed, 16 Apr 2025 13:38:28 +0000
+	id 1u530k-0002d5-8L; Wed, 16 Apr 2025 13:41:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956124.1349623; Wed, 16 Apr 2025 13:38:28 +0000
+Received: by outflank-mailman (output) from mailman id 956137.1349633; Wed, 16 Apr 2025 13:41:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u52yC-0000ij-Ot; Wed, 16 Apr 2025 13:38:28 +0000
-Received: by outflank-mailman (input) for mailman id 956124;
- Wed, 16 Apr 2025 13:38:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u530k-0002bN-55; Wed, 16 Apr 2025 13:41:06 +0000
+Received: by outflank-mailman (input) for mailman id 956137;
+ Wed, 16 Apr 2025 13:41:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yQHX=XC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u52yB-0000id-Jv
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 13:38:27 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 132bac1d-1ac8-11f0-9eaf-5ba50f476ded;
- Wed, 16 Apr 2025 15:38:26 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3995ff6b066so3763031f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 06:38:26 -0700 (PDT)
+ id 1u530i-0002Zo-Ff
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 13:41:04 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 700fb9d2-1ac8-11f0-9ffb-bf95429c2676;
+ Wed, 16 Apr 2025 15:41:02 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-39c266c1389so4756893f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 06:41:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4405b4c7ef9sm21646085e9.6.2025.04.16.06.38.25
+ ffacd0b85a97d-39eae96c102sm17344592f8f.35.2025.04.16.06.41.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Apr 2025 06:38:25 -0700 (PDT)
+ Wed, 16 Apr 2025 06:41:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 132bac1d-1ac8-11f0-9eaf-5ba50f476ded
+X-Inumbo-ID: 700fb9d2-1ac8-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744810706; x=1745415506; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744810862; x=1745415662; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=O/yjlkL7pDSN8uTe6rckIItd7b8kB8Ksy8YfQQktLxI=;
-        b=Bp/iQNEedg6VCcgkOVxg1/1F29UGNWo0M2hy+x475Rugl3fP+nJEgVQs71QTmKSsSC
-         msJgZJ0Ct81tZqsZZtnwMXnLEjs45GGg49zf8JA3w4LuuZz1MOTURVYWuBJoK0j/+nGK
-         9awLAeJQmxQgCcQEwfNR/cXinFfA1O6gqRXd+QdLBUeT9QvC7ld8C4sJV1wYChXbuDH+
-         bqBTUbdrMOYPfbrqxjzg8atIJdu5B8ILRievjWXHNvitlW6NB7/3uBprcjPE0hxfex2r
-         YenLi8EP4zzD+ySGJwPezAs0mOI6i4sEHcF8g4aUsgZ0oHXih9KV9OuIzIX/o4AHopBJ
-         hX0w==
+        bh=9UNDj2N3ABKPhWPzqwVQhyl5tSbX4LoPnVF3aIWatIE=;
+        b=TIjTI2jKXiRMaK9GW+sf0h2C2CXaAH9MI+MfyyO4TzyfJCSqw+AzgnQZIOvHEcBHbS
+         NPnVeD+QFyX0sczV5QN2/YNoVGMdeknbD0i634/4uFfyx3iNjqKWYQTcKga/tdrvAInd
+         I/EvYvvy8Q9t/VMQdc7/M+rYOQXwqyoxq4YtJjJdt53Bo2Bqq9+2kOXYviVrXZF9bdwD
+         E6QT4PoOFUhP03wHDd+3BT8Bu9ngQGbGeHZyEuGwBpjEPmXKV3rU/xo6WV40X4w4fNHe
+         W54Je8vZG46z7I4Y7MxNJ6HEgPte36L1XaXffsl7rgb5BT5yPv/aTodizDSKK45MEsI2
+         Ahxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744810706; x=1745415506;
+        d=1e100.net; s=20230601; t=1744810862; x=1745415662;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=O/yjlkL7pDSN8uTe6rckIItd7b8kB8Ksy8YfQQktLxI=;
-        b=e2TaY0FBvW7rkpxWJ3pzB1li7u9BFtFaYNW1tTWg6nQE2/DqxOsdWOtSfS/4ZEjWag
-         ZFpR3WWJulgqn4en9UH64kuvDxDDY1m5UMEDw5fnmZR6MhVU8D+ZLwepqA8ChZxombZs
-         LWh6XnnByMFs6BCedxCAd3e9hJgPiIZfLEGKRReNcxqlm6beavHRWRbBpyaCOCHzy4Iq
-         Zg2teh4BpEuol7yT4Zg3PEPMR7/dRQhZRluWC7Zks+1kbx/h6fAcJPpKtG7yAolaABRc
-         CdldDWdc1WusHoUmSZml+HWC9sFe92N9LeLYdGyYLMsj1bfOUyWGO674xwz2kI2RzmaB
-         IM6w==
-X-Forwarded-Encrypted: i=1; AJvYcCVJDRvCZ0/riEYcQn1xOmXuSDG+S6KfVKurAsNBCTnKGglOb+MfprHsSeMiDC5ejvceXUtvG5LZxsc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx2sUE/1MACxm5Ho3l3pzvdek7VseVdk2t4IhnmwyjXeFG5gGLT
-	TvvxY7uuuQUavqPtZ/Lr6xZEIFDujXgJnjot0KG65TMagiXvlUox6B3thp5iEg==
-X-Gm-Gg: ASbGncvYGOv44wbH8y5/vTU7Ti3KljI0V9M5WvYYU426XP2WYBnfV90a1/Hl3Z++KTA
-	8T5QodQsbSGRyZMRnG1BEdr8u8vrOh8YmPZ76JIlMkUqLMMvsYOogGM5h4ndQohMxFExQ1vfuN1
-	5WDTBmBuKL+yjwjQlIvwvIozJ2KGJae1jkvPt1V8dvZEO7kr4Fst0VYmfT0ymvWnPE/YGjvbsMv
-	oeAhMHEa9iiYG3+I1NDAUIVw+YBYzt/UdYjDwTr6EwDKgDktqwr9Dj9IAmMUPbMQi1G3retAPDg
-	XnB2K9ydnim84dd+BsrfNYVy1rzP/xQYrkzLp5mlE1z7EXhGlZV2bzHMEAnKEYo+UH5N/Mt+OVR
-	BLed6klXXxU9fA5Pj5zXwjk4/uA==
-X-Google-Smtp-Source: AGHT+IGujm57Euq/jeOoRRZy9/sLzRzs5WaMEvmuhYVclfpveYWHli68XHTta9UB+X99WtjuXSn/Jg==
-X-Received: by 2002:a5d:598e:0:b0:391:1222:b444 with SMTP id ffacd0b85a97d-39ee5b17cdbmr1883064f8f.20.1744810706096;
-        Wed, 16 Apr 2025 06:38:26 -0700 (PDT)
-Message-ID: <c9290102-d29d-4c54-9052-995e960e4ea0@suse.com>
-Date: Wed, 16 Apr 2025 15:38:24 +0200
+        bh=9UNDj2N3ABKPhWPzqwVQhyl5tSbX4LoPnVF3aIWatIE=;
+        b=HzMHmqpWT0wesUiHRDEkBkqEg6KhFsN3dt7pzbWav5jAjZNHDlouDQMumWOgs7zjU7
+         bQwWph/IDqLuYvINzK1anWDNn077C/kw1ZAWPITUcO/Q3+oWI7xGtJlYcSy7KQ4L5jl0
+         964r1SwqJLwbWBgR4dPGmqJntiLINvWTRti22m4pVcpS5OI6rISxef8LjLH6SKyoKH/r
+         MAjaGT5CiiUmJYIzbKumnNlcWSFbJOuzM8g2ICfcT8a05PYEKoJg+nZ5KIqKYXLBt2y9
+         NTBOd62+ItuHtjBl6nlJP/eFiZHNpkDnmwbsGwPQVnmW5BQZFPNVRwqADz4hFI3mr4MR
+         pNZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXh46pPGHSjQ3QwbWtNAh0JO6jfoqM4JTvj8CaqmN3tjDv6gU50r2NwSyqtNRwwrS86R1QtGSaTtkk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyjliGfE9WqNlCdIRPSzQ2DK9xxJuUbkBsFmnoW7iF9cF0eO95s
+	QhBfXQ8R7h5IZHnLOrdL7StnKpo2UlQxSJCoHeEZJkR/K+VhmFIVMrciNsb+ig==
+X-Gm-Gg: ASbGncuEbWvajj3h+SxvVvQXDQEufPSTqVSwf02D0ZirRw9WJ490zXMqIytNDmUZo/C
+	gF8kckf8V7XJoulqEq6bzKZAdLTB25rSFihjeFEkWfKibtOh1BWP3dWaT+gFz/koC7Lq7GTrJos
+	YNYczeHMVzIu2/wWrlTzuGkSiUI51e3NHIFWvdX2tOKzBHzgNV6RF8+XWldfSWoMRNHj+ix/iPu
+	M4TTrE1pMZwlq637P6Nsvh8f7HysOW60qMf4Qe7RVxzHjC5zwTX97iKLh7bcK/KE5QvZVu8Jjnl
+	qoOUp0iqdxa5/YQw5bxHmfxpNJ9N4L3JhwrIZqzZ7BUYmYy7Od8xvmAhsJy5rItDSpktL+IGIbd
+	O1PPZfHNFNKngAvH7ixTKOPAMrJqTI2Kyc+UV
+X-Google-Smtp-Source: AGHT+IFknJCgvLe6wVs/np9N2Tu2PXZjFz0sh43WnwtrUZca6TvW5BKM9FIgKBKbhTGoEQzwtND7NA==
+X-Received: by 2002:a05:6000:2510:b0:39e:cbd2:9ad2 with SMTP id ffacd0b85a97d-39ee5b13b95mr1556281f8f.4.1744810861961;
+        Wed, 16 Apr 2025 06:41:01 -0700 (PDT)
+Message-ID: <1c12c10f-02e3-4b12-a890-205d3fa0ca39@suse.com>
+Date: Wed, 16 Apr 2025 15:41:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/16] x86/hyperlaunch: specify dom0 mode with device
- tree
+Subject: Re: [PATCH v3 14/16] x86/hyperlaunch: add memory parsing to domain
+ config
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: Jason Andryuk <jason.andryuk@amd.com>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
@@ -96,11 +96,12 @@ Cc: Jason Andryuk <jason.andryuk@amd.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  xen-devel@lists.xenproject.org, Alejandro Vallejo <agarciav@amd.com>
 References: <20250408160802.49870-1-agarciav@amd.com>
- <20250408160802.49870-14-agarciav@amd.com>
- <7a13e61b-8568-4852-bb46-974964e02d61@suse.com>
- <82fe6290-ea16-4e4f-8be4-76b9b624e398@apertussolutions.com>
+ <20250408160802.49870-15-agarciav@amd.com>
+ <e78824bc-3b0a-406e-80ac-5a67b127254f@suse.com>
+ <2fe06df0-ee92-4466-a532-ff246efffdac@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,63 +127,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <82fe6290-ea16-4e4f-8be4-76b9b624e398@apertussolutions.com>
+In-Reply-To: <2fe06df0-ee92-4466-a532-ff246efffdac@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.04.2025 15:32, Daniel P. Smith wrote:
-> On 4/10/25 07:57, Jan Beulich wrote:
+On 16.04.2025 15:37, Daniel P. Smith wrote:
+> On 4/10/25 08:03, Jan Beulich wrote:
 >> On 08.04.2025 18:07, Alejandro Vallejo wrote:
->>> --- a/xen/arch/x86/domain-builder/fdt.c
->>> +++ b/xen/arch/x86/domain-builder/fdt.c
->>> @@ -193,6 +193,25 @@ static int __init process_domain_node(
->>>               bd->domid = (domid_t)val;
->>>               printk("  domid: %d\n", bd->domid);
+>>> @@ -212,6 +213,39 @@ static int __init process_domain_node(
+>>>               else
+>>>                   printk("PV\n");
 >>>           }
->>> +        else if ( strncmp(prop_name, "mode", name_len) == 0 )
+>>> +        else if ( strncmp(prop_name, "memory", name_len) == 0 )
 >>> +        {
->>> +            if ( fdt_prop_as_u32(prop, &bd->mode) != 0 )
->>> +            {
->>> +                printk("  failed processing mode for domain %s\n", name);
->>> +                return -EINVAL;
->>> +            }
->>> +
->>> +            printk("  mode: ");
->>> +            if ( !(bd->mode & BUILD_MODE_PARAVIRT) )
->>> +            {
->>> +                if ( bd->mode & BUILD_MODE_ENABLE_DM )
->>> +                    printk("HVM\n");
->>> +                else
->>> +                    printk("PVH\n");
->>> +            }
->>> +            else
->>> +                printk("PV\n");
->>> +        }
+>>> +            uint64_t kb;
+>>> +            if ( fdt_prop_as_u64(prop, &kb) != 0 )
 >>
->> My prior questions here remain: What's the significance of
->> BUILD_MODE_ENABLE_DM when set alongside BUILD_MODE_PARAVIRT? What about
->> any of the other bits being set?
+>> Nit (you know what I have to say here, and again below.)
+>>
+>>> +            {
+>>> +                printk("  failed processing memory for domain %s\n", name);
+>>> +                return -EINVAL;
+>>
+>> Any reason to override fdt_prop_as_u64()'s return value here?
 > 
->  From boot-domain.h:
->                                            /* On     | Off    */
-> #define BUILD_MODE_PARAVIRT      (1 << 0) /* PV     | PVH/HVM */
-> #define BUILD_MODE_ENABLE_DM     (1 << 1) /* HVM    | PVH     */
-> 
-> The logic says, if BUILD_MODE_PARAVIRT bit is not set, thus an HVM 
-> domain, check if BUILD_MODE_ENABLE_DM has been set. This is determin if 
-> the domain is what the toolstack differentiates as either an HVM or PVH 
-> domain. As you should know, there is no case of a PV domain requiring a 
-> backing device mode (DM) domain. IOW, BUILD_MODE_ENABLE_DM is only 
-> relevant to an HVM domain.
+> IMHO this should be a function that libfdt should provide, but altering 
+> libftd directly would make uprev'ing it challenging. The least I could 
+> do is make the function behave like the rest of libfdt's helper functions.
 
-And hence should (my conclusion) never be set for a PV one.
-
-Except - how wide or narrow do you mean "DM"? There are certainly cases
-where a PV guest requires a qemu to serve as backend for one or more
-devices. That's not what "DM" originally meant, but it goes in that
-direction. Hence just to avoid such an ambiguity I think it's better to
-properly reject any flags / flag combinations that we can't make sense
-of.
+How's this related to the question that I raised? I didn't question the
+function, but a particular aspect of the specific use that is being made
+of it here.
 
 Jan
 
