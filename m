@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75531A90DCE
+	by mail.lfdr.de (Postfix) with ESMTPS id B06FDA90DD1
 	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 23:30:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956562.1349984 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.956557.1349933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5AK4-00038J-P5; Wed, 16 Apr 2025 21:29:32 +0000
+	id 1u5AJz-0001xF-Vu; Wed, 16 Apr 2025 21:29:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956562.1349984; Wed, 16 Apr 2025 21:29:32 +0000
+Received: by outflank-mailman (output) from mailman id 956557.1349933; Wed, 16 Apr 2025 21:29:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5AK4-00034p-Kw; Wed, 16 Apr 2025 21:29:32 +0000
-Received: by outflank-mailman (input) for mailman id 956562;
- Wed, 16 Apr 2025 21:29:31 +0000
+	id 1u5AJz-0001vl-T9; Wed, 16 Apr 2025 21:29:27 +0000
+Received: by outflank-mailman (input) for mailman id 956557;
+ Wed, 16 Apr 2025 21:29:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M5uj=XC=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1u5AK2-0001ht-QT
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 21:29:30 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20631.outbound.protection.outlook.com
- [2a01:111:f403:2412::631])
+ id 1u5AJy-0001ht-B2
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 21:29:26 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2062a.outbound.protection.outlook.com
+ [2a01:111:f403:2414::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id db43075a-1b09-11f0-9ffb-bf95429c2676;
- Wed, 16 Apr 2025 23:29:21 +0200 (CEST)
-Received: from MN0P223CA0026.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::12)
- by PH8PR12MB7208.namprd12.prod.outlook.com (2603:10b6:510:224::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.34; Wed, 16 Apr
- 2025 21:29:14 +0000
-Received: from BN3PEPF0000B36F.namprd21.prod.outlook.com
- (2603:10b6:208:52b:cafe::8f) by MN0P223CA0026.outlook.office365.com
- (2603:10b6:208:52b::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.22 via Frontend Transport; Wed,
- 16 Apr 2025 21:29:14 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN3PEPF0000B36F.mail.protection.outlook.com (10.167.243.166) with Microsoft
+ id dd74abfa-1b09-11f0-9ffb-bf95429c2676;
+ Wed, 16 Apr 2025 23:29:24 +0200 (CEST)
+Received: from DM6PR07CA0132.namprd07.prod.outlook.com (2603:10b6:5:330::25)
+ by MW4PR12MB6974.namprd12.prod.outlook.com (2603:10b6:303:207::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.24; Wed, 16 Apr
+ 2025 21:29:17 +0000
+Received: from DS1PEPF00017096.namprd05.prod.outlook.com
+ (2603:10b6:5:330:cafe::d1) by DM6PR07CA0132.outlook.office365.com
+ (2603:10b6:5:330::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.15 via Frontend Transport; Wed,
+ 16 Apr 2025 21:29:17 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF00017096.mail.protection.outlook.com (10.167.18.100) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8678.4 via Frontend Transport; Wed, 16 Apr 2025 21:29:14 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8655.12 via Frontend Transport; Wed, 16 Apr 2025 21:29:16 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 16 Apr
- 2025 16:29:13 -0500
+ 2025 16:29:15 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 16 Apr
+ 2025 16:29:15 -0500
 Received: from fedora.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 16 Apr 2025 16:29:12 -0500
+ Transport; Wed, 16 Apr 2025 16:29:14 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,141 +63,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db43075a-1b09-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: dd74abfa-1b09-11f0-9ffb-bf95429c2676
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cRplAWU6BfRBLaMYeA9HLUb6wJwGyClzUXKUoBn8ea9oEZRmalbUevX76sAxPavHr+LK+0XxAiLMEi6ZroPFZASn095IjbqBV84V46PBUs1jTXLF1QYKZiqJFuyUb3FjrKOGbxQXznsxbK/ptooxfydYyDmsGUFVW3E/4BSNhJzOJV4j4aciZfigdcVT5xfnknxl8ax+37dGa+uGq3Kt5EKCLS9KPyedXnKWecGe/a1F38HegrJINzvBL3gcNOzwIq5wEVpEeX6nYPgQPFtDGgJZ+H+3tIvGnlwTiRy5IEfMKL71KfGa6yAon6qutjkRJqJOSdi/Xq5rTFQ0FG7lwg==
+ b=CkcoCJ4UwGEbi1KBUd40fRmlEgt3f0L6AlHQm9j7Hip/anLkmCOEmMA1V41H/PeGqVPrdl+pGbewXz77US1JmwAOvICRFlVizM1C29Po8QpU3qAp4S69eaa4oZX6bp5l56UQDVzQfoKqDc6txYDE27mkL5xh8BMcHlh99q8NE3++hzGu4viX0jiVX8cSecJfBJetioYF0FsPX5PbuRjOs+3aq+HUejqxemnL5e6GXLKAxMmkQcktX33+/T2J9Gvuy8B1pkvPjZtEeTTEBwSbtZINl6+5ACCNTKJblM9duphMCKSqiSN8Eup5w21hziw+4zicjbyKMcTRUzFwdt1jNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sl42oGSVJ5tdONDIQTNmAmSgYy+P+a6JrWP+kdTHfEg=;
- b=VDRnIfp3qfqjzlpgc4RI+gRkWaTbDhVa96NbB6mYf+DI59Hsc7zfEy5kNB0ltV85orYNHVzdNFTurhsHybV5WhAJIkzN/w3sveC427PMmv0FXqZa300pOTcjt+Sgg/RshD2FUCUmh5r6k5zIMxDsVYxWX7aqU+Tvh4HczZwo4i/SDFru/STsSKEfY+FrivheHrSdUOnkrCLkF7kWw/fzyn5J083dB7OqpyRJSPJu7gyX3QMxw58RukmjV+v7t2vc/E5GnkG8r2DzPhyjXeXtkTeXTmc7Md0AhkAdAicfcolFGIdvTkSoujM0Be1jOhy+EYZ/Xeg+9678eDi/N1Z9Ew==
+ bh=tIRm+gVOiD/R0teBKb+/Yy7EcO5lotdHtN+tWKBu7mk=;
+ b=Loegm3rnxnr0FkAb+MFJxPn2QOXKCsqBrO1yz2lAqsdi2rJLGVkicBFDadgBB50rzjxoYX1dTJaEuxBktXhRVbk4uPAjkW46qXJb+TK+rN6XOirRobujj2GdpFSTCDnNBLKTmBC6kIIJROltt2ZLEaThjcQPxR4FyWVR7r8X/z0U7WHHWhCwxTNLgTIDVHZqWUlLDAtufH+nBHR5KTYh3dTEPOR4NiIL3Rrcn5/AWgVLpn7yRjnlWk0Scahy5OP4Uurje6pvEA68SRDmxRweUPXiWZdpZBvO6J/fXmtQzqEIcoUA0rZM8Nh5pJj6mY4L7fePLwIbdQeFCv2JcRhQ4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sl42oGSVJ5tdONDIQTNmAmSgYy+P+a6JrWP+kdTHfEg=;
- b=TCGArGucGAWhPA9jabi5Nowh//SjvnCTpSqLJtW7zt6EjRJYmkL9s+HelT/r/1b1I22RWV8Hdhxa99L0GYWfzJ8fdIxgH6KvCXbI+2Qhp4Olm5cDQ4H1AjhQZ5D3fUbXxOuNX1UC33cOgQjLxpp80OJ9F5LH2fOdqsEtuZ8OHGo=
+ bh=tIRm+gVOiD/R0teBKb+/Yy7EcO5lotdHtN+tWKBu7mk=;
+ b=zeQ1xvnmwwcwyx7baPE76RCnKEbuBm/+CI9u9tLTWb2io8sS0OsdpkyDdJrs568Arpy/mdz2U2SuSM0zd147bDNzMtxTl+kd+sPcw4pCFqri3IkdQz1ilP3UryZFZ/yROCy+fBujkg3wT6IIOJzpc5hrNjnq0V/ZO0EbFKor7ms=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Jason Andryuk <jason.andryuk@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Jason Andryuk <jason.andryuk@amd.com>, Stefano Stabellini
+CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
  Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
 	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
  Beulich" <jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>
-Subject: [PATCH v5 0/7] ARM split hardware and control domains
-Date: Wed, 16 Apr 2025 17:29:04 -0400
-Message-ID: <20250416212911.410946-1-jason.andryuk@amd.com>
+	<roger.pau@citrix.com>, Jason Andryuk <jason.andryuk@amd.com>
+Subject: [PATCH v5 1/7] xen: introduce hardware domain create flag
+Date: Wed, 16 Apr 2025 17:29:05 -0400
+Message-ID: <20250416212911.410946-2-jason.andryuk@amd.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250416212911.410946-1-jason.andryuk@amd.com>
+References: <20250416212911.410946-1-jason.andryuk@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|PH8PR12MB7208:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8733ea9f-6f46-4126-d072-08dd7d2dbc3b
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017096:EE_|MW4PR12MB6974:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b9b35f4-153e-428f-7796-08dd7d2dbdbe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013;
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|7416014|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?kSEUDXafw5fHorIdvQqgaknlNR9HBrxxArQZT1Jua0C1X3uKIMizebvw2duw?=
- =?us-ascii?Q?c9gzjD4oo2VL8mFyOSQhSHdUF9cCIxEQop2ulUVe0oFg/BiZWY5V1vhAZV5w?=
- =?us-ascii?Q?lfs86CohUKcChOxpSM5XqNEqorSRg22qWYY/MUVf5jEb05ucrHFBJglsaE74?=
- =?us-ascii?Q?6DDkU1kj2+HE2xqFf11m39xEIvXXNcJk6oLB0rHbn6sDc6ZNslNSepNDkn25?=
- =?us-ascii?Q?qDWznUtqh1lJelS7BjMf/fG+Hh0xeEzz8nywzZS6wgcfkzxSNnzwguRb36SL?=
- =?us-ascii?Q?j4jIF8+beDBisqddFBWNCYY+Oc6AuvKfq3qU0anG87VjSZ+xPtfwmYjVFxJg?=
- =?us-ascii?Q?QtaT6rRI0FLaQ2yDas72qHP/fpWwE2qVNSm5IUKlmGCyAVhlv/egoqtInXfi?=
- =?us-ascii?Q?kaOrK2w4r+BLep8iOEIrh5IwwKkAK1gEC3Zm9pVYvCQh9JTWWqaYfSNsPzbX?=
- =?us-ascii?Q?5TVVQjPgSYuk3UUG8RaaQmux7/Hc6GRSUb5dsm5+4zoFpbbLTBCpVcm0nHNM?=
- =?us-ascii?Q?fn1KTPXfygqDD59ZOBGc1NuBBYTFuVPjXGMhIp86vtoLh6KbLBbqVrxb3Qns?=
- =?us-ascii?Q?toJEyvlJZeFvn0ivr0tJRrhnpTD48isOkAZVTqkqnABcF1c+0zE0zejbVg/Y?=
- =?us-ascii?Q?pZRJQ1VhC+J59OnCIgTZG4AC6/cYyrpgQ4h/1wHaAOEY4ygHZ45V7zOx0/5S?=
- =?us-ascii?Q?AHJ9L2i5x66Di5J61c461Sy64ubFOrTwJ1E7yvfvETrBmu+DNO1Iwea3FuMq?=
- =?us-ascii?Q?xf9gUtuvSAJfBV+F7VUNfrrjdefVmyzPB9lv+jzm7IqxZEp0Wngtixyyrk2+?=
- =?us-ascii?Q?nkd8hS5EeDoPdXFvL1vLX6UJmWKSybip2w0IiQHJo8YL56jYUd/7y8N3HDEE?=
- =?us-ascii?Q?lW0wzDUJ8N4JsSdfsETCV+wUL0KdW0S+zIe2K//kLkPPqdM22dirbXtdkS2D?=
- =?us-ascii?Q?BFdGSdxJK/vcm1GmXg8h6qTFV5q7mY1dc5KgcRoe7G/tRZpwrwOMx/1zDMUK?=
- =?us-ascii?Q?oDHgdxdCLXs4/LvpiffXQC38SyU6g4JwJ+8U0oizWYftj31JpjwWE1ulr9Wr?=
- =?us-ascii?Q?BX7K0pMClhVqnK5MNTk5EsBL2Qk7JPAVVKToEGB32XyOFXup/XSYdLp1vucL?=
- =?us-ascii?Q?gkhFIEICefUfOZo1WMvCmRuCuAmNncp2/HAoj0JV8VXAft9I2e++1yOpOcQm?=
- =?us-ascii?Q?UmTkzclujMrJSsxT3tc9V6wPcTQdhlT0kyuQ4C+zY0/Dvdcewg7sG0MdZAjH?=
- =?us-ascii?Q?QJ8SjIlvreSx8ojHqB9iXvSs0CHVzPXiCuZc7SjjKklKuJfqD7bwoeVbuiBl?=
- =?us-ascii?Q?BEQGwcllXa1i6aW2V+Fv64s6nBoeTSQ0DN1r6X1jSvGCcahtvQbAamHkj5Tc?=
- =?us-ascii?Q?PW11nlm4VFVoLUnD4YVH5JAjFlMRu46AtLyqvRMOoT9MUvbz7lO4Ltx5RGz6?=
- =?us-ascii?Q?VCwDzp9BcNQ2+eqsovbQcDwF+SnzeFdXo/KrMf5y2xcEO1KQAjF/GMJ87Iqn?=
- =?us-ascii?Q?rGcw81AMpAoUdgE=3D?=
+	=?us-ascii?Q?oTkWj5b2n4p2k2FRYSg8kfLH4AJVDGhzasTTOBWY6RW5/XeUbA4/XJy0/vGG?=
+ =?us-ascii?Q?mwxpDzqnjviBm+S4Od/RINCB/IchlmtwoBQfxYzehyVD/5InlUVgJur3mgSj?=
+ =?us-ascii?Q?Vdl0bWQj722Tf3dgGlpP11JfXM8id0gviQyCZUrakQvnNXd4PKLPdGl0RZjI?=
+ =?us-ascii?Q?6uE52xiZIqpkG2ZJqAJEPJEkYJ5BSJBgl/1dMuK9f+Y5MmnhaorUzzlQ4zOU?=
+ =?us-ascii?Q?27cRrsbG4WjAzTzSWqy1ZQxw9+vv53rAS0u4zLliQoElKGwySUoCz3tm/IhK?=
+ =?us-ascii?Q?0FDRzPhnvdueA9v0sZWdDEpGMxajcq8tGWx83avYdt7YcD5ly6XOuTQVK7uk?=
+ =?us-ascii?Q?C9ATIjIdCEkR4VaACTA+tH1Ko/pTGpwnT4IcGSOS5kyIQPdbz0oVUWhE8dvH?=
+ =?us-ascii?Q?NqrUo9b3P6oDMLeEtJTDa37R17lANjl5sTPvElOvSEBCAgtsUZgtZqnyyVGL?=
+ =?us-ascii?Q?QhF2775cjlXIWMOntpHz6wEipEVyodSoV2M4GfruMCSJOM/j4PAk20SjRuyr?=
+ =?us-ascii?Q?/1hCB/xMbhQB1JBESfWLgZ1Q2FC6XpAJF6c5Vov6HhEP0mE/PyF/axCiENRT?=
+ =?us-ascii?Q?mkuwgU/poPfvBN9ReBF+qnloed9vcn3WaWBwGAqvMvdoa+yozFTAfdfZPStO?=
+ =?us-ascii?Q?iwRX4TxUPYsADAaaRiDF9RC5zGPITMYY1iBy9y6rHJlLq35FzrDnSRDzp+JZ?=
+ =?us-ascii?Q?dosFrvjFJ9+zDeDKliNSheXCOHO1N27mLeP+GaRf3R0TcT5Wlk89W+y2LMXg?=
+ =?us-ascii?Q?5/K9D1iv9Fzcs0pQ5rH2YsXrTQr0aoxMAqAOvVUsVBJvhys4i6mU7ckYPt+F?=
+ =?us-ascii?Q?FyZApLu2nEOEhkY/mS9t/28m5pHf0JveVgj28K+0TQWJGxYdq9Qbauqxq5tY?=
+ =?us-ascii?Q?qaLKPJzfompd+KeeOdZCNR71eA92Ncv4p4tWbX/Rz5qisuJhMp47HUr2w+bp?=
+ =?us-ascii?Q?GiMj/Ym39IN+Ptalkp1MXf/f8KI6e0YPeWQWFZSZOfo9o+ceKrHt2XdwoZob?=
+ =?us-ascii?Q?zOUCOFV9z0dOgOfwqCO4TtWUY78OwKxdKxeocYY8Zs5X2ryw/h4wdN1xGG/n?=
+ =?us-ascii?Q?/qREid5A93WPaSZypZKDnOy6p0f4mjS1kMwIeZXcFaQFSCrwywTEDEYrFcjV?=
+ =?us-ascii?Q?wrZHSD4wuJL6QUlkPjh5ce9grELhURyFRL9/nkeu1HygVhFJozHwjddps9Xs?=
+ =?us-ascii?Q?v5ITiH8tWF4C6NA3ru8DwBaINFcJ5vGIO4lbBhcr8h6nU5Orw6PLaCwGuUML?=
+ =?us-ascii?Q?3SlM/Til5whZF2BRLhNDQRmsRO8rWNo6xEWmRTcTWPisx7Ri6bWGyBK+JIF5?=
+ =?us-ascii?Q?GlcJMOhlHjM6vCOqJ50Qj/LuouFwZCHBR0HxvWMxH7JNHfEJtTBhHDy5/9mS?=
+ =?us-ascii?Q?1SdUyQQSw4uPha/d9Tcl8TynnjD7EtjJsvB6HhXoROIBbR7j4cnyjRx4x7ay?=
+ =?us-ascii?Q?/MiJLYQaMM4cKMeB+2cOsFRAsGrzn8ICT6yw22wiV5QgOma9RA2OBHinSRlt?=
+ =?us-ascii?Q?7XtYZtYiCwX5vvQ98embEZMHRaRbsZpuJveI?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(7416014)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2025 21:29:14.0993
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2025 21:29:16.6073
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8733ea9f-6f46-4126-d072-08dd7d2dbc3b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b9b35f4-153e-428f-7796-08dd7d2dbdbe
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B36F.namprd21.prod.outlook.com
+	DS1PEPF00017096.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7208
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6974
 
-This series implements separation of dom0 into separate hardware and
-control domains.  It uses the capabilities idea from Hyperlaunch -
-hardware, control, and xenstore.  It's been tested with dom1 as
-control, dom2 as a domU, and dom3 as hardware and xenstore.
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 
-To keep things more managable, this is only the ARM hypervisor changes,
-and one associated init-dom0less change.  The series is slightly
-re-ordered to move xenstore changes ahead of adding the capabilities.
+Add and use a new internal create domain flag to specify the hardware
+domain.  This removes the hardcoding of domid 0 as the hardware domain.
 
-Setting hardware domain as domid 0 is removed.
+This allows more flexibility with domain creation.
 
-v5 is fully reviewed.
+The assignment of d->cdf is moved later so CDF_hardware is added for the
+late_hwdom case.  Also old_hwdom has the flag removed to reflect the
+change.
 
-I've been unable to run a combined control/xenstore.  Linux console
-output stops shortly after the domain determines it should be XS_LOCAL.
-I have not investigated further.  An ARM xenstore domain also has
-console output stop at seemingly the same place.
+Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+v5:
+Restore CDF_hardware to old_hwdom on error
+Add Jan's R-b
+Rebase bd->domid addition
 
-Daniel P. Smith (1):
-  xen: introduce hardware domain create flag
+v4:
+Move d->cdf assignment later
+Remove Jan's R-b
 
-Jason Andryuk (6):
-  xen/arm: dom0less hwdom construction
-  xen/arm: dom0less delay xenstore initialization
-  xen/arm: dom0less seed xenstore grant table entry
-  tools/init-dom0less: Only seed legacy xenstore grants
-  xen/arm: dom0less use has_dtb local variable
-  xen/arm: Add capabilities to dom0less
+v3:
+Or-in CDF_hardware for late hwdom case
+Add Jan's R-b
 
- docs/misc/arm/device-tree/booting.txt     |  11 ++
- tools/helpers/init-dom0less.c             |  10 +-
- xen/arch/arm/dom0less-build.c             | 197 ++++++++++++++++------
- xen/arch/arm/domain.c                     |   3 +-
- xen/arch/arm/domain_build.c               |  11 +-
- xen/arch/arm/include/asm/dom0less-build.h |   2 +
- xen/arch/arm/include/asm/domain_build.h   |   3 +-
- xen/arch/x86/setup.c                      |   3 +-
- xen/common/domain.c                       |  19 ++-
- xen/common/grant_table.c                  |  14 ++
- xen/include/public/bootfdt.h              |  31 ++++
- xen/include/xen/domain.h                  |   2 +
- xen/include/xen/grant_table.h             |   4 +
- xen/include/xen/types.h                   |   1 +
- 14 files changed, 247 insertions(+), 64 deletions(-)
- create mode 100644 xen/include/public/bootfdt.h
+v2:
+() around binary &
+Only allow late_hwdom for dom0
+---
+ xen/arch/arm/domain_build.c |  2 +-
+ xen/arch/x86/setup.c        |  3 ++-
+ xen/common/domain.c         | 19 +++++++++++++++----
+ xen/include/xen/domain.h    |  2 ++
+ 4 files changed, 20 insertions(+), 6 deletions(-)
 
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 634333cdde..b8f282ff10 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -2369,7 +2369,7 @@ void __init create_dom0(void)
+         .max_maptrack_frames = -1,
+         .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
+     };
+-    unsigned int flags = CDF_privileged;
++    unsigned int flags = CDF_privileged | CDF_hardware;
+     int rc;
+ 
+     /* The vGIC for DOM0 is exactly emulating the hardware GIC */
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 3c257f0bad..24b36c1a59 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1011,7 +1011,8 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+ 
+     /* Create initial domain.  Not d0 for pvshim. */
+     bd->domid = get_initial_domain_id();
+-    d = domain_create(bd->domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
++    d = domain_create(bd->domid, &dom0_cfg,
++                      pv_shim ? 0 : CDF_privileged | CDF_hardware);
+     if ( IS_ERR(d) )
+         panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
+ 
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 585fd726a9..abf1969e60 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -804,9 +804,6 @@ struct domain *domain_create(domid_t domid,
+     d->domain_id = domid;
+     d->unique_id = get_unique_id();
+ 
+-    /* Holding CDF_* internal flags. */
+-    d->cdf = flags;
+-
+     /* Debug sanity. */
+     ASSERT(is_system_domain(d) ? config == NULL : config != NULL);
+ 
+@@ -820,15 +817,25 @@ struct domain *domain_create(domid_t domid,
+     d->is_privileged = flags & CDF_privileged;
+ 
+     /* Sort out our idea of is_hardware_domain(). */
+-    if ( domid == 0 || domid == hardware_domid )
++    if ( (flags & CDF_hardware) || domid == hardware_domid )
+     {
+         if ( hardware_domid < 0 || hardware_domid >= DOMID_FIRST_RESERVED )
+             panic("The value of hardware_dom must be a valid domain ID\n");
+ 
++        /* late_hwdom is only allowed for dom0. */
++        if ( hardware_domain && hardware_domain->domain_id )
++            return ERR_PTR(-EINVAL);
++
+         old_hwdom = hardware_domain;
+         hardware_domain = d;
++        flags |= CDF_hardware;
++        if ( old_hwdom )
++            old_hwdom->cdf &= ~CDF_hardware;
+     }
+ 
++    /* Holding CDF_* internal flags. */
++    d->cdf = flags;
++
+     TRACE_TIME(TRC_DOM0_DOM_ADD, d->domain_id);
+ 
+     lock_profile_register_struct(LOCKPROF_TYPE_PERDOM, d, domid);
+@@ -973,7 +980,11 @@ struct domain *domain_create(domid_t domid,
+ 
+     d->is_dying = DOMDYING_dead;
+     if ( hardware_domain == d )
++    {
++        if ( old_hwdom )
++            old_hwdom->cdf |= CDF_hardware;
+         hardware_domain = old_hwdom;
++    }
+     atomic_set(&d->refcnt, DOMAIN_DESTROYED);
+ 
+     sched_destroy_domain(d);
+diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+index a34daa7d10..e10baf2615 100644
+--- a/xen/include/xen/domain.h
++++ b/xen/include/xen/domain.h
+@@ -53,6 +53,8 @@ domid_t get_initial_domain_id(void);
+ #else
+ #define CDF_staticmem            0
+ #endif
++/* This is the hardware domain.  Only 1 allowed. */
++#define CDF_hardware             (1U << 3)
+ 
+ #define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
+ #define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
 -- 
 2.49.0
 
