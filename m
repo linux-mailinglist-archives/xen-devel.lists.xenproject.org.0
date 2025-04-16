@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CE12A8B661
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 12:06:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.955408.1349193 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA6DBA8B688
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 12:15:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.955427.1349204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4zeQ-000606-QE; Wed, 16 Apr 2025 10:05:50 +0000
+	id 1u4zni-00088S-Mk; Wed, 16 Apr 2025 10:15:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 955408.1349193; Wed, 16 Apr 2025 10:05:50 +0000
+Received: by outflank-mailman (output) from mailman id 955427.1349204; Wed, 16 Apr 2025 10:15:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u4zeQ-0005xE-LG; Wed, 16 Apr 2025 10:05:50 +0000
-Received: by outflank-mailman (input) for mailman id 955408;
- Wed, 16 Apr 2025 10:05:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u4zni-00086E-Jp; Wed, 16 Apr 2025 10:15:26 +0000
+Received: by outflank-mailman (input) for mailman id 955427;
+ Wed, 16 Apr 2025 10:15:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9TmO=XC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u4zeP-0005x8-DP
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 10:05:49 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5e5b1c55-1aaa-11f0-9eaf-5ba50f476ded;
- Wed, 16 Apr 2025 12:05:48 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43cfb6e9031so60396715e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 03:05:48 -0700 (PDT)
+ id 1u4zng-000866-RB
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 10:15:24 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b4db6197-1aab-11f0-9ffb-bf95429c2676;
+ Wed, 16 Apr 2025 12:15:22 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-39129fc51f8so5726226f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 03:15:22 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39eae9797aasm16837498f8f.56.2025.04.16.03.05.46
+ ffacd0b85a97d-39eae97b249sm16855406f8f.58.2025.04.16.03.15.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Apr 2025 03:05:46 -0700 (PDT)
+ Wed, 16 Apr 2025 03:15:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e5b1c55-1aaa-11f0-9eaf-5ba50f476ded
+X-Inumbo-ID: b4db6197-1aab-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744797947; x=1745402747; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1744798522; x=1745403322; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IkbvnXU5NNRoFxPT9gxqvG86YAELyV+PlP/FaUD+EBI=;
-        b=mKoK95f3RXw3+Bnuiph5KUwpGIBM++BhIxBJ4Oks616No+xz9gE6SuZPFKDxc+vLw1
-         MGWtLix6MLnP1cqXejfqWVhFh5px01IhAbbP5lYB49THDKJKiGGOsOifGIpsSl0dGNGu
-         qj/YUgBhXvpHOjQASr9bI4iY48v8u9Xi3wbHw=
+        bh=YBR5stUE2ekUxwuvmxA3aFTitiAgfhMWKZkkaBi47rI=;
+        b=KsXTWTqBGY8qe4MDa3f7DL4K+l7UwrcL0CsYuY/KZGar7UpgLJheE1Kv9oBzzuLCux
+         goF/uqAUye5lpj8VF4EBkgEXjh4h4wzCFmgvP/Oa6FATPjuh3SzAsgF6kGyiBWmWnTTK
+         2LiUkGfzf4p7s+S28w9iycPhwo6EBRoiRwMEo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744797947; x=1745402747;
+        d=1e100.net; s=20230601; t=1744798522; x=1745403322;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IkbvnXU5NNRoFxPT9gxqvG86YAELyV+PlP/FaUD+EBI=;
-        b=SRd9DnGNibMvxCwkL9tt7YycrQFph68AhJuXJgmslZ0sTLpkvaFxSk02YQ2DSpf5DN
-         ehAgsdbgULKzW9I+QZjZSNAiyXitKwkJkaUng5Xi+/Frk6xfgIFY6Z33GThFgR9lkHqT
-         XfDH8X5c0LKVrYU4t6E6yK166wTVTsl9QHr3xHAgNaEYVOrU1KDAM8KK2pumpb5282xp
-         9QJsV399/gWyelvdHit3YlILcd/DmHahEPollJaQMEXilDOR5Ods61za2OMYEg7orbIS
-         nPrVzl4iHrqTTQz0guCxr3VI8ZhQ+zaKKwTF1n9RygHdJ3wU45r6UrBtdyRoBwdoT1JY
-         HQCA==
-X-Gm-Message-State: AOJu0YyiBYST+BzZh2m/dDEPiw5/G0So0u4llljEBaG8KYS31IeeEzKz
-	i6cS4t00967ZZdxUpzpH+CIxjdSr7mHz1T5yKIhegi/y6+8Nnz3IHvhKVpK8I5M=
-X-Gm-Gg: ASbGncvcnXQNjVfEL2WYNbg6uRk0PAv+dTOgG2is/bO3VMuLcAjamyNvE3Kuw+QHxuD
-	gEjZQaMr29dZcLzShvMxbIlrmn0SojxeffdwmMSOI5k9+1q5yHoH+TZGwdAC20ctxxqvBz7qkz5
-	sxCweJOrSkRZwGpu5cgEv2epuZsxmvzKGHIJaRIIhRPzRY2Y3wOJmxFugESRsJQ1zl7QqU7PHNq
-	2ToWGgeNybwjptet2EiiAPpc7ibtFed/BkA4X6yy5vlMQRLuC6ZxudCluUuk8zzKs/fi7NVynTc
-	aJuoOlt5H2bpS4C1iP4W4ceT8D4EDWhgT6/ep5hsUWii0LcjM7r2KPP7u1A9qu6CJdPhThjD1nz
-	IrtBnpg==
-X-Google-Smtp-Source: AGHT+IHqfHgurAAogrNZDGgncHeT4ywevh0Vl8LOS24CssZE5hdHcOvz/GnQNKdCB1rq0FxcG87kzQ==
-X-Received: by 2002:a05:600c:3b91:b0:43c:fbe2:df3c with SMTP id 5b1f17b1804b1-4405d69b737mr9429775e9.26.1744797947319;
-        Wed, 16 Apr 2025 03:05:47 -0700 (PDT)
-Message-ID: <2e2156cc-1bf0-4585-bb31-faca5321fec3@citrix.com>
-Date: Wed, 16 Apr 2025 11:05:46 +0100
+        bh=YBR5stUE2ekUxwuvmxA3aFTitiAgfhMWKZkkaBi47rI=;
+        b=wlf5KrI98Fkm1Ndei003pRn0c/XeGydCZT9rzkAHFYYadrYi7EhYq9xw5MlYoLFVA0
+         6YNk/UHikI3AcE8GqKi0QPzJPZYBB50wyjItff449eEuGG89AooRrJYBQaFy8LVmD6V3
+         t1Cs4QFlzqubaiMAnTjg24mGlhwHgAqWCEUfHjNi+SH3dBBWNbNkXEsyhAoOPGDLFbtT
+         EtzpMyL8j8kK9Cp5S3j1f2h33dRBK0+eCgwbZXA7JxsfSdzOV5goUZ5iM6yqvKRfBMUx
+         R8lZa0biW8wNfkoO1oSBQaNh0S+C9ilB9y7TzAPJVQ6M3LNbOZNq60BjpAvZYxaB1Sxl
+         nljw==
+X-Gm-Message-State: AOJu0YwQbeGUvrYNvgTzBTRqB8tw3AAsEJLIdFXAjRncTOKnTi2XLy6U
+	FUE4EHJv8ZF2KVo00ZYh9ASLOXE8FQqDn+36ZK2lcZQZL6qqh/5ibGdj7wxdziI=
+X-Gm-Gg: ASbGncu8lQX7TZL2aFsu9eAEvmcJjvVhP6ySFoB7RZa6lJ1ti2I5t7f+wiY2AiUJORH
+	IVVX8y7hqsETlBn800vQBHk5JeD3xVdoJN51kWm7Dt7xi4Ozs3KMSkeLtpYsLlvnijTHpbHjLjz
+	srvhygcj2gIQcDlkDTx3O/FKYeXJhcxXMC+JS6mZDtflRBnJovj7BxiYB1YSeIft2VMeYZlkebR
+	LMOdtmfovVwFHuTpJXUKy611sEEo3tW2AR9nzoVv0GvhU7vTSO4sbOlYy6Oc4m/xXBVAfQEFJv4
+	l/VLpVSJSQKT6nWHQui6XOCxdItB+5LMXw3qHvzrT5poe4Nvgw63PKZhXy6f1jLZC6b7Cc+lNpU
+	hidsEbEDc1Z4fLUP8
+X-Google-Smtp-Source: AGHT+IHp9QeJP4hSEUGMSPkpIjpgeNFO5BrkMv0FwYVfZ2OtQZGzgbrv8k0SYg8kYzshFemFIAHXUg==
+X-Received: by 2002:a05:6000:381:b0:391:3f4f:a17f with SMTP id ffacd0b85a97d-39ee5b8b921mr1158638f8f.42.1744798522283;
+        Wed, 16 Apr 2025 03:15:22 -0700 (PDT)
+Message-ID: <44efebcd-877e-46a3-a072-07c44fc29f27@citrix.com>
+Date: Wed, 16 Apr 2025 11:15:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] CI: avoid repacking initrd as part of the test job
+Subject: Re: [PATCH v2 2/7] Overhaul how Argo is built and packged
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
  =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Anthony PERARD
- <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
- Doug Goldstein <cardoe@cardoe.com>
-References: <20250414110903.2355303-1-andrew.cooper3@citrix.com>
- <20250414110903.2355303-3-andrew.cooper3@citrix.com>
- <alpine.DEB.2.22.394.2504151637100.8008@ubuntu-linux-20-04-desktop>
+ <marmarek@invisiblethingslab.com>, Jason Andryuk <jason.andryuk@amd.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>
+References: <20250414101843.2348330-1-andrew.cooper3@citrix.com>
+ <20250414101843.2348330-3-andrew.cooper3@citrix.com>
+ <alpine.DEB.2.22.394.2504151645260.8008@ubuntu-linux-20-04-desktop>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -138,45 +139,35 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <alpine.DEB.2.22.394.2504151637100.8008@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2504151645260.8008@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 16/04/2025 12:48 am, Stefano Stabellini wrote:
->> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
->> index c4be71464246..e2376cb51cb4 100755
->> --- a/automation/scripts/qubes-x86-64.sh
->> +++ b/automation/scripts/qubes-x86-64.sh
->> @@ -164,16 +164,13 @@ ${domU_extra_config}
->>  "
->>  
->>  if [ -n "$domU_check" ]; then
->> -    # DomU
->> +    # DomU rootfs
->> +    cp binaries/rootfs.cpio.gz binaries/domU-rootfs.cpio.gz
->> +
->> +    # test-local configuration
->>      mkdir -p rootfs
->>      cd rootfs
->> -    # fakeroot is needed to preserve device nodes in rootless podman container
->> -    fakeroot -s ../fakeroot-save tar xzf ../binaries/initrd.tar.gz
->> -    mkdir proc
->> -    mkdir run
->> -    mkdir srv
->> -    mkdir sys
->> -    rm var/run
->> +    mkdir -p etc/local.d
->>      echo "#!/bin/sh
-> I am worried about the drop of fakeroot because the newly created dirs
-> and files we'll have user as owner instead of root.
->
-> I suggest we fix this for consistency, and cpio -R 0:0 might suffice.
+> On Mon, 14 Apr 2025, Andrew Cooper wrote:
+>> Right now, the argo artefacts are a pile of files which the test has to turn
+>> back into something which resembles a filesystem.  Furthermore, because we do
+>> not build modules for the main kernel, it is extra important to make sure that
+>> xen-argo.ko doesn't get out of sync.
+>>
+>> Build argo conditionally as part of the linux artefact.  It's ~100kb all
+>> together, compared to ~14M for the kernel.
+>>
+>> Produce a single argo.cpio.gz with xen-argo.ko in the standard location.
+>> Prune userspace down to just the executables and libraries.
+>>
+>> This is cribbed from the existing scripts/x86_64-linux-argo.sh, which stays in
+>> place in the short term until Xen can be updated to use the new scheme.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Do we need to remove x86_64-argo-linux.sh?
 
-https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/9737393986#L1087
+Yes, but 4.20 still uses it.
 
-It seems to be all root anyway.  I'm not entirely sure why, but it does
-explain why everything is working, given the attempt to have non-root
-containers.
+One thing I'm not sure about is whether "keep latest artefact" is just
+artefacts from the latest run, or the latest of each named artefact.
+
+Now is as good a time to experiment as any.
 
 ~Andrew
 
