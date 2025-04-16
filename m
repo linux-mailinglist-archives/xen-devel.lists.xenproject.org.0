@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 789F8A905EE
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 16:16:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956307.1349764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61583A9060A
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 16:19:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.956324.1349773 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u53Yz-0007o8-Q9; Wed, 16 Apr 2025 14:16:29 +0000
+	id 1u53bu-0000LN-79; Wed, 16 Apr 2025 14:19:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956307.1349764; Wed, 16 Apr 2025 14:16:29 +0000
+Received: by outflank-mailman (output) from mailman id 956324.1349773; Wed, 16 Apr 2025 14:19:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u53Yz-0007lJ-N2; Wed, 16 Apr 2025 14:16:29 +0000
-Received: by outflank-mailman (input) for mailman id 956307;
- Wed, 16 Apr 2025 14:16:28 +0000
+	id 1u53bu-0000Iy-4A; Wed, 16 Apr 2025 14:19:30 +0000
+Received: by outflank-mailman (input) for mailman id 956324;
+ Wed, 16 Apr 2025 14:19:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=S7a8=XC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1u53Yy-0007l7-0T
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 14:16:28 +0000
+ id 1u53bs-0000Is-05
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 14:19:28 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
  [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60d804c3-1acd-11f0-9ffb-bf95429c2676;
- Wed, 16 Apr 2025 16:16:25 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1744812973813240.51349859644517;
- Wed, 16 Apr 2025 07:16:13 -0700 (PDT)
+ id cc276d72-1acd-11f0-9ffb-bf95429c2676;
+ Wed, 16 Apr 2025 16:19:25 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1744813157619214.15615350572398;
+ Wed, 16 Apr 2025 07:19:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,45 +38,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60d804c3-1acd-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; t=1744812977; cv=none; 
+X-Inumbo-ID: cc276d72-1acd-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; t=1744813160; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=Gu4BwFNIjwpIrAoaRHAWYLdmk2Y33B/KrTwlPpk6M4VvYpp8pLfpZCjoSCKMuMZIWeM3HpnYSQy3R9lHrGmJNhJjwVnQK4/oU334+g15fGLdjPlYcu9uMXA/qfHqx0AZAckVM+Rrc8JD7ZQ++qapEgiVKDZo2l/Uq0Qnex6q3m8=
+	b=YkcbhI2HVQDFdlimkgF6ZsW7QU9BgfXjoblPsqCKMMo5qlBOXY4dXoprlxo+djXd0Oa8sJcg6L/BOX5+QmGY7LwCwdQTr5BU0uH1nAV68RA4soC50XKAYDO7ceMpOzXF3hvZ/0zeuE8zP4vI25lWOjiEy/RHObII7+nD/H3+Ue8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1744812977; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=cQIyiemSxOZkLF6XJYj9N4LADbRvGZiU+V8Pl+4IyoM=; 
-	b=NdZxdQ+EhSyw/t/hKn8+KWfy5SLYdjWJYrFap9TstnWMdyqN6vq1miSCh1lAVAobpPhwloMIgKY1eHsOx//+b7xPkbmcNbdZvI6/mXD5rY5b25/zgP1DCFTqNOTYAtSF8/CmuOxWdpwc8umNBGbHxYHu//lRwndNUPI87kbHHxk=
+	t=1744813160; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=7+h8zZWgtOoBiL/JwxBSef5YqUzwnwDsb58q8/2tavM=; 
+	b=du5CG2KMTEcnRJtRwDhfqrHLy3uJIJ+1319ly9e4PCms4gTVtf2LIi/AOVyQ3kf4c0VG4rTcIizN5Yq6id1q1BIDQfNYpmnW1R5Ub7czg9X00Bn3plaTtJKJPRifSlAXnV893unqV1KUjZufqHQXJoi7fAwoOe8xi/ZfcrbwxwA=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1744812977;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1744813160;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=cQIyiemSxOZkLF6XJYj9N4LADbRvGZiU+V8Pl+4IyoM=;
-	b=mgxoU0GfBhCCKkEfe80goEaE7HlXrpKbhKivGN7qTST/vJuC4TotZ4alnd6JCI5G
-	96gHn5wbdHn6wX4k2e/Y/PMA5Gdqidr6nxN4AwzUF12FFIQ1zpcbB28CAhxqU8FXse2
-	sONEZHvMNYLRo9BjGurkfz69SKyA/xHY8IG+fJ7w=
-Message-ID: <f5cf7e17-c14f-4b34-bcdf-377776875136@apertussolutions.com>
-Date: Wed, 16 Apr 2025 10:16:12 -0400
+	bh=7+h8zZWgtOoBiL/JwxBSef5YqUzwnwDsb58q8/2tavM=;
+	b=VF/qa0hphXTSBqvRnruE/PdeNzkgSBmo1RzLafQjd24CUzDgDI1Ufv1N5bMmTf/h
+	Wwq8hWLFqDxs93YQbOs+QvHhNlQ5sMa5gSG+j2HGcV/cOYIJVjSoQgHkuSJaffFdoaL
+	NfiNswLKdrFvWDemXrtB94uBplJ9GkQ/b5/99MQU=
+Message-ID: <fc3dc57a-523a-4158-9335-026b028e2bce@apertussolutions.com>
+Date: Wed, 16 Apr 2025 10:19:16 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 15/16] x86/hyperlaunch: add max vcpu parsing of
  hyperlaunch device tree
 Content-Language: en-US
-To: Alejandro Vallejo <agarciav@amd.com>, Jan Beulich <jbeulich@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Jason Andryuk <jason.andryuk@amd.com>,
  Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Michal Orzel <michal.orzel@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org, Alejandro Vallejo <agarciav@amd.com>
 References: <20250408160802.49870-1-agarciav@amd.com>
  <20250408160802.49870-16-agarciav@amd.com>
  <c1e5af91-8f84-458d-a9b8-ab9758b5cbce@suse.com>
  <5a674e65-77bc-4d07-a4e3-2fa2c96bb37e@apertussolutions.com>
- <D9844FO74PFM.3R6HB5K2JXAOR@amd.com>
+ <71606cc7-8d9d-4b6b-ac64-bb7bcc54eee1@suse.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -109,13 +109,14 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <D9844FO74PFM.3R6HB5K2JXAOR@amd.com>
+In-Reply-To: <71606cc7-8d9d-4b6b-ac64-bb7bcc54eee1@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 4/16/25 09:54, Alejandro Vallejo wrote:
-> On Wed Apr 16, 2025 at 2:42 PM BST, Daniel P. Smith wrote:
+
+On 4/16/25 09:54, Jan Beulich wrote:
+> On 16.04.2025 15:42, Daniel P. Smith wrote:
 >>
 >> On 4/10/25 08:08, Jan Beulich wrote:
 >>> On 08.04.2025 18:07, Alejandro Vallejo wrote:
@@ -123,10 +124,6 @@ On 4/16/25 09:54, Alejandro Vallejo wrote:
 >>>>
 >>>> Introduce the `cpus` property, named as such for dom0less compatibility, that
 >>>> represents the maximum number of vpcus to allocate for a domain. In the device
->                                         ^
->                                         |
-> 				     "vcpus"
-> 
 >>>
 >>> Nit: vcpus
 >>
@@ -134,11 +131,13 @@ On 4/16/25 09:54, Alejandro Vallejo wrote:
 >> this field in line with Arm's DT, and they unfortunately used `cpus` to
 >> specify the vcpu allocation.
 > 
-> He meant in the commit message. There's a typo.
+> You misunderstood, I think. The comment was on the mis-spelling in the latter
+> of the quoted lines.
+> 
 
-Right, so I guess my response should have been further down. He points 
-it out as a nit the second time, and then his final comment led me to 
-believe he was raising an issue with vcpu vs cpu and not just the typo.
+Then your latter comment is that you want the internal field to be 
+renamed to cpu? Wouldn't that create further confusion of a physical cpu 
+assignment vs virtual cpu allocation?
 
 v/r,
 dps
