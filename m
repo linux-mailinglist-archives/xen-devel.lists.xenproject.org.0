@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D830A90E05
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 23:51:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956662.1350004 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F1D3A90E0E
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Apr 2025 23:54:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.956677.1350014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5Aei-0002Uo-O1; Wed, 16 Apr 2025 21:50:52 +0000
+	id 1u5Ahz-0003qz-9c; Wed, 16 Apr 2025 21:54:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956662.1350004; Wed, 16 Apr 2025 21:50:52 +0000
+Received: by outflank-mailman (output) from mailman id 956677.1350014; Wed, 16 Apr 2025 21:54:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5Aei-0002TP-Kg; Wed, 16 Apr 2025 21:50:52 +0000
-Received: by outflank-mailman (input) for mailman id 956662;
- Wed, 16 Apr 2025 21:50:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u5Ahz-0003oc-63; Wed, 16 Apr 2025 21:54:15 +0000
+Received: by outflank-mailman (input) for mailman id 956677;
+ Wed, 16 Apr 2025 21:54:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RcVf=XC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1u5Aeh-0002TJ-BO
- for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 21:50:51 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dc083395-1b0c-11f0-9eaf-5ba50f476ded;
- Wed, 16 Apr 2025 23:50:50 +0200 (CEST)
+ id 1u5Ahx-0003oW-9T
+ for xen-devel@lists.xenproject.org; Wed, 16 Apr 2025 21:54:13 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 53c08b9e-1b0d-11f0-9ffb-bf95429c2676;
+ Wed, 16 Apr 2025 23:54:11 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id A47C8A4A6F3;
- Wed, 16 Apr 2025 21:45:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 760ABC4CEE2;
- Wed, 16 Apr 2025 21:50:47 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 23C5F5C4B78;
+ Wed, 16 Apr 2025 21:51:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65FAC4CEE2;
+ Wed, 16 Apr 2025 21:54:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,117 +41,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc083395-1b0c-11f0-9eaf-5ba50f476ded
+X-Inumbo-ID: 53c08b9e-1b0d-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1744840248;
-	bh=2liWwNsaTVyZTAW59evsyTMsEYRAwmieKiUxo45PhuY=;
+	s=k20201202; t=1744840448;
+	bh=AIca6PD3eL4hvLSuKG3tGUI0XWLSH51RQM00ZKruOd8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NheN/er2A3qpNvEZl1dVGMTuvVXKBSJUBLEVHEpooAkmy4KSZ2a0PvQHS9Mw7vuSb
-	 RoCyZiVcHzaHvFNPmYbDybqS1CxBhQzD/ynJc9f0VTOI2wO/jH3qh5DS6bWBjTPb4+
-	 d54sAB/EfddG6GOXZRZl/x4UN89qd56FHYoEBodwmS+72txFdbnu5pnFWRxNsxB8nk
-	 u7jzgn6AWAUqCHHA1gTet5bLDKOgO+BDOSVt3kkRJ2uIpQeJBfIkvx7QXqYryRH/3p
-	 Den2B64hDWndZP4+YKz+tcmrQ8co7GyKFCQp/nowentZgCsGbp0F/3SjM4T0eikAE8
-	 bROEzZPLifhxw==
-Date: Wed, 16 Apr 2025 14:50:46 -0700 (PDT)
+	b=Q7odyWiC7ahhg9x6tibzHMhYp5yfdllLsx9O8FmqCT+NlzyJJkvTlP173ai/d/ajt
+	 4k1WBQtg6Fg1oQLdVjR6vs7t78HUrGFSUxbAvis0lcUZBfomPol33tpEmGIY00RxUF
+	 k8sg//UJl9v7XLjyNmOfSkSpI9kdt7cI+jG8pZzKFSTdzhEz/wZ65wsyBRACb1W4U7
+	 YVL8ve1ntWgZiKbH29PeukrbZ53OCm3unALt1vG5+oZXYdpr2vsX6/av+CMSQnmWl1
+	 dTtEpg+sxjysng1+yqRMfaA/cJ+Gc5f5qV+pULyppxM8cgpnLiTkhcNGNydRg+ha8U
+	 w5cKRLlN8VRHw==
+Date: Wed, 16 Apr 2025 14:54:06 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Mykyta Poturai <Mykyta_Poturai@epam.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Rahul Singh <Rahul.Singh@arm.com>
-Subject: Re: [PATCH v2 0/2] Add support for MSI injection on Arm
-In-Reply-To: <d64011fc-84bc-40fb-a98e-aa85eb2574c3@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2504161450400.8008@ubuntu-linux-20-04-desktop>
-References: <cover.1744621166.git.mykyta_poturai@epam.com> <98feb427-7da5-47ff-831c-2b4bcb26c4b9@xen.org> <alpine.DEB.2.22.394.2504151536240.8008@ubuntu-linux-20-04-desktop> <15938705-ae5e-43c9-826f-d7a8c7425baa@epam.com>
- <d64011fc-84bc-40fb-a98e-aa85eb2574c3@xen.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, 
+    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH v3 2/6] CI: avoid repacking initrd as part of the test
+ job
+In-Reply-To: <2e2156cc-1bf0-4585-bb31-faca5321fec3@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2504161452230.8008@ubuntu-linux-20-04-desktop>
+References: <20250414110903.2355303-1-andrew.cooper3@citrix.com> <20250414110903.2355303-3-andrew.cooper3@citrix.com> <alpine.DEB.2.22.394.2504151637100.8008@ubuntu-linux-20-04-desktop> <2e2156cc-1bf0-4585-bb31-faca5321fec3@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-364384658-1744840448=:8008"
 
-On Wed, 16 Apr 2025, Julien Grall wrote:
-> (+ Rahul)
-> 
-> On 16/04/2025 17:37, Mykyta Poturai wrote:
-> > On 16.04.25 01:40, Stefano Stabellini wrote:
-> > > On Mon, 14 Apr 2025, Julien Grall wrote:
-> > > > Hi Mykyta,
-> > > > 
-> > > > On 14/04/2025 18:51, Mykyta Poturai wrote:
-> > > > > This series adds the base support for MSI injection on Arm. This is
-> > > > > needed to streamline virtio-pci interrupt triggering.
-> > > > > 
-> > > > > With this patches, MSIs can be triggered in guests by issuing the new
-> > > > > DM op, inject_msi2. This op is similar to inject_msi, but it allows
-> > > > > to specify the source id of the MSI.
-> > > > > 
-> > > > > We chose the approach of adding a new DM op instead of using the pad
-> > > > > field of inject_msi because we have no clear way of distinguishing
-> > > > > between set and unset pad fields. New implementations also adds flags
-> > > > > field to clearly specify if the SBDF is set.
-> > > > > 
-> > > > > Patches were tested on QEMU with
-> > > > 
-> > > > [...]
-> > > > 
-> > > > > patches for ITS support for DomUs applied.
-> > > > 
-> > > > This means this series is unusable without external patches. Given this
-> > > > is
-> > > > adding a new DM operations, I think it would be more sensible to have
-> > > > the vITS
-> > > > support merged first. Then we can look at merging this series.
-> > > 
-> > > Hi Mykyta, just checking explicitly with you whether this series
-> > > requires vgic-v3-its.c for DomUs?
-> > > 
-> > > If yes, how far are you from sending the relevant patches to xen-devel?
-> > > How many are they?
-> > 
-> > Hi Stefano,
-> > Yes, I am planning to send them together with VPCI MSI support after
-> > SMMU patches are merged.
-> > 
-> > Although the DomU vits itself is only two patches.
-> 
-> I am assuming this is work in progress patches rather than the one you plan to
-> send, correct?
-> 
-> Asking, because currently there are a few ASSERT(is_hardware_domain(its->d))
-> to indicate where changes are likely for the guests. You seem to remove them
-> without explaining why or any associated code.
-> 
-> While I will not ask to have a security support guest vITS from the start. I
-> would like some confidence that we are going in the right direction. IOW, I
-> would like to see a design document that would explain how we can achieve it.
-> Some of the part to consider:
->   * Command queue
->   * LPIs
->   * 1:1 pITS <-> vITS vs one vITS to many pITS
->   * The page-tables are shared between the device and CPU. Are we ok to keep
-> the doorbell writable by the CPU?
-> 
-> There was some discussion in the past about it (I have added Rahul because
-> IIRC he was driving the discussion). So most likely, we would need the design
-> to be respinned and agreed first.
-> 
-> Lastly, I see you seem to go down the route of exposing one vITS only. But I
-> don't think your patch is sufficient to support multiple pITS (the guest
-> doorbell will be mapped to a different host doorbell depending on the guest).
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-To add to what Julien wrote, one thing is enabling a component with some
-limitations, such as lacking a given feature. That might be OK.
+--8323329-364384658-1744840448=:8008
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-A different thing is lack of isolation between VMs, or introducing a new
-vehicle for interference, e.g. one VM using vITS causing troubles to
-another VM using vITS.
+On Wed, 16 Apr 2025, Andrew Cooper wrote:
+> On 16/04/2025 12:48 am, Stefano Stabellini wrote:
+> >> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
+> >> index c4be71464246..e2376cb51cb4 100755
+> >> --- a/automation/scripts/qubes-x86-64.sh
+> >> +++ b/automation/scripts/qubes-x86-64.sh
+> >> @@ -164,16 +164,13 @@ ${domU_extra_config}
+> >>  "
+> >>  
+> >>  if [ -n "$domU_check" ]; then
+> >> -    # DomU
+> >> +    # DomU rootfs
+> >> +    cp binaries/rootfs.cpio.gz binaries/domU-rootfs.cpio.gz
+> >> +
+> >> +    # test-local configuration
+> >>      mkdir -p rootfs
+> >>      cd rootfs
+> >> -    # fakeroot is needed to preserve device nodes in rootless podman container
+> >> -    fakeroot -s ../fakeroot-save tar xzf ../binaries/initrd.tar.gz
+> >> -    mkdir proc
+> >> -    mkdir run
+> >> -    mkdir srv
+> >> -    mkdir sys
+> >> -    rm var/run
+> >> +    mkdir -p etc/local.d
+> >>      echo "#!/bin/sh
+> > I am worried about the drop of fakeroot because the newly created dirs
+> > and files we'll have user as owner instead of root.
+> >
+> > I suggest we fix this for consistency, and cpio -R 0:0 might suffice.
+> 
+> https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/9737393986#L1087
+> 
+> It seems to be all root anyway.  I'm not entirely sure why, but it does
+> explain why everything is working, given the attempt to have non-root
+> containers.
 
-Lack of isolation and interference are not OK. We need to be very
-careful and be very aware if there any constraints or limitations we are
-hitting against (e.g. size of the command queue) where one VM could
-cause a denial of service to another VM because it is exhausting a given
-physical resource.
+Hi Andrew, thank you for looking into this. I am truly surprised to see
+xen.start marked as root.root. Given that it is what we want I will not
+complain though :-)
+--8323329-364384658-1744840448=:8008--
 
