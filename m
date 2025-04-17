@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70DF0A9195F
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 12:31:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.957359.1350493 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49E55A91A38
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 13:13:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.957383.1350520 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5MX4-0002qx-F7; Thu, 17 Apr 2025 10:31:46 +0000
+	id 1u5NAE-0001ch-JP; Thu, 17 Apr 2025 11:12:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 957359.1350493; Thu, 17 Apr 2025 10:31:46 +0000
+Received: by outflank-mailman (output) from mailman id 957383.1350520; Thu, 17 Apr 2025 11:12:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5MX4-0002p0-CZ; Thu, 17 Apr 2025 10:31:46 +0000
-Received: by outflank-mailman (input) for mailman id 957359;
- Thu, 17 Apr 2025 10:31:45 +0000
+	id 1u5NAE-0001b7-GF; Thu, 17 Apr 2025 11:12:14 +0000
+Received: by outflank-mailman (input) for mailman id 957383;
+ Thu, 17 Apr 2025 11:12:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uBz4=XD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u5MX3-0002ou-0w
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 10:31:45 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=QJ4N=XD=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1u5NAC-0001b1-OA
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 11:12:12 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 27d142d0-1b77-11f0-9ffb-bf95429c2676;
- Thu, 17 Apr 2025 12:31:43 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-ac2bdea5a38so89147166b.0
- for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 03:31:43 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-acb682a7e81sm23498766b.68.2025.04.17.03.31.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Apr 2025 03:31:42 -0700 (PDT)
+ id cd389fe3-1b7c-11f0-9ffb-bf95429c2676;
+ Thu, 17 Apr 2025 13:12:09 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53HBB0dU3967739
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Thu, 17 Apr 2025 04:11:01 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,225 +40,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27d142d0-1b77-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744885902; x=1745490702; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OZD866hPPvpIHOORCAo/z+NWDbdq3M9E/7/XIxPCvj0=;
-        b=fSUyiI6DFzdxo5mUUK9Ndn/cPkKdVsCFsUUOTdBsJwnRQw7H3k4ItJoD3UeF9eHpxw
-         eVDjesf6y0Kq7xxVxjFhlEoCC5lajCPjUf9QUaiywxf06LCsWzHG9a7TdKNE3aKyNxq2
-         wabCcpIOF+WYpDyxzY81abvYlrLF+KSIvTVEnmuD6A9T2cfBh1zlekrUEnBZQrJ3oG59
-         YSis0UR/nTQU3H2QePOk8HPeMZNcrgCEIeoJLi/LMZgKMfUBPSXDV+TvbOQirjypRizH
-         Mp2eTTS9chTjMBGVA6IvQBPC6+DZi/nlz7TeTxnsRw7R62XFmzqLq6XYPCljo2s1WmwM
-         V2vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744885903; x=1745490703;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=OZD866hPPvpIHOORCAo/z+NWDbdq3M9E/7/XIxPCvj0=;
-        b=UP2WQITaLqS02YqjGaYJU+wx9z4XRfVlXHrnpK4lFk0ZuF/Bp7LSP3DkOYtnUAh7C4
-         bFiSeNCdKtdTmUIVpX2y+4YM2CeDxESKq21a/LV3ZppzsZKIhzpWrjgHoCqBkhdjSM05
-         B0vXF5EFcNULpQ1lneqMWamfPJYqeXDeuKq9ZoknulmnpqL0gPrzZSZ/LZZX9g9+voTR
-         nC3AkGKnnPk9roCyIFaTOV12vk0ZI92eUFbZdne1f3YHebEbVIR/82z4RgCV0TBCAojQ
-         pVhPIC31AW7lMiCbIeT7KtKRCA1eBErN6FwWb5ijfTAkSe4sdrZZm7yoCUhBXMxugXfd
-         1n/A==
-X-Forwarded-Encrypted: i=1; AJvYcCU5Rd2ta2kyBjTNYVVu675NL5sDb5pZAUqs6R2AHmLZtpqVHqOmkyvh7zEmIIr0d95/aJYSohf9+0I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwKQMxU5fR/K7D4WbiWkxAj21dbBZ/MdrrIzgq8StdupwQxeH15
-	9VXaMyCOR1DABlLDCG2LtctGD9zELGMuokALovf6uRmJOlIrq0ZS
-X-Gm-Gg: ASbGncu0QBVgJig26gp7TOBqfuQ0Af/ZRn1gdWBBHINO+YkvlidyIdMnL8KIVxcnQ2e
-	yJMIIJBgs/M6W2kYxiNpaFh7LEH2Ih/MUcaf4RSP4Xvuj4RIHhna7uk0l/966EI2Oi3Y6RPfl0H
-	nXtbjzdhnRCgK+qZP3jrHib2zGVIw9UspaHYt9jE+BgcshY9Ikp9RK0hPfO1JV0IXfrvxW+/9ft
-	VWjJO5uHQlco2uZY2wlf8NOenkfli8JfcOr42QdrwvtjY3qIsBO5oV8v8HFNyk00nD4SOX4VDUp
-	XwJ+gMAes5apBhMB6dD3kNN0jgEtExcUSXlPDIt7Ty7FQ0yYGv3FyYug/Nw1gk8k3Pxg4+XmKLY
-	t37fQh41EWzOshz+q
-X-Google-Smtp-Source: AGHT+IFxNif8IfO+mkb4k4lIKxd6bJ/NrRxJIBctPBqdIm6yxm0EjW7KquKNKOXY6aupEDxk2Z0DpQ==
-X-Received: by 2002:a17:907:788:b0:aca:cb18:9ad0 with SMTP id a640c23a62f3a-acb42aeda26mr486931966b.45.1744885902394;
-        Thu, 17 Apr 2025 03:31:42 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------xIhZXccIN8RvXdn3rwYPOpQZ"
-Message-ID: <4c16e34b-10b1-4320-b031-e26a883426a0@gmail.com>
-Date: Thu, 17 Apr 2025 12:31:41 +0200
+X-Inumbo-ID: cd389fe3-1b7c-11f0-9ffb-bf95429c2676
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53HBB0dU3967739
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025032001; t=1744888264;
+	bh=zKR49UWsXQlKIMA1VnL+BkqgO+3iF8iLPVDDfF2KoTE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZIADA/NBWFdjMUgJTKpv9M9Wy2YG9IZEPFByL8wYabsxbBoRuZfKRlm/KXHCD1Dct
+	 p+vwf14YsIuc+VHp9bDfack/1J0ZEDi3/LMHCo05xDW9TD4JrJ0GM5fVVA/piqxPhD
+	 UyV8JWSU0hR2PMwkuYuHLcqgii53bDcW9KmA0ITTnJZG4RxQYf1Gr8LMHk+DKpR9xo
+	 v/L3GNQ4ChUSYncpwgOQsPYYlB/v/0qZd/JiW4t/kLzx/6ZLdqruZ97wB6zyl1mziC
+	 tKwEE+12hM3fNBR36tO17t9Oq8pShTsP2t1ihwsRhIESP8RHTn9IcCLiPfhw0jeR7+
+	 9wRv9KyfJmA3A==
+Message-ID: <edbeb41d-3c38-4778-9a7c-255edc7cd5fb@zytor.com>
+Date: Thu, 17 Apr 2025 04:10:59 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 14/14] xen/riscv: add basic UART support
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <3e96851da8751ac17cbf0cb5a649c0d86259460a.1744126720.git.oleksii.kurochko@gmail.com>
- <49889d22-55b6-4dd4-b497-13b50d19d607@suse.com>
+Subject: Re: [RFC PATCH v1 13/15] x86/msr: Use the alternatives mechanism to
+ read MSR
+To: Francesco Lavra <francescolavra.fl@gmail.com>
+Cc: acme@kernel.org, adrian.hunter@intel.com, ajay.kaher@broadcom.com,
+        alexander.shishkin@linux.intel.com, andrew.cooper3@citrix.com,
+        bcm-kernel-feedback-list@broadcom.com, boris.ostrovsky@oracle.com,
+        bp@alien8.de, bpf@vger.kernel.org, dave.hansen@linux.intel.com,
+        decui@microsoft.com, haiyangz@microsoft.com, hpa@zytor.com,
+        irogers@google.com, jgross@suse.com, jolsa@kernel.org,
+        kan.liang@linux.intel.com, kvm@vger.kernel.org, kys@microsoft.com,
+        linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
+        linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-perf-users@vger.kernel.org, linux-pm@vger.kernel.org,
+        llvm@lists.linux.dev, luto@kernel.org, mark.rutland@arm.com,
+        mingo@redhat.com, namhyung@kernel.org, pbonzini@redhat.com,
+        peterz@infradead.org, seanjc@google.com, tglx@linutronix.de,
+        tony.luck@intel.com, virtualization@lists.linux.dev,
+        vkuznets@redhat.com, wei.liu@kernel.org, x86@kernel.org,
+        xen-devel@lists.xenproject.org
+References: <0f4f2ed70829fffb2eb816e34e26be22681705a5.camel@gmail.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <49889d22-55b6-4dd4-b497-13b50d19d607@suse.com>
-
-This is a multi-part message in MIME format.
---------------xIhZXccIN8RvXdn3rwYPOpQZ
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <0f4f2ed70829fffb2eb816e34e26be22681705a5.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+On 4/14/2025 10:13 AM, Francesco Lavra wrote:
+> This works only if this function has been called directly (e.g. via
+> `call asm_xen_write_msr`), but doesn't work with alternative call types
+> (like indirect calls). Not sure why one might want to use an indirect
+> call to invoke asm_xen_write_msr, but this creates a hidden coupling
+> between caller and callee.
+> I don't have a suggestion on how to get rid of this coupling, other
+> than setting ipdelta in _ASM_EXTABLE_FUNC_REWIND() to 0 and adjusting
+> the _ASM_EXTABLE_TYPE entries at the call sites to consider the
+> instruction that follows the function call (instead of the call
+> instruction) as the faulting instruction (which seems pretty ugly, at
+> least because what follows the function call could be an instruction
+> that might itself fault). But you may want to make this caveat explicit
+> in the comment.
 
-On 4/15/25 6:03 PM, Jan Beulich wrote:
-> On 08.04.2025 17:57, Oleksii Kurochko wrote:
->> --- a/xen/arch/riscv/setup.c
->> +++ b/xen/arch/riscv/setup.c
->> @@ -4,11 +4,16 @@
->>   #include <xen/bug.h>
->>   #include <xen/bootfdt.h>
->>   #include <xen/compile.h>
->> +#include <xen/console.h>
->>   #include <xen/device_tree.h>
->>   #include <xen/init.h>
->>   #include <xen/irq.h>
->> +#include <xen/keyhandler.h>
-> Why's this one needed?
-
-It isn't needed anymore, just missed to drop.
-I thought that it would be needed to test UART working fine by checking if Ctrl+AAA is working.
-
->
->>   #include <xen/mm.h>
->> +#include <xen/percpu.h>
->> +#include <xen/serial.h>
->>   #include <xen/shutdown.h>
->> +#include <xen/timer.h>
->>   #include <xen/vmap.h>
->>   #include <xen/xvmalloc.h>
->>   
->> @@ -73,6 +78,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
->>   
->>       remove_identity_mapping();
->>   
->> +    percpu_init_areas();
-> I'll trust you that it's needed now, but the addition looks unrelated here,
-> and also isn't mentioned as intentional in the description.
-
-I had  this patch when I used polling mode for UART, for this case percpu is used to receive
-serial port info:
-   struct serial_port *port = this_cpu(poll_port);
-
-So percpu isn't really needed at the current development state. I'll drop this change or as an option
-move to separate patch.
-
->> --- a/xen/drivers/char/Kconfig
->> +++ b/xen/drivers/char/Kconfig
->> @@ -3,7 +3,6 @@ config GENERIC_UART_INIT
->>   
->>   config HAS_NS16550
->>   	bool "NS16550 UART driver" if ARM
->> -	default n if RISCV
->>   	default y
-> Just to double-check: Unlike Arm you don't want this to be user-(un)selectable
-> on RISC-V?
-
-Thanks for noticing that. I want to have this selectable by user. I will add RISC-V here.
-
-~ Oleksii
-
---------------xIhZXccIN8RvXdn3rwYPOpQZ
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/15/25 6:03 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:49889d22-55b6-4dd4-b497-13b50d19d607@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 08.04.2025 17:57, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -4,11 +4,16 @@
- #include &lt;xen/bug.h&gt;
- #include &lt;xen/bootfdt.h&gt;
- #include &lt;xen/compile.h&gt;
-+#include &lt;xen/console.h&gt;
- #include &lt;xen/device_tree.h&gt;
- #include &lt;xen/init.h&gt;
- #include &lt;xen/irq.h&gt;
-+#include &lt;xen/keyhandler.h&gt;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Why's this one needed?</pre>
-    </blockquote>
-    <pre>It isn't needed anymore, just missed to drop.
-I thought that it would be needed to test UART working fine by checking if Ctrl+AAA is working.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:49889d22-55b6-4dd4-b497-13b50d19d607@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre"> #include &lt;xen/mm.h&gt;
-+#include &lt;xen/percpu.h&gt;
-+#include &lt;xen/serial.h&gt;
- #include &lt;xen/shutdown.h&gt;
-+#include &lt;xen/timer.h&gt;
- #include &lt;xen/vmap.h&gt;
- #include &lt;xen/xvmalloc.h&gt;
- 
-@@ -73,6 +78,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
- 
-     remove_identity_mapping();
- 
-+    percpu_init_areas();
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I'll trust you that it's needed now, but the addition looks unrelated here,
-and also isn't mentioned as intentional in the description.</pre>
-    </blockquote>
-    <pre>I had  this patch when I used polling mode for UART, for this case percpu is used to receive
-serial port info:
-  struct serial_port *port = this_cpu(poll_port);
-
-So percpu isn't really needed at the current development state. I'll drop this change or as an option
-move to separate patch.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:49889d22-55b6-4dd4-b497-13b50d19d607@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/drivers/char/Kconfig
-+++ b/xen/drivers/char/Kconfig
-@@ -3,7 +3,6 @@ config GENERIC_UART_INIT
- 
- config HAS_NS16550
- 	bool "NS16550 UART driver" if ARM
--	default n if RISCV
- 	default y
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Just to double-check: Unlike Arm you don't want this to be user-(un)selectable
-on RISC-V?</pre>
-    </blockquote>
-    <pre>Thanks for noticing that. I want to have this selectable by user. I will add RISC-V here.
-
-~ Oleksii
-</pre>
-  </body>
-</html>
-
---------------xIhZXccIN8RvXdn3rwYPOpQZ--
+Good idea, will state that in the comment.
 
