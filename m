@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F280A921B3
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 17:32:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.958134.1351084 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E608AA921CB
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 17:39:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.958148.1351093 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5REG-0004ee-9x; Thu, 17 Apr 2025 15:32:40 +0000
+	id 1u5RKP-0005H1-U5; Thu, 17 Apr 2025 15:39:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 958134.1351084; Thu, 17 Apr 2025 15:32:40 +0000
+Received: by outflank-mailman (output) from mailman id 958148.1351093; Thu, 17 Apr 2025 15:39:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5REG-0004c7-7J; Thu, 17 Apr 2025 15:32:40 +0000
-Received: by outflank-mailman (input) for mailman id 958134;
- Thu, 17 Apr 2025 15:32:38 +0000
+	id 1u5RKP-0005Eb-RU; Thu, 17 Apr 2025 15:39:01 +0000
+Received: by outflank-mailman (input) for mailman id 958148;
+ Thu, 17 Apr 2025 15:38:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nsoM=XD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u5REE-0004bz-E8
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 15:32:38 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1u5RKN-0005EV-SP
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 15:38:59 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 30631950-1ba1-11f0-9ffb-bf95429c2676;
- Thu, 17 Apr 2025 17:32:36 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3913b539aabso628769f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 08:32:36 -0700 (PDT)
+ id 139dbf6a-1ba2-11f0-9ffb-bf95429c2676;
+ Thu, 17 Apr 2025 17:38:57 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-39149bccb69so976670f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 08:38:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6f2c2c21c61sm236356d6.109.2025.04.17.08.32.34
+ 6a1803df08f44-6f2c2af1299sm433766d6.17.2025.04.17.08.38.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Apr 2025 08:32:35 -0700 (PDT)
+ Thu, 17 Apr 2025 08:38:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30631950-1ba1-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 139dbf6a-1ba2-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744903956; x=1745508756; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744904337; x=1745509137; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gBrsL2wVw/vZseBqguFB9TIgJIzVN25yiOiPPaa3WYc=;
-        b=DgAcHWflgrUyfGTV/HBGVKiy2Ehorn19fXJKPgBZHULqqwrL+oxX01Xz3Fn3LD6SSW
-         oX/qwIQ4brTuEsnBbjp5L8RfAoskajGDY1rE280KLHHohhR611ByACpT3jFfKeKtI0ys
-         vrGmR/DCOhWPrEDjlz5vol4AZYbvy1f91bAHYVqdhuxoTQ3c25aqYKDp94DvZEXIQlhT
-         QZAygFOUzHv5bnP/KVXGQ74rFUWmTIShqxdi8aqWu/oX9M1P1X3aEBex8rjEklqrvh5a
-         v4T1tb3hIaQlnyPhL5HvOPQzFfcHCLyFd+IF/1x/ocKuRrzgx27jLyoTod2Yx0GSMt4w
-         iU9w==
+        bh=h2UmYj8KoPb0wVajq5s+Cae72/Wscsr/94eHCJIM54Y=;
+        b=CGPKletn1wyi3DeBVTV+RW/+MbXvCQEFJp66JOd1p9PjJXEQfg8wU2f7hfR3vQ2l0N
+         GrB8xElg96mQcBXJsJPliMADe2STpAj991C/rvQ+j7dy/JzN08SenuhT8RXfMOVU6Vya
+         Kd1kIB4NZp2Qzqo8Cudyz2VwX76RNcCQZlwY+2t1JqEf/SuCyjHy+zH+5b1e+qCgidTm
+         KJdNrAdIPMpB9gCj2A4qQ+wIGJxlLKnFaEFh2Q6OsV7JHhsLkM1s8GxUiofms2iE1zUb
+         9wD7RXcfss5twmJHI0gapZ7uUWD9Do/1xlLBNRfoi8nNPghjz+w0+w1BiczzSyV4hv3h
+         zJFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744903956; x=1745508756;
+        d=1e100.net; s=20230601; t=1744904337; x=1745509137;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gBrsL2wVw/vZseBqguFB9TIgJIzVN25yiOiPPaa3WYc=;
-        b=bgAZOONerKWPs7SzDN+fnXto94DmDJJTjuggvP4q2tMQi+jg0ONkb95caKQMNv48UZ
-         VvNGOcH5xlwmXZKxwwWsf0wOlvKAr7LZH854SnLtN1qtAF4bPkkwDyumRfOcpDzh8FDS
-         Zze3Z4FDkVwHYUTrZ82N9XlQZJteCDN83REqrsSCNhDqYIMl74CO61AKyygAtlqXRYkd
-         rwMI6z4SrlfhG9/4yisUi/2i/l8cSbXzZDF0REYkuyOVs3+LgzyR7pYWdJW4jq+9+BRu
-         5j0aQpfUtRIzx2vq3dFUlo5QSB7E9fSOkG/O2MFiM4dEPVqNFKQP+9WcgtTBAofUALV7
-         Z6iw==
-X-Forwarded-Encrypted: i=1; AJvYcCWTgFSbIBJCZRB5W7h65B0w0u8GTnAoC/QKWvMXAyRGBlvZcZeqAbpVgEIjXUwB/XomP0p4qs5+3Ys=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz3AX8S9n3j06COG39IV+8dWc6gVxUQEWvgePMzbVaOSgo5qcFk
-	IwtKk/e47c/KV0KNMsQ7ghCWAeQdPU5I1SWKtW7gCHr0T0O4fbFo/KwY7LvpYA==
-X-Gm-Gg: ASbGncvmbfU3i4M9FbY0DwYqO5vK3SKHJCKmRvjsDgfbUVPKWUTiiGsQoALd1yWQAUc
-	IM6hpQKfL43sV582F1PwxLGwWtZcKU455JH6SpvmvzdiHw1ktIvycNpXbUvvdnfrz2YDEJSWeS8
-	Xp8J8/zwSiDVZoJIBEHaAr3PXtgOkYbQq2IyeTYSNRMXSKQMYslUS8P+3afyEj0ygZNS/LQliVt
-	TK8e4M8HLONkO3avu29fXf4cXpVU4DZCiVSy5WLSpnukqM2Pu7++9t837RhVbPTZyZheKi4LOrd
-	zrtyd58tosxdu5UJ/Y61m1dTzrZCvI7cznCxBCyPBZ0HeVF4KnwY7Jx5ThcYde4tspXTx1dDdxe
-	ADbGwk5GwMDF823EphocepxeqKw==
-X-Google-Smtp-Source: AGHT+IEUot5Rn4K8oA+wDcuVm3BER8FxURR4y/IuemGBXCRymmnDb6evtIOLzCEsW7JakfKcRmNuZw==
-X-Received: by 2002:a05:6000:40cb:b0:391:4559:8761 with SMTP id ffacd0b85a97d-39ee5b98edamr5653890f8f.36.1744903955967;
-        Thu, 17 Apr 2025 08:32:35 -0700 (PDT)
-Message-ID: <dfedd638-da52-42f5-b130-ad8f393c0659@suse.com>
-Date: Thu, 17 Apr 2025 17:32:32 +0200
+        bh=h2UmYj8KoPb0wVajq5s+Cae72/Wscsr/94eHCJIM54Y=;
+        b=HA1SgGbyZKEEzg3/67CXBTDJBaArYiczeNZv6WUdd+Juz8orfoEprx2NPkfP61wYgw
+         yoYQ86udd+wjf2HBrtFVnWEz/MtsQy9wsBgcpZn4ppfRzF3S2HVTp3MWnXO93toBvh57
+         3yo4JONsP3yoEKjxtSmJb6tUMWdkyMWj6f8mWTNBbQYEgXPilWW/OgMhSJ/2RyOOBc0B
+         3oLQoqEQKJRLDv2E2g+GtJBgNITws4mMuVxw2Bc0focsiD3fgxiYnOhlzrmcajNpWKXz
+         y7IMSMqrIyQ7jZbSinE5pJEAkJ330w0LJJ/xjeGGRlRVsEowUnWEWlB0Daq5W3yeMZpL
+         vrQQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXdkmWWSB4fLTJP8Brck/mS8v8bXL1aqw/VOKLPiq/3CPhD9qdMmMrmoNx/vEkeG+sLwR9EEOcHYNU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxDV384xWbESlR+PudahSbrZ3+JhOjwnPo3Ao/swzJIOxnwgmiD
+	ldHn8Mdg1+ndftSssTMlKSmxwLgG2FbHazMTJ8PERnrQ8ZRJR2T5ES16Uisfhw==
+X-Gm-Gg: ASbGncs9yiZqL9QunQFzc9Kk5QFRR8i1R5lNHI7GztdYD6PensZj+iToSyhaz7m41+S
+	vX8yGntLB5hwtaS3F0TQE5WIvjt2M1wOdAMDMS4bdXJYfkYyoMPI6KxeMXCtiWPr5QgcJNQgOvo
+	l8kpnThamVympju4BFdAQt1IgRWHm7Y0SXnijJy0E8g6ECdz0DbrCW3ll63DKl6XmBXAGIC1kg6
+	3O+vU1iaPnGtIK7a6jLyhITbcwb6AfE7hxl/jNGNIt9awd5fwO2pMvlyuPY/ZsxR6yi92ggsEvj
+	QxseUfY6XIlWGmMmNjLPQFndTCLxaiONPJWlyQHDYZj2DKuJ47Y42hAflzOMFbmm/JmAgG/O+FE
+	09o+Lj7eFdtFC8OgNH7KcWsfAyg==
+X-Google-Smtp-Source: AGHT+IE+rVeLyBgS8fEpsG121iV+Wie8oT62/toqCMA2k3eQ1iNe/thwLyc0Q+znFtd4tckDtTmQSQ==
+X-Received: by 2002:a05:6000:144f:b0:38f:6287:6474 with SMTP id ffacd0b85a97d-39ee5b15c87mr6139858f8f.15.1744904337231;
+        Thu, 17 Apr 2025 08:38:57 -0700 (PDT)
+Message-ID: <f71bc0f8-8de1-4ecd-a2c0-a420e991e429@suse.com>
+Date: Thu, 17 Apr 2025 17:38:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] xen/io: provide helpers for multi size MMIO
- accesses
+Subject: Re: [PATCH v3 2/4] x86/hvm: fix handling of accesses to partial r/o
+ MMIO pages
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20250417152514.13702-1-roger.pau@citrix.com>
- <20250417152514.13702-2-roger.pau@citrix.com>
+ <20250417152514.13702-3-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,24 +118,93 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250417152514.13702-2-roger.pau@citrix.com>
+In-Reply-To: <20250417152514.13702-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 17.04.2025 17:25, Roger Pau Monne wrote:
-> Several handlers have the same necessity of reading or writing from or to
-> an MMIO region using 1, 2, 4 or 8 bytes accesses.  So far this has been
-> open-coded in the function itself.  Instead provide a new set of handlers
-> that encapsulate the accesses.
-> 
-> Since the added helpers are not architecture specific, introduce a new
-> generic io.h header.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> --- a/xen/arch/x86/hvm/emulate.c
+> +++ b/xen/arch/x86/hvm/emulate.c
+> @@ -370,7 +370,15 @@ static int hvmemul_do_io(
+>          /* If there is no suitable backing DM, just ignore accesses */
+>          if ( !s )
+>          {
+> -            if ( is_mmio && is_hardware_domain(currd) )
+> +            if ( is_mmio && is_hardware_domain(currd) &&
+> +                 /*
+> +                  * Do not attempt to fixup write accesses to r/o MMIO regions,
+> +                  * they are expected to be terminated by the null handler
+> +                  * below.
+> +                  */
+> +                 (!rangeset_contains_singleton(mmio_ro_ranges,
+> +                                               PFN_DOWN(addr)) ||
+> +                  dir == IOREQ_READ) )
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+These two would better be swapped, for the cheap one to be done first.
 
+> --- /dev/null
+> +++ b/xen/arch/x86/hvm/mmio.c
+> @@ -0,0 +1,125 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * MMIO related routines.
+> + *
+> + * Copyright (c) 2025 Cloud Software Group
+> + */
+> +
+> +#include <xen/io.h>
+> +#include <xen/mm.h>
+> +
+> +#include <asm/p2m.h>
+> +
+> +static int cf_check subpage_mmio_accept(struct vcpu *v, unsigned long addr)
+> +{
+> +    p2m_type_t t;
+> +    mfn_t mfn = get_gfn_query_unlocked(v->domain, PFN_DOWN(addr), &t);
+> +
+> +    return !mfn_eq(mfn, INVALID_MFN) && t == p2m_mmio_direct &&
+> +           subpage_mmio_find_page(mfn);
+> +}
+> +
+> +/*
+> + * The guest has read access to those regions, and consequently read accesses
+> + * shouldn't fault.  However read-modify-write operations may take this path,
+> + * so handling of reads is necessary.
+> + */
+> +static int cf_check subpage_mmio_read(
+> +    struct vcpu *v, unsigned long addr, unsigned int len, unsigned long *data)
+> +{
+> +    struct domain *d = v->domain;
+> +    unsigned long gfn = PFN_DOWN(addr);
+> +    p2m_type_t t;
+> +    mfn_t mfn;
+> +    struct subpage_ro_range *entry;
+> +    volatile void __iomem *mem;
+> +
+> +    *data = ~0UL;
+> +
+> +    if ( !IS_ALIGNED(len | addr, len) )
 
+What's the point of doing the | ? len can't be misaligned with itself?
+
+> --- a/xen/arch/x86/include/asm/mm.h
+> +++ b/xen/arch/x86/include/asm/mm.h
+> @@ -554,6 +554,18 @@ int cf_check mmio_ro_emulated_write(
+>      enum x86_segment seg, unsigned long offset, void *p_data,
+>      unsigned int bytes, struct x86_emulate_ctxt *ctxt);
+>  
+> +/* r/o MMIO subpage access handlers. */
+> +struct subpage_ro_range {
+> +    struct list_head list;
+> +    mfn_t mfn;
+> +    void __iomem *mapped;
+> +    DECLARE_BITMAP(ro_elems, PAGE_SIZE / MMIO_RO_SUBPAGE_GRAN);
+> +};
+> +struct subpage_ro_range *subpage_mmio_find_page(mfn_t mfn);
+> +void __iomem *subpage_mmio_map_page(struct subpage_ro_range *entry);
+
+I notice you didn't move the __iomem, which - as indicated - I agree with,
+but Andrew didn't. Did you sort this with him privately?
+
+Jan
 
