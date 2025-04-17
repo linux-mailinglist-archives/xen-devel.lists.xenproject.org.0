@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96D01A91842
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 11:48:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.957278.1350434 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C31B1A918CA
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 12:07:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.957292.1350444 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5Lq8-0008QF-6m; Thu, 17 Apr 2025 09:47:24 +0000
+	id 1u5M8n-0003jQ-Lw; Thu, 17 Apr 2025 10:06:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 957278.1350434; Thu, 17 Apr 2025 09:47:24 +0000
+Received: by outflank-mailman (output) from mailman id 957292.1350444; Thu, 17 Apr 2025 10:06:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5Lq8-0008Ns-3u; Thu, 17 Apr 2025 09:47:24 +0000
-Received: by outflank-mailman (input) for mailman id 957278;
- Thu, 17 Apr 2025 09:47:23 +0000
+	id 1u5M8n-0003hy-JA; Thu, 17 Apr 2025 10:06:41 +0000
+Received: by outflank-mailman (input) for mailman id 957292;
+ Thu, 17 Apr 2025 10:06:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nsoM=XD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u5Lq7-0008Nm-GB
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 09:47:23 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ (envelope-from <SRS0=s05F=XD=nppct.ru=sdl@srs-se1.protection.inumbo.net>)
+ id 1u5M8l-0003hs-6o
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 10:06:40 +0000
+Received: from mail.nppct.ru (mail.nppct.ru [195.133.245.4])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f30af69b-1b70-11f0-9ffb-bf95429c2676;
- Thu, 17 Apr 2025 11:47:17 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43ce70f9afbso4916755e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 02:47:17 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-30861212fc9sm3204782a91.26.2025.04.17.02.47.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Apr 2025 02:47:16 -0700 (PDT)
+ id a53bf121-1b73-11f0-9ffb-bf95429c2676;
+ Thu, 17 Apr 2025 12:06:36 +0200 (CEST)
+Received: from mail.nppct.ru (localhost [127.0.0.1])
+ by mail.nppct.ru (Postfix) with ESMTP id B1D331C0E85
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 13:06:28 +0300 (MSK)
+Received: from mail.nppct.ru ([127.0.0.1])
+ by mail.nppct.ru (mail.nppct.ru [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id QL2QoR6GtQbS for <xen-devel@lists.xenproject.org>;
+ Thu, 17 Apr 2025 13:06:20 +0300 (MSK)
+Received: from [172.16.0.185] (unknown [176.59.174.214])
+ by mail.nppct.ru (Postfix) with ESMTPSA id E7C761C0B18;
+ Thu, 17 Apr 2025 13:06:15 +0300 (MSK)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,248 +46,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f30af69b-1b70-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744883237; x=1745488037; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AEcYRdFH8NYvu8BJb8HAvA6pzBIMSPi1WtfzutwpNA8=;
-        b=CaZawYgD+1fmTHOZa7UtnA8vkAYTuJt+HIVrAVyXD7+mWul3OP6NjhfjZY6Ob1eFMQ
-         uejHk7dalLdm82iRTsrFPlTbl5aZloyZgDdwjyNCseMv6CFi2/OONt29GKExFa8bvgVY
-         8xIsM1t7PVaT05H6i9y3yVXQSd796al8iQQbPA1H/p4TtDdPwmmWb9Pzf9O3knPBrvV/
-         NdSCrFpBo5WI8tNmYl93Iwwf9A258rzNKv+9DUhFzjgxRCLVipsA8I/9ir/CVoovmV/O
-         0ksnE0txZcnEpf8xdco+CfmBhfPDMlVN1HFbKsc7vGekyQxq5MbAQblE7Q4W0vF80Vg7
-         V7FA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744883237; x=1745488037;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AEcYRdFH8NYvu8BJb8HAvA6pzBIMSPi1WtfzutwpNA8=;
-        b=soHn8ew1/QD5VLFzrb4CFgZ+etSMU1AddI4e3Y68EmkvJPZuHk5U2BE/ujs/gdW7wJ
-         5zunWA2vkNeqJHLxvO9GESmKCw6/UP/ARbr6vXdpCHJ7enU87LO3r9KVIxX/3/nrtBBl
-         d/ukamnYcVMSBINyvEyKfbOumVD2+T0jqPkOGZ7I3N4m/biSwsNLRtOI1rSrSIl5uARa
-         lSByJBmrlQv/sDQ7tUf+GoRKoNi2OuZq9+CXmLd8FiWDa4ONdccqBwrzXJPPaQjbd2Co
-         q7kHKu6qbUKKOqA9yaQWIB9koGwDG+vFArdO0fDtcdWEWGQgSYFRXwxmRy0fDxDfbo1w
-         tJkg==
-X-Forwarded-Encrypted: i=1; AJvYcCVt74cK6u8VP8Xnuy+viwsxKDfexGb9uSnLyst60nwbHD2Vk0kYeoKNsa1wO7llbK90efEO2+EQ7qE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy954liIW4nTxqdklgiM4nFVfpSV5H2xkxStdTtrHooed65P+8m
-	cPXysKX8D7hAObRnohuTxWtNFDpCZQZp/6n2l36/+AFt+3LU+64cnCdjOBUDCQ==
-X-Gm-Gg: ASbGnctW7xBzt6VTykE2x+1/0JLT8uSvvWjMJs+FLt+Gt2X8jEmawUkixhyXOE/EfEo
-	9mBQVVkbtv1JdEvaiR4T5qhHj9YrnqBjmeXDJgx/FuY9Ksyta5CXjw9CPr+ibknlqUWLNs6vVU2
-	KZ8nmF8I+8JboLeTvcZSR/faaFRXdf9yRKBtBmwPeoV2tRy08iXRAIWDX40EVOurqk60U7/rLKa
-	ofBEAqMqCQ/QV0AYEAqbD+xfHsz9nyRymhbuFXlLLXc24gP7b1W871TwBVqjNrnP09IJ6+PONTs
-	HjCnGm4CpQIkgVyQpxIX1CNlQ5jYnsHIco3BR14ADaG1X0fyk57WJ+s5FiRIZKcCjNguhBL4nMu
-	vlqsApg47//CU8qTGfVAz7VmFAn9eD3LvKhGo
-X-Google-Smtp-Source: AGHT+IGOqo45sMG5IOvHDIhNCqs8pxfCR9oVtiULG61Z7T3VnMpR7BRRgpl7ib+S0oJAAQQa8eS1Mw==
-X-Received: by 2002:a5d:5c84:0:b0:39e:cbc7:ad45 with SMTP id ffacd0b85a97d-39ee5bafc92mr3844345f8f.52.1744883237016;
-        Thu, 17 Apr 2025 02:47:17 -0700 (PDT)
-Message-ID: <7c5c1e59-248f-4b62-9e15-fdb692fd1c7c@suse.com>
-Date: Thu, 17 Apr 2025 11:47:07 +0200
+X-Inumbo-ID: a53bf121-1b73-11f0-9ffb-bf95429c2676
+Authentication-Results: mail.nppct.ru (amavisd-new); dkim=pass (1024-bit key)
+	reason="pass (just generated, assumed good)" header.d=nppct.ru
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nppct.ru; h=
+	in-reply-to:from:from:content-language:references:to:subject
+	:subject:user-agent:mime-version:date:date:message-id
+	:content-type:content-type; s=dkim; t=1744884380; x=1745748381;
+	 bh=Qwhi2s63HsxRtHICbBpWGt5b2QqGDsQZCyOZuPfERcs=; b=aF1PMShgR4s2
+	rIdnPPryN3jLcI2o7KDlTCVNW6frRFDm06VKAdeq0FvKgdSD32R90XC1ZDZRpRLq
+	E+TtslvjJSCsJUEKG+BfMzm6czCCPrOvoTShDhXkHJMntAZg36KmTWkzdwQ35qOv
+	fYA5A5Y+qzGd5VB66Hl7i9kOXzRqjas=
+X-Virus-Scanned: Debian amavisd-new at mail.nppct.ru
+Content-Type: multipart/alternative;
+ boundary="------------bqF0MSv5WJ0c3whaFFPtK5rv"
+Message-ID: <8264519a-d58a-486e-b3c5-dba400658513@nppct.ru>
+Date: Thu, 17 Apr 2025 13:06:14 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/domain: unify domain ID allocation
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250416061509.934220-1-dmukhin@ford.com>
+Subject: Re: [PATCH] xen-netfront: handle NULL returned by
+ xdp_convert_buff_to_frame()
+To: Juergen Gross <jgross@suse.com>, Jakub Kicinski <kuba@kernel.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, xen-devel@lists.xenproject.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ lvc-project@linuxtesting.org, stable@vger.kernel.org
+References: <20250414183403.265943-1-sdl@nppct.ru>
+ <20250416175835.687a5872@kernel.org>
+ <fa91aad9-f8f3-4b27-81b3-4c963e2e64aa@nppct.ru>
+ <0c29a3f9-9e22-4e44-892d-431f06555600@suse.com>
+ <452bac2e-2840-4db7-bbf4-c41e94d437a8@nppct.ru>
+ <ed8dec2a-f507-49be-a6f3-fb8a91bfef01@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250416061509.934220-1-dmukhin@ford.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Alexey <sdl@nppct.ru>
+In-Reply-To: <ed8dec2a-f507-49be-a6f3-fb8a91bfef01@suse.com>
 
-On 16.04.2025 08:15, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> Unify the logic of domain ID allocation, so that both the initial domain
-> creation and the usage by domctl use the same helper function across
-> architectures (Arm and x86).
-> 
-> Wrap the domain ID allocation as an arch-independent function domid_alloc() in
-> common/domain.c.
-> 
-> Allocation algorithm:
-> - If an explicit domain ID is provided, verify its availability and
->   use it if ID is unused;
-> - Otherwise, perform an exhaustive search for the first available ID
->   within the [0..DOMID_FIRST_RESERVED) range, excluding hardware_domid.
-> 
-> Move the is_free_domid() helper closer to domid_alloc(). Simplify
-> is_free_domid() by removing the domain ID range check, as the ID is now
-> guaranteed to be within the valid range. Additionally, update the predicate to
-> return a bool value instead of an int.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+This is a multi-part message in MIME format.
+--------------bqF0MSv5WJ0c3whaFFPtK5rv
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Please can you clarify whether this is intended to be no functional change
-(as far as one would be able to observe from the outside)? (It isn't, and
-when it isn't, the behavioral change needs justifying. Which I fear you
-won't be able to, in which case it needs undoing. Not using the first
-unused ID is a deliberate property of the present allocation scheme.)
 
-> ---
->  xen/arch/arm/dom0less-build.c | 19 ++++++++-------
->  xen/arch/arm/domain_build.c   | 19 +++++++++++----
->  xen/arch/x86/setup.c          |  8 +++++--
->  xen/common/domain.c           | 45 +++++++++++++++++++++++++++++++++++
->  xen/common/domctl.c           | 45 ++++-------------------------------
->  xen/include/xen/domain.h      |  2 ++
->  6 files changed, 81 insertions(+), 57 deletions(-)
+On 17.04.2025 11:51, Juergen Gross wrote:
+> On 17.04.25 10:45, Alexey wrote:
+>>
+>> On 17.04.2025 10:12, Jürgen Groß wrote:
+>>> On 17.04.25 09:00, Alexey wrote:
+>>>>
+>>>> On 17.04.2025 03:58, Jakub Kicinski wrote:
+>>>>> On Mon, 14 Apr 2025 18:34:01 +0000 Alexey Nepomnyashih wrote:
+>>>>>>           get_page(pdata);
+>>>>> Please notice this get_page() here.
+>>>>>
+>>>>>>           xdpf = xdp_convert_buff_to_frame(xdp);
+>>>>>> +        if (unlikely(!xdpf)) {
+>>>>>> + trace_xdp_exception(queue->info->netdev, prog, act);
+>>>>>> +            break;
+>>>>>> +        }
+>>>> Do you mean that it would be better to move the get_page(pdata) 
+>>>> call lower,
+>>>> after checking for NULL in xdpf, so that the reference count is 
+>>>> only increased
+>>>> after a successful conversion?
+>>>
+>>> I think the error handling here is generally broken (or at least very
+>>> questionable).
+>>>
+>>> I suspect that in case of at least some errors the get_page() is 
+>>> leaking
+>>> even without this new patch.
+>>>
+>>> In case I'm wrong a comment reasoning why there is no leak should be
+>>> added.
+>>>
+>>>
+>>> Juergen
+>>
+>> I think pdata is freed in xdp_return_frame_rx_napi() -> __xdp_return()
+>
+> Agreed. But what if xennet_xdp_xmit() returns an error < 0?
+>
+> In this case xdp_return_frame_rx_napi() won't be called.
+>
+>
+> Juergen
 
-This suggests it's not clearly an improvement. And I'm heavily inclined
-to ask (also considering the above) that this simply be dropped.
+Agreed. There is no explicit freed pdata in the calling function
+xennet_get_responses(). Without this, the page referenced by pdata
+could be leaked.
 
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -2370,6 +2370,7 @@ void __init create_dom0(void)
->          .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
->      };
->      unsigned int flags = CDF_privileged;
-> +    domid_t domid;
->      int rc;
->  
->      /* The vGIC for DOM0 is exactly emulating the hardware GIC */
-> @@ -2394,19 +2395,27 @@ void __init create_dom0(void)
->      if ( !llc_coloring_enabled )
->          flags |= CDF_directmap;
->  
-> -    dom0 = domain_create(0, &dom0_cfg, flags);
-> +    rc = domid_alloc(get_initial_domain_id());
-> +    if ( rc < 0 )
-> +        panic("Error allocating domain ID %d (rc = %d)\n",
-> +              get_initial_domain_id(), rc);
-> +    domid = rc;
-> +
-> +    dom0 = domain_create(domid, &dom0_cfg, flags);
->      if ( IS_ERR(dom0) )
-> -        panic("Error creating domain 0 (rc = %ld)\n", PTR_ERR(dom0));
-> +        panic("Error creating domain %d (rc = %ld)\n", domid, PTR_ERR(dom0));
+I suggest:
 
-Up to here using domid is okay. However, ...
+case XDP_TX: -get_page(pdata); xdpf = xdp_convert_buff_to_frame(xdp); 
++if (unlikely(!xdpf)) { +trace_xdp_exception(queue->info->netdev, prog, 
+act); +break; +} +get_page(pdata); err = 
+xennet_xdp_xmit(queue->info->netdev, 1, &xdpf, 0); if (unlikely(!err)) 
+xdp_return_frame_rx_napi(xdpf); -else if (unlikely(err < 0)) +else if 
+(unlikely(err < 0)) { trace_xdp_exception(queue->info->netdev, prog, 
+act); +xdp_return_frame_rx_napi(xdpf); +} break; case XDP_REDIRECT: 
+get_page(pdata); err = xdp_do_redirect(queue->info->netdev, xdp, prog); 
+*need_xdp_flush = true; -if (unlikely(err)) +if (unlikely(err)) { 
+trace_xdp_exception(queue->info->netdev, prog, act); 
++__xdp_return(page_address(pdata), &xdp->mem, true, xdp); +} break;
 
->      if ( llc_coloring_enabled && (rc = dom0_set_llc_colors(dom0)) )
-> -        panic("Error initializing LLC coloring for domain 0 (rc = %d)\n", rc);
-> +        panic("Error initializing LLC coloring for domain %d (rc = %d)\n",
-> +              domid, rc);
->  
->      if ( alloc_dom0_vcpu0(dom0) == NULL )
-> -        panic("Error creating domain 0 vcpu0\n");
-> +        panic("Error creating domain %d vcpu0\n", domid);
->  
->      rc = construct_dom0(dom0);
->      if ( rc )
-> -        panic("Could not set up DOM0 guest OS (rc = %d)\n", rc);
-> +        panic("Could not set up guest OS for domain %d (rc = %d)\n",
-> +              domid, rc);
->  }
+--------------bqF0MSv5WJ0c3whaFFPtK5rv
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-... these all would better use %pd, when already being touched.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 17.04.2025 11:51, Juergen Gross
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:ed8dec2a-f507-49be-a6f3-fb8a91bfef01@suse.com">On
+      17.04.25 10:45, Alexey wrote:
+      <br>
+      <blockquote type="cite">
+        <br>
+        On 17.04.2025 10:12, Jürgen Groß wrote:
+        <br>
+        <blockquote type="cite">On 17.04.25 09:00, Alexey wrote:
+          <br>
+          <blockquote type="cite">
+            <br>
+            On 17.04.2025 03:58, Jakub Kicinski wrote:
+            <br>
+            <blockquote type="cite">On Mon, 14 Apr 2025 18:34:01 +0000
+              Alexey Nepomnyashih wrote:
+              <br>
+              <blockquote type="cite">          get_page(pdata);
+                <br>
+              </blockquote>
+              Please notice this get_page() here.
+              <br>
+              <br>
+              <blockquote type="cite">          xdpf =
+                xdp_convert_buff_to_frame(xdp);
+                <br>
+                +        if (unlikely(!xdpf)) {
+                <br>
+                +           
+                trace_xdp_exception(queue-&gt;info-&gt;netdev, prog,
+                act);
+                <br>
+                +            break;
+                <br>
+                +        }
+                <br>
+              </blockquote>
+            </blockquote>
+            Do you mean that it would be better to move the
+            get_page(pdata) call lower,
+            <br>
+            after checking for NULL in xdpf, so that the reference count
+            is only increased
+            <br>
+            after a successful conversion?
+            <br>
+          </blockquote>
+          <br>
+          I think the error handling here is generally broken (or at
+          least very
+          <br>
+          questionable).
+          <br>
+          <br>
+          I suspect that in case of at least some errors the get_page()
+          is leaking
+          <br>
+          even without this new patch.
+          <br>
+          <br>
+          In case I'm wrong a comment reasoning why there is no leak
+          should be
+          <br>
+          added.
+          <br>
+          <br>
+          <br>
+          Juergen
+          <br>
+        </blockquote>
+        <br>
+        I think pdata is freed in xdp_return_frame_rx_napi() -&gt;
+        __xdp_return()
+        <br>
+      </blockquote>
+      <br>
+      Agreed. But what if xennet_xdp_xmit() returns an error &lt; 0?
+      <br>
+      <br>
+      In this case xdp_return_frame_rx_napi() won't be called.
+      <br>
+      <br>
+      <br>
+      Juergen
+      <br>
+    </blockquote>
+    <p>Agreed. There is no explicit freed pdata in the calling function<br>
+      xennet_get_responses(). Without this, the page referenced by pdata<br>
+      could be leaked.</p>
+    <p>I suggest:</p>
+    <pre><span class="token unchanged"><span
+    class="token prefix unchanged"> </span><span class="token line">	case XDP_TX:
+</span></span><span class="token deleted-sign deleted"><span
+    class="token prefix deleted">-</span><span class="token line">		get_page(pdata);
+</span></span><span class="token unchanged"><span
+    class="token prefix unchanged"> </span><span class="token line">		xdpf = xdp_convert_buff_to_frame(xdp);
+</span></span><span class="token inserted-sign inserted"><span
+    class="token prefix inserted">+</span><span class="token line">		if (unlikely(!xdpf)) {
+</span><span class="token prefix inserted">+</span><span
+    class="token line">			trace_xdp_exception(queue-&gt;info-&gt;netdev, prog, act);
+</span><span class="token prefix inserted">+</span><span
+    class="token line">			break;
+</span><span class="token prefix inserted">+</span><span
+    class="token line">		}
+</span><span class="token prefix inserted">+</span><span
+    class="token line">		get_page(pdata);
+</span></span><span class="token unchanged"><span
+    class="token prefix unchanged"> </span><span class="token line">		err = xennet_xdp_xmit(queue-&gt;info-&gt;netdev, 1, &amp;xdpf, 0);
+</span><span class="token prefix unchanged"> </span><span
+    class="token line">		if (unlikely(!err))
+</span><span class="token prefix unchanged"> </span><span
+    class="token line">			xdp_return_frame_rx_napi(xdpf);
+</span></span><span class="token deleted-sign deleted"><span
+    class="token prefix deleted">-</span><span class="token line">		else if (unlikely(err &lt; 0))
+</span></span><span class="token inserted-sign inserted"><span
+    class="token prefix inserted">+</span><span class="token line">		else if (unlikely(err &lt; 0)) {
+</span></span><span class="token unchanged"><span
+    class="token prefix unchanged"> </span><span class="token line">			trace_xdp_exception(queue-&gt;info-&gt;netdev, prog, act);
+</span></span><span class="token inserted-sign inserted"><span
+    class="token prefix inserted">+</span><span class="token line">			xdp_return_frame_rx_napi(xdpf);
+</span><span class="token prefix inserted">+</span><span
+    class="token line">		}
+</span></span><span class="token unchanged"><span
+    class="token prefix unchanged"> </span><span class="token line">		break;
+</span><span class="token prefix unchanged"> </span><span
+    class="token line">	case XDP_REDIRECT:
+</span><span class="token prefix unchanged"> </span><span
+    class="token line">		get_page(pdata);
+</span><span class="token prefix unchanged"> </span><span
+    class="token line">		err = xdp_do_redirect(queue-&gt;info-&gt;netdev, xdp, prog);
+</span><span class="token prefix unchanged"> </span><span
+    class="token line">		*need_xdp_flush = true;
+</span></span><span class="token deleted-sign deleted"><span
+    class="token prefix deleted">-</span><span class="token line">		if (unlikely(err))
+</span></span><span class="token inserted-sign inserted"><span
+    class="token prefix inserted">+</span><span class="token line">		if (unlikely(err)) {
+</span></span><span class="token unchanged"><span
+    class="token prefix unchanged"> </span><span class="token line">			trace_xdp_exception(queue-&gt;info-&gt;netdev, prog, act);
+</span></span><span class="token inserted-sign inserted"><span
+    class="token prefix inserted">+</span><span class="token line">			__xdp_return(page_address(pdata), &amp;xdp-&gt;mem, true, xdp);
+</span><span class="token prefix inserted">+</span><span
+    class="token line">		}
+</span></span><span class="token unchanged"><span
+    class="token prefix unchanged"> </span><span class="token line">		break;</span></span></pre>
+  </body>
+</html>
 
-While touching all of these I think you also want to aim at making output
-match that %pd or %pv would result in, if they were usable at those places.
-
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1009,8 +1009,12 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->      if ( iommu_enabled )
->          dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
->  
-> -    /* Create initial domain.  Not d0 for pvshim. */
-> -    bd->domid = get_initial_domain_id();
-> +    /* Allocate initial domain ID. Not d0 for pvshim. */
-> +    bd->domid = domid_alloc(get_initial_domain_id());
-
-You're clipping the int return value to domid_t here, and thus ...
-
-> +    if ( bd->domid < 0 )
-
-... this condition will be always false. I'm surprised the compiler didn't
-flag this for you.
-
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -66,6 +66,51 @@ DEFINE_RCU_READ_LOCK(domlist_read_lock);
->  static struct domain *domain_hash[DOMAIN_HASH_SIZE];
->  struct domain *domain_list;
->  
-> +static inline bool is_free_domid(domid_t dom)
-> +{
-> +    struct domain *d = rcu_lock_domain_by_id(dom);
-> +
-> +    if ( d )
-> +        rcu_unlock_domain(d);
-> +
-> +    return !d;
-> +}
-> +
-> +/*
-> + * Allocate new domain ID based on the hint.
-> + *
-> + * If hint is outside of valid [0..DOMID_FIRST_RESERVED] range of IDs,
-
-That's [0, DOMID_FIRST_RESERVED), to be unambiguous. In C array initializer
-notation it would be [0 ... DOMID_FIRST_RESERVED - 1].
-
-> + * perform an exhaustive search of the first free domain ID excluding
-> + * hardware_domid.
-> + */
-> +int domid_alloc(int hint)
-
-I would have thought that I did comment already on the parameter being plain
-int.
-
-> +{
-> +    domid_t domid;
-> +
-> +    if ( hint >= 0 && hint < DOMID_FIRST_RESERVED )
-> +    {
-> +        if ( !is_free_domid(hint) )
-> +            return -EEXIST;
-> +
-> +        domid = hint;
-> +    }
-> +    else
-> +    {
-> +        for ( domid = 0; domid < DOMID_FIRST_RESERVED; domid++ )
-> +        {
-> +            if ( domid == hardware_domid )
-> +                continue;
-> +            if ( is_free_domid(domid) )
-> +                break;
-> +        }
-> +
-> +        if ( domid == DOMID_FIRST_RESERVED )
-> +            return -ENOMEM;
-
-There's no memory allocation here, so why ENOMEM? ENOSPC may already be slightly
-better.
-
-Jan
+--------------bqF0MSv5WJ0c3whaFFPtK5rv--
 
