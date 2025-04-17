@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DE17A91F4C
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 16:17:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.957782.1350814 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8637A91F63
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 16:21:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.957794.1350824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5Q31-0007uR-Oa; Thu, 17 Apr 2025 14:16:59 +0000
+	id 1u5Q6x-0001Ic-7j; Thu, 17 Apr 2025 14:21:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 957782.1350814; Thu, 17 Apr 2025 14:16:59 +0000
+Received: by outflank-mailman (output) from mailman id 957794.1350824; Thu, 17 Apr 2025 14:21:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5Q31-0007sJ-Lp; Thu, 17 Apr 2025 14:16:59 +0000
-Received: by outflank-mailman (input) for mailman id 957782;
- Thu, 17 Apr 2025 14:16:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u5Q6x-0001GV-4h; Thu, 17 Apr 2025 14:21:03 +0000
+Received: by outflank-mailman (input) for mailman id 957794;
+ Thu, 17 Apr 2025 14:21:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Dr0F=XD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1u5Q30-0007sD-62
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 14:16:58 +0000
-Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
- [2607:f8b0:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b423ffc-1b96-11f0-9ffb-bf95429c2676;
- Thu, 17 Apr 2025 16:16:52 +0200 (CEST)
-Received: by mail-pg1-x52a.google.com with SMTP id
- 41be03b00d2f7-af9a7717163so808551a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 07:16:52 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 98e67ed59e1d1-308613b2ff9sm3694940a91.30.2025.04.17.07.16.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Apr 2025 07:16:47 -0700 (PDT)
+ <SRS0=uBz4=XD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u5Q6v-0001GJ-He
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 14:21:01 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2fb18b8a-1b97-11f0-9eb0-5ba50f476ded;
+ Thu, 17 Apr 2025 16:21:00 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5edc07c777eso1083917a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 07:21:00 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5f36f527df0sm10294455a12.71.2025.04.17.07.20.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Apr 2025 07:20:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,101 +45,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b423ffc-1b96-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 2fb18b8a-1b97-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744899410; x=1745504210; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=FPUpq4tKujOJsjsuzDI/0YmmAG8lBDhI8Y8O12aKSJI=;
-        b=jRFlpc+5KRx2yayOXIuXfUnGhRM0XKQXrjY0PXZdiaB5jqaIVF32eD//g3crAK+zDe
-         VPWnvkY1I/R+mBpBxrR7jRh5lpZ3wibkJN7eunJA+16I4qo0jxdRi9+HJ7QxnwsUai62
-         +CXTBT4eiS57eEOlBdEg4rKg1bDDWnm0W+KNo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744899410; x=1745504210;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1744899660; x=1745504460; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FPUpq4tKujOJsjsuzDI/0YmmAG8lBDhI8Y8O12aKSJI=;
-        b=W7xRUznoKYBO8GMGUMsDW5COaxj0Jaw5HIj3dsWaREqYa6QqcCiIHqgJEaRY0oMAJi
-         AfTCQkH8AA014hlNNtxV5GdDKjKQe1u6/CAQgddOmG7qPAxWFcwF7/zFBgvMXRASOvXy
-         GzV296zi0f8WOcon0XSFHq5suSwkdzvcq8beL842Dh+lAMHLgzmNxz6ES/L0NqYli+PP
-         dQ9ezBjImWlsnwR0sTfg8NMuiOPPsiZjTi/IRLjNi75L0EaqOpBWsAOAnL79Vw/zHOW7
-         bbWIt4mBv0GSwPa0qhPvFUY2N9SbCpX1afMcX51+h/cnc4RZBAawZaI5wJiR5+UkjBRl
-         oqKg==
-X-Forwarded-Encrypted: i=1; AJvYcCUg1Eys6dAXP9FDKWpJ62avm9+iGXRT1aEz0dlyQoPTjsB9mGO0xlq1nak9mvE8F97iq+Mj6ODjunA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YycmymTJaXjSJvhPzOJXcq2Eg2+hTBu5eaBv6fgBPm416Jrk7Mj
-	DUHBSs8lKK5ZnnLHFUP9GLgJdiHdKyDrHnvNf/M9Q6PiVU4YcnNoYiV6wuWK6wU=
-X-Gm-Gg: ASbGncsZRoTs8o/HGhmQnHYTIHJn0jeEW+zzEmlfMdQsH+ijwU+9C25EO/IXMCxgCoV
-	DIRJJfPr8Z1WisPNWGvTbqiqEn5zVOPPFgYJ9VN4xm3tZNLwf10br7SD0QfqZ8R3Cw1Ib/N2p3m
-	taNuqiImZNMJF++cltzpLAv4lplT03xvpdZbR+IYQkZpNxvrFKX//HKbELoefaAbIqynYc79vYc
-	bz+4q43tWaKVfa7O+bnV6MZSrlDJGtCUbGaKWUgORKv7f0RcGperaB9emClYbNVheyPov3ynXhY
-	IPsxUYe5cf/ZS/YrgylD6Q5Hs3g/yot4HJ+BBXN56Ghorg==
-X-Google-Smtp-Source: AGHT+IFmuvoPzRIQQou58scHl+MCYihuTVXT8SSDGfsd4Df9KgJGosIIGWTIZUwLsrhm1g3bQKg8Sw==
-X-Received: by 2002:a17:90b:4ec6:b0:2ea:bf1c:1e3a with SMTP id 98e67ed59e1d1-30863f1939emr11034897a91.12.1744899408123;
-        Thu, 17 Apr 2025 07:16:48 -0700 (PDT)
-Date: Thu, 17 Apr 2025 16:16:42 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 1/4] xen/io: provide helpers for multi size MMIO
- accesses
-Message-ID: <aAENSnhKDQHQERgl@macbook.lan>
-References: <20250415153246.81688-1-roger.pau@citrix.com>
- <20250415153246.81688-2-roger.pau@citrix.com>
- <1c4f6304-a272-4fb2-8892-43118d080641@suse.com>
+        bh=enrzioY3czjAhs2bm/34Xhoi7NUiAezjrNcq1kLCXkU=;
+        b=Xg0BI+Atx3eyVYF/bXb6ZTK5bw3xLVrwgICqumhSCa/bhR6aWJp8aB9yIyuS/BJGPI
+         Gj7RO5KcaMZ+WROfJUa3K7vsRI91cpXIjhhr0WdGnz8YM/4vry3RBGcuJny8GjaFSHFl
+         9Kz5DQChlRPN/t3w3yzVeCIuyxBDQHgXBRtvg3XmTyCBMKejE6QPONv6z8H5byb67J1L
+         pYHV9T0oJBOH4U7WPmuPTht/2ZTP2gylTxvxMyUUe3T5TtBO2t4N52BLFoYANpiG8eNA
+         V67ntLtKPy39mFFS93E41uGMgFmmCnre/d+6+OLNJ5wSrufHe+nePlxHBbnrQ0I/HpXd
+         XPbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744899660; x=1745504460;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=enrzioY3czjAhs2bm/34Xhoi7NUiAezjrNcq1kLCXkU=;
+        b=JCLGbVVJUQ0grqkZ7V5k15hqs1JjUbQyyhomnTbbmRwFvAHYsEKUntwCQqaahlLVvQ
+         jc5tPwWze/ZSZhyJmP2qDAgP+142vUTpznreLT3/2uYmjte+uP0b3oM7tpzDqOp2kiYy
+         AGUurtwYBHwF/1XaRIXEggIarmH7opZzeqA4/s9bHCtg/UT7ikATMge8+IRmrdd0allS
+         B9BscV90ToybW3+nyi0YZa80cKt0JDezElrioL7Lyfj688kLHTLfIlNHDxnBtAC1nVcP
+         1RoFQazx8WMCXPjmmUKllbpq+tAwTWGznc61X7ii6oeiooUdRdbWUSS4iBfFkOkGCBaq
+         MTMA==
+X-Forwarded-Encrypted: i=1; AJvYcCWhSxhTQP+5IqmVpyX75MOxiGrDfnPvIn+g1EOeGNDL0R96Shm//B5lEV9wMyxm4GkKPZr/EoZl08Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwhFobtEIMl12b1RXdn19/ddc5X/kc3/IzUPhwrILbFyvkprAxB
+	J5hqokyGyK4yTTUtcwvTzYj36IT6019XEZIa36JnRZNKtEM5mnZM
+X-Gm-Gg: ASbGncv9MjHlpYwBnW11Shr0feZY4rM9H3TCxRCioImeBkJzR/XJS2RHJIVmcfwxknZ
+	pveeUQuQYuPl6guGAo9jEy7Y9eqpOMJ/w0jeO5+CwCYVKgZuMGWYufO93wTW2O3rBDiVrn3m6kn
+	GiCeybG2PDxXKLkWyrYsIS947WpQpwhNGDIAZDJmQtWANrXR3PbOATzf13Vx+XqPHFAtDJ2vlu6
+	MAIAZfpXgWrbQ4BV49LNQUhP+q4JQEVOuK1pBL/Y+m7EIYcYEVgt9NJwHjFACX4ULq/w8qzALMx
+	JgmENe2yMO/8Kkl8zvSPqU6t2v6U8GjJQDZWJpxRh2VuhJ8zU4Mf5hem+WN1zv+REh0so2douOh
+	6ybEwunq+fS9gC8k7YPID0YGmBKc=
+X-Google-Smtp-Source: AGHT+IHV1JjH0E/Wjx9orUOSb+DXbQibYpi19Sozj04LfYtM2XIdsCmXHm6ZmlCHaBWF4oJZ/cY/bQ==
+X-Received: by 2002:a05:6402:35ca:b0:5f4:5dfa:995f with SMTP id 4fb4d7f45d1cf-5f4b748d8d4mr5975433a12.13.1744899659359;
+        Thu, 17 Apr 2025 07:20:59 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------0KvSdusqjdNCsCLPd4IIFVZ0"
+Message-ID: <bbfdc4a0-54f0-4a9d-aa6d-2cf85ec03411@gmail.com>
+Date: Thu, 17 Apr 2025 16:20:58 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1c4f6304-a272-4fb2-8892-43118d080641@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 03/14] xen/riscv: introduce ioremap()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <6d91eeabe2735de93bfcf2a2420e2059a8f35e52.1744126720.git.oleksii.kurochko@gmail.com>
+ <84089b6d-efeb-4613-85b9-eb10d11d7338@suse.com>
+ <f315bc11-c537-4dca-9e62-a6d3f02733e4@gmail.com>
+ <6b226b72-11a4-4004-b42d-0e280de83539@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <6b226b72-11a4-4004-b42d-0e280de83539@suse.com>
 
-On Thu, Apr 17, 2025 at 09:43:09AM +0200, Jan Beulich wrote:
-> On 15.04.2025 17:32, Roger Pau Monne wrote:
-> > @@ -5115,7 +5115,6 @@ static void subpage_mmio_write_emulate(
-> >  
-> >      if ( test_bit(offset / MMIO_RO_SUBPAGE_GRAN, entry->ro_elems) )
-> >      {
-> > - write_ignored:
-> >          gprintk(XENLOG_WARNING,
-> >                  "ignoring write to R/O MMIO 0x%"PRI_mfn"%03x len %u\n",
-> >                  mfn_x(mfn), offset, len);
-> > @@ -5131,26 +5130,7 @@ static void subpage_mmio_write_emulate(
-> >          return;
-> >      }
-> >  
-> > -    addr += offset;
-> > -    switch ( len )
-> > -    {
-> > -    case 1:
-> > -        writeb(*(const uint8_t*)data, addr);
-> > -        break;
-> > -    case 2:
-> > -        writew(*(const uint16_t*)data, addr);
-> > -        break;
-> > -    case 4:
-> > -        writel(*(const uint32_t*)data, addr);
-> > -        break;
-> > -    case 8:
-> > -        writeq(*(const uint64_t*)data, addr);
-> > -        break;
-> > -    default:
-> > -        /* mmio_ro_emulated_write() already validated the size */
-> > -        ASSERT_UNREACHABLE();
-> > -        goto write_ignored;
-> > -    }
-> > +    write_mmio(addr + offset, data, len);
-> >  }
-> 
-> Should probably have noticed this on v1 already: The log message is now lost
-> for the write-ignored case. It looks easy enough to have the function return
-> a boolean indicating "done", to retain original behavior here.
+This is a multi-part message in MIME format.
+--------------0KvSdusqjdNCsCLPd4IIFVZ0
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hm, I didn't seem to me the message wants conserving, as it's
-unreachable code.  I can try to add again, but we don't print such
-message in other cases.
 
-Thanks, Roger.
+On 4/15/25 1:02 PM, Jan Beulich wrote:
+> On 15.04.2025 12:29, Oleksii Kurochko wrote:
+>> On 4/10/25 5:13 PM, Jan Beulich wrote:
+>>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
+>>>> Based on RISC-V unpriviliged spec ( Version 20240411 ):
+>>>> ```
+>>>> For implementations that conform to the RISC-V Unix Platform Specification,
+>>>> I/O devices and DMA operations are required to access memory coherently and
+>>>> via strongly ordered I/O channels. Therefore, accesses to regular main memory
+>>>> regions that are concurrently accessed by external devices can also use the
+>>>> standard synchronization mechanisms. Implementations that do not conform
+>>>> to the Unix Platform Specification and/or in which devices do not access
+>>>> memory coherently will need to use mechanisms
+>>>> (which are currently platform-specific or device-specific) to enforce
+>>>> coherency.
+>>>>
+>>>> I/O regions in the address space should be considered non-cacheable
+>>>> regions in the PMAs for those regions. Such regions can be considered coherent
+>>>> by the PMA if they are not cached by any agent.
+>>>> ```
+>>>> and [1]:
+>>>> ```
+>>>> The current riscv linux implementation requires SOC system to support
+>>>> memory coherence between all I/O devices and CPUs. But some SOC systems
+>>>> cannot maintain the coherence and they need support cache clean/invalid
+>>>> operations to synchronize data.
+>>>>
+>>>> Current implementation is no problem with SiFive FU540, because FU540
+>>>> keeps all IO devices and DMA master devices coherence with CPU. But to a
+>>>> traditional SOC vendor, it may already have a stable non-coherency SOC
+>>>> system, the need is simply to replace the CPU with RV CPU and rebuild
+>>>> the whole system with IO-coherency is very expensive.
+>>>> ```
+>>>>
+>>>> and the fact that all known ( to me ) CPUs that support the H-extension
+>>>> and that ones is going to be supported by Xen have memory coherency
+>>>> between all I/O devices and CPUs, so it is currently safe to use the
+>>>> PAGE_HYPERVISOR attribute.
+>>>> However, in cases where a platform does not support memory coherency, it
+>>>> should support CMO extensions and Svpbmt. In this scenario, updates to
+>>>> ioremap will be necessary.
+>>>> For now, a compilation error will be generated to ensure that the need to
+>>>> update ioremap() is not overlooked.
+>>>>
+>>>> [1]https://patchwork.kernel.org/project/linux-riscv/patch/1555947870-23014-1-git-send-email-guoren@kernel.org/
+>>> But MMIO access correctness isn't just a matter of coherency. There may not
+>>> be any caching involved in most cases, or else you may observe significantly
+>>> delayed or even dropped (folded with later ones) writes, and reads may be
+>>> serviced from the cache instead of going to actual MMIO. Therefore ...
+>>>
+>>>> --- a/xen/arch/riscv/Kconfig
+>>>> +++ b/xen/arch/riscv/Kconfig
+>>>> @@ -15,6 +15,18 @@ config ARCH_DEFCONFIG
+>>>>    	string
+>>>>    	default "arch/riscv/configs/tiny64_defconfig"
+>>>>    
+>>>> +config HAS_SVPBMT
+>>>> +	bool
+>>>> +	help
+>>>> +	  This config enables usage of Svpbmt ISA-extension ( Supervisor-mode:
+>>>> +	  page-based memory types).
+>>>> +
+>>>> +	  The memory type for a page contains a combination of attributes
+>>>> +	  that indicate the cacheability, idempotency, and ordering
+>>>> +	  properties for access to that page.
+>>>> +
+>>>> +	  The Svpbmt extension is only available on 64-bit cpus.
+>>> ... I kind of expect this extension (or anything else that there might be) will need
+>>> making use of.
+>> In cases where the Svpbmt extension isn't available, PMA (Physical Memory Attributes)
+>> is used to control which memory regions are cacheable, non-cacheable, readable, writable,
+>> etc. PMA is configured in M-mode by the firmware (e.g., OpenSBI), as is done in Andes
+>> cores, or it can be fixed at design time, as in SiFive cores.
+> How would things work if there was a need to map a RAM page uncacheable (via
+> ioremap() or otherwise)?
+
+My understanding is that Svpbmt is only needed when someone wants to change the memory
+attribute of a page set by PMA.
+
+The question is if non-cacheable RAM page is really needed if we have a coherency?
+
+~ Oleksii
+
+--------------0KvSdusqjdNCsCLPd4IIFVZ0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/15/25 1:02 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:6b226b72-11a4-4004-b42d-0e280de83539@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 15.04.2025 12:29, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 4/10/25 5:13 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 08.04.2025 17:57, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">Based on RISC-V unpriviliged spec ( Version 20240411 ):
+```
+For implementations that conform to the RISC-V Unix Platform Specification,
+I/O devices and DMA operations are required to access memory coherently and
+via strongly ordered I/O channels. Therefore, accesses to regular main memory
+regions that are concurrently accessed by external devices can also use the
+standard synchronization mechanisms. Implementations that do not conform
+to the Unix Platform Specification and/or in which devices do not access
+memory coherently will need to use mechanisms
+(which are currently platform-specific or device-specific) to enforce
+coherency.
+
+I/O regions in the address space should be considered non-cacheable
+regions in the PMAs for those regions. Such regions can be considered coherent
+by the PMA if they are not cached by any agent.
+```
+and [1]:
+```
+The current riscv linux implementation requires SOC system to support
+memory coherence between all I/O devices and CPUs. But some SOC systems
+cannot maintain the coherence and they need support cache clean/invalid
+operations to synchronize data.
+
+Current implementation is no problem with SiFive FU540, because FU540
+keeps all IO devices and DMA master devices coherence with CPU. But to a
+traditional SOC vendor, it may already have a stable non-coherency SOC
+system, the need is simply to replace the CPU with RV CPU and rebuild
+the whole system with IO-coherency is very expensive.
+```
+
+and the fact that all known ( to me ) CPUs that support the H-extension
+and that ones is going to be supported by Xen have memory coherency
+between all I/O devices and CPUs, so it is currently safe to use the
+PAGE_HYPERVISOR attribute.
+However, in cases where a platform does not support memory coherency, it
+should support CMO extensions and Svpbmt. In this scenario, updates to
+ioremap will be necessary.
+For now, a compilation error will be generated to ensure that the need to
+update ioremap() is not overlooked.
+
+[1]<a class="moz-txt-link-freetext" href="https://patchwork.kernel.org/project/linux-riscv/patch/1555947870-23014-1-git-send-email-guoren@kernel.org/">https://patchwork.kernel.org/project/linux-riscv/patch/1555947870-23014-1-git-send-email-guoren@kernel.org/</a>
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">But MMIO access correctness isn't just a matter of coherency. There may not
+be any caching involved in most cases, or else you may observe significantly
+delayed or even dropped (folded with later ones) writes, and reads may be
+serviced from the cache instead of going to actual MMIO. Therefore ...
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/Kconfig
++++ b/xen/arch/riscv/Kconfig
+@@ -15,6 +15,18 @@ config ARCH_DEFCONFIG
+  	string
+  	default "arch/riscv/configs/tiny64_defconfig"
+  
++config HAS_SVPBMT
++	bool
++	help
++	  This config enables usage of Svpbmt ISA-extension ( Supervisor-mode:
++	  page-based memory types).
++
++	  The memory type for a page contains a combination of attributes
++	  that indicate the cacheability, idempotency, and ordering
++	  properties for access to that page.
++
++	  The Svpbmt extension is only available on 64-bit cpus.
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">... I kind of expect this extension (or anything else that there might be) will need
+making use of.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+In cases where the Svpbmt extension isn't available, PMA (Physical Memory Attributes)
+is used to control which memory regions are cacheable, non-cacheable, readable, writable,
+etc. PMA is configured in M-mode by the firmware (e.g., OpenSBI), as is done in Andes
+cores, or it can be fixed at design time, as in SiFive cores.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+How would things work if there was a need to map a RAM page uncacheable (via
+ioremap() or otherwise)?</pre>
+    </blockquote>
+    <pre>My understanding is that Svpbmt is only needed when someone wants to change the memory
+attribute of a page set by PMA.
+
+The question is if non-cacheable RAM page is really needed if we have a coherency?
+
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------0KvSdusqjdNCsCLPd4IIFVZ0--
 
