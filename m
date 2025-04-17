@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04A24A91770
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 11:14:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.957248.1350413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA639A9179D
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 11:21:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.957267.1350424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5LK5-00021W-Fg; Thu, 17 Apr 2025 09:14:17 +0000
+	id 1u5LQv-0004BR-9I; Thu, 17 Apr 2025 09:21:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 957248.1350413; Thu, 17 Apr 2025 09:14:17 +0000
+Received: by outflank-mailman (output) from mailman id 957267.1350424; Thu, 17 Apr 2025 09:21:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5LK5-000202-Ca; Thu, 17 Apr 2025 09:14:17 +0000
-Received: by outflank-mailman (input) for mailman id 957248;
- Thu, 17 Apr 2025 09:14:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u5LQv-00049z-6a; Thu, 17 Apr 2025 09:21:21 +0000
+Received: by outflank-mailman (input) for mailman id 957267;
+ Thu, 17 Apr 2025 09:21:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nsoM=XD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u5LK3-0001Yj-Tq
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 09:14:15 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 54c0d453-1b6c-11f0-9ffb-bf95429c2676;
- Thu, 17 Apr 2025 11:14:14 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-39ee5a5bb66so311236f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 02:14:14 -0700 (PDT)
+ id 1u5LQt-00048U-1N
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 09:21:19 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 51705c90-1b6d-11f0-9eb0-5ba50f476ded;
+ Thu, 17 Apr 2025 11:21:18 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-39d83782ef6so1133147f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 02:21:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-73bd21c388fsm12269942b3a.54.2025.04.17.02.14.09
+ d2e1a72fcca58-73bd21c4e51sm12240931b3a.55.2025.04.17.02.21.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Apr 2025 02:14:13 -0700 (PDT)
+ Thu, 17 Apr 2025 02:21:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54c0d453-1b6c-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 51705c90-1b6d-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744881254; x=1745486054; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744881677; x=1745486477; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=A82kDhCvkQMq/U16sq8ixGZbU0/uhuP5m0cdpB8hT9k=;
-        b=J79g3uxinDqcL+sQa40EPcomNuAwScGWKGD9wJi4lIa0lymIO7hQmDdpj8rAzV+q11
-         o4JCz9bQXlx347dW9xbVcE/y21Z6jKnkRbCLqIs94DUe6FgBW0t/gP3Z6EPz+x4j5aAc
-         p+4b4ZYvdpeJOQt53J0Sw0gLLkiewSrqTKerxBngjeX73JeYYm0Buy2+xLgjq9zmR7Lu
-         mMiIOTD4rHIeuVI2Z4z5zpRdomJ6w9PYvXlKCQp7EOomalzIB8Wfs6AKlJ09H+DTF14+
-         enYErIVm5EwO+ZJmoBWCswPfHRFCnTY+jc16jSLuhb07DTm0h5nyflxCFrPne2DZ9XmN
-         T2BA==
+        bh=J7HHmfJ05alZnkLyjBX4nn87YBocuUGqZLpMrT9P06k=;
+        b=Zz0kTcCxCXcH5nLTcFyyBMvIuBYkZGGumdxBfcRy+pof0rfDeJ/zN0knDjUtmYOdxl
+         e6GDQrOmJtCG7eYA+QtK2YmTxiCc4Dlr4lOpydSrcR5tjh7wPCxZD3GB8kJyZkpJ1/vi
+         gvnq5FhRNP7oGqBBW7dztufOrBa2SkarHV8TkZKAB4oe/4sdxmpo5p+ccRna2NbxUE7u
+         POfK4gHrtbDSdR72y68Q34UtkCdLQuPrlbYB9iT8AC5mFZbUeuuiyWcKxTE3apDUci58
+         1/VT/qeWgTM9Acf2FR9BXNHJhVpiJF/VIrAk19DWdPOZK5egseFF/uulr0EQFzBRjRej
+         WEIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744881254; x=1745486054;
+        d=1e100.net; s=20230601; t=1744881677; x=1745486477;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A82kDhCvkQMq/U16sq8ixGZbU0/uhuP5m0cdpB8hT9k=;
-        b=Y0HASUlsRkT9gOruFt6u3aj3n+RZPaQ21bsjgj6TVuJ0SndG1Q4jtQE7bGQ9tZ/S+h
-         kNTZkbIhvLgk/+vkm3r0WlNNevv9dOQIUFDJGLjekVW3bi6iN8nB6wU6wIkwRhSDwNUX
-         ez3DBEm8YCVV/869W1V/0v0deejrc5qZst7ih6xnS7Jq454PhCSdGx4o5dbsvWti469g
-         4n2v/E3pzm4cWo24nXFtv1HQZkGbnVj9wHSbeIZeWcV4Qii7RrX+aEEy6WvPRb/rWLZO
-         VVIvZJHyaGmoPoLSHrOC4vqVCa+Z54nOVWJj19Zi+gr7tqr/bUidy2TWzDBlNul1OyRb
-         Gi+Q==
-X-Gm-Message-State: AOJu0YyGw4f9TRzM5p4oKqHOBkm4VskWuAmuzIW2vXSX4k+Je+FaTyqd
-	id7aIZcuQ6RD+qku3hFZNDGcOAM+hh8afNrfQcXFGzFp6AL++Cu/rwy3Hgr90w==
-X-Gm-Gg: ASbGncsYH4jnZczS316dqqQTjuvZY7w9Zw1I/L/iu2DVAOiwMbt3P82k9kbObZcoZmY
-	lOjxSKWLDzjzeKMKXdfuIM7Xnaw7nIZdOLCmS77qUzEKKJeIaWc812kbqTVnYd9SDW7ySqtGlse
-	EQcXIHwu3UNl6I7sELhxKhel7Vna8jFEBB+Q6C44rw/6YasFbCdx+zBz4vbbUQq8wNd/GJ5CP0f
-	QomY854unaIi8qAQfpwdXmpTLwimd1yNy17xmnPZ6Sb59XN4p07WGN2PqiWFCdJCkzEdX+NoTvn
-	m2L2mkg+cqycRO/NJPNH9zJ3PXMGE0ArgkQySBfHOBhDqxU5yY7rcqCdupl+M89laVtuBDT7HkM
-	goVLWqV+5otXrjLtvm8whC7C4ErvJwg6kD4yM
-X-Google-Smtp-Source: AGHT+IEzJQe+vj5QwELsvGHjG4Emymm9CSbWOoI2qjL+xx6vfsBeVas3wOLYwXU+AaOlsFqFZztdzw==
-X-Received: by 2002:a5d:5886:0:b0:391:3f64:ed00 with SMTP id ffacd0b85a97d-39ee5b1c943mr4299017f8f.26.1744881253829;
-        Thu, 17 Apr 2025 02:14:13 -0700 (PDT)
-Message-ID: <c993be16-f269-4a69-bd0c-9998db3f4a42@suse.com>
-Date: Thu, 17 Apr 2025 11:14:04 +0200
+        bh=J7HHmfJ05alZnkLyjBX4nn87YBocuUGqZLpMrT9P06k=;
+        b=h65Vk8njz+BZwwTFnyPeaGvZJzMotxTwaIg9KS4e2gFRhTgJtNdrbr3lE1d8niCS+o
+         0Xly4WzERCk1gpkxxVny3T1ZwpWG/VwbMMSBgvEi7d5Gu6IoYJWHK8cNNRKT9tVGnglK
+         0pxP0FogvGE9P24IdkuSXttzFpy5jDLfTe4JPX+R0bH2tlibx0pX6CIYLiiH1qHQ1vvC
+         K8+XkRoHQOlqH8kWGZgZdIVbymhT+GheqasH6NGrNuj6rjx9eDD/fA509wXWgm0UmC1o
+         9Qs+zRmUZUbP8RA6teVBeqnb9gDvT4nb0+jYpsemWEGhvjhCJFmpFEZm4Fl0DLelkcn3
+         rF0Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVI6eXwFDrWDuLscUk76qzjxm1HmibfaaRxQYysXDtYTwA6kkulsCuAvZmQX9ELDYeV2YNm6ohwPOU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxK+aq6BEojuX/fN/FHzFYGcQWcAR18+Z/7PqWhW/WGZ3/rZREM
+	ttLp+UR2L9g3yre4WSXF5CWAhQLiHwwXFFnnVJNR3tjWLLc8D6lE6t2BFLL58Q==
+X-Gm-Gg: ASbGncuxk48Rol0CVDeIwEG3oy5nP1cISWgA2FGWlKTGPTUw31n/nWChOjf8pC61Pcq
+	wUP1DNQ3ifvyFt0LuZzANLxvWKVxFJ5N/NK2H6Ac3Qg66du7+xxP0tlj1X+g/+m6Si/06QnLkFu
+	Us255z54USnmcuXpz0oweQYECZYFFicaa2RSf9b81UEVgIlMpncQyCeZ010rmYBjbNkXUKl4cv3
+	VRKBl+f3yp9qfCtcd3QVZU97hRmHqoNI64yCphJ5xiJn6yjDx6zjvIKwfMFdXtaX1TFcwS7j4+c
+	IXLVqL6oZ2wz2dzkJsqdWX4L1Gb795Nq0ei/tPCl1fEjn/1+mTJeX6z2PwFEFGx9StJbuVLHz/q
+	awRyDXVp9VCLzSZluObgPscrqUw==
+X-Google-Smtp-Source: AGHT+IExUcmjRW9ys44E0Ow+n7do0QjobneFeIpWfmuvbFUORLBIv7au4O9u0gb8673tOo+T9doPwA==
+X-Received: by 2002:a5d:5f52:0:b0:39c:30f7:a599 with SMTP id ffacd0b85a97d-39eea304084mr1621755f8f.18.1744881677588;
+        Thu, 17 Apr 2025 02:21:17 -0700 (PDT)
+Message-ID: <731804b3-d363-43cc-a146-f92380425c63@suse.com>
+Date: Thu, 17 Apr 2025 11:21:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Arm: rename smp_clear_cpu_maps()
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH] xen/percpu: NUMA-position the per-CPU area
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, consulting@bugseng.com
-References: <b792df9c-9912-468b-87a8-bb5d81c14df6@suse.com>
- <01729ccaa66afcf046a861a565d26d41@bugseng.com>
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250417085302.2554018-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,33 +120,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <01729ccaa66afcf046a861a565d26d41@bugseng.com>
+In-Reply-To: <20250417085302.2554018-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.04.2025 10:48, Nicola Vetrini wrote:
-> On 2025-04-17 10:36, Jan Beulich wrote:
->> The function has lost all clearing operations. Use the commonly
->> available name (declared in xen/smp.h), that x86 also uses.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> I would have expected this to also address a Misra violation
->> (declaration without definition), but I can't spot any rule (having
->> looked through 8.x in particular) to this effect.
-> 
-> The rule you are looking for is 8.6: " An identifier with external 
-> linkage shall have exactly one external definition", which is explicitly 
-> deviated in Xen to allow declarations that have no definition, 
-> especially in the case where definitions may be optimized out by the 
-> compiler or are simply compiled out. I don't recall the specific 
-> discussion that led to this deviation, but I can dug it up, if needed.
+On 17.04.2025 10:53, Andrew Cooper wrote:
+> This seems to have been quite an oversite in Xen's NUMA support, albeit it
 
-The respective deviation is imo bogus. Iirc if anything this is about
-DCE, which isn't "definition is compiled-out or optimized-out by the
-compiler" but "invocation is compiled-out or optimized-out by the
-compiler": If the definition was optimized out, there necessarily _is_
-a definition in source.
+Nit: oversight?
+
+> probably because NUMA was arch-specific at first.
+> 
+> Take the opportunity to sort the includes.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+> For the !NUMA case, cpu_to_node() defaults to 0 rather than NUMA_NO_NODE,
+> making memflags nonzero.  I'm not sure how wise this is, but ARM runs seem
+> happy with it.
+
+As to Arm: May be worth noting in the commit message that this is unlikely
+to have any useful effect when SEPARATE_XENHEAP=y. I guess our only option
+to address that (if any Arm32 NUMA systems exist) would be to use vmap().
 
 Jan
 
