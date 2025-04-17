@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AEA0A91FA5
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 16:29:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.957879.1350893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11481A91FD0
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 16:36:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.957896.1350904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5QEq-0005HG-Dy; Thu, 17 Apr 2025 14:29:12 +0000
+	id 1u5QLl-0007wR-36; Thu, 17 Apr 2025 14:36:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 957879.1350893; Thu, 17 Apr 2025 14:29:12 +0000
+Received: by outflank-mailman (output) from mailman id 957896.1350904; Thu, 17 Apr 2025 14:36:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5QEq-0005Ew-B9; Thu, 17 Apr 2025 14:29:12 +0000
-Received: by outflank-mailman (input) for mailman id 957879;
- Thu, 17 Apr 2025 14:29:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CA5y=XD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u5QEp-0005CJ-7G
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 14:29:11 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5320b3fa-1b98-11f0-9ffb-bf95429c2676;
- Thu, 17 Apr 2025 16:29:09 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4394a823036so448545e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 07:29:09 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4405b58cc0csm56669645e9.32.2025.04.17.07.29.08
+	id 1u5QLl-0007uz-0R; Thu, 17 Apr 2025 14:36:21 +0000
+Received: by outflank-mailman (input) for mailman id 957896;
+ Thu, 17 Apr 2025 14:36:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nsoM=XD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u5QLj-0007uq-8M
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 14:36:19 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 52b434bb-1b99-11f0-9eb0-5ba50f476ded;
+ Thu, 17 Apr 2025 16:36:18 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-39c1efc4577so555471f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 07:36:18 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-22c50eb03d2sm215025ad.142.2025.04.17.07.36.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Apr 2025 07:29:08 -0700 (PDT)
+ Thu, 17 Apr 2025 07:36:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5320b3fa-1b98-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 52b434bb-1b99-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744900149; x=1745504949; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744900577; x=1745505377; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5MG1fV5CsnDmr/QY08A2+RQ9cjrClV9EXex1K4KaxIM=;
-        b=HqoF2X5O9MAOKIqgDWgfkQFFM78mz6gkfQlhAl9fFRJE7oO8v4RPZx5+OIdNUNwiXA
-         nCMZhrSSOD7BFL6vg8U5+DABJCwoYOfARQiNM2dGtl4VNxqt+L/jSmgyHEqBwqCmisPA
-         wlP0/VOIs0mlCh86vuPSt3s2R8dPXNVmywpCU=
+        bh=KZmTl63M8aRcZr04oKX+Qkaj8b6tyUndRWXOjit9maE=;
+        b=S/J+1Y5wk1hb2XkmlWF9pVgXOU1SxuhoXkrvi+ComYiXLcRXQVPPeXQaKlmPOcURjI
+         s5dFi/XmnSBYRVB/z+whU/iWClx5slH1KLxHIX+iapUInGIEebZ1lgvx9kPQnUqUn0w3
+         odOiknLGeUN1PWtj05dIHXqnbJiSBp8Fpcd0PpSFwjSOv3BvXAgVtwP65w/RfT4R1ehL
+         KQonYHsuRlJt61EVo5sEHojgz1Zd/tL1tXT21fxLhfUeQPGILN1ttChG7NXmVvwK+Pcr
+         CNMGyUho/W79RqNU3e7uhasJsYnlK3BvgrK4YeQ3eAonio1delsqQQ6rTb6OOm1V/6Br
+         wJwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744900149; x=1745504949;
+        d=1e100.net; s=20230601; t=1744900577; x=1745505377;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5MG1fV5CsnDmr/QY08A2+RQ9cjrClV9EXex1K4KaxIM=;
-        b=qJT3264AAhTY37+jII1NEbg3/YznwmDb6yoYNB34SyD+u6pT47gdlBs5IAhHHLCris
-         rxEAN8BLW0nSrf8B+3AmH9a7rILIwgl4v1Ayi5ZEL7oXG05aepvCIDCkvK1iItFp45Rj
-         9+Ob6rv9y41bK+zffIBvGpuL/ipV9TUJ/1MRZM75vNgVUhCKIXFT7WG12sz1ArdwH3Sh
-         Ak7b2Z9nBsDt/sJOq7oBjgORyR+0mrsN/GOskj3Nmg1GZp7sEurCDlqYplW0tby9Rpt3
-         Oypr1UOGJCyqKFNLE3e5FFPJX0hOOxlWYYnZUcUidJVPw2zrNIMQXMIjkAE3GOKnR0q3
-         Y3nQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUUO56oU0IfSnk1FTqEIsQdVwigFBhEusruLGK2URsmZ9AOtAzJJoZjrjEvouBAWgOwN7zjSXtou7E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyRyu3D1EMscL/X7MFnsfYCHZd+5ZnfjN+zf1R5pL9EMubIIEFg
-	x1AUsFfaccI+eOD1NuWwClAFop7zCPpLUJXg7RycjQMDQIN2hET2SI33AiP4o70=
-X-Gm-Gg: ASbGncvEHEqR3s1mkKFq1vAEinauP1sI13p01vU7kwOddbVqvXUyzjhqm7u5YrW9zbz
-	eHLE2nMyJxlwumul9VqaVM9yCyrMVowGOy2RqY3WHsd7YfdoeRNJDmgvq9uWFd82xHpNOpYEMvZ
-	MsK2aDQ/YitfMlPa073g8bc7asSwCDNjfUnH0F6XNLJdk/z/9xH+x8nD6AGZ+PLca/1AxQ2RhAD
-	VaArfkyUUfSPRGHIJZVXsg1j/jZ7BwIS64GRYo20aVmNopnK1VXCnfvBH6SBCsy4Kl3NuLdKsF6
-	cRSM8QeQndcWb0DfmbCDxoV9Jj/8mzTVk5M8XF+DVpbKuQqyqvjy66PAr1Ue6lq5v1JRvLjag5f
-	7umtpsw==
-X-Google-Smtp-Source: AGHT+IHdkfLPMyr4v36T0lVcKIwgCaWjCA0mwhPqFx6fqfi9S2yIlspz666+TQPphHfQ5jGm6TP4CQ==
-X-Received: by 2002:a05:600c:4f8e:b0:43d:fa:1f9a with SMTP id 5b1f17b1804b1-4405d6cea58mr60099425e9.30.1744900148838;
-        Thu, 17 Apr 2025 07:29:08 -0700 (PDT)
-Message-ID: <ad75c664-4576-4fc9-b469-e854c72c5da9@citrix.com>
-Date: Thu, 17 Apr 2025 15:29:07 +0100
+        bh=KZmTl63M8aRcZr04oKX+Qkaj8b6tyUndRWXOjit9maE=;
+        b=h3GylmPIUqshPWbUdY8VDE/mtluNk5RP7lYzh01efiAW/PWXibmY3nsv1TkwUkDPXy
+         NStty2UVGlqWzIpG+tRicnBYgXvwxaMH7a4NE51pv63xJebnCdw1B2pVUllrlBVEiOZ/
+         b+dLZ92ycWJspsjsmoWepxR4m/yzUHS/F1Xs/OiquNgTKIMD9CULwZVo1hY+Z9idU5PR
+         npnpYuLeeCg+8N2OvIQ1Z/h6RQFiwVaDVDd6P/6X5UM0+p4GeI+/kvDdI5uV+NlaSE/d
+         pdT9R3RXDTSLHagrMRDqWrMmDcu9hj90Bop/BI/tT+p2U+Ed1tRrIec5fBKGIZaFPnPc
+         HWKQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUrK6uMdxfb1zT/Smo+tfYe8ud1LmE4R1MEZ9HgINWoiH4yFbYhuXx3aco4Ej4rb8MDLnUIUoQZ3Nw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxqTyL+ht6x4k/jjsOYwci1I/8LaIpICzgKAJD4j9awUFucXMXL
+	rGMg2hiIuuv0PNWijkQ+zFoPCsPR32V6XhgTunthr3BEq7H96LKBtjk+w4CWRQ==
+X-Gm-Gg: ASbGncvQMsf8eZeRDg3LtcPARiWctW0UQQU7lHitCtf1divO0C3CFf2cIdqNpf7VjUf
+	OaRezfa2oO/wSUTTr3SojShythanX23HbSpU6hfohVWJIft9J2Ao2HigP0Pefi5JQqK2uaIcV80
+	Mv+DxdcErs+ysjFyaCWGzvxKR+kRphFI/mqWYhyegInoFOpHdMFe3318nnBwioI2YihadKZEs1A
+	xZNltO2kM8efpE5z7RBgns41IZ/w1uTgCJivmFpk76BNW6zflFDTcNLl8S4snyMYSalxMkIFj20
+	6Pp3xk9ly7d9StQLelRrdA5lHhbUx01QKcc4bTHTsGq9zEwc51ReoMxVTTpVIdzqstX3nMcxk3b
+	Q+nfHaNlhqGF1BgEMPSwqNam7IRXbiLu6LlDo
+X-Google-Smtp-Source: AGHT+IGNeJ0gsJAITXwBNIBtxapCsJuzgyvzdU9p4i26HTCLcslQ2Ki/OsDN0336g2zL1s2H96xe9Q==
+X-Received: by 2002:a5d:584a:0:b0:38f:2b77:a9f3 with SMTP id ffacd0b85a97d-39ee5b9f98cmr5695817f8f.43.1744900577506;
+        Thu, 17 Apr 2025 07:36:17 -0700 (PDT)
+Message-ID: <1e7ba51b-8943-4001-be2f-9181e7362223@suse.com>
+Date: Thu, 17 Apr 2025 16:36:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vmx: Don't open-code vmresume/vmlaunch instructions
-To: Teddy Astie <teddy.astie@vates.tech>, security@xenproject.org,
+Subject: Re: [PATCH v2 5/8] asm-generic: move some parts of Arm's
+ domain_build.h to common
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <2d9480b75c80d49952812769f283a220c1753571.1744899753.git.teddy.astie@vates.tech>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <2d9480b75c80d49952812769f283a220c1753571.1744899753.git.teddy.astie@vates.tech>
+References: <cover.1744626032.git.oleksii.kurochko@gmail.com>
+ <1c67078147c4a89e46f253f040bef5046fac9ca9.1744626032.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <1c67078147c4a89e46f253f040bef5046fac9ca9.1744626032.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17/04/2025 3:24 pm, Teddy Astie wrote:
-> binutils 2.25 has support for assembling vmresume/vmlaunch
-> instructions, so we don't need to open-code the byte sequences
-> for these opcodes anymore.
->
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+On 14.04.2025 17:56, Oleksii Kurochko wrote:
+> --- /dev/null
+> +++ b/xen/include/xen/fdt-domain-build.h
+> @@ -0,0 +1,46 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef __XEN_FDT_DOMAIN_BUILD_H__
+> +#define __XEN_FDT_DOMAIN_BUILD_H__
+> +
+> +#include <xen/bootfdt.h>
+> +#include <xen/device_tree.h>
+> +#include <xen/fdt-kernel.h>
+> +#include <xen/types.h>
+> +
+> +#if __has_include(<asm/domain_build.h>)
+> +#   include <asm/domain_build.h>
+> +#endif
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Why is this conditional include needed? There's ...
+
+> +struct domain;
+> +struct page_info;
+> +struct membanks;
+> +
+> +typedef bool (*alloc_domheap_mem_cb)(struct domain *d, struct page_info *pg,
+> +                                     unsigned int order, void *extra);
+> +bool allocate_domheap_memory(struct domain *d, paddr_t tot_size,
+> +                             alloc_domheap_mem_cb cb, void *extra);
+> +
+> +bool allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
+> +                          paddr_t tot_size);
+> +void allocate_memory(struct domain *d, struct kernel_info *kinfo);
+> +int construct_domain(struct domain *d, struct kernel_info *kinfo);
+> +int make_chosen_node(const struct kernel_info *kinfo);
+> +int make_cpus_node(const struct domain *d, void *fdt);
+> +int make_hypervisor_node(struct domain *d, const struct kernel_info *kinfo,
+> +                         int addrcells, int sizecells);
+> +int make_memory_node(const struct kernel_info *kinfo, int addrcells,
+> +                     int sizecells, const struct membanks *mem);
+> +int make_timer_node(const struct kernel_info *kinfo);
+> +
+> +unsigned int get_allocation_size(paddr_t size);
+> +
+> +#endif /* __XEN_FDT_DOMAIN_BUILD_H__ */
+
+... nothing here showing any dependency thereon.
+
+Jan
 
