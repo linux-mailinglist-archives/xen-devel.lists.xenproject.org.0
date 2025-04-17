@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C31B1A918CA
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 12:07:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.957292.1350444 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9C76A918D4
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 12:10:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.957307.1350453 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5M8n-0003jQ-Lw; Thu, 17 Apr 2025 10:06:41 +0000
+	id 1u5MCZ-0005L7-8B; Thu, 17 Apr 2025 10:10:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 957292.1350444; Thu, 17 Apr 2025 10:06:41 +0000
+Received: by outflank-mailman (output) from mailman id 957307.1350453; Thu, 17 Apr 2025 10:10:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5M8n-0003hy-JA; Thu, 17 Apr 2025 10:06:41 +0000
-Received: by outflank-mailman (input) for mailman id 957292;
- Thu, 17 Apr 2025 10:06:40 +0000
+	id 1u5MCZ-0005Iq-59; Thu, 17 Apr 2025 10:10:35 +0000
+Received: by outflank-mailman (input) for mailman id 957307;
+ Thu, 17 Apr 2025 10:10:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=s05F=XD=nppct.ru=sdl@srs-se1.protection.inumbo.net>)
- id 1u5M8l-0003hs-6o
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 10:06:40 +0000
-Received: from mail.nppct.ru (mail.nppct.ru [195.133.245.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uBz4=XD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u5MCX-0005Fz-RI
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 10:10:33 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a53bf121-1b73-11f0-9ffb-bf95429c2676;
- Thu, 17 Apr 2025 12:06:36 +0200 (CEST)
-Received: from mail.nppct.ru (localhost [127.0.0.1])
- by mail.nppct.ru (Postfix) with ESMTP id B1D331C0E85
- for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 13:06:28 +0300 (MSK)
-Received: from mail.nppct.ru ([127.0.0.1])
- by mail.nppct.ru (mail.nppct.ru [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id QL2QoR6GtQbS for <xen-devel@lists.xenproject.org>;
- Thu, 17 Apr 2025 13:06:20 +0300 (MSK)
-Received: from [172.16.0.185] (unknown [176.59.174.214])
- by mail.nppct.ru (Postfix) with ESMTPSA id E7C761C0B18;
- Thu, 17 Apr 2025 13:06:15 +0300 (MSK)
+ id 321c4956-1b74-11f0-9ffb-bf95429c2676;
+ Thu, 17 Apr 2025 12:10:32 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5c7d6b96fso1104027a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 03:10:31 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acb6637ec65sm34573866b.133.2025.04.17.03.10.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Apr 2025 03:10:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,117 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a53bf121-1b73-11f0-9ffb-bf95429c2676
-Authentication-Results: mail.nppct.ru (amavisd-new); dkim=pass (1024-bit key)
-	reason="pass (just generated, assumed good)" header.d=nppct.ru
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nppct.ru; h=
-	in-reply-to:from:from:content-language:references:to:subject
-	:subject:user-agent:mime-version:date:date:message-id
-	:content-type:content-type; s=dkim; t=1744884380; x=1745748381;
-	 bh=Qwhi2s63HsxRtHICbBpWGt5b2QqGDsQZCyOZuPfERcs=; b=aF1PMShgR4s2
-	rIdnPPryN3jLcI2o7KDlTCVNW6frRFDm06VKAdeq0FvKgdSD32R90XC1ZDZRpRLq
-	E+TtslvjJSCsJUEKG+BfMzm6czCCPrOvoTShDhXkHJMntAZg36KmTWkzdwQ35qOv
-	fYA5A5Y+qzGd5VB66Hl7i9kOXzRqjas=
-X-Virus-Scanned: Debian amavisd-new at mail.nppct.ru
+X-Inumbo-ID: 321c4956-1b74-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1744884631; x=1745489431; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=S+dLwzmxddVil/jrz8ZJf2ZSgXa2xg2o2YFYg6qTylA=;
+        b=jStL4ZBwH3yG3Cx1BJJSOjqaWFYg1AnNE7VpnX0EsCSpofRf46zwDPUK2GczgVWFY9
+         /r8X2rsuekEzDAkqe/ar+pIUoDIdAjn7kEdh7mQ6pakxQprFgQeZ3aoZXyfzPdciC7Ju
+         YoBEWcc6luv0scB8qI5BopN21Ozj6qn12Lks/92+EZAFKTkzYuAFCuT+D4goLyBnse1u
+         RXVx6lMN9Y/F4sga7GXkjXecQIs1dhb9VFk6niymrO+pM8I2mVNs1DXRs4t4FDSaJ8OU
+         o3siv3OslGHKRFjqe3wcCUeXvtLg0ZpNdSk/5GUmkKpjhASE2tlWn3faWotPrIsCpvGU
+         GWTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744884631; x=1745489431;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=S+dLwzmxddVil/jrz8ZJf2ZSgXa2xg2o2YFYg6qTylA=;
+        b=W+5kQnACvdT8N+BZufzDiAcmQXPphQtbM4+z1S1lWDOv695NGCuXhEZoPAz5Y/RZP4
+         U1e09Bnr9svm+rM0/wd3GAKG1U4464dxDO1hTewm9K038eBhtpL3kKPR/uPPAUad7MKA
+         UMkbxn2zwSWbxaR1DAK2H4DplrKk2UtZ42vJ0wi5jz7PN8yUtC9o5unq2Svc4WmOuh2a
+         oO36QGkYDFgETzDiXgmrVdGrm3nu5YegZL2UmUYT3RpQ0j22JkbNlH+O+Vs2K+LVVivk
+         NWN8a+opM0TTohoVNNmIG+KPaD+M3v9ozXBQW1W1SZcS1+00b8W41Dl/LfMSnEeXydhZ
+         cDqg==
+X-Forwarded-Encrypted: i=1; AJvYcCXN1B+pUshkznQVDZa+q32+D3PhaIfkunyYobqEugf4OwOkZYcWNcBXm9bITuyKfgLyG3B9gh1euJw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzvDUP3Ggr3bYzcZdwdmSrQUE28wx0U9S1ezfxESqoBQn9e0sVp
+	+2wdUpVJH1NFOIc/Eux5n3MuAAHymHYSAi9iuUA/z2SKolZgl7tF
+X-Gm-Gg: ASbGnctFKZLrgYQWQGphrTTkuvI0MOgcZofHNwYVdnzv2eM/BK57xRh/ynoHbkMUaZb
+	cEjY32ctZ57lEJbpFQWmu+veqEMHx1VsE0//6d7dpkwuFaLsEIIQ6zwXWyK6uRocT+LjapDpBi9
+	kUgP5czNvZ2ujtEwdZ8Qq3ofhzzQUg6jHadrgorqBtagI0NQZRU7zzAkYzArXaw9fVMZQx8NOfV
+	vhsZOK9kPPOVM7l+REn1FS/l9Eh/wSWMH0kLATOEODGTw88zBN3iHrUMDVPUBnRqpD+ojPkxiPX
+	orOD3PO82qfHiKcbVdwPwxo/mHTgVCPdjCBnrLi6zFXdlibN6Ic+ZqL2XBa2jdn5R2aj0UOxD3q
+	eJiWziXMsBLHU9YHq
+X-Google-Smtp-Source: AGHT+IGuWAsZa3TquW0AFtPGlbwBeVZiFuZljf+6cPzlWHv1YkMHeVDXqElBdpLeZD9PtltfX4Hgzg==
+X-Received: by 2002:a17:907:7f0d:b0:ac7:3595:56df with SMTP id a640c23a62f3a-acb42b2d4d4mr439040366b.47.1744884631024;
+        Thu, 17 Apr 2025 03:10:31 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------bqF0MSv5WJ0c3whaFFPtK5rv"
-Message-ID: <8264519a-d58a-486e-b3c5-dba400658513@nppct.ru>
-Date: Thu, 17 Apr 2025 13:06:14 +0300
+ boundary="------------cD033S6Vg7CTJ4h8fI9uEp2t"
+Message-ID: <7b1f5d89-2be9-450f-a4db-381df42942e6@gmail.com>
+Date: Thu, 17 Apr 2025 12:10:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen-netfront: handle NULL returned by
- xdp_convert_buff_to_frame()
-To: Juergen Gross <jgross@suse.com>, Jakub Kicinski <kuba@kernel.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, xen-devel@lists.xenproject.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- lvc-project@linuxtesting.org, stable@vger.kernel.org
-References: <20250414183403.265943-1-sdl@nppct.ru>
- <20250416175835.687a5872@kernel.org>
- <fa91aad9-f8f3-4b27-81b3-4c963e2e64aa@nppct.ru>
- <0c29a3f9-9e22-4e44-892d-431f06555600@suse.com>
- <452bac2e-2840-4db7-bbf4-c41e94d437a8@nppct.ru>
- <ed8dec2a-f507-49be-a6f3-fb8a91bfef01@suse.com>
+Subject: Re: [PATCH v1 12/14] xen/riscv: implement setup_irq()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <2bc37c3996978129a5b2c888917307ea32448651.1744126720.git.oleksii.kurochko@gmail.com>
+ <47492663-5832-49e7-af4d-ee536206e641@suse.com>
 Content-Language: en-US
-From: Alexey <sdl@nppct.ru>
-In-Reply-To: <ed8dec2a-f507-49be-a6f3-fb8a91bfef01@suse.com>
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <47492663-5832-49e7-af4d-ee536206e641@suse.com>
 
 This is a multi-part message in MIME format.
---------------bqF0MSv5WJ0c3whaFFPtK5rv
+--------------cD033S6Vg7CTJ4h8fI9uEp2t
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 
-On 17.04.2025 11:51, Juergen Gross wrote:
-> On 17.04.25 10:45, Alexey wrote:
->>
->> On 17.04.2025 10:12, Jürgen Groß wrote:
->>> On 17.04.25 09:00, Alexey wrote:
->>>>
->>>> On 17.04.2025 03:58, Jakub Kicinski wrote:
->>>>> On Mon, 14 Apr 2025 18:34:01 +0000 Alexey Nepomnyashih wrote:
->>>>>>           get_page(pdata);
->>>>> Please notice this get_page() here.
->>>>>
->>>>>>           xdpf = xdp_convert_buff_to_frame(xdp);
->>>>>> +        if (unlikely(!xdpf)) {
->>>>>> + trace_xdp_exception(queue->info->netdev, prog, act);
->>>>>> +            break;
->>>>>> +        }
->>>> Do you mean that it would be better to move the get_page(pdata) 
->>>> call lower,
->>>> after checking for NULL in xdpf, so that the reference count is 
->>>> only increased
->>>> after a successful conversion?
->>>
->>> I think the error handling here is generally broken (or at least very
->>> questionable).
->>>
->>> I suspect that in case of at least some errors the get_page() is 
->>> leaking
->>> even without this new patch.
->>>
->>> In case I'm wrong a comment reasoning why there is no leak should be
->>> added.
->>>
->>>
->>> Juergen
->>
->> I think pdata is freed in xdp_return_frame_rx_napi() -> __xdp_return()
+On 4/15/25 5:55 PM, Jan Beulich wrote
+>> +#ifdef CONFIG_IRQ_HAS_MULTIPLE_ACTION
+>> +    new->next = desc->action;
+>> +    smp_mb();
+>> +#endif
+>> +
+>> +    desc->action = new;
+>> +    smp_mb();
+> Aren't smp_wmb() sufficient on both places? If not, I think comments
+> want adding.
+
+smp_wmb() will be sufficient but I think the barrier could be dropped at all
+as __setup_irq() is called only in setup_irq() and __setup_irq() call is wrapped
+by spinlock_{un}lock_irqsave() where spinlock_unlock_*() will put barrier.
+
 >
-> Agreed. But what if xennet_xdp_xmit() returns an error < 0?
+>> +    return 0;
+>> +}
+>> +
+>> +void irq_set_affinity(struct irq_desc *desc, const cpumask_t *cpu_mask)
+>> +{
+>> +    if ( desc != NULL )
+> Can desc really be NULL here?
+
+It can't as irq_desc[] isn't dynamically allocated.
+
+>   Isn't desc->lock required to be held?
+
+It is and it is called in setup_irq() which calls spin_lock_irqsave().
+Anyway, I think it could be dropped at all and use 'desc->handler->set_affinity(desc, cpu_mask);'
+explicitly in setup_irq().
+
+>> +    spin_lock_irqsave(&desc->lock, flags);
+>> +
+>> +    disabled = (desc->action == NULL);
+>> +
+>> +    if ( test_bit(_IRQ_GUEST, &desc->status) )
+>> +    {
+>> +        spin_unlock_irqrestore(&desc->lock, flags);
+>> +        /*
+>> +         * TODO: would be nice to have functionality to print which domain owns
+>> +         *       an IRQ.
+>> +         */
+>> +        printk(XENLOG_ERR "ERROR: IRQ %u is already in use by a domain\n", irq);
+>> +        return -EBUSY;
+>> +    }
+>> +
+>> +    rc = __setup_irq(desc, irqflags, new);
+>> +    if ( rc )
+>> +        goto err;
+>> +
+>> +    /* First time the IRQ is setup */
+>> +    if ( disabled )
+>> +    {
+>> +        /* disable irq by default */
+>> +        set_bit(_IRQ_DISABLED, &desc->status);
+> Shouldn't this be set when we make it here?
+
+It should be. I'll drop the setting of _IRQ_DISABLED.
+
 >
-> In this case xdp_return_frame_rx_napi() won't be called.
->
->
-> Juergen
+>> +        /* route interrupt to xen */
+>> +        intc_route_irq_to_xen(desc, IRQ_NO_PRIORITY);
+>> +
+>> +        /*
+>> +         * we don't care for now which CPU will receive the
+>> +         * interrupt
+>> +         *
+>> +         * TODO: Handle case where IRQ is setup on different CPU than
+>> +         * the targeted CPU and the priority.
+>> +         */
+>> +        irq_set_affinity(desc, cpumask_of(smp_processor_id()));
+>> +        desc->handler->startup(desc);
+>> +        /* enable irq */
+>> +        clear_bit(_IRQ_DISABLED, &desc->status);
+> Now it turns out this is really done twice: Once in aplic_irq_enable(),
+> and once here.
 
-Agreed. There is no explicit freed pdata in the calling function
-xennet_get_responses(). Without this, the page referenced by pdata
-could be leaked.
+Agree, this is a job of *_startup()->*_aplic_irq_enable(). I'll drop that too.
 
-I suggest:
+~ Oleksii
 
-case XDP_TX: -get_page(pdata); xdpf = xdp_convert_buff_to_frame(xdp); 
-+if (unlikely(!xdpf)) { +trace_xdp_exception(queue->info->netdev, prog, 
-act); +break; +} +get_page(pdata); err = 
-xennet_xdp_xmit(queue->info->netdev, 1, &xdpf, 0); if (unlikely(!err)) 
-xdp_return_frame_rx_napi(xdpf); -else if (unlikely(err < 0)) +else if 
-(unlikely(err < 0)) { trace_xdp_exception(queue->info->netdev, prog, 
-act); +xdp_return_frame_rx_napi(xdpf); +} break; case XDP_REDIRECT: 
-get_page(pdata); err = xdp_do_redirect(queue->info->netdev, xdp, prog); 
-*need_xdp_flush = true; -if (unlikely(err)) +if (unlikely(err)) { 
-trace_xdp_exception(queue->info->netdev, prog, act); 
-+__xdp_return(page_address(pdata), &xdp->mem, true, xdp); +} break;
 
---------------bqF0MSv5WJ0c3whaFFPtK5rv
+--------------cD033S6Vg7CTJ4h8fI9uEp2t
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 <!DOCTYPE html>
 <html>
@@ -166,155 +206,123 @@ Content-Transfer-Encoding: 8bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 17.04.2025 11:51, Juergen Gross
-      wrote:<br>
-    </div>
+    <div class="moz-cite-prefix">On 4/15/25 5:55 PM, Jan Beulich wrote</div>
     <blockquote type="cite"
-      cite="mid:ed8dec2a-f507-49be-a6f3-fb8a91bfef01@suse.com">On
-      17.04.25 10:45, Alexey wrote:
-      <br>
+      cite="mid:47492663-5832-49e7-af4d-ee536206e641@suse.com">
       <blockquote type="cite">
-        <br>
-        On 17.04.2025 10:12, Jürgen Groß wrote:
-        <br>
-        <blockquote type="cite">On 17.04.25 09:00, Alexey wrote:
-          <br>
-          <blockquote type="cite">
-            <br>
-            On 17.04.2025 03:58, Jakub Kicinski wrote:
-            <br>
-            <blockquote type="cite">On Mon, 14 Apr 2025 18:34:01 +0000
-              Alexey Nepomnyashih wrote:
-              <br>
-              <blockquote type="cite">          get_page(pdata);
-                <br>
-              </blockquote>
-              Please notice this get_page() here.
-              <br>
-              <br>
-              <blockquote type="cite">          xdpf =
-                xdp_convert_buff_to_frame(xdp);
-                <br>
-                +        if (unlikely(!xdpf)) {
-                <br>
-                +           
-                trace_xdp_exception(queue-&gt;info-&gt;netdev, prog,
-                act);
-                <br>
-                +            break;
-                <br>
-                +        }
-                <br>
-              </blockquote>
-            </blockquote>
-            Do you mean that it would be better to move the
-            get_page(pdata) call lower,
-            <br>
-            after checking for NULL in xdpf, so that the reference count
-            is only increased
-            <br>
-            after a successful conversion?
-            <br>
-          </blockquote>
-          <br>
-          I think the error handling here is generally broken (or at
-          least very
-          <br>
-          questionable).
-          <br>
-          <br>
-          I suspect that in case of at least some errors the get_page()
-          is leaking
-          <br>
-          even without this new patch.
-          <br>
-          <br>
-          In case I'm wrong a comment reasoning why there is no leak
-          should be
-          <br>
-          added.
-          <br>
-          <br>
-          <br>
-          Juergen
-          <br>
-        </blockquote>
-        <br>
-        I think pdata is freed in xdp_return_frame_rx_napi() -&gt;
-        __xdp_return()
-        <br>
+        <pre wrap="" class="moz-quote-pre">+#ifdef CONFIG_IRQ_HAS_MULTIPLE_ACTION
++    new-&gt;next = desc-&gt;action;
++    smp_mb();
++#endif
++
++    desc-&gt;action = new;
++    smp_mb();
+</pre>
       </blockquote>
-      <br>
-      Agreed. But what if xennet_xdp_xmit() returns an error &lt; 0?
-      <br>
-      <br>
-      In this case xdp_return_frame_rx_napi() won't be called.
-      <br>
-      <br>
-      <br>
-      Juergen
-      <br>
+      <pre wrap="" class="moz-quote-pre">
+Aren't smp_wmb() sufficient on both places? If not, I think comments
+want adding.</pre>
     </blockquote>
-    <p>Agreed. There is no explicit freed pdata in the calling function<br>
-      xennet_get_responses(). Without this, the page referenced by pdata<br>
-      could be leaked.</p>
-    <p>I suggest:</p>
-    <pre><span class="token unchanged"><span
-    class="token prefix unchanged"> </span><span class="token line">	case XDP_TX:
-</span></span><span class="token deleted-sign deleted"><span
-    class="token prefix deleted">-</span><span class="token line">		get_page(pdata);
-</span></span><span class="token unchanged"><span
-    class="token prefix unchanged"> </span><span class="token line">		xdpf = xdp_convert_buff_to_frame(xdp);
-</span></span><span class="token inserted-sign inserted"><span
-    class="token prefix inserted">+</span><span class="token line">		if (unlikely(!xdpf)) {
-</span><span class="token prefix inserted">+</span><span
-    class="token line">			trace_xdp_exception(queue-&gt;info-&gt;netdev, prog, act);
-</span><span class="token prefix inserted">+</span><span
-    class="token line">			break;
-</span><span class="token prefix inserted">+</span><span
-    class="token line">		}
-</span><span class="token prefix inserted">+</span><span
-    class="token line">		get_page(pdata);
-</span></span><span class="token unchanged"><span
-    class="token prefix unchanged"> </span><span class="token line">		err = xennet_xdp_xmit(queue-&gt;info-&gt;netdev, 1, &amp;xdpf, 0);
-</span><span class="token prefix unchanged"> </span><span
-    class="token line">		if (unlikely(!err))
-</span><span class="token prefix unchanged"> </span><span
-    class="token line">			xdp_return_frame_rx_napi(xdpf);
-</span></span><span class="token deleted-sign deleted"><span
-    class="token prefix deleted">-</span><span class="token line">		else if (unlikely(err &lt; 0))
-</span></span><span class="token inserted-sign inserted"><span
-    class="token prefix inserted">+</span><span class="token line">		else if (unlikely(err &lt; 0)) {
-</span></span><span class="token unchanged"><span
-    class="token prefix unchanged"> </span><span class="token line">			trace_xdp_exception(queue-&gt;info-&gt;netdev, prog, act);
-</span></span><span class="token inserted-sign inserted"><span
-    class="token prefix inserted">+</span><span class="token line">			xdp_return_frame_rx_napi(xdpf);
-</span><span class="token prefix inserted">+</span><span
-    class="token line">		}
-</span></span><span class="token unchanged"><span
-    class="token prefix unchanged"> </span><span class="token line">		break;
-</span><span class="token prefix unchanged"> </span><span
-    class="token line">	case XDP_REDIRECT:
-</span><span class="token prefix unchanged"> </span><span
-    class="token line">		get_page(pdata);
-</span><span class="token prefix unchanged"> </span><span
-    class="token line">		err = xdp_do_redirect(queue-&gt;info-&gt;netdev, xdp, prog);
-</span><span class="token prefix unchanged"> </span><span
-    class="token line">		*need_xdp_flush = true;
-</span></span><span class="token deleted-sign deleted"><span
-    class="token prefix deleted">-</span><span class="token line">		if (unlikely(err))
-</span></span><span class="token inserted-sign inserted"><span
-    class="token prefix inserted">+</span><span class="token line">		if (unlikely(err)) {
-</span></span><span class="token unchanged"><span
-    class="token prefix unchanged"> </span><span class="token line">			trace_xdp_exception(queue-&gt;info-&gt;netdev, prog, act);
-</span></span><span class="token inserted-sign inserted"><span
-    class="token prefix inserted">+</span><span class="token line">			__xdp_return(page_address(pdata), &amp;xdp-&gt;mem, true, xdp);
-</span><span class="token prefix inserted">+</span><span
-    class="token line">		}
-</span></span><span class="token unchanged"><span
-    class="token prefix unchanged"> </span><span class="token line">		break;</span></span></pre>
+    <pre>smp_wmb() will be sufficient but I think the barrier could be dropped at all
+as __setup_irq() is called only in setup_irq() and __setup_irq() call is wrapped
+by spinlock_{un}lock_irqsave() where spinlock_unlock_*() will put barrier.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:47492663-5832-49e7-af4d-ee536206e641@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    return 0;
++}
++
++void irq_set_affinity(struct irq_desc *desc, const cpumask_t *cpu_mask)
++{
++    if ( desc != NULL )
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Can desc really be NULL here?</pre>
+    </blockquote>
+    <pre>It can't as irq_desc[] isn't dynamically allocated.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:47492663-5832-49e7-af4d-ee536206e641@suse.com">
+      <pre wrap="" class="moz-quote-pre"> Isn't desc-&gt;lock required to be held?</pre>
+    </blockquote>
+    <pre>It is and it is called in setup_irq() which calls spin_lock_irqsave().
+Anyway, I think it could be dropped at all and use 'desc-&gt;handler-&gt;set_affinity(desc, cpu_mask);'
+explicitly in setup_irq().
+</pre>
+    <blockquote type="cite"
+      cite="mid:47492663-5832-49e7-af4d-ee536206e641@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    spin_lock_irqsave(&amp;desc-&gt;lock, flags);
++
++    disabled = (desc-&gt;action == NULL);
++
++    if ( test_bit(_IRQ_GUEST, &amp;desc-&gt;status) )
++    {
++        spin_unlock_irqrestore(&amp;desc-&gt;lock, flags);
++        /*
++         * TODO: would be nice to have functionality to print which domain owns
++         *       an IRQ.
++         */
++        printk(XENLOG_ERR "ERROR: IRQ %u is already in use by a domain\n", irq);
++        return -EBUSY;
++    }
++
++    rc = __setup_irq(desc, irqflags, new);
++    if ( rc )
++        goto err;
++
++    /* First time the IRQ is setup */
++    if ( disabled )
++    {
++        /* disable irq by default */
++        set_bit(_IRQ_DISABLED, &amp;desc-&gt;status);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Shouldn't this be set when we make it here?</pre>
+    </blockquote>
+    <pre>It should be. I'll drop the setting of _IRQ_DISABLED.</pre>
+    <blockquote type="cite"
+      cite="mid:47492663-5832-49e7-af4d-ee536206e641@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+        /* route interrupt to xen */
++        intc_route_irq_to_xen(desc, IRQ_NO_PRIORITY);
++
++        /*
++         * we don't care for now which CPU will receive the
++         * interrupt
++         *
++         * TODO: Handle case where IRQ is setup on different CPU than
++         * the targeted CPU and the priority.
++         */
++        irq_set_affinity(desc, cpumask_of(smp_processor_id()));
++        desc-&gt;handler-&gt;startup(desc);
++        /* enable irq */
++        clear_bit(_IRQ_DISABLED, &amp;desc-&gt;status);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Now it turns out this is really done twice: Once in aplic_irq_enable(),
+and once here.</pre>
+    </blockquote>
+    <pre>Agree, this is a job of *_startup()-&gt;*_aplic_irq_enable(). I'll drop that too.
+
+~ Oleksii
+</pre>
+    <p><br>
+    </p>
   </body>
 </html>
 
---------------bqF0MSv5WJ0c3whaFFPtK5rv--
+--------------cD033S6Vg7CTJ4h8fI9uEp2t--
 
