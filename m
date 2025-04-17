@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A28CAA911EE
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 05:14:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956894.1350141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CADD9A91403
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 08:26:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.956925.1350151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5FgQ-00007F-5c; Thu, 17 Apr 2025 03:12:58 +0000
+	id 1u5IhB-0002V8-61; Thu, 17 Apr 2025 06:25:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956894.1350141; Thu, 17 Apr 2025 03:12:58 +0000
+Received: by outflank-mailman (output) from mailman id 956925.1350151; Thu, 17 Apr 2025 06:25:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5FgP-00005N-WA; Thu, 17 Apr 2025 03:12:58 +0000
-Received: by outflank-mailman (input) for mailman id 956894;
- Thu, 17 Apr 2025 03:12:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bAEg=XD=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1u5FgO-00005H-G4
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 03:12:56 +0000
-Received: from fout-a6-smtp.messagingengine.com
- (fout-a6-smtp.messagingengine.com [103.168.172.149])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d92761c2-1b39-11f0-9ffb-bf95429c2676;
- Thu, 17 Apr 2025 05:12:52 +0200 (CEST)
-Received: from phl-compute-01.internal (phl-compute-01.phl.internal
- [10.202.2.41])
- by mailfout.phl.internal (Postfix) with ESMTP id 4BA0B138021B;
- Wed, 16 Apr 2025 23:12:51 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-01.internal (MEProxy); Wed, 16 Apr 2025 23:12:51 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 16 Apr 2025 23:12:49 -0400 (EDT)
+	id 1u5IhB-0002TT-1E; Thu, 17 Apr 2025 06:25:57 +0000
+Received: by outflank-mailman (input) for mailman id 956925;
+ Thu, 17 Apr 2025 06:25:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nsoM=XD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u5Ih9-0002TN-JB
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 06:25:55 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d08a3e7e-1b54-11f0-9eb0-5ba50f476ded;
+ Thu, 17 Apr 2025 08:25:54 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-43d07ca6a80so1630645e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Apr 2025 23:25:54 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-308613b370esm3122291a91.34.2025.04.16.23.25.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Apr 2025 23:25:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,285 +45,494 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d92761c2-1b39-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1744859571;
-	 x=1744945971; bh=2GjRPS+ddX8pS6zlcgaNUhaltUO8C3UPVOnIlT9jlMo=; b=
-	Z7L0Hx0k0yJ4gLCuZbvCc3vYPVxjiuJ9kqEhLdRuE3BFzBavYZPx6BsFUP25ZjY7
-	/uoM7820oSJp59ZsdnEybtBiVsyNwPSsnl5hmD/04OQgaYeJkrCWR+JCr+v9lfNL
-	+JEol4vP/Y/sUWiYVarehkuLPHu8dWYREE5QTeZss0LjQjCCZjttVhn10ja4SFj/
-	vOW1WNR/EBWO+pOY4fP0sykz5z26oYOBkTvjULfwI6f/ckuLOgGu7nhyNN8bU/4c
-	FRRW6DWkmS86muE1HHKM3Lw731pLkXuc7y0Xme8YIN8UVLeCl0/RVtbkfOVLpiGo
-	JpxaEjWI5xnycxks8fPP4A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1744859571; x=1744945971; bh=2GjRPS+ddX8pS6zlcgaNUhaltUO8C3UPVOn
-	IlT9jlMo=; b=wCsvJ4tBDG+wq9pLDmHb/n62t3wLuW6lHSmKXt1ziokFTAvFTfT
-	cEDo8eAf1IgywlNuG8rSN7J9saUqwANjoa3M8OuS5k8QXLDiH9UCGIx/8vdEsCmn
-	wF0xiT+KAgQtsEiYx8Gwqy4pfuYX4VVJ+smbscYA3m7IlnCszv2+eGuLQJY0DW0V
-	TnXIsJ0+aYhMLDPm7XnO6sCHxRGAFNDWZLFmbEkozVTMu8ppYZNcAuCYGCxykErJ
-	KraEdmS0EDAfe//XWrrGo6YfzRsOnEeZ/lejm309OMSRxiXgRhlvd5B/w54EmNgl
-	Gy71hh+qXWXfAlEXhkbPsielUzP+UbP9+7Q==
-X-ME-Sender: <xms:snEAaNgXNfgGJ7vb5qL_uMGT5QUo-wWTWNOg33xl5sY74GTsqg2lCw>
-    <xme:snEAaCBTHfXgVXGZeGtor6EukMOpqAsbiTBeT8ByqyKwOtt1qFVmPxd8xTfPZpJZk
-    xZ15E_wtc3QyA>
-X-ME-Received: <xmr:snEAaNF8Cw-tOYWez3B-cS9_4gvfbd8c9uvjHn5Rz1Jrod_J-RfiJ4m4cbFSLJf00fIDDFfO_4jkrniJ-6PSzH9Y3XwD63mTRQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvvdekudegucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
-    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
-    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
-    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
-    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
-    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
-    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-    dpnhgspghrtghpthhtohephedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepfhhr
-    vgguihgrnhhordiiihhglhhiohestghlohhuugdrtghomhdprhgtphhtthhopeigvghnqd
-    guvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegu
-    phhsmhhithhhsegrphgvrhhtuhhsshholhhuthhiohhnshdrtghomhdprhgtphhtthhope
-    hjsggvuhhlihgthhesshhushgvrdgtohhmpdhrtghpthhtoheprghnughrvgifrdgtohho
-    phgvrhefsegtihhtrhhigidrtghomh
-X-ME-Proxy: <xmx:snEAaCRXl01J9RiHO0ThgEWmwyRPKd0QJrl1wfLFLCCu7Ugugs0LBg>
-    <xmx:snEAaKw2Lss0yHR2KmAZmlLpZxhlREwTh4_a5TANK4iwX5dotxKnhg>
-    <xmx:snEAaI5rQhc3qJdzKFhEOkG-4T54YuzVdjwklvCrOhO9PgND5XxOxQ>
-    <xmx:snEAaPzwblEp_x20C1dezhaz3oUIqtaoFh_zUtZo9kedPM2MiZPvhQ>
-    <xmx:s3EAaN0zcB703rUvmdBblyJoC4BzqoMISfdC4PG3TK3wtOUHv_tTYUFQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 17 Apr 2025 05:12:47 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v7] Avoid crash calling PrintErrMesg from efi_multiboot2
-Message-ID: <aABxr9W8_L3sQBHh@mail-itl>
-References: <20250321103258.37425-1-frediano.ziglio@cloud.com>
+X-Inumbo-ID: d08a3e7e-1b54-11f0-9eb0-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1744871153; x=1745475953; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=G4XNA7H4yNII7wvOevd5MDRJ0FvGB+cOBtrCxwkQcVk=;
+        b=EPfbTt1LSfEILXm2b5oqHqajsJ8JX7IHUHn5ftxXUO72286qmhHrBquBVraTWgTuXY
+         sae7mxJJJE3NyGhCdEkdOEUmkzxZ+4pKK2XF4qox3vRdFPETW0YdMwYBFHohO62mi/tc
+         imsrv/Q3yXWSYy7Bu9L3ErZAjHwhjohZEyuFPj9QDBCPr7b8TSBWWlgAmR6rFAgqn1li
+         OWkB03PT3sxaCz7a2J9N2/J3aizf/dsRb5vEGegaGg/GjTsnTAmgbNiWde+Nr4B4O8vx
+         eGqFH07CIEMF0IcCmD1OKH95EJp78vJzklApAVctLAdrKi60uvguQPqhnS3KrY0y/XJ/
+         zd9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744871153; x=1745475953;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=G4XNA7H4yNII7wvOevd5MDRJ0FvGB+cOBtrCxwkQcVk=;
+        b=OSFYdQ6NZdMatkd1b1DiGN8tJcJ5r6NDhyN4xiixGv51aRMJ+bZUVs56NJrRl+jbge
+         K39lVlXuD/G02UA/OMMAzKs1Hs/9SoWaI0uygWiQ9ugwykzSeP7gC4K5dPUBGtKbnGQk
+         aunsUF1fYluzkhWXqYKkh9e/SCMDloWcPQquajpUIW89WkhUGClbuo0Al8fkJfI4pKyk
+         jOVG/j8Q7bbp0boWiEpF2b0sfd6kboD3czxsKgOnI4QP9EhDn/33K0cY9919dV1zo7E8
+         AvjIAlRXMzIMNRCE7mWX7HRtSx40qaQ6tVQqevZ8vO5vqQggLHU3DOYjQgMY68u47g4s
+         CuHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXi11ck8/3CW10yQvlPcISNpVqOrPRbtYehaVgkD0Z5zlYyGyZSkioGMe0Rp1YRY8nUizWg3bcONi8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyLiT6wvC0UGwVP86xkvh5oashAYR+A4OMRLt5kRG1+Hh69bswx
+	X/qDW6oPJyMO8/ydbH+XYr5StA+OCgG47ImkYeSEZNjckbkEPC7Xc7f5XChh5g==
+X-Gm-Gg: ASbGnctibjLqg70m+/j/C0+pK+a/PxdIeTejSKspABCCpZ7CsxSPglSU7pDqqZy21u1
+	yQX9GfJo90J68MKsrLnHBBZppMkw1igODXyCZXnVAfW+apNU1AwA+jkybS75EfHWtNhz6Jknp4u
+	xMd96zhBHWIoSufO71TDN+IlUIyesHkoz16E/Aq7Q1QreU+X7Hxrfwxs2cUSaMogOtiYxZRYrtT
+	9SPDEIqaveGr1G8WkVgycw9dMIyx0ens6V2NTFC3OC5bZyAiigzUsztCy6s3ScznszR0r7VQUCL
+	nC9snevzKP3fd3qoG3VRX3ZWRLwCWABDf1QlkZD8WGCXY4qwUE+Xd1I4pyf883qCt263I9tWBad
+	NyaCiygLIg48dQqXVIzaoAEDcVA==
+X-Google-Smtp-Source: AGHT+IFjwDRFYVbxXG7CPq2dfQAJZ9RTJHaFU+ViObYqgiFbxoLe+dPI3VO8/QODjceUDbAyuTT16Q==
+X-Received: by 2002:a5d:64c7:0:b0:399:71d4:a2 with SMTP id ffacd0b85a97d-39ee5b16ddbmr3967895f8f.14.1744871153152;
+        Wed, 16 Apr 2025 23:25:53 -0700 (PDT)
+Message-ID: <c0bcc9e7-26a6-4a67-8f18-787364b530e4@suse.com>
+Date: Thu, 17 Apr 2025 08:25:41 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="TCI/ONZ83qF/8yz1"
-Content-Disposition: inline
-In-Reply-To: <20250321103258.37425-1-frediano.ziglio@cloud.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 10/14] xen/riscv: implementation of aplic and imsic
+ operations
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <74a07ed7c596bbcf581010685e01bfdfa19164f5.1744126720.git.oleksii.kurochko@gmail.com>
+ <35075d73-ec3c-4e8f-b7ed-657b604904bd@suse.com>
+ <9bee5d4e-cad1-4fc1-8b4c-b4a4bab4b76c@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <9bee5d4e-cad1-4fc1-8b4c-b4a4bab4b76c@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 16.04.2025 21:05, Oleksii Kurochko wrote:
+> On 4/15/25 2:46 PM, Jan Beulich wrote:
+>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
+>>> Introduce interrupt controller descriptor for host APLIC to describe
+>>> the low-lovel hardare. It includes implementation of the following functions:
+>>>   - aplic_irq_startup()
+>>>   - aplic_irq_shutdown()
+>>>   - aplic_irq_enable()
+>>>   - aplic_irq_disable()
+>>>   - aplic_irq_ack()
+>>>   - aplic_host_irq_end()
+>>>   - aplic_set_irq_affinity()
+>>>
+>>> As APLIC is used in MSI mode it requires to enable/disable interrupts not
+>>> only for APLIC but also for IMSIC. Thereby for the purpose of
+>>> aplic_irq_{enable,disable}() it is introduced imsic_irq_{enable,disable)().
+>>>
+>>> For the purpose of aplic_set_irq_affinity() aplic_get_cpu_from_mask() is
+>>> introduced to get hart id.
+>>>
+>>> Also, introduce additional interrupt controller h/w operations and
+>>> host_irq_type for APLIC:
+>>>   - aplic_host_irq_type
+>>>   - aplic_set_irq_priority()
+>>>   - aplic_set_irq_type()
+>> Yet these two functions nor the hooks they're used to populate are entirely
+>> unused here. Since they're also outside of the common IRQ handling machinery,
+>> it's unclear how one would sanely ack such a change.
+> 
+> They will be called by intc_route_irq_to_xen() from setup_irq() during firt time
+> the IRQ is setup.
 
---TCI/ONZ83qF/8yz1
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Apr 2025 05:12:47 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v7] Avoid crash calling PrintErrMesg from efi_multiboot2
+Perhaps move their introduction to there then? We don't do any Misra checking
+yet lon RISC-V, but imo it's still good practice to avoid introducing new
+violations, even if only temporarily.
 
-On Fri, Mar 21, 2025 at 10:32:58AM +0000, Frediano Ziglio wrote:
-> Although code is compiled with -fpic option data is not position
-> independent. This causes data pointer to become invalid if
-> code is not relocated properly which is what happens for
-> efi_multiboot2 which is called by multiboot entry code.
->=20
-> Code tested adding
->    PrintErrMesg(L"Test message", EFI_BUFFER_TOO_SMALL);
-> in efi_multiboot2 before calling efi_arch_edd (this function
-> can potentially call PrintErrMesg).
->=20
-> Before the patch (XenServer installation on Qemu, xen replaced
-> with vanilla xen.gz):
->   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
->   Test message: !!!! X64 Exception Type - 0E(#PF - Page-Fault)  CPU Apic =
-ID - 00000000 !!!!
->   ExceptionData - 0000000000000000  I:0 R:0 U:0 W:0 P:0 PK:0 SS:0 SGX:0
->   RIP  - 000000007EE21E9A, CS  - 0000000000000038, RFLAGS - 0000000000210=
-246
->   RAX  - 000000007FF0C1B5, RCX - 0000000000000050, RDX - 0000000000000010
->   RBX  - 0000000000000000, RSP - 000000007FF0C180, RBP - 000000007FF0C210
->   RSI  - FFFF82D040467CE8, RDI - 0000000000000000
->   R8   - 000000007FF0C1C8, R9  - 000000007FF0C1C0, R10 - 0000000000000000
->   R11  - 0000000000001020, R12 - FFFF82D040467CE8, R13 - 000000007FF0C1B8
->   R14  - 000000007EA33328, R15 - 000000007EA332D8
->   DS   - 0000000000000030, ES  - 0000000000000030, FS  - 0000000000000030
->   GS   - 0000000000000030, SS  - 0000000000000030
->   CR0  - 0000000080010033, CR2 - FFFF82D040467CE8, CR3 - 000000007FC01000
->   CR4  - 0000000000000668, CR8 - 0000000000000000
->   DR0  - 0000000000000000, DR1 - 0000000000000000, DR2 - 0000000000000000
->   DR3  - 0000000000000000, DR6 - 00000000FFFF0FF0, DR7 - 0000000000000400
->   GDTR - 000000007F9DB000 0000000000000047, LDTR - 0000000000000000
->   IDTR - 000000007F48E018 0000000000000FFF,   TR - 0000000000000000
->   FXSAVE_STATE - 000000007FF0BDE0
->   !!!! Find image based on IP(0x7EE21E9A) (No PDB)  (ImageBase=3D00000000=
-7EE20000, EntryPoint=3D000000007EE23935) !!!!
->=20
-> After the patch:
->   Booting `XenServer (Serial)'Booting `XenServer (Serial)'
->   Test message: Buffer too small
->   BdsDxe: loading Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4AF=
-6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
->   BdsDxe: starting Boot0000 "UiApp" from Fv(7CB8BDC9-F8EB-4F34-AAEA-3EE4A=
-F6516A1)/FvFile(462CAA21-7614-4503-836E-8AB6F4662331)
->=20
-> This partially rollback commit 00d5d5ce23e6.
->=20
-> Fixes: 9180f5365524 ("x86: add multiboot2 protocol support for EFI platfo=
-rms")
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+>>> --- a/xen/arch/riscv/aplic.c
+>>> +++ b/xen/arch/riscv/aplic.c
+>>> @@ -15,6 +15,7 @@
+>>>   #include <xen/irq.h>
+>>>   #include <xen/mm.h>
+>>>   #include <xen/sections.h>
+>>> +#include <xen/spinlock.h>
+>>>   #include <xen/types.h>
+>>>   #include <xen/vmap.h>
+>>>   
+>>> @@ -110,9 +111,173 @@ static int __init aplic_init(void)
+>>>       return 0;
+>>>   }
+>>>   
+>>> -static const struct intc_hw_operations __ro_after_init aplic_ops = {
+>>> +static void aplic_set_irq_type(struct irq_desc *desc, unsigned int type)
+>>> +{
+>>> +    unsigned int irq = desc->irq - 1;
+>> Why this adjustment by 1 (and yet both items being named "irq")?
+> 
+> Interrupt 0 isn't possible based on the spec:
+> ```
+> Each of an APLIC’s interrupt sources has a fixed unique identity number 
+> in the range 1 to N, where N is the total number of sources at the 
+> APLIC. The number zero is not a valid interrupt identity number at an 
+> APLIC. The maximum number of interrupt sources an APLIC may support is 
+> 1023. ``` and interrupt 1 will correspond to bit 0 in sourcecfg[] register, interrupt 
+> 2 ->sourcecfg[1] and so on. And that is the reason why we need -1.
 
--no-jump-tables is available since clang 3.9.0 (and since GCC 4.1.0), so
-with upgraded base toolchain requirements it's safe to commit this now.
+Okay, fine. But what about the part of the question in parentheses?
 
-Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+>>> +            aplic.regs->sourcecfg[irq] = APLIC_SOURCECFG_SM_EDGE_FALL;
+>>> +            break;
+>>> +        case IRQ_TYPE_LEVEL_HIGH:
+>>> +            aplic.regs->sourcecfg[irq] = APLIC_SOURCECFG_SM_LEVEL_HIGH;
+>>> +            break;
+>>> +        case IRQ_TYPE_LEVEL_LOW:
+>>> +            aplic.regs->sourcecfg[irq] = APLIC_SOURCECFG_SM_LEVEL_LOW;
+>>> +            break;
+>>> +        default:
+>>> +            aplic.regs->sourcecfg[irq] = APLIC_SOURCECFG_SM_INACTIVE;
+>>> +            break;
+>> Is the default: label legitimate to be reached?
+> 
+>  From the spec:
+> ```
+> 0 Inactive Inactive in this domain (and not delegated) 1 Detached 
+> Active, detached from the source wire 2–3 — Reserved 4 Edge1 Active, 
+> edge-sensitive; interrupt asserted on rising edge 5 Edge0 Active, 
+> edge-sensitive; interrupt asserted on falling edge 6 Level1 Active, 
+> level-sensitive; interrupt asserted when high 7 Level0 Active, 
+> level-sensitive; interrupt asserted when low ``` It seems to me like 
+> APLIC_SOURCECFG_SM_INACTIVE just covers cases (0-3) and inactive IRQ 
+> pretty safe to as a default value.
 
-> ---
-> Changes since v1:
-> - added "Fixes:" tag;
-> - fixed cast style change.
->=20
-> Changes since v2:
-> - wrap long line.
->=20
-> Changes since v3:
-> - fixed "Fixes:" tag.
->=20
-> Changes since v4:
-> - use switch instead of tables.
->=20
-> Changes since v5:
-> - added -fno-jump-tables option.
->=20
-> Changes since v6:
-> - rebased.
-> ---
->  xen/common/efi/boot.c        | 58 ++++++++++++++++++++++++------------
->  xen/common/efi/efi-common.mk |  1 +
->  2 files changed, 40 insertions(+), 19 deletions(-)
->=20
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index efbec00af9..143b5681ba 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -287,33 +287,53 @@ static bool __init match_guid(const EFI_GUID *guid1=
-, const EFI_GUID *guid2)
->  /* generic routine for printing error messages */
->  static void __init PrintErrMesg(const CHAR16 *mesg, EFI_STATUS ErrCode)
->  {
-> -    static const CHAR16* const ErrCodeToStr[] __initconstrel =3D {
-> -        [~EFI_ERROR_MASK & EFI_NOT_FOUND]           =3D L"Not found",
-> -        [~EFI_ERROR_MASK & EFI_NO_MEDIA]            =3D L"The device has=
- no media",
-> -        [~EFI_ERROR_MASK & EFI_MEDIA_CHANGED]       =3D L"Media changed",
-> -        [~EFI_ERROR_MASK & EFI_DEVICE_ERROR]        =3D L"Device error",
-> -        [~EFI_ERROR_MASK & EFI_VOLUME_CORRUPTED]    =3D L"Volume corrupt=
-ed",
-> -        [~EFI_ERROR_MASK & EFI_ACCESS_DENIED]       =3D L"Access denied",
-> -        [~EFI_ERROR_MASK & EFI_OUT_OF_RESOURCES]    =3D L"Out of resourc=
-es",
-> -        [~EFI_ERROR_MASK & EFI_VOLUME_FULL]         =3D L"Volume is full=
-",
-> -        [~EFI_ERROR_MASK & EFI_SECURITY_VIOLATION]  =3D L"Security viola=
-tion",
-> -        [~EFI_ERROR_MASK & EFI_CRC_ERROR]           =3D L"CRC error",
-> -        [~EFI_ERROR_MASK & EFI_COMPROMISED_DATA]    =3D L"Compromised da=
-ta",
-> -        [~EFI_ERROR_MASK & EFI_BUFFER_TOO_SMALL]    =3D L"Buffer too sma=
-ll",
-> -    };
-> -    EFI_STATUS ErrIdx =3D ErrCode & ~EFI_ERROR_MASK;
-> -
->      StdOut =3D StdErr;
->      PrintErr(mesg);
->      PrintErr(L": ");
-> =20
-> -    if( (ErrIdx < ARRAY_SIZE(ErrCodeToStr)) && ErrCodeToStr[ErrIdx] )
-> -        mesg =3D ErrCodeToStr[ErrIdx];
-> -    else
-> +    switch (ErrCode)
+I fear this doesn't answer my question, which is to a large part related
+to the Xen code, and only to some degree to the spec.
+
+>>> +static void aplic_set_irq_priority(struct irq_desc *desc,
+>>> +                                   unsigned int priority)
+>>> +{
+>>> +    /* No priority, do nothing */
+>>> +}
+>> Since the function dopes nothing, wouldn't it be better to omit it and have
+>> the (future) caller check for a NULL pointer ahead of making the (indirect)
+>> call? Same remark for other handlers (below) which also do nothing.
+> 
+> I thought about that too, but it could be some cases when the stub is introduced
+> with temporary BUG_ON("unimplemented") inside just to not miss to implement it
+> when it will be necessary.
+> If we will have only the caller check then we could miss to implement such stubs.
+
+I guess I don't understand the concern.
+
+>>> +static void aplic_irq_enable(struct irq_desc *desc)
+>>> +{
+>>> +    unsigned long flags;
+>>> +
+>>> +    /*
+>>> +     * TODO: Currently, APLIC is supported only with MSI interrupts.
+>>> +     *       If APLIC without MSI interrupts is required in the future,
+>>> +     *       this function will need to be updated accordingly.
+>>> +     */
+>>> +    ASSERT(aplic.imsic_cfg->is_used);
+>> Such an extra field, used only for assertions, is pretty odd. Can't you
+>> use any of the other fields to achieve the same effect?
+> 
+> in aplic_init() there is:
+>      /* check for associated imsic node */
+>      rc = dt_property_read_u32(node, "msi-parent", &imsic_phandle);
+>      if ( !rc )
+>          panic("%s: IDC mode not supported\n", node->full_name);
+> 
+> So we will have panic() anyway if MSI mode isn't supported. As an option we
+> can just drop the ASSERT.
+
+Since they serve primarily as a reminder where changes would need making,
+I'd prefer if they could be kept.
+
+> Or introduce static variable in aplic.c `aplic_mode`, init it in aplic_init()
+> and use it in ASSERT().
+
+This would then again be used solely for assertions, aiui? As said, I
+think it would be preferable if some already existing indicator could be
+used for this purpose.
+
+>>> +    ASSERT(spin_is_locked(&desc->lock));
+>> If this lock (which is an IRQ-safe one) is necessarily held, ...
+>>
+>>> +    spin_lock_irqsave(&aplic.lock, flags);
+>> ... you can use just spin_lock() here.
+>>
+>>> +    clear_bit(_IRQ_DISABLED, &desc->status);
+>> Why an atomic bitop when desc is locked? (And yes, I ought to raise the same
+>> question on Arm code also doing so.)
+> 
+> I haven't thought about that. Likely non-atomic bitop could be used here.
+
+And then - does it need to be a bitop? Aiui that's what Arm uses, while x86
+doesn't. And I see no reason to use other than plain C operators here. If
+Arm was switched, presumably all the redundant (and misnamed) _IRQ_*
+constants could go away, with just the IRQ_* ones left.
+
+>> I'm uncertain about this bit setting anyway - on x86 we would only fiddle
+>> with it for IRQs not in use, not while enabling/disabling one.
+
+What about this part?
+
+>> In any event this can be done outside of the APLIC-locked region, I think.
+> 
+> Considering that we are doing that under desc->lock, agree we can move that outside
+> the APLIC-locked region.
+> 
+>>> +    imsic_irq_enable(desc->irq);
+>>> +
+>>> +    /* enable interrupt in APLIC */
+>>> +    aplic.regs->setienum = desc->irq;
+>> Are you sure you want to use plain assignments for MMIO accesses? I'd have
+>> expected writel() to be used here. (And only later I realized that I didn't
+>> spot the same already higher up from here.)
+> 
+> Good point. I have to update that with writel()...
+> 
+>>
+>>  From the vague understanding I've gained so far: Isn't the APLIC closer to
+>> the CPU and the IMSIC closer to the device? If so, wouldn't you want to
+>> enable at the APLIC before enabling at the IMSIC? But of course that also
+>> depends on what exactly happens in the window while one is already enabled
+>> and the other is still disabled. (Later) From the code you add to imsic.c
+>> it looks like it's the other way around, as the IMSIC is accessed through
+>> CSRs.
+> 
+>  From the AIA spec:
+> ```
+> An Incoming MSI Controller (IMSIC) is an optional RISC-V hardware component
+> that is closely coupled with a hart, one IMSIC per hart. An IMSIC receives
+> and records incoming message-signaled interrupts (MSIs) for a hart, and
+> signals to the hart when there are pending and enabled interrupts to be
+> serviced.
+> ```
+> 
+> Based on the figure 2 (Interrupt delivery by MSIs when harts have IMSICs for receiving them)
+> of AIA spechttps://github.com/riscv/riscv-aia/blob/main/src/intrsWithIMSICs.png
+> IMSIC is more close to CPU and APLIC is more close to the device. The external interrupt
+> controller is APLIC and it only sends a MSI message for a CPU.
+> 
+> The logical flow of an interrupt to a hart with an IMSIC would be:
+> 1. A physical interrupt signal arrives at the APLIC.
+> 2. The APLIC, if configured for MSI delivery mode (domaincfg.DM = 1) and if the specific
+>     interrupt source is active and enabled within its domain (controlled by sourcecfg[i]
+>     and the global Interrupt Enable bit IE in domaincfg), will generate an MSI.
+> 3. This MSI is then sent to the target hart's IMSIC. The APLIC needs to know the MSI
+>     target address for each hart, which can be hardwired or configured through registers
+>     like mmsiaddrcfg and mmsiaddrcfgh.
+> 4. The receiving hart's IMSIC records this MSI as a pending interrupt.
+> 5. If the corresponding interrupt identity is enabled within the IMSIC's interrupt file,
+>     the IMSIC will signal the hart, typically by setting the MEIP or SEIP bit in the mip
+>     CSR (or sip CSR).
+> 
+> Generally, I think that the order in which enable interrupts doesn't really matter as
+> if you were to enable the IMSIC to receive a certain interrupt before the APLIC was
+> configured to send it (or had a pending interrupt from the device), the IMSIC would
+> simply be waiting for an MSI that wouldn't arrive.
+> Similarly, if the APLIC sends an MSI for an interrupt that is not enabled in the IMSIC,
+> the interrupt would remain pending in the IMSIC but wouldn't trigger an interrupt at
+> the hart.
+> 
+> IMO, the order which is used now in the code is pretty logical.
+> 
+> Does it make sense?
+
+Except for the "doesn't really matter" - yes. In a reply to a later patch I
+indicated I realized that IMSIC is what's closer to the CPU (and hence later
+in the chain of interrupt delivery actions).
+
+>>> +    spin_unlock_irqrestore(&aplic.lock, flags);
+>>> +}
+>>> +
+>>> +static void aplic_irq_disable(struct irq_desc *desc)
+>>> +{
+>>> +    unsigned long flags;
+>>> +
+>>> +    /*
+>>> +     * TODO: Currently, APLIC is supported only with MSI interrupts.
+>>> +     *       If APLIC without MSI interrupts is required in the future,
+>>> +     *       this function will need to be updated accordingly.
+>>> +     */
+>>> +    ASSERT(aplic.imsic_cfg->is_used);
+>>> +
+>>> +    ASSERT(spin_is_locked(&desc->lock));
+>>> +
+>>> +    spin_lock_irqsave(&aplic.lock, flags);
+>>> +
+>>> +    set_bit(_IRQ_DISABLED, &desc->status);
+>>> +
+>>> +    /* disable interrupt in APLIC */
+>>> +    aplic.regs->clrienum = desc->irq;
+>>> +
+>>> +    /* disable interrupt in IMSIC */
+>>> +    imsic_irq_disable(desc->irq);
+>>> +
+>>> +    spin_unlock_irqrestore(&aplic.lock, flags);
+>>> +}
+>>> +
+>>> +static unsigned int aplic_irq_startup(struct irq_desc *desc)
+>>> +{
+>>> +    aplic_irq_enable(desc);
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +static void aplic_irq_shutdown(struct irq_desc *desc)
+>>> +{
+>>> +    aplic_irq_disable(desc);
+>>> +}
+>> You don't really need a separate hook function here, do you?
+> 
+> With such implementation it is really not needed to have a hook so
+> I will drop it.
+> 
+>>> +static void aplic_irq_ack(struct irq_desc *desc)
+>>> +{
+>>> +    /* nothing to do */
+>>> +}
+>>> +
+>>> +static void aplic_host_irq_end(struct irq_desc *desc)
+>> What's the "host" in the identifier about?
+> 
+> It was copied that from Arm and my understanding that it means
+> Xen-related IRQ as they also have:
+> ```
+> /* XXX different for level vs edge */
+> static hw_irq_controller gicv2_host_irq_type = {
+> ...
+>      .end          = gicv2_host_irq_end,
+> ...
+> };
+> 
+> static hw_irq_controller gicv2_guest_irq_type = {
+> ...
+>      .end          = gicv2_guest_irq_end,
+> ...
+> };
+> ```
+
+And you expect to end up with a similar distinction on RISC-V? There's
+nothing like that on x86, just to mention it.
+
+>>> +static void aplic_set_irq_affinity(struct irq_desc *desc, const cpumask_t *mask)
+>>> +{
+>>> +    unsigned int cpu;
+>>> +    uint64_t group_index, base_ppn;
+>>> +    uint32_t hhxw, lhxw ,hhxs, value;
+>>> +    const struct imsic_config *imsic = aplic.imsic_cfg;
+>>> +
+>>> +    /*
+>>> +     * TODO: Currently, APLIC is supported only with MSI interrupts.
+>>> +     *       If APLIC without MSI interrupts is required in the future,
+>>> +     *       this function will need to be updated accordingly.
+>>> +     */
+>>> +    ASSERT(aplic.imsic_cfg->is_used);
+>> Use the local variable you have made yourself?
+> 
+> What do you mean by local here?
+
+Just a few lines up you latch aplic.imsic_cfg into the local "imsic".
+
+>>> +    ASSERT(!cpumask_empty(mask));
+>>> +
+>>> +    spin_lock(&aplic.lock);
+>> Aiui the lock can be acquired quite a bit later. It ought to be needed only
+>> around the actual write to the hardware register.
+>>
+>>> +    cpu = cpuid_to_hartid(aplic_get_cpu_from_mask(mask));
+>>> +    hhxw = imsic->group_index_bits;
+>>> +    lhxw = imsic->hart_index_bits;
+>>> +    hhxs = imsic->group_index_shift - IMSIC_MMIO_PAGE_SHIFT * 2;
+>>> +    base_ppn = imsic->msi[cpu].base_addr >> IMSIC_MMIO_PAGE_SHIFT;
+>>> +
+>>> +    /* update hart and EEID in the target register */
+>>> +    group_index = (base_ppn >> (hhxs + 12)) & (BIT(hhxw, UL) - 1);
+>> What's this magic 12 in here? Not IMSIC_MMIO_PAGE_SHIFT I suppose?
+> 
+> In the AIA spec they are using 12 explicitly:https://github.com/riscv/riscv-aia/blob/main/src/AdvPLIC.adoc#AdvPLIC-MSIAddrs
+
+In the spec that's fine, but please make yourself a constant with a suitable
+name then, to be used here. Just consider what would happen if we used literal
+12 everywhere PAGE_SHIFT was meant.
+
+>>> +void imsic_irq_enable(unsigned int hwirq)
+>>> +{
+>>> +    unsigned long flags;
+>>> +
+>>> +    spin_lock_irqsave(&imsic_cfg.lock, flags);
+>>> +    imsic_local_eix_update(hwirq, 1, false, true);
+>> No subtraction of 1 here? Also, why "hwirq" and not just "irq"?
+> 
+>  From the spec:
+> ```
+> 
+> When an interrupt file supports distinct interrupt identities, valid identity numbers are between 1
+> and inclusive. The identity numbers within this range are said to be implemented by the interrupt
+> file; numbers outside this range are not implemented. The number zero is never a valid interrupt
+> identity.
+> ...
+> 
+> Bit positions in a valid eiek register that don’t correspond to a 
+> supported interrupt identity (such as bit 0 of eie0) are read-only zeros.
+> 
+> 
+> ```
+> 
+> So in EIx registers interrupt i corresponds to bit i in comparison wiht APLIC's sourcecfg which starts from 0.
+
+Confusing, but what do you do.
+
+>>> @@ -277,6 +333,13 @@ int __init imsic_init(struct dt_device_node *node)
+>>>           goto imsic_init_err;
+>>>       }
+>>>   
+>>> +    spin_lock_init(&imsic_cfg.lock);
+>>> +
+>>> +    /* Enable local interrupt delivery */
+>>> +    imsic_ids_local_delivery(true);
+>> What's this? I can't find the function/macro here, nor in patch 08, nor in
+>> staging.
+> 
+> It is defined in imsic.c:
+> ```
+> void imsic_ids_local_delivery(bool enable)
+> {
+>      if ( enable )
 >      {
-> +    case EFI_NOT_FOUND:
-> +        mesg =3D L"Not found";
-> +        break;
-> +    case EFI_NO_MEDIA:
-> +        mesg =3D L"The device has no media";
-> +        break;
-> +    case EFI_MEDIA_CHANGED:
-> +        mesg =3D L"Media changed";
-> +        break;
-> +    case EFI_DEVICE_ERROR:
-> +        mesg =3D L"Device error";
-> +        break;
-> +    case EFI_VOLUME_CORRUPTED:
-> +        mesg =3D L"Volume corrupted";
-> +        break;
-> +    case EFI_ACCESS_DENIED:
-> +        mesg =3D L"Access denied";
-> +        break;
-> +    case EFI_OUT_OF_RESOURCES:
-> +        mesg =3D L"Out of resources";
-> +        break;
-> +    case EFI_VOLUME_FULL:
-> +        mesg =3D L"Volume is full";
-> +        break;
-> +    case EFI_SECURITY_VIOLATION:
-> +        mesg =3D L"Security violation";
-> +        break;
-> +    case EFI_CRC_ERROR:
-> +        mesg =3D L"CRC error";
-> +        break;
-> +    case EFI_COMPROMISED_DATA:
-> +        mesg =3D L"Compromised data";
-> +        break;
-> +    case EFI_BUFFER_TOO_SMALL:
-> +        mesg =3D L"Buffer too small";
-> +        break;
-> +    default:
->          PrintErr(L"ErrCode: ");
->          DisplayUint(ErrCode, 0);
->          mesg =3D NULL;
-> +        break;
+>          imsic_csr_write(IMSIC_EITHRESHOLD, IMSIC_ENABLE_EITHRESHOLD);
+>          imsic_csr_write(IMSIC_EIDELIVERY, IMSIC_ENABLE_EIDELIVERY);
 >      }
->      blexit(mesg);
->  }
-> diff --git a/xen/common/efi/efi-common.mk b/xen/common/efi/efi-common.mk
-> index 23cafcf20c..06b1c19674 100644
-> --- a/xen/common/efi/efi-common.mk
-> +++ b/xen/common/efi/efi-common.mk
-> @@ -2,6 +2,7 @@ EFIOBJ-y :=3D boot.init.o pe.init.o ebmalloc.o runtime.o
->  EFIOBJ-$(CONFIG_COMPAT) +=3D compat.o
-> =20
->  CFLAGS-y +=3D -fshort-wchar
-> +CFLAGS-y +=3D -fno-jump-tables
->  CFLAGS-y +=3D -iquote $(srctree)/common/efi
->  CFLAGS-y +=3D -iquote $(srcdir)
-> =20
-> --=20
-> 2.43.0
->=20
+>      else
+>      {
+>          imsic_csr_write(IMSIC_EITHRESHOLD, IMSIC_DISABLE_EITHRESHOLD);
+>          imsic_csr_write(IMSIC_EIDELIVERY, IMSIC_DISABLE_EIDELIVERY);
+>      }
+> }
+> ```
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+No, it's not. As noted in the reply to a later patch, it's only introduced
+there. Hence the build will break between the two patches.
 
---TCI/ONZ83qF/8yz1
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmgAca8ACgkQ24/THMrX
-1yxXBgf+PTSXlLpxQfxCbYlKEJb/lMXA9xdvm5vI4Z+mnDTpn7TkkIoMoj+q03BY
-l0YK0MsAVdzUl0cz8Em5ZyshY5WKa48pqB6gH5YU4ANQW1UVrCiOQTu9njt4mJyv
-0tPUT4QIOLGyUWFl4Yx19IvNVo3ujOz1I750Yh8ZqMRLaDpIjzHl9GqMaY97Mj8f
-DoL4rx2xrOf6N8xPE7tNuallhuvDl8x52sAWU8y/LMc/UGBOwZTZOMJAAIUC8S+o
-JYuG5swUVfKYliJaKX3S455/Lggd7ZG6CQUS7Td1emr+dHHFtbAtkRy5GOWHod14
-KKnkNhlQcXGvzp4GtMcBdvPFuM7nUA==
-=lZKB
------END PGP SIGNATURE-----
-
---TCI/ONZ83qF/8yz1--
+Jan
 
