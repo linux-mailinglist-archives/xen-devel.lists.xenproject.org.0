@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A612A9174C
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 11:07:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.957228.1350394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F383A91768
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 11:14:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.957240.1350404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5LDO-0007jp-KP; Thu, 17 Apr 2025 09:07:22 +0000
+	id 1u5LJe-0001bc-7i; Thu, 17 Apr 2025 09:13:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 957228.1350394; Thu, 17 Apr 2025 09:07:22 +0000
+Received: by outflank-mailman (output) from mailman id 957240.1350404; Thu, 17 Apr 2025 09:13:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5LDO-0007iG-HK; Thu, 17 Apr 2025 09:07:22 +0000
-Received: by outflank-mailman (input) for mailman id 957228;
- Thu, 17 Apr 2025 09:07:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u5LJe-0001Yp-4t; Thu, 17 Apr 2025 09:13:50 +0000
+Received: by outflank-mailman (input) for mailman id 957240;
+ Thu, 17 Apr 2025 09:13:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CA5y=XD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u5LDN-0007i6-4D
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 09:07:21 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5dfe9fe0-1b6b-11f0-9eb0-5ba50f476ded;
- Thu, 17 Apr 2025 11:07:20 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-43cf628cb14so12230595e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 02:07:20 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-440609c94fesm28565515e9.40.2025.04.17.02.07.17
+ <SRS0=uBz4=XD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u5LJc-0001Yj-Cr
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 09:13:48 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 442a1e20-1b6c-11f0-9ffb-bf95429c2676;
+ Thu, 17 Apr 2025 11:13:46 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5e6f4b3ebe5so1095767a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 02:13:46 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acb3d126fb1sm264809266b.101.2025.04.17.02.13.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Apr 2025 02:07:18 -0700 (PDT)
+ Thu, 17 Apr 2025 02:13:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5dfe9fe0-1b6b-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: 442a1e20-1b6c-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744880840; x=1745485640; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2Xs1K+a1qqRMKOXmuqpHg+jKUFOxcfarBKMr7TQqs48=;
-        b=q7oY2+ihRSaEBDJii64ds/nb1bpbVsaLDFfPVfeNi7P5VvFbhcU6iCn9VTElXBWXQY
-         3Ajd4pJKz/k/HzscAbzORW3zXK2S/7IAnWVp/czMZR2Q7ML6lyashK57ijtaohOhSNH+
-         HSs/KLIfVgihGpi+8Mptn2lRyChbHUrsUmtM4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744880840; x=1745485640;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1744881226; x=1745486026; darn=lists.xenproject.org;
+        h=in-reply-to:content-language:references:cc:to:from:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2Xs1K+a1qqRMKOXmuqpHg+jKUFOxcfarBKMr7TQqs48=;
-        b=cTRPDljevPbPmsJm7b3yImL+9iOTENi6vugyYZdMCCV1w03DUIuKPQsAciaoOpyGjV
-         fw1v71z4YHi73EXgW3AnwbumemI/w5+EkCw1oB34VC9prnWr9R6Do7knrAGQEYCfFGUT
-         OfEVBaebJnySEIZ6WbK/uwgoevn+eMZMILuA/9W21nfOM5/rifUVMyNpejxgpiMDCI+g
-         MW3bOpyY4zJjRkvUzUe0jOSBaYTT5nWJkqIg2kVDcyNCS4CXtEfEg4Mu9jjmSYpg2iI9
-         zdNrcEtyZwHTz86BqPJ6wWK5pzpVJWuzUV6cafE85TrM5I7ZB1lKBRpHuKbE2+AkqVXf
-         V3rg==
-X-Forwarded-Encrypted: i=1; AJvYcCXk8ZzrIVeLeLEU/LU7VzkzKjGeWFjASJjThd7tLyICwmJG9QMb863epFbC2fekwLH4rdl7Gi4E464=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxj6FtTF4u/JI+lKMiSiAF7Jsgr7B12xMDze8cGQBo193qGTJlu
-	7RbYukjxX+Cjc+zmnKoYrz09izp3Tl9XjH9kulK80JAkil7WIzMFw9q0JNEJWUg=
-X-Gm-Gg: ASbGncs2/IrXi/hBHO+TusNZFJ3B8BzjB1IhVX/2BDUNnC1HHBWw13z/mc767gZIKj9
-	WizE6z5PtmN/9JWcuw/fHYXgEJElBmFcMxX5VOO2GiG3TLpqMPYijejdd48jL5ijZXLPeC6HDSI
-	McJhTsmwt/OmYT4brYAVF1KvtStNC+EkcfW7RfVrV+RjVKMTnARnMoDYurLgmNKdnFtqFhUz63c
-	j0knNa+2x7t0RRnFycpqp0W+BOjlsCGhLxMfpSwQMKz1ufC4DFogJHyWHyKHfLC5CzeRgAqodVi
-	VASFeJdSgqgTbNF7tk2TB01xK29+MLA+KrUnt6UONw7SfoyMVsnelz38lOlKfwmU5KXoDiMqanL
-	o3CyuzQ==
-X-Google-Smtp-Source: AGHT+IHHHI1jK0OcpCsNP8z3KjGyw9TE4kJaeE13cIZVYaFyCq/nWl3pV21tJU0xwI9K7VzHTrgNKw==
-X-Received: by 2002:a05:600c:3505:b0:43b:c857:e9d7 with SMTP id 5b1f17b1804b1-44063674350mr13259215e9.5.1744880839624;
-        Thu, 17 Apr 2025 02:07:19 -0700 (PDT)
-Message-ID: <82f7ddcd-3f9a-4bbf-9c65-4ad90259c321@citrix.com>
-Date: Thu, 17 Apr 2025 10:07:17 +0100
+        bh=npzCosEEGRnhf08nh9R1y1SiE+0oq0s7FdBtOiiTQG0=;
+        b=MEd+/u599S3Qx+fYUssgunJ7pWK94fmFKPmJhEFMjkoEljVe+BtITV3m6oso1G+1I3
+         Ut/9XAXkAwvqXmZl6ZLEq9uwnc7Zl+gD0w2R5F6S2gRSCsMO2K4Uns5vnwjHi23Wr4DU
+         BLSavdrY/uTXHI78ZrvToUjuM6NTLy8lChRslKYmhVBALiLQxrBAagFZ8DgbNkvZhJax
+         OPvar6q68FYqxJ6MjFLNpi3/F1nelsxpaH4m7sOYOgLODOJQkls+/HBwzgofoQpN21M7
+         dyME0odhEHHnMZEg7fvVX4FInoDhmTJbtz90eO/zgThuhE63sLeI8eKccMpUIiEy68Tv
+         tW9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744881226; x=1745486026;
+        h=in-reply-to:content-language:references:cc:to:from:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=npzCosEEGRnhf08nh9R1y1SiE+0oq0s7FdBtOiiTQG0=;
+        b=PCPr6ok+KkBAOsbvvgPUDFQpNIRNYKQh9tGba4Gxv0hc/G/xH1ClRvPLZZY8yZ7zxf
+         CVksE/t1bO4w2pwlvtfT+f8C8ClCxuKAfZANh/Hv+Q3NZkflAdbtr4xjlUi4EgbaX7Io
+         IN9wq+CNAHqJAO7L+LYSETTtmt/vYngiTEOOfIltRLUZGdaFRiF5N5DwTsIxAhxxvspW
+         O4nNb5KiNkUX8lVd+It5h9AcQjXM1V9B1f0Tm1Mr6ys5E512piBTm+MGAknUIafxh+SZ
+         xiWTTBUHT1fc7X5nfaFdhtGj+qSd8CWffR+mo96vcHGQXWe/0r0hwFNCcnuxgK9IzqvZ
+         CYOg==
+X-Forwarded-Encrypted: i=1; AJvYcCVqu01dRJKPhVqZ8dxWdI82Hd0yv6JiWWfZJwej+NEUXWmKEU6jxx+kFNRD0ZMWqBFrLbdHvxNce1w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz6yRZYAoDt+pBKpYw6leR1A/rfQAmV8EBdiZjuN3uQDplqusMQ
+	GejOvRBqYCzy2dT9imFPMIH1knUGLOWjkfOy29XiEnGsnZoC5ttu
+X-Gm-Gg: ASbGnctYzjHHmawXvIesK2b4p1YaCh5BFMi7GT/nyhfsz4+A79JMQ2mF3VZJhmXXonq
+	NHmAKaARl4Zj9kr3qSutZYcQ0fOQbE8fOE95IcW3RMuUgLtHm5ba4EVbtwTy68D2uczLFyQHbYz
+	1Pff08RUXEe62LpfpOo11whYJoIOYaCp+g2IwreKTVzJr6dDqI4eAe6bte18FGdIlcENA97S6mm
+	lPEECc1oVSqjy7VRf0ZNysPltOiIB+BZiubLU5jgH6791jrkB5tuGo2rAVZpJTR4ss1rPRGdw5Z
+	3rtB2PgvUESzAUPm3anJdTSeilJJhHOXyb3D8JgSRkYoPi0lp+Sta/yIhB5VsBpd/8+NQP7C6ru
+	RxpipYOvbxkoqokZ8
+X-Google-Smtp-Source: AGHT+IHqck9zSbmI6Xn//iK06K1+3IVYnzNYfka5WJ7Fr6LzZYzVcNaAS8GETJInPIPVJCbzBxgOVw==
+X-Received: by 2002:a17:906:478a:b0:ac2:fd70:ddcc with SMTP id a640c23a62f3a-acb42c33a01mr413309966b.47.1744881225725;
+        Thu, 17 Apr 2025 02:13:45 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------RR2yIRijnQfw4ymP64d2yRnp"
+Message-ID: <187bfe40-6603-42c0-9afe-3db169c8de39@gmail.com>
+Date: Thu, 17 Apr 2025 11:13:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86emul: also clip repetition count for STOS
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Fabian Specht <f.specht@tum.de>, Manuel Andreas <manuel.andreas@tum.de>
-References: <ebf8e47a-8cad-4ee6-9bea-61c8201364de@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ebf8e47a-8cad-4ee6-9bea-61c8201364de@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v1 11/14] xen/riscv: add external interrupt handling for
+ hypervisor mode
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <1685488b8c1b48149e94bd3625c7b46b78c72e8e.1744126720.git.oleksii.kurochko@gmail.com>
+ <a8a23afe-ae62-4b88-bf53-db2e1ada164d@suse.com>
+ <01fa6252-ce42-46e3-becf-ede6961aff14@gmail.com>
+Content-Language: en-US
+In-Reply-To: <01fa6252-ce42-46e3-becf-ede6961aff14@gmail.com>
+
+This is a multi-part message in MIME format.
+--------------RR2yIRijnQfw4ymP64d2yRnp
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 17/04/2025 10:05 am, Jan Beulich wrote:
-> Like MOVS, INS, and OUTS, STOS also has a special purpose hook, where
-> the hook function may legitimately have the same expectation as to the
-> request not straddling address space start/end.
->
-> Fixes: 5dfe4aa4eeb6 ("x86_emulate: Do not request emulation of REP instructions beyond the")
-> Reported-by: Fabian Specht <f.specht@tum.de>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 4/17/25 10:44 AM, Oleksii Kurochko wrote:
+>>> +    action = desc->action;
+>>> +
+>>> +    spin_unlock_irq(&desc->lock);
+>>> +
+>>> +#ifndef CONFIG_IRQ_HAS_MULTIPLE_ACTION
+>> Stolen from Arm? What's this about?
+> Yes, it is stolen from Arm. I thought that it is a generic one, but the config is defined
+> inside Arm's config.h.
+> Then it could be dropped now as I don't know, at the moment, the cases when it is neeeded
+> to exectute several handler for an irq for RISC-V.
+
+Probably, IOMMU may setup multiple handler for the same interrupt. I'll double check that.
+
+~ Oleksii
+
+--------------RR2yIRijnQfw4ymP64d2yRnp
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/17/25 10:44 AM, Oleksii Kurochko
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:01fa6252-ce42-46e3-becf-ede6961aff14@gmail.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <blockquote type="cite"
+        cite="mid:a8a23afe-ae62-4b88-bf53-db2e1ada164d@suse.com">
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">+    action = desc-&gt;action;
++
++    spin_unlock_irq(&amp;desc-&gt;lock);
++
++#ifndef CONFIG_IRQ_HAS_MULTIPLE_ACTION
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">Stolen from Arm? What's this about?</pre>
+      </blockquote>
+      <pre>Yes, it is stolen from Arm. I thought that it is a generic one, but the config is defined
+inside Arm's config.h.
+Then it could be dropped now as I don't know, at the moment, the cases when it is neeeded
+to exectute several handler for an irq for RISC-V.</pre>
+    </blockquote>
+    <pre>Probably, IOMMU may setup multiple handler for the same interrupt. I'll double check that.
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------RR2yIRijnQfw4ymP64d2yRnp--
 
