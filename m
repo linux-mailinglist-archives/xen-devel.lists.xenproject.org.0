@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86719A92240
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 18:08:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.958204.1351133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CC75A92245
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 18:08:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.958205.1351143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5Rmw-0005oD-S7; Thu, 17 Apr 2025 16:08:30 +0000
+	id 1u5Rn8-000673-6F; Thu, 17 Apr 2025 16:08:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 958204.1351133; Thu, 17 Apr 2025 16:08:30 +0000
+Received: by outflank-mailman (output) from mailman id 958205.1351143; Thu, 17 Apr 2025 16:08:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5Rmw-0005lf-Ob; Thu, 17 Apr 2025 16:08:30 +0000
-Received: by outflank-mailman (input) for mailman id 958204;
- Thu, 17 Apr 2025 16:08:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u5Rn8-00065D-3O; Thu, 17 Apr 2025 16:08:42 +0000
+Received: by outflank-mailman (input) for mailman id 958205;
+ Thu, 17 Apr 2025 16:08:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uBz4=XD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u5Rmv-0005lV-B2
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 16:08:29 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3229461f-1ba6-11f0-9ffb-bf95429c2676;
- Thu, 17 Apr 2025 18:08:27 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5f620c5f7b9so511795a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 09:08:27 -0700 (PDT)
-Received: from fedora.. (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-acb6eefcf4fsm11813366b.109.2025.04.17.09.08.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Apr 2025 09:08:25 -0700 (PDT)
+ <SRS0=CA5y=XD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u5Rn7-00064Y-8h
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 16:08:41 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3a1f2f66-1ba6-11f0-9eb0-5ba50f476ded;
+ Thu, 17 Apr 2025 18:08:40 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5e677f59438so1402989a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 09:08:40 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5f36f527dcesm10079725a12.75.2025.04.17.09.08.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Apr 2025 09:08:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,264 +45,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3229461f-1ba6-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 3a1f2f66-1ba6-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744906106; x=1745510906; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=3NWB8mLbn4p6HtvClqdYwWaVWheS1paF4s/IftnNZg0=;
-        b=j8MOuTB0SEw8Db1B5bBS1+AnGNHVcrAI9twDZQ7KLGkEDW48kpZTH7/wBjLpM/ogmq
-         2fQFJONcKZh/96JhE0cCc5yMdW/VlNwmQtgBwZsbhyXv0e5sO1aCtUejQRxB0XtBT0v4
-         7D0VPdlYBktnIEimOg95V3nxwXNgEW2OPaa8wKJMseQD7cOW78jBn8GY4LifJVNd+dAn
-         78LdDRUaPLg8HfrtfN/SeVmLY7xznV6HXhfr7yu4/4AZiOLUOcg/5oOPi9d4TpGdBEom
-         giK5O65AbOhi8C88u9hhW1GF3keY5iYvsDQ966n2lnNttlJnA+yo08RNhpKjjwqU66MX
-         KffA==
+        d=citrix.com; s=google; t=1744906120; x=1745510920; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=MhPJrqoIkfnTndXlNlsEiuPfcta9mSv635MGKENoHMg=;
+        b=gpxXLVRMtduEIbuenb/2U64+YYvSL26ZsTDYDPDOoH+/kwhH3slNbzHE5EFfC6jeHz
+         iFORVsLgmBAgo4NKT1YIS0AS59KWeodSTp1W8sxYyVHWIYEIfUdK/6pgpkhXlpGpPfxf
+         35/b7LhZ1tp2JW5W/IkYBrJIb+PvM7rCJIDbY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744906106; x=1745510906;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3NWB8mLbn4p6HtvClqdYwWaVWheS1paF4s/IftnNZg0=;
-        b=Xla9iqhIId2azFLNQwtsrCg4aN3Mo2cb0tru1yn0YzzGk9XUa9C9a8h52imcNpgSuC
-         udqmX5EaqFeJFvXxfQPkhMwV2ZfrriE7cyg+1Q+vLS2fXMtixemnC6XR9ffPcQi+tSP5
-         hOELQfS9NmGdoBEIhdw8YNJIudIyLaiuxDlVkYurU5fSttg5Km9cihm9TUrthOYuHVG3
-         r9GF1xNZ3uYyA2f5JzRIgd/JIlhDKwHMfe2ouv3WX2AwbpMVvgcpAJSjAC2bOel5xuxN
-         b8yG1aPA1pQlQI2YJOqCEV4zdb64+/IGv/C8zdVHLfvl4RqRRbKlZhrHbz5AxX00rOwv
-         HEqQ==
-X-Gm-Message-State: AOJu0Yx7Vz/llXOYeafA1HLKnKcE8BnIQhaewWJuzo49Uu/yk94x5aqy
-	I7abcdlCbrnqhmOKN/7+X1IFg4Z490sv+e0m7n1+OPr7WTgJfcLy33D/4g==
-X-Gm-Gg: ASbGncvIV7AvEmn8D3ZaRyIG5Rb4PC0OE0yYuiMpjDckfLTdPOgjarN/SLxcH/lhNSW
-	ymYwR4UgKii9TCXn0tlbsArjlMwnTLA09dUHVn/fxqdFJo9Kwo2AS6tv69o7xAJtEId2gb7RAKt
-	chqL8xWoLdpNi1Ny/GmzizIeLm9kEBLx9CSOmMObzfEBuCxD5OScQxHQjuaY7JdoikGBDohI9H4
-	jTdGCOnMtXlA4/wyqzQjbKvIo+2UK9m2J278aWha+CMmMTXPrrwy7epPIfOO6oYVZ5Ro0XaKLM6
-	VacQdfWvEJEpuQVDkAqXEFdTHapgBtLaflDBnme0iJZFyvj5QhvzeUwFst1UDXzIdfq5GOwr6tg
-	cog1R8vyywQ==
-X-Google-Smtp-Source: AGHT+IHY5WK/9+EjSWe3x0M01GEY7IDf9i3WY4/VZftLp4beSojL3weDsp5TINYXGjWesvDpD208JQ==
-X-Received: by 2002:a17:907:9443:b0:ac3:bd68:24eb with SMTP id a640c23a62f3a-acb42874d11mr526386966b.1.1744906105896;
-        Thu, 17 Apr 2025 09:08:25 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5] xen/riscv: Increase XEN_VIRT_SIZE
-Date: Thu, 17 Apr 2025 18:08:23 +0200
-Message-ID: <9fbb5e1389b84bed2e95f99e4c383d0215c7a524.1744889185.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.49.0
+        d=1e100.net; s=20230601; t=1744906120; x=1745510920;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MhPJrqoIkfnTndXlNlsEiuPfcta9mSv635MGKENoHMg=;
+        b=qdZ7RburzyfpoWnDBP5NxlnLun5b4T5vh8zhm+odLwnSrnwrGcQIYOxs33lalsqBlu
+         K0oCzPdWXUirJK43Wh4XIdSbHkTwLry1r17+ebpF/gPOiNlhSGS8twOW5Z57uW3rW/ot
+         h273kJn4rnZKJU75plhrgxbb90bq+65ixvB7ekUEEMnKhNo0HXxJLTlmbLvkSfYWurqu
+         tqV9MbE2kelikZPnPi1ixl7w76XglUM+eA6xkotKSgkXGw9pDJyw7JGNazYT3LOjmRqq
+         9F56Ha7kW+xHVF1Ah8uMJ56PuXHsFLvMfEh0goGQPxJ4KsZ9pLhbH9JWycd7lRNTvTAI
+         hI7Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXIXICy7xwhytxFCRYiaU/UYp1hF53kFIQfglvUOSoXAjGVmodY6jVbAGjTk1LJVtGRL5ZPtaKBER8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw4SNuwBWcZO6D8YWQEA5r4FzKC4snLVrBS8d4zMq/0eWyhLuwK
+	FxkjOLmTToIwqcqlYRN2XcaYPd0LoTD14+X6k5s7cCqRAVIaNyJxsRLyE9Eg/xU=
+X-Gm-Gg: ASbGncvB0QVu/KPNIiI92Bj9aCHnqyqpj5VpJbmuYjM+x5rt1+H0H132LwkUV6WXl9V
+	Guhtigb9QXMlNiuAPGK7lXB04RTPxdB0dOFkbGp5tu7gfbO99TpKdLe2qm/EEyJrgleeWh4dIKb
+	3RLMS03a4S75oUdqqe/0AN9intBjeBvmqGZosjcjKdxrPVRNOt2ZZ/5hovmiWHtYhQzJL9rP09w
+	asNgYv4b4LjSD3uH7tGdwxUhbGBlQbO1NdaJGioBhGR43GoqNjnItAVstla2q3tGCfRywbMMxaw
+	7TVmRR+h+RY2g6ipac8fqOhmFhquLwi1WZa5Bchv0ukBUGEnARzDLZiuOEs47RA6pfYisCBsj5E
+	z3Dq00w==
+X-Google-Smtp-Source: AGHT+IF7f3tCELoh6aYD3gSvaLYh+7lV/o03WF3oiY5dK/bLHKCYg4iEYs4TsZbSYKT1BSWnMAswQg==
+X-Received: by 2002:a05:6402:51c7:b0:5e5:b388:29f9 with SMTP id 4fb4d7f45d1cf-5f4b71e2bf6mr5466895a12.5.1744906119540;
+        Thu, 17 Apr 2025 09:08:39 -0700 (PDT)
+Message-ID: <0d01646b-83e3-4a02-b365-d149d2664e73@citrix.com>
+Date: Thu, 17 Apr 2025 17:08:37 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] x86/vmx: Rework __vmread()/vmread_safe()/vmr()
+To: dmkhn@proton.me, xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com, roger.pau@citrix.com, dmukhin@ford.com
+References: <20250408011454.2274613-1-dmukhin@ford.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <20250408011454.2274613-1-dmukhin@ford.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A randconfig job failed with the following issue:
-  riscv64-linux-gnu-ld: Xen too large for early-boot assumptions
+On 08/04/2025 2:15 am, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
+>
+> Use `asm goto()` in vmread_safe() to simplify the error handling logic.
+>
+> Update __vmread() to return `unsigned long` as per suggestion in [1].
+> Rename __vmread() to vmread_unsafe() to match the behavior.
+> Update all call sites everywhere. Drop `UNLIKELY_*()`.
+>
+> Group all vmread*() calls close to each other in vmx.h
+>
+> Rename internal vmr*() to vmread*().
+>
+> [1] https://lore.kernel.org/xen-devel/c452a1d7-4a57-4c5f-8a83-36a74ff228ec@citrix.com/
+>
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/1756781092
+> ---
+>  xen/arch/x86/cpu/vpmu_intel.c          |   3 +-
+>  xen/arch/x86/hvm/vmx/intr.c            |  26 +--
+>  xen/arch/x86/hvm/vmx/realmode.c        |   2 +-
+>  xen/arch/x86/hvm/vmx/vmcs.c            | 160 ++++++++++---------
+>  xen/arch/x86/hvm/vmx/vmx.c             | 209 +++++++++++--------------
+>  xen/arch/x86/hvm/vmx/vvmx.c            |  43 +++--
+>  xen/arch/x86/include/asm/domain.h      |   2 +-
+>  xen/arch/x86/include/asm/hvm/vmx/vmx.h |  69 ++++----
+>  8 files changed, 235 insertions(+), 279 deletions(-)
 
-The reason is that enabling the UBSAN config increased the size of
-the Xen binary.
+This is why I suggested not to convert everything in one go.  It's now a
+patch doing multiple complicated things, and is proportionally harder to
+review.
 
-Increase XEN_VIRT_SIZE to reserve enough space, allowing both UBSAN
-and GCOV to be enabled together, with some slack for future growth.
+For everyone in public, it is especially daft that we have __vmread()
+which is void and (if it doesn't BUG()) will pass it's return value by
+pointer.  It leads to very unergonomic logic.
 
-Additionally, add checks to verify that XEN_VIRT_START is 1GB-aligned
-and XEN_VIRT_SIZE is 2MB-aligned to reduce the number of page tables
-needed for the initial mapping. In the future, when 2MB mappings are
-used for .text (rx), .rodata (r), and .data (rw), this will also help
-reduce TLB pressure.
+Start by just implementing vmread(), and updating __vmread() and
+vmwrite_safe() to use it.  You cannot use asm goto() for vmread()
+because of the no-outputs constraint that we still need to follow.
 
-Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-Changes in v5:
- - Introduce build_assertions() instead of open-code BUILD_BUG_ON().
- - Update the comment message above PGTBL_INITIAL_COUNT.
- - Add BUILD_BUG_ON() to check that XEN_VIRT_SIZE <= GB(1).
----
-Changes in v4:
- - Move is_init_section() to xen/sections.h. Add const for
-   declaration of `p` variable inside is_init_section() and
-   for the cast.
- - Update the comment above ASSERT() with .init* section range:
-   s/[__init_begin, __init_end]/[__init_begin, __init_end).
- - Update ASSERT condition:
-   s/"system_state != SYS_STATE_active"/"system_state < SYS_STATE_active".
- - Drop MB after XEN_VIRT_SIZE in the comment above PGTBL_INITIAL_COUNT
-   as XEN_VIRT_SIZE expands to MB(16).
- - Fix typos:
-   s/separetely/separately
-   s/indenity/identity
- - Add lost L0 table for identity mapping to PGTBL_INITIAL_COUNT.
- - Move checks to alignment checks of XEN_VIRT_SIZE and XEN_VIRT_SIZE
-   closer to the definition of PGTBL_INITIAL_COUNT.
- - Update the commit message.
----
-Changes in v3:
- - Add ASSERT which checks .init* sections range. When Xen ends boot
-   init* sections are going to be released.
- - Introduce is_init_section() macros.
- - Correct fixmap end address in RISCV-64 layour table.
- - Update ASSERT() which checks that `va` is in Xen virtual address
-   range and drop BUILD_BUG_ON() as it isn't necessary anymore with
-   the way how the ASSERT() looks now.
- - Add ASSERT() which checks that XEN_VIRT_START is 1gb aligned and
-   add ASSERT() which checks that XEN_VIRT_SIZE is 2mb aligned.
-   It helps us to reduce an amount of PGTBL_INITIAL_COUNT.
- - Update PGTBL_INITIAL_COUNT and the comment above.
- - Update the commit message.
----
-Changes in v2:
- - Incerease XEN_VIRT_SIZE to 16 Mb to cover also the case if 2M mappings will
-   be used for .text (rx), .rodata(r), and .data (rw).
- - Update layout table in config.h.
- - s/xen_virt_starn_vpn/xen_virt_start_vpn
- - Update BUILD_BUG_ON(... != MB(8)) check to "... > GB(1)".
- - Update definition of PGTBL_INITIAL_COUNT and the comment above.
----
- xen/arch/riscv/include/asm/config.h |  8 +++----
- xen/arch/riscv/include/asm/mm.h     | 15 +++++++++---
- xen/arch/riscv/mm.c                 | 37 ++++++++++++++++++++++-------
- xen/include/xen/sections.h          |  4 ++++
- 4 files changed, 48 insertions(+), 16 deletions(-)
+Then, in a separate patch, you can do simple conversion such as ...
 
-diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
-index 7141bd9e46..5eba626f27 100644
---- a/xen/arch/riscv/include/asm/config.h
-+++ b/xen/arch/riscv/include/asm/config.h
-@@ -41,11 +41,11 @@
-  * Start addr          | End addr         | Slot       | area description
-  * ============================================================================
-  *                   .....                 L2 511          Unused
-- *  0xffffffffc0a00000  0xffffffffc0bfffff L2 511          Fixmap
-+ *  0xffffffffc1800000  0xffffffffc19fffff L2 511          Fixmap
-  *                   ..... ( 2 MB gap )
-- *  0xffffffffc0400000  0xffffffffc07fffff L2 511          FDT
-+ *  0xffffffffc1200000  0xffffffffc15fffff L2 511          FDT
-  *                   ..... ( 2 MB gap )
-- *  0xffffffffc0000000  0xffffffffc01fffff L2 511          Xen
-+ *  0xffffffffc0000000  0xffffffffc0ffffff L2 511          Xen
-  *                   .....                 L2 510          Unused
-  *  0x3200000000        0x7f7fffffff       L2 200-509      Direct map
-  *                   .....                 L2 199          Unused
-@@ -78,7 +78,7 @@
- 
- #define GAP_SIZE                MB(2)
- 
--#define XEN_VIRT_SIZE           MB(2)
-+#define XEN_VIRT_SIZE           MB(16)
- 
- #define BOOT_FDT_VIRT_START     (XEN_VIRT_START + XEN_VIRT_SIZE + GAP_SIZE)
- #define BOOT_FDT_VIRT_SIZE      MB(4)
-diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-index 4035cd400a..ef8b35d7c2 100644
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -9,6 +9,7 @@
- #include <xen/mm-frame.h>
- #include <xen/pdx.h>
- #include <xen/pfn.h>
-+#include <xen/sections.h>
- #include <xen/types.h>
- 
- #include <asm/page-bits.h>
-@@ -43,13 +44,21 @@ static inline void *maddr_to_virt(paddr_t ma)
-  */
- static inline unsigned long virt_to_maddr(unsigned long va)
- {
-+    const unsigned long xen_size = (unsigned long)(_end - _start);
-+    const unsigned long xen_virt_start = _AC(XEN_VIRT_START, UL);
-+    const unsigned long xen_virt_end = xen_virt_start + xen_size - 1;
-+
-     if ((va >= DIRECTMAP_VIRT_START) &&
-         (va <= DIRECTMAP_VIRT_END))
-         return directmapoff_to_maddr(va - directmap_virt_start);
- 
--    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
--    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
--           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
-+    ASSERT((va >= xen_virt_start) && (va <= xen_virt_end));
-+
-+    /*
-+    * The .init* sections will be freed when Xen completes booting,
-+    * so the [__init_begin, __init_end) range must be excluded.
-+    */
-+    ASSERT((system_state < SYS_STATE_active) || !is_init_section(va));
- 
-     /* phys_offset = load_start - XEN_VIRT_START */
-     return phys_offset + va;
-diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
-index f2bf279bac..d3ece9f132 100644
---- a/xen/arch/riscv/mm.c
-+++ b/xen/arch/riscv/mm.c
-@@ -31,20 +31,39 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
- #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
- 
- /*
-- * It is expected that Xen won't be more then 2 MB.
-+ * It is expected that Xen won't be more then XEN_VIRT_SIZE.
-  * The check in xen.lds.S guarantees that.
-- * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
-- * One for each page level table with PAGE_SIZE = 4 Kb.
-  *
-- * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
-+ * Root page table is shared with the initial mapping and is declared
-+ * separately (look at stage1_pgtbl_root), so it isn't taken into account
-+ * in PGTBL_INITIAL_COUNT.
-  *
-- * It might be needed one more page table in case when Xen load address
-- * isn't 2 MB aligned.
-+ * An amount of page tables between root page table and L0 page table
-+ * (in the case of Sv39 it covers L1 table):
-+ *   (CONFIG_PAGING_LEVELS - 2) are needed for an identity mapping and
-+ *   the same amount are needed for Xen.
-  *
-- * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
-- * except that the root page table is shared with the initial mapping
-+ * An amount of L0 page tables:
-+ *   (512 entries of one L0 page table covers 2MB == 1<<XEN_PT_LEVEL_SHIFT(1))
-+ *   XEN_VIRT_SIZE >> XEN_PT_LEVEL_SHIFT(1) are needed for Xen and
-+ *   one L0 is needed for identity mapping.
-  */
--#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2 + 1)
-+#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 2) * 2 + \
-+                             (XEN_VIRT_SIZE >> XEN_PT_LEVEL_SHIFT(1)) + 1)
-+
-+/*
-+ * Modifying these checks may require updating PGTBL_INITIAL_COUNT.
-+ *
-+ * If XEN_VIRT_{START,SIZE} are not properly aligned and XEN_VIRT_SIZE > GB(1),
-+ * additional L1 and L0 page tables are required.
-+ */
-+static void __init __maybe_unused build_assertions(void)
-+{
-+    BUILD_BUG_ON(!IS_ALIGNED(XEN_VIRT_START, GB(1)));
-+    BUILD_BUG_ON(!IS_ALIGNED(XEN_VIRT_SIZE, MB(2)));
-+
-+    BUILD_BUG_ON(XEN_VIRT_SIZE > GB(1));
-+}
- 
- pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
- stage1_pgtbl_root[PAGETABLE_ENTRIES];
-diff --git a/xen/include/xen/sections.h b/xen/include/xen/sections.h
-index f2fac8d7fa..fe49d7d0e6 100644
---- a/xen/include/xen/sections.h
-+++ b/xen/include/xen/sections.h
-@@ -7,6 +7,10 @@
- 
- /* SAF-0-safe */
- extern char __init_begin[], __init_end[];
-+#define is_init_section(p) ({                           \
-+    const char *p_ = (const char *)(unsigned long)(p);  \
-+    (p_ >= __init_begin) && (p_ < __init_end);          \
-+})
- 
- /*
-  * Some data is expected to be written rarely (if at all).
--- 
-2.49.0
+>
+> diff --git a/xen/arch/x86/cpu/vpmu_intel.c b/xen/arch/x86/cpu/vpmu_intel.c
+> index 7ce98ee42e..9c93d1f28c 100644
+> --- a/xen/arch/x86/cpu/vpmu_intel.c
+> +++ b/xen/arch/x86/cpu/vpmu_intel.c
+> @@ -796,8 +796,7 @@ static int cf_check core2_vpmu_do_interrupt(void)
+>      else
+>      {
+>          /* No PMC overflow but perhaps a Trace Message interrupt. */
+> -        __vmread(GUEST_IA32_DEBUGCTL, &msr_content);
+> -        if ( !(msr_content & IA32_DEBUGCTLMSR_TR) )
+> +        if ( !(vmread_unsafe(GUEST_IA32_DEBUGCTL) & IA32_DEBUGCTLMSR_TR) )
+>              return 0;
+>      }
+>  
 
+... this to vmread().  
+
+Splitting the patch makes a substantial difference to review-ability,
+because patch 1 is "is this new helper implemented correctly?", and
+patch 2 is "is this boilerplate rearrangement no overall change?".
+
+For vmr(), I'd start by just wrapping vmread().  It's debugging logic
+where brevity is important.
+
+> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+> index 6b877e33a1..ffe9acd75d 100644
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -595,7 +595,7 @@ struct arch_vcpu
+>  
+>      /* Debug registers. */
+>      unsigned long dr[4];
+> -    unsigned long dr7; /* Ideally int, but __vmread() needs long. */
+> +    unsigned long dr7; /* Ideally int, but vmread_unsafe() needs unsigned long. */
+>      unsigned int dr6;
+
+This comment was left as a hint, and you've just addressed the problem
+forcing it to stay unsigned long.
+
+Changing dr7 should be in a separate patch too.
+
+~Andrew
 
