@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C055A914D8
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 09:15:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.956963.1350181 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84734A9155D
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 09:35:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.956975.1350192 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5JSj-00033r-2E; Thu, 17 Apr 2025 07:15:05 +0000
+	id 1u5JlG-0006eh-JV; Thu, 17 Apr 2025 07:34:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 956963.1350181; Thu, 17 Apr 2025 07:15:05 +0000
+Received: by outflank-mailman (output) from mailman id 956975.1350192; Thu, 17 Apr 2025 07:34:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5JSi-00032P-Vj; Thu, 17 Apr 2025 07:15:04 +0000
-Received: by outflank-mailman (input) for mailman id 956963;
- Thu, 17 Apr 2025 07:15:03 +0000
+	id 1u5JlG-0006dG-FI; Thu, 17 Apr 2025 07:34:14 +0000
+Received: by outflank-mailman (input) for mailman id 956975;
+ Thu, 17 Apr 2025 07:34:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nsoM=XD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u5JSh-00032J-1R
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 07:15:03 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1u5JlF-0006d8-4M
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 07:34:13 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id adaf6fff-1b5b-11f0-9eb0-5ba50f476ded;
- Thu, 17 Apr 2025 09:15:02 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-39c266c2dd5so472526f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 00:15:02 -0700 (PDT)
+ id 5ad1e654-1b5e-11f0-9eb0-5ba50f476ded;
+ Thu, 17 Apr 2025 09:34:11 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-39c31e4c3e5so301136f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 00:34:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-22c33fe68b1sm26303075ad.219.2025.04.17.00.14.58
+ d2e1a72fcca58-73bd230ea65sm11673183b3a.154.2025.04.17.00.34.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Apr 2025 00:15:00 -0700 (PDT)
+ Thu, 17 Apr 2025 00:34:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: adaf6fff-1b5b-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: 5ad1e654-1b5e-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744874101; x=1745478901; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1744875251; x=1745480051; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6rhCll4lCybbpUURku3rqmI7TKGmtQeLYbk1BG/TfS8=;
-        b=cWNGj+xUzg/Pa9ez4fV6scpLBcse2ohRn2egj4cRgfV4AEXMM4wpVU0a0boSc+tiSu
-         Jnlcn6YG0lGX2O6u5OzV/xje2w8ZJ8RER1JBZHTSMt++ZEAIkDdzSuGWJ7b8a9XDHAct
-         CFDdNZZ9tRDIGAOFsxYydks+fCc7M+3e8nMtHUY5z1IvZVTpx0huxSZEA3Lzb3UoNDB6
-         5ymV5uzT1/CxS+qy9bAt3aVE8zp5jXF5/gdbRlvZCXeV43djMy+tVRP7eeSn0i7BhIm5
-         bQGSioAV/y4WV9WwK1V9Kb+w0ivOPnAUwEocNLsQXL0eqrNybpAUOoHlkvAkRL1DP7ol
-         MgNQ==
+        bh=73+Md+hzRp/+FEmQKrOxwKkUop1wdjejsDLHrzPCsyo=;
+        b=SKeNsIIiitkZr6yQHayQ8IAgQDyIm01G7+oK+FHlh5cbvsJNIUoWwuClzFMbNr1Vpk
+         dNZtb6OrwfJ1Rk5V4RHQVNic8urpzt5KrPA5mlMLW5/ZmhGyzlUXGyj4Rz6sIsY5SOwh
+         BYgaSzC/APQP7h5Pn70PE3uw7XNKEkHEMZMoXj5+m0sxRaB8EZcMv7itsG7mgAYz3AzI
+         BmoMkvLVwxV8HaO5Chz3hk4rtcfs3ayWNOWgvnjE1QaXCieCyPqEzAr8zYsrTgZrKty0
+         zFZ1fxrjKka8hhFDISbwkJHfsuMw/kNma6qR8D/TH73KQkHtG3YEtiGSi2Hq3utIinRS
+         KxOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744874101; x=1745478901;
+        d=1e100.net; s=20230601; t=1744875251; x=1745480051;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6rhCll4lCybbpUURku3rqmI7TKGmtQeLYbk1BG/TfS8=;
-        b=rNSrtWiKYpKMT9H2wTJrTfa8FCj8stzbNlF4wvIbfdXcHP/BoWQvKscgqzhkFmlRPK
-         6PopInw1UEUpBVqv/CF8DsazsYA11mCXI3GeoPEd2YAklQujjdPW8Pj70PoylxGDzGOb
-         9igDmiVX4QUZdBsZaNbFpfPZ6f3hnLqVWhCkjZRCAK5UbivzbBd+oqLHBGbXLfFiX/3s
-         E/Vm6f8TuAK4tpLeEZKTy7lKb3GlZvXi/V9FPRJh6/c5je1YlhEgCIc4JLqvuUlR6jsj
-         bFtVViApN82bG6dOE0ocJVahFFkdWjRWtA6BOZH426jOQSBmITv5DRMIL878ExGIGnhk
-         Bq3g==
-X-Forwarded-Encrypted: i=1; AJvYcCUwuXp/yWoliegcG8xWj7lromqhYGIQun4FEadcyBeYe3GToJKhlbFJjZC05mxaG4d4Arl4apr+a+M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxFqC5lyLb1BweFWwkwLrKa0xXT61glvq9lx1+swl2ARE2j2p/n
-	XZrDmlJO8bz/qFc4Rxnjdrelt+tSiOEe6LfVHcQsZCeRb3sRt1IXKvipJsBC3A==
-X-Gm-Gg: ASbGnctFR5xXNlMMWIVZFb0W6pZM7EIlDsfn+7ycmh0xAsilyI6h+MxX35QNZrv/xVz
-	liFcZwthnWxpUShZ58umC4r5BY3wZcOzNnvUwDH8AWEQdaZqamvwHEbc+c6UfL/RGZrjIZs5W8E
-	3K6KDgEe8X/LMkx+xDDbCTVe0W/t3TWEYK2pz3VnbYPC/xYra3VaiUUi90rAQno3ICHzacawTQi
-	7njJgZidB97mIUwfIDonLRynfX1wL8myk7dI2Ib9f5egd7PMUp/fKGak1YJU4onuG4LcRSVNhA/
-	bzxvdbSv+hbCNA7XX6rBDcj4iLgVc4l0W5ARI4lFDkznjwDoThxHpaUifoFiAYbT8U+M57nWJTu
-	lfRFJEjIVVUyeE2Rcir7FmyD/dQ==
-X-Google-Smtp-Source: AGHT+IH834zrfxvSmCr6PVozZr/FLYnJYgdr/rIN1vX7Ny8/6fzxjZ0ECnE1bgHHyRCHkB8tqCROfA==
-X-Received: by 2002:a5d:47ab:0:b0:391:4889:5045 with SMTP id ffacd0b85a97d-39ee5b8b916mr4375448f8f.36.1744874101423;
-        Thu, 17 Apr 2025 00:15:01 -0700 (PDT)
-Message-ID: <910868c1-fc90-49ec-bd06-3ff638ff0c1d@suse.com>
-Date: Thu, 17 Apr 2025 09:14:54 +0200
+        bh=73+Md+hzRp/+FEmQKrOxwKkUop1wdjejsDLHrzPCsyo=;
+        b=Xhotl9zx9MKLq24DzTPsEOpSfErTQRJuQvOdsSoxy9pACQyH/KoQ8NcOeY+81FQ6RZ
+         Lk+lDQLNUjr5GRcWmfIr6Y/6oHm4er7iCYcgKF4AkSVbXUkJA0ifk2MZc2RMsAFsW7/2
+         QEhaY6XZ/fA/UiYWWTScjf73E7xUGc5rR15zPzWfree/hqyODl0Rj8I573A4jv8d3/QT
+         yzAhEsTr7pfIqjLUZtXCeSi7rvTBENidcfCZba0tXWYzyjVdLpYXuIXgul/9yvRM40ug
+         enT5s6DiMc0LkYj1CeMJwstghQHnf2G/pZTyaCSSq+3PDifkludsjcU2YKuJLYCeNf4a
+         ASjg==
+X-Forwarded-Encrypted: i=1; AJvYcCXJadhyzTDAfGgXKBy5PDa7Kt6pQqC04O6xwj9lj1jSa/ZXbkTKIk4rKlxICsGOv88m0BJTJ4Y2WSs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzTOhBXOunSta/0Bcp0/siuozHSCTxReQQ7GDtK0uWar7wLchvi
+	jVRrmkAS8nYjVrZqAGcdiOhLXnHTHV58EOOFe5jxo1B4/lZwKiUHcDrvkCruOA==
+X-Gm-Gg: ASbGncszyW8rjn/yqnaLOWuVkHFZOg3ZI1mAK7TbF7eWXKQe9m48hHXaRyBBeX66NNH
+	EzrDthXpEL+XaqixqbOJOAsQlPT8Ygz0jue2kKPv8f2JwQ62iK2x+TqZ7vOetHW0uxHNsh/L+Th
+	xE1aZbAsDTg2lUzf1OxH3FPF+qyr2z0fxMs8USK4IVZXpBnVp3ETN2qpiUHi4UVnS90cyxYCEu9
+	ULuY2HNal5FpRmzFHcl1WdnoBIbqv41whigVkypVNqU3ZzSXB6sRF47b/sfGKcmOoTa7UjTA054
+	xpCvxV9hZ/ndmKaCpha0++AkND15UYICwylg7IB2si73VbAPDkDjnGpYZ/u8+bml8K8jVBM8Hv2
+	F6PtM+5Xs29B0SCHUHQNgKgDoMQ==
+X-Google-Smtp-Source: AGHT+IE/H+QXFqOfCQiR7hf9qPm4uOm4ktzIMMNqxtpatpkADbV1UDHpVDnZTjMhxHu6EeacsAzF0g==
+X-Received: by 2002:a05:6000:144e:b0:391:4873:7943 with SMTP id ffacd0b85a97d-39ee5b35c98mr4173959f8f.32.1744875250768;
+        Thu, 17 Apr 2025 00:34:10 -0700 (PDT)
+Message-ID: <bed994d7-50fe-4a82-a0ec-b986e07ca5dd@suse.com>
+Date: Thu, 17 Apr 2025 09:34:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: x86 emulation bug
-To: Fabian Specht <f.specht@tum.de>
-Cc: manuel.andreas@tum.de, xen-devel@lists.xenproject.org
-References: <jfgrmlid6fhbptebr22ccqimqhys3pchcoyuoepjz2iwoillei@xxaicsktj2pl>
+Subject: Re: [PATCH v2 8/8] vpci/msix: Add function to clean MSIX resources
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20250409064528.405573-1-Jiqian.Chen@amd.com>
+ <20250409064528.405573-9-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -116,87 +119,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <jfgrmlid6fhbptebr22ccqimqhys3pchcoyuoepjz2iwoillei@xxaicsktj2pl>
+In-Reply-To: <20250409064528.405573-9-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.04.2025 00:52, Fabian Specht wrote:
-> Dear all,
-> 
-> we discovered a bug in hvm64 x86 Xen. Using the attached xtf test we are
-> able to trigger an assert in arch/x86/hvm/emulate.c:
-> 
-> 
-> if ( (hvmemul_ctxt->ctxt.regs->eflags & X86_EFLAGS_DF) && (reps > 1) )
-> {
-> 	/*
-> 	 * x86_emulate() clips the repetition count to ensure we don't wrap
-> 	 * the effective-address index register. Hence this assertion holds.
-> 	 */
-> 	ASSERT(offset >= ((reps - 1) * bytes_per_rep));
-> 	okay = hvm_virtual_to_linear_addr(
-> 		seg, reg, offset - (reps - 1) * bytes_per_rep,
-> 		reps * bytes_per_rep, access_type,
-> 		hvmemul_get_seg_reg(x86_seg_cs, hvmemul_ctxt), linear);
-> 	*linear += (reps - 1) * bytes_per_rep;
-> 	if ( hvmemul_ctxt->ctxt.addr_size != 64 )
-> 		*linear = (uint32_t)*linear;
-> }
-> 
-> 
-> If debug mode is not enabled, this will later on result in an integer
-> underflow, however we were not able to find any severe problems.
-> 
-> The test below will not work with vanilla xtf.
+On 09.04.2025 08:45, Jiqian Chen wrote:
+> --- a/xen/arch/x86/hvm/intercept.c
+> +++ b/xen/arch/x86/hvm/intercept.c
+> @@ -276,6 +276,50 @@ void register_mmio_handler(struct domain *d,
+>      handler->mmio.ops = ops;
+>  }
+>  
+> +void unregister_mmio_handler(struct domain *d,
+> +                             const struct hvm_mmio_ops *ops)
+> +{
+> +    unsigned int i, count = d->arch.hvm.io_handler_count;
+> +
+> +    ASSERT(d->arch.hvm.io_handler);
+> +
+> +    if ( !count )
+> +        return;
+> +
+> +    for ( i = 0; i < count; i++ )
+> +        if ( d->arch.hvm.io_handler[i].type == IOREQ_TYPE_COPY &&
+> +             d->arch.hvm.io_handler[i].mmio.ops == ops )
+> +            break;
+> +
+> +    if ( i == count )
+> +        return;
+> +
+> +    for ( ; i < count - 1; i++ )
+> +    {
+> +        struct hvm_io_handler *curr = &d->arch.hvm.io_handler[i];
+> +        struct hvm_io_handler *next = &d->arch.hvm.io_handler[i + 1];
+> +
+> +        curr->type = next->type;
+> +        curr->ops = next->ops;
+> +        if ( next->type == IOREQ_TYPE_COPY )
+> +        {
+> +            curr->portio.port = 0;
+> +            curr->portio.size = 0;
+> +            curr->portio.action = 0;
+> +            curr->mmio.ops = next->mmio.ops;
+> +        }
+> +        else
+> +        {
+> +            curr->mmio.ops = 0;
+> +            curr->portio.port = next->portio.port;
+> +            curr->portio.size = next->portio.size;
+> +            curr->portio.action = next->portio.action;
+> +        }
+> +    }
+> +
+> +    d->arch.hvm.io_handler_count--;
+> +}
 
-Thanks for the report. However, already on Andreas' report on the day before
-yesterday I was heavily inclined to ask about details you certainly have
-figured out already. I find it odd that you leave to us all re-figuring out.
-In this case, for example: Is the specific value you set %eax to relevant?
-(Probably not.) Is the specific value you set %rcx to relevant? (Probably
-not, but likely some part of it is.) Is the specific value you set %rdi to
-relevant? (Probably not, but likely some part of it is. Probably you
-setting it to 0 is also why the adjustment below is needed, and using a
-different value might permit avoiding that adjustment.) Is it relevant
-that you set EFLAGS.DF? (Quite likely.)
-
-Any other investigation results you may have collected would likely also
-make our job easier.
+To add on what Roger said: This is inherently non-atomic, so the domain
+would need pausing to do such removal in a race-free way. Hence why we
+deliberately didn't have such a function so far, aiui. (The removal may
+be safe in the specific case you use it helow, but there's nothing here
+preventing it from being used elsewhere, without paying attention to
+the raciness.)
 
 Jan
-
-> To get it working,
-> we have to edit 'pae_l1_identmap' in arch/x86/hvm/pagetables.S in xtf
-> from
-> 
-> 
-> PAGETABLE_START(pae_l1_identmap)
->         .long 0, 0
->         .rept PAE_L1_PT_ENTRIES - 1
->         .long (PAE_IDX(pae_l1_identmap) << PAE_L1_PT_SHIFT) + _PAGE_LEAF
->         .long 0
->         .endr
-> PAGETABLE_END(pae_l1_identmap)
-> 
-> 
-> to the following value:
-> 
-> 
-> PAGETABLE_START(pae_l1_identmap)
->         .quad (0x5564000000) + _PAGE_LEAF
->         .rept PAE_L1_PT_ENTRIES - 1
->         .long (PAE_IDX(pae_l1_identmap) << PAE_L1_PT_SHIFT) + _PAGE_LEAF
->         .long 0
->         .endr
-> PAGETABLE_END(pae_l1_identmap)
-> 
-> 
-> 
-> We were able to reproduce this bug in several versions including the
-> most current one at the time of writing this.
-> 
-> 
-> Best,
-> Fabian
-
 
