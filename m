@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8CC2A92237
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 18:07:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.958193.1351124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86719A92240
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 18:08:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.958204.1351133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5Rl7-0005Hx-I7; Thu, 17 Apr 2025 16:06:37 +0000
+	id 1u5Rmw-0005oD-S7; Thu, 17 Apr 2025 16:08:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 958193.1351124; Thu, 17 Apr 2025 16:06:37 +0000
+Received: by outflank-mailman (output) from mailman id 958204.1351133; Thu, 17 Apr 2025 16:08:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5Rl7-0005FY-EW; Thu, 17 Apr 2025 16:06:37 +0000
-Received: by outflank-mailman (input) for mailman id 958193;
- Thu, 17 Apr 2025 16:06:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u5Rmw-0005lf-Ob; Thu, 17 Apr 2025 16:08:30 +0000
+Received: by outflank-mailman (input) for mailman id 958204;
+ Thu, 17 Apr 2025 16:08:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m2wG=XD=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1u5Rl6-0005EY-2v
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 16:06:36 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20621.outbound.protection.outlook.com
- [2a01:111:f403:2416::621])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ee89cb8f-1ba5-11f0-9eb0-5ba50f476ded;
- Thu, 17 Apr 2025 18:06:35 +0200 (CEST)
-Received: from SA9PR03CA0001.namprd03.prod.outlook.com (2603:10b6:806:20::6)
- by PH7PR12MB5758.namprd12.prod.outlook.com (2603:10b6:510:1d1::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8632.35; Thu, 17 Apr
- 2025 16:06:28 +0000
-Received: from SA2PEPF00003F62.namprd04.prod.outlook.com
- (2603:10b6:806:20:cafe::bb) by SA9PR03CA0001.outlook.office365.com
- (2603:10b6:806:20::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8632.34 via Frontend Transport; Thu,
- 17 Apr 2025 16:06:28 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00003F62.mail.protection.outlook.com (10.167.248.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Thu, 17 Apr 2025 16:06:28 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 17 Apr
- 2025 11:06:26 -0500
+ <SRS0=uBz4=XD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u5Rmv-0005lV-B2
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 16:08:29 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3229461f-1ba6-11f0-9ffb-bf95429c2676;
+ Thu, 17 Apr 2025 18:08:27 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5f620c5f7b9so511795a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 09:08:27 -0700 (PDT)
+Received: from fedora.. (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acb6eefcf4fsm11813366b.109.2025.04.17.09.08.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Apr 2025 09:08:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,147 +45,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee89cb8f-1ba5-11f0-9eb0-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mR8yDWC/z9mH+65o1zH9RCfUVs6pSoTW+A14mlJjpWJzER0NIe4EK8rHM8IBdstZlwhisywAmHUjPSZulRBIdNFIm7p+qPO7Oqyi5KbG+zxP3oG/7VbOWcXpd4zR5mp9yrtH8oGCCqsDAJEF/bcvbOqRK5cEDfjBf/oY0Px3Z2E1xSsyOjxPvxlxjMuwzUYOC0CcrRZQhQm78xIW6q9BEwN1k/fGESatB7PCS+yfTMPbhHRp4INe++TcO1feKXZBD2j54uGDLCS9v4ebfexKEag6sm1rBjtykLDn66ZDLzyJOkiQE0XTrINoyA1pAJPJpZhpASSeTHcgU0w8Qx8eTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zjDC+Ukrj5uJKnfLceqL6VPO/rMZW8zSW7MpcHiCdRE=;
- b=nPsDBuFqUdOg2dVTmylYeC9j/ysjvXjDSlT2bb5RjuaG2EPuumWlVlE7VvgSCLcyI/AZuNWNJcrRTE2snK65izbk/C3IrL+GPW8pQYvNHZ9y2M2Xslh3qpwiAKkJ83b7ZnRfNH4ibT0TAcU9IhkdHu6sjtBR1/aOMBhS8JT/lAHEOyvvZr2gpb7g6c9gsWYQrsGFYbpdOPhMMb/aCDObM5YgYfNcwHf7coSxCjPSxAThw/fsr3xmT2qXT5SnHn8FYxA47y3esSxtjzCG7QGTXKju3Cx1t3UqT2srySa9s2lHfAaq9yzFd2TcaJdcuJbT6MBcJo0AYN3pf4MQtH10xQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zjDC+Ukrj5uJKnfLceqL6VPO/rMZW8zSW7MpcHiCdRE=;
- b=BIgKWyeQUsofqh+O7GgT4r13bHtVyL/iNEHunI6830TyM6+ql9YrsLSW0AvhtyWBFwy3C6RgdK0x4whGPzNSE3RuFLnzc3KXdZGMbg4h18KueyRh1HFVlji4fxHydkXE3hB33Sz/epN/AH0Rkx5hl3HDYbTTO6obxTodFh3DKYE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: 3229461f-1ba6-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1744906106; x=1745510906; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3NWB8mLbn4p6HtvClqdYwWaVWheS1paF4s/IftnNZg0=;
+        b=j8MOuTB0SEw8Db1B5bBS1+AnGNHVcrAI9twDZQ7KLGkEDW48kpZTH7/wBjLpM/ogmq
+         2fQFJONcKZh/96JhE0cCc5yMdW/VlNwmQtgBwZsbhyXv0e5sO1aCtUejQRxB0XtBT0v4
+         7D0VPdlYBktnIEimOg95V3nxwXNgEW2OPaa8wKJMseQD7cOW78jBn8GY4LifJVNd+dAn
+         78LdDRUaPLg8HfrtfN/SeVmLY7xznV6HXhfr7yu4/4AZiOLUOcg/5oOPi9d4TpGdBEom
+         giK5O65AbOhi8C88u9hhW1GF3keY5iYvsDQ966n2lnNttlJnA+yo08RNhpKjjwqU66MX
+         KffA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744906106; x=1745510906;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3NWB8mLbn4p6HtvClqdYwWaVWheS1paF4s/IftnNZg0=;
+        b=Xla9iqhIId2azFLNQwtsrCg4aN3Mo2cb0tru1yn0YzzGk9XUa9C9a8h52imcNpgSuC
+         udqmX5EaqFeJFvXxfQPkhMwV2ZfrriE7cyg+1Q+vLS2fXMtixemnC6XR9ffPcQi+tSP5
+         hOELQfS9NmGdoBEIhdw8YNJIudIyLaiuxDlVkYurU5fSttg5Km9cihm9TUrthOYuHVG3
+         r9GF1xNZ3uYyA2f5JzRIgd/JIlhDKwHMfe2ouv3WX2AwbpMVvgcpAJSjAC2bOel5xuxN
+         b8yG1aPA1pQlQI2YJOqCEV4zdb64+/IGv/C8zdVHLfvl4RqRRbKlZhrHbz5AxX00rOwv
+         HEqQ==
+X-Gm-Message-State: AOJu0Yx7Vz/llXOYeafA1HLKnKcE8BnIQhaewWJuzo49Uu/yk94x5aqy
+	I7abcdlCbrnqhmOKN/7+X1IFg4Z490sv+e0m7n1+OPr7WTgJfcLy33D/4g==
+X-Gm-Gg: ASbGncvIV7AvEmn8D3ZaRyIG5Rb4PC0OE0yYuiMpjDckfLTdPOgjarN/SLxcH/lhNSW
+	ymYwR4UgKii9TCXn0tlbsArjlMwnTLA09dUHVn/fxqdFJo9Kwo2AS6tv69o7xAJtEId2gb7RAKt
+	chqL8xWoLdpNi1Ny/GmzizIeLm9kEBLx9CSOmMObzfEBuCxD5OScQxHQjuaY7JdoikGBDohI9H4
+	jTdGCOnMtXlA4/wyqzQjbKvIo+2UK9m2J278aWha+CMmMTXPrrwy7epPIfOO6oYVZ5Ro0XaKLM6
+	VacQdfWvEJEpuQVDkAqXEFdTHapgBtLaflDBnme0iJZFyvj5QhvzeUwFst1UDXzIdfq5GOwr6tg
+	cog1R8vyywQ==
+X-Google-Smtp-Source: AGHT+IHY5WK/9+EjSWe3x0M01GEY7IDf9i3WY4/VZftLp4beSojL3weDsp5TINYXGjWesvDpD208JQ==
+X-Received: by 2002:a17:907:9443:b0:ac3:bd68:24eb with SMTP id a640c23a62f3a-acb42874d11mr526386966b.1.1744906105896;
+        Thu, 17 Apr 2025 09:08:25 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v5] xen/riscv: Increase XEN_VIRT_SIZE
+Date: Thu, 17 Apr 2025 18:08:23 +0200
+Message-ID: <9fbb5e1389b84bed2e95f99e4c383d0215c7a524.1744889185.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 17 Apr 2025 17:06:25 +0100
-Message-ID: <D991JRCSOIZD.2MRXXPX1A09OY@amd.com>
-CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Jason Andryuk <jason.andryuk@amd.com>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v4 01/13] x86/boot: add cmdline to struct boot_domain
-From: Alejandro Vallejo <agarciav@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: aerc 0.20.1
-References: <20250417124844.11143-1-agarciav@amd.com>
- <20250417124844.11143-2-agarciav@amd.com>
- <c59f6453-92eb-4015-bb2d-e0d06a668bf4@suse.com>
-In-Reply-To: <c59f6453-92eb-4015-bb2d-e0d06a668bf4@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F62:EE_|PH7PR12MB5758:EE_
-X-MS-Office365-Filtering-Correlation-Id: a33b17f6-9a79-4d23-39d8-08dd7dc9cfa8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?eTJINHJxeXVRZGNyU2NIMGZ6VlV2V0RaMkduY2t0UlBPYllKYi85aWk3YU56?=
- =?utf-8?B?VEdud2RBL3JnY1pHSlp5OGZERDdYTUppZ0xiYW01aWo5QzYvUFZCaEtaZjFk?=
- =?utf-8?B?RGd6UVhqRTRneTU0N3IzQmhMY3N4UUtBT2Uwc3krbFo1bkdwOHdJMUM1T3Rq?=
- =?utf-8?B?Z3hGTXJqcTlxRE9LT3c0M3UzRktyODhPNm43T28wbkpuZkNJZ1g3T1QyTitX?=
- =?utf-8?B?MVRlMWJLa0pRQTV3TmJBQ01aRk9ucEtNV2F3cHZDSkFkSFl5R1RDL1dISjdy?=
- =?utf-8?B?dmFlK29RTWREVWoySlhJQlR6emRtZDJCYUhSZS9oclYzeCsxd2ltSWh1WEhR?=
- =?utf-8?B?dXhJTHlKTG4vN2IrNVVRWkY3QVhTQ1owTHJsY0s1VVAwRmU3a1M5d2x2NlZW?=
- =?utf-8?B?QW4rb01nL2VCWHA3N3V6enh3SlU3VW5BbU1qdmxLbGVHUWdJQnQ0V2YvbWZt?=
- =?utf-8?B?THdPcWNIby9GYWhvMjZ0dk5qUmozSVljMHV6V1ZrQ0k5a1h5aTMxMUQzL3BH?=
- =?utf-8?B?YkVBR3V2ZmRmdExqRmlNdkVYbGlrN21tRnFIRnNEZFEzWFl6YkJuMFhZeVlT?=
- =?utf-8?B?TngrYUtZNVBhSTdlWVNHaXBYV0xJbVhQd0RScXB2ZDZqNFg1eU5JaDl3TXk0?=
- =?utf-8?B?bnhNYzV2RGR0VFdWTWxkeWtFTVFuaklReExKdzRkS3R4amJNOXB5UU9yaFRV?=
- =?utf-8?B?YktTTHMzY01hL2l1VEpYMk5NODE5bHNOL1krVCtDaE9CUHd1YkdXZ21ZdUkv?=
- =?utf-8?B?eklRWFFaQWg4MnBmMEF0NTdkK09oVTlRNFBoM0U1aFRpak5UREN5MTkvckEv?=
- =?utf-8?B?c3lUUEczQjJON1VSeHI5RXhKY3cxTnF6UVZmVW91QmMrd1JLZ2JFZFV5VENQ?=
- =?utf-8?B?YnJsblZ6M2NLbFRiMVJna1haTXViT0c2bmk0TXdrNzVnMWZ4VmhPOHhsbyt4?=
- =?utf-8?B?cDNsUjcza09QTmZyNlRZdmV0YXl6SnRUTDhSUE5KekFIcG43SWtKM1p0SDF3?=
- =?utf-8?B?a3l4RWpISW5OaExGb1c0SGs1UnIrSWttQ0EyYWdwbXRzbUxEL3I1MGJOWEV3?=
- =?utf-8?B?Q0kzZDRLdXNCTUVieG84OG5vQm1wZTZGMWx1bzl1Vmw0UTUxeFRqNG1wVTBr?=
- =?utf-8?B?Tkt0ZzBIK0NCVXVxRVNIeVlNWTNrWEl5ZFlMN2dqdFJSY3QycUlPblZjNC9v?=
- =?utf-8?B?ellvV3VpSlhJUGhXVkxQWGVWN3hMSXlvUU5xeURVZDA2Q2lBUHdsQVM5Q3BE?=
- =?utf-8?B?MFJvWE5rS3dZU3cxdW16VEhPSDdLYzh5amVmblJCZDFKbXVpUEN2THpVR09I?=
- =?utf-8?B?UlJ6Q1lGRytBQ1dwTENKN2tmQ3NXc1pwanUza1FVRmN0R1FQRmNhTFNVOUZv?=
- =?utf-8?B?YW1IT3YwdElucHRzYmorVnFzKzJxSVRjWEkxdzlTUExyYk4rbTltTnNWeWJW?=
- =?utf-8?B?eXc1cndOZENxSGpZVXhESTgwbVdMUndBbHhiNnpYSzVZbVZuVGt1M1Nkb21M?=
- =?utf-8?B?TTV4STdPWnF4TkcvakZyZythOXlzUTR5NXNQOUplak9nK21OK0p6OThockdD?=
- =?utf-8?B?eHJZSkc4WXVMMDhCSFpIUGVrZWFjUEdDdTNTK21aL3NVWWs4NWxxSXZJWGtB?=
- =?utf-8?B?QVZVcldzZ09mT1VaaVRENG95YkNpN3hORmJHM2VrcU50RnljSjhwRnRXUzBG?=
- =?utf-8?B?VlFvMlNLRTBxdWxNbTJIS3NhNm9tYjl6eFRPOG10Z2tJanhROHFxK3M5NW1P?=
- =?utf-8?B?Z1VxSWx1UGxhdlpJSlg3VjFwdTVSbmtkVk1tazlBcktlTUM3YXNaWmcvMXd4?=
- =?utf-8?B?eFBvZFphMHBYR2Z2MmhQb0xuaFgvNStjME5YMmx4TGZsT3JYdkoyYSt4SjI4?=
- =?utf-8?B?WEhZNVJDcWNWYW53bGNxSEkvRzhyLzhkR3dxejRucGdRcmVrcng5em1aSWtp?=
- =?utf-8?B?ZS9LR0NXUTlPL1MydzJuTkFXR0pZTk9jbzJpTDlYeDEyRHJ0ZmhjNU5Rcmly?=
- =?utf-8?B?ZmRHRWgxYm5FQzM4ZkhiS3FVSHUyTEF5bFdNNEhiWm1sMmFMN3doSHhLc1lM?=
- =?utf-8?Q?bbEryh?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2025 16:06:28.1660
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a33b17f6-9a79-4d23-39d8-08dd7dc9cfa8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F62.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5758
+Content-Transfer-Encoding: 8bit
 
-On Thu Apr 17, 2025 at 3:54 PM BST, Jan Beulich wrote:
-> On 17.04.2025 14:48, Alejandro Vallejo wrote:
->> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
->>=20
->> Add a container for the "cooked" command line for a domain. This
->> provides for the backing memory to be directly associated with the
->> domain being constructed.  This is done in anticipation that the domain
->> construction path may need to be invoked multiple times, thus ensuring
->> each instance had a distinct memory allocation.
->>=20
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
->
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+A randconfig job failed with the following issue:
+  riscv64-linux-gnu-ld: Xen too large for early-boot assumptions
 
-Thanks,
+The reason is that enabling the UBSAN config increased the size of
+the Xen binary.
 
-> preferably with ...
->
->> --- a/xen/arch/x86/hvm/dom0_build.c
->> +++ b/xen/arch/x86/hvm/dom0_build.c
->> @@ -653,7 +653,7 @@ static int __init pvh_load_kernel(
->>      void *image_start =3D image_base + image->headroom;
->>      unsigned long image_len =3D image->size;
->>      unsigned long initrd_len =3D initrd ? initrd->size : 0;
->> -    const char *cmdline =3D image->cmdline_pa ? __va(image->cmdline_pa)=
- : NULL;
->> +    unsigned long cmdline_len =3D bd->cmdline ? strlen(bd->cmdline) + 1=
- : 0;
->
-> ... this becoming either size_t (as you have it elsewhere) or unsigned in=
-t.
-> Happy to make the adjustment while committing, so long as you agree with
-> either of the suggested variants.
->
-> Jan
+Increase XEN_VIRT_SIZE to reserve enough space, allowing both UBSAN
+and GCOV to be enabled together, with some slack for future growth.
 
-Yes, sounds good. I'd rather it be size_t seeing as it's the output type
-of strlen()
+Additionally, add checks to verify that XEN_VIRT_START is 1GB-aligned
+and XEN_VIRT_SIZE is 2MB-aligned to reduce the number of page tables
+needed for the initial mapping. In the future, when 2MB mappings are
+used for .text (rx), .rodata (r), and .data (rw), this will also help
+reduce TLB pressure.
 
-Cheers,
-Alejandro
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+Changes in v5:
+ - Introduce build_assertions() instead of open-code BUILD_BUG_ON().
+ - Update the comment message above PGTBL_INITIAL_COUNT.
+ - Add BUILD_BUG_ON() to check that XEN_VIRT_SIZE <= GB(1).
+---
+Changes in v4:
+ - Move is_init_section() to xen/sections.h. Add const for
+   declaration of `p` variable inside is_init_section() and
+   for the cast.
+ - Update the comment above ASSERT() with .init* section range:
+   s/[__init_begin, __init_end]/[__init_begin, __init_end).
+ - Update ASSERT condition:
+   s/"system_state != SYS_STATE_active"/"system_state < SYS_STATE_active".
+ - Drop MB after XEN_VIRT_SIZE in the comment above PGTBL_INITIAL_COUNT
+   as XEN_VIRT_SIZE expands to MB(16).
+ - Fix typos:
+   s/separetely/separately
+   s/indenity/identity
+ - Add lost L0 table for identity mapping to PGTBL_INITIAL_COUNT.
+ - Move checks to alignment checks of XEN_VIRT_SIZE and XEN_VIRT_SIZE
+   closer to the definition of PGTBL_INITIAL_COUNT.
+ - Update the commit message.
+---
+Changes in v3:
+ - Add ASSERT which checks .init* sections range. When Xen ends boot
+   init* sections are going to be released.
+ - Introduce is_init_section() macros.
+ - Correct fixmap end address in RISCV-64 layour table.
+ - Update ASSERT() which checks that `va` is in Xen virtual address
+   range and drop BUILD_BUG_ON() as it isn't necessary anymore with
+   the way how the ASSERT() looks now.
+ - Add ASSERT() which checks that XEN_VIRT_START is 1gb aligned and
+   add ASSERT() which checks that XEN_VIRT_SIZE is 2mb aligned.
+   It helps us to reduce an amount of PGTBL_INITIAL_COUNT.
+ - Update PGTBL_INITIAL_COUNT and the comment above.
+ - Update the commit message.
+---
+Changes in v2:
+ - Incerease XEN_VIRT_SIZE to 16 Mb to cover also the case if 2M mappings will
+   be used for .text (rx), .rodata(r), and .data (rw).
+ - Update layout table in config.h.
+ - s/xen_virt_starn_vpn/xen_virt_start_vpn
+ - Update BUILD_BUG_ON(... != MB(8)) check to "... > GB(1)".
+ - Update definition of PGTBL_INITIAL_COUNT and the comment above.
+---
+ xen/arch/riscv/include/asm/config.h |  8 +++----
+ xen/arch/riscv/include/asm/mm.h     | 15 +++++++++---
+ xen/arch/riscv/mm.c                 | 37 ++++++++++++++++++++++-------
+ xen/include/xen/sections.h          |  4 ++++
+ 4 files changed, 48 insertions(+), 16 deletions(-)
+
+diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
+index 7141bd9e46..5eba626f27 100644
+--- a/xen/arch/riscv/include/asm/config.h
++++ b/xen/arch/riscv/include/asm/config.h
+@@ -41,11 +41,11 @@
+  * Start addr          | End addr         | Slot       | area description
+  * ============================================================================
+  *                   .....                 L2 511          Unused
+- *  0xffffffffc0a00000  0xffffffffc0bfffff L2 511          Fixmap
++ *  0xffffffffc1800000  0xffffffffc19fffff L2 511          Fixmap
+  *                   ..... ( 2 MB gap )
+- *  0xffffffffc0400000  0xffffffffc07fffff L2 511          FDT
++ *  0xffffffffc1200000  0xffffffffc15fffff L2 511          FDT
+  *                   ..... ( 2 MB gap )
+- *  0xffffffffc0000000  0xffffffffc01fffff L2 511          Xen
++ *  0xffffffffc0000000  0xffffffffc0ffffff L2 511          Xen
+  *                   .....                 L2 510          Unused
+  *  0x3200000000        0x7f7fffffff       L2 200-509      Direct map
+  *                   .....                 L2 199          Unused
+@@ -78,7 +78,7 @@
+ 
+ #define GAP_SIZE                MB(2)
+ 
+-#define XEN_VIRT_SIZE           MB(2)
++#define XEN_VIRT_SIZE           MB(16)
+ 
+ #define BOOT_FDT_VIRT_START     (XEN_VIRT_START + XEN_VIRT_SIZE + GAP_SIZE)
+ #define BOOT_FDT_VIRT_SIZE      MB(4)
+diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
+index 4035cd400a..ef8b35d7c2 100644
+--- a/xen/arch/riscv/include/asm/mm.h
++++ b/xen/arch/riscv/include/asm/mm.h
+@@ -9,6 +9,7 @@
+ #include <xen/mm-frame.h>
+ #include <xen/pdx.h>
+ #include <xen/pfn.h>
++#include <xen/sections.h>
+ #include <xen/types.h>
+ 
+ #include <asm/page-bits.h>
+@@ -43,13 +44,21 @@ static inline void *maddr_to_virt(paddr_t ma)
+  */
+ static inline unsigned long virt_to_maddr(unsigned long va)
+ {
++    const unsigned long xen_size = (unsigned long)(_end - _start);
++    const unsigned long xen_virt_start = _AC(XEN_VIRT_START, UL);
++    const unsigned long xen_virt_end = xen_virt_start + xen_size - 1;
++
+     if ((va >= DIRECTMAP_VIRT_START) &&
+         (va <= DIRECTMAP_VIRT_END))
+         return directmapoff_to_maddr(va - directmap_virt_start);
+ 
+-    BUILD_BUG_ON(XEN_VIRT_SIZE != MB(2));
+-    ASSERT((va >> (PAGETABLE_ORDER + PAGE_SHIFT)) ==
+-           (_AC(XEN_VIRT_START, UL) >> (PAGETABLE_ORDER + PAGE_SHIFT)));
++    ASSERT((va >= xen_virt_start) && (va <= xen_virt_end));
++
++    /*
++    * The .init* sections will be freed when Xen completes booting,
++    * so the [__init_begin, __init_end) range must be excluded.
++    */
++    ASSERT((system_state < SYS_STATE_active) || !is_init_section(va));
+ 
+     /* phys_offset = load_start - XEN_VIRT_START */
+     return phys_offset + va;
+diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
+index f2bf279bac..d3ece9f132 100644
+--- a/xen/arch/riscv/mm.c
++++ b/xen/arch/riscv/mm.c
+@@ -31,20 +31,39 @@ unsigned long __ro_after_init phys_offset; /* = load_start - XEN_VIRT_START */
+ #define LOAD_TO_LINK(addr) ((unsigned long)(addr) - phys_offset)
+ 
+ /*
+- * It is expected that Xen won't be more then 2 MB.
++ * It is expected that Xen won't be more then XEN_VIRT_SIZE.
+  * The check in xen.lds.S guarantees that.
+- * At least 3 page tables (in case of Sv39 ) are needed to cover 2 MB.
+- * One for each page level table with PAGE_SIZE = 4 Kb.
+  *
+- * One L0 page table can cover 2 MB(512 entries of one page table * PAGE_SIZE).
++ * Root page table is shared with the initial mapping and is declared
++ * separately (look at stage1_pgtbl_root), so it isn't taken into account
++ * in PGTBL_INITIAL_COUNT.
+  *
+- * It might be needed one more page table in case when Xen load address
+- * isn't 2 MB aligned.
++ * An amount of page tables between root page table and L0 page table
++ * (in the case of Sv39 it covers L1 table):
++ *   (CONFIG_PAGING_LEVELS - 2) are needed for an identity mapping and
++ *   the same amount are needed for Xen.
+  *
+- * CONFIG_PAGING_LEVELS page tables are needed for the identity mapping,
+- * except that the root page table is shared with the initial mapping
++ * An amount of L0 page tables:
++ *   (512 entries of one L0 page table covers 2MB == 1<<XEN_PT_LEVEL_SHIFT(1))
++ *   XEN_VIRT_SIZE >> XEN_PT_LEVEL_SHIFT(1) are needed for Xen and
++ *   one L0 is needed for identity mapping.
+  */
+-#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 1) * 2 + 1)
++#define PGTBL_INITIAL_COUNT ((CONFIG_PAGING_LEVELS - 2) * 2 + \
++                             (XEN_VIRT_SIZE >> XEN_PT_LEVEL_SHIFT(1)) + 1)
++
++/*
++ * Modifying these checks may require updating PGTBL_INITIAL_COUNT.
++ *
++ * If XEN_VIRT_{START,SIZE} are not properly aligned and XEN_VIRT_SIZE > GB(1),
++ * additional L1 and L0 page tables are required.
++ */
++static void __init __maybe_unused build_assertions(void)
++{
++    BUILD_BUG_ON(!IS_ALIGNED(XEN_VIRT_START, GB(1)));
++    BUILD_BUG_ON(!IS_ALIGNED(XEN_VIRT_SIZE, MB(2)));
++
++    BUILD_BUG_ON(XEN_VIRT_SIZE > GB(1));
++}
+ 
+ pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+ stage1_pgtbl_root[PAGETABLE_ENTRIES];
+diff --git a/xen/include/xen/sections.h b/xen/include/xen/sections.h
+index f2fac8d7fa..fe49d7d0e6 100644
+--- a/xen/include/xen/sections.h
++++ b/xen/include/xen/sections.h
+@@ -7,6 +7,10 @@
+ 
+ /* SAF-0-safe */
+ extern char __init_begin[], __init_end[];
++#define is_init_section(p) ({                           \
++    const char *p_ = (const char *)(unsigned long)(p);  \
++    (p_ >= __init_begin) && (p_ < __init_end);          \
++})
+ 
+ /*
+  * Some data is expected to be written rarely (if at all).
+-- 
+2.49.0
+
 
