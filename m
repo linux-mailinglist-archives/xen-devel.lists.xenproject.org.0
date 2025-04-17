@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72D97A9204F
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 16:54:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.957970.1350954 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51FBCA92053
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Apr 2025 16:55:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.957979.1350964 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5QdS-0005Uv-Iv; Thu, 17 Apr 2025 14:54:38 +0000
+	id 1u5Qdv-0005yY-RJ; Thu, 17 Apr 2025 14:55:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 957970.1350954; Thu, 17 Apr 2025 14:54:38 +0000
+Received: by outflank-mailman (output) from mailman id 957979.1350964; Thu, 17 Apr 2025 14:55:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5QdS-0005Sz-GN; Thu, 17 Apr 2025 14:54:38 +0000
-Received: by outflank-mailman (input) for mailman id 957970;
- Thu, 17 Apr 2025 14:54:36 +0000
+	id 1u5Qdv-0005vi-OX; Thu, 17 Apr 2025 14:55:07 +0000
+Received: by outflank-mailman (input) for mailman id 957979;
+ Thu, 17 Apr 2025 14:55:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nsoM=XD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u5QdQ-0005St-5J
- for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 14:54:36 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CA5y=XD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u5Qdu-0005St-RQ
+ for xen-devel@lists.xenproject.org; Thu, 17 Apr 2025 14:55:06 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dff35968-1b9b-11f0-9ffb-bf95429c2676;
- Thu, 17 Apr 2025 16:54:34 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-39ac9aea656so1145602f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 07:54:34 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3086136627asm3719358a91.48.2025.04.17.07.54.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Apr 2025 07:54:32 -0700 (PDT)
+ id f27a1014-1b9b-11f0-9ffb-bf95429c2676;
+ Thu, 17 Apr 2025 16:55:05 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3913d129c1aso657345f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Apr 2025 07:55:05 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39eae96c02esm20175944f8f.23.2025.04.17.07.55.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Apr 2025 07:55:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dff35968-1b9b-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: f27a1014-1b9b-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1744901673; x=1745506473; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=E9bcYpxVgU6XOGveVr6QOITJB5fiwP1yAxIxQ6yXucQ=;
-        b=SLi8MCL1RysG/lNmA/aDk9Hmffxr2rnngzxH+fnhpXLboDswFF0PFIpEcpiNFWTIFT
-         zQ/8ZWElcb4OPGrGLk5cpz+L8oowvTECfSCQDj3D0WNk/KaPLvoQ8TqMCei/+fDyZxlY
-         vdSZzOKBLPSp2eIYvHwJlII8AwcBE6M3yd5HzueE2mTbkLJB90UGl4Dm56Kj3DM+9gx7
-         L0iz8cPskWB68uTU+SaCt/grKimkjnOPfTZhkZrHfLDHPATGBI5k2GVunYI5340cqfTy
-         TV3qChwJPa1o7Hku/l2RxIikBv76UwGxCPJAz9eijixkFl6fIjUfwV40Czo2tHkdJotQ
-         rJtw==
+        d=citrix.com; s=google; t=1744901704; x=1745506504; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=nzvS1du9WvDKG1XtS3bVT+jcwbh9Tzb4+jAEETHwlvU=;
+        b=APJmGgc31swBQBOdkzfEqpbMafVc/x/2/y8AMDLDQ9tQhtkD9X1TuuXsFJTcnYCj3N
+         XZCMy20lVcrPAuEr487GxCeW6QqGgUBgDb4zPxOHY53mcCIo02rfB/609ps9IqzKQifF
+         b/5EIH7BqKVw92W2gV75rIw+LjhAOTCmWu2w0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744901673; x=1745506473;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=E9bcYpxVgU6XOGveVr6QOITJB5fiwP1yAxIxQ6yXucQ=;
-        b=XRo29vqoEi6i9XdW8NEfwt47PFgjxqWO8ZrYaSYtKHBl8DttqW0UtD+eHK/l6rV7pf
-         bNkPv8NdEYwmMFBmmNp9ZaYvY53Xc7GXSoPZG6OvtApnEI+ctW9en5bdsK10VWiQnDfz
-         v7At9GGn2uBTuBx/ShLleRncLUnFCultL4NvIJA2K4hJZnODO9cjREd+mN9kF+iabHrM
-         xmrqf6t5sGc/i6PIZqySsOQ4thnADiAG6CPZ9x25VwrZoE9uZOILgEEV+KG8qEWVZH/q
-         gv4aO+vvosPpXu/rFs7Zp/PENRfqXTpBAjEVXmXxVFxrxf9KuXoNSPw45+ms1eASPU9D
-         e7TA==
-X-Forwarded-Encrypted: i=1; AJvYcCUeCj0qV5mHC98034ueP2ydwXYCzNn5T4sRUWtHqwK4JTpzNOHchVVyjLiR5p8w9+lje/34+jMhzcA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzdIZxH56kk/ht/SM+zyjGMTpbpBq2oNuEF7JulSQNdE8Vu2S6U
-	V/O2sdlNvUAjssfqFMouP/tdrlKIaVXPT1qX98MPtMLFI3FMcRUeY09VTIBbPA==
-X-Gm-Gg: ASbGncsalkp9tedK/aWPrhLwxO4UR+b/wZYzSMmjslDGy3gaXnSzDBi6RoHAWtbi+Kw
-	0lOjVMEv4lZvqWj43nBiw3ym/jSlRYn5N693QFWLnYh6K4ZzY+4iJkspmzYIhtMlHfSSbSLVoyl
-	sx8vTaSIXsSLkd362GoondnxEyO0/XK9YHsKdLlC6219tDu1La+2cmLJTV7DoZWX8aOko+HSSPj
-	I24hVlAc89MwzIgIyZbAZBPt8PRh4cQ29I3bU/csRqzkTWNdfHrC/4QD8+GBZU+kkgyCSfelhng
-	sag2GZG/OHbOF/GxGUh04d5qIiEmosOU42vrjzyZKl3/0veP5ZZfaIit4vYzFnkKKZXayUaegWg
-	u8S/DgDFaHBW21zvYR4ea1i4XhA==
-X-Google-Smtp-Source: AGHT+IEDXmx2fLe90asuNdfO/gtiNvc5Vk3R1g2z6Niy7lcGgSf0KwnkGJpXJ0GLIDo/SYayMtVLDQ==
-X-Received: by 2002:a5d:5f42:0:b0:390:ee01:68fa with SMTP id ffacd0b85a97d-39ee5b3731dmr5894104f8f.24.1744901673488;
-        Thu, 17 Apr 2025 07:54:33 -0700 (PDT)
-Message-ID: <c59f6453-92eb-4015-bb2d-e0d06a668bf4@suse.com>
-Date: Thu, 17 Apr 2025 16:54:24 +0200
+        d=1e100.net; s=20230601; t=1744901704; x=1745506504;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=nzvS1du9WvDKG1XtS3bVT+jcwbh9Tzb4+jAEETHwlvU=;
+        b=PZiEmpFKxckrX//G+3DUUqBcSHB0KkczPgDLTY/xOtT6ADX1NLQje7nVrkYZg11G+0
+         yg8uy3Awu5QPe/OB6fgd+NYjlGTNH2nVyw0V9ck9cvit4j1EIVCVkB6OEG6aa3Lnboou
+         CZqRjptemWgKQSrrPymxzYZ4I2+y1vKpExn9rp2YVFXsm6hpO1EKjDUxkFG2m4cbVa5/
+         oLIHt6qAV1XRKBAY6hcMNngPHxIqO0kE15ISr+/aQ51+nho47yYZV7oFdq1oBRo1768x
+         H3L3880NWstLps9WlrobFNKogINGZK5EpiS8LkxAk4TWOZNPFU4BF/odaHXkKMFkQ5O3
+         e0FQ==
+X-Gm-Message-State: AOJu0Yw/ugxNr/SLqYJqUo+l7cGciCCVEU+FZ5i8eq6qAukFkdZQSbdJ
+	V699vFUIB9faUJkhb8ehLW4dblMgVrqOsxOgd0wuOSqm0m0Uvbl04h/cN76/FZ+Cus/TD90V8BM
+	LQNc=
+X-Gm-Gg: ASbGncuiPwVPGPGbYaVjOHr5l/y5enOd4ek6VSlmDkhmN1xWzmh+Hd9MGFrxBE41XVv
+	unMPQvRl7WXfY0g8O+qIIVJlP8UO6xkLea2LQC52qtG0mwLSDZ/r5Ql2KfwE/ZSLchL6X/MxTPz
+	e2CcV4/a1ZNdCzKHZmOK3vozakx3Dg+AsRxmFJ+ktna5xpLwv6n5mNcPxovg7D2z15m9sLKtpDS
+	1TOId0cPkOYUqXT8bDEsuzVanJrKSNBNkquTNAbRw+eYmKb5ArkdeTPgVN5IhoUiP4Es7AmPpWW
+	/Cdj3w8nv2MIw5Ie00AZxvMoV9rudJOHub/VLb5V3A8dweYSnyWmOLzhgticFh9O9T/e7lNP1eH
+	eSe2dgI4DjIRLPQ==
+X-Google-Smtp-Source: AGHT+IEAUfRiY4zb9ji7d3oNtoCvF/jWCcUtbHJdOzrBKcqhtIDs0azrTxWjgk2ZQgOdCzrTB6QiXA==
+X-Received: by 2002:a05:6000:1acf:b0:39c:1efb:eec9 with SMTP id ffacd0b85a97d-39ef9cd9deamr39278f8f.13.1744901704382;
+        Thu, 17 Apr 2025 07:55:04 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jason Andryuk <jason.andryuk@amd.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH] Update to latest Argo
+Date: Thu, 17 Apr 2025 15:55:02 +0100
+Message-Id: <20250417145502.2565165-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/13] x86/boot: add cmdline to struct boot_domain
-To: Alejandro Vallejo <agarciav@amd.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-References: <20250417124844.11143-1-agarciav@amd.com>
- <20250417124844.11143-2-agarciav@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250417124844.11143-2-agarciav@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17.04.2025 14:48, Alejandro Vallejo wrote:
-> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-> 
-> Add a container for the "cooked" command line for a domain. This
-> provides for the backing memory to be directly associated with the
-> domain being constructed.  This is done in anticipation that the domain
-> construction path may need to be invoked multiple times, thus ensuring
-> each instance had a distinct memory allocation.
-> 
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+The bugfixes I submitted during commit 36500bcb5e24 ("Overhaul how Argo is
+built and packged") have now been merged.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-preferably with ...
+Update the version used, and drop the -Wno-error workaround.
 
-> --- a/xen/arch/x86/hvm/dom0_build.c
-> +++ b/xen/arch/x86/hvm/dom0_build.c
-> @@ -653,7 +653,7 @@ static int __init pvh_load_kernel(
->      void *image_start = image_base + image->headroom;
->      unsigned long image_len = image->size;
->      unsigned long initrd_len = initrd ? initrd->size : 0;
-> -    const char *cmdline = image->cmdline_pa ? __va(image->cmdline_pa) : NULL;
-> +    unsigned long cmdline_len = bd->cmdline ? strlen(bd->cmdline) + 1 : 0;
+Link: https://github.com/OpenXT/linux-xen-argo/pull/21
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Doug Goldstein <cardoe@cardoe.com>
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+CC: Jason Andryuk <jason.andryuk@amd.com>
+CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+---
+ .gitlab-ci.yml        | 2 +-
+ scripts/build-argo.sh | 1 -
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
-... this becoming either size_t (as you have it elsewhere) or unsigned int.
-Happy to make the adjustment while committing, so long as you agree with
-either of the suggested variants.
+diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+index 74335363d5ed..dcf76db6ec62 100644
+--- a/.gitlab-ci.yml
++++ b/.gitlab-ci.yml
+@@ -61,7 +61,7 @@ linux-6.6.56-x86_64:
+   script: ./scripts/build-linux.sh
+   variables:
+     LINUX_VERSION: 6.6.56
+-    ARGO_SHA: "705a7a8a624b42e13e655d3042059b8a85cdf6a3"
++    ARGO_SHA: "cf73819cacc945baca1a7421e5836d1bd481739b"
+     ARGOEXEC_SHA: "d900429f6640acc6f68a3d3a4c945d7da60625d8"
+ 
+ microcode-x86:
+diff --git a/scripts/build-argo.sh b/scripts/build-argo.sh
+index ef7057d847d4..cd01078a3f39 100755
+--- a/scripts/build-argo.sh
++++ b/scripts/build-argo.sh
+@@ -20,7 +20,6 @@ git -C "${WORKDIR}/linux-xen-argo" switch --detach FETCH_HEAD
+ make -j$(nproc) -C "linux-${LINUX_VERSION}" \
+      M="${WORKDIR}/linux-xen-argo/argo-linux" \
+      KBUILD_MODPOST_WARN=1 \
+-     CFLAGS_MODULE="-Wno-error" \
+      modules
+ install -D -m644 "${WORKDIR}/linux-xen-argo/argo-linux/xen-argo.ko" \
+      "${ARGODIR}/lib/modules/${LINUX_VERSION}/updates/xen-argo.ko"
+-- 
+2.39.5
 
-Jan
 
