@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ECD1A9334F
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Apr 2025 09:15:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.958744.1351412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F294A9334E
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Apr 2025 09:15:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.958745.1351417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5fvx-0001ud-9V; Fri, 18 Apr 2025 07:14:45 +0000
+	id 1u5fvx-0001zi-Gc; Fri, 18 Apr 2025 07:14:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 958744.1351412; Fri, 18 Apr 2025 07:14:45 +0000
+Received: by outflank-mailman (output) from mailman id 958745.1351417; Fri, 18 Apr 2025 07:14:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5fvx-0001t7-50; Fri, 18 Apr 2025 07:14:45 +0000
-Received: by outflank-mailman (input) for mailman id 958744;
+	id 1u5fvx-0001uY-Cz; Fri, 18 Apr 2025 07:14:45 +0000
+Received: by outflank-mailman (input) for mailman id 958745;
  Fri, 18 Apr 2025 07:14:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iJE8=XE=gmail.com=ubizjak@srs-se1.protection.inumbo.net>)
- id 1u5fvv-0001sw-WE
+ id 1u5fvw-0001sw-H9
  for xen-devel@lists.xenproject.org; Fri, 18 Apr 2025 07:14:44 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cc5cd896-1c24-11f0-9eb0-5ba50f476ded;
- Fri, 18 Apr 2025 09:14:42 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5f4d0da2d2cso3177791a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 18 Apr 2025 00:14:42 -0700 (PDT)
+ id cd1fc49e-1c24-11f0-9eb0-5ba50f476ded;
+ Fri, 18 Apr 2025 09:14:43 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5f435c9f2f9so2471548a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Apr 2025 00:14:43 -0700 (PDT)
 Received: from fedora.. ([193.77.86.199]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f625a5ec5bsm667619a12.81.2025.04.18.00.14.40
+ 4fb4d7f45d1cf-5f625a5ec5bsm667619a12.81.2025.04.18.00.14.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Apr 2025 00:14:40 -0700 (PDT)
+ Fri, 18 Apr 2025 00:14:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,41 +44,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc5cd896-1c24-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: cd1fc49e-1c24-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744960482; x=1745565282; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=5woHMQeMVJnProeJ/6Cdzx+SnUrs7izAlab21WdVNXo=;
-        b=nPHz7SB8ADW+bx8JJySu7MeKC9dBoZKdKFXJRIEMu8ji9icdwpVlMT8ivALwp/hqBf
-         GXpiBwS00uczmmolezcWOlVviDjlEGs3ZUhKaoqYgfduVKJc6D3nyvbsoCqKqBiqBqXd
-         VbFfXN+K2uyNs3cxOvd61NZ/E/T04Tthk/ga/BRIC9mgoNbTpa9Cg+HxzPMS/B8RSKnN
-         OP08y6aZPsDlgdEPK2RaCDBlhiImxUpVZWcqKcCYHxNkxM0J0RmukNSd2WOlQWuY4oXq
-         D72nqvJ+ZhdNLoXg1cTO5Z4FSY3/mWYG5fPGv10Yvjp2V6DzqTjOg+O52FETvgXz92bj
-         mtnQ==
+        d=gmail.com; s=20230601; t=1744960483; x=1745565283; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GFx34+qBm/59SvTL7iTt7bIIp4e1pGYsUrJXj+WCcsk=;
+        b=kHT6I4JoRo4n958mb35EE3b/ndY7hpxvHJXRmaqzJmS919YL2lF3659og2rdiYdC8m
+         oxBnAxosk2554CFMi5nP45Tl/ajFbl7e3FAIDVpOj6ix6gd12P7/PdysNSg9LZIOAL0t
+         HkRAEUD6mBoH7y/8bDuqb92aaYU4NtNO9Ku05hdz9rco1RT4/A81Ifm3XeBKkMxtYwOV
+         tE7OgBjNzLscdgwr5NEyTlkTJ9mDf/pdFJRl4dUWOtVKmGuNUXQK3jHLeGG5MRbDtvMv
+         AdE+1CpAcubhCB/to1SIwRBN/6/pJGhcxRfnjvCC/vfVIVh7FcrYx7jtiVVL0YTdpV4h
+         UzxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744960482; x=1745565282;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=5woHMQeMVJnProeJ/6Cdzx+SnUrs7izAlab21WdVNXo=;
-        b=tBtOjFE7z6XUzxmcr+5IYdt0mEqADG32GWvBNcT5Rpz65waGaHrxPhei92XsxH6SHB
-         D2445H9Vkzdskd0uIYfz/mUSmACA5WMdyBtYDWx4VAe9QJPAIs7yrkt7N4OByPkRwalE
-         pFS7uAveh0IpKzU5xgPyPD5y7KQzplitOgZ02gLuCY0NVDpP/dkbSZPp7kEJXIWjHmZt
-         IOcBdZaGrNuwh6EV1G3KchmcG3QEVyjW/vjf7Vynqo5tAmzG2kJajUOrYQ28/oZQEtS/
-         J/NnUwczPgU/h3UHn5c8u2G0OF7tzJ7NUjB1Sl5XQ4fsLkfnAz8VAZV4hQ2L9DyUxznt
-         PNGQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVqK0BVLhZVOyw29Vq3kIstEmZ3B6CjKWv0YlkBgxxa9S8Vw1vJtaRUAXh7X48dBPMGjZQT4kxqFWc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxxkT6pojfje5L1gWCWKiVcRcSq8M5VAY5SahDSDa5wxJkt2sIv
-	XZw+t0H6cKZkvaqyFfycBrXytB13ivBq9dWmke/mYfe80IvCbbc+
-X-Gm-Gg: ASbGncsSmXjxxapfT8/IHyNMVeV2UvOjaXZztDsUSXVND22qw3fIMNwe8krDeIVw6vL
-	RmoPJoZkooRi+Qpo1yCZdGx66fF43ZIGU4yI/bUxli1q3ZxetBLXfpMfCSn5XXGD6Mh917gFb67
-	KXlSBcmIN9ppUf4vYTeFuhPluIjuFwBXafXwDk/s+QVjaIaYjdy6+s/ozi89RNhUouW6G3mS3fr
-	VM5qSVLICf1YyD4lUCB3L1t2ZwIMtUwsr+rcRC7d/+wWHrdqI2Gi+1eDAZCsSkvs0Qb4zJ6JiLN
-	26kKQOJiQfk1vcYei1yV8cc4jMIQQeAOEPGXx7p850s=
-X-Google-Smtp-Source: AGHT+IEMlcURDofq+umzsuPFLiss3QdLovTjMZcPPVHbY8ksiEyTxikdvtWBNS1fdkBA78M8BMMovw==
-X-Received: by 2002:a05:6402:1e8e:b0:5f4:c2d0:fbb2 with SMTP id 4fb4d7f45d1cf-5f628597fbbmr1249814a12.18.1744960481435;
-        Fri, 18 Apr 2025 00:14:41 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1744960483; x=1745565283;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=GFx34+qBm/59SvTL7iTt7bIIp4e1pGYsUrJXj+WCcsk=;
+        b=cGlST7KWXQXrk5z1oG7KMABHLxRXQKf7Oozmc96cCC9GKFi88e1kbrTPoWoFREnibk
+         JgG6Bw61xPKLHtpo4it9aMh1eqxrqGW8UNlRojR8aiJQ5/jLujAbBjzwaNmGk521nCpu
+         kUn1c5CnBv+sOhCZ9Oi8ppTFK+oPmC2PDzoR96Tf8dwufS/pe2MkutHX1LXdxeEKR7nc
+         26V0bNgjeA+QblXT+K+b6xVSLu6vyB3wjiPX7tnZ82TyKX9N2kpAfJ1LezSyxWAEFAo3
+         N6m52x+OzV9HdO4G+eeJGuEpNZnmLkTHqQJKIBupfmfmo9QKUcl0ExofVSLXiMdjolpE
+         PDSw==
+X-Forwarded-Encrypted: i=1; AJvYcCW7d7yE3ObqaPvthE/FU4G+zLhj8Ys2OhWPkXqOvLIvAdyA4c8DaWqktxRAS5UEBczfvTN0z5YLV/8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxYwWlrFhzeO6j2zOwk3urr1s4omIPdv5m8QU8YKlIWK5gdWjR9
+	sVi0/L62/0xq9iT7bo4eV06jX9itpJCd0x3BDDt+2pBlG7VIiiET
+X-Gm-Gg: ASbGncs2OYaLbIjWZhznjCV2YhaqRo0DhbLOPel188YL2SajDHO7z64AnUtlaJJNUTZ
+	8DClPnwEsIepN37dLfu11fgfmE8Rxo3thEcXoGNWy6NVlDVclsT/qFUZVzTrRHvkmmy4ZI/6MO0
+	aq1htlC1GhVRVMBTGkx4fjEGD9Fo5fe6Vv8RyJjhr23Uc2pjsgEmxMr+dpXJVcqFgNSs2iWmhDN
+	jAwMbJxFCpjzZ5YJHqKw3moMcKpjrNu3H9engc9Ch/2dIFsdpVBIPxySlh3GVsTWhHJhfQRQevk
+	zTVv+vYnfKbL9lta3g5oZNum/u3XZUBP
+X-Google-Smtp-Source: AGHT+IHyAv8ZFczf4w8OHn4dFYovzMpxaqvgJ/r0oLf6fENeJLUuhc5Zqo8P/+9SL6uhW52HFgUZ7w==
+X-Received: by 2002:a17:907:6e8a:b0:aca:d4f0:2b9f with SMTP id a640c23a62f3a-acb74ad8451mr124874066b.10.1744960482716;
+        Fri, 18 Apr 2025 00:14:42 -0700 (PDT)
 From: Uros Bizjak <ubizjak@gmail.com>
 To: x86@kernel.org,
 	linux-video@atrey.karlin.mff.cuni.cz,
@@ -91,11 +92,16 @@ Cc: Uros Bizjak <ubizjak@gmail.com>,
 	Borislav Petkov <bp@alien8.de>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
 	"H. Peter Anvin" <hpa@zytor.com>,
-	Martin Mares <mj@ucw.cz>
-Subject: [PATCH -tip v2 1/2] x86/boot: Remove semicolon from "rep" prefixes
-Date: Fri, 18 Apr 2025 09:13:50 +0200
-Message-ID: <20250418071437.4144391-1-ubizjak@gmail.com>
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Machek <pavel@kernel.org>
+Subject: [PATCH -tip v2 2/2] x86/asm: Remove semicolon from "rep" prefixes
+Date: Fri, 18 Apr 2025 09:13:51 +0200
+Message-ID: <20250418071437.4144391-2-ubizjak@gmail.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250418071437.4144391-1-ubizjak@gmail.com>
+References: <20250418071437.4144391-1-ubizjak@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
@@ -120,159 +126,398 @@ Cc: Ingo Molnar <mingo@kernel.org>
 Cc: Borislav Petkov <bp@alien8.de>
 Cc: Dave Hansen <dave.hansen@linux.intel.com>
 Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Martin Mares <mj@ucw.cz>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Pavel Machek <pavel@kernel.org>
 ---
 v2: Split the patch from the previous version.
 ---
- arch/x86/boot/bioscall.S          | 4 ++--
- arch/x86/boot/boot.h              | 4 ++--
- arch/x86/boot/compressed/string.c | 8 ++++----
- arch/x86/boot/copy.S              | 8 ++++----
- arch/x86/boot/header.S            | 2 +-
- arch/x86/boot/string.c            | 2 +-
- arch/x86/boot/video.c             | 2 +-
- 7 files changed, 15 insertions(+), 15 deletions(-)
+ arch/x86/include/asm/io.h            |  6 +++---
+ arch/x86/include/asm/string_32.h     | 15 ++++++---------
+ arch/x86/kernel/head_32.S            |  8 +++-----
+ arch/x86/kernel/relocate_kernel_32.S |  6 +++---
+ arch/x86/kernel/relocate_kernel_64.S |  6 +++---
+ arch/x86/lib/iomem.c                 |  2 +-
+ arch/x86/lib/string_32.c             | 17 ++++++-----------
+ arch/x86/lib/strstr_32.c             |  6 ++----
+ arch/x86/lib/usercopy_32.c           | 18 +++++++++---------
+ arch/x86/platform/pvh/head.S         |  3 +--
+ arch/x86/power/hibernate_asm_32.S    |  3 +--
+ arch/x86/power/hibernate_asm_64.S    |  3 +--
+ 12 files changed, 39 insertions(+), 54 deletions(-)
 
-diff --git a/arch/x86/boot/bioscall.S b/arch/x86/boot/bioscall.S
-index aa9b96457584..cf4a6155714e 100644
---- a/arch/x86/boot/bioscall.S
-+++ b/arch/x86/boot/bioscall.S
-@@ -32,7 +32,7 @@ intcall:
- 	movw	%dx, %si
- 	movw	%sp, %di
- 	movw	$11, %cx
--	rep; movsl
-+	rep movsl
- 
- 	/* Pop full state from the stack */
- 	popal
-@@ -67,7 +67,7 @@ intcall:
- 	jz	4f
- 	movw	%sp, %si
- 	movw	$11, %cx
--	rep; movsl
-+	rep movsl
- 4:	addw	$44, %sp
- 
- 	/* Restore state and return */
-diff --git a/arch/x86/boot/boot.h b/arch/x86/boot/boot.h
-index 38f17a1e1e36..f3771a6373c7 100644
---- a/arch/x86/boot/boot.h
-+++ b/arch/x86/boot/boot.h
-@@ -155,14 +155,14 @@ static inline void wrgs32(u32 v, addr_t addr)
- static inline bool memcmp_fs(const void *s1, addr_t s2, size_t len)
+diff --git a/arch/x86/include/asm/io.h b/arch/x86/include/asm/io.h
+index e889c3bab5a2..ca309a3227c7 100644
+--- a/arch/x86/include/asm/io.h
++++ b/arch/x86/include/asm/io.h
+@@ -217,7 +217,7 @@ void memset_io(volatile void __iomem *, int, size_t);
+ static inline void __iowrite32_copy(void __iomem *to, const void *from,
+ 				    size_t count)
  {
- 	bool diff;
--	asm volatile("fs; repe; cmpsb" CC_SET(nz)
-+	asm volatile("fs repe cmpsb" CC_SET(nz)
- 		     : CC_OUT(nz) (diff), "+D" (s1), "+S" (s2), "+c" (len));
- 	return diff;
- }
- static inline bool memcmp_gs(const void *s1, addr_t s2, size_t len)
- {
- 	bool diff;
--	asm volatile("gs; repe; cmpsb" CC_SET(nz)
-+	asm volatile("gs repe cmpsb" CC_SET(nz)
- 		     : CC_OUT(nz) (diff), "+D" (s1), "+S" (s2), "+c" (len));
- 	return diff;
- }
-diff --git a/arch/x86/boot/compressed/string.c b/arch/x86/boot/compressed/string.c
-index 81fc1eaa3229..9af19d9614cb 100644
---- a/arch/x86/boot/compressed/string.c
-+++ b/arch/x86/boot/compressed/string.c
-@@ -15,9 +15,9 @@ static void *____memcpy(void *dest, const void *src, size_t n)
+-	asm volatile("rep ; movsl"
++	asm volatile("rep movsl"
+ 		     : "=&c"(count), "=&D"(to), "=&S"(from)
+ 		     : "0"(count), "1"(to), "2"(from)
+ 		     : "memory");
+@@ -282,7 +282,7 @@ static inline void outs##bwl(u16 port, const void *addr, unsigned long count) \
+ 			count--;					\
+ 		}							\
+ 	} else {							\
+-		asm volatile("rep; outs" #bwl				\
++		asm volatile("rep outs" #bwl				\
+ 			     : "+S"(addr), "+c"(count)			\
+ 			     : "d"(port) : "memory");			\
+ 	}								\
+@@ -298,7 +298,7 @@ static inline void ins##bwl(u16 port, void *addr, unsigned long count)	\
+ 			count--;					\
+ 		}							\
+ 	} else {							\
+-		asm volatile("rep; ins" #bwl				\
++		asm volatile("rep ins" #bwl				\
+ 			     : "+D"(addr), "+c"(count)			\
+ 			     : "d"(port) : "memory");			\
+ 	}								\
+diff --git a/arch/x86/include/asm/string_32.h b/arch/x86/include/asm/string_32.h
+index 32c0d981a82a..e9cce169bb4c 100644
+--- a/arch/x86/include/asm/string_32.h
++++ b/arch/x86/include/asm/string_32.h
+@@ -33,11 +33,11 @@ extern size_t strlen(const char *s);
+ static __always_inline void *__memcpy(void *to, const void *from, size_t n)
  {
  	int d0, d1, d2;
- 	asm volatile(
--		"rep ; movsl\n\t"
-+		"rep movsl\n\t"
- 		"movl %4,%%ecx\n\t"
--		"rep ; movsb\n\t"
-+		"rep movsb"
- 		: "=&c" (d0), "=&D" (d1), "=&S" (d2)
- 		: "0" (n >> 2), "g" (n & 3), "1" (dest), "2" (src)
- 		: "memory");
-@@ -29,9 +29,9 @@ static void *____memcpy(void *dest, const void *src, size_t n)
+-	asm volatile("rep ; movsl\n\t"
++	asm volatile("rep movsl\n\t"
+ 		     "movl %4,%%ecx\n\t"
+ 		     "andl $3,%%ecx\n\t"
+ 		     "jz 1f\n\t"
+-		     "rep ; movsb\n\t"
++		     "rep movsb\n\t"
+ 		     "1:"
+ 		     : "=&c" (d0), "=&D" (d1), "=&S" (d2)
+ 		     : "0" (n / 4), "g" (n), "1" ((long)to), "2" ((long)from)
+@@ -89,7 +89,7 @@ static __always_inline void *__constant_memcpy(void *to, const void *from,
+ 	if (n >= 5 * 4) {
+ 		/* large block: use rep prefix */
+ 		int ecx;
+-		asm volatile("rep ; movsl"
++		asm volatile("rep movsl"
+ 			     : "=&c" (ecx), "=&D" (edi), "=&S" (esi)
+ 			     : "0" (n / 4), "1" (edi), "2" (esi)
+ 			     : "memory"
+@@ -165,8 +165,7 @@ extern void *memchr(const void *cs, int c, size_t count);
+ static inline void *__memset_generic(void *s, char c, size_t count)
  {
- 	long d0, d1, d2;
- 	asm volatile(
--		"rep ; movsq\n\t"
-+		"rep movsq\n\t"
- 		"movq %4,%%rcx\n\t"
--		"rep ; movsb\n\t"
-+		"rep movsb"
- 		: "=&c" (d0), "=&D" (d1), "=&S" (d2)
- 		: "0" (n >> 3), "g" (n & 7), "1" (dest), "2" (src)
- 		: "memory");
-diff --git a/arch/x86/boot/copy.S b/arch/x86/boot/copy.S
-index 6afd05e819d2..3973a67cd04e 100644
---- a/arch/x86/boot/copy.S
-+++ b/arch/x86/boot/copy.S
-@@ -22,10 +22,10 @@ SYM_FUNC_START_NOALIGN(memcpy)
- 	movw	%dx, %si
- 	pushw	%cx
- 	shrw	$2, %cx
--	rep; movsl
+ 	int d0, d1;
+-	asm volatile("rep\n\t"
+-		     "stosb"
++	asm volatile("rep stosb"
+ 		     : "=&c" (d0), "=&D" (d1)
+ 		     : "a" (c), "1" (s), "0" (count)
+ 		     : "memory");
+@@ -199,8 +198,7 @@ extern void *memset(void *, int, size_t);
+ static inline void *memset16(uint16_t *s, uint16_t v, size_t n)
+ {
+ 	int d0, d1;
+-	asm volatile("rep\n\t"
+-		     "stosw"
++	asm volatile("rep stosw"
+ 		     : "=&c" (d0), "=&D" (d1)
+ 		     : "a" (v), "1" (s), "0" (n)
+ 		     : "memory");
+@@ -211,8 +209,7 @@ static inline void *memset16(uint16_t *s, uint16_t v, size_t n)
+ static inline void *memset32(uint32_t *s, uint32_t v, size_t n)
+ {
+ 	int d0, d1;
+-	asm volatile("rep\n\t"
+-		     "stosl"
++	asm volatile("rep stosl"
+ 		     : "=&c" (d0), "=&D" (d1)
+ 		     : "a" (v), "1" (s), "0" (n)
+ 		     : "memory");
+diff --git a/arch/x86/kernel/head_32.S b/arch/x86/kernel/head_32.S
+index 2e42056d2306..76743dfad6ab 100644
+--- a/arch/x86/kernel/head_32.S
++++ b/arch/x86/kernel/head_32.S
+@@ -86,7 +86,7 @@ SYM_CODE_START(startup_32)
+ 	movl $pa(__bss_stop),%ecx
+ 	subl %edi,%ecx
+ 	shrl $2,%ecx
+-	rep ; stosl
++	rep stosl
+ /*
+  * Copy bootup parameters out of the way.
+  * Note: %esi still has the pointer to the real-mode data.
+@@ -98,15 +98,13 @@ SYM_CODE_START(startup_32)
+ 	movl $pa(boot_params),%edi
+ 	movl $(PARAM_SIZE/4),%ecx
+ 	cld
+-	rep
+-	movsl
 +	rep movsl
- 	popw	%cx
- 	andw	$3, %cx
--	rep; movsb
-+	rep movsb
- 	popw	%di
- 	popw	%si
- 	retl
-@@ -38,10 +38,10 @@ SYM_FUNC_START_NOALIGN(memset)
- 	imull	$0x01010101,%eax
- 	pushw	%cx
- 	shrw	$2, %cx
--	rep; stosl
-+	rep stosl
- 	popw	%cx
- 	andw	$3, %cx
--	rep; stosb
-+	rep stosb
- 	popw	%di
- 	retl
- SYM_FUNC_END(memset)
-diff --git a/arch/x86/boot/header.S b/arch/x86/boot/header.S
-index b5c79f43359b..9cb91421b4e4 100644
---- a/arch/x86/boot/header.S
-+++ b/arch/x86/boot/header.S
-@@ -585,7 +585,7 @@ start_of_setup:
- 	xorl	%eax, %eax
- 	subw	%di, %cx
- 	shrw	$2, %cx
--	rep; stosl
-+	rep stosl
+ 	movl pa(boot_params) + NEW_CL_POINTER,%esi
+ 	andl %esi,%esi
+ 	jz 1f			# No command line
+ 	movl $pa(boot_command_line),%edi
+ 	movl $(COMMAND_LINE_SIZE/4),%ecx
+-	rep
+-	movsl
++	rep movsl
+ 1:
  
- # Jump to C code (should not return)
- 	calll	main
-diff --git a/arch/x86/boot/string.c b/arch/x86/boot/string.c
-index 84f7a883ce1e..f35369bb14c5 100644
---- a/arch/x86/boot/string.c
-+++ b/arch/x86/boot/string.c
-@@ -32,7 +32,7 @@
- int memcmp(const void *s1, const void *s2, size_t len)
+ #ifdef CONFIG_OLPC
+diff --git a/arch/x86/kernel/relocate_kernel_32.S b/arch/x86/kernel/relocate_kernel_32.S
+index c7c4b1917336..57276f134d12 100644
+--- a/arch/x86/kernel/relocate_kernel_32.S
++++ b/arch/x86/kernel/relocate_kernel_32.S
+@@ -263,17 +263,17 @@ SYM_CODE_START_LOCAL_NOALIGN(swap_pages)
+ 
+ 	movl	%edx, %edi
+ 	movl    $1024, %ecx
+-	rep ; movsl
++	rep movsl
+ 
+ 	movl	%ebp, %edi
+ 	movl	%eax, %esi
+ 	movl	$1024, %ecx
+-	rep ; movsl
++	rep movsl
+ 
+ 	movl	%eax, %edi
+ 	movl	%edx, %esi
+ 	movl	$1024, %ecx
+-	rep ; movsl
++	rep movsl
+ 
+ 	lea	PAGE_SIZE(%ebp), %esi
+ 	jmp     0b
+diff --git a/arch/x86/kernel/relocate_kernel_64.S b/arch/x86/kernel/relocate_kernel_64.S
+index 3062cb3efc44..1d6355227bf6 100644
+--- a/arch/x86/kernel/relocate_kernel_64.S
++++ b/arch/x86/kernel/relocate_kernel_64.S
+@@ -363,20 +363,20 @@ SYM_CODE_START_LOCAL_NOALIGN(swap_pages)
+ 	/* copy source page to swap page */
+ 	movq	kexec_pa_swap_page(%rip), %rdi
+ 	movl	$512, %ecx
+-	rep ; movsq
++	rep movsq
+ 
+ 	/* copy destination page to source page */
+ 	movq	%rax, %rdi
+ 	movq	%rdx, %rsi
+ 	movl	$512, %ecx
+-	rep ; movsq
++	rep movsq
+ 
+ 	/* copy swap page to destination page */
+ 	movq	%rdx, %rdi
+ 	movq	kexec_pa_swap_page(%rip), %rsi
+ .Lnoswap:
+ 	movl	$512, %ecx
+-	rep ; movsq
++	rep movsq
+ 
+ 	lea	PAGE_SIZE(%rax), %rsi
+ 	jmp	.Lloop
+diff --git a/arch/x86/lib/iomem.c b/arch/x86/lib/iomem.c
+index 5eecb45d05d5..c20e04764edc 100644
+--- a/arch/x86/lib/iomem.c
++++ b/arch/x86/lib/iomem.c
+@@ -10,7 +10,7 @@
+ static __always_inline void rep_movs(void *to, const void *from, size_t n)
  {
- 	bool diff;
--	asm("repe; cmpsb" CC_SET(nz)
-+	asm("repe cmpsb" CC_SET(nz)
- 	    : CC_OUT(nz) (diff), "+D" (s1), "+S" (s2), "+c" (len));
- 	return diff;
- }
-diff --git a/arch/x86/boot/video.c b/arch/x86/boot/video.c
-index f2e96905b3fe..0641c8c46aee 100644
---- a/arch/x86/boot/video.c
-+++ b/arch/x86/boot/video.c
-@@ -292,7 +292,7 @@ static void restore_screen(void)
- 			     "shrw %%cx ; "
- 			     "jnc 1f ; "
- 			     "stosw \n\t"
--			     "1: rep;stosl ; "
-+			     "1: rep stosl ; "
- 			     "popw %%es"
- 			     : "+D" (dst), "+c" (npad)
- 			     : "bdS" (video_segment),
+ 	unsigned long d0, d1, d2;
+-	asm volatile("rep ; movsl\n\t"
++	asm volatile("rep movsl\n\t"
+ 		     "testb $2,%b4\n\t"
+ 		     "je 1f\n\t"
+ 		     "movsw\n"
+diff --git a/arch/x86/lib/string_32.c b/arch/x86/lib/string_32.c
+index 53b3f202267c..f87ec24fa579 100644
+--- a/arch/x86/lib/string_32.c
++++ b/arch/x86/lib/string_32.c
+@@ -40,8 +40,7 @@ char *strncpy(char *dest, const char *src, size_t count)
+ 		"stosb\n\t"
+ 		"testb %%al,%%al\n\t"
+ 		"jne 1b\n\t"
+-		"rep\n\t"
+-		"stosb\n"
++		"rep stosb\n"
+ 		"2:"
+ 		: "=&S" (d0), "=&D" (d1), "=&c" (d2), "=&a" (d3)
+ 		: "0" (src), "1" (dest), "2" (count) : "memory");
+@@ -54,8 +53,7 @@ EXPORT_SYMBOL(strncpy);
+ char *strcat(char *dest, const char *src)
+ {
+ 	int d0, d1, d2, d3;
+-	asm volatile("repne\n\t"
+-		"scasb\n\t"
++	asm volatile("repne scasb\n\t"
+ 		"decl %1\n"
+ 		"1:\tlodsb\n\t"
+ 		"stosb\n\t"
+@@ -72,8 +70,7 @@ EXPORT_SYMBOL(strcat);
+ char *strncat(char *dest, const char *src, size_t count)
+ {
+ 	int d0, d1, d2, d3;
+-	asm volatile("repne\n\t"
+-		"scasb\n\t"
++	asm volatile("repne scasb\n\t"
+ 		"decl %1\n\t"
+ 		"movl %8,%3\n"
+ 		"1:\tdecl %3\n\t"
+@@ -167,8 +164,7 @@ size_t strlen(const char *s)
+ {
+ 	int d0;
+ 	size_t res;
+-	asm volatile("repne\n\t"
+-		"scasb"
++	asm volatile("repne scasb"
+ 		: "=c" (res), "=&D" (d0)
+ 		: "1" (s), "a" (0), "0" (0xffffffffu)
+ 		: "memory");
+@@ -184,8 +180,7 @@ void *memchr(const void *cs, int c, size_t count)
+ 	void *res;
+ 	if (!count)
+ 		return NULL;
+-	asm volatile("repne\n\t"
+-		"scasb\n\t"
++	asm volatile("repne scasb\n\t"
+ 		"je 1f\n\t"
+ 		"movl $1,%0\n"
+ 		"1:\tdecl %0"
+@@ -202,7 +197,7 @@ void *memscan(void *addr, int c, size_t size)
+ {
+ 	if (!size)
+ 		return addr;
+-	asm volatile("repnz; scasb\n\t"
++	asm volatile("repnz scasb\n\t"
+ 	    "jnz 1f\n\t"
+ 	    "dec %%edi\n"
+ 	    "1:"
+diff --git a/arch/x86/lib/strstr_32.c b/arch/x86/lib/strstr_32.c
+index 38f37df056f7..28267985e85f 100644
+--- a/arch/x86/lib/strstr_32.c
++++ b/arch/x86/lib/strstr_32.c
+@@ -8,16 +8,14 @@ int	d0, d1;
+ register char *__res;
+ __asm__ __volatile__(
+ 	"movl %6,%%edi\n\t"
+-	"repne\n\t"
+-	"scasb\n\t"
++	"repne scasb\n\t"
+ 	"notl %%ecx\n\t"
+ 	"decl %%ecx\n\t"	/* NOTE! This also sets Z if searchstring='' */
+ 	"movl %%ecx,%%edx\n"
+ 	"1:\tmovl %6,%%edi\n\t"
+ 	"movl %%esi,%%eax\n\t"
+ 	"movl %%edx,%%ecx\n\t"
+-	"repe\n\t"
+-	"cmpsb\n\t"
++	"repe cmpsb\n\t"
+ 	"je 2f\n\t"		/* also works for empty string, see above */
+ 	"xchgl %%eax,%%esi\n\t"
+ 	"incl %%esi\n\t"
+diff --git a/arch/x86/lib/usercopy_32.c b/arch/x86/lib/usercopy_32.c
+index 422257c350c6..f6f436f1d573 100644
+--- a/arch/x86/lib/usercopy_32.c
++++ b/arch/x86/lib/usercopy_32.c
+@@ -38,9 +38,9 @@ do {									\
+ 	might_fault();							\
+ 	__asm__ __volatile__(						\
+ 		ASM_STAC "\n"						\
+-		"0:	rep; stosl\n"					\
++		"0:	rep stosl\n"					\
+ 		"	movl %2,%0\n"					\
+-		"1:	rep; stosb\n"					\
++		"1:	rep stosb\n"					\
+ 		"2: " ASM_CLAC "\n"					\
+ 		_ASM_EXTABLE_TYPE_REG(0b, 2b, EX_TYPE_UCOPY_LEN4, %2)	\
+ 		_ASM_EXTABLE_UA(1b, 2b)					\
+@@ -140,9 +140,9 @@ __copy_user_intel(void __user *to, const void *from, unsigned long size)
+ 		       "       shrl  $2, %0\n"
+ 		       "       andl  $3, %%eax\n"
+ 		       "       cld\n"
+-		       "99:    rep; movsl\n"
++		       "99:    rep movsl\n"
+ 		       "36:    movl %%eax, %0\n"
+-		       "37:    rep; movsb\n"
++		       "37:    rep movsb\n"
+ 		       "100:\n"
+ 		       _ASM_EXTABLE_UA(1b, 100b)
+ 		       _ASM_EXTABLE_UA(2b, 100b)
+@@ -242,9 +242,9 @@ static unsigned long __copy_user_intel_nocache(void *to,
+ 	       "        shrl  $2, %0\n"
+ 	       "        andl $3, %%eax\n"
+ 	       "        cld\n"
+-	       "6:      rep; movsl\n"
++	       "6:      rep movsl\n"
+ 	       "        movl %%eax,%0\n"
+-	       "7:      rep; movsb\n"
++	       "7:      rep movsb\n"
+ 	       "8:\n"
+ 	       _ASM_EXTABLE_UA(0b, 8b)
+ 	       _ASM_EXTABLE_UA(1b, 8b)
+@@ -293,14 +293,14 @@ do {									\
+ 		"	negl %0\n"					\
+ 		"	andl $7,%0\n"					\
+ 		"	subl %0,%3\n"					\
+-		"4:	rep; movsb\n"					\
++		"4:	rep movsb\n"					\
+ 		"	movl %3,%0\n"					\
+ 		"	shrl $2,%0\n"					\
+ 		"	andl $3,%3\n"					\
+ 		"	.align 2,0x90\n"				\
+-		"0:	rep; movsl\n"					\
++		"0:	rep movsl\n"					\
+ 		"	movl %3,%0\n"					\
+-		"1:	rep; movsb\n"					\
++		"1:	rep movsb\n"					\
+ 		"2:\n"							\
+ 		_ASM_EXTABLE_TYPE_REG(4b, 2b, EX_TYPE_UCOPY_LEN1, %3)	\
+ 		_ASM_EXTABLE_TYPE_REG(0b, 2b, EX_TYPE_UCOPY_LEN4, %3)	\
+diff --git a/arch/x86/platform/pvh/head.S b/arch/x86/platform/pvh/head.S
+index cfa18ec7d55f..1d78e5631bb8 100644
+--- a/arch/x86/platform/pvh/head.S
++++ b/arch/x86/platform/pvh/head.S
+@@ -87,8 +87,7 @@ SYM_CODE_START(pvh_start_xen)
+ 	mov %ebx, %esi
+ 	movl rva(pvh_start_info_sz)(%ebp), %ecx
+ 	shr $2,%ecx
+-	rep
+-	movsl
++	rep movsl
+ 
+ 	leal rva(early_stack_end)(%ebp), %esp
+ 
+diff --git a/arch/x86/power/hibernate_asm_32.S b/arch/x86/power/hibernate_asm_32.S
+index 5606a15cf9a1..fb910d9f8471 100644
+--- a/arch/x86/power/hibernate_asm_32.S
++++ b/arch/x86/power/hibernate_asm_32.S
+@@ -69,8 +69,7 @@ copy_loop:
+ 	movl	pbe_orig_address(%edx), %edi
+ 
+ 	movl	$(PAGE_SIZE >> 2), %ecx
+-	rep
+-	movsl
++	rep movsl
+ 
+ 	movl	pbe_next(%edx), %edx
+ 	jmp	copy_loop
+diff --git a/arch/x86/power/hibernate_asm_64.S b/arch/x86/power/hibernate_asm_64.S
+index 66f066b8feda..c73be0a02a6c 100644
+--- a/arch/x86/power/hibernate_asm_64.S
++++ b/arch/x86/power/hibernate_asm_64.S
+@@ -138,8 +138,7 @@ SYM_FUNC_START(core_restore_code)
+ 	movq	pbe_address(%rdx), %rsi
+ 	movq	pbe_orig_address(%rdx), %rdi
+ 	movq	$(PAGE_SIZE >> 3), %rcx
+-	rep
+-	movsq
++	rep movsq
+ 
+ 	/* progress to the next pbe */
+ 	movq	pbe_next(%rdx), %rdx
 -- 
 2.49.0
 
