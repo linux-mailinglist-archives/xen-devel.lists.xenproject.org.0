@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BECEA93670
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Apr 2025 13:20:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.958925.1351481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EBAEA9368D
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Apr 2025 13:32:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.958944.1351493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5jlZ-0004AP-Ng; Fri, 18 Apr 2025 11:20:17 +0000
+	id 1u5jww-0007B5-Of; Fri, 18 Apr 2025 11:32:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 958925.1351481; Fri, 18 Apr 2025 11:20:17 +0000
+Received: by outflank-mailman (output) from mailman id 958944.1351493; Fri, 18 Apr 2025 11:32:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5jlZ-000485-Kf; Fri, 18 Apr 2025 11:20:17 +0000
-Received: by outflank-mailman (input) for mailman id 958925;
- Fri, 18 Apr 2025 11:20:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u5jww-00077v-Kc; Fri, 18 Apr 2025 11:32:02 +0000
+Received: by outflank-mailman (input) for mailman id 958944;
+ Fri, 18 Apr 2025 11:32:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CNZq=XE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u5jlY-00047y-R9
- for xen-devel@lists.xenproject.org; Fri, 18 Apr 2025 11:20:16 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a458e10-1c47-11f0-9eb0-5ba50f476ded;
- Fri, 18 Apr 2025 13:20:15 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43cf628cb14so21287025e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 18 Apr 2025 04:20:15 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4406d5cf2easm18698005e9.31.2025.04.18.04.20.13
+ <SRS0=h7fJ=XE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u5jwu-00077m-P5
+ for xen-devel@lists.xenproject.org; Fri, 18 Apr 2025 11:32:00 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bd461357-1c48-11f0-9ffb-bf95429c2676;
+ Fri, 18 Apr 2025 13:31:58 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5e61d91a087so2752466a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Apr 2025 04:31:58 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acb6ec913cfsm108560166b.80.2025.04.18.04.31.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Apr 2025 04:20:14 -0700 (PDT)
+ Fri, 18 Apr 2025 04:31:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +45,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a458e10-1c47-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: bd461357-1c48-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1744975215; x=1745580015; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZJj8Rfgi9EbV15zm3T8GaXom1YrGzd0C3xNCTSZPHuE=;
-        b=Cp/YEC+B5xj7BU/4xrl80v4q9Lzs+tLUT4dbnocd8isBUzOZi15eUOmpQnpl3WMKof
-         vw64DhTyFeGH8onqhjoY17003/GA8qSH2pfZQcLMNlPY4gmDZG0B0syQXfaPEPEGZjpz
-         nk0DVtpxwoSd0roE3pZZ6YoeK042Xlkev1SBs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744975215; x=1745580015;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1744975918; x=1745580718; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZJj8Rfgi9EbV15zm3T8GaXom1YrGzd0C3xNCTSZPHuE=;
-        b=PrRIqbjXlwq6WtHx4HRt4pX7OJt4+PMr3UHUuaB3s9PobBuaThsxvB6GzglWaRTz3P
-         fwCyufxxfR+zqFso4NGa6d+j6meP0B1V8ECL9gfn1hvy4YcNkFBTBCwF/xQ3nrsVSkbJ
-         XhuRbT6Mg1dOYcjTPu1Twes9n/wHBjNoRIl1T07kUTdoyzDXgaZjdKAa+BBJAtYUcIp+
-         Die4ZwPFXedHMBZBLIUHoXymYHswNWwki2Kx8PVNfPPS9KYTEmQk5NhksXvB3/bI4cQZ
-         nf8fbRLmXIJzO0M8oByK1HJjL31eieTllKaZ2YsT5tgRo3aVAM1zshdoorjI7VFSr1K1
-         bWyg==
-X-Forwarded-Encrypted: i=1; AJvYcCUel9St7/OkTYzBI9+lbDtYvC46dpcgNd3m2nmTc357z9GqzFP6vOsL+Fk6lHaBdhpFjRFaBPdYi3U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwmI/iAqkNY7nRZU0uYwcX9BshpW+gxiajYK/P8BiAjZakf6kwa
-	Rl9HfmdiJlWOeLzfYwivu470OzMNZgea7trZ9wPfb05qkGltgV07Bl50pdwhVyM=
-X-Gm-Gg: ASbGncsHwMzkyy6V7AfV1yz0NrtjJFjorQ1NMfHI1WVFKIrexEcHhS5LhpX7MnXaRBz
-	TaQ1QOlEXA0tnyowGsvkhRn2O0pT+8cAVrsixf18kjLuUKZU+SjN9+KMcN1aM/4LtsYw6swdkxR
-	Y6Ut/9h0l5NwM88wdFPlSY097oER5kS04HapVANTv3pNg/9oVfMFl06D3wl3/ahk7bSu5ZLcz0W
-	nkqawGrbl9/bt0JbxbfKjBf+qz5cy9Auok55TPhjWdb/XXf6A4YIu05k3Kth86NGJyWY4oWA2M0
-	3/Nd65pyfA5BxH6+Krf5legSJdYas1g/lE+ngVgsvMsGKc94jxo6HYD3Qjz1zaepCT6j5/42wRP
-	J0lYXWw==
-X-Google-Smtp-Source: AGHT+IEH86lkzDB8iD2jcwBv9xObYazBn81tO8e62htfmOl2I85kmXIxDh76Itbbny1GahYRs6qSCQ==
-X-Received: by 2002:a05:6000:184f:b0:39b:f44b:e176 with SMTP id ffacd0b85a97d-39ef9466f36mr2679870f8f.24.1744975215276;
-        Fri, 18 Apr 2025 04:20:15 -0700 (PDT)
-Message-ID: <4fb6d880-3d5f-4d42-8419-dcc697949a10@citrix.com>
-Date: Fri, 18 Apr 2025 12:20:13 +0100
+        bh=kJrFDW1uQXDUTPMV0PWRonteObr+Tui2beKJMNiw11k=;
+        b=KbSl5XQ1Ee2OaBbFZ6w92K0Fi6TmbW+rwTgItaNw+lAih5dK9Dg27t9p2zy8g3di6Q
+         CqnMLGak19tnWbjWPXaYVBEl9xzn2no3vdKTFFbQm7oD/VY21aaljRjwu42Yv2o0oLmv
+         ZkFa2bnojT1epf6L8T+siXnAcVFkvD5X0/uNdf2TgwUreCexqdXzzD2oKftExFue8Rz2
+         3DaVWleCFLiddmfutqe/dv/KU/AlU9B2Bbj+ZrPdgleXLar0ek6i0yjmp5Jy3c6FJI/d
+         aWuLzP5ycgYISJ+4OVQwRwLA6Kynx1bbMfJSqtSRUDesxktK5Z3QizKqkvRtemsbaBf2
+         fMxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1744975918; x=1745580718;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=kJrFDW1uQXDUTPMV0PWRonteObr+Tui2beKJMNiw11k=;
+        b=cKe61zpUe17Z/G1wEHjmN6fJse8RUS+5eMFjpszKMDm54VbpdUv4tmkAuhif6KPUcD
+         EEnOG/93ip+SJ3aJk02sPx+6GiF8zNlLgXh1pfy4ZKsJKOa2Sua8Rd2i2kgcgnLwH2ZU
+         nfonNA5ZGc4tNldofTw88Pn+yrk9erhT4XqMDj6Qw3ycM/GfVKWqCOaHE8AZfd3YvC4u
+         M3NJxXW7hctcndze1gwBLYO/0f7vcNAz3VUD81pTu4UfJh6Nv88sM1SYEmGLFezpZdF5
+         R8Om7Kluf8uhtjfSrDe2SIfgF4FBJHD4ReinM8yai4FxHXgXxtoO9zNb9b/L0JGaIgva
+         7SFQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUw9QO3cXEgRoh7CkoIObI036DdPn0xgNasdqI8TxWZQkvZB405mIGCDOZPJSguRK16NHug4QhC5AE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy+q0By2oSe3Fdrs4rMmLL/cOsU70JFbXmgjJgA7mwiGQkFyX70
+	YxfiI/MZfJnEFGlRPDJEI20AlwKL11IE35MAk1txbscJciXBcOKh
+X-Gm-Gg: ASbGncvLnYVekRqlZ5XrHMAZCmbDNVfJMmTb4vvScAIW4Y+polydwTtAhbZimqx4iYC
+	F7T3b8imacHUjmfWkP8m91wl0T1dHrya/RQn0xBV8IWHkd7ZOVVZSBWOArQrkKHNDqcLUrV3eyf
+	ZKdVaoYU1L9MQxVIkT89AnGUi0TBlruxvq8zZNEdUeg69yEMgj3yDWMEfrhvtawm3sQZ8awReRt
+	L5ImNPPuP1GonOEYsxb4No0GKRj6u1OP4EbYNDjyH7oYna9sJoyiheRrNOg+MTnTjKEkaYvy8Ur
+	gsMgRVpmuPLT8dBdloyuOhyGshfMHI/vtSceA+WdvzsI9lxrQUUBeCZ6y+qXmRrQ0nPBigMmWOj
+	m5J1FZuS3klYchsig
+X-Google-Smtp-Source: AGHT+IEDC6jPYwbdtZuxrguspVbkY2/sFF7Z2KOHQLrkHkqaXMq2VhPVNm4VQVKNQ92rlOP4J6wcow==
+X-Received: by 2002:a17:906:dc89:b0:aca:c7c5:f935 with SMTP id a640c23a62f3a-acb74ea8f76mr157622166b.61.1744975917919;
+        Fri, 18 Apr 2025 04:31:57 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------FPk9gRSiKMP70wNvdX0HCAms"
+Message-ID: <5d211530-fe1b-4f83-a8a9-cf41603e4fd3@gmail.com>
+Date: Fri, 18 Apr 2025 13:31:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH -tip v2 1/2] x86/boot: Remove semicolon from "rep"
- prefixes
-To: Uros Bizjak <ubizjak@gmail.com>
-Cc: x86@kernel.org, linux-video@atrey.karlin.mff.cuni.cz,
- xen-devel@lists.xenproject.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@kernel.org>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Martin Mares <mj@ucw.cz>
-References: <20250418071437.4144391-1-ubizjak@gmail.com>
- <50bf962c-2c9e-46a2-bbac-cba9cf229e79@citrix.com>
- <CAFULd4ZNiRdARn8O98zROQRWoL1ASQ+iPPTTmLRxjo9SGRHyRg@mail.gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <CAFULd4ZNiRdARn8O98zROQRWoL1ASQ+iPPTTmLRxjo9SGRHyRg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v1 09/14] xen/riscv: aplic_init() implementation
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <1d023045be49ae93d41d552f9c9a79972fa4e84b.1744126720.git.oleksii.kurochko@gmail.com>
+ <a7008eee-04d2-4e61-b66a-ff659e3b99db@suse.com>
+ <a54ef262-92fc-453d-898e-70636c2918fd@gmail.com>
+ <f2da2ec5-e457-4d2c-b2fe-49c7356760e1@suse.com>
+ <fd24bee3-bbbd-4701-a34c-08b64ea0af5a@gmail.com>
+ <2795e63a-fc37-4ab9-8348-ab2f609f1734@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <2795e63a-fc37-4ab9-8348-ab2f609f1734@suse.com>
+
+This is a multi-part message in MIME format.
+--------------FPk9gRSiKMP70wNvdX0HCAms
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 18/04/2025 12:15 pm, Uros Bizjak wrote:
-> On Fri, Apr 18, 2025 at 12:24 PM Andrew Cooper
-> <andrew.cooper3@citrix.com> wrote:
->> On 18/04/2025 8:13 am, Uros Bizjak wrote:
->>> diff --git a/arch/x86/boot/video.c b/arch/x86/boot/video.c
->>> index f2e96905b3fe..0641c8c46aee 100644
->>> --- a/arch/x86/boot/video.c
->>> +++ b/arch/x86/boot/video.c
->>> @@ -292,7 +292,7 @@ static void restore_screen(void)
->>>                            "shrw %%cx ; "
->>>                            "jnc 1f ; "
->>>                            "stosw \n\t"
->>> -                          "1: rep;stosl ; "
->>> +                          "1: rep stosl ; "
->>>                            "popw %%es"
->> Doesn't this one still need a separator between STOSL and POPW ?
-> ";" is a separator as well.
 
-Yes, it is.  I've clearly not had enough coffee yet.  Sorry for the noise.
+On 4/17/25 5:30 PM, Jan Beulich wrote:
+> On 17.04.2025 17:21, Oleksii Kurochko wrote:
+>> On 4/16/25 12:30 PM, Jan Beulich wrote:
+>>> On 16.04.2025 12:15, Oleksii Kurochko wrote:
+>>>> On 4/14/25 12:04 PM, Jan Beulich wrote:
+>>>>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
+>>>>>> +    rc = dt_property_read_u32(node, "msi-parent", &imsic_phandle);
+>>>>>> +    if ( !rc )
+>>>>>> +        panic("%s: IDC mode not supported\n", node->full_name);
+>>>>>> +
+>>>>>> +    imsic_node = dt_find_node_by_phandle(imsic_phandle);
+>>>>>> +    if ( !imsic_node )
+>>>>>> +        panic("%s: unable to find IMSIC node\n", node->full_name);
+>>>>>> +
+>>>>>> +    /* check imsic mode */
+>>>>>> +    rc = dt_property_read_u32_array(imsic_node, "interrupts-extended",
+>>>>>> +                                    irq_range, ARRAY_SIZE(irq_range));
+>>>>>> +    if ( rc && (rc != -EOVERFLOW) )
+>>>>>> +        panic("%s: unable to find interrupt-extended in %s node\n",
+>>>>>> +               node->full_name, imsic_node->full_name);
+>>>>> Why exactly is EOVERFLOW tolerable here?
+>>>> QEMU generates two IMSIC device tree nodes: one for M-mode and one for S-mode.
+>>>> For the hypervisor, we don’t really care about the M-mode IMSIC node — we're only
+>>>> interested in the S-mode IMSIC node.
+>>>>
+>>>> The IMSIC node includes this information in the|"interrupts-extended"| property,
+>>>> which has the following format:
+>>>>      interrupt-extended = {<interrupt-controller-phandle>, <machine_mode>},...
+>>>> The number of such|<phandle, mode>| pairs depends on the number of CPUs the platform has.
+>>>>
+>>>> For our purposes, to determine whether the IMSIC node corresponds to M-mode or not, it’s sufficient to read only the first pair and check the mode like this:
+>>>>
+>>>>      if ( irq_range[1] == IRQ_M_EXT )
+>>>>
+>>>> Thereby dt_property_read_u32_array() will return -EOVERFLOW in the case when a platfrom
+>>>> has more then one CPU as we passed irq_range[2] as an argument but the amount of values
+>>>> in "interrupts-extended" property will be (2 * CPUS_NUM).
+>>>>
+>>>> I can update the comment above dt_property_read_u32_array() for more clearness.
+>>> Yet my question remains: Why would it be okay to ignore the remaining entries,
+>>> and hence accept -EOVERFLOW as kind-of-success?
+>> Because for other entries the IMSIC mode will be the same and the difference will be only in
+>> interrupt controller's phandle
+> And we can blindly take this for granted? Would you mind extending the
+> comment that's there to include this aspect?
 
-~Andrew
+I tried to compile dtc with different modes in interrupt-extends and compilation doesn't failed, so
+it's not really granted.
+Just to be sure, I'll check all items of interrupts-extend not just the first one.
+
+~ Oleksii
+
+>> which we don't care about in this function and cares only about
+>> in imisic_init(), look at usage of imsic_get_parent_hartid().
+--------------FPk9gRSiKMP70wNvdX0HCAms
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/17/25 5:30 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:2795e63a-fc37-4ab9-8348-ab2f609f1734@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 17.04.2025 17:21, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 4/16/25 12:30 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 16.04.2025 12:15, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 4/14/25 12:04 PM, Jan Beulich wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">On 08.04.2025 17:57, Oleksii Kurochko wrote:
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">+    rc = dt_property_read_u32(node, "msi-parent", &amp;imsic_phandle);
++    if ( !rc )
++        panic("%s: IDC mode not supported\n", node-&gt;full_name);
++
++    imsic_node = dt_find_node_by_phandle(imsic_phandle);
++    if ( !imsic_node )
++        panic("%s: unable to find IMSIC node\n", node-&gt;full_name);
++
++    /* check imsic mode */
++    rc = dt_property_read_u32_array(imsic_node, "interrupts-extended",
++                                    irq_range, ARRAY_SIZE(irq_range));
++    if ( rc &amp;&amp; (rc != -EOVERFLOW) )
++        panic("%s: unable to find interrupt-extended in %s node\n",
++               node-&gt;full_name, imsic_node-&gt;full_name);
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">Why exactly is EOVERFLOW tolerable here?
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">QEMU generates two IMSIC device tree nodes: one for M-mode and one for S-mode.
+For the hypervisor, we don’t really care about the M-mode IMSIC node — we're only
+interested in the S-mode IMSIC node.
+
+The IMSIC node includes this information in the|"interrupts-extended"| property,
+which has the following format:
+    interrupt-extended = {&lt;interrupt-controller-phandle&gt;, &lt;machine_mode&gt;},...
+The number of such|&lt;phandle, mode&gt;| pairs depends on the number of CPUs the platform has.
+
+For our purposes, to determine whether the IMSIC node corresponds to M-mode or not, it’s sufficient to read only the first pair and check the mode like this:
+
+    if ( irq_range[1] == IRQ_M_EXT )
+
+Thereby dt_property_read_u32_array() will return -EOVERFLOW in the case when a platfrom
+has more then one CPU as we passed irq_range[2] as an argument but the amount of values
+in "interrupts-extended" property will be (2 * CPUS_NUM).
+
+I can update the comment above dt_property_read_u32_array() for more clearness.
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Yet my question remains: Why would it be okay to ignore the remaining entries,
+and hence accept -EOVERFLOW as kind-of-success?
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Because for other entries the IMSIC mode will be the same and the difference will be only in
+interrupt controller's phandle
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+And we can blindly take this for granted? Would you mind extending the
+comment that's there to include this aspect?</pre>
+    </blockquote>
+    <pre>I tried to compile dtc with different modes in interrupt-extends and compilation doesn't failed, so
+it's not really granted.
+Just to be sure, I'll check all items of interrupts-extend not just the first one.
+
+~ Oleksii
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:2795e63a-fc37-4ab9-8348-ab2f609f1734@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">which we don't care about in this function and cares only about
+in imisic_init(), look at usage of imsic_get_parent_hartid().
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------FPk9gRSiKMP70wNvdX0HCAms--
 
