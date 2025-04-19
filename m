@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A4ACA940B8
+	by mail.lfdr.de (Postfix) with ESMTPS id 53F8EA940B7
 	for <lists+xen-devel@lfdr.de>; Sat, 19 Apr 2025 03:04:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.959750.1352025 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.959751.1352035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5wce-0000tb-Jk; Sat, 19 Apr 2025 01:03:56 +0000
+	id 1u5wch-00018o-RK; Sat, 19 Apr 2025 01:03:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 959750.1352025; Sat, 19 Apr 2025 01:03:56 +0000
+Received: by outflank-mailman (output) from mailman id 959751.1352035; Sat, 19 Apr 2025 01:03:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u5wce-0000rh-HC; Sat, 19 Apr 2025 01:03:56 +0000
-Received: by outflank-mailman (input) for mailman id 959750;
- Sat, 19 Apr 2025 01:03:54 +0000
+	id 1u5wch-000166-OD; Sat, 19 Apr 2025 01:03:59 +0000
+Received: by outflank-mailman (input) for mailman id 959751;
+ Sat, 19 Apr 2025 01:03:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GNoH=XF=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1u5wcc-0000dd-FF
- for xen-devel@lists.xenproject.org; Sat, 19 Apr 2025 01:03:54 +0000
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 28c14c9c-1cba-11f0-9ffb-bf95429c2676;
- Sat, 19 Apr 2025 03:03:52 +0200 (CEST)
+ id 1u5wcg-0000dd-Gq
+ for xen-devel@lists.xenproject.org; Sat, 19 Apr 2025 01:03:58 +0000
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
+ [109.224.244.16]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2b6eadf7-1cba-11f0-9ffb-bf95429c2676;
+ Sat, 19 Apr 2025 03:03:56 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,283 +36,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28c14c9c-1cba-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 2b6eadf7-1cba-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1745024631; x=1745283831;
-	bh=F3bwVJxkxikxRIcz+L/Xuqu0AofNvAvp6z3DvGpiibo=;
+	s=suphjhcguffetgdy2q7waelgwe.protonmail; t=1745024635; x=1745283835;
+	bh=HfwyqHc65a2c6fDlXXG5iL28PrCHMVj+m8sxLB9s/3E=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=bk2jsr2wc/WzkGbcZYGPRPfqxDI0GQfLOFH9hLtDcPDzIz9KkvLs/5Mju1gDNS1gr
-	 q8MIsHD2kvbq5W2qIHMIIxwcTJQc4cqIPcq5iFMawVtyasc52ReLZp/L+DJADhSrJs
-	 MTmaEWdR4c6hrZbk1dqNaE+SJGfb0WjWe7W5+M6IqHUlWV4vvuZ+cKW1Rd08mZsCsX
-	 xBXZzGc4WZRw6YOBuJHHdnerwnj1ftO4407+viYynvpENsCia/RhhA9RHWlQm44LTo
-	 HJ6Jr4RCBfIwW0hxsOWySSepnUllHy+kOyi09o1gZzClOAifm0DbdeCfggVLowPUjj
-	 WQAKlYb9Kja3g==
-Date: Sat, 19 Apr 2025 01:03:47 +0000
+	b=U02Fc05+VSwdhZCmk8u6uqjSh+P8wH+5MNipgM0MTeSTWplXoiufaw88OilNT/lXI
+	 UNikoAnadt+t0/oO/Uvpqowitq1nf2WIjc223hN5Bn7X6L2w6wprP/9l5qFiRU+zGc
+	 WPl5YSZprgVHlKq0KnaKoudIdt94bNUQIZ7v8VTAwHH0O5XJcwt+ZOr6vOIvSOA5CF
+	 oy0MaQ2RuraL5RiRoQaA23d9hMfnFUkxW1T7gHS56AW0pKsslEjeNsakigrl/aLcGh
+	 YXJKXgAoBIk5kF/J7lCoTJPg96VGOmhdz25MAvBpbTAMDr+egcKmSumtT0dmoho1Z5
+	 TFztuO77Vie8w==
+Date: Sat, 19 Apr 2025 01:03:51 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, cardoe@cardoe.com, marmarek@invisiblethingslab.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v2 1/4] CI: unify x86 XTF test runner
-Message-ID: <20250419010319.2572518-2-dmukhin@ford.com>
+Subject: [PATCH v2 2/4] CI: switch x86 EFI smoke test runner to qemu-xtf.sh
+Message-ID: <20250419010319.2572518-3-dmukhin@ford.com>
 In-Reply-To: <20250419010319.2572518-1-dmukhin@ford.com>
 References: <20250419010319.2572518-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 1096fe74d75838731cc9926ba41157d775b2d8a1
+X-Pm-Message-ID: b251f973a9d426487d883a84237249e3db943fe0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 From: Denis Mukhin <dmukhin@ford.com>
 
-Add test runner script qemu-xtf.sh which is allows any XTF x86 test to be
-easily executed. Test runner is invoked from the qemu-smoke* jobs with the
-hardcoded parameters.
+Use qemu-xtf.sh for qemu-smoke-x86-64-gcc-efi job.
 
-Each x86 XTF job lead time is reduced a bit since only the test-related cod=
-e
-is built, not the entire XTF project.
-
-Add .gitignore to avoid committing test artifacts by mistake.
+Lead time is reduced a bit since not all XTF code base is built, just the
+required test.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
 Changes since v2:
 - removed TOP
 - dropped XEN_CONSOLE in favor of XEN_CMDLINE
-- fixup for XTF_SRC_CONFIG
 ---
- automation/gitlab-ci/test.yaml                |   8 +-
- automation/scripts/.gitignore                 |   6 +
- .../scripts/include/configs/xtf-x86-64-config |   0
- automation/scripts/include/xtf-runner         | 131 ++++++++++++++++++
- automation/scripts/include/xtf-x86-64         |  31 +++++
- automation/scripts/qemu-smoke-x86-64.sh       |  26 ----
- automation/scripts/qemu-xtf.sh                |  28 ++++
- 7 files changed, 200 insertions(+), 30 deletions(-)
- create mode 100644 automation/scripts/.gitignore
- create mode 100644 automation/scripts/include/configs/xtf-x86-64-config
- create mode 100644 automation/scripts/include/xtf-runner
- create mode 100644 automation/scripts/include/xtf-x86-64
- delete mode 100755 automation/scripts/qemu-smoke-x86-64.sh
- create mode 100755 automation/scripts/qemu-xtf.sh
+ automation/gitlab-ci/test.yaml                |  2 +-
+ .../include/configs/xtf-x86-64-efi-config     |  0
+ automation/scripts/include/xtf-x86-64-efi     | 52 +++++++++++++++++++
+ automation/scripts/qemu-smoke-x86-64-efi.sh   | 43 ---------------
+ 4 files changed, 53 insertions(+), 44 deletions(-)
+ create mode 100644 automation/scripts/include/configs/xtf-x86-64-efi-confi=
+g
+ create mode 100644 automation/scripts/include/xtf-x86-64-efi
+ delete mode 100755 automation/scripts/qemu-smoke-x86-64-efi.sh
 
 diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yam=
 l
-index 5ce445b78f..3adc841335 100644
+index 3adc841335..ca1e4eb528 100644
 --- a/automation/gitlab-ci/test.yaml
 +++ b/automation/gitlab-ci/test.yaml
-@@ -659,28 +659,28 @@ qemu-alpine-x86_64-gcc:
- qemu-smoke-x86-64-gcc:
+@@ -687,7 +687,7 @@ qemu-smoke-x86-64-clang-pvh:
+ qemu-smoke-x86-64-gcc-efi:
    extends: .qemu-smoke-x86-64
    script:
--    - ./automation/scripts/qemu-smoke-x86-64.sh pv 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-xtf.sh x86-64 pv64 example 2>&1 | tee ${LO=
-GFILE}
+-    - ./automation/scripts/qemu-smoke-x86-64-efi.sh pv 2>&1 | tee ${LOGFIL=
+E}
++    - ./automation/scripts/qemu-xtf.sh x86-64-efi hvm64 example 2>&1 | tee=
+ ${LOGFILE}
    needs:
      - debian-12-x86_64-gcc-debug
 =20
- qemu-smoke-x86-64-clang:
-   extends: .qemu-smoke-x86-64
-   script:
--    - ./automation/scripts/qemu-smoke-x86-64.sh pv 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-xtf.sh x86-64 pv64 example 2>&1 | tee ${LO=
-GFILE}
-   needs:
-     - debian-12-x86_64-clang-debug
-=20
- qemu-smoke-x86-64-gcc-pvh:
-   extends: .qemu-smoke-x86-64
-   script:
--    - ./automation/scripts/qemu-smoke-x86-64.sh pvh 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-xtf.sh x86-64 hvm64 example 2>&1 | tee ${L=
-OGFILE}
-   needs:
-     - debian-12-x86_64-gcc-debug
-=20
- qemu-smoke-x86-64-clang-pvh:
-   extends: .qemu-smoke-x86-64
-   script:
--    - ./automation/scripts/qemu-smoke-x86-64.sh pvh 2>&1 | tee ${LOGFILE}
-+    - ./automation/scripts/qemu-xtf.sh x86-64 hvm64 example 2>&1 | tee ${L=
-OGFILE}
-   needs:
-     - debian-12-x86_64-clang-debug
-=20
-diff --git a/automation/scripts/.gitignore b/automation/scripts/.gitignore
-new file mode 100644
-index 0000000000..2f2d6e1ebd
---- /dev/null
-+++ b/automation/scripts/.gitignore
-@@ -0,0 +1,6 @@
-+!include
-+
-+binaries
-+smoke.serial
-+xen
-+xtf*/
-diff --git a/automation/scripts/include/configs/xtf-x86-64-config b/automat=
-ion/scripts/include/configs/xtf-x86-64-config
+diff --git a/automation/scripts/include/configs/xtf-x86-64-efi-config b/aut=
+omation/scripts/include/configs/xtf-x86-64-efi-config
 new file mode 100644
 index 0000000000..e69de29bb2
-diff --git a/automation/scripts/include/xtf-runner b/automation/scripts/inc=
-lude/xtf-runner
+diff --git a/automation/scripts/include/xtf-x86-64-efi b/automation/scripts=
+/include/xtf-x86-64-efi
 new file mode 100644
-index 0000000000..320eb65dc8
+index 0000000000..e0d821b3f6
 --- /dev/null
-+++ b/automation/scripts/include/xtf-runner
-@@ -0,0 +1,131 @@
++++ b/automation/scripts/include/xtf-x86-64-efi
+@@ -0,0 +1,52 @@
 +#!/bin/bash
 +#
-+# XTF test utilities.
-+#
-+# Environment variables:
-+#   BOOT_MSG: Expected boot message
-+#   FW_PREFIX: Firmware images path including '/' at the end
-+#   PASSED: XTF test printout in case of a pass
-+#   QEMU_PREFIX: QEMU path including '/' at the end
-+#   TEST_LOG: Output log file
-+#   UBOOT_CMD: U-Boot command line
-+#   WORKDIR: Test working directory
-+#   XEN_BINARY: Xen binary location
-+#   XEN_CONSOLE: Xen console device name
-+#   XTF_SRC_CONFIG: XTF config file
-+#   XTF_SRC_BRANCH: XTF branch
-+#   XTF_SRC_URI: XTF source code URI
-+
-+# Output log file
-+TEST_LOG=3D"${TEST_LOG:-${XEN_ROOT}/smoke.serial}"
-+# XTF test printout in case of a pass
-+PASSED=3D"${PASSED:-Test result: SUCCESS}"
-+# Expected boot message
-+BOOT_MSG=3D"${BOOT_MSG:-Latest ChangeSet: }"
-+# Test working directory
-+WORKDIR=3D"${WORKDIR:-${XEN_ROOT}/binaries}"
-+# XTF source code
-+XTF_SRC_CONFIG=3D"${XTF_SRC_CONFIG:-include/configs/xtf-${ARCH}-config}"
-+
-+function die()
-+{
-+    set +x
-+    echo "FATAL: $*" >&2
-+    exit 1
-+}
-+
-+# Build an XTF test binary.
-+# $1 Test variant.
-+# $2 Test name.
-+function xtf_build_binary()
-+{
-+    local xtf_variant=3D$1
-+    local xtf_name=3D$2
-+    local xtf_dir=3D"xtf-${ARCH}"
-+
-+    # Crude check for local testing
-+    if [ ! -d ${xtf_dir} ]; then
-+        git clone ${XTF_SRC_URI} ${xtf_dir} -b ${XTF_SRC_BRANCH}
-+    fi
-+
-+    make \
-+        -C ${xtf_dir} \
-+        -j$(nproc) \
-+        $(tr '\n' ' ' < ${XTF_SRC_CONFIG}) \
-+        TESTS=3Dtests/${xtf_name}
-+
-+    export XTF_NAME=3D"${xtf_name}"
-+    export XTF_VARIANT=3D"${xtf_variant}"
-+    export XTF_WORKDIR=3D"$(readlink -f ${xtf_dir})"
-+    export XTF_BINARY=3D"${XTF_WORKDIR}/tests/${xtf_name}/test-${xtf_varia=
-nt}-${xtf_name}"
-+}
-+
-+# Build Xen command line for running an XTF test.
-+# $1 Test variant.
-+# $2 Test name.
-+function xtf_build_cmdline()
-+{
-+    local xtf_variant=3D$1
-+    local xtf_name=3D$2
-+    declare -a cmdline=3D()
-+
-+    cmdline+=3D("${XEN_CMDLINE}")
-+
-+    # NB: OK to have hvm64, which is x86-only variant
-+    if [[ $xtf_variant =3D=3D "hvm64" ]]; then
-+        cmdline+=3D("dom0-iommu=3Dnone dom0=3Dpvh")
-+    fi
-+
-+    export XEN_CMDLINE=3D"${cmdline[@]}"
-+}
-+
-+# Build an XTF test environment.
-+# $1 Test variant.
-+# $2 Test name.
-+function xtf_build_test()
-+{
-+    local v=3D$1
-+    local xtf_name=3D$2
-+    local xtf_variant=3D""
-+
-+    for x in ${XTF_SRC_VARIANTS}; do
-+        if [[ "${x}" =3D=3D "${v}" ]]; then
-+            xtf_variant=3D${v}
-+            break
-+        fi
-+    done
-+    if [[ -z $xtf_variant ]]; then
-+        die "unsupported test variant '$1', supported variants: ${XTF_SRC_=
-VARIANTS}"
-+    fi
-+
-+    xtf_build_binary ${xtf_variant} ${xtf_name}
-+    xtf_build_cmdline ${xtf_variant} ${xtf_name}
-+}
-+
-+# Execute an XTF test.
-+function xtf_run_test()
-+{
-+    rm -f ${TEST_LOG}
-+    export BOOT_MSG PASSED TEST_CMD TEST_LOG UBOOT_CMD
-+    ./console.exp | sed 's/\r\+$//'
-+}
-+
-+# Setup environment and run an XTF test.
-+# $1 Test variant.
-+# $2 Test name.
-+function xtf_test()
-+{
-+    # Out: FW_*, QEMU_*, XEN_{BINARY,CONSOLE}, XTF_SRC_*
-+    xtf_arch_prepare
-+
-+    # In: XTF_SRC_*
-+    # OUt: XTF_{BINARY,NAME,VARIANT,WORKDIR} and XEN_CMDLINE
-+    xtf_build_test $@
-+
-+    # In: FW_*, QEMU_*, XTF_*, XEN_*
-+    # Out: BOOT_MSG, PASSED, TEST_{CMD,LOG}, UBOOT_CMD
-+    xtf_arch_setup
-+
-+    # In: BOOT_MSG, PASSED, TEST_{CMD,LOG}, UBOOT_CMD
-+    xtf_run_test
-+}
-diff --git a/automation/scripts/include/xtf-x86-64 b/automation/scripts/inc=
-lude/xtf-x86-64
-new file mode 100644
-index 0000000000..b1b0cc201e
---- /dev/null
-+++ b/automation/scripts/include/xtf-x86-64
-@@ -0,0 +1,31 @@
-+#!/bin/bash
-+#
-+# XTF test utilities (x86_64).
++# XTF test utilities (x86_64, EFI).
 +#
 +
 +# Arch-specific environment overrides.
 +function xtf_arch_prepare()
 +{
-+    export FW_PREFIX=3D"${FW_PREFIX:-}"
++    export FW_PREFIX=3D"${FW_PREFIX:-/usr/share/OVMF/}"
 +    export QEMU_PREFIX=3D"${QEMU_PREFIX:-}"
-+    export XEN_BINARY=3D"${XEN_BINARY:-${WORKDIR}/xen}"
++    export XEN_BINARY=3D"${XEN_BINARY:-${WORKDIR}/xen.efi}"
 +    export XEN_CMDLINE=3D"${XEN_CMDLINE:-loglvl=3Dall noreboot console_tim=
 estamps=3Dboot console=3Dcom1}"
 +    export XTF_SRC_BRANCH=3D"${XTF_SRC_BRANCH:-master}"
@@ -324,24 +135,47 @@ xtf.git}"
 +# Perform arch-specific XTF environment setup.
 +function xtf_arch_setup()
 +{
++    local esp_dir=3D"${WORKDIR}/boot-esp"
++    local efi_dir=3D"${esp_dir}/EFI/BOOT"
++
++    # Generate EFI boot environment
++    mkdir -p ${efi_dir}
++    cp ${XEN_BINARY} ${efi_dir}/BOOTX64.EFI
++    cp ${XTF_BINARY} ${efi_dir}/kernel
++
++    cat > ${efi_dir}/BOOTX64.cfg <<EOF
++[global]
++default=3Dtest
++
++[test]
++options=3D${XEN_CMDLINE}
++kernel=3Dkernel
++EOF
++
++    # NB: OVMF_CODE.fd is read-only, no need to copy
++    cp ${FW_PREFIX}OVMF_VARS.fd ${WORKDIR}
++
 +    export TEST_CMD=3D"${QEMU_PREFIX}qemu-system-x86_64 \
 +        -no-reboot \
 +        -nographic \
 +        -monitor none \
 +        -serial stdio \
 +        -m 512 \
-+        -kernel ${XEN_BINARY} \
-+        -initrd ${XTF_BINARY} \
-+        -append \"${XEN_CMDLINE}\" \
++        -M q35,kernel-irqchip=3Dsplit \
++        -drive if=3Dpflash,format=3Draw,readonly=3Don,file=3D${FW_PREFIX}O=
+VMF_CODE.fd \
++        -drive if=3Dpflash,format=3Draw,file=3D${WORKDIR}/OVMF_VARS.fd \
++        -drive file=3Dfat:rw:${esp_dir},media=3Ddisk,index=3D0,format=3Dra=
+w \
 +    "
 +}
-diff --git a/automation/scripts/qemu-smoke-x86-64.sh b/automation/scripts/q=
-emu-smoke-x86-64.sh
+diff --git a/automation/scripts/qemu-smoke-x86-64-efi.sh b/automation/scrip=
+ts/qemu-smoke-x86-64-efi.sh
 deleted file mode 100755
-index da0c26cc2f..0000000000
---- a/automation/scripts/qemu-smoke-x86-64.sh
+index 7572722be6..0000000000
+--- a/automation/scripts/qemu-smoke-x86-64-efi.sh
 +++ /dev/null
-@@ -1,26 +0,0 @@
+@@ -1,43 +0,0 @@
 -#!/bin/bash
 -
 -set -ex -o pipefail
@@ -359,52 +193,37 @@ index da0c26cc2f..0000000000
 -    *)   k=3Dtest-pv64-example     extra=3D ;;
 -esac
 -
+-mkdir -p boot-esp/EFI/BOOT
+-cp binaries/xen.efi boot-esp/EFI/BOOT/BOOTX64.EFI
+-cp xtf/tests/example/$k boot-esp/EFI/BOOT/kernel
+-
+-cat > boot-esp/EFI/BOOT/BOOTX64.cfg <<EOF
+-[global]
+-default=3Dtest
+-
+-[test]
+-options=3Dloglvl=3Dall console=3Dcom1 noreboot console_timestamps=3Dboot $=
+extra
+-kernel=3Dkernel
+-EOF
+-
+-cp /usr/share/OVMF/OVMF_CODE.fd OVMF_CODE.fd
+-cp /usr/share/OVMF/OVMF_VARS.fd OVMF_VARS.fd
+-
 -rm -f smoke.serial
--export TEST_CMD=3D"qemu-system-x86_64 -nographic -kernel binaries/xen \
--        -initrd xtf/tests/example/$k \
--        -append \"loglvl=3Dall console=3Dcom1 noreboot console_timestamps=
-=3Dboot $extra\" \
+-export TEST_CMD=3D"qemu-system-x86_64 -nographic -M q35,kernel-irqchip=3Ds=
+plit \
+-        -drive if=3Dpflash,format=3Draw,readonly=3Don,file=3DOVMF_CODE.fd =
+\
+-        -drive if=3Dpflash,format=3Draw,file=3DOVMF_VARS.fd \
+-        -drive file=3Dfat:rw:boot-esp,media=3Ddisk,index=3D0,format=3Draw =
+\
 -        -m 512 -monitor none -serial stdio"
 -
 -export TEST_LOG=3D"smoke.serial"
 -export PASSED=3D"Test result: SUCCESS"
 -
 -./automation/scripts/console.exp | sed 's/\r\+$//'
-diff --git a/automation/scripts/qemu-xtf.sh b/automation/scripts/qemu-xtf.s=
-h
-new file mode 100755
-index 0000000000..55c221b36d
---- /dev/null
-+++ b/automation/scripts/qemu-xtf.sh
-@@ -0,0 +1,28 @@
-+#!/bin/bash
-+#
-+# XTF test runner (QEMU).
-+#
-+
-+set -e -o pipefail
-+
-+if [ $# -lt 3 ]; then
-+    echo "Usage: $(basename $0) ARCH XTF-VARIANT XTF-NAME"
-+    exit 0
-+fi
-+
-+export ARCH=3D"$1"
-+shift
-+
-+set -x
-+
-+export XEN_ROOT=3D"${PWD}"
-+cd $(dirname $0)
-+
-+source include/xtf-runner
-+
-+if [ ! -f "include/xtf-${ARCH}" ]; then
-+    die "unsupported architecture '${ARCH}'"
-+fi
-+source include/xtf-${ARCH}
-+
-+xtf_test $@
 --=20
 2.34.1
 
