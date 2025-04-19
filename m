@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B61B3A945BF
-	for <lists+xen-devel@lfdr.de>; Sun, 20 Apr 2025 00:21:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.960237.1352316 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1A6CA945B3
+	for <lists+xen-devel@lfdr.de>; Sun, 20 Apr 2025 00:13:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.960114.1352206 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6GYp-0003Wq-Ho; Sat, 19 Apr 2025 22:21:19 +0000
+	id 1u6GR0-0004rN-27; Sat, 19 Apr 2025 22:13:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 960237.1352316; Sat, 19 Apr 2025 22:21:19 +0000
+Received: by outflank-mailman (output) from mailman id 960114.1352206; Sat, 19 Apr 2025 22:13:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6GYp-0003Lz-8s; Sat, 19 Apr 2025 22:21:19 +0000
-Received: by outflank-mailman (input) for mailman id 960237;
- Sat, 19 Apr 2025 22:21:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u6GQz-0004p0-VD; Sat, 19 Apr 2025 22:13:13 +0000
+Received: by outflank-mailman (input) for mailman id 960114;
+ Sat, 19 Apr 2025 22:13:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nqik=XF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1u6GQa-0004yY-Es
- for xen-devel@lists.xenproject.org; Sat, 19 Apr 2025 22:12:48 +0000
+ id 1u6GQy-0004oZ-Ku
+ for xen-devel@lists.xenproject.org; Sat, 19 Apr 2025 22:13:12 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6c1f3d9a-1d6b-11f0-9eb0-5ba50f476ded;
- Sun, 20 Apr 2025 00:12:47 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1745100552055701.4359410353334;
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 79c93cdc-1d6b-11f0-9ffb-bf95429c2676;
+ Sun, 20 Apr 2025 00:13:10 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1745100552863208.68927810979392;
  Sat, 19 Apr 2025 15:09:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -38,25 +38,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c1f3d9a-1d6b-11f0-9eb0-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; t=1745100554; cv=none; 
+X-Inumbo-ID: 79c93cdc-1d6b-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; t=1745100556; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=Pi5BETfqw22ls3M0dj/Fc9zbpkxZYOYO0Ys+U9C99s/UY5NuARj9msv0te8TZvdQ4YQEJepkp0Lh5caBXjSTgD+8cssYjNn818Ra5fzOvsuQ3L1PFSS2Lrnuk7LQrwkaFvvAT2gkZTptsZcfrKqc3E0tUxZRCy0+900I9/NtJ8E=
+	b=LHcEECMDjJj3dC1RqieD9Wr7XiwZxrVMvdlaLg9Xxgx0jSazAiWW/miGr06eWR1/1dwfR3RWIwelv+cIxcij2O7HGraU0P5T86QKyMfnxBEXNkLh5vfr+qL2J7kMDmsKHvCze6woX6nCxuwTYZFq0H9MvtOo6VLAQ2JzIwsyqYY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1745100554; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ErU8vuQ7J87fC+REu5nsdOrzqMN/uQj7jaoh0kca6jQ=; 
-	b=TVW4abfNNk+4TTncybXwfIH8nIcwpmgRDmsMVmdLaZcQFpdP7kSlnDjJQbPVjfiMr9gCOL+7XRy7h3j0DNHHaEpd+e8V8OiuRF3+ACQcBc6fiLCVpBJvJH4Z9Bg0kPrJGTKjEz3T0XxFzNU11TIko3GoMeGmqNDBiteMFaPsBCo=
+	t=1745100556; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=5FUmF1YRY9NDE1umkBI15/zKKYB7vvic5T3QpbucTJ0=; 
+	b=fzTYjYL1wH7w0gBmq5H0mV1sJyq3I/1Gxg02/oKnjCFM4mGp/+mBhvQuzkcEQI2+SOQ9eGqP5hYnnDeX7JwwK6Ua+EjlMbvo/37y8aQvBF9Wwv8ew3Ue46ZlxEkWzMW/f3Z8QATAI62VeJeZ3/5grvll3s0oPqJBTp0XxSxv5Bk=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1745100554;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1745100556;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=ErU8vuQ7J87fC+REu5nsdOrzqMN/uQj7jaoh0kca6jQ=;
-	b=vezoF10khKIC1HNu4QNYl20h7IXUDCZJLJPS1LWcA1pre8zEF6vDZoLf2at6n15B
-	h6vSOc6nY/7USaAhlG3e6B06KeGfkosDYtmtwL3unr8TH/Ubp/ZtcQtz3myTkvJNEJk
-	ISZrDmDb0CDDiT8VL0N4kbhWrSmEujQDETsBaHaM=
+	bh=5FUmF1YRY9NDE1umkBI15/zKKYB7vvic5T3QpbucTJ0=;
+	b=Oj9T8XhxwGoAp7n/4JvkPILnnCIQ6wc4eL+RcluTNx36iQLN4CXQl2pOc1y8rq1N
+	vnWz81HiJA9PPTxzfcYQ3WFpnczBiEDBaNigwJc9sjOEC3tEFQXyrUI+MtwMa0hjqWZ
+	1aFTz+Od1BWHjUYqhawfx3lQU3KOopzkQU7dbt8U=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
@@ -66,9 +66,9 @@ Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [RFC 27/38] x86/hyperlaunch: introduce domain builder general dom creation
-Date: Sat, 19 Apr 2025 18:08:09 -0400
-Message-Id: <20250419220820.4234-28-dpsmith@apertussolutions.com>
+Subject: [RFC 28/38] x86/hyperlaunch: add xenstore boot capabilities flag
+Date: Sat, 19 Apr 2025 18:08:10 -0400
+Message-Id: <20250419220820.4234-29-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20250419220820.4234-1-dpsmith@apertussolutions.com>
 References: <20250419220820.4234-1-dpsmith@apertussolutions.com>
@@ -76,135 +76,68 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-Introduce the builder_create_domains() function that provides the domain
-construciton abstraction for the hyperlaunch domain builder.
+Add the ability to designate a domain as the Xenstore domain via the
+hyperlaunch configuration.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 ---
- xen/arch/x86/domain-builder/core.c        | 17 +++++++++++++++
- xen/arch/x86/include/asm/bootinfo.h       | 26 +++++++++++++++++++++++
- xen/arch/x86/include/asm/domain-builder.h |  1 +
- xen/arch/x86/setup.c                      | 23 +++++++++++++++++---
- 4 files changed, 64 insertions(+), 3 deletions(-)
+ xen/arch/x86/domain-builder/core.c     | 2 +-
+ xen/arch/x86/domain-builder/domain.c   | 2 ++
+ xen/arch/x86/domain-builder/fdt.c      | 2 ++
+ xen/arch/x86/include/asm/boot-domain.h | 1 +
+ 4 files changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/xen/arch/x86/domain-builder/core.c b/xen/arch/x86/domain-builder/core.c
-index 8d137ecaaf84..2f0b8bd82c3a 100644
+index 2f0b8bd82c3a..e21f5efbfe62 100644
 --- a/xen/arch/x86/domain-builder/core.c
 +++ b/xen/arch/x86/domain-builder/core.c
-@@ -9,6 +9,7 @@
- 
- #include <asm/bootinfo.h>
- #include <asm/setup.h>
-+#include <asm/domain-builder.h>
- 
- #include "fdt.h"
- 
-@@ -102,6 +103,22 @@ void __init builder_init(struct boot_info *bi)
+@@ -98,7 +98,7 @@ void __init builder_init(struct boot_info *bi)
+         bi->mods[i].type = BOOTMOD_KERNEL;
+         bi->domains[0].kernel = &bi->mods[i];
+         bi->domains[0].capabilities |=
+-            (BUILD_CAPS_CONTROL | BUILD_CAPS_HARDWARE);
++            (BUILD_CAPS_CONTROL | BUILD_CAPS_HARDWARE | BUILD_CAPS_XENSTORE);
+         bi->nr_domains = 1;
      }
  }
+diff --git a/xen/arch/x86/domain-builder/domain.c b/xen/arch/x86/domain-builder/domain.c
+index 13f99111a3a9..c1b2e011aaa0 100644
+--- a/xen/arch/x86/domain-builder/domain.c
++++ b/xen/arch/x86/domain-builder/domain.c
+@@ -250,6 +250,8 @@ struct domain *__init arch_create_dom(
+     if ( bd->domid == DOMID_INVALID )
+         /* Create initial domain.  Not d0 for pvshim. */
+         bd->domid = get_initial_domain_id();
++    if ( bd->capabilities & BUILD_CAPS_XENSTORE )
++        dom_cfg.flags |= XEN_DOMCTL_CDF_xs_domain;
+     if ( bd->capabilities & BUILD_CAPS_CONTROL )
+         create_flags |= CDF_privileged | CDF_hardware;
+     d = domain_create(bd->domid, &dom_cfg,
+diff --git a/xen/arch/x86/domain-builder/fdt.c b/xen/arch/x86/domain-builder/fdt.c
+index 1af58ed4eb86..9c6c0ae09a24 100644
+--- a/xen/arch/x86/domain-builder/fdt.c
++++ b/xen/arch/x86/domain-builder/fdt.c
+@@ -269,6 +269,8 @@ static int __init process_domain_node(
+                 printk("c");
+             if ( bd->capabilities & BUILD_CAPS_HARDWARE )
+                 printk(" h");
++            if ( bd->capabilities & BUILD_CAPS_XENSTORE )
++                printk(" x");
+             printk("\n");
+         }
+     }
+diff --git a/xen/arch/x86/include/asm/boot-domain.h b/xen/arch/x86/include/asm/boot-domain.h
+index 18d144de2fea..32f1f8fbc4e8 100644
+--- a/xen/arch/x86/include/asm/boot-domain.h
++++ b/xen/arch/x86/include/asm/boot-domain.h
+@@ -16,6 +16,7 @@ struct boot_domain {
+ #define BUILD_CAPS_NONE          (0)
+ #define BUILD_CAPS_CONTROL       (1 << 0)
+ #define BUILD_CAPS_HARDWARE      (1 << 1)
++#define BUILD_CAPS_XENSTORE      (1 << 2)
+     uint32_t capabilities;
  
-+unsigned int __init builder_create_domains(struct boot_info *bi)
-+{
-+    unsigned int build_count = 0;
-+    struct boot_domain *bd = &bi->domains[0];
-+
-+    if ( bd->kernel == NULL && bd->capabilities & BUILD_CAPS_CONTROL )
-+        panic("%s: control domain missing kernel\n", __func__);
-+
-+
-+    arch_create_dom(bi, bd);
-+    if ( bd->d )
-+        build_count++;
-+
-+    return build_count;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
-index 5b2c93b1ef9e..430ae08cf5ef 100644
---- a/xen/arch/x86/include/asm/bootinfo.h
-+++ b/xen/arch/x86/include/asm/bootinfo.h
-@@ -132,6 +132,32 @@ static inline unsigned int __init next_boot_module_index(
-           (i) <= (b)->nr_modules;                       \
-           (i) = next_boot_module_index(b, t, i + 1) )
- 
-+/*
-+ * next_boot_domain_index:
-+ *     Finds the next boot domain with capability cap, starting at array index
-+ *     start.
-+ *
-+ * Returns:
-+ *      Success - index in boot_domains array
-+ *      Failure - a value greater than MAX_NR_BOOTDOMS
-+ */
-+static inline unsigned int __init next_boot_domain_index(
-+    const struct boot_info *bi, uint32_t cap, unsigned int start)
-+{
-+    int i;
-+
-+    for ( i = start; i < bi->nr_domains; i++ )
-+    {
-+        if ( bi->domains[i].capabilities & cap )
-+            return i;
-+    }
-+
-+    return MAX_NR_BOOTDOMS + 1;
-+}
-+
-+#define first_boot_domain_index(bi, cap)              \
-+    next_boot_domain_index(bi, cap, 0)
-+
- #endif /* X86_BOOTINFO_H */
- 
- /*
-diff --git a/xen/arch/x86/include/asm/domain-builder.h b/xen/arch/x86/include/asm/domain-builder.h
-index ccab02c3a1fd..5dc5661bec07 100644
---- a/xen/arch/x86/include/asm/domain-builder.h
-+++ b/xen/arch/x86/include/asm/domain-builder.h
-@@ -8,6 +8,7 @@ int __init builder_get_cmdline(
-     struct boot_info *bi, int offset, char *cmdline, size_t size);
- 
- void builder_init(struct boot_info *bi);
-+unsigned int builder_create_domains(struct boot_info *bi);
- 
- struct domain *arch_create_dom(
-     struct boot_info *bi, struct boot_domain *bd);
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 8f956b6eca4f..da5a8e8d8ed3 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -2015,9 +2015,26 @@ void asmlinkage __init noreturn __start_xen(void)
-      * We're going to setup domain0 using the module(s) that we stashed safely
-      * above our heap. The second module, if present, is an initrd ramdisk.
-      */
--    dom0 = arch_create_dom(bi, &bi->domains[0]);
--    if ( !dom0 )
--        panic("Could not set up DOM0 guest OS\n");
-+    ret = builder_create_domains(bi);
-+    if ( ret <= 0 )
-+        panic("Could not set up boot-time domains\n");
-+    else
-+        printk(XENLOG_INFO "Constructed %d boot-time domains\n", ret);
-+
-+    /* Selection order: hardware domain, control domain, first domain */
-+    i = first_boot_domain_index(bi, BUILD_CAPS_HARDWARE);
-+    if ( i >= MAX_NR_BOOTDOMS )
-+    {
-+        i = first_boot_domain_index(bi, BUILD_CAPS_CONTROL);
-+        if ( i >= MAX_NR_BOOTDOMS )
-+        {
-+            printk(XENLOG_WARNING
-+                   "A hwdom/ctrldom not detected, using 0th domain\n");
-+            i = 0;
-+        }
-+    }
-+
-+    dom0 = bi->domains[i].d;
- 
-     heap_init_late();
- 
+                                           /* On     | Off    */
 -- 
 2.30.2
 
