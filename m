@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91F68A945B4
-	for <lists+xen-devel@lfdr.de>; Sun, 20 Apr 2025 00:13:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.960116.1352215 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 895C8A945CA
+	for <lists+xen-devel@lfdr.de>; Sun, 20 Apr 2025 00:21:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.960306.1352425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6GR8-0005B4-8t; Sat, 19 Apr 2025 22:13:22 +0000
+	id 1u6GZK-0001Fo-Cm; Sat, 19 Apr 2025 22:21:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 960116.1352215; Sat, 19 Apr 2025 22:13:22 +0000
+Received: by outflank-mailman (output) from mailman id 960306.1352425; Sat, 19 Apr 2025 22:21:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6GR8-00058D-5w; Sat, 19 Apr 2025 22:13:22 +0000
-Received: by outflank-mailman (input) for mailman id 960116;
- Sat, 19 Apr 2025 22:13:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u6GZK-00019u-76; Sat, 19 Apr 2025 22:21:50 +0000
+Received: by outflank-mailman (input) for mailman id 960306;
+ Sat, 19 Apr 2025 22:21:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nqik=XF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1u6GR6-0004oZ-5l
- for xen-devel@lists.xenproject.org; Sat, 19 Apr 2025 22:13:20 +0000
+ id 1u6GRb-0004yY-4k
+ for xen-devel@lists.xenproject.org; Sat, 19 Apr 2025 22:13:51 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7e840d94-1d6b-11f0-9ffb-bf95429c2676;
- Sun, 20 Apr 2025 00:13:18 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1745100566539673.7790316696628;
- Sat, 19 Apr 2025 15:09:26 -0700 (PDT)
+ [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 91665486-1d6b-11f0-9eb0-5ba50f476ded;
+ Sun, 20 Apr 2025 00:13:50 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1745100567355726.0607417322368;
+ Sat, 19 Apr 2025 15:09:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,25 +38,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e840d94-1d6b-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; t=1745100570; cv=none; 
+X-Inumbo-ID: 91665486-1d6b-11f0-9eb0-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; t=1745100571; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=QzRaWbeQpwkUFIp4sul5KdDV5Prz7T0mPj68GLFG9CCLF7kc5Ywyv2vbTrH5WXNGgi4sOAk3AjDi+7a0R8dF7ydd0a73KJMzQAB6jyomDPF6vKIIh1TRp5ekJsmuq9/Ypym7fWk7KL36XPeZilk66gqYsDudDrxBLq9lN5idbiQ=
+	b=YQ8uzkmpyPlCFPyazWDIbwPOSyCAsWMBRW9+8kLSGG2F6TedD9RJkPmFFpsl6AcSIjuYGivBmQCpJwI2BE6b0w+l4OFKm2IbEKFDIlh8X65yPNkOxZkRkQG92mHFHdIASnU/CgsRIOgDDF11581qNzOs/bhA+omkhgFkM1tBJ1c=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1745100570; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=2pfoYx7ufXR5MimMumzHjXA6Uyttums4Ez5tgMk1h/4=; 
-	b=NQuHOYgx7Tuts1j2/y+NFEASXsc8GAvtPL04pGoPTHxili+yVcRc3/E2tge4dEna4Z0bFkSXWDtao0ZKBNFLpZ6H9zgFq40Tc/8wClf5nRnZmasKY1n1NwoGjIJWBO5kfPmDerNyF99eLbkvZFd5R/y+W0sazb3bdMhuqx6EzQw=
+	t=1745100571; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=E9G74MndY9ZXEk+L1cKEhZ2Ussr5gQpteSfUtOKkupg=; 
+	b=CmD9K4OA1Tbbx0GZGexDCYspuFdY3Rd0GuF8H2aPAhbYUWy/XgfhrXBbg1eiuAS7L/lr6T6va4+/dz0/1dybBakCVS+5KiP2gvijoOIPUumN3UKJEXd+BSqGKkGFgetmF8SpRf7K1ahoKCQwAcwUkfexOMKcO1q48pz+dEwtQDs=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1745100570;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1745100571;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=2pfoYx7ufXR5MimMumzHjXA6Uyttums4Ez5tgMk1h/4=;
-	b=rR5jPit++B6TRxeO/HzIn+sRw5HczLcZ+n08bCjMDCOXIe8twcjj9z284AWY68AC
-	LntuqGder4hkv/YTdnuryMeTvIGRy1eIddYSJlqdz+KS5lAqrd+G4RtlwNXxv+T3IvO
-	9Z21b/ZnE+W0aMhptIKv+fWIEkLHiIsCl5cqK/Xo=
+	bh=E9G74MndY9ZXEk+L1cKEhZ2Ussr5gQpteSfUtOKkupg=;
+	b=Ak7kH6RAScWmzL2O9SyT749raI8ggkrjE8Z2jZo2KvWds8rpIehLrPNFlLwJrDlg
+	rP7p5JHXv5QODLyQlx3fsTn8Yz/NBMv3Ct5VuoVFLOM6t8UF2RNasCeQR/opsqGaKoI
+	R4ttPJlwATDjxg1wB5+dIjOJB2U2bQCQh7gMIyhI=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
@@ -66,9 +66,9 @@ Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [RFC 34/38] x86/hyperlaunch: introduce multidomain kconfig option
-Date: Sat, 19 Apr 2025 18:08:16 -0400
-Message-Id: <20250419220820.4234-35-dpsmith@apertussolutions.com>
+Subject: [RFC 35/38] x86/hyperlaunch: add multidomain construction logic
+Date: Sat, 19 Apr 2025 18:08:17 -0400
+Message-Id: <20250419220820.4234-36-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20250419220820.4234-1-dpsmith@apertussolutions.com>
 References: <20250419220820.4234-1-dpsmith@apertussolutions.com>
@@ -76,105 +76,122 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-This adds the MULTIDOMAIN_BUILDER kconfig option that will be used to enable
-the domain construction path to be called multiple times. With the idea of
-being able to construct multiple domains now introduced, rename construct_dom0()
-to construct_dom().
+Introduce the logic to loop over boot_info->domains and construct
+each valid entry in the array.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 ---
- xen/arch/x86/dom0_build.c            |  9 +++++----
- xen/arch/x86/domain-builder/Kconfig  | 12 ++++++++++++
- xen/arch/x86/domain-builder/domain.c |  2 +-
- xen/arch/x86/include/asm/bootinfo.h  |  2 +-
- xen/arch/x86/include/asm/setup.h     |  2 +-
- 5 files changed, 20 insertions(+), 7 deletions(-)
+ xen/arch/x86/domain-builder/core.c   | 32 ++++++++++++++++++++++++----
+ xen/arch/x86/domain-builder/domain.c |  7 ++++--
+ xen/arch/x86/hvm/dom_build.c         |  5 ++++-
+ xen/arch/x86/setup.c                 | 11 ++++++----
+ 4 files changed, 44 insertions(+), 11 deletions(-)
 
-diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
-index e488a204372b..8c8cb08a6f7e 100644
---- a/xen/arch/x86/dom0_build.c
-+++ b/xen/arch/x86/dom0_build.c
-@@ -558,15 +558,16 @@ int __init dom0_setup_permissions(struct domain *d)
-     return rc;
- }
- 
--int __init construct_dom0(struct boot_domain *bd)
-+int __init construct_dom(struct boot_domain *bd)
+diff --git a/xen/arch/x86/domain-builder/core.c b/xen/arch/x86/domain-builder/core.c
+index f693aa46d278..2712703e17e6 100644
+--- a/xen/arch/x86/domain-builder/core.c
++++ b/xen/arch/x86/domain-builder/core.c
+@@ -166,16 +166,40 @@ static int  __init build_core_domains(struct boot_info *bi)
+ unsigned int __init builder_create_domains(struct boot_info *bi)
  {
-     int rc;
-     const struct domain *d = bd->d;
+     unsigned int build_count = 0;
+-    struct boot_domain *bd = &bi->domains[0];
++    int i;
  
-     /* Sanity! */
--    BUG_ON(!pv_shim && d->domain_id != 0);
--    BUG_ON(d->vcpu[0] == NULL);
--    BUG_ON(d->vcpu[0]->is_initialised);
+     if ( bi->nr_domains == 0 )
+         panic("%s: no domains defined\n", __func__);
+ 
+-    if ( bd->kernel == NULL && bd->capabilities & BUILD_CAPS_CONTROL )
+-        panic("%s: control domain missing kernel\n", __func__);
+-
+     build_count = build_core_domains(bi);
+ 
 +    if ( ! IS_ENABLED(CONFIG_MULTIDOMAIN_BUILDER) )
-+        BUG_ON(!pv_shim && bd->d->domain_id != 0);
-+    BUG_ON(bd->d->vcpu[0] == NULL);
-+    BUG_ON(bd->d->vcpu[0]->is_initialised);
- 
-     process_pending_softirqs();
- 
-diff --git a/xen/arch/x86/domain-builder/Kconfig b/xen/arch/x86/domain-builder/Kconfig
-index 51d549c20df3..05d7859e6b53 100644
---- a/xen/arch/x86/domain-builder/Kconfig
-+++ b/xen/arch/x86/domain-builder/Kconfig
-@@ -12,4 +12,16 @@ config DOMAIN_BUILDER
- 
- 	  If unsure, say N.
- 
-+config MULTIDOMAIN_BUILDER
-+	bool "Multiple domain building (UNSUPPORTED)" if UNSUPPORTED
-+	depends on DOMAIN_BUILDER
-+	default n
-+	help
-+      Enables the domain builder capability to build multiple domains
-+	  using a flattened device tree.
++        goto out;
 +
-+	  This feature is currently experimental.
++    for ( i = 0; i < bi->nr_domains; i++ )
++    {
++        struct boot_domain *bd = &bi->domains[i];
 +
-+	  If unsure, say N.
++        if ( bd->constructed )
++            continue;
 +
- endmenu
++        if ( bd->mode & BUILD_MODE_PARAVIRT )
++        {
++            printk(XENLOG_WARNING "don't support PV DomU, skipping %d\n", i);
++            continue;
++        }
++
++        arch_create_dom(bi, bd);
++        if ( bd->d )
++        {
++            bd->constructed = true;
++            build_count++;
++        }
++        else
++            printk(XENLOG_WARNING "failed to construct build domain %d\n", i);
++    }
++
++ out:
+     /* Free temporary buffers. */
+     free_boot_modules();
+ 
 diff --git a/xen/arch/x86/domain-builder/domain.c b/xen/arch/x86/domain-builder/domain.c
-index b413a87cc9c9..919df1ffb1c3 100644
+index 919df1ffb1c3..7f5bee0dc759 100644
 --- a/xen/arch/x86/domain-builder/domain.c
 +++ b/xen/arch/x86/domain-builder/domain.c
-@@ -399,7 +399,7 @@ struct domain *__init arch_create_dom(
-     if ( !(bd->capabilities & BUILD_CAPS_HARDWARE) )
-         alloc_console_evtchn(bi, bd);
+@@ -321,8 +321,11 @@ struct domain *__init arch_create_dom(
+                            ((hvm_hap_supported() && !opt_dom0_shadow) ?
+                             XEN_DOMCTL_CDF_hap : 0));
  
--    if ( construct_dom0(bd) != 0 )
-+    if ( construct_dom(bd) != 0 )
-         panic("Could not construct domain 0\n");
+-        dom_cfg.arch.emulation_flags |=
+-            XEN_X86_EMU_LAPIC | XEN_X86_EMU_IOAPIC | XEN_X86_EMU_VPCI;
++        if ( bd->capabilities & BUILD_CAPS_HARDWARE )
++            dom_cfg.arch.emulation_flags |=
++                XEN_X86_EMU_LAPIC | XEN_X86_EMU_IOAPIC | XEN_X86_EMU_VPCI;
++        else
++            dom_cfg.arch.emulation_flags |= X86_EMU_LAPIC;
+     }
  
-     XFREE(cmdline);
-diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
-index 430ae08cf5ef..298cff303673 100644
---- a/xen/arch/x86/include/asm/bootinfo.h
-+++ b/xen/arch/x86/include/asm/bootinfo.h
-@@ -17,7 +17,7 @@
- #define MAX_NR_BOOTMODS 63
+     if ( bd->capabilities & BUILD_CAPS_HARDWARE )
+diff --git a/xen/arch/x86/hvm/dom_build.c b/xen/arch/x86/hvm/dom_build.c
+index 4f614aea34c3..db7bf9a6934a 100644
+--- a/xen/arch/x86/hvm/dom_build.c
++++ b/xen/arch/x86/hvm/dom_build.c
+@@ -885,7 +885,10 @@ static int __init pvh_load_kernel(
+     }
  
- /* Max number of boot domains that Xen can construct */
--#define MAX_NR_BOOTDOMS 1
-+#define MAX_NR_BOOTDOMS 64
+     start_info.magic = XEN_HVM_START_MAGIC_VALUE;
+-    start_info.flags = SIF_PRIVILEGED | SIF_INITDOMAIN;
++    if ( is_control_domain(d) )
++        start_info.flags = SIF_PRIVILEGED;
++    if ( is_hardware_domain(d) )
++        start_info.flags = SIF_INITDOMAIN;
+     rc = hvm_copy_to_guest_phys(last_addr, &start_info, sizeof(start_info), v);
+     if ( rc )
+     {
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index da5a8e8d8ed3..09b1fc94426d 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1319,10 +1319,13 @@ void asmlinkage __init noreturn __start_xen(void)
+         xen->size  = __2M_rwdata_end - _stext;
+     }
  
- /* Boot module binary type / purpose */
- enum bootmod_type {
-diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
-index 4b8fbdc67e05..3f6850d40d04 100644
---- a/xen/arch/x86/include/asm/setup.h
-+++ b/xen/arch/x86/include/asm/setup.h
-@@ -27,7 +27,7 @@ void subarch_init_memory(void);
- void init_IRQ(void);
+-    bi->domains[0].kernel->headroom =
+-        bzimage_headroom(bootstrap_map_bm(bi->domains[0].kernel),
+-                         bi->domains[0].kernel->size);
+-    bootstrap_unmap();
++    for ( i = 0; i < bi->nr_domains; i++ )
++    {
++        bi->domains[i].kernel->headroom =
++            bzimage_headroom(bootstrap_map_bm(bi->domains[i].kernel),
++                             bi->domains[i].kernel->size);
++        bootstrap_unmap();
++    }
  
- struct boot_domain;
--int construct_dom0(struct boot_domain *bd);
-+int construct_dom(struct boot_domain *bd);
- 
- const char *cmdline_cook(const char *p, const char *loader_name);
- 
+ #ifndef highmem_start
+     /* Don't allow split below 4Gb. */
 -- 
 2.30.2
 
