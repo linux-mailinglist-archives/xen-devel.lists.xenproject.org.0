@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87633A956F0
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Apr 2025 21:53:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.961414.1352836 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73FF6A956F7
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Apr 2025 21:57:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.961429.1352845 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6xC6-0007gM-AQ; Mon, 21 Apr 2025 19:52:42 +0000
+	id 1u6xGZ-0008Ju-TP; Mon, 21 Apr 2025 19:57:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 961414.1352836; Mon, 21 Apr 2025 19:52:42 +0000
+Received: by outflank-mailman (output) from mailman id 961429.1352845; Mon, 21 Apr 2025 19:57:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6xC6-0007eZ-78; Mon, 21 Apr 2025 19:52:42 +0000
-Received: by outflank-mailman (input) for mailman id 961414;
- Mon, 21 Apr 2025 19:52:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u6xGZ-0008I0-Qh; Mon, 21 Apr 2025 19:57:19 +0000
+Received: by outflank-mailman (input) for mailman id 961429;
+ Mon, 21 Apr 2025 19:57:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J93P=XH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u6xC4-0007eT-Vv
- for xen-devel@lists.xenproject.org; Mon, 21 Apr 2025 19:52:41 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2dfc47ed-1eea-11f0-9eb0-5ba50f476ded;
- Mon, 21 Apr 2025 21:52:39 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-43cf628cb14so39442225e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 21 Apr 2025 12:52:39 -0700 (PDT)
+ id 1u6xGY-0008Hu-GL
+ for xen-devel@lists.xenproject.org; Mon, 21 Apr 2025 19:57:18 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d15e8355-1eea-11f0-9ffb-bf95429c2676;
+ Mon, 21 Apr 2025 21:57:13 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-39d83782ef6so3811602f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Apr 2025 12:57:13 -0700 (PDT)
 Received: from [192.168.86.29] ([83.104.178.215])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39efa420816sm13002357f8f.15.2025.04.21.12.52.37
+ ffacd0b85a97d-39efa42082csm12682161f8f.3.2025.04.21.12.57.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Apr 2025 12:52:37 -0700 (PDT)
+ Mon, 21 Apr 2025 12:57:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2dfc47ed-1eea-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: d15e8355-1eea-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745265158; x=1745869958; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:cc:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pGxCz2toYIC/kff9vdTGqDBP36stBwE/3hjfuO606FU=;
-        b=c5cYCdMnd+8HHYJ0JCUWGwDtG+tDxdoiEFHjZ5wj88tYUgbxVLSlcQcRIoVHQvXLn2
-         cfR181MyLytiqTPG3VagpTuAW5rgajcZYbtyKJiMljhek+wxWsBKWrbD8uUxA+GtgSqw
-         +mklleRcdxfCPoATQbaJwtXNf5PUm1oiN45ok=
+        d=citrix.com; s=google; t=1745265433; x=1745870233; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fCI9GIz3tQx69mZRHQOydIWdQRCRJDxY6m4AQBClgkE=;
+        b=eqsZXtyq70BNcj14YFbHrbBtHaww3VMlUHg11HCrBIGQPxYF5ln2sr9f0A6vhQUz+Y
+         5QVm0zu+q7PZG7oEWpYXee3QH0QsuQi4wsLpPDRml6PnVGTClLbyoS50Ab84riWAS7C8
+         yj0Kmf473lJNHM2qdJ1KmSvf69dpGe5pAtsVM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745265158; x=1745869958;
-        h=content-transfer-encoding:in-reply-to:cc:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pGxCz2toYIC/kff9vdTGqDBP36stBwE/3hjfuO606FU=;
-        b=OdhdQ3cHIxjvGGCrjmYO9+sxQYd7pliCNJybAxqHC2d5OlTk4sF6S+1D2N8dasJ6r7
-         fzWi95VKDPdjvwyHlFcRWZ2f1vM0oK4JiBKWK+hkjwrlK7csJzd2dSdB3jEfj2qC5DxS
-         tSqsa1Q4T4+vGVZ+emh5SeMOa90w3CrgYnbukVSnd/nq7I7U6SgmpFXer8F2t7I9/pGg
-         OE8+wvVH5V79QKQnjVmjQamKLzskD+BfyX/DOD9OKKuq7QqHXyludnL0Oh0HhbwJCk5r
-         jyW0Js3g/CxE8hOx8+NBpRAYjIzBiZzqbxkRaT18sDx6Z021zjgC2hpqcorij545/mxt
-         vIig==
-X-Gm-Message-State: AOJu0YyfI5e++ksxzYIvr1JYhbMWvD/YJNqsGFEryS2V+l9CLxhbN/As
-	UTABsW9WZ4KOe0xKHOYFPAG6Zloyi8oxriZ/mBFGKerC6sFhfGB3R/Ho0Qp473EuejE2mZlw8G7
-	o9Zg=
-X-Gm-Gg: ASbGncvvj/gUxK+ZvZIM0CWpZgbAH8/BL6a9Kv9B3UEfY68GL9N4szdtObOj4gmrf48
-	u2CIKHVSu2KziJHxdUgRNram+7eMY0i3aKYtmW9vtyMLiMkOP01hqJiUa1MF3Pxv1hoWpJks/BN
-	VfIn63k8+KKUtAU+9fPWO9rHJMxBMkn8vzvFqNZaTUx0szF6TxKZGW7qpx3stkT7ENCnMgXsRAH
-	LrxhUJL7QTckNOO4X9LyEJhMpGJRfzNGKJr8cxXZWrqvZndfvb4qnIFNV8/9dqDmdxZO4vIMKj4
-	RJMO6ZOl5+WHMDEs+ZlJ3OaWoiZs41g8HFYXQY26/ijZ8+7EdHJlYuMrsQQYUb3M
-X-Google-Smtp-Source: AGHT+IH06iGEdccTHTqTKoLnZUbhej5PuynSnDgldRuyiEFda0FJZT82zW0sqBs0cNS+lkBHe31wSg==
-X-Received: by 2002:a05:6000:2907:b0:39f:d03:f567 with SMTP id ffacd0b85a97d-39f0d03f56amr2597181f8f.16.1745265158372;
-        Mon, 21 Apr 2025 12:52:38 -0700 (PDT)
-Message-ID: <6fd54b87-1312-46b0-8f5c-ce186f60629f@citrix.com>
-Date: Mon, 21 Apr 2025 20:52:37 +0100
+        d=1e100.net; s=20230601; t=1745265433; x=1745870233;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fCI9GIz3tQx69mZRHQOydIWdQRCRJDxY6m4AQBClgkE=;
+        b=DaPQO6DdR0sAAYmV/YHcPqjQKk2Rr3kuBmAK4TcvKft2vAAAztLiYnY6I+Dgd14tIY
+         GJ1/CjYaFSweqYZII6EyyPkcO43OphFaSGEADzVzcWbrPzgITtj39axpVqwI9svSphm+
+         ExaOKte/4A+EqA+XHfwUcVtD4gJQcZ0lXi9gYj8UPONGFbNafm1Rxx2ooa5NdiEUeWYO
+         g2ToKLaHbGul7oWTAiRhzY7tgQzC0BhL1FYvA/Mg/fje3S2IPaAqxreaylrtkH7kGD4r
+         tf6N5/FCkSJG48Y+ftW8B36ruxNXrE4ZYB82POnjwHxS3gADeWeEAn/Uk78PyAHeByg4
+         Orog==
+X-Gm-Message-State: AOJu0YxxSTlD+r7FN3zQeD6TL1GijS+GrespNxM70w1+A+kLVNvYXoib
+	5Wa0Rc6/fRv5ex4cKo9Bx+RQsEBWFhckvytt47O7MjlWI50fCZ431dnK84FuvYQbplolW+qo0bx
+	ovDg=
+X-Gm-Gg: ASbGncsBRhhy72zA0+3FZz64Qasg7ffTbQITO7gJ5aWM3Cz/Cc+LyJ7UBY3gymw+hGz
+	cziidF7pZGv4GXzTjebfxBrBN3rzHF9n+Auxcxe9Xki897TuhHX0i8A69444fDBlD6XGSYpjbVe
+	KecJ8o7vMfN9LZSNEkelISu60rnZ/6moprkc18gkV/Uw61WtRr7WMTq1vyTV+YmbJxM9iE61Wv+
+	iff3XAW58qSrbP3VgwUHKTQjsXMYu/bYvYWwVn2SYH9RseoYZiWPwH1tTFO1vUx6JfOdJoDWBDa
+	swlZgmc/wCl/L5qkpzxjh1VhcF0cUwqYY4BR6HHiLJPQYb90V3YuSg==
+X-Google-Smtp-Source: AGHT+IHJWddlpzHq2KGpbGF2LNXbLCMSu1y87N/iQhJVRiZ1J0zqEsCQ3bY6drnrT2v8sSAPHNXo+Q==
+X-Received: by 2002:a05:6000:240a:b0:39c:2c0b:8db4 with SMTP id ffacd0b85a97d-39ef8ba5d0dmr11598487f8f.10.1745265432840;
+        Mon, 21 Apr 2025 12:57:12 -0700 (PDT)
+Message-ID: <92af3712-a163-4aef-abc9-beb8d1d1eda6@citrix.com>
+Date: Mon, 21 Apr 2025 20:57:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] Assertion failure with vmcb->_vintr.fields.vgif in nested
- SVM
-To: xen-devel@lists.xenproject.org, REIMA ISHII <ishiir@g.ecc.u-tokyo.ac.jp>
-References: <CA+aCS-EBA38cuP52_tKxomyiyEJani1+9d3HpqpT3BS2sRFECg@mail.gmail.com>
- <CA+aCS-GcAnziL8njhzOo+MoN0w-GfcpG66m4URwO+O4iVEtWDA@mail.gmail.com>
+Subject: Re: [BUG] Nested Virtualization Bug on x86-64 AMD CPU
+To: REIMA ISHII <ishiir@g.ecc.u-tokyo.ac.jp>
+Cc: xen-devel@lists.xenproject.org,
+ Takahiro Shinagawa <shina@ecc.u-tokyo.ac.jp>
+References: <CA+aCS-Ha4jSYFfxhOwMGiGJPdCOtgBJLt=3Q=v9dfp6SQJys4w@mail.gmail.com>
+ <1415ddc9-81f3-4d50-b735-7e44a7f656d5@citrix.com>
+ <CA+aCS-H2wkiVOMvCS7cCPojduXdStMYzHn7SxintNyg0vS_Bhg@mail.gmail.com>
+ <CA+aCS-E0WtbnSM7FuPL0jruXLjdFaZOa9aS0gyy_x5JDRWh50A@mail.gmail.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,123 +136,44 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Cc: Takahiro Shinagawa <shina@ecc.u-tokyo.ac.jp>
-In-Reply-To: <CA+aCS-GcAnziL8njhzOo+MoN0w-GfcpG66m4URwO+O4iVEtWDA@mail.gmail.com>
+In-Reply-To: <CA+aCS-E0WtbnSM7FuPL0jruXLjdFaZOa9aS0gyy_x5JDRWh50A@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21/04/2025 6:59 pm, REIMA ISHII wrote:
-> Hi,
-> I would like to follow up on the bug report I sent regarding a nested
-> SVM issue in Xen, where an invalid CR4 value in VMCB12 leads to an
-> assertion failure during VMRUN.
+On 21/04/2025 6:53 pm, REIMA ISHII wrote:
+> I am writing to follow up on the bug report I sent, regarding a BUG()
+> triggered in Xen when performing a nested VMRUN with CR0.PG
+> <http://CR0.PG>=0 in Long
+> Mode. The issue was discussed with Andrew Cooper at that time, and I
+> would like to check if there have been any updates or plans for
+> addressing this issue.
 >
-> As I haven't seen any updates or feedback, I wanted to kindly check if
-> this issue has been acknowledged internally, or if there are any plans
-> for addressing this case in future releases.
+> To briefly recap:
+> - The problem occurs when an L1 hypervisor, while in 64-bit mode,
+> executes VMRUN with CR0.PG <http://CR0.PG>=0 in VMCB12, targeting a
+> 64-bit L2 guest.
+> - Instead of raising VMEXIT_INVALID, the system encounters a BUG() at
+> `nsvm_vmcb_guest_intercepts_exitcode`.
+> - VMEXIT reason observed was 0x402 (AVIC_NOACCEL), although Xen does not
+> support AVIC.
 >
-> Since this issue can potentially cause a hypervisor panic, I believe it
-> would be valuable to handle this safely.
+> Andrew pointed out that this could indicate either a missing validity
+> check (as the state LMA=1 && PG=0 is invalid) or possible memory
+> corruption.
 >
-> Thank you for your time
+> Given that this issue could potentially allow a guest VM to trigger a
+> hypervisor panic, I believe it might be worth formally recognizing and
+> addressing.
+> May I kindly ask if this has been acknowledged as a bug internally, or
+> if there are any plans to handle this case safely (e.g., raising
+> VMEXIT_INVALID instead of BUG()) in future Xen releases?
+>
+> Thank you very much for your time
 
-Sorry, both issues fell between the cracks.
+Sorry, also fell between the cracks.  I've opened
+https://gitlab.com/xen-project/xen/-/issues/216
 
-I've opened https://gitlab.com/xen-project/xen/-/issues/215 and so it
-doesn't get lost again.
-
-> On Mon, Nov 13, 2023 at 4:36 PM Reima ISHII <ishiir@g.ecc.u-tokyo.ac.jp> wrote:
->> Hi Xen Development Team,
->>
->> I am reporting a potential bug in the nested SVM implementation of the
->> Xen hypervisor, observed under specific conditions in a DomU HVM
->> guest.
->>
->> L1 on the DomU HVM guest sets a bit in CR4 of the VMCB12 save area
->> that is not part of hvm_cr4_guest_valid_bits and performs a VMRUN.
->> Subsequently, hvm_set_cr4 on the xen hypervisor fails and
->> nsvm_vcpu_vmexit_inject causes an assertion failure.
->>
->> The environment is as follows:
->> - Xen Version: Xen-4.18-unstable (commit
->> 290f82375d828ef93f831a5ef028f1283aa1ea47)
->> - Architecture: x86_64 (AMD)
->>
->> The potential impact on system stability and release builds remains
->> uncertain, but this issue might pose a problem and merits attention
->> for improved robustness in nested virtualization scenarios.
->>
->> (XEN) arch/x86/hvm/svm/nestedsvm.c:554:d1v0 hvm_set_cr4 failed, rc: 2
->> (XEN) d1v0[nsvm_vmcb_prepare4vmrun]: CR4: invalid value 0x20020 (valid
->> 0x750fff, rejected 0x20000)
->> (XEN) arch/x86/hvm/svm/nestedsvm.c:658:d1v0 virtual vmcb invalid
->> (XEN) arch/x86/hvm/svm/nestedsvm.c:729:d1v0 prepare4vmrun failed, ret = 1
->> (XEN) arch/x86/hvm/svm/nestedsvm.c:768:d1v0 inject VMEXIT(INVALID)
->> (XEN) Assertion 'vmcb->_vintr.fields.vgif == 0' failed at
->> arch/x86/hvm/svm/nestedsvm.c:799
->> (XEN) Debugging connection not set up.
->> (XEN) ----[ Xen-4.18-unstable  x86_64  debug=y gcov=y  Tainted:   C    ]----
->> (XEN) CPU:    2
->> (XEN) RIP:    e008:[<ffff82d04029bef6>] nsvm_vcpu_switch+0x34e/0x502
->> (XEN) RFLAGS: 0000000000010202   CONTEXT: hypervisor (d1v0)
->> (XEN) rax: ffff830839677000   rbx: ffff83083967b000   rcx: 0000000000000030
->> (XEN) rdx: 0000000000000000   rsi: 0000000000000003   rdi: ffff83083967b000
->> (XEN) rbp: ffff83083abb7ee8   rsp: ffff83083abb7ed0   r8:  0000000000000010
->> (XEN) r9:  0000000000750fff   r10: 0000000000040000   r11: 0000000000000000
->> (XEN) r12: ffff83083abb7ef8   r13: ffffffffffffffff   r14: 0000000000000000
->> (XEN) r15: 0000000000000000   cr0: 000000008005003b   cr4: 0000000000f506e0
->> (XEN) cr3: 00000008397bb000   cr2: 0000000000000000
->> (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
->> (XEN) ds: 0000   es: 0000   fs: 0033   gs: 0033   ss: 0000   cs: e008
->> (XEN) Xen code around <ffff82d04029bef6> (nsvm_vcpu_switch+0x34e/0x502):
->> (XEN)  48 83 05 7a c5 3b 00 01 <0f> 0b 48 83 05 78 c5 3b 00 01 48 83 05 60 c5 3b
->> (XEN) Xen stack trace from rsp=ffff83083abb7ed0:
->> (XEN)    ffff83083967b000 0000000000000000 0000000000000000 00007cf7c54480e7
->> (XEN)    ffff82d0402a49d6 0000000000000000 0000000000000000 0000000000000000
->> (XEN)    0000000000000000 0000000000126000 0000000000000000 0000000000000000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000126000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 000000000012af30
->> (XEN)    0000beef0000beef 00000000001056f3 000000bf0000beef 0000000000000002
->> (XEN)    000000000012af60 000000000000beef 800000083abfbeef 800000083abfbeef
->> (XEN)    800000083abfbeef 800000083abfbeef 0000e01000000002 ffff83083967b000
->> (XEN)    00000037fa582000 0000000000f506e0 0000000000000000 0000000000000000
->> (XEN)    8000030300000000 800000083abff100
->> (XEN) Xen call trace:
->> (XEN)    [<ffff82d04029bef6>] R nsvm_vcpu_switch+0x34e/0x502
->> (XEN)    [<ffff82d0402a49d6>] F svm_asm_do_resume+0x16/0x187
->> (XEN)
->> (XEN) debugtrace_dump() global buffer starting
->> 1 cpupool_create(pool=0,sched=6)
->> 2 Created cpupool 0 with scheduler SMP Credit Scheduler rev2 (credit2)
->> 3 cpupool_add_domain(dom=0,pool=0) n_dom 1 rc 0
->> 4-14 p2m: p2m_alloc_table(): allocating p2m table
->> 15 cpupool_add_domain(dom=1,pool=0) n_dom 2 rc 0
->> (XEN) wrap: 0
->> (XEN) debugtrace_dump() global buffer finished
->> (XEN)
->> (XEN) ****************************************
->> (XEN) Panic on CPU 2:
->> (XEN) Assertion 'vmcb->_vintr.fields.vgif == 0' failed at
->> arch/x86/hvm/svm/nestedsvm.c:799
->> (XEN) ****************************************
-
-This is fun.  The ASSERT() is incorrect, but that's also not the real
-issue here.
-
-The real bug is trying to raise #GP in the virtual vmentry path because
-of bad control register state.  It should trigger a virtual vmexit
-reporting VMEXIT_INVALID.
-
-As for the ASSERT(), (v)GIF blocks external interrupts (inc INIT, NMI
-and any #MC which can be delayed).  It does not block exceptions, so a
-#GP ought to be able to be injected like this.
-
-
-The real issue here is the reuse of the helpers for main `MOV CR`.  They
-simply don't behave correctly for nested virt. 
-
-Unfortunately, this is going to be quite complicated to fix.  I have no
-idea when I'm going to have enough time to look into this.
+Again, no idea when I'll have time to look into this.
 
 ~Andrew
 
