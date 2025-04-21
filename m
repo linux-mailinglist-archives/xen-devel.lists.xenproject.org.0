@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DEB1A94D69
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Apr 2025 09:41:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.961159.1352781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CC85A94D5F
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Apr 2025 09:41:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.961055.1352705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6lmc-0004vX-0W; Mon, 21 Apr 2025 07:41:38 +0000
+	id 1u6lls-0005xj-MB; Mon, 21 Apr 2025 07:40:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 961159.1352781; Mon, 21 Apr 2025 07:41:37 +0000
+Received: by outflank-mailman (output) from mailman id 961055.1352705; Mon, 21 Apr 2025 07:40:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6lmb-0004qG-Ov; Mon, 21 Apr 2025 07:41:37 +0000
-Received: by outflank-mailman (input) for mailman id 961159;
- Mon, 21 Apr 2025 07:41:36 +0000
+	id 1u6lls-0005vY-IN; Mon, 21 Apr 2025 07:40:52 +0000
+Received: by outflank-mailman (input) for mailman id 961055;
+ Mon, 21 Apr 2025 07:40:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Kh51=XH=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1u6ljs-0007m8-SC
- for xen-devel@lists.xenproject.org; Mon, 21 Apr 2025 07:38:48 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20618.outbound.protection.outlook.com
- [2a01:111:f403:200a::618])
+ id 1u6ljv-0007m8-IQ
+ for xen-devel@lists.xenproject.org; Mon, 21 Apr 2025 07:38:51 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20615.outbound.protection.outlook.com
+ [2a01:111:f403:2414::615])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a8709860-1e83-11f0-9eb0-5ba50f476ded;
- Mon, 21 Apr 2025 09:38:47 +0200 (CEST)
-Received: from BN0PR10CA0028.namprd10.prod.outlook.com (2603:10b6:408:143::34)
- by DS0PR12MB8526.namprd12.prod.outlook.com (2603:10b6:8:163::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.35; Mon, 21 Apr
- 2025 07:38:42 +0000
+ id aa83b2ef-1e83-11f0-9eb0-5ba50f476ded;
+ Mon, 21 Apr 2025 09:38:50 +0200 (CEST)
+Received: from BN0PR10CA0005.namprd10.prod.outlook.com (2603:10b6:408:143::19)
+ by IA1PR12MB6650.namprd12.prod.outlook.com (2603:10b6:208:3a1::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.33; Mon, 21 Apr
+ 2025 07:38:45 +0000
 Received: from BN2PEPF000055DC.namprd21.prod.outlook.com
- (2603:10b6:408:143:cafe::8) by BN0PR10CA0028.outlook.office365.com
- (2603:10b6:408:143::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.35 via Frontend Transport; Mon,
- 21 Apr 2025 07:38:42 +0000
+ (2603:10b6:408:143:cafe::5b) by BN0PR10CA0005.outlook.office365.com
+ (2603:10b6:408:143::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.34 via Frontend Transport; Mon,
+ 21 Apr 2025 07:38:45 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN2PEPF000055DC.mail.protection.outlook.com (10.167.245.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8678.4 via Frontend Transport; Mon, 21 Apr 2025 07:38:42 +0000
+ 15.20.8678.4 via Frontend Transport; Mon, 21 Apr 2025 07:38:45 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 21 Apr 2025 02:38:37 -0500
+ 15.1.2507.39; Mon, 21 Apr 2025 02:38:42 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8709860-1e83-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: aa83b2ef-1e83-11f0-9eb0-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fxr/PCEtGd73pnQu23t4AhXYc+qGLtv6DJxtStBNQLLkwS0Rb5sa3Xrmx6s/5N7Kad0J6K9MUSzOtv5oSU823gjGe4qkefaF3NFyg/uVCGiaibwvfDltAsEyi33FI82ocLSqw8iC17A7CSUNn7/5i8sitr1pxeDHM67Fi8wrnoXJGaDrtqTWwieZHzn+9D/FWDiiBtJ18PdGZ1YkcPUi8TgUBak3KVBA3uMKHybl5LQZyD8YigLVt7lQJN58uCCMPLJ0ZSe7tvvDHLDhUcQhPIlgxI+pD38hscqz0oqLwIhe+ejv2WCDhzXDMQIeCdTuDl1ssxRPybRdy8ZfdW9wOg==
+ b=tWfluo6nysMMOpwDbLL8MWabMVj3oZJwOs/FcIjOzKNISCH+IEGaYFsuySXZcrcMF6VYBzfCzPBocYswpP4+HXjSSvonMFn+CaL7qsY2MisqwxnaMaRAL7LO94YXx93nuWS4r6VpUDgT/kBfM61hiWS6HAi57opZB5CKwgwyVYLKMWmd10ATpNdIzCV6eQmQ7/akkVevXQHnta+HvK1RRZPTfIMHLRo28491wMeRIDn1A8lexrg3qunT2Dn0aNWnVLcLiP/1IM8Zaxvgn3yZRCRSjotY2wk5pL+heKBV8m1QywjNe9kWt3lz4OcgxWBim4S3Ct+2N9mMzkEubFv3Zg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r4CC5cQALjU255G8esQCS8p/0H3qw2m1TSkbz36wHas=;
- b=qdU+ylGA45VPkE+R0YoID1skWHEw/EULxh2WzdQopg51OkvHiobZjv5tkYbnYReKnAWPlhP8IjCCB6NVIaGPml6ZXqx0LCqID+UFOUbg3An7u+S4TQ5MhXJHzswP3W5DTF/D4O7DeCEzZF+fVvVaqW+PBRY+pZYOxQ1FDa2ygl2b8b9OG3HEUp3HEZettTXo4Cc2OQfj3TXUzueCW449VGbtBWMFia1F/Ukghprz5SsjRLlbZVKSDTBrzmmq6XqmJC/udrdgGdrvdeeDsYwsBFL3lnaOFYqpX6UME8fh5Cfb/ZtcjNsRSnKVY0rqeFiokAGlkq4jKEflBxPMwU99+Q==
+ bh=oYj3NqbBx+0ow/uBVXY339j3B712DE1MxpwDgkbl8mU=;
+ b=kokUlbEeK7YosUUK6Hye8ruzMNSSCwF1Lp9JzWBbn13XXX2VwXKyfLLuy/OqcjwRqQQmv8jdjaFLI6rfhUBkXko6C9bNEYyLYYgubQa3nESdM1dGX5f2L5K5dOKWPjlQfG2TMwiMKSM52As4mwwj3KaIyvSWWCNSte9zo334xE3DiBIuj0KpA9+inQ6NBS1GQ5ccciF8XbaYHZqN6t/Exl7Ynzq6PCLdvpiXMdtzXj6NeoGLPElkeuCIz8Bnqxp92n3cgTTfwUlM907P2KF1sMZcHdPePaRATjLYgWAtiytH0jZxNYNg1tsD9ehtzwKGqr/gQdSCTau+G+bmsylPJA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r4CC5cQALjU255G8esQCS8p/0H3qw2m1TSkbz36wHas=;
- b=4RIRRbzBO6fAtCt14uMLBVVG2R6VnN7quseaM6hVryyM+uVlO+epNGZNjq/DD7FoKCo0vkg0dRjVOBbm7CnGMYEHO57CuC84JnfjpOOUUf94olCtXlLXhjgOXWQlH46Gv5NXKUpUKEEhrzjU/FsvU5btLpRCT1Rgf8b5ZnBx8Tc=
+ bh=oYj3NqbBx+0ow/uBVXY339j3B712DE1MxpwDgkbl8mU=;
+ b=DsG+pF12LOZ+qYY9M0KVT2QCR8yR71r29z8u2WQASSfsQ543fgUYxqnyW5l+wyl/NUXmBB9R6BX60gwm06eLlosNrP/aZb4sfuIHYgsNcpGncr3rTssvfCupfY/qqR7egDM2tUGYMr+aUt2uBm5n8i5r98oULG5w8+pXpqARJVo=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,19 +80,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Penny Zheng <Penny.Zheng@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
- Beulich" <jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Alistair Francis <alistair.francis@wdc.com>, "Bob
- Eshleman" <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>, Stefano Stabellini
-	<stefano.stabellini@amd.com>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-Subject: [PATCH v3 19/20] xen/sysctl: wrap around arch-specific arch_do_sysctl
-Date: Mon, 21 Apr 2025 15:37:22 +0800
-Message-ID: <20250421073723.3863060-20-Penny.Zheng@amd.com>
+CC: <ray.huang@amd.com>, Stefano Stabellini <stefano.stabellini@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Penny Zheng <Penny.Zheng@amd.com>
+Subject: [PATCH v3 20/20] xen/sysctl: wrap around sysctl hypercall
+Date: Mon, 21 Apr 2025 15:37:23 +0800
+Message-ID: <20250421073723.3863060-21-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250421073723.3863060-1-Penny.Zheng@amd.com>
 References: <20250421073723.3863060-1-Penny.Zheng@amd.com>
@@ -104,320 +101,198 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DC:EE_|DS0PR12MB8526:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb8275ca-be2e-468b-7eb6-08dd80a78a27
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DC:EE_|IA1PR12MB6650:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0bbd242a-5e59-4a35-f68e-08dd80a78c24
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|7416014|376014|1800799024|36860700013;
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?oblTil7FVuukgfl5BcLzX5CSoUhrC6JRiS9XjqAAmgyvHHcOhK1JEzx5s2JS?=
- =?us-ascii?Q?znDNrFUMTRnf58ks/CxPaWxJdajiZUK1BGnWqrcVzK3NmWRZ3fFxT6jpVYHq?=
- =?us-ascii?Q?SHJqpVMAvB396U3wDqCSwkeX7shKHx/clifNbcIVLIoSV2LLrTwm+ybpWEmF?=
- =?us-ascii?Q?lWLChiYiK7uixLsh20GNMpe20XwfunQ80U+bk77w4na3jWf2nbACuVDDHkAZ?=
- =?us-ascii?Q?sIYGdB1no5ik1sPhzJJDNHWHAVQHztRAUvCm6atWY8lc3U8Kd1ZMBb/rPJCe?=
- =?us-ascii?Q?t0xLDff+2d79vQZgN4mr/nihUIGTla6ohHHGGfwlQy6jVq+VeHFB5xAZqVxv?=
- =?us-ascii?Q?i0Bl0Fcoj5fB0Yv4LTPhdM7aDfq5/c2wib9EynOwUNMr2LhNKOZv9Ip/+Rna?=
- =?us-ascii?Q?+ftt/raM60U7/XBmy5xjvRLFczgopCQUmUxfRYwJeToymUswviMC2HJ9UA6e?=
- =?us-ascii?Q?a06k/5EJYS2d8vfPVJVhS+YqhkAqbwcX1yQs0Cl/1dWRh4dR+wJGj/waOYTc?=
- =?us-ascii?Q?yJ28HSKRu56ESx5IXH6LK1DDrcumMzfrc81EBLti3/go22+w6oTqnwGbmkqD?=
- =?us-ascii?Q?sP6V7xXqKjkFuT8J3mB6cjES/bbDSA2vut+dQvl6A7q8DVTvJkoVj068GHX2?=
- =?us-ascii?Q?xtRuQBrWRluaP79NYiSWJ/WhZicVYNmgqim2TZ/rx+X1oKALRBBnGHuyg2rP?=
- =?us-ascii?Q?9nI1gvhz+Da47gsGvCa21bQNHGcVfqGu3mfCyRt1NP4acuUY69wnohUTUXT/?=
- =?us-ascii?Q?tjBGcYJG9N9rBLvf3OopmRVK4buAxBcWWpvi1m4+xrwOP5nL6fJpYR0H5xGS?=
- =?us-ascii?Q?mdv7C6SJGYBQ2TDIzAtHoCeuFr791ygjM6Xmez1I3bDVJsK/FQx25MLK9+xg?=
- =?us-ascii?Q?HSNhwv/FKQawF+1elACIUkIJmsV8CtscrNfGA+uTZqQzPcNvrJoV6YJ0WtAB?=
- =?us-ascii?Q?7QHRdhZqU+iUzQcWCI1lBA55fVRtxy9eq3Q6zVK0Pbqk959ObA/sJlMt5GjX?=
- =?us-ascii?Q?H9dsmnQWItdJPFNRnFnlzgPBxAWUeturBw2pCW6XdV+404C74HlwUBQn732F?=
- =?us-ascii?Q?oeNbqgy+04gRiYeWpLtXCdlLbboQaHkElPFHv3voADQGK7e4gHi+8ZQjFlu2?=
- =?us-ascii?Q?XoNc3s/WernYnHvwl/tFqgpDw/BEuZFRgOuGnxVCZ/WegS3p/IlAxyBPB9hm?=
- =?us-ascii?Q?hTl+/Xxps4hiNpHuOv2T0P5WXi7l4i5qJklzabYX9U1XiJFeclOttag9vHLx?=
- =?us-ascii?Q?y3lgvAA9TRC1OhCHEMtLXGzG7Yoz8iDO8endmAgg8lrncT21tSOUVG2POa7b?=
- =?us-ascii?Q?DYe2i2DJcG4yWyJEthlZLL1XcQ9EK9BDG8yxc26mV62U47P6vBp9vEg8PHim?=
- =?us-ascii?Q?mZipUofEn8kXLRs6OgrybNvJYkRxz7MgfIc6zZy9nCMIG/ekUlo95P2YDS8N?=
- =?us-ascii?Q?Dz9pBUsbxDy8mje1s0olIxHw3eqeJWPsPfwLO0Nw+lZNCgTzenaSQnJoKbqC?=
- =?us-ascii?Q?bQZqDXrnbhJHCBQ4WUcGkBfD3C7vF1WnIRhk?=
+	=?us-ascii?Q?2A+1s7RxTFS988xkHiAILteWDobbnfTEasITg2w9vgncR0bhzhVp5EOBY12L?=
+ =?us-ascii?Q?chc5H8aO7IaJ1o/8VgwtZBhOsQsM4ixoBRbg9tXjqgn8M4oF/ZVwS4F+JSQF?=
+ =?us-ascii?Q?CcOXVogGb8IzrDmv1yR9B1gScaj9CGHZPIzjFiflTJs8CFjJp3+ra+9omCwj?=
+ =?us-ascii?Q?GILjrK80IDMZal6n2XffnCYNQFQgRjkqbBLRLZlDeKJ9FzjzVFQYBz6cwhfp?=
+ =?us-ascii?Q?WUsTdJCX8NNS29xzq1iZJA1Or4xunwBXZ9wmZ/v6ImOxKg+ZwxBcsGpy1lnK?=
+ =?us-ascii?Q?kLPXoWeSu3FkASMqjvLrVAZALe5xvTf1RAwX9e1NuTeHDZjzXu7i5XiusUN8?=
+ =?us-ascii?Q?cZ03ZuHUk664QxARquYLzctiCEIoep71ro3WnalCLDh2x05e/BQn+sCzfFXf?=
+ =?us-ascii?Q?IDLKfgshQf3WbsBNPvMIWvJhVX0i01GcdBKxjAI8FcPPBkvO10iY0r7sh4Rv?=
+ =?us-ascii?Q?asLIq7/EaWGJwOsp+od1OQD6HJu5/7KIre4h4WqUf3HzMZLDZWfUz1dpJr84?=
+ =?us-ascii?Q?hM0UJ0t8+ewvB6dmT/+bz+5b4G5vwt0QgNUp2oB5JasHe+akfD6RZ5XSwGKS?=
+ =?us-ascii?Q?hB+M8tBq17OghXfy1Iw/Ueo7cI+V74YXOozw0cPfvM0R78dgcjccB2CNhRX+?=
+ =?us-ascii?Q?YPxsMyNLKRi58s+7+yt1BVdUzv3keN0aproPemXZVp4eIWE3Fe9SezzYtSkn?=
+ =?us-ascii?Q?nwByPPnrZWCXymEjJ4khvHZMnQmSMbHQ7NlYPCq0qjMuiFVdIDcsc4VnTCXJ?=
+ =?us-ascii?Q?Ls3MceFWw5Z4I+nrnoaB/MYCoCspJ99smOP35K4nJA72uWrforKvL4n/j/z4?=
+ =?us-ascii?Q?ZJuBo+zKkNwRVERgrdCHquS4OVc7Cb348F5l539YVBYqqRpB04wPYuWIZVy8?=
+ =?us-ascii?Q?Eh8PdXY0rj4H0OGP+qMUPLotttnn8aU36VZmCohvI8YBkxVRtnbasFZPt68X?=
+ =?us-ascii?Q?kfhFSZdM6xPx0CDizJTA7nSdDihP7Ddvsln8hUzE5QgqS/iQzMiMfyXCYHqs?=
+ =?us-ascii?Q?jRRAM85PqAi3IEOapoDoyRRSAo7fAdpYma3Ja8woc5fIx5OY+iT6lV+yNSH6?=
+ =?us-ascii?Q?aqloJ0WRKQqhklHVi9OJIDzVqWDFIkfRxkRiz6XBjs7Xhg3ItIfTZtYMebyH?=
+ =?us-ascii?Q?ibjFfBLUI+ZjGu6VvRfUqmuD3Bb7zAyc4geqoefZyFLdkZdaW9oqcPZmE0yt?=
+ =?us-ascii?Q?yABL/WEgolVTXWHHtP7gg3J7FIUKgWvIuvpRy2Iq0IWFeEi0xiy7Pqrz9tk3?=
+ =?us-ascii?Q?zEgcv6itt3pG468ylPWw/VPYUIXfA3ELQ3JWsw1SuVQLlMchbLXmxkf5Rokw?=
+ =?us-ascii?Q?v022+2kONXMMemwbJy4iFMQWXDRSGASlO4+qKSJKLOppWJiBf/HoeeKaiUsH?=
+ =?us-ascii?Q?3Bstpj5vME05IV6w/bgcCgbYx+WcuiChYyaIzymJ10dhifEmCco4JixfuyV2?=
+ =?us-ascii?Q?q2fl7w4La6yFh/jGQb3QYcUubbVdykXCOtnch1AJ6hmRg/98OZde96zu+BNn?=
+ =?us-ascii?Q?T3oQWw4bgln3Nqs6ji/VqVpDNSnlrIXTL9ti?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(376014)(1800799024)(36860700013);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2025 07:38:42.1796
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2025 07:38:45.5184
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb8275ca-be2e-468b-7eb6-08dd80a78a27
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bbd242a-5e59-4a35-f68e-08dd80a78c24
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	BN2PEPF000055DC.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8526
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6650
 
-Function arch_do_sysctl is to perform arch-specific sysctl op.
-Some functions, like psr_get_info for x86, DTB overlay support for arm,
-are solely available through sysctl op, then they all shall be wrapped
-with CONFIG_SYSCTL
+From: Stefano Stabellini <stefano.stabellini@amd.com>
 
-Also, remove all #ifdef CONFIG_SYSCTL-s in arch-specific sysctl.c, as
-we put the guardian in Makefile for the whole file.
-Since PV_SHIM_EXCLUSIVE needs sorting as a prereq in the future, we move
-obj-$(CONFIG_SYSCTL) += sysctl.o out of PV_SHIM_EXCLUSIVE condition.
+Wrap sysctl hypercall def and sysctl.o with CONFIG_SYSCTL, and since
+PV_SHIM_EXCLUSIVE needs sorting as a prereq in the future, we move
+them out of PV_SHIM_EXCLUSIVE condition at the same time.
+
+We also need to remove all transient "#ifdef CONFIG_SYSCTL"-s in sysctl.c.
 
 Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 ---
-- use "depends on" for config OVERLAY_DTB
-- no need to wrap declaration
-- add transient #ifdef in sysctl.c for correct compilation
+v1 -> v2:
+- remove all transient "#ifdef CONFIG_SYSCTL"-s in sysctl.c
 ---
-v2 -> v3
-- move obj-$(CONFIG_SYSCTL) += sysctl.o out of PV_SHIM_EXCLUSIVE condition
-- move copyback out of #ifdef
-- add #else process for default label
+v2 -> v3:
+- move out of CONFIG_PV_SHIM_EXCLUSIVE condition
 ---
- xen/arch/arm/Kconfig   |  1 +
- xen/arch/arm/Makefile  |  2 +-
- xen/arch/arm/sysctl.c  |  2 --
- xen/arch/riscv/stubs.c |  2 +-
- xen/arch/x86/Makefile  |  2 +-
- xen/arch/x86/psr.c     | 18 ++++++++++++++++++
- xen/arch/x86/sysctl.c  |  2 --
- xen/common/sysctl.c    |  4 ++++
- 8 files changed, 26 insertions(+), 7 deletions(-)
+ xen/common/Makefile          |  2 +-
+ xen/common/sysctl.c          | 12 ------------
+ xen/include/hypercall-defs.c |  8 ++++++--
+ 3 files changed, 7 insertions(+), 15 deletions(-)
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index da8a406f5a..9ac015b0cd 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -144,6 +144,7 @@ config HAS_ITS
- 
- config OVERLAY_DTB
- 	bool "DTB overlay support (UNSUPPORTED)" if UNSUPPORTED
-+	depends on SYSCTL
- 	help
- 	  Dynamic addition/removal of Xen device tree nodes using a dtbo.
- 
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 4837ad467a..7c6015b84d 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -54,7 +54,7 @@ obj-y += smpboot.o
- obj-$(CONFIG_STATIC_EVTCHN) += static-evtchn.init.o
- obj-$(CONFIG_STATIC_MEMORY) += static-memory.init.o
- obj-$(CONFIG_STATIC_SHM) += static-shmem.init.o
--obj-y += sysctl.o
+diff --git a/xen/common/Makefile b/xen/common/Makefile
+index 98f0873056..15ab048244 100644
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -49,6 +49,7 @@ obj-y += spinlock.o
+ obj-$(CONFIG_STACK_PROTECTOR) += stack-protector.o
+ obj-y += stop_machine.o
+ obj-y += symbols.o
 +obj-$(CONFIG_SYSCTL) += sysctl.o
+ obj-y += tasklet.o
  obj-y += time.o
- obj-y += traps.o
- obj-y += vcpreg.o
-diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
-index 2d350b700a..32cab4feff 100644
---- a/xen/arch/arm/sysctl.c
-+++ b/xen/arch/arm/sysctl.c
-@@ -15,7 +15,6 @@
- #include <asm/arm64/sve.h>
- #include <public/sysctl.h>
- 
--#ifdef CONFIG_SYSCTL
- void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
- {
-     pi->capabilities |= XEN_SYSCTL_PHYSCAP_hvm | XEN_SYSCTL_PHYSCAP_hap;
-@@ -23,7 +22,6 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
-     pi->arch_capabilities |= MASK_INSR(sve_encode_vl(get_sys_vl_len()),
-                                        XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
- }
--#endif
- 
- long arch_do_sysctl(struct xen_sysctl *sysctl,
-                     XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
-diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-index 295456d0c8..cb9b90591a 100644
---- a/xen/arch/riscv/stubs.c
-+++ b/xen/arch/riscv/stubs.c
-@@ -315,13 +315,13 @@ unsigned long raw_copy_from_guest(void *to, const void __user *from,
- 
- /* sysctl.c */
- 
-+#ifdef CONFIG_SYSCTL
- long arch_do_sysctl(struct xen_sysctl *sysctl,
-                     XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
- {
-     BUG_ON("unimplemented");
- }
- 
--#ifdef CONFIG_SYSCTL
- void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
- {
-     BUG_ON("unimplemented");
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index f59c9665fd..1602f4fd21 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -64,6 +64,7 @@ obj-y += smpboot.o
- obj-y += spec_ctrl.o
- obj-y += srat.o
- obj-y += string.o
-+obj-$(CONFIG_SYSCTL) += sysctl.o
- obj-y += time.o
- obj-y += traps-setup.o
- obj-y += traps.o
-@@ -79,7 +80,6 @@ ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
+ obj-y += timer.o
+@@ -70,7 +71,6 @@ obj-$(CONFIG_COMPAT) += $(addprefix compat/,domain.o memory.o multicall.o xlat.o
+ ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
  obj-y += domctl.o
- obj-y += platform_hypercall.o
- obj-$(CONFIG_COMPAT) += x86_64/platform_hypercall.o
+ obj-$(CONFIG_VM_EVENT) += monitor.o
 -obj-y += sysctl.o
  endif
  
- extra-y += asm-macros.i
-diff --git a/xen/arch/x86/psr.c b/xen/arch/x86/psr.c
-index 5815a35335..499d320e61 100644
---- a/xen/arch/x86/psr.c
-+++ b/xen/arch/x86/psr.c
-@@ -133,9 +133,11 @@ static const struct feat_props {
-      */
-     enum psr_type alt_type;
- 
-+#ifdef CONFIG_SYSCTL
-     /* get_feat_info is used to return feature HW info through sysctl. */
-     bool (*get_feat_info)(const struct feat_node *feat,
-                           uint32_t data[], unsigned int array_len);
-+#endif
- 
-     /* write_msr is used to write out feature MSR register. */
-     void (*write_msr)(unsigned int cos, uint32_t val, enum psr_type type);
-@@ -418,6 +420,7 @@ static bool mba_init_feature(const struct cpuid_leaf *regs,
-     return true;
- }
- 
-+#ifdef CONFIG_SYSCTL
- static bool cf_check cat_get_feat_info(
-     const struct feat_node *feat, uint32_t data[], unsigned int array_len)
- {
-@@ -430,6 +433,7 @@ static bool cf_check cat_get_feat_info(
- 
-     return true;
- }
-+#endif /* CONFIG_SYSCTL */
- 
- /* L3 CAT props */
- static void cf_check l3_cat_write_msr(
-@@ -442,11 +446,14 @@ static const struct feat_props l3_cat_props = {
-     .cos_num = 1,
-     .type[0] = PSR_TYPE_L3_CBM,
-     .alt_type = PSR_TYPE_UNKNOWN,
-+#ifdef CONFIG_SYSCTL
-     .get_feat_info = cat_get_feat_info,
-+#endif
-     .write_msr = l3_cat_write_msr,
-     .sanitize = cat_check_cbm,
- };
- 
-+#ifdef CONFIG_SYSCTL
- /* L3 CDP props */
- static bool cf_check l3_cdp_get_feat_info(
-     const struct feat_node *feat, uint32_t data[], uint32_t array_len)
-@@ -458,6 +465,7 @@ static bool cf_check l3_cdp_get_feat_info(
- 
-     return true;
- }
-+#endif /* CONFIG_SYSCTL */
- 
- static void cf_check l3_cdp_write_msr(
-     unsigned int cos, uint32_t val, enum psr_type type)
-@@ -473,7 +481,9 @@ static const struct feat_props l3_cdp_props = {
-     .type[0] = PSR_TYPE_L3_DATA,
-     .type[1] = PSR_TYPE_L3_CODE,
-     .alt_type = PSR_TYPE_L3_CBM,
-+#ifdef CONFIG_SYSCTL
-     .get_feat_info = l3_cdp_get_feat_info,
-+#endif
-     .write_msr = l3_cdp_write_msr,
-     .sanitize = cat_check_cbm,
- };
-@@ -489,11 +499,14 @@ static const struct feat_props l2_cat_props = {
-     .cos_num = 1,
-     .type[0] = PSR_TYPE_L2_CBM,
-     .alt_type = PSR_TYPE_UNKNOWN,
-+#ifdef CONFIG_SYSCTL
-     .get_feat_info = cat_get_feat_info,
-+#endif
-     .write_msr = l2_cat_write_msr,
-     .sanitize = cat_check_cbm,
- };
- 
-+#ifdef CONFIG_SYSCTL
- /* MBA props */
- static bool cf_check mba_get_feat_info(
-     const struct feat_node *feat, uint32_t data[], unsigned int array_len)
-@@ -508,6 +521,7 @@ static bool cf_check mba_get_feat_info(
- 
-     return true;
- }
-+#endif /* CONFIG_SYSCTL */
- 
- static void cf_check mba_write_msr(
-     unsigned int cos, uint32_t val, enum psr_type type)
-@@ -545,7 +559,9 @@ static const struct feat_props mba_props = {
-     .cos_num = 1,
-     .type[0] = PSR_TYPE_MBA_THRTL,
-     .alt_type = PSR_TYPE_UNKNOWN,
-+#ifdef CONFIG_SYSCTL
-     .get_feat_info = mba_get_feat_info,
-+#endif
-     .write_msr = mba_write_msr,
-     .sanitize = mba_sanitize_thrtl,
- };
-@@ -808,6 +824,7 @@ static struct psr_socket_info *get_socket_info(unsigned int socket)
-     return socket_info + socket;
- }
- 
-+#ifdef CONFIG_SYSCTL
- int psr_get_info(unsigned int socket, enum psr_type type,
-                  uint32_t data[], unsigned int array_len)
- {
-@@ -839,6 +856,7 @@ int psr_get_info(unsigned int socket, enum psr_type type,
- 
-     return -EINVAL;
- }
-+#endif /* CONFIG_SYSCTL */
- 
- int psr_get_val(struct domain *d, unsigned int socket,
-                 uint32_t *val, enum psr_type type)
-diff --git a/xen/arch/x86/sysctl.c b/xen/arch/x86/sysctl.c
-index f64addbe2b..1b04947516 100644
---- a/xen/arch/x86/sysctl.c
-+++ b/xen/arch/x86/sysctl.c
-@@ -91,7 +91,6 @@ static long cf_check smt_up_down_helper(void *data)
-     return ret;
- }
- 
--#ifdef CONFIG_SYSCTL
- void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
- {
-     memcpy(pi->hw_cap, boot_cpu_data.x86_capability,
-@@ -105,7 +104,6 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
-     if ( IS_ENABLED(CONFIG_SHADOW_PAGING) )
-         pi->capabilities |= XEN_SYSCTL_PHYSCAP_shadow;
- }
--#endif /* CONFIG_SYSCTL */
- 
- long arch_do_sysctl(
-     struct xen_sysctl *sysctl, XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+ extra-y := symbols-dummy.o
 diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
-index b4feb07e60..85a1adacdd 100644
+index 85a1adacdd..08174a924d 100644
 --- a/xen/common/sysctl.c
 +++ b/xen/common/sysctl.c
-@@ -493,7 +493,11 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+@@ -58,7 +58,6 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+ 
+     switch ( op->cmd )
+     {
+-#ifdef CONFIG_SYSCTL
+     case XEN_SYSCTL_readconsole:
+         ret = xsm_readconsole(XSM_HOOK, op->u.readconsole.clear);
+         if ( ret )
+@@ -66,17 +65,14 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+ 
+         ret = read_console_ring(&op->u.readconsole);
+         break;
+-#endif /* CONFIG_SYSCTL */
+ 
+     case XEN_SYSCTL_tbuf_op:
+         ret = tb_control(&op->u.tbuf_op);
+         break;
+ 
+-#ifdef CONFIG_SYSCTL
+     case XEN_SYSCTL_sched_id:
+         op->u.sched_id.sched_id = scheduler_id();
+         break;
+-#endif /* CONFIG_SYSCTL */
+ 
+     case XEN_SYSCTL_getdomaininfolist:
+     { 
+@@ -117,7 +113,6 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+     }
+     break;
+ 
+-#ifdef CONFIG_SYSCTL
+ #ifdef CONFIG_PERF_COUNTERS
+     case XEN_SYSCTL_perfc_op:
+         ret = perfc_control(&op->u.perfc_op);
+@@ -129,7 +124,6 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+         ret = spinlock_profile_control(&op->u.lockprof_op);
+         break;
+ #endif
+-#endif /* CONFIG_SYSCTL */
+ 
+     case XEN_SYSCTL_debug_keys:
+     {
+@@ -191,7 +185,6 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+         break;
+ #endif /* CONFIG_PM_OP */
+ 
+-#ifdef CONFIG_SYSCTL
+     case XEN_SYSCTL_page_offline_op:
+     {
+         uint32_t *status, *ptr;
+@@ -302,7 +295,6 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+             ret = -EFAULT;
+     }
+     break;
+-#endif /* CONFIG_SYSCTL */
+ 
+     case XEN_SYSCTL_numainfo:
+     {
+@@ -493,11 +485,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
          break;
  
      default:
-+#ifdef CONFIG_SYSCTL
+-#ifdef CONFIG_SYSCTL
          ret = arch_do_sysctl(op, u_sysctl);
-+#else
-+        ret = -EOPNOTSUPP;
-+#endif
+-#else
+-        ret = -EOPNOTSUPP;
+-#endif
          copyback = 0;
          break;
      }
+diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
+index 7720a29ade..c1081d87a2 100644
+--- a/xen/include/hypercall-defs.c
++++ b/xen/include/hypercall-defs.c
+@@ -194,8 +194,10 @@ kexec_op(unsigned long op, void *uarg)
+ #ifdef CONFIG_IOREQ_SERVER
+ dm_op(domid_t domid, unsigned int nr_bufs, xen_dm_op_buf_t *bufs)
+ #endif
+-#ifndef CONFIG_PV_SHIM_EXCLUSIVE
++#ifdef CONFIG_SYSCTL
+ sysctl(xen_sysctl_t *u_sysctl)
++#endif
++#ifndef CONFIG_PV_SHIM_EXCLUSIVE
+ domctl(xen_domctl_t *u_domctl)
+ paging_domctl_cont(xen_domctl_t *u_domctl)
+ platform_op(xen_platform_op_t *u_xenpf_op)
+@@ -273,8 +275,10 @@ physdev_op                         compat   do       hvm      hvm      do_arm
+ #ifdef CONFIG_HVM
+ hvm_op                             do       do       do       do       do
+ #endif
+-#ifndef CONFIG_PV_SHIM_EXCLUSIVE
++#ifdef CONFIG_SYSCTL
+ sysctl                             do       do       do       do       do
++#endif
++#ifndef CONFIG_PV_SHIM_EXCLUSIVE
+ domctl                             do       do       do       do       do
+ #endif
+ #ifdef CONFIG_KEXEC
 -- 
 2.34.1
 
