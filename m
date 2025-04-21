@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48C40A94C86
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Apr 2025 08:20:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.960839.1352545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F2A5A94C87
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Apr 2025 08:20:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.960840.1352556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6kVL-0006bt-3a; Mon, 21 Apr 2025 06:19:43 +0000
+	id 1u6kVM-0006sP-H1; Mon, 21 Apr 2025 06:19:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 960839.1352545; Mon, 21 Apr 2025 06:19:43 +0000
+Received: by outflank-mailman (output) from mailman id 960840.1352556; Mon, 21 Apr 2025 06:19:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6kVK-0006Zh-WF; Mon, 21 Apr 2025 06:19:43 +0000
-Received: by outflank-mailman (input) for mailman id 960839;
- Mon, 21 Apr 2025 06:19:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u6kVM-0006pM-Df; Mon, 21 Apr 2025 06:19:44 +0000
+Received: by outflank-mailman (input) for mailman id 960840;
+ Mon, 21 Apr 2025 06:19:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rBGn=XH=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1u6kVJ-00057v-8H
+ id 1u6kVJ-00057u-Vl
  for xen-devel@lists.xenproject.org; Mon, 21 Apr 2025 06:19:41 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20617.outbound.protection.outlook.com
- [2a01:111:f403:2412::617])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9acf559b-1e78-11f0-9eb0-5ba50f476ded;
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20610.outbound.protection.outlook.com
+ [2a01:111:f403:2417::610])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9adb1e11-1e78-11f0-9ffb-bf95429c2676;
  Mon, 21 Apr 2025 08:19:40 +0200 (CEST)
-Received: from MW4P221CA0009.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::14)
- by BY5PR12MB4308.namprd12.prod.outlook.com (2603:10b6:a03:20a::9) with
+Received: from MW4P221CA0007.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::12)
+ by SA1PR12MB7246.namprd12.prod.outlook.com (2603:10b6:806:2bc::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.34; Mon, 21 Apr
- 2025 06:19:34 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.25; Mon, 21 Apr
+ 2025 06:19:35 +0000
 Received: from SJ1PEPF000026C9.namprd04.prod.outlook.com
- (2603:10b6:303:8b:cafe::9) by MW4P221CA0009.outlook.office365.com
- (2603:10b6:303:8b::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.33 via Frontend Transport; Mon,
- 21 Apr 2025 06:19:34 +0000
+ (2603:10b6:303:8b:cafe::65) by MW4P221CA0007.outlook.office365.com
+ (2603:10b6:303:8b::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.35 via Frontend Transport; Mon,
+ 21 Apr 2025 06:19:35 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SJ1PEPF000026C9.mail.protection.outlook.com (10.167.244.106) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
@@ -44,7 +44,7 @@ Received: from SATLEXMB04.amd.com (165.204.84.17) by
 Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 21 Apr
- 2025 01:19:31 -0500
+ 2025 01:19:33 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9acf559b-1e78-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: 9adb1e11-1e78-11f0-9ffb-bf95429c2676
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WNvfAJMEv7XLgzYe9TFpoBQuyt+Bp+Mtll6LrgirOU7APCrzashlGGJlJtW1Pknf8rfm9m+BQQIO3dPqYh5pUjoT+KDjSGb5B3GsJTRKYE2DsGwpLwF1x0hYpKjaRhliyqyINSPnrvxcEIM7M6yNELjWDTaIKRKBK7bAxREEOmQrVODHBgF6LzrM+/WdNeGTOHvLz99OY0bz6sEiZJFjjCG8vrFcboE0UWDiO1A4RoNQHauvVU0ddSG8W6hD6rCG9S18GeiyXUeq5ZgOAeCsYKvveD/8/byMPaekU9mDAaMYu0sOO9vX95GEHR6Cv1IbLJ5orhk89kJ4XdgtREEXYQ==
+ b=Tn8MEpAeUpxi1WOPqTQ7Ln1cZVb0qdutZuJlN3oicoYVVm1rH8V61KHmpZKUggrnwq6i+un6/WbjpeppDzIe57w6w7wTsUI/WPxZJ/eh53aDFr0hqrySYoxtXgf/ICCGku9BoZVeFceS/+ZvDvU+Nd4rcQ29xYTZbisTPsIcvUDXzPFA65A567nHkGY+GHmmaxrhAsJLKYWeuFAHJtpEVmPELvZle/ilT+KONoRHRyxPg05+LpmNB+yGjhxXDXirOtfDBlDq7mfL6lE1g4fWA2hQ8VyQs57B37Wo9oUuIdmlBhEyFPOmoIf5/HnZjhGPV3wzcLGnWxFJegdbNNwN5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cS709c8StYxHv0C0xi6qDIj8/5bc2jUhpF/cHHPrYgM=;
- b=l3Pqiw6rLW3IAxaensY7+9UPW7Zm3jOteXe/SRRjM2XtsdX3WjMbIn779u41pd/VYTtL9xqMKNRPsWgogNYE8Ihz0l9fNGDJXh0yG//ilnt7Rjz45c8vDoIpqRIVPKcSw/p2euxwQvsCmKXhtv8zOz4TYVMCMN3TZzfX1c5k4l07+M+la8z0K9sbVrZURkdyaBk5E+TZrQzNzSWYA9ZSNyDNu+FMqESeid6f+lkUtNM73JPrnYLt2AcPUmsLObXhvGa9klPduXV5n46oqFR46zjfBa0dy8VxaJ6qCrieJDq9nLY1mWauQM1qW2e4LOE7zoSbPEdrTUOzrhNO8+laMQ==
+ bh=odOrILESrhnnD+KMb8PsZKWET0NUPER1gv9psvhTkOQ=;
+ b=F4Vwc7u5ywrsSkeO8euRdniTwD0o1ZQS/2eBQ8MAk8piiWGVJ9zFc34zU8jjeV+uabuRfWAL6vjQyQI+9Ut09quEviRUtDVIrhpWtNnjIBYFRHnpAczAQ5KCXXSnKH5J0X/lp4NtdubL0UC3OAkalii+8ynfr9KfMiLnOCypEeQOK0P5m25kVPk7whB0gSrJElng3q2karwBz16w1IwnAsPRWEAP26tfAThgmBvTha9glWiVMNPdGkJoglFeeE9IWh8RKDP6NPdFEdG7hSyiVUSmha8/bMpWm2t7xb+53Xj18a/EC8kHcCnA75XpunOBzbYczJW3XD3Rn6BK3nba5w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cS709c8StYxHv0C0xi6qDIj8/5bc2jUhpF/cHHPrYgM=;
- b=Gcpxo56I6/iOk4+XCnwsBElNkawuhurT30pY4Zjz4utXmr7R5kSmwsagLNvDIKHR2fcJoaA5k+DqueTbz+cjUpnTj/iB6l54EqdhaQMLtfc+ptVODDUrdPPbFB/OEWY/psEN+LWG60jMmdXBWw/RUXYpnTBjLZnX5LIr3i622q0=
+ bh=odOrILESrhnnD+KMb8PsZKWET0NUPER1gv9psvhTkOQ=;
+ b=GaKGjpiX5esZx7ZrAYpe6ryRzA/j/efXMc12OJ8eAq1AstpIe+9wzCx14dc4DR1uJMuhC2Ffl0edE3145dbqm/x40nwb1zdrl0XbO6ppSWT3ErWO/uBUQKcCQRJYkKN4VYiSzmih0kD81BDaVKWd+AF092PNNMmUQ3LKWXx/wn8=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -82,9 +82,9 @@ From: Jiqian Chen <Jiqian.Chen@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v3 06/11] vpci: Hide legacy capability when it fails to initialize
-Date: Mon, 21 Apr 2025 14:18:58 +0800
-Message-ID: <20250421061903.1542652-7-Jiqian.Chen@amd.com>
+Subject: [PATCH v3 07/11] vpci: Hide extended capability when it fails to initialize
+Date: Mon, 21 Apr 2025 14:18:59 +0800
+Message-ID: <20250421061903.1542652-8-Jiqian.Chen@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250421061903.1542652-1-Jiqian.Chen@amd.com>
 References: <20250421061903.1542652-1-Jiqian.Chen@amd.com>
@@ -96,79 +96,82 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C9:EE_|BY5PR12MB4308:EE_
-X-MS-Office365-Filtering-Correlation-Id: ebac3c6e-198f-4e8d-8cc1-08dd809c7c19
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C9:EE_|SA1PR12MB7246:EE_
+X-MS-Office365-Filtering-Correlation-Id: da781faf-2e47-4a79-a585-08dd809c7ca8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?SENIOThza2lQS3ora0x3RjJRejRiSVd6LzNTSXR5ZG5USmgveFJIc3VmaVov?=
- =?utf-8?B?MUtRbFBLRkxiZUJUcTRMSkI2MHFHQUhpRGVJQ08wTW5DYjFtTVc1aFBjS0xk?=
- =?utf-8?B?UzJXSzJqNlJVNzVWY3VibGZjMTM2cEt0Rk9TcW81Y1B2SUVZdkIwL3ovSWtq?=
- =?utf-8?B?N1RmMkxqL2ZBbDQ4eitzNllJTk14dDRpUGd5MHdGUVAwSHhYWUxRS1o2RDBX?=
- =?utf-8?B?UlNPK2tBWlA1bWtSNHh1ck9jYmp5eEthMDRKQjBmdlpWUHFaYnRTZFBNN0Fn?=
- =?utf-8?B?aDZjU3FWQnlWS3l3K21WZ3BveTZqR0wwV3VUemsvaTRFQVJaamJkRms0YWRs?=
- =?utf-8?B?RjB2TlN4MnJCN1NrR1lzZ2VXQ1g5VWU1eGxPem92Tjh6UStjYjVMNXNnclBl?=
- =?utf-8?B?dzFSd3dKSEQ2TG44TktudGlFRElkVHJ1Rk9pQTViTTRJN2xWZlZxTklodjZW?=
- =?utf-8?B?Vm11RXFZc05WNTlLaWFFckljVlZCQnd3SmErekhqRk1yVVBWTkJKUEt0cWYx?=
- =?utf-8?B?OU52SHYwWUF4bEkzTkhzUVcxVmQyTTVBb29XY3VJMnlZRVJ3OERLWTdaUG5i?=
- =?utf-8?B?NThvZThHRGlyTEdzQlpGaDFvNVB4WTkxbU5TTXNtbytVRzhnaHc4a3BIU2VJ?=
- =?utf-8?B?Zm4zZEJTcFpZZkRjUWM4RGFjNjBkcmhQcU9vMVV1b1NNQUhVajl6ZEs1eEYx?=
- =?utf-8?B?QTZhTXJKRmhNbE02T3JoRjVyeFFMOW8vVDgzdXh4TCtqWXRGWCt6d0dBeTlY?=
- =?utf-8?B?c0lOcFZrRmdRVDlXOEhwODBiYTNaa2hYd0FBdjJLbDNrQk9wcURENmIzQWVx?=
- =?utf-8?B?RTdLZ0t5Z2I3NW5GdHdIRGs3aUpBVkRNaTFDZGttVnRiejg3RnhWanhvekd3?=
- =?utf-8?B?dFV2dU9YWDJoK1I5N0hZTFBvbUVmeWhLcURKanJoNlByQ3dEaVdBN0RVVmNv?=
- =?utf-8?B?Wkp2NzY2V1gxYnphdEtTTE9zT2FMTXFYcWJkMEVPQ3IzYUx2SzNCUVJyelNp?=
- =?utf-8?B?MlRjT0lyRXkrNXNodjF5YUgyTTFHaW5abmtwbkVLbVlQaFBBa0s0Q0tLdloy?=
- =?utf-8?B?RWZtUk4zMUJIR29YbkwwUVFCTENhU0s4dkVBTmNEOXc1SU1adHlVMmM5NENz?=
- =?utf-8?B?SUkweFNUKytNUEV3RW01YWZlYWtGemFnVHNRWnEzY21CMWpNTW5oRGIyd2VF?=
- =?utf-8?B?RWljNWJ4SzVOZzh0dHNMbDFleGxJWTIvekM3SHRxbXJWZ2wxV1hWWU5RVmJW?=
- =?utf-8?B?SU5jNHpZVHh5RVdBRjVaYkRQN0dWdTA3UFNSWTF1V2F3cWhnenVINTVEMnoy?=
- =?utf-8?B?TzMrMkRjRzA1aUVIVHB2TktwdWRLNk1UNVpFbDQvSVYxMlAxR0JUSVoxVDZC?=
- =?utf-8?B?RnpLT1pWendnakI5UkpGeFcrSlE0VFhESzNkTTRUZXJTWkRucHJCUWhibjc3?=
- =?utf-8?B?emFHZ0JZYXBPaXptdEY5ZlBxYy9VcG1ycjI4ZnRsQTkzTmJQU1ozbmMvY3cv?=
- =?utf-8?B?c20rUUh0bTNTUjIwRi9qUkdqRHZ4MnZoQVZTSGtUWjhBTmZBY2xsUlVMZWww?=
- =?utf-8?B?NzI0RFgxdkpqbkdJNndLK2NHRk5DMnlSOThIRlpydmZUcDl5Z1ZFUXh0TnBN?=
- =?utf-8?B?K0xNcTltMVlDQ3J5SUZIMG04bnpFS0Mya0RuWVdGaXdiL3NVS2Rsa0d0M2M1?=
- =?utf-8?B?MmxiUWZDOTR1Q0RRZHpVY2JFWlZRVzMzZ2UxUlJoUHBEdzNyMzhGRC96Skor?=
- =?utf-8?B?dFdNbHJBQlcrcHk3NW5uTitlTlIrY08waUV5ZGJZamZ2SHRkUkdNby9LWXNV?=
- =?utf-8?B?RmRveG9YMVZmMFRoTkRuSHI0RGpxY0xWYVBrQ2lYbjZaMHhRY05hZDJxa3pj?=
- =?utf-8?B?OGRSQThhNUZQQXZTaFFsa2taUUlyeE90NHNpUUpudUdBNU1XbkN1Q25OQ3JX?=
- =?utf-8?B?ZEpJMVpHM3A4eGtGK2VKNzBLeEE2NXV5TFBHaDd5b0ZPaXFkQXJlV2hrUkpu?=
- =?utf-8?B?ZjZ5ZisrL09HcjMvNkdDTnpDT1lvdkppbnYwUTdURTdEckFPY25IYVdaSE5R?=
- =?utf-8?Q?Q+Zhl1?=
+	=?utf-8?B?ZnRNZGxmMTZkZWVxOUdPdVFGb3FjVWJpYmwxOFFMaWo0MFdkYjhjM0xFU082?=
+ =?utf-8?B?VE1FK2p2UVg1bTdWVURSa3NnUUI1UmpkaFkyVnNvazVBRkdGWVMxWXBmd1B0?=
+ =?utf-8?B?UStLZ2kvMDlEaHlNSlVESHdhaVZHNXhIMHpkUitNK0NBYzdld0ZMQ25HQlZ5?=
+ =?utf-8?B?ZXl2UHZqZktRcFF2MWlvRHd2LzAvc2UzV0t5WklMVmQvSlRvdHB6d21EUEcx?=
+ =?utf-8?B?WmovemQ0OW4yZTEySk8vUXEyelNtYm9xUEFPcFAwTlNrOGk2OHRWamdibUR3?=
+ =?utf-8?B?L1ZTNWhSSDJLcGtOYmVaVm5TbjRYeTBBNnc5dTdWaGRBb0VXUy9pd0FrMzNx?=
+ =?utf-8?B?K0tRdCtmZXA4c0xYb1pyUExKNjdBY09lMXUrbDBPZTRxNkNjRyt2MkMwejZv?=
+ =?utf-8?B?Y2tRTlBVMERrNlp4eURGQkplSmlIbGkyNTd1WFBDakpMZnM2VmVEdVVkVVdw?=
+ =?utf-8?B?ZDhBdm1RS3lXV08zbGRZeW1ndzNjR2pVSVdUOGUwaWJCbEJqd1hSQmE3OUk0?=
+ =?utf-8?B?TFEvdDQ4THk2RitpYTlUc1Ywa2d5ZVJaS0R5MC9jOFk2ZjJ4dVJQU0p0TTBl?=
+ =?utf-8?B?ZFNDUkRKOUl6cEtVUzlKc2ZEQVd4RmptQ0M3Z2w0K0xiMjE2VkJHZWNrdUda?=
+ =?utf-8?B?MktnSTUxcWRjOHBwTko1c0tXUHRLUnYrMStWbEFoRS9RVHlFei9wRkR5SlJK?=
+ =?utf-8?B?WkJ4Q3BoVDNyN0dDVlUvMm03bnJES2dwVDBqVVl0OTlTZTBoSGthRmk0Z1RS?=
+ =?utf-8?B?TkhqYzQ0bmNyZi9zM251aDFrK2pnZm43bms3eG5HUnRCRyswcFR3WHFuRHZ4?=
+ =?utf-8?B?V0g0WjJNTEt0TTZkaE5GWERDUGpWSmpQZ1pGcDYvRzBua29BOVBrS0hDaGU1?=
+ =?utf-8?B?bnB0cDNuaFpuWFJQbGhaclhGRVFGK2hOUnV0ZFdRTFpvR2xjdmJjQk56a3Jv?=
+ =?utf-8?B?VlFjUVJEZ1EyeTlSd1VuTW53M1BnWDF0S2lET3NYYkxMcWhrNGZlTWJuT1VW?=
+ =?utf-8?B?clZzVFY0VzlHWmVCQjVVZlU1dDJhNHk0Ym5tRW5GSVZsMlBIaHdNbERZUFkx?=
+ =?utf-8?B?K3Uyc3pwRjBHS1B3VVpZbzJ0bnpmUm9PdnlabVZ1TU5WMU53SC91RE9hdmFw?=
+ =?utf-8?B?ZDFubktCdURvaGc3RGFYYTh1cHd1cVNla2hoQkRuYnJBbnlvU0ZWY0djNmds?=
+ =?utf-8?B?Vy9aMmJWOFU4anREQUZDeEQ0cWJua2NHVWZMNmNFNGFKbHk1ZXprR3pUVzhk?=
+ =?utf-8?B?b0RGRHZReGVJVmh4dU1KQlg0VHF3QTlEa1JlUmNiWi9xcVpiVms4OG5GN2hR?=
+ =?utf-8?B?RXRGZHBhRUptOTU1V1JWeGI3QVJYTkg0QlJldlVKL09nTWZtbU9TanlQVGVq?=
+ =?utf-8?B?ZlEwK3p2R28zYlJRcUxteDdkZjFkU2w3cXhpdnNPRnh5bEFRZHNzZWQrM1pv?=
+ =?utf-8?B?dGgwNVhMclFVYTdZS1VXWjlmeS9TV1RoODY5QzdVbE9abHBWTzJ2Ykh6ZFVt?=
+ =?utf-8?B?Yi9qNFFjUDN0RlVQNmorRzdxUmVZOGNidWxXZi9jUHNnZUJsZUthWjJXTDQy?=
+ =?utf-8?B?NllsV3ZpZndianJreWdzSW5DcjdHdG81UDN2cDVuN2YrbS9mUVRFVmN4YStp?=
+ =?utf-8?B?VSt6RXF1MzkzcDM1OXZpTDRSWHNaaWJsQ1pBdUVIZjBSQU5aTE82TnN5aGNm?=
+ =?utf-8?B?MmFMZ1hKK25VdzgxZzY1c0RuRldiSU5YQWNSSEpJblRPNG42KzVIU0xJTVFt?=
+ =?utf-8?B?cHNheDVQaENueW5sR3pPOHYxbERLeUs0eE02ZlpmcmdpWGRIZndTYXpuTjRG?=
+ =?utf-8?B?SGxmeFVZazg2ZEcwN2MveHpLYlFzaWZGZXJ3U044bHoyVGd1RFN0a3dFRHBC?=
+ =?utf-8?B?VnNobTNmb01OeUR6cUxBV3ZTcWowNGhrajdaenJNTkdkdlpOSDFQcHRHbkox?=
+ =?utf-8?B?bGg2cnhBUk5sVFZVUHYrWGNxY0NYMTRiM2tJamlqeXNmdEdIbnEzRHo0YkdH?=
+ =?utf-8?B?dUNtSWNjSTBGR3FOR1hYcVVzSUt1MkFyNzFGWEtEcEx4NjdBYU5FWVNhMlpP?=
+ =?utf-8?Q?Msera9?=
 X-Forefront-Antispam-Report:
 	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2025 06:19:34.0530
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2025 06:19:34.9908
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ebac3c6e-198f-4e8d-8cc1-08dd809c7c19
+X-MS-Exchange-CrossTenant-Network-Message-Id: da781faf-2e47-4a79-a585-08dd809c7ca8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	SJ1PEPF000026C9.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4308
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7246
 
-When vpci fails to initialize a legacy capability of device, it just
-return error instead of catching and processing exception. That makes
-the entire device unusable.
+When vpci fails to initialize a extended capability of device for dom0,
+it just return error instead of catching and processing exception. That
+makes the entire device unusable.
 
-So, add new a function to hide legacy capability when initialization
-fails. And remove the failed legacy capability from the vpci emulated
-legacy capability list.
+So, add new a function to hide extended capability when initialization
+fails. And remove the failed extended capability handler from vpci
+extended capability list.
 
 Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 ---
 cc: "Roger Pau Monné" <roger.pau@citrix.com>
 ---
 v2->v3 changes:
-* Separated from the last version patch "vpci: Hide capability when it fails to initialize"
+* Separated from the last version patch "vpci: Hide capability when it fails to initialize".
 * Whole implementation changed because last version is wrong.
-  This version adds a new helper function vpci_get_register() and uses it to get
-  target handler and previous handler from vpci->handlers, then remove the target.
+  This version gets target handler and previous handler from vpci->handlers, then remove the target.
+* Note: a case in function vpci_ext_capability_mask() needs to be discussed,
+  because it may change the offset of next capability when the offset of target
+  capability is 0x100U(the first extended capability), my implementation is just to
+  ignore and let hardware to handle the target capability.
 
 v1->v2 changes:
 * Removed the "priorities" of initializing capabilities since it isn't used anymore.
@@ -179,182 +182,119 @@ v1->v2 changes:
 Best regards,
 Jiqian Chen.
 ---
- xen/drivers/vpci/vpci.c | 133 +++++++++++++++++++++++++++++++++-------
- 1 file changed, 112 insertions(+), 21 deletions(-)
+ xen/drivers/vpci/vpci.c    | 79 ++++++++++++++++++++++++++++++++++++++
+ xen/include/xen/pci_regs.h |  1 +
+ 2 files changed, 80 insertions(+)
 
 diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index 5474b66668c1..f97c7cc460a0 100644
+index f97c7cc460a0..8ff5169bdd18 100644
 --- a/xen/drivers/vpci/vpci.c
 +++ b/xen/drivers/vpci/vpci.c
-@@ -35,6 +35,22 @@ struct vpci_register {
-     uint32_t rsvdz_mask;
- };
+@@ -183,6 +183,83 @@ static void vpci_capability_mask(struct pci_dev *pdev,
+     xfree(next_r);
+ }
  
-+static int vpci_register_cmp(const struct vpci_register *r1,
-+                             const struct vpci_register *r2)
-+{
-+    /* Return 0 if registers overlap. */
-+    if ( r1->offset < r2->offset + r2->size &&
-+         r2->offset < r1->offset + r1->size )
-+        return 0;
-+    if ( r1->offset < r2->offset )
-+        return -1;
-+    if ( r1->offset > r2->offset )
-+        return 1;
-+
-+    ASSERT_UNREACHABLE();
-+    return 0;
-+}
-+
- #ifdef __XEN__
- extern vpci_capability_t *const __start_vpci_array[];
- extern vpci_capability_t *const __end_vpci_array[];
-@@ -83,7 +99,91 @@ static int assign_virtual_sbdf(struct pci_dev *pdev)
- 
- #endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
- 
--static int vpci_init_capabilities(struct pci_dev *pdev)
-+static struct vpci_register *vpci_get_register(struct vpci *vpci,
-+                                               const unsigned int offset,
-+                                               const unsigned int size)
-+{
-+    const struct vpci_register r = { .offset = offset, .size = size };
-+    struct vpci_register *rm;
-+
-+    ASSERT(spin_is_locked(&vpci->lock));
-+    list_for_each_entry ( rm, &vpci->handlers, node )
-+    {
-+        int cmp = vpci_register_cmp(&r, rm);
-+
-+        if ( !cmp && rm->offset == offset && rm->size == size )
-+            return rm;
-+        if ( cmp <= 0 )
-+            break;
-+    }
-+
-+    return NULL;
-+}
-+
-+static struct vpci_register *vpci_get_previous_cap_register
++static struct vpci_register *vpci_get_previous_ext_cap_register
 +                (struct vpci *vpci, const unsigned int offset)
 +{
-+    uint32_t next;
++    uint32_t header;
++    unsigned int pos = PCI_CFG_SPACE_SIZE;
 +    struct vpci_register *r;
 +
-+    if ( offset < 0x40 )
++    if ( offset <= PCI_CFG_SPACE_SIZE )
 +        return NULL;
 +
-+    r = vpci_get_register(vpci, PCI_CAPABILITY_LIST, 1);
++    r = vpci_get_register(vpci, pos, 4);
 +    ASSERT(r);
 +
-+    next = (uint32_t)(uintptr_t)r->private;
-+    while ( next >= 0x40 && next != offset )
++    header = (uint32_t)(uintptr_t)r->private;
++    pos = PCI_EXT_CAP_NEXT(header);
++    while ( pos > PCI_CFG_SPACE_SIZE && pos != offset )
 +    {
-+        r = vpci_get_register(vpci, next + PCI_CAP_LIST_NEXT, 1);
++        r = vpci_get_register(vpci, pos, 4);
 +        ASSERT(r);
-+        next = (uint32_t)(uintptr_t)r->private;
++        header = (uint32_t)(uintptr_t)r->private;
++        pos = PCI_EXT_CAP_NEXT(header);
 +    }
 +
-+    if ( next < 0x40 )
++    if ( pos <= PCI_CFG_SPACE_SIZE )
 +        return NULL;
 +
 +    return r;
 +}
 +
-+static void vpci_capability_mask(struct pci_dev *pdev,
-+                                 const unsigned int cap)
++static void vpci_ext_capability_mask(struct pci_dev *pdev,
++                                     const unsigned int cap)
 +{
-+    const unsigned int offset = pci_find_cap_offset(pdev->sbdf, cap);
-+    struct vpci_register *prev_next_r, *next_r;
++    const unsigned int offset = pci_find_ext_capability(pdev->sbdf, cap);
++    struct vpci_register *rm, *prev_r;
 +    struct vpci *vpci = pdev->vpci;
++    uint32_t header, pre_header;
 +
 +    spin_lock(&vpci->lock);
-+    next_r = vpci_get_register(vpci, offset + PCI_CAP_LIST_NEXT, 1);
-+    if ( !next_r )
++    rm = vpci_get_register(vpci, offset, 4);
++    if ( !rm )
 +    {
 +        spin_unlock(&vpci->lock);
 +        return;
 +    }
 +
-+    prev_next_r = vpci_get_previous_cap_register(vpci, offset);
-+    ASSERT(prev_next_r);
-+
-+    prev_next_r->private = next_r->private;
-+
-+    if ( !is_hardware_domain(pdev->domain) )
++    header = (uint32_t)(uintptr_t)rm->private;
++    if ( offset == PCI_CFG_SPACE_SIZE )
 +    {
-+        struct vpci_register *id_r =
-+            vpci_get_register(vpci, offset + PCI_CAP_LIST_ID, 1);
-+
-+        ASSERT(id_r);
-+        /* PCI_CAP_LIST_ID register of target capability */
-+        list_del(&id_r->node);
-+        xfree(id_r);
++        if ( PCI_EXT_CAP_NEXT(header) <= PCI_CFG_SPACE_SIZE )
++            rm->private = (void *)(uintptr_t)0;
++        else
++            /*
++             * Else case needs to remove the capability in position 0x100U and
++             * moves the next capability to be in position 0x100U, that would
++             * cause the offset of next capability in vpci different from the
++             * hardware, then cause error accesses, so just ignore it here and
++             * hope hardware would handle the capability well.
++            */
++            printk(XENLOG_ERR "%pd %pp: ext cap %u is first cap, can't mask it\n",
++                   pdev->domain, &pdev->sbdf, cap);
++        spin_unlock(&vpci->lock);
++        return;
 +    }
 +
-+    /* PCI_CAP_LIST_NEXT register of target capability */
-+    list_del(&next_r->node);
++    prev_r = vpci_get_previous_ext_cap_register(vpci, offset);
++    ASSERT(prev_r);
++
++    pre_header = (uint32_t)(uintptr_t)prev_r->private;
++    prev_r->private = (void *)(uintptr_t)((pre_header &
++                                           ~PCI_EXT_CAP_NEXT_MASK) |
++                                          (header & PCI_EXT_CAP_NEXT_MASK));
++
++    list_del(&rm->node);
 +    spin_unlock(&vpci->lock);
-+    xfree(next_r);
++    xfree(rm);
 +}
 +
-+static void vpci_init_capabilities(struct pci_dev *pdev)
+ static void vpci_init_capabilities(struct pci_dev *pdev)
  {
      for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
-     {
-@@ -107,10 +207,17 @@ static int vpci_init_capabilities(struct pci_dev *pdev)
-         rc = capability->init(pdev);
- 
-         if ( rc )
--            return rc;
-+        {
-+            if ( capability->fini )
-+                capability->fini(pdev);
-+
-+            printk(XENLOG_WARNING "%pd %pp: %s cap %u init fail rc=%d, mask it\n",
-+                   pdev->domain, &pdev->sbdf,
-+                   is_ext ? "extended" : "legacy", cap, rc);
-+            if ( !is_ext )
-+                vpci_capability_mask(pdev, cap);
-+        }
+@@ -216,6 +293,8 @@ static void vpci_init_capabilities(struct pci_dev *pdev)
+                    is_ext ? "extended" : "legacy", cap, rc);
+             if ( !is_ext )
+                 vpci_capability_mask(pdev, cap);
++            else
++                vpci_ext_capability_mask(pdev, cap);
+         }
      }
--
--    return 0;
  }
+diff --git a/xen/include/xen/pci_regs.h b/xen/include/xen/pci_regs.h
+index 27b4f44eedf3..5fe6653fded4 100644
+--- a/xen/include/xen/pci_regs.h
++++ b/xen/include/xen/pci_regs.h
+@@ -449,6 +449,7 @@
+ #define PCI_EXT_CAP_ID(header)		((header) & 0x0000ffff)
+ #define PCI_EXT_CAP_VER(header)		(((header) >> 16) & 0xf)
+ #define PCI_EXT_CAP_NEXT(header)	(((header) >> 20) & 0xffc)
++#define PCI_EXT_CAP_NEXT_MASK		0xFFC00000U
  
- void vpci_deassign_device(struct pci_dev *pdev)
-@@ -192,7 +299,7 @@ int vpci_assign_device(struct pci_dev *pdev)
-     if ( rc )
-         goto out;
- 
--    rc = vpci_init_capabilities(pdev);
-+    vpci_init_capabilities(pdev);
- 
-  out:
-     if ( rc )
-@@ -202,22 +309,6 @@ int vpci_assign_device(struct pci_dev *pdev)
- }
- #endif /* __XEN__ */
- 
--static int vpci_register_cmp(const struct vpci_register *r1,
--                             const struct vpci_register *r2)
--{
--    /* Return 0 if registers overlap. */
--    if ( r1->offset < r2->offset + r2->size &&
--         r2->offset < r1->offset + r1->size )
--        return 0;
--    if ( r1->offset < r2->offset )
--        return -1;
--    if ( r1->offset > r2->offset )
--        return 1;
--
--    ASSERT_UNREACHABLE();
--    return 0;
--}
--
- /* Dummy hooks, writes are ignored, reads return 1's */
- static uint32_t cf_check vpci_ignored_read(
-     const struct pci_dev *pdev, unsigned int reg, void *data)
+ #define PCI_EXT_CAP_ID_ERR	1
+ #define PCI_EXT_CAP_ID_VC	2
 -- 
 2.34.1
 
