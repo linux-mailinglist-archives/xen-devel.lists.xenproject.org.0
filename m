@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91C40A95768
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Apr 2025 22:39:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.961444.1352875 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C966A9579C
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Apr 2025 22:56:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.961481.1352885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6xve-0006O6-C2; Mon, 21 Apr 2025 20:39:46 +0000
+	id 1u6yAb-0001oD-NC; Mon, 21 Apr 2025 20:55:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 961444.1352875; Mon, 21 Apr 2025 20:39:46 +0000
+Received: by outflank-mailman (output) from mailman id 961481.1352885; Mon, 21 Apr 2025 20:55:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6xve-0006M0-7F; Mon, 21 Apr 2025 20:39:46 +0000
-Received: by outflank-mailman (input) for mailman id 961444;
- Mon, 21 Apr 2025 20:39:44 +0000
+	id 1u6yAb-0001ld-KE; Mon, 21 Apr 2025 20:55:13 +0000
+Received: by outflank-mailman (input) for mailman id 961481;
+ Mon, 21 Apr 2025 20:55:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nRXx=XH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1u6xvc-0005oc-3L
- for xen-devel@lists.xenproject.org; Mon, 21 Apr 2025 20:39:44 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [2604:1380:45d1:ec00::3])
+ id 1u6yAa-0001lX-MU
+ for xen-devel@lists.xenproject.org; Mon, 21 Apr 2025 20:55:12 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0516620-1ef0-11f0-9ffb-bf95429c2676;
- Mon, 21 Apr 2025 22:39:42 +0200 (CEST)
+ id e4fc0fd5-1ef2-11f0-9ffb-bf95429c2676;
+ Mon, 21 Apr 2025 22:55:03 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 4A62AA4BE06;
- Mon, 21 Apr 2025 20:34:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33651C4CEE4;
- Mon, 21 Apr 2025 20:39:40 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 4F1825C5844;
+ Mon, 21 Apr 2025 20:52:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B3E8C4CEE4;
+ Mon, 21 Apr 2025 20:54:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,100 +41,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0516620-1ef0-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: e4fc0fd5-1ef2-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745267981;
-	bh=cIrFY4mi3gt5JfhJgxVvgR0f8dlTZkXRBoOuVORCxkA=;
+	s=k20201202; t=1745268901;
+	bh=BVbkA8k/6Gw/DKOJPmwEaGiYujMyEDeKrZ0qw9jWziM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=pL/hiug3wpumaOr1ZYIEBbIlGO+ULSvx5r3wGIagrTol2CIDW2tB5Ujy/g0/splQF
-	 aHu6crh1kVtj4b0s6qUsNu3T5JHUgKmxGTBzdEHox0tPyhysoLA+yvzDwiaIH6UMO3
-	 Nd01t/tQEuv4j9abDivzI8JF///ST2T2dE6JZpLmdVUybf+5A/y9wdoPP5Jvb6/xSe
-	 j1crDP5H7lpKJjEllAg1mEtIZXUkSBY9SyF7Abu/gzk/XVeoFYuYNwsScEDvwNK9JL
-	 Pc7cFUcsshlIp9nE+r37JVkhFRszQTaGV7+02nCl2KutgZ+hmF94ybcS5zntJO/nx8
-	 VHkFOGNIyw4Fg==
-Date: Mon, 21 Apr 2025 13:39:38 -0700 (PDT)
+	b=rkOHoUBWR35D316Nv90zERlWkQ4WCoaBgQy32PbZZD9glAthkeXE1GYxliEaUrIfA
+	 Ab7PbtZObdUVI1+4Qs8ziS1xf5Ow3f6SVo7Cb1uoN+9n9jfLk2eihcisPlLS5YTOfI
+	 3UfQM6EmenFlLEzEDYT6uP18Op+i60B0kxmo9CRn+GVoh2VBVaZzuO/iFCtc3B/iEK
+	 OmwLYs2M40f6gzpr1uNIG7jMXBMsSgmCPrLdXF0fxyHLxxh9K+nlwQ2bVcVZisBiNk
+	 u+AI9BVC2rmP53vj+Ke7rXfKQF9o9zEQpO16La5FFQ/oM21/KfMCjzuQ4Awq9aaJlB
+	 XdShKBJnx98KA==
+Date: Mon, 21 Apr 2025 13:54:58 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: dmkhn@proton.me
-cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
-    cardoe@cardoe.com, marmarek@invisiblethingslab.com, sstabellini@kernel.org, 
-    dmukhin@ford.com
-Subject: Re: [PATCH v2 4/4] CI: add argo x86 XTF test
-In-Reply-To: <20250419010319.2572518-5-dmukhin@ford.com>
-Message-ID: <alpine.DEB.2.22.394.2504211338530.785180@ubuntu-linux-20-04-desktop>
-References: <20250419010319.2572518-1-dmukhin@ford.com> <20250419010319.2572518-5-dmukhin@ford.com>
+To: Penny Zheng <Penny.Zheng@amd.com>
+cc: xen-devel@lists.xenproject.org, ray.huang@amd.com, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Subject: Re: [PATCH v3 02/20] xen: introduce CONFIG_SYSCTL
+In-Reply-To: <20250421073723.3863060-3-Penny.Zheng@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2504211354290.785180@ubuntu-linux-20-04-desktop>
+References: <20250421073723.3863060-1-Penny.Zheng@amd.com> <20250421073723.3863060-3-Penny.Zheng@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Sat, 19 Apr 2025, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
+On Mon, 21 Apr 2025, Penny Zheng wrote:
+> From: Stefano Stabellini <stefano.stabellini@amd.com>
 > 
-> Introduce new CI job to run x86 XTF argo test under QEMU to smoke test argo
-> feature functionality in upstream CI.
+> We introduce a new Kconfig CONFIG_SYSCTL, which shall only be disabled
+> on some dom0less systems, to reduce Xen footprint.
 > 
-> The new job lead time is ~30s, limit max job duration to 60s.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
-> Depends on
->    https://lore.kernel.org/xen-devel/20250416050443.919751-1-dmukhin@ford.com/
+> v2 -> v3:
+> - remove "intend to" in commit message
 > ---
->  automation/gitlab-ci/test.yaml        | 9 +++++++++
->  automation/scripts/include/xtf-runner | 7 +++++++
->  2 files changed, 16 insertions(+)
+>  xen/common/Kconfig | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
 > 
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index d6e4a0a622..9001efb45c 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -691,6 +691,15 @@ qemu-smoke-x86-64-gcc-efi:
->    needs:
->      - debian-12-x86_64-gcc-debug
+> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+> index be28060716..d89e9ede77 100644
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -581,4 +581,15 @@ config BUDDY_ALLOCATOR_SIZE
+>  	  Amount of memory reserved for the buddy allocator to serve Xen heap,
+>  	  working alongside the colored one.
 >  
-> +qemu-xtf-argo-x86_64-gcc-debug:
-> +  extends: .qemu-smoke-x86-64
-> +  variables:
-> +    TEST_TIMEOUT_OVERRIDE: 60
-> +  script:
-> +    - ./automation/scripts/qemu-xtf.sh x86-64 pv64 argo 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - alpine-3.18-gcc-debug
+> +menu "Supported hypercall interfaces"
+> +	visible if EXPERT
 > +
->  qemu-smoke-riscv64-gcc:
->    extends: .qemu-riscv64
->    script:
-> diff --git a/automation/scripts/include/xtf-runner b/automation/scripts/include/xtf-runner
-> index 320eb65dc8..b7fea52dad 100644
-> --- a/automation/scripts/include/xtf-runner
-> +++ b/automation/scripts/include/xtf-runner
-> @@ -68,6 +68,9 @@ function xtf_build_cmdline()
->      local xtf_variant=$1
->      local xtf_name=$2
->      declare -a cmdline=()
-> +    declare -A per_test_args=(
-> +        [argo]="argo=1 mac-permissive=1"
-> +    )
->  
->      cmdline+=("${XEN_CMDLINE}")
->  
-> @@ -76,6 +79,10 @@ function xtf_build_cmdline()
->          cmdline+=("dom0-iommu=none dom0=pvh")
->      fi
->  
-> +    if [[ -v per_test_args[${xtf_name}] ]]; then
-> +        cmdline+=("${per_test_args[${xtf_name}]}")
-> +    fi
+> +config SYSCTL
+> +	bool "Enable sysctl hypercall"
+> +	default y
+> +	help
+> +	  This option shall only be disabled on some dom0less systems,
+> +	  to reduce Xen footprint.
+> +endmenu
 > +
->      export XEN_CMDLINE="${cmdline[@]}"
->  }
->  
+>  endmenu
 > -- 
 > 2.34.1
-> 
 > 
 
