@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97B41A94D60
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Apr 2025 09:41:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.961079.1352716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF66CA94D67
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Apr 2025 09:41:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.961103.1352766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6lm1-0007P7-Vp; Mon, 21 Apr 2025 07:41:01 +0000
+	id 1u6lmC-0000s4-BT; Mon, 21 Apr 2025 07:41:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 961079.1352716; Mon, 21 Apr 2025 07:41:01 +0000
+Received: by outflank-mailman (output) from mailman id 961103.1352766; Mon, 21 Apr 2025 07:41:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u6lm1-0007MZ-R4; Mon, 21 Apr 2025 07:41:01 +0000
-Received: by outflank-mailman (input) for mailman id 961079;
- Mon, 21 Apr 2025 07:41:00 +0000
+	id 1u6lmC-0000mi-11; Mon, 21 Apr 2025 07:41:12 +0000
+Received: by outflank-mailman (input) for mailman id 961103;
+ Mon, 21 Apr 2025 07:41:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Kh51=XH=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1u6ljM-0007m8-E4
- for xen-devel@lists.xenproject.org; Mon, 21 Apr 2025 07:38:16 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on20610.outbound.protection.outlook.com
- [2a01:111:f403:2406::610])
+ id 1u6ljR-0007m8-61
+ for xen-devel@lists.xenproject.org; Mon, 21 Apr 2025 07:38:21 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20622.outbound.protection.outlook.com
+ [2a01:111:f403:2408::622])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 95daf4f8-1e83-11f0-9eb0-5ba50f476ded;
- Mon, 21 Apr 2025 09:38:15 +0200 (CEST)
-Received: from BN9PR03CA0146.namprd03.prod.outlook.com (2603:10b6:408:fe::31)
- by CY3PR12MB9632.namprd12.prod.outlook.com (2603:10b6:930:100::14)
+ id 97ad78e9-1e83-11f0-9eb0-5ba50f476ded;
+ Mon, 21 Apr 2025 09:38:19 +0200 (CEST)
+Received: from MN0PR05CA0025.namprd05.prod.outlook.com (2603:10b6:208:52c::13)
+ by MW6PR12MB8952.namprd12.prod.outlook.com (2603:10b6:303:246::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.33; Mon, 21 Apr
- 2025 07:38:10 +0000
-Received: from BN2PEPF000055E0.namprd21.prod.outlook.com
- (2603:10b6:408:fe:cafe::1e) by BN9PR03CA0146.outlook.office365.com
- (2603:10b6:408:fe::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.35 via Frontend Transport; Mon,
- 21 Apr 2025 07:38:09 +0000
+ 2025 07:38:13 +0000
+Received: from BN2PEPF000055DD.namprd21.prod.outlook.com
+ (2603:10b6:208:52c:cafe::3a) by MN0PR05CA0025.outlook.office365.com
+ (2603:10b6:208:52c::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.12 via Frontend Transport; Mon,
+ 21 Apr 2025 07:38:12 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF000055E0.mail.protection.outlook.com (10.167.245.10) with Microsoft
+ BN2PEPF000055DD.mail.protection.outlook.com (10.167.245.7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8678.4 via Frontend Transport; Mon, 21 Apr 2025 07:38:09 +0000
+ 15.20.8678.4 via Frontend Transport; Mon, 21 Apr 2025 07:38:12 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 21 Apr 2025 02:38:07 -0500
+ 15.1.2507.39; Mon, 21 Apr 2025 02:38:09 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95daf4f8-1e83-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: 97ad78e9-1e83-11f0-9eb0-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rL/tl4vMXt8mdTOIFj8PYSfpuOU3WaSrPjO6IprncEYqiBCzgMs5SsZpCX9xVRpxeN68t0I0xFgfJAveMQSn3Jc+o41TiEfWuvxFtxsWmY2hrbTWUbmiuMmgwZyf/S2Tzq8aCo+QkvQXsBa9RLwMK/EHJIQpPn29tvsaAjb/tJtYINrLl7sPAsSqkbll6+dukv1AkTSXGJ95zCHdgchD1gB0lKrW+2ygJMwBNoPpeKQ7VrW2pSW+2IDIckKNTB3S+aEni0dPlVuzi39pnkumz7uap+tFvFoir31IH5dizTyv9zNJmJyr4CqLZD4+/i/ikC/HEva98WKWC1fTSmX1wg==
+ b=JoMF1mmFDBLaXxhLTXNQmUiU9lj49fR+vbvY5U07GQghEoS4KdkrCTbAzJ8gExgKJhU8422qBMm76ljEz5UrBIBsewRF/LZnuxRbuk/0JMNLBVrF59EjHq+eeFetdeT0jElaKE9vaB6TGF2Lbw7ZsTf5h5GBcJpq6veCQrya+PUOZf7TZEqxtrFSCh6Rgej4zl+RbSYSAzYYf8Pyn64i32NRfpTgcqD5LQcOFTKgp7vC8GwYb58TO4DcXNUyQOHiZR5dKegYVZ6SOzuYD92BNpm25SpkDOw4bQZRZ8iYbfdP2TQBoPbg2BITKpWCBlhNyoWDDNs9Sw/xwjQjVuX/bw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cFdEVvM9KEbTQvEO5iqh931D2sWFuvZKZpuM2Z14a5o=;
- b=lJVERPWZZoTr0Zcx6F/lJQrzfQ2D5tQFqRQZMk3jyl7WL383CpCG8K3mre3xSBAqAscTCpeLTt1NEc77s8YRhz7dako+aqS5jaIzIviRjgr4YTyxyJTj8DeP/RT+3ShQIot+ZBww27Qu2qShNjhUiXVU89ONtJsI7/OWHcjmcXlmjTchKZx/F7jiJNmpvrp2uw3NZHRBUpyAqgs43QKCXiOnQTm3aqJzqYNChUHbZ1ZyfIGOL2czm82csTfMfgPSLw2hXX7tTRSk+3MjWgEzexiJADUhYKcivbyMLHf51ahECMFB9mUP2zMjv/a4qN/nqea+0PvEm4zcttd4OM4CgQ==
+ bh=o5lZPUfoWXCbTowP6nydOmEPoS2TEqlQPUd7Xt/sLXQ=;
+ b=YonJ3ZVYhczEqtBKB4N5Lcd/vg5LTzKzeiuDYQhpUJ4hS7ad7ShIQAtbeSgrv6Ndkgz49/0vxf8QLQY/Hrto9OUR52JKYH84x9HCNa1OJvOjLGThG24+Tj+QzceeTxJeP8R90JwJdaEtWFAQDRm/fVG1xsVfpfZddVHaKDn1ARyaWesDozEa64hilx4NrktGeEaIvwOUeiXlFd7SXzGaQKr5Y/WJpV0IbAGN0Q3W3l7HvNLhoNcbr9bmIO2gckn0/y971TTWMTvcGoKhJ5inWYiXGb//PsjTfq0i+PTJNyrtZmufCOdMYvAz0T51kx2tYYMm14nypUEXnSpwOAsHFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cFdEVvM9KEbTQvEO5iqh931D2sWFuvZKZpuM2Z14a5o=;
- b=Mkrm8kZwMZqwAPy4Xs6fSlXmr7Iz8QdEDQPe9nIXzgnMTb7uGRgfUyJsQeBJvuiy/v9oouVF+xt7E4+dLG/KpQaP3AfwNfC5YiYmVtSv4gPerztQkdE9lwwGb7018RAOR71hL0d+0AmyQ5+LMK3haDFwQUl7LoN1fDmJ8Ej+nKw=
+ bh=o5lZPUfoWXCbTowP6nydOmEPoS2TEqlQPUd7Xt/sLXQ=;
+ b=SG1URyxTJSqkleQwJUYi5M4arfuj3lJY89aDhVs1LlRyqcefmMuqvUZ7s8/rk+Eg5Nsu78UkLOeRDvSPvZK6M3IkZd3Ztrgf4eYqdTzFKMygLj76oNKDwxqu5PaZ8aaXJive3KgHCcOKzXavDuSX3XGOZyVZn5anyC9eapZMQBk=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -81,10 +81,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 From: Penny Zheng <Penny.Zheng@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 09/20] xen/pmstat: consolidate code into pmstat.c
-Date: Mon, 21 Apr 2025 15:37:12 +0800
-Message-ID: <20250421073723.3863060-10-Penny.Zheng@amd.com>
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v3 10/20] xen/pmstat: introduce CONFIG_PM_OP
+Date: Mon, 21 Apr 2025 15:37:13 +0800
+Message-ID: <20250421073723.3863060-11-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250421073723.3863060-1-Penny.Zheng@amd.com>
 References: <20250421073723.3863060-1-Penny.Zheng@amd.com>
@@ -96,558 +99,1103 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055E0:EE_|CY3PR12MB9632:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0894b769-d5fb-4dc7-e806-08dd80a77684
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DD:EE_|MW6PR12MB8952:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e8d57e2-2107-47c4-af5d-08dd80a77855
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?RNrRbsxkRWNs5G3Y/uf809jDFFBp+f74k1X/9GOLYCFnHSZN+knOJWWxJFWh?=
- =?us-ascii?Q?gtH7RmTV8K9W1yHkbUTiCrNazRJstPuHO7xoWqwh1Yp03gA7g3H51gjksOQA?=
- =?us-ascii?Q?QuZpou2ABuxoygud+HP66b79KeqHNXuLE+bC/OaSMCh0XvW0yrn1OTa6lAJl?=
- =?us-ascii?Q?e/v1+S/XjFG7nlmvotfhpUHlGFc9T5WrZO8GZHYdRFjL0F4M4AQCcnzLFQdM?=
- =?us-ascii?Q?GUZ2OHkQYSDicC98wTZOYVFgUp5Qb41brgqNLgEac6kWdgNrB6ZgmeZb4Tao?=
- =?us-ascii?Q?vGD6HATvyLLjvzVubwXLipVwboCsiiSSMnql3kYDK7OyUYOqqSbqQyAok/eS?=
- =?us-ascii?Q?z0A1MzrH5FCEDkRdWWosCs9YFVf/youvvLXEd7gczWmfi+YbjzA3j7UhFGZn?=
- =?us-ascii?Q?1mfzx7jeDSvL7W3shHG1iJRbCtWTNtVESCwX1eKCak95sjaJeQhxNvgZGIHe?=
- =?us-ascii?Q?mktCrCSnr5Isd7riUsk8DzQMvBK0cYo5bEJV4rxyEpRtF9FFqYeocSLYvVBh?=
- =?us-ascii?Q?VCfTRrZP14TsKTvnNjFjxkrzVbvNauy3ijPQPhEexx0Ww90eF8qfBsFri+Jh?=
- =?us-ascii?Q?h5h2Ull/cbWlljfB7celXq3LDAymdzjVgI2b9mzALezor2aecW9oxzAe781a?=
- =?us-ascii?Q?Z+Iyi7QdHQUMjN6xtW2iAa7ZjwOUQgka6T1vNbDmt4bFWjUwIVJHAyS45cZy?=
- =?us-ascii?Q?WpHc4H2xHUPd3Gfxa4L8vufwmoCV4Hv574HOYVCKJRXCTpsxrLoPRrrP8FLn?=
- =?us-ascii?Q?R+dg2k+j3/PtImVuwjZJZmz82alM4hDqhavmeHox8Q6okmRL/Uc4Z1BtsxJo?=
- =?us-ascii?Q?WxY/oW21SXzEzhwpPpWOBantLunzOz2N2rTWE8gYf2O8lIfU5yYXuxFSIb1Y?=
- =?us-ascii?Q?kDBXZd8cIMhg7vNsibBa+LCOhWJELk3qITIvz6oo/t32k31K07imipNQX8NK?=
- =?us-ascii?Q?zSyoyKpuu/nO1tTYoEZNmmMv1uhQK0jBt1gNVY6KNBckBY8gMumd6dXMkuZb?=
- =?us-ascii?Q?YTgnrZiBIuNRcq2DuPO2NIscxI9nz4nELtzaqKKhcdA2toL/agTRIe9AXPGF?=
- =?us-ascii?Q?ol48OfnZ6nPeyJeLMUCbxlBbPCWqsis1gBNQTaJ6bckZEMNA/KpT/YJf320Z?=
- =?us-ascii?Q?v6beS+4z89AJCnt91UmUavVO+kWF5U5L9M1Be+WDUmj+zO/jeaWsMdA+vLrY?=
- =?us-ascii?Q?apwZ3OeQ1tTkn/ezrlCrrxQw48J/FXYbDMmoLm7Zetr6+Mb4e9WOSxcqq1dx?=
- =?us-ascii?Q?SnxTnl3orkm6A4FPUCs0swRMEakjqB4LiY3+OK9/CxA2EMRV+3y1XEJljRrI?=
- =?us-ascii?Q?ZIc/c9iXdmaNlBH8PU0rjY9K8HbgQyFCrgErCo+pevcgXx6ndhiQn7gxPzz3?=
- =?us-ascii?Q?7KBLKdFELfEsrg7xJSIIsDT4DoWZC5QMkRImjKZIZNo+J7k/6YL4O0aMG74C?=
- =?us-ascii?Q?vKPv39DvrZc9ZO3ndqs7PYjm1l+CNXTgODsOG4npf2qdeRfjW1ScaiiEPBVe?=
- =?us-ascii?Q?z8hG/1R1C/OvBhdZi+O1Fr1L+bYvsbmOZPKc?=
+	=?us-ascii?Q?PaCBwlSkn1CPT9Eq1Tsocz5r7liu2Ne6NSD6sDPsugQ2nAvwj3YiZF/fNil/?=
+ =?us-ascii?Q?Uh5xhGmfxug4DeQcZbqNTfBozPO/7KWr1YFOZlDeJHKue0EEcgGQOtaF7dBU?=
+ =?us-ascii?Q?mgmRo7QtVidAyrXXk+1mLzOzyjXWWzLQmOIdDteDvObbuxcNnyyFNm2lXG1U?=
+ =?us-ascii?Q?ieEtQxv68Sa5CORUqyasgMSZ0VUcL/SeYrZJsNXNyCnO8KdZG9avhhNXKh/L?=
+ =?us-ascii?Q?8vfG24sBrtvflhJLIMV0CH777Ewzb7RdTo5JRl0+i+Wd8P1uwAcP06HY4V+K?=
+ =?us-ascii?Q?3CC+shq5OVyNMuc45kfy64pReqvmJwUnfVnRR9j4d79AqhZn52bXdN/7i/OE?=
+ =?us-ascii?Q?pQerlRkID9Nh781d+hwBiK8vRdl5O0pd2zbx6E7sR6da8QwMN0T2EPCiO2rJ?=
+ =?us-ascii?Q?ryP2S223gwNHRn+kKxAl7RsLPNEdWX6PPH48Whiz6HmDOJuUqt+DIn5g+F6O?=
+ =?us-ascii?Q?WSsDF5Q04EzOOW0BwlDxnO7WdxE2eSDXHpFayX5k56LN1yIL5eS0i2LjIE/E?=
+ =?us-ascii?Q?joFtbPETt3QRpgehoPyUEKYtoYl3UkxcHY2xM6zTAozPrgeh6BkYvewG9DKO?=
+ =?us-ascii?Q?KsK07IS5nvnzNZFoIMq6EvywEod5PO3WXTSiZOD+fxNT08u1fenVyz3//v6u?=
+ =?us-ascii?Q?N04Z3d4X0fFDrTELx9yPfF+tJk7uN5ZDxPEReWPhds3IW8eH4AqmAByjlj1F?=
+ =?us-ascii?Q?k7paGJAdYGVIfXT5fzkJLW/n/foxTSgpAc2EQ9uRElj6EBw3ojC8N/iCDCHr?=
+ =?us-ascii?Q?ubnm+NJKrTdqIcNHJnZc2gltIVqnog1sWOl1KllsnnfMhplu+pnQbcfZDMf5?=
+ =?us-ascii?Q?w/M2m6iNh4aNyqRBcLpAVbIrjndLqOo07xnjiSPlPJR8XHHLMEo/gsGaKPQP?=
+ =?us-ascii?Q?RW/fYHWqMj6K44oRBFzt84AfpR45y0oN6q/eOycGXD4sdydqxOHd1ltOaeRE?=
+ =?us-ascii?Q?BNK1ClU6l9HsNcT5PmyLO7KxYvWkrzfgexGWMrRyz/3k23LIi2y8a8UPVxbZ?=
+ =?us-ascii?Q?gOLs9TnmYgdggShiHVGMO7jUlp/OAWhtENzatj/urbz6V7LFT0FuaI0Qy1Ip?=
+ =?us-ascii?Q?Ldrx6u9CJch72EN50CIunfHY8mgpq1ZenwyixhehY5ALny8bRs98nQGqOWmW?=
+ =?us-ascii?Q?XGd9xxdZ7Qs6RDvckqbuhn+CpTROlkx9xqAm//uTHwo7klU5F2PhbHqtM9vP?=
+ =?us-ascii?Q?odrIUTj6IPko6Y5yPgMHSMcwEBjrUjdDHF25CE4PF5wN8wefiP/B23e4R/RU?=
+ =?us-ascii?Q?kAjWCr1qM0f8/oeB1Yh0xAB2zbjioP2s/Mx5k81Awo9Lva/wRz9EeIvp+p2B?=
+ =?us-ascii?Q?KLQZm7YvOt/hdQh2UR7C+vdGFZ5KcgZNmpnAFDdnpIOib36Ff7V6K50fOn5T?=
+ =?us-ascii?Q?Ekky9FJp8QpwjUhX392vbz/mMSC/YJIHZ3A6FGfemqi6x6ocn2JxkLdeCI3R?=
+ =?us-ascii?Q?XIU5WunyPUxYFlkGni4xqsjdNxLmURMq9ns3hhLa2x9Lsf8+BPhvGRIPLxHu?=
+ =?us-ascii?Q?WOlhUwxoVW/691JHF5QasZq9HlyMyh7kL66u?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2025 07:38:09.2362
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2025 07:38:12.2824
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0894b769-d5fb-4dc7-e806-08dd80a77684
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e8d57e2-2107-47c4-af5d-08dd80a77855
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055E0.namprd21.prod.outlook.com
+	BN2PEPF000055DD.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9632
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8952
 
-We move the following functions into drivers/acpi/pmstat.c, as they
-are all designed for performance statistic:
-- cpufreq_residency_update
-- cpufreq_statistic_reset
-- cpufreq_statistic_update
-- cpufreq_statistic_init
-- cpufreq_statistic_exit
-Consequently, variable "cpufreq_statistic_data" and "cpufreq_statistic_lock"
-shall become static.
-We also move out acpi_set_pdc_bits(), as it is the handler for sub-hypercall
-XEN_PM_PDC, and shall stay with the other handlers together in
-drivers/cpufreq/cpufreq.c.
+We move the following functions into a new file drivers/acpi/pm_op.c, as
+they are all more fitting in performance controling and only called by
+do_pm_op():
+ - get_cpufreq_para()
+ - set_cpufreq_para()
+ - set_cpufreq_gov()
+ - set_cpufreq_cppc()
+ - cpufreq_driver_getavg()
+ - cpufreq_update_turbo()
+ - cpufreq_get_turbo_status()
+We introduce a new Kconfig CONFIG_PM_OP to wrap the new file.
 
+Also, although the following helpers are only called by do_pm_op(), they have
+dependency on local variable, we wrap them with CONFIG_PM_OP in place:
+ - write_userspace_scaling_setspeed()
+ - write_ondemand_sampling_rate()
+ - write_ondemand_up_threshold()
+ - get_cpufreq_ondemand_para()
+ - cpufreq_driver.update()
+ - get_hwp_para()
 Various style corrections shall be applied at the same time while moving these
 functions, including:
-- brace for if() and for() shall live at a seperate line
-- add extra space before and after bracket of if() and for()
-- use array notation
-- convert uint32_t into unsigned int
-- convert u32 into uint32_t
+ - add extra space before and after bracket of if() and switch()
+ - fix indentation
 
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
-v2 -> v3:
-- brace for if() and for() shall live at a seperate line
-- use array notation
-- convert uint32_t into unsigned int
+v2 -> v3
+- new commit
 ---
- xen/drivers/acpi/pmstat.c                 | 202 ++++++++++++++++++----
- xen/drivers/cpufreq/cpufreq.c             |  31 ++++
- xen/drivers/cpufreq/utility.c             | 162 -----------------
- xen/include/acpi/cpufreq/cpufreq.h        |   2 -
- xen/include/acpi/cpufreq/processor_perf.h |   4 -
- 5 files changed, 201 insertions(+), 200 deletions(-)
+ xen/arch/x86/acpi/cpufreq/hwp.c              |   6 +
+ xen/arch/x86/acpi/cpufreq/powernow.c         |   4 +
+ xen/common/Kconfig                           |   7 +
+ xen/common/sysctl.c                          |   4 +-
+ xen/drivers/acpi/Makefile                    |   1 +
+ xen/drivers/acpi/pm_op.c                     | 409 +++++++++++++++++++
+ xen/drivers/acpi/pmstat.c                    | 357 ----------------
+ xen/drivers/cpufreq/cpufreq_misc_governors.c |   2 +
+ xen/drivers/cpufreq/cpufreq_ondemand.c       |   2 +
+ xen/drivers/cpufreq/utility.c                |  41 --
+ xen/include/acpi/cpufreq/cpufreq.h           |   3 -
+ 11 files changed, 434 insertions(+), 402 deletions(-)
+ create mode 100644 xen/drivers/acpi/pm_op.c
 
-diff --git a/xen/drivers/acpi/pmstat.c b/xen/drivers/acpi/pmstat.c
-index c51b9ca358..abfdc45cc2 100644
---- a/xen/drivers/acpi/pmstat.c
-+++ b/xen/drivers/acpi/pmstat.c
-@@ -41,7 +41,176 @@
- #include <acpi/cpufreq/cpufreq.h>
- #include <xen/pmstat.h>
+diff --git a/xen/arch/x86/acpi/cpufreq/hwp.c b/xen/arch/x86/acpi/cpufreq/hwp.c
+index d5fa3d47ca..e4c09244ab 100644
+--- a/xen/arch/x86/acpi/cpufreq/hwp.c
++++ b/xen/arch/x86/acpi/cpufreq/hwp.c
+@@ -466,6 +466,7 @@ static int cf_check hwp_cpufreq_cpu_exit(struct cpufreq_policy *policy)
+     return 0;
+ }
  
--DEFINE_PER_CPU_READ_MOSTLY(struct pm_px *, cpufreq_statistic_data);
-+static DEFINE_PER_CPU_READ_MOSTLY(struct pm_px *, cpufreq_statistic_data);
++#ifdef CONFIG_PM_OP
+ /*
+  * The SDM reads like turbo should be disabled with MSR_IA32_PERF_CTL and
+  * PERF_CTL_TURBO_DISENGAGE, but that does not seem to actually work, at least
+@@ -508,6 +509,7 @@ static int cf_check hwp_cpufreq_update(unsigned int cpu, struct cpufreq_policy *
+ 
+     return per_cpu(hwp_drv_data, cpu)->ret;
+ }
++#endif /* CONFIG_PM_OP */
+ 
+ static const struct cpufreq_driver __initconst_cf_clobber
+ hwp_cpufreq_driver = {
+@@ -516,9 +518,12 @@ hwp_cpufreq_driver = {
+     .target = hwp_cpufreq_target,
+     .init   = hwp_cpufreq_cpu_init,
+     .exit   = hwp_cpufreq_cpu_exit,
++#ifdef CONFIG_PM_OP
+     .update = hwp_cpufreq_update,
++#endif
+ };
+ 
++#ifdef CONFIG_PM_OP
+ int get_hwp_para(unsigned int cpu,
+                  struct xen_cppc_para *cppc_para)
+ {
+@@ -639,6 +644,7 @@ int set_hwp_para(struct cpufreq_policy *policy,
+ 
+     return hwp_cpufreq_target(policy, 0, 0);
+ }
++#endif /* CONFIG_PM_OP */
+ 
+ int __init hwp_register_driver(void)
+ {
+diff --git a/xen/arch/x86/acpi/cpufreq/powernow.c b/xen/arch/x86/acpi/cpufreq/powernow.c
+index 69364e1855..12fca45b45 100644
+--- a/xen/arch/x86/acpi/cpufreq/powernow.c
++++ b/xen/arch/x86/acpi/cpufreq/powernow.c
+@@ -49,6 +49,7 @@ static void cf_check transition_pstate(void *pstate)
+     wrmsrl(MSR_PSTATE_CTRL, *(unsigned int *)pstate);
+ }
+ 
++#ifdef CONFIG_PM_OP
+ static void cf_check update_cpb(void *data)
+ {
+     struct cpufreq_policy *policy = data;
+@@ -77,6 +78,7 @@ static int cf_check powernow_cpufreq_update(
+ 
+     return 0;
+ }
++#endif /* CONFIG_PM_OP */
+ 
+ static int cf_check powernow_cpufreq_target(
+     struct cpufreq_policy *policy,
+@@ -324,7 +326,9 @@ powernow_cpufreq_driver = {
+     .target = powernow_cpufreq_target,
+     .init   = powernow_cpufreq_cpu_init,
+     .exit   = powernow_cpufreq_cpu_exit,
++#ifdef CONFIG_PM_OP
+     .update = powernow_cpufreq_update
++#endif
+ };
+ 
+ unsigned int __init powernow_register_driver(void)
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 9cccc37232..ca1f692487 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -593,4 +593,11 @@ config SYSCTL
+ 	  to reduce Xen footprint.
+ endmenu
+ 
++config PM_OP
++	bool "Enable Performance Management Operation"
++	depends on ACPI && HAS_CPUFREQ && SYSCTL
++	default y
++	help
++	  This option shall enable userspace performance management control
++	  to do power/performance analyzing and tuning.
+ endmenu
+diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
+index 2fe76362b1..4ab827b694 100644
+--- a/xen/common/sysctl.c
++++ b/xen/common/sysctl.c
+@@ -181,13 +181,15 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+     case XEN_SYSCTL_get_pmstat:
+         ret = do_get_pm_info(&op->u.get_pmstat);
+         break;
++#endif
+ 
++#ifdef CONFIG_PM_OP
+     case XEN_SYSCTL_pm_op:
+         ret = do_pm_op(&op->u.pm_op);
+         if ( ret == -EAGAIN )
+             copyback = 1;
+         break;
+-#endif
++#endif /* CONFIG_PM_OP */
+ 
+     case XEN_SYSCTL_page_offline_op:
+     {
+diff --git a/xen/drivers/acpi/Makefile b/xen/drivers/acpi/Makefile
+index 2fc5230253..e1f84a4468 100644
+--- a/xen/drivers/acpi/Makefile
++++ b/xen/drivers/acpi/Makefile
+@@ -6,6 +6,7 @@ obj-bin-y += tables.init.o
+ obj-$(CONFIG_ACPI_NUMA) += numa.o
+ obj-y += osl.o
+ obj-$(CONFIG_HAS_CPUFREQ) += pmstat.o
++obj-$(CONFIG_PM_OP) += pm_op.o
+ 
+ obj-$(CONFIG_X86) += hwregs.o
+ obj-$(CONFIG_X86) += reboot.o
+diff --git a/xen/drivers/acpi/pm_op.c b/xen/drivers/acpi/pm_op.c
+new file mode 100644
+index 0000000000..3123cb9556
+--- /dev/null
++++ b/xen/drivers/acpi/pm_op.c
+@@ -0,0 +1,409 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
 +
-+static DEFINE_PER_CPU(spinlock_t, cpufreq_statistic_lock);
++#include <xen/acpi.h>
++#include <xen/domain.h>
++#include <xen/errno.h>
++#include <xen/guest_access.h>
++#include <xen/lib.h>
++#include <xen/sched.h>
 +
-+/*********************************************************************
-+ *                    Px STATISTIC INFO                              *
-+ *********************************************************************/
++#include <acpi/cpufreq/cpufreq.h>
++#include <public/platform.h>
++#include <public/sysctl.h>
 +
-+static void cpufreq_residency_update(unsigned int cpu, uint8_t state)
++/*
++ * 1. Get PM parameter
++ * 2. Provide user PM control
++ */
++static int cpufreq_update_turbo(unsigned int cpu, int new_state)
 +{
-+    uint64_t now, total_idle_ns;
-+    int64_t delta;
-+    struct pm_px *pxpt = per_cpu(cpufreq_statistic_data, cpu);
++    struct cpufreq_policy *policy;
++    int curr_state;
++    int ret = 0;
 +
-+    total_idle_ns = get_cpu_idle_time(cpu);
-+    now = NOW();
-+
-+    delta = (now - pxpt->prev_state_wall) -
-+            (total_idle_ns - pxpt->prev_idle_wall);
-+
-+    if ( likely(delta >= 0) )
-+        pxpt->u.pt[state].residency += delta;
-+
-+    pxpt->prev_state_wall = now;
-+    pxpt->prev_idle_wall = total_idle_ns;
-+}
-+
-+void cpufreq_statistic_update(unsigned int cpu, uint8_t from, uint8_t to)
-+{
-+    struct pm_px *pxpt;
-+    const struct processor_pminfo *pmpt = processor_pminfo[cpu];
-+    spinlock_t *cpufreq_statistic_lock =
-+               &per_cpu(cpufreq_statistic_lock, cpu);
-+
-+    spin_lock(cpufreq_statistic_lock);
-+
-+    pxpt = per_cpu(cpufreq_statistic_data, cpu);
-+    if ( !pxpt || !pmpt )
-+    {
-+        spin_unlock(cpufreq_statistic_lock);
-+        return;
-+    }
-+
-+    pxpt->u.last = from;
-+    pxpt->u.cur = to;
-+    pxpt->u.pt[to].count++;
-+
-+    cpufreq_residency_update(cpu, from);
-+
-+    pxpt->u.trans_pt[from * pmpt->perf.state_count + to]++;
-+
-+    spin_unlock(cpufreq_statistic_lock);
-+}
-+
-+int cpufreq_statistic_init(unsigned int cpu)
-+{
-+    unsigned int i, count;
-+    struct pm_px *pxpt;
-+    const struct processor_pminfo *pmpt = processor_pminfo[cpu];
-+    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
-+
-+    spin_lock_init(cpufreq_statistic_lock);
-+
-+    if ( !pmpt )
++    if ( new_state != CPUFREQ_TURBO_ENABLED &&
++         new_state != CPUFREQ_TURBO_DISABLED )
 +        return -EINVAL;
 +
-+    spin_lock(cpufreq_statistic_lock);
++    policy = per_cpu(cpufreq_cpu_policy, cpu);
++    if ( !policy )
++        return -EACCES;
 +
-+    pxpt = per_cpu(cpufreq_statistic_data, cpu);
-+    if ( pxpt )
-+    {
-+        spin_unlock(cpufreq_statistic_lock);
++    if ( policy->turbo == CPUFREQ_TURBO_UNSUPPORTED )
++        return -EOPNOTSUPP;
++
++    curr_state = policy->turbo;
++    if ( curr_state == new_state )
 +        return 0;
-+    }
 +
-+    count = pmpt->perf.state_count;
-+
-+    pxpt = xzalloc(struct pm_px);
-+    if ( !pxpt )
++    policy->turbo = new_state;
++    if ( cpufreq_driver.update )
 +    {
-+        spin_unlock(cpufreq_statistic_lock);
-+        return -ENOMEM;
++        ret = alternative_call(cpufreq_driver.update, cpu, policy);
++        if ( ret )
++            policy->turbo = curr_state;
 +    }
-+    per_cpu(cpufreq_statistic_data, cpu) = pxpt;
-+
-+    pxpt->u.trans_pt = xzalloc_array(uint64_t, count * count);
-+    if ( !pxpt->u.trans_pt )
-+    {
-+        xfree(pxpt);
-+        spin_unlock(cpufreq_statistic_lock);
-+        return -ENOMEM;
-+    }
-+
-+    pxpt->u.pt = xzalloc_array(struct pm_px_val, count);
-+    if ( !pxpt->u.pt )
-+    {
-+        xfree(pxpt->u.trans_pt);
-+        xfree(pxpt);
-+        spin_unlock(cpufreq_statistic_lock);
-+        return -ENOMEM;
-+    }
-+
-+    pxpt->u.total = pmpt->perf.state_count;
-+    pxpt->u.usable = pmpt->perf.state_count - pmpt->perf.platform_limit;
-+
-+    for ( i = 0; i < pmpt->perf.state_count; i++ )
-+        pxpt->u.pt[i].freq = pmpt->perf.states[i].core_frequency;
-+
-+    pxpt->prev_state_wall = NOW();
-+    pxpt->prev_idle_wall = get_cpu_idle_time(cpu);
-+
-+    spin_unlock(cpufreq_statistic_lock);
-+
-+    return 0;
-+}
-+
-+void cpufreq_statistic_exit(unsigned int cpu)
-+{
-+    struct pm_px *pxpt;
-+    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
-+
-+    spin_lock(cpufreq_statistic_lock);
-+
-+    pxpt = per_cpu(cpufreq_statistic_data, cpu);
-+    if ( !pxpt )
-+    {
-+        spin_unlock(cpufreq_statistic_lock);
-+        return;
-+    }
-+
-+    xfree(pxpt->u.trans_pt);
-+    xfree(pxpt->u.pt);
-+    xfree(pxpt);
-+    per_cpu(cpufreq_statistic_data, cpu) = NULL;
-+
-+    spin_unlock(cpufreq_statistic_lock);
-+}
-+
-+static void cpufreq_statistic_reset(unsigned int cpu)
-+{
-+    unsigned int i, j, count;
-+    struct pm_px *pxpt;
-+    const struct processor_pminfo *pmpt = processor_pminfo[cpu];
-+    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
-+
-+    spin_lock(cpufreq_statistic_lock);
-+
-+    pxpt = per_cpu(cpufreq_statistic_data, cpu);
-+    if ( !pmpt || !pxpt || !pxpt->u.pt || !pxpt->u.trans_pt )
-+    {
-+        spin_unlock(cpufreq_statistic_lock);
-+        return;
-+    }
-+
-+    count = pmpt->perf.state_count;
-+
-+    for ( i = 0; i < count; i++ )
-+    {
-+        pxpt->u.pt[i].residency = 0;
-+        pxpt->u.pt[i].count = 0;
-+
-+        for ( j = 0; j < count; j++ )
-+            pxpt->u.trans_pt[i * count + j] = 0;
-+    }
-+
-+    pxpt->prev_state_wall = NOW();
-+    pxpt->prev_idle_wall = get_cpu_idle_time(cpu);
-+
-+    spin_unlock(cpufreq_statistic_lock);
-+}
- 
- /*
-  * Get PM statistic info
-@@ -518,34 +687,3 @@ int do_pm_op(struct xen_sysctl_pm_op *op)
- 
-     return ret;
- }
--
--int acpi_set_pdc_bits(uint32_t acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
--{
--    u32 bits[3];
--    int ret;
--
--    if ( copy_from_guest(bits, pdc, 2) )
--        ret = -EFAULT;
--    else if ( bits[0] != ACPI_PDC_REVISION_ID || !bits[1] )
--        ret = -EINVAL;
--    else if ( copy_from_guest_offset(bits + 2, pdc, 2, 1) )
--        ret = -EFAULT;
--    else
--    {
--        u32 mask = 0;
--
--        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_CX )
--            mask |= ACPI_PDC_C_MASK | ACPI_PDC_SMP_C1PT;
--        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_PX )
--            mask |= ACPI_PDC_P_MASK | ACPI_PDC_SMP_C1PT;
--        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_TX )
--            mask |= ACPI_PDC_T_MASK | ACPI_PDC_SMP_C1PT;
--        bits[2] &= (ACPI_PDC_C_MASK | ACPI_PDC_P_MASK | ACPI_PDC_T_MASK |
--                    ACPI_PDC_SMP_C1PT) & ~mask;
--        ret = arch_acpi_set_pdc_bits(acpi_id, bits, mask);
--    }
--    if ( !ret && __copy_to_guest_offset(pdc, 2, bits + 2, 1) )
--        ret = -EFAULT;
--
--    return ret;
--}
-diff --git a/xen/drivers/cpufreq/cpufreq.c b/xen/drivers/cpufreq/cpufreq.c
-index 19e2992335..c2d777e0ec 100644
---- a/xen/drivers/cpufreq/cpufreq.c
-+++ b/xen/drivers/cpufreq/cpufreq.c
-@@ -588,6 +588,37 @@ out:
-     return ret;
- }
- 
-+int acpi_set_pdc_bits(unsigned int acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
-+{
-+    uint32_t bits[3];
-+    int ret;
-+
-+    if ( copy_from_guest(bits, pdc, 2) )
-+        ret = -EFAULT;
-+    else if ( bits[0] != ACPI_PDC_REVISION_ID || !bits[1] )
-+        ret = -EINVAL;
-+    else if ( copy_from_guest_offset(bits + 2, pdc, 2, 1) )
-+        ret = -EFAULT;
-+    else
-+    {
-+        uint32_t mask = 0;
-+
-+        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_CX )
-+            mask |= ACPI_PDC_C_MASK | ACPI_PDC_SMP_C1PT;
-+        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_PX )
-+            mask |= ACPI_PDC_P_MASK | ACPI_PDC_SMP_C1PT;
-+        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_TX )
-+            mask |= ACPI_PDC_T_MASK | ACPI_PDC_SMP_C1PT;
-+        bits[2] &= (ACPI_PDC_C_MASK | ACPI_PDC_P_MASK | ACPI_PDC_T_MASK |
-+                    ACPI_PDC_SMP_C1PT) & ~mask;
-+        ret = arch_acpi_set_pdc_bits(acpi_id, bits, mask);
-+    }
-+    if ( !ret && __copy_to_guest_offset(pdc, 2, bits + 2, 1) )
-+        ret = -EFAULT;
 +
 +    return ret;
 +}
 +
- static void cpufreq_cmdline_common_para(struct cpufreq_policy *new_policy)
- {
-     if (usr_max_freq)
-diff --git a/xen/drivers/cpufreq/utility.c b/xen/drivers/cpufreq/utility.c
-index e690a484f1..723045b240 100644
---- a/xen/drivers/cpufreq/utility.c
-+++ b/xen/drivers/cpufreq/utility.c
-@@ -35,168 +35,6 @@ struct cpufreq_driver __read_mostly cpufreq_driver;
- struct processor_pminfo *__read_mostly processor_pminfo[NR_CPUS];
- DEFINE_PER_CPU_READ_MOSTLY(struct cpufreq_policy *, cpufreq_cpu_policy);
++static int cpufreq_get_turbo_status(unsigned int cpu)
++{
++    struct cpufreq_policy *policy;
++
++    policy = per_cpu(cpufreq_cpu_policy, cpu);
++    return policy && policy->turbo == CPUFREQ_TURBO_ENABLED;
++}
++
++static int read_scaling_available_governors(char *scaling_available_governors,
++                                            unsigned int size)
++{
++    unsigned int i = 0;
++    struct cpufreq_governor *t;
++
++    if ( !scaling_available_governors )
++        return -EINVAL;
++
++    list_for_each_entry(t, &cpufreq_governor_list, governor_list)
++    {
++        i += scnprintf(&scaling_available_governors[i],
++                       CPUFREQ_NAME_LEN, "%s ", t->name);
++        if ( i > size )
++            return -EINVAL;
++    }
++    scaling_available_governors[i-1] = '\0';
++
++    return 0;
++}
++
++static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
++{
++    uint32_t ret = 0;
++    const struct processor_pminfo *pmpt;
++    struct cpufreq_policy *policy;
++    uint32_t gov_num = 0;
++    uint32_t *data;
++    char     *scaling_available_governors;
++    struct list_head *pos;
++    unsigned int cpu, i = 0;
++
++    pmpt = processor_pminfo[op->cpuid];
++    policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
++
++    if ( !pmpt || !pmpt->perf.states ||
++         !policy || !policy->governor )
++        return -EINVAL;
++
++    list_for_each(pos, &cpufreq_governor_list)
++        gov_num++;
++
++    if ( (op->u.get_para.cpu_num  != cpumask_weight(policy->cpus)) ||
++         (op->u.get_para.freq_num != pmpt->perf.state_count)    ||
++         (op->u.get_para.gov_num  != gov_num) )
++    {
++        op->u.get_para.cpu_num =  cpumask_weight(policy->cpus);
++        op->u.get_para.freq_num = pmpt->perf.state_count;
++        op->u.get_para.gov_num  = gov_num;
++        return -EAGAIN;
++    }
++
++    if ( !(data = xzalloc_array(uint32_t,
++                                max(op->u.get_para.cpu_num,
++                                    op->u.get_para.freq_num))) )
++        return -ENOMEM;
++
++    for_each_cpu(cpu, policy->cpus)
++        data[i++] = cpu;
++    ret = copy_to_guest(op->u.get_para.affected_cpus,
++                        data, op->u.get_para.cpu_num);
++
++    for ( i = 0; i < op->u.get_para.freq_num; i++ )
++        data[i] = pmpt->perf.states[i].core_frequency * 1000;
++    ret += copy_to_guest(op->u.get_para.scaling_available_frequencies,
++                         data, op->u.get_para.freq_num);
++
++    xfree(data);
++    if ( ret )
++        return -EFAULT;
++
++    op->u.get_para.cpuinfo_cur_freq =
++        cpufreq_driver.get ? alternative_call(cpufreq_driver.get, op->cpuid)
++                           : policy->cur;
++    op->u.get_para.cpuinfo_max_freq = policy->cpuinfo.max_freq;
++    op->u.get_para.cpuinfo_min_freq = policy->cpuinfo.min_freq;
++    op->u.get_para.turbo_enabled = cpufreq_get_turbo_status(op->cpuid);
++
++    if ( cpufreq_driver.name[0] )
++        strlcpy(op->u.get_para.scaling_driver,
++                cpufreq_driver.name, CPUFREQ_NAME_LEN);
++    else
++        strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME_LEN);
++
++    if ( IS_ENABLED(CONFIG_INTEL) &&
++         !strncmp(op->u.get_para.scaling_driver, XEN_HWP_DRIVER_NAME,
++                  CPUFREQ_NAME_LEN) )
++        ret = get_hwp_para(policy->cpu, &op->u.get_para.u.cppc_para);
++    else
++    {
++        if ( !(scaling_available_governors =
++               xzalloc_array(char, gov_num * CPUFREQ_NAME_LEN)) )
++            return -ENOMEM;
++        if ( (ret = read_scaling_available_governors(
++                        scaling_available_governors,
++                        (gov_num * CPUFREQ_NAME_LEN *
++                         sizeof(*scaling_available_governors)))) )
++        {
++            xfree(scaling_available_governors);
++            return ret;
++        }
++        ret = copy_to_guest(op->u.get_para.scaling_available_governors,
++                            scaling_available_governors,
++                            gov_num * CPUFREQ_NAME_LEN);
++        xfree(scaling_available_governors);
++        if ( ret )
++            return -EFAULT;
++
++        op->u.get_para.u.s.scaling_cur_freq = policy->cur;
++        op->u.get_para.u.s.scaling_max_freq = policy->max;
++        op->u.get_para.u.s.scaling_min_freq = policy->min;
++
++        if ( policy->governor->name[0] )
++            strlcpy(op->u.get_para.u.s.scaling_governor,
++                    policy->governor->name, CPUFREQ_NAME_LEN);
++        else
++            strlcpy(op->u.get_para.u.s.scaling_governor, "Unknown",
++                    CPUFREQ_NAME_LEN);
++
++        /* governor specific para */
++        if ( !strncasecmp(op->u.get_para.u.s.scaling_governor,
++                          "userspace", CPUFREQ_NAME_LEN) )
++            op->u.get_para.u.s.u.userspace.scaling_setspeed = policy->cur;
++
++        if ( !strncasecmp(op->u.get_para.u.s.scaling_governor,
++                          "ondemand", CPUFREQ_NAME_LEN) )
++            ret = get_cpufreq_ondemand_para(
++                &op->u.get_para.u.s.u.ondemand.sampling_rate_max,
++                &op->u.get_para.u.s.u.ondemand.sampling_rate_min,
++                &op->u.get_para.u.s.u.ondemand.sampling_rate,
++                &op->u.get_para.u.s.u.ondemand.up_threshold);
++    }
++
++    return ret;
++}
++
++static int set_cpufreq_gov(struct xen_sysctl_pm_op *op)
++{
++    struct cpufreq_policy new_policy, *old_policy;
++
++    old_policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
++    if ( !old_policy )
++        return -EINVAL;
++
++    memcpy(&new_policy, old_policy, sizeof(struct cpufreq_policy));
++
++    new_policy.governor = __find_governor(op->u.set_gov.scaling_governor);
++    if ( new_policy.governor == NULL )
++        return -EINVAL;
++
++    return __cpufreq_set_policy(old_policy, &new_policy);
++}
++
++static int set_cpufreq_para(struct xen_sysctl_pm_op *op)
++{
++    int ret = 0;
++    struct cpufreq_policy *policy;
++
++    policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
++
++    if ( !policy || !policy->governor )
++        return -EINVAL;
++
++    if ( hwp_active() )
++        return -EOPNOTSUPP;
++
++    switch( op->u.set_para.ctrl_type )
++    {
++    case SCALING_MAX_FREQ:
++    {
++        struct cpufreq_policy new_policy;
++
++        memcpy(&new_policy, policy, sizeof(struct cpufreq_policy));
++        new_policy.max = op->u.set_para.ctrl_value;
++        ret = __cpufreq_set_policy(policy, &new_policy);
++
++        break;
++    }
++
++    case SCALING_MIN_FREQ:
++    {
++        struct cpufreq_policy new_policy;
++
++        memcpy(&new_policy, policy, sizeof(struct cpufreq_policy));
++        new_policy.min = op->u.set_para.ctrl_value;
++        ret = __cpufreq_set_policy(policy, &new_policy);
++
++        break;
++    }
++
++    case SCALING_SETSPEED:
++    {
++        unsigned int freq =op->u.set_para.ctrl_value;
++
++        if ( !strncasecmp(policy->governor->name,
++                          "userspace", CPUFREQ_NAME_LEN) )
++            ret = write_userspace_scaling_setspeed(op->cpuid, freq);
++        else
++            ret = -EINVAL;
++
++        break;
++    }
++
++    case SAMPLING_RATE:
++    {
++        unsigned int sampling_rate = op->u.set_para.ctrl_value;
++
++        if ( !strncasecmp(policy->governor->name,
++                          "ondemand", CPUFREQ_NAME_LEN) )
++            ret = write_ondemand_sampling_rate(sampling_rate);
++        else
++            ret = -EINVAL;
++
++        break;
++    }
++
++    case UP_THRESHOLD:
++    {
++        unsigned int up_threshold = op->u.set_para.ctrl_value;
++
++        if ( !strncasecmp(policy->governor->name,
++                          "ondemand", CPUFREQ_NAME_LEN) )
++            ret = write_ondemand_up_threshold(up_threshold);
++        else
++            ret = -EINVAL;
++
++        break;
++    }
++
++    default:
++        ret = -EINVAL;
++        break;
++    }
++
++    return ret;
++}
++
++static int set_cpufreq_cppc(struct xen_sysctl_pm_op *op)
++{
++    struct cpufreq_policy *policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
++
++    if ( !policy || !policy->governor )
++        return -ENOENT;
++
++    if ( !hwp_active() )
++        return -EOPNOTSUPP;
++
++    return set_hwp_para(policy, &op->u.set_cppc);
++}
++
++int do_pm_op(struct xen_sysctl_pm_op *op)
++{
++    int ret = 0;
++    const struct processor_pminfo *pmpt;
++
++    switch ( op->cmd )
++    {
++    case XEN_SYSCTL_pm_op_set_sched_opt_smt:
++    {
++        uint32_t saved_value = sched_smt_power_savings;
++
++        if ( op->cpuid != 0 )
++            return -EINVAL;
++        sched_smt_power_savings = !!op->u.set_sched_opt_smt;
++        op->u.set_sched_opt_smt = saved_value;
++        return 0;
++    }
++
++    case XEN_SYSCTL_pm_op_get_max_cstate:
++        BUILD_BUG_ON(XEN_SYSCTL_CX_UNLIMITED != UINT_MAX);
++        if ( op->cpuid == 0 )
++            op->u.get_max_cstate = acpi_get_cstate_limit();
++        else if ( op->cpuid == 1 )
++            op->u.get_max_cstate = acpi_get_csubstate_limit();
++        else
++            ret = -EINVAL;
++        return ret;
++
++    case XEN_SYSCTL_pm_op_set_max_cstate:
++        if ( op->cpuid == 0 )
++            acpi_set_cstate_limit(op->u.set_max_cstate);
++        else if ( op->cpuid == 1 )
++            acpi_set_csubstate_limit(op->u.set_max_cstate);
++        else
++            ret = -EINVAL;
++        return ret;
++    }
++
++    if ( op->cpuid >= nr_cpu_ids || !cpu_online(op->cpuid) )
++        return -EINVAL;
++    pmpt = processor_pminfo[op->cpuid];
++
++    switch ( op->cmd & PM_PARA_CATEGORY_MASK )
++    {
++    case CPUFREQ_PARA:
++        if ( !(xen_processor_pmbits & XEN_PROCESSOR_PM_PX) )
++            return -ENODEV;
++        if ( !pmpt || !(pmpt->perf.init & XEN_PX_INIT) )
++            return -EINVAL;
++        break;
++    }
++
++    switch ( op->cmd )
++    {
++    case GET_CPUFREQ_PARA:
++    {
++        ret = get_cpufreq_para(op);
++        break;
++    }
++
++    case SET_CPUFREQ_GOV:
++    {
++        ret = set_cpufreq_gov(op);
++        break;
++    }
++
++    case SET_CPUFREQ_PARA:
++    {
++        ret = set_cpufreq_para(op);
++        break;
++    }
++
++    case SET_CPUFREQ_CPPC:
++        ret = set_cpufreq_cppc(op);
++        break;
++
++    case GET_CPUFREQ_AVGFREQ:
++    {
++        op->u.get_avgfreq = cpufreq_driver_getavg(op->cpuid, USR_GETAVG);
++        break;
++    }
++
++    case XEN_SYSCTL_pm_op_enable_turbo:
++    {
++        ret = cpufreq_update_turbo(op->cpuid, CPUFREQ_TURBO_ENABLED);
++        break;
++    }
++
++    case XEN_SYSCTL_pm_op_disable_turbo:
++    {
++        ret = cpufreq_update_turbo(op->cpuid, CPUFREQ_TURBO_DISABLED);
++        break;
++    }
++
++    default:
++        printk("not defined sub-hypercall @ do_pm_op\n");
++        ret = -ENOSYS;
++        break;
++    }
++
++    return ret;
++}
+diff --git a/xen/drivers/acpi/pmstat.c b/xen/drivers/acpi/pmstat.c
+index abfdc45cc2..61b60e59a2 100644
+--- a/xen/drivers/acpi/pmstat.c
++++ b/xen/drivers/acpi/pmstat.c
+@@ -330,360 +330,3 @@ int do_get_pm_info(struct xen_sysctl_get_pmstat *op)
  
--DEFINE_PER_CPU(spinlock_t, cpufreq_statistic_lock);
+     return ret;
+ }
 -
--/*********************************************************************
-- *                    Px STATISTIC INFO                              *
-- *********************************************************************/
--
--void cpufreq_residency_update(unsigned int cpu, uint8_t state)
+-/*
+- * 1. Get PM parameter
+- * 2. Provide user PM control
+- */
+-static int read_scaling_available_governors(char *scaling_available_governors,
+-                                            unsigned int size)
 -{
--    uint64_t now, total_idle_ns;
--    int64_t delta;
--    struct pm_px *pxpt = per_cpu(cpufreq_statistic_data, cpu);
+-    unsigned int i = 0;
+-    struct cpufreq_governor *t;
 -
--    total_idle_ns = get_cpu_idle_time(cpu);
--    now = NOW();
--
--    delta = (now - pxpt->prev_state_wall) - 
--            (total_idle_ns - pxpt->prev_idle_wall);
--
--    if ( likely(delta >= 0) )
--        pxpt->u.pt[state].residency += delta;
--
--    pxpt->prev_state_wall = now;
--    pxpt->prev_idle_wall = total_idle_ns;
--}
--
--void cpufreq_statistic_update(unsigned int cpu, uint8_t from, uint8_t to)
--{
--    struct pm_px *pxpt;
--    struct processor_pminfo *pmpt = processor_pminfo[cpu];
--    spinlock_t *cpufreq_statistic_lock = 
--               &per_cpu(cpufreq_statistic_lock, cpu);
--
--    spin_lock(cpufreq_statistic_lock);
--
--    pxpt = per_cpu(cpufreq_statistic_data, cpu);
--    if ( !pxpt || !pmpt ) {
--        spin_unlock(cpufreq_statistic_lock);
--        return;
--    }
--
--    pxpt->u.last = from;
--    pxpt->u.cur = to;
--    pxpt->u.pt[to].count++;
--
--    cpufreq_residency_update(cpu, from);
--
--    (*(pxpt->u.trans_pt + from * pmpt->perf.state_count + to))++;
--
--    spin_unlock(cpufreq_statistic_lock);
--}
--
--int cpufreq_statistic_init(unsigned int cpu)
--{
--    uint32_t i, count;
--    struct pm_px *pxpt;
--    const struct processor_pminfo *pmpt = processor_pminfo[cpu];
--    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
--
--    spin_lock_init(cpufreq_statistic_lock);
--
--    if ( !pmpt )
+-    if ( !scaling_available_governors )
 -        return -EINVAL;
 -
--    spin_lock(cpufreq_statistic_lock);
--
--    pxpt = per_cpu(cpufreq_statistic_data, cpu);
--    if ( pxpt ) {
--        spin_unlock(cpufreq_statistic_lock);
--        return 0;
+-    list_for_each_entry(t, &cpufreq_governor_list, governor_list)
+-    {
+-        i += scnprintf(&scaling_available_governors[i],
+-                       CPUFREQ_NAME_LEN, "%s ", t->name);
+-        if ( i > size )
+-            return -EINVAL;
 -    }
--
--    count = pmpt->perf.state_count;
--
--    pxpt = xzalloc(struct pm_px);
--    if ( !pxpt ) {
--        spin_unlock(cpufreq_statistic_lock);
--        return -ENOMEM;
--    }
--    per_cpu(cpufreq_statistic_data, cpu) = pxpt;
--
--    pxpt->u.trans_pt = xzalloc_array(uint64_t, count * count);
--    if (!pxpt->u.trans_pt) {
--        xfree(pxpt);
--        spin_unlock(cpufreq_statistic_lock);
--        return -ENOMEM;
--    }
--
--    pxpt->u.pt = xzalloc_array(struct pm_px_val, count);
--    if (!pxpt->u.pt) {
--        xfree(pxpt->u.trans_pt);
--        xfree(pxpt);
--        spin_unlock(cpufreq_statistic_lock);
--        return -ENOMEM;
--    }
--
--    pxpt->u.total = pmpt->perf.state_count;
--    pxpt->u.usable = pmpt->perf.state_count - pmpt->perf.platform_limit;
--
--    for (i=0; i < pmpt->perf.state_count; i++)
--        pxpt->u.pt[i].freq = pmpt->perf.states[i].core_frequency;
--
--    pxpt->prev_state_wall = NOW();
--    pxpt->prev_idle_wall = get_cpu_idle_time(cpu);
--
--    spin_unlock(cpufreq_statistic_lock);
+-    scaling_available_governors[i-1] = '\0';
 -
 -    return 0;
 -}
 -
--void cpufreq_statistic_exit(unsigned int cpu)
+-static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
 -{
--    struct pm_px *pxpt;
--    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
+-    uint32_t ret = 0;
+-    const struct processor_pminfo *pmpt;
+-    struct cpufreq_policy *policy;
+-    uint32_t gov_num = 0;
+-    uint32_t *data;
+-    char     *scaling_available_governors;
+-    struct list_head *pos;
+-    unsigned int cpu, i = 0;
 -
--    spin_lock(cpufreq_statistic_lock);
+-    pmpt = processor_pminfo[op->cpuid];
+-    policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
 -
--    pxpt = per_cpu(cpufreq_statistic_data, cpu);
--    if (!pxpt) {
--        spin_unlock(cpufreq_statistic_lock);
--        return;
+-    if ( !pmpt || !pmpt->perf.states ||
+-         !policy || !policy->governor )
+-        return -EINVAL;
+-
+-    list_for_each(pos, &cpufreq_governor_list)
+-        gov_num++;
+-
+-    if ( (op->u.get_para.cpu_num  != cpumask_weight(policy->cpus)) ||
+-         (op->u.get_para.freq_num != pmpt->perf.state_count)    ||
+-         (op->u.get_para.gov_num  != gov_num) )
+-    {
+-        op->u.get_para.cpu_num =  cpumask_weight(policy->cpus);
+-        op->u.get_para.freq_num = pmpt->perf.state_count;
+-        op->u.get_para.gov_num  = gov_num;
+-        return -EAGAIN;
 -    }
 -
--    xfree(pxpt->u.trans_pt);
--    xfree(pxpt->u.pt);
--    xfree(pxpt);
--    per_cpu(cpufreq_statistic_data, cpu) = NULL;
+-    if ( !(data = xzalloc_array(uint32_t,
+-                                max(op->u.get_para.cpu_num,
+-                                    op->u.get_para.freq_num))) )
+-        return -ENOMEM;
 -
--    spin_unlock(cpufreq_statistic_lock);
+-    for_each_cpu(cpu, policy->cpus)
+-        data[i++] = cpu;
+-    ret = copy_to_guest(op->u.get_para.affected_cpus,
+-                        data, op->u.get_para.cpu_num);
+-
+-    for ( i = 0; i < op->u.get_para.freq_num; i++ )
+-        data[i] = pmpt->perf.states[i].core_frequency * 1000;
+-    ret += copy_to_guest(op->u.get_para.scaling_available_frequencies,
+-                         data, op->u.get_para.freq_num);
+-
+-    xfree(data);
+-    if ( ret )
+-        return -EFAULT;
+-
+-    op->u.get_para.cpuinfo_cur_freq =
+-        cpufreq_driver.get ? alternative_call(cpufreq_driver.get, op->cpuid)
+-                           : policy->cur;
+-    op->u.get_para.cpuinfo_max_freq = policy->cpuinfo.max_freq;
+-    op->u.get_para.cpuinfo_min_freq = policy->cpuinfo.min_freq;
+-    op->u.get_para.turbo_enabled = cpufreq_get_turbo_status(op->cpuid);
+-
+-    if ( cpufreq_driver.name[0] )
+-        strlcpy(op->u.get_para.scaling_driver,
+-            cpufreq_driver.name, CPUFREQ_NAME_LEN);
+-    else
+-        strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME_LEN);
+-
+-    if ( IS_ENABLED(CONFIG_INTEL) &&
+-         !strncmp(op->u.get_para.scaling_driver, XEN_HWP_DRIVER_NAME,
+-                  CPUFREQ_NAME_LEN) )
+-        ret = get_hwp_para(policy->cpu, &op->u.get_para.u.cppc_para);
+-    else
+-    {
+-        if ( !(scaling_available_governors =
+-               xzalloc_array(char, gov_num * CPUFREQ_NAME_LEN)) )
+-            return -ENOMEM;
+-        if ( (ret = read_scaling_available_governors(
+-                        scaling_available_governors,
+-                        (gov_num * CPUFREQ_NAME_LEN *
+-                         sizeof(*scaling_available_governors)))) )
+-        {
+-            xfree(scaling_available_governors);
+-            return ret;
+-        }
+-        ret = copy_to_guest(op->u.get_para.scaling_available_governors,
+-                            scaling_available_governors,
+-                            gov_num * CPUFREQ_NAME_LEN);
+-        xfree(scaling_available_governors);
+-        if ( ret )
+-            return -EFAULT;
+-
+-        op->u.get_para.u.s.scaling_cur_freq = policy->cur;
+-        op->u.get_para.u.s.scaling_max_freq = policy->max;
+-        op->u.get_para.u.s.scaling_min_freq = policy->min;
+-
+-        if ( policy->governor->name[0] )
+-            strlcpy(op->u.get_para.u.s.scaling_governor,
+-                policy->governor->name, CPUFREQ_NAME_LEN);
+-        else
+-            strlcpy(op->u.get_para.u.s.scaling_governor, "Unknown",
+-                    CPUFREQ_NAME_LEN);
+-
+-        /* governor specific para */
+-        if ( !strncasecmp(op->u.get_para.u.s.scaling_governor,
+-                          "userspace", CPUFREQ_NAME_LEN) )
+-            op->u.get_para.u.s.u.userspace.scaling_setspeed = policy->cur;
+-
+-        if ( !strncasecmp(op->u.get_para.u.s.scaling_governor,
+-                          "ondemand", CPUFREQ_NAME_LEN) )
+-            ret = get_cpufreq_ondemand_para(
+-                &op->u.get_para.u.s.u.ondemand.sampling_rate_max,
+-                &op->u.get_para.u.s.u.ondemand.sampling_rate_min,
+-                &op->u.get_para.u.s.u.ondemand.sampling_rate,
+-                &op->u.get_para.u.s.u.ondemand.up_threshold);
+-    }
+-
+-    return ret;
 -}
 -
--void cpufreq_statistic_reset(unsigned int cpu)
+-static int set_cpufreq_gov(struct xen_sysctl_pm_op *op)
 -{
--    uint32_t i, j, count;
--    struct pm_px *pxpt;
--    const struct processor_pminfo *pmpt = processor_pminfo[cpu];
--    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
+-    struct cpufreq_policy new_policy, *old_policy;
 -
--    spin_lock(cpufreq_statistic_lock);
+-    old_policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
+-    if ( !old_policy )
+-        return -EINVAL;
 -
--    pxpt = per_cpu(cpufreq_statistic_data, cpu);
--    if ( !pmpt || !pxpt || !pxpt->u.pt || !pxpt->u.trans_pt ) {
--        spin_unlock(cpufreq_statistic_lock);
--        return;
--    }
+-    memcpy(&new_policy, old_policy, sizeof(struct cpufreq_policy));
 -
--    count = pmpt->perf.state_count;
+-    new_policy.governor = __find_governor(op->u.set_gov.scaling_governor);
+-    if (new_policy.governor == NULL)
+-        return -EINVAL;
 -
--    for (i=0; i < count; i++) {
--        pxpt->u.pt[i].residency = 0;
--        pxpt->u.pt[i].count = 0;
--
--        for (j=0; j < count; j++)
--            *(pxpt->u.trans_pt + i*count + j) = 0;
--    }
--
--    pxpt->prev_state_wall = NOW();
--    pxpt->prev_idle_wall = get_cpu_idle_time(cpu);
--
--    spin_unlock(cpufreq_statistic_lock);
+-    return __cpufreq_set_policy(old_policy, &new_policy);
 -}
 -
+-static int set_cpufreq_para(struct xen_sysctl_pm_op *op)
+-{
+-    int ret = 0;
+-    struct cpufreq_policy *policy;
+-
+-    policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
+-
+-    if ( !policy || !policy->governor )
+-        return -EINVAL;
+-
+-    if ( hwp_active() )
+-        return -EOPNOTSUPP;
+-
+-    switch(op->u.set_para.ctrl_type)
+-    {
+-    case SCALING_MAX_FREQ:
+-    {
+-        struct cpufreq_policy new_policy;
+-
+-        memcpy(&new_policy, policy, sizeof(struct cpufreq_policy));
+-        new_policy.max = op->u.set_para.ctrl_value;
+-        ret = __cpufreq_set_policy(policy, &new_policy);
+-
+-        break;
+-    }
+-
+-    case SCALING_MIN_FREQ:
+-    {
+-        struct cpufreq_policy new_policy;
+-
+-        memcpy(&new_policy, policy, sizeof(struct cpufreq_policy));
+-        new_policy.min = op->u.set_para.ctrl_value;
+-        ret = __cpufreq_set_policy(policy, &new_policy);
+-
+-        break;
+-    }
+-
+-    case SCALING_SETSPEED:
+-    {
+-        unsigned int freq =op->u.set_para.ctrl_value;
+-
+-        if ( !strncasecmp(policy->governor->name,
+-                          "userspace", CPUFREQ_NAME_LEN) )
+-            ret = write_userspace_scaling_setspeed(op->cpuid, freq);
+-        else
+-            ret = -EINVAL;
+-
+-        break;
+-    }
+-
+-    case SAMPLING_RATE:
+-    {
+-        unsigned int sampling_rate = op->u.set_para.ctrl_value;
+-
+-        if ( !strncasecmp(policy->governor->name,
+-                          "ondemand", CPUFREQ_NAME_LEN) )
+-            ret = write_ondemand_sampling_rate(sampling_rate);
+-        else
+-            ret = -EINVAL;
+-
+-        break;
+-    }
+-
+-    case UP_THRESHOLD:
+-    {
+-        unsigned int up_threshold = op->u.set_para.ctrl_value;
+-
+-        if ( !strncasecmp(policy->governor->name,
+-                          "ondemand", CPUFREQ_NAME_LEN) )
+-            ret = write_ondemand_up_threshold(up_threshold);
+-        else
+-            ret = -EINVAL;
+-
+-        break;
+-    }
+-
+-    default:
+-        ret = -EINVAL;
+-        break;
+-    }
+-
+-    return ret;
+-}
+-
+-static int set_cpufreq_cppc(struct xen_sysctl_pm_op *op)
+-{
+-    struct cpufreq_policy *policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
+-
+-    if ( !policy || !policy->governor )
+-        return -ENOENT;
+-
+-    if ( !hwp_active() )
+-        return -EOPNOTSUPP;
+-
+-    return set_hwp_para(policy, &op->u.set_cppc);
+-}
+-
+-int do_pm_op(struct xen_sysctl_pm_op *op)
+-{
+-    int ret = 0;
+-    const struct processor_pminfo *pmpt;
+-
+-    switch ( op->cmd )
+-    {
+-    case XEN_SYSCTL_pm_op_set_sched_opt_smt:
+-    {
+-        uint32_t saved_value = sched_smt_power_savings;
+-
+-        if ( op->cpuid != 0 )
+-            return -EINVAL;
+-        sched_smt_power_savings = !!op->u.set_sched_opt_smt;
+-        op->u.set_sched_opt_smt = saved_value;
+-        return 0;
+-    }
+-
+-    case XEN_SYSCTL_pm_op_get_max_cstate:
+-        BUILD_BUG_ON(XEN_SYSCTL_CX_UNLIMITED != UINT_MAX);
+-        if ( op->cpuid == 0 )
+-            op->u.get_max_cstate = acpi_get_cstate_limit();
+-        else if ( op->cpuid == 1 )
+-            op->u.get_max_cstate = acpi_get_csubstate_limit();
+-        else
+-            ret = -EINVAL;
+-        return ret;
+-
+-    case XEN_SYSCTL_pm_op_set_max_cstate:
+-        if ( op->cpuid == 0 )
+-            acpi_set_cstate_limit(op->u.set_max_cstate);
+-        else if ( op->cpuid == 1 )
+-            acpi_set_csubstate_limit(op->u.set_max_cstate);
+-        else
+-            ret = -EINVAL;
+-        return ret;
+-    }
+-
+-    if ( op->cpuid >= nr_cpu_ids || !cpu_online(op->cpuid) )
+-        return -EINVAL;
+-    pmpt = processor_pminfo[op->cpuid];
+-
+-    switch ( op->cmd & PM_PARA_CATEGORY_MASK )
+-    {
+-    case CPUFREQ_PARA:
+-        if ( !(xen_processor_pmbits & XEN_PROCESSOR_PM_PX) )
+-            return -ENODEV;
+-        if ( !pmpt || !(pmpt->perf.init & XEN_PX_INIT) )
+-            return -EINVAL;
+-        break;
+-    }
+-
+-    switch ( op->cmd )
+-    {
+-    case GET_CPUFREQ_PARA:
+-    {
+-        ret = get_cpufreq_para(op);
+-        break;
+-    }
+-
+-    case SET_CPUFREQ_GOV:
+-    {
+-        ret = set_cpufreq_gov(op);
+-        break;
+-    }
+-
+-    case SET_CPUFREQ_PARA:
+-    {
+-        ret = set_cpufreq_para(op);
+-        break;
+-    }
+-
+-    case SET_CPUFREQ_CPPC:
+-        ret = set_cpufreq_cppc(op);
+-        break;
+-
+-    case GET_CPUFREQ_AVGFREQ:
+-    {
+-        op->u.get_avgfreq = cpufreq_driver_getavg(op->cpuid, USR_GETAVG);
+-        break;
+-    }
+-
+-    case XEN_SYSCTL_pm_op_enable_turbo:
+-    {
+-        ret = cpufreq_update_turbo(op->cpuid, CPUFREQ_TURBO_ENABLED);
+-        break;
+-    }
+-
+-    case XEN_SYSCTL_pm_op_disable_turbo:
+-    {
+-        ret = cpufreq_update_turbo(op->cpuid, CPUFREQ_TURBO_DISABLED);
+-        break;
+-    }
+-
+-    default:
+-        printk("not defined sub-hypercall @ do_pm_op\n");
+-        ret = -ENOSYS;
+-        break;
+-    }
+-
+-    return ret;
+-}
+diff --git a/xen/drivers/cpufreq/cpufreq_misc_governors.c b/xen/drivers/cpufreq/cpufreq_misc_governors.c
+index 0327fad23b..e5cb9ab02f 100644
+--- a/xen/drivers/cpufreq/cpufreq_misc_governors.c
++++ b/xen/drivers/cpufreq/cpufreq_misc_governors.c
+@@ -64,6 +64,7 @@ static int cf_check cpufreq_governor_userspace(
+     return ret;
+ }
+ 
++#ifdef CONFIG_PM_OP
+ int write_userspace_scaling_setspeed(unsigned int cpu, unsigned int freq)
+ {
+     struct cpufreq_policy *policy;
+@@ -80,6 +81,7 @@ int write_userspace_scaling_setspeed(unsigned int cpu, unsigned int freq)
+ 
+     return __cpufreq_driver_target(policy, freq, CPUFREQ_RELATION_L);
+ }
++#endif /* CONFIG_PM_OP */
+ 
+ static bool __init cf_check
+ cpufreq_userspace_handle_option(const char *name, const char *val)
+diff --git a/xen/drivers/cpufreq/cpufreq_ondemand.c b/xen/drivers/cpufreq/cpufreq_ondemand.c
+index 06cfc88d30..0126a3f5d9 100644
+--- a/xen/drivers/cpufreq/cpufreq_ondemand.c
++++ b/xen/drivers/cpufreq/cpufreq_ondemand.c
+@@ -57,6 +57,7 @@ static struct dbs_tuners {
+ 
+ static DEFINE_PER_CPU(struct timer, dbs_timer);
+ 
++#ifdef CONFIG_PM_OP
+ int write_ondemand_sampling_rate(unsigned int sampling_rate)
+ {
+     if ( (sampling_rate > MAX_SAMPLING_RATE / MICROSECS(1)) ||
+@@ -93,6 +94,7 @@ int get_cpufreq_ondemand_para(uint32_t *sampling_rate_max,
+ 
+     return 0;
+ }
++#endif /* CONFIG_PM_OP */
+ 
+ static void dbs_check_cpu(struct cpu_dbs_info_s *this_dbs_info)
+ {
+diff --git a/xen/drivers/cpufreq/utility.c b/xen/drivers/cpufreq/utility.c
+index 723045b240..987c3b5929 100644
+--- a/xen/drivers/cpufreq/utility.c
++++ b/xen/drivers/cpufreq/utility.c
+@@ -224,47 +224,6 @@ int cpufreq_driver_getavg(unsigned int cpu, unsigned int flag)
+     return policy->cur;
+ }
+ 
+-int cpufreq_update_turbo(unsigned int cpu, int new_state)
+-{
+-    struct cpufreq_policy *policy;
+-    int curr_state;
+-    int ret = 0;
+-
+-    if (new_state != CPUFREQ_TURBO_ENABLED &&
+-        new_state != CPUFREQ_TURBO_DISABLED)
+-        return -EINVAL;
+-
+-    policy = per_cpu(cpufreq_cpu_policy, cpu);
+-    if (!policy)
+-        return -EACCES;
+-
+-    if (policy->turbo == CPUFREQ_TURBO_UNSUPPORTED)
+-        return -EOPNOTSUPP;
+-
+-    curr_state = policy->turbo;
+-    if (curr_state == new_state)
+-        return 0;
+-
+-    policy->turbo = new_state;
+-    if (cpufreq_driver.update)
+-    {
+-        ret = alternative_call(cpufreq_driver.update, cpu, policy);
+-        if (ret)
+-            policy->turbo = curr_state;
+-    }
+-
+-    return ret;
+-}
+-
+-
+-int cpufreq_get_turbo_status(unsigned int cpu)
+-{
+-    struct cpufreq_policy *policy;
+-
+-    policy = per_cpu(cpufreq_cpu_policy, cpu);
+-    return policy && policy->turbo == CPUFREQ_TURBO_ENABLED;
+-}
 -
  /*********************************************************************
-  *                   FREQUENCY TABLE HELPERS                         *
+  *                 POLICY                                            *
   *********************************************************************/
 diff --git a/xen/include/acpi/cpufreq/cpufreq.h b/xen/include/acpi/cpufreq/cpufreq.h
-index a3c84143af..241117a9af 100644
+index 241117a9af..0742aa9f44 100644
 --- a/xen/include/acpi/cpufreq/cpufreq.h
 +++ b/xen/include/acpi/cpufreq/cpufreq.h
-@@ -20,8 +20,6 @@
+@@ -143,9 +143,6 @@ extern int cpufreq_driver_getavg(unsigned int cpu, unsigned int flag);
+ #define CPUFREQ_TURBO_UNSUPPORTED   0
+ #define CPUFREQ_TURBO_ENABLED       1
  
- #include "processor_perf.h"
- 
--DECLARE_PER_CPU(spinlock_t, cpufreq_statistic_lock);
+-int cpufreq_update_turbo(unsigned int cpu, int new_state);
+-int cpufreq_get_turbo_status(unsigned int cpu);
 -
- extern bool cpufreq_verbose;
- 
- enum cpufreq_xen_opt {
-diff --git a/xen/include/acpi/cpufreq/processor_perf.h b/xen/include/acpi/cpufreq/processor_perf.h
-index 301104e16f..6de43f8602 100644
---- a/xen/include/acpi/cpufreq/processor_perf.h
-+++ b/xen/include/acpi/cpufreq/processor_perf.h
-@@ -9,11 +9,9 @@
- 
- unsigned int powernow_register_driver(void);
- unsigned int get_measured_perf(unsigned int cpu, unsigned int flag);
--void cpufreq_residency_update(unsigned int cpu, uint8_t state);
- void cpufreq_statistic_update(unsigned int cpu, uint8_t from, uint8_t to);
- int  cpufreq_statistic_init(unsigned int cpu);
- void cpufreq_statistic_exit(unsigned int cpu);
--void cpufreq_statistic_reset(unsigned int cpu);
- 
- int  cpufreq_limit_change(unsigned int cpu);
- 
-@@ -56,7 +54,5 @@ struct pm_px {
-     uint64_t prev_idle_wall;
- };
- 
--DECLARE_PER_CPU(struct pm_px *, cpufreq_statistic_data);
--
- int cpufreq_cpu_init(unsigned int cpu);
- #endif /* __XEN_PROCESSOR_PM_H__ */
+ static inline int
+ __cpufreq_governor(struct cpufreq_policy *policy, unsigned int event)
+ {
 -- 
 2.34.1
 
