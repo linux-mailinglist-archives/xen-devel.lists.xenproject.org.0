@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4A55A96A30
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 14:39:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.962606.1353782 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30083A96A50
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 14:42:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.962617.1353791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Ctq-0005Ds-Go; Tue, 22 Apr 2025 12:38:54 +0000
+	id 1u7Cwx-0007M8-UG; Tue, 22 Apr 2025 12:42:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 962606.1353782; Tue, 22 Apr 2025 12:38:54 +0000
+Received: by outflank-mailman (output) from mailman id 962617.1353791; Tue, 22 Apr 2025 12:42:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Ctq-0005Bz-EB; Tue, 22 Apr 2025 12:38:54 +0000
-Received: by outflank-mailman (input) for mailman id 962606;
- Tue, 22 Apr 2025 12:38:53 +0000
+	id 1u7Cwx-0007Jq-Rh; Tue, 22 Apr 2025 12:42:07 +0000
+Received: by outflank-mailman (input) for mailman id 962617;
+ Tue, 22 Apr 2025 12:42:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=x+QI=XI=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1u7Cto-0005Bt-Se
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 12:38:53 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6a5be0d-1f76-11f0-9ffb-bf95429c2676;
- Tue, 22 Apr 2025 14:38:39 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1745325506786682.1587355772821;
- Tue, 22 Apr 2025 05:38:26 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=f4Vg=XI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u7Cwx-0007Jh-0V
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 12:42:07 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 26886fa6-1f77-11f0-9ffb-bf95429c2676;
+ Tue, 22 Apr 2025 14:41:46 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43cf05f0c3eso37581095e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 05:41:57 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4406d5bbcaasm176022605e9.21.2025.04.22.05.41.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Apr 2025 05:41:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,94 +45,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6a5be0d-1f76-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; t=1745325510; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=aa9UhWdOKXEvT3xiGSLaciT2D5ok7UuK/bJrKuzbxS6bQM8BejbPAr649gsxoX2Q1pJPPFmxXuOFzRuuu4RGUwJa0SFWoyEQEtH9NbRKBQvwm09IFAuMorJG8wuMp5jOZbw81beG+LkqTz/8sjeXnsfVtFMQsvFskX26FSD8mEE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1745325510; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=U4Il1WB3Zhajzw8PrXAZu6yMs2qDAD3yLF/5UshslVk=; 
-	b=Dlc9f0CEW1VCZddNG0nIWOQ+2qw1azDs4IGyB9N2vGLmlHcXWxr9EGl7g4iTd/CZVRPnTYR9MHvRQKixFJ5Y3MIGnG21k8UtenPP+scOPo+nGFJntpd48p5PMgWIAeEXMgL2KAdo8YXav3LW/XQsJbmTzdqX9B//faSdvHNBbJk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1745325510;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=U4Il1WB3Zhajzw8PrXAZu6yMs2qDAD3yLF/5UshslVk=;
-	b=WFPqXjPC/kDcT+8Qt9xtxb1lwfruxFz5nLWD6FYh3PsE4NyHIBU4/zUaeSdi9inr
-	ZBzKq7dE4pHs/I2nglceZM9kK7Ftd2z9+va/rYxmsB1NX5R8t1dJ+oUFyBwSOwV7Qpr
-	T/AStr9dfbyTG5ZnLz/b6ZZ9/uCXcfPU1yEm9Nk0=
-Message-ID: <26cb8a8e-a6e6-4fd5-940b-290a21c2e464@apertussolutions.com>
-Date: Tue, 22 Apr 2025 08:38:24 -0400
+X-Inumbo-ID: 26886fa6-1f77-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1745325716; x=1745930516; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=eVU4F1fI1UbsJWlfx7arzsz0Bq7z0pnhG8f2SQJ7/7k=;
+        b=a8saeTOavbvBUTsmGK0UhXVma4zNQHi9iJVSuEoPTw3FbigK7rVGMeLgkLJNlXMTDB
+         MfmZ3QVEPhDXtge5LS1d35KVY5gVFf7CfcMLabHfHwFFrWcmx7am/YIzEekiIjcxVyNN
+         K3ovthiGThmcvKT9PoRJHi7gsoI2eqlV96ViZ674JpfiyQj5p90nJd843ZkB0XtRsFj5
+         5gsLeF9On1KduBZUTzjDAaXlzdHUXOnARiku424xFjAzRTULobr2UXgpvLCzv2gofD3P
+         QNeeQG7QCVIN1X1tKdmCO6y93+aThSQDwTK86dzyvqBu56ZML75R5oZrfKBbCsRVO/xb
+         CQtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745325716; x=1745930516;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eVU4F1fI1UbsJWlfx7arzsz0Bq7z0pnhG8f2SQJ7/7k=;
+        b=DrM8jwa58mXIk7HiSEUeIP63/F0JrjkwXlMUB4RqiV0nJIE3SUCtcdgqRRxnJm8UZ7
+         KDnmEY0kYX0QfsPcfq6LyTmUAEZymsUeVfjmtIeA4Obzz60bFwyEqEATwceFM048bTkv
+         VSsYR1dsW/VeImlN7w+xeFpcnS2M6q4nyvZV4PIc3Ii3qhG2GcCeI0cDUTFbbj9pIYZI
+         4hBgKcqjj4IXsJiAVGrpeePannbTNwmoeNESinqtuDhcQLCDlc2vL0WAccaOinxErnhL
+         4CyuGeCdZXozYOQmBjG9L/QAZvbEh52mBrNnrtRzpEE+/Htb1Rb4gjg/61qONgxR+CZW
+         uWYQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW/ImbdInoxYLRdUvmFYXMgyp7LdQM4qOrwu1VHtBgbCaQuEfUxjGA9UJcyoSOsv1ISBmDi/q62LKs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxHZzPjA+agYcPY5PUS4s2hJn2ZcOJKKxC1+aYkD5S9PPNHf81J
+	pBpaUgTwciwJaZM/tLO4WoN1Vj3aD3K2ju2PchE9uyZg4qBj/+Unn6DqHYf0SQ==
+X-Gm-Gg: ASbGncu851Eog412Yih5QIZVxvarjEJFxSAxnKh5lJi6bIeKbIxhhGYUTnpykRHalav
+	PAKnfm5HjpW2dBnXL5U/2tYQMachGBjIl8iXjS/HFnKWhqje/tEtUW8AEq4bSwUJN4/eij7f4fg
+	XRTQ4rooLVy6A7wupr3g85+wYsAIqRYs6gtwzfDS73JC41K5MvW8pAObqRTE+6TrzHaVBWT4JTw
+	WTAXGpX7qskKne4aqgePqbJcgXEebXi8HrJ4vRSJfvkVCEx/bOGow8xgSXeZwJMBE6Fy+mPVSuM
+	PRQcPIZSViZAAk/3oDbhALupt0tXlTLz9zm+QYKrBbtqaBo4Kw/vvCJe3fjmIoYOYO9U+/jydwl
+	17GQVoX1LW4Rr+nciQw4AIO3Rlg==
+X-Google-Smtp-Source: AGHT+IH7kt6ituyyE0QGcGeVfDbcMqvuR5WGQuBctBLqW7Xjb3eWsz/D/k9bXPB89KMzF8pnR20FBA==
+X-Received: by 2002:a05:600c:3c91:b0:43d:7de:16e3 with SMTP id 5b1f17b1804b1-4406ac0edd9mr119306545e9.24.1745325716191;
+        Tue, 22 Apr 2025 05:41:56 -0700 (PDT)
+Message-ID: <87e14fad-3c5b-40eb-be73-3bb2d63fe5d9@suse.com>
+Date: Tue, 22 Apr 2025 14:41:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 16/38] x86/boot: move and rename sched_setup_dom0_vcpus
-Content-Language: en-US
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org
-Cc: jason.andryuk@amd.com, stefano.stabellini@amd.com, agarciav@amd.com,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH] xen: Drop CONFIG_CC_HAS_UBSAN
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Dario Faggioli <dfaggioli@suse.com>, George Dunlap <gwd@xenproject.org>
-References: <20250419220820.4234-1-dpsmith@apertussolutions.com>
- <20250419220820.4234-17-dpsmith@apertussolutions.com>
- <382cd6a7-c91b-4bf8-a026-ef0d9e872fe6@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <382cd6a7-c91b-4bf8-a026-ef0d9e872fe6@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250422113509.1286581-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250422113509.1286581-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-On 4/20/25 05:36, Jürgen Groß wrote:
-> On 20.04.25 00:07, Daniel P. Smith wrote:
->> Relocated the function sched_setup_dom0_vcpus(), which was protected 
->> by an
->> ifdef CONFIG_X86, from common/sched to the hyperlaunch domain builder. 
->> Rename
->> it to alloc_dom_vcpus() to better reflect the purpose of the function.
+On 22.04.2025 13:35, Andrew Cooper wrote:
+> All supported toolchains now have it.
 > 
-> I'd be in favor naming it domain_vcpus_create().
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Yah, that's a much better name.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-v/r,
-dps
 
 
