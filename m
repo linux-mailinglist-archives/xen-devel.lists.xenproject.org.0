@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 153BDA963A0
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 11:09:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.962302.1353514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E6DEA963C1
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 11:13:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.962315.1353524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u79dK-0001rA-Qo; Tue, 22 Apr 2025 09:09:38 +0000
+	id 1u79h1-00041J-9L; Tue, 22 Apr 2025 09:13:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 962302.1353514; Tue, 22 Apr 2025 09:09:38 +0000
+Received: by outflank-mailman (output) from mailman id 962315.1353524; Tue, 22 Apr 2025 09:13:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u79dK-0001p0-Nd; Tue, 22 Apr 2025 09:09:38 +0000
-Received: by outflank-mailman (input) for mailman id 962302;
- Tue, 22 Apr 2025 09:09:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eV03=XI=kernel.org=patchwork-bot+netdevbpf@srs-se1.protection.inumbo.net>)
- id 1u79dJ-0001ou-Q2
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 09:09:37 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80833870-1f59-11f0-9ffb-bf95429c2676;
- Tue, 22 Apr 2025 11:09:32 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7DDB34A7BB;
- Tue, 22 Apr 2025 09:09:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAF17C4CEE9;
- Tue, 22 Apr 2025 09:09:30 +0000 (UTC)
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 7107A39D6546; Tue, 22 Apr 2025 09:10:10 +0000 (UTC)
+	id 1u79h1-0003yz-6B; Tue, 22 Apr 2025 09:13:27 +0000
+Received: by outflank-mailman (input) for mailman id 962315;
+ Tue, 22 Apr 2025 09:13:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Qhpm=XI=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1u79gz-0003yt-RA
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 09:13:25 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0a7bad9b-1f5a-11f0-9eb0-5ba50f476ded;
+ Tue, 22 Apr 2025 11:13:24 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53M9Clo71988629
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Tue, 22 Apr 2025 02:12:47 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,59 +40,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80833870-1f59-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745312970;
-	bh=vz2jGYSY9oKDBgzu86yZLAUblBgnnaoGNFo9xbS5InE=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-	b=rnlwGH7276RFaEUFuhe+paW6L4DhAzLSYIxKPJAtPO7J6cB3riqGMer25WHWGqL4s
-	 a7HL0WdzUr4RM9XZBE4cvS3uClE58mKzn8oRUCYKmdiEwAywN/GvrtZ+D0elGMp4l3
-	 hy74hf0NexQ7ev6chMryY0TdNBu78Je2HpqL6dY6gzjKUBIum2Dl7eLICBbJZVBowD
-	 DJN+m4hF5lz88/wiwPd9aYZCtUC0cMFZQWlDe9iWojr37qgI5yOALLAmLfsvfXuM08
-	 CvqA929Le9muTGTK11sLg47snjAZe9Th1tXiu+KYGwaq2eXCGBu47vUooV/2FJ7oTf
-	 yVm7MlTBsGqUw==
-Content-Type: text/plain; charset="utf-8"
+X-Inumbo-ID: 0a7bad9b-1f5a-11f0-9eb0-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53M9Clo71988629
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1745313171;
+	bh=5MyMi1dWDpqM4+680ZRWUMemTrM7gOfrACTzG+hcvhU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZPeuqs2QxCZr+2CQbzBLOCpW3Aawds6/1cwg0KOGkN4s7Xzb3PZq6E2KiAUhdSklS
+	 6bmAZ9hG+CfiogKMARVhoVzL3oriBG5dyHPHGBto0/mSKUTbfZ4aFLYUysVlh6JFC/
+	 ZfI2lvkhOZHiUCZh+IkdkYywF31eKyF7de+lHzDs4b9fjhHs57HIRf++LaLMNtLPKY
+	 QczCdjB0+4sEGoXJlmUjHhZjwRqeUafNM/3rfcGnb2CJu8EO98o0Ia9j/fEpQcfhQG
+	 lCV0OoOhQjfirIbZQCPq86OrgvY0dVY0/wQxoL36KQ5giQ3vDEnESbBhySaQesbEM7
+	 0Bz5uP6uYbAzw==
+Message-ID: <a482b4df-f662-4d5d-8100-ade07afcdc24@zytor.com>
+Date: Tue, 22 Apr 2025 02:12:46 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 06/34] x86/msr: Use the alternatives mechanism to
+ read PMC
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+        virtualization@lists.linux.dev, linux-pm@vger.kernel.org,
+        linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
+        netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        acme@kernel.org, andrew.cooper3@citrix.com, peterz@infradead.org,
+        namhyung@kernel.org, mark.rutland@arm.com,
+        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
+        wei.liu@kernel.org, ajay.kaher@broadcom.com,
+        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
+        pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
+        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
+        haiyangz@microsoft.com, decui@microsoft.com
+References: <20250422082216.1954310-1-xin@zytor.com>
+ <20250422082216.1954310-7-xin@zytor.com>
+ <fbb509e8-0bd6-480f-be32-fd0895255a21@suse.com>
+Content-Language: en-US
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <fbb509e8-0bd6-480f-be32-fd0895255a21@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] xen-netfront: handle NULL returned by
- xdp_convert_buff_to_frame()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <174531300924.1477965.13156830298760999777.git-patchwork-notify@kernel.org>
-Date: Tue, 22 Apr 2025 09:10:09 +0000
-References: <20250417122118.1009824-1-sdl@nppct.ru>
-In-Reply-To: <20250417122118.1009824-1-sdl@nppct.ru>
-To: Alexey Nepomnyashih <sdl@nppct.ru>
-Cc: jgross@suse.com, sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, xen-devel@lists.xenproject.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- lvc-project@linuxtesting.org, stable@vger.kernel.org
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu, 17 Apr 2025 12:21:17 +0000 you wrote:
-> The function xdp_convert_buff_to_frame() may return NULL if it fails
-> to correctly convert the XDP buffer into an XDP frame due to memory
-> constraints, internal errors, or invalid data. Failing to check for NULL
-> may lead to a NULL pointer dereference if the result is used later in
-> processing, potentially causing crashes, data corruption, or undefined
-> behavior.
+On 4/22/2025 1:38 AM, Jürgen Groß wrote:
+> On 22.04.25 10:21, Xin Li (Intel) wrote:
+>> To eliminate the indirect call overhead introduced by the pv_ops API,
+>> use the alternatives mechanism to read PMC:
 > 
-> [...]
+> Which indirect call overhead? The indirect call is patched via the
+> alternative mechanism to a direct one.
+> 
 
-Here is the summary with links:
-  - [v2] xen-netfront: handle NULL returned by xdp_convert_buff_to_frame()
-    https://git.kernel.org/netdev/net/c/cc3628dcd851
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+See below.
 
 
+>>
+>>      1) When built with !CONFIG_XEN_PV, X86_FEATURE_XENPV becomes a
+>>         disabled feature, preventing the Xen PMC read code from being
+>>         built and ensuring the native code is executed unconditionally.
+> 
+> Without CONFIG_XEN_PV CONFIG_PARAVIRT_XXL is not selected, resulting in
+> native code anyway.
+
+Yes, this is kept in this patch, but in a little different way.
+
+> 
+>>
+>>      2) When built with CONFIG_XEN_PV:
+>>
+>>         2.1) If not running on the Xen hypervisor (!X86_FEATURE_XENPV),
+>>              the kernel runtime binary is patched to unconditionally
+>>              jump to the native PMC read code.
+>>
+>>         2.2) If running on the Xen hypervisor (X86_FEATURE_XENPV), the
+>>              kernel runtime binary is patched to unconditionally jump
+>>              to the Xen PMC read code.
+>>
+>> Consequently, remove the pv_ops PMC read API.
+> 
+> I don't see the value of this patch.
+> 
+> It adds more #ifdef and code lines without any real gain.
+> 
+> In case the x86 maintainers think it is still worth it, I won't object.
+
+I think we want to totally bypass pv_ops in the case 2.1).
+
+Do you mean the indirect call is patched to call native code *directly*
+for 2.1?  I don't know it, can you please elaborate?
+
+AFAIK, Xen PV has been the sole user of pv_ops for nearly 20 years. This
+raises significant doubts about whether pv_ops provides Linux with the
+value of being a well-abstracted "CPU" or "Platform".  And the x86
+maintainers have said that it's a maintenance nightmare.
+
+Thanks!
+     Xin
 
