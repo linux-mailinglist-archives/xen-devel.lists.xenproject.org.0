@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDD84A967EE
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 13:41:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.962550.1353742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDFCCA968AD
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 14:14:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.962569.1353752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7C0U-0008It-KZ; Tue, 22 Apr 2025 11:41:42 +0000
+	id 1u7CVL-0008PT-3m; Tue, 22 Apr 2025 12:13:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 962550.1353742; Tue, 22 Apr 2025 11:41:42 +0000
+Received: by outflank-mailman (output) from mailman id 962569.1353752; Tue, 22 Apr 2025 12:13:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7C0U-0008HC-Hq; Tue, 22 Apr 2025 11:41:42 +0000
-Received: by outflank-mailman (input) for mailman id 962550;
- Tue, 22 Apr 2025 11:41:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9r0M=XI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u7C0T-00085L-Dh
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 11:41:41 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b98dc6e3-1f6e-11f0-9ffb-bf95429c2676;
- Tue, 22 Apr 2025 13:41:27 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43cec5cd73bso32508095e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 04:41:38 -0700 (PDT)
-Received: from localhost.localdomain ([83.104.178.215])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4406d5bbd8asm170611385e9.23.2025.04.22.04.41.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Apr 2025 04:41:36 -0700 (PDT)
+	id 1u7CVL-0008Mb-0a; Tue, 22 Apr 2025 12:13:35 +0000
+Received: by outflank-mailman (input) for mailman id 962569;
+ Tue, 22 Apr 2025 12:13:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=f4Vg=XI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u7CVJ-0008MV-EV
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 12:13:33 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 33be6f98-1f73-11f0-9eb0-5ba50f476ded;
+ Tue, 22 Apr 2025 14:13:30 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3914bc3e01aso3104139f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 05:13:30 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39efa4933e7sm15223530f8f.65.2025.04.22.05.13.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Apr 2025 05:13:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,280 +45,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b98dc6e3-1f6e-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 33be6f98-1f73-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745322097; x=1745926897; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=DNRoRMIV3mPbRJOU5zpVZ3h9hj11xcU/yw8OKGBMsdM=;
-        b=pxRmZWtmdIQ28rd0lSVTkMnxK+0GynbhB2zMLKc6OdFfvRRf+F7iAttNLYSeSAs/Jm
-         iwYrgHL4cMIPZxe1M187iu0wBovukYbnwTLOKOqw3Oh/ucbQWUuvreGbg1EIRXh081dn
-         c7VSdm36ydmAoGcbeyyU9p+u80Jt+HzeenAFA=
+        d=suse.com; s=google; t=1745324009; x=1745928809; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=GCsyidbxF9lIZ627mP92SNzPhGUsxD8EdDhkvNyFxsM=;
+        b=CrT1dRgm5gydE34pz7SvKgEA37Ft4xxX0pCQAb4255nnTWlsHgl6F2m/q2v1iIGFeB
+         8QflFO12yeULjwv16RzjsTakDXe/ZFhPpUMBpMsxBU/+kxlfqOTGgfLzSLiqw3Rawr5B
+         i1hGz0/l2NcGZEupFxSG5VkV7r7bCY8q7tiDBB2M7w91cJRHi+3IsLUQ5ODoQu1M40bg
+         vxUWFBDEzbWrOAxShqX/RDRbTZT82AgYonZLj1Zw0fVYf94rnMPdV1gd/VcWsGPEwrMK
+         YICIamvKw/TboQT0c+dHgzO7JvIP/Qhm8DBKnlDwA3MQzjj5Iw6NJpeLPVIZfvyZWkLn
+         zA3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745322097; x=1745926897;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=DNRoRMIV3mPbRJOU5zpVZ3h9hj11xcU/yw8OKGBMsdM=;
-        b=U+JV5ef0IPf/WBJxRJE62MvCWOB6NVz8yG5b5oZ2J46QlgGu9rQPiagsEkHsDJXzqJ
-         tLTTCUruz5YdxYuymfrZsR+G0lRruMUkESwq7x78ZfC243Cyo6BnfI48Ikg6WiXApu0h
-         rld83lRG69Xd2STUPc9kIh0K4NGkNmKOL5hU8rEIlEAGLal5RqfduHLdNyrysRjcN7r+
-         4BJCSl7zyvny5h4p0Lp3nsGoXqV9S3uaDD9lHm2KmMV5q/tvKt8dFtvQqwwqnZ5F3y83
-         k10HAyKHqSLzKEwl6Xf45p3jUGyWtQV3pVK6QLFWFsm2oBnCNvPtCI1ObNXDFNbfuswz
-         S5Ug==
-X-Gm-Message-State: AOJu0YwjJus4m+g0sZkCM2lQZyE1cDhbdObC8l9eZxrjEQY8QKRNw9I4
-	+/FpAPG3/8OEBKFKj6wFIZXHYPUTODXMmo3pmC3dMRmVkggMQawUOMJPoo9YCwhOaFCf3OmE00u
-	hgng20Q==
-X-Gm-Gg: ASbGncvwLvq+WxwQFWNEwrJSDcK4iod4a2SlxEAIuNQu0k4myGu0EuLmbvHFHogBg1c
-	xhxe342QOAqqIHCLrPeojnYYIBDwQsAiZBlNPv2iibELzOn7Yk9Ut07E26whcQPXwWPLWMgan/E
-	LfK37VPWpgAN+VBZmLKOWpq2WEoJbyMSeLGqwEL/ngT55e+90sHWSGYI1/r596X+JYXNwO6moQO
-	8SyuDPjwq7pwPVSR9tG1QA+U9Jbhr+efc9WugeAk+UuhUIDTNh39fqG2bz7DLoyzElMzqleir5p
-	LGd0q9K2I69m3wm1UwSRSFVzLTw9ENHAElKqLgsL6feaj9AS9rO+jW8CyEfoyg==
-X-Google-Smtp-Source: AGHT+IEkUiKybHlRk7K4jXCi61eyqX96jUQJ53U/d8Dw5A2W2RN0c7HxHwZ/eZVUfmZy9hDDAWoyPQ==
-X-Received: by 2002:a05:600c:848c:b0:43c:e467:d6ce with SMTP id 5b1f17b1804b1-440715b5f22mr123364115e9.4.1745322097118;
-        Tue, 22 Apr 2025 04:41:37 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH] xen: Consistently use alignof()
-Date: Tue, 22 Apr 2025 12:41:34 +0100
-Message-Id: <20250422114134.1291254-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20230601; t=1745324009; x=1745928809;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GCsyidbxF9lIZ627mP92SNzPhGUsxD8EdDhkvNyFxsM=;
+        b=aFW7JvodVzMShGQbKOz8C4qLHCNsKQ1yUAR4eIa2/8B5FMVCmhvJTcXGIHEydBKYuH
+         T97wmjbZyRp+rMUKOWFqE5Yk9o3yR8nN87JZtOZTwWNg7yISwPuh1vw66XYfK/Mpg6z/
+         w5LYhv0z7jea48JT1I+zAiUApwMe1+d9qz/u/51kChCMHjMDU/os/vctiidGfCEPXkmB
+         o20r62HTqKsFxdjdVfF/h87qroHX8hvewCzXxgzQ+62Cuyz6CgcrMDjX9u//rJ0ewVtB
+         FvWxVuIlxX5wyaLKbPTVGq8ZjLDsvhedhc7zF5HdVjVIvRoEb0j463VJtsio8XKqgpiz
+         r5BQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXFl2yORXHIWo8qAB3w7TQG3nlio/uBp6RyyAhXlz+SrwXv91L9FkTGgNvr66y8ZUDmXIebDKvfV8U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw6QC1J+LZ9pJhkI2JcoSTn5U+ZT97GBL7sbJCpWNV04NohGEyo
+	B8F2IhlKeiOf8Bd4AMQiN5GitfE4TOGVlyZg2f0UioL5XVkSK6Cj23vXabkKyA==
+X-Gm-Gg: ASbGnctE3ZWJ1Fv1e+2RQUi+o0s46tf7i2V01uT7/4+JCYIUSHy0LK+IvmIQI7VClIt
+	SOaYZijYLprH7lKjWZdFPQlbokpOoeCVtAgS1NN4yMZehK24pb5OHNKzXieogvdde0pR3RbnArl
+	KnVt/sEnvx36Mj8x+py2wkh5DmGZ3N9SOBh5UzyAA7e3YBUZoWb0ZcR1kbPhmyXU3T6pvZkRUGr
+	L7KzsrVtCZ4AzWDyce9teQC9HN1s8QGM9/8hKP1EyBdrLj6vVg2PIe/5DOP5wP4oefLZUC9bw+j
+	4/P2GUkRuk25Y9LIISP0Pzkpfhd3agTXS4/pdJigj05/kk86iikJlmQWqes+78ghokTqYMzHfWH
+	g4yaeCQ2v+epuOhK/ZFVexq1kWQ==
+X-Google-Smtp-Source: AGHT+IFwQDW4zCSQVrMmSPu6KHE55qikwRmb6TeWvXYeju2/DSLJRFS8KxtaxOqCXYu6AbEFShbrfQ==
+X-Received: by 2002:a05:6000:438a:b0:39e:cbd2:9ad2 with SMTP id ffacd0b85a97d-39efba2aa44mr11387508f8f.4.1745324009403;
+        Tue, 22 Apr 2025 05:13:29 -0700 (PDT)
+Message-ID: <82a02afa-c1b7-4656-8f34-bd4886c9fb9f@suse.com>
+Date: Tue, 22 Apr 2025 14:13:28 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/link: Include .debug_str_offsets in
+ DWARF2_DEBUG_SECTIONS
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250422113247.1285339-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250422113247.1285339-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-We have a mix of all 3 spellings in Xen, as well as having compatibility in
-compiler.h for older C standards.
+On 22.04.2025 13:32, Andrew Cooper wrote:
+> --- a/xen/include/xen/xen.lds.h
+> +++ b/xen/include/xen/xen.lds.h
+> @@ -56,6 +56,7 @@
+>    DECL_DEBUG2(.debug_info, .gnu.linkonce.wi.*, 1) \
+>    DECL_DEBUG(.debug_types, 1)                     \
+>    DECL_DEBUG(.debug_str, 1)                       \
+> +  DECL_DEBUG(.debug_str_offsets, 1)               \
 
-Remove the use of __alignof() and __alignof__(), which reduced code volume a
-little.
+The alignment wants to be at least 4. I don't think it needs to be 8, as
+I don't expect us to require a 64-bit Dwarf container any time soon. Then:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-No functional change.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
-CC: Michal Orzel <michal.orzel@amd.com>
-
-x86_emulate.c and compat-build-header.py still use __alignof() because they
-have code used outside of Xen.
-
-The compiler.h compatibilty checks for < C11, whereas it was C23 when they
-became keywords.  Nothing seems to mind, so I've left it alone.
----
- xen/arch/x86/xstate.c                |  4 ++--
- xen/common/coverage/gcc_3_4.c        |  4 ++--
- xen/common/device-tree/device-tree.c |  8 ++++----
- xen/include/xen/config.h             |  2 +-
- xen/include/xen/percpu.h             |  2 +-
- xen/include/xen/xmalloc.h            | 16 ++++++++--------
- xen/include/xen/xvmalloc.h           | 16 ++++++++--------
- 7 files changed, 26 insertions(+), 26 deletions(-)
-
-diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
-index 3d249518a1b7..d423bf7978da 100644
---- a/xen/arch/x86/xstate.c
-+++ b/xen/arch/x86/xstate.c
-@@ -542,8 +542,8 @@ int xstate_alloc_save_area(struct vcpu *v)
-     }
- 
-     /* XSAVE/XRSTOR requires the save area be 64-byte-boundary aligned. */
--    BUILD_BUG_ON(__alignof(*save_area) < 64);
--    save_area = _xvzalloc(size, __alignof(*save_area));
-+    BUILD_BUG_ON(alignof(*save_area) < 64);
-+    save_area = _xvzalloc(size, alignof(*save_area));
-     if ( save_area == NULL )
-         return -ENOMEM;
- 
-diff --git a/xen/common/coverage/gcc_3_4.c b/xen/common/coverage/gcc_3_4.c
-index 3631f4bc2535..393e3c866d74 100644
---- a/xen/common/coverage/gcc_3_4.c
-+++ b/xen/common/coverage/gcc_3_4.c
-@@ -199,8 +199,8 @@ static size_t get_fn_size(const struct gcov_info *info)
- 
-     size = sizeof(struct gcov_fn_info) + num_counter_active(info) *
-         sizeof(unsigned int);
--    if ( __alignof__(struct gcov_fn_info) > sizeof(unsigned int) )
--        size = ROUNDUP(size, __alignof__(struct gcov_fn_info));
-+    if ( alignof(struct gcov_fn_info) > sizeof(unsigned int) )
-+        size = ROUNDUP(size, alignof(struct gcov_fn_info));
-     return size;
- }
- 
-diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/device-tree.c
-index 90fee2ba0315..e4dea4b42a1d 100644
---- a/xen/common/device-tree/device-tree.c
-+++ b/xen/common/device-tree/device-tree.c
-@@ -1885,7 +1885,7 @@ static unsigned long unflatten_dt_node(const void *fdt,
-     }
- 
-     np = unflatten_dt_alloc(&mem, sizeof(struct dt_device_node) + allocl,
--                            __alignof__(struct dt_device_node));
-+                            alignof(struct dt_device_node));
-     if ( allnextpp )
-     {
-         memset(np, 0, sizeof(*np));
-@@ -1963,7 +1963,7 @@ static unsigned long unflatten_dt_node(const void *fdt,
-             has_name = 1;
-         l = strlen(pname) + 1;
-         pp = unflatten_dt_alloc(&mem, sizeof(struct dt_property),
--                                __alignof__(struct dt_property));
-+                                alignof(struct dt_property));
-         if ( allnextpp )
-         {
-             /* We accept flattened tree phandles either in
-@@ -2010,7 +2010,7 @@ static unsigned long unflatten_dt_node(const void *fdt,
-             pa = p1;
-         sz = (pa - ps) + 1;
-         pp = unflatten_dt_alloc(&mem, sizeof(struct dt_property) + sz,
--                                __alignof__(struct dt_property));
-+                                alignof(struct dt_property));
-         if ( allnextpp )
-         {
-             pp->name = "name";
-@@ -2088,7 +2088,7 @@ int unflatten_device_tree(const void *fdt, struct dt_device_node **mynodes)
-     dt_dprintk("  size is %#lx allocating...\n", size);
- 
-     /* Allocate memory for the expanded device tree */
--    mem = (unsigned long)_xmalloc (size + 4, __alignof__(struct dt_device_node));
-+    mem = (unsigned long)_xmalloc(size + 4, alignof(struct dt_device_node));
-     if ( !mem )
-         return -ENOMEM;
- 
-diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
-index 1d7195066c08..479c3bac8925 100644
---- a/xen/include/xen/config.h
-+++ b/xen/include/xen/config.h
-@@ -105,7 +105,7 @@
- #define BITS_PER_LONG   (BITS_PER_BYTE * BYTES_PER_LONG)
- #define BITS_PER_LLONG  (BITS_PER_BYTE * __SIZEOF_LONG_LONG__)
- 
--/* It is assumed that sizeof(void *) == __alignof(void *) */
-+/* It is assumed that sizeof(void *) == alignof(void *) */
- #define POINTER_ALIGN   __SIZEOF_POINTER__
- 
- #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
-diff --git a/xen/include/xen/percpu.h b/xen/include/xen/percpu.h
-index e7f585c7ed69..62a6259b2bc1 100644
---- a/xen/include/xen/percpu.h
-+++ b/xen/include/xen/percpu.h
-@@ -18,7 +18,7 @@
- 
- #define DEFINE_PER_CPU_PAGE_ALIGNED(type, name) \
-     typedef char name ## _chk_t \
--        [BUILD_BUG_ON_ZERO(__alignof(type) & (PAGE_SIZE - 1))]; \
-+        [BUILD_BUG_ON_ZERO(alignof(type) & (PAGE_SIZE - 1))]; \
-     __DEFINE_PER_CPU(__section(".bss.percpu.page_aligned"), \
-                      type, _ ## name)
- 
-diff --git a/xen/include/xen/xmalloc.h b/xen/include/xen/xmalloc.h
-index f0412fb4e021..b7616c3b9038 100644
---- a/xen/include/xen/xmalloc.h
-+++ b/xen/include/xen/xmalloc.h
-@@ -13,8 +13,8 @@
-  */
- 
- /* Allocate space for typed object. */
--#define xmalloc(_type) ((_type *)_xmalloc(sizeof(_type), __alignof__(_type)))
--#define xzalloc(_type) ((_type *)_xzalloc(sizeof(_type), __alignof__(_type)))
-+#define xmalloc(_type) ((_type *)_xmalloc(sizeof(_type), alignof(_type)))
-+#define xzalloc(_type) ((_type *)_xzalloc(sizeof(_type), alignof(_type)))
- 
- /*
-  * Allocate space for a typed object and copy an existing instance.
-@@ -34,24 +34,24 @@
- 
- /* Allocate space for array of typed objects. */
- #define xmalloc_array(_type, _num) \
--    ((_type *)_xmalloc_array(sizeof(_type), __alignof__(_type), _num))
-+    ((_type *)_xmalloc_array(sizeof(_type), alignof(_type), _num))
- #define xzalloc_array(_type, _num) \
--    ((_type *)_xzalloc_array(sizeof(_type), __alignof__(_type), _num))
-+    ((_type *)_xzalloc_array(sizeof(_type), alignof(_type), _num))
- #define xrealloc_array(_ptr, _num)                                  \
-     ((typeof(_ptr))_xrealloc_array(_ptr, sizeof(typeof(*(_ptr))),   \
--                                   __alignof__(typeof(*(_ptr))), _num))
-+                                   alignof(typeof(*(_ptr))), _num))
- 
- /* Allocate space for a structure with a flexible array of typed objects. */
- #define xzalloc_flex_struct(type, field, nr) \
--    ((type *)_xzalloc(offsetof(type, field[nr]), __alignof__(type)))
-+    ((type *)_xzalloc(offsetof(type, field[nr]), alignof(type)))
- 
- #define xmalloc_flex_struct(type, field, nr) \
--    ((type *)_xmalloc(offsetof(type, field[nr]), __alignof__(type)))
-+    ((type *)_xmalloc(offsetof(type, field[nr]), alignof(type)))
- 
- /* Re-allocate space for a structure with a flexible array of typed objects. */
- #define xrealloc_flex_struct(ptr, field, nr)                           \
-     ((typeof(ptr))_xrealloc(ptr, offsetof(typeof(*(ptr)), field[nr]),  \
--                            __alignof__(typeof(*(ptr)))))
-+                            alignof(typeof(*(ptr)))))
- 
- /* Allocate untyped storage. */
- #define xmalloc_bytes(_bytes) _xmalloc(_bytes, SMP_CACHE_BYTES)
-diff --git a/xen/include/xen/xvmalloc.h b/xen/include/xen/xvmalloc.h
-index 7686d49f8154..d2288c175814 100644
---- a/xen/include/xen/xvmalloc.h
-+++ b/xen/include/xen/xvmalloc.h
-@@ -10,13 +10,13 @@
-  */
- 
- /* Allocate space for typed object. */
--#define xvmalloc(_type) ((_type *)_xvmalloc(sizeof(_type), __alignof__(_type)))
--#define xvzalloc(_type) ((_type *)_xvzalloc(sizeof(_type), __alignof__(_type)))
-+#define xvmalloc(_type) ((_type *)_xvmalloc(sizeof(_type), alignof(_type)))
-+#define xvzalloc(_type) ((_type *)_xvzalloc(sizeof(_type), alignof(_type)))
- 
- /* Allocate space for a typed object and copy an existing instance. */
- #define xvmemdup(ptr)                                          \
- ({                                                             \
--    void *p_ = _xvmalloc(sizeof(*(ptr)), __alignof__(*(ptr))); \
-+    void *p_ = _xvmalloc(sizeof(*(ptr)), alignof(*(ptr))); \
-     if ( p_ )                                                  \
-         memcpy(p_, ptr, sizeof(*(ptr)));                       \
-     (typeof(*(ptr)) *)p_;                                      \
-@@ -24,21 +24,21 @@
- 
- /* Allocate space for array of typed objects. */
- #define xvmalloc_array(_type, _num) \
--    ((_type *)_xvmalloc_array(sizeof(_type), __alignof__(_type), _num))
-+    ((_type *)_xvmalloc_array(sizeof(_type), alignof(_type), _num))
- #define xvzalloc_array(_type, _num) \
--    ((_type *)_xvzalloc_array(sizeof(_type), __alignof__(_type), _num))
-+    ((_type *)_xvzalloc_array(sizeof(_type), alignof(_type), _num))
- 
- /* Allocate space for a structure with a flexible array of typed objects. */
- #define xvzalloc_flex_struct(type, field, nr) \
--    ((type *)_xvzalloc(offsetof(type, field[nr]), __alignof__(type)))
-+    ((type *)_xvzalloc(offsetof(type, field[nr]), alignof(type)))
- 
- #define xvmalloc_flex_struct(type, field, nr) \
--    ((type *)_xvmalloc(offsetof(type, field[nr]), __alignof__(type)))
-+    ((type *)_xvmalloc(offsetof(type, field[nr]), alignof(type)))
- 
- /* Re-allocate space for a structure with a flexible array of typed objects. */
- #define xvrealloc_flex_struct(ptr, field, nr)                          \
-     ((typeof(ptr))_xvrealloc(ptr, offsetof(typeof(*(ptr)), field[nr]), \
--                             __alignof__(typeof(*(ptr)))))
-+                             alignof(typeof(*(ptr)))))
- 
- #ifdef CONFIG_HAS_VMAP
- 
--- 
-2.39.5
-
+Jan
 
