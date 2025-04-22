@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 273C3A960F6
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 10:23:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.961784.1353158 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DCA7A9610C
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 10:23:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.961796.1353275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u78ub-0005yj-VK; Tue, 22 Apr 2025 08:23:25 +0000
+	id 1u78us-0001Jd-AW; Tue, 22 Apr 2025 08:23:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 961784.1353158; Tue, 22 Apr 2025 08:23:25 +0000
+Received: by outflank-mailman (output) from mailman id 961796.1353275; Tue, 22 Apr 2025 08:23:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u78ub-0005u1-MJ; Tue, 22 Apr 2025 08:23:25 +0000
-Received: by outflank-mailman (input) for mailman id 961784;
- Tue, 22 Apr 2025 08:23:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u78ur-0000tH-2z; Tue, 22 Apr 2025 08:23:41 +0000
+Received: by outflank-mailman (input) for mailman id 961796;
+ Tue, 22 Apr 2025 08:23:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qhpm=XI=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1u78ua-0004wM-5H
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 08:23:24 +0000
+ id 1u78ug-0004wX-HT
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 08:23:30 +0000
 Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0a7698bd-1f53-11f0-9eb0-5ba50f476ded;
- Tue, 22 Apr 2025 10:23:18 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0cbc136b-1f53-11f0-9ffb-bf95429c2676;
+ Tue, 22 Apr 2025 10:23:21 +0200 (CEST)
 Received: from terminus.zytor.com (terminus.zytor.com
  [IPv6:2607:7c80:54:3:0:0:0:136]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53M8MG9K1954391
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53M8MG9L1954391
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 22 Apr 2025 01:22:33 -0700
+ Tue, 22 Apr 2025 01:22:34 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a7698bd-1f53-11f0-9eb0-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53M8MG9K1954391
+X-Inumbo-ID: 0cbc136b-1f53-11f0-9ffb-bf95429c2676
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53M8MG9L1954391
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745310154;
-	bh=hH40dRMC8icMs0Kq/gRLpfnhusccGZZqYtPjziXUIq0=;
+	s=2025042001; t=1745310156;
+	bh=SmxUyQE70FAaQfnW45bmQwaH3mwMqOlVkW3bcWeB26U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hcEX0Oma3CVnkwxqS8bKBIm18tqvV7335h9MWMF4E8wAMoT4z1itaFgVa2bu1H7Lv
-	 Ga+u823XXqz9EiWUYA9XlCQeHFfgScC5iggnF6WJwS4CQfGeYOy+x+oIvnckcTBzB6
-	 8V7NP2nGUmfkFx31xOhz6KwJe5WcJid/C9tfwl98yFuEFykSa3egLEr8WStBfP/6oh
-	 K8ADOv9Wdb6X6GRIlWoxPenpyB34mw1V1qvbQ8zIfGnVmMda21cc2+p+ghtOaC0a2V
-	 V8nAVloDomWCJYiVBeBOXpRIQBAsncCQrgBQ+uMQZJ1te/DZTdjVSMkiakmJECg5VO
-	 psDTTjszTfsAw==
+	b=iINnLEAJhcfm25VHl9BH+Xo0l16Q/sZPGlx7+WlqwP0ehPqqqkvu6yHy+O8PgHs+U
+	 HfKtD70R5fYl6gfI4Aq77Ni0VspmRxRN8t/+ITP8PDqwROmTzqcDXDTKOUl0q52O/x
+	 kNkqR3HxfpOlmjRDDomZzOrYqYYw57goThrvNGJJID8guCi8b7ijNhaYFxhN1wAMhF
+	 L3BQU2gHq7JcftvX/oI1VX96HpWG/uYVG1kvop7kafKputBaothCF8urBXatakpG1d
+	 lsmMt0d4XXmNk6/s+RcushWv8vPzSElNBFN11k4tscFnEQOF1BooWUiLW6lx3kHW43
+	 sf5HDD0ajYtew==
 From: "Xin Li (Intel)" <xin@zytor.com>
 To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
         linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
@@ -71,182 +71,128 @@ Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
         pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
         luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
         haiyangz@microsoft.com, decui@microsoft.com
-Subject: [RFC PATCH v2 06/34] x86/msr: Use the alternatives mechanism to read PMC
-Date: Tue, 22 Apr 2025 01:21:47 -0700
-Message-ID: <20250422082216.1954310-7-xin@zytor.com>
+Subject: [RFC PATCH v2 07/34] x86/msr: Convert __wrmsr() uses to native_wrmsr{,q}() uses
+Date: Tue, 22 Apr 2025 01:21:48 -0700
+Message-ID: <20250422082216.1954310-8-xin@zytor.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250422082216.1954310-1-xin@zytor.com>
 References: <20250422082216.1954310-1-xin@zytor.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-To eliminate the indirect call overhead introduced by the pv_ops API,
-use the alternatives mechanism to read PMC:
+__wrmsr() is the lowest level primitive MSR write API, and its direct
+use is NOT preferred.  Use its wrapper function native_wrmsrq() instead.
 
-    1) When built with !CONFIG_XEN_PV, X86_FEATURE_XENPV becomes a
-       disabled feature, preventing the Xen PMC read code from being
-       built and ensuring the native code is executed unconditionally.
+No functional change intended.
 
-    2) When built with CONFIG_XEN_PV:
-
-       2.1) If not running on the Xen hypervisor (!X86_FEATURE_XENPV),
-            the kernel runtime binary is patched to unconditionally
-            jump to the native PMC read code.
-
-       2.2) If running on the Xen hypervisor (X86_FEATURE_XENPV), the
-            kernel runtime binary is patched to unconditionally jump
-            to the Xen PMC read code.
-
-Consequently, remove the pv_ops PMC read API.
+This change also prepares for using the alternatives mechanism to access
+MSRs: uses of native_wrmsr{,q}() don't need to change, but the approaches
+how they perform MSR operations are binary patched during boot time upon
+availability of MSR instructions.
 
 Signed-off-by: Xin Li (Intel) <xin@zytor.com>
 ---
- arch/x86/include/asm/msr.h            | 31 ++++++++++++++++++++-------
- arch/x86/include/asm/paravirt.h       |  5 -----
- arch/x86/include/asm/paravirt_types.h |  2 --
- arch/x86/kernel/paravirt.c            |  1 -
- arch/x86/xen/enlighten_pv.c           |  2 --
- drivers/net/vmxnet3/vmxnet3_drv.c     |  2 +-
- 6 files changed, 24 insertions(+), 19 deletions(-)
 
+Change in v2:
+* Use native_wrmsr() where natural [rmid_p, closid_p] high/lo parameters
+  can be used, without the shift-uglification (Ingo).
+---
+ arch/x86/events/amd/brs.c                 | 2 +-
+ arch/x86/include/asm/apic.h               | 2 +-
+ arch/x86/include/asm/msr.h                | 6 ++++--
+ arch/x86/kernel/cpu/mce/core.c            | 2 +-
+ arch/x86/kernel/cpu/resctrl/pseudo_lock.c | 6 +++---
+ 5 files changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/arch/x86/events/amd/brs.c b/arch/x86/events/amd/brs.c
+index ec4e8a4cace4..3f5ecfd80d1e 100644
+--- a/arch/x86/events/amd/brs.c
++++ b/arch/x86/events/amd/brs.c
+@@ -44,7 +44,7 @@ static inline unsigned int brs_to(int idx)
+ static __always_inline void set_debug_extn_cfg(u64 val)
+ {
+ 	/* bits[4:3] must always be set to 11b */
+-	__wrmsr(MSR_AMD_DBG_EXTN_CFG, val | 3ULL << 3, val >> 32);
++	native_wrmsrq(MSR_AMD_DBG_EXTN_CFG, val | 3ULL << 3);
+ }
+ 
+ static __always_inline u64 get_debug_extn_cfg(void)
+diff --git a/arch/x86/include/asm/apic.h b/arch/x86/include/asm/apic.h
+index 1c136f54651c..0174dd548327 100644
+--- a/arch/x86/include/asm/apic.h
++++ b/arch/x86/include/asm/apic.h
+@@ -214,7 +214,7 @@ static inline void native_apic_msr_write(u32 reg, u32 v)
+ 
+ static inline void native_apic_msr_eoi(void)
+ {
+-	__wrmsr(APIC_BASE_MSR + (APIC_EOI >> 4), APIC_EOI_ACK, 0);
++	native_wrmsrq(APIC_BASE_MSR + (APIC_EOI >> 4), APIC_EOI_ACK);
+ }
+ 
+ static inline u32 native_apic_msr_read(u32 reg)
 diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
-index 01dc8e61ef97..33cf506e2fd6 100644
+index 33cf506e2fd6..b50cbd3299b3 100644
 --- a/arch/x86/include/asm/msr.h
 +++ b/arch/x86/include/asm/msr.h
-@@ -8,6 +8,7 @@
- 
- #include <asm/asm.h>
- #include <asm/errno.h>
-+#include <asm/cpufeature.h>
- #include <asm/cpumask.h>
- #include <uapi/asm/msr.h>
- #include <asm/shared/msr.h>
-@@ -73,6 +74,10 @@ static inline void do_trace_read_msr(u32 msr, u64 val, int failed) {}
- static inline void do_trace_rdpmc(u32 msr, u64 val, int failed) {}
- #endif
- 
-+#ifdef CONFIG_XEN_PV
-+extern u64 xen_read_pmc(int counter);
-+#endif
-+
- /*
-  * __rdmsr() and __wrmsr() are the two primitives which are the bare minimum MSR
-  * accessors and should not have any tracing or other functionality piggybacking
-@@ -170,16 +175,32 @@ native_write_msr_safe(u32 msr, u32 low, u32 high)
- extern int rdmsr_safe_regs(u32 regs[8]);
- extern int wrmsr_safe_regs(u32 regs[8]);
- 
--static inline u64 native_read_pmc(int counter)
-+static __always_inline u64 native_rdpmcq(int counter)
+@@ -149,10 +149,12 @@ static inline u64 native_read_msr_safe(u32 msr, int *err)
+ static inline void notrace
+ native_write_msr(u32 msr, u32 low, u32 high)
  {
- 	DECLARE_ARGS(val, low, high);
+-	__wrmsr(msr, low, high);
++	u64 val = (u64)high << 32 | low;
++
++	native_wrmsrq(msr, val);
  
--	asm volatile("rdpmc" : EAX_EDX_RET(val, low, high) : "c" (counter));
-+	asm_inline volatile("rdpmc" : EAX_EDX_RET(val, low, high) : "c" (counter));
-+
- 	if (tracepoint_enabled(rdpmc))
- 		do_trace_rdpmc(counter, EAX_EDX_VAL(val, low, high), 0);
-+
- 	return EAX_EDX_VAL(val, low, high);
+ 	if (tracepoint_enabled(write_msr))
+-		do_trace_write_msr(msr, ((u64)high << 32 | low), 0);
++		do_trace_write_msr(msr, val, 0);
  }
  
-+static __always_inline u64 rdpmcq(int counter)
-+{
-+#ifdef CONFIG_XEN_PV
-+	if (cpu_feature_enabled(X86_FEATURE_XENPV))
-+		return xen_read_pmc(counter);
-+#endif
-+
-+	/*
-+	 * 1) When built with !CONFIG_XEN_PV.
-+	 * 2) When built with CONFIG_XEN_PV but not running on Xen hypervisor.
-+	 */
-+	return native_rdpmcq(counter);
-+}
-+
- #ifdef CONFIG_PARAVIRT_XXL
- #include <asm/paravirt.h>
- #else
-@@ -233,12 +254,6 @@ static inline int rdmsrq_safe(u32 msr, u64 *p)
- 	*p = native_read_msr_safe(msr, &err);
- 	return err;
- }
--
--static __always_inline u64 rdpmcq(int counter)
--{
--	return native_read_pmc(counter);
--}
--
- #endif	/* !CONFIG_PARAVIRT_XXL */
+ /* Can be uninlined because referenced by paravirt */
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+index 255927f0284e..1ae75ec7ac95 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -1306,7 +1306,7 @@ static noinstr bool mce_check_crashing_cpu(void)
+ 		}
  
- /* Instruction opcode for WRMSRNS supported in binutils >= 2.40 */
-diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-index 590824916394..c7689f5f70d6 100644
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -239,11 +239,6 @@ static inline int rdmsrq_safe(unsigned msr, u64 *p)
- 	return err;
- }
+ 		if (mcgstatus & MCG_STATUS_RIPV) {
+-			__wrmsr(MSR_IA32_MCG_STATUS, 0, 0);
++			native_wrmsrq(MSR_IA32_MCG_STATUS, 0);
+ 			return true;
+ 		}
+ 	}
+diff --git a/arch/x86/kernel/cpu/resctrl/pseudo_lock.c b/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
+index 276ffab194f6..9ab033d6856a 100644
+--- a/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
++++ b/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
+@@ -483,7 +483,7 @@ int resctrl_arch_pseudo_lock_fn(void *_plr)
+ 	 * cache.
+ 	 */
+ 	saved_msr = __rdmsr(MSR_MISC_FEATURE_CONTROL);
+-	__wrmsr(MSR_MISC_FEATURE_CONTROL, prefetch_disable_bits, 0x0);
++	native_wrmsrq(MSR_MISC_FEATURE_CONTROL, prefetch_disable_bits);
+ 	closid_p = this_cpu_read(pqr_state.cur_closid);
+ 	rmid_p = this_cpu_read(pqr_state.cur_rmid);
+ 	mem_r = plr->kmem;
+@@ -495,7 +495,7 @@ int resctrl_arch_pseudo_lock_fn(void *_plr)
+ 	 * pseudo-locked followed by reading of kernel memory to load it
+ 	 * into the cache.
+ 	 */
+-	__wrmsr(MSR_IA32_PQR_ASSOC, rmid_p, plr->closid);
++	native_wrmsr(MSR_IA32_PQR_ASSOC, rmid_p, plr->closid);
  
--static __always_inline u64 rdpmcq(int counter)
--{
--	return PVOP_CALL1(u64, cpu.read_pmc, counter);
--}
--
- static inline void paravirt_alloc_ldt(struct desc_struct *ldt, unsigned entries)
- {
- 	PVOP_VCALL2(cpu.alloc_ldt, ldt, entries);
-diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
-index 631c306ce1ff..475f508531d6 100644
---- a/arch/x86/include/asm/paravirt_types.h
-+++ b/arch/x86/include/asm/paravirt_types.h
-@@ -101,8 +101,6 @@ struct pv_cpu_ops {
- 	u64 (*read_msr_safe)(unsigned int msr, int *err);
- 	int (*write_msr_safe)(unsigned int msr, unsigned low, unsigned high);
+ 	/*
+ 	 * Cache was flushed earlier. Now access kernel memory to read it
+@@ -532,7 +532,7 @@ int resctrl_arch_pseudo_lock_fn(void *_plr)
+ 	 * Critical section end: restore closid with capacity bitmask that
+ 	 * does not overlap with pseudo-locked region.
+ 	 */
+-	__wrmsr(MSR_IA32_PQR_ASSOC, rmid_p, closid_p);
++	native_wrmsr(MSR_IA32_PQR_ASSOC, rmid_p, closid_p);
  
--	u64 (*read_pmc)(int counter);
--
- 	void (*start_context_switch)(struct task_struct *prev);
- 	void (*end_context_switch)(struct task_struct *next);
- #endif
-diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
-index 1ccd05d8999f..28d195ad7514 100644
---- a/arch/x86/kernel/paravirt.c
-+++ b/arch/x86/kernel/paravirt.c
-@@ -132,7 +132,6 @@ struct paravirt_patch_template pv_ops = {
- 	.cpu.write_msr		= native_write_msr,
- 	.cpu.read_msr_safe	= native_read_msr_safe,
- 	.cpu.write_msr_safe	= native_write_msr_safe,
--	.cpu.read_pmc		= native_read_pmc,
- 	.cpu.load_tr_desc	= native_load_tr_desc,
- 	.cpu.set_ldt		= native_set_ldt,
- 	.cpu.load_gdt		= native_load_gdt,
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 846b5737d320..9fbe187aff00 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -1236,8 +1236,6 @@ static const typeof(pv_ops) xen_cpu_ops __initconst = {
- 		.read_msr_safe = xen_read_msr_safe,
- 		.write_msr_safe = xen_write_msr_safe,
- 
--		.read_pmc = xen_read_pmc,
--
- 		.load_tr_desc = paravirt_nop,
- 		.set_ldt = xen_set_ldt,
- 		.load_gdt = xen_load_gdt,
-diff --git a/drivers/net/vmxnet3/vmxnet3_drv.c b/drivers/net/vmxnet3/vmxnet3_drv.c
-index 7edd0b5e0e77..8af3b4d7ef4d 100644
---- a/drivers/net/vmxnet3/vmxnet3_drv.c
-+++ b/drivers/net/vmxnet3/vmxnet3_drv.c
-@@ -151,7 +151,7 @@ static u64
- vmxnet3_get_cycles(int pmc)
- {
- #ifdef CONFIG_X86
--	return native_read_pmc(pmc);
-+	return native_rdpmcq(pmc);
- #else
- 	return 0;
- #endif
+ 	/* Re-enable the hardware prefetcher(s) */
+ 	wrmsrq(MSR_MISC_FEATURE_CONTROL, saved_msr);
 -- 
 2.49.0
 
