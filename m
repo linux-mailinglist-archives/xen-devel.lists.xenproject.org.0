@@ -2,29 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EECA1A97A3C
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 00:12:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.963683.1354642 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90360A97A42
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 00:15:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.963694.1354651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Lqc-0008PY-Ah; Tue, 22 Apr 2025 22:12:10 +0000
+	id 1u7Ltl-0000bs-Nd; Tue, 22 Apr 2025 22:15:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 963683.1354642; Tue, 22 Apr 2025 22:12:10 +0000
+Received: by outflank-mailman (output) from mailman id 963694.1354651; Tue, 22 Apr 2025 22:15:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Lqc-0008N4-7f; Tue, 22 Apr 2025 22:12:10 +0000
-Received: by outflank-mailman (input) for mailman id 963683;
- Tue, 22 Apr 2025 22:12:08 +0000
+	id 1u7Ltl-0000Zz-Kn; Tue, 22 Apr 2025 22:15:25 +0000
+Received: by outflank-mailman (input) for mailman id 963694;
+ Tue, 22 Apr 2025 22:15:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8D33=XI=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1u7Lqa-0008My-2p
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 22:12:08 +0000
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
- [109.224.244.18]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d2a45ee5-1fc6-11f0-9ffb-bf95429c2676;
- Wed, 23 Apr 2025 00:12:04 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BiSK=XI=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
+ id 1u7Ltj-0000Zt-RY
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 22:15:24 +0000
+Received: from 9.mo575.mail-out.ovh.net (9.mo575.mail-out.ovh.net
+ [46.105.78.111]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4777a149-1fc7-11f0-9ffb-bf95429c2676;
+ Wed, 23 Apr 2025 00:15:20 +0200 (CEST)
+Received: from director6.ghost.mail-out.ovh.net (unknown [10.108.9.148])
+ by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4ZhxPh1cNCz1nZ4
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 22:15:20 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-wxqb8 (unknown [10.111.174.155])
+ by director6.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 5ED371FD1E;
+ Tue, 22 Apr 2025 22:15:18 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.97])
+ by ghost-submission-5b5ff79f4f-wxqb8 with ESMTPSA
+ id XYn9BPYUCGgZaQIAj6qUzw
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Tue, 22 Apr 2025 22:15:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,54 +46,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2a45ee5-1fc6-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=ot7zphdvgnbhbibcztnz3ebdca.protonmail; t=1745359923; x=1745619123;
-	bh=o5AHj7v0rUutiT+6KBYPqTIG1FrzXaYJUK/nbhzU95c=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=D5z+c6o1wmEQEyBinIeCqEuQl+z2qklKnX33s7IOmRX5PDZMLNCgEqpLJRwQYb3n9
-	 m8Sj9PBDJiwxLQfPuDvg+uKWuuozS7E9wuoeoDk7JHmKidDHVGrjcXvMXPJpSmOKar
-	 KomcSVw2HiMaq1/bX6VojmcogakQ5yQnJWKHDXrRacTha5XzS4VkYmMkbPJmuGm6Ui
-	 umKGE78YdnVltntYFl3MCfib2fMFqQxKdyU2rvBCWftpLQAAd/Sm1PyhRz928/z9YB
-	 LTaknsTaBn51dbgcPZxSFX4HaWN7POjbX8b+FU7s6YyMTGI5XbtJ3z99YGuxGv9h+S
-	 j7rcTYBwEmqCQ==
-Date: Tue, 22 Apr 2025 22:11:59 +0000
+X-Inumbo-ID: 4777a149-1fc7-11f0-9ffb-bf95429c2676
+Authentication-Results:garm.ovh; auth=pass (GARM-97G00297444c32-6e75-4c2b-82dc-193c2c9f8288,
+                    E44920665798B4DCDE3BF656E3E0060933CCD35A) smtp.auth=sergii.dmytruk@3mdeb.com
+X-OVh-ClientIp:176.111.181.178
+Date: Wed, 23 Apr 2025 01:15:08 +0300
+From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 To: Jan Beulich <jbeulich@suse.com>
-From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, roger.pau@citrix.com, dmukhin@ford.com
-Subject: Re: [PATCH v2] x86/vmx: Update __vmread() signature
-Message-ID: <aAgUKi8DadC6ZPMI@starscream>
-In-Reply-To: <c76427bb-87b4-4c51-a057-1942b9c3d92c@suse.com>
-References: <20250422011530.3010312-1-dmukhin@ford.com> <c76427bb-87b4-4c51-a057-1942b9c3d92c@suse.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: dbfef3c29a2f18c4cb6830008ae13af7b9b5baca
+Cc: Krystian Hebel <krystian.hebel@3mdeb.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 09/21] lib/sha1.c: add file
+Message-ID: <aAgU7Oy_wkNYmgBF@MjU3Nj>
+References: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
+ <8dec423182ed60e2233ed87d98066fed6dc20caf.1745172094.git.sergii.dmytruk@3mdeb.com>
+ <a0dcf27e-a066-4e5f-97b2-e5f178e1b941@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a0dcf27e-a066-4e5f-97b2-e5f178e1b941@suse.com>
+X-Ovh-Tracer-Id: 1510676202228397145
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvgeegledtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepufgvrhhgihhiucffmhihthhruhhkuceoshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvgfevgedtfffhudegveeiheekteduveeffeegtdeljeelvdefuedtteduieevleenucfkphepuddvjedrtddrtddruddpudejiedrudduuddrudekuddrudejkedpfeejrdehledrudegvddrleejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheejhegmpdhmohguvgepshhmthhpohhuth
+DKIM-Signature: a=rsa-sha256; bh=osNLxsaFq2SShPgkGKDtrQZzGauLYum/aG085GmJLN0=;
+ c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
+ t=1745360120; v=1;
+ b=Z10R59jeAQYmApd14Qg2mFnVGWZUE58hmoUDTVgLxg82z/o2QawKlXkVedepTQEWwqb4Ddv7
+ hCC3JwBfGO6ShT+4PUxA3+8K+S+uPNkqfhE3eFPrJU6T/2Af0bHMPqRhBr9zuUeSthb7yBxT6U3
+ KnQaM8D7K2e2AHF5jc0426t43+CfRzWM1OIfKTxNnQjnDHp2DhR7A2xn/esD/Sq3hjTuIFWPV6T
+ /pxRhud4X/tLYCb2+nfdbImTG5ZvqqnWkZ7T+vrJ9UEx5lPU4iv+qjvlQ660nWrsIskGX5SNjCN
+ WwX3AVPR3Y7kNNomN0ZlGGsBRRj1wQUKFugWUVXHWRblg==
 
-On Tue, Apr 22, 2025 at 09:56:00AM +0200, Jan Beulich wrote:
-> On 22.04.2025 03:15, dmkhn@proton.me wrote:
-> > From: Denis Mukhin <dmukhin@ford.com>
+On Tue, Apr 22, 2025 at 05:36:22PM +0200, Jan Beulich wrote:
+> On 22.04.2025 17:06, Sergii Dmytruk wrote:
+> > From: Krystian Hebel <krystian.hebel@3mdeb.com>
 > >
-> > Current implementation of __vmread() returns the result via pointer arg=
-ument
-> > which leads to having excess code in some places.
+> > The code comes from [1] and is licensed under GPL-2.0 license.
+> > It's a combination of:
+> >  - include/crypto/sha1.h
+> >  - include/crypto/sha1_base.h
+> >  - lib/crypto/sha1.c
+> >  - crypto/sha1_generic.c
 > >
-> > Update the signature of __vmread() to return `unsigned long` and drop t=
-he
-> > pointer argument as per suggestion in [1].
-> >
-> > Update all call sites everywhere in the VT-x code.
->=20
-> You did read Andrew's reply to v1 before posting v2, didn't you?
+> > Changes:
+> >  - includes
+> >  - formatting
+> >  - renames and splicing of some trivial functions that are called once
+> >  - dropping of `int` return values (only zero was ever returned)
+> >  - getting rid of references to `struct shash_desc`
+>
+> Since you did move the code to (largely) Xen style, a few further requests
+> in that direction:
 
-I missed to address the function name change request, posted v3:
-  https://lore.kernel.org/xen-devel/20250422215833.522007-1-dmukhin@ford.co=
-m/
+Rewriting the patch due to a comment by Andrew Cooper obsoletes most of
+your comments, but thanks for them anyway.
 
->=20
+>
 > Jan
-
 
