@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0832A97001
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 17:09:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.962812.1353993 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22CF4A97090
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 17:26:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.963026.1354151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7FFl-0004pX-RW; Tue, 22 Apr 2025 15:09:41 +0000
+	id 1u7FVU-0000w3-Ap; Tue, 22 Apr 2025 15:25:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 962812.1353993; Tue, 22 Apr 2025 15:09:41 +0000
+Received: by outflank-mailman (output) from mailman id 963026.1354151; Tue, 22 Apr 2025 15:25:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7FFl-0004mP-OJ; Tue, 22 Apr 2025 15:09:41 +0000
-Received: by outflank-mailman (input) for mailman id 962812;
- Tue, 22 Apr 2025 15:09:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u7FVU-0000uc-83; Tue, 22 Apr 2025 15:25:56 +0000
+Received: by outflank-mailman (input) for mailman id 963026;
+ Tue, 22 Apr 2025 15:25:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AmJA=XI=flex--seanjc.bounces.google.com=3MLEHaAYKCfcrdZmibfnnfkd.bnlwdm-cdudkkhrsr.wdmoqnidbs.nqf@srs-se1.protection.inumbo.net>)
- id 1u7FFk-0004m0-0S
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 15:09:40 +0000
-Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
- [2607:f8b0:4864:20::1049])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ce8d05e7-1f8b-11f0-9ffb-bf95429c2676;
- Tue, 22 Apr 2025 17:09:38 +0200 (CEST)
-Received: by mail-pj1-x1049.google.com with SMTP id
- 98e67ed59e1d1-3085f5855c4so4816312a91.1
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 08:09:38 -0700 (PDT)
+ <SRS0=NnGu=XI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u7FIk-00053b-M7
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 15:12:46 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3ed5bc41-1f8c-11f0-9eb0-5ba50f476ded;
+ Tue, 22 Apr 2025 17:12:46 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43edb40f357so39825935e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 08:12:45 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4406d5acdd4sm176051415e9.14.2025.04.22.08.12.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Apr 2025 08:12:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,110 +45,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce8d05e7-1f8b-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 3ed5bc41-1f8c-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1745334576; x=1745939376; darn=lists.xenproject.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=rRXArVhux4Bsw70YvwQ+lh5zlccYMqH0xPXNTi9FZ8g=;
-        b=uchJLT83A1P/9DSgC2lZQTvyUFPUPUuGTWXf/wB4cpTHDDUs36gBUrrlvDViFddkj2
-         lXv4lV8K/zRwXm5/71oFCep55jUdVa5SpAlOQc4B8mE9lzl7mMGPKB+fbFzSWRMvf8i5
-         oNQ1KGZJb4HybJvozoEH06GhprDc2mTel1kM78mBWJlUdVyp23fGiKWEDK4xHTY+nlfv
-         qsV4rEW6HhLCQUtLuizwt/OMl44hjJ/e+IEPcjalE1emtnEx3NG5ZneT8n+Ms/q0pRxQ
-         RqJsPJIqh7RMXGcaARVXD+BRz50CItr6AbxxrwQrMlRopKKyLONXJGHv+wKbka237d4J
-         XVqw==
+        d=gmail.com; s=20230601; t=1745334765; x=1745939565; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oiUqEBuY4Ss8TzKkuyi1daOGwN2KW+4XMKyBVzNRhfU=;
+        b=iu+RlvdDqgpvCXHkrIohZCRyGje8Ly+uLZP64LFBxfpak68TIJmGKnodXLQtsGzYxc
+         xjm8cpqoL6QKm3ZU6Dca+6R+5VyxEZxI8RDi2ba86kCrv3+lY1dF9Ko8jsvJ0M4iwbpu
+         Ppoqy5J52SqpiDbkGcpwKYp9CLtmKCvAiWWtLLFqHG/S32PlozhzjLnCHk4XvqbIryNT
+         Lhe1ZnKBiWmD4KRZaspwvx13uYRtgup3S08tXk3Y0aYRUKpbi/mlfoTRagZ8zko7DZb5
+         r5I0gjXnhVywqyU+rz9ApXcM7cRnwArQk6av/VlI37k1g8idGmUqysPH0i2BSB7Tfmxq
+         lOJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745334576; x=1745939376;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rRXArVhux4Bsw70YvwQ+lh5zlccYMqH0xPXNTi9FZ8g=;
-        b=Cg7I2k8oyeylyVJtwCySPMwJjhg3S1YeVRHsx1Ibv+i8Pvc5Jp7VLSQAPZTnBX/neU
-         XC6vwpHI7BPRRexEupthay+IZwWCUqiJgbjDV6SX0VL98x1m/PFz14nrXLdq1pr6v95l
-         ljwytCj8DC3IJjspbGu4AwSD+USIA/zye9e2mrpGbr+QJ8cDqE0Q8LwQy0Y9N4m1KoKc
-         Eo29fU0zhhaIhxZyzIM3ovk+z7VWgx2Gc/QKwZBTxg77wwaECrxta0gSr6x720dSPhrV
-         x/WC3MAllA+30NSOkcDzAHoQyXlZrzg+SlXK+IVKFLTaWhRR7WgYbxu3UApV1xUfpkBo
-         PqTQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXuo+Ekd50NQLBRRM1srZNQ1/NYHxqo+I0sAGdsvnw1KuLpgoUTneI9F3G5fLpnYWbsSBX1b+0NfWU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyqifirEu9/c+JRLsU82pcZXEAnc98VGj1PTwuxT2B/pdnxHAZA
-	cCTPkBU0aPIxvRyBA3HsZLMhXjw9Gm2l3J4WKjdFA20PG/ggWZcf1dPTwzBRfAwimmovapcko4t
-	HVw==
-X-Google-Smtp-Source: AGHT+IHGR6YFubcBkAQrqhkjsdDwq21aLEhFyH8uteoXFGo84CYqI3Y4PMerNLsX7Qx/XFlRMipUTrfnrN0=
-X-Received: from pjbrr7.prod.google.com ([2002:a17:90b:2b47:b0:2fc:2c9c:880])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4ecf:b0:2ff:692b:b15
- with SMTP id 98e67ed59e1d1-3087bbca3b0mr26039866a91.33.1745334576501; Tue, 22
- Apr 2025 08:09:36 -0700 (PDT)
-Date: Tue, 22 Apr 2025 08:09:34 -0700
-In-Reply-To: <20250422082216.1954310-11-xin@zytor.com>
-Mime-Version: 1.0
-References: <20250422082216.1954310-1-xin@zytor.com> <20250422082216.1954310-11-xin@zytor.com>
-Message-ID: <aAexLqjhKncFyw2V@google.com>
-Subject: Re: [RFC PATCH v2 10/34] x86/msr: Convert __rdmsr() uses to
- native_rdmsrq() uses
-From: Sean Christopherson <seanjc@google.com>
-To: "Xin Li (Intel)" <xin@zytor.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org, 
-	virtualization@lists.linux.dev, linux-pm@vger.kernel.org, 
-	linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org, 
-	netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
-	tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, acme@kernel.org, 
-	jgross@suse.com, andrew.cooper3@citrix.com, peterz@infradead.org, 
-	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, 
-	kan.liang@linux.intel.com, wei.liu@kernel.org, ajay.kaher@broadcom.com, 
-	bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com, 
-	pbonzini@redhat.com, vkuznets@redhat.com, luto@kernel.org, 
-	boris.ostrovsky@oracle.com, kys@microsoft.com, haiyangz@microsoft.com, 
-	decui@microsoft.com
-Content-Type: text/plain; charset="us-ascii"
+        d=1e100.net; s=20230601; t=1745334765; x=1745939565;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=oiUqEBuY4Ss8TzKkuyi1daOGwN2KW+4XMKyBVzNRhfU=;
+        b=HEfnhpEVxP+fjY3YvmmxM36KGJuRZWENt0eYh6tdqUYUvncRxAUSjnGYqUnhRjj6uK
+         UP0YhPm9lR2fJ/r/1nyq5t2sjq56i2XRDqW5CrIdCt6VMiURQIZnSVsqhom9TKbGwxAR
+         fEwW/41QtnZKLoCvt4FtK+uKTf2R9SM3KvYJxlwUIikry9+O/0KWI89Q8N0vGv1ioUmn
+         EkjQVOREH1zPJNbCQ9lYrBFz6ECXFjdhlpW4wh6U0wyswlXGk+bZG5oNmjvgyleJ2Rik
+         jZ6g1uoiSVxjNrpPYQJ9H+WJ1gjQ2K4eThr6GGRxNeEOpXsX9Y5zCEzkPv88SWSd/QXR
+         /+vg==
+X-Forwarded-Encrypted: i=1; AJvYcCVtVpSwylw27zHmSf7T0V+kG6GIlviqZhMHpiXw/c9kSaZOyjiGceQ/HB8J0S4GrE/t0qV0PbHxtWU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx5wofsWkeKBw1UC9BqBYUFW2smD4Fpo28/iSEoGbfCp+xtkOJi
+	wvycU/usQ+cK777ve8TjuNUPLhh66wwxJqIWObxwDiVj+iOOl90l
+X-Gm-Gg: ASbGncuW0KOLj2yXjgfCi2g4CYTa5/C+o+r0vROAKLg+7odH5CIVfq83w8u2fKrHxLc
+	a/48B99PLQEz0rZh3jwRmylYD4zUX+fpIZ7EAm8MPrzOZgwfAhZUgdaKZYcfl7UmYIC5JUzQilB
+	SSSLf9w22DUxSnv8YWvvegVcJ0mUo8ixXVL3Hm9xQXDlm+Rc9mTmnrXVkw80zecqSmfy6Rdmyqh
+	GS/jrGRc1K0/P+tyHAVuPqxARv2bLCwbytGj+SGIw0QCXV7fEvUStRQ2dSHm5VRSfBWfbp8M4eY
+	Iycp+/8U9iXWRbQHWw0RSBQCVmzqWVYb2uRQGPTVzzSKPEaU4gDCigOiQ7dmCiIpPk3eU0kKnKE
+	lOxqRz3QCYwpT6GhO
+X-Google-Smtp-Source: AGHT+IERZlGz/oPhzxTG22sOsD9Gd4gkfx86jY4wtwNZkuUU5qA5pBbQ/7eEDxABrgUX7pPviZVucg==
+X-Received: by 2002:a05:600c:3c9b:b0:43c:ec4c:25b1 with SMTP id 5b1f17b1804b1-4406abfbcd7mr127875805e9.23.1745334765263;
+        Tue, 22 Apr 2025 08:12:45 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------5dwnZhe09JW5CNlehNPefJLI"
+Message-ID: <3181aaf7-e1a8-48de-8f16-dad0dfad0cdc@gmail.com>
+Date: Tue, 22 Apr 2025 17:12:44 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/8] asm-generic: move some parts of Arm's
+ domain_build.h to common
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1744626032.git.oleksii.kurochko@gmail.com>
+ <1c67078147c4a89e46f253f040bef5046fac9ca9.1744626032.git.oleksii.kurochko@gmail.com>
+ <1e7ba51b-8943-4001-be2f-9181e7362223@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <1e7ba51b-8943-4001-be2f-9181e7362223@suse.com>
 
-On Tue, Apr 22, 2025, Xin Li (Intel) wrote:
-> __rdmsr() is the lowest level primitive MSR read API, and its direct
-> use is NOT preferred.
+This is a multi-part message in MIME format.
+--------------5dwnZhe09JW5CNlehNPefJLI
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Doesn't mean it's wrong.
 
-> Use its wrapper function native_rdmsrq() instead.
+On 4/17/25 4:36 PM, Jan Beulich wrote:
+> On 14.04.2025 17:56, Oleksii Kurochko wrote:
+>> --- /dev/null
+>> +++ b/xen/include/xen/fdt-domain-build.h
+>> @@ -0,0 +1,46 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +#ifndef __XEN_FDT_DOMAIN_BUILD_H__
+>> +#define __XEN_FDT_DOMAIN_BUILD_H__
+>> +
+>> +#include <xen/bootfdt.h>
+>> +#include <xen/device_tree.h>
+>> +#include <xen/fdt-kernel.h>
+>> +#include <xen/types.h>
+>> +
+>> +#if __has_include(<asm/domain_build.h>)
+>> +#   include <asm/domain_build.h>
+>> +#endif
+> Why is this conditional include needed? There's ...
 
-...
+To use everywhere just the generic header xen/fdt-domain-build.h instead of both
+xen/fdt-domain-build.h and <asm/domain_build.h>.
 
-> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-> index 1547bfacd40f..e73c1d5ba6c4 100644
-> --- a/arch/x86/kvm/vmx/vmx.c
-> +++ b/arch/x86/kvm/vmx/vmx.c
-> @@ -380,7 +380,7 @@ static __always_inline void vmx_disable_fb_clear(struct vcpu_vmx *vmx)
->  	if (!vmx->disable_fb_clear)
->  		return;
->  
-> -	msr = __rdmsr(MSR_IA32_MCU_OPT_CTRL);
-> +	msr = native_rdmsrq(MSR_IA32_MCU_OPT_CTRL);
->  	msr |= FB_CLEAR_DIS;
->  	native_wrmsrq(MSR_IA32_MCU_OPT_CTRL, msr);
->  	/* Cache the MSR value to avoid reading it later */
-> @@ -7307,7 +7307,7 @@ void noinstr vmx_spec_ctrl_restore_host(struct vcpu_vmx *vmx,
->  		return;
->  
->  	if (flags & VMX_RUN_SAVE_SPEC_CTRL)
-> -		vmx->spec_ctrl = __rdmsr(MSR_IA32_SPEC_CTRL);
-> +		vmx->spec_ctrl = native_rdmsrq(MSR_IA32_SPEC_CTRL);
+~ Oleksii
 
-And what guarantees that native_rdmsrq() won't have tracing?  Ugh, a later patch
-renames native_rdmsrq() => native_rdmsrq_no_trace().
+>
+>> +struct domain;
+>> +struct page_info;
+>> +struct membanks;
+>> +
+>> +typedef bool (*alloc_domheap_mem_cb)(struct domain *d, struct page_info *pg,
+>> +                                     unsigned int order, void *extra);
+>> +bool allocate_domheap_memory(struct domain *d, paddr_t tot_size,
+>> +                             alloc_domheap_mem_cb cb, void *extra);
+>> +
+>> +bool allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
+>> +                          paddr_t tot_size);
+>> +void allocate_memory(struct domain *d, struct kernel_info *kinfo);
+>> +int construct_domain(struct domain *d, struct kernel_info *kinfo);
+>> +int make_chosen_node(const struct kernel_info *kinfo);
+>> +int make_cpus_node(const struct domain *d, void *fdt);
+>> +int make_hypervisor_node(struct domain *d, const struct kernel_info *kinfo,
+>> +                         int addrcells, int sizecells);
+>> +int make_memory_node(const struct kernel_info *kinfo, int addrcells,
+>> +                     int sizecells, const struct membanks *mem);
+>> +int make_timer_node(const struct kernel_info *kinfo);
+>> +
+>> +unsigned int get_allocation_size(paddr_t size);
+>> +
+>> +#endif /* __XEN_FDT_DOMAIN_BUILD_H__ */
+> ... nothing here showing any dependency thereon.
+>
+> Jan
+--------------5dwnZhe09JW5CNlehNPefJLI
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-I really don't like this.  It makes simple and obvious code:
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/17/25 4:36 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:1e7ba51b-8943-4001-be2f-9181e7362223@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 14.04.2025 17:56, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- /dev/null
++++ b/xen/include/xen/fdt-domain-build.h
+@@ -0,0 +1,46 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __XEN_FDT_DOMAIN_BUILD_H__
++#define __XEN_FDT_DOMAIN_BUILD_H__
++
++#include &lt;xen/bootfdt.h&gt;
++#include &lt;xen/device_tree.h&gt;
++#include &lt;xen/fdt-kernel.h&gt;
++#include &lt;xen/types.h&gt;
++
++#if __has_include(&lt;asm/domain_build.h&gt;)
++#   include &lt;asm/domain_build.h&gt;
++#endif
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Why is this conditional include needed? There's ...</pre>
+    </blockquote>
+    <pre>To use everywhere just the generic header xen/fdt-domain-build.h instead of both
+xen/fdt-domain-build.h and &lt;asm/domain_build.h&gt;.
 
-	vmx->spec_ctrl = __rdmsr(MSR_IA32_SPEC_CTRL);
+~ Oleksii
+</pre>
+    <blockquote type="cite"
+      cite="mid:1e7ba51b-8943-4001-be2f-9181e7362223@suse.com">
+      <pre wrap="" class="moz-quote-pre">
 
-so much harder to read:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+struct domain;
++struct page_info;
++struct membanks;
++
++typedef bool (*alloc_domheap_mem_cb)(struct domain *d, struct page_info *pg,
++                                     unsigned int order, void *extra);
++bool allocate_domheap_memory(struct domain *d, paddr_t tot_size,
++                             alloc_domheap_mem_cb cb, void *extra);
++
++bool allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
++                          paddr_t tot_size);
++void allocate_memory(struct domain *d, struct kernel_info *kinfo);
++int construct_domain(struct domain *d, struct kernel_info *kinfo);
++int make_chosen_node(const struct kernel_info *kinfo);
++int make_cpus_node(const struct domain *d, void *fdt);
++int make_hypervisor_node(struct domain *d, const struct kernel_info *kinfo,
++                         int addrcells, int sizecells);
++int make_memory_node(const struct kernel_info *kinfo, int addrcells,
++                     int sizecells, const struct membanks *mem);
++int make_timer_node(const struct kernel_info *kinfo);
++
++unsigned int get_allocation_size(paddr_t size);
++
++#endif /* __XEN_FDT_DOMAIN_BUILD_H__ */
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+... nothing here showing any dependency thereon.
 
-	vmx->spec_ctrl = native_rdmsrq_no_trace(MSR_IA32_SPEC_CTRL);
+Jan
+</pre>
+    </blockquote>
+  </body>
+</html>
 
-and does so in a way that is difficult to review, e.g. I have to peek ahead to
-understand that this is even ok.
-
-I strongly prefer that we find a way to not require such verbose APIs, especially
-if KVM ends up using native variants throughout.  Xen PV is supposed to be the
-odd one out, yet native code is what suffers.  Blech.
+--------------5dwnZhe09JW5CNlehNPefJLI--
 
