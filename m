@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 150A7A97263
+	by mail.lfdr.de (Postfix) with ESMTPS id 3783EA97265
 	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 18:19:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.963257.1354292 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.963264.1354304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7GKu-0002y4-3C; Tue, 22 Apr 2025 16:19:04 +0000
+	id 1u7GL5-0003Xt-I0; Tue, 22 Apr 2025 16:19:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 963257.1354292; Tue, 22 Apr 2025 16:19:04 +0000
+Received: by outflank-mailman (output) from mailman id 963264.1354304; Tue, 22 Apr 2025 16:19:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7GKt-0002vz-Vv; Tue, 22 Apr 2025 16:19:03 +0000
-Received: by outflank-mailman (input) for mailman id 963257;
- Tue, 22 Apr 2025 16:19:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u7GL5-0003Vl-9w; Tue, 22 Apr 2025 16:19:15 +0000
+Received: by outflank-mailman (input) for mailman id 963264;
+ Tue, 22 Apr 2025 16:19:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8D33=XI=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1u7GKs-0002uR-Bf
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 16:19:02 +0000
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7fb53ab8-1f95-11f0-9eb0-5ba50f476ded;
- Tue, 22 Apr 2025 18:19:00 +0200 (CEST)
+ id 1u7GL3-0002OS-B8
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 16:19:13 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8688f88f-1f95-11f0-9ffb-bf95429c2676;
+ Tue, 22 Apr 2025 18:19:11 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,191 +36,274 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fb53ab8-1f95-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: 8688f88f-1f95-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1745338739; x=1745597939;
-	bh=gMICI6B3lH/LI8Bo7Noz0rmmlJx0a8snq/+0lLRbH+M=;
+	s=protonmail; t=1745338751; x=1745597951;
+	bh=Oxzopb2Smy8wHitpBXm9PkJA3tLunHfsAtM0n7PUwIE=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=UCsXDTVoq5B31Qd6bE7qOehw7bEXQcUzWtrVOQzvvOe9RnCE4HsZdbEEf6t7L9cxJ
-	 UQVpxqq885WHgWXUqLoDFM6GkR24RnrVQFnI4Vb7rVdNC1Xv/MM/ycZ2v9smmSh740
-	 uCsnMIMO4Mfv/Iwpd+5XaQdFVWBVn9FLXflLZ3QrHhYU1aeZecfUJiSczAOblheLf3
-	 ZCCKchQXIkuKYJsjsT4CEU6CgCzTZ6RT+w7/r2+PupglHfHMfyduAh27eGwoUWuHFR
-	 teJX6Q4lFo+KYE6Hh9UN5t4SPq9HLCsOTpREpic2h5hqrzR5SPHLHk1sWzBZ0IqcX2
-	 iltd8Vk+ARiLw==
-Date: Tue, 22 Apr 2025 16:18:53 +0000
+	b=ddniTTcuTQ8E+9TlrnrhoHnavJgaYwNo+DkDLZMkiLU+qO7Sremt3zzcKWjzHotJ2
+	 Dsv+CD5sSa5QBeRhthDN1nfWUXnVbBailLiHkO3HK/4WY9fb04zruJLN+LSKgYwKCV
+	 tUVJQIbqKYNrFNkAK/fT2hIUy/6xKx1U/4jQ9oBjO5Emw9FvH5THGq3/Jw8TXudUuG
+	 hsDDg522KD3gvhFZ6PPwwNPtiRjaEpeVA386yFbczdesSgg+JZM+BQJXQerNk1llrN
+	 CpLv+awBzsTmU9Ik/fDmCM/dn57wJtjqqxXVqL1Nblym7jXZSp2d/zTwrJw8Nw7AzI
+	 +KLB3R8KSF2MA==
+Date: Tue, 22 Apr 2025 16:18:59 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, cardoe@cardoe.com, marmarek@invisiblethingslab.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v3 2/4] CI: switch x86 EFI smoke test runner to qemu-xtf.sh
-Message-ID: <20250422161819.2089738-3-dmukhin@ford.com>
+Subject: [PATCH v3 3/4] CI: switch arm64 XTF test runner to qemu-xtf.sh
+Message-ID: <20250422161819.2089738-4-dmukhin@ford.com>
 In-Reply-To: <20250422161819.2089738-1-dmukhin@ford.com>
 References: <20250422161819.2089738-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: a54f0f1eabfa8fd521b8068cfcc7d05cc1e3615b
+X-Pm-Message-ID: 463a1c55ac49d624fc10569fc5d79917ac781576
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 From: Denis Mukhin <dmukhin@ford.com>
 
-Use qemu-xtf.sh for qemu-smoke-x86-64-gcc-efi job.
-
-Lead time is reduced a bit since not all XTF code base is built, just the
-required test.
+Hook arm64 QEMU configuration to qemu-xtf.sh and use new script in arm64 CI
+jobs.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
 Changes v2->v3:
-- use pv64 variant for EFI job
+- .gitignore fixup
+- Kept Stefano's R-b since the change was trivial
 ---
- automation/gitlab-ci/test.yaml                |  2 +-
- .../include/configs/xtf-x86-64-efi-config     |  0
- automation/scripts/include/xtf-x86-64-efi     | 52 +++++++++++++++++++
- automation/scripts/qemu-smoke-x86-64-efi.sh   | 43 ---------------
- 4 files changed, 53 insertions(+), 44 deletions(-)
- create mode 100644 automation/scripts/include/configs/xtf-x86-64-efi-confi=
-g
- create mode 100644 automation/scripts/include/xtf-x86-64-efi
- delete mode 100755 automation/scripts/qemu-smoke-x86-64-efi.sh
+ automation/gitlab-ci/test.yaml                |  4 +-
+ automation/scripts/.gitignore                 |  3 +
+ .../scripts/include/configs/xtf-arm64-config  |  2 +
+ automation/scripts/include/xtf-arm64          | 81 +++++++++++++++++++
+ automation/scripts/qemu-xtf-dom0less-arm64.sh | 68 ----------------
+ 5 files changed, 88 insertions(+), 70 deletions(-)
+ create mode 100644 automation/scripts/include/configs/xtf-arm64-config
+ create mode 100644 automation/scripts/include/xtf-arm64
+ delete mode 100755 automation/scripts/qemu-xtf-dom0less-arm64.sh
 
 diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yam=
 l
-index 3adc841335..1d89575b24 100644
+index 1d89575b24..a603d4039a 100644
 --- a/automation/gitlab-ci/test.yaml
 +++ b/automation/gitlab-ci/test.yaml
-@@ -687,7 +687,7 @@ qemu-smoke-x86-64-clang-pvh:
- qemu-smoke-x86-64-gcc-efi:
-   extends: .qemu-smoke-x86-64
+@@ -571,7 +571,7 @@ qemu-smoke-dom0less-arm64-gcc-debug-earlyprintk:
+ qemu-xtf-dom0less-arm64-gcc-hyp-xen-version:
+   extends: .qemu-arm64
    script:
--    - ./automation/scripts/qemu-smoke-x86-64-efi.sh pv 2>&1 | tee ${LOGFIL=
-E}
-+    - ./automation/scripts/qemu-xtf.sh x86-64-efi pv64 example 2>&1 | tee =
-${LOGFILE}
+-    - ./automation/scripts/qemu-xtf-dom0less-arm64.sh hyp-xen-version 2>&1=
+ | tee ${LOGFILE}
++    - ./automation/scripts/qemu-xtf.sh arm64 mmu64le hyp-xen-version 2>&1 =
+| tee ${LOGFILE}
    needs:
-     - debian-12-x86_64-gcc-debug
-=20
-diff --git a/automation/scripts/include/configs/xtf-x86-64-efi-config b/aut=
-omation/scripts/include/configs/xtf-x86-64-efi-config
+     - alpine-3.18-gcc-arm64
+     - qemu-system-aarch64-6.0.0-arm64-export
+@@ -579,7 +579,7 @@ qemu-xtf-dom0less-arm64-gcc-hyp-xen-version:
+ qemu-xtf-dom0less-arm64-gcc-debug-hyp-xen-version:
+   extends: .qemu-arm64
+   script:
+-    - ./automation/scripts/qemu-xtf-dom0less-arm64.sh hyp-xen-version 2>&1=
+ | tee ${LOGFILE}
++    - ./automation/scripts/qemu-xtf.sh arm64 mmu64le hyp-xen-version 2>&1 =
+| tee ${LOGFILE}
+   needs:
+     - alpine-3.18-gcc-debug-arm64
+     - qemu-system-aarch64-6.0.0-arm64-export
+diff --git a/automation/scripts/.gitignore b/automation/scripts/.gitignore
+index 310a577bef..a01b533c60 100644
+--- a/automation/scripts/.gitignore
++++ b/automation/scripts/.gitignore
+@@ -1,3 +1,6 @@
+ /binaries/
++/imagebuilder/
+ /smoke.serial
+ /xtf-*/
++
++*.rom
+diff --git a/automation/scripts/include/configs/xtf-arm64-config b/automati=
+on/scripts/include/configs/xtf-arm64-config
 new file mode 100644
-index 0000000000..e69de29bb2
-diff --git a/automation/scripts/include/xtf-x86-64-efi b/automation/scripts=
-/include/xtf-x86-64-efi
-new file mode 100644
-index 0000000000..e0d821b3f6
+index 0000000000..9942740927
 --- /dev/null
-+++ b/automation/scripts/include/xtf-x86-64-efi
-@@ -0,0 +1,52 @@
++++ b/automation/scripts/include/configs/xtf-arm64-config
+@@ -0,0 +1,2 @@
++CONFIG_GICV2=3Dy
++CONFIG_SBSA_UART=3Dy
+diff --git a/automation/scripts/include/xtf-arm64 b/automation/scripts/incl=
+ude/xtf-arm64
+new file mode 100644
+index 0000000000..1a318b7aa0
+--- /dev/null
++++ b/automation/scripts/include/xtf-arm64
+@@ -0,0 +1,81 @@
 +#!/bin/bash
 +#
-+# XTF test utilities (x86_64, EFI).
++# XTF test utilities (arm64).
 +#
 +
 +# Arch-specific environment overrides.
 +function xtf_arch_prepare()
 +{
-+    export FW_PREFIX=3D"${FW_PREFIX:-/usr/share/OVMF/}"
-+    export QEMU_PREFIX=3D"${QEMU_PREFIX:-}"
-+    export XEN_BINARY=3D"${XEN_BINARY:-${WORKDIR}/xen.efi}"
++    export FW_PREFIX=3D"${FW_PREFIX:-/usr/lib/u-boot/qemu_arm64/}"
++    export QEMU_PREFIX=3D"${QEMU_PREFIX:-${WORKDIR}/}"
++    export XEN_BINARY=3D"${XEN_BINARY:-${WORKDIR}/xen}"
 +    export XEN_CMDLINE=3D"${XEN_CMDLINE:-loglvl=3Dall noreboot console_tim=
-estamps=3Dboot console=3Dcom1}"
-+    export XTF_SRC_BRANCH=3D"${XTF_SRC_BRANCH:-master}"
-+    export XTF_SRC_URI=3D"${XTF_SRC_URI:-https://xenbits.xen.org/git-http/=
-xtf.git}"
-+    export XTF_SRC_VARIANTS=3D"hvm64 pv64"
+estamps=3Dboot console=3Ddtuart}"
++    export XTF_SRC_BRANCH=3D"${XTF_SRC_BRANCH:-xtf-arm}"
++    export XTF_SRC_URI=3D"${XTF_SRC_URI:-https://gitlab.com/xen-project/fu=
+sa/xtf.git}"
++    export XTF_SRC_VARIANTS=3D"mmu64le"
 +}
 +
 +# Perform arch-specific XTF environment setup.
 +function xtf_arch_setup()
 +{
-+    local esp_dir=3D"${WORKDIR}/boot-esp"
-+    local efi_dir=3D"${esp_dir}/EFI/BOOT"
++    # QEMU looks for "efi-virtio.rom" even if it is unneeded
++    curl -fsSLO https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio=
+.rom
 +
-+    # Generate EFI boot environment
-+    mkdir -p ${efi_dir}
-+    cp ${XEN_BINARY} ${efi_dir}/BOOTX64.EFI
-+    cp ${XTF_BINARY} ${efi_dir}/kernel
++    # Crude check for local testing
++    if [ ! -d imagebuilder ]; then
++        git clone --depth 1 https://gitlab.com/xen-project/imagebuilder.gi=
+t
++    fi
 +
-+    cat > ${efi_dir}/BOOTX64.cfg <<EOF
-+[global]
-+default=3Dtest
++    cat > ${WORKDIR}/config <<EOF
++MEMORY_START=3D"0x40000000"
++MEMORY_END=3D"0xC0000000"
 +
-+[test]
-+options=3D${XEN_CMDLINE}
-+kernel=3Dkernel
++XEN=3D"xen"
++DEVICE_TREE=3D"virt-gicv2.dtb"
++
++XEN_CMD=3D"${XEN_CMDLINE}"
++
++DOMU_KERNEL[0]=3D"xtf-test"
++DOMU_MEM[0]=3D"128"
++
++NUM_DOMUS=3D1
++
++LOAD_CMD=3D"tftpb"
++UBOOT_SOURCE=3D"boot.source"
++UBOOT_SCRIPT=3D"boot.scr"
 +EOF
++    cp ${XTF_BINARY} ${WORKDIR}/xtf-test
 +
-+    # NB: OVMF_CODE.fd is read-only, no need to copy
-+    cp ${FW_PREFIX}OVMF_VARS.fd ${WORKDIR}
++    # Generate virt-gicv2.dtb
++    ${WORKDIR}/qemu-system-aarch64 \
++        -machine virtualization=3Dtrue \
++        -cpu cortex-a57 \
++        -machine type=3Dvirt \
++        -m 2048 \
++        -smp 2 \
++        -display none \
++        -machine dumpdtb=3D${WORKDIR}/virt-gicv2.dtb
 +
-+    export TEST_CMD=3D"${QEMU_PREFIX}qemu-system-x86_64 \
++    # Generate U-Boot environment
++    bash -x imagebuilder/scripts/uboot-script-gen \
++        -t tftp \
++        -d ${WORKDIR}/ \
++        -c ${WORKDIR}/config
++
++    export TEST_CMD=3D"${QEMU_PREFIX}qemu-system-aarch64 \
++        -machine virtualization=3Dtrue \
++        -cpu cortex-a57 \
++        -machine type=3Dvirt \
 +        -no-reboot \
 +        -nographic \
 +        -monitor none \
 +        -serial stdio \
-+        -m 512 \
-+        -M q35,kernel-irqchip=3Dsplit \
-+        -drive if=3Dpflash,format=3Draw,readonly=3Don,file=3D${FW_PREFIX}O=
-VMF_CODE.fd \
-+        -drive if=3Dpflash,format=3Draw,file=3D${WORKDIR}/OVMF_VARS.fd \
-+        -drive file=3Dfat:rw:${esp_dir},media=3Ddisk,index=3D0,format=3Dra=
-w \
++        -m 2048 \
++        -smp 2 \
++        -device virtio-net-pci,netdev=3Dn0 \
++        -netdev user,id=3Dn0,tftp=3D${WORKDIR} \
++        -bios ${FW_PREFIX}u-boot.bin \
 +    "
++
++    export UBOOT_CMD=3D"virtio scan; dhcp; tftpb 0x40000000 boot.scr; sour=
+ce 0x40000000"
 +}
-diff --git a/automation/scripts/qemu-smoke-x86-64-efi.sh b/automation/scrip=
-ts/qemu-smoke-x86-64-efi.sh
+diff --git a/automation/scripts/qemu-xtf-dom0less-arm64.sh b/automation/scr=
+ipts/qemu-xtf-dom0less-arm64.sh
 deleted file mode 100755
-index 7572722be6..0000000000
---- a/automation/scripts/qemu-smoke-x86-64-efi.sh
+index 436f460c3c..0000000000
+--- a/automation/scripts/qemu-xtf-dom0less-arm64.sh
 +++ /dev/null
-@@ -1,43 +0,0 @@
+@@ -1,68 +0,0 @@
 -#!/bin/bash
 -
 -set -ex -o pipefail
 -
--# variant should be either pv or pvh
--variant=3D$1
+-# Name of the XTF test
+-xtf_test=3D$1
 -
--# Clone and build XTF
--git clone https://xenbits.xen.org/git-http/xtf.git
--cd xtf && make -j$(nproc) && cd -
+-# Message returned by XTF in case of success
+-passed=3D"Test result: SUCCESS"
 -
--case $variant in
--    pvh) k=3Dtest-hvm64-example    extra=3D"dom0-iommu=3Dnone dom0=3Dpvh" =
-;;
--    *)   k=3Dtest-pv64-example     extra=3D ;;
--esac
+-# XXX QEMU looks for "efi-virtio.rom" even if it is unneeded
+-curl -fsSLO https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
+-./binaries/qemu-system-aarch64 \
+-   -machine virtualization=3Dtrue \
+-   -cpu cortex-a57 -machine type=3Dvirt \
+-   -m 2048 -smp 2 -display none \
+-   -machine dumpdtb=3Dbinaries/virt-gicv2.dtb
 -
--mkdir -p boot-esp/EFI/BOOT
--cp binaries/xen.efi boot-esp/EFI/BOOT/BOOTX64.EFI
--cp xtf/tests/example/$k boot-esp/EFI/BOOT/kernel
+-# XTF
+-# Build a single XTF test passed as a first parameter to the script.
+-# Build XTF with GICv2 support to match Qemu configuration and with SBSA U=
+ART
+-# support, so that the test will use an emulated UART for printing message=
+s.
+-# This will allow us to run the test on both debug and non-debug Xen build=
+s.
+-rm -rf xtf
+-git clone https://gitlab.com/xen-project/fusa/xtf.git -b xtf-arm
+-make -C xtf TESTS=3Dtests/${xtf_test} CONFIG_SBSA_UART=3Dy CONFIG_GICV2=3D=
+y -j$(nproc)
+-cp xtf/tests/${xtf_test}/test-mmu64le-${xtf_test} binaries/xtf-test
 -
--cat > boot-esp/EFI/BOOT/BOOTX64.cfg <<EOF
--[global]
--default=3Dtest
+-# ImageBuilder
+-echo 'MEMORY_START=3D"0x40000000"
+-MEMORY_END=3D"0xC0000000"
 -
--[test]
--options=3Dloglvl=3Dall console=3Dcom1 noreboot console_timestamps=3Dboot $=
-extra
--kernel=3Dkernel
--EOF
+-XEN=3D"xen"
+-DEVICE_TREE=3D"virt-gicv2.dtb"
 -
--cp /usr/share/OVMF/OVMF_CODE.fd OVMF_CODE.fd
--cp /usr/share/OVMF/OVMF_VARS.fd OVMF_VARS.fd
+-XEN_CMD=3D"console=3Ddtuart console_timestamps=3Dboot"
 -
+-DOMU_KERNEL[0]=3D"xtf-test"
+-DOMU_MEM[0]=3D"128"
+-
+-NUM_DOMUS=3D1
+-
+-LOAD_CMD=3D"tftpb"
+-UBOOT_SOURCE=3D"boot.source"
+-UBOOT_SCRIPT=3D"boot.scr"' > binaries/config
+-
+-rm -rf imagebuilder
+-git clone --depth 1 https://gitlab.com/xen-project/imagebuilder.git
+-bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binarie=
+s/config
+-
+-# Run the test
 -rm -f smoke.serial
--export TEST_CMD=3D"qemu-system-x86_64 -nographic -M q35,kernel-irqchip=3Ds=
-plit \
--        -drive if=3Dpflash,format=3Draw,readonly=3Don,file=3DOVMF_CODE.fd =
-\
--        -drive if=3Dpflash,format=3Draw,file=3DOVMF_VARS.fd \
--        -drive file=3Dfat:rw:boot-esp,media=3Ddisk,index=3D0,format=3Draw =
-\
--        -m 512 -monitor none -serial stdio"
+-export TEST_CMD=3D"./binaries/qemu-system-aarch64 \
+-    -machine virtualization=3Dtrue \
+-    -cpu cortex-a57 -machine type=3Dvirt \
+-    -m 2048 -monitor none -serial stdio \
+-    -smp 2 \
+-    -no-reboot \
+-    -device virtio-net-pci,netdev=3Dn0 \
+-    -netdev user,id=3Dn0,tftp=3Dbinaries \
+-    -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin"
 -
+-export UBOOT_CMD=3D"virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0=
+x40000000"
+-export BOOT_MSG=3D"Latest ChangeSet: "
 -export TEST_LOG=3D"smoke.serial"
--export PASSED=3D"Test result: SUCCESS"
+-export PASSED=3D"${passed}"
 -
 -./automation/scripts/console.exp | sed 's/\r\+$//'
 --=20
