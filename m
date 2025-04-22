@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B90DDA967DF
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 13:40:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.962534.1353732 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDD84A967EE
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 13:41:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.962550.1353742 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Byt-0006dN-74; Tue, 22 Apr 2025 11:40:03 +0000
+	id 1u7C0U-0008It-KZ; Tue, 22 Apr 2025 11:41:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 962534.1353732; Tue, 22 Apr 2025 11:40:03 +0000
+Received: by outflank-mailman (output) from mailman id 962550.1353742; Tue, 22 Apr 2025 11:41:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Byt-0006Z6-3J; Tue, 22 Apr 2025 11:40:03 +0000
-Received: by outflank-mailman (input) for mailman id 962534;
- Tue, 22 Apr 2025 11:40:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u7C0U-0008HC-Hq; Tue, 22 Apr 2025 11:41:42 +0000
+Received: by outflank-mailman (input) for mailman id 962550;
+ Tue, 22 Apr 2025 11:41:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9r0M=XI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u7Byr-0006Kq-4Z
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 11:40:01 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85e332a7-1f6e-11f0-9eb0-5ba50f476ded;
- Tue, 22 Apr 2025 13:40:00 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43cf0d787eeso59300675e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 04:40:00 -0700 (PDT)
+ id 1u7C0T-00085L-Dh
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 11:41:41 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b98dc6e3-1f6e-11f0-9ffb-bf95429c2676;
+ Tue, 22 Apr 2025 13:41:27 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-43cec5cd73bso32508095e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 04:41:38 -0700 (PDT)
 Received: from localhost.localdomain ([83.104.178.215])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4406d5ace47sm168773615e9.15.2025.04.22.04.39.58
+ 5b1f17b1804b1-4406d5bbd8asm170611385e9.23.2025.04.22.04.41.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Apr 2025 04:39:59 -0700 (PDT)
+ Tue, 22 Apr 2025 04:41:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,38 +45,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85e332a7-1f6e-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: b98dc6e3-1f6e-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745321999; x=1745926799; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1745322097; x=1745926897; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=NVvfU+7eqssZP5v8gRrvIDHpMR4zRCPW6LahQGOlmQc=;
-        b=WvKtJCNhxi4e1Z88LFl/mHhsrO7/IXLZxxBUI41+uY871jFR5ANek18TtREot4GhJW
-         uqGwQgoGdLOsgKnMN84QJ+ZMoOvDaZP8u/vzEE2JJVH0EUrhuZ6Hu1PRfnnzxJJr/Q/o
-         nnoTsfBF1cpXcIFT2Ga/Iz3Eyp3SGfBG46Ns4=
+        bh=DNRoRMIV3mPbRJOU5zpVZ3h9hj11xcU/yw8OKGBMsdM=;
+        b=pxRmZWtmdIQ28rd0lSVTkMnxK+0GynbhB2zMLKc6OdFfvRRf+F7iAttNLYSeSAs/Jm
+         iwYrgHL4cMIPZxe1M187iu0wBovukYbnwTLOKOqw3Oh/ucbQWUuvreGbg1EIRXh081dn
+         c7VSdm36ydmAoGcbeyyU9p+u80Jt+HzeenAFA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745321999; x=1745926799;
+        d=1e100.net; s=20230601; t=1745322097; x=1745926897;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=NVvfU+7eqssZP5v8gRrvIDHpMR4zRCPW6LahQGOlmQc=;
-        b=R8FmLbVw+Ic1Pd/RO6xmPlZR9gKFgV2/3cOcHSQLp6/WnGgFuDhk1vuWAgyN62BrJK
-         F87mE06xnLIAcLgWKhsvKzr01R7nLpUoTviAPuxgS9BiLE68gHy2ZkJ+EYX4Ozd1B5O/
-         A1PB8Cli7W02wCl5K32tZnn4dtMw7d3xsv41eJLh2JplZj75HowQ/CXqabaiSjIhomsg
-         siDbu9hBdEAAwZ1j2x1LZ4iCh3+CCMzdo3/svmi47Rv/8rOE45RiuwvoXBTR1LcsQGI/
-         O2XsSgDazvPUAayIWuU/W/g7Jk7eSowZ6poeERwtFC1EpJqkE0AgeFtCGjj6UzCpoPE0
-         MJmw==
-X-Gm-Message-State: AOJu0YyK/d3H6yMP94LXQ9n+bIGWF1HgwPLo9WTWdasZ5YKLSgbVNxgF
-	nTkamelvJddrXcxJndXUfR3ZmvvIEtVDYKpVaXAiO27NYQs7djs2McRtl21Ao6cOp3mOOdTR7mn
-	VV3gqZg==
-X-Gm-Gg: ASbGncuCPogFVqOUoCz8yknK8q3FFnvvBbVuq5+TzQqN78PJ9cMRuh9AJyIw9ppaKx3
-	TekZdr1W9m6euXx9ze+9rSfeUTLBtgDfYt+cySXMTSPi6oslT36vNqg6fxs4j7dCU+5/Pms5/GY
-	+XwkkvccV+HEfD7cH16MYVQn8InsnJTfmKoe1tNuOz3eDWz7xRDRY2PK3NuEMXqqNsfYX/Mwccy
-	57wMfevIBL59Ht9t6ua4ZHqCbftiO8SWI3go4qHMaYBgNHJnFApxrS3N5LB9XesIoNGXsjc1VpH
-	Kr2d9bhKgoAeIvEKGz7s2DgyrUYSSqTMvIb8HIBGL0lVXpCh75nyKhrjQCLCfw==
-X-Google-Smtp-Source: AGHT+IFh/SoOkzGy8D+hs6AwiJ4PzitgLsehuM9ho/5k8caXBO32iheEMFL6e33SgWcWSrqI8SqgWA==
-X-Received: by 2002:a05:600c:1c8e:b0:43c:f44c:72a6 with SMTP id 5b1f17b1804b1-4406ab6c278mr143300505e9.2.1745321999478;
-        Tue, 22 Apr 2025 04:39:59 -0700 (PDT)
+        bh=DNRoRMIV3mPbRJOU5zpVZ3h9hj11xcU/yw8OKGBMsdM=;
+        b=U+JV5ef0IPf/WBJxRJE62MvCWOB6NVz8yG5b5oZ2J46QlgGu9rQPiagsEkHsDJXzqJ
+         tLTTCUruz5YdxYuymfrZsR+G0lRruMUkESwq7x78ZfC243Cyo6BnfI48Ikg6WiXApu0h
+         rld83lRG69Xd2STUPc9kIh0K4NGkNmKOL5hU8rEIlEAGLal5RqfduHLdNyrysRjcN7r+
+         4BJCSl7zyvny5h4p0Lp3nsGoXqV9S3uaDD9lHm2KmMV5q/tvKt8dFtvQqwwqnZ5F3y83
+         k10HAyKHqSLzKEwl6Xf45p3jUGyWtQV3pVK6QLFWFsm2oBnCNvPtCI1ObNXDFNbfuswz
+         S5Ug==
+X-Gm-Message-State: AOJu0YwjJus4m+g0sZkCM2lQZyE1cDhbdObC8l9eZxrjEQY8QKRNw9I4
+	+/FpAPG3/8OEBKFKj6wFIZXHYPUTODXMmo3pmC3dMRmVkggMQawUOMJPoo9YCwhOaFCf3OmE00u
+	hgng20Q==
+X-Gm-Gg: ASbGncvwLvq+WxwQFWNEwrJSDcK4iod4a2SlxEAIuNQu0k4myGu0EuLmbvHFHogBg1c
+	xhxe342QOAqqIHCLrPeojnYYIBDwQsAiZBlNPv2iibELzOn7Yk9Ut07E26whcQPXwWPLWMgan/E
+	LfK37VPWpgAN+VBZmLKOWpq2WEoJbyMSeLGqwEL/ngT55e+90sHWSGYI1/r596X+JYXNwO6moQO
+	8SyuDPjwq7pwPVSR9tG1QA+U9Jbhr+efc9WugeAk+UuhUIDTNh39fqG2bz7DLoyzElMzqleir5p
+	LGd0q9K2I69m3wm1UwSRSFVzLTw9ENHAElKqLgsL6feaj9AS9rO+jW8CyEfoyg==
+X-Google-Smtp-Source: AGHT+IEkUiKybHlRk7K4jXCi61eyqX96jUQJ53U/d8Dw5A2W2RN0c7HxHwZ/eZVUfmZy9hDDAWoyPQ==
+X-Received: by 2002:a05:600c:848c:b0:43c:e467:d6ce with SMTP id 5b1f17b1804b1-440715b5f22mr123364115e9.4.1745322097118;
+        Tue, 22 Apr 2025 04:41:37 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -87,22 +87,21 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH] xen: Use asm inline when available for alternatives
-Date: Tue, 22 Apr 2025 12:39:57 +0100
-Message-Id: <20250422113957.1289290-1-andrew.cooper3@citrix.com>
+Subject: [PATCH] xen: Consistently use alignof()
+Date: Tue, 22 Apr 2025 12:41:34 +0100
+Message-Id: <20250422114134.1291254-1-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Compilers estimate the size of an asm() block for inlining purposes.
+We have a mix of all 3 spellings in Xen, as well as having compatibility in
+compiler.h for older C standards.
 
-Constructs such as ALTERNATIVE appear large due to the metadata, depsite often
-only being a handful of instructions.  asm inline() overrides the estimation
-to identify the block as being small.
+Remove the use of __alignof() and __alignof__(), which reduced code volume a
+little.
 
-This has a substantial impact on inlining decisions, expected to be for the
-better given that the compiler has a more accurate picture to work with.
+No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -113,386 +112,212 @@ CC: Julien Grall <julien@xen.org>
 CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 CC: Bertrand Marquis <bertrand.marquis@arm.com>
 CC: Michal Orzel <michal.orzel@amd.com>
----
- xen/Kconfig                               |  4 +++
- xen/arch/arm/include/asm/alternative.h    |  4 +--
- xen/arch/arm/include/asm/arm64/flushtlb.h |  4 +--
- xen/arch/arm/include/asm/arm64/io.h       | 43 ++++++++++++++---------
- xen/arch/arm/include/asm/cpuerrata.h      |  8 ++---
- xen/arch/arm/include/asm/cpufeature.h     |  8 ++---
- xen/arch/arm/include/asm/page.h           | 12 ++++---
- xen/arch/arm/include/asm/processor.h      |  7 ++--
- xen/arch/arm/include/asm/sysregs.h        | 10 +++---
- xen/arch/arm/mmu/p2m.c                    |  3 +-
- xen/arch/x86/include/asm/alternative.h    | 36 ++++++++++---------
- xen/include/xen/compiler.h                | 14 ++++++++
- 12 files changed, 95 insertions(+), 58 deletions(-)
 
-diff --git a/xen/Kconfig b/xen/Kconfig
-index ae1c401a981e..ab4ab42ae987 100644
---- a/xen/Kconfig
-+++ b/xen/Kconfig
-@@ -29,6 +29,10 @@ config LD_IS_GNU
- config LD_IS_LLVM
- 	def_bool $(success,$(LD) --version | head -n 1 | grep -q "^LLD")
- 
-+config CC_HAS_ASM_INLINE
-+	# GCC >= 9, Clang >= 11
-+	def_bool $(success,echo 'void foo(void) { asm inline (""); }' | $(CC) -x c - -c -o /dev/null)
-+
- # Use -f{function,data}-sections compiler parameters
- config CC_SPLIT_SECTIONS
- 	bool
-diff --git a/xen/arch/arm/include/asm/alternative.h b/xen/arch/arm/include/asm/alternative.h
-index 22477d9497a3..1563f03a0f5a 100644
---- a/xen/arch/arm/include/asm/alternative.h
-+++ b/xen/arch/arm/include/asm/alternative.h
-@@ -209,9 +209,9 @@ alternative_endif
- #endif  /*  __ASSEMBLY__  */
- 
- /*
-- * Usage: asm(ALTERNATIVE(oldinstr, newinstr, feature));
-+ * Usage: asm_inline (ALTERNATIVE(oldinstr, newinstr, feature));
-  *
-- * Usage: asm(ALTERNATIVE(oldinstr, newinstr, feature, CONFIG_FOO));
-+ * Usage: asm_inline (ALTERNATIVE(oldinstr, newinstr, feature, CONFIG_FOO));
-  * N.B. If CONFIG_FOO is specified, but not selected, the whole block
-  *      will be omitted, including oldinstr.
-  */
-diff --git a/xen/arch/arm/include/asm/arm64/flushtlb.h b/xen/arch/arm/include/asm/arm64/flushtlb.h
-index 45642201d147..3b99c11b50d1 100644
---- a/xen/arch/arm/include/asm/arm64/flushtlb.h
-+++ b/xen/arch/arm/include/asm/arm64/flushtlb.h
-@@ -31,7 +31,7 @@
- #define TLB_HELPER(name, tlbop, sh)              \
- static inline void name(void)                    \
- {                                                \
--    asm volatile(                                \
-+    asm_inline volatile (                        \
-         "dsb  "  # sh  "st;"                     \
-         "tlbi "  # tlbop  ";"                    \
-         ALTERNATIVE(                             \
-@@ -55,7 +55,7 @@ static inline void name(void)                    \
- #define TLB_HELPER_VA(name, tlbop)               \
- static inline void name(vaddr_t va)              \
- {                                                \
--    asm volatile(                                \
-+    asm_inline volatile (                        \
-         "tlbi "  # tlbop  ", %0;"                \
-         ALTERNATIVE(                             \
-             "nop; nop;",                         \
-diff --git a/xen/arch/arm/include/asm/arm64/io.h b/xen/arch/arm/include/asm/arm64/io.h
-index 7d5959877759..ac90b729c44d 100644
---- a/xen/arch/arm/include/asm/arm64/io.h
-+++ b/xen/arch/arm/include/asm/arm64/io.h
-@@ -51,40 +51,51 @@ static inline void __raw_writeq(u64 val, volatile void __iomem *addr)
- static inline u8 __raw_readb(const volatile void __iomem *addr)
- {
-         u8 val;
--        asm volatile(ALTERNATIVE("ldrb %w0, [%1]",
--                                 "ldarb %w0, [%1]",
--                                 ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
--                     : "=r" (val) : "r" (addr));
-+
-+        asm_inline volatile (
-+            ALTERNATIVE("ldrb %w0, [%1]",
-+                        "ldarb %w0, [%1]",
-+                        ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
-+            : "=r" (val) : "r" (addr) );
-+
-         return val;
- }
- 
- static inline u16 __raw_readw(const volatile void __iomem *addr)
- {
-         u16 val;
--        asm volatile(ALTERNATIVE("ldrh %w0, [%1]",
--                                 "ldarh %w0, [%1]",
--                                 ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
--                     : "=r" (val) : "r" (addr));
-+        asm_inline volatile (
-+            ALTERNATIVE("ldrh %w0, [%1]",
-+                        "ldarh %w0, [%1]",
-+                        ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
-+            : "=r" (val) : "r" (addr) );
-+
-         return val;
- }
- 
- static inline u32 __raw_readl(const volatile void __iomem *addr)
- {
-         u32 val;
--        asm volatile(ALTERNATIVE("ldr %w0, [%1]",
--                                 "ldar %w0, [%1]",
--                                 ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
--                     : "=r" (val) : "r" (addr));
-+
-+        asm_inline volatile (
-+            ALTERNATIVE("ldr %w0, [%1]",
-+                        "ldar %w0, [%1]",
-+                        ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
-+            : "=r" (val) : "r" (addr) );
-+
-         return val;
- }
- 
- static inline u64 __raw_readq(const volatile void __iomem *addr)
- {
-         u64 val;
--        asm volatile(ALTERNATIVE("ldr %0, [%1]",
--                                 "ldar %0, [%1]",
--                                 ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
--                     : "=r" (val) : "r" (addr));
-+
-+        asm_inline volatile (
-+            ALTERNATIVE("ldr %0, [%1]",
-+                        "ldar %0, [%1]",
-+                        ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
-+            : "=r" (val) : "r" (addr) );
-+
-         return val;
- }
- 
-diff --git a/xen/arch/arm/include/asm/cpuerrata.h b/xen/arch/arm/include/asm/cpuerrata.h
-index 8d7e7b9375bd..1799a16d7e7f 100644
---- a/xen/arch/arm/include/asm/cpuerrata.h
-+++ b/xen/arch/arm/include/asm/cpuerrata.h
-@@ -16,10 +16,10 @@ static inline bool check_workaround_##erratum(void)             \
-     {                                                           \
-         register_t ret;                                         \
-                                                                 \
--        asm volatile (ALTERNATIVE("mov %0, #0",                 \
--                                  "mov %0, #1",                 \
--                                  feature)                      \
--                      : "=r" (ret));                            \
-+        asm_inline volatile (                                   \
-+            ALTERNATIVE("mov %0, #0",                           \
-+                        "mov %0, #1", feature)                  \
-+            : "=r" (ret) );                                     \
-                                                                 \
-         return unlikely(ret);                                   \
-     }                                                           \
-diff --git a/xen/arch/arm/include/asm/cpufeature.h b/xen/arch/arm/include/asm/cpufeature.h
-index 50297e53d90e..b6df18801166 100644
---- a/xen/arch/arm/include/asm/cpufeature.h
-+++ b/xen/arch/arm/include/asm/cpufeature.h
-@@ -102,10 +102,10 @@ static inline bool cpus_have_cap(unsigned int num)
- #define cpus_have_const_cap(num) ({                 \
-         register_t __ret;                           \
-                                                     \
--        asm volatile (ALTERNATIVE("mov %0, #0",     \
--                                  "mov %0, #1",     \
--                                  num)              \
--                      : "=r" (__ret));              \
-+        asm_inline volatile (                       \
-+            ALTERNATIVE("mov %0, #0",               \
-+                        "mov %0, #1", num)          \
-+            : "=r" (__ret) );                       \
-                                                     \
-         unlikely(__ret);                            \
-         })
-diff --git a/xen/arch/arm/include/asm/page.h b/xen/arch/arm/include/asm/page.h
-index 69f817d1e68a..27bc96b9f401 100644
---- a/xen/arch/arm/include/asm/page.h
-+++ b/xen/arch/arm/include/asm/page.h
-@@ -176,7 +176,8 @@ static inline int invalidate_dcache_va_range(const void *p, unsigned long size)
-     {
-         size -= dcache_line_bytes - ((uintptr_t)p & cacheline_mask);
-         p = (void *)((uintptr_t)p & ~cacheline_mask);
--        asm volatile (__clean_and_invalidate_dcache_one(0) : : "r" (p));
-+        asm_inline volatile (
-+            __clean_and_invalidate_dcache_one(0) :: "r" (p) );
-         p += dcache_line_bytes;
+x86_emulate.c and compat-build-header.py still use __alignof() because they
+have code used outside of Xen.
+
+The compiler.h compatibilty checks for < C11, whereas it was C23 when they
+became keywords.  Nothing seems to mind, so I've left it alone.
+---
+ xen/arch/x86/xstate.c                |  4 ++--
+ xen/common/coverage/gcc_3_4.c        |  4 ++--
+ xen/common/device-tree/device-tree.c |  8 ++++----
+ xen/include/xen/config.h             |  2 +-
+ xen/include/xen/percpu.h             |  2 +-
+ xen/include/xen/xmalloc.h            | 16 ++++++++--------
+ xen/include/xen/xvmalloc.h           | 16 ++++++++--------
+ 7 files changed, 26 insertions(+), 26 deletions(-)
+
+diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
+index 3d249518a1b7..d423bf7978da 100644
+--- a/xen/arch/x86/xstate.c
++++ b/xen/arch/x86/xstate.c
+@@ -542,8 +542,8 @@ int xstate_alloc_save_area(struct vcpu *v)
      }
  
-@@ -185,7 +186,8 @@ static inline int invalidate_dcache_va_range(const void *p, unsigned long size)
-         asm volatile (__invalidate_dcache_one(0) : : "r" (p + idx));
+     /* XSAVE/XRSTOR requires the save area be 64-byte-boundary aligned. */
+-    BUILD_BUG_ON(__alignof(*save_area) < 64);
+-    save_area = _xvzalloc(size, __alignof(*save_area));
++    BUILD_BUG_ON(alignof(*save_area) < 64);
++    save_area = _xvzalloc(size, alignof(*save_area));
+     if ( save_area == NULL )
+         return -ENOMEM;
  
-     if ( size > 0 )
--        asm volatile (__clean_and_invalidate_dcache_one(0) : : "r" (p + idx));
-+        asm_inline volatile (
-+            __clean_and_invalidate_dcache_one(0) :: "r" (p + idx) );
+diff --git a/xen/common/coverage/gcc_3_4.c b/xen/common/coverage/gcc_3_4.c
+index 3631f4bc2535..393e3c866d74 100644
+--- a/xen/common/coverage/gcc_3_4.c
++++ b/xen/common/coverage/gcc_3_4.c
+@@ -199,8 +199,8 @@ static size_t get_fn_size(const struct gcov_info *info)
  
-     dsb(sy);           /* So we know the flushes happen before continuing */
- 
-@@ -209,7 +211,7 @@ static inline int clean_dcache_va_range(const void *p, unsigned long size)
-     p = (void *)((uintptr_t)p & ~cacheline_mask);
-     for ( ; size >= dcache_line_bytes;
-             idx += dcache_line_bytes, size -= dcache_line_bytes )
--        asm volatile (__clean_dcache_one(0) : : "r" (p + idx));
-+        asm_inline volatile ( __clean_dcache_one(0) : : "r" (p + idx) );
-     dsb(sy);           /* So we know the flushes happen before continuing */
-     /* ARM callers assume that dcache_* functions cannot fail. */
-     return 0;
-@@ -247,7 +249,7 @@ static inline int clean_and_invalidate_dcache_va_range
-     if ( sizeof(x) > MIN_CACHELINE_BYTES || sizeof(x) > alignof(x) )    \
-         clean_dcache_va_range(_p, sizeof(x));                           \
-     else                                                                \
--        asm volatile (                                                  \
-+        asm_inline volatile (                                           \
-             "dsb sy;"   /* Finish all earlier writes */                 \
-             __clean_dcache_one(0)                                       \
-             "dsb sy;"   /* Finish flush before continuing */            \
-@@ -259,7 +261,7 @@ static inline int clean_and_invalidate_dcache_va_range
-     if ( sizeof(x) > MIN_CACHELINE_BYTES || sizeof(x) > alignof(x) )    \
-         clean_and_invalidate_dcache_va_range(_p, sizeof(x));            \
-     else                                                                \
--        asm volatile (                                                  \
-+        asm_inline volatile (                                           \
-             "dsb sy;"   /* Finish all earlier writes */                 \
-             __clean_and_invalidate_dcache_one(0)                        \
-             "dsb sy;"   /* Finish flush before continuing */            \
-diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-index 60b587db697f..9cbc4f911061 100644
---- a/xen/arch/arm/include/asm/processor.h
-+++ b/xen/arch/arm/include/asm/processor.h
-@@ -607,9 +607,10 @@ register_t get_default_cptr_flags(void);
- #define SYNCHRONIZE_SERROR(feat)                                  \
-     do {                                                          \
-         ASSERT(local_abort_is_enabled());                         \
--        asm volatile(ALTERNATIVE("dsb sy; isb",                   \
--                                 "nop; nop", feat)                \
--                                 : : : "memory");                 \
-+        asm_inline volatile (                                     \
-+            ALTERNATIVE("dsb sy; isb",                            \
-+                        "nop; nop", feat)                         \
-+            ::: "memory" );                                       \
-     } while (0)
- 
- /*
-diff --git a/xen/arch/arm/include/asm/sysregs.h b/xen/arch/arm/include/asm/sysregs.h
-index 61e30c9e517c..5c2d362be3d8 100644
---- a/xen/arch/arm/include/asm/sysregs.h
-+++ b/xen/arch/arm/include/asm/sysregs.h
-@@ -22,11 +22,13 @@ static inline register_t read_sysreg_par(void)
-      * DMB SY before and after accessing it, as part of the workaround for the
-      * errata 1508412.
-      */
--    asm volatile(ALTERNATIVE("nop", "dmb sy", ARM64_WORKAROUND_1508412,
--                 CONFIG_ARM64_ERRATUM_1508412));
-+    asm_inline volatile (
-+        ALTERNATIVE("nop", "dmb sy", ARM64_WORKAROUND_1508412,
-+                    CONFIG_ARM64_ERRATUM_1508412) );
-     par_el1 = READ_SYSREG64(PAR_EL1);
--    asm volatile(ALTERNATIVE("nop", "dmb sy", ARM64_WORKAROUND_1508412,
--                 CONFIG_ARM64_ERRATUM_1508412));
-+    asm_inline volatile (
-+        ALTERNATIVE("nop", "dmb sy", ARM64_WORKAROUND_1508412,
-+                    CONFIG_ARM64_ERRATUM_1508412) );
- 
-     return par_el1;
+     size = sizeof(struct gcov_fn_info) + num_counter_active(info) *
+         sizeof(unsigned int);
+-    if ( __alignof__(struct gcov_fn_info) > sizeof(unsigned int) )
+-        size = ROUNDUP(size, __alignof__(struct gcov_fn_info));
++    if ( alignof(struct gcov_fn_info) > sizeof(unsigned int) )
++        size = ROUNDUP(size, alignof(struct gcov_fn_info));
+     return size;
  }
-diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
-index 7642dbc7c55b..d96078f547d5 100644
---- a/xen/arch/arm/mmu/p2m.c
-+++ b/xen/arch/arm/mmu/p2m.c
-@@ -228,7 +228,8 @@ void p2m_restore_state(struct vcpu *n)
-      * registers associated to EL1/EL0 translations regime have been
-      * synchronized.
-      */
--    asm volatile(ALTERNATIVE("nop", "isb", ARM64_WORKAROUND_AT_SPECULATE));
-+    asm_inline volatile (
-+        ALTERNATIVE("nop", "isb", ARM64_WORKAROUND_AT_SPECULATE) );
-     WRITE_SYSREG64(p2m->vttbr, VTTBR_EL2);
  
-     last_vcpu_ran = &p2m->last_vcpu_ran[smp_processor_id()];
-diff --git a/xen/arch/x86/include/asm/alternative.h b/xen/arch/x86/include/asm/alternative.h
-index 38472fb58e2d..4c8be51d0e23 100644
---- a/xen/arch/x86/include/asm/alternative.h
-+++ b/xen/arch/x86/include/asm/alternative.h
-@@ -116,12 +116,13 @@ extern void alternative_branches(void);
-  * without volatile and memory clobber.
+diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/device-tree.c
+index 90fee2ba0315..e4dea4b42a1d 100644
+--- a/xen/common/device-tree/device-tree.c
++++ b/xen/common/device-tree/device-tree.c
+@@ -1885,7 +1885,7 @@ static unsigned long unflatten_dt_node(const void *fdt,
+     }
+ 
+     np = unflatten_dt_alloc(&mem, sizeof(struct dt_device_node) + allocl,
+-                            __alignof__(struct dt_device_node));
++                            alignof(struct dt_device_node));
+     if ( allnextpp )
+     {
+         memset(np, 0, sizeof(*np));
+@@ -1963,7 +1963,7 @@ static unsigned long unflatten_dt_node(const void *fdt,
+             has_name = 1;
+         l = strlen(pname) + 1;
+         pp = unflatten_dt_alloc(&mem, sizeof(struct dt_property),
+-                                __alignof__(struct dt_property));
++                                alignof(struct dt_property));
+         if ( allnextpp )
+         {
+             /* We accept flattened tree phandles either in
+@@ -2010,7 +2010,7 @@ static unsigned long unflatten_dt_node(const void *fdt,
+             pa = p1;
+         sz = (pa - ps) + 1;
+         pp = unflatten_dt_alloc(&mem, sizeof(struct dt_property) + sz,
+-                                __alignof__(struct dt_property));
++                                alignof(struct dt_property));
+         if ( allnextpp )
+         {
+             pp->name = "name";
+@@ -2088,7 +2088,7 @@ int unflatten_device_tree(const void *fdt, struct dt_device_node **mynodes)
+     dt_dprintk("  size is %#lx allocating...\n", size);
+ 
+     /* Allocate memory for the expanded device tree */
+-    mem = (unsigned long)_xmalloc (size + 4, __alignof__(struct dt_device_node));
++    mem = (unsigned long)_xmalloc(size + 4, alignof(struct dt_device_node));
+     if ( !mem )
+         return -ENOMEM;
+ 
+diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
+index 1d7195066c08..479c3bac8925 100644
+--- a/xen/include/xen/config.h
++++ b/xen/include/xen/config.h
+@@ -105,7 +105,7 @@
+ #define BITS_PER_LONG   (BITS_PER_BYTE * BYTES_PER_LONG)
+ #define BITS_PER_LLONG  (BITS_PER_BYTE * __SIZEOF_LONG_LONG__)
+ 
+-/* It is assumed that sizeof(void *) == __alignof(void *) */
++/* It is assumed that sizeof(void *) == alignof(void *) */
+ #define POINTER_ALIGN   __SIZEOF_POINTER__
+ 
+ #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+diff --git a/xen/include/xen/percpu.h b/xen/include/xen/percpu.h
+index e7f585c7ed69..62a6259b2bc1 100644
+--- a/xen/include/xen/percpu.h
++++ b/xen/include/xen/percpu.h
+@@ -18,7 +18,7 @@
+ 
+ #define DEFINE_PER_CPU_PAGE_ALIGNED(type, name) \
+     typedef char name ## _chk_t \
+-        [BUILD_BUG_ON_ZERO(__alignof(type) & (PAGE_SIZE - 1))]; \
++        [BUILD_BUG_ON_ZERO(alignof(type) & (PAGE_SIZE - 1))]; \
+     __DEFINE_PER_CPU(__section(".bss.percpu.page_aligned"), \
+                      type, _ ## name)
+ 
+diff --git a/xen/include/xen/xmalloc.h b/xen/include/xen/xmalloc.h
+index f0412fb4e021..b7616c3b9038 100644
+--- a/xen/include/xen/xmalloc.h
++++ b/xen/include/xen/xmalloc.h
+@@ -13,8 +13,8 @@
   */
- #define alternative(oldinstr, newinstr, feature)                        \
--        asm volatile (ALTERNATIVE(oldinstr, newinstr, feature) : : : "memory")
-+    asm_inline volatile ( ALTERNATIVE(oldinstr, newinstr, feature)      \
-+                          ::: "memory" )
  
- #define alternative_2(oldinstr, newinstr1, feature1, newinstr2, feature2) \
--	asm volatile (ALTERNATIVE_2(oldinstr, newinstr1, feature1,	\
--				    newinstr2, feature2)		\
--		      : : : "memory")
-+    asm_inline volatile ( ALTERNATIVE_2(oldinstr, newinstr1, feature1,  \
-+                                        newinstr2, feature2)            \
-+                          ::: "memory" )
+ /* Allocate space for typed object. */
+-#define xmalloc(_type) ((_type *)_xmalloc(sizeof(_type), __alignof__(_type)))
+-#define xzalloc(_type) ((_type *)_xzalloc(sizeof(_type), __alignof__(_type)))
++#define xmalloc(_type) ((_type *)_xmalloc(sizeof(_type), alignof(_type)))
++#define xzalloc(_type) ((_type *)_xzalloc(sizeof(_type), alignof(_type)))
  
  /*
-  * Alternative inline assembly with input.
-@@ -133,14 +134,14 @@ extern void alternative_branches(void);
-  * If you use variable sized constraints like "m" or "g" in the
-  * replacement make sure to pad to the worst case length.
+  * Allocate space for a typed object and copy an existing instance.
+@@ -34,24 +34,24 @@
+ 
+ /* Allocate space for array of typed objects. */
+ #define xmalloc_array(_type, _num) \
+-    ((_type *)_xmalloc_array(sizeof(_type), __alignof__(_type), _num))
++    ((_type *)_xmalloc_array(sizeof(_type), alignof(_type), _num))
+ #define xzalloc_array(_type, _num) \
+-    ((_type *)_xzalloc_array(sizeof(_type), __alignof__(_type), _num))
++    ((_type *)_xzalloc_array(sizeof(_type), alignof(_type), _num))
+ #define xrealloc_array(_ptr, _num)                                  \
+     ((typeof(_ptr))_xrealloc_array(_ptr, sizeof(typeof(*(_ptr))),   \
+-                                   __alignof__(typeof(*(_ptr))), _num))
++                                   alignof(typeof(*(_ptr))), _num))
+ 
+ /* Allocate space for a structure with a flexible array of typed objects. */
+ #define xzalloc_flex_struct(type, field, nr) \
+-    ((type *)_xzalloc(offsetof(type, field[nr]), __alignof__(type)))
++    ((type *)_xzalloc(offsetof(type, field[nr]), alignof(type)))
+ 
+ #define xmalloc_flex_struct(type, field, nr) \
+-    ((type *)_xmalloc(offsetof(type, field[nr]), __alignof__(type)))
++    ((type *)_xmalloc(offsetof(type, field[nr]), alignof(type)))
+ 
+ /* Re-allocate space for a structure with a flexible array of typed objects. */
+ #define xrealloc_flex_struct(ptr, field, nr)                           \
+     ((typeof(ptr))_xrealloc(ptr, offsetof(typeof(*(ptr)), field[nr]),  \
+-                            __alignof__(typeof(*(ptr)))))
++                            alignof(typeof(*(ptr)))))
+ 
+ /* Allocate untyped storage. */
+ #define xmalloc_bytes(_bytes) _xmalloc(_bytes, SMP_CACHE_BYTES)
+diff --git a/xen/include/xen/xvmalloc.h b/xen/include/xen/xvmalloc.h
+index 7686d49f8154..d2288c175814 100644
+--- a/xen/include/xen/xvmalloc.h
++++ b/xen/include/xen/xvmalloc.h
+@@ -10,13 +10,13 @@
   */
--#define alternative_input(oldinstr, newinstr, feature, input...)	\
--	asm volatile (ALTERNATIVE(oldinstr, newinstr, feature)		\
--		      : : input)
-+#define alternative_input(oldinstr, newinstr, feature, input...)        \
-+    asm_inline volatile ( ALTERNATIVE(oldinstr, newinstr, feature)      \
-+                          :: input )
  
- /* Like alternative_input, but with a single output argument */
--#define alternative_io(oldinstr, newinstr, feature, output, input...)	\
--	asm volatile (ALTERNATIVE(oldinstr, newinstr, feature)		\
--		      : output : input)
-+#define alternative_io(oldinstr, newinstr, feature, output, input...)   \
-+    asm_inline volatile ( ALTERNATIVE(oldinstr, newinstr, feature)      \
-+                          : output : input )
+ /* Allocate space for typed object. */
+-#define xvmalloc(_type) ((_type *)_xvmalloc(sizeof(_type), __alignof__(_type)))
+-#define xvzalloc(_type) ((_type *)_xvzalloc(sizeof(_type), __alignof__(_type)))
++#define xvmalloc(_type) ((_type *)_xvmalloc(sizeof(_type), alignof(_type)))
++#define xvzalloc(_type) ((_type *)_xvzalloc(sizeof(_type), alignof(_type)))
  
- /*
-  * This is similar to alternative_io. But it has two features and
-@@ -150,11 +151,11 @@ extern void alternative_branches(void);
-  * Otherwise, if CPU has feature1, newinstr1 is used.
-  * Otherwise, oldinstr is used.
-  */
--#define alternative_io_2(oldinstr, newinstr1, feature1, newinstr2,	\
--			 feature2, output, input...)			\
--	asm volatile(ALTERNATIVE_2(oldinstr, newinstr1, feature1,	\
--				   newinstr2, feature2)			\
--		     : output : input)
-+#define alternative_io_2(oldinstr, newinstr1, feature1, newinstr2,      \
-+                         feature2, output, input...)                    \
-+    asm_inline volatile ( ALTERNATIVE_2(oldinstr, newinstr1, feature1,  \
-+                                        newinstr2, feature2)            \
-+                          : output : input )
+ /* Allocate space for a typed object and copy an existing instance. */
+ #define xvmemdup(ptr)                                          \
+ ({                                                             \
+-    void *p_ = _xvmalloc(sizeof(*(ptr)), __alignof__(*(ptr))); \
++    void *p_ = _xvmalloc(sizeof(*(ptr)), alignof(*(ptr))); \
+     if ( p_ )                                                  \
+         memcpy(p_, ptr, sizeof(*(ptr)));                       \
+     (typeof(*(ptr)) *)p_;                                      \
+@@ -24,21 +24,21 @@
  
- /* Use this macro(s) if you need more than one output parameter. */
- #define ASM_OUTPUT2(a...) a
-@@ -234,8 +235,9 @@ extern void alternative_branches(void);
-     rettype ret_;                                                  \
-     register unsigned long r10_ asm("r10");                        \
-     register unsigned long r11_ asm("r11");                        \
--    asm volatile (ALTERNATIVE("call *%c[addr](%%rip)", "call .",   \
--                              X86_FEATURE_ALWAYS)                  \
-+    asm_inline volatile (                                          \
-+        ALTERNATIVE("call *%c[addr](%%rip)", "call .",             \
-+                    X86_FEATURE_ALWAYS)                            \
-                   : ALT_CALL ## n ## _OUT, "=a" (ret_),            \
-                     "=r" (r10_), "=r" (r11_) ASM_CALL_CONSTRAINT   \
-                   : [addr] "i" (&(func)), "g" (func)               \
-diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
-index c68fab189154..d9b133016bb6 100644
---- a/xen/include/xen/compiler.h
-+++ b/xen/include/xen/compiler.h
-@@ -53,6 +53,20 @@
- #define unreachable() __builtin_unreachable()
- #endif
+ /* Allocate space for array of typed objects. */
+ #define xvmalloc_array(_type, _num) \
+-    ((_type *)_xvmalloc_array(sizeof(_type), __alignof__(_type), _num))
++    ((_type *)_xvmalloc_array(sizeof(_type), alignof(_type), _num))
+ #define xvzalloc_array(_type, _num) \
+-    ((_type *)_xvzalloc_array(sizeof(_type), __alignof__(_type), _num))
++    ((_type *)_xvzalloc_array(sizeof(_type), alignof(_type), _num))
  
-+/*
-+ * Compilers estimate the size of an asm() block for inlining purposes.
-+ * Constructs such as ALTERNATIVE appear large due to the metadata, depsite
-+ * often only being a handful of instructions.  asm inline() overrides the
-+ * estimation to identify the block as being small.
-+ *
-+ * Note: __inline is needed to avoid getting caught up in INIT_SECTIONS_ONLY.
-+ */
-+#if CONFIG_CC_HAS_ASM_INLINE
-+# define asm_inline asm __inline
-+#else
-+# define asm_inline asm
-+#endif
-+
- /*
-  * Add the pseudo keyword 'fallthrough' so case statement blocks
-  * must end with any of these keywords:
+ /* Allocate space for a structure with a flexible array of typed objects. */
+ #define xvzalloc_flex_struct(type, field, nr) \
+-    ((type *)_xvzalloc(offsetof(type, field[nr]), __alignof__(type)))
++    ((type *)_xvzalloc(offsetof(type, field[nr]), alignof(type)))
+ 
+ #define xvmalloc_flex_struct(type, field, nr) \
+-    ((type *)_xvmalloc(offsetof(type, field[nr]), __alignof__(type)))
++    ((type *)_xvmalloc(offsetof(type, field[nr]), alignof(type)))
+ 
+ /* Re-allocate space for a structure with a flexible array of typed objects. */
+ #define xvrealloc_flex_struct(ptr, field, nr)                          \
+     ((typeof(ptr))_xvrealloc(ptr, offsetof(typeof(*(ptr)), field[nr]), \
+-                             __alignof__(typeof(*(ptr)))))
++                             alignof(typeof(*(ptr)))))
+ 
+ #ifdef CONFIG_HAS_VMAP
+ 
 -- 
 2.39.5
 
