@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8591A95EA9
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 08:51:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.961697.1353044 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 920E0A95EB0
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 08:57:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.961709.1353054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u77T6-0006MS-BO; Tue, 22 Apr 2025 06:50:56 +0000
+	id 1u77Z9-0006wu-1e; Tue, 22 Apr 2025 06:57:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 961697.1353044; Tue, 22 Apr 2025 06:50:56 +0000
+Received: by outflank-mailman (output) from mailman id 961709.1353054; Tue, 22 Apr 2025 06:57:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u77T6-0006Ka-8m; Tue, 22 Apr 2025 06:50:56 +0000
-Received: by outflank-mailman (input) for mailman id 961697;
- Tue, 22 Apr 2025 06:50:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u77Z8-0006vw-Ta; Tue, 22 Apr 2025 06:57:10 +0000
+Received: by outflank-mailman (input) for mailman id 961709;
+ Tue, 22 Apr 2025 06:57:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=f4Vg=XI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u77T5-0006KU-5d
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 06:50:55 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 220c5525-1f46-11f0-9ffb-bf95429c2676;
- Tue, 22 Apr 2025 08:50:52 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-43690d4605dso38133165e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 21 Apr 2025 23:50:52 -0700 (PDT)
+ id 1u77Z7-0006v5-Fr
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 06:57:09 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 01979166-1f47-11f0-9eb0-5ba50f476ded;
+ Tue, 22 Apr 2025 08:57:08 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-39c0dfad22aso3293227f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Apr 2025 23:57:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39efa43bef1sm13898306f8f.49.2025.04.21.23.50.51
+ ffacd0b85a97d-39efa420683sm14191286f8f.20.2025.04.21.23.57.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Apr 2025 23:50:52 -0700 (PDT)
+ Mon, 21 Apr 2025 23:57:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 220c5525-1f46-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 01979166-1f47-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745304652; x=1745909452; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745305027; x=1745909827; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DqGAc+NTxDpGdquOAibZ6B2EGrQKikik1OQ6kdoOxuc=;
-        b=Zo1v7fRDmViQO9cZokhDjkZwRlh6yS191fqwkCS3dgDLz7T1n7+ySs8tQWHcnmkEwT
-         /4+6VDU4rhIZb4JBteZrP2QjJKJEafR5fT/SmUSMF/+730CC+pPTLfw8PIsr9xO3oTwb
-         ZyeSLzbI+9HKAZBq0jI2t6t6IdJ+d1wSwaW0nuasfWQ/de2ay4a2Hpmo78bssYXlu/xb
-         DDw2YugisbMxSjBIMmIZcUlZ2w468f3ObUp2R5VrKNcvq7zVs17R7n4u3M2mKY3Q7Avt
-         zVunNZgmmhsSfk5s+sdPY9bn9AEMtmz84duWHW1+yS5R/GcCWVFMTRM23GTX9g3VdbTm
-         2Wfw==
+        bh=ID17WFPefFDHfGmSoZ97O39hAhlQPH1GxgRm05uwzmw=;
+        b=bGxgnItmseTM20ERbtwxBn8mas/Gshps0Ztok7pFc2GjmpAeDlP8xXVaOWKymZyeBO
+         t0ejGsGA2eHrz/iJ2bxddIFrhS4VzlE+BvMzoSoW4kmK0u5yx2m/OTb1o974heCtNQ2M
+         taYxWfzbDXMwEtTc8iD+rJWuhyGLV3wCYA8Me7bpcMDv7CzBy7KmDk7eqNzL3CbvRdzu
+         JHKmmV/SOmCKRzL2v8aeqYcenZ9Kavb7rDRI1qmR8jYVxFq/pm8J3z+zyqn/bsLBZ8UD
+         NRnC1yNLvnuP6yrMBovJRk/FKuKZifp2bvYokejRwZoTXyV5YAdwS9tGgtiMaI7zdfjF
+         HsRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745304652; x=1745909452;
+        d=1e100.net; s=20230601; t=1745305027; x=1745909827;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DqGAc+NTxDpGdquOAibZ6B2EGrQKikik1OQ6kdoOxuc=;
-        b=rE7rtDvSBjTy1uECJeQccNYWCu5EkJ8ps/W/kz8tfXl28zgy+grE6wZiQjFL1NwWky
-         J1CgtMDHIoy5MT30GliQwCQ0qyUvu7MDvJPnUU9ybwQT+eKpuHctI6gCu11wTCvx/7kE
-         qRCwSaYMV/IFUAoyu4O3Dn0AtMjPzgZLZX9K+lHx7XBg5iI0A+vAncYwLJjYDPrDg0wV
-         iWp+msS3nIF+BW35SAT+VC7si8IolgZb7LYxIuALHxKarrZbRpREqdHqB5lW1S1KKVF8
-         EHCzMdJoPEVeb5NK63cgcPMzfYy4DNzN+mOSYM9K+tfeXlC9hmuL3c36dZuVjd6S4bOl
-         X9hA==
-X-Forwarded-Encrypted: i=1; AJvYcCUdmRyIxE61VLUXs28kd4M3hH6JWIcs8liFD7PCl0aYkW8USe+WQpNxTxvBWdYmTmVga+Rpyw7ogSs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxfs4IjB2GZia7DzV4oHhpBeacLQ3jD1ejqUELrnwUCimsoRDQb
-	F6jaAMSwb+C4+gT7LrDBzj/Bf+E7CBLh+gyQUNEVBAn9ArBfdXwfWegpSiJ2RQ==
-X-Gm-Gg: ASbGncsbT1SsIy8F6iONFLX3Fi9E92zZ50qRQKgiu+ulM3VHariZ4WPU3WHkYAYsqqc
-	SgpvgwgQHNAhKzmT7/Rg617tSn1NmNTMkBFBWAeiMFT0WZpkW2qSWi5/fPGCdTfXc/p8SLlFevu
-	ZvpT/6eNmxOdl64bq2LLSJcqS9kMfTgH41BGerseTaz5eVQgJY8wJ3uWBgHhwJOdIZv1+i1uiN+
-	KNkYupqmsmQpPKe7JiVjgHLGRF7uEiFYzA6e2L72l0Wx4xfItda8i6Dy9QJbyfFdDO3iYu9nvLJ
-	vkQ62b9yazk9v3QkqLNp5iaLCyeZciQTA7vCi938JchMB7zdjEcLh+FSmd8KErCUPFeUyTYg5Xn
-	1Pj8+xRakZ8EDakF8oy8VTdS8Yw==
-X-Google-Smtp-Source: AGHT+IE/pYa9r1/US++OuGixF4dX5miDOM0RtSO+avwsjyYRbHaiI8Hee3tqFtFSnLK3XtFIe+5p0Q==
-X-Received: by 2002:a05:600c:1911:b0:43d:9d5:474d with SMTP id 5b1f17b1804b1-4406aa8b882mr128079345e9.0.1745304652355;
-        Mon, 21 Apr 2025 23:50:52 -0700 (PDT)
-Message-ID: <a92a292d-a283-41f2-816d-1db51a6789fb@suse.com>
-Date: Tue, 22 Apr 2025 08:50:54 +0200
+        bh=ID17WFPefFDHfGmSoZ97O39hAhlQPH1GxgRm05uwzmw=;
+        b=hr6UQe7k9dGrk4shsgGLZhKfyW2ZVaSYTZf5fNrF2daKFBBjjZBIm5TOlJ24KTQPfB
+         Kfu7XVAjs2n9rEW0F7IWCeuN3ET5BOTomNmPZMp4wRR5pVpWFNTv6Koc2/UYkGToA1NX
+         mkiFii9Fu3uOCcbzr2rxmpXLqoFWdlkhj6NhbiOU3v1VoSdhPZtVpXJvTIWsVro6QOci
+         zH1t+own0o63TjqztS0JWxkvDeN1xxXwZbPdWWr8L7NQZx0ncgoL0/tuGMtju5dsSH9T
+         PoAbeE8xs4SAcDpu5yYSF/ff40oQj2WdmBCTYWsDBr9X61GmpMqo01uAm3qUQi12bAgB
+         khBw==
+X-Forwarded-Encrypted: i=1; AJvYcCVXB88iDCSRMQmb9tuM3J8waBM5MVQ0zYbo/PHxUVm1oLuTmPHdb3jOMFc6nEyNMkktHx0yqCL63Bk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YywXNAPlkdNLurN12/RCiCFGKVrYKCFWDLFIUuCbDTpeT6c72GD
+	RWPxVpG9EIm2iP2qKBKb9fmRXFoB19CBIFXwS41lJ2eSi5zG7GemUncFiEMxng==
+X-Gm-Gg: ASbGncvtp4GBL9tpBBUd3aB8eiGPbHGp1JqkLKeRJMfFL6kl8RQhc/3jWkmDI47U/2J
+	+k+fcyqhwlpyp/dHFbbyQNVK1IwLX/vm+0B2scvP9dI0t5wqegnXwmI6erZz2IlSgZpMOSlnCOj
+	b6kofXIWtlFGY2fXBtss5gkzbGI9hqqL+rSKb0hOsXiPrZJmvrFZyHFDeuxAlueRg8jKXujPRso
+	kFDO/BDGBQwF9B/TriUTzh2/R0LRVI0c1lm+w2dPnY0K+DXtqCp55EwnnrAst9xalvszW/HD+GI
+	OkcZ6eIgKeEA9psjcxTLIbzf34phKHd8XQXChvbOB5aVa96JL57/geshTAqcU+JNDCzsjReflgs
+	dZ4VgnV1+wD+VY/b/zJg5GJ3GYg==
+X-Google-Smtp-Source: AGHT+IEh9xe5f8HavrqQuLLpJE56RoTbQtdSPCgDCEjo/2/uQp+SWic4BK+X4HtdEymqKTS1bWVd9w==
+X-Received: by 2002:a5d:5f54:0:b0:391:22a9:4408 with SMTP id ffacd0b85a97d-39efba4ad94mr10711981f8f.16.1745305027386;
+        Mon, 21 Apr 2025 23:57:07 -0700 (PDT)
+Message-ID: <21deb3c2-9c84-4d86-9716-318f4130578f@suse.com>
+Date: Tue, 22 Apr 2025 08:57:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 18/19] xen/sysctl: wrap around arch-specific
- arch_do_sysctl
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- "Orzel, Michal" <Michal.Orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Subject: Re: [PATCH v4 02/13] kconfig: introduce domain builder config options
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "Stabellini, Stefano" <stefano.stabellini@amd.com>,
- Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250326055053.3313146-1-Penny.Zheng@amd.com>
- <20250326055053.3313146-19-Penny.Zheng@amd.com>
- <33b166be-21db-473e-a59a-3779436c0494@suse.com>
- <DM4PR12MB845116DF8BF05D205BD8622FE1BF2@DM4PR12MB8451.namprd12.prod.outlook.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250417124844.11143-1-agarciav@amd.com>
+ <20250417124844.11143-3-agarciav@amd.com>
+ <6b7728d0-0464-44ad-8af6-e2816e83a2a6@suse.com>
+ <D991SW75LNIE.1QUE1HVLCS7W3@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,185 +124,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB845116DF8BF05D205BD8622FE1BF2@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <D991SW75LNIE.1QUE1HVLCS7W3@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 18.04.2025 11:46, Penny, Zheng wrote:
-> [Public]
-> 
-> Hi，
-> 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Tuesday, April 1, 2025 10:47 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Stefano Stabellini
->> <sstabellini@kernel.org>; Julien Grall <julien@xen.org>; Bertrand Marquis
->> <bertrand.marquis@arm.com>; Orzel, Michal <Michal.Orzel@amd.com>;
->> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Andrew Cooper
->> <andrew.cooper3@citrix.com>; Anthony PERARD <anthony.perard@vates.tech>;
->> Roger Pau Monné <roger.pau@citrix.com>; Alistair Francis
->> <alistair.francis@wdc.com>; Bob Eshleman <bobbyeshleman@gmail.com>;
->> Connor Davis <connojdavis@gmail.com>; Oleksii Kurochko
->> <oleksii.kurochko@gmail.com>; Stabellini, Stefano
->> <stefano.stabellini@amd.com>; Sergiy Kibrik <Sergiy_Kibrik@epam.com>; xen-
->> devel@lists.xenproject.org
->> Subject: Re: [PATCH v2 18/19] xen/sysctl: wrap around arch-specific
->> arch_do_sysctl
+On 17.04.2025 18:18, Alejandro Vallejo wrote:
+> On Thu Apr 17, 2025 at 4:00 PM BST, Jan Beulich wrote:
+>> On 17.04.2025 14:48, Alejandro Vallejo wrote:
+>>> --- /dev/null
+>>> +++ b/xen/common/domain-builder/Kconfig
+>>> @@ -0,0 +1,18 @@
+>>> +
+>>> +menu "Domain Builder Features"
+>>> +depends on HAS_BOOT_INFO
 >>
->> On 26.03.2025 06:50, Penny Zheng wrote:
->>> Function arch_do_sysctl is to perform arch-specific sysctl op.
->>> Some functions, like psr_get_info for x86, DTB overlay support for
->>> arm, are solely available through sysctl op, then they all shall be
->>> wrapped with CONFIG_SYSCTL Also, remove all #ifdef CONFIG_SYSCTL-s in
->>> arch-specific sysctl.c, as we put the guardian in Makefile for the
->>> whole file.
->>>
->>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
->>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
->>> ---
->>> - use "depends on" for config OVERLAY_DTB
->>> - no need to wrap declaration
->>> - add transient #ifdef in sysctl.c for correct compilation
->>> ---
->>>  xen/arch/arm/Kconfig   |  1 +
->>>  xen/arch/arm/Makefile  |  2 +-
->>>  xen/arch/arm/sysctl.c  |  2 --
->>>  xen/arch/riscv/stubs.c |  2 +-
->>>  xen/arch/x86/Makefile  |  2 +-
->>>  xen/arch/x86/psr.c     | 18 ++++++++++++++++++
->>>  xen/arch/x86/sysctl.c  |  2 --
->>>  xen/common/sysctl.c    |  2 ++
->>>  8 files changed, 24 insertions(+), 7 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig index
->>> ffdff1f0a3..aa1b4a6e6b 100644
->>> --- a/xen/arch/arm/Kconfig
->>> +++ b/xen/arch/arm/Kconfig
->>> @@ -141,6 +141,7 @@ config HAS_ITS
->>>
->>>  config OVERLAY_DTB
->>>     bool "DTB overlay support (UNSUPPORTED)" if UNSUPPORTED
->>> +   depends on SYSCTL
->>>     help
->>>       Dynamic addition/removal of Xen device tree nodes using a dtbo.
->>>
->>> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile index
->>> 4837ad467a..7c6015b84d 100644
->>> --- a/xen/arch/arm/Makefile
->>> +++ b/xen/arch/arm/Makefile
->>> @@ -54,7 +54,7 @@ obj-y += smpboot.o
->>>  obj-$(CONFIG_STATIC_EVTCHN) += static-evtchn.init.o
->>>  obj-$(CONFIG_STATIC_MEMORY) += static-memory.init.o
->>>  obj-$(CONFIG_STATIC_SHM) += static-shmem.init.o -obj-y += sysctl.o
->>> +obj-$(CONFIG_SYSCTL) += sysctl.o
->>>  obj-y += time.o
->>>  obj-y += traps.o
->>>  obj-y += vcpreg.o
->>> diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c index
->>> 2d350b700a..32cab4feff 100644
->>> --- a/xen/arch/arm/sysctl.c
->>> +++ b/xen/arch/arm/sysctl.c
->>> @@ -15,7 +15,6 @@
->>>  #include <asm/arm64/sve.h>
->>>  #include <public/sysctl.h>
->>>
->>> -#ifdef CONFIG_SYSCTL
->>>  void arch_do_physinfo(struct xen_sysctl_physinfo *pi)  {
->>>      pi->capabilities |= XEN_SYSCTL_PHYSCAP_hvm |
->>> XEN_SYSCTL_PHYSCAP_hap; @@ -23,7 +22,6 @@ void
->> arch_do_physinfo(struct xen_sysctl_physinfo *pi)
->>>      pi->arch_capabilities |= MASK_INSR(sve_encode_vl(get_sys_vl_len()),
->>>
->>> XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);  } -#endif
->>>
->>>  long arch_do_sysctl(struct xen_sysctl *sysctl,
->>>                      XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->>> diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c index
->>> 7b3f748886..ae865e1972 100644
->>> --- a/xen/arch/riscv/stubs.c
->>> +++ b/xen/arch/riscv/stubs.c
->>> @@ -322,13 +322,13 @@ unsigned long raw_copy_from_guest(void *to,
->>> const void __user *from,
->>>
->>>  /* sysctl.c */
->>>
->>> +#ifdef CONFIG_SYSCTL
->>>  long arch_do_sysctl(struct xen_sysctl *sysctl,
->>>                      XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)  {
->>>      BUG_ON("unimplemented");
->>>  }
->>>
->>> -#ifdef CONFIG_SYSCTL
->>>  void arch_do_physinfo(struct xen_sysctl_physinfo *pi)  {
->>>      BUG_ON("unimplemented");
->>> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile index
->>> f59c9665fd..837eafcbc0 100644
->>> --- a/xen/arch/x86/Makefile
->>> +++ b/xen/arch/x86/Makefile
->>> @@ -79,7 +79,7 @@ ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)  obj-y +=
->>> domctl.o  obj-y += platform_hypercall.o
->>>  obj-$(CONFIG_COMPAT) += x86_64/platform_hypercall.o -obj-y +=
->>> sysctl.o
->>> +obj-$(CONFIG_SYSCTL) += sysctl.o
->>>  endif
+>> That is, what's going to further be added here will not ...
 >>
->> I think I had indicated before that this shouldn't stay inside the conditional, but
->> move back up. Whether that is to happen here or while addressing my respective
->> comment on patch 01 I can't easily tell.
+>>> +config DOMAIN_BUILDER
+>>
+>> ...depend on this, but just on HAS_BOOT_INFO? Seems not very likely, but
+>> I'll be looking forward to learn what the plans are.
 > 
-> We want that "PV_SHIM_EXCLUSIVE likely wants / needs sorting as
-> a prereq anyway", does the prereq here mean that prereq in kconfig,
-> something like
-> ```
-> config SYSCTL
->       depends on xxx
-> ```
+> CONFIG_HAS_BOOT_INFO has nothing to do with future plans.  The domain
+> builder is tightly integrated with the boot_info infrastructure and
+> cannot be used (or linked) unless the arch-specific definitions are
+> present. It cannot function without it. And this movement from arch/ to
+> common/ forces this new Kconfig to gate core.c on boot_info existing
+> (because it's in asm/bootinfo.h atm). I _COULD_ also move the boot_info
+> elsewhere, but without a drive to actually use it, that seems a bit
+> pointless.
+> 
+> HAS_BOOT_INFO && !DOMAIN_BUILDER still links core.c, because that
+> contains the common initialiser for boot_info.
 
-I'm sorry, but I fear I can't interpret what you're saying (possibly asking).
-
->>> --- a/xen/common/sysctl.c
->>> +++ b/xen/common/sysctl.c
->>> @@ -490,8 +490,10 @@ long
->> do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->>>          break;
->>>
->>>      default:
->>> +#ifdef CONFIG_SYSCTL
->>>          ret = arch_do_sysctl(op, u_sysctl);
->>>          copyback = 0;
->>> +#endif
->>>          break;
->>>      }
->>
->> This isn't enough. "ret" is 0 when reaching the default: label, but may not stay 0 for
->> the return from the function. I understand (expect) this is going to be dropped
->> again in the next patch, but even if only transiently needed this should be kept
->> correct imo. Things might be different if patch 02 introduced the option without a
->> prompt, i.e. always enabled. Then all the #ifdef-ary added up to here would be
->> merely syntactic sugar. In fact in that case you could omit all the transient #ifdef
->> that the last patch is going to remove again. Please consider going that route.
->>
->> Otherwise I think the #endif also needs moving up, for copyback to still be cleared
->> here.
->>
-> 
-> I'll change it to as follows to complement case for CONFIG_SYSCTL==n, plz correct me if I understand wrongly here:
-> ```
->       default:
-> +#ifdef CONFIG_SYSCTL
->          ret = arch_do_sysctl(op, u_sysctl);
-> +#else
-> +        ret = -EOPNOTSUPP;
-> +#endif
->          copyback = 0;
->          break;
-> ```
-
-This is an option, yes, yet I'd like my other outline to be taken into consideration,
-too (for imo resulting in less churn overall).
+Which, as voiced earlier, I have reservations against. The entire
+domain-builder/ sub-tree would imo better not be recursed into when
+DOMAIN_BUILDER=n.
 
 Jan
 
