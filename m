@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16F89A96104
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 10:23:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.961782.1353140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 273C3A960F6
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 10:23:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.961784.1353158 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u78ua-0005e4-Nh; Tue, 22 Apr 2025 08:23:24 +0000
+	id 1u78ub-0005yj-VK; Tue, 22 Apr 2025 08:23:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 961782.1353140; Tue, 22 Apr 2025 08:23:24 +0000
+Received: by outflank-mailman (output) from mailman id 961784.1353158; Tue, 22 Apr 2025 08:23:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u78ua-0005Yt-Gj; Tue, 22 Apr 2025 08:23:24 +0000
-Received: by outflank-mailman (input) for mailman id 961782;
- Tue, 22 Apr 2025 08:23:23 +0000
+	id 1u78ub-0005u1-MJ; Tue, 22 Apr 2025 08:23:25 +0000
+Received: by outflank-mailman (input) for mailman id 961784;
+ Tue, 22 Apr 2025 08:23:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qhpm=XI=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1u78uZ-0004wM-4y
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 08:23:23 +0000
+ id 1u78ua-0004wM-5H
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 08:23:24 +0000
 Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b05e9a0-1f53-11f0-9eb0-5ba50f476ded;
+ id 0a7698bd-1f53-11f0-9eb0-5ba50f476ded;
  Tue, 22 Apr 2025 10:23:18 +0200 (CEST)
 Received: from terminus.zytor.com (terminus.zytor.com
  [IPv6:2607:7c80:54:3:0:0:0:136]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53M8MG9J1954391
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53M8MG9K1954391
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 22 Apr 2025 01:22:31 -0700
+ Tue, 22 Apr 2025 01:22:33 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b05e9a0-1f53-11f0-9eb0-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53M8MG9J1954391
+X-Inumbo-ID: 0a7698bd-1f53-11f0-9eb0-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53M8MG9K1954391
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745310152;
-	bh=2fX9OBA6uAgolGV2mwCjcajGTCrZX3UzmQx9++m7S8w=;
+	s=2025042001; t=1745310154;
+	bh=hH40dRMC8icMs0Kq/gRLpfnhusccGZZqYtPjziXUIq0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DWloroeBI0Xco+1f4PQTeYOR+vYxwQ6OWrLvdsoNKKSO7CBjg/hE29Yiga1DMWA6a
-	 3vjJgLMxR6/Kq1B4f3AtI2es9FoJ5qy02eFKKKI96lyZVVL8RDLAlkYglcv8alS0Qf
-	 WcSregt3TEEKdcYBIPtoG6YGq2XfT7SY3xWvzXDaQnXgzRD4xy21W88jQ5y3uEu7b6
-	 1pQ93SrdhPxcmqTgXqXEgwbVpDt1UW0nZ3vhjRNRm4Bz3ilkQ2KvD4xwcW5uo/xdRZ
-	 iWqoZnPrxYn/rhNZ4bGCGPJoZdnXc9udd1Mjqp99UFtk+G5UJNIl0iraeMYyl4BFtQ
-	 7iVfP7LKBPL8Q==
+	b=hcEX0Oma3CVnkwxqS8bKBIm18tqvV7335h9MWMF4E8wAMoT4z1itaFgVa2bu1H7Lv
+	 Ga+u823XXqz9EiWUYA9XlCQeHFfgScC5iggnF6WJwS4CQfGeYOy+x+oIvnckcTBzB6
+	 8V7NP2nGUmfkFx31xOhz6KwJe5WcJid/C9tfwl98yFuEFykSa3egLEr8WStBfP/6oh
+	 K8ADOv9Wdb6X6GRIlWoxPenpyB34mw1V1qvbQ8zIfGnVmMda21cc2+p+ghtOaC0a2V
+	 V8nAVloDomWCJYiVBeBOXpRIQBAsncCQrgBQ+uMQZJ1te/DZTdjVSMkiakmJECg5VO
+	 psDTTjszTfsAw==
 From: "Xin Li (Intel)" <xin@zytor.com>
 To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
         linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
@@ -71,71 +71,182 @@ Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
         pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
         luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
         haiyangz@microsoft.com, decui@microsoft.com
-Subject: [RFC PATCH v2 05/34] x86/msr: Return u64 consistently in Xen PMC read functions
-Date: Tue, 22 Apr 2025 01:21:46 -0700
-Message-ID: <20250422082216.1954310-6-xin@zytor.com>
+Subject: [RFC PATCH v2 06/34] x86/msr: Use the alternatives mechanism to read PMC
+Date: Tue, 22 Apr 2025 01:21:47 -0700
+Message-ID: <20250422082216.1954310-7-xin@zytor.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250422082216.1954310-1-xin@zytor.com>
 References: <20250422082216.1954310-1-xin@zytor.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The pv_ops PMC read API is defined as:
-        u64 (*read_pmc)(int counter);
+To eliminate the indirect call overhead introduced by the pv_ops API,
+use the alternatives mechanism to read PMC:
 
-But Xen PMC read functions return unsigned long long, make them
-return u64 consistently.
+    1) When built with !CONFIG_XEN_PV, X86_FEATURE_XENPV becomes a
+       disabled feature, preventing the Xen PMC read code from being
+       built and ensuring the native code is executed unconditionally.
+
+    2) When built with CONFIG_XEN_PV:
+
+       2.1) If not running on the Xen hypervisor (!X86_FEATURE_XENPV),
+            the kernel runtime binary is patched to unconditionally
+            jump to the native PMC read code.
+
+       2.2) If running on the Xen hypervisor (X86_FEATURE_XENPV), the
+            kernel runtime binary is patched to unconditionally jump
+            to the Xen PMC read code.
+
+Consequently, remove the pv_ops PMC read API.
 
 Signed-off-by: Xin Li (Intel) <xin@zytor.com>
 ---
- arch/x86/xen/pmu.c     | 6 +++---
- arch/x86/xen/xen-ops.h | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ arch/x86/include/asm/msr.h            | 31 ++++++++++++++++++++-------
+ arch/x86/include/asm/paravirt.h       |  5 -----
+ arch/x86/include/asm/paravirt_types.h |  2 --
+ arch/x86/kernel/paravirt.c            |  1 -
+ arch/x86/xen/enlighten_pv.c           |  2 --
+ drivers/net/vmxnet3/vmxnet3_drv.c     |  2 +-
+ 6 files changed, 24 insertions(+), 19 deletions(-)
 
-diff --git a/arch/x86/xen/pmu.c b/arch/x86/xen/pmu.c
-index f06987b0efc3..9c1682af620a 100644
---- a/arch/x86/xen/pmu.c
-+++ b/arch/x86/xen/pmu.c
-@@ -346,7 +346,7 @@ bool pmu_msr_write(unsigned int msr, uint32_t low, uint32_t high, int *err)
- 	return true;
+diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
+index 01dc8e61ef97..33cf506e2fd6 100644
+--- a/arch/x86/include/asm/msr.h
++++ b/arch/x86/include/asm/msr.h
+@@ -8,6 +8,7 @@
+ 
+ #include <asm/asm.h>
+ #include <asm/errno.h>
++#include <asm/cpufeature.h>
+ #include <asm/cpumask.h>
+ #include <uapi/asm/msr.h>
+ #include <asm/shared/msr.h>
+@@ -73,6 +74,10 @@ static inline void do_trace_read_msr(u32 msr, u64 val, int failed) {}
+ static inline void do_trace_rdpmc(u32 msr, u64 val, int failed) {}
+ #endif
+ 
++#ifdef CONFIG_XEN_PV
++extern u64 xen_read_pmc(int counter);
++#endif
++
+ /*
+  * __rdmsr() and __wrmsr() are the two primitives which are the bare minimum MSR
+  * accessors and should not have any tracing or other functionality piggybacking
+@@ -170,16 +175,32 @@ native_write_msr_safe(u32 msr, u32 low, u32 high)
+ extern int rdmsr_safe_regs(u32 regs[8]);
+ extern int wrmsr_safe_regs(u32 regs[8]);
+ 
+-static inline u64 native_read_pmc(int counter)
++static __always_inline u64 native_rdpmcq(int counter)
+ {
+ 	DECLARE_ARGS(val, low, high);
+ 
+-	asm volatile("rdpmc" : EAX_EDX_RET(val, low, high) : "c" (counter));
++	asm_inline volatile("rdpmc" : EAX_EDX_RET(val, low, high) : "c" (counter));
++
+ 	if (tracepoint_enabled(rdpmc))
+ 		do_trace_rdpmc(counter, EAX_EDX_VAL(val, low, high), 0);
++
+ 	return EAX_EDX_VAL(val, low, high);
  }
  
--static unsigned long long xen_amd_read_pmc(int counter)
-+static u64 xen_amd_read_pmc(int counter)
- {
- 	struct xen_pmu_amd_ctxt *ctxt;
- 	uint64_t *counter_regs;
-@@ -366,7 +366,7 @@ static unsigned long long xen_amd_read_pmc(int counter)
- 	return counter_regs[counter];
++static __always_inline u64 rdpmcq(int counter)
++{
++#ifdef CONFIG_XEN_PV
++	if (cpu_feature_enabled(X86_FEATURE_XENPV))
++		return xen_read_pmc(counter);
++#endif
++
++	/*
++	 * 1) When built with !CONFIG_XEN_PV.
++	 * 2) When built with CONFIG_XEN_PV but not running on Xen hypervisor.
++	 */
++	return native_rdpmcq(counter);
++}
++
+ #ifdef CONFIG_PARAVIRT_XXL
+ #include <asm/paravirt.h>
+ #else
+@@ -233,12 +254,6 @@ static inline int rdmsrq_safe(u32 msr, u64 *p)
+ 	*p = native_read_msr_safe(msr, &err);
+ 	return err;
+ }
+-
+-static __always_inline u64 rdpmcq(int counter)
+-{
+-	return native_read_pmc(counter);
+-}
+-
+ #endif	/* !CONFIG_PARAVIRT_XXL */
+ 
+ /* Instruction opcode for WRMSRNS supported in binutils >= 2.40 */
+diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
+index 590824916394..c7689f5f70d6 100644
+--- a/arch/x86/include/asm/paravirt.h
++++ b/arch/x86/include/asm/paravirt.h
+@@ -239,11 +239,6 @@ static inline int rdmsrq_safe(unsigned msr, u64 *p)
+ 	return err;
  }
  
--static unsigned long long xen_intel_read_pmc(int counter)
-+static u64 xen_intel_read_pmc(int counter)
+-static __always_inline u64 rdpmcq(int counter)
+-{
+-	return PVOP_CALL1(u64, cpu.read_pmc, counter);
+-}
+-
+ static inline void paravirt_alloc_ldt(struct desc_struct *ldt, unsigned entries)
  {
- 	struct xen_pmu_intel_ctxt *ctxt;
- 	uint64_t *fixed_counters;
-@@ -396,7 +396,7 @@ static unsigned long long xen_intel_read_pmc(int counter)
- 	return arch_cntr_pair[counter].counter;
- }
+ 	PVOP_VCALL2(cpu.alloc_ldt, ldt, entries);
+diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
+index 631c306ce1ff..475f508531d6 100644
+--- a/arch/x86/include/asm/paravirt_types.h
++++ b/arch/x86/include/asm/paravirt_types.h
+@@ -101,8 +101,6 @@ struct pv_cpu_ops {
+ 	u64 (*read_msr_safe)(unsigned int msr, int *err);
+ 	int (*write_msr_safe)(unsigned int msr, unsigned low, unsigned high);
  
--unsigned long long xen_read_pmc(int counter)
-+u64 xen_read_pmc(int counter)
+-	u64 (*read_pmc)(int counter);
+-
+ 	void (*start_context_switch)(struct task_struct *prev);
+ 	void (*end_context_switch)(struct task_struct *next);
+ #endif
+diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
+index 1ccd05d8999f..28d195ad7514 100644
+--- a/arch/x86/kernel/paravirt.c
++++ b/arch/x86/kernel/paravirt.c
+@@ -132,7 +132,6 @@ struct paravirt_patch_template pv_ops = {
+ 	.cpu.write_msr		= native_write_msr,
+ 	.cpu.read_msr_safe	= native_read_msr_safe,
+ 	.cpu.write_msr_safe	= native_write_msr_safe,
+-	.cpu.read_pmc		= native_read_pmc,
+ 	.cpu.load_tr_desc	= native_load_tr_desc,
+ 	.cpu.set_ldt		= native_set_ldt,
+ 	.cpu.load_gdt		= native_load_gdt,
+diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+index 846b5737d320..9fbe187aff00 100644
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -1236,8 +1236,6 @@ static const typeof(pv_ops) xen_cpu_ops __initconst = {
+ 		.read_msr_safe = xen_read_msr_safe,
+ 		.write_msr_safe = xen_write_msr_safe,
+ 
+-		.read_pmc = xen_read_pmc,
+-
+ 		.load_tr_desc = paravirt_nop,
+ 		.set_ldt = xen_set_ldt,
+ 		.load_gdt = xen_load_gdt,
+diff --git a/drivers/net/vmxnet3/vmxnet3_drv.c b/drivers/net/vmxnet3/vmxnet3_drv.c
+index 7edd0b5e0e77..8af3b4d7ef4d 100644
+--- a/drivers/net/vmxnet3/vmxnet3_drv.c
++++ b/drivers/net/vmxnet3/vmxnet3_drv.c
+@@ -151,7 +151,7 @@ static u64
+ vmxnet3_get_cycles(int pmc)
  {
- 	if (boot_cpu_data.x86_vendor != X86_VENDOR_INTEL)
- 		return xen_amd_read_pmc(counter);
-diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
-index 25e318ef27d6..dc886c3cc24d 100644
---- a/arch/x86/xen/xen-ops.h
-+++ b/arch/x86/xen/xen-ops.h
-@@ -274,7 +274,7 @@ static inline void xen_pmu_finish(int cpu) {}
- bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err);
- bool pmu_msr_write(unsigned int msr, uint32_t low, uint32_t high, int *err);
- int pmu_apic_update(uint32_t reg);
--unsigned long long xen_read_pmc(int counter);
-+u64 xen_read_pmc(int counter);
- 
- #ifdef CONFIG_SMP
- 
+ #ifdef CONFIG_X86
+-	return native_read_pmc(pmc);
++	return native_rdpmcq(pmc);
+ #else
+ 	return 0;
+ #endif
 -- 
 2.49.0
 
