@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32952A97019
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 17:11:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.962927.1354102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27A8CA9701A
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 17:11:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.962924.1354092 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7FHp-0003DG-KA; Tue, 22 Apr 2025 15:11:49 +0000
+	id 1u7FHo-0002s0-7G; Tue, 22 Apr 2025 15:11:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 962927.1354102; Tue, 22 Apr 2025 15:11:49 +0000
+Received: by outflank-mailman (output) from mailman id 962924.1354092; Tue, 22 Apr 2025 15:11:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7FHp-00039a-FT; Tue, 22 Apr 2025 15:11:49 +0000
-Received: by outflank-mailman (input) for mailman id 962927;
- Tue, 22 Apr 2025 15:11:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u7FHo-0002ps-0j; Tue, 22 Apr 2025 15:11:48 +0000
+Received: by outflank-mailman (input) for mailman id 962924;
+ Tue, 22 Apr 2025 15:11:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BiSK=XI=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1u7FDh-0000lQ-Gd
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 15:07:33 +0000
-Received: from 10.mo550.mail-out.ovh.net (10.mo550.mail-out.ovh.net
- [178.32.96.102]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8423ef29-1f8b-11f0-9eb0-5ba50f476ded;
- Tue, 22 Apr 2025 17:07:32 +0200 (CEST)
-Received: from director8.ghost.mail-out.ovh.net (unknown [10.108.2.23])
- by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4Zhlw428byz1Xrw
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 15:07:32 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-f9k6v (unknown [10.110.118.84])
- by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 69FDB1FD44;
- Tue, 22 Apr 2025 15:07:31 +0000 (UTC)
+ id 1u7FDo-0008SP-2z
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 15:07:40 +0000
+Received: from 3.mo550.mail-out.ovh.net (3.mo550.mail-out.ovh.net
+ [46.105.60.232]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 85d7467e-1f8b-11f0-9ffb-bf95429c2676;
+ Tue, 22 Apr 2025 17:07:35 +0200 (CEST)
+Received: from director5.ghost.mail-out.ovh.net (unknown [10.108.17.28])
+ by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4Zhlw673wCz1SH0
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 15:07:34 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-6tjtj (unknown [10.110.113.175])
+ by director5.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 3C0EF1FE9C;
+ Tue, 22 Apr 2025 15:07:34 +0000 (UTC)
 Received: from 3mdeb.com ([37.59.142.104])
- by ghost-submission-5b5ff79f4f-f9k6v with ESMTPSA
- id rxlND7OwB2hWRgEAxaKnhg
- (envelope-from <sergii.dmytruk@3mdeb.com>); Tue, 22 Apr 2025 15:07:31 +0000
+ by ghost-submission-5b5ff79f4f-6tjtj with ESMTPSA
+ id ZjdlOrWwB2g1AQEAHtJGkA
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Tue, 22 Apr 2025 15:07:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,341 +46,644 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8423ef29-1f8b-11f0-9eb0-5ba50f476ded
-Authentication-Results:garm.ovh; auth=pass (GARM-104R00542a86e06-f440-4221-95ca-16fc201bff01,
+X-Inumbo-ID: 85d7467e-1f8b-11f0-9ffb-bf95429c2676
+Authentication-Results:garm.ovh; auth=pass (GARM-104R00566ba59df-84da-4b2d-9200-fbaad77c07ca,
                     7E508E014E7E7C169EB13C6E22C3C4EBF1F0FDD7) smtp.auth=sergii.dmytruk@3mdeb.com
 X-OVh-ClientIp:176.111.181.178
 From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	trenchboot-devel@googlegroups.com
-Subject: [PATCH 10/21] lib/sha256.c: add file
-Date: Tue, 22 Apr 2025 18:06:44 +0300
-Message-ID: <92b461c8d5981a523293341346274b6cc1b76d9b.1745172094.git.sergii.dmytruk@3mdeb.com>
+Subject: [PATCH 11/21] x86/tpm.c: code for early hashing and extending PCRs (for TPM1.2)
+Date: Tue, 22 Apr 2025 18:06:45 +0300
+Message-ID: <582d247c62748d37ae4982bdfb250b80051fdc8c.1745172094.git.sergii.dmytruk@3mdeb.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
 References: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12732802049230353564
+X-Ovh-Tracer-Id: 12733364997088064668
 X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -105
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvgeegtdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnegfrhhlucfvnfffucdlqdehmdenucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepvedvgfeukeehhfevuddvheetudekkefggfeiveehvefhgfehgfffhffgvefhudejnecuffhomhgrihhnpehgihhthhhusgdrtghomhdpnhhishhtrdhgohhvnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukedurddujeekpdefjedrheelrddugedvrddutdegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheehtdgmpdhmohguvgepshhmthhpohhuth
-DKIM-Signature: a=rsa-sha256; bh=cpM4QmeM8xWvrjEkqxDqzsZbZ3g224BrNjdlnp8nQ/I=;
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvgeegtdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepufgvrhhgihhiucffmhihthhruhhkuceoshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpeffjefgudevkeetudegueeihfdthfejgfeileekuefggeegtdegveehfeehfeefueenucffohhmrghinhepsggrshgvrdhmrghppdhhvggrugdrshgsnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukedurddujeekpdefjedrheelrddugedvrddutdegnecuvehluhhsthgvrhfuihiivgepudenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheehtdgmpdhmohguvgepshhmthhpohhuth
+DKIM-Signature: a=rsa-sha256; bh=LQ1Vqe1g6RI6JDcVkxzenf+apwtvgdiVGCvexZNSFH8=;
  c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1745334452; v=1;
- b=LE9iVO/+PznrQo2udORusIQdcf0bKmGUAd4jA8Eo1BR+HmyxpHzggY9ZMLdnkwEp9pdwbPRb
- EI2KJINBdDu6fFBwmQIje9ajHi7/eHzOlHTqqEeceHzwDZaipnNUc4XYfwt0TCJy1v8QrehKJvR
- 2g0twC6fZSvdDhlyktFja1KStZIepnop32DPDj04pmi6c9IQF85uPnnO0bi4bPaeV5JRGg4UD2e
- bIM/otbqekD4+1bOZuuKDxCUhvGuF7zdiex7xNJnTal/W+ffN6yfJQtyH0GYQFnEFhx1hp7nBfS
- mNg7paDZJfTok8C26E1M4R9b9+dwfZCo1K/37gMB2Bp2w==
+ t=1745334455; v=1;
+ b=dDplnzYEQqox6HEw+6yHAYs5SLrXTwyLbV9PGn8liZ/1d0RHGNGTut/46mZwL7AIgR1Nuiwy
+ vE15PzwGVthF+hniyLKLc2oLUEqtI+3lDFcwtU/E/d6dfK5RrnGvyrEXWie0KGt9UqWQrAdVQu4
+ MHephxrJ8T/6bBUgRvd+5ZaQh7Fnwa27wQ4mpKaTKpsy2GP923PPplC+IRp2wP/5gaop5fd4iF3
+ OuKD+W1IhTzW+GfuVlEaDnAVZp5getKoAH7mlTfl/GrELh6aSpYuOvAhmLu9T0Fa4V8ki+fc1cd
+ jlY7F8BsFtiFTKBXOAMgkbtknlj6xhFbLg71i7Co8N1xw==
 
-The code comes from [1] and is licensed under GPL-2.0 or later version
-of the license.  It's a combination of:
- - include/crypto/sha2.h
- - include/crypto/sha256_base.h
- - lib/crypto/sha256.c
- - crypto/sha256_generic.c
+From: Krystian Hebel <krystian.hebel@3mdeb.com>
 
-Changes:
- - includes
- - formatting
- - renames and splicing of some trivial functions that are called once
- - dropping of `int` return values (only zero was ever returned)
- - getting rid of references to `struct shash_desc`
+This file is built twice: for early 32b mode without paging to measure
+MBI and for 64b code to measure dom0 kernel and initramfs. Since MBI
+is small, the first case uses TPM to do the hashing. Kernel and
+initramfs on the other hand are too big, sending them to the TPM would
+take multiple minutes.
 
-[1]: https://github.com/torvalds/linux/tree/afdab700f65e14070d8ab92175544b1c62b8bf03
-
-Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
+Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 ---
- xen/include/xen/sha256.h |  12 ++
- xen/lib/Makefile         |   1 +
- xen/lib/sha256.c         | 238 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 251 insertions(+)
- create mode 100644 xen/include/xen/sha256.h
- create mode 100644 xen/lib/sha256.c
+ xen/arch/x86/Makefile              |   1 +
+ xen/arch/x86/boot/Makefile         |   7 +-
+ xen/arch/x86/boot/head.S           |   3 +
+ xen/arch/x86/include/asm/slaunch.h |  14 +
+ xen/arch/x86/include/asm/tpm.h     |  19 ++
+ xen/arch/x86/slaunch.c             |   7 +-
+ xen/arch/x86/tpm.c                 | 437 +++++++++++++++++++++++++++++
+ 7 files changed, 486 insertions(+), 2 deletions(-)
+ create mode 100644 xen/arch/x86/include/asm/tpm.h
+ create mode 100644 xen/arch/x86/tpm.c
 
-diff --git a/xen/include/xen/sha256.h b/xen/include/xen/sha256.h
-new file mode 100644
-index 0000000000..703eddc198
---- /dev/null
-+++ b/xen/include/xen/sha256.h
-@@ -0,0 +1,12 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+
-+#ifndef __XEN_SHA256_H
-+#define __XEN_SHA256_H
-+
-+#include <xen/inttypes.h>
-+
-+#define SHA256_DIGEST_SIZE  32
-+
-+void sha256_hash(const u8 *data, unsigned int len, u8 *out);
-+
-+#endif /* !__XEN_SHA256_H */
-diff --git a/xen/lib/Makefile b/xen/lib/Makefile
-index 0d5774b8d7..c7a8d1bb02 100644
---- a/xen/lib/Makefile
-+++ b/xen/lib/Makefile
-@@ -39,6 +39,7 @@ lib-y += strtoul.o
- lib-y += strtoull.o
- lib-$(CONFIG_X86) += x86-generic-hweightl.o
- lib-$(CONFIG_X86) += sha1.o
-+lib-$(CONFIG_X86) += sha256.o
- lib-$(CONFIG_X86) += xxhash32.o
- lib-$(CONFIG_X86) += xxhash64.o
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index cae548f7e9..7d1027a50f 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -67,6 +67,7 @@ obj-y += spec_ctrl.o
+ obj-y += srat.o
+ obj-y += string.o
+ obj-y += time.o
++obj-y += tpm.o
+ obj-y += traps-setup.o
+ obj-y += traps.o
+ obj-$(CONFIG_INTEL) += tsx.o
+diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
+index d0015f7d19..ab37ab1fb7 100644
+--- a/xen/arch/x86/boot/Makefile
++++ b/xen/arch/x86/boot/Makefile
+@@ -6,6 +6,7 @@ obj32 := cmdline.32.o
+ obj32 += reloc.32.o
+ obj32 += reloc-trampoline.32.o
+ obj32 += slaunch_early.32.o
++obj32 += tpm_early.32.o
  
-diff --git a/xen/lib/sha256.c b/xen/lib/sha256.c
-new file mode 100644
-index 0000000000..369a52af80
---- /dev/null
-+++ b/xen/lib/sha256.c
-@@ -0,0 +1,238 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
+ obj64 := reloc-trampoline.o
+ 
+@@ -31,6 +32,10 @@ $(obj)/%.32.o: $(src)/%.c FORCE
+ 
+ $(obj)/slaunch_early.32.o: XEN_CFLAGS += -D__EARLY_SLAUNCH__
+ 
++$(obj)/tpm_early.32.o: XEN_CFLAGS += -D__EARLY_SLAUNCH__
++$(obj)/tpm_early.32.o: $(src)/../tpm.c FORCE
++	$(call if_changed_rule,cc_o_c)
++
+ orphan-handling-$(call ld-option,--orphan-handling=error) := --orphan-handling=error
+ LDFLAGS_DIRECT-$(call ld-option,--warn-rwx-segments) := --no-warn-rwx-segments
+ LDFLAGS_DIRECT += $(LDFLAGS_DIRECT-y)
+@@ -84,7 +89,7 @@ cmd_combine = \
+               --bin1      $(obj)/built-in-32.base.bin \
+               --bin2      $(obj)/built-in-32.offset.bin \
+               --map       $(obj)/built-in-32.base.map \
+-              --exports   cmdline_parse_early,reloc,reloc_trampoline32,slaunch_early_init \
++              --exports   cmdline_parse_early,reloc,reloc_trampoline32,slaunch_early_init,tpm_extend_mbi \
+               --output    $@
+ 
+ targets += built-in-32.S
+diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+index e522a36305..0b7903070a 100644
+--- a/xen/arch/x86/boot/head.S
++++ b/xen/arch/x86/boot/head.S
+@@ -527,6 +527,9 @@ __start:
+         /* Store MBI address in EBX where MB2 code expects it. */
+         mov     %eax, %ebx
+ 
++        /* tpm_extend_mbi(mbi/eax, slrt/edx) using fastcall. */
++        call    tpm_extend_mbi
++
+         /* Move magic number expected by Multiboot 2 to EAX and fall through. */
+         movl    $MULTIBOOT2_BOOTLOADER_MAGIC, %eax
+ 
+diff --git a/xen/arch/x86/include/asm/slaunch.h b/xen/arch/x86/include/asm/slaunch.h
+index 78d3c8bf37..b9b50f20c6 100644
+--- a/xen/arch/x86/include/asm/slaunch.h
++++ b/xen/arch/x86/include/asm/slaunch.h
+@@ -10,6 +10,20 @@
+ #include <xen/slr_table.h>
+ #include <xen/types.h>
+ 
++#define DRTM_LOC                   2
++#define DRTM_CODE_PCR              17
++#define DRTM_DATA_PCR              18
++
 +/*
-+ * SHA-256, as specified in
-+ * http://csrc.nist.gov/groups/STM/cavp/documents/shs/sha256-384-512.pdf
++ * Secure Launch event log entry types. The TXT specification defines the base
++ * event value as 0x400 for DRTM values, use it regardless of the DRTM for
++ * consistency.
++ */
++#define DLE_EVTYPE_BASE            0x400
++#define DLE_EVTYPE_SLAUNCH         (DLE_EVTYPE_BASE + 0x102)
++#define DLE_EVTYPE_SLAUNCH_START   (DLE_EVTYPE_BASE + 0x103)
++#define DLE_EVTYPE_SLAUNCH_END     (DLE_EVTYPE_BASE + 0x104)
++
+ extern bool slaunch_active;
+ 
+ /*
+diff --git a/xen/arch/x86/include/asm/tpm.h b/xen/arch/x86/include/asm/tpm.h
+new file mode 100644
+index 0000000000..d46eba673c
+--- /dev/null
++++ b/xen/arch/x86/include/asm/tpm.h
+@@ -0,0 +1,19 @@
++/*
++ * SPDX-License-Identifier: GPL-2.0-or-later
 + *
-+ * SHA-256 code by Jean-Luc Cooke <jlcooke@certainkey.com>.
-+ *
-+ * Copyright (c) Jean-Luc Cooke <jlcooke@certainkey.com>
-+ * Copyright (c) Andrew McDonald <andrew@mcdonald.org.uk>
-+ * Copyright (c) 2002 James Morris <jmorris@intercode.com.au>
-+ * Copyright (c) 2014 Red Hat Inc.
++ * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
 + */
 +
-+#include <xen/bitops.h>
-+#include <xen/sha256.h>
-+#include <xen/unaligned.h>
++#ifndef _ASM_X86_TPM_H_
++#define _ASM_X86_TPM_H_
 +
-+#define SHA256_BLOCK_SIZE 64
++#include <xen/types.h>
 +
-+struct sha256_state {
-+    uint32_t state[SHA256_DIGEST_SIZE / 4];
-+    uint64_t count;
-+    uint8_t buf[SHA256_BLOCK_SIZE];
++#define TPM_TIS_BASE  0xFED40000
++#define TPM_TIS_SIZE  0x00010000
++
++void tpm_hash_extend(unsigned loc, unsigned pcr, const uint8_t *buf,
++                     unsigned size, uint32_t type, const uint8_t *log_data,
++                     unsigned log_data_size);
++
++#endif /* _ASM_X86_TPM_H_ */
+diff --git a/xen/arch/x86/slaunch.c b/xen/arch/x86/slaunch.c
+index 20e277cc5c..7b13b0a852 100644
+--- a/xen/arch/x86/slaunch.c
++++ b/xen/arch/x86/slaunch.c
+@@ -13,6 +13,7 @@
+ #include <asm/intel_txt.h>
+ #include <asm/page.h>
+ #include <asm/slaunch.h>
++#include <asm/tpm.h>
+ 
+ /*
+  * These variables are assigned to by the code near Xen's entry point.
+@@ -65,16 +66,20 @@ struct slr_table *__init slaunch_get_slrt(void)
+ 
+ void __init slaunch_map_mem_regions(void)
+ {
++    int rc;
+     void *evt_log_addr;
+     uint32_t evt_log_size;
+ 
++    rc = slaunch_map_l2(TPM_TIS_BASE, TPM_TIS_SIZE);
++    BUG_ON(rc != 0);
++
+     /* Vendor-specific part. */
+     txt_map_mem_regions();
+ 
+     find_evt_log(slaunch_get_slrt(), &evt_log_addr, &evt_log_size);
+     if ( evt_log_addr != NULL )
+     {
+-        int rc = slaunch_map_l2((uintptr_t)evt_log_addr, evt_log_size);
++        rc = slaunch_map_l2((uintptr_t)evt_log_addr, evt_log_size);
+         BUG_ON(rc != 0);
+     }
+ }
+diff --git a/xen/arch/x86/tpm.c b/xen/arch/x86/tpm.c
+new file mode 100644
+index 0000000000..8cf836d0df
+--- /dev/null
++++ b/xen/arch/x86/tpm.c
+@@ -0,0 +1,437 @@
++/*
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ *
++ * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
++ */
++
++#include <xen/sha1.h>
++#include <xen/types.h>
++#include <asm/intel_txt.h>
++#include <asm/slaunch.h>
++#include <asm/tpm.h>
++
++#ifdef __EARLY_SLAUNCH__
++
++#ifdef __va
++#error "__va defined in non-paged mode!"
++#endif
++
++#define __va(x)     _p(x)
++
++/* Implementation of slaunch_get_slrt() for early TPM code. */
++static uint32_t slrt_location;
++struct slr_table *slaunch_get_slrt(void)
++{
++    return __va(slrt_location);
++}
++
++/*
++ * The code is being compiled as a standalone binary without linking to any
++ * other part of Xen.  Providing implementation of builtin functions in this
++ * case is necessary if compiler chooses to not use an inline builtin.
++ */
++void *memcpy(void *dest, const void *src, size_t n)
++{
++    const uint8_t *s = src;
++    uint8_t *d = dest;
++
++    while ( n-- )
++        *d++ = *s++;
++
++    return dest;
++}
++
++#else   /* __EARLY_SLAUNCH__ */
++
++#include <xen/mm.h>
++#include <xen/pfn.h>
++
++#endif  /* __EARLY_SLAUNCH__ */
++
++#define TPM_LOC_REG(loc, reg)   (0x1000 * (loc) + (reg))
++
++#define TPM_ACCESS_(x)          TPM_LOC_REG(x, 0x00)
++#define ACCESS_REQUEST_USE       (1 << 1)
++#define ACCESS_ACTIVE_LOCALITY   (1 << 5)
++#define TPM_INTF_CAPABILITY_(x) TPM_LOC_REG(x, 0x14)
++#define INTF_VERSION_MASK        0x70000000
++#define TPM_STS_(x)             TPM_LOC_REG(x, 0x18)
++#define TPM_FAMILY_MASK          0x0C000000
++#define STS_DATA_AVAIL           (1 << 4)
++#define STS_TPM_GO               (1 << 5)
++#define STS_COMMAND_READY        (1 << 6)
++#define STS_VALID                (1 << 7)
++#define TPM_DATA_FIFO_(x)       TPM_LOC_REG(x, 0x24)
++
++#define swap16(x)       __builtin_bswap16(x)
++#define swap32(x)       __builtin_bswap32(x)
++#define memcpy(d, s, n) __builtin_memcpy(d, s, n)
++
++static inline volatile uint32_t tis_read32(unsigned reg)
++{
++    return *(volatile uint32_t *)__va(TPM_TIS_BASE + reg);
++}
++
++static inline volatile uint8_t tis_read8(unsigned reg)
++{
++    return *(volatile uint8_t *)__va(TPM_TIS_BASE + reg);
++}
++
++static inline void tis_write8(unsigned reg, uint8_t val)
++{
++    *(volatile uint8_t *)__va(TPM_TIS_BASE + reg) = val;
++}
++
++static inline void request_locality(unsigned loc)
++{
++    tis_write8(TPM_ACCESS_(loc), ACCESS_REQUEST_USE);
++    /* Check that locality was actually activated. */
++    while ( (tis_read8(TPM_ACCESS_(loc)) & ACCESS_ACTIVE_LOCALITY) == 0 );
++}
++
++static inline void relinquish_locality(unsigned loc)
++{
++    tis_write8(TPM_ACCESS_(loc), ACCESS_ACTIVE_LOCALITY);
++}
++
++static void send_cmd(unsigned loc, uint8_t *buf, unsigned i_size,
++                     unsigned *o_size)
++{
++    /*
++     * Value of "data available" bit counts only when "valid" field is set as
++     * well.
++     */
++    const unsigned data_avail = STS_VALID | STS_DATA_AVAIL;
++
++    unsigned i;
++
++    /* Make sure TPM can accept a command. */
++    if ( (tis_read8(TPM_STS_(loc)) & STS_COMMAND_READY) == 0 )
++    {
++        /* Abort current command. */
++        tis_write8(TPM_STS_(loc), STS_COMMAND_READY);
++        /* Wait until TPM is ready for a new one. */
++        while ( (tis_read8(TPM_STS_(loc)) & STS_COMMAND_READY) == 0 );
++    }
++
++    for ( i = 0; i < i_size; i++ )
++        tis_write8(TPM_DATA_FIFO_(loc), buf[i]);
++
++    tis_write8(TPM_STS_(loc), STS_TPM_GO);
++
++    /* Wait for the first byte of response. */
++    while ( (tis_read8(TPM_STS_(loc)) & data_avail) != data_avail);
++
++    for ( i = 0; i < *o_size && tis_read8(TPM_STS_(loc)) & data_avail; i++ )
++        buf[i] = tis_read8(TPM_DATA_FIFO_(loc));
++
++    if ( i < *o_size )
++        *o_size = i;
++
++    tis_write8(TPM_STS_(loc), STS_COMMAND_READY);
++}
++
++static inline bool is_tpm12(void)
++{
++    /*
++     * If one of these conditions is true:
++     *  - INTF_CAPABILITY_x.interfaceVersion is 0 (TIS <= 1.21)
++     *  - INTF_CAPABILITY_x.interfaceVersion is 2 (TIS == 1.3)
++     *  - STS_x.tpmFamily is 0
++     * we're dealing with TPM1.2.
++     */
++    uint32_t intf_version = tis_read32(TPM_INTF_CAPABILITY_(0))
++                          & INTF_VERSION_MASK;
++    return (intf_version == 0x00000000 || intf_version == 0x20000000 ||
++            (tis_read32(TPM_STS_(0)) & TPM_FAMILY_MASK) == 0);
++}
++
++/****************************** TPM1.2 specific *******************************/
++#define TPM_ORD_Extend              0x00000014
++#define TPM_ORD_SHA1Start           0x000000A0
++#define TPM_ORD_SHA1Update          0x000000A1
++#define TPM_ORD_SHA1CompleteExtend  0x000000A3
++
++#define TPM_TAG_RQU_COMMAND         0x00C1
++#define TPM_TAG_RSP_COMMAND         0x00C4
++
++/* All fields of following structs are big endian. */
++struct tpm_cmd_hdr {
++    uint16_t    tag;
++    uint32_t    paramSize;
++    uint32_t    ordinal;
++} __packed;
++
++struct tpm_rsp_hdr {
++    uint16_t    tag;
++    uint32_t    paramSize;
++    uint32_t    returnCode;
++} __packed;
++
++struct extend_cmd {
++    struct tpm_cmd_hdr h;
++    uint32_t pcrNum;
++    uint8_t inDigest[SHA1_DIGEST_SIZE];
++} __packed;
++
++struct extend_rsp {
++    struct tpm_rsp_hdr h;
++    uint8_t outDigest[SHA1_DIGEST_SIZE];
++} __packed;
++
++struct sha1_start_cmd {
++    struct tpm_cmd_hdr h;
++} __packed;
++
++struct sha1_start_rsp {
++    struct tpm_rsp_hdr h;
++    uint32_t maxNumBytes;
++} __packed;
++
++struct sha1_update_cmd {
++    struct tpm_cmd_hdr h;
++    uint32_t numBytes;          /* Must be a multiple of 64 */
++    uint8_t hashData[];
++} __packed;
++
++struct sha1_update_rsp {
++    struct tpm_rsp_hdr h;
++} __packed;
++
++struct sha1_complete_extend_cmd {
++    struct tpm_cmd_hdr h;
++    uint32_t pcrNum;
++    uint32_t hashDataSize;      /* 0-64, inclusive */
++    uint8_t hashData[];
++} __packed;
++
++struct sha1_complete_extend_rsp {
++    struct tpm_rsp_hdr h;
++    uint8_t hashValue[SHA1_DIGEST_SIZE];
++    uint8_t outDigest[SHA1_DIGEST_SIZE];
++} __packed;
++
++struct TPM12_PCREvent {
++    uint32_t PCRIndex;
++    uint32_t Type;
++    uint8_t Digest[SHA1_DIGEST_SIZE];
++    uint32_t Size;
++    uint8_t Data[];
 +};
 +
-+typedef void sha256_block_fn(struct sha256_state *sst, uint8_t const *src,
-+                             int blocks);
-+
-+static const uint32_t SHA256_K[] = {
-+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
-+    0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
-+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
-+    0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
-+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
-+    0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
-+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
-+    0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
-+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
-+    0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
-+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
-+    0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
-+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
-+    0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
-+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
-+    0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
++struct txt_ev_log_container_12 {
++    char        Signature[20];      /* "TXT Event Container", null-terminated */
++    uint8_t     Reserved[12];
++    uint8_t     ContainerVerMajor;
++    uint8_t     ContainerVerMinor;
++    uint8_t     PCREventVerMajor;
++    uint8_t     PCREventVerMinor;
++    uint32_t    ContainerSize;      /* Allocated size */
++    uint32_t    PCREventsOffset;
++    uint32_t    NextEventOffset;
++    struct TPM12_PCREvent   PCREvents[];
 +};
 +
-+static uint32_t Ch(uint32_t x, uint32_t y, uint32_t z)
++#ifdef __EARLY_SLAUNCH__
++/*
++ * TPM1.2 is required to support commands of up to 1101 bytes, vendors rarely
++ * go above that. Limit maximum size of block of data to be hashed to 1024.
++ */
++#define MAX_HASH_BLOCK      1024
++#define CMD_RSP_BUF_SIZE    (sizeof(struct sha1_update_cmd) + MAX_HASH_BLOCK)
++
++union cmd_rsp {
++    struct sha1_start_cmd start_c;
++    struct sha1_start_rsp start_r;
++    struct sha1_update_cmd update_c;
++    struct sha1_update_rsp update_r;
++    struct sha1_complete_extend_cmd finish_c;
++    struct sha1_complete_extend_rsp finish_r;
++    uint8_t buf[CMD_RSP_BUF_SIZE];
++};
++
++/* Returns true on success. */
++static bool tpm12_hash_extend(unsigned loc, const uint8_t *buf, unsigned size,
++                              unsigned pcr, uint8_t *out_digest)
 +{
-+    return z ^ (x & (y ^ z));
-+}
++    union cmd_rsp cmd_rsp;
++    unsigned max_bytes = MAX_HASH_BLOCK;
++    unsigned o_size = sizeof(cmd_rsp);
++    bool success = false;
 +
-+static uint32_t Maj(uint32_t x, uint32_t y, uint32_t z)
-+{
-+    return (x & y) | (z & (x | y));
-+}
++    request_locality(loc);
 +
-+#define e0(x)       (ror32(x, 2) ^ ror32(x, 13) ^ ror32(x, 22))
-+#define e1(x)       (ror32(x, 6) ^ ror32(x, 11) ^ ror32(x, 25))
-+#define s0(x)       (ror32(x, 7) ^ ror32(x, 18) ^ (x >> 3))
-+#define s1(x)       (ror32(x, 17) ^ ror32(x, 19) ^ (x >> 10))
++    cmd_rsp.start_c = (struct sha1_start_cmd) {
++        .h.tag = swap16(TPM_TAG_RQU_COMMAND),
++        .h.paramSize = swap32(sizeof(struct sha1_start_cmd)),
++        .h.ordinal = swap32(TPM_ORD_SHA1Start),
++    };
 +
-+static void LOAD_OP(int I, uint32_t *W, const uint8_t *input)
-+{
-+    W[I] = get_unaligned_be32((uint32_t *)input + I);
-+}
++    send_cmd(loc, cmd_rsp.buf, sizeof(struct sha1_start_cmd), &o_size);
++    if ( o_size < sizeof(struct sha1_start_rsp) )
++        goto error;
 +
-+static void BLEND_OP(int I, uint32_t *W)
-+{
-+    W[I] = s1(W[I - 2]) + W[I - 7] + s0(W[I - 15]) + W[I - 16];
-+}
++    if ( max_bytes > swap32(cmd_rsp.start_r.maxNumBytes) )
++        max_bytes = swap32(cmd_rsp.start_r.maxNumBytes);
 +
-+#define SHA256_ROUND(i, a, b, c, d, e, f, g, h) do {       \
-+        uint32_t t1, t2;                                   \
-+        t1 = h + e1(e) + Ch(e, f, g) + SHA256_K[i] + W[i]; \
-+        t2 = e0(a) + Maj(a, b, c);                         \
-+        d += t1;                                           \
-+        h = t1 + t2;                                       \
-+    } while ( 0 )
-+
-+static void sha256_init(struct sha256_state *sctx)
-+{
-+    sctx->state[0] = 0x6a09e667UL;
-+    sctx->state[1] = 0xbb67ae85UL;
-+    sctx->state[2] = 0x3c6ef372UL;
-+    sctx->state[3] = 0xa54ff53aUL;
-+    sctx->state[4] = 0x510e527fUL;
-+    sctx->state[5] = 0x9b05688cUL;
-+    sctx->state[6] = 0x1f83d9abUL;
-+    sctx->state[7] = 0x5be0cd19UL;
-+    sctx->count = 0;
-+}
-+
-+static void sha256_do_update(struct sha256_state *sctx,
-+                             const uint8_t *data,
-+                             unsigned int len,
-+                             sha256_block_fn *block_fn)
-+{
-+    unsigned int partial = sctx->count % SHA256_BLOCK_SIZE;
-+
-+    sctx->count += len;
-+
-+    if ( unlikely((partial + len) >= SHA256_BLOCK_SIZE) )
++    while ( size > 64 )
 +    {
-+        int blocks;
++        if ( size < max_bytes )
++            max_bytes = size & ~(64 - 1);
 +
-+        if ( partial )
++        o_size = sizeof(cmd_rsp);
++
++        cmd_rsp.update_c = (struct sha1_update_cmd){
++            .h.tag = swap16(TPM_TAG_RQU_COMMAND),
++            .h.paramSize = swap32(sizeof(struct sha1_update_cmd) + max_bytes),
++            .h.ordinal = swap32(TPM_ORD_SHA1Update),
++            .numBytes = swap32(max_bytes),
++        };
++        memcpy(cmd_rsp.update_c.hashData, buf, max_bytes);
++
++        send_cmd(loc, cmd_rsp.buf, sizeof(struct sha1_update_cmd) + max_bytes,
++                 &o_size);
++        if ( o_size < sizeof(struct sha1_update_rsp) )
++            goto error;
++
++        size -= max_bytes;
++        buf += max_bytes;
++    }
++
++    o_size = sizeof(cmd_rsp);
++
++    cmd_rsp.finish_c = (struct sha1_complete_extend_cmd) {
++        .h.tag = swap16(TPM_TAG_RQU_COMMAND),
++        .h.paramSize = swap32(sizeof(struct sha1_complete_extend_cmd) + size),
++        .h.ordinal = swap32(TPM_ORD_SHA1CompleteExtend),
++        .pcrNum = swap32(pcr),
++        .hashDataSize = swap32(size),
++    };
++    memcpy(cmd_rsp.finish_c.hashData, buf, size);
++
++    send_cmd(loc, cmd_rsp.buf, sizeof(struct sha1_complete_extend_cmd) + size,
++             &o_size);
++    if ( o_size < sizeof(struct sha1_complete_extend_rsp) )
++        goto error;
++
++    if ( out_digest != NULL )
++        memcpy(out_digest, cmd_rsp.finish_r.hashValue, SHA1_DIGEST_SIZE);
++
++    success = true;
++
++error:
++    relinquish_locality(loc);
++    return success;
++}
++
++#else
++
++union cmd_rsp {
++    struct extend_cmd extend_c;
++    struct extend_rsp extend_r;
++};
++
++/* Returns true on success. */
++static bool tpm12_hash_extend(unsigned loc, const uint8_t *buf, unsigned size,
++                              unsigned pcr, uint8_t *out_digest)
++{
++    union cmd_rsp cmd_rsp;
++    unsigned o_size = sizeof(cmd_rsp);
++
++    sha1_hash(buf, size, out_digest);
++
++    request_locality(loc);
++
++    cmd_rsp.extend_c = (struct extend_cmd) {
++        .h.tag = swap16(TPM_TAG_RQU_COMMAND),
++        .h.paramSize = swap32(sizeof(struct extend_cmd)),
++        .h.ordinal = swap32(TPM_ORD_Extend),
++        .pcrNum = swap32(pcr),
++    };
++
++    memcpy(cmd_rsp.extend_c.inDigest, out_digest, SHA1_DIGEST_SIZE);
++
++    send_cmd(loc, (uint8_t *)&cmd_rsp, sizeof(struct extend_cmd), &o_size);
++
++    relinquish_locality(loc);
++
++    return (o_size >= sizeof(struct extend_rsp));
++}
++
++#endif /* __EARLY_SLAUNCH__ */
++
++static void *create_log_event12(struct txt_ev_log_container_12 *evt_log,
++                                uint32_t evt_log_size, uint32_t pcr,
++                                uint32_t type, const uint8_t *data,
++                                unsigned data_size)
++{
++    struct TPM12_PCREvent *new_entry;
++
++    new_entry = (void *)(((uint8_t *)evt_log) + evt_log->NextEventOffset);
++
++    /*
++     * Check if there is enough space left for new entry.
++     * Note: it is possible to introduce a gap in event log if entry with big
++     * data_size is followed by another entry with smaller data. Maybe we should
++     * cap the event log size in such case?
++     */
++    if ( evt_log->NextEventOffset + sizeof(struct TPM12_PCREvent) + data_size
++         > evt_log_size )
++        return NULL;
++
++    evt_log->NextEventOffset += sizeof(struct TPM12_PCREvent) + data_size;
++
++    new_entry->PCRIndex = pcr;
++    new_entry->Type = type;
++    new_entry->Size = data_size;
++
++    if ( data && data_size > 0 )
++        memcpy(new_entry->Data, data, data_size);
++
++    return new_entry->Digest;
++}
++
++/************************** end of TPM1.2 specific ****************************/
++
++void tpm_hash_extend(unsigned loc, unsigned pcr, const uint8_t *buf,
++                     unsigned size, uint32_t type, const uint8_t *log_data,
++                     unsigned log_data_size)
++{
++    void *evt_log_addr;
++    uint32_t evt_log_size;
++
++    find_evt_log(slaunch_get_slrt(), &evt_log_addr, &evt_log_size);
++    evt_log_addr = __va((uintptr_t)evt_log_addr);
++
++    if ( is_tpm12() )
++    {
++        uint8_t sha1_digest[SHA1_DIGEST_SIZE];
++
++        struct txt_ev_log_container_12 *evt_log = evt_log_addr;
++        void *entry_digest = create_log_event12(evt_log, evt_log_size, pcr,
++                                                type, log_data, log_data_size);
++
++        /* We still need to write computed hash somewhere. */
++        if ( entry_digest == NULL )
++            entry_digest = sha1_digest;
++
++        if ( !tpm12_hash_extend(loc, buf, size, pcr, entry_digest) )
 +        {
-+            int p = SHA256_BLOCK_SIZE - partial;
-+
-+            memcpy(sctx->buf + partial, data, p);
-+            data += p;
-+            len -= p;
-+
-+            block_fn(sctx, sctx->buf, 1);
++#ifndef __EARLY_SLAUNCH__
++            printk(XENLOG_ERR "Extending PCR%u failed\n", pcr);
++#endif
 +        }
-+
-+        blocks = len / SHA256_BLOCK_SIZE;
-+        len %= SHA256_BLOCK_SIZE;
-+
-+        if ( blocks )
-+        {
-+            block_fn(sctx, data, blocks);
-+            data += blocks * SHA256_BLOCK_SIZE;
-+        }
-+        partial = 0;
 +    }
-+    if ( len )
-+        memcpy(sctx->buf + partial, data, len);
 +}
 +
-+static void sha256_do_finalize(struct sha256_state *sctx,
-+                               sha256_block_fn *block_fn)
++#ifdef __EARLY_SLAUNCH__
++void tpm_extend_mbi(uint32_t *mbi, uint32_t slrt_pa)
 +{
-+    const int bit_offset = SHA256_BLOCK_SIZE - sizeof(__be64);
-+    __be64 *bits = (__be64 *)(sctx->buf + bit_offset);
-+    unsigned int partial = sctx->count % SHA256_BLOCK_SIZE;
++    /* Need this to implement slaunch_get_slrt() for early TPM code. */
++    slrt_location = slrt_pa;
 +
-+    sctx->buf[partial++] = 0x80;
-+    if ( partial > bit_offset )
-+    {
-+        memset(sctx->buf + partial, 0x0, SHA256_BLOCK_SIZE - partial);
-+        partial = 0;
-+
-+        block_fn(sctx, sctx->buf, 1);
-+    }
-+
-+    memset(sctx->buf + partial, 0x0, bit_offset - partial);
-+    *bits = cpu_to_be64(sctx->count << 3);
-+    block_fn(sctx, sctx->buf, 1);
++    /* MBI starts with uint32_t total_size. */
++    tpm_hash_extend(DRTM_LOC, DRTM_DATA_PCR, (uint8_t *)mbi, *mbi,
++                    DLE_EVTYPE_SLAUNCH, NULL, 0);
 +}
-+
-+static void sha256_finish(struct sha256_state *sctx, uint8_t *out,
-+                          unsigned int digest_size)
-+{
-+    __be32 *digest = (__be32 *)out;
-+    int i;
-+
-+    for ( i = 0; digest_size > 0; i++, digest_size -= sizeof(__be32) )
-+        put_unaligned_be32(sctx->state[i], digest++);
-+
-+    memset(sctx, 0, sizeof(*sctx));
-+}
-+
-+static void sha256_transform(uint32_t *state, const uint8_t *input, uint32_t *W)
-+{
-+    uint32_t a, b, c, d, e, f, g, h;
-+    int i;
-+
-+    /* load the input */
-+    for ( i = 0; i < 16; i += 8 )
-+    {
-+        LOAD_OP(i + 0, W, input);
-+        LOAD_OP(i + 1, W, input);
-+        LOAD_OP(i + 2, W, input);
-+        LOAD_OP(i + 3, W, input);
-+        LOAD_OP(i + 4, W, input);
-+        LOAD_OP(i + 5, W, input);
-+        LOAD_OP(i + 6, W, input);
-+        LOAD_OP(i + 7, W, input);
-+    }
-+
-+    /* now blend */
-+    for ( i = 16; i < 64; i += 8 )
-+    {
-+        BLEND_OP(i + 0, W);
-+        BLEND_OP(i + 1, W);
-+        BLEND_OP(i + 2, W);
-+        BLEND_OP(i + 3, W);
-+        BLEND_OP(i + 4, W);
-+        BLEND_OP(i + 5, W);
-+        BLEND_OP(i + 6, W);
-+        BLEND_OP(i + 7, W);
-+    }
-+
-+    /* load the state into our registers */
-+    a = state[0]; b = state[1]; c = state[2]; d = state[3];
-+    e = state[4]; f = state[5]; g = state[6]; h = state[7];
-+
-+    /* now iterate */
-+    for ( i = 0; i < 64; i += 8 )
-+    {
-+        SHA256_ROUND(i + 0, a, b, c, d, e, f, g, h);
-+        SHA256_ROUND(i + 1, h, a, b, c, d, e, f, g);
-+        SHA256_ROUND(i + 2, g, h, a, b, c, d, e, f);
-+        SHA256_ROUND(i + 3, f, g, h, a, b, c, d, e);
-+        SHA256_ROUND(i + 4, e, f, g, h, a, b, c, d);
-+        SHA256_ROUND(i + 5, d, e, f, g, h, a, b, c);
-+        SHA256_ROUND(i + 6, c, d, e, f, g, h, a, b);
-+        SHA256_ROUND(i + 7, b, c, d, e, f, g, h, a);
-+    }
-+
-+    state[0] += a; state[1] += b; state[2] += c; state[3] += d;
-+    state[4] += e; state[5] += f; state[6] += g; state[7] += h;
-+}
-+
-+static void sha256_transform_blocks(struct sha256_state *sctx,
-+                                    const uint8_t *input, int blocks)
-+{
-+    uint32_t W[64];
-+
-+    do {
-+        sha256_transform(sctx->state, input, W);
-+        input += SHA256_BLOCK_SIZE;
-+    } while ( --blocks );
-+
-+    memset(W, 0, sizeof(W));
-+}
-+
-+void sha256_hash(const uint8_t *data, unsigned int len, uint8_t *out)
-+{
-+    struct sha256_state sctx;
-+
-+    sha256_init(&sctx);
-+    sha256_do_update(&sctx, data, len, sha256_transform_blocks);
-+    sha256_do_finalize(&sctx, sha256_transform_blocks);
-+    sha256_finish(&sctx, out, SHA256_DIGEST_SIZE);
-+}
++#endif
 -- 
 2.49.0
 
