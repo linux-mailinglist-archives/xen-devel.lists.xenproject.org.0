@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28D6BA9707A
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 17:24:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.963005.1354141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7C4AA97093
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 17:26:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.963043.1354161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7FTF-0008Ng-SL; Tue, 22 Apr 2025 15:23:37 +0000
+	id 1u7FW5-0001U9-Ig; Tue, 22 Apr 2025 15:26:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 963005.1354141; Tue, 22 Apr 2025 15:23:37 +0000
+Received: by outflank-mailman (output) from mailman id 963043.1354161; Tue, 22 Apr 2025 15:26:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7FTF-0008L9-PF; Tue, 22 Apr 2025 15:23:37 +0000
-Received: by outflank-mailman (input) for mailman id 963005;
- Tue, 22 Apr 2025 15:23:36 +0000
+	id 1u7FW5-0001S8-G8; Tue, 22 Apr 2025 15:26:33 +0000
+Received: by outflank-mailman (input) for mailman id 963043;
+ Tue, 22 Apr 2025 15:26:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=f4Vg=XI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u7FTE-0008L1-Ch
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 15:23:36 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NnGu=XI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u7FW3-0001BV-Q1
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 15:26:31 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c088c36b-1f8d-11f0-9ffb-bf95429c2676;
- Tue, 22 Apr 2025 17:23:33 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-43cf848528aso39747295e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 08:23:32 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4406d5bbe1csm180372725e9.24.2025.04.22.08.23.31
+ id 2877fe4a-1f8e-11f0-9ffb-bf95429c2676;
+ Tue, 22 Apr 2025 17:26:27 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43ede096d73so39279615e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 08:26:27 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4406d5acccdsm175431155e9.11.2025.04.22.08.26.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Apr 2025 08:23:31 -0700 (PDT)
+ Tue, 22 Apr 2025 08:26:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,177 +45,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c088c36b-1f8d-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 2877fe4a-1f8e-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745335412; x=1745940212; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=A+dFIFkStbh8OoCB8gwOS5OmcsYKWmPAJW+RI/ru8BQ=;
-        b=duB31LftXL/jIwjCAGS2e1AhYUYWdFVh9Kkl6f0EsRfkirK+mqVLEO7IqXkp49Ig51
-         AE9RHdqhR9MHMO3fl+ihQSLLqAeZQ7ChIKZDuoYlzV7sogHPpjOkVPzfdxISaG0qzT/g
-         GOBJ7t63Qt8qSMq0CCC1ipMQ3Bq1es0J02/WYYkVJzt3Z12cIwhXHewB0HYozxRw6GEO
-         4AQZWj8vraA2/yB5dZjm64JtfX96ZcY2SDJiglKk2kMzhKbboasHGlh82AtjLAw4KNig
-         z80k1h0Rf7EF1Ey84i1eZwmfvLy4KNHJDjXMbxCdg9Z21q+AeHfMS/NkwKkgWSfVMuKH
-         7cPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745335412; x=1745940212;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1745335586; x=1745940386; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A+dFIFkStbh8OoCB8gwOS5OmcsYKWmPAJW+RI/ru8BQ=;
-        b=lOitqg/012G3ynvfSN9Wqnj81U4BOH/J+cX1INUDOo/lAnwK/XiHhlcOcNbez0Vynq
-         XOrjHurM1vafFaJgD+HnZWndYbpgDiOs3NSeElxt9qhbSGRf8pOWc6Ok7FzFVfTocgcH
-         jedQ7E4B4MippCP88zwn1NqDYZE4mKZoXrw3+oX7kv+I/M6o/WlvFsJmV1z9QfqX5DNa
-         FgDJu01drslUb4rLuxHs6MjF9fqIC/M5w99r0ngrr15NyNSecfecWb5i8oU2WNQcRDh9
-         Jm2NyDfgFsgT6rnsPWlPXiTjQdwXMdWv964JXqPlVr9Lu/J15h+iFMgJrfUs0jv+3eFw
-         9NSg==
-X-Forwarded-Encrypted: i=1; AJvYcCWhAeX/NmSQmBD300F6nLMu22E9CgpDfHxP8i1m2D+a3euFO2hDp98kP/uFiY/Ma8sApUil59rMmzk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxe9dio39m3nTmlbRQj5H6e1isHQMR2WAgoOZncPYH+BH1x/zxp
-	oyEshIzoH5wr3O/Ldhk46eYTCBCcUIiXmkz6h0JF6s3qBYmXv7+ll8jBXP+NOw==
-X-Gm-Gg: ASbGnctfaHzgbT8plKT09A7kCLFOArszXPy+LpnMa8R5GFG8jwykH19r0z+nHpV7PY9
-	dZhctr5VpHbQsrRrhLxL9eZvTVfI+pdpr0Yl24eRDhO1TQ1kiUw3vsVcnQItEnocN4zyxkWunhM
-	Gprit98i3AZoCgBvJiONEv+Cp8FPTZmdotiK31AX3wmYTUp7CnzcBKIlzaT0L+/zGs8LnISBEIv
-	ckht1IlmSjgS0b9DggZgl9VN+rxcBFGrbdwIqPsuuR9FiTxEf9hSSlKr5hcLHhKjFSkUfy7hs38
-	jk/DpksaW5s4IBUOC/fQFCh58eNu9Z5Jy3vPAnAeW34jkRkVSHuWZ7jht1d59N4P5rR7WEJDMje
-	ajN+umxLZpsFhacBLeup2RmywN8nVldMZYpKh
-X-Google-Smtp-Source: AGHT+IHov0IEH8tmALj62+5UKNuImTfypssiO3bqJl1FsRgIsea+X2eU2+ja7hJN8m4phHG2OiCQ6g==
-X-Received: by 2002:a05:600c:3acf:b0:43d:40b0:5b with SMTP id 5b1f17b1804b1-4406ac1fc09mr120989455e9.25.1745335412244;
-        Tue, 22 Apr 2025 08:23:32 -0700 (PDT)
-Message-ID: <6929b073-6a5f-4b34-af5b-96b7b5ac62d6@suse.com>
-Date: Tue, 22 Apr 2025 17:23:30 +0200
+        bh=2i+b3sG20yNAfVUCtSo4JTOzMhUrm01QUTcDtC3O6a0=;
+        b=U19urJKmQqAWqMtdtSz95eS+MClN1HvA+nYRDepdeA9Cn6X3Erh0k6gEtOEW2Lal11
+         C6Y9fU7yuj8+7hDMrriorcpgQcGy8712fECMagh8INp+CeKi1gVx0txwdTbv6i/Kvvwo
+         RqXiJGQaaOLGxmQ9YbBLZAuXkTfZWt3499teOxn7uJod8HjASEmtZh2BwDj+Cut9vzpc
+         LN/vHAG8lBDHBm3mYpXzxiiKlvRmX75nu2VR3y1q+ZTWn9/PGiPY7sFstwtsjr6AmmUD
+         clGhSVVAx5CDs5Uza4LoUoBoB70Ds+8XTaYSg0TuJEMDCmhrS9Fn04fsF41LqejbGmWf
+         sAvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745335586; x=1745940386;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=2i+b3sG20yNAfVUCtSo4JTOzMhUrm01QUTcDtC3O6a0=;
+        b=oxklElPdNiMOHM0EeL0rg387RR1KvOxz+v9rsGwJMYKAQXgExOh1mR0pAOU7wJTj+B
+         lbT91giC7CmVi2dNfLONGh8q8/7vlGFKMRUl3tVNCCZ2aHlyOu3Clfz87neComymPtyY
+         hTeZVyXpJOTUe9qulDKs5ksmvCh54dAmusa+ViIju99YGleEQvq5HIfvL2AT5z+f0AKl
+         kUIDEE2d4e6/fhBctx00ZPUBoAd+U97Wp4c1DUQ1RzNZ439c+hpWHpErDNbDgnE7MAaC
+         B8Y3l1Axdnh0DhOYBSN+G80N+pIBb8UZnYFtw/lHcFAEjQWJq6gtP6hVTrZ/WoGe2d6k
+         mPBw==
+X-Forwarded-Encrypted: i=1; AJvYcCXaU2XHUi6N2TeY+LwlNVUaAcpfHunYq9PIZKF9glRjBGq5+ME2DGUabckQRwCWbrZ5f9h76GFRytw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwtPArWXVHWpQ1ufHr2rxdq34FZMdNlw9GdwKhdc38/qZeJpN+t
+	WVSybPybCzm4gxjI8ktDIsj2P1KMP1D5jSkEEbR0g42RrVj/yxmy
+X-Gm-Gg: ASbGncubhaCs7nZ1dwzEH4fTcX3p76QrOi7Mn0NDk+QKHcmQW2bvw9EAHCowKs1wIpO
+	fEPFbqf1byiIs9197QFwKVCouX0jd0AJ9e/JC5Mc069J/3vhR+W15DQ7Msyp59cWLxNArPsjxCa
+	0uckDThOsk2mQwgdvrNEhQwtIk2lEScf8rJ7BgCCdtIBxPtywaULOZZmSoyl5KxWo5RgUTRVpTp
+	AorrOpwqGHwmPM0zRBLabAzO+ea9GKcveplBSQ35AYtSmBS7wodrHQIh6FcfK+j05j0MG8ymZo/
+	1rAHM2CDn+czxkSjeTQJFYqmHPi4/8/760IXd2+n+h1tESDALpHySvpwxqlCWhCI1CbROIlXp1p
+	54vBqYP9VpDdXkrcX
+X-Google-Smtp-Source: AGHT+IET30Bf3iJASEFOK54y1bumZUsTSU5F8JDqdnMgPzjpFnDysZ7tQv/69K1JXIkob+R1nOZrVw==
+X-Received: by 2002:a05:6000:c08:b0:3a0:65bc:3543 with SMTP id ffacd0b85a97d-3a065bc358amr447562f8f.35.1745335586533;
+        Tue, 22 Apr 2025 08:26:26 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------HNrnkjgiINFiv5zEhkZO2Fg5"
+Message-ID: <6010658f-9e29-40d9-902c-890cb27a2a4b@gmail.com>
+Date: Tue, 22 Apr 2025 17:26:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/21] x86: Trenchboot Secure Launch DRTM (Xen)
-To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Lukasz Hawrylko <lukasz@hawrylko.pl>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
+Subject: Re: [PATCH v2 7/8] xen/common: dom0less: introduce common
+ domain-build.c
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, trenchboot-devel@googlegroups.com,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
+References: <cover.1744626032.git.oleksii.kurochko@gmail.com>
+ <9dbf651ce177a7292f80879373e86a51305f216e.1744626032.git.oleksii.kurochko@gmail.com>
+ <faa552cb-d933-492b-b3ed-e803856265ab@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <faa552cb-d933-492b-b3ed-e803856265ab@suse.com>
 
-On 22.04.2025 17:06, Sergii Dmytruk wrote:
-> Kacper Stojek (2):
->   x86/boot: add MLE header and new entry point
->   xen/arch/x86: reserve TXT memory
-> 
-> Krystian Hebel (7):
->   x86/include/asm/intel_txt.h: constants and accessors for TXT registers
->     and heap
->   x86/boot/slaunch_early: early TXT checks and boot data retrieval
->   x86/intel_txt.c: restore boot MTRRs
->   lib/sha1.c: add file
->   x86/tpm.c: code for early hashing and extending PCRs (for TPM1.2)
->   x86/boot: choose AP stack based on APIC ID
->   x86/smpboot.c: TXT AP bringup
-> 
-> Michał Żygowski (2):
->   x86/hvm: Check for VMX in SMX when slaunch active
->   x86/cpu: report SMX, TXT and SKINIT capabilities
-> 
-> Sergii Dmytruk (10):
->   include/xen/slr_table.h: Secure Launch Resource Table definitions
->   x86/boot/slaunch_early: implement early initialization
->   x86/mtrr: expose functions for pausing caching
->   lib/sha256.c: add file
->   x86/tpm.c: support extending PCRs of TPM2.0
->   x86/tpm.c: implement event log for TPM2.0
->   arch/x86: process DRTM policy
->   x86/boot: find MBI and SLRT on AMD
->   arch/x86: support slaunch with AMD SKINIT
->   x86/slaunch: support EFI boot
-> 
->  .gitignore                                  |    1 +
->  docs/hypervisor-guide/x86/how-xen-boots.rst |    7 +
->  xen/arch/x86/Makefile                       |   12 +-
->  xen/arch/x86/boot/Makefile                  |   10 +-
->  xen/arch/x86/boot/head.S                    |  250 +++++
->  xen/arch/x86/boot/slaunch_early.c           |  105 ++
->  xen/arch/x86/boot/trampoline.S              |   40 +-
->  xen/arch/x86/boot/x86_64.S                  |   42 +-
->  xen/arch/x86/cpu/amd.c                      |   14 +
->  xen/arch/x86/cpu/cpu.h                      |    1 +
->  xen/arch/x86/cpu/hygon.c                    |    1 +
->  xen/arch/x86/cpu/intel.c                    |   44 +
->  xen/arch/x86/cpu/mtrr/generic.c             |   51 +-
->  xen/arch/x86/e820.c                         |    5 +
->  xen/arch/x86/efi/efi-boot.h                 |   90 +-
->  xen/arch/x86/efi/fixmlehdr.c                |  122 +++
->  xen/arch/x86/hvm/vmx/vmcs.c                 |    3 +-
->  xen/arch/x86/include/asm/apicdef.h          |    4 +
->  xen/arch/x86/include/asm/intel_txt.h        |  452 ++++++++
->  xen/arch/x86/include/asm/mm.h               |    3 +
->  xen/arch/x86/include/asm/msr-index.h        |    3 +
->  xen/arch/x86/include/asm/mtrr.h             |    8 +
->  xen/arch/x86/include/asm/processor.h        |    1 +
->  xen/arch/x86/include/asm/slaunch.h          |   91 ++
->  xen/arch/x86/include/asm/tpm.h              |   19 +
->  xen/arch/x86/intel_txt.c                    |  177 ++++
->  xen/arch/x86/setup.c                        |   32 +-
->  xen/arch/x86/slaunch.c                      |  464 ++++++++
->  xen/arch/x86/smpboot.c                      |   57 +
->  xen/arch/x86/tboot.c                        |   20 +-
->  xen/arch/x86/tpm.c                          | 1057 +++++++++++++++++++
->  xen/common/efi/boot.c                       |    4 +
->  xen/common/efi/runtime.c                    |    1 +
->  xen/include/xen/efi.h                       |    1 +
->  xen/include/xen/sha1.h                      |   12 +
->  xen/include/xen/sha256.h                    |   12 +
->  xen/include/xen/slr_table.h                 |  274 +++++
->  xen/lib/Makefile                            |    2 +
->  xen/lib/sha1.c                              |  240 +++++
->  xen/lib/sha256.c                            |  238 +++++
->  40 files changed, 3914 insertions(+), 56 deletions(-)
->  create mode 100644 xen/arch/x86/boot/slaunch_early.c
->  create mode 100644 xen/arch/x86/efi/fixmlehdr.c
->  create mode 100644 xen/arch/x86/include/asm/intel_txt.h
->  create mode 100644 xen/arch/x86/include/asm/slaunch.h
->  create mode 100644 xen/arch/x86/include/asm/tpm.h
->  create mode 100644 xen/arch/x86/intel_txt.c
->  create mode 100644 xen/arch/x86/slaunch.c
->  create mode 100644 xen/arch/x86/tpm.c
->  create mode 100644 xen/include/xen/sha1.h
->  create mode 100644 xen/include/xen/sha256.h
->  create mode 100644 xen/include/xen/slr_table.h
+This is a multi-part message in MIME format.
+--------------HNrnkjgiINFiv5zEhkZO2Fg5
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Just one basic nit right here: In the names of new files you add, please
-prefer dashes over underscores.
 
-Jan
+On 4/17/25 4:45 PM, Jan Beulich wrote:
+> On 14.04.2025 17:56, Oleksii Kurochko wrote:
+>> --- a/xen/include/xen/fdt-domain-build.h
+>> +++ b/xen/include/xen/fdt-domain-build.h
+>> @@ -5,6 +5,7 @@
+>>   #include <xen/bootfdt.h>
+>>   #include <xen/device_tree.h>
+>>   #include <xen/fdt-kernel.h>
+>> +#include <xen/mm.h>
+>>   #include <xen/types.h>
+>>   
+>>   #if __has_include(<asm/domain_build.h>)
+>> @@ -32,7 +33,37 @@ int make_memory_node(const struct kernel_info *kinfo, int addrcells,
+>>                        int sizecells, const struct membanks *mem);
+>>   int make_timer_node(const struct kernel_info *kinfo);
+>>   
+>> -unsigned int get_allocation_size(paddr_t size);
+>> +
+>> +static inline int get_allocation_size(paddr_t size)
+>> +{
+>> +    /*
+>> +     * get_order_from_bytes returns the order greater than or equal to
+>> +     * the given size, but we need less than or equal. Adding one to
+>> +     * the size pushes an evenly aligned size into the next order, so
+>> +     * we can then unconditionally subtract 1 from the order which is
+>> +     * returned.
+>> +     */
+>> +    return get_order_from_bytes(size + 1) - 1;
+>> +}
+>> +
+>> +typedef unsigned long (*copy_to_guest_phys_cb)(struct domain *d,
+>> +                                               paddr_t gpa,
+>> +                                               void *buf,
+> This very much looks like the latest now, when the code is made common,
+> it wants to be const void *. Even if this may require another prereq
+> patch.
+>
+> However, instead of using a function pointer, couldn't the now common
+> code call copy_to_guest_phys_flush_dcache() conditionally upon
+> IS_ENABLED(CONFIG_<whatever>)?
+
+I thought about having IS_ENABLED(CONFIG_ARM) as, at the moment, this is necessary to
+be called only for Arm as guest domain on Arm could be ran with cache disabled so to be sure
+that DTB, kernel and initrd is fully in RAM this function should be called.
+
+For RISC-V, it isn't possible case as guest domain won't run with cache disabled.
+
+> Or provide a weak
+> copy_to_guest_phys_flush_dcache() which would simply call
+> copy_to_guest_phys()?
+
+Could it be a weak function with empty implementation?
+Is copy_to_guest_phys() implemented for other archs?
+
+
+~ Oleksii
+
+--------------HNrnkjgiINFiv5zEhkZO2Fg5
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/17/25 4:45 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:faa552cb-d933-492b-b3ed-e803856265ab@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 14.04.2025 17:56, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/include/xen/fdt-domain-build.h
++++ b/xen/include/xen/fdt-domain-build.h
+@@ -5,6 +5,7 @@
+ #include &lt;xen/bootfdt.h&gt;
+ #include &lt;xen/device_tree.h&gt;
+ #include &lt;xen/fdt-kernel.h&gt;
++#include &lt;xen/mm.h&gt;
+ #include &lt;xen/types.h&gt;
+ 
+ #if __has_include(&lt;asm/domain_build.h&gt;)
+@@ -32,7 +33,37 @@ int make_memory_node(const struct kernel_info *kinfo, int addrcells,
+                      int sizecells, const struct membanks *mem);
+ int make_timer_node(const struct kernel_info *kinfo);
+ 
+-unsigned int get_allocation_size(paddr_t size);
++
++static inline int get_allocation_size(paddr_t size)
++{
++    /*
++     * get_order_from_bytes returns the order greater than or equal to
++     * the given size, but we need less than or equal. Adding one to
++     * the size pushes an evenly aligned size into the next order, so
++     * we can then unconditionally subtract 1 from the order which is
++     * returned.
++     */
++    return get_order_from_bytes(size + 1) - 1;
++}
++
++typedef unsigned long (*copy_to_guest_phys_cb)(struct domain *d,
++                                               paddr_t gpa,
++                                               void *buf,
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+This very much looks like the latest now, when the code is made common,
+it wants to be const void *. Even if this may require another prereq
+patch.
+
+However, instead of using a function pointer, couldn't the now common
+code call copy_to_guest_phys_flush_dcache() conditionally upon
+IS_ENABLED(CONFIG_&lt;whatever&gt;)? </pre>
+    </blockquote>
+    <pre>I thought about having IS_ENABLED(CONFIG_ARM) as, at the moment, this is necessary to
+be called only for Arm as guest domain on Arm could be ran with cache disabled so to be sure
+that DTB, kernel and initrd is fully in RAM this function should be called.
+
+For RISC-V, it isn't possible case as guest domain won't run with cache disabled.
+</pre>
+    <blockquote type="cite"
+      cite="mid:faa552cb-d933-492b-b3ed-e803856265ab@suse.com">
+      <pre wrap="" class="moz-quote-pre">Or provide a weak
+copy_to_guest_phys_flush_dcache() which would simply call
+copy_to_guest_phys()?</pre>
+    </blockquote>
+    <pre>Could it be a weak function with empty implementation?
+Is copy_to_guest_phys() implemented for other archs?
+
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------HNrnkjgiINFiv5zEhkZO2Fg5--
 
