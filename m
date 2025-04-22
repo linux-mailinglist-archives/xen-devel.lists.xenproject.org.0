@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EBE8A95FC8
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 09:46:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.961738.1353073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22D3AA95FDA
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 09:49:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.961750.1353083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u78Jk-0005zO-LD; Tue, 22 Apr 2025 07:45:20 +0000
+	id 1u78NO-0006aA-3Z; Tue, 22 Apr 2025 07:49:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 961738.1353073; Tue, 22 Apr 2025 07:45:20 +0000
+Received: by outflank-mailman (output) from mailman id 961750.1353083; Tue, 22 Apr 2025 07:49:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u78Jk-0005xa-IG; Tue, 22 Apr 2025 07:45:20 +0000
-Received: by outflank-mailman (input) for mailman id 961738;
- Tue, 22 Apr 2025 07:45:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u78NO-0006XS-10; Tue, 22 Apr 2025 07:49:06 +0000
+Received: by outflank-mailman (input) for mailman id 961750;
+ Tue, 22 Apr 2025 07:49:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=f4Vg=XI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u78Jj-0005xU-3N
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 07:45:19 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b6d6284c-1f4d-11f0-9eb0-5ba50f476ded;
- Tue, 22 Apr 2025 09:45:09 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-39c266c2dd5so4858487f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 00:45:09 -0700 (PDT)
+ id 1u78NM-0006XM-1a
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 07:49:04 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3cdcdae6-1f4e-11f0-9ffb-bf95429c2676;
+ Tue, 22 Apr 2025 09:48:53 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43ea40a6e98so43403875e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 00:48:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39efa43ce6bsm14381132f8f.55.2025.04.22.00.45.07
+ 5b1f17b1804b1-4406d5acd08sm164234765e9.12.2025.04.22.00.48.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Apr 2025 00:45:08 -0700 (PDT)
+ Tue, 22 Apr 2025 00:48:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6d6284c-1f4d-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: 3cdcdae6-1f4e-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745307908; x=1745912708; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745308133; x=1745912933; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fomW9Lvj35WiPEFxePjwNyha006EBTUk9gLqMS9nX3A=;
-        b=KL6M19wYe65Bx8McDhfVVXkXOG6zKp7ZqWso/NAZ/VdUN0ypyGE+F2ViryhsjIgHXg
-         9K8HtJGfP50C9EPuupGYyVOBHiZwqnJ4FiwnE+WMhMQKwAifLH8sCUClwMt2T9kY6UhL
-         wNZRMsqOWDPXRAxKULbtF+PcqN3dponm6aaymZQWBqTHB+0mgtkJ/tnWftMGzW7RYUGU
-         IJqeOT6KXmkR9pjh9IVrTHZ8OCpWijaP/vEXKJNVO7Tj4T0cxDhSextTTSIDwk1g4Uzd
-         qootT76T5utDO7FpCIvOZCmNp8k1XeCoQKhDfrFV7ye59VunfcKs7+xNeNx/f36an21Q
-         PKlA==
+        bh=+Fc1WsV9CBrIkhgp9ADyKaekSoaAxJ5WKoDeI5lDbYE=;
+        b=KZLa4S8xuyetm/PUArc5IVFA+qBVjMEsptHm5q9PVNvpadAAH8Vjia8A5iEkqnsiTQ
+         a33MdZwyq6MhDsL9pFCmldDpICTE3jXpE+df9bk6hWjgV3rRIUX5KCVS+1B6hMhkRXAV
+         m5emBaPmQ/MtDNHH2vzSzzXhcEsSjUuOHrEd9FwqwSaJkm91qKuRZ8K2AtefBztPLjRL
+         c99NQEvMIDQPoVeUPUT2gbabmj7Ctkf1GkBYSlo+14Cf5cAPvB8P7BCpY5aBeipKB6HG
+         7Fpq9VV2yyFLZGT8m+bH0Pf4z23zwWYplt80ubqK4k8//YxFM8TkkluKPfXe5zqdBOdQ
+         WrRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745307908; x=1745912708;
+        d=1e100.net; s=20230601; t=1745308133; x=1745912933;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fomW9Lvj35WiPEFxePjwNyha006EBTUk9gLqMS9nX3A=;
-        b=dgcXMjqbj52ljod/BzdbFpclXW1ssdjRdMw1F510yFiT82xuW6v7+qCrZjfPATWE2o
-         UKE9LWBK8LIwCgK8mrn8j+XtB4jKcniFk/qf1su6SA9KeH/JW4upKJYEVxwex+Je6YJZ
-         JjlmdDyimkE6FFP6cBH40emT+WzOz8chgK5T4ISALUlSTuwwan2mCuOlrSm+gsUjKpNk
-         0UsPaiR9e0s70c8UOq9/9QvzvPPIaqU04OX5x4Z7Ninec9FlHLSeQiwgroZfJ6XWKDaO
-         wYNeXjTfYNI4iaXlc5KUr4pf5r0dacTxUfLWAqGg6FQrUrhkJeuKq3UEfTC/50pxGnfS
-         8RkA==
-X-Forwarded-Encrypted: i=1; AJvYcCUvM/4NwOu8JkcRJG/XfWj+63QeYqDZseeHAZOUHtt6I1sTWU87PU8dGhpo5A/5WkNkjswNkZjBwlU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwKNr5osiiK/Ib8zx2XjNTVuz+EOJoW6LSNemzx0vbGYwNVRqXi
-	42qwCjRdKbPNfSE1QfOQwuTcByFsTH7NdxaUewtK4k/4KZyUJY4yLEMr/09Tlw==
-X-Gm-Gg: ASbGnctm81JkHmOXPMyuEXo6UhN+Fbuo245ubWh96Ufyo2WMsdnzQZDAeL7hitL4LIU
-	JTJk4Vyptga43S9zO5uKagq/57aORMfcLcVZPaStWtiVvEuFKugu27+JLe6n3oCYaNNiORrDDfb
-	a44FWYICVZZaCvODnIqB+xzP+78aCiL7ntwjP4qmx5SJAYNOe03GLEUDwujLIVHF0/ymhPha7VQ
-	C9JXMosKh/2xlhKtj5yGOqG/pFiv+E6fwl5YEJThjvXQx0dimBSTShQSiDtz0olZx7ppF14QWJE
-	BtiZwOegkFTeDRJJhTlpu+jqrIjCTtogF4NWPlNmq40SSoo1MpWd2W4Zi2g/9D2U7iuGdWhTCC7
-	okOr+1ThwPtsG+nvCwjjiTLaIVg==
-X-Google-Smtp-Source: AGHT+IHBPoFkeHg6ZaAuhnufDSPLFJPqNlS6d5+rh5uDfnK8JLMsRkccLam/lUV9Hi1GQn8FQSQL7w==
-X-Received: by 2002:a5d:6d88:0:b0:39c:2669:d7f4 with SMTP id ffacd0b85a97d-39efbad7d40mr10854107f8f.43.1745307908448;
-        Tue, 22 Apr 2025 00:45:08 -0700 (PDT)
-Message-ID: <b73ca490-921b-4151-ad81-16d531634846@suse.com>
-Date: Tue, 22 Apr 2025 09:45:10 +0200
+        bh=+Fc1WsV9CBrIkhgp9ADyKaekSoaAxJ5WKoDeI5lDbYE=;
+        b=ujyiW1zLuvZ5nbhFfTjimvpqHOWIWp68lb/fePSwY520JKiIZXw2RD/pFya7bO52Qk
+         2pdGnbk5i7wp/IOZoCfnhlWXLnyEmmOWuGerv9NcmxqrJAaAaMwSBrqOAzoJXvWE53SR
+         HgCS0QNx+I62wEZIWHqbXe/wtOUpPW5D2amSTbSA+cRvDoxneEGovpNJiwNPpry4iN2Y
+         tf7kgJTheIRuelmPxB6+ldkdjPHkQ93wPvyEV4+UR5A4Wo8VaQ3AaYjQRCKeQf2CoFKW
+         /9C+G0i+PB4gA0nhMDtFVnACqpdabRZ42l6u6WianIzMmLFTaeTlk3SXBHnEP0EtSwNL
+         kySw==
+X-Forwarded-Encrypted: i=1; AJvYcCUv8qDTYT1zwPoxsRfhfSZDrJV/fWxerdJbOMx7y0WpWLC9VZWyg8qWCpo1oAuHBB+2Ri0y4BUdKpU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy5NYjJDWjblbXUWv9zvI5x5XifayV8RT6QV1jvQYUdKVIcGB4u
+	rJ1GC+JVO5xNgXNktqkiYmNlmbBbE4R2elMJ+Q4OrcpW9qaBCtCAH5sxnIMW1w==
+X-Gm-Gg: ASbGncuMtpo/zVIAVip0jN9Sg2GMlDBvM7fIRY2N3sJO2tzB3hXVfFWwXUFCNnhYcLb
+	/0tvTDwKp8BcSuirLmD+IawcVLgHw7RoN/yve/pw4uRmtvyGGGkYrUVWhk3m1gil/YPooB1E4Jo
+	99Xx2k+EFSiihc7GqgunGDQCK+zScFkGpAopxQ1sfUQ5Ra1uJDiO3I5h6XDgkYx+JtziR7/3fqH
+	ztU1uyUv088Td7xwanh7aQ37+rEAOmD9rRtgAqX1YidHtq7YUWqiztUNR+esvfwV9WwP87SF956
+	61HuYRn+w3DBZVm25op/GWWqwvhdsl8FFBqwHEzH8vvKFiM2IQhDDAo1Qi9E7SiR+IlnBgrrgse
+	qW9cjz0B5kDgH2YMocjc4bOd1wg==
+X-Google-Smtp-Source: AGHT+IG6+GXbNlVFXxE84ak8wV4rC3HD52rDJfYpkpoGP68i7Mm+mzQ548KefYr0eqLp43AXXmpcYQ==
+X-Received: by 2002:a05:6000:188e:b0:39c:1258:7e1a with SMTP id ffacd0b85a97d-39efbb0c199mr10272367f8f.59.1745308133284;
+        Tue, 22 Apr 2025 00:48:53 -0700 (PDT)
+Message-ID: <40bdb025-f625-4494-9d0c-81003faaf8cb@suse.com>
+Date: Tue, 22 Apr 2025 09:48:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/4] Physical address hypercall ABI ("HVMv2")
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v20 2/2] vpci: translate virtual PCI bus topology for
+ guests
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <cover.1744981654.git.teddy.astie@vates.tech>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jiqian Chen <Jiqian.Chen@amd.com>, Mykyta Poturai <Mykyta_Poturai@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20250418185840.335816-1-stewart.hildebrand@amd.com>
+ <20250418185840.335816-3-stewart.hildebrand@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,36 +126,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cover.1744981654.git.teddy.astie@vates.tech>
+In-Reply-To: <20250418185840.335816-3-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.04.2025 16:18, Teddy Astie wrote:
-> In current HVM mode, when a hypercall references a structure in guest memory,
-> it is passed to the hypervisor as its "linear address" (e.g virtual address for
-> the x86 long mode).
-> One of the caveats is that this linear address (GVA) is generally not directly
-> usable by the Xen and needs to be translated from GVA to GPA then HPA. This
-> implies a complex and potentially expensive lookup of the pagetables inside the
-> guest. This can be significant, especially if the P2M cannot use efficiently
-> superpages (or with e.g XSA-304).
-> 
-> This proposal introduce a new mode where all addresses used for hypercalls are
-> GPADDR instead of GVADDR, therefore, looking up the HPA related to this GPA
-> only needs a P2M lookup and not looking through the inside-guest pagetables.
-> 
-> This mode is opt-in and must be enabled explicitely by the toolstack.
+On 18.04.2025 20:58, Stewart Hildebrand wrote:
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -174,6 +174,41 @@ int vpci_assign_device(struct pci_dev *pdev)
+>  }
+>  #endif /* __XEN__ */
+>  
+> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+> +/*
+> + * Find the physical device which is mapped to the virtual device
+> + * and translate virtual SBDF to the physical one.
+> + */
+> +static const struct pci_dev *translate_virtual_device(const struct domain *d,
+> +                                                      pci_sbdf_t *sbdf)
+> +{
+> +    const struct pci_dev *pdev;
+> +
+> +    ASSERT(!is_hardware_domain(d));
+> +    ASSERT(rw_is_locked(&d->pci_lock));
+> +
+> +    for_each_pdev ( d, pdev )
+> +    {
+> +        if ( pdev->vpci && (pdev->vpci->guest_sbdf.sbdf == sbdf->sbdf) )
+> +        {
+> +            /* Replace guest SBDF with the physical one. */
+> +            *sbdf = pdev->sbdf;
+> +            return pdev;
+> +        }
+> +    }
+> +
+> +    return NULL;
+> +}
+> +#else
+> +static const struct pci_dev *translate_virtual_device(const struct domain *d,
+> +                                                      pci_sbdf_t *sbdf)
+> +{
+> +    ASSERT_UNREACHABLE();
+> +
+> +    return NULL;
+> +}
+> +#endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
 
-Which I view as a severe downside (leaving aside the PVH Dom0 aspect): This way
-a guest needs to be converted all in one go. While doable, it'll be increasingly
-risky with the size of the guest kernel code base.
-
-A prior proposal of mine was to add an indicator to hypercall numbers (e.g. to
-set the top bit there), to indicate which of the two models a particular
-hypercall invocation uses.
-
-Aiui Andrew had yet different (albeit also never spelled out) plans.
+I'm not a maintainer of this code, but if I was I'd strictly request that the
+#ifdef move inside the function, to limit redundancy. Even the "return NULL"
+is common between both forms.
 
 Jan
-
 
