@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7C4AA97093
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 17:26:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.963043.1354161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56AB0A9711C
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 17:37:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.963118.1354172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7FW5-0001U9-Ig; Tue, 22 Apr 2025 15:26:33 +0000
+	id 1u7Ffi-0006Z8-GP; Tue, 22 Apr 2025 15:36:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 963043.1354161; Tue, 22 Apr 2025 15:26:33 +0000
+Received: by outflank-mailman (output) from mailman id 963118.1354172; Tue, 22 Apr 2025 15:36:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7FW5-0001S8-G8; Tue, 22 Apr 2025 15:26:33 +0000
-Received: by outflank-mailman (input) for mailman id 963043;
- Tue, 22 Apr 2025 15:26:31 +0000
+	id 1u7Ffi-0006XW-Bw; Tue, 22 Apr 2025 15:36:30 +0000
+Received: by outflank-mailman (input) for mailman id 963118;
+ Tue, 22 Apr 2025 15:36:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NnGu=XI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u7FW3-0001BV-Q1
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 15:26:31 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=f4Vg=XI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u7Ffg-0006Us-AB
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 15:36:28 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2877fe4a-1f8e-11f0-9ffb-bf95429c2676;
- Tue, 22 Apr 2025 17:26:27 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43ede096d73so39279615e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 08:26:27 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4406d5acccdsm175431155e9.11.2025.04.22.08.26.24
+ id 8c8293d0-1f8f-11f0-9ffb-bf95429c2676;
+ Tue, 22 Apr 2025 17:36:24 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4394a0c65fcso58735255e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 08:36:24 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4406d6db1b3sm180775875e9.29.2025.04.22.08.36.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Apr 2025 08:26:26 -0700 (PDT)
+ Tue, 22 Apr 2025 08:36:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,210 +45,259 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2877fe4a-1f8e-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 8c8293d0-1f8f-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1745335586; x=1745940386; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2i+b3sG20yNAfVUCtSo4JTOzMhUrm01QUTcDtC3O6a0=;
-        b=U19urJKmQqAWqMtdtSz95eS+MClN1HvA+nYRDepdeA9Cn6X3Erh0k6gEtOEW2Lal11
-         C6Y9fU7yuj8+7hDMrriorcpgQcGy8712fECMagh8INp+CeKi1gVx0txwdTbv6i/Kvvwo
-         RqXiJGQaaOLGxmQ9YbBLZAuXkTfZWt3499teOxn7uJod8HjASEmtZh2BwDj+Cut9vzpc
-         LN/vHAG8lBDHBm3mYpXzxiiKlvRmX75nu2VR3y1q+ZTWn9/PGiPY7sFstwtsjr6AmmUD
-         clGhSVVAx5CDs5Uza4LoUoBoB70Ds+8XTaYSg0TuJEMDCmhrS9Fn04fsF41LqejbGmWf
-         sAvQ==
+        d=suse.com; s=google; t=1745336184; x=1745940984; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=E5L5GIdUonFlQn7DbV5XuGRLBKT2L2yQDEKrOzFLrOg=;
+        b=AQFlKT56cejkwVkbJc0lmtyOgx5lmKaWeMhRS5NmmBU/dQTo5LVr0z5szZIup6GiR5
+         hw6JTQ8GqcAqjffDHa0d+wOds4bhwjRIXZxIEDob0g2ox604xvIZulfMBqP+udi4WDp1
+         OBS9K8bY2rI2IGy18TiAG+UgnY4S8XzHQGEtqEja5oLtsh6dpIIZobu221z0CzjJYnuv
+         qXbteJdq30A4gXKxK1gEykv8SaAyEHS/bOUNiH17mnYqc9G8PJyJtUkNGB+5nOgJBERW
+         TpU8Do7C5I6VmZq/6d2KKQmYvGAW4GI8A8tHYAXRe2Shp8dVI7zPSF/e0bgflMZ73cfl
+         bu5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745335586; x=1745940386;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=2i+b3sG20yNAfVUCtSo4JTOzMhUrm01QUTcDtC3O6a0=;
-        b=oxklElPdNiMOHM0EeL0rg387RR1KvOxz+v9rsGwJMYKAQXgExOh1mR0pAOU7wJTj+B
-         lbT91giC7CmVi2dNfLONGh8q8/7vlGFKMRUl3tVNCCZ2aHlyOu3Clfz87neComymPtyY
-         hTeZVyXpJOTUe9qulDKs5ksmvCh54dAmusa+ViIju99YGleEQvq5HIfvL2AT5z+f0AKl
-         kUIDEE2d4e6/fhBctx00ZPUBoAd+U97Wp4c1DUQ1RzNZ439c+hpWHpErDNbDgnE7MAaC
-         B8Y3l1Axdnh0DhOYBSN+G80N+pIBb8UZnYFtw/lHcFAEjQWJq6gtP6hVTrZ/WoGe2d6k
-         mPBw==
-X-Forwarded-Encrypted: i=1; AJvYcCXaU2XHUi6N2TeY+LwlNVUaAcpfHunYq9PIZKF9glRjBGq5+ME2DGUabckQRwCWbrZ5f9h76GFRytw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwtPArWXVHWpQ1ufHr2rxdq34FZMdNlw9GdwKhdc38/qZeJpN+t
-	WVSybPybCzm4gxjI8ktDIsj2P1KMP1D5jSkEEbR0g42RrVj/yxmy
-X-Gm-Gg: ASbGncubhaCs7nZ1dwzEH4fTcX3p76QrOi7Mn0NDk+QKHcmQW2bvw9EAHCowKs1wIpO
-	fEPFbqf1byiIs9197QFwKVCouX0jd0AJ9e/JC5Mc069J/3vhR+W15DQ7Msyp59cWLxNArPsjxCa
-	0uckDThOsk2mQwgdvrNEhQwtIk2lEScf8rJ7BgCCdtIBxPtywaULOZZmSoyl5KxWo5RgUTRVpTp
-	AorrOpwqGHwmPM0zRBLabAzO+ea9GKcveplBSQ35AYtSmBS7wodrHQIh6FcfK+j05j0MG8ymZo/
-	1rAHM2CDn+czxkSjeTQJFYqmHPi4/8/760IXd2+n+h1tESDALpHySvpwxqlCWhCI1CbROIlXp1p
-	54vBqYP9VpDdXkrcX
-X-Google-Smtp-Source: AGHT+IET30Bf3iJASEFOK54y1bumZUsTSU5F8JDqdnMgPzjpFnDysZ7tQv/69K1JXIkob+R1nOZrVw==
-X-Received: by 2002:a05:6000:c08:b0:3a0:65bc:3543 with SMTP id ffacd0b85a97d-3a065bc358amr447562f8f.35.1745335586533;
-        Tue, 22 Apr 2025 08:26:26 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------HNrnkjgiINFiv5zEhkZO2Fg5"
-Message-ID: <6010658f-9e29-40d9-902c-890cb27a2a4b@gmail.com>
-Date: Tue, 22 Apr 2025 17:26:24 +0200
+        d=1e100.net; s=20230601; t=1745336184; x=1745940984;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=E5L5GIdUonFlQn7DbV5XuGRLBKT2L2yQDEKrOzFLrOg=;
+        b=xKd583ty1pPHprRLV1WQe3kNckuWafQPGpC/AjgUBR1df4JfZ9d4bRQnquVD8zCRxj
+         bTlBWhnDB98ZfPoO5JvBDYU1f09Zdtl1hfI3exrtq1TxaMtdR7RkISYa4XtFAAZG/BRd
+         xIak7pMxFqtSSyn8AwmIBnbIV0Za+KLKuiqtLrdiArAyHbgGNzK07ECSbVxM2Sn8Y1VL
+         VCChgq1e7GO2CorpbVWiG2mOWV7uk05jnN86oP98bYFmkh+E+D0+da5GCofMi5jj6Z6s
+         VwEypgrKJJVlwPA0l4yOnqBqXr4E79WQQ/t+VKQIZTOWl5CLZuvDK9fDEjwHxTYqbqI/
+         YUow==
+X-Forwarded-Encrypted: i=1; AJvYcCVn4pgy2W32PxPu/AlMFJ9tiKwnrR/bupfm3EFVQpbqgH/n4beQKVHNcJEwD/O18A1ECqvcgFVVIMk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyxKCPXdCGpwPLQQ5oExKGVJa9Yk4RYvb0+upiIi+gAuaBt8VV9
+	Znoat7T0yk/IGySK8aC4ZKUWNaVgTzq7tanLn+FY3qqZgV1ZYhvuSGTy1bbhrQ==
+X-Gm-Gg: ASbGncvxs5gRg54zcjiAmaQMrpLbS+mOmGaxzCR4jr7vplJ+fItm/RqoEm1crE10K5m
+	AVPp65UBHla10/9G+CL2rxTcjf4wtiVnrVgkrjNeC0x2gfg/8ft1KeqtN/yjwoJDw4CpYEEGQGX
+	xxOKUDOhaS7sURmFXDcxWtouLa7SWEx1VryKOsGTCkbFQH3Fs/MMtMVpo3y3AYaHRyGRNCef63r
+	o2+wfc7xdHTXG3raecKVY+b94rmZZ3/x0+dJuNhTaFmeaiZUDj8puTgMVofM3g5SmAYHbubkRTt
+	qv6MlH7kFRtOIlLOvUFgHEynhXTkD8MRk3wDB6eJhEMY0NscRlfKQUICT1fNJZVqzxsbFdzQJVM
+	J7UUh1bVCoFpsEQG3H8V319kwwQ==
+X-Google-Smtp-Source: AGHT+IHR9THzz0vb8F5y3c1q45QrTQLVge0OmO9gMmFd7h3X3/BR+nPdntu/u4zIJAG/7LIigCBE0A==
+X-Received: by 2002:a05:600c:a4b:b0:43d:683:8cb2 with SMTP id 5b1f17b1804b1-4406ab96871mr158178465e9.14.1745336183653;
+        Tue, 22 Apr 2025 08:36:23 -0700 (PDT)
+Message-ID: <a0dcf27e-a066-4e5f-97b2-e5f178e1b941@suse.com>
+Date: Tue, 22 Apr 2025 17:36:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/8] xen/common: dom0less: introduce common
- domain-build.c
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH 09/21] lib/sha1.c: add file
+To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>,
+ Krystian Hebel <krystian.hebel@3mdeb.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1744626032.git.oleksii.kurochko@gmail.com>
- <9dbf651ce177a7292f80879373e86a51305f216e.1744626032.git.oleksii.kurochko@gmail.com>
- <faa552cb-d933-492b-b3ed-e803856265ab@suse.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
+References: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
+ <8dec423182ed60e2233ed87d98066fed6dc20caf.1745172094.git.sergii.dmytruk@3mdeb.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <faa552cb-d933-492b-b3ed-e803856265ab@suse.com>
-
-This is a multi-part message in MIME format.
---------------HNrnkjgiINFiv5zEhkZO2Fg5
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <8dec423182ed60e2233ed87d98066fed6dc20caf.1745172094.git.sergii.dmytruk@3mdeb.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 22.04.2025 17:06, Sergii Dmytruk wrote:
+> From: Krystian Hebel <krystian.hebel@3mdeb.com>
+> 
+> The code comes from [1] and is licensed under GPL-2.0 license.
+> It's a combination of:
+>  - include/crypto/sha1.h
+>  - include/crypto/sha1_base.h
+>  - lib/crypto/sha1.c
+>  - crypto/sha1_generic.c
+> 
+> Changes:
+>  - includes
+>  - formatting
+>  - renames and splicing of some trivial functions that are called once
+>  - dropping of `int` return values (only zero was ever returned)
+>  - getting rid of references to `struct shash_desc`
 
-On 4/17/25 4:45 PM, Jan Beulich wrote:
-> On 14.04.2025 17:56, Oleksii Kurochko wrote:
->> --- a/xen/include/xen/fdt-domain-build.h
->> +++ b/xen/include/xen/fdt-domain-build.h
->> @@ -5,6 +5,7 @@
->>   #include <xen/bootfdt.h>
->>   #include <xen/device_tree.h>
->>   #include <xen/fdt-kernel.h>
->> +#include <xen/mm.h>
->>   #include <xen/types.h>
->>   
->>   #if __has_include(<asm/domain_build.h>)
->> @@ -32,7 +33,37 @@ int make_memory_node(const struct kernel_info *kinfo, int addrcells,
->>                        int sizecells, const struct membanks *mem);
->>   int make_timer_node(const struct kernel_info *kinfo);
->>   
->> -unsigned int get_allocation_size(paddr_t size);
->> +
->> +static inline int get_allocation_size(paddr_t size)
->> +{
->> +    /*
->> +     * get_order_from_bytes returns the order greater than or equal to
->> +     * the given size, but we need less than or equal. Adding one to
->> +     * the size pushes an evenly aligned size into the next order, so
->> +     * we can then unconditionally subtract 1 from the order which is
->> +     * returned.
->> +     */
->> +    return get_order_from_bytes(size + 1) - 1;
->> +}
->> +
->> +typedef unsigned long (*copy_to_guest_phys_cb)(struct domain *d,
->> +                                               paddr_t gpa,
->> +                                               void *buf,
-> This very much looks like the latest now, when the code is made common,
-> it wants to be const void *. Even if this may require another prereq
-> patch.
->
-> However, instead of using a function pointer, couldn't the now common
-> code call copy_to_guest_phys_flush_dcache() conditionally upon
-> IS_ENABLED(CONFIG_<whatever>)?
+Since you did move the code to (largely) Xen style, a few further requests
+in that direction:
 
-I thought about having IS_ENABLED(CONFIG_ARM) as, at the moment, this is necessary to
-be called only for Arm as guest domain on Arm could be ran with cache disabled so to be sure
-that DTB, kernel and initrd is fully in RAM this function should be called.
+> --- /dev/null
+> +++ b/xen/include/xen/sha1.h
+> @@ -0,0 +1,12 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +
+> +#ifndef __XEN_SHA1_H
+> +#define __XEN_SHA1_H
+> +
+> +#include <xen/inttypes.h>
+> +
+> +#define SHA1_DIGEST_SIZE  20
+> +
+> +void sha1_hash(const u8 *data, unsigned int len, u8 *out);
 
-For RISC-V, it isn't possible case as guest domain won't run with cache disabled.
+uint8_t please in both instances here, and more generally {,u}int<N>_t
+in place of {s,u}<N>.
 
-> Or provide a weak
-> copy_to_guest_phys_flush_dcache() which would simply call
-> copy_to_guest_phys()?
+> --- a/xen/lib/Makefile
+> +++ b/xen/lib/Makefile
+> @@ -38,6 +38,7 @@ lib-y += strtoll.o
+>  lib-y += strtoul.o
+>  lib-y += strtoull.o
+>  lib-$(CONFIG_X86) += x86-generic-hweightl.o
+> +lib-$(CONFIG_X86) += sha1.o
 
-Could it be a weak function with empty implementation?
-Is copy_to_guest_phys() implemented for other archs?
+Please obey to alphabetic sorting.
 
+> --- /dev/null
+> +++ b/xen/lib/sha1.c
+> @@ -0,0 +1,240 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * SHA1 routine optimized to do word accesses rather than byte accesses,
+> + * and to avoid unnecessary copies into the context array.
+> + *
+> + * This was based on the git SHA1 implementation.
+> + */
+> +
+> +#include <xen/bitops.h>
+> +#include <xen/types.h>
+> +#include <xen/sha1.h>
+> +#include <xen/unaligned.h>
+> +
+> +/*
+> + * If you have 32 registers or more, the compiler can (and should)
+> + * try to change the array[] accesses into registers. However, on
+> + * machines with less than ~25 registers, that won't really work,
+> + * and at least gcc will make an unholy mess of it.
+> + *
+> + * So to avoid that mess which just slows things down, we force
+> + * the stores to memory to actually happen (we might be better off
+> + * with a 'W(t)=(val);asm("":"+m" (W(t))' there instead, as
+> + * suggested by Artur Skawina - that will also make gcc unable to
+> + * try to do the silly "optimize away loads" part because it won't
+> + * see what the value will be).
+> + *
+> + * Ben Herrenschmidt reports that on PPC, the C version comes close
+> + * to the optimized asm with this (ie on PPC you don't want that
+> + * 'volatile', since there are lots of registers).
+> + *
+> + * On ARM we get the best code generation by forcing a full memory barrier
+> + * between each SHA_ROUND, otherwise gcc happily get wild with spilling and
+> + * the stack frame size simply explode and performance goes down the drain.
+> + */
+> +
+> +#ifdef CONFIG_X86
+> +  #define setW(x, val) (*(volatile uint32_t *)&W(x) = (val))
 
-~ Oleksii
+The # of pre-processor directives generally wants to be in the first column.
 
---------------HNrnkjgiINFiv5zEhkZO2Fg5
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+> +#elif defined(CONFIG_ARM)
+> +  #define setW(x, val) do { W(x) = (val); __asm__("":::"memory"); } while ( 0 )
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/17/25 4:45 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:faa552cb-d933-492b-b3ed-e803856265ab@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 14.04.2025 17:56, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/include/xen/fdt-domain-build.h
-+++ b/xen/include/xen/fdt-domain-build.h
-@@ -5,6 +5,7 @@
- #include &lt;xen/bootfdt.h&gt;
- #include &lt;xen/device_tree.h&gt;
- #include &lt;xen/fdt-kernel.h&gt;
-+#include &lt;xen/mm.h&gt;
- #include &lt;xen/types.h&gt;
- 
- #if __has_include(&lt;asm/domain_build.h&gt;)
-@@ -32,7 +33,37 @@ int make_memory_node(const struct kernel_info *kinfo, int addrcells,
-                      int sizecells, const struct membanks *mem);
- int make_timer_node(const struct kernel_info *kinfo);
- 
--unsigned int get_allocation_size(paddr_t size);
-+
-+static inline int get_allocation_size(paddr_t size)
-+{
-+    /*
-+     * get_order_from_bytes returns the order greater than or equal to
-+     * the given size, but we need less than or equal. Adding one to
-+     * the size pushes an evenly aligned size into the next order, so
-+     * we can then unconditionally subtract 1 from the order which is
-+     * returned.
-+     */
-+    return get_order_from_bytes(size + 1) - 1;
-+}
-+
-+typedef unsigned long (*copy_to_guest_phys_cb)(struct domain *d,
-+                                               paddr_t gpa,
-+                                               void *buf,
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-This very much looks like the latest now, when the code is made common,
-it wants to be const void *. Even if this may require another prereq
-patch.
+__asm__ ( "" ::: "memory" );
 
-However, instead of using a function pointer, couldn't the now common
-code call copy_to_guest_phys_flush_dcache() conditionally upon
-IS_ENABLED(CONFIG_&lt;whatever&gt;)? </pre>
-    </blockquote>
-    <pre>I thought about having IS_ENABLED(CONFIG_ARM) as, at the moment, this is necessary to
-be called only for Arm as guest domain on Arm could be ran with cache disabled so to be sure
-that DTB, kernel and initrd is fully in RAM this function should be called.
+as far as style goes. But then I see no need to open-code barrier().
 
-For RISC-V, it isn't possible case as guest domain won't run with cache disabled.
-</pre>
-    <blockquote type="cite"
-      cite="mid:faa552cb-d933-492b-b3ed-e803856265ab@suse.com">
-      <pre wrap="" class="moz-quote-pre">Or provide a weak
-copy_to_guest_phys_flush_dcache() which would simply call
-copy_to_guest_phys()?</pre>
-    </blockquote>
-    <pre>Could it be a weak function with empty implementation?
-Is copy_to_guest_phys() implemented for other archs?
+> +#else
+> +  #define setW(x, val) (W(x) = (val))
+> +#endif
+> +
+> +/* This "rolls" over the 512-bit array */
+> +#define W(x) (array[(x) & 15])
+> +
+> +/*
+> + * Where do we get the source from? The first 16 iterations get it from
+> + * the input data, the next mix it from the 512-bit array.
+> + */
+> +#define SHA_SRC(t) get_unaligned_be32((uint32_t *)data + t)
+> +#define SHA_MIX(t) rol32(W(t + 13) ^ W(t + 8) ^ W(t + 2) ^ W(t), 1)
 
+I fear Misra isn't going to like the lack of parenthesization of macro
+arguments used in expressions. This looks to be an issue with most
+macros here.
 
-~ Oleksii</pre>
-  </body>
-</html>
+> +#define SHA_ROUND(t, input, fn, constant, A, B, C, D, E) do { \
+> +        uint32_t TEMP = input(t); setW(t, TEMP);              \
+> +        E += TEMP + rol32(A, 5) + (fn) + (constant);          \
+> +        B = ror32(B, 2);                                      \
+> +        TEMP = E; E = D; D = C; C = B; B = A; A = TEMP;       \
+> +    } while ( 0 )
+> +
+> +#define T_0_15(t, A, B, C, D, E)  \
+> +        SHA_ROUND(t, SHA_SRC, (((C ^ D) & B) ^ D), 0x5a827999, A, B, C, D, E)
+> +#define T_16_19(t, A, B, C, D, E) \
+> +        SHA_ROUND(t, SHA_MIX, (((C ^ D) & B) ^ D), 0x5a827999, A, B, C, D, E)
+> +#define T_20_39(t, A, B, C, D, E) \
+> +        SHA_ROUND(t, SHA_MIX, (B ^ C ^ D), 0x6ed9eba1, A, B, C, D, E)
+> +#define T_40_59(t, A, B, C, D, E)                                             \
+> +        SHA_ROUND(t, SHA_MIX, ((B & C) + (D & (B ^ C))), 0x8f1bbcdc, A, B, C, \
+> +                  D, E)
+> +#define T_60_79(t, A, B, C, D, E) \
+> +        SHA_ROUND(t, SHA_MIX, (B ^ C ^ D), 0xca62c1d6, A, B, C, D, E)
+> +
+> +#define SHA1_BLOCK_SIZE         64
+> +#define SHA1_WORKSPACE_WORDS    16
+> +
+> +struct sha1_state {
+> +    uint32_t state[SHA1_DIGEST_SIZE / 4];
+> +    uint64_t count;
+> +    uint8_t buffer[SHA1_BLOCK_SIZE];
+> +};
+> +
+> +typedef void sha1_block_fn(struct sha1_state *sst, const uint8_t *src, int blocks);
 
---------------HNrnkjgiINFiv5zEhkZO2Fg5--
+Please respect line length restrictions. The use of plain int here also looks
+questionable, as just from the name that parameter looks like it can't have a
+negative argument passed for it. This will want adjusting elsewhere as well.
+
+> +/**
+> + * sha1_transform - single block SHA1 transform (deprecated)
+> + *
+> + * @digest: 160 bit digest to update
+> + * @data:   512 bits of data to hash
+> + * @array:  16 words of workspace (see note)
+> + *
+> + * This function executes SHA-1's internal compression function.  It updates the
+> + * 160-bit internal state (@digest) with a single 512-bit data block (@data).
+> + *
+> + * Don't use this function.  SHA-1 is no longer considered secure.  And even if
+> + * you do have to use SHA-1, this isn't the correct way to hash something with
+> + * SHA-1 as this doesn't handle padding and finalization.
+> + *
+> + * Note: If the hash is security sensitive, the caller should be sure
+> + * to clear the workspace. This is left to the caller to avoid
+> + * unnecessary clears between chained hashing operations.
+> + */
+> +void sha1_transform(uint32_t *digest, const uint8_t *data, uint32_t *array)
+
+You add no declaration of this function in the header. Should it be static?
+This would also help with the "Don't use ..." part of the comment.
+
+Jan
 
