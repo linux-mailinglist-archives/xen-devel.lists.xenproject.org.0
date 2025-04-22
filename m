@@ -2,33 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E929BA96FC1
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 17:03:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.962738.1353893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61019A96FE7
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 17:07:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.962756.1353901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7F9Q-0007oq-Fo; Tue, 22 Apr 2025 15:03:08 +0000
+	id 1u7FDH-0008U5-Us; Tue, 22 Apr 2025 15:07:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 962738.1353893; Tue, 22 Apr 2025 15:03:08 +0000
+Received: by outflank-mailman (output) from mailman id 962756.1353901; Tue, 22 Apr 2025 15:07:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7F9Q-0007kT-Cf; Tue, 22 Apr 2025 15:03:08 +0000
-Received: by outflank-mailman (input) for mailman id 962738;
- Tue, 22 Apr 2025 15:03:06 +0000
+	id 1u7FDH-0008SY-S9; Tue, 22 Apr 2025 15:07:07 +0000
+Received: by outflank-mailman (input) for mailman id 962756;
+ Tue, 22 Apr 2025 15:07:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Cc2d=XI=flex--seanjc.bounces.google.com=3pq8HaAYKCWsbNJWSLPXXPUN.LXVgNW-MNeNUURbcb.gNWYaXSNLc.XaP@srs-se1.protection.inumbo.net>)
- id 1u7F9O-0007ON-Lu
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 15:03:06 +0000
-Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
- [2607:f8b0:4864:20::104a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e404042d-1f8a-11f0-9ffb-bf95429c2676;
- Tue, 22 Apr 2025 17:03:04 +0200 (CEST)
-Received: by mail-pj1-x104a.google.com with SMTP id
- 98e67ed59e1d1-308677f7d8cso4887708a91.1
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 08:03:04 -0700 (PDT)
+ <SRS0=BiSK=XI=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
+ id 1u7FDF-0008SP-VN
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 15:07:06 +0000
+Received: from 7.mo575.mail-out.ovh.net (7.mo575.mail-out.ovh.net
+ [46.105.63.230]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 72d052a3-1f8b-11f0-9ffb-bf95429c2676;
+ Tue, 22 Apr 2025 17:07:03 +0200 (CEST)
+Received: from director9.ghost.mail-out.ovh.net (unknown [10.108.2.141])
+ by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4ZhlvV3Vc8z23r6
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 15:07:02 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-vrv7z (unknown [10.110.101.237])
+ by director9.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 7A48B1FD2E;
+ Tue, 22 Apr 2025 15:07:00 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.98])
+ by ghost-submission-5b5ff79f4f-vrv7z with ESMTPSA
+ id UoTGDZSwB2hgEQwA4lIjWg
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Tue, 22 Apr 2025 15:07:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,68 +46,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e404042d-1f8a-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1745334183; x=1745938983; darn=lists.xenproject.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZR743ev6ExzRYE8cINx+AM9cywgAmFfoIc+SqezuNJU=;
-        b=Cr4WTGTdI1iM8gD0wuETgqmcQF0RJ+zv7cz4cOs8MekFEWpKYDr2Za2cQobjSzzt96
-         NQwWqpyJnwhizqXVSGR6DUsBXqYmcE7PXjE3EeYJ+Gmeu+ywky9/P6fcd9NcRF78gBaM
-         zIftMYo8wE4NOtj6q9HvozvpR7HmxiywnrkaKhYTX4bHzmJLKI8DKS85DUA6v55mtZQo
-         j/wBw+jhFcS1kTXuXVoq7ieRr6CXMhCehAV35AZQvupz3cOfgDIbPnJMjo0ChTkogix9
-         TpNDhUG1wMNTYdiHl6oTn/c/YnOcBlblXe5Yk/eF2YqsNAxqeXqNlGgQWzzeoGB9k2xy
-         a/Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745334183; x=1745938983;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZR743ev6ExzRYE8cINx+AM9cywgAmFfoIc+SqezuNJU=;
-        b=KERXqYF8iz/mZdpQViQLeMwqZn4Mova6J3Gd4Suu+3rZyGa2t7rHi5NFJVGR6FUqS7
-         uZcRjrBkCBKH143lCBj5TmmiDTCFqbUzlEt+ntwi3KBeOlcI9Qs4IX9HaKGyUKMQQE/F
-         iFXySFfR2l2odavquu1CU5HI98PG2O+kx0jYfJFjPOfaydyrehB1pEE2d3MFbC827GPF
-         Uzkg8/Sc/I04eMWJMECgQ0IQvJzo0LkYj9vT5t37AolZrSgEy0Ey6f/55D2k/xixvp9t
-         xCOyvesn/I/+ZxWgF8RNDr6OjC/dR3tBNuG8dj0OErp8KpQVDdLzQsQF8grrTCNCvqmQ
-         aDqQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUIof4Is5pKNUGFhcppTChUCrRZ5dnzUB6i7TWIaFRJadqgCybdkXvdoFZ/mnpbxBmirA3f0mYk8so=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwDAjF/S7qRMphD9sn3eHk5vIRpCBsNdTvqG7qfqbQlh9CjvVun
-	7SrrwmDYneNX9oKUtfoK162s4BJT/WIX4Rs8ey2Q/LJkAjaIRZ2WrZa+GQtWyte3vPXFDSsfdRD
-	1ig==
-X-Google-Smtp-Source: AGHT+IEIapJZJRM9UWSGs3HX5eEFDXXhucM1QTXJfnPOK/9YTrDfsNmQubNfg9xjcSY4LHTjaYmG0pXn5/g=
-X-Received: from pjbsn11.prod.google.com ([2002:a17:90b:2e8b:b0:308:861f:fddb])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3a0c:b0:2ef:31a9:95c6
- with SMTP id 98e67ed59e1d1-3087bb56439mr25794718a91.14.1745334182926; Tue, 22
- Apr 2025 08:03:02 -0700 (PDT)
-Date: Tue, 22 Apr 2025 08:03:01 -0700
-In-Reply-To: <20250422082216.1954310-1-xin@zytor.com>
-Mime-Version: 1.0
-References: <20250422082216.1954310-1-xin@zytor.com>
-Message-ID: <aAevpauKYWwObsB7@google.com>
-Subject: Re: [RFC PATCH v2 00/34] MSR refactor with new MSR instructions support
-From: Sean Christopherson <seanjc@google.com>
-To: "Xin Li (Intel)" <xin@zytor.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org, 
-	virtualization@lists.linux.dev, linux-pm@vger.kernel.org, 
-	linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org, 
-	netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
-	tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, acme@kernel.org, 
-	jgross@suse.com, andrew.cooper3@citrix.com, peterz@infradead.org, 
-	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, 
-	kan.liang@linux.intel.com, wei.liu@kernel.org, ajay.kaher@broadcom.com, 
-	bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com, 
-	pbonzini@redhat.com, vkuznets@redhat.com, luto@kernel.org, 
-	boris.ostrovsky@oracle.com, kys@microsoft.com, haiyangz@microsoft.com, 
-	decui@microsoft.com
-Content-Type: text/plain; charset="us-ascii"
+X-Inumbo-ID: 72d052a3-1f8b-11f0-9ffb-bf95429c2676
+Authentication-Results:garm.ovh; auth=pass (GARM-98R002eaee5505-9d14-4991-bcb3-3672c91ef34e,
+                    7E508E014E7E7C169EB13C6E22C3C4EBF1F0FDD7) smtp.auth=sergii.dmytruk@3mdeb.com
+X-OVh-ClientIp:176.111.181.178
+From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Lukasz Hawrylko <lukasz@hawrylko.pl>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Mateusz=20M=C3=B3wka?= <mateusz.mowka@intel.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	trenchboot-devel@googlegroups.com
+Subject: [PATCH 00/21] x86: Trenchboot Secure Launch DRTM (Xen)
+Date: Tue, 22 Apr 2025 18:06:34 +0300
+Message-ID: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
+X-Mailer: git-send-email 2.49.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 12724357798888715420
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -51
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvgeegtdehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnegoufhushhpvggtthffohhmrghinhculdegledmnecujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepgffhkeeujefhvdeugeektdekjeeiheejkedvheefieeghedufeeuveehheejheegnecuffhomhgrihhnpehtrhgvnhgthhgsohhothdrohhrghdpshhouhhrtggvfhhorhhgvgdrnhgvthdpkhgvrhhnvghlrdhorhhgnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukedurddujeekpdefjedrheelrddugedvrdelkeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehjeehmgdpmhhouggvpehsmhhtphhouhht
+DKIM-Signature: a=rsa-sha256; bh=uzs5IQT4ILJYVMtN0crPFxKj1iOMog379n6QJoG3VMQ=;
+ c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
+ t=1745334422; v=1;
+ b=Bb2cVwRP//zqfngfp2av6kNtV12d6qR0cORBsUJF5R2cyVZ1aMxE8V510WMfrIoRWRuQpkB5
+ NzXn/SR9DJWpbexnpk9XI+agDrQhbr5xNZ+NRexQC50TW+/Ifo65MgMqPKALBPkdTiuWHLNDmQl
+ MPE8QmzbNIpfvuqM3KxoH2AtRKxPVGOCaHF5eH7UJz5O25uRqhrrQDOwJRv3Cd+iIMq4skhed+L
+ 8y+2l7f9gVCOD2allC1Ss6jPJAsahv8vcULyNMjlv7Xpa7DDE/GB/XEe8mSUQ3bT2bo3CAqgtK6
+ B29tqF4TPsN9wCWhrqtHW5h8AWsncTvAyqpdtCGvMlioA==
 
-On Tue, Apr 22, 2025, Xin Li (Intel) wrote:
-> base-commit: f30a0c0d2b08b355c01392538de8fc872387cb2b
+The aim of the [TrenchBoot] project is to provide an implementation of
+DRTM that is generic enough to cover various use cases:
+ - Intel TXT and AMD SKINIT on x86 CPUs
+ - legacy and UEFI boot
+ - TPM1.2 and TPM2.0
+ - (in the future) DRTM on Arm CPUs
 
-This commit doesn't exist in Linus' tree or the tip tree, and the series doesn't
-apply cleanly on any of the "obvious" choices.  Reviewing a 34 patches series
-without being able to apply it is a wee bit difficult...
+DRTM is a version of a measured launch that starts on request rather
+than at the start of a boot cycle.  One of its advantages is in not
+including the firmware in the chain of trust.
+
+Xen already supports DRTM via [tboot] which targets Intel TXT only.
+tboot employs encapsulates some of the DRTM details within itself while
+with TrenchBoot Xen (or Linux) is meant to be a self-contained payload
+for a TrenchBoot-enabled bootloader (think GRUB).  The one exception is
+that UEFI case requires calling back into bootloader to initiate DRTM,
+which is necessary to give Xen a chance of querying all the information
+it needs from the firmware before performing DRTM start.
+
+From reading the above tboot might seem like a more abstracted, but the
+reality is that the payload needs to have DRTM-specific knowledge either
+way.  TrenchBoot in principle allows coming up with independent
+implementations of bootloaders and payloads that are compatible with
+each other.
+
+The "x86/boot: choose AP stack based on APIC ID" patch is shared with
+[Parallelize AP bring-up] series which is required here because Intel
+TXT always releases all APs simultaneously.  The rest of the patches are
+unique.
+
+-----
+
+[TrenchBoot]: https://trenchboot.org/
+[tboot]: https://sourceforge.net/p/tboot/wiki/Home/
+[Parallelize AP bring-up]: https://lore.kernel.org/xen-devel/cover.1699982111.git.krystian.hebel@3mdeb.com/
+
+-----
+
+Kacper Stojek (2):
+  x86/boot: add MLE header and new entry point
+  xen/arch/x86: reserve TXT memory
+
+Krystian Hebel (7):
+  x86/include/asm/intel_txt.h: constants and accessors for TXT registers
+    and heap
+  x86/boot/slaunch_early: early TXT checks and boot data retrieval
+  x86/intel_txt.c: restore boot MTRRs
+  lib/sha1.c: add file
+  x86/tpm.c: code for early hashing and extending PCRs (for TPM1.2)
+  x86/boot: choose AP stack based on APIC ID
+  x86/smpboot.c: TXT AP bringup
+
+Michał Żygowski (2):
+  x86/hvm: Check for VMX in SMX when slaunch active
+  x86/cpu: report SMX, TXT and SKINIT capabilities
+
+Sergii Dmytruk (10):
+  include/xen/slr_table.h: Secure Launch Resource Table definitions
+  x86/boot/slaunch_early: implement early initialization
+  x86/mtrr: expose functions for pausing caching
+  lib/sha256.c: add file
+  x86/tpm.c: support extending PCRs of TPM2.0
+  x86/tpm.c: implement event log for TPM2.0
+  arch/x86: process DRTM policy
+  x86/boot: find MBI and SLRT on AMD
+  arch/x86: support slaunch with AMD SKINIT
+  x86/slaunch: support EFI boot
+
+ .gitignore                                  |    1 +
+ docs/hypervisor-guide/x86/how-xen-boots.rst |    7 +
+ xen/arch/x86/Makefile                       |   12 +-
+ xen/arch/x86/boot/Makefile                  |   10 +-
+ xen/arch/x86/boot/head.S                    |  250 +++++
+ xen/arch/x86/boot/slaunch_early.c           |  105 ++
+ xen/arch/x86/boot/trampoline.S              |   40 +-
+ xen/arch/x86/boot/x86_64.S                  |   42 +-
+ xen/arch/x86/cpu/amd.c                      |   14 +
+ xen/arch/x86/cpu/cpu.h                      |    1 +
+ xen/arch/x86/cpu/hygon.c                    |    1 +
+ xen/arch/x86/cpu/intel.c                    |   44 +
+ xen/arch/x86/cpu/mtrr/generic.c             |   51 +-
+ xen/arch/x86/e820.c                         |    5 +
+ xen/arch/x86/efi/efi-boot.h                 |   90 +-
+ xen/arch/x86/efi/fixmlehdr.c                |  122 +++
+ xen/arch/x86/hvm/vmx/vmcs.c                 |    3 +-
+ xen/arch/x86/include/asm/apicdef.h          |    4 +
+ xen/arch/x86/include/asm/intel_txt.h        |  452 ++++++++
+ xen/arch/x86/include/asm/mm.h               |    3 +
+ xen/arch/x86/include/asm/msr-index.h        |    3 +
+ xen/arch/x86/include/asm/mtrr.h             |    8 +
+ xen/arch/x86/include/asm/processor.h        |    1 +
+ xen/arch/x86/include/asm/slaunch.h          |   91 ++
+ xen/arch/x86/include/asm/tpm.h              |   19 +
+ xen/arch/x86/intel_txt.c                    |  177 ++++
+ xen/arch/x86/setup.c                        |   32 +-
+ xen/arch/x86/slaunch.c                      |  464 ++++++++
+ xen/arch/x86/smpboot.c                      |   57 +
+ xen/arch/x86/tboot.c                        |   20 +-
+ xen/arch/x86/tpm.c                          | 1057 +++++++++++++++++++
+ xen/common/efi/boot.c                       |    4 +
+ xen/common/efi/runtime.c                    |    1 +
+ xen/include/xen/efi.h                       |    1 +
+ xen/include/xen/sha1.h                      |   12 +
+ xen/include/xen/sha256.h                    |   12 +
+ xen/include/xen/slr_table.h                 |  274 +++++
+ xen/lib/Makefile                            |    2 +
+ xen/lib/sha1.c                              |  240 +++++
+ xen/lib/sha256.c                            |  238 +++++
+ 40 files changed, 3914 insertions(+), 56 deletions(-)
+ create mode 100644 xen/arch/x86/boot/slaunch_early.c
+ create mode 100644 xen/arch/x86/efi/fixmlehdr.c
+ create mode 100644 xen/arch/x86/include/asm/intel_txt.h
+ create mode 100644 xen/arch/x86/include/asm/slaunch.h
+ create mode 100644 xen/arch/x86/include/asm/tpm.h
+ create mode 100644 xen/arch/x86/intel_txt.c
+ create mode 100644 xen/arch/x86/slaunch.c
+ create mode 100644 xen/arch/x86/tpm.c
+ create mode 100644 xen/include/xen/sha1.h
+ create mode 100644 xen/include/xen/sha256.h
+ create mode 100644 xen/include/xen/slr_table.h
+ create mode 100644 xen/lib/sha1.c
+ create mode 100644 xen/lib/sha256.c
+
+
+base-commit: df68a4cb7ed9418f0c5af56a717714b5280737e4
+prerequisite-patch-id: 1c3014908bc6e1a5cab8de609270efdb1c412335
+prerequisite-patch-id: 850544a1f9639283f2269ea75b630400dd1976aa
+prerequisite-patch-id: 69e042a46f8ac0e3f85853e77082caf250719a8d
+prerequisite-patch-id: d6c6d27bbe8ff2f5d96852a6eed72a4c99b61356
+-- 
+2.49.0
+
 
