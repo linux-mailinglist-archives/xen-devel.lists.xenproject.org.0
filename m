@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E08AEA961D0
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 10:34:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.962075.1353424 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 362EBA961D2
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 10:34:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.962083.1353434 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u794u-000758-4v; Tue, 22 Apr 2025 08:34:04 +0000
+	id 1u7953-0007SX-Co; Tue, 22 Apr 2025 08:34:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 962075.1353424; Tue, 22 Apr 2025 08:34:04 +0000
+Received: by outflank-mailman (output) from mailman id 962083.1353434; Tue, 22 Apr 2025 08:34:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u794u-00072o-1U; Tue, 22 Apr 2025 08:34:04 +0000
-Received: by outflank-mailman (input) for mailman id 962075;
- Tue, 22 Apr 2025 08:34:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u7953-0007Ps-8X; Tue, 22 Apr 2025 08:34:13 +0000
+Received: by outflank-mailman (input) for mailman id 962083;
+ Tue, 22 Apr 2025 08:34:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Qhpm=XI=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1u78v1-0004wX-MW
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 08:23:51 +0000
+ id 1u78ux-0004wM-TT
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 08:23:47 +0000
 Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 17267c62-1f53-11f0-9ffb-bf95429c2676;
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 172d9d2c-1f53-11f0-9eb0-5ba50f476ded;
  Tue, 22 Apr 2025 10:23:39 +0200 (CEST)
 Received: from terminus.zytor.com (terminus.zytor.com
  [IPv6:2607:7c80:54:3:0:0:0:136]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53M8MG9g1954391
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53M8MG9h1954391
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 22 Apr 2025 01:23:18 -0700
+ Tue, 22 Apr 2025 01:23:19 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17267c62-1f53-11f0-9ffb-bf95429c2676
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53M8MG9g1954391
+X-Inumbo-ID: 172d9d2c-1f53-11f0-9eb0-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53M8MG9h1954391
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745310199;
-	bh=KjomXZ5P3Zbm1klfdzn3LReOwRDs2PdqfVOgUPEXtew=;
+	s=2025042001; t=1745310201;
+	bh=HZ6mNNbZ7ulzph9dMmRPGpUoSI6d0gZZ7dCJYm/kVRo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=MammLggyo/MjNNAwAcGt2FRRqSlsggJGU25zpYplrm30iO3Y/UZa+69mVrL7h5AdS
-	 +QF2vmuyoTUyD+PdpH0lcuLBEfsSmWJnEV4E43GwV3sP/7cQrcCY/s75xekunodRVa
-	 MBCN8M8aF0nhj0PDdRAf4MrLwGcINYVauVcmEuaMv8xJCquK+hO/zGDpXej860AYjg
-	 NOT8SBUSpQ3ULjUuZ/sIg7bsPjGu5PLZtigXd69vD9lGPI77KfO9GCa1dmtAwL41Tk
-	 B7LFh5ljq9pZHluYM3LgLnmCHGK++CYmGWll/VVGfqOlZWhC1wu5qdivPclw361f2G
-	 tQVJYMIZbWMzA==
+	b=bhOnyEJJ9eA/e2yJpfrvVgyfJSJRYVg7h8wU1lJUr8G7Pna/4/NLi+alPmNV+SLRK
+	 Uo8LDKcvd0Pk5gC6kAB15JJcOI7+0ixbYobSD9S0ZkC7VSMyiQmcJ67McllPf46ule
+	 Zo//0nO6Loi0Zm3hZIoJu5gSw+5ZCTgTLpB+N7vw24j4D7huPiDQAIXQ0mMYlE28Iu
+	 JM+TWlUg9eQw7SWWSKY+QaKd6tM1sIujXGDJmyW5dZHdNPzvi4RUSSLufTAC57nokH
+	 MNXZdSlARgUnRzsuDgzLRJT7LYVtmLxfbvHlFRDyLxwsptSQyd6JLbwRKWTnLYST6j
+	 R0HGqr7RcZJWA==
 From: "Xin Li (Intel)" <xin@zytor.com>
 To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
         linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
@@ -71,70 +71,234 @@ Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
         pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
         luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
         haiyangz@microsoft.com, decui@microsoft.com
-Subject: [RFC PATCH v2 28/34] x86/msr: Rename native_write_msr_safe() to native_wrmsrq_safe()
-Date: Tue, 22 Apr 2025 01:22:09 -0700
-Message-ID: <20250422082216.1954310-29-xin@zytor.com>
+Subject: [RFC PATCH v2 29/34] x86/msr: Rename native_rdmsrq() to native_rdmsrq_no_trace()
+Date: Tue, 22 Apr 2025 01:22:10 -0700
+Message-ID: <20250422082216.1954310-30-xin@zytor.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250422082216.1954310-1-xin@zytor.com>
 References: <20250422082216.1954310-1-xin@zytor.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+native_rdmsrq() doesn't do trace thus can be used in noinstr context,
+rename it to native_rdmsrq_no_trace() to make it explicit.
+
 Signed-off-by: Xin Li (Intel) <xin@zytor.com>
 ---
- arch/x86/include/asm/msr.h | 4 ++--
- arch/x86/kvm/svm/svm.c     | 6 +++---
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ arch/x86/boot/startup/sme.c               | 4 ++--
+ arch/x86/events/amd/brs.c                 | 2 +-
+ arch/x86/hyperv/hv_vtl.c                  | 4 ++--
+ arch/x86/hyperv/ivm.c                     | 2 +-
+ arch/x86/include/asm/mshyperv.h           | 2 +-
+ arch/x86/include/asm/msr.h                | 8 ++++----
+ arch/x86/include/asm/sev-internal.h       | 2 +-
+ arch/x86/kernel/cpu/common.c              | 2 +-
+ arch/x86/kernel/cpu/mce/core.c            | 4 ++--
+ arch/x86/kernel/cpu/resctrl/pseudo_lock.c | 2 +-
+ arch/x86/kvm/vmx/vmx.c                    | 4 ++--
+ 11 files changed, 18 insertions(+), 18 deletions(-)
 
+diff --git a/arch/x86/boot/startup/sme.c b/arch/x86/boot/startup/sme.c
+index 5e147bf5a0a8..859d92ad91a4 100644
+--- a/arch/x86/boot/startup/sme.c
++++ b/arch/x86/boot/startup/sme.c
+@@ -524,7 +524,7 @@ void __head sme_enable(struct boot_params *bp)
+ 	me_mask = 1UL << (ebx & 0x3f);
+ 
+ 	/* Check the SEV MSR whether SEV or SME is enabled */
+-	sev_status = msr = native_rdmsrq(MSR_AMD64_SEV);
++	sev_status = msr = native_rdmsrq_no_trace(MSR_AMD64_SEV);
+ 	feature_mask = (msr & MSR_AMD64_SEV_ENABLED) ? AMD_SEV_BIT : AMD_SME_BIT;
+ 
+ 	/*
+@@ -555,7 +555,7 @@ void __head sme_enable(struct boot_params *bp)
+ 			return;
+ 
+ 		/* For SME, check the SYSCFG MSR */
+-		msr = native_rdmsrq(MSR_AMD64_SYSCFG);
++		msr = native_rdmsrq_no_trace(MSR_AMD64_SYSCFG);
+ 		if (!(msr & MSR_AMD64_SYSCFG_MEM_ENCRYPT))
+ 			return;
+ 	}
+diff --git a/arch/x86/events/amd/brs.c b/arch/x86/events/amd/brs.c
+index 0153616a97cd..0623b6d775fb 100644
+--- a/arch/x86/events/amd/brs.c
++++ b/arch/x86/events/amd/brs.c
+@@ -49,7 +49,7 @@ static __always_inline void set_debug_extn_cfg(u64 val)
+ 
+ static __always_inline u64 get_debug_extn_cfg(void)
+ {
+-	return native_rdmsrq(MSR_AMD_DBG_EXTN_CFG);
++	return native_rdmsrq_no_trace(MSR_AMD_DBG_EXTN_CFG);
+ }
+ 
+ static bool __init amd_brs_detect(void)
+diff --git a/arch/x86/hyperv/hv_vtl.c b/arch/x86/hyperv/hv_vtl.c
+index c6343e699154..9e41e380ad26 100644
+--- a/arch/x86/hyperv/hv_vtl.c
++++ b/arch/x86/hyperv/hv_vtl.c
+@@ -149,11 +149,11 @@ static int hv_vtl_bringup_vcpu(u32 target_vp_index, int cpu, u64 eip_ignored)
+ 	input->vp_context.rip = rip;
+ 	input->vp_context.rsp = rsp;
+ 	input->vp_context.rflags = 0x0000000000000002;
+-	input->vp_context.efer = native_rdmsrq(MSR_EFER);
++	input->vp_context.efer = native_rdmsrq_no_trace(MSR_EFER);
+ 	input->vp_context.cr0 = native_read_cr0();
+ 	input->vp_context.cr3 = __native_read_cr3();
+ 	input->vp_context.cr4 = native_read_cr4();
+-	input->vp_context.msr_cr_pat = native_rdmsrq(MSR_IA32_CR_PAT);
++	input->vp_context.msr_cr_pat = native_rdmsrq_no_trace(MSR_IA32_CR_PAT);
+ 	input->vp_context.idtr.limit = idt_ptr.size;
+ 	input->vp_context.idtr.base = idt_ptr.address;
+ 	input->vp_context.gdtr.limit = gdt_ptr.size;
+diff --git a/arch/x86/hyperv/ivm.c b/arch/x86/hyperv/ivm.c
+index 821609af5bd2..dfddf522e838 100644
+--- a/arch/x86/hyperv/ivm.c
++++ b/arch/x86/hyperv/ivm.c
+@@ -111,7 +111,7 @@ u64 hv_ghcb_hypercall(u64 control, void *input, void *output, u32 input_size)
+ 
+ static inline u64 rd_ghcb_msr(void)
+ {
+-	return native_rdmsrq(MSR_AMD64_SEV_ES_GHCB);
++	return native_rdmsrq_no_trace(MSR_AMD64_SEV_ES_GHCB);
+ }
+ 
+ static inline void wr_ghcb_msr(u64 val)
+diff --git a/arch/x86/include/asm/mshyperv.h b/arch/x86/include/asm/mshyperv.h
+index 778444310cfb..ab94221ff38d 100644
+--- a/arch/x86/include/asm/mshyperv.h
++++ b/arch/x86/include/asm/mshyperv.h
+@@ -305,7 +305,7 @@ void hv_set_non_nested_msr(unsigned int reg, u64 value);
+ 
+ static __always_inline u64 hv_raw_get_msr(unsigned int reg)
+ {
+-	return native_rdmsrq(reg);
++	return native_rdmsrq_no_trace(reg);
+ }
+ 
+ #else /* CONFIG_HYPERV */
 diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
-index 72a1c3301d46..a1c63bed14be 100644
+index a1c63bed14be..050d750a5ab7 100644
 --- a/arch/x86/include/asm/msr.h
 +++ b/arch/x86/include/asm/msr.h
-@@ -366,7 +366,7 @@ static __always_inline int rdmsrq_safe(u32 msr, u64 *val)
-  *                         __native_wrmsrq()   -----------------------
+@@ -157,7 +157,7 @@ static __always_inline bool is_msr_imm_insn(void *ip)
+  *                         __native_rdmsrq()   -----------------------
   *                            /     \                                |
   *                           /       \                               |
-- *        native_wrmsrq_no_trace()    native_write_msr_safe()        |
-+ *        native_wrmsrq_no_trace()    native_wrmsrq_safe()           |
-  *                   /        \                                      |
-  *                  /          \                                     |
-  * native_wrmsr_no_trace()    native_wrmsrq()                        |
-@@ -480,7 +480,7 @@ static inline void notrace native_wrmsrq(u32 msr, u64 val)
- 		do_trace_write_msr(msr, val, 0);
+- *               native_rdmsrq()    native_read_msr_safe()           |
++ *        native_rdmsrq_no_trace()    native_read_msr_safe()         |
+  *                   /    \                                          |
+  *                  /      \                                         |
+  *      native_rdmsr()    native_read_msr()                          |
+@@ -248,7 +248,7 @@ static __always_inline bool __native_rdmsrq(u32 msr, u64 *val, int type)
+ 	return __native_rdmsrq_variable(msr, val, type);
  }
  
--static inline int notrace native_write_msr_safe(u32 msr, u64 val)
-+static inline int notrace native_wrmsrq_safe(u32 msr, u64 val)
+-static __always_inline u64 native_rdmsrq(u32 msr)
++static __always_inline u64 native_rdmsrq_no_trace(u32 msr)
  {
- 	int err = __native_wrmsrq(msr, val, EX_TYPE_WRMSR_SAFE) ? -EIO : 0;
+ 	u64 val = 0;
  
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 838606f784c9..01dd3cd20730 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -486,7 +486,7 @@ static void svm_init_erratum_383(void)
+@@ -258,14 +258,14 @@ static __always_inline u64 native_rdmsrq(u32 msr)
  
- 	val |= (1ULL << 47);
+ #define native_rdmsr(msr, low, high)			\
+ do {							\
+-	u64 __val = native_rdmsrq(msr);			\
++	u64 __val = native_rdmsrq_no_trace(msr);	\
+ 	(void)((low) = (u32)__val);			\
+ 	(void)((high) = (u32)(__val >> 32));		\
+ } while (0)
  
--	native_write_msr_safe(MSR_AMD64_DC_CFG, val);
-+	native_wrmsrq_safe(MSR_AMD64_DC_CFG, val);
+ static inline u64 native_read_msr(u32 msr)
+ {
+-	u64 val = native_rdmsrq(msr);
++	u64 val = native_rdmsrq_no_trace(msr);
  
- 	erratum_383_found = true;
+ 	if (tracepoint_enabled(read_msr))
+ 		do_trace_read_msr(msr, val, 0);
+diff --git a/arch/x86/include/asm/sev-internal.h b/arch/x86/include/asm/sev-internal.h
+index 7eb030702435..743da9fc7454 100644
+--- a/arch/x86/include/asm/sev-internal.h
++++ b/arch/x86/include/asm/sev-internal.h
+@@ -96,7 +96,7 @@ int svsm_perform_call_protocol(struct svsm_call *call);
+ 
+ static inline u64 sev_es_rd_ghcb_msr(void)
+ {
+-	return native_rdmsrq(MSR_AMD64_SEV_ES_GHCB);
++	return native_rdmsrq_no_trace(MSR_AMD64_SEV_ES_GHCB);
  }
-@@ -2159,11 +2159,11 @@ static bool is_erratum_383(void)
  
- 	/* Clear MCi_STATUS registers */
- 	for (i = 0; i < 6; ++i)
--		native_write_msr_safe(MSR_IA32_MCx_STATUS(i), 0);
-+		native_wrmsrq_safe(MSR_IA32_MCx_STATUS(i), 0);
+ static __always_inline void sev_es_wr_ghcb_msr(u64 val)
+diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
+index 99d8a8c15ba5..9d2de568cb96 100644
+--- a/arch/x86/kernel/cpu/common.c
++++ b/arch/x86/kernel/cpu/common.c
+@@ -164,7 +164,7 @@ static void ppin_init(struct cpuinfo_x86 *c)
  
- 	if (!native_read_msr_safe(MSR_IA32_MCG_STATUS, &value)) {
- 		value &= ~(1ULL << 2);
--		native_write_msr_safe(MSR_IA32_MCG_STATUS, value);
-+		native_wrmsrq_safe(MSR_IA32_MCG_STATUS, value);
+ 	/* Is the enable bit set? */
+ 	if (val & 2UL) {
+-		c->ppin = native_rdmsrq(info->msr_ppin);
++		c->ppin = native_rdmsrq_no_trace(info->msr_ppin);
+ 		set_cpu_cap(c, info->feature);
+ 		return;
  	}
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+index bd3cb984ccb9..9f7538b9d2fa 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -121,7 +121,7 @@ void mce_prep_record_common(struct mce *m)
+ {
+ 	m->cpuid	= cpuid_eax(1);
+ 	m->cpuvendor	= boot_cpu_data.x86_vendor;
+-	m->mcgcap	= native_rdmsrq(MSR_IA32_MCG_CAP);
++	m->mcgcap	= native_rdmsrq_no_trace(MSR_IA32_MCG_CAP);
+ 	/* need the internal __ version to avoid deadlocks */
+ 	m->time		= __ktime_get_real_seconds();
+ }
+@@ -1313,7 +1313,7 @@ static noinstr bool mce_check_crashing_cpu(void)
+ 	    (crashing_cpu != -1 && crashing_cpu != cpu)) {
+ 		u64 mcgstatus;
  
- 	/* Flush tlb to evict multi-match entries */
+-		mcgstatus = native_rdmsrq(MSR_IA32_MCG_STATUS);
++		mcgstatus = native_rdmsrq_no_trace(MSR_IA32_MCG_STATUS);
+ 
+ 		if (boot_cpu_data.x86_vendor == X86_VENDOR_ZHAOXIN) {
+ 			if (mcgstatus & MCG_STATUS_LMCES)
+diff --git a/arch/x86/kernel/cpu/resctrl/pseudo_lock.c b/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
+index 184bc1b3fb02..819c07a23c6d 100644
+--- a/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
++++ b/arch/x86/kernel/cpu/resctrl/pseudo_lock.c
+@@ -482,7 +482,7 @@ int resctrl_arch_pseudo_lock_fn(void *_plr)
+ 	 * the buffer and evict pseudo-locked memory read earlier from the
+ 	 * cache.
+ 	 */
+-	saved_msr = native_rdmsrq(MSR_MISC_FEATURE_CONTROL);
++	saved_msr = native_rdmsrq_no_trace(MSR_MISC_FEATURE_CONTROL);
+ 	native_wrmsrq_no_trace(MSR_MISC_FEATURE_CONTROL, prefetch_disable_bits);
+ 	closid_p = this_cpu_read(pqr_state.cur_closid);
+ 	rmid_p = this_cpu_read(pqr_state.cur_rmid);
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index b53575dee64a..cdbbfa0b9851 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -380,7 +380,7 @@ static __always_inline void vmx_disable_fb_clear(struct vcpu_vmx *vmx)
+ 	if (!vmx->disable_fb_clear)
+ 		return;
+ 
+-	msr = native_rdmsrq(MSR_IA32_MCU_OPT_CTRL);
++	msr = native_rdmsrq_no_trace(MSR_IA32_MCU_OPT_CTRL);
+ 	msr |= FB_CLEAR_DIS;
+ 	native_wrmsrq_no_trace(MSR_IA32_MCU_OPT_CTRL, msr);
+ 	/* Cache the MSR value to avoid reading it later */
+@@ -7307,7 +7307,7 @@ void noinstr vmx_spec_ctrl_restore_host(struct vcpu_vmx *vmx,
+ 		return;
+ 
+ 	if (flags & VMX_RUN_SAVE_SPEC_CTRL)
+-		vmx->spec_ctrl = native_rdmsrq(MSR_IA32_SPEC_CTRL);
++		vmx->spec_ctrl = native_rdmsrq_no_trace(MSR_IA32_SPEC_CTRL);
+ 
+ 	/*
+ 	 * If the guest/host SPEC_CTRL values differ, restore the host value.
 -- 
 2.49.0
 
