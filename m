@@ -2,39 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15F0DA97A56
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 00:20:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.963717.1354671 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A88CBA97AAE
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 00:50:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.963734.1354682 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Lyo-0002hf-Cn; Tue, 22 Apr 2025 22:20:38 +0000
+	id 1u7MR6-0006Tv-KS; Tue, 22 Apr 2025 22:49:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 963717.1354671; Tue, 22 Apr 2025 22:20:38 +0000
+Received: by outflank-mailman (output) from mailman id 963734.1354682; Tue, 22 Apr 2025 22:49:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Lyo-0002ew-AA; Tue, 22 Apr 2025 22:20:38 +0000
-Received: by outflank-mailman (input) for mailman id 963717;
- Tue, 22 Apr 2025 22:20:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BiSK=XI=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1u7Lyn-0002ep-2R
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 22:20:37 +0000
-Received: from 2.mo583.mail-out.ovh.net (2.mo583.mail-out.ovh.net
- [178.33.109.111]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 02ca4b4e-1fc8-11f0-9ffb-bf95429c2676;
- Wed, 23 Apr 2025 00:20:35 +0200 (CEST)
-Received: from director7.ghost.mail-out.ovh.net (unknown [10.108.17.88])
- by mo583.mail-out.ovh.net (Postfix) with ESMTP id 4ZhxWk3g79z1d8F
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 22:20:34 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-g4n6d (unknown [10.110.113.153])
- by director7.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 7156D1FE5A;
- Tue, 22 Apr 2025 22:20:33 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.96])
- by ghost-submission-5b5ff79f4f-g4n6d with ESMTPSA
- id RYJNDDEWCGgZCgsAXdXU8Q
- (envelope-from <sergii.dmytruk@3mdeb.com>); Tue, 22 Apr 2025 22:20:33 +0000
+	id 1u7MR6-0006RW-Ga; Tue, 22 Apr 2025 22:49:52 +0000
+Received: by outflank-mailman (input) for mailman id 963734;
+ Tue, 22 Apr 2025 22:49:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8D33=XI=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1u7MR3-0006RO-Sp
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 22:49:50 +0000
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
+ [109.224.244.18]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 10c05767-1fcc-11f0-9eb0-5ba50f476ded;
+ Wed, 23 Apr 2025 00:49:36 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,68 +36,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02ca4b4e-1fc8-11f0-9ffb-bf95429c2676
-Authentication-Results:garm.ovh; auth=pass (GARM-96R001f2a1d7d1-30d0-4ccc-a361-6b7b42468a05,
-                    E44920665798B4DCDE3BF656E3E0060933CCD35A) smtp.auth=sergii.dmytruk@3mdeb.com
-X-OVh-ClientIp:176.111.181.178
-Date: Wed, 23 Apr 2025 01:20:27 +0300
-From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	trenchboot-devel@googlegroups.com
-Subject: Re: [PATCH 10/21] lib/sha256.c: add file
-Message-ID: <aAgWK7GhHw3oFel-@MjU3Nj>
-References: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
- <92b461c8d5981a523293341346274b6cc1b76d9b.1745172094.git.sergii.dmytruk@3mdeb.com>
- <233f9fd0-b531-4373-998e-1e7295357ae2@citrix.com>
+X-Inumbo-ID: 10c05767-1fcc-11f0-9eb0-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1745362175; x=1745621375;
+	bh=7Tiu9Iu1Vf6mewfEGQrmZmHxsU95Kc/YwPjUiSH05w4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=K5h5/rhOY7C6gRlAj11s/UcRLetoWuY72036pIxzrZBtTkib2bsqUgdwcGi9quU3s
+	 1bIkvpFseiPjmExSPGrft09aPX2MEPaTo4O4xwd/ego0QX3Afu84LoF+octPpO7u/Y
+	 VF67WR4k96Tg5/RCpgk9m5827idGeT7vTuLCt1i37sZwPvIyG/MIus3XHp4cekJ+FV
+	 FFXf4Dh7QXiNiavxEksGqqEK8XmaydVRx0acnhJbSv/KV2LgFBLaKIgXQiTC+/AzDi
+	 3GEAzbWKxaib6iXLkS8qm10swQWSPnYsakA+KFeJ692hOvqVnKzG+92tBQYLt0/rt4
+	 Gby9+aSTykRFw==
+Date: Tue, 22 Apr 2025 22:49:30 +0000
+To: Jan Beulich <jbeulich@suse.com>
+From: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: Re: [PATCH v1 2/3] x86/domain: add helpers to simplify emulation flags management
+Message-ID: <aAgc9H6mxOvnZXk9@starscream>
+In-Reply-To: <d21969b3-a48c-4d80-a8a9-5d04b67ed90f@suse.com>
+References: <20250401005224.461325-1-dmukhin@ford.com> <20250401005224.461325-3-dmukhin@ford.com> <d21969b3-a48c-4d80-a8a9-5d04b67ed90f@suse.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 1f525c738878c15c8e17a810db24e85360b321da
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <233f9fd0-b531-4373-998e-1e7295357ae2@citrix.com>
-X-Ovh-Tracer-Id: 1599340821330637980
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvgeegleduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggugfgjsehtkeertddttddunecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepueeiudeuveffkeetveelgeehhffgheehgfegjeekleffgeelffetjeefieetleeknecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukedurddujeekpdefjedrheelrddugedvrdelieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehkeefmgdpmhhouggvpehsmhhtphhouhht
-DKIM-Signature: a=rsa-sha256; bh=mz9QouMr9hCMdijmlJGXuoPiKE2mobEEixq3BIjpuQY=;
- c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1745360434; v=1;
- b=ImqZB+cvBT6K/xVfa4X0l/oE/a8zQuDcuvY83t/FIES3n10fHb1/67Px6YopSrqaejnLGTjp
- MEFb+MXmSIrU9wapGbJuzIsNKYPCMHcL/JBZC1D8cQXTM88bweS0ZaBC/nxpgqxxCvMmk5fqGJ9
- MjhiqXaoRyZkMrF9yTs1zQfIF8yxVCrn8gy+fgiQM/1nINCYgJCxqNfVRqrrOYxhRQA3yDRc/Wa
- pOQ7gy5nlTwp29KGprcN2jdtKSu7WL4fiNB3NvGVHSWqPyPx4Y7TOU14tbUpGVbE1iD4sbjPsBk
- bkFwY/disMCOw/rBpHhbPNx3u0SyV388Jw7gCySt7fQ5w==
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Apr 22, 2025 at 04:37:10PM +0100, Andrew Cooper wrote:
-> On 22/04/2025 4:06 pm, Sergii Dmytruk wrote:
-> >  xen/include/xen/sha256.h |  12 ++
-> >  xen/lib/Makefile         |   1 +
-> >  xen/lib/sha256.c         | 238 +++++++++++++++++++++++++++++++++++++++
-> >  3 files changed, 251 insertions(+)
-> >  create mode 100644 xen/include/xen/sha256.h
-> >  create mode 100644 xen/lib/sha256.c
-> 
-> I added SHA2 a little while back, derived from the Trenchboot tree.
-> 
-> See 372af524411f5a013bcb0b117073d8d07c026563 (and a few follow-up fixes).
-> 
-> It should have everything needed, but we can adjust if necessary.
-> 
-> We need to integrate SHA1 in a similar way.  Xen now has various MISRA
-> requirements to adhere to, which requires some adjustments, but I can
-> advise if it isn't clear from the sha2 work I already did.
-> 
-> ~Andrew
+On Tue, Apr 08, 2025 at 05:23:17PM +0200, Jan Beulich wrote:
+> On 01.04.2025 02:52, dmkhn@proton.me wrote:
+> > From: Denis Mukhin <dmukhin@ford.com>
+> >
+> > Introduce XEN_X86_EMU_BASELINE and XEN_X86_EMU_OPTIONAL to simplify
+> > d->arch.emulation_flags management in the code.
+>=20
+> If the simplification is limited to ...
+>=20
+> > --- a/tools/python/xen/lowlevel/xc/xc.c
+> > +++ b/tools/python/xen/lowlevel/xc/xc.c
+> > @@ -159,9 +159,7 @@ static PyObject *pyxc_domain_create(XcObject *self,
+> >
+> >  #if defined (__i386) || defined(__x86_64__)
+> >      if ( config.flags & XEN_DOMCTL_CDF_hvm )
+> > -        config.arch.emulation_flags =3D XEN_X86_EMU_ALL &
+> > -                                      ~(XEN_X86_EMU_VPCI |
+> > -                                        XEN_X86_EMU_USE_PIRQ);
+> > +        config.arch.emulation_flags =3D XEN_X86_EMU_BASELINE;
+> >  #elif defined (__arm__) || defined(__aarch64__)
+> >      config.arch.gic_version =3D XEN_DOMCTL_CONFIG_GIC_NATIVE;
+> >  #else
+>=20
+> ... just this, I'm not convinced that's worth introducing yet two more it=
+ems
+> into the namespace.
 
-Oh, I actually checked for existing hash implementations before sending
-the patches...  Need to remove untracked files which made it hard to see
-the new file.
+Sorry, it took me a while to get back to the series.
 
-Thanks, I think I figured out the modifications you've made for SHA256
-and almost done getting rid of macros for SHA1.
+The X86_EMU_BASELINE mask is used in two places: in the toolstack (xc.c) an=
+d
+in domain.c, emulation_flags_ok(), so adding a new flag may require updates
+in two places.
+
+Perhaps it will be better to merge this patch 2 with patch 3 to highlight t=
+hat?=20
+
+>=20
+> > --- a/xen/include/public/arch-x86/xen.h
+> > +++ b/xen/include/public/arch-x86/xen.h
+> > @@ -290,6 +290,13 @@ struct xen_arch_domainconfig {
+> >                                       XEN_X86_EMU_VGA | XEN_X86_EMU_IOM=
+MU |   \
+> >                                       XEN_X86_EMU_PIT | XEN_X86_EMU_USE=
+_PIRQ |\
+> >                                       XEN_X86_EMU_VPCI)
+> > +
+> > +#define XEN_X86_EMU_OPTIONAL        (XEN_X86_EMU_VPCI | \
+> > +                                     XEN_X86_EMU_USE_PIRQ)
+> > +
+> > +#define XEN_X86_EMU_BASELINE        (XEN_X86_EMU_ALL & ~XEN_X86_EMU_OP=
+TIONAL)
+> > +
+> > +    /* Hardware emulation flags. */
+> >      uint32_t emulation_flags;
+>=20
+> The comment isn't quite accurate here (and hence perhaps also not in the
+> earlier patch): XEN_X86_EMU_USE_PIRQ isn't exactly about emulation of any=
+thing
+> hardware-ish.
+>=20
+> Jan
+
 
