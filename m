@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11021A96020
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 09:56:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.961762.1353093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40C70A961C7
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 10:33:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.962028.1353404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u78U5-0008Kl-PH; Tue, 22 Apr 2025 07:56:01 +0000
+	id 1u794E-0005Pb-LM; Tue, 22 Apr 2025 08:33:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 961762.1353093; Tue, 22 Apr 2025 07:56:01 +0000
+Received: by outflank-mailman (output) from mailman id 962028.1353404; Tue, 22 Apr 2025 08:33:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u78U5-0008Ie-Mk; Tue, 22 Apr 2025 07:56:01 +0000
-Received: by outflank-mailman (input) for mailman id 961762;
- Tue, 22 Apr 2025 07:56:01 +0000
+	id 1u794E-0005MZ-Hc; Tue, 22 Apr 2025 08:33:22 +0000
+Received: by outflank-mailman (input) for mailman id 962028;
+ Tue, 22 Apr 2025 08:33:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=f4Vg=XI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u78U5-0008IY-4y
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 07:56:01 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ (envelope-from <SRS0=Qhpm=XI=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1u78uj-0004wX-IW
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 08:23:33 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a48e5bc-1f4f-11f0-9ffb-bf95429c2676;
- Tue, 22 Apr 2025 09:55:59 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-39ac56756f6so4741043f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 00:55:59 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4406d5a9dbesm163834925e9.7.2025.04.22.00.55.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Apr 2025 00:55:58 -0700 (PDT)
+ id 0aca085a-1f53-11f0-9ffb-bf95429c2676;
+ Tue, 22 Apr 2025 10:23:18 +0200 (CEST)
+Received: from terminus.zytor.com (terminus.zytor.com
+ [IPv6:2607:7c80:54:3:0:0:0:136]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53M8MG9E1954391
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Tue, 22 Apr 2025 01:22:20 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,93 +41,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a48e5bc-1f4f-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745308558; x=1745913358; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2tcTu37YtIsT1En3wmhK2gW1hGg3NOVbVAan2hVjtKc=;
-        b=Rh9Fv2/tz6LInKyYbEaGtEFWxFVMThD2VxzHxb2KlnHc3IvDD14MqjOmy3bFzwS9Pg
-         ThADEZZ2vpHgRD5XQZDHZxty4PABvl5/88/jraIcG0OneVrUnxZjx0pFvkRucsoJluQf
-         9UpnciQfMIC9HpZVdiJi8Snvi8b7q82mNg6198XfyoGp5mnuRTVUUT5jXUPacfyQhySp
-         yM5kZWk97A+zCPyasHg3ICvvNYFYtRLNOSBrDdliDdEKNo3p1CKuGfALsL//ejrBxHr+
-         TFltlTQmzTJMMD449flUGwoqxHpAj+ob/BCLXiNcgfpR0r0n4x+RoHHl5WsaOsa/gCcC
-         cgrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745308558; x=1745913358;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2tcTu37YtIsT1En3wmhK2gW1hGg3NOVbVAan2hVjtKc=;
-        b=bM3p1IItOrnXMpmfqWo0tRLDBSR1MPIV3d1xu+XSgnUkHiRzw9AFvjvR8AU+4P/8kJ
-         PFaSRVkX8Xi1aFRTlAF+973+KLMeSokZo9/bZbPLbuSWG0vzOQAmU4foyxmYW6DAjLpy
-         UqKM05DIwEP2LuOxSsMqQtCoBUCs7B2Wp5qcm3JG/k7CkaRGj8jwGKkT8Kk5upnGAVKD
-         W+AMHgqsZq6wGlyXP1P7ythRY+xX9dJV79LBTQjDr5ThVFSI9Ca+sWD/8wxgtcYuzKSt
-         UkaJCRoO7ZiQ5HR4K7F/Ke6DAPIqRbN73DjEIPgyACep+dEITDWYQobG9Ga0x4R1bKNk
-         3zjA==
-X-Forwarded-Encrypted: i=1; AJvYcCXpI6TgX0CrVbPXZpbGRJ7J20urx1mK3EdFYlRxnhWDHOGgXK8cJtzaJgoEl33EUEu6ujMsaeMHim0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyamjLmVsaMVmdYAxZ5w7UNKYgBNIEamz4XwcQlzrNRf/OfXXYa
-	vSTRP1AzRvMGT4L1RQBYb5rAvPI3uBTW3Zgm63+naiDtFR2zftAyLVKOCty6zA==
-X-Gm-Gg: ASbGncusczDjbfbjjHgxQ/a5yDtgVGU2aSMCZMH6c60o0d2LxFQkbLTIRU3t1sh7WYq
-	D+V1efe718/IuYqUh/HblUKM/FzxANKPfvPH2ceDUUPE/lSrv0dH+VavEIPkrih1sbD9MxKAYBg
-	gJmwb2CDqhNCqVqt/hJs2fJZb8+kfvhJgOf97Ji7zmMuOwtarvnLvSM62506d7d2JT/Z3u6BYlb
-	asDJ4wz24TfxDMhVS5ILojBUTj9P9GJz8ftRujQA97wfmiGr3jxg3tYoUXJmG7jGG3B714V29rm
-	xrJOmJ2cs5W7krj+rtdHwzrIZOWiQPVFJ3D5iE4F/11DOxoaDpR27QRL5I0SOHGnwT9yv4dSikB
-	bCpIL6pIQ6zmxeCl2EA+SomQSxCZuZURYc0ct
-X-Google-Smtp-Source: AGHT+IEz5I3dCPsLNn9XIGWPS6j0SL8bQXczrrllReovYkMDIUYgdlbWj9QjlHIhcJRIFP4m7HoRkw==
-X-Received: by 2002:a05:6000:4205:b0:39e:dbec:aaee with SMTP id ffacd0b85a97d-39efbb1f40dmr10383039f8f.58.1745308558516;
-        Tue, 22 Apr 2025 00:55:58 -0700 (PDT)
-Message-ID: <c76427bb-87b4-4c51-a057-1942b9c3d92c@suse.com>
-Date: Tue, 22 Apr 2025 09:56:00 +0200
+X-Inumbo-ID: 0aca085a-1f53-11f0-9ffb-bf95429c2676
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53M8MG9E1954391
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1745310142;
+	bh=mYcTzU0oObhvxWiZx+iiw1dueV7yQ96m6ct2fgUgxlA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=coQSwlhZKMasXch4vb9MccuN5lPE6K+czznn/cj5lrt8w3zCTLqPI3EvxgT/JXgLR
+	 JyjiL4Jdfd1e6yDi2uLRF74KLb5HbAUDLx0QLG/V9QoskVA0B1JdssAt+3pkfAUH4L
+	 HDOXgxSKh2KwOCizLlzk8+EehNeWtMVP7zozfQ2aTEAvuLwOKDLIJKJmFyE6XndVkg
+	 iA+/X2cnKdqtk4yn7E856l7cmqtDR8XRCST0c8ZnAr47yysDHIB/AA6NA04jrNwZAr
+	 EBPETFtsShEkDGlZrttN07OBL96YEQmtzFzBPc9HAWOPDwlfAZyYRr7G/9WrED437W
+	 CowiWvGjoZBkA==
+From: "Xin Li (Intel)" <xin@zytor.com>
+To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+        virtualization@lists.linux.dev, linux-pm@vger.kernel.org,
+        linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
+        netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        acme@kernel.org, jgross@suse.com, andrew.cooper3@citrix.com,
+        peterz@infradead.org, namhyung@kernel.org, mark.rutland@arm.com,
+        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
+        wei.liu@kernel.org, ajay.kaher@broadcom.com,
+        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
+        pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
+        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
+        haiyangz@microsoft.com, decui@microsoft.com
+Subject: [RFC PATCH v2 00/34] MSR refactor with new MSR instructions support
+Date: Tue, 22 Apr 2025 01:21:41 -0700
+Message-ID: <20250422082216.1954310-1-xin@zytor.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/vmx: Update __vmread() signature
-To: dmkhn@proton.me, xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, dmukhin@ford.com
-References: <20250422011530.3010312-1-dmukhin@ford.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250422011530.3010312-1-dmukhin@ford.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22.04.2025 03:15, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> Current implementation of __vmread() returns the result via pointer argument
-> which leads to having excess code in some places.
-> 
-> Update the signature of __vmread() to return `unsigned long` and drop the
-> pointer argument as per suggestion in [1].
-> 
-> Update all call sites everywhere in the VT-x code.
+Obviously the existing MSR code and the pv_ops MSR access APIs need some
+love: https://lore.kernel.org/lkml/87y1h81ht4.ffs@tglx/
 
-You did read Andrew's reply to v1 before posting v2, didn't you?
+hpa has started a discussion about how to refactor it last October:
+https://lore.kernel.org/lkml/7a4de623-ecda-4369-a7ae-0c43ef328177@zytor.com/
 
-Jan
+The consensus so far is to utilize the alternatives mechanism to eliminate
+the Xen MSR access overhead on native systems and enable new MSR instructions
+based on their availability.
+
+To achieve this, a code refactor is required:
+
+Patch 1 relocates rdtsc{,_ordered}() from <asm/msr.h> to <asm/tsc.h> and
+removes the inclusion of <asm/msr.h> in <asm/tsc.h>.  As a result,
+<asm/msr.h> must now be explicitly included in several source files where
+it was previously included implicitly through <asm/tsc.h>.
+
+Patches 2 ~ 6 refactor the code to use the alternatives mechanism to read
+PMC.
+
+Patches 7 ~ 16 unify and simplify the MSR API definitions and usages.
+
+Patches 17 ~ 19 add basic support for immediate form MSR instructions,
+e.g., its CPU feature bit and opcode.
+
+Patch 20 adds a new exception type to allow a function call inside an
+alternative for instruction emulation to "kick back" the exception into
+the alternatives pattern, possibly invoking a different exception handling
+pattern there, or at least indicating the "real" location of the fault.
+
+patches 21 and 22 refactor the code to use the alternatives mechanism to
+read and write MSR.
+
+Patches 23 ~ 34 are afterwards cleanups.
+
+
+H. Peter Anvin (Intel) (1):
+  x86/extable: Implement EX_TYPE_FUNC_REWIND
+
+Xin Li (Intel) (33):
+  x86/msr: Move rdtsc{,_ordered}() to <asm/tsc.h>
+  x86/msr: Remove rdpmc()
+  x86/msr: Rename rdpmcl() to rdpmcq()
+  x86/msr: Convert rdpmcq() into a function
+  x86/msr: Return u64 consistently in Xen PMC read functions
+  x86/msr: Use the alternatives mechanism to read PMC
+  x86/msr: Convert __wrmsr() uses to native_wrmsr{,q}() uses
+  x86/msr: Convert a native_wrmsr() use to native_wrmsrq()
+  x86/msr: Add the native_rdmsrq() helper
+  x86/msr: Convert __rdmsr() uses to native_rdmsrq() uses
+  x86/msr: Remove calling native_{read,write}_msr{,_safe}() in
+    pmu_msr_{read,write}()
+  x86/msr: Remove pmu_msr_{read,write}()
+  x86/xen/msr: Remove the error pointer argument from set_reg()
+  x86/msr: refactor pv_cpu_ops.write_msr{_safe}()
+  x86/msr: Replace wrmsr(msr, low, 0) with wrmsrq(msr, low)
+  x86/msr: Change function type of native_read_msr_safe()
+  x86/cpufeatures: Add a CPU feature bit for MSR immediate form
+    instructions
+  x86/opcode: Add immediate form MSR instructions
+  x86/extable: Add support for immediate form MSR instructions
+  x86/msr: Utilize the alternatives mechanism to write MSR
+  x86/msr: Utilize the alternatives mechanism to read MSR
+  x86/extable: Remove new dead code in ex_handler_msr()
+  x86/mce: Use native MSR API __native_{wr,rd}msrq()
+  x86/msr: Rename native_wrmsrq() to native_wrmsrq_no_trace()
+  x86/msr: Rename native_wrmsr() to native_wrmsr_no_trace()
+  x86/msr: Rename native_write_msr() to native_wrmsrq()
+  x86/msr: Rename native_write_msr_safe() to native_wrmsrq_safe()
+  x86/msr: Rename native_rdmsrq() to native_rdmsrq_no_trace()
+  x86/msr: Rename native_rdmsr() to native_rdmsr_no_trace()
+  x86/msr: Rename native_read_msr() to native_rdmsrq()
+  x86/msr: Rename native_read_msr_safe() to native_rdmsrq_safe()
+  x86/msr: Move the ARGS macros after the MSR read/write APIs
+  x86/msr: Convert native_rdmsr_no_trace() uses to
+    native_rdmsrq_no_trace() uses
+
+ arch/x86/boot/startup/sme.c                   |   5 +-
+ arch/x86/events/amd/brs.c                     |   4 +-
+ arch/x86/events/amd/uncore.c                  |   2 +-
+ arch/x86/events/core.c                        |   2 +-
+ arch/x86/events/intel/core.c                  |   4 +-
+ arch/x86/events/intel/ds.c                    |   2 +-
+ arch/x86/events/msr.c                         |   3 +
+ arch/x86/events/perf_event.h                  |   1 +
+ arch/x86/events/probe.c                       |   2 +
+ arch/x86/hyperv/hv_apic.c                     |   6 +-
+ arch/x86/hyperv/hv_vtl.c                      |   4 +-
+ arch/x86/hyperv/ivm.c                         |   7 +-
+ arch/x86/include/asm/apic.h                   |   4 +-
+ arch/x86/include/asm/asm.h                    |   6 +
+ arch/x86/include/asm/cpufeatures.h            |   1 +
+ arch/x86/include/asm/extable_fixup_types.h    |   1 +
+ arch/x86/include/asm/fred.h                   |   3 +-
+ arch/x86/include/asm/microcode.h              |  10 +-
+ arch/x86/include/asm/mshyperv.h               |   3 +-
+ arch/x86/include/asm/msr.h                    | 637 ++++++++++++------
+ arch/x86/include/asm/paravirt.h               |  78 ---
+ arch/x86/include/asm/paravirt_types.h         |  13 -
+ arch/x86/include/asm/sev-internal.h           |   9 +-
+ arch/x86/include/asm/spec-ctrl.h              |   2 +-
+ arch/x86/include/asm/suspend_32.h             |   1 +
+ arch/x86/include/asm/suspend_64.h             |   1 +
+ arch/x86/include/asm/switch_to.h              |   4 +-
+ arch/x86/include/asm/tsc.h                    |  76 ++-
+ arch/x86/kernel/cpu/amd.c                     |   2 +-
+ arch/x86/kernel/cpu/common.c                  |  10 +-
+ arch/x86/kernel/cpu/mce/core.c                |  61 +-
+ arch/x86/kernel/cpu/microcode/amd.c           |  10 +-
+ arch/x86/kernel/cpu/microcode/core.c          |   4 +-
+ arch/x86/kernel/cpu/microcode/intel.c         |   8 +-
+ arch/x86/kernel/cpu/resctrl/pseudo_lock.c     |  25 +-
+ arch/x86/kernel/cpu/resctrl/rdtgroup.c        |   2 +-
+ arch/x86/kernel/cpu/scattered.c               |   1 +
+ arch/x86/kernel/cpu/umwait.c                  |   4 +-
+ arch/x86/kernel/fpu/xstate.h                  |   1 +
+ arch/x86/kernel/hpet.c                        |   1 +
+ arch/x86/kernel/kvm.c                         |   2 +-
+ arch/x86/kernel/kvmclock.c                    |   2 +-
+ arch/x86/kernel/paravirt.c                    |   5 -
+ arch/x86/kernel/process_64.c                  |   1 +
+ arch/x86/kernel/trace_clock.c                 |   2 +-
+ arch/x86/kernel/tsc_sync.c                    |   1 +
+ arch/x86/kvm/svm/svm.c                        |  34 +-
+ arch/x86/kvm/vmx/vmx.c                        |  12 +-
+ arch/x86/lib/kaslr.c                          |   2 +-
+ arch/x86/lib/x86-opcode-map.txt               |   5 +-
+ arch/x86/mm/extable.c                         | 181 +++--
+ arch/x86/realmode/init.c                      |   1 +
+ arch/x86/xen/enlighten_pv.c                   | 112 ++-
+ arch/x86/xen/pmu.c                            |  63 +-
+ arch/x86/xen/xen-asm.S                        | 113 ++++
+ arch/x86/xen/xen-ops.h                        |  14 +-
+ drivers/acpi/processor_perflib.c              |   1 +
+ drivers/acpi/processor_throttling.c           |   3 +-
+ drivers/cpufreq/amd-pstate-ut.c               |   2 +
+ drivers/hwmon/hwmon-vid.c                     |   4 +
+ drivers/net/vmxnet3/vmxnet3_drv.c             |   6 +-
+ .../intel/speed_select_if/isst_if_common.c    |   1 +
+ drivers/platform/x86/intel/turbo_max_3.c      |   1 +
+ tools/arch/x86/lib/x86-opcode-map.txt         |   5 +-
+ 64 files changed, 988 insertions(+), 605 deletions(-)
+
+
+base-commit: f30a0c0d2b08b355c01392538de8fc872387cb2b
+-- 
+2.49.0
+
 
