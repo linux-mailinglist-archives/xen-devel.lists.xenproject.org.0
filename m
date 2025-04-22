@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45F45A9739F
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 19:31:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.963365.1354384 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF764A973FF
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 19:52:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.963377.1354394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7HSZ-0004id-QW; Tue, 22 Apr 2025 17:31:03 +0000
+	id 1u7Hn6-0002zu-Em; Tue, 22 Apr 2025 17:52:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 963365.1354384; Tue, 22 Apr 2025 17:31:03 +0000
+Received: by outflank-mailman (output) from mailman id 963377.1354394; Tue, 22 Apr 2025 17:52:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7HSZ-0004fF-N7; Tue, 22 Apr 2025 17:31:03 +0000
-Received: by outflank-mailman (input) for mailman id 963365;
- Tue, 22 Apr 2025 17:31:02 +0000
+	id 1u7Hn6-0002xM-BW; Tue, 22 Apr 2025 17:52:16 +0000
+Received: by outflank-mailman (input) for mailman id 963377;
+ Tue, 22 Apr 2025 17:52:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9r0M=XI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u7HSY-0004f3-7v
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 17:31:02 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Qhpm=XI=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1u7Hn5-0002vy-Fi
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 17:52:15 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f355079-1f9f-11f0-9eb0-5ba50f476ded;
- Tue, 22 Apr 2025 19:31:01 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-39d83782ef6so97867f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 10:31:01 -0700 (PDT)
-Received: from localhost.localdomain ([83.104.178.215])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39efa4332c1sm15688551f8f.27.2025.04.22.10.30.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Apr 2025 10:31:00 -0700 (PDT)
+ id 84209b1e-1fa2-11f0-9eb0-5ba50f476ded;
+ Tue, 22 Apr 2025 19:52:12 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53MHpKcw2355011
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Tue, 22 Apr 2025 10:51:20 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,93 +40,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f355079-1f9f-11f0-9eb0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745343060; x=1745947860; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=fDuByuyOOFhbgD50zGPWZG63weSszpXERV96xJ8Qdd4=;
-        b=Fb+DfQWas+IrSnzBms+nY332sgc0ZgEgvVeLLoY9Yim3MlaQiZYu1rZOGk/VASajAz
-         ewglseSU+C2W5IZXgpHqu/TFrrJUH6ppTAipXQk296gugAv22u4NokrSGzW8Bp/Vsul1
-         Om/0FD4ZFY4u2ns1Bx/EkO+6RnUqEP4V4y7NY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745343060; x=1745947860;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fDuByuyOOFhbgD50zGPWZG63weSszpXERV96xJ8Qdd4=;
-        b=RNBxD2pWOhST8Wc7QqBzzJ9WVo7nL1vDZRDQZ9SZ/ge7x4RxVEA37/GtOI1o+2Fejb
-         eUYmUpYOjPNAR57TRvf6aDvIe+B2PWNU3XLj5WFj/zOISTQIjJz91rO88v34qojPi+xT
-         Y5pTp+9M6nRmQa0bnYWnjxz8jQaSswekfELQJLnZXP4iruKMMfxSkGJP2aqn7ktGlRjs
-         /umj/MQ/jvsHa7f5z5kMmCnOgvsyr261DuI2WJkTffvqkbWehgB0bfYhAFXsc0XLBGqy
-         d8oFdPiq8XIKHfY/mpU30oIyOf6PWfiex4qBN3kAPwBuUpCRkESgOeduZiUGJi8ksgPI
-         3oiQ==
-X-Gm-Message-State: AOJu0YyBEm2YRaloY7Ui/Q7AsaQJ+xTqnE0OrtrOl9pY41e7jpB5V0kz
-	cPQbvMNOSdVIuqMzuiZe60jzCO0+Nc7Gwwh9ZMqw6sLAaMPuccoHhv9oyc82TLAgQ7tOPCj7iOx
-	MLm0=
-X-Gm-Gg: ASbGncty+dMFWqS9/cnnCTy9Ck0toWhdSH4H+LPg3UJUR8N5bohZ/uF3GEWeIOBR/3i
-	MT0LBtcYH5BKqeRQy30YfDObtIDQfg4RS8RrqvkWXO0oEe4p2OAs78+xusLkRwiLS7eKyZofFHv
-	fWHorszwLR4ieZgqvyyquVVMm/ikD/0nc39BK1UyuxzEAlTNBzRpwp+NXBMGbcQyZ+Qla+g214i
-	Fitj0qOPvm2QgixVSizxrTy/F9GThyjdVZ2q6Fr775PZcFp/V6Bo8uVJEJCeoikskgCFueeWcWs
-	s1x1XFjxoPJTNL2X3u7E+Wrxzm7nMPh1M2gO3sbN97QEQJv5iGoFA5oIQyfuxkK0Fyfw8yrC
-X-Google-Smtp-Source: AGHT+IGxOf7g6Ttp17yfEj+tKPNCz/6Ma7toS5dZNfRorDWsv/xskKu8dffg6uQAZ3h/sJ80BT8Eeg==
-X-Received: by 2002:adf:e04f:0:b0:39b:32fc:c025 with SMTP id ffacd0b85a97d-39ef89b5d9amr10316961f8f.2.1745343060664;
-        Tue, 22 Apr 2025 10:31:00 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH] arm/alternative: Drop unused includes of asm/alternative.h
-Date: Tue, 22 Apr 2025 18:30:58 +0100
-Message-Id: <20250422173058.1459730-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: 84209b1e-1fa2-11f0-9eb0-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53MHpKcw2355011
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1745344284;
+	bh=rFPFOxh07YQOPNQeOEZTdVhMGdZpRwExW7XWemhAAAc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=YjZW6aKhRpgJytE5GhVir2qestF3DCS/CzYBraBrI1+eqedS8JuNCmk8lGP5yrGHU
+	 dKpFaNveGqqwaCiXgcxo+9E0aZZzenoVFKtrRsWfD3luxBjXmuGIkZwXQeOpiWbEd4
+	 dJnwZOCd0FF6QfjMgL7uT8gBwsvsLHXgdNXX/GJxaYqcDijsFlFCzEXz++8qUiHnA7
+	 atYwZogQ/qsUvEE3igWyPAnJs0nTs8Oxx060cbVOf1UhHUQyYdtlToEaACsVFrVteY
+	 H2tS1TUyjsJ6IH57pbBTkqnN9K8YArFEHolw9bITu9w/FVlIam8ZCPXGAxqspQwzYX
+	 P73L3Fc5KiJKA==
+Message-ID: <cb4e24a0-fdb7-46d2-9b0e-200f5e3e4c96@zytor.com>
+Date: Tue, 22 Apr 2025 10:51:19 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 00/34] MSR refactor with new MSR instructions
+ support
+To: Sean Christopherson <seanjc@google.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+        virtualization@lists.linux.dev, linux-pm@vger.kernel.org,
+        linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
+        netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        acme@kernel.org, jgross@suse.com, andrew.cooper3@citrix.com,
+        peterz@infradead.org, namhyung@kernel.org, mark.rutland@arm.com,
+        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
+        wei.liu@kernel.org, ajay.kaher@broadcom.com,
+        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
+        pbonzini@redhat.com, vkuznets@redhat.com, luto@kernel.org,
+        boris.ostrovsky@oracle.com, kys@microsoft.com, haiyangz@microsoft.com,
+        decui@microsoft.com
+References: <20250422082216.1954310-1-xin@zytor.com>
+ <aAevpauKYWwObsB7@google.com>
+Content-Language: en-US
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <aAevpauKYWwObsB7@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-No functional change.
+On 4/22/2025 8:03 AM, Sean Christopherson wrote:
+> On Tue, Apr 22, 2025, Xin Li (Intel) wrote:
+>> base-commit: f30a0c0d2b08b355c01392538de8fc872387cb2b
+> 
+> This commit doesn't exist in Linus' tree or the tip tree, and the series doesn't
+> apply cleanly on any of the "obvious" choices.  Reviewing a 34 patches series
+> without being able to apply it is a wee bit difficult...
+> 
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
-CC: Michal Orzel <michal.orzel@amd.com>
----
- xen/arch/arm/arm64/cache.S | 2 --
- xen/arch/arm/domain.c      | 1 -
- 2 files changed, 3 deletions(-)
+$ git show f30a0c0d2b08b355c01392538de8fc872387cb2b
+commit f30a0c0d2b08b355c01392538de8fc872387cb2b
+Merge: 49b517e68cf7 e396dd85172c
+Author: Ingo Molnar <mingo@kernel.org>
+Date:   Tue Apr 22 08:37:32 2025 +0200
 
-diff --git a/xen/arch/arm/arm64/cache.S b/xen/arch/arm/arm64/cache.S
-index 66ed85f73503..c0a8ca163a47 100644
---- a/xen/arch/arm/arm64/cache.S
-+++ b/xen/arch/arm/arm64/cache.S
-@@ -19,8 +19,6 @@
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  */
- 
--#include <asm/alternative.h>
--
- /*
-  * dcache_line_size - get the minimum D-cache line size from the CTR register.
-  */
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index dc4b4e84c1c3..23cf8729f1d7 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -12,7 +12,6 @@
- #include <xen/softirq.h>
- #include <xen/wait.h>
- 
--#include <asm/alternative.h>
- #include <asm/arm64/sve.h>
- #include <asm/cpuerrata.h>
- #include <asm/cpufeature.h>
--- 
-2.39.5
+     Merge branch into tip/master: 'x86/sev'
 
+      # New commits in x86/sev:
+         e396dd85172c ("x86/sev: Register tpm-svsm platform device")
+         93b7c6b3ce91 ("tpm: Add SNP SVSM vTPM driver")
+         b2849b072366 ("svsm: Add header with SVSM_VTPM_CMD helpers")
+         770de678bc28 ("x86/sev: Add SVSM vTPM probe/send_command 
+functions")
+
+     Signed-off-by: Ingo Molnar <mingo@kernel.org>
+
+
+You probably need to git pull from the tip tree :-)
 
