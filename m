@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50C38A96A55
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 14:42:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.962626.1353802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1986A96AF2
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 14:53:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.962639.1353811 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Cxg-0007rQ-5u; Tue, 22 Apr 2025 12:42:52 +0000
+	id 1u7D7C-0001io-27; Tue, 22 Apr 2025 12:52:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 962626.1353802; Tue, 22 Apr 2025 12:42:52 +0000
+Received: by outflank-mailman (output) from mailman id 962639.1353811; Tue, 22 Apr 2025 12:52:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Cxg-0007pu-3A; Tue, 22 Apr 2025 12:42:52 +0000
-Received: by outflank-mailman (input) for mailman id 962626;
- Tue, 22 Apr 2025 12:42:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u7D7B-0001g1-VU; Tue, 22 Apr 2025 12:52:41 +0000
+Received: by outflank-mailman (input) for mailman id 962639;
+ Tue, 22 Apr 2025 12:52:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=f4Vg=XI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u7Cxe-0007dt-9g
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 12:42:50 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4c78fe5c-1f77-11f0-9eb0-5ba50f476ded;
- Tue, 22 Apr 2025 14:42:49 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-39c1efc457bso3122228f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 05:42:49 -0700 (PDT)
+ id 1u7D7A-0001fv-6N
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 12:52:40 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ab28768a-1f78-11f0-9ffb-bf95429c2676;
+ Tue, 22 Apr 2025 14:52:37 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43cef035a3bso35467395e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 05:52:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39f069df9fcsm9903574f8f.16.2025.04.22.05.42.48
+ ffacd0b85a97d-39efa4a4856sm14929166f8f.81.2025.04.22.05.52.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Apr 2025 05:42:48 -0700 (PDT)
+ Tue, 22 Apr 2025 05:52:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c78fe5c-1f77-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: ab28768a-1f78-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745325769; x=1745930569; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745326357; x=1745931157; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=eVU4F1fI1UbsJWlfx7arzsz0Bq7z0pnhG8f2SQJ7/7k=;
-        b=F745PGTHERtYksxNmooF+f80F2O9ZlMdKUUvtFIfdBvfHvzB/3B7TUfHu/lSGdVGce
-         jKAh9iTtAuD1VhBQfWaE61FVw9nA8REsp83nEhTMK2TTb/wJg8PBRyeaQ3c6bIQ2RRye
-         AeczrMIU04SKWfMUVd8xnFDQv/uGM/r9KAAn01F8ocwe7kGZUGelqhDlttRivE+7bLVB
-         I+eltV74DB3fXd1/38J6p3gftXaKTpCh2wHBpHVBSCZ6skCx8KBYMokt3DzAZID/UQj9
-         kuBYuj5oPh4ut88x+yIFL1walEDRx4/tpEz47uFVJtdGsMHWztJnYWi4Hl4dYnaO8+fp
-         SoPw==
+        bh=bE/jHnlYVgixbgWAMsy/KdCYr+LmN1M00uv5a0GYY6I=;
+        b=cuPQUka9c8jvP+sFgTBBM+5AaL0kh+YmHYQNu7e7U/Bw0wBPcCq4CrVklz62Tuz7nY
+         MHC4I8xxOUhQxq3ESTWArO946n/sz8zRgGQJEyMTEAFD7Lt98vhr8/CKBvdAfHZyHj2F
+         QSvYFEB8fj+ldFK75y4De5nPVBYVMYzAmuihbTs/fdgzjDoFIsOPMiRfep1pYV8JBNs3
+         Py/+/rO0Aw7JDRSNLAiC+OPoucjXuaD/QiAtA1BYAqt3/Q7ruhDRndkbmQ2UZRi8AoKI
+         V8ikrzWaBtloIGmea3Jr+3DpJq5PB+sMiIGu8N6gbGr0YN31SbsNXfyvTP+tREMqUoF8
+         OHXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745325769; x=1745930569;
+        d=1e100.net; s=20230601; t=1745326357; x=1745931157;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eVU4F1fI1UbsJWlfx7arzsz0Bq7z0pnhG8f2SQJ7/7k=;
-        b=TQvXVNDulFLlDBa213OmKRBDqjrbddGxb0/9KCiMeNDtJMicl9RXUuGSPisj88erAX
-         /D6H/D6gA3nMLU8y1sjIZjtvSAdkrngrQ9RhSKo7gzc4gPNiBffF041Ap7CXXImli13k
-         jkujD6TdxbLQwzpnAvCKVz1U1UismGlx3KCJBqXA+M4hNh7dX8upkFU8bTwWIogVIaOs
-         YLTOyXO7MBSzxayr2UAGjbU0tqT6+fFq1rTAkzEqHl4jn5btb3wBGsMnDdqQe2SqKI1J
-         1Nuwg4BwlMDiIMch1Q+IzgyxOr7T28avvfkEpSxDXYRospTnKsIWQlDl04a0r3Y8lPx2
-         c+Ig==
-X-Forwarded-Encrypted: i=1; AJvYcCWlk1WwVzF1wBNvGk9VCw31ZbxZHjpE7dHFUmyiD5PNabysUp/PLS18fIPGS/Woc0Nup/VI71aVRQs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzJYa7Ue7AL5pdnZCf43HHE04kzY1PQ8U2TezFaAqXCydprA20K
-	34r9lpYRd3thzKEeZjl0xm3DeYOjpXmodzyZ9TsySkucQFErS1nd7vDSZTfFDg==
-X-Gm-Gg: ASbGncvHHYO6p9PUv5EdR5rh4JtImJzJvGIsDH2qrUjxoLQ4FpmxFY/llZ5+asGBR1M
-	Kp9mm3niebpmPMq3qrU3Ij2hpxckHoPlY3XWg6ttm/cM5gI6PEAK1kOVaClV50kIki/M5SiyI48
-	IcEl7iiByZ3oMuvLasAwRcMF2xKYugKTX6UNFshrYAcCKk+n5rUqOl6LJEP+9BbwnlGCrewvZUr
-	ttttWbwLNKUfhaZWpMJwRNwdffWDyMmYgT/l3ne4PK4fbr9DvOIRFeisur/A8I3Wi2kLEypLkxo
-	9OgFoACBPdlsZi5E6Zs13t+Hq/wXw66hMrtmf5w36hx9B66aSl0JD8avyCy/ZicLq4yerWBe8vK
-	qMPSaV+S2bcDisczQtnhDVE5gXw==
-X-Google-Smtp-Source: AGHT+IHw5Mh/xN4Cg1cH1m8YrsqUquwKdRO7rJjE74W0xDJE6yapOttEyX2hh50/GLYscHMbgZpBGA==
-X-Received: by 2002:a05:6000:40ce:b0:39e:cbd2:9211 with SMTP id ffacd0b85a97d-39efbaf70b4mr10913809f8f.55.1745325768749;
-        Tue, 22 Apr 2025 05:42:48 -0700 (PDT)
-Message-ID: <603614cb-186c-4d29-93a5-2044575ed469@suse.com>
-Date: Tue, 22 Apr 2025 14:42:47 +0200
+        bh=bE/jHnlYVgixbgWAMsy/KdCYr+LmN1M00uv5a0GYY6I=;
+        b=YfANFf6om1ZKaJzc/XwCZ20m0+sq1UeyFjNrZmISTRYbv+J6qYijAX5to/wiOt64Vo
+         u2MLIkIvQ5cUC3OUfqvfgEqxjYgLThfXM2inVJwXNjv2Lh5tF2ox7m3ya+gPM0n3r2qk
+         6L5JB5yhxwTfMkyoSZ8STcrRc5P7xj0NJNDT8bRJOyBW1qVe1sC60dYN+AcNISB0nqt9
+         Fd8xQP8bwcoiXL9MYaIAzMc6GYxBAl4zKeiVrwWlhWmMut6bxfjXBMRZgUG69KOnMWbj
+         nqMknQ75n8RMM9JPrDjjoOLi+0QN746i4oEhkOU5rVxfA3baALmaGe8LD/z43IvXi0S7
+         DgqA==
+X-Forwarded-Encrypted: i=1; AJvYcCWbe2GVD6G9SxRe4xsMa2yV3ZQvw5jye2GQ8vQJ+g3jhQrIvVkIodEX+0zRJr7ww+5e/qLZVqy0/lI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwFbbI6uUnojgQOqiUgRkXp1QaSIzNt4wvJ7swUdF0riQt+Kv19
+	af0wSSvm3XxdjjlQsjesUVOpXUga4wnnWmU2uQGlZMoRFuSmiWIC/jgSaOIZSA==
+X-Gm-Gg: ASbGncteZSzo8IPnSWS7UgnSmUwhTtMI6J8YAyj7fR8N8c0jc35EYAMhkIOVPsbspLi
+	AdeHFPY5yovYHYqMM9xbdB2IQCJ8LunIIXAJuraOHJuR3bycg9emGZhwcGZXRQwcjJe86ZOKVFh
+	r8MPsJZyOBVshoLgx5bo/gpMfH8AfvxeolUKmLQK8RlAIubEdQi952r5lr+ccLlciS7HBy2amMw
+	XqmqX7IrTpOD+mqz6rBcErI9rf7KUj08AniQPXCCEUb8h1d3ur/puaQ2uOPpN8XSRXBlfuBBO6G
+	yTYpSfVp1arvVd1rQSWn55NPZ4IX7/igF75bJmu8LfEl/luS2tn9wigfMsNgBW+dw2wHWuvGo2C
+	yD/IMEN/cMZFiP6xbdSxgipt2/g==
+X-Google-Smtp-Source: AGHT+IEKobdzgQVn3tWdMvVuaZwFKRs1j63qCbgoiumvlDSXlviK5Bg7pGUWWjQKHIQmFnPYHimm9Q==
+X-Received: by 2002:a05:600c:4fcf:b0:440:6a37:be0d with SMTP id 5b1f17b1804b1-4406abb245cmr146779015e9.15.1745326357216;
+        Tue, 22 Apr 2025 05:52:37 -0700 (PDT)
+Message-ID: <9990d438-6ebf-4308-89f5-ecacf04ea89b@suse.com>
+Date: Tue, 22 Apr 2025 14:52:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Drop CONFIG_CC_HAS_VISIBILITY_ATTRIBUTE
+Subject: Re: [PATCH] xen: Use asm inline when available for alternatives
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250422113537.1286981-1-andrew.cooper3@citrix.com>
+References: <20250422113957.1289290-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,16 +121,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250422113537.1286981-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20250422113957.1289290-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.04.2025 13:35, Andrew Cooper wrote:
-> All supported toolchains now have it.
+On 22.04.2025 13:39, Andrew Cooper wrote:
+> Compilers estimate the size of an asm() block for inlining purposes.
+> 
+> Constructs such as ALTERNATIVE appear large due to the metadata, depsite often
+> only being a handful of instructions.  asm inline() overrides the estimation
+> to identify the block as being small.
+> 
+> This has a substantial impact on inlining decisions, expected to be for the
+> better given that the compiler has a more accurate picture to work with.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+So this is effectively a generalized version of
+https://lists.xen.org/archives/html/xen-devel/2022-08/msg00712.html
+with ...
 
+> --- a/xen/Kconfig
+> +++ b/xen/Kconfig
+> @@ -29,6 +29,10 @@ config LD_IS_GNU
+>  config LD_IS_LLVM
+>  	def_bool $(success,$(LD) --version | head -n 1 | grep -q "^LLD")
+>  
+> +config CC_HAS_ASM_INLINE
+> +	# GCC >= 9, Clang >= 11
+> +	def_bool $(success,echo 'void foo(void) { asm inline (""); }' | $(CC) -x c - -c -o /dev/null)
 
+... detection once again done in Kconfig (only). I don't think I had any
+feedback there; I'm hence having a hard time seeing why I should now like
+this any better than mine was liked.
+
+In any event it's clearly increasingly necessary that we finally get the
+detection aspect settled.
+
+Jan
 
