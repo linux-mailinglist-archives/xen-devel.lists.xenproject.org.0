@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23C48A96632
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 12:42:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.962442.1353661 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DF96A96689
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 12:51:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.962456.1353673 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7B5Q-0003U0-Oc; Tue, 22 Apr 2025 10:42:44 +0000
+	id 1u7BDk-0006U0-IX; Tue, 22 Apr 2025 10:51:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 962442.1353661; Tue, 22 Apr 2025 10:42:44 +0000
+Received: by outflank-mailman (output) from mailman id 962456.1353673; Tue, 22 Apr 2025 10:51:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7B5Q-0003RY-Ls; Tue, 22 Apr 2025 10:42:44 +0000
-Received: by outflank-mailman (input) for mailman id 962442;
- Tue, 22 Apr 2025 10:42:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u7BDk-0006Qs-Fq; Tue, 22 Apr 2025 10:51:20 +0000
+Received: by outflank-mailman (input) for mailman id 962456;
+ Tue, 22 Apr 2025 10:51:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9r0M=XI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u7B5P-0003RS-FK
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 10:42:43 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 841ce7ba-1f66-11f0-9ffb-bf95429c2676;
- Tue, 22 Apr 2025 12:42:41 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-39ee5ac4321so5309721f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 03:42:41 -0700 (PDT)
+ id 1u7BDi-0006Qj-LQ
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 10:51:18 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b775fe91-1f67-11f0-9eb0-5ba50f476ded;
+ Tue, 22 Apr 2025 12:51:17 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43cf848528aso37206405e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 03:51:17 -0700 (PDT)
 Received: from [192.168.86.29] ([83.104.178.215])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39efa4206ecsm15045034f8f.17.2025.04.22.03.42.39
+ 5b1f17b1804b1-4406d6db1b3sm170934415e9.29.2025.04.22.03.51.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Apr 2025 03:42:40 -0700 (PDT)
+ Tue, 22 Apr 2025 03:51:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 841ce7ba-1f66-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: b775fe91-1f67-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745318561; x=1745923361; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1745319076; x=1745923876; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cEAcCITgCZlFb0FFI7Ce9M77/ndP4lQw/OVXiH0H6fU=;
-        b=gqivNc0thpc/F+Kb28ueZkFKpwpQKBSx4r/UnElf99sW4JtKlngOrp5qSc06DtvIaT
-         KgMZOg4qkFTTLHmKjhoJwS0swIiCHU7kBa+viVFClPZl01Zuu8YXVjpBDOmW1//cPgF9
-         WV3kX/HjrqPBm0Bujw3eJ+C9Gi++XpLomWkHo=
+        bh=2B2Y4gj/u3jpgelTu1PasFoVXd/QwLST1YxNtwV/iOw=;
+        b=e2xKMt9P7dQ2+oIzUV7MeZn9pashPEHasgDH59hkESfBHgtKRCNRyjgnCwMpp5a5qU
+         c6NXyjjrqjm6vW2GdMHf9wi0DLOQe02Pke6Wmu/aNc/I3ji7YjQhcaI8/AmnnXq4SY5D
+         ivx/S5PU8xdU6XMyfL+dVeULP7u3Ev4ANE15I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745318561; x=1745923361;
+        d=1e100.net; s=20230601; t=1745319076; x=1745923876;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cEAcCITgCZlFb0FFI7Ce9M77/ndP4lQw/OVXiH0H6fU=;
-        b=bFciUq4SemLdClBN8fB50R+KHCp77DjDGTEPnZ4c8M95Ig0C8pMGXNqBjhsrZiNXQD
-         Z3aDdAV1Jx7fg84r0y4RSJx4FWIvgWLRalWupWjnz76UXUGmxWlw957562tq/vRblb7T
-         LneOhx+whyXIYQGfzx79YINb4HvxnMAgk6ayy3NCXtDaD4ufC+qcBSDrVNt1xJgfrgQb
-         lPnthfF6Rig/b3MJAwkb8wNGFqwC+/8otQ5dFPyRxrGKtin2oWqZOcs06znu9dgSdGaB
-         PvsHgOZosfwByyshAj/zdWVzmX3eSnF4e/n5tQRmVpBgqA5qgkvr+X1hwoeR6nWpKTv6
-         UOMw==
-X-Forwarded-Encrypted: i=1; AJvYcCXCsFz6XpIsUbypdQoE+r0Or08rq2B8YlhYDkFwbheIcx2fDPquss1jjTPveL9uZy2k6XfDphEmZGY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy7f3wbHB3LHFyPQVSeZl9UQfYefd1ZEee1lEX8loZDUR9xacp5
-	EfuJDAGlSOSRBYBzoGScD9OcyfkzxdQRDnIzfaQYv/NkS15wlBOBU8opmb4Xdd4=
-X-Gm-Gg: ASbGncs4gxOrah8yiRZ97dtbNY9K9RsvreoeS+iLTG9mEcSYuD/0w13ak273EjoGojs
-	QvhTNPVKuL3buubmmvhigtmK2EsbuCvo99cLH1K3SeX0LYJBYdNmqxPP7yCK3kkbLbMYUNJIz2V
-	EVgckv1ZZTu2/CIxxkGS1lfZLGPq0f67BBPFsyHekszhbvoYg1ZyvtTJRVPcHSGz/izNA8qXz/b
-	ipn8zEwX7KyK98JrC5AM2AehYTEXpZD8jmUw0WPnIb5pf0f8prQNRFixmmY/OLOQDQC7EtKtWOU
-	BBdnd72n2K55OqrbbXk+I29N1FvZIYo0iL9CJiaRkgOTW9HX2XIJNxQDtulWMYWV
-X-Google-Smtp-Source: AGHT+IFshSVxxnT414btGk5nO1lpSMLo3orcg4h9qSN03ojdxExlma+TWutGJde4EKrivzLIx4BMBA==
-X-Received: by 2002:a05:6000:4029:b0:391:38a5:efa with SMTP id ffacd0b85a97d-39efba46359mr11917408f8f.23.1745318560718;
-        Tue, 22 Apr 2025 03:42:40 -0700 (PDT)
-Message-ID: <04d46a38-e7bb-4059-87b4-3f262575a8e5@citrix.com>
-Date: Tue, 22 Apr 2025 11:42:39 +0100
+        bh=2B2Y4gj/u3jpgelTu1PasFoVXd/QwLST1YxNtwV/iOw=;
+        b=OJEy4myergJuE2Y5nCDOVKbjjov9hSAFlj6kHdrTfpjlXO0ReubZw3x935Cy/7N6Dt
+         0ECVvqIUtN0jVUMpFB1GFvBeiCqcfj4JzYjTaC5VfBIWeUjZvn+KX/kxowyZiuWZJOmw
+         7tjih9l8WUu+f6ZLStYmtzzzKFxKGRF8q7vbPyKzxfmoohwhD0R6l692SdiU+5b8gyyP
+         lXG+Ky0Hm9cqEgX/cTpV7tBZ25Td4BnhhWR+OR8XDNAfpbPBGaIoLI54MAKhjn5LSUAr
+         XLO0Vx11dIb8XMBF3VrbEAe8OyKx/cftPZpSgES6OBWY9NjispXUthgTbh8Zlq5MjCvD
+         U8GA==
+X-Gm-Message-State: AOJu0Yx5xlSp9+nWbuRNsE8tpmC/9qPvAAw+fIFtrv2KzLehGZ63rJZd
+	jxgzLzqAtzKKj2iY7bvCbl8K8xBTxadGZvwvv8g22Ko/VYzEBM1WYW5qCt2Vz+g=
+X-Gm-Gg: ASbGncs1yK9vXOsNqDi/STe7RDr39dKHz3HjYXiFcNI0RDhmZC2iqJerC8jrjq4Co7G
+	pP3WJ5eg6kA6gC3Y5NSfPuh15wbTihQBpHmZwRaU7deYnZldSg0qwQo50/QXxI4dSVk15INy2Zr
+	MgV60FEs1FQGYqpq0ykbEALo/aqVS3C3fhIJH2+AOBjtM/nqwNttOrklJFdTD95nV7dBd7+5iK9
+	Ext/ymEUWuteKGfrKEuuhpAjKuG59MhmIqZBgOdTVF5NhkiuASN9EcDMeXFI1fMe93Rt9p4GWIN
+	KUqzNfhprGMaOWFjqqJjudEJ9niBC2S+MZX/934X8LlcVdNLVwQhBEBMC8GDEfwR
+X-Google-Smtp-Source: AGHT+IF05Io9/GKqK6anDGsES+fG6Y7Zmn66RSp0mBeQ0E3FLKLqWnyMRmSLaOQvzcBQZbp1HxXzSA==
+X-Received: by 2002:a05:600c:1e10:b0:43d:300f:fa1d with SMTP id 5b1f17b1804b1-4406ac62b75mr152819005e9.31.1745319076267;
+        Tue, 22 Apr 2025 03:51:16 -0700 (PDT)
+Message-ID: <3468d309-5165-4b9a-a249-1a3e35396224@citrix.com>
+Date: Tue, 22 Apr 2025 11:51:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/AMD: Convert rdmsr_amd_safe() to use asm goto()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250407153510.1863243-1-andrew.cooper3@citrix.com>
- <1df6b4c9-7309-49cd-8046-019d94139c57@suse.com>
- <06c64f49-a70e-48c3-8480-f2ed9ac4a001@citrix.com>
- <7794150f-4a43-4ec8-bd9e-ee439cbf722c@suse.com>
+Subject: Re: [PATCH] x86/intel: workaround several MONITOR/MWAIT errata
+To: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+References: <20250417161913.14661-1-roger.pau@citrix.com>
+ <CACHz=ZgnaJuHTOrhhNEDtctV8HP7X8GZDP9HMAy7TTDUk+dcmQ@mail.gmail.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,110 +133,49 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <7794150f-4a43-4ec8-bd9e-ee439cbf722c@suse.com>
+In-Reply-To: <CACHz=ZgnaJuHTOrhhNEDtctV8HP7X8GZDP9HMAy7TTDUk+dcmQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 22/04/2025 10:07 am, Jan Beulich wrote:
-> On 17.04.2025 19:24, Andrew Cooper wrote:
->> On 07/04/2025 4:48 pm, Jan Beulich wrote:
->>> On 07.04.2025 17:35, Andrew Cooper wrote:
->>>> Unlike the WRMSR side, we can't use asm goto() unconditionally, because our
->>>> toolchain baseline doesn't support asm goto with outputs.
->>> Is there actually a benefit we gain from now needing to maintain two different
->>> pieces of logic fulfilling the same purpose?
->> IMO, yes.  Besides getting rid of .fixup/unlikely, the code generation
->> is better-enough to warrant it, including getting the common path
->> correct (the referenced labels are all considered cold).
+On 22/04/2025 11:40 am, Frediano Ziglio wrote:
+> On Thu, Apr 17, 2025 at 5:19 PM Roger Pau Monne <roger.pau@citrix.com> wrote:
+>> diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
+>> index 6a680ba38dc9..9d7c6ea297a9 100644
+>> --- a/xen/arch/x86/cpu/intel.c
+>> +++ b/xen/arch/x86/cpu/intel.c
+>> @@ -380,6 +380,43 @@ static void probe_c3_errata(const struct cpuinfo_x86 *c)
+>>      }
+>>  }
 >>
->> e.g. for this change, we go from:
->>
->>     xor    %esi,%esi
->>     rdmsr
->>     test   %esi,%esi
->>     jne    <init_amd+0x540>
->>     and    $0xfffffffe,%edx
->>     wrmsr
->>
->> (note the forward branch) to simply:
->>
->>     rdmsr
->>     and    $0xfffffffe,%edx
->>     wrmsr
->>
->> because the exception table redirect is directly into init_amd.cold, and
->> we don't have to hold `int err` in a register across the asm() block.
->>
->> This is an intentionally simple example to get the infrastructure in,
->> but vmread() will definitely benefit.
->>
->>>> Also, there's a different errata workaround we'll need if we want to use asm
->>>> goto() with "+" constraints:
->>>>
->>>> config CC_HAS_ASM_GOTO_TIED_OUTPUT
->>>> 	depends on CC_HAS_ASM_GOTO_OUTPUT
->>>> 	# Detect buggy gcc and clang, fixed in gcc-11 clang-14.
->>>> 	def_bool $(success,echo 'int foo(int *x) { asm goto (".long (%l[bar]) - .": "+m"(*x) ::: bar); return *x; bar: return 0; }' | $CC -x c - -c -o /dev/null)
->>>>
->>>> I'm tempted to put it in straight away, lest we forget about it.
->>> Perhaps best if we really want to go this route. Yet then - why "TIED"? Isn't
->>> "tied" the term they use when referring to an earlier operand by using a
->>> digit (or the operand's name in square brackets)?
->> This is straight from Linux.  I've not looked at the issue in detail.
-> So what I see is that Sean in Linux commit 1aa0e8b144b6 uses this term also
-> in the description. I'm unconvinced it's correct, though. Gcc doc doesn't
-> call the "+" modifier anything special, and it calls the numeric constraints
-> (for which "+" can be a shorthand in certain cases) "matching constraint".
->
-> We can of course sort the naming in the eventual patch pulling in that
-> behavior, yet I'd like to suggest already now that we don't blindly follow
-> Linux'es naming (unless the choice can be backed by some doc reference).
+>> +/*
+>> + * APL30: One use of the MONITOR/MWAIT instruction pair is to allow a logical
+>> + * processor to wait in a sleep state until a store to the armed address range
+>> + * occurs. Due to this erratum, stores to the armed address range may not
+>> + * trigger MWAIT to resume execution.
+>> + *
+>> + * ICX143: Under complex microarchitectural conditions, a monitor that is armed
+>> + * with the MWAIT instruction may not be triggered, leading to a processor
+>> + * hang.
+>> + *
+>> + * LNL030: Problem P-cores may not exit power state Core C6 on monitor hit.
+>> + *
+>> + * Force the sending of an IPI in those cases.
+>> + */
+>> +static void probe_mwait_errata(void)
+>> +{
+>> +    static const struct x86_cpu_id models[] = {
+>> +        /* Apollo Lake */
+>> +        INTEL_FAM6_MODEL(0x5C),
+>> +        /* Ice Lake */
+>> +        INTEL_FAM6_MODEL(0x6A),
+>> +        INTEL_FAM6_MODEL(0x6C),
+> Intel patch for Linux only adds model 0x6a, not 0x6c. Did we manage to
+> reproduce on 0x6c? Which patch is more correct? Surely we are on the
+> safer side.
 
-In the meantime, I found
-https://clang.llvm.org/docs/LanguageExtensions.html#asm-goto-with-output-constraints
-
-"When using tied-outputs (i.e. outputs that are inputs and outputs, not
-just outputs) with the +r constraint"
-
-So Clang does name this case specifically as tied outputs.
-
->
->>>> --- a/xen/Kconfig
->>>> +++ b/xen/Kconfig
->>>> @@ -41,6 +41,20 @@ config CC_SPLIT_SECTIONS
->>>>  config CC_HAS_UBSAN
->>>>  	def_bool $(cc-option,-fsanitize=undefined)
->>>>  
->>>> +# Fixed in GCC 14, 13.3, 12.4 and 11.5
->>>> +# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113921
->>>> +config GCC_ASM_GOTO_OUTPUT_BROKEN
->>>> +	bool
->>>> +	depends on CC_IS_GCC
->>>> +	default y if GCC_VERSION < 110500
->>>> +	default y if GCC_VERSION >= 120000 && GCC_VERSION < 120400
->>>> +	default y if GCC_VERSION >= 130000 && GCC_VERSION < 130300
->>> Unlike for pre-release versions (x.0.y) I view this as problematic. Distros
->>> are likely to have backported the fix before the minor releases took place.
->>> Or they may have backported without ever meaning to follow later minor
->>> releases. We'd needlessly exclude them here. Imo ...
->>>
->>>> +config CC_HAS_ASM_GOTO_OUTPUT
->>>> +	def_bool y
->>>> +	depends on !GCC_ASM_GOTO_OUTPUT_BROKEN
->>>> +	depends on $(success,echo 'int foo(int x) { asm goto ("": "=r"(x) ::: bar); return x; bar: return 0; }' | $(CC) -x c - -c -o /dev/null)
->>> ... the only option is to actually probe for support as well as the (non-)
->>> buggy-ness.
->> There is no sensible way to probe.  It compiles fine, but (AIUI) fails
->> to spill registers correctly on some paths, which also makes it very
->> sensitive to other optimisations.
-> Hmm, okay, Linux commit f2f6a8e88717 kind of suggests that there might have
-> been more issues in gcc. Really I can't help the impression that the issue
-> still wasn't fully understood, and hence may re-surface in another context.
-> In which case I guess I agree the above is the best we can do for the time
-> being, until we learn of further breakage:
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Thanks.
+It only affects 0x6a, but I can't go into why.  Now that Linux is
+picking up this workaround, we should follow Dave Hansen managed to get
+out of Intel's internal bugtracker on the matter.
 
 ~Andrew
 
