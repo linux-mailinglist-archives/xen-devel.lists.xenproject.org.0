@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88672A96B3E
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 14:58:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.962651.1353821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B48D0A96EC5
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Apr 2025 16:32:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.962672.1353831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7DCJ-0002Hk-KX; Tue, 22 Apr 2025 12:57:59 +0000
+	id 1u7Eee-0000kb-Uk; Tue, 22 Apr 2025 14:31:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 962651.1353821; Tue, 22 Apr 2025 12:57:59 +0000
+Received: by outflank-mailman (output) from mailman id 962672.1353831; Tue, 22 Apr 2025 14:31:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7DCJ-0002GH-HL; Tue, 22 Apr 2025 12:57:59 +0000
-Received: by outflank-mailman (input) for mailman id 962651;
- Tue, 22 Apr 2025 12:57:58 +0000
+	id 1u7Eee-0000iV-Ry; Tue, 22 Apr 2025 14:31:20 +0000
+Received: by outflank-mailman (input) for mailman id 962672;
+ Tue, 22 Apr 2025 14:31:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=f4Vg=XI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u7DCI-0002GA-0b
- for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 12:57:58 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NnGu=XI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u7Eee-0000iP-3Q
+ for xen-devel@lists.xenproject.org; Tue, 22 Apr 2025 14:31:20 +0000
 Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
  [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 695a76e6-1f79-11f0-9eb0-5ba50f476ded;
- Tue, 22 Apr 2025 14:57:56 +0200 (CEST)
+ id 73af3365-1f86-11f0-9eb0-5ba50f476ded;
+ Tue, 22 Apr 2025 16:31:17 +0200 (CEST)
 Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-39c0dfba946so3464807f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 05:57:56 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39efa43bef1sm14938907f8f.49.2025.04.22.05.57.55
+ ffacd0b85a97d-39ac8e7688aso3213093f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 07:31:17 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39efa43315esm15227413f8f.26.2025.04.22.07.31.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Apr 2025 05:57:55 -0700 (PDT)
+ Tue, 22 Apr 2025 07:31:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 695a76e6-1f79-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: 73af3365-1f86-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745326676; x=1745931476; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XeEWnGwG0q3dUrLy23IGzh+gE6GAFlLjKebReEEWiD4=;
-        b=Z/BFEROsQhI6qFOy4jdU9tFm8jdn4+QzH3cdLWxF5vFwkChL3v5qNDRdxiqYYbHnhw
-         FMQ9bDIErlbYr8EEuAl2ryTepn84hzaOcrIcBqDD/byGk7zChmb0AmLTarQnwmGuJTgR
-         7pFGvkK0OAsV7vNcmHQI047X9StvxJQQBKcA8KElnY2vNte0RTZfULW/2ZXaDDYEmDrs
-         JqrlA12iJejLOAPr7agtgZXphZwpjxE/jIHpBRXdVH0sh2Sp7Dgn5Cp7WhaDtOii6hSt
-         yEja7soZ89zthH5jdKFhvVuJxymEUwp6pQeobkagO06JZKuzWvYvIp8V69FHlKnUFCEN
-         kONA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745326676; x=1745931476;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1745332277; x=1745937077; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XeEWnGwG0q3dUrLy23IGzh+gE6GAFlLjKebReEEWiD4=;
-        b=DwwM6yARQ5JgjmzwMvkp9jxpuibklLU+EDuWvmp8jvseo8HdsE52guSI3WvFCxkNum
-         zwhDVZ4RmovagBTTi31jtaUzNNTR1naSYtzcbyskI14kiuc5yCzaeJc918NgMpEcbQBK
-         9s4oHM7UDmGrccbal4mBG9EtLa1QiWpdklyUbmynPfwc7AjxomG3V9x78vyQDPcXeQN4
-         SLRBgIX99P2Wd+9ltHfHXmFxZwphOt/fJdRok2ggPS3yPhxkTrwQT0e4fHZwjFg52FP4
-         PBC5L468T4lLeOK0r2TzzlTZcvk98w2LpgVVxU+4T5n/MbMDEoi3zc362/LZWtXbocuu
-         vOpQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVibDUdKMIBODCMPQL1nM5fVaGpU+WaRrje3wgCsHRT1OULyHjRY7l4oruHi/e+fGeVITo81qVaDIU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxGhVVI8kFtOZE17RSOhj+nLLFClimi0HFh60yEAkEDf2xYZI7o
-	7aFIRzAKc9l+YjT1CJozf2ju401IrbIA3VScOw520EPtVfRJJ1DvhpgxhUn6iA==
-X-Gm-Gg: ASbGncuefDGsjpZUBB/YN+zS1GGVPfTxDX0kO9q4+5GoapnTyyJSUjUJXoAp+MuFosf
-	0sqLL6DgWYucj7meRDqiXhZ+bdYSV0+dmXe+c5SKxCin+x5GyYlVUNVYoKtZwwpwmLxZUWGL7q4
-	mFFWYA7ZzOhMIkd/WlGarmNCdYFcd/STkwnjSWUom99yls7ij0FqSNn8d99czCExxrb7Ob6oBAg
-	NvTq7Jnwtups4E7TgBK1rwKnwBQToUQogH2mLnjVAhKVpDjkHFY7czexAOi7cqwfqPvw1Scolhq
-	E6F79YxvFOOuq2ulPYGL1h3oA115fNZ9RvUiSt/3mjMnRoEezzEAP9IEQbKv3eaHeFRlnt3mr9n
-	X1OLWMo9a1ucLBqtQbjzayQgsCxgy4rD9xdj8
-X-Google-Smtp-Source: AGHT+IFBY1RfGcULCf+SFTYFid41qr3bOAVTqUxl5ZXZjq0+2P6hDxTviQ1CRoE87Y+ykUxhLqcxFw==
-X-Received: by 2002:a5d:6d81:0:b0:39e:e557:7d9 with SMTP id ffacd0b85a97d-39efba2e660mr12481150f8f.5.1745326676207;
-        Tue, 22 Apr 2025 05:57:56 -0700 (PDT)
-Message-ID: <d2a16309-2a28-4669-bb14-6e348034d93a@suse.com>
-Date: Tue, 22 Apr 2025 14:57:55 +0200
+        bh=Pzhz5Z4svm9Ipol0ctPoC9x+X53KTEygxDK4TbkpdtY=;
+        b=Fh+9D8l3jVMApC7RTsNkGk6Yhnrfa9VOzEE+BLkvTFtNEQLvju4Nutn0Rfb4u+8XKU
+         201gk3O0yyv23wbzLTI+Wt84CYHhfoQTRYtTeLwWOPPZU9lBmCqjcZfEi8Fd38m5vChQ
+         rXYbvG1WI/WcS4R9L3UBDlUCHas90YfzKF5v5vV3u94Ww9pdyPMKbvNxY7j8/J6x2fmc
+         A8dAZY5deiHqXHp7YeYBF2Js+QE9zccs3q+nO+emSyW/5z04/+muDQT2NcUmmWEMEkrR
+         nCQFU54vIzc5Y3gzvuEx+RN8z/D6Tzy866kaRZnyoPzt6hEam+sHrB/Aj6kBBp+NJKxa
+         iF2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745332277; x=1745937077;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Pzhz5Z4svm9Ipol0ctPoC9x+X53KTEygxDK4TbkpdtY=;
+        b=F0sbpzvFphLRoYwwciS+lpCMPhwiDIsZHtma5I2VUm8GUE5P7rWnfWuLA+KKxCIkOt
+         pCP0lGqw5ovsKp0b5qzxnmZ/9g0JR296JExzroyogvbdb5UPNGRFEzBnszVe+Zy8cGfi
+         aiVQK2+AtXc4EfAIBMeqy3TDzIB79iYZxdFywB+5ehUYSORGVlK24bNhHQh9jg6ByvYW
+         VDv+JEPbn3oSPXpvQ2cBc/4y2mB1w+rfRMX7c2H5vZToEf1Mixr5zLabo6saLV0Vz+8D
+         5Q1ZfSExPmQufunJTvym8tXgnsB82TBVfJn5fgJVTN2lwjQOZTH0qKGdmakA5vueM7mv
+         VkEg==
+X-Forwarded-Encrypted: i=1; AJvYcCXZRO0tQLYXgj0qJZEp+4q9CQi4A4m2uH+q7wHK3Y/mXA+yeOepJm/4c/ju4FE/EnOH+7Jm0Cu7vFk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJdP2SBEOWH/u3at5ax56+bxw7aloBbO/sH6uQXYwoTRQtS1LC
+	R3zvdPvsg95XU2Wlo5SiD4QRMk0k0kJ6uyRvXlqMTGGtB9kOrFlS
+X-Gm-Gg: ASbGncv/PXHzYd+dqnpRIxxCRlUDeKNdr7bwDkuSBaMUFJPv3DUYCp2m2uCnSg/sjWB
+	i6SdtB/1PcoBNQvo8j8TcigrssjCyxY+E8/c92Y7gFoX/Mqedtc7syWgQzNyV79vSRblhok9UXD
+	ansoeieAPIKWow9dslvPd2x62Fv8oaVZJNMizNevVEXAeAAL8Cszzz+Kb6QGLDdP1B6lJ9XzGoP
+	OMBuzLLgrjTUVHxQ4O6+0GF/wE+yf5p8VcMWNnOv5jusTVSP7Jr7tcYoh0jgfjlY6k2LDPIZtWu
+	Yjtx5YITMfdE02K0xKC2mzgNa5uvv1KJi2mSX93QqjbqoKm84f+it8i+r0UR20OmzXmUXsjs1LR
+	XP1Y7UMhYv1ChDyDW
+X-Google-Smtp-Source: AGHT+IEvNHEcZQdlImYphmVebZ6XhYAyC4/lahzIDqH+Y2XPhIdceAv3tlXN+plebE3USH7GZ0SR3w==
+X-Received: by 2002:a05:6000:400d:b0:391:22e2:cd21 with SMTP id ffacd0b85a97d-39efbacdcbdmr12255022f8f.36.1745332276617;
+        Tue, 22 Apr 2025 07:31:16 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------VFPEvqbyl7lOVLOcFbd0TO8o"
+Message-ID: <7856ff9f-3cd8-4591-930e-9c9d43cedcd7@gmail.com>
+Date: Tue, 22 Apr 2025 16:31:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Consistently use alignof()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250422114134.1291254-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 1/8] xen/arm: drop declaration of
+ handle_device_interrupts()
+To: "Orzel, Michal" <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1744626032.git.oleksii.kurochko@gmail.com>
+ <ec1bfe540b4588c749fcdc932bd93da96db1d8a2.1744626032.git.oleksii.kurochko@gmail.com>
+ <b6bb9905-befd-4ebd-a50d-a5a1c82f53bc@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250422114134.1291254-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <b6bb9905-befd-4ebd-a50d-a5a1c82f53bc@amd.com>
+
+This is a multi-part message in MIME format.
+--------------VFPEvqbyl7lOVLOcFbd0TO8o
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 22.04.2025 13:41, Andrew Cooper wrote:
-> We have a mix of all 3 spellings in Xen, as well as having compatibility in
-> compiler.h for older C standards.
-> 
-> Remove the use of __alignof() and __alignof__(), which reduced code volume a
-> little.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-as it seems sufficiently unlikely that ...
+On 4/17/25 9:38 AM, Orzel, Michal wrote:
+>
+> On 14/04/2025 17:56, Oleksii Kurochko wrote:
+>> There is no any users of handle_device_interrupts() thereby it
+>> could be dropped.
+> It reads as if you were dropping a definition. There is no definition, therefore
+> no users. Prototype was added by accident in:
+> 8d2c3ab18cc1fce46945bd3aa1819a7aea0c564e
 
-> ---
->  xen/arch/x86/xstate.c                |  4 ++--
->  xen/common/coverage/gcc_3_4.c        |  4 ++--
->  xen/common/device-tree/device-tree.c |  8 ++++----
->  xen/include/xen/config.h             |  2 +-
->  xen/include/xen/percpu.h             |  2 +-
->  xen/include/xen/xmalloc.h            | 16 ++++++++--------
->  xen/include/xen/xvmalloc.h           | 16 ++++++++--------
->  7 files changed, 26 insertions(+), 26 deletions(-)
+I will reword it to:
+  There is no definition of handle_device_interrupts() thereby it could be dropped.
 
-... the headers here might want re-using from outside of xen/. As mentioned
-on Matrix the other day when a question was raised about asm() vs its
-similar alternative spellings, I think it's generally a good idea to keep
-headers tidy of possible name space conflicts. Just that for the ones
-touched here this seems pretty unimportant.
+Should I add Fixes tag to mention that it was added by accident in
+8d2c3ab18cc1fce46945bd3aa1819a7aea0c564e? Or it will be enough just to mention that
+in the commit message?
 
-Jan
+>
+>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+> With the commit msg updated to be more meaningful:
+> Reviewed-by: Michal Orzel<michal.orzel@amd.com>
+
+Thanks.
+
+~ Oleksii
+
+--------------VFPEvqbyl7lOVLOcFbd0TO8o
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/17/25 9:38 AM, Orzel, Michal
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:b6bb9905-befd-4ebd-a50d-a5a1c82f53bc@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+On 14/04/2025 17:56, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">There is no any users of handle_device_interrupts() thereby it
+could be dropped.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">It reads as if you were dropping a definition. There is no definition, therefore
+no users. Prototype was added by accident in:
+8d2c3ab18cc1fce46945bd3aa1819a7aea0c564e</pre>
+    </blockquote>
+    <pre>I will reword it to:
+ There is no definition of handle_device_interrupts() thereby it could be dropped.
+
+Should I add Fixes tag to mention that it was added by accident in 
+8d2c3ab18cc1fce46945bd3aa1819a7aea0c564e? Or it will be enough just to mention that
+in the commit message?
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:b6bb9905-befd-4ebd-a50d-a5a1c82f53bc@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+With the commit msg updated to be more meaningful:
+Reviewed-by: Michal Orzel <a class="moz-txt-link-rfc2396E" href="mailto:michal.orzel@amd.com">&lt;michal.orzel@amd.com&gt;</a></pre>
+    </blockquote>
+    <pre>Thanks.
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------VFPEvqbyl7lOVLOcFbd0TO8o--
 
