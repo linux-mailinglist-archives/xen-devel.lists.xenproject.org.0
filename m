@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADA45A99684
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 19:24:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.965022.1355686 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B939A99694
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 19:28:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.965036.1355696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7dpV-0004A2-RM; Wed, 23 Apr 2025 17:24:13 +0000
+	id 1u7dtJ-0004lx-Dp; Wed, 23 Apr 2025 17:28:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 965022.1355686; Wed, 23 Apr 2025 17:24:13 +0000
+Received: by outflank-mailman (output) from mailman id 965036.1355696; Wed, 23 Apr 2025 17:28:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7dpV-00047h-Oc; Wed, 23 Apr 2025 17:24:13 +0000
-Received: by outflank-mailman (input) for mailman id 965022;
- Wed, 23 Apr 2025 17:24:12 +0000
+	id 1u7dtJ-0004jY-BD; Wed, 23 Apr 2025 17:28:09 +0000
+Received: by outflank-mailman (input) for mailman id 965036;
+ Wed, 23 Apr 2025 17:28:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZaJ6=XJ=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1u7dpU-00047b-9Z
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 17:24:12 +0000
+ id 1u7dtI-0004jS-6X
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 17:28:08 +0000
 Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3fcc720-2067-11f0-9eb0-5ba50f476ded;
- Wed, 23 Apr 2025 19:24:10 +0200 (CEST)
+ id 5116dc26-2068-11f0-9eb0-5ba50f476ded;
+ Wed, 23 Apr 2025 19:28:06 +0200 (CEST)
 Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53NHNUhb3816392
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53NHRSwP3822273
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Wed, 23 Apr 2025 10:23:31 -0700
+ Wed, 23 Apr 2025 10:27:28 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,32 +40,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3fcc720-2067-11f0-9eb0-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53NHNUhb3816392
+X-Inumbo-ID: 5116dc26-2068-11f0-9eb0-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53NHRSwP3822273
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745429016;
-	bh=KGV0WbN8TQwHu403QGuVpSGpOVYPp977T4l8EnRBnpo=;
+	s=2025042001; t=1745429251;
+	bh=3DNEiH9ClADNNdC4s2AFGq03za4/i0hRtsw7HdWhX8Q=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Rx4uvcSbUxH27ZQufmzp9l6akeq6GAi04sDD2NQ2xWVKfdMclJjO/DcJ9bIJk5ZG1
-	 bscfklmB1ttA3gzakhyLww5MWnvMsItmBlyJjingcwZnTTm1oYYfF7Qpf27ZfId+5F
-	 Ez85JANkyjBmXnLXd+PhV1vM7/AIZ5QfjZDbcghLL9pJ+wAI8EdZGxfPPEI8qELUl9
-	 LC09mduxpQ/6PRNDwNsLr8nEp2KuEP/mRBfORYy9GV2SNxTRqCFfrqSv7eOpU1snyu
-	 NzeDiDDgVnY3Qi3mqxpv4Z7c/1Ea5do28c8gpruH0YApRf8wfcUUDz3ihrvAg2jbjw
-	 wfyCSXMbouIaA==
-Message-ID: <08b7e342-61f7-47fe-bc8a-5ce55e658e84@zytor.com>
-Date: Wed, 23 Apr 2025 10:23:29 -0700
+	b=FYHpQRl8w+nTjaGGRqdQx9A21dGh6eRp5/7vZcoeVQfJ9FBrAtuE4a8nbQdhPJpY7
+	 C5nTvzzz33F1edToPwWHSeJXgoh6SwIuUPr91pgD6ORF2jN+/5fZh9Ofi3nO2wDCgX
+	 NyB6TneZbcSNhKwI3FWPkvGtSRtfl8YKXephFBr2m8UWFGjBObYHKKsepz0L/aTUGo
+	 jFGXQZIyrJ70pWBdnFXn75qaBkvkid3XPvRU6MU8TH8CRJxSKjrb4b2UYHO+wGQ51t
+	 Z5W8BeQoRoZzPHd5lWutYI7E+jcqOoxDsMyaxvuPKWJE7ftMpslNO0VeQ/i0ZeFCUN
+	 zwJslGTaEkwWw==
+Message-ID: <0e5cf01a-2cc1-46a2-89c1-3bcc502229c8@zytor.com>
+Date: Wed, 23 Apr 2025 10:27:27 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 03/34] x86/msr: Rename rdpmcl() to rdpmcq()
-To: Dave Hansen <dave.hansen@intel.com>,
-        Sean Christopherson <seanjc@google.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
-        virtualization@lists.linux.dev, linux-pm@vger.kernel.org,
-        linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
-        netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+Subject: Re: [RFC PATCH v2 08/34] x86/msr: Convert a native_wrmsr() use to
+ native_wrmsrq()
+To: Dave Hansen <dave.hansen@intel.com>, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org, linux-perf-users@vger.kernel.org,
+        linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+        linux-pm@vger.kernel.org, linux-edac@vger.kernel.org,
+        xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+        linux-hwmon@vger.kernel.org, netdev@vger.kernel.org,
+        platform-driver-x86@vger.kernel.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
         dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
         acme@kernel.org, jgross@suse.com, andrew.cooper3@citrix.com,
         peterz@infradead.org, namhyung@kernel.org, mark.rutland@arm.com,
@@ -73,12 +73,12 @@ Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
         irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
         wei.liu@kernel.org, ajay.kaher@broadcom.com,
         bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
-        pbonzini@redhat.com, vkuznets@redhat.com, luto@kernel.org,
-        boris.ostrovsky@oracle.com, kys@microsoft.com, haiyangz@microsoft.com,
-        decui@microsoft.com
+        pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
+        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
+        haiyangz@microsoft.com, decui@microsoft.com
 References: <20250422082216.1954310-1-xin@zytor.com>
- <20250422082216.1954310-4-xin@zytor.com> <aAj5F9IZXG7MB0ai@google.com>
- <6211378e-955b-47f4-8688-ec93728f0087@intel.com>
+ <20250422082216.1954310-9-xin@zytor.com>
+ <2932db03-164a-447e-92cf-1ef6c35c15a4@intel.com>
 Content-Language: en-US
 From: Xin Li <xin@zytor.com>
 Autocrypt: addr=xin@zytor.com; keydata=
@@ -115,19 +115,29 @@ Autocrypt: addr=xin@zytor.com; keydata=
  PYbAkjBbm+tuJ/Sm+5Yp5T/BnKz21FoCS8uvTiziHj2H7Cuekn6F8EYhegONm+RVg3vikOpn
  gao85i4HwQTK9/D1wgJIQkdwWXVMZ6q/OALaBp82vQ2U9sjTyFXgDjglgh00VRAHP7u1Rcu4
  l75w1xInsg==
-In-Reply-To: <6211378e-955b-47f4-8688-ec93728f0087@intel.com>
+In-Reply-To: <2932db03-164a-447e-92cf-1ef6c35c15a4@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 4/23/2025 8:06 AM, Dave Hansen wrote:
-> On 4/23/25 07:28, Sean Christopherson wrote:
->> Now that rdpmc() is gone, i.e. rdpmcl/rdpmcq() is the only helper, why not simply
->> rename rdpmcl() => rdpmc()?  I see no point in adding a 'q' qualifier; it doesn't
->> disambiguate anything and IMO is pure noise.
+On 4/23/2025 8:51 AM, Dave Hansen wrote:
+> On 4/22/25 01:21, Xin Li (Intel) wrote:
+>>   static __always_inline void sev_es_wr_ghcb_msr(u64 val)
+>>   {
+>> -	u32 low, high;
+>> -
+>> -	low  = (u32)(val);
+>> -	high = (u32)(val >> 32);
+>> -
+>> -	native_wrmsr(MSR_AMD64_SEV_ES_GHCB, low, high);
+>> +	native_wrmsrq(MSR_AMD64_SEV_ES_GHCB, val);
+>>   }
 > 
-> That makes total sense to me.
+> A note on ordering: Had this been a native_wrmsr()=>__wrmsr()
+> conversion, it could be sucked into the tree easily before the big
+> __wrmsr()=>native_wrmsrq() conversion.
 > 
+> Yeah, you'd have to base the big rename on top of this. But with a
+> series this big, I'd prioritize whatever gets it trimmed down.
 
-Unable to argue with two maintainers on a simple naming ;), so will make
-the change.
+Okay, I will focus on cleanup first.
 
