@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DE27A98430
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 10:52:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964215.1355073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD984A9842E
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 10:52:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964210.1355063 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7VqX-000233-3c; Wed, 23 Apr 2025 08:52:45 +0000
+	id 1u7VqB-0001eS-Rb; Wed, 23 Apr 2025 08:52:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964215.1355073; Wed, 23 Apr 2025 08:52:45 +0000
+Received: by outflank-mailman (output) from mailman id 964210.1355063; Wed, 23 Apr 2025 08:52:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7VqX-00020Z-0q; Wed, 23 Apr 2025 08:52:45 +0000
-Received: by outflank-mailman (input) for mailman id 964215;
- Wed, 23 Apr 2025 08:52:43 +0000
+	id 1u7VqB-0001d1-Oj; Wed, 23 Apr 2025 08:52:23 +0000
+Received: by outflank-mailman (input) for mailman id 964210;
+ Wed, 23 Apr 2025 08:52:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZaJ6=XJ=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1u7VqU-0001cu-JW
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 08:52:43 +0000
-Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=s+1X=XJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1u7VqA-0001cu-St
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 08:52:22 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f0dfc1d-2020-11f0-9ffb-bf95429c2676;
- Wed, 23 Apr 2025 10:52:40 +0200 (CEST)
-Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53N8pdPU3180274
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Wed, 23 Apr 2025 01:51:39 -0700
+ id 445c8d88-2020-11f0-9ffb-bf95429c2676;
+ Wed, 23 Apr 2025 10:52:20 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43edecbfb46so45300005e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 01:52:20 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-39efa4a4c0fsm17928147f8f.88.2025.04.23.01.52.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Apr 2025 01:52:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,240 +44,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f0dfc1d-2020-11f0-9ffb-bf95429c2676
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53N8pdPU3180274
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745398303;
-	bh=6kmN/+GrZw4rC3Ys6pLoNaD/Wf1DQKhvLOyIykqio94=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dl3P7bXFsCov3PgD20ymOIC1FG1eSAGxGe1DQbY2LG6O/NrMHMVBlGAk+JDp60Fgf
-	 +Pnv70fyGnLeBBbiUkB5NfR80TUqf9PoUmAU9iHHDMoRGzCfwBcwkKjONfEfh6RU3y
-	 Xd+yt6SiKMOPKs7smA0LIwhSCJBbmEF2pgXMq1hR7ce2lmLZxa2oozrZU5Xx64YBSy
-	 em5fezjfad3PGQcOwdbxM11bSPQVT17+MM/RZhPGMfA5z1Fo8GISFAxn0dAWTxVqKs
-	 NapT16DwTl3Gg6ZXI0V3IlW3sqxII7MOJohN3YgP4fSuVYSwWgYi1N7Og/gNcKFK4d
-	 023Wanxii0hkw==
-Message-ID: <f7198308-e8f8-4cc5-b884-24bc5f408a2a@zytor.com>
-Date: Wed, 23 Apr 2025 01:51:38 -0700
+X-Inumbo-ID: 445c8d88-2020-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1745398340; x=1746003140; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=8p8OYh48a16Y97SdJ+FIk2IEWJmWKw041ht74MhX+tw=;
+        b=vkpjhmJLz1eEgzO3lrgkNpg9qJELLz6qUv6r+/fJgFBybbqbe1S6vWTnCDkAYaP9LT
+         s9PoTkn3roZJbvoXNtSr4PVy+Y06DFKIlDh0yv2zxPzXq+W7RTQfcj/ULyEcjfzpG7u0
+         XUKZpn+xcmet8qhGOPnA0/btC+fT079tMmzgc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745398340; x=1746003140;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=8p8OYh48a16Y97SdJ+FIk2IEWJmWKw041ht74MhX+tw=;
+        b=Mq9egyQ8+daNDYogAxkVnIAs9EzYv+oNYSaq/mKLk9xHrrxP+TszvvFstC98WL1G7i
+         tFY9w1tr9Szh0d5k907jft7v1M4XgA5jh+MeF9zilgW5ZsET9MlS1yIMU7hG1Lb9HKlB
+         UAwybdvFKhrVEecoSynXIFMPif3og+DZXWGwgXM8X5e8+2vvYIhlG+G6nQ+TplQiZimB
+         57sNXzIjEBelLrzqTcveS6jNNyhB0FXZsJAj6+ysBI+cEvTUOqhAIUz+I+xTj1A7nTCu
+         fvfM9+gFTGEd+xB6v5MhK0bLWVw3R5CvELBgghn6JzuBZ1FaLSyIBAhivB4bA75tUU09
+         LrMg==
+X-Forwarded-Encrypted: i=1; AJvYcCXwEQSv9skzKrGOIgCYY6M2a5F6YbEkZuEeXVs6Hn0EMsRbZ0XT3z/rIu1fU7EYwdNUpqArzltz4bY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy2ZhcQ5gVKEe9EdMsqIY8qx8JQsTdp+S+xFXCK5kgJOVMPpESa
+	xpYFejbQc5zi8NEE+O8TK6n8EmtM0uZkLzJFXPpiNpXkIUsK9Nsn+AMa2hzFolQ=
+X-Gm-Gg: ASbGnctYu0otdOGYhcfoG+m0SompXiy+J0Ge1vSgDTkWQxTdNPkrWrpdovrkhs2mtPY
+	RtdLy5A8clkRcQhSFac0h4CIvknq4OIidod78txZEWu0IBzvNw+JG6UFmK+eMgCVVekJzpgGd9V
+	K2kJSTMVUYXNCGq36oVo3STqn0sadxX34+rvXm9mtWCdC6SIDkglMRpekKK0PUkBV+efWlSvFHD
+	0gy3b/XdAub/GbrC49cGbf0q014LCEk8OGDa3W4ZgeVph6Mbp/ParrZpmcCw9s3KLI90ZmYG0xZ
+	qaNren+haUuS/kUl6dqUCDfVHKfEJmFw3/vrzEYPsLKojQ==
+X-Google-Smtp-Source: AGHT+IEG7xl9pQzG2YP3gKHodGQVnlDH5X8vQFYlIAnQpUY7bB7mChVZEVxdy5t1eQsaLmcEKnooHQ==
+X-Received: by 2002:a05:600c:1e8f:b0:43d:7588:667b with SMTP id 5b1f17b1804b1-4406ab9426cmr206007195e9.10.1745398340130;
+        Wed, 23 Apr 2025 01:52:20 -0700 (PDT)
+Date: Wed, 23 Apr 2025 10:52:18 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 2/4] x86/hvm: fix handling of accesses to partial r/o
+ MMIO pages
+Message-ID: <aAiqQnRXrXQAX1Vl@macbook.lan>
+References: <20250417152514.13702-1-roger.pau@citrix.com>
+ <20250417152514.13702-3-roger.pau@citrix.com>
+ <f71bc0f8-8de1-4ecd-a2c0-a420e991e429@suse.com>
+ <aAErECZ1Ys-Nufon@macbook.lan>
+ <32297a1f-418f-403b-9529-e9f2620e1279@suse.com>
+ <aAijCvHMhGKYeSu9@macbook.lan>
+ <b63ff1ca-2752-44fe-8a32-0a721eec1abb@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 21/34] x86/msr: Utilize the alternatives mechanism
- to write MSR
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
-        virtualization@lists.linux.dev, linux-pm@vger.kernel.org,
-        linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
-        netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-        acme@kernel.org, andrew.cooper3@citrix.com, peterz@infradead.org,
-        namhyung@kernel.org, mark.rutland@arm.com,
-        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
-        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
-        wei.liu@kernel.org, ajay.kaher@broadcom.com,
-        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
-        pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
-        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
-        haiyangz@microsoft.com, decui@microsoft.com
-References: <20250422082216.1954310-1-xin@zytor.com>
- <20250422082216.1954310-22-xin@zytor.com>
- <b2624e84-6fab-44a3-affc-ce0847cd3da4@suse.com>
-Content-Language: en-US
-From: Xin Li <xin@zytor.com>
-Autocrypt: addr=xin@zytor.com; keydata=
- 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
- l75w1xInsg==
-In-Reply-To: <b2624e84-6fab-44a3-affc-ce0847cd3da4@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <b63ff1ca-2752-44fe-8a32-0a721eec1abb@suse.com>
 
-On 4/22/2025 2:57 AM, Jürgen Groß wrote:
-> On 22.04.25 10:22, Xin Li (Intel) wrote:
->> The story started from tglx's reply in [1]:
->>
->>    For actual performance relevant code the current PV ops mechanics
->>    are a horrorshow when the op defaults to the native instruction.
->>
->>    look at wrmsrl():
->>
->>    wrmsrl(msr, val
->>     wrmsr(msr, (u32)val, (u32)val >> 32))
->>      paravirt_write_msr(msr, low, high)
->>        PVOP_VCALL3(cpu.write_msr, msr, low, high)
->>
->>    Which results in
->>
->>     mov    $msr, %edi
->>     mov    $val, %rdx
->>     mov    %edx, %esi
->>     shr    $0x20, %rdx
->>     call    native_write_msr
->>
->>    and native_write_msr() does at minimum:
->>
->>     mov    %edi,%ecx
->>     mov    %esi,%eax
->>     wrmsr
->>     ret
->>
->>    In the worst case 'ret' is going through the return thunk. Not to
->>    talk about function prologues and whatever.
->>
->>    This becomes even more silly for trivial instructions like STI/CLI
->>    or in the worst case paravirt_nop().
+On Wed, Apr 23, 2025 at 10:32:33AM +0200, Jan Beulich wrote:
+> On 23.04.2025 10:21, Roger Pau Monné wrote:
+> > On Tue, Apr 22, 2025 at 08:46:13AM +0200, Jan Beulich wrote:
+> >> On 17.04.2025 18:23, Roger Pau Monné wrote:
+> >>> On Thu, Apr 17, 2025 at 05:38:54PM +0200, Jan Beulich wrote:
+> >>>> On 17.04.2025 17:25, Roger Pau Monne wrote:
+> >>>>> --- /dev/null
+> >>>>> +++ b/xen/arch/x86/hvm/mmio.c
+> >>>>> @@ -0,0 +1,125 @@
+> >>>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+> >>>>> +/*
+> >>>>> + * MMIO related routines.
+> >>>>> + *
+> >>>>> + * Copyright (c) 2025 Cloud Software Group
+> >>>>> + */
+> >>>>> +
+> >>>>> +#include <xen/io.h>
+> >>>>> +#include <xen/mm.h>
+> >>>>> +
+> >>>>> +#include <asm/p2m.h>
+> >>>>> +
+> >>>>> +static int cf_check subpage_mmio_accept(struct vcpu *v, unsigned long addr)
+> >>>>> +{
+> >>>>> +    p2m_type_t t;
+> >>>>> +    mfn_t mfn = get_gfn_query_unlocked(v->domain, PFN_DOWN(addr), &t);
+> >>>>> +
+> >>>>> +    return !mfn_eq(mfn, INVALID_MFN) && t == p2m_mmio_direct &&
+> >>>>> +           subpage_mmio_find_page(mfn);
+> >>>>> +}
+> >>>>> +
+> >>>>> +/*
+> >>>>> + * The guest has read access to those regions, and consequently read accesses
+> >>>>> + * shouldn't fault.  However read-modify-write operations may take this path,
+> >>>>> + * so handling of reads is necessary.
+> >>>>> + */
+> >>>>> +static int cf_check subpage_mmio_read(
+> >>>>> +    struct vcpu *v, unsigned long addr, unsigned int len, unsigned long *data)
+> >>>>> +{
+> >>>>> +    struct domain *d = v->domain;
+> >>>>> +    unsigned long gfn = PFN_DOWN(addr);
+> >>>>> +    p2m_type_t t;
+> >>>>> +    mfn_t mfn;
+> >>>>> +    struct subpage_ro_range *entry;
+> >>>>> +    volatile void __iomem *mem;
+> >>>>> +
+> >>>>> +    *data = ~0UL;
+> >>>>> +
+> >>>>> +    if ( !IS_ALIGNED(len | addr, len) )
+> >>>>
+> >>>> What's the point of doing the | ? len can't be misaligned with itself?
+> >>>
+> >>> Hm, it's the same form that's used in mmio_ro_emulated_write(), I
+> >>> assumed it was to catch illegal access lengths, like 3.
+> >>
+> >> Oh, I see. But that's not using IS_ALIGNED(), and imo validly so, despite the
+> >> apparent open-coding. IS_ALIGNED() requires the 2nd argument to be a power of
+> >> two. The combined check there is folding the power-of-2 one with the is-
+> >> aligned one.
+> > 
+> > Do you think it's worth keeping those checks then?
 > 
-> This is nonsense.
+> Yes, I think we should be as strict as possible in what we (try to) emulate.
 > 
-> In the non-Xen case the initial indirect call is directly replaced with
-> STI/CLI via alternative patching, while for Xen it is replaced by a direct
-> call.
+> >  I could do:
+> > 
+> > if ( len & (len - 1) || len > 8 || !IS_ALIGNED(addr, len) )
+> > 
+> > As a possibly more complete and easier to parse check?
 > 
-> The paravirt_nop() case is handled in alt_replace_call() by replacing the
-> indirect call with a nop in case the target of the call was paravirt_nop()
-> (which is in fact no_func()).
-> 
->>
->>    The call makes only sense, when the native default is an actual
->>    function, but for the trivial cases it's a blatant engineering
->>    trainwreck.
-> 
-> The trivial cases are all handled as stated above: a direct replacement
-> instruction is placed at the indirect call position.
+> If you dislike the form mmio_ro_emulated_write() uses, sure. However, you
+> will want to check len to be non-zero, while I'm unsure you need to check
+> len > 8 - mmio_ro_emulated_write() doesn't have such. Albeit - perhaps
+> wrongly so; we'd end at the ASSERT_UNREACHABLE() in
+> subpage_mmio_write_emulate() if a wider store was used. I guess I ought to
+> make a patch there, and you want to keep the "len > 8".
 
-The above comment was given in 2023 IIRC, and you have addressed it.
+OK, let me send v4 with those adjustments then.
 
-> 
->> Later a consensus was reached to utilize the alternatives mechanism to
->> eliminate the indirect call overhead introduced by the pv_ops APIs:
->>
->>      1) When built with !CONFIG_XEN_PV, X86_FEATURE_XENPV becomes a
->>         disabled feature, preventing the Xen code from being built
->>         and ensuring the native code is executed unconditionally.
-> 
-> This is the case today already. There is no need for any change to have
-> this in place.
-> 
->>
->>      2) When built with CONFIG_XEN_PV:
->>
->>         2.1) If not running on the Xen hypervisor (!X86_FEATURE_XENPV),
->>              the kernel runtime binary is patched to unconditionally
->>              jump to the native MSR write code.
->>
->>         2.2) If running on the Xen hypervisor (X86_FEATURE_XENPV), the
->>              kernel runtime binary is patched to unconditionally jump
->>              to the Xen MSR write code.
-> 
-> I can't see what is different here compared to today's state.
-> 
->>
->> The alternatives mechanism is also used to choose the new immediate
->> form MSR write instruction when it's available.
-> 
-> Yes, this needs to be added.
-> 
->> Consequently, remove the pv_ops MSR write APIs and the Xen callbacks.
-> 
-> I still don't see a major difference to today's solution.
-
-The existing code generates:
-
-     ...
-     bf e0 06 00 00          mov    $0x6e0,%edi
-     89 d6                   mov    %edx,%esi
-     48 c1 ea 20             shr    $0x20,%rdx
-     ff 15 07 48 8c 01       call   *0x18c4807(%rip)  # <pv_ops+0xb8>
-     31 c0                   xor    %eax,%eax
-     ...
-
-And on native, the indirect call instruction is patched to a direct call
-as you mentioned:
-
-     ...
-     bf e0 06 00 00          mov    $0x6e0,%edi
-     89 d6                   mov    %edx,%esi
-     48 c1 ea 20             shr    $0x20,%rdx
-     e8 60 3e 01 00          call   <{native,xen}_write_msr> # direct
-     90                      nop
-     31 c0                   xor    %eax,%eax
-     ...
-
-
-This patch set generates assembly w/o CALL on native:
-
-     ...
-     e9 e6 22 c6 01          jmp    1f   # on native or nop on Xen
-     b9 e0 06 00 00          mov    $0x6e0,%ecx
-     e8 91 d4 fa ff          call   ffffffff8134ee80 <asm_xen_write_msr>
-     e9 a4 9f eb 00          jmp    ffffffff8225b9a0 <__x86_return_thunk>
-         ...
-1:  b9 e0 06 00 00          mov    $0x6e0,%ecx   # immediate form here
-     48 89 c2                mov    %rax,%rdx
-     48 c1 ea 20             shr    $0x20,%rdx
-     3e 0f 30                ds wrmsr
-     ...
-
-It's not a major change, but when it is patched to use the immediate 
-form MSR write instruction, it's straightforwardly streamlined.
-
-> 
-> Only the "paravirt" term has been eliminated.
-
-Yes.
-
-But a PV guest doesn't operate at the highest privilege level, which
-means MSR instructions typically result in a #GP fault.  I actually 
-think the pv_ops MSR APIs are unnecessary because of this inherent
-limitation.
-
-Looking at the Xen MSR code, except PMU and just a few MSRs, it falls
-back to executes native MSR instructions.  As MSR instructions trigger
-#GP, Xen takes control and handles them in 2 ways:
-
-   1) emulate (or ignore) a MSR operation and skip the guest instruction.
-
-   2) inject the #GP back to guest OS and let its #GP handler handle it.
-      But Linux MSR exception handler just ignores the MSR instruction
-      (MCE MSR exception will panic).
-
-So why not let Xen handle all the details which it already tries to do?
-(Linux w/ such a change may not be able to run on old Xen hypervisors.)
-
-BTW, if performance is a concern, writes to MSR_KERNEL_GS_BASE and
-MSR_GS_BASE anyway are hpyercalls into Xen.
-
-Thanks!
-     Xin
+Thanks, Roger.
 
