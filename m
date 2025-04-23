@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 338B1A99B9C
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 00:44:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.965643.1356113 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1721BA99B9E
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 00:47:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.965666.1356155 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7ioN-0007My-RV; Wed, 23 Apr 2025 22:43:23 +0000
+	id 1u7irt-0008CS-Kr; Wed, 23 Apr 2025 22:47:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 965643.1356113; Wed, 23 Apr 2025 22:43:23 +0000
+Received: by outflank-mailman (output) from mailman id 965666.1356155; Wed, 23 Apr 2025 22:47:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7ioN-0007KA-O2; Wed, 23 Apr 2025 22:43:23 +0000
-Received: by outflank-mailman (input) for mailman id 965643;
- Wed, 23 Apr 2025 22:43:22 +0000
+	id 1u7irt-0008AZ-I2; Wed, 23 Apr 2025 22:47:01 +0000
+Received: by outflank-mailman (input) for mailman id 965666;
+ Wed, 23 Apr 2025 22:46:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dLR5=XJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u7ioM-0007K4-NK
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 22:43:22 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1u7irr-00089t-Fw
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 22:46:59 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5a64df6c-2094-11f0-9ffb-bf95429c2676;
- Thu, 24 Apr 2025 00:43:19 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43cf05f0c3eso2326765e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 15:43:19 -0700 (PDT)
+ id dca1b720-2094-11f0-9ffb-bf95429c2676;
+ Thu, 24 Apr 2025 00:46:57 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-43cfebc343dso2346925e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 15:46:57 -0700 (PDT)
 Received: from [192.168.1.23] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-44092b0a4b5sm40350275e9.0.2025.04.23.15.43.16
+ 5b1f17b1804b1-44092db2beesm41459955e9.30.2025.04.23.15.46.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 15:43:17 -0700 (PDT)
+ Wed, 23 Apr 2025 15:46:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a64df6c-2094-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: dca1b720-2094-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745448199; x=1746052999; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1745448417; x=1746053217; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lF1GosE/h6pbu6VJCuXLrvMwE0dEA9d3yyBrJB/Ryp0=;
-        b=ViDY+R1/I8sK617clCzaBb+qV1W3GBkaBatb2g5uz/Er18TO4L2gc0nIi+2P4K/PJG
-         Ze2CmMsm3lzLCk2xTSei7huWXQod0UANSrhvLvJWndsU7FLXtgHbZLCXrxPNan/flgNg
-         M+By3jnFGaFio+5qm2icIwFbQ5Yz5iaXaYp1c=
+        bh=EIq8UHNpdSL2SOOvD4HsUnuCafprfKERIGeRYPUfbT8=;
+        b=nu+B6gkgmeD1NAmuBIUY5uskI1vhBYUqdYauwf9q4IyjsPfXgaWtyWiD34YlEGZjWl
+         mY/YTtQXdX1DxS9p4gCEdCVT5x/ntNcLXCIYosYHHmEqy3nh3GDE2aiDG4Ue+UEzutWm
+         ltSLHvHAJ0YmXMa1wSgB2K/866TWCZqAWArV4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745448199; x=1746052999;
+        d=1e100.net; s=20230601; t=1745448417; x=1746053217;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lF1GosE/h6pbu6VJCuXLrvMwE0dEA9d3yyBrJB/Ryp0=;
-        b=QLYnGBTMjcLkGt1pLx4zHxsCVTwqJN9qduG2tj9B3vGY1ZmF6rwJSghtVonZjmnRrH
-         l9ckhhdCxGfQbPZ3DREJ/k9A20SM5rWQORrtLxgfTLTWC54W4yyckZwTEa63r9L1FxHj
-         2NoB7QlsbLJzqB0IulqxhpM2YfPEnMG72ngOs/utgBYshQtD5aVKWjeV32MzhTSx3Svv
-         g519v8jdEQcZYA15mO5L+JT07f3INnQDxat/sypR7d8/4J9O7h22KGiav2+Jkk99NdpW
-         HtpbSA/hAui2dFYJ8x3n3J1xFHWr/VFrBMx/bCuU9k9h/iiypxJULGrqGExEpk7m0r80
-         QPPg==
-X-Gm-Message-State: AOJu0YyqSk8llu3YPsVNhmsVpr47zLL6VLrqRgNAuG7oPfe84+1ux8PW
-	xFDDW+TYCIL3nlsDdc8bOV1QPICTGFM6Rfk2TatfWjgVIR2UvCVEF34tEbV/ook=
-X-Gm-Gg: ASbGnctjFCO5faDhtT8RCuRDVXSVsrU5SRT7iarvtt4GNrVCQi7/Mr97lPp+F3RiyNq
-	KAZrD98QxjxBExFMX2K2ARBpuGWCCsv231No7haOlbf8xirfF45bZSfSULT9i2wuWbAUye0L2J2
-	Q+Ujyqhq19f2fVUy+jeUUZdZG5OxNIo83GpjsBR3MwEDw4fyGtL0+OAaDnJVUuFGLPH2d/sJEXV
-	FDjE+phiDsyzOXu24+VOtS9nONRgAVfndR5Vfg3YOthxYXUmGQtMstkbx46wjrTBRiQsy24rKTo
-	1G3cZCVmft5PY4OTbE5AJ6t4T3xzeoIYCSnlxIyuMeRzDCq22Ma3NShpix9grWsCAD+kNeVifR6
-	dL7IW
-X-Google-Smtp-Source: AGHT+IEX0+tz08KYOOtrsF4uh2qRfc3YehT0TEHSwI9PuldMYUqPTfY5eDhr1F9vkB55QMr9YUeurg==
-X-Received: by 2002:a05:600c:4e0c:b0:43d:160:cd97 with SMTP id 5b1f17b1804b1-4409bd86819mr2051225e9.25.1745448198716;
-        Wed, 23 Apr 2025 15:43:18 -0700 (PDT)
-Message-ID: <6ae5f0a2-8055-45e1-933c-199d6c6d8626@citrix.com>
-Date: Wed, 23 Apr 2025 23:43:15 +0100
+        bh=EIq8UHNpdSL2SOOvD4HsUnuCafprfKERIGeRYPUfbT8=;
+        b=P/58HrZ/l4AIsTaz9LTQBHrfzc4kK0ohVgmhigY+BFJfAUAgDu+kRT4+BlwE1VXDjk
+         yi11bhpzyl9duY4SIdV9W7q9AwBOWa5YgaSTgkn5MnUS1mGuj3QeJFjc4LTedrP9NB0J
+         2ftQaP8oI0ivjRFDfNA2z/jdNifIS/74oIWW+7XkgfzcHxcA5y+VsaQ1sN3KDacr1UZt
+         C/x9frRnLNmuW+nms2bZokFhiPqem7txQC3MQOc7986LJVpzGcaIrqLS1T/PpF8RH0nC
+         wxYqWKUseIPldqyee+JIA7XUc2LNRvvN/S1fEeg1DGED6vt7T9gZCoR+hUWriXYLig5L
+         xJ9w==
+X-Gm-Message-State: AOJu0YysqYyYf+/fXSEOcX8nc2hAURpO3GXAnM8hvoyX9qFMu5iIXC7N
+	rVnft3Uhmv6Yj2xrU7hZZPxPP1rk+Od9XqOVKp0Sy8jK7Wl/SlOfg37oBLx0W09G7OFe1ToQLXu
+	6YW4=
+X-Gm-Gg: ASbGncsrmndK8rbCACWmpKyxJ5De1Eqj5htGj12mq1As9fPYM7ohPRUoYvtt91OybF1
+	JKHWlE0qIyiSKfUi2cSVatls71ZEKHxmUJmHvbK2cxA/NcQ5RZRTF6e5fiMTqDPiVgyw60Kwb+d
+	ZvUFjuGgnam28cf9AeuOw2UG2C77J3u/DFeQfKYws45TBPiaxN3/GRdzZoSDixZ+NfK/b4k5L7v
+	u7TxvTICjOecqNZVyo0wkE9KfHwY4IaD8g6dsv+hfJPzRT3JPoSYn0O+n14E8Jvf711FFR5xiEK
+	pjbW1i7zsg050SeHhLSxHK7HFxpdXe+PQwIWMGBnncsfLZQan9cCdY1O+QdhDf1dD2KES/MU1fO
+	pKRqn
+X-Google-Smtp-Source: AGHT+IFoYul5HVM4K1pPhGop64CxTcJb9DkZgLGNsjmrNnjwb8G1/VhhsXQ0xX/BY4Wvb3e647HH0w==
+X-Received: by 2002:a05:600c:3d89:b0:43c:f1b8:16ad with SMTP id 5b1f17b1804b1-4409bd8e01cmr3536095e9.30.1745448417384;
+        Wed, 23 Apr 2025 15:46:57 -0700 (PDT)
+Message-ID: <76b7438b-9459-4f41-ab18-b777f7b3fcff@citrix.com>
+Date: Wed, 23 Apr 2025 23:46:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/21] x86: Trenchboot Secure Launch DRTM (Xen)
-To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Lukasz Hawrylko <lukasz@hawrylko.pl>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, trenchboot-devel@googlegroups.com
-References: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
- <744934f4-f56f-4dc7-bccb-c32f2829d1da@citrix.com>
- <010709d8-7784-41bf-bcb6-bf04803a75fc@citrix.com> <aAk1ZBw8GtoVYoL8@MjU3Nj>
+Subject: Re: [XEN PATCH] misra: update list of GCC extensions used by Xen
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <da508095ef2ac0024dfe9f51d9da976da0eaead7.1745441038.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2504231354540.785180@ubuntu-linux-20-04-desktop>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -143,100 +140,29 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <aAk1ZBw8GtoVYoL8@MjU3Nj>
+In-Reply-To: <alpine.DEB.2.22.394.2504231354540.785180@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 23/04/2025 7:45 pm, Sergii Dmytruk wrote:
-> On Wed, Apr 23, 2025 at 02:38:37PM +0100, Andrew Cooper wrote:
->> On 22/04/2025 6:14 pm, Andrew Cooper wrote:
->>> I've stripped out the sha2 patch and fixed up to use the existing sha2,
->>> then kicked off some CI testing:
->>>
->>> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1780285393
->>> https://cirrus-ci.com/build/5452335868018688
->>>
->>> When the dust has settled, I'll talk you through the failures.
->> And here we go.  Interestingly, the FreeBSD testing was entirely happy,
->> and that is the rare way around.
+On 23/04/2025 9:55 pm, Stefano Stabellini wrote:
+> On Wed, 23 Apr 2025, Nicola Vetrini wrote:
+>> __inline was not mentioned in C-language-toolchain.rst, while
+>> __inline__ is not used in code under xen/. __inline is kept because it
+>> may be used in Xen. The ECLAIR configuration is now consistent with the
+>> documented extensions in the rst file.
 >>
->> For Gitlab, there are several areas.
+>> No functional change.
 >>
->> First, for MISRA.  In the job logs, you want the "Browse current
->> reports:" link which will give you full details, but it's all pretty
->> simple stuff.
-> Thanks, but that link gives me a list of 5096 failures all over the code
-> base.  Is there any way to see a diff against master?
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-No sadly not.  What you see is a mix of the blocking issues, and the "we
-want to see these so we can work on them".
+Hmm.  f96e2f64576cd
 
-Immediately under the link is the one-line tl;dr.  For ARM, it's just a
-single:
+I take it that patch shouldn't have gone in then?
 
-Failure: 1 regressions found for clean guidelines
-  service MC3A2.R7.2: (required) A `u' or `U' suffix shall be applied to
-all integer constants that are represented in an unsigned type:
-   violation: 1
-
-Clicking through into the R7.2 analysis shows
-https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/hardware/xen-staging/ECLAIR_normal/andrew/tb-v1.1/ARM64/9791028027/PROJECT.ecd;/by_service/MC3A2.R7.2.html
-
-This violation is shared with x86 because it's a header pulled into a
-common file.
-
-For x86, the list is rather longer.  You've got:
-
-6x D1.1
-2x D4.14
-1x R5.3
-116x R7.2
-1x R7.3
-12x R8.3
-7x R8.4
-1x R11.9
-87x R20.7
-
-These are the blocking directives/rules.  Others which you see in the
-overall report are non-blocking.
-
->
->> kbl-suspend-x86-64-gcc-debug is a real S3 test on KabyLake hardware,
->> which appears to have gone to sleep and never woken up.  (More likely,
->> crashed on wakeup before we got the console up).  The AlderLake
->> equivalent test seems to be happy, as well as the AMD ones.
-> Hm, not sure what that could be, but will try to reproduce/guess.
-
-KBL is unreliable in one specific way, but not with these symptoms.
-
-I reran the suspend test, and it failed in the same way.  I think it's a
-deterministic bug.
-
-I can probably dig out my emergency serial debugging patches for S3 if
-you want?
-
->> Other common failures seem to be:
->>
->>     # take image offset into account
->>     arch/x86/efi/fixmlehdr xen.efi 0x200000
->>     Failed to find MLE header in xen.efi
->>     arch/x86/Makefile:220: recipe for target 'xen.efi' failed
->>     make[3]: *** [xen.efi] Error 1
->>
->> ~Andrew
-> That seems to be the only reason behind the rest of build failures.
-> I was able to reproduce the failure in Fedora 37 docker.  Searching for
-> the header in 8KiB instead of 4KiB fixes it.  Looks like large default
-> alignment of some toolchains pushes `head.S` to 4 KiB offset.
-
-FYI, you can access all the Xen containers with:
-
-CONTAINER=foo ./automation/scripts/containerize
-
-in the xen.git tree.
-
-Alignment that large is unexpected, and I suspect we want to fix it.  Is
-it pre-existing, or something introduced by your series?
+Regardless, now that we're putting it back in, we should put in both
+__inline and __inline__, so as not to need to come back and repeat this
+patch again.
 
 ~Andrew
 
