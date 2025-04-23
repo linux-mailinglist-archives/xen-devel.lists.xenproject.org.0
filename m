@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F20B6A98238
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 10:06:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964093.1354963 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B6C9A9823F
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 10:07:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964102.1354972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7V7X-0005lT-EF; Wed, 23 Apr 2025 08:06:15 +0000
+	id 1u7V8O-0006F1-Lq; Wed, 23 Apr 2025 08:07:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964093.1354963; Wed, 23 Apr 2025 08:06:15 +0000
+Received: by outflank-mailman (output) from mailman id 964102.1354972; Wed, 23 Apr 2025 08:07:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7V7X-0005iN-Ah; Wed, 23 Apr 2025 08:06:15 +0000
-Received: by outflank-mailman (input) for mailman id 964093;
- Wed, 23 Apr 2025 08:06:14 +0000
+	id 1u7V8O-0006CZ-Im; Wed, 23 Apr 2025 08:07:08 +0000
+Received: by outflank-mailman (input) for mailman id 964102;
+ Wed, 23 Apr 2025 08:07:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rvAI=XJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u7V7W-0005iF-6b
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 08:06:14 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1u7V8N-0005iF-Ao
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 08:07:07 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cd3e1288-2019-11f0-9ffb-bf95429c2676;
- Wed, 23 Apr 2025 10:06:04 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-391342fc0b5so4988015f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 01:06:04 -0700 (PDT)
+ id f207dbd4-2019-11f0-9ffb-bf95429c2676;
+ Wed, 23 Apr 2025 10:07:05 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-39c31e4c3e5so4170338f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 01:07:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39efa4330casm17638567f8f.22.2025.04.23.01.06.02
+ 5b1f17b1804b1-44092d2e97dsm16476425e9.18.2025.04.23.01.07.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 01:06:03 -0700 (PDT)
+ Wed, 23 Apr 2025 01:07:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd3e1288-2019-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: f207dbd4-2019-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745395563; x=1746000363; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745395625; x=1746000425; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=S9Pg5n5h4ZV9IY9mDeyUobCy60JGXOGx+sidZcbIJws=;
-        b=c1qyhA9ioa4IfxtDA8d6D4yZ9iRLuOgCIzZkr8iBoTOVnKLQparNS+TDYrdtKXF5NR
-         9dN2Do/1uhSMwjVffnw8vQK5v5f0hLaaW2qzTygFx0jw6DA+LyUbYg8OaXiRfaZC8GM3
-         7IscF0j2uWVdQaR3sPyn7EtO3BZwOEAGWTAEg50hL3+3jQtqYFrscu3lQshNKzrpjwsd
-         2dj0VHRk88kAjVe5b2VPy2h/vnA0+AyY03ezjSa+7hg3YR6ONRBwXGnGDnFDtI86B9RD
-         eBi7fXdNFKtYiwcrEs4LkZxVwWRRa7UM7e8rNCARhG3fjaRqR33JKCH/8L+7/PB/pD0H
-         3+5w==
+        bh=9EPSxuyRd01dx1UGB1aiX/96D5ARixBWeVTUGFCaaB4=;
+        b=Ijob6dh74gOEUN2tfCYXCFpyiBVbsBvmEQXipacM2xLoB9m1X841cvavDWj4+I6QLF
+         Q2bVxHmwuzrpEMf8W3mCGVaP0WcmYCum2fvh4WRjUGK5go8CIHvtEVWhVFbPWg/ylILS
+         knu/eXKfTD1M73oD/7AEKJ+UuU22+W5OdeKUS5zqGnghS0BBM3ErNHwFDIItPOXpk0o1
+         YjTZxhbcfGmzj2g0lbUgbyD3pRkzDxa3UjciqbWATS5u7wrppmEi+DSDOyiwxB/nd4/V
+         ofeR+UzIdzscOIbvNbV28Odp961VrqOYls5iASazym3a0LP56neHO1G23fSkKLRlwXmZ
+         Zbag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745395563; x=1746000363;
+        d=1e100.net; s=20230601; t=1745395625; x=1746000425;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=S9Pg5n5h4ZV9IY9mDeyUobCy60JGXOGx+sidZcbIJws=;
-        b=i6qnRaKtUBnKvu54S+PCIu54qa06qBZtkXYCpC3AUds8rMWSi1ICFtFO5hfm1yYz0v
-         IOxfXv5E+bLAkGdFTtqkVaie7btj1wJFaHyYloU+mpakkv0LaZycemW7UTUxhYDa+XAM
-         SfVfGguVLf0ATeZ3s8IHRg3DjwBFg67UEIW7bHF9/vtmgaYJMVDVi6bqXLj8ESYjp5If
-         CgJDgRuU3oWHce5ao/xP+39Sb4PMkuEGKTwfl4YTGU4JjuoUMZ/33doOGQAQBYmfzJi4
-         RdHb1xSb8ZvhZssiRgs6j7zZPxgQRRTE1/XwGdaapMwnb619yMU5q22BLgB/v1Ws43Av
-         1mLg==
-X-Forwarded-Encrypted: i=1; AJvYcCV2wC8zsxD+U36sMWEEGpHwPFQCzgXZQzxcRizKkrbOBajbmbrtu0pdKIJkiO/lcrlR4sQXQ4W8nJc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyhN95jSSajn54lm5Kh8iiLAR90oubeujBRu1dPBv2GJR+4xoAP
-	pTd7y9tIOL1cmOLkVA3sJc8POmOzwBO4pM4aw2zMbgfhYldDGnm0NzOfC2dDMA==
-X-Gm-Gg: ASbGnctlRV6nm0hhNWyyvwv9z3DuQS/RmW/qvIouaaIGv+OoLr6BTkOWJ14EP88qqT+
-	UXzPNdE6xkb7byUBlKv1IcYURl6QXx3YnRpft9AYJs92HEOCXvjs90oViT6FhP5vGndFEO/VQI/
-	QHGZVdV3N2zzAugV6NcYUNnZeNGSpSh5qW0lNColq+oy9tjkH9lYMBhXIUhQjuwQv4Q6zo0QNC1
-	Alvn6X0JD0qwO5Plpb7OGF1lp42eKzqSHQaETwzbNv7zi6ZIKXvOD9jD4Mpa8zSruXo3Po+BkuN
-	3A2nOFf60y4JGaSS9kOCv5K8aQpLagPqE+giyY61/PGm57g+ItidVxmNBkYOQZv3gnVaEZR8A1E
-	bMjXPS5iHFGT0EmoL03LDRcNU0w==
-X-Google-Smtp-Source: AGHT+IEOa/txAdFhAUHySvbC4/jy7l4N0QaAOZpSpuK5PeB+4XWP7Dd+qoTA+2l0oC0PW0j8hqydcA==
-X-Received: by 2002:a05:6000:4284:b0:39c:2678:302e with SMTP id ffacd0b85a97d-39efbae5c77mr15690563f8f.45.1745395563428;
-        Wed, 23 Apr 2025 01:06:03 -0700 (PDT)
-Message-ID: <d16d1bc9-4f38-42bc-93c8-39ec0f319a56@suse.com>
-Date: Wed, 23 Apr 2025 10:06:02 +0200
+        bh=9EPSxuyRd01dx1UGB1aiX/96D5ARixBWeVTUGFCaaB4=;
+        b=kfjBw/e5aDmaa1/+UHNq9fSYobxEOyLwzHjh2ISoQUrSwu5whVx4l0zuvhEhRWb8GA
+         /w73HAqxAM0PEQtkxqbFQoGx6FRYy6XTadn/k5jnTpuhe8Xs8CJuLG8hWETobeoT+muQ
+         zZDrhj31qc/06olJ8ZO8175rup5sET3oKj7oMLcAh/akPYJm/g3ObdFid4ONpP1a/IVM
+         3gDg73Zc+Vj80VpSx5dc3K+yl/AhflnVu8nNLt27/6XMzZeV9Lgn7D+dQwIqlc5UNo6u
+         /NV0RDwgZ8p9S6Gmehhb9UIgPId4N4JoJXKm6tTG/r7x7LcN2Xim2qFoSKmzLLXHmqYH
+         QIuQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUPnl5ZI4Ee7JONhuXLsBPKISOAwX7prxpr1EvNzzsq04vSwCpda1AjgH/nZi+dP2tDfHCFkvK5a8Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwpT5rHuV0RRHARSBViYU5y0fAvK4TaWRWqSyuSrZ1ICjsX1pUt
+	84CY+awobu0SWix8xWhgugR/bYKOmXKVQgIgJH1U3xIOUqHAFttbEhHklDSkiqPIDEojdaYvEZU
+	=
+X-Gm-Gg: ASbGncsfYfJcePZYyYWZCebK1AQRViMeCraM803a1bORRjrdf8MQICgcOq6m872vQ4Z
+	zJuMWUwuuiyPnx8A43BApGA4GQUV1jmVZ/b60A6MHpGAWXR2XstF5rPUYTTqSxE8wa7v3CjdMtK
+	ENqGzmMYxvfKDi6pKY/OW9+Xx0bK8sP4sMRSvZwBY9pVi2gRoIxiumcXcweLc9mE7aLYk5EhCoe
+	uhYKJkMUztr/wlDEhW0L64KwIzHEFd4nFHatK15rJgBDhueg/YT1kPQxY/+siFQJ4bdTmp+ZvpD
+	Y8QSVWoz+GvY7Dxp/pW8ddlMBSaHJqAzq8iTFZD/9me8fuDjryVfSZukCsmzzPhfXmij0f/Gh5W
+	RrN33wOAWEs6n8Ku2e1JZwgF5s/g8rvFtUztO
+X-Google-Smtp-Source: AGHT+IEC1g6NhP3MQVaJekqhIdUPGbbKVPGYXr6N+13idrU4UAn0WFLi986FvirX7omuDZRUaevDJA==
+X-Received: by 2002:a05:6000:4284:b0:391:3028:c779 with SMTP id ffacd0b85a97d-39efbae3ff8mr14923681f8f.45.1745395625163;
+        Wed, 23 Apr 2025 01:07:05 -0700 (PDT)
+Message-ID: <3dfbd78b-7660-4ee8-992a-e84b7af706f6@suse.com>
+Date: Wed, 23 Apr 2025 10:07:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/8] x86/alternatives: Rework information passing into
- nmi_apply_alternatives()
+Subject: Re: [PATCH 4/8] x86/alternatives: Factor seal_endbr64() out of
+ _apply_alternatives()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250423010237.1528582-1-andrew.cooper3@citrix.com>
- <20250423010237.1528582-4-andrew.cooper3@citrix.com>
+ <20250423010237.1528582-5-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,27 +120,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250423010237.1528582-4-andrew.cooper3@citrix.com>
+In-Reply-To: <20250423010237.1528582-5-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 23.04.2025 03:02, Andrew Cooper wrote:
-> nmi_apply_alternatives() is soon going to need to dispatch to multiple
-> functions, and a force parameter is not a good way of passing information.
-> 
-> Introduce ALT_INSNS and ALT_CALLS to pass in at the top level to select the
-> operation(s) desired.  They represent what will happen when we've separated
-> the altcalls out of the general alternative instructions infrastructure,
-> although in the short term we still need to synthesise the force parameter for
-> _apply_alternatives().
-> 
-> Move two externs to reduce their scope a little.
+> We are going to need to reposition the call in a change with several moving
+> parts.
 > 
 > No functional change.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 
 
