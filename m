@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87614A98A81
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 15:08:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964679.1355418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B523A98A99
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 15:13:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964706.1355428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Zpu-0000Do-1E; Wed, 23 Apr 2025 13:08:22 +0000
+	id 1u7ZuT-0002u1-HE; Wed, 23 Apr 2025 13:13:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964679.1355418; Wed, 23 Apr 2025 13:08:22 +0000
+Received: by outflank-mailman (output) from mailman id 964706.1355428; Wed, 23 Apr 2025 13:13:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Zpt-0000CI-So; Wed, 23 Apr 2025 13:08:21 +0000
-Received: by outflank-mailman (input) for mailman id 964679;
- Wed, 23 Apr 2025 13:08:21 +0000
+	id 1u7ZuT-0002ru-Dh; Wed, 23 Apr 2025 13:13:05 +0000
+Received: by outflank-mailman (input) for mailman id 964706;
+ Wed, 23 Apr 2025 13:13:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rvAI=XJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u7Zpt-0000C3-0I
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 13:08:21 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dLR5=XJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u7ZuS-0002ro-EN
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 13:13:04 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 07392fb2-2044-11f0-9eb0-5ba50f476ded;
- Wed, 23 Apr 2025 15:08:20 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43cfe574976so47642915e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 06:08:20 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-44092d29b73sm25419085e9.17.2025.04.23.06.08.18
+ id affdc282-2044-11f0-9eb0-5ba50f476ded;
+ Wed, 23 Apr 2025 15:13:03 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43d0618746bso48761045e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 06:13:03 -0700 (PDT)
+Received: from [192.168.86.29] ([83.104.178.215])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39efa43bf20sm18505613f8f.48.2025.04.23.06.13.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 06:08:19 -0700 (PDT)
+ Wed, 23 Apr 2025 06:13:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +45,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07392fb2-2044-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: affdc282-2044-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745413699; x=1746018499; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1745413983; x=1746018783; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TIl5AAqaF4gjd3jATkj4ZhtvLt8ilKHYRw28A8s+irI=;
-        b=G/P9ydXSYKo4FUqj/woRrzvX7YxaoJWFNoW9yIzrQawsNUCmy/fWBaTff/SEtRA3Og
-         QHazMKywkErGr/jSc4xqNnaQloYRLvLxwjqYpucLgUTlXp+Q/+0eu6QACCleQPnoqH/7
-         skYKC04cEIofkD5yrR8HdpQjspoIsi/8JuculO+jvAj3FGQBGUgDtIWeQsl5CvuWOr7g
-         BaQQyvGq+HkDXVLxjED5P6aW+8zXNKahgchL78RuBU52QNM1yIHMplSzuUTkG0m1ybnE
-         HqSHKCOturpXuXViDfjBl3AZi/VVaXRsZFmOQZSkiuM4pN+b9/XornkLL98+Mad1SDs0
-         fLmw==
+        bh=vh2t5anhA6iDwOVHR1VzV29nAr/+XXvkWZl05lyvl9I=;
+        b=YjwHVZD8qlqY8+X1XCjkug8KE2dheR8bgt/Rpx0jgN9Con8sGMzDmWIyr7fcMwbLJP
+         ATOjgxBU6dCTsCR9uuSMdtOT0k7IidQmQ8/bs3Z9B+qnwDOk5Cyhj3N/QCzn79R/c7R9
+         3dD93QZ9x68kOSf7Gz1sC0TL8GnhmmX+81x4g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745413699; x=1746018499;
+        d=1e100.net; s=20230601; t=1745413983; x=1746018783;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TIl5AAqaF4gjd3jATkj4ZhtvLt8ilKHYRw28A8s+irI=;
-        b=KdbCXOzBRafisQkj5BHUDFg7eSep7ccZxlH5Pbvjo0rOpTUJ7FGEkUd9b3Octz5t8c
-         hw+/2j+NJZ6SJfHN8oD94cgdXT+9yDY7rV5empxKQGs5s114G8q8juRF5/0ZblTlMI1J
-         s9fQ2ZR6NY+wsk+zi0GmhSjbzmqbhF9gcNUgVoxSdq/XZ2qwn5pxB0+YDrJLTnqOTmzE
-         guXxtLtgHlHn6s/9m5CY03DgLwJnjMSmUisO4XkH6Ugv/EBgQ5KURYfz2sb6VtdQFegw
-         EP87JQ+GXMGBJlWxq5icw/jazysvlU4SXsZpKHPdBhv+NBagnN5sMVKoeWbcPdOMy0lW
-         epvQ==
-X-Gm-Message-State: AOJu0Ywifl2htmgu66WHwo570rFRYvRj28ENXmZR1vfFOFC5ux5FJNJC
-	eab6urZAgvnD0v2xALVnO/CVwjxAIRCVtp2sCfkcpiBmLmkrIhSJyi4FMWIerA==
-X-Gm-Gg: ASbGnctQptpWlOOEtrJv89C+vU9dGXCVvzpm5guxOBbhBQAnQYt/esdkd20w5mFqVT+
-	Fdhxm0ALKnarEGKtqHF465PTZCRFn5mMnO8OpEl/RYhf/blNKvJyRkhdKnYY3IAAtEgzFgsXYCM
-	gNZVLZXt1u7lKTrekSkHm5nvpDS+t/coVzwNhcEMeYTajudbIRiOkr1KJovMcaatzvIx7iM4e3t
-	pKmJ5Hd0PACqQsp8XM9oAM2ypEq8jCVYzKkG83tZ7EyqBTxm15zYVijKPE5tPtXyVSc5Z/mPDgO
-	s7Pm1rRVrtVWxbSiv94OLUyhb/fcwHpNMp3DuP7bVuwC2skUhVI/w75ahV6ScKE6EgR4qhOcwp2
-	aGMjOxhiSNOS/Xj03UgJY+0QXRg==
-X-Google-Smtp-Source: AGHT+IEZG1H1mMD0acc0I4IxL8udodY13OrB2Zu2B2ThWNM0Oz2TL4UAOMkdhie9t1i8eeEVtJoB/w==
-X-Received: by 2002:a05:600c:3c8d:b0:43c:e9d0:9ee5 with SMTP id 5b1f17b1804b1-4406abb0ca5mr185672835e9.18.1745413699480;
-        Wed, 23 Apr 2025 06:08:19 -0700 (PDT)
-Message-ID: <4813aeb3-72c6-4705-8591-1af63ec05ae8@suse.com>
-Date: Wed, 23 Apr 2025 15:08:18 +0200
+        bh=vh2t5anhA6iDwOVHR1VzV29nAr/+XXvkWZl05lyvl9I=;
+        b=e8EnkXiwzzCPamCl3/ua5+8/+lZd+0Gnv7/G8iZA1JU6/dPr1gOyCudXjXZs5sIML6
+         HduAsftebRnBPBWqrwlZgwxfz1xAUV9ALi21CNYFT1VT+cBgSBhS7FkGBdbVEK+9EdMl
+         367FGHmkgWDSQxwRLQRMgAxmpy+BwGdLWjP1E2ibzs4TiYzkHSshKDyMuWMqZ06PIbaH
+         eXNdHLxegI6YGX+mdrxH6a9SUza3+wj9oPs89UPtEGNFPThqTKB55Qvh+pB1qUaySqoQ
+         dBwpgcG1VKOKTLBKeiAMa5hVAARrEGs5Y2m2BvPRqGeO8N1rK1azjNa7pdndh831bEsB
+         MRsA==
+X-Forwarded-Encrypted: i=1; AJvYcCXvBJIEDG4I1T0yGAEdoHxmRdCVh7n0YOx0VZTIMiraUp7jMFxkV7h+eQ7mZpA1Sr7l9h3xZ7kItyk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx2sVnln9Y6gt6sbKcvUurgdSNLKQJr3oDsS0oKn9AaISqLzNG5
+	P2SjmKqn9Ws2qzVgS9Q/ZJoWc1PlgR/KTSlDYUwpjiLWWmBYk3tIYyErTapsWQDE5kMCmKI0liH
+	CEZo=
+X-Gm-Gg: ASbGncunNMi65RRv67nUyFoYVKSf+FYx3C62vdyMiwIaH/WlLt1dWhh5EG/gpy/+++s
+	L7OGC8PgzWEelfUlGjcJynLSKKUCe+yOSA7OHtlaJnwCdNSnkMDehqqiXhMvP+lmKizQtBPSOMr
+	3GQpZsu++Z16jQX6RmaVrue3jkvb/rVOMCQw8ACgyHLYIWLDQ6kHSHeB0m/15cL84bMrkDfhwN1
+	xmgmeU/LbFz8pRKba7C9h9q0SJF1r30HfQGZVjRH83BBqPlCPjLpkM+MVqnbUnPyYMP4ivYeeVw
+	p/EHTrYmnjEkSf/ESTVYHbmNTQPWp++p8vmIiA1vVNnVd2ywL/olvw==
+X-Google-Smtp-Source: AGHT+IGmzDKkenMW7q5DoY3eSyO6CybNqXhy5hxnpdwrI+6J5KzNRrGUQrSsNiXyZxyVD3y/6sImRw==
+X-Received: by 2002:a05:600c:4707:b0:43c:efed:732c with SMTP id 5b1f17b1804b1-4406ac27536mr132344935e9.28.1745413982707;
+        Wed, 23 Apr 2025 06:13:02 -0700 (PDT)
+Message-ID: <cd7c88b4-848b-4051-bbd6-8a8b78416ebd@citrix.com>
+Date: Wed, 23 Apr 2025 14:13:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/13] x86/hyperlaunch: obtain cmdline from device tree
-To: Alejandro Vallejo <agarciav@amd.com>, dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Jason Andryuk <jason.andryuk@amd.com>
-References: <20250417124844.11143-1-agarciav@amd.com>
- <20250417124844.11143-8-agarciav@amd.com> <aALX/NgsSi5sTyz3@kraken>
- <D9E1DIGCGP1O.QQ1KK0P3NX0K@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D9E1DIGCGP1O.QQ1KK0P3NX0K@amd.com>
+Subject: Re: [PATCH v2] x86/intel: workaround several MONITOR/MWAIT errata
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20250423113215.80755-1-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250423113215.80755-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23.04.2025 15:01, Alejandro Vallejo wrote:
-> On Fri Apr 18, 2025 at 11:53 PM BST, dmkhn wrote:
->> On Thu, Apr 17, 2025 at 01:48:29PM +0100, Alejandro Vallejo wrote:
->>> --- a/xen/common/domain-builder/fdt.h
->>> +++ b/xen/common/domain-builder/fdt.h
->>> @@ -9,6 +9,30 @@ struct boot_info;
->>>  /* hyperlaunch fdt is required to be module 0 */
->>>  #define HYPERLAUNCH_MODULE_IDX 0
->>>
->>> +static inline int __init fdt_cmdline_prop_size(const void *fdt, int offset)
->>> +{
->>> +    int ret;
->>> +
->>> +    fdt_get_property_by_offset(fdt, offset, &ret);
->>
->> Perhaps something like
->>
->>        (void)fdt_get_property_by_offset...
->>
->> since there's no need to check the return value?
-> 
-> I vaguely seem to remember doing something like that a few years ago
-> (because it does show intent and many linters require it) and being told
-> not to. But maybe I misremember. I'm definitely happy to use that
-> convention here and later unless someone pushes back for some reason.
+On 23/04/2025 12:32 pm, Roger Pau Monne wrote:
+> There are several errata on Intel regarding the usage of the MONITOR/MWAIT
+> instructions, all having in common that stores to the monitored region
+> might not wake up the CPU.
+>
+> Fix them by forcing the sending of an IPI for the affected models.
+>
+> The Ice Lake issue has been reproduced internally on XenServer hardware,
+> and the fix does seem to prevent it.  The symptom was APs getting stuck in
+> the idle loop immediately after bring up, which in turn prevented the BSP
+> from making progress.  This would happen before the watchdog was
+> initialized, and hence the whole system would get stuck.
+>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Apollo and Lunar Lake fixes have not been tested, due to lack of hardware.
 
-Unless we settle on the need for such for Misra's sake, I'd like to ask
-to avoid them. We generally try to avoid casts as much as possible. We
-then also shouldn't add ones like suggested here.
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Jan
+> diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
+> index 420198406def..1dbf15b01ed7 100644
+> --- a/xen/arch/x86/acpi/cpu_idle.c
+> +++ b/xen/arch/x86/acpi/cpu_idle.c
+> @@ -441,8 +441,14 @@ void cpuidle_wakeup_mwait(cpumask_t *mask)
+>      cpumask_andnot(mask, mask, &target);
+>  }
+>  
+> +/* Force sending of a wakeup IPI regardless of mwait usage. */
+> +bool __ro_after_init force_mwait_ipi_wakeup;
+> +
+>  bool arch_skip_send_event_check(unsigned int cpu)
+>  {
+> +    if ( force_mwait_ipi_wakeup )
+> +        return false;
+> +
+
+I don't especially like this.  The callers are a loop over all CPUs, and
+this can't be inlined/simplified automatically.
+
+But, lets get the fix in place first.  Optimising comes later.
+
+~Andrew
 
