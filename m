@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67374A981DC
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 09:55:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964066.1354939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A63BA981E0
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 09:56:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964075.1354952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Uwy-0002YM-2Z; Wed, 23 Apr 2025 07:55:20 +0000
+	id 1u7Uxf-00033k-Dy; Wed, 23 Apr 2025 07:56:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964066.1354939; Wed, 23 Apr 2025 07:55:20 +0000
+Received: by outflank-mailman (output) from mailman id 964075.1354952; Wed, 23 Apr 2025 07:56:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Uwx-0002VE-VF; Wed, 23 Apr 2025 07:55:19 +0000
-Received: by outflank-mailman (input) for mailman id 964066;
- Wed, 23 Apr 2025 07:55:18 +0000
+	id 1u7Uxf-00030d-8L; Wed, 23 Apr 2025 07:56:03 +0000
+Received: by outflank-mailman (input) for mailman id 964075;
+ Wed, 23 Apr 2025 07:56:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rvAI=XJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u7Uww-0002Ur-FW
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 07:55:18 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1u7Uxd-0002Ur-BV
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 07:56:01 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4aa16109-2018-11f0-9eb0-5ba50f476ded;
- Wed, 23 Apr 2025 09:55:15 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3913b539aabso3686619f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 00:55:15 -0700 (PDT)
+ id 65b6be1d-2018-11f0-9eb0-5ba50f476ded;
+ Wed, 23 Apr 2025 09:56:00 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43cf034d4abso55790245e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 00:56:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-44092db2a5dsm16089245e9.25.2025.04.23.00.55.13
+ 5b1f17b1804b1-44092db2a5dsm16115775e9.25.2025.04.23.00.55.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 00:55:14 -0700 (PDT)
+ Wed, 23 Apr 2025 00:55:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4aa16109-2018-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: 65b6be1d-2018-11f0-9eb0-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745394915; x=1745999715; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745394960; x=1745999760; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=t4ZCuxQDRrbdVsQp22J/Ijjbwj5SVIATjwuGtImoXqA=;
-        b=eCMi25ghi/0alNXKNKNjPtxMo99ziE9BvLetb7hoVQICgBQxbSClKHQFxNiwOWrWVV
-         QUai3dBbC1OUfDWJNsNr26GF5no/tPB85aH/O7aasrjH6YNZiGeoXW2LAVHwKK8C2SWt
-         KQ55h0zv9yuc9kTcDvFk+2IqWypJb+iCRlUXu3MeFxm7iHJojSVytMX8RqmuveC6W1HU
-         r7BlBgzRdjkAQCvj5t1aJ7CawOijbBtB1CrfM2vr7cHcfguQRZnj2nXFboIp3zw4KxLh
-         7ou8INMzmzUh4QFu7uC7B1lhvSTPPgb7wEY6KOnxu44FOnWZAY1WEBidr+2R9UNBLByf
-         mk+g==
+        bh=Qb5lYHElq4DPNQ9U808CMoku4SALXDZOjYnFSKaeghw=;
+        b=B1/d1EU02InCdUZfuqG/7y21/PinR15JGXg+tNL4+Fm1nsX+Pq5IM7YLoNHsrLuDxW
+         2LQj99xfxARBb0dMZSVJkhhtmGsAoftSZCgf/ZbuJpyXWdk0ZIUI3sQ9kRcVuOPKr8j3
+         6idi57wAB7BBBrEKVP0GuOUUDLu4A/idZf9AuoZ7W/+ExluhCAwm8GrnU3/QAlk2KJhz
+         O0dMLOhKrXWhxH84IqSlkC4KoxdUyUmAZaqYRUPLXXswKS43l1FdL5Zc7qLcs34DMGSq
+         ZE1g7SaHkL3P0tvbG042AuCZJ82PelY+dF9I37TsxFCCIH01fg8w/uzKt7z0V9rUjefI
+         PzaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745394915; x=1745999715;
+        d=1e100.net; s=20230601; t=1745394960; x=1745999760;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=t4ZCuxQDRrbdVsQp22J/Ijjbwj5SVIATjwuGtImoXqA=;
-        b=dD4S5iyzTEeo4M6S0raZHkalau3pLTLeFZCewiH8wVLgiTbsk0hUiNiC6tcedQ6iT3
-         eKqmNr+Cy0T6e6FBqX8UnVpgVfdl8hE9xhGrOrxUyeu0kUqSDobYZUNQ7b0GYWkJlPgy
-         8IGYCQPZHpN+n6vFPjyUcZC0XC8Q5D09zLinMzNWyPMeOB5joQMjlJkqyUV4zfP32cLR
-         K267kcQJkUfUjoU5vB27XeK+IZGXHSytiJClGYPGSXUHOKdezpztusrWqxgwyx4iPS3K
-         36gDisgSXMSree0OxvCcerVUL//wo1rasX807PYwkwUSf86Z8M/b9VqNdow/1J9frfnL
-         MuFQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUu3BuLo9mrYFv0kl6gkn08r5W7CSUPBelkx8grsrIeKsLO9luOB1lM5cSte4RFYv0wtMra5vIH4rU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzu1ev/mqDd4SpUv6g8wCUSS2BlGMZFpbptNdh9h8Tz+77ylh5Z
-	hhb5CxwgYbRxhLYd4y6YSb6MZ5omJ1DGZyxbb6Hmz+ybxTdeApJICRJCoYyHQQ==
-X-Gm-Gg: ASbGncstHO3kNtT2Eeh0BlIZzs+FO0mAIHI0u2wXE3KQzteoSpEMHyNANnZUrtgjN9N
-	M/huVSMuGFYvhEdz4iXhJW883ODUhJIdeU9vNncsFBE56fUTCOU8rAJOmNDjRoDtOtVPCdqdC8T
-	EwpEqLX1h873nqA9/KLrRtEAWvd53RV7SqWP7nL9Ojmi39IP1JRvwaRv2Gh4hlxMrk4rUuOkBps
-	rG/h0KYmgcg+/iGvI9k7eh/1cXNkYQ7uX6EjghVU5M4VjPmp5uuTWiUVCecUsqdDOrTSnSHWuBU
-	9OvA1AVNcAhT7iuVqtccwcxK8fENrjPzHszlt62Zv9Ge9yR6fLDow6Fp9m5VTBN2hBDuOS+MTlg
-	iot3rDDxO5Ai/rHqi0anKG5IlhQ==
-X-Google-Smtp-Source: AGHT+IHAJZh8hqH5z631ZY6VmyO864FHgBK//ePIg8Z8Prcq7xubsWRHHihyJ6YtU4oPKK3i0c5Tdg==
-X-Received: by 2002:a05:6000:4021:b0:39c:1a86:e473 with SMTP id ffacd0b85a97d-39efbb22a85mr13974294f8f.56.1745394914821;
-        Wed, 23 Apr 2025 00:55:14 -0700 (PDT)
-Message-ID: <7968d149-1577-483e-a020-40e61e741e40@suse.com>
-Date: Wed, 23 Apr 2025 09:55:13 +0200
+        bh=Qb5lYHElq4DPNQ9U808CMoku4SALXDZOjYnFSKaeghw=;
+        b=WceXEezMFdb5CzQX2BJ1447twzrtMLr3TK05k/2TAUtfrUJPWYDHN+jQ5aoZF1NreX
+         yXIbJp0oNvqcUNBzf4ngl2Etqw+cLMuNRPFE28vUPNhSa6zHtq4zHJv0Z6/boQ19ZVJp
+         DdLEWF2ra1ErwdF6iI9Qs1Z/f8/No8SbDEgTqhRPhxHiSIaDDE7wLju+/zRkJEtB+zR9
+         8xQ3Ob9bupfq6T3Xy23KmbnUhNrHlw4ObDC6K833iq5v37s0sQ//KmBtKShc492htGL8
+         mSoDVQO2AxHH4+6mNQemdBpESMFOMwtFvoha4eAQkQrBs0OF1jzZXSKGqROHdGZLYVtw
+         MVWA==
+X-Forwarded-Encrypted: i=1; AJvYcCUAGGPjbMdGobEYD6KOnh/v5tfPS4V8NGDkmMewScRt1MMIJc1+bgr5j7xVY3CtQqPgsVNjJFGgsRI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy7Y79E13dRNWyJtx6rlxHJSEyn9+a/nWuNNCeRgxzFtvt1gX5r
+	juGF+9vpyrUHSuA2YRTjC7nDU1X0T7fx9xTOxAPS9+pnJupoBzZM6QDNHdkeuw==
+X-Gm-Gg: ASbGnctq1DxJCQrQJSJmo3l+1FcFl5m9uhcPyb7WONTHX+H+8MZFZjKek+Gl0FLnZAk
+	/wbmRIx5MYqDPnm4eH+4oIN8MoaOdBiU3p5VJ9uxqBjZm+ZNZ8lsELG1DJKUHMLZT5LieYvR30g
+	cAL5n4xSNa2yWH6o6tSBBhCZBqQ6Qf5xRM5JnBFPCBzgFM7sasgeDET2HJmGjn7pZgZivvdZp5n
+	A3hg6XX9K7cqpF0H83NuHtQNJqOKRZSq4eHO509nTPIvT1T6IdckMgmCP4mXQ0Sfw7KBZ/9vQm5
+	tw6TWL9jyehOEbdl5M2pCOxz6OkSY0cy2K92kUOzjYrsYHtYSVMG/h8B9TCBfAfsngOLDLFcZnq
+	w0dYpLLsUzVSbHJXBBpu//aJ+Tg==
+X-Google-Smtp-Source: AGHT+IG4+7iWA2XF+jF80k0Z52o5cEg2tuVkr5LII43MD1vnAAayI0oyG07nHbyiI9Sm74E+fO91TA==
+X-Received: by 2002:a05:600c:154a:b0:43c:eec7:eab7 with SMTP id 5b1f17b1804b1-4406ab9858amr159387545e9.11.1745394960157;
+        Wed, 23 Apr 2025 00:56:00 -0700 (PDT)
+Message-ID: <d07bc1b5-24ba-4a6d-bbc1-11a81b7c94de@suse.com>
+Date: Wed, 23 Apr 2025 09:55:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] x86/altcall: Split alternative-call.h out of
- alternative.h
+Subject: Re: [PATCH 2/8] x86/altcall: Rename alternative_branches() to
+ boot_apply_alt_calls()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250423010237.1528582-1-andrew.cooper3@citrix.com>
- <20250423010237.1528582-2-andrew.cooper3@citrix.com>
+ <20250423010237.1528582-3-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,14 +119,14 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250423010237.1528582-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20250423010237.1528582-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 23.04.2025 03:02, Andrew Cooper wrote:
-> ... in preparation for changing how they're implemented.
-> 
-> Update the MISRA deviations with the new path.
+> The alternatives APIs are not great; rename alternative_branches() to be more
+> precise.  Centralise the declaration in xen/alternative-call.h, in the
+> expectation that x86 won't be the only user in the long term.
 > 
 > No functional change.
 > 
