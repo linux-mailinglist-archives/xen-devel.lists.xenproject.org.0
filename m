@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C819A999CE
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 22:57:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.965375.1355952 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0DC9A999D2
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 22:59:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.965388.1355963 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7h9W-0005IV-5j; Wed, 23 Apr 2025 20:57:06 +0000
+	id 1u7hC4-0005s1-I5; Wed, 23 Apr 2025 20:59:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 965375.1355952; Wed, 23 Apr 2025 20:57:06 +0000
+Received: by outflank-mailman (output) from mailman id 965388.1355963; Wed, 23 Apr 2025 20:59:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7h9W-0005Gi-3E; Wed, 23 Apr 2025 20:57:06 +0000
-Received: by outflank-mailman (input) for mailman id 965375;
- Wed, 23 Apr 2025 20:57:04 +0000
+	id 1u7hC4-0005po-EQ; Wed, 23 Apr 2025 20:59:44 +0000
+Received: by outflank-mailman (input) for mailman id 965388;
+ Wed, 23 Apr 2025 20:59:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UY1Q=XJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1u7h9U-0005Gc-OT
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 20:57:04 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ id 1u7hC2-0005pi-MS
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 20:59:42 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 816c75ce-2085-11f0-9ffb-bf95429c2676;
- Wed, 23 Apr 2025 22:57:02 +0200 (CEST)
+ id df4407ff-2085-11f0-9ffb-bf95429c2676;
+ Wed, 23 Apr 2025 22:59:40 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 863666844A;
- Wed, 23 Apr 2025 20:56:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D83FC4CEE2;
- Wed, 23 Apr 2025 20:57:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8AD7343677;
+ Wed, 23 Apr 2025 20:59:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0ED2C4CEE2;
+ Wed, 23 Apr 2025 20:59:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 816c75ce-2085-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: df4407ff-2085-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745441821;
-	bh=DkYPDKTeR9ppjKsVYzGafGfHupzO+lU1f/JdBGBdGP0=;
+	s=k20201202; t=1745441979;
+	bh=JZ7XmHn3pzDAcXfsWzyaXgHwmQ1MRZvfmJRgYTdbILU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=WC+WU0GFOcOaSb6h003LQ0Dhfu8J7eL4ZVqaqbUcBfEk5OaFfkF2mX+dy7N717RUy
-	 nJDIQ/Ot/zWMFTMcumoqs37jK3RSXJ6L7H5o0jP5h0qSITXzR/8eC/y0e1zeG8jtDo
-	 dYQKcSkmV+8APPCzp3kVoVbm6kAULsFN7I4mc4AxjpGt0pcK+DIJdHOUARIP/gUwM7
-	 pL1NRPpM6m3+c87Ma9EGgmchpexHaCXqMVpibZPBnE+ObmH3cnaUmjIMySU7n7IBv0
-	 ToDpbx8u+bvr+CwsB7wqxI7CVEwBx9nk7EfDf9IkKYneRO8TpO+oxA2B7dZBTT9pyk
-	 QFtDqzjWelmYw==
-Date: Wed, 23 Apr 2025 13:56:59 -0700 (PDT)
+	b=Y9ptOC5E5xHPIhRGoJMykQVn76XtstrW6b1lYFYSzt9ACd9oRg0F1V8C/pzod87yy
+	 iWXug867qchFU9pIlASe/oo0SHeeLTZSo9PsQLVirxDOgKEAJUFhcCwfAZQQP4D+j8
+	 b34ML35RVDToSQUeBGWTv1VOwYYfgdLhZ1qntuuS5JlHQJC9J3F6oDHbpftj0GMfjg
+	 5JsLrHuGui9jm/HpbqV3vZ/wsDVQJyVJOtYhfytT+NMt7YF7Af32oRpTLJxF4iIp3f
+	 o0c7YN0UG3IY2Nr0+wfRzM9uR3cbCJX+fTpwtWs1Q/mxdzxp3gl8IMSd+qYGhdPNQ3
+	 6dw6E/kmIAxEg==
+Date: Wed, 23 Apr 2025 13:59:37 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Mykyta Poturai <Mykyta_Poturai@epam.com>
@@ -62,11 +62,10 @@ cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Michal Orzel <michal.orzel@amd.com>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v4 2/4] xen/arm: make pci_host_common_probe return the
- bridge
-In-Reply-To: <8bacbb27806c04eb68ac4d5582b42961d61435e5.1745402473.git.mykyta_poturai@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2504231356541.785180@ubuntu-linux-20-04-desktop>
-References: <cover.1745402473.git.mykyta_poturai@epam.com> <8bacbb27806c04eb68ac4d5582b42961d61435e5.1745402473.git.mykyta_poturai@epam.com>
+Subject: Re: [PATCH v4 3/4] xen/arm: add support for PCI child bus
+In-Reply-To: <79bbb6705638445526bbd1fa299b7bfd0d087462.1745402473.git.mykyta_poturai@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2504231359190.785180@ubuntu-linux-20-04-desktop>
+References: <cover.1745402473.git.mykyta_poturai@epam.com> <79bbb6705638445526bbd1fa299b7bfd0d087462.1745402473.git.mykyta_poturai@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -74,12 +73,35 @@ Content-Type: text/plain; charset=US-ASCII
 On Wed, 23 Apr 2025, Mykyta Poturai wrote:
 > From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > 
-> Some of the PCI host bridges require additional processing during the
-> probe phase. For that they need to access struct bridge of the probed
-> host, so return pointer to the new bridge from pci_host_common_probe.
+> PCI host bridges often have different ways to access the root and child
+> bus configuration spaces. One of the examples is Designware's host bridge
+> and its multiple clones [1].
+> 
+> Linux kernel implements this by instantiating a child bus when device
+> drivers provide not only the usual pci_ops to access ECAM space (this is
+> the case for the generic host bridge), but also means to access the child
+> bus which has a dedicated configuration space and own implementation for
+> accessing the bus, e.g. child_ops.
+> 
+> For Xen it is not feasible to fully implement PCI bus infrastructure as
+> Linux kernel does, but still child bus can be supported.
+> 
+> Add support for the PCI child bus which includes the following changes:
+> - introduce bus mapping functions depending on SBDF
+> - assign bus start and end for the child bus and re-configure the same for
+>   the parent (root) bus
+> - make pci_find_host_bridge be aware of multiple busses behind the same bridge
+> - update pci_host_bridge_mappings, so it also doesn't map to guest the memory
+>   spaces belonging to the child bus
+> - make pci_host_common_probe accept one more pci_ops structure for the child bus
+> - install MMIO handlers for the child bus
+> - re-work vpci_mmio_{write|read} with parent and child approach in mind
+> 
+> [1] https://elixir.bootlin.com/linux/v5.15/source/drivers/pci/controller/dwc
 > 
 > Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+I just wanted to say that pending Stewart's comment, this patch looks
+good to me
 
