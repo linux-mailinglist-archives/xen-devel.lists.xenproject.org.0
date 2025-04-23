@@ -2,37 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9B50A988A1
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 13:33:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964461.1355248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AA44A988C0
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 13:40:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964473.1355258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7YLh-0002Xx-DG; Wed, 23 Apr 2025 11:33:05 +0000
+	id 1u7YSy-00043v-3G; Wed, 23 Apr 2025 11:40:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964461.1355248; Wed, 23 Apr 2025 11:33:05 +0000
+Received: by outflank-mailman (output) from mailman id 964473.1355258; Wed, 23 Apr 2025 11:40:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7YLh-0002Vt-9f; Wed, 23 Apr 2025 11:33:05 +0000
-Received: by outflank-mailman (input) for mailman id 964461;
- Wed, 23 Apr 2025 11:33:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u7YSy-00041m-0Q; Wed, 23 Apr 2025 11:40:36 +0000
+Received: by outflank-mailman (input) for mailman id 964473;
+ Wed, 23 Apr 2025 11:40:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s+1X=XJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1u7YLg-0002Vl-KC
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 11:33:04 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b7fc6130-2036-11f0-9eb0-5ba50f476ded;
- Wed, 23 Apr 2025 13:33:03 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-ac2af2f15d1so720507066b.1
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 04:33:03 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-acb6eefcf2csm782251566b.116.2025.04.23.04.33.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Apr 2025 04:33:02 -0700 (PDT)
+ <SRS0=VjMx=XJ=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1u7YSw-00041a-Gm
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 11:40:34 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2062f.outbound.protection.outlook.com
+ [2a01:111:f403:2418::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c2c9c588-2037-11f0-9ffb-bf95429c2676;
+ Wed, 23 Apr 2025 13:40:32 +0200 (CEST)
+Received: from MN2PR18CA0012.namprd18.prod.outlook.com (2603:10b6:208:23c::17)
+ by DS7PR12MB8273.namprd12.prod.outlook.com (2603:10b6:8:ed::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.22; Wed, 23 Apr
+ 2025 11:40:27 +0000
+Received: from MN1PEPF0000F0E5.namprd04.prod.outlook.com
+ (2603:10b6:208:23c:cafe::7c) by MN2PR18CA0012.outlook.office365.com
+ (2603:10b6:208:23c::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.37 via Frontend Transport; Wed,
+ 23 Apr 2025 11:40:27 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000F0E5.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.12 via Frontend Transport; Wed, 23 Apr 2025 11:40:27 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Apr
+ 2025 06:40:25 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,179 +56,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7fc6130-2036-11f0-9eb0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745407983; x=1746012783; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=AUVzt9yKwn3M18+3l/qllyr6CJufxy1FDQ47kr2wcI0=;
-        b=jJGX1vYGQOjHzLSI84ZwRQ0OJ9B/31pAAbkADlixaNRuS1RIexOyjXZ5NyZUjsRcmW
-         W2YV3rOOor6pQYAAKB1BR+zco7IncnCpcbqSaUZ6O2PkSM18FlbsIaDs5Qx8tipe1hgl
-         ubJ3BhMHHJnrGM4/i5mMbBQ657OoCfIeA7alM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745407983; x=1746012783;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=AUVzt9yKwn3M18+3l/qllyr6CJufxy1FDQ47kr2wcI0=;
-        b=wAUeDvimBUCyfU981wxzvS2P8LbP/amzX+sMjJiU4m8R6bs3bY1Zi1Kjsf8xVwvGIx
-         EmVfE3HTybBTpLN5DQV+ugloWQHBEhKTgWbF/2Yt/iHXQyo3Q/u/iYtFxN0q8DbOodB2
-         nH9GHCBBufCyZLwEV405skdugqdH1W4xSG73/bNnbueSmad+8BuDjH6i8A5UX+RpVspR
-         F0Tq7yVrKIxnCSUKA0GQDQx3+CyvcH9PCBs6/Ngo03pSjacgvIRON1iXYzMzyTJtWdZl
-         aWLf8RUHH2Lb5rSSinVPnH72Csy+3Xbf5MrDQSLwwXqiPB2ZtdkwT9O7NtdKAJ+JCKkF
-         EU7w==
-X-Gm-Message-State: AOJu0Yy7spatUDnBTFvWZaBc/jZJ2NRhxI7gfCePjBrndKJytnpRwJXf
-	N0E7qoQqKUEFPopf8kaRKFpxWShth0Qez/qfR1c+LRy9j+UAxJW3QxTEB7ZKDwkJwyD5Bks8xfn
-	I
-X-Gm-Gg: ASbGnctDeeKQ8Q/6BKJq+VuRItqSaQionjEtxfKFkoJtI7e30+plxQaJdWWFPWss4cR
-	/NYpOJLGiHlRZ7rh/gY0pDkNyx1FJV/TFjrevvWBPObHAKSyjqrgEo1fMF+aOY0Wiqfcb2t0n5h
-	lYjxUWebs25c2nHXeVbrOsDE9ABsrbZfa0hN8kCVaoK7THWYdlIuZYO83JyMRzFAZjjdxRybtiC
-	rLBdCvpGgxN8tplolqilJJxcJy2PcMiGz4uEoXR37WeAHSIBljUAulJp4nB1dOigq8uhk/OkbuV
-	toBtSq4LPwV6NKJcgVnW84FUine4j1N+IOQqJGe6eQRYyg==
-X-Google-Smtp-Source: AGHT+IFIWZRQN697K65SXYYMEkGl681Zutgy9a6NuUuM3W1KmGWfukHUTRgR0LSPh5mT0HLEQoF8/A==
-X-Received: by 2002:a17:907:7e81:b0:acb:5583:6fe4 with SMTP id a640c23a62f3a-acb74ad7dddmr1770563066b.6.1745407982745;
-        Wed, 23 Apr 2025 04:33:02 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2] x86/intel: workaround several MONITOR/MWAIT errata
-Date: Wed, 23 Apr 2025 13:32:15 +0200
-Message-ID: <20250423113215.80755-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.48.1
+X-Inumbo-ID: c2c9c588-2037-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qqnXd6V3bQGDHrytlwZOcxflcNAZHiSIeJc6R07k3kAmegxzev//xSaWr6z6rzgcRr6zg5CrU1ygyWl3Y6ECPhcs3PnWPtUHzbWrxYHrd4ToeZRxoETu4rEdfgcS5Z03LVeh30/unaDSPLWp3foyd03POMF06tACavLSdzgtEYAuzu+syDON4niLgYHhgKXbQWSZ+l6gj9dde1cQoXlg8zhgsOg6mPxnS0aIlQD2/9c6A9nFNXenmcW7cgtiyKM7WHjBtzbQ+/hrO+32wlZzN/7UudlordqtGQALcUotu+YjkX0LWg+8b5rpHSCBe9Q/92ynWdh2G6JZqduN73yfDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w/Nmv1nQx0UDMCQNZUSCLEtvJfNgk7XbZB9PEI3gZns=;
+ b=y8hyrEwj54rVuUfK7N7KP1aTbTCVECfvMxVQDWj+HeXMCgwLAm4cP/8XBOyzY9ThAMALmdVNDJXQMf+a7Kf1obcVpgoXN0uloneneTOUo3uSAqAL96DkOIhJ/ZDfUznTJ++7vVRvxNPGbtzdSD7IDUSy3avCGaH93kOyU9ldp4B/O7GA3hmLxpYzsUKdeLsmpUo9TK92k9S3j5W4acUBSgEY5nGZ5CKA1K0Gf6NevgMTDY5VOeK5/YB+SDtzl402quhVJAGEuiA2c9J2FT0IMsoJboPkpADyempZF6rplA08rQTKJi0hwlxQ/p3s4TJq1rb6AILq7+4/lgLLCJIAsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=proton.me smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w/Nmv1nQx0UDMCQNZUSCLEtvJfNgk7XbZB9PEI3gZns=;
+ b=mit9zLSzgcYR4FfSgSvOQZBLFLa/pUOV5f4MuOPN8wS9I5tEKdDLcBfbjwwug99yPaUCR28IGAWk3D5ExOq1O3RoHIhJ2E81tKXcqm7T32o12fpEhKWLnLgv1b6yXBoGOVMSLvSU2Gd2ErT591OS9vNMkEEh/7JsADWfI/4oZfU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Wed, 23 Apr 2025 12:40:24 +0100
+Message-ID: <D9DZNCOVUV9S.2D1CTX5OPB7YY@amd.com>
+CC: <xen-devel@lists.xenproject.org>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>, Jan Beulich <jbeulich@suse.com>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH v4 01/13] x86/boot: add cmdline to struct boot_domain
+From: Alejandro Vallejo <agarciav@amd.com>
+To: <dmkhn@proton.me>
+X-Mailer: aerc 0.20.1
+References: <20250417124844.11143-1-agarciav@amd.com>
+ <20250417124844.11143-2-agarciav@amd.com> <aALBJ/8YUwu4vl4k@kraken>
+In-Reply-To: <aALBJ/8YUwu4vl4k@kraken>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E5:EE_|DS7PR12MB8273:EE_
+X-MS-Office365-Filtering-Correlation-Id: 617a6cd2-7693-4860-4223-08dd825ba492
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZHdRcEdtV3ZjL2ZZbWIvL3BqSi9RNHluWDNqcFVpNUdJZWd1cmxhYTRML3ho?=
+ =?utf-8?B?QmNQT2x2U01TTDZYYWF3cDczdjcxa29sUzFMd1RyTkxtTFlZUEtBRE5yemZq?=
+ =?utf-8?B?MDArVStEN1NScEFtZnh5c0VSdHppY1JrbFZsYmVHSGJKYm9wU0lFT0hkMEZx?=
+ =?utf-8?B?RDVhM2FtbGRxaCtsTkhPcFJXVE9XVm13NXBUamRaR3dQakhWWGtnUHJHK2Rh?=
+ =?utf-8?B?ZnFCSmNQRUZPaGlBZGxsblBlVUlhSnhtN1E0aFNFZHZUcDdhSUFFMWJCKzJC?=
+ =?utf-8?B?ZXFEVHFHNVJ5QkFMMFFiVk0xSFdjR0o2K0RWd01mMmpLVU9aNXhIWllzazBa?=
+ =?utf-8?B?QkhodUNRd2JUaTVoNlNOUWVZNm1WejJ3SnRUZ2JQdzhIOHoxRSthVkpDQ1Jn?=
+ =?utf-8?B?TTF3a3laSnJRWC9pV2ZDcDdPMW9aeGZkUER2RDFxcFJuSEEyYk1HUU5iYmxN?=
+ =?utf-8?B?dFNWYW9XWHdXQkliR1R1UngrblplTVFMZElUbTBSOWU5TTd6RDMySnNDQncy?=
+ =?utf-8?B?SHE1VXAvbUJhS1ByY3NIN3ArUEJFamNnR3ZjbW56UCsxNGxrV0VtRGZiM3Rr?=
+ =?utf-8?B?VnI3ZklETk1jZUh2UEVnaTV3em5QTmlrdDF2WUdUcWJCZHM3SkZUMHVLdjZa?=
+ =?utf-8?B?cGhSSDJEN01LbXZ6a2I5MzdFWThSZGQvTy82RjdHWUV5dE5waWdxYWs4S2hF?=
+ =?utf-8?B?K09sYk54VUg0Nmk0V3ZZVHlpc0t3em8rZWVvYVRVUFd4T0NEZlhqTHpFc2hE?=
+ =?utf-8?B?Ym84cXNnT0JiR2ZHMDU5bXY2a2NqcDNOVklibEd5Sk1TVG9Fc2N3WElsVXlJ?=
+ =?utf-8?B?b29MWXhCQ2tpbHpaMGlYTFp6VitYeGVkZUVqdEEwaGRTVlpEVFVIN3crc25X?=
+ =?utf-8?B?SWRObU9zVjFucExCbFIrQlpBNy9pZmwvOFBpYjhpU3JDbktTK09kZHA4eUdH?=
+ =?utf-8?B?UEp6dXZ4WXIrVVpXR3ZDWmQvbEI5RUhLT3JyM1ZpdUwzN0FUUVRSdFNnQ0VM?=
+ =?utf-8?B?dUtXTDZmdDB5dm5GMy9lTXhIUXE1ZXVNTC9FdloyOTBSN3l5V1hyN1JMaEl0?=
+ =?utf-8?B?NnBkdHFnWW1LanpIVDQ0OFp0Z29KRndRampsOEd3aHdjRXpYbjB6K3kvT0dJ?=
+ =?utf-8?B?Z0tVYk9QeHcrTnhiSVJLTEk5QkFjRE5DZlZ4ekx3RElkNGRqTlMzYkdKVXRj?=
+ =?utf-8?B?Z0RVZzE4TCtNVlpsWXZ2ZExPdWZBa3VKU3hISldhRGhyUitWODVEMFNOUGxx?=
+ =?utf-8?B?cG00MmdYK0U2WTMweHBOS0RkenUrL1UxbHQ4SjNhYlVnUVZjeWJNSVdneWtu?=
+ =?utf-8?B?dHd4OFhFaGc1eWt1dmQ2Mm15Mnp5amZFRWQweGw2Rk1wYWRkOW90RE1JekQ2?=
+ =?utf-8?B?NHRrTUg1UGZaVEk3eXExUWpSUzJFWXJDcUl1SGkwSWdFWUtTUkkwWEJpUEVV?=
+ =?utf-8?B?ZjhMZUJrbXMza2dxYVBoREUxZXZWYXI5VkVJNjNkVUZzc2J0UTl4NWxDTUVV?=
+ =?utf-8?B?TVN4Z1dUTU5tdmtsQ2RKVUhTb1BzbVJPVUJZcVlvVlFVcDg2dmI4eDdnbUNy?=
+ =?utf-8?B?ZzcwaXB2SnRISDVyWTgrK01tdnAybUlxckdVOGxsRnRWbC9pRHN0VU5LYmVK?=
+ =?utf-8?B?NTdZeFhNL21LWVNVdElQZ1BjU0VkVzlhMlE1cHdkbXk5aEphTVM0OGMwOGtQ?=
+ =?utf-8?B?N1lTUjkyNGRlQlVDVEErSUlseGxPU2hxWkZwNDBvVUJYdWNGRVFyVTR6Ymps?=
+ =?utf-8?B?UERMMHhwL3Y4MnN3dDNBNXB6RDNWQ0hZckFtcTFJdG9TTldRcW12V3lRT2cv?=
+ =?utf-8?B?OG11WldzRkc5Z3NsNTNpMDl2RHRUNlVla1BhQ3RHdHl4Ylh2L2VlbjdFWTdu?=
+ =?utf-8?B?TWdkWXJ0c1gvd05Ra2UydzVDZlhhSzJiK3hKc0FoamFvZjNHb0VEMGhpRnFO?=
+ =?utf-8?B?dmsyeW1oMWdWZlBRcHBqN1ZLSlIrWVdWM1Z4V0djaHo3aFhKa2lsRkx4VzF4?=
+ =?utf-8?B?NVM0Q1FPc0o5TWlGb0g5TUUrNy9tNkNxcGxJaTQrRFphaHFNb2Y4Z2VGb1FD?=
+ =?utf-8?Q?d4Dcqe?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2025 11:40:27.0849
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 617a6cd2-7693-4860-4223-08dd825ba492
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000F0E5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8273
 
-There are several errata on Intel regarding the usage of the MONITOR/MWAIT
-instructions, all having in common that stores to the monitored region
-might not wake up the CPU.
+On Fri Apr 18, 2025 at 10:16 PM BST, dmkhn wrote:
+> On Thu, Apr 17, 2025 at 01:48:23PM +0100, Alejandro Vallejo wrote:
+>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+>>=20
+>> Add a container for the "cooked" command line for a domain. This
+>> provides for the backing memory to be directly associated with the
+>> domain being constructed.  This is done in anticipation that the domain
+>> construction path may need to be invoked multiple times, thus ensuring
+>> each instance had a distinct memory allocation.
+>>=20
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+>
+>
+> Reviewed-by: Denis Mukhin <dmukhin@ford.com>
 
-Fix them by forcing the sending of an IPI for the affected models.
+Thanks
 
-The Ice Lake issue has been reproduced internally on XenServer hardware,
-and the fix does seem to prevent it.  The symptom was APs getting stuck in
-the idle loop immediately after bring up, which in turn prevented the BSP
-from making progress.  This would happen before the watchdog was
-initialized, and hence the whole system would get stuck.
+>> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build=
+.c
+>> index 2a094b3145..49832f921c 100644
+>> --- a/xen/arch/x86/hvm/dom0_build.c
+>> +++ b/xen/arch/x86/hvm/dom0_build.c
+>> @@ -778,21 +777,21 @@ static int __init pvh_load_kernel(
+>>      /* Free temporary buffers. */
+>>      free_boot_modules();
+>>=20
+>> -    if ( cmdline !=3D NULL )
+>> +    rc =3D hvm_copy_to_guest_phys(last_addr, bd->cmdline, cmdline_len, =
+v);
+>> +    if ( rc )
+>>      {
+>> -        rc =3D hvm_copy_to_guest_phys(last_addr, cmdline, strlen(cmdlin=
+e) + 1, v);
+>> -        if ( rc )
+>> -        {
+>> -            printk("Unable to copy guest command line\n");
+>> -            return rc;
+>> -        }
+>> -        start_info.cmdline_paddr =3D last_addr;
+>> -        /*
+>> -         * Round up to 32/64 bits (depending on the guest kernel bitnes=
+s) so
+>> -         * the modlist/start_info is aligned.
+>> -         */
+>> -        last_addr +=3D elf_round_up(&elf, strlen(cmdline) + 1);
+>> +        printk("Unable to copy guest command line\n");
+>
+> Side note: I think it makes sense to add domain ID to all printouts in
+> pvh_load_kernel(). E.g. block under elf_xen_parse() logs domain ID.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Apollo and Lunar Lake fixes have not been tested, due to lack of hardware.
----
-Changes since v1:
- - Only probe for the errata at boot.
- - Use Intel model names instead of raw values.
- - Make force_mwait_ipi_wakeup __ro_after_init.
----
- xen/arch/x86/acpi/cpu_idle.c     |  6 ++++++
- xen/arch/x86/cpu/intel.c         | 36 +++++++++++++++++++++++++++++++-
- xen/arch/x86/include/asm/mwait.h |  3 +++
- 3 files changed, 44 insertions(+), 1 deletion(-)
+Sounds sensible and easy enough. Sure.
 
-diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
-index 420198406def..1dbf15b01ed7 100644
---- a/xen/arch/x86/acpi/cpu_idle.c
-+++ b/xen/arch/x86/acpi/cpu_idle.c
-@@ -441,8 +441,14 @@ void cpuidle_wakeup_mwait(cpumask_t *mask)
-     cpumask_andnot(mask, mask, &target);
- }
- 
-+/* Force sending of a wakeup IPI regardless of mwait usage. */
-+bool __ro_after_init force_mwait_ipi_wakeup;
-+
- bool arch_skip_send_event_check(unsigned int cpu)
- {
-+    if ( force_mwait_ipi_wakeup )
-+        return false;
-+
-     /*
-      * This relies on softirq_pending() and mwait_wakeup() to access data
-      * on the same cache line.
-diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
-index 6a680ba38dc9..6c8377d08428 100644
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -8,6 +8,7 @@
- #include <asm/intel-family.h>
- #include <asm/processor.h>
- #include <asm/msr.h>
-+#include <asm/mwait.h>
- #include <asm/uaccess.h>
- #include <asm/mpspec.h>
- #include <asm/apic.h>
-@@ -368,7 +369,6 @@ static void probe_c3_errata(const struct cpuinfo_x86 *c)
-         INTEL_FAM6_MODEL(0x25),
-         { }
-     };
--#undef INTEL_FAM6_MODEL
- 
-     /* Serialized by the AP bringup code. */
-     if ( max_cstate > 1 && (c->apicid & (c->x86_num_siblings - 1)) &&
-@@ -380,6 +380,38 @@ static void probe_c3_errata(const struct cpuinfo_x86 *c)
-     }
- }
- 
-+/*
-+ * APL30: One use of the MONITOR/MWAIT instruction pair is to allow a logical
-+ * processor to wait in a sleep state until a store to the armed address range
-+ * occurs. Due to this erratum, stores to the armed address range may not
-+ * trigger MWAIT to resume execution.
-+ *
-+ * ICX143: Under complex microarchitectural conditions, a monitor that is armed
-+ * with the MWAIT instruction may not be triggered, leading to a processor
-+ * hang.
-+ *
-+ * LNL030: Problem P-cores may not exit power state Core C6 on monitor hit.
-+ *
-+ * Force the sending of an IPI in those cases.
-+ */
-+static void __init probe_mwait_errata(void)
-+{
-+    static const struct x86_cpu_id models[] = {
-+        INTEL_FAM6_MODEL(INTEL_FAM6_ATOM_GOLDMONT), /* APL30  */
-+        INTEL_FAM6_MODEL(INTEL_FAM6_ICELAKE_X),     /* ICX143 */
-+        INTEL_FAM6_MODEL(INTEL_FAM6_LUNARLAKE_M),   /* LNL030 */
-+        { }
-+    };
-+#undef INTEL_FAM6_MODEL
-+
-+    if ( boot_cpu_has(X86_FEATURE_MONITOR) && x86_match_cpu(models) )
-+    {
-+        printk(XENLOG_WARNING
-+               "Forcing IPI MWAIT wakeup due to CPU erratum\n");
-+        force_mwait_ipi_wakeup = true;
-+    }
-+}
-+
- /*
-  * P4 Xeon errata 037 workaround.
-  * Hardware prefetcher may cause stale data to be loaded into the cache.
-@@ -406,6 +438,8 @@ static void Intel_errata_workarounds(struct cpuinfo_x86 *c)
- 		__set_bit(X86_FEATURE_CLFLUSH_MONITOR, c->x86_capability);
- 
- 	probe_c3_errata(c);
-+	if (system_state < SYS_STATE_active && c == &boot_cpu_data)
-+		probe_mwait_errata();
- }
- 
- 
-diff --git a/xen/arch/x86/include/asm/mwait.h b/xen/arch/x86/include/asm/mwait.h
-index 000a692f6d19..c52cd3f51011 100644
---- a/xen/arch/x86/include/asm/mwait.h
-+++ b/xen/arch/x86/include/asm/mwait.h
-@@ -13,6 +13,9 @@
- 
- #define MWAIT_ECX_INTERRUPT_BREAK	0x1
- 
-+/* Force sending of a wakeup IPI regardless of mwait usage. */
-+extern bool force_mwait_ipi_wakeup;
-+
- void mwait_idle_with_hints(unsigned int eax, unsigned int ecx);
- #ifdef CONFIG_INTEL
- bool mwait_pc10_supported(void);
--- 
-2.48.1
-
+Cheers,
+Alejandro
 
