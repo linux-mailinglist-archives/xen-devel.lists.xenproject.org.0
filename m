@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9FCEA99B07
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 23:54:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.965575.1356102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 338B1A99B9C
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 00:44:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.965643.1356113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7i2X-0007RE-C1; Wed, 23 Apr 2025 21:53:57 +0000
+	id 1u7ioN-0007My-RV; Wed, 23 Apr 2025 22:43:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 965575.1356102; Wed, 23 Apr 2025 21:53:57 +0000
+Received: by outflank-mailman (output) from mailman id 965643.1356113; Wed, 23 Apr 2025 22:43:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7i2X-0007PD-9G; Wed, 23 Apr 2025 21:53:57 +0000
-Received: by outflank-mailman (input) for mailman id 965575;
- Wed, 23 Apr 2025 21:53:56 +0000
+	id 1u7ioN-0007KA-O2; Wed, 23 Apr 2025 22:43:23 +0000
+Received: by outflank-mailman (input) for mailman id 965643;
+ Wed, 23 Apr 2025 22:43:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9Ler=XJ=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1u7i2V-0007En-VT
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 21:53:55 +0000
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
- [109.224.244.18]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7302ed42-208d-11f0-9ffb-bf95429c2676;
- Wed, 23 Apr 2025 23:53:54 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dLR5=XJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u7ioM-0007K4-NK
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 22:43:22 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5a64df6c-2094-11f0-9ffb-bf95429c2676;
+ Thu, 24 Apr 2025 00:43:19 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43cf05f0c3eso2326765e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 15:43:19 -0700 (PDT)
+Received: from [192.168.1.23] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-44092b0a4b5sm40350275e9.0.2025.04.23.15.43.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Apr 2025 15:43:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,278 +45,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7302ed42-208d-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1745445232; x=1745704432;
-	bh=vSAN6P9D32IdqFROvax9YB0eoXUJKepDQFPCmAj9hg4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=ULdR86SnULiZbKuyWe6nh4UZj9Fsc9+WlFYjgYLKh1lPMfq3iFcMp6oOM4Ff4K/rl
-	 Ij30hEQsz/H3o9wl+ckc6drlNUo+Iz+X2/t9jnlc9rsHQpcSZwefjcfOBSGmX34N8c
-	 prMVyro8UmBFDy/68p863LJZTu3Na/ZlRmMXvfLyfZ8h6LK8kNXI5Pkf6ee8zY239C
-	 9uwUZQSqhDrwUAldb8J2gqd6A3yTnYzjn9ZdhW/v9SwhrNvtqgtbOPNq/bNCgTkTCa
-	 kdzRjOG7bZqHassBc6AuNGcpfqbSAtZTG2ZvWCdkT/mUyR27/GGh+OCE2vOYnxqRf8
-	 CmoiMlUiGbgOg==
-Date: Wed, 23 Apr 2025 21:53:47 +0000
-To: Alejandro Vallejo <agarciav@amd.com>
-From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Jason Andryuk <jason.andryuk@amd.com>
-Subject: Re: [PATCH v4 03/13] common/hyperlaunch: introduce the domain builder
-Message-ID: <aAlhZxtdic0zJ2FZ@kraken>
-In-Reply-To: <D9DZWZDYLF7B.11NTQG6LIA1IX@amd.com>
-References: <20250417124844.11143-1-agarciav@amd.com> <20250417124844.11143-4-agarciav@amd.com> <aALKTolElzpGmD60@kraken> <D9DZWZDYLF7B.11NTQG6LIA1IX@amd.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 8f86805a5d427b1fe85d1eaed8e2367f035dee51
+X-Inumbo-ID: 5a64df6c-2094-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1745448199; x=1746052999; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=lF1GosE/h6pbu6VJCuXLrvMwE0dEA9d3yyBrJB/Ryp0=;
+        b=ViDY+R1/I8sK617clCzaBb+qV1W3GBkaBatb2g5uz/Er18TO4L2gc0nIi+2P4K/PJG
+         Ze2CmMsm3lzLCk2xTSei7huWXQod0UANSrhvLvJWndsU7FLXtgHbZLCXrxPNan/flgNg
+         M+By3jnFGaFio+5qm2icIwFbQ5Yz5iaXaYp1c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745448199; x=1746052999;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lF1GosE/h6pbu6VJCuXLrvMwE0dEA9d3yyBrJB/Ryp0=;
+        b=QLYnGBTMjcLkGt1pLx4zHxsCVTwqJN9qduG2tj9B3vGY1ZmF6rwJSghtVonZjmnRrH
+         l9ckhhdCxGfQbPZ3DREJ/k9A20SM5rWQORrtLxgfTLTWC54W4yyckZwTEa63r9L1FxHj
+         2NoB7QlsbLJzqB0IulqxhpM2YfPEnMG72ngOs/utgBYshQtD5aVKWjeV32MzhTSx3Svv
+         g519v8jdEQcZYA15mO5L+JT07f3INnQDxat/sypR7d8/4J9O7h22KGiav2+Jkk99NdpW
+         HtpbSA/hAui2dFYJ8x3n3J1xFHWr/VFrBMx/bCuU9k9h/iiypxJULGrqGExEpk7m0r80
+         QPPg==
+X-Gm-Message-State: AOJu0YyqSk8llu3YPsVNhmsVpr47zLL6VLrqRgNAuG7oPfe84+1ux8PW
+	xFDDW+TYCIL3nlsDdc8bOV1QPICTGFM6Rfk2TatfWjgVIR2UvCVEF34tEbV/ook=
+X-Gm-Gg: ASbGnctjFCO5faDhtT8RCuRDVXSVsrU5SRT7iarvtt4GNrVCQi7/Mr97lPp+F3RiyNq
+	KAZrD98QxjxBExFMX2K2ARBpuGWCCsv231No7haOlbf8xirfF45bZSfSULT9i2wuWbAUye0L2J2
+	Q+Ujyqhq19f2fVUy+jeUUZdZG5OxNIo83GpjsBR3MwEDw4fyGtL0+OAaDnJVUuFGLPH2d/sJEXV
+	FDjE+phiDsyzOXu24+VOtS9nONRgAVfndR5Vfg3YOthxYXUmGQtMstkbx46wjrTBRiQsy24rKTo
+	1G3cZCVmft5PY4OTbE5AJ6t4T3xzeoIYCSnlxIyuMeRzDCq22Ma3NShpix9grWsCAD+kNeVifR6
+	dL7IW
+X-Google-Smtp-Source: AGHT+IEX0+tz08KYOOtrsF4uh2qRfc3YehT0TEHSwI9PuldMYUqPTfY5eDhr1F9vkB55QMr9YUeurg==
+X-Received: by 2002:a05:600c:4e0c:b0:43d:160:cd97 with SMTP id 5b1f17b1804b1-4409bd86819mr2051225e9.25.1745448198716;
+        Wed, 23 Apr 2025 15:43:18 -0700 (PDT)
+Message-ID: <6ae5f0a2-8055-45e1-933c-199d6c6d8626@citrix.com>
+Date: Wed, 23 Apr 2025 23:43:15 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/21] x86: Trenchboot Secure Launch DRTM (Xen)
+To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Lukasz Hawrylko <lukasz@hawrylko.pl>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, trenchboot-devel@googlegroups.com
+References: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
+ <744934f4-f56f-4dc7-bccb-c32f2829d1da@citrix.com>
+ <010709d8-7784-41bf-bcb6-bf04803a75fc@citrix.com> <aAk1ZBw8GtoVYoL8@MjU3Nj>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <aAk1ZBw8GtoVYoL8@MjU3Nj>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Apr 23, 2025 at 12:52:58PM +0100, Alejandro Vallejo wrote:
-> On Fri Apr 18, 2025 at 10:55 PM BST, dmkhn wrote:
-> > On Thu, Apr 17, 2025 at 01:48:25PM +0100, Alejandro Vallejo wrote:
-> >> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-> >>
-> >> Introduce the domain builder which is capable of consuming a device tr=
-ee as the
-> >> first boot module. If it finds a device tree as the first boot module,=
- it will
-> >> set its type to BOOTMOD_FDT. This change only detects the boot module =
-and
-> >> continues to boot with slight change to the boot convention that the d=
-om0
-> >> kernel is no longer first boot module but is the second.
-> >>
-> >> No functional change intended.
-> >>
-> >> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> >> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> >> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
-> >> ---
-> >> v4:
-> >>   * Moved from arch/x86/ to common/
-> >>   * gated all of domain-builder/ on CONFIG_BOOT_INFO
-> >>   * Hide the domain builder submenu for !X86
-> >>   * Factor out the "hyperlaunch_enabled =3D false" toggle core.c
-> >>   * Removed stub inline, as DCE makes it unnecessary
-> >>   * Adjusted printks.
-> >> ---
-> >>  xen/arch/x86/include/asm/bootinfo.h |  3 ++
-> >>  xen/arch/x86/setup.c                | 17 +++++----
-> >>  xen/common/Makefile                 |  1 +
-> >>  xen/common/domain-builder/Makefile  |  2 ++
-> >>  xen/common/domain-builder/core.c    | 56 ++++++++++++++++++++++++++++=
-+
-> >>  xen/common/domain-builder/fdt.c     | 37 +++++++++++++++++++
-> >>  xen/common/domain-builder/fdt.h     | 12 +++++++
-> >>  xen/include/xen/domain-builder.h    |  9 +++++
-> >>  8 files changed, 131 insertions(+), 6 deletions(-)
-> >>  create mode 100644 xen/common/domain-builder/Makefile
-> >>  create mode 100644 xen/common/domain-builder/core.c
-> >>  create mode 100644 xen/common/domain-builder/fdt.c
-> >>  create mode 100644 xen/common/domain-builder/fdt.h
-> >>  create mode 100644 xen/include/xen/domain-builder.h
-> >>
-> >> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/includ=
-e/asm/bootinfo.h
-> >> index 3afc214c17..82c2650fcf 100644
-> >> --- a/xen/arch/x86/include/asm/bootinfo.h
-> >> +++ b/xen/arch/x86/include/asm/bootinfo.h
-> >> @@ -27,6 +27,7 @@ enum bootmod_type {
-> >>      BOOTMOD_RAMDISK,
-> >>      BOOTMOD_MICROCODE,
-> >>      BOOTMOD_XSM_POLICY,
-> >> +    BOOTMOD_FDT,
-> >>  };
-> >>
-> >>  struct boot_module {
-> >> @@ -80,6 +81,8 @@ struct boot_info {
-> >>      paddr_t memmap_addr;
-> >>      size_t memmap_length;
-> >>
-> >> +    bool hyperlaunch_enabled;
-> >> +
-> >>      unsigned int nr_modules;
-> >>      struct boot_module mods[MAX_NR_BOOTMODS + 1];
-> >>      struct boot_domain domains[MAX_NR_BOOTDOMS];
-> >> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> >> index 4df012460d..ccc57cc70a 100644
-> >> --- a/xen/arch/x86/setup.c
-> >> +++ b/xen/arch/x86/setup.c
-> >> @@ -5,6 +5,7 @@
-> >>  #include <xen/cpuidle.h>
-> >>  #include <xen/dmi.h>
-> >>  #include <xen/domain.h>
-> >> +#include <xen/domain-builder.h>
-> >>  #include <xen/domain_page.h>
-> >>  #include <xen/efi.h>
-> >>  #include <xen/err.h>
-> >> @@ -1282,9 +1283,12 @@ void asmlinkage __init noreturn __start_xen(voi=
-d)
-> >>                 bi->nr_modules);
-> >>      }
-> >>
-> >> -    /* Dom0 kernel is always first */
-> >> -    bi->mods[0].type =3D BOOTMOD_KERNEL;
-> >> -    bi->domains[0].kernel =3D &bi->mods[0];
-> >> +    builder_init(bi);
-> >> +
-> >> +    /* Find first unknown boot module to use as dom0 kernel */
-> >> +    i =3D first_boot_module_index(bi, BOOTMOD_UNKNOWN);
-> >> +    bi->mods[i].type =3D BOOTMOD_KERNEL;
-> >> +    bi->domains[0].kernel =3D &bi->mods[i];
-> >
-> > Nit: perhaps add convenience aliases for bi->domains[0] (e.g. dom0) and
-> > for bi->mods[0] (e.g. mod)?
->=20
-> Inside the boot_info? As in separate aliasing pointers into the arrays?
+On 23/04/2025 7:45 pm, Sergii Dmytruk wrote:
+> On Wed, Apr 23, 2025 at 02:38:37PM +0100, Andrew Cooper wrote:
+>> On 22/04/2025 6:14 pm, Andrew Cooper wrote:
+>>> I've stripped out the sha2 patch and fixed up to use the existing sha2,
+>>> then kicked off some CI testing:
+>>>
+>>> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1780285393
+>>> https://cirrus-ci.com/build/5452335868018688
+>>>
+>>> When the dust has settled, I'll talk you through the failures.
+>> And here we go.  Interestingly, the FreeBSD testing was entirely happy,
+>> and that is the rare way around.
+>>
+>> For Gitlab, there are several areas.
+>>
+>> First, for MISRA.  In the job logs, you want the "Browse current
+>> reports:" link which will give you full details, but it's all pretty
+>> simple stuff.
+> Thanks, but that link gives me a list of 5096 failures all over the code
+> base.  Is there any way to see a diff against master?
 
+No sadly not.  What you see is a mix of the blocking issues, and the "we
+want to see these so we can work on them".
 
-I was thinking about local variables inside the function pointing to the
-bi->mods[0] and bi->domains[0].
+Immediately under the link is the one-line tl;dr.  For ARM, it's just a
+single:
 
+Failure: 1 regressions found for clean guidelines
+  service MC3A2.R7.2: (required) A `u' or `U' suffix shall be applied to
+all integer constants that are represented in an unsigned type:
+   violation: 1
 
-> I'd rather not. It'd be dangerous on systems without an actual dom0.
->=20
-> The PV shim comes to mind, but other configurations might arise in the
-> future where no domain holds the id of 0.
->=20
-> >
-> >>
-> >>      if ( pvh_boot )
-> >>      {
-> >> @@ -1467,8 +1471,9 @@ void asmlinkage __init noreturn __start_xen(void=
-)
-> >>          xen->size  =3D __2M_rwdata_end - _stext;
-> >>      }
-> >>
-> >> -    bi->mods[0].headroom =3D
-> >> -        bzimage_headroom(bootstrap_map_bm(&bi->mods[0]), bi->mods[0].=
-size);
-> >> +    bi->domains[0].kernel->headroom =3D
-> >> +        bzimage_headroom(bootstrap_map_bm(bi->domains[0].kernel),
-> >> +                         bi->domains[0].kernel->size);
-> >>      bootstrap_unmap();
-> >>
-> >>  #ifndef highmem_start
-> >> @@ -1592,7 +1597,7 @@ void asmlinkage __init noreturn __start_xen(void=
-)
-> >>  #endif
-> >>      }
-> >>
-> >> -    if ( bi->mods[0].headroom && !bi->mods[0].relocated )
-> >> +    if ( bi->domains[0].kernel->headroom && !bi->domains[0].kernel->r=
-elocated )
-> >>          panic("Not enough memory to relocate the dom0 kernel image\n"=
-);
-> >>      for ( i =3D 0; i < bi->nr_modules; ++i )
-> >>      {
-> >> diff --git a/xen/common/Makefile b/xen/common/Makefile
-> >> index 98f0873056..565837bc71 100644
-> >> --- a/xen/common/Makefile
-> >> +++ b/xen/common/Makefile
-> >> @@ -11,6 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) +=3D =
-device.o
-> >>  obj-$(CONFIG_HAS_DEVICE_TREE) +=3D device-tree/
-> >>  obj-$(CONFIG_IOREQ_SERVER) +=3D dm.o
-> >>  obj-y +=3D domain.o
-> >> +obj-$(CONFIG_HAS_BOOT_INFO) +=3D domain-builder/
-> >>  obj-y +=3D event_2l.o
-> >>  obj-y +=3D event_channel.o
-> >>  obj-$(CONFIG_EVTCHN_FIFO) +=3D event_fifo.o
-> >> diff --git a/xen/common/domain-builder/Makefile b/xen/common/domain-bu=
-ilder/Makefile
-> >> new file mode 100644
-> >> index 0000000000..b10cd56b28
-> >> --- /dev/null
-> >> +++ b/xen/common/domain-builder/Makefile
-> >> @@ -0,0 +1,2 @@
-> >> +obj-$(CONFIG_DOMAIN_BUILDER) +=3D fdt.init.o
-> >> +obj-y +=3D core.init.o
-> >> diff --git a/xen/common/domain-builder/core.c b/xen/common/domain-buil=
-der/core.c
-> >> new file mode 100644
-> >> index 0000000000..a5b21fc179
-> >> --- /dev/null
-> >> +++ b/xen/common/domain-builder/core.c
-> >> @@ -0,0 +1,56 @@
-> >> +/* SPDX-License-Identifier: GPL-2.0-only */
-> >> +/*
-> >> + * Copyright (C) 2024, Apertus Solutions, LLC
-> >> + */
-> >> +#include <xen/err.h>
-> >> +#include <xen/init.h>
-> >> +#include <xen/kconfig.h>
-> >> +#include <xen/lib.h>
-> >> +
-> >> +#include <asm/bootinfo.h>
-> >> +
-> >> +#include "fdt.h"
-> >> +
-> >> +void __init builder_init(struct boot_info *bi)
-> >> +{
-> >> +    bi->hyperlaunch_enabled =3D false;
-> >> +
-> >> +    if ( IS_ENABLED(CONFIG_DOMAIN_BUILDER) )
-> >
-> > I would re-organize the code to remove one level of indentation, e.g.:
-> >
-> >        if ( !IS_ENABLED(CONFIG_DOMAIN_BUILDER) )
-> >             return;
-> >
-> >        switch ( ret =3D has_hyperlaunch_fdt(bi) )
-> >        ...
-> >
-> > or even add #ifdef CONFIG_DOMAIN_BUILDER for builder_init() in the head=
-er file.
-> >
-> > What do you think?
->=20
-> In this patch it sounds good, but a later patch adds more stuff at the
-> tail of the function that must not be skipped, so it wouldn't work
-> as-is.
->=20
-> Another matter is whether this function could be skipped in the "no-fdt"
-> case, and it probably could. But I do know the longer series (big RFC
-> from Daniel) adds more common logic present when !CONFIG_DOMAIN_BUILDER,
-> so I'm reticent to deviate too much from it to avoid rebasing headaches.
+Clicking through into the R7.2 analysis shows
+https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/hardware/xen-staging/ECLAIR_normal/andrew/tb-v1.1/ARM64/9791028027/PROJECT.ecd;/by_service/MC3A2.R7.2.html
 
+This violation is shared with x86 because it's a header pulled into a
+common file.
 
-I see, thanks for clarification.
+For x86, the list is rather longer.  You've got:
 
+6x D1.1
+2x D4.14
+1x R5.3
+116x R7.2
+1x R7.3
+12x R8.3
+7x R8.4
+1x R11.9
+87x R20.7
 
->=20
-> >
-> >> +    {
-> >> +        int ret;
-> >> +
-> >> +        switch ( ret =3D has_hyperlaunch_fdt(bi) )
-> >> +        {
-> >> +        case 0:
-> >> +            printk(XENLOG_DEBUG "DT found: hyperlaunch\n");
-> >> +            bi->hyperlaunch_enabled =3D true;
-> >> +            bi->mods[0].type =3D BOOTMOD_FDT;
-> >> +            break;
-> >> +
-> >> +        case -EINVAL:
-> >> +            /* No DT found */
-> >> +            break;
-> >> +
-> >> +        case -ENOENT:
-> >> +        case -ENODATA:
-> >
-> > Looks like this code accounts for the follow on change: current impleme=
-ntation
-> > only returns -EINVAL or 0.
-> >
-> > Is it possible to convert has_hyperlaunch_fdt() to a simple predicate?
->=20
-> The function is a misnomer and it ought to change to return an
-> enumerated type instead where it returns FDT_HYPERLAUNCH, FDT_DOM0LESS,
-> FDT_UNKNOWN or NO_FDT. Using error codes for identification is a tad too
-> hacky.
->=20
-> Cheers,
-> Alejandro
+These are the blocking directives/rules.  Others which you see in the
+overall report are non-blocking.
 
+>
+>> kbl-suspend-x86-64-gcc-debug is a real S3 test on KabyLake hardware,
+>> which appears to have gone to sleep and never woken up.  (More likely,
+>> crashed on wakeup before we got the console up).  The AlderLake
+>> equivalent test seems to be happy, as well as the AMD ones.
+> Hm, not sure what that could be, but will try to reproduce/guess.
+
+KBL is unreliable in one specific way, but not with these symptoms.
+
+I reran the suspend test, and it failed in the same way.  I think it's a
+deterministic bug.
+
+I can probably dig out my emergency serial debugging patches for S3 if
+you want?
+
+>> Other common failures seem to be:
+>>
+>>     # take image offset into account
+>>     arch/x86/efi/fixmlehdr xen.efi 0x200000
+>>     Failed to find MLE header in xen.efi
+>>     arch/x86/Makefile:220: recipe for target 'xen.efi' failed
+>>     make[3]: *** [xen.efi] Error 1
+>>
+>> ~Andrew
+> That seems to be the only reason behind the rest of build failures.
+> I was able to reproduce the failure in Fedora 37 docker.  Searching for
+> the header in 8KiB instead of 4KiB fixes it.  Looks like large default
+> alignment of some toolchains pushes `head.S` to 4 KiB offset.
+
+FYI, you can access all the Xen containers with:
+
+CONTAINER=foo ./automation/scripts/containerize
+
+in the xen.git tree.
+
+Alignment that large is unexpected, and I suspect we want to fix it.  Is
+it pre-existing, or something introduced by your series?
+
+~Andrew
 
