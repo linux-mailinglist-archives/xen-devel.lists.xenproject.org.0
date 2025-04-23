@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03754A98476
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 10:57:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964234.1355084 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47C85A9848C
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 11:01:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964247.1355094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Vv7-0002mu-KX; Wed, 23 Apr 2025 08:57:29 +0000
+	id 1u7Vym-0004em-5l; Wed, 23 Apr 2025 09:01:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964234.1355084; Wed, 23 Apr 2025 08:57:29 +0000
+Received: by outflank-mailman (output) from mailman id 964247.1355094; Wed, 23 Apr 2025 09:01:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Vv7-0002kX-HX; Wed, 23 Apr 2025 08:57:29 +0000
-Received: by outflank-mailman (input) for mailman id 964234;
- Wed, 23 Apr 2025 08:57:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u7Vym-0004cg-21; Wed, 23 Apr 2025 09:01:16 +0000
+Received: by outflank-mailman (input) for mailman id 964247;
+ Wed, 23 Apr 2025 09:01:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rvAI=XJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u7Vv6-0002kQ-5x
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 08:57:28 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fae6e0c7-2020-11f0-9eb0-5ba50f476ded;
- Wed, 23 Apr 2025 10:57:27 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-39c1efc4577so3233421f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 01:57:27 -0700 (PDT)
+ id 1u7Vyk-0004Zc-Hn
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 09:01:14 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 812ead0d-2021-11f0-9ffb-bf95429c2676;
+ Wed, 23 Apr 2025 11:01:12 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43cf0d787eeso70968595e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 02:01:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39f069df9fcsm12811759f8f.16.2025.04.23.01.57.25
+ ffacd0b85a97d-39efa4a4d67sm18271358f8f.94.2025.04.23.02.01.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 01:57:25 -0700 (PDT)
+ Wed, 23 Apr 2025 02:01:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fae6e0c7-2020-11f0-9eb0-5ba50f476ded
+X-Inumbo-ID: 812ead0d-2021-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745398646; x=1746003446; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745398872; x=1746003672; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dY6sI1kfD+bgQVJ9TFVem7ucYgEopEx44l7CgXAfIfc=;
-        b=XVTYTLvg+JmOeXGlpUOfuJLr5WAcPTWEJnazvS48ljRx/GHTicEBdkTSfqdee+/fG1
-         dpDcHmj4QEUMGvC54wLX1+h38mWcm3RLtvE1YvTiNRPnn0YZhQCgQZJpKn6CkYD0N3iF
-         HP+opHI4Zz0A1RxNCtBmg6wNBgT4PICFi5oZADwJfDj//ao/F8wPXG/50+F4Idzl/SXV
-         Z6R5gdgFkZOG0NCHqhw1IGJsFqz5IwFADFjiab8AjuTvKu0XS9xKjKHRZCSS2iXL5p2U
-         DZ7hewhUjMbgEX1wczyiWFrNmgz5TUpwEAL6VMGbQ26x00jZJb7q4pLIDHbWWkVNngx7
-         V9yg==
+        bh=B3dvFG9iWRanZSV7bn6YlsQ0m12g56pjRmpydzDPJbc=;
+        b=H1DMGJqf+EALTdqSHufBpsn0baRCqR+MZJf4ua2L97kL2mLj5aXcJ39kABOogpHQ7e
+         xNb48FU54JLGf6JIthGnjRZ1gFuSNaEAanp3Y5TjMuLHI7uN/3a5ZoRXavBFEp43IZep
+         qGJpnM7wIBCFcRFZbYUCCC7GI43FRsZ94LaGstZTP8QBSl01LKr9RPd4OZz98Kt3US2l
+         IwH42VzwGiAADEV5iYMKNUaAffFTA5RwwcdrmGU7Qv2l4fQMi2FohV6SzKDPjgnkm6JN
+         9J5xocxlLwXA0waEl6ayFtkFZnt0o09RdNFkTdsqDg/EmTva0ZXnoVqnu1EYe/EjCtTf
+         n40w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745398646; x=1746003446;
+        d=1e100.net; s=20230601; t=1745398872; x=1746003672;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dY6sI1kfD+bgQVJ9TFVem7ucYgEopEx44l7CgXAfIfc=;
-        b=uPG2Qa008fx2BDW+DLnVL60FTxSVCwqFaxnIWkIJSmk0lmrgA0LFb/dC90yuNW2CNw
-         ci+tlJzH4u/ITNSG/tf3LelR0kUP6faTAHCq6Dj9kjnbsJMC8U9G1ZF7uAAsrx4jKzUJ
-         1OF0pA234XtvQRAAlhFssGYKzONH3tJ9FjFEKjHr5ji/v0hSPo9JPKjXAEJs5u4f9iEE
-         SV6OFzSwJKtzT70IjxWvKbWqBQ/aZZyx08qWRNxP/UVb9HuCx5cAnGHBEwBevMEnCH6v
-         TDhUtA8dYuX4CsiJtC8pp6B5X07PD6kzsduxVMRokbtUzGMozxC7rooaX4LRrQnanWKi
-         A6WQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWfn4Dy20MiD0kIa3UzL9sMYcg1V6a3C55GvBh8AZDESmMLYVyVGVivjuHiFqzinXqDWbiEf4xrAGM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YweO5XsTBjW7EvA1dKnTneIC72sLFk0zZ09YHsgsRYMvsfYOrC5
-	mmVF+USx72FRz4SRHZoX3RyzoNAmfP/dQxDCKmOf988IMprsSGWJFiQP9Ys9bY916Usp+02aL2I
-	=
-X-Gm-Gg: ASbGncuqmgfBbrAmqZpPqlLpoB0uCZPZUzvEyW0Zqmmz43VkMhqhhUrBNZdECC5PQB6
-	vWydYXMv2rMCENZKlQrpu8GLD53zYJIjjbofEmcP1jhrVLSl6hq+PoHdb2Pa6jQi9E4UwBwU3yo
-	PrvLDJg0f8rjyrJ8BR0/J9/nj2zBWvW7O05DpS3rpjxC6aYUadPQeRir/+g6ItdtNUZIE4SLGB6
-	TVJFgULpfQ05e02V1kP6WULiamKD77C9DWDdcGZACHoV0dSt9RGQtnoJ+WNaqTgYLjDbRcOc5Lg
-	La+715u8PPvgGaXpEkfxyeVXixgUquY/8nxAaccW5A250yUvJizn6r87vUoFSKl1SN2VCX+Gw5Y
-	IIyra2HKc7wSeS2ak1OyjN3IxTg==
-X-Google-Smtp-Source: AGHT+IEiZdZF+jALvaCxg9Uy3GSsIzUZGBi6I9mboqb3H+CbMZRDWSFyTdvfBNnvIWZItEjr34LLIQ==
-X-Received: by 2002:a5d:5f54:0:b0:391:22a9:4408 with SMTP id ffacd0b85a97d-39efba4ad94mr14654862f8f.16.1745398646259;
-        Wed, 23 Apr 2025 01:57:26 -0700 (PDT)
-Message-ID: <2de9f9a8-a785-445b-9ca3-97c6ba7285d6@suse.com>
-Date: Wed, 23 Apr 2025 10:57:25 +0200
+        bh=B3dvFG9iWRanZSV7bn6YlsQ0m12g56pjRmpydzDPJbc=;
+        b=l64CLbPZYocbFCM5GZx0Epw4EyjAMX9Wx7uEMxb8NQaS+z1ERFdqTfL6O2RtrZcS1o
+         J/Uo8BMn/rXTktgA3OelW/qnHWGjk0cEOic+e6eZyZ8TUqx+oh0/BSDhZHlc4ZY1aT/y
+         dMQFEOMfP8AOFvwlUJlbLErpCZUFiH5Rsm8WtKYbk3Cc0+xgLWUYwkOIwTDPMbt/lyO6
+         yuikU7/3oz0E/xxXQnd+KVduIxRKK+vx9bSRUhXmUbBCuPfOKADqAd3PtK05pNy4AdNV
+         pOK4KZLrSX5VLBKQaYkxkp7hUJI2TTaCTTZ+R51jRIzJxmESzAN1Q/nH4cFk8wqVnOQn
+         86tQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXVOvfIjMVB5yz8dzW4dLGmTQpcj9a/+a0IJIBo/OhewSPpPal7pH7Nh85l7rAwzn2q5sUlyn1vQWE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzwQdgZhjHtyRt6MMc8EMsVkuM+TGAg6t/6uuz4qAWmutaNpN1u
+	YPkH3ZJHMw9hAScqZpyAdWlnZYDErqinxZwdArG0rNvOp8tFGhyXKtWcZMqsQQ==
+X-Gm-Gg: ASbGncvSc5VQVyPXp1vc8z6d+JhE5fL1cMP/kYB8MkankT4EcdGH8WgdWNfkJObfBNh
+	Q8EjVEum6WlqJqMlNnX/2JKlzRHaqEFIDo/qdw1Wcq1YH7R28SAUjsFk1dK3nxKa+ns1npg+jME
+	vDsgNDK8/NZSCo2uwh/zsUm/9oEs4vAYa/Toaq3fm/mdKEPJDAolNZD1omcHUjumgC7GARPEzMA
+	b7ywIJtdyN0kWNxLCyn08uuSJrZUmMBOuiRGLy080d4GaGpYE6n9asKJGNl1IaxlCtHt7MV4bkf
+	RPgHNZGh0RRdxRZPpj2K7vg4iRXG2ETWvl4otT6SafmXZcs2yDQbURvNyl4+yiR6Hf9DupIPS49
+	TnC6xdkcwdtTVC0ZMFDfWeDJupA==
+X-Google-Smtp-Source: AGHT+IHPn0NOnzZ88ejJ0tlUlcPnkNyRMDW73gL+FBi5BSGcPS8AiMDuUt1K1eYzb8DQch8i8ted5Q==
+X-Received: by 2002:a05:6000:1888:b0:390:f358:85db with SMTP id ffacd0b85a97d-39efba5edf2mr14567436f8f.30.1745398871758;
+        Wed, 23 Apr 2025 02:01:11 -0700 (PDT)
+Message-ID: <e90b8723-3c15-4488-bc7f-b765dcc92ef6@suse.com>
+Date: Wed, 23 Apr 2025 11:01:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/intel: workaround several MONITOR/MWAIT errata
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250417161913.14661-1-roger.pau@citrix.com>
- <463cd02d-febc-4878-90b5-9272f91b9033@suse.com>
- <aAioMDTUgjn3MJS2@macbook.lan>
+Subject: Re: [PATCH 7/8] x86/altcall: Switch to simpler scheme
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250423010237.1528582-1-andrew.cooper3@citrix.com>
+ <20250423010237.1528582-8-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,107 +118,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aAioMDTUgjn3MJS2@macbook.lan>
+In-Reply-To: <20250423010237.1528582-8-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23.04.2025 10:45, Roger Pau Monné wrote:
-> On Tue, Apr 22, 2025 at 10:26:37AM +0200, Jan Beulich wrote:
->> On 17.04.2025 18:19, Roger Pau Monne wrote:
->>> @@ -380,6 +380,43 @@ static void probe_c3_errata(const struct cpuinfo_x86 *c)
->>>      }
->>>  }
->>>  
->>> +/*
->>> + * APL30: One use of the MONITOR/MWAIT instruction pair is to allow a logical
->>> + * processor to wait in a sleep state until a store to the armed address range
->>> + * occurs. Due to this erratum, stores to the armed address range may not
->>> + * trigger MWAIT to resume execution.
->>> + *
->>> + * ICX143: Under complex microarchitectural conditions, a monitor that is armed
->>> + * with the MWAIT instruction may not be triggered, leading to a processor
->>> + * hang.
->>> + *
->>> + * LNL030: Problem P-cores may not exit power state Core C6 on monitor hit.
->>
->> I didn't manage to spot all three spec updates; none of these have a ucode fix,
->> hence permitting the workaround to be avoided?
->>
->> Since CPX is 3rd Gen Xeon Scalable just like ICX is, I'm surprised that one's
->> unaffected. The most recent spec update there is a year old than ICX'es, so
->> may simply be too old to include the erratum?
->>
->> Sunny Cove is used by further Icelake models - they're known to be unaffected?
-> 
-> FWIW, client IceLake also seems to be unaffected, so I don't really
-> know.  So far I've only found this issue in the ICX spec update.  The
-> fix for Linux limits this further to model 106 only.
-> 
->>> + * Force the sending of an IPI in those cases.
->>> + */
->>> +static void probe_mwait_errata(void)
->>> +{
->>> +    static const struct x86_cpu_id models[] = {
->>> +        /* Apollo Lake */
->>> +        INTEL_FAM6_MODEL(0x5C),
->>> +        /* Ice Lake */
->>> +        INTEL_FAM6_MODEL(0x6A),
->>> +        INTEL_FAM6_MODEL(0x6C),
->>> +        /* Lunar Lake */
->>> +        INTEL_FAM6_MODEL(0xBD),
->>
->> Use identifiers from intel-family.h here?
-> 
-> Sure.
-> 
->>> +        { }
->>> +    };
->>> +#undef INTEL_FAM6_MODEL
->>> +
->>> +    if ( boot_cpu_has(X86_FEATURE_MONITOR) && !force_mwait_ipi_wakeup &&
->>> +         x86_match_cpu(models) )
->>> +    {
->>> +        printk(XENLOG_WARNING
->>> +               "Forcing IPI MWAIT wakeup due to CPU erratum\n");
->>> +        force_mwait_ipi_wakeup = true;
->>> +    }
->>> +}
->>
->> Do we really need to cater for asymmetric systems? IOW can't we do this once
->> on the BSP? Otherwise - why the use of boot_cpu_has() here? Oh, wait ...
->>
->>> @@ -406,6 +443,8 @@ static void Intel_errata_workarounds(struct cpuinfo_x86 *c)
->>>  		__set_bit(X86_FEATURE_CLFLUSH_MONITOR, c->x86_capability);
->>>  
->>>  	probe_c3_errata(c);
->>> +	if (c == &boot_cpu_data)
->>> +		probe_mwait_errata();
->>>  }
->>
->> ..., you do this for the BSP only. Then why's the function not __init and
->> the global variable not __ro_after_init (and models[] __initconst)?
->>
->> (Later) Except that this path is also taken for S3 resume, from
->> recheck_cpu_features(). This shouldn't alter the variable value anymore,
->> though. A disagreement ought to result in recheck_cpu_features() to
->> report failure. (Imo perhaps better to avoid the call above during resume.)
-> 
-> I did consider to limit the call based on system_state, wasn't sure
-> whether that would be more churn than help.
+On 23.04.2025 03:02, Andrew Cooper wrote:
+> --- a/xen/arch/x86/alternative.c
+> +++ b/xen/arch/x86/alternative.c
+> @@ -378,13 +378,6 @@ static int init_or_livepatch _apply_alternatives(struct alt_instr *start,
+>          text_poke(orig, buf, total_len);
+>      }
+>  
+> -    /*
+> -     * Clobber endbr64 instructions now that altcall has finished optimising
+> -     * all indirect branches to direct ones.
+> -     */
+> -    if ( force && system_state < SYS_STATE_active )
+> -        seal_endbr64();
+> -
+>      return 0;
+>  }
+>  
+> @@ -533,6 +526,8 @@ static int __init cf_check nmi_apply_alternatives(
+>              rc = apply_alt_calls(__alt_call_sites_start, __alt_call_sites_end);
+>              if ( rc )
+>                  panic("Unable to apply alternative calls: %d\n", rc);
+> +
+> +            seal_endbr64();
+>          }
 
-The fundamental expectation is that such aspects don't changes across
-S3. I'd suggest to add the extra check, but I wouldn't insist; what I'd
-like to see is the variable becoming __ro_after_init, though (whichever
-way this is being arranged for).
-
-> LNL030 has a reference to: "It may be possible for the BIOS to contain
-> a workaround for this erratum." so wasn't fully sure we wouldn't need
-> to check for this in all cores if there's some firmware fix for it
-> that Xen could identify.
-
-Usually this means a ucode update (occasionally it may also be a chipset
-config that firmware can fiddle with), in which case we wouldn't
-normally (i.e. unless in critical situations) add a workaround at all.
+Are you deliberately losing the comment? Other than this:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
