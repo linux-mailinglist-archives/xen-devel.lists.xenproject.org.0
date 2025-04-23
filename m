@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BED1A98C6C
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 16:08:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964770.1355477 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0659A98C8F
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 16:14:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964782.1355489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7amF-0005sh-AJ; Wed, 23 Apr 2025 14:08:39 +0000
+	id 1u7arE-0007wQ-Tw; Wed, 23 Apr 2025 14:13:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964770.1355477; Wed, 23 Apr 2025 14:08:39 +0000
+Received: by outflank-mailman (output) from mailman id 964782.1355489; Wed, 23 Apr 2025 14:13:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7amF-0005r8-7P; Wed, 23 Apr 2025 14:08:39 +0000
-Received: by outflank-mailman (input) for mailman id 964770;
- Wed, 23 Apr 2025 14:08:38 +0000
+	id 1u7arE-0007tI-RA; Wed, 23 Apr 2025 14:13:48 +0000
+Received: by outflank-mailman (input) for mailman id 964782;
+ Wed, 23 Apr 2025 14:13:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s+1X=XJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1u7amE-0005r2-94
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 14:08:38 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ <SRS0=maGd=XJ=intel.com=dave.hansen@srs-se1.protection.inumbo.net>)
+ id 1u7arD-0007tC-C9
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 14:13:47 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 72a315ed-204c-11f0-9ffb-bf95429c2676;
- Wed, 23 Apr 2025 16:08:36 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-ac28e66c0e1so802505266b.0
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 07:08:36 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-acb6ec0beb8sm795815566b.2.2025.04.23.07.08.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Apr 2025 07:08:35 -0700 (PDT)
+ id 29bcdabe-204d-11f0-9ffb-bf95429c2676;
+ Wed, 23 Apr 2025 16:13:44 +0200 (CEST)
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2025 07:13:41 -0700
+Received: from tfalcon-desk.amr.corp.intel.com (HELO [10.124.221.81])
+ ([10.124.221.81])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2025 07:13:39 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,95 +43,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72a315ed-204c-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745417316; x=1746022116; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=I6K5IMW0MKKhVyBsgSa9lk21LMhsy+Swk4sZRjS84kk=;
-        b=XzL1hhVnU2JEjNJw39ipVDfGwcpPi1Shxz8l99PcpCyjRqkgYRecOCuhfXPWTWtPRD
-         Zvxm2umX7RMXNH7UbWIlmw8TqJuI/bkfnEzBVeBz2sTKeCjJpvqpqyrr84KjOOYnw9DL
-         86rrY24gAO8xJvbocbnsiX0H1tGe23oFcuUq8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745417316; x=1746022116;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=I6K5IMW0MKKhVyBsgSa9lk21LMhsy+Swk4sZRjS84kk=;
-        b=lgxXRBkVoWBkKRPbbt9AcaSx4ezI9n7QFn0yDZWWh4bbC+XOpuJxhZ7DAOT9plsZHL
-         z+xNcntknGyjAZWL3A5PkaRG6APrmV/v45cNgnldcESoUnL4G0VwCUmaJw0g6qJjR5Pw
-         KPc4Nvjta/yNSAr/46enqfjslpTIKWnTXU2iy5rvnJIhJyV6dZ81fdWOKfIzh7MSwmJW
-         qN+5yadhg4GNqYqPn96ZmqwbNJwbpXxQ35VH/pzG2SS5k6Jg/21PATb2+gdoQgceUL5n
-         6D+EEm7v1ZMs7iZp+GNO+z1O3FtSvUB4Rt6DaAe9dClQhz+9/e6AxbcVlY6efbiyW8L5
-         QjXw==
-X-Gm-Message-State: AOJu0YyoIlJKTYFXhJ1bRGQQ+FGLxu5MxiixuzUzYKURwagzcqfMEVzI
-	sAwxTLB83pgf4t2uDX+LmF/sJijdHGY4OA+qHmG7pPxG4WO1JW7W1aWr1BYaqOk=
-X-Gm-Gg: ASbGncvv53Jf+AFMLZkrQY/GgG2sO8leB+LQCQC0gdt3sH32Vm3eL9rFA3qW49f7OrF
-	X+JG6vAYeyKpVuDpZwEXC5h2gwDSmwq5UzwRu3/bjZ2EcRMbmjgPI5GTf9HJUJZP904ug574iTX
-	0fIkjw1heT9f0rWC5pERDMrc3k+jjjmUktYYlwiIu2Nuv6ooCoVxDXxHUvsDX6pAKdCsrA6ICBD
-	BoX/MKSkcyAQxJEbx6WIz+Fx3K/lLc4Gy+yxvDFQQT9SpkzaLynYJGQAHOcaCLwBO1zoZZBjgi3
-	YbBJElTHkaXvkqn0Pt2+hx0ScGmlafdU1sFUO2o+9BgZtw==
-X-Google-Smtp-Source: AGHT+IFZRt5M3BcSggui6hncvOs/ecca+cR+driqo/jKafVF2Jl4ZbsgJgPf9PC+51cVJVHgkZ9GTw==
-X-Received: by 2002:a17:906:d153:b0:acd:89ba:8069 with SMTP id a640c23a62f3a-acd89baac19mr576573566b.7.1745417315560;
-        Wed, 23 Apr 2025 07:08:35 -0700 (PDT)
-Date: Wed, 23 Apr 2025 16:08:34 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v2] x86/intel: workaround several MONITOR/MWAIT errata
-Message-ID: <aAj0Yqc0FtlTlVCF@macbook.lan>
-References: <20250423113215.80755-1-roger.pau@citrix.com>
- <cd7c88b4-848b-4051-bbd6-8a8b78416ebd@citrix.com>
+X-Inumbo-ID: 29bcdabe-204d-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1745417624; x=1776953624;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=gCdfzP6Rz3QRAiqWb8ICzKaC8k4ViRNpmXNZ7t4kQyU=;
+  b=XfSeS8ZxVwQmJczfiJXzk/AynwHyIXtNAK+aOdOOHYoNxvHy/xf/ltCi
+   tnmm07d9eM+SQHrewpTNRNXlJliZAGW/x7AGvOQ6jbqEcVdlZbHnjazqH
+   yJA9SMTCphRWLFKxuXOJr+74i0TlpryjV0+fZZOGlF0HDkNQWkDbl6hJ/
+   CXz4yXxCsF05n3Y9PMyn/Uwo+qFmcpuGpS3J7cD8mjegvJptancN6Teqc
+   krPgAa4ridTcVmHhayEihgS677R8nz2n7YrSRomQDWAsb3veATWByf3+c
+   Syl8h3l2ibbWzseZI5k5W0GP/xh+rTHGMWokp9nA+rc2bpDuHQSi0ZF2j
+   g==;
+X-CSE-ConnectionGUID: HymkmlCOQNeQ5lNmDTjXpQ==
+X-CSE-MsgGUID: q+5C3HgETUOdRaewTXDTSg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11412"; a="50674127"
+X-IronPort-AV: E=Sophos;i="6.15,233,1739865600"; 
+   d="scan'208";a="50674127"
+X-CSE-ConnectionGUID: hN2luxYRRR22QwDVEy73vw==
+X-CSE-MsgGUID: TPuRvEnIRWOtX5fYO79fZg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,233,1739865600"; 
+   d="scan'208";a="137495477"
+Message-ID: <4caedcaf-793a-4371-a8db-50723dcdbad4@intel.com>
+Date: Wed, 23 Apr 2025 07:13:37 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cd7c88b4-848b-4051-bbd6-8a8b78416ebd@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 01/34] x86/msr: Move rdtsc{,_ordered}() to
+ <asm/tsc.h>
+To: "Xin Li (Intel)" <xin@zytor.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+ linux-pm@vger.kernel.org, linux-edac@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, netdev@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, acme@kernel.org,
+ jgross@suse.com, andrew.cooper3@citrix.com, peterz@infradead.org,
+ namhyung@kernel.org, mark.rutland@arm.com,
+ alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com,
+ adrian.hunter@intel.com, kan.liang@linux.intel.com, wei.liu@kernel.org,
+ ajay.kaher@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+ tony.luck@intel.com, pbonzini@redhat.com, vkuznets@redhat.com,
+ seanjc@google.com, luto@kernel.org, boris.ostrovsky@oracle.com,
+ kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com
+References: <20250422082216.1954310-1-xin@zytor.com>
+ <20250422082216.1954310-2-xin@zytor.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20250422082216.1954310-2-xin@zytor.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 23, 2025 at 02:13:01PM +0100, Andrew Cooper wrote:
-> On 23/04/2025 12:32 pm, Roger Pau Monne wrote:
-> > There are several errata on Intel regarding the usage of the MONITOR/MWAIT
-> > instructions, all having in common that stores to the monitored region
-> > might not wake up the CPU.
-> >
-> > Fix them by forcing the sending of an IPI for the affected models.
-> >
-> > The Ice Lake issue has been reproduced internally on XenServer hardware,
-> > and the fix does seem to prevent it.  The symptom was APs getting stuck in
-> > the idle loop immediately after bring up, which in turn prevented the BSP
-> > from making progress.  This would happen before the watchdog was
-> > initialized, and hence the whole system would get stuck.
-> >
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > Apollo and Lunar Lake fixes have not been tested, due to lack of hardware.
-> 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> 
-> > diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
-> > index 420198406def..1dbf15b01ed7 100644
-> > --- a/xen/arch/x86/acpi/cpu_idle.c
-> > +++ b/xen/arch/x86/acpi/cpu_idle.c
-> > @@ -441,8 +441,14 @@ void cpuidle_wakeup_mwait(cpumask_t *mask)
-> >      cpumask_andnot(mask, mask, &target);
-> >  }
-> >  
-> > +/* Force sending of a wakeup IPI regardless of mwait usage. */
-> > +bool __ro_after_init force_mwait_ipi_wakeup;
-> > +
-> >  bool arch_skip_send_event_check(unsigned int cpu)
-> >  {
-> > +    if ( force_mwait_ipi_wakeup )
-> > +        return false;
-> > +
-> 
-> I don't especially like this.  The callers are a loop over all CPUs, and
-> this can't be inlined/simplified automatically.
+On 4/22/25 01:21, Xin Li (Intel) wrote:
+> Relocate rdtsc{,_ordered}() from <asm/msr.h> to <asm/tsc.h>, and
+> subsequently remove the inclusion of <asm/msr.h> in <asm/tsc.h>.
+> Consequently, <asm/msr.h> must be included in several source files
+> that previously did not require it.
 
-Hm, I can look into this later, I can make maybe turn
-arch_skip_send_event_check into an inline.  Let me get this
-committed first.
+I know it's mildly obvious but could you please add a problem statement
+to these changelogs, even if it's just one little sentence?
 
-Thanks, Roger.
+	For some reason, there are some TSC-related functions in the
+	MSR header even though there is a tsc.h header.
+
+	Relocate rdtsc{,_ordered}() and	subsequently remove the
+	inclusion of <asm/msr.h> in <asm/tsc.h>. Consequently,
+	<asm/msr.h> must be included in several source files that
+	previously did not require it.
+
+But I agree with the concept, so with this fixed:
+
+Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
 
