@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D0A8A97EF6
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 08:15:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.963937.1354830 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A640DA97F26
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 08:27:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.963949.1354841 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7TMs-0008NR-Q7; Wed, 23 Apr 2025 06:13:58 +0000
+	id 1u7TZc-0001qC-TU; Wed, 23 Apr 2025 06:27:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 963937.1354830; Wed, 23 Apr 2025 06:13:58 +0000
+Received: by outflank-mailman (output) from mailman id 963949.1354841; Wed, 23 Apr 2025 06:27:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7TMs-0008KW-N5; Wed, 23 Apr 2025 06:13:58 +0000
-Received: by outflank-mailman (input) for mailman id 963937;
- Wed, 23 Apr 2025 06:13:57 +0000
+	id 1u7TZc-0001n8-PZ; Wed, 23 Apr 2025 06:27:08 +0000
+Received: by outflank-mailman (input) for mailman id 963949;
+ Wed, 23 Apr 2025 06:27:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rvAI=XJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u7TMr-0008KQ-Az
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 06:13:57 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1u7TZb-0001mx-09
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 06:27:07 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1d8ae8d2-200a-11f0-9ffb-bf95429c2676;
- Wed, 23 Apr 2025 08:13:47 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43d2d952eb1so43691555e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 23:13:49 -0700 (PDT)
+ id f92a0faa-200b-11f0-9ffb-bf95429c2676;
+ Wed, 23 Apr 2025 08:27:04 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-39ee57c0b8cso5838420f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Apr 2025 23:27:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-44092d2331dsm13121285e9.12.2025.04.22.23.13.48
+ ffacd0b85a97d-39efa4a4c0fsm17511391f8f.88.2025.04.22.23.27.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Apr 2025 23:13:48 -0700 (PDT)
+ Tue, 22 Apr 2025 23:27:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d8ae8d2-200a-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: f92a0faa-200b-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745388829; x=1745993629; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=adX12jlWSKSON4g0n3hQbCmdhkZU5r8cRx47tHlYEvo=;
-        b=VaN2uqLd6Hg1knbj467tPUKkTE5BDCaVjKwpjfSHLwcRux1T7Ul/dWithImwpIQQwT
-         TRp2/gfQa3hGxdy9OBbC53uH1V8lMuQ01aKXLuu73JNJujrg23dwUH0uuNXm/ucHL8Bx
-         oQzI40hpdBp5dYcIKDXlXRSzzj84rfIjGYI1lr5rPfpG5Yc4E8dUv+9DaOliQsD2dDaS
-         hj78H/zqA4rR/6ubvFksNvcRR5oNDiyDogghgA2O8H837bTZAga1NVB8Cx73liJ3oZD3
-         juMThuHQL8BrksJ6DhOlj143o9TF5kEkOahvbkeXu6nhe7GTb2/h2gqF9y/ziEvp3frN
-         diKQ==
+        d=suse.com; s=google; t=1745389624; x=1745994424; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=COfbRuIFrf9h7CbonrEVgc2mLz03aPLcJOHh9QDCIkM=;
+        b=cjbNqbnCvzB2lD9ebP+p8Z/Z1FCwAbyYnuzx0BJBUmVb+8Zq5dyqJ9llvKjBIiL8Y5
+         ZN33DuNP+7zxgQpZ36yMyKb1DJYTjAPlp3k2/Hd7uiG50QiQNi7th6Ri7FOEh0/H0gYK
+         cFalUIRMgv5ztzSYDuKjYhEoVY09c/t1VqHX4sQbljE2Q9vOcYmBj0grXl2wpCoAlFjN
+         UrB4QhtsNBhV4A+nqm/Qmovlw/fLgZP5DlpiHWPRpi9XfQplf07k/w23nCd0K2PBwkYL
+         kYEfKaIOLifdxQa5NcVRsYy42iWbACNloEIgKxApU+FXR1QWEGKfm2EN+30XFxZcHwtH
+         2ciw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745388829; x=1745993629;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=adX12jlWSKSON4g0n3hQbCmdhkZU5r8cRx47tHlYEvo=;
-        b=G4lvUc7xCWfILz5EzdN/MHBzNVv/tWAp6ZkppnQIWesvlxkPR9R2F2OqwOBG7qkg5Z
-         H68qN5M2w1BbcZ0idITQLTaDpL39gUnI3fkbejh126ma1l3quVfiC7k9c1EQvOC1TPNf
-         pAam04opp6uFX/tKwbLEFocmCCjgTtR1/7NF+wmCkWDUZUqiS6Ho6hdfzds8HhuGhP/d
-         gD0WbxNLkX1n/DerT+5tCLNpE66cLzgw8IkPLP0fky1lagk1RK6ljJ/rZP7vAe9UGLVs
-         SfZJm/s29oeccmejbC0uZ5nzKWhRPylzH1ijKLAhWRnLE74Tn3opCk9M9bEGjXrKN5K1
-         J/+g==
-X-Gm-Message-State: AOJu0YzH5yTDte/SvP73OpT1422yz9V7c1EQGzIhAZwFvct9TABRNzmv
-	BwRBqgb822GKIN4+2H9mt0uP6jxYi0GPtuuh4MxtDwNNNyGH3Oe6HWsOsQaac16M58Inj8VNHEI
-	=
-X-Gm-Gg: ASbGncvTKeM+7L+PuVFH1oGAAtVFqmcQdUpZfjvWIM+Ah1TnRqiW6YWA4YxeuC17vwE
-	c3QpupdrvPXkLoZkhq5CkdZqEt4H1wqYW8ocISmov0acI5sFnQjxfVgLxCTN+fkfwQD0Hp6lUDp
-	BmtWYnttGB8c+2TfVd9b37mJf4uSv5gA160620RaYfoMnY8fVgvvBtJryhsSxFlS7o8PamMeqv6
-	lF3A3GtxAw84v0dxV3u0tgPcyap302LxJOLEzCAoUmsf/35KkSjhKGjfMbfl2+5rgDl+owOr80X
-	BoV6Flh8BDzWUzlbNiwVNRb5otvf05YXI05xAgUc7ZFFWpEu9+ybhcUBaUh/HmE7DSdILKoOT+e
-	Vi3wiwl/ICeJU4PKqBjltwi+W5g==
-X-Google-Smtp-Source: AGHT+IHVFNiRIY2pSKSrj/i944mGtlmwW80r9lswaaMETBIonkr1Lm+VQr8LE4dF0Lrj1bM0q2sKxA==
-X-Received: by 2002:a05:600c:3acf:b0:43d:209:21fd with SMTP id 5b1f17b1804b1-4406ac2040dmr169959325e9.30.1745388828948;
-        Tue, 22 Apr 2025 23:13:48 -0700 (PDT)
-Message-ID: <df3f3203-d660-4b7d-b771-871d16a8ec43@suse.com>
-Date: Wed, 23 Apr 2025 08:13:47 +0200
+        d=1e100.net; s=20230601; t=1745389624; x=1745994424;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=COfbRuIFrf9h7CbonrEVgc2mLz03aPLcJOHh9QDCIkM=;
+        b=mQ3NrWuQms9CNacJbcStXM98dKQxY+uH4Vn3whY/nlon0vUNFJXGKAu4dHL0U6rza0
+         78OgsfvnpttyzYDSdkzeYVpR9qCBcgZlnvuNbTDHGUlLOXI+pZn3uF+vFl0skiAy4f+w
+         s2Cb40eL/aPlEG6qbhkSn2V2hEhLk3VBmtmKxxxuh6tJVEaTe5bkXHeAR1dIxqdYSMwS
+         etLcFHoM6fiueFUirYYpK0D5KJm8Y9Y6KI+nKvpTDDwN3WnBqSAVG7jSHONnV3mhUXkp
+         a9fGnx/a0I6AYa7yCyoNNGtE1xjIieuz2kQfEoOdSM1kwBE3SPOmQ4SeAspXiIzEn5QU
+         mQOA==
+X-Gm-Message-State: AOJu0YwN8HicYDaUXaxrsx1yzQQLcoFlMT0lLISmROmpqang/nhHCh/w
+	MLoGkiiSuBuFBeu+6Zm2ekKfZy+qQe26Mxw+3vF091j/YFdlB2xekMC/8IHIVg==
+X-Gm-Gg: ASbGnctC1vpsurKszm2Ziqy2BNN71b/6jBeHFfsJ621E8LR6bYduGyZ3A3Ov12kY/dA
+	eR+4i/XZwuIIhggP4t++uHHzUjfDGGpUbhEBZqqS3BgXw6LE5zSEB2dLsvFWuYLPcXWEntj/kKM
+	+qDrOX8R0N7uk1vmNkVW/405qNhvnnQJv0ObcZIk0VgSgl0IU06fC1eFJlCjqBE7OEI3TkxAey0
+	jk79dYjJ8gTmn/47VqSAdozAYGYgH6XfLgOz1ODPyxR9zcEf8DqQUmfhjA+0GydvIy1iUEYeJuL
+	CjxnGpEYt+6r+gnJPQG37TErcXFl18pvVjmPmToxDkaTVVAM39u58DHlatmDWzx3hnrPNDFdHOE
+	KOR4ccwKaMCYmIBc9CISUrnenpiYg1+qRK00z
+X-Google-Smtp-Source: AGHT+IErImIRuySM8NipZRXVIoYqKQ2X9+rpQu8BMAPV5jVDpTc4bX64Z4PDorOpES5IlE6uVvO1tw==
+X-Received: by 2002:a5d:64a5:0:b0:391:4914:3c6a with SMTP id ffacd0b85a97d-39efba5c644mr12786814f8f.29.1745389624093;
+        Tue, 22 Apr 2025 23:27:04 -0700 (PDT)
+Message-ID: <8296e9e0-0834-4255-8e3d-ff3f455e3c28@suse.com>
+Date: Wed, 23 Apr 2025 08:27:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] misra: add deviation for rules 21.1 and 21.2
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Victor Lira <victorm.lira@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <790f9cae9a75b9f29554943c08abb6537647644e.1745364478.git.victorm.lira@amd.com>
+ <alpine.DEB.2.22.394.2504221650500.785180@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86emul: adjust BSF/BSR behavior as to EFLAGS
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,100 +124,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2504221650500.785180@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-SDM revision 087 points out that apparently as of quite some time ago on
-Intel hardware BSF and BSR may alter all arithmetic flags, not just ZF.
-Because of the inconsistency (and because documentation doesn't look to
-be quite right about PF), best we can do is simply take the flag values
-from what the processor produces, just like we do for various other
-arithmetic insns. (Note also that AMD and Intel have always been
-disagreeing on arithmetic flags other than ZF.)
+On 23.04.2025 01:51, Stefano Stabellini wrote:
+> On Tue, 22 Apr 2025, victorm.lira@amd.com wrote:
+>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>
+>> MISRA C Rules 21.1 ("#define and #undef shall not be used on a
+>> reserved identifier or reserved macro name") and R21.2 ("A reserved
+>> identifier or reserved macro name shall not be declared") violations
+>> are not problematic for Xen, as it does not use the C or POSIX
+>> libraries.
+>>
+>> Xen uses -fno-builtin and -nostdinc to ensure this, but there are still
+>> __builtin_* functions from the compiler that are available so
+>> a deviation is formulated for all identifiers not starting with
+>> "__builtin_".
+>>
+>> The missing text of a deviation for Rule 21.2 is added to
+>> docs/misra/deviations.rst.
+>>
+>> To avoid regressions, tag both rules as clean and add them to the
+>> monitored set.
+>>
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+> 
+> This makes sense and it is noncontroversial.
+> 
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Since I happened to look at it, I wonder whether for e.g. SHLD/SHRD we
-wouldn't be better off using _emulate_2op_SrcV_nobyte() as well; we
-already do so in x86_emul_rmw(), after all.
+This entire series will apparently need re-sending, as the list address
+was typo-ed. Patches need to be on the list before going in (with perhaps
+the sole exception being XSA fixes).
 
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -5268,16 +5268,14 @@ x86_emulate(
-         break;
- 
-     case X86EMUL_OPC(0x0f, 0xbc): /* bsf or tzcnt */
--    {
--        bool zf;
--
--        asm ( "bsf %2,%0" ASM_FLAG_OUT(, "; setz %1")
--              : "=r" (dst.val), ASM_FLAG_OUT("=@ccz", "=qm") (zf)
--              : "rm" (src.val) );
--        _regs.eflags &= ~X86_EFLAGS_ZF;
-         if ( (vex.pfx == vex_f3) && vcpu_has_bmi1() )
-         {
--            _regs.eflags &= ~X86_EFLAGS_CF;
-+            bool zf;
-+
-+            asm ( "bsf %2,%0" ASM_FLAG_OUT(, "; setz %1")
-+                  : "=r" (dst.val), ASM_FLAG_OUT("=@ccz", "=qm") (zf)
-+                  : "rm" (src.val) );
-+            _regs.eflags &= ~(X86_EFLAGS_ZF | X86_EFLAGS_CF);
-             if ( zf )
-             {
-                 _regs.eflags |= X86_EFLAGS_CF;
-@@ -5286,25 +5284,23 @@ x86_emulate(
-             else if ( !dst.val )
-                 _regs.eflags |= X86_EFLAGS_ZF;
-         }
--        else if ( zf )
-+        else
-         {
--            _regs.eflags |= X86_EFLAGS_ZF;
--            dst.type = OP_NONE;
-+            emulate_2op_SrcV_srcmem("bsf", src, dst, _regs.eflags);
-+            if ( _regs.eflags & X86_EFLAGS_ZF )
-+                dst.type = OP_NONE;
-         }
-         break;
--    }
- 
-     case X86EMUL_OPC(0x0f, 0xbd): /* bsr or lzcnt */
--    {
--        bool zf;
--
--        asm ( "bsr %2,%0" ASM_FLAG_OUT(, "; setz %1")
--              : "=r" (dst.val), ASM_FLAG_OUT("=@ccz", "=qm") (zf)
--              : "rm" (src.val) );
--        _regs.eflags &= ~X86_EFLAGS_ZF;
-         if ( (vex.pfx == vex_f3) && vcpu_has_lzcnt() )
-         {
--            _regs.eflags &= ~X86_EFLAGS_CF;
-+            bool zf;
-+
-+            asm ( "bsr %2,%0" ASM_FLAG_OUT(, "; setz %1")
-+                  : "=r" (dst.val), ASM_FLAG_OUT("=@ccz", "=qm") (zf)
-+                  : "rm" (src.val) );
-+            _regs.eflags &= ~(X86_EFLAGS_ZF | X86_EFLAGS_CF);
-             if ( zf )
-             {
-                 _regs.eflags |= X86_EFLAGS_CF;
-@@ -5317,13 +5313,13 @@ x86_emulate(
-                     _regs.eflags |= X86_EFLAGS_ZF;
-             }
-         }
--        else if ( zf )
-+        else
-         {
--            _regs.eflags |= X86_EFLAGS_ZF;
--            dst.type = OP_NONE;
-+            emulate_2op_SrcV_srcmem("bsr", src, dst, _regs.eflags);
-+            if ( _regs.eflags & X86_EFLAGS_ZF )
-+                dst.type = OP_NONE;
-         }
-         break;
--    }
- 
-     case X86EMUL_OPC(0x0f, 0xbe): /* movsx rm8,r{16,32,64} */
-         /* Recompute DstReg as we may have decoded AH/BH/CH/DH. */
+Jan
 
