@@ -2,31 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0ED2A9983A
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 20:59:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.965182.1355822 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52DEBA9987C
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 21:28:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.965201.1355832 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7fJd-0006jF-8W; Wed, 23 Apr 2025 18:59:25 +0000
+	id 1u7fl9-000384-EJ; Wed, 23 Apr 2025 19:27:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 965182.1355822; Wed, 23 Apr 2025 18:59:25 +0000
+Received: by outflank-mailman (output) from mailman id 965201.1355832; Wed, 23 Apr 2025 19:27:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7fJd-0006hB-61; Wed, 23 Apr 2025 18:59:25 +0000
-Received: by outflank-mailman (input) for mailman id 965182;
- Wed, 23 Apr 2025 18:59:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u7fl9-00036U-BK; Wed, 23 Apr 2025 19:27:51 +0000
+Received: by outflank-mailman (input) for mailman id 965201;
+ Wed, 23 Apr 2025 19:27:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IUzE=XJ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1u7fJa-0006h5-Vh
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 18:59:23 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f1b9666-2075-11f0-9ffb-bf95429c2676;
- Wed, 23 Apr 2025 20:59:20 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1745434745049964.6327896254859;
- Wed, 23 Apr 2025 11:59:05 -0700 (PDT)
+ <SRS0=hbtc=XJ=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1u7fl6-00036O-Vp
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 19:27:49 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2060c.outbound.protection.outlook.com
+ [2a01:111:f403:240a::60c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 082e0f8b-2079-11f0-9eb0-5ba50f476ded;
+ Wed, 23 Apr 2025 21:27:46 +0200 (CEST)
+Received: from BN9PR03CA0369.namprd03.prod.outlook.com (2603:10b6:408:f7::14)
+ by CH3PR12MB8308.namprd12.prod.outlook.com (2603:10b6:610:131::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.23; Wed, 23 Apr
+ 2025 19:27:41 +0000
+Received: from BL02EPF00029927.namprd02.prod.outlook.com
+ (2603:10b6:408:f7:cafe::f) by BN9PR03CA0369.outlook.office365.com
+ (2603:10b6:408:f7::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.37 via Frontend Transport; Wed,
+ 23 Apr 2025 19:27:40 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF00029927.mail.protection.outlook.com (10.167.249.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8655.12 via Frontend Transport; Wed, 23 Apr 2025 19:27:40 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Apr
+ 2025 14:27:40 -0500
+Received: from [172.21.185.2] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 23 Apr 2025 14:27:39 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,125 +59,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f1b9666-2075-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; t=1745434748; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=JO2jUlYYsLOr9jDPLK1CESCTAuQhGnkCQWj4ayIxJqoB8nKCrlWizLsbi2jtGfH2iqa62nx52mTGockjlKmNbYZK0vvPTEo+IkpllbXJ+z55JCv4+dryQtr9SkGVW0bQZI7gc4u2Rd3g2nb2Ib6C1ifmgSJd+xPsNNL8Dvm5NyI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1745434748; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=t3URwDPujiqFvfPeLPUB47AxMqRO5A7Ca2XFEvvTeg4=; 
-	b=dRZapdQTQirCcMUW1XtSP9jGe6MkBKMWaVaJSkipVAiZzFRIAuEY88j+sbENHSzZwpYSsoqRZ1L2r44a7Mln8depWPzG4a2D86oVtEs6tAezHM+VXvPItV57A/m2RfHCHwNSaFZCcFGHgVEymoZSwAc73Wl++55Q5Jn7lmUII+U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1745434748;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=t3URwDPujiqFvfPeLPUB47AxMqRO5A7Ca2XFEvvTeg4=;
-	b=BvzHuFxI0W4DOUoNOm0f/+29DqKwAttlgOLTkMVM43FUL7Miar+id0zOqASmuEKq
-	7Avf9xqV4hLYLtXxpKe5pJBg0XYN6s4SZ2oSOG4an/HatWpFH1q7LyaH39XKP7Rjc2T
-	T7nkh3FwCKpNUh2Zx7EMQ4Bs64hIXDlO5MIGChjM=
-Message-ID: <c2940798-11d0-4aaa-a013-64bef9bbdb82@apertussolutions.com>
-Date: Wed, 23 Apr 2025 14:59:03 -0400
+X-Inumbo-ID: 082e0f8b-2079-11f0-9eb0-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qfv2vy26Yi7aQAzF/StAoa2fq8XAPpdPAnErRPGmu2OmlLuTZCeXMsOLGBN8tD1GE+d6EHNvpT2Jx7R4DjTZFfQ2WTK7cUZQmFAHno8WjmTv0BELddSkU4bJCUtKo0/XYTYHQ3aD7lCdqeC9DPEHUTz/Yhu89gQ1AtyN6xNvs/tm2LP6X/J1Unco43OJW7opcbzPfcbSwfO8t0EUvQnDnUajO9XVTwv/mJi+csWN7PaOGHa3XO9DV1HpU+QI5AWATKTTiqBtYzLxbUOQxNhOt/hloLsPXrten191b3rfpq0RGFpg1GUsjcQDRY/j1h+tAVfC+8oUhUafgG9o6SEo0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K2W4J4D8HsKOPooVSRyj7XBe9kp+a21z5TwmB52urL8=;
+ b=agILp/Y4bQuhrA63c0yqnW0Fqili8U3hOgZnPskdn+N8kBWlrkbcFaDWk2enrUIYKlYJUVunrb3njwpCVxK9kWdI/U6oWR7lnWhufrNxNzAWPBXgb3ignPHzjx41vFmlQO9ARIYE8bjR1fxYjVst7J5lYJ/2/9xLpYRGAgO/r7IKFna+Vmlbr3hnKnlCm+/aoqEgae+ed/4qittmZRanf7JryBHG2JxxW6HoX9CMcKTSJANuA8aWzLJP6ZFV6Io/kygUaucpXt4UERhxvwjbYTbRARdEwL3feUbPJzdW4Vm+/1WTgWs+BxROeSpi9fkcHZUNGooWIa09IMj6kkNukg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K2W4J4D8HsKOPooVSRyj7XBe9kp+a21z5TwmB52urL8=;
+ b=YR2aJV4uWVz5jMAODZcjYwciocT29+xZjPui2dE6dE8RerIU01B8daQhJA5agSrON8jPPKmCligivOAo+gnRrQYBIfvb1mleqiNYTh3YgvMMKoTDVEfvTIKhtDjMJNql/8Wc9ZiyD1EjPZI11XQ5ERv40QV54G7ChOZEC/m/huM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <bba25fca-171a-47dd-881b-4746d76bd16a@amd.com>
+Date: Wed, 23 Apr 2025 15:27:39 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/21] x86: Trenchboot Secure Launch DRTM (Xen)
+Subject: Re: [RFC 33/38] x86/boot: refactor bzimage parser to be re-enterant
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <stefano.stabellini@amd.com>, <agarciav@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20250419220820.4234-1-dpsmith@apertussolutions.com>
+ <20250419220820.4234-34-dpsmith@apertussolutions.com>
 Content-Language: en-US
-To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Lukasz Hawrylko <lukasz@hawrylko.pl>,
- =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, trenchboot-devel@googlegroups.com
-References: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <20250419220820.4234-34-dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF00029927:EE_|CH3PR12MB8308:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb7b5765-54dd-40b9-f0dc-08dd829cea0d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?cWJNYXB6NWpqSVA4ekliSDdXclQ1SHJLekluYzB0VGZtWVdhQ1Jvb0d2cHU4?=
+ =?utf-8?B?akJ6eWtrQWhHYVBGT2tKNnVaL0dPa3NlUWNUM2xTc3RFZ1pQT2tRaTU4WFFp?=
+ =?utf-8?B?bnFsS1UvME9jamdsbVR5cDB5NTVrZzZaVUErN2hQUDY0bitzU3YwbXgwZXpr?=
+ =?utf-8?B?bHNuMno3dmU1aFROSXVENktqQkZDbW5LajZ5c2wxNFE1MGl4RHp1WkxBazVS?=
+ =?utf-8?B?WWNPekx1aWNyMzZ3OGJ4OWNWZnF1aGFhd3duTldGbjB6dWxHcCt6NzBRU25W?=
+ =?utf-8?B?SzVwSGY4TFdkR0p6U2FMYU9JRHIzaXBxYjRjSjc0VDdkejZLaHlJam10TTdN?=
+ =?utf-8?B?Tzk2Tk8wTmlRaWFlS2VCeWg1c1VnVlJKK1RqWkxZMEIweGdPdGUrMUo0Tlp1?=
+ =?utf-8?B?Z1lTWHY4ZXZDcEgzVnd4SFBuN3dZS1pURktJMjZxMjh1QkJlN1Rxdi9DbzlN?=
+ =?utf-8?B?U2NrdVpYenQxSUcyTTVUUEdpdHp3SWc1cExMWEdvaTczVGNUQzY3VW5NOGdS?=
+ =?utf-8?B?YkRRR2JhcnY5MlpuVUs2QmhsS1pocUJRWFIveFR4VEFtNW5zWDU4OFd2UlAv?=
+ =?utf-8?B?aVEzblBLWjQxOEtJbkhSTlp3UmRnaTAvODNBVU8rVTVlSS9qTWs4SGw0QmFn?=
+ =?utf-8?B?c2xtODBmaW9hd0poOXBiMW54V1Y0RVpKeWFRdnlaaEdrOHoxdGZWN0VEOVlj?=
+ =?utf-8?B?ZmdPKzFTYmxVaG5MY0Y3SzV5QURjd29NMnVlNFJ6TWd5QmxtTHcweGhzSlVS?=
+ =?utf-8?B?NzQ1anRRdHpmek9OUG4xckdEWmlMNnltV3F1dWxBYmMxZEFvZkF3Ylo4M0R5?=
+ =?utf-8?B?c2dTdWl6djBOeFd1Yk80N1lJTk9EM0J4eExFdVhKc3Rzem9yZ0NHbEdYbnB0?=
+ =?utf-8?B?RFdROTFBV2wvR1BONkQ2WE9CYUZaTlRINEZ2R3dZbHRyaXFQbUlrK2dnUEh0?=
+ =?utf-8?B?ZUZhbVlUVnFLRFdCQUcvR3ZhZUtxYm5ETU1iVmNJRk1HeTl3eW5Yd2kveTVu?=
+ =?utf-8?B?UlBiemg1VVJWSzBNWERuRU4xcVJ3elFwK2Z0cTZpdUhMdGFsRGdNOWZGMU5I?=
+ =?utf-8?B?dUdSZlllU1FFdTNyVjhLMkVkTXFxSENrNVR1cSt1Tmx2UjlEcVI4d1luanlX?=
+ =?utf-8?B?UTh0VWh5bWsrclNEM0hGYTNMS3ZMbHhvc0h1R3J6VExueDhzbnpYdlJLb3Ex?=
+ =?utf-8?B?d0VOUjFMaFUyK2Y4V3c2RHRtZGpVNmZveHcxQ2tYOURKVWQzYWNHdXhtRzdW?=
+ =?utf-8?B?aDFkUXM0aU8ydXZiRTU1bElvM3dXRk12anRMZUpDRzc5NkU5bWRYem4weWpS?=
+ =?utf-8?B?Sm9LN21GVUQ1RXAzSExBbjJvNlBGa0FwUStmMmdWNkhvMmtVdmU4TndoekdX?=
+ =?utf-8?B?MS80ZDFFakdaTmdsaWNmbnUwTlFSOHB1NlEvdkdCZjNhL3lNNFRVa20zTEIx?=
+ =?utf-8?B?Zi9mMnhSckVQUGV3NVhZQjM0OVhBbUpUK3FWZ09ZOGFPMDkvSDdTSUFhdnJ5?=
+ =?utf-8?B?eFpGVHI3MW0zK0EvSzkxVHR6ampnbkJtb1dWbWxKelNud1RjY3JLNkdwVG1G?=
+ =?utf-8?B?RHA1YnBpdFgrcnJCWUVvcVd6TXJ6a0t4RC9CSzBCd0tqbkQ3b0RwcXJBZ2F3?=
+ =?utf-8?B?R3I1Mi9SZVErQXN6NDA4Wnkybll3Qjc0MUcwMjQzVlRJWXd6djJZenZZdjZM?=
+ =?utf-8?B?OVBIQ0ZSd0lRWlJoaTdyWmNvSXZxUFdGOW11QlJXb0RoR1JVV0JOV1Vqa0Jo?=
+ =?utf-8?B?RlRQZGJKejVFRFZoRkJHa2dRZS9ielpSWno5NW1lZ1NvTXAvY0RpbU1VeEtv?=
+ =?utf-8?B?TFZ5ekdZdDFFZ3ZWRmRTdHVHZnU1cmdGOVd1VXVML2xJWWc4aUZFTmFON1Ro?=
+ =?utf-8?B?YTV5d1dYRWNNVEovb3pYajllZlZtL0pZaE8vWnBaaS8yYzY4ZnFWVTJFTnR4?=
+ =?utf-8?B?bHRDRVc3TGZRQXlwR3pINU93OWQyTndZRnB1b1FETGl1eGtIRlJwUUFQM0FI?=
+ =?utf-8?B?STZHRU1DZFNnVTVaU096K2wwRlZYby82Z0ZEZjNLL2kxcVBTd0l3ekNEMHJK?=
+ =?utf-8?Q?H7sIX8?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2025 19:27:40.9328
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb7b5765-54dd-40b9-f0dc-08dd829cea0d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF00029927.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8308
 
-On 4/22/25 11:06, Sergii Dmytruk wrote:
-> The aim of the [TrenchBoot] project is to provide an implementation of
-> DRTM that is generic enough to cover various use cases:
->   - Intel TXT and AMD SKINIT on x86 CPUs
->   - legacy and UEFI boot
->   - TPM1.2 and TPM2.0
->   - (in the future) DRTM on Arm CPUs
+On 2025-04-19 18:08, Daniel P. Smith wrote:
+> The bzimage logic uses the unit global orig_image_len to hold the original
+> module length for the kernel when the headroom is calculated. It then uses
+> orig_image_len to locate the start of the bzimage when the expansion is done.
+> This is an issue when more than one bzimage is processed by the headroom
+> calculation logic, as it will leave orig_image_len set to the length of the
+> last bzimage it processed.
 > 
-> DRTM is a version of a measured launch that starts on request rather
-> than at the start of a boot cycle.  One of its advantages is in not
-> including the firmware in the chain of trust.
+> The boot module work introduced storing the headroom size on a per module
+> basis. By passing in the headroom from the boot module, orig_image_len is no
+> longer needed to locate the beginning of the bzimage after the allocated
+> headroom. The bzimage functions are reworked as such, allowing the removal of
+> orig_image_len and enabling them to be reused by multiple kernel boot modules.
 > 
-> Xen already supports DRTM via [tboot] which targets Intel TXT only.
-> tboot employs encapsulates some of the DRTM details within itself while
-> with TrenchBoot Xen (or Linux) is meant to be a self-contained payload
-> for a TrenchBoot-enabled bootloader (think GRUB).  The one exception is
-> that UEFI case requires calling back into bootloader to initiate DRTM,
-> which is necessary to give Xen a chance of querying all the information
-> it needs from the firmware before performing DRTM start.
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> ---
+>   xen/arch/x86/bzimage.c             | 38 ++++++++++++++++++------------
+>   xen/arch/x86/hvm/dom_build.c       |  3 ++-
+>   xen/arch/x86/include/asm/bzimage.h |  5 ++--
+>   xen/arch/x86/pv/dom0_build.c       |  3 ++-
+>   4 files changed, 30 insertions(+), 19 deletions(-)
 > 
->  From reading the above tboot might seem like a more abstracted, but the
-> reality is that the payload needs to have DRTM-specific knowledge either
-> way.  TrenchBoot in principle allows coming up with independent
-> implementations of bootloaders and payloads that are compatible with
-> each other.
-> 
-> The "x86/boot: choose AP stack based on APIC ID" patch is shared with
-> [Parallelize AP bring-up] series which is required here because Intel
-> TXT always releases all APs simultaneously.  The rest of the patches are
-> unique.
-> 
+> diff --git a/xen/arch/x86/bzimage.c b/xen/arch/x86/bzimage.c
+> index 66f648f311e4..32f0360d25b4 100644
 
-Sergii,
+> @@ -103,13 +100,20 @@ unsigned long __init bzimage_headroom(void *image_start,
+>       return headroom;
+>   }
+>   
+> -int __init bzimage_parse(void *image_base, void **image_start,
+> -                         unsigned long *image_len)
+> +int __init bzimage_parse(
+> +    void *image_base, void **image_start, unsigned long headroom,
+> +    unsigned long *image_len)
+>   {
+>       struct setup_header *hdr = (struct setup_header *)(*image_start);
+>       int err = bzimage_check(hdr, *image_len);
+> -    unsigned long output_len;
+> -
+> +    unsigned long module_len = *image_len;
+> +
+> +    /*
+> +     * Variable err will have one of three values:
+> +     *   -  < 0: a error occurred trying to inspect the contents
+> +     *   -  > 0: the image is a bzImage
+> +     *   - == 0: not a bzImage, could be raw elf or elf.gz (vmlinuz.gz)
+> +     */
 
-Thanks so much to you and the team over at 3mdeb for taking the lead on 
-getting Secure Launch written for Xen.
+This comment seems a little independent of this change, so maybe it 
+should be submitted separately.  Also, I think a better placement would 
+be next to bzimage_check().
 
-One quick comment, Secure Launch will eventually support other 
-architectures, and we really should not let the maintenance fall on the 
-x86 maintainers, or eventually to "the rest". I would like to suggest 
-adding an entry into the MAINTAINERS file for "TrenchBoot Secure Launch" 
-and list any new files that are being introduced for Secure Launch. When 
-adding the section to MAINTAINERS, I would kindly like to request that 
-myself be included as a maintainer and Ross Phillipson as a reviewer.
+>       if ( err < 0 )
+>           return err;
+>   
+> @@ -118,21 +122,25 @@ int __init bzimage_parse(void *image_base, void **image_start,
+>           *image_start += (hdr->setup_sects + 1) * 512 + hdr->payload_offset;
+>           *image_len = hdr->payload_length;
 
-V/r,
-Daniel P. Smith
+@here
+
+>       }
+> -
+> -    if ( elf_is_elfbinary(*image_start, *image_len) )
+> -        return 0;
+> +    else
+> +    {
+> +        if ( elf_is_elfbinary(*image_start, *image_len) )
+> +            return 0;
+> +        else
+> +            *image_len = *image_len - headroom;
+> +    }
+
+I don't like this extra indention which includes the return.  If you 
+retain orig_image_len as a local variable, and set it above at "@here", 
+you can have a smaller diff and leave cleaner logic.
+
+orig_image_len previously was set as a static variable, so the correct
+value was set after bzimage_headroom.  Now that it is no longer static,
+we need to grab the hdr->payload_length value when we have a bzImage.
+Otherwise output_length will read past the end of the module.
+
+Below is the diff for bzimage.c with the change I suggest.
+
+Regards,
+Jason
+
+diff --git a/xen/arch/x86/bzimage.c b/xen/arch/x86/bzimage.c
+index ac4fd428be..775a8b45ff 100644
+--- a/xen/arch/x86/bzimage.c
++++ b/xen/arch/x86/bzimage.c
+@@ -69,8 +69,6 @@ static __init int bzimage_check(struct setup_header 
+*hdr, unsigned long len)
+      return 1;
+  }
+
+-static unsigned long __initdata orig_image_len;
+-
+  unsigned long __init bzimage_headroom(void *image_start,
+                                        unsigned long image_length)
+  {
+@@ -91,7 +89,6 @@ unsigned long __init bzimage_headroom(void *image_start,
+      if ( elf_is_elfbinary(image_start, image_length) )
+          return 0;
+
+-    orig_image_len = image_length;
+      headroom = output_length(image_start, image_length);
+      if (gzip_check(image_start, image_length))
+      {
+@@ -104,12 +101,15 @@ unsigned long __init bzimage_headroom(void 
+*image_start,
+      return headroom;
+  }
+
+-int __init bzimage_parse(void *image_base, void **image_start,
+-                         unsigned long *image_len)
++int __init bzimage_parse(
++    void *image_base, void **image_start, unsigned long headroom,
++    unsigned long *image_len)
+  {
+      struct setup_header *hdr = (struct setup_header *)(*image_start);
+      int err = bzimage_check(hdr, *image_len);
+-    unsigned long output_len;
++    unsigned long output_len, orig_image_len;
++
++    orig_image_len = *image_len - headroom;
+
+      if ( err < 0 )
+          return err;
+@@ -118,6 +118,7 @@ int __init bzimage_parse(void *image_base, void 
+**image_start,
+      {
+          *image_start += (hdr->setup_sects + 1) * 512 + 
+hdr->payload_offset;
+          *image_len = hdr->payload_length;
++        orig_image_len = hdr->payload_length;
+      }
+
+      if ( elf_is_elfbinary(*image_start, *image_len) )
 
 
