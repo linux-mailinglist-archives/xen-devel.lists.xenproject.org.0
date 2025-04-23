@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0631A984A1
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 11:04:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964270.1355114 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39431A984D1
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 11:08:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964282.1355124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7W1p-0006Ae-Rp; Wed, 23 Apr 2025 09:04:25 +0000
+	id 1u7W56-0006lJ-9x; Wed, 23 Apr 2025 09:07:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964270.1355114; Wed, 23 Apr 2025 09:04:25 +0000
+Received: by outflank-mailman (output) from mailman id 964282.1355124; Wed, 23 Apr 2025 09:07:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7W1p-000697-P6; Wed, 23 Apr 2025 09:04:25 +0000
-Received: by outflank-mailman (input) for mailman id 964270;
- Wed, 23 Apr 2025 09:04:25 +0000
+	id 1u7W56-0006iP-73; Wed, 23 Apr 2025 09:07:48 +0000
+Received: by outflank-mailman (input) for mailman id 964282;
+ Wed, 23 Apr 2025 09:07:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZaJ6=XJ=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1u7W1p-000691-2y
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 09:04:25 +0000
-Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=s+1X=XJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1u7W55-0006iJ-HR
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 09:07:47 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f2489c36-2021-11f0-9eb0-5ba50f476ded;
- Wed, 23 Apr 2025 11:04:23 +0200 (CEST)
-Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53N93fQA3189218
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Wed, 23 Apr 2025 02:03:42 -0700
+ id 6c2d202b-2022-11f0-9eb0-5ba50f476ded;
+ Wed, 23 Apr 2025 11:07:46 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43cf257158fso39936185e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 02:07:46 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-44092d35672sm18180075e9.25.2025.04.23.02.07.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Apr 2025 02:07:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,113 +44,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2489c36-2021-11f0-9eb0-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53N93fQA3189218
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745399025;
-	bh=u0XOm4Pe1y26VX9KraE8lCfVMIhih5CUvlEon/+N7r8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jHhglhXvhVyTJ9jbGbBEsLpKKKBonwgJfuJebJkfdM2ZVf587fR3O1LmBPaAX8A+7
-	 Y/kQ8sy1SWT03AqNGStd9X6lus78yvsubZ9m4m+1Q78rLFEGgbDfDd5TAdwoyWFOo7
-	 QE2PAqjPMr7Nf9QsR+7zMCqsy41tHPFwJQOXdldXH4Uef0v3MZmMgxjyvQfzSoLRiS
-	 nHnSLuwIeibOtU52hStVUmkHsV08RKi82jG7O+XUZkO1n+JM2syhx8Jp+OwjcGZBEa
-	 gS0TDoUjBiODs26vxsCih9QvNtT077p8SGL+iciRZQ/Xtdur9QA3BHiJOB0btfGNTu
-	 cVHFdG56BYXAQ==
-Message-ID: <7899fcd9-3492-49d3-8097-a3ddefaaeef0@zytor.com>
-Date: Wed, 23 Apr 2025 02:03:41 -0700
+X-Inumbo-ID: 6c2d202b-2022-11f0-9eb0-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1745399266; x=1746004066; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Dyba/r8Hq/bFmhw85vbT1PGniFUm6V3l4UnHwxolVho=;
+        b=mo/1KPkHrfWrvVPzCBhn20IeJNmUlootWIVSHyFPqlZfGgmAiPcvzoKxZlhP9a3cqx
+         ZGU0kOtxYyF5XxdpzADXZIoPqlHMFnWyE3giWWU0M0wh/9cxiFWIT/H9hiaUJtJ8f/kp
+         Xy32HKABYMmIyS6a8aRNnK+TkgvADM1UqrbTc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745399266; x=1746004066;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Dyba/r8Hq/bFmhw85vbT1PGniFUm6V3l4UnHwxolVho=;
+        b=c36wWVtexMc/xGfuFKvmODZ7ZNnUYO1OKIkRLv23+1AlkbOsmsg16i/COiLp/aUJIr
+         tfnmxENQvrJcgvjpNhxMeKco5zr5NvBA46irNuzojF1E94ctClZt2QilfbGsKU/ZAQFo
+         jjiUGfrg/RTcFLZmum5jGrhUgLgkye3QyNvYMq6UOVOyjHDZ+mOFIbime0Kg+4ytbyRO
+         95Hw70gTRx0edahfDhk7OTF8gVQnyhgtnGid+J9usvPuTjWdOUiJXAgaj9dEa7dSWD16
+         iOxpI7/uBxRFhxtX3begZhaaCQj3C2jH+FzWrA65ZO/hqg2KByAxH2d6p762XIssFQeX
+         NDww==
+X-Gm-Message-State: AOJu0YzxIJcEjLggYu8td2FpkCKxAOW7qnimvVBDtH3wucu2ExWeZB3X
+	nwf+QlCeLzFkxD+r7nA7x6tb3eYTdxKZAlmDGH7rM6AGV3lblGgWmFJ19VrqASM=
+X-Gm-Gg: ASbGncsb1Sx1sX2KrL0O73JyqINC0+M2T/HaiXK02wydAAUKJKM1mY/q6BxMMlU84ZA
+	VIX677T5LMOUckv76/aTXMwGDm2JC83TKZnDKeknBI/+t5je7qQONz2Zj/jqicHnKmGBhvfNYPO
+	4IW584ZeI/GOXg/5i66B6WJcGgtFYPZLo3b3ohWkonfyI36kbOt3iO5Yb9ZJLnV6aXnHiVUiqE+
+	y+Xcmt7BHw0tOWmjg4iUUrAXxXe6383xzbg9yBECk/+qCvzybrmjcwCH00uxzp7V4DIPpsxNZM4
+	Hl31FBy1lHVc+FgDXgpa9l/+rRHlyHJtAqkDPB/GlAhxWA==
+X-Google-Smtp-Source: AGHT+IFXXOSdBjiLnHMgavBi//E9Sa4ZdVqxgoFdJX7tJHsJgMpsWesNHBSQZy9hrMow3MLpVFAf8g==
+X-Received: by 2002:a05:600c:548e:b0:43d:a90:9f1 with SMTP id 5b1f17b1804b1-4406ab67708mr140844325e9.6.1745399265956;
+        Wed, 23 Apr 2025 02:07:45 -0700 (PDT)
+Date: Wed, 23 Apr 2025 11:07:44 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Marek Marczykowski <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH] x86: constrain sub-page access length in
+ mmio_ro_emulated_write()
+Message-ID: <aAit4IPZju60KEUz@macbook.lan>
+References: <570ad3f2-7f3b-4579-a000-c85d27e8bf77@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 22/34] x86/msr: Utilize the alternatives mechanism
- to read MSR
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
-        virtualization@lists.linux.dev, linux-pm@vger.kernel.org,
-        linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
-        netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-        acme@kernel.org, andrew.cooper3@citrix.com, peterz@infradead.org,
-        namhyung@kernel.org, mark.rutland@arm.com,
-        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
-        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
-        wei.liu@kernel.org, ajay.kaher@broadcom.com,
-        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
-        pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
-        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
-        haiyangz@microsoft.com, decui@microsoft.com
-References: <20250422082216.1954310-1-xin@zytor.com>
- <20250422082216.1954310-23-xin@zytor.com>
- <080351cb-6c3d-4540-953d-6205f1ff0745@suse.com>
-Content-Language: en-US
-From: Xin Li <xin@zytor.com>
-Autocrypt: addr=xin@zytor.com; keydata=
- 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
- l75w1xInsg==
-In-Reply-To: <080351cb-6c3d-4540-953d-6205f1ff0745@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <570ad3f2-7f3b-4579-a000-c85d27e8bf77@suse.com>
 
-On 4/22/2025 4:12 AM, Jürgen Groß wrote:
->> +
->> +static __always_inline bool __rdmsrq(u32 msr, u64 *val, int type)
->> +{
->> +    bool ret;
->> +
->> +#ifdef CONFIG_XEN_PV
->> +    if (cpu_feature_enabled(X86_FEATURE_XENPV))
->> +        return __xenpv_rdmsrq(msr, val, type);
+On Wed, Apr 23, 2025 at 10:43:56AM +0200, Jan Beulich wrote:
+> Without doing so we could trigger the ASSERT_UNREACHABLE() in
+> subpage_mmio_write_emulate(). A comment there actually says this
+> validation would already have been done ...
 > 
-> I don't think this will work for the Xen PV case.
+> Fixes: 8847d6e23f97 ("x86/mm: add API for marking only part of a MMIO page read only")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Alternatively we could drop comment and assertion from
+> subpage_mmio_write_emulate().
 
-Well, I have been testing the code on xen-4.17 coming with Ubuntu
-24.04.2 LTS :)
+I think I prefer this as it fits better with my patch to unify the
+open-coded MMIO accessors, which does have an ASSERT_UNREACHABLE() for
+unhandled sizes.  The return there is anyway too late IMO, as we have
+possibly already mapped the page when there's no need for it.
 
-> 
-> X86_FEATURE_XENPV is set only after the first MSR is being read.
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -5195,8 +5195,9 @@ int cf_check mmio_ro_emulated_write(
+>          return X86EMUL_UNHANDLEABLE;
+>      }
+>  
+> -    subpage_mmio_write_emulate(mmio_ro_ctxt->mfn, PAGE_OFFSET(offset),
+> -                               p_data, bytes);
+> +    if ( bytes <= 8 )
+> +        subpage_mmio_write_emulate(mmio_ro_ctxt->mfn, PAGE_OFFSET(offset),
+> +                                   p_data, bytes);
 
-No matter whether the code works or not, good catch!
+Should we print a debug message here saying the write is possibly
+unhandled due to the access size if subpage r/o is enabled?
 
-> 
-> This can be fixed by setting the feature earlier, but it shows that the
-> paravirt feature has its benefits in such cases.
+You might want to re-use the subpage_ro_active() I introduce to limit
+the printing of the message.
 
-See my other reply to let Xen handle all the details.
-
-Plus the code actually works, I would actually argue the opposite :-P
-
-
-
+Thanks, Roger.
 
