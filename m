@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68360A9866B
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 11:50:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964322.1355153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 639E4A98822
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 13:08:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964354.1355179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7WjC-0006yc-SV; Wed, 23 Apr 2025 09:49:14 +0000
+	id 1u7Xxc-0002Ga-Ne; Wed, 23 Apr 2025 11:08:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964322.1355153; Wed, 23 Apr 2025 09:49:14 +0000
+Received: by outflank-mailman (output) from mailman id 964354.1355179; Wed, 23 Apr 2025 11:08:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7WjC-0006wU-Po; Wed, 23 Apr 2025 09:49:14 +0000
-Received: by outflank-mailman (input) for mailman id 964322;
- Wed, 23 Apr 2025 09:49:13 +0000
+	id 1u7Xxc-0002DS-Jc; Wed, 23 Apr 2025 11:08:12 +0000
+Received: by outflank-mailman (input) for mailman id 964354;
+ Wed, 23 Apr 2025 11:08:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dLR5=XJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u7WjB-0006wM-3b
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 09:49:13 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ <SRS0=hoPD=XJ=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
+ id 1u7Xxa-0001zZ-VE
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 11:08:10 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2060d.outbound.protection.outlook.com
+ [2a01:111:f403:2612::60d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 34fb1a49-2028-11f0-9eb0-5ba50f476ded;
- Wed, 23 Apr 2025 11:49:11 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43cfe63c592so70203385e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 02:49:11 -0700 (PDT)
-Received: from [192.168.86.29] ([83.104.178.215])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-44092d2d4fesm19785955e9.20.2025.04.23.02.49.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 02:49:09 -0700 (PDT)
+ id 3d7de099-2033-11f0-9eb0-5ba50f476ded;
+ Wed, 23 Apr 2025 13:08:09 +0200 (CEST)
+Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
+ (2603:10a6:102:30d::12) by DBAPR03MB6677.eurprd03.prod.outlook.com
+ (2603:10a6:10:197::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.22; Wed, 23 Apr
+ 2025 11:08:07 +0000
+Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
+ ([fe80::35ac:8893:c31c:b971]) by PAVPR03MB10102.eurprd03.prod.outlook.com
+ ([fe80::35ac:8893:c31c:b971%4]) with mapi id 15.20.8655.033; Wed, 23 Apr 2025
+ 11:08:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,180 +47,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34fb1a49-2028-11f0-9eb0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745401750; x=1746006550; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=E9z8WYu2YkEl92gvtQRHs8SL0SIMlXuE5V2XXUc3aGY=;
-        b=gbUqnWmbpzideMHvzeGnD/OQwXxiWzGRnJ5iJ5EfWyraaLXsFKwRbgRTE3or5iP2Q2
-         /Rh/XAXzmeL6RVqAjmOMrchVx/d47BAfB1xsAFxvpXQ0c8F3jGhB7CXulT9DX08MdsbN
-         iMVSkHXj6QTNoSaaG8JyxEALONaKEQJPuJzEc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745401750; x=1746006550;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=E9z8WYu2YkEl92gvtQRHs8SL0SIMlXuE5V2XXUc3aGY=;
-        b=pFaw+zB5aW9ytQCv9dRzU5z9oa6VSCGTR/c6Ef2XCFpUMq/z2ZVj4XFiR6qhHOi98X
-         elcTUSH2AO80PnCBGOfsUlb57NYYi4mP2gUR+F/ra6f8mdSjTPQFZpl+1M5PCIJnhd/z
-         2l2DWob1ZMUGGy5dmIHwBUPSiJdQcvu18d2v6V5nZGTBf+LlfyCCnLFmWOdtrbDSnFGm
-         nqyeJHyJWkgZXpQBx3KyGyr7qVJ5701j/MiBjEMmupSStSzXvjU82Z+gOr8nmVeMB+OS
-         d1vZLHRZifhdgFeNg/U65JNgp/fNTb0wdqf4LdvhFAigd3EtVQouCHpKijBhxPd9ILN5
-         G8sg==
-X-Forwarded-Encrypted: i=1; AJvYcCXk42zXAA4ZFHTgPDzbLVoYZHJVNgG3J2uESkiHqiJqBx9zJOUmAO0evogOR6bSsQOCOECBFQ5euU0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwYjPKXbQqEx1msXkr4AeZ8JNZJl499OF6TLSB3GMA7ki3m0ZvN
-	tsUBMXYJbPAttk3MWo/eT1VNoOabsp7gKPCMbvyB9400jb6E/wQX5vRN31U3uK60J7zDslIEMDG
-	lCww=
-X-Gm-Gg: ASbGnct9OQ2qDHXZDl5dwxSdfRFxLfX27OyX7M6W541/IHkqrn+phZ/nGSDFTrR6vVP
-	ZIZyiA1PYwCcM22exoJnwUAvKnG8T9ILnFW2gagumvS3pi1/gIy1h69HCPwm3RXYKpTgzxgo08d
-	ZV0aKiY1LmtVBT9fX/2c76b2clCxKv4Db8HFzUlT+kiykCnFn/Yta/ic8q3LmTw/ohGe7JRSamM
-	iN53qwfaBSrknWNOWFkqdqYvGSsfXUbeXlY0Ys38Qiuqonm9akfd+MakS05Vb/+3lVuatpmUOBu
-	r1fzjRvbYrvvzy7nomZR3CsZp0SojcBKUYct9al7v9VfvGo81wwBpfJJH6NE5BDj
-X-Google-Smtp-Source: AGHT+IGSPZf3mOyb57Fn1BMD8eApxx8FxU5TP+Ec1V6GitQiQZ3z+hDwcd1FUi68oa2nzzxBrYCmMA==
-X-Received: by 2002:a05:600c:5491:b0:43d:45a:8fbb with SMTP id 5b1f17b1804b1-4406abfa9d3mr141199175e9.22.1745401750182;
-        Wed, 23 Apr 2025 02:49:10 -0700 (PDT)
-Message-ID: <fc49cdec-69aa-4ae0-8d8e-cf6d6ba8fb74@citrix.com>
-Date: Wed, 23 Apr 2025 10:49:09 +0100
+X-Inumbo-ID: 3d7de099-2033-11f0-9eb0-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jqn2cClShMX2Ev2JNKzkeXIQ0qk1rg8G5WUa6hCHeO/EhQzhF97M90duyR2MiGOebdHzHYt0dfOtiVWCRFyv+HjON5yZaWY1FB92NTTCQstf8MVFKSNLL7WSDQnnlFyGaAYGq8QLzE9mdPjnPKB49Af6uW+9+/APUfTiFv7i/yWqLB5CkONNkxIvvsivftx9I1ALCB7kMBkKQvp2+TP2F48jE6kSBMMSUkJvyQyvEcBTNPEcZL00dPzTy/EU4PI8Thw9bwzmiY9sM7I/nUAWGFrp6rbHP+XufEEfL/C13w56J1tzOoeMgbWbtxIGE7ylrXpnrJ1CU/dnxI1UjRqjzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r6fLdSFIZN2wJFEJsXs4ew4B8GUIRBViLvwx0Og+CaU=;
+ b=L8vM2UmyE44eyTTcByLRdVHmXxakhypxSlX0ushNLprtZFE5N1h4m0jPMrIX0S6BlKHgn2B/1Xe+HVvP27Zk2IUrxnMIaPWb73a1INhwER6+t1HlOcMZPC+KJ9endT45QhlqBxHYbt8uHVheH43eerwqYrhb4QF+DuMjSCVgUcr2r5vn/A5BzWtunPWbRILCKF28KIojldyzIF3jFaCRr5WrXmwTocQPAlaqEkUveQXsdvefeuDYGZlPPiGfrIdQvgXefuLr53ZmlnhG+nnQLwFFYsBdqZPKNesIbGwxZPsyBuHeASo/LFHZk3zLr7G/tMZqK1jXVovaR2S9KSW38Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r6fLdSFIZN2wJFEJsXs4ew4B8GUIRBViLvwx0Og+CaU=;
+ b=KXnRea2jQm4KNJREVKiUL7ofkrq9L08nA/pdy50zRqjS782t6bT3GtEZjHUn6wowX3DqztMXpGgBVeHVuiD0yNlRWgOXQKpQhtPmjTqQoUCWZWByovEyDhBFNuXokTa5UlrgEvrXNWNtrI6mkpd16igK0MbbDBSDV1QXAHMBPUw2yZRsnzv0zlH062UMAw+z6j1d59flRRDr0RS4Bjwyins7J56ZOqegILY8L/fbapYKCpKG6BSoipKwjyCQXzvDMwoEcpuwiriAboXYEtdj9DTPu3xbpvuNy8A/wUoYsxPLedOrKOWMfxdEl1frcLxHjjILZQRKKtcYd0gY9PmqRQ==
+From: Mykyta Poturai <Mykyta_Poturai@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
+ Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Mykyta Poturai
+	<Mykyta_Poturai@epam.com>
+Subject: [PATCH v4 1/4] xen/arm: allow PCI host bridge to have private data
+Thread-Topic: [PATCH v4 1/4] xen/arm: allow PCI host bridge to have private
+ data
+Thread-Index: AQHbtD/95pRG14vO602uhsMByi23ZA==
+Date: Wed, 23 Apr 2025 11:08:06 +0000
+Message-ID:
+ <960fdc040bf621a60d494fa44f99c344ced33770.1745402473.git.mykyta_poturai@epam.com>
+References: <cover.1745402473.git.mykyta_poturai@epam.com>
+In-Reply-To: <cover.1745402473.git.mykyta_poturai@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|DBAPR03MB6677:EE_
+x-ms-office365-filtering-correlation-id: 3341df75-dcfc-4fce-1eb6-08dd8257203a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?D6GC4ZESaJk/fn9kRp/joolPajBJupgL6AjTy+ikZlfQtFo1F9VIt4O5/2?=
+ =?iso-8859-1?Q?azoPU0rvlZzWRboLwtTht0127fJQWg7v6A8Ngrr/zW1OOvOQptsXNh5V/q?=
+ =?iso-8859-1?Q?Q7N/ReyhKn2jfJKk9q0v6qYq+8Qo9gjO/H2gzNAAXasRt1VFR6rKrKmVb4?=
+ =?iso-8859-1?Q?MSVpsmtdA1vOc1iWGi9ThOqZZPZMQ5kC6pjIO8x6ySx3qYqDIusdCyBH9b?=
+ =?iso-8859-1?Q?fqsJ5TwehPj9F922Zd0TyZ6z3JDnbNUpe5ymSCbdgZ8wwD4z83T8tOxRmV?=
+ =?iso-8859-1?Q?ZZ28Hf0wNvGMlqe5XnEWsJgyq3tV/9TRfSvL37KJX19yuYJRXavKpfZjRy?=
+ =?iso-8859-1?Q?9gDcvUjDgj5iW+KTOYlf/CKVUECYFy0AizQpOxsLm8JHqJqcjnq3ZXyR0e?=
+ =?iso-8859-1?Q?3i27IOSgBOeu4ptiX/B46lp35IdZmh8DvId1N+fVhTGmZB43e92cwgOzpJ?=
+ =?iso-8859-1?Q?lahlyUiUaOb/6ap/oIiUBwk5UhyQGEJpFbZPM6W8BxWDbfh6Wzbf93dz1P?=
+ =?iso-8859-1?Q?7AOrBmSkySFtqcVWrsAuRb4xXXC1+K99/G23mq6qb1NoDMJtNf9ZB8kWrk?=
+ =?iso-8859-1?Q?vXbqoeudLBcCsnppqD3VhERoS94Iof7sTV4F4djNNhWTgnKWuQQa5wGVnw?=
+ =?iso-8859-1?Q?hLW67BvTZySA/I4T5CiewcPxWfMU3qG2omxLqM5Is2Wp1jjZ+Zlu8r3Me5?=
+ =?iso-8859-1?Q?E5TkQizq9h/4QORFNiLrHMhDwjb/In9xsU2DFduDfo/1SJfwp9a1yvvrDY?=
+ =?iso-8859-1?Q?gN1K657oaiRuRBHV47aGX6TV0uleP+qRMJSNaaqtUbdClSOws++G9Qovav?=
+ =?iso-8859-1?Q?V1LD7QlmpHNZBn6l4ySDkVM1q6eQZrclA71zeMjoWK+1yz+cvbJjamBbY0?=
+ =?iso-8859-1?Q?mo1xljGYXWvwtXJyFuh1+vFkmmW1fMwYeLY4cucN7KpMhtRuPJAg9yV6X5?=
+ =?iso-8859-1?Q?R+AfivbwAkySQh6OmqkN773m4RfcafaxN5ki3nLBqRK3zJmt6sJbQb4dmx?=
+ =?iso-8859-1?Q?CcWN9V3pkxBy67WmqIMqFwuQT6qpQ4LmtDbchd3Tp19vP3DnGru6cGvAVz?=
+ =?iso-8859-1?Q?85lk2a+98QmOselxogaqUjGs7uHxnKP5hBiwlrUxInllzxjCdBQUSd2HO5?=
+ =?iso-8859-1?Q?4TrT5S6yqW8ybkFRd53CWc4IXwxCcFYSNL/0Y/8b1DB7ECXkbAegV6WDyg?=
+ =?iso-8859-1?Q?cqXd/1/byF0jElGy1lNlQY56Wx6sSfgyyIuVw7eDHvnpYmiqKkl0qFcLbB?=
+ =?iso-8859-1?Q?4Ep2D63hc+f337Z/spqOxCHbLC208IjwgxheDYyMqOEI69Fs8/B1JEQo2X?=
+ =?iso-8859-1?Q?QYSZyDknFpk15F4rugaqDiaPHAPzabgP7j09NesY1E/2yy/5euTHdKjtrK?=
+ =?iso-8859-1?Q?zztVy0wIoarYVZBuNAx04NaI1HINIvPUWxU0nvSX1V1Xi2oz6+COa06OGc?=
+ =?iso-8859-1?Q?PmZJL6oTiBN/ru9+sZ9cj4p9LVJDLxWgbJvmBu2ZndKRcUpw9giAaHfSiv?=
+ =?iso-8859-1?Q?PNdva1pIablS4dskhJspxR55xUE2lKViKn0uStK1OmUw=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?2x2BA9lxQsQBzz3WYPXpZ/khY3OT75+teU+B6IvPMQSGCG/ZvkIOI4uJGX?=
+ =?iso-8859-1?Q?4H5tF/L5A9UruE/6odS5BpFFSXHg4yL5+l8qqoFwzZ8ZKnBq+rb82L5Hba?=
+ =?iso-8859-1?Q?WfIjdv9TPk2A2e/SyLwZ9z5+DLZPVOhD/7iC/PSNctycArF9YBCPo8hY2f?=
+ =?iso-8859-1?Q?xJGsqVOjsKgM7+V99HUFrIc0zcMypR2vYuxx1tvUAWhKL+D9ux1/aAlyd0?=
+ =?iso-8859-1?Q?YRmbPj9Yqx27xnnISPkknl8KIPcgZFaBJOJrVjk6pUOAGmQTB9Pzt70Ji+?=
+ =?iso-8859-1?Q?RnmBLaIyN69xLUgxWIysl6dgOYQ2EN2ZTlkpiE7OJ8JZlSZXhN6/zL/7p8?=
+ =?iso-8859-1?Q?aGjZJPrT9IGh4jeFHwt8taOlTsRJm/WoHllAUA8gfH+ssiUiHBSq99/d2q?=
+ =?iso-8859-1?Q?6L5REEJajq/+lEp0LozZhsBMaSyfWsR/eSqj+bBsO1lwYgZzjYPZADj2/0?=
+ =?iso-8859-1?Q?w6+B9Z/yEgJzSTz94EWk4uW3x0Hbx8yAy6+9lH00O3IWPPERqzlZHnGhvE?=
+ =?iso-8859-1?Q?c/jMnpB9CmAEduM5IjmLPzSLFoiVB5F07VXsLmxxFEn1oFhjqo35oRFnB7?=
+ =?iso-8859-1?Q?lbctchJaYbctb+8HDUvZovv8Sow2WP8P53VUf4GXMYjOwZADTZQ/vsBdh1?=
+ =?iso-8859-1?Q?raP6P9jvQLx1Dpcg+78UTHwIviISa0vjrSYvgZ+CMZ0vgF586e3k88uXKP?=
+ =?iso-8859-1?Q?0SngodqWjnDYu+qpfbP2z/2ucWcOT5rl1dtEYaSh5v+rN2kHHPMffe29da?=
+ =?iso-8859-1?Q?v/smhrp/ScKEbxhEkX5ltDGjdoRIVui6j3atNUSFVWtX8OQcAVKmwYa+Sg?=
+ =?iso-8859-1?Q?MwVsXE0HRfU1bT8fb2wF4uH5DROEGJ5ynuKjwxjDzakh5sbWm0yxtpQsLx?=
+ =?iso-8859-1?Q?QSW559TRdx9eJL8IHmnsyf2jfQO13M15o/K9fE75ui9vz3y5KSKdctX8s2?=
+ =?iso-8859-1?Q?X+yrhfKrF8uc8lJB5Zf/E5JKLCuinULrwQ22yG37a9D7a0TiMDy+PzI7hV?=
+ =?iso-8859-1?Q?at1HoH2TMC0nMWOdUGq6wosNhCB1dH8BEhFj0ZxJbTlnRhtjYMaWs/Hqer?=
+ =?iso-8859-1?Q?j79IBE64S5SrKh7aSqBSjXON9vXt9wTgn826utG4pPCz5D3+MGBive/44I?=
+ =?iso-8859-1?Q?kX/7cPjVNSkZ5bxiB+1qq9yiYLdE9O5R1mBKRXaXHt3ShenYKLGnLXzkEb?=
+ =?iso-8859-1?Q?RJzlKGRHOlcqiRpgsxbQtanVG1juizX98MSGl7TdGsA5pCQqomH3BIRg1c?=
+ =?iso-8859-1?Q?Lb/VjpwUqoowckbWcrsI/m406N47Bq1CEKrBJ6C+0S/3FJBFWmolkHG3cN?=
+ =?iso-8859-1?Q?u9uDum4pfK3lyiG5yuGO/jiE/Pj3Sl2jLl27nA0oVkkr0qIQzsMJg4BMVD?=
+ =?iso-8859-1?Q?MgYK1wS45aFkF33hIsiDdeMUX0z0ns/HSQduocq45Cu6bkcmsXQ1+kKii7?=
+ =?iso-8859-1?Q?KEiOaMUkpjcYdSnHQJCGO+86qexvsjZIJwO9T7C6CSMoFCKFD5xLo1uqYl?=
+ =?iso-8859-1?Q?V+L9UCZrRyHulLypvB2JfpD0n+Oi1ud51z7904ZooTKZF0VEp35oQ/cMFq?=
+ =?iso-8859-1?Q?S1LCITFsneNoKSNZadqKsJg7pQXlQZ9T0P3Zga8JT6+cuIreofZIiU/H7C?=
+ =?iso-8859-1?Q?ev6QNiPtdfdtX7PwkpZbAx7vYCUsSJ6ZwSFt9IyFVCPA/+ZDPiUSTJtQ?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86emul: adjust BSF/BSR behavior as to EFLAGS
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <df3f3203-d660-4b7d-b771-871d16a8ec43@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <df3f3203-d660-4b7d-b771-871d16a8ec43@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3341df75-dcfc-4fce-1eb6-08dd8257203a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Apr 2025 11:08:06.9778
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nE5QwPuA4qUlnHfadMfODTXRnFoljbFeWvyabXSojAFtIZDgiMT+oHz772Hobd2yxDPzct9oCDQ5ZDlYYsX1mg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR03MB6677
 
-On 23/04/2025 7:13 am, Jan Beulich wrote:
-> SDM revision 087 points out that apparently as of quite some time ago on
-> Intel hardware BSF and BSR may alter all arithmetic flags, not just ZF.
-> Because of the inconsistency (and because documentation doesn't look to
-> be quite right about PF), best we can do is simply take the flag values
-> from what the processor produces, just like we do for various other
-> arithmetic insns. (Note also that AMD and Intel have always been
-> disagreeing on arithmetic flags other than ZF.)
+From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-The new footnote Intel have added about "older processors" does match
-AMD, saying "unmodified".
+Some of the PCI host bridges require private data. Add priv field
+to struct pci_host_bridge, so such bridges may populate it with
+their private data.
 
-I think it's clear now that Intel and AMD behaviour was the same
-originally, except AMD wrote "unmodified" and Intel wrote "undefined",
-and Intel used this flexibility to alter the behaviour.
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+v3->v4:
+* Added Stefano's RB
 
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Since I happened to look at it, I wonder whether for e.g. SHLD/SHRD we
-> wouldn't be better off using _emulate_2op_SrcV_nobyte() as well; we
-> already do so in x86_emul_rmw(), after all.
+v2->v3:
+* removed priv allocation from common code
 
-Probably a good move.
+v1->v2:
+* no change
+---
+ xen/arch/arm/include/asm/pci.h | 1 +
+ 1 file changed, 1 insertion(+)
 
->
-> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
-> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-> @@ -5268,16 +5268,14 @@ x86_emulate(
->          break;
->  
->      case X86EMUL_OPC(0x0f, 0xbc): /* bsf or tzcnt */
-> -    {
-> -        bool zf;
-> -
-> -        asm ( "bsf %2,%0" ASM_FLAG_OUT(, "; setz %1")
-> -              : "=r" (dst.val), ASM_FLAG_OUT("=@ccz", "=qm") (zf)
-> -              : "rm" (src.val) );
-> -        _regs.eflags &= ~X86_EFLAGS_ZF;
->          if ( (vex.pfx == vex_f3) && vcpu_has_bmi1() )
->          {
-> -            _regs.eflags &= ~X86_EFLAGS_CF;
-> +            bool zf;
-> +
-> +            asm ( "bsf %2,%0" ASM_FLAG_OUT(, "; setz %1")
-> +                  : "=r" (dst.val), ASM_FLAG_OUT("=@ccz", "=qm") (zf)
-> +                  : "rm" (src.val) );
-> +            _regs.eflags &= ~(X86_EFLAGS_ZF | X86_EFLAGS_CF);
->              if ( zf )
->              {
->                  _regs.eflags |= X86_EFLAGS_CF;
-> @@ -5286,25 +5284,23 @@ x86_emulate(
->              else if ( !dst.val )
->                  _regs.eflags |= X86_EFLAGS_ZF;
->          }
-> -        else if ( zf )
-> +        else
->          {
-> -            _regs.eflags |= X86_EFLAGS_ZF;
-> -            dst.type = OP_NONE;
-> +            emulate_2op_SrcV_srcmem("bsf", src, dst, _regs.eflags);
-> +            if ( _regs.eflags & X86_EFLAGS_ZF )
-> +                dst.type = OP_NONE;
-
-On Intel, BSF/BSR writes back the destination register.  Notably, it
-gets 0 extended per normal rules, which is why you have to be extra
-careful when using the trick of preloading it with -1; the result must
-be interpreted as (int) even over a 64bit operation.
-
-This needs an amd_like() qualification to override dst.type.  This
-aspect genuinely is different between them.  Alternatively, we might be
-able to set the operand size always to 64 and write back the entire
-register as the processor gave to us, but I'm not sure if that will have
-effects elsewhere.
-
-Finally, I'm wary leaving TZCNT/LZCNT using the old logic.  Despite the
-absence of an update in 087, I find it unlikely that they behave
-differently WRT flags (specifically, I severely doubt they've got
-differing circuitry).
-
-I'd suggest giving them the same fully-emulated treatment as BSF/BSR.
-
-~Andrew
+diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.=
+h
+index 7f77226c9b..a87672d834 100644
+--- a/xen/arch/arm/include/asm/pci.h
++++ b/xen/arch/arm/include/asm/pci.h
+@@ -66,6 +66,7 @@ struct pci_host_bridge {
+     uint16_t segment;                /* Segment number */
+     struct pci_config_window* cfg;   /* Pointer to the bridge config windo=
+w */
+     const struct pci_ops *ops;
++    void *priv;                      /* Private data of the bridge. */
+ };
+=20
+ struct pci_ops {
+--=20
+2.34.1
 
