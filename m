@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44008A98854
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 13:17:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964434.1355228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18242A98867
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 13:23:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964446.1355238 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Y61-0006l0-Of; Wed, 23 Apr 2025 11:16:53 +0000
+	id 1u7YBh-0000Ly-Bd; Wed, 23 Apr 2025 11:22:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964434.1355228; Wed, 23 Apr 2025 11:16:53 +0000
+Received: by outflank-mailman (output) from mailman id 964446.1355238; Wed, 23 Apr 2025 11:22:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7Y61-0006ih-LK; Wed, 23 Apr 2025 11:16:53 +0000
-Received: by outflank-mailman (input) for mailman id 964434;
- Wed, 23 Apr 2025 11:16:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s+1X=XJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1u7Y60-0006ib-Ee
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 11:16:52 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 743841a2-2034-11f0-9eb0-5ba50f476ded;
- Wed, 23 Apr 2025 13:16:51 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-ac6e8cf9132so1073412166b.2
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 04:16:51 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-acb6ec9c3b2sm785671366b.86.2025.04.23.04.16.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Apr 2025 04:16:50 -0700 (PDT)
+	id 1u7YBh-0000J8-8j; Wed, 23 Apr 2025 11:22:45 +0000
+Received: by outflank-mailman (input) for mailman id 964446;
+ Wed, 23 Apr 2025 11:22:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1u7YBf-0000J2-MJ
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 11:22:43 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1u7YBe-00H2KD-2G;
+ Wed, 23 Apr 2025 11:22:42 +0000
+Received: from [15.248.2.30] (helo=[10.24.67.70])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1u7YBe-00A8KA-1J;
+ Wed, 23 Apr 2025 11:22:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,117 +39,383 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 743841a2-2034-11f0-9eb0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745407010; x=1746011810; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=2qf4EUGp/hJFBFlkVNISKSnNWZZeophaFufjaCPmn1s=;
-        b=L97KJ79iohEO3skDnZQObtIxAXKrXQfv5ueyTocLjRMev1jOpxJxYe7zWAYL3nMSk9
-         0GGcZF/OjpBp/mT2J0a4lzbw6xoR41Yz0fxk361KAjdeBaRfHlVRuc7RifRoHQfH8Zsl
-         TUDWMSqDA4mV5ytiol7inkHvD5UuPoxj8zFIc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745407010; x=1746011810;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2qf4EUGp/hJFBFlkVNISKSnNWZZeophaFufjaCPmn1s=;
-        b=vFbR1epKuVeSxhbwBCy0DP3Bezta4OAUdChFmMu4y1beTHDPEZ5f4+eBykV2d6GWYE
-         h5Rr9ZjHI096AkRpJ540IpPW+8Lv/TSEdfrO6rcG36Ovd8Mr86epkCNvWE2aNLIxBmRl
-         PSH0AYBlpsnowu9/42VswfcmJyyNKxe88sYGzT8U3SXT/scTpgakqsBkUrc9sS4REYiS
-         YUfpkBIJM/DiVRYi+ShkBFL3qQIlq0e6xiQOaq6UJWtcGXegtC3UWWAEjXKyIwuDLU6J
-         M0virIHxBf1u5ScAipSqzFvmQI5v57WW2vw173ZoreKu/DqRmG1SqryBfkZUTgk8phq8
-         VUEw==
-X-Gm-Message-State: AOJu0YzwTiXPbjOgvUwXedcWkfahRivoz0AZx19PKBy3OL0BPc1PW1Nc
-	M9va3E/AIp6T/fo/kawN3vnG59bbqbY5jjsiQce/D9wjbrDg3Tt+2SFPmwIOlZA=
-X-Gm-Gg: ASbGncueOZIlkiQIfCErvJA9NEzyssq5t3dxYCPaxDrW7BePPVu+qlnwHMY91roygV2
-	Y0+xTUoIvEDUn0DMyNeyLRMNxjBVs81xjGQ75eIn4NviIFc360fP7g1214hNsLZQ2qkEYUFpkIl
-	ifiRrA0hvaCN7l2Z6xVCJqUnQbFIpYh52nKS4/zMSi3CcJUyMc7gxgZfslnxVh0/FfRnuGHNFcN
-	mBihWgKNcd016tML2vyr3kyZr3kWL0eudKuI3QFp2bhdowxunAUQXEA8O6qjAkDIUR6FQP9PLWN
-	MhuyOUKo7Ce99CU7dF5EvpV43cahHy41gRVy9F/aT/CbIA==
-X-Google-Smtp-Source: AGHT+IFd8A0LIgg1gD+bpi1731ala/4Z3xRdLGiSImdeRuBf2v3k7enRMMzokbvLndw4kzEEZQa/5g==
-X-Received: by 2002:a17:906:c103:b0:ace:3b02:368d with SMTP id a640c23a62f3a-ace3b0239c7mr303964166b.44.1745407010452;
-        Wed, 23 Apr 2025 04:16:50 -0700 (PDT)
-Date: Wed, 23 Apr 2025 13:16:49 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <JBeulich@suse.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: Re: [PATCH 6/8] xen/livepatch: Support new altcall scheme
-Message-ID: <aAjMIeYaPzxlsV8_@macbook.lan>
-References: <20250423010237.1528582-1-andrew.cooper3@citrix.com>
- <20250423010237.1528582-7-andrew.cooper3@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=aVxYP1WLmcfSVLs1wMvBwe2BHcUbrBKAHHHfOc5EryA=; b=5xnouchefVEkKSJ4phxita7RVY
+	hLPXyQ8Kb7eNpJFEEGcmEZwU18V3vFnK6+zmY0tXHVO69NJwFGhEvsOQQjjbQUohtRVGA63ueoJiU
+	oUJC3nxOMH2M2VyCP6pVGDjHzpkEUNsANsBL2Kh+ckUC07e5wIBfsamFs8WayFEViDQ4=;
+Message-ID: <f0f159e6-ad79-4c1a-a61e-0272615754d6@xen.org>
+Date: Wed, 23 Apr 2025 12:22:39 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] xen/domain: unify domain ID allocation
+Content-Language: en-GB
+To: dmkhn@proton.me, xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com
+References: <20250422215322.521464-1-dmukhin@ford.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20250422215322.521464-1-dmukhin@ford.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250423010237.1528582-7-andrew.cooper3@citrix.com>
 
-On Wed, Apr 23, 2025 at 02:02:35AM +0100, Andrew Cooper wrote:
-> The new altcall scheme uses an .alt_call_sites section.  Wire this up in very
-> much the same way as the .altinstructions section, although there is less
-> sanity checking necessary.
+Hi Denis,
+
+On 22/04/2025 22:54, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-One nit/comment below.
-
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Ross Lagerwall <ross.lagerwall@citrix.com>
-> ---
->  xen/arch/x86/alternative.c         |  6 ++++
->  xen/common/livepatch.c             | 58 ++++++++++++++++++++++++++++++
->  xen/include/xen/alternative-call.h |  8 +++--
->  3 files changed, 70 insertions(+), 2 deletions(-)
+> Currently, hypervisor code has two different non-system domain ID allocation
+> algorithms:
 > 
-> diff --git a/xen/arch/x86/alternative.c b/xen/arch/x86/alternative.c
-> index f6594e21a14c..22af224f08f7 100644
-> --- a/xen/arch/x86/alternative.c
-> +++ b/xen/arch/x86/alternative.c
-> @@ -479,6 +479,12 @@ int apply_alternatives(struct alt_instr *start, struct alt_instr *end)
->  {
->      return _apply_alternatives(start, end, true);
->  }
+>    (a) Arm port allocates IDs sequentially based on max_init_domid;
+> 
+>    (b) x86 has another algorithm implementation embedded into
+>        XEN_DOMCTL_createdomain; does not use max_init_domid, but does similar
+>        thing wrt sequentially allocating IDs.
+
+I am a bit confused with this statement. This is implying the code is 
+only used by x86. However, XEN_DOMCTL_createdomain is common code and 
+used by Arm when creating domains from the toolstack. Can you clarify? 
+With this in mind...
+
+> 
+> It makes sense to have a common helper code for such task across architectures
+> (Arm and x86).
+
+... the unification is effectively between dom0less domU allocation and 
+the toolstack domU allocation.
+
+> 
+> Wrap the domain ID allocation as an arch-independent function domid_alloc() in
+> common/domain.c.
+> 
+> Allocation algorithm:
+> - If an explicit domain ID is provided, verify its availability and
+>    use it if ID is unused;
+> - Otherwise, perform an exhaustive search starting from the end of the used
+>    domain ID range, excluding hardware_domid.
+> 
+> Move the is_free_domid() helper closer to domid_alloc(). Simplify
+> is_free_domid() by removing the domain ID range check, as the ID is now
+> guaranteed to be within the valid range. Additionally, update the predicate to
+> return a bool value instead of an int.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> Changes v3->v4:
+> - fixed the behavior of domctl ID allocator to match the original behavior
+>    in case of exhaustive search
+> - use domid_t input argument in domid_alloc()
+> - use DOMID_INVALID as an indicator of performing an exhaustive search
+> - use DOMID_INVALID as an indicator of allocator failure
+> - use %pd formatting for domain ID printouts in the modified code
+> - some comments fixups
+> - Link to v2: https://lore.kernel.org/xen-devel/20250416061509.934220-1-dmukhin@ford.com/
+> - CI run: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/1780576277
+> ---
+>   xen/arch/arm/dom0less-build.c | 17 ++++++------
+>   xen/arch/arm/domain_build.c   | 17 ++++++++----
+>   xen/arch/x86/setup.c          | 11 +++++---
+>   xen/common/domain.c           | 51 +++++++++++++++++++++++++++++++++++
+>   xen/common/domctl.c           | 41 +++-------------------------
+>   xen/include/xen/domain.h      |  2 ++
+>   6 files changed, 84 insertions(+), 55 deletions(-)
+> 
+> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+> index a356fc94fc..61e01b7306 100644
+> --- a/xen/arch/arm/dom0less-build.c
+> +++ b/xen/arch/arm/dom0less-build.c
+> @@ -1038,15 +1038,13 @@ void __init create_domUs(void)
+>           };
+>           unsigned int flags = 0U;
+>           bool has_dtb = false;
+> +        domid_t domid;
+>           uint32_t val;
+>           int rc;
+>   
+>           if ( !dt_device_is_compatible(node, "xen,domain") )
+>               continue;
+>   
+> -        if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
+> -            panic("No more domain IDs available\n");
+> -
+>           if ( dt_property_read_u32(node, "capabilities", &val) )
+>           {
+>               if ( val & ~DOMAIN_CAPS_MASK )
+> @@ -1218,12 +1216,13 @@ void __init create_domUs(void)
+>           if ( !llc_coloring_enabled && llc_colors_str )
+>               panic("'llc-colors' found, but LLC coloring is disabled\n");
+>   
+> -        /*
+> -         * The variable max_init_domid is initialized with zero, so here it's
+> -         * very important to use the pre-increment operator to call
+> -         * domain_create() with a domid > 0. (domid == 0 is reserved for Dom0)
+> -         */
+> -        d = domain_create(++max_init_domid, &d_cfg, flags);
+> +        domid = domid_alloc(DOMID_INVALID);
+> +        if ( domid == DOMID_INVALID )
+> +            panic("Error allocating ID for domain %s\n", dt_node_name(node));
+> +        if ( max_init_domid < domid )
+> +            max_init_domid = domid;
+
+While I think it is a good idea to have a single way to allocate domain 
+IDs, I am a bit concerned of the change for dom0less domUs. By 
+introducing domid_alloc(), it will now be easier to change the behavior 
+of the domain ID allocation without realizing the impact for dom0less 
+domUs (max_init_domid is mainly used to limit the loop when switching 
+consoles).
+
+I think we need to document explicitely in domid_alloc() that some 
+callers specifically rely on the existing allocation scheme. So we need 
+to be careful when changing it.
+
 > +
-> +int livepatch_apply_alt_calls(const struct alt_call *start,
-> +                              const struct alt_call *end)
+> +        d = domain_create(domid, &d_cfg, flags);
+>           if ( IS_ERR(d) )
+>               panic("Error creating domain %s (rc = %ld)\n",
+>                     dt_node_name(node), PTR_ERR(d));
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 270a6b97e4..fe968dd66b 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -2371,6 +2371,7 @@ void __init create_dom0(void)
+>           .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
+>       };
+>       unsigned int flags = CDF_privileged | CDF_hardware;
+> +    domid_t domid;
+>       int rc;
+>   
+>       /* The vGIC for DOM0 is exactly emulating the hardware GIC */
+> @@ -2395,19 +2396,25 @@ void __init create_dom0(void)
+>       if ( !llc_coloring_enabled )
+>           flags |= CDF_directmap;
+>   
+> -    dom0 = domain_create(0, &dom0_cfg, flags);
+> +    domid = domid_alloc(get_initial_domain_id());
+
+This is technically a change of behavior for Arm if the hardware_domid 
+is not 0. I think we need to using 0 here. If you want to change the 
+behavior, then this should be a separate patch with a proper explanation.
+
+> +    if ( domid ==  DOMID_INVALID )
+> +        panic("Error allocating domain ID %d\n", get_initial_domain_id());
+> +
+> +    dom0 = domain_create(domid, &dom0_cfg, flags);
+>       if ( IS_ERR(dom0) )
+> -        panic("Error creating domain 0 (rc = %ld)\n", PTR_ERR(dom0));
+> +        panic("Error creating domain %d (rc = %ld)\n", domid, PTR_ERR(dom0));
+>   
+>       if ( llc_coloring_enabled && (rc = dom0_set_llc_colors(dom0)) )
+> -        panic("Error initializing LLC coloring for domain 0 (rc = %d)\n", rc);
+> +        panic("Error initializing LLC coloring for domain %pd (rc = %d)\n",
+> +              dom0, rc);
+>   
+>       if ( alloc_dom0_vcpu0(dom0) == NULL )
+> -        panic("Error creating domain 0 vcpu0\n");
+> +        panic("Error creating domain %pdv0\n", dom0);
+>   
+>       rc = construct_dom0(dom0);
+>       if ( rc )
+> -        panic("Could not set up DOM0 guest OS (rc = %d)\n", rc);
+> +        panic("Could not set up guest OS for domain %pd (rc = %d)\n",
+> +              dom0, rc);
+>   
+>       set_xs_domain(dom0);
+>   }
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index 24b36c1a59..e61c023085 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -1009,8 +1009,11 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>       if ( iommu_enabled )
+>           dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
+>   
+> -    /* Create initial domain.  Not d0 for pvshim. */
+> -    bd->domid = get_initial_domain_id();
+> +    /* Allocate initial domain ID. Not d0 for pvshim. */
+> +    bd->domid = domid_alloc(get_initial_domain_id());
+> +    if ( bd->domid == DOMID_INVALID )
+> +        panic("Error allocating domain ID %d\n", get_initial_domain_id());
+> +
+>       d = domain_create(bd->domid, &dom0_cfg,
+>                         pv_shim ? 0 : CDF_privileged | CDF_hardware);
+>       if ( IS_ERR(d) )
+> @@ -1038,7 +1041,7 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>   
+>           if ( (strlen(acpi_param) == 0) && acpi_disabled )
+>           {
+> -            printk("ACPI is disabled, notifying Domain 0 (acpi=off)\n");
+> +            printk("ACPI is disabled, notifying domain %pd (acpi=off)\n", d);
+>               safe_strcpy(acpi_param, "off");
+>           }
+>   
+> @@ -1053,7 +1056,7 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>   
+>       bd->d = d;
+>       if ( construct_dom0(bd) != 0 )
+> -        panic("Could not construct domain 0\n");
+> +        panic("Could not construct domain %pd\n", d);
+>   
+>       return d;
+>   }
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index abf1969e60..7c0f7a4990 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -66,6 +66,57 @@ DEFINE_RCU_READ_LOCK(domlist_read_lock);
+>   static struct domain *domain_hash[DOMAIN_HASH_SIZE];
+>   struct domain *domain_list;
+>   
+> +/* Domain ID allocator */
+> +static unsigned int domid_last;
+> +
+> +static inline bool is_free_domid(domid_t dom)
 > +{
-> +    return apply_alt_calls(start, end);
+> +    struct domain *d = rcu_lock_domain_by_id(dom);
+> +
+> +    if ( d )
+> +        rcu_unlock_domain(d);
+> +
+> +    return !d;
 > +}
->  #endif
->  
->  #define ALT_INSNS (1U << 0)
-> diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-> index 6ce77bf021b7..be9b7e367553 100644
-> --- a/xen/common/livepatch.c
-> +++ b/xen/common/livepatch.c
-> @@ -905,6 +905,64 @@ static int prepare_payload(struct payload *payload,
->  #endif
->      }
->  
-> +    sec = livepatch_elf_sec_by_name(elf, ".alt_call_sites");
-> +    if ( sec )
+> +
+> +/*
+> + * Allocate new domain ID based on the hint.
+
+Maybe clarify this should not be used for system domains?
+
+> + *
+> + * If hint is outside of valid [0..DOMID_FIRST_RESERVED - 1] range of IDs,
+> + * perform an exhaustive search starting from the end of the used domain ID
+> + * range, excluding hardware_domid.
+> + */
+> +domid_t domid_alloc(domid_t hint)
+
+ From the name, my naive expectation is a second call to domid_alloc() 
+(whether concurrent or not) would return a different domid. However, 
+AFAICT, this is not the case.
+
+I am in two mind whether this is the right interface to have. I think 
+the minimum would be to clarify the expectation from the callers.
+
+> +{
+> +    domid_t domid = DOMID_INVALID;
+> +
+> +    if ( hint < DOMID_FIRST_RESERVED )
 > +    {
-> +#ifdef CONFIG_ALTERNATIVE_CALL
-> +        const struct alt_call *a, *start, *end;
+> +        /* Exact match. */
+> +        if ( is_free_domid(hint) )
+> +            domid = hint;
+> +    }
+> +    else
+> +    {
+> +        for ( domid = domid_last + 1; domid != domid_last; domid++ )
+> +        {
+> +            if ( domid == DOMID_FIRST_RESERVED )
+> +                domid = 0;
 > +
-> +        if ( !section_ok(elf, sec, sizeof(*a)) )
-> +            return -EINVAL;
+> +            if ( domid == hardware_domid )
+> +                continue;
 > +
-> +        /* Tolerate an empty .alt_call_sites section... */
-> +        if ( sec->sec->sh_size == 0 )
+> +            if ( is_free_domid(domid) )
+> +                break;
+> +        }
+> +
+> +        if ( domid != domid_last )
+> +            domid_last = domid;
+> +    }
+> +
+> +    return domid;
+> +}
+> +
+>   /*
+>    * Insert a domain into the domlist/hash.  This allows the domain to be looked
+>    * up by domid, and therefore to be the subject of hypercalls/etc.
+> diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+> index bfe2e1f9f0..2e02139660 100644
+> --- a/xen/common/domctl.c
+> +++ b/xen/common/domctl.c
+> @@ -49,20 +49,6 @@ static int xenctl_bitmap_to_nodemask(nodemask_t *nodemask,
+>                                      MAX_NUMNODES);
+>   }
+>   
+> -static inline int is_free_domid(domid_t dom)
+> -{
+> -    struct domain *d;
+> -
+> -    if ( dom >= DOMID_FIRST_RESERVED )
+> -        return 0;
+> -
+> -    if ( (d = rcu_lock_domain_by_id(dom)) == NULL )
+> -        return 1;
+> -
+> -    rcu_unlock_domain(d);
+> -    return 0;
+> -}
+> -
+>   void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *info)
+>   {
+>       struct vcpu *v;
+> @@ -421,34 +407,15 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>   
+>       case XEN_DOMCTL_createdomain:
+>       {
+> -        domid_t        dom;
+> -        static domid_t rover = 0;
+> +        domid_t domid = domid_alloc(op->domain);
+>   
+> -        dom = op->domain;
+> -        if ( (dom > 0) && (dom < DOMID_FIRST_RESERVED) )
+> +        if ( domid == DOMID_INVALID )
+>           {
+>               ret = -EEXIST;
+> -            if ( !is_free_domid(dom) )
+> -                break;
+> -        }
+> -        else
+> -        {
+> -            for ( dom = rover + 1; dom != rover; dom++ )
+> -            {
+> -                if ( dom == DOMID_FIRST_RESERVED )
+> -                    dom = 1;
+> -                if ( is_free_domid(dom) )
+> -                    break;
+> -            }
+> -
+> -            ret = -ENOMEM;
+> -            if ( dom == rover )
+> -                break;
+> -
+> -            rover = dom;
+> +            break;
+>           }
+>   
+> -        d = domain_create(dom, &op->u.createdomain, false);
+> +        d = domain_create(domid, &op->u.createdomain, false);
+>           if ( IS_ERR(d) )
+>           {
+>               ret = PTR_ERR(d);
+> diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+> index e10baf2615..43e9411fc0 100644
+> --- a/xen/include/xen/domain.h
+> +++ b/xen/include/xen/domain.h
+> @@ -38,6 +38,8 @@ void arch_get_domain_info(const struct domain *d,
+>   
+>   domid_t get_initial_domain_id(void);
+>   
+> +domid_t domid_alloc(domid_t hint);
+> +
+>   /* CDF_* constant. Internal flags for domain creation. */
+>   /* Is this a privileged domain? */
+>   #define CDF_privileged           (1U << 0)
 
-You could possibly move this check to the outer `if` condition, and
-avoid the alt_call_done label?
+Cheers,
 
-As even in the !CONFIG_ALTERNATIVE_CALL case skipping an empty section
-would be OK.
+-- 
+Julien Grall
 
-Thanks, Roger.
 
