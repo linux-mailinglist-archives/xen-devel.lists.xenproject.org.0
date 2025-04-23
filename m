@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ACBBA9812C
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 09:37:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964041.1354909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69058A9815C
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 09:42:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964053.1354920 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7UfB-00073o-91; Wed, 23 Apr 2025 07:36:57 +0000
+	id 1u7UkF-0000Rx-Ra; Wed, 23 Apr 2025 07:42:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964041.1354909; Wed, 23 Apr 2025 07:36:57 +0000
+Received: by outflank-mailman (output) from mailman id 964053.1354920; Wed, 23 Apr 2025 07:42:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7UfB-00071D-6J; Wed, 23 Apr 2025 07:36:57 +0000
-Received: by outflank-mailman (input) for mailman id 964041;
- Wed, 23 Apr 2025 07:36:56 +0000
+	id 1u7UkF-0000QB-Nw; Wed, 23 Apr 2025 07:42:11 +0000
+Received: by outflank-mailman (input) for mailman id 964053;
+ Wed, 23 Apr 2025 07:42:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rvAI=XJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u7UfA-000717-NC
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 07:36:56 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ (envelope-from <SRS0=ZaJ6=XJ=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1u7UkE-0000Q5-Nk
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 07:42:10 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bb3d6eee-2015-11f0-9eb0-5ba50f476ded;
- Wed, 23 Apr 2025 09:36:55 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43d0359b1fcso4207495e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 00:36:55 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-44092d38118sm15274055e9.31.2025.04.23.00.36.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 00:36:54 -0700 (PDT)
+ id 7563b1f1-2016-11f0-9eb0-5ba50f476ded;
+ Wed, 23 Apr 2025 09:42:09 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53N7efcj3105192
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Wed, 23 Apr 2025 00:41:21 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +40,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb3d6eee-2015-11f0-9eb0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745393815; x=1745998615; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8rHK8KnFBR82+PT/i3XQgLJauzpZq8SJMBnvWoUsEKQ=;
-        b=fLZ6qDnBNc2kXeZarze5+aYr+C9wpCVPosAdIZgkeB2gVnGC2LJk1J4fPzsATrLYsp
-         WvDMbNKP2dEApPM/DIQ+E8vMKMy44KnfZS4uT+JqPw6R6RQINDJOfgGXojSn7GU5bbM/
-         X57c8drwjpRnycTCNCm4cj2i9fiEJeJlMuBpmscOsGuTjL0fFjpxMJPYmtuJSz153ZnO
-         5p35IwcJUUknhcWpzNnMIIPP2eerTVj8MQu/DPuB/0tuG4Y66chSlBRKExpj7LP65vAv
-         wYp1wUpQM1LjrcHJ5pYCHDaQ7CKVTd11f90120BJqvw04Rb6rGjsxQa03CVJEefwfz+S
-         tZNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745393815; x=1745998615;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8rHK8KnFBR82+PT/i3XQgLJauzpZq8SJMBnvWoUsEKQ=;
-        b=NzuofBpeD/XOVPULF1KcfzsSVOCqa+rgnWYNN3B7hcjXExKs8I/pe/GPe7e1zQ1oK8
-         CxO/3CBRjBmxxPulnf4zQrQ5NH1qTLtL6ndzcyGgQMTghacXtTlBOhq4vxODpGVc3U8O
-         2q1jw3F/V7c7T7hgUxzifh5DvzyMOaCRjwKW9DldLEonNAtC5ju7vsCBv1X2et6VHdRb
-         UiBFAMY2/1DqlTMsFvWVVP5fNJO67N1g029P6bTKCHS9uPwmUBAOqt4lqouRGeNuhC/8
-         5fskL1C/3hDJK0iRFYIlYsHu67Vu9DJPUTeQXUt3EJM0gJDn/d8/LQhMv+8x1TNGOxwM
-         /iJw==
-X-Forwarded-Encrypted: i=1; AJvYcCUpkWxUQh6XYNFVeiUusvIjpuTQPoFpU1113MxQRlG+vvx2+yeg0Qcm67RpiBcfqcA0hduMHL4EeHY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx8NK6BYGYpYPIQm7Pjrxp82haKsgAQLwxzNLBE1qZOKQOBzyET
-	fI4zxBQbnNX2Ty0zOTTGRVwMd+BfEV/Y+fUm/xyYF3m37Oj4NchAhDZctp1NTQ==
-X-Gm-Gg: ASbGnctV4wWhuNwIzcS/6Z4+04XkrFghDkMWsm1Rrs/drExPpo9GGQnJy5RGueX6Asd
-	T8b9bIbfmQM+Tud9Q0EJcZbt1rZpfH5WvfJg1fjMeFsZApMeooPyFAGgP9Y1mTbF5bdGNYIarMs
-	bDm+N/i72PoNa+2BT7o5I0RhqDRXGvdlLp3xpCr39iVqVLfieNx5La9dfF+jTcEin4mv2KiBgrY
-	FFlB0HhTBrQ6HF/5WKAO/0+vU+zMIfaBxbKy2pA9DJKUJfL33W2bijPslevxHlm9DGe0fU/XpRx
-	ge7M9tl1nc/yg1Qjd2etcws2W/ewpKWb0EoQ9xTDmcb9MYociCq0UZw/zy5AwJbt+CJhx4RW7jB
-	FeaNj467Scik9GCjxZAbXfRk3LA==
-X-Google-Smtp-Source: AGHT+IEm7Mu0vbbOJcnfO8HoM1qnyx6TMAwSBdqOMnvnXlIb83llvTDDJIzWqYe4Q/wtsP04pYv3dw==
-X-Received: by 2002:a05:600c:4e0a:b0:439:5f04:4f8d with SMTP id 5b1f17b1804b1-44091f1facdmr13679955e9.12.1745393815153;
-        Wed, 23 Apr 2025 00:36:55 -0700 (PDT)
-Message-ID: <04289258-7316-4c07-96a3-b74a0089e861@suse.com>
-Date: Wed, 23 Apr 2025 09:36:53 +0200
+X-Inumbo-ID: 7563b1f1-2016-11f0-9eb0-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53N7efcj3105192
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1745394085;
+	bh=6GdmFpMZgynlN0+8/dR5L54gssO+r5xFLscuv7Zb+Vs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ht8Pg4C2x78BenMmhZHdlstOae3d80RJunxbx/Cvdsa9Ng1sweJyhq1qZe74uad8w
+	 dHIUkIaWpBwuEpEQXpNTzZstGa5HP1LuibQWsRATlidlNhOkvy0MIlrog/VWtzXAtz
+	 iLAft/hoYaZa+I3d3ZuooQk2COryT2hVxNfUJCgHWslPfgG0MkXcQL1z8/s+UH5PeL
+	 gb+2hbsIwrgPCaQZfJBxkbSwSmLHKEpQNdet6O8uEfcXydqh1elJk/5c7nEHD20WPV
+	 eqeeCqMeQgCc7w45x4no+uWwxrEjeXlIz4D82w4Q141GaNuvo9afJ+SLxKkWxA61fx
+	 KcYJYI7GY7/WQ==
+Message-ID: <9268e169-554d-43c8-a00c-f43c274f6116@zytor.com>
+Date: Wed, 23 Apr 2025 00:40:40 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 05/11] vpci: Refactor REGISTER_VPCI_INIT
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250421061903.1542652-1-Jiqian.Chen@amd.com>
- <20250421061903.1542652-6-Jiqian.Chen@amd.com>
- <545079b5-7159-4f47-8100-df387fffe57a@suse.com>
- <PH7PR12MB585404EEEC765754A3DE458FE7BA2@PH7PR12MB5854.namprd12.prod.outlook.com>
+Subject: Re: [RFC PATCH v2 06/34] x86/msr: Use the alternatives mechanism to
+ read PMC
+To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org, linux-perf-users@vger.kernel.org,
+        linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+        linux-pm@vger.kernel.org, linux-edac@vger.kernel.org,
+        xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+        linux-hwmon@vger.kernel.org, netdev@vger.kernel.org,
+        platform-driver-x86@vger.kernel.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        acme@kernel.org, andrew.cooper3@citrix.com, peterz@infradead.org,
+        namhyung@kernel.org, mark.rutland@arm.com,
+        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
+        wei.liu@kernel.org, ajay.kaher@broadcom.com,
+        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
+        pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
+        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
+        haiyangz@microsoft.com, decui@microsoft.com
+References: <20250422082216.1954310-1-xin@zytor.com>
+ <20250422082216.1954310-7-xin@zytor.com>
+ <fbb509e8-0bd6-480f-be32-fd0895255a21@suse.com>
+ <a482b4df-f662-4d5d-8100-ade07afcdc24@zytor.com>
+ <bfeba521-0a49-42d0-bf83-15d031dfc6da@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <PH7PR12MB585404EEEC765754A3DE458FE7BA2@PH7PR12MB5854.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <bfeba521-0a49-42d0-bf83-15d031dfc6da@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 23.04.2025 05:49, Chen, Jiqian wrote:
-> On 2025/4/23 00:03, Jan Beulich wrote:
->> On 21.04.2025 08:18, Jiqian Chen wrote:
->>> Refactor REGISTER_VPCI_INIT to contain more capability specific
->>> information, this is benifit for follow-on changes to hide capability
->>> which initialization fails.
->>>
->>> What's more, change the definition of init_header() since it is
->>> not a capability and it is needed for all devices' PCI config space.
->>>
->>> Note:
->>> Call vpci_make_msix_hole() in the end of init_msix() since the
->>> change of sequence of init_header() and init_msix().
->>> The fini hook will be implemented in follow-on changes.
->>>
->>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
->>
->> From the description I can't derive the need for ...
->>
->>> --- a/xen/include/xen/xen.lds.h
->>> +++ b/xen/include/xen/xen.lds.h
->>> @@ -187,7 +187,7 @@
->>>  #define VPCI_ARRAY               \
->>>         . = ALIGN(POINTER_ALIGN); \
->>>         __start_vpci_array = .;   \
->>> -       *(SORT(.data.vpci.*))     \
->>> +       *(.data.vpci.*)     \
->>>         __end_vpci_array = .;
->>>  #else
->>>  #define VPCI_ARRAY
->>
->> ... this change.
-> As I understand this, this is used for initializing all capabilities according to priority before.
-> That is msix > header > other capabilities.
-> My patch removes the priority and initializing all capabilities doesn't depend on priority anymore.
-> So I think this is not needed anymore.
+On 4/22/2025 2:28 AM, Juergen Gross wrote:
+> 
+> I have worked rather hard to make it less intrusive, especially by removing
+> the paravirt specific code patching (now all done via alternative patching)
+> and by removing 32-bit Xen PV mode.
 
-Perhaps, but the word "priority" doesn't even appear in the description. So
-yes, ...
-
-> Do you mean I should add some explanation in the commit message?
-
-... there's something to add there. But there's also the question of why the
-change doesn't go further: With the SORT() dropped, what's the trailing .*
-in the section name for? That's apparently connected to the puzzling
-
-+  static vpci_capability_t *const x##_entry  \
-+               __used_section(".data.vpci.") = &(x##_t)
-
-What's the trailing dot for here?
-
-(As a nit - I also don't see why x##_t would need parenthesizing when
-x##_entry doesn't. Is there another Misra gem which makes this necessary?)
-
-Jan
+I looked at the optimization, and it is a nice improvement.
 
