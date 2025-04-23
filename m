@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A33DA98CDB
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 16:23:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964795.1355498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50D81A98CED
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 16:24:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964803.1355508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7b0e-0001c2-Q6; Wed, 23 Apr 2025 14:23:32 +0000
+	id 1u7b1a-00025v-24; Wed, 23 Apr 2025 14:24:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964795.1355498; Wed, 23 Apr 2025 14:23:32 +0000
+Received: by outflank-mailman (output) from mailman id 964803.1355508; Wed, 23 Apr 2025 14:24:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7b0e-0001YB-Mm; Wed, 23 Apr 2025 14:23:32 +0000
-Received: by outflank-mailman (input) for mailman id 964795;
- Wed, 23 Apr 2025 14:23:30 +0000
+	id 1u7b1Z-00023X-VL; Wed, 23 Apr 2025 14:24:29 +0000
+Received: by outflank-mailman (input) for mailman id 964803;
+ Wed, 23 Apr 2025 14:24:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=maGd=XJ=intel.com=dave.hansen@srs-se1.protection.inumbo.net>)
- id 1u7b0c-0001Y5-G3
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 14:23:30 +0000
+ id 1u7b1Y-00023J-LM
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 14:24:28 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 83317376-204e-11f0-9ffb-bf95429c2676;
- Wed, 23 Apr 2025 16:23:24 +0200 (CEST)
+ id a84d77ab-204e-11f0-9ffb-bf95429c2676;
+ Wed, 23 Apr 2025 16:24:26 +0200 (CEST)
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2025 07:23:22 -0700
+ 23 Apr 2025 07:24:24 -0700
 Received: from tfalcon-desk.amr.corp.intel.com (HELO [10.124.221.81])
  ([10.124.221.81])
  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2025 07:23:20 -0700
+ 23 Apr 2025 07:24:23 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83317376-204e-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: a84d77ab-204e-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1745418204; x=1776954204;
+  t=1745418266; x=1776954266;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=tHTpVzk3+ZEiX7ugvs6Lfw0ZYGNXah6++b74fB/6rjw=;
-  b=PQZceclqjZuHsJOWg39jCcD+Sdu3mIXHvu/9+F8b94HvM02xYpBlGtox
-   ZGAo8QthBGcEDOh4U10O72JRRddA5asoFQeBieZDW8l54X81PBzo4qI7t
-   5YYWBFccabarV3f41TQMdEAuLuIbukaZmVkGhWg4Cz3QTfO42Zs6jF7ri
-   Ktddq83dOzHHyuegSq6+lw8U71kah9mXtTpDfHEU2HfhzyczIVvhswfy3
-   Ttc73xb0+eIffZrc6/qNFrwubjcw3+QkGC5Mn5+vL5YqCAEoKFXAUF36G
-   LQJ70USshB0xiyrSGeKFcE0JOjtAqV6UPa2ATTD0COTNwaMwgOxIMw+i/
+  bh=5GxHj0Q68iefqoaKTtjndiUuPGnSJtU6UMixn6eM65g=;
+  b=SnnBPb+6rAs8qkeqhHm3GE7t9jZs0mG2iOgdGwPPG1M6eC0jaZ/rTkxU
+   3PSr1xrMWoL8nIlStQESBaUF/BTtZDviuhhnCIOUvy0jYbp1X5QSrzAzt
+   IwLbHzsacfHXtJ6gb63vsjj2/h8gGxFNxvIFUeNrAd8xlQm2dppfEwYLM
+   aafrNnM/wWVxMkEZrDeG5SaG7nBCUAEjD49UkH1KKEPb/DMkJ9i/qB+v6
+   mssVHqQYRFTI4o8wJAsxZ1prkoHqvpmEFtX8tOUwDEnbHCCMJByi9DEZ/
+   mNhJhS1qnq46+KVRu0zaMMSC5kKRPfHwmwu6vhuUDE4fmpRf8h8DXOkMe
    w==;
-X-CSE-ConnectionGUID: A9I+Wd57T6ewtKHZIuMY3Q==
-X-CSE-MsgGUID: fWB6/jAWS3Wbf/hpJf6BDA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11412"; a="50675724"
+X-CSE-ConnectionGUID: 5tMN9sYFRTynqe12YzuxcA==
+X-CSE-MsgGUID: 4EA/S5obQuqYLUM/CNeHaA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11412"; a="50675866"
 X-IronPort-AV: E=Sophos;i="6.15,233,1739865600"; 
-   d="scan'208";a="50675724"
-X-CSE-ConnectionGUID: VF+QowvpTNSFO2erE2BvIw==
-X-CSE-MsgGUID: 7Ac1XyxrR7yxEiIKXp/Eaw==
+   d="scan'208";a="50675866"
+X-CSE-ConnectionGUID: 0kLyYCh8Qce7BgC/OxCKGg==
+X-CSE-MsgGUID: W+Y8/vM6RmuS5sj4/hyHjg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.15,233,1739865600"; 
-   d="scan'208";a="137190592"
-Message-ID: <163061d6-d0fe-466d-909b-195ddf208211@intel.com>
-Date: Wed, 23 Apr 2025 07:23:18 -0700
+   d="scan'208";a="137190903"
+Message-ID: <0caab744-0107-408a-8df0-861d561fa4b6@intel.com>
+Date: Wed, 23 Apr 2025 07:24:21 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 02/34] x86/msr: Remove rdpmc()
+Subject: Re: [RFC PATCH v2 03/34] x86/msr: Rename rdpmcl() to rdpmcq()
 To: "Xin Li (Intel)" <xin@zytor.com>, linux-kernel@vger.kernel.org,
  kvm@vger.kernel.org, linux-perf-users@vger.kernel.org,
  linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
@@ -90,7 +90,7 @@ Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
  seanjc@google.com, luto@kernel.org, boris.ostrovsky@oracle.com,
  kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com
 References: <20250422082216.1954310-1-xin@zytor.com>
- <20250422082216.1954310-3-xin@zytor.com>
+ <20250422082216.1954310-4-xin@zytor.com>
 From: Dave Hansen <dave.hansen@intel.com>
 Content-Language: en-US
 Autocrypt: addr=dave.hansen@intel.com; keydata=
@@ -136,16 +136,17 @@ Autocrypt: addr=dave.hansen@intel.com; keydata=
  MTsCeQDdjpgHsj+P2ZDeEKCbma4m6Ez/YWs4+zDm1X8uZDkZcfQlD9NldbKDJEXLIjYWo1PH
  hYepSffIWPyvBMBTW2W5FRjJ4vLRrJSUoEfJuPQ3vW9Y73foyo/qFoURHO48AinGPZ7PC7TF
  vUaNOTjKedrqHkaOcqB185ahG2had0xnFsDPlx5y
-In-Reply-To: <20250422082216.1954310-3-xin@zytor.com>
+In-Reply-To: <20250422082216.1954310-4-xin@zytor.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 4/22/25 01:21, Xin Li (Intel) wrote:
-> rdpmc() is not used anywhere, remove it.
+> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
 
-I'm not sure it was *ever* used (at least since git started). Thanks for
-finding this.
+We had a non-trivial discussion about the l=>q renames. Please at least
+include a sentence or two about those discussions.
+
+For the code:
 
 Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
-
 
