@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F6F4A9850A
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 11:12:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.964295.1355134 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42FDCA98575
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 11:29:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.964306.1355144 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7W9k-0000UH-Rh; Wed, 23 Apr 2025 09:12:36 +0000
+	id 1u7WPD-0002pz-5R; Wed, 23 Apr 2025 09:28:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 964295.1355134; Wed, 23 Apr 2025 09:12:36 +0000
+Received: by outflank-mailman (output) from mailman id 964306.1355144; Wed, 23 Apr 2025 09:28:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7W9k-0000SY-O5; Wed, 23 Apr 2025 09:12:36 +0000
-Received: by outflank-mailman (input) for mailman id 964295;
- Wed, 23 Apr 2025 09:12:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dLR5=XJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u7W9j-0000SQ-1o
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 09:12:35 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 17a92dc2-2023-11f0-9eb0-5ba50f476ded;
- Wed, 23 Apr 2025 11:12:34 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-4394a0c65fcso65894445e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 02:12:34 -0700 (PDT)
-Received: from [192.168.86.29] ([83.104.178.215])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-39efa43bf2csm18246392f8f.51.2025.04.23.02.12.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 02:12:33 -0700 (PDT)
+	id 1u7WPD-0002my-2F; Wed, 23 Apr 2025 09:28:35 +0000
+Received: by outflank-mailman (input) for mailman id 964306;
+ Wed, 23 Apr 2025 09:28:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ZaJ6=XJ=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1u7WPB-0002ms-FM
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 09:28:33 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 503fee05-2025-11f0-9ffb-bf95429c2676;
+ Wed, 23 Apr 2025 11:28:29 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53N9RlMD3219913
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Wed, 23 Apr 2025 02:27:48 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +40,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17a92dc2-2023-11f0-9eb0-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745399554; x=1746004354; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=910FBdwK5tad6IF7SFZqo3rmzRJjC91kHmQPfNmFRkw=;
-        b=u50+BH+psGJNxyhzlncwsjtiZ3Nr3mM9p4QmIa9kGVsJPOqQzu+Aos3/oYrBANOKVZ
-         MEqEoUrjhI+IuzZhh/JEkYKBBcd8OvNLLUnC34wIKSsA7Si+fGUFtd4VRzsg6rShMQz8
-         Wjbh6A8q2dGq915PFKeAvS/4w2zjH+OhRbPbg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745399554; x=1746004354;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=910FBdwK5tad6IF7SFZqo3rmzRJjC91kHmQPfNmFRkw=;
-        b=h33ZKKrx8EzT0JH+nlnZ59QtAfzfRj5gyZcGFX2t3z31lhpOnigZ+5NtgioJMQii0I
-         Xn9jyFDdE7NxJBHU/OtWP4eZmpj8LF1i9Q3MN3fjb5t1Bab/1LhCclri+F103hQoBYNp
-         KNcw4P3tAodTzvSJadoXHkARvJBwXorf+gqX9Xsr26F1x18bFEY6NVoDlAep0iVCwdj8
-         weEU+jCJOTDOQ1LbiC0jmbvtfpJcDUn6lSFpN2SCaAXITu/DFOUdla5FGsgroLGu+oGr
-         O5CEohwhEEeZFa2i/j3QAUjsQ1oHkQhQ37uLYDgjSjhiazQLgupWTB/5Pseg1zvv5tcl
-         pz7A==
-X-Forwarded-Encrypted: i=1; AJvYcCW+6dXOFOpaRqxKRkMnQXsc1nKHgvvLxfimQ496wRnu+PStGumfueFBbm34gz19RmfmMpMryHgZuTg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/sLOIyo34nV6p2I3GcgRrePlHIbd5gPlPwPYZ8QkD4BfWyg5k
-	rWa/dz4l0Hy5vw7u/0Fasr8e9G5X0K6MwV9F5HSnOGME6GFkwndj1qNPq9/CMSKcdOdLZedoXkj
-	/lfM=
-X-Gm-Gg: ASbGncvqyhwDOrPCGD+TyXZtrUg8W7kcqnPjUz8Uqy31h9jLnCpH8bhoNfsRkQUeqrU
-	rNw3s6s5JrZenOtxjayBa7Xm/jDHBRozacJMYdwNrg4mXFIbx9xQz5EnCb6AkyUIy0Pbwpo0H0T
-	DM2mS98z/5sNWqaA25r94hBFtHuQJ7eJkA5FHQwSmPYuS/8hQ7M+w6t1D/sYDC4RBf1/eKwOzOV
-	PGx6elH3+aStWc8TlUWVClHHFsRquFqW0UFg+gPVQqTGYRgomTsbpw44kwhLzZnU22KF2xQq7G1
-	7SsXVros7Y4nRF3EBBiyqKmY1IrEjrEvE2S/fMqZKOFLeLp13XmhlyFKldD6LSaw
-X-Google-Smtp-Source: AGHT+IHrdQtHjXuKhJcCw0lLp/vizyhu8UooGQUHcfMq9LnGWsowpJl16giLT8Kgg787H3MROy/hrg==
-X-Received: by 2002:a05:600c:4708:b0:43d:300f:fa4a with SMTP id 5b1f17b1804b1-4406ab97c6cmr160971385e9.12.1745399553725;
-        Wed, 23 Apr 2025 02:12:33 -0700 (PDT)
-Message-ID: <3fec2a20-62f9-469d-9a46-cc0030356b32@citrix.com>
-Date: Wed, 23 Apr 2025 10:12:32 +0100
+X-Inumbo-ID: 503fee05-2025-11f0-9ffb-bf95429c2676
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53N9RlMD3219913
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1745400470;
+	bh=ljTCYrwFB4jWmVUKcnZoEtS1ENJ4as2xI12Y2XbkMGU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=UmIumy9ccUWtp5ZpbFY6Ho9GgYRlVSRySL3D0+L6jUnzCuWo+VAXnfIYm+WcNWHcr
+	 3vdBJ+wwDthlqUfiIoaN3DvHPiYn4gb/+Mbw6citZ1Nn3xuBxFNqKSFdRNvSlmfDHg
+	 sgDUE/YJgzJJyaLCEhkxOt4S6E7bN3HrTuYY85xE4DOyVvo6Ap2JfPnfbPyl+GWU88
+	 BCLMSAjhGktSUoCdwdyy/ZS83Z3KwNGZuWXVpY05BNcjcn6RiyoIM0nH70HIaJUZTW
+	 sxPrQvxiLK2+ljs3l/mZq4cz6GbUS+eJfVvDu2BEsKu2EVOjGnH6pzErQiG0qnjLGr
+	 yA9/DCpyDaO8g==
+Message-ID: <7527f09c-7163-4276-b9a4-edac6c8217ae@zytor.com>
+Date: Wed, 23 Apr 2025 02:27:46 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] x86/altcall: Switch to simpler scheme
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250423010237.1528582-1-andrew.cooper3@citrix.com>
- <20250423010237.1528582-8-andrew.cooper3@citrix.com>
- <e90b8723-3c15-4488-bc7f-b765dcc92ef6@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <e90b8723-3c15-4488-bc7f-b765dcc92ef6@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [RFC PATCH v2 10/34] x86/msr: Convert __rdmsr() uses to
+ native_rdmsrq() uses
+To: Sean Christopherson <seanjc@google.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+        virtualization@lists.linux.dev, linux-pm@vger.kernel.org,
+        linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
+        netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        acme@kernel.org, jgross@suse.com, andrew.cooper3@citrix.com,
+        peterz@infradead.org, namhyung@kernel.org, mark.rutland@arm.com,
+        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
+        wei.liu@kernel.org, ajay.kaher@broadcom.com,
+        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
+        pbonzini@redhat.com, vkuznets@redhat.com, luto@kernel.org,
+        boris.ostrovsky@oracle.com, kys@microsoft.com, haiyangz@microsoft.com,
+        decui@microsoft.com
+References: <20250422082216.1954310-1-xin@zytor.com>
+ <20250422082216.1954310-11-xin@zytor.com> <aAexLqjhKncFyw2V@google.com>
+Content-Language: en-US
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <aAexLqjhKncFyw2V@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 23/04/2025 10:01 am, Jan Beulich wrote:
-> On 23.04.2025 03:02, Andrew Cooper wrote:
->> --- a/xen/arch/x86/alternative.c
->> +++ b/xen/arch/x86/alternative.c
->> @@ -378,13 +378,6 @@ static int init_or_livepatch _apply_alternatives(struct alt_instr *start,
->>          text_poke(orig, buf, total_len);
->>      }
->>  
->> -    /*
->> -     * Clobber endbr64 instructions now that altcall has finished optimising
->> -     * all indirect branches to direct ones.
->> -     */
->> -    if ( force && system_state < SYS_STATE_active )
->> -        seal_endbr64();
->> -
->>      return 0;
->>  }
->>  
->> @@ -533,6 +526,8 @@ static int __init cf_check nmi_apply_alternatives(
->>              rc = apply_alt_calls(__alt_call_sites_start, __alt_call_sites_end);
->>              if ( rc )
->>                  panic("Unable to apply alternative calls: %d\n", rc);
->> +
->> +            seal_endbr64();
->>          }
-> Are you deliberately losing the comment?
+On 4/22/2025 8:09 AM, Sean Christopherson wrote:
+> On Tue, Apr 22, 2025, Xin Li (Intel) wrote:
+>> __rdmsr() is the lowest level primitive MSR read API, and its direct
+>> use is NOT preferred.
+> 
+> Doesn't mean it's wrong.
 
-Yes, counterbalancing the comment gained in patch 4.
+I wouldn't go so far as to claim that it's wrong :-)
 
->  Other than this:
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> Use its wrapper function native_rdmsrq() instead.
 
-Thanks,
+The current code exhibits a somewhat haphazard use of MSR APIs, so I
+wanted to clarify which API to employ in specific situations with
+verbose function naming.
 
-~Andrew
+Here is an example that Boris had to fix the use of MSR APIs:
+
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f980f9c31a923e9040dee0bc679a5f5b09e61f40
+
+> 
+> ...
+> 
+>> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+>> index 1547bfacd40f..e73c1d5ba6c4 100644
+>> --- a/arch/x86/kvm/vmx/vmx.c
+>> +++ b/arch/x86/kvm/vmx/vmx.c
+>> @@ -380,7 +380,7 @@ static __always_inline void vmx_disable_fb_clear(struct vcpu_vmx *vmx)
+>>   	if (!vmx->disable_fb_clear)
+>>   		return;
+>>   
+>> -	msr = __rdmsr(MSR_IA32_MCU_OPT_CTRL);
+>> +	msr = native_rdmsrq(MSR_IA32_MCU_OPT_CTRL);
+>>   	msr |= FB_CLEAR_DIS;
+>>   	native_wrmsrq(MSR_IA32_MCU_OPT_CTRL, msr);
+>>   	/* Cache the MSR value to avoid reading it later */
+>> @@ -7307,7 +7307,7 @@ void noinstr vmx_spec_ctrl_restore_host(struct vcpu_vmx *vmx,
+>>   		return;
+>>   
+>>   	if (flags & VMX_RUN_SAVE_SPEC_CTRL)
+>> -		vmx->spec_ctrl = __rdmsr(MSR_IA32_SPEC_CTRL);
+>> +		vmx->spec_ctrl = native_rdmsrq(MSR_IA32_SPEC_CTRL);
+> 
+> And what guarantees that native_rdmsrq() won't have tracing?  Ugh, a later patch
+> renames native_rdmsrq() => native_rdmsrq_no_trace().
+> 
+> I really don't like this.  It makes simple and obvious code:
+> 
+> 	vmx->spec_ctrl = __rdmsr(MSR_IA32_SPEC_CTRL);
+> 
+> so much harder to read:
+> 
+> 	vmx->spec_ctrl = native_rdmsrq_no_trace(MSR_IA32_SPEC_CTRL);
+> 
+> and does so in a way that is difficult to review, e.g. I have to peek ahead to
+> understand that this is even ok.
+> 
+> I strongly prefer that we find a way to not require such verbose APIs, especially
+> if KVM ends up using native variants throughout.  Xen PV is supposed to be the
+> odd one out, yet native code is what suffers.  Blech.
+
+Will try to figure out how to name the APIs.
+
+One reason I chose verbose names is that short names are in use and
+renaming needs to touch a lot of files (and not fun at all).
+
+Thanks!
+     Xin
+
 
