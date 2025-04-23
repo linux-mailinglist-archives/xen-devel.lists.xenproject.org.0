@@ -2,53 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52936A99744
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 19:57:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.965075.1355728 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B7C7A99776
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Apr 2025 20:07:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.965113.1355751 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7eKp-0001pa-9e; Wed, 23 Apr 2025 17:56:35 +0000
+	id 1u7eUj-0004xQ-AF; Wed, 23 Apr 2025 18:06:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 965075.1355728; Wed, 23 Apr 2025 17:56:35 +0000
+Received: by outflank-mailman (output) from mailman id 965113.1355751; Wed, 23 Apr 2025 18:06:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7eKp-0001kI-4s; Wed, 23 Apr 2025 17:56:35 +0000
-Received: by outflank-mailman (input) for mailman id 965075;
- Wed, 23 Apr 2025 17:56:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u7eUj-0004vv-7R; Wed, 23 Apr 2025 18:06:49 +0000
+Received: by outflank-mailman (input) for mailman id 965113;
+ Wed, 23 Apr 2025 18:06:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=V8j8=XJ=amd.com=VictorM.Lira@srs-se1.protection.inumbo.net>)
- id 1u7eKn-0001gW-PB
- for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 17:56:33 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060c.outbound.protection.outlook.com
- [2a01:111:f403:2418::60c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 49271543-206c-11f0-9ffb-bf95429c2676;
- Wed, 23 Apr 2025 19:56:31 +0200 (CEST)
-Received: from DS7P220CA0017.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:223::11) by
- DM4PR12MB6086.namprd12.prod.outlook.com (2603:10b6:8:b2::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8678.23; Wed, 23 Apr 2025 17:56:27 +0000
-Received: from DS2PEPF00003448.namprd04.prod.outlook.com
- (2603:10b6:8:223:cafe::90) by DS7P220CA0017.outlook.office365.com
- (2603:10b6:8:223::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.37 via Frontend Transport; Wed,
- 23 Apr 2025 17:56:26 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS2PEPF00003448.mail.protection.outlook.com (10.167.17.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Wed, 23 Apr 2025 17:56:26 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Apr
- 2025 12:56:26 -0500
-Received: from xsjstefanos51.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39 via Frontend
- Transport; Wed, 23 Apr 2025 12:56:25 -0500
+ id 1u7eUi-0004vp-7g
+ for xen-devel@lists.xenproject.org; Wed, 23 Apr 2025 18:06:48 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2061c.outbound.protection.outlook.com
+ [2a01:111:f403:2417::61c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b7a7bebb-206d-11f0-9eb0-5ba50f476ded;
+ Wed, 23 Apr 2025 20:06:46 +0200 (CEST)
+Received: from SJ2PR12MB8876.namprd12.prod.outlook.com (2603:10b6:a03:539::18)
+ by DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.23; Wed, 23 Apr
+ 2025 18:06:43 +0000
+Received: from SJ2PR12MB8876.namprd12.prod.outlook.com
+ ([fe80::69d9:a014:7a29:de4a]) by SJ2PR12MB8876.namprd12.prod.outlook.com
+ ([fe80::69d9:a014:7a29:de4a%4]) with mapi id 15.20.8655.031; Wed, 23 Apr 2025
+ 18:06:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,174 +47,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49271543-206c-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: b7a7bebb-206d-11f0-9eb0-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pMeC8EMm93CB3j9yZAx1ZNAN05KRa1QXO+7aKPec/5DblUkqhYPufz92XAlmShLmqe0edrlxpyg+NN7U7HRYpGEe1ZsycXLpJSMXzpfXFRZy2VQsCgUCfl0bZNbXId0y3NdIJprrjxhjpUxXxbyr150K5AVGXB5noR/zRJDqUgDmy18ATBZBWHdhY8IXH6yjT26MzpZ87JGyU766/7pd8fg37Fwgdlj1hKRkvlLUI86e0h79DfgTV9tKO0vA2ZI92uD2SW096Up/G/HjeyclOl9mghFJhL8zVB1KjuQZvvN0wSfRsxXCu/4uDoH17UGOeWQv8gLN6YLGrJfVZQjmoQ==
+ b=HNSlVED9QV/Rp6sUX/8LijlRaVsyF83F5av8Xj9rq7dn5S1OPhLa8xToN6YAgmYykN4UiULbLKsa0W+YYVZmPq2T8CiGze5KAzsuLOxagu9zvHTNnO5Kj4j/gSBMa4x15EhS0oLsNOxk48G7iN9GNkIWY2hOvijd0NB5XSpFykuvGj6weKYUCcDjZOfT5QYfga9neLNAOQMSTAE+F00pbOksTjKLVX0oAPeASZBvv9TQmIAh9IB58r41NjQOOZIfHHjIFfl5ZB7Z2JU4L5mkDtVB6jwROVg2ohJuxQSVxBkqWkII19UFePNvU434eHIxq/TdYyLseFouOivmlIa1Hg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uFJyvJXjhiq9kjUtLsOyrZHJ+xeH+8MdMFEtKtz54do=;
- b=Ct1+GduZNDXvE1rDmQnhnR/0LtR45wjE2bI4h4Ehw+H3UwpqSabWHmpcTMeJAUhzMArjoZLtkJysFZ+4n0jozqILf0chQdiBL1KPkOcQdhtKGk7lb2cvbA48Xekb+mtnHvCT4u2/95IiNccfVkl9ZjPvfYol30kp9qVWkRKIZUAsZ7DDKV5TmSaw0PE6HHJDrwcmgR3qq6T/Shd6LyKJMcKvKLu8bmPOb3qmg+vWNF+T7BokUo/ASuAV80s5/MZNXfDdtG+tb7KIgLZVBLB0G3SfAxrruy2XfVf4fcM6egWJVicjGiNhd6w7pdk6xeRkaRV3faN61aSzKKUl6LNxhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=xqa79jWDei+TUXbfbLVhNP53IHh/2vbDRB+8d+FW/VQ=;
+ b=E5OGJk9Jpxw73vyjwA5kKW85RXDyI7Pm9kdhe6MGLop+5r3TVwHZCu5zWMsH/oTXw350AMbiE1xF4IFVN4d2kQfQzs0MG7CJOdpa2OYF5vAUH5MVwUf1wZ1s+BkjL+tv16AvosN0B9fMQyihAzYx05E/CmhK0Egz6h5W+/ya/fpbcKUmrcKIurmE85nNNuNaNIA8ZlJQfShtY0ezUZbBqbViCY+q5/ZCbp0pBri6dHR9zkjXoc+Ht4uJnxVlkCa/z8+rLWAqKmKSc1IIfiNqBt/dojLVLUaeKhf5m9QflsQwKzz06/gW0bWB7TmLpXBeFA6b6lr/00iB45qkS0WciQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uFJyvJXjhiq9kjUtLsOyrZHJ+xeH+8MdMFEtKtz54do=;
- b=yMyRG/BwkYgVpkGyM+P/VpPq22nQy01dljIgcgmPyRTfEeDtjY2+s4rTFn7Is4RoOLoX2KseDLPOPYqe+fLAQeHYesGzorQTDXIldnSYkoilWh8LCLk/4opG6FxKci2QoiSt7vIxJePZ/+rBUglorQ8ft+S4wrQuZnQF7pjFBPw=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: <victorm.lira@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Nicola Vetrini <nicola.vetrini@bugseng.com>, Federico Serafini
-	<federico.serafini@bugseng.com>, Victor Lira <victorm.lira@amd.com>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>
-Subject: [PATCH v1] misra: add deviation of Rule 10.1 for unary minus
-Date: Wed, 23 Apr 2025 10:54:29 -0700
-Message-ID: <7c7b7a09e9d5ac1cc6f93fecacd8065fb6f25324.1745427770.git.victorm.lira@amd.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+ bh=xqa79jWDei+TUXbfbLVhNP53IHh/2vbDRB+8d+FW/VQ=;
+ b=kPGbxV/nL1AFw5zKY1Vf4c+ya096kdfwEwA3B9dy4IJciH0ySz2ilG9TM14UZ6+L8zkVg0WHlWOYspI7MvmF3XO7EYgn5g5+8Y/oxTdWl4hZ0YbY/+OADx9SLDtIsrE4s87eJaPPtvtn3Rz0CxmfPN5Ydy/52mzt5HRIPYU3Eok=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <58f11241-7b9b-4082-b121-4dbe6a085ef0@amd.com>
+Date: Wed, 23 Apr 2025 11:06:41 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] misra: add deviation of Rule 10.1 for unary minus
+To: xen-devel@lists.xenproject.org
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
 References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+ <7c7b7a09e9d5ac1cc6f93fecacd8065fb6f25324.1745427770.git.victorm.lira@amd.com>
+Content-Language: en-US
+From: "Lira, Victor M" <VictorM.Lira@amd.com>
+In-Reply-To: <7c7b7a09e9d5ac1cc6f93fecacd8065fb6f25324.1745427770.git.victorm.lira@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0300.namprd03.prod.outlook.com
+ (2603:10b6:a03:39e::35) To SJ2PR12MB8876.namprd12.prod.outlook.com
+ (2603:10b6:a03:539::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB03.amd.com: victorm.lira@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003448:EE_|DM4PR12MB6086:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f1df750-ae0d-4503-884f-08dd82902b32
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8876:EE_|DS0PR12MB6413:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd75e22d-2cf9-4a37-fec6-08dd82919a4c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|36860700013|1800799024|82310400026;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?cHRzY2pZejZGb3ByeFVHU09ncnMycDJYTFRiUGI2cE02U3FmclZoQjFhbzVy?=
- =?utf-8?B?dGR5SXk2emozYXk5Z3MzZlZ1Z0hvTE9BSUNhckZGc0l2Y2xkU2NTSElDZVZD?=
- =?utf-8?B?andLQnV0eitNUkFXamdxNmVockpkYmxtQnJLc0pJNG02MW80NDdZd1NGdG5G?=
- =?utf-8?B?eFBkYVBjTmg0TmFUSVQ2NU5wMHFObjlRSmVlM0VTeTVQcFF6NVVac2xaTnBN?=
- =?utf-8?B?aTdTMGwvSHQvQ2IyaTJtL2UzYzBkcm53eHNGUm01TXdFRGNGTTRUdFEwaHRP?=
- =?utf-8?B?ZkRFUmVPbDhncWNzSk5mZWVwdnB4bDVzekhBTGRTOGNtVEtxbzBJSDRQaFFv?=
- =?utf-8?B?RFFnaDF0MWx3Z3BjekUwM3Q0dEEvb1BlZ3oydXh5TXp2THhWUzJUR05rdnUz?=
- =?utf-8?B?Z1ZSTmpITTVlTERoSXBqb1RVbWt0enQvRmpqQXQrU3p0ZVhrTkhoYVFUQmo4?=
- =?utf-8?B?WTQ3UGxPVklBQlJ4NExGaThBME9ueXBDYWlaNjhEemlrQWIyOW5EbjVueVZN?=
- =?utf-8?B?bEdBRHJnTk15Y3NYKzJFbyt4ZXZYZW94eGQ3MGI1R2Y2MUNXZXE1MEwvRy9E?=
- =?utf-8?B?QzNOQ1dTUWRydWZpMnpkbGJZNGowNENSMkVpbjY2OVoyZFlTVTVTcWVIa20v?=
- =?utf-8?B?TkdtbEJrSmRpeWlKbXB5Y0FkdzBWcXFDR2xncHRrajdIRUlqaU1IUTFTaWdi?=
- =?utf-8?B?eFl4UGdvR0lCRURUZnZKeHlZM1pLZy8xdjFJdlhoTzc0SmdYS0JsZHVSR2dD?=
- =?utf-8?B?Z0lJdk4xc3NLcUxiRXppOXBBWENGbkJnd1dWSGFNaGZHWFVTbytUK0YwOUFY?=
- =?utf-8?B?NytweW9mSmxyMzdtaTBzcWhLM1A3RDc1L2hSL0gvQVl1TTUzVDJjTmRvRnhR?=
- =?utf-8?B?Mmx4VnlQaEpoeko4cjJzVWwxRS9rRFl1cFF1M2RrK2VuT1RhTzdOWmxNanl0?=
- =?utf-8?B?Z0dNamsyOXg1aGZHbnpkN3VxVWgyS0oyQWR2c0N1dHNUWXhQRGRkTjR2K0Nw?=
- =?utf-8?B?Z2NVWnozaG5VUTUrSk55UloxWVR1NXk0U3dNRjF4cnVMa3k3aFMxaHlla1k2?=
- =?utf-8?B?US81Mmcvek9XV2JkejZYWm1tUDNZd3Y3UlVHR0p2Snl5cjR4RGdINjJ0Kzhj?=
- =?utf-8?B?c1NHcHUzaUo3Y0hlb0VPM0ZVK2N1ZVdaRHlTQ29KWm03dmp4b0psZkZJeGFk?=
- =?utf-8?B?ei9GUFdaOXFlZEVSUklSaXNqUzA2SDhjUWRHTGtBWWh6U3VhejJ0Wmdxdmly?=
- =?utf-8?B?N3F1ZG83bW1aMFNHREV4ZWgyN1IwSVRlSVpDV3pNVjhFTXFmRGkwMXZ0cHNJ?=
- =?utf-8?B?SXlzN0NWUHRDb2ZQK29ueDVmNE95a1F1SWlOSVFtV3o4Y1luTE5XT3dZZUQz?=
- =?utf-8?B?ZTFCUmFKS2lxMUdCMTZ2aWFhRkVmWUZlYzNZbEFTSzBRWFNNNkdxZllaT2da?=
- =?utf-8?B?WUNyQ1o3T1VtejFFSVZaVWJUc1ZHQTdXWHdFZm1MMXZRRU5sdnBiOTNkUWpw?=
- =?utf-8?B?ZnlwL09KWXp6cW56SGNlKzJ1Y0tyc2xmRDV0Sk5rZlJlVWdTaElUeXlPdU5a?=
- =?utf-8?B?ZTUxb1ZGeWJqS0VROHVFb2tyMkZHNUhJdXRhdTZLZG9namExOVNmOWFpRTNz?=
- =?utf-8?B?RGY1Z3ZrTElhdHRGbGloY29uQnZJMTQ1eUsxME9MUU9KOEYxRFd1TUxmWUFH?=
- =?utf-8?B?L2k4bFUrUkhycDVIMlFkc01vK3FnakhQTjREeURZYnV6TjhrZCtpcUcrQWFp?=
- =?utf-8?B?V0hGbHN4dGNzTG5IWmR3ZzhLeU5LOUVzQVZ2QjdQNzVITFhNMHhUL1h2Nk9M?=
- =?utf-8?B?THFUMWc1Z3V3ZndGM1pzc3gyS2g3bTNxbHZibTFLWXZweEM5dnZOT1l5T05z?=
- =?utf-8?B?dGptYjh2Q3E1NUR0eml4VnJXQ0svRnhLQjQ2ZTFtRy9nMmFMN0prUGo2QjBF?=
- =?utf-8?B?RTRTVEtya2xOM2xzbmQzbnVvMURrMng1Vk1udkY3L3M4MjJmKzA4NlgrdVd5?=
- =?utf-8?B?Ui94WXZoa2NRSHAvengrb281R3hTU0s2bnkwWEJuOGZUV2xYQTNGTERtUHdB?=
- =?utf-8?Q?SC/dfI?=
+	=?utf-8?B?b2NHWG5vVUI1RnJGWHFvZFZZdkdvZXVBQ0l5Y0VsWlZ3bE9KWUd2NjRjcWlC?=
+ =?utf-8?B?cFM5czFWNy9TcUwyY0xqK2daS2RJeDVDUFhqZUQ2d0x1ZzAvVVhGQ0RHUURy?=
+ =?utf-8?B?S0FvcGk2RlhSWDZCU3FFcjh0SlFKeWZKa1B2T2JtMXk5M0h0SmxGdUdnQ3JN?=
+ =?utf-8?B?RHpzakRtMExjb3pBTk5lNlQzaEdEblhlellxMzVIdm1HRE90T1pFQXNrUFNO?=
+ =?utf-8?B?ZlhsbVBaVmltbW5RVjRlR3JoeGZqeHBOOFpZaEN0c1hlVFRBS0hmMldBanB6?=
+ =?utf-8?B?SkJuUTNKOWh2aDBOWlQrRGxzMEl2LzlzQmtQZTNLTVRWa2ZlMkVBTEJaZVg2?=
+ =?utf-8?B?amkvSUh5OGpGSUZRYkMzMFdZRkJzS1o2N2U5cWMxUmFoKzZ1WFVIN3pzL1RS?=
+ =?utf-8?B?eXp3VzRJbnAyd00vVjB1Z3RQRDBIZkF4eGhsMVZxUjVyQ1NLTSt4Y2Q4cHRF?=
+ =?utf-8?B?L1g4UkpoaExES0l5T1lrczlqUlhPV1ljVHUyYkpHdTVRbjAwUTBqQllGaFZo?=
+ =?utf-8?B?K1pvcmtnbVowRGVibnl4WjFES05DbzkyUEtuNUN6M1ZlcUtMVS9WOGFEc0I4?=
+ =?utf-8?B?dDZ1QzlwMVZRaURXQ3o0Y2pSc0ZIQ1FSSHZ4V2xPNERhekgrNXIzM2g3WWxa?=
+ =?utf-8?B?TldLelNIeWg4UDFCRmR2b1Z2TG9nT284bkcxcDVWWWdjblRNenMvYURkQk5a?=
+ =?utf-8?B?dkY4NGRCNUVsdlhrWHZpSGRLUXhYVVQ5dFBVYUU2MitZT3U0SnNNSHBHWjVr?=
+ =?utf-8?B?dityVVpBTmYzUkJGcEhYanhVMENrV05OcitRR09wQ3FxTEkwckN5NEJVbnJJ?=
+ =?utf-8?B?Wi8ya1JUUWc3L0NNT2Jrd0xwRXI3NHFjRmxyY3NUR2Y1dE9uT2tML2UwZTly?=
+ =?utf-8?B?TzdNMnJ1VHBKSnVvSU5KOXpNQUFqeXZzU2VKN2drcUQ2aDUwREdIamcyWXMv?=
+ =?utf-8?B?YWpKam1TWmppSW1mTWpVbVFLeDhsSFJLb0hrK1UyWU5CaXBBUk9mWmFSQ284?=
+ =?utf-8?B?cW8xdzlOajJqblBCWUFJUmxrNlcxK3YvVkNrYkZMOVhBTi9pYVBBQXBsY0Zx?=
+ =?utf-8?B?cy9jak5iZnd1OFhBZHVqcHJWblhaZVMwU3pTUkpVR1dETUxjTFd1U044eFVS?=
+ =?utf-8?B?MEVleVgyYmtxemFjam43aGkzc096UjFjT3Vqb0Rza3VIZENQU04zT1RLdkRU?=
+ =?utf-8?B?QUNZYW82TEtYSWFlU05PT01nZU52UjVramRqQWRxVVNQclYvcEhoMllNV25S?=
+ =?utf-8?B?QWNBRzFSbkVaa0QxZnRNTWZYb1pHMEJFb0pvR0N6ZFh1bnFad0lsRi9tSjBO?=
+ =?utf-8?B?VGNIZzVSMWkvaEhuK1d1bXhrbjUzNktidCtuNUwva0JVYk05c0Uzb3hwcjkx?=
+ =?utf-8?B?R3VCWnZQTDl3bkQxU2Q4WUFlcjZHNXorOU9tSWN2aWE2QUszWEovZmFQSytF?=
+ =?utf-8?B?UCtCV3lGU0M4eDRFMHBYcWluaGYxVTVTTldrdWtkZklsV0NtUmJyNThQTFpT?=
+ =?utf-8?B?OEJJT0E2K2wxV3hteGhudUZJM3pNWnZaOXZ5M1JyM1RBVk42QTZBTzRDWE5n?=
+ =?utf-8?B?NXBJZ0J6aWdLT21hZUc5bm5FZU0vL2VSM3EzdzBTSzZGRld4dmtiZ1lXbXho?=
+ =?utf-8?B?RlJSOVNTK3pyd2hkYkc5QnBLYnVPZDlMRTlTbEc2N2ZqRjNlbFhjRFhZM0JT?=
+ =?utf-8?B?bGRwVjljcmkxcmVLS1JzMk1iQzVCVWxaVlhFUWpOellMbkhkaE9IejV1R01t?=
+ =?utf-8?B?SWxMNkRZZ2JzOTd1NVpXcGlaQjBLd3l2RWZ1ZU1JVkVFN05CMCs3d0xleGlu?=
+ =?utf-8?B?Y1pNVkQ4VEQweW92ZUk2YlhjRThzSzZFQ0xhVHVDc29UUUFYcE1MQ3gzMG9R?=
+ =?utf-8?B?NkRtb0NMaFJ1djhycndGZndQMGRXcGV1Y3owQUtMb1ZSTTBlSm03LzduUjJ2?=
+ =?utf-8?Q?s3VCkFLFtKs=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8876.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bmZnS1JYUVNIMEplOFFQMjc0R0owTERsZnFuNHZ0WVRsVHQva1Y0RmdqMmxw?=
+ =?utf-8?B?ZFducFhQWW11U0w0b3YrSlZ3eVVyWjFFR1dNRFhzUG0wQnBHRG5lb1p3bjBC?=
+ =?utf-8?B?SEJVSkNobVc2c0FuVm1nalNsQ3hscWh2TXYrYzF3QnJVMGJTNGx0YWx0MmhM?=
+ =?utf-8?B?MGh0R3hkazd4OElFV2Fnek9DVHNpNjFLMWFRVTZCSFk0MG9BNSs2UnNYZitE?=
+ =?utf-8?B?clpqOVdaY0dxUGJjWVc3bWxLekFNSXV2MGlWQnBvdVhsclJUcTJrc0FGYk5n?=
+ =?utf-8?B?YXl1WWlmaWg1YTQzaG1RVUxDQlZSQUZ3MGh1YkZxQzdRQzViRk1LV2hBWU05?=
+ =?utf-8?B?dXlwWkljZG1makFKQ1Vubnp6Vy9ndDU4bGtsbCt5cjJmR2hCWFBVbE5nTnpl?=
+ =?utf-8?B?YVllSjRweWZ6SWFSWGI4Y1l4YlQvTjE5T3prUGJNdVpvbFEzQTlCZzJVUU42?=
+ =?utf-8?B?VTc1NEFyQmlHMGJFcE9sRTJUMlZJOGdldWpyTE1JZEVoenZaMkxxOHVwK05i?=
+ =?utf-8?B?RkV2UVNhZFVJUEVMS0M1NitOMUk2THozMjFNYkRDMmF1c0cyOEdFRnlvYkFL?=
+ =?utf-8?B?QlMxamFueFJ3cDZQeVNsZFhRZjc5aDNGNDhJanZqOGUvK2FtdVFqeXpjTTJj?=
+ =?utf-8?B?eG1xUXA5bVNDbzRZVXBDVHlEc0ZuSnp5RjEwY2RjOVFuKy9PM1dwd3d5MlRl?=
+ =?utf-8?B?QURsaUtROGZvUGVBZ0tycStXQnZJUnZEU1JRcmxQVEJ3MUNpeWNLSERieWRt?=
+ =?utf-8?B?MFluQ3pMdlh5clkzRkJUYWUvN0thOW1CQlFQeXE3dUcwTWZFdkJtbWYyMlBy?=
+ =?utf-8?B?Q2xWRDN5SnZtSnpWTkREb0hSeG9TMkVTcHpWdVkvMGFIMkJDZlVNd09pWXV2?=
+ =?utf-8?B?STlXTTUrcTlnWFBlVnBTM01DQ0pCVWJmRGg2UldRQkpNbENOdUxNemwvREpY?=
+ =?utf-8?B?ZWpkUUYzU3pXaHlHTzhGcUwwMHJXRHNUTHdBQmw4UlNGZGt3R2hseUE3L3Nw?=
+ =?utf-8?B?QWp5QmVuY2RRam5UQy90YW0ybnNmVWFWbXdoQkV0T1dSNmdZNkl6SmhZZHJL?=
+ =?utf-8?B?SzFtT0d1SUlpQjBXV0Fwa29NSUQ2R3R6RzVYVjQ2RCt5dlVWNytYanc3QzY2?=
+ =?utf-8?B?ejYxbDd0VVBzY1pNQXZGZVBEMzNDcmNvdGtPeEVrSEJkMURRanJ2dk1kdnNr?=
+ =?utf-8?B?eW52TEU5ZnFuUFZwamxOWS9TT1FkYUtaT05kcUFwNlZiTkJsUmE4VEpzWWZ1?=
+ =?utf-8?B?QS9mdytIMmJBV1VabXlkVGZMM3NhTHBBSndQV0RoSytSSStrTVVwSXBReWx3?=
+ =?utf-8?B?Y254clVTT0dlczJjcmE3cFFLNnZva2dkUUFzL0J0M2VLK2dsaXBidjVYd0s2?=
+ =?utf-8?B?MXR0NktWblpwNkdtTUZQTTNCRWtSSmw0NUp3Umw1RzBhNGlqTFpGT1NLVDR2?=
+ =?utf-8?B?ajhwVlpqeTdqRE9sUFB1NFZSYXMwVEhXcFRxQlY4MElzZHMrSEVqTDVLVGhu?=
+ =?utf-8?B?LzVFQ0UzQzNtYTA1K2JlM29xdmw2YnBuWHR2SmFTYzRpOWtCbmYzd1NvMEtz?=
+ =?utf-8?B?eitJNTFVQkhUcDlTUG1zZ3BqbTJwMk5xMkZLcEg4MVBSclVwcVBwcEx6bkpR?=
+ =?utf-8?B?UHl5emY2bVZ2NnZxNDQ0bnJERzVrMWZ4WUo5cndFbUhULzdNWTZsMi8zdUZh?=
+ =?utf-8?B?UlV0Rjd2dlkyUDlhaWF1bGV5b2h6U1k2ZlB3b2pBbWF4UVJrVXRmTDQ0emZ1?=
+ =?utf-8?B?M1BBQ21tTXNmUDZzcE1qR1lobXBvYWEwRXJXend5aXpORjNCWTdSVzUzcnla?=
+ =?utf-8?B?aDRKM3J4VnFTZ0FsMW0yNkRxOXpwcmtZVS9NSzRTMlJzZmYwcEFYVFlmcFBs?=
+ =?utf-8?B?cFlBZlN2a0JOVk1lSWVmeGdIbCtVbnV2RlFUVWg1UjZkWjZ3T2E3WjZ3Yjc1?=
+ =?utf-8?B?MTVsUittMXhMSEZZNWlOMG9zRDlmTDUxUFR6UmlobGZIdjRTTnMxU0M0UFZl?=
+ =?utf-8?B?V2hHU1RqVlAxVCt4UGFkN011WmQ3Q3MrSmQzRUlzOHcrRVpNUDhGeUtZdnlp?=
+ =?utf-8?B?WWdZd29RM282aGNRUXVPZGRTbmFOZk50d0F2aGdmbC9sZkVKc3lDMmpmeEVW?=
+ =?utf-8?Q?7uj9/i87hpLViCInndCUjzAZI?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2025 17:56:26.7174
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd75e22d-2cf9-4a37-fec6-08dd82919a4c
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8876.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2025 18:06:42.8335
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f1df750-ae0d-4503-884f-08dd82902b32
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003448.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6086
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: E07Vql/0ERTf+vqxZ01oA6DK5yr/r59N332KTk5tn8hB9KPh2W5n4kRYQU9TL354esFPtE/fccqy0W9L9xQMsg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6413
 
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Continuing a discussion from before:
 
-MISRA C Rule 10.1 states:
-"Operands shall not be of an inappropriate essential type"
+On 4/22/2025 11:51 PM, Jan Beulich wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>
+>
+> On 23.04.2025 01:43, victorm.lira@amd.com wrote:
+>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>
+>> The unary minus operator applied to an unsigned quantity has
+>> a semantics (wrap around) that is well-known to all Xen developers.
+>> Thus, this operation is deemed safe.
+> Please, as you have it in the other two patches, can the rule title be
+> reproduced in such patches? As it stands, without mentioning the doc
+> version either, someone finding this later on may be left with a pretty
+> wide ambiguity as to what's meant.
+OK I'll include the rule title in the commit message.
+>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>> @@ -347,6 +347,12 @@ constant expressions are required.\""
+>>     "any()"}
+>>   -doc_end
+>>
+>> +-doc_begin="Unary minus operations on non-negative integers have a semantics (wrap around) that is well-known to all Xen developers."
+> Why "non-negative"? A variable of type "int" holding a non-negative value is,
+> aiui, well within the bounds of the rule here. It's unsigned types where the
+> use of unary minus would constitute a violation. You actually say so ...
+>> +   * - R10.1
+>> +     - Applying the unary minus operator to an unsigned quantity has a
+>> +       semantics (wrap around) that is well-known to all Xen developers.
+>> +       For this reason, the operation is safe.
+>> +     - Tagged as `safe` for ECLAIR.
+> ... here, just that this one's getting blurred by using "quantity" when
+> "type" is meant. Imo we need to be pretty precise here, using terminology
+> that's used by the standard or the Misra rules, and not anything "coming
+> close enough" in someone's perception.
+OK, I agree it should say unsigned type(s) in both of these.
 
-The unary minus operator applied to an unsigned quantity has
-a semantics (wrap around) that is well-known to all Xen developers.
-Thus, this operation is deemed safe.
 
-No functional change.
-
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-Signed-off-by: Victor Lira <victorm.lira@amd.com>
----
-Changes v1:
-- add rule title to commit message
----
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>
-Cc: Michal Orzel <michal.orzel@amd.com>
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>
-Cc: Roger Pau Monné <roger.pau@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Federico Serafini <federico.serafini@bugseng.com>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>
----
- automation/eclair_analysis/ECLAIR/deviations.ecl | 6 ++++++
- docs/misra/deviations.rst                        | 6 ++++++
- 2 files changed, 12 insertions(+)
-
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index 303b06203a..2cfce850bd 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -347,6 +347,12 @@ constant expressions are required.\""
-   "any()"}
- -doc_end
-
-+-doc_begin="Unary minus operations on non-negative integers have a semantics (wrap around) that is well-known to all Xen developers."
-+-config=MC3A2.R10.1,etypes+={safe,
-+  "stmt(node(unary_operator)&&operator(minus))",
-+  "src_expr(definitely_in(0..))"}
-+-doc_end
-+
- #
- # Series 11
- #
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index cfdd1a9838..c5897e31c5 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -321,6 +321,12 @@ Deviations related to MISRA C:2012 Rules:
-        If no bits are set, 0 is returned.
-      - Tagged as `safe` for ECLAIR.
-
-+   * - R10.1
-+     - Applying the unary minus operator to an unsigned quantity has a
-+       semantics (wrap around) that is well-known to all Xen developers.
-+       For this reason, the operation is safe.
-+     - Tagged as `safe` for ECLAIR.
-+
-    * - R11.1
-      - The conversion from a function pointer to unsigned long or (void \*) does
-        not lose any information, provided that the target type has enough bits
---
-2.47.0
+Victor
 
