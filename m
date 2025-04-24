@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10C53A9A09E
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 07:48:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.965799.1356215 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BED71A9A109
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 08:11:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.965813.1356225 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7pRK-0006PA-0g; Thu, 24 Apr 2025 05:48:02 +0000
+	id 1u7pnE-0002Iy-OT; Thu, 24 Apr 2025 06:10:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 965799.1356215; Thu, 24 Apr 2025 05:48:01 +0000
+Received: by outflank-mailman (output) from mailman id 965813.1356225; Thu, 24 Apr 2025 06:10:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7pRJ-0006Nn-UD; Thu, 24 Apr 2025 05:48:01 +0000
-Received: by outflank-mailman (input) for mailman id 965799;
- Thu, 24 Apr 2025 05:47:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u7pnE-0002GE-LH; Thu, 24 Apr 2025 06:10:40 +0000
+Received: by outflank-mailman (input) for mailman id 965813;
+ Thu, 24 Apr 2025 06:10:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IaUl=XK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u7pRH-0006NZ-JO
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 05:47:59 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aa9cd4b8-20cf-11f0-9ffb-bf95429c2676;
- Thu, 24 Apr 2025 07:47:54 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4394a0c65fcso5470265e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 22:47:54 -0700 (PDT)
+ id 1u7pnD-0002G8-Es
+ for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 06:10:39 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d72d0822-20d2-11f0-9eb1-5ba50f476ded;
+ Thu, 24 Apr 2025 08:10:37 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-39ee623fe64so533250f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 23:10:37 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b408:9d23:e5d:de25:e110?
  (p200300cab734b4089d230e5dde25e110.dip0.t-ipconnect.de.
  [2003:ca:b734:b408:9d23:e5d:de25:e110])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4409d2a2e43sm6397755e9.10.2025.04.23.22.47.52
+ ffacd0b85a97d-3a06d54c105sm909209f8f.89.2025.04.23.23.10.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 22:47:53 -0700 (PDT)
+ Wed, 23 Apr 2025 23:10:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,61 +47,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa9cd4b8-20cf-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: d72d0822-20d2-11f0-9eb1-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745473674; x=1746078474; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745475037; x=1746079837; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MWw0jIbaX++oyedOfJGt/DHHL+/zPCP8Pz46b3GcsO0=;
-        b=CkD0hB3JDXmjccTe8Hhcqp7h+R7xmqcunL5Ks03Eyc1IDy9/28iR5lUkm5bHPQOo//
-         5howIKVl6YuiQAJMuRrHU+BUBJEaaGoF0SwYVOZ2gFjYPFfjFScXZeeccH+3fZ2W9xSu
-         mK10xbusxsLPwWMWe24nE++p5pwoz6Cw7W8PS7w5tbk4hYQKCU0NCFlBXecC8MnsI7aV
-         o7r/vVkh+wcN/jXtFPcz3OjnFonwHjsrZvVwKyW9XqEhT1qJw1dK+gKuLQvQ2HEHHUTX
-         jE67Sc5iNu8zpj9D12S+dMZGGCJjjeNoDQnNgNjTz00Gj9MiaU5+xuVZfSL0DGieqYsw
-         WMng==
+        bh=eYzr4SI5PhZvTE6U2jT9PLNZHTiN0PWbevjfMFhOlgA=;
+        b=LUbKbbwpU837XWuzDt22JZzoS9wG20bSGsIiCbp/taHDstxs3QKttmTqVk6Df5FFY8
+         5HDJjHsla3lPWc8WLY79KpcbfQfA52Nd2EviYk3ZVQyrMgKewIBz9ConQMTtr8Y9YQgx
+         PBzl3DO93OJIJh0if8MGE9jy2mS/KhFhqNJyLLxAfPk9i2QFU4I/nlFNcM/TD1oIhNZb
+         0l2pSXWglDtz842Dn8qDcglb+K0QSVYTt8kmFNzDHAC8K9EsMl+/noqvImkoYdCmouEO
+         RB8O3OgxpF7WCjNp08XGnbjd4Bdp+i7/OzZGM6NvzllI9lNGi1QoTjdRdMZVO53OWxo+
+         2zLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745473674; x=1746078474;
+        d=1e100.net; s=20230601; t=1745475037; x=1746079837;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MWw0jIbaX++oyedOfJGt/DHHL+/zPCP8Pz46b3GcsO0=;
-        b=mii64J7QiMZpixTuNRr2Bhzv7yUvhGUtMRZRRLgnrZ2/x1cE2qGxhIKSShzltqUxrt
-         I2x3dadr3ODxyocFGg9UjDUEBkAvCXNjZhq5yohgcJIz1ugEue0XjrYzb38tQCOeimez
-         tJSn7Qda90taxzS+P+J6EzWKdmhT3/wV35ugLzRsbuj3voFYhJsAHZJjiIK5CSdjrw8V
-         3zjgCMQro2RpDxkNd0zsBFvBQkY6NJxADxxCupud03yXm1mAcHw/UJsBzhwibs2DrlqY
-         8Ntud5O4f4tToEEwaG4rU8X0WR+OrPzaWVUMjyp4UA9CgDjMqBYNHSuGo/7mcYRV8T/a
-         Fbag==
-X-Forwarded-Encrypted: i=1; AJvYcCXzFStH2cOM1ronIrgnFHUJiksMFF/VKsKNe5oNJmF6I04LUoxPe1QsFcz2eArXji3+7/GA57XUyGI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwnCIMiEQjTpn/M5zBVkLDtdWGcOT5oDzeegwID06X2e9up/MgD
-	/07Bhtb31VmtQURv5aT7YKhcoCygjMGWYXIc+8DHcuazoWNf+ek6Nd/tm5JmUg==
-X-Gm-Gg: ASbGnctwGzDWjklHOJgEGVtOWotoHx1Whov+otid44nM96b0i160D1O+8yEaRbPxSrx
-	79K83B3jaGoa12LJvrAaeWwEjGt401uK8k3ExMVJcN0M980BF6ji0CxI4QwipSVu447NjZy/CEo
-	lxtMrW6vFqfhA/bw55E6oDVHVKWhneGzlcETGnbNaNJ3jfU/w4Hh6UkSSsTB0Q0MnfrS6E7Ncll
-	AseM7N8aZPyWyIBrkddASa1xxShrB0LAhVOh3qKkK6SnKUXyZzLeGxRUMAY7lNXdPfABVbAGRAd
-	siCrA34tWHYmNoHC8M874V4nIAIzhFfwFMBTRyEzXcf2MRXjIZzyBjNdvlwxgVhrZYmYWgvdC0C
-	ofqro9vHN4tUT0PoICle2mT5IyiGNFr4vuv14flXHa36vtNKrSVvXmd8J9XwO7UZm0VEbLPCs
-X-Google-Smtp-Source: AGHT+IH+Bx0WGCxVe9Iu9eoc6DrCj7Mw2uEwY68zMOaNCowO4J/N7qhNb7qWtJL9j0VdgOWGMrRXjQ==
-X-Received: by 2002:a05:600c:4e0a:b0:43c:fffc:7855 with SMTP id 5b1f17b1804b1-4409bd20a55mr10741525e9.15.1745473673571;
-        Wed, 23 Apr 2025 22:47:53 -0700 (PDT)
-Message-ID: <6c9c731d-2697-46c7-9ac6-4eb68d59d0ad@suse.com>
-Date: Thu, 24 Apr 2025 07:47:50 +0200
+        bh=eYzr4SI5PhZvTE6U2jT9PLNZHTiN0PWbevjfMFhOlgA=;
+        b=mCdFG/j1MdWKqHVh/hiBfY14QNeBeOy6S+S+8kjNHOKtaSEBD+MK8MUCoGgMIs88OD
+         VXxhI/zaXM/H38mRq4w2Euz9eLJ69WfsmsWqkatxrDDqi+HALk81y6rxnq+RNmt1jeT6
+         Hdoa0jVyvMQYwI5Ml3z4BRb2cFs4C+SmWMFW2l/te/rdGokFK+oaI3hyjnUdHqvf98qJ
+         oUjicGfU4i6S/YdY18RbHmiX2eoTpEBvPq0IBEVm0D6hPxbI0QspZH4cnNuiO0Oi52nc
+         QPM34O50ejiO2kauyoyWqtLYGHVLqhtO7TC4kPCSBzjVb1ALrMq2KFaj31aQkHXjWSye
+         4c6w==
+X-Gm-Message-State: AOJu0Yw8EmYgumm815g/0uvHGe/f6vTzXxPN0EIsyMguk/AKziMRr1U6
+	UWXJlSo90vojqRf17Aq2oI/pIjq6zr44mVDW12+QQf1ADK1VF8slm81Zn9QUxA==
+X-Gm-Gg: ASbGnct8W4Ch+zYT8FDkPPjzh9zpjLcuDjU9ilRIJnxOGVpcLTlfqokBI9SFtUAk+gC
+	tqAUBWFYaQrg7oUfKq7Pwsobl4WGx0xdfDANL/vXPLviaktlFwm3m04BCSDQEnzblIvl6OVzVqR
+	5B+pQhQBsetGzRiLo8h7NsvW1X05qX+PInDUlONFpUBP3n0fvhp8GGOb/eZebTKSIb71v3XcUVu
+	6Gqn3AqgntivMIIgZ+5NrKji4ytsZQ/Eqd5KxgZZgj9vR5f8RjUclG2g543ts2YfSkc8rbELLEN
+	e3+RXoOjD8W+NFDEa9grlTpQ43lJM2Q3P5dQ68/PpVzspXAnIpu2vZoZttzAR1TATCrTBvA6fdh
+	nfpEs1O/abQYHn1CM2/N/nXBElD1O8yWCTdm/UcaVN8oEP0vFJxP5kN1l2/ifmAbfTwsVjKmg
+X-Google-Smtp-Source: AGHT+IEBqsTtw6lGozmGXu9bJmJjgSJJ71lQidPPBXbynYhRTCNxD7LnZanu5RHuQmtrQYexi/wIHQ==
+X-Received: by 2002:a05:6000:40cd:b0:390:f9a5:bd79 with SMTP id ffacd0b85a97d-3a06cf5f3a2mr835540f8f.26.1745475036858;
+        Wed, 23 Apr 2025 23:10:36 -0700 (PDT)
+Message-ID: <c3531783-9d9f-4152-84a1-a87fddce4342@suse.com>
+Date: Thu, 24 Apr 2025 08:10:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] misra: add deviation for rules 21.1 and 21.2
+Subject: Re: [PATCH v1] misra: add deviation of Rule 5.5
 To: Stefano Stabellini <sstabellini@kernel.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: victorm.lira@amd.com, Federico Serafini <federico.serafini@bugseng.com>,
+ "Lira, Victor M" <VictorM.Lira@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+ Federico Serafini <federico.serafini@bugseng.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <790f9cae9a75b9f29554943c08abb6537647644e.1745364478.git.victorm.lira@amd.com>
- <20989ef0-a906-4ad2-818b-e52dd49b868d@suse.com>
- <alpine.DEB.2.22.394.2504231337240.785180@ubuntu-linux-20-04-desktop>
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+ <48c7830931a98b2bf70ef1509f309b262b9e5792.1745427770.git.victorm.lira@amd.com>
+ <d81178fe-82b8-434e-8610-e0ec71df6a28@amd.com>
+ <alpine.DEB.2.22.394.2504231338140.785180@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,50 +128,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2504231337240.785180@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2504231338140.785180@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.04.2025 22:37, Stefano Stabellini wrote:
-> On Wed, 23 Apr 2025, Jan Beulich wrote:
->> On 23.04.2025 01:43, victorm.lira@amd.com wrote:
->>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>
->>> MISRA C Rules 21.1 ("#define and #undef shall not be used on a
->>> reserved identifier or reserved macro name") and R21.2 ("A reserved
->>> identifier or reserved macro name shall not be declared") violations
->>> are not problematic for Xen, as it does not use the C or POSIX
->>> libraries.
+On 23.04.2025 22:41, Stefano Stabellini wrote:
+> On Wed, 23 Apr 2025, Lira, Victor M wrote:
+>> Continuing a discussion from before:
 >>
->> In the course of all the Misra discussions it was pointed out more than
->> once that it's not just the titles which matter, but also the
->> "Amplification" text. While the latter two of the three bullet points
->> applying to both rules clearly are library-centric, the first one isn't.
->> In that light it's entirely unclear to me how ...
->>
->>> Xen uses -fno-builtin and -nostdinc to ensure this, but there are still
->>> __builtin_* functions from the compiler that are available so
->>> a deviation is formulated for all identifiers not starting with
->>> "__builtin_".
+>> On 4/22/2025 11:44 PM, Jan Beulich wrote:
+>>> Caution: This message originated from an External Source. Use proper caution
+>>> when opening attachments, clicking links, or responding.
 >>>
->>> The missing text of a deviation for Rule 21.2 is added to
->>> docs/misra/deviations.rst.
 >>>
->>> To avoid regressions, tag both rules as clean and add them to the
->>> monitored set.
+>>> On 23.04.2025 01:43, victorm.lira@amd.com wrote:
+>>>>          memmove.
+>>>>        - Tagged as `deliberate` for ECLAIR.
+>>>>
+>>>> +   * - R5.5
+>>>> +     - Clashes between function-like macros and function names are
+>>>> +       deliberate
+>>> They may or may not be deliberate, depending on context. I don't think it's
+>>> a
+>>> good move to deviate this more widely than necessary. If I get the
+>>> expression
+>>> above (in deviations.ecl) right, even
+>>>
+>>> void func1(int);
+>>> void func2(int);
+>>>
+>>> #define func1() func2(0)
+>>> #define func2() func1(0)
+>>>
+>>> would be deviated, which I don't think we want. Especially when, in a less
+>>> contrived scenario, the clash may not easily be visible.
 >>
->> ... our code base could be anywhere near clean towards these two rules.
+>> OK, I see the issue for different functions. Does it make sense to say it's
+>> deliberate when it's the same identifier?
+>>
+>> 	void func1(int);
+>> 	...
+>> 	#define func1() func1(0)
+>>
+>> Could this be deviated?
 > 
+> I think it makes sense to be clear in deviations.rst and the doc text in
+> deviations.ecl that we are referring to the same identifier. That we can
+> do.
 > 
-> Given the section these two rules belong to "Standard libraries" and
-> given the rest of the rule description, it is clear to me that the
-> conflicts and undefined behaviors the two rules are trying to prevent
-> are conflicts with C or POSIX libraries. Nicola is the original author
-> of the patch and he has more experience with MISRA and I would trust
-> his interpretation.
+> I am not sure it is possible to change the ecl rule accordingly to
+> narrow the check relaxation. If not possible, I'd keep it as it is in
+> this patch.
 
-Then is there _another_ rule dealing with the remaining reserved
-identifier space?
+Isn't it a matter of producing a suitable regex? If not, I don't think we
+should put in too broad an Eclair rule, but then rather resort to e.g.
+SAF comments.
 
 Jan
 
