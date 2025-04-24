@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6E20A9B9DE
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 23:28:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.966937.1356982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CD7FA9B9FA
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 23:38:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.966949.1356991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u846o-0004DS-M8; Thu, 24 Apr 2025 21:27:50 +0000
+	id 1u84HI-0006HE-KT; Thu, 24 Apr 2025 21:38:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 966937.1356982; Thu, 24 Apr 2025 21:27:50 +0000
+Received: by outflank-mailman (output) from mailman id 966949.1356991; Thu, 24 Apr 2025 21:38:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u846o-0004Av-J6; Thu, 24 Apr 2025 21:27:50 +0000
-Received: by outflank-mailman (input) for mailman id 966937;
- Thu, 24 Apr 2025 21:27:50 +0000
+	id 1u84HI-0006F6-Hp; Thu, 24 Apr 2025 21:38:40 +0000
+Received: by outflank-mailman (input) for mailman id 966949;
+ Thu, 24 Apr 2025 21:38:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iZrJ=XK=gmail.com=trolle.selander@srs-se1.protection.inumbo.net>)
- id 1u846o-0004Ap-1z
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 21:27:50 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ <SRS0=WO6P=XK=amd.com=VictorM.Lira@srs-se1.protection.inumbo.net>)
+ id 1u84HH-0006F0-Jv
+ for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 21:38:39 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20617.outbound.protection.outlook.com
+ [2a01:111:f403:2413::617])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f7ef7560-2152-11f0-9ffb-bf95429c2676;
- Thu, 24 Apr 2025 23:27:48 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-ac2bb7ca40bso273353866b.3
- for <xen-devel@lists.xenproject.org>; Thu, 24 Apr 2025 14:27:48 -0700 (PDT)
+ id 7a143081-2154-11f0-9ffb-bf95429c2676;
+ Thu, 24 Apr 2025 23:38:37 +0200 (CEST)
+Received: from IA0PR12MB8864.namprd12.prod.outlook.com (2603:10b6:208:485::16)
+ by LV3PR12MB9120.namprd12.prod.outlook.com (2603:10b6:408:1a3::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8655.36; Thu, 24 Apr
+ 2025 21:38:33 +0000
+Received: from IA0PR12MB8864.namprd12.prod.outlook.com
+ ([fe80::b579:5233:e4a2:9077]) by IA0PR12MB8864.namprd12.prod.outlook.com
+ ([fe80::b579:5233:e4a2:9077%7]) with mapi id 15.20.8678.025; Thu, 24 Apr 2025
+ 21:38:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,243 +47,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f7ef7560-2152-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1745530067; x=1746134867; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=yVJORT2KGUdz/ji3AIvuRYZnWV53wuE7d4tJ0N5ILrE=;
-        b=P0V20rKeUPLFaLnC1k6N1c+1YFLaVq54ZZmmsCvcDdbORMJqLvzMB9ZBUYokw9+e92
-         zMzn8SR/AypknBxeFXJFwV3Bi7IWsVUwy4N9cqXehVA5I937oRJ4SIPzqRWpD6wW11RJ
-         rzjnMymUkLG79igA8slNLZS7t+fYxoprDMi84wrd04bNenZYcVGnWlamcIZPUERfYmJH
-         vI5rnMOdHXWRB6J5Y8EwI+mi4cByOGsbciC705pmqXnAV1pS+MqyEgGEyUWEj4FHrqV4
-         A5XyWadIMWXcw3j9OxfQHmdy9LWYNPvmXHuvkPiA0B9MgHGbB+ez70FxJOtpDccIXc9J
-         kwQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745530067; x=1746134867;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yVJORT2KGUdz/ji3AIvuRYZnWV53wuE7d4tJ0N5ILrE=;
-        b=HQmu8xo5CkZXedRIEzkvvIn5peXWPoTerxhzKR7HycQN2o/WFex8vitTp9DLJN0R2y
-         6unYCNalqUwgqoLKJIY4pUI+hQk2cQKN5BHpWH15do+LncRssvXLtJwrQKCxhSp0EP8p
-         4XuHAHWASjcvauJJGlILNAqwuuMH1USwzcYcz2tt351fy5L/d7G5VvTQ9lg49WYcnTFI
-         hhRH3mGPG7WR/JwEealLPKWt+BWySWfr+GJOG7+Q9NrQLJneeogy4jBRK3QVcSV+vqot
-         7IyTXwoTjECqSF2LXlsrbeD+7QsV3fl9AUI89r5SosE/zGSLwiv9ns5V9LFj0Dkiu782
-         hKMg==
-X-Forwarded-Encrypted: i=1; AJvYcCXuuKSI5YWuIpNRNCxsppOoxi6tgT+YzKRis9DdyYUeKqECrxYo1w06TYu2aFaaRHhWBwsV/CDppqw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyZpZrz/vhSabVtx2oMAFKjwL8pFeXHWRStp/cB8tWN71CYcUyv
-	jeAtxrzlJamVdIbM2VUOsgn1E78SCaGBkTY3jVGawiWohuxoPQ18z6E9Eil9cUEfCN6loMw0hIr
-	9ftiMQLMP1Rw87cjECYY0rUFTw9U=
-X-Gm-Gg: ASbGncta91qOYCXfdnqjZERi8hZPKSzj4+Re1fmjWHAwsQxwZE+fIOIB3ixw7YOSgdC
-	B4u//GwGO0cWhv2KiprxopNsPJUJURPeuUtuVIE2SYkO4lZKh4jwd4G9SMU2TgtgYFz9UIXLUMd
-	RJ7WhgRg5gMqXiJUxFTiG+UwnnnNfvPcqfhu8=
-X-Google-Smtp-Source: AGHT+IGfG6HYHzmfVZ3S0al3DSyrJnKeFONht1DMHassKVF+KiYhOqmFPX00SaCjvfnfldwyLYuwXuJA1Y4OFov/PVk=
-X-Received: by 2002:a17:907:720e:b0:ac7:f3a6:5af0 with SMTP id
- a640c23a62f3a-ace71026097mr7054966b.10.1745530067251; Thu, 24 Apr 2025
- 14:27:47 -0700 (PDT)
+X-Inumbo-ID: 7a143081-2154-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dXsztuMa0NtTJudCfYSplZvsq0W2s+xscciSt64vLrq0C8Uw3Nyy3P/rSar+zOcy/wgLxl4x3fGXgDQc+gH9uJZj+SznMbJJoI7yWmLXTpmvqCPagiFhzZHlq9SEci20+1BY4nG/oCf1+RD4MKjrWTMxfZwoYBwQ4JBstv49Cv2IKY/sUEDmPB/EqfYdd2yfDYz1wmiEJmNFGh4T1FKQCup0ApPxX2VQCOYHPFQa7mvT2W8mOlWJpcw4PwWMd65GPwGnaFs1xS9O5GnA/irgWXaUwsRbWOApgFVIkal9e7OGfUd2LHhnJDYIICY97zpY4sw8zNVqytA3YTKWKqwMNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u2XKyGySSq3DgauchUF3lCVEgxnvamPXIGj3RBNtPxM=;
+ b=fdf/g7uyFxelpMdmaiKR3AJEwA479DiZkhdfFNUzDaqV6neQNJ6ATsJkfVJq8W1gvNahlheWu/C7r0GV32Ur/QS9IBqv+5543mNHt+uNFdA2jv41cQyFGjkuBOQBydXG73ngCa2YQcYBuxa5jUFSdzh+7EJsnSPT5396gBhhGXW8xt1GCO0YcqJmhBdwBPE78cAk/faKuKtU/5tfuiH7zTKSfG6netQLXkTmgXivftyJi1O25SYV5lESL/MM+61I9IQVGNEyKzLCBw71suNgceQ46ak5SE+tVMHh8xEejJtKPCb/2bwovgVH9QO5UgFxaiApjZ6P0MReUywEIDIfYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u2XKyGySSq3DgauchUF3lCVEgxnvamPXIGj3RBNtPxM=;
+ b=b/RZfJw/UbGiHOkQxBdvBn88OaI1mwDTk/bndhVNOEbEGcWvQkdtAOK42/oLgU9jnkHwicOXvB+ilFEbdbiCRKu2gVxIBwpHFuyW5FJnQiazh8XRgqyrZXTeS8XbGk/MOnBAYZHKcKBjxdit0HBnwJr0vpq4hqcJYLeuGpfuhIw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <554026de-bbb4-488f-95c4-8e2f034d6d0e@amd.com>
+Date: Thu, 24 Apr 2025 14:38:29 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] xen/x86: allow overlaps with non-RAM regions
+To: Jason Andryuk <jason.andryuk@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Xenia.Ragiadakou@amd.com,
+ Alejandro.GarciaVallejo@amd.com
+References: <alpine.DEB.2.22.394.2504031755440.3529306@ubuntu-linux-20-04-desktop>
+ <Z--0USril0UIhR4R@macbook.lan> <3c5dfd26-3c12-498b-aca4-0beac4e991a5@amd.com>
+ <Z_jFSb2-efexUNlL@macbook.lan> <9ed89e50-c645-407d-80b4-5b78cb6e36fa@amd.com>
+ <Z_zGdE91KwlYxu_A@macbook.lan> <ce06ec74-1a73-4a02-87fc-3e829399cc77@amd.com>
+ <aAnvRMgJxAskbCtE@macbook.lan> <aAoPNTsLjMMfsHvJ@mail-itl>
+ <aAoW-kvpsWuPJwrC@macbook.lan> <775d3ac0-8f43-415a-a32d-14377092b96b@amd.com>
+Content-Language: en-US
+From: "Lira, Victor M" <VictorM.Lira@amd.com>
+In-Reply-To: <775d3ac0-8f43-415a-a32d-14377092b96b@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH8PR07CA0021.namprd07.prod.outlook.com
+ (2603:10b6:510:2cd::10) To IA0PR12MB8864.namprd12.prod.outlook.com
+ (2603:10b6:208:485::16)
 MIME-Version: 1.0
-References: <D9EWZF0G7QUZ.2IDV470T7SYD0@amd.com> <002DF04C-A250-4EAD-9834-FC07EFC9D562@ariadne.space>
- <D9F5WA7ONX45.NTFNWPJS5MWU@amd.com>
-In-Reply-To: <D9F5WA7ONX45.NTFNWPJS5MWU@amd.com>
-From: Trolle Selander <trolle.selander@gmail.com>
-Date: Thu, 24 Apr 2025 17:27:36 -0400
-X-Gm-Features: ATxdqUHR8WKj_V1K1ilHh9ppTCkx0ihqMfCKqpV6OzWmzonFaedgag7C1sNXFvs
-Message-ID: <CAMhw1543RpYCbOxCv_31qkv_s3cOdmeAf=PKhiMbpkbBvcGRDw@mail.gmail.com>
-Subject: Re: [PATCH] x86/hyperv: Adjust hypercall page placement
-To: Alejandro Vallejo <agarciav@amd.com>
-Cc: Ariadne Conill <ariadne@ariadne.space>, xen-devel@lists.xenproject.org, 
-	Jason Andryuk <jason.andryuk@amd.com>, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Paul Durrant <paul@xen.org>
-Content-Type: multipart/alternative; boundary="0000000000009a793c06338ce3fc"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8864:EE_|LV3PR12MB9120:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0ae7392-506e-4cf1-9986-08dd83785c50
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dkdUak9xVWhjN1BpazAzRU5ZQnpKMXh1NFY3RmM1Q0JjSnlPSjQyVUdwaE90?=
+ =?utf-8?B?dXpJOUlzNzJMa2pOK3JoYWFLU1ZGanlsVmxCNXoyV1BkQ3h1THhwYk9PdmN1?=
+ =?utf-8?B?NE1LVmlSTUNsQ1VURVQ4Mk1KQ1p1ZSt4ZHJhcWNKSy9wajZLdU1nNERUd1Uz?=
+ =?utf-8?B?bm1DV0ovSk44eWFwL1BnZnVaRW05KzdWUENlaWVVM1czWHZQUE1hQ3d6Yldm?=
+ =?utf-8?B?ZkdJQnBlUEgxSEhYSHJhdzNjR2k2TDdqMkFXakx3cXNnUVJHWldvcEtPaU9j?=
+ =?utf-8?B?aWI5d1FKemQzUE1mK000NkRrWWRrYnRZUGVEK2xhakIrK3MxNitoblViQ0dN?=
+ =?utf-8?B?RmdaS2VFa2FsdXZsMVZYR2M5TVk2UmZPZzBlMzRrMFJkT0w2ZS9LS0lKd0ZQ?=
+ =?utf-8?B?clpPc2h3VUNaNGoyT01zZmVzamRYVEliUWdMQ1lkaURYRW9wMStMM3A1ZVFF?=
+ =?utf-8?B?M1R2cGNiV2VsUFdCVFJQWGdpd0NvNWg1QzBDNHBveWtHc0hkVnpDU2UxQTkz?=
+ =?utf-8?B?ZXl2b1BqakJIRjFubFpneUJQWlFWT20wL050MnpPZytqdWYzd0hWTWlyN1A3?=
+ =?utf-8?B?Z21pZG81WDkycWtVMGtaMlVzaVNScS9INW1PdzQyYklCbU5oUW5Nem5CdStE?=
+ =?utf-8?B?YzVuQUNGd3JPWW9jZnlmdmhXT0R2SmUvRVFiaHMyRXQ5U3VDNmxUZ05LSkdC?=
+ =?utf-8?B?Wmdob3MrZHoxUWU1NW5Fdncvb1FGYXdWb0ExRVVESUVBS2RpVkdqQWl4Mkds?=
+ =?utf-8?B?QkJwRS9hUGx1K3RjTkxFM3ZtMHR4akNSZlRYZ2VJYVdWbjZRT1Zqc1lscEx6?=
+ =?utf-8?B?ZkRWMEJ4Njl1bU4rL21PRkhDQzN0M0QxNkFYdW0xSGt4NmZuVGNjL2NOaC9J?=
+ =?utf-8?B?MGp1dGJTNzZxL0dLY1hrUkFpT0NmU1UzVEhIcUFKaDg5ZHh4alBxVDhGdnNC?=
+ =?utf-8?B?ZHFTTkI4ZzlEdU5tRU44azRNVk54L3hqMzU1TnZ1VVVxSnNaMXlRam1SMWQ0?=
+ =?utf-8?B?V3VzZ2JFRjZIWVZyRlZzZngwWXlSNTFDUHZtY01KT2YySDBTWWduQ1dhVVRK?=
+ =?utf-8?B?K0pWVGdoYVV2VjZuSkVQYkZZR3BpbzNidXI3WG5oMEZOMEhRbWpXcVIvMEM4?=
+ =?utf-8?B?a1NhT01ib3FHYVlkN3U4NUZTUThNMjltNUVGcmQ3c2E1dE92V2R2WHVFM1VB?=
+ =?utf-8?B?MHVxZ0VDSXZSTC9keFd5MzY5Y0FvTkd4NjNYeGtkUWZncmlaWlIya3lhMG9Y?=
+ =?utf-8?B?eGpyS0NTZ1VNSzJxU2lzdDNiWWloNjBZK1JsV1l5SmVpTU5IT21UOWJTdTNx?=
+ =?utf-8?B?eURLSlJSc3FUSkhla2NzNHJkbG5tUkljQlp5NmhLd3VzNWhYaDZrQWZKTnVk?=
+ =?utf-8?B?UjY3K1l3TzJqRHJjaER2ZnlhUDBDRUlYaERPUnIreUxGM3J3Mmdpa3ZpN2ds?=
+ =?utf-8?B?emJhdW9mdXFCbHhNTlNRYU0vZWhLdlVaNzQ5dVc0V1Q3K25RRWFVRFVrT2FZ?=
+ =?utf-8?B?Q3ZmYkJNWnpuWkt2ZWRkcFllTU1HaXA1ZGZtSHlsSWZvL0pTNktGdXRYSFhj?=
+ =?utf-8?B?TUZZVnF1Z2cySWJHUzRNV1VVK0kwYVpPa1FSNmpsbWVLZnhMbWpMNjlmaEVw?=
+ =?utf-8?B?cEw2Qm9rT0NRM0Z4MmMxRW42UG0zb2tvSTFUUHJuMVZaQ0lOSlRLWG9RZzdW?=
+ =?utf-8?B?Vlg1Z2F5ODdYS25DZElMN2tZMUdGM05ud3pOQmtiSW5SR3VsUGYvR2cyOWRO?=
+ =?utf-8?B?ZSs2MnRzbVhTVTAzc0RzWG5yTE1JekN5T3I2bzd5TkQzSko3N25zbWtvN1Vk?=
+ =?utf-8?B?UWJueWMvZWVUOW5UOGxmOGlPdGUrSTAvZG5nNmxIdERxNThlOUZSUmVOSVZo?=
+ =?utf-8?B?Uk5LVDNvdGdTWkQzNzg5NGVHRDd1UTlqSzM2c0FNdjM5aEg3OVpDaFZlWDVT?=
+ =?utf-8?Q?A/ngV/1XKbM=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8864.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NUFucTR2SzBCWVlzZkhzUnZoRURDNWJySG01ZS9WK2NlR0V2bmRsTUpGUkh2?=
+ =?utf-8?B?R2s3VUpobGJxaVlTVXBjaVc1UzJsVitGSFZQeDVHaFl5QmY5ZjBqemd3UGU5?=
+ =?utf-8?B?UHVzTnVQeUo3SkZvcy9vcUUzbnVDRU9NSWp1OU1KOUtpdjAxSThoYkRzREFq?=
+ =?utf-8?B?NW9WQngzQk1TV0t1enJ4ZjdIN1FuNnpsb3J2d1J1S0pUNElHSlpwWk1DaS9L?=
+ =?utf-8?B?NG9kV3IxcmhScEQvSFhZNDVTUGQ3NE1KTXJpNi9RVFYvSmNXMk9rVmFqYUZa?=
+ =?utf-8?B?ekRUcUtlcWtMeEprRUhMTGVZMVluSWhyamRMVHVQR01LQjdkc056TjEyazRq?=
+ =?utf-8?B?OWxaNVJMYWlWVzI2anV5RFA3K2pqRDdzY21KaEMwamdJdFZVdkZXcm9JaC94?=
+ =?utf-8?B?bUdKYUY3cU5DYmRjOUFpSzZkMXp5WjFOU1JWOXlseWRFNUpUVGdvWGpmYjRx?=
+ =?utf-8?B?akRMRHRsajd6eFdJWEJVOHVvb1Rjd3NZR1RaN29kandnTGM1dHZBN1RYT3Zm?=
+ =?utf-8?B?SkJvKzQ0SWJxSXNWTGNmRTBJUXhQVzdxNlZjZ25vQmpqWTJkdy94TFdLcWY1?=
+ =?utf-8?B?M0sxRjVFdWFSMWtvNFpKK3JISWFJd1kxaU5nWFV2VHlWdE9rTTYyaElRYStX?=
+ =?utf-8?B?K0ljeEd1R0h6VGd6V0tYS2x3cU9FejRHN2w4Y3hqeGtzcE5xOGRXZEZBVTdM?=
+ =?utf-8?B?MEd6WmdCTUZwZHl1Z3g5amxBZU1Bd0k2VDRZc04vdXNDTXZaU1BoRVVvK0Mx?=
+ =?utf-8?B?MnFZUXhzUmdkeWJWN3pkVkJmeGwzZjdZNVBXcjdhMjJ2UktuZUdFcE1VeThh?=
+ =?utf-8?B?MFRvWlBxSjhsMFIrNVpKZ3pTZVZscVRhbi9sUWhDcE9jL1NqTGh2MHltN2xp?=
+ =?utf-8?B?eUl5cW55TWVuekdBaHpMR2JZWWg5S3dISHZzQ3d6bkhOTjRVRDJXWGxHQU9O?=
+ =?utf-8?B?VmxTZXoyMnFQNTdUUE5YYVI0MmJhT1lQTEg5d213dlMrM0Z1cmpNWnJIQlJO?=
+ =?utf-8?B?Q1YyRTBJS0t5M1RjZENzQzZ4bmJwRUN1TUhFY3o2UWJDS2lsQkowRmtnM3RI?=
+ =?utf-8?B?Z0dIVGNlU1IrZFhBMm10Z3E5Z3hySnNybGplTDhGakR5U0RHN0tHVDFRRzBx?=
+ =?utf-8?B?S1FlNTRFbkNXS1lEUHh2czBXVHJLVFZwV1ZZV0w4RnUxc2g5SGRLcmN3Zjh5?=
+ =?utf-8?B?UkhYQlRHR3ZUcXpMMW5EaVl0b0lkY1MrWVZDbjQ5SkN0UXVwd2VrM3NiQ1BZ?=
+ =?utf-8?B?QUJBTlo5Rzdmb1R5L2RyWndhSEl4WnI5RVpvdFJmaUIzRGNHTUFGOHJUQXdD?=
+ =?utf-8?B?UDlMYmpkZlhWbWNPbUtQN0wvTUZ1UERtSVV0c3V3cmZjUFN0cXJHa3dpVDc5?=
+ =?utf-8?B?YjBxS2tXM1RYTGhKUkZYL1NZUEJheFc1L0lxQTRHeWwvcmdjeW5KakVvYmlN?=
+ =?utf-8?B?LzY0ZFFaUXJtZkVyWGdTbDJNSEhOSzIzK2RRcHRCNkRZZXY2M25NdzM4U3Rr?=
+ =?utf-8?B?cmtzV3VTL3RCcjA0NURUMUVkeGFEUWFHanlEeHc1TzJudHFERXN2VDZiWmpX?=
+ =?utf-8?B?WjROZ2VSd3k5VWZRbEFLMjJaZElXQjZidXgwWlpWQkdkazZWdTBQUVgyLzE0?=
+ =?utf-8?B?TlVHMGFuUkxFMnpGd3hlU1F0NFNaWlJXYVAvUyttR3V3NmJuV082Tm4vSWhF?=
+ =?utf-8?B?QjBONktmcGxBT1c0cHBkYmp2emVKaFR6VGI5TzBoREU3OHlMTnBCaDEwOFoy?=
+ =?utf-8?B?T1ZLZ28yaFhrQ2RLWE0yeW51ZjhLTVljWW96Vk1XWnI5RW43M3F0MytaQ2hG?=
+ =?utf-8?B?dzErT1FmVHl6TGo5OHdwZFRWQ21lSThSWkQ1VFMzYWZ4TUY1ODJvK2JHLytk?=
+ =?utf-8?B?MVFDN1l1bzF0a0dMc2ZITXFJc3NSNTdxanRIR3FuYVZmVUVUeGozRUpTRTdH?=
+ =?utf-8?B?MVFzayszUS9jcEtjNnJlRmVoUTdCU05pR3pPR3pOQmpDWWV2NmFvRG5IamZ0?=
+ =?utf-8?B?aFNFOEszdDhORlhtbEtVSkhFL2R6UFNwcE5GcGZyV1FqQnRtSmswZm5IbUJO?=
+ =?utf-8?B?ZEtLVitrYkJPMXcwNnNGYUhRRCszM2hVWlRhQVJZNGN2YTVrUVl6eGJVYXVx?=
+ =?utf-8?Q?re/G4QO3V+XvfxeJxfP/yA77C?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0ae7392-506e-4cf1-9986-08dd83785c50
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8864.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2025 21:38:32.7317
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JCUUIWR5KzGgmXNbW0nbAArXbvwqy49wSw9iTKVXn0RKc7E2+eEAe36aA7yyidZO71pNAucuCt921ar2/cYA3Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9120
 
---0000000000009a793c06338ce3fc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hello all,
 
-I worked on Xen-on-Azure last summer in my previous position. Allocating a
-heap page was how we solved this particular issue in our branch as well.
+Here is the output from Roger's patch.
+This is the section of interest:
 
-I see you say you're still 'working on bringing Xen up on Azure', so I'm
-not sure how far along your branch / patch set is, but for what it's worth,
-we had "everything" working, including use of VMBus and passthrough devices
-in dom0.
+> (XEN) [ 7.547326] d0 has maximum 3328PIRQs
+> (XEN) [ 7.555644] *** Building a PVH Dom0 ***
+> (XEN) [ 7.567780] d0: identity mappings for IOMMU:
+> (XEN) [ 7.577312]  [00000000a0, 00000000ff] RW
+> (XEN) [ 7.586153]  [0000009bff, 0000009fff] RW
+> (XEN) [ 7.594992]  [00000cabc9, 00000cc14c] RW
+> (XEN) [ 7.603866]  [00000cc389, 00000cc389] RW
+> (XEN) [ 7.612707]  [00000cc70a, 00000cd1fe] RW
+> (XEN) [ 7.621896]  [00000ce000, 00000cffff] RW
+> (XEN) [ 7.630731]  [00000fd000, 00000fd2ff] RW
+> (XEN) [ 7.639573]  [00000fd304, 00000febff] RW
+> (XEN) [ 7.648414] gfn 0xfe800mfn 0xfe800type 5order 9
+> (XEN) [ 7.658985] Xen WARNat arch/x86/mm/p2m-pt.c:599
+> (XEN) [ 7.669215] ----[ Xen-4.21-unstable x86_64  debug=y  Tainted:   
+> C    ]----
+> ...
+> (XEN) [ 8.227521] Xen call trace:
+> (XEN) [ 8.234107]    [<ffff82d040309bd6>] R 
+> arch/x86/mm/p2m-pt.c#p2m_pt_set_entry+0xc1/0x961
+> (XEN) [ 8.250925]    [<ffff82d0402fbf0d>] F p2m_set_entry+0xb5/0x13c
+> (XEN) [ 8.263579]    [<ffff82d0402fc091>] F 
+> arch/x86/mm/p2m.c#set_typed_p2m_entry+0xfd/0x6f0
+> (XEN) [ 8.280388]    [<ffff82d0402fdcd4>] F set_mmio_p2m_entry+0x62/0x6b
+> (XEN) [ 8.293735]    [<ffff82d0402ff9cf>] F map_mmio_regions+0x77/0xcf
+> (XEN) [ 8.306734]    [<ffff82d04042fc1b>] F 
+> drivers/passthrough/x86/iommu.c#identity_map+0x7e/0x196
+> (XEN) [ 8.324761]    [<ffff82d040232935>] F 
+> rangeset_report_ranges+0x10a/0x159
+> (XEN) [ 8.339149]    [<ffff82d0404301e6>] F 
+> arch_iommu_hwdom_init+0x27f/0x316
+> (XEN) [ 8.353361]    [<ffff82d04042cffa>] F 
+> drivers/passthrough/amd/pci_amd_iommu.c#amd_iommu_hwdom_init+0xa9/0xc1
+> (XEN) [ 8.373988]    [<ffff82d040430846>] F iommu_hwdom_init+0x26/0x2e
+> (XEN) [ 8.386989]    [<ffff82d040441a30>] F 
+> dom0_construct_pvh+0x265/0x1141
+> (XEN) [ 8.400860]    [<ffff82d040457f7c>] F construct_dom0+0x47/0x93
+> (XEN) [ 8.413511]    [<ffff82d0404504e0>] F __start_xen+0x21fc/0x2425
+> (XEN) [ 8.426340]    [<ffff82d0402043be>] F __high_start+0x8e/0x90
+> (XEN) [ 8.438646]
+> (XEN) [ 8.442632]  [00000fec02, 00000fedff] RW
+> (XEN) [ 8.451599]  [00000fee01, 00000fffff] RW
+> (XEN) [ 8.460571]  [000080f340, 00008501ff] RW
+> (XEN) [ 8.470205] 0000:02:00.0: not mapping BAR [fea00, fea03] invalid 
+> position
+> (XEN) [ 8.484769] 0000:03:00.0: not mapping BAR [fe900, fe90f] invalid 
+> position
+> (XEN) [ 8.499330] 0000:03:00.0: not mapping BAR [fe910, fe913] invalid 
+> position
+> (XEN) [ 8.513890] gfn 0xfe910mfn 0xfffffffffffffffftype 1order 0
+> (XEN) [ 8.526370] Xen WARNat arch/x86/mm/p2m-pt.c:599
+> ...
+> (XEN) [ 9.094902] Xen call trace:
+> (XEN) [ 9.101491]    [<ffff82d040309bd6>] R 
+> arch/x86/mm/p2m-pt.c#p2m_pt_set_entry+0xc1/0x961
+> (XEN) [ 9.118306]    [<ffff82d0402fbf0d>] F p2m_set_entry+0xb5/0x13c
+> (XEN) [ 9.130957]    [<ffff82d0402fe1fb>] F 
+> p2m_remove_identity_entry+0x26f/0x2ca
+> (XEN) [ 9.145865]    [<ffff82d040268a4a>] F 
+> vpci_make_msix_hole+0x11a/0x27a
+> (XEN) [ 9.159734]    [<ffff82d0402654c4>] F 
+> drivers/vpci/header.c#modify_decoding+0x4e/0x1b3
+> (XEN) [ 9.176547]    [<ffff82d040265c89>] F 
+> drivers/vpci/header.c#modify_bars+0x660/0x6c4
+> (XEN) [ 9.192838]    [<ffff82d040266427>] F 
+> drivers/vpci/header.c#init_header+0x5e7/0x86f
+> (XEN) [ 9.209129]    [<ffff82d04026449c>] F vpci_assign_device+0xd3/0x115
+> (XEN) [ 9.222648]    [<ffff82d040430de4>] F 
+> drivers/passthrough/pci.c#setup_one_hwdom_device+0x92/0x15b
+> (XEN) [ 9.241368]    [<ffff82d04043112a>] F 
+> drivers/passthrough/pci.c#_setup_hwdom_pci_devices+0x158/0x241
+> (XEN) [ 9.260612]    [<ffff82d04027aad7>] F 
+> drivers/passthrough/pci.c#pci_segments_iterate+0x43/0x69
+> (XEN) [ 9.278814]    [<ffff82d040431513>] F 
+> setup_hwdom_pci_devices+0x28/0x2f
+> (XEN) [ 9.293026]    [<ffff82d04042d009>] F 
+> drivers/passthrough/amd/pci_amd_iommu.c#amd_iommu_hwdom_init+0xb8/0xc1
+> (XEN) [ 9.313649]    [<ffff82d040430846>] F iommu_hwdom_init+0x26/0x2e
+> (XEN) [ 9.326652]    [<ffff82d040441a30>] F 
+> dom0_construct_pvh+0x265/0x1141
+> (XEN) [ 9.340516]    [<ffff82d040457f7c>] F construct_dom0+0x47/0x93
+> (XEN) [ 9.353172]    [<ffff82d0404504e0>] F __start_xen+0x21fc/0x2425
+> (XEN) [ 9.365999]    [<ffff82d0402043be>] F __high_start+0x8e/0x90
+> (XEN) [ 9.378305]
+> (XEN) [ 9.382289] 0000:04:00.0: not mapping BAR [fe700, fe77f] invalid 
+> position
+> (XEN) [ 9.396850] 0000:04:00.3: not mapping BAR [fe500, fe5ff] invalid 
+> position
+> (XEN) [ 9.411412] 0000:04:00.4: not mapping BAR [fe400, fe4ff] invalid 
+> position
+> (XEN) [ 9.425972] 0000:05:00.0: not mapping BAR [fe801, fe801] invalid 
+> position
+> (XEN) [ 9.440531] 0000:05:00.1: not mapping BAR [fe800, fe800] invalid 
+> position
 
-The Azure version of the product got put on ice, and the code wasn't in a
-very 'upstreamable' state due to how patches/branches were managed, but
-bottom line is I know every bump on the Xen-on-Azure road, so may be able
-to help get an upstream version of this 'the rest of the way' if you start
-pushing it to xen-devel.
+So vpci_make_msix_hole is where it's getting removed.
 
-Cheers,
-Trolle
 
-On Thu, Apr 24, 2025 at 4:47=E2=80=AFPM Alejandro Vallejo <agarciav@amd.com=
-> wrote:
-
-> On Thu Apr 24, 2025 at 7:22 PM BST, Ariadne Conill wrote:
-> > Hi,
-> >
-> >> On Apr 24, 2025, at 6:48=E2=80=AFAM, Alejandro Vallejo <agarciav@amd.c=
-om>
-> wrote:
-> >>
-> >> =EF=BB=BFOn Thu Apr 24, 2025 at 1:45 PM BST, Alejandro Vallejo wrote:
-> >>> Xen nowadays crashes under some Hyper-V configurations when
-> >>> paddr_bits>36. At the 44bit boundary we reach an edge case in which t=
-he
-> >>> end of the guest physical address space is not representable using
-> 32bit
-> >>> MFNs. Furthermore, it's an act of faith that the tail of the physical
-> >>> address space has no reserved regions already.
-> >>>
-> >>> This commit uses the first unused MFN rather than the last, thus
-> >>> ensuring the hypercall page placement is more resilient against such
-> >>> corner cases.
-> >>>
-> >>> While at this, add an extra BUG_ON() to explicitly test for the
-> >>> hypercall page being correctly set, and mark hcall_page_ready as
-> >>> __ro_after_init.
-> >>>
-> >>> Fixes: 620fc734f854("x86/hyperv: setup hypercall page")
-> >>> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
-> >>
-> >> After a side discussion, this seems on the unsafe side of things due t=
-o
-> >> potential collision with MMIO. I'll resend (though not today) with the
-> >> page overlapping a RAM page instead. Possibly the last page of actual
-> >> RAM.
-> >
-> > We have been working on bringing Xen up on Azure over at Edera, and
-> > have encountered this problem.  Our solution to this problem was to
-> > change Xen to handle the hypercall trampoline page in the same way as
-> > Linux: dynamically allocating a page from the heap and then marking it
-> > as executable.
-> >
-> > This approach should avoid the issues with MMIO and page overlaps.
->
-> Yes, that's what I meant by overlapping RAM. Overlaying the hypercall
-> page on top of existing RAM rather than trying to find a suitable hole.
->
-> > Would it be more interesting to start with our patch instead?
->
-> If you have it ready to go, for sure. My ability to test any of this is
-> fairly limited. I suspect the VM is just not getting 48 bits worth of
-> guest-physical address space, and so making any hypercall turns into an
-> EPT violation.
->
-> I couldn't run the tests that would definitely prove it though
->
-> From the little I saw of the dmesg going forward, I suspect there's more
-> required (at least in time handling) to enable support in gen2
-> insteances.
->
-> Cheers,
-> Alejandro
->
->
->
-
---0000000000009a793c06338ce3fc
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I worked on Xen-on-Azure last summer in my previous positi=
-on. Allocating a heap page was how we solved this particular issue in our b=
-ranch as well.<br><br>I see you say you&#39;re still &#39;working on bringi=
-ng Xen up on Azure&#39;, so I&#39;m not sure how far along your branch / pa=
-tch set is, but for what it&#39;s worth, we had &quot;everything&quot; work=
-ing, including use of VMBus and passthrough devices in dom0.<div><br>The Az=
-ure version of the product got put on ice, and the code wasn&#39;t in a ver=
-y &#39;upstreamable&#39; state due to how patches/branches were managed, bu=
-t bottom line is I know every bump on the Xen-on-Azure road, so may be able=
- to help get an upstream version of this &#39;the rest of the way&#39; if y=
-ou start pushing it to xen-devel.<div><br></div><div>Cheers,</div><div>Trol=
-le</div></div></div><br><div class=3D"gmail_quote gmail_quote_container"><d=
-iv dir=3D"ltr" class=3D"gmail_attr">On Thu, Apr 24, 2025 at 4:47=E2=80=AFPM=
- Alejandro Vallejo &lt;<a href=3D"mailto:agarciav@amd.com">agarciav@amd.com=
-</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-On Thu Apr 24, 2025 at 7:22 PM BST, Ariadne Conill wrote:<br>
-&gt; Hi,<br>
-&gt;<br>
-&gt;&gt; On Apr 24, 2025, at 6:48=E2=80=AFAM, Alejandro Vallejo &lt;<a href=
-=3D"mailto:agarciav@amd.com" target=3D"_blank">agarciav@amd.com</a>&gt; wro=
-te:<br>
-&gt;&gt; <br>
-&gt;&gt; =EF=BB=BFOn Thu Apr 24, 2025 at 1:45 PM BST, Alejandro Vallejo wro=
-te:<br>
-&gt;&gt;&gt; Xen nowadays crashes under some Hyper-V configurations when<br=
->
-&gt;&gt;&gt; paddr_bits&gt;36. At the 44bit boundary we reach an edge case =
-in which the<br>
-&gt;&gt;&gt; end of the guest physical address space is not representable u=
-sing 32bit<br>
-&gt;&gt;&gt; MFNs. Furthermore, it&#39;s an act of faith that the tail of t=
-he physical<br>
-&gt;&gt;&gt; address space has no reserved regions already.<br>
-&gt;&gt;&gt; <br>
-&gt;&gt;&gt; This commit uses the first unused MFN rather than the last, th=
-us<br>
-&gt;&gt;&gt; ensuring the hypercall page placement is more resilient agains=
-t such<br>
-&gt;&gt;&gt; corner cases.<br>
-&gt;&gt;&gt; <br>
-&gt;&gt;&gt; While at this, add an extra BUG_ON() to explicitly test for th=
-e<br>
-&gt;&gt;&gt; hypercall page being correctly set, and mark hcall_page_ready =
-as<br>
-&gt;&gt;&gt; __ro_after_init.<br>
-&gt;&gt;&gt; <br>
-&gt;&gt;&gt; Fixes: 620fc734f854(&quot;x86/hyperv: setup hypercall page&quo=
-t;)<br>
-&gt;&gt;&gt; Signed-off-by: Alejandro Vallejo &lt;<a href=3D"mailto:agarcia=
-v@amd.com" target=3D"_blank">agarciav@amd.com</a>&gt;<br>
-&gt;&gt; <br>
-&gt;&gt; After a side discussion, this seems on the unsafe side of things d=
-ue to<br>
-&gt;&gt; potential collision with MMIO. I&#39;ll resend (though not today) =
-with the<br>
-&gt;&gt; page overlapping a RAM page instead. Possibly the last page of act=
-ual<br>
-&gt;&gt; RAM.<br>
-&gt;<br>
-&gt; We have been working on bringing Xen up on Azure over at Edera, and<br=
->
-&gt; have encountered this problem.=C2=A0 Our solution to this problem was =
-to<br>
-&gt; change Xen to handle the hypercall trampoline page in the same way as<=
-br>
-&gt; Linux: dynamically allocating a page from the heap and then marking it=
-<br>
-&gt; as executable.<br>
-&gt;<br>
-&gt; This approach should avoid the issues with MMIO and page overlaps.<br>
-<br>
-Yes, that&#39;s what I meant by overlapping RAM. Overlaying the hypercall<b=
-r>
-page on top of existing RAM rather than trying to find a suitable hole.<br>
-<br>
-&gt; Would it be more interesting to start with our patch instead?<br>
-<br>
-If you have it ready to go, for sure. My ability to test any of this is<br>
-fairly limited. I suspect the VM is just not getting 48 bits worth of<br>
-guest-physical address space, and so making any hypercall turns into an<br>
-EPT violation.<br>
-<br>
-I couldn&#39;t run the tests that would definitely prove it though<br>
-<br>
-From the little I saw of the dmesg going forward, I suspect there&#39;s mor=
-e<br>
-required (at least in time handling) to enable support in gen2<br>
-insteances.<br>
-<br>
-Cheers,<br>
-Alejandro<br>
-<br>
-<br>
-</blockquote></div>
-
---0000000000009a793c06338ce3fc--
+Victor
 
