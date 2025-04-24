@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE8FCA9B018
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 16:05:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.966386.1356610 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6A03A9B08D
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 16:21:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.966404.1356620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7xCA-0001oZ-P1; Thu, 24 Apr 2025 14:04:54 +0000
+	id 1u7xRt-0005gg-6o; Thu, 24 Apr 2025 14:21:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 966386.1356610; Thu, 24 Apr 2025 14:04:54 +0000
+Received: by outflank-mailman (output) from mailman id 966404.1356620; Thu, 24 Apr 2025 14:21:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7xCA-0001lb-Kv; Thu, 24 Apr 2025 14:04:54 +0000
-Received: by outflank-mailman (input) for mailman id 966386;
- Thu, 24 Apr 2025 14:04:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u7xRt-0005db-3P; Thu, 24 Apr 2025 14:21:09 +0000
+Received: by outflank-mailman (input) for mailman id 966404;
+ Thu, 24 Apr 2025 14:21:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KF8R=XK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u7xC9-0001lR-CC
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 14:04:53 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 15068069-2115-11f0-9ffb-bf95429c2676;
- Thu, 24 Apr 2025 16:04:48 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-4394a823036so10474675e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 24 Apr 2025 07:04:48 -0700 (PDT)
+ id 1u7xRs-0005dV-GD
+ for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 14:21:08 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5ccab634-2117-11f0-9eb2-5ba50f476ded;
+ Thu, 24 Apr 2025 16:21:07 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-39c266c2dd5so1189724f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Apr 2025 07:21:07 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a06d4ae0c3sm2173164f8f.29.2025.04.24.07.04.45
+ ffacd0b85a97d-3a06d569c1bsm2224364f8f.101.2025.04.24.07.21.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Apr 2025 07:04:45 -0700 (PDT)
+ Thu, 24 Apr 2025 07:21:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15068069-2115-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 5ccab634-2117-11f0-9eb2-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745503487; x=1746108287; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1745504467; x=1746109267; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Xxpv0yRGCcRy4bvVn3wUom7PcRVRG/rxXEeQkIO6LWU=;
-        b=skTX9g9fxTIbiD8arm0aIkHV7ykJZz6Tbldf8AaLBY66TYP1IUGYq1rH8zcb023d95
-         ynopYt+lQ+A1/QCL72w01j9yHxRI7ilhm1PG32xQ/36T5m6bAI2IL8JM4BBRJ+DUJFDG
-         71i5i6XTENRv3+aBObi1rrpSuJYgTqsHdnQI0=
+        bh=rQsmCZqY8/07IK58Yhov3m/dZRx9yuC+jvu9Ks8P95I=;
+        b=odhRKKyENMiWrOE0UXPt01v7jUhs+Nr1UN1r4NszlXB9kFmDdb1KtqeeZwd7PGP+mt
+         N0W0rhfKVWxsXZPNt3SCndElRF0u+RJxDUZmkMxiQUQJpqQwzidl9o5hxYgvXpfXaYk7
+         1pYhggo6pJp404yoB9+voyzWiQwAy3nIzlalA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745503487; x=1746108287;
+        d=1e100.net; s=20230601; t=1745504467; x=1746109267;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Xxpv0yRGCcRy4bvVn3wUom7PcRVRG/rxXEeQkIO6LWU=;
-        b=XzQNKkIPkaDQ3uqs/PauLUdEBbz4vUYrXW15Xn6uFcTtTXfjVfNyWsxfxDQXCWocrv
-         lJysofKsvqmembWO6hWoCqS3d2XmZ2KrghgiGMWWstbgresCkZP9nBEVJqKAaGP4wlbx
-         WhKs5rOhywkELRq8vq63sW/oDBReU2MjURVCuHhRSgUIG2+wpTxnbj7An3k/cCjHJwfW
-         pyAMjF5IL1Si1h9TChGVmPBoWxL4Iu8zWEEh7erVpBUIt6KiZlFJCpyn3Olga3O2V4NN
-         UT48IIGTGSJZkmKsU+mp6xMB8Vg5tXjI8Zum0g8qnGrzHLtaWc+78hgpLwMiW+6npLdF
-         7PNg==
-X-Forwarded-Encrypted: i=1; AJvYcCUOLVBLIXiXHCU4H21cmOQFXmHm2KuXiLjxmV6xhtxuyKJj/Skv3aLm5A8EbF6gJTjJmz7DGTmt1lU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw5ekzxLRzAkwBxIripqwF5sAhWwkCOPREDvOH1/IacStPriuQa
-	9pm1kfb5dqNcIdI97xG+CI824kcsH75lETFqBCU5n+TD0TQeOF7Wtna0hZeGZ+A=
-X-Gm-Gg: ASbGncvxHptu3/kyU/WYy5w6t+0uF3PHPSnYgsrM/+xfixLbV17acMLEARgCoZWYI6f
-	/r2VcGacl+PRuQss8JouQPg7u1yYH6pNWlK/j3Y5jwprM8ME952EC9H8LIdM6RMLsmweKGZEZtV
-	88CL7or8gkk6fRaQUx9X9kTNsHRhwC6lpgAXrwTe+J/fv+BvzE9HYmHw6VuubVNZ85rxiDlyA+7
-	NDUMcI/FbM6UbYcqRnbczXbNdsFk/l3e13uT8Vs1Xn2kfA+1mMsbaNf4cHHEEei6FvFgL/FOroT
-	qqnuGDmC6/wsxdLFYG4AKDZniMExkul42KUT1ULUmHvstU+I1oQay5ENgT0YYWdPuey4ewAS2yY
-	UE81AJ7kphEuAWkXS
-X-Google-Smtp-Source: AGHT+IGoE3ihziAEJXsspY6laCE6Uygh/fPcfmGS2qIZbyw1tTet9pVyn+zlZyMbh/QzHTr3nNtp2w==
-X-Received: by 2002:a5d:47ad:0:b0:390:e62e:f31f with SMTP id ffacd0b85a97d-3a06cf5000amr2185367f8f.3.1745503485881;
-        Thu, 24 Apr 2025 07:04:45 -0700 (PDT)
-Message-ID: <659665fc-e938-4c2d-9707-b44f637bb6fb@citrix.com>
-Date: Thu, 24 Apr 2025 15:04:44 +0100
+        bh=rQsmCZqY8/07IK58Yhov3m/dZRx9yuC+jvu9Ks8P95I=;
+        b=uLJe39/gwDBVmWo3+t7KtfxHwElaopbEwSa8gWPd0WuUbYZFtDnxGVaMyvMnsRXiee
+         d5kGr5VFoe/LDQMyEKHDK74wy7I3uKjVNWGaqRmmnTKLWbPDSAf1YZ9GcaYZzJIUFLl1
+         HVOEpEpHVtkdyW9/Y0g4UEcoDXyDDVWWv7GaasUqwAnyz5EioS6aLEkvpbzEietcn1a1
+         O3tV6O7Q5S/744Jf22as1byaZilhrxTVHJdbkcdLs504xCgTuy8BpcRgJ+BsZ1K3sjde
+         ROfCwZgdKTthsDSB1X6y0K/WbcUgv8QgwrKQQNp579uUeqA7KdhudcGBv1Kb4OsbKu2F
+         H1rw==
+X-Forwarded-Encrypted: i=1; AJvYcCVeN1RnLusmu34gK4D8fHyrcEEplO9qE0e9YZoitqg3YEQxlMjf058NtSsTS8C0iS0f6EloRxPb89s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwceHre8De9qfMTN59RMzlq4QKkTaV6AKB42W5WRekJf70esPZm
+	/htPo4JG5VbLtOmNTWHk4EWKWNoAo3g00A7SokJON0YcZz3xLTzq8JWn7bPJl5M=
+X-Gm-Gg: ASbGnctmNqzsP2ybvGgTQshTyVr74XZ4Bbz1zuU39Y8AeAP3cyqc5gHaHeYv18fCtFH
+	Ajn1Cah1HGC7QJvwiRga3osJeuf7OK7CtxaVVscAz9BW23TqlUAWO7KfsidBynDpax8Wmz2BrUH
+	2JcSGkhOZaTxd1/zPI9/+t3azXNSbyuF2fzJq9l93WwZ7aiYEIXjERPq+2vtCN2DR+/IXVWI+YZ
+	CiTsXE4KNe6nG2gfEcFm8a8k8cyuEj0QKAL0/pib8laJYqixks2z1MStK4ctkcnyJR72n3PhXWA
+	r9E6tf+v4iwTmMCq0OJlVH2p4SlliShfqBZgFtMfUiyi+Z77YT+QEYBG7zSnUNzM1njKTGpL+H3
+	Az7yh6g==
+X-Google-Smtp-Source: AGHT+IG1/ruNtDJEQTHhLEGTSXPFXy8WkWfPunwbK53osK5vOc7z4eLCu26r6e/keGqanAkeuPl6Vg==
+X-Received: by 2002:a05:6000:1789:b0:399:7f43:b3a4 with SMTP id ffacd0b85a97d-3a06cf5ef02mr2320169f8f.24.1745504466818;
+        Thu, 24 Apr 2025 07:21:06 -0700 (PDT)
+Message-ID: <72b6e9b8-8f6a-4495-ac1c-9df5822067a8@citrix.com>
+Date: Thu, 24 Apr 2025 15:21:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: UBSan bug in real mode fpu emulation
-To: Fabian Specht <f.specht@tum.de>, xen-devel@lists.xenproject.org
-Cc: manuel.andreas@tum.de
-References: <l2jnq5cxgkzcdkndp3mjf76nd7wdp2pbstkqo7llaarmbfqdge@bxdydela4rcf>
- <7e3b941d-ec4e-4158-8844-a3cf236c8d4d@citrix.com>
- <lfakyg5jqdnbm6kleldta52xm6pzdy2fikr6ydxw5rs4wplefv@ymabtpq6fdvq>
+Subject: Re: [PATCH] x86/hvmloader: fix usage of NULL with cpuid_count()
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@vates.tech>
+References: <20250424125813.96449-1-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,74 +134,84 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <lfakyg5jqdnbm6kleldta52xm6pzdy2fikr6ydxw5rs4wplefv@ymabtpq6fdvq>
+In-Reply-To: <20250424125813.96449-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 24/04/2025 2:13 pm, Fabian Specht wrote:
->>> if ( !s->rex_prefix )
->>> {
->>> 	/* Convert 32-bit real/vm86 to 32-bit prot format. */
->>> 	unsigned int fip = fpstate.env.mode.real.fip_lo +
->>> 					   (fpstate.env.mode.real.fip_hi << 16);
->>> 	unsigned int fdp = fpstate.env.mode.real.fdp_lo +
->>> 					   (fpstate.env.mode.real.fdp_hi << 16);
->>> 	unsigned int fop = fpstate.env.mode.real.fop;
->>>
->>> 	fpstate.env.mode.prot.fip = fip & 0xf;
->>> 	fpstate.env.mode.prot.fcs = fip >> 4;
->>> 	fpstate.env.mode.prot.fop = fop;
->>> 	fpstate.env.mode.prot.fdp = fdp & 0xf;
->>> 	fpstate.env.mode.prot.fds = fdp >> 4;
->>> }
->> Several things.  First, please always the UBSAN analysis from the crash.
-> (XEN) UBSAN: Undefined behaviour in arch/x86/x86_emulate/blk.c:87:66
-> (XEN) left shift of 65535 by 16 places cannot be represented in type 'int'
-> (XEN) ----[ Xen-4.20.0  x86_64  debug=y ubsan=y  Tainted:     H  ]----
+On 24/04/2025 1:58 pm, Roger Pau Monne wrote:
+> The commit that added support for retrieving the APIC IDs from the APs
+> introduced several usages of cpuid() with NULL parameters, which is not
+> handled by the underlying implementation.  For GCC I expect this results in
+> writes to the physical address at 0, however for Clang the generated code
+> in smp.o is:
 
-Yes, it is a shift into the sign bit.
+Oh lovely.  I guess we need full VM testing for the Clang builds too.
 
+> tools/firmware/hvmloader/smp.o: file format elf32-i386
 >
->> There are several different ways that shifts go wrong, and I suspect
->> this is a shift into a sign bit, which is notable given the unsigned
->> underlying type.
-> Might be, but I am not entirely sure. Either way, it should be fixed
-> through a simple cast to unsigned int I think.
-
-I have a sneaking suspicion that this is sufficient:
-
-diff --git a/xen/arch/x86/x86_emulate/private.h
-b/xen/arch/x86/x86_emulate/private.h
-index 30be59547032..9f3d6f0e5357 100644
---- a/xen/arch/x86/x86_emulate/private.h
-+++ b/xen/arch/x86/x86_emulate/private.h
-@@ -385,9 +385,9 @@ struct x87_env16 {
-     union {
-         struct {
-             uint16_t fip_lo;
--            uint16_t fop:11, :1, fip_hi:4;
-+            uint32_t fop:11, :1, fip_hi:4;
-             uint16_t fdp_lo;
--            uint16_t :12, fdp_hi:4;
-+            uint32_t :12, fdp_hi:4;
-         } real;
-         struct {
-             uint16_t fip;
-
-
-The problem is that a uint16_t bitfield promotes into int.  A base type
-of uint32_t should cause the bitfield to promote into unsigned int directly.
-
+> Disassembly of section .text:
 >
->> Also, are you aware that the test isn't properly in Real Mode?  It's in
->> so-called unreal mode (not actually a real mode, but a consequence of
->> how the segment registers work), which is relevant to how you manage to
->> re-enter the emulator for FLDENV.
-> Yes I am aware. But the bug should be triggered regardless of the
-> current mode, right?
+> 00000000 <smp_initialise>:
+>        0: 55                            pushl   %ebp
+>        1: 89 e5                         movl    %esp, %ebp
+>        3: 53                            pushl   %ebx
+>        4: 31 c0                         xorl    %eax, %eax
+>        6: 31 c9                         xorl    %ecx, %ecx
+>        8: 0f a2                         cpuid
 
-Well, that depends.  Some CPUs trucate %eip to %ip at this point.  Xen
-doesn't, which is why the XTF test doesn't crash in a different way.
+I get the hint that this is the whole file?  But you don't say that
+explicitly.
 
-~Andrew
+> Showing the usage of a NULL pointer results in undefined behavior, and
+> clang refusing to generate further code after it.
+>
+> Fix by using a temporary variable in cpuid_count() in place for any NULL
+> parameter.
+>
+> Fixes: 9ad0db58c7e2 ('tools/hvmloader: Retrieve APIC IDs from the APs themselves')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Could also be fixed by using the temporary variable in the call sites,
+> however that's more code in the call sites at the expense of less checking.
+> I don't think the extra NULL check logic in cpuid_count() is that bad.
+>
+> Overall the solution proposed in this patch is safer going forward, as it
+> prevent issues like this from being introduced in the first place.
+> ---
+>  tools/firmware/hvmloader/util.h | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+> diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader/util.h
+> index 644450c51ceb..765a013ddd9e 100644
+> --- a/tools/firmware/hvmloader/util.h
+> +++ b/tools/firmware/hvmloader/util.h
+> @@ -190,6 +190,17 @@ static inline void cpuid_count(
+>      uint32_t *ecx,
+>      uint32_t *edx)
+>  {
+> +    uint32_t tmp;
+> +
+> +    if ( !eax )
+> +        eax = &tmp;
+> +    if ( !ebx )
+> +        ebx = &tmp;
+> +    if ( !ecx )
+> +        ecx = &tmp;
+> +    if ( !edx )
+> +        edx = &tmp;
+> +
+
+Personally I dislike this pattern, and some of that is definitely PTSD
+from Xen's original hvm_cpuid() function.
+
+hvmloader is a small enough codebase that I don't think it matters
+either way.
+
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, preferably with
+clarity over the disassembly.
+
+>      asm volatile ( "cpuid"
+>                     : "=a" (*eax), "=b" (*ebx), "=c" (*ecx), "=d" (*edx)
+>                     : "a" (leaf), "c" (subleaf) );
+
 
