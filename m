@@ -2,41 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33809A9AEAC
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 15:14:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.966302.1356559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04142A9AF01
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 15:30:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.966330.1356568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7wP5-0007wC-2N; Thu, 24 Apr 2025 13:14:11 +0000
+	id 1u7weY-0002eO-EI; Thu, 24 Apr 2025 13:30:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 966302.1356559; Thu, 24 Apr 2025 13:14:11 +0000
+Received: by outflank-mailman (output) from mailman id 966330.1356568; Thu, 24 Apr 2025 13:30:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7wP4-0007uW-Vg; Thu, 24 Apr 2025 13:14:10 +0000
-Received: by outflank-mailman (input) for mailman id 966302;
- Thu, 24 Apr 2025 13:14:09 +0000
+	id 1u7weY-0002c4-Bj; Thu, 24 Apr 2025 13:30:10 +0000
+Received: by outflank-mailman (input) for mailman id 966330;
+ Thu, 24 Apr 2025 13:30:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YKuC=XK=tum.de=f.specht@srs-se1.protection.inumbo.net>)
- id 1u7wP3-0007uQ-HL
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 13:14:09 +0000
-Received: from postout1.mail.lrz.de (postout1.mail.lrz.de [129.187.255.137])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Yjef=XK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u7weW-0002by-4Q
+ for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 13:30:08 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 00b0724d-210e-11f0-9eb2-5ba50f476ded;
- Thu, 24 Apr 2025 15:14:07 +0200 (CEST)
-Received: from lxmhs51.srv.lrz.de (localhost [127.0.0.1])
- by postout1.mail.lrz.de (Postfix) with ESMTP id 4ZjxJG6VsfzyZg;
- Thu, 24 Apr 2025 15:14:06 +0200 (CEST)
-Received: from postout1.mail.lrz.de ([127.0.0.1])
- by lxmhs51.srv.lrz.de (lxmhs51.srv.lrz.de [127.0.0.1]) (amavis, port 20024)
- with LMTP id HlZ1plk49MFf; Thu, 24 Apr 2025 15:14:06 +0200 (CEST)
-Received: from localhost (unknown [IPv6:2001:4ca0:0:f297:754:306c:a470:cbec])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256) (Client did not present a certificate)
- by postout1.mail.lrz.de (Postfix) with ESMTPSA id 4ZjxJG1hH8zyZp;
- Thu, 24 Apr 2025 15:14:06 +0200 (CEST)
+ id 3c65382a-2110-11f0-9eb2-5ba50f476ded;
+ Thu, 24 Apr 2025 15:30:06 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-ace333d5f7bso184470566b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Apr 2025 06:30:06 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ace59820923sm108386366b.33.2025.04.24.06.30.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 24 Apr 2025 06:30:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,138 +45,504 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00b0724d-210e-11f0-9eb2-5ba50f476ded
-Authentication-Results: postout.lrz.de (amavis); dkim=pass (2048-bit key)
- reason="pass (just generated, assumed good)" header.d=tum.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tum.de; h=
-	in-reply-to:content-transfer-encoding:content-disposition
-	:content-type:content-type:mime-version:references:message-id
-	:subject:subject:from:from:date:date:received:received; s=
-	tu-postout21; t=1745500446; bh=NYmCpO7c5e4FUCtGBLASRh5aVXe1xTdNm
-	7J7Qh3h864=; b=h0SeKLukXASfnISwKyIgsykdlUHo/T4SLih3L3BiiV+Dq1+ij
-	LfYRKPxJDhYadRnYDNsPHYslC8eGEe8+uRLbIyenLunR/NE0OXF1B1R6gwhJHQtU
-	xL1zm7UsvV4ckeOIe+ls8rXFTFMwvSs5G0id3OdoC9BeaQDi5vzFVRqbHmSfed9W
-	R/LXE9ZkpCKebepM9mBYJon6n2zo9RKxQE/xXfzlEm+BHj8b1Hd3jjL0zC7XMEUK
-	S10yzmx777z8/wSTHxWuXJgvRsfQJM8WY1F0M/s7S6shlhXnPfrbRuensF+sETAW
-	wvD+x7MyCi8aGu3gLPGhslgAOOYbTeirE8oTw==
-X-Virus-Scanned: by amavisd-new at lrz.de in lxmhs51.srv.lrz.de
-X-Spam-Flag: NO
-X-Spam-Score: -2.872
-X-Spam-Level:
-X-Spam-Status: No, score=-2.872 tagged_above=-999 required=5
- tests=[ALL_TRUSTED=-1, BAYES_00=-1.9, DMARC_ADKIM_RELAXED=0.001,
- DMARC_ASPF_RELAXED=0.001, DMARC_POLICY_NONE=0.001,
- LRZ_CT_PLAIN_ISO8859_1=0.001, LRZ_DMARC_FAIL=0.001,
- LRZ_DMARC_FAIL_NONE=0.001, LRZ_DMARC_POLICY=0.001, LRZ_DMARC_TUM_FAIL=0.001,
- LRZ_DMARC_TUM_REJECT=3.5, LRZ_DMARC_TUM_REJECT_PO=-3.5,
- LRZ_ENVFROM_FROM_MATCH=0.001, LRZ_ENVFROM_TUM_S=0.001,
- LRZ_FROM_ENVFROM_ALIGNED_STRICT=0.001, LRZ_FROM_HAS_A=0.001,
- LRZ_FROM_HAS_AAAA=0.001, LRZ_FROM_HAS_MDOM=0.001, LRZ_FROM_HAS_MX=0.001,
- LRZ_FROM_HOSTED_DOMAIN=0.001, LRZ_FROM_NAME_IN_ADDR=0.001,
- LRZ_FROM_PHRASE=0.001, LRZ_FROM_PRE_SUR_PHRASE=0.001, LRZ_FROM_TUM_S=0.001,
- LRZ_HAS_CT=0.001, LRZ_HAS_IN_REPLY_TO=0.001, LRZ_HAS_MIME_VERSION=0.001,
- LRZ_HAS_SPF=0.001, LRZ_MSGID_LONG_50=0.001, LRZ_MSGID_NO_FQDN=0.001,
- LRZ_NO_UA_HEADER=0.001, LRZ_SUBJ_FW_RE=0.001] autolearn=no autolearn_force=no
-Date: Thu, 24 Apr 2025 15:13:58 +0200
-From: Fabian Specht <f.specht@tum.de>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, 
-	xen-devel@lists.xenproject.org
-Cc: manuel.andreas@tum.de
-Subject: Re: UBSan bug in real mode fpu emulation
-Message-ID: <lfakyg5jqdnbm6kleldta52xm6pzdy2fikr6ydxw5rs4wplefv@ymabtpq6fdvq>
-References: <l2jnq5cxgkzcdkndp3mjf76nd7wdp2pbstkqo7llaarmbfqdge@bxdydela4rcf>
- <7e3b941d-ec4e-4158-8844-a3cf236c8d4d@citrix.com>
+X-Inumbo-ID: 3c65382a-2110-11f0-9eb2-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1745501406; x=1746106206; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Rzguls3Vu8q5nSCIy1UEvoc69a/RTh12WQpaMmqr528=;
+        b=ByKcizj98nxZyNzKR0wcCqjJ+WnMd44hYNL96Zznz7BfNL5Rz0AjCnm6CQRaNN+FSk
+         9BMYaQIp7bp02rR17AKWfDNwkpe5BjaMBkHx9qwklt2GTEs7/8NmO7Ltn+pdpm1yqd2f
+         NB8RWPsz7L+5pPZQZZ5CtIo98RhDQ7ddyhMzr7AiNPQ5ZRPe7PRSOjY5VlPJAlrhohQB
+         NtsmUdszWO7xnAU9pJDTJibapW8bIJ9UQvmq88WW6THEbdvaZHPXq7hxzwLmPPThRZkc
+         fheoozem9Gryc8zeFCoe0keN+5+579MW81sxIqDrIkSuw8NlTR82Ge3yfEHJReAn1d3k
+         vUPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745501406; x=1746106206;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Rzguls3Vu8q5nSCIy1UEvoc69a/RTh12WQpaMmqr528=;
+        b=HzkC+fVJItVb/8oQDOOjr5AHyiK1s1Vz+jJfAXbyiagUiCcUFvOrdE7riCEfH+kxNE
+         V7QoK8QA6xBpX82QQwy80AGt3/j26561Ba+OY80/An2/t0OTnDe9ER3NJ1kMMdmUaGIh
+         5xajHw3aZe5HybkTuUflGT9VqbptpBvoI29jtSGm+mzBMnoimPwMhQVt6DCPOvcDlVw8
+         ahTeqTRp8U5QFhCVTK19Eww0HO5tmX01YLI4esNXtfHVSMfK8oMSxAMSE6dPFlwhMpX8
+         wYw7s2ME5yMVFqngmA+S7drYHXHAlaip2iYFeIIETflmHJG86WVjhsoJPARFXECbS9RD
+         QdZw==
+X-Forwarded-Encrypted: i=1; AJvYcCWJ57yt3aoWtymbqoZsLHAnUYs/ulBlgjU+/hUtsptMJ/ObY5b1dGk0hDLQKP9NTM//Y6JewpvS+Bw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwwN4vUyXHx8B5tx49VVGx9IHDbvI9tHDPGjHC7egJU57w6H27E
+	otQl4QZrBNWh5hjaOocR4jbRB/DAriMGgQ58NNy4V6KyT38EAyjY
+X-Gm-Gg: ASbGncu2MiNBK3hVMG8V8OkTOMnPD3E12wFbpa958jJ7r3EqKLb+B/J3eE5lz8AvBN8
+	Z6p9ZzKYKO9r3xXF/0mKT9zA/27ObFQboa0FIJ3O2WTfjTH9C658C6G19itNEvFBCDpIIegD4+a
+	0qn40QllTk2HXHj5qHe5c/8uNzyXfIAosWXFltf4DEg1ZPS2/UR4ZLTAL0SXIhKeTNyNdLv8qCB
+	ywxQYT6Vzrgu5MVjywL+F4vIMGqage0voaANFuaGsD8MrujWjne3tS8yKXmA1ypg0AbloI04pGB
+	6puB7sXHnIxvdWR+rTsj/br9U0W7IxZkVGd4rTNwAQlpVd4F2cME8rEKYUkOiJcC70Y0tbtpmKe
+	WzOqOTvx+tjxTMkSq
+X-Google-Smtp-Source: AGHT+IE7Wp/uFUjJcvanGTajBDDnv+FYDtKUstetKjn3OPu4UpDtYlkRqKaYtvbaBimUM4GTVusA/Q==
+X-Received: by 2002:a17:907:a4e:b0:abf:6e6a:885c with SMTP id a640c23a62f3a-ace57283e71mr257186566b.23.1745501405419;
+        Thu, 24 Apr 2025 06:30:05 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------fZiyz4mApGCz5FywkcbWgRT2"
+Message-ID: <9ecef427-2b2c-4495-abd9-716e7c844982@gmail.com>
+Date: Thu, 24 Apr 2025 15:30:03 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 03/14] xen/riscv: introduce ioremap()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <6d91eeabe2735de93bfcf2a2420e2059a8f35e52.1744126720.git.oleksii.kurochko@gmail.com>
+ <84089b6d-efeb-4613-85b9-eb10d11d7338@suse.com>
+ <f315bc11-c537-4dca-9e62-a6d3f02733e4@gmail.com>
+ <6b226b72-11a4-4004-b42d-0e280de83539@suse.com>
+ <bbfdc4a0-54f0-4a9d-aa6d-2cf85ec03411@gmail.com>
+ <a71db245-5b0b-435e-8e58-cb43c5162862@suse.com>
+ <7d5356a5-53b7-4d1b-82ff-bc6f81a2f445@gmail.com>
+ <6f50dea4-60e6-46b0-9363-d943ba553334@suse.com>
+ <676c1627-95a0-46a0-b132-3f3ac2fdda01@gmail.com>
+ <28142d86-0845-4bb3-a0bb-e4903f898abf@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <28142d86-0845-4bb3-a0bb-e4903f898abf@suse.com>
+
+This is a multi-part message in MIME format.
+--------------fZiyz4mApGCz5FywkcbWgRT2
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7e3b941d-ec4e-4158-8844-a3cf236c8d4d@citrix.com>
 
-> > if ( !s->rex_prefix )
-> > {
-> > 	/* Convert 32-bit real/vm86 to 32-bit prot format. */
-> > 	unsigned int fip = fpstate.env.mode.real.fip_lo +
-> > 					   (fpstate.env.mode.real.fip_hi << 16);
-> > 	unsigned int fdp = fpstate.env.mode.real.fdp_lo +
-> > 					   (fpstate.env.mode.real.fdp_hi << 16);
-> > 	unsigned int fop = fpstate.env.mode.real.fop;
-> >
-> > 	fpstate.env.mode.prot.fip = fip & 0xf;
-> > 	fpstate.env.mode.prot.fcs = fip >> 4;
-> > 	fpstate.env.mode.prot.fop = fop;
-> > 	fpstate.env.mode.prot.fdp = fdp & 0xf;
-> > 	fpstate.env.mode.prot.fds = fdp >> 4;
-> > }
 
-> Several things.� First, please always the UBSAN analysis from the crash.
+On 4/22/25 11:14 AM, Jan Beulich wrote:
+> On 22.04.2025 10:40, Oleksii Kurochko wrote:
+>> On 4/17/25 4:49 PM, Jan Beulich wrote:
+>>> On 17.04.2025 16:37, Oleksii Kurochko wrote:
+>>>> On 4/17/25 4:24 PM, Jan Beulich wrote:
+>>>>> On 17.04.2025 16:20, Oleksii Kurochko wrote:
+>>>>>> On 4/15/25 1:02 PM, Jan Beulich wrote:
+>>>>>>> On 15.04.2025 12:29, Oleksii Kurochko wrote:
+>>>>>>>> On 4/10/25 5:13 PM, Jan Beulich wrote:
+>>>>>>>>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
+>>>>>>>>>> Based on RISC-V unpriviliged spec ( Version 20240411 ):
+>>>>>>>>>> ```
+>>>>>>>>>> For implementations that conform to the RISC-V Unix Platform Specification,
+>>>>>>>>>> I/O devices and DMA operations are required to access memory coherently and
+>>>>>>>>>> via strongly ordered I/O channels. Therefore, accesses to regular main memory
+>>>>>>>>>> regions that are concurrently accessed by external devices can also use the
+>>>>>>>>>> standard synchronization mechanisms. Implementations that do not conform
+>>>>>>>>>> to the Unix Platform Specification and/or in which devices do not access
+>>>>>>>>>> memory coherently will need to use mechanisms
+>>>>>>>>>> (which are currently platform-specific or device-specific) to enforce
+>>>>>>>>>> coherency.
+>>>>>>>>>>
+>>>>>>>>>> I/O regions in the address space should be considered non-cacheable
+>>>>>>>>>> regions in the PMAs for those regions. Such regions can be considered coherent
+>>>>>>>>>> by the PMA if they are not cached by any agent.
+>>>>>>>>>> ```
+>>>>>>>>>> and [1]:
+>>>>>>>>>> ```
+>>>>>>>>>> The current riscv linux implementation requires SOC system to support
+>>>>>>>>>> memory coherence between all I/O devices and CPUs. But some SOC systems
+>>>>>>>>>> cannot maintain the coherence and they need support cache clean/invalid
+>>>>>>>>>> operations to synchronize data.
+>>>>>>>>>>
+>>>>>>>>>> Current implementation is no problem with SiFive FU540, because FU540
+>>>>>>>>>> keeps all IO devices and DMA master devices coherence with CPU. But to a
+>>>>>>>>>> traditional SOC vendor, it may already have a stable non-coherency SOC
+>>>>>>>>>> system, the need is simply to replace the CPU with RV CPU and rebuild
+>>>>>>>>>> the whole system with IO-coherency is very expensive.
+>>>>>>>>>> ```
+>>>>>>>>>>
+>>>>>>>>>> and the fact that all known ( to me ) CPUs that support the H-extension
+>>>>>>>>>> and that ones is going to be supported by Xen have memory coherency
+>>>>>>>>>> between all I/O devices and CPUs, so it is currently safe to use the
+>>>>>>>>>> PAGE_HYPERVISOR attribute.
+>>>>>>>>>> However, in cases where a platform does not support memory coherency, it
+>>>>>>>>>> should support CMO extensions and Svpbmt. In this scenario, updates to
+>>>>>>>>>> ioremap will be necessary.
+>>>>>>>>>> For now, a compilation error will be generated to ensure that the need to
+>>>>>>>>>> update ioremap() is not overlooked.
+>>>>>>>>>>
+>>>>>>>>>> [1]https://patchwork.kernel.org/project/linux-riscv/patch/1555947870-23014-1-git-send-email-guoren@kernel.org/
+>>>>>>>>> But MMIO access correctness isn't just a matter of coherency. There may not
+>>>>>>>>> be any caching involved in most cases, or else you may observe significantly
+>>>>>>>>> delayed or even dropped (folded with later ones) writes, and reads may be
+>>>>>>>>> serviced from the cache instead of going to actual MMIO. Therefore ...
+>>>>>>>>>
+>>>>>>>>>> --- a/xen/arch/riscv/Kconfig
+>>>>>>>>>> +++ b/xen/arch/riscv/Kconfig
+>>>>>>>>>> @@ -15,6 +15,18 @@ config ARCH_DEFCONFIG
+>>>>>>>>>>       	string
+>>>>>>>>>>       	default "arch/riscv/configs/tiny64_defconfig"
+>>>>>>>>>>       
+>>>>>>>>>> +config HAS_SVPBMT
+>>>>>>>>>> +	bool
+>>>>>>>>>> +	help
+>>>>>>>>>> +	  This config enables usage of Svpbmt ISA-extension ( Supervisor-mode:
+>>>>>>>>>> +	  page-based memory types).
+>>>>>>>>>> +
+>>>>>>>>>> +	  The memory type for a page contains a combination of attributes
+>>>>>>>>>> +	  that indicate the cacheability, idempotency, and ordering
+>>>>>>>>>> +	  properties for access to that page.
+>>>>>>>>>> +
+>>>>>>>>>> +	  The Svpbmt extension is only available on 64-bit cpus.
+>>>>>>>>> ... I kind of expect this extension (or anything else that there might be) will need
+>>>>>>>>> making use of.
+>>>>>>>> In cases where the Svpbmt extension isn't available, PMA (Physical Memory Attributes)
+>>>>>>>> is used to control which memory regions are cacheable, non-cacheable, readable, writable,
+>>>>>>>> etc. PMA is configured in M-mode by the firmware (e.g., OpenSBI), as is done in Andes
+>>>>>>>> cores, or it can be fixed at design time, as in SiFive cores.
+>>>>>>> How would things work if there was a need to map a RAM page uncacheable (via
+>>>>>>> ioremap() or otherwise)?
+>>>>>> My understanding is that Svpbmt is only needed when someone wants to change the memory
+>>>>>> attribute of a page set by PMA.
+>>>>>>
+>>>>>> The question is if non-cacheable RAM page is really needed if we have a coherency?
+>>>>> Aiui coherency here is among CPUs.
+>>>> ```
+>>>> For implementations that conform to the RISC-V Unix Platform Specification,
+>>>> I/O devices and DMA operations are required to access memory coherently and
+>>>> via strongly ordered I/O channels. Therefore, accesses to regular main memory
+>>>> regions that are concurrently accessed by external devices can also use the
+>>>> standard synchronization mechanisms. Implementations that do not conform
+>>>> to the Unix Platform Specification and/or in which devices do not access
+>>>> memory coherently will need to use mechanisms
+>>>> (which are currently platform-specific or device-specific) to enforce
+>>>> coherency.
+>>>> ```
+>>>> Based on this from the spec, coherency here is not only among CPUs.
+>>>>
+>>>>
+>>>>> Properties of devices in the system are
+>>>>> largely unknown?
+>>>> Yes, but still not sure what kind of property requires ioremap() which won't work
+>>>> without Svpmbt. Could you please tell me an example?
+>>> Well, above you said they all need to access memory coherently. That's the
+>>> "property" I was referring to.
+>> Do you mean that device could have a property which tell that it would like to have non-cachable
+>> region used for that? I haven't seen such property in device tree files.
+>>
+>> Do we have in Xen cases when Xen wants to have map part of RAM as non-cachebale and it is only the
+>> one option?
+> On x86 we have the case that IOMMUs may access memory non-coherently. This is
+> particular means that IOMMU page table updates (which necessarily live in RAM)
+> need to be done quite carefully. As it's all our code, we deal with the
+> situation by issuing cache flushes, avoiding the need for UC mappings.
+>
+> Graphics engines may have similar constraints, aiui. With the driver code not
+> being part of Xen, we wouldn't be able to use a similar "simplification" there.
+> UC mappings would be pretty much unavoidable.
 
-(XEN) UBSAN: Undefined behaviour in arch/x86/x86_emulate/blk.c:87:66
-(XEN) left shift of 65535 by 16 places cannot be represented in type 'int'
-(XEN) ----[ Xen-4.20.0  x86_64  debug=y ubsan=y  Tainted:     H  ]----
-(XEN) CPU:    2
-(XEN) RIP:    e008:[<ffff82d04031fe8d>] common/ubsan/ubsan.c#ubsan_epilogue+0xa/0xd2
-(XEN) RFLAGS: 0000000000010092   CONTEXT: hypervisor (d1v0)
-(XEN) rax: 0000000000000000   rbx: ffff830176baf6c8   rcx: 00000000000004ce
-(XEN) rdx: ffff830176baffd0   rsi: 0000000000000002   rdi: ffff830176baf6c8
-(XEN) rbp: ffff830176baf660   rsp: ffff830176baf650   r8:  00000000ffffffff
-(XEN) r9:  0000000000000000   r10: ffff830176baf670   r11: 0000000000000000
-(XEN) r12: ffff82d040877992   r13: 0000000000000010   r14: 000000000000ffff
-(XEN) r15: ffff82d040877992   cr0: 0000000080050033   cr4: 00000000003506e0
-(XEN) cr3: 000000010089c000   cr2: 0000000000000000
-(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
-(XEN) ds: 0000   es: 0000   fs: 0033   gs: 0033   ss: 0000   cs: e008
-(XEN) Xen code around <ffff82d04031fe8d> (common/ubsan/ubsan.c#ubsan_epilogue+0xa/0xd2):
-(XEN)  89 e5 41 54 53 48 89 fb <0f> 0b 48 8d 3d 3a b6 36 00 e8 f3 95 00 00 48 85
-(XEN) Xen stack trace from rsp=ffff830176baf650:
-(XEN)    ffffffffffffffff ffff82d040877992 ffff830176baf6f8 ffff82d040320d8e
-(XEN)    ffff82d0405603e3 ffff003533353536 ffff830176bafe10 ffff830176baf728
-(XEN)    ffff82d04056076d ffff82e002017b00 0000000776003631 ffff830100882000
-(XEN)    ffff830176baf770 0000000000000117 ffff830176baf778 0000000000000202
-(XEN)    ffff830100bd8fd0 000000000000ffff 000000000000001c 00000000ffffffff
-(XEN)    000000000000ffff ffff830176baf7b8 ffff82d04053c6a0 ffff830176bafce8
-(XEN)    0000000000117fd0 0000000000000001 ffffffff76bafe08 ffffffffffffffff
-(XEN)    ffffffffffffffff ffffffffffffffff ffff830176baf770 0000000100000001
-(XEN)    ffff83010095b000 0000000000000001 0000000000117fd0 0000000076bafd68
-(XEN)    ffff82e002017b00 0000000000117fd0 0000000300000003 0000000000000117
-(XEN)    0000000000000001 000000000000001c ffff830100bd8fd0 ffff830176bafce8
-(XEN)    ffff830176bafaa0 ffff830176baf808 ffff82d0404176a8 ffff830176bafba8
-(XEN)    0000000000000000 0000000000117fd0 ffff830176bafce8 ffff830176bafaa0
-(XEN)    ffff82d0404175e8 ffff830176bafa30 000000000000001c ffff830176baf880
-(XEN)    ffff82d040545817 ffff830176bafce8 ffff830100000000 ffff82d07fffc140
-(XEN)    ffff830176bafb18 ffff830176bafba8 ffff830100000080 0000000000010010
-(XEN)    ffff83010000000b 0000000000000001 ffff830176bafef8 0000000000000000
-(XEN)    ffff8301795d0010 0000000000000000 ffff830176bafc10 ffff82d0405e8400
-(XEN)    ffff830176bafa9c ffff830176bafa24 ffff830176baf9c0 0000000000000000
-(XEN)    0000000000000000 ffff830176bafc30 ffff82d0405d8d6b ffff830176baf968
-(XEN) Xen call trace:
-(XEN)    [<ffff82d04031fe8d>] R common/ubsan/ubsan.c#ubsan_epilogue+0xa/0xd2
-(XEN)    [<ffff82d040320d8e>] F __ubsan_handle_shift_out_of_bounds+0x11c/0x1d1
-(XEN)    [<ffff82d04053c6a0>] F x86_emul_blk+0x3d8/0x117d
-(XEN)    [<ffff82d0404176a8>] F arch/x86/hvm/emulate.c#hvmemul_blk+0xc0/0x138
-(XEN)    [<ffff82d040545817>] F x86emul_fpu+0x207e/0x819b
-(XEN)    [<ffff82d0405e8400>] F x86_emulate+0x1527b/0x3ecb3
-(XEN)    [<ffff82d040615d2a>] F x86_emulate_wrapper+0x87/0x216
-(XEN)    [<ffff82d040418c41>] F arch/x86/hvm/emulate.c#_hvm_emulate_one+0x256/0x60f
-(XEN)    [<ffff82d04041900c>] F hvm_emulate_one+0x12/0x14
-(XEN)    [<ffff82d04042d239>] F hvm_ud_intercept+0x1e7/0x4c1
-(XEN)    [<ffff82d0403dbd90>] F svm_vmexit_handler+0x1bc1/0x2d70
-(XEN)    [<ffff82d040203540>] F svm_stgi_label+0x5/0x15
-(XEN) 
+For this case, it would be better to have Svpmbt.
 
-> There are several different ways that shifts go wrong, and I suspect
-> this is a shift into a sign bit, which is notable given the unsigned
-> underlying type.
+I would like to noted that Svpmbt isn't supported by RV32 architectures. For such cases, it will be still
+needed to play with PMA.
+I found today a patch in Linux kernel which does something similar to what I wrote in one of my previous
+replies:
+   [0]https://lore.kernel.org/all/20241102000843.1301099-1-samuel.holland@sifive.com/
+In the cover letter [0] it is mentioned the following:
+   On some RISC-V platforms, including StarFive JH7100 and ESWIN EIC7700,
+   RAM is mapped to multiple physical address ranges, with each alias
+   having a different set of statically-determined Physical Memory
+   Attributes (PMAs). Software selects the PMAs for a page by choosing a
+   PFN from the corresponding physical address range. On these platforms,
+   this is the only way to allocate noncached memory for use with
+   noncoherent DMA.
 
-Might be, but I am not entirely sure. Either way, it should be fixed
-through a simple cast to unsigned int I think.
+So firmware should configure PMAs so some part of RAM is noncached and then kernel get this info based
+on the binding:
+   https://patchew.org/linux/20241102000843.1301099-1-samuel.holland@sifive.com/20241102000843.1301099-2-samuel.holland@sifive.com/
 
-> Also, are you aware that the test isn't properly in Real Mode?� It's in
-> so-called unreal mode (not actually a real mode, but a consequence of
-> how the segment registers work), which is relevant to how you manage to
-> re-enter the emulator for FLDENV.
+Considering that this feature isn't available even in Linux kernel, we can start with assumption that all
+our SoCs will support Svpmbt.
 
-Yes I am aware. But the bug should be triggered regardless of the
-current mode, right?
+We don't really care about StarFive JH7100 as it doesn't support H extension, but we potentially should care
+about ESWIN EIC7700, which support H extension and doesn't support Svpmbt extension according to a datasheet
+publicly available:
+   Each EIC7700X core is configured to support the RV64I base ISA, as well as the Multiply (M), Atomic(A),
+   Single-Precision Floating Point (F), Double-Precision Floating Point (D), Compressed (C), CSR
+   Instructions (Zicsr), Instruction-Fetch Fence (Zifencei), Address Calculation (Zba), Basic Bit
+   Manipulation (Zbb), and Count Overflow and Mode-Based Filtering (Sscofpmf) RISC‑V extensions. This
+   is captured by the RISC‑V extension string: RV64GC_Zba_Zbb_Sscofpmf.
 
-~Fabian
+>
+>> I am also thinking why it can't be used cachable region + barrier (if we don't have memory coherency
+>> for everything).
+> Not sure what exactly you're asking here (if anything). An answer would very
+> likely depend on the specific kind of barrier you're thinking about. The
+> question would be what, if any, effect a barrier would have on the cache(s).
+
+I confused barrier with cache flushes (when I wrote that I thought about the case of DMA that we don't really
+should have requirement of non-cachable memory for DMA as it is enough to have memory fence between use of DMA
+memory and MMIO that triggers the dma), basically I meant what you wrote above about x86's IOMMUs.
+
+~ Oleksii
+
+>
+>> Anyway, if it isn't an option to have mapped cacheble region + barrier then there is no any choice
+>> and the support of Svpmbt is required.
+> Quite possible.
+>
+> Jan
+--------------fZiyz4mApGCz5FywkcbWgRT2
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/22/25 11:14 AM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:28142d86-0845-4bb3-a0bb-e4903f898abf@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 22.04.2025 10:40, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 4/17/25 4:49 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 17.04.2025 16:37, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 4/17/25 4:24 PM, Jan Beulich wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">On 17.04.2025 16:20, Oleksii Kurochko wrote:
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">On 4/15/25 1:02 PM, Jan Beulich wrote:
+</pre>
+                <blockquote type="cite">
+                  <pre wrap="" class="moz-quote-pre">On 15.04.2025 12:29, Oleksii Kurochko wrote:
+</pre>
+                  <blockquote type="cite">
+                    <pre wrap="" class="moz-quote-pre">On 4/10/25 5:13 PM, Jan Beulich wrote:
+</pre>
+                    <blockquote type="cite">
+                      <pre wrap="" class="moz-quote-pre">On 08.04.2025 17:57, Oleksii Kurochko wrote:
+</pre>
+                      <blockquote type="cite">
+                        <pre wrap="" class="moz-quote-pre">Based on RISC-V unpriviliged spec ( Version 20240411 ):
+```
+For implementations that conform to the RISC-V Unix Platform Specification,
+I/O devices and DMA operations are required to access memory coherently and
+via strongly ordered I/O channels. Therefore, accesses to regular main memory
+regions that are concurrently accessed by external devices can also use the
+standard synchronization mechanisms. Implementations that do not conform
+to the Unix Platform Specification and/or in which devices do not access
+memory coherently will need to use mechanisms
+(which are currently platform-specific or device-specific) to enforce
+coherency.
+
+I/O regions in the address space should be considered non-cacheable
+regions in the PMAs for those regions. Such regions can be considered coherent
+by the PMA if they are not cached by any agent.
+```
+and [1]:
+```
+The current riscv linux implementation requires SOC system to support
+memory coherence between all I/O devices and CPUs. But some SOC systems
+cannot maintain the coherence and they need support cache clean/invalid
+operations to synchronize data.
+
+Current implementation is no problem with SiFive FU540, because FU540
+keeps all IO devices and DMA master devices coherence with CPU. But to a
+traditional SOC vendor, it may already have a stable non-coherency SOC
+system, the need is simply to replace the CPU with RV CPU and rebuild
+the whole system with IO-coherency is very expensive.
+```
+
+and the fact that all known ( to me ) CPUs that support the H-extension
+and that ones is going to be supported by Xen have memory coherency
+between all I/O devices and CPUs, so it is currently safe to use the
+PAGE_HYPERVISOR attribute.
+However, in cases where a platform does not support memory coherency, it
+should support CMO extensions and Svpbmt. In this scenario, updates to
+ioremap will be necessary.
+For now, a compilation error will be generated to ensure that the need to
+update ioremap() is not overlooked.
+
+[1]<a class="moz-txt-link-freetext" href="https://patchwork.kernel.org/project/linux-riscv/patch/1555947870-23014-1-git-send-email-guoren@kernel.org/">https://patchwork.kernel.org/project/linux-riscv/patch/1555947870-23014-1-git-send-email-guoren@kernel.org/</a>
+</pre>
+                      </blockquote>
+                      <pre wrap="" class="moz-quote-pre">But MMIO access correctness isn't just a matter of coherency. There may not
+be any caching involved in most cases, or else you may observe significantly
+delayed or even dropped (folded with later ones) writes, and reads may be
+serviced from the cache instead of going to actual MMIO. Therefore ...
+
+</pre>
+                      <blockquote type="cite">
+                        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/Kconfig
++++ b/xen/arch/riscv/Kconfig
+@@ -15,6 +15,18 @@ config ARCH_DEFCONFIG
+     	string
+     	default "arch/riscv/configs/tiny64_defconfig"
+     
++config HAS_SVPBMT
++	bool
++	help
++	  This config enables usage of Svpbmt ISA-extension ( Supervisor-mode:
++	  page-based memory types).
++
++	  The memory type for a page contains a combination of attributes
++	  that indicate the cacheability, idempotency, and ordering
++	  properties for access to that page.
++
++	  The Svpbmt extension is only available on 64-bit cpus.
+</pre>
+                      </blockquote>
+                      <pre wrap="" class="moz-quote-pre">... I kind of expect this extension (or anything else that there might be) will need
+making use of.
+</pre>
+                    </blockquote>
+                    <pre wrap="" class="moz-quote-pre">In cases where the Svpbmt extension isn't available, PMA (Physical Memory Attributes)
+is used to control which memory regions are cacheable, non-cacheable, readable, writable,
+etc. PMA is configured in M-mode by the firmware (e.g., OpenSBI), as is done in Andes
+cores, or it can be fixed at design time, as in SiFive cores.
+</pre>
+                  </blockquote>
+                  <pre wrap="" class="moz-quote-pre">How would things work if there was a need to map a RAM page uncacheable (via
+ioremap() or otherwise)?
+</pre>
+                </blockquote>
+                <pre wrap="" class="moz-quote-pre">My understanding is that Svpbmt is only needed when someone wants to change the memory
+attribute of a page set by PMA.
+
+The question is if non-cacheable RAM page is really needed if we have a coherency?
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">Aiui coherency here is among CPUs.
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">```
+For implementations that conform to the RISC-V Unix Platform Specification,
+I/O devices and DMA operations are required to access memory coherently and
+via strongly ordered I/O channels. Therefore, accesses to regular main memory
+regions that are concurrently accessed by external devices can also use the
+standard synchronization mechanisms. Implementations that do not conform
+to the Unix Platform Specification and/or in which devices do not access
+memory coherently will need to use mechanisms
+(which are currently platform-specific or device-specific) to enforce
+coherency.
+```
+Based on this from the spec, coherency here is not only among CPUs.
+
+
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">Properties of devices in the system are
+largely unknown?
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">Yes, but still not sure what kind of property requires ioremap() which won't work
+without Svpmbt. Could you please tell me an example?
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Well, above you said they all need to access memory coherently. That's the
+"property" I was referring to.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Do you mean that device could have a property which tell that it would like to have non-cachable
+region used for that? I haven't seen such property in device tree files.
+
+Do we have in Xen cases when Xen wants to have map part of RAM as non-cachebale and it is only the
+one option?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+On x86 we have the case that IOMMUs may access memory non-coherently. This is
+particular means that IOMMU page table updates (which necessarily live in RAM)
+need to be done quite carefully. As it's all our code, we deal with the
+situation by issuing cache flushes, avoiding the need for UC mappings.
+
+Graphics engines may have similar constraints, aiui. With the driver code not
+being part of Xen, we wouldn't be able to use a similar "simplification" there.
+UC mappings would be pretty much unavoidable.</pre>
+    </blockquote>
+    <pre>For this case, it would be better to have Svpmbt.
+
+I would like to noted that Svpmbt isn't supported by RV32 architectures. For such cases, it will be still
+needed to play with PMA.
+I found today a patch in Linux kernel which does something similar to what I wrote in one of my previous
+replies:
+  [0] <a class="moz-txt-link-freetext" href="https://lore.kernel.org/all/20241102000843.1301099-1-samuel.holland@sifive.com/">https://lore.kernel.org/all/20241102000843.1301099-1-samuel.holland@sifive.com/</a>
+In the cover letter [0] it is mentioned the following:
+  On some RISC-V platforms, including StarFive JH7100 and ESWIN EIC7700,
+  RAM is mapped to multiple physical address ranges, with each alias
+  having a different set of statically-determined Physical Memory
+  Attributes (PMAs). Software selects the PMAs for a page by choosing a
+  PFN from the corresponding physical address range. On these platforms,
+  this is the only way to allocate noncached memory for use with
+  noncoherent DMA.
+
+So firmware should configure PMAs so some part of RAM is noncached and then kernel get this info based
+on the binding:
+  <a class="moz-txt-link-freetext" href="https://patchew.org/linux/20241102000843.1301099-1-samuel.holland@sifive.com/20241102000843.1301099-2-samuel.holland@sifive.com/">https://patchew.org/linux/20241102000843.1301099-1-samuel.holland@sifive.com/20241102000843.1301099-2-samuel.holland@sifive.com/</a>
+
+Considering that this feature isn't available even in Linux kernel, we can start with assumption that all
+our SoCs will support Svpmbt.
+
+We don't really care about StarFive JH7100 as it doesn't support H extension, but we potentially should care
+about ESWIN EIC7700, which support H extension and doesn't support Svpmbt extension according to a datasheet
+publicly available:
+  Each EIC7700X core is configured to support the RV64I base ISA, as well as the Multiply (M), Atomic(A),
+  Single-Precision Floating Point (F), Double-Precision Floating Point (D), Compressed (C), CSR
+  Instructions (Zicsr), Instruction-Fetch Fence (Zifencei), Address Calculation (Zba), Basic Bit
+  Manipulation (Zbb), and Count Overflow and Mode-Based Filtering (Sscofpmf) RISC‑V extensions. This
+  is captured by the RISC‑V extension string: RV64GC_Zba_Zbb_Sscofpmf.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:28142d86-0845-4bb3-a0bb-e4903f898abf@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">I am also thinking why it can't be used cachable region + barrier (if we don't have memory coherency
+for everything).
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Not sure what exactly you're asking here (if anything). An answer would very
+likely depend on the specific kind of barrier you're thinking about. The
+question would be what, if any, effect a barrier would have on the cache(s).</pre>
+    </blockquote>
+    <pre>I confused barrier with cache flushes (when I wrote that I thought about the case of DMA that we don't really
+should have requirement of non-cachable memory for DMA as it is enough to have memory fence between use of DMA
+memory and MMIO that triggers the dma), basically I meant what you wrote above about x86's IOMMUs.
+
+~ Oleksii
+</pre>
+    <blockquote type="cite"
+      cite="mid:28142d86-0845-4bb3-a0bb-e4903f898abf@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Anyway, if it isn't an option to have mapped cacheble region + barrier then there is no any choice
+and the support of Svpmbt is required.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Quite possible.
+
+Jan
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------fZiyz4mApGCz5FywkcbWgRT2--
 
