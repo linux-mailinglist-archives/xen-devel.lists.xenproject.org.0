@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F94FA9AC4D
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 13:42:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.966219.1356509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91507A9AC9A
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 13:59:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.966236.1356520 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7uyF-0006b9-PI; Thu, 24 Apr 2025 11:42:23 +0000
+	id 1u7vEN-00013l-3L; Thu, 24 Apr 2025 11:59:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 966219.1356509; Thu, 24 Apr 2025 11:42:23 +0000
+Received: by outflank-mailman (output) from mailman id 966236.1356520; Thu, 24 Apr 2025 11:59:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7uyF-0006Z0-M1; Thu, 24 Apr 2025 11:42:23 +0000
-Received: by outflank-mailman (input) for mailman id 966219;
- Thu, 24 Apr 2025 11:42:22 +0000
+	id 1u7vEN-00010d-0S; Thu, 24 Apr 2025 11:59:03 +0000
+Received: by outflank-mailman (input) for mailman id 966236;
+ Thu, 24 Apr 2025 11:59:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Yjef=XK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u7uyE-000685-5p
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 11:42:22 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ <SRS0=KF8R=XK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u7vEL-00010X-LJ
+ for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 11:59:01 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2edeffd1-2101-11f0-9eb2-5ba50f476ded;
- Thu, 24 Apr 2025 13:42:21 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5e8be1c6ff8so1628557a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 24 Apr 2025 04:42:21 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f6ed9df8f8sm1024280a12.68.2025.04.24.04.42.19
+ id 8288971a-2103-11f0-9eb2-5ba50f476ded;
+ Thu, 24 Apr 2025 13:59:00 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-39c1efc4577so520579f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Apr 2025 04:59:00 -0700 (PDT)
+Received: from [192.168.1.23] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a06d4a800esm1854426f8f.3.2025.04.24.04.58.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Apr 2025 04:42:19 -0700 (PDT)
+ Thu, 24 Apr 2025 04:58:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,194 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2edeffd1-2101-11f0-9eb2-5ba50f476ded
+X-Inumbo-ID: 8288971a-2103-11f0-9eb2-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1745494941; x=1746099741; darn=lists.xenproject.org;
-        h=in-reply-to:content-language:references:cc:to:subject:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lmuTrG0KdvxPYIi9Ia14fuQG9GhKduR1D6MgEml/ItQ=;
-        b=l+MdjJoQPpwQCcoD9d/9j4BuNGF7F2KRtjkI6CTSO3nYL0n5x2cDlKW1IT+UeVxzI8
-         MGqWqKQ9afJfRMe4pWBeCIMEg9KVMWnMu/fRlcx1XOPPXD7DAqdL2wTYO2kOy3T/hqj7
-         TcOe25Xcafj0wJU2QlLMMpcuXEHoubFsVprTTiAV3ltoey9fHsThcgS5KbCell6QZmgs
-         4HP8kWtR8qAJRY/mrG8XOIXDt3S78UN8xWfCqnmU+Wo14N1XranEvHF8m1a9G0rTWdOi
-         ZGfwbcjD56HP/dv2BpX6o84As0h9XzAsBFHX+KtOoNYzeSSTqbTpE91v6U/5F5pJ+vWi
-         1TzA==
+        d=citrix.com; s=google; t=1745495940; x=1746100740; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fj6LGahoTYMxnRXxcI3of6d0hI/muf1rInmz5RlCZRM=;
+        b=S7VyVubbhoe9nvuMIlvWcNdESMW72uiXGbz2V4oWWkIB8qrTXemGsbujPTIOrt02pI
+         laPuzYun6DU/q8hr6tdXTkumYGFEb/HzSHQve5JQ2gZ1OBQMazMKZNItTzl1c5tpIFkX
+         hKzgZuZo6x2U4PMU0Z0ltJL9kS91adl0HniOM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745494941; x=1746099741;
-        h=in-reply-to:content-language:references:cc:to:subject:from
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=lmuTrG0KdvxPYIi9Ia14fuQG9GhKduR1D6MgEml/ItQ=;
-        b=xQpMTE135guqvoj2/jsLPh2WJxpYc16yPwij5VdpGo/lbwb7RUAlS+xsvRQRkfcDBB
-         eXBFgwds9uFSBxHBZP8XSxN1FMHKL5ZqOOrUyuXmDkC+koOyJ4/sWh+F4Y+ecR6eJWH/
-         aCjBNJ5rATi0XSlJfFZkbDRzGCAEASh50az0ngUL7JWspAL+We3Zwz8XoWsvP5Ezp8CS
-         j4czyfD3ypCkbxok30zOm5bTlglD/QG7554FLvZNuKDUtq6u2puNSxpAyD2XCLpSk7c4
-         Vv7xDjuHKiR2hbmR0Oxy7SoVwTBpMl1mCOBLRjOExwcdu2C/P2gbKruqHsRpD6z0PNGC
-         98sw==
-X-Forwarded-Encrypted: i=1; AJvYcCXNt9mJKa7gra6RmBPNC3A/8+fHZ2Gzz2raZlxpne8nL+3poehs2FOhv+rxzg2VtH30ntb3FIhWyXk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwJFBf1l9X2wptUocHFaTASXIq82oNLvhulfHw4XQvHoKTDsIip
-	lotz7DBTkWaKqJSFllxMi8ITj/EdwweCxR2TAva4UVfaBfa4v3ax
-X-Gm-Gg: ASbGncthpfl5Q+S4v5yivjgKoZpN+3g/IW1DUvcEU7o636Non6TVe4F3/8RxWv+fVeZ
-	MF6Tg1H4CYzmNbwc8B9R7qEIvFSfdHmQSQYxbzownMpxelW8iSbe/dA2OjTwgYIdZ8nEVYDxSQq
-	d+3bcs04gQBd+YAW9yxx3St/gEDNuylCCP/fwLteDQcvA1BH8vtIBltsF+JJrdi+yfFrhuDGuK9
-	acvLO/tBU+ha82o4j2yq1jhLZdL+/z1KgsQN3AhdGA2dhLida+gB9QISpBV4WE04t5BnbL9NsNC
-	TRSn2y+i+fisHkx01E/8Rtp/TSo+wt8hUGp+1KaVM5taJLgCTSfySGj7EZestn7X1Q4KA+hFDbz
-	Fi35b8SMQcwDWc03t
-X-Google-Smtp-Source: AGHT+IEgZUspumxMo5/YANsRag03NGG3y4CoEz8EgjRdCbXES6quT6/opTZTOAJjBaqZsubmBLCynA==
-X-Received: by 2002:a05:6402:2681:b0:5d3:cff5:634f with SMTP id 4fb4d7f45d1cf-5f6df82fdcemr2156194a12.24.1745494939930;
-        Thu, 24 Apr 2025 04:42:19 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------fFxa0EaYfvbxfwTUNxpg0xLv"
-Message-ID: <069de4f4-0618-4a64-bb0d-73eac409116c@gmail.com>
-Date: Thu, 24 Apr 2025 13:42:18 +0200
+        d=1e100.net; s=20230601; t=1745495940; x=1746100740;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fj6LGahoTYMxnRXxcI3of6d0hI/muf1rInmz5RlCZRM=;
+        b=AhZzQ82ceBrDqvR1f8yf8hVyfFyrrRpaGIoEMK5aewvUX4UchGKXowVJ4SiJTRdOvb
+         K48KR4xDpqwoHObYaQh3qYpQ99uLuPR8wf+5xouFqj0xmQGJsc5/Rji7CKtDQKfcutpT
+         GLWgJGNINNjsgfYv9kapktg2O9jUr8mBu4PrwdsyzVVYGguMpitM1Ckc2GWD58UOq6Q4
+         r7ptA5hr+V35tPR9MbloGbA9U73QSVN21jpVeH0K4TCmPW2/UyMTsFoH9ndO11HX+wRC
+         wC6n6pff+5uMRgIrpvyjgmR1mwNd9OOAeMOlTl6ezJUFrhi06z2whBraPlMGbQBjf8xF
+         sciQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWE9i1Z4EWqCMWlVnrLwrkfu3zp5IDc3ZmflxWC1uU8lWpYO+VDHpFoAkTXD4KkoUIMl/i3fY011i0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YypJt5UYnfZPhhcze3p9Jg5AJathDhZNQ58/Mr5/7ZUqGuhGhJg
+	wtkIJ82oV5aScjQF6JxG2hUqSOJZok8769TMfc5nocDjh0AbHn6rYgw9+5bhr67pCWkySDrhT9Q
+	p
+X-Gm-Gg: ASbGncsRWA0fn97zmBsGpiHw0wo8ixgGuBld6GA70igSguOcDGM/TBE3pKQB3BRqEWX
+	1+hINhvbQSMPt/UWirS19KGt6KaMWx3I/lUPsciWybh7bH0IXI9aKUwMoQ9oGRu7nsC0y+rC7NN
+	tUqATbbFZJCKMVDk/AcXN6z5syH/cpPDgDtpA2gtq8OquuKmWvK5F3ctHWQNUFsEBcKO0OOZlyE
+	Gu2p4U9M5CCTInSk2n4+qssTQlI3wa9jwi9rj7hmVzZuD7PGX1qAOJy2456Igq9/lCm3aT15qPg
+	v5wSzBDTgdwAYf2Ig9PddYWlTt4i6Dr6Ek4WXtcSRlVOmN/GlZhDnC/o6sJaBSoUVahtV0I/WO3
+	5d9M9
+X-Google-Smtp-Source: AGHT+IGraPvbgnvacLxk6PkCswfyv64TKXmePUtaw21/A9m3dRcFnIwG65vOmjP1Ddd6VvB+HKex3w==
+X-Received: by 2002:a5d:64a4:0:b0:39f:e37:1733 with SMTP id ffacd0b85a97d-3a06cf52369mr1885352f8f.2.1745495940276;
+        Thu, 24 Apr 2025 04:59:00 -0700 (PDT)
+Message-ID: <76110aab-d506-4b20-9e28-1ddfd9a059f1@citrix.com>
+Date: Thu, 24 Apr 2025 12:58:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH v2 1/6] SUPPORT.md: make Linux based stubdom fully
- supported
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Community Manager <community.manager@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v1] misra: add deviation of Rule 5.5
+To: "Lira, Victor M" <VictorM.Lira@amd.com>, xen-devel@lists.xenproject.org
+Cc: Federico Serafini <federico.serafini@bugseng.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250408123526.14613-1-jgross@suse.com>
- <20250408123526.14613-2-jgross@suse.com>
-Content-Language: en-US
-In-Reply-To: <20250408123526.14613-2-jgross@suse.com>
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+ <48c7830931a98b2bf70ef1509f309b262b9e5792.1745427770.git.victorm.lira@amd.com>
+ <d81178fe-82b8-434e-8610-e0ec71df6a28@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <d81178fe-82b8-434e-8610-e0ec71df6a28@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------fFxa0EaYfvbxfwTUNxpg0xLv
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-
-On 4/8/25 2:35 PM, Juergen Gross wrote:
-> All patches needed for running with a Linux stubdom device model are
-> in the tree and QubesOS is using and testing Linux stubdoms nowadays.
+On 23/04/2025 7:16 pm, Lira, Victor M wrote:
+> Continuing a discussion from before:
 >
-> Switch support from "Tech Preview" to "Supported, with caveats".
+> On 4/22/2025 11:44 PM, Jan Beulich wrote:
+>> Caution: This message originated from an External Source. Use proper
+>> caution when opening attachments, clicking links, or responding.
+>>
+>>
+>> On 23.04.2025 01:43, victorm.lira@amd.com wrote:
+>>>          memmove.
+>>>        - Tagged as `deliberate` for ECLAIR.
+>>>
+>>> +   * - R5.5
+>>> +     - Clashes between function-like macros and function names are
+>>> +       deliberate
+>> They may or may not be deliberate, depending on context. I don't
+>> think it's a
+>> good move to deviate this more widely than necessary. If I get the
+>> expression
+>> above (in deviations.ecl) right, even
+>>
+>> void func1(int);
+>> void func2(int);
+>>
+>> #define func1() func2(0)
+>> #define func2() func1(0)
+>>
+>> would be deviated, which I don't think we want. Especially when, in a
+>> less
+>> contrived scenario, the clash may not easily be visible.
+> OK, I see the issue for different functions. Does it make sense to say
+> it's deliberate when it's the same identifier?
 >
-> Signed-off-by: Juergen Gross<jgross@suse.com>
-> ---
-> V2:
-> - switch to "Supported, with caveats" (security team)
-> ---
->   CHANGELOG.md | 1 +
->   SUPPORT.md   | 5 ++++-
->   2 files changed, 5 insertions(+), 1 deletion(-)
+>     void func1(int);
+>     ...
+>     #define func1() func1(0)
 >
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index 8f6afa5c85..ce4fcf2feb 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->    - The minimum toolchain requirements have increased for some architectures:
->      - For x86, GCC 5.1 and Binutils 2.25, or Clang/LLVM 11
->      - For ARM32 and ARM64, GCC 5.1 and Binutils 2.25
-> + - Linux based device model stubdomains are now fully supported.
+> Could this be deviated?
 
-LGTM: Acked-By: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+The issue here is we've got a load of violations, and different reasoning.
 
-Thanks.
-~ Oleksii
+e.g. all the bitops violations are valid and need fixing.  I have a plan
+for how to do so, and 0 time.  These are the overwhelming majority of
+violations.
 
->   
->   ### Added
->    - On x86:
-> diff --git a/SUPPORT.md b/SUPPORT.md
-> index 91cb6f8ed2..e8fd0c251e 100644
-> --- a/SUPPORT.md
-> +++ b/SUPPORT.md
-> @@ -260,7 +260,10 @@ Go (golang) bindings for libxl
->   
->   Support for running qemu-xen device model in a linux stubdomain.
->   
-> -    Status: Tech Preview
-> +    Status: Supported, with caveats
-> +
-> +Any issue in the stubdomain affecting only the guest it is servicing
-> +or itself will not be regarded a security issue.
->   
->   ## Xenstore
->   
---------------fFxa0EaYfvbxfwTUNxpg0xLv
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+pirq_cleanup_check() is horrible.  cpu_has_amd_erraturm is even worse.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/8/25 2:35 PM, Juergen Gross wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20250408123526.14613-2-jgross@suse.com">
-      <pre wrap="" class="moz-quote-pre">All patches needed for running with a Linux stubdom device model are
-in the tree and QubesOS is using and testing Linux stubdoms nowadays.
+In fact, I can't see a single case where the origin code is something we
+really want to keep.
 
-Switch support from "Tech Preview" to "Supported, with caveats".
+I still don't understand the complaint about 'c' as an identifier.
 
-Signed-off-by: Juergen Gross <a class="moz-txt-link-rfc2396E"
-      href="mailto:jgross@suse.com">&lt;jgross@suse.com&gt;</a>
----
-V2:
-- switch to "Supported, with caveats" (security team)
----
- CHANGELOG.md | 1 +
- SUPPORT.md   | 5 ++++-
- 2 files changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 8f6afa5c85..ce4fcf2feb 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](<a
-      class="moz-txt-link-freetext"
-      href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
-  - The minimum toolchain requirements have increased for some architectures:
-    - For x86, GCC 5.1 and Binutils 2.25, or Clang/LLVM 11
-    - For ARM32 and ARM64, GCC 5.1 and Binutils 2.25
-+ - Linux based device model stubdomains are now fully supported.</pre>
-    </blockquote>
-    <pre>LGTM: Acked-By: Oleksii Kurochko <a
-    class="moz-txt-link-rfc2396E"
-    href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-Thanks.
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:20250408123526.14613-2-jgross@suse.com">
-      <pre wrap="" class="moz-quote-pre"> 
- ### Added
-  - On x86:
-diff --git a/SUPPORT.md b/SUPPORT.md
-index 91cb6f8ed2..e8fd0c251e 100644
---- a/SUPPORT.md
-+++ b/SUPPORT.md
-@@ -260,7 +260,10 @@ Go (golang) bindings for libxl
- 
- Support for running qemu-xen device model in a linux stubdomain.
- 
--    Status: Tech Preview
-+    Status: Supported, with caveats
-+
-+Any issue in the stubdomain affecting only the guest it is servicing
-+or itself will not be regarded a security issue.
- 
- ## Xenstore
- 
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------fFxa0EaYfvbxfwTUNxpg0xLv--
+~Andrew
 
