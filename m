@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1393A9A259
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 08:35:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.965850.1356256 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8DE6A9A32B
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 09:17:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.965895.1356285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7qAd-0007Cs-4x; Thu, 24 Apr 2025 06:34:51 +0000
+	id 1u7qpP-000788-JZ; Thu, 24 Apr 2025 07:16:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 965850.1356256; Thu, 24 Apr 2025 06:34:51 +0000
+Received: by outflank-mailman (output) from mailman id 965895.1356285; Thu, 24 Apr 2025 07:16:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7qAd-00079j-1h; Thu, 24 Apr 2025 06:34:51 +0000
-Received: by outflank-mailman (input) for mailman id 965850;
- Thu, 24 Apr 2025 06:34:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u7qpP-00075V-Gr; Thu, 24 Apr 2025 07:16:59 +0000
+Received: by outflank-mailman (input) for mailman id 965895;
+ Thu, 24 Apr 2025 07:16:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=IaUl=XK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u7qAb-00079Z-05
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 06:34:49 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3690d598-20d6-11f0-9ffb-bf95429c2676;
- Thu, 24 Apr 2025 08:34:46 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-39c266c2dd5so647906f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 23:34:46 -0700 (PDT)
-Received: from ?IPV6:2003:ca:b734:b408:9d23:e5d:de25:e110?
- (p200300cab734b4089d230e5dde25e110.dip0.t-ipconnect.de.
- [2003:ca:b734:b408:9d23:e5d:de25:e110])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a06d532a9dsm995408f8f.61.2025.04.23.23.34.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 23:34:44 -0700 (PDT)
+ (envelope-from <SRS0=/BVb=XK=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1u7qpN-00075K-SW
+ for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 07:16:58 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1a071a4e-20dc-11f0-9eb1-5ba50f476ded;
+ Thu, 24 Apr 2025 09:16:56 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53O7G7xQ675155
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Thu, 24 Apr 2025 00:16:08 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,116 +40,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3690d598-20d6-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745476485; x=1746081285; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zL+sciCXJIK0yGTIFxCeU0K61FCHzj7AzTTjNz1xr98=;
-        b=MhucUiW1TkRtcJoFAmcz5S6ZIlbz4NmC48nkTD1lIRtD9bpEZwWLrf+iqMLhnbu7X2
-         v9cx+rnq0XaXycO2xVjt15yoRJNdnyX7rTPi+VFXWLPM652GICjFp6iepDfKhQUa4TGR
-         fdcBAhdFIdUeoESIdcRq/OIqkkU5ns8X4DkYojx1rfkw6dTa/s7sqr5AmSV3RHhzkZmk
-         GET3bu9r7HYyoRRwCzIl2G6SAeI225ZJq5IGtqNJD2Yspmw2e6ZxiRUYmhAYfsABOISr
-         oomOyae1fPQI/WPxzykNva7C0F4FszZeVDMR7YcLDy1+I68qbJlzoqVo5N0x77ENSEQg
-         TbVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745476485; x=1746081285;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zL+sciCXJIK0yGTIFxCeU0K61FCHzj7AzTTjNz1xr98=;
-        b=UKTLBaJOVKHDtXvI8ZHO/UXZ7y1DCVlx+9R1EKfEAsvBNrWPMIVSIrAW1Gt50cp2c2
-         mXFmftle+6ahmjJxhBI08HZk1kaweeWpS+4e3VTH6UDvgbj8YQ1L878uUwgnvXl8pqUa
-         KuT4sLcLLYQy1TwTeUrRkvBuOrI6S8ZcLnf6sgFD/Lcg6P7LOBC7f8Y1oIUr4eyQ7mGW
-         McIOPh0l6pgRb+aZWdX76+oT5gPfUltDfbZF9hk0P/gS/r834GCHsgOw9TRJf+Xi2hHz
-         MKrSW/ouB96WqM9yYLfr1eIKye8ipGUjd+WN9yySqQIInGJmGn3QzaHtI9y1PYB0WF/f
-         e2Cw==
-X-Forwarded-Encrypted: i=1; AJvYcCXJk9AaF0IJRdEndafUY0lSCrpK2XgTqJmM+6sDSnG69HYWG+ofpIYoT6yz0uVHtFAERSXvdTozTw8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwUDV+2IlbeVB9E4d4v4B9l3r+Tpqi9zJYY4vogK26Eg9OmbMJx
-	QY9BTmepAMBiRIVwzcuFh8MdojmRGvffwi4Pkr/O8Z67aYclaNFZi36rykWbYg==
-X-Gm-Gg: ASbGncu9EQFeC+o2AW0ftyaBgva+rlnTliGC98QlKiKcgK83ZVoVqU4GVXhnGjTvs+s
-	cWuON8TqxEboE0VQmu8ifGGlI4xEubPTPuiewAIPOmYndUgMo0yLw9LYE25Wskel1BzE6fJGW3r
-	44/TrwOE14lpWGPob144uVF8iuDiF57Fc8LQJX0EweNjyz/0c0l7djLQbgmuNfaU2lxQnAtgRKI
-	V+GPmr2GovJ5GHs9B+hoFQMEZNe7sAW6LlNxjvGYhWxBLFRim0SxbndP/lfO1Tevpumw1SCtx4Q
-	Id2rBqxND0EfC7XcgwM6gZspGi2KCLm3sxW2gTF5Cnhx5fUUX8ZqFtLk5xvypJ8WKURvIb4TWbG
-	4awu+aSjjSG78M/ZgXpIqdDHcf2C/K+XB2+3RIBwypjTVMRtLgLF+K16Cf2zhDs5lpA7ruRg4
-X-Google-Smtp-Source: AGHT+IH9E1o9LJ+cwSu+3F7DUFRfhr2+CxwRYdb8fS8cZImhSvBJsJrpIokuBBQvNbHY6XwgWrf5Bg==
-X-Received: by 2002:a05:6000:18a8:b0:391:241d:a13e with SMTP id ffacd0b85a97d-3a06cfab52fmr727926f8f.48.1745476485300;
-        Wed, 23 Apr 2025 23:34:45 -0700 (PDT)
-Message-ID: <40a5c44c-4ef1-4852-b441-ea65e31b2345@suse.com>
-Date: Thu, 24 Apr 2025 08:34:42 +0200
+X-Inumbo-ID: 1a071a4e-20dc-11f0-9eb1-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53O7G7xQ675155
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1745478973;
+	bh=Odag7AUDgfyRP0+2u/H+HenPnfgl0J1B2VMW9HL/hPY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=d86S+IGYG3p4vXYzf5tU1fqwwhzwlqPeOdX0LxBP3GXABuT8mjfDO+CBUKCW848SQ
+	 DZKTS3GVQ63kEDbEoH3UczKm0cOKJPG2Qwh++9GOGJTM5UuSqDcynKa2xFyNgkdz4Z
+	 R9VFC+6vru/Wbfh93IBkm1anEKXEw+f4obbh3WSLvTlHMYA93DY/dXGOsfOOtd92xQ
+	 oizB71iApse9+ri55DZ2jAGUU+LSC2awjvDaoHQvrkRDvdKdRaoFx+ISpI70XSxFPc
+	 jqSmnMNMNsT/GqweC5nu+VfxFOHe7P5xgOsr9wU+7mhYoBfhtU+mMKTul67uGxqWuB
+	 yTuvbW0WLwpCw==
+Message-ID: <2ce9ab5c-89a5-4504-91d2-fbc12c68117a@zytor.com>
+Date: Thu, 24 Apr 2025 00:16:06 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: UBSan bug in real mode fpu emulation
-To: Fabian Specht <f.specht@tum.de>, xen-devel@lists.xenproject.org
-Cc: manuel.andreas@tum.de
-References: <l2jnq5cxgkzcdkndp3mjf76nd7wdp2pbstkqo7llaarmbfqdge@bxdydela4rcf>
+Subject: Re: [RFC PATCH v2 11/34] x86/msr: Remove calling
+ native_{read,write}_msr{,_safe}() in pmu_msr_{read,write}()
+To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org, linux-perf-users@vger.kernel.org,
+        linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+        linux-pm@vger.kernel.org, linux-edac@vger.kernel.org,
+        xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+        linux-hwmon@vger.kernel.org, netdev@vger.kernel.org,
+        platform-driver-x86@vger.kernel.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        acme@kernel.org, jgross@suse.com, andrew.cooper3@citrix.com,
+        peterz@infradead.org, namhyung@kernel.org, mark.rutland@arm.com,
+        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
+        wei.liu@kernel.org, ajay.kaher@broadcom.com,
+        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
+        pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
+        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
+        haiyangz@microsoft.com, decui@microsoft.com
+References: <20250422082216.1954310-1-xin@zytor.com>
+ <20250422082216.1954310-12-xin@zytor.com>
+ <20471e53-c228-4cf6-83e6-3ab49f32f19f@linux.intel.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <l2jnq5cxgkzcdkndp3mjf76nd7wdp2pbstkqo7llaarmbfqdge@bxdydela4rcf>
-Content-Type: text/plain; charset=UTF-8
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <20471e53-c228-4cf6-83e6-3ab49f32f19f@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 24.04.2025 03:08, Fabian Specht wrote:
-> we discovered a bug regarding undefined behaviour in the FPU emulation
-> unit.
+On 4/23/2025 11:25 PM, Mi, Dapeng wrote:
+
+>> -bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err)
+>> +bool pmu_msr_read(u32 msr, u64 *val)
 > 
-> if ( !s->rex_prefix )
-> {
-> 	/* Convert 32-bit real/vm86 to 32-bit prot format. */
-> 	unsigned int fip = fpstate.env.mode.real.fip_lo +
-> 					   (fpstate.env.mode.real.fip_hi << 16);
-> 	unsigned int fdp = fpstate.env.mode.real.fdp_lo +
-> 					   (fpstate.env.mode.real.fdp_hi << 16);
-> 	unsigned int fop = fpstate.env.mode.real.fop;
+> The function name is some kind of misleading right now. With the change,
+> this function only read PMU MSR's value if it's emulated, otherwise it
+> won't really read PMU MSR. How about changing the name to
+> "pmu_emulated_msr_read" or something similar?
+
+This makes sense!
+
+>> -bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err);
+>> -bool pmu_msr_write(unsigned int msr, uint32_t low, uint32_t high, int *err);
+>> +bool pmu_msr_read(u32 msr, u64 *val);
 > 
-> 	fpstate.env.mode.prot.fip = fip & 0xf;
-> 	fpstate.env.mode.prot.fcs = fip >> 4;
-> 	fpstate.env.mode.prot.fop = fop;
-> 	fpstate.env.mode.prot.fdp = fdp & 0xf;
-> 	fpstate.env.mode.prot.fds = fdp >> 4;
-> }
-> 
-> It occurs at arch/x86/arch/x86/x86_emulate/blk.c:85 of the v4.20.0
-> release during the bit shift and can be triggered using the attached xtf
-> test. We are not aware of any security consequences.
-> Simply shifting by 4 should do the trick in my opinion.
+> The prototype of pmu_msr_read() has been changed, but why there is no
+> corresponding change in its caller (xen_do_read_msr())?
 
-Since ...
-
-> Similar code resides in the same file in lines 87, 125 and 127.
-
-... all of these are shifts by 16, could you clarify what it is that you
-want to shift by 4? Imo what we need to do here is add casts to unsigned
-int, for the results thereof to be shifted (or use some extra arithmetic
-to achieve the same effect, e.g. add in 0U). Or we could go and replace
-the shifts by 16 with shifts by 12 (accounting for the later right shift
-by 4, which would then need dropping).
-
-Jan
+Good catch.  I didn't compile one by one thus missed it.
 
