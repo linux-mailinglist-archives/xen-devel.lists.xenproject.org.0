@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04142A9AF01
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 15:30:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.966330.1356568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B28A5A9AF7A
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 15:41:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.966343.1356579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7weY-0002eO-EI; Thu, 24 Apr 2025 13:30:10 +0000
+	id 1u7wpi-0005II-DT; Thu, 24 Apr 2025 13:41:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 966330.1356568; Thu, 24 Apr 2025 13:30:10 +0000
+Received: by outflank-mailman (output) from mailman id 966343.1356579; Thu, 24 Apr 2025 13:41:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7weY-0002c4-Bj; Thu, 24 Apr 2025 13:30:10 +0000
-Received: by outflank-mailman (input) for mailman id 966330;
- Thu, 24 Apr 2025 13:30:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Yjef=XK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u7weW-0002by-4Q
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 13:30:08 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c65382a-2110-11f0-9eb2-5ba50f476ded;
- Thu, 24 Apr 2025 15:30:06 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ace333d5f7bso184470566b.3
- for <xen-devel@lists.xenproject.org>; Thu, 24 Apr 2025 06:30:06 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace59820923sm108386366b.33.2025.04.24.06.30.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Apr 2025 06:30:04 -0700 (PDT)
+	id 1u7wpi-0005GU-AZ; Thu, 24 Apr 2025 13:41:42 +0000
+Received: by outflank-mailman (input) for mailman id 966343;
+ Thu, 24 Apr 2025 13:41:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <anthony@xenproject.org>) id 1u7wph-0005GO-3g
+ for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 13:41:41 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <anthony@xenproject.org>) id 1u7wpg-001ffi-0t;
+ Thu, 24 Apr 2025 13:41:40 +0000
+Received: from [2a01:e0a:1da:8420:b77:bd5:6e45:7633] (helo=l14)
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <anthony@xenproject.org>) id 1u7wpf-00EgXS-2w;
+ Thu, 24 Apr 2025 13:41:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,504 +39,321 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c65382a-2110-11f0-9eb2-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1745501406; x=1746106206; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Rzguls3Vu8q5nSCIy1UEvoc69a/RTh12WQpaMmqr528=;
-        b=ByKcizj98nxZyNzKR0wcCqjJ+WnMd44hYNL96Zznz7BfNL5Rz0AjCnm6CQRaNN+FSk
-         9BMYaQIp7bp02rR17AKWfDNwkpe5BjaMBkHx9qwklt2GTEs7/8NmO7Ltn+pdpm1yqd2f
-         NB8RWPsz7L+5pPZQZZ5CtIo98RhDQ7ddyhMzr7AiNPQ5ZRPe7PRSOjY5VlPJAlrhohQB
-         NtsmUdszWO7xnAU9pJDTJibapW8bIJ9UQvmq88WW6THEbdvaZHPXq7hxzwLmPPThRZkc
-         fheoozem9Gryc8zeFCoe0keN+5+579MW81sxIqDrIkSuw8NlTR82Ge3yfEHJReAn1d3k
-         vUPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745501406; x=1746106206;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Rzguls3Vu8q5nSCIy1UEvoc69a/RTh12WQpaMmqr528=;
-        b=HzkC+fVJItVb/8oQDOOjr5AHyiK1s1Vz+jJfAXbyiagUiCcUFvOrdE7riCEfH+kxNE
-         V7QoK8QA6xBpX82QQwy80AGt3/j26561Ba+OY80/An2/t0OTnDe9ER3NJ1kMMdmUaGIh
-         5xajHw3aZe5HybkTuUflGT9VqbptpBvoI29jtSGm+mzBMnoimPwMhQVt6DCPOvcDlVw8
-         ahTeqTRp8U5QFhCVTK19Eww0HO5tmX01YLI4esNXtfHVSMfK8oMSxAMSE6dPFlwhMpX8
-         wYw7s2ME5yMVFqngmA+S7drYHXHAlaip2iYFeIIETflmHJG86WVjhsoJPARFXECbS9RD
-         QdZw==
-X-Forwarded-Encrypted: i=1; AJvYcCWJ57yt3aoWtymbqoZsLHAnUYs/ulBlgjU+/hUtsptMJ/ObY5b1dGk0hDLQKP9NTM//Y6JewpvS+Bw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwwN4vUyXHx8B5tx49VVGx9IHDbvI9tHDPGjHC7egJU57w6H27E
-	otQl4QZrBNWh5hjaOocR4jbRB/DAriMGgQ58NNy4V6KyT38EAyjY
-X-Gm-Gg: ASbGncu2MiNBK3hVMG8V8OkTOMnPD3E12wFbpa958jJ7r3EqKLb+B/J3eE5lz8AvBN8
-	Z6p9ZzKYKO9r3xXF/0mKT9zA/27ObFQboa0FIJ3O2WTfjTH9C658C6G19itNEvFBCDpIIegD4+a
-	0qn40QllTk2HXHj5qHe5c/8uNzyXfIAosWXFltf4DEg1ZPS2/UR4ZLTAL0SXIhKeTNyNdLv8qCB
-	ywxQYT6Vzrgu5MVjywL+F4vIMGqage0voaANFuaGsD8MrujWjne3tS8yKXmA1ypg0AbloI04pGB
-	6puB7sXHnIxvdWR+rTsj/br9U0W7IxZkVGd4rTNwAQlpVd4F2cME8rEKYUkOiJcC70Y0tbtpmKe
-	WzOqOTvx+tjxTMkSq
-X-Google-Smtp-Source: AGHT+IE7Wp/uFUjJcvanGTajBDDnv+FYDtKUstetKjn3OPu4UpDtYlkRqKaYtvbaBimUM4GTVusA/Q==
-X-Received: by 2002:a17:907:a4e:b0:abf:6e6a:885c with SMTP id a640c23a62f3a-ace57283e71mr257186566b.23.1745501405419;
-        Thu, 24 Apr 2025 06:30:05 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------fZiyz4mApGCz5FywkcbWgRT2"
-Message-ID: <9ecef427-2b2c-4495-abd9-716e7c844982@gmail.com>
-Date: Thu, 24 Apr 2025 15:30:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date;
+	bh=0bCs0z5h8TGFizTQyCrHG4bQMUs8ZugPkiXUI3Afgug=; b=JJbEwZOZbXmUjS/dwH7gwKJ/fM
+	Dice1FKgf9+bli8vPpPIq0B4LsSGWEqLecqya2dCmiD+5YmHyqiB0HFNifcvk8qtyXOhwgd4L8K6I
+	/OoyYBYK1pr530VCkBc2UvZVnRoAyHxcn9Za7TNRJQqK1EjYvJ4feA488iT6xK+O8Saw=;
+Date: Thu, 24 Apr 2025 15:41:37 +0200
+From: Anthony PERARD <anthony@xenproject.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Nick Rosbrook <rosbrookn@gmail.com>,
+	George Dunlap <gwd@xenproject.org>,
+	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH v2 3/6] tools: remove support for running a guest with
+ qemu-traditional
+Message-ID: <aAo_kQKhjRMqRNhO@l14>
+References: <20250408123526.14613-1-jgross@suse.com>
+ <20250408123526.14613-4-jgross@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 03/14] xen/riscv: introduce ioremap()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <6d91eeabe2735de93bfcf2a2420e2059a8f35e52.1744126720.git.oleksii.kurochko@gmail.com>
- <84089b6d-efeb-4613-85b9-eb10d11d7338@suse.com>
- <f315bc11-c537-4dca-9e62-a6d3f02733e4@gmail.com>
- <6b226b72-11a4-4004-b42d-0e280de83539@suse.com>
- <bbfdc4a0-54f0-4a9d-aa6d-2cf85ec03411@gmail.com>
- <a71db245-5b0b-435e-8e58-cb43c5162862@suse.com>
- <7d5356a5-53b7-4d1b-82ff-bc6f81a2f445@gmail.com>
- <6f50dea4-60e6-46b0-9363-d943ba553334@suse.com>
- <676c1627-95a0-46a0-b132-3f3ac2fdda01@gmail.com>
- <28142d86-0845-4bb3-a0bb-e4903f898abf@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <28142d86-0845-4bb3-a0bb-e4903f898abf@suse.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250408123526.14613-4-jgross@suse.com>
 
-This is a multi-part message in MIME format.
---------------fZiyz4mApGCz5FywkcbWgRT2
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On Tue, Apr 08, 2025 at 02:35:21PM +0200, Juergen Gross wrote:
+> diff --git a/tools/firmware/hvmloader/pci.c b/tools/firmware/hvmloader/pci.c
+> index c3c61ca060..a00acdd45b 100644
+> --- a/tools/firmware/hvmloader/pci.c
+> +++ b/tools/firmware/hvmloader/pci.c
+> @@ -113,19 +113,9 @@ void pci_setup(void)
+>       * increase the size of the lowmem MMIO hole?  Defaulting to 1
 
+This say "default to 1", but the default is changing to 0 instead.
 
-On 4/22/25 11:14 AM, Jan Beulich wrote:
-> On 22.04.2025 10:40, Oleksii Kurochko wrote:
->> On 4/17/25 4:49 PM, Jan Beulich wrote:
->>> On 17.04.2025 16:37, Oleksii Kurochko wrote:
->>>> On 4/17/25 4:24 PM, Jan Beulich wrote:
->>>>> On 17.04.2025 16:20, Oleksii Kurochko wrote:
->>>>>> On 4/15/25 1:02 PM, Jan Beulich wrote:
->>>>>>> On 15.04.2025 12:29, Oleksii Kurochko wrote:
->>>>>>>> On 4/10/25 5:13 PM, Jan Beulich wrote:
->>>>>>>>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
->>>>>>>>>> Based on RISC-V unpriviliged spec ( Version 20240411 ):
->>>>>>>>>> ```
->>>>>>>>>> For implementations that conform to the RISC-V Unix Platform Specification,
->>>>>>>>>> I/O devices and DMA operations are required to access memory coherently and
->>>>>>>>>> via strongly ordered I/O channels. Therefore, accesses to regular main memory
->>>>>>>>>> regions that are concurrently accessed by external devices can also use the
->>>>>>>>>> standard synchronization mechanisms. Implementations that do not conform
->>>>>>>>>> to the Unix Platform Specification and/or in which devices do not access
->>>>>>>>>> memory coherently will need to use mechanisms
->>>>>>>>>> (which are currently platform-specific or device-specific) to enforce
->>>>>>>>>> coherency.
->>>>>>>>>>
->>>>>>>>>> I/O regions in the address space should be considered non-cacheable
->>>>>>>>>> regions in the PMAs for those regions. Such regions can be considered coherent
->>>>>>>>>> by the PMA if they are not cached by any agent.
->>>>>>>>>> ```
->>>>>>>>>> and [1]:
->>>>>>>>>> ```
->>>>>>>>>> The current riscv linux implementation requires SOC system to support
->>>>>>>>>> memory coherence between all I/O devices and CPUs. But some SOC systems
->>>>>>>>>> cannot maintain the coherence and they need support cache clean/invalid
->>>>>>>>>> operations to synchronize data.
->>>>>>>>>>
->>>>>>>>>> Current implementation is no problem with SiFive FU540, because FU540
->>>>>>>>>> keeps all IO devices and DMA master devices coherence with CPU. But to a
->>>>>>>>>> traditional SOC vendor, it may already have a stable non-coherency SOC
->>>>>>>>>> system, the need is simply to replace the CPU with RV CPU and rebuild
->>>>>>>>>> the whole system with IO-coherency is very expensive.
->>>>>>>>>> ```
->>>>>>>>>>
->>>>>>>>>> and the fact that all known ( to me ) CPUs that support the H-extension
->>>>>>>>>> and that ones is going to be supported by Xen have memory coherency
->>>>>>>>>> between all I/O devices and CPUs, so it is currently safe to use the
->>>>>>>>>> PAGE_HYPERVISOR attribute.
->>>>>>>>>> However, in cases where a platform does not support memory coherency, it
->>>>>>>>>> should support CMO extensions and Svpbmt. In this scenario, updates to
->>>>>>>>>> ioremap will be necessary.
->>>>>>>>>> For now, a compilation error will be generated to ensure that the need to
->>>>>>>>>> update ioremap() is not overlooked.
->>>>>>>>>>
->>>>>>>>>> [1]https://patchwork.kernel.org/project/linux-riscv/patch/1555947870-23014-1-git-send-email-guoren@kernel.org/
->>>>>>>>> But MMIO access correctness isn't just a matter of coherency. There may not
->>>>>>>>> be any caching involved in most cases, or else you may observe significantly
->>>>>>>>> delayed or even dropped (folded with later ones) writes, and reads may be
->>>>>>>>> serviced from the cache instead of going to actual MMIO. Therefore ...
->>>>>>>>>
->>>>>>>>>> --- a/xen/arch/riscv/Kconfig
->>>>>>>>>> +++ b/xen/arch/riscv/Kconfig
->>>>>>>>>> @@ -15,6 +15,18 @@ config ARCH_DEFCONFIG
->>>>>>>>>>       	string
->>>>>>>>>>       	default "arch/riscv/configs/tiny64_defconfig"
->>>>>>>>>>       
->>>>>>>>>> +config HAS_SVPBMT
->>>>>>>>>> +	bool
->>>>>>>>>> +	help
->>>>>>>>>> +	  This config enables usage of Svpbmt ISA-extension ( Supervisor-mode:
->>>>>>>>>> +	  page-based memory types).
->>>>>>>>>> +
->>>>>>>>>> +	  The memory type for a page contains a combination of attributes
->>>>>>>>>> +	  that indicate the cacheability, idempotency, and ordering
->>>>>>>>>> +	  properties for access to that page.
->>>>>>>>>> +
->>>>>>>>>> +	  The Svpbmt extension is only available on 64-bit cpus.
->>>>>>>>> ... I kind of expect this extension (or anything else that there might be) will need
->>>>>>>>> making use of.
->>>>>>>> In cases where the Svpbmt extension isn't available, PMA (Physical Memory Attributes)
->>>>>>>> is used to control which memory regions are cacheable, non-cacheable, readable, writable,
->>>>>>>> etc. PMA is configured in M-mode by the firmware (e.g., OpenSBI), as is done in Andes
->>>>>>>> cores, or it can be fixed at design time, as in SiFive cores.
->>>>>>> How would things work if there was a need to map a RAM page uncacheable (via
->>>>>>> ioremap() or otherwise)?
->>>>>> My understanding is that Svpbmt is only needed when someone wants to change the memory
->>>>>> attribute of a page set by PMA.
->>>>>>
->>>>>> The question is if non-cacheable RAM page is really needed if we have a coherency?
->>>>> Aiui coherency here is among CPUs.
->>>> ```
->>>> For implementations that conform to the RISC-V Unix Platform Specification,
->>>> I/O devices and DMA operations are required to access memory coherently and
->>>> via strongly ordered I/O channels. Therefore, accesses to regular main memory
->>>> regions that are concurrently accessed by external devices can also use the
->>>> standard synchronization mechanisms. Implementations that do not conform
->>>> to the Unix Platform Specification and/or in which devices do not access
->>>> memory coherently will need to use mechanisms
->>>> (which are currently platform-specific or device-specific) to enforce
->>>> coherency.
->>>> ```
->>>> Based on this from the spec, coherency here is not only among CPUs.
->>>>
->>>>
->>>>> Properties of devices in the system are
->>>>> largely unknown?
->>>> Yes, but still not sure what kind of property requires ioremap() which won't work
->>>> without Svpmbt. Could you please tell me an example?
->>> Well, above you said they all need to access memory coherently. That's the
->>> "property" I was referring to.
->> Do you mean that device could have a property which tell that it would like to have non-cachable
->> region used for that? I haven't seen such property in device tree files.
->>
->> Do we have in Xen cases when Xen wants to have map part of RAM as non-cachebale and it is only the
->> one option?
-> On x86 we have the case that IOMMUs may access memory non-coherently. This is
-> particular means that IOMMU page table updates (which necessarily live in RAM)
-> need to be done quite carefully. As it's all our code, we deal with the
-> situation by issuing cache flushes, avoiding the need for UC mappings.
->
-> Graphics engines may have similar constraints, aiui. With the driver code not
-> being part of Xen, we wouldn't be able to use a similar "simplification" there.
-> UC mappings would be pretty much unavoidable.
+>       * here will mean that non-libxl toolstacks (including xend and
+>       * home-grown ones) means that those using qemu-xen will still
+> -     * experience the memory relocation bug described below; but it
+> -     * also means that those using qemu-traditional will *not*
+> -     * experience any change; and it also means that there is a
+> -     * work-around for those using qemu-xen, namely switching to
+> -     * qemu-traditional.
+> -     *
+> -     * If we defaulted to 0, and failing to resize the hole caused any
+> -     * problems with qemu-traditional, then there is no work-around.
+> -     *
+> -     * Since xend can only use qemu-traditional, I think this is the
+> -     * option that will have the least impact.
+> +     * experience the memory relocation bug described below.
+>       */
+> -    bool allow_memory_relocate = 1;
+> +    bool allow_memory_relocate = 0;
 
-For this case, it would be better to have Svpmbt.
+I would keep this as 1. libxl does set it to 0 so there's no need to
+change the default here. I don't know if non-libxl toolstack will set
+the xenstore entry "hvmloader/allow-memory-relocate" with "1" if they
+need it.
 
-I would like to noted that Svpmbt isn't supported by RV32 architectures. For such cases, it will be still
-needed to play with PMA.
-I found today a patch in Linux kernel which does something similar to what I wrote in one of my previous
-replies:
-   [0]https://lore.kernel.org/all/20241102000843.1301099-1-samuel.holland@sifive.com/
-In the cover letter [0] it is mentioned the following:
-   On some RISC-V platforms, including StarFive JH7100 and ESWIN EIC7700,
-   RAM is mapped to multiple physical address ranges, with each alias
-   having a different set of statically-determined Physical Memory
-   Attributes (PMAs). Software selects the PMAs for a page by choosing a
-   PFN from the corresponding physical address range. On these platforms,
-   this is the only way to allocate noncached memory for use with
-   noncoherent DMA.
+>  
+>      BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO !=
+>                   PCI_COMMAND_IO);
+> @@ -347,10 +337,7 @@ void pci_setup(void)
+>      {
+>          /*
+>           * At the moment qemu-xen can't deal with relocated memory regions.
+> -         * It's too close to the release to make a proper fix; for now,
+> -         * only allow the MMIO hole to grow large enough to move guest memory
+> -         * if we're running qemu-traditional.  Items that don't fit will be
+> -         * relocated into the 64-bit address space.
+> +         * It's too close to the release to make a proper fix.
 
-So firmware should configure PMAs so some part of RAM is noncached and then kernel get this info based
-on the binding:
-   https://patchew.org/linux/20241102000843.1301099-1-samuel.holland@sifive.com/20241102000843.1301099-2-samuel.holland@sifive.com/
+I feel like this is removing too much information. Maybe instead of "if
+we are running qemu-traditional", we could have "if
+allow_memory_relocate is true".
 
-Considering that this feature isn't available even in Linux kernel, we can start with assumption that all
-our SoCs will support Svpmbt.
+>           *
+>           * This loop now does the following:
+>           * - If allow_memory_relocate, increase the MMIO hole until it's
+> diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
+> index 2d07ce1290..79c0e6bd4a 100644
+> --- a/tools/firmware/hvmloader/util.c
+> +++ b/tools/firmware/hvmloader/util.c
+> @@ -843,14 +843,7 @@ void hvmloader_acpi_build_tables(struct acpi_config *config,
+>  
+>      /* If the device model is specified switch to the corresponding tables */
+>      s = xenstore_read("platform/device-model", "");
+> -    if ( !strncmp(s, "qemu_xen_traditional", 21) )
+> -    {
+> -        config->dsdt_anycpu = dsdt_anycpu;
+> -        config->dsdt_anycpu_len = dsdt_anycpu_len;
+> -        config->dsdt_15cpu = dsdt_15cpu;
+> -        config->dsdt_15cpu_len = dsdt_15cpu_len;
 
-We don't really care about StarFive JH7100 as it doesn't support H extension, but we potentially should care
-about ESWIN EIC7700, which support H extension and doesn't support Svpmbt extension according to a datasheet
-publicly available:
-   Each EIC7700X core is configured to support the RV64I base ISA, as well as the Multiply (M), Atomic(A),
-   Single-Precision Floating Point (F), Double-Precision Floating Point (D), Compressed (C), CSR
-   Instructions (Zicsr), Instruction-Fetch Fence (Zifencei), Address Calculation (Zba), Basic Bit
-   Manipulation (Zbb), and Count Overflow and Mode-Based Filtering (Sscofpmf) RISC‑V extensions. This
-   is captured by the RISC‑V extension string: RV64GC_Zba_Zbb_Sscofpmf.
+Those `dsdt_anycpu` and `dsdt_15cpu` blob are still built in. The are
+both associated with qemu-trad so should not be included in hvmloader
+anymore.
 
->
->> I am also thinking why it can't be used cachable region + barrier (if we don't have memory coherency
->> for everything).
-> Not sure what exactly you're asking here (if anything). An answer would very
-> likely depend on the specific kind of barrier you're thinking about. The
-> question would be what, if any, effect a barrier would have on the cache(s).
+> -    }
+> -    else if ( !strncmp(s, "qemu_xen", 9) )
+> +    if ( !strncmp(s, "qemu_xen", 9) )
+>      {
+>          config->dsdt_anycpu = dsdt_anycpu_qemu_xen;
+>          config->dsdt_anycpu_len = dsdt_anycpu_qemu_xen_len;
+> diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
+> index e7667f1ce3..02c4d8d123 100644
+> --- a/tools/golang/xenlight/types.gen.go
+> +++ b/tools/golang/xenlight/types.gen.go
+> @@ -70,7 +70,6 @@ ChannelConnectionSocket ChannelConnection = 2
+>  type DeviceModelVersion int
+>  const(
+>  DeviceModelVersionUnknown DeviceModelVersion = 0
+> -DeviceModelVersionQemuXenTraditional DeviceModelVersion = 1
+>  DeviceModelVersionQemuXen DeviceModelVersion = 2
+>  )
+>  
+> diff --git a/tools/libacpi/mk_dsdt.c b/tools/libacpi/mk_dsdt.c
+> index 34f6753f61..396e3e01e2 100644
+> --- a/tools/libacpi/mk_dsdt.c
+> +++ b/tools/libacpi/mk_dsdt.c
+> @@ -105,7 +80,7 @@ int main(int argc, char **argv)
+>  {
+>      unsigned int cpu, max_cpus;
+>  #if defined(CONFIG_X86)
+> -    dm_version dm_version = QEMU_XEN_TRADITIONAL;
+> +    dm_version dm_version = QEMU_XEN;
 
-I confused barrier with cache flushes (when I wrote that I thought about the case of DMA that we don't really
-should have requirement of non-cachable memory for DMA as it is enough to have memory fence between use of DMA
-memory and MMIO that triggers the dma), basically I meant what you wrote above about x86's IOMMUs.
+This change means that we are going to have "dsdt_anycpu" (.asl and blob)
+been the same as "dsdt_anycpu_qemu_xen". Instead of changing the
+default, could you ensure that `--dm-version` is provided on the command
+line or return an error? No more default `dm_version`.
 
-~ Oleksii
+>      unsigned int slot, dev, intx, link;
+>  
+>      max_cpus = HVM_MAX_VCPUS;
+> diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+> index e03599ea99..9c56c4c9e5 100644
+> --- a/tools/libs/light/libxl_create.c
+> +++ b/tools/libs/light/libxl_create.c
+> @@ -100,12 +100,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
+>  
+>      if (!b_info->device_model_version) {
 
->
->> Anyway, if it isn't an option to have mapped cacheble region + barrier then there is no any choice
->> and the support of Svpmbt is required.
-> Quite possible.
->
-> Jan
---------------fZiyz4mApGCz5FywkcbWgRT2
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+A lot more can be removed in this blocks. In all cases, we set
+device_model_version=qemu-xen. Which mean it's qemu-xen in the condition
+just after.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/22/25 11:14 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:28142d86-0845-4bb3-a0bb-e4903f898abf@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 22.04.2025 10:40, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 4/17/25 4:49 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 17.04.2025 16:37, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">On 4/17/25 4:24 PM, Jan Beulich wrote:
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">On 17.04.2025 16:20, Oleksii Kurochko wrote:
-</pre>
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">On 4/15/25 1:02 PM, Jan Beulich wrote:
-</pre>
-                <blockquote type="cite">
-                  <pre wrap="" class="moz-quote-pre">On 15.04.2025 12:29, Oleksii Kurochko wrote:
-</pre>
-                  <blockquote type="cite">
-                    <pre wrap="" class="moz-quote-pre">On 4/10/25 5:13 PM, Jan Beulich wrote:
-</pre>
-                    <blockquote type="cite">
-                      <pre wrap="" class="moz-quote-pre">On 08.04.2025 17:57, Oleksii Kurochko wrote:
-</pre>
-                      <blockquote type="cite">
-                        <pre wrap="" class="moz-quote-pre">Based on RISC-V unpriviliged spec ( Version 20240411 ):
-```
-For implementations that conform to the RISC-V Unix Platform Specification,
-I/O devices and DMA operations are required to access memory coherently and
-via strongly ordered I/O channels. Therefore, accesses to regular main memory
-regions that are concurrently accessed by external devices can also use the
-standard synchronization mechanisms. Implementations that do not conform
-to the Unix Platform Specification and/or in which devices do not access
-memory coherently will need to use mechanisms
-(which are currently platform-specific or device-specific) to enforce
-coherency.
+>          if (b_info->type == LIBXL_DOMAIN_TYPE_HVM) {
+> -            if (libxl_defbool_val(b_info->device_model_stubdomain)) {
+> -                b_info->device_model_version =
+> -                    LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL;
+> -            } else {
+> -                b_info->device_model_version = LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN;
+> -            }
+> +            b_info->device_model_version = LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN;
+>          } else {
+>              b_info->device_model_version =
+>                  LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN;
+> @@ -117,16 +112,8 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
+>              dm = libxl__domain_device_model(gc, b_info);
+>              rc = access(dm, X_OK);
+>              if (rc < 0) {
+> -                /* qemu-xen unavailable, use qemu-xen-traditional */
+> -                if (errno == ENOENT) {
+> -                    LOGE(INFO, "qemu-xen is unavailable"
+> -                         ", using qemu-xen-traditional instead");
+> -                    b_info->device_model_version =
+> -                        LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL;
+> -                } else {
+> -                    LOGE(ERROR, "qemu-xen access error");
+> -                    return ERROR_FAIL;
+> -                }
+> +                LOGE(ERROR, "qemu-xen access error");
+> +                return ERROR_FAIL;
+>              }
+>          }
+>      }
+> diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+> index b193a5dc37..4146ee0ea1 100644
+> --- a/tools/libs/light/libxl_dm.c
+> +++ b/tools/libs/light/libxl_dm.c
+> @@ -2429,16 +2155,11 @@ void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state *sdss)
+>                          "%s",
+>                          libxl_bios_type_to_string(guest_config->b_info.u.hvm.bios));
+>      }
+> -    /* Disable relocating memory to make the MMIO hole larger
+> -     * unless we're running qemu-traditional and vNUMA is not
+> -     * configured. */
+> +    /* Disable relocating memory to make the MMIO hole larger. */
 
-I/O regions in the address space should be considered non-cacheable
-regions in the PMAs for those regions. Such regions can be considered coherent
-by the PMA if they are not cached by any agent.
-```
-and [1]:
-```
-The current riscv linux implementation requires SOC system to support
-memory coherence between all I/O devices and CPUs. But some SOC systems
-cannot maintain the coherence and they need support cache clean/invalid
-operations to synchronize data.
+I don't think this sentence as the right meaning :-). I feel like this
+read as " the following make the MMIO hole larger", but I think it is
+just an explanation of what "relocating memory" mean, and what is
+messing.
 
-Current implementation is no problem with SiFive FU540, because FU540
-keeps all IO devices and DMA master devices coherence with CPU. But to a
-traditional SOC vendor, it may already have a stable non-coherency SOC
-system, the need is simply to replace the CPU with RV CPU and rebuild
-the whole system with IO-coherency is very expensive.
-```
+We might want to rewrite the comment, "disable relocating memory, see
+comment in hvmloader about the meaning". Or "disable relocating memory,
+having a lager MMIO hole isn't implemented with qemu-xen". Or something
+like that.
 
-and the fact that all known ( to me ) CPUs that support the H-extension
-and that ones is going to be supported by Xen have memory coherency
-between all I/O devices and CPUs, so it is currently safe to use the
-PAGE_HYPERVISOR attribute.
-However, in cases where a platform does not support memory coherency, it
-should support CMO extensions and Svpbmt. In this scenario, updates to
-ioremap will be necessary.
-For now, a compilation error will be generated to ensure that the need to
-update ioremap() is not overlooked.
+There's the same comment in the non-stubdom code path
+(device_model_launch) just below..
 
-[1]<a class="moz-txt-link-freetext" href="https://patchwork.kernel.org/project/linux-riscv/patch/1555947870-23014-1-git-send-email-guoren@kernel.org/">https://patchwork.kernel.org/project/linux-riscv/patch/1555947870-23014-1-git-send-email-guoren@kernel.org/</a>
-</pre>
-                      </blockquote>
-                      <pre wrap="" class="moz-quote-pre">But MMIO access correctness isn't just a matter of coherency. There may not
-be any caching involved in most cases, or else you may observe significantly
-delayed or even dropped (folded with later ones) writes, and reads may be
-serviced from the cache instead of going to actual MMIO. Therefore ...
+>      libxl__xs_printf(gc, XBT_NULL,
+>                       libxl__sprintf(gc, "%s/hvmloader/allow-memory-relocate",
+>                                      libxl__xs_get_dompath(gc, guest_domid)),
+> -                     "%d",
+> -                     guest_config->b_info.device_model_version
+> -                        == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL &&
+> -                     !libxl__vnuma_configured(&guest_config->b_info));
+> +                     "0");
+>      ret = xc_domain_set_target(ctx->xch, dm_domid, guest_domid);
+>      if (ret<0) {
+>          LOGED(ERROR, guest_domid, "setting target domain %d -> %d",
+> @@ -3162,26 +2879,16 @@ static void device_model_launch(libxl__egc *egc,
+>          libxl__xs_printf(gc, XBT_NULL,
+>                           GCSPRINTF("%s/hvmloader/bios", path),
+>                           "%s", libxl_bios_type_to_string(b_info->u.hvm.bios));
+> -        /* Disable relocating memory to make the MMIO hole larger
+> -         * unless we're running qemu-traditional and vNUMA is not
+> -         * configured. */
+> +        /* Disable relocating memory to make the MMIO hole larger. */
+>          libxl__xs_printf(gc, XBT_NULL,
+>                           GCSPRINTF("%s/hvmloader/allow-memory-relocate", path),
+> -                         "%d",
+> -                         b_info->device_model_version==LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL &&
+> -                         !libxl__vnuma_configured(b_info));
+> +                         "0");
+>          free(path);
+>      }
+>  
+> diff --git a/tools/libs/light/libxl_dom_suspend.c b/tools/libs/light/libxl_dom_suspend.c
+> index 6091a5f3f6..f0a74fc82c 100644
+> --- a/tools/libs/light/libxl_dom_suspend.c
+> +++ b/tools/libs/light/libxl_dom_suspend.c
+> @@ -85,15 +85,8 @@ void libxl__domain_suspend_device_model(libxl__egc *egc,
+>      STATE_AO_GC(dsps->ao);
+>      int rc = 0;
+>      uint32_t const domid = dsps->domid;
+> -    const char *const filename = dsps->dm_savefile;
+>  
+>      switch (libxl__device_model_version_running(gc, domid)) {
+> -    case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL: {
+> -        LOGD(DEBUG, domid, "Saving device model state to %s", filename);
+> -        libxl__qemu_traditional_cmd(gc, domid, "save");
+> -        libxl__wait_for_device_model_deprecated(gc, domid, "paused", NULL, NULL, NULL);
 
-</pre>
-                      <blockquote type="cite">
-                        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/Kconfig
-+++ b/xen/arch/riscv/Kconfig
-@@ -15,6 +15,18 @@ config ARCH_DEFCONFIG
-     	string
-     	default "arch/riscv/configs/tiny64_defconfig"
-     
-+config HAS_SVPBMT
-+	bool
-+	help
-+	  This config enables usage of Svpbmt ISA-extension ( Supervisor-mode:
-+	  page-based memory types).
-+
-+	  The memory type for a page contains a combination of attributes
-+	  that indicate the cacheability, idempotency, and ordering
-+	  properties for access to that page.
-+
-+	  The Svpbmt extension is only available on 64-bit cpus.
-</pre>
-                      </blockquote>
-                      <pre wrap="" class="moz-quote-pre">... I kind of expect this extension (or anything else that there might be) will need
-making use of.
-</pre>
-                    </blockquote>
-                    <pre wrap="" class="moz-quote-pre">In cases where the Svpbmt extension isn't available, PMA (Physical Memory Attributes)
-is used to control which memory regions are cacheable, non-cacheable, readable, writable,
-etc. PMA is configured in M-mode by the firmware (e.g., OpenSBI), as is done in Andes
-cores, or it can be fixed at design time, as in SiFive cores.
-</pre>
-                  </blockquote>
-                  <pre wrap="" class="moz-quote-pre">How would things work if there was a need to map a RAM page uncacheable (via
-ioremap() or otherwise)?
-</pre>
-                </blockquote>
-                <pre wrap="" class="moz-quote-pre">My understanding is that Svpbmt is only needed when someone wants to change the memory
-attribute of a page set by PMA.
+That function isn't used anymore, and can be removed from libxl. Same
+for libxl__xenstore_child_wait_deprecated() which is used by it.
 
-The question is if non-cacheable RAM page is really needed if we have a coherency?
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">Aiui coherency here is among CPUs.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">```
-For implementations that conform to the RISC-V Unix Platform Specification,
-I/O devices and DMA operations are required to access memory coherently and
-via strongly ordered I/O channels. Therefore, accesses to regular main memory
-regions that are concurrently accessed by external devices can also use the
-standard synchronization mechanisms. Implementations that do not conform
-to the Unix Platform Specification and/or in which devices do not access
-memory coherently will need to use mechanisms
-(which are currently platform-specific or device-specific) to enforce
-coherency.
-```
-Based on this from the spec, coherency here is not only among CPUs.
+> -        break;
+> -    }
+>      case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
+>          /* calls dsps->callback_device_model_done when done */
+>          libxl__qmp_suspend_save(egc, dsps); /* must be last */
+> diff --git a/tools/libs/light/libxl_stream_write.c b/tools/libs/light/libxl_stream_write.c
+> index 634f3240d1..98d44597a7 100644
+> --- a/tools/libs/light/libxl_stream_write.c
+> +++ b/tools/libs/light/libxl_stream_write.c
+> @@ -252,10 +252,6 @@ void libxl__stream_write_start(libxl__egc *egc,
+>          stream->device_model_version =
+>              libxl__device_model_version_running(gc, dss->domid);
+>          switch (stream->device_model_version) {
+> -        case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
+> -            stream->emu_sub_hdr.id = EMULATOR_QEMU_TRADITIONAL;
 
+EMULATOR_QEMU_TRADITIONAL is still defined in libxl_sr_stream_format.h,
+we probably what to comment it out.
 
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">Properties of devices in the system are
-largely unknown?
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">Yes, but still not sure what kind of property requires ioremap() which won't work
-without Svpmbt. Could you please tell me an example?
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Well, above you said they all need to access memory coherently. That's the
-"property" I was referring to.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Do you mean that device could have a property which tell that it would like to have non-cachable
-region used for that? I haven't seen such property in device tree files.
+> -            break;
+> -
+>          case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
+>              stream->emu_sub_hdr.id = EMULATOR_QEMU_UPSTREAM;
+>              break;
+> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+> index 9bb2969931..246bb3ddd2 100644
+> --- a/tools/libs/light/libxl_types.idl
+> +++ b/tools/libs/light/libxl_types.idl
+> @@ -104,7 +104,6 @@ libxl_channel_connection = Enumeration("channel_connection", [
+>  
+>  libxl_device_model_version = Enumeration("device_model_version", [
+>      (0, "UNKNOWN"),
+> -    (1, "QEMU_XEN_TRADITIONAL"), # Historical qemu-xen device model (qemu-dm)
 
-Do we have in Xen cases when Xen wants to have map part of RAM as non-cachebale and it is only the
-one option?
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-On x86 we have the case that IOMMUs may access memory non-coherently. This is
-particular means that IOMMU page table updates (which necessarily live in RAM)
-need to be done quite carefully. As it's all our code, we deal with the
-situation by issuing cache flushes, avoiding the need for UC mappings.
+I think we need to keep that, so application using libxl and using this
+value don't need to be changed. At least, that's a promise made in
+libxl.h about the API.
 
-Graphics engines may have similar constraints, aiui. With the driver code not
-being part of Xen, we wouldn't be able to use a similar "simplification" there.
-UC mappings would be pretty much unavoidable.</pre>
-    </blockquote>
-    <pre>For this case, it would be better to have Svpmbt.
+>      (2, "QEMU_XEN"),             # Upstream based qemu-xen device model
+>      ])
+>  
+> diff --git a/tools/python/xen/migration/libxl.py b/tools/python/xen/migration/libxl.py
+> index 5dcb50fe02..dc5c7ac355 100644
+> --- a/tools/python/xen/migration/libxl.py
+> +++ b/tools/python/xen/migration/libxl.py
+> @@ -51,12 +51,10 @@ rec_type_to_str = {
+>  EMULATOR_HEADER_FORMAT = "II"
+>  
+>  EMULATOR_ID_unknown       = 0x00000000
+> -EMULATOR_ID_qemu_trad     = 0x00000001
 
-I would like to noted that Svpmbt isn't supported by RV32 architectures. For such cases, it will be still
-needed to play with PMA.
-I found today a patch in Linux kernel which does something similar to what I wrote in one of my previous
-replies:
-  [0] <a class="moz-txt-link-freetext" href="https://lore.kernel.org/all/20241102000843.1301099-1-samuel.holland@sifive.com/">https://lore.kernel.org/all/20241102000843.1301099-1-samuel.holland@sifive.com/</a>
-In the cover letter [0] it is mentioned the following:
-  On some RISC-V platforms, including StarFive JH7100 and ESWIN EIC7700,
-  RAM is mapped to multiple physical address ranges, with each alias
-  having a different set of statically-determined Physical Memory
-  Attributes (PMAs). Software selects the PMAs for a page by choosing a
-  PFN from the corresponding physical address range. On these platforms,
-  this is the only way to allocate noncached memory for use with
-  noncoherent DMA.
+Should we keep this value as a comment? Or maybe the information in
+"docs/specs/libxl-migration-stream.pandoc" is enough.
 
-So firmware should configure PMAs so some part of RAM is noncached and then kernel get this info based
-on the binding:
-  <a class="moz-txt-link-freetext" href="https://patchew.org/linux/20241102000843.1301099-1-samuel.holland@sifive.com/20241102000843.1301099-2-samuel.holland@sifive.com/">https://patchew.org/linux/20241102000843.1301099-1-samuel.holland@sifive.com/20241102000843.1301099-2-samuel.holland@sifive.com/</a>
+>  EMULATOR_ID_qemu_upstream = 0x00000002
+>  
+>  emulator_id_to_str = {
+>      EMULATOR_ID_unknown       : "Unknown",
+> -    EMULATOR_ID_qemu_trad     : "Qemu Traditional",
+>      EMULATOR_ID_qemu_upstream : "Qemu Upstream",
+>  }
+>  
 
-Considering that this feature isn't available even in Linux kernel, we can start with assumption that all
-our SoCs will support Svpmbt.
+Thanks,
 
-We don't really care about StarFive JH7100 as it doesn't support H extension, but we potentially should care
-about ESWIN EIC7700, which support H extension and doesn't support Svpmbt extension according to a datasheet
-publicly available:
-  Each EIC7700X core is configured to support the RV64I base ISA, as well as the Multiply (M), Atomic(A),
-  Single-Precision Floating Point (F), Double-Precision Floating Point (D), Compressed (C), CSR
-  Instructions (Zicsr), Instruction-Fetch Fence (Zifencei), Address Calculation (Zba), Basic Bit
-  Manipulation (Zbb), and Count Overflow and Mode-Based Filtering (Sscofpmf) RISC‑V extensions. This
-  is captured by the RISC‑V extension string: RV64GC_Zba_Zbb_Sscofpmf.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:28142d86-0845-4bb3-a0bb-e4903f898abf@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">I am also thinking why it can't be used cachable region + barrier (if we don't have memory coherency
-for everything).
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Not sure what exactly you're asking here (if anything). An answer would very
-likely depend on the specific kind of barrier you're thinking about. The
-question would be what, if any, effect a barrier would have on the cache(s).</pre>
-    </blockquote>
-    <pre>I confused barrier with cache flushes (when I wrote that I thought about the case of DMA that we don't really
-should have requirement of non-cachable memory for DMA as it is enough to have memory fence between use of DMA
-memory and MMIO that triggers the dma), basically I meant what you wrote above about x86's IOMMUs.
-
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:28142d86-0845-4bb3-a0bb-e4903f898abf@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Anyway, if it isn't an option to have mapped cacheble region + barrier then there is no any choice
-and the support of Svpmbt is required.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Quite possible.
-
-Jan
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------fZiyz4mApGCz5FywkcbWgRT2--
+-- 
+Anthony PERARD
 
