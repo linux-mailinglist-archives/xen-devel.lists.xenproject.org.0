@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8DE6A9A32B
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 09:17:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.965895.1356285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51EABA9A353
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 09:22:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.965906.1356295 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7qpP-000788-JZ; Thu, 24 Apr 2025 07:16:59 +0000
+	id 1u7quZ-0000rC-6v; Thu, 24 Apr 2025 07:22:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 965895.1356285; Thu, 24 Apr 2025 07:16:59 +0000
+Received: by outflank-mailman (output) from mailman id 965906.1356295; Thu, 24 Apr 2025 07:22:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7qpP-00075V-Gr; Thu, 24 Apr 2025 07:16:59 +0000
-Received: by outflank-mailman (input) for mailman id 965895;
- Thu, 24 Apr 2025 07:16:58 +0000
+	id 1u7quZ-0000o7-35; Thu, 24 Apr 2025 07:22:19 +0000
+Received: by outflank-mailman (input) for mailman id 965906;
+ Thu, 24 Apr 2025 07:22:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/BVb=XK=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1u7qpN-00075K-SW
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 07:16:58 +0000
+ id 1u7quX-0000ny-7v
+ for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 07:22:17 +0000
 Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a071a4e-20dc-11f0-9eb1-5ba50f476ded;
- Thu, 24 Apr 2025 09:16:56 +0200 (CEST)
+ id d8b220e1-20dc-11f0-9eb1-5ba50f476ded;
+ Thu, 24 Apr 2025 09:22:16 +0200 (CEST)
 Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53O7G7xQ675155
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53O7LZ5g680960
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Thu, 24 Apr 2025 00:16:08 -0700
+ Thu, 24 Apr 2025 00:21:35 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,24 +40,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a071a4e-20dc-11f0-9eb1-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53O7G7xQ675155
+X-Inumbo-ID: d8b220e1-20dc-11f0-9eb1-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53O7LZ5g680960
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745478973;
-	bh=Odag7AUDgfyRP0+2u/H+HenPnfgl0J1B2VMW9HL/hPY=;
+	s=2025042001; t=1745479299;
+	bh=O9DVYPK4RZY6YYB7/ewtc8a7TzxiyHmBlNZob9ULLMA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=d86S+IGYG3p4vXYzf5tU1fqwwhzwlqPeOdX0LxBP3GXABuT8mjfDO+CBUKCW848SQ
-	 DZKTS3GVQ63kEDbEoH3UczKm0cOKJPG2Qwh++9GOGJTM5UuSqDcynKa2xFyNgkdz4Z
-	 R9VFC+6vru/Wbfh93IBkm1anEKXEw+f4obbh3WSLvTlHMYA93DY/dXGOsfOOtd92xQ
-	 oizB71iApse9+ri55DZ2jAGUU+LSC2awjvDaoHQvrkRDvdKdRaoFx+ISpI70XSxFPc
-	 jqSmnMNMNsT/GqweC5nu+VfxFOHe7P5xgOsr9wU+7mhYoBfhtU+mMKTul67uGxqWuB
-	 yTuvbW0WLwpCw==
-Message-ID: <2ce9ab5c-89a5-4504-91d2-fbc12c68117a@zytor.com>
-Date: Thu, 24 Apr 2025 00:16:06 -0700
+	b=EzvxVtK1RQzG5pBpbz5wweMmUbLdbX/ewshxBSEyzwL/iSqjs/faWzfoVSom8e2bU
+	 rmtjJO6WWsw5MRs+zFMZdhntary9psA+7pGR0qJdm5RToXkkDchyg/7J6wq+MXnydS
+	 UyLEA/gHD031cZVbQISWf2vqYtuDBOavy4tsFM7jHVW35I0N3LU2ji43dZuWviNu+n
+	 FFLmIt3g5crz4RF3ksAJwKElGMES6WqszkBNO0xqtkqsXJyqbnXEZbMYTHwHd3awyK
+	 c6+7Hh3YMNGJO193usGiO/3RsTuBx8nz3JVH/XdAf95WQAP9Kvgb0r/sHpAcHBWEwG
+	 PsB6OXwrQJnjg==
+Message-ID: <45f95d01-4b98-457c-8272-c396a52b3844@zytor.com>
+Date: Thu, 24 Apr 2025 00:21:34 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 11/34] x86/msr: Remove calling
- native_{read,write}_msr{,_safe}() in pmu_msr_{read,write}()
+Subject: Re: [RFC PATCH v2 12/34] x86/msr: Remove pmu_msr_{read,write}()
 To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>, linux-kernel@vger.kernel.org,
         kvm@vger.kernel.org, linux-perf-users@vger.kernel.org,
         linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
@@ -77,8 +76,8 @@ Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
         luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
         haiyangz@microsoft.com, decui@microsoft.com
 References: <20250422082216.1954310-1-xin@zytor.com>
- <20250422082216.1954310-12-xin@zytor.com>
- <20471e53-c228-4cf6-83e6-3ab49f32f19f@linux.intel.com>
+ <20250422082216.1954310-13-xin@zytor.com>
+ <7c44da88-72bb-4d1f-9f38-bf0e7e79b7a0@linux.intel.com>
 Content-Language: en-US
 From: Xin Li <xin@zytor.com>
 Autocrypt: addr=xin@zytor.com; keydata=
@@ -115,28 +114,19 @@ Autocrypt: addr=xin@zytor.com; keydata=
  PYbAkjBbm+tuJ/Sm+5Yp5T/BnKz21FoCS8uvTiziHj2H7Cuekn6F8EYhegONm+RVg3vikOpn
  gao85i4HwQTK9/D1wgJIQkdwWXVMZ6q/OALaBp82vQ2U9sjTyFXgDjglgh00VRAHP7u1Rcu4
  l75w1xInsg==
-In-Reply-To: <20471e53-c228-4cf6-83e6-3ab49f32f19f@linux.intel.com>
+In-Reply-To: <7c44da88-72bb-4d1f-9f38-bf0e7e79b7a0@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 4/23/2025 11:25 PM, Mi, Dapeng wrote:
+On 4/23/2025 11:33 PM, Mi, Dapeng wrote:
+> Could we merge this patch and previous patch into a single patch? It's
+> unnecessary to just modify the pmu_msr_read()/pmu_msr_write() in previous
+> patch and delete them immediately. It just wastes the effort.
 
->> -bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err)
->> +bool pmu_msr_read(u32 msr, u64 *val)
-> 
-> The function name is some kind of misleading right now. With the change,
-> this function only read PMU MSR's value if it's emulated, otherwise it
-> won't really read PMU MSR. How about changing the name to
-> "pmu_emulated_msr_read" or something similar?
+No, it's not wasting effort, it's for easier review.
 
-This makes sense!
+Look at this patch, you can easily tell that pmu_msr_read() and
+pmu_msr_write() are nothing more than pmu_msr_chk_emulated(), and
+then removing them makes a lot of sense.
 
->> -bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err);
->> -bool pmu_msr_write(unsigned int msr, uint32_t low, uint32_t high, int *err);
->> +bool pmu_msr_read(u32 msr, u64 *val);
-> 
-> The prototype of pmu_msr_read() has been changed, but why there is no
-> corresponding change in its caller (xen_do_read_msr())?
-
-Good catch.  I didn't compile one by one thus missed it.
 
