@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E74A4A9A178
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 08:19:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.965835.1356245 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A1FFA9A2D3
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 09:05:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.965845.1356264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7pvE-0003kW-Of; Thu, 24 Apr 2025 06:18:56 +0000
+	id 1u7qds-0004D7-DX; Thu, 24 Apr 2025 07:05:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 965835.1356245; Thu, 24 Apr 2025 06:18:56 +0000
+Received: by outflank-mailman (output) from mailman id 965845.1356264; Thu, 24 Apr 2025 07:05:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7pvE-0003hV-Lq; Thu, 24 Apr 2025 06:18:56 +0000
-Received: by outflank-mailman (input) for mailman id 965835;
- Thu, 24 Apr 2025 06:18:55 +0000
+	id 1u7qds-0004Aq-AX; Thu, 24 Apr 2025 07:05:04 +0000
+Received: by outflank-mailman (input) for mailman id 965845;
+ Thu, 24 Apr 2025 06:26:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=IaUl=XK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u7pvD-0003hP-PB
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 06:18:55 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hkPj=XK=linux.intel.com=dapeng1.mi@srs-se1.protection.inumbo.net>)
+ id 1u7q2E-0005Yc-NM
+ for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 06:26:11 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ff809a97-20d3-11f0-9eb1-5ba50f476ded;
- Thu, 24 Apr 2025 08:18:54 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-39ac9aea656so731438f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 23 Apr 2025 23:18:54 -0700 (PDT)
-Received: from ?IPV6:2003:ca:b734:b408:9d23:e5d:de25:e110?
- (p200300cab734b4089d230e5dde25e110.dip0.t-ipconnect.de.
- [2003:ca:b734:b408:9d23:e5d:de25:e110])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4409d2a35f0sm7164515e9.15.2025.04.23.23.18.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Apr 2025 23:18:53 -0700 (PDT)
+ id 009ef05b-20d5-11f0-9eb1-5ba50f476ded;
+ Thu, 24 Apr 2025 08:26:07 +0200 (CEST)
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2025 23:26:05 -0700
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.245.128])
+ ([10.124.245.128])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2025 23:25:52 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,96 +43,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff809a97-20d3-11f0-9eb1-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745475534; x=1746080334; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0xpX0cMUyLAPCpNvd9WcehRSs8l4r8ukiuxwyPaApb0=;
-        b=IcJF+13b0rNBswOvUUVKbLzZV3cj8v76N380w20kN7d/JZ378sX01kh3eRPHVbOkwb
-         4+BqUmw3laMa5g2Z5VGjtvgn1wUluUtaXrcZEV3e9wQoIwPFMo3+kv+kOfrQ6EQxzfTQ
-         atVpTpI6aCzCIDVKzaT1e9cc4IjbrrGX7W9qI4lctizkpU+SV3H7sTzC3AlpI18tb59l
-         gk1ziNTBqNG5K+PwfVpNYyjwt/uf3JCgdOdu8aLWNGd7Kf2oMJYdYRa1sZkb0OsAUNPM
-         L9lSTBok4A3XvuGKYIabG9k9ZOhANjyAnESkGgFGQpFbfsrGUZ79j5ci22NZ+XvSFUg6
-         +trA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745475534; x=1746080334;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0xpX0cMUyLAPCpNvd9WcehRSs8l4r8ukiuxwyPaApb0=;
-        b=lVTiu8rLo3ezIXK18EtLIFlhSzT4d+tNNtEPZVDZM0+fYqnO+gWkVK80JWmYMvbTYA
-         Y1mJgusRyZeJRlra6qX5ROCloUUdnJrHW6K/qUfjkf1qUuCJPGmv/hsoCG0fHlxRF/n/
-         /ajEgI1Is1w5IEFEdjlhNPZERwPxCSvON7PPtC4+LtC42k9i+QRecorxM1Ii1pR3ApH9
-         Nih9cibEywd7CjuT5kVm5ODBa/KygcVJxtuz+ghLYITW6emqdIx1ynUAejenJUfQQlSA
-         m+Ukw4Rkw0OZvVgdEp3BrGUP5o1bcBvhW7TMJZwahHa7Z8mRAw3cOCV8mYJSpzdFnSWb
-         GdQA==
-X-Forwarded-Encrypted: i=1; AJvYcCWBJLi3aWJ8Cea8Ka1TAh964WaTfY1Ueu38/xFu/dJwUSpGIZh71O0nbb8qtcRnwRsuxRy15+MJHag=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw36J23bwwMK1C21FpIEMGXRbC9r7JD1plh+wM6WbrakWxNDggq
-	sVqIDoCx+TeJcO5YWD3ISniLvsa7txwHODm4O7aRE4Le5rMzXn9xjFTA0Y3Nvw==
-X-Gm-Gg: ASbGncvPzEm/tKujAL+LywIebyrfMbGEwVOPGJu83K8LB5GnaQzpPe1kggKx9Vfxujg
-	Qi6UJZ4qNAGLN1Tqs46gl9ye+QNeqbJnVykywyTemt3pYe9PhrkhdDhQ0NYuL08oVTh+qGWfXrB
-	l5AEuq9DhbbQjugpyi/boM8CsTJcOQiNv33HUlaMLxTlWhYOLu/wQekKg37hTsRaYy+5FOQGD39
-	m8qsvoPfGSWlwS0v4ZXQNweTQzUXezgUgyknKkZzaqknHM9Y+hxDyAyUGveG1iB+olsual9vZ8o
-	IX4VZQkKbOKcwT4Shq8cjqqz+ErCAu8PsaBsDHlMXjjhVjjFg2DXmWVcHxSM4Em4RdOENQN86kE
-	0Y3tCgWQkt/UGkpUUvaGWz1cueb/b3lUqPcaU3kewPGSB+ez47o5SKG1oSOjecjFgKwFIJnYhHx
-	+4HDh644I=
-X-Google-Smtp-Source: AGHT+IGIP4sCkBDkzCvn7skUkrHV0kNsI7HIFkRx6Iph43dmLCbwWv5DjMV/+rhZm8UpxDRjJ7oFdA==
-X-Received: by 2002:a05:6000:1ac9:b0:39c:268e:ae04 with SMTP id ffacd0b85a97d-3a06cecb311mr797596f8f.0.1745475534151;
-        Wed, 23 Apr 2025 23:18:54 -0700 (PDT)
-Message-ID: <fc4bb04a-8d6d-4744-9be3-399aea5081e2@suse.com>
-Date: Thu, 24 Apr 2025 08:18:51 +0200
+X-Inumbo-ID: 009ef05b-20d5-11f0-9eb1-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1745475968; x=1777011968;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=r9pnF53EyyaRucMwNVgQLeGE6Ab0R4f4MEaSIMBKOXs=;
+  b=LXyiEpY3vzyPtYdMbKNQu0wnkQUVVcJFDKetIt6hQwFC8tK+on4cvPz4
+   tPA8liJUKOav+Hhy5CrX6er3dWq+SDWjuyGrikbxP6BVcX/v4uGAZi+EG
+   PFjpx1xLNTArkkBks89llFk9wWmN/i7mdy/kovw8hOW3pruPwQkK4/CQi
+   mkhXHv5aGacvQwSdkl0RrJDg0Z4YvE5vAjEkTuYHZRtpz/u3CHXcvQgQh
+   KDtBNKjphApxHWoK+Ef0QRPn0BkZp0PP+y4tu5W+h5fN/yJS4ZbybYHzz
+   sIWfDYVzDdvrtIlP0j4wxQqyAcTI9uPQVI5KJY/osO436mML9LCcikUXO
+   Q==;
+X-CSE-ConnectionGUID: wXz1jbBIRGijFWCGpG9fzw==
+X-CSE-MsgGUID: Pl7RfLThTTWLi4AK/9KgAA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11412"; a="47187616"
+X-IronPort-AV: E=Sophos;i="6.15,235,1739865600"; 
+   d="scan'208";a="47187616"
+X-CSE-ConnectionGUID: Ejvh0aUHTACVpOK/Jqvr7Q==
+X-CSE-MsgGUID: i3jvGnxIQpSi7EjKCit1UA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,235,1739865600"; 
+   d="scan'208";a="132432771"
+Message-ID: <20471e53-c228-4cf6-83e6-3ab49f32f19f@linux.intel.com>
+Date: Thu, 24 Apr 2025 14:25:49 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/vpci: Fix msix existing mapping printk
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250423212229.32721-1-jason.andryuk@amd.com>
+Subject: Re: [RFC PATCH v2 11/34] x86/msr: Remove calling
+ native_{read,write}_msr{,_safe}() in pmu_msr_{read,write}()
+To: "Xin Li (Intel)" <xin@zytor.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+ linux-pm@vger.kernel.org, linux-edac@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, netdev@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org
+Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, acme@kernel.org,
+ jgross@suse.com, andrew.cooper3@citrix.com, peterz@infradead.org,
+ namhyung@kernel.org, mark.rutland@arm.com,
+ alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com,
+ adrian.hunter@intel.com, kan.liang@linux.intel.com, wei.liu@kernel.org,
+ ajay.kaher@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+ tony.luck@intel.com, pbonzini@redhat.com, vkuznets@redhat.com,
+ seanjc@google.com, luto@kernel.org, boris.ostrovsky@oracle.com,
+ kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com
+References: <20250422082216.1954310-1-xin@zytor.com>
+ <20250422082216.1954310-12-xin@zytor.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250423212229.32721-1-jason.andryuk@amd.com>
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20250422082216.1954310-12-xin@zytor.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.04.2025 23:22, Jason Andryuk wrote:
-> --- a/xen/drivers/vpci/msix.c
-> +++ b/xen/drivers/vpci/msix.c
-> @@ -666,7 +666,7 @@ int vpci_make_msix_hole(const struct pci_dev *pdev)
->                  put_gfn(d, start);
->                  gprintk(XENLOG_WARNING,
->                          "%pp: existing mapping (mfn: %" PRI_mfn
-> -                        "type: %d) at %#lx clobbers MSIX MMIO area\n",
-> +                        " type: %d) at %#lx clobbers MSIX MMIO area\n",
 
-Imo this is a good indication that the format string better wouldn't be
-extending across multiple lines. Then it would also be possible to grep
-for it (in the sources) using e.g. "existing mapping .* clobbers".
+On 4/22/2025 4:21 PM, Xin Li (Intel) wrote:
+> hpa found that pmu_msr_write() is actually a completely pointless
+> function [1]: all it does is shuffle some arguments, then calls
+> pmu_msr_chk_emulated() and if it returns true AND the emulated flag
+> is clear then does *exactly the same thing* that the calling code
+> would have done if pmu_msr_write() itself had returned true.  And
+> pmu_msr_read() does the equivalent stupidity.
+>
+> Remove the calls to native_{read,write}_msr{,_safe}() within
+> pmu_msr_{read,write}().  Instead reuse the existing calling code
+> that decides whether to call native_{read,write}_msr{,_safe}() based
+> on the return value from pmu_msr_{read,write}().  Consequently,
+> eliminate the need to pass an error pointer to pmu_msr_{read,write}().
+>
+> While at it, refactor pmu_msr_write() to take the MSR value as a u64
+> argument, replacing the current dual u32 arguments, because the dual
+> u32 arguments were only used to call native_write_msr{,_safe}(), which
+> has now been removed.
+>
+> [1]: https://lore.kernel.org/lkml/0ec48b84-d158-47c6-b14c-3563fd14bcc4@zytor.com/
+>
+> Suggested-by: H. Peter Anvin (Intel) <hpa@zytor.com>
+> Sign-off-by: Xin Li (Intel) <xin@zytor.com>
+> ---
+>  arch/x86/xen/enlighten_pv.c |  6 +++++-
+>  arch/x86/xen/pmu.c          | 27 ++++-----------------------
+>  arch/x86/xen/xen-ops.h      |  4 ++--
+>  3 files changed, 11 insertions(+), 26 deletions(-)
+>
+> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+> index 9fbe187aff00..1418758b57ff 100644
+> --- a/arch/x86/xen/enlighten_pv.c
+> +++ b/arch/x86/xen/enlighten_pv.c
+> @@ -1132,6 +1132,8 @@ static void set_seg(unsigned int which, unsigned int low, unsigned int high,
+>  static void xen_do_write_msr(unsigned int msr, unsigned int low,
+>  			     unsigned int high, int *err)
+>  {
+> +	u64 val;
+> +
+>  	switch (msr) {
+>  	case MSR_FS_BASE:
+>  		set_seg(SEGBASE_FS, low, high, err);
+> @@ -1158,7 +1160,9 @@ static void xen_do_write_msr(unsigned int msr, unsigned int low,
+>  		break;
+>  
+>  	default:
+> -		if (!pmu_msr_write(msr, low, high, err)) {
+> +		val = (u64)high << 32 | low;
+> +
+> +		if (!pmu_msr_write(msr, val)) {
+>  			if (err)
+>  				*err = native_write_msr_safe(msr, low, high);
+>  			else
+> diff --git a/arch/x86/xen/pmu.c b/arch/x86/xen/pmu.c
+> index 9c1682af620a..95caae97a394 100644
+> --- a/arch/x86/xen/pmu.c
+> +++ b/arch/x86/xen/pmu.c
+> @@ -313,37 +313,18 @@ static bool pmu_msr_chk_emulated(unsigned int msr, uint64_t *val, bool is_read,
+>  	return true;
+>  }
+>  
+> -bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err)
+> +bool pmu_msr_read(u32 msr, u64 *val)
 
-Jan
+The function name is some kind of misleading right now. With the change,
+this function only read PMU MSR's value if it's emulated, otherwise it
+won't really read PMU MSR. How about changing the name to
+"pmu_emulated_msr_read" or something similar?
+
+
+>  {
+>  	bool emulated;
+>  
+> -	if (!pmu_msr_chk_emulated(msr, val, true, &emulated))
+> -		return false;
+> -
+> -	if (!emulated) {
+> -		*val = err ? native_read_msr_safe(msr, err)
+> -			   : native_read_msr(msr);
+> -	}
+> -
+> -	return true;
+> +	return pmu_msr_chk_emulated(msr, val, true, &emulated) && emulated;
+>  }
+>  
+> -bool pmu_msr_write(unsigned int msr, uint32_t low, uint32_t high, int *err)
+> +bool pmu_msr_write(u32 msr, u64 val)
+
+ditto.
+
+
+>  {
+> -	uint64_t val = ((uint64_t)high << 32) | low;
+>  	bool emulated;
+>  
+> -	if (!pmu_msr_chk_emulated(msr, &val, false, &emulated))
+> -		return false;
+> -
+> -	if (!emulated) {
+> -		if (err)
+> -			*err = native_write_msr_safe(msr, low, high);
+> -		else
+> -			native_write_msr(msr, low, high);
+> -	}
+> -
+> -	return true;
+> +	return pmu_msr_chk_emulated(msr, &val, false, &emulated) && emulated;
+>  }
+>  
+>  static u64 xen_amd_read_pmc(int counter)
+> diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
+> index dc886c3cc24d..a1875e10be31 100644
+> --- a/arch/x86/xen/xen-ops.h
+> +++ b/arch/x86/xen/xen-ops.h
+> @@ -271,8 +271,8 @@ void xen_pmu_finish(int cpu);
+>  static inline void xen_pmu_init(int cpu) {}
+>  static inline void xen_pmu_finish(int cpu) {}
+>  #endif
+> -bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err);
+> -bool pmu_msr_write(unsigned int msr, uint32_t low, uint32_t high, int *err);
+> +bool pmu_msr_read(u32 msr, u64 *val);
+
+The prototype of pmu_msr_read() has been changed, but why there is no
+corresponding change in its caller (xen_do_read_msr())?
+
+
+> +bool pmu_msr_write(u32 msr, u64 val);
+>  int pmu_apic_update(uint32_t reg);
+>  u64 xen_read_pmc(int counter);
+>  
 
