@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F7CCA9AABA
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 12:45:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.966158.1356469 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AD00A9AAD9
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 12:48:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.966169.1356478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7u50-0003K2-0l; Thu, 24 Apr 2025 10:45:18 +0000
+	id 1u7u87-0003s0-Df; Thu, 24 Apr 2025 10:48:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 966158.1356469; Thu, 24 Apr 2025 10:45:17 +0000
+Received: by outflank-mailman (output) from mailman id 966169.1356478; Thu, 24 Apr 2025 10:48:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7u4z-0003Hr-UA; Thu, 24 Apr 2025 10:45:17 +0000
-Received: by outflank-mailman (input) for mailman id 966158;
- Thu, 24 Apr 2025 10:45:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u7u87-0003q9-Ac; Thu, 24 Apr 2025 10:48:31 +0000
+Received: by outflank-mailman (input) for mailman id 966169;
+ Thu, 24 Apr 2025 10:48:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KF8R=XK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u7u4y-0003HS-H0
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 10:45:16 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 34844efd-20f9-11f0-9eb1-5ba50f476ded;
- Thu, 24 Apr 2025 12:45:15 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-39c1ef4ae3aso556092f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 24 Apr 2025 03:45:15 -0700 (PDT)
-Received: from [192.168.1.23] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a06d4a8003sm1660652f8f.1.2025.04.24.03.45.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Apr 2025 03:45:14 -0700 (PDT)
+ <SRS0=CnO2=XK=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1u7u86-0003q3-35
+ for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 10:48:30 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a7c1bf31-20f9-11f0-9ffb-bf95429c2676;
+ Thu, 24 Apr 2025 12:48:28 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5c7d6b96fso1575196a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Apr 2025 03:48:28 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ 4fb4d7f45d1cf-5f6ed9e0ba6sm944319a12.75.2025.04.24.03.48.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Apr 2025 03:48:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,138 +44,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34844efd-20f9-11f0-9eb1-5ba50f476ded
+X-Inumbo-ID: a7c1bf31-20f9-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745491514; x=1746096314; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KJjanCZpdIaaHAm0lUoTBlWZKHzYIPOwZSAG43K0TtY=;
-        b=V+uGlGwbPw40GFCaBBYfxDtePRQLIGDB058eHWtMs+7XrnA3JI2FOain6Ur9mHh20i
-         Ng36a+OEcaTypMLGD84dfKLJ8BJO72a+J0eLle+huV2ChbgO3qjb3MNeHUEIdMWff69+
-         PAHLbjR74oA2lpUckJNQYaW/xdTFK1+tdJCEs=
+        d=citrix.com; s=google; t=1745491708; x=1746096508; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Dwnp+/x85wRF3e/O/oqRpY4QG2HujtI1d8XPzHF+htc=;
+        b=E8TIv6lUliSJKwW/jdMPY7itDDJPgrkEnh98pVwE9VTLLqfMpmMiWGWRBHo5H1szKx
+         uXavjaRJD6V+8caf35uX5TAA0bmifUDCZkRkUFveN96VzNpE7qY9o0QgJiCa0zKmPD/5
+         Hbda8YpxG8qbbBP4hA4e13FubOYWbPVUSP/Ag=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745491514; x=1746096314;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KJjanCZpdIaaHAm0lUoTBlWZKHzYIPOwZSAG43K0TtY=;
-        b=wMrrFXfe3+WQyoP562GofmqGDTlcbvvegtNI+u0mXZWAGv+jFytS2A/EyjasDYYqOE
-         1I3/oXrYuf4XJJLDWDw/e7PFoJJPzD0MdeWYoHOqkNZOavjVlNhCMt62fyPik3Yja4hm
-         Oeicmk5SXBkSxF0fWW6ZJh3j8QoqP3EmppZoBbAJcg98ylocdR2vc47g7Dc18pFEB92S
-         zjxTgm/Qx2Re1xKqFpe1SToqCpO6uYjuUFe8O26zmPAHAJ6kNcI3KXa0FmNNhKXNesxL
-         M+vmJ8RjPRnrmO+5XJKilSL1jUuRkirgr0hwWZiHfvQxOttTmreCsmujEXtVxSkFj2by
-         gZOw==
-X-Forwarded-Encrypted: i=1; AJvYcCVlUs3t7Ng5vH2NvhRDp4iTzN/ZK0cQV82wDCD+sd9KyBJe5SlaXh/OD0TwyGTmXNOSkxmUbjxUyMc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzEV8V2BjUsrcFAFgIyqx92DBo9A7JpUyxWLhnRZNqLbqu+CmOn
-	SdBnZ5xhPjFuzIH26IrQv2sy0xkj45yp5+k/+A54jYLasIOHpU2dfx/vStROwBs=
-X-Gm-Gg: ASbGncskbuPUegTyb/bjw50kzxBYG8DvZA0TmhnhleidmQfpzus+Z79gG9MwlorXBdn
-	hprhB25HlLjmYeLUR01vtCgjq+XkO8OjGFV3suI432Wyj5FkPt5mxXIENaa6z3OwP4oMI5KLid2
-	PtmHa3iZRfMY/I7tnCuWwLflpUjjHtM8KQaEDKNZX0+mOY+e3UStBA+jgrdYu/y3Zn44lQkG0zG
-	O276KAyjYJyE1Wy6B4pR3v9vecbEYOJFJJqcBxRLn2tmLzhDSwGm988PIR4kP0rBUOpuYVcBulF
-	Nd/l4mwai6/xhlcM1F+bw6bj6p6nZpBviKXMqd60I/36T+u7W+JaJdgU2CtY8gxQvlcy+q3MZ0R
-	LlvgE
-X-Google-Smtp-Source: AGHT+IE5j6r8MA55JyzUApuSbXrDe25WEdXSt7msrZhCfIK7yxjLS5yKu3Yb9qQZYWRLmw7TSETOEA==
-X-Received: by 2002:a05:6000:4285:b0:38d:e0a9:7e5e with SMTP id ffacd0b85a97d-3a06d641ee8mr1729191f8f.6.1745491514435;
-        Thu, 24 Apr 2025 03:45:14 -0700 (PDT)
-Message-ID: <7e3b941d-ec4e-4158-8844-a3cf236c8d4d@citrix.com>
-Date: Thu, 24 Apr 2025 11:45:13 +0100
+        d=1e100.net; s=20230601; t=1745491708; x=1746096508;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Dwnp+/x85wRF3e/O/oqRpY4QG2HujtI1d8XPzHF+htc=;
+        b=wkbnSjWDsUfzAgI9kq4dEkPKhipB8/Iho/jn5B4rCi4qZaB7e4+gji2dWYarIN9TZV
+         e0IMLbgV0oNrfHRmxloRuqORmE+CgT82iApfBeaOj6N1DSuTRTbr2DrJ0pLn+SMM6TFf
+         kUVCPqFFT0DhjPJaStd4ZIeyQiZ6qnA0MgVFvtOFLdAwLjxpOvqVljP0KFs7GEdu0MZ3
+         FE5h25M+op1NbL/y+GfjRUIwZqRXgevwsaj158gX5HJafsaFFjYMWe4wvuT4S5YWRYKy
+         4l+ETgQzTysXxOkut8m4q5d5NBiNf5/m8ava/vioNRJaJZNB0TxDRtHeTu4vIAZYPxFw
+         I2Ug==
+X-Forwarded-Encrypted: i=1; AJvYcCUeAEKBBAea0npczpLaEYq6bI2DLUeWVwEPN/cJwv7r0gUUz3/BTJRbiOnOW4aAcRzN6M+6Y7pknjA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwCqzYB4sYVBbKEygF4Lv2UeHLWmjEYoRHXMND/+w5JYN+OqcMa
+	DFMku8uHjHQusdt5SL/DY17q3wk8XKDWRy9T5f3TBu8DL1z08y+FStK2rhp+lMc=
+X-Gm-Gg: ASbGncvSfvYhGbN6XCJzIw9upGjrGl6MiY0hEr7nL95euwm9jktqfhHHBTNAgSB2s2S
+	D2eH/nulipoDZeSNjTvtAISkWsf5ZAHCrKAydbmsvQ7PqCirbMlSsmIoz28VWKqkO1jIp/GyAPA
+	FsrgUJO/N2ExIomIdsf2dds/l+U1cWqsbUcG3eILOye2DRRaH3Bx5qnKOrOCWsnHa3yMOexpA2F
+	bpcLsqtgXXWehINjAOO21Xwxj6TF29PMADqt1GRRWsJKQ2VVYnBpN2dtmgpYi2CWjTtuZulu5/B
+	4TcS4ZlNx9jtA+r4enfwHV357gbaHE3+5+apMPsB9fZb1Q==
+X-Google-Smtp-Source: AGHT+IGNgOjBgZPmgjbP5Tni1L9NX6HJ/gM5NkfcCsBrpFYXSLkv0+GUsS7ql9ysRMrGG9Tk2ADhXQ==
+X-Received: by 2002:a05:6402:2708:b0:5e6:17e6:9510 with SMTP id 4fb4d7f45d1cf-5f6de1bf547mr2101777a12.6.1745491707817;
+        Thu, 24 Apr 2025 03:48:27 -0700 (PDT)
+Date: Thu, 24 Apr 2025 12:48:26 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: "Lira, Victor M" <VictorM.Lira@amd.com>,
+	Jason Andryuk <jason.andryuk@amd.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Xenia.Ragiadakou@amd.com,
+	Alejandro.GarciaVallejo@amd.com
+Subject: Re: [RFC] xen/x86: allow overlaps with non-RAM regions
+Message-ID: <aAoW-kvpsWuPJwrC@macbook.lan>
+References: <alpine.DEB.2.22.394.2504031755440.3529306@ubuntu-linux-20-04-desktop>
+ <Z--0USril0UIhR4R@macbook.lan>
+ <3c5dfd26-3c12-498b-aca4-0beac4e991a5@amd.com>
+ <Z_jFSb2-efexUNlL@macbook.lan>
+ <9ed89e50-c645-407d-80b4-5b78cb6e36fa@amd.com>
+ <Z_zGdE91KwlYxu_A@macbook.lan>
+ <ce06ec74-1a73-4a02-87fc-3e829399cc77@amd.com>
+ <aAnvRMgJxAskbCtE@macbook.lan>
+ <aAoPNTsLjMMfsHvJ@mail-itl>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: UBSan bug in real mode fpu emulation
-To: Fabian Specht <f.specht@tum.de>, xen-devel@lists.xenproject.org
-Cc: manuel.andreas@tum.de
-References: <l2jnq5cxgkzcdkndp3mjf76nd7wdp2pbstkqo7llaarmbfqdge@bxdydela4rcf>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <l2jnq5cxgkzcdkndp3mjf76nd7wdp2pbstkqo7llaarmbfqdge@bxdydela4rcf>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <aAoPNTsLjMMfsHvJ@mail-itl>
 
-On 24/04/2025 2:08 am, Fabian Specht wrote:
-> Dear Xen-Devel team,
->
-> we discovered a bug regarding undefined behaviour in the FPU emulation
-> unit.
->
-> if ( !s->rex_prefix )
-> {
-> 	/* Convert 32-bit real/vm86 to 32-bit prot format. */
-> 	unsigned int fip = fpstate.env.mode.real.fip_lo +
-> 					   (fpstate.env.mode.real.fip_hi << 16);
-> 	unsigned int fdp = fpstate.env.mode.real.fdp_lo +
-> 					   (fpstate.env.mode.real.fdp_hi << 16);
-> 	unsigned int fop = fpstate.env.mode.real.fop;
->
-> 	fpstate.env.mode.prot.fip = fip & 0xf;
-> 	fpstate.env.mode.prot.fcs = fip >> 4;
-> 	fpstate.env.mode.prot.fop = fop;
-> 	fpstate.env.mode.prot.fdp = fdp & 0xf;
-> 	fpstate.env.mode.prot.fds = fdp >> 4;
-> }
->
-> It occurs at arch/x86/arch/x86/x86_emulate/blk.c:85 of the v4.20.0
-> release during the bit shift and can be triggered using the attached xtf
-> test. We are not aware of any security consequences.
-> Simply shifting by 4 should do the trick in my opinion.
->
-> Similar code resides in the same file in lines 87, 125 and 127.
-> The attached xtf test is run for hvm32.
+On Thu, Apr 24, 2025 at 12:15:17PM +0200, Marek Marczykowski-Górecki wrote:
+> On Thu, Apr 24, 2025 at 09:59:00AM +0200, Roger Pau Monné wrote:
+> > On Wed, Apr 23, 2025 at 04:51:16PM -0700, Lira, Victor M wrote:
+> > > [    4.570354] Intel(R) 2.5G Ethernet Linux Driver
+> > > 
+> > > [    4.579535] Copyright(c) 2018 Intel Corporation.
+> > > 
+> > > [    4.588898] sky2: driver version 1.30
+> > > 
+> > > (XEN) [   21.644361] d0v3 unable to fixup memory read from 0xfe91000c size 4: -1
+> > 
+> > This fault is unexpected, according to the identity mappings done at
+> > domain build time:
+> > 
+> > d0: identity mappings for IOMMU:
+> >  [00000000a0, 00000000ff] RW
+> >  [0000009bff, 0000009fff] RW
+> >  [00000cabc9, 00000cc14c] RW
+> >  [00000cc389, 00000cc389] RW
+> >  [00000cc70a, 00000cd1fe] RW
+> >  [00000ce000, 00000cffff] RW
+> >  [00000fd000, 00000fd2ff] RW
+> > 
+> > The page at 0xfe910 should be covered by the last range above.  I
+> > think we have a bug somewhere that unexpectedly unmaps that address.
+> 
+> You sure? 0xfe910 is outside of [00000fd000, 00000fd2ff].
 
-Several things.  First, please always the UBSAN analysis from the crash.
+Oh, did and off-by-one when copying, it should have been:
 
-There are several different ways that shifts go wrong, and I suspect
-this is a shift into a sign bit, which is notable given the unsigned
-underlying type.
+d0: identity mappings for IOMMU:
+ [00000000a0, 00000000ff] RW
+ [0000009bff, 0000009fff] RW
+ [00000cabc9, 00000cc14c] RW
+ [00000cc389, 00000cc389] RW
+ [00000cc70a, 00000cd1fe] RW
+ [00000ce000, 00000cffff] RW
+ [00000fd000, 00000fd2ff] RW
+ [00000fd304, 00000febff] RW
 
-Also, are you aware that the test isn't properly in Real Mode?  It's in
-so-called unreal mode (not actually a real mode, but a consequence of
-how the segment registers work), which is relevant to how you manage to
-re-enter the emulator for FLDENV.
+Where 0xfe910 is covered by the last range.
 
-~Andrew
+Regards, Roger.
 
