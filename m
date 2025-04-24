@@ -2,39 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C08B9A9B609
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 20:15:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.966781.1356889 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39A7BA9B64A
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 20:23:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.966792.1356898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u815h-00061z-MV; Thu, 24 Apr 2025 18:14:29 +0000
+	id 1u81EK-00080q-E3; Thu, 24 Apr 2025 18:23:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 966781.1356889; Thu, 24 Apr 2025 18:14:29 +0000
+Received: by outflank-mailman (output) from mailman id 966792.1356898; Thu, 24 Apr 2025 18:23:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u815h-0005yr-JK; Thu, 24 Apr 2025 18:14:29 +0000
-Received: by outflank-mailman (input) for mailman id 966781;
- Thu, 24 Apr 2025 18:14:28 +0000
+	id 1u81EK-0007yB-Ab; Thu, 24 Apr 2025 18:23:24 +0000
+Received: by outflank-mailman (input) for mailman id 966792;
+ Thu, 24 Apr 2025 18:23:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P8hq=XK=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1u815f-0005yl-W1
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 18:14:28 +0000
-Received: from 7.mo582.mail-out.ovh.net (7.mo582.mail-out.ovh.net
- [46.105.59.196]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f38ac5ff-2137-11f0-9ffb-bf95429c2676;
- Thu, 24 Apr 2025 20:14:24 +0200 (CEST)
-Received: from director9.ghost.mail-out.ovh.net (unknown [10.108.25.156])
- by mo582.mail-out.ovh.net (Postfix) with ESMTP id 4Zk3yl6HhZz1TgP
- for <xen-devel@lists.xenproject.org>; Thu, 24 Apr 2025 18:14:23 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-zrnsh (unknown [10.111.174.174])
- by director9.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 39C541FE87;
- Thu, 24 Apr 2025 18:14:21 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.99])
- by ghost-submission-5b5ff79f4f-zrnsh with ESMTPSA
- id vcS3M3x/CmgQKQAADFPD6Q
- (envelope-from <sergii.dmytruk@3mdeb.com>); Thu, 24 Apr 2025 18:14:21 +0000
+ <SRS0=OeN4=XK=ariadne.space=ariadne@srs-se1.protection.inumbo.net>)
+ id 1u81EI-0007xm-In
+ for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 18:23:22 +0000
+Received: from outbound.pv.icloud.com
+ (p-west1-cluster1-host4-snip4-10.eps.apple.com [57.103.64.123])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2a164bb1-2139-11f0-9ffb-bf95429c2676;
+ Thu, 24 Apr 2025 20:23:06 +0200 (CEST)
+Received: from smtpclient.apple (pv-asmtp-me-k8s.p00.prod.me.com [17.56.9.36])
+ by outbound.pv.icloud.com (Postfix) with ESMTPSA id DC477180042F;
+ Thu, 24 Apr 2025 18:23:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,103 +40,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f38ac5ff-2137-11f0-9ffb-bf95429c2676
-Authentication-Results:garm.ovh; auth=pass (GARM-99G003a321d7d8-e962-4723-8755-cd239566492b,
-                    6AF2A11B8D4EBDE9D9447A7514DB0FF9F8FB9007) smtp.auth=sergii.dmytruk@3mdeb.com
-X-OVh-ClientIp:176.111.181.178
-Date: Thu, 24 Apr 2025 21:14:11 +0300
-From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Lukasz Hawrylko <lukasz@hawrylko.pl>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Mateusz =?iso-8859-1?Q?M=F3wka?= <mateusz.mowka@intel.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
-	trenchboot-devel@googlegroups.com
-Subject: Re: [PATCH 00/21] x86: Trenchboot Secure Launch DRTM (Xen)
-Message-ID: <aAp_c7m7DBLwqjwP@MjU3Nj>
-References: <cover.1745172094.git.sergii.dmytruk@3mdeb.com>
- <744934f4-f56f-4dc7-bccb-c32f2829d1da@citrix.com>
- <010709d8-7784-41bf-bcb6-bf04803a75fc@citrix.com>
- <aAk1ZBw8GtoVYoL8@MjU3Nj>
- <a48a0c03f151d960254c65f538141836@bugseng.com>
- <aAlhPtx8sBvmF5mh@MjU3Nj>
- <c79a4654-50d7-44f6-94b1-5a8f3fbe9b84@bugseng.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <c79a4654-50d7-44f6-94b1-5a8f3fbe9b84@bugseng.com>
-X-Ovh-Tracer-Id: 9187061767043200156
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvhedtudeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggugfgjsehtkeertddttddunecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepuedutdeltdffteffleeuudeltedvgfevuefhvdelhfefheetgeejfeeuudeiveefnecuffhomhgrihhnpehgihhtlhgrsgdrtghomhdptghirhhruhhsqdgtihdrtghomhdpvggtlhgrihhrihhtrdgtohhmnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukedurddujeekpdefjedrheelrddugedvrdelleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehkedvmgdpmhhouggvpehsmhhtphhouhht
-DKIM-Signature: a=rsa-sha256; bh=9IPkYx3xfLze8zi0+PWUiBKEarN11QDto97JLIYYcss=;
- c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1745518463; v=1;
- b=Iq9BQmv+CxuEw2iKDVYYUa7yPeI9zjd3P/X9BOSrNChvBPW7yzmRBVEF6t/Y5fUMOCnXi64H
- //ZxbJx7ILLzLFLnhITsXhKbYjtyZhRVpKo9aDgxIuyzKRL6vlYVHoIUPMnqhYXxYVYpxxO7coe
- FtPCzABHwE+ZugbowMHEYGEohV4ab8frhKeQlENPAL8WXRWUXwcEtP/WgQCFhOvP6HllfyHJGLa
- /okZljeFfyzCBAEcqpZEyUAH2ekcMG2fq5S0f2E37jfUUUMRJk7D1xasIzZhNTBc8BdhouvXN24
- UURkp1FKO/CrJXLrkzZ9x9sLEgkOta3oPU6U5UioOBCpg==
+X-Inumbo-ID: 2a164bb1-2139-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ariadne.space;
+	s=sig1; bh=08nTJUYzj57E/TLMHdYjm/4Q5MV282nWnewKnPEBZFs=;
+	h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:To:x-icloud-hme;
+	b=J5e5WESdGLOskLQkjhQyxoCuhlH8LUXKkwOHTnbDCQVCykjKQ1pC2eU0wiV1IijhY
+	 +9y0zh7rX5GaTpUT9vGcM+F9HS5g1JM+DVi1IhPZAxHD9qH7r8uoCLRlhoW42cmp5q
+	 ar9KbwYsK3vcOD8xobvQZVR+k24lKtxF9ouBxrtLno5Wqqwf5dqT7hM77a/zRwgHnL
+	 K0rjLqq7SMZiBLzsGx2ncwoaUVnbbrj5HjTCRtYayUBLIMGDkskxsGkA6JUCdVer1g
+	 3S5TILvqUdEe4m9XBNiSzdovGdPnNwnyj2PFpSXf9hvhTCm9nSDtn3mBVWinJ93RiR
+	 CHev6cuAJUa3g==
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: Ariadne Conill <ariadne@ariadne.space>
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH] x86/hyperv: Adjust hypercall page placement
+Date: Thu, 24 Apr 2025 11:22:50 -0700
+Message-Id: <002DF04C-A250-4EAD-9834-FC07EFC9D562@ariadne.space>
+References: <D9EWZF0G7QUZ.2IDV470T7SYD0@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jason Andryuk <jason.andryuk@amd.com>,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Paul Durrant <paul@xen.org>, Alejandro Vallejo <agarciav@amd.com>
+In-Reply-To: <D9EWZF0G7QUZ.2IDV470T7SYD0@amd.com>
+To: Alejandro Vallejo <agarciav@amd.com>
+X-Mailer: iPhone Mail (22D82)
+X-Proofpoint-ORIG-GUID: zEIs1u3Dr-rKkoQOpHht-JeczmWZ9Wjd
+X-Proofpoint-GUID: zEIs1u3Dr-rKkoQOpHht-JeczmWZ9Wjd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-04-24_08,2025-04-24_02,2025-02-21_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 mlxscore=0 phishscore=0
+ malwarescore=0 spamscore=0 clxscore=1030 mlxlogscore=999 bulkscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2504240127
 
-On Thu, Apr 24, 2025 at 12:54:41PM +0200, Nicola Vetrini wrote:
->
-> On 4/23/25 23:53, Sergii Dmytruk wrote:
-> > On Wed, Apr 23, 2025 at 10:11:35PM +0200, Nicola Vetrini wrote:
-> > > On 2025-04-23 20:45, Sergii Dmytruk wrote:
-> > > > On Wed, Apr 23, 2025 at 02:38:37PM +0100, Andrew Cooper wrote:
-> > > > > On 22/04/2025 6:14 pm, Andrew Cooper wrote:
-> > > > > > I've stripped out the sha2 patch and fixed up to use the existing sha2,
-> > > > > > then kicked off some CI testing:
-> > > > > >
-> > > > > > https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1780285393
-> > > > > > https://cirrus-ci.com/build/5452335868018688
-> > > > > >
-> > > > > > When the dust has settled, I'll talk you through the failures.
-> > > > > And here we go.  Interestingly, the FreeBSD testing was entirely
-> > > > > happy,
-> > > > > and that is the rare way around.
-> > > > >
-> > > > > For Gitlab, there are several areas.
-> > > > >
-> > > > > First, for MISRA.  In the job logs, you want the "Browse current
-> > > > > reports:" link which will give you full details, but it's all pretty
-> > > > > simple stuff.
-> > > > Thanks, but that link gives me a list of 5096 failures all over the code
-> > > > base.  Is there any way to see a diff against master?
-> > > >
-> > > Hi,
-> > >
-> > > yes, you can define selections of violations introduced on previously clean
-> > > guidelines by clicking on the "ECLAIR" button on the upper right. See [1]
-> > > which is the result of defining the "clean_added" selection shown in the
-> > > attached screenshot. If you have other questions please let me know.
-> > Hi,
-> >
-> > not sure why, but using "added" left 4861 violations.  Picking `_NO_TAG`
-> > instead seemingly left only new violations.  Maybe that's something
-> > specific to this particular run.  Either way, I can go through the list
-> > now and know how to adjust it.  Thank you for the instructions.
-> >
-> I'm not sure I fully understand this. This is what I see on x86: the ones
-> still shown are those rules where the CI is blocking and new issues have
-> been introduced by that pipeline run (of course a different pipeline may
-> yield different results). Only new violations are blocking, so that is why I
-> filtered out the rest in this case.
+Hi,
 
-My bad, I still had "Hide" instead of "Show" in the selection.  Other
-comboboxes are also hard to see but I wasn't even looking for one in
-the title.  Thanks again.
+> On Apr 24, 2025, at 6:48=E2=80=AFAM, Alejandro Vallejo <agarciav@amd.com> w=
+rote:
+>=20
+> =EF=BB=BFOn Thu Apr 24, 2025 at 1:45 PM BST, Alejandro Vallejo wrote:
+>> Xen nowadays crashes under some Hyper-V configurations when
+>> paddr_bits>36. At the 44bit boundary we reach an edge case in which the
+>> end of the guest physical address space is not representable using 32bit
+>> MFNs. Furthermore, it's an act of faith that the tail of the physical
+>> address space has no reserved regions already.
+>>=20
+>> This commit uses the first unused MFN rather than the last, thus
+>> ensuring the hypercall page placement is more resilient against such
+>> corner cases.
+>>=20
+>> While at this, add an extra BUG_ON() to explicitly test for the
+>> hypercall page being correctly set, and mark hcall_page_ready as
+>> __ro_after_init.
+>>=20
+>> Fixes: 620fc734f854("x86/hyperv: setup hypercall page")
+>> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+>=20
+> After a side discussion, this seems on the unsafe side of things due to
+> potential collision with MMIO. I'll resend (though not today) with the
+> page overlapping a RAM page instead. Possibly the last page of actual
+> RAM.
 
-> > > Thanks,
-> > >   Nicola
-> > >
-> > > [1] https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/hardware/xen-staging/ECLAIR_normal/andrew/tb-v1.1/ARM64/9791028027/PROJECT.ecd;/by_service.html#service&kind{"select":true,"selection":{"hiddenAreaKinds":[],"hiddenSubareaKinds":[],"show":true,"selector":{"enabled":true,"negated":false,"kind":1,"children":[{"enabled":true,"negated":false,"kind":0,"domain":"clean","inputs":[{"enabled":true,"text":"added"}]}]}}}
+We have been working on bringing Xen up on Azure over at Edera, and have enc=
+ountered this problem.  Our solution to this problem was to change Xen to ha=
+ndle the hypercall trampoline page in the same way as Linux: dynamically all=
+ocating a page from the heap and then marking it as executable.
 
+This approach should avoid the issues with MMIO and page overlaps.  Would it=
+ be more interesting to start with our patch instead?
+
+Ariadne=
 
