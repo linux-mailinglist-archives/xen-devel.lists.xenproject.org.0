@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A1FFA9A2D3
+	by mail.lfdr.de (Postfix) with ESMTPS id BB3B5A9A2D4
 	for <lists+xen-devel@lfdr.de>; Thu, 24 Apr 2025 09:05:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.965845.1356264 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.965848.1356269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7qds-0004D7-DX; Thu, 24 Apr 2025 07:05:04 +0000
+	id 1u7qds-0004GW-Jr; Thu, 24 Apr 2025 07:05:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 965845.1356264; Thu, 24 Apr 2025 07:05:04 +0000
+Received: by outflank-mailman (output) from mailman id 965848.1356269; Thu, 24 Apr 2025 07:05:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u7qds-0004Aq-AX; Thu, 24 Apr 2025 07:05:04 +0000
-Received: by outflank-mailman (input) for mailman id 965845;
- Thu, 24 Apr 2025 06:26:11 +0000
+	id 1u7qds-0004DH-GI; Thu, 24 Apr 2025 07:05:04 +0000
+Received: by outflank-mailman (input) for mailman id 965848;
+ Thu, 24 Apr 2025 06:33:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hkPj=XK=linux.intel.com=dapeng1.mi@srs-se1.protection.inumbo.net>)
- id 1u7q2E-0005Yc-NM
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 06:26:11 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ id 1u7q9i-00077i-Vu
+ for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 06:33:54 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 009ef05b-20d5-11f0-9eb1-5ba50f476ded;
- Thu, 24 Apr 2025 08:26:07 +0200 (CEST)
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2025 23:26:05 -0700
+ id 1637a5ae-20d6-11f0-9eb1-5ba50f476ded;
+ Thu, 24 Apr 2025 08:33:53 +0200 (CEST)
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2025 23:33:51 -0700
 Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.245.128])
  ([10.124.245.128])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2025 23:25:52 -0700
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2025 23:33:39 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,36 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 009ef05b-20d5-11f0-9eb1-5ba50f476ded
+X-Inumbo-ID: 1637a5ae-20d6-11f0-9eb1-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1745475968; x=1777011968;
+  t=1745476433; x=1777012433;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=r9pnF53EyyaRucMwNVgQLeGE6Ab0R4f4MEaSIMBKOXs=;
-  b=LXyiEpY3vzyPtYdMbKNQu0wnkQUVVcJFDKetIt6hQwFC8tK+on4cvPz4
-   tPA8liJUKOav+Hhy5CrX6er3dWq+SDWjuyGrikbxP6BVcX/v4uGAZi+EG
-   PFjpx1xLNTArkkBks89llFk9wWmN/i7mdy/kovw8hOW3pruPwQkK4/CQi
-   mkhXHv5aGacvQwSdkl0RrJDg0Z4YvE5vAjEkTuYHZRtpz/u3CHXcvQgQh
-   KDtBNKjphApxHWoK+Ef0QRPn0BkZp0PP+y4tu5W+h5fN/yJS4ZbybYHzz
-   sIWfDYVzDdvrtIlP0j4wxQqyAcTI9uPQVI5KJY/osO436mML9LCcikUXO
+  bh=dcxOn/nuTpss+vf24oXBlr34cv3+AgMg/89LV6ad5rM=;
+  b=EH1WaUTRi4TPiWTo1+4t3y7E2rhtAQPBJEDqKD8EYnZ0imw3keFRFE0+
+   XUF5BQxQ1TnpzbyDbLVBr0K/prfP7PjDoUt1BsF6cKf1Fxci9G2MvN83z
+   acShBqE5rU5QsTnT4To3Njk9VR3JSRfDz4Fol9dtQnWFQBeQVHx3v46to
+   zW6iwoqBpMDPCnLa+qh4mLttip6V8X9SpYg9j4C3A0epCsWoqaCP4TYas
+   Q0bl7FnSnt6Wjj8Ya0O+wxQuvsDRRq5nr8nWFy4fAu1hvBHeam1bXGun7
+   xe/gKzAM0Em97s8P9RFvU85ZrY2NQEe14RAxm1w1PgySLXUUVLcv2v2QP
    Q==;
-X-CSE-ConnectionGUID: wXz1jbBIRGijFWCGpG9fzw==
-X-CSE-MsgGUID: Pl7RfLThTTWLi4AK/9KgAA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11412"; a="47187616"
+X-CSE-ConnectionGUID: UJeruhciTail4A4VRAPXCw==
+X-CSE-MsgGUID: ZOCZyqQFT4a3q1XHS1OsaQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11412"; a="47226707"
 X-IronPort-AV: E=Sophos;i="6.15,235,1739865600"; 
-   d="scan'208";a="47187616"
-X-CSE-ConnectionGUID: Ejvh0aUHTACVpOK/Jqvr7Q==
-X-CSE-MsgGUID: i3jvGnxIQpSi7EjKCit1UA==
+   d="scan'208";a="47226707"
+X-CSE-ConnectionGUID: l3lwgHW4RvWGJqWYsXT+Ow==
+X-CSE-MsgGUID: x4fuAgz/TQeaZNeRxG6fQQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.15,235,1739865600"; 
-   d="scan'208";a="132432771"
-Message-ID: <20471e53-c228-4cf6-83e6-3ab49f32f19f@linux.intel.com>
-Date: Thu, 24 Apr 2025 14:25:49 +0800
+   d="scan'208";a="163563116"
+Message-ID: <7c44da88-72bb-4d1f-9f38-bf0e7e79b7a0@linux.intel.com>
+Date: Thu, 24 Apr 2025 14:33:35 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 11/34] x86/msr: Remove calling
- native_{read,write}_msr{,_safe}() in pmu_msr_{read,write}()
+Subject: Re: [RFC PATCH v2 12/34] x86/msr: Remove pmu_msr_{read,write}()
 To: "Xin Li (Intel)" <xin@zytor.com>, linux-kernel@vger.kernel.org,
  kvm@vger.kernel.org, linux-perf-users@vger.kernel.org,
  linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
@@ -91,141 +90,154 @@ Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
  seanjc@google.com, luto@kernel.org, boris.ostrovsky@oracle.com,
  kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com
 References: <20250422082216.1954310-1-xin@zytor.com>
- <20250422082216.1954310-12-xin@zytor.com>
+ <20250422082216.1954310-13-xin@zytor.com>
 Content-Language: en-US
 From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20250422082216.1954310-12-xin@zytor.com>
+In-Reply-To: <20250422082216.1954310-13-xin@zytor.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 
 On 4/22/2025 4:21 PM, Xin Li (Intel) wrote:
-> hpa found that pmu_msr_write() is actually a completely pointless
-> function [1]: all it does is shuffle some arguments, then calls
-> pmu_msr_chk_emulated() and if it returns true AND the emulated flag
-> is clear then does *exactly the same thing* that the calling code
-> would have done if pmu_msr_write() itself had returned true.  And
-> pmu_msr_read() does the equivalent stupidity.
+> As pmu_msr_{read,write}() are now wrappers of pmu_msr_chk_emulated(),
+> remove them and use pmu_msr_chk_emulated() directly.
 >
-> Remove the calls to native_{read,write}_msr{,_safe}() within
-> pmu_msr_{read,write}().  Instead reuse the existing calling code
-> that decides whether to call native_{read,write}_msr{,_safe}() based
-> on the return value from pmu_msr_{read,write}().  Consequently,
-> eliminate the need to pass an error pointer to pmu_msr_{read,write}().
->
-> While at it, refactor pmu_msr_write() to take the MSR value as a u64
-> argument, replacing the current dual u32 arguments, because the dual
-> u32 arguments were only used to call native_write_msr{,_safe}(), which
-> has now been removed.
->
-> [1]: https://lore.kernel.org/lkml/0ec48b84-d158-47c6-b14c-3563fd14bcc4@zytor.com/
+> While at it, convert the data type of MSR index to u32 in functions
+> called in pmu_msr_chk_emulated().
 >
 > Suggested-by: H. Peter Anvin (Intel) <hpa@zytor.com>
-> Sign-off-by: Xin Li (Intel) <xin@zytor.com>
+> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
 > ---
->  arch/x86/xen/enlighten_pv.c |  6 +++++-
->  arch/x86/xen/pmu.c          | 27 ++++-----------------------
->  arch/x86/xen/xen-ops.h      |  4 ++--
->  3 files changed, 11 insertions(+), 26 deletions(-)
+>  arch/x86/xen/enlighten_pv.c | 17 ++++++++++-------
+>  arch/x86/xen/pmu.c          | 24 ++++--------------------
+>  arch/x86/xen/xen-ops.h      |  3 +--
+>  3 files changed, 15 insertions(+), 29 deletions(-)
 >
 > diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-> index 9fbe187aff00..1418758b57ff 100644
+> index 1418758b57ff..b5a8bceb5f56 100644
 > --- a/arch/x86/xen/enlighten_pv.c
 > +++ b/arch/x86/xen/enlighten_pv.c
-> @@ -1132,6 +1132,8 @@ static void set_seg(unsigned int which, unsigned int low, unsigned int high,
->  static void xen_do_write_msr(unsigned int msr, unsigned int low,
+> @@ -1089,8 +1089,9 @@ static void xen_write_cr4(unsigned long cr4)
+>  static u64 xen_do_read_msr(unsigned int msr, int *err)
+>  {
+>  	u64 val = 0;	/* Avoid uninitialized value for safe variant. */
+> +	bool emulated;
+>  
+> -	if (pmu_msr_read(msr, &val, err))
+> +	if (pmu_msr_chk_emulated(msr, &val, true, &emulated) && emulated)
+
+ah, here it is.
+
+Could we merge this patch and previous patch into a single patch? It's
+unnecessary to just modify the pmu_msr_read()/pmu_msr_write() in previous
+patch and delete them immediately. It just wastes the effort.
+
+
+>  		return val;
+>  
+>  	if (err)
+> @@ -1133,6 +1134,7 @@ static void xen_do_write_msr(unsigned int msr, unsigned int low,
 >  			     unsigned int high, int *err)
 >  {
-> +	u64 val;
-> +
+>  	u64 val;
+> +	bool emulated;
+>  
 >  	switch (msr) {
 >  	case MSR_FS_BASE:
->  		set_seg(SEGBASE_FS, low, high, err);
-> @@ -1158,7 +1160,9 @@ static void xen_do_write_msr(unsigned int msr, unsigned int low,
->  		break;
->  
+> @@ -1162,12 +1164,13 @@ static void xen_do_write_msr(unsigned int msr, unsigned int low,
 >  	default:
-> -		if (!pmu_msr_write(msr, low, high, err)) {
-> +		val = (u64)high << 32 | low;
+>  		val = (u64)high << 32 | low;
+>  
+> -		if (!pmu_msr_write(msr, val)) {
+> -			if (err)
+> -				*err = native_write_msr_safe(msr, low, high);
+> -			else
+> -				native_write_msr(msr, low, high);
+> -		}
+> +		if (pmu_msr_chk_emulated(msr, &val, false, &emulated) && emulated)
+> +			return;
 > +
-> +		if (!pmu_msr_write(msr, val)) {
->  			if (err)
->  				*err = native_write_msr_safe(msr, low, high);
->  			else
+> +		if (err)
+> +			*err = native_write_msr_safe(msr, low, high);
+> +		else
+> +			native_write_msr(msr, low, high);
+>  	}
+>  }
+>  
 > diff --git a/arch/x86/xen/pmu.c b/arch/x86/xen/pmu.c
-> index 9c1682af620a..95caae97a394 100644
+> index 95caae97a394..afb02f43ee3f 100644
 > --- a/arch/x86/xen/pmu.c
 > +++ b/arch/x86/xen/pmu.c
-> @@ -313,37 +313,18 @@ static bool pmu_msr_chk_emulated(unsigned int msr, uint64_t *val, bool is_read,
+> @@ -128,7 +128,7 @@ static inline uint32_t get_fam15h_addr(u32 addr)
+>  	return addr;
+>  }
+>  
+> -static inline bool is_amd_pmu_msr(unsigned int msr)
+> +static bool is_amd_pmu_msr(u32 msr)
+>  {
+>  	if (boot_cpu_data.x86_vendor != X86_VENDOR_AMD &&
+>  	    boot_cpu_data.x86_vendor != X86_VENDOR_HYGON)
+> @@ -194,8 +194,7 @@ static bool is_intel_pmu_msr(u32 msr_index, int *type, int *index)
+>  	}
+>  }
+>  
+> -static bool xen_intel_pmu_emulate(unsigned int msr, u64 *val, int type,
+> -				  int index, bool is_read)
+> +static bool xen_intel_pmu_emulate(u32 msr, u64 *val, int type, int index, bool is_read)
+>  {
+>  	uint64_t *reg = NULL;
+>  	struct xen_pmu_intel_ctxt *ctxt;
+> @@ -257,7 +256,7 @@ static bool xen_intel_pmu_emulate(unsigned int msr, u64 *val, int type,
+>  	return false;
+>  }
+>  
+> -static bool xen_amd_pmu_emulate(unsigned int msr, u64 *val, bool is_read)
+> +static bool xen_amd_pmu_emulate(u32 msr, u64 *val, bool is_read)
+>  {
+>  	uint64_t *reg = NULL;
+>  	int i, off = 0;
+> @@ -298,8 +297,7 @@ static bool xen_amd_pmu_emulate(unsigned int msr, u64 *val, bool is_read)
+>  	return false;
+>  }
+>  
+> -static bool pmu_msr_chk_emulated(unsigned int msr, uint64_t *val, bool is_read,
+> -				 bool *emul)
+> +bool pmu_msr_chk_emulated(u32 msr, u64 *val, bool is_read, bool *emul)
+>  {
+>  	int type, index = 0;
+>  
+> @@ -313,20 +311,6 @@ static bool pmu_msr_chk_emulated(unsigned int msr, uint64_t *val, bool is_read,
 >  	return true;
 >  }
 >  
-> -bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err)
-> +bool pmu_msr_read(u32 msr, u64 *val)
-
-The function name is some kind of misleading right now. With the change,
-this function only read PMU MSR's value if it's emulated, otherwise it
-won't really read PMU MSR. How about changing the name to
-"pmu_emulated_msr_read" or something similar?
-
-
->  {
->  	bool emulated;
->  
-> -	if (!pmu_msr_chk_emulated(msr, val, true, &emulated))
-> -		return false;
+> -bool pmu_msr_read(u32 msr, u64 *val)
+> -{
+> -	bool emulated;
 > -
-> -	if (!emulated) {
-> -		*val = err ? native_read_msr_safe(msr, err)
-> -			   : native_read_msr(msr);
-> -	}
+> -	return pmu_msr_chk_emulated(msr, val, true, &emulated) && emulated;
+> -}
 > -
-> -	return true;
-> +	return pmu_msr_chk_emulated(msr, val, true, &emulated) && emulated;
->  }
->  
-> -bool pmu_msr_write(unsigned int msr, uint32_t low, uint32_t high, int *err)
-> +bool pmu_msr_write(u32 msr, u64 val)
-
-ditto.
-
-
->  {
-> -	uint64_t val = ((uint64_t)high << 32) | low;
->  	bool emulated;
->  
-> -	if (!pmu_msr_chk_emulated(msr, &val, false, &emulated))
-> -		return false;
+> -bool pmu_msr_write(u32 msr, u64 val)
+> -{
+> -	bool emulated;
 > -
-> -	if (!emulated) {
-> -		if (err)
-> -			*err = native_write_msr_safe(msr, low, high);
-> -		else
-> -			native_write_msr(msr, low, high);
-> -	}
+> -	return pmu_msr_chk_emulated(msr, &val, false, &emulated) && emulated;
+> -}
 > -
-> -	return true;
-> +	return pmu_msr_chk_emulated(msr, &val, false, &emulated) && emulated;
->  }
->  
 >  static u64 xen_amd_read_pmc(int counter)
+>  {
+>  	struct xen_pmu_amd_ctxt *ctxt;
 > diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
-> index dc886c3cc24d..a1875e10be31 100644
+> index a1875e10be31..fde9f9d7415f 100644
 > --- a/arch/x86/xen/xen-ops.h
 > +++ b/arch/x86/xen/xen-ops.h
-> @@ -271,8 +271,8 @@ void xen_pmu_finish(int cpu);
+> @@ -271,8 +271,7 @@ void xen_pmu_finish(int cpu);
 >  static inline void xen_pmu_init(int cpu) {}
 >  static inline void xen_pmu_finish(int cpu) {}
 >  #endif
-> -bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err);
-> -bool pmu_msr_write(unsigned int msr, uint32_t low, uint32_t high, int *err);
-> +bool pmu_msr_read(u32 msr, u64 *val);
-
-The prototype of pmu_msr_read() has been changed, but why there is no
-corresponding change in its caller (xen_do_read_msr())?
-
-
-> +bool pmu_msr_write(u32 msr, u64 val);
+> -bool pmu_msr_read(u32 msr, u64 *val);
+> -bool pmu_msr_write(u32 msr, u64 val);
+> +bool pmu_msr_chk_emulated(u32 msr, u64 *val, bool is_read, bool *emul);
 >  int pmu_apic_update(uint32_t reg);
 >  u64 xen_read_pmc(int counter);
 >  
