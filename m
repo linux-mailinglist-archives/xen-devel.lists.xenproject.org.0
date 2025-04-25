@@ -2,34 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE0A6A9C133
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 10:35:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.967326.1357267 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2DE3A9C1C1
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 10:44:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.967483.1357279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8EXE-0006rl-DK; Fri, 25 Apr 2025 08:35:48 +0000
+	id 1u8Ef2-0004ql-MC; Fri, 25 Apr 2025 08:43:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 967326.1357267; Fri, 25 Apr 2025 08:35:48 +0000
+Received: by outflank-mailman (output) from mailman id 967483.1357279; Fri, 25 Apr 2025 08:43:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8EXD-0006k4-PP; Fri, 25 Apr 2025 08:35:47 +0000
-Received: by outflank-mailman (input) for mailman id 967326;
- Fri, 25 Apr 2025 08:35:44 +0000
+	id 1u8Ef2-0004pW-Ij; Fri, 25 Apr 2025 08:43:52 +0000
+Received: by outflank-mailman (input) for mailman id 967483;
+ Fri, 25 Apr 2025 08:43:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Tuhi=XL=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1u8EXA-0002sy-Dy
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 08:35:44 +0000
-Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AYju=XL=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1u8EXw-0002sy-PX
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 08:36:32 +0000
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [2607:f8b0:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 45f5188d-21b0-11f0-9eb3-5ba50f476ded;
- Fri, 25 Apr 2025 10:35:43 +0200 (CEST)
-Received: from terminus.zytor.com (terminus.zytor.com
- [IPv6:2607:7c80:54:3:0:0:0:136]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53P8Yg5c2390085
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Fri, 25 Apr 2025 01:35:16 -0700
+ id 5b64e04d-21b0-11f0-9eb3-5ba50f476ded;
+ Fri, 25 Apr 2025 10:36:19 +0200 (CEST)
+Received: by mail-pl1-x633.google.com with SMTP id
+ d9443c01a7336-22d95f0dda4so30166555ad.2
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Apr 2025 01:36:19 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d9443c01a7336-22db4dbcf7dsm26850885ad.69.2025.04.25.01.36.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Apr 2025 01:36:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,344 +44,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45f5188d-21b0-11f0-9eb3-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53P8Yg5c2390085
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745570118;
-	bh=PGgDVUVp5WEsZGmkrE1cE9ZmxybTvIy441YCsSnZyG8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=f0nyTqFFxoNNT5zdxXz0wAG2oDnQQHR2TITjrl4/WZHGQrZGNiF1OZYbax0C2iuIx
-	 CH2XXrL5uYNMptan27zhYOojgtxgK72O5RWOTmV95xgIIpIT3kSr62AOOXra9uRF6E
-	 kTbsurThw7Iy4DVFR1xhvN89VcU9gmp1/l4hhWaLt3TSW9XbKcovRa9h+mP/NfqMQv
-	 Pry2fZZ/3lQkv2R/rt1kUSU/HD8Pxr3Y+EPze/8OS2f48IUTb7v1i2RJSfxC9aW9TR
-	 2obaMyl6yz37n/hRq5aMI5eGmJZogK/gHDlJVsHJ/MBZRP2hgoN7z0zm+fw0egbklR
-	 7ZKW0NW9geX6g==
-From: "Xin Li (Intel)" <xin@zytor.com>
-To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
-        virtualization@lists.linux.dev, linux-pm@vger.kernel.org,
-        linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
-        netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-        acme@kernel.org, jgross@suse.com, andrew.cooper3@citrix.com,
-        peterz@infradead.org, namhyung@kernel.org, mark.rutland@arm.com,
-        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
-        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
-        wei.liu@kernel.org, ajay.kaher@broadcom.com,
-        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
-        pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
-        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
-        haiyangz@microsoft.com, decui@microsoft.com,
-        dapeng1.mi@linux.intel.com
-Subject: [PATCH v3 14/14] x86/msr: Change the function type of native_read_msr_safe()
-Date: Fri, 25 Apr 2025 01:34:37 -0700
-Message-ID: <20250425083442.2390017-15-xin@zytor.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250425083442.2390017-1-xin@zytor.com>
-References: <20250425083442.2390017-1-xin@zytor.com>
+X-Inumbo-ID: 5b64e04d-21b0-11f0-9eb3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1745570177; x=1746174977; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=X/GxJBsK6n1J97dBzbLBs/WDP7IrILK5BdDKmQjHdxk=;
+        b=tRDabKjrxQu4z5sa9gu+r1qx0cPGrgLSGFjrWurpuAAiJER5y/tqoztomnO69AzXag
+         wCz2N4Mho4JXKqRdjjH7G/lF8ibA9oavxJPSJcjOXZCduXmbD8HOeQgea4YCs90i2JzR
+         DXP2NmgQLmBiwQYW1rpIBTZcqAeaWsNLIh2S4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745570177; x=1746174977;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=X/GxJBsK6n1J97dBzbLBs/WDP7IrILK5BdDKmQjHdxk=;
+        b=hGVgnoaH9Y+B079fIQUGMEbXT34BsRuE3A9EiK/8u6dATDtnt1rpNAm8ZRQq+cLi8R
+         wH6yO9Gxw2wk5rqKbcIy2xUAcrRIyful3aKrAnL+srJDYNyEK1qn3v6HAoGk5H5HPcvi
+         7CGONdtk7eyMYhO8Pq4A54/EgeSyNKYzuu3QRIcptXhQEjWdii5Bu8OfIgOIM7G4Z9P5
+         p69Osn+QcTXKPTw6e7ZuWZX3aBglXNEectMsYQhQLMdCfCbq6lUGNIDmmp6HsfjL6wBK
+         dbaQI5hxMJjwkXSHjXF0PmYGgcMCa0Gy3bGLznftNeBYCT7FfAnyFVzrEdODS0qOflRU
+         zQiQ==
+X-Gm-Message-State: AOJu0YxkJsQvZvwbc7zHB+8s/lPif1s/0Ke4qX3xElJgpVC/OU+Baem2
+	kKbX0LPlopAz6qwUFB+FiCXJAMZrIlzuXa/ic0prtt02VZE2ezTm0C6z9t3N4v6r6OTnbyc1DiL
+	n
+X-Gm-Gg: ASbGnct+zmfhhm2VM/LiMJKZ7ax3f/x6xlYOabYNQOQIC/D2Y0jbc5nQkaG/WXTESCN
+	CUandI01GGe79wPZdl6pxihZU6JHnQ/515HhmsJj53wyzwtfLfdkKcT/RL2XRhVqP7ZnyBBqOeL
+	YJuXJTAWnQiWk/OJejgmiqiGRTq+nWivRNipCiXZB3TJz7SDh02ilJXomql7jm2KuEdNulxGdDd
+	ucFd6xb5DE5RgoivdgRao0HNoECYw6EIury8PulpHMtIqK9zovllnMPLOlQEbvAFxY1XTI6UCes
+	rZn5VoRobX9LtPl6nnFG0SrBRmjqlMMv7P0UCRQcZ6wOkw==
+X-Google-Smtp-Source: AGHT+IG0hORC7Qgprc8WyLk7gcKt5kiWkxcb19M92Xw81eKcPgLZ4oYC5fW9k0hyoqJqSkAFA8FMuQ==
+X-Received: by 2002:a17:902:ce10:b0:224:13a4:d61d with SMTP id d9443c01a7336-22dbf5edd9fmr23356215ad.23.1745570177397;
+        Fri, 25 Apr 2025 01:36:17 -0700 (PDT)
+Date: Fri, 25 Apr 2025 10:36:11 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] xen/vpci: Fix msix existing mapping printk
+Message-ID: <aAtJe-w-oJDxuxZJ@macbook.lan>
+References: <20250424212326.151403-1-jason.andryuk@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250424212326.151403-1-jason.andryuk@amd.com>
 
-Modify the function type of native_read_msr_safe() to:
+On Thu, Apr 24, 2025 at 05:23:26PM -0400, Jason Andryuk wrote:
+> The format string lacks a space, so mfn and type run together:
+> (XEN) d0v0 0000:06:00.7: existing mapping (mfn: 753037type: 0) at 0x1 clobbers MSIX MMIO area
+> 
+> Add a space.  Additionally, move the format string to a single long line
+> to improve grep-ability.
+> 
+> Fixes: 677053fac17a ("vpci/msix: carve p2m hole for MSIX MMIO regions")
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 
-    int native_read_msr_safe(u32 msr, u64 *val)
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-This change makes the function return an error code instead of the
-MSR value, aligning it with the type of native_write_msr_safe().
-Consequently, their callers can check the results in the same way.
-
-While at it, convert leftover MSR data type "unsigned int" to u32.
-
-Signed-off-by: Xin Li (Intel) <xin@zytor.com>
----
- arch/x86/include/asm/msr.h            | 21 +++++++++++----------
- arch/x86/include/asm/paravirt.h       | 19 ++++++++-----------
- arch/x86/include/asm/paravirt_types.h |  6 +++---
- arch/x86/kvm/svm/svm.c                | 19 +++++++------------
- arch/x86/xen/enlighten_pv.c           | 13 ++++++++-----
- arch/x86/xen/pmu.c                    | 14 ++++++++------
- 6 files changed, 45 insertions(+), 47 deletions(-)
-
-diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
-index 0392b9596107..e7ee51ccd82e 100644
---- a/arch/x86/include/asm/msr.h
-+++ b/arch/x86/include/asm/msr.h
-@@ -130,18 +130,22 @@ static inline u64 native_read_msr(u32 msr)
- 	return val;
- }
- 
--static inline u64 native_read_msr_safe(u32 msr, int *err)
-+static inline int native_read_msr_safe(u32 msr, u64 *p)
- {
-+	int err;
- 	DECLARE_ARGS(val, low, high);
- 
- 	asm volatile("1: rdmsr ; xor %[err],%[err]\n"
- 		     "2:\n\t"
- 		     _ASM_EXTABLE_TYPE_REG(1b, 2b, EX_TYPE_RDMSR_SAFE, %[err])
--		     : [err] "=r" (*err), EAX_EDX_RET(val, low, high)
-+		     : [err] "=r" (err), EAX_EDX_RET(val, low, high)
- 		     : "c" (msr));
- 	if (tracepoint_enabled(read_msr))
--		do_trace_read_msr(msr, EAX_EDX_VAL(val, low, high), *err);
--	return EAX_EDX_VAL(val, low, high);
-+		do_trace_read_msr(msr, EAX_EDX_VAL(val, low, high), err);
-+
-+	*p = EAX_EDX_VAL(val, low, high);
-+
-+	return err;
- }
- 
- /* Can be uninlined because referenced by paravirt */
-@@ -221,8 +225,8 @@ static inline int wrmsrq_safe(u32 msr, u64 val)
- /* rdmsr with exception handling */
- #define rdmsr_safe(msr, low, high)				\
- ({								\
--	int __err;						\
--	u64 __val = native_read_msr_safe((msr), &__err);	\
-+	u64 __val;						\
-+	int __err = native_read_msr_safe((msr), &__val);	\
- 	(*low) = (u32)__val;					\
- 	(*high) = (u32)(__val >> 32);				\
- 	__err;							\
-@@ -230,10 +234,7 @@ static inline int wrmsrq_safe(u32 msr, u64 val)
- 
- static inline int rdmsrq_safe(u32 msr, u64 *p)
- {
--	int err;
--
--	*p = native_read_msr_safe(msr, &err);
--	return err;
-+	return native_read_msr_safe(msr, p);
- }
- 
- static __always_inline u64 rdpmc(int counter)
-diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-index edf23bde367e..03f680d1057a 100644
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -175,7 +175,7 @@ static inline void __write_cr4(unsigned long x)
- 	PVOP_VCALL1(cpu.write_cr4, x);
- }
- 
--static inline u64 paravirt_read_msr(unsigned msr)
-+static inline u64 paravirt_read_msr(u32 msr)
- {
- 	return PVOP_CALL1(u64, cpu.read_msr, msr);
- }
-@@ -185,9 +185,9 @@ static inline void paravirt_write_msr(u32 msr, u64 val)
- 	PVOP_VCALL2(cpu.write_msr, msr, val);
- }
- 
--static inline u64 paravirt_read_msr_safe(unsigned msr, int *err)
-+static inline int paravirt_read_msr_safe(u32 msr, u64 *val)
- {
--	return PVOP_CALL2(u64, cpu.read_msr_safe, msr, err);
-+	return PVOP_CALL2(int, cpu.read_msr_safe, msr, val);
- }
- 
- static inline int paravirt_write_msr_safe(u32 msr, u64 val)
-@@ -225,19 +225,16 @@ static inline int wrmsrq_safe(u32 msr, u64 val)
- /* rdmsr with exception handling */
- #define rdmsr_safe(msr, a, b)				\
- ({							\
--	int _err;					\
--	u64 _l = paravirt_read_msr_safe(msr, &_err);	\
-+	u64 _l;						\
-+	int _err = paravirt_read_msr_safe((msr), &_l);	\
- 	(*a) = (u32)_l;					\
--	(*b) = _l >> 32;				\
-+	(*b) = (u32)(_l >> 32);				\
- 	_err;						\
- })
- 
--static inline int rdmsrq_safe(unsigned msr, u64 *p)
-+static __always_inline int rdmsrq_safe(u32 msr, u64 *p)
- {
--	int err;
--
--	*p = paravirt_read_msr_safe(msr, &err);
--	return err;
-+	return paravirt_read_msr_safe(msr, p);
- }
- 
- static __always_inline u64 rdpmc(int counter)
-diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
-index 78777b78da12..b08b9d3122d6 100644
---- a/arch/x86/include/asm/paravirt_types.h
-+++ b/arch/x86/include/asm/paravirt_types.h
-@@ -91,14 +91,14 @@ struct pv_cpu_ops {
- 		      unsigned int *ecx, unsigned int *edx);
- 
- 	/* Unsafe MSR operations.  These will warn or panic on failure. */
--	u64 (*read_msr)(unsigned int msr);
-+	u64 (*read_msr)(u32 msr);
- 	void (*write_msr)(u32 msr, u64 val);
- 
- 	/*
- 	 * Safe MSR operations.
--	 * read sets err to 0 or -EIO.  write returns 0 or -EIO.
-+	 * Returns 0 or -EIO.
- 	 */
--	u64 (*read_msr_safe)(unsigned int msr, int *err);
-+	int (*read_msr_safe)(u32 msr, u64 *val);
- 	int (*write_msr_safe)(u32 msr, u64 val);
- 
- 	u64 (*read_pmc)(int counter);
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 4ef9978dce70..838606f784c9 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -475,15 +475,13 @@ static void svm_inject_exception(struct kvm_vcpu *vcpu)
- 
- static void svm_init_erratum_383(void)
- {
--	int err;
- 	u64 val;
- 
- 	if (!static_cpu_has_bug(X86_BUG_AMD_TLB_MMATCH))
- 		return;
- 
- 	/* Use _safe variants to not break nested virtualization */
--	val = native_read_msr_safe(MSR_AMD64_DC_CFG, &err);
--	if (err)
-+	if (native_read_msr_safe(MSR_AMD64_DC_CFG, &val))
- 		return;
- 
- 	val |= (1ULL << 47);
-@@ -648,13 +646,12 @@ static int svm_enable_virtualization_cpu(void)
- 	 * erratum is present everywhere).
- 	 */
- 	if (cpu_has(&boot_cpu_data, X86_FEATURE_OSVW)) {
--		uint64_t len, status = 0;
-+		u64 len, status = 0;
- 		int err;
- 
--		len = native_read_msr_safe(MSR_AMD64_OSVW_ID_LENGTH, &err);
-+		err = native_read_msr_safe(MSR_AMD64_OSVW_ID_LENGTH, &len);
- 		if (!err)
--			status = native_read_msr_safe(MSR_AMD64_OSVW_STATUS,
--						      &err);
-+			err = native_read_msr_safe(MSR_AMD64_OSVW_STATUS, &status);
- 
- 		if (err)
- 			osvw_status = osvw_len = 0;
-@@ -2145,14 +2142,13 @@ static int ac_interception(struct kvm_vcpu *vcpu)
- 
- static bool is_erratum_383(void)
- {
--	int err, i;
-+	int i;
- 	u64 value;
- 
- 	if (!erratum_383_found)
- 		return false;
- 
--	value = native_read_msr_safe(MSR_IA32_MC0_STATUS, &err);
--	if (err)
-+	if (native_read_msr_safe(MSR_IA32_MC0_STATUS, &value))
- 		return false;
- 
- 	/* Bit 62 may or may not be set for this mce */
-@@ -2165,8 +2161,7 @@ static bool is_erratum_383(void)
- 	for (i = 0; i < 6; ++i)
- 		native_write_msr_safe(MSR_IA32_MCx_STATUS(i), 0);
- 
--	value = native_read_msr_safe(MSR_IA32_MCG_STATUS, &err);
--	if (!err) {
-+	if (!native_read_msr_safe(MSR_IA32_MCG_STATUS, &value)) {
- 		value &= ~(1ULL << 2);
- 		native_write_msr_safe(MSR_IA32_MCG_STATUS, value);
- 	}
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index c067d1e8a39c..0b2f5e679026 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -1086,7 +1086,7 @@ static void xen_write_cr4(unsigned long cr4)
- 	native_write_cr4(cr4);
- }
- 
--static u64 xen_do_read_msr(unsigned int msr, int *err)
-+static u64 xen_do_read_msr(u32 msr, int *err)
- {
- 	u64 val = 0;	/* Avoid uninitialized value for safe variant. */
- 
-@@ -1094,7 +1094,7 @@ static u64 xen_do_read_msr(unsigned int msr, int *err)
- 		return val;
- 
- 	if (err)
--		val = native_read_msr_safe(msr, err);
-+		*err = native_read_msr_safe(msr, &val);
- 	else
- 		val = native_read_msr(msr);
- 
-@@ -1159,9 +1159,12 @@ static void xen_do_write_msr(u32 msr, u64 val, int *err)
- 	}
- }
- 
--static u64 xen_read_msr_safe(unsigned int msr, int *err)
-+static int xen_read_msr_safe(u32 msr, u64 *val)
- {
--	return xen_do_read_msr(msr, err);
-+	int err;
-+
-+	*val = xen_do_read_msr(msr, &err);
-+	return err;
- }
- 
- static int xen_write_msr_safe(u32 msr, u64 val)
-@@ -1173,7 +1176,7 @@ static int xen_write_msr_safe(u32 msr, u64 val)
- 	return err;
- }
- 
--static u64 xen_read_msr(unsigned int msr)
-+static u64 xen_read_msr(u32 msr)
- {
- 	int err;
- 
-diff --git a/arch/x86/xen/pmu.c b/arch/x86/xen/pmu.c
-index 6bee83018694..3e704094c97c 100644
---- a/arch/x86/xen/pmu.c
-+++ b/arch/x86/xen/pmu.c
-@@ -317,11 +317,12 @@ static u64 xen_amd_read_pmc(int counter)
- 	uint8_t xenpmu_flags = get_xenpmu_flags();
- 
- 	if (!xenpmu_data || !(xenpmu_flags & XENPMU_IRQ_PROCESSING)) {
--		uint32_t msr;
--		int err;
-+		u32 msr;
-+		u64 val;
- 
- 		msr = amd_counters_base + (counter * amd_msr_step);
--		return native_read_msr_safe(msr, &err);
-+		native_read_msr_safe(msr, &val);
-+		return val;
- 	}
- 
- 	ctxt = &xenpmu_data->pmu.c.amd;
-@@ -338,15 +339,16 @@ static u64 xen_intel_read_pmc(int counter)
- 	uint8_t xenpmu_flags = get_xenpmu_flags();
- 
- 	if (!xenpmu_data || !(xenpmu_flags & XENPMU_IRQ_PROCESSING)) {
--		uint32_t msr;
--		int err;
-+		u32 msr;
-+		u64 val;
- 
- 		if (counter & (1 << INTEL_PMC_TYPE_SHIFT))
- 			msr = MSR_CORE_PERF_FIXED_CTR0 + (counter & 0xffff);
- 		else
- 			msr = MSR_IA32_PERFCTR0 + counter;
- 
--		return native_read_msr_safe(msr, &err);
-+		native_read_msr_safe(msr, &val);
-+		return val;
- 	}
- 
- 	ctxt = &xenpmu_data->pmu.c.intel;
--- 
-2.49.0
-
+Thanks, Roger.
 
