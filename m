@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD639A9D192
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 21:31:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.968496.1358059 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58831A9D1C1
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 21:36:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.968508.1358069 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8Olp-0002ur-Kl; Fri, 25 Apr 2025 19:31:33 +0000
+	id 1u8OqQ-0003Tt-5d; Fri, 25 Apr 2025 19:36:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 968496.1358059; Fri, 25 Apr 2025 19:31:33 +0000
+Received: by outflank-mailman (output) from mailman id 968508.1358069; Fri, 25 Apr 2025 19:36:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8Olp-0002sh-IG; Fri, 25 Apr 2025 19:31:33 +0000
-Received: by outflank-mailman (input) for mailman id 968496;
- Fri, 25 Apr 2025 19:31:32 +0000
+	id 1u8OqQ-0003SP-2U; Fri, 25 Apr 2025 19:36:18 +0000
+Received: by outflank-mailman (input) for mailman id 968508;
+ Fri, 25 Apr 2025 19:36:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=snHQ=XL=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u8Oln-0002sb-Vz
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 19:31:32 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ <SRS0=kyFG=XL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1u8OqO-0003SJ-Aj
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 19:36:16 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3a13282-220b-11f0-9eb3-5ba50f476ded;
- Fri, 25 Apr 2025 21:31:30 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-ac25d2b2354so389123766b.1
- for <xen-devel@lists.xenproject.org>; Fri, 25 Apr 2025 12:31:30 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace6e4e7260sm178614566b.49.2025.04.25.12.31.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Apr 2025 12:31:29 -0700 (PDT)
+ id 8c3a7fdf-220c-11f0-9eb3-5ba50f476ded;
+ Fri, 25 Apr 2025 21:36:14 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2A9D844857;
+ Fri, 25 Apr 2025 19:36:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DA8EC4CEE4;
+ Fri, 25 Apr 2025 19:36:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,184 +41,475 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3a13282-220b-11f0-9eb3-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1745609490; x=1746214290; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TAe1kjc9XeQAvI8QbAKLI5idXVstovLCpXSu1HNW8e8=;
-        b=NRnTXS2LFpOZltV3EGGvP5Us1ah61PghvtdKJT7uguOANcSk52D2PKw4OcZUgWFgUQ
-         LMhXJMP+Es7LzK/V21CmfohxSZFtEpyDtqS5EzziKVrdPYOxgOPYGDcyV6cZwcI0vKUv
-         RbI6tbRS2lBppra9/wErg7s0hzXc0aZRO+yTrFZDBSAikioMOOXnsBSc5/xM0I17mutO
-         +cRjwE3N2n8v66DGVePm9oeGXKzVTBF2eBFV0XtvE5cQVa7gSE1L5ncOBaLjsvBUfcm+
-         Daj5M5s6hbdmngFpM7Z+WBu2mXpz4w+4wqI3yDhqoKqPMjz8P9F41P2AxMCnWMatEMfn
-         1Gww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745609490; x=1746214290;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=TAe1kjc9XeQAvI8QbAKLI5idXVstovLCpXSu1HNW8e8=;
-        b=ZDeBVGS+dU5Qj/O2Cc4poedaEqCGKLDnosXF3LHe1il2kHCskpFIGCwN7nBnAr9q6g
-         2E0ijlkhBuOwVmXapyAjuFcwgEUygILUECO5BlRTCZBK0zOYSHS1Ue0Xa/+4qQ5DBbeg
-         ISXQm31P/U6MAcbEUFc4++Gtd+StnMKEiZhPD35MZc7BgtF+UpjMa0KbXC5cy33B30Xs
-         UxiSs2Oae/XosvVc858nPK0u+Gzl6BW8zYz5O75De78/x5pHgHvS+o6fewnzCWDpEvf2
-         IFhT7LC48v4SshKFp/8UBPO2RSqSxZkaXG2T4+ZeJGNIQkgo5Vydqrfx1DYVbw+406+K
-         JQZw==
-X-Forwarded-Encrypted: i=1; AJvYcCWTwuXqxewp+mRq72HNAkFw40f2laS/0JxAsftEM6dAi5nJqvnbbZQM7/dMn8TJOwwG0DYqVKOEqkk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YykALQXwUkNZ64+AqYKm4wIlQN7iJtuZyd7w+Jg/hqkNFrDu2hn
-	Jy1xypIXfWabulu+iLWauGlyP83gHkrHzHchuj7lgauh4X9dS09t
-X-Gm-Gg: ASbGncsYoeCJRDs+7OChP4/gcJW64NTRyt4M9xMlfjt9CN10+Ej8ql+u2DiyZIeXXTQ
-	kJCZcYiiO3zmXgofJ4CubkyyDtOUKdVoFMlaenLFmii9DwhIYrYR/aFfJt8OdXVHEX8xQ71TBip
-	XHUPW3FzderDbf+W8bMUCUFzoA4m8v3/jq+b9PJbVsDbl7JrvnFNWgwNoeouEYQ/Q6hfFCOytuZ
-	vrg/9pvAzqbLaYfk5KVIF7CB8dOXm4+d8DmG7DpckLsqdbK7IM6S/B7jt8VUHut7xr8p7e6gn9s
-	t89yo8tXFLuLPL8rN1Ik/ZShAF32HuNmgX1ty8fFgM/EXYpP9WeTDSerszqHBWQm32uN0ZT21fB
-	CYrBhygj5vJZYT54XZoliVfxwjYo=
-X-Google-Smtp-Source: AGHT+IHZOCIsYf5tu+m5PcTHmT8CaTZOHRNXVIe6ur8yIe1Xp8vW8UTdD8rFh26hsZpS8vhsnRE1hA==
-X-Received: by 2002:a17:907:7f26:b0:ac7:3817:d8da with SMTP id a640c23a62f3a-ace713fd0c6mr343200466b.52.1745609489954;
-        Fri, 25 Apr 2025 12:31:29 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------QNxNomG2MzxUG3HCadje2v90"
-Message-ID: <36eaf6df-4474-4252-bc82-054a7d00343a@gmail.com>
-Date: Fri, 25 Apr 2025 21:31:28 +0200
+X-Inumbo-ID: 8c3a7fdf-220c-11f0-9eb3-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1745609772;
+	bh=Lk8VTNBjWeyLkREZOLErGRfXWb+jJuEIauNxzWVdEl4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=vMnUinjKfsXGQgsoTUAGAi/jFPOXdIge3DZhDjZoMuQLaNT5uI+2jL5uY+cdg00sm
+	 +/jxOdy68Vz/ioqvL+sx++xdV1Em7IETNXIE+JHHmIDKNKQmBkQDTZsxVLIlJ6UoSW
+	 W4MAKGg3g/nhXNEC+JugOy1dm0FcwPalT3ST7yR1/kyQZsD3sM4RkZ4cNW0pha0kMv
+	 iC9LJhVCCKZDBJA0Tgw4tzkJsE0QBvM5vCQFkT05Dwvwn8BN7U7FeZ8VRS3PdeDqqM
+	 Vl97JPeH21A+cKiideHEbtq20VBTY7dYPIfMmsn4HtlEv8Msno+0IWlSarPfb6Fk3H
+	 Z/Wl404nc39Xw==
+Date: Fri, 25 Apr 2025 12:36:10 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "Orzel, Michal" <michal.orzel@amd.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, andrei.cherechesu@oss.nxp.com, 
+    jason.andryuk@amd.com
+Subject: Re: [PATCH v5] uboot-script-gen: Dynamically compute addr and size
+ when loading binaries
+In-Reply-To: <b73c7dcc-278a-413c-addc-44aef753d1dd@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2504251228020.785180@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2504241808470.785180@ubuntu-linux-20-04-desktop> <b73c7dcc-278a-413c-addc-44aef753d1dd@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 10/14] xen/riscv: implementation of aplic and imsic
- operations
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <74a07ed7c596bbcf581010685e01bfdfa19164f5.1744126720.git.oleksii.kurochko@gmail.com>
- <3426df1b-938a-4d20-a533-dd6695473db0@suse.com>
- <5f922b70-d4c2-4e6e-ad05-f91afc70ee73@gmail.com>
- <d63a6410-7053-4f75-aeda-6cd4e36bd302@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <d63a6410-7053-4f75-aeda-6cd4e36bd302@suse.com>
+Content-Type: text/plain; charset=US-ASCII
 
-This is a multi-part message in MIME format.
---------------QNxNomG2MzxUG3HCadje2v90
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On Fri, 25 Apr 2025, Orzel, Michal wrote:
+> On 25/04/2025 03:16, Stefano Stabellini wrote:
+> > From: Andrei Cherechesu <andrei.cherechesu@oss.nxp.com>
+> > 
+> > Normally, the Imagebuilder would precompute the sizes of the loaded
+> > binaries and addresses where they are loaded before generating the
+> > script, and the sizes and addresses that needed to be provided to
+> > Xen via /chosen would be hardcoded in the boot script.
+> > 
+> > Added an option via "-s" parameter to avoid hardcoding any
+> > address in the boot script, and dynamically compute the
+> > loading addresses for binaries. The first loading address is based
+> > on the MEMORY_START parameter and after loading each binary,
+> > the loading address and the size of the binary are stored in
+> > variables with corresponding names. Then, the loading address
+> > for the next binary is computed and aligned to 0x200000.
+> > 
+> > If the "-s" parameter is not used, the normal flow is executed,
+> > where the loading addresses and sizes for each binaries are
+> > precomputed and hardcoded inside the script, but the loading
+> > addresses and sizes for each binary are now also stored for eventual
+> > later use.
+> > 
+> > Reserved memory regions are left TBD in the -s case.
+> > 
+> > Link: https://lists.xenproject.org/archives/html/xen-devel/2022-09/msg01862.html
+> > Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> > ---
+> > This patch adds quite a bit of complexity which is the reason why I
+> > didn't originally commit it. Now that we are enabling ImageBuilder in
+> > Yocto, it turns out this patch is required because Yocto invokes
+> > ImageBuilder before all the binaries are ready and available.
+> > 
+> > Andrei, sorry for taking so long to realize why it is essential, but we
+> > are getting there now.
+> > 
+> > The changes I made to the original patch are purely to make it simpler
+> > to maintain.
+> > ---
+> > 
+> > diff --git a/README.md b/README.md
+> > index f8039ec..28c9e6b 100644
+> > --- a/README.md
+> > +++ b/README.md
+> > @@ -356,6 +356,8 @@ Where:\
+> >     can only be used  in combination with the -k option.  This adds the
+> >     public key into the dtb.  Then one can add this dtb back into the
+> >     u-boot bin or elf.\
+> > +-s addresses and sizes are calculated dynamically from U-Boot, hence
+> > +   binaries don't need to be available at the time of invocation.\
+> >  
+> >  ### Signed FIT images
+> >  
+> > diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+> > index 638154a..ee4af6c 100755
+> > --- a/scripts/uboot-script-gen
+> > +++ b/scripts/uboot-script-gen
+> > @@ -1,8 +1,11 @@
+> >  #!/bin/bash
+> >  
+> >  offset=$((2*1024*1024))
+> > +PADDING_MASK=`printf "0x%X\n" $(($offset - 1))`
+> > +PADDING_MASK_INV=`printf "0x%X\n" $((~$PADDING_MASK))`
+> >  filesize=0
+> >  prog_req=(mkimage file fdtput mktemp awk od)
+> > +CALC=""
+> >  
+> >  function cleanup_and_return_err()
+> >  {
+> > @@ -100,17 +103,42 @@ function dt_set()
+> >      fi
+> >  }
+> >  
+> > +function dt_set_calc()
+> > +{
+> > +    local path=$1
+> > +    local var=$2
+> > +    local name_var=$3
+> > + 
+> > +    addr_var="$name_var"_addr
+> > +    size_var="$name_var"_size
+> > +
+> > +    # Split data_addr_var into high/low
+> > +    echo "setexpr addr_hi \${"$addr_var"} / 0x100000000" >> $UBOOT_SOURCE
+> > +    echo "setexpr addr_lo \${"$addr_var"} \& 0xFFFFFFFF" >> $UBOOT_SOURCE
+> > +    
+> > +    # Split data_size_var into high/low
+> > +    echo "setexpr size_hi \${"$size_var"} / 0x100000000" >> $UBOOT_SOURCE
+> > +    echo "setexpr size_lo \${"$size_var"} \& 0xFFFFFFFF" >> $UBOOT_SOURCE
+> > +    
+> > +    echo "fdt set $path $var <0x\${addr_hi} 0x\${addr_lo} 0x\${size_hi} 0x\${size_lo}>" >> $UBOOT_SOURCE
+> > +}
+> > +
+> >  function add_device_tree_kernel()
+> >  {
+> >      local path=$1
+> > -    local addr=$2
+> > -    local size=$3
+> > -    local bootargs=$4
+> > +    local name=$2
+> > +    local addr=$3
+> > +    local size=$4
+> > +    local bootargs=$5
+> >      local node_name="module@${addr#0x}"
+> >  
+> >      dt_mknode "$path" "$node_name"
+> >      dt_set "$path/$node_name" "compatible" "str_a" "multiboot,kernel multiboot,module"
+> > -    dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr $size)"
+> > +    if test "$CALC"; then
+> > +        dt_set_calc "$path/$node_name" "reg" $name
+> > +    else
+> > +        dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr $size)"
+> > +    fi
+> >      dt_set "$path/$node_name" "bootargs" "str" "$bootargs"
+> >  }
+> >  
+> > @@ -118,26 +146,36 @@ function add_device_tree_kernel()
+> >  function add_device_tree_ramdisk()
+> >  {
+> >      local path=$1
+> > -    local addr=$2
+> > -    local size=$3
+> > +    local name=$2
+> > +    local addr=$3
+> > +    local size=$4
+> >      local node_name="module@${addr#0x}"
+> >  
+> >      dt_mknode "$path"  "$node_name"
+> >      dt_set "$path/$node_name" "compatible" "str_a" "multiboot,ramdisk multiboot,module"
+> > -    dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr $size)"
+> > +    if test "$CALC"; then
+> > +        dt_set_calc "$path/$node_name" "reg" $name
+> > +    else
+> > +        dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr $size)"
+> > +    fi
+> >  }
+> >  
+> >  
+> >  function add_device_tree_passthrough()
+> >  {
+> >      local path=$1
+> > -    local addr=$2
+> > -    local size=$3
+> > +    local name=$2
+> > +    local addr=$3
+> > +    local size=$4
+> >      local node_name="module@${addr#0x}"
+> >  
+> >      dt_mknode "$path"  "$node_name"
+> >      dt_set "$path/$node_name" "compatible" "str_a" "multiboot,device-tree multiboot,module"
+> > -    dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr $size)"
+> > +    if test "$CALC"; then
+> > +        dt_set_calc "$path/$node_name" "reg" $name
+> > +    else
+> > +        dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr $size)"
+> > +    fi
+> >  }
+> >  
+> >  function add_device_tree_mem()
+> > @@ -358,7 +396,11 @@ function xen_device_tree_editing()
+> >  
+> >          dt_mknode "/chosen" "$node_name"
+> >          dt_set "/chosen/$node_name" "compatible" "str_a" "xen,xsm-policy xen,multiboot-module multiboot,module"
+> > -        dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $xen_policy_addr $xen_policy_size)"
+> > +        if test "$CALC"; then
+> > +            dt_set_calc "/chosen/$node_name" "reg" "xen_policy"
+> > +        else
+> > +            dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $xen_policy_addr $xen_policy_size)"
+> > +        fi
+> >      fi
+> >  
+> >      if test "$DOM0_KERNEL"
+> > @@ -367,7 +409,11 @@ function xen_device_tree_editing()
+> >  
+> >          dt_mknode "/chosen" "$node_name"
+> >          dt_set "/chosen/$node_name" "compatible" "str_a" "xen,linux-zimage xen,multiboot-module multiboot,module"
+> > -        dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $dom0_kernel_addr $dom0_kernel_size)"
+> > +        if test "$CALC"; then
+> > +            dt_set_calc "/chosen/$node_name" "reg" "dom0_linux"
+> > +        else
+> > +            dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $dom0_kernel_addr $dom0_kernel_size)"
+> > +        fi
+> >          dt_set "/chosen" "xen,dom0-bootargs" "str" "$DOM0_CMD"
+> >      fi
+> >  
+> > @@ -377,7 +423,11 @@ function xen_device_tree_editing()
+> >  
+> >          dt_mknode "/chosen" "$node_name"
+> >          dt_set "/chosen/$node_name" "compatible" "str_a" "xen,linux-initrd xen,multiboot-module multiboot,module"
+> > -        dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $ramdisk_addr $ramdisk_size)"
+> > +        if test "$CALC"; then
+> > +            dt_set_calc "/chosen/$node_name" "reg" "dom0_ramdisk"
+> > +        else
+> > +            dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $ramdisk_addr $ramdisk_size)"
+> > +        fi
+> >      fi
+> >  
+> >      i=0
+> > @@ -464,14 +514,14 @@ function xen_device_tree_editing()
+> >  
+> >          xen_dt_domu_add_vcpu_nodes "/chosen/domU$i" $i ${DOMU_VCPUS[$i]}
+> >  
+> > -        add_device_tree_kernel "/chosen/domU$i" ${domU_kernel_addr[$i]} ${domU_kernel_size[$i]} "${DOMU_CMD[$i]}"
+> > +        add_device_tree_kernel "/chosen/domU$i" "domU${i}_kernel" ${domU_kernel_addr[$i]} ${domU_kernel_size[$i]} "${DOMU_CMD[$i]}"
+> >          if test "${domU_ramdisk_addr[$i]}"
+> >          then
+> > -            add_device_tree_ramdisk "/chosen/domU$i" ${domU_ramdisk_addr[$i]} ${domU_ramdisk_size[$i]}
+> > +            add_device_tree_ramdisk "/chosen/domU$i" "domU${i}_ramdisk" ${domU_ramdisk_addr[$i]} ${domU_ramdisk_size[$i]}
+> >          fi
+> >          if test "${domU_passthrough_dtb_addr[$i]}"
+> >          then
+> > -            add_device_tree_passthrough "/chosen/domU$i" ${domU_passthrough_dtb_addr[$i]} ${domU_passthrough_dtb_size[$i]}
+> > +            add_device_tree_passthrough "/chosen/domU$i" "domU${i}_fdt" ${domU_passthrough_dtb_addr[$i]} ${domU_passthrough_dtb_size[$i]}
+> >          fi
+> >          i=$(( $i + 1 ))
+> >      done
+> > @@ -504,7 +554,11 @@ function device_tree_editing()
+> >  
+> >      if test $UBOOT_SOURCE
+> >      then
+> > -        echo "fdt addr $device_tree_addr" >> $UBOOT_SOURCE
+> > +        if test "$CALC"; then
+> > +            echo "fdt addr \${host_fdt_addr}" >> $UBOOT_SOURCE
+> > +        else
+> > +            echo "fdt addr $device_tree_addr" >> $UBOOT_SOURCE
+> > +        fi
+> >          echo "fdt resize 1024" >> $UBOOT_SOURCE
+> >  
+> >          if test $NUM_DT_OVERLAY && test $NUM_DT_OVERLAY -gt 0
+> > @@ -512,7 +566,11 @@ function device_tree_editing()
+> >              i=0
+> >              while test $i -lt $NUM_DT_OVERLAY
+> >              do
+> > -                echo "fdt apply ${dt_overlay_addr[$i]}" >> $UBOOT_SOURCE
+> > +                if test "$CALC"; then
+> > +                    echo "fdt apply \${host_fdto${i}_addr}" >> $UBOOT_SOURCE
+> > +                else
+> > +                    echo "fdt apply ${dt_overlay_addr[$i]}" >> $UBOOT_SOURCE
+> > +                fi
+> >                  i=$(( $i + 1 ))
+> >              done
+> >          fi
+> > @@ -530,8 +588,12 @@ function fill_reserved_spaces_from_dtb()
+> >  {
+> >      if [ ! -f $DEVICE_TREE ]
+> >      then
+> > -        echo "File $DEVICE_TREE doesn't exist, exiting";
+> > -        cleanup_and_return_err
+> > +        if test "$CALC"; then
+> > +            return
+> > +        else
+> > +            echo "File $DEVICE_TREE doesn't exist, exiting";
+> > +            cleanup_and_return_err
+> > +        fi
+> >      fi
+> >  
+> >      # Check if reserved-memory node exists
+> > @@ -613,7 +675,7 @@ function get_image_size()
+> >      printf "%u" $effective_size
+> >  }
+> >  
+> > -function add_size()
+> > +function add_size_from_file()
+> >  {
+> >      local filename=$1
+> >      local size=`stat -L --printf="%s" $filename`
+> > @@ -645,6 +707,24 @@ function add_size()
+> >      filesize=$size
+> >  }
+> >  
+> > +function add_size_calculate()
+> > +{
+> > +    local fit_scr_name=$1
+> > +
+> > +    echo "setenv "$fit_scr_name"_addr \${memaddr}" >> $UBOOT_SOURCE
+> > +    echo "setenv "$fit_scr_name"_size \${filesize}" >> $UBOOT_SOURCE
+> > +    echo "setexpr memaddr \${memaddr} \+ \${filesize}" >> $UBOOT_SOURCE
+> > +    echo "setexpr memaddr \${memaddr} \+ $PADDING_MASK" >> $UBOOT_SOURCE
+> To save some lines, can the two additions be done in one line, i.e.:
+> echo "setexpr memaddr \${memaddr} \+ \${filesize} \+ $PADDING_MASK" >> $UBOOT_SOURCE
+
+I might be testing with an old version of U-Boot (2020.01), but this
+syntax is not supported in my test environment. To retain wider
+compatibility, I suggest to keep the two separate lines like in this
+patch.
 
 
-On 4/22/25 9:02 AM, Jan Beulich wrote:
-> On 18.04.2025 12:43, Oleksii Kurochko wrote:
->> On 4/15/25 4:53 PM, Jan Beulich wrote:
->>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
->>>> --- a/xen/arch/riscv/imsic.c
->>>> +++ b/xen/arch/riscv/imsic.c
->>>> @@ -14,12 +14,68 @@
->>>>    #include <xen/errno.h>
->>>>    #include <xen/init.h>
->>>>    #include <xen/macros.h>
->>>> +#include <xen/spinlock.h>
->>>>    #include <xen/xmalloc.h>
->>>>    
->>>>    #include <asm/imsic.h>
->>>>    
->>>>    static struct imsic_config imsic_cfg;
->>>>    
->>>> +#define imsic_csr_set(c, v)     \
->>>> +do {                            \
->>>> +    csr_write(CSR_SISELECT, c); \
->>>> +    csr_set(CSR_SIREG, v);      \
->>>> +} while (0)
->>>> +
->>>> +#define imsic_csr_clear(c, v)   \
->>>> +do {                            \
->>>> +    csr_write(CSR_SISELECT, c); \
->>>> +    csr_clear(CSR_SIREG, v);    \
->>>> +} while (0)
->>> Coming back to these (the later patch adds one more here): How expensive are
->>> these CSR writes? IOW would it perhaps make sense to maintain a local cache
->>> of the last written SISELECT value, to avoid writing the same one again if
->>> the same windowed register needs accessing twice in a row?
->> CSRs belong to the HART, so access to them is very fast.
-> Can you back this by any data? I view CSRs as somewhat similar to x86'es MSRs,
-> and access (writes in particular) to some of them is rather slow.
+> > +    echo "setexpr memaddr \${memaddr} \& $PADDING_MASK_INV" >> $UBOOT_SOURCE
+> > +
+> > +    # TODO: missing ${RESERVED_MEM_SPACES[@]} check
+> > +
+> > +    # The following are updated to avoid collisions in node names, but
+> > +    # they are not actively used.
+> > +    memaddr=$((memaddr + offset))
+> > +    filesize=$offset
+> > +}
+> > +
+> >  function load_file()
+> >  {
+> >      local filename=$1
+> > @@ -657,10 +737,16 @@ function load_file()
+> >      if test "$FIT"
+> >      then
+> >          echo "imxtract \$fit_addr $fit_scr_name $memaddr" >> $UBOOT_SOURCE
+> > +        add_size_from_file $filename
+> >      else
+> > -        echo "$LOAD_CMD $memaddr ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
+> > +        if test "$CALC"; then
+> > +            echo "$LOAD_CMD \${memaddr} ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
+> > +            add_size_calculate $fit_scr_name
+> > +        else
+> > +            echo "$LOAD_CMD $memaddr ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
+> > +            add_size_from_file $filename
+> > +        fi
+> >      fi
+> > -    add_size $filename
+> >  }
+> >  
+> >  function check_file_type()
+> > @@ -670,8 +756,13 @@ function check_file_type()
+> >  
+> >      if [ ! -f $filename ]
+> >      then
+> > -        echo "File $filename doesn't exist, exiting";
+> > -        cleanup_and_return_err
+> > +        if test "$CALC"
+> > +        then
+> > +            return
+> > +        else
+> > +            echo "File $filename doesn't exist, exiting";
+> > +            cleanup_and_return_err
+> > +        fi
+> >      fi
+> >  
+> >      # if file doesn't know what it is, it outputs data, so include that
+> > @@ -705,8 +796,13 @@ function check_compressed_file_type()
+> >  
+> >      if [ ! -f $filename ]
+> >      then
+> > -        echo "File $filename doesn't exist, exiting";
+> > -        cleanup_and_return_err
+> > +        if test "$CALC"
+> > +        then
+> > +            return
+> > +        else
+> > +            echo "File $filename doesn't exist, exiting";
+> > +            cleanup_and_return_err
+> > +        fi
+> >      fi
+> >  
+> >      file_type=$( file -L $filename )
+> > @@ -872,6 +968,12 @@ function linux_config()
+> >  generate_uboot_images()
+> >  {
+> >      local arch=$(file -L $XEN | grep -E 'ARM64|Aarch64')
+> > +    
+> > +    if test "$CALC"
+> > +    then
+> > +        echo "bootm is not compatible with -s"
+> > +        cleanup_and_return_err
+> > +    fi
+> >  
+> >      if test "$arch"
+> >      then
+> > @@ -997,7 +1099,11 @@ bitstream_load_and_config()
+> >          if test "$UBOOT_SOURCE"
+> >          then
+> >              # we assume the FPGA device is 0 here
+> > -            echo "fpga load 0 $bitstream_addr $bitstream_size" >> "$UBOOT_SOURCE"
+> > +            if test "$CALC"; then
+> > +                echo "fpga load 0 \${fpga_bitstream_addr} \${fpga_bitstream_size}" >> "$UBOOT_SOURCE"
+> > +            else
+> > +                echo "fpga load 0 $bitstream_addr $bitstream_size" >> "$UBOOT_SOURCE"
+> > +            fi
+> >          fi
+> >      fi
+> >  }
+> > @@ -1271,7 +1377,7 @@ function print_help
+> >  {
+> >      script=`basename "$0"`
+> >      echo "usage:"
+> > -    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH]"
+> > +    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH] [-s]"
+> >      echo "	$script -h"
+> >      echo "where:"
+> >      echo "	CONFIG_FILE - configuration file"
+> > @@ -1288,6 +1394,7 @@ function print_help
+> >      echo "	U-BOOT_DTB - u-boot control dtb so that the public key gets added to it"
+> >      echo "	-f - enable generating a FIT image"
+> >      echo "	PREPEND_PATH - path to be appended before file names to match deploy location within rootfs"
+> > +    echo "	-s - enable dynamic loading of binaries by storing their addresses and sizes u-boot env variables"
+> >      echo "	-h - prints out the help message and exits "
+> >      echo "Defaults:"
+> >      echo "	CONFIG_FILE=$cfg_file, UBOOT_TYPE=\"LOAD_CMD\" env var, DIRECTORY=$uboot_dir"
+> > @@ -1295,7 +1402,7 @@ function print_help
+> >      echo "	$script -c ../config -d ./build42 -t \"scsi load 1:1\""
+> >  }
+> >  
+> > -while getopts ":c:t:d:ho:k:u:fp:" opt; do
+> > +while getopts ":c:t:d:ho:k:u:fp:s" opt; do
+> >      case ${opt} in
+> >      t )
+> >          case $OPTARG in
+> > @@ -1340,6 +1447,9 @@ while getopts ":c:t:d:ho:k:u:fp:" opt; do
+> >      p )
+> >          prepend_path="$OPTARG"
+> >          ;;
+> > +    s )
+> > +        CALC=y
+> > +        ;;
+> >      h )
+> >          print_help
+> >          exit 0
+> > @@ -1533,6 +1643,7 @@ uboot_addr=$memaddr
+> >  # 2MB are enough for a uboot script
+> >  memaddr=$(( $memaddr + $offset ))
+> >  memaddr=`printf "0x%X\n" $memaddr`
+> > +echo "setenv memaddr $memaddr" >> $UBOOT_SOURCE
+> Why is it here unconditionally?
 
-CSR read 1 cycle, CSR write 7 cycles on Microchip platform. ~ Oleksii
+Because it is harmless but you are right that it could be conditional. I
+can make the change.
 
---------------QNxNomG2MzxUG3HCadje2v90
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/22/25 9:02 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:d63a6410-7053-4f75-aeda-6cd4e36bd302@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 18.04.2025 12:43, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 4/15/25 4:53 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 08.04.2025 17:57, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/imsic.c
-+++ b/xen/arch/riscv/imsic.c
-@@ -14,12 +14,68 @@
-  #include &lt;xen/errno.h&gt;
-  #include &lt;xen/init.h&gt;
-  #include &lt;xen/macros.h&gt;
-+#include &lt;xen/spinlock.h&gt;
-  #include &lt;xen/xmalloc.h&gt;
-  
-  #include &lt;asm/imsic.h&gt;
-  
-  static struct imsic_config imsic_cfg;
-  
-+#define imsic_csr_set(c, v)     \
-+do {                            \
-+    csr_write(CSR_SISELECT, c); \
-+    csr_set(CSR_SIREG, v);      \
-+} while (0)
-+
-+#define imsic_csr_clear(c, v)   \
-+do {                            \
-+    csr_write(CSR_SISELECT, c); \
-+    csr_clear(CSR_SIREG, v);    \
-+} while (0)
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Coming back to these (the later patch adds one more here): How expensive are
-these CSR writes? IOW would it perhaps make sense to maintain a local cache
-of the last written SISELECT value, to avoid writing the same one again if
-the same windowed register needs accessing twice in a row?
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-CSRs belong to the HART, so access to them is very fast.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Can you back this by any data? I view CSRs as somewhat similar to x86'es MSRs,
-and access (writes in particular) to some of them is rather slow.</pre>
-    </blockquote>
-    <pre><span data-teams="true">CSR read 1 cycle, CSR write 7 cycles on Microchip platform.
-
-~ Oleksii</span></pre>
-  </body>
-</html>
-
---------------QNxNomG2MzxUG3HCadje2v90--
+> >  
+> >  fill_reserved_spaces_from_dtb
+> >  
+> > @@ -1583,7 +1694,11 @@ fi
+> >  
+> >  if [ "$BOOT_CMD" != "none" ]
+> >  then
+> > -    echo "$BOOT_CMD $kernel_addr $([ "$BOOT_CMD" = "bootefi" ] || echo '-') $device_tree_addr" >> $UBOOT_SOURCE
+> > +    if test "$CALC"; then
+> > +        echo "$BOOT_CMD \${host_kernel_addr} $([ "$BOOT_CMD" = "bootefi" ] || echo '-') \${host_fdt_addr}" >> $UBOOT_SOURCE
+> > +    else
+> > +        echo "$BOOT_CMD $kernel_addr $([ "$BOOT_CMD" = "bootefi" ] || echo '-') $device_tree_addr" >> $UBOOT_SOURCE
+> > +    fi
+> >  else
+> >      # skip boot command but store load addresses to be used later
+> >      echo "setenv host_kernel_addr $kernel_addr" >> $UBOOT_SOURCE
+> 
+> ~Michal
+> 
 
