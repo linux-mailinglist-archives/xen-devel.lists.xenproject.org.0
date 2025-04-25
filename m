@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8B96A9CB80
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 16:21:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.968166.1357849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 037DBA9CB56
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 16:17:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.968150.1357840 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8Jvj-0001lG-LZ; Fri, 25 Apr 2025 14:21:27 +0000
+	id 1u8JrF-0008A2-15; Fri, 25 Apr 2025 14:16:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 968166.1357849; Fri, 25 Apr 2025 14:21:27 +0000
+Received: by outflank-mailman (output) from mailman id 968150.1357840; Fri, 25 Apr 2025 14:16:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8Jvj-0001jm-If; Fri, 25 Apr 2025 14:21:27 +0000
-Received: by outflank-mailman (input) for mailman id 968166;
- Fri, 25 Apr 2025 14:21:26 +0000
+	id 1u8JrE-00087X-UE; Fri, 25 Apr 2025 14:16:48 +0000
+Received: by outflank-mailman (input) for mailman id 968150;
+ Fri, 25 Apr 2025 14:16:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kKSw=XL=kernel.org=arnd@srs-se1.protection.inumbo.net>)
- id 1u8Jvi-0001jg-7V
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 14:21:26 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/m1g=XL=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1u8JrD-00087Q-7q
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 14:16:47 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2417::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9024dff6-21e0-11f0-9ffb-bf95429c2676;
- Fri, 25 Apr 2025 16:21:23 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id EE37E49BEC;
- Fri, 25 Apr 2025 14:21:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67FA6C4CEE4;
- Fri, 25 Apr 2025 14:21:18 +0000 (UTC)
+ id e7f8fd96-21df-11f0-9ffb-bf95429c2676;
+ Fri, 25 Apr 2025 16:16:42 +0200 (CEST)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by DM6PR12MB4372.namprd12.prod.outlook.com (2603:10b6:5:2af::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.26; Fri, 25 Apr
+ 2025 14:16:36 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%2]) with mapi id 15.20.8678.025; Fri, 25 Apr 2025
+ 14:16:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,469 +47,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9024dff6-21e0-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745590881;
-	bh=nmDRxC+knYKh7h47UaJi1RUPn/QPP+Qvi9F5Frj7RDg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=hTyJrdtwYF87YDIvFLMOFAu2aLHUWkYJOG0CNgwL4gYDxHge1ooHycrGEpDnIYPcl
-	 6FnKXxnpeEuu+wghoNCmQuIVIf4HcAZoDbegk+S8xIfZyAWBYY0XqIKFMcvmXeZaII
-	 NKkLguLpJstx7yYUrDOgvcpoQO4tKyjNiitZCHTCzH1iUeOT6Q95nFAjM7T2ULK9ST
-	 k4rsebaktlzkdpQcX1ZhfgTL9L2GgzBOKPBwb+i2BhHGQ3VKU+sjtWL4LpOxSZL34E
-	 R/7vhdj8pztfVag1EXZT9VmI1AzezqZozsoB0ufdP2GiiuJRP6NhUb4WxoRyS6lgGo
-	 B8KJzIiKoazMA==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	=?UTF-8?q?Mateusz=20Jo=C5=84czyk?= <mat.jonczyk@o2.pl>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH] [RFC] x86/cpu: rework instruction set selection
-Date: Fri, 25 Apr 2025 16:15:15 +0200
-Message-Id: <20250425141740.734030-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: e7f8fd96-21df-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iVjmnqg0qesrL0tlAES1LDVAKWgpKHLwlE3VPOKz4X7rmcxYvw7OoQkVeFTmuDyizQV6iqqdMcv0ZLMOzfpNS63vQzKOt7i6fTpB126e+VoApcJZS7Fbq9lugNRp2Oa8XXJZq/Dt4N8BXPd5luMz3BBeeSLiuF86Ni7Mo/CGVdso6Th2UlJ/uQ7XNjyJ9jhNfTXC3xNI4IZC1vvr6Yex9NLN3RntpVluyL/VrJltZdQ2zSdY7rPkXJhbiM0UWvuLrHNefRxQbhRLzeCkkcXHXO0geFFLuqO7i1QiJkK1EyMN8qVhJeuErogs/cYp9Px7/jRRdjdXe+8nVNcuYDXGfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s8f/Vba4PZCx9DiU29wG30Mid7Pgv0sAY80tm3rZkCs=;
+ b=MNMYN7pJwFgjam6tCoMrhIiCpbV/7wueM05c0xU/Y9CXBUQy08rdgrHdX8SYKUGtt+RX7CLbJmSuX8wyXTkU/aIr2hq8PFhaLEgzNyg3BOFnH2N+GeW7tmMmQoC0NPPFGN00MEz4R5ApZ2MRUGfYS3mEhRRORYhs+/UE/oqLf4tZAQ4SG/tJPOTerrQMnNm2AdlNj4xYL8Prd6Q1eYOgosK/W/K2Wn9ZT6da1lnfCuKeAA7US32K04pbOCfwMRVu7xxJTWAuIesFiTWEHpZZRwNkCcElBgS/jvewpygooUYzT/rw2OX6vjPvx6nqDXBL4GCHfoeuQhR8mfk9HGQLYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s8f/Vba4PZCx9DiU29wG30Mid7Pgv0sAY80tm3rZkCs=;
+ b=BQIwNo8uqxoR53Eq0pVDVbo3neHfi4dRI06XR30N35i4LcNLKXqbZ69Chpc+5LvxR20/WqjujjjaSPpXrOucPS3rmS0gqJyoP7mt8nwlf1hXyBAis/aGHIyPxq6hsF+53ul+SOm9lcnhMRY6MlGf29GdlebFF3hi1fQFEtONjMA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <8c0915a9-9c31-460c-9484-ad5a81999b0c@amd.com>
+Date: Fri, 25 Apr 2025 15:16:32 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] xen/arm: AArch32-V8R: Add MPU register definitions
+Content-Language: en-GB
+To: Julien Grall <julien@xen.org>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Luca Fancellu <luca.fancellu@arm.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250425124506.390458-1-ayan.kumar.halder@amd.com>
+ <82de1227-7489-4ac9-a52c-2da188bd8e54@xen.org>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <82de1227-7489-4ac9-a52c-2da188bd8e54@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0603.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:295::19) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|DM6PR12MB4372:EE_
+X-MS-Office365-Filtering-Correlation-Id: fbdafc01-9d69-416b-2368-08dd8403c9a6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VEowbDRhYnlYbm56L1FxOVpLQTNYMGRwMStoelNSaGVKUmppbUJwYTQydElR?=
+ =?utf-8?B?c0s2Q1VuVE9McjNCbmdacmtDRGNNZ3N6bnJ4SGh4ckI2ZFhFUFVHNHVQcEly?=
+ =?utf-8?B?RHdmelplaTZtZllXTWxDTmo2VEJUaWVwUkJreENPVVg4Q3ExR1YzL1dTQmRx?=
+ =?utf-8?B?dFpQVitsenFlczRFdUl2blV3R0lTVXRRekRtdlpqdXJtdU0vWkFrbUhNQXBv?=
+ =?utf-8?B?c1VQT2Q4YW9lWm9WSytWVDNHbGZRdUg5WnlrRXdoV3FGVk5SY2hxNVBnVzY1?=
+ =?utf-8?B?bHVJRUFFTXp3SDFmTnJteG5pZGVxQ2NvelVYNlZnWlZnUytxU1RqVWxJbGFm?=
+ =?utf-8?B?NVNYcCtsRThpeWNIeGVXdTU2dzJjYWxTWVZTQ2Y0Z0djaEIvc1gxOHJPeDd6?=
+ =?utf-8?B?SG5kUEJtbUlsVlF2YVkvZEN5cEpnU05ubENXV29oOUlVb0xzR3ZNVDUwTjVV?=
+ =?utf-8?B?MXBkQVp6WnF2OGdHamlBM1lGNEFSOU9VNFlpWlNxZHQ1NDczcjI1V2JzMlBC?=
+ =?utf-8?B?YisrMzRnWlJiQkM3bEJ6angyRDF5NHBIYzFUZ1hlenYxNlVERklKMlcyb3JJ?=
+ =?utf-8?B?ZTlUdXJYMW9Cd0ZFaHE1UGRYaUZLYVM0eFd2c001TUNCTTQ5SjVmWEEvK3ov?=
+ =?utf-8?B?WG9IUlNyTWZ2bk1jejR4NWlHRGFycFpBa0dDY2ZTakllYURNUjdiRnZzV0E1?=
+ =?utf-8?B?ZmRoTkdYMHRZUzMwRjN4RDE3RGtYNU1KVzF5NEpUbnVvSzVhRTQzMTZDMU1z?=
+ =?utf-8?B?Slc2RVlxK2pTMnJVOEhiSXdhSC91T2tKL2VwMmE3eVk0QlMyeXBQSFVvcDBJ?=
+ =?utf-8?B?ck9jZDJyNVdLaE9QWlVKVGxLVXN5bHRnd0o1V24xYkNGREp4QXpXVWQxcXFk?=
+ =?utf-8?B?aHdQcTF0MlhmbWFqSC84akhOUld2aG43Y1VrRmU0dG1GRXRTZWFoQmlzbEpn?=
+ =?utf-8?B?R0oyZ0t4VTFrb1R3L2g2NEJsS1pIZG5uMjYwRTZVdk5XM2VvcDNZblg5aUJN?=
+ =?utf-8?B?WkdmSDBQdWlLUURVaXFZcVhsWGRFR1FKMDhYUExkUEdzRG5PRkFSOWhmNHRx?=
+ =?utf-8?B?Q3k5bDR1NGhUQ3c1ZVJ2M0ZkY2JKMU5CbENmdHMycnBCSkRTT256MHVJNUJz?=
+ =?utf-8?B?OWVKQVZzcWZ6aW5qNlJIcVgwYWQ0ek0yV1dKTTd4SW5Fa1ZSTDJ4QkRGTWEy?=
+ =?utf-8?B?T0t0ZUJNNUtraVdVcEI0bk9TR29FQmU4Um9NRDU5V2hSNEdkMjRzSHNCNGRW?=
+ =?utf-8?B?MTJLZDc2M0tQcHZ2VWNMZnNxUk5nelhSQXk1UnowSFlBWmJwOFliamdJNExw?=
+ =?utf-8?B?VXhiOWNDNnlqSllid3g0NGcvb2RnUHEvelNrVTNSc2w5MmxCcUNDb3NJMzlN?=
+ =?utf-8?B?N0trczJEblJWY0N5YUExeGRmRXdWeFM5aVlBNHRNQ3BpVVNRM0djQWFYRGxT?=
+ =?utf-8?B?Y1B2ZHFLQU1LZUtEU0RxZ3ZoZG51aUcra0pybEpYdFlkTEZSa0RsTGZwcm1t?=
+ =?utf-8?B?cjZIY0Y5c2hpdnpCdkpkWk1QYjFKRytTNWxkK1RsanZMeWhjcGFFY1ZTK3lJ?=
+ =?utf-8?B?SkdvTi95b2tNejRjeEtDMWcwK0VMeVg5ZFlEeUlPcWR6c3ErQ3M4UElNWHRt?=
+ =?utf-8?B?aUw1WGZyVm1IN1JlM0ttOVI5eDhVY2lQa3QxR3ROM1Q3cXVkVnJiQnVRYXd3?=
+ =?utf-8?B?Q3lCekZQRy9VbHVKYURnV2YzaXdzVG16MFpHZHhTOXVBMm1DNnFpbDExUkRP?=
+ =?utf-8?B?WVdtQmNQaFd1Rm04UmpGcERvRkxscUtKdkFlTldqbWJSQ3NTQXFmOEhUZ3RP?=
+ =?utf-8?B?OEJSakJYRUNQQTE1elRHcTI4cDI2eEJFVElmUlNQWFovV0VPcTZXODJkY25T?=
+ =?utf-8?B?TUQxRjB6UG9VZXRvNFkzVk1HSjRqTXFFNzFwSngrQkJsKzNCWFNhK0dYT0Z2?=
+ =?utf-8?Q?CdDIlmHyXDE=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VXAxS3BsQ05YcVYwUjNNTjhERTRsSngyU1B3TGNYZ0ZHcWFZY3ZOQ0pGSFJr?=
+ =?utf-8?B?cGt4YzJuRHlZM2hZb0duOHBwMjdPeFZ1WlNvZUpuVEdycUhhUzdEQ0I2ME40?=
+ =?utf-8?B?TU1JTHZIc0c0RHRHNEhEb1N0bitIVmluSHpvT0lXcFhETFNlRWkrMlVhbnZY?=
+ =?utf-8?B?c0ZzMmtuTERIK3Q0VnM2R01pZTBTcVJmWkxtYmhqNVk2WFpMM1hVSGtrZGZ0?=
+ =?utf-8?B?UDhJM3I1eDdST3NCb1VjYUFZNW00M1I1b1pJVUR2b1A1eTBpZTRKR0dkMDdO?=
+ =?utf-8?B?cG9OVjliVWIrRDd5MU1VVVREMDlJY1gyNUtocjBQSHo5MitLRU5EWllqVmNF?=
+ =?utf-8?B?MHN0Q294OHAyZExqS3pFMFlpcFV5OVc4K2lNSlFXRElBbTFKREM1a2UvV29t?=
+ =?utf-8?B?Vm1HK1FrUjIvTmNtS2FhM3VCdjFZUGo3WFVYNnR1cDRMN2dVb0QrenNmYmF4?=
+ =?utf-8?B?ZEJjNk9JaVNUc0h1UFdycGRZN01JZ3FoSFNuNTdrOEJMdzU4NExIbGthWjRP?=
+ =?utf-8?B?RGpucWM5OHhWMmJEWlMyM2pjUWRkOGtKS2NoWTZUYXRFRVI3cGlsa3l3bHUz?=
+ =?utf-8?B?Wk8yNWRucGdQRmh3NkU4SklDQzRQVHB4NXUrMzdWQmgwc2FkekJERVBjTzBV?=
+ =?utf-8?B?NHFRbVRDZ1UzTTE2M0l3NXR2Q0ExOUVRQzN3SGZHVXI5aVpqNU5YaDMyai9U?=
+ =?utf-8?B?cnc1bTNwb2orZDNHdm9Zbi96VUZtSlBPUEdxWGVmYjVkMHRoWHpMWWhiOWQz?=
+ =?utf-8?B?SU9qWUhqQ0lCNVJpTDNWdTErQW55cDl5SVRMV2VDdWNteXRrMEwxTnFGSEFz?=
+ =?utf-8?B?MVBKcnB0bUs3dmVxV3FvL3B0S3JzZysyNTFNcThSUVQ1SjhWbzJrVVE1NjQ5?=
+ =?utf-8?B?WmhmZzZwWTd1dk9yUVhYR2UwekR2a3h1dnBRelh5YS9rdkVpUVhoMlNYcEsr?=
+ =?utf-8?B?Sm05YjZDNEZHS25zSHlyQmhkMDkwMWNwK3FEQyt1b3NLWHlCdkZNcjArYXVQ?=
+ =?utf-8?B?SVpJbGxkc2VsMWhUczc5TzNndktpa1NrVERXcjZWby9YSmtpNUlJUER0b2dZ?=
+ =?utf-8?B?emRuNDRMeVZjSktmckFGVlg3bmN1cWdhNmMyUEk4UEZxRDI3eUF5ejlFamlI?=
+ =?utf-8?B?U3d6UEgxaWVyZGRZNGVVV1RCSzlRRjZITkpCdGxubTJnQVBXVjh3MXF5M1NK?=
+ =?utf-8?B?Tkxjenl2WTNybXNwT2N6RWNWc0xvV0hMb0gxcDRXVElDQlBkRGZ5Vk1SaGhI?=
+ =?utf-8?B?V0F1clNVNVc0V0VsMVo3dHlpT1MvWlMvMGV6RFdHZXJzUFZoVkZ4UGY1RFBN?=
+ =?utf-8?B?MTVXU3dYVkpnSlNhYnIwZmZBeSt1cHV3cEdBT1A4T0pReEMvMTBpUElIQ25z?=
+ =?utf-8?B?Zmw5aFJvYU14dzkrdHdVTjZKS2dtWmV4VWFBaUhvN1Q5ZDZsM3ErWXRXV0V6?=
+ =?utf-8?B?UGV3dEg0MDJnK0VUbVBoZHVqMDRQWXZERXRYSVh2Nml5eDBwT2dqUW4zSGFr?=
+ =?utf-8?B?eWdZZG02VW53ZjRkcVZFcG8wZCtIaUdrSkdsRTc1Zk5wUnhVOXJCc0ExeC9a?=
+ =?utf-8?B?OXk4UmtKcGNXOGpWOEt5NEtveE50eWFMODlPUlZiM3hsanh4UHdtUXpaYnNO?=
+ =?utf-8?B?cU50WmY0U05pU1pFMG1ZcDJjbEdHV2g2dXAvM2w3Tk1mRnQrNjFnaWlZZGsz?=
+ =?utf-8?B?dTF6UFJBS2FmV1hYM04xRFBZQnhXaHk3N0NOaDh1Ny81bXpYdFFpbUw1aElO?=
+ =?utf-8?B?cmdtRnZQVFgwS3F1NkU1TmRUN3VJSUthdFBnc3pxK2hNUmsvc2lNUnNWeEJW?=
+ =?utf-8?B?N1psVzM4N2JndEo1c3lDaFdORXdUUmxSUHFndXR0TWpid3lFM05LMUNYM3kr?=
+ =?utf-8?B?NytSaVhJSVhPMGN1WFgyS1dWcHk5ZGYyWEtsT1RZdlhmQjhKOHlHeHQ4OUJ0?=
+ =?utf-8?B?MjN1Rk15Unp2dWp5YUtERk5YQnRkbUF6WmlWRVF0ZWwxV2luUThjL3dPMlhS?=
+ =?utf-8?B?YVAxbXlOcERvNEgzQ0x6eEFoVEVEa01oaUVFMnJva0JDMGthVHRXVU5MSVd2?=
+ =?utf-8?B?QVlQMzEvSmNPU3RhMWlJTTJsMWZ6akgxV1N2MGVva2xDSG9hYlVBQ1dLQUFY?=
+ =?utf-8?Q?28o4IIVNPqS7QLrZco+nPVLWk?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbdafc01-9d69-416b-2368-08dd8403c9a6
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2025 14:16:36.2531
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9i/9nWFe5/wSFwN45+DXIpns7psAEXG0umBTXpfnODQcMJGn8lQoSqK/G8nQMnyH7HF4ak0/VaXf5YaWPdsLrg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4372
 
-From: Arnd Bergmann <arnd@arndb.de>
 
-With cx8 and tsc being mandatory features, the only important
-architectural features are now cmov and pae.
+On 25/04/2025 15:05, Julien Grall wrote:
+> Hi Ayan,
+Hi Julien,
+>
+> On 25/04/2025 13:45, Ayan Kumar Halder wrote:
+>> Add the definitions for HPRBAR<0..31>, HPRLAR<0..31> and HPRENR.
+>> The definitions are taken from ARM DDI 0568A.c ID110520, E2.2.3 
+>> HPRBAR<n>,
+>> E2.2.4 HPRENR and E2.2.6 HPRLAR<n>.
+>>
+>> Introduce pr_t typedef which is a structure having the prbar and 
+>> prlar members,
+>> each being structured as the registers of the AArch32-V8R architecture.
+>> This is the arm32 equivalent of
+>> "arm/mpu: Introduce MPU memory region map structure".
+>>
+>> Few differences worth noting:-
+>> 1. The XN in HPRBAR is 1 bit in Arm32 (unlike 2 bits in Arm64).
+>> 2. PRSELR_EL2 is not used to access HPRBAR<0..31> and HPRLAR<0..31>.
+>>
+>> Introduce macros PR{B,L}AR_EL2_(num) to generate alias for the sysregs.
+>>
+>> Also, took the opportunity to fix the register definition of HPRLAR.
+>>
+>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>> ---
+>> Changes from :-
+>>
+>> v1 - 1. Introduce macros for PR{B,L}AR_EL2_(num). Similar macros need 
+>> to be
+>> defined for arm64 as well.
+>> 2. Some style fixes
+>>
+>> Comments not addressed
+>> 1. Renaming of PRBAR_EL2_XN if needed.
+>> 2. Using res0 for ns.
+>
+> Why are you rushing sending a new version that doesn't address most of 
+> the comments when ...
+Sorry, as there were lot of comments, so I want to show the proposed 
+changes. I should probably have waited until we are aligned on all the 
+changes in v1.
+>
+>>
+>> This patch should be applied after
+>> "[PATCH v3 0/7] First chunk for Arm R82 and MPU support" in order to 
+>> enable
+>> compilation for AArch32 and macros need to be defined for Arm64 as well.
+>
+> ... this depends on a patch still under review? This is not a very 
+> good use of reviewers time.
 
-Change the large list of target CPUs to no longer pick the instruction set
-itself but only the mtune= optimization level and in-kernel optimizations
-that remain compatible with all cores.
+Ack.
 
-The CONFIG_X86_CMOV instead becomes user-selectable and is now how
-Kconfig picks between 586-class (Pentium, Pentium MMX, K6, C3, GeodeGX)
-and 686-class (everything else) targets.
+- Ayan
 
-In order to allow running on late 32-bit cores (Athlon, Pentium-M,
-Pentium 4, ...), the X86_L1_CACHE_SHIFT can no longer be set to anything
-lower than 6 (i.e. 64 byte cache lines).
-
-The optimization options now depend on X86_CMOV and X86_PAE instead
-of the other way round, while other compile-time conditionals that
-checked for MATOM/MGEODEGX1 instead now check for CPU_SUP_* options
-that enable support for a particular CPU family.
-
-Link: https://lore.kernel.org/lkml/dd29df0c-0b4f-44e6-b71b-2a358ea76fb4@app.fastmail.com/
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
-This is what I had in mind as mentioned in the earlier thread on
-cx8/tsc removal. I based this on top of the Ingo's [RFC 15/15]
-patch.
----
- arch/x86/Kconfig                |   2 +-
- arch/x86/Kconfig.cpu            | 100 ++++++++++++++------------------
- arch/x86/Makefile_32.cpu        |  48 +++++++--------
- arch/x86/include/asm/vermagic.h |  36 +-----------
- arch/x86/kernel/tsc.c           |   2 +-
- arch/x86/xen/Kconfig            |   1 -
- drivers/misc/mei/Kconfig        |   2 +-
- 7 files changed, 74 insertions(+), 117 deletions(-)
-
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index a9d717558972..1e33f88c9b97 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -1438,7 +1438,7 @@ config HIGHMEM
- 
- config X86_PAE
- 	bool "PAE (Physical Address Extension) Support"
--	depends on X86_32 && X86_HAVE_PAE
-+	depends on X86_32 && X86_CMOV
- 	select PHYS_ADDR_T_64BIT
- 	help
- 	  PAE is required for NX support, and furthermore enables
-diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
-index 6f1e8cc8fe58..0619566de93f 100644
---- a/arch/x86/Kconfig.cpu
-+++ b/arch/x86/Kconfig.cpu
-@@ -1,23 +1,32 @@
- # SPDX-License-Identifier: GPL-2.0
- # Put here option for CPU selection and depending optimization
--choice
--	prompt "x86-32 Processor family"
--	depends on X86_32
--	default M686
-+
-+config X86_CMOV
-+	bool "Require 686-class CMOV instructions" if X86_32
-+	default y
- 	help
--	  This is the processor type of your CPU. This information is
--	  used for optimizing purposes. In order to compile a kernel
--	  that can run on all supported x86 CPU types (albeit not
--	  optimally fast), you can specify "586" here.
-+	  Most x86-32 processor implementations are compatible with
-+	  the the CMOV instruction originally added in the Pentium Pro,
-+	  and they perform much better when using it.
-+
-+	  Disable this option to build for 586-class CPUs without this
-+	  instruction. This is only required for the original Intel
-+	  Pentium (P5, P54, P55), AMD K6/K6-II/K6-3D, Geode GX1 and Via
-+	  CyrixIII/C3 CPUs.
- 
- 	  Note that the 386 and 486 is no longer supported, this includes
- 	  AMD/Cyrix/Intel 386DX/DXL/SL/SLC/SX, Cyrix/TI 486DLC/DLC2,
- 	  UMC 486SX-S and the NexGen Nx586, AMD ELAN and all 486 based
- 	  CPUs.
- 
--	  The kernel will not necessarily run on earlier architectures than
--	  the one you have chosen, e.g. a Pentium optimized kernel will run on
--	  a PPro, but not necessarily on a i486.
-+choice
-+	prompt "x86-32 Processor optimization"
-+	depends on X86_32
-+	default X86_GENERIC
-+	help
-+	  This is the processor type of your CPU. This information is
-+	  used for optimizing purposes, but does not change compatibility
-+	  with other CPU types.
- 
- 	  Here are the settings recommended for greatest speed:
- 	  - "586" for generic Pentium CPUs lacking the TSC
-@@ -45,14 +54,13 @@ choice
- 
- config M586TSC
- 	bool "Pentium-Classic"
--	depends on X86_32
-+	depends on X86_32 && !X86_CMOV
- 	help
--	  Select this for a Pentium Classic processor with the RDTSC (Read
--	  Time Stamp Counter) instruction for benchmarking.
-+	  Select this for a Pentium Classic processor.
- 
- config M586MMX
- 	bool "Pentium-MMX"
--	depends on X86_32
-+	depends on X86_32 && !X86_CMOV
- 	help
- 	  Select this for a Pentium with the MMX graphics/multimedia
- 	  extended instructions.
-@@ -117,7 +125,7 @@ config MPENTIUM4
- 
- config MK6
- 	bool "K6/K6-II/K6-III"
--	depends on X86_32
-+	depends on X86_32 && !X86_CMOV
- 	help
- 	  Select this for an AMD K6-family processor.  Enables use of
- 	  some extended instructions, and passes appropriate optimization
-@@ -125,7 +133,7 @@ config MK6
- 
- config MK7
- 	bool "Athlon/Duron/K7"
--	depends on X86_32
-+	depends on X86_32 && !X86_PAE
- 	help
- 	  Select this for an AMD Athlon K7-family processor.  Enables use of
- 	  some extended instructions, and passes appropriate optimization
-@@ -147,42 +155,37 @@ config MEFFICEON
- 
- config MGEODEGX1
- 	bool "GeodeGX1"
--	depends on X86_32
-+	depends on X86_32 && !X86_CMOV
- 	help
- 	  Select this for a Geode GX1 (Cyrix MediaGX) chip.
- 
- config MGEODE_LX
- 	bool "Geode GX/LX"
--	depends on X86_32
-+	depends on X86_32 && !X86_PAE
- 	help
- 	  Select this for AMD Geode GX and LX processors.
- 
- config MCYRIXIII
- 	bool "CyrixIII/VIA-C3"
--	depends on X86_32
-+	depends on X86_32 && !X86_CMOV
- 	help
- 	  Select this for a Cyrix III or C3 chip.  Presently Linux and GCC
- 	  treat this chip as a generic 586. Whilst the CPU is 686 class,
- 	  it lacks the cmov extension which gcc assumes is present when
- 	  generating 686 code.
--	  Note that Nehemiah (Model 9) and above will not boot with this
--	  kernel due to them lacking the 3DNow! instructions used in earlier
--	  incarnations of the CPU.
- 
- config MVIAC3_2
- 	bool "VIA C3-2 (Nehemiah)"
--	depends on X86_32
-+	depends on X86_32 && !X86_PAE
- 	help
- 	  Select this for a VIA C3 "Nehemiah". Selecting this enables usage
- 	  of SSE and tells gcc to treat the CPU as a 686.
--	  Note, this kernel will not boot on older (pre model 9) C3s.
- 
- config MVIAC7
- 	bool "VIA C7"
--	depends on X86_32
-+	depends on X86_32 && !X86_PAE
- 	help
--	  Select this for a VIA C7.  Selecting this uses the correct cache
--	  shift and tells gcc to treat the CPU as a 686.
-+	  Select this for a VIA C7.
- 
- config MATOM
- 	bool "Intel Atom"
-@@ -192,20 +195,19 @@ config MATOM
- 	  accordingly optimized code. Use a recent GCC with specific Atom
- 	  support in order to fully benefit from selecting this option.
- 
--endchoice
--
- config X86_GENERIC
--	bool "Generic x86 support"
--	depends on X86_32
-+	bool "Generic x86"
- 	help
--	  Instead of just including optimizations for the selected
-+	  Instead of just including optimizations for a particular
- 	  x86 variant (e.g. PII, Crusoe or Athlon), include some more
- 	  generic optimizations as well. This will make the kernel
--	  perform better on x86 CPUs other than that selected.
-+	  perform better on a variety of CPUs.
- 
- 	  This is really intended for distributors who need more
- 	  generic optimizations.
- 
-+endchoice
-+
- #
- # Define implied options from the CPU selection here
- config X86_INTERNODE_CACHE_SHIFT
-@@ -216,17 +218,14 @@ config X86_INTERNODE_CACHE_SHIFT
- config X86_L1_CACHE_SHIFT
- 	int
- 	default "7" if MPENTIUM4
--	default "6" if MK7 || MPENTIUMM || MATOM || MVIAC7 || X86_GENERIC || X86_64
--	default "4" if MGEODEGX1
--	default "5" if MCRUSOE || MEFFICEON || MCYRIXIII || MK6 || MPENTIUMIII || MPENTIUMII || M686 || M586MMX || M586TSC || MVIAC3_2 || MGEODE_LX
-+	default "6"
- 
- config X86_F00F_BUG
--	def_bool y
--	depends on M586MMX || M586TSC || M586
-+	def_bool !X86_CMOV
- 
- config X86_ALIGNMENT_16
- 	def_bool y
--	depends on MCYRIXIII || MK6 || M586MMX || M586TSC || M586 || MVIAC3_2 || MGEODEGX1
-+	depends on MCYRIXIII || MK6 || M586MMX || M586TSC || M586 || MVIAC3_2 || MGEODEGX1 || (!X86_CMOV && X86_GENERIC)
- 
- config X86_INTEL_USERCOPY
- 	def_bool y
-@@ -234,34 +233,23 @@ config X86_INTEL_USERCOPY
- 
- config X86_USE_PPRO_CHECKSUM
- 	def_bool y
--	depends on MCYRIXIII || MK7 || MK6 || MPENTIUM4 || MPENTIUMM || MPENTIUMIII || MPENTIUMII || M686 || MVIAC3_2 || MVIAC7 || MEFFICEON || MGEODE_LX || MATOM
-+	depends on MCYRIXIII || MK7 || MK6 || MPENTIUM4 || MPENTIUMM || MPENTIUMIII || MPENTIUMII || M686 || MVIAC3_2 || MVIAC7 || MEFFICEON || MGEODE_LX || MATOM || (X86_CMOV && X86_GENERIC)
- 
- config X86_TSC
- 	def_bool y
- 
--config X86_HAVE_PAE
--	def_bool y
--	depends on MCRUSOE || MEFFICEON || MCYRIXIII || MPENTIUM4 || MPENTIUMM || MPENTIUMIII || MPENTIUMII || M686 || MVIAC7 || MATOM || X86_64
--
- config X86_CX8
- 	def_bool y
- 
--# this should be set for all -march=.. options where the compiler
--# generates cmov.
--config X86_CMOV
--	def_bool y
--	depends on (MK7 || MPENTIUM4 || MPENTIUMM || MPENTIUMIII || MPENTIUMII || M686 || MVIAC3_2 || MVIAC7 || MCRUSOE || MEFFICEON || MATOM || MGEODE_LX || X86_64)
--
- config X86_MINIMUM_CPU_FAMILY
- 	int
- 	default "64" if X86_64
--	default "6" if X86_32 && (MPENTIUM4 || MPENTIUMM || MPENTIUMIII || MPENTIUMII || M686 || MVIAC3_2 || MVIAC7 || MEFFICEON || MATOM || MK7)
--	default "5" if X86_32
--	default "4"
-+	default "6" if X86_32 && X86_CMOV
-+	default "5"
- 
- config X86_DEBUGCTLMSR
- 	def_bool y
--	depends on !(MK6 || MCYRIXIII || M586MMX || M586TSC || M586) && !UML
-+	depends on X86_CMOV && !UML
- 
- config IA32_FEAT_CTL
- 	def_bool y
-@@ -297,7 +285,7 @@ config CPU_SUP_INTEL
- config CPU_SUP_CYRIX_32
- 	default y
- 	bool "Support Cyrix processors" if PROCESSOR_SELECT
--	depends on M586 || M586TSC || M586MMX || (EXPERT && !64BIT)
-+	depends on !64BIT
- 	help
- 	  This enables detection, tunings and quirks for Cyrix processors
- 
-diff --git a/arch/x86/Makefile_32.cpu b/arch/x86/Makefile_32.cpu
-index f5e933077bf4..ebd7ec6eaf34 100644
---- a/arch/x86/Makefile_32.cpu
-+++ b/arch/x86/Makefile_32.cpu
-@@ -10,30 +10,32 @@ else
- align		:= -falign-functions=0 -falign-jumps=0 -falign-loops=0
- endif
- 
--cflags-$(CONFIG_M586TSC)	+= -march=i586
--cflags-$(CONFIG_M586MMX)	+= -march=pentium-mmx
--cflags-$(CONFIG_M686)		+= -march=i686
--cflags-$(CONFIG_MPENTIUMII)	+= -march=i686 $(call tune,pentium2)
--cflags-$(CONFIG_MPENTIUMIII)	+= -march=i686 $(call tune,pentium3)
--cflags-$(CONFIG_MPENTIUMM)	+= -march=i686 $(call tune,pentium3)
--cflags-$(CONFIG_MPENTIUM4)	+= -march=i686 $(call tune,pentium4)
--cflags-$(CONFIG_MK6)		+= -march=k6
--# Please note, that patches that add -march=athlon-xp and friends are pointless.
--# They make zero difference whatsosever to performance at this time.
--cflags-$(CONFIG_MK7)		+= -march=athlon
--cflags-$(CONFIG_MCRUSOE)	+= -march=i686 $(align)
--cflags-$(CONFIG_MEFFICEON)	+= -march=i686 $(call tune,pentium3) $(align)
--cflags-$(CONFIG_MCYRIXIII)	+= $(call cc-option,-march=c3,-march=i486) $(align)
--cflags-$(CONFIG_MVIAC3_2)	+= $(call cc-option,-march=c3-2,-march=i686)
--cflags-$(CONFIG_MVIAC7)		+= -march=i686
--cflags-$(CONFIG_MATOM)		+= -march=atom
-+ifdef CONFIG_X86_CMOV
-+cflags-y			+= -march=i686
-+else
-+cflags-y			+= -march=i586
-+endif
- 
--# Geode GX1 support
--cflags-$(CONFIG_MGEODEGX1)	+= -march=pentium-mmx
--cflags-$(CONFIG_MGEODE_LX)	+= $(call cc-option,-march=geode,-march=pentium-mmx)
--# add at the end to overwrite eventual tuning options from earlier
--# cpu entries
--cflags-$(CONFIG_X86_GENERIC) 	+= $(call tune,generic,$(call tune,i686))
-+cflags-$(CONFIG_M586TSC)	+= -mtune=i586
-+cflags-$(CONFIG_M586MMX)	+= -mtune=pentium-mmx
-+cflags-$(CONFIG_M686)		+= -mtune=i686
-+cflags-$(CONFIG_MPENTIUMII)	+= -mtune=pentium2
-+cflags-$(CONFIG_MPENTIUMIII)	+= -mtune=pentium3
-+cflags-$(CONFIG_MPENTIUMM)	+= -mtune=pentium3
-+cflags-$(CONFIG_MPENTIUM4)	+= -mtune=pentium4
-+cflags-$(CONFIG_MK6)		+= -mtune=k6
-+# Please note, that patches that add -mtune=athlon-xp and friends are pointless.
-+# They make zero difference whatsosever to performance at this time.
-+cflags-$(CONFIG_MK7)		+= -mtune=athlon
-+cflags-$(CONFIG_MCRUSOE)	+= -mtune=i686 $(align)
-+cflags-$(CONFIG_MEFFICEON)	+= -mtune=pentium3 $(align)
-+cflags-$(CONFIG_MCYRIXIII)	+= -mtune=c3 $(align)
-+cflags-$(CONFIG_MVIAC3_2)	+= -mtune=c3-2
-+cflags-$(CONFIG_MVIAC7)		+= -mtune=i686
-+cflags-$(CONFIG_MATOM)		+= -mtune=atom
-+cflags-$(CONFIG_MGEODEGX1)	+= -mtune=pentium-mmx
-+cflags-$(CONFIG_MGEODE_LX)	+= -mtune=geode
-+cflags-$(CONFIG_X86_GENERIC) 	+= -mtune=generic
- 
- # Bug fix for binutils: this option is required in order to keep
- # binutils from generating NOPL instructions against our will.
-diff --git a/arch/x86/include/asm/vermagic.h b/arch/x86/include/asm/vermagic.h
-index e26061df0c9b..6554dbdfd719 100644
---- a/arch/x86/include/asm/vermagic.h
-+++ b/arch/x86/include/asm/vermagic.h
-@@ -5,42 +5,10 @@
- 
- #ifdef CONFIG_X86_64
- /* X86_64 does not define MODULE_PROC_FAMILY */
--#elif defined CONFIG_M586TSC
--#define MODULE_PROC_FAMILY "586TSC "
--#elif defined CONFIG_M586MMX
--#define MODULE_PROC_FAMILY "586MMX "
--#elif defined CONFIG_MATOM
--#define MODULE_PROC_FAMILY "ATOM "
--#elif defined CONFIG_M686
-+#elif defined CONFIG_X86_CMOV
- #define MODULE_PROC_FAMILY "686 "
--#elif defined CONFIG_MPENTIUMII
--#define MODULE_PROC_FAMILY "PENTIUMII "
--#elif defined CONFIG_MPENTIUMIII
--#define MODULE_PROC_FAMILY "PENTIUMIII "
--#elif defined CONFIG_MPENTIUMM
--#define MODULE_PROC_FAMILY "PENTIUMM "
--#elif defined CONFIG_MPENTIUM4
--#define MODULE_PROC_FAMILY "PENTIUM4 "
--#elif defined CONFIG_MK6
--#define MODULE_PROC_FAMILY "K6 "
--#elif defined CONFIG_MK7
--#define MODULE_PROC_FAMILY "K7 "
--#elif defined CONFIG_MCRUSOE
--#define MODULE_PROC_FAMILY "CRUSOE "
--#elif defined CONFIG_MEFFICEON
--#define MODULE_PROC_FAMILY "EFFICEON "
--#elif defined CONFIG_MCYRIXIII
--#define MODULE_PROC_FAMILY "CYRIXIII "
--#elif defined CONFIG_MVIAC3_2
--#define MODULE_PROC_FAMILY "VIAC3-2 "
--#elif defined CONFIG_MVIAC7
--#define MODULE_PROC_FAMILY "VIAC7 "
--#elif defined CONFIG_MGEODEGX1
--#define MODULE_PROC_FAMILY "GEODEGX1 "
--#elif defined CONFIG_MGEODE_LX
--#define MODULE_PROC_FAMILY "GEODE "
- #else
--#error unknown processor family
-+#define MODULE_PROC_FAMILY "586 "
- #endif
- 
- #ifdef CONFIG_X86_32
-diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-index 489c779ef3ef..76b15ef8c85f 100644
---- a/arch/x86/kernel/tsc.c
-+++ b/arch/x86/kernel/tsc.c
-@@ -1221,7 +1221,7 @@ bool tsc_clocksource_watchdog_disabled(void)
- 
- static void __init check_system_tsc_reliable(void)
- {
--#if defined(CONFIG_MGEODEGX1) || defined(CONFIG_MGEODE_LX) || defined(CONFIG_X86_GENERIC)
-+#if defined(CONFIG_CPU_SUP_CYRIX)
- 	if (is_geode_lx()) {
- 		/* RTSC counts during suspend */
- #define RTSC_SUSP 0x100
-diff --git a/arch/x86/xen/Kconfig b/arch/x86/xen/Kconfig
-index 222b6fdad313..2648459b8e8f 100644
---- a/arch/x86/xen/Kconfig
-+++ b/arch/x86/xen/Kconfig
-@@ -9,7 +9,6 @@ config XEN
- 	select PARAVIRT_CLOCK
- 	select X86_HV_CALLBACK_VECTOR
- 	depends on X86_64 || (X86_32 && X86_PAE)
--	depends on X86_64 || (X86_GENERIC || MPENTIUM4 || MATOM)
- 	depends on X86_LOCAL_APIC
- 	help
- 	  This is the Linux Xen port.  Enabling this will allow the
-diff --git a/drivers/misc/mei/Kconfig b/drivers/misc/mei/Kconfig
-index 7575fee96cc6..4deb17ed0a62 100644
---- a/drivers/misc/mei/Kconfig
-+++ b/drivers/misc/mei/Kconfig
-@@ -3,7 +3,7 @@
- config INTEL_MEI
- 	tristate "Intel Management Engine Interface"
- 	depends on X86 && PCI
--	default X86_64 || MATOM
-+	default X86_64 || CPU_SUP_INTEL
- 	help
- 	  The Intel Management Engine (Intel ME) provides Manageability,
- 	  Security and Media services for system containing Intel chipsets.
--- 
-2.39.5
-
+>
+> Cheers,
+>
 
