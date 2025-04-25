@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BEC0A9C94E
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 14:50:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.967968.1357685 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6731CA9C935
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 14:48:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.967946.1357666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8IVr-0002Rh-09; Fri, 25 Apr 2025 12:50:39 +0000
+	id 1u8ITc-0000N1-Cj; Fri, 25 Apr 2025 12:48:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 967968.1357685; Fri, 25 Apr 2025 12:50:38 +0000
+Received: by outflank-mailman (output) from mailman id 967946.1357666; Fri, 25 Apr 2025 12:48:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8IVq-0002Pg-TY; Fri, 25 Apr 2025 12:50:38 +0000
-Received: by outflank-mailman (input) for mailman id 967968;
- Fri, 25 Apr 2025 12:50:36 +0000
+	id 1u8ITc-0000KK-9U; Fri, 25 Apr 2025 12:48:20 +0000
+Received: by outflank-mailman (input) for mailman id 967946;
+ Fri, 25 Apr 2025 12:48:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZJ1s=XL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u8IQp-00075e-NR
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 12:45:27 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1u8ITa-0000KC-Qm
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 12:48:18 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 28d7fb3c-21d3-11f0-9ffb-bf95429c2676;
- Fri, 25 Apr 2025 14:45:25 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43edecbfb94so20737655e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 25 Apr 2025 05:45:25 -0700 (PDT)
+ id 8ed304bf-21d3-11f0-9ffb-bf95429c2676;
+ Fri, 25 Apr 2025 14:48:16 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43d07ca6a80so9583965e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Apr 2025 05:48:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a073e46869sm2264657f8f.72.2025.04.25.05.45.24
+ ffacd0b85a97d-3a073e5cffasm2279286f8f.96.2025.04.25.05.48.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Apr 2025 05:45:24 -0700 (PDT)
+ Fri, 25 Apr 2025 05:48:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28d7fb3c-21d3-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 8ed304bf-21d3-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745585125; x=1746189925; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745585296; x=1746190096; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AMZ6tvhAj+0ImqwVAWsI1V/AEI5FFCfECVf92tFjQHE=;
-        b=E7ByUjll/T9b2/IyTItRIfJD0oZMdVYbEHNNK5BMmM7OlQys1YjN4WiQihtO57ZNfH
-         iG41MMSYy/tQzyOiUxwql78herZXTCD0sjbEeU7B7z0M0+XhhLDBAEYwzaj6Z5LsCpzN
-         AwbOYpxu8KRMweOItcq9DcmL4ClTWZ2Z0XtxsNpgwsMdqP0c+dp4OAQBAOlWZjzxzsxj
-         Q0V6ExHnC4/+nYVfAXgI+qLxRvz4xt2M8NXapE+qGnQmeERnGRqHirtPCY0bDhHQRkYC
-         cigWiRtclcU4Q2pCAiEICW+2xgUosX5dKPG5K+zSe6TM+JAAoffJh2+2d0X83eh1hibF
-         0IMQ==
+        bh=IFJsEFyMY4lr5rGy2zN5KfdVgZbEMiUuALH+7SWEOAQ=;
+        b=COPpQe519N0dgPkKimnRLcIECmXBUtOyFyMHHuBbZye0/e5VsRodrUXV/xYw1bM9hL
+         rO4WEx6FW/xNEAupqIk4HJ//pLVsghjdDRkFCv3dQsuqBGMSK3XnE1OTrhQYoEq4NOC5
+         N2D7OdGgqvJ+9kQMOMcnOu9X27KBGPu5rnH1qewJgmF37oiT+OYE+TY1xwEbiShh1yfl
+         ugORwypBDn/u7YM8e1g7v4fo0nQzPutpDyEmPlLbFLb59r6DN8oI20AV93QLeyiywxdu
+         2WxP9LLNuTEqxQq0M42AA4pqzCfq32hXQ4tzPOVzrQQ49kAtt07/xmE1bcAi2WK8D9Ps
+         h6Fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745585125; x=1746189925;
+        d=1e100.net; s=20230601; t=1745585296; x=1746190096;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AMZ6tvhAj+0ImqwVAWsI1V/AEI5FFCfECVf92tFjQHE=;
-        b=l55XL59FAokDCRtzVew7tzouz5u/RIYcjWCLFV7V/p+2Eirt9QzDq5NQIabt7nY9Jm
-         WPmhWD93+ibQniXx5bMmAJPpijLbAl/wU4khEc9cdcnpMjGJyBNlxzr8jGxfX07dncGw
-         rMvCu4Efz8KyLUD2HE0U8UBhRMwuhmLVlsL6Vk1smBUQEVDhD+KuAhuFUL1ncf1se8q9
-         pWtpFXkBqo7qIDg8CRGLygqNV3GllI1lZlZpB9yYsLPivsuDbNE8R34ZXWt2GcufroRa
-         vkHrr5iq2ZDmc5+cOnHA9LKZFH3kyfVtWZPOwOXT23o2HxfDJ712ZAQij2CpLlqXiL3G
-         J/Ww==
-X-Forwarded-Encrypted: i=1; AJvYcCW/AvMqUUbEZv7z0aGqdtKnpZ7xd8ZZgxrPByFzBpNuNwT9MdnA39qDe3Jy780XC/AWo9xikLaMGrU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzjN13oTBhxC3zHaFcqEhqty69ukg2vElbTGq3jD0d/t04vjtEI
-	rC8mDsl8YFpTczua+4IQN1GTQcaUcIXetTFGTZVLzqCPpy1PYZye9hKhtrzazA==
-X-Gm-Gg: ASbGncsbUUDbD3ndrFHtfrbodxAiCh44Sd66wPSG5AneRF0hHRpAskYMp0ZWUbyPsGg
-	OialjPPJgbrH8jpFDraCM4R4ZKAfPuUiw/kJn1c8EAxNIjv/prhvW9FDpPKnliM9FzzMg4Ethd0
-	MwCTNZJpTzKkdTMoqqgrMHchB9pWjz15bm+g2vG57nAO2JBvnpigFu0Zo7uf1UGx3R807iumjfi
-	fFwKAsQXBHqXu/3V4bu/OYuKBh3pBnRcsX18oI2MwJyNWs/EtOV+ocpq9NCkJsmpMb/uCFXI/Tj
-	jdCz2cKhXdOdW6Op5jiEdepzMI7yffSv9M6J1VqmzcwJciVLEJsnZuD3Oo/DybjEMVGeC+ihWoq
-	uEbLlH6At7vBNm3gy9IjhQNnM4kR5N3LaK72Y
-X-Google-Smtp-Source: AGHT+IEV5UEXkgcjRjeSBSy17KiMifU6kh+kuqHUMRSsPBH/uCDCqR9ljhOzQw4OiMhm5u0BLT6bcQ==
-X-Received: by 2002:a05:600c:3d17:b0:43c:f513:9585 with SMTP id 5b1f17b1804b1-440a65ec991mr21395355e9.13.1745585125229;
-        Fri, 25 Apr 2025 05:45:25 -0700 (PDT)
-Message-ID: <f278eec0-2627-4598-bcdd-ee2bed4b71a3@suse.com>
-Date: Fri, 25 Apr 2025 14:45:23 +0200
+        bh=IFJsEFyMY4lr5rGy2zN5KfdVgZbEMiUuALH+7SWEOAQ=;
+        b=xM21PBr1L3bwHXEc+YEGGAS7QVUigbOXg5O+2lGj42KDiRP/RBtuCPZo6I8rQr7+MR
+         wN5RicsMYbkoYSG1a51qrNcAAk7LoYK0zuetWtqZtTWRCKIv0aGRAjLKFPP3AEbauKxK
+         TxLBo2yywlPmOyFyXuYiaCxEiBigWp50pr0rNUIQ10TbgBmq6i+KDmzU4YWrH0iS9qkX
+         /mPJjcwA97UBF2R8YeGnEq/K2UE5AAsKZogRnjacXksSVMLFysykoq016f0oldJaLh45
+         yye6CML2Kb4WtAr+exViFUeWbxaMFgbxjIBECWk2Uxyr4FArkiG6oDw5WliU+of+Bs65
+         A81Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUdXiZBcoofjZJZOAzjgqDZJrHeHLjaqkQjA1yt3r+rkzL8yHmXRCx1cBFN+laNCt6ij7bXlNBjnk4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzhvvpHsfA+iOuBGv6jfMO0gmugFT2Bm33dr0Gyxko9SEeSUh7B
+	RYsgktTL6AFbf6fmdE37iM43zxd2KAZ1hzn6aswLLa2SxtprK7P7Xa4mVlWKqA==
+X-Gm-Gg: ASbGncsKo0CsGIn0CuFGX9yDit/sn9ZZaiN4beaba5x5XG4pBWeYqTvzPR+wIeqr6iZ
+	Cr4ZQEdjmRQBAmGGZYrz4c+QWQLM7FYXoa9AikdnYpza9nipWTRzcVaZ6i9RX0+xQzjag5lwTYk
+	+qFeA1hKU7TJs8Y7vDoq8Lz/xT0wzPrhjG21cUef/BJ6FYt3B0e4TYhYv9iGg1Rnr+yz0WpRKEh
+	3FYQZWupheBO12DwatMCaQJuzGpDMIuo7GtoX5gB8vE/grc+IjqFlINlr7XZjfmcRPcLRjCf9Pj
+	gD96MGtpvNDN9lMoqimm3OlO/vsuDZy/GC99i0nPT1r/tBQL6wRFzZr9jpYpvNttpaseEylaQoN
+	n3oSvSCiydFESdB9L5zKx5d6Rag==
+X-Google-Smtp-Source: AGHT+IF+xy2Lyv4v4sCbFfpnctAcZrSPjA+tQlpvinX38olUd1p+A62Ty1UjxY+Pg8ed2RXmP3DBuQ==
+X-Received: by 2002:a05:6000:2409:b0:391:253b:4046 with SMTP id ffacd0b85a97d-3a074e1f465mr1936735f8f.16.1745585296389;
+        Fri, 25 Apr 2025 05:48:16 -0700 (PDT)
+Message-ID: <e5c6b448-945c-4c93-a3d6-e6e598102c2b@suse.com>
+Date: Fri, 25 Apr 2025 14:48:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v5 1/3] xen/mm: Introduce mm-types.h
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250425112415.245585-1-andrew.cooper3@citrix.com>
  <20250425112415.245585-2-andrew.cooper3@citrix.com>
- <b2883538-8cea-4fde-b42b-55455fa810ca@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,25 +124,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b2883538-8cea-4fde-b42b-55455fa810ca@gmail.com>
+In-Reply-To: <20250425112415.245585-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.04.2025 13:29, Oleksii Kurochko wrote:
+On 25.04.2025 13:24, Andrew Cooper wrote:
+> The type used for pagetable attributes/permissions is currently unsigned int,
+> but needs to become architecture dependent as PPC needs unsigned long.
 > 
-> On 4/25/25 1:24 PM, Andrew Cooper wrote:
->> The type used for pagetable attributes/permissions is currently unsigned int,
->> but needs to become architecture dependent as PPC needs unsigned long.
+> Introduce mm-types.h to house pte_attr_t.
 > 
-> Not only PPC, RISC-V needs it too.
-> 
->>
->> Introduce mm-types.h to house pte_attr_t.
-> 
-> Do we really want a separate mm-types.h?
+> Given the new toolchain baseline, we can use __has_include() now to remove the
+> need for boilerplate on most architectures.
 
-I think so, yes. It'll (hopefully) allow to avoid including xen/mm.h in a few
-places, in the longer run.
+That's true now, when it's just pte_attr_t that's there. Memory management,
+however, is pretty different between architectures, so I wonder if in the
+longer run any one will remain that actually can use the common header.
 
 Jan
 
