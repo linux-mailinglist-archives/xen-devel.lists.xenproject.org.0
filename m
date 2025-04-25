@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5777AA9C923
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 14:44:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.967914.1357646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F78EA9C925
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 14:45:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.967934.1357656 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8IPj-0007Qn-No; Fri, 25 Apr 2025 12:44:19 +0000
+	id 1u8IQK-0008BC-VZ; Fri, 25 Apr 2025 12:44:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 967914.1357646; Fri, 25 Apr 2025 12:44:19 +0000
+Received: by outflank-mailman (output) from mailman id 967934.1357656; Fri, 25 Apr 2025 12:44:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8IPj-0007Nn-Ju; Fri, 25 Apr 2025 12:44:19 +0000
-Received: by outflank-mailman (input) for mailman id 967914;
- Fri, 25 Apr 2025 12:44:17 +0000
+	id 1u8IQK-00088g-S6; Fri, 25 Apr 2025 12:44:56 +0000
+Received: by outflank-mailman (input) for mailman id 967934;
+ Fri, 25 Apr 2025 12:44:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6c45=XL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u8IPh-00075e-Fv
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 12:44:17 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ <SRS0=AYju=XL=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1u8IQJ-00075e-Fn
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 12:44:55 +0000
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [2607:f8b0:4864:20::1031])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff1192f8-21d2-11f0-9ffb-bf95429c2676;
- Fri, 25 Apr 2025 14:44:15 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3912d2c89ecso1794646f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 25 Apr 2025 05:44:15 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a073ca4e50sm2348074f8f.30.2025.04.25.05.44.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Apr 2025 05:44:14 -0700 (PDT)
+ id 153778b2-21d3-11f0-9ffb-bf95429c2676;
+ Fri, 25 Apr 2025 14:44:53 +0200 (CEST)
+Received: by mail-pj1-x1031.google.com with SMTP id
+ 98e67ed59e1d1-3035858c687so1781737a91.2
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Apr 2025 05:44:53 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ 98e67ed59e1d1-309f7737c88sm1504684a91.1.2025.04.25.05.44.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 25 Apr 2025 05:44:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +44,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff1192f8-21d2-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 153778b2-21d3-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745585055; x=1746189855; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sZ1LX1Uz1/vv6dOnKMPjNjS1ZIYpjhnxZcWK4Do+Ey8=;
-        b=wGQZui16S5KHIS9UfCcNL+DYZWTP3y3Zy5oyl0b00J3yxVyxfymQ3AkwcNeeKiSv/e
-         C+w7K/jLLd7D0KHprMxQ2fHd8n6hUcE/Blv7IIGm160ofAPwYD0RqmaRYBkZxmho/4pE
-         WSllQtTtBt7PQb6okRR4ueij9lq74oSV14oKc=
+        d=citrix.com; s=google; t=1745585092; x=1746189892; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=pKWuJdgdwuiXZUdy2uBWJ1xIknZ6V8yS60jvADUJi5c=;
+        b=YSvLUvH242/xacXx2s2prLc2C+Pz5vm/T8E0jgzJuQrPHpbbJ4iOG6bT4/ez9pKI3B
+         KCi/0WbkmAHQsfMjmTQmHY9Ij38/1wbnRITRJIqrTX6wQMHOH5DFpziPS8bESxud9InA
+         S6WIZ70IYp804E15r9nMcVGvcbLCj4PpVx/pw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745585055; x=1746189855;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sZ1LX1Uz1/vv6dOnKMPjNjS1ZIYpjhnxZcWK4Do+Ey8=;
-        b=Pp471NKsoAohHJtbCPuEGmF0se/jxmFssS63OXTAL66v4IJdKYxvEcosNaXYbdyM9P
-         YBdqKHvRvoJqlvEHTPpsAroKMMv8RsNgSAtN68/fsGlodk9vWwOTEBU5Q8Dno0HEz5+S
-         nQvJEQin7i2it6UT1OSn9Gt6T77W+evo00j3rzwvvRTmHvO1kyTdzdylNTcXyK7Pr2ZZ
-         Kq8ajkj0igdmzdDlgYj4UbGCJ8vKqvtPrb39D74SuJp7TW0aZnAeMNVtxvkAYsJs7PnU
-         jSaF5wtIcYgBSZGoFJyLI7LU5nXzVm6UxPxHP/32hmYyPAZlicEIugiE3a65jCF1dlX1
-         TW8A==
-X-Forwarded-Encrypted: i=1; AJvYcCXdPecocJh4pIkXPNDwyDqtJNmeHFDS9HLYSIZ29eTSA4LxhgBbmdB/RO7Q5EhOKaUvKzoxA2wekxE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzuhHvEl0RU22dLRZooNuo7DNPJkB/vehdM+CXvCLOOnVKbhbFw
-	9JUE1Fw5PkXWrGvqY8cnrCZ9bpTzwW49MAExySL+tG4Pu1z5xqYgWdQhk+AELGk=
-X-Gm-Gg: ASbGnctQWDxYHyjx9SFIXs9qvvr4JqfFVP9arqWU/owqeujmbTVQb0WfA+GU25UJB8t
-	lTipdJZNWfxm5lVt1Ee8TwTNwvLIZm2shXix78i4++c+JsfiYenw4x4JwwEGwXaXfLO+kMlwR8k
-	qdjskbXiDwA6likDWXj09GtrBTfmzHuxSJ0pr66FwxiKOU1PVHYvblfh8ZHZoAg6cKYeN68QPUC
-	WCcD9lF+/CypX8bXbSrsJPuA+r90fspTH23pGYmqYumFEhQq0snGvHdC36BbbR3+kmeref3Z4aY
-	zJmjN3o/sxUUZm6IBQAS4ChwMevQ8Yh3A927vxS5AqsFGf9H2LE/vQkOkJfPrOO4GxTW/Vb+QiV
-	qSSz23g==
-X-Google-Smtp-Source: AGHT+IHappLsMjsAckrUhRn8/32g0D7TV+gQSaXslFSN5wDoc8ugy+smlmgGnBvLm/LD8vvmi5TEJQ==
-X-Received: by 2002:a05:6000:186c:b0:399:737f:4e02 with SMTP id ffacd0b85a97d-3a074f2ee55mr1640895f8f.39.1745585055094;
-        Fri, 25 Apr 2025 05:44:15 -0700 (PDT)
-Message-ID: <f001a675-cb08-450c-99f4-c717d68e2b33@citrix.com>
-Date: Fri, 25 Apr 2025 13:44:13 +0100
+        d=1e100.net; s=20230601; t=1745585092; x=1746189892;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=pKWuJdgdwuiXZUdy2uBWJ1xIknZ6V8yS60jvADUJi5c=;
+        b=KtgkcrouK304SVD5KigP+yZ4BBONuSAPuhxyxOOSNFdB2FZmGjV8CHuBZlM8wo8Tiu
+         vlQEbmedPAiRIlQ+FQJYDVHsTC5bJAtlJwObGHo7xwvEkv6p97inOwMaXECgJqRBL48B
+         /Uf8ZRKZiY5o0AwoyuFxW1u5OEgekxEAPuld35yWxpTg8AowbcrHuhWns2ZqhiQg+uZa
+         LkmJfdzqr0LvbOa3Qc7pB3tEu1zAgIWKYS/eY/+JVFgBjnvACjkU6OE4e+kWjXx/j9hA
+         HQ/Icnmu+7mJwxIFdyCYjBnNh7nY4xxo5JzETq8BPZYb/wox4SEQbwuy4CQVoulpIvL8
+         Dd8g==
+X-Gm-Message-State: AOJu0YyxcVRD7LDEmrFRPuChluT8P1uYXer2mZERXZMK69hx268h824m
+	ZrrIXSLyt86xAg5RxNT5FOqnksUVCV7iYZuP8MfsosSewTvBg9GhPyOL2rDpkZg=
+X-Gm-Gg: ASbGnctu/UG+qReX789fyd8SbvRRytyB9oLlGHuBNnpSuc10vaybIRndO52GHjh6ane
+	IwxzLrgQl7lOQpvOWDQ1F9DFCvRlBxTwxOqm/M2Avfws9hfEuku1kdKEfzb3+DT+hdJgGGR6iIV
+	946tA6IoCdWJjy0rKNIIs7m3OZCOZkLTBmb/OpaOMfdXgxPuGIq+Opa935QrdeNf3dUXlTrFjwy
+	9tza/v6DwdES1+i6FkbwvasgM9NbdD2mWosqdcbFOAktjO19dd0p2t7W+ooisEDGMWo7as10MUM
+	fgwpUDsaw2oLh+5UguusJG137ncCFdtTPOJxnShWWXfHZJhwLvVHwCXD
+X-Google-Smtp-Source: AGHT+IF0dgjG9q0Tlityx9nrYaZWOc4MNNmsyttuagE9pv4jpXjrSmjXfXk4eKUd9HMRW8XI69/cHw==
+X-Received: by 2002:a17:90b:5246:b0:2fe:e0a9:49d4 with SMTP id 98e67ed59e1d1-309f7d876a2mr3858665a91.2.1745585091947;
+        Fri, 25 Apr 2025 05:44:51 -0700 (PDT)
+Date: Fri, 25 Apr 2025 14:44:46 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Xen-devel <xen-devel-bounces@lists.xenproject.org>
+Subject: Re: [PATCH] x86/hvmloader: fix usage of NULL with cpuid_count()
+Message-ID: <aAuDvqxihXBI9u2k@macbook.lan>
+References: <20250424125813.96449-1-roger.pau@citrix.com>
+ <D9FPTG9VXGV2.3OT1N6UFNG2WI@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/intel: workaround several MONITOR/MWAIT errata
-To: Alejandro Vallejo <agarciav@amd.com>,
- Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
- Frediano Ziglio <frediano.ziglio@cloud.com>
-References: <20250423113215.80755-1-roger.pau@citrix.com>
- <D9FQ3JVWGOSR.1F6NIIEDCUP16@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <D9FQ3JVWGOSR.1F6NIIEDCUP16@amd.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <D9FPTG9VXGV2.3OT1N6UFNG2WI@amd.com>
 
-On 25/04/2025 1:36 pm, Alejandro Vallejo wrote:
-> On Wed Apr 23, 2025 at 12:32 PM BST, Roger Pau Monne wrote:
->> There are several errata on Intel regarding the usage of the MONITOR/MWAIT
->> instructions, all having in common that stores to the monitored region
->> might not wake up the CPU.
->>
->> Fix them by forcing the sending of an IPI for the affected models.
->>
->> The Ice Lake issue has been reproduced internally on XenServer hardware,
->> and the fix does seem to prevent it.  The symptom was APs getting stuck in
->> the idle loop immediately after bring up, which in turn prevented the BSP
->> from making progress.
-> Ugh... so this is what it was... Awesome having this madness fixed.
->
-> Do you happen to know if Linux has a similar fix in place?
+On Fri, Apr 25, 2025 at 01:23:30PM +0100, Alejandro Vallejo wrote:
+> On Thu Apr 24, 2025 at 1:58 PM BST, Roger Pau Monne wrote:
+> > The commit that added support for retrieving the APIC IDs from the APs
+> > introduced several usages of cpuid() with NULL parameters, which is not
+> > handled by the underlying implementation.  For GCC I expect this results in
+> > writes to the physical address at 0, however for Clang the generated code
+> > in smp.o is:
+> >
+> > tools/firmware/hvmloader/smp.o: file format elf32-i386
+> >
+> > Disassembly of section .text:
+> >
+> > 00000000 <smp_initialise>:
+> >        0: 55                            pushl   %ebp
+> >        1: 89 e5                         movl    %esp, %ebp
+> >        3: 53                            pushl   %ebx
+> >        4: 31 c0                         xorl    %eax, %eax
+> >        6: 31 c9                         xorl    %ecx, %ecx
+> >        8: 0f a2                         cpuid
+> >
+> > Showing the usage of a NULL pointer results in undefined behavior, and
+> > clang refusing to generate further code after it.
+> >
+> > Fix by using a temporary variable in cpuid_count() in place for any NULL
+> > parameter.
+> >
+> > Fixes: 9ad0db58c7e2 ('tools/hvmloader: Retrieve APIC IDs from the APs themselves')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Ugh, that's on me. I was sure I saw the pattern in Xen (from where the
+> code came from), but clearly I hallucinated.
+> 
+> > ---
+> > Could also be fixed by using the temporary variable in the call sites,
+> > however that's more code in the call sites at the expense of less checking.
+> > I don't think the extra NULL check logic in cpuid_count() is that bad.
+> >
+> > Overall the solution proposed in this patch is safer going forward, as it
+> > prevent issues like this from being introduced in the first place.
+> 
+> Might be worth moving this same extra checks onto Xen's cpuid. There's
+> no shortage of `junk` variables at the callsites.
+> 
+> > ---
+> >  tools/firmware/hvmloader/util.h | 11 +++++++++++
+> >  1 file changed, 11 insertions(+)
+> >
+> > diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader/util.h
+> > index 644450c51ceb..765a013ddd9e 100644
+> > --- a/tools/firmware/hvmloader/util.h
+> > +++ b/tools/firmware/hvmloader/util.h
+> > @@ -190,6 +190,17 @@ static inline void cpuid_count(
+> >      uint32_t *ecx,
+> >      uint32_t *edx)
+> >  {
+> > +    uint32_t tmp;
+> > +
+> > +    if ( !eax )
+> > +        eax = &tmp;
+> > +    if ( !ebx )
+> > +        ebx = &tmp;
+> > +    if ( !ecx )
+> > +        ecx = &tmp;
+> > +    if ( !edx )
+> > +        edx = &tmp;
+> > +
+> 
+> A somewhat more compact alternative that doesn't require tmp would be:
+> 
+>   eax = eax ?: &leaf;
+>   ebx = ebx ?: &leaf;
+>   ecx = ecx ?: &leaf;
+>   edx = edx ?: &leaf;
 
-https://lore.kernel.org/lkml/20250421192205.7CC1A7D9@davehans-spike.ostc.intel.com/T/#u
+But that performs the write unconditionally?  It might be more compact
+code-wise, but might incur in an unneeded store?
 
->
->> This would happen before the watchdog was initialized, and hence the
->> whole system would get stuck.
-> That's nasty. It was the misassumption that the watchdog was already
-> running that had me going in circles thinking it was a lockup rather
-> than a livelock. Oh, well.
->
-> I believe the kudos for finally being able to reproduce this goes to
-> Frediano?
+> It clobbers `leaf`, but only after it's no longer relevant.
 
-Of course.
+My preference was to use a explicitly tmp variable, but I could switch
+to using leaf if that's the preference.  Given that Andrew has already
+Acked the current version I'm tempted to just go with what has already
+been Acked.
 
-The bit about the watchdog is a little bit of a red herring.  The
-rcu_barrier() loop processes softirqs, so the watchdog wouldn't have
-fired even it had been set up.
-
-~Andrew
+Thanks, Roger.
 
