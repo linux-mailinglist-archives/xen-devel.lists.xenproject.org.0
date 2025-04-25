@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F5B8A9D5DE
-	for <lists+xen-devel@lfdr.de>; Sat, 26 Apr 2025 00:48:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.968767.1358239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2958A9D5F1
+	for <lists+xen-devel@lfdr.de>; Sat, 26 Apr 2025 00:53:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.968779.1358249 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8Rpw-0008L2-16; Fri, 25 Apr 2025 22:48:00 +0000
+	id 1u8Rv8-00026u-J1; Fri, 25 Apr 2025 22:53:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 968767.1358239; Fri, 25 Apr 2025 22:48:00 +0000
+Received: by outflank-mailman (output) from mailman id 968779.1358249; Fri, 25 Apr 2025 22:53:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8Rpv-0008Is-UX; Fri, 25 Apr 2025 22:47:59 +0000
-Received: by outflank-mailman (input) for mailman id 968767;
- Fri, 25 Apr 2025 22:47:59 +0000
+	id 1u8Rv8-00025B-Fr; Fri, 25 Apr 2025 22:53:22 +0000
+Received: by outflank-mailman (input) for mailman id 968779;
+ Fri, 25 Apr 2025 22:53:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kyFG=XL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1u8Rpv-0008Im-CC
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 22:47:59 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1u8Rv7-000255-L5
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 22:53:21 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org
+ [2600:3c04:e001:324:0:1991:8:25])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 54de4543-2227-11f0-9eb3-5ba50f476ded;
- Sat, 26 Apr 2025 00:47:58 +0200 (CEST)
+ id 103aa2cf-2228-11f0-9eb3-5ba50f476ded;
+ Sat, 26 Apr 2025 00:53:12 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 47FD05C6FD0;
- Fri, 25 Apr 2025 22:45:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E033BC4CEE4;
- Fri, 25 Apr 2025 22:47:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4E98B61136;
+ Fri, 25 Apr 2025 22:52:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43A16C4CEE4;
+ Fri, 25 Apr 2025 22:53:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +42,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54de4543-2227-11f0-9eb3-5ba50f476ded
+X-Inumbo-ID: 103aa2cf-2228-11f0-9eb3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745621276;
-	bh=4DyDDs99NXZezut37j9Az93ySzhfwA7FhvkGEOvQzW0=;
+	s=k20201202; t=1745621590;
+	bh=yTtrrDaW1P20Qbv4JoXB9aTWanUig3L3OgoFL4bbTyY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=qvR3/UEaMc2Apwv5qgr64ERv6f1dVCTHMT4e2shb8VS3G0plqAnKspCThyYU7cW0g
-	 aolDrZ7WecxQXqKK6H9zFe6WF66St7VTIX7QJXpqj4SKKxNdLjoWqntDsVlsBYb3jc
-	 VhZkRacwq6P39x48DuyjvJebafLJRdVwNT31GhN5iZLc2hszL8g6rfm9EWundVJ4En
-	 xK0eB8q79u+fXl3GA+LlNtRgQtjCB91p96UdI+20Ya03fULhc70caaLnV6qsYIiKXW
-	 MQ10VWi8ip7IOtTxSNzBERjFJUi4dJjITjHj1KDxR/dac59p8XRftetTyMxkiroxr9
-	 2ALoSiGwpGXcw==
-Date: Fri, 25 Apr 2025 15:47:53 -0700 (PDT)
+	b=oniAvwowpn/fS0qazRJu63/n3fNsAmWb6qTuWW1DkS4riMRWLGInd1RuHhkf7AEPr
+	 jQlUTXtA/LeLUeMayQimyt5iRtvykFrwCJFw9rl1eJWcBXDVnT5URusZf9o41V32xu
+	 meioYzVRUX+gOq0xwUCnv0xLbP5Uy3XJN9y8+BlHeqsQDRLI6BUwRdhR3O0eIi6hsZ
+	 4hl+F5JSrLwjfgof7B690zTFmCgCD8m13YVL3ax0isrXdop2YWbA77TfNkHyEPm66i
+	 fmOgm9Fosnkpg7PfqLdY9I9lclRnIXDF4lzZRWvGBY7qsXEI/rVaYZNcliXxsbVBZv
+	 nzUlNexAESvRQ==
+Date: Fri, 25 Apr 2025 15:53:07 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: dmkhn@proton.me
@@ -60,10 +61,10 @@ cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
     anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
     michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
     dmukhin@ford.com
-Subject: Re: [PATCH v1 2/3] xen/console: introduce console_puts()
-In-Reply-To: <20250403000604.169619-3-dmukhin@ford.com>
-Message-ID: <alpine.DEB.2.22.394.2504251545480.785180@ubuntu-linux-20-04-desktop>
-References: <20250403000604.169619-1-dmukhin@ford.com> <20250403000604.169619-3-dmukhin@ford.com>
+Subject: Re: [PATCH v1 3/3] xen/console: introduce conring_flush()
+In-Reply-To: <20250403000604.169619-4-dmukhin@ford.com>
+Message-ID: <alpine.DEB.2.22.394.2504251552180.785180@ubuntu-linux-20-04-desktop>
+References: <20250403000604.169619-1-dmukhin@ford.com> <20250403000604.169619-4-dmukhin@ford.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -71,197 +72,102 @@ Content-Type: text/plain; charset=US-ASCII
 On Thu, 3 Apr 2025, dmkhn@proton.me wrote:
 > From: Denis Mukhin <dmukhin@ford.com>
 > 
-> guest_console_write() duplicates the code from __putstr(), eliminate code
-> duplication.
+> Introduce conring_flush() to ensure all messages kept in the internal
+> console ring are sent to all physical consoles (serial, VGA (x86))
+> after their initialization is completed.
 > 
-> Introduce console_puts() for writing a buffer to console devices.
-> 
-> Also, introduce internal console flags to control which console devices
-> should be used.
-> 
+> Resolves: https://gitlab.com/xen-project/xen/-/issues/184
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 > ---
->  xen/drivers/char/console.c | 112 ++++++++++++++++++++++---------------
->  1 file changed, 66 insertions(+), 46 deletions(-)
+> The patch conflicts with
+>   https://lore.kernel.org/xen-devel/20250331230508.440198-7-dmukhin@ford.com/
+> in console_init_preirq()
+> ---
+>  xen/drivers/char/console.c | 34 ++++++++++++++++++++++++----------
+>  1 file changed, 24 insertions(+), 10 deletions(-)
 > 
 > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index aaa97088aa..2618c2e47d 100644
+> index 2618c2e47d..18eb66df89 100644
 > --- a/xen/drivers/char/console.c
 > +++ b/xen/drivers/char/console.c
-> @@ -41,6 +41,20 @@
->  #include <asm/vpl011.h>
->  #endif
->  
-> +/* Internal console flags. */
-> +enum {
-> +    CONSOLE_SERIAL  = BIT(0, U),    /* Use serial device. */
-> +    CONSOLE_PV      = BIT(1, U),    /* Use PV console. */
-> +    CONSOLE_VIDEO   = BIT(2, U),    /* Use video device. */
-> +    CONSOLE_DEBUG   = BIT(3, U),    /* Use debug device. */
-> +    CONSOLE_RING    = BIT(4, U),    /* Use console ring. */
-> +    CONSOLE_DEFAULT = CONSOLE_SERIAL | CONSOLE_PV | CONSOLE_VIDEO |
-> +                      CONSOLE_DEBUG,
-> +    CONSOLE_ALL     = CONSOLE_DEFAULT | CONSOLE_RING,
-> +};
-> +
-> +static void console_puts(const char *str, size_t len, unsigned int flags);
-> +
->  /* console: comma-separated list of console outputs. */
->  static char __initdata opt_console[30] = OPT_CONSOLE_STR;
->  string_param("console", opt_console);
-> @@ -338,8 +352,6 @@ static bool console_locks_busted;
->  
->  static void conring_puts(const char *str, size_t len)
->  {
-> -    ASSERT(rspin_is_locked(&console_lock));
-> -
->      while ( len-- )
->          conring[CONRING_IDX_MASK(conringp++)] = *str++;
->  
-> @@ -432,9 +444,6 @@ void console_serial_puts(const char *s, size_t nr)
->          serial_steal_fn(s, nr);
->      else
+> @@ -446,24 +446,22 @@ void console_serial_puts(const char *s, size_t nr)
 >          serial_puts(sercon_handle, s, nr);
-> -
-> -    /* Copy all serial output into PV console */
-> -    pv_console_puts(s, nr);
 >  }
 >  
->  static void cf_check dump_console_ring_key(unsigned char key)
-> @@ -468,8 +477,7 @@ static void cf_check dump_console_ring_key(unsigned char key)
->          c += len;
+> -static void cf_check dump_console_ring_key(unsigned char key)
+> +/*
+> + * Flush contents of the conring to the physical console devices.
+> + */
+> +static int conring_flush(void)
+>  {
+>      uint32_t idx, len, sofar, c;
+>      unsigned int order;
+>      char *buf;
+> +    unsigned long flags;
+>  
+> -    printk("'%c' pressed -> dumping console ring buffer (dmesg)\n", key);
+> -
+> -    /* create a buffer in which we'll copy the ring in the correct
+> -       order and NUL terminate */
+>      order = get_order_from_bytes(conring_size + 1);
+>      buf = alloc_xenheap_pages(order, 0);
+>      if ( buf == NULL )
+> -    {
+> -        printk("unable to allocate memory!\n");
+> -        return;
+> -    }
+> +        return -ENOMEM;
+>  
+> +    flags = console_lock_recursive_irqsave();
+
+This patch is OK but it looks like this bit might have to change to
+rebase on top of a modified patch #2
+
+
+>      c = conringc;
+>      sofar = 0;
+>      while ( (c != conringp) )
+> @@ -478,8 +476,21 @@ static void cf_check dump_console_ring_key(unsigned char key)
 >      }
 >  
-> -    console_serial_puts(buf, sofar);
-> -    video_puts(buf, sofar);
-> +    console_puts(buf, sofar, CONSOLE_SERIAL | CONSOLE_VIDEO | CONSOLE_PV);
-
-Actually I take back the R-b. It looks like this change is breaking
-because console_puts now requires the console_lock to be held, while
-here the console_lock is not held.
-
-If I am not mistaken if you try to use the 'w' key with this patch
-applied you'll hit the ASSERT at the beginning of console_puts
-
-
+>      console_puts(buf, sofar, CONSOLE_SERIAL | CONSOLE_VIDEO | CONSOLE_PV);
+> +    console_unlock_recursive_irqrestore(flags);
+>  
 >      free_xenheap_pages(buf, order);
+> +
+> +    return 0;
+> +}
+> +
+> +static void cf_check conring_dump_keyhandler(unsigned char key)
+> +{
+> +    int rc;
+> +
+> +    printk("'%c' pressed -> dumping console ring buffer (dmesg)\n", key);
+> +    rc = conring_flush();
+> +    if ( rc )
+> +        printk("failed to dump console ring buffer: %d\n", rc);
 >  }
-> @@ -618,11 +626,61 @@ static inline void xen_console_write_debug_port(const char *buf, size_t len)
->  }
->  #endif
 >  
-> +static inline void console_debug_puts(const char *str, size_t len)
-> +{
-> +#ifdef CONFIG_X86
-> +    if ( opt_console_xen )
-> +    {
-> +        if ( xen_guest )
-> +            xen_hypercall_console_write(str, len);
-> +        else
-> +            xen_console_write_debug_port(str, len);
-> +    }
-> +#endif
-> +}
-> +
-> +/*
-> + * Write buffer to all enabled console devices.
-> + *
-> + * That will handle all possible scenarios working w/ console
-> + * - physical console (serial console, VGA console (x86 only));
-> + * - PV console;
-> + * - debug console (x86 only): debug I/O port or __HYPERVISOR_console_io
-> + *   hypercall;
-> + * - console ring.
-> + */
-> +static void console_puts(const char *str, size_t len, unsigned int flags)
-> +{
-> +    ASSERT(rspin_is_locked(&console_lock));
-> +
-> +    if ( flags & CONSOLE_SERIAL )
-> +        console_serial_puts(str, len);
-> +
-> +    if ( flags & CONSOLE_PV )
-> +        pv_console_puts(str, len);
-> +
-> +    if ( flags & CONSOLE_VIDEO )
-> +        video_puts(str, len);
-> +
-> +    if ( flags & CONSOLE_DEBUG )
-> +        console_debug_puts(str, len);
-> +
-> +    if ( flags & CONSOLE_RING )
-> +        conring_puts(str, len);
-> +}
-> +
-> +static inline void __putstr(const char *str)
-> +{
-> +    console_puts(str, strlen(str), CONSOLE_ALL);
-> +}
-> +
->  static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
->                                  unsigned int count)
->  {
->      char kbuf[128];
->      unsigned int kcount = 0;
-> +    unsigned int flags = opt_console_to_ring
-> +                         ? CONSOLE_ALL : CONSOLE_DEFAULT;
->      struct domain *cd = current->domain;
+>  /*
+> @@ -1044,6 +1055,9 @@ void __init console_init_preirq(void)
+>      serial_set_rx_handler(sercon_handle, serial_rx);
+>      pv_console_set_rx_handler(serial_rx);
 >  
->      while ( count > 0 )
-> @@ -640,23 +698,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
->          {
->              /* Use direct console output as it could be interactive */
->              nrspin_lock_irq(&console_lock);
-> -
-> -            console_serial_puts(kbuf, kcount);
-> -            video_puts(kbuf, kcount);
-> -
-> -#ifdef CONFIG_X86
-> -            if ( opt_console_xen )
-> -            {
-> -                if ( xen_guest )
-> -                    xen_hypercall_console_write(kbuf, kcount);
-> -                else
-> -                    xen_console_write_debug_port(kbuf, kcount);
-> -            }
-> -#endif
-> -
-> -            if ( opt_console_to_ring )
-> -                conring_puts(kbuf, kcount);
-> -
-> +            console_puts(kbuf, kcount, flags);
->              nrspin_unlock_irq(&console_lock);
->          }
->          else
-> @@ -757,28 +799,6 @@ long do_console_io(
->   * *****************************************************
->   */
+> +    /* NB: send conring contents to all enabled physical consoles, if any */
+> +    conring_flush();
+> +
+>      /* HELLO WORLD --- start-of-day banner text. */
+>      nrspin_lock(&console_lock);
+>      __putstr(xen_banner());
+> @@ -1134,7 +1148,7 @@ void __init console_endboot(void)
+>      if ( opt_conswitch[1] == 'x' )
+>          console_rx = max_console_rx;
 >  
-> -static void __putstr(const char *str)
-> -{
-> -    size_t len = strlen(str);
-> -
-> -    ASSERT(rspin_is_locked(&console_lock));
-> -
-> -    console_serial_puts(str, len);
-> -    video_puts(str, len);
-> -
-> -#ifdef CONFIG_X86
-> -    if ( opt_console_xen )
-> -    {
-> -        if ( xen_guest )
-> -            xen_hypercall_console_write(str, len);
-> -        else
-> -            xen_console_write_debug_port(str, len);
-> -    }
-> -#endif
-> -
-> -    conring_puts(str, len);
-> -}
-> -
->  static int printk_prefix_check(char *p, char **pp)
->  {
->      int loglvl = -1;
+> -    register_keyhandler('w', dump_console_ring_key,
+> +    register_keyhandler('w', conring_dump_keyhandler,
+>                          "synchronously dump console ring buffer (dmesg)", 0);
+>      register_irq_keyhandler('+', &do_inc_thresh,
+>                              "increase log level threshold", 0);
 > -- 
 > 2.34.1
 > 
