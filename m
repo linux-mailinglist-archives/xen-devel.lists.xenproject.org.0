@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1CCDA9D4F6
-	for <lists+xen-devel@lfdr.de>; Sat, 26 Apr 2025 00:04:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.968649.1358150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03168A9D507
+	for <lists+xen-devel@lfdr.de>; Sat, 26 Apr 2025 00:06:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.968661.1358161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8R9p-00057F-4s; Fri, 25 Apr 2025 22:04:29 +0000
+	id 1u8RBU-0005jD-FW; Fri, 25 Apr 2025 22:06:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 968649.1358150; Fri, 25 Apr 2025 22:04:29 +0000
+Received: by outflank-mailman (output) from mailman id 968661.1358161; Fri, 25 Apr 2025 22:06:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8R9p-00055k-1P; Fri, 25 Apr 2025 22:04:29 +0000
-Received: by outflank-mailman (input) for mailman id 968649;
- Fri, 25 Apr 2025 22:04:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u8RBU-0005g5-Bq; Fri, 25 Apr 2025 22:06:12 +0000
+Received: by outflank-mailman (input) for mailman id 968661;
+ Fri, 25 Apr 2025 22:06:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FJEZ=XL=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1u8R9n-0004uQ-WA
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 22:04:28 +0000
+ id 1u8RBS-0005fx-Th
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 22:06:10 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3f0c1d0c-2221-11f0-9ffb-bf95429c2676;
- Sat, 26 Apr 2025 00:04:25 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 174561865645622.734428437619954;
- Fri, 25 Apr 2025 15:04:16 -0700 (PDT)
+ [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7cfe1a68-2221-11f0-9eb3-5ba50f476ded;
+ Sat, 26 Apr 2025 00:06:08 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1745618750211742.4318936726262;
+ Fri, 25 Apr 2025 15:05:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,39 +38,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f0c1d0c-2221-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; t=1745618659; cv=none; 
+X-Inumbo-ID: 7cfe1a68-2221-11f0-9eb3-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; t=1745618754; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=myvkN7Dcp4E4gqAspoa9r5dF4Bc4GzarusLj6oV4p2AJCfsyZWS3MQcWeONrpTjld+NrtzXf7g7P/cl3dc1GTKIstx7EF07LSEcmJRQJII4kLNPbzc4zrKmppAFiuzkjz247Es9042LU3wddGun8B5klEFSIHjHxUORL6aUVqLw=
+	b=aLlpM7GT/AMgDCq3tGJyacnTqXereql8ogUcHobbKx1gTFQGOOvUoICpAmX8nz0huZWS77pnA/4DmQ7viRuaJY3S/uMqwqtsTmie1JUDiK0PvkFimx275TYP0YZhS/Ue6RtVQOvg1u04387D5JP0lz0tY2CoLPUr4JBoK/I69PY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1745618659; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=DQuEqIMPvJwNj6ekWcI94f0W6Kksnl9ZxVg8n0zm3uE=; 
-	b=BFLMIoO1iKWL0dZKZr46DbszI6xvovURKUb79kyGR94LQ7KDTHFLpix7/VoaAxpdkQZ2tqWsg4IZxPMpkq2Yv1nLni6Xr/23MQrxUawH5dJWETHu8jbEVVAa7L6yoUDin4gNmBbt/11Auv39l95YmF8/sLwfvcaoqb4Ndw1OG1c=
+	t=1745618754; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=gAEF+cJS4DQ+nr/rZLYPONWBy5P67V1ZinnvnYMktQU=; 
+	b=OAGFgeHCKbSaYvBgB1BtgqU6Gb0TtF8g+qwzFOan8KFJzPHCU7fN8JnOSfSoM8h9ba/SUM3dVd+T2qOY3sPDARY3ei2dmjaVhvMpPE+SnFStOvHgqQVziJUHt7iu4iIUGAyMdppzfAsEUVqZXNhctpmUYJkcUPVaBoGhdRdGJZU=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1745618659;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1745618753;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=DQuEqIMPvJwNj6ekWcI94f0W6Kksnl9ZxVg8n0zm3uE=;
-	b=rPzFSFQ/D2GFi8tkI3FPW1kyLGGAba70/DpcoLougQGTGwBc+zZb5nWsgxrAweMg
-	wfurc4kog6gW/UYjPYrEbgpkKQx2jvloQweUSFN2sB/WHCbJeBYNUiSADXMMV/2a5c0
-	n+5fJnvge2g5Ab85lW6qZSY/UPKUaucARLE/HLaQ=
-Message-ID: <9cad677f-cfcd-4eec-b824-01d281cb7076@apertussolutions.com>
-Date: Fri, 25 Apr 2025 18:04:14 -0400
+	bh=gAEF+cJS4DQ+nr/rZLYPONWBy5P67V1ZinnvnYMktQU=;
+	b=E4aI/9svedYlBvWwbJ6vnpek4yZSCLKvOZhYd1oTquxk4UHTXlVX1TwZJk2D2Qgq
+	9X4EWN6fhuXCZTtKSp2CTlDDqsLfIocSWLvmSQJddfXE5t+3292fpBoYgTr7YWdCCOx
+	i9Mru6dKb5loYksk3XaHvi8vXEBDlJc5Zjw+V5Ko=
+Message-ID: <e77fa4bd-da68-4cff-9f4d-9522d1704780@apertussolutions.com>
+Date: Fri, 25 Apr 2025 18:05:48 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 04/38] x86/hyperlaunch: convert vcpu0 creation to domain
- builder
+Subject: Re: [RFC 16/38] x86/boot: move and rename sched_setup_dom0_vcpus
 Content-Language: en-US
-To: Alejandro Vallejo <agarciav@amd.com>, xen-devel@lists.xenproject.org
-Cc: jason.andryuk@amd.com, stefano.stabellini@amd.com,
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ xen-devel@lists.xenproject.org
+Cc: jason.andryuk@amd.com, stefano.stabellini@amd.com, agarciav@amd.com,
  Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Dario Faggioli <dfaggioli@suse.com>, George Dunlap <gwd@xenproject.org>
 References: <20250419220820.4234-1-dpsmith@apertussolutions.com>
- <20250419220820.4234-5-dpsmith@apertussolutions.com>
- <D9FTMDQ501TU.1H73IHNYGWKZH@amd.com>
+ <20250419220820.4234-17-dpsmith@apertussolutions.com>
+ <382cd6a7-c91b-4bf8-a026-ef0d9e872fe6@suse.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -103,54 +107,23 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <D9FTMDQ501TU.1H73IHNYGWKZH@amd.com>
+In-Reply-To: <382cd6a7-c91b-4bf8-a026-ef0d9e872fe6@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-On 4/25/25 11:22, Alejandro Vallejo wrote:
-> On Sat Apr 19, 2025 at 11:07 PM BST, Daniel P. Smith wrote:
->> Convert alloc_dom0_vcpu0() to dom0_set_affinity(), making it only set up the
->> node affinity based on command line parameters passed. At the same time,
->> introduce alloc_dom_vcpu0() as the replacement for alloc_dom0_vcpu(). Then have
->> alloc_dom_vcpu0() call dom0_set_affinity() when the boot domain is the control
->> domain, otherwise set the affinity to auto.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->>   xen/arch/x86/dom0_build.c                 |  4 +---
->>   xen/arch/x86/domain-builder/domain.c      | 11 +++++++++++
->>   xen/arch/x86/include/asm/dom0_build.h     |  2 ++
->>   xen/arch/x86/include/asm/domain-builder.h |  1 +
->>   xen/arch/x86/setup.c                      |  5 +++--
->>   5 files changed, 18 insertions(+), 5 deletions(-)
->>
->> diff --git a/xen/arch/x86/domain-builder/domain.c b/xen/arch/x86/domain-builder/domain.c
->> index f2277b9e3cf3..619d36ea0b87 100644
->> --- a/xen/arch/x86/domain-builder/domain.c
->> +++ b/xen/arch/x86/domain-builder/domain.c
->> @@ -9,6 +9,7 @@
->>   #include <xen/sched.h>
->>   
->>   #include <asm/bootinfo.h>
->> +#include <asm/dom0_build.h>
->>   
->>   unsigned int __init dom_max_vcpus(struct boot_domain *bd)
->>   {
->> @@ -27,6 +28,16 @@ unsigned int __init dom_max_vcpus(struct boot_domain *bd)
->>       return bd->max_vcpus;
->>   }
->>   
->> +struct vcpu *__init alloc_dom_vcpu0(struct boot_domain *bd)
->> +{
->> +    if ( bd->capabilities & BUILD_CAPS_CONTROL )
->> +        dom0_set_affinity(bd->d);
+On 4/20/25 05:36, Jürgen Groß wrote:
+> On 20.04.25 00:07, Daniel P. Smith wrote:
+>> Relocated the function sched_setup_dom0_vcpus(), which was protected 
+>> by an
+>> ifdef CONFIG_X86, from common/sched to the hyperlaunch domain builder. 
+>> Rename
+>> it to alloc_dom_vcpus() to better reflect the purpose of the function.
 > 
-> Similar as before, this probably wants to be DOMAIN_CAPS_HARDWARE?
-> 
-> I'll adjust while rebasing.
+> I'd be in favor naming it domain_vcpus_create().
 
-Does it?
+I would add that since that name came was based on the function name 
+alloc_dom_vpcu0(), I have also switched it so that both follow that scheme.
 
 v/r,
 dps
