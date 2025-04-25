@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF095A9BAB3
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 00:25:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.967014.1357022 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A4A1A9BBBF
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 02:22:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.967056.1357031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u850Q-0007Mz-9l; Thu, 24 Apr 2025 22:25:18 +0000
+	id 1u86p1-0007ln-8r; Fri, 25 Apr 2025 00:21:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 967014.1357022; Thu, 24 Apr 2025 22:25:18 +0000
+Received: by outflank-mailman (output) from mailman id 967056.1357031; Fri, 25 Apr 2025 00:21:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u850Q-0007LT-5z; Thu, 24 Apr 2025 22:25:18 +0000
-Received: by outflank-mailman (input) for mailman id 967014;
- Thu, 24 Apr 2025 22:25:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/BVb=XK=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1u850N-0007LN-Ve
- for xen-devel@lists.xenproject.org; Thu, 24 Apr 2025 22:25:16 +0000
-Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fcb6cc6d-215a-11f0-9eb2-5ba50f476ded;
- Fri, 25 Apr 2025 00:25:13 +0200 (CEST)
-Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53OMORWG1692289
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Thu, 24 Apr 2025 15:24:28 -0700
+	id 1u86p1-0007kJ-6E; Fri, 25 Apr 2025 00:21:39 +0000
+Received: by outflank-mailman (input) for mailman id 967056;
+ Fri, 25 Apr 2025 00:21:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6c45=XL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u86oz-0007kD-Oo
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 00:21:37 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3d3c860b-216b-11f0-9ffb-bf95429c2676;
+ Fri, 25 Apr 2025 02:21:32 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-39d83782ef6so1999287f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Apr 2025 17:21:32 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a073e5d264sm699788f8f.95.2025.04.24.17.21.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 24 Apr 2025 17:21:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,89 +45,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fcb6cc6d-215a-11f0-9eb2-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53OMORWG1692289
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745533472;
-	bh=G5UVXicyTBIPs6yn0Aol/9aUmVhDamNK2RBM6HiC8ec=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=aIcpLSsAz7DGTiM9hjhLHyD03dBWLKbzaB0V7WrZg3rVc8ktBSYGZKS94ZpxkPHnw
-	 CsFJQCtr1TeOAu7k8gJdRylK+VYPpFazuWZNgwVB32EqC/nJxAiobWbnAqdHF65XG2
-	 +FO7dAWYnt93+w+yiJ8iigZ28z1jIOGv0wAmPXqKWpxUUG4KtkHHdonr86KgEl9+fD
-	 7Y9QDxWWLyY4HpxDsapGfWsbm1L0xMFDZR8rHZtRI58j1lRq1WnC1HJADQJGBgpjyn
-	 A0jWqTb6KjE+o3MzIzTtJ2zwLsjRHOlx4VenrIMKzRUYWNwBX4y23nDAjPzb2IQV56
-	 EdGEcpRBEmJvg==
-Message-ID: <7649416e-1955-4c9c-a851-8b0c4da34c6f@zytor.com>
-Date: Thu, 24 Apr 2025 15:24:27 -0700
+X-Inumbo-ID: 3d3c860b-216b-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1745540491; x=1746145291; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Sk6H0e+9GJica8QkgR4gZVIscIty2mo0HB15NcL001U=;
+        b=WUnd20kZYwVkajo0P5xbmMs2GkddLmHkyQkn1+CiGMvbZMeJwy0i96XfG1pmz1x2YX
+         nSuJB8YzScCcooK0otd7p7HSf0O9vyB+7qTtFaLtpOVJJjZEJKx9gw2sjZjVXHO/6ZDj
+         tVxT+wSjk/NpveKJfzpipZFY6DoYxHyIcuMVY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745540491; x=1746145291;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Sk6H0e+9GJica8QkgR4gZVIscIty2mo0HB15NcL001U=;
+        b=TiMzc/tZ4B6Mn88r4VQv+xKwbxSOAskdPcaH37JDMtjSyBIMruwd+XuH/QmjYxCRm9
+         5/ikaOav2Ahefgb1SQNrpoG/lPzhI5F5wlUobGuHXjBQpQkrXXKaToS9E+ik9pOVtF1s
+         k4UG8eeBDIOK7hGq121TZjF+pRDlBD8Q2T6VKaY/0ncmG8y8VsSThQeJaigIlhIRAE50
+         8uvs2HHqE0NJ1vgIqDa+u4M+lvIY+zhj1On8rSE2ikyCLTX9hXbPWFtiuK1XENLwTOgJ
+         ukQY2/8Q3wcIr33EMi7rrq0SGGRTfv+gKWKxILAcqcT8PPsU9l2KDJe3esNX11Sr8XkA
+         u0SQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXAJUycmpaD11TuYbeu+jDxYQ0iRfLBA52759hoUCetnycmI1ng7in5gobp5iA5hL66zzvmmMZ72IU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxha3r9SPNFnmgiYG9SCHKKD/dwEMyJoHuobRMrPfiKaL/y5elq
+	9qHx1lnaOYS047xuHhTXURDj0hgxG45R3+jOr+FJ2XvLpzs9tU7Lfgegp2cXwDo=
+X-Gm-Gg: ASbGncv1ZgbHbgISkuvgOC1TUvBk30VX9AWwkEDE2vEKy39zvPSt6EBGopSC8Le2fWF
+	l8NajAwKFFx+SsXwRVljb2VHz7A9CQdbtnZjlnQrWZWsRLXudMHHs73eUEGz0Gk0D6P6y3H2r9y
+	pr4/1pEteDnEsBujIsqKDEZqDqH0IF5rVPKfWd4OHZ5J/RR3xz5GZsNVpm719dnuqBmmAVZ5HOj
+	ES89t7WTMcuMVFwfLKTWNUKHS3rcMJhTLtaSy3dNMWukI6OZ0ajjx3GdfGMvk/Koa1aXYOMG/dA
+	j0bilSHtY5oYVruulq9c8HhAgqoCew8z09pJZc2fWqjc8K62qNALjMteXsE0EBztkjBp8Ucxe1p
+	o4UrFNQ==
+X-Google-Smtp-Source: AGHT+IHqFOSCfu/XNN9VUutcNZgua+Tp1fWjvB5fXbS5niXgPEwOiZEU/+DAVTXmQ6ole2CleGo8Ww==
+X-Received: by 2002:a05:6000:40c7:b0:39f:d13:32a with SMTP id ffacd0b85a97d-3a074d4f2c9mr98182f8f.29.1745540484401;
+        Thu, 24 Apr 2025 17:21:24 -0700 (PDT)
+Message-ID: <bc0fb7ca-92f5-4625-9c73-a6d743f4a306@citrix.com>
+Date: Fri, 25 Apr 2025 01:21:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 12/34] x86/msr: Remove pmu_msr_{read,write}()
-To: "H. Peter Anvin" <hpa@zytor.com>,
-        =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
- <jgross@suse.com>,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
-        virtualization@lists.linux.dev, linux-pm@vger.kernel.org,
-        linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
-        netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Cc: tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, acme@kernel.org,
-        andrew.cooper3@citrix.com, peterz@infradead.org, namhyung@kernel.org,
-        mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
-        jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
-        kan.liang@linux.intel.com, wei.liu@kernel.org, ajay.kaher@broadcom.com,
-        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
-        pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
-        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
-        haiyangz@microsoft.com, decui@microsoft.com
-References: <20250422082216.1954310-1-xin@zytor.com>
- <20250422082216.1954310-13-xin@zytor.com>
- <8944b510-6d70-472c-99a2-52a60517733d@suse.com>
- <ca088501-2fbe-4a32-b191-04f7be6a2713@zytor.com>
- <018705C7-35CF-406A-85DA-360FF7BCB072@zytor.com>
-Content-Language: en-US
-From: Xin Li <xin@zytor.com>
-Autocrypt: addr=xin@zytor.com; keydata=
- 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
- l75w1xInsg==
-In-Reply-To: <018705C7-35CF-406A-85DA-360FF7BCB072@zytor.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [XEN PATCH] misra: update list of GCC extensions used by Xen
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, michal.orzel@amd.com,
+ xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <da508095ef2ac0024dfe9f51d9da976da0eaead7.1745441038.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2504231354540.785180@ubuntu-linux-20-04-desktop>
+ <76b7438b-9459-4f41-ab18-b777f7b3fcff@citrix.com>
+ <1d362e4df1e0b483c31fdab4384f57f0@bugseng.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <1d362e4df1e0b483c31fdab4384f57f0@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> By the way, this patch should have "xen" in its subject tag.
-> 
+On 24/04/2025 8:27 am, Nicola Vetrini wrote:
+> On 2025-04-24 00:46, Andrew Cooper wrote:
+>> On 23/04/2025 9:55 pm, Stefano Stabellini wrote:
+>>> On Wed, 23 Apr 2025, Nicola Vetrini wrote:
+>>>> __inline was not mentioned in C-language-toolchain.rst, while
+>>>> __inline__ is not used in code under xen/. __inline is kept because it
+>>>> may be used in Xen. The ECLAIR configuration is now consistent with
+>>>> the
+>>>> documented extensions in the rst file.
+>>>>
+>>>> No functional change.
+>>>>
+>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>>
+>> Hmm.  f96e2f64576cd
+>>
+>> I take it that patch shouldn't have gone in then?
+>>
+>> Regardless, now that we're putting it back in, we should put in both
+>> __inline and __inline__, so as not to need to come back and repeat this
+>> patch again.
+>>
+>> ~Andrew
+>
+> Did I miss the addition of __inline__ here?
+> https://lore.kernel.org/xen-devel/20250422113957.1289290-1-andrew.cooper3@citrix.com/
+>
+>
+> No issue with adjusting it as you wrote, but my understanding was that
+> only __inline will reenter the codebase.
+>
 
-Right, I should add it.
+Sods law says that if we introduce __inline now, we might have
+__inline__ get back in too.
+
+For the other keywords, we cover all spellings, so we ought to be
+consistent here too.
+
+~Andrew
 
