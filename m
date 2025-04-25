@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC1ECA9CD7B
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 17:46:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.968329.1357970 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4AD2A9CD99
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 17:53:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.968349.1357979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8LFF-0004AE-8E; Fri, 25 Apr 2025 15:45:41 +0000
+	id 1u8LMR-0006Np-TN; Fri, 25 Apr 2025 15:53:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 968329.1357970; Fri, 25 Apr 2025 15:45:41 +0000
+Received: by outflank-mailman (output) from mailman id 968349.1357979; Fri, 25 Apr 2025 15:53:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8LFF-00048g-4G; Fri, 25 Apr 2025 15:45:41 +0000
-Received: by outflank-mailman (input) for mailman id 968329;
- Fri, 25 Apr 2025 15:45:39 +0000
+	id 1u8LMR-0006LY-Qf; Fri, 25 Apr 2025 15:53:07 +0000
+Received: by outflank-mailman (input) for mailman id 968349;
+ Fri, 25 Apr 2025 15:53:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I1XR=XL=linux.intel.com=ilpo.jarvinen@srs-se1.protection.inumbo.net>)
- id 1u8LFD-00048Z-Do
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 15:45:39 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ <SRS0=zUna=XL=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1u8LMQ-0006LS-KC
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 15:53:07 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 53fc4cc2-21ec-11f0-9eb3-5ba50f476ded;
- Fri, 25 Apr 2025 17:45:37 +0200 (CEST)
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Apr 2025 08:45:35 -0700
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.154])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Apr 2025 08:45:22 -0700
+ id 5fa480f4-21ed-11f0-9eb3-5ba50f476ded;
+ Fri, 25 Apr 2025 17:53:05 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id B09234EE0737;
+ Fri, 25 Apr 2025 17:53:03 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,113 +40,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53fc4cc2-21ec-11f0-9eb3-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1745595937; x=1777131937;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=NDEMzXyKMQaX/1P4v8LWPCUwLdyUYFm0Z5j9i1NuUNc=;
-  b=jqB6ckNe+u+NoojI4ep+JrEurZEaq67IL+ypmXJvVvI4ltx2oQ1mfTWg
-   9/HbBKA3yJ/nIfw9b1P8GQAQnkAdLAm6PnjJLIKeCIPqC+1DX1Bem7ykJ
-   dVj2geitsf/+iLo2WjpBWT78xvNtvYGAHuGwa5JWAwWsSwgzOO50/SXu5
-   qYFdEfaWZM+nu367oLgoUQJVYGBRTii701DFzxZw62FkXo6dO1GKrBKzl
-   1A+YpD+pv5NtGUqIu7X/7aBxXoQ9hDqa4RaEMsCQHovv+2PNRhoaqtvvq
-   TZrtUL8VlI1Kw+N7kX52dpmKN2teELzOreoEfV5SZgZf7mSCmJaPBHjl4
-   g==;
-X-CSE-ConnectionGUID: r8qAf6dJSSuurr3t6tbocQ==
-X-CSE-MsgGUID: FyBwG7PtTrilPYuNPjc0EQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11414"; a="50928850"
-X-IronPort-AV: E=Sophos;i="6.15,238,1739865600"; 
-   d="scan'208";a="50928850"
-X-CSE-ConnectionGUID: zVyTiGS+Tp27oRIuRu3o/Q==
-X-CSE-MsgGUID: FTR+bshYRAKz5gvHmp9NIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,238,1739865600"; 
-   d="scan'208";a="133870388"
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 25 Apr 2025 18:45:18 +0300 (EEST)
-To: "Xin Li (Intel)" <xin@zytor.com>
-cc: LKML <linux-kernel@vger.kernel.org>, kvm@vger.kernel.org, 
-    linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org, 
-    virtualization@lists.linux.dev, linux-pm@vger.kernel.org, 
-    linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org, 
-    linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org, 
-    Netdev <netdev@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
-    tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, 
-    dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, 
-    acme@kernel.org, jgross@suse.com, andrew.cooper3@citrix.com, 
-    peterz@infradead.org, namhyung@kernel.org, mark.rutland@arm.com, 
-    alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, 
-    adrian.hunter@intel.com, kan.liang@linux.intel.com, wei.liu@kernel.org, 
-    ajay.kaher@broadcom.com, bcm-kernel-feedback-list@broadcom.com, 
-    tony.luck@intel.com, pbonzini@redhat.com, vkuznets@redhat.com, 
-    seanjc@google.com, luto@kernel.org, boris.ostrovsky@oracle.com, 
-    kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com, 
-    dapeng1.mi@linux.intel.com
-Subject: Re: [PATCH v3 01/14] x86/msr: Move rdtsc{,_ordered}() to
- <asm/tsc.h>
-In-Reply-To: <20250425083442.2390017-2-xin@zytor.com>
-Message-ID: <42dc90e1-df2a-2324-d28c-d75fb525e4a2@linux.intel.com>
-References: <20250425083442.2390017-1-xin@zytor.com> <20250425083442.2390017-2-xin@zytor.com>
+X-Inumbo-ID: 5fa480f4-21ed-11f0-9eb3-5ba50f476ded
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1745596383;
+	b=r0G2RchOsSC16d4ETZYD/uzmM2EU9McvQPNAJHVMsyViROyAZTHRpj1auN0yK1ERHKA7
+	 DuwSSjGG/9IaYD0P8af4DKSYJoSc2knm5TSctwTHzzb5XLnhrPFE75GZF/aAnYxTVGaJR
+	 goTvxjJsaO0YYcryn1gHkT5eAC49qazNbH1ceFy0zkYgz4f7Q26/YJMvhIduC2fr1pZ4G
+	 J51BtFPEh6IU6vWDFGCi9kCoVH79/N4SvG7YcOJJKkbpMQ8H9KMyFy0V+ih3VBR+hFbwA
+	 1jTCJoh01r4l4jirMp70s3aAu59/PjFphB6Psz8HLfnkIWoBWyOAftFbGo4PzegqOz8jZ
+	 mfr0OStT4WlzjI1N0wbopPIOKw0o/1edA542qPbQsOqZz/a/QbM0rdgIaY5sSfg2cNnV+
+	 8d+SrK3o1mFOL8FDNLTENJfoKzAV2PrBKTVJWlaJXX9idT4nMN5c0GuxeJ4R9tjjaNhYl
+	 EqKMR9sQdg2lBmGG3R9Qsn1+HXfkJlrdOj3dSny5H1FHZ1YMo0CZMK2+WQdf03oRdI9kx
+	 KW9AdOrly1GscIpfppCP0TkQDiRGeQQnX8S3l1xyOUxPaJiy4rT/rZHfUbUMNZWFxHl4A
+	 oxtVQjp3TrHd+e8wH+dSTbz11WOU7ytvtQZulSyNeAQyiQnk1ED5LbKjEMtkbIY=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1745596383;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZlVtX6/H69KyDq0ZXoXpcRteBc20NIKrfdkjlddmYTo=;
+	b=ADWUoTAAQg41hsAUVJYHxwxn1REgd5tP4qS/R9wgytAyKUXj81gQiC1pIHUVi74LWF/k
+	 yLEfLCufBBE9Gt1g1szYTMjsm3j/xYuP9lR/Z/5BbIBbV6yATTJ+dKd9NLFpr4LsJTuds
+	 0dInXF+SfFQqT/dhuBIuNxUV+tTQ2Mx9+Fs5DvGIKABOm7GFOwXyT2J7kvrWB8FXeRnbp
+	 vkSYnIPEpn4RglozymrXbYxtaik5qjdK1y3OMqCSnkozEhSmX0fKLlGIk7ZXmbUBnqnLC
+	 uygjKOYDWD0B4HU1lZHXmL7lZqHsuBkG7FS6Mo3vQNauIx5DTpbb7HJBwA+BH6lgFeq1R
+	 f/Xa5+svKB8PnDUDSzlTuLL7BKa5k/cWs9FsHpjejvdUP6PR9dWtkiJi5+EMy+odCSFpq
+	 DJYqRxJ3sEOnxnwb9hZL+rgoBIX+nRNbOlSrxoehoSqwuN6HvxtkIIcdkY/7+Qvj+7wEV
+	 gBDhsuhyQVJn3QZWPFH88w8YkRQXV6D6MWfIKKEyFfOeB6jwJdnguuXuytEfpzBmkg3x0
+	 JycG/ge3srCdSlNOnlwLwqfU81VcD/uPI6/YGGsEVWCt0mEfGKLeLisHcvcEuIJs4sRYX
+	 Ne/8toJoX4eUo1s9aB+PGavF/wORkVwUWvweTCX8jvgUagLA0+AJKrH2rCd6Iyo=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1745596383; bh=EoappiWRhq2Xe/N5OzY9mxhp+n9sKlOMXdL4nkS/LuE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=rSm+IX0NO01zhMsLbMhu1CI4dx9T4OiXhMYP34Tt6e2Gc/sgyInecQ1G4vjpYb0Lx
+	 lDnMsjLdlGnjPh0cMwwZxZgjlkqoJHR3v2aV5d5a5OJ60SiDDwICDbw6sqYiFqB3vw
+	 CnRzFZppwCvDakzkP7s8HGIyCw7+TdLSyirt0bOlnKyA3vAKPLg3qBdO6C6cZO4+MJ
+	 3Gfw9BcJjJ4F3zsCnH53jiAvpDYARkwH0qUHbN9WpKDtVZd9Dimno7E9AhSZniPivZ
+	 dHG7P4U/gxySNz61uNw+i9lumIdrIHUkCTud7GAivkLsbgF7+jBpnVwPkm/26nvCPw
+	 t5ep6TRs/6WVg==
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Date: Fri, 25 Apr 2025 17:53:03 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, victorm.lira@amd.com,
+ Federico Serafini <federico.serafini@bugseng.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1] misra: add deviation for rules 21.1 and 21.2
+In-Reply-To: <8d65ee65-ec6f-49a3-8954-d303b08dc2df@suse.com>
+References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+ <f5d35582-9270-4816-84c2-f078afeee711@suse.com>
+ <alpine.DEB.2.22.394.2504241443550.785180@ubuntu-linux-20-04-desktop>
+ <8d65ee65-ec6f-49a3-8954-d303b08dc2df@suse.com>
+Message-ID: <a9db045cff906a4b7db8730ad1095e4b@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, 25 Apr 2025, Xin Li (Intel) wrote:
-
-> For some reason, there are some TSC-related functions in the MSR
-> header even though there is a tsc.h header.
+On 2025-04-25 10:07, Jan Beulich wrote:
+> On 24.04.2025 23:45, Stefano Stabellini wrote:
+>> On Thu, 24 Apr 2025, Jan Beulich wrote:
+>>> On 23.04.2025 19:54, victorm.lira@amd.com wrote:
+>>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>> 
+>>>> MISRA C Rules 21.1 ("#define and #undef shall not be used on a
+>>>> reserved identifier or reserved macro name") and R21.2 ("A reserved
+>>>> identifier or reserved macro name shall not be declared") violations
+>>>> are not problematic for Xen, as it does not use the C or POSIX
+>>>> libraries.
+>>>> 
+>>>> Xen uses -fno-builtin and -nostdinc to ensure this, but there are 
+>>>> still
+>>>> __builtin_* functions from the compiler that are available so
+>>>> a deviation is formulated for all identifiers not starting with
+>>>> "__builtin_".
+>>>> 
+>>>> The missing text of a deviation for Rule 21.2 is added to
+>>>> docs/misra/deviations.rst.
+>>>> 
+>>>> To avoid regressions, tag both rules as clean and add them to the
+>>>> monitored set.
+>>>> 
+>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+>>> 
+>>> While the rule is in the library section, ...
+>>> 
+>>>> --- a/docs/misra/deviations.rst
+>>>> +++ b/docs/misra/deviations.rst
+>>>> @@ -587,7 +587,31 @@ Deviations related to MISRA C:2012 Rules:
+>>>>         construct is deviated only in Translation Units that present 
+>>>> a violation
+>>>>         of the Rule due to uses of this macro.
+>>>>       - Tagged as `deliberate` for ECLAIR.
+>>>> -
+>>>> +
+>>>> +   * - R21.1
+>>>> +     - Rule 21.1 reports identifiers reserved for the C and POSIX 
+>>>> standard
+>>>> +       libraries. Xen does not use such libraries and all 
+>>>> translation units
+>>>> +       are compiled with option '-nostdinc', therefore there is no 
+>>>> reason to
+>>>> +       avoid to use `#define` or `#undef` on such identifiers 
+>>>> except for those
+>>>> +       beginning with `__builtin_` for which compilers may perform 
+>>>> (wrong)
+>>>> +       optimizations.
+>>>> +     - Tagged as `safe` for ECLAIR.
+>>> 
+>>> ... I'd like to ask that it be explicitly clarified here that it's 
+>>> solely
+>>> the library (and not e.g. the compiler itself) that are of concern 
+>>> here.
+>> 
+>> The language can be clarified:
+>> 
+>> - Rule 21.1 reports identifiers reserved for the C and POSIX standard
+>>   libraries. Xen does not use such libraries and all translation units
+>>   are compiled with option '-nostdinc', therefore there is no reason 
+>> to
+>>   avoid to use `#define` or `#undef` on C and POSIX standard libraries
+>>   identifiers except for those beginning with `__builtin_` for which
+>>   compilers may perform (wrong) optimizations.
 > 
-> Relocate rdtsc{,_ordered}() from <asm/msr.h> to <asm/tsc.h>, and
-> subsequently remove the inclusion of <asm/msr.h> in <asm/tsc.h>.
-> Consequently, <asm/msr.h> must be included in several source files
-> that previously did not require it.
->
-> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
-> Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
-> ---
+> Which makes it more apparent that there is a gap: What about e.g. 
+> __x86_64__?
+> That falls within what the rules cover, is not a C or POSIX standard 
+> library
+> identifier, yet very clearly must not be fiddled with. Whereas the text
+> above deviates it.
 > 
-> Change in v3:
-> * Add a problem statement to the changelog (Dave Hansen).
-> ---
 
->  drivers/platform/x86/intel/pmc/cnp.c          |  1 +
->  .../intel/speed_select_if/isst_if_common.c    |  1 +
->  drivers/platform/x86/intel/turbo_max_3.c      |  1 +
+Hi Jan,
 
-Hi,
-
-To me this looks really a random set of source files, maybe it helped some 
-build success but it's hard for me to review this because there are still 
-cases that depend on indirect include chains.
-
-Could you just look into solving all missing msr.h includes instead 
-as clearly some are still missing after 3 pre-existing ones and you adding 
-it into 3 files:
-
-$ git grep -e rdmsr -e wrmsr -l drivers/platform/x86/
-drivers/platform/x86/intel/ifs/core.c
-drivers/platform/x86/intel/ifs/load.c
-drivers/platform/x86/intel/ifs/runtest.c
-drivers/platform/x86/intel/pmc/cnp.c
-drivers/platform/x86/intel/pmc/core.c
-drivers/platform/x86/intel/speed_select_if/isst_if_common.c
-drivers/platform/x86/intel/speed_select_if/isst_if_mbox_msr.c
-drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-drivers/platform/x86/intel/tpmi_power_domains.c
-drivers/platform/x86/intel/turbo_max_3.c
-drivers/platform/x86/intel/uncore-frequency/uncore-frequency.c
-drivers/platform/x86/intel_ips.c
-
-$ git grep -e 'msr.h' -l drivers/platform/x86/
-drivers/platform/x86/intel/pmc/core.c
-drivers/platform/x86/intel/tpmi_power_domains.c
-drivers/platform/x86/intel_ips.c
-
-I'd also prefer the patch(es) adding missing includes be in a different 
-patch.
+that is true, even if unlikely: one approach could be to avoid deviating 
+predefined macros for all CUs as -nostdinc and -fno-builtins should take 
+care of the rest; this kind of deviation is not currently possible in 
+ECLAIR, but it might be in the future. I think this could be 
+accomplished also via some gcc trickery on each CU, though I'm not sure 
+how valued that is for Xen.
 
 -- 
- i.
-
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
