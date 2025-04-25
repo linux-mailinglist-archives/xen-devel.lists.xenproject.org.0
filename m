@@ -2,36 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68397A9D57A
-	for <lists+xen-devel@lfdr.de>; Sat, 26 Apr 2025 00:27:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.968716.1358200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72F28A9D596
+	for <lists+xen-devel@lfdr.de>; Sat, 26 Apr 2025 00:32:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.968732.1358210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8RVY-0002jg-Mz; Fri, 25 Apr 2025 22:26:56 +0000
+	id 1u8RbE-0004yJ-CB; Fri, 25 Apr 2025 22:32:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 968716.1358200; Fri, 25 Apr 2025 22:26:56 +0000
+Received: by outflank-mailman (output) from mailman id 968732.1358210; Fri, 25 Apr 2025 22:32:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8RVY-0002hP-Ja; Fri, 25 Apr 2025 22:26:56 +0000
-Received: by outflank-mailman (input) for mailman id 968716;
- Fri, 25 Apr 2025 22:26:55 +0000
+	id 1u8RbE-0004wr-9F; Fri, 25 Apr 2025 22:32:48 +0000
+Received: by outflank-mailman (input) for mailman id 968732;
+ Fri, 25 Apr 2025 22:32:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1RGh=XL=ariadne.space=ariadne@srs-se1.protection.inumbo.net>)
- id 1u8RVX-0002hE-3f
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 22:26:55 +0000
-Received: from outbound.pv.icloud.com
- (p-west1-cluster3-host5-snip4-3.eps.apple.com [57.103.66.6])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6045f3c3-2224-11f0-9eb3-5ba50f476ded;
- Sat, 26 Apr 2025 00:26:48 +0200 (CEST)
-Received: from outbound.pv.icloud.com (localhost [127.0.0.1])
- by outbound.pv.icloud.com (Postfix) with ESMTPS id 969821800229;
- Fri, 25 Apr 2025 22:26:45 +0000 (UTC)
-Received: from smtpclient.apple (unknown [17.56.9.36])
- by outbound.pv.icloud.com (Postfix) with ESMTPSA id 6A980180013F;
- Fri, 25 Apr 2025 22:26:44 +0000 (UTC)
+ <SRS0=FJEZ=XL=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1u8RbC-0004wl-Fi
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 22:32:46 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 33dc716e-2225-11f0-9eb3-5ba50f476ded;
+ Sat, 26 Apr 2025 00:32:44 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1745620352081239.80620416230045;
+ Fri, 25 Apr 2025 15:32:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,343 +38,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6045f3c3-2224-11f0-9eb3-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ariadne.space;
-	s=sig1; bh=XUdcBDAnwcqAyZS7yjDAhKBctlhnqJD41jMG068jSwk=;
-	h=From:Message-Id:Content-Type:Mime-Version:Subject:Date:To:x-icloud-hme;
-	b=Xtp+YGx1etSTNgdAf1Tsr3qyQS/k4CelH+07+U/t55M87jMytYhJrKO87wZGmJAyu
-	 y7XdGnJTn9LLZNuT2RrA5Uje4/DY50hLyBD2kKmPY6HavjB4XpP/0BDAW34dz2bJdV
-	 D7BZIcM7P5B/sgILtoUb+F5+E0mDQB/SbnjBvuk1L3NgUl79j+brxPzalMcVapuJay
-	 a7K4RJb8H4paAbjV3eC9Gfi77+HtrP9RpmLWj2m4gYz4K4veecZ+b0YsxokCoRmbWb
-	 uzMnA8JAv7w0Xpa06+CeA2XtZibKG1Hz4InaURM1KnORbFJyWjnJc1S3Wz5IxDebMm
-	 dAff5Km1pDu3w==
-From: Ariadne Conill <ariadne@ariadne.space>
-Message-Id: <0797C187-5814-4C29-B27F-6E74D98260DC@ariadne.space>
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_4E344AD7-DF61-4E9B-87DE-DB2FFF9CBABE"
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.200.121\))
-Subject: Re: [PATCH] x86/hyperv: use dynamically allocated page for hypercalls
-Date: Fri, 25 Apr 2025 15:26:33 -0700
-In-Reply-To: <9f7ffd79-7439-40f3-9349-4f9f4d2ee1dd@amd.com>
-Cc: xen-devel@lists.xenproject.org,
- Paul Durrant <paul@xen.org>,
- Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <agarciav@amd.com>,
- "Alexander M . Merritt" <alexander@edera.dev>
-To: Jason Andryuk <jason.andryuk@amd.com>
-References: <20250425165148.60408-1-ariadne@ariadne.space>
- <9f7ffd79-7439-40f3-9349-4f9f4d2ee1dd@amd.com>
-X-Mailer: Apple Mail (2.3826.200.121)
+X-Inumbo-ID: 33dc716e-2225-11f0-9eb3-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; t=1745620355; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=buh0OfJbewPaveiRr4TXanXk54WRLkbIni7Qsb4gewx/KvKi+OgNGEHIB8Q/TZLKlQfS71oh0cXdfRmlx1hVZVjvG8KpY+izRxr3rP+4FHdsOFokWxVstolomKrYLW5bHA51nO/JiHgS4fNX1MBOrsvXJ3t3TKWFvvIHxpuS+zI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1745620355; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=eFlV5b2njNjufOlO07MaEi6D6dwi8/8CDWQ5e3NHaL0=; 
+	b=ffgkMt1743jY2+QerVbNx+fD0A7LtlQZP8liO9RiAF90T2YpwpNSIV3GYCzAbrIRZfWmWqH4jHwKES3+CHrwNDVCON+s6FQvWR886yXzOot/LJlgWLAuUG77gUbt+d5S2pfvFKNejHBx6iUo5fRJF2+wX1f7RnvrJZXRo9q/bl4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1745620355;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=eFlV5b2njNjufOlO07MaEi6D6dwi8/8CDWQ5e3NHaL0=;
+	b=U9ijsq5+N9MFkDaGMF/Swc1bPJRkNatmBgSS7esif6SU4DkIw2YIM3X/2cKDh+pV
+	p6rt30K8DelFKakln+ft/Ru25Y/XB3Wqspnvmy+wkZahT2Wlk49vbtmBYakZufG3p7D
+	J3A266BSkhRfypsnxqBZuiCpU1yqlE8y3Og3DX9k=
+Message-ID: <15e4ef59-183d-470b-b596-86f4b5e56bd4@apertussolutions.com>
+Date: Fri, 25 Apr 2025 18:32:30 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 05/12] x86/hyperlaunch: locate dom0 kernel with
+ hyperlaunch
+Content-Language: en-US
+To: Alejandro Vallejo <agarciav@amd.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <20250424161027.92942-1-agarciav@amd.com>
+ <20250424161027.92942-6-agarciav@amd.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
+ JDq5eL4e9BdfdnZm/b+K+Gweyc0Px2poDWwKVTFFRgxKWq9R7McwNnvuZ4nyXJBVn7PTEn/Z
+ G7D08iZg94ZsnUdeXfgYdJrqmdiWA6iX9u84ARHUtb0K4r5WpLUMcQ8PVmnv1vVrs/3Wy/Rb
+ foxebZNWxgUiSx+d02e3Ad0aEIur1SYXXv71mqKwyi/40CBSHq2jk9eF6zmEhaoFi5+MMMgX
+ X0i+fcBkvmT0N88W4yCtHhHQds+RDbTPLGm8NBVJb7R5zbJmuQX7ADBVuNYIU8hx3dF3AQCm
+ 601w0oZJ0jGOV1vXQgHqZYJGHg5wuImhzhZJCRESIwf+PJxik7TJOgBicko1hUVOxJBZxoe0
+ x+/SO6tn+s8wKlR1Yxy8gYN9ZRqV2I83JsWZbBXMG1kLzV0SAfk/wq0PAppA1VzrQ3JqXg7T
+ MZ3tFgxvxkYqUP11tO2vrgys+InkZAfjBVMjqXWHokyQPpihUaW0a8mr40w9Qui6DoJj7+Gg
+ DtDWDZ7Zcn2hoyrypuht88rUuh1JuGYD434Q6qwQjUDlY+4lgrUxKdMD8R7JJWt38MNlTWvy
+ rMVscvZUNc7gxcmnFUn41NPSKqzp4DDRbmf37Iz/fL7i01y7IGFTXaYaF3nEACyIUTr/xxi+
+ MD1FVtEtJncZNkRn7WBcVFGKMAf+NEeaeQdGYQ6mGgk++i/vJZxkrC/a9ZXme7BhWRP485U5
+ sXpFoGjdpMn4VlC7TFk2qsnJi3yF0pXCKVRy1ukEls8o+4PF2JiKrtkCrWCimB6jxGPIG3lk
+ 3SuKVS/din3RHz+7Sr1lXWFcGYDENmPd/jTwr1A1FiHrSj+u21hnJEHi8eTa9029F1KRfocp
+ ig+k0zUEKmFPDabpanI323O5Tahsy7hwf2WOQwTDLvQ+eqQu40wbb6NocmCNFjtRhNZWGKJS
+ b5GrGDGu/No5U6w73adighEuNcCSNBsLyUe48CE0uTO7eAL6Vd+2k28ezi6XY4Y0mgASJslb
+ NwW54LzSSM0uRGFuaWVsIFAuIFNtaXRoIDxkcHNtaXRoQGFwZXJ0dXNzb2x1dGlvbnMuY29t
+ PsJ6BBMRCAAiBQJWK7ngAhsjBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRBTc6WbYpR8
+ KrQ9AP94+xjtFfJ8gj5c7PVx06Zv9rcmFUqQspZ5wSEkvxOuQQEAg6qEsPYegI7iByLVzNEg
+ 7B7fUG7pqWIfMqFwFghYhQzOwU0EViu54BAIAL6MXXNlrJ5tRUf+KMBtVz1LJQZRt/uxWrCb
+ T06nZjnbp2UcceuYNbISOVHGXTzu38r55YzpkEA8eURQf+5hjtvlrOiHxvpD+Z6WcpV6rrMB
+ kcAKWiZTQihW2HoGgVB3gwG9dCh+n0X5OzliAMiGK2a5iqnIZi3o0SeW6aME94bSkTkuj6/7
+ OmH9KAzK8UnlhfkoMg3tXW8L6/5CGn2VyrjbB/rcrbIR4mCQ+yCUlocuOjFCJhBd10AG1IcX
+ OXUa/ux+/OAV9S5mkr5Fh3kQxYCTcTRt8RY7+of9RGBk10txi94dXiU2SjPbassvagvu/hEi
+ twNHms8rpkSJIeeq0/cAAwUH/jV3tXpaYubwcL2tkk5ggL9Do+/Yo2WPzXmbp8vDiJPCvSJW
+ rz2NrYkd/RoX+42DGqjfu8Y04F9XehN1zZAFmCDUqBMa4tEJ7kOT1FKJTqzNVcgeKNBGcT7q
+ 27+wsqbAerM4A0X/F/ctjYcKwNtXck1Bmd/T8kiw2IgyeOC+cjyTOSwKJr2gCwZXGi5g+2V8
+ NhJ8n72ISPnOh5KCMoAJXmCF+SYaJ6hIIFARmnuessCIGw4ylCRIU/TiXK94soilx5aCqb1z
+ ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
+ p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
+ NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
+In-Reply-To: <20250424161027.92942-6-agarciav@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
+On 4/24/25 12:10, Alejandro Vallejo wrote:
+> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+> 
+> Look for a subnode of type `multiboot,kernel` within a domain node. If
+> found, locate it using the multiboot module helper to generically ensure
+> it lives in the module list. If the bootargs property is present and
+> there was not an MB1 string, then use the command line from the device
+> tree definition.
+> 
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+> ---
+> v5:
+>    * Add domain name to the error path on no-kernel.
+> ---
+>   xen/arch/x86/setup.c            |  1 +
+>   xen/common/domain-builder/fdt.c | 64 +++++++++++++++++++++++++++++++--
+>   2 files changed, 62 insertions(+), 3 deletions(-)
+> 
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index bd13d9d196..7e756302ae 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -1290,6 +1290,7 @@ void asmlinkage __init noreturn __start_xen(void)
+>           i = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
+>           bi->mods[i].type = BOOTMOD_KERNEL;
+>           bi->domains[0].kernel = &bi->mods[i];
+> +        bi->nr_domains = 1;
+>           bi->hyperlaunch_enabled = false;
+>       }
+>   
+> diff --git a/xen/common/domain-builder/fdt.c b/xen/common/domain-builder/fdt.c
+> index 11f0436e85..662c715483 100644
+> --- a/xen/common/domain-builder/fdt.c
+> +++ b/xen/common/domain-builder/fdt.c
+> @@ -99,9 +99,9 @@ static int __init fdt_prop_as_reg(const struct fdt_property *prop,
+>    * @return              -EINVAL on malformed nodes, otherwise
+>    *                      index inside `bi->mods`
+>    */
+> -int __init fdt_read_multiboot_module(const void *fdt, int node,
+> -                                     int address_cells, int size_cells,
+> -                                     struct boot_info *bi)
+> +static int __init fdt_read_multiboot_module(const void *fdt, int node,
+> +                                            int address_cells, int size_cells,
+> +                                            struct boot_info *bi)
 
---Apple-Mail=_4E344AD7-DF61-4E9B-87DE-DB2FFF9CBABE
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
+Shouldn't this belong to when the function was introduced? Though 
+looking there, you push it out into the header? Guess the real question 
+is it static or not?
 
-Hi,
+>   {
+>       const struct fdt_property *prop;
+>       uint64_t addr, size;
+> @@ -185,6 +185,52 @@ int __init fdt_read_multiboot_module(const void *fdt, int node,
+>       return idx;
+>   }
+>   
+> +static int __init process_domain_node(
+> +    struct boot_info *bi, const void *fdt, int dom_node)
+> +{
+> +    int node;
+> +    struct boot_domain *bd = &bi->domains[bi->nr_domains];
+> +    const char *name = fdt_get_name(fdt, dom_node, NULL) ?: "unknown";
+> +    int address_cells = fdt_address_cells(fdt, dom_node);
+> +    int size_cells = fdt_size_cells(fdt, dom_node);
+> +
+> +    fdt_for_each_subnode(node, fdt, dom_node)
+> +    {
+> +        if ( !fdt_node_check_compatible(fdt, node, "multiboot,kernel") )
+> +        {
+> +            int idx;
+> +
+> +            if ( bd->kernel )
+> +            {
+> +                printk(XENLOG_WARNING
+> +                       "  duplicate kernel for domain %s\n", name);
+> +                continue;
+> +            }
+> +
+> +            idx = fdt_read_multiboot_module(fdt, node, address_cells,
+> +                                            size_cells, bi);
+> +            if ( idx < 0 )
+> +            {
+> +                printk(XENLOG_ERR
+> +                       "  failed processing kernel for domain %s\n", name);
+> +                return idx;
+> +            }
+> +
+> +            printk(XENLOG_INFO "  kernel: multiboot-index=%d\n", idx);
+> +            bi->mods[idx].type = BOOTMOD_KERNEL;
+> +            bd->kernel = &bi->mods[idx];
+> +        }
+> +    }
+> +
+> +    if ( !bd->kernel )
+> +    {
+> +        printk(XENLOG_ERR "error: no kernel assigned to domain %s\n", name);
+> +        return -ENODATA;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+>   static int __init find_hyperlaunch_node(const void *fdt)
+>   {
+>       int hv_node = fdt_path_offset(fdt, "/chosen/hypervisor");
+> @@ -248,8 +294,20 @@ int __init walk_hyperlaunch_fdt(struct boot_info *bi)
+>   
+>       fdt_for_each_subnode(node, fdt, hv_node)
+>       {
+> +        if ( bi->nr_domains >= MAX_NR_BOOTDOMS )
+> +        {
+> +            printk(XENLOG_WARNING "warning: only creating first %u domains\n",
+> +                   MAX_NR_BOOTDOMS);
+> +            break;
+> +        }
+> +
+>           if ( !fdt_node_check_compatible(fdt, node, "xen,domain") )
+> +        {
+> +            if ( (ret = process_domain_node(bi, fdt, node)) < 0 )
+> +                break;
+> +
+>               bi->nr_domains++;
+> +        }
+>       }
+>   
+>       /* Until multi-domain construction is added, throw an error */
 
-> On Apr 25, 2025, at 2:02=E2=80=AFPM, Jason Andryuk =
-<jason.andryuk@amd.com> wrote:
->=20
-> On 2025-04-25 12:51, Ariadne Conill wrote:
->> Previously Xen placed the hypercall page at the highest possible MFN,
->> but this caused problems on systems where there is more than 36 bits
->> of physical address space.
->> In general, it also seems unreliable to assume that the highest =
-possible
->> MFN is not already reserved for some other purpose.
->> Fixes: 620fc734f854 ("x86/hyperv: setup hypercall page")
->> Cc: Alejandro Vallejo <agarciav@amd.com>
->> Cc: Alexander M. Merritt <alexander@edera.dev>
->> Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
->> ---
->>  xen/arch/x86/guest/hyperv/hyperv.c            | 39 =
-++++++++++---------
->>  xen/arch/x86/include/asm/fixmap.h             |  3 --
->>  xen/arch/x86/include/asm/guest/hyperv-hcall.h | 12 +++---
->>  xen/arch/x86/include/asm/guest/hyperv-tlfs.h  |  2 +
->>  xen/arch/x86/include/asm/guest/hyperv.h       |  3 --
->>  xen/arch/x86/xen.lds.S                        |  4 --
->>  6 files changed, 28 insertions(+), 35 deletions(-)
->> diff --git a/xen/arch/x86/guest/hyperv/hyperv.c =
-b/xen/arch/x86/guest/hyperv/hyperv.c
->> index 6989af38f1..637b4bf335 100644
->> --- a/xen/arch/x86/guest/hyperv/hyperv.c
->> +++ b/xen/arch/x86/guest/hyperv/hyperv.c
->=20
->> @@ -98,10 +97,22 @@ static void __init setup_hypercall_page(void)
->>      rdmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
->>      if ( !hypercall_msr.enable )
->>      {
->> -        mfn =3D HV_HCALL_MFN;
->> +        hv_hcall_page =3D alloc_xenheap_page();
->> +        if ( !hv_hcall_page )
->> +        {
->> +            printk("Hyper-V: Failed to allocate hypercall trampoline =
-page\n");
->=20
-> Minor, but maybe panic() here and avoid changing the return type?
-
-Sure, can do that.
-
->=20
->> +            return -ENOMEM;
->> +        }
->> +
->> +        printk("Hyper-V: Allocated hypercall page @ %p.\n", =
-hv_hcall_page);
->> +
->> +        mfn =3D virt_to_mfn(hv_hcall_page);
->>          hypercall_msr.enable =3D 1;
->>          hypercall_msr.guest_physical_address =3D mfn;
->>          wrmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
->> +
->> +        start =3D (unsigned long) hv_hcall_page;
->> +        modify_xen_mappings(start, start + PAGE_SIZE, =
-PAGE_HYPERVISOR_RX);
->>      }
->>      else
->>          mfn =3D hypercall_msr.guest_physical_address;
->=20
->> diff --git a/xen/arch/x86/include/asm/guest/hyperv-hcall.h =
-b/xen/arch/x86/include/asm/guest/hyperv-hcall.h
->> index b76dbf9ccc..b73edca7c6 100644
->> --- a/xen/arch/x86/include/asm/guest/hyperv-hcall.h
->> +++ b/xen/arch/x86/include/asm/guest/hyperv-hcall.h
->> @@ -20,13 +20,13 @@ static inline uint64_t hv_do_hypercall(uint64_t =
-control, paddr_t input_addr,
->>                                         paddr_t output_addr)
->>  {
->>      uint64_t status;
->> -    register unsigned long r8 asm ( "r8" ) =3D output_addr;
->>        /* See TLFS for volatile registers */
->> -    asm volatile ( "call hv_hcall_page"
->> +    asm volatile ( "mov %[output_addr], %%r8\n"
->=20
-> Don't you need to list r8 as clobbered?  Or maybe just retain the r8 =
-handling above and below to avoid this mov.
-
-This can probably mostly be reverted if we get the fixmap working.
-
-The issue we were facing before was a situation where calling =
-hv_hcall_page directly resulted in a page fault due to NX-bit being set =
-on the page.
-
->> +                   "call *%[target_addr]"
->=20
-> It might be preferable to retain a direct call which can still be =
-installed with __set_fixmap_x.  Otherwise, __set_fixmap_x can be removed
-
-I think we should use fixmap, I just need to figure out what that looks =
-like.
-
-Will send v2 patch on Monday.
-
-Ariadne=
-
---Apple-Mail=_4E344AD7-DF61-4E9B-87DE-DB2FFF9CBABE
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
-
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; =
-charset=3Dutf-8"></head><body style=3D"overflow-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: =
-after-white-space;">Hi,<div><div><br><blockquote type=3D"cite"><div>On =
-Apr 25, 2025, at 2:02=E2=80=AFPM, Jason Andryuk =
-&lt;jason.andryuk@amd.com&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div><meta charset=3D"UTF-8"><span =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
-display: inline !important;">On 2025-04-25 12:51, Ariadne Conill =
-wrote:</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
-normal; font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;"><blockquote type=3D"cite" style=3D"font-family: Helvetica; =
-font-size: 12px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;">Previously Xen placed the hypercall page at the =
-highest possible MFN,<br>but this caused problems on systems where there =
-is more than 36 bits<br>of physical address space.<br>In general, it =
-also seems unreliable to assume that the highest possible<br>MFN is not =
-already reserved for some other purpose.<br>Fixes: 620fc734f854 =
-("x86/hyperv: setup hypercall page")<br>Cc: Alejandro Vallejo =
-&lt;agarciav@amd.com&gt;<br>Cc: Alexander M. Merritt =
-&lt;alexander@edera.dev&gt;<br>Signed-off-by: Ariadne Conill =
-&lt;ariadne@ariadne.space&gt;<br>---<br>&nbsp;xen/arch/x86/guest/hyperv/hy=
-perv.c =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 39 =
-++++++++++---------<br>&nbsp;xen/arch/x86/include/asm/fixmap.h =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| =
-&nbsp;3 --<br>&nbsp;xen/arch/x86/include/asm/guest/hyperv-hcall.h | 12 =
-+++---<br>&nbsp;xen/arch/x86/include/asm/guest/hyperv-tlfs.h &nbsp;| =
-&nbsp;2 +<br>&nbsp;xen/arch/x86/include/asm/guest/hyperv.h =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;3 =
---<br>&nbsp;xen/arch/x86/xen.lds.S =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| =
-&nbsp;4 --<br>&nbsp;6 files changed, 28 insertions(+), 35 =
-deletions(-)<br>diff --git a/xen/arch/x86/guest/hyperv/hyperv.c =
-b/xen/arch/x86/guest/hyperv/hyperv.c<br>index 6989af38f1..637b4bf335 =
-100644<br>--- a/xen/arch/x86/guest/hyperv/hyperv.c<br>+++ =
-b/xen/arch/x86/guest/hyperv/hyperv.c<br></blockquote><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none;"><blockquote =
-type=3D"cite" style=3D"font-family: Helvetica; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;">@@ -98,10 +97,22 @@ static void __init =
-setup_hypercall_page(void)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rdmsrl(HV_X64_=
-MSR_HYPERCALL, =
-hypercall_msr.as_uint64);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( =
-!hypercall_msr.enable )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>- =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mfn =3D HV_HCALL_MFN;<br>+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hv_hcall_page =3D =
-alloc_xenheap_page();<br>+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if =
-( !hv_hcall_page )<br>+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printk("=
-Hyper-V: Failed to allocate hypercall trampoline =
-page\n");<br></blockquote><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;"><span style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;">Minor, =
-but maybe panic() here and avoid changing the return type?</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: =
-none;"></div></blockquote><div><br></div>Sure, can do =
-that.</div><div><br><blockquote type=3D"cite"><div><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none;"><blockquote =
-type=3D"cite" style=3D"font-family: Helvetica; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return =
--ENOMEM;<br>+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>+<br>+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printk("Hyper-V: Allocated =
-hypercall page @ %p.\n", hv_hcall_page);<br>+<br>+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mfn =3D =
-virt_to_mfn(hv_hcall_page);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;hypercall_msr.enable =3D =
-1;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hypercall_msr.=
-guest_physical_address =3D =
-mfn;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrmsrl(HV_X6=
-4_MSR_HYPERCALL, hypercall_msr.as_uint64);<br>+<br>+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start =3D (unsigned long) =
-hv_hcall_page;<br>+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modify_xen_mappings(start, =
-start + PAGE_SIZE, =
-PAGE_HYPERVISOR_RX);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;else<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;mfn =3D hypercall_msr.guest_physical_address;<br></blockquote><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none;"><blockquote =
-type=3D"cite" style=3D"font-family: Helvetica; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;">diff --git a/xen/arch/x86/include/asm/guest/hyperv-hcall.h =
-b/xen/arch/x86/include/asm/guest/hyperv-hcall.h<br>index =
-b76dbf9ccc..b73edca7c6 100644<br>--- =
-a/xen/arch/x86/include/asm/guest/hyperv-hcall.h<br>+++ =
-b/xen/arch/x86/include/asm/guest/hyperv-hcall.h<br>@@ -20,13 +20,13 @@ =
-static inline uint64_t hv_do_hypercall(uint64_t control, paddr_t =
-input_addr,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paddr_t =
-output_addr)<br>&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uint64_t =
-status;<br>- &nbsp;&nbsp;&nbsp;register unsigned long r8 asm ( "r8" ) =3D =
-output_addr;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* See TLFS =
-for volatile registers */<br>- &nbsp;&nbsp;&nbsp;asm volatile ( "call =
-hv_hcall_page"<br>+ &nbsp;&nbsp;&nbsp;asm volatile ( "mov =
-%[output_addr], %%r8\n"<br></blockquote><br style=3D"caret-color: rgb(0, =
-0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;"><span style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;">Don't =
-you need to list r8 as clobbered? &nbsp;Or maybe just retain the r8 =
-handling above and below to avoid this mov.</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: =
-none;"></div></blockquote><div><br></div>This can probably mostly be =
-reverted if we get the fixmap working.</div><div><br></div><div>The =
-issue we were facing before was a situation where calling hv_hcall_page =
-directly resulted in a page fault due to NX-bit being set on the =
-page.</div><div><br><blockquote type=3D"cite"><div><blockquote =
-type=3D"cite" style=3D"font-family: Helvetica; font-size: 12px; =
-font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"call =
-*%[target_addr]"<br></blockquote><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;"><span style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;">It =
-might be preferable to retain a direct call which can still be installed =
-with __set_fixmap_x. &nbsp;Otherwise, __set_fixmap_x can be =
-removed</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
-normal; font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;"></div></blockquote><div><br></div>I think we should use fixmap, I =
-just need to figure out what that looks =
-like.</div><div><br></div><div>Will send v2 patch on =
-Monday.</div><div><br></div><div>Ariadne</div></div></body></html>=
-
---Apple-Mail=_4E344AD7-DF61-4E9B-87DE-DB2FFF9CBABE--
 
