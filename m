@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54F50A9BF59
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 09:12:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.967234.1357103 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CD46A9C06D
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 10:08:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.967296.1357119 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8DES-0006zz-Nr; Fri, 25 Apr 2025 07:12:20 +0000
+	id 1u8E5z-0006h9-PG; Fri, 25 Apr 2025 08:07:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 967234.1357103; Fri, 25 Apr 2025 07:12:20 +0000
+Received: by outflank-mailman (output) from mailman id 967296.1357119; Fri, 25 Apr 2025 08:07:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8DES-0006xg-JG; Fri, 25 Apr 2025 07:12:20 +0000
-Received: by outflank-mailman (input) for mailman id 967234;
- Fri, 25 Apr 2025 07:12:19 +0000
+	id 1u8E5z-0006fK-MG; Fri, 25 Apr 2025 08:07:39 +0000
+Received: by outflank-mailman (input) for mailman id 967296;
+ Fri, 25 Apr 2025 08:07:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y1QO=XL=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1u8DEP-0006xa-IH
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 07:12:19 +0000
-Received: from desiato.infradead.org (desiato.infradead.org
- [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ZJ1s=XL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u8E5y-0006fE-DU
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 08:07:38 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9919d625-21a4-11f0-9ffb-bf95429c2676;
- Fri, 25 Apr 2025 09:12:07 +0200 (CEST)
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.98.1 #2 (Red Hat Linux))
- id 1u8DE6-0000000BzpF-0oO3; Fri, 25 Apr 2025 07:11:58 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id 9C8B63003C4; Fri, 25 Apr 2025 09:11:57 +0200 (CEST)
+ id 4fd42561-21ac-11f0-9ffb-bf95429c2676;
+ Fri, 25 Apr 2025 10:07:20 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3914aba1ce4so1441151f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Apr 2025 01:07:28 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a073e461casm1593348f8f.74.2025.04.25.01.07.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 25 Apr 2025 01:07:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,97 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9919d625-21a4-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=/gz49BzCJiWld7uM47beLEzscI0nDdN8PKFhZbH8k1o=; b=Qw+6HPRAw2GLZXmgq20QS8wt0C
-	txn/mVTO91ykn5tuFL/uuYfAuUYz48Q+lrxxQKWB2g9D74CKa+ah99c2oA9gm4GaeNVuoBaXtLVTE
-	EIQdRwY5DRRXVVw52ts12pvJLUE9HqBbfk09qveKUwveCLkKx6mpx/Pt92hCzjodDWEFS+AyI99lE
-	XynTiM71ri22QAuhPkA1dOyMyrvoIpydTtDNIbY90QgKhPVFKkLiMxiJwtrCmY2XuUv18oexVkyGa
-	K2Yz5b9lN+AeV19kdukXXE8nn2xl4BF0X2TDbsW+JRVY+YdM++E1hfKHpu8kf3a1t1S5TXUufej/G
-	ZpKgJFCw==;
-Date: Fri, 25 Apr 2025 09:11:57 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
-Cc: "Xin Li (Intel)" <xin@zytor.com>, linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
-	linux-pm@vger.kernel.org, linux-edac@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, netdev@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org, tglx@linutronix.de,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	x86@kernel.org, hpa@zytor.com, acme@kernel.org,
-	andrew.cooper3@citrix.com, namhyung@kernel.org,
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
-	kan.liang@linux.intel.com, wei.liu@kernel.org,
-	ajay.kaher@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
-	tony.luck@intel.com, pbonzini@redhat.com, vkuznets@redhat.com,
-	seanjc@google.com, luto@kernel.org, boris.ostrovsky@oracle.com,
-	kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com
-Subject: Re: [RFC PATCH v2 21/34] x86/msr: Utilize the alternatives mechanism
- to write MSR
-Message-ID: <20250425071157.GI18306@noisy.programming.kicks-ass.net>
-References: <20250422082216.1954310-1-xin@zytor.com>
- <20250422082216.1954310-22-xin@zytor.com>
- <b2624e84-6fab-44a3-affc-ce0847cd3da4@suse.com>
+X-Inumbo-ID: 4fd42561-21ac-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1745568447; x=1746173247; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=SWU1PEhrpAVMYN5N36PBet5PbNmWcrMovqbMPn1yVtM=;
+        b=hHM7f5RXMornKJBxcsGOfa38tp09txgcnspcVWAte8iRc6ufYulqTynuwXqvVK4X7Q
+         JaW/fSe2I+JEFxU7CThgvaCk5rmyuigIv9ByqbIR29/21cUzT2t+ppkpMNzeeUtirxsb
+         3I/FQ5MoI0+Pilnxm50PHiaXtfNq6WoC/qVmX4f+M6c5jP82l5GOrazVs83yOzUUsfIa
+         OvGzVQPG7Ot5HdHXnheCeQPp/pOnhTTaHHDMpz6/r1zIC66bIx8MIJYcARpA2qDReE5K
+         Kz3vUWbzb7DKsF5WQaeevUsnH1kPN4kLOAnvPPZmYdduvipPtx+PIXq5WryMFwwG1xzp
+         B9ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745568447; x=1746173247;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SWU1PEhrpAVMYN5N36PBet5PbNmWcrMovqbMPn1yVtM=;
+        b=Krhfb5pP7Ur2t6kYNOUeswxjprU+HcyT6N1G5AlUj3Mw0oHscJ9x9WW8ckXEF2fZ3e
+         sfgWmXdfJSF7XkUXJ4lPMPBIoEy0hKuhQbF9hLT9RC8Lar/VjZxhU7m1HvbKDj1XsVPI
+         pW2qRvBZcylK8qHbbCQuKKPJNk9B3HZoVrxF+5WfQQx6ONEs8QUmfmPEmJ1gZ63+6sSY
+         Y7aX3WdDIlljj+SwJwISC5U5xRcp09Ztv9t7XPp0fRW6qzxDZ5HPDwQrN+CU6PhnxdK3
+         +f6x4o9sUFvVGR0LBTx72R14/Fc7bwbMJAFKvBUXv2wq7pwnh28TCERxM5tkBXQe9kTW
+         I60A==
+X-Forwarded-Encrypted: i=1; AJvYcCUNeVM1REgh2aRhh/vRK7iCQDMz6rKFmk3J+QKPl9NkahFJzgX133+LW/0Tq9zd++sUzVY/pXeQw7I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YypGHMmF2pxFN6zxYlbLpIuf7SGzFDvl+CI59YXe/cSqI7OqQuA
+	TAe5OzNt3Aa+QMX+/QkhdMb1bBAsKV1b5HOdcDkk77CPyR4Re4sSolvSY0Pk8w==
+X-Gm-Gg: ASbGncue867QDA9Gzfho5fY8TqbwYLLEijkWqeFKsBLEP37+I7jbrR6RI+gJHoHJKiL
+	0ES7aXIATJWInLnCgdHKmdisdHg67ojqugxTZxH5fWnXLKHWBASmkcVFTB+78WtTtjFJgztzh6k
+	ohEH5EV5xzzFBFYLFdRocibfWi3gxdBrkTIJ2fegbFWHV4dTtdhr3T9wZDPjLuQYMA25umMU9ko
+	hY1kHTzn/EXsCzhlUUIFON+5hVsSpdr0HkqovfYASnYVhhVAv9/cDd9aDGVppQDC4zR74gzKBru
+	YCJJi1amEz7TDXt7+m7PqJhINT6VSkSaHSA8jocHOr8GyYPcU6w+snsx+O5kreXf+d6UoU7bUtL
+	+uOEDpQ8MrZk4WOTTRAsAICDQDZGm4UITeAht
+X-Google-Smtp-Source: AGHT+IHQuzSZYrgjgZCr4a0EGokX2J65T8ABMGA7UijjrwLRQirxlAN5S/2VwUy0yEq93F9Wu4bBew==
+X-Received: by 2002:a05:6000:2403:b0:39a:ca05:54a9 with SMTP id ffacd0b85a97d-3a074e41d2bmr851952f8f.29.1745568447596;
+        Fri, 25 Apr 2025 01:07:27 -0700 (PDT)
+Message-ID: <8d65ee65-ec6f-49a3-8954-d303b08dc2df@suse.com>
+Date: Fri, 25 Apr 2025 10:07:25 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xy1v71s9LdcW622N"
-Content-Disposition: inline
-In-Reply-To: <b2624e84-6fab-44a3-affc-ce0847cd3da4@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] misra: add deviation for rules 21.1 and 21.2
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: victorm.lira@amd.com, Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+ <f5d35582-9270-4816-84c2-f078afeee711@suse.com>
+ <alpine.DEB.2.22.394.2504241443550.785180@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2504241443550.785180@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 24.04.2025 23:45, Stefano Stabellini wrote:
+> On Thu, 24 Apr 2025, Jan Beulich wrote:
+>> On 23.04.2025 19:54, victorm.lira@amd.com wrote:
+>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>
+>>> MISRA C Rules 21.1 ("#define and #undef shall not be used on a
+>>> reserved identifier or reserved macro name") and R21.2 ("A reserved
+>>> identifier or reserved macro name shall not be declared") violations
+>>> are not problematic for Xen, as it does not use the C or POSIX
+>>> libraries.
+>>>
+>>> Xen uses -fno-builtin and -nostdinc to ensure this, but there are still
+>>> __builtin_* functions from the compiler that are available so
+>>> a deviation is formulated for all identifiers not starting with
+>>> "__builtin_".
+>>>
+>>> The missing text of a deviation for Rule 21.2 is added to
+>>> docs/misra/deviations.rst.
+>>>
+>>> To avoid regressions, tag both rules as clean and add them to the
+>>> monitored set.
+>>>
+>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+>>
+>> While the rule is in the library section, ...
+>>
+>>> --- a/docs/misra/deviations.rst
+>>> +++ b/docs/misra/deviations.rst
+>>> @@ -587,7 +587,31 @@ Deviations related to MISRA C:2012 Rules:
+>>>         construct is deviated only in Translation Units that present a violation
+>>>         of the Rule due to uses of this macro.
+>>>       - Tagged as `deliberate` for ECLAIR.
+>>> -
+>>> +
+>>> +   * - R21.1
+>>> +     - Rule 21.1 reports identifiers reserved for the C and POSIX standard
+>>> +       libraries. Xen does not use such libraries and all translation units
+>>> +       are compiled with option '-nostdinc', therefore there is no reason to
+>>> +       avoid to use `#define` or `#undef` on such identifiers except for those
+>>> +       beginning with `__builtin_` for which compilers may perform (wrong)
+>>> +       optimizations.
+>>> +     - Tagged as `safe` for ECLAIR.
+>>
+>> ... I'd like to ask that it be explicitly clarified here that it's solely
+>> the library (and not e.g. the compiler itself) that are of concern here.
+> 
+> The language can be clarified:
+> 
+> - Rule 21.1 reports identifiers reserved for the C and POSIX standard
+>   libraries. Xen does not use such libraries and all translation units
+>   are compiled with option '-nostdinc', therefore there is no reason to
+>   avoid to use `#define` or `#undef` on C and POSIX standard libraries
+>   identifiers except for those beginning with `__builtin_` for which
+>   compilers may perform (wrong) optimizations.
 
---xy1v71s9LdcW622N
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Which makes it more apparent that there is a gap: What about e.g. __x86_64__?
+That falls within what the rules cover, is not a C or POSIX standard library
+identifier, yet very clearly must not be fiddled with. Whereas the text
+above deviates it.
 
-On Tue, Apr 22, 2025 at 11:57:01AM +0200, J=FCrgen Gro=DF wrote:
-> On 22.04.25 10:22, Xin Li (Intel) wrote:
-
-> >    This becomes even more silly for trivial instructions like STI/CLI
-> >    or in the worst case paravirt_nop().
->=20
-> This is nonsense.
-
-What Jurgen says. Someone hasn't done their homework.
-
-static __always_inline void arch_local_irq_disable(void)
-{
-        PVOP_ALT_VCALLEE0(irq.irq_disable, "cli;", ALT_NOT_XEN);
-}
-
-static __always_inline void arch_local_irq_enable(void)
-{
-        PVOP_ALT_VCALLEE0(irq.irq_enable, "sti;", ALT_NOT_XEN);
-}
-
-That very much patches in STI/CLI directly when not Xen.
-
-
---xy1v71s9LdcW622N
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEv3OU3/byMaA0LqWJdkfhpEvA5LoFAmgLNbQACgkQdkfhpEvA
-5LoeWg/8D6ZI5w51DgwY+CTaX5PthgVGKgELCKDw5kBtAe3UxeF/H12T6L6a4XhK
-iSGZ9nZg17P5b2kv9cfXnslz/BqlOUjFfT+cuY64cIDvGXPqjbEcWxhHp/O7e34u
-L1wOXvlh5ZnWkVUPbeIFgLxCqPqOnGBpsq0LrQwaCxbEzkB5wKqS57h2ooqsrloQ
-V4WBwabMJ/lp704zpEgcqzWhM8zWydjPgfGuCZUTbVlvc4pgAGAwktnRd7ot+D4x
-n9UbVvBHSzW53t3RpsrzcQkVDGirtlcIipDUbPeIyTs+ArR+xfBiEl7QvXz1liAg
-GiJ7aNB/6PybXktHZBkEoRd/3sPBavWiOc1TMriCjWit/pNE+GJjUUozds3kRe/v
-pwMTYEbXlPYsgYv121YZpFaaz1ihVlIpnDj/6aqMTe+KQhAziId4CtU8pfSHYZi3
-EgC+1PUUySs0LV4TkieDsk1zmfG1lDvWNe5UKyuFYKQ/A99Kg3BacBJHc+PrZDMq
-X7MfWZLRG++yhbcBPfHasl6Vg++GagMpoJLKp5zC9QaTUjRdvYm36SR0NvOC+BAt
-NPIq3H7qbBLYR0JBaJrgNSqe+1rPgJooo5PYg1Ozmv4q50Umlai3coKqls3pnTIe
-zwUVnBTjAszAW1zI3BcSrm5Ol912qJXA7AzxV+FRiKDC+kIRaU4=
-=t7cf
------END PGP SIGNATURE-----
-
---xy1v71s9LdcW622N--
+Jan
 
