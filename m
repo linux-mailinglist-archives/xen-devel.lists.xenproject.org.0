@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB3E6A9D515
-	for <lists+xen-devel@lfdr.de>; Sat, 26 Apr 2025 00:07:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.968670.1358170 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 500F3A9D54F
+	for <lists+xen-devel@lfdr.de>; Sat, 26 Apr 2025 00:16:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.968690.1358180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8RCH-0006EV-OM; Fri, 25 Apr 2025 22:07:01 +0000
+	id 1u8RLR-0008Pp-MB; Fri, 25 Apr 2025 22:16:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 968670.1358170; Fri, 25 Apr 2025 22:07:01 +0000
+Received: by outflank-mailman (output) from mailman id 968690.1358180; Fri, 25 Apr 2025 22:16:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8RCH-0006C9-JZ; Fri, 25 Apr 2025 22:07:01 +0000
-Received: by outflank-mailman (input) for mailman id 968670;
- Fri, 25 Apr 2025 22:06:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u8RLR-0008Ns-IH; Fri, 25 Apr 2025 22:16:29 +0000
+Received: by outflank-mailman (input) for mailman id 968690;
+ Fri, 25 Apr 2025 22:16:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FJEZ=XL=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1u8RCF-0005fx-Nr
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 22:06:59 +0000
+ id 1u8RLP-0008Nm-7i
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 22:16:27 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9ad181f8-2221-11f0-9eb3-5ba50f476ded;
- Sat, 26 Apr 2025 00:06:58 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1745618812461587.6329446185744;
- Fri, 25 Apr 2025 15:06:52 -0700 (PDT)
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ebbcfed5-2222-11f0-9ffb-bf95429c2676;
+ Sat, 26 Apr 2025 00:16:24 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1745619374713179.9886556327998;
+ Fri, 25 Apr 2025 15:16:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,38 +38,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ad181f8-2221-11f0-9eb3-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; t=1745618814; cv=none; 
+X-Inumbo-ID: ebbcfed5-2222-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; t=1745619378; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=CViaT6Yw0uR9GVzfeBxM+DdiO86bXh3AsY56sWHPN32ESMK0fJUiGnzbn4/Q4NoPzHwpYun25QaQOdoFnvt4VIRRTJQQv0MshfjFn6S1Hom7d2HMSLUcP6YcBzCrQm7S3g5WgXPhte3GuRWWs2C16NqeH7w41Yt1Suquyo9muVM=
+	b=A0sY1mR5tqHNKPtOL+r8GDJY3jQ0ml7tGRwrQNVV+dMsTYaheZchwEVE7k00axLNhAsS6U237P1rBx866/uZBx0a08csH9bjYPOeAXaRuHzkayDDv1tcOBC3lDwX+aMnooYyDMsMKczcgEqwLEYiY7D9pTSb4D45opPX2S+jeEU=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1745618814; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=zWV8KAI3GgZnrKPr1JBx123EB1XO3ZpFKc2fL8TcNdc=; 
-	b=O/17+LMc5/H3qtVzGLCYxn5inq1bOhv6x2WgpUfAC9U3BIEdODl8Rq+M95oEupNIOK2msl1PIa0rryty/pX6R4uLj4Pq7kdDzlFHiqjPdifA+yT56DJxsgMzXN2lGpDKjTRUZ66GxGFg/UoZoeZAGqytRAS2IRF0FIRUKp+r6PM=
+	t=1745619378; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Ttq38HvTskzJ2SQ59jHZkXUmMKOHtPyJY2psnXrCVU0=; 
+	b=TKJHD1q1dbS1tnClYeLDyglI1TCLgTldPoXmLNpfcB6Mko2P5MVyvGUwEakO4h1ZzevHPuCgJD/CnBC3GcYWZbvNLsx6U2QiSxm4L3xpMtueIlmb1picrTlisa6raU45j+LZaN6zUo0lcjBPILTxdoketszDG1DVPaO0pei/Ri4=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1745618814;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1745619377;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=zWV8KAI3GgZnrKPr1JBx123EB1XO3ZpFKc2fL8TcNdc=;
-	b=OQgbyUxeQRrzi8MqEq0DlndunjnEReB1BpzjkVTUhm+Cv67DceYnA4QHOYMi43Rb
-	agyGTjfw0rgtbLiOTwPQP62vjObGWalMrE3GpmNg9Tcg5FlQMv+sy2eCQi5JGsYFLce
-	pXVH0fbGNOBPznlANMoK2QWftue1znSCI9hpC+YY=
-Message-ID: <10ea3202-3ffe-49c8-b449-5d59abc81be1@apertussolutions.com>
-Date: Fri, 25 Apr 2025 18:06:51 -0400
+	bh=Ttq38HvTskzJ2SQ59jHZkXUmMKOHtPyJY2psnXrCVU0=;
+	b=A9UdJJ7ddo33banBThuVHxw6blkIUJx6xWGP9LVOse1e+pAhQb8LwyknSK9+o4B3
+	/p2XrJa4h8yrTOL38nsxZSkeUq9oJ4uLCmokKd/Lugp0Yh9x+6fETxfL6C320dzZQU6
+	jpnlFnNkvjEupPHvMHN4d/6CNmS0cE8YyW9ng5q0=
+Message-ID: <9614ad42-2188-4013-9aef-a2b9af60002d@apertussolutions.com>
+Date: Fri, 25 Apr 2025 18:16:13 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 32/38] x86/hyperlaunch: introduce concept of core domains
+Subject: Re: [RFC 33/38] x86/boot: refactor bzimage parser to be re-enterant
 Content-Language: en-US
 To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
 Cc: stefano.stabellini@amd.com, agarciav@amd.com,
  Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <20250419220820.4234-1-dpsmith@apertussolutions.com>
- <20250419220820.4234-33-dpsmith@apertussolutions.com>
- <bb2aa95a-797c-4d33-86eb-28acfaef743c@amd.com>
+ <20250419220820.4234-34-dpsmith@apertussolutions.com>
+ <bba25fca-171a-47dd-881b-4746d76bd16a@amd.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -102,68 +102,107 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <bb2aa95a-797c-4d33-86eb-28acfaef743c@amd.com>
+In-Reply-To: <bba25fca-171a-47dd-881b-4746d76bd16a@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-On 4/23/25 15:50, Jason Andryuk wrote:
+On 4/23/25 15:27, Jason Andryuk wrote:
 > On 2025-04-19 18:08, Daniel P. Smith wrote:
->> When constructing domU, and specifically the event channels for their 
->> console
->> and xenstore event channels, the domid for the backing domain must be 
->> known.
->> Therefore, the control, hardware, and xenstore domains are deemed as core
->> domains, and must be constructed before any of the other domains.
+>> The bzimage logic uses the unit global orig_image_len to hold the 
+>> original
+>> module length for the kernel when the headroom is calculated. It then 
+>> uses
+>> orig_image_len to locate the start of the bzimage when the expansion 
+>> is done.
+>> This is an issue when more than one bzimage is processed by the headroom
+>> calculation logic, as it will leave orig_image_len set to the length 
+>> of the
+>> last bzimage it processed.
 >>
->> This commit introduces the build_core_domains() function that will 
->> ensure the
->> core domains are constructed first.
+>> The boot module work introduced storing the headroom size on a per module
+>> basis. By passing in the headroom from the boot module, orig_image_len 
+>> is no
+>> longer needed to locate the beginning of the bzimage after the allocated
+>> headroom. The bzimage functions are reworked as such, allowing the 
+>> removal of
+>> orig_image_len and enabling them to be reused by multiple kernel boot 
+>> modules.
 >>
 >> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 >> ---
->>   xen/arch/x86/domain-builder/core.c     | 68 ++++++++++++++++++++++++--
->>   xen/arch/x86/include/asm/boot-domain.h |  2 +
->>   2 files changed, 66 insertions(+), 4 deletions(-)
+>>   xen/arch/x86/bzimage.c             | 38 ++++++++++++++++++------------
+>>   xen/arch/x86/hvm/dom_build.c       |  3 ++-
+>>   xen/arch/x86/include/asm/bzimage.h |  5 ++--
+>>   xen/arch/x86/pv/dom0_build.c       |  3 ++-
+>>   4 files changed, 30 insertions(+), 19 deletions(-)
 >>
->> diff --git a/xen/arch/x86/domain-builder/core.c b/xen/arch/x86/domain- 
->> builder/core.c
->> index 901efce62a61..f693aa46d278 100644
->> --- a/xen/arch/x86/domain-builder/core.c
->> +++ b/xen/arch/x86/domain-builder/core.c
->> @@ -103,18 +103,78 @@ void __init builder_init(struct boot_info *bi)
->>       }
+>> diff --git a/xen/arch/x86/bzimage.c b/xen/arch/x86/bzimage.c
+>> index 66f648f311e4..32f0360d25b4 100644
+> 
+>> @@ -103,13 +100,20 @@ unsigned long __init bzimage_headroom(void 
+>> *image_start,
+>>       return headroom;
 >>   }
->> +static int  __init build_core_domains(struct boot_info *bi)
->> +{
->> +    int count = 0;
->> +    struct boot_domain *bd;
->> +    int hw, cd, xs;
+>> -int __init bzimage_parse(void *image_base, void **image_start,
+>> -                         unsigned long *image_len)
+>> +int __init bzimage_parse(
+>> +    void *image_base, void **image_start, unsigned long headroom,
+>> +    unsigned long *image_len)
+>>   {
+>>       struct setup_header *hdr = (struct setup_header *)(*image_start);
+>>       int err = bzimage_check(hdr, *image_len);
+>> -    unsigned long output_len;
+>> -
+>> +    unsigned long module_len = *image_len;
 >> +
->> +    cd = first_boot_domain_index(bi, BUILD_CAPS_CONTROL);
+>> +    /*
+>> +     * Variable err will have one of three values:
+>> +     *   -  < 0: a error occurred trying to inspect the contents
+>> +     *   -  > 0: the image is a bzImage
+>> +     *   - == 0: not a bzImage, could be raw elf or elf.gz (vmlinuz.gz)
+>> +     */
 > 
->> +    hw = first_boot_domain_index(bi, BUILD_CAPS_HARDWARE);
+> This comment seems a little independent of this change, so maybe it 
+> should be submitted separately.  Also, I think a better placement would 
+> be next to bzimage_check().
 > 
->> +    xs = first_boot_domain_index(bi, BUILD_CAPS_XENSTORE);
+>>       if ( err < 0 )
+>>           return err;
+>> @@ -118,21 +122,25 @@ int __init bzimage_parse(void *image_base, void 
+>> **image_start,
+>>           *image_start += (hdr->setup_sects + 1) * 512 + hdr- 
+>> >payload_offset;
+>>           *image_len = hdr->payload_length;
 > 
-> This order has issues if you actually have disaggregated domains.
+> @here
 > 
-> Control and Hardware depend on Xenstore for Xenstore.
+>>       }
+>> -
+>> -    if ( elf_is_elfbinary(*image_start, *image_len) )
+>> -        return 0;
+>> +    else
+>> +    {
+>> +        if ( elf_is_elfbinary(*image_start, *image_len) )
+>> +            return 0;
+>> +        else
+>> +            *image_len = *image_len - headroom;
+>> +    }
 > 
-> Control and Xenstore depend on Hardware for console support.
+> I don't like this extra indention which includes the return.  If you 
+> retain orig_image_len as a local variable, and set it above at "@here", 
+> you can have a smaller diff and leave cleaner logic.
 > 
-> I re-worked the xenstore allocation to run after domain creation.  I've 
-> upstreamed that for dom0less (and ARM doesn't have to deal with consoles).
+> orig_image_len previously was set as a static variable, so the correct
+> value was set after bzimage_headroom.  Now that it is no longer static,
+> we need to grab the hdr->payload_length value when we have a bzImage.
+> Otherwise output_length will read past the end of the module.
 > 
-> So if xenstore allocation is moved later, Hardware, Xenstore, then 
-> Control works.  But xenstore and console could both be handled after the 
-> fact and then the construction order doesn't matter.  The backend domid 
-> is needed to construct the event channel and grant entry.  With assigned 
-> domids, alloc_store_evtchn()/alloc_console_evtchn() can operate on the 
-> domids instead of expecting the domain to have been constructed.
+> Below is the diff for bzimage.c with the change I suggest.
+> 
 
-Actually, there is a larger issue here and this is going to be reworked.
+I will review it again when as I rebase it.
 
-V/r,
+v/r,
 dps
 
