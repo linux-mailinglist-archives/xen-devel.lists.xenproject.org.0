@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39261A9C7B3
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 13:33:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.967754.1357479 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EA7EA9C7B5
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 13:35:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.967764.1357489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8HJQ-00063G-O3; Fri, 25 Apr 2025 11:33:44 +0000
+	id 1u8HKY-0006dg-3S; Fri, 25 Apr 2025 11:34:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 967754.1357479; Fri, 25 Apr 2025 11:33:44 +0000
+Received: by outflank-mailman (output) from mailman id 967764.1357489; Fri, 25 Apr 2025 11:34:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8HJQ-00060J-Kd; Fri, 25 Apr 2025 11:33:44 +0000
-Received: by outflank-mailman (input) for mailman id 967754;
- Fri, 25 Apr 2025 11:33:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u8HKY-0006bZ-0r; Fri, 25 Apr 2025 11:34:54 +0000
+Received: by outflank-mailman (input) for mailman id 967764;
+ Fri, 25 Apr 2025 11:34:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=snHQ=XL=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u8HJP-00060B-Li
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 11:33:43 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 23ccafed-21c9-11f0-9eb3-5ba50f476ded;
- Fri, 25 Apr 2025 13:33:42 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5f728aeedacso759534a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 25 Apr 2025 04:33:42 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f7011fbfb2sm1159402a12.3.2025.04.25.04.33.40
+ <SRS0=6c45=XL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u8HKW-0006bT-8x
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 11:34:52 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c06082c-21c9-11f0-9ffb-bf95429c2676;
+ Fri, 25 Apr 2025 13:34:49 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43d0359b1fcso14426865e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Apr 2025 04:34:50 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-440a0692a22sm41515115e9.2.2025.04.25.04.34.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Apr 2025 04:33:41 -0700 (PDT)
+ Fri, 25 Apr 2025 04:34:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,513 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23ccafed-21c9-11f0-9eb3-5ba50f476ded
+X-Inumbo-ID: 4c06082c-21c9-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1745580822; x=1746185622; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9lLm29aqWt0rWLPledrWyLIqIdL9SmfRnysXh5mS0LM=;
-        b=hScnNWqjoxKwPSe15VcB34GBpOC6YJhyzFbzbWXnWi8x78225AdN+Tm6PApr0m9LBN
-         IVv8sLYHWa87Zr/8qwFgNcNOy3/kBIvpnaZysN0GMo/wcRtq7VbFzMAMcVYaHL1Clq3J
-         8d2y6Dc32xmglSLUxiefNGyT3mFyMenVE6GOZgVQiNv6e/DGOzz47PGfNz7CuDDIcdMl
-         qYJ/4fwDLtkjuAlA0JP2wY7Yw5ERoBwj6Hkg7EJleFjQJ4jGQLRffgJOMVI9jSeHpT6d
-         C1dA3YGrcjgbxn+pNQ4eEcSbx7XFyerLhjXKu2LmuI9ZS+FGgFRBfc4HNFQKp6J/WjNj
-         hFPg==
+        d=citrix.com; s=google; t=1745580890; x=1746185690; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3YnxlXY+Xui4B0XEZ2ZjL2k0jYlZEV0bUPMTA5Og2jc=;
+        b=mmQA51leY7VmaG6sDbPqJeSY2EMUy+0aF9NeRo51gDDpncPDDhFLue0pG4xsDcifmP
+         84t2HBASbTNnnnLZoyO0lsARD5B0taqTWy3Ic2ILfrOk3k4ZCQUXHFjxH6idSMfP1na+
+         +jDZm39bYBkpwvDfrShRVd3KJp64ZLBHm6fjE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745580822; x=1746185622;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=9lLm29aqWt0rWLPledrWyLIqIdL9SmfRnysXh5mS0LM=;
-        b=GbQmjkazm00V9exYt9wYW8Kqw7CJ+7/qWrHuR6gGw/TM1arh1+7GeO06rTsf62Pn9Z
-         qvfLpIb3zf+qkcPyli45fFuShkH4IptyeICB3TGtVt9aVr7F46tTfgRnJEvfn8wY6gHj
-         hKQuY+CIRs1judC05tloCv+O0fleqz5z6pDj6OBzeGhGdCkVnOne69NLduMtoax17WoY
-         hn1CuxUP/Uou6IIaxEdVQSSOH4+mt8D+h67PImYNlyyIa29OtezAR4KvxcBDpsJbMijd
-         PV6w5eYz1NAtN2CuqE6HrO2GrwlCvAERpppGsNwKfJNq7aUKUNq5KHLyMolfcQWK9qTf
-         FUXg==
-X-Forwarded-Encrypted: i=1; AJvYcCUDX2vl3ssHDnsnv88rGJAKh6d4jPdDF/HT11k1v7MtgIfsA5fviowdCEJ+EN+stNgFgkpjHweR71E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyGrlXOhjSBHLVusjKjorscmKYWncnAzRjUNFWZ8MBuh8xGO2+e
-	+wxRVfsc/XMlnlqptFhfOfCc8djgwJlxFUC2Jxszany9Jn/8fZHx
-X-Gm-Gg: ASbGnctR2vxJvWapZhCDkwsxNt3A0/fEctQWp7Yt4OupGbosjgZfXcg3+qThJNvB7wS
-	ZnvMFFlradVmp+dMmcP1eedP60WEUh/XUzKrShxPdDDIDCREugUYMOhmxP9F0JQJjp/YNZuAP9p
-	hSg0G9OjnZE85aQeTiYGNClnbhuyL+FDlqEbqEmQK9yS7XJjeoYgPOpqNIKq/5NH14qTAK14MRd
-	Lr5tZ94ZYqkCk/RbbRiHOwPWMTdsYuDr+n0xJ5Qnn7RhGvZxrQRoZF6J2z/P56QN7HJU4CfK3ig
-	0OoU/JSxQiJHiwMh72HoqOxv/Ns8SL50o5jDPwSsr3K1VS6Q2Xpacukis1URl2QVMSsSXEL2qvA
-	sbmdP8IPwf65SwnKp
-X-Google-Smtp-Source: AGHT+IFRFg34y/gA5gkIRukpwnkZSkPsgTj+556Vz9IEGGH4kjvQ43UVh3ViDBeeW9rVUR8qZ3qbAA==
-X-Received: by 2002:a05:6402:5009:b0:5dc:7643:4f3d with SMTP id 4fb4d7f45d1cf-5f722577ec8mr1259665a12.1.1745580821461;
-        Fri, 25 Apr 2025 04:33:41 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------Zgr0ogap5EvgzVoR73L0BTzY"
-Message-ID: <123a6576-c56c-40f5-b87d-c84248d46fac@gmail.com>
-Date: Fri, 25 Apr 2025 13:33:40 +0200
+        d=1e100.net; s=20230601; t=1745580890; x=1746185690;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3YnxlXY+Xui4B0XEZ2ZjL2k0jYlZEV0bUPMTA5Og2jc=;
+        b=o3RSpFTk49oNJMFjaUeXrcEstedP6mjyRTUsnbEBxEnGTnYfPOz/PeTSVTwtNWEiLV
+         zVSGve3qwTFE1wELzjRwTs4DGoU8v+4ojv4oXikh1fhJz7Gtov7CYQYXqJyZqETQ0tS0
+         5aqKKPg+z30HAY3uEFw2QsxagANzCan0nt7Y3/2NRd/W62qUzaS/iSkfZuKQQnTeBokO
+         5yVLtQjS5mmGJh6XFLYR5yQlI4liLD4I9dpcU4YpzG+unCr9naVEFd6ExciHGZKwf9jB
+         J0L7x1UdoVcmy4agt3BZ4P4BKEAXmS0sA+tRCKmgNw9NDI585RSwba83p0j0LLs847TI
+         +Xvg==
+X-Forwarded-Encrypted: i=1; AJvYcCWnFE3hxr0ggSQ9XQalhh7qXH6G5vDViOpD2Fl9YiXbDMadUSWRSGSv8wLviHskSYGAuRjvobH8XL4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzlFCTcCiQPaGpUlRpTzIpqdf4ZWJmEA7KD8mAmah9yigncXbdO
+	HNKIyKEITSCmNRsqSUJobwsuqa1QsNRiVScyXdAEt6kDlsrCf+Bt9WCtf9MeLic=
+X-Gm-Gg: ASbGncttZEEngBqdwH5FMtHqv/Bb2+D5qfDLsZH4gWQTMHqWPi2YxbIwyEqq+hg7Cbe
+	diQ9kYAHY/w6KNR1VzcYDWx5Ru6FUc3HQhfZzxzgUj/X+Sq9xsmpNkQkc/lgJnpubrfDUInLe9/
+	IGfA7bOsBoZ3AleOX68CRV9yXT6kLDxWdKR4jO+NC+dPZZsj8DzHikjgpuTbbdV2Zec3gE+l6OV
+	DerD5dDk6YfMIPWbrHD0lZOSLIsdzxecqOMzXSCB5pd24pGxltcfBpJBNRbN8Qri43udMXbBmND
+	Ogh0g8X/yCpoRyDXlpJkpTXl9aNvsIRvHofmyYlAJ8ncmgLMR5s2xgsDhp2M0bMCPAkFgyhAV1c
+	Mg0Fd9w==
+X-Google-Smtp-Source: AGHT+IGdOImIl8KhFDSVFLRKK2DFbSbAjTOkK7OneR5lUYdyCzgDyvttsHs5HhSL8GfjmQjMdBTu2A==
+X-Received: by 2002:a05:600c:4f52:b0:43b:c857:e9d7 with SMTP id 5b1f17b1804b1-440a65cf326mr15546705e9.5.1745580889541;
+        Fri, 25 Apr 2025 04:34:49 -0700 (PDT)
+Message-ID: <46d6243f-89c8-4ab8-aeac-6f9ed69d5f61@citrix.com>
+Date: Fri, 25 Apr 2025 12:34:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] xen/mm: Switch some APIs over to pte_attr_t
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Shawn Anastasio <sanastasio@raptorengineering.com>,
- Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <20250425112415.245585-1-andrew.cooper3@citrix.com>
- <20250425112415.245585-3-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20250425112415.245585-3-andrew.cooper3@citrix.com>
-
-This is a multi-part message in MIME format.
---------------Zgr0ogap5EvgzVoR73L0BTzY
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v2] xen: fix buffer over-read in bitmap_to_xenctl_bitmap()
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250425113227.10243-1-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250425113227.10243-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-On 4/25/25 1:24 PM, Andrew Cooper wrote:
-> From: Shawn Anastasio<sanastasio@raptorengineering.com>
+On 25/04/2025 12:32 pm, Roger Pau Monne wrote:
+> There's an off-by-one when calculating the last byte in the input array to
+> bitmap_to_xenctl_bitmap(), which leads to bitmaps with sizes multiple of 8
+> to over-read and incorrectly use a byte past the end of the array.
 >
-> Several APIs take an architecture-dependent set of flags in an unsigned int,
-> but this needs to be a wider type to support PPC.
->
-> The new type pte_attr_t has been introduced for this purpose, so switch to it
-> in map_pages_to_xen(), __vmap() and modify_xen_mappings{,_lite}().
->
-> No functional change.
->
-> Suggested-by: Andrew Cooper<andrew.cooper3@citrix.com>
-> Signed-off-by: Shawn Anastasio<sanastasio@raptorengineering.com>
-> Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
-> Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-> ---
-> CC: Jan Beulich<JBeulich@suse.com>
-> CC: Roger Pau Monné<roger.pau@citrix.com>
-> CC: Stefano Stabellini<sstabellini@kernel.org>
-> CC: Julien Grall<julien@xen.org>
-> CC: Volodymyr Babchuk<Volodymyr_Babchuk@epam.com>
-> CC: Bertrand Marquis<bertrand.marquis@arm.com>
-> CC: Michal Orzel<michal.orzel@amd.com>
-> CC: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-> CC: Shawn Anastasio<sanastasio@raptorengineering.com>
-> ---
->   xen/arch/arm/mmu/pt.c   | 4 ++--
->   xen/arch/ppc/mm-radix.c | 2 +-
->   xen/arch/riscv/pt.c     | 2 +-
+> Fixes: 288c4641c80d ('xen: simplify bitmap_to_xenctl_bitmap for little endian')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-As I wrote here, probably, as a part of this patch we also wants to do the following changes:
-   https://lore.kernel.org/xen-devel/192683d3-8777-45c2-b8a8-546bf171a7aa@gmail.com/T/#u
-
-I'm okay with sending the mentioned changes in the link as a separate patch when I will introduce
-Svpmbt extension which uses 61 and 62 bits. Let me know if you are okay with that?
-
-If you think that these changes should be part of this patch then something similar for Arm should
-be done too now.
-
-~ Oleksii
-
->   xen/arch/x86/mm.c       | 6 +++---
->   xen/common/efi/boot.c   | 4 ++--
->   xen/common/vmap.c       | 2 +-
->   xen/include/xen/mm.h    | 7 ++++---
->   xen/include/xen/vmap.h  | 3 ++-
->   8 files changed, 16 insertions(+), 14 deletions(-)
->
-> diff --git a/xen/arch/arm/mmu/pt.c b/xen/arch/arm/mmu/pt.c
-> index 11cb1c66dac8..4726e713efd3 100644
-> --- a/xen/arch/arm/mmu/pt.c
-> +++ b/xen/arch/arm/mmu/pt.c
-> @@ -696,7 +696,7 @@ static int xen_pt_update(unsigned long virt,
->   int map_pages_to_xen(unsigned long virt,
->                        mfn_t mfn,
->                        unsigned long nr_mfns,
-> -                     unsigned int flags)
-> +                     pte_attr_t flags)
->   {
->       return xen_pt_update(virt, mfn, nr_mfns, flags);
->   }
-> @@ -714,7 +714,7 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
->       return xen_pt_update(s, INVALID_MFN, (e - s) >> PAGE_SHIFT, 0);
->   }
->   
-> -int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-> +int modify_xen_mappings(unsigned long s, unsigned long e, pte_attr_t nf)
->   {
->       ASSERT(IS_ALIGNED(s, PAGE_SIZE));
->       ASSERT(IS_ALIGNED(e, PAGE_SIZE));
-> diff --git a/xen/arch/ppc/mm-radix.c b/xen/arch/ppc/mm-radix.c
-> index 9a00ae416af0..d5385ec9dd4b 100644
-> --- a/xen/arch/ppc/mm-radix.c
-> +++ b/xen/arch/ppc/mm-radix.c
-> @@ -265,7 +265,7 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
->   int map_pages_to_xen(unsigned long virt,
->                        mfn_t mfn,
->                        unsigned long nr_mfns,
-> -                     unsigned int flags)
-> +                     pte_attr_t flags)
->   {
->       BUG_ON("unimplemented");
->   }
-> diff --git a/xen/arch/riscv/pt.c b/xen/arch/riscv/pt.c
-> index 857619d48df1..918b1b91abde 100644
-> --- a/xen/arch/riscv/pt.c
-> +++ b/xen/arch/riscv/pt.c
-> @@ -504,7 +504,7 @@ static int pt_update(vaddr_t virt, mfn_t mfn,
->   int map_pages_to_xen(unsigned long virt,
->                        mfn_t mfn,
->                        unsigned long nr_mfns,
-> -                     unsigned int flags)
-> +                     pte_attr_t flags)
->   {
->       /*
->        * Ensure that flags has PTE_VALID bit as map_pages_to_xen() is supposed
-> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> index 1cf236516789..0e6c766be4aa 100644
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -5442,7 +5442,7 @@ int map_pages_to_xen(
->       unsigned long virt,
->       mfn_t mfn,
->       unsigned long nr_mfns,
-> -    unsigned int flags)
-> +    pte_attr_t flags)
->   {
->       bool locking = system_state > SYS_STATE_boot;
->       l3_pgentry_t *pl3e = NULL, ol3e;
-> @@ -5860,7 +5860,7 @@ int __init populate_pt_range(unsigned long virt, unsigned long nr_mfns)
->    *
->    * It is an error to call with present flags over an unpopulated range.
->    */
-> -int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-> +int modify_xen_mappings(unsigned long s, unsigned long e, pte_attr_t nf)
->   {
->       bool locking = system_state > SYS_STATE_boot;
->       l3_pgentry_t *pl3e = NULL;
-> @@ -6156,7 +6156,7 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
->    * the non-inclusive boundary will be updated.
->    */
->   void init_or_livepatch modify_xen_mappings_lite(
-> -    unsigned long s, unsigned long e, unsigned int nf)
-> +    unsigned long s, unsigned long e, pte_attr_t nf)
->   {
->       unsigned long v = s, fm, flags;
->   
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index 143b5681ba92..e39fbc3529c4 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -1676,7 +1676,7 @@ void __init efi_init_memory(void)
->       struct rt_extra {
->           struct rt_extra *next;
->           unsigned long smfn, emfn;
-> -        unsigned int prot;
-> +        pte_attr_t prot;
->       } *extra, *extra_head = NULL;
->   
->       free_ebmalloc_unused_mem();
-> @@ -1691,7 +1691,7 @@ void __init efi_init_memory(void)
->           EFI_MEMORY_DESCRIPTOR *desc = efi_memmap + i;
->           u64 len = desc->NumberOfPages << EFI_PAGE_SHIFT;
->           unsigned long smfn, emfn;
-> -        unsigned int prot = PAGE_HYPERVISOR_RWX;
-> +        pte_attr_t prot = PAGE_HYPERVISOR_RWX;
->           paddr_t mem_base;
->           unsigned long mem_npages;
->   
-> diff --git a/xen/common/vmap.c b/xen/common/vmap.c
-> index 47225fecc067..d6991421f3f7 100644
-> --- a/xen/common/vmap.c
-> +++ b/xen/common/vmap.c
-> @@ -222,7 +222,7 @@ static void vm_free(const void *va)
->   }
->   
->   void *__vmap(const mfn_t *mfn, unsigned int granularity,
-> -             unsigned int nr, unsigned int align, unsigned int flags,
-> +             unsigned int nr, unsigned int align, pte_attr_t flags,
->                enum vmap_region type)
->   {
->       void *va = vm_alloc(nr * granularity, align, type);
-> diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> index ae1c48a61545..e89942b87d1e 100644
-> --- a/xen/include/xen/mm.h
-> +++ b/xen/include/xen/mm.h
-> @@ -64,6 +64,7 @@
->   #include <xen/bug.h>
->   #include <xen/compiler.h>
->   #include <xen/mm-frame.h>
-> +#include <xen/mm-types.h>
->   #include <xen/types.h>
->   #include <xen/list.h>
->   #include <xen/spinlock.h>
-> @@ -113,11 +114,11 @@ int map_pages_to_xen(
->       unsigned long virt,
->       mfn_t mfn,
->       unsigned long nr_mfns,
-> -    unsigned int flags);
-> +    pte_attr_t flags);
->   /* Alter the permissions of a range of Xen virtual address space. */
-> -int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf);
-> +int modify_xen_mappings(unsigned long s, unsigned long e, pte_attr_t nf);
->   void modify_xen_mappings_lite(unsigned long s, unsigned long e,
-> -                              unsigned int nf);
-> +                              pte_attr_t nf);
->   int destroy_xen_mappings(unsigned long s, unsigned long e);
->   /* Retrieve the MFN mapped by VA in Xen virtual address space. */
->   mfn_t xen_map_to_mfn(unsigned long va);
-> diff --git a/xen/include/xen/vmap.h b/xen/include/xen/vmap.h
-> index 26c831757a11..327a2597826d 100644
-> --- a/xen/include/xen/vmap.h
-> +++ b/xen/include/xen/vmap.h
-> @@ -9,6 +9,7 @@
->   #define __XEN_VMAP_H__
->   
->   #include <xen/mm-frame.h>
-> +#include <xen/mm-types.h>
->   #include <xen/page-size.h>
->   
->   /* Identifiers for the linear ranges tracked by vmap */
-> @@ -57,7 +58,7 @@ void vm_init_type(enum vmap_region type, void *start, void *end);
->    * @return Pointer to the mapped area on success; NULL otherwise.
->    */
->   void *__vmap(const mfn_t *mfn, unsigned int granularity, unsigned int nr,
-> -             unsigned int align, unsigned int flags, enum vmap_region type);
-> +             unsigned int align, pte_attr_t flags, enum vmap_region type);
->   
->   /*
->    * Map an array of pages contiguously into the VMAP_DEFAULT vmap region
---------------Zgr0ogap5EvgzVoR73L0BTzY
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/25/25 1:24 PM, Andrew Cooper
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20250425112415.245585-3-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">From: Shawn Anastasio <a class="moz-txt-link-rfc2396E" href="mailto:sanastasio@raptorengineering.com">&lt;sanastasio@raptorengineering.com&gt;</a>
-
-Several APIs take an architecture-dependent set of flags in an unsigned int,
-but this needs to be a wider type to support PPC.
-
-The new type pte_attr_t has been introduced for this purpose, so switch to it
-in map_pages_to_xen(), __vmap() and modify_xen_mappings{,_lite}().
-
-No functional change.
-
-Suggested-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
-Signed-off-by: Shawn Anastasio <a class="moz-txt-link-rfc2396E" href="mailto:sanastasio@raptorengineering.com">&lt;sanastasio@raptorengineering.com&gt;</a>
-Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
-Reviewed-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
----
-CC: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:JBeulich@suse.com">&lt;JBeulich@suse.com&gt;</a>
-CC: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
-CC: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a>
-CC: Julien Grall <a class="moz-txt-link-rfc2396E" href="mailto:julien@xen.org">&lt;julien@xen.org&gt;</a>
-CC: Volodymyr Babchuk <a class="moz-txt-link-rfc2396E" href="mailto:Volodymyr_Babchuk@epam.com">&lt;Volodymyr_Babchuk@epam.com&gt;</a>
-CC: Bertrand Marquis <a class="moz-txt-link-rfc2396E" href="mailto:bertrand.marquis@arm.com">&lt;bertrand.marquis@arm.com&gt;</a>
-CC: Michal Orzel <a class="moz-txt-link-rfc2396E" href="mailto:michal.orzel@amd.com">&lt;michal.orzel@amd.com&gt;</a>
-CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-CC: Shawn Anastasio <a class="moz-txt-link-rfc2396E" href="mailto:sanastasio@raptorengineering.com">&lt;sanastasio@raptorengineering.com&gt;</a>
----
- xen/arch/arm/mmu/pt.c   | 4 ++--
- xen/arch/ppc/mm-radix.c | 2 +-
- xen/arch/riscv/pt.c     | 2 +-</pre>
-    </blockquote>
-    <pre>As I wrote here, probably, as a part of this patch we also wants to do the following changes:
-  <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/192683d3-8777-45c2-b8a8-546bf171a7aa@gmail.com/T/#u">https://lore.kernel.org/xen-devel/192683d3-8777-45c2-b8a8-546bf171a7aa@gmail.com/T/#u</a>
-
-I'm okay with sending the mentioned changes in the link as a separate patch when I will introduce
-Svpmbt extension which uses 61 and 62 bits. Let me know if you are okay with that?
-
-If you think that these changes should be part of this patch then something similar for Arm should
-be done too now.
-
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:20250425112415.245585-3-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
- xen/arch/x86/mm.c       | 6 +++---
- xen/common/efi/boot.c   | 4 ++--
- xen/common/vmap.c       | 2 +-
- xen/include/xen/mm.h    | 7 ++++---
- xen/include/xen/vmap.h  | 3 ++-
- 8 files changed, 16 insertions(+), 14 deletions(-)
-
-diff --git a/xen/arch/arm/mmu/pt.c b/xen/arch/arm/mmu/pt.c
-index 11cb1c66dac8..4726e713efd3 100644
---- a/xen/arch/arm/mmu/pt.c
-+++ b/xen/arch/arm/mmu/pt.c
-@@ -696,7 +696,7 @@ static int xen_pt_update(unsigned long virt,
- int map_pages_to_xen(unsigned long virt,
-                      mfn_t mfn,
-                      unsigned long nr_mfns,
--                     unsigned int flags)
-+                     pte_attr_t flags)
- {
-     return xen_pt_update(virt, mfn, nr_mfns, flags);
- }
-@@ -714,7 +714,7 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
-     return xen_pt_update(s, INVALID_MFN, (e - s) &gt;&gt; PAGE_SHIFT, 0);
- }
- 
--int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-+int modify_xen_mappings(unsigned long s, unsigned long e, pte_attr_t nf)
- {
-     ASSERT(IS_ALIGNED(s, PAGE_SIZE));
-     ASSERT(IS_ALIGNED(e, PAGE_SIZE));
-diff --git a/xen/arch/ppc/mm-radix.c b/xen/arch/ppc/mm-radix.c
-index 9a00ae416af0..d5385ec9dd4b 100644
---- a/xen/arch/ppc/mm-radix.c
-+++ b/xen/arch/ppc/mm-radix.c
-@@ -265,7 +265,7 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
- int map_pages_to_xen(unsigned long virt,
-                      mfn_t mfn,
-                      unsigned long nr_mfns,
--                     unsigned int flags)
-+                     pte_attr_t flags)
- {
-     BUG_ON("unimplemented");
- }
-diff --git a/xen/arch/riscv/pt.c b/xen/arch/riscv/pt.c
-index 857619d48df1..918b1b91abde 100644
---- a/xen/arch/riscv/pt.c
-+++ b/xen/arch/riscv/pt.c
-@@ -504,7 +504,7 @@ static int pt_update(vaddr_t virt, mfn_t mfn,
- int map_pages_to_xen(unsigned long virt,
-                      mfn_t mfn,
-                      unsigned long nr_mfns,
--                     unsigned int flags)
-+                     pte_attr_t flags)
- {
-     /*
-      * Ensure that flags has PTE_VALID bit as map_pages_to_xen() is supposed
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 1cf236516789..0e6c766be4aa 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -5442,7 +5442,7 @@ int map_pages_to_xen(
-     unsigned long virt,
-     mfn_t mfn,
-     unsigned long nr_mfns,
--    unsigned int flags)
-+    pte_attr_t flags)
- {
-     bool locking = system_state &gt; SYS_STATE_boot;
-     l3_pgentry_t *pl3e = NULL, ol3e;
-@@ -5860,7 +5860,7 @@ int __init populate_pt_range(unsigned long virt, unsigned long nr_mfns)
-  *
-  * It is an error to call with present flags over an unpopulated range.
-  */
--int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-+int modify_xen_mappings(unsigned long s, unsigned long e, pte_attr_t nf)
- {
-     bool locking = system_state &gt; SYS_STATE_boot;
-     l3_pgentry_t *pl3e = NULL;
-@@ -6156,7 +6156,7 @@ int destroy_xen_mappings(unsigned long s, unsigned long e)
-  * the non-inclusive boundary will be updated.
-  */
- void init_or_livepatch modify_xen_mappings_lite(
--    unsigned long s, unsigned long e, unsigned int nf)
-+    unsigned long s, unsigned long e, pte_attr_t nf)
- {
-     unsigned long v = s, fm, flags;
- 
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 143b5681ba92..e39fbc3529c4 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -1676,7 +1676,7 @@ void __init efi_init_memory(void)
-     struct rt_extra {
-         struct rt_extra *next;
-         unsigned long smfn, emfn;
--        unsigned int prot;
-+        pte_attr_t prot;
-     } *extra, *extra_head = NULL;
- 
-     free_ebmalloc_unused_mem();
-@@ -1691,7 +1691,7 @@ void __init efi_init_memory(void)
-         EFI_MEMORY_DESCRIPTOR *desc = efi_memmap + i;
-         u64 len = desc-&gt;NumberOfPages &lt;&lt; EFI_PAGE_SHIFT;
-         unsigned long smfn, emfn;
--        unsigned int prot = PAGE_HYPERVISOR_RWX;
-+        pte_attr_t prot = PAGE_HYPERVISOR_RWX;
-         paddr_t mem_base;
-         unsigned long mem_npages;
- 
-diff --git a/xen/common/vmap.c b/xen/common/vmap.c
-index 47225fecc067..d6991421f3f7 100644
---- a/xen/common/vmap.c
-+++ b/xen/common/vmap.c
-@@ -222,7 +222,7 @@ static void vm_free(const void *va)
- }
- 
- void *__vmap(const mfn_t *mfn, unsigned int granularity,
--             unsigned int nr, unsigned int align, unsigned int flags,
-+             unsigned int nr, unsigned int align, pte_attr_t flags,
-              enum vmap_region type)
- {
-     void *va = vm_alloc(nr * granularity, align, type);
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index ae1c48a61545..e89942b87d1e 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -64,6 +64,7 @@
- #include &lt;xen/bug.h&gt;
- #include &lt;xen/compiler.h&gt;
- #include &lt;xen/mm-frame.h&gt;
-+#include &lt;xen/mm-types.h&gt;
- #include &lt;xen/types.h&gt;
- #include &lt;xen/list.h&gt;
- #include &lt;xen/spinlock.h&gt;
-@@ -113,11 +114,11 @@ int map_pages_to_xen(
-     unsigned long virt,
-     mfn_t mfn,
-     unsigned long nr_mfns,
--    unsigned int flags);
-+    pte_attr_t flags);
- /* Alter the permissions of a range of Xen virtual address space. */
--int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf);
-+int modify_xen_mappings(unsigned long s, unsigned long e, pte_attr_t nf);
- void modify_xen_mappings_lite(unsigned long s, unsigned long e,
--                              unsigned int nf);
-+                              pte_attr_t nf);
- int destroy_xen_mappings(unsigned long s, unsigned long e);
- /* Retrieve the MFN mapped by VA in Xen virtual address space. */
- mfn_t xen_map_to_mfn(unsigned long va);
-diff --git a/xen/include/xen/vmap.h b/xen/include/xen/vmap.h
-index 26c831757a11..327a2597826d 100644
---- a/xen/include/xen/vmap.h
-+++ b/xen/include/xen/vmap.h
-@@ -9,6 +9,7 @@
- #define __XEN_VMAP_H__
- 
- #include &lt;xen/mm-frame.h&gt;
-+#include &lt;xen/mm-types.h&gt;
- #include &lt;xen/page-size.h&gt;
- 
- /* Identifiers for the linear ranges tracked by vmap */
-@@ -57,7 +58,7 @@ void vm_init_type(enum vmap_region type, void *start, void *end);
-  * @return Pointer to the mapped area on success; NULL otherwise.
-  */
- void *__vmap(const mfn_t *mfn, unsigned int granularity, unsigned int nr,
--             unsigned int align, unsigned int flags, enum vmap_region type);
-+             unsigned int align, pte_attr_t flags, enum vmap_region type);
- 
- /*
-  * Map an array of pages contiguously into the VMAP_DEFAULT vmap region
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------Zgr0ogap5EvgzVoR73L0BTzY--
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
