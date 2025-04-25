@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3603A9CFA7
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 19:33:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.968432.1358030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99090A9D154
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Apr 2025 21:17:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.968467.1358041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8MvF-00011C-Su; Fri, 25 Apr 2025 17:33:09 +0000
+	id 1u8OXX-0007VG-9M; Fri, 25 Apr 2025 19:16:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 968432.1358030; Fri, 25 Apr 2025 17:33:09 +0000
+Received: by outflank-mailman (output) from mailman id 968467.1358041; Fri, 25 Apr 2025 19:16:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8MvF-0000yl-Py; Fri, 25 Apr 2025 17:33:09 +0000
-Received: by outflank-mailman (input) for mailman id 968432;
- Fri, 25 Apr 2025 17:33:08 +0000
+	id 1u8OXX-0007S8-55; Fri, 25 Apr 2025 19:16:47 +0000
+Received: by outflank-mailman (input) for mailman id 968467;
+ Fri, 25 Apr 2025 19:16:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dzCY=XL=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1u8MvD-0000yf-Uo
- for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 17:33:07 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20602.outbound.protection.outlook.com
- [2a01:111:f403:2415::602])
+ <SRS0=6c45=XL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u8OXW-0007S1-1F
+ for xen-devel@lists.xenproject.org; Fri, 25 Apr 2025 19:16:46 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 57c6433a-21fb-11f0-9ffb-bf95429c2676;
- Fri, 25 Apr 2025 19:33:05 +0200 (CEST)
-Received: from CH0PR07CA0004.namprd07.prod.outlook.com (2603:10b6:610:32::9)
- by SA3PR12MB9107.namprd12.prod.outlook.com (2603:10b6:806:381::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.27; Fri, 25 Apr
- 2025 17:32:59 +0000
-Received: from CH2PEPF00000147.namprd02.prod.outlook.com
- (2603:10b6:610:32:cafe::cd) by CH0PR07CA0004.outlook.office365.com
- (2603:10b6:610:32::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.37 via Frontend Transport; Fri,
- 25 Apr 2025 17:32:58 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH2PEPF00000147.mail.protection.outlook.com (10.167.244.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8655.12 via Frontend Transport; Fri, 25 Apr 2025 17:32:58 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 25 Apr
- 2025 12:32:32 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 25 Apr
- 2025 12:32:31 -0500
-Received: from [192.168.223.33] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 25 Apr 2025 12:32:31 -0500
+ id d1bae5f4-2209-11f0-9ffb-bf95429c2676;
+ Fri, 25 Apr 2025 21:16:42 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43cfa7e7f54so17618015e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Apr 2025 12:16:41 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4409d2e00d8sm64872665e9.35.2025.04.25.12.16.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 25 Apr 2025 12:16:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,113 +45,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57c6433a-21fb-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yGbakci1hw/Egy1sDgDa6noues6Q2IVPOL7BPHl+/qts9VFMq9862fwFeFaVNh734Y7F2el1mjwtagW6Tsjo9oTPlY/TIEeiGmD7MP2d8kMWYFxV6B4o7sJFhqbcX31GM2dURcM6SkEZK/UcrNX4XWOM9GfYLhAmP4nb+lrezNHkIcvFl56Ae7CJppsMdgug5CPxIZPLJmy2S7y4gr+yjB3Z0bH22f6sZ6SE952zk/lVU8ym92H8UKgKkMy9/sqinA6hSxbotROCNITazo9Ih9oWf0J75CDwqQ87aSvCCzfDcBjvuA6uDntCETyR1E90v94+kxCzHh8sZwq+P4/kqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eBlBCK9PLjRb8d98og+xLA73usRVW3jYMzlHqxm/rII=;
- b=Zmn8Sbcc5mh0MAxPQkdEibCpCKQxkM2fXKK7z7kMvIUqpbmf9e0wtgp3sVlC0r/K9/iMGnzB3KlDQg62MEG7KnHKeL3kSb7pQSSv93ucqaSvUvSDscVWKdANQ3a4gjhmIvGhBmWUO4UTzwFKbPto/MYbtG7zLUxPVxd1D/qt5IQoKwAFqErR3hdZu4xW0De2NB7kK88WedTA2Bw6nDiT3F+UsJrmo1KwJWKNoTXfQQSq024aRzyj+OWtQ9KD/XcplAkcNZiLUIKOOVW7OY2O2F2un2Zrjj274PFNbgb1ONbbu49BCje0L1uu0DJlFmJJclbUakgsCAGNaTUDZ0NHHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eBlBCK9PLjRb8d98og+xLA73usRVW3jYMzlHqxm/rII=;
- b=bwIjL//vp6RWMCYQ0AeHOcODgJ5ml1fZ2w4B1//KYEabu+weyWVbvw0VKfqq0PdDzMtbRawEV5oGoWg+ZoavsPhvrtHBho9ZKrWwuur5PxL/Ni5q+OmA91aVY3SSoo3ptlgell1R1whsmFViVrFHfNStbyiyeJqxedeMogIJdrE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <e1e679d7-6578-4f8b-b61c-71a34230a98c@amd.com>
-Date: Fri, 25 Apr 2025 13:32:31 -0400
+X-Inumbo-ID: d1bae5f4-2209-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1745608601; x=1746213401; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=7yCl7Nxk5kW0l0lZ1snvne7fNXsybkzRk/jJxxXvIrE=;
+        b=CC9uIEWnN9QF9B4Hq8GAHOBl4vR6MS7Elh4Tlf7OT5kIAnPrMeBjKPLrmRWZq8cbne
+         EZf/lneim0xYoXE1u+VvZ2LkykPJlmMNPaR0VOn6ViuLfIMvzHnKEwbBrKaMhU3g8ukp
+         oiFZGw5OeYRhQu85o78Ot4E5oQoS6ulDGrnsI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745608601; x=1746213401;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7yCl7Nxk5kW0l0lZ1snvne7fNXsybkzRk/jJxxXvIrE=;
+        b=bj/KYEFXPsNM1clYwBy6/jkgiZCLR/xL1ZQUFFp4ga3BdmBNgJJ0swUN6g76bPu7DL
+         aeUvcvVn+UEqpnfnpOA19fqkktMoTcQ+ugG0OS0QhXdqJP2WX+6lvtff8IInwMaclmsS
+         r2+crgBosN9kzDAjtmwMX1MC/Z+tjQF3Sc/SA007AoJMW6zSClWBWw5WU6OMr5DI4Yeq
+         k3FnsAiLCeN9CZ3EqYak7orzpF5STbdddeI3H2GNcbISfOPTKUi5ZLxAlTVm7JUG7zKH
+         b06wV4eGDk87JGRq5dgICRhuqa2nd4azPBSd5M6h1mJO1cQfU98z5Ho++Z1ddlGdjk4V
+         PWtw==
+X-Forwarded-Encrypted: i=1; AJvYcCXXYOyRCiwKaC0fjsOEplebdxikQ1B2Sbd0K2Uubd1Q6h4MPHUEfOt8vcT1vUzXPyOdHyFfEzIi5H0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxWaG7/o3FR4quW9KUyVPTcKxO/H0z2v1OY0t1JtJgjvc7BF/Oi
+	4PIuJZWdZ1/U0yFWiNq64E/If75diwwQIVuiDqxuoJAFMStkZS3fLpSt/YC+GBc=
+X-Gm-Gg: ASbGnct0tCzhlasXElgWqAnJOqm3aHaXPiuJ15XQi/JEQrAuvdMVpfOCWafQjlodGWR
+	E6fA5AN+53/3Hs8k1oX2VZDWyytsvtI/idI7Z6pRNaBq3ieL1FirHyvq/RfuOmKrAcLeyzJ2J6C
+	gWx1jYFGPzexJpfFoFysSg1y/4xMf7v/vTO20OB5wHnTJYp6HVTu+z0orwJl9irbUcGE5j3PCCz
+	+CEnfVxj7gi5HeRu2UK1rLUQQEZcVpAIucQUBdY/+pX4aEkSjH8ZQi2eEgqUQLxa6sAYfAGKGxz
+	YYt5AOgaBgz+UCbR2Lzj6S4WvqI9tJXCkxCGEJqBYFip1+pCNGOO+ZG+rP0p3QbiYQxNJXD/oHq
+	xslt0zA==
+X-Google-Smtp-Source: AGHT+IFl6xErE+Gz3Xytl5p8x5Qg/FbWKPXrmjM8yIfOfkwkEO6+4dEqj11qq5byorp3RVwQ7VWGfA==
+X-Received: by 2002:a05:600c:5108:b0:43d:b33:679c with SMTP id 5b1f17b1804b1-440a66a1015mr27159335e9.14.1745608601229;
+        Fri, 25 Apr 2025 12:16:41 -0700 (PDT)
+Message-ID: <9d6af88c-1ee0-44a4-9907-ce56973f50ab@citrix.com>
+Date: Fri, 25 Apr 2025 20:16:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86: constrain sub-page access length in
- mmio_ro_emulated_write()
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Marek Marczykowski
-	<marmarek@invisiblethingslab.com>
-References: <8e31896e-3603-4969-af7c-3175ceacff55@suse.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <8e31896e-3603-4969-af7c-3175ceacff55@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Subject: Re: [PATCH] x86/hyperv: use dynamically allocated page for hypercalls
+To: Ariadne Conill <ariadne@ariadne.space>, xen-devel@lists.xenproject.org
+Cc: Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alejandro Vallejo <agarciav@amd.com>,
+ "Alexander M . Merritt" <alexander@edera.dev>
+References: <20250425165148.60408-1-ariadne@ariadne.space>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250425165148.60408-1-ariadne@ariadne.space>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000147:EE_|SA3PR12MB9107:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa7ec899-f642-442d-c970-08dd841f38d0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dXhZVFRLOWxmVUh6blNpcURoQnhjMDBwMnBUeVZqYWw0RXh0OU5tdEhsRHd1?=
- =?utf-8?B?RVA1eWZvRVNOSDhOcnBtd0RucExUdyt0OTEvdkw0UmdLeExUQ25QbUdBODFz?=
- =?utf-8?B?ZEFLMnhmYityRnVVNnMxT1RTenJWaXcxMVRmRUVMemhqMmJLQnNHaktWdWMv?=
- =?utf-8?B?OWlnRk16RWx6VTlLWTRNZG5DZXJjYUpObWE3bTkrdlViNVdZWHFyUWJkVHJw?=
- =?utf-8?B?aXpMNFRyMVNrdjBnTmV4V09ZZkhsdlJ0VU8wdTgzdTNlWEljZWNLUWFpaGRK?=
- =?utf-8?B?U0lGWnZ3Q2R5ZDFKajFzSHkrbTg5NHF1TUJFQStKODI2d3RCem1yL1l2aG9T?=
- =?utf-8?B?M2tmV082KzNjVDJuWHhtb2dEcFlxb1Y3V1JaQkhSbjgrY2dPVlBTLzNnM1hW?=
- =?utf-8?B?UXA2bjBndzM4Wk13eVJlcCthNDZJYVdjZzdrYnNsOExtV0lwcUVJVzdoTmE3?=
- =?utf-8?B?ek9WM25yaTFOQm1paWNJVWRkNU1rMjlZM2FIYlZLM3NYNmtnZVlsRDRtYVJ3?=
- =?utf-8?B?enYweHRsUmNXM0dXdmxORjd1MXZMNThLWXhhRERSYXRIWUM2bThlN0VuTkFS?=
- =?utf-8?B?T0Nnbmw3clJTZE52TVRwTGsxQXdwZlBKVVhqTG5rNGx3MUswZzYwRzlycUZV?=
- =?utf-8?B?eU05VDg4TW1tVHh0T0VDRHhITUN2V2tFZ0pLK3M4R1luMmtWd1pOUUVncU1q?=
- =?utf-8?B?TklpUDdSdVJUYW5nUThGb3N1Rzc3SnpWaEZmOVpoQ09rMWVNVGZzbUl6STdp?=
- =?utf-8?B?SUJZWUc2clp0N1ZYOVdQcnZCUVZXak9rTk5mWUJoL0RxYnY0T2h3TVUwYWtZ?=
- =?utf-8?B?R0NKSlZqUGFGRmlVcVYxdy9VbmZqWjdCTkF1UzJmL2lxN3BlRHNXRjRUdU5w?=
- =?utf-8?B?bWhZaFRFeTJrOGJhWG5QY3B3T2IrUGo1UGdBd1A3UEVLSVhYQW1xSUZkVHQz?=
- =?utf-8?B?Y25BTkhMK2JtNWE4djJJejRReDFKK1lFWERQQi9FS2VmUWFPa2Q1V1dBQmly?=
- =?utf-8?B?Rk5JVTNyWmRxeEpVMnJFajM0L1ZtVDZKMFpia3hzMlEvOTFiTG1xb2huV2NY?=
- =?utf-8?B?b0tLOUR2d2JvVXpEZkF3ZHRlSVc4Szgvc2dWcVFjdEdCWWJuQnA4c0w5cDJC?=
- =?utf-8?B?K3kvdkd6N1Y2aEdMMS85NGZLNitrUWZJdHQyUHNnay8wVUZnUnBCS2JrLzBM?=
- =?utf-8?B?UGhqSjhzWmt3VmpnRDI0N1V4NUVkQ01Rem5GZDFpdjI1RHJJY1lyVHIvbmQv?=
- =?utf-8?B?QnNxRDNLYmwzcU5PU0kyTkVESzhUQXdlNElhOHgrQzBhWXV4QjFrWTE0dTdT?=
- =?utf-8?B?QzRpQXVLR2VTL1ZEdUhrd3pYanVHSnFYaUVFWml4MG5KejZMOVhhYUdRK2FS?=
- =?utf-8?B?Wkk3RGVnMEJ1ZytxcjdQOUFmNkhmaUxabnNaUnVzZkNTS3FRWndweGEycDBW?=
- =?utf-8?B?dCtPMldlN3AwTmJhTDFVSkx6ZVVsM0hYbVVzekhTUlNHTDlId1dENkpWWk5k?=
- =?utf-8?B?V2NYOVFUNjJtNnJ1c1JlU0VEcmRaMUtCNVpzTXVDNWFscGtlM2VSYUFmZTha?=
- =?utf-8?B?bSt4RzRHV2tzRHI2OG1pVmcwcU9LRlFLSTN2eno5UzdYYlFYNjZYV29MR3dK?=
- =?utf-8?B?QVRGZyszeVFkMTRMd0RuR3MyTDh1eENGakpZWGJ6QUJjZ0tReURzQzFMS0ZZ?=
- =?utf-8?B?c3lBb3FKeDJGOTJSQVZrclR1T1o0SXE2bkhvYUhVcXBGUW1NV1UyQUlyWU04?=
- =?utf-8?B?aENNd1I4NkJQU0lsSTZQY0lCY3pDT2ZrbVJlazZuZ3Y4QkZ3c1E0azdudktv?=
- =?utf-8?B?VEx3MVpXNnBPYmRIbWFyL1VUdDMrYnhIdjdiWEhHN3dEcDh0RXlYamloVE9a?=
- =?utf-8?B?SlRuL29Ldi9pYzlrWW1GcXdheEJ0VWJlZnI0VDFyRS9YRGk2UVAzNzcvQzNp?=
- =?utf-8?B?N05Uc1ZidWFwMVNmRHRyMUEyQkk1ZTdsUmJTTzZ6VkpwcGE4QW9WMjZTVm5V?=
- =?utf-8?B?cW1LRUV3YXJjdFB0ZFlWVHJvOGlGWmNhNzVaSkp3Vm9acEJjeWlWdE1yTFNM?=
- =?utf-8?Q?4taA2/?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2025 17:32:58.7905
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa7ec899-f642-442d-c970-08dd841f38d0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000147.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9107
 
-On 2025-04-25 10:57, Jan Beulich wrote:
-> Without doing so we could trigger the ASSERT_UNREACHABLE() in
-> subpage_mmio_write_emulate(). A comment there actually says this
-> validation would already have been done ...
-> 
-> Fixes: 8847d6e23f97 ("x86/mm: add API for marking only part of a MMIO page read only")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 25/04/2025 5:51 pm, Ariadne Conill wrote:
+> diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hyperv/hyperv.c
+> index 6989af38f1..637b4bf335 100644
+> --- a/xen/arch/x86/guest/hyperv/hyperv.c
+> +++ b/xen/arch/x86/guest/hyperv/hyperv.c
+> @@ -98,10 +97,22 @@ static void __init setup_hypercall_page(void)
+>      rdmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
+>      if ( !hypercall_msr.enable )
+>      {
+> -        mfn = HV_HCALL_MFN;
+> +        hv_hcall_page = alloc_xenheap_page();
+> +        if ( !hv_hcall_page )
+> +        {
+> +            printk("Hyper-V: Failed to allocate hypercall trampoline page\n");
+> +            return -ENOMEM;
+> +        }
+> +
+> +        printk("Hyper-V: Allocated hypercall page @ %p.\n", hv_hcall_page);
+> +
+> +        mfn = virt_to_mfn(hv_hcall_page);
 
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+Up to here is ok; this is just choosing a different page, but...
 
-Thanks,
-Jason
+>          hypercall_msr.enable = 1;
+>          hypercall_msr.guest_physical_address = mfn;
+>          wrmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
+> +
+> +        start = (unsigned long) hv_hcall_page;
+> +        modify_xen_mappings(start, start + PAGE_SIZE, PAGE_HYPERVISOR_RX);
+
+... this and ...
+
+>      }
+>      else
+>          mfn = hypercall_msr.guest_physical_address;
+> @@ -109,9 +120,9 @@ static void __init setup_hypercall_page(void)
+>      rdmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
+>      BUG_ON(!hypercall_msr.enable);
+>  
+> -    set_fixmap_x(FIX_X_HYPERV_HCALL, mfn << PAGE_SHIFT);
+
+... this break the case where the overlay is already chosen and cannot move.
+
+It really needs to stay using set_fixmap_x(), which in turn means you
+can ...
+
+> diff --git a/xen/arch/x86/include/asm/guest/hyperv-hcall.h b/xen/arch/x86/include/asm/guest/hyperv-hcall.h
+> index b76dbf9ccc..b73edca7c6 100644
+> --- a/xen/arch/x86/include/asm/guest/hyperv-hcall.h
+> +++ b/xen/arch/x86/include/asm/guest/hyperv-hcall.h
+> @@ -20,13 +20,13 @@ static inline uint64_t hv_do_hypercall(uint64_t control, paddr_t input_addr,
+>                                         paddr_t output_addr)
+>  {
+>      uint64_t status;
+> -    register unsigned long r8 asm ( "r8" ) = output_addr;
+>  
+>      /* See TLFS for volatile registers */
+> -    asm volatile ( "call hv_hcall_page"
+> +    asm volatile ( "mov %[output_addr], %%r8\n"
+> +                   "call *%[target_addr]"
+>                     : "=a" (status), "+c" (control),
+>                       "+d" (input_addr) ASM_CALL_CONSTRAINT
+> -                   : "r" (r8)
+> +                   : [output_addr] "r" (output_addr), [target_addr] "r" (hv_hcall_page)
+>                     : "memory" );
+
+... undo this speculative security vulnerability you've got by not using
+INDIRECT_CALL.
+
+The point of FIXMAP_X is to provide a virtual address in the main 1G
+range for .text/.data/.rodata/.bss, which can point to an arbitrary
+location, and can be regularly CALL'd.
+
+~Andrew
 
