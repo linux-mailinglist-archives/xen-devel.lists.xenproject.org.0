@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B6ADA9DCCB
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EED0A9DCCC
 	for <lists+xen-devel@lfdr.de>; Sat, 26 Apr 2025 20:51:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.969282.1358441 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.969283.1358451 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8kbu-0001dJ-1y; Sat, 26 Apr 2025 18:50:46 +0000
+	id 1u8kby-0001sV-8R; Sat, 26 Apr 2025 18:50:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 969282.1358441; Sat, 26 Apr 2025 18:50:46 +0000
+Received: by outflank-mailman (output) from mailman id 969283.1358451; Sat, 26 Apr 2025 18:50:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8kbt-0001aE-UP; Sat, 26 Apr 2025 18:50:45 +0000
-Received: by outflank-mailman (input) for mailman id 969282;
- Sat, 26 Apr 2025 18:50:43 +0000
+	id 1u8kby-0001pP-5A; Sat, 26 Apr 2025 18:50:50 +0000
+Received: by outflank-mailman (input) for mailman id 969283;
+ Sat, 26 Apr 2025 18:50:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ssvg=XM=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1u8kbq-0001Xu-Fs
- for xen-devel@lists.xenproject.org; Sat, 26 Apr 2025 18:50:43 +0000
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 58f52527-22cf-11f0-9eb3-5ba50f476ded;
- Sat, 26 Apr 2025 20:50:39 +0200 (CEST)
+ id 1u8kbw-0001Xu-RD
+ for xen-devel@lists.xenproject.org; Sat, 26 Apr 2025 18:50:48 +0000
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5dffd455-22cf-11f0-9eb3-5ba50f476ded;
+ Sat, 26 Apr 2025 20:50:48 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,66 +36,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58f52527-22cf-11f0-9eb3-5ba50f476ded
+X-Inumbo-ID: 5dffd455-22cf-11f0-9eb3-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=eolfxri6h5cgdmjjvu67ry5lza.protonmail; t=1745693438; x=1745952638;
-	bh=F15iZ35Qsjq2yg30u+SCY3vhRM+l1pt9zebJ9BbQoZ8=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
-	 List-Unsubscribe:List-Unsubscribe-Post;
-	b=R6q9dYcdFFW06bvc3Tyv258caOmHlUodpXTel/pqrzOTkEhGgs7Ug2dsWD47gL5VY
-	 RX5C95HJjxgGpLQIplJIEMz5eFNcvYrXxu07pstf6oi5yl2mmlbc+7JfODvN7e+p3c
-	 mLDlqH3lAeiLbkUm12tUs8ICYIENrQ3SbaSboAjCJ+h4XQhhoMpEEp1gXXR7cwxNB8
-	 qpV+5mkfYgzy+apiZwNmqr4rq/fDFqjCgweWWT4Qv8zOPZmnbZd1m7JWVJmkCdno1V
-	 u8cN1yqzFXcQj8F8xyLLU/t1OuQzxd+RGyp2aJQ4Xx0XCaoJ8jou+lXBR9L9mm93Lv
-	 PT6iL5DlfaEiA==
-Date: Sat, 26 Apr 2025 18:50:32 +0000
+	s=protonmail; t=1745693446; x=1745952646;
+	bh=iey7/TFInYOca1c5c+QCwD1da9aOSx54FLyeif0g//M=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=emMKyYH9GS+mZuU+sAyQdIS+asoVTPCYhuqtCfLUIcQD+r2a3SHLAk718EaKqM1MO
+	 XLudeLW2WvG1ku7feIIAVT15MsL/fg7yb+VOAzxwOPQS0tvL9PhrBc2rcEOSO0dSsK
+	 +1iw5qP+aFPnIgBUJ/L5k858rmxpxMg50BPXdvQN1x+XyCfpIQ4GdJ8iL9GmboS1iF
+	 OIjlYTphJy/tJqr/MFpHewwPx3D41Oh3pLegYnEB7PCkFEEYaOaikWjsHVjL7UvlxZ
+	 Koo7LOp2EJklE1fym6bWWaSxqWnZY7Di5r8PCxSRNxwopiNMKgRG7Lap3cXKZw1BFa
+	 3CD4ISTQ1O8lQ==
+Date: Sat, 26 Apr 2025 18:50:41 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v2 0/3] xen/console: few cleanups in console driver
-Message-ID: <20250426185021.100646-1-dmukhin@ford.com>
+Subject: [PATCH v2 1/3] xen/console: cleanup conring management
+Message-ID: <20250426185021.100646-2-dmukhin@ford.com>
+In-Reply-To: <20250426185021.100646-1-dmukhin@ford.com>
+References: <20250426185021.100646-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 7c987f9fde5f03d7e86c39b1cb5053dab23618e2
+X-Pm-Message-ID: c0842f0b4534ea8c129fd7ecc838092ce8bcf57b
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The patch series introduces a few cleanups aimed at reducing code duplicati=
-on
-in the console driver.
+From: Denis Mukhin <dmukhin@ford.com>
 
-Originally, patches 2 and 3 were part of NS16550 emulator v3 series [1].
+Move console_locks_busted handling inside conring_puts() to remove
+tasklet code duplication.
 
-Patch 1 removes some code duplication for logging via conring facility.
+Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+Changes v1->v2:
+- added Stefano's R-b
+---
+ xen/drivers/char/console.c | 29 ++++++++++++++---------------
+ 1 file changed, 14 insertions(+), 15 deletions(-)
 
-Patch 2 (see [2]) removes code duplication between __putstr() and the rest =
-of
-the driver. It also introduces private flags to select console devices for
-printout which simplifies some code paths.
-
-Patch 3 (see [3]) adds conring_flush() to send contents of conring to all
-currently available console devices.
-
-[1] https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-0-c5d36b3=
-1d66c@ford.com/
-[2] https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-16-c5d36b=
-31d66c@ford.com/
-[3] https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-17-c5d36b=
-31d66c@ford.com/
-[4] Link to v1: https://lore.kernel.org/xen-devel/20250403000604.169619-1-d=
-mukhin@ford.com/
-[5] Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelin=
-es/1787672882
-
-Denis Mukhin (3):
-  xen/console: cleanup conring management
-  xen/console: introduce console_puts()
-  xen/console: introduce conring_flush()
-
- xen/drivers/char/console.c | 177 ++++++++++++++++++++++---------------
- 1 file changed, 106 insertions(+), 71 deletions(-)
-
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index c3150fbdb7..aaa97088aa 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -325,6 +325,17 @@ static void cf_check do_dec_thresh(unsigned char key, =
+bool unused)
+  * ********************************************************
+  */
+=20
++static void cf_check notify_dom0_con_ring(void *unused)
++{
++    send_global_virq(VIRQ_CON_RING);
++}
++
++static DECLARE_SOFTIRQ_TASKLET(notify_dom0_con_ring_tasklet,
++                               notify_dom0_con_ring,
++                               NULL);
++
++static bool console_locks_busted;
++
+ static void conring_puts(const char *str, size_t len)
+ {
+     ASSERT(rspin_is_locked(&console_lock));
+@@ -334,6 +345,9 @@ static void conring_puts(const char *str, size_t len)
+=20
+     if ( conringp - conringc > conring_size )
+         conringc =3D conringp - conring_size;
++
++    if ( !console_locks_busted )
++        tasklet_schedule(&notify_dom0_con_ring_tasklet);
+ }
+=20
+ long read_console_ring(struct xen_sysctl_readconsole *op)
+@@ -594,13 +608,6 @@ static void cf_check serial_rx(char c)
+     __serial_rx(c);
+ }
+=20
+-static void cf_check notify_dom0_con_ring(void *unused)
+-{
+-    send_global_virq(VIRQ_CON_RING);
+-}
+-static DECLARE_SOFTIRQ_TASKLET(notify_dom0_con_ring_tasklet,
+-                               notify_dom0_con_ring, NULL);
+-
+ #ifdef CONFIG_X86
+ static inline void xen_console_write_debug_port(const char *buf, size_t le=
+n)
+ {
+@@ -648,10 +655,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM=
+(char) buffer,
+ #endif
+=20
+             if ( opt_console_to_ring )
+-            {
+                 conring_puts(kbuf, kcount);
+-                tasklet_schedule(&notify_dom0_con_ring_tasklet);
+-            }
+=20
+             nrspin_unlock_irq(&console_lock);
+         }
+@@ -753,8 +757,6 @@ long do_console_io(
+  * *****************************************************
+  */
+=20
+-static bool console_locks_busted;
+-
+ static void __putstr(const char *str)
+ {
+     size_t len =3D strlen(str);
+@@ -775,9 +777,6 @@ static void __putstr(const char *str)
+ #endif
+=20
+     conring_puts(str, len);
+-
+-    if ( !console_locks_busted )
+-        tasklet_schedule(&notify_dom0_con_ring_tasklet);
+ }
+=20
+ static int printk_prefix_check(char *p, char **pp)
 --=20
 2.34.1
 
