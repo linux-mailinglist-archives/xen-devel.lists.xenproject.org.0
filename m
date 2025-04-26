@@ -2,31 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A33CA9D716
-	for <lists+xen-devel@lfdr.de>; Sat, 26 Apr 2025 03:55:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.968913.1358330 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A456A9D87A
+	for <lists+xen-devel@lfdr.de>; Sat, 26 Apr 2025 08:46:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.968947.1358340 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8Uk8-0000RL-HP; Sat, 26 Apr 2025 01:54:12 +0000
+	id 1u8ZIC-0000Oh-VC; Sat, 26 Apr 2025 06:45:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 968913.1358330; Sat, 26 Apr 2025 01:54:12 +0000
+Received: by outflank-mailman (output) from mailman id 968947.1358340; Sat, 26 Apr 2025 06:45:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8Uk8-0000PF-Eb; Sat, 26 Apr 2025 01:54:12 +0000
-Received: by outflank-mailman (input) for mailman id 968913;
- Sat, 26 Apr 2025 01:54:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A0+o=XM=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1u8Uk6-0000P9-Mj
- for xen-devel@lists.xenproject.org; Sat, 26 Apr 2025 01:54:10 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 559da016-2241-11f0-9eb3-5ba50f476ded;
- Sat, 26 Apr 2025 03:54:08 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1745632439777707.4674127985785;
- Fri, 25 Apr 2025 18:53:59 -0700 (PDT)
+	id 1u8ZIC-0000N0-RZ; Sat, 26 Apr 2025 06:45:40 +0000
+Received: by outflank-mailman (input) for mailman id 968947;
+ Sat, 26 Apr 2025 06:45:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ssvg=XM=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1u8ZIA-0000MM-3Y
+ for xen-devel@lists.xenproject.org; Sat, 26 Apr 2025 06:45:39 +0000
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0e4bde2b-226a-11f0-9ffb-bf95429c2676;
+ Sat, 26 Apr 2025 08:45:35 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,176 +36,513 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 559da016-2241-11f0-9eb3-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; t=1745632441; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=NGCXZI+PnLxpBS3Q9pDDWmpUi5bxUqmH+SaFyd+jXJLnSbdPUd31j1DAhVMvwlJYIQs3LqS/YBkxvM3lt+bu6rXvh9bRytmafuYu0fKFQU3vLjXHoAnx5ieKfTnYKgU3SsaPi7TuXjT/fIPmvaxK8YuUdPPflO8O5FmiAb6D42o=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1745632441; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=obKdY4FQIvdJJNBhtdV9NmZsw75AY2aCjpc9JLtWZnY=; 
-	b=LsSN7OJn51ot3B56Lw5U3EPBJeo372yPEEGC6cHT8mSshdhCXxzKoRINb1eWdeMYVDWPVc0SDiyXHONTCEQhzVAJWsuv3lqnnDlRctztLEKM7QO2g3vGN7mOu5BBaPCXNrWlfNkkHQeUEskKX3rWfQCexfGSnr9jykvqt+oizFE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1745632441;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=obKdY4FQIvdJJNBhtdV9NmZsw75AY2aCjpc9JLtWZnY=;
-	b=ezlVkC3UnxD/NMSiAgNa78KdmuU9fCVqwv3tMJU2FEN1EtTMLnz9cItO3IxEqcmM
-	cNbbmAfMjqkDkYF18zGjVdvdI4vYZXAY42QPHKj3J5cpx97VuP2JXPa9IWw7eJhdT6m
-	gxsDGXmaOFNKsVXim2xCZcnVu/WaGR8b9W2UJJGw=
-Message-ID: <e7894126-d639-4a9c-b600-2287efe6666d@apertussolutions.com>
-Date: Fri, 25 Apr 2025 21:53:58 -0400
+X-Inumbo-ID: 0e4bde2b-226a-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1745649933; x=1745909133;
+	bh=VENzbkyVPYR1Y5a3afq4GZqV1Qv8lIO0zeM/Sky7Qc8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=GjM4MmCGOl3djT8HTZwBmYfMOUsR58uOXAivrU+4c/vsBj/h0pMFewi0fEm6RF7W/
+	 IRNIIgbMcb8ZvIWIWY7LxFkyT0wZ8P80t42aTKgWnViSCgo9rfBeGriS4OhUx+zkf4
+	 5i188Qa2ffYW9kEZYjtMDSCXzR4MOSu0HF0667Wi+OsCiSOrb25tddLoa2hVOqMdCG
+	 7GBb9j0xOYSUhxfJJVIUFlTkhSBc9sFk3F5qIgvRGt6LF2lpQdHZuEGPKrLmFJ+PkV
+	 bNfyiEgy8+aRy6E2tiiE2CFWQXT4UUMwMG0LHWlRQ963fAbFmslLAfn4vP6QBc/Rhn
+	 lGfuWPzjm59fQ==
+Date: Sat, 26 Apr 2025 06:45:28 +0000
+To: Stefano Stabellini <sstabellini@kernel.org>
+From: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, Andrei Cherechesu <andrei.cherechesu@nxp.com>, michal.orzel@amd.com, jason.andryuk@amd.com
+Subject: Re: [PATCH v7] uboot-script-gen: Dynamically compute addr and size when loading binaries
+Message-ID: <aAyBBN1sqo/zppOT@starscream>
+In-Reply-To: <alpine.DEB.2.22.394.2504251631190.785180@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2504251631190.785180@ubuntu-linux-20-04-desktop>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 84814b81e803b3bbb83cd24e02d3115e794a3b42
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 33/38] x86/boot: refactor bzimage parser to be re-enterant
-Content-Language: en-US
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Cc: stefano.stabellini@amd.com, agarciav@amd.com,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20250419220820.4234-1-dpsmith@apertussolutions.com>
- <20250419220820.4234-34-dpsmith@apertussolutions.com>
- <bba25fca-171a-47dd-881b-4746d76bd16a@amd.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
- JDq5eL4e9BdfdnZm/b+K+Gweyc0Px2poDWwKVTFFRgxKWq9R7McwNnvuZ4nyXJBVn7PTEn/Z
- G7D08iZg94ZsnUdeXfgYdJrqmdiWA6iX9u84ARHUtb0K4r5WpLUMcQ8PVmnv1vVrs/3Wy/Rb
- foxebZNWxgUiSx+d02e3Ad0aEIur1SYXXv71mqKwyi/40CBSHq2jk9eF6zmEhaoFi5+MMMgX
- X0i+fcBkvmT0N88W4yCtHhHQds+RDbTPLGm8NBVJb7R5zbJmuQX7ADBVuNYIU8hx3dF3AQCm
- 601w0oZJ0jGOV1vXQgHqZYJGHg5wuImhzhZJCRESIwf+PJxik7TJOgBicko1hUVOxJBZxoe0
- x+/SO6tn+s8wKlR1Yxy8gYN9ZRqV2I83JsWZbBXMG1kLzV0SAfk/wq0PAppA1VzrQ3JqXg7T
- MZ3tFgxvxkYqUP11tO2vrgys+InkZAfjBVMjqXWHokyQPpihUaW0a8mr40w9Qui6DoJj7+Gg
- DtDWDZ7Zcn2hoyrypuht88rUuh1JuGYD434Q6qwQjUDlY+4lgrUxKdMD8R7JJWt38MNlTWvy
- rMVscvZUNc7gxcmnFUn41NPSKqzp4DDRbmf37Iz/fL7i01y7IGFTXaYaF3nEACyIUTr/xxi+
- MD1FVtEtJncZNkRn7WBcVFGKMAf+NEeaeQdGYQ6mGgk++i/vJZxkrC/a9ZXme7BhWRP485U5
- sXpFoGjdpMn4VlC7TFk2qsnJi3yF0pXCKVRy1ukEls8o+4PF2JiKrtkCrWCimB6jxGPIG3lk
- 3SuKVS/din3RHz+7Sr1lXWFcGYDENmPd/jTwr1A1FiHrSj+u21hnJEHi8eTa9029F1KRfocp
- ig+k0zUEKmFPDabpanI323O5Tahsy7hwf2WOQwTDLvQ+eqQu40wbb6NocmCNFjtRhNZWGKJS
- b5GrGDGu/No5U6w73adighEuNcCSNBsLyUe48CE0uTO7eAL6Vd+2k28ezi6XY4Y0mgASJslb
- NwW54LzSSM0uRGFuaWVsIFAuIFNtaXRoIDxkcHNtaXRoQGFwZXJ0dXNzb2x1dGlvbnMuY29t
- PsJ6BBMRCAAiBQJWK7ngAhsjBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRBTc6WbYpR8
- KrQ9AP94+xjtFfJ8gj5c7PVx06Zv9rcmFUqQspZ5wSEkvxOuQQEAg6qEsPYegI7iByLVzNEg
- 7B7fUG7pqWIfMqFwFghYhQzOwU0EViu54BAIAL6MXXNlrJ5tRUf+KMBtVz1LJQZRt/uxWrCb
- T06nZjnbp2UcceuYNbISOVHGXTzu38r55YzpkEA8eURQf+5hjtvlrOiHxvpD+Z6WcpV6rrMB
- kcAKWiZTQihW2HoGgVB3gwG9dCh+n0X5OzliAMiGK2a5iqnIZi3o0SeW6aME94bSkTkuj6/7
- OmH9KAzK8UnlhfkoMg3tXW8L6/5CGn2VyrjbB/rcrbIR4mCQ+yCUlocuOjFCJhBd10AG1IcX
- OXUa/ux+/OAV9S5mkr5Fh3kQxYCTcTRt8RY7+of9RGBk10txi94dXiU2SjPbassvagvu/hEi
- twNHms8rpkSJIeeq0/cAAwUH/jV3tXpaYubwcL2tkk5ggL9Do+/Yo2WPzXmbp8vDiJPCvSJW
- rz2NrYkd/RoX+42DGqjfu8Y04F9XehN1zZAFmCDUqBMa4tEJ7kOT1FKJTqzNVcgeKNBGcT7q
- 27+wsqbAerM4A0X/F/ctjYcKwNtXck1Bmd/T8kiw2IgyeOC+cjyTOSwKJr2gCwZXGi5g+2V8
- NhJ8n72ISPnOh5KCMoAJXmCF+SYaJ6hIIFARmnuessCIGw4ylCRIU/TiXK94soilx5aCqb1z
- ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
- p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
- NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <bba25fca-171a-47dd-881b-4746d76bd16a@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 4/23/25 15:27, Jason Andryuk wrote:
-> On 2025-04-19 18:08, Daniel P. Smith wrote:
->> The bzimage logic uses the unit global orig_image_len to hold the 
->> original
->> module length for the kernel when the headroom is calculated. It then 
->> uses
->> orig_image_len to locate the start of the bzimage when the expansion 
->> is done.
->> This is an issue when more than one bzimage is processed by the headroom
->> calculation logic, as it will leave orig_image_len set to the length 
->> of the
->> last bzimage it processed.
->>
->> The boot module work introduced storing the headroom size on a per module
->> basis. By passing in the headroom from the boot module, orig_image_len 
->> is no
->> longer needed to locate the beginning of the bzimage after the allocated
->> headroom. The bzimage functions are reworked as such, allowing the 
->> removal of
->> orig_image_len and enabling them to be reused by multiple kernel boot 
->> modules.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->>   xen/arch/x86/bzimage.c             | 38 ++++++++++++++++++------------
->>   xen/arch/x86/hvm/dom_build.c       |  3 ++-
->>   xen/arch/x86/include/asm/bzimage.h |  5 ++--
->>   xen/arch/x86/pv/dom0_build.c       |  3 ++-
->>   4 files changed, 30 insertions(+), 19 deletions(-)
->>
->> diff --git a/xen/arch/x86/bzimage.c b/xen/arch/x86/bzimage.c
->> index 66f648f311e4..32f0360d25b4 100644
-> 
->> @@ -103,13 +100,20 @@ unsigned long __init bzimage_headroom(void 
->> *image_start,
->>       return headroom;
->>   }
->> -int __init bzimage_parse(void *image_base, void **image_start,
->> -                         unsigned long *image_len)
->> +int __init bzimage_parse(
->> +    void *image_base, void **image_start, unsigned long headroom,
->> +    unsigned long *image_len)
->>   {
->>       struct setup_header *hdr = (struct setup_header *)(*image_start);
->>       int err = bzimage_check(hdr, *image_len);
->> -    unsigned long output_len;
->> -
->> +    unsigned long module_len = *image_len;
->> +
->> +    /*
->> +     * Variable err will have one of three values:
->> +     *   -  < 0: a error occurred trying to inspect the contents
->> +     *   -  > 0: the image is a bzImage
->> +     *   - == 0: not a bzImage, could be raw elf or elf.gz (vmlinuz.gz)
->> +     */
-> 
-> This comment seems a little independent of this change, so maybe it 
-> should be submitted separately.  Also, I think a better placement would 
-> be next to bzimage_check().
-> 
->>       if ( err < 0 )
->>           return err;
->> @@ -118,21 +122,25 @@ int __init bzimage_parse(void *image_base, void 
->> **image_start,
->>           *image_start += (hdr->setup_sects + 1) * 512 + hdr- 
->> >payload_offset;
->>           *image_len = hdr->payload_length;
-> 
-> @here
-> 
->>       }
->> -
->> -    if ( elf_is_elfbinary(*image_start, *image_len) )
->> -        return 0;
->> +    else
->> +    {
->> +        if ( elf_is_elfbinary(*image_start, *image_len) )
->> +            return 0;
->> +        else
->> +            *image_len = *image_len - headroom;
->> +    }
-> 
-> I don't like this extra indention which includes the return.  If you 
-> retain orig_image_len as a local variable, and set it above at "@here", 
-> you can have a smaller diff and leave cleaner logic.
+On Fri, Apr 25, 2025 at 04:35:06PM -0700, Stefano Stabellini wrote:
+> From: Andrei Cherechesu <andrei.cherechesu@oss.nxp.com>
+>=20
+> Normally, the Imagebuilder would precompute the sizes of the loaded
+> binaries and addresses where they are loaded before generating the
+> script, and the sizes and addresses that needed to be provided to
+> Xen via /chosen would be hardcoded in the boot script.
+>=20
+> Added an option via "-s" parameter to avoid hardcoding any
+> address in the boot script, and dynamically compute the
+> loading addresses for binaries. The first loading address is based
+> on the MEMORY_START parameter and after loading each binary,
+> the loading address and the size of the binary are stored in
+> variables with corresponding names. Then, the loading address
+> for the next binary is computed and aligned to 0x200000.
+>=20
+> If the "-s" parameter is not used, the normal flow is executed,
+> where the loading addresses and sizes for each binaries are
+> precomputed and hardcoded inside the script, but the loading
+> addresses and sizes for each binary are now also stored for eventual
+> later use.
+>=20
+> Reserved memory regions are left TBD in the -s case.
+>=20
+> Link: https://lists.xenproject.org/archives/html/xen-devel/2022-09/msg018=
+62.html
+> Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
-Right, but I find it sillier to be checking every kernel for elf when we 
-know it's a bzImage. While the elf check is fairly simplistic, it is 
-still multiple value checks.
+Reviewed-by: Denis Mukhin <dmukhin@ford.com>
 
-> orig_image_len previously was set as a static variable, so the correct
-> value was set after bzimage_headroom.  Now that it is no longer static,
-> we need to grab the hdr->payload_length value when we have a bzImage.
-> Otherwise output_length will read past the end of the module.
+> ---
+> Changes in v7:
+> - use $()
+> - better description and alphabetical order
+> - use heredoc
+>=20
+> Changes in v6:
+> - make initial ${memaddr} setting depending on CALC
+>=20
+> This patch adds quite a bit of complexity which is the reason why I
+> didn't originally commit it. Now that we are enabling ImageBuilder in
+> Yocto, it turns out this patch is required because Yocto invokes
+> ImageBuilder before all the binaries are ready and available.
+>=20
+> Andrei, sorry for taking so long to realize why it is essential, but we
+> are getting there now.
+>=20
+> The changes I made to the original patch are purely to make it simpler
+> to maintain.
+> ---
+>=20
+> diff --git a/README.md b/README.md
+> index f8039ec..28c9e6b 100644
+> --- a/README.md
+> +++ b/README.md
+> @@ -356,6 +356,8 @@ Where:\
+>     can only be used  in combination with the -k option.  This adds the
+>     public key into the dtb.  Then one can add this dtb back into the
+>     u-boot bin or elf.\
+> +-s addresses and sizes are calculated dynamically from U-Boot, hence
+> +   binaries don't need to be available at the time of invocation.\
+>=20
+>  ### Signed FIT images
+>=20
+> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+> index 638154a..73d9600 100755
+> --- a/scripts/uboot-script-gen
+> +++ b/scripts/uboot-script-gen
+> @@ -1,8 +1,11 @@
+>  #!/bin/bash
+>=20
+>  offset=3D$((2*1024*1024))
+> +PADDING_MASK=3D$(printf "0x%X\n" $(($offset - 1)))
+> +PADDING_MASK_INV=3D$(printf "0x%X\n" $((~$PADDING_MASK)))
+>  filesize=3D0
+>  prog_req=3D(mkimage file fdtput mktemp awk od)
+> +CALC=3D""
+>=20
+>  function cleanup_and_return_err()
+>  {
+> @@ -100,17 +103,40 @@ function dt_set()
+>      fi
+>  }
+>=20
+> +function dt_set_calc()
+> +{
+> +    local path=3D$1
+> +    local var=3D$2
+> +    local name_var=3D$3
+> +
+> +    local addr_var=3D"$name_var"_addr
+> +    local size_var=3D"$name_var"_size
+> +
+> +    cat >> $UBOOT_SOURCE <<- EOF
+> +=09setexpr addr_hi \${$addr_var} / 0x100000000
+> +=09setexpr addr_lo \${$addr_var} \& 0xFFFFFFFF
+> +=09setexpr size_hi \${$size_var} / 0x100000000
+> +=09setexpr size_lo \${$size_var} \& 0xFFFFFFFF
+> +=09fdt set $path $var <0x\${addr_hi} 0x\${addr_lo} 0x\${size_hi} 0x\${si=
+ze_lo}>
+> +=09EOF
+> +}
+> +
+>  function add_device_tree_kernel()
+>  {
+>      local path=3D$1
+> -    local addr=3D$2
+> -    local size=3D$3
+> -    local bootargs=3D$4
+> +    local name=3D$2
+> +    local addr=3D$3
+> +    local size=3D$4
+> +    local bootargs=3D$5
+>      local node_name=3D"module@${addr#0x}"
+>=20
+>      dt_mknode "$path" "$node_name"
+>      dt_set "$path/$node_name" "compatible" "str_a" "multiboot,kernel mul=
+tiboot,module"
+> -    dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr $siz=
+e)"
+> +    if test "$CALC"; then
+> +        dt_set_calc "$path/$node_name" "reg" $name
+> +    else
+> +        dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr =
+$size)"
+> +    fi
+>      dt_set "$path/$node_name" "bootargs" "str" "$bootargs"
+>  }
+>=20
+> @@ -118,26 +144,36 @@ function add_device_tree_kernel()
+>  function add_device_tree_ramdisk()
+>  {
+>      local path=3D$1
+> -    local addr=3D$2
+> -    local size=3D$3
+> +    local name=3D$2
+> +    local addr=3D$3
+> +    local size=3D$4
+>      local node_name=3D"module@${addr#0x}"
+>=20
+>      dt_mknode "$path"  "$node_name"
+>      dt_set "$path/$node_name" "compatible" "str_a" "multiboot,ramdisk mu=
+ltiboot,module"
+> -    dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr $siz=
+e)"
+> +    if test "$CALC"; then
+> +        dt_set_calc "$path/$node_name" "reg" $name
+> +    else
+> +        dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr =
+$size)"
+> +    fi
+>  }
+>=20
+>=20
+>  function add_device_tree_passthrough()
+>  {
+>      local path=3D$1
+> -    local addr=3D$2
+> -    local size=3D$3
+> +    local name=3D$2
+> +    local addr=3D$3
+> +    local size=3D$4
+>      local node_name=3D"module@${addr#0x}"
+>=20
+>      dt_mknode "$path"  "$node_name"
+>      dt_set "$path/$node_name" "compatible" "str_a" "multiboot,device-tre=
+e multiboot,module"
+> -    dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr $siz=
+e)"
+> +    if test "$CALC"; then
+> +        dt_set_calc "$path/$node_name" "reg" $name
+> +    else
+> +        dt_set "$path/$node_name" "reg" "hex"  "$(split_addr_size $addr =
+$size)"
+> +    fi
+>  }
+>=20
+>  function add_device_tree_mem()
+> @@ -358,7 +394,11 @@ function xen_device_tree_editing()
+>=20
+>          dt_mknode "/chosen" "$node_name"
+>          dt_set "/chosen/$node_name" "compatible" "str_a" "xen,xsm-policy=
+ xen,multiboot-module multiboot,module"
+> -        dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $xen_=
+policy_addr $xen_policy_size)"
+> +        if test "$CALC"; then
+> +            dt_set_calc "/chosen/$node_name" "reg" "xen_policy"
+> +        else
+> +            dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $=
+xen_policy_addr $xen_policy_size)"
+> +        fi
+>      fi
+>=20
+>      if test "$DOM0_KERNEL"
+> @@ -367,7 +407,11 @@ function xen_device_tree_editing()
+>=20
+>          dt_mknode "/chosen" "$node_name"
+>          dt_set "/chosen/$node_name" "compatible" "str_a" "xen,linux-zima=
+ge xen,multiboot-module multiboot,module"
+> -        dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $dom0=
+_kernel_addr $dom0_kernel_size)"
+> +        if test "$CALC"; then
+> +            dt_set_calc "/chosen/$node_name" "reg" "dom0_linux"
+> +        else
+> +            dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $=
+dom0_kernel_addr $dom0_kernel_size)"
+> +        fi
+>          dt_set "/chosen" "xen,dom0-bootargs" "str" "$DOM0_CMD"
+>      fi
+>=20
+> @@ -377,7 +421,11 @@ function xen_device_tree_editing()
+>=20
+>          dt_mknode "/chosen" "$node_name"
+>          dt_set "/chosen/$node_name" "compatible" "str_a" "xen,linux-init=
+rd xen,multiboot-module multiboot,module"
+> -        dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $ramd=
+isk_addr $ramdisk_size)"
+> +        if test "$CALC"; then
+> +            dt_set_calc "/chosen/$node_name" "reg" "dom0_ramdisk"
+> +        else
+> +            dt_set "/chosen/$node_name" "reg" "hex" "$(split_addr_size $=
+ramdisk_addr $ramdisk_size)"
+> +        fi
+>      fi
+>=20
+>      i=3D0
+> @@ -464,14 +512,14 @@ function xen_device_tree_editing()
+>=20
+>          xen_dt_domu_add_vcpu_nodes "/chosen/domU$i" $i ${DOMU_VCPUS[$i]}
+>=20
+> -        add_device_tree_kernel "/chosen/domU$i" ${domU_kernel_addr[$i]} =
+${domU_kernel_size[$i]} "${DOMU_CMD[$i]}"
+> +        add_device_tree_kernel "/chosen/domU$i" "domU${i}_kernel" ${domU=
+_kernel_addr[$i]} ${domU_kernel_size[$i]} "${DOMU_CMD[$i]}"
+>          if test "${domU_ramdisk_addr[$i]}"
+>          then
+> -            add_device_tree_ramdisk "/chosen/domU$i" ${domU_ramdisk_addr=
+[$i]} ${domU_ramdisk_size[$i]}
+> +            add_device_tree_ramdisk "/chosen/domU$i" "domU${i}_ramdisk" =
+${domU_ramdisk_addr[$i]} ${domU_ramdisk_size[$i]}
+>          fi
+>          if test "${domU_passthrough_dtb_addr[$i]}"
+>          then
+> -            add_device_tree_passthrough "/chosen/domU$i" ${domU_passthro=
+ugh_dtb_addr[$i]} ${domU_passthrough_dtb_size[$i]}
+> +            add_device_tree_passthrough "/chosen/domU$i" "domU${i}_fdt" =
+${domU_passthrough_dtb_addr[$i]} ${domU_passthrough_dtb_size[$i]}
+>          fi
+>          i=3D$(( $i + 1 ))
+>      done
+> @@ -504,7 +552,11 @@ function device_tree_editing()
+>=20
+>      if test $UBOOT_SOURCE
+>      then
+> -        echo "fdt addr $device_tree_addr" >> $UBOOT_SOURCE
+> +        if test "$CALC"; then
+> +            echo "fdt addr \${host_fdt_addr}" >> $UBOOT_SOURCE
+> +        else
+> +            echo "fdt addr $device_tree_addr" >> $UBOOT_SOURCE
+> +        fi
+>          echo "fdt resize 1024" >> $UBOOT_SOURCE
+>=20
+>          if test $NUM_DT_OVERLAY && test $NUM_DT_OVERLAY -gt 0
+> @@ -512,7 +564,11 @@ function device_tree_editing()
+>              i=3D0
+>              while test $i -lt $NUM_DT_OVERLAY
+>              do
+> -                echo "fdt apply ${dt_overlay_addr[$i]}" >> $UBOOT_SOURCE
+> +                if test "$CALC"; then
+> +                    echo "fdt apply \${host_fdto${i}_addr}" >> $UBOOT_SO=
+URCE
+> +                else
+> +                    echo "fdt apply ${dt_overlay_addr[$i]}" >> $UBOOT_SO=
+URCE
+> +                fi
+>                  i=3D$(( $i + 1 ))
+>              done
+>          fi
+> @@ -530,8 +586,12 @@ function fill_reserved_spaces_from_dtb()
+>  {
+>      if [ ! -f $DEVICE_TREE ]
+>      then
+> -        echo "File $DEVICE_TREE doesn't exist, exiting";
+> -        cleanup_and_return_err
+> +        if test "$CALC"; then
+> +            return
+> +        else
+> +            echo "File $DEVICE_TREE doesn't exist, exiting";
+> +            cleanup_and_return_err
+> +        fi
+>      fi
+>=20
+>      # Check if reserved-memory node exists
+> @@ -613,7 +673,7 @@ function get_image_size()
+>      printf "%u" $effective_size
+>  }
+>=20
+> -function add_size()
+> +function add_size_from_file()
+>  {
+>      local filename=3D$1
+>      local size=3D`stat -L --printf=3D"%s" $filename`
+> @@ -645,6 +705,26 @@ function add_size()
+>      filesize=3D$size
+>  }
+>=20
+> +function add_size_calculate()
+> +{
+> +    local fit_scr_name=3D$1
+> +
+> +    cat >> $UBOOT_SOURCE <<- EOF
+> +=09setenv "$fit_scr_name"_addr \${memaddr}
+> +=09setenv "$fit_scr_name"_size \${filesize}
+> +=09setexpr memaddr \${memaddr} \+ \${filesize}
+> +=09setexpr memaddr \${memaddr} \+ $PADDING_MASK
+> +=09setexpr memaddr \${memaddr} \& $PADDING_MASK_INV
+> +=09EOF
+> +
+> +    # TODO: missing ${RESERVED_MEM_SPACES[@]} check
+> +
+> +    # The following are updated to avoid collisions in node names, but
+> +    # they are not actively used.
+> +    memaddr=3D$((memaddr + offset))
+> +    filesize=3D$offset
+> +}
+> +
+>  function load_file()
+>  {
+>      local filename=3D$1
+> @@ -657,10 +737,16 @@ function load_file()
+>      if test "$FIT"
+>      then
+>          echo "imxtract \$fit_addr $fit_scr_name $memaddr" >> $UBOOT_SOUR=
+CE
+> +        add_size_from_file $filename
+>      else
+> -        echo "$LOAD_CMD $memaddr ${prepend_path:+$prepend_path/}$relativ=
+e_path" >> $UBOOT_SOURCE
+> +        if test "$CALC"; then
+> +            echo "$LOAD_CMD \${memaddr} ${prepend_path:+$prepend_path/}$=
+relative_path" >> $UBOOT_SOURCE
+> +            add_size_calculate $fit_scr_name
+> +        else
+> +            echo "$LOAD_CMD $memaddr ${prepend_path:+$prepend_path/}$rel=
+ative_path" >> $UBOOT_SOURCE
+> +            add_size_from_file $filename
+> +        fi
+>      fi
+> -    add_size $filename
+>  }
+>=20
+>  function check_file_type()
+> @@ -670,8 +756,13 @@ function check_file_type()
+>=20
+>      if [ ! -f $filename ]
+>      then
+> -        echo "File $filename doesn't exist, exiting";
+> -        cleanup_and_return_err
+> +        if test "$CALC"
+> +        then
+> +            return
+> +        else
+> +            echo "File $filename doesn't exist, exiting";
+> +            cleanup_and_return_err
+> +        fi
+>      fi
+>=20
+>      # if file doesn't know what it is, it outputs data, so include that
+> @@ -705,8 +796,13 @@ function check_compressed_file_type()
+>=20
+>      if [ ! -f $filename ]
+>      then
+> -        echo "File $filename doesn't exist, exiting";
+> -        cleanup_and_return_err
+> +        if test "$CALC"
+> +        then
+> +            return
+> +        else
+> +            echo "File $filename doesn't exist, exiting";
+> +            cleanup_and_return_err
+> +        fi
+>      fi
+>=20
+>      file_type=3D$( file -L $filename )
+> @@ -872,6 +968,12 @@ function linux_config()
+>  generate_uboot_images()
+>  {
+>      local arch=3D$(file -L $XEN | grep -E 'ARM64|Aarch64')
+> +
+> +    if test "$CALC"
+> +    then
+> +        echo "bootm is not compatible with -s"
+> +        cleanup_and_return_err
+> +    fi
+>=20
+>      if test "$arch"
+>      then
+> @@ -997,7 +1099,11 @@ bitstream_load_and_config()
+>          if test "$UBOOT_SOURCE"
+>          then
+>              # we assume the FPGA device is 0 here
+> -            echo "fpga load 0 $bitstream_addr $bitstream_size" >> "$UBOO=
+T_SOURCE"
+> +            if test "$CALC"; then
+> +                echo "fpga load 0 \${fpga_bitstream_addr} \${fpga_bitstr=
+eam_size}" >> "$UBOOT_SOURCE"
+> +            else
+> +                echo "fpga load 0 $bitstream_addr $bitstream_size" >> "$=
+UBOOT_SOURCE"
+> +            fi
+>          fi
+>      fi
+>  }
+> @@ -1271,7 +1377,7 @@ function print_help
+>  {
+>      script=3D`basename "$0"`
+>      echo "usage:"
+> -    echo "=09$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE]=
+ [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH]"
+> +    echo "=09$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE]=
+ [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH] [-s]"
+>      echo "=09$script -h"
+>      echo "where:"
+>      echo "=09CONFIG_FILE - configuration file"
+> @@ -1289,13 +1395,14 @@ function print_help
+>      echo "=09-f - enable generating a FIT image"
+>      echo "=09PREPEND_PATH - path to be appended before file names to mat=
+ch deploy location within rootfs"
+>      echo "=09-h - prints out the help message and exits "
+> +    echo "=09-s - let U-Boot calculate binary images load addresses/size=
+s dynamically"
+>      echo "Defaults:"
+>      echo "=09CONFIG_FILE=3D$cfg_file, UBOOT_TYPE=3D\"LOAD_CMD\" env var,=
+ DIRECTORY=3D$uboot_dir"
+>      echo "Example:"
+>      echo "=09$script -c ../config -d ./build42 -t \"scsi load 1:1\""
+>  }
+>=20
+> -while getopts ":c:t:d:ho:k:u:fp:" opt; do
+> +while getopts ":c:t:d:ho:k:u:fp:s" opt; do
+>      case ${opt} in
+>      t )
+>          case $OPTARG in
+> @@ -1340,6 +1447,9 @@ while getopts ":c:t:d:ho:k:u:fp:" opt; do
+>      p )
+>          prepend_path=3D"$OPTARG"
+>          ;;
+> +    s )
+> +        CALC=3Dy
+> +        ;;
+>      h )
+>          print_help
+>          exit 0
+> @@ -1533,6 +1643,10 @@ uboot_addr=3D$memaddr
+>  # 2MB are enough for a uboot script
+>  memaddr=3D$(( $memaddr + $offset ))
+>  memaddr=3D`printf "0x%X\n" $memaddr`
+> +if test "$CALC"
+> +then
+> +    echo "setenv memaddr $memaddr" >> $UBOOT_SOURCE
+> +fi
+>=20
+>  fill_reserved_spaces_from_dtb
+>=20
+> @@ -1583,7 +1697,11 @@ fi
+>=20
+>  if [ "$BOOT_CMD" !=3D "none" ]
+>  then
+> -    echo "$BOOT_CMD $kernel_addr $([ "$BOOT_CMD" =3D "bootefi" ] || echo=
+ '-') $device_tree_addr" >> $UBOOT_SOURCE
+> +    if test "$CALC"; then
+> +        echo "$BOOT_CMD \${host_kernel_addr} $([ "$BOOT_CMD" =3D "bootef=
+i" ] || echo '-') \${host_fdt_addr}" >> $UBOOT_SOURCE
+> +    else
+> +        echo "$BOOT_CMD $kernel_addr $([ "$BOOT_CMD" =3D "bootefi" ] || =
+echo '-') $device_tree_addr" >> $UBOOT_SOURCE
+> +    fi
+>  else
+>      # skip boot command but store load addresses to be used later
+>      echo "setenv host_kernel_addr $kernel_addr" >> $UBOOT_SOURCE
 
-Yes, I am fully aware.
-
-> Below is the diff for bzimage.c with the change I suggest.
-
-I will provide an alternate version.
-
-v/r,
-dps
 
