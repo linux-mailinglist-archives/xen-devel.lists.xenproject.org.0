@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E928CA9E4AB
-	for <lists+xen-devel@lfdr.de>; Sun, 27 Apr 2025 23:15:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.969961.1358789 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D4CA9E4AD
+	for <lists+xen-devel@lfdr.de>; Sun, 27 Apr 2025 23:18:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.969976.1358800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u99L2-0004bI-8b; Sun, 27 Apr 2025 21:15:00 +0000
+	id 1u99OD-0005Eq-Pj; Sun, 27 Apr 2025 21:18:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 969961.1358789; Sun, 27 Apr 2025 21:15:00 +0000
+Received: by outflank-mailman (output) from mailman id 969976.1358800; Sun, 27 Apr 2025 21:18:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u99L2-0004Z9-5g; Sun, 27 Apr 2025 21:15:00 +0000
-Received: by outflank-mailman (input) for mailman id 969961;
- Sun, 27 Apr 2025 21:14:58 +0000
+	id 1u99OD-0005Ck-Mh; Sun, 27 Apr 2025 21:18:17 +0000
+Received: by outflank-mailman (input) for mailman id 969976;
+ Sun, 27 Apr 2025 21:18:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ek1t=XN=zytor.com=hpa@srs-se1.protection.inumbo.net>)
- id 1u99L0-0004Z0-9R
- for xen-devel@lists.xenproject.org; Sun, 27 Apr 2025 21:14:58 +0000
+ id 1u99OC-0005Ce-RZ
+ for xen-devel@lists.xenproject.org; Sun, 27 Apr 2025 21:18:16 +0000
 Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aa4f72f6-23ac-11f0-9eb4-5ba50f476ded;
- Sun, 27 Apr 2025 23:14:56 +0200 (CEST)
+ id 2154e1d6-23ad-11f0-9eb4-5ba50f476ded;
+ Sun, 27 Apr 2025 23:18:15 +0200 (CEST)
 Received: from [127.0.0.1] ([76.133.66.138]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53RLEA8k2362694
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53RLHijD2366687
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Sun, 27 Apr 2025 14:14:11 -0700
+ Sun, 27 Apr 2025 14:17:45 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,24 +40,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa4f72f6-23ac-11f0-9eb4-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53RLEA8k2362694
+X-Inumbo-ID: 2154e1d6-23ad-11f0-9eb4-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53RLHijD2366687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745788453;
-	bh=Ze1m1OgbxcZfPaCNHEsBfR0ywbk+v9kZ91CvQZouTMQ=;
+	s=2025042001; t=1745788666;
+	bh=Ef+g//iaW9SBhRKXRgfhdG7gKtyYpx61dluDthiBNSs=;
 	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=a2YmdlaIpllK835AsIbUOmmWXu+BdsjFA1bIjZtd1rmCRff4rMiC+tSkF8J24IgC9
-	 9p/avXlujTKy0r9goDgxLmoif74E6xkCuwoxS2CcjD1XCvHudk4BFNG/s24W4ylej+
-	 G0H1C/e9P+j65UBjqmqvvcDjFyOOpq5stU3gxzJLbn2immFU+9L/XBEU361oQW7Xp1
-	 TuWbeKVswwCjnVuPOTaa+CHfw1ZhXxpXtxYO3Spsha0qWTX/bv85jbqIyAd4gnCEHN
-	 +D6Wyj0SrnQeaJOeQSEo1r1ePHt9AAxAsTLsWmNfuHD9CrCOKX3DqE6MMHKnLUha3t
-	 Ke7xCgh5ffqTQ==
-Date: Sun, 27 Apr 2025 14:14:08 -0700
+	b=GkFvbw7YIOrLDqxC8dr0MMnVn9SzT4F34CTnlxGX1qcHDO6jHfU+02Mm7CssRL1Aa
+	 F9VROzOYsUKuUFtT+KA2MMRDxZkJyM9JllYxtKmZ41kApvJIHNa99YbajQ8UVMjkeO
+	 I3QpXox8HpeQE6XvhBkFquJ7/gyExhh7MANSItFgrgwsMi6y/TTAkwRI05gqg7XiBD
+	 RJ1LfjajQnxHE7jR2nLx3U2PIHFldZYe7n7QPyyjRPcRdqMPrwWOZNkX+CEUJStIs/
+	 QMRoq5Xzof3PMtG5Lc8wFDBaX6N/OfBx3AMYF3X7KOHUvVmFj/kfOGNYLUJH2fMkdS
+	 UGwfrYa8h3YTg==
+Date: Sun, 27 Apr 2025 14:17:43 -0700
 From: "H. Peter Anvin" <hpa@zytor.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-        Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Arnd Bergmann <arnd@arndb.de>, Ingo Molnar <mingo@kernel.org>,
-        Arnd Bergmann <arnd@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+To: Arnd Bergmann <arnd@arndb.de>, Ingo Molnar <mingo@kernel.org>
+CC: Arnd Bergmann <arnd@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
         Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
         Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
         Juergen Gross <jgross@suse.com>,
@@ -67,60 +65,83 @@ CC: Arnd Bergmann <arnd@arndb.de>, Ingo Molnar <mingo@kernel.org>,
         =?UTF-8?Q?Mateusz_Jo=C5=84czyk?= <mat.jonczyk@o2.pl>,
         Mike Rapoport <rppt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
         Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-        xen-devel@lists.xenproject.org
+        xen-devel@lists.xenproject.org,
+        Linus Torvalds <torvalds@linux-foundation.org>
 Subject: Re: [PATCH] [RFC] x86/cpu: rework instruction set selection
 User-Agent: K-9 Mail for Android
-In-Reply-To: <CAHk-=wj0S2vWui0Y+1hpYMEhCiXKexbQ01h+Ckvww8hB29az_A@mail.gmail.com>
-References: <20250425141740.734030-1-arnd@kernel.org> <aAyiganPp_UsNlnZ@gmail.com> <d2b0e71c-e79b-40d6-8693-3202cd894d66@app.fastmail.com> <CAHk-=wh=TUsVv6xhtzYsWJwJggrjyOfYT3kBu+bHtoYLK0M9Xw@mail.gmail.com> <CAHk-=wgfk69H-T-vMWR33xUpVsWJLrF34d0OwUXa2sHhtpSwZg@mail.gmail.com> <e54f1943-e0ff-4f59-b24f-9b5a7a38becf@citrix.com> <CAHk-=wj0S2vWui0Y+1hpYMEhCiXKexbQ01h+Ckvww8hB29az_A@mail.gmail.com>
-Message-ID: <D7FA06C2-119D-4405-9116-AC3203216406@zytor.com>
+In-Reply-To: <0fc64201-03cc-4c3e-af86-7ef11c3505a0@app.fastmail.com>
+References: <20250425141740.734030-1-arnd@kernel.org> <aAyiganPp_UsNlnZ@gmail.com> <d2b0e71c-e79b-40d6-8693-3202cd894d66@app.fastmail.com> <aA0vft1cPuvzdZvJ@gmail.com> <0fc64201-03cc-4c3e-af86-7ef11c3505a0@app.fastmail.com>
+Message-ID: <E0609153-438F-4665-9291-CC848F3BE58B@zytor.com>
 MIME-Version: 1.0
 Content-Type: text/plain;
  charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On April 27, 2025 12:34:46 PM PDT, Linus Torvalds <torvalds@linux-foundatio=
-n=2Eorg> wrote:
->On Sun, 27 Apr 2025 at 12:17, Andrew Cooper <andrew=2Ecooper3@citrix=2Eco=
-m> wrote:
+On April 27, 2025 6:24:59 AM PDT, Arnd Bergmann <arnd@arndb=2Ede> wrote:
+>On Sat, Apr 26, 2025, at 21:09, Ingo Molnar wrote:
+>> * Arnd Bergmann <arnd@arndb=2Ede> wrote:
 >>
->> ffs/fls are commonly found inside loops where x is the loop condition
->> too=2E  Therefore, using statically_true() to provide a form without th=
-e
->> zero compatibility turns out to be a win=2E
+>>> CMOV is missing not just on old Socket 5/7 CPUs (Pentium MMX, AMD K6,=
+=20
+>>> Cyrix MII) but also newer embedded Via C3, Geode GX and=20
+>>> Vortex86DX/MX/EX/DX2=2E The replacement Nehemiah (2003), GeodeLX (2005=
+)=20
+>>> and Vortex86DX3/EX2 (2015!) have CMOV, but the old ones were sold=20
+>>> alongside them for years, and some of the 586-class Vortex86 products=
+=20
+>>> are still commercially available=2E
+>>
+>> Very few (if any) of the commercially available products will run=20
+>> modern 6=2E16+ kernels, right?
 >
->We already have the version without the zero capability - it's just
->called "__ffs()" and "__fls()", and performance-critical code uses
->those=2E
+>No, at least not in absolute numbers=2E As far as I can tell, the RDC
+>SoC family is the only one that is still around, after Quark, Geode
+>and Eden were all discontinued around 2019=2E
 >
->So fls/ffs are the "standard" library functions that have to handle
->zero, and add that stupid "+1" because that interface was designed by
->some Pascal person who doesn't understand that we start counting from
->0=2E
+>There are multiple known RDC licensees (DM&P/Vortex86, xlichip) and
+>probably a few more with custom chips=2E They lag behind Intel and AMD
+>by about one patent expiration time, and maybe a decade behind Arm
+>SoCs, so they only just arrived at quad-core SMP, LPDDR4, and SSSE3
+>instructions and have announced upcoming 64-bit chips=2E
 >
->Standards bodies: "companies aren't sending their best people"=2E
+>They do have super-long support cycles, and there are a few markets
+>that absolutely require kernel updates for many years, so I would
+>still consider the 586-class embedded chips more relevant for future
+>kernels than 30 year old PCs, and the 686-class embedded chips
+>more relevant than 20 year old laptops=2E
 >
->But it's silly that we then spend effort on magic cmov in inline asm
->on those things when it's literally the "don't use this version unless
->you don't actually care about performance" case=2E
+>> Note that the real danger the 32-bit x86 kernel is going to be facing=
+=20
+>> in 2-5 years is total removal due to lack of development interest, but=
+=20
+>> I think we can support 686+ reasonably far into the future, and can=20
+>> keep it tested reasonably - while covering like 99%+ of the currently=
+=20
+>> available 32-bit-only x86 products on the market=2E The fewer variants,=
+=20
+>> the better=2E
 >
->I don't think it would be wrong to just make the x86-32 code just do
->the check against zero ahead of time - in C=2E
+>I agree that this is the endgame for x86-32 and that eventually
+>the while thing will be remove, and every simplification helps, but
+>I still don't think that removing 586 earlier helps enough to
+>outweigh the cost here=2E
 >
->And yes, that will generate some extra code - you'll test for zero
->before, and then the caller might also test for a zero result that
->then results in another test for zero that can't actually happen (but
->the compiler doesn't know that)=2E But I suspect that on the whole, it
->is likely to generate better code anyway just because the compiler
->sees that first test and can DTRT=2E
+>The situation is similar on 32-bit Arm, where we currently support
+>armv4, armv4t, armv5, armv6, armv6k, armv7, armv7ve and armv8-aarch32=2E
+>Removing armv3 a few years ago helped a lot, removing the extremely
+>rare armv6 will help as well, but there is little value in dropping
+>CPU support for v4 and v4t as long as v5 is there, or v6k and v7
+>as long as we have v7ve and v8-aarch32=2E My guess would be that we
+>can remove armv4/v4t/v5 at the same time as i586/i686 and
+>some other 32-bit targets, followed by armv7/v7ve/v8-aarch32
+>much later=2E
 >
->UNTESTED patch applied in case somebody wants to play with this=2E It
->removes 10 lines of silly code, and along with them that 'cmov' use=2E
->
->Anybody?
->
->              Linus
+>       Arnd
 
-It's noteworthy that hardware implementations are now invariably using a d=
-ifferent interface, which makes sense for the LSB case (tzcnt/ctz) but has =
-its own drain bramage on for the MSB case (lzcnt/clz)=2E=2E=2E
+"Commercially available" doesn't mean "binary distribution=2E" There is a =
+whold world beyond the desktop distros=2E
+
+These kinds of systems run embedded stacks that are at least in part compi=
+led by the appliance vendor to allow for higher configurability=2E
+
 
