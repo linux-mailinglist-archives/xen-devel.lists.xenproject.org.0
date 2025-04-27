@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4EA0A9DDED
-	for <lists+xen-devel@lfdr.de>; Sun, 27 Apr 2025 01:50:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.969454.1358529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EAE5A9DDF3
+	for <lists+xen-devel@lfdr.de>; Sun, 27 Apr 2025 02:03:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.969469.1358539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8pGR-0005B6-4m; Sat, 26 Apr 2025 23:48:55 +0000
+	id 1u8pUI-0000YG-2F; Sun, 27 Apr 2025 00:03:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 969454.1358529; Sat, 26 Apr 2025 23:48:55 +0000
+Received: by outflank-mailman (output) from mailman id 969469.1358539; Sun, 27 Apr 2025 00:03:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8pGQ-00058E-VB; Sat, 26 Apr 2025 23:48:54 +0000
-Received: by outflank-mailman (input) for mailman id 969454;
- Sat, 26 Apr 2025 23:48:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u8pUH-0000Vb-Vm; Sun, 27 Apr 2025 00:03:13 +0000
+Received: by outflank-mailman (input) for mailman id 969469;
+ Sun, 27 Apr 2025 00:03:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Dw20=XM=zytor.com=hpa@srs-se1.protection.inumbo.net>)
- id 1u8pGP-000588-4T
- for xen-devel@lists.xenproject.org; Sat, 26 Apr 2025 23:48:53 +0000
+ (envelope-from <SRS0=ek1t=XN=zytor.com=hpa@srs-se1.protection.inumbo.net>)
+ id 1u8pUG-0000VV-0w
+ for xen-devel@lists.xenproject.org; Sun, 27 Apr 2025 00:03:12 +0000
 Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff253844-22f8-11f0-9ffb-bf95429c2676;
- Sun, 27 Apr 2025 01:48:49 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 00ae6b75-22fb-11f0-9eb3-5ba50f476ded;
+ Sun, 27 Apr 2025 02:03:10 +0200 (CEST)
 Received: from [127.0.0.1] ([76.133.66.138]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53QNluFV1005984
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53R02fAD1021270
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Sat, 26 Apr 2025 16:47:56 -0700
+ Sat, 26 Apr 2025 17:02:41 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,19 +40,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff253844-22f8-11f0-9ffb-bf95429c2676
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53QNluFV1005984
+X-Inumbo-ID: 00ae6b75-22fb-11f0-9eb3-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53R02fAD1021270
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745711278;
-	bh=Efb+Y8rvKueZmGY8ER6BRva8Iw8OWCsIsGFLE56vRl8=;
+	s=2025042001; t=1745712163;
+	bh=jlk0WySUzgwBSqt89FwWE6HuFZFIM3PirCQAzgIEfcA=;
 	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=P/Rt4kQ555chle4fd6u83fkO61mpaRrGHqm3uByh8N3lSMxZL/q460tfYdHlheP8D
-	 zCd6F1t4iXrNqELKFnHXUCOQ/j/okZUtsZ+m1VvTuNl8RP6BakxW6AJMqLmqeP+PRX
-	 WRWME5XpaX3pon4G6Gjgr5VwgN7q2kEhYXEJ2mkNQ1/tWXM2to1QTJ2dHmoSCFu9Fw
-	 RYM+J+2G/74cxHOb37CJsFnYnT1MbeYVASdC4yzDxcjJq+7SlbM4Yh0gbwhPVVEfbi
-	 IlCTiTr2iuwOGGe4BxrpiBB9hrwS4hIC/GM1d4ghRCf0ORnOHD5F39l8rB4RtlZmJx
-	 Zd0khTJhmaBpw==
-Date: Sat, 26 Apr 2025 16:47:55 -0700
+	b=GUyFr7K2Ifwtz4UyT6aZbS1skxkjefr619W1KEmSvlIYIusEr8s2C5D/56D1S/gaj
+	 5TIg5JaG2cI23TADG/Bsd+kXCKGboPeBrpMjXmOtBC0A/41RaH+c8Dp5bjiIZT9zr7
+	 4JGSVevyBY0e+wYSYf2+bharQF9IOMt9JRGOYXsi1GFL+LCkjoNrZwcocIy66HQz37
+	 9qZ8STeOk05F+fX/1GmMUejEYb4soCu0SkgLOdQRJe2GhWq+ZTPfr9xuib8WfJZRWv
+	 lod+D8/4hNBdCeO1yair463GuclnA5ooNhp2eVTr2xpsX1fF40aHLA7M92L4ghUwlQ
+	 bYOdRku2zWt7Q==
+Date: Sat, 26 Apr 2025 17:02:41 -0700
 From: "H. Peter Anvin" <hpa@zytor.com>
 To: Linus Torvalds <torvalds@linux-foundation.org>,
         Arnd Bergmann <arnd@arndb.de>
@@ -72,7 +72,7 @@ Subject: Re: [PATCH] [RFC] x86/cpu: rework instruction set selection
 User-Agent: K-9 Mail for Android
 In-Reply-To: <CAHk-=wgfk69H-T-vMWR33xUpVsWJLrF34d0OwUXa2sHhtpSwZg@mail.gmail.com>
 References: <20250425141740.734030-1-arnd@kernel.org> <aAyiganPp_UsNlnZ@gmail.com> <d2b0e71c-e79b-40d6-8693-3202cd894d66@app.fastmail.com> <CAHk-=wh=TUsVv6xhtzYsWJwJggrjyOfYT3kBu+bHtoYLK0M9Xw@mail.gmail.com> <CAHk-=wgfk69H-T-vMWR33xUpVsWJLrF34d0OwUXa2sHhtpSwZg@mail.gmail.com>
-Message-ID: <9D1971C6-8C13-4526-8D2B-37A1D3B0B066@zytor.com>
+Message-ID: <F6CAB3B2-B8CB-4A66-AF4A-B2CD3767BE04@zytor.com>
 MIME-Version: 1.0
 Content-Type: text/plain;
  charset=utf-8
@@ -121,6 +121,12 @@ n=2Eorg> wrote:
 >
 >           Linus
 
-The undefined zero case applies to family < 6 as far as I know=2E=2E=2E th=
-e same platforms which don't have cmov=2E=2E=2E
+It is unfortunate, if understandable, that we ended up using a convention =
+other than what ended up becoming standard=2E (Return the size in bits if t=
+he input is 0=2E)
+
+This would let us use __builtin_ctz() > tzcnt which I believe is always in=
+line on x86, and probably would help several other architectures too=2E
+
+How much of a pain would it really be to fix this interface?
 
