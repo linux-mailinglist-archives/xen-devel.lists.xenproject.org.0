@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EAE5A9DDF3
-	for <lists+xen-devel@lfdr.de>; Sun, 27 Apr 2025 02:03:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.969469.1358539 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B388A9DE0D
+	for <lists+xen-devel@lfdr.de>; Sun, 27 Apr 2025 02:36:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.969484.1358550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8pUI-0000YG-2F; Sun, 27 Apr 2025 00:03:14 +0000
+	id 1u8q0Q-0005G7-KT; Sun, 27 Apr 2025 00:36:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 969469.1358539; Sun, 27 Apr 2025 00:03:14 +0000
+Received: by outflank-mailman (output) from mailman id 969484.1358550; Sun, 27 Apr 2025 00:36:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u8pUH-0000Vb-Vm; Sun, 27 Apr 2025 00:03:13 +0000
-Received: by outflank-mailman (input) for mailman id 969469;
- Sun, 27 Apr 2025 00:03:12 +0000
+	id 1u8q0Q-0005Dd-HJ; Sun, 27 Apr 2025 00:36:26 +0000
+Received: by outflank-mailman (input) for mailman id 969484;
+ Sun, 27 Apr 2025 00:36:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ek1t=XN=zytor.com=hpa@srs-se1.protection.inumbo.net>)
- id 1u8pUG-0000VV-0w
- for xen-devel@lists.xenproject.org; Sun, 27 Apr 2025 00:03:12 +0000
+ id 1u8q0O-0005DX-TJ
+ for xen-devel@lists.xenproject.org; Sun, 27 Apr 2025 00:36:24 +0000
 Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 00ae6b75-22fb-11f0-9eb3-5ba50f476ded;
- Sun, 27 Apr 2025 02:03:10 +0200 (CEST)
+ id a3d53639-22ff-11f0-9eb3-5ba50f476ded;
+ Sun, 27 Apr 2025 02:36:22 +0200 (CEST)
 Received: from [127.0.0.1] ([76.133.66.138]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53R02fAD1021270
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53R0ZnmQ1060846
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Sat, 26 Apr 2025 17:02:41 -0700
+ Sat, 26 Apr 2025 17:35:50 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,93 +40,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00ae6b75-22fb-11f0-9eb3-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53R02fAD1021270
+X-Inumbo-ID: a3d53639-22ff-11f0-9eb3-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53R0ZnmQ1060846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745712163;
-	bh=jlk0WySUzgwBSqt89FwWE6HuFZFIM3PirCQAzgIEfcA=;
+	s=2025042001; t=1745714151;
+	bh=3yZe2hwmc24kUcFIPymx5Z3oUOBzO0LqbFNLOvIXzcQ=;
 	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=GUyFr7K2Ifwtz4UyT6aZbS1skxkjefr619W1KEmSvlIYIusEr8s2C5D/56D1S/gaj
-	 5TIg5JaG2cI23TADG/Bsd+kXCKGboPeBrpMjXmOtBC0A/41RaH+c8Dp5bjiIZT9zr7
-	 4JGSVevyBY0e+wYSYf2+bharQF9IOMt9JRGOYXsi1GFL+LCkjoNrZwcocIy66HQz37
-	 9qZ8STeOk05F+fX/1GmMUejEYb4soCu0SkgLOdQRJe2GhWq+ZTPfr9xuib8WfJZRWv
-	 lod+D8/4hNBdCeO1yair463GuclnA5ooNhp2eVTr2xpsX1fF40aHLA7M92L4ghUwlQ
-	 bYOdRku2zWt7Q==
-Date: Sat, 26 Apr 2025 17:02:41 -0700
+	b=S7FC1CdY6cRjbRwEytSeLDATwwZ9wHLvvhEP/3tnIoYX9BGQlEKGe613A1caGwRvt
+	 6+HINA28B/YnRsab8Kf9inZDgIcZsXoao8j51TzojBKYRN7mLl5wRdGKqPLyDEpFnx
+	 FB3y7GhVgFQZ/v7aD3HZ70bYoTPHrnLY0cK95Skkow1po1sywILbWT6PEUXCTM9atw
+	 hhn06XFBM20uWiXGIX3F2q/m6JTPfZKf+JMN+X1YNnLjBDruDRXX8S21MNOzGCXPtX
+	 e1ZVOmQ6k86hzTupEuOQmIoAuvbONE1l89BnoJVjEuCWIukSo3rEGrqRj5zekdX0W/
+	 U7oCxHWmg2VRw==
+Date: Sat, 26 Apr 2025 17:35:49 -0700
 From: "H. Peter Anvin" <hpa@zytor.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-        Arnd Bergmann <arnd@arndb.de>
-CC: Ingo Molnar <mingo@kernel.org>, Arnd Bergmann <arnd@kernel.org>,
-        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
+To: Ingo Molnar <mingo@kernel.org>
+CC: Arnd Bergmann <arnd@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
         Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        Juergen Gross <jgross@suse.com>,
+        Arnd Bergmann <arnd@arndb.de>, Juergen Gross <jgross@suse.com>,
         Boris Ostrovsky <boris.ostrovsky@oracle.com>,
         Alexander Usyskin <alexander.usyskin@intel.com>,
         Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
         =?UTF-8?Q?Mateusz_Jo=C5=84czyk?= <mat.jonczyk@o2.pl>,
-        Mike Rapoport <rppt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+        "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+        Ard Biesheuvel <ardb@kernel.org>,
         Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-        xen-devel@lists.xenproject.org
+        xen-devel@lists.xenproject.org,
+        Linus Torvalds <torvalds@linux-foundation.org>
 Subject: Re: [PATCH] [RFC] x86/cpu: rework instruction set selection
 User-Agent: K-9 Mail for Android
-In-Reply-To: <CAHk-=wgfk69H-T-vMWR33xUpVsWJLrF34d0OwUXa2sHhtpSwZg@mail.gmail.com>
-References: <20250425141740.734030-1-arnd@kernel.org> <aAyiganPp_UsNlnZ@gmail.com> <d2b0e71c-e79b-40d6-8693-3202cd894d66@app.fastmail.com> <CAHk-=wh=TUsVv6xhtzYsWJwJggrjyOfYT3kBu+bHtoYLK0M9Xw@mail.gmail.com> <CAHk-=wgfk69H-T-vMWR33xUpVsWJLrF34d0OwUXa2sHhtpSwZg@mail.gmail.com>
-Message-ID: <F6CAB3B2-B8CB-4A66-AF4A-B2CD3767BE04@zytor.com>
+In-Reply-To: <aA0sNu0gcjlvhlDT@gmail.com>
+References: <20250425141740.734030-1-arnd@kernel.org> <aAyiganPp_UsNlnZ@gmail.com> <E130C6F4-5602-44E6-ABB0-B87B389C0026@zytor.com> <aA0sNu0gcjlvhlDT@gmail.com>
+Message-ID: <74EAE03C-2316-4590-B0A8-83DB46B786DE@zytor.com>
 MIME-Version: 1.0
 Content-Type: text/plain;
  charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On April 26, 2025 12:55:13 PM PDT, Linus Torvalds <torvalds@linux-foundatio=
-n=2Eorg> wrote:
->On Sat, 26 Apr 2025 at 12:24, Linus Torvalds
-><torvalds@linux-foundation=2Eorg> wrote:
->>
->> (And yes, one use in a x86 header file that is pretty questionable
->> too: I think the reason for the cmov is actually i486-only behavior
->> and we could probably unify the 32-bit and 64-bit implementation)
+On April 26, 2025 11:55:50 AM PDT, Ingo Molnar <mingo@kernel=2Eorg> wrote:
 >
->Actually, what we *should* do is to remove that manual use of 'cmov'
->entirely - even if we decide that yes, that undefined zero case is
->actually real=2E
+>* H=2E Peter Anvin <hpa@zytor=2Ecom> wrote:
 >
->We should probably change it to use CC_SET(), and the compiler will do
->a much better job - and probably never use cmov anyway=2E
+>> Dropping CMOV would mean dropping P5 support=2E
 >
->And yes, that will generate worse code if you have an old compiler
->that doesn't do ASM_FLAG_OUTPUTS, but hey, that's true in general=2E If
->you want good code, you need a good compiler=2E
+>Yeah, I think we should make the cutoff at the 686 level=2E Is there any=
+=20
+>strong reason not to do that? Stable kernels will still exist for a=20
+>very long time for ancient boards=2E
 >
->And clang needs to learn the CC_SET() pattern anyway=2E
->
->So I think that manual cmov pattern for x86-32 should be replaced with
->
->        bool zero;
->
->        asm("bsfl %[in],%[out]"
->            CC_SET(z)
->            : CC_OUT(z) (zero),
->              [out]"=3Dr" (r)
->            : [in] "rm" (x));
->
->        return zero ? 0 : r+1;
->
->instead (that's ffs(), and fls() would need the same thing except with
->bsrl insteadm, of course)=2E
->
->I bet that would actually improve code generation=2E
->
->And I also bet it doesn't actually matter, of course=2E
->
->           Linus
+>	Ingo
 
-It is unfortunate, if understandable, that we ended up using a convention =
-other than what ended up becoming standard=2E (Return the size in bits if t=
-he input is 0=2E)
-
-This would let us use __builtin_ctz() > tzcnt which I believe is always in=
-line on x86, and probably would help several other architectures too=2E
-
-How much of a pain would it really be to fix this interface?
+I don't think some of the embedded 586-level ISA CPUs are ancient=2E
 
