@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83580A9EF6B
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 13:40:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970592.1359244 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22D74A9EFA0
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 13:49:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970603.1359253 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Mpp-0007Zy-8B; Mon, 28 Apr 2025 11:39:41 +0000
+	id 1u9Myc-0001HC-1Y; Mon, 28 Apr 2025 11:48:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970592.1359244; Mon, 28 Apr 2025 11:39:41 +0000
+Received: by outflank-mailman (output) from mailman id 970603.1359253; Mon, 28 Apr 2025 11:48:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Mpp-0007XW-4n; Mon, 28 Apr 2025 11:39:41 +0000
-Received: by outflank-mailman (input) for mailman id 970592;
- Mon, 28 Apr 2025 11:39:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u9Myb-0001Eu-V2; Mon, 28 Apr 2025 11:48:45 +0000
+Received: by outflank-mailman (input) for mailman id 970603;
+ Mon, 28 Apr 2025 11:48:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1Olx=XO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u9Mpo-0007XQ-DL
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 11:39:40 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 771cb681-2425-11f0-9ffb-bf95429c2676;
- Mon, 28 Apr 2025 13:39:38 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-391342fc0b5so3514506f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 04:39:38 -0700 (PDT)
+ id 1u9Mya-0001Eo-Nd
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 11:48:44 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bc5b29ce-2426-11f0-9eb4-5ba50f476ded;
+ Mon, 28 Apr 2025 13:48:43 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43cfebc343dso31206245e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 04:48:43 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a073cbe386sm10745519f8f.42.2025.04.28.04.39.36
+ 5b1f17b1804b1-4409d2a13bdsm153202605e9.9.2025.04.28.04.48.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Apr 2025 04:39:37 -0700 (PDT)
+ Mon, 28 Apr 2025 04:48:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 771cb681-2425-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: bc5b29ce-2426-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745840377; x=1746445177; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1745840923; x=1746445723; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nPKO/xNIYefnPKOouXiCqcAbJj0eh0MSPZil9ZG/Io8=;
-        b=OqoMwzAJrkvvl9U47OhqfZcuwiiS2lz+eMuItoSkkmFY4myS/rN90olOZEoDRxt5JU
-         E72zJ19upmUucwC7vImqji9QhWYuMNRCtcb6PA9ne7+WrvApD4U2FKvNjUVgH4QXxnEY
-         Kv1BPmB69GGm3hvaV96fy14AX3bNeFP+SHNzU=
+        bh=PZ2km4WSA94Aa5syuvQrVCCUr79cfWp8AV8VMfZTCGk=;
+        b=Ay1VwIOLMRvtb3zMh3ny/FEhz3ICzUI2lS70yD792xQJTCeAbu3jYGzhbb2kQuOf7o
+         yTFxbEOs6IBBV5ocv4us6jorT7jJKbasDBCtfOTFju99I12WUCbaHzcn2R51XDZ1ofsz
+         Qq4OtoSTlUMPHAKgZHx3Bq1a70BPTA/eB+vU4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745840377; x=1746445177;
+        d=1e100.net; s=20230601; t=1745840923; x=1746445723;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nPKO/xNIYefnPKOouXiCqcAbJj0eh0MSPZil9ZG/Io8=;
-        b=HffjxPb5zX1jPANxr+dCr2p5krXYGN4y59RjYsZsvwcp/bDpiqjWqn7wtJJuBoTco/
-         GncenTdvLIpd9sop8mGptYdojt3zu34ZIf5aS3c4p21wubnL8Xz3/InSqT3yvXYiNGre
-         Z/0a8JdkofWlT3+xLeWC7XOYZ4OXQFcawQnfFvY6UylD2pLcHtC0Ux40pEWkRUpHmta2
-         0DdvfB6cckACH+RFS73I60WmK8LeUdCLy0aV28xowG2aygdpkHDAVMq9pn2FtvGXMZTU
-         spowhn2kLXwIsWP0+oITSnvSn9Vqv9mQnVSNzOIMe3qUSe8OdoSYoa/GDzQeP2zql7Xz
-         BsPQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVVSnW+/HazZ07u/hE+2mKsx5O9RxOpRWr73d1PnmcHEfVoUtw/Qgw0TvszHDYKi4Zd0Mcm09Huk44=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwJJIN6RoLl+G78aLt7KmPttfqUG1wbkhVW2xIoTlK7LyNxrmM8
-	b92M7nFL0K1NZIo6Et6nvXJVcp7PDY9Lh5xAyVGR5EPwTxXJUhCtkhqJ8caheYM=
-X-Gm-Gg: ASbGncu3IF92x3Bb71NldSePUsVFDmztgf7+nwvZRcGzcBUPsaRJx/7aP+HAzwtY6y9
-	lP5Q7UmY89Q6ceo7URa4H42MMVZ25E8vbvH7cCr3FFHjMaE+tiIuUgsTZcYjYBbRS4A5nxg/hHx
-	h9za0Avk9l1taGGmCFJdpCGmn6FCjABvUg1eDqmko5mC+XlQhiXemduLfVqLgBUVLqEbt2lv8qi
-	vlkhNGynHwZz/0RV+u2lNCxsSn0tmw0JDnouiaW5t4BaSPD84HuvEitazh6ZdvLuLgoFF10sSxj
-	vLgV3hCRqXajP8m0zO7p0b9LkMqtOGMHfcfrwz/BRLSpcRg9r1w6OK0RGvSb7I1sJzaC5nwGfG9
-	XLAHRIw==
-X-Google-Smtp-Source: AGHT+IGe7ERBMii86zEn87NNl2LpZi2E3A9RXM6Fym0C6OAhksFEUmzcvJagdUFZFNbtz/tOgDGOJA==
-X-Received: by 2002:a05:6000:4382:b0:39c:2665:2c13 with SMTP id ffacd0b85a97d-3a07ab8a510mr6595213f8f.54.1745840377605;
-        Mon, 28 Apr 2025 04:39:37 -0700 (PDT)
-Message-ID: <0b47b52c-e998-430a-90f6-e95bda74524d@citrix.com>
-Date: Mon, 28 Apr 2025 12:39:36 +0100
+        bh=PZ2km4WSA94Aa5syuvQrVCCUr79cfWp8AV8VMfZTCGk=;
+        b=vB2JemD+xnPg4ksuspFvobrw41jc4vWSQ8nA2tpsf0QWBdEjk5fU8pQimb/RLXIuN1
+         gUTF+9YrSIQRT2ZqUu2NYctd40U60OTdOFKZ84jAbLVZjDJlOQX1iLWyqE6LmEbTHiHC
+         fNHSEc+xOksyNod+g4jVek/BkU1nitNTOLvIIpYSs4mhitUML9NTgY+JDbGJHWYop+oI
+         adsNjf8wcg0Ww0z6a9bdtj3NznGDL0pjqfLK1KGRUhij4oSfOnCUCiFtHK/czV/EiDhD
+         z8oyvUswyedl5kbunHSpovHlWNKveXEFUhM69533t/rOnRhzVCSZC9u1KpB677+s0QVh
+         Bw5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWvS+IwJj8UcAZWfkIfNPqQbT2Jy547BsduNCNl6dNHTzzEZj+I3XI50P+RxjwvrUsJ3Rq5jI0cEaE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxKTYoe9Kd/21eKTaUDj1fbUvSRJvlI0Ceydw0Y7RJfe2c4njFr
+	Gn3DX5eOBnyWw9NDAe+0jD1vSBEx1SDYg8ixEgTBvuw6OMCb0xXRcymUpj+h8hQ=
+X-Gm-Gg: ASbGnctHYlZ1vC0VZhrGzDQGgdZRuALNjzCwomcVSY3lisLYnRXR+6PLdB2Ce8JimC4
+	Yj0WoZLI0EoLwgNQJVFc+lWPXPHddIla3qN3STvX4R39n4i+V72p/uq0Y/j8hNA2m0iA6mJMq46
+	NaSa4YYtSqIvXg81bR4vrF8n2B25Jno4kzZ/U+xUEyC0T2ZLkHNQP7wCTNKV52gW/jONDVD8Hdu
+	Z4Q/egS08YcOf6eLb/wfB4Siytjf+lj9NF58kD/LdVUu5Dz4JCkbupleaoXe6MFibBeULI8kl9T
+	hTQHeW60eEuzZMMZIH3fhzJUAo2PFnAzI1XM357zti8RRApNSNKza4cyVuOguogXKwQmb8ufcAd
+	BvibGPH192U8lZnTN
+X-Google-Smtp-Source: AGHT+IEQyq+CCqEmndNHbRbpnGXLAZ4saxOHmkFuK5TkVdz3dbsb5dMWVbtinWVSYoQqR6Mdx9gLgA==
+X-Received: by 2002:a05:600c:3b18:b0:43c:f050:fee8 with SMTP id 5b1f17b1804b1-440a669ea55mr79399765e9.20.1745840923165;
+        Mon, 28 Apr 2025 04:48:43 -0700 (PDT)
+Message-ID: <27800fcd-76e3-429c-921d-72bf7670686d@citrix.com>
+Date: Mon, 28 Apr 2025 12:48:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] x86/vmx: Introduce vmread()
+Subject: Re: [PATCH v4 2/3] x86/vmx: Update DR7 type
 To: dmkhn@proton.me, xen-devel@lists.xenproject.org
 Cc: jbeulich@suse.com, roger.pau@citrix.com, dmukhin@ford.com
-References: <20250426072720.39317-1-dmukhin@ford.com>
+References: <20250426072739.39373-1-dmukhin@ford.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,25 +133,57 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250426072720.39317-1-dmukhin@ford.com>
+In-Reply-To: <20250426072739.39373-1-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 26/04/2025 8:27 am, dmkhn@proton.me wrote:
 > From: Denis Mukhin <dmukhin@ford.com>
 >
-> The current implementation of __vmread() returns the result via pointer
-> argument which leads to excess code in some places.
+> Convert the DR7 type to `unsigned int` and fix the accesses where necessary.
 >
-> Introduce a new vmread() function as suggested in [1].
+> [1] https://lore.kernel.org/xen-devel/0d01646b-83e3-4a02-b365-d149d2664e73@citrix.com/
 >
-> [1] https://lore.kernel.org/xen-devel/c452a1d7-4a57-4c5f-8a83-36a74ff228ec@citrix.com/
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+>  xen/arch/x86/hvm/vmx/vmx.c        | 2 +-
+>  xen/arch/x86/include/asm/domain.h | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+> index 4883bd823d..75c6992172 100644
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -926,7 +926,7 @@ static void vmx_save_dr(struct vcpu *v)
+>      v->arch.dr[3] = read_debugreg(3);
+>      v->arch.dr6   = read_debugreg(6);
+>      /* DR7 must be saved as it is used by vmx_restore_dr(). */
+> -    __vmread(GUEST_DR7, &v->arch.dr7);
+> +    v->arch.dr7 = vmread(GUEST_DR7);
 
-Usually for this, we use
+Two minor points.  The = wants lining up for vertical tabulation, and ...
 
-Suggested-by: whoever
+>  }
+>  
+>  static void __restore_debug_registers(struct vcpu *v)
+> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+> index 5fc1d1e5d0..a54ef3a8c1 100644
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -595,7 +595,7 @@ struct arch_vcpu
+>  
+>      /* Debug registers. */
+>      unsigned long dr[4];
+> -    unsigned long dr7; /* Ideally int, but __vmread() needs long. */
+> +    unsigned int dr7;
+>      unsigned int dr6;
 
-rather than links to emails.  I can fix on commit.
+... these fields want switching back around now that dr7 is unsigned int.
+
+We always access in numeric order, and they're only out-of-order for
+packing reasons.
+
+Can fix on commit.
 
 ~Andrew
 
