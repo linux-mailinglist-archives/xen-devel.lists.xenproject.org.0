@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5D4CA9E4AD
-	for <lists+xen-devel@lfdr.de>; Sun, 27 Apr 2025 23:18:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.969976.1358800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81870A9E5F3
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 03:49:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970013.1358809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u99OD-0005Eq-Pj; Sun, 27 Apr 2025 21:18:17 +0000
+	id 1u9DbA-0004jz-Sh; Mon, 28 Apr 2025 01:47:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 969976.1358800; Sun, 27 Apr 2025 21:18:17 +0000
+Received: by outflank-mailman (output) from mailman id 970013.1358809; Mon, 28 Apr 2025 01:47:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u99OD-0005Ck-Mh; Sun, 27 Apr 2025 21:18:17 +0000
-Received: by outflank-mailman (input) for mailman id 969976;
- Sun, 27 Apr 2025 21:18:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u9DbA-0004hs-NS; Mon, 28 Apr 2025 01:47:56 +0000
+Received: by outflank-mailman (input) for mailman id 970013;
+ Mon, 28 Apr 2025 01:47:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ek1t=XN=zytor.com=hpa@srs-se1.protection.inumbo.net>)
- id 1u99OC-0005Ce-RZ
- for xen-devel@lists.xenproject.org; Sun, 27 Apr 2025 21:18:16 +0000
-Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2154e1d6-23ad-11f0-9eb4-5ba50f476ded;
- Sun, 27 Apr 2025 23:18:15 +0200 (CEST)
-Received: from [127.0.0.1] ([76.133.66.138]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53RLHijD2366687
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Sun, 27 Apr 2025 14:17:45 -0700
+ (envelope-from <SRS0=N2FI=XO=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1u9Db8-0004hm-V0
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 01:47:55 +0000
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
+ [79.135.106.31]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ca699850-23d2-11f0-9ffb-bf95429c2676;
+ Mon, 28 Apr 2025 03:47:52 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,108 +36,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2154e1d6-23ad-11f0-9eb4-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53RLHijD2366687
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745788666;
-	bh=Ef+g//iaW9SBhRKXRgfhdG7gKtyYpx61dluDthiBNSs=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=GkFvbw7YIOrLDqxC8dr0MMnVn9SzT4F34CTnlxGX1qcHDO6jHfU+02Mm7CssRL1Aa
-	 F9VROzOYsUKuUFtT+KA2MMRDxZkJyM9JllYxtKmZ41kApvJIHNa99YbajQ8UVMjkeO
-	 I3QpXox8HpeQE6XvhBkFquJ7/gyExhh7MANSItFgrgwsMi6y/TTAkwRI05gqg7XiBD
-	 RJ1LfjajQnxHE7jR2nLx3U2PIHFldZYe7n7QPyyjRPcRdqMPrwWOZNkX+CEUJStIs/
-	 QMRoq5Xzof3PMtG5Lc8wFDBaX6N/OfBx3AMYF3X7KOHUvVmFj/kfOGNYLUJH2fMkdS
-	 UGwfrYa8h3YTg==
-Date: Sun, 27 Apr 2025 14:17:43 -0700
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Arnd Bergmann <arnd@arndb.de>, Ingo Molnar <mingo@kernel.org>
-CC: Arnd Bergmann <arnd@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        Juergen Gross <jgross@suse.com>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Alexander Usyskin <alexander.usyskin@intel.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        =?UTF-8?Q?Mateusz_Jo=C5=84czyk?= <mat.jonczyk@o2.pl>,
-        Mike Rapoport <rppt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
-        Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-        xen-devel@lists.xenproject.org,
-        Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [PATCH] [RFC] x86/cpu: rework instruction set selection
-User-Agent: K-9 Mail for Android
-In-Reply-To: <0fc64201-03cc-4c3e-af86-7ef11c3505a0@app.fastmail.com>
-References: <20250425141740.734030-1-arnd@kernel.org> <aAyiganPp_UsNlnZ@gmail.com> <d2b0e71c-e79b-40d6-8693-3202cd894d66@app.fastmail.com> <aA0vft1cPuvzdZvJ@gmail.com> <0fc64201-03cc-4c3e-af86-7ef11c3505a0@app.fastmail.com>
-Message-ID: <E0609153-438F-4665-9291-CC848F3BE58B@zytor.com>
+X-Inumbo-ID: ca699850-23d2-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1745804867; x=1746064067;
+	bh=UMYjEXEuqWl7LjG6RLbe+r7fsYC4zyS9YbdfmdkFimU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=F7G2FNK9gVT9I/FkVTSxarSNfdkmPbLxWLeK57BD66UeUiI3RUJF0GQauT7FID9oG
+	 Ub4Sn19E3iAkJrpTlLggb9fiPjnb6F/r7/3KNvDgFIBGFGMMxUz+UNqP64no45tyIl
+	 1n3ZRwykPRO+FtPy/YIwbnOcvDOMqncxwkqwrjltQ83kPJAtbzEju6IZebEi8vh9kn
+	 wFmlMeAlPem8lkdDDANfOJxlNpBEQTUlQuT8Y8PAZfkzOncKfCP4Gk791xQtSBpbyr
+	 PO2tUN090fapqwWy0efzVEZMw4mwbw4TuzR/aj94WK6l2PFbctsoXteFkAbIlZAJze
+	 HOca2aHlgycPA==
+Date: Mon, 28 Apr 2025 01:47:44 +0000
+To: Stefano Stabellini <sstabellini@kernel.org>
+From: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com
+Subject: Re: [PATCH v1 2/3] xen/console: introduce console_puts()
+Message-ID: <aA7ePF23LExpH9NW@kraken>
+In-Reply-To: <alpine.DEB.2.22.394.2504251545480.785180@ubuntu-linux-20-04-desktop>
+References: <20250403000604.169619-1-dmukhin@ford.com> <20250403000604.169619-3-dmukhin@ford.com> <alpine.DEB.2.22.394.2504251545480.785180@ubuntu-linux-20-04-desktop>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 33d94894bbf7cfdd3c4c08e9d53b2f45d63f4b2f
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On April 27, 2025 6:24:59 AM PDT, Arnd Bergmann <arnd@arndb=2Ede> wrote:
->On Sat, Apr 26, 2025, at 21:09, Ingo Molnar wrote:
->> * Arnd Bergmann <arnd@arndb=2Ede> wrote:
->>
->>> CMOV is missing not just on old Socket 5/7 CPUs (Pentium MMX, AMD K6,=
-=20
->>> Cyrix MII) but also newer embedded Via C3, Geode GX and=20
->>> Vortex86DX/MX/EX/DX2=2E The replacement Nehemiah (2003), GeodeLX (2005=
-)=20
->>> and Vortex86DX3/EX2 (2015!) have CMOV, but the old ones were sold=20
->>> alongside them for years, and some of the 586-class Vortex86 products=
-=20
->>> are still commercially available=2E
->>
->> Very few (if any) of the commercially available products will run=20
->> modern 6=2E16+ kernels, right?
->
->No, at least not in absolute numbers=2E As far as I can tell, the RDC
->SoC family is the only one that is still around, after Quark, Geode
->and Eden were all discontinued around 2019=2E
->
->There are multiple known RDC licensees (DM&P/Vortex86, xlichip) and
->probably a few more with custom chips=2E They lag behind Intel and AMD
->by about one patent expiration time, and maybe a decade behind Arm
->SoCs, so they only just arrived at quad-core SMP, LPDDR4, and SSSE3
->instructions and have announced upcoming 64-bit chips=2E
->
->They do have super-long support cycles, and there are a few markets
->that absolutely require kernel updates for many years, so I would
->still consider the 586-class embedded chips more relevant for future
->kernels than 30 year old PCs, and the 686-class embedded chips
->more relevant than 20 year old laptops=2E
->
->> Note that the real danger the 32-bit x86 kernel is going to be facing=
-=20
->> in 2-5 years is total removal due to lack of development interest, but=
-=20
->> I think we can support 686+ reasonably far into the future, and can=20
->> keep it tested reasonably - while covering like 99%+ of the currently=
-=20
->> available 32-bit-only x86 products on the market=2E The fewer variants,=
-=20
->> the better=2E
->
->I agree that this is the endgame for x86-32 and that eventually
->the while thing will be remove, and every simplification helps, but
->I still don't think that removing 586 earlier helps enough to
->outweigh the cost here=2E
->
->The situation is similar on 32-bit Arm, where we currently support
->armv4, armv4t, armv5, armv6, armv6k, armv7, armv7ve and armv8-aarch32=2E
->Removing armv3 a few years ago helped a lot, removing the extremely
->rare armv6 will help as well, but there is little value in dropping
->CPU support for v4 and v4t as long as v5 is there, or v6k and v7
->as long as we have v7ve and v8-aarch32=2E My guess would be that we
->can remove armv4/v4t/v5 at the same time as i586/i686 and
->some other 32-bit targets, followed by armv7/v7ve/v8-aarch32
->much later=2E
->
->       Arnd
+On Fri, Apr 25, 2025 at 03:47:53PM -0700, Stefano Stabellini wrote:
+> On Thu, 3 Apr 2025, dmkhn@proton.me wrote:
+> > From: Denis Mukhin <dmukhin@ford.com>
+> >
+> > guest_console_write() duplicates the code from __putstr(), eliminate co=
+de
+> > duplication.
+> >
+> > Introduce console_puts() for writing a buffer to console devices.
+> >
+> > Also, introduce internal console flags to control which console devices
+> > should be used.
+> >
+> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> > ---
+> >  xen/drivers/char/console.c | 112 ++++++++++++++++++++++---------------
+> >  1 file changed, 66 insertions(+), 46 deletions(-)
+> >
+> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> > index aaa97088aa..2618c2e47d 100644
+> > --- a/xen/drivers/char/console.c
+> > +++ b/xen/drivers/char/console.c
+> > @@ -41,6 +41,20 @@
+> >  #include <asm/vpl011.h>
+> >  #endif
+> >
+> > +/* Internal console flags. */
+> > +enum {
+> > +    CONSOLE_SERIAL  =3D BIT(0, U),    /* Use serial device. */
+> > +    CONSOLE_PV      =3D BIT(1, U),    /* Use PV console. */
+> > +    CONSOLE_VIDEO   =3D BIT(2, U),    /* Use video device. */
+> > +    CONSOLE_DEBUG   =3D BIT(3, U),    /* Use debug device. */
+> > +    CONSOLE_RING    =3D BIT(4, U),    /* Use console ring. */
+> > +    CONSOLE_DEFAULT =3D CONSOLE_SERIAL | CONSOLE_PV | CONSOLE_VIDEO |
+> > +                      CONSOLE_DEBUG,
+> > +    CONSOLE_ALL     =3D CONSOLE_DEFAULT | CONSOLE_RING,
+> > +};
+> > +
+> > +static void console_puts(const char *str, size_t len, unsigned int fla=
+gs);
+> > +
+> >  /* console: comma-separated list of console outputs. */
+> >  static char __initdata opt_console[30] =3D OPT_CONSOLE_STR;
+> >  string_param("console", opt_console);
+> > @@ -338,8 +352,6 @@ static bool console_locks_busted;
+> >
+> >  static void conring_puts(const char *str, size_t len)
+> >  {
+> > -    ASSERT(rspin_is_locked(&console_lock));
+> > -
+> >      while ( len-- )
+> >          conring[CONRING_IDX_MASK(conringp++)] =3D *str++;
+> >
+> > @@ -432,9 +444,6 @@ void console_serial_puts(const char *s, size_t nr)
+> >          serial_steal_fn(s, nr);
+> >      else
+> >          serial_puts(sercon_handle, s, nr);
+> > -
+> > -    /* Copy all serial output into PV console */
+> > -    pv_console_puts(s, nr);
+> >  }
+> >
+> >  static void cf_check dump_console_ring_key(unsigned char key)
+> > @@ -468,8 +477,7 @@ static void cf_check dump_console_ring_key(unsigned=
+ char key)
+> >          c +=3D len;
+> >      }
+> >
+> > -    console_serial_puts(buf, sofar);
+> > -    video_puts(buf, sofar);
+> > +    console_puts(buf, sofar, CONSOLE_SERIAL | CONSOLE_VIDEO | CONSOLE_=
+PV);
+>=20
+> Actually I take back the R-b. It looks like this change is breaking
+> because console_puts now requires the console_lock to be held, while
+> here the console_lock is not held.
 
-"Commercially available" doesn't mean "binary distribution=2E" There is a =
-whold world beyond the desktop distros=2E
+Yes, the locking is wrong, thanks for the catch!
+Lock adjustment from Patch 3 should be moved to Patch 2 (here).
 
-These kinds of systems run embedded stacks that are at least in part compi=
-led by the appliance vendor to allow for higher configurability=2E
+>=20
+> If I am not mistaken if you try to use the 'w' key with this patch
+> applied you'll hit the ASSERT at the beginning of console_puts
+>=20
+>=20
+> >      free_xenheap_pages(buf, order);
+> >  }
+> > @@ -618,11 +626,61 @@ static inline void xen_console_write_debug_port(c=
+onst char *buf, size_t len)
+> >  }
+> >  #endif
+> >
+> > +static inline void console_debug_puts(const char *str, size_t len)
+> > +{
+> > +#ifdef CONFIG_X86
+> > +    if ( opt_console_xen )
+> > +    {
+> > +        if ( xen_guest )
+> > +            xen_hypercall_console_write(str, len);
+> > +        else
+> > +            xen_console_write_debug_port(str, len);
+> > +    }
+> > +#endif
+> > +}
+> > +
+> > +/*
+> > + * Write buffer to all enabled console devices.
+> > + *
+> > + * That will handle all possible scenarios working w/ console
+> > + * - physical console (serial console, VGA console (x86 only));
+> > + * - PV console;
+> > + * - debug console (x86 only): debug I/O port or __HYPERVISOR_console_=
+io
+> > + *   hypercall;
+> > + * - console ring.
+> > + */
+> > +static void console_puts(const char *str, size_t len, unsigned int fla=
+gs)
+> > +{
+> > +    ASSERT(rspin_is_locked(&console_lock));
+> > +
+> > +    if ( flags & CONSOLE_SERIAL )
+> > +        console_serial_puts(str, len);
+> > +
+> > +    if ( flags & CONSOLE_PV )
+> > +        pv_console_puts(str, len);
+> > +
+> > +    if ( flags & CONSOLE_VIDEO )
+> > +        video_puts(str, len);
+> > +
+> > +    if ( flags & CONSOLE_DEBUG )
+> > +        console_debug_puts(str, len);
+> > +
+> > +    if ( flags & CONSOLE_RING )
+> > +        conring_puts(str, len);
+> > +}
+> > +
+> > +static inline void __putstr(const char *str)
+> > +{
+> > +    console_puts(str, strlen(str), CONSOLE_ALL);
+> > +}
+> > +
+> >  static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+> >                                  unsigned int count)
+> >  {
+> >      char kbuf[128];
+> >      unsigned int kcount =3D 0;
+> > +    unsigned int flags =3D opt_console_to_ring
+> > +                         ? CONSOLE_ALL : CONSOLE_DEFAULT;
+> >      struct domain *cd =3D current->domain;
+> >
+> >      while ( count > 0 )
+> > @@ -640,23 +698,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_P=
+ARAM(char) buffer,
+> >          {
+> >              /* Use direct console output as it could be interactive */
+> >              nrspin_lock_irq(&console_lock);
+> > -
+> > -            console_serial_puts(kbuf, kcount);
+> > -            video_puts(kbuf, kcount);
+> > -
+> > -#ifdef CONFIG_X86
+> > -            if ( opt_console_xen )
+> > -            {
+> > -                if ( xen_guest )
+> > -                    xen_hypercall_console_write(kbuf, kcount);
+> > -                else
+> > -                    xen_console_write_debug_port(kbuf, kcount);
+> > -            }
+> > -#endif
+> > -
+> > -            if ( opt_console_to_ring )
+> > -                conring_puts(kbuf, kcount);
+> > -
+> > +            console_puts(kbuf, kcount, flags);
+> >              nrspin_unlock_irq(&console_lock);
+> >          }
+> >          else
+> > @@ -757,28 +799,6 @@ long do_console_io(
+> >   * *****************************************************
+> >   */
+> >
+> > -static void __putstr(const char *str)
+> > -{
+> > -    size_t len =3D strlen(str);
+> > -
+> > -    ASSERT(rspin_is_locked(&console_lock));
+> > -
+> > -    console_serial_puts(str, len);
+> > -    video_puts(str, len);
+> > -
+> > -#ifdef CONFIG_X86
+> > -    if ( opt_console_xen )
+> > -    {
+> > -        if ( xen_guest )
+> > -            xen_hypercall_console_write(str, len);
+> > -        else
+> > -            xen_console_write_debug_port(str, len);
+> > -    }
+> > -#endif
+> > -
+> > -    conring_puts(str, len);
+> > -}
+> > -
+> >  static int printk_prefix_check(char *p, char **pp)
+> >  {
+> >      int loglvl =3D -1;
+> > --
+> > 2.34.1
+> >
+> >
 
 
