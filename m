@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A849AA9FA2B
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 22:07:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971101.1359595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AB4CA9FA30
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 22:10:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971112.1359605 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Ukw-00034j-L2; Mon, 28 Apr 2025 20:07:10 +0000
+	id 1u9Unr-0004Wp-1p; Mon, 28 Apr 2025 20:10:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971101.1359595; Mon, 28 Apr 2025 20:07:10 +0000
+Received: by outflank-mailman (output) from mailman id 971112.1359605; Mon, 28 Apr 2025 20:10:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Ukw-00032S-Hl; Mon, 28 Apr 2025 20:07:10 +0000
-Received: by outflank-mailman (input) for mailman id 971101;
- Mon, 28 Apr 2025 20:07:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u9Unq-0004Un-VE; Mon, 28 Apr 2025 20:10:10 +0000
+Received: by outflank-mailman (input) for mailman id 971112;
+ Mon, 28 Apr 2025 20:10:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=N2FI=XO=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1u9Uku-00030n-AV
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 20:07:09 +0000
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch
- [79.135.106.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ba99be6-246c-11f0-9eb4-5ba50f476ded;
- Mon, 28 Apr 2025 22:07:06 +0200 (CEST)
+ id 1u9Unq-0004Ue-1I
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 20:10:10 +0000
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
+ [109.224.244.16]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c7dd63c5-246c-11f0-9ffb-bf95429c2676;
+ Mon, 28 Apr 2025 22:10:07 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,88 +36,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ba99be6-246c-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: c7dd63c5-246c-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1745870825; x=1746130025;
-	bh=syyr0ZTMJnjDywzOybdBLaYWDsgPjabS8M3+vZFWaXc=;
+	s=protonmail; t=1745871006; x=1746130206;
+	bh=zQctQcbUNW4pA0ODgaUynPIG+OD9VV+Bp+3OWUIcH7s=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=WQxj9l3Ywlr/4M6mwVg//zV23ICRlv9bWSfZXyt/x5hE2Knf5k1IIKGDVc5s754Fu
-	 BPvdkzPB8SnyslPIpmP/u0qzo6MmN8vnL9E2A+hbVwQtTU2+PMSzzSRZ6lurO7Xp6r
-	 MeI1LH2MIbfybd8qTseGMygXeUdZKIWx+s+rUwYlpm85WtM/9E+PKJxx6JdYvatHlw
-	 MtCzlwZ2MmBEtko252PkEeIa9pApHZT71awoHHBxwFWVnqOYhDXpAB45HDQD3WMr5n
-	 AFxCPKD3Yph5aeTzUDTKxjGdjCGb5sZZ93A3kt26WU6oKYVUJ9zyeffSa+cB96gILZ
-	 O6O6KmawH8z6w==
-Date: Mon, 28 Apr 2025 20:06:59 +0000
+	b=NlIL/C8EUFxDqAjvTo58okB/7YB67bhQf9OVZda+VYxAAX55P2CSKkW7ARXAbiEg7
+	 SHmGJPuwcxx8Sw4llvuXeSrnbF61uvkWvvQiunvq+k9Zeg/9XwbOhboBbGHlDqR3Nw
+	 gkf9vDm5ArgD7otIYOerOjxxzWUKFfPQ75pmolD8lStjpxRr0oGuYD5MpA8DxSxZy8
+	 QG0stQyg0xjM7fcRrLjkcb3jIRLUYGmr0sSP4CZA2bkGiIv4MrRLsnAST9737cS5/w
+	 Bazwd8eKmxJ578uCvamW0KF0qCbQ3OrEZl/v/un2FF8pWUiK+wGKNgOoxOI+sBrNL+
+	 GIa+ftFihpLFQ==
+Date: Mon, 28 Apr 2025 20:10:02 +0000
 To: Jan Beulich <jbeulich@suse.com>
 From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 1/3] xen/console: cleanup conring management
-Message-ID: <aA/f3+QEBhVlIVPF@kraken>
-In-Reply-To: <cacff70d-5269-451d-b264-4d02b299e677@suse.com>
-References: <20250426185021.100646-1-dmukhin@ford.com> <20250426185021.100646-2-dmukhin@ford.com> <cacff70d-5269-451d-b264-4d02b299e677@suse.com>
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v1 1/3] xen/console: cleanup conring management
+Message-ID: <aA/glq9zB1phFcAf@kraken>
+In-Reply-To: <fe9a99b2-e208-4171-ada0-c244bfab6559@suse.com>
+References: <20250403000604.169619-1-dmukhin@ford.com> <20250403000604.169619-2-dmukhin@ford.com> <alpine.DEB.2.22.394.2504251513480.785180@ubuntu-linux-20-04-desktop> <fe9a99b2-e208-4171-ada0-c244bfab6559@suse.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 4ac16eb9bc11de67ba0ee100acc73861059c6ac0
+X-Pm-Message-ID: cdcf3323710d52b78a2b5685c3a3bd829b02f7e7
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 28, 2025 at 08:50:52AM +0200, Jan Beulich wrote:
-> On 26.04.2025 20:50, dmkhn@proton.me wrote:
-> > From: Denis Mukhin <dmukhin@ford.com>
+On Mon, Apr 28, 2025 at 08:47:01AM +0200, Jan Beulich wrote:
+> On 26.04.2025 00:18, Stefano Stabellini wrote:
+> > On Thu, 3 Apr 2025, dmkhn@proton.me wrote:
+> >> From: Denis Mukhin <dmukhin@ford.com>
+> >>
+> >> Move console_locks_busted handling inside conring_puts() to remove
+> >> tasklet code duplication.
+> >>
+> >> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 > >
-> > Move console_locks_busted handling inside conring_puts() to remove
-> > tasklet code duplication.
+> > This patch is a good cleanup but makes one functional change: previousl=
+y
+> > guest_console_write would always call tasklet_schedule. Now, it only
+> > calls tasklet_schedule if !console_locks_busted.
 > >
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> > ---
-> > Changes v1->v2:
-> > - added Stefano's R-b
-> > ---
-> >  xen/drivers/char/console.c | 29 ++++++++++++++---------------
-> >  1 file changed, 14 insertions(+), 15 deletions(-)
+> > On ARM, we don't call console_force_unlock and never set
+> > console_locks_busted. It makes no difference.
 > >
-> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> > index c3150fbdb7..aaa97088aa 100644
-> > --- a/xen/drivers/char/console.c
-> > +++ b/xen/drivers/char/console.c
-> > @@ -325,6 +325,17 @@ static void cf_check do_dec_thresh(unsigned char k=
-ey, bool unused)
-> >   * ********************************************************
-> >   */
-> >
-> > +static void cf_check notify_dom0_con_ring(void *unused)
-> > +{
-> > +    send_global_virq(VIRQ_CON_RING);
-> > +}
-> > +
-> > +static DECLARE_SOFTIRQ_TASKLET(notify_dom0_con_ring_tasklet,
-> > +                               notify_dom0_con_ring,
-> > +                               NULL);
-> > +
-> > +static bool console_locks_busted;
-> > +
-> >  static void conring_puts(const char *str, size_t len)
-> >  {
-> >      ASSERT(rspin_is_locked(&console_lock));
-> > @@ -334,6 +345,9 @@ static void conring_puts(const char *str, size_t le=
-n)
-> >
-> >      if ( conringp - conringc > conring_size )
-> >          conringc =3D conringp - conring_size;
-> > +
-> > +    if ( !console_locks_busted )
-> > +        tasklet_schedule(&notify_dom0_con_ring_tasklet);
-> >  }
+> > On x86, there are a few callers of console_force_unlock, so it would
+> > make a difference. However, looking at the callers, it seems to me that
+> > the change is for the better and better aligns the code with the
+> > intention behind console_force_unlock.
 >=20
-> As before I'm unconvinced it is a good idea to have tasklet scheduling he=
-re.
-> You also didn't address that v1 comment of mine verbally, iirc.
+> Denis, I see you submitted v2 without any adjustment to the description.
+> With Stefano having pointed out the aspect, it should have been pretty
+> clear that such a (kind of hidden) functional change wants justifying.
+>=20
+> Furthermore, you added Stefano's R-b without any hint towards the extra
+> request he had put up above wrt x86.
 
-Sorry, I did not mean to ignore the v1 comment.
-I am preparing another iteration, which, I think looks better.
+Sorry for that, I will update the descriptions in the next iteration.
+I am preparing the update, which reverts the locking part completely.=20
 
 >=20
 > Jan
