@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55CAFA9FA0C
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 21:58:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971050.1359554 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49CC8A9FA11
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 22:00:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971065.1359565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Uc2-0007zz-4R; Mon, 28 Apr 2025 19:57:58 +0000
+	id 1u9Ue9-00019n-Im; Mon, 28 Apr 2025 20:00:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971050.1359554; Mon, 28 Apr 2025 19:57:58 +0000
+Received: by outflank-mailman (output) from mailman id 971065.1359565; Mon, 28 Apr 2025 20:00:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Uc2-0007yY-1N; Mon, 28 Apr 2025 19:57:58 +0000
-Received: by outflank-mailman (input) for mailman id 971050;
- Mon, 28 Apr 2025 19:57:56 +0000
+	id 1u9Ue9-00017z-Fe; Mon, 28 Apr 2025 20:00:09 +0000
+Received: by outflank-mailman (input) for mailman id 971065;
+ Mon, 28 Apr 2025 20:00:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s+tr=XO=ariadne.space=ariadne@srs-se1.protection.inumbo.net>)
- id 1u9Uc0-0007yS-DN
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 19:57:56 +0000
-Received: from outbound.pv.icloud.com
- (p-west1-cluster5-host11-snip4-1.eps.apple.com [57.103.66.212])
+ <SRS0=u4d+=XO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1u9Ue8-00012R-5q
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 20:00:08 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 11edcb19-246b-11f0-9ffb-bf95429c2676;
- Mon, 28 Apr 2025 21:57:53 +0200 (CEST)
-Received: from localhost.localdomain (pv-asmtp-me-k8s.p00.prod.me.com
- [17.56.9.36])
- by outbound.pv.icloud.com (Postfix) with ESMTPSA id 84DF71800104;
- Mon, 28 Apr 2025 19:57:50 +0000 (UTC)
+ id 609bd679-246b-11f0-9ffb-bf95429c2676;
+ Mon, 28 Apr 2025 22:00:05 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0B24A614AE;
+ Mon, 28 Apr 2025 19:59:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0C49C4CEE4;
+ Mon, 28 Apr 2025 20:00:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,129 +41,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11edcb19-246b-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ariadne.space;
-	s=sig1; bh=K0UfcYv3WTxscxADpnQTE6dbrKfwyxSj8fcNiZp5ugY=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version:x-icloud-hme;
-	b=F8LQiHpkmcozGsUIVn0NIxyofOPJWv//v7r9N5BL+Sudz3AqKGZZqH2exQohR0+e4
-	 VaGy+Gd3dwXx2YGtXGG9Q2qBF6b+DtM8GIS5Ba1tXS9Km3K9rOawH2/L9mHACDrRVy
-	 i1yq0ufi+Asv1W4Kb///+CoYUEGNbpVqhqwl8w1Tq1wSiYxYtq0Ks9CgfjlVufgsw3
-	 3fITBz1OzcrLaz82KZSNrqUwpZXg/Alsz64ANpOWiqLDKxY5QUKgSpFleLhNzuhW9J
-	 Bv6a2T0vTK+hy8OT9DojJCArqMR7epyZyPdFp9GnUS0mX3ZIudz9lBm+CBKMqaSWmH
-	 hCXBfUF16dXeA==
-From: Ariadne Conill <ariadne@ariadne.space>
-To: xen-devel@lists.xenproject.org
-Cc: Ariadne Conill <ariadne@ariadne.space>,
-	Paul Durrant <paul@xen.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Alejandro Vallejo <agarciav@amd.com>,
-	"Alexander M . Merritt" <alexander@edera.dev>
-Subject: [PATCH v3] x86/hyperv: use dynamically allocated page for hypercalls
-Date: Mon, 28 Apr 2025 12:57:36 -0700
-Message-Id: <20250428195736.2516-1-ariadne@ariadne.space>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+X-Inumbo-ID: 609bd679-246b-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1745870403;
+	bh=Wa5tKhRRN1izRUWp1i89VyOnRgoGFkrfdNOAHRCPg7s=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=F0O945RvgKukt99zLEtvYdRW97mDBH+opgH2FGXu0XE+ze7JyDqFF0ygxkBfg51Ou
+	 YiMIcXgUA4cwaEa19N2YkOBoEDcx2AMOyrO7zKPvBys0qvfbX0YngVgCrtgggteQwW
+	 1drdumIYWw861+Q31okVInGlfEKOqQS0UIz/Wz2nyDvbSHr0CK1uUQOsIDcBJ+rX1B
+	 9apcD+V+z86wGB+GBAoi190TRu9rkoE8gt/j4bZii/g4elgQQR2IaOAg8tVjgSFgeq
+	 deyKbE0c+jiRsVFENHwh0vJaoAHm39VfGuoYfiLa3mobu287p161BfmQn7L1TladLJ
+	 sfR6+xrbu4D/Q==
+Date: Mon, 28 Apr 2025 13:00:01 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    jason.andryuk@amd.com, agarciav@amd.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
+In-Reply-To: <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop> <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: gHF_yi7tNRx97wpQoDcPOQrznhtP2YMB
-X-Proofpoint-ORIG-GUID: gHF_yi7tNRx97wpQoDcPOQrznhtP2YMB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-04-28_07,2025-04-24_02,2025-02-21_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- bulkscore=0 spamscore=0 phishscore=0 mlxscore=0 mlxlogscore=843 clxscore=1030
- adultscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.22.0-2503100000 definitions=main-2504280161
+Content-Type: text/plain; charset=US-ASCII
 
-Previously Xen placed the hypercall page at the highest possible MFN,
-but this caused problems on systems where there is more than 36 bits
-of physical address space.
+On Mon, 28 Apr 2025, Jan Beulich wrote:
+> On 25.04.2025 22:19, Stefano Stabellini wrote:
+> > From: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>
+> > 
+> > Dom0 PVH might need XENMEM_exchange when passing contiguous memory
+> > addresses to firmware or co-processors not behind an IOMMU.
+> 
+> I definitely don't understand the firmware part: It's subject to the
+> same transparent P2M translations as the rest of the VM; it's just
+> another piece of software running there.
+> 
+> "Co-processors not behind an IOMMU" is also interesting; a more
+> concrete scenario might be nice, yet I realize you may be limited in
+> what you're allowed to say.
 
-In general, it also seems unreliable to assume that the highest possible
-MFN is not already reserved for some other purpose.
+Sure. On AMD x86 platforms there is a co-processor called PSP running
+TEE firmware. The PSP is not behind an IOMMU. Dom0 needs occasionally to
+pass addresses to it.  See drivers/tee/amdtee/ and
+include/linux/psp-tee.h in Linux.
 
-Fixes: 620fc734f854 ("x86/hyperv: setup hypercall page")
-Cc: Alejandro Vallejo <agarciav@amd.com>
-Cc: Alexander M. Merritt <alexander@edera.dev>
-Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
----
-Changes from v2:
-- Style fixes
-- Change hypercall page notice to print the MFN instead, and use
-  dprintk
+This is not a new problem. On ARM we have been dealing with this kind of
+issues for more than a decade and it is the reason why originally the
+decision was to run Dom0 1:1 mapped on ARM. I am not suggesting to map
+Dom0 PVH 1:1; I am only providing context and highlighting that we
+have been lucky on x86 :-)
 
-Changes from v1:
-- Continue to use fixmap infrastructure
-- Use panic in Hyper-V setup() function instead of returning -ENOMEM
-  on hypercall page allocation failure
 
- xen/arch/x86/guest/hyperv/hyperv.c      | 19 +++++++++----------
- xen/arch/x86/include/asm/guest/hyperv.h |  3 ---
- 2 files changed, 9 insertions(+), 13 deletions(-)
+> > XENMEM_exchange was blocked for HVM/PVH DomUs, and accidentally it
+> > impacted Dom0 PVH as well.
+> 
+> This wasn't accidental at all, I don't think.
 
-diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hyperv/hyperv.c
-index 6989af38f1..f69f596441 100644
---- a/xen/arch/x86/guest/hyperv/hyperv.c
-+++ b/xen/arch/x86/guest/hyperv/hyperv.c
-@@ -98,10 +98,18 @@ static void __init setup_hypercall_page(void)
-     rdmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
-     if ( !hypercall_msr.enable )
-     {
--        mfn = HV_HCALL_MFN;
-+        void *hcall_page = alloc_xenheap_page();
-+
-+        if ( !hcall_page )
-+            panic("Hyper-V: Failed to allocate hypercall trampoline page\n");
-+
-+        mfn = virt_to_mfn(hcall_page);
-         hypercall_msr.enable = 1;
-         hypercall_msr.guest_physical_address = mfn;
-         wrmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
-+
-+        dprintk(XENLOG_INFO,
-+                "Hyper-V: Allocated hypercall page at MFN %lx\n", mfn);
-     }
-     else
-         mfn = hypercall_msr.guest_physical_address;
-@@ -187,14 +195,6 @@ static int cf_check ap_setup(void)
-     return setup_vp_assist();
- }
- 
--static void __init cf_check e820_fixup(void)
--{
--    uint64_t s = HV_HCALL_MFN << PAGE_SHIFT;
--
--    if ( !e820_add_range(s, s + PAGE_SIZE, E820_RESERVED) )
--        panic("Unable to reserve Hyper-V hypercall range\n");
--}
--
- static int cf_check flush_tlb(
-     const cpumask_t *mask, const void *va, unsigned int flags)
- {
-@@ -211,7 +211,6 @@ static const struct hypervisor_ops __initconst_cf_clobber ops = {
-     .name = "Hyper-V",
-     .setup = setup,
-     .ap_setup = ap_setup,
--    .e820_fixup = e820_fixup,
-     .flush_tlb = flush_tlb,
- };
- 
-diff --git a/xen/arch/x86/include/asm/guest/hyperv.h b/xen/arch/x86/include/asm/guest/hyperv.h
-index c05efdce71..5792e77104 100644
---- a/xen/arch/x86/include/asm/guest/hyperv.h
-+++ b/xen/arch/x86/include/asm/guest/hyperv.h
-@@ -10,9 +10,6 @@
- 
- #include <xen/types.h>
- 
--/* Use top-most MFN for hypercall page */
--#define HV_HCALL_MFN   (((1ull << paddr_bits) - 1) >> HV_HYP_PAGE_SHIFT)
--
- /*
-  * The specification says: "The partition reference time is computed
-  * by the following formula:
--- 
-2.39.5 (Apple Git-154)
+You as the original author of the patch (fae7d5be8bb) in question would
+surely know better. But the way the commit message was written was
+pointing toward a Dom0/DeviceModel problem:
 
+"The operation's success can't be controlled by the guest, as the device
+model may have an active mapping of the page."
+
+
+> > --- a/xen/arch/x86/mm.c
+> > +++ b/xen/arch/x86/mm.c
+> > @@ -4401,7 +4401,7 @@ int steal_page(
+> >      const struct domain *owner;
+> >      int rc;
+> >  
+> > -    if ( paging_mode_external(d) )
+> > +    if ( paging_mode_external(d) && !is_hardware_domain(d) )
+> >          return -EOPNOTSUPP;
+> >  
+> >      /* Grab a reference to make sure the page doesn't change under our feet */
+> 
+> Is this (in particular the code following below here) a safe thing to do
+> when we don't properly refcount page references from the P2M, yet? It's
+> Dom0, yes, but even there I might see potential security implications (as
+> top violating privacy of a guest).
+
+I don't think I am following, could you please elaborate more? The
+change I am proposing is to allow Dom0 to share its own pages to the
+co-processor. DomUs are not in the picture. I would be happy to add
+further restriction to that effect. Is there something else you have in
+mind?
+
+
+> Furthermore cleanup_page_mappings() (called later in the function) has a
+> PV-only aspect which would apparently need widening to PVH Dom0 then,
+> too.
+
+You are referring to:
+
+        if ( d && unlikely(need_iommu_pt_sync(d)) && is_pv_domain(d) )
+            rc = iommu_legacy_unmap(d, _dfn(mfn), 1u << PAGE_ORDER_4K);
+
+is that correct?
+
+
+> > --- a/xen/common/memory.c
+> > +++ b/xen/common/memory.c
+> > @@ -794,7 +794,7 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
+> >              rc = guest_physmap_add_page(d, _gfn(gpfn), mfn,
+> >                                          exch.out.extent_order) ?: rc;
+> >  
+> > -            if ( !paging_mode_translate(d) &&
+> > +            if ( (!paging_mode_translate(d) || is_hardware_domain(d)) &&
+> >                   __copy_mfn_to_guest_offset(exch.out.extent_start,
+> >                                              (i << out_chunk_order) + j,
+> >                                              mfn) )
+> 
+> Wait, no: A PVH domain (Dom0 or not) can't very well make use of MFNs, can
+> it?
+
+One way or another Dom0 PVH needs to know the MFN to pass it to the
+co-processor.
 
