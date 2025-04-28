@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D792A9F500
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 17:55:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970881.1359438 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2B8BA9F507
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 17:57:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970892.1359447 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Qou-0003zO-8e; Mon, 28 Apr 2025 15:55:00 +0000
+	id 1u9QrN-0004Y5-Kl; Mon, 28 Apr 2025 15:57:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970881.1359438; Mon, 28 Apr 2025 15:55:00 +0000
+Received: by outflank-mailman (output) from mailman id 970892.1359447; Mon, 28 Apr 2025 15:57:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Qou-0003wG-5S; Mon, 28 Apr 2025 15:55:00 +0000
-Received: by outflank-mailman (input) for mailman id 970881;
- Mon, 28 Apr 2025 15:54:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jkfC=XO=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1u9Qos-0003wA-8b
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 15:54:58 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 20e08edd-2449-11f0-9eb4-5ba50f476ded;
- Mon, 28 Apr 2025 17:54:55 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 5FFBF4EE7BD1;
- Mon, 28 Apr 2025 17:54:54 +0200 (CEST)
+	id 1u9QrN-0004VM-HQ; Mon, 28 Apr 2025 15:57:33 +0000
+Received: by outflank-mailman (input) for mailman id 970892;
+ Mon, 28 Apr 2025 15:57:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5hYN=XO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u9QrL-0004VC-9K
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 15:57:31 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7ca336d7-2449-11f0-9ffb-bf95429c2676;
+ Mon, 28 Apr 2025 17:57:29 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-abec8b750ebso823850566b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 08:57:29 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ace6dee6ec6sm644005466b.0.2025.04.28.08.57.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Apr 2025 08:57:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,235 +45,300 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20e08edd-2449-11f0-9eb4-5ba50f476ded
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1745855694;
-	b=eipt02gPBxoFpPiUizlAIu453Rq+9O50h9bUvZM75rwDVcud2gOcX4WqleeOI6+XdXyE
-	 SeSepUJDMvVlPdW5S5sXY+9faSbOr/s5Os/sQsjzuD+qwcMzwzHAwoerLeV95Vhz/Kg39
-	 Rb7kF1zNQ5L9pbaiC0oB9VyWJ+cmasjrGgBzt3iU8XCxOxjbaN5bvcd7DtEoofO/to6BD
-	 rOhAcFIQ1IsIcLZG9C42t4Q/xzOhoN9Xbe4fM8qIWS60AukGED9luwWFvv7mFtyXDF0ti
-	 9OX2ts0vvVREnaU+hlPXPXmuPMUcPk+fNzpDCmQL8stPVC+KHYcBsYIJv7YTX501GDbYo
-	 L9A9qQNV4gQfF54OtgxY1YX1JSuqdK8dKYIkREZ5q3L1elKmWPaROtTcvMaBiVN3ZD5uu
-	 v/m0/KEAwtu27VoHvTnflCyBh9DyqDvW/ebMBooqZMMCZciEsI82p/fvTwD5lVisVex3O
-	 5fU6BvbU099YhmUpTvfA2BwImR6Qc7E6zFYSnIoptJTjfPlWCrT+EJy2aYBsg1TkRGGGo
-	 0iLa9fDz6ydxDvDuSZi5KHLR+y3ent/XHEtx07v9O+16V4kqNp96tRdz0L/rxjjdKzzvy
-	 NY1Tg7QF61aivuN/JLXNJgc9bevGEaZiS+AgR7ddijgmi1pd8XBSrAjlG5sKwcI=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1745855694;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=huJVLdjXQrj/mQLDDbls7v4qsqBT56+HBzHEtpiM9yY=;
-	b=0OdyNWWkDOfVfEeRd9Xm9AjtlegVe/gxPXFP8sLunNT92cqWQeR5+HTF0twcetEoWSp3
-	 Hbw2DXVIhTP0msp3T/5vK4WWifCnAHDN8UNfkFdE82snOVSpXx+0coWzIiLItYdG3PKev
-	 P49fT8qsHrBAs0FxUvQX0uLiuCZrcsHQcOdIUoP/CZZYYxieqxqcJ8eXXLDaD5seOhP0I
-	 zwcwErnc+Sp1dGu48k3wYvLS+G4myFscgjyVfqkgrUfeD3vy9T3hRkKFixktq/tYbajDW
-	 1YteLeJa9+IbhQCFmmw+ndYFELqewj5LnhgGsBMXJj1tXSfV9DEr5OwavtmaIVGZNSOXq
-	 bE2JErXgYYUhEWDfUcsPpDOSmMxSfhrhcJ2+ta5pk4+SZF0fIa8lc0sc/t+6zIIrtlfpu
-	 3K8JaeGSa2OeGBsArUPSSZo4wVj0hr2uG1VDmwtScacgL4AFPu0+QnV1FlH0Xobw1ufGK
-	 xeRkFZ4BpBcIP7sgfg3Rjx0KwRacxNL6EflopV6eYaLrWdzmiRapYTvbyC40vittV8D18
-	 ByFcYMGcY+pt4Kgjyxdrm6wj0kqKRijlIShdJeV/A3SxV7rEunRdNPqd+CNjS0NWAL118
-	 vB2UEryMtTbYTbED5KHA/E5hbXhNbEQtPthfl0V+jNP7VgVnzE/s0yDHzLSktNk=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1745855694; bh=oH9I9/X/vUyXzwbHS/DzNriPaSfhdN76xWGpAd4Fao0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=uLJMkUn/1R8vw81dhMsOT2LILi4Vr3TstsQKnloyX7cIMlEALYt24butG1bhkVZ5S
-	 yRzMZT7VvfcD4FoU2mBmUuz3hB7YcgEw6D7FBmikZaVrx3BfY0wI17h06tOejanknL
-	 t37Y0V7wPD+XfM0XvM77nepeDOAgs11tCC3vi9CP0NiwcCmYKhhk6EBjzLUBpRJ46K
-	 nAwJgfuNkv/HBA4iY/2oLckGh3l6CCRFO0ALqXLCaq3gyn4nYOUPGMyT2BYMWErLrC
-	 Qk6K+4bu2Q8XS+TYt5XAiRqzxs6VD004VVcTsEumhj4zcUVbEM9oejODBuEMcMWDZ4
-	 4u4WYTcZV++4A==
+X-Inumbo-ID: 7ca336d7-2449-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1745855848; x=1746460648; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=b++uVKJkqErDmnya/SJFm/yjmfLDjx7iRvKe+DeeKsI=;
+        b=JtcSADBdhIEm3KQHiCWIJ2ra8kIzXMqg5+xSB16CCDVtTw2CrU0P5aJjC2Ul8u8SNK
+         PlRFOm3Y2l8otIn1U2hkwQggTCpkHhZx3kcZprKyhEfNpVVKH1euaalS6Ejo5oLNLYzn
+         F1SSvxbtPutlpxRTtyKKfSZeCByvxCnqcmSG4zSX+L6KwW1QttnFQhQgwWHrKk8u6kXC
+         blIecPUnb9tG7khKshi8NEs9Ah7CKEf+2iSR/7maeHgi8Kz/JhIg4iYzCn/qxEMobKxU
+         A6dRH8TAt8IiLIXgu7tvSfZ7zq2FhhGcwxCVfhDlwXblFrLpEytuYY6xFmtNvw4hzD/N
+         e0VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745855848; x=1746460648;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=b++uVKJkqErDmnya/SJFm/yjmfLDjx7iRvKe+DeeKsI=;
+        b=RiHAMOn114El4YhWqzox1ssosz4FhQ00CdOUPqU+SUNfoLk3fZikkJVc67m9JtE3fM
+         181L1d6kMp34rRSofxrX6wMmUD/UrttnPQvC+Pv5xg2oR31MNGEp2sF1Ze1BuWsFwb4e
+         JSMK/vrh2qkiRXGfU5d5iUoxkJSolv5TUKSVV5Q7kUpMdQ5PbYeTf72mX5gVu4v0BRhw
+         H2c36cM874KfMXEaYHGbCF6BW9rjUqTOv0rHSeZjwJDs7iwpyWkmy8MnrS5dyc53DGuH
+         1ew8S8VuQosowTiglu3IU92oKGwEJo4Jb/s318CE4iFYjva8L3HbxhEaJSRR7HBKnGKG
+         A5BA==
+X-Forwarded-Encrypted: i=1; AJvYcCWwt7+iAf5TFSGBEc4PglRyITzIZMUgNtj5ET1Aviyk1EjiDSBn8LU0JOPdCdI7un+sKSMgQHEhRfk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy72dWUDnMVDIuvg+q9P32JzWSnsFdNkNU8yExbXWXmDgPlf8me
+	qoBx7dTukV42LFax9403Sr4qu59hbbvIQNKoqu7qFL8hnXqZZe7N3e4uuoquaQ==
+X-Gm-Gg: ASbGncsdSQz1MS/ijROgCrM9sy84lf9kBzd6Q5k+biNgHUeErhrEbRQgTjoMO+RoqDr
+	WtZG6IJybuArSQMJxDmjV6Af4FxyK9DCfHx/PZAtK3gBvSTSEzQU6I+/ofvsdtPZjEEeBpq4/tp
+	7FHaCAdTZuKzvHU/xd4bhqkEd65ztuXpaL0Y7TLJbcUVr5rxKD+1BmG6nV2MlzwpqT1iV3JmmFP
+	VGFR7kNNqEpRIqmMVZlD/625e3bLGRCAQFYL62JkWQGOxg0tCcxv6EB+fUD4Z7eIUj6XOhloHV3
+	UUW1vOvcat/E1sJT5n5zK7i2AzN+Ucyyno0HLxGvN8LLPcPsuMqG0AiGrKzT3LJnitTwglslE8R
+	IFi5bB0ztaYIIFWhOFW4ziHhjWRIsPuv6yiqP
+X-Google-Smtp-Source: AGHT+IHMFtVMMJ0N5Sp5WL2wnqfJyEVGhCqdSrFbuYOKrTPXixP+0LFQcvfRVPPr+lw2NhXuwhwqXg==
+X-Received: by 2002:a17:907:d1b:b0:ac3:991:a631 with SMTP id a640c23a62f3a-ace71177f36mr972539666b.34.1745855848504;
+        Mon, 28 Apr 2025 08:57:28 -0700 (PDT)
+Message-ID: <2e1de23f-cc79-4d37-8667-0afd07736db3@suse.com>
+Date: Mon, 28 Apr 2025 17:57:27 +0200
 MIME-Version: 1.0
-Date: Mon, 28 Apr 2025 17:54:54 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, victorm.lira@amd.com,
- Federico Serafini <federico.serafini@bugseng.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 03/15] xen/x86: introduce new sub-hypercall to
+ propagate CPPC data
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Bertrand Marquis
- <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1] misra: add deviation for rules 21.1 and 21.2
-In-Reply-To: <35ac0856-7a96-4f91-a76d-989bcebfb911@suse.com>
-References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
- <f5d35582-9270-4816-84c2-f078afeee711@suse.com>
- <alpine.DEB.2.22.394.2504241443550.785180@ubuntu-linux-20-04-desktop>
- <8d65ee65-ec6f-49a3-8954-d303b08dc2df@suse.com>
- <a9db045cff906a4b7db8730ad1095e4b@bugseng.com>
- <b7f7ab2b-baaa-416f-b390-5ed2229d34cb@suse.com>
- <4d21245edbd4949a0aec6ecdadea437c@bugseng.com>
- <35ac0856-7a96-4f91-a76d-989bcebfb911@suse.com>
-Message-ID: <776e518b51ac40973207fc2efed6a460@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
+ <20250414074056.3696888-4-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250414074056.3696888-4-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2025-04-28 11:04, Jan Beulich wrote:
-> On 28.04.2025 10:09, Nicola Vetrini wrote:
->> On 2025-04-28 08:15, Jan Beulich wrote:
->>> On 25.04.2025 17:53, Nicola Vetrini wrote:
->>>> On 2025-04-25 10:07, Jan Beulich wrote:
->>>>> On 24.04.2025 23:45, Stefano Stabellini wrote:
->>>>>> On Thu, 24 Apr 2025, Jan Beulich wrote:
->>>>>>> On 23.04.2025 19:54, victorm.lira@amd.com wrote:
->>>>>>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>>>>> 
->>>>>>>> MISRA C Rules 21.1 ("#define and #undef shall not be used on a
->>>>>>>> reserved identifier or reserved macro name") and R21.2 ("A
->>>>>>>> reserved
->>>>>>>> identifier or reserved macro name shall not be declared")
->>>>>>>> violations
->>>>>>>> are not problematic for Xen, as it does not use the C or POSIX
->>>>>>>> libraries.
->>>>>>>> 
->>>>>>>> Xen uses -fno-builtin and -nostdinc to ensure this, but there 
->>>>>>>> are
->>>>>>>> still
->>>>>>>> __builtin_* functions from the compiler that are available so
->>>>>>>> a deviation is formulated for all identifiers not starting with
->>>>>>>> "__builtin_".
->>>>>>>> 
->>>>>>>> The missing text of a deviation for Rule 21.2 is added to
->>>>>>>> docs/misra/deviations.rst.
->>>>>>>> 
->>>>>>>> To avoid regressions, tag both rules as clean and add them to 
->>>>>>>> the
->>>>>>>> monitored set.
->>>>>>>> 
->>>>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>>>>>>> Signed-off-by: Victor Lira <victorm.lira@amd.com>
->>>>>>> 
->>>>>>> While the rule is in the library section, ...
->>>>>>> 
->>>>>>>> --- a/docs/misra/deviations.rst
->>>>>>>> +++ b/docs/misra/deviations.rst
->>>>>>>> @@ -587,7 +587,31 @@ Deviations related to MISRA C:2012 Rules:
->>>>>>>>         construct is deviated only in Translation Units that
->>>>>>>> present
->>>>>>>> a violation
->>>>>>>>         of the Rule due to uses of this macro.
->>>>>>>>       - Tagged as `deliberate` for ECLAIR.
->>>>>>>> -
->>>>>>>> +
->>>>>>>> +   * - R21.1
->>>>>>>> +     - Rule 21.1 reports identifiers reserved for the C and 
->>>>>>>> POSIX
->>>>>>>> standard
->>>>>>>> +       libraries. Xen does not use such libraries and all
->>>>>>>> translation units
->>>>>>>> +       are compiled with option '-nostdinc', therefore there is
->>>>>>>> no
->>>>>>>> reason to
->>>>>>>> +       avoid to use `#define` or `#undef` on such identifiers
->>>>>>>> except for those
->>>>>>>> +       beginning with `__builtin_` for which compilers may
->>>>>>>> perform
->>>>>>>> (wrong)
->>>>>>>> +       optimizations.
->>>>>>>> +     - Tagged as `safe` for ECLAIR.
->>>>>>> 
->>>>>>> ... I'd like to ask that it be explicitly clarified here that 
->>>>>>> it's
->>>>>>> solely
->>>>>>> the library (and not e.g. the compiler itself) that are of 
->>>>>>> concern
->>>>>>> here.
->>>>>> 
->>>>>> The language can be clarified:
->>>>>> 
->>>>>> - Rule 21.1 reports identifiers reserved for the C and POSIX
->>>>>> standard
->>>>>>   libraries. Xen does not use such libraries and all translation
->>>>>> units
->>>>>>   are compiled with option '-nostdinc', therefore there is no 
->>>>>> reason
->>>>>> to
->>>>>>   avoid to use `#define` or `#undef` on C and POSIX standard
->>>>>> libraries
->>>>>>   identifiers except for those beginning with `__builtin_` for 
->>>>>> which
->>>>>>   compilers may perform (wrong) optimizations.
->>>>> 
->>>>> Which makes it more apparent that there is a gap: What about e.g.
->>>>> __x86_64__?
->>>>> That falls within what the rules cover, is not a C or POSIX 
->>>>> standard
->>>>> library
->>>>> identifier, yet very clearly must not be fiddled with. Whereas the
->>>>> text
->>>>> above deviates it.
->>>> 
->>>> that is true, even if unlikely: one approach could be to avoid
->>>> deviating
->>>> predefined macros for all CUs as -nostdinc and -fno-builtins should
->>>> take
->>>> care of the rest; this kind of deviation is not currently possible 
->>>> in
->>>> ECLAIR, but it might be in the future.
->>> 
->>> Is this perhaps because by "all pre-defined macros" you really mean
->>> _just_
->>> those, and not the entire reserved (for that purpose) sub-namespace?
->>> Imo
->>> we should not go by what a particular compiler may pre-define (we may
->>> even
->>> overlook something if we did it this way).
->>> 
->>> Jan
->>> 
->> 
->> I think there is a slight misalignment here: maybe I'm interpreting 
->> your
->> answer incorrectly. Let me try to restate the proposal: the following
->> identifiers are not allowed to be #define'd or #undef'd:
->> - __builtin_*
->> - for each CU, all macro identifiers already defined upon 
->> preprocessing
->> that CU by the compiler invocation for that CU. This set of 
->> identifiers
->> is always a subset of all the reserved identifiers, but is also
->> dependent on the compiler invocation that is used for that CU, (e.g.
->> __x86_64__ for an Arm target is usually safe to define, as it's
->> typically not a predefined macro introduced by the compiler for that
->> invocation,
-> 
-> No, it's not - elsewhere in the tree we may use this to distinguish
-> architectures. Plus isn't Misra heavily about avoiding developer
-> confusion? Defining __x86_64__ on Arm code is, imo, a pretty confusing
-> thing to do.
-> 
+On 14.04.2025 09:40, Penny Zheng wrote:
+> In order to provide backward compatibility with existing governors
+> that represent performance as frequency, like ondemand, the _CPC
+> table can optionally provide processor frequency range values, Lowest
+> frequency and Norminal frequency, to let OS use Lowest Frequency/
 
-Indeed it is confusing, but likely safe from the perspective of 
-preventing UB, which is the main rationale of this rule. For the 
-purposes of distinguishing architectures I'd expect a #ifdef __x86_64__ 
-or #if defined(__x86_64__) and those are fine, as this only applies to 
-#define or #undef.
+Nit: Nominal
 
->> while (re)defining __STDC_VERSION__ or __SIZEOF_INT__ will
->> be a violation in any command line I can think of). Note that this is
->> not a static set, but is based on what is determined to be predefined 
->> at
->> the moment of the analysis, so it is not tied to what a particular
->> compiler pre-defines.
-> 
-> Right. Yet what I'm trying to get to is that we disallow _all_ such
-> reserved identifiers, not just a subset.
-> 
+> @@ -497,12 +504,19 @@ static void print_PPC(unsigned int platform_limit)
+>      printk("\t_PPC: %d\n", platform_limit);
+>  }
+>  
+> -static int check_psd_pminfo(const struct xen_processor_performance *perf)
+> +static int check_psd_pminfo(const struct xen_processor_performance *perf,
+> +                            const struct xen_processor_cppc *cppc_data)
+>  {
+> +    uint32_t shared_type;
+> +
+> +    if ( !perf && !cppc_data )
+> +        return -EINVAL;
+> +
+> +    shared_type = perf ? perf->shared_type : cppc_data->shared_type;
 
-I understand now. There are thousands of locations to be touched to 
-remove all uses of reserved identifiers, since they are used quite 
-extensively in Xen (A rough estimation is around 1.5k such identifiers, 
-with ~900 violations on Arm and ~1000 on x86, without counting their 
-occurrences). That is a very disruptive change, even if split very 
-finely.
+Why don't you have the caller pass in shared_type? The two pointers aren't
+used ...
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+>      /* check domain coordination */
+> -    if ( perf->shared_type != CPUFREQ_SHARED_TYPE_ALL &&
+> -         perf->shared_type != CPUFREQ_SHARED_TYPE_ANY &&
+> -         perf->shared_type != CPUFREQ_SHARED_TYPE_HW )
+> +    if ( shared_type != CPUFREQ_SHARED_TYPE_ALL &&
+> +         shared_type != CPUFREQ_SHARED_TYPE_ANY &&
+> +         shared_type != CPUFREQ_SHARED_TYPE_HW )
+>          return -EINVAL;
+>  
+>      return 0;
+
+... for anything else.
+
+> @@ -627,6 +641,109 @@ out:
+>      return ret;
+>  }
+>  
+> +static void print_CPPC(const struct xen_processor_cppc *cppc_data)
+> +{
+> +    printk("\t_CPC: highest_perf=%u, lowest_perf=%u, "
+> +           "nominal_perf=%u, lowest_nonlinear_perf=%u, "
+> +           "nominal_mhz=%uMHz, lowest_mhz=%uMHz\n",
+> +           cppc_data->cpc.highest_perf, cppc_data->cpc.lowest_perf,
+> +           cppc_data->cpc.nominal_perf, cppc_data->cpc.lowest_nonlinear_perf,
+> +           cppc_data->cpc.nominal_mhz, cppc_data->cpc.lowest_mhz);
+> +}
+> +
+> +int set_cppc_pminfo(unsigned int acpi_id,
+> +                    const struct xen_processor_cppc *cppc_data)
+> +{
+> +    int ret = 0, cpuid;
+> +    struct processor_pminfo *pm_info;
+> +
+> +    cpuid = get_cpu_id(acpi_id);
+> +    if ( cpuid < 0 || !cppc_data )
+> +    {
+> +        ret = -EINVAL;
+> +        goto out;
+> +    }
+> +    if ( cpufreq_verbose )
+> +        printk("Set CPU acpi_id(%u) cpuid(%d) CPPC State info:\n",
+> +               acpi_id, cpuid);
+> +
+> +    pm_info = processor_pminfo[cpuid];
+> +    if ( !pm_info )
+> +    {
+> +        pm_info = xvzalloc(struct processor_pminfo);
+> +        if ( !pm_info )
+> +        {
+> +            ret = -ENOMEM;
+> +            goto out;
+> +        }
+> +        processor_pminfo[cpuid] = pm_info;
+> +    }
+> +    pm_info->acpi_id = acpi_id;
+> +    pm_info->id = cpuid;
+> +
+> +    if ( cppc_data->flags & XEN_CPPC_PSD )
+> +    {
+> +        ret = check_psd_pminfo(NULL, cppc_data);
+> +        if ( ret )
+> +            goto out;
+> +    }
+> +
+> +    if ( cppc_data->flags & XEN_CPPC_CPC )
+> +    {
+> +        if ( cppc_data->cpc.highest_perf == 0 ||
+> +             cppc_data->cpc.highest_perf > UINT8_MAX ||
+> +             cppc_data->cpc.nominal_perf == 0 ||
+> +             cppc_data->cpc.nominal_perf > UINT8_MAX ||
+> +             cppc_data->cpc.lowest_nonlinear_perf == 0 ||
+> +             cppc_data->cpc.lowest_nonlinear_perf > UINT8_MAX ||
+> +             cppc_data->cpc.lowest_perf == 0 ||
+> +             cppc_data->cpc.lowest_perf > UINT8_MAX ||
+> +             cppc_data->cpc.lowest_perf >
+> +                cppc_data->cpc.lowest_nonlinear_perf ||
+
+Where's this ordering spelled out in the spec?
+
+> +             cppc_data->cpc.lowest_nonlinear_perf >
+> +                cppc_data->cpc.nominal_perf ||
+> +             cppc_data->cpc.nominal_perf > cppc_data->cpc.highest_perf )
+> +            /*
+> +             * Right now, Xen doesn't actually use perf values
+> +             * in ACPI _CPC table, warning is enough.
+> +             */
+> +            printk(XENLOG_WARNING
+> +                   "Broken CPPC perf values: lowest(%u), nonlinear_lowest(%u), nominal(%u), highest(%u)\n",
+> +                   cppc_data->cpc.lowest_perf,
+> +                   cppc_data->cpc.lowest_nonlinear_perf,
+> +                   cppc_data->cpc.nominal_perf,
+> +                   cppc_data->cpc.highest_perf);
+
+If this warning was to ever surface, it would likely surface for every CPU.
+That's unnecessarily verbose, I guess. Please consider using printk_once()
+here.
+
+Also, is "right now" (as the comment says) still going to be true by the
+end of the series? Didn't I see you use the values in earlier versions?
+
+> +        /* lowest_mhz and nominal_mhz are optional value */
+> +        if ( (cppc_data->cpc.lowest_mhz && cppc_data->cpc.nominal_mhz) &&
+> +             cppc_data->cpc.lowest_mhz > cppc_data->cpc.nominal_mhz )
+
+The 1st of the three checks is redundant with the 3rd one. There's also no
+point parenthesizing one && against another.
+
+> +            printk(XENLOG_WARNING
+> +                   "Broken CPPC freq values: lowest(%u), nominal(%u)\n",
+> +                   cppc_data->cpc.lowest_mhz,
+> +                   cppc_data->cpc.nominal_mhz);
+> +    }
+> +
+> +    if ( cppc_data->flags == (XEN_CPPC_PSD | XEN_CPPC_CPC) )
+
+If either flag may be clear, ...
+
+> +    {
+> +        pm_info->cppc_data = *cppc_data;
+> +        if ( cpufreq_verbose )
+> +        {
+> +            print_PSD(&pm_info->cppc_data.domain_info);
+> +            print_CPPC(&pm_info->cppc_data);
+
+... why unconditionally loog both?
+
+> +        }
+> +
+> +        pm_info->init = XEN_CPPC_INIT;
+
+Plus is it correct to set this flag if either of the incoming flags was clear?
+
+> +        ret = cpufreq_cpu_init(cpuid);
+> +#ifndef NDEBUG
+
+Instead of this, ...
+
+> +        if ( ret )
+> +            printk(XENLOG_WARNING "No fallback scheme could be replaced now");
+
+... did you perhaps mean to use dprintk()? Also, the wording isn't meaningful
+at all. Seeing the message, about everyone will need to go and find the text
+in source code in order to stand a chance of gaining even basic understanding
+of what's going on.
+
+> @@ -459,6 +464,26 @@ struct xen_processor_performance {
+>  typedef struct xen_processor_performance xen_processor_performance_t;
+>  DEFINE_XEN_GUEST_HANDLE(xen_processor_performance_t);
+>  
+> +struct xen_processor_cppc {
+> +    uint8_t flags; /* flag for CPPC sub info type */
+> +    /*
+> +     * Subset _CPC fields useful for CPPC-compatible cpufreq
+> +     * driver's initialization
+> +     */
+> +    struct {
+> +        uint32_t highest_perf;
+> +        uint32_t nominal_perf;
+> +        uint32_t lowest_nonlinear_perf;
+> +        uint32_t lowest_perf;
+> +        uint32_t lowest_mhz;
+> +        uint32_t nominal_mhz;
+> +    } cpc;
+> +    struct xen_psd_package domain_info; /* _PSD */
+
+This being a member of the new type, ...
+
+> --- a/xen/include/xlat.lst
+> +++ b/xen/include/xlat.lst
+> @@ -168,6 +168,7 @@
+>  !	processor_performance		platform.h
+>  !	processor_power			platform.h
+>  ?	processor_px			platform.h
+> +?	processor_cppc			platform.h
+
+... how can it be ? here when it's ...
+
+>  !	psd_package			platform.h
+
+... ! here? And with it being ?, you're lacking a place where you invoke the
+resulting checking macro (which I assume would cause a build failure).
+
+Also when laying out struct xen_processor_cppc, please avoid unnecessary
+gaps or tail padding - it looks like "shared_type" would better move up. I
+think it would also be a good idea to make padding fields explicit, and
+check them to be zero. This way they can be assigned meaning later (if need
+be) without breaking backwards compatibility.
+
+Jan
 
