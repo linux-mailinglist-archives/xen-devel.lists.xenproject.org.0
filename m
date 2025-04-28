@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B482BA9EB64
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 11:04:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970337.1359052 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AA17A9EB7F
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 11:09:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970349.1359061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9KPS-00016B-Dh; Mon, 28 Apr 2025 09:04:18 +0000
+	id 1u9KTt-0001gL-Te; Mon, 28 Apr 2025 09:08:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970337.1359052; Mon, 28 Apr 2025 09:04:18 +0000
+Received: by outflank-mailman (output) from mailman id 970349.1359061; Mon, 28 Apr 2025 09:08:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9KPS-00013e-A2; Mon, 28 Apr 2025 09:04:18 +0000
-Received: by outflank-mailman (input) for mailman id 970337;
- Mon, 28 Apr 2025 09:04:17 +0000
+	id 1u9KTt-0001ed-R0; Mon, 28 Apr 2025 09:08:53 +0000
+Received: by outflank-mailman (input) for mailman id 970349;
+ Mon, 28 Apr 2025 09:08:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5hYN=XO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9KPQ-00013X-Vh
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 09:04:16 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1u9KTs-0001eW-T2
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 09:08:52 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c2b2d6db-240f-11f0-9eb4-5ba50f476ded;
- Mon, 28 Apr 2025 11:04:16 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43d04dc73b7so40954645e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 02:04:15 -0700 (PDT)
+ id 670ddc2d-2410-11f0-9eb4-5ba50f476ded;
+ Mon, 28 Apr 2025 11:08:51 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-43cfa7e7f54so29890335e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 02:08:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4409d2d8479sm154342235e9.29.2025.04.28.02.04.14
+ 5b1f17b1804b1-4409d2a152csm153185745e9.12.2025.04.28.02.08.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Apr 2025 02:04:15 -0700 (PDT)
+ Mon, 28 Apr 2025 02:08:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2b2d6db-240f-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 670ddc2d-2410-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745831055; x=1746435855; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745831331; x=1746436131; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=shifrSgTksc5mBL9UdLz927Li754XErdqiBhtpb4NM0=;
-        b=UKGmr/DjUOVyzo9PgM02EJ9aROFmC9ikrRHC0Wttr3UwUCwdM0ict//yiu9RvVmP1O
-         bVpPL1vnFi6zHGAoFt8R4xSBdTg7fMRvfItb+j2252l4ybBiU8+u0Z4D0HVyep2mAkvm
-         Z58GI1CWiqJq3WRIAPuyEsD/3XIo6TDR7SlLkZPKxcshM7QWc4Nr5tffWkU5HtULTJYu
-         X/j29mRry61pKEw5xFxYxjVtrMrh/qMsNxpmdkICplIk5YSa0LhdR9Hax85HyyJLXAIL
-         WBpQsQjGodyrvr7G90bSDSUU0jzCdsWRDNu4RfTJEkrv4E6it00P2oKgl9HI8ZlMuULF
-         mQYw==
+        bh=THrPKfXVo3yRJrsQLJx4fYAZP2gYeIlqIljcSutaSao=;
+        b=KFevRymRHVfNA9tgTG1kxQxLK3GNnUQzEvJIn+/ihjmqkC/tgBCWowBkqd5FkFAwaf
+         X3nym74cxeS10BESWHNMx6f8+NxMyFB+F6SukvwgtaxDuTMqLHFW9dEQVGvgBvjc+4Ci
+         2nXcVC4tDotGmtMEGiaKgplwyOqEi4W3ro/juvT3lXBG5O2ddSMoFUdwkwrT+/Ub6twR
+         eCzJI1fFv0HAuUSIpN5KTrTg4GEoRhGj+AzdIOIOGYGremyxOgAC2gCjO12gOUwt0Hqh
+         39huy2SSrPhW04BQTInlUSRGWO93gQpFHpyOXo4ycNWmAfFXEeYBI3JfzZqDRCvWiG6/
+         F+vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745831055; x=1746435855;
+        d=1e100.net; s=20230601; t=1745831331; x=1746436131;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=shifrSgTksc5mBL9UdLz927Li754XErdqiBhtpb4NM0=;
-        b=VWfeI5nxfK362V9p09azs9ggEtdMkSRGPlz/AKfypZHLH9n9XNUri9Q0bH0KVaco4r
-         tx685/ffNR3FDMZ6Ua/yJABrWoUDalupU9HHI4SUvxyf1nOScdUBfPV8+9dtwRugY3Ji
-         YmSpQCDkEGDX5zU6jA7QhDY23XjuXka/EP20vbjYWCgE+i0MK4UsOarFTbroCcuK1DAE
-         kNxHgAwv6HPySLH+vIypOyHb7n5TYiAu0RoqYqN2x26DVJfQgglcrW+LdrIoDN4nO3Lp
-         cyIWMyKvxzyE43AAj/ZfGRBFrrvT/pO/ZkI9KfQHnDBdurqIPOArsqEimxh9s/eBJGcC
-         ELmA==
-X-Forwarded-Encrypted: i=1; AJvYcCWNFrwT5c/w6mueGKowDJ12MVPIji8OOg/gSXbhkOmomldg2bkyhPEU3f3OKXnk8Ksu9XYnO8unr3A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw66KfH57VnlF3Zvkuic0iNjqYSWPdtVU4L0+szXLyIfOGf3O8y
-	y5tPXxl//p4zo/57XDME4Z9M4ZJV6GuQUiMfNsA+J/YMOyt05+eNBOVU4j/RnQ==
-X-Gm-Gg: ASbGnctd8I3l8MzZ3LC3guGCjE8EuLHI9lJQtE1x5JHiOsvhyV9UW9sy9ioBR/QpIlI
-	el0MaMSzhixL7GWgzZofK3YEJlp+qzeYGVBzqC28JUX7DwxMX/T0gwqKFhhUrpzvfI7Ud7mFd+T
-	RJ1w05SiEBy9QGoXXlZFxLLPDsZKnS+ERul9kl+DpT7Bm9a7nAPxlY9pKGBYRqlfi5mkNdQHWx6
-	gn5TDKqx7Eemb1CIVbiiKz9xPqPXNmB5z0IaKlCiAvoPlDWIYL1lgT4MswzdJviFDQ83HL7NZvD
-	u8irsMRxsaYLu68pkpHfR3bqqZ7JCEKIbtqgX2TmO+IIUNvfAM4h7w4rL1qE0WeDZC+gTg7F0Fq
-	k/Zd8uIbNAwOY+pFhyCkhYUi7XJNPZXnKPdCb
-X-Google-Smtp-Source: AGHT+IF/FWLZ+TDmpSrZxjci23lLi4o8C2DBUQNWIWLGCEpb4mbKeapqxYEuSUCW3yeZz5BJ3ri+ug==
-X-Received: by 2002:a05:600c:3491:b0:43b:ce3c:19d0 with SMTP id 5b1f17b1804b1-440a66b6fb1mr94580895e9.29.1745831055345;
-        Mon, 28 Apr 2025 02:04:15 -0700 (PDT)
-Message-ID: <35ac0856-7a96-4f91-a76d-989bcebfb911@suse.com>
-Date: Mon, 28 Apr 2025 11:04:15 +0200
+        bh=THrPKfXVo3yRJrsQLJx4fYAZP2gYeIlqIljcSutaSao=;
+        b=AC34mssVE9wsE98DKonLzaUETE/97XHI2/oaUntIB7hLKYwBfvKieXDcWc7cm1QRr/
+         TFSPepemqkCD8jxyYXoWu/yLcOkteyBsxmMDaztvSNkfh14f49v/Za8SRTrRVBEeDub1
+         Jixe39pucA6WKvkmJUtmYfMGiBOEnP4pHD1jXKBJt3/k3rvwfrIfhSt/kVinwt8bUTQO
+         yB1xh/sURWgJdCtBdjMFv2bnga7NSF+JXskfJZZv9AUU3nw5ehP3EKtCE0g6r0skUMSa
+         9gDv9S8DxERd3hbrkMqSWxuxZotimGt8wnKOIflQPePHICM9W6WHEEdilAC2amIx26m0
+         SLcA==
+X-Forwarded-Encrypted: i=1; AJvYcCXMjgBAueTZpXy8Z7UYbqXff8yhTOGOLF74SLHz0JvRXJJ8P2tnykHQeRS1GClM1Am5Oefa8qI5f0o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzUf5k4glIYt2ecvpCr5kPqB8Df5FNDlSzZjgBQW+sOMqJWVPBv
+	DtY/Ud+Pgt2T2EJT4Vz25fDOscQfOCel7GmNwZOMVVge6uYIzH5mNunaNELeiQ==
+X-Gm-Gg: ASbGncvzUj0YWLNPigkn8A7dDiepwh9dmZAg6p7puTss3r/4gevmJuVW1IikWB5L4el
+	BdORq3ShtTvV4Rm/K7HYXl8IK5GDQ59AgcyiIaS+M6UInX8Ts4qSGYQisJnNiN3dEHgwe+ihLme
+	Gk/F1XHsFEgPjpPJrCLBhDD6oOEKxSHPcMYMWbkl4P1urXSDWhSND7/QitUqH9c4IR6o4vMxIWO
+	/CDy8f0rrEWKn9hZUKpcgmTNwI8KIM9AlEzHd40u8ow/xUiN5dfZvSWheALiIAwcwP5e2OQNDiU
+	uGKopdlnnQHliZ76HLGYqMQG7/WOh/l3AEjRSKEs5FSFFfXvd0q2y02mvq0YRYPQib5OOEimObO
+	TPUWThvcKD/NXsjPF2udNsENCcw==
+X-Google-Smtp-Source: AGHT+IFGSxJDBsu91y8RFS0QiCZfI4NtrRCzx5xAK6fLjpF8bPwILT5lHDOPqFhLjenTJghs56OFhg==
+X-Received: by 2002:a7b:c048:0:b0:440:69f5:f179 with SMTP id 5b1f17b1804b1-4409c48b23dmr103299175e9.7.1745831331025;
+        Mon, 28 Apr 2025 02:08:51 -0700 (PDT)
+Message-ID: <eec15acd-49d7-4ac8-8472-1f3385bbb05d@suse.com>
+Date: Mon, 28 Apr 2025 11:08:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] misra: add deviation for rules 21.1 and 21.2
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, victorm.lira@amd.com,
- Federico Serafini <federico.serafini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
- <f5d35582-9270-4816-84c2-f078afeee711@suse.com>
- <alpine.DEB.2.22.394.2504241443550.785180@ubuntu-linux-20-04-desktop>
- <8d65ee65-ec6f-49a3-8954-d303b08dc2df@suse.com>
- <a9db045cff906a4b7db8730ad1095e4b@bugseng.com>
- <b7f7ab2b-baaa-416f-b390-5ed2229d34cb@suse.com>
- <4d21245edbd4949a0aec6ecdadea437c@bugseng.com>
+Subject: Re: [PATCH v4] xen/domain: unify domain ID allocation
+To: Julien Grall <julien@xen.org>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, dmkhn@proton.me, xen-devel@lists.xenproject.org
+References: <20250422215322.521464-1-dmukhin@ford.com>
+ <f0f159e6-ad79-4c1a-a61e-0272615754d6@xen.org>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,140 +119,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4d21245edbd4949a0aec6ecdadea437c@bugseng.com>
+In-Reply-To: <f0f159e6-ad79-4c1a-a61e-0272615754d6@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.04.2025 10:09, Nicola Vetrini wrote:
-> On 2025-04-28 08:15, Jan Beulich wrote:
->> On 25.04.2025 17:53, Nicola Vetrini wrote:
->>> On 2025-04-25 10:07, Jan Beulich wrote:
->>>> On 24.04.2025 23:45, Stefano Stabellini wrote:
->>>>> On Thu, 24 Apr 2025, Jan Beulich wrote:
->>>>>> On 23.04.2025 19:54, victorm.lira@amd.com wrote:
->>>>>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>>>>
->>>>>>> MISRA C Rules 21.1 ("#define and #undef shall not be used on a
->>>>>>> reserved identifier or reserved macro name") and R21.2 ("A 
->>>>>>> reserved
->>>>>>> identifier or reserved macro name shall not be declared") 
->>>>>>> violations
->>>>>>> are not problematic for Xen, as it does not use the C or POSIX
->>>>>>> libraries.
->>>>>>>
->>>>>>> Xen uses -fno-builtin and -nostdinc to ensure this, but there are
->>>>>>> still
->>>>>>> __builtin_* functions from the compiler that are available so
->>>>>>> a deviation is formulated for all identifiers not starting with
->>>>>>> "__builtin_".
->>>>>>>
->>>>>>> The missing text of a deviation for Rule 21.2 is added to
->>>>>>> docs/misra/deviations.rst.
->>>>>>>
->>>>>>> To avoid regressions, tag both rules as clean and add them to the
->>>>>>> monitored set.
->>>>>>>
->>>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>>>>>> Signed-off-by: Victor Lira <victorm.lira@amd.com>
->>>>>>
->>>>>> While the rule is in the library section, ...
->>>>>>
->>>>>>> --- a/docs/misra/deviations.rst
->>>>>>> +++ b/docs/misra/deviations.rst
->>>>>>> @@ -587,7 +587,31 @@ Deviations related to MISRA C:2012 Rules:
->>>>>>>         construct is deviated only in Translation Units that 
->>>>>>> present
->>>>>>> a violation
->>>>>>>         of the Rule due to uses of this macro.
->>>>>>>       - Tagged as `deliberate` for ECLAIR.
->>>>>>> -
->>>>>>> +
->>>>>>> +   * - R21.1
->>>>>>> +     - Rule 21.1 reports identifiers reserved for the C and POSIX
->>>>>>> standard
->>>>>>> +       libraries. Xen does not use such libraries and all
->>>>>>> translation units
->>>>>>> +       are compiled with option '-nostdinc', therefore there is 
->>>>>>> no
->>>>>>> reason to
->>>>>>> +       avoid to use `#define` or `#undef` on such identifiers
->>>>>>> except for those
->>>>>>> +       beginning with `__builtin_` for which compilers may 
->>>>>>> perform
->>>>>>> (wrong)
->>>>>>> +       optimizations.
->>>>>>> +     - Tagged as `safe` for ECLAIR.
->>>>>>
->>>>>> ... I'd like to ask that it be explicitly clarified here that it's
->>>>>> solely
->>>>>> the library (and not e.g. the compiler itself) that are of concern
->>>>>> here.
->>>>>
->>>>> The language can be clarified:
->>>>>
->>>>> - Rule 21.1 reports identifiers reserved for the C and POSIX 
->>>>> standard
->>>>>   libraries. Xen does not use such libraries and all translation 
->>>>> units
->>>>>   are compiled with option '-nostdinc', therefore there is no reason
->>>>> to
->>>>>   avoid to use `#define` or `#undef` on C and POSIX standard 
->>>>> libraries
->>>>>   identifiers except for those beginning with `__builtin_` for which
->>>>>   compilers may perform (wrong) optimizations.
->>>>
->>>> Which makes it more apparent that there is a gap: What about e.g.
->>>> __x86_64__?
->>>> That falls within what the rules cover, is not a C or POSIX standard
->>>> library
->>>> identifier, yet very clearly must not be fiddled with. Whereas the 
->>>> text
->>>> above deviates it.
->>>
->>> that is true, even if unlikely: one approach could be to avoid 
->>> deviating
->>> predefined macros for all CUs as -nostdinc and -fno-builtins should 
->>> take
->>> care of the rest; this kind of deviation is not currently possible in
->>> ECLAIR, but it might be in the future.
->>
->> Is this perhaps because by "all pre-defined macros" you really mean 
->> _just_
->> those, and not the entire reserved (for that purpose) sub-namespace? 
->> Imo
->> we should not go by what a particular compiler may pre-define (we may 
->> even
->> overlook something if we did it this way).
->>
->> Jan
->>
+On 23.04.2025 13:22, Julien Grall wrote:
+> On 22/04/2025 22:54, dmkhn@proton.me wrote:
+>> --- a/xen/common/domain.c
+>> +++ b/xen/common/domain.c
+>> @@ -66,6 +66,57 @@ DEFINE_RCU_READ_LOCK(domlist_read_lock);
+>>   static struct domain *domain_hash[DOMAIN_HASH_SIZE];
+>>   struct domain *domain_list;
+>>   
+>> +/* Domain ID allocator */
+>> +static unsigned int domid_last;
+>> +
+>> +static inline bool is_free_domid(domid_t dom)
+>> +{
+>> +    struct domain *d = rcu_lock_domain_by_id(dom);
+>> +
+>> +    if ( d )
+>> +        rcu_unlock_domain(d);
+>> +
+>> +    return !d;
+>> +}
+>> +
+>> +/*
+>> + * Allocate new domain ID based on the hint.
 > 
-> I think there is a slight misalignment here: maybe I'm interpreting your 
-> answer incorrectly. Let me try to restate the proposal: the following 
-> identifiers are not allowed to be #define'd or #undef'd:
-> - __builtin_*
-> - for each CU, all macro identifiers already defined upon preprocessing 
-> that CU by the compiler invocation for that CU. This set of identifiers 
-> is always a subset of all the reserved identifiers, but is also 
-> dependent on the compiler invocation that is used for that CU, (e.g. 
-> __x86_64__ for an Arm target is usually safe to define, as it's 
-> typically not a predefined macro introduced by the compiler for that 
-> invocation,
+> Maybe clarify this should not be used for system domains?
 
-No, it's not - elsewhere in the tree we may use this to distinguish
-architectures. Plus isn't Misra heavily about avoiding developer
-confusion? Defining __x86_64__ on Arm code is, imo, a pretty confusing
-thing to do.
-
-> while (re)defining __STDC_VERSION__ or __SIZEOF_INT__ will 
-> be a violation in any command line I can think of). Note that this is 
-> not a static set, but is based on what is determined to be predefined at 
-> the moment of the analysis, so it is not tied to what a particular 
-> compiler pre-defines.
-
-Right. Yet what I'm trying to get to is that we disallow _all_ such
-reserved identifiers, not just a subset.
+But those don't have their IDs allocated; they're pre-determined and outside
+of the range available for allocation.
 
 Jan
 
