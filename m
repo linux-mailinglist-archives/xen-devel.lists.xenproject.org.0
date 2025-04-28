@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F10AA9FA1E
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 22:03:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971087.1359584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A849AA9FA2B
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 22:07:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971101.1359595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Ugl-0002VB-4r; Mon, 28 Apr 2025 20:02:51 +0000
+	id 1u9Ukw-00034j-L2; Mon, 28 Apr 2025 20:07:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971087.1359584; Mon, 28 Apr 2025 20:02:51 +0000
+Received: by outflank-mailman (output) from mailman id 971101.1359595; Mon, 28 Apr 2025 20:07:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Ugl-0002St-28; Mon, 28 Apr 2025 20:02:51 +0000
-Received: by outflank-mailman (input) for mailman id 971087;
- Mon, 28 Apr 2025 20:02:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u4d+=XO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1u9Ugk-0002Sn-G6
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 20:02:50 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1710d48-246b-11f0-9ffb-bf95429c2676;
- Mon, 28 Apr 2025 22:02:48 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2E54A5C5799;
- Mon, 28 Apr 2025 20:00:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E174DC4CEE4;
- Mon, 28 Apr 2025 20:02:44 +0000 (UTC)
+	id 1u9Ukw-00032S-Hl; Mon, 28 Apr 2025 20:07:10 +0000
+Received: by outflank-mailman (input) for mailman id 971101;
+ Mon, 28 Apr 2025 20:07:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=N2FI=XO=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1u9Uku-00030n-AV
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 20:07:09 +0000
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch
+ [79.135.106.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5ba99be6-246c-11f0-9eb4-5ba50f476ded;
+ Mon, 28 Apr 2025 22:07:06 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,97 +36,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1710d48-246b-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745870566;
-	bh=ituXsXj7h50AOQZhQuN/SH6ienDPrbu4eLUM75uBstw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=TuGCCz2YlsVbZqX9xn0om3ueaI9WfCvtMqC3Gt9+z/6PmMyov22ggB7uRKhK0wNfH
-	 7hNaEkaB8lZpQ9qt1KhTduNqctkkPAhRSaO+aFQPgRXuDtqDu6nGkl6sEfiRd6uRYw
-	 zYVhTgbii+/BzeqhMm2jaK8+9Kco7TGhCsaL/HDyOCawqtD1X16rOw3U+/PQWDE26e
-	 +mtTPquro1yH4mWNCbERSsWx7DwKEMENQgBFi3JhVD3n95zitkTKQOpjBfOgUS5Efw
-	 tDVUBvtYoSwE5U/8+0YbaYgSIGBiedbfRtb+Qrg4+s35OSzw8IfiuMN1TgBxoS0nuJ
-	 eqTH6eXVCzh/A==
-Date: Mon, 28 Apr 2025 13:02:43 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Teddy Astie <teddy.astie@vates.tech>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, jason.andryuk@amd.com, 
-    agarciav@amd.com
-Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
-In-Reply-To: <f315a128-ce68-42be-9f0c-044ad0c5320c@vates.tech>
-Message-ID: <alpine.DEB.2.22.394.2504281300340.785180@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop> <f315a128-ce68-42be-9f0c-044ad0c5320c@vates.tech>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 5ba99be6-246c-11f0-9eb4-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1745870825; x=1746130025;
+	bh=syyr0ZTMJnjDywzOybdBLaYWDsgPjabS8M3+vZFWaXc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=WQxj9l3Ywlr/4M6mwVg//zV23ICRlv9bWSfZXyt/x5hE2Knf5k1IIKGDVc5s754Fu
+	 BPvdkzPB8SnyslPIpmP/u0qzo6MmN8vnL9E2A+hbVwQtTU2+PMSzzSRZ6lurO7Xp6r
+	 MeI1LH2MIbfybd8qTseGMygXeUdZKIWx+s+rUwYlpm85WtM/9E+PKJxx6JdYvatHlw
+	 MtCzlwZ2MmBEtko252PkEeIa9pApHZT71awoHHBxwFWVnqOYhDXpAB45HDQD3WMr5n
+	 AFxCPKD3Yph5aeTzUDTKxjGdjCGb5sZZ93A3kt26WU6oKYVUJ9zyeffSa+cB96gILZ
+	 O6O6KmawH8z6w==
+Date: Mon, 28 Apr 2025 20:06:59 +0000
+To: Jan Beulich <jbeulich@suse.com>
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 1/3] xen/console: cleanup conring management
+Message-ID: <aA/f3+QEBhVlIVPF@kraken>
+In-Reply-To: <cacff70d-5269-451d-b264-4d02b299e677@suse.com>
+References: <20250426185021.100646-1-dmukhin@ford.com> <20250426185021.100646-2-dmukhin@ford.com> <cacff70d-5269-451d-b264-4d02b299e677@suse.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 4ac16eb9bc11de67ba0ee100acc73861059c6ac0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1131418842-1745870495=:785180"
-Content-ID: <alpine.DEB.2.22.394.2504281301430.785180@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Mon, Apr 28, 2025 at 08:50:52AM +0200, Jan Beulich wrote:
+> On 26.04.2025 20:50, dmkhn@proton.me wrote:
+> > From: Denis Mukhin <dmukhin@ford.com>
+> >
+> > Move console_locks_busted handling inside conring_puts() to remove
+> > tasklet code duplication.
+> >
+> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> > ---
+> > Changes v1->v2:
+> > - added Stefano's R-b
+> > ---
+> >  xen/drivers/char/console.c | 29 ++++++++++++++---------------
+> >  1 file changed, 14 insertions(+), 15 deletions(-)
+> >
+> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> > index c3150fbdb7..aaa97088aa 100644
+> > --- a/xen/drivers/char/console.c
+> > +++ b/xen/drivers/char/console.c
+> > @@ -325,6 +325,17 @@ static void cf_check do_dec_thresh(unsigned char k=
+ey, bool unused)
+> >   * ********************************************************
+> >   */
+> >
+> > +static void cf_check notify_dom0_con_ring(void *unused)
+> > +{
+> > +    send_global_virq(VIRQ_CON_RING);
+> > +}
+> > +
+> > +static DECLARE_SOFTIRQ_TASKLET(notify_dom0_con_ring_tasklet,
+> > +                               notify_dom0_con_ring,
+> > +                               NULL);
+> > +
+> > +static bool console_locks_busted;
+> > +
+> >  static void conring_puts(const char *str, size_t len)
+> >  {
+> >      ASSERT(rspin_is_locked(&console_lock));
+> > @@ -334,6 +345,9 @@ static void conring_puts(const char *str, size_t le=
+n)
+> >
+> >      if ( conringp - conringc > conring_size )
+> >          conringc =3D conringp - conring_size;
+> > +
+> > +    if ( !console_locks_busted )
+> > +        tasklet_schedule(&notify_dom0_con_ring_tasklet);
+> >  }
+>=20
+> As before I'm unconvinced it is a good idea to have tasklet scheduling he=
+re.
+> You also didn't address that v1 comment of mine verbally, iirc.
 
---8323329-1131418842-1745870495=:785180
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2504281301431.785180@ubuntu-linux-20-04-desktop>
+Sorry, I did not mean to ignore the v1 comment.
+I am preparing another iteration, which, I think looks better.
 
-On Mon, 28 Apr 2025, Teddy Astie wrote:
-> Hello Stefano,
-> 
-> Le 25/04/2025 à 22:21, Stefano Stabellini a écrit :
-> > From: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>
-> >
-> > Dom0 PVH might need XENMEM_exchange when passing contiguous memory
-> > addresses to firmware or co-processors not behind an IOMMU.
-> >
-> > XENMEM_exchange was blocked for HVM/PVH DomUs, and accidentally it
-> > impacted Dom0 PVH as well.
-> >
-> > Permit Dom0 PVH to call XENMEM_exchange while leaving it blocked for
-> > HVM/PVH DomUs.
-> >
-> 
-> In addition to Jan's remarks, I think it wants some additional
-> clarifications on the hypercall interface. public/memory.h indicates
-> "only PV guests can use this operation", so the interface is actually
-> unspecified about HVM guests (e.g what are MFN/GMFN in this case ?).
+>=20
+> Jan
 
-That is a new addition from c08a11ab98c. If you see fae7d5be8bb, there
-is a statement that "we permitted this operation".
-
-
-> > Signed-off-by: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> >
-> > diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> > index 1cf2365167..e995944333 100644
-> > --- a/xen/arch/x86/mm.c
-> > +++ b/xen/arch/x86/mm.c
-> > @@ -4401,7 +4401,7 @@ int steal_page(
-> >       const struct domain *owner;
-> >       int rc;
-> >
-> > -    if ( paging_mode_external(d) )
-> > +    if ( paging_mode_external(d) && !is_hardware_domain(d) )
-> >           return -EOPNOTSUPP;
-> >
-> >       /* Grab a reference to make sure the page doesn't change under our feet */
-> > diff --git a/xen/common/memory.c b/xen/common/memory.c
-> > index 8ca4e1a842..796eec081b 100644
-> > --- a/xen/common/memory.c
-> > +++ b/xen/common/memory.c
-> > @@ -794,7 +794,7 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
-> >               rc = guest_physmap_add_page(d, _gfn(gpfn), mfn,
-> >                                           exch.out.extent_order) ?: rc;
-> >
-> > -            if ( !paging_mode_translate(d) &&
-> > +            if ( (!paging_mode_translate(d) || is_hardware_domain(d)) &&
-> >                    __copy_mfn_to_guest_offset(exch.out.extent_start,
-> >                                               (i << out_chunk_order) + j,
-> >                                               mfn) )
---8323329-1131418842-1745870495=:785180--
 
