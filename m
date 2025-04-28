@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03C3BA9E94B
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 09:29:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970193.1358939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0EACA9E9C4
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 09:44:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970207.1358950 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Iv2-0005hv-Ge; Mon, 28 Apr 2025 07:28:48 +0000
+	id 1u9J9V-0000so-Oa; Mon, 28 Apr 2025 07:43:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970193.1358939; Mon, 28 Apr 2025 07:28:48 +0000
+Received: by outflank-mailman (output) from mailman id 970207.1358950; Mon, 28 Apr 2025 07:43:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Iv2-0005ex-Do; Mon, 28 Apr 2025 07:28:48 +0000
-Received: by outflank-mailman (input) for mailman id 970193;
- Mon, 28 Apr 2025 07:28:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u9J9V-0000q2-Ly; Mon, 28 Apr 2025 07:43:45 +0000
+Received: by outflank-mailman (input) for mailman id 970207;
+ Mon, 28 Apr 2025 07:43:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5hYN=XO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9Iv0-0005er-Pd
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 07:28:46 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a49af6c-2402-11f0-9ffb-bf95429c2676;
- Mon, 28 Apr 2025 09:28:44 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4394a823036so42613455e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 00:28:44 -0700 (PDT)
+ id 1u9J9U-0000pw-8S
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 07:43:44 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 81deef8b-2404-11f0-9eb4-5ba50f476ded;
+ Mon, 28 Apr 2025 09:43:42 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-43cfe63c592so45867725e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 00:43:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-440a52f8915sm118921685e9.7.2025.04.28.00.28.43
+ 5b1f17b1804b1-4409d29ba29sm148947785e9.7.2025.04.28.00.43.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Apr 2025 00:28:43 -0700 (PDT)
+ Mon, 28 Apr 2025 00:43:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a49af6c-2402-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 81deef8b-2404-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745825324; x=1746430124; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745826222; x=1746431022; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KhEl+XJTa/JPCYXT6wWNqTNVJcpDja2+mTjwpNh1YHQ=;
-        b=AwjMySvJaKGVf2g4NPj1ysckG/rXOpZqWYx2aqW5T/QJBQX6iNyqIuG3A2sPjtNUzx
-         xvqAubGnzX1d8bJalEsknfOiF87rc3rWgTbrrYQOVU9fmJzP4gSt7LifjIjL6oH1dtLQ
-         g1GzLEe3Ii0VLgTMVpTWgixnHcwwoQ3h2GDxjPQ8N6ln6d1b1aO9BJ1axYvG7EySCLnY
-         +M3+osvRvXbTaOu+myIGE1d5oA6A7tfl2o9OGv7RR9skGTlCFtqwugGg4B6fDSZYj9pM
-         v1ahpnZJUoXq9ufBQNAF5PnorXMCAatJ9FTQxSHh2jCgJx4JHPEtf7BOsZ6e7pp4YjJp
-         5Akg==
+        bh=6coqWLi2TgHzMLlt5v+nz4yb1DsAqZd6VeM+WiOGb2M=;
+        b=Ir2GpL4K5Ub1wgUzRu/orWfWBG+3FZ7wSRzIaU/4TkJDo7lybhLjJXqAXxAjz3WJ1G
+         yT0z9NArshl4g1e96OO12W0B2yc5RW3eS3yau/AhnDnWG4sPnHS9U9VN1ZKWAcBQ3/sk
+         yJ/oO8IkEbm+MHmcRM9rkoquBSNftLkyuNtcaRFTMIuT8+w8dZEczs685QdrAmBSI+5B
+         kqrhKGbbGtz14o6eDYsFuVIZ5xAco0EZYN7msmvo2fsr7D7y4Vw+bkMGQP2sxfs5EKlX
+         Mm3GCBjaeGVIA5hzF9zEe+GZlw/kYZaDbgbe3pleqXX3vK3LNBRas1O2Wqrgtw6f8Brg
+         Yfhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745825324; x=1746430124;
+        d=1e100.net; s=20230601; t=1745826222; x=1746431022;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KhEl+XJTa/JPCYXT6wWNqTNVJcpDja2+mTjwpNh1YHQ=;
-        b=jCBH9MKoaqlvgO6SEjGKJoCzdyruBVK39YCRqm92AFViUYv3qkJToZA90RauHvyibG
-         2ldN1If+k9toQ3DmimitQOOOTljiKxGlPUGGZIoEKevf6wh0AVFzHLBCASObPc+QZGh0
-         1uB8SIjLVVXv3RPQMwT087mIbaLqHE75C8UXAnOXYXRRbdL628jCCJGShIrkjGb86ff+
-         X6qEM1sk4BJsmO0jGZllooSUTSKw64omQ235G74O5x9WHSdDfzRZladNrqaXlTT2xzJq
-         5HmfFIh7nCJo/3AISb+oXczB5IqyjzCjZWfv1V+3JrrKNdZK+0LXC6KK+NJeln6sIP2v
-         PHZw==
-X-Forwarded-Encrypted: i=1; AJvYcCW+hRg2YyqzkPyqI20I30+6dcleTAhiOjOKA3kz64wC23YA5lIiisP1jdGNnQSS94cErq+mLf0Jh14=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxX77pV1nFOOyCvKiMO4bpm5f/ipvdz40YXuNnskVOkeBwsG1Cw
-	BU1T83J3mG/btDwpMB50aJXNZssRw/55HjyO0D2Y5UMGlUHo9CvBX0XyBYBV2A==
-X-Gm-Gg: ASbGncvRbB7m0ralbfoorRVUSzkejCtX0eJvSXOnvU2yQd9Iiw1oFO3Le+fhdBFbFQw
-	ybdiuhQE2ZY00xud/trX5906RGiqqJle9+fgR6PDq91zyDw0++Xmc/jSuUO5LFKUIil7caBGeyn
-	gRkfskNwAjV7oEzuoafAn4VUb4bkjOA6/NG6Dgt2LbLPOLDZDGxE7z8jMTikklA3j0kJHgSlwtL
-	4R7LxzOGKWHk5GIUkDdo78nRrsb0FZP7ulhhO/lF/NXrIVDYMfhJPuvsy8vjAAI+0fQvw7uAwaW
-	IwLrMYcTDMjBzjsyb6eAActGXiSI5Z9Ay72oCCjttbo2957WYXvQHEmL5zYuYHRqzW1+8yZY49k
-	1PeH80RXrmLn96ptSAqdHMTQCmpPfb/jtTeiX
-X-Google-Smtp-Source: AGHT+IEzoOzK0yFoyMQ/vZmQYXkYG8Ebzr5ASv0tIGVVGG5C2kwnsTKI2dWwjUi97cgFn64ksqABkw==
-X-Received: by 2002:a05:600c:a089:b0:43c:efed:733e with SMTP id 5b1f17b1804b1-440a65e3e7emr95498685e9.14.1745825324014;
-        Mon, 28 Apr 2025 00:28:44 -0700 (PDT)
-Message-ID: <cb1f8a8f-8834-4610-baab-c53bf5928b0c@suse.com>
-Date: Mon, 28 Apr 2025 09:28:44 +0200
+        bh=6coqWLi2TgHzMLlt5v+nz4yb1DsAqZd6VeM+WiOGb2M=;
+        b=MNY9Ug+bm2/Z9lxrMmn5rT3SjFVLQ7Geln0qhs/knXMxyfnAtGJiYVHBIcnoKHr70n
+         VlVo8MU5jLU6asJUQl0uaWdsMCDfJ1OPNrmucYmuUhoDI7M8nH5RdCekMvBf15C5gtIs
+         ggv7zRKaTCqEQd2yM6Za80OvAQpfqunPQsuLeW9OHn8MB6YDTZWG3A3lyllgJEnBqam2
+         oICKjg2FHufkR3IKM/5YGsUPI/D3y7DO3VBmejByyxInD9Kj6MaZyfW+IVh/71X5E197
+         gnhCFgza2w3WVDQX4/+aTfl8vNoH2g45uTOj7E/qhEx+1qIkPYhDz7g8n70BRLb5aDFs
+         0Vzg==
+X-Forwarded-Encrypted: i=1; AJvYcCVBUw2SVs/53RxC5SKYqRrQJ7g2kgZLp/e8M28dAvuj2zGts2Rr78AGjfpsAiPLiwvxDqC2wWP3LQ8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwmHgL/wQI9V9rWxbfsLvwqRM7OvwLvlCQxGgiP5BSvSD0w3TSR
+	PE1jRhPg5FKivMgwXYd6ZpoA+fAyRdVIe6C9s4fD2upbfeKHXt8cEIcvllzFvA==
+X-Gm-Gg: ASbGnctmxJYl6Gf90A3ZcAyyVf7Q3jdENrJiNfoiNPe1MzQUz2VTvOpBJmAAXl6Wyy9
+	sX4R6s6deVu+RzpGY5YpwU7D4sA6x5irgi3933mwCJp1Hv4JHnYB7KWWAx1+uXejpgLPH/jAvMM
+	xzbQcSc+w507NZWTAdOlzOFXUGad9G5v1HlobzHyi/a8aJj8F1zijGLdC7NVfXi4qk0wfKvQjY3
+	n9tM5CS+gUp+N+E8BqwwbFbgO1+c1LNXoGdfFdNHk4EONqRD+gaxPQPZyWVK4YxCN+m7AdyUEtq
+	9r8yw8y3N9FvzShMe1wrwek8FUk/WOqyAvQp4bd00zIfbRkvFjAELjpmYJC/krxIBNBq33IxHiI
+	cunaN8PvuzlGFzf4BIpItWz40WA==
+X-Google-Smtp-Source: AGHT+IHKymcv4A74sU73KKaYeIxU+buoshK9YKlT3ig0JkuxBjKlf/o9pg79eaYaEhza3R21OC8SiA==
+X-Received: by 2002:a05:600c:3d08:b0:43c:fe5e:f03b with SMTP id 5b1f17b1804b1-440ab36222bmr73002075e9.30.1745826222032;
+        Mon, 28 Apr 2025 00:43:42 -0700 (PDT)
+Message-ID: <3146fbf3-2ff1-48a4-b05b-37477a9a5cc5@suse.com>
+Date: Mon, 28 Apr 2025 09:43:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] compat: address violations of MISRA C Rule 19.1
-To: victorm.lira@amd.com, Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: Re: [PATCH v1 1/2] xen/page_alloc: address violation of Rule 14.3
+To: victorm.lira@amd.com, Federico Serafini <federico.serafini@bugseng.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Federico Serafini <federico.serafini@bugseng.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <c694069696dd428bc1719e36c378a573b03f74b9.1745624090.git.victorm.lira@amd.com>
- <74b0420ab20fc0204db14c0a1a4a68ed48b25a38.1745624090.git.victorm.lira@amd.com>
+References: <5f2e316aae4667d1fe851e68552eb881c4d5a015.1745625477.git.victorm.lira@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,49 +122,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <74b0420ab20fc0204db14c0a1a4a68ed48b25a38.1745624090.git.victorm.lira@amd.com>
+In-Reply-To: <5f2e316aae4667d1fe851e68552eb881c4d5a015.1745625477.git.victorm.lira@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.04.2025 01:42, victorm.lira@amd.com wrote:
-> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 26.04.2025 02:00, victorm.lira@amd.com wrote:
+> From: Federico Serafini <federico.serafini@bugseng.com>
 > 
-> Rule 19.1 states: "An object shall not be assigned or copied
-> to an overlapping object". Since the "call" and "compat_call" are
-> fields of the same union, reading from one member and writing to
-> the other violates the rule, while not causing Undefined Behavior
-> due to their relative sizes. However, a dummy variable is used to
-> address the violation and prevent the future possibility of
-> incurring in UB.
+> MISRA C Rule 14.3 states that "Controlling expressions shall not be
+> invariant".
+> 
+> Add a SAF comment to deviate the rule for build configurations without
+> CONFIG_LLC_COLORING enabled.
 
-If there is such a concern, ...
+I was surprised by this supposedly being the only violation. And indeed it
+wasn't very hard to find more. For example, we have a number of
+"while ( num_online_cpus() > 1 && ... )", which become compile-time
+constant (false) when NR_CPUS=1.
 
-> --- a/xen/common/compat/multicall.c
-> +++ b/xen/common/compat/multicall.c
-> @@ -15,8 +15,13 @@ typedef int ret_t;
->  static inline void xlat_multicall_entry(struct mc_state *mcs)
->  {
->      int i;
-> +    xen_ulong_t arg;
-> +
->      for (i=0; i<6; i++)
-> -        mcs->compat_call.args[i] = mcs->call.args[i];
-> +    {
-> +        arg = mcs->call.args[i];
-> +        mcs->compat_call.args[i] = arg;
-> +    }
->  }
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -2038,6 +2038,7 @@ static struct page_info *alloc_color_heap_page(unsigned int memflags,
+> 
+>      spin_lock(&heap_lock);
+> 
+> +    /* SAF-14-safe MISRA C R14.3 condition always false without LLC_COLORING */
+>      for ( i = 0; i < domain_num_llc_colors(d); i++ )
+>      {
+>          unsigned long free = free_colored_pages[domain_llc_color(d, i)];
 
-... wouldn't it be of concern as well that the alternating parts of
-the union are still accessed in a flip-flop manner? IOW we continue to
-rely on the relative placement properties of the individual array
-elements. To eliminate such a concern, I think the resulting code would
-also want to be correct if iteration was swapped to work downwards.
+Hmm, this way the deviation applies even when LLC_COLORING=y.
 
-Also the scope of the temporary could certainly be the loop body rather
-than the entire function. I also don't think it needs to be xen_ulong_t,
-but maybe using unsigned int instead wouldn't make a difference in
-generated code.
+As to the comment wording - looks like we're pretty inconsistent with that
+right now. I, for one, don't think the Misra rule needs (re)stating there;
+the SAF index points at all the data that's needed if one cares about the
+specifics of the deviation.
 
 Jan
 
