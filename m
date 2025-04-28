@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DD31A9F4CB
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 17:43:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970868.1359427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D792A9F500
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 17:55:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970881.1359438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9QdU-000228-9O; Mon, 28 Apr 2025 15:43:12 +0000
+	id 1u9Qou-0003zO-8e; Mon, 28 Apr 2025 15:55:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970868.1359427; Mon, 28 Apr 2025 15:43:12 +0000
+Received: by outflank-mailman (output) from mailman id 970881.1359438; Mon, 28 Apr 2025 15:55:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9QdU-0001zQ-61; Mon, 28 Apr 2025 15:43:12 +0000
-Received: by outflank-mailman (input) for mailman id 970868;
- Mon, 28 Apr 2025 15:43:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1u9QdT-0001zK-16
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 15:43:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1u9QdS-00AYKk-2V
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 15:43:10 +0000
-Received: from mail-vk1-f173.google.com ([209.85.221.173])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1u9QdS-007lsh-2M
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 15:43:10 +0000
-Received: by mail-vk1-f173.google.com with SMTP id
- 71dfb90a1353d-52934f4fb23so4931707e0c.1
- for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 08:43:10 -0700 (PDT)
+	id 1u9Qou-0003wG-5S; Mon, 28 Apr 2025 15:55:00 +0000
+Received: by outflank-mailman (input) for mailman id 970881;
+ Mon, 28 Apr 2025 15:54:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jkfC=XO=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1u9Qos-0003wA-8b
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 15:54:58 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 20e08edd-2449-11f0-9eb4-5ba50f476ded;
+ Mon, 28 Apr 2025 17:54:55 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 5FFBF4EE7BD1;
+ Mon, 28 Apr 2025 17:54:54 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,156 +40,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Content-Type:Cc:To:Subject:Message-ID:
-	Date:From:MIME-Version; bh=HhK/iltj1k0/ZvD6Fj3ztKY3hSS9y9+djRL+jiYNMjA=; b=1M
-	0SdpJiiYgjejrXxp36XXn01ovJp0h7gwlv++pRB2gc6GpJ5gZX0GVdUdECttZ1OO5VkWFuFTaEKbN
-	/wqAPYtpWtpWr0vi29nL6NJ62YMK6Mdm4K/ZBfm5BAdC7lhxY1IR5c4Ars6rVBHOS0buah5veGZ1g
-	+L3KnGplf8YcusY=;
-X-Gm-Message-State: AOJu0YziIGOv1XHMct+P1BaOrg8AGDdYf395c2SW0Hup85xRwx4uyR+A
-	IHUR/GEtauCLHPmRU+1/D6/yUE+qNdbLYZ1KNcdbg2dHbZ7PTj4drM96+6OMNV8Q0BdxnLVAqWd
-	pTyGIFGAHcMHKUqMdfiQVLc/Fww8=
-X-Google-Smtp-Source: AGHT+IHNJsohIT102MEYUSinlWxsgAAS/1fnJnQcnMtvTL7gGKm1qGXEVUc1t6beoEAc3DYNdtsjJOUgidRUJotWmmo=
-X-Received: by 2002:a05:6122:4693:b0:523:dd87:fe95 with SMTP id
- 71dfb90a1353d-52a89f1714amr8930192e0c.9.1745854990253; Mon, 28 Apr 2025
- 08:43:10 -0700 (PDT)
+X-Inumbo-ID: 20e08edd-2449-11f0-9eb4-5ba50f476ded
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1745855694;
+	b=eipt02gPBxoFpPiUizlAIu453Rq+9O50h9bUvZM75rwDVcud2gOcX4WqleeOI6+XdXyE
+	 SeSepUJDMvVlPdW5S5sXY+9faSbOr/s5Os/sQsjzuD+qwcMzwzHAwoerLeV95Vhz/Kg39
+	 Rb7kF1zNQ5L9pbaiC0oB9VyWJ+cmasjrGgBzt3iU8XCxOxjbaN5bvcd7DtEoofO/to6BD
+	 rOhAcFIQ1IsIcLZG9C42t4Q/xzOhoN9Xbe4fM8qIWS60AukGED9luwWFvv7mFtyXDF0ti
+	 9OX2ts0vvVREnaU+hlPXPXmuPMUcPk+fNzpDCmQL8stPVC+KHYcBsYIJv7YTX501GDbYo
+	 L9A9qQNV4gQfF54OtgxY1YX1JSuqdK8dKYIkREZ5q3L1elKmWPaROtTcvMaBiVN3ZD5uu
+	 v/m0/KEAwtu27VoHvTnflCyBh9DyqDvW/ebMBooqZMMCZciEsI82p/fvTwD5lVisVex3O
+	 5fU6BvbU099YhmUpTvfA2BwImR6Qc7E6zFYSnIoptJTjfPlWCrT+EJy2aYBsg1TkRGGGo
+	 0iLa9fDz6ydxDvDuSZi5KHLR+y3ent/XHEtx07v9O+16V4kqNp96tRdz0L/rxjjdKzzvy
+	 NY1Tg7QF61aivuN/JLXNJgc9bevGEaZiS+AgR7ddijgmi1pd8XBSrAjlG5sKwcI=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1745855694;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=huJVLdjXQrj/mQLDDbls7v4qsqBT56+HBzHEtpiM9yY=;
+	b=0OdyNWWkDOfVfEeRd9Xm9AjtlegVe/gxPXFP8sLunNT92cqWQeR5+HTF0twcetEoWSp3
+	 Hbw2DXVIhTP0msp3T/5vK4WWifCnAHDN8UNfkFdE82snOVSpXx+0coWzIiLItYdG3PKev
+	 P49fT8qsHrBAs0FxUvQX0uLiuCZrcsHQcOdIUoP/CZZYYxieqxqcJ8eXXLDaD5seOhP0I
+	 zwcwErnc+Sp1dGu48k3wYvLS+G4myFscgjyVfqkgrUfeD3vy9T3hRkKFixktq/tYbajDW
+	 1YteLeJa9+IbhQCFmmw+ndYFELqewj5LnhgGsBMXJj1tXSfV9DEr5OwavtmaIVGZNSOXq
+	 bE2JErXgYYUhEWDfUcsPpDOSmMxSfhrhcJ2+ta5pk4+SZF0fIa8lc0sc/t+6zIIrtlfpu
+	 3K8JaeGSa2OeGBsArUPSSZo4wVj0hr2uG1VDmwtScacgL4AFPu0+QnV1FlH0Xobw1ufGK
+	 xeRkFZ4BpBcIP7sgfg3Rjx0KwRacxNL6EflopV6eYaLrWdzmiRapYTvbyC40vittV8D18
+	 ByFcYMGcY+pt4Kgjyxdrm6wj0kqKRijlIShdJeV/A3SxV7rEunRdNPqd+CNjS0NWAL118
+	 vB2UEryMtTbYTbED5KHA/E5hbXhNbEQtPthfl0V+jNP7VgVnzE/s0yDHzLSktNk=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1745855694; bh=oH9I9/X/vUyXzwbHS/DzNriPaSfhdN76xWGpAd4Fao0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=uLJMkUn/1R8vw81dhMsOT2LILi4Vr3TstsQKnloyX7cIMlEALYt24butG1bhkVZ5S
+	 yRzMZT7VvfcD4FoU2mBmUuz3hB7YcgEw6D7FBmikZaVrx3BfY0wI17h06tOejanknL
+	 t37Y0V7wPD+XfM0XvM77nepeDOAgs11tCC3vi9CP0NiwcCmYKhhk6EBjzLUBpRJ46K
+	 nAwJgfuNkv/HBA4iY/2oLckGh3l6CCRFO0ALqXLCaq3gyn4nYOUPGMyT2BYMWErLrC
+	 Qk6K+4bu2Q8XS+TYt5XAiRqzxs6VD004VVcTsEumhj4zcUVbEM9oejODBuEMcMWDZ4
+	 4u4WYTcZV++4A==
 MIME-Version: 1.0
-From: Cody Zuschlag <cody.zuschlag@xenproject.org>
-Date: Mon, 28 Apr 2025 17:42:58 +0200
-X-Gmail-Original-Message-ID: <CAJbE=KyLMFsuHTP8Pb2wT5LcL=_uYma-RBA_Ho9tJMGPznxuHg@mail.gmail.com>
-X-Gm-Features: ATxdqUGhmzk-XJ0KfdHaIpw4xSATUbhUTXu76NlrVMbdc-3p0emydrFSZytQCfE
-Message-ID: <CAJbE=KyLMFsuHTP8Pb2wT5LcL=_uYma-RBA_Ho9tJMGPznxuHg@mail.gmail.com>
-Subject: [ANNOUNCE] [NEW TIME] Call for agenda items for May 7, 2025 Community
- Call @ 15:00 UTC
-To: xen-devel@lists.xenproject.org
-Cc: Tamas K Lengyel <tamas.k.lengyel@gmail.com>, "intel-xen@intel.com" <intel-xen@intel.com>, 
-	"daniel.kiper@oracle.com" <daniel.kiper@oracle.com>, Roger Pau Monne <roger.pau@citrix.com>, 
-	Christopher Clark <christopher.w.clark@gmail.com>, Rich Persaud <persaur@gmail.com>, 
-	Kevin Pearson <kevin.pearson@ortmanconsulting.com>, Juergen Gross <jgross@suse.com>, 
-	Paul Durrant <pdurrant@amazon.com>, Ji John <john.ji@intel.com>, 
-	"robin.randhawa@arm.com" <robin.randhawa@arm.com>, Artem Mygaiev <Artem_Mygaiev@epam.com>, 
-	Matt Spencer <Matt.Spencer@arm.com>, Stewart Hildebrand <Stewart.Hildebrand@amd.com>, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Jeff Kubascik <Jeff.Kubascik@dornerworks.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Rian Quinn <rianquinn@gmail.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-	=?UTF-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLRG91ZyBHb2xkc3RlaW4=?= <cardoe@cardoe.com>, 
-	George Dunlap <george.dunlap@citrix.com>, David Woodhouse <dwmw@amazon.co.uk>, 
-	=?UTF-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLQW1pdCBTaGFo?= <amit@infradead.org>, 
-	=?UTF-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLVmFyYWQgR2F1dGFt?= <varadgautam@gmail.com>, 
-	Brian Woods <brian.woods@xilinx.com>, Robert Townley <rob.townley@gmail.com>, 
-	Bobby Eshleman <bobby.eshleman@gmail.com>, 
-	=?UTF-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLQ29yZXkgTWlueWFyZA==?= <cminyard@mvista.com>, 
-	Olivier Lambert <olivier.lambert@vates.fr>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Ash Wilding <ash.j.wilding@gmail.com>, Rahul Singh <Rahul.Singh@arm.com>, 
-	=?UTF-8?Q?Piotr_Kr=C3=B3l?= <piotr.krol@3mdeb.com>, 
-	Brendan Kerrigan <brendank310@gmail.com>, Thierry Laurion <thierry.laurion@gmail.com>, 
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Scott Davis <scottwd@gmail.com>, 
-	Anthony PERARD <anthony.perard@citrix.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Marc Ungeschikts <marc.ungeschikts@vates.fr>, Zhiming Shen <zshen@exotanium.io>, 
-	Xenia Ragiadakou <burzalodowa@gmail.com>, 
-	=?UTF-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLSGVucnkgV2FuZw==?= <Henry.Wang@arm.com>, 
-	Samuel Verschelde <stormi-xcp@ylix.fr>, Andrei Semenov <andrei.semenov@vates.fr>, 
-	Yann Dirson <yann.dirson@vates.fr>, Bernhard Kaindl <bernhard.kaindl@cloud.com>, 
-	=?UTF-8?B?4oCL4oCL4oCL4oCL4oCL4oCL4oCLTHVjYSBGYW5jZWxsdQ==?= <luca.fancellu@arm.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	Vikram Garhwal <vikram.garhwal@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>, 
-	Kelly Choi <kelly.choi@cloud.com>, Thierry Escande <thierry.escande@vates.tech>, 
-	Guillaume Thouvenin <guillaume.thouvenin@vates.tech>, 
-	Andrei Cherechesu <andrei.cherechesu@oss.nxp.com>, =?UTF-8?B?UmFmYcOrbCBLb29p?= <rafael_andreas@hotmail.com>, 
-	Mathieu Labourier <mathieu.labourier@vates.tech>, 
-	Demi Marie Obenour <demi@invisiblethingslab.com>, Cody Zuschlag <cody.zuschlag@vates.tech>, 
-	Alejandro Vallejo <agarciav@amd.com>
-Content-Type: multipart/alternative; boundary="0000000000008613d60633d88a76"
+Date: Mon, 28 Apr 2025 17:54:54 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, victorm.lira@amd.com,
+ Federico Serafini <federico.serafini@bugseng.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1] misra: add deviation for rules 21.1 and 21.2
+In-Reply-To: <35ac0856-7a96-4f91-a76d-989bcebfb911@suse.com>
+References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+ <f5d35582-9270-4816-84c2-f078afeee711@suse.com>
+ <alpine.DEB.2.22.394.2504241443550.785180@ubuntu-linux-20-04-desktop>
+ <8d65ee65-ec6f-49a3-8954-d303b08dc2df@suse.com>
+ <a9db045cff906a4b7db8730ad1095e4b@bugseng.com>
+ <b7f7ab2b-baaa-416f-b390-5ed2229d34cb@suse.com>
+ <4d21245edbd4949a0aec6ecdadea437c@bugseng.com>
+ <35ac0856-7a96-4f91-a76d-989bcebfb911@suse.com>
+Message-ID: <776e518b51ac40973207fc2efed6a460@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
---0000000000008613d60633d88a76
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 2025-04-28 11:04, Jan Beulich wrote:
+> On 28.04.2025 10:09, Nicola Vetrini wrote:
+>> On 2025-04-28 08:15, Jan Beulich wrote:
+>>> On 25.04.2025 17:53, Nicola Vetrini wrote:
+>>>> On 2025-04-25 10:07, Jan Beulich wrote:
+>>>>> On 24.04.2025 23:45, Stefano Stabellini wrote:
+>>>>>> On Thu, 24 Apr 2025, Jan Beulich wrote:
+>>>>>>> On 23.04.2025 19:54, victorm.lira@amd.com wrote:
+>>>>>>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>>>>> 
+>>>>>>>> MISRA C Rules 21.1 ("#define and #undef shall not be used on a
+>>>>>>>> reserved identifier or reserved macro name") and R21.2 ("A
+>>>>>>>> reserved
+>>>>>>>> identifier or reserved macro name shall not be declared")
+>>>>>>>> violations
+>>>>>>>> are not problematic for Xen, as it does not use the C or POSIX
+>>>>>>>> libraries.
+>>>>>>>> 
+>>>>>>>> Xen uses -fno-builtin and -nostdinc to ensure this, but there 
+>>>>>>>> are
+>>>>>>>> still
+>>>>>>>> __builtin_* functions from the compiler that are available so
+>>>>>>>> a deviation is formulated for all identifiers not starting with
+>>>>>>>> "__builtin_".
+>>>>>>>> 
+>>>>>>>> The missing text of a deviation for Rule 21.2 is added to
+>>>>>>>> docs/misra/deviations.rst.
+>>>>>>>> 
+>>>>>>>> To avoid regressions, tag both rules as clean and add them to 
+>>>>>>>> the
+>>>>>>>> monitored set.
+>>>>>>>> 
+>>>>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>>>>>> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+>>>>>>> 
+>>>>>>> While the rule is in the library section, ...
+>>>>>>> 
+>>>>>>>> --- a/docs/misra/deviations.rst
+>>>>>>>> +++ b/docs/misra/deviations.rst
+>>>>>>>> @@ -587,7 +587,31 @@ Deviations related to MISRA C:2012 Rules:
+>>>>>>>>         construct is deviated only in Translation Units that
+>>>>>>>> present
+>>>>>>>> a violation
+>>>>>>>>         of the Rule due to uses of this macro.
+>>>>>>>>       - Tagged as `deliberate` for ECLAIR.
+>>>>>>>> -
+>>>>>>>> +
+>>>>>>>> +   * - R21.1
+>>>>>>>> +     - Rule 21.1 reports identifiers reserved for the C and 
+>>>>>>>> POSIX
+>>>>>>>> standard
+>>>>>>>> +       libraries. Xen does not use such libraries and all
+>>>>>>>> translation units
+>>>>>>>> +       are compiled with option '-nostdinc', therefore there is
+>>>>>>>> no
+>>>>>>>> reason to
+>>>>>>>> +       avoid to use `#define` or `#undef` on such identifiers
+>>>>>>>> except for those
+>>>>>>>> +       beginning with `__builtin_` for which compilers may
+>>>>>>>> perform
+>>>>>>>> (wrong)
+>>>>>>>> +       optimizations.
+>>>>>>>> +     - Tagged as `safe` for ECLAIR.
+>>>>>>> 
+>>>>>>> ... I'd like to ask that it be explicitly clarified here that 
+>>>>>>> it's
+>>>>>>> solely
+>>>>>>> the library (and not e.g. the compiler itself) that are of 
+>>>>>>> concern
+>>>>>>> here.
+>>>>>> 
+>>>>>> The language can be clarified:
+>>>>>> 
+>>>>>> - Rule 21.1 reports identifiers reserved for the C and POSIX
+>>>>>> standard
+>>>>>>   libraries. Xen does not use such libraries and all translation
+>>>>>> units
+>>>>>>   are compiled with option '-nostdinc', therefore there is no 
+>>>>>> reason
+>>>>>> to
+>>>>>>   avoid to use `#define` or `#undef` on C and POSIX standard
+>>>>>> libraries
+>>>>>>   identifiers except for those beginning with `__builtin_` for 
+>>>>>> which
+>>>>>>   compilers may perform (wrong) optimizations.
+>>>>> 
+>>>>> Which makes it more apparent that there is a gap: What about e.g.
+>>>>> __x86_64__?
+>>>>> That falls within what the rules cover, is not a C or POSIX 
+>>>>> standard
+>>>>> library
+>>>>> identifier, yet very clearly must not be fiddled with. Whereas the
+>>>>> text
+>>>>> above deviates it.
+>>>> 
+>>>> that is true, even if unlikely: one approach could be to avoid
+>>>> deviating
+>>>> predefined macros for all CUs as -nostdinc and -fno-builtins should
+>>>> take
+>>>> care of the rest; this kind of deviation is not currently possible 
+>>>> in
+>>>> ECLAIR, but it might be in the future.
+>>> 
+>>> Is this perhaps because by "all pre-defined macros" you really mean
+>>> _just_
+>>> those, and not the entire reserved (for that purpose) sub-namespace?
+>>> Imo
+>>> we should not go by what a particular compiler may pre-define (we may
+>>> even
+>>> overlook something if we did it this way).
+>>> 
+>>> Jan
+>>> 
+>> 
+>> I think there is a slight misalignment here: maybe I'm interpreting 
+>> your
+>> answer incorrectly. Let me try to restate the proposal: the following
+>> identifiers are not allowed to be #define'd or #undef'd:
+>> - __builtin_*
+>> - for each CU, all macro identifiers already defined upon 
+>> preprocessing
+>> that CU by the compiler invocation for that CU. This set of 
+>> identifiers
+>> is always a subset of all the reserved identifiers, but is also
+>> dependent on the compiler invocation that is used for that CU, (e.g.
+>> __x86_64__ for an Arm target is usually safe to define, as it's
+>> typically not a predefined macro introduced by the compiler for that
+>> invocation,
+> 
+> No, it's not - elsewhere in the tree we may use this to distinguish
+> architectures. Plus isn't Misra heavily about avoiding developer
+> confusion? Defining __x86_64__ on Arm code is, imo, a pretty confusing
+> thing to do.
+> 
 
-Hi everyone,
+Indeed it is confusing, but likely safe from the perspective of 
+preventing UB, which is the main rationale of this rule. For the 
+purposes of distinguishing architectures I'd expect a #ifdef __x86_64__ 
+or #if defined(__x86_64__) and those are fine, as this only applies to 
+#define or #undef.
 
-*IMPORTANT: Due to public holidays in several countries, May's community
-call has been moved to Wednesday, 7 May 2025.*
+>> while (re)defining __STDC_VERSION__ or __SIZEOF_INT__ will
+>> be a violation in any command line I can think of). Note that this is
+>> not a static set, but is based on what is determined to be predefined 
+>> at
+>> the moment of the analysis, so it is not tied to what a particular
+>> compiler pre-defines.
+> 
+> Right. Yet what I'm trying to get to is that we disallow _all_ such
+> reserved identifiers, not just a subset.
+> 
 
-We=E2=80=99re getting ready for May's Xen Project Community Call on *Wednes=
-day, 7
-May 2025* at *15:00 UTC* (4 pm UK time). We=E2=80=99d love for you to join.=
- Feel
-free to just observe or jump in! This call is a great opportunity to see
-what the community is working on, align our various efforts, and share
-updates. Everyone is welcome!
+I understand now. There are thousands of locations to be touched to 
+remove all uses of reserved identifiers, since they are used quite 
+extensively in Xen (A rough estimation is around 1.5k such identifiers, 
+with ~900 violations on Arm and ~1000 on x86, without counting their 
+occurrences). That is a very disruptive change, even if split very 
+finely.
 
-*Preparation:*
-
-   - Add any proposed agenda items or missing action items:
-   https://cryptpad.fr/pad/#/2/pad/edit/1cT4oJhJZAnJk9CbAogFYchM/
-   - If any action items have been resolved or are no longer relevant, feel
-   free to remove them from the doc.
-
-*Call Details:*
-
-   - *Date:* Wednesday, 7 May 2025
-   - *Time:* 15:00 UTC (agenda begins at 15:05 UTC)
-      - Find your local timezone here
-      <https://www.worldtimebuddy.com/?qm=3D1&lid=3D100,2653941,2988507,536=
-8361,5128581,1850147,123&h=3D2988507&date=3D2025-5-7&sln=3D17-17.5&hf=3Dund=
-efined&c=3D1578>
-   - *Link to Join the Call:* https://meet.jit.si/XenProjectCommunityCall
-
-We plan to open the meeting room at 15:00 UTC, but to allow time for
-switching between meetings and handling any technical issues, we=E2=80=99ll
-officially start discussing the agenda at 15:05 UTC.
-
-*Want to be CC=E2=80=99d on future calls?*
-
-Add or remove yourself from our Sign-up Sheet
-<https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/>.
-
-
-See you next week!
-
-
-Cody Zuschlag
-Xen Project - Community Manager
-
---0000000000008613d60633d88a76
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div>Hi everyone,</div><div><div><p><b>IMPORTANT: Due=
- to public holidays in several countries, May&#39;s community call has been=
- moved to Wednesday, 7 May 2025.</b></p></div><p>We=E2=80=99re getting read=
-y for May&#39;s Xen Project Community Call on=C2=A0<b>Wednesday, 7 May 2025=
-</b>=C2=A0at=C2=A0<b>15:00 UTC</b>=C2=A0(4 pm UK time). We=E2=80=99d love f=
-or you to join. Feel free to just observe or jump in! This call is a great =
-opportunity to see what the community is working on, align our various effo=
-rts, and share updates. Everyone is welcome!</p><p><b>Preparation:</b></p><=
-/div><div><ul><li style=3D"margin-left:15px">Add any proposed agenda items =
-or missing action items:=C2=A0<a href=3D"https://cryptpad.fr/pad/#/2/pad/ed=
-it/1cT4oJhJZAnJk9CbAogFYchM/">https://cryptpad.fr/pad/#/2/pad/edit/1cT4oJhJ=
-ZAnJk9CbAogFYchM/</a></li><li style=3D"margin-left:15px">If any action item=
-s have been resolved or are no longer relevant, feel free to remove them fr=
-om the doc.=C2=A0</li></ul></div><div><b>Call Details:</b></div><div><ul><l=
-i style=3D"margin-left:15px"><b>Date:</b>=C2=A0Wednesday, 7 May 2025</li><l=
-i style=3D"margin-left:15px"><b>Time:</b>=C2=A015:00 UTC (agenda begins at =
-15:05 UTC)</li><ul><li style=3D"margin-left:15px"><a href=3D"https://www.wo=
-rldtimebuddy.com/?qm=3D1&amp;lid=3D100,2653941,2988507,5368361,5128581,1850=
-147,123&amp;h=3D2988507&amp;date=3D2025-5-7&amp;sln=3D17-17.5&amp;hf=3Dunde=
-fined&amp;c=3D1578" target=3D"_blank">Find your local timezone here</a></li=
-></ul><li style=3D"margin-left:15px"><b>Link to Join the Call:</b>=C2=A0<a =
-href=3D"https://meet.jit.si/XenProjectCommunityCall" target=3D"_blank">http=
-s://meet.jit.si/XenProjectCommunityCall</a></li></ul></div><div><p>We plan =
-to open the meeting room at 15:00 UTC, but to allow time for switching betw=
-een meetings and handling any technical issues, we=E2=80=99ll officially st=
-art discussing the agenda at 15:05 UTC.</p><p><b>Want to be CC=E2=80=99d on=
- future calls?</b><b></b></p><p>Add or remove yourself from our=C2=A0<a hre=
-f=3D"https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/" target=
-=3D"_blank">Sign-up Sheet</a>.</p><ul></ul><div>See you next week!</div></d=
-iv></div><div><br></div><div><div dir=3D"ltr" class=3D"gmail_signature" dat=
-a-smartmail=3D"gmail_signature"><div dir=3D"ltr"><img src=3D"https://ci3.go=
-ogleusercontent.com/mail-sig/AIorK4x5nkRDCOFJDJAv9aMXdZ0mghItsp3D36JrwBCQti=
-tBSW_0NeDS6mBmJ2F4vZVE2oBOqnY6IaJUrl12"><br><div>Cody Zuschlag</div><div>Xe=
-n Project - Community Manager</div></div></div></div></div>
-
---0000000000008613d60633d88a76--
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
