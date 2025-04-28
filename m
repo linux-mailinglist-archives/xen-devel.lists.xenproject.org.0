@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25138A9FD7C
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 01:05:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971255.1359721 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9615A9FDAC
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 01:22:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971267.1359730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9XWk-0007xA-Bj; Mon, 28 Apr 2025 23:04:42 +0000
+	id 1u9Xms-0002hV-M4; Mon, 28 Apr 2025 23:21:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971255.1359721; Mon, 28 Apr 2025 23:04:42 +0000
+Received: by outflank-mailman (output) from mailman id 971267.1359730; Mon, 28 Apr 2025 23:21:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9XWk-0007uE-8j; Mon, 28 Apr 2025 23:04:42 +0000
-Received: by outflank-mailman (input) for mailman id 971255;
- Mon, 28 Apr 2025 23:04:40 +0000
+	id 1u9Xms-0002er-J1; Mon, 28 Apr 2025 23:21:22 +0000
+Received: by outflank-mailman (input) for mailman id 971267;
+ Mon, 28 Apr 2025 23:21:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=u4d+=XO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1u9XWi-0007u8-DX
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 23:04:40 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ id 1u9Xms-0002el-4e
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 23:21:22 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 289f6803-2485-11f0-9eb4-5ba50f476ded;
- Tue, 29 Apr 2025 01:04:38 +0200 (CEST)
+ id 7ceece68-2487-11f0-9eb4-5ba50f476ded;
+ Tue, 29 Apr 2025 01:21:19 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1DC7E614AE;
- Mon, 28 Apr 2025 23:04:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BE1CC4CEE4;
- Mon, 28 Apr 2025 23:04:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 887CA4346A;
+ Mon, 28 Apr 2025 23:21:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05BCEC4CEE4;
+ Mon, 28 Apr 2025 23:21:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,88 +41,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 289f6803-2485-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 7ceece68-2487-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745881477;
-	bh=LN0RaTRhK7QbAaiAIJcsUoQhSypONR/v7H0Mc+tlrpM=;
+	s=k20201202; t=1745882477;
+	bh=5uJgr/+NgwFzpTwPQ6nSbDSxu2IgRBYLztjHzOFx9r8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=dKw3t3bC9RISOxwN862bdLB1SL7u6TiKBvbw1QXERAJKL9k2DvIEgv4FFi5r9gCin
-	 WsiNHPTTQtE6AYVvh14bUEicSY4855lq2PbCjaeV1PHXA1NHzJTg2uLEH1P6plUPAR
-	 S9tqXeMFKzR+QREf0XLFWavNEN7RTfhWCR6dGANtKesvb+qEtgWnnWiDpbAkfRLucX
-	 Vy+XyuOmVkGLXN0LhKMpZB8P0MERkor7K1cPN1YfOUeu6DqqbMYagWtiLJ9keB2S/i
-	 F/NDvagxzlS9+Okq0nP2rmlDhLeqTM6echB0U4Xot0Q7FsaUbOq4Dup31Kq8Zt2Ljg
-	 ic4m4MCD0YtYQ==
-Date: Mon, 28 Apr 2025 16:04:34 -0700 (PDT)
+	b=JSWqSoZFGA9nyUY9s0VBgZP6r1CRD+ykglyC29sRIcFWLNPUguiGCkzR63GRGqv5l
+	 pvn4vhR9McErK+D2PGSdI4vfqLvx78EEKW7mshKtF8KZZwkjBP/9tFUgp3oPeNxSjk
+	 6g5l6xh8BxNB4ZErao5NfbGgrjPXWEvCNwuBK3ZhBlEp8+yFhoqxf7DH9FrBH9rLmr
+	 20cDVYZ3NufLtqV+hnRaVEqbEaGpdQkSaW0iOSbRrTvrHl5AJGJqZuMUGHjHn2HV5D
+	 gp5hhVuMvGzGvDw5FDGH54FByBfvahlWrpkLN+IjM+iXBt7nGb56USKCUq6G6GJDUW
+	 bjRZnG/ohdlcw==
+Date: Mon, 28 Apr 2025 16:21:14 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Victor Lira <victorm.lira@amd.com>
-cc: xen-devel@lists.xenproject.org, 
-    Federico Serafini <federico.serafini@bugseng.com>, 
+To: Jan Beulich <jbeulich@suse.com>
+cc: victorm.lira@amd.com, Nicola Vetrini <nicola.vetrini@bugseng.com>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, 
+    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH v1 3/3] automation/eclair: tag Rule 19.1 as clean
-In-Reply-To: <7316cbef75cdd0726990bcb8b37cd10f3be62185.1745624090.git.victorm.lira@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2504281604100.785180@ubuntu-linux-20-04-desktop>
-References: <c694069696dd428bc1719e36c378a573b03f74b9.1745624090.git.victorm.lira@amd.com> <7316cbef75cdd0726990bcb8b37cd10f3be62185.1745624090.git.victorm.lira@amd.com>
+    Federico Serafini <federico.serafini@bugseng.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 2/3] compat: address violations of MISRA C Rule 19.1
+In-Reply-To: <cb1f8a8f-8834-4610-baab-c53bf5928b0c@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2504281614020.785180@ubuntu-linux-20-04-desktop>
+References: <c694069696dd428bc1719e36c378a573b03f74b9.1745624090.git.victorm.lira@amd.com> <74b0420ab20fc0204db14c0a1a4a68ed48b25a38.1745624090.git.victorm.lira@amd.com> <cb1f8a8f-8834-4610-baab-c53bf5928b0c@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-482499094-1745881476=:785180"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-482499094-1745881476=:785180
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Fri, 25 Apr 2025, victorm.lira@amd.com wrote:
-> From: Federico Serafini <federico.serafini@bugseng.com>
+On Mon, 28 Apr 2025, Jan Beulich wrote:
+> On 26.04.2025 01:42, victorm.lira@amd.com wrote:
+> > From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> > 
+> > Rule 19.1 states: "An object shall not be assigned or copied
+> > to an overlapping object". Since the "call" and "compat_call" are
+> > fields of the same union, reading from one member and writing to
+> > the other violates the rule, while not causing Undefined Behavior
+> > due to their relative sizes. However, a dummy variable is used to
+> > address the violation and prevent the future possibility of
+> > incurring in UB.
 > 
-> Tag MISRA C Rule 19.1 as clean to avoid regressions.
+> If there is such a concern, ...
 > 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> Signed-off-by: Victor Lira <victorm.lira@amd.com>
-
-Assuming the other patches get committed and the rule is clean
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> Cc: Anthony PERARD <anthony.perard@vates.tech>
-> Cc: Michal Orzel <michal.orzel@amd.com>
-> Cc: Jan Beulich <jbeulich@suse.com>
-> Cc: Julien Grall <julien@xen.org>
-> Cc: Roger Pau Monné <roger.pau@citrix.com>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> Cc: Federico Serafini <federico.serafini@bugseng.com>
-> Cc: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
->  automation/eclair_analysis/ECLAIR/tagging.ecl | 1 +
->  1 file changed, 1 insertion(+)
+> > --- a/xen/common/compat/multicall.c
+> > +++ b/xen/common/compat/multicall.c
+> > @@ -15,8 +15,13 @@ typedef int ret_t;
+> >  static inline void xlat_multicall_entry(struct mc_state *mcs)
+> >  {
+> >      int i;
+> > +    xen_ulong_t arg;
+> > +
+> >      for (i=0; i<6; i++)
+> > -        mcs->compat_call.args[i] = mcs->call.args[i];
+> > +    {
+> > +        arg = mcs->call.args[i];
+> > +        mcs->compat_call.args[i] = arg;
+> > +    }
+> >  }
 > 
-> diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
-> index 1d078d8905..dab3c51faa 100644
-> --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-> @@ -78,6 +78,7 @@ MC3A2.R17.5||
->  MC3A2.R17.6||
->  MC3A2.R18.6||
->  MC3A2.R18.8||
-> +MC3A2.R19.1||
->  MC3A2.R20.2||
->  MC3A2.R20.3||
->  MC3A2.R20.4||
-> --
-> 2.47.0
+> ... wouldn't it be of concern as well that the alternating parts of
+> the union are still accessed in a flip-flop manner? IOW we continue to
+> rely on the relative placement properties of the individual array
+> elements. To eliminate such a concern, I think the resulting code would
+> also want to be correct if iteration was swapped to work downwards.
 > 
---8323329-482499094-1745881476=:785180--
+> Also the scope of the temporary could certainly be the loop body rather
+> than the entire function.
+
+Wouldn't be safer to do this then?
+
+static inline void xlat_multicall_entry(struct mc_state *mcs)
+{
+    int i;
+    xen_ulong_t args[6];
+
+    for ( i = 0; i < 6; i++ )
+    {
+        args[i] = mcs->call.args[i];
+    }
+    for ( i = 0; i < 6; i++ )
+    {
+        mcs->compat_call.args[i] = args[i];
+    }
+}
+
+If you have any specific suggestions I think C code would be easier to
+understand than English.
+
+
+> I also don't think it needs to be xen_ulong_t,
+> but maybe using unsigned int instead wouldn't make a difference in
+> generated code.
+
+Keeping the same type as mcs->call.args[i] would seem more obviously
+correct? Not to mention that unsigned long is what we defined as
+register type? If we really want to avoid xen_ulong_t, then it should
+be uintptr_t?
+
+We should stick to one type to be used as register type. On ARM, we
+defined register_t.
 
