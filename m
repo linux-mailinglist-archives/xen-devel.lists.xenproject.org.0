@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48DD1A9E882
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 08:47:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970086.1358861 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D43CA9E889
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 08:51:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970098.1358869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9IGf-0003cm-Th; Mon, 28 Apr 2025 06:47:05 +0000
+	id 1u9IKM-0005Ld-9r; Mon, 28 Apr 2025 06:50:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970086.1358861; Mon, 28 Apr 2025 06:47:05 +0000
+Received: by outflank-mailman (output) from mailman id 970098.1358869; Mon, 28 Apr 2025 06:50:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9IGf-0003aA-Pk; Mon, 28 Apr 2025 06:47:05 +0000
-Received: by outflank-mailman (input) for mailman id 970086;
- Mon, 28 Apr 2025 06:47:04 +0000
+	id 1u9IKM-0005Jf-7E; Mon, 28 Apr 2025 06:50:54 +0000
+Received: by outflank-mailman (input) for mailman id 970098;
+ Mon, 28 Apr 2025 06:50:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5hYN=XO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9IGe-0003a4-5Q
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 06:47:04 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1u9IKL-0005IA-Cj
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 06:50:53 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9665176d-23fc-11f0-9eb4-5ba50f476ded;
- Mon, 28 Apr 2025 08:47:01 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43cec5cd73bso21876695e9.3
- for <xen-devel@lists.xenproject.org>; Sun, 27 Apr 2025 23:47:01 -0700 (PDT)
+ id 204ccff3-23fd-11f0-9eb4-5ba50f476ded;
+ Mon, 28 Apr 2025 08:50:52 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43ea40a6e98so41798175e9.1
+ for <xen-devel@lists.xenproject.org>; Sun, 27 Apr 2025 23:50:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-440a52f8794sm117636775e9.1.2025.04.27.23.46.59
+ ffacd0b85a97d-3a073cbed98sm9983782f8f.48.2025.04.27.23.50.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 27 Apr 2025 23:47:00 -0700 (PDT)
+ Sun, 27 Apr 2025 23:50:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9665176d-23fc-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 204ccff3-23fd-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745822820; x=1746427620; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745823052; x=1746427852; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=snKehniRr8gfgMJ+2FEo71p46Wm4wR8+OAy16mVmTik=;
-        b=NW5yfeWx0ygV9uS7jSqS1JLd2qEuE8ZEV5dnU8w3KQsDTvXXeGCKVqTkb9i0qdwamb
-         ez1ISBtBrettzAny+pUGs8now/Sn7nbU+TBeGQF8M0wxcCVLBGEupGgHKTyzPl/rtnBj
-         vh5LXn79TU8HB+GYrYtwnDR1Ht/LSjArets/p0uZkAQHm1F99DNJdQZihSQYvYDIpbUm
-         IFm073eFu5HlpnuPh2pgdHZ+AUpV0QFcR3qcIcW2i4yEpSVirc01wdV0pQG32QIEE/fC
-         mUytDtaR+72xDsWMsQXtvLOD5CC8mn4zAMaIm+cEpc/m8r/p3Q74yLfG0u2Ncj8Pk51V
-         IdZg==
+        bh=IyHkp5gRATiKumJtgIE2KJBpq3+lauuvvQ6VWuetA3w=;
+        b=Q4m2xGyCbUfgkX0MfkcaiTmmpjVaTYxJCsuv95Prj16jgaJVDxax7MnxbqAMTgE6by
+         eiQklR+NF8+35KP5SeVtdEWLgaFTbgU5VQRhoyWjP3ur50kXhYenUrke2xiEI092k+CP
+         7F4wDn9xrm1BKRqQ5xp0BBTKpBamyv7W11/c9oUAFKs0DS9wPpYdgQbLo+gFm7bqeZR6
+         MopUnqAJDioLMSwTNlzfe3au08YJ3F04v1H41/1G1ivhZhvRQbzu1oE/M2crS1uPMQr7
+         oJGzt3eDBhUtrHLquBklo+v1p5SDi7B6WR7Qpgh320jKUiLAu+xrI2i0oQOACCHiYptK
+         Momw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745822820; x=1746427620;
+        d=1e100.net; s=20230601; t=1745823052; x=1746427852;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=snKehniRr8gfgMJ+2FEo71p46Wm4wR8+OAy16mVmTik=;
-        b=Az4E0TbW5Gth/7u2JTkeUI9dao18MwLDXUDg3APJ18pB2Po6chT83hLUma6xKTdAPQ
-         6HA/oL78YMS4eROyoeOAtbDkcYJt+fYfTZx5Yuw7h6g8v33GC7vwcvj2XotZ6KxXSYbb
-         I8RNHv40LDF4fqnXwcA0/Dq8ehRfDQXZOd1zAQqLbhurmEbU8jfUQ9CQHwEQetcJ2Arq
-         HMjfs5vtBedgzSvpjT+DgEUJntWTxaGJ6TvIthN+5QftiDueqfFkbaHDmzO+szm/WhYo
-         pSvEBhQIicwxa6IdUHFqOB8V2mvFm/EGtq5Jo6rpOGRZkLqvOEt/wK2VgHBzuVoPsbHO
-         NXkg==
-X-Gm-Message-State: AOJu0Yy2rYXmWhz06nCj7IV2Z3Xwgi0yZupdniNkl61ngFuMrewnRbad
-	Bh96rrpzy3KZllvs3M/QJIjtJZ665N0BLVbTkmaH/96w3NB+Fy1/GSxHUC66ew==
-X-Gm-Gg: ASbGnctcx0mpwCdwUUQCWDNwp10Ju2aDBfetpqTUGMMzaZiHvamDYSO8GuC9pNQx1+1
-	ued/cNNHpOAM14200yMi8y9IbIxNO2FA0Z81vx+mzMbSA1iHrt37y/ImZvDnMD5mmq/kqD7me2L
-	vffudiOK3thvZC608JIjWtnChnXVigxNY8Gxk3M4mIzJtCvYqHa9WI0Cr7w1JJaVRpoAM0+3yWv
-	SUkvxD6OdmoBOtbXL6HD2SKDzgTlwqKdHosRN4kdf6FTBsjHX59RvT82Velru0vTd7Gb4CgC01L
-	TO8LbTV+XTF4IvYabZst6zMyJuf6Hgo+NJAc2QqlwkHkbbWmfgIrljD3NFlfK+kd8HdIGSpEDRg
-	sKp3/JjOcMf6t34ox0XvQl7FKIQ==
-X-Google-Smtp-Source: AGHT+IHpHxKRgKd7ZItFmoVV5jTNnKm4f0b3oISApHP2hqp9WZSeHgtV/CoPCZ08N94rzv0nUKtYdA==
-X-Received: by 2002:a05:600c:870b:b0:43d:209:21fd with SMTP id 5b1f17b1804b1-440a66b7d39mr97831195e9.30.1745822820616;
-        Sun, 27 Apr 2025 23:47:00 -0700 (PDT)
-Message-ID: <fe9a99b2-e208-4171-ada0-c244bfab6559@suse.com>
-Date: Mon, 28 Apr 2025 08:47:01 +0200
+        bh=IyHkp5gRATiKumJtgIE2KJBpq3+lauuvvQ6VWuetA3w=;
+        b=FFbyNvlHQWrUn6WEcXIAB9iFR9MDZU/LmO9j3BSO1uuKb00aHFkJKm2vY8aM5PzkTo
+         aaLLaBp21BGf8aNX9VGF6HQskTAsDHmjGL7RAvKPr7Ot3ylZjFZJLqdGe9M12hXrYBlq
+         DJyn9Yy0PKrh3+800UpZ1FYBFMIaSbHtdXeVMo7SkG674WzYS9ak+hSlyDQIvKeyyM8l
+         GeXVma222XRb54vWBXr44ZrwHnGHAvhHHIoMATe9C75CWycAl5j/Azd6N4FrLe0sU3Xg
+         v93YwZCofJok7LaeOjjezXJFtvYFkO/XMaIYG42hRdkYYHB0LeCiaN78OGxYyPV7tXR9
+         woQA==
+X-Forwarded-Encrypted: i=1; AJvYcCWdzVsqLZU1/67T3ywkd8K08aetYQ44cGGfkzMWC5RG/Bg+lfYtgcHCsJicJ9nS9U4gYOtgW2q5xTQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzo8H2nHAjYqt8sGdUX9xK+Clag4aWp0k5mcisOqJaBx+B7OMPY
+	M5u8XsljzEwr/Cmbp8gFpMJxwq6MJHkCcKCN9JXG2QCwBgRtC6Nv9xIxt458Pw==
+X-Gm-Gg: ASbGncsU9l3+XUmvDZnEAbCDDqQnlt5gMd+WR1p8j/2kOyqLRgq8njkysnqzq2FW3lD
+	3KcPehogbW6A31y1Sr3btG4zlnC6CCWIyrB58VMNL5dZbV/O713gfUUo8OVLrQSDQsRYYGLiiLT
+	gkAuomaqle8phhjBACtCKAUSutPrQSMmCpMs517En5SaFJ39Z8qQVyGoozu+ag4zzVe0XyHke9s
+	VGjnQ0C6SHNlk0glc2HHHBs2eMDehG+cCeZ4jtPQYPtIWopbCi5B8dnAaup38cxc1+btNrqp4wB
+	mL/b1sSNbvPnUl475g8OZirl1/vNJemL5JUUKf2OqQQe2LIiomuVkLtPd0AUX/vnmWtQV1miq5r
+	/vbLbqUQKDSUfv4rlbzkxzZAQjA==
+X-Google-Smtp-Source: AGHT+IGoJl73UDGLD5e5sMwkrRhqsL+gaK4OgidPTzywd1ng1wrZvXqVJr8n/WJ6MyyWqi10g/Qh7A==
+X-Received: by 2002:a5d:63d2:0:b0:39f:4d62:c5fc with SMTP id ffacd0b85a97d-3a074e43194mr5849601f8f.35.1745823052034;
+        Sun, 27 Apr 2025 23:50:52 -0700 (PDT)
+Message-ID: <cacff70d-5269-451d-b264-4d02b299e677@suse.com>
+Date: Mon, 28 Apr 2025 08:50:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] xen/console: cleanup conring management
+Subject: Re: [PATCH v2 1/3] xen/console: cleanup conring management
 To: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
- anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
- roger.pau@citrix.com, dmukhin@ford.com,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250403000604.169619-1-dmukhin@ford.com>
- <20250403000604.169619-2-dmukhin@ford.com>
- <alpine.DEB.2.22.394.2504251513480.785180@ubuntu-linux-20-04-desktop>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250426185021.100646-1-dmukhin@ford.com>
+ <20250426185021.100646-2-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,37 +119,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2504251513480.785180@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20250426185021.100646-2-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.04.2025 00:18, Stefano Stabellini wrote:
-> On Thu, 3 Apr 2025, dmkhn@proton.me wrote:
->> From: Denis Mukhin <dmukhin@ford.com>
->>
->> Move console_locks_busted handling inside conring_puts() to remove
->> tasklet code duplication.
->>
->> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+On 26.04.2025 20:50, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> This patch is a good cleanup but makes one functional change: previously
-> guest_console_write would always call tasklet_schedule. Now, it only
-> calls tasklet_schedule if !console_locks_busted.
+> Move console_locks_busted handling inside conring_puts() to remove
+> tasklet code duplication.
 > 
-> On ARM, we don't call console_force_unlock and never set
-> console_locks_busted. It makes no difference.
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+> Changes v1->v2:
+> - added Stefano's R-b
+> ---
+>  xen/drivers/char/console.c | 29 ++++++++++++++---------------
+>  1 file changed, 14 insertions(+), 15 deletions(-)
 > 
-> On x86, there are a few callers of console_force_unlock, so it would
-> make a difference. However, looking at the callers, it seems to me that
-> the change is for the better and better aligns the code with the
-> intention behind console_force_unlock.
+> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> index c3150fbdb7..aaa97088aa 100644
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -325,6 +325,17 @@ static void cf_check do_dec_thresh(unsigned char key, bool unused)
+>   * ********************************************************
+>   */
+>  
+> +static void cf_check notify_dom0_con_ring(void *unused)
+> +{
+> +    send_global_virq(VIRQ_CON_RING);
+> +}
+> +
+> +static DECLARE_SOFTIRQ_TASKLET(notify_dom0_con_ring_tasklet,
+> +                               notify_dom0_con_ring,
+> +                               NULL);
+> +
+> +static bool console_locks_busted;
+> +
+>  static void conring_puts(const char *str, size_t len)
+>  {
+>      ASSERT(rspin_is_locked(&console_lock));
+> @@ -334,6 +345,9 @@ static void conring_puts(const char *str, size_t len)
+>  
+>      if ( conringp - conringc > conring_size )
+>          conringc = conringp - conring_size;
+> +
+> +    if ( !console_locks_busted )
+> +        tasklet_schedule(&notify_dom0_con_ring_tasklet);
+>  }
 
-Denis, I see you submitted v2 without any adjustment to the description.
-With Stefano having pointed out the aspect, it should have been pretty
-clear that such a (kind of hidden) functional change wants justifying.
-
-Furthermore, you added Stefano's R-b without any hint towards the extra
-request he had put up above wrt x86.
+As before I'm unconvinced it is a good idea to have tasklet scheduling here.
+You also didn't address that v1 comment of mine verbally, iirc.
 
 Jan
 
