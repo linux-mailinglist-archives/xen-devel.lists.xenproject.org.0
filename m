@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10DCDA9EE27
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 12:41:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970444.1359134 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 711AAA9EE31
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 12:44:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970455.1359143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9LvN-0002J0-Kd; Mon, 28 Apr 2025 10:41:21 +0000
+	id 1u9Lxo-0002rp-W5; Mon, 28 Apr 2025 10:43:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970444.1359134; Mon, 28 Apr 2025 10:41:21 +0000
+Received: by outflank-mailman (output) from mailman id 970455.1359143; Mon, 28 Apr 2025 10:43:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9LvN-0002Gn-Hl; Mon, 28 Apr 2025 10:41:21 +0000
-Received: by outflank-mailman (input) for mailman id 970444;
- Mon, 28 Apr 2025 10:41:19 +0000
+	id 1u9Lxo-0002pH-TM; Mon, 28 Apr 2025 10:43:52 +0000
+Received: by outflank-mailman (input) for mailman id 970455;
+ Mon, 28 Apr 2025 10:43:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A+1Z=XO=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1u9LvL-0002Es-L8
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 10:41:19 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20624.outbound.protection.outlook.com
- [2a01:111:f403:2418::624])
+ <SRS0=eVdf=XO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u9Lxn-0002p7-LV
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 10:43:51 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 50df160b-241d-11f0-9eb4-5ba50f476ded;
- Mon, 28 Apr 2025 12:41:18 +0200 (CEST)
-Received: from MN2PR11CA0001.namprd11.prod.outlook.com (2603:10b6:208:23b::6)
- by CH3PR12MB9170.namprd12.prod.outlook.com (2603:10b6:610:199::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.30; Mon, 28 Apr
- 2025 10:41:13 +0000
-Received: from BN1PEPF00004680.namprd03.prod.outlook.com
- (2603:10b6:208:23b:cafe::6b) by MN2PR11CA0001.outlook.office365.com
- (2603:10b6:208:23b::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.41 via Frontend Transport; Mon,
- 28 Apr 2025 10:41:13 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN1PEPF00004680.mail.protection.outlook.com (10.167.243.85) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8678.33 via Frontend Transport; Mon, 28 Apr 2025 10:41:13 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Apr
- 2025 05:41:11 -0500
+ id abc99375-241d-11f0-9eb4-5ba50f476ded;
+ Mon, 28 Apr 2025 12:43:50 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ac339f53df9so885044066b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 03:43:50 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ace6ed701eesm612694366b.140.2025.04.28.03.43.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Apr 2025 03:43:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,155 +45,361 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50df160b-241d-11f0-9eb4-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J7Z06qoHn0T/of+I5DVqQrwC+j1AV/8QAK4Lymscf40Xnpr+te9APShmYZ8X+AHNBhEAW9SSsTN0VlIlNSNga1/Z9p4H1fKQnLtkj2ow6eMEFBQrS6OeqVpSZRC84XFWHetTlP5Tb72LKKbMI61cH3yZpCFXVUuZtEZPDvYH22gwj0MzS9VPvbGkrwHHrZK+4tC1iWYO3Zdnrq5f7ohDI4Ii1+Xz8Ranc0dil+I5s51F2NBv8XqW8+worqC/XzX+LvZTRPNNn0TNTPkNnfY96FplN5wi2JHxFwYyRCh4oTFq+iF9uYuhRawyL7yRULzhqv7TY2rjJ6r7H/iph2Zteg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O3kAo3AB5BRNQwYpw3S9KJQOTJGWIFugK5OLFFCeLtY=;
- b=j7AujUsnShZTd5EItxs0ASsTB+JwP1wYUbx/6/dqwKhtafkOVj4nbKP7bSS6bk/EpDX659OI5NViexbpuE4dPeeLJwa3jWDrIQWTWBMEgvbbmqOUnFY7ZNz/9iZ6c9VleenP7+Lz12Ve9OwU8kDPd+8N2fSdzKqzKCbsVv5zZxK60ZAWCSwSvuBO9ORiNBAjNMW60TuJjjLQ72kaE4MdCjcyqmHw5jzDmjpiIDyFVBjMKF/1eDUYxPrs7ikeYFgLpvi/5HQRAqiqkCsRE5OX+rKUFLQnWHFSSqxsKdgMq9uNVjOXI0eG9g2Cu2Ler2m6V2xgdzSI2dFwhr5WX5vvDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ariadne.space smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O3kAo3AB5BRNQwYpw3S9KJQOTJGWIFugK5OLFFCeLtY=;
- b=vZu1PjY/1cjW+dIZn26/bihwQdfJzedHxMPxW3p8CMLSjrdOmfgubIQcaiDsyPQCIjZ5c0npy8W9LZ6HvNBJY6dsidkXPlHZXzHNv1Ql5RPp/XOzyR7lMAzMzclatGAlFd84vtdxFSoP7LiBoFkkX3Zi6f16x6d+h2hB9Y1s52I=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: abc99375-241d-11f0-9eb4-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1745837030; x=1746441830; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dKYHVlsYAn/u6PbxnH1eTgKymTUjTDlYUpThEPg7TZI=;
+        b=EyQQ8LYu4qOJe0HRe4aVIDK52zSSU0x2vaA45CvleOV2pjIEr4k8baVZ1ocGyYcXzU
+         UpaFRPQS2fGYGY0qc326FubcBeVoi9VIrCbHlDrZkQB4wwtJTD31h/uvU7Nce1Zu2wlH
+         xl+rU0nO2W0iFndSOk7/uOvXHUKGALTopBw7tcCAg7GtnnnPdpYANFewRJwg23l2Qppm
+         /fxUAIud+8ynjsPhUR00+r0N2q601lOdZUWw2uwb0SmZ+FNrzv+HybV3v3B/uj/yReIa
+         HvAAecM6KGvkvLajDdL5sorSmWMPFFtIpwxIS8gqzlC3jKTKP2x368u8bXPG0IMLLhGs
+         IwUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745837030; x=1746441830;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=dKYHVlsYAn/u6PbxnH1eTgKymTUjTDlYUpThEPg7TZI=;
+        b=AwmuEx3zh72D0IP3sLFsw2OvNok+rVGYC/HAp7Zj8P/haVikSpZbzEnDQ7VtICzjOl
+         ivI5plZKOkBx5oLNzy1OqfApK2e1YRrScIXbD9WRWDu8p2kW2vDqo6PZgsXsUUxChHpH
+         WDioBbPQSlwXl5g7xvBOFG+jZHy4w9JsbMYO0TU8elGhb5lJO1Qr5Zpapl/iZPDM5rha
+         7dDugKiyGUWfHfM8qLLv0tJjVyChMCAIrrzj3gOqdZF6HJDlGJyVGQxNB5KiqmoQe5rW
+         rXGtArJdedcWEDdgXh0CWPm3gi8ij8pZSD8Dt8IzMBpj/Q4pfNqXNQ/AXwmU8b+tF+YS
+         O8Sw==
+X-Forwarded-Encrypted: i=1; AJvYcCVkqlSbg39Hd3KeEsp6xquvyP2Pxgu3jDcmmwCKcwZHgyZSAlSQxHIhs1qy05kUMNW63bhDZIZpH8k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxsfYgmLWCigOJWsiT8suXQT+bWwajQX9g2TMCAHj1dcmZbetSU
+	AHrT35/FS9tZ5S74eaduX1MpPmBVzKC6/8Nxavqp7yglto/NI4x5
+X-Gm-Gg: ASbGncvcaq6bCqH2OQ+SeX7nZdXU5e6Jw9fv5PlABas+wf3r1YrchsgUgOMOBtbzQDg
+	qZTwGxgkuUr6l/KXegklR0g/EjSDo3kZrsV++Zx04THFr0Xo5EIVx1hmgsiOShZxelKN7XW2aU5
+	bkYAHhHHEsV6oqmkCwRL1wnLYKHn/Bc/pTp2cJFtVDnuf+Tc6NwL7P8lBmwNsYkVB4Kq/qX7saA
+	6s4BT4G3zgPIjmRAAsPMLgU4Uy4rmDKO1shoUKsGorhAdDiBCLaWi0tN5L0J2woiX98xLYQw62m
+	9uIo9qXiv3XuYi7IVQ2QnUuw4eHeKYJEuNFOE36LlT61p39d8KEwBn3aVuEjHVP1M/dIyq4wtX+
+	pXyFJD6QYhvHQz6tf
+X-Google-Smtp-Source: AGHT+IFdmSMsvWaGqIZWr3IH8leNia5KI+pwv58bsgcQETH8KRBI5DglKBbuK/TIPztrMgqGp+H6mQ==
+X-Received: by 2002:a17:907:86ac:b0:abf:19ac:771 with SMTP id a640c23a62f3a-ace848c03c8mr748130566b.2.1745837029392;
+        Mon, 28 Apr 2025 03:43:49 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------0vhNBwspiOB0Ac0cD0ngl8cE"
+Message-ID: <e5884aac-1b55-44c8-aa51-c275f6eed828@gmail.com>
+Date: Mon, 28 Apr 2025 12:43:47 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 28 Apr 2025 11:41:09 +0100
-Message-ID: <D9I7IPTW9O0K.2OCSEF8GXP3K7@amd.com>
-From: Alejandro Vallejo <agarciav@amd.com>
-To: Ariadne Conill <ariadne@ariadne.space>, <xen-devel@lists.xenproject.org>
-CC: Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, "Alexander M . Merritt" <alexander@edera.dev>
-Subject: Re: [PATCH v2] x86/hyperv: use dynamically allocated page for
- hypercalls
-X-Mailer: aerc 0.20.1
-References: <20250425234331.65875-1-ariadne@ariadne.space>
-In-Reply-To: <20250425234331.65875-1-ariadne@ariadne.space>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004680:EE_|CH3PR12MB9170:EE_
-X-MS-Office365-Filtering-Correlation-Id: d83b120d-b799-4cbe-d979-08dd8641326b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|1800799024|82310400026|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZHFZNWlaYzZVaEszNlZtaHBQZUp4K3BuYWkwVldaL0lsMzhVL3QybVYwVmk2?=
- =?utf-8?B?U2J1bmJpUG12VHlHNU02V2tPdkJLWXdKckNqQUV2QjVVamk1cFpaWERjeW9K?=
- =?utf-8?B?U3FrRmpqbzI4bWJEZ2hlV2d1b0xNQlRPaHpHb25zZnZ5TFZFdzVUcEM3TXJ6?=
- =?utf-8?B?dDlMTVdORHNoRlVLRWlBZ2JxZi95L2U0Q3hDRW10VElvYnZ4aVczN2V0aXFX?=
- =?utf-8?B?K3dLSW1aaG4xSVVBY2lrRjkyOGlFVFFHT3paeHlFSThXeEEzU1lIcTl4eFZy?=
- =?utf-8?B?cVdJZUJFZ2REejJmdktic3pHSDVSR0RPWG9oWFlkMjlFZmd6c09hdnp6TUw1?=
- =?utf-8?B?c3ZSY0Y5aWVqc3Uvdng2ZFdBN2JidEV6R0M5aU1lQlhWVTB2b0NSNzVsMDJq?=
- =?utf-8?B?MkUyMUk2YmtxT093MG0wYkFLTW1ROVhFUExoUVFYbjJKRzNFQkUycmNrYUpZ?=
- =?utf-8?B?S1NkbGRFT3U4ckwza1BYR3FoN0tMUGFsaGY5c0pyZDMvUmd3Uk0wMmtUaXZh?=
- =?utf-8?B?VUlKK3B6dmJZbkdUUXZSZTZPUTREOUVGbC9rMk5Bb1pVMERTSHZyempqMVhT?=
- =?utf-8?B?QjJJZ3JJamhxYjFJVWRvVWRiNWNwblRRaXlvMkg0eHc5dThtNGhpSEJ1UzA4?=
- =?utf-8?B?YVYwaFZVZy9JdEtROTB6NGphS2ROWUoxQ09SbFlwMXZtTjZ2SFlqWDViWFVV?=
- =?utf-8?B?SGpqSU9WQllBWElwQVdzYnRrOUc5S3JUbzFFaVBvc1lhcWtMZzJnbjlPTkpY?=
- =?utf-8?B?c1J0dGlab2JqUXR5eUd1cmJNMnVlN1FpT1R4dmQwandJaEl3RGlSTHRIQU5B?=
- =?utf-8?B?ajZqQU1nMHY5dWorM3p5ZXREZGZtYUp4TlNkNzJZVjJhOGNGMXRGQXIxL2NU?=
- =?utf-8?B?dEZKZU1ITk10WmE4VEVVd21Jb2IyUFUxVExWeU56RE5DSG5pTUZ1Sm1CYW5h?=
- =?utf-8?B?b2FzSnRFT083UitjK2kvWStDU3htYVlGVk9vRXE4UDJRV2sybVpXNHdNQ1lr?=
- =?utf-8?B?MDVqNit0NnhVV1N3ZytaTzZvald2YWRFNSs2ZFZueENxZTFJb1RFOWszeWhk?=
- =?utf-8?B?Z0taNUlKZXpQVWFFY1h2VVVaMCtVcWxjdEtmRHBkT1ZLeDEvaFY1U0c1WWgw?=
- =?utf-8?B?N1JVU1NTZjlxMUpaOGlKblZxUHMzWmFGc2c5RmNXZGxaY2VzYnNrSDFwT09R?=
- =?utf-8?B?UlFzeHBEYWNsUGZTcFo5QTBTMjFxLzErUmVLRVB3Y1krMWlmKzZDYnpXbWxl?=
- =?utf-8?B?dWNKWVN4QWx5TysrT296dXV2QzBNWndoTGxiTFowbWNzY3VVVnJVenBhVURZ?=
- =?utf-8?B?bHJudDBTMmx1TGJWTDJZL3ErVEZSVENQRlZwTmNoeDJoNU1ZUytHTjBMNXpo?=
- =?utf-8?B?eVVSS0xwMlhsMnBBTWdaRDRpV21zeTJjYVJzUzd3b2ozcUZ4MVNRNnVyWmpS?=
- =?utf-8?B?VndZYVA2MXF1RHBNOTdMOGpxelNtdTdvQ1JHTENJWlZCNm9TMGFkSTZSclZY?=
- =?utf-8?B?eWtBTWI1ZkhtYVQvcUFnQTNNcDRhV1dPZ0lVaUxILys5bU0xdkFZQjBkTWI1?=
- =?utf-8?B?QXZJR3RHTFR1Y1hPVWJvRGF6WVY1aUVPNGkrRlJRNldhMWRnWUhoLzk2dGxL?=
- =?utf-8?B?UVRsNXdQRTQzRDNzYlBGbjc1bXh6ZmtyMzFkZmRpTjFsOG5oaU5ZZXpscExU?=
- =?utf-8?B?RUF5Q1I2SE9hWDBWbEo0a2NGV3RmeGNCODE1cVBZMHMwa1BVTDkrVmtDMFhH?=
- =?utf-8?B?VVcrNEMyRnFqd08rcWRRbXhXbXZoRXpTWC9ZNGpnSExCQ3NsTHA3U0JOdTVH?=
- =?utf-8?B?azczQWpBZmQyZG5kdUdzZmFvSTFoSHVKUjUzTFFjZGxnaGxZbHRkcVZJdHhz?=
- =?utf-8?B?VzBqRG9QcDJkN0Q5WVIzUkJRc2k0YkxjMHZqSmJmbWNkWlphWDlWc1FrUXMz?=
- =?utf-8?B?eThmK0tVdnZneTFRR3U0V0xlUzczd1U2L1lDcVZ3Zkp6Sjh1L1phQVMwbFV3?=
- =?utf-8?B?YUpFb281eVZxNlVZbUVXR2ZzcmE1Nitkc1N6REswNXVLemRONkVTMEpSUGJv?=
- =?utf-8?Q?mZOetO?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2025 10:41:13.2949
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d83b120d-b799-4cbe-d979-08dd8641326b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004680.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9170
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 06/14] xen/riscv: riscv_of_processor_hartid()
+ implementation
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <ab592d50ad161ffed3950bdf58ade49ae90a3c0e.1744126720.git.oleksii.kurochko@gmail.com>
+ <65f5952a-8d2a-499c-bd66-53e9e2fbfa9c@suse.com>
+ <d10323b7-d95d-4b96-9bf1-7ae8edda153e@gmail.com>
+ <859d0c87-dc90-44c2-ab30-5164eec0705c@suse.com>
+ <83fc1566-ad4f-489d-a432-01ec638cbc21@gmail.com>
+ <39f0a475-6eea-4c08-abb1-f3de25c5a549@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <39f0a475-6eea-4c08-abb1-f3de25c5a549@suse.com>
 
-On Sat Apr 26, 2025 at 12:43 AM BST, Ariadne Conill wrote:
-> Previously Xen placed the hypercall page at the highest possible MFN,
-> but this caused problems on systems where there is more than 36 bits
-> of physical address space.
+This is a multi-part message in MIME format.
+--------------0vhNBwspiOB0Ac0cD0ngl8cE
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+On 4/28/25 8:31 AM, Jan Beulich wrote:
+> On 25.04.2025 19:07, Oleksii Kurochko wrote:
+>> On 4/15/25 3:45 PM, Jan Beulich wrote:
+>>> On 15.04.2025 15:39, Oleksii Kurochko wrote:
+>>>> On 4/10/25 5:53 PM, Jan Beulich wrote:
+>>>>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
+>>>>>> +{
+>>>>>> +    const __be32 *cell;
+>>>>>> +    int ac;
+>>>>>> +    uint32_t len;
+>>>>>> +
+>>>>>> +    ac = dt_n_addr_cells(cpun);
+>>>>>> +    cell = dt_get_property(cpun, "reg", &len);
+>>>>>> +    if ( !cell || !ac || ((sizeof(*cell) * ac * (thread + 1)) > len) )
+>>>>>> +        return ~0ULL;
+>>>>> I'm sorry for my lack of DT knowledge, but what's "thread" representing here?
+>>>>> You only pass in 0 below, so it's unclear whether it's what one might expect
+>>>>> (the thread number on a multi-threaded core).
+>>>> Based on the DT specification alone, the|`reg`| value could refer to either a CPU or a thread ID:
+>>>> ```
+>>>> The value of reg is a <prop-encoded-array> that defines a unique CPU/thread id for
+>>>> the CPU/threads represented by the CPU node. If a CPU supports more than one thread
+>>>> (i.e. multiple streams of execution) the reg prop-erty is an array with 1 element
+>>>> per thread.
+>>>> ```
+>>>>
+>>>> My understanding is that the term/thread/ was used in the Linux kernel to cover both
+>>>> cases.
+>>>> When SMT isn't supported, the CPU can be considered to have a single thread.
+>>>> For example, RISC-V uses the term/hardware thread/ to describe a hart (i.e., a CPU).
+> Note the terminology ("CPU") you used here.
 >
-> In general, it also seems unreliable to assume that the highest possible
-> MFN is not already reserved for some other purpose.
+>>>> Interestingly, the Linux kernel always uses|thread = 0|.
+>>>>
+>>>> We could potentially drop this ambiguity and introduce an|ASSERT()| to check that
+>>>> the|`reg`| property contains only one entry, representing the HART (CPU) ID:
+>>>> ```
+>>>>      Software can determine the number of threads by dividing the size of reg by the parent
+>>>>      node’s #address-cells. If `|reg`| has more than one entry, it would simply SMT support
+>>>>      is required.
+>>>> ```
+>>>>
+>>>> Does that approach make sense, or should we stick with the current implementation?
+>>> If extra enabling is required to make multi-thread CPUs work, then panic()ing
+>>> (not so much ASSERT()ing) may make sense, for the time being. Better would be
+>>> if we could use all threads in a system right away.
+>> Actually, this function is ready to be used for multi-thread CPUs. A caller can request hardware id
+>> by passing `thread` argument (`thread` -> the local thread number to get the hardware ID for).
+>> So by calling:
+>>    dt_get_cpu_hwid(cpu0, 0) -> it will return hardware id of thread 0 of cpu0
+>>    dt_get_cpu_hwid(cpu0, 1) -> it will return hardware id of thread 1 of cpu0
+>>    ...
+>>
+>> In our case we assume that SMP isn't supported so that is why it is used only dt_get_cpu_hwid(cpu0, 0).
+>>
+>> If one day, SMP will be enabled then it will be needed to change a callers of dt_get_cpu_hwid().
+> I assume you meant SMT in both places you wrote SMP?
 
-Thanks for sending this!
+Yes, it should be SMT.
 
-Just one more thing on top of what Jan mentioned.
+>   But my main point here is:
+> If enumeration gives you "thread <N> of core <M>" (using x86 terminology), you
+> need to be quite careful with what you call "CPU". Things need to be entirely
+> unambiguous, taking into account what internally in (common code) Xen we call a
+> "CPU". You certainly may call "CPU" what is a collection of threads / harts,
+> but you then need to clarify this in a prominent comment somewhere, and you
+> need to be entirely consistent throughout the RISC-V sub-tree.
 
->
-> Changes from v1:
-> - Continue to use fixmap infrastructure
-> - Use panic in Hyper-V setup() function instead of returning -ENOMEM
->   on hypercall page allocation failure
->
-> Fixes: 620fc734f854 ("x86/hyperv: setup hypercall page")
-> Cc: Alejandro Vallejo <agarciav@amd.com>
-> Cc: Alexander M. Merritt <alexander@edera.dev>
-> Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
-> ---
->  xen/arch/x86/guest/hyperv/hyperv.c      | 17 +++++++----------
->  xen/arch/x86/include/asm/guest/hyperv.h |  3 ---
->  2 files changed, 7 insertions(+), 13 deletions(-)
->
-> diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hype=
-rv/hyperv.c
-> index 6989af38f1..0305374a06 100644
-> --- a/xen/arch/x86/guest/hyperv/hyperv.c
-> +++ b/xen/arch/x86/guest/hyperv/hyperv.c
-> @@ -98,7 +98,13 @@ static void __init setup_hypercall_page(void)
->      rdmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
->      if ( !hypercall_msr.enable )
->      {
-> -        mfn =3D HV_HCALL_MFN;
-> +        void *hcall_page =3D alloc_xenheap_page();
-> +        if ( !hcall_page )
-> +            panic("Hyper-V: Failed to allocate hypercall trampoline page=
-");
-> +
-> +        printk("Hyper-V: Allocated hypercall page @ %p.\n", hcall_page);
+╭────────────────────╮
+│        CPU          │  ← 1 physical processor (chip)
+│ ┌───────┬─────────┐ │
+│ │ Core 0│ Core 1  │ │  ← 2 cores (for example)
+│ │ ┌──┬──┐ ┌──┬──┐ │ │
+│ │Thr0 Thr1 Thr0 Thr1│ ← 2 threads on each core (SMT)
+│ └───────┴─────────┘ │
+╰────────────────────╯
+I want to double check what Xen call a "CPU". I thought that Xen uses word
+CPU to describe a core, right?
 
-We should be printing the mfn (or maddr) rather than the virtual address
-out of the allocator, IMO. Especially since we need to remap it anyway.
+What you wrote above "thread <N> of core <M> (using x86 terminology)" is also correlated
+with RISC-V terminology:
+   A component is termed a core if it contains an independent instruction fetch unit.
+   A RISC-V-compatible core might support multiple RISC-V-compatible hardware threads,
+   or harts, through multithreading
 
-With that:
+I checked RISC-V's DTS binding and it seems it is a little bit contradictory to DTS spec,
+where it is mentioned that reg property is used to describe how many threads a cpu  has
+when SMP is used, but in RISC-V's dts binding they are describing a hardware execution
+context:
+   This document uses some terminology common to the RISC-V community
+   that is not widely used, the definitions of which are listed here:
 
-  Reviewed-by: Alejandro Vallejo <agarciav@amd.com>
+   hart: A hardware execution context, which contains all the state
+   mandated by the RISC-V ISA: a PC and some registers.  This
+   terminology is designed to disambiguate software's view of execution
+   contexts from any particular microarchitectural implementation
+   strategy.  For example, an Intel laptop containing one socket with
+   two cores, each of which has two hyperthreads, could be described as
+   having four harts.
 
-Cheers,
-Alejandro
+So in RISC-V's DTS binding they are describing only hardware threads what makes things more
+confusing in terms what kind terminology from Xen point of view should be used.
+
+And based on what is written in RISC-V's dts binding:
+  For example, an Intel laptop containing one socket with
+  two cores, each of which has two hyperthreads, could be described as
+  having four harts.
+It would be more logical to drop 'thread' argument of riscv_of_get_cpu_hwid(const struct dt_device_node *cpun).
+And then the question is what to do with the name of variable cpun? As it could be still confusing. Or, at least,
+I can add the comment that CPUn in terms of RISC-V means hart (hardware thread). And then will it be needed to
+add such comment for each usage of word "CPU"?
+
+~ Oleksii
+
+
+
+--------------0vhNBwspiOB0Ac0cD0ngl8cE
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/28/25 8:31 AM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:39f0a475-6eea-4c08-abb1-f3de25c5a549@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 25.04.2025 19:07, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 4/15/25 3:45 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 15.04.2025 15:39, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 4/10/25 5:53 PM, Jan Beulich wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">On 08.04.2025 17:57, Oleksii Kurochko wrote:
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">+{
++    const __be32 *cell;
++    int ac;
++    uint32_t len;
++
++    ac = dt_n_addr_cells(cpun);
++    cell = dt_get_property(cpun, "reg", &amp;len);
++    if ( !cell || !ac || ((sizeof(*cell) * ac * (thread + 1)) &gt; len) )
++        return ~0ULL;
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">I'm sorry for my lack of DT knowledge, but what's "thread" representing here?
+You only pass in 0 below, so it's unclear whether it's what one might expect
+(the thread number on a multi-threaded core).
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">Based on the DT specification alone, the|`reg`| value could refer to either a CPU or a thread ID:
+```
+The value of reg is a &lt;prop-encoded-array&gt; that defines a unique CPU/thread id for
+the CPU/threads represented by the CPU node. If a CPU supports more than one thread
+(i.e. multiple streams of execution) the reg prop-erty is an array with 1 element
+per thread.
+```
+
+My understanding is that the term/thread/ was used in the Linux kernel to cover both
+cases.
+When SMT isn't supported, the CPU can be considered to have a single thread.
+For example, RISC-V uses the term/hardware thread/ to describe a hart (i.e., a CPU).
+</pre>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Note the terminology ("CPU") you used here.
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">Interestingly, the Linux kernel always uses|thread = 0|.
+
+We could potentially drop this ambiguity and introduce an|ASSERT()| to check that
+the|`reg`| property contains only one entry, representing the HART (CPU) ID:
+```
+    Software can determine the number of threads by dividing the size of reg by the parent
+    node’s #address-cells. If `|reg`| has more than one entry, it would simply SMT support
+    is required.
+```
+
+Does that approach make sense, or should we stick with the current implementation?
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">If extra enabling is required to make multi-thread CPUs work, then panic()ing
+(not so much ASSERT()ing) may make sense, for the time being. Better would be
+if we could use all threads in a system right away.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Actually, this function is ready to be used for multi-thread CPUs. A caller can request hardware id
+by passing `thread` argument (`thread` -&gt; the local thread number to get the hardware ID for).
+So by calling:
+  dt_get_cpu_hwid(cpu0, 0) -&gt; it will return hardware id of thread 0 of cpu0
+  dt_get_cpu_hwid(cpu0, 1) -&gt; it will return hardware id of thread 1 of cpu0
+  ...
+
+In our case we assume that SMP isn't supported so that is why it is used only dt_get_cpu_hwid(cpu0, 0).
+
+If one day, SMP will be enabled then it will be needed to change a callers of dt_get_cpu_hwid().
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I assume you meant SMT in both places you wrote SMP?</pre>
+    </blockquote>
+    <pre>Yes, it should be SMT.
+</pre>
+    <blockquote type="cite"
+      cite="mid:39f0a475-6eea-4c08-abb1-f3de25c5a549@suse.com">
+      <pre wrap="" class="moz-quote-pre"> But my main point here is:
+If enumeration gives you "thread &lt;N&gt; of core &lt;M&gt;" (using x86 terminology), you
+need to be quite careful with what you call "CPU". Things need to be entirely
+unambiguous, taking into account what internally in (common code) Xen we call a
+"CPU". You certainly may call "CPU" what is a collection of threads / harts,
+but you then need to clarify this in a prominent comment somewhere, and you
+need to be entirely consistent throughout the RISC-V sub-tree.</pre>
+    </blockquote>
+    <pre>╭────────────────────╮
+│        CPU          │  ← 1 physical processor (chip)
+│ ┌───────┬─────────┐ │
+│ │ Core 0│ Core 1  │ │  ← 2 cores (for example)
+│ │ ┌──┬──┐ ┌──┬──┐ │ │
+│ │Thr0 Thr1 Thr0 Thr1│ ← 2 threads on each core (SMT)
+│ └───────┴─────────┘ │
+╰────────────────────╯
+I want to double check what Xen call a "CPU". I thought that Xen uses word
+CPU to describe a core, right?
+
+What you wrote above "thread &lt;N&gt; of core &lt;M&gt; (using x86 terminology)" is also correlated
+with RISC-V terminology:
+  A component is termed a core if it contains an independent instruction fetch unit.
+  A RISC-V-compatible core might support multiple RISC-V-compatible hardware threads,
+  or harts, through multithreading
+
+I checked RISC-V's DTS binding and it seems it is a little bit contradictory to DTS spec,
+where it is mentioned that reg property is used to describe how many threads a cpu  has
+when SMP is used, but in RISC-V's dts binding they are describing a hardware execution
+context:
+  This document uses some terminology common to the RISC-V community
+  that is not widely used, the definitions of which are listed here:
+
+  hart: A hardware execution context, which contains all the state
+  mandated by the RISC-V ISA: a PC and some registers.  This
+  terminology is designed to disambiguate software's view of execution
+  contexts from any particular microarchitectural implementation
+  strategy.  For example, an Intel laptop containing one socket with
+  two cores, each of which has two hyperthreads, could be described as
+  having four harts.
+
+So in RISC-V's DTS binding they are describing only hardware threads what makes things more
+confusing in terms what kind terminology from Xen point of view should be used.
+
+And based on what is written in RISC-V's dts binding:
+ For example, an Intel laptop containing one socket with
+ two cores, each of which has two hyperthreads, could be described as
+ having four harts.
+It would be more logical to drop 'thread' argument of riscv_of_get_cpu_hwid(const struct dt_device_node *cpun).
+And then the question is what to do with the name of variable cpun? As it could be still confusing. Or, at least,
+I can add the comment that CPUn in terms of RISC-V means hart (hardware thread). And then will it be needed to
+add such comment for each usage of word "CPU"?
+</pre>
+    <pre>
+~ Oleksii
+
+
+
+</pre>
+  </body>
+</html>
+
+--------------0vhNBwspiOB0Ac0cD0ngl8cE--
 
