@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73E93A9EBAE
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 11:19:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970387.1359103 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70028A9ECC7
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 11:42:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970406.1359114 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Kdi-0004tW-Ee; Mon, 28 Apr 2025 09:19:02 +0000
+	id 1u9Kz8-0001MK-3x; Mon, 28 Apr 2025 09:41:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970387.1359103; Mon, 28 Apr 2025 09:19:02 +0000
+Received: by outflank-mailman (output) from mailman id 970406.1359114; Mon, 28 Apr 2025 09:41:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Kdi-0004rg-Bu; Mon, 28 Apr 2025 09:19:02 +0000
-Received: by outflank-mailman (input) for mailman id 970387;
- Mon, 28 Apr 2025 09:19:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5hYN=XO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9Kdh-0004rY-Ub
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 09:19:01 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2463fa5-2411-11f0-9eb4-5ba50f476ded;
- Mon, 28 Apr 2025 11:19:01 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a07a7b4ac7so1013570f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 02:19:01 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a073e5c82fsm10445042f8f.85.2025.04.28.02.19.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Apr 2025 02:19:00 -0700 (PDT)
+	id 1u9Kz8-0001Jj-0x; Mon, 28 Apr 2025 09:41:10 +0000
+Received: by outflank-mailman (input) for mailman id 970406;
+ Mon, 28 Apr 2025 09:41:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EzXt=XO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1u9Kz6-0001Jd-VK
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 09:41:09 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e846f93d-2414-11f0-9ffb-bf95429c2676;
+ Mon, 28 Apr 2025 11:41:06 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5e677f59438so6850000a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 02:41:06 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ 4fb4d7f45d1cf-5f7016f5acdsm5536622a12.38.2025.04.28.02.41.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Apr 2025 02:41:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,92 +44,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2463fa5-2411-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: e846f93d-2414-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745831940; x=1746436740; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fFwInLV3vfUWJEXGGnwWSOA44SsiGe7kNheiiCGGNjk=;
-        b=ZpWj8vK6uicIX3rFk1vlYSsU4pl2jEQmtKNtMtB63L9aNW5MEMiWOYpYqio039HgGe
-         nkG+WjZp1h6P1oPm+VXlyCXCN5OHaz2W/9VvTbXELSNeUFmSFzPwGmlv7d1BXQBvT3Qp
-         X4QJp/xQq1thgCppP5myZCR86nlPI9Z3u93tY4+28haG3hduILVc/K7tsdKNLHDJGnAe
-         lZ4DimqrmvzodhmWyAsPURZ+mDVzLiT3EchC/zNPFqW/i9fnDd89UsXmF3Un+m2nifWd
-         sqaur5pyr4hXjgwnXsdvooogiPJZj5liZ4JYsVdHp7kwyhoZYUzvMdkP3Y9Befa/YdU1
-         WVAg==
+        d=citrix.com; s=google; t=1745833266; x=1746438066; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=9CBhCXkr8158RMaR3b8OB6n2UjnrAgIUceMjhNvsh2E=;
+        b=p2aNEtXK0onSjZT13q8+g4RWYmm9aFeK6cEr+dNaw4RJ/DogM0FLZl3IFHVEsYP4nZ
+         6DZtAEYa4ZLHKeZouHO2hnq/BheYc83PGFv/JGuUV+5Na2aGDpN+CbtkKvIaZaJcS9bf
+         t3gWcSbrjErnPzwPLmD9IO2SK4hK1wXGdTQI4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745831940; x=1746436740;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1745833266; x=1746438066;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fFwInLV3vfUWJEXGGnwWSOA44SsiGe7kNheiiCGGNjk=;
-        b=UDE0bsX1sMzKkia5PM3NKf0s4M0sEyO9JcZGMeOQ2bqfcGXDW3PSQR0Q8Gjk4ciC7f
-         ys3g9vICLEMU2tfa7Qpojbvch2qfnN+66FHxv4HhRgwsLiLvd636MXrWLYHT3Y6AC5Ki
-         V7itRqXwqzLWtP1UescDUPPx7EXYmwuc/I1zhttZClwng2AtuaV3jY2D9gQ1+79+XkPl
-         veA34SbYmueqq1hZeh6Bc8Ni2s9dFA4BXpoGDcnPAWwFgWba7e7aA/8ITp6rFmw4qDqC
-         5SPIPQ4YipC+IFakD00EWGBs0TzexFC+nRe2eeWuVh6PeaSHgBHjkIjRetbiMDKXwxT1
-         5Q+w==
-X-Forwarded-Encrypted: i=1; AJvYcCU0YRZl1NefvJU/S4yr6NtCEEpj4qOBQhF7LIh5lSPrINGJiTOTPwSyIjUk6by6a6md0PazMxL8dFg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxRbrkWLUw7lN3Lag39/pGhdbYT78uMUNUaM65pqisEkSL/TPmv
-	cDPNH5ro8bI1VhodwG3aKXellcd+4z6cUmNWaxASDzsJ3VPeJLP7iQMz7upqpg==
-X-Gm-Gg: ASbGncu8UlcjBe4UEnaonY3kuXF6daNqlxWdvEaEwrVBG31gx5NdH+yQba67WgboETt
-	bPrvPWF+X8UgNqcA5JWyApgoSF4CNJj7Y8Mg47gcM0rbX0r0nvvDaEtIOz6FV9S7UOLweVwTpzb
-	MYjbhL/WBC+fIEAM6mMd8S5XmwPHunew1d6QLFwM/T+Zd3Witv4asiTrFiLJ+FBHxRQP4PEGIKl
-	FAQmrPvQdgIwRWSTcPerzrZXZZcOwTFuH1ZjGpIFYpSANW7DEFo5RvBkwKxenwojJDD9xpp4dKF
-	mjmMPFm21EzuGlE7Ftyr4lc3hIs14X2w7O65TwW9b81S5NzMKrTQZSOgpEz/2D5L0IIHKnNdvt3
-	2ENeWrOCu5+zjrBeZHC+uJMZymQ==
-X-Google-Smtp-Source: AGHT+IEBvQtFy71m1vMq0GiTuJ7TWxhnNOxKlb9xSizM0qfFqVVmEqEzRhzWxJ7u6jzb2c3f/07IAg==
-X-Received: by 2002:a05:6000:220f:b0:390:f738:246b with SMTP id ffacd0b85a97d-3a074e1f11fmr8969627f8f.15.1745831940527;
-        Mon, 28 Apr 2025 02:19:00 -0700 (PDT)
-Message-ID: <b843908e-2cfb-4797-9be8-f4d2f0463e92@suse.com>
-Date: Mon, 28 Apr 2025 11:19:01 +0200
+        bh=9CBhCXkr8158RMaR3b8OB6n2UjnrAgIUceMjhNvsh2E=;
+        b=FWUqQoQmLHWXCkW7Cs21kLILXygZ7QK5B2bZkgEZwQUt4E/lsGOos0KSJF98R/2COJ
+         uW73X+H4RUXVnEazwKGF7eK5//BRm5RO5m6d9Xg9n8ZyvlL/ApvqR6H7zwYQRF2jbJDU
+         LzetY3c34+vlFgHacyWOjFdZbhyJ6Z4XbAjkiejhRtzx4kJDxNChrZYDMTN0mlvRBdoA
+         fseyzyC3EGozBkpPdGDV0qnYij3G+ge10vS5iN/1Lk+m1gfMkWaHhKclC2gAQd8w4bj8
+         IjlOJWJvF7HVFv1kypI5NREzz7v/JTwfabR7nS8e7IrFNQR4f9POzMz8oMIUC1LHXt5m
+         91Gw==
+X-Gm-Message-State: AOJu0YzGrprBHLg8h30Yk59JEqrduEuUfYm05E9vZdsXPfQZPoDerGTd
+	6eaEqB8wgAt6TvhY6nEoGi1m/ZLoRv8lWWpywCbdRySXaF3ZNJCX07aUnAvApQA=
+X-Gm-Gg: ASbGncs8QxlNYZrS0Q/Xj/b7jDKJvlVyNBo0mKE8RTqHx4oQicCeHYKyoZ8CmF92+KO
+	5rn41tgmQ9f2+IThnMU1YTXD0l7Twm3g1mmnKI7ejzArzjNAz5dJk9bhcCQYiGKQIUKslXo+sUn
+	z91JjNpqdAN9iO/FQVZ/H0J8L2Cpqx3jouoabPa+pxgJs/jbbbz+jYkLlLzOilhCqoUBOQuY7AW
+	axN9sQpmrCI/6QhT85YLWxakiJz6rjNpR0XN7X+bv3Rur/rVnyplwoStwp5x4N/RLc644kUZGaw
+	Xd7ng9wYB0l7srY8REqDiexX+87L7IFExjGeqjP/GfYfSeV83yXVvFgN
+X-Google-Smtp-Source: AGHT+IEGHAFQx8F0UGhURNrZPpamKptHf3MPAiDrOCk9JtIrbvxUHBo2lJQKrHR5kriwkviMPMvdaQ==
+X-Received: by 2002:a05:6402:2749:b0:5f8:30c2:8652 with SMTP id 4fb4d7f45d1cf-5f830c28831mr91858a12.7.1745833265992;
+        Mon, 28 Apr 2025 02:41:05 -0700 (PDT)
+Date: Mon, 28 Apr 2025 11:41:04 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Ariadne Conill <ariadne@ariadne.space>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Alejandro Vallejo <agarciav@amd.com>,
+	"Alexander M . Merritt" <alexander@edera.dev>
+Subject: Re: [PATCH v2] x86/hyperv: use dynamically allocated page for
+ hypercalls
+Message-ID: <aA9NMJVbyXeMOOY-@macbook.lan>
+References: <20250425234331.65875-1-ariadne@ariadne.space>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] x86/vmx: Update DR7 type
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, dmukhin@ford.com,
- xen-devel@lists.xenproject.org
-References: <20250426072739.39373-1-dmukhin@ford.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250426072739.39373-1-dmukhin@ford.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20250425234331.65875-1-ariadne@ariadne.space>
 
-On 26.04.2025 09:27, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
+On Fri, Apr 25, 2025 at 04:43:31PM -0700, Ariadne Conill wrote:
+> Previously Xen placed the hypercall page at the highest possible MFN,
+> but this caused problems on systems where there is more than 36 bits
+> of physical address space.
 > 
-> Convert the DR7 type to `unsigned int` and fix the accesses where necessary.
+> In general, it also seems unreliable to assume that the highest possible
+> MFN is not already reserved for some other purpose.
 > 
-> [1] https://lore.kernel.org/xen-devel/0d01646b-83e3-4a02-b365-d149d2664e73@citrix.com/
+> Changes from v1:
+> - Continue to use fixmap infrastructure
+> - Use panic in Hyper-V setup() function instead of returning -ENOMEM
+>   on hypercall page allocation failure
 > 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> Fixes: 620fc734f854 ("x86/hyperv: setup hypercall page")
+> Cc: Alejandro Vallejo <agarciav@amd.com>
+> Cc: Alexander M. Merritt <alexander@edera.dev>
+> Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
+> ---
+>  xen/arch/x86/guest/hyperv/hyperv.c      | 17 +++++++----------
+>  xen/arch/x86/include/asm/guest/hyperv.h |  3 ---
+>  2 files changed, 7 insertions(+), 13 deletions(-)
+> 
+> diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hyperv/hyperv.c
+> index 6989af38f1..0305374a06 100644
+> --- a/xen/arch/x86/guest/hyperv/hyperv.c
+> +++ b/xen/arch/x86/guest/hyperv/hyperv.c
+> @@ -98,7 +98,13 @@ static void __init setup_hypercall_page(void)
+>      rdmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
+>      if ( !hypercall_msr.enable )
+>      {
+> -        mfn = HV_HCALL_MFN;
+> +        void *hcall_page = alloc_xenheap_page();
+> +        if ( !hcall_page )
+> +            panic("Hyper-V: Failed to allocate hypercall trampoline page");
+> +
+> +        printk("Hyper-V: Allocated hypercall page @ %p.\n", hcall_page);
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+This likely wants to be a dprintk, and possibly also print the
+physical address of the used page?  And no period at the end of the
+sentence IMO.
 
+I think Xen might have used the last page in the physical address
+range to prevent HyperV from possibly shattering a superpage in the
+second stage translation page-tables if normal RAM was used?
 
+However I don't know whether HyperV will shatter super-pages if a
+sub-page of it is used to contain the hypercall page (I don't think it
+should?)
+
+Thanks, Roger.
 
