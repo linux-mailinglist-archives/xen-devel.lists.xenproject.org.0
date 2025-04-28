@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7537A9EE8E
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 13:07:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970510.1359184 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A588A9EE96
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 13:09:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970527.1359193 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9MKZ-0007sO-H0; Mon, 28 Apr 2025 11:07:23 +0000
+	id 1u9MMN-0008Te-Vm; Mon, 28 Apr 2025 11:09:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970510.1359184; Mon, 28 Apr 2025 11:07:23 +0000
+Received: by outflank-mailman (output) from mailman id 970527.1359193; Mon, 28 Apr 2025 11:09:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9MKZ-0007qv-Di; Mon, 28 Apr 2025 11:07:23 +0000
-Received: by outflank-mailman (input) for mailman id 970510;
- Mon, 28 Apr 2025 11:07:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u9MMN-0008Rc-SY; Mon, 28 Apr 2025 11:09:15 +0000
+Received: by outflank-mailman (input) for mailman id 970527;
+ Mon, 28 Apr 2025 11:09:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1Olx=XO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u9MKX-0007ql-8r
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 11:07:21 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f413b010-2420-11f0-9eb4-5ba50f476ded;
- Mon, 28 Apr 2025 13:07:20 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3914aba1ce4so3570027f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 04:07:20 -0700 (PDT)
+ id 1u9MMM-0008RW-VR
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 11:09:14 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 374debe6-2421-11f0-9ffb-bf95429c2676;
+ Mon, 28 Apr 2025 13:09:13 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-39d83782ef6so3921382f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 04:09:13 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a073e46a54sm11031140f8f.67.2025.04.28.04.07.18
+ ffacd0b85a97d-3a073ca56d5sm10940294f8f.32.2025.04.28.04.09.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Apr 2025 04:07:19 -0700 (PDT)
+ Mon, 28 Apr 2025 04:09:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f413b010-2420-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 374debe6-2421-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745838440; x=1746443240; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1745838552; x=1746443352; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3gM4It4SMK59v/8vza29ClPE0i0OYfYk8Sh8ifgnFdc=;
-        b=VWBgjJr0OIhCsqyq89EMmxgfy5Pk4lSjh3AS4at2DzIogPcB//PkAm+zhY1yKVs+Dd
-         hJntHRsrCuTx1VqvOmIl4F5pehd1kS+t3HiCYPtl+bDrbMMrmh9y4qmypCfA0pMmDLEA
-         ADqjfY9BNNJ6cpZo94Z3iMMSWV64lFuLlvIYY=
+        bh=S1NY60bvctsPrKwpYhtExbVQ+qryrxMit8VBWB0Yd5k=;
+        b=emfioHBgtMIVb3km9HVJF3R+ZaIa2KBmmM6M460nkldIhiIKhXEZGJjlETFA7Gzmnh
+         95MzrWUp2OP/1FQNCE1eq7+apwFVtVh+eut9SXhRiNDXiJPv6cgTLvolRKDi0kmDwEc3
+         sg/3Cn6nWeSooMd9rfsmk5ONgB7XjNNrD6Z6U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745838440; x=1746443240;
+        d=1e100.net; s=20230601; t=1745838552; x=1746443352;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3gM4It4SMK59v/8vza29ClPE0i0OYfYk8Sh8ifgnFdc=;
-        b=QMAXK2UBGfcmMzqkIrWm3zdiD/kDAkhvZqCk1h/6Lbf06qwHux2PFUUCEA/OtvYk/3
-         8hwsx7aMnIZKjVymmKLAGbSJ3qqJcPTJKKFjjnA7oWqfmdgxu0m4srq+T1NW6dovHAAC
-         UoH9lg/D5tG8Nl80pJ2C4YaBxONkEPWh/vYJgjslgt7mvEo9SMGEik/nqroMydfgY13E
-         uek5rnTygFI/T9fXrvaAAGRuc5FYsMJjfZfWkwiVFpu5qzcpzcSrQIrku015x31lV1Q+
-         mJrm/UDinEJV6GYzubAELkHO7GHAe9jIZRa7oOppJd+Vhg8vLDUkhsdSTq6cG4aTHj0F
-         hshw==
-X-Gm-Message-State: AOJu0YxY0WApPRIY5rsxM1roCelamUtuK+zwxCkCoERGRSGX4fJ3UCkX
-	A+p4mkBRBaurzfCSmBpP3tYQfX115bIyITKfHcJbWQGYhDReUFPXC3JHt+gUumw=
-X-Gm-Gg: ASbGncuRY8ADMzTKXPAqDcK0itLSdpW7K9d0vt/G7JyphOfk6NSE33Q9EG2gi72H7E6
-	VjSbEFvAvVVkTCn/7+K43bX8/gAuWHkcbj8LKYdJheXMsb7H7JqVYXgAh4eNKo4xnowBEDpHt2Y
-	+wWwlv4q+VPdTb692NWM0Q9KiWe8CvZikYW1CYdbGOpts0WVB0aZd2NyDVfs7iY/epc0G5wSZcG
-	XI9GcNmc7KmVSDDbfYHMdCNs3MVNty4oMcZd5/XPuP6q3tLMkl09VaaSCWeSLiazntHxL5Uvn+d
-	iIMDD4sX+RLpK5/aGAZed3AM8g8e62puN1YP+k+JalXwt2hgMmzmq5guI5clAK9Np5uu1VGc53d
-	LdP8CDyO5wb//jvfO
-X-Google-Smtp-Source: AGHT+IFMfCcKZRq59thsDM7q4TREyc/++JPCEcfXlS3WXiSZ8OBLVWbb3R2yLdSVNoCnf1Kl7dLpkQ==
-X-Received: by 2002:a05:6000:4212:b0:38f:2ddd:a1bb with SMTP id ffacd0b85a97d-3a074e144a6mr8508007f8f.8.1745838439491;
-        Mon, 28 Apr 2025 04:07:19 -0700 (PDT)
-Message-ID: <97d28edb-4274-408f-a825-d09fa771e21d@citrix.com>
-Date: Mon, 28 Apr 2025 12:07:18 +0100
+        bh=S1NY60bvctsPrKwpYhtExbVQ+qryrxMit8VBWB0Yd5k=;
+        b=MX+BcYfTI2OIsS1qQXLsPll8JBbIAj9v1EWIUVyjbFHAIqhMCcneimXlZaTDbHIPKn
+         PmEFM93ebm9IsNLnCiaII9mwrPiKXCKu5evoiF3EJ94cCGx2faPVJQb+dU78nZORCmD4
+         7d3WAfm/Hj5i7Bgv+98h2L9djjPUGtqtjLIxac0l61dP8VWR6SK/O9EYf+cy7orO4k1S
+         FiosGd8ieAlNQc3niiUXbqOyxg8hfzExXbrCU6gPO1y/yxCIXAG8y3WL3tKBwmZwEDkd
+         +jbyNTgSMVCfkMCxWEzopOg2rk+2JoiuuQICsarouH//sirqbrRP9BZuqYqZOWeHC8Zg
+         692g==
+X-Forwarded-Encrypted: i=1; AJvYcCW7JTqAiDwZC/KaggKyNuGjXj6w7MGySVZFsskrybW9vaVOrG7zSMEaWzM0rkod9KqcjLFgAoWoiwg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyi1Q05RzVH+2YOfSpoz/KgvGyEFxgAgC++/laTEK+rIyHdWd6N
+	kxlb/IEamp16JNhdKg0lVkfdXSppw0GQlUR8FqBE1BUetX+hSWHq7srOQCvqUHA=
+X-Gm-Gg: ASbGncumHIfX8eJki7zXopWVFzjf1hoplcB+LyI/LAyAOr+B88O6OnynZ72V2l3o47T
+	yVR4TyyEhE5hq/Rii1yzyyzBcilJT3wqxevC2Wep9qb0aS8ENOluuyoQ1NwDtFIxK0X3bFB6FBH
+	AVfnmVpKFo3psOYFRi1b42K0axIvztf/LUJgamr3jvnDCvhKZie4UCccfbFD8wyrlxOz5aiQSPb
+	o9bPNKnQ9dJzIRGVJwiQhBqUXaICG9yJ0D79q0GLWapBhiOZS9v1Ri3izRY0385gNmbdOlVjlQ4
+	6Xk+NMXuF5zrrrA8RKt8pknAupF2zCxaIqq+VVmun4Uz/UZYxNlWHjaIKhosLxpjkzs2ujJeWYF
+	pVZwCmA==
+X-Google-Smtp-Source: AGHT+IGPMGGqkxVbJpZDRRUwIdKcvcZYGnx67AbXfna85HzHFppMBnp36zExfM0knaNzNPC//a19PA==
+X-Received: by 2002:a05:6000:43c6:20b0:3a0:6f3b:79f0 with SMTP id ffacd0b85a97d-3a06f3b7a21mr8358553f8f.21.1745838552536;
+        Mon, 28 Apr 2025 04:09:12 -0700 (PDT)
+Message-ID: <c9bd33a1-712a-489d-a887-fa4cdc0cb516@citrix.com>
+Date: Mon, 28 Apr 2025 12:09:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2] x86/hyperv: use dynamically allocated page for
  hypercalls
-To: Alejandro Vallejo <agarciav@amd.com>,
+To: Ariadne Conill <ariadne@ariadne.space>, xen-devel@lists.xenproject.org
+Cc: Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Ariadne Conill <ariadne@ariadne.space>, Wei Liu <wl@xen.org>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
- Jan Beulich <jbeulich@suse.com>, "Alexander M . Merritt"
- <alexander@edera.dev>
+ Alejandro Vallejo <agarciav@amd.com>,
+ "Alexander M . Merritt" <alexander@edera.dev>
 References: <20250425234331.65875-1-ariadne@ariadne.space>
- <aA9NMJVbyXeMOOY-@macbook.lan> <D9I7TPLT0EJD.3F5P95H69CT5K@amd.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -138,69 +137,25 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <D9I7TPLT0EJD.3F5P95H69CT5K@amd.com>
+In-Reply-To: <20250425234331.65875-1-ariadne@ariadne.space>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 28/04/2025 11:55 am, Alejandro Vallejo wrote:
-> On Mon Apr 28, 2025 at 10:41 AM BST, Roger Pau Monné wrote:
->> On Fri, Apr 25, 2025 at 04:43:31PM -0700, Ariadne Conill wrote:
->>> Previously Xen placed the hypercall page at the highest possible MFN,
->>> but this caused problems on systems where there is more than 36 bits
->>> of physical address space.
->>>
->>> In general, it also seems unreliable to assume that the highest possible
->>> MFN is not already reserved for some other purpose.
->>>
->>> Changes from v1:
->>> - Continue to use fixmap infrastructure
->>> - Use panic in Hyper-V setup() function instead of returning -ENOMEM
->>>   on hypercall page allocation failure
->>>
->>> Fixes: 620fc734f854 ("x86/hyperv: setup hypercall page")
->>> Cc: Alejandro Vallejo <agarciav@amd.com>
->>> Cc: Alexander M. Merritt <alexander@edera.dev>
->>> Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
->>> ---
->>>  xen/arch/x86/guest/hyperv/hyperv.c      | 17 +++++++----------
->>>  xen/arch/x86/include/asm/guest/hyperv.h |  3 ---
->>>  2 files changed, 7 insertions(+), 13 deletions(-)
->>>
->>> diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hyperv/hyperv.c
->>> index 6989af38f1..0305374a06 100644
->>> --- a/xen/arch/x86/guest/hyperv/hyperv.c
->>> +++ b/xen/arch/x86/guest/hyperv/hyperv.c
->>> @@ -98,7 +98,13 @@ static void __init setup_hypercall_page(void)
->>>      rdmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
->>>      if ( !hypercall_msr.enable )
->>>      {
->>> -        mfn = HV_HCALL_MFN;
->>> +        void *hcall_page = alloc_xenheap_page();
->>> +        if ( !hcall_page )
->>> +            panic("Hyper-V: Failed to allocate hypercall trampoline page");
->>> +
->>> +        printk("Hyper-V: Allocated hypercall page @ %p.\n", hcall_page);
->> This likely wants to be a dprintk, and possibly also print the
->> physical address of the used page?  And no period at the end of the
->> sentence IMO.
->>
->> I think Xen might have used the last page in the physical address
->> range to prevent HyperV from possibly shattering a superpage in the
->> second stage translation page-tables if normal RAM was used?
->>
->> However I don't know whether HyperV will shatter super-pages if a
->> sub-page of it is used to contain the hypercall page (I don't think it
->> should?)
-> I think it's quite unlikely.
+On 26/04/2025 12:43 am, Ariadne Conill wrote:
+> diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hyperv/hyperv.c
+> index 6989af38f1..0305374a06 100644
+> --- a/xen/arch/x86/guest/hyperv/hyperv.c
+> +++ b/xen/arch/x86/guest/hyperv/hyperv.c
+> @@ -98,7 +98,13 @@ static void __init setup_hypercall_page(void)
+>      rdmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
+>      if ( !hypercall_msr.enable )
+>      {
+> -        mfn = HV_HCALL_MFN;
+> +        void *hcall_page = alloc_xenheap_page();
+> +        if ( !hcall_page )
+> +            panic("Hyper-V: Failed to allocate hypercall trampoline page");
 
-It will shatter superpages.
-
-The overlay is not part of guest memory, and will hide whatever is
-behind it while it is mapped, which will force a 4k PTE in EPT/NPT.
-
-Thinking about it, a better position would be adjacent to the APIC MMIO
-window, so at 0xfee01000.  The APIC MMIO window is forced to be a 4k
-mapping too, and the rest of the 2M window is normally empty.
+\n
 
 ~Andrew
 
