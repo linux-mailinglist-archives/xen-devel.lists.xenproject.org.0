@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1072A9E857
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 08:36:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970061.1358840 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EDC5A9E866
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 08:41:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970074.1358851 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9I64-0001Dq-Mk; Mon, 28 Apr 2025 06:36:08 +0000
+	id 1u9IBT-00033W-AQ; Mon, 28 Apr 2025 06:41:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970061.1358840; Mon, 28 Apr 2025 06:36:08 +0000
+Received: by outflank-mailman (output) from mailman id 970074.1358851; Mon, 28 Apr 2025 06:41:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9I64-0001Ai-K8; Mon, 28 Apr 2025 06:36:08 +0000
-Received: by outflank-mailman (input) for mailman id 970061;
- Mon, 28 Apr 2025 06:36:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u9IBT-00030S-7X; Mon, 28 Apr 2025 06:41:43 +0000
+Received: by outflank-mailman (input) for mailman id 970074;
+ Mon, 28 Apr 2025 06:41:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5hYN=XO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9I62-0001Ac-Cn
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 06:36:06 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06e17db0-23fb-11f0-9ffb-bf95429c2676;
- Mon, 28 Apr 2025 08:35:50 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3914aba1ce4so3347901f8f.2
- for <xen-devel@lists.xenproject.org>; Sun, 27 Apr 2025 23:35:50 -0700 (PDT)
+ id 1u9IBS-00030M-Cs
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 06:41:42 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d786ad29-23fb-11f0-9eb4-5ba50f476ded;
+ Mon, 28 Apr 2025 08:41:41 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43d0c18e84eso20319885e9.3
+ for <xen-devel@lists.xenproject.org>; Sun, 27 Apr 2025 23:41:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a073c8c95dsm9971401f8f.3.2025.04.27.23.35.49
+ 5b1f17b1804b1-4409d2e06d8sm148460075e9.39.2025.04.27.23.41.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 27 Apr 2025 23:35:50 -0700 (PDT)
+ Sun, 27 Apr 2025 23:41:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06e17db0-23fb-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: d786ad29-23fb-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745822150; x=1746426950; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745822500; x=1746427300; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JvQlf7d7ws5QQg8boRng+OFq9yx/9MvD4gaKrMnhkEY=;
-        b=a59cYc0kW+84CoTEh5Sv8qfQfV4Po0tQLRp4oKMjFiSfbZCV0zBb9aEDLwOUrCRCrZ
-         GhfBwMa7+pGkR6kO3hIdWxChc80Ie0PLdIPcPcj58LmTgnvurVrDkmiVyYo1cSYTWh2/
-         58adZD0y/5mmrmDzUWmRp7kR0KpsBNlNzqJzUTUb4tOEyCfNAwbxt5wUsui/P3hGSDTN
-         uf6K0kmYzBqffxs2ENIGCrq1rqenenGyIlVvKzuFCbslqf7fIee6Fv3PIDx9ZC5ulwg/
-         MrjoGlnyER7j7S67LkJ/qJYYeNAMcU4XH8TAfcVCJrcirZJdsmT7HmU0j+MzjzvbgNdI
-         JDaA==
+        bh=sMzx2AI1AjHqyseW5Ep3Xvb3Z9jwIQZtti7TEMb+XJg=;
+        b=JkyZI8pSnfdd14C1CyqHSCy/AzaRZi8pwFv/gRK+ZvF6i0SK9aRHoNASlTVDRLoZ1H
+         P0oVNUqQtPUfaBAc5K2HRxnmmocYi8NHiTnyNO52tZ1bUtqR00r6MdLPZrao0KXx4MTo
+         42liJaecrym/J+wkqqnNAnn52GTLR8rG+BIs70hb0WkUb70/jJNcoC9DsFfxa9zHTyPx
+         cMCPYjrNM5T0IN2aKHMTJ5S9D6qN0LE9hrf+rSyB+g66hNJI3VV3fBl8Yj1uABZ2aMAm
+         IK95UxsHDM1N+S9Tg8RqDXu9p6A0chf9xcoiKtOlKORTAEveTeBkT7/D5Lg6WLnJjlZS
+         NLZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745822150; x=1746426950;
+        d=1e100.net; s=20230601; t=1745822500; x=1746427300;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JvQlf7d7ws5QQg8boRng+OFq9yx/9MvD4gaKrMnhkEY=;
-        b=IYIB5nSp+B6WybAqBnJOvpTxzRqF1W+B1mWeKGQIPuNAhysrx+DIkiblGudR1lexqN
-         bjP9eL4bWAZe8yNHZs/xkrFgxxa79kUyOy1W0+RhuAVN8HfgBAS3lQ960y2sDzEfGmHX
-         XG3pqqUcJkubtO6hA5/MuGwuCuCS4Vjb/imUnku2OlEYYMh3Vjg6hetHqPa73qsi9o5Y
-         idEey3cP/tY+oZ8LglMN4eHvrpgcRVNyHFarc34YP1WbJ6VjdPcBAM7wpGxf42xx8P70
-         khxZyYxbMiupOycUtw/ehYaZ2pMd2K/rzJSs86yuOQ9kGBdvEYgjPY9ewLxsQoLqHFIR
-         21zw==
-X-Forwarded-Encrypted: i=1; AJvYcCW8VDZVRdDgOe9k4t0hKEszRxxGmf3HYPzqmywWhHVXX+sZ0uFcl0JnQPEsOi+oyQnvq2CMwlRSYfk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YylA7b0AN7EEMOaeoGmlUDS0kALJ4YBd2HA7bg+LrvETtjC3ra7
-	H12tyAjhukk8dNQp+7CD/aAtfy87mRmCCClScO2Uu53o+Bz3ZDkm3D0I5CUDLg==
-X-Gm-Gg: ASbGnctzx7QbZBLkkG19KkaW3VCQnVZ0Mp1+Vs0y1bSytzArN90JMFeF0tBfoxZ9CaZ
-	0SUiaq3/C+V6m4C7Owsva3NV0y9oa3wb2Y3CioYR1P9Ln36hrglJ8ZOQdseM3Gu9xMVpIkiUt2s
-	aRAdjy/YLSXCM30MHcXsWYRrQK4Hm50hJp2cp+zznRmYMZ1qyoKpw9JiYBBtVHuzzDZEctEOhsT
-	/HjdNglesl4GgFy7jGkKGuLofnCBpamo57oSWlMXma4lVaJ9OahaozI3pBhhNti0DwpSZcIE3r4
-	K2Hp3iCDRg1Y2pjwedu1iGJpEvFs6oixtfWvhVgYBJB43GpHTW1l/1ZOA9tPK0nQ/tT4zXcalSi
-	UVOVBNY1Cg9f6wgTwXeABjh7EwQ==
-X-Google-Smtp-Source: AGHT+IG3vnwsSAFbFujeNGTupttJLmVTFn+aI/sMKLCjDpBzqZuXAm/5xHH6FAoyLDL1yYMe4+fqXA==
-X-Received: by 2002:a05:6000:430a:b0:3a0:8495:d66f with SMTP id ffacd0b85a97d-3a08495d6admr1555947f8f.23.1745822150376;
-        Sun, 27 Apr 2025 23:35:50 -0700 (PDT)
-Message-ID: <a70e8d12-ba4c-4eed-9298-d1d252a32860@suse.com>
-Date: Mon, 28 Apr 2025 08:35:50 +0200
+        bh=sMzx2AI1AjHqyseW5Ep3Xvb3Z9jwIQZtti7TEMb+XJg=;
+        b=WYD3pSoCr/6La+KlWy3IhiKiO9k17x6lP/ualrkV0USXsrpHbXTgPrr22DA0hsQRpz
+         HAsPZ2KnfWi7xEzPogcYHzVNi/6+9Zghlhcy7xXXa6hC++ZmkNiHz9Ec/rSP/WibhCZ1
+         xJ19jDVH0ZJbZpDTBUjBDqanmNh1d7KdTxO+FM3U0+XQK4ZlI/KaNUC5gtivlcNdSJ+/
+         n8JGk8akwhsv2wfy+ID/lDbMDRWl+HWHnUvha2cJedLPUyWr6zpCy+Pss65P3+SPu9sb
+         uSWx4giD2qMOzi7irkn8GX1GZbUP+rx4zZw4kuKnQX/QqcE0zY0ii2+fvY1vARdti+lI
+         8drQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXjge+kMBKJPKqwQBOzdV6+FwuSXPSeiRZaGu4Bh9HvaWwkLA3sft69BYV7+nFq5dfLYw6RuQifIt4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxgtXHIwo1ZCwtLRjipzlOeHiqE6kzlGnzoxeJQKFzB2sjA7G3G
+	BLqTDSwiVkD2+0IN8zAUCnFy19mPf74BfpJ9cQp413a4fD2LXSlcyTCq8Nsssw==
+X-Gm-Gg: ASbGncv3aO+j1UYQXzTRPEuw+KpzHpFMrmIV7xag8NgEyiZxIu7st5QFxYPKf0Wm4gG
+	mOPL8yxqHbEOftytzBlExhDYLryjIWZ5kWSz4v6GT2N0kX7GhuISRCsqWWigjNjDBdt3KfmGUlL
+	U5yXL0ccUmCMF8wSib74FllRgt+X4THftwXDNIgB0BtEklU5sHHH10xa44MVLqSy1udhFQJv6ZC
+	hfCEB0Gz84PtIEtbTMZYgEf1icPLQSX9kZA4Z9sZyJDH5HGZsgZ7bkXZv/XEDJOp85ioeBq5Da4
+	PPsAz3robNN82ntkZxdPB5jxhm5wRPZgxp+hSrinyJyld43bWHNqxAmXTi+rA+rn0qIdEwG/USW
+	w1OcCEOpGTXVFHwzTuBsgsEboJQ==
+X-Google-Smtp-Source: AGHT+IEyW5BiKqCESdQ9aYZfZxA5BjyDvmL2TBRtlmJARX329C6LJ0bLETQ5M7ilKts/vq3E8DeW7w==
+X-Received: by 2002:a05:600c:154c:b0:43d:fa59:cc8f with SMTP id 5b1f17b1804b1-440a66ac6c9mr76958725e9.33.1745822500308;
+        Sun, 27 Apr 2025 23:41:40 -0700 (PDT)
+Message-ID: <f179661d-5487-421d-b033-41d5d51591c1@suse.com>
+Date: Mon, 28 Apr 2025 08:41:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 10/14] xen/riscv: implementation of aplic and imsic
- operations
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [RFC 33/38] x86/boot: refactor bzimage parser to be re-enterant
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: stefano.stabellini@amd.com, agarciav@amd.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <74a07ed7c596bbcf581010685e01bfdfa19164f5.1744126720.git.oleksii.kurochko@gmail.com>
- <3426df1b-938a-4d20-a533-dd6695473db0@suse.com>
- <5f922b70-d4c2-4e6e-ad05-f91afc70ee73@gmail.com>
- <d63a6410-7053-4f75-aeda-6cd4e36bd302@suse.com>
- <36eaf6df-4474-4252-bc82-054a7d00343a@gmail.com>
+ Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+References: <20250419220820.4234-1-dpsmith@apertussolutions.com>
+ <20250419220820.4234-34-dpsmith@apertussolutions.com>
+ <bba25fca-171a-47dd-881b-4746d76bd16a@amd.com>
+ <e7894126-d639-4a9c-b600-2287efe6666d@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,56 +122,109 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <36eaf6df-4474-4252-bc82-054a7d00343a@gmail.com>
+In-Reply-To: <e7894126-d639-4a9c-b600-2287efe6666d@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25.04.2025 21:31, Oleksii Kurochko wrote:
+On 26.04.2025 03:53, Daniel P. Smith wrote:
+> On 4/23/25 15:27, Jason Andryuk wrote:
+>> On 2025-04-19 18:08, Daniel P. Smith wrote:
+>>> The bzimage logic uses the unit global orig_image_len to hold the 
+>>> original
+>>> module length for the kernel when the headroom is calculated. It then 
+>>> uses
+>>> orig_image_len to locate the start of the bzimage when the expansion 
+>>> is done.
+>>> This is an issue when more than one bzimage is processed by the headroom
+>>> calculation logic, as it will leave orig_image_len set to the length 
+>>> of the
+>>> last bzimage it processed.
+>>>
+>>> The boot module work introduced storing the headroom size on a per module
+>>> basis. By passing in the headroom from the boot module, orig_image_len 
+>>> is no
+>>> longer needed to locate the beginning of the bzimage after the allocated
+>>> headroom. The bzimage functions are reworked as such, allowing the 
+>>> removal of
+>>> orig_image_len and enabling them to be reused by multiple kernel boot 
+>>> modules.
+>>>
+>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>> ---
+>>>   xen/arch/x86/bzimage.c             | 38 ++++++++++++++++++------------
+>>>   xen/arch/x86/hvm/dom_build.c       |  3 ++-
+>>>   xen/arch/x86/include/asm/bzimage.h |  5 ++--
+>>>   xen/arch/x86/pv/dom0_build.c       |  3 ++-
+>>>   4 files changed, 30 insertions(+), 19 deletions(-)
+>>>
+>>> diff --git a/xen/arch/x86/bzimage.c b/xen/arch/x86/bzimage.c
+>>> index 66f648f311e4..32f0360d25b4 100644
+>>
+>>> @@ -103,13 +100,20 @@ unsigned long __init bzimage_headroom(void 
+>>> *image_start,
+>>>       return headroom;
+>>>   }
+>>> -int __init bzimage_parse(void *image_base, void **image_start,
+>>> -                         unsigned long *image_len)
+>>> +int __init bzimage_parse(
+>>> +    void *image_base, void **image_start, unsigned long headroom,
+>>> +    unsigned long *image_len)
+>>>   {
+>>>       struct setup_header *hdr = (struct setup_header *)(*image_start);
+>>>       int err = bzimage_check(hdr, *image_len);
+>>> -    unsigned long output_len;
+>>> -
+>>> +    unsigned long module_len = *image_len;
+>>> +
+>>> +    /*
+>>> +     * Variable err will have one of three values:
+>>> +     *   -  < 0: a error occurred trying to inspect the contents
+>>> +     *   -  > 0: the image is a bzImage
+>>> +     *   - == 0: not a bzImage, could be raw elf or elf.gz (vmlinuz.gz)
+>>> +     */
+>>
+>> This comment seems a little independent of this change, so maybe it 
+>> should be submitted separately.  Also, I think a better placement would 
+>> be next to bzimage_check().
+>>
+>>>       if ( err < 0 )
+>>>           return err;
+>>> @@ -118,21 +122,25 @@ int __init bzimage_parse(void *image_base, void 
+>>> **image_start,
+>>>           *image_start += (hdr->setup_sects + 1) * 512 + hdr- 
+>>>> payload_offset;
+>>>           *image_len = hdr->payload_length;
+>>
+>> @here
+>>
+>>>       }
+>>> -
+>>> -    if ( elf_is_elfbinary(*image_start, *image_len) )
+>>> -        return 0;
+>>> +    else
+>>> +    {
+>>> +        if ( elf_is_elfbinary(*image_start, *image_len) )
+>>> +            return 0;
+>>> +        else
+>>> +            *image_len = *image_len - headroom;
+>>> +    }
+>>
+>> I don't like this extra indention which includes the return.  If you 
+>> retain orig_image_len as a local variable, and set it above at "@here", 
+>> you can have a smaller diff and leave cleaner logic.
 > 
-> On 4/22/25 9:02 AM, Jan Beulich wrote:
->> On 18.04.2025 12:43, Oleksii Kurochko wrote:
->>> On 4/15/25 4:53 PM, Jan Beulich wrote:
->>>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
->>>>> --- a/xen/arch/riscv/imsic.c
->>>>> +++ b/xen/arch/riscv/imsic.c
->>>>> @@ -14,12 +14,68 @@
->>>>>    #include <xen/errno.h>
->>>>>    #include <xen/init.h>
->>>>>    #include <xen/macros.h>
->>>>> +#include <xen/spinlock.h>
->>>>>    #include <xen/xmalloc.h>
->>>>>    
->>>>>    #include <asm/imsic.h>
->>>>>    
->>>>>    static struct imsic_config imsic_cfg;
->>>>>    
->>>>> +#define imsic_csr_set(c, v)     \
->>>>> +do {                            \
->>>>> +    csr_write(CSR_SISELECT, c); \
->>>>> +    csr_set(CSR_SIREG, v);      \
->>>>> +} while (0)
->>>>> +
->>>>> +#define imsic_csr_clear(c, v)   \
->>>>> +do {                            \
->>>>> +    csr_write(CSR_SISELECT, c); \
->>>>> +    csr_clear(CSR_SIREG, v);    \
->>>>> +} while (0)
->>>> Coming back to these (the later patch adds one more here): How expensive are
->>>> these CSR writes? IOW would it perhaps make sense to maintain a local cache
->>>> of the last written SISELECT value, to avoid writing the same one again if
->>>> the same windowed register needs accessing twice in a row?
->>> CSRs belong to the HART, so access to them is very fast.
->> Can you back this by any data? I view CSRs as somewhat similar to x86'es MSRs,
->> and access (writes in particular) to some of them is rather slow.
-> 
-> CSR read 1 cycle, CSR write 7 cycles on Microchip platform. ~ Oleksii
+> Right, but I find it sillier to be checking every kernel for elf when we 
+> know it's a bzImage. While the elf check is fairly simplistic, it is 
+> still multiple value checks.
 
-And that's an in-order platform, i.e. cycle count being all that matters for
-performance? No other (e.g. latency) effect on subsequent insns?
+Even without any extra local vars the above can be
 
-Further, how does this compare to the outlined alternative, especially if we
-assumed that the respective cacheline would be hot and hence usually in L1
-cache?
+    else if ( elf_is_elfbinary(*image_start, *image_len) )
+        return 0;
+    else
+        *image_len = *image_len - headroom;
+
+which would already address the "extra indentation" aspect.
 
 Jan
 
