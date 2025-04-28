@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81870A9E5F3
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 03:49:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970013.1358809 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7C1EA9E811
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 08:16:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970029.1358819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9DbA-0004jz-Sh; Mon, 28 Apr 2025 01:47:56 +0000
+	id 1u9HmJ-00064m-SV; Mon, 28 Apr 2025 06:15:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970013.1358809; Mon, 28 Apr 2025 01:47:56 +0000
+Received: by outflank-mailman (output) from mailman id 970029.1358819; Mon, 28 Apr 2025 06:15:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9DbA-0004hs-NS; Mon, 28 Apr 2025 01:47:56 +0000
-Received: by outflank-mailman (input) for mailman id 970013;
- Mon, 28 Apr 2025 01:47:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u9HmJ-00062G-Pi; Mon, 28 Apr 2025 06:15:43 +0000
+Received: by outflank-mailman (input) for mailman id 970029;
+ Mon, 28 Apr 2025 06:15:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=N2FI=XO=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1u9Db8-0004hm-V0
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 01:47:55 +0000
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
- [79.135.106.31]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca699850-23d2-11f0-9ffb-bf95429c2676;
- Mon, 28 Apr 2025 03:47:52 +0200 (CEST)
+ (envelope-from <SRS0=5hYN=XO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u9HmI-00062A-FX
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 06:15:42 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3433a2d6-23f8-11f0-9eb4-5ba50f476ded;
+ Mon, 28 Apr 2025 08:15:38 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-39ee623fe64so4305945f8f.1
+ for <xen-devel@lists.xenproject.org>; Sun, 27 Apr 2025 23:15:38 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a073bbeb5esm10092810f8f.0.2025.04.27.23.15.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 27 Apr 2025 23:15:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,243 +45,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca699850-23d2-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1745804867; x=1746064067;
-	bh=UMYjEXEuqWl7LjG6RLbe+r7fsYC4zyS9YbdfmdkFimU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=F7G2FNK9gVT9I/FkVTSxarSNfdkmPbLxWLeK57BD66UeUiI3RUJF0GQauT7FID9oG
-	 Ub4Sn19E3iAkJrpTlLggb9fiPjnb6F/r7/3KNvDgFIBGFGMMxUz+UNqP64no45tyIl
-	 1n3ZRwykPRO+FtPy/YIwbnOcvDOMqncxwkqwrjltQ83kPJAtbzEju6IZebEi8vh9kn
-	 wFmlMeAlPem8lkdDDANfOJxlNpBEQTUlQuT8Y8PAZfkzOncKfCP4Gk791xQtSBpbyr
-	 PO2tUN090fapqwWy0efzVEZMw4mwbw4TuzR/aj94WK6l2PFbctsoXteFkAbIlZAJze
-	 HOca2aHlgycPA==
-Date: Mon, 28 Apr 2025 01:47:44 +0000
-To: Stefano Stabellini <sstabellini@kernel.org>
-From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com
-Subject: Re: [PATCH v1 2/3] xen/console: introduce console_puts()
-Message-ID: <aA7ePF23LExpH9NW@kraken>
-In-Reply-To: <alpine.DEB.2.22.394.2504251545480.785180@ubuntu-linux-20-04-desktop>
-References: <20250403000604.169619-1-dmukhin@ford.com> <20250403000604.169619-3-dmukhin@ford.com> <alpine.DEB.2.22.394.2504251545480.785180@ubuntu-linux-20-04-desktop>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 33d94894bbf7cfdd3c4c08e9d53b2f45d63f4b2f
+X-Inumbo-ID: 3433a2d6-23f8-11f0-9eb4-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1745820938; x=1746425738; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=yJvfQki8gan86GKv7XwVCsTyZrKf/Z038F1BPF/KQZI=;
+        b=PRxQ2j0JRDnoV4LOLfTnsDLH9JITpD2KXe6FA4cLgAZF+xRCnu78uSQIX+1nNR9qqE
+         mh1Q5KaRMS7bdNtZL4/g6cA7qyHoZjC95tzAOQSUiHjXut/mO+qrAJnjaK4UcK0Oq6Uj
+         uKsuFqy9p+/v77T2ijoZT/TKdvdXLZbTbTnfG1OXNxlVwfI3HYSuUFh4VpZ+JtrCihrk
+         5G9oSCut/OlFg1/BmsOYAhWDywkX/UeMtXMphxNFNB9xPiFF8ts7TK0/GkyGXzgQk6Z1
+         KScCfcm8SqFTWgxlRV2R0s0z8ZeiTUQvqNJX1GkRjBXSIW61eknjp3mu5NLFJIrCA+/F
+         fUAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745820938; x=1746425738;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yJvfQki8gan86GKv7XwVCsTyZrKf/Z038F1BPF/KQZI=;
+        b=ocX5Gg071JAVTKVl6KHnLvp3fzKbHMeShpehm1zvxB0OdxtB2YRq7HZ0W2sAtLITzu
+         S4NTJ48H+BgcLiS1foUKlZ2fRemdhggBKPgKSdH1UDMV08/XToDc7RF+7tnrLiKJq7ps
+         WxEcXuhOkzt15LNTPsKRJOw5RiNXP4EiVqpMQzhqNiQtICS+q8BwBcflRS0NJIqZnBMu
+         3fP/WVHE9NRanOQuFkiyjfPCmBIS2GfibEAvLPnznfx6u6VnM/1uPZ+Av7oc63eBIvJ9
+         vc0rT8ORq8qyOojRvoE1kjCu2UhvieqXVgKIJXcCnEhcoGvIT058ow1wf0ieJ1eHCurh
+         IfPA==
+X-Forwarded-Encrypted: i=1; AJvYcCUNI5hxPE+1VOqMN/mtHd+PgnTh5++YOiq2KJhAOYzPnNQL/wyW+yZhs3s/Z344HmOCX6ALdc7Bhqs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwlAOQbJfqp0WIW8piuPt5rH+VusjrOmydLLP7qp5uVjR4rNYIT
+	8h+p35P5EbmqnY4I4DEhu24Bg+MQUQi3mq4AxEC46sybGN7oNMw3YwJ/XFG1Ug==
+X-Gm-Gg: ASbGnctwYOjFuenjOf/kbmtucqkOo55Fa45VBhVurPdTOgAiLfPNJhGh6qGTVfVUYel
+	D6XHpvTa2M8X+cyBHuFcYTfdFVCoMwSjs6BMmq59XIn74p2bi+FLhX92yZNeTYUfoR7RAVnd2Nb
+	M6z8M3EAACrKXQJgOG+aPDo9m7uPYeH2uZWszn7muy0Q0WnFZkGEGKXkwO3cVzFoS8pOPWSUsBu
+	KkHxnRAlyZQRhPV8y2zQIYE/b59cb0dEZ8vbcX4quWAzDeYjTU4I8jfbbVs5ZdxvV3O7GnJtdGo
+	OpZv/fY2FByXXW1lz2KBK4OfF8/qVYf+X6J2C9vvoPcfeq1VNQWrOFmgJcTtYEYLB7a8LXIEORZ
+	flpciJ3HCQ3CzgRFPFCkVMQ/ANw==
+X-Google-Smtp-Source: AGHT+IE+iK2pfWqyQ/6QhtAyQfIGiQMz6ciuNOkk8TkOxnhiHOFWWUsSgnrZCcdobvnHgKHO/gfjxg==
+X-Received: by 2002:a05:6000:4310:b0:39c:dfa:c92a with SMTP id ffacd0b85a97d-3a074f11d2amr7798280f8f.36.1745820937858;
+        Sun, 27 Apr 2025 23:15:37 -0700 (PDT)
+Message-ID: <b7f7ab2b-baaa-416f-b390-5ed2229d34cb@suse.com>
+Date: Mon, 28 Apr 2025 08:15:38 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] misra: add deviation for rules 21.1 and 21.2
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, victorm.lira@amd.com,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+ <f5d35582-9270-4816-84c2-f078afeee711@suse.com>
+ <alpine.DEB.2.22.394.2504241443550.785180@ubuntu-linux-20-04-desktop>
+ <8d65ee65-ec6f-49a3-8954-d303b08dc2df@suse.com>
+ <a9db045cff906a4b7db8730ad1095e4b@bugseng.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a9db045cff906a4b7db8730ad1095e4b@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Apr 25, 2025 at 03:47:53PM -0700, Stefano Stabellini wrote:
-> On Thu, 3 Apr 2025, dmkhn@proton.me wrote:
-> > From: Denis Mukhin <dmukhin@ford.com>
-> >
-> > guest_console_write() duplicates the code from __putstr(), eliminate co=
-de
-> > duplication.
-> >
-> > Introduce console_puts() for writing a buffer to console devices.
-> >
-> > Also, introduce internal console flags to control which console devices
-> > should be used.
-> >
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > ---
-> >  xen/drivers/char/console.c | 112 ++++++++++++++++++++++---------------
-> >  1 file changed, 66 insertions(+), 46 deletions(-)
-> >
-> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> > index aaa97088aa..2618c2e47d 100644
-> > --- a/xen/drivers/char/console.c
-> > +++ b/xen/drivers/char/console.c
-> > @@ -41,6 +41,20 @@
-> >  #include <asm/vpl011.h>
-> >  #endif
-> >
-> > +/* Internal console flags. */
-> > +enum {
-> > +    CONSOLE_SERIAL  =3D BIT(0, U),    /* Use serial device. */
-> > +    CONSOLE_PV      =3D BIT(1, U),    /* Use PV console. */
-> > +    CONSOLE_VIDEO   =3D BIT(2, U),    /* Use video device. */
-> > +    CONSOLE_DEBUG   =3D BIT(3, U),    /* Use debug device. */
-> > +    CONSOLE_RING    =3D BIT(4, U),    /* Use console ring. */
-> > +    CONSOLE_DEFAULT =3D CONSOLE_SERIAL | CONSOLE_PV | CONSOLE_VIDEO |
-> > +                      CONSOLE_DEBUG,
-> > +    CONSOLE_ALL     =3D CONSOLE_DEFAULT | CONSOLE_RING,
-> > +};
-> > +
-> > +static void console_puts(const char *str, size_t len, unsigned int fla=
-gs);
-> > +
-> >  /* console: comma-separated list of console outputs. */
-> >  static char __initdata opt_console[30] =3D OPT_CONSOLE_STR;
-> >  string_param("console", opt_console);
-> > @@ -338,8 +352,6 @@ static bool console_locks_busted;
-> >
-> >  static void conring_puts(const char *str, size_t len)
-> >  {
-> > -    ASSERT(rspin_is_locked(&console_lock));
-> > -
-> >      while ( len-- )
-> >          conring[CONRING_IDX_MASK(conringp++)] =3D *str++;
-> >
-> > @@ -432,9 +444,6 @@ void console_serial_puts(const char *s, size_t nr)
-> >          serial_steal_fn(s, nr);
-> >      else
-> >          serial_puts(sercon_handle, s, nr);
-> > -
-> > -    /* Copy all serial output into PV console */
-> > -    pv_console_puts(s, nr);
-> >  }
-> >
-> >  static void cf_check dump_console_ring_key(unsigned char key)
-> > @@ -468,8 +477,7 @@ static void cf_check dump_console_ring_key(unsigned=
- char key)
-> >          c +=3D len;
-> >      }
-> >
-> > -    console_serial_puts(buf, sofar);
-> > -    video_puts(buf, sofar);
-> > +    console_puts(buf, sofar, CONSOLE_SERIAL | CONSOLE_VIDEO | CONSOLE_=
-PV);
->=20
-> Actually I take back the R-b. It looks like this change is breaking
-> because console_puts now requires the console_lock to be held, while
-> here the console_lock is not held.
+On 25.04.2025 17:53, Nicola Vetrini wrote:
+> On 2025-04-25 10:07, Jan Beulich wrote:
+>> On 24.04.2025 23:45, Stefano Stabellini wrote:
+>>> On Thu, 24 Apr 2025, Jan Beulich wrote:
+>>>> On 23.04.2025 19:54, victorm.lira@amd.com wrote:
+>>>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>>
+>>>>> MISRA C Rules 21.1 ("#define and #undef shall not be used on a
+>>>>> reserved identifier or reserved macro name") and R21.2 ("A reserved
+>>>>> identifier or reserved macro name shall not be declared") violations
+>>>>> are not problematic for Xen, as it does not use the C or POSIX
+>>>>> libraries.
+>>>>>
+>>>>> Xen uses -fno-builtin and -nostdinc to ensure this, but there are 
+>>>>> still
+>>>>> __builtin_* functions from the compiler that are available so
+>>>>> a deviation is formulated for all identifiers not starting with
+>>>>> "__builtin_".
+>>>>>
+>>>>> The missing text of a deviation for Rule 21.2 is added to
+>>>>> docs/misra/deviations.rst.
+>>>>>
+>>>>> To avoid regressions, tag both rules as clean and add them to the
+>>>>> monitored set.
+>>>>>
+>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>>> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+>>>>
+>>>> While the rule is in the library section, ...
+>>>>
+>>>>> --- a/docs/misra/deviations.rst
+>>>>> +++ b/docs/misra/deviations.rst
+>>>>> @@ -587,7 +587,31 @@ Deviations related to MISRA C:2012 Rules:
+>>>>>         construct is deviated only in Translation Units that present 
+>>>>> a violation
+>>>>>         of the Rule due to uses of this macro.
+>>>>>       - Tagged as `deliberate` for ECLAIR.
+>>>>> -
+>>>>> +
+>>>>> +   * - R21.1
+>>>>> +     - Rule 21.1 reports identifiers reserved for the C and POSIX 
+>>>>> standard
+>>>>> +       libraries. Xen does not use such libraries and all 
+>>>>> translation units
+>>>>> +       are compiled with option '-nostdinc', therefore there is no 
+>>>>> reason to
+>>>>> +       avoid to use `#define` or `#undef` on such identifiers 
+>>>>> except for those
+>>>>> +       beginning with `__builtin_` for which compilers may perform 
+>>>>> (wrong)
+>>>>> +       optimizations.
+>>>>> +     - Tagged as `safe` for ECLAIR.
+>>>>
+>>>> ... I'd like to ask that it be explicitly clarified here that it's 
+>>>> solely
+>>>> the library (and not e.g. the compiler itself) that are of concern 
+>>>> here.
+>>>
+>>> The language can be clarified:
+>>>
+>>> - Rule 21.1 reports identifiers reserved for the C and POSIX standard
+>>>   libraries. Xen does not use such libraries and all translation units
+>>>   are compiled with option '-nostdinc', therefore there is no reason 
+>>> to
+>>>   avoid to use `#define` or `#undef` on C and POSIX standard libraries
+>>>   identifiers except for those beginning with `__builtin_` for which
+>>>   compilers may perform (wrong) optimizations.
+>>
+>> Which makes it more apparent that there is a gap: What about e.g. 
+>> __x86_64__?
+>> That falls within what the rules cover, is not a C or POSIX standard 
+>> library
+>> identifier, yet very clearly must not be fiddled with. Whereas the text
+>> above deviates it.
+> 
+> that is true, even if unlikely: one approach could be to avoid deviating 
+> predefined macros for all CUs as -nostdinc and -fno-builtins should take 
+> care of the rest; this kind of deviation is not currently possible in 
+> ECLAIR, but it might be in the future.
 
-Yes, the locking is wrong, thanks for the catch!
-Lock adjustment from Patch 3 should be moved to Patch 2 (here).
+Is this perhaps because by "all pre-defined macros" you really mean _just_
+those, and not the entire reserved (for that purpose) sub-namespace? Imo
+we should not go by what a particular compiler may pre-define (we may even
+overlook something if we did it this way).
 
->=20
-> If I am not mistaken if you try to use the 'w' key with this patch
-> applied you'll hit the ASSERT at the beginning of console_puts
->=20
->=20
-> >      free_xenheap_pages(buf, order);
-> >  }
-> > @@ -618,11 +626,61 @@ static inline void xen_console_write_debug_port(c=
-onst char *buf, size_t len)
-> >  }
-> >  #endif
-> >
-> > +static inline void console_debug_puts(const char *str, size_t len)
-> > +{
-> > +#ifdef CONFIG_X86
-> > +    if ( opt_console_xen )
-> > +    {
-> > +        if ( xen_guest )
-> > +            xen_hypercall_console_write(str, len);
-> > +        else
-> > +            xen_console_write_debug_port(str, len);
-> > +    }
-> > +#endif
-> > +}
-> > +
-> > +/*
-> > + * Write buffer to all enabled console devices.
-> > + *
-> > + * That will handle all possible scenarios working w/ console
-> > + * - physical console (serial console, VGA console (x86 only));
-> > + * - PV console;
-> > + * - debug console (x86 only): debug I/O port or __HYPERVISOR_console_=
-io
-> > + *   hypercall;
-> > + * - console ring.
-> > + */
-> > +static void console_puts(const char *str, size_t len, unsigned int fla=
-gs)
-> > +{
-> > +    ASSERT(rspin_is_locked(&console_lock));
-> > +
-> > +    if ( flags & CONSOLE_SERIAL )
-> > +        console_serial_puts(str, len);
-> > +
-> > +    if ( flags & CONSOLE_PV )
-> > +        pv_console_puts(str, len);
-> > +
-> > +    if ( flags & CONSOLE_VIDEO )
-> > +        video_puts(str, len);
-> > +
-> > +    if ( flags & CONSOLE_DEBUG )
-> > +        console_debug_puts(str, len);
-> > +
-> > +    if ( flags & CONSOLE_RING )
-> > +        conring_puts(str, len);
-> > +}
-> > +
-> > +static inline void __putstr(const char *str)
-> > +{
-> > +    console_puts(str, strlen(str), CONSOLE_ALL);
-> > +}
-> > +
-> >  static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
-> >                                  unsigned int count)
-> >  {
-> >      char kbuf[128];
-> >      unsigned int kcount =3D 0;
-> > +    unsigned int flags =3D opt_console_to_ring
-> > +                         ? CONSOLE_ALL : CONSOLE_DEFAULT;
-> >      struct domain *cd =3D current->domain;
-> >
-> >      while ( count > 0 )
-> > @@ -640,23 +698,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_P=
-ARAM(char) buffer,
-> >          {
-> >              /* Use direct console output as it could be interactive */
-> >              nrspin_lock_irq(&console_lock);
-> > -
-> > -            console_serial_puts(kbuf, kcount);
-> > -            video_puts(kbuf, kcount);
-> > -
-> > -#ifdef CONFIG_X86
-> > -            if ( opt_console_xen )
-> > -            {
-> > -                if ( xen_guest )
-> > -                    xen_hypercall_console_write(kbuf, kcount);
-> > -                else
-> > -                    xen_console_write_debug_port(kbuf, kcount);
-> > -            }
-> > -#endif
-> > -
-> > -            if ( opt_console_to_ring )
-> > -                conring_puts(kbuf, kcount);
-> > -
-> > +            console_puts(kbuf, kcount, flags);
-> >              nrspin_unlock_irq(&console_lock);
-> >          }
-> >          else
-> > @@ -757,28 +799,6 @@ long do_console_io(
-> >   * *****************************************************
-> >   */
-> >
-> > -static void __putstr(const char *str)
-> > -{
-> > -    size_t len =3D strlen(str);
-> > -
-> > -    ASSERT(rspin_is_locked(&console_lock));
-> > -
-> > -    console_serial_puts(str, len);
-> > -    video_puts(str, len);
-> > -
-> > -#ifdef CONFIG_X86
-> > -    if ( opt_console_xen )
-> > -    {
-> > -        if ( xen_guest )
-> > -            xen_hypercall_console_write(str, len);
-> > -        else
-> > -            xen_console_write_debug_port(str, len);
-> > -    }
-> > -#endif
-> > -
-> > -    conring_puts(str, len);
-> > -}
-> > -
-> >  static int printk_prefix_check(char *p, char **pp)
-> >  {
-> >      int loglvl =3D -1;
-> > --
-> > 2.34.1
-> >
-> >
+Jan
+
+> I think this could be 
+> accomplished also via some gcc trickery on each CU, though I'm not sure 
+> how valued that is for Xen.
+> 
 
 
