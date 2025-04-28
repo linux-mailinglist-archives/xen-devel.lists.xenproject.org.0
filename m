@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 373FDA9F00F
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 13:59:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970633.1359274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6F1EA9F0C3
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 14:31:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970654.1359286 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9N8Y-00040Z-8m; Mon, 28 Apr 2025 11:59:02 +0000
+	id 1u9Ndk-0001yr-R8; Mon, 28 Apr 2025 12:31:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970633.1359274; Mon, 28 Apr 2025 11:59:02 +0000
+Received: by outflank-mailman (output) from mailman id 970654.1359286; Mon, 28 Apr 2025 12:31:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9N8Y-0003y6-5w; Mon, 28 Apr 2025 11:59:02 +0000
-Received: by outflank-mailman (input) for mailman id 970633;
- Mon, 28 Apr 2025 11:59:00 +0000
+	id 1u9Ndk-0001x1-OJ; Mon, 28 Apr 2025 12:31:16 +0000
+Received: by outflank-mailman (input) for mailman id 970654;
+ Mon, 28 Apr 2025 12:31:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5hYN=XO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9N8W-0003xy-G5
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 11:59:00 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ (envelope-from <SRS0=orHk=XO=arndb.de=arnd@srs-se1.protection.inumbo.net>)
+ id 1u9Ndi-0001wv-Un
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 12:31:15 +0000
+Received: from fout-b3-smtp.messagingengine.com
+ (fout-b3-smtp.messagingengine.com [202.12.124.146])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2a931fbb-2428-11f0-9ffb-bf95429c2676;
- Mon, 28 Apr 2025 13:58:58 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43edb40f357so30923555e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 04:58:58 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4409d2a152csm157862695e9.12.2025.04.28.04.58.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Apr 2025 04:58:57 -0700 (PDT)
+ id a6a73640-242c-11f0-9ffb-bf95429c2676;
+ Mon, 28 Apr 2025 14:31:05 +0200 (CEST)
+Received: from phl-compute-05.internal (phl-compute-05.phl.internal
+ [10.202.2.45])
+ by mailfout.stl.internal (Postfix) with ESMTP id 5131D114025B;
+ Mon, 28 Apr 2025 08:31:03 -0400 (EDT)
+Received: from phl-imap-11 ([10.202.2.101])
+ by phl-compute-05.internal (MEProxy); Mon, 28 Apr 2025 08:31:03 -0400
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id BEC902220075; Mon, 28 Apr 2025 08:31:01 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,112 +45,311 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a931fbb-2428-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745841538; x=1746446338; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vmhRNVAo9gZ5GwBpEL3qhchuUVmzAjhTeUioubQCWNY=;
-        b=DEo7XdOdYyZHQ/mINnq8xGw7tvJcPHPvl8/U6zA3HxhMUs3ctau/z+ygBawNHg3f6l
-         XJNo1QjBZ+ce9mM9wu6b7vKHxFPzQ8wKnETkE0yhXXJ1KBYca0tLnVMqhAcE2jFGCYfp
-         ziC/9skeskcqDq7T5WApr4p8E9eqOSKGUG6D3LnT7mBBzW6/cdqPERi1MeQM4GfFAW9C
-         3XK+/f+ryxDTZzJjdNnsOlYb3rxpe3af9ZMK1eKWc96sZzrRTpANRQnBG58AvW12V/+S
-         ntc9mOWQudEEibqTrc9g70Ed/TgMayk+h02qGf3Scrl/g7qb4HrLCTh86+b2x/3OvqSp
-         cZxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745841538; x=1746446338;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vmhRNVAo9gZ5GwBpEL3qhchuUVmzAjhTeUioubQCWNY=;
-        b=YCn+FI7qFk4y0ctNup6mfa7eW4xOhzrzjOg8rQM+TMt9Iryf3Xsf/Pu522gUeN5Zwr
-         253hIP40JkSXnc92k6dziLWrBGTr0SAxg60EUnmwZpWvczTxNe+jEjqsFpeUPgpJRn+z
-         VrGR5FNyQFqPZUHO0M7MpRzwHYcqCv+2NNDEOwlHEdTqoo4kP3RW8zmBI/p+jhjfHmSk
-         /xxCjytnoLCZPG72oN5h/qNXgsNLywijmJNew8gOyS8l8jU0YNiW9fQwRa0jUSBC9kLM
-         0FuOE6FwRSh6UxVe0P9JnCSPJStCD6T0VodIZuL/01TuQqjXfa13tTABN2yIYVUL0Ndm
-         abfQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXeJl7WktbzmPnvmJN0AtzRAITF5wS8Jp/7CzIAhEi6ypfEt/4FpGjAlHo09uyeHeWGxmL94yoWRto=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzrzOjAE5+scWQo0G9sxXDRQidATcY9gz6jYl0Uh0ric+uHhy+u
-	gt32a479xtbnVJidhyucZbNDIO9Ed4xfZt09d0twSW3sGwPR7VtQfTOkTL2NXw==
-X-Gm-Gg: ASbGncvXAka8LQ2RoPTXcJvotwQTlgqHHAGT+9c0522hR1u3vVHNN9tndk2FvHn4WmZ
-	TktjBTY0hXYbHLs/O78u2a8u/BVkW2jOWDArsri7S/bW1OgBdYpPWppgn9lqlONGwNmFuOMClKp
-	06ulJMhJUiaQhmHzwZ8Xq+6mZslBia61A7Ga0/Ri21WOd0daDVtzCNL36jzobKNVxx96NHpPIFE
-	XwILqd/5CIYLeGklI/f676fFTF1szu8hrH3O9wLahKycGuqzb/kXrJTQM2Sn439nuCSXysCG6bv
-	zydFW/5J6DfoINpjW2pJ7X5ci6/yQlTnBzlgWocfuyLlgY7MoyqXrs88ypB0PeBMG0SP1L4K3Sg
-	b/Qtca7h9Y4vygJ/DHVG9Q8LAvd1PbH9ExVfV
-X-Google-Smtp-Source: AGHT+IHeeJRFOo+JbBZ3fgVGWwDjSoYQckNEbOMNWc30i+OEB4EF/OSi3LFdRqyxNx5AD+nL+fiPSw==
-X-Received: by 2002:a05:600c:46c5:b0:43d:ac5:11ed with SMTP id 5b1f17b1804b1-440a66abe30mr83265355e9.24.1745841537642;
-        Mon, 28 Apr 2025 04:58:57 -0700 (PDT)
-Message-ID: <badaead4-7eba-4796-8e96-96a95b36145a@suse.com>
-Date: Mon, 28 Apr 2025 13:58:56 +0200
+X-Inumbo-ID: a6a73640-242c-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1745843463;
+	 x=1745929863; bh=l85d+c/VTG74vQy/NEAzc1LT42PJmdxc2NSt71v6MF8=; b=
+	SuqVfhJw+Y3Ur7fgmVIU3Rp0m+MvJO5yJrvKVuxiNbJpYoA5ZEpGjdlX1ipnT/Uq
+	NRYfNwBXA9MFNp/2YTmNVPIrlZsADnE43RAQu8DIvotj6dGLQFFIjZcXmSqx7maz
+	reA3azZRDFIFZ6Znv9YmXzQKivfZbG8sd7c0O0tjNyKsdmOOe6yYGC/oWq1TQxqD
+	qIjuiGOPH4XBkAETKoHOmx2QOYR0pwTUQ6U9zw3L5ss06in4+OQmiw9JFGGohkgs
+	vux+Ypr3DDuPI0KnlM6VlTFbNXO+yVJNSGPf2CXBQzQXXAlywvIfrTxsoUpflgmD
+	WdSfsaEUO5/rvtm+PmQYdA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1745843463; x=
+	1745929863; bh=l85d+c/VTG74vQy/NEAzc1LT42PJmdxc2NSt71v6MF8=; b=P
+	e7cUy/ED4IPc+xS8XIUNFU+UA3mshvlZb8hAp88inYhPsvwBdXKBlae+RASnNxOh
+	ELbsgfJhdc3Ow6lmm5bW6BCRWfHgW6NXXWPT5Z+tiZ0VrDahHGAkjRFRjxcu5lSg
+	z/kTZ0JKsKE4UsMuScKG6w9WwOXijYVyMQaPa+MQTJIfQKla7V5bDlu8XtBxNwJz
+	r/tIgrynqylLOXFu48utceWn0XXwmQtBNhVxGPegR2kCozc1O7uL5adxi6hexcK4
+	I2K5hW851mZBhfHH/qfa/QbDGDbzt45oJYDqFlQUxMDgRNMuBpLHc90kDx6RWvgX
+	LLl6o3rpLa8stUhXQWFZA==
+X-ME-Sender: <xms:BXUPaDezTL1TN0-r_UEi_3XH69IDfnAXbjZUMVi4L7KGDhMvh5n1pA>
+    <xme:BXUPaJPUVbNa1w2G92w8YZiV4Kq3KYhgrgj2EtSthgqLLX11iquLFAGOlvOhDN2cj
+    nxt_vO5eaIAIQ9rwO0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddviedtleehucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepofggfffhvfevkfgjfhfutgfgsehtjeertder
+    tddtnecuhfhrohhmpedftehrnhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnug
+    gsrdguvgeqnecuggftrfgrthhtvghrnhephfdthfdvtdefhedukeetgefggffhjeeggeet
+    fefggfevudegudevledvkefhvdeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
+    hmpehmrghilhhfrhhomheprghrnhgusegrrhhnuggsrdguvgdpnhgspghrtghpthhtohep
+    vddtpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegsphesrghlihgvnhekrdguvg
+    dprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhr
+    tghpthhtohepphgvthgvrhiisehinhhfrhgruggvrggurdhorhhgpdhrtghpthhtoheprg
+    hlvgigrghnuggvrhdruhhshihskhhinhesihhnthgvlhdrtghomhdprhgtphhtthhopegr
+    rhgusgeskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprghrnhgusehkvghrnhgvlhdroh
+    hrghdprhgtphhtthhopehmihhnghhosehkvghrnhgvlhdrohhrghdprhgtphhtthhopehr
+    phhptheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepgiekieeskhgvrhhnvghlrdhorh
+    hg
+X-ME-Proxy: <xmx:BXUPaMjsa-EdZVMkQozKoOZL5CsDf8FrJh6sGT2tsVxuSqi-cmsThw>
+    <xmx:BXUPaE_t8u4Cp2aH4korOXy6tG5ARYegDCcuV2jQc6HeF5mUiGPPUg>
+    <xmx:BXUPaPvIu4EkBpVC3vhm9XNZJObQFKjQgmO3NLcyWmyguuNXP0cRNA>
+    <xmx:BXUPaDGx0GUBpjL7k75UIGpdtm5e3wHXRVo_Sy41bRu4EZGL8EINug>
+    <xmx:B3UPaLkozNo8AMc5E-AbMwXx-fMoG20mUaw5xfVSxqUuoRLHQfgAgDjy>
+Feedback-ID: i56a14606:Fastmail
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] x86/vmx: Replace __vmread() with vmread()
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
- nicola.vetrini@bugseng.com, consulting@bugseng.com, dmukhin@ford.com,
+X-ThreadId: T1abce48479718f0e
+Date: Mon, 28 Apr 2025 14:30:41 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Ingo Molnar" <mingo@kernel.org>,
+ "Linus Torvalds" <torvalds@linux-foundation.org>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>,
+ "Arnd Bergmann" <arnd@kernel.org>, "Thomas Gleixner" <tglx@linutronix.de>,
+ "Ingo Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>,
+ "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, "Juergen Gross" <jgross@suse.com>,
+ "Boris Ostrovsky" <boris.ostrovsky@oracle.com>,
+ "Alexander Usyskin" <alexander.usyskin@intel.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ =?UTF-8?Q?Mateusz_Jo=C5=84czyk?= <mat.jonczyk@o2.pl>,
+ "Mike Rapoport" <rppt@kernel.org>, "Ard Biesheuvel" <ardb@kernel.org>,
+ "Peter Zijlstra" <peterz@infradead.org>, linux-kernel@vger.kernel.org,
  xen-devel@lists.xenproject.org
-References: <20250426072819.39455-1-dmukhin@ford.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250426072819.39455-1-dmukhin@ford.com>
-Content-Type: text/plain; charset=UTF-8
+Message-Id: <acc95bb8-f277-4e5c-9647-3c034748ed2c@app.fastmail.com>
+In-Reply-To: <aA8q4Ot-1zTzv_Kt@gmail.com>
+References: <20250425141740.734030-1-arnd@kernel.org>
+ <aAyiganPp_UsNlnZ@gmail.com>
+ <d2b0e71c-e79b-40d6-8693-3202cd894d66@app.fastmail.com>
+ <CAHk-=wh=TUsVv6xhtzYsWJwJggrjyOfYT3kBu+bHtoYLK0M9Xw@mail.gmail.com>
+ <CAHk-=wgfk69H-T-vMWR33xUpVsWJLrF34d0OwUXa2sHhtpSwZg@mail.gmail.com>
+ <e54f1943-e0ff-4f59-b24f-9b5a7a38becf@citrix.com>
+ <CAHk-=wj0S2vWui0Y+1hpYMEhCiXKexbQ01h+Ckvww8hB29az_A@mail.gmail.com>
+ <aA8nF0moBYOIgC5J@gmail.com> <aA8oqKUaFU-0wb-D@gmail.com>
+ <aA8q4Ot-1zTzv_Kt@gmail.com>
+Subject: Re: [PATCH] bitops/32: Convert variable_ffs() and fls() zero-case handling to
+ C
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On 26.04.2025 09:28, dmkhn@proton.me wrote:
-> @@ -1957,8 +1955,7 @@ void cf_check vmx_do_resume(void)
->      hvm_do_resume(v);
->  
->      /* Sync host CR4 in case its value has changed. */
-> -    __vmread(HOST_CR4, &host_cr4);
-> -    if ( host_cr4 != read_cr4() )
-> +    if ( vmread(HOST_CR4) != read_cr4() )
+On Mon, Apr 28, 2025, at 09:14, Ingo Molnar wrote:
+>
+> ... and unless I messed up the patch, it seems to have a surprisingly 
+> low impact - maybe because the compiler can amortize its cost by 
+> adjusting all dependent code mostly at build time, so the +1 doesn't 
+> end up being generated most of the time?
 
-It's unclear to me whether this constitutes a violation of Misra rule 13.2.
-There are two function calls in this expression. Both funcs are inline, and
-vmread() is even always_inline, but they're still function calls, which can
-be carried out in either order. And neither can plausibly be pure, let
-alone const.
+Is there any reason we can't just use the compiler-builtins directly
+like we do on other architectures, at least for 32-bit?
 
-> @@ -1573,12 +1565,12 @@ static void cf_check vmx_get_nonreg_state(struct vcpu *v,
->  {
->      vmx_vmcs_enter(v);
->  
-> -    __vmread(GUEST_ACTIVITY_STATE, &nrs->vmx.activity_state);
-> -    __vmread(GUEST_INTERRUPTIBILITY_INFO, &nrs->vmx.interruptibility_info);
-> -    __vmread(GUEST_PENDING_DBG_EXCEPTIONS, &nrs->vmx.pending_dbg);
-> +    nrs->vmx.activity_state = vmread(GUEST_ACTIVITY_STATE);
+Looking at a couple of vmlinux objects confirms the  findings from
+fdb6649ab7c1 ("x86/asm/bitops: Use __builtin_ctzl() to evaluate
+constant expressions") from looking at the object file that using
+the built-in helpers is slightly better than the current asm code
+for all 32-bit targets with both gcc and clang. It's also better
+for 64-bit targets with clang, but not with gcc, where the inline
+asm often saves a cmov but in other cases the compiler finds an
+even better instruction sequence.
 
-This struct field can now also shrink down to unsigned int (or uit32_t if need
-be). Likely there are others (and maybe also plain variables). Which in turn
-is an indication that, as was suggested before, this patch wants further
-splitting up. That'll also help with overall progress, as then what's
-uncontroversial and not in need of further adjustment can go in right away.
+     Arnd
 
-Jan
+diff --git a/arch/x86/include/asm/bitops.h b/arch/x86/include/asm/bitops.h
+index eebbc8889e70..bdeae9a497e5 100644
+--- a/arch/x86/include/asm/bitops.h
++++ b/arch/x86/include/asm/bitops.h
+@@ -246,184 +246,18 @@ arch_test_bit_acquire(unsigned long nr, const volatile unsigned long *addr)
+ 					  variable_test_bit(nr, addr);
+ }
+ 
+-static __always_inline unsigned long variable__ffs(unsigned long word)
+-{
+-	asm("tzcnt %1,%0"
+-		: "=r" (word)
+-		: ASM_INPUT_RM (word));
+-	return word;
+-}
+-
+-/**
+- * __ffs - find first set bit in word
+- * @word: The word to search
+- *
+- * Undefined if no bit exists, so code should check against 0 first.
+- */
+-#define __ffs(word)				\
+-	(__builtin_constant_p(word) ?		\
+-	 (unsigned long)__builtin_ctzl(word) :	\
+-	 variable__ffs(word))
+-
+-static __always_inline unsigned long variable_ffz(unsigned long word)
+-{
+-	return variable__ffs(~word);
+-}
+-
+-/**
+- * ffz - find first zero bit in word
+- * @word: The word to search
+- *
+- * Undefined if no zero exists, so code should check against ~0UL first.
+- */
+-#define ffz(word)				\
+-	(__builtin_constant_p(word) ?		\
+-	 (unsigned long)__builtin_ctzl(~word) :	\
+-	 variable_ffz(word))
+-
+-/*
+- * __fls: find last set bit in word
+- * @word: The word to search
+- *
+- * Undefined if no set bit exists, so code should check against 0 first.
+- */
+-static __always_inline unsigned long __fls(unsigned long word)
+-{
+-	if (__builtin_constant_p(word))
+-		return BITS_PER_LONG - 1 - __builtin_clzl(word);
+-
+-	asm("bsr %1,%0"
+-	    : "=r" (word)
+-	    : ASM_INPUT_RM (word));
+-	return word;
+-}
+-
+ #undef ADDR
+ 
+-#ifdef __KERNEL__
+-static __always_inline int variable_ffs(int x)
+-{
+-	int r;
+-
+-#ifdef CONFIG_X86_64
+-	/*
+-	 * AMD64 says BSFL won't clobber the dest reg if x==0; Intel64 says the
+-	 * dest reg is undefined if x==0, but their CPU architect says its
+-	 * value is written to set it to the same as before, except that the
+-	 * top 32 bits will be cleared.
+-	 *
+-	 * We cannot do this on 32 bits because at the very least some
+-	 * 486 CPUs did not behave this way.
+-	 */
+-	asm("bsfl %1,%0"
+-	    : "=r" (r)
+-	    : ASM_INPUT_RM (x), "0" (-1));
+-#elif defined(CONFIG_X86_CMOV)
+-	asm("bsfl %1,%0\n\t"
+-	    "cmovzl %2,%0"
+-	    : "=&r" (r) : "rm" (x), "r" (-1));
+-#else
+-	asm("bsfl %1,%0\n\t"
+-	    "jnz 1f\n\t"
+-	    "movl $-1,%0\n"
+-	    "1:" : "=r" (r) : "rm" (x));
+-#endif
+-	return r + 1;
+-}
+-
+-/**
+- * ffs - find first set bit in word
+- * @x: the word to search
+- *
+- * This is defined the same way as the libc and compiler builtin ffs
+- * routines, therefore differs in spirit from the other bitops.
+- *
+- * ffs(value) returns 0 if value is 0 or the position of the first
+- * set bit if value is nonzero. The first (least significant) bit
+- * is at position 1.
+- */
+-#define ffs(x) (__builtin_constant_p(x) ? __builtin_ffs(x) : variable_ffs(x))
+-
+-/**
+- * fls - find last set bit in word
+- * @x: the word to search
+- *
+- * This is defined in a similar way as the libc and compiler builtin
+- * ffs, but returns the position of the most significant set bit.
+- *
+- * fls(value) returns 0 if value is 0 or the position of the last
+- * set bit if value is nonzero. The last (most significant) bit is
+- * at position 32.
+- */
+-static __always_inline int fls(unsigned int x)
+-{
+-	int r;
+-
+-	if (__builtin_constant_p(x))
+-		return x ? 32 - __builtin_clz(x) : 0;
+-
+-#ifdef CONFIG_X86_64
+-	/*
+-	 * AMD64 says BSRL won't clobber the dest reg if x==0; Intel64 says the
+-	 * dest reg is undefined if x==0, but their CPU architect says its
+-	 * value is written to set it to the same as before, except that the
+-	 * top 32 bits will be cleared.
+-	 *
+-	 * We cannot do this on 32 bits because at the very least some
+-	 * 486 CPUs did not behave this way.
+-	 */
+-	asm("bsrl %1,%0"
+-	    : "=r" (r)
+-	    : ASM_INPUT_RM (x), "0" (-1));
+-#elif defined(CONFIG_X86_CMOV)
+-	asm("bsrl %1,%0\n\t"
+-	    "cmovzl %2,%0"
+-	    : "=&r" (r) : "rm" (x), "rm" (-1));
+-#else
+-	asm("bsrl %1,%0\n\t"
+-	    "jnz 1f\n\t"
+-	    "movl $-1,%0\n"
+-	    "1:" : "=r" (r) : "rm" (x));
+-#endif
+-	return r + 1;
+-}
+-
+-/**
+- * fls64 - find last set bit in a 64-bit word
+- * @x: the word to search
+- *
+- * This is defined in a similar way as the libc and compiler builtin
+- * ffsll, but returns the position of the most significant set bit.
+- *
+- * fls64(value) returns 0 if value is 0 or the position of the last
+- * set bit if value is nonzero. The last (most significant) bit is
+- * at position 64.
+- */
+-#ifdef CONFIG_X86_64
+-static __always_inline int fls64(__u64 x)
+-{
+-	int bitpos = -1;
+-
+-	if (__builtin_constant_p(x))
+-		return x ? 64 - __builtin_clzll(x) : 0;
+-	/*
+-	 * AMD64 says BSRQ won't clobber the dest reg if x==0; Intel64 says the
+-	 * dest reg is undefined if x==0, but their CPU architect says its
+-	 * value is written to set it to the same as before.
+-	 */
+-	asm("bsrq %1,%q0"
+-	    : "+r" (bitpos)
+-	    : ASM_INPUT_RM (x));
+-	return bitpos + 1;
+-}
+-#else
++#include <asm-generic/bitops/__ffs.h>
++#include <asm-generic/bitops/ffz.h>
++#include <asm-generic/bitops/builtin-fls.h>
++#include <asm-generic/bitops/__fls.h>
+ #include <asm-generic/bitops/fls64.h>
+-#endif
+ 
+-#include <asm-generic/bitops/sched.h>
+ 
++#include <asm-generic/bitops/sched.h>
++#include <asm-generic/bitops/builtin-ffs.h>
+ #include <asm/arch_hweight.h>
+-
+ #include <asm-generic/bitops/const_hweight.h>
+ 
+ #include <asm-generic/bitops/instrumented-atomic.h>
+@@ -434,5 +268,4 @@ static __always_inline int fls64(__u64 x)
+ 
+ #include <asm-generic/bitops/ext2-atomic-setbit.h>
+ 
+-#endif /* __KERNEL__ */
+ #endif /* _ASM_X86_BITOPS_H */
 
