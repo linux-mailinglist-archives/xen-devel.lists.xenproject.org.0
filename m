@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FEA8A9EB37
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 10:54:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970304.1359031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8566DA9EB57
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 11:01:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970325.1359042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9KGC-0006tJ-4a; Mon, 28 Apr 2025 08:54:44 +0000
+	id 1u9KMh-0000Wb-0f; Mon, 28 Apr 2025 09:01:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970304.1359031; Mon, 28 Apr 2025 08:54:44 +0000
+Received: by outflank-mailman (output) from mailman id 970325.1359042; Mon, 28 Apr 2025 09:01:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9KGC-0006ri-1b; Mon, 28 Apr 2025 08:54:44 +0000
-Received: by outflank-mailman (input) for mailman id 970304;
- Mon, 28 Apr 2025 08:54:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u9KMg-0000Tu-Ty; Mon, 28 Apr 2025 09:01:26 +0000
+Received: by outflank-mailman (input) for mailman id 970325;
+ Mon, 28 Apr 2025 09:01:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5hYN=XO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9KGA-0006iy-Ns
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 08:54:42 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6bcd63f5-240e-11f0-9ffb-bf95429c2676;
- Mon, 28 Apr 2025 10:54:40 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43ce70f9afbso35740045e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 01:54:40 -0700 (PDT)
+ id 1u9KMe-0000Tm-UF
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 09:01:24 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5bec4b8d-240f-11f0-9eb4-5ba50f476ded;
+ Mon, 28 Apr 2025 11:01:23 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43d0359b1fcso28203745e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 02:01:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-440a5310a1csm116105405e9.20.2025.04.28.01.54.39
+ 5b1f17b1804b1-4409d2ac079sm149652055e9.18.2025.04.28.02.01.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Apr 2025 01:54:39 -0700 (PDT)
+ Mon, 28 Apr 2025 02:01:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bcd63f5-240e-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 5bec4b8d-240f-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745830480; x=1746435280; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745830883; x=1746435683; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iFZANYcCynztpdGLETVzDg3VnC5RXmNyXfGXwWR5kGU=;
-        b=POpR/YrLtl180oGcnLvtuiZqt0nnWvQFxsUC/hk6+6tzFZ9NfS83MHQlHbrwbYOtEA
-         Cp1RdiC4ODTCw0BKxriJzx8k5EmFJGdO04dopEuToZi+mDlzWFYG4seGmwvfjNm64ZLv
-         IxFEwvaDQTd0IwWpM3eu58oodlqcBEKKUy8NLVBbRHzzFjczfvMePSQbiK5k/CkEJWmG
-         H/T29ByXT79ata8SNHZE6Dc1qm2KQt341U8G3JDdnYt/KUDcIQMA5hOLRiccJwlBmbio
-         gS8HeRvInhDRRW6oV3e6VG9pEweI80xxbzi2mb++ebxsVnBLEQ+SPl2I2Z/79/iz/f+L
-         08Sg==
+        bh=kIn2I/imRUJcWf2136sPowlWU/VZ8af3YxX4p7cyuyQ=;
+        b=LaX7nKUsB8QvOc2srasKnu1IBZeFu+of8U4lDcCCv7lj3ntSWdpWUbmjS3WvkBk4QP
+         4avf0ze+EJujpVYOkXoNBZI1yrHLdG2eqc7LILIIlL0clNR8CFFs1f28gG9jEuJopxDc
+         KrP9hVP5XqIEJOAPdTqgtEhhvAKJdao1p7Jl90JvjwTPs7Ob/29dyLYz/eT8l3XsHV3W
+         ROXnDvmZbsAvdxMaHPMXeCtzl3Y/aoQqAKVTabxUD61AXi8AwYv2SNBa4YHXAje+LF8a
+         tfClU9P9k+RvjEr1ChhdG6y8cvnCbypNpTx9jd1Z1tLL2jR6id7xMC0d1WQe6MSbyy6i
+         NHTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745830480; x=1746435280;
+        d=1e100.net; s=20230601; t=1745830883; x=1746435683;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iFZANYcCynztpdGLETVzDg3VnC5RXmNyXfGXwWR5kGU=;
-        b=PLhJzmnUNft54hcSYxcQSN+VAbVECx6GHVqUMogJ3Dxg/s7JxanwBJtjdMgf3uDXh2
-         t/kuKw74Pf9ds2PezWjqHSdp+33NtGdVh0bGVOToKaSjaaCqSQFrtlORm/PMjTdneIGu
-         fmOhTS/UxcQtfFd7J4vTvGwoFz+D2Re3E05+OsAMH9NlkSzNYj1QZCb62M3VNtakPz17
-         ZKxqKSaRTGYkbaTB5Xow+KkZt5yvkL6z3lKwTaP6zl9Q/9l5phDGXG5hcN4D+RF1Fo98
-         7O38iG3r1H32qqJMIgc6lRBLG/0gA7pmvmPGizoSU+SiurrgabM+MuV9Bo2Tti6xBvSn
-         Dvqg==
-X-Forwarded-Encrypted: i=1; AJvYcCVgncCNWajViTtEgiuJkbxv81BmklhkKlmVQBKgyN1j0DtBUXNZe1nlwUe0exivD1uxyj9KrsSJaI8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy1JBDhXLOal8rfi9gCzpyi/N52vKdZceaH4maHEwy7ArX1jMgL
-	a+UBzItbV4icsTtsSLH3RmsZ9hfh1EKnAIE1/t/TtiIhBytm9qZIqaTGc6biSg==
-X-Gm-Gg: ASbGnctJlK85YX61jfzQnhAFXpDdztRLmgRSgpteFu8TaAHMuPaRjfR0ZJJ4wOn4A/p
-	67AJvB2i7xuBoBgv7U5j1Y8jEaZOihOoCzl0w9e3UWqVqPlZqDd1LVv1usK4If2BdeLoKgA3SlU
-	sFNhwR3o+Qo3uZCbLUM9JNwcJBvoiAzA05U9mRSjFz/hueEWqm4iASnb35l9KKRCRGUZ6zNUoVO
-	V+JsEluKtpUjTyf5SuHCBlBRlBnAY4iBgd9Aa9zPW/KIOAnaBx1tw9plQMNgMQC5pMxKNUUfI98
-	nOT17omh/Fmr90VP91W6gfcpv9S8RnoT36zSjFkD/vWtiV63o6aSq5If53HmF3aicdjx3CZ5I5Z
-	9kcRhh9RVw9T9dEe9zgX5ArR8Dg==
-X-Google-Smtp-Source: AGHT+IH0Y5QzbBPFYtOKLSmq7Ej0MzPHjCLw36xeBRHYZB8yDhIBuY+W2UPXsN2OgVVAbV6P6entVA==
-X-Received: by 2002:a05:600c:1d0e:b0:43d:9f2:6274 with SMTP id 5b1f17b1804b1-440a65e4994mr97102795e9.14.1745830480153;
-        Mon, 28 Apr 2025 01:54:40 -0700 (PDT)
-Message-ID: <d00fca13-617b-4687-9a15-131bba352ea1@suse.com>
-Date: Mon, 28 Apr 2025 10:54:40 +0200
+        bh=kIn2I/imRUJcWf2136sPowlWU/VZ8af3YxX4p7cyuyQ=;
+        b=celvild3WghmUHlE6P4yFDXcei3+mwQW8sIC+e0NPMgAegveY0wrLjYvftF+2nVtxc
+         nWgh2fV1l2bOJHpc58aupABMgjhMsh6U4FElpT0acf5aydLxKC5XyEW+1CnXq8mfGLCH
+         B+qjFScq0Jd+paxxgD148+CXgIj4T6UBwKporDqOmc+86YIOc1gd5elf4EwmH+KsJH0o
+         9CwGn6rm3qyRwoM6nlGVcFygqYyQAaiFNJ9ckeA76o7EhSMxb+WvKx38wI34CR21P8ni
+         KkiViRtiKpnQkM4tjN7QKaI4JPGjiUbQ/43y1GdCPhU4/bxeCULUheMixjzeLCAlKT8m
+         p3mQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWoJyTpe0Gh3+2xpT82xMDG7DVAtGt9u6s9Rpuvh9xObyBIK+soFd1It3ui9it5uhjIpf7EL2p4atI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwnK9VQRhZwiMxpKUmGGLU0e9uh3nqNyHNYS4L2gnj7K5Jq+Pgh
+	mSEBeiN9hmuJq3IYPhYIg7Aule5KaMUF8zhuXhqlal5l8fxWFHl66f6CsSnmwA==
+X-Gm-Gg: ASbGncuUq1EPnCyMiGINoXzSqlIRayqOyYL/l1OkoYv5rZsaASCfAj0rgpNvhegR65w
+	1TH9jrUSocaGePXbNEZM6411wfJpwiondXP5gOUIchXPlMw9dt5UsZKx65hgfVqRyQaS9MwlKh3
+	+Kgx0DJYgu7P9AWzA4JRH3DMFtsrGkGdtkWntwNZyWPFps3ZuYvlTkbym+vsRapXpumzJTGOa9J
+	Jns8t7VDGA16ludOV62atep0pmU3G6eahqaTb/HkzlPmIEAYFRVCORsAT/Hqi1jwSGbQ0urr6Z+
+	TNpLTYkxMf0PLxeGAQkzeVes3QCkv0lVFVjFMfFMV3KE6Zko4v8+8PO2LHZt3kNp0gV42cVT0Mh
+	meEplOhbdNeFoNx+lCw0+csUO2w==
+X-Google-Smtp-Source: AGHT+IFn4eGo0QDnYRBOgmpjY2eamob9w6Dvs86/4IDP5ZooTzyHlWaBxbo5pMGbPFGOz2LCqnzysQ==
+X-Received: by 2002:a05:600c:138f:b0:439:9737:675b with SMTP id 5b1f17b1804b1-440a65e81e6mr80974275e9.7.1745830882911;
+        Mon, 28 Apr 2025 02:01:22 -0700 (PDT)
+Message-ID: <b4baad49-f751-42e6-9785-6d71aac3ebc3@suse.com>
+Date: Mon, 28 Apr 2025 11:01:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 10/14] xen/riscv: implementation of aplic and imsic
- operations
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v9 7/8] xen/arm: enable dom0 to use PCI devices with
+ pci-passthrough=no
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <74a07ed7c596bbcf581010685e01bfdfa19164f5.1744126720.git.oleksii.kurochko@gmail.com>
- <35075d73-ec3c-4e8f-b7ed-657b604904bd@suse.com>
- <9bee5d4e-cad1-4fc1-8b4c-b4a4bab4b76c@gmail.com>
- <c0bcc9e7-26a6-4a67-8f18-787364b530e4@suse.com>
- <231e9f4e-a044-49b7-b3a5-26ff2f7f9612@gmail.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1741958647.git.mykyta_poturai@epam.com>
+ <132afbca390edd6e9fd7b1ffacf6c5aff0d29aa7.1741958647.git.mykyta_poturai@epam.com>
+ <7fa0bde7-3aa9-48f4-a0ed-d03216edcc4e@suse.com>
+ <c33b906f-f9cb-45e5-ac84-28dc687a6f7a@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,131 +128,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <231e9f4e-a044-49b7-b3a5-26ff2f7f9612@gmail.com>
+In-Reply-To: <c33b906f-f9cb-45e5-ac84-28dc687a6f7a@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.04.2025 10:12, Oleksii Kurochko wrote:
-> On 4/17/25 8:25 AM, Jan Beulich wrote:
->> On 16.04.2025 21:05, Oleksii Kurochko wrote:
->>> On 4/15/25 2:46 PM, Jan Beulich wrote:
->>>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
->>>>> Introduce interrupt controller descriptor for host APLIC to describe
->>>>> the low-lovel hardare. It includes implementation of the following functions:
->>>>>    - aplic_irq_startup()
->>>>>    - aplic_irq_shutdown()
->>>>>    - aplic_irq_enable()
->>>>>    - aplic_irq_disable()
->>>>>    - aplic_irq_ack()
->>>>>    - aplic_host_irq_end()
->>>>>    - aplic_set_irq_affinity()
->>>>>
->>>>> As APLIC is used in MSI mode it requires to enable/disable interrupts not
->>>>> only for APLIC but also for IMSIC. Thereby for the purpose of
->>>>> aplic_irq_{enable,disable}() it is introduced imsic_irq_{enable,disable)().
->>>>>
->>>>> For the purpose of aplic_set_irq_affinity() aplic_get_cpu_from_mask() is
->>>>> introduced to get hart id.
->>>>>
->>>>> Also, introduce additional interrupt controller h/w operations and
->>>>> host_irq_type for APLIC:
->>>>>    - aplic_host_irq_type
->>>>>    - aplic_set_irq_priority()
->>>>>    - aplic_set_irq_type()
->>>> Yet these two functions nor the hooks they're used to populate are entirely
->>>> unused here. Since they're also outside of the common IRQ handling machinery,
->>>> it's unclear how one would sanely ack such a change.
->>> They will be called by intc_route_irq_to_xen() from setup_irq() during firt time
->>> the IRQ is setup.
->> Perhaps move their introduction to there then? We don't do any Misra checking
->> yet lon RISC-V, but imo it's still good practice to avoid introducing new
->> violations, even if only temporarily.
+On 28.04.2025 10:21, Mykyta Poturai wrote:
+> On 17.03.25 17:07, Jan Beulich wrote:
+>> On 14.03.2025 14:34, Mykyta Poturai wrote:
+>>> --- a/xen/arch/arm/pci/pci.c
+>>> +++ b/xen/arch/arm/pci/pci.c
+>>> @@ -16,9 +16,18 @@
+>>>   #include <xen/device_tree.h>
+>>>   #include <xen/errno.h>
+>>>   #include <xen/init.h>
+>>> +#include <xen/iommu.h>
+>>>   #include <xen/param.h>
+>>>   #include <xen/pci.h>
+>>>   
+>>> +bool is_pci_passthrough_enabled(bool dom0)
+>>> +{
+>>> +    if ( dom0 )
+>>> +        return pci_passthrough_enabled || iommu_enabled;
+>>
+>> As I think I said before - the function's name now no longer expresses
+>> what it really checks. That (imo heavily) misleading at the use sites
+>> of this function.
 > 
-> Okay, I will move their introduction to there.
+> I've spent some more time thinking about how to better deal with this. 
+> In the end, I think your earlier suggestion about introducing a new arch 
+> specific function is the best approach, but I want to agree on the 
+> naming before sending new patches. Would "arch_requires_pci_physdev" be 
+> an appropriate name in your opinion?
 > 
-> Btw, what is needed to add Misra checking for RISC-V? I started to think that, probably,
-> it will make sense to do that from the start.
-
-Best I can do is point you at what is done for Arm and x86. You may want to
-ask people more familiar with the CI aspects involved here.
-
->>>>> +static void aplic_set_irq_priority(struct irq_desc *desc,
->>>>> +                                   unsigned int priority)
->>>>> +{
->>>>> +    /* No priority, do nothing */
->>>>> +}
->>>> Since the function dopes nothing, wouldn't it be better to omit it and have
->>>> the (future) caller check for a NULL pointer ahead of making the (indirect)
->>>> call? Same remark for other handlers (below) which also do nothing.
->>> I thought about that too, but it could be some cases when the stub is introduced
->>> with temporary BUG_ON("unimplemented") inside just to not miss to implement it
->>> when it will be necessary.
->>> If we will have only the caller check then we could miss to implement such stubs.
->> I guess I don't understand the concern.
+> At the call sites it will look like this:
+>      case PHYSDEVOP_pci_device_remove: {
+>          struct physdev_pci_device dev;
 > 
-> for example, if we will have the following code:
->    void some_caller(struct irq_desc *desc)
->    {
->        if ( desc->handler->set_affinity )
->            desc->handler->set_affinity(desc, cpu_mask);
->    }
-> 
-> Then we will skip the call of handler->set_affinity() (if it was just initialized with
-> .set_affinity = NULL) without any notification. And it is fine specifically in this
-> case as aplic_set_irq_priority() does nothing.
-> 
-> But what about the cases if it is a function which will have some implementation in the
-> future but doesn't have implementation for now. Then without notification that this
-> function is unimplemented we could skip something what really matters.
-> 
-> But I think that your initial comment was just about the function which basically
-> does nothing. Am i right?
+>          if ( !is_pci_passthrough_enabled() && !arch_requires_pci_physdev())
+>              return -EOPNOTSUPP;
 
-Since indirect calls are not only more expensive (often; not sure about
-RISC-V) but also pose speculative concerns, having such just to do nothing
-simply seems like moving in the wrong direction.
-
->>>>> +    ASSERT(spin_is_locked(&desc->lock));
->>>> If this lock (which is an IRQ-safe one) is necessarily held, ...
->>>>
->>>>> +    spin_lock_irqsave(&aplic.lock, flags);
->>>> ... you can use just spin_lock() here.
->>>>
->>>>> +    clear_bit(_IRQ_DISABLED, &desc->status);
->>>> Why an atomic bitop when desc is locked? (And yes, I ought to raise the same
->>>> question on Arm code also doing so.)
->>> I haven't thought about that. Likely non-atomic bitop could be used here.
->> And then - does it need to be a bitop? Aiui that's what Arm uses, while x86
->> doesn't. And I see no reason to use other than plain C operators here. If
->> Arm was switched, presumably all the redundant (and misnamed) _IRQ_*
->> constants could go away, with just the IRQ_* ones left.
-> 
-> The reason for a bitop in Arm is explained in this commithttps://gitlab.com/xen-project/xen/-/commit/50d8fe8fcbab2440cfeeb65c4765868398652473
-> but all the places where plain C operators were changed to bitops are actually executed under|spin_lock_irqsave(&desc->lock, flags). By quick look I found only two 
-> places one in __setup_irq() but it is called by the functions which do ||spin_lock_irqsave(&desc->lock, flags) and in vgic_v2_fold_lr_state(). 
-> Maybe, I'm missing something.|
-> |RISC-V won't have something similar to ||vgic_v2_fold_lr_state|(), but __setup_irq() is used in a similar way. It can be added ASSERT(spin_is_lock(&desc->lock))
-> and then it will also safe to use non-bitop function.
-> Probably, it is a little bit safer to use always bitops for desc->status.
-> ||
-
-I question that. If any accesses outside of locked regions were needed (as the
-description of that commit suggests), then the situation would be different.
-
-Btw, you not wrapping lines and you adding strange | instances doesn't help
-readability of your replies.
-
->>>> I'm uncertain about this bit setting anyway - on x86 we would only fiddle
->>>> with it for IRQs not in use, not while enabling/disabling one.
->> What about this part?
-> 
-> As I understand, based on Arm, code then Xen enables interrupts corresponding to devices assigned
-> to dom0/domU before booting dom0/domU, resulting in the possibility of receiving an interrupt
-> and not knowing what to do with it. So it is needed for enablement of IRQs when the guest
-> requests it and not unconditionally at boot time.
-
-I fear I don't understand this. The way we do things on x86 doesn't leave us
-in such a situation.
+There are several questions that affect naming: Is it really "requires"? Is
+it really all PCI-related physdevops? Is the ordering of naming elements in
+line with what we use elsewhere (arch_ first is, but perhaps either pci or
+physdevop wants to move earlier)?
 
 Jan
 
