@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BE1BA9FA12
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 22:00:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971074.1359575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F10AA9FA1E
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 22:03:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971087.1359584 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Uel-0001rR-QA; Mon, 28 Apr 2025 20:00:47 +0000
+	id 1u9Ugl-0002VB-4r; Mon, 28 Apr 2025 20:02:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971074.1359575; Mon, 28 Apr 2025 20:00:47 +0000
+Received: by outflank-mailman (output) from mailman id 971087.1359584; Mon, 28 Apr 2025 20:02:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Uel-0001p6-NH; Mon, 28 Apr 2025 20:00:47 +0000
-Received: by outflank-mailman (input) for mailman id 971074;
- Mon, 28 Apr 2025 20:00:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=N2FI=XO=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1u9Uek-0001NN-EJ
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 20:00:46 +0000
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
- [109.224.244.18]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7896a3f3-246b-11f0-9eb4-5ba50f476ded;
- Mon, 28 Apr 2025 22:00:45 +0200 (CEST)
+	id 1u9Ugl-0002St-28; Mon, 28 Apr 2025 20:02:51 +0000
+Received: by outflank-mailman (input) for mailman id 971087;
+ Mon, 28 Apr 2025 20:02:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=u4d+=XO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1u9Ugk-0002Sn-G6
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 20:02:50 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c1710d48-246b-11f0-9ffb-bf95429c2676;
+ Mon, 28 Apr 2025 22:02:48 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2E54A5C5799;
+ Mon, 28 Apr 2025 20:00:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E174DC4CEE4;
+ Mon, 28 Apr 2025 20:02:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,113 +41,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7896a3f3-246b-11f0-9eb4-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1745870444; x=1746129644;
-	bh=xFEF3v3nqpLnblIDTmNpviGHSKggOJi+9sVUtsOeU+g=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=iaCUf53/mHF+qikLRTALCyXb/SKRjRQ5y9N2GXB+GuT4gcVveGmpjtr8/1ioc1APT
-	 H7BWQ1GVW9j2uXT5R/9eKpvbKpijafAjobxDyrpWxBZ4JLnr9+0wCviIMX3pDIBWSl
-	 kpzXkwtZi+8Co7M1ZFMINy0+i75FdTznvbSM0d5n50VY2uv3KwlJqpTDwEWfDAOBpL
-	 DYgogDmBXmvfVlDiNv52Dicsb+GZMQSF2sFRGikn6T264d3TQ5IWPoCWFh1hdFvAXf
-	 ufgeRqBdOhBOi0LEAMPkGdN5aaUhMsC31TQTcChGayF/NhWykDWbP8ZV98T9fgFGS+
-	 yMKHuxjX4OQmA==
-Date: Mon, 28 Apr 2025 20:00:39 +0000
-To: Jan Beulich <jbeulich@suse.com>
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4] xen/domain: unify domain ID allocation
-Message-ID: <aA/eZCg797KkhuiC@kraken>
-In-Reply-To: <f8be084a-e259-456b-b30d-677b128978e3@suse.com>
-References: <20250422215322.521464-1-dmukhin@ford.com> <f8be084a-e259-456b-b30d-677b128978e3@suse.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 9533e020d63796825240beb92b9349899a1c81bb
+X-Inumbo-ID: c1710d48-246b-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1745870566;
+	bh=ituXsXj7h50AOQZhQuN/SH6ienDPrbu4eLUM75uBstw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=TuGCCz2YlsVbZqX9xn0om3ueaI9WfCvtMqC3Gt9+z/6PmMyov22ggB7uRKhK0wNfH
+	 7hNaEkaB8lZpQ9qt1KhTduNqctkkPAhRSaO+aFQPgRXuDtqDu6nGkl6sEfiRd6uRYw
+	 zYVhTgbii+/BzeqhMm2jaK8+9Kco7TGhCsaL/HDyOCawqtD1X16rOw3U+/PQWDE26e
+	 +mtTPquro1yH4mWNCbERSsWx7DwKEMENQgBFi3JhVD3n95zitkTKQOpjBfOgUS5Efw
+	 tDVUBvtYoSwE5U/8+0YbaYgSIGBiedbfRtb+Qrg4+s35OSzw8IfiuMN1TgBxoS0nuJ
+	 eqTH6eXVCzh/A==
+Date: Mon, 28 Apr 2025 13:02:43 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Teddy Astie <teddy.astie@vates.tech>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, jason.andryuk@amd.com, 
+    agarciav@amd.com
+Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
+In-Reply-To: <f315a128-ce68-42be-9f0c-044ad0c5320c@vates.tech>
+Message-ID: <alpine.DEB.2.22.394.2504281300340.785180@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop> <f315a128-ce68-42be-9f0c-044ad0c5320c@vates.tech>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; BOUNDARY="8323329-1131418842-1745870495=:785180"
+Content-ID: <alpine.DEB.2.22.394.2504281301430.785180@ubuntu-linux-20-04-desktop>
 
-On Mon, Apr 28, 2025 at 11:14:25AM +0200, Jan Beulich wrote:
-> On 22.04.2025 23:54, dmkhn@proton.me wrote:
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -66,6 +66,57 @@ DEFINE_RCU_READ_LOCK(domlist_read_lock);
-> >  static struct domain *domain_hash[DOMAIN_HASH_SIZE];
-> >  struct domain *domain_list;
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1131418842-1745870495=:785180
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2504281301431.785180@ubuntu-linux-20-04-desktop>
+
+On Mon, 28 Apr 2025, Teddy Astie wrote:
+> Hello Stefano,
+> 
+> Le 25/04/2025 à 22:21, Stefano Stabellini a écrit :
+> > From: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>
 > >
-> > +/* Domain ID allocator */
-> > +static unsigned int domid_last;
-> > +
-> > +static inline bool is_free_domid(domid_t dom)
-> > +{
-> > +    struct domain *d =3D rcu_lock_domain_by_id(dom);
-> > +
-> > +    if ( d )
-> > +        rcu_unlock_domain(d);
-> > +
-> > +    return !d;
-> > +}
-> > +
-> > +/*
-> > + * Allocate new domain ID based on the hint.
-> > + *
-> > + * If hint is outside of valid [0..DOMID_FIRST_RESERVED - 1] range of =
-IDs,
-> > + * perform an exhaustive search starting from the end of the used doma=
-in ID
-> > + * range, excluding hardware_domid.
-> > + */
-> > +domid_t domid_alloc(domid_t hint)
-> > +{
-> > +    domid_t domid =3D DOMID_INVALID;
-> > +
-> > +    if ( hint < DOMID_FIRST_RESERVED )
-> > +    {
-> > +        /* Exact match. */
-> > +        if ( is_free_domid(hint) )
-> > +            domid =3D hint;
-> > +    }
-> > +    else
-> > +    {
-> > +        for ( domid =3D domid_last + 1; domid !=3D domid_last; domid++=
- )
-> > +        {
-> > +            if ( domid =3D=3D DOMID_FIRST_RESERVED )
-> > +                domid =3D 0;
-> > +
-> > +            if ( domid =3D=3D hardware_domid )
-> > +                continue;
-> > +
-> > +            if ( is_free_domid(domid) )
-> > +                break;
-> > +        }
-> > +
-> > +        if ( domid !=3D domid_last )
-> > +            domid_last =3D domid;
-> > +    }
-> > +
-> > +    return domid;
-> > +}
->=20
-> The function name suggests the ID returned is firmly allocated by the tim=
-e
-> the caller gets to see / use it. Yet that's not the case. Two back-to-bac=
-k
-> calls here with the same argument will yield the same result, afaict. Thi=
-s
-> supports my prior statement that I don't think it is a good idea to
-> "centralize" things like this.
+> > Dom0 PVH might need XENMEM_exchange when passing contiguous memory
+> > addresses to firmware or co-processors not behind an IOMMU.
+> >
+> > XENMEM_exchange was blocked for HVM/PVH DomUs, and accidentally it
+> > impacted Dom0 PVH as well.
+> >
+> > Permit Dom0 PVH to call XENMEM_exchange while leaving it blocked for
+> > HVM/PVH DomUs.
+> >
+> 
+> In addition to Jan's remarks, I think it wants some additional
+> clarifications on the hypercall interface. public/memory.h indicates
+> "only PV guests can use this operation", so the interface is actually
+> unspecified about HVM guests (e.g what are MFN/GMFN in this case ?).
 
-I agree, back-to-back call requirement is not implemented, I will fix that.
+That is a new addition from c08a11ab98c. If you see fae7d5be8bb, there
+is a statement that "we permitted this operation".
 
-I think a library service for domain ID allocation will be useful since the=
-re
-are 2 users of it already and there's one more user of similar functionalit=
-y is
-on review (hyperlauch DT parsing).
 
->=20
-> Jan
-
+> > Signed-off-by: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> >
+> > diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+> > index 1cf2365167..e995944333 100644
+> > --- a/xen/arch/x86/mm.c
+> > +++ b/xen/arch/x86/mm.c
+> > @@ -4401,7 +4401,7 @@ int steal_page(
+> >       const struct domain *owner;
+> >       int rc;
+> >
+> > -    if ( paging_mode_external(d) )
+> > +    if ( paging_mode_external(d) && !is_hardware_domain(d) )
+> >           return -EOPNOTSUPP;
+> >
+> >       /* Grab a reference to make sure the page doesn't change under our feet */
+> > diff --git a/xen/common/memory.c b/xen/common/memory.c
+> > index 8ca4e1a842..796eec081b 100644
+> > --- a/xen/common/memory.c
+> > +++ b/xen/common/memory.c
+> > @@ -794,7 +794,7 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
+> >               rc = guest_physmap_add_page(d, _gfn(gpfn), mfn,
+> >                                           exch.out.extent_order) ?: rc;
+> >
+> > -            if ( !paging_mode_translate(d) &&
+> > +            if ( (!paging_mode_translate(d) || is_hardware_domain(d)) &&
+> >                    __copy_mfn_to_guest_offset(exch.out.extent_start,
+> >                                               (i << out_chunk_order) + j,
+> >                                               mfn) )
+--8323329-1131418842-1745870495=:785180--
 
