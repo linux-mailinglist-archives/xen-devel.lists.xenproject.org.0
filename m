@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1240EA9EE85
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 13:05:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970499.1359174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7537A9EE8E
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 13:07:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970510.1359184 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9MIZ-0007LZ-5n; Mon, 28 Apr 2025 11:05:19 +0000
+	id 1u9MKZ-0007sO-H0; Mon, 28 Apr 2025 11:07:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970499.1359174; Mon, 28 Apr 2025 11:05:19 +0000
+Received: by outflank-mailman (output) from mailman id 970510.1359184; Mon, 28 Apr 2025 11:07:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9MIZ-0007IR-35; Mon, 28 Apr 2025 11:05:19 +0000
-Received: by outflank-mailman (input) for mailman id 970499;
- Mon, 28 Apr 2025 11:05:17 +0000
+	id 1u9MKZ-0007qv-Di; Mon, 28 Apr 2025 11:07:23 +0000
+Received: by outflank-mailman (input) for mailman id 970510;
+ Mon, 28 Apr 2025 11:07:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A+1Z=XO=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1u9MIX-0007IL-Iy
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 11:05:17 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20604.outbound.protection.outlook.com
- [2a01:111:f403:2417::604])
+ <SRS0=1Olx=XO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1u9MKX-0007ql-8r
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 11:07:21 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a94c3c4f-2420-11f0-9eb4-5ba50f476ded;
- Mon, 28 Apr 2025 13:05:16 +0200 (CEST)
-Received: from BL0PR0102CA0039.prod.exchangelabs.com (2603:10b6:208:25::16) by
- BN3PR12MB9596.namprd12.prod.outlook.com (2603:10b6:408:2cb::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.33; Mon, 28 Apr
- 2025 11:05:11 +0000
-Received: from BL6PEPF00020E61.namprd04.prod.outlook.com
- (2603:10b6:208:25:cafe::86) by BL0PR0102CA0039.outlook.office365.com
- (2603:10b6:208:25::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.37 via Frontend Transport; Mon,
- 28 Apr 2025 11:05:15 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF00020E61.mail.protection.outlook.com (10.167.249.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8678.33 via Frontend Transport; Mon, 28 Apr 2025 11:05:11 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Apr
- 2025 06:05:08 -0500
+ id f413b010-2420-11f0-9eb4-5ba50f476ded;
+ Mon, 28 Apr 2025 13:07:20 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3914aba1ce4so3570027f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 04:07:20 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a073e46a54sm11031140f8f.67.2025.04.28.04.07.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Apr 2025 04:07:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,170 +45,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a94c3c4f-2420-11f0-9eb4-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S2/G5O0qcSrHofL5elr+6oFqcEB/6Lr8PKTxtvdW4yaQmPvEI1mcEFEtDKzsVT1XYdRJ7cjwqj4NV09vJmDtg2oNNFVyPp4dCyp6TcIoEQ+QggTXVH8v+z+LStkyFxfxWT4HhdXe8UnjSv7ihFM6Rl3hBzeQ+AgULvrh8OA6CW6aFmQGQ2VZ5fK5G/5Rew9egAa4qTuSr64K/Melj3NgFzhztk/EuuG9ZMK9yHAG06oAUM0aqeDyujyCRSFnuYXJwOb6AosWO1iHXP5DJcDBLrY2vn89vu6xEgoPR6oNR13vOq2IBOO7rzrAxWWtO4bBotMv5V+VoNAuOmM/257Xdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bXu+t5vUw61xUGHFnAnZGPvjNSCX7BwA+lRXLFPTy0A=;
- b=s9hcOZs6VroCkXxYCc4ol9PKTrtLbPxotM9k+mGQ9/ELYb+YbIKOEB3NNI+49PT4WPSa1iIHFzEdlLS3RVD8mGAljwOQ7HTqeqBAkJyiffDJbVa6FXfFAQVYGb2c37My7zAb//F4uQWhbSLUprEOoWOkGq+PTUPKWJa5OaT/2rh/idlOVLIm8V/LrpHH3gdoG8hB/DGu3UPMsC57rRHQVwqJK8knXTW4KTPmJM+cloj57kTyN2NCSQwIdN32jQ2g3gannRCvjiQ04xJxiDKThko1baKsHdiugIxx5n9b+tTdY6fKLtSo/na6qtx1MkkdMY1G/MNBIbcg1EqbRZZQrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bXu+t5vUw61xUGHFnAnZGPvjNSCX7BwA+lRXLFPTy0A=;
- b=axtu221n2p5DCmP3fAlBs06hD1x0BT92JQ4umGsFFrKtzmSbDz35ypleeGHRyN2VHZZDsFSCxXJsJ9MjHHsw833cxE9u4raEW8ipxSqKdQHFV+ywmUq5rEYA3VYqJFUaNz4PQ3JLzlKicp9fUTVtrQ4R33/4AaCRo7H8514Rj9M=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: f413b010-2420-11f0-9eb4-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1745838440; x=1746443240; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3gM4It4SMK59v/8vza29ClPE0i0OYfYk8Sh8ifgnFdc=;
+        b=VWBgjJr0OIhCsqyq89EMmxgfy5Pk4lSjh3AS4at2DzIogPcB//PkAm+zhY1yKVs+Dd
+         hJntHRsrCuTx1VqvOmIl4F5pehd1kS+t3HiCYPtl+bDrbMMrmh9y4qmypCfA0pMmDLEA
+         ADqjfY9BNNJ6cpZo94Z3iMMSWV64lFuLlvIYY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745838440; x=1746443240;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3gM4It4SMK59v/8vza29ClPE0i0OYfYk8Sh8ifgnFdc=;
+        b=QMAXK2UBGfcmMzqkIrWm3zdiD/kDAkhvZqCk1h/6Lbf06qwHux2PFUUCEA/OtvYk/3
+         8hwsx7aMnIZKjVymmKLAGbSJ3qqJcPTJKKFjjnA7oWqfmdgxu0m4srq+T1NW6dovHAAC
+         UoH9lg/D5tG8Nl80pJ2C4YaBxONkEPWh/vYJgjslgt7mvEo9SMGEik/nqroMydfgY13E
+         uek5rnTygFI/T9fXrvaAAGRuc5FYsMJjfZfWkwiVFpu5qzcpzcSrQIrku015x31lV1Q+
+         mJrm/UDinEJV6GYzubAELkHO7GHAe9jIZRa7oOppJd+Vhg8vLDUkhsdSTq6cG4aTHj0F
+         hshw==
+X-Gm-Message-State: AOJu0YxY0WApPRIY5rsxM1roCelamUtuK+zwxCkCoERGRSGX4fJ3UCkX
+	A+p4mkBRBaurzfCSmBpP3tYQfX115bIyITKfHcJbWQGYhDReUFPXC3JHt+gUumw=
+X-Gm-Gg: ASbGncuRY8ADMzTKXPAqDcK0itLSdpW7K9d0vt/G7JyphOfk6NSE33Q9EG2gi72H7E6
+	VjSbEFvAvVVkTCn/7+K43bX8/gAuWHkcbj8LKYdJheXMsb7H7JqVYXgAh4eNKo4xnowBEDpHt2Y
+	+wWwlv4q+VPdTb692NWM0Q9KiWe8CvZikYW1CYdbGOpts0WVB0aZd2NyDVfs7iY/epc0G5wSZcG
+	XI9GcNmc7KmVSDDbfYHMdCNs3MVNty4oMcZd5/XPuP6q3tLMkl09VaaSCWeSLiazntHxL5Uvn+d
+	iIMDD4sX+RLpK5/aGAZed3AM8g8e62puN1YP+k+JalXwt2hgMmzmq5guI5clAK9Np5uu1VGc53d
+	LdP8CDyO5wb//jvfO
+X-Google-Smtp-Source: AGHT+IFMfCcKZRq59thsDM7q4TREyc/++JPCEcfXlS3WXiSZ8OBLVWbb3R2yLdSVNoCnf1Kl7dLpkQ==
+X-Received: by 2002:a05:6000:4212:b0:38f:2ddd:a1bb with SMTP id ffacd0b85a97d-3a074e144a6mr8508007f8f.8.1745838439491;
+        Mon, 28 Apr 2025 04:07:19 -0700 (PDT)
+Message-ID: <97d28edb-4274-408f-a825-d09fa771e21d@citrix.com>
+Date: Mon, 28 Apr 2025 12:07:18 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 28 Apr 2025 12:05:07 +0100
-Message-ID: <D9I8127P22HG.1K10R2IU0VPO8@amd.com>
-CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Michal
- Orzel" <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Jason Andryuk <jason.andryuk@amd.com>
-Subject: Re: [PATCH v5 05/12] x86/hyperlaunch: locate dom0 kernel with
- hyperlaunch
-From: Alejandro Vallejo <agarciav@amd.com>
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	<xen-devel@lists.xenproject.org>
-X-Mailer: aerc 0.20.1
-References: <20250424161027.92942-1-agarciav@amd.com>
- <20250424161027.92942-6-agarciav@amd.com>
- <15e4ef59-183d-470b-b596-86f4b5e56bd4@apertussolutions.com>
-In-Reply-To: <15e4ef59-183d-470b-b596-86f4b5e56bd4@apertussolutions.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E61:EE_|BN3PR12MB9596:EE_
-X-MS-Office365-Filtering-Correlation-Id: e841ce06-e4d0-4c88-53d3-08dd86448ba1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013|13003099007|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?NCs1NitUbTFvcGRERmR2RXh3Z1VlVnJkTTJpVzdENjR4Ky9JZnJxOUxHMjZI?=
- =?utf-8?B?N09WWWx3b3ljb2lHZ2xDbWZOMFE4MmNISmZ1c0cyWDh5ZllncnpOWWNWTlJa?=
- =?utf-8?B?akNvRU8yYVBneUROdkptKzlxNjNnTUlnZGViRktud1BkSVRLZ2FYTXBLZ2xu?=
- =?utf-8?B?MW5vVU1GVHhRRTM4VUdUekpOU2tyS0hhU0EwakVHNHBEbGVRMkZtTHEyemhY?=
- =?utf-8?B?UDRDd0Q4Tkx2eUFxNk8xdHc4U1ZxaE16YlJMZ3pCMWo3bDNDejJjdDlWbzQr?=
- =?utf-8?B?VXZ4WG9rKzlkMU5EVDRFSWRzaXEvNjJEUDVrMXgrVzVZMk9FTU5qWDc0UGNJ?=
- =?utf-8?B?NUhmSEROOThzaEUzdDFaTnhYNGp2MEpHRzdhak0wOUx4d1YvRkUzVEw2WkFP?=
- =?utf-8?B?aEJvdStHQ01kdmZ0SkNrMnN3ZGQzcGpXMk50QWg4ZmJnNCtrd2JST1JrUDNF?=
- =?utf-8?B?VHN2eFQ3cGIyTm9VU3RqTkZuWUFZQU9VZHAyK2hrazU1TitrNms3bmFZd0pC?=
- =?utf-8?B?RlozNlhUa2ZDTkgwdnpXQ0xqemtYOE5mSHBmYzUzRU9KOHE4VUZjWkk3bzdV?=
- =?utf-8?B?dEYraHptRDRxcENRSXI4aGJoL0RPM0xMWGZoY3ZCcjFTaExZblRScGZCWE9B?=
- =?utf-8?B?WUxwUjFSaW90Ykpyd2YwVFhzQnUzcnQrcC9xS2VOYmtwUkpzbW1iWmZKZm9p?=
- =?utf-8?B?b2F0eVdmclVSaXlVeGpIUXBGcVVOQnNKcXpDbEwrQ1V3eWpxZ3hLYkJNYnZF?=
- =?utf-8?B?RWlxWFR2NXBXT3pDd2hleE94NUZIcWs3K3R4WjR1T3doYkZrZzVVSUUyMXV1?=
- =?utf-8?B?eTlpL0ZZSFlyMmd3YStLdXU3dTZYNUE2N0t1R3h5SlBacm8xMjBnKy91VnJB?=
- =?utf-8?B?cndIa1pnN1FnTWtidVZHZ1VoMDdTVWhiTyt2bVE0YzhaWDNqM3FlZWsvNTh2?=
- =?utf-8?B?Wldqdzk0TmJPRVBORWIzZ2pHdW5EYWEya01YanlLMUg1bHp1ZzBhZjY4VmZy?=
- =?utf-8?B?TnJWcHVGU2E0blV2b2ZWOTFNYXk3Q042cllUczJDUXdYUmNkd3lvVGdiMmh0?=
- =?utf-8?B?VUZ1ZXVTOGVBa1NDZUxUWCtGYWtGWDFEMWkrYWVseENsazNnK1NqWmR6ZEIz?=
- =?utf-8?B?NTZ5RDYxeGs5TlgzbXRodkNub2kxOHA4Q0NYTGMzRlI0UTB1S1h1ZUJBdTNE?=
- =?utf-8?B?MnlTNEMvTnRpNVpUUm85NUlNMXg1TE0xSUsrcUZPR2x2akFxQ0RBRkNjVUg0?=
- =?utf-8?B?ZENrakxsRWxiaFcwNlBZS1JhRmxDYmJPaHpoNDZ1bk1KQklHbTFkbTQ2blpi?=
- =?utf-8?B?YjJESmphOUoxaDNtejQ2cjJ5U2JpeVVDaTdLWmpNY3hzWEFFNEMvRmxNUXpn?=
- =?utf-8?B?aHRtNXFrbC9ZRXVQV0U4RlduYXBDSVBOYms4aWNVdjJjYTQ3Q2Zoa2hHVEo3?=
- =?utf-8?B?OTQrdWxyajJOVWxMcE5MTGloNGJWL0E5QkJaa25paDE2VzJrQjgvY09JakpD?=
- =?utf-8?B?VnRhZFRYMFlOVWRRUFJudFhyMThMS1I3dXFhZCs2TSs3Nkg5Nk1PZVhWUlRY?=
- =?utf-8?B?K2NFQmJnSXlVNHFWZ1VhRXRtdTNHYTllci9XZXdwUHZaVDRqRDlLaUZBNzA5?=
- =?utf-8?B?bXgvcy9TUS90dUQxWGkwcEF1YjdDWFlJWk1oZlNQQ00yMmQ5QllWa1Rvalc0?=
- =?utf-8?B?QXhIVkV3QU5ESjA4TUZjR1hsZytaMFd5VHdPRjNJazhUd0JGODV0ZDgxOVFm?=
- =?utf-8?B?V2s3aG8rOWphRXFqZEVvSnJnM2Q3dmVlV2UxV0l1REZDa3lKR0FJczRxelJn?=
- =?utf-8?B?NkdmT1JUWVJZTFdaYlRMdExmY2lKRWxXVW9oMmQ2TFEzVDZqS2M3ZUVDU3dp?=
- =?utf-8?B?bFZBM1hzbDNsaUxPaDJXQ1hEK3huZlFXcjE1M3JKQzhQTEozRWNuUUMzTWJT?=
- =?utf-8?B?bEhsNXUycDVyVTU3MUpqZ2l3L3VGMWpQL3NhYnMyT1FoNlQvWGhGU2dMSVho?=
- =?utf-8?B?MXF3YytzY2Y3MXZWZnJtVTVEa1FRcVhIRTJwYnF2QThCb2ZVT0xsZTRXUUZm?=
- =?utf-8?B?RFcyU2k3U2tMZmhaUGVHUGlnWEJFWHk5UTBsQT09?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013)(13003099007)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2025 11:05:11.4547
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e841ce06-e4d0-4c88-53d3-08dd86448ba1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00020E61.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9596
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/hyperv: use dynamically allocated page for
+ hypercalls
+To: Alejandro Vallejo <agarciav@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Ariadne Conill <ariadne@ariadne.space>, Wei Liu <wl@xen.org>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
+ Jan Beulich <jbeulich@suse.com>, "Alexander M . Merritt"
+ <alexander@edera.dev>
+References: <20250425234331.65875-1-ariadne@ariadne.space>
+ <aA9NMJVbyXeMOOY-@macbook.lan> <D9I7TPLT0EJD.3F5P95H69CT5K@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <D9I7TPLT0EJD.3F5P95H69CT5K@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri Apr 25, 2025 at 11:32 PM BST, Daniel P. Smith wrote:
-> On 4/24/25 12:10, Alejandro Vallejo wrote:
->> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
->>=20
->> Look for a subnode of type `multiboot,kernel` within a domain node. If
->> found, locate it using the multiboot module helper to generically ensure
->> it lives in the module list. If the bootargs property is present and
->> there was not an MB1 string, then use the command line from the device
->> tree definition.
->>=20
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
->> ---
->> v5:
->>    * Add domain name to the error path on no-kernel.
->> ---
->>   xen/arch/x86/setup.c            |  1 +
->>   xen/common/domain-builder/fdt.c | 64 +++++++++++++++++++++++++++++++--
->>   2 files changed, 62 insertions(+), 3 deletions(-)
->>=20
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index bd13d9d196..7e756302ae 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -1290,6 +1290,7 @@ void asmlinkage __init noreturn __start_xen(void)
->>           i =3D first_boot_module_index(bi, BOOTMOD_UNKNOWN);
->>           bi->mods[i].type =3D BOOTMOD_KERNEL;
->>           bi->domains[0].kernel =3D &bi->mods[i];
->> +        bi->nr_domains =3D 1;
->>           bi->hyperlaunch_enabled =3D false;
->>       }
->>  =20
->> diff --git a/xen/common/domain-builder/fdt.c b/xen/common/domain-builder=
-/fdt.c
->> index 11f0436e85..662c715483 100644
->> --- a/xen/common/domain-builder/fdt.c
->> +++ b/xen/common/domain-builder/fdt.c
->> @@ -99,9 +99,9 @@ static int __init fdt_prop_as_reg(const struct fdt_pro=
-perty *prop,
->>    * @return              -EINVAL on malformed nodes, otherwise
->>    *                      index inside `bi->mods`
->>    */
->> -int __init fdt_read_multiboot_module(const void *fdt, int node,
->> -                                     int address_cells, int size_cells,
->> -                                     struct boot_info *bi)
->> +static int __init fdt_read_multiboot_module(const void *fdt, int node,
->> +                                            int address_cells, int size=
-_cells,
->> +                                            struct boot_info *bi)
->
-> Shouldn't this belong to when the function was introduced? Though=20
-> looking there, you push it out into the header? Guess the real question=
-=20
-> is it static or not?
+On 28/04/2025 11:55 am, Alejandro Vallejo wrote:
+> On Mon Apr 28, 2025 at 10:41 AM BST, Roger Pau Monné wrote:
+>> On Fri, Apr 25, 2025 at 04:43:31PM -0700, Ariadne Conill wrote:
+>>> Previously Xen placed the hypercall page at the highest possible MFN,
+>>> but this caused problems on systems where there is more than 36 bits
+>>> of physical address space.
+>>>
+>>> In general, it also seems unreliable to assume that the highest possible
+>>> MFN is not already reserved for some other purpose.
+>>>
+>>> Changes from v1:
+>>> - Continue to use fixmap infrastructure
+>>> - Use panic in Hyper-V setup() function instead of returning -ENOMEM
+>>>   on hypercall page allocation failure
+>>>
+>>> Fixes: 620fc734f854 ("x86/hyperv: setup hypercall page")
+>>> Cc: Alejandro Vallejo <agarciav@amd.com>
+>>> Cc: Alexander M. Merritt <alexander@edera.dev>
+>>> Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
+>>> ---
+>>>  xen/arch/x86/guest/hyperv/hyperv.c      | 17 +++++++----------
+>>>  xen/arch/x86/include/asm/guest/hyperv.h |  3 ---
+>>>  2 files changed, 7 insertions(+), 13 deletions(-)
+>>>
+>>> diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hyperv/hyperv.c
+>>> index 6989af38f1..0305374a06 100644
+>>> --- a/xen/arch/x86/guest/hyperv/hyperv.c
+>>> +++ b/xen/arch/x86/guest/hyperv/hyperv.c
+>>> @@ -98,7 +98,13 @@ static void __init setup_hypercall_page(void)
+>>>      rdmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
+>>>      if ( !hypercall_msr.enable )
+>>>      {
+>>> -        mfn = HV_HCALL_MFN;
+>>> +        void *hcall_page = alloc_xenheap_page();
+>>> +        if ( !hcall_page )
+>>> +            panic("Hyper-V: Failed to allocate hypercall trampoline page");
+>>> +
+>>> +        printk("Hyper-V: Allocated hypercall page @ %p.\n", hcall_page);
+>> This likely wants to be a dprintk, and possibly also print the
+>> physical address of the used page?  And no period at the end of the
+>> sentence IMO.
+>>
+>> I think Xen might have used the last page in the physical address
+>> range to prevent HyperV from possibly shattering a superpage in the
+>> second stage translation page-tables if normal RAM was used?
+>>
+>> However I don't know whether HyperV will shatter super-pages if a
+>> sub-page of it is used to contain the hypercall page (I don't think it
+>> should?)
+> I think it's quite unlikely.
 
-It's to ensure MISRA compliance on the previous commit. See:
+It will shatter superpages.
 
-  https://lore.kernel.org/xen-devel/173f7129e82958a9737627129ac3c5be@bugsen=
-g.com/
+The overlay is not part of guest memory, and will hide whatever is
+behind it while it is mapped, which will force a 4k PTE in EPT/NPT.
 
-Cheers,
-Alejandro
+Thinking about it, a better position would be adjacent to the APIC MMIO
+window, so at 0xfee01000.  The APIC MMIO window is forced to be a 4k
+mapping too, and the rest of the 2M window is normally empty.
+
+~Andrew
 
