@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8566DA9EB57
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 11:01:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.970325.1359042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B482BA9EB64
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Apr 2025 11:04:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.970337.1359052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9KMh-0000Wb-0f; Mon, 28 Apr 2025 09:01:27 +0000
+	id 1u9KPS-00016B-Dh; Mon, 28 Apr 2025 09:04:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 970325.1359042; Mon, 28 Apr 2025 09:01:26 +0000
+Received: by outflank-mailman (output) from mailman id 970337.1359052; Mon, 28 Apr 2025 09:04:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9KMg-0000Tu-Ty; Mon, 28 Apr 2025 09:01:26 +0000
-Received: by outflank-mailman (input) for mailman id 970325;
- Mon, 28 Apr 2025 09:01:24 +0000
+	id 1u9KPS-00013e-A2; Mon, 28 Apr 2025 09:04:18 +0000
+Received: by outflank-mailman (input) for mailman id 970337;
+ Mon, 28 Apr 2025 09:04:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5hYN=XO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9KMe-0000Tm-UF
- for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 09:01:24 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1u9KPQ-00013X-Vh
+ for xen-devel@lists.xenproject.org; Mon, 28 Apr 2025 09:04:16 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5bec4b8d-240f-11f0-9eb4-5ba50f476ded;
- Mon, 28 Apr 2025 11:01:23 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43d0359b1fcso28203745e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 02:01:23 -0700 (PDT)
+ id c2b2d6db-240f-11f0-9eb4-5ba50f476ded;
+ Mon, 28 Apr 2025 11:04:16 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43d04dc73b7so40954645e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 02:04:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4409d2ac079sm149652055e9.18.2025.04.28.02.01.22
+ 5b1f17b1804b1-4409d2d8479sm154342235e9.29.2025.04.28.02.04.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Apr 2025 02:01:22 -0700 (PDT)
+ Mon, 28 Apr 2025 02:04:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bec4b8d-240f-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: c2b2d6db-240f-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745830883; x=1746435683; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745831055; x=1746435855; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kIn2I/imRUJcWf2136sPowlWU/VZ8af3YxX4p7cyuyQ=;
-        b=LaX7nKUsB8QvOc2srasKnu1IBZeFu+of8U4lDcCCv7lj3ntSWdpWUbmjS3WvkBk4QP
-         4avf0ze+EJujpVYOkXoNBZI1yrHLdG2eqc7LILIIlL0clNR8CFFs1f28gG9jEuJopxDc
-         KrP9hVP5XqIEJOAPdTqgtEhhvAKJdao1p7Jl90JvjwTPs7Ob/29dyLYz/eT8l3XsHV3W
-         ROXnDvmZbsAvdxMaHPMXeCtzl3Y/aoQqAKVTabxUD61AXi8AwYv2SNBa4YHXAje+LF8a
-         tfClU9P9k+RvjEr1ChhdG6y8cvnCbypNpTx9jd1Z1tLL2jR6id7xMC0d1WQe6MSbyy6i
-         NHTg==
+        bh=shifrSgTksc5mBL9UdLz927Li754XErdqiBhtpb4NM0=;
+        b=UKGmr/DjUOVyzo9PgM02EJ9aROFmC9ikrRHC0Wttr3UwUCwdM0ict//yiu9RvVmP1O
+         bVpPL1vnFi6zHGAoFt8R4xSBdTg7fMRvfItb+j2252l4ybBiU8+u0Z4D0HVyep2mAkvm
+         Z58GI1CWiqJq3WRIAPuyEsD/3XIo6TDR7SlLkZPKxcshM7QWc4Nr5tffWkU5HtULTJYu
+         X/j29mRry61pKEw5xFxYxjVtrMrh/qMsNxpmdkICplIk5YSa0LhdR9Hax85HyyJLXAIL
+         WBpQsQjGodyrvr7G90bSDSUU0jzCdsWRDNu4RfTJEkrv4E6it00P2oKgl9HI8ZlMuULF
+         mQYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745830883; x=1746435683;
+        d=1e100.net; s=20230601; t=1745831055; x=1746435855;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kIn2I/imRUJcWf2136sPowlWU/VZ8af3YxX4p7cyuyQ=;
-        b=celvild3WghmUHlE6P4yFDXcei3+mwQW8sIC+e0NPMgAegveY0wrLjYvftF+2nVtxc
-         nWgh2fV1l2bOJHpc58aupABMgjhMsh6U4FElpT0acf5aydLxKC5XyEW+1CnXq8mfGLCH
-         B+qjFScq0Jd+paxxgD148+CXgIj4T6UBwKporDqOmc+86YIOc1gd5elf4EwmH+KsJH0o
-         9CwGn6rm3qyRwoM6nlGVcFygqYyQAaiFNJ9ckeA76o7EhSMxb+WvKx38wI34CR21P8ni
-         KkiViRtiKpnQkM4tjN7QKaI4JPGjiUbQ/43y1GdCPhU4/bxeCULUheMixjzeLCAlKT8m
-         p3mQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWoJyTpe0Gh3+2xpT82xMDG7DVAtGt9u6s9Rpuvh9xObyBIK+soFd1It3ui9it5uhjIpf7EL2p4atI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwnK9VQRhZwiMxpKUmGGLU0e9uh3nqNyHNYS4L2gnj7K5Jq+Pgh
-	mSEBeiN9hmuJq3IYPhYIg7Aule5KaMUF8zhuXhqlal5l8fxWFHl66f6CsSnmwA==
-X-Gm-Gg: ASbGncuUq1EPnCyMiGINoXzSqlIRayqOyYL/l1OkoYv5rZsaASCfAj0rgpNvhegR65w
-	1TH9jrUSocaGePXbNEZM6411wfJpwiondXP5gOUIchXPlMw9dt5UsZKx65hgfVqRyQaS9MwlKh3
-	+Kgx0DJYgu7P9AWzA4JRH3DMFtsrGkGdtkWntwNZyWPFps3ZuYvlTkbym+vsRapXpumzJTGOa9J
-	Jns8t7VDGA16ludOV62atep0pmU3G6eahqaTb/HkzlPmIEAYFRVCORsAT/Hqi1jwSGbQ0urr6Z+
-	TNpLTYkxMf0PLxeGAQkzeVes3QCkv0lVFVjFMfFMV3KE6Zko4v8+8PO2LHZt3kNp0gV42cVT0Mh
-	meEplOhbdNeFoNx+lCw0+csUO2w==
-X-Google-Smtp-Source: AGHT+IFn4eGo0QDnYRBOgmpjY2eamob9w6Dvs86/4IDP5ZooTzyHlWaBxbo5pMGbPFGOz2LCqnzysQ==
-X-Received: by 2002:a05:600c:138f:b0:439:9737:675b with SMTP id 5b1f17b1804b1-440a65e81e6mr80974275e9.7.1745830882911;
-        Mon, 28 Apr 2025 02:01:22 -0700 (PDT)
-Message-ID: <b4baad49-f751-42e6-9785-6d71aac3ebc3@suse.com>
-Date: Mon, 28 Apr 2025 11:01:23 +0200
+        bh=shifrSgTksc5mBL9UdLz927Li754XErdqiBhtpb4NM0=;
+        b=VWfeI5nxfK362V9p09azs9ggEtdMkSRGPlz/AKfypZHLH9n9XNUri9Q0bH0KVaco4r
+         tx685/ffNR3FDMZ6Ua/yJABrWoUDalupU9HHI4SUvxyf1nOScdUBfPV8+9dtwRugY3Ji
+         YmSpQCDkEGDX5zU6jA7QhDY23XjuXka/EP20vbjYWCgE+i0MK4UsOarFTbroCcuK1DAE
+         kNxHgAwv6HPySLH+vIypOyHb7n5TYiAu0RoqYqN2x26DVJfQgglcrW+LdrIoDN4nO3Lp
+         cyIWMyKvxzyE43AAj/ZfGRBFrrvT/pO/ZkI9KfQHnDBdurqIPOArsqEimxh9s/eBJGcC
+         ELmA==
+X-Forwarded-Encrypted: i=1; AJvYcCWNFrwT5c/w6mueGKowDJ12MVPIji8OOg/gSXbhkOmomldg2bkyhPEU3f3OKXnk8Ksu9XYnO8unr3A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw66KfH57VnlF3Zvkuic0iNjqYSWPdtVU4L0+szXLyIfOGf3O8y
+	y5tPXxl//p4zo/57XDME4Z9M4ZJV6GuQUiMfNsA+J/YMOyt05+eNBOVU4j/RnQ==
+X-Gm-Gg: ASbGnctd8I3l8MzZ3LC3guGCjE8EuLHI9lJQtE1x5JHiOsvhyV9UW9sy9ioBR/QpIlI
+	el0MaMSzhixL7GWgzZofK3YEJlp+qzeYGVBzqC28JUX7DwxMX/T0gwqKFhhUrpzvfI7Ud7mFd+T
+	RJ1w05SiEBy9QGoXXlZFxLLPDsZKnS+ERul9kl+DpT7Bm9a7nAPxlY9pKGBYRqlfi5mkNdQHWx6
+	gn5TDKqx7Eemb1CIVbiiKz9xPqPXNmB5z0IaKlCiAvoPlDWIYL1lgT4MswzdJviFDQ83HL7NZvD
+	u8irsMRxsaYLu68pkpHfR3bqqZ7JCEKIbtqgX2TmO+IIUNvfAM4h7w4rL1qE0WeDZC+gTg7F0Fq
+	k/Zd8uIbNAwOY+pFhyCkhYUi7XJNPZXnKPdCb
+X-Google-Smtp-Source: AGHT+IF/FWLZ+TDmpSrZxjci23lLi4o8C2DBUQNWIWLGCEpb4mbKeapqxYEuSUCW3yeZz5BJ3ri+ug==
+X-Received: by 2002:a05:600c:3491:b0:43b:ce3c:19d0 with SMTP id 5b1f17b1804b1-440a66b6fb1mr94580895e9.29.1745831055345;
+        Mon, 28 Apr 2025 02:04:15 -0700 (PDT)
+Message-ID: <35ac0856-7a96-4f91-a76d-989bcebfb911@suse.com>
+Date: Mon, 28 Apr 2025 11:04:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 7/8] xen/arm: enable dom0 to use PCI devices with
- pci-passthrough=no
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Subject: Re: [PATCH v1] misra: add deviation for rules 21.1 and 21.2
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, victorm.lira@amd.com,
+ Federico Serafini <federico.serafini@bugseng.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1741958647.git.mykyta_poturai@epam.com>
- <132afbca390edd6e9fd7b1ffacf6c5aff0d29aa7.1741958647.git.mykyta_poturai@epam.com>
- <7fa0bde7-3aa9-48f4-a0ed-d03216edcc4e@suse.com>
- <c33b906f-f9cb-45e5-ac84-28dc687a6f7a@epam.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+ <f5d35582-9270-4816-84c2-f078afeee711@suse.com>
+ <alpine.DEB.2.22.394.2504241443550.785180@ubuntu-linux-20-04-desktop>
+ <8d65ee65-ec6f-49a3-8954-d303b08dc2df@suse.com>
+ <a9db045cff906a4b7db8730ad1095e4b@bugseng.com>
+ <b7f7ab2b-baaa-416f-b390-5ed2229d34cb@suse.com>
+ <4d21245edbd4949a0aec6ecdadea437c@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,49 +128,140 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c33b906f-f9cb-45e5-ac84-28dc687a6f7a@epam.com>
+In-Reply-To: <4d21245edbd4949a0aec6ecdadea437c@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.04.2025 10:21, Mykyta Poturai wrote:
-> On 17.03.25 17:07, Jan Beulich wrote:
->> On 14.03.2025 14:34, Mykyta Poturai wrote:
->>> --- a/xen/arch/arm/pci/pci.c
->>> +++ b/xen/arch/arm/pci/pci.c
->>> @@ -16,9 +16,18 @@
->>>   #include <xen/device_tree.h>
->>>   #include <xen/errno.h>
->>>   #include <xen/init.h>
->>> +#include <xen/iommu.h>
->>>   #include <xen/param.h>
->>>   #include <xen/pci.h>
->>>   
->>> +bool is_pci_passthrough_enabled(bool dom0)
->>> +{
->>> +    if ( dom0 )
->>> +        return pci_passthrough_enabled || iommu_enabled;
+On 28.04.2025 10:09, Nicola Vetrini wrote:
+> On 2025-04-28 08:15, Jan Beulich wrote:
+>> On 25.04.2025 17:53, Nicola Vetrini wrote:
+>>> On 2025-04-25 10:07, Jan Beulich wrote:
+>>>> On 24.04.2025 23:45, Stefano Stabellini wrote:
+>>>>> On Thu, 24 Apr 2025, Jan Beulich wrote:
+>>>>>> On 23.04.2025 19:54, victorm.lira@amd.com wrote:
+>>>>>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>>>>
+>>>>>>> MISRA C Rules 21.1 ("#define and #undef shall not be used on a
+>>>>>>> reserved identifier or reserved macro name") and R21.2 ("A 
+>>>>>>> reserved
+>>>>>>> identifier or reserved macro name shall not be declared") 
+>>>>>>> violations
+>>>>>>> are not problematic for Xen, as it does not use the C or POSIX
+>>>>>>> libraries.
+>>>>>>>
+>>>>>>> Xen uses -fno-builtin and -nostdinc to ensure this, but there are
+>>>>>>> still
+>>>>>>> __builtin_* functions from the compiler that are available so
+>>>>>>> a deviation is formulated for all identifiers not starting with
+>>>>>>> "__builtin_".
+>>>>>>>
+>>>>>>> The missing text of a deviation for Rule 21.2 is added to
+>>>>>>> docs/misra/deviations.rst.
+>>>>>>>
+>>>>>>> To avoid regressions, tag both rules as clean and add them to the
+>>>>>>> monitored set.
+>>>>>>>
+>>>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>>>>> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+>>>>>>
+>>>>>> While the rule is in the library section, ...
+>>>>>>
+>>>>>>> --- a/docs/misra/deviations.rst
+>>>>>>> +++ b/docs/misra/deviations.rst
+>>>>>>> @@ -587,7 +587,31 @@ Deviations related to MISRA C:2012 Rules:
+>>>>>>>         construct is deviated only in Translation Units that 
+>>>>>>> present
+>>>>>>> a violation
+>>>>>>>         of the Rule due to uses of this macro.
+>>>>>>>       - Tagged as `deliberate` for ECLAIR.
+>>>>>>> -
+>>>>>>> +
+>>>>>>> +   * - R21.1
+>>>>>>> +     - Rule 21.1 reports identifiers reserved for the C and POSIX
+>>>>>>> standard
+>>>>>>> +       libraries. Xen does not use such libraries and all
+>>>>>>> translation units
+>>>>>>> +       are compiled with option '-nostdinc', therefore there is 
+>>>>>>> no
+>>>>>>> reason to
+>>>>>>> +       avoid to use `#define` or `#undef` on such identifiers
+>>>>>>> except for those
+>>>>>>> +       beginning with `__builtin_` for which compilers may 
+>>>>>>> perform
+>>>>>>> (wrong)
+>>>>>>> +       optimizations.
+>>>>>>> +     - Tagged as `safe` for ECLAIR.
+>>>>>>
+>>>>>> ... I'd like to ask that it be explicitly clarified here that it's
+>>>>>> solely
+>>>>>> the library (and not e.g. the compiler itself) that are of concern
+>>>>>> here.
+>>>>>
+>>>>> The language can be clarified:
+>>>>>
+>>>>> - Rule 21.1 reports identifiers reserved for the C and POSIX 
+>>>>> standard
+>>>>>   libraries. Xen does not use such libraries and all translation 
+>>>>> units
+>>>>>   are compiled with option '-nostdinc', therefore there is no reason
+>>>>> to
+>>>>>   avoid to use `#define` or `#undef` on C and POSIX standard 
+>>>>> libraries
+>>>>>   identifiers except for those beginning with `__builtin_` for which
+>>>>>   compilers may perform (wrong) optimizations.
+>>>>
+>>>> Which makes it more apparent that there is a gap: What about e.g.
+>>>> __x86_64__?
+>>>> That falls within what the rules cover, is not a C or POSIX standard
+>>>> library
+>>>> identifier, yet very clearly must not be fiddled with. Whereas the 
+>>>> text
+>>>> above deviates it.
+>>>
+>>> that is true, even if unlikely: one approach could be to avoid 
+>>> deviating
+>>> predefined macros for all CUs as -nostdinc and -fno-builtins should 
+>>> take
+>>> care of the rest; this kind of deviation is not currently possible in
+>>> ECLAIR, but it might be in the future.
 >>
->> As I think I said before - the function's name now no longer expresses
->> what it really checks. That (imo heavily) misleading at the use sites
->> of this function.
+>> Is this perhaps because by "all pre-defined macros" you really mean 
+>> _just_
+>> those, and not the entire reserved (for that purpose) sub-namespace? 
+>> Imo
+>> we should not go by what a particular compiler may pre-define (we may 
+>> even
+>> overlook something if we did it this way).
+>>
+>> Jan
+>>
 > 
-> I've spent some more time thinking about how to better deal with this. 
-> In the end, I think your earlier suggestion about introducing a new arch 
-> specific function is the best approach, but I want to agree on the 
-> naming before sending new patches. Would "arch_requires_pci_physdev" be 
-> an appropriate name in your opinion?
-> 
-> At the call sites it will look like this:
->      case PHYSDEVOP_pci_device_remove: {
->          struct physdev_pci_device dev;
-> 
->          if ( !is_pci_passthrough_enabled() && !arch_requires_pci_physdev())
->              return -EOPNOTSUPP;
+> I think there is a slight misalignment here: maybe I'm interpreting your 
+> answer incorrectly. Let me try to restate the proposal: the following 
+> identifiers are not allowed to be #define'd or #undef'd:
+> - __builtin_*
+> - for each CU, all macro identifiers already defined upon preprocessing 
+> that CU by the compiler invocation for that CU. This set of identifiers 
+> is always a subset of all the reserved identifiers, but is also 
+> dependent on the compiler invocation that is used for that CU, (e.g. 
+> __x86_64__ for an Arm target is usually safe to define, as it's 
+> typically not a predefined macro introduced by the compiler for that 
+> invocation,
 
-There are several questions that affect naming: Is it really "requires"? Is
-it really all PCI-related physdevops? Is the ordering of naming elements in
-line with what we use elsewhere (arch_ first is, but perhaps either pci or
-physdevop wants to move earlier)?
+No, it's not - elsewhere in the tree we may use this to distinguish
+architectures. Plus isn't Misra heavily about avoiding developer
+confusion? Defining __x86_64__ on Arm code is, imo, a pretty confusing
+thing to do.
+
+> while (re)defining __STDC_VERSION__ or __SIZEOF_INT__ will 
+> be a violation in any command line I can think of). Note that this is 
+> not a static set, but is based on what is determined to be predefined at 
+> the moment of the analysis, so it is not tied to what a particular 
+> compiler pre-defines.
+
+Right. Yet what I'm trying to get to is that we disallow _all_ such
+reserved identifiers, not just a subset.
 
 Jan
 
