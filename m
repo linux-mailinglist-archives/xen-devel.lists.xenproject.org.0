@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9918AA05A1
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 10:25:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971654.1360011 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB4C4AA05C2
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 10:28:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971666.1360020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9gGm-0000TU-27; Tue, 29 Apr 2025 08:24:48 +0000
+	id 1u9gKT-00011w-G6; Tue, 29 Apr 2025 08:28:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971654.1360011; Tue, 29 Apr 2025 08:24:48 +0000
+Received: by outflank-mailman (output) from mailman id 971666.1360020; Tue, 29 Apr 2025 08:28:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9gGl-0000Qv-VF; Tue, 29 Apr 2025 08:24:47 +0000
-Received: by outflank-mailman (input) for mailman id 971654;
- Tue, 29 Apr 2025 08:24:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=anwM=XP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1u9gGk-0000Qp-IU
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 08:24:46 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 68336aca-24d3-11f0-9eb4-5ba50f476ded;
- Tue, 29 Apr 2025 10:24:45 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5f5bef591d6so10961810a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 01:24:45 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
- [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-acec5d0d74esm96230666b.117.2025.04.29.01.24.43
+	id 1u9gKT-00010U-DQ; Tue, 29 Apr 2025 08:28:37 +0000
+Received: by outflank-mailman (input) for mailman id 971666;
+ Tue, 29 Apr 2025 08:28:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qXnC=XP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u9gKS-00010O-5E
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 08:28:36 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f0686591-24d3-11f0-9ffb-bf95429c2676;
+ Tue, 29 Apr 2025 10:28:34 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-ac2c663a3daso1123322266b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 01:28:34 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ace6e41c898sm740997366b.7.2025.04.29.01.28.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Apr 2025 01:24:44 -0700 (PDT)
+ Tue, 29 Apr 2025 01:28:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,296 +45,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68336aca-24d3-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: f0686591-24d3-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1745915085; x=1746519885; darn=lists.xenproject.org;
-        h=in-reply-to:from:cc:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IcRA9B58EQ4yRq0UrvtW1zz7O2QCmd28q/7mPCxeMbA=;
-        b=IWXuOBoogMq3C7p8nMQhdj3ic0abkd15nP5mqIm1mUp+aOeXnEJ8CKMMiDlfCjGfEI
-         G8pw9t2E74otIl2FDdL0F2hGg6VPz7TKX3cRXamOIxWYT6Lx36Oho2PMezAAHQSz07DZ
-         swON8VqqWkAB1r6R/yYCUFwuvCHtLpnHT//L6zNa+hYgpMiPk7+z1araTjjV5cAyNdid
-         WRCq/bqivlYQhDb8a5X3PLiMwhDOk/pDYa8OGcRcZetuSrAAW49nHbn9tkzLS09bKtnh
-         jTPsto1tChD384BwC4z/scwsOejsCn1ZgO6pLW1wUHPWJS6YdoxbjLd+yJ+w8kVc1byw
-         SdYA==
+        d=suse.com; s=google; t=1745915313; x=1746520113; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=kRtJrXRtQNjq41zHKBZdk2VUStOrxT5x02bWzd+spPw=;
+        b=Yvy0Qrir9m4ZNS7aKfX6qZLd79cFmF6SBgJmgkmAoqudTnY573jVXilRC99ydXw5zR
+         3UTWMhw/WybsADeEbqnb3IXUmKXs5NSeyMtM+m+5oLyx6bUhyivWl1iJgcs2Gq2FmWgC
+         K2LIH7ldgTGC8/5SpjcT10RmQr6HG4Vku3S27VDkwC+vyC8Gdmv121VwGzXUoRTlNppR
+         tSKzhVTcxR+M/YykJbNq9KbF/B2YoKrdJ4sSHFQMGmu3xE5ChC8MqBxI4Fj26VVIAuAH
+         acdOmwoKy3mPeq0UOxzOryib1mlupHYKgXGm5c6/50PtkG1H3SeiHQKHMwy16+n0sL/I
+         KatQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745915085; x=1746519885;
-        h=in-reply-to:from:cc:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=IcRA9B58EQ4yRq0UrvtW1zz7O2QCmd28q/7mPCxeMbA=;
-        b=tQUdAsZXiwwlgjS12dTuT7cEQ9DXWbg+JaMtNE01IfOsa2ko9OuV13MuQ3En16sY36
-         ujXmNPepQCqQdLPNXmvzWI4NYVfH6aYQHk+ze9PQs0dvmEeQCTIJT41skwDOXgAlmFd2
-         +0afBhhlpzyr/WAbVQIDq128dOsNC7DcM7IL2+e8eiM8zJ2K/PdlwatGeEc/ou+fKM0G
-         vSbf3Uya/U6b1my+OgiqJ5PMK1lg0TFEsaYx7Bw30dGF4tc2qIm0FXZozCRjOb1TTAXe
-         whmFNezqwY6ki/UcvXZS2TiG7/J9cNMoLTZIYOLfghLB6NTBKabIaPrfvtDJsbSJ/qFN
-         vfyQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWJ95BaNJMvPX8M01lgB8QG7+xuWDoPLf+bpsT8j1/WB4hN1EpT8Kv4YUIxzILKZPKRKZrnkCeMScw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwG63iIFXiUi1XYE979oUk1AL2nhsYzHzHypCUbEDkGx2XJdt/S
-	V8x00DnAj2OyPW/DPoM6cPw1/0lFIPpZUQt4WgfgDbUr8O7bMkMY
-X-Gm-Gg: ASbGncsnugWMU2gRgKbfon264CaRU2pyhnadHOWFkIa0iWCoTgP2J67wewDSeNhAFI4
-	OSPgl49dnL+K/NVvFwXeqmSOfTOb5nrY4wi2j0O39+E9S+mSGBf9BWpbsqoT5KZblYe3LFRZjss
-	KK+2nOOEAJzJaREzu1hbf1x4Y9OlHZBgChC4eJr7nmYuvOziuv+iTImiNzLjhAQ1z5qnlAHpk4z
-	QBGEFQHm5Z3FlxdjrJs+o1V+lQ28yYUpQWvE+efq5abKMfWAQi8HKPk4yCuwznJN3XUjYQnIb6o
-	O+/1X2D6vLRYlWHwqrfjP+utBMwL7wToh13FabxJF3ftWYM9qVlkpQKbJ7Xb8MxrfUQTNBakHbk
-	ciNF9iM5E8CEheM9i
-X-Google-Smtp-Source: AGHT+IEMxg/ug54EnEgtwuNJIkzOtnOiT9SwOL0cBdt3supRcUX1+utufoWkvAjPsWkzT6HPpSXy8Q==
-X-Received: by 2002:a17:907:971b:b0:ac6:ba4e:e769 with SMTP id a640c23a62f3a-acec69b1f38mr198847066b.35.1745915084429;
-        Tue, 29 Apr 2025 01:24:44 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------2pwKTKzVRn1xx9TkCB6ChiH7"
-Message-ID: <30f3cce3-60b9-480d-b89e-f9992f19cd5e@gmail.com>
-Date: Tue, 29 Apr 2025 10:24:43 +0200
+        d=1e100.net; s=20230601; t=1745915313; x=1746520113;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kRtJrXRtQNjq41zHKBZdk2VUStOrxT5x02bWzd+spPw=;
+        b=rUWLGvIYmbgDGckUYYQQqrMHP4J1Bx26bIOJkSQYY+LqWV4+0SYjS9R1nwBNS8/a8d
+         i+sKtIzsjEpDIdHwAWtrKRMr4UutTzahzeo2Vp3aWKheP4iwpxN8wGttce18I6KiNog3
+         jeXYAT+fVR91zljoNZawOiU745FrwbEw1IsuLEAl71nqVoMLAhw5Sbj7NF/mlODuhpD+
+         lZE3Ys35aVwsTnBWsHtzj00INTvLxtvl316oL5ajBU4zUO8PlMKZgMX7LTgAOugY5Ku0
+         F3YgS2F49o3EbR/2+oP8KXrZef9KUEcTt/SSzXBPk6lwNtCX4hINLCEFZirRFBKXQsGn
+         SZeQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX/zPC36gn38pYCCdrH1z+6dQYBMVgVzfIlK3hszxiCaMWDw8XWkHSuhvDr15NvCpC4j6JF+SEwIkI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyXfIJVYuJzuIS6hjfaJQfcysOpV5Wud6LLBWPgMCYD1LV0Mkt8
+	uygxvvo4XzQm+VUmpy3VAgk/2J1sirLzf7vgGl2AGe/KNki+930UvKZk0lKNww==
+X-Gm-Gg: ASbGncuzqznSnMlZnZRwUIxiPvXSm18JrsJG/NKvkM6jx9MhI17bWTQZFKoINs6CLdi
+	Y6Off5sHgSKHpPJcx5TRO3dK/pR6Pl1IU+It7RhF9iTe8hjsDPsqwWjMFbrcuZACCjc0ET5HxPC
+	ZAwDPQRmWeFKzQB9wMevRry8kQLWRWeWZuycTRULk0LDHvR74ob0zMHxSTKFvXF40OVs/deqmeS
+	im1NEHjMbkHxTmaMCvhIrPuZXUBxv7hCBg0ye9bxvWgqn49Y5xtaEKg0dCYNj98aP+RHR4T2iwP
+	PJph12MywIYJ58KvdIQ80WacHZQo1hkMbrVEfGIUxifzCmEKxZaiGrtqsOfe4zodKbEcMAYuMRV
+	lIXa2UDcLXVRSeavLPZIb1kGZow==
+X-Google-Smtp-Source: AGHT+IFlEDN+Ki0/yXOLa0FDjv2ebvA8TC/yfuPmrOLkSpmyHSw/U4nS07Rwz9GTpO6U0BdghczHTQ==
+X-Received: by 2002:a17:906:280c:b0:ace:bf94:2d2c with SMTP id a640c23a62f3a-acebf942f30mr346872366b.54.1745915313505;
+        Tue, 29 Apr 2025 01:28:33 -0700 (PDT)
+Message-ID: <77c9529e-8353-479f-994f-d6d668788374@suse.com>
+Date: Tue, 29 Apr 2025 10:28:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 08/14] xen/riscv: imsic_init() implementation
-To: Jan Beulich <jbeulich@suse.com>
-References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
- <09e0fcd64f97062441a68102ead520b818150fe9.1744126720.git.oleksii.kurochko@gmail.com>
- <78fa2ed0-57a2-4990-bc9c-8fa52e41420a@suse.com>
- <aadd8ccf-94f4-407e-8510-3640c6d43b31@gmail.com>
- <9a13c625-cd33-485d-a91f-9f005522b5a4@suse.com>
-Content-Language: en-US
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v3] x86/hyperv: use dynamically allocated page for
+ hypercalls
+To: Ariadne Conill <ariadne@ariadne.space>
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Romain Caritey <Romain.Caritey@microchip.com>
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <9a13c625-cd33-485d-a91f-9f005522b5a4@suse.com>
-
-This is a multi-part message in MIME format.
---------------2pwKTKzVRn1xx9TkCB6ChiH7
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Alejandro Vallejo <agarciav@amd.com>,
+ "Alexander M . Merritt" <alexander@edera.dev>, xen-devel@lists.xenproject.org
+References: <20250428195736.2516-1-ariadne@ariadne.space>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250428195736.2516-1-ariadne@ariadne.space>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 28.04.2025 21:57, Ariadne Conill wrote:
+> Previously Xen placed the hypercall page at the highest possible MFN,
+> but this caused problems on systems where there is more than 36 bits
+> of physical address space.
 
-On 4/16/25 8:31 AM, Jan Beulich wrote:
->>>> --- /dev/null
->>>> +++ b/xen/arch/riscv/include/asm/imsic.h
->>>> @@ -0,0 +1,66 @@
->>>> +/* SPDX-License-Identifier: MIT */
->>>> +
->>>> +/*
->>>> + * xen/arch/riscv/imsic.h
->>>> + *
->>>> + * RISC-V Incoming MSI Controller support
->>>> + *
->>>> + * (c) 2023 Microchip Technology Inc.
->>>> + */
->>>> +
->>>> +#ifndef ASM__RISCV__IMSIC_H
->>>> +#define ASM__RISCV__IMSIC_H
->>>> +
->>>> +#include <xen/types.h>
->>>> +
->>>> +#define IMSIC_MMIO_PAGE_SHIFT   12
->>>> +#define IMSIC_MMIO_PAGE_SZ      (1UL << IMSIC_MMIO_PAGE_SHIFT)
->>>> +
->>>> +#define IMSIC_MIN_ID            63
->>>> +#define IMSIC_MAX_ID            2048
->>>> +
->>>> +struct imsic_msi {
->>>> +    paddr_t base_addr;
->>>> +    unsigned long offset;
->>>> +};
->>>> +
->>>> +struct imsic_mmios {
->>>> +    paddr_t base_addr;
->>>> +    unsigned long size;
->>>> +    bool harts[NR_CPUS];
->>> An array of bool - won't a bitmap do here? Even then I wouldn't be overly
->>> happy to see it dimensioned by NR_CPUS.
->> Bitmap will fit here well. But for DECLARE_BITMAP() is necessary the size
->> of bitmap so NR_CPUS should be used again.
->> Could you please remind me why it isn't good to use it?
->> Because NR_CPUS not always equal to an amount of physical cpus?
-> "Not equal" wouldn't be overly problematic. But NR_CPUS=4000 and the actual
-> number of CPUs being 4 would be wasteful in general. More when its wider
-> than a bit that's needed per CPU, but where would you draw the line if you
-> permitted use of NR_CPUS here?
->
->> Should I use non-static version of bitmap declaration? (if we have such...)
-> That's simply "unsigned long *" then, or - at the tail of a dynamically
-> allocated struct - possibly unsigned long[].
->
->>>> +};
->>>> +
->>>> +struct imsic_config {
->>>> +    /* base address */
->>>> +    paddr_t base_addr;
->>>> +
->>>> +    /* Bits representing Guest index, HART index, and Group index */
->>>> +    unsigned int guest_index_bits;
->>>> +    unsigned int hart_index_bits;
->>>> +    unsigned int group_index_bits;
->>>> +    unsigned int group_index_shift;
->>>> +
->>>> +    /* imsic phandle */
->>>> +    unsigned int phandle;
->>>> +
->>>> +    /* number of parent irq */
->>>> +    unsigned int nr_parent_irqs;
->>>> +
->>>> +    /* number off interrupt identities */
->>>> +    unsigned int nr_ids;
->>>> +
->>>> +    /* mmios */
->>>> +    unsigned int nr_mmios;
->>>> +    struct imsic_mmios *mmios;
->>>> +
->>>> +    /* MSI */
->>>> +    struct imsic_msi msi[NR_CPUS];
->>> You surely can avoid wasting perhaps a lot of memory by allocating this
->>> based on the number of CPUs in use?
->> It make sense. I'll allocate then this dynamically.
-> Or, as per above, when put at the tail and the struct itself is
-> dynamically allocated, use struct imsic_msi[]. We even have dedicated
-> xmalloc() flavors for this kind of allocation.
+Hmm, I should have asked already on the earlier version: What kinds of
+problems are these, beyond ...
 
-Do you mean xzalloc_flex_struct()?
+> In general, it also seems unreliable to assume that the highest possible
+> MFN is not already reserved for some other purpose.
 
-I think, I can't use for both of the cases (allocation of mmios and msi).
-For msi[] then it is needed to allocate imsic_config also dynamically, isn't it?
-So something like:
-  imsic_config = xzalloc_flex_struct(struct imsic_config, msi, NR_CPUS).
-But now it is allocated statically.
+... this particular aspect? I find it puzzling that such problems would
+depend on the number of physical address bits.
 
-For *mmios and harts[] (a member inside struct imsic_mmios):
-   mmios = xzalloc_flex_struct(struct imsic_mmios, harts, NR_CPUS); // NR_CPUs just for example...
-It will allocate only one mmios, but it is needed mmios[nr_mmios].
-Maybe, something like _xmalloc((offsetof(struct imsic_mmios, harts[NR_CPUS])) * NR_CPUS, sizeof(struct imsic_mmios)) will work.
-
-Am I missing something?
-
-~ Oleksii
-
---------------2pwKTKzVRn1xx9TkCB6ChiH7
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/16/25 8:31 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:9a13c625-cd33-485d-a91f-9f005522b5a4@suse.com">
-      <pre class="moz-quote-pre" wrap=""><blockquote type="cite"
-      style="color: #007cff;"><blockquote type="cite"
-      style="color: #007cff;"><blockquote type="cite"
-      style="color: #007cff;"><pre wrap="" class="moz-quote-pre">--- /dev/null
-+++ b/xen/arch/riscv/include/asm/imsic.h
-@@ -0,0 +1,66 @@
-+/* SPDX-License-Identifier: MIT */
-+
-+/*
-+ * xen/arch/riscv/imsic.h
-+ *
-+ * RISC-V Incoming MSI Controller support
-+ *
-+ * (c) 2023 Microchip Technology Inc.
-+ */
-+
-+#ifndef ASM__RISCV__IMSIC_H
-+#define ASM__RISCV__IMSIC_H
-+
-+#include &lt;xen/types.h&gt;
-+
-+#define IMSIC_MMIO_PAGE_SHIFT   12
-+#define IMSIC_MMIO_PAGE_SZ      (1UL &lt;&lt; IMSIC_MMIO_PAGE_SHIFT)
-+
-+#define IMSIC_MIN_ID            63
-+#define IMSIC_MAX_ID            2048
-+
-+struct imsic_msi {
-+    paddr_t base_addr;
-+    unsigned long offset;
-+};
-+
-+struct imsic_mmios {
-+    paddr_t base_addr;
-+    unsigned long size;
-+    bool harts[NR_CPUS];
-</pre></blockquote><pre wrap="" class="moz-quote-pre">An array of bool - won't a bitmap do here? Even then I wouldn't be overly
-happy to see it dimensioned by NR_CPUS.
-</pre></blockquote><pre wrap="" class="moz-quote-pre">Bitmap will fit here well. But for DECLARE_BITMAP() is necessary the size
-of bitmap so NR_CPUS should be used again.
-Could you please remind me why it isn't good to use it?
-Because NR_CPUS not always equal to an amount of physical cpus?
-</pre></blockquote><pre wrap="" class="moz-quote-pre">"Not equal" wouldn't be overly problematic. But NR_CPUS=4000 and the actual
-number of CPUs being 4 would be wasteful in general. More when its wider
-than a bit that's needed per CPU, but where would you draw the line if you
-permitted use of NR_CPUS here?
-
-</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
-      class="moz-quote-pre">Should I use non-static version of bitmap declaration? (if we have such...)
-</pre></blockquote><pre wrap="" class="moz-quote-pre">That's simply "unsigned long *" then, or - at the tail of a dynamically
-allocated struct - possibly unsigned long[].
-
-</pre><blockquote type="cite" style="color: #007cff;"><blockquote
-      type="cite" style="color: #007cff;"><blockquote type="cite"
-      style="color: #007cff;"><pre wrap="" class="moz-quote-pre">+};
-+
-+struct imsic_config {
-+    /* base address */
-+    paddr_t base_addr;
-+
-+    /* Bits representing Guest index, HART index, and Group index */
-+    unsigned int guest_index_bits;
-+    unsigned int hart_index_bits;
-+    unsigned int group_index_bits;
-+    unsigned int group_index_shift;
-+
-+    /* imsic phandle */
-+    unsigned int phandle;
-+
-+    /* number of parent irq */
-+    unsigned int nr_parent_irqs;
-+
-+    /* number off interrupt identities */
-+    unsigned int nr_ids;
-+
-+    /* mmios */
-+    unsigned int nr_mmios;
-+    struct imsic_mmios *mmios;
-+
-+    /* MSI */
-+    struct imsic_msi msi[NR_CPUS];
-</pre></blockquote><pre wrap="" class="moz-quote-pre">You surely can avoid wasting perhaps a lot of memory by allocating this
-based on the number of CPUs in use?
-</pre></blockquote><pre wrap="" class="moz-quote-pre">It make sense. I'll allocate then this dynamically.
-</pre></blockquote><pre wrap="" class="moz-quote-pre">Or, as per above, when put at the tail and the struct itself is
-dynamically allocated, use struct imsic_msi[]. We even have dedicated
-xmalloc() flavors for this kind of allocation.</pre></pre>
-    </blockquote>
-    <pre><pre>Do you mean xzalloc_flex_struct()?
-</pre><pre>I think, I can't use for both of the cases (allocation of mmios and msi).
-For msi[] then it is needed to allocate imsic_config also dynamically, isn't it?
-So something like:
- imsic_config = xzalloc_flex_struct(struct imsic_config, msi, NR_CPUS).
-But now it is allocated statically.
-
-For *mmios and harts[] (a member inside struct imsic_mmios):
-  mmios = xzalloc_flex_struct(struct imsic_mmios, harts, NR_CPUS); // NR_CPUs just for example...
-It will allocate only one mmios, but it is needed mmios[nr_mmios].
-Maybe, something like _xmalloc((offsetof(struct imsic_mmios, harts[NR_CPUS])) * NR_CPUS, sizeof(struct imsic_mmios)) will work.
-
-Am I missing something?
-
-~ Oleksii</pre></pre>
-  </body>
-</html>
-
---------------2pwKTKzVRn1xx9TkCB6ChiH7--
+Jan
 
