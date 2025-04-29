@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98061AA03B6
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 08:48:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971566.1359951 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1F26AA040A
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 09:07:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971579.1359960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9eld-00068H-77; Tue, 29 Apr 2025 06:48:33 +0000
+	id 1u9f3A-0001rb-MR; Tue, 29 Apr 2025 07:06:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971566.1359951; Tue, 29 Apr 2025 06:48:33 +0000
+Received: by outflank-mailman (output) from mailman id 971579.1359960; Tue, 29 Apr 2025 07:06:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9eld-00065F-4V; Tue, 29 Apr 2025 06:48:33 +0000
-Received: by outflank-mailman (input) for mailman id 971566;
- Tue, 29 Apr 2025 06:48:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u9f3A-0001oe-Jd; Tue, 29 Apr 2025 07:06:40 +0000
+Received: by outflank-mailman (input) for mailman id 971579;
+ Tue, 29 Apr 2025 07:06:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qXnC=XP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9elb-000659-Ly
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 06:48:31 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f628967a-24c5-11f0-9eb4-5ba50f476ded;
- Tue, 29 Apr 2025 08:48:30 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-acbb85ce788so1088633566b.3
- for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 23:48:30 -0700 (PDT)
+ id 1u9f39-0001oY-3C
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 07:06:39 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7d379de3-24c8-11f0-9ffb-bf95429c2676;
+ Tue, 29 Apr 2025 09:06:36 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-ac339f53df9so1079853266b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 00:06:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace6ed6fc25sm735438966b.132.2025.04.28.23.48.29
+ a640c23a62f3a-ace6e4e699esm736062266b.39.2025.04.29.00.06.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Apr 2025 23:48:29 -0700 (PDT)
+ Tue, 29 Apr 2025 00:06:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f628967a-24c5-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 7d379de3-24c8-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745909310; x=1746514110; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745910396; x=1746515196; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Zh8fXfdEy0ung0RkzV6wSql/dzQEHSRxarD60SXNHEU=;
-        b=XB3qciUem2kV7vQb6alAFqH5Gm3p3CKIlHJvB1hIxQ0ht5tra2gLYQFCKoATVEOQdc
-         Fvh1Cd1JZlFVkqrmpbJZSg5byZXoo338po0IWrXS9E8xUp+n5Ypadm45rnerafJmMkZB
-         DnRRPE6rVJuckQ4h3A7JPoOZrf0TPIWTX4V2xuuZU3jYtWLt2MG3POLhZNxEJxbMoUeD
-         /tuAs0ibhbEvMQB86glBz4ovh6M4Is82ja5C1IUoV+tPAud3uX1b3xg7ZqYu5wuIiFYd
-         i30TQuPrdNmhY8+gipmYMLiBv73NGdCfBOwYhVR00ZBbe1ww+s///Lzfev01gIc3+fwe
-         qDjQ==
+        bh=mYNYtrCkK+42NGLSjpl4eAsXP2XrUSMuSGxOV8Aylpc=;
+        b=NikVEVvmb7PAizYnr5s36vyY8Fpb8zFzfykP9zjLQGp4tKXW2vPDetlO/b0/m3S8f4
+         fkVIGKQQawIocPwC3ErihAOQ5cErfuvhexQVYO1GHvx6FSh26FFqZlgUPFB9EfI6KDWO
+         I8/HB9kQGhm9g6ZwDWk7c2ivZpCqxXGfgEfgNrTvSezdrROLUpb55U3r2oa2qsncmho7
+         fbjYs4oNtiYAajvkWFLbx8Tr9o095Jnxc8i3G7x1FuT/plyaMFeym9+it0ED+taizudW
+         Z4CAzIGEFbWI9YNNNF5FJmU3d27mjuSe7xhlJX3dqPj78XQRkvMK07YMectZiq2eNOMg
+         hhRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745909310; x=1746514110;
+        d=1e100.net; s=20230601; t=1745910396; x=1746515196;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Zh8fXfdEy0ung0RkzV6wSql/dzQEHSRxarD60SXNHEU=;
-        b=mSBzO2fDqOSIF1b1gTzAHgQb/gRaxuGjZ+ntRqz1HtV5g4ZV8MoYrd/AOoFgkNFQ87
-         WOMzF7xHgR4esDn3Eax89d8QyM0njWU1dvYjLnovpzcr76SUyDpjCYW1TK4bPKI32eI2
-         RLTP8Kr/xLKrn5YUmWO6oiNcNumMt1PoEC/gjmJeefP8EklDn9HiRPb/FSDvwZ3nniRF
-         alvkAYHmken1jUNSUGTSjEYYnDOoq10wz5duXu6vV0JXGlxhvv69Yfh97htPjmvBFGj0
-         ynjoYW/p0DRqTLjUFA+bxr8CSasVwBddnmoaQlg4pcp/xksFwOR3L+Ua9R5k/aMRDWiZ
-         yyTQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU5Q+4VRuFck0HF8W3fRojFjJ6QEU0PHwx/0dbBg/K+Ow6rM8b3rBjXk8tHNSSa1cDdKUhQyI34v0I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxiKZVUPLysCp5soPlFRigZxS3UCOeOzrln3DzobkyBpaGtJPGH
-	KQ/xfvvufcTn8JZnpanKEg/8f3Up15ScOuzsPD4TDXbRHR/AqA2jhpAUDkqQ+g==
-X-Gm-Gg: ASbGncvYbdEoyXsfp4+Mdp+CW1Aa41qSrrN8x3rUXSEJSqKVg4zixNtI/ve3G0QK/Dx
-	DLEwU+OQD3kS9sGMWy1fe1K5/KQUCSGjLKbR3ZnmgixFI7b0Qx/Lyu30E7hqBDfEuOksXYGYuVv
-	XVIZ+tWTx0iCDdE5mJITkekuSpZzgz9jNp7CZVx7eO0+xrzhmRnccZck1aIbEDaflsdflx6ALMX
-	yYpWKvYslS/PU3RmsmAtSGLh1Ve6KHsc9G7LnnfTNKcNiK9yHGR8ZMu+TUSIQwz+1pARUmnE6T+
-	Gva0fTp30UiYz/dNQcYV3GF4WOHgF1jF+zAWAZKwc7/W0BL3HHQpClF78e3Q64t9OQKHWYLxkhi
-	7ZUQauSn+6LhaAd4JITYVyBiZSQ==
-X-Google-Smtp-Source: AGHT+IF1QRq/4pd2TkNuM5NDgzLS9HMCM1lbOkNjK+I5FdeR84gJ4enSi3iwxCH18di7BOUT2W77Fg==
-X-Received: by 2002:a17:907:d8c:b0:ac1:f003:be08 with SMTP id a640c23a62f3a-acec849b8fdmr145768666b.12.1745909310087;
-        Mon, 28 Apr 2025 23:48:30 -0700 (PDT)
-Message-ID: <350d447e-7316-4d54-8468-68f78675cc8d@suse.com>
-Date: Tue, 29 Apr 2025 08:48:28 +0200
+        bh=mYNYtrCkK+42NGLSjpl4eAsXP2XrUSMuSGxOV8Aylpc=;
+        b=pv5169PqjA0kOnHyo18dsUB5Wy41tzml7AhI+K2dgY+7CWIQCTNoVPZUqD04LRlHMM
+         znBdJG9yzmDfrgySxyQOjNks4PjnkTU+Omjtp/5nIfewm4zW/cviOA1cG3C+36iLuNbI
+         8gATMExfhC+RGUjASzBh7uuZey7O0bXhuK2FDR3f4NDT0WpAjSZYq1gQPNlMho0mMpOe
+         uUVMFXW7udQW3oHvVhA3lrYa7nGXbUQ9FyseMmCv+37bbGkCw4I4KJuJ+uCWPqw9P/wc
+         NRZp0qiy5hLjjx0EXroMW8Spj7KA6x7UbAKlhDwL6kNkS5w1DILCfvs7IIoORwaqZuql
+         +PAA==
+X-Forwarded-Encrypted: i=1; AJvYcCUShLHM++yETk/ioa3/NcE/uaGIAoRWmnJX2zAfMdfoi0qVK/aaX1rqw8Z1GIz0mIlnLe7YqZhoSoA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwzYNaD8JkS8LsfDCUhsDwD9ThtzA2y0QicpEk5tZCzi95i424M
+	BNs12v+/LlFXIitejK9Edu9bHCeA5GkxIfWJATyX9zIF9F6IEpLe2IJB79cX/elbkrXwObKnzvU
+	=
+X-Gm-Gg: ASbGnctE67f5Mb7hGjcfLwUy49EnCzziOnNFTfumVFXJ1mufA9d+MJqCJdR71FnU/Gv
+	+F+rA6aaIO/obKQ1PmY4KpeOrUhWk/v59PApTdIqK9f9ymKuP/h5q/gPZU10C9OOp3QXW/VEauG
+	40REgziJV8ITNijvgKQHxsT5IzNjMPfc0qo0oi/Fgq/51i9XCkedTQki7nLUbcYCoME+TkChDh1
+	tbPghecl06Nvuz/PHIcE5G0IEv66S11vPONDDICdPCN4xZH2EIi19/rZnYCY4ltmMZJhQxnNu8k
+	r5KU0nzshQNosNxAtwOr5+ZKd+zexGCyEaOi1et3DN7lLnaCjkKs/KhK4WIWQQrK6dMmnxTt/Xf
+	8Yr3uMMovn4AOW1uKZN5G4Y3wwg==
+X-Google-Smtp-Source: AGHT+IFctKkKZDsWsIiOn2YRf5v+ET3OgJLStKEj705bdBdCe/xIBh5Gyaj2HCAUi+lwwTQ3X94uJw==
+X-Received: by 2002:a17:907:72ca:b0:ac8:197f:3ff6 with SMTP id a640c23a62f3a-ace8493ad90mr1131587366b.28.1745910396326;
+        Tue, 29 Apr 2025 00:06:36 -0700 (PDT)
+Message-ID: <dc55282f-f9a1-470b-8126-ca347d44efbc@suse.com>
+Date: Tue, 29 Apr 2025 09:06:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] x86: x86_emulate: address violations of MISRA C
- Rule 19.1
+Subject: Re: [PATCH v1 2/3] compat: address violations of MISRA C Rule 19.1
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: victorm.lira@amd.com, Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Federico Serafini <federico.serafini@bugseng.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
 References: <c694069696dd428bc1719e36c378a573b03f74b9.1745624090.git.victorm.lira@amd.com>
- <914e3157-736a-4890-9c91-e93fcc260bb0@suse.com>
- <alpine.DEB.2.22.394.2504281625240.785180@ubuntu-linux-20-04-desktop>
+ <74b0420ab20fc0204db14c0a1a4a68ed48b25a38.1745624090.git.victorm.lira@amd.com>
+ <cb1f8a8f-8834-4610-baab-c53bf5928b0c@suse.com>
+ <alpine.DEB.2.22.394.2504281614020.785180@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,81 +126,104 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2504281625240.785180@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2504281614020.785180@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.04.2025 03:27, Stefano Stabellini wrote:
+On 29.04.2025 01:21, Stefano Stabellini wrote:
 > On Mon, 28 Apr 2025, Jan Beulich wrote:
 >> On 26.04.2025 01:42, victorm.lira@amd.com wrote:
 >>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 >>>
 >>> Rule 19.1 states: "An object shall not be assigned or copied
 >>> to an overlapping object". Since the "call" and "compat_call" are
+>>> fields of the same union, reading from one member and writing to
+>>> the other violates the rule, while not causing Undefined Behavior
+>>> due to their relative sizes. However, a dummy variable is used to
+>>> address the violation and prevent the future possibility of
+>>> incurring in UB.
 >>
->> Was this taken from patch 2 without editing?
+>> If there is such a concern, ...
 >>
->>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
->>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
->>> @@ -526,9 +526,19 @@ static inline void put_loop_count(
->>>           */                                                             \
->>>          if ( !amd_like(ctxt) && mode_64bit() && ad_bytes == 4 )         \
->>>          {                                                               \
->>> +            uint64_t tmp;                                               \
->>> +                                                                        \
->>>              _regs.r(cx) = 0;                                            \
->>> -            if ( extend_si ) _regs.r(si) = _regs.esi;                   \
->>> -            if ( extend_di ) _regs.r(di) = _regs.edi;                   \
->>> +            if ( extend_si )                                            \
->>> +            {                                                           \
->>> +                tmp = _regs.esi;                                        \
->>> +                _regs.r(si) = tmp;                                      \
->>> +            }                                                           \
->>> +            if ( extend_di )                                            \
->>> +            {                                                           \
->>> +                tmp = _regs.edi;                                        \
->>> +                _regs.r(di) = tmp;                                      \
->>> +            }                                                           \
+>>> --- a/xen/common/compat/multicall.c
+>>> +++ b/xen/common/compat/multicall.c
+>>> @@ -15,8 +15,13 @@ typedef int ret_t;
+>>>  static inline void xlat_multicall_entry(struct mc_state *mcs)
+>>>  {
+>>>      int i;
+>>> +    xen_ulong_t arg;
+>>> +
+>>>      for (i=0; i<6; i++)
+>>> -        mcs->compat_call.args[i] = mcs->call.args[i];
+>>> +    {
+>>> +        arg = mcs->call.args[i];
+>>> +        mcs->compat_call.args[i] = arg;
+>>> +    }
+>>>  }
 >>
->> See commit 7225f13aef03 for how we chose to address similar issues elsewhere
->> in the emulator. I think we want to be consistent there. This will then also
->> eliminate ...
+>> ... wouldn't it be of concern as well that the alternating parts of
+>> the union are still accessed in a flip-flop manner? IOW we continue to
+>> rely on the relative placement properties of the individual array
+>> elements. To eliminate such a concern, I think the resulting code would
+>> also want to be correct if iteration was swapped to work downwards.
 >>
->>> @@ -2029,7 +2039,12 @@ x86_emulate(
->>>          switch ( op_bytes )
->>>          {
->>>          case 2: _regs.ax = (int8_t)_regs.ax; break; /* cbw */
->>> -        case 4: _regs.r(ax) = (uint32_t)(int16_t)_regs.ax; break; /* cwde */
->>> +        case 4:
->>> +            {
->>> +                uint32_t tmp = (uint32_t)(int16_t)_regs.ax;
->>> +                _regs.r(ax) = tmp;
->>> +                break; /* cwde */
->>> +            }
->>
->> ... the odd brace placement here, as well as the inconsistency in the types
->> you used for the temporary variables (both really could have been unsigned
->> int; no need for a fixed-width type).
+>> Also the scope of the temporary could certainly be the loop body rather
+>> than the entire function.
 > 
-> Is this what you have in mind?
+> Wouldn't be safer to do this then?
+> 
+> static inline void xlat_multicall_entry(struct mc_state *mcs)
+> {
+>     int i;
+>     xen_ulong_t args[6];
+> 
+>     for ( i = 0; i < 6; i++ )
+>     {
+>         args[i] = mcs->call.args[i];
+>     }
+>     for ( i = 0; i < 6; i++ )
+>     {
+>         mcs->compat_call.args[i] = args[i];
+>     }
+> }
+> 
+> If you have any specific suggestions I think C code would be easier to
+> understand than English.
 
-No, and that's also not what the referenced commit did in a similar situation.
+Kind of the above, yes, with the further remark below also taken care of.
+So ...
 
-> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
-> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-> @@ -527,8 +527,8 @@ static inline void put_loop_count(
->          if ( !amd_like(ctxt) && mode_64bit() && ad_bytes == 4 )         \
->          {                                                               \
->              _regs.r(cx) = 0;                                            \
-> -            if ( extend_si ) _regs.r(si) = _regs.esi;                   \
-> -            if ( extend_di ) _regs.r(di) = _regs.edi;                   \
-> +            if ( extend_si ) _regs.r(si) = (uint64_t)_regs.esi;         \
-> +            if ( extend_di ) _regs.r(di) = (uint64_t)_regs.edi;         \
+>> I also don't think it needs to be xen_ulong_t,
+>> but maybe using unsigned int instead wouldn't make a difference in
+>> generated code.
+> 
+> Keeping the same type as mcs->call.args[i] would seem more obviously
+> correct? Not to mention that unsigned long is what we defined as
+> register type? If we really want to avoid xen_ulong_t, then it should
+> be uintptr_t?
+> 
+> We should stick to one type to be used as register type. On ARM, we
+> defined register_t.
 
-            if ( extend_si ) _regs.r(si) = (uint32_t)_regs.r(si);       \
-            if ( extend_di ) _regs.r(di) = (uint32_t)_regs.r(di);       \
+... with both taken into account e.g.:
 
-After all what the rule requires is that we use _the same_ field on both sides.
+    typeof(mcs->compat_call.args[0]) args[ARRAY_SIZE(mcs->call.args)];
+
+    for ( i = 0; i < ARRAY_SIZE(args); i++ )
+        args[i] = mcs->call.args[i];
+
+    memcpy(mcs->compat_call.args, args, sizeof(args));
+
+Of course there are variations possible. There also may want to be a
+BUILD_BUG_ON() to "document" both array sizes match, even if the compat
+form is auto-generated from the native one.
+
+Tangential: As of 2f531c122e95 ("x86: limit number of hypercall parameters
+to 5") it's kind of bogus that we process 6 array elements here. This even
+extends to an assertion in hypercall_xlat_continuation() and to some of
+the handling in hypercall_create_continuation(). I guess I will want to
+make a patch there, which of course I could make cover the Misra aspect
+here as well.
 
 Jan
 
