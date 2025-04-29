@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCCD7AA0501
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 09:51:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971611.1359981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86B75AA0552
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 10:16:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971626.1359990 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9fjs-00021F-0c; Tue, 29 Apr 2025 07:50:48 +0000
+	id 1u9g85-0006Kn-U6; Tue, 29 Apr 2025 08:15:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971611.1359981; Tue, 29 Apr 2025 07:50:47 +0000
+Received: by outflank-mailman (output) from mailman id 971626.1359990; Tue, 29 Apr 2025 08:15:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9fjr-0001zn-U4; Tue, 29 Apr 2025 07:50:47 +0000
-Received: by outflank-mailman (input) for mailman id 971611;
- Tue, 29 Apr 2025 07:50:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u9g85-0006JL-RX; Tue, 29 Apr 2025 08:15:49 +0000
+Received: by outflank-mailman (input) for mailman id 971626;
+ Tue, 29 Apr 2025 08:15:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xSZn=XP=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1u9fjq-0001zf-0y
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 07:50:46 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9e7a6fd0-24ce-11f0-9ffb-bf95429c2676;
- Tue, 29 Apr 2025 09:50:29 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id F0C294EE7DBB;
- Tue, 29 Apr 2025 09:50:28 +0200 (CEST)
+ <SRS0=b72w=XP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1u9g84-0006JF-0f
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 08:15:48 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 26f2f2ab-24d2-11f0-9eb4-5ba50f476ded;
+ Tue, 29 Apr 2025 10:15:46 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43cf06eabdaso50304125e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 01:15:46 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4409d2ac079sm180769485e9.18.2025.04.29.01.15.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Apr 2025 01:15:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,152 +44,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e7a6fd0-24ce-11f0-9ffb-bf95429c2676
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1745913029;
-	b=wYLfzK+NGu6oI0rPoXMmmmyqpfvxxMSUSL7lDVkE16OdZX18yY8Gw8nVE+quOVaSKxU/
-	 OKBHDCTyQyrSathGcG7S5p4JZvl7kh6A00I1SpWDL2//QD7Dl9Fc2LiBeY2FYPoDneMfw
-	 QsKGW8K11Yp+PPIUt8v79Gcwry5GFz6aNfIcJY016uPZZU9kQFPCIo3KpyE6XYzwRPBs2
-	 bkFDLi8vy6HNu7X21sUIvhKqk/Mq7mF6VXjTj/yZoHIXeIBOEV97NOZj93xe4TEKkD2ul
-	 oyXd9kzPyRED6FEwwzJAsDH9bfp/2blqW4pG545gteyRE5CGMzaSSR/cB9f7WdzOzhFBo
-	 MEcgPxF+U4ntaoO+XT5/M0ghvNIVl34mlp+ippWe081cNctVGhQDtQusI1RVkxuYrpS+P
-	 MaYNJneMiILPYtO+lbQKXBJHqClCFnNPKQghvyITifoSp9RYiNKqVToN3zbI6VVJuuHy+
-	 pguCZdesxfLL3G04Ffl1xcb0NVZ4+HQdL5ryvtwOJnITwIuGDM4O021TrSA6OayC0xtAu
-	 3FkFb5b671Ud7kJ/mldej9JyWUy0Xk7Pz1eH4l3VTA3gwK++EfQkXqqa8kkeQMDkq/4Qr
-	 qLzf6ntzaEtlvfuFY7hIFiuG3lbCw9kWWbsp8t+JxScx8FKZiC6B5C/ihKZRhJg=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1745913029;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dfQkVeQtYBR6c6mjprnMsWp4BBYQ4wtaicbiZTIhdfM=;
-	b=mnr/JRtoy8qWTc9/eRIwhBW9smNqhgDdW/a8amCLEOQy0RNbI3/PXtbChXif3bg3pp/U
-	 Gh5WozrdZAKoqtnK74EU8gBrpMPFbYqYC0XYddTBSdlYitIhz9jJURO/TUuiR47geA6rk
-	 xev2ByxZFVkcS8JKXtJWmb5hC4DlIZPEy1zCfOgUGM+695jWq3mmGtuhC98ykUtlVP0GR
-	 WG3YpLt9tA/8rw2GatEqm7dW1bf8pyZRsm8IbmJHt0qZH9zWzNB6o1YC3jaMWf9M80v5D
-	 tpt3BFmvnORDvFwlBumbtmhAdnKaAuQ/o1XK2tO4ZXxZ53bQK8Ma7wvfTNNg+mx8Dv78z
-	 dVpkO/QMzq1NSUzVg45ml1OI4iIL8Fo7oTK8bLY+Ka7r1yo/UQcqixxnV445zgKrzRk+L
-	 yrwWZRfYHrHmfWpLbU5L8wWbamaXoO/axNoWYOu3XWNhpBs362WUgieD2VTl/ifMzkINI
-	 JAsFcH6KSJ4Qs4iQ092oiMsFEdQxWNRm8FfOCg9mjm49Wxzl760DTVX8h5KHEwyrsYDSe
-	 +wcYhV70/L+0DOXLT8TsALarrnNfaxUC3sHNsEaBOByg4kpqYqD4RTZ3pymRig/rsrVNV
-	 jRyqA1erDa4vQWxD8lBSUqeit8ZcP5/ohWa4CCXfUYNUJvz7beWfSsOCG35xIOg=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1745913029; bh=MNT792OGS7D4sRl6D+yIBxg/CLXU9bB9FPndNVr1uIs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=FW4Glfufex+S7rP7yEUuasDkRgplwu3OKqKvqkQw/iwzFoEmTZdNwg/u4EDhbs694
-	 OLLWcd9+u3s1VTVV8k4dziebFmLdrJvrUWERj1EDVM99gCGEhJaiuxPsrtWSkDukl7
-	 9fLACpp9epEuZ6M5F4KYGWAUDzvXbm0GzOC0bp4xwi+qmzxROK0QQMcH7AdBkDIChv
-	 +B3C91v2BX/DAccOaXAF2jaHXE0tfuwAjk+G5cwZT6ozKgwiTd++DF22mr+re4S+4z
-	 tYoGF+8Uqxw0VJjuV2mYUyCW6ucqJP5xL84t5OCs3zdIyOJm3EgrayJF9eJO5va6wX
-	 g4X4ZNKO57DXg==
+X-Inumbo-ID: 26f2f2ab-24d2-11f0-9eb4-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1745914546; x=1746519346; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=mt/hBtYcqb8jtbnsfP7wWhfKvH9xH3CJMA9BbdB5H2c=;
+        b=dAMtzNyMEPvEZFww8gOb3RA8tpFnHiKi1MB3/hEtqRXa/KCPs9icpjQkfP/uujs3Hr
+         D8wVDkY8vE+U5IGqqlqf5TYVVWJkvHIDcC5/ClbQ2ImN1kPp20rG6sUKrHZI/2VFWNCV
+         /N/CAsRyonXywdImfUCr/2cXRpTPt2rRFOBQU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1745914546; x=1746519346;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=mt/hBtYcqb8jtbnsfP7wWhfKvH9xH3CJMA9BbdB5H2c=;
+        b=MttmOlo0VHlX/mt+B9+OueO4nSvc+U85LVdLjUI89V1hrmbMp6c6wjJK7yMh5hL+AE
+         ZeM1a1W/FYUlNpuqZy7kXmFhzeUmjfuxuRGopChJiaZp/NgquIASchN1oKuyGIkX+xDj
+         39MbTuci4XPsT+iGgBK94dBwXQtSneUFbMBLSRGOkDFnKnuFVANEr6tQPDUXS26kGtU+
+         DRjpGZ68BSUOPXv9QrnwDbSjQEpBKIHYe8pHOSS6n115Kj44xnAJ5IVX4wsnbOBPG+xj
+         7K0Vl2KKGt7GkaYloLbj4kMXzzfXsYdpeaXtdrMttx0equAEuMDTIuxfNUhNJ7//pRd2
+         tKAw==
+X-Forwarded-Encrypted: i=1; AJvYcCW5lAisOXSdzbt6kuTVwvAIwEtl9Cs8fHkUQBC7YWYYZS57LNBhe88uELzfhfIf6nR3eeJglTnAC0M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwTZy8bAQahZjGXbQaq5LzzfyRd3g8sS1cM0iwdEOds+Uu3RGdt
+	xSUeWZHwU60a+dVmpEczk7yi7dugHtziplcEp8GQqZd31gmMPesV/dCi6IGqRXA=
+X-Gm-Gg: ASbGncuP4QLgFdOOpHuOQWAit7qP+LEZ8/kl9Ey2O83+O9sIuNjIjZtUuJeg0G0ZmxR
+	tRGGhPr5/RJIpo8T8ZGt+B7CDgq/NOW2coR+qtveXjJZw02/Yc9vkbxKc2renzDfXD7m98lAbCi
+	0Z4waZFwFiERTnqVlG7xN8hJpU8MFBSNkQT6rdnhEk047I9XGtT6NeIWFk0XpJyeHwp8Q+2JM9M
+	pnbRSfKdDX5b2+6XGZ2yfFEL8FSPcTySuqFAVl46JoO/DX1jecVljc9jug9KJo07xGZd0ytGSUE
+	oJ9sOTvV0LcLk37yxeOneASErfFyClxvQ1R3cxuTUgDUaA==
+X-Google-Smtp-Source: AGHT+IG6FmMrBiOmcA27X7h8iXp74P4QNyIxzImad7cBVXSsHNg5mAYXDn9H/vjX+ZnVhZ307LKNbg==
+X-Received: by 2002:a05:600c:46cf:b0:439:9424:1b70 with SMTP id 5b1f17b1804b1-440ab871770mr108740695e9.30.1745914545836;
+        Tue, 29 Apr 2025 01:15:45 -0700 (PDT)
+Date: Tue, 29 Apr 2025 10:15:44 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Ariadne Conill <ariadne@ariadne.space>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	"Alexander M . Merritt" <alexander@edera.dev>
+Subject: Re: [PATCH v2] x86/hyperv: use dynamically allocated page for
+ hypercalls
+Message-ID: <aBCKsI4qhHWq4Iiz@macbook.lan>
+References: <20250425234331.65875-1-ariadne@ariadne.space>
+ <aA9NMJVbyXeMOOY-@macbook.lan>
+ <D9I7TPLT0EJD.3F5P95H69CT5K@amd.com>
+ <97d28edb-4274-408f-a825-d09fa771e21d@citrix.com>
+ <D9I904ZOCMVN.31C4DUMXROGDK@amd.com>
 MIME-Version: 1.0
-Date: Tue, 29 Apr 2025 09:50:28 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, victorm.lira@amd.com,
- Federico Serafini <federico.serafini@bugseng.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Bertrand Marquis
- <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 1/2] xen/page_alloc: address violation of Rule 14.3
-In-Reply-To: <f2b6396c-c933-4fb9-ba4b-c90170540955@suse.com>
-References: <5f2e316aae4667d1fe851e68552eb881c4d5a015.1745625477.git.victorm.lira@amd.com>
- <3146fbf3-2ff1-48a4-b05b-37477a9a5cc5@suse.com>
- <alpine.DEB.2.22.394.2504281551530.785180@ubuntu-linux-20-04-desktop>
- <f2b6396c-c933-4fb9-ba4b-c90170540955@suse.com>
-Message-ID: <975094a1494f45d188e09f47d89ef6c9@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <D9I904ZOCMVN.31C4DUMXROGDK@amd.com>
 
-On 2025-04-29 08:14, Jan Beulich wrote:
-> On 29.04.2025 01:21, Stefano Stabellini wrote:
->> On Mon, 28 Apr 2025, Jan Beulich wrote:
->>> On 26.04.2025 02:00, victorm.lira@amd.com wrote:
->>>> From: Federico Serafini <federico.serafini@bugseng.com>
->>>> 
->>>> MISRA C Rule 14.3 states that "Controlling expressions shall not be
->>>> invariant".
->>>> 
->>>> Add a SAF comment to deviate the rule for build configurations 
->>>> without
->>>> CONFIG_LLC_COLORING enabled.
->>> 
->>> I was surprised by this supposedly being the only violation. And 
->>> indeed it
->>> wasn't very hard to find more. For example, we have a number of
->>> "while ( num_online_cpus() > 1 && ... )", which become compile-time
->>> constant (false) when NR_CPUS=1.
->> 
->> Uhm, I did run a special scan for this and I can confirm no other
->> violations are detected.
+On Mon, Apr 28, 2025 at 12:50:55PM +0100, Alejandro Vallejo wrote:
+> On Mon Apr 28, 2025 at 12:07 PM BST, Andrew Cooper wrote:
+> > On 28/04/2025 11:55 am, Alejandro Vallejo wrote:
+> >> On Mon Apr 28, 2025 at 10:41 AM BST, Roger Pau Monné wrote:
+> >>> On Fri, Apr 25, 2025 at 04:43:31PM -0700, Ariadne Conill wrote:
+> >>>> Previously Xen placed the hypercall page at the highest possible MFN,
+> >>>> but this caused problems on systems where there is more than 36 bits
+> >>>> of physical address space.
+> >>>>
+> >>>> In general, it also seems unreliable to assume that the highest possible
+> >>>> MFN is not already reserved for some other purpose.
+> >>>>
+> >>>> Changes from v1:
+> >>>> - Continue to use fixmap infrastructure
+> >>>> - Use panic in Hyper-V setup() function instead of returning -ENOMEM
+> >>>>   on hypercall page allocation failure
+> >>>>
+> >>>> Fixes: 620fc734f854 ("x86/hyperv: setup hypercall page")
+> >>>> Cc: Alejandro Vallejo <agarciav@amd.com>
+> >>>> Cc: Alexander M. Merritt <alexander@edera.dev>
+> >>>> Signed-off-by: Ariadne Conill <ariadne@ariadne.space>
+> >>>> ---
+> >>>>  xen/arch/x86/guest/hyperv/hyperv.c      | 17 +++++++----------
+> >>>>  xen/arch/x86/include/asm/guest/hyperv.h |  3 ---
+> >>>>  2 files changed, 7 insertions(+), 13 deletions(-)
+> >>>>
+> >>>> diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hyperv/hyperv.c
+> >>>> index 6989af38f1..0305374a06 100644
+> >>>> --- a/xen/arch/x86/guest/hyperv/hyperv.c
+> >>>> +++ b/xen/arch/x86/guest/hyperv/hyperv.c
+> >>>> @@ -98,7 +98,13 @@ static void __init setup_hypercall_page(void)
+> >>>>      rdmsrl(HV_X64_MSR_HYPERCALL, hypercall_msr.as_uint64);
+> >>>>      if ( !hypercall_msr.enable )
+> >>>>      {
+> >>>> -        mfn = HV_HCALL_MFN;
+> >>>> +        void *hcall_page = alloc_xenheap_page();
+> >>>> +        if ( !hcall_page )
+> >>>> +            panic("Hyper-V: Failed to allocate hypercall trampoline page");
+> >>>> +
+> >>>> +        printk("Hyper-V: Allocated hypercall page @ %p.\n", hcall_page);
+> >>> This likely wants to be a dprintk, and possibly also print the
+> >>> physical address of the used page?  And no period at the end of the
+> >>> sentence IMO.
+> >>>
+> >>> I think Xen might have used the last page in the physical address
+> >>> range to prevent HyperV from possibly shattering a superpage in the
+> >>> second stage translation page-tables if normal RAM was used?
+> >>>
+> >>> However I don't know whether HyperV will shatter super-pages if a
+> >>> sub-page of it is used to contain the hypercall page (I don't think it
+> >>> should?)
+> >> I think it's quite unlikely.
+> >
+> > It will shatter superpages.
+> >
+> > The overlay is not part of guest memory, and will hide whatever is
+> > behind it while it is mapped, which will force a 4k PTE in EPT/NPT.
 > 
-> Because of it being only one single configuration that's being scanned. 
-> I did
-> point out before that this is a problem for anyone wanting to certify 
-> the
-> hypervisor in a (perhaps just slightly) different configuration.
-> 
->>>> --- a/xen/common/page_alloc.c
->>>> +++ b/xen/common/page_alloc.c
->>>> @@ -2038,6 +2038,7 @@ static struct page_info 
->>>> *alloc_color_heap_page(unsigned int memflags,
->>>> 
->>>>      spin_lock(&heap_lock);
->>>> 
->>>> +    /* SAF-14-safe MISRA C R14.3 condition always false without 
->>>> LLC_COLORING */
->>>>      for ( i = 0; i < domain_num_llc_colors(d); i++ )
->>>>      {
->>>>          unsigned long free = free_colored_pages[domain_llc_color(d, 
->>>> i)];
->>> 
->>> Hmm, this way the deviation applies even when LLC_COLORING=y.
->> 
->> Yes but in the LLC_COLORING=y case it is harmless. Do you have 
->> something
->> else in mind?
-> 
-> What if, perhaps by mistake, domain_num_llc_colors() becomes constant 0 
-> in
-> yet another configuration? (I don't expect this would work, but in 
-> principle
-> the comment ought to be inside an #ifdef.)
-> 
->>> As to the comment wording - looks like we're pretty inconsistent with 
->>> that
->>> right now. I, for one, don't think the Misra rule needs (re)stating 
->>> there;
->>> the SAF index points at all the data that's needed if one cares about 
->>> the
->>> specifics of the deviation.
->> 
->> Do you prefer:
->> 
->> /* SAF-14-safe */
-> 
-> That's too short. All I'm asking for is to drop the (imprecise) rule
-> reference. Noticing only now: It being imprecise may make the comment 
-> go
-> stale if we move to a newer Misra spec, as the rule number may be 
-> different
-> then.
-> 
+> That's an implementation detail. They can very well copy the trampoline
+> to guest memory when there is such (and save the previous contents
+> elsewhere) and restore them when disabling the trampoline. It's a
+> trivial optimisation that would prevent shattering while being fully
+> compliant with the TLFS.
 
-There is a guarantee by the MISRA committee to never reuse rule ids, and 
-the SAF mechanism offers a centralized place where the actual rule ID 
-for each tool is specified, so I don't foresee problems in that regard. 
-In practical terms, I think it is very unlikely that this rule will 
-change in any way (e.g. it is identical up until MISRA C:2025, published 
-in March).
+It's an implementation detail relevant from a guest perspective, as it
+impacts guest performance.  IOW: we care about the specific (current)
+implementation, as it's meaningful to how the guest-side should be
+implemented.
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+> The actual physical location of the trampoline is fully undefined. It
+> is defined to be an overlay; but that's a specification, not an
+> implementation.
+> 
+> >
+> > Thinking about it, a better position would be adjacent to the APIC MMIO
+> > window, so at 0xfee01000.  The APIC MMIO window is forced to be a 4k
+> > mapping too, and the rest of the 2M window is normally empty.
+> >
+> 
+> Sounds like an assumption waiting to be broken. Just like the last page
+> of guest-physical was.
+
+As a compromise - could we try to allocate from < 4GB first, and
+resort to high memory if that doesn't work?  That would at least limit
+shattering (if done) to the low 4GB, which is quite likely fragmented
+already:
+
+hcall_page = alloc_xenheap_pages(0, MEMF_bits(32));
+if ( !hcall_page )
+    hcall_page = alloc_xenheap_page();
+if ( !hcall_page )
+    panic(...);
+
+That will need a comment to describe what's going on.
+
+Thanks, Roger.
 
