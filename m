@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22CF6AA083A
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 12:13:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971785.1360207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B4D1AA0839
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 12:13:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971786.1360213 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9hxa-0003Zc-Pf; Tue, 29 Apr 2025 10:13:06 +0000
+	id 1u9hxb-0003hV-7s; Tue, 29 Apr 2025 10:13:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971785.1360207; Tue, 29 Apr 2025 10:13:06 +0000
+Received: by outflank-mailman (output) from mailman id 971786.1360213; Tue, 29 Apr 2025 10:13:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9hxa-0003VX-KJ; Tue, 29 Apr 2025 10:13:06 +0000
-Received: by outflank-mailman (input) for mailman id 971785;
- Tue, 29 Apr 2025 10:13:04 +0000
+	id 1u9hxb-0003b9-3y; Tue, 29 Apr 2025 10:13:07 +0000
+Received: by outflank-mailman (input) for mailman id 971786;
+ Tue, 29 Apr 2025 10:13:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=b72w=XP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1u9hxY-0002lF-Fc
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 10:13:04 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1u9hxZ-0002lF-Gm
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 10:13:05 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 89953c43-24e2-11f0-9eb4-5ba50f476ded;
- Tue, 29 Apr 2025 12:13:04 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43ede096d73so39259445e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 03:13:04 -0700 (PDT)
+ id 8a5280d6-24e2-11f0-9eb4-5ba50f476ded;
+ Tue, 29 Apr 2025 12:13:05 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43d04dc73b7so51827965e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 03:13:05 -0700 (PDT)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-440a53108f2sm150572995e9.19.2025.04.29.03.13.02
+ 5b1f17b1804b1-440a5369cc1sm149831235e9.32.2025.04.29.03.13.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Apr 2025 03:13:02 -0700 (PDT)
+ Tue, 29 Apr 2025 03:13:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,47 +44,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89953c43-24e2-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 8a5280d6-24e2-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745921583; x=1746526383; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1745921584; x=1746526384; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7CJ1GLjFyCNm9vFKPLq5u51w/wTBpAsdbN9G66Tv51c=;
-        b=SQyP7R89jWcMAVcIkv/JqhTjjRpjrbgbhUYoBvOsdwdD3Wh6OiQaMu/Hm8eLpjtkWk
-         N6rMt7bwv0Wkftn2YPZ/B3IClRYJZX6F78PAKwo8I4DHkWGxhC4GxRJfaOKGJIfkb3bQ
-         qErjOZOGksI7wlijJjyBpuwrJzQJXR3JIi/TI=
+        bh=4j1Fs93O6tjqerfgJEMn6A5AQPD2o+Vigwy9v3Ww7I8=;
+        b=gJEmhmKeLLhGMa+0s45tCYde3oHenqR2jSFAOuxOem26R6EH8Wi0Ldl7qlJwh7WmqT
+         zsc8QagnSXDhzMT5+f3NeuYGPQltnnleflLprWtoPxpCAo7mM0klfPakeMBfvcgqIW2g
+         EEDnkUtfQdJ3w2pWqFfGs7OspQOCHjWzTiKq4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745921583; x=1746526383;
+        d=1e100.net; s=20230601; t=1745921584; x=1746526384;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=7CJ1GLjFyCNm9vFKPLq5u51w/wTBpAsdbN9G66Tv51c=;
-        b=B7pukYyTtyCrjEKRab7UwYziQW/ynzCd8vrPP4UtTO0G0juqCXjUuieJSR7L+ywie2
-         9oVEbpOiGJW+JCAsZ4F4mGuf3w4faE0f6zx36DZT22U1jtcTNNJ/HIuFJCxubQJTOaeG
-         SnLq+ZeDX1ar3Q5xAxzs29DWUmU7tCazTwyXzsYreOz8KXnsYXERvt72jPjC+H2WcogP
-         h28yiyvWlkJ2BeegOnJfzjda7xG+mVKDQTslLz6qgSNv4GK60vyTN7nYUxijQRZa3q98
-         CaNJqnk1PkY18J7lJfkIiSM3hBRdtP9yJdv7EwTP6eBC9v6vcMqIy9XMhbvopxfU2/yI
-         f/Og==
-X-Gm-Message-State: AOJu0YwCq66bQFvgfRdHVRrFI+e2QeJXgSpSuc9ElBXNyTU9taE7qp4p
-	Bg6iKVp5I76y3818kVeZhIs7oGmVge5wLFbxhcfyS0KSwu1kkf+aN4qxuyplD0+FesNH/sm8Z3V
-	N
-X-Gm-Gg: ASbGncsuTXC/Fa7srhN60k7Ezxk/0WNZzFMtXh98cpZ2zWK5nTKPO4Q8Ntcs+xQbWEv
-	Njsmzn3FSI9WOO2tqGWXz5M8qQbXBzekn7VedDNBV5FSQGbyqXKvY4D4vxqD/kL6/8sBqM72PgU
-	RQVYw7RNwAJpHv5HxOpVCuw4moPzeI02JKCUsCPWhV1ADfbB7/PtefXyVtZhbyqftiNly2rgrPK
-	QpxMiZnmTEbMR2BhQQn4Eqf0BRLzA4CPRq/kT6gAVHEhOlGyESnfJPl+kh56NhyIcv208bRoOwC
-	2W5WzNuF2vzfS52iDwe/JT6BndwOdj/7RDn+gNQKeNb9YQ==
-X-Google-Smtp-Source: AGHT+IEOJ/wfcryri+UbOqfRiNzGC0pauT7wSOakZOHefUanQmRnJPgvW2y8PUSCV9XJ1ox1hpvLqg==
-X-Received: by 2002:a05:600c:4ec8:b0:43d:36c:f24 with SMTP id 5b1f17b1804b1-441ac858518mr27540835e9.13.1745921582977;
-        Tue, 29 Apr 2025 03:13:02 -0700 (PDT)
+        bh=4j1Fs93O6tjqerfgJEMn6A5AQPD2o+Vigwy9v3Ww7I8=;
+        b=wHfpUtw/pGcBJQF6UhJPKFDGVWyvN3OCcDg0YTpIJno+ZgM2sOeU2psJsla9HwtNSf
+         4kjpne+Mz36BOiYa3kXrbXCigm8+7GUkR9IfaYOoJB0vrfrPUZF/BCTGSD3Fu+S3qU9Y
+         Plq/4cx+Ut0V2+DERLALNUXdXW/UEG4q9ycUEwiYQEd0RkooVkCn0u9Kt85csQex5RYD
+         uyb3M8WYW6+NNEhBU27M6Rab/BTUMH/952Dg8mzpqADq9cBGCvPnBC43ZPhKne5jDL2F
+         AouYmiZHKffO7vLga2DlT4IVe38aRcp67TlARHlVa44UQSGvN+B219akUiWfchndSQ1J
+         nCwg==
+X-Gm-Message-State: AOJu0YwomaHhTPbPZxM2GjLyMO7EmUD6YT/PWlLsgKRIZc94HcK1bm/b
+	L86m5w9BjY8fbYH4ArzJ3QmxDGYYmACeIv39WIPO0NVGyFhgIjWPFpYKZzllWc7Knjm39n+DYkJ
+	E
+X-Gm-Gg: ASbGncuKXoAEyFu5C5OFyRI2zGbQVV8qGUA9a2vasLtfApTcdhZgjpP6Du93b5lXTxe
+	k+0sa7tV1DFwih6dsH4hTTbn6wbGBVJo6tQMuTdSbqhVm9nz6FgLu4D6IQnt4QVifPZAejywubY
+	kPJVL2mkIESlREnkSqQvR/pjVqJrPj3HZmmwoaoPcgvDmuTUxYhoML5QuoVal5C748NjVMn8uDG
+	uQV8yJVbyW6U/0SycOGAttVBoPINsPKGQWaRrFk1tkD8S1kORClowGg+rYjRdekSx9FFXK6kNIf
+	3qSCqMJiM8ZPjutxly4FDeasonn6ZI3ip86WhY8rl8kOYnoBHkViXAaJ
+X-Google-Smtp-Source: AGHT+IH9EpLHSMnxzvfs7gUApSUQ4BoJHuVuCGeqO6Q3MSGTP5KFGG3OIRWOMVxoCBH7u9boNgFPLg==
+X-Received: by 2002:a05:600c:1d1d:b0:43b:ce3c:19d0 with SMTP id 5b1f17b1804b1-441ac892162mr23054155e9.29.1745921584208;
+        Tue, 29 Apr 2025 03:13:04 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v4 3/4] x86/hvm: only register the r/o subpage ops when needed
-Date: Tue, 29 Apr 2025 12:12:51 +0200
-Message-ID: <20250429101252.50071-4-roger.pau@citrix.com>
+Subject: [PATCH v4 4/4] x86/mm: move mmio_ro_emulated_write() to PV only file
+Date: Tue, 29 Apr 2025 12:12:52 +0200
+Message-ID: <20250429101252.50071-5-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250429101252.50071-1-roger.pau@citrix.com>
 References: <20250429101252.50071-1-roger.pau@citrix.com>
@@ -92,87 +92,145 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-MMIO operation handlers can be expensive to process, hence attempt to
-register only those that will be needed by the domain.
+mmio_ro_emulated_write() is only used in pv/ro-page-fault.c, move the
+function to that file and make it static.
 
-Subpage r/o MMIO regions are added exclusively at boot, further limit their
-addition to strictly before the initial domain gets created, so by the time
-initial domain creation happens Xen knows whether subpage is required or
-not.  This allows only registering the MMIO handler when there are
-subpage regions to handle.
+No functional change intended.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-Could possibly be part of the previous patch, but strictly speaking is an
-improvement, as even before the previous patch subpage r/o was always
-called even when no subpage regions are registered.
----
- xen/arch/x86/hvm/hvm.c        |  3 ++-
- xen/arch/x86/include/asm/mm.h |  1 +
- xen/arch/x86/mm.c             | 16 ++++++++++++++++
- 3 files changed, 19 insertions(+), 1 deletion(-)
+ xen/arch/x86/include/asm/mm.h   | 12 ----------
+ xen/arch/x86/mm.c               | 33 --------------------------
+ xen/arch/x86/pv/ro-page-fault.c | 41 +++++++++++++++++++++++++++++++++
+ 3 files changed, 41 insertions(+), 45 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 6b998387e3d8..4cb2e13046d1 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -692,7 +692,8 @@ int hvm_domain_initialise(struct domain *d,
- 
-     register_portio_handler(d, XEN_HVM_DEBUGCONS_IOPORT, 1, hvm_print_line);
- 
--    register_subpage_ro_handler(d);
-+    if ( subpage_ro_active() )
-+        register_subpage_ro_handler(d);
- 
-     if ( hvm_tsc_scaling_supported )
-         d->arch.hvm.tsc_scaling_ratio = hvm_default_tsc_scaling_ratio;
 diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
-index c2e9ef6e5023..aeb8ebcf2d56 100644
+index aeb8ebcf2d56..2665daa6f74f 100644
 --- a/xen/arch/x86/include/asm/mm.h
 +++ b/xen/arch/x86/include/asm/mm.h
-@@ -561,6 +561,7 @@ struct subpage_ro_range {
-     void __iomem *mapped;
-     DECLARE_BITMAP(ro_elems, PAGE_SIZE / MMIO_RO_SUBPAGE_GRAN);
- };
-+bool subpage_ro_active(void);
- struct subpage_ro_range *subpage_mmio_find_page(mfn_t mfn);
- void __iomem *subpage_mmio_map_page(struct subpage_ro_range *entry);
- void subpage_mmio_write_emulate(
+@@ -542,18 +542,6 @@ void memguard_unguard_stack(void *p);
+ int subpage_mmio_ro_add(paddr_t start, size_t size);
+ bool subpage_mmio_write_accept(mfn_t mfn, unsigned long gla);
+ 
+-struct mmio_ro_emulate_ctxt {
+-        unsigned long cr2;
+-        /* Used only for mmcfg case */
+-        unsigned int seg, bdf;
+-        /* Used only for non-mmcfg case */
+-        mfn_t mfn;
+-};
+-
+-int cf_check mmio_ro_emulated_write(
+-    enum x86_segment seg, unsigned long offset, void *p_data,
+-    unsigned int bytes, struct x86_emulate_ctxt *ctxt);
+-
+ /* r/o MMIO subpage access handlers. */
+ struct subpage_ro_range {
+     struct list_head list;
 diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 7ead2db3cb72..6697984507bf 100644
+index 6697984507bf..9ac855f998dc 100644
 --- a/xen/arch/x86/mm.c
 +++ b/xen/arch/x86/mm.c
-@@ -4922,6 +4922,11 @@ long arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-     return rc;
+@@ -5144,39 +5144,6 @@ void subpage_mmio_write_emulate(
+         goto write_ignored;
  }
  
-+bool subpage_ro_active(void)
-+{
-+    return !list_empty(&subpage_ro_ranges);
-+}
-+
- struct subpage_ro_range *subpage_mmio_find_page(mfn_t mfn)
- {
-     struct subpage_ro_range *entry;
-@@ -5011,6 +5016,17 @@ int __init subpage_mmio_ro_add(
-          !IS_ALIGNED(size, MMIO_RO_SUBPAGE_GRAN) )
-         return -EINVAL;
+-int cf_check mmio_ro_emulated_write(
+-    enum x86_segment seg,
+-    unsigned long offset,
+-    void *p_data,
+-    unsigned int bytes,
+-    struct x86_emulate_ctxt *ctxt)
+-{
+-    struct mmio_ro_emulate_ctxt *mmio_ro_ctxt = ctxt->data;
+-    unsigned long data = 0;
+-
+-    /* Only allow naturally-aligned stores at the original %cr2 address. */
+-    if ( ((bytes | offset) & (bytes - 1)) || !bytes ||
+-         offset != mmio_ro_ctxt->cr2 )
+-    {
+-        gdprintk(XENLOG_WARNING, "bad access (cr2=%lx, addr=%lx, bytes=%u)\n",
+-                mmio_ro_ctxt->cr2, offset, bytes);
+-        return X86EMUL_UNHANDLEABLE;
+-    }
+-
+-    if ( bytes <= sizeof(data) )
+-    {
+-        memcpy(&data, p_data, bytes);
+-        subpage_mmio_write_emulate(mmio_ro_ctxt->mfn, PAGE_OFFSET(offset),
+-                                   data, bytes);
+-    }
+-    else if ( subpage_mmio_find_page(mmio_ro_ctxt->mfn) )
+-        gprintk(XENLOG_WARNING,
+-                "unsupported %u-byte write to R/O MMIO 0x%"PRI_mfn"%03lx\n",
+-                bytes, mfn_x(mmio_ro_ctxt->mfn), PAGE_OFFSET(offset));
+-
+-    return X86EMUL_OKAY;
+-}
+-
+ /*
+  * For these PTE APIs, the caller must follow the alloc-map-unmap-free
+  * lifecycle, which means explicitly mapping the PTE pages before accessing
+diff --git a/xen/arch/x86/pv/ro-page-fault.c b/xen/arch/x86/pv/ro-page-fault.c
+index 11b01c479e43..5ae77080772d 100644
+--- a/xen/arch/x86/pv/ro-page-fault.c
++++ b/xen/arch/x86/pv/ro-page-fault.c
+@@ -298,6 +298,14 @@ static int ptwr_do_page_fault(struct x86_emulate_ctxt *ctxt,
+  * fault handling for read-only MMIO pages
+  */
  
-+    /*
-+     * Force all r/o subregions to be registered before initial domain
-+     * creation, so that the emulation handlers can be added only when there
-+     * are pages registered.
-+     */
-+    if ( system_state >= SYS_STATE_smp_boot )
++struct mmio_ro_emulate_ctxt {
++    unsigned long cr2;
++    /* Used only for mmcfg case */
++    unsigned int seg, bdf;
++    /* Used only for non-mmcfg case */
++    mfn_t mfn;
++};
++
+ static int cf_check mmcfg_intercept_write(
+     enum x86_segment seg,
+     unsigned long offset,
+@@ -329,6 +337,39 @@ static int cf_check mmcfg_intercept_write(
+     return X86EMUL_OKAY;
+ }
+ 
++int cf_check mmio_ro_emulated_write(
++    enum x86_segment seg,
++    unsigned long offset,
++    void *p_data,
++    unsigned int bytes,
++    struct x86_emulate_ctxt *ctxt)
++{
++    struct mmio_ro_emulate_ctxt *mmio_ro_ctxt = ctxt->data;
++    unsigned long data = 0;
++
++    /* Only allow naturally-aligned stores at the original %cr2 address. */
++    if ( ((bytes | offset) & (bytes - 1)) || !bytes ||
++         offset != mmio_ro_ctxt->cr2 )
 +    {
-+        ASSERT_UNREACHABLE();
-+        return -EILSEQ;
++        gdprintk(XENLOG_WARNING, "bad access (cr2=%lx, addr=%lx, bytes=%u)\n",
++                mmio_ro_ctxt->cr2, offset, bytes);
++        return X86EMUL_UNHANDLEABLE;
 +    }
 +
-     if ( !size )
-         return 0;
- 
++    if ( bytes <= sizeof(data) )
++    {
++        memcpy(&data, p_data, bytes);
++        subpage_mmio_write_emulate(mmio_ro_ctxt->mfn, PAGE_OFFSET(offset),
++                                   data, bytes);
++    }
++    else if ( subpage_mmio_find_page(mmio_ro_ctxt->mfn) )
++        gprintk(XENLOG_WARNING,
++                "unsupported %u-byte write to R/O MMIO 0x%"PRI_mfn"%03lx\n",
++                bytes, mfn_x(mmio_ro_ctxt->mfn), PAGE_OFFSET(offset));
++
++    return X86EMUL_OKAY;
++}
++
+ static const struct x86_emulate_ops mmio_ro_emulate_ops = {
+     .read       = x86emul_unhandleable_rw,
+     .insn_fetch = ptwr_emulated_insn_fetch,
 -- 
 2.48.1
 
