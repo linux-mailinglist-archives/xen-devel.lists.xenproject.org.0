@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E484AA0C8A
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 15:00:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.972580.1360873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75D5AAA0D0D
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 15:11:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.972595.1360883 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9kZb-0005Bx-Qd; Tue, 29 Apr 2025 13:00:31 +0000
+	id 1u9kjb-00087X-NR; Tue, 29 Apr 2025 13:10:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 972580.1360873; Tue, 29 Apr 2025 13:00:31 +0000
+Received: by outflank-mailman (output) from mailman id 972595.1360883; Tue, 29 Apr 2025 13:10:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9kZb-00059F-O4; Tue, 29 Apr 2025 13:00:31 +0000
-Received: by outflank-mailman (input) for mailman id 972580;
- Tue, 29 Apr 2025 13:00:30 +0000
+	id 1u9kjb-00085p-Kn; Tue, 29 Apr 2025 13:10:51 +0000
+Received: by outflank-mailman (input) for mailman id 972595;
+ Tue, 29 Apr 2025 13:10:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qXnC=XP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9kZa-000599-98
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 13:00:30 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1u9kjZ-00085j-GM
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 13:10:49 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea8dd027-24f9-11f0-9ffb-bf95429c2676;
- Tue, 29 Apr 2025 15:00:25 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5f62ef3c383so11111950a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 06:00:25 -0700 (PDT)
+ id 5ce43d65-24fb-11f0-9ffb-bf95429c2676;
+ Tue, 29 Apr 2025 15:10:46 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5f3f04b5dbcso9659149a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 06:10:47 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f701400565sm7503921a12.26.2025.04.29.06.00.24
+ 4fb4d7f45d1cf-5f7013ff81dsm7686083a12.24.2025.04.29.06.10.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Apr 2025 06:00:24 -0700 (PDT)
+ Tue, 29 Apr 2025 06:10:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea8dd027-24f9-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 5ce43d65-24fb-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745931625; x=1746536425; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745932247; x=1746537047; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xfou+qyZv4NtEDASI5ojF0dRYalGofxQacaTzt+4o58=;
-        b=VcpkCKfEoVtYVicyP7+oU1yJUZ6BFq+OwrDq+H7u87QbbLGBlECbbs9IvpCkvvlsR4
-         YgUrQToR2d2DCOZlTvakGvtuXAIziqWTkvYV3zo5POvwqzkcnhx2ddd5L61nibM3bZMX
-         1bc2l7vz26o+8/Efl+2tTioavMSVVFDcoTadLVVfOBtVO2tezpGrxNcMMMrPpKILd0fF
-         P+vR7tWgYfTpRUZ6ah8e2sZ2vQN0bNGgEflVBQruHm1eSfFEksEj+s9gg9XXd04uhihh
-         9SgZOEg0lpH/VAStF0eXx018zJSkpdD1uOPUb/oxlN/fDzrF4UrM14T1hajKAqu4vR+J
-         Tp5g==
+        bh=vhiXa34i5am0/ckDfFZ5pXKyzhzsKyHciVl03tIEtEU=;
+        b=JrOjgdH8E0ik5o6S1Hlaos+rUE5rzmRVa+iQQ+/WSQP/ToyB7CSLV8pfLvyThD2M7H
+         nLHUz5OIPFoRI+ucH9TkSQAUnAEsNHDaz/O4xmN7gcu3oM9TJr+rqBW+g9eFe7+uS5BE
+         osY/Zm7mwTh3ZQxFo847r0WovKm0hPgnGbtqYb6Pfk+CFF9ZiohMj3Z9xGqFjercgGHe
+         QzeFw6BUiAVeoaky00Me3BRE5Ht02M+uYj/p/1Xcc6+zPkhStaOhEYIamCZdqYPqvK5m
+         fFXkAQcEhYGsk8rTOAX6XhFAKFm8WyBvtPblaAejH8zi+akwVV4DIpCh0HjQg4SxntX0
+         JYIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745931625; x=1746536425;
+        d=1e100.net; s=20230601; t=1745932247; x=1746537047;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xfou+qyZv4NtEDASI5ojF0dRYalGofxQacaTzt+4o58=;
-        b=SVcVQReMwnH1QJ0/Qaq2wgBHN+Ezk84CYaEFbYJRZls9Dss2N7Rz0W4OiIqUEFr1NF
-         suXaEmR/HpZ88SjP5Bfp9D8UGrsB1pGlRXKVMPacVihuOPgSJcg9861NtzW7aF9ulPiV
-         qaK4w7VgsyoVUVpTJMYLY7qIFq0eiJwfLbk7w/zFPqL2cnTK7sVbtoibKWC72mwzOanR
-         Z2U0z9ZJWUcyDzLHqyrHwVaRxOt6EGGS9M6rZgmsx6t1jq3Xrw9453KrxmuqzkZ7KvG8
-         B7FBaIuUuMnSqevrSM3OZ/c5FPcEWzJhCtSqvsLGVtrZcvpHJrRGNgXPUOqb4c9oaSKN
-         Py2w==
-X-Forwarded-Encrypted: i=1; AJvYcCXTtEJL/DAzjnTXnomRMvc/QoWDj5s1fLY4YmMubZW5j6xXZMmF57ooql96aDCwD/LbMnpyQB25r9o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YybwomUbGVypETAMrfIZ3cVYVh0ZXHeBCES7NiUhWYtOcC6KrOS
-	9yX4m66InU5BEEM10ddzBVJcqLNFWdpp6FOwLZFc5rswGjixtIZAqOTMCvjdxA==
-X-Gm-Gg: ASbGncuNLcjG1LA4SIY2PFBb5PxtGPJ2GttjoZvI4fuQ0S4vBWoc93PGidtqcohzrKh
-	LZa+HIFyskbEXeuilD5+MK7b1ZENp4ySOENqQqRpqTsK5ILplNvmH9o69X9FzETxNIXhsRMLwLM
-	g0+SmaejUR0wLBMHX5mMvkLM/r4r1n1I/2XAR51LqHmJBdRH8G00ql+JWnobVzJbKlX2m1xXrtA
-	P3Ao7sc70vnBnfqCVeoSNuq57bI/djJo2SN30XwmlM8MDdA7NMFNSvlLORdBFrhhICAdUSnH3+J
-	QwSTRTewj2AjIXZTEQNla72hb7HP+DLE4/ootHI/mzHmvHhOcm1cP7rTnkPTNJ/Ea1IbkGIAFHx
-	zcjCwuYVSIXWNXuCxx2TxLdF5jQ==
-X-Google-Smtp-Source: AGHT+IFv/7NSMNCRuPswxiN/444MKknfqLgZjhmbi2VVUMOwCQG+7/l0SQXCd1wzNTm4RB3x7kkCBg==
-X-Received: by 2002:a05:6402:5112:b0:5ed:2762:727a with SMTP id 4fb4d7f45d1cf-5f7395f1b6amr11592191a12.11.1745931625289;
-        Tue, 29 Apr 2025 06:00:25 -0700 (PDT)
-Message-ID: <418c4232-dfed-4aef-8b9c-7bfad2b30de0@suse.com>
-Date: Tue, 29 Apr 2025 15:00:23 +0200
+        bh=vhiXa34i5am0/ckDfFZ5pXKyzhzsKyHciVl03tIEtEU=;
+        b=ps7IL7AZ2mbxg4BAzngl9Ptyom+SIRAeDyp8wfvdY71bvsDnjOTZ0Ysr+2+SCyFXY3
+         +rHItuAJHfoJGTkDzHde8ST2rvIvvHFIjNK4SVi7uSJE7zECg3ys3x37fYLZFo+XPXyx
+         UV/cBf2l9StWDSlBNxHfeooTQvvE7QELoxpxwughugliENJsz8rVU8IFPgZLQkr3w6zY
+         7vfLGurxDMK7gEyFFL2ly+D0ThHRctqN3XXENDXyvseiZqiFGGGlWPzmiIvnxrXtTkJi
+         9TqXl7/ppd8CurMtektaJD+c52DAKjOm7eHnfN0JAO9tSGrTh4zTWto20S9a+H9sfIOM
+         xPOw==
+X-Forwarded-Encrypted: i=1; AJvYcCXIkvmqIdS/siqsDlNueDu0g6rVmUIsl+TE/VZ8xcLeLWqJ8cBy/WqW4QlzuwaasesAjhsSGYIbxJ8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyZ6miZyDmhVxU/mX/hcSrd2rEl/+UVi/SLe5XuCRDcV3i940S3
+	gkgU/3hX0bfYlczU8KN/u37/0iZMiK2QVuim0K/ewxzkEOFJ4SO2yolyXF0FGw==
+X-Gm-Gg: ASbGncsGgBki9RICoo9a169NYir4xJrx2gSk16Z6hBiUITrI1NMu7jmzqBywqNDWpXj
+	qY3f9fyZzkghTHHd6gsY6xK2FXsd/rvjoN4YI3swwXWTowhmTxZY+Ao1K6bRi9mgT2Biqm14rgn
+	YJPcAj0lLWFs9aOX6hQok8mGlv0DNhuAktjNX3Oa7GgjJcTGJdY+gfPHn8m2g/lYAdrzPoh3mGT
+	gtTQWW4EHcEyklVbmyaTybzh7j24/t9yInluldIvOfiQhmByAvxjpKxWT79W3MgLyfX6MPFrQ71
+	xZZ13oq58wrPdZo7iN7xGE5DWxXWLYX3A71zt3pSOGCkKfBRvpHpLCUhMXXY6hlKslmG/Uq9XEP
+	j+eO6TLmRwcwJxG3cy8uDdv++Sw==
+X-Google-Smtp-Source: AGHT+IEoiBKCQ5m9yKiWdqnURwOvhgutiOoLHzKtkb1zoUisSBOLaLlP74+tC1ZFfsF8gLZOYD/Pxg==
+X-Received: by 2002:a05:6402:350c:b0:5f7:eb1e:7f25 with SMTP id 4fb4d7f45d1cf-5f83b0c3d7fmr2249811a12.12.1745932246616;
+        Tue, 29 Apr 2025 06:10:46 -0700 (PDT)
+Message-ID: <a51b8c02-c32a-42fd-a0e9-d617efbf9c36@suse.com>
+Date: Tue, 29 Apr 2025 15:10:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/12] Hyperlaunch device tree for dom0
-To: Alejandro Vallejo <agarciav@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <20250429123629.20839-1-agarciav@amd.com>
+Subject: Re: [PATCH v4 06/15] xen/cpufreq: disable px statistic info in
+ amd-cppc mode
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, xen-devel@lists.xenproject.org
+References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
+ <20250414074056.3696888-7-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,22 +118,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250429123629.20839-1-agarciav@amd.com>
+In-Reply-To: <20250414074056.3696888-7-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.04.2025 14:36, Alejandro Vallejo wrote:
-> Not very many changes here. Just:
-> 
-> v5->v6:
->   * Denis' suggestion to rename a few helpers to fdt_*
->   * Change to last patch to only pass CDF_iommu to domains with
->     DOMAIN_CAPS_HARDWARE.
-> 
-> I _think_ this addresses all feedback I got so far and I don't expect
-> anything major remaining before commit.
+On 14.04.2025 09:40, Penny Zheng wrote:
+> We need to bypass construction of px statistic info in
+> cpufreq_statistic_init() for amd-cppc mode, as P-states is not necessary there.
 
-That's optimistic. I for one didn't even get around looking at v5.
+Is it really "need"? What goes wrong if we went through this initialization?
+For now it feels more like an optimization to me, i.e. "want". Also ...
+
+> --- a/xen/drivers/cpufreq/utility.c
+> +++ b/xen/drivers/cpufreq/utility.c
+> @@ -98,6 +98,9 @@ int cpufreq_statistic_init(unsigned int cpu)
+>      if ( !pmpt )
+>          return -EINVAL;
+>  
+> +    if ( !(pmpt->init & XEN_PX_INIT) )
+> +        return 0;
+> +
+>      spin_lock(cpufreq_statistic_lock);
+>  
+>      pxpt = per_cpu(cpufreq_statistic_data, cpu);
+
+... you're specifically not bypassing the spin_lock_init(), for a good reason.
+With respective clarification in the description:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
