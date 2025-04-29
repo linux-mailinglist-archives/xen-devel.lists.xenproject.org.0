@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AB58AA0554
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 10:17:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971639.1360000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9918AA05A1
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 10:25:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971654.1360011 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9g9I-0006ud-BY; Tue, 29 Apr 2025 08:17:04 +0000
+	id 1u9gGm-0000TU-27; Tue, 29 Apr 2025 08:24:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971639.1360000; Tue, 29 Apr 2025 08:17:04 +0000
+Received: by outflank-mailman (output) from mailman id 971654.1360011; Tue, 29 Apr 2025 08:24:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9g9I-0006rq-8E; Tue, 29 Apr 2025 08:17:04 +0000
-Received: by outflank-mailman (input) for mailman id 971639;
- Tue, 29 Apr 2025 08:17:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qXnC=XP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9g9G-0006rX-9g
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 08:17:02 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 52d0fb49-24d2-11f0-9ffb-bf95429c2676;
- Tue, 29 Apr 2025 10:17:00 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5ed43460d6bso8427855a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 01:17:00 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f7016f48ebsm7030399a12.33.2025.04.29.01.16.58
+	id 1u9gGl-0000Qv-VF; Tue, 29 Apr 2025 08:24:47 +0000
+Received: by outflank-mailman (input) for mailman id 971654;
+ Tue, 29 Apr 2025 08:24:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=anwM=XP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1u9gGk-0000Qp-IU
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 08:24:46 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 68336aca-24d3-11f0-9eb4-5ba50f476ded;
+ Tue, 29 Apr 2025 10:24:45 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-5f5bef591d6so10961810a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 01:24:45 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-225.play-internet.pl.
+ [109.243.64.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acec5d0d74esm96230666b.117.2025.04.29.01.24.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Apr 2025 01:16:59 -0700 (PDT)
+ Tue, 29 Apr 2025 01:24:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,223 +45,296 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52d0fb49-24d2-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 68336aca-24d3-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745914619; x=1746519419; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=7JN7/LYznS6CrtVaGt2tE6QAB/n2kbSOMLlSYtCS/Q8=;
-        b=SzaHXM0Les0xbn8xjfiXQm0j5lSeheU1DVOcteQh62MbEuFkgxAymBvFD/O/0WJyzo
-         3fYo5sziDlK0WwgzAngr/DizAtQT7amJahni03ODJc7iZWsyXAXLtaiEwg/4mBSsbTgG
-         74FEVpSmKDBVDFwwlYLZrgWh3IkbUHEH9u5zDCuh9QW53eKXEW4l3vPj1q3HlJjovxOY
-         KI80jpPKaUZBnfxe/ZUqorM+4WdycXmbS2l117S+cp2F/C5gu7OAr69YZOUZWSAgHyR4
-         xnjzJN40S0gZ4upRVB5PQvRnJFOfekgKCUWr6xG0eHOdguzQjAi76HaUMqF2+5C/qg4q
-         A4OA==
+        d=gmail.com; s=20230601; t=1745915085; x=1746519885; darn=lists.xenproject.org;
+        h=in-reply-to:from:cc:content-language:references:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IcRA9B58EQ4yRq0UrvtW1zz7O2QCmd28q/7mPCxeMbA=;
+        b=IWXuOBoogMq3C7p8nMQhdj3ic0abkd15nP5mqIm1mUp+aOeXnEJ8CKMMiDlfCjGfEI
+         G8pw9t2E74otIl2FDdL0F2hGg6VPz7TKX3cRXamOIxWYT6Lx36Oho2PMezAAHQSz07DZ
+         swON8VqqWkAB1r6R/yYCUFwuvCHtLpnHT//L6zNa+hYgpMiPk7+z1araTjjV5cAyNdid
+         WRCq/bqivlYQhDb8a5X3PLiMwhDOk/pDYa8OGcRcZetuSrAAW49nHbn9tkzLS09bKtnh
+         jTPsto1tChD384BwC4z/scwsOejsCn1ZgO6pLW1wUHPWJS6YdoxbjLd+yJ+w8kVc1byw
+         SdYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745914619; x=1746519419;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7JN7/LYznS6CrtVaGt2tE6QAB/n2kbSOMLlSYtCS/Q8=;
-        b=vAArBGL8tNSIhS0peeB4etPzDGODaFDe/GGdynVUKrp/Uxq9UW052U1AVAZMuq8nE4
-         UgJxxejZnSCEaPel0kgNLg75lwa6Hh+6wgpLAsmf9XQoASsN4wEwC0MmmOYBGdE62p4t
-         mJJV1Zaq9PV0+fELr22OZRohsSRiGkddj/qCgAITkvoyV8pVqxricaLjQWsS/MgF4rHd
-         H7O0wBqhqUs69nzWjVCV64uaEBj9cCF+eiH5lb6lWXURMayGS2FKUO6gpUhTD9Ofhws0
-         JosyEZQU00E7xdxV0EmiEcQV7F6C5Q17HschxfQ1JrJ+xf63wuCFN6fNxvrOqMnl73j3
-         i9pA==
-X-Gm-Message-State: AOJu0YxFuV/a5wSu7q5KRy0ilhRv1a4X+SI34N6HQACZHqrQSaOqKkIM
-	ZC9LXphBtwbaxzdf68Q9KH+Q9Qai/XeAYeNPY+B33QDRRi+nZoV8mM2ciOaDzeK/XoFs+hpKAJg
-	=
-X-Gm-Gg: ASbGncsWWe0ClYRpPMxVd9pbWB9pjT1ckHNEYzhtZnH9R83qSyV/D2ABwgKQ23YP6oh
-	DeqATSC9oDIdfQF4ETzTbE6AcVaUQ5l5D+Od8V9M15wWcnoaX+NPCnN4K6IJ2iGAQO40JHZu25Y
-	Ts3AkPKkCF4D+S7NO/5zIFejM1TJ/qGkWEdrCt9hXqJ+Kqc1oglpDGJDKx55BUWGDKkuCEonJXs
-	JDG0M3GLsvvYSxjAw/AMI/hNuwS7KkDRcqoXyAJqSP9+YyAIYDRhFN3XbTF50Dhxl4ahZk4ji7P
-	4KK52lHX+SbDx7VIgx69BLXtHBo3EzFG2TkN8MbEVynNJIrEdZQE9r+6LyBGno3xUvx2DmgX+0J
-	8rfBGwEkq6jTqWPKte6W8EX3IXQ==
-X-Google-Smtp-Source: AGHT+IEts6C4Iyl7Vwm7umpTqRyz1Fr2E2/06rGtVFHI/Vhlt8F2sRVEwUAMvEQ221jbPIPlICVaeg==
-X-Received: by 2002:a05:6402:40d1:b0:5e5:b388:29f9 with SMTP id 4fb4d7f45d1cf-5f83809e247mr2234161a12.5.1745914619530;
-        Tue, 29 Apr 2025 01:16:59 -0700 (PDT)
-Message-ID: <5020c491-2037-4955-99ce-e6ba02b44aef@suse.com>
-Date: Tue, 29 Apr 2025 10:16:58 +0200
+        d=1e100.net; s=20230601; t=1745915085; x=1746519885;
+        h=in-reply-to:from:cc:content-language:references:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=IcRA9B58EQ4yRq0UrvtW1zz7O2QCmd28q/7mPCxeMbA=;
+        b=tQUdAsZXiwwlgjS12dTuT7cEQ9DXWbg+JaMtNE01IfOsa2ko9OuV13MuQ3En16sY36
+         ujXmNPepQCqQdLPNXmvzWI4NYVfH6aYQHk+ze9PQs0dvmEeQCTIJT41skwDOXgAlmFd2
+         +0afBhhlpzyr/WAbVQIDq128dOsNC7DcM7IL2+e8eiM8zJ2K/PdlwatGeEc/ou+fKM0G
+         vSbf3Uya/U6b1my+OgiqJ5PMK1lg0TFEsaYx7Bw30dGF4tc2qIm0FXZozCRjOb1TTAXe
+         whmFNezqwY6ki/UcvXZS2TiG7/J9cNMoLTZIYOLfghLB6NTBKabIaPrfvtDJsbSJ/qFN
+         vfyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWJ95BaNJMvPX8M01lgB8QG7+xuWDoPLf+bpsT8j1/WB4hN1EpT8Kv4YUIxzILKZPKRKZrnkCeMScw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwG63iIFXiUi1XYE979oUk1AL2nhsYzHzHypCUbEDkGx2XJdt/S
+	V8x00DnAj2OyPW/DPoM6cPw1/0lFIPpZUQt4WgfgDbUr8O7bMkMY
+X-Gm-Gg: ASbGncsnugWMU2gRgKbfon264CaRU2pyhnadHOWFkIa0iWCoTgP2J67wewDSeNhAFI4
+	OSPgl49dnL+K/NVvFwXeqmSOfTOb5nrY4wi2j0O39+E9S+mSGBf9BWpbsqoT5KZblYe3LFRZjss
+	KK+2nOOEAJzJaREzu1hbf1x4Y9OlHZBgChC4eJr7nmYuvOziuv+iTImiNzLjhAQ1z5qnlAHpk4z
+	QBGEFQHm5Z3FlxdjrJs+o1V+lQ28yYUpQWvE+efq5abKMfWAQi8HKPk4yCuwznJN3XUjYQnIb6o
+	O+/1X2D6vLRYlWHwqrfjP+utBMwL7wToh13FabxJF3ftWYM9qVlkpQKbJ7Xb8MxrfUQTNBakHbk
+	ciNF9iM5E8CEheM9i
+X-Google-Smtp-Source: AGHT+IEMxg/ug54EnEgtwuNJIkzOtnOiT9SwOL0cBdt3supRcUX1+utufoWkvAjPsWkzT6HPpSXy8Q==
+X-Received: by 2002:a17:907:971b:b0:ac6:ba4e:e769 with SMTP id a640c23a62f3a-acec69b1f38mr198847066b.35.1745915084429;
+        Tue, 29 Apr 2025 01:24:44 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------2pwKTKzVRn1xx9TkCB6ChiH7"
+Message-ID: <30f3cce3-60b9-480d-b89e-f9992f19cd5e@gmail.com>
+Date: Tue, 29 Apr 2025 10:24:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 08/14] xen/riscv: imsic_init() implementation
+To: Jan Beulich <jbeulich@suse.com>
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <09e0fcd64f97062441a68102ead520b818150fe9.1744126720.git.oleksii.kurochko@gmail.com>
+ <78fa2ed0-57a2-4990-bc9c-8fa52e41420a@suse.com>
+ <aadd8ccf-94f4-407e-8510-3640c6d43b31@gmail.com>
+ <9a13c625-cd33-485d-a91f-9f005522b5a4@suse.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Anthony PERARD <anthony.perard@vates.tech>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] {hyper,multi}call: further limit arguments to just 5
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <9a13c625-cd33-485d-a91f-9f005522b5a4@suse.com>
+
+This is a multi-part message in MIME format.
+--------------2pwKTKzVRn1xx9TkCB6ChiH7
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Multicall compat translation and hypercall continuation handling can
-also be shrunk to the processing of just (up to) 5 arguments.
 
-Take the opportunity to
-- make exceeding the limit noisy in hypercall_create_continuation(),
-- use speculation-safe array access in hypercall_create_continuation(),
-- avoid a Misra C:2012 Rule 19.1 violation in xlat_multicall_entry(),
-- further tidy xlat_multicall_entry() and __trace_multicall_call()
-  style-wise.
+On 4/16/25 8:31 AM, Jan Beulich wrote:
+>>>> --- /dev/null
+>>>> +++ b/xen/arch/riscv/include/asm/imsic.h
+>>>> @@ -0,0 +1,66 @@
+>>>> +/* SPDX-License-Identifier: MIT */
+>>>> +
+>>>> +/*
+>>>> + * xen/arch/riscv/imsic.h
+>>>> + *
+>>>> + * RISC-V Incoming MSI Controller support
+>>>> + *
+>>>> + * (c) 2023 Microchip Technology Inc.
+>>>> + */
+>>>> +
+>>>> +#ifndef ASM__RISCV__IMSIC_H
+>>>> +#define ASM__RISCV__IMSIC_H
+>>>> +
+>>>> +#include <xen/types.h>
+>>>> +
+>>>> +#define IMSIC_MMIO_PAGE_SHIFT   12
+>>>> +#define IMSIC_MMIO_PAGE_SZ      (1UL << IMSIC_MMIO_PAGE_SHIFT)
+>>>> +
+>>>> +#define IMSIC_MIN_ID            63
+>>>> +#define IMSIC_MAX_ID            2048
+>>>> +
+>>>> +struct imsic_msi {
+>>>> +    paddr_t base_addr;
+>>>> +    unsigned long offset;
+>>>> +};
+>>>> +
+>>>> +struct imsic_mmios {
+>>>> +    paddr_t base_addr;
+>>>> +    unsigned long size;
+>>>> +    bool harts[NR_CPUS];
+>>> An array of bool - won't a bitmap do here? Even then I wouldn't be overly
+>>> happy to see it dimensioned by NR_CPUS.
+>> Bitmap will fit here well. But for DECLARE_BITMAP() is necessary the size
+>> of bitmap so NR_CPUS should be used again.
+>> Could you please remind me why it isn't good to use it?
+>> Because NR_CPUS not always equal to an amount of physical cpus?
+> "Not equal" wouldn't be overly problematic. But NR_CPUS=4000 and the actual
+> number of CPUs being 4 would be wasteful in general. More when its wider
+> than a bit that's needed per CPU, but where would you draw the line if you
+> permitted use of NR_CPUS here?
+>
+>> Should I use non-static version of bitmap declaration? (if we have such...)
+> That's simply "unsigned long *" then, or - at the tail of a dynamically
+> allocated struct - possibly unsigned long[].
+>
+>>>> +};
+>>>> +
+>>>> +struct imsic_config {
+>>>> +    /* base address */
+>>>> +    paddr_t base_addr;
+>>>> +
+>>>> +    /* Bits representing Guest index, HART index, and Group index */
+>>>> +    unsigned int guest_index_bits;
+>>>> +    unsigned int hart_index_bits;
+>>>> +    unsigned int group_index_bits;
+>>>> +    unsigned int group_index_shift;
+>>>> +
+>>>> +    /* imsic phandle */
+>>>> +    unsigned int phandle;
+>>>> +
+>>>> +    /* number of parent irq */
+>>>> +    unsigned int nr_parent_irqs;
+>>>> +
+>>>> +    /* number off interrupt identities */
+>>>> +    unsigned int nr_ids;
+>>>> +
+>>>> +    /* mmios */
+>>>> +    unsigned int nr_mmios;
+>>>> +    struct imsic_mmios *mmios;
+>>>> +
+>>>> +    /* MSI */
+>>>> +    struct imsic_msi msi[NR_CPUS];
+>>> You surely can avoid wasting perhaps a lot of memory by allocating this
+>>> based on the number of CPUs in use?
+>> It make sense. I'll allocate then this dynamically.
+> Or, as per above, when put at the tail and the struct itself is
+> dynamically allocated, use struct imsic_msi[]. We even have dedicated
+> xmalloc() flavors for this kind of allocation.
 
-Amends: 2f531c122e95 ("x86: limit number of hypercall parameters to 5")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-hypercall_xlat_continuation() uses BUG() when encountering too large an
-argument count in release builds, but I think that's too harsh. Hence in
-hypercall_create_continuation() I'm re-using the existing error path.
-Interestingly the multicall part of hypercall_xlat_continuation() has no
-check at all which would cover release builds.
+Do you mean xzalloc_flex_struct()?
 
-With gcc14 code size grows according to my observation, due to the loops
-in xlat_multicall_entry() and __trace_multicall_call() both being
-unrolled now.
+I think, I can't use for both of the cases (allocation of mmios and msi).
+For msi[] then it is needed to allocate imsic_config also dynamically, isn't it?
+So something like:
+  imsic_config = xzalloc_flex_struct(struct imsic_config, msi, NR_CPUS).
+But now it is allocated statically.
 
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -392,7 +392,11 @@ unsigned long hypercall_create_continuat
-     if ( mcs->flags & MCSF_in_multicall )
-     {
-         for ( i = 0; *p != '\0'; i++ )
--            mcs->call.args[i] = NEXT_ARG(p, args);
-+        {
-+            if ( i >= ARRAY_SIZE(mcs->call.args) )
-+                goto bad_fmt;
-+            array_access_nospec(mcs->call.args, i) = NEXT_ARG(p, args);
-+        }
- 
-         /* Return value gets written back to mcs->call.result */
-         rc = mcs->call.result;
-@@ -417,7 +421,7 @@ unsigned long hypercall_create_continuat
-                 case 2: regs->x2 = arg; break;
-                 case 3: regs->x3 = arg; break;
-                 case 4: regs->x4 = arg; break;
--                case 5: regs->x5 = arg; break;
-+                default: goto bad_fmt;
-                 }
-             }
- 
-@@ -440,7 +444,7 @@ unsigned long hypercall_create_continuat
-                 case 2: regs->r2 = arg; break;
-                 case 3: regs->r3 = arg; break;
-                 case 4: regs->r4 = arg; break;
--                case 5: regs->r5 = arg; break;
-+                default: goto bad_fmt;
-                 }
-             }
- 
---- a/xen/arch/x86/hypercall.c
-+++ b/xen/arch/x86/hypercall.c
-@@ -41,7 +41,11 @@ unsigned long hypercall_create_continuat
-     if ( mcs->flags & MCSF_in_multicall )
-     {
-         for ( i = 0; *p != '\0'; i++ )
--            mcs->call.args[i] = NEXT_ARG(p, args);
-+        {
-+            if ( i >= ARRAY_SIZE(mcs->call.args) )
-+                goto bad_fmt;
-+            array_access_nospec(mcs->call.args, i) = NEXT_ARG(p, args);
-+        }
-     }
-     else
-     {
-@@ -65,7 +69,7 @@ unsigned long hypercall_create_continuat
-                 case 2: regs->rdx = arg; break;
-                 case 3: regs->r10 = arg; break;
-                 case 4: regs->r8  = arg; break;
--                case 5: regs->r9  = arg; break;
-+                default: goto bad_fmt;
-                 }
-             }
-         }
-@@ -81,7 +85,7 @@ unsigned long hypercall_create_continuat
-                 case 2: regs->rdx = arg; break;
-                 case 3: regs->rsi = arg; break;
-                 case 4: regs->rdi = arg; break;
--                case 5: regs->rbp = arg; break;
-+                default: goto bad_fmt;
-                 }
-             }
-         }
-@@ -177,7 +181,6 @@ int hypercall_xlat_continuation(unsigned
-             case 2: reg = &regs->rdx; break;
-             case 3: reg = &regs->rsi; break;
-             case 4: reg = &regs->rdi; break;
--            case 5: reg = &regs->rbp; break;
-             default: BUG(); reg = NULL; break;
-             }
-             if ( (mask & 1) )
---- a/xen/common/compat/multicall.c
-+++ b/xen/common/compat/multicall.c
-@@ -14,9 +14,13 @@ typedef int ret_t;
- 
- static inline void xlat_multicall_entry(struct mc_state *mcs)
- {
--    int i;
--    for (i=0; i<6; i++)
--        mcs->compat_call.args[i] = mcs->call.args[i];
-+    unsigned int i;
-+    typeof(mcs->compat_call.args[0]) args[ARRAY_SIZE(mcs->call.args)];
+For *mmios and harts[] (a member inside struct imsic_mmios):
+   mmios = xzalloc_flex_struct(struct imsic_mmios, harts, NR_CPUS); // NR_CPUs just for example...
+It will allocate only one mmios, but it is needed mmios[nr_mmios].
+Maybe, something like _xmalloc((offsetof(struct imsic_mmios, harts[NR_CPUS])) * NR_CPUS, sizeof(struct imsic_mmios)) will work.
+
+Am I missing something?
+
+~ Oleksii
+
+--------------2pwKTKzVRn1xx9TkCB6ChiH7
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/16/25 8:31 AM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:9a13c625-cd33-485d-a91f-9f005522b5a4@suse.com">
+      <pre class="moz-quote-pre" wrap=""><blockquote type="cite"
+      style="color: #007cff;"><blockquote type="cite"
+      style="color: #007cff;"><blockquote type="cite"
+      style="color: #007cff;"><pre wrap="" class="moz-quote-pre">--- /dev/null
++++ b/xen/arch/riscv/include/asm/imsic.h
+@@ -0,0 +1,66 @@
++/* SPDX-License-Identifier: MIT */
 +
-+    for ( i = 0; i < ARRAY_SIZE(args); i++ )
-+        args[i] = mcs->call.args[i];
++/*
++ * xen/arch/riscv/imsic.h
++ *
++ * RISC-V Incoming MSI Controller support
++ *
++ * (c) 2023 Microchip Technology Inc.
++ */
 +
-+    memcpy(mcs->compat_call.args, args, sizeof(args));
- }
- 
- #define multicall_entry      compat_multicall_entry
-@@ -29,8 +33,8 @@ static inline void xlat_multicall_entry(
- 
- static void __trace_multicall_call(multicall_entry_t *call)
- {
--    xen_ulong_t args[6];
--    int i;
-+    xen_ulong_t args[ARRAY_SIZE(call->args)];
-+    unsigned int i;
- 
-     for ( i = 0; i < ARRAY_SIZE(args); i++ )
-         args[i] = call->args[i];
---- a/xen/include/public/xen.h
-+++ b/xen/include/public/xen.h
-@@ -640,7 +640,11 @@ DEFINE_XEN_GUEST_HANDLE(mmu_update_t);
-  */
- struct multicall_entry {
-     xen_ulong_t op, result;
-+#ifndef __XEN__
-     xen_ulong_t args[6];
-+#else /* Only 5 arguments are supported in reality. */
-+    xen_ulong_t args[5], unused;
-+#endif
- };
- typedef struct multicall_entry multicall_entry_t;
- DEFINE_XEN_GUEST_HANDLE(multicall_entry_t);
++#ifndef ASM__RISCV__IMSIC_H
++#define ASM__RISCV__IMSIC_H
++
++#include &lt;xen/types.h&gt;
++
++#define IMSIC_MMIO_PAGE_SHIFT   12
++#define IMSIC_MMIO_PAGE_SZ      (1UL &lt;&lt; IMSIC_MMIO_PAGE_SHIFT)
++
++#define IMSIC_MIN_ID            63
++#define IMSIC_MAX_ID            2048
++
++struct imsic_msi {
++    paddr_t base_addr;
++    unsigned long offset;
++};
++
++struct imsic_mmios {
++    paddr_t base_addr;
++    unsigned long size;
++    bool harts[NR_CPUS];
+</pre></blockquote><pre wrap="" class="moz-quote-pre">An array of bool - won't a bitmap do here? Even then I wouldn't be overly
+happy to see it dimensioned by NR_CPUS.
+</pre></blockquote><pre wrap="" class="moz-quote-pre">Bitmap will fit here well. But for DECLARE_BITMAP() is necessary the size
+of bitmap so NR_CPUS should be used again.
+Could you please remind me why it isn't good to use it?
+Because NR_CPUS not always equal to an amount of physical cpus?
+</pre></blockquote><pre wrap="" class="moz-quote-pre">"Not equal" wouldn't be overly problematic. But NR_CPUS=4000 and the actual
+number of CPUs being 4 would be wasteful in general. More when its wider
+than a bit that's needed per CPU, but where would you draw the line if you
+permitted use of NR_CPUS here?
+
+</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
+      class="moz-quote-pre">Should I use non-static version of bitmap declaration? (if we have such...)
+</pre></blockquote><pre wrap="" class="moz-quote-pre">That's simply "unsigned long *" then, or - at the tail of a dynamically
+allocated struct - possibly unsigned long[].
+
+</pre><blockquote type="cite" style="color: #007cff;"><blockquote
+      type="cite" style="color: #007cff;"><blockquote type="cite"
+      style="color: #007cff;"><pre wrap="" class="moz-quote-pre">+};
++
++struct imsic_config {
++    /* base address */
++    paddr_t base_addr;
++
++    /* Bits representing Guest index, HART index, and Group index */
++    unsigned int guest_index_bits;
++    unsigned int hart_index_bits;
++    unsigned int group_index_bits;
++    unsigned int group_index_shift;
++
++    /* imsic phandle */
++    unsigned int phandle;
++
++    /* number of parent irq */
++    unsigned int nr_parent_irqs;
++
++    /* number off interrupt identities */
++    unsigned int nr_ids;
++
++    /* mmios */
++    unsigned int nr_mmios;
++    struct imsic_mmios *mmios;
++
++    /* MSI */
++    struct imsic_msi msi[NR_CPUS];
+</pre></blockquote><pre wrap="" class="moz-quote-pre">You surely can avoid wasting perhaps a lot of memory by allocating this
+based on the number of CPUs in use?
+</pre></blockquote><pre wrap="" class="moz-quote-pre">It make sense. I'll allocate then this dynamically.
+</pre></blockquote><pre wrap="" class="moz-quote-pre">Or, as per above, when put at the tail and the struct itself is
+dynamically allocated, use struct imsic_msi[]. We even have dedicated
+xmalloc() flavors for this kind of allocation.</pre></pre>
+    </blockquote>
+    <pre><pre>Do you mean xzalloc_flex_struct()?
+</pre><pre>I think, I can't use for both of the cases (allocation of mmios and msi).
+For msi[] then it is needed to allocate imsic_config also dynamically, isn't it?
+So something like:
+ imsic_config = xzalloc_flex_struct(struct imsic_config, msi, NR_CPUS).
+But now it is allocated statically.
+
+For *mmios and harts[] (a member inside struct imsic_mmios):
+  mmios = xzalloc_flex_struct(struct imsic_mmios, harts, NR_CPUS); // NR_CPUs just for example...
+It will allocate only one mmios, but it is needed mmios[nr_mmios].
+Maybe, something like _xmalloc((offsetof(struct imsic_mmios, harts[NR_CPUS])) * NR_CPUS, sizeof(struct imsic_mmios)) will work.
+
+Am I missing something?
+
+~ Oleksii</pre></pre>
+  </body>
+</html>
+
+--------------2pwKTKzVRn1xx9TkCB6ChiH7--
 
