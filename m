@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00C8FAA002F
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 05:15:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971385.1359821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A290AA0375
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 08:33:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971414.1359911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9bQY-0005HU-Dm; Tue, 29 Apr 2025 03:14:34 +0000
+	id 1u9eXC-0008OZ-6T; Tue, 29 Apr 2025 06:33:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971385.1359821; Tue, 29 Apr 2025 03:14:34 +0000
+Received: by outflank-mailman (output) from mailman id 971414.1359911; Tue, 29 Apr 2025 06:33:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9bQY-0005FM-AD; Tue, 29 Apr 2025 03:14:34 +0000
-Received: by outflank-mailman (input) for mailman id 971385;
- Tue, 29 Apr 2025 03:14:32 +0000
+	id 1u9eXB-0008At-Hj; Tue, 29 Apr 2025 06:33:37 +0000
+Received: by outflank-mailman (input) for mailman id 971414;
+ Tue, 29 Apr 2025 04:06:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=k9ft=XP=zytor.com=hpa@srs-se1.protection.inumbo.net>)
- id 1u9bQW-0005FE-6U
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 03:14:32 +0000
-Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WGTB=XP=kernel.org=devnull+chenlinxuan.uniontech.com@srs-se1.protection.inumbo.net>)
+ id 1u9cEr-0003mv-Oe
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 04:06:33 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f640f41-24a8-11f0-9ffb-bf95429c2676;
- Tue, 29 Apr 2025 05:14:29 +0200 (CEST)
-Received: from [127.0.0.1] ([76.133.66.138]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53T3DrjB119020
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Mon, 28 Apr 2025 20:13:53 -0700
+ id 4d1e5c05-24af-11f0-9ffb-bf95429c2676;
+ Tue, 29 Apr 2025 06:06:18 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 841A6615EF;
+ Tue, 29 Apr 2025 04:05:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AF344C4CEE3;
+ Tue, 29 Apr 2025 04:06:16 +0000 (UTC)
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 98151C369CB;
+ Tue, 29 Apr 2025 04:06:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,102 +45,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f640f41-24a8-11f0-9ffb-bf95429c2676
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53T3DrjB119020
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1745896436;
-	bh=peb82vM6bSNuZo6/KMKmNAvnzerA3MQBiRKI7q+5xfw=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=a++ELqym3lrpZPy7ffY5Gnnq0aNebWAwsQMnZAleLodLhRw9gdz5sbqMpSGZxWLZS
-	 /9za6Nyp1KexgNB7nXFXpN81dXKkHrxa1ti2HZylvJxMQTBsneVlMxj6hdeA6HgciA
-	 tOwW0eu+NpafDEOYGpD/0HvlLtjP9WIrk2gAy8t6jg6hlHtJQF/hd8pd5fCPqLolIX
-	 hx2rCTFcGPCM3TtOmG7U2KmdSt2WHoJeIWlDrJpdGMnuXqQiEcGsr4bievYSlRz9wq
-	 vj77sXGyLSXoYKTA2EWk6M4qRon8YrQ8jrBfjBbkBVizg6LoYfoLnMe5Em6X49Kisx
-	 gYDsmYl7YHsaA==
-Date: Mon, 28 Apr 2025 20:13:52 -0700
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Ingo Molnar <mingo@kernel.org>
-CC: Arnd Bergmann <arnd@arndb.de>, Arnd Bergmann <arnd@kernel.org>,
-        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        Juergen Gross <jgross@suse.com>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Alexander Usyskin <alexander.usyskin@intel.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        =?UTF-8?Q?Mateusz_Jo=C5=84czyk?= <mat.jonczyk@o2.pl>,
-        Mike Rapoport <rppt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
-        Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-        xen-devel@lists.xenproject.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_bitops/32=3A_Convert_variable?=
- =?US-ASCII?Q?=5Fffs=28=29_and_fls=28=29_zero-case_handling_to_C?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <e5e97ff8-9670-40d1-a0fa-69504d34c4c4@citrix.com>
-References: <20250425141740.734030-1-arnd@kernel.org> <aAyiganPp_UsNlnZ@gmail.com> <d2b0e71c-e79b-40d6-8693-3202cd894d66@app.fastmail.com> <CAHk-=wh=TUsVv6xhtzYsWJwJggrjyOfYT3kBu+bHtoYLK0M9Xw@mail.gmail.com> <CAHk-=wgfk69H-T-vMWR33xUpVsWJLrF34d0OwUXa2sHhtpSwZg@mail.gmail.com> <e54f1943-e0ff-4f59-b24f-9b5a7a38becf@citrix.com> <CAHk-=wj0S2vWui0Y+1hpYMEhCiXKexbQ01h+Ckvww8hB29az_A@mail.gmail.com> <aA8nF0moBYOIgC5J@gmail.com> <aA8oqKUaFU-0wb-D@gmail.com> <CAHk-=wgJfWfWa2NTiTmev+Xr=e8Uo=aFkrXujLAQBVAVN-VigQ@mail.gmail.com> <B364FF6D-DFCC-42A7-ACA1-6A74E27EE57E@zytor.com> <67be5eee-b67b-409a-8309-829f891b9944@citrix.com> <916BD58C-E6A7-495E-9A60-722E130AC7A7@zytor.com> <e5e97ff8-9670-40d1-a0fa-69504d34c4c4@citrix.com>
-Message-ID: <956DB0ED-F3DB-456D-8D06-6F40DBDB815A@zytor.com>
+X-Inumbo-ID: 4d1e5c05-24af-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1745899576;
+	bh=V+YDfvUyGy5qM6nqWNSGKKulp2fwuDLB1gLxIkj/Hno=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=JrpjRytRVQqTzmvDN6tW8YwWy5LZEcqe6LwvOCY/SquzF6mxh4RHWz4fLI7DHh+Q6
+	 OIk1xHUupRbL7YZJ6VPBb5I/Cqe1L8DRA43HCUDBtHqFaVGf0cAm9sPKUqLs5nmFys
+	 hcjlxVCHe61nmaW0bNMqcoYxGsf/Gj0KWmWjwk0jnsS7P81OWOSUTyOHasEJpPtzsT
+	 WkB3ojGfh670XtC3ltZq9dxNP1wwvpx6uNHneQD55VGNpzCOJIw3LaE9t8IR8WsOAz
+	 HhVjN8ByZI/ZAVMh+pwvU8yzJR+3XjfSUGjQ9ENcQzkgQOmbRX7izujoWnKPklrAFY
+	 eiZ7yDwkQxZpw==
+From: Chen Linxuan via B4 Relay <devnull+chenlinxuan.uniontech.com@kernel.org>
+Subject: [PATCH RFC v3 0/8] kernel-hacking: introduce CONFIG_NO_AUTO_INLINE
+Date: Tue, 29 Apr 2025 12:06:04 +0800
+Message-Id: <20250429-noautoinline-v3-0-4c49f28ea5b5@uniontech.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACxQEGgC/22OzQ6CMBCEX4X0qiXdpQXqyQTCA3g1HhBXaaKt4
+ S8YwrtbG0/G48xkvpmF9dQZ6tkuWlhHk+mNs14k24g1bW1vxM3Fa4YClZCQcuvqcXDG3o0lnpM
+ +a1KJkgqZrzw7upo54I7sUBXs5M3W9IPrXmFighAlUEksc5BQlCWWYvPFAwgFEuNco0458Kalz
+ 9A81nY/Wn9toKaNG/cI4AkD7P+1CbnglOoaM8hUIq6/gHVd37l4dtL+AAAA
+X-Change-ID: 20250416-noautoinline-8e9b9e535452
+To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Yishai Hadas <yishaih@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>, 
+ Kevin Tian <kevin.tian@intel.com>, 
+ Alex Williamson <alex.williamson@redhat.com>, 
+ Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, 
+ Masahiro Yamada <masahiroy@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nicolas Schier <nicolas.schier@linux.dev>, 
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Vlastimil Babka <vbabka@suse.cz>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <jackmanb@google.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Peter Zijlstra <peterz@infradead.org>, 
+ "Paul E. McKenney" <paulmck@kernel.org>, Boqun Feng <boqun.feng@gmail.com>, 
+ Dmitry Vyukov <dvyukov@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+ Juergen Gross <jgross@suse.com>, 
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, kvm@vger.kernel.org, virtualization@lists.linux.dev, 
+ linux-integrity@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+ llvm@lists.linux.dev, Winston Wen <wentao@uniontech.com>, 
+ kasan-dev@googlegroups.com, xen-devel@lists.xenproject.org, 
+ Chen Linxuan <chenlinxuan@uniontech.com>, 
+ Changbin Du <changbin.du@intel.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2639;
+ i=chenlinxuan@uniontech.com; h=from:subject:message-id;
+ bh=V+YDfvUyGy5qM6nqWNSGKKulp2fwuDLB1gLxIkj/Hno=;
+ b=owEBbQKS/ZANAwAKAXYe5hQ5ma6LAcsmYgBoEFAt1A5qQ0LESAzipTR7awHbnQPj78n5atow0
+ tiwIctZ69yJAjMEAAEKAB0WIQTO1VElAk6xdvy0ZVp2HuYUOZmuiwUCaBBQLQAKCRB2HuYUOZmu
+ ixgVD/9iV08f+Vs6eS/LbQDJ7q+zM9yfQ97NvSrbN+MQtFOdOOX/B9DDWjz07bMvwZeoSrnuWD8
+ Hp2NCMdUMvn/XAg8tY/cC0FeuznQPAg5DIqOw8e+jaILOgWNROimjgixLuhTr6WiaM0KrcZDHBL
+ OCFiXr8cJEoV5nmHDZpwmsRyfhwIkYxKUiqVZvxYPnX5Mq0jdE9cE129yrf++c0rJHV7tiA9m3m
+ 3Dgfo4EYCqhLMhujPTgQnqrtD260ZB/BDOIDT/4pmvjfuO7SVexQMqaZ6VD9Zv6g3IpgG//tHdW
+ YqgmY8n2rOMhJaDXULwLGpK32HY5uEPSykT3U8ytrJs1vPonlNQ+Yl1jBUOMiJd28s6gMWhAfNF
+ 7DhrCdUVPQITzQ3hp7+hMavCnibw1bsO70Q1Jyoe/HbpVw+jgqinhhqNY/q95Z3kUEjgZ70wbQz
+ J4+fpvQceoLTw3aPUBwT4AgmFYItGhMG/oWciNlmNPDr/PkMdez2OuxVUBnKvMvmy4yNtOyF82f
+ vhAi9OSPoii6ldf1OcZLCU7qEMXlU9dM1KhX437xOQ4ZbW31J0vPnuqxW9b5BE8+hsNfWWLyt/z
+ sTJSwkwcY3PBvFzx6dDyI4Q7JC83rCdQ6Bpw8f+o9IgK2kSIMrG0t4mrxG3OSfZB8NXalFg40yK
+ bumZ9NWzca7x0hA==
+X-Developer-Key: i=chenlinxuan@uniontech.com; a=openpgp;
+ fpr=D818ACDD385CAE92D4BAC01A6269794D24791D21
+X-Endpoint-Received: by B4 Relay for chenlinxuan@uniontech.com/default with
+ auth_id=380
+X-Original-From: Chen Linxuan <chenlinxuan@uniontech.com>
+Reply-To: chenlinxuan@uniontech.com
 
-On April 28, 2025 7:25:17 PM PDT, Andrew Cooper <andrew=2Ecooper3@citrix=2E=
-com> wrote:
->On 29/04/2025 3:00 am, H=2E Peter Anvin wrote:
->> On April 28, 2025 5:12:13 PM PDT, Andrew Cooper <andrew=2Ecooper3@citri=
-x=2Ecom> wrote:
->>> On 28/04/2025 10:38 pm, H=2E Peter Anvin wrote:
->>>> On April 28, 2025 9:14:45 AM PDT, Linus Torvalds <torvalds@linux-foun=
-dation=2Eorg> wrote:
->>>>> On Mon, 28 Apr 2025 at 00:05, Ingo Molnar <mingo@kernel=2Eorg> wrote=
-:
->>>>>> And once we remove 486, I think we can do the optimization below to
->>>>>> just assume the output doesn't get clobbered by BS*L in the zero-ca=
-se,
->>>>>> right?
->>>>> We probably can't, because who knows what "Pentium" CPU's are out th=
-ere=2E
->>>>>
->>>>> Or even if Pentium really does get it right=2E I doubt we have any
->>>>> developers with an original Pentium around=2E
->>>>>
->>>>> So just leave the "we don't know what the CPU result is for zero"
->>>>> unless we get some kind of official confirmation=2E
->>>>>
->>>>>          Linus
->>>> If anyone knows for sure, it is probably Christian Ludloff=2E However=
-, there was a *huge* tightening of the formal ISA when the i686 was introdu=
-ced (family=3D6) and I really believe this was part of it=2E
->>>>
->>>> I also really don't trust that family=3D5 really means conforms to un=
-documented P5 behavior, e=2Eg=2E for Quark=2E
->>> https://www=2Esandpile=2Eorg/x86/flags=2Ehtm
->>>
->>> That's a lot of "can't even characterise the result" in the P5=2E
->>>
->>> Looking at P4 column, that is clearly what the latest SDM has
->>> retroactively declared to be architectural=2E
->>>
->>> ~Andrew
->> Yes, but it wasn't about flags here=2E=20
->>
->> Now, question: can we just use __builtin_*() for these? I think gcc sho=
-uld always generate inline code for these on x86=2E
->
->Yes it does generate inline code=2E=C2=A0 https://godbolt=2Eorg/z/M45oo5r=
-qT
->
->GCC does it branchlessly, but cannot optimise based on context=2E
->
->Clang can optimise based on context, except the 0 case it seems=2E
->
->Moving to -march=3Di686 causes both GCC and Clang to switch to CMOV and
->create branchless code, but is still GCC still can't optimise out the
->CMOV based on context=2E
->
->~Andrew
+This series introduces a new kernel configuration option NO_AUTO_INLINE,
+which can be used to disable the automatic inlining of functions.
 
-Maybe a gcc bug report would be better than trying to hack around this in =
-the kernel?
+This will allow the function tracer to trace more functions
+because it only traces functions that the compiler has not inlined.
+
+Previous discussions can be found at
+
+Link: https://lore.kernel.org/all/20181028130945.23581-3-changbin.du@gmail.com/
+
+This patch depends on
+
+  [PATCH] drm/i915/pxp: fix undefined reference to
+          `intel_pxp_gsccs_is_ready_for_sessions'
+
+which can be found at
+
+  https://lore.kernel.org/all/20250415090616.2649889-1-jani.nikula@intel.com/
+
+as well as
+
+  [RFC PATCH 5/7] RDMA/hns: initialize db in update_srq_db()
+
+which can be found at
+
+  https://lore.kernel.org/all/FF922C77946229B6+20250411105459.90782-5-chenlinxuan@uniontech.com/
+
+Signed-off-by: Chen Linxuan <chenlinxuan@uniontech.com>
+---
+Changes in v3:
+- Fix some modpost and objtool warnings
+- Try support clang as Bart Van Assche suggested.
+- Remove architecture depends as Bart Van Assche suggested.
+- Link to v2: https://lore.kernel.org/r/20250416-noautoinline-v2-0-e69a2717530f@uniontech.com
+
+Changes in v2:
+- Resend via b4 to correct Message-ID and recipients.
+- Update commit message following suggestions from Jarkko Sakkinen 
+- Link to v1: https://lore.kernel.org/r/31F42D8141CDD2D0+20250411105142.89296-1-chenlinxuan@uniontech.com
+
+---
+Chen Linxuan (4):
+      rseq: add __always_inline for rseq_kernel_fields
+      kcov: add __always_inline for canonicalize_ip
+      x86/xen: add __init for xen_pgd_walk
+      lib/Kconfig.debug: introduce CONFIG_NO_AUTO_INLINE
+
+Winston Wen (4):
+      nvme: add __always_inline for nvme_pci_npages_prp
+      mm: add __always_inline for page_contains_unaccepted
+      vfio/virtio: add __always_inline for virtiovf_get_device_config_size
+      tpm: add __always_inline for tpm_is_hwrng_enabled
+
+ Makefile                            | 16 ++++++++++++++++
+ arch/x86/xen/mmu_pv.c               |  2 +-
+ drivers/char/tpm/tpm-chip.c         |  2 +-
+ drivers/nvme/host/pci.c             |  2 +-
+ drivers/vfio/pci/virtio/legacy_io.c |  2 +-
+ kernel/kcov.c                       |  2 +-
+ kernel/rseq.c                       |  2 +-
+ lib/Kconfig.debug                   | 21 +++++++++++++++++++++
+ lib/Makefile                        |  3 +++
+ mm/page_alloc.c                     |  2 +-
+ 10 files changed, 47 insertions(+), 7 deletions(-)
+---
+base-commit: ca91b9500108d4cf083a635c2e11c884d5dd20ea
+change-id: 20250416-noautoinline-8e9b9e535452
+
+Best regards,
+-- 
+Chen Linxuan <chenlinxuan@uniontech.com>
+
+
 
