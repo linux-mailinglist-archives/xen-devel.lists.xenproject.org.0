@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E13AAAA0BCB
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 14:37:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.972364.1360744 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2AD2AA0BCC
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 14:37:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.972369.1360755 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9kD7-0000Tr-QR; Tue, 29 Apr 2025 12:37:17 +0000
+	id 1u9kDF-0000zU-4f; Tue, 29 Apr 2025 12:37:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 972364.1360744; Tue, 29 Apr 2025 12:37:17 +0000
+Received: by outflank-mailman (output) from mailman id 972369.1360755; Tue, 29 Apr 2025 12:37:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9kD7-0000Rk-MX; Tue, 29 Apr 2025 12:37:17 +0000
-Received: by outflank-mailman (input) for mailman id 972364;
- Tue, 29 Apr 2025 12:37:16 +0000
+	id 1u9kDE-0000wB-VM; Tue, 29 Apr 2025 12:37:24 +0000
+Received: by outflank-mailman (input) for mailman id 972369;
+ Tue, 29 Apr 2025 12:37:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PDgl=XP=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1u9kD6-0007L9-40
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 12:37:16 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20602.outbound.protection.outlook.com
- [2a01:111:f403:2418::602])
+ id 1u9kDC-0007L9-Nd
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 12:37:22 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20629.outbound.protection.outlook.com
+ [2a01:111:f403:2416::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ac624906-24f6-11f0-9ffb-bf95429c2676;
- Tue, 29 Apr 2025 14:37:13 +0200 (CEST)
-Received: from BL1PR13CA0334.namprd13.prod.outlook.com (2603:10b6:208:2c6::9)
- by MW4PR12MB6683.namprd12.prod.outlook.com (2603:10b6:303:1e2::5)
+ id afeee676-24f6-11f0-9ffb-bf95429c2676;
+ Tue, 29 Apr 2025 14:37:19 +0200 (CEST)
+Received: from BL1PR13CA0307.namprd13.prod.outlook.com (2603:10b6:208:2c1::12)
+ by SN7PR12MB6716.namprd12.prod.outlook.com (2603:10b6:806:270::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.30; Tue, 29 Apr
- 2025 12:37:07 +0000
-Received: from MN1PEPF0000ECD8.namprd02.prod.outlook.com
- (2603:10b6:208:2c6:cafe::1f) by BL1PR13CA0334.outlook.office365.com
- (2603:10b6:208:2c6::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.23 via Frontend Transport; Tue,
- 29 Apr 2025 12:37:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.31; Tue, 29 Apr
+ 2025 12:37:13 +0000
+Received: from MN1PEPF0000ECD5.namprd02.prod.outlook.com
+ (2603:10b6:208:2c1:cafe::1d) by BL1PR13CA0307.outlook.office365.com
+ (2603:10b6:208:2c1::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.25 via Frontend Transport; Tue,
+ 29 Apr 2025 12:37:12 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD8.mail.protection.outlook.com (10.167.242.137) with Microsoft
+ MN1PEPF0000ECD5.mail.protection.outlook.com (10.167.242.133) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8699.20 via Frontend Transport; Tue, 29 Apr 2025 12:37:06 +0000
+ 15.20.8699.20 via Frontend Transport; Tue, 29 Apr 2025 12:37:12 +0000
 Received: from xcbagarciav01.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 29 Apr
- 2025 07:37:00 -0500
+ 2025 07:37:06 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac624906-24f6-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: afeee676-24f6-11f0-9ffb-bf95429c2676
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ib40iy9n9pbR3M87Ho4i3sy0KfCOSqOt7KvVYec6+/SmThMfpOji27vqEHU7fatfErdqtt36/QPZqTgxiH0actPs9T3pXp2D/JfzAbsnF0lJw/Fs93MjqPHGtuI1yIgbb0SWBoNIub0eHHtgjCIjTSZhtM8APdFm7j0O34MJZdjJqJ9xInd3ooRbfl9vlKutcQ/6cZRjFIJiqiCqQ5AjYTQu6AcFuwOhjD7vHd0AymLZ432bE5i78N8rfFbUn/WBcdRQgN7pOGsVy89RDGcNC8Zr9+u8rFCxK9YRaggxpOVPRnbm+xRIwXYOQZp8m5M6QV4PxJC8ek8hkX+2GpyILg==
+ b=jxX4f/TIxoU+7wN/2speL4gTXowFpKB+url1kZBGoGFbhQABEeyiFZx2W76hbDfHpxSHBAKrYjm2TSWDkRVZf/SObXKRYWzhj+oZ9eXZnIv+7q2Zp/bqecJOlpo9g7GohpR31Y+pzY9LXQ1kGSwdPwQLCbxyoqaFHz2Rl5pyb/03fNqVmuQY+RVqNSsakmdYG3zjgavU358Mtjwpe2sKzz3Q81gQeY0vNtgVAwsLGgGTI5uulqOO8WqSmgqTsn3XVKeIffFLMKPbAzJkhBIZ4Dwp2U2FmynO7F79Z2K1OPx0wjk9UupfR5rgJ8QJJ4weJqs3Vwp/z0DVtRV2A3gzwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kzlDcDxGuBna1NjqeyuBWXITlGSX+G2YYWsKMdoIvyU=;
- b=xpbwj+g8LIEnbLeZIVBW/q4TYlXAmTlGzKRBPFrDJBDCJk6j8xAXuFyRmQwsspSF7Q9fr/NPPbqfoIlamE/hjXxf0nOs2Ng3aRkEfKGOESWSP9lEhxazzoBpTDBLfWt+uU6wg7zX2WvAz76Rqn/PCbYegNkn7uHqCkZW71Lvlx8aEVQ5+RFL70E2s6iYSh0jY8h/ft6MCHPm6iLCuGAP95QMJxRRBZZCx1cMDOq3jrHC3IZ6ZVO7rRNC2yn+BPFuANVEg2eqUSAMt4WFUHJSBB4srcokRU0n4UQrFzCMkGe9tKx64UeaFDoUfiu4lei1zANOuH5S51WS3EgW6Y3FrQ==
+ bh=iGykJQZXA0HQnaAnFulQBRBoOR4WtonCUdL5Fcu7eLY=;
+ b=to0pDMyR5anAa3BKTM8D8zUbIE5Pibc5vcHf5ol4YJuFkJ6DUKpibcdu/3hAtV2KqPGU8Ab3zeV3VleiY1Hrr8NHkQt0h2lK3w6w4v+rDrOa97eVGnbQosAnoLi5CPgm3wXrIh0qcPDvPH6i9Z/0TnUhDtf6KDh9z5ERProF+yrg729BMonqH7AspqR4fq1zwz8t3eD5pO/M0X1avEm5hC79LAORH4KIY7Tq1amYX7kje3RaUnbtnBwCw5u1ce7oLikD94n1KwmYD6XTq5yrtGmavWz3n06X9PQ8WBjugzxwkKI/DQg5BjAc3/z2DSuEEU/bfcUq9MSy4aY+iZuH5Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kzlDcDxGuBna1NjqeyuBWXITlGSX+G2YYWsKMdoIvyU=;
- b=3cRwrxbXpBaQa8RVHsbnrYvcydG7VQUld8VxZgNg7lHhXUE1AUTcZ0N53BhEOJl+yFGMGeKTilFBtAdvv7nV2XR8wENyjOuKEPFelg827i5twnBwF04nWIcpdkB2kOIx2YuFSY/khjv9AMTHv/QD6iGdyqbHT69k7k93OykOzSs=
+ bh=iGykJQZXA0HQnaAnFulQBRBoOR4WtonCUdL5Fcu7eLY=;
+ b=VJ19/Kmt05W+xmYJwwNntqXPmY47+/5Oireookxw0zha6rIWvpbs67gsEvk3BhIaBmL4Ov3sOvkrpzBDKbndoZ/+HEY0RVOwQBHxQ+lpPn+BFRqILquimK4ge0d+qUJ6T7c9CyLwEbHiSRVKZ+Yi9z0q4/+nuXMt3VwqqngJbKI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,16 +80,15 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Alejandro Vallejo <agarciav@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Jason
- Andryuk" <jason.andryuk@amd.com>, Alejandro Vallejo <agarciav@amd.com>,
-	"Denis Mukhin" <dmukhin@ford.com>
-Subject: [PATCH v6 03/12] x86/hyperlaunch: initial support for hyperlaunch device tree
-Date: Tue, 29 Apr 2025 13:36:14 +0100
-Message-ID: <20250429123629.20839-4-agarciav@amd.com>
+CC: Alejandro Vallejo <agarciav@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, "Jason
+ Andryuk" <jason.andryuk@amd.com>, Denis Mukhin <dmukhin@ford.com>
+Subject: [PATCH v6 04/12] x86/hyperlaunch: Add helpers to locate multiboot modules
+Date: Tue, 29 Apr 2025 13:36:15 +0100
+Message-ID: <20250429123629.20839-5-agarciav@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250429123629.20839-1-agarciav@amd.com>
 References: <20250429123629.20839-1-agarciav@amd.com>
@@ -101,231 +100,276 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD8:EE_|MW4PR12MB6683:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0564233-3571-40ba-612e-08dd871a8d71
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD5:EE_|SN7PR12MB6716:EE_
+X-MS-Office365-Filtering-Correlation-Id: 633be678-8083-4dc2-4a89-08dd871a9104
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
+	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?75Uj1T9g9GpXOMH0eujD0H+CJzvVxhV08wglyLMi3P4MdjUAJwsFeHUJd66a?=
- =?us-ascii?Q?DS3TygVfXRTW1Xc/H6fYsqjfaAlGE7D+JFoqK/j0Q4Nlaf8Jb2D67L43s2bq?=
- =?us-ascii?Q?EvicItJiQUyr4vAZniP+Ra2TovTfuesLlcFgMW8sbVbpCJxOAzaJ6mOOonWA?=
- =?us-ascii?Q?EwbCa0xD7AHMhaMJ5xpu144TUVRjmtdTD/aPrl+C34c3Ut80nwDc4NLqDlAi?=
- =?us-ascii?Q?V263WotQ+579fb0KVsP5l5Pak2ws9UsgaJRgZH7G8xvnV/LtEC6ItM++GZ9B?=
- =?us-ascii?Q?/PFtPsyO5Ee1vtA2CG3LY+JVZTme4NUbG8JK2XW6JbAHuLqWYHxWIBQYsr7q?=
- =?us-ascii?Q?QzJ+oSSF0uYs/7nUubPOUJg9og0Y2y9xGUjkU2BXH/yzRt3oO16uDsIdIa9j?=
- =?us-ascii?Q?JnzmBgzf3J9Wg7f+B9+0FRKkVWVd0YJB/l57Yf7wggdMFe+b7U5jFEJztZTi?=
- =?us-ascii?Q?QMk9dpN5W+EvRLbfL+RsmLOwaR1d1Ypz0yg8dPi/MQREHjvMP/5ABxioCx5B?=
- =?us-ascii?Q?zu/gIGFe3xQKFvMNNS0wZEAWPEVX8YA6Lj4pOcwt7tFS4J57LdxSNAR63mWA?=
- =?us-ascii?Q?OC4s9izvnYnvFVfkQd6eJ3kokFSgjRy9M25CJIte7UrndXB3c7yRE0bSs1za?=
- =?us-ascii?Q?oewkzlZbtR7H92p56iMWxxu6ig9l2YFUScy7Xcm6YlRwPFPl+95SDpmzLMfF?=
- =?us-ascii?Q?s8OlGVQUIraCXTc2RvzZIzp4ShP/RBABbdUGkwX7ys2g54y0XLl1psrjeFrq?=
- =?us-ascii?Q?lORWchk7ztTNXkR9O6hboGG+y+Q8v/18B/k5lEPSiMXZJkww6tntt1n1nUZa?=
- =?us-ascii?Q?8RiCnolPz0COXfHIj/KQcsIU0Y7yiJuXpKudGVvh2Guq7Sw+rN4D9qG3LEVc?=
- =?us-ascii?Q?4s3L5y3LQPigNJMIr2oiUfD6Cpu3CMMqh7pVyDYK/oPHmLeZMhLnZG4HuJr3?=
- =?us-ascii?Q?k+hZBwunPp4tiVyC4u8FrSfIljlhOT0DTghp5bu+5Iw1jZdUM5PhkwAE4pZA?=
- =?us-ascii?Q?5Dn3yoW/tQzdmzXzFZi19xnKcwemhnYWzZksNQ5UPT8JSP80RLCv1efvcb98?=
- =?us-ascii?Q?wC/DV6x3kx7i82qzCWqnm7YKNikcBDYDEcsKc2w7sOPv0wQadzMtPRUbpUis?=
- =?us-ascii?Q?9qAa4ele+SIUSCbAMs5w6LhXiseEn/9x1EdBn6IVmY7Hb8ZLKKjB44k4kjGa?=
- =?us-ascii?Q?JThCv3P8Weaq83iojocoDEyyo5s+RDMz79k1m3nI8nlppO6NSt7AD97NY92s?=
- =?us-ascii?Q?H3SqVjJRAfq+D15Geri3dUmm/BnJ+XuAPhgv0AbnMPnJK5USn2s/2XnuWT8i?=
- =?us-ascii?Q?J3NPayClj4rGDk7QyY1C9wnVaT5vFH4UD2rvXJfSLyHlfGyXAl2dupsMJw0E?=
- =?us-ascii?Q?E7sCnMrKQeq//d1fXlwU3/x+naeU+lJ7JS6stbHri6bR0YiHOtEJCGpk1FHu?=
- =?us-ascii?Q?hfpYOJJ9AXb6FG5j1iQZfHYNSW18Bn88CtxjlHDmYdbJr2UZomRO9IxzRl4j?=
- =?us-ascii?Q?lgD+TIGsw/E/h1D81QacJik8ReM7GR45zq51?=
+	=?us-ascii?Q?EqkAaI7bxKQSI0Vq3StOWNmqaCvttiX4LzfcpghTtJGMUxV56en21dNV44X3?=
+ =?us-ascii?Q?O1ru2GzjU7qqsjux7jjrRTBXzPUMScKHsIzx2Di2tmRROl7o6mGOiIYCrOPw?=
+ =?us-ascii?Q?VwRReiZ3QoEx7Uc3rBcQrXGCa8kcGctq+duUkmBmYVYUz7Zm4pKKf/skS/Lj?=
+ =?us-ascii?Q?Se2SCcUFy7EHlBr9OYPxOa6u71K03QZhBaqeb6v/0oI95WmWtNFeRr5fiF5L?=
+ =?us-ascii?Q?GhaT5G9NQFSn7fj2c8RxR5AXJG3EhvW/eZQcEIq4UMTHLhkQzbvAM8xZDffS?=
+ =?us-ascii?Q?wx5ghKyvJU8uBad5PMbjCaKCZyltXX9T0+/oxT8SYlcC08kz4OljWnEsYP7Q?=
+ =?us-ascii?Q?ofyEdoKRbp2VTQd1sXZ7OamgvVyXBXr8Z5w5264Wh/WbRVUwBVT0J+f/JhCX?=
+ =?us-ascii?Q?1q+PeD4aOOxDb2ohukolVGmF1zeqbkKDUDPBtS+8QW7OgItggB+1lcktb/De?=
+ =?us-ascii?Q?bNfW5GgamVWtqA2gu/c6NNq+Ei1doa6m4IyJavzKt2a6hjzQs1uyr0tvHUsZ?=
+ =?us-ascii?Q?BFi+iw/zIkiw1g64Eqa97bQC86njyUDWOFdu4aJOn3/vuWIAb829tdovSmuy?=
+ =?us-ascii?Q?2g+Hfg52I6MlAN8/qpZmzcQKiSblNO1Y7HoNy+YYagx3f41P8fRuhxsvYgL6?=
+ =?us-ascii?Q?PdunDIi/es82+TozIrDHUsa4NTQwT9WLldPTv/FuXKrQja44ijhGW3EjGPqo?=
+ =?us-ascii?Q?g0mTERRECYve0Gu6MkfbEMsY50eYNDn6SSxJN5RTqG32j1dWbu9J5hWOdVGB?=
+ =?us-ascii?Q?ChuoQxs3FsTOeERiGtS9FM1tg6JT2I4vMpMCOKFkoWJ/2SsRmH63yTqClJ8e?=
+ =?us-ascii?Q?Xa4WtkUMKGb1VLooqf++SKBum8rxo893+ULSO7KJeJME3iVmXcpSteR6102Q?=
+ =?us-ascii?Q?AEIs7FDCHQUTI2sMkQ99ZNyeVJAfIJ8yy4BrG9u84aFeYofT2KAj7N1Nqv/P?=
+ =?us-ascii?Q?i/rjZM7FiHdjYzI+8CvFhoHg8uAeO5eXZAgsul7MIkUdHvRtHC6X43vWwYHE?=
+ =?us-ascii?Q?zbzExuis7anCF1fb3UaT8MXOd/jPrBwl25uMfRwK9YbY0/LUyRnK5GxA5laY?=
+ =?us-ascii?Q?MzkPqaY8VmEB/CV4Ls8NwQYf1+ZZUNH2NJ5c0LKHt3MnQ2gg72cflKOPz2V/?=
+ =?us-ascii?Q?rIrcqYofEwFcM0bCTxHtcqiw7Y0Uo3WH6NwKhcEqPRwhIRBkWAsqL2iYo8ZC?=
+ =?us-ascii?Q?B6FZs3dqIly/fNXQ1HGGGg30t0+v0h74GlC1hfxiqopcpK5gQNp+GB938ZZj?=
+ =?us-ascii?Q?AzS9Ti4uMQ4bsBJY9rntUzWvo8KdDjd97ew8V511ahrnaz26jm+q/1WzvPpo?=
+ =?us-ascii?Q?PqL3CejELNpGGrJ5Ag8VY33MDg+pby6YtD/71qyffmT1y8QWhnKtN23Fu6lG?=
+ =?us-ascii?Q?RSkJwWPoFqZxpII7F3bUNOovNH8Vy21wXCNng2kz8mhxW+DAthIV3+YTa8zM?=
+ =?us-ascii?Q?+cSko2PPKJGAdesF6/pSRxtjClOMwstXlosQaVIcHZGgBvEVlMqTU12WQR9K?=
+ =?us-ascii?Q?lheRLz0eCwA5xNthgxV5oP9r7d1FRM/yOKbV?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2025 12:37:06.7947
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2025 12:37:12.7927
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0564233-3571-40ba-612e-08dd871a8d71
+X-MS-Exchange-CrossTenant-Network-Message-Id: 633be678-8083-4dc2-4a89-08dd871a9104
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD8.namprd02.prod.outlook.com
+	MN1PEPF0000ECD5.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6683
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6716
 
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Hyperlaunch mandates either a reg or module-index DT prop on nodes that
+contain `multiboot,module" under their "compatible" prop. This patch
+introduces a helper to generically find such index, appending the module
+to the list of modules if it wasn't already (i.e: because it's given via
+the "reg" prop).
 
-Add the ability to detect both a formal hyperlaunch device tree or a dom0less
-device tree. If the hyperlaunch device tree is found, then count the number of
-domain entries, reporting an error if more than one is found.
-
-Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
 Reviewed-by: Denis Mukhin <dmukhin@ford.com>
 ---
- xen/arch/x86/include/asm/bootinfo.h |  1 +
- xen/common/domain-builder/core.c    | 15 +++++++
- xen/common/domain-builder/fdt.c     | 62 +++++++++++++++++++++++++++++
- xen/common/domain-builder/fdt.h     |  1 +
- xen/include/xen/domain-builder.h    |  2 +
- 5 files changed, 81 insertions(+)
+ xen/common/domain-builder/fdt.c  | 172 +++++++++++++++++++++++++++++++
+ xen/common/domain-builder/fdt.h  |   1 +
+ xen/include/xen/domain-builder.h |   4 +
+ 3 files changed, 177 insertions(+)
 
-diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
-index 82c2650fcf..1e3d582e45 100644
---- a/xen/arch/x86/include/asm/bootinfo.h
-+++ b/xen/arch/x86/include/asm/bootinfo.h
-@@ -84,6 +84,7 @@ struct boot_info {
-     bool hyperlaunch_enabled;
- 
-     unsigned int nr_modules;
-+    unsigned int nr_domains;
-     struct boot_module mods[MAX_NR_BOOTMODS + 1];
-     struct boot_domain domains[MAX_NR_BOOTDOMS];
- };
-diff --git a/xen/common/domain-builder/core.c b/xen/common/domain-builder/core.c
-index 97c92db571..c6917532be 100644
---- a/xen/common/domain-builder/core.c
-+++ b/xen/common/domain-builder/core.c
-@@ -16,10 +16,17 @@
- enum fdt_kind __init builder_init(struct boot_info *bi)
- {
-     enum fdt_kind kind;
-+    int ret;
- 
-     bi->hyperlaunch_enabled = false;
-     switch ( (kind = fdt_detect_kind(bi)) )
-     {
-+    case FDT_KIND_HYPERLAUNCH:
-+        printk(XENLOG_DEBUG "DT found: hyperlaunch\n");
-+        bi->hyperlaunch_enabled = true;
-+        bi->mods[0].type = BOOTMOD_FDT;
-+        break;
-+
-     case FDT_KIND_NONE:
-         /* No DT found */
-         return kind;
-@@ -32,6 +39,14 @@ enum fdt_kind __init builder_init(struct boot_info *bi)
-     default:
-         BUG();
-     }
-+
-+    printk(XENLOG_INFO "Hyperlaunch configuration:\n");
-+    if ( (ret = fdt_walk_hyperlaunch(bi)) < 0 )
-+        panic("Walk of device tree failed (%d)\n", ret);
-+
-+    printk(XENLOG_INFO "  number of domains: %u\n", bi->nr_domains);
-+
-+    return FDT_KIND_HYPERLAUNCH;
- }
- 
- /*
 diff --git a/xen/common/domain-builder/fdt.c b/xen/common/domain-builder/fdt.c
-index 4b07bd22c8..94ccff61e2 100644
+index 94ccff61e2..05ac3647cf 100644
 --- a/xen/common/domain-builder/fdt.c
 +++ b/xen/common/domain-builder/fdt.c
-@@ -13,6 +13,36 @@
+@@ -13,6 +13,178 @@
  
  #include "fdt.h"
  
-+static int __init find_hyperlaunch_node(const void *fdt)
++static int __init fdt_prop_as_u32(const struct fdt_property *prop,
++                                  uint32_t *val)
 +{
-+    int hv_node = fdt_path_offset(fdt, "/chosen/hypervisor");
++    if ( !prop || fdt32_to_cpu(prop->len) < sizeof(u32) )
++        return -EINVAL;
 +
-+    if ( hv_node >= 0 )
++    *val = fdt32_to_cpu(*(const fdt32_t *)prop->data);
++    return 0;
++}
++
++/*
++ * Unpacks a "reg" property into its address and size constituents.
++ *
++ * @param prop          Pointer to an FDT "reg" property.
++ * @param address_cells Number of 4-octet cells that make up an "address".
++ * @param size_cells    Number of 4-octet cells that make up a "size".
++ * @param p_addr[out]   Address encoded in the property.
++ * @param p_size[out]   Size encoded in the property.
++ * @returns             -EINVAL on malformed property, 0 otherwise.
++ */
++static int __init fdt_prop_as_reg(const struct fdt_property *prop,
++                                  int address_cells, int size_cells,
++                                  uint64_t *p_addr, uint64_t *p_size)
++{
++    const fdt32_t *cell = (const fdt32_t *)prop->data;
++    uint64_t addr, size;
++
++    if ( fdt32_to_cpu(prop->len) !=
++         (address_cells + size_cells) * sizeof(*cell) )
 +    {
-+        /* Anything other than zero indicates no match */
-+        if ( fdt_node_check_compatible(fdt, hv_node, "hypervisor,xen") )
-+            return -ENODATA;
-+
-+        return hv_node;
++        printk(XENLOG_ERR "  cannot read reg %lu+%lu from prop len %u\n",
++            address_cells * sizeof(*cell), size_cells * sizeof(*cell),
++            fdt32_to_cpu(prop->len));
++        return -EINVAL;
 +    }
-+    else
++
++    switch ( address_cells )
 +    {
-+        /* Look for dom0less config */
-+        int node, chosen_node = fdt_path_offset(fdt, "/chosen");
++    case 1:
++        addr = fdt32_to_cpu(*cell);
++        break;
++    case 2:
++        addr = fdt64_to_cpu(*(const fdt64_t *)cell);
++        break;
++    default:
++        printk(XENLOG_ERR "  unsupported address_cells=%d\n", address_cells);
++        return -EINVAL;
++    }
 +
-+        if ( chosen_node < 0 )
-+            return -ENOENT;
++    cell += address_cells;
++    switch ( size_cells )
++    {
++    case 1:
++        size = fdt32_to_cpu(*cell);
++        break;
++    case 2:
++        size = fdt64_to_cpu(*(const fdt64_t *)cell);
++        break;
++    default:
++        printk(XENLOG_ERR "  unsupported size_cells=%d\n", size_cells);
++        return -EINVAL;
++    }
 +
-+        fdt_for_each_subnode(node, fdt, chosen_node)
++    *p_addr = addr;
++    *p_size = size;
++
++    return 0;
++}
++
++/*
++ * Locate a multiboot module given its node offset in the FDT.
++ *
++ * The module location may be given via either FDT property:
++ *     * reg = <address, size>
++ *         * Mutates `bi` to append the module.
++ *     * module-index = <idx>
++ *         * Leaves `bi` unchanged.
++ *
++ * @param fdt           Pointer to the full FDT.
++ * @param node          Offset for the module node.
++ * @param address_cells Number of 4-octet cells that make up an "address".
++ * @param size_cells    Number of 4-octet cells that make up a "size".
++ * @param bi[inout]     Xen's representation of the boot parameters.
++ * @return              -EINVAL on malformed nodes, otherwise
++ *                      index inside `bi->mods`
++ */
++int __init fdt_read_multiboot_module(const void *fdt, int node,
++                                     int address_cells, int size_cells,
++                                     struct boot_info *bi)
++{
++    const struct fdt_property *prop;
++    uint64_t addr, size;
++    int ret;
++    uint32_t idx;
++
++    if ( fdt_node_check_compatible(fdt, node, "multiboot,module") )
++    {
++        printk(XENLOG_ERR "  bad module. multiboot,module not found");
++        return -ENODATA;
++    }
++
++    /* Location given as a `module-index` property. */
++    if ( (prop = fdt_get_property(fdt, node, "module-index", NULL)) )
++    {
++        if ( fdt_get_property(fdt, node, "reg", NULL) )
 +        {
-+            if ( !fdt_node_check_compatible(fdt, node, "xen,domain") )
-+                return chosen_node;
++            printk(XENLOG_ERR "  found both reg and module-index for module\n");
++            return -EINVAL;
 +        }
++        if ( (ret = fdt_prop_as_u32(prop, &idx)) )
++        {
++            printk(XENLOG_ERR "  bad module-index prop\n");
++            return ret;
++        }
++        if ( idx >= MAX_NR_BOOTMODS )
++        {
++            printk(XENLOG_ERR "  module-index overflow. %s=%u\n",
++                   STR(MAX_NR_BOOTMODS), MAX_NR_BOOTMODS);
++            return -EINVAL;
++        }
++
++        return idx;
 +    }
 +
-+    return -ENODATA;
++    /* Otherwise location given as a `reg` property. */
++    if ( !(prop = fdt_get_property(fdt, node, "reg", NULL)) )
++    {
++        printk(XENLOG_ERR "  no location for multiboot,module\n");
++        return -EINVAL;
++    }
++    if ( fdt_get_property(fdt, node, "module-index", NULL) )
++    {
++        printk(XENLOG_ERR "  found both reg and module-index for module\n");
++        return -EINVAL;
++    }
++
++    ret = fdt_prop_as_reg(prop, address_cells, size_cells, &addr, &size);
++    if ( ret < 0 )
++    {
++        printk(XENLOG_ERR "  failed reading reg for multiboot,module\n");
++        return -EINVAL;
++    }
++
++    idx = bi->nr_modules;
++    if ( idx > MAX_NR_BOOTMODS )
++    {
++        /*
++         * MAX_NR_BOOTMODS must fit in 31 bits so it's representable in the
++         * positive side of an int; for the return value.
++         */
++        BUILD_BUG_ON(MAX_NR_BOOTMODS > (uint64_t)INT_MAX);
++        printk(XENLOG_ERR "  idx=%u exceeds len=%u\n", idx, MAX_NR_BOOTMODS);
++        return -EINVAL;
++    }
++
++    /*
++     * Append new module to the existing list
++     *
++     * Note that bi->nr_modules points to Xen itself, so we must shift it first
++     */
++    bi->nr_modules++;
++    bi->mods[bi->nr_modules] = bi->mods[idx];
++    bi->mods[idx] = (struct boot_module){
++        .start = addr,
++        .size = size,
++    };
++
++    printk(XENLOG_INFO "  module[%u]: addr %lx size %lx\n", idx, addr, size);
++
++    return idx;
 +}
 +
- enum fdt_kind __init fdt_detect_kind(const struct boot_info *bi)
+ static int __init find_hyperlaunch_node(const void *fdt)
  {
-     enum fdt_kind kind;
-@@ -20,6 +50,8 @@ enum fdt_kind __init fdt_detect_kind(const struct boot_info *bi)
- 
-     if ( !fdt || fdt_check_header(fdt) < 0 )
-         kind = FDT_KIND_NONE;
-+    else if ( find_hyperlaunch_node(fdt) >= 0 )
-+        kind = FDT_KIND_HYPERLAUNCH;
-     else
-         kind = FDT_KIND_UNKNOWN;
- 
-@@ -28,6 +60,36 @@ enum fdt_kind __init fdt_detect_kind(const struct boot_info *bi)
-     return kind;
- }
- 
-+int __init fdt_walk_hyperlaunch(struct boot_info *bi)
-+{
-+    int ret = 0, hv_node, node;
-+    const void *fdt = bootstrap_map_bm(&bi->mods[HYPERLAUNCH_MODULE_IDX]);
-+
-+    BUG_ON(!fdt);
-+
-+    hv_node = find_hyperlaunch_node(fdt);
-+    if ( hv_node < 0 )
-+    {
-+        ret = hv_node;
-+        goto err_out;
-+    }
-+
-+    fdt_for_each_subnode(node, fdt, hv_node)
-+    {
-+        if ( !fdt_node_check_compatible(fdt, node, "xen,domain") )
-+            bi->nr_domains++;
-+    }
-+
-+    /* Until multi-domain construction is added, throw an error */
-+    if ( bi->nr_domains != 1 )
-+        printk(XENLOG_ERR "hyperlaunch only supports dom0 construction\n");
-+
-+ err_out:
-+    bootstrap_unmap();
-+
-+    return ret;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
+     int hv_node = fdt_path_offset(fdt, "/chosen/hypervisor");
 diff --git a/xen/common/domain-builder/fdt.h b/xen/common/domain-builder/fdt.h
-index ef897fc412..d1bcc23fa2 100644
+index d1bcc23fa2..5570fb7a9c 100644
 --- a/xen/common/domain-builder/fdt.h
 +++ b/xen/common/domain-builder/fdt.h
-@@ -10,5 +10,6 @@ struct boot_info;
- #define HYPERLAUNCH_MODULE_IDX 0
+@@ -3,6 +3,7 @@
+ #define __XEN_DOMAIN_BUILDER_FDT_H__
  
- enum fdt_kind fdt_detect_kind(const struct boot_info *bi);
-+int fdt_walk_hyperlaunch(struct boot_info *bi);
+ #include <xen/domain-builder.h>
++#include <xen/libfdt/libfdt-xen.h>
  
- #endif /* __XEN_DOMAIN_BUILDER_FDT_H__ */
+ struct boot_info;
+ 
 diff --git a/xen/include/xen/domain-builder.h b/xen/include/xen/domain-builder.h
-index b9702db735..cbb3cbea7c 100644
+index cbb3cbea7c..3ac3a0ab84 100644
 --- a/xen/include/xen/domain-builder.h
 +++ b/xen/include/xen/domain-builder.h
-@@ -9,6 +9,8 @@ enum fdt_kind
- {
-     /* FDT not found. Skipped builder. */
-     FDT_KIND_NONE,
-+    /* Found Hyperlaunch FDT */
-+    FDT_KIND_HYPERLAUNCH,
-     /* Found an FDT that wasn't hyperlaunch. */
-     FDT_KIND_UNKNOWN,
- };
+@@ -28,4 +28,8 @@ static inline enum fdt_kind builder_init(struct boot_info *bi)
+ }
+ #endif /* !IS_ENABLED(CONFIG_DOMAIN_BUILDER) */
+ 
++int fdt_read_multiboot_module(const void *fdt, int node,
++                              int address_cells, int size_cells,
++                              struct boot_info *bi)
++
+ #endif /* __XEN_DOMAIN_BUILDER_H__ */
 -- 
 2.43.0
 
