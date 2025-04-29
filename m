@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CCA7AA0C19
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 14:50:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.972504.1360853 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB39BAA0C2F
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 14:52:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.972529.1360863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9kPp-0001Ye-Mx; Tue, 29 Apr 2025 12:50:25 +0000
+	id 1u9kRV-0002Rl-1r; Tue, 29 Apr 2025 12:52:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 972504.1360853; Tue, 29 Apr 2025 12:50:25 +0000
+Received: by outflank-mailman (output) from mailman id 972529.1360863; Tue, 29 Apr 2025 12:52:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9kPp-0001WK-K0; Tue, 29 Apr 2025 12:50:25 +0000
-Received: by outflank-mailman (input) for mailman id 972504;
- Tue, 29 Apr 2025 12:50:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yPhw=XP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1u9kPo-0001WE-FL
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 12:50:24 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 84185e2e-24f8-11f0-9eb4-5ba50f476ded;
- Tue, 29 Apr 2025 14:50:23 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-43d0359b1fcso37465425e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 05:50:23 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4409d2e0241sm188940335e9.37.2025.04.29.05.50.22
+	id 1u9kRU-0002Qm-V9; Tue, 29 Apr 2025 12:52:08 +0000
+Received: by outflank-mailman (input) for mailman id 972529;
+ Tue, 29 Apr 2025 12:52:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qXnC=XP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1u9kRT-0002Ps-PL
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 12:52:07 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bb81bee9-24f8-11f0-9ffb-bf95429c2676;
+ Tue, 29 Apr 2025 14:51:56 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5f63ac6ef0fso7548549a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 05:51:57 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5f703545234sm7335135a12.56.2025.04.29.05.51.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Apr 2025 05:50:22 -0700 (PDT)
+ Tue, 29 Apr 2025 05:51:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +45,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84185e2e-24f8-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: bb81bee9-24f8-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745931023; x=1746535823; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745931117; x=1746535917; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SLGZoAC2GDBsjIi2XWp1JTPEcBHD8CD6AameulPUcFE=;
-        b=B75l07Lpet6aH2zF0I1cCneXPcJ5NVQlCSYqltYV3OwSjpS6DtFJXxsmRErBtrwJwy
-         iyFl+yT6gd80W83XPyeP3vtmTyo/FHciwlqSPN1o3DIn4ZYy255aV46pMN0IytadeaL8
-         Vr9W6dldNtA4GcDeJ7HqKr5wMAxZnlAwyo4Qw=
+        bh=Np1GRY+1XqV1BiVWzCe+dlEPeaySw3Vj33fmsezJs+k=;
+        b=bnmImZ0KPufp0/5J7t6WLZCdN0b6AWSYqZGM1J1OmASUSiHwW4dVOsmTxZaVxqB0Ox
+         kMYiHbaD1kfsADLY14DJwrJQACUpl+0yUIR+sfSqcZwtC2PEJlvRCrCONyYwNnD7aga9
+         wv9nllHlc1bBOp9eaLMcS7687CHhIPgoW+WXdlpXOjxslefGkeH7yRA4fWVscPzCjPtx
+         D7j1grxhcG3dSF9fxZlXaCHPXMuY/GVUGK9ATmKa0tsCMcw9rld3AEmyvn3UJneDo9Ph
+         wSJ7KP5809iNGXiSAf0koDcAc8GeYEp3982vHmg5IqeVA3/9VQUkev+3qoL3ijSpBgKG
+         W2kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745931023; x=1746535823;
+        d=1e100.net; s=20230601; t=1745931117; x=1746535917;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SLGZoAC2GDBsjIi2XWp1JTPEcBHD8CD6AameulPUcFE=;
-        b=rplWyip5eTdREhrpQsybwa7WFveBiWeouuodytbmOYZxtIRusDgVNtOqNQL1XqyzqM
-         XaTF0JMVIs9OlUqpC+xXaO7hy2fCKRruorRhzIOT4584uh7QirKcgJMskqcZCjM7qXuC
-         FthE4R9JXFgIYANv3lPE0/eX0gI2VJ0R87WdflbXPHO7NfxvHxvGNwWf4wDr4UdaOVef
-         /w6ZWsbdzTox0wNKFygTkWE/rEz6XzxMaBlA5LPAaS8SEEWnDa8KCQk6rSzPxXSSnNgB
-         D06lkoR1TsN2m0kidF5S8nM/Xw7FZVm1og3s8K1cho1J+c2Dw66A2l9gaZVn04qXRAxt
-         1xdw==
-X-Gm-Message-State: AOJu0YyV7ULY2Hvbvnn1TaSbKJoZLptFTtd03A0DmYCvsv5aLOk/bsWM
-	wzPYP2BJDUaRL6TgncII5ZmYnxV9uCihv03RwL46JDUDE15NyAjoJYMpe9At2Xc=
-X-Gm-Gg: ASbGncskILf2FExZVO0/+I6NdKruFxVxp92+Wqi9QOi1nS2snZJpl+RNxar07xty0Ox
-	6RqVQBpXHeos4CiGv5H0t34kz28PFH5zokVot+9jrava4rBQflR/1xw1Mk0DMZuaPVVZ/Xoy/79
-	97BJB0d0X/X2HGC3jLUnSlCGrBcifHV/axmfUArqJ4/whMmvoXVOeoGucWrqh2nLedyXvaTwZ6Z
-	vTrsSzO5GBzGIF5GdOP+WVPbTxfAyP/LNid1R06Phc3u6tvr5WuXo8GhzL1qvYfiWcEVSG8jgGp
-	s6LhFGt+/aWporF/M8pNa60bn1Ol1BP6T7EIyrLWxZdpJUNDFMpVZRCRJowLOb/LQqfBmN/+MGQ
-	fnJa3gw==
-X-Google-Smtp-Source: AGHT+IFMcpCJm59F2DuUWOTGMNvA9+uSYjikxhK6hO9JcF96PyyjnriBpmPTmQHNM0IOMEpf57B0xg==
-X-Received: by 2002:a05:600c:1546:b0:43d:1bf6:15e1 with SMTP id 5b1f17b1804b1-441acadeaa5mr22889945e9.1.1745931023092;
-        Tue, 29 Apr 2025 05:50:23 -0700 (PDT)
-Message-ID: <0f5887d3-052a-40cb-a8cc-14c7e6838ba8@citrix.com>
-Date: Tue, 29 Apr 2025 13:50:22 +0100
+        bh=Np1GRY+1XqV1BiVWzCe+dlEPeaySw3Vj33fmsezJs+k=;
+        b=b60SZZzUf0In5ANbuYGhxGxyD+PRzMvjB/Dp/R0P9/rrf8Tn+DscCmNSuxWJvyXy08
+         AQtM6nFVy40jn7z8Ol+AMJhYjEoWsr2/NEuWBp5LcFDokF7MH6a6PT3FUq6E2h44DbdA
+         9EP0fXIxg1KulgctFy6ObfTeTQ6e3vezrqLpda5zRJOQxCRkJul8o9CTkTe2eJfCvW1U
+         KnottDIy3USn42XWzfvMc842Fxn3fr0THDGvOmDvof22/mxGkj/rNeCpQzGael95MfTF
+         A37Ne+zW/WD1vKQmZxMF/1n7WrwqEhS2/an1lcZVqWA/uK2Tivp6EUH5WmwatcSGA4nN
+         2Urw==
+X-Forwarded-Encrypted: i=1; AJvYcCXARo/Hw48H7Se5oP2QIxX2o23Rpn9IXb7qt7dnoMXI7pZVq89hg6ooCE7mHlE4OKy2qVmbKeqZ3ks=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw6e5BJcn2cHIspHlrzAlRUcpQl6Jia9va22nLriNDDqcqEHfwk
+	YXezOZH9krPOLrB23ciT/LWHyH/AryZ4PC131PRsewmSNUWapsLzMXLbSkeo4A==
+X-Gm-Gg: ASbGnctcZW9OVWKZtsaCDyDJUTzMg3w2/rrdgGlqIUnjuYlZPWou7qs7mWdZY1sfRRw
+	/PAsHRw0UIF5YfLJiNJ1cyDzIZ7Rcn5E26uPtOUOlwCdzfpq4IT/jl5O6HnsqjRccdN8vnoXydh
+	Cgt3eh3OBOp3RuuoQ2dO5kQAxQekHTO0kvvep0TLWDPfJ/OLDGkyK6u3MIt0rPcScBREb/om6t5
+	fIzRFX6O1cl3MtBcewxJtKSbKoewF2fOlfG3ZrJUzZiO6oywPtDaa+43sQzc5B2oRc+ir6MwONh
+	GoJnvOsxsP4NeEQnTyG9AnbHQ3a28S4bJqLvHRQoK9dcpyCGEUnS7SbR+Ui3H8OVzQGnmlrcOhk
+	TiK32nEL50vjBAg+pA92zvJI4RA==
+X-Google-Smtp-Source: AGHT+IG38XggkJAAuMllwKysjA1+IecW/i7Uo625aRa6aKuLTscNYFTMSRIwngdrEYNyZjjaYohR9g==
+X-Received: by 2002:a05:6402:13d5:b0:5ed:19b4:98ea with SMTP id 4fb4d7f45d1cf-5f8390bd1c6mr2771018a12.0.1745931116878;
+        Tue, 29 Apr 2025 05:51:56 -0700 (PDT)
+Message-ID: <57a3b2c0-d57d-46e3-b248-0e243f715423@suse.com>
+Date: Tue, 29 Apr 2025 14:51:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH TEST-ARTEFACTS] (Re)add libgcc to alpine rootfs
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Anthony PERARD
- <anthony.perard@vates.tech>, Jan Beulich <JBeulich@suse.com>
-References: <20250429123643.230423-1-andrew.cooper3@citrix.com>
- <aBDKijzZMEUopmSk@macbook.lan>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <aBDKijzZMEUopmSk@macbook.lan>
+Subject: Re: [PATCH v4 05/15] xen/x86: introduce "cpufreq=amd-cppc" xen
+ cmdline
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
+ <20250414074056.3696888-6-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250414074056.3696888-6-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 29/04/2025 1:48 pm, Roger Pau Monné wrote:
-> On Tue, Apr 29, 2025 at 01:36:43PM +0100, Andrew Cooper wrote:
->> It turns out that QEMU built in staging-4.19 (only) depends on it.
->>
->> But, GCC can emit libgcc calls for arbitrary reasons, so include it
->> unconditionally.
-> Is there a fixes tag for this, or it has always been this way?
+On 14.04.2025 09:40, Penny Zheng wrote:
+> @@ -514,5 +515,16 @@ acpi_cpufreq_driver = {
+>  
+>  int __init acpi_cpufreq_register(void)
+>  {
+> -    return cpufreq_register_driver(&acpi_cpufreq_driver);
+> +    int ret;
+> +
+> +    ret = cpufreq_register_driver(&acpi_cpufreq_driver);
+> +    if ( ret )
+> +        return ret;
+> +    /*
+> +     * After cpufreq driver registeration, XEN_PROCESSOR_PM_CPPC
+> +     * and XEN_PROCESSOR_PM_PX shall become exclusive flags
+> +     */
+> +    xen_processor_pmbits &= ~XEN_PROCESSOR_PM_CPPC;
+> +
+> +    return ret;
+>  }
 
-Fixes: d18d7eba888e ("Shrink the rootfs substantially")
+Why is no similar adjustment needed in powernow_register_driver()? In principle
+I would have expected that it's not each individual driver which needs to care
+about this aspect, but that the framework is taking care of this.
 
->
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+> --- /dev/null
+> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+> @@ -0,0 +1,81 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * amd-cppc.c - AMD Processor CPPC Frequency Driver
+> + *
+> + * Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+> + *
+> + * Author: Penny Zheng <penny.zheng@amd.com>
+> + *
+> + * AMD CPPC cpufreq driver introduces a new CPU performance scaling design
+> + * for AMD processors using the ACPI Collaborative Performance and Power
+> + * Control (CPPC) feature which provides finer grained frequency control range.
+> + */
+> +
+> +#include <xen/domain.h>
+> +#include <xen/init.h>
+> +#include <xen/param.h>
+> +#include <acpi/cpufreq/cpufreq.h>
+> +
+> +static bool __init amd_cppc_handle_option(const char *s, const char *end)
+> +{
+> +    int ret;
+> +
+> +    ret = parse_boolean("verbose", s, end);
+> +    if ( ret >= 0 )
+> +    {
+> +        cpufreq_verbose = ret;
+> +        return true;
+> +    }
+> +
+> +    return false;
+> +}
+> +
+> +int __init amd_cppc_cmdline_parse(const char *s, const char *e)
+> +{
+> +    do
+> +    {
 
-Thanks.  I'll get this deployed.
+Nit (style): Brace placement is special here, just like it is ...
 
-~Andrew
+> +        const char *end = strpbrk(s, ",;");
+> +
+> +        if ( !amd_cppc_handle_option(s, end) )
+> +        {
+> +            printk(XENLOG_WARNING
+> +                   "cpufreq/amd-cppc: option '%.*s' not recognized\n",
+> +                   (int)((end ?: e) - s), s);
+> +
+> +            return -EINVAL;
+> +        }
+> +
+> +        s = end ? end + 1 : NULL;
+> +    } while ( s && s < e );
+
+... here.
+
+> --- a/xen/arch/x86/platform_hypercall.c
+> +++ b/xen/arch/x86/platform_hypercall.c
+> @@ -542,6 +542,9 @@ ret_t do_platform_op(
+>                  ret = -ENOSYS;
+>                  break;
+>              }
+> +            /* Xen doesn't support mixed mode */
+> +            ASSERT((xen_processor_pmbits & XEN_PROCESSOR_PM_CPPC) == 0);
+
+Please prefer ! over "== 0" in such purely boolean contexts.
+
+> @@ -573,6 +576,14 @@ ret_t do_platform_op(
+>          }
+>  
+>          case XEN_PM_CPPC:
+> +            if ( !(xen_processor_pmbits & XEN_PROCESSOR_PM_CPPC) )
+> +            {
+> +                ret = -EOPNOTSUPP;
+> +                break;
+> +            }
+
+While at least you no longer use -ENOSYS here, I question this behavior,
+including that for the pre-existing cases: How is the caller supposed to know
+whether to invoke this sub-op? Ignoring errors is generally not a good idea,
+so it would be better if the caller could blindly issue this request, getting
+back success unless there really was an issue with the data provided.
+
+> @@ -102,6 +103,9 @@ static int __init handle_cpufreq_cmdline(enum cpufreq_xen_opt option)
+>      cpufreq_xen_opts[cpufreq_xen_cnt++] = option;
+>      switch ( option )
+>      {
+> +    case CPUFREQ_amd_cppc:
+> +        xen_processor_pmbits |= XEN_PROCESSOR_PM_CPPC;
+> +        break;
+>      case CPUFREQ_hwp:
+>      case CPUFREQ_xen:
+>          xen_processor_pmbits |= XEN_PROCESSOR_PM_PX;
+
+Here and (about) everywhere else: Blank line please between non-fall-through
+case blocks. I guess I'm not going to repeat this any further. There are
+very tiny switch() statements where it is okay to violate this principle, but
+as a rule of thumb - if in doubt, put a blank line there.
+
+> --- a/xen/include/acpi/cpufreq/processor_perf.h
+> +++ b/xen/include/acpi/cpufreq/processor_perf.h
+> @@ -5,6 +5,9 @@
+>  #include <public/sysctl.h>
+>  #include <xen/acpi.h>
+>  
+> +/* ability bits */
+> +#define XEN_PROCESSOR_PM_CPPC   8
+
+This needs correlating (at least via commentary, better by build-time checking)
+with the other XEN_PROCESSOR_PM_* values. Otherwise someone adding a new #define
+in the public header may not (easily) notice a possible conflict. With that in
+mind I also question whether 8 is actually a good choice: That's the obvious
+next value to use in the public interface. SIF_PM_MASK is 8 bits wide, so a
+sensible value to use here would by e.g. 0x100.
+
+Jan
 
