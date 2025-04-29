@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB4C4AA05C2
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 10:28:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971666.1360020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B06D6AA0655
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 10:55:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971697.1360030 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9gKT-00011w-G6; Tue, 29 Apr 2025 08:28:37 +0000
+	id 1u9gjQ-00060M-Fx; Tue, 29 Apr 2025 08:54:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971666.1360020; Tue, 29 Apr 2025 08:28:37 +0000
+Received: by outflank-mailman (output) from mailman id 971697.1360030; Tue, 29 Apr 2025 08:54:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9gKT-00010U-DQ; Tue, 29 Apr 2025 08:28:37 +0000
-Received: by outflank-mailman (input) for mailman id 971666;
- Tue, 29 Apr 2025 08:28:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u9gjQ-0005zd-DO; Tue, 29 Apr 2025 08:54:24 +0000
+Received: by outflank-mailman (input) for mailman id 971697;
+ Tue, 29 Apr 2025 08:54:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qXnC=XP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9gKS-00010O-5E
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 08:28:36 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f0686591-24d3-11f0-9ffb-bf95429c2676;
- Tue, 29 Apr 2025 10:28:34 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-ac2c663a3daso1123322266b.2
- for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 01:28:34 -0700 (PDT)
+ id 1u9gjO-0005zX-Q0
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 08:54:22 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8a948045-24d7-11f0-9eb4-5ba50f476ded;
+ Tue, 29 Apr 2025 10:54:21 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-ac2a81e41e3so1026293266b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 01:54:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace6e41c898sm740997366b.7.2025.04.29.01.28.32
+ a640c23a62f3a-ace6e41c91csm745504866b.37.2025.04.29.01.54.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Apr 2025 01:28:33 -0700 (PDT)
+ Tue, 29 Apr 2025 01:54:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0686591-24d3-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 8a948045-24d7-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745915313; x=1746520113; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kRtJrXRtQNjq41zHKBZdk2VUStOrxT5x02bWzd+spPw=;
-        b=Yvy0Qrir9m4ZNS7aKfX6qZLd79cFmF6SBgJmgkmAoqudTnY573jVXilRC99ydXw5zR
-         3UTWMhw/WybsADeEbqnb3IXUmKXs5NSeyMtM+m+5oLyx6bUhyivWl1iJgcs2Gq2FmWgC
-         K2LIH7ldgTGC8/5SpjcT10RmQr6HG4Vku3S27VDkwC+vyC8Gdmv121VwGzXUoRTlNppR
-         tSKzhVTcxR+M/YykJbNq9KbF/B2YoKrdJ4sSHFQMGmu3xE5ChC8MqBxI4Fj26VVIAuAH
-         acdOmwoKy3mPeq0UOxzOryib1mlupHYKgXGm5c6/50PtkG1H3SeiHQKHMwy16+n0sL/I
-         KatQ==
+        d=suse.com; s=google; t=1745916860; x=1746521660; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=rZ2IEDCdQpVj/BnrH+neE7AO4mqlMQn3f43kpeF75LQ=;
+        b=Eg7ddiPLfVtBqLwiD2fxCT0mLdjErlKotfoj3OiEVCgiq4Ov1EUB4o5MOoPumyCzpu
+         8njGUoRyd1r8oAIj+0v2SUkCii0HpNmdFlXu+D2K7lun/PRSBuZDofWOVYfBRKIX+lOF
+         40rXT+4o+UZybWoKYcfKHXo2u75wMWAbom3UNCT5cw4X1UGbYfg3wmoF58WBja8ZQ9N8
+         9wy3zVxpQP15U75HRtzWekFGEoEYCxoNmJMrUhj0TVFc430tuu3HpHfv9zz+d4EU25ZF
+         NflhzkbZ5K26Px2KUWMcKwSAS6EfrHTEpkN0M3H3wzWeMwfM/TOjs9WJlUgt1G2ZSZpE
+         WIhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745915313; x=1746520113;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kRtJrXRtQNjq41zHKBZdk2VUStOrxT5x02bWzd+spPw=;
-        b=rUWLGvIYmbgDGckUYYQQqrMHP4J1Bx26bIOJkSQYY+LqWV4+0SYjS9R1nwBNS8/a8d
-         i+sKtIzsjEpDIdHwAWtrKRMr4UutTzahzeo2Vp3aWKheP4iwpxN8wGttce18I6KiNog3
-         jeXYAT+fVR91zljoNZawOiU745FrwbEw1IsuLEAl71nqVoMLAhw5Sbj7NF/mlODuhpD+
-         lZE3Ys35aVwsTnBWsHtzj00INTvLxtvl316oL5ajBU4zUO8PlMKZgMX7LTgAOugY5Ku0
-         F3YgS2F49o3EbR/2+oP8KXrZef9KUEcTt/SSzXBPk6lwNtCX4hINLCEFZirRFBKXQsGn
-         SZeQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX/zPC36gn38pYCCdrH1z+6dQYBMVgVzfIlK3hszxiCaMWDw8XWkHSuhvDr15NvCpC4j6JF+SEwIkI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyXfIJVYuJzuIS6hjfaJQfcysOpV5Wud6LLBWPgMCYD1LV0Mkt8
-	uygxvvo4XzQm+VUmpy3VAgk/2J1sirLzf7vgGl2AGe/KNki+930UvKZk0lKNww==
-X-Gm-Gg: ASbGncuzqznSnMlZnZRwUIxiPvXSm18JrsJG/NKvkM6jx9MhI17bWTQZFKoINs6CLdi
-	Y6Off5sHgSKHpPJcx5TRO3dK/pR6Pl1IU+It7RhF9iTe8hjsDPsqwWjMFbrcuZACCjc0ET5HxPC
-	ZAwDPQRmWeFKzQB9wMevRry8kQLWRWeWZuycTRULk0LDHvR74ob0zMHxSTKFvXF40OVs/deqmeS
-	im1NEHjMbkHxTmaMCvhIrPuZXUBxv7hCBg0ye9bxvWgqn49Y5xtaEKg0dCYNj98aP+RHR4T2iwP
-	PJph12MywIYJ58KvdIQ80WacHZQo1hkMbrVEfGIUxifzCmEKxZaiGrtqsOfe4zodKbEcMAYuMRV
-	lIXa2UDcLXVRSeavLPZIb1kGZow==
-X-Google-Smtp-Source: AGHT+IFlEDN+Ki0/yXOLa0FDjv2ebvA8TC/yfuPmrOLkSpmyHSw/U4nS07Rwz9GTpO6U0BdghczHTQ==
-X-Received: by 2002:a17:906:280c:b0:ace:bf94:2d2c with SMTP id a640c23a62f3a-acebf942f30mr346872366b.54.1745915313505;
-        Tue, 29 Apr 2025 01:28:33 -0700 (PDT)
-Message-ID: <77c9529e-8353-479f-994f-d6d668788374@suse.com>
-Date: Tue, 29 Apr 2025 10:28:32 +0200
+        d=1e100.net; s=20230601; t=1745916860; x=1746521660;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=rZ2IEDCdQpVj/BnrH+neE7AO4mqlMQn3f43kpeF75LQ=;
+        b=R5I2Wi/KeVCcciwhfG77qHjSWnw/GvYCTw6jFzjIiY7F5awbrT8u4vdlvNIcGSA905
+         k5WpyfJYDJEuUSoDRBfv5XkqGJE87yDD0Ezw+GWITQafh26b3n9R6rcuw9JfNG1SE5Eb
+         gXNB5i6iBID+TD++MOZthrVxpPqE6grUq2GUXt7QiIkYSlS9+hipdm+xuvWKg/qBOIR1
+         BM2MiDqPrpdFXCkc6QuLsNIrcsVyQEv9OsRD0AOzVHz3lSKDHpKfYaJNsM/OZu17eM02
+         kjPdFquzxK5qBSboVePvqGTVgfep9q90/TPNx5aklGpe2KB+HRmtVP5M83Bvy9qs+Sd3
+         XAOg==
+X-Gm-Message-State: AOJu0YycA+vsu5CqMfNVsT/D9aQrVPW3nOtzeKCK939SZaMdX+8jBcAQ
+	cdO0bp99kW72HhwKVXdWbTZV0ZAmH0VDNgB0/12xrKII16AtFaAwsW74/temqONd4j4dkiIK+Ng
+	=
+X-Gm-Gg: ASbGncvB6qOWClee5AbYdvZvC6vnhdMowXN/HNdAQxfPDk+tCfr9Jz2qUdAJhDFGtqy
+	3+gpveND4mbiqj+ku4N6GaOn3fwDdI9g58M/S/Zq7RR00JQOrHXQwZ4IUmnDjNgEuufMFIuoPr3
+	QTM0xFChe1t5Q3XbwlMqhgSMYC0GvUm4e8X93S97p+djcFQ7VWpl/rFkt9jHQZjPj/ay9R4Ugoj
+	fdlmdFYSXr/k5dYP6x44FFctD+8mLRuxB1/cCj8TJFsJ4iThQV3jvcIuaVESsgs5YQ+mNSDF+mE
+	WDMAh2mbm3pPeT2IoJ6b5pihB4f2acFFc7zA31vt5OVWyM3s1w2dVmggzp0NsxLbWemG7Q2nhWM
+	LyryAvhiCy+fSYWaTm9ZpblwvXtLDEPS0ZOcj
+X-Google-Smtp-Source: AGHT+IFIJOlHeQwhphjNY31OKcAvbVtk+A7qIzf/yw4TbN6ZkIr/kG8KKdkc18ZIzcMtMwZIMSCJiQ==
+X-Received: by 2002:a17:907:3e9e:b0:aca:d54d:a1f8 with SMTP id a640c23a62f3a-acec8525c8emr220080666b.31.1745916860470;
+        Tue, 29 Apr 2025 01:54:20 -0700 (PDT)
+Message-ID: <09ac878a-fcbf-479a-9628-1cb08ff77a9e@suse.com>
+Date: Tue, 29 Apr 2025 10:54:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86/hyperv: use dynamically allocated page for
- hypercalls
-To: Ariadne Conill <ariadne@ariadne.space>
-Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <agarciav@amd.com>,
- "Alexander M . Merritt" <alexander@edera.dev>, xen-devel@lists.xenproject.org
-References: <20250428195736.2516-1-ariadne@ariadne.space>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86: drop underscore-prefixed {maddr,virt} <=> page
+ conversion macros
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -120,23 +116,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250428195736.2516-1-ariadne@ariadne.space>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.04.2025 21:57, Ariadne Conill wrote:
-> Previously Xen placed the hypercall page at the highest possible MFN,
-> but this caused problems on systems where there is more than 36 bits
-> of physical address space.
+Unlike the ones converting to/from frame numbers, these don't have type-
+safe overrides, and they also can't gain any within our present type
+system. Unsurprisingly we also don't have any uses of the underscore-
+prefixed variants.
 
-Hmm, I should have asked already on the earlier version: What kinds of
-problems are these, beyond ...
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-> In general, it also seems unreliable to assume that the highest possible
-> MFN is not already reserved for some other purpose.
-
-... this particular aspect? I find it puzzling that such problems would
-depend on the number of physical address bits.
-
-Jan
+--- a/xen/arch/x86/include/asm/mm.h
++++ b/xen/arch/x86/include/asm/mm.h
+@@ -342,7 +342,7 @@ void init_frametable(void);
+ #define PDX_GROUP_SHIFT L2_PAGETABLE_SHIFT
+ 
+ /* Convert between Xen-heap virtual addresses and page-info structures. */
+-static inline struct page_info *__virt_to_page(const void *v)
++static inline struct page_info *virt_to_page(const void *v)
+ {
+     unsigned long va = (unsigned long)v;
+ 
+@@ -355,7 +355,7 @@ static inline struct page_info *__virt_t
+     return frame_table + ((va - DIRECTMAP_VIRT_START) >> PAGE_SHIFT);
+ }
+ 
+-static inline void *__page_to_virt(const struct page_info *pg)
++static inline void *page_to_virt(const struct page_info *pg)
+ {
+     ASSERT((unsigned long)pg - FRAMETABLE_VIRT_START < FRAMETABLE_SIZE);
+     /*
+--- a/xen/arch/x86/include/asm/page.h
++++ b/xen/arch/x86/include/asm/page.h
+@@ -238,8 +238,8 @@ void scrub_page_cold(void *);
+ #define page_to_mfn(pg)     pdx_to_mfn((unsigned long)((pg) - frame_table))
+ 
+ /* Convert between machine addresses and page-info structures. */
+-#define __maddr_to_page(ma) mfn_to_page(maddr_to_mfn(ma))
+-#define __page_to_maddr(pg) mfn_to_maddr(page_to_mfn(pg))
++#define maddr_to_page(ma)   mfn_to_page(maddr_to_mfn(ma))
++#define page_to_maddr(pg)   mfn_to_maddr(page_to_mfn(pg))
+ 
+ /* Convert between frame number and address formats.  */
+ #define __pfn_to_paddr(pfn) ((paddr_t)(pfn) << PAGE_SHIFT)
+@@ -256,10 +256,6 @@ void scrub_page_cold(void *);
+ #define mfn_valid(mfn)      __mfn_valid(mfn_x(mfn))
+ #define virt_to_mfn(va)     __virt_to_mfn(va)
+ #define mfn_to_virt(mfn)    __mfn_to_virt(mfn)
+-#define maddr_to_page(ma)   __maddr_to_page(ma)
+-#define page_to_maddr(pg)   __page_to_maddr(pg)
+-#define virt_to_page(va)    __virt_to_page(va)
+-#define page_to_virt(pg)    __page_to_virt(pg)
+ #define pfn_to_paddr(pfn)   __pfn_to_paddr(pfn)
+ #define paddr_to_pfn(pa)    __paddr_to_pfn(pa)
+ #define paddr_to_pdx(pa)    pfn_to_pdx(paddr_to_pfn(pa))
 
