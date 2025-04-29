@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1A11AA0DF1
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 15:54:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.972699.1361006 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 162EBAA0ECA
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 16:30:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.972719.1361032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9lPW-0003Cr-Mp; Tue, 29 Apr 2025 13:54:10 +0000
+	id 1u9lxc-0000LO-FX; Tue, 29 Apr 2025 14:29:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 972699.1361006; Tue, 29 Apr 2025 13:54:10 +0000
+Received: by outflank-mailman (output) from mailman id 972719.1361032; Tue, 29 Apr 2025 14:29:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9lPW-0003Aw-K3; Tue, 29 Apr 2025 13:54:10 +0000
-Received: by outflank-mailman (input) for mailman id 972699;
- Tue, 29 Apr 2025 13:54:09 +0000
+	id 1u9lxc-0000J9-Be; Tue, 29 Apr 2025 14:29:24 +0000
+Received: by outflank-mailman (input) for mailman id 972719;
+ Tue, 29 Apr 2025 14:29:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qXnC=XP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9lPV-0003Aq-7t
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 13:54:09 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1u9lxZ-0000J3-WD
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 14:29:22 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b92000e-2501-11f0-9eb4-5ba50f476ded;
- Tue, 29 Apr 2025 15:54:08 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-ac2a81e41e3so1079878466b.1
- for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 06:54:07 -0700 (PDT)
+ id 5611eaec-2506-11f0-9eb4-5ba50f476ded;
+ Tue, 29 Apr 2025 16:29:19 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5dce099f4so7986974a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 07:29:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace6ed6affesm781606266b.130.2025.04.29.06.54.06
+ 4fb4d7f45d1cf-5f703545234sm7442165a12.56.2025.04.29.07.29.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Apr 2025 06:54:06 -0700 (PDT)
+ Tue, 29 Apr 2025 07:29:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b92000e-2501-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 5611eaec-2506-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745934847; x=1746539647; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745936959; x=1746541759; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Jym2KC8L4FuBx1GFrNl/3YF2Ljt7pmQWFYO6FxDZRyU=;
-        b=RrrX8gr+VxbsA9d5Uko8aeW4LPlGizxM3myqu+wvlcMqijby1exr5tE7AtRfi9vSvL
-         1hjNJGHDVsrre6WZHYfmnKitt/1P+w3yTWCjwrdwifoMV2v6938tB+O8kDc4d30wT8SD
-         D8MRWfFNezPoWlHZ1jNWqs+wE5imkE1Wi7go34Z8ecku/PywELjHrBwJtFe81w67wFGU
-         dWg+4hQnQv0gMmxkqPl6Rb9o4QgX8qhZyKSGMKNvybVNdV09ycHiOyyr1gSwAVu1IrHQ
-         Bxx9T3o9/OzBiXdRQeMYGx1k5aALIKvKC9NEZ8XPL2VPMmAfVc7m5v6DeUqTdXzGOIrK
-         pCHw==
+        bh=HQPUizxCMVjSZ4abLaeJiBG5OpeAbCnuqKDvdml9ALc=;
+        b=F5FPgW8J5ehp8Ty1K6QzDGGEmFA2+Q8x9LjKgBjyJcFzeUhIS4+INxZd2o02nFEuS7
+         RwMUG1rKZPDF0smhRJRKrle/Kxo1Up+WP062KOpH8Ctz9XFwUdmh+d/RdJgcFVZOyuy/
+         k68xldpdPnKGqQk+2lWxNJjlFfB83g6vzYwwMssXRZwyb1/KEzooHNchIZqomn+yZ1Ut
+         PxMcDBk09zYHRdMwqjbteqPXN/brtp+S038+rFtmnAjJ5L2zDwz/NYRTlY6SrgKVnL+4
+         uBg/Bs7iXxDfRdUNl3llM3fEN3O9VjfGFTyKTjXelu6OUcGO/jyzOSdwITpaBBK76vs+
+         YHOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745934847; x=1746539647;
+        d=1e100.net; s=20230601; t=1745936959; x=1746541759;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Jym2KC8L4FuBx1GFrNl/3YF2Ljt7pmQWFYO6FxDZRyU=;
-        b=oqpGMHf9gKXlbRBQCBRmamUeDoY/jfhYJSPmq7/cLYd6pg8XBAt+gkAgj7qGbkra0c
-         JlQPJ0K0TWruO7f6dEorxsQUGJzZaJDwhtu0/U7scWibRg0RSngL3sm/wkyGyZXczofi
-         TiGUR2oVJ7fVYNHxP4wD4r3GDCAkjWzSEpnptHHMusj/k+Uo2cbvc3PHSsZAWGEAZ0gq
-         QjLaZk+Gom3xBZvQ8EpxfrjK+woElIUSpcD6fksEJWBoQ52OCdkG2SFetNBaXCz6Cl7G
-         gI4/IRavAFc2FrHvI6yeYXmtbUfoNYB+KLFWjCTEe+Oombp/81vAhBD94zFUaepBClgm
-         vFug==
-X-Forwarded-Encrypted: i=1; AJvYcCU2QCh+8n3tPANmfGxFbhFTvdf/zdsHY9ATZumrHhEX+Jkwp+T90YJZ9hhOmgY6JgxzWOC5sEW8QiE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YygphQJqbmpB5IUaxjynYvrnlrMtNeJ669AyQm8JSLOW7Jwu4MQ
-	hrKKPxfLW7ysTIs+8DEW1FU0ClTsVIddz8uzkMuh2oWE239gbC1bCuezMBqrug==
-X-Gm-Gg: ASbGnctWKT/H9B7FI4atQppdxoUqGTh7XtECge4xW3CI/nIXWx0Q0CM+t/tAZpU5l5I
-	lcWSOWLJCRULHhabMPoojXTCUwYhl6IfcNh7VPQlJkvbreh7HU+0V40wqw5e5d5+hwzaQeaOlkS
-	ikgdgaatnJHlttx4TjE9ivxpZ3upLSxoXy/CBGo27qei7NZqMJwt7E2DzTqDro6FATzJ6GHshki
-	G1aMdA3L4/ijn8Ijo5BIGth04lWjP2aQyPvzbeLcMsD/aDUps9oCWUdZuk7P0eHst4CODXxVxsa
-	ewgd8ttM9n34gl8goR5NMpaDozYtR701Yca33paTpemUdIgRNHJOywuyQHrpwTHf9eblo0kv1LT
-	mf98YaQTPx4E7MfEyqUKqUXE1+w==
-X-Google-Smtp-Source: AGHT+IHdNW4lraAV6sHJxyoCDu+JVjpAP0bv6o4+W5N0SB8CGH/7R6sGj3UbSoI6C3AfhlCr7LrdfQ==
-X-Received: by 2002:a17:907:72d3:b0:ac8:1cf7:7aa7 with SMTP id a640c23a62f3a-acec84d2cebmr264185166b.15.1745934847412;
-        Tue, 29 Apr 2025 06:54:07 -0700 (PDT)
-Message-ID: <4332c290-f67e-425e-bdac-20bff38c288d@suse.com>
-Date: Tue, 29 Apr 2025 15:54:05 +0200
+        bh=HQPUizxCMVjSZ4abLaeJiBG5OpeAbCnuqKDvdml9ALc=;
+        b=WtfE+GuJqYVAZqVN8maIy0ArSq54wqN2fJFkKxGxJZsdE9W/rcHlO/MeuncnK4hMzZ
+         mZh88L5nuEUetId2VKaiIBA/3iBqes6FlqGjdRnzD76VrxydgFtL8dF/SyIGMuXDeOr9
+         eCg+reY3ZJDIcu2jMwsOZNrMMXMlpHyhG6pjBO8F89hiOqAPDjXWZ+u8mkzkRg94XfOb
+         XbNSTOigsLQbWs9x2Rc6GAxhNAHcJB5+wm89QNFJcUGwITaWeJZEUvIY0ufRrb1FXQya
+         nQBDnUj/KnOn6D88oWeD/PF192Gd8k9xPmGWqHsq+v7CZ9iG27F9A6h00Os2iD1oVz/C
+         KrUQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV2g4IanQBmrnGHgGpXiVB5oGGAV8ZBzaLId7p+cr5If5+6eA882Mysjf7MsVEIwm8IqXguuS4QGMo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwuOg3f7y5pGz+QyEagPgAEvM1e9EzHSISJocpXpHtIU375N5Fw
+	hQlefJJWHt0z1wUVd2OtpC1tHji2D8siZJyK/KI1FlMv9W7Yxl/+yFKFPJ3O5A==
+X-Gm-Gg: ASbGncso0UntGg0MW3WCAAKEojrXmuMNP4XfU7wej0RAK7VORFISvqJzCCnfb0hCFUF
+	5B3ZQy1SOD9uQ/oNrnWD8hon9/3r/ZIEg7VlQByQ0U8lco+SGpyypnFbDaBbM2BbC5Xhwm0i5r1
+	BhLFzCN1swWEwApCF2nJasxHWwIp2WJyXwF7anOUFvye28MNK+cBwzCfSKw9Otl88MhX6PJvG+z
+	OIT6RgE30Heqy9N2TbMXxTBhsQKsGrrcbE1yAfIcnxmPUUdwonrsUpJKNYfZGOWf/o/2XyBQEm0
+	0e35be44ruvWTjGeZp+Jyej7yOlVh4kr+4pazgm1FyhHHNTnMo7Bwuc0raQn3aPQ58rmUcXLRxm
+	fs15yrOL7+F78GwjjI1hlsr2j9g==
+X-Google-Smtp-Source: AGHT+IERJ/VWgHDK6ezbJpk4gnuoV4wzVVibfZZxWKLKvs6KkaHQelnUCgFK+/OQGMoV2Zy3tX3Tww==
+X-Received: by 2002:a05:6402:2745:b0:5e7:f707:d7c4 with SMTP id 4fb4d7f45d1cf-5f83889e257mr3215661a12.31.1745936958737;
+        Tue, 29 Apr 2025 07:29:18 -0700 (PDT)
+Message-ID: <448d6036-09ad-4505-800d-47606e8a3274@suse.com>
+Date: Tue, 29 Apr 2025 16:29:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/15] xen/amd: introduce amd_process_freq() to get
- processor frequency
+Subject: Re: [PATCH v4 09/15] xen/x86: introduce a new amd cppc driver for
+ cpufreq scaling
 To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
- <20250414074056.3696888-9-Penny.Zheng@amd.com>
+ <20250414074056.3696888-10-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,91 +120,318 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250414074056.3696888-9-Penny.Zheng@amd.com>
+In-Reply-To: <20250414074056.3696888-10-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 14.04.2025 09:40, Penny Zheng wrote:
-> --- a/xen/arch/x86/cpu/amd.c
-> +++ b/xen/arch/x86/cpu/amd.c
-> @@ -57,7 +57,6 @@ bool __initdata amd_virt_spec_ctrl;
->  static bool __read_mostly fam17_c6_disabled;
->  
->  static uint64_t attr_const amd_parse_freq(unsigned char c, uint64_t value);
-> -#define INVAL_FREQ_MHZ  ~(uint64_t)0
->  
->  static inline int rdmsr_amd_safe(unsigned int msr, unsigned int *lo,
->  				 unsigned int *hi)
-> @@ -596,14 +595,13 @@ static uint64_t amd_parse_freq(unsigned char c, uint64_t value)
->  	return freq;
->  }
->  
-> -void amd_log_freq(const struct cpuinfo_x86 *c)
-> +void amd_process_freq(const struct cpuinfo_x86 *c,
-
-Misra demands that functions only used in a single CU be static.
-
-> +		      uint64_t *low_mhz, uint64_t *nom_mhz, uint64_t *hi_mhz)
-
-See comments on patch 07 as to types used here.
-
-> @@ -684,20 +682,21 @@ void amd_log_freq(const struct cpuinfo_x86 *c)
->  
->  	if (idx && idx < h &&
->  	    !rdmsr_safe(0xC0010064 + idx, val) && (val >> 63) &&
-> -	    !rdmsr_safe(0xC0010064, hi) && (hi >> 63))
-> -		printk("CPU%u: %lu (%lu ... %lu) MHz\n",
-> -		       smp_processor_id(),
-> -		       amd_parse_freq(c->x86, val),
-> -		       amd_parse_freq(c->x86, lo),
-> -		       amd_parse_freq(c->x86, hi));
-> -	else if (h && !rdmsr_safe(0xC0010064, hi) && (hi >> 63))
-> -		printk("CPU%u: %lu ... %lu MHz\n",
-> -		       smp_processor_id(),
-> -		       amd_parse_freq(c->x86, lo),
-> -		       amd_parse_freq(c->x86, hi));
-> -	else
-> -		printk("CPU%u: %lu MHz\n", smp_processor_id(),
-> -		       amd_parse_freq(c->x86, lo));
-> +	    !rdmsr_safe(0xC0010064, hi) && (hi >> 63)) {
-> +		if (nom_mhz)
-> +			*nom_mhz = amd_parse_freq(c->x86, val);
-> +		if (low_mhz)
-> +			*low_mhz = amd_parse_freq(c->x86, lo);
-> +		if (hi_mhz)
-> +			*hi_mhz = amd_parse_freq(c->x86, hi);
-> +	} else if (h && !rdmsr_safe(0xC0010064, hi) && (hi >> 63)) {
-> +		if (low_mhz)
-> +			*low_mhz = amd_parse_freq(c->x86, lo);
-> +		if (hi_mhz)
-> +			*hi_mhz = amd_parse_freq(c->x86, hi);
-> +	} else
-> +		if (low_mhz)
-
-Why does this "else if()" extend across two lines?
-
-> @@ -708,6 +707,29 @@ void cf_check early_init_amd(struct cpuinfo_x86 *c)
->  	ctxt_switch_levelling(NULL);
->  }
->  
-> +void amd_log_freq(const struct cpuinfo_x86 *c)
+> --- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+> @@ -14,7 +14,56 @@
+>  #include <xen/domain.h>
+>  #include <xen/init.h>
+>  #include <xen/param.h>
+> +#include <xen/percpu.h>
+> +#include <xen/xvmalloc.h>
+>  #include <acpi/cpufreq/cpufreq.h>
+> +#include <asm/amd.h>
+> +#include <asm/msr-index.h>
+> +
+> +#define amd_cppc_err(cpu, fmt, args...)                             \
+> +    printk(XENLOG_ERR "AMD_CPPC: CPU%u error: " fmt, cpu, ## args)
+> +#define amd_cppc_warn(cpu, fmt, args...)                            \
+> +    printk(XENLOG_WARNING "AMD_CPPC: CPU%u warning: " fmt, cpu, ## args)
+> +#define amd_cppc_verbose(cpu, fmt, args...)                         \
+> +({                                                                  \
+> +    if ( cpufreq_verbose )                                          \
+> +        printk(XENLOG_DEBUG "AMD_CPPC: CPU%u " fmt, cpu, ## args);  \
+> +})
+> +
+> +struct amd_cppc_drv_data
 > +{
-> +	uint64_t low_mhz, nom_mhz, hi_mhz;
+> +    const struct xen_processor_cppc *cppc_data;
+> +    union {
+> +        uint64_t raw;
+> +        struct {
+> +            unsigned int lowest_perf:8;
+> +            unsigned int lowest_nonlinear_perf:8;
+> +            unsigned int nominal_perf:8;
+> +            unsigned int highest_perf:8;
+> +            unsigned int :32;
+> +        };
+> +    } caps;
+> +    union {
+> +        uint64_t raw;
+> +        struct {
+> +            unsigned int max_perf:8;
+> +            unsigned int min_perf:8;
+> +            unsigned int des_perf:8;
+> +            unsigned int epp:8;
+> +            unsigned int :32;
+> +        };
+> +    } req;
 > +
-> +	if (c != &boot_cpu_data &&
-> +	    (!opt_cpu_info || (c->apicid & (c->x86_num_siblings - 1))))
-> +		return;
+> +    int err;
+> +};
 > +
-> +	low_mhz = nom_mhz = hi_mhz = INVAL_FREQ_MHZ;
-> +	amd_process_freq(c, &low_mhz, &nom_mhz, &hi_mhz);
-> +
-> +	if (low_mhz != INVAL_FREQ_MHZ && nom_mhz != INVAL_FREQ_MHZ &&
-> +	    hi_mhz != INVAL_FREQ_MHZ)
-> +		printk("CPU%u: %lu (%lu ... %lu) MHz\n",
-> +		       smp_processor_id(),
-> +		       low_mhz, nom_mhz, hi_mhz);
+> +static DEFINE_PER_CPU_READ_MOSTLY(struct amd_cppc_drv_data *,
+> +                                  amd_cppc_drv_data);
+> +/*
+> + * Core max frequency read from PstateDef as anchor point
+> + * for freq-to-perf transition
+> + */
+> +static DEFINE_PER_CPU_READ_MOSTLY(uint64_t, amd_max_pxfreq_mhz);
 
-This doesn't match the original order of frequencies logged.
+Throughout here (and maybe also further down) - is the amd_ prefix really
+needed everywhere? Even the cppc part of the identifiers seems excessive
+in at least some of the cases.
+
+For this last one, also once again see the type related comment on patch 07.
+
+> @@ -51,10 +100,354 @@ int __init amd_cppc_cmdline_parse(const char *s, const char *e)
+>      return 0;
+>  }
+>  
+> +/*
+> + * If CPPC lowest_freq and nominal_freq registers are exposed then we can
+> + * use them to convert perf to freq and vice versa. The conversion is
+> + * extrapolated as an linear function passing by the 2 points:
+> + *  - (Low perf, Low freq)
+> + *  - (Nominal perf, Nominal freq)
+> + */
+> +static int amd_cppc_khz_to_perf(const struct amd_cppc_drv_data *data,
+> +                                unsigned int freq, uint8_t *perf)
+> +{
+> +    const struct xen_processor_cppc *cppc_data = data->cppc_data;
+> +    uint64_t mul, div;
+> +    int offset = 0, res;
+> +
+> +    if ( freq == (cppc_data->cpc.nominal_mhz * 1000) )
+
+I'm pretty sure I commented on this before: The expression here _suggests_
+that "freq" is in kHz, but that's not being made explicit anywhere.
+
+> +    {
+> +        *perf = data->caps.nominal_perf;
+> +        return 0;
+> +    }
+> +
+> +    if ( freq == (cppc_data->cpc.lowest_mhz * 1000) )
+> +    {
+> +        *perf = data->caps.lowest_perf;
+> +        return 0;
+> +    }
+
+How likely is it that these two early return paths are taken, when the
+incoming "freq" is 25 or 5 MHz granular? IOW - is it relevant to shortcut
+these two cases?
+
+> +    if ( cppc_data->cpc.lowest_mhz && cppc_data->cpc.nominal_mhz &&
+> +         cppc_data->cpc.lowest_mhz < cppc_data->cpc.nominal_mhz )
+
+Along the lines of a comment on an earlier patch, the middle part of the
+condition here is redundant with the 3rd one. Also, don't you check this
+relation already during init? IOW isn't it the 3rd part which can be
+dropped?
+
+> +    {
+> +        mul = data->caps.nominal_perf - data->caps.lowest_perf;
+> +        div = cppc_data->cpc.nominal_mhz - cppc_data->cpc.lowest_mhz;
+> +
+> +        /*
+> +         * We don't need to convert to kHz for computing offset and can
+> +         * directly use nominal_mhz and lowest_mhz as the division
+> +         * will remove the frequency unit.
+> +         */
+> +        offset = data->caps.nominal_perf -
+> +                 (mul * cppc_data->cpc.nominal_mhz) / div;
+> +    }
+> +    else
+> +    {
+> +        /* Read Processor Max Speed(MHz) as anchor point */
+> +        mul = data->caps.highest_perf;
+> +        div = this_cpu(amd_max_pxfreq_mhz);
+> +        if ( !div || div == INVAL_FREQ_MHZ )
+
+Seeing this - do we need INVAL_FREQ_MHZ at all? Isn't 0 good enough an indicator
+of "data not available"?
+
+> +            return -EINVAL;
+> +    }
+> +
+> +    res = offset + (mul * freq) / (div * 1000);
+> +    if ( res > UINT8_MAX )
+> +    {
+> +        printk_once(XENLOG_WARNING
+> +                    "Perf value exceeds maximum value 255: %d\n", res);
+> +        *perf = 0xff;
+> +        return 0;
+> +    } else if ( res < 0 )
+
+Nit: Style. And no real need for "else" here anyway (or alternatively for the
+"return 0", with an "else" added below).
+
+> +    {
+> +        printk_once(XENLOG_WARNING
+> +                    "Perf value smaller than minimum value 0: %d\n", res);
+> +        *perf = 0;
+> +        return 0;
+> +    }
+> +    *perf = (uint8_t)res;
+
+We don't normally spell out such conversions (i.e. please drop the cast).
+
+> +    return 0;
+> +}
+> +
+> +static int amd_get_lowest_or_nominal_freq(const struct amd_cppc_drv_data *data,
+
+Nothing in the function looks to limit it to "nominal" or "lowest", so them
+being in the identifier feels misleading.
+
+> +                                          uint32_t cpc_mhz, uint8_t perf,
+> +                                          unsigned int *freq)
+> +{
+> +    uint64_t mul, div, res;
+> +
+> +    if ( !freq )
+> +        return -EINVAL;
+
+Is this needed? It's an internal function.
+
+> +    if ( cpc_mhz )
+> +    {
+> +        /* Switch to khz */
+> +        *freq = cpc_mhz * 1000;
+> +        return 0;
+> +    }
+> +
+> +    /* Read Processor Max Speed(MHz) as anchor point */
+> +    mul = this_cpu(amd_max_pxfreq_mhz);
+> +    if ( mul == INVAL_FREQ_MHZ || !mul )
+> +    {
+> +        printk(XENLOG_ERR
+> +               "Failed to read valid processor max frequency as anchor point: %lu\n",
+> +               mul);
+> +        return -EINVAL;
+> +    }
+> +    div = data->caps.highest_perf;
+> +    res = (mul * perf * 1000) / div;
+
+While there is a comment further up, clarifying function-wide that the result is
+to be in kHz would perhaps be better.
+
+> +    if ( res > UINT_MAX || !res )
+> +    {
+> +        printk(XENLOG_ERR
+> +               "Frequeny exceeds maximum value UINT_MAX or being zero value: %lu\n",
+
+Just "out of range"?
+
+> +               res);
+> +        return -EINVAL;
+
+And then -ERANGE here?
+
+> +    }
+> +    *freq = (unsigned int)res;
+
+See above.
+
+> +static int amd_get_max_freq(const struct amd_cppc_drv_data *data,
+> +                            unsigned int *max_freq)
+> +{
+> +    unsigned int nom_freq = 0, boost_ratio;
+> +    int res;
+> +
+> +    res = amd_get_lowest_or_nominal_freq(data,
+> +                                         data->cppc_data->cpc.nominal_mhz,
+> +                                         data->caps.nominal_perf,
+> +                                         &nom_freq);
+> +    if ( res )
+> +        return res;
+> +
+> +    boost_ratio = (unsigned int)(data->caps.highest_perf /
+> +                                 data->caps.nominal_perf);
+
+I may have seen logic ensuring nominal_perf isn't 0, so that part may be
+fine. What guarantees this division to yield a positive value, though?
+If it yields zero (say 0xff / 0x80), ...
+
+> +    *max_freq = nom_freq * boost_ratio;
+
+... zero will be reported back here. I think you want to scale the
+calculations here to avoid such.
+
+> +static void cf_check amd_cppc_init_msrs(void *info)
+> +{
+> +    struct cpufreq_policy *policy = info;
+> +    struct amd_cppc_drv_data *data = this_cpu(amd_cppc_drv_data);
+> +    uint64_t val;
+> +    unsigned int min_freq = 0, nominal_freq = 0, max_freq;
+> +
+> +    /* Package level MSR */
+> +    rdmsrl(MSR_AMD_CPPC_ENABLE, val);
+> +    /*
+> +     * Only when Enable bit is on, the hardware will calculate the processor’s
+> +     * performance capabilities and initialize the performance level fields in
+> +     * the CPPC capability registers.
+> +     */
+> +    if ( !(val & AMD_CPPC_ENABLE) )
+> +    {
+> +        val |= AMD_CPPC_ENABLE;
+> +        wrmsrl(MSR_AMD_CPPC_ENABLE, val);
+> +    }
+> +
+> +    rdmsrl(MSR_AMD_CPPC_CAP1, data->caps.raw);
+> +
+> +    if ( data->caps.highest_perf == 0 || data->caps.lowest_perf == 0 ||
+> +         data->caps.nominal_perf == 0 || data->caps.lowest_nonlinear_perf == 0 ||
+> +         data->caps.lowest_perf > data->caps.lowest_nonlinear_perf ||
+
+Same question as asked elsewhere - where is this relation specified?
+
+> +         data->caps.lowest_nonlinear_perf > data->caps.nominal_perf ||
+> +         data->caps.nominal_perf > data->caps.highest_perf )
+> +    {
+> +        amd_cppc_err(policy->cpu,
+> +                     "Platform malfunction, read CPPC capability highest(%u), lowest(%u), nominal(%u), lowest_nonlinear(%u) zero value\n",
+
+The message wants shortening if at all possible, and it wants to not be
+misleading (saying "zero" when the issue may be something else).
+
+> +                     data->caps.highest_perf, data->caps.lowest_perf,
+> +                     data->caps.nominal_perf, data->caps.lowest_nonlinear_perf);
+> +        goto err;
+> +    }
+> +
+> +    amd_process_freq(cpu_data + policy->cpu,
+
+&cpu_data[policy->cpu] is generally preferred in such cases.
+
+> +static int cf_check amd_cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
+> +{
+> +    unsigned int cpu = policy->cpu;
+> +    struct amd_cppc_drv_data *data;
+> +    const struct cpuinfo_x86 *c = cpu_data + cpu;
+> +
+> +    data = xvzalloc(struct amd_cppc_drv_data);
+> +    if ( !data )
+> +        return -ENOMEM;
+> +
+> +    data->cppc_data = &processor_pminfo[cpu]->cppc_data;
+> +
+> +    per_cpu(amd_cppc_drv_data, cpu) = data;
+> +
+> +    /* Feature CPPC is firstly introduced on Zen2 */
+> +    if ( c->x86 < 0x17 )
+> +    {
+> +        printk_once("Unsupported cpu family: %x\n", c->x86);
+> +        return -EOPNOTSUPP;
+> +    }
+
+With the cpu_has_cppc check in amd_cppc_register_driver(), is this check
+really needed?
 
 Jan
 
