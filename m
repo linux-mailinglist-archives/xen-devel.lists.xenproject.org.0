@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DED2AA0B0A
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 14:03:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.972262.1360654 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A38EAA0B0F
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 14:05:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.972278.1360664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9jgb-0006pK-WC; Tue, 29 Apr 2025 12:03:42 +0000
+	id 1u9jhm-0007Vu-Ae; Tue, 29 Apr 2025 12:04:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 972262.1360654; Tue, 29 Apr 2025 12:03:41 +0000
+Received: by outflank-mailman (output) from mailman id 972278.1360664; Tue, 29 Apr 2025 12:04:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9jgb-0006mk-TY; Tue, 29 Apr 2025 12:03:41 +0000
-Received: by outflank-mailman (input) for mailman id 972262;
- Tue, 29 Apr 2025 12:03:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Cjpo=XP=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1u9jga-0006me-7C
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 12:03:40 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fbcf53af-24f1-11f0-9ffb-bf95429c2676;
- Tue, 29 Apr 2025 14:03:38 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5f6222c6c4cso9232878a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 05:03:38 -0700 (PDT)
-Received: from ?IPV6:2003:e5:870f:e000:6c64:75fd:2c51:3fef?
- (p200300e5870fe0006c6475fd2c513fef.dip0.t-ipconnect.de.
- [2003:e5:870f:e000:6c64:75fd:2c51:3fef])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-acec4186fd3sm141807066b.82.2025.04.29.05.03.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Apr 2025 05:03:36 -0700 (PDT)
+	id 1u9jhm-0007Tm-6p; Tue, 29 Apr 2025 12:04:54 +0000
+Received: by outflank-mailman (input) for mailman id 972278;
+ Tue, 29 Apr 2025 12:04:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=r0hc=XP=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1u9jhk-0007Te-2z
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 12:04:52 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2060f.outbound.protection.outlook.com
+ [2a01:111:f403:2408::60f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2628e1c0-24f2-11f0-9eb4-5ba50f476ded;
+ Tue, 29 Apr 2025 14:04:50 +0200 (CEST)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by DM4PR12MB5890.namprd12.prod.outlook.com (2603:10b6:8:66::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.33; Tue, 29 Apr
+ 2025 12:04:46 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%2]) with mapi id 15.20.8678.025; Tue, 29 Apr 2025
+ 12:04:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,242 +47,431 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fbcf53af-24f1-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745928217; x=1746533017; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=tWXjCEn9PiseYTn3909SgiiZVnVb4NCLZrhDySo1B8U=;
-        b=WSfRytsZgr3HE7HXJib2bwxM4D+RhLeRUOQbuCUpeC/oBfGaUuKHOjqJZj8ywZjFtP
-         By2zW8R/7IQ6hGxWCLtupJdLFCLkM7gJTx0xhBoDtAFXQJHUOAn2+7+XgC0RXXzb/5Tz
-         Ltkrv+sD0eY0robuF4+a6wlGlhVJ3VZNe+wcWS83eoFCJy/JaD3d+Oz0aTk2ikhmhvSl
-         SAI6kcBIk5O9j8hTtkac3U0k9q5/sepD2MH4iU3ShjKvOkv+qMcNPANdu6OzNIULYGw3
-         dFG50MxZgvXANONjXSwyAN5Z5W3qAGwTjROi1vCPVmYkqFhhDyo6bKp8qug2TdvcFhR3
-         Y27g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745928217; x=1746533017;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=tWXjCEn9PiseYTn3909SgiiZVnVb4NCLZrhDySo1B8U=;
-        b=HTmIZtgKiJoJYTizgZwwkxXIM7LVEVKJP0ecDtePnX4XHFF8zqBme6ICaH4IvYAYf9
-         mxBVytKUybN+F4o2HwBZgXTHZOYQw67w6fEKdJp50Tw3upQOqMaU+gMnhbzA1HoIvQFh
-         2+5IKQ4IVe2LR58FpCMwWSd5gMT+HUB2HITu+HVWBTEKKsqN19wWzqJIz1yIIkCPI4dk
-         eFzQTPDp27g8BLRCIbCo5lqbbZJUdac1h4Ede2cAEDR3UFbzRFWmcPlfoebnGkvGBegH
-         WmD4bTqg/q4n6D1ld162x94S/AHjskQ7U2dbX5EBkuA2rzOBO3hNpW9QNbggAHiPWkRD
-         QhCg==
-X-Forwarded-Encrypted: i=1; AJvYcCU8U8kFVvVjdkkEcI2lgbGXeS9E5CDVVA2xCLjl+rcmJuRH2bB9C3KbP+z/jWQB8QBYxaJIEQ+cbug=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyiO7RPz7QDHeWq70grZDqFOzoWunzURHimDRFcKyYZiCJuOU0+
-	1RNRr3NH45d441v3z1Ts7gbNTnRhTh/3YvccxGVtmC6rmCwFnbhF3SEA826KUQ4=
-X-Gm-Gg: ASbGncses+8AqKrMB/0e9d8LEluZIZySQxqyyJxAdCzHidLz/mIjm3KB9GxMMaRnrku
-	pT+HSbyN1Yo43t8rVeHIviDLjbAXn6Vu927rMjUajsjiaTIK5E1FJOfJqnouvVCmrheo2a8ZaZE
-	fyeZzgk8hKslY3jeVM7sV0oRuxvvebotgyLJuJjmb0uEvLlMTs3SDvtdN0IBKiyjRSiEDjvC9Dt
-	PiOWeVk1DvpCP2h5UpBYf0AEW7WRGtECSfWS4YBcisZqgcrwgyR+TOSeyTu15msN++2Z7XN06CY
-	tw/mxYv/qEfyDeqBjzaVSnsdnnMsWxAkE5kYq04Ri6x5j2e3lBUwf5l5ANJe6BZ6Z6Oid9cbRZ+
-	NbtvTKpkAqkC2Y74FgLVunjxRZcZ09wuuq1YW463VIB8owsOlIe7MdeH7YWo//86p9A==
-X-Google-Smtp-Source: AGHT+IEokryXB2GYaD6tgtEkjtV6oZQlcQ33iLoZeWv21Bb6GFTYwRXC8MIxBJedwj0OdIvOhPYeBw==
-X-Received: by 2002:a17:907:3d93:b0:ace:c3b9:c710 with SMTP id a640c23a62f3a-acec4dffc67mr341266666b.36.1745928217315;
-        Tue, 29 Apr 2025 05:03:37 -0700 (PDT)
-Message-ID: <50800903-3ade-4cc5-bed3-93c19f605907@suse.com>
-Date: Tue, 29 Apr 2025 14:03:36 +0200
-MIME-Version: 1.0
+X-Inumbo-ID: 2628e1c0-24f2-11f0-9eb4-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GhPdyxHf/BRudvYBK3lm91RhWvX/ynujEoX4eIzPRK3ddGmch0/SO/gqxMqbdtW/xdvKOpRm5ZSlLfcG6NtvLx2b2eM906TzaIrhPSIMGUWpvodT7B7n3NP5WyWe9Bj+CKQg3o4yADpjI4XepsBISt4nCbIQJcc6wJuCwRxn3X0q94tsGfjs4o2DIyhgxAHjTmzT6FP5IK6ZpQiwlHDc2nZaQIuu6i0C282Efk2KlPWtjNd0A2FlFo3SHQ4gs4VHsEOALEMI4PCPrEVqKanMgBqz0FvINNlOLHX1krjhWYcjQwbjPfSx5XBoPhY6kGHLZe3xAI6nv1UpRj9dLaXKsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EOCkHerxvDxmbeBQR30NNEMstB8L6draFAV62NRgmMM=;
+ b=A+GGVZFAifOoYwcecCL49bpisitW29LSf5gOGkOhRP/AS/tJImSzLhz0qu1JZ5Jlhtiy7dj4ln4sxA67gvFv0x+uoo5ueJbV9ScQxw/G9lccVKAR+Lsk02dd3TToed+gFQJPAfZqIZqQFcx4mXL1peb2QkVxGIlUpr0kgL9+r6PaA8z8SCejbcfqAgAGu8zF+M/WbvbJ7vianyrHsaSqgrHxHQR5UytBZfPgnrKR+wf/knfHt0C6oxQJH5EdNp6wSMkqYlJXXlvjpNU9YHGG2C5ghT6b/8zcjFGIKhReD41vQLPjJL8IewOTJ8UXnsJc6PVJx6LMBR1qkxp1x8s/0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EOCkHerxvDxmbeBQR30NNEMstB8L6draFAV62NRgmMM=;
+ b=OI07XPn2HhEwy25pnToK+J8XheUvm3Ng2jF2Xj+a4TmTMjcUPasc7N+cLgbz+dYp28ucv7OJzTAGFWhxdsXl5hyrP2rSPcXzIWTFlAcWmF9cTZ7lt0YJ8F3gExewGJcsX+gDy9G94nQ7Uz+JD86a6J1CintA2bOVU+7QKp+dSXY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <388f39ad-6aa6-4b95-9941-334b434ff400@amd.com>
+Date: Tue, 29 Apr 2025 13:04:41 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] tools: remove support for running a guest with
- qemu-traditional
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20250429110636.30518-1-jgross@suse.com>
- <20250429110636.30518-3-jgross@suse.com>
- <b51b142f-d534-48f3-b506-c949ed535623@suse.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <b51b142f-d534-48f3-b506-c949ed535623@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------FjzEPPCgNIMk0EnbGwYXHRCf"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------FjzEPPCgNIMk0EnbGwYXHRCf
-Content-Type: multipart/mixed; boundary="------------p2okPk0vb0dU0SbNqZqa8Cq0";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Message-ID: <50800903-3ade-4cc5-bed3-93c19f605907@suse.com>
-Subject: Re: [PATCH v3 2/4] tools: remove support for running a guest with
- qemu-traditional
-References: <20250429110636.30518-1-jgross@suse.com>
- <20250429110636.30518-3-jgross@suse.com>
- <b51b142f-d534-48f3-b506-c949ed535623@suse.com>
-In-Reply-To: <b51b142f-d534-48f3-b506-c949ed535623@suse.com>
-Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
- ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
- Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
- pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
- tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
- OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
- v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
- 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
- jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
- DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
- Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
- dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
- AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
-
---------------p2okPk0vb0dU0SbNqZqa8Cq0
-Content-Type: multipart/mixed; boundary="------------KITpn2ECuWijIoVTx0e08Cnj"
-
---------------KITpn2ECuWijIoVTx0e08Cnj
+Subject: Re: [PATCH v1] xen/arm: AArch32-V8R: Add MPU register definitions
+Content-Language: en-GB
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Julien Grall <julien@xen.org>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250417155511.1854081-1-ayan.kumar.halder@amd.com>
+ <306e5414-1552-4605-86d6-b23b89d00bc9@xen.org>
+ <cebb0020-531f-467c-bc81-54d2ba1aa8e0@amd.com>
+ <2697BC06-8A78-42B4-9977-07907BBBDC3D@arm.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <2697BC06-8A78-42B4-9977-07907BBBDC3D@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO3P265CA0032.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:387::15) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|DM4PR12MB5890:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c2c478b-8be8-446b-14e3-08dd87160856
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?V1I0enV6WXBqcTQ4aUFPL09XYUM5cUMrcFRCMkMyYWFHZFV6SWhaTDBGNXNS?=
+ =?utf-8?B?M0wvK3FpY0JPd3J4TG1oMEt1VWU3Ui81bUpUUGVqaHh6TGgxbnpjcVNVc0hK?=
+ =?utf-8?B?MURvQ0EwOFMrL0ZxSkJaNkZPN2VWQm9ndmJGSFltdVRLd1NSamJNQmRoeHA1?=
+ =?utf-8?B?eXNZbitvYU9HZjRDejhCc1pGazVoaml3M0JnV0VLOURlWTVyWFVFWDU2bFNv?=
+ =?utf-8?B?ZjRnUGtFRGVCSExxaUpmMTlMWERlMVB5SXpHYTB5QmxOb2JhdlZsR0Yzcml1?=
+ =?utf-8?B?V0hjV2p1L2dPek1YT1U4R2xwRWlrQ2VtZEYveHVhcm1USGRGVExtQkN1RE5N?=
+ =?utf-8?B?SDFrZGFWaXBwbXdjU1N3VjNqMWwyenBFUWJjUktQdUpHM2lBekFJOWVZQUFW?=
+ =?utf-8?B?YVR1T2k1bVU0ZEdtSGp3NVJzbm43OWMxeXVGWUw4eTVHOU5LN2NBR0hBL0RN?=
+ =?utf-8?B?MHh6Sjh3SUNqM1ZZb1o2eDBNb1VHYUVXblV2c25USWZYUnZFc3R0Nnd4dUZx?=
+ =?utf-8?B?WitENnljOVpCR1VTSjJXRllRclBQWTFxZ2czTUJEbVMzMkdhSlBudC9rVGJ4?=
+ =?utf-8?B?MWllVkp6Z1czdGIwZmVOYmlBdjhON29sZGc4b1R4QkJwVy9SVXQ5bmQ3bXpH?=
+ =?utf-8?B?eXcwU2hKRUQydXhZanlhNjVBZlgyZytZUERiM0ZyRHVMSGtqdERlT2JjWTYx?=
+ =?utf-8?B?YmRkYXY2SW9BQnJqVGNyQ041NmtMY0ZWTXF5NDJZS2s2ai9qYWkzUk03UUl6?=
+ =?utf-8?B?clAvWGtHallnSXRTV1Y5NUdoL05sTG55QlJ1ZGhBZkprdjg2dWlmNkhJYmNP?=
+ =?utf-8?B?WFVoc3hTYW5TSHVZUm9lejNMMDcxeC9CVXJRUGE0MkRSV05VS0RHeWZieWk1?=
+ =?utf-8?B?RjlSWjNVK0lWZGl4S2h2czhTSktNcGNXQ0JyVTQ4NHNwam14eUpVeiswa0pm?=
+ =?utf-8?B?c1JmeVlxcnNZQk9oRXM3RUR5cWpyTjl2bGlrczBSODJBbGlOOXZpMWtWUWVH?=
+ =?utf-8?B?RWV6Mkt5UlBOY3ZieUVHMkYwd2w1ck9GZ0NzbVZjaXV0S2hnQVU3L1dKOWkr?=
+ =?utf-8?B?TTY3LzFyUkljU2hMSWV3RzhaMUVkL0NUMURvV0orc1hYY1hUempHM0VnWTQ2?=
+ =?utf-8?B?RVNZWXEyZU9sUFh6eWszN2o0SEpjNzV6VGNHQnFmSUc0aW5FeTBBRDJtNzFk?=
+ =?utf-8?B?YTZQVkg4ckNnV1pFTUJ4UFpkUXVXL0tvRnZUK0crWEJjK0VnK3JFL1d4RkQ1?=
+ =?utf-8?B?ZWRxdHpCYzNlbDh6THJFa3dwK1BVa3pqdklQQWZOR1E3TkdRNUpWa1c3RktR?=
+ =?utf-8?B?cytQUmh1UGQ2RDdka2hCMGVUU1ppZldsbW5jMzFwTXNjK2E4aVlzSG9HMnJH?=
+ =?utf-8?B?UDRuZll5ditmZ21rakJhZklPY3JoMnZ3Y1J4SkNSRHJmeVdHUEMxd2J1QlJI?=
+ =?utf-8?B?Tm5pSDdHbU52M2tvSzF5QlhjbEFoWHpQdUJRb3RxZzYyTzl3MDA3NjRJaTlD?=
+ =?utf-8?B?ZWtFK2IzVW5QU3BuRmZXK2k4d01CVUQ4ZEZHNWY0TC92MTU5OFpIb3BOY2VW?=
+ =?utf-8?B?V2h5YnVseTJxVXd5ZUxiM3F6TEo1SFR4UzBnc0hoekEvb1FMNGtTTm9lTVMy?=
+ =?utf-8?B?bnQwOTRGVS9MNEt4d2xBaEUveE1Zc29lVFVMdFM5dVBBVVN1OS8zdWxzV2lZ?=
+ =?utf-8?B?TEZwTkRtYnk3SDZhR0VOSzI3R0c3MXhwRHdaV3MxZ1RhSjJHdXFJZjlZNDl3?=
+ =?utf-8?B?MXJzYXpEMzM2bmtCdVBhTHRtcW9nbXdQdzZzbzZES3NmK29kcDJ6UGxEUlUw?=
+ =?utf-8?B?YzAwMXpva2N3OGZKY3FYcE9qTUI2TzJmYk5FQVpVWnNidEMzQVN6d3lTbnZD?=
+ =?utf-8?B?WmIya3RyV2JSeXVtNkJpYUNTWnlJNTlPNXZCM2ttSkJreC9QeUpZRXpudlUv?=
+ =?utf-8?Q?lK158gkNHW8=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MHFwQWN1Rld2cWpDVk1XQXY3UFpOVGQxOFR4MmVEeG1HaWN2WURvdytWdVB3?=
+ =?utf-8?B?Z2hnajZ3RDBPQzV2RFROL3pidXpGamJzVnFsNHJKR1FCOXlpRjF6dVo3U0Zi?=
+ =?utf-8?B?MFpqTFN3ekFUQlU5aEZvaUpZbTRaRkp1cUtSQnpHSEdEMSs5QmRKcGFnYmZh?=
+ =?utf-8?B?SHJJQ05VRkxoM2FNbkprQkN1R3IwUlFoUjVFU3h3eFUzZHZidm11K1NTK3d4?=
+ =?utf-8?B?dkpoWUV6U0FseXFCbVV5NkQxbXpMUXdROVZOUk8wZWFvMlN3WHhJdFJPaEEr?=
+ =?utf-8?B?akxBR1ZxbGRtemZ5dldERXZSS3hyblhWelFWY2NQdGtnRUxoUVVlaXBuK3pa?=
+ =?utf-8?B?K1ljQ0tpbGdaUHlZWDNRT0FURHF3YmRpbWhvdGVLU1MyNFc3S0JGNGl1THoy?=
+ =?utf-8?B?VVowOTZzUzArRkhwVlo1OHVDWVptWHFGUzIrNFpNZm14V25idy9PQVFoODUr?=
+ =?utf-8?B?NVhVYlB1ZXYyOEpBOTFXMU03TkR5dG5LZERzRE5VRmFNV3hya1lWV3JxOU5n?=
+ =?utf-8?B?OG9xNTVmeEh3bGNlUXArVHhFNzNrK0M1SElHc3R5VDlPdGVkQnJNVmgvdXVh?=
+ =?utf-8?B?ZG1VRk9uNkMwcVpMTUZOT0gyaWRTcGpuUUVycExzTHJaU3YrOTBBSWpmdDVk?=
+ =?utf-8?B?aHlHQTVQSHEzNnVTU1BGZXlVcEx6YTd6VXQ0R3ZqL3ZjMWJ0TEFVanQyQUtX?=
+ =?utf-8?B?TmkyWUpWQm16SVQrQlU2WWRLcXBqVlRrcm9JZXVzQy9jRkRGVlFwdUhJZUNx?=
+ =?utf-8?B?aEljMTFaQ3VrUkF3SENnS0w1RW1HM252UFd6Z1ZYWkluQmtMaks2UXNkZ1lx?=
+ =?utf-8?B?UjlBT2xPeUdzVnFzNVJUSSt5YWFCRjlWY0lPK3RtVDZJQllkYnNiRjNka0N1?=
+ =?utf-8?B?NUs1NmpkTUNQcXdNMzFWb2d3dUZ5VmQwRlNUS040ZFVseXBoa05nSmNtU0I1?=
+ =?utf-8?B?VDFHWEIxSHVkenRpdkFkcmVEc2JUcytFNm1JTGE3ZzVXQm9YTWhLWHIyVGN3?=
+ =?utf-8?B?TlFkcDhadzJ4aEQxTDIyeXFMMlpNVTZXdXIvQkc5elRIM09nWDNrZU5QSGNv?=
+ =?utf-8?B?RmNPWE40YmpOcCtIblpja2U2amV0UkFwNnZHcUNRa0lvWkt0R3Bub245N29P?=
+ =?utf-8?B?cUdkeUZhS3BwY0RKdnpDYWFmMURtRDRtSzg0U1REZ0FJSjlXeS9udTZENVVi?=
+ =?utf-8?B?R2Vad0hrRUhUYnE2MTErcFRMU1hGQjg2MVJnNW0xYjh0N3p0N2ZjSTZYdnBP?=
+ =?utf-8?B?cW45TXFjTjgwaVBjdzM3cXdYVkVFUmVYM2FzRVRtQnJsbUQvSkVsU1k3Yjhw?=
+ =?utf-8?B?cWlyYXcvMzgxWFpVSGVWZSs2NFZidjB6WnY3dnhZdENQa1Fsek0yTUE0cDdu?=
+ =?utf-8?B?bVNNLzZGaWY2azBHR1NNaGFzT05BeEZtUnYwWmxHb2pCR3MzMGZVS1pQQUIv?=
+ =?utf-8?B?cWNUQnF5UkxFVjN3NmxJVkdoMUp0eEhJYTk0UW1uZCtNNVVxOGRBcjBubFNR?=
+ =?utf-8?B?Q2tBQkxwSEFGcUU4OUVKSC8xRHhpOVN6dGNLczJxdmhEbE45Z25jclR0TUw0?=
+ =?utf-8?B?VFFDcXdoYld3UkRacGJiMVIxS1crMkZFc3J3RFo5aHlRK0JLZ0ZKVXNNR0o4?=
+ =?utf-8?B?ZklzYXA4YzQreE03cTM0eFd0UzlXak9XRXRPWlZnYkRNTGtaMG12Zmk4dU1i?=
+ =?utf-8?B?RWFEZlBtUUo5RlZ1QzFVMkFMem9sMUZNRHBHdk5RMVpVVVFKcHRBOGhFWFN6?=
+ =?utf-8?B?OGE4dFZpR1k3ZHRzcE1rd0pzS0QzWWhSNkZwejNNcTF5aXR6WVZaNjZQcU1r?=
+ =?utf-8?B?VnYwUGYwY3V3MVdhb0pld1ZXbFNHcStZZFREQ3RqVmpNMWk4dnpUZjhxdWpN?=
+ =?utf-8?B?aE9iQm1OUG5MOXBveWowZnBSd1FOSVVJYWtGV0dGZkFVemEveTAwQXdQYS9v?=
+ =?utf-8?B?VmpYdWRLUGFyMzYrMThPZUtMcWd0K3dlSjNrOXFzOUtLOCtuUTJqRlYrSnBY?=
+ =?utf-8?B?cTJrekhOZTlrRXZDSGlraExEWmVJNzFqQ3RJRjlSV1ZteVdWV3NZWVRSSk9H?=
+ =?utf-8?B?YW5SbFRvcEVncmdQRHZGbVpLb1BXS0MxL1JIZkpsL3gwdUpnc1ZZWUk5Vklz?=
+ =?utf-8?Q?7RobBjKk9SLzBIYhvINExL0uD?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c2c478b-8be8-446b-14e3-08dd87160856
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2025 12:04:45.9930
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3TVzsBzp2qj9ejN2pqv7UJcsdRficB6YOLZ5qyqoTBgTFPEqYzS5pfJEKq5JBLJC+1jarq36BodPMN66l+/u1w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5890
 
-T24gMjkuMDQuMjUgMTQ6MDEsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyOS4wNC4yMDI1
-IDEzOjA2LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gLS0tIGEvdG9vbHMvZmlybXdhcmUv
-aHZtbG9hZGVyL01ha2VmaWxlDQo+PiArKysgYi90b29scy9maXJtd2FyZS9odm1sb2FkZXIv
-TWFrZWZpbGUNCj4+IEBAIC01OSw2ICs1OSw3IEBAIE9CSlMgKz0gb3B0aW9ucm9tcy5vIDMy
-Yml0Ymlvc19zdXBwb3J0Lm8gcm9tYmlvcy5vDQo+PiAgIENGTEFHUyArPSAtREVOQUJMRV9S
-T01CSU9TDQo+PiAgIFJPTUJJT1NfUk9NIDo9ICQoUk9NQklPU19ESVIpL0JJT1MtYm9jaHMt
-bGF0ZXN0DQo+PiAgIFJPTVMgKz0gJChST01CSU9TX1JPTSkgJChTVERWR0FfUk9NKSAkKENJ
-UlJVU1ZHQV9ST00pDQo+PiArRFNEVF9GSUxFUyA9IGRzZHRfYW55Y3B1LmMgZHNkdF8xNWNw
-dS5jDQo+PiAgIGVuZGlmDQo+IA0KPiBUbyBiZSByZXNpbGllbnQgdG8gYSByYW5kb20gRFNE
-VF9GSUxFUyBpbiB0aGUgZW52aXJvbm1lbnQsIEkgdGhpbmsgeW91IHdhbnQgdG8NCj4gdXNl
-ICs9IGhlcmUgYXMgd2VsbCwganVzdCBsaWtlIC4uLg0KPiANCj4+IEBAIC03Niw3ICs3Nyw3
-IEBAIHJvbWJpb3Mubzogcm9tcy5pbmMNCj4+ICAgc21iaW9zLm86IENGTEFHUyArPSAtRF9f
-U01CSU9TX0RBVEVfXz0iXCIkKFNNQklPU19SRUxfREFURSlcIiINCj4+ICAgDQo+PiAgIEFD
-UElfUEFUSCA9IC4uLy4uL2xpYmFjcGkNCj4+IC1EU0RUX0ZJTEVTID0gZHNkdF9hbnljcHUu
-YyBkc2R0XzE1Y3B1LmMgZHNkdF9hbnljcHVfcWVtdV94ZW4uYw0KPj4gK0RTRFRfRklMRVMg
-Kz0gZHNkdF9hbnljcHVfcWVtdV94ZW4uYw0KPiANCj4gLi4uIHlvdSBoYXZlIGl0IGhlcmUs
-IGFuZCBzZXQgdGhlIHZhcmlhYmxlIHRvIG5vdGhpbmcgeWV0IGZ1cnRoZXIgdXAuDQoNCk9r
-YXkuDQoNCj4gVGhlbg0KPiBBY2tlZC1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2Uu
-Y29tPiAjIGh2bWxvYWRlcg0KDQpUaGFua3MsDQoNCg0KSnVlcmdlbg0K
---------------KITpn2ECuWijIoVTx0e08Cnj
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 28/04/2025 20:04, Luca Fancellu wrote:
+> Hi Ayan,
+Hi Luca,
+>
+>> On 25 Apr 2025, at 13:00, Ayan Kumar Halder <ayankuma@amd.com> wrote:
+>>
+>> Hi Julien,
+>>
+>> cc-ed Luca for feedback on specific points.
+>>
+>> On 18/04/2025 05:54, Julien Grall wrote:
+>>> Hi Ayan,
+>>>
+>>> On 18/04/2025 00:55, Ayan Kumar Halder wrote:
+>>>> Add the definitions for HPRBAR<0..31>, HPRLAR<0..31> and HPRENR.
+>>>> The definitions are taken from ARM DDI 0568A.c ID110520, E2.2.3 HPRBAR<n>,
+>>>> E2.2.4 HPRENR and E2.2.6 HPRLAR<n>.
+>>>>
+>>>> Introduce pr_t typedef which is a structure having the prbar and prlar members,
+>>>> each being structured as the registers of the AArch32-V8R architecture.
+>>>> This is the arm32 equivalent of
+>>>> "arm/mpu: Introduce MPU memory region map structure".
+>>>>
+>>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>>>> ---
+>>>> This patch should be applied after
+>>>> "[PATCH v3 0/7] First chunk for Arm R82 and MPU support" in order to enable
+>>>> compilation for AArch32.
+>>>>
+>>>>    xen/arch/arm/include/asm/arm32/mpu.h  |  59 +++++++++++
+>>>>    xen/arch/arm/include/asm/mpu.h        |   4 +
+>>>>    xen/arch/arm/include/asm/mpu/cpregs.h | 135 ++++++++++++++++++++++++++
+>>>>    3 files changed, 198 insertions(+)
+>>>>    create mode 100644 xen/arch/arm/include/asm/arm32/mpu.h
+>>>>
+>>>> diff --git a/xen/arch/arm/include/asm/arm32/mpu.h b/xen/arch/arm/include/asm/arm32/mpu.h
+>>>> new file mode 100644
+>>>> index 0000000000..4aabd93479
+>>>> --- /dev/null
+>>>> +++ b/xen/arch/arm/include/asm/arm32/mpu.h
+>>>> @@ -0,0 +1,59 @@
+>>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>>> +/*
+>>>> + * mpu.h: Arm Memory Protection Unit definitions for aarch64.
+>>>> + */
+>>>> +
+>>>> +#ifndef __ARM_ARM32_MPU_H
+>>>> +#define __ARM_ARM32_MPU_H
+>>>> +
+>>>> +#define XN_EL2_ENABLED  0x1
+>>> I understand the define is introduced in Luca's patch, but this a bit non-descriptive... Can we find a better name? Maybe by adding the name of the register and some documentation?
+>> We can rename this as PRBAR_EL2_XN if this sounds better (cc @Luca) in Luca's patch
+> what about PRBAR_EL2_XN_ENABLED? I can change it in my serie
+I am ok with the name.
+>
+>> The description can be
+>>
+>> Refer ARM DDI 0568A.c  ID110520 , E2.2.2
+>>
+>> HPRBAR [0:1] Execute Never
+>>
+>>>> +
+>>>> +#ifndef __ASSEMBLY__
+>>>> +
+>>>> +/* Hypervisor Protection Region Base Address Register */
+>>>> +typedef union {
+>>>> +    struct {
+>>>> +        unsigned int xn:1;       /* Execute-Never */
+>>>> +        unsigned int ap:2;       /* Acess Permission */
+>>>> +        unsigned int sh:2;       /* Sharebility */
+>>>> +        unsigned int res0:1;     /* Reserved as 0 */
+>>>> +        unsigned int base:26;    /* Base Address */
+>>>> +    } reg;
+>>>> +    uint32_t bits;
+>>>> +} prbar_t;
+>>>> +
+>>>> +/* Hypervisor Protection Region Limit Address Register */
+>>>> +typedef union {
+>>>> +    struct {
+>>>> +        unsigned int en:1;     /* Region enable */
+>>>> +        unsigned int ai:3;     /* Memory Attribute Index */
+>>>> +        /*
+>>>> +         * There is no actual ns bit in hardware. It is used here for
+>>>> +         * compatibility with Armr64 code. Thus, we are reusing a res0 bit for ns.
+>>> typo: Arm64.
+>> Ack
+>>>> +         */
+>>> Hmmmm, this would mean someone may mistakenly set the bit to 0 by mistake. If the field is always meant to be 0 on arm64, then I would consider to name is res0 on arm64 with an explanation.
+>>>
+>>> This would make clear the bit is not supposed to have a value other than 0.
+>> On Arm64, ns == 0 as it can only support secure mode.
+>>
+>> So we can change this on Arm64 as well :-
+>>
+>> unsigned int res0:2; /* ns == 0 as only secure mode is supported */
+>>
+>> @Luca to clarify
+>  From the specifications: "Non-secure bit. Specifies whether the output address is in the Secure or Non-secure memory”, I’m not sure
+> that we should remove it from Arm64, so I don’t think you should have something only for compatibility, maybe the code accessing .ns
+> can be compiled out for Arm32 or we can have arch-specific implementation. I think you are referring to pr_of_xenaddr when you say
+> “compatibility with Arm64 code"
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+Yes, that is correct. So are you saying that we should have an "ifdef" 
+in the function.
 
---------------KITpn2ECuWijIoVTx0e08Cnj--
++++ b/xen/arch/arm/mpu/mm.c
+@@ -221,7 +221,9 @@ pr_t pr_of_xenaddr(paddr_t base, paddr_t limit, 
+unsigned attr)
+      /* Build up value for PRLAR_EL2. */
+      prlar = (prlar_t) {
+          .reg = {
++#ifdef CONFIG_ARM_64
+              .ns = 0,        /* Hyp mode is in secure world */
++#endif
+              .ai = attr,
+              .en = 1,        /* Region enabled */
+          }};
 
---------------p2okPk0vb0dU0SbNqZqa8Cq0--
+I am ok with this. I just want to know if you and Julien are aligned as 
+well.
 
---------------FjzEPPCgNIMk0EnbGwYXHRCf
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+>
+>>>> +        unsigned int ns:1;     /* Reserved 0 by hardware */
+>>>> +        unsigned int res0:1;   /* Reserved 0 by hardware */
+>> Then, we can change this on Arm32 as well.
+>>>> +        unsigned int limit:26;  /* Limit Address */
+>>> NIT: Can we align the comments?
+>> Ack.
+>>>> +    } reg;
+>>>> +    uint32_t bits;
+>>>> +} prlar_t;
+>>>> +
+>>>> +/* Protection Region */
+>>>> +typedef struct {
+>>>> +    prbar_t prbar;
+>>>> +    prlar_t prlar;
+>>>> +    uint64_t p2m_type;          /* Used to store p2m types. */
+>>>> +} pr_t;
+>>> This looks to be common with arm64. If so, I would prefer if the structure is in a common header.
+>> No, in arm64 this is
+>>
+>> typedef struct {
+>>       prbar_t prbar;
+>>       prlar_t prlar;
+>> } pr_t;
+>>
+>> The reason being Arm64 uses unused bits (ie 'pad') to store the type.
+>>
+>>>> +
+>>>> +#endif /* __ASSEMBLY__ */
+>>>> +
+>>>> +#endif /* __ARM_ARM32_MPU_H */
+>>>> +
+>>>> +/*
+>>>> + * Local variables:
+>>>> + * mode: C
+>>>> + * c-file-style: "BSD"
+>>>> + * c-basic-offset: 4
+>>>> + * indent-tabs-mode: nil
+>>>> + * End:
+>>>> + */
+>>>> diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
+>>>> index 77d0566f97..67127149c0 100644
+>>>> --- a/xen/arch/arm/include/asm/mpu.h
+>>>> +++ b/xen/arch/arm/include/asm/mpu.h
+>>>> @@ -8,8 +8,12 @@
+>>>>      #if defined(CONFIG_ARM_64)
+>>>>    # include <asm/arm64/mpu.h>
+>>>> +#elif defined(CONFIG_ARM_32)
+>>>> +# include <asm/arm32/mpu.h>
+>>>>    #endif
+>>>>    +#define PRENR_MASK  GENMASK(31, 0)
+>>>> +
+>>>>    #define MPU_REGION_SHIFT  6
+>>>>    #define MPU_REGION_ALIGN  (_AC(1, UL) << MPU_REGION_SHIFT)
+>>>>    #define MPU_REGION_MASK   (~(MPU_REGION_ALIGN - 1))
+>>>> diff --git a/xen/arch/arm/include/asm/mpu/cpregs.h b/xen/arch/arm/include/asm/mpu/cpregs.h
+>>>> index d5cd0e04d5..7cf52aa09a 100644
+>>>> --- a/xen/arch/arm/include/asm/mpu/cpregs.h
+>>>> +++ b/xen/arch/arm/include/asm/mpu/cpregs.h
+>>>> @@ -6,18 +6,153 @@
+>>>>    /* CP15 CR0: MPU Type Register */
+>>>>    #define HMPUIR          p15,4,c0,c0,4
+>>>>    +/* CP15 CR6: Protection Region Enable Register */
+>>>> +#define HPRENR          p15,4,c6,c1,1
+>>>> +
+>>>>    /* CP15 CR6: MPU Protection Region Base/Limit/Select Address Register */
+>>>>    #define HPRSELR         p15,4,c6,c2,1
+>>>>    #define HPRBAR          p15,4,c6,c3,0
+>>>>    #define HPRLAR          p15,4,c6,c8,1
+>>>>    +/* CP15 CR6: MPU Protection Region Base/Limit Address Register */
+>>>> +#define HPRBAR0         p15,4,c6,c8,0
+>>>> +#define HPRLAR0         p15,4,c6,c8,1
+>>>> +#define HPRBAR1         p15,4,c6,c8,4
+>>>> +#define HPRLAR1         p15,4,c6,c8,5
+>>>> +#define HPRBAR2         p15,4,c6,c9,0
+>>>> +#define HPRLAR2         p15,4,c6,c9,1
+>>>> +#define HPRBAR3         p15,4,c6,c9,4
+>>>> +#define HPRLAR3         p15,4,c6,c9,5
+>>>> +#define HPRBAR4         p15,4,c6,c10,0
+>>>> +#define HPRLAR4         p15,4,c6,c10,1
+>>>> +#define HPRBAR5         p15,4,c6,c10,4
+>>>> +#define HPRLAR5         p15,4,c6,c10,5
+>>>> +#define HPRBAR6         p15,4,c6,c11,0
+>>>> +#define HPRLAR6         p15,4,c6,c11,1
+>>>> +#define HPRBAR7         p15,4,c6,c11,4
+>>>> +#define HPRLAR7         p15,4,c6,c11,5
+>>>> +#define HPRBAR8         p15,4,c6,c12,0
+>>>> +#define HPRLAR8         p15,4,c6,c12,1
+>>>> +#define HPRBAR9         p15,4,c6,c12,4
+>>>> +#define HPRLAR9         p15,4,c6,c12,5
+>>>> +#define HPRBAR10        p15,4,c6,c13,0
+>>>> +#define HPRLAR10        p15,4,c6,c13,1
+>>>> +#define HPRBAR11        p15,4,c6,c13,4
+>>>> +#define HPRLAR11        p15,4,c6,c13,5
+>>>> +#define HPRBAR12        p15,4,c6,c14,0
+>>>> +#define HPRLAR12        p15,4,c6,c14,1
+>>>> +#define HPRBAR13        p15,4,c6,c14,4
+>>>> +#define HPRLAR13        p15,4,c6,c14,5
+>>>> +#define HPRBAR14        p15,4,c6,c15,0
+>>>> +#define HPRLAR14        p15,4,c6,c15,1
+>>>> +#define HPRBAR15        p15,4,c6,c15,4
+>>>> +#define HPRLAR15        p15,4,c6,c15,5
+>>>> +#define HPRBAR16        p15,5,c6,c8,0
+>>>> +#define HPRLAR16        p15,5,c6,c8,1
+>>>> +#define HPRBAR17        p15,5,c6,c8,4
+>>>> +#define HPRLAR17        p15,5,c6,c8,5
+>>>> +#define HPRBAR18        p15,5,c6,c9,0
+>>>> +#define HPRLAR18        p15,5,c6,c9,1
+>>>> +#define HPRBAR19        p15,5,c6,c9,4
+>>>> +#define HPRLAR19        p15,5,c6,c9,5
+>>>> +#define HPRBAR20        p15,5,c6,c10,0
+>>>> +#define HPRLAR20        p15,5,c6,c10,1
+>>>> +#define HPRBAR21        p15,5,c6,c10,4
+>>>> +#define HPRLAR21        p15,5,c6,c10,5
+>>>> +#define HPRBAR22        p15,5,c6,c11,0
+>>>> +#define HPRLAR22        p15,5,c6,c11,1
+>>>> +#define HPRBAR23        p15,5,c6,c11,4
+>>>> +#define HPRLAR23        p15,5,c6,c11,5
+>>>> +#define HPRBAR24        p15,5,c6,c12,0
+>>>> +#define HPRLAR24        p15,5,c6,c12,1
+>>>> +#define HPRBAR25        p15,5,c6,c12,4
+>>>> +#define HPRLAR25        p15,5,c6,c12,5
+>>>> +#define HPRBAR26        p15,5,c6,c13,0
+>>>> +#define HPRLAR26        p15,5,c6,c13,1
+>>>> +#define HPRBAR27        p15,5,c6,c13,4
+>>>> +#define HPRLAR27        p15,5,c6,c13,5
+>>>> +#define HPRBAR28        p15,5,c6,c14,0
+>>>> +#define HPRLAR28        p15,5,c6,c14,1
+>>>> +#define HPRBAR29        p15,5,c6,c14,4
+>>>> +#define HPRLAR29        p15,5,c6,c14,5
+>>>> +#define HPRBAR30        p15,5,c6,c15,0
+>>>> +#define HPRLAR30        p15,5,c6,c15,1
+>>>> +#define HPRBAR31        p15,5,c6,c15,4
+>>>> +#define HPRLAR31        p15,5,c6,c15,5
+>>> NIT: Is there any way we could generate the values using macros?
+>> This looks tricky. So I will prefer to keep this as it is.
+>>>> +
+>>>>    /* Aliases of AArch64 names for use in common code */
+>>>>    #ifdef CONFIG_ARM_32
+>>>>    /* Alphabetically... */
+>>>>    #define MPUIR_EL2       HMPUIR
+>>>>    #define PRBAR_EL2       HPRBAR
+>>>> +#define PRBAR0_EL2      HPRBAR0
+>>> AFAIU, the alias will be mainly used in the macro generate
+>>> the switch. Rather than open-coding all the PR*AR_EL2, can we
+>>> provide two macros PR{B, L}AR_N that will be implemented as
+>>> HPR{B,L}AR##n for arm32 and PR{B,L}AR##n for arm64?
+>> Yes , we can have
+>>
+>> #define PR{B,L}AR_EL2_(n)          HPR{B,L}AR##n for arm32
+>>
+>> #define PR{B,L}AR_EL2_(n)          PR{B,L}AR##n##_EL2
+> we could have them in mm.c, I see in your v2 you’ve put them in cpregs.h,
+> but since they are only used by the generator, I would put them there.
 
------BEGIN PGP SIGNATURE-----
+You mean the above two macros should be moved to mm.c. I am ok with that.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmgQwBgFAwAAAAAACgkQsN6d1ii/Ey8E
-bgf9E3hASRrFvG+9fFHJjj0gnkQXM9GqA0qGQvYxXudT77vWqTHiHdkqWqz8+ynPK8ksP4c5HVnH
-24q6x+zL3cd2CYgLFqAWZwlutiSwA8JJYBVqmstHoAtX1bSXxuh1agPQyV+qqrC5XgIVj3xLeCXD
-yJernwlRx0Vuk25ktCG0vuLdU4g+kj7zD8Qw5qhe7TZxoypHyQpBB7MdY/+DIqlSeHCxGb0D9lvU
-mP9wFbNhnv5TaZ+kISf0ZLerf0s2VYyl8wKwugifndNQpSAXdkl5dXVERNSR2+VY68U0SyNBZLVH
-mxP0ESUPtdysFNB+Yug8qi8883NYhZs1mOTOZ7BN0w==
-=m0fC
------END PGP SIGNATURE-----
+Just 2 more things to be aligned :-
 
---------------FjzEPPCgNIMk0EnbGwYXHRCf--
+1. Are we ok to use PRBAR_EL2_(num) and PRLAR_EL2_(num) in the common 
+code (ie mpu/mm.c) ?
+
+2. Are you ok to introduce ifdef in prepare_selector() ?
+
+Please have a look at my v2 for reference.
+
+- Ayan
+
+>
+>
+>
 
