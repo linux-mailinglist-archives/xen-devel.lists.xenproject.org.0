@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50AA0AA02CF
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 08:15:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971417.1359831 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36730AA033B
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 08:24:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971429.1359841 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9eEO-0003gX-0c; Tue, 29 Apr 2025 06:14:12 +0000
+	id 1u9eOQ-0005UM-Tt; Tue, 29 Apr 2025 06:24:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971417.1359831; Tue, 29 Apr 2025 06:14:11 +0000
+Received: by outflank-mailman (output) from mailman id 971429.1359841; Tue, 29 Apr 2025 06:24:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9eEN-0003es-T7; Tue, 29 Apr 2025 06:14:11 +0000
-Received: by outflank-mailman (input) for mailman id 971417;
- Tue, 29 Apr 2025 06:14:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1u9eOQ-0005Rh-Qn; Tue, 29 Apr 2025 06:24:34 +0000
+Received: by outflank-mailman (input) for mailman id 971429;
+ Tue, 29 Apr 2025 06:24:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qXnC=XP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9eEM-0003em-RX
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 06:14:10 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 296772e8-24c1-11f0-9eb4-5ba50f476ded;
- Tue, 29 Apr 2025 08:14:09 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-ac2ab99e16eso1211742566b.0
- for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 23:14:09 -0700 (PDT)
+ id 1u9eOP-0005Rb-Mh
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 06:24:33 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9c51fd7d-24c2-11f0-9ffb-bf95429c2676;
+ Tue, 29 Apr 2025 08:24:31 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5f5bef591d6so10774148a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Apr 2025 23:24:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace6e4fb5ecsm728919466b.71.2025.04.28.23.14.07
+ 4fb4d7f45d1cf-5f701400565sm7051142a12.26.2025.04.28.23.24.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Apr 2025 23:14:08 -0700 (PDT)
+ Mon, 28 Apr 2025 23:24:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 296772e8-24c1-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 9c51fd7d-24c2-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745907248; x=1746512048; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745907871; x=1746512671; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CEHyaoDMFKGRU1E2AmIUNeNgLo2ACJqKO89ucJ4zOd0=;
-        b=A5eV6+mMFMz5NQAv7ndTyFQ67ZpcUB7zuUNqB004m4ldQ91Pxj7cZmPuiibnDB6gi6
-         gN6zDEfeJoifryk6wJZtxgi55tH+eItthhbLuDB18G5nY1mzs++4FUZYgrsdT9qQL1OZ
-         PAnr+rjfJWNXPzfGr6TTqSkS/6rjMGEHrVY9TS9+vMRBc3wfgzXtT12fnpA6j4WR+hjq
-         hp0s7zYu7VobwK9hbUhQgusqLMlricE1x1lvkbpeWPxQlzclHnqvy2reBM5IahB6U6Nm
-         yN1s9e4g34Vu25iaXuC90r5clQR6TGxH1po6BRkObfCAZLpQDr9aLPN4pnBBd58EaH5Z
-         dFQQ==
+        bh=QU6KR1YCqqkt4ZtbdPgZPAuqHqCzoFWZnGvVxGCK7Es=;
+        b=D+WL8PwZ2pR7sRC521SkQc1LBtl50wRnQAVk5zBZtDnxUH050rbY+vRqpqbJdPFceE
+         VS7fAgb1iLHtCXttUpdd9cx370E18RfmRa3LM6bpRtTQtjHH1mfowmSHZyLUZ06YpodN
+         2HlR2TdqGVftqyPbd4LI7NtmzmjEov2RlqbocdVe7JZ/daSR2scVl0W+tyf5uD6xZGld
+         LL+OP453pONm4DwYPEt1O/O0e/P2qr2DZhTEcWHH8qnGu444aXcJcP1tVX4hgzDNMUkM
+         0vsbN64kfqzzpGNSfolozK5pCXSK+ulOPhjxffTiUwCP3u3ZC/Ky9ASlH7T9G6VT4VLQ
+         LM1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745907248; x=1746512048;
+        d=1e100.net; s=20230601; t=1745907871; x=1746512671;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CEHyaoDMFKGRU1E2AmIUNeNgLo2ACJqKO89ucJ4zOd0=;
-        b=E4CcxbKM5XAj4iirUx9ZhFT6fP2f/E9ttLdhQxCQeCvB+0I0zJKvvE/cntldlEaWf+
-         IFE3T7g1Pfk+FepZkW14Ey3i9tN7wJLBZ4ab57zTAnS34FHx6CzdhUaYrlB/NGIQqO7L
-         qGhHO+sPtga5nBokgkJfInLlplWVXGn+kFLMMhOKAvTmq+xVEvPdkZV61VjYSQ+zGOtR
-         iJs6SISrptZUOR85kxojMTQmb6l5G0xaRyrniY/YaT9mq7HLfbXcjhnMslEYQm9irpJW
-         iJ/p00jn/kPg92R9HDwYa5+yH07RPkQofuJpb637JqNF9u7ZJaiqZxBdL03948tVxO56
-         YD7g==
-X-Forwarded-Encrypted: i=1; AJvYcCUakra2o1Ezo2Cx2l2H+creodQMDTtXpriZI2R723lVKJhysUyM7h1PGJCYXHfyDPKdwKhhIDEzyZk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywa2k7VEb4FTcghHV2pEXpYTN/QyW+8+DZ2qCgY8NOgzEQM9AOG
-	DnC+dRU0s+HE/9624pBlQNyodidEJXWqAQdNdA2siVqoNrkKWkuqeJ887qMjUw==
-X-Gm-Gg: ASbGncvvLl/mM0VnV/oVLj277U6q2010/IZl/VmzJApAtYKaWXCnXiem3vVX3ynnMiH
-	fX1p0JZY3FxzOCbjsOzeZqifDDuHYF75By8avOcsQSApcZGauxYkrvzq5k04Vo8DXl6kaJKeTsz
-	tMneaGZplVEAME8FBBPQZ36qpc2VD31FbMtA6d+1DRGgxI9QF6WIC+0PC3gU1UErPqOORiI0CzT
-	MzL+xGpqknr535WAiwTasqoLnOpBEPZyTBJecB/8IwxjXP/uKIkDrVslbsyiTAvKQm5iytxITEk
-	jNdFQFgyA1X9NqxpQi6/vPSuuW+IrXQc+fOAHf+BJUJx4XyF7sft2bBDGsUEfXCYRhiXYcj2HSy
-	7qECnZCfO23d/enz6xAliQlbodA==
-X-Google-Smtp-Source: AGHT+IFfWFULhOwajRgdME0/ajfWYODSGgBwirsnHCHfUlUpp6FRPM3ai8a3L00HehzthyC/J8sY2g==
-X-Received: by 2002:a17:907:7244:b0:ac7:322d:779c with SMTP id a640c23a62f3a-acec4f749e0mr219030066b.50.1745907248518;
-        Mon, 28 Apr 2025 23:14:08 -0700 (PDT)
-Message-ID: <f2b6396c-c933-4fb9-ba4b-c90170540955@suse.com>
-Date: Tue, 29 Apr 2025 08:14:07 +0200
+        bh=QU6KR1YCqqkt4ZtbdPgZPAuqHqCzoFWZnGvVxGCK7Es=;
+        b=AMTT1f8bPvwDz5Rd/36yLOMciD9rN7M3KBj4EJOnObEfjAAPz5C903f+hdkRJpmTSM
+         LW3IrQf/pE/2I2CcntKNGE27OhCzXzKieltmQLrO5J3bZbzG1WWbOLPPkhPDJzobSXzH
+         +d/Sqdyu2KZ6kJO3X/sTDjVD5mFJC5xefR+v0td3uPhpQz38mgNLeN3ESQotQJT5erQ8
+         J5AW1ZW5i8LY3QIgYK6BQCZsFNRC1LWuEpdC6Mc/25MuqY9mPcEjKqYSYCP/ozuskmAZ
+         MQTYxqMP5YY3vkozWl11Av8fnO7l0ohuz7rcfe/vf7JgEKZjX4M3Jgjn+QIYkdSL/yqm
+         g5EQ==
+X-Gm-Message-State: AOJu0Yw0US4RBFof/rVbbWKGt6W6wVjuhPjV459+mJPL4bQpBuKFiowm
+	s4WRsWWWs6Djf3rCEHk/kc5K5GpAm31UWFNl/ge3OVfl6r1d5M/UAaJrWuWNAg==
+X-Gm-Gg: ASbGncsieb9cTPxtCzUSRHdAbWIiy8Yo1WJ6EvYIgLJFjp4RUrJhsCrt//SPr85DjYV
+	/9Qm8zo1FuhLhkIBN7pup11yeunL7qpmmdLks1uolnPhRAELL8/giiPid772amCcU2+6A41kJ5R
+	qy7pM6vPlWchVMnUo+IR7nBqqxwt5ibnl3Q+He+BJIHNm/2NyNHjiy7Bni2wZtw+UVI7XDFLPab
+	BSDrTo4R6qodaiAawvFwayuQ0h0yOH4EgKje0yj51FwLSoX0HEXpKQMmJax4ZXCiyzixb4J/dN6
+	B+nYj3uAJt+O1faFFItC0grCUoeiRlmfS0FnCj1Iubq1XUvx3ypgYwo2XEUBONZZodOHKjgahCu
+	/jGQZD0e+TDSHly4aX1QNLAjFVA==
+X-Google-Smtp-Source: AGHT+IGe8rFc3WgZ4vnk27HtedbG8H9qmLwB63qtaJdSSIu7e8rtacdyTEOOrU4UwWvrKGHD7xa65Q==
+X-Received: by 2002:a05:6402:510b:b0:5f6:d53f:cb9d with SMTP id 4fb4d7f45d1cf-5f83b27dcb4mr1485727a12.30.1745907870873;
+        Mon, 28 Apr 2025 23:24:30 -0700 (PDT)
+Message-ID: <c9ed2626-6353-4e4e-add8-e06ffff54427@suse.com>
+Date: Tue, 29 Apr 2025 08:24:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] xen/page_alloc: address violation of Rule 14.3
+Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: victorm.lira@amd.com, Federico Serafini <federico.serafini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <5f2e316aae4667d1fe851e68552eb881c4d5a015.1745625477.git.victorm.lira@amd.com>
- <3146fbf3-2ff1-48a4-b05b-37477a9a5cc5@suse.com>
- <alpine.DEB.2.22.394.2504281551530.785180@ubuntu-linux-20-04-desktop>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
+ jason.andryuk@amd.com, agarciav@amd.com, Teddy Astie <teddy.astie@vates.tech>
+References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop>
+ <f315a128-ce68-42be-9f0c-044ad0c5320c@vates.tech>
+ <alpine.DEB.2.22.394.2504281300340.785180@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,66 +120,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2504281551530.785180@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2504281300340.785180@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 29.04.2025 01:21, Stefano Stabellini wrote:
-> On Mon, 28 Apr 2025, Jan Beulich wrote:
->> On 26.04.2025 02:00, victorm.lira@amd.com wrote:
->>> From: Federico Serafini <federico.serafini@bugseng.com>
->>>
->>> MISRA C Rule 14.3 states that "Controlling expressions shall not be
->>> invariant".
->>>
->>> Add a SAF comment to deviate the rule for build configurations without
->>> CONFIG_LLC_COLORING enabled.
+On 28.04.2025 22:02, Stefano Stabellini wrote:
+> On Mon, 28 Apr 2025, Teddy Astie wrote:
+>> Hello Stefano,
 >>
->> I was surprised by this supposedly being the only violation. And indeed it
->> wasn't very hard to find more. For example, we have a number of
->> "while ( num_online_cpus() > 1 && ... )", which become compile-time
->> constant (false) when NR_CPUS=1.
-> 
-> Uhm, I did run a special scan for this and I can confirm no other
-> violations are detected.
-
-Because of it being only one single configuration that's being scanned. I did
-point out before that this is a problem for anyone wanting to certify the
-hypervisor in a (perhaps just slightly) different configuration.
-
->>> --- a/xen/common/page_alloc.c
->>> +++ b/xen/common/page_alloc.c
->>> @@ -2038,6 +2038,7 @@ static struct page_info *alloc_color_heap_page(unsigned int memflags,
+>> Le 25/04/2025 à 22:21, Stefano Stabellini a écrit :
+>>> From: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>
 >>>
->>>      spin_lock(&heap_lock);
+>>> Dom0 PVH might need XENMEM_exchange when passing contiguous memory
+>>> addresses to firmware or co-processors not behind an IOMMU.
 >>>
->>> +    /* SAF-14-safe MISRA C R14.3 condition always false without LLC_COLORING */
->>>      for ( i = 0; i < domain_num_llc_colors(d); i++ )
->>>      {
->>>          unsigned long free = free_colored_pages[domain_llc_color(d, i)];
+>>> XENMEM_exchange was blocked for HVM/PVH DomUs, and accidentally it
+>>> impacted Dom0 PVH as well.
+>>>
+>>> Permit Dom0 PVH to call XENMEM_exchange while leaving it blocked for
+>>> HVM/PVH DomUs.
+>>>
 >>
->> Hmm, this way the deviation applies even when LLC_COLORING=y.
+>> In addition to Jan's remarks, I think it wants some additional
+>> clarifications on the hypercall interface. public/memory.h indicates
+>> "only PV guests can use this operation", so the interface is actually
+>> unspecified about HVM guests (e.g what are MFN/GMFN in this case ?).
 > 
-> Yes but in the LLC_COLORING=y case it is harmless. Do you have something
-> else in mind?
+> That is a new addition from c08a11ab98c.
 
-What if, perhaps by mistake, domain_num_llc_colors() becomes constant 0 in
-yet another configuration? (I don't expect this would work, but in principle
-the comment ought to be inside an #ifdef.)
-
->> As to the comment wording - looks like we're pretty inconsistent with that
->> right now. I, for one, don't think the Misra rule needs (re)stating there;
->> the SAF index points at all the data that's needed if one cares about the
->> specifics of the deviation.
-> 
-> Do you prefer:
-> 
-> /* SAF-14-safe */
-
-That's too short. All I'm asking for is to drop the (imprecise) rule
-reference. Noticing only now: It being imprecise may make the comment go
-stale if we move to a newer Misra spec, as the rule number may be different
-then.
+Later addition or not, I agree with Teddy that it wants amending.
 
 Jan
+
+> If you see fae7d5be8bb, there
+> is a statement that "we permitted this operation".
+
 
