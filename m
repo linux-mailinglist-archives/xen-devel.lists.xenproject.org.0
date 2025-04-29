@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8E5BAA0934
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 13:07:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971958.1360366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A737AA0937
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 13:07:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971960.1360376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9ine-000275-OH; Tue, 29 Apr 2025 11:06:54 +0000
+	id 1u9inj-0002SY-63; Tue, 29 Apr 2025 11:06:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971958.1360366; Tue, 29 Apr 2025 11:06:54 +0000
+Received: by outflank-mailman (output) from mailman id 971960.1360376; Tue, 29 Apr 2025 11:06:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9ine-00024i-LK; Tue, 29 Apr 2025 11:06:54 +0000
-Received: by outflank-mailman (input) for mailman id 971958;
- Tue, 29 Apr 2025 11:06:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u9inj-0002Py-1k; Tue, 29 Apr 2025 11:06:59 +0000
+Received: by outflank-mailman (input) for mailman id 971960;
+ Tue, 29 Apr 2025 11:06:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Cjpo=XP=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1u9ind-0001lr-GQ
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 11:06:53 +0000
+ id 1u9ini-0001XI-1Y
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 11:06:58 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0cdbdee4-24ea-11f0-9ffb-bf95429c2676;
- Tue, 29 Apr 2025 13:06:50 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 105baaf9-24ea-11f0-9eb4-5ba50f476ded;
+ Tue, 29 Apr 2025 13:06:56 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1BC8121197;
- Tue, 29 Apr 2025 11:06:50 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E54FF21197;
+ Tue, 29 Apr 2025 11:06:55 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C31E613A8B;
- Tue, 29 Apr 2025 11:06:49 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 813F513A8B;
+ Tue, 29 Apr 2025 11:06:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id v8oaLsmyEGgWOwAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 29 Apr 2025 11:06:49 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 6U4gHs+yEGggOwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 29 Apr 2025 11:06:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,1894 +52,1062 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cdbdee4-24ea-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 105baaf9-24ea-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1745924810; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
+	t=1745924816; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wjUL+yGjDzm2rO9iqke3eqrtGHODHyghz9UUviT9mvA=;
-	b=ePg24WTHxENaP1EfvJxesn2grxrDFdO8MNiUoj3vJSIJJnYgwGIRXO9Jf+uHUktxIZxo10
-	tQHKi7MLetBLVDQ8dsCsAL8wwRG3jIu0dQiSgLBlyxmrgOlCSTCobMSDbazQqBsVkQQ71q
-	D3tUVbPlptyu0rMveiM5QcYoy28Lhlw=
+	bh=kMNpv8uYKhYM959nCNtSxOZtBZr44762EPL1Y4mLrUI=;
+	b=jENMQNGlVARPhO3XELst3l7yZFLh+zvuBvJ9wUTJMWnER1v2ZQro/CbuaNztrQGEP0GvOB
+	lotl2gTJ37+Fm3DkdwserbJ9z1crKIl+3TKZzP+L1d5pRCswtwwKbJex9Kujas3YRiclCn
+	VTmXuYjloeVrjcHEJ3I5O/C/b2wxfno=
 Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=ePg24WTH
+	dkim=pass header.d=suse.com header.s=susede1 header.b=XytPj0xd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1745924810; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
+	t=1745924815; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wjUL+yGjDzm2rO9iqke3eqrtGHODHyghz9UUviT9mvA=;
-	b=ePg24WTHxENaP1EfvJxesn2grxrDFdO8MNiUoj3vJSIJJnYgwGIRXO9Jf+uHUktxIZxo10
-	tQHKi7MLetBLVDQ8dsCsAL8wwRG3jIu0dQiSgLBlyxmrgOlCSTCobMSDbazQqBsVkQQ71q
-	D3tUVbPlptyu0rMveiM5QcYoy28Lhlw=
+	bh=kMNpv8uYKhYM959nCNtSxOZtBZr44762EPL1Y4mLrUI=;
+	b=XytPj0xdeTSgdEOtdDzalMfR/CDd0Lv5H1o48u/SD/DBdzqH2HPKVzKJ/xeecZ+KUFyCGt
+	nYKE38bK5sV/Lg3Ndar0INodpDOa4Zlm2Pq1Or3uuAuL1+DR9NYazWav59YK2gq9VtQ1f2
+	erHs3ChN2IZbK8rxAXhV77fl5nEpCVQ=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v3 2/4] tools: remove support for running a guest with qemu-traditional
-Date: Tue, 29 Apr 2025 13:06:32 +0200
-Message-ID: <20250429110636.30518-3-jgross@suse.com>
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>
+Subject: [PATCH v3 3/4] tools: remove qemu-traditional
+Date: Tue, 29 Apr 2025 13:06:33 +0200
+Message-ID: <20250429110636.30518-4-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250429110636.30518-1-jgross@suse.com>
 References: <20250429110636.30518-1-jgross@suse.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 1BC8121197
-X-Spam-Score: -3.01
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00];
+X-Rspamd-Queue-Id: E54FF21197
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.01 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
+	SUSPICIOUS_RECIPS(1.50)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
+	MID_CONTAINS_FROM(1.00)[];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
 	MX_GOOD(-0.01)[];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[suse.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,gmail.com,xenproject.org,ens-lyon.org];
 	RCVD_COUNT_TWO(0.00)[2];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
 	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:dkim,suse.com:mid,suse.com:email,roms.inc:url]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+	TAGGED_RCPT(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -2.01
 X-Spam-Flag: NO
-X-Spam-Level: 
 
-Remove the code in tools for running a guest with qemu-traditional.
-This covers xl, libxl, libacpi, hvmloader and the related python and
-go bindings.
+Remove qemu traditional from the tree.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
+Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com> # CHANGELOG.md
 ---
-V2:
-- Keep most of the removed comment in hvmloader, while removing parts
-  of another one (Jan Beulich)
 V3:
-- keep the default of allow_memory_relocate = 1; (Anthony Perard)
-- expand a comment in hvmloader's pci_setup() (Anthony Perard)
-- don't build in dsdt_anycpu and dsdt_15cpu if not needed (Anthony Perard)
-- make --dm_version a mandatory mk_dsdt parameter (Anthony Perard)
-- simplify code in libxl__domain_build_info_setdefault() (Anthony Perard)
-- make comments in libxl_dm.c more clear (Anthony Perard)
-- remove some more no longer used libxl functions (Anthony Perard)
-- keep QEMU_XEN_TRADITIONAL define (Anthony Perard)
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
+- remove another ioemu reference in INSTALL (Anthony Perard)
+- remove generating stubdompath.sh and related makefile helpers
+  (Anthony Perard)
 ---
- tools/firmware/hvmloader/Makefile         |   3 +-
- tools/firmware/hvmloader/pci.c            |  17 +-
- tools/firmware/hvmloader/util.c           |   9 +-
- tools/libacpi/mk_dsdt.c                   | 183 +++---------
- tools/libs/light/libxl_create.c           |  78 +-----
- tools/libs/light/libxl_device.c           |  19 --
- tools/libs/light/libxl_disk.c             |   7 -
- tools/libs/light/libxl_dm.c               | 327 +---------------------
- tools/libs/light/libxl_dom.c              |  10 -
- tools/libs/light/libxl_dom_save.c         | 140 ---------
- tools/libs/light/libxl_dom_suspend.c      |  65 -----
- tools/libs/light/libxl_domain.c           |  15 -
- tools/libs/light/libxl_exec.c             |  75 -----
- tools/libs/light/libxl_internal.c         |   6 +-
- tools/libs/light/libxl_internal.h         |  68 +----
- tools/libs/light/libxl_pci.c              | 183 ------------
- tools/libs/light/libxl_sr_stream_format.h |   2 +-
- tools/libs/light/libxl_stream_write.c     |   4 -
- tools/libs/light/libxl_types.idl          |   2 +-
- tools/python/xen/migration/libxl.py       |   2 -
- tools/xl/xl_parse.c                       |   5 +-
- 21 files changed, 74 insertions(+), 1146 deletions(-)
+ .gitignore                                    |  3 -
+ CHANGELOG.md                                  |  1 +
+ Config.mk                                     | 38 --------
+ INSTALL                                       | 13 ---
+ MAINTAINERS                                   |  4 -
+ README                                        |  2 +-
+ SUPPORT.md                                    | 16 ---
+ config/Paths.mk.in                            |  3 +-
+ config/Tools.mk.in                            |  1 -
+ docs/process/branching-checklist.txt          |  1 -
+ docs/process/release-technician-checklist.txt |  1 -
+ stubdom/.gitignore                            |  3 -
+ stubdom/Makefile                              | 97 ++-----------------
+ stubdom/configure                             | 89 -----------------
+ stubdom/configure.ac                          | 15 ---
+ stubdom/ioemu-minios.cfg                      |  6 --
+ tools/Makefile                                | 58 -----------
+ tools/Rules.mk                                |  3 -
+ tools/config.h.in                             |  3 -
+ tools/configure                               | 42 +-------
+ tools/configure.ac                            | 21 +---
+ 21 files changed, 15 insertions(+), 405 deletions(-)
+ delete mode 100644 stubdom/ioemu-minios.cfg
 
-diff --git a/tools/firmware/hvmloader/Makefile b/tools/firmware/hvmloader/Makefile
-index cc5dc00498..c94c439277 100644
---- a/tools/firmware/hvmloader/Makefile
-+++ b/tools/firmware/hvmloader/Makefile
-@@ -59,6 +59,7 @@ OBJS += optionroms.o 32bitbios_support.o rombios.o
- CFLAGS += -DENABLE_ROMBIOS
- ROMBIOS_ROM := $(ROMBIOS_DIR)/BIOS-bochs-latest
- ROMS += $(ROMBIOS_ROM) $(STDVGA_ROM) $(CIRRUSVGA_ROM)
-+DSDT_FILES = dsdt_anycpu.c dsdt_15cpu.c
+diff --git a/.gitignore b/.gitignore
+index 53f5df0003..ccc0bebee6 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -255,9 +255,6 @@ LibVNCServer*
+ tools/qemu-xen-dir-remote
+ tools/qemu-xen-dir
+ 
+-tools/qemu-xen-traditional-dir-remote
+-tools/qemu-xen-traditional-dir
+-
+ tools/firmware/seabios-dir-remote
+ tools/firmware/seabios-dir
+ 
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 1ea06524db..c6e8ff09ba 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+     - Ability to enable stack protector
+ 
+ ### Removed
++ - Support of qemu-traditional has been removed.
+ 
+ ## [4.20.0](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.20.0) - 2025-03-05
+ 
+diff --git a/Config.mk b/Config.mk
+index 8be7733d9e..3ebc9ac125 100644
+--- a/Config.mk
++++ b/Config.mk
+@@ -165,20 +165,6 @@ define move-if-changed
+ 	if ! cmp -s $(1) $(2); then mv -f $(1) $(2); else rm -f $(1); fi
+ endef
+ 
+-BUILD_MAKE_VARS := sbindir bindir LIBEXEC LIBEXEC_BIN libdir SHAREDIR \
+-                   XENFIRMWAREDIR XEN_CONFIG_DIR XEN_SCRIPT_DIR XEN_LOCK_DIR \
+-                   XEN_RUN_DIR XEN_PAGING_DIR XEN_DUMP_DIR XEN_LOG_DIR \
+-                   XEN_LIB_DIR XEN_RUN_STORED
+-
+-buildmakevars2file = $(eval $(call buildmakevars2file-closure,$(1)))
+-define buildmakevars2file-closure
+-    $(1): .phony
+-	rm -f $(1).tmp; \
+-	$(foreach var, $(BUILD_MAKE_VARS), \
+-	          echo "$(var)=\"$($(var))\"" >>$(1).tmp;) \
+-	$(call move-if-changed,$(1).tmp,$(1))
+-endef
+-
+ CFLAGS += -fno-strict-aliasing
+ 
+ CFLAGS += -std=gnu99
+@@ -208,22 +194,12 @@ XEN_EXTFILES_URL ?= https://xenbits.xen.org/xen-extfiles
+ 
+ # Where to look for inlined subtrees (for example, from a tarball)
+ QEMU_UPSTREAM_INTREE ?= $(XEN_ROOT)/tools/qemu-xen
+-QEMU_TRADITIONAL_INTREE ?= $(XEN_ROOT)/tools/qemu-xen-traditional
+ 
+ 
+ # Handle legacy options
+ ifneq (,$(SEABIOS_UPSTREAM_TAG))
+ SEABIOS_UPSTREAM_REVISION ?= $(SEABIOS_UPSTREAM_TAG)
+ endif
+-ifneq (,$(QEMU_REMOTE))
+-QEMU_TRADITIONAL_URL ?= $(QEMU_REMOTE)
+-endif
+-ifneq (,$(CONFIG_QEMU))
+-QEMU_TRADITIONAL_LOC ?= $(CONFIG_QEMU)
+-endif
+-ifneq (,$(QEMU_TAG))
+-QEMU_TRADITIONAL_REVISION ?= $(QEMU_TAG)
+-endif
+ 
+ OVMF_UPSTREAM_URL ?= https://xenbits.xen.org/git-http/ovmf.git
+ OVMF_UPSTREAM_REVISION ?= ba91d0292e593df8528b66f99c1b0b14fadc8e16
+@@ -239,20 +215,6 @@ SEABIOS_UPSTREAM_REVISION ?= rel-1.16.3
+ 
+ ETHERBOOT_NICS ?= rtl8139 8086100e
+ 
+-
+-QEMU_TRADITIONAL_URL ?= https://xenbits.xen.org/git-http/qemu-xen-traditional.git
+-QEMU_TRADITIONAL_REVISION ?= 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764
+-# Wed Jul 15 10:01:40 2020 +0100
+-# qemu-trad: remove Xen path dependencies
+-
+-# Specify which qemu-dm to use. This may be `ioemu' to use the old
+-# Mercurial in-tree version, or a local directory, or a git URL.
+-# QEMU_UPSTREAM_LOC ?= `pwd`/$(XEN_ROOT)/../qemu-xen.git
+-
+-# Defaults for subtree locations
+-QEMU_TRADITIONAL_LOC ?= $(call or,$(wildcard $(QEMU_TRADITIONAL_INTREE)),\
+-                                  $(QEMU_TRADITIONAL_URL))
+-
+ QEMU_UPSTREAM_LOC ?= $(call or,$(wildcard $(QEMU_UPSTREAM_INTREE)),\
+                                $(QEMU_UPSTREAM_URL))
+ 
+diff --git a/INSTALL b/INSTALL
+index 88c1464816..eadf108aa5 100644
+--- a/INSTALL
++++ b/INSTALL
+@@ -113,15 +113,6 @@ Build a private copy of SeaBIOS.
+ Use the given SeaBIOS binary instead of compiling a private copy.
+   --with-system-seabios=PATH
+ 
+-Build the old qemu used by xm/xend. This is required if existing domUs
+-should be migrated to this host, or if existing domU snapshots should be
+-started with this version of the tools. Only if all domUs used the new
+-upstream qemu during initial start it is safe to disable this option.
+-The old qemu requires rombios, which can be disable along with
+-qemu-traditional.
+-  --enable-qemu-traditional
+-  --enable-rombios
+-
+ The libxl toolstack uses the upstream qemu per default. A private copy
+ will be built. If desired this private copy can be configured with
+ additional options passed to its configure script.
+@@ -161,7 +152,6 @@ this detection and the sysv runlevel scripts have to be used.
+ 
+ Build various stubom components, some are only example code. Its usually
+ enough to specify just --enable-stubdom and leave these options alone.
+-  --enable-ioemu-stubdom
+   --enable-c-stubdom
+   --disable-pv-grub
+   --disable-xenstore-stubdom
+@@ -245,7 +235,6 @@ locations.
+ XEN_EXTFILES_URL=
+ OVMF_UPSTREAM_URL=
+ QEMU_UPSTREAM_URL=
+-QEMU_TRADITIONAL_URL=
+ SEABIOS_UPSTREAM_URL=
+ MINIOS_UPSTREAM_URL=
+ 
+@@ -253,7 +242,6 @@ Using additional CFLAGS to build tools which will run in dom0 is
+ required when building distro packages. These variables can be used to
+ pass RPM_OPT_FLAGS.
+ EXTRA_CFLAGS_XEN_TOOLS=
+-EXTRA_CFLAGS_QEMU_TRADITIONAL=
+ EXTRA_CFLAGS_QEMU_XEN=
+ 
+ Additional CFLAGS may be supplied to the build of the hypervisor by
+@@ -340,7 +328,6 @@ sudo make install BOOT_DIR=/ood/path/boot EFI_DIR=/odd/path/efi
+ export WGET=$(type -P false)
+ export GIT=$(type -P false)
+ export EXTRA_CFLAGS_XEN_TOOLS="$RPM_OPT_FLAGS"
+-export EXTRA_CFLAGS_QEMU_TRADITIONAL="$RPM_OPT_FLAGS"
+ export EXTRA_CFLAGS_QEMU_XEN="$RPM_OPT_FLAGS"
+ %configure \
+         --with-initddir=%{_initddir}
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c11b82eca9..7d1b3b8641 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -466,10 +466,6 @@ M:	Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+ S:	Supported
+ F:	tools/python
+ 
+-QEMU-DM
+-S:	Supported
+-T:	git https://xenbits.xenproject.org/git-http/qemu-xen-traditional.git
+-
+ QEMU UPSTREAM
+ M:	Stefano Stabellini <sstabellini@kernel.org>
+ M:	Anthony Perard <anthony.perard@vates.tech>
+diff --git a/README b/README
+index be90be3910..6ee58f7b35 100644
+--- a/README
++++ b/README
+@@ -80,7 +80,7 @@ disabled at compile time:
+       libnl-3-dev, etc).  Required if network buffering is desired
+       when using Remus with libxl.  See docs/README.remus for detailed
+       information.
+-    * 16-bit x86 assembler, loader and compiler for qemu-traditional / rombios
++    * 16-bit x86 assembler, loader and compiler for rombios
+       (dev86 rpm or bin86 & bcc debs)
+     * Development install of liblzma for rombios
+     * Development install of libbz2, liblzma, liblzo2, and libzstd for DomU
+diff --git a/SUPPORT.md b/SUPPORT.md
+index e8fd0c251e..5eecf1dcbc 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -998,21 +998,6 @@ See the section **Blkback** for image formats supported by QEMU.
+ 
+     Status: Supported, not security supported
+ 
+-### qemu-xen-traditional ###
+-
+-The Xen Project provides an old version of qemu with modifications
+-which enable use as a device model stub domain.  The old version is
+-normally selected by default only in a stub dm configuration, but it
+-can be requested explicitly in other configurations, for example in
+-`xl` with `device_model_version="QEMU_XEN_TRADITIONAL"`.
+-
+-    Status, Device Model Stub Domains: Supported, with caveats
+-    Status, as host process device model: No security support, not recommended
+-
+-qemu-xen-traditional is security supported only for those available
+-devices which are supported for mainstream QEMU (see above), with
+-trusted driver domains (see Device Model Stub Domains).
+-
+ ## Virtual Firmware
+ 
+ ### x86/HVM iPXE
+@@ -1031,7 +1016,6 @@ as the guest itself.
+ Booting a guest via guest BIOS firmware
+ 
+     Status, SeaBIOS (qemu-xen): Supported
+-    Status, ROMBIOS (qemu-xen-traditional): Supported
+ 
+ ### x86/HVM OVMF
+ 
+diff --git a/config/Paths.mk.in b/config/Paths.mk.in
+index 38b1bb6b1f..bc42748b7a 100644
+--- a/config/Paths.mk.in
++++ b/config/Paths.mk.in
+@@ -5,8 +5,7 @@
+ # because of this these variables are defined on one master input source file
+ # and is generated after running ./configure. The master source is located
+ # on the xen source tree at under config/Paths.mk.in and it is used to
+-# generate shell or header files by the build system upon demand through the
+-# use of the helper makefile helper buildmakevars2file().
++# generate shell or header files by the build system upon demand.
+ #
+ # For more documentation you can refer to the wiki:
+ #
+diff --git a/config/Tools.mk.in b/config/Tools.mk.in
+index 37c071961e..463ab75965 100644
+--- a/config/Tools.mk.in
++++ b/config/Tools.mk.in
+@@ -43,7 +43,6 @@ CONFIG_OVMF         := @ovmf@
+ CONFIG_ROMBIOS      := @rombios@
+ CONFIG_SEABIOS      := @seabios@
+ CONFIG_IPXE         := @ipxe@
+-CONFIG_QEMU_TRAD    := @qemu_traditional@
+ CONFIG_QEMU_XEN     := @qemu_xen@
+ CONFIG_QEMUU_EXTRA_ARGS:= @EXTRA_QEMUU_CONFIGURE_ARGS@
+ CONFIG_LIBNL        := @libnl@
+diff --git a/docs/process/branching-checklist.txt b/docs/process/branching-checklist.txt
+index aa7a27eed5..9632888a56 100644
+--- a/docs/process/branching-checklist.txt
++++ b/docs/process/branching-checklist.txt
+@@ -71,7 +71,6 @@ ov=4.0
+ Ensure references to qemu trees and Mini-OS in xen.git's Config.mk are updated.
+ The variables and there content should be:
+   * QEMU_UPSTREAM_REVISION: qemu-xen-X.Y.0
+-  * QEMU_TRADITIONAL_REVISION: xen-X.Y.0
+   * MINIOS_UPSTREAM_REVISION: xen-RELEASE-X.Y.0
+ Where X.Y is the release version (e.g. 4.17).
+ 
+diff --git a/docs/process/release-technician-checklist.txt b/docs/process/release-technician-checklist.txt
+index 829e8ec47b..64ed9fd5b2 100644
+--- a/docs/process/release-technician-checklist.txt
++++ b/docs/process/release-technician-checklist.txt
+@@ -56,7 +56,6 @@ t=RELEASE-$r
+ 
+ * change xen-unstable Config.mk
+ #   QEMU_UPSTREAM_REVISION,
+-#   QEMU_TRADITIONAL_REVISION
+ #   MINIOS_UPSTREAM_REVISION
+ #     (drop any references to the specific commits, e.g. date or title)
+ * change SUPPORT.md heading version number; -unstable or -rc tag
+diff --git a/stubdom/.gitignore b/stubdom/.gitignore
+index 23350446b9..1b69656d45 100644
+--- a/stubdom/.gitignore
++++ b/stubdom/.gitignore
+@@ -11,8 +11,6 @@
+ /gmp-*
+ /grub-*
+ /include
+-/ioemu
+-/ioemu/
+ /libs-*
+ /libxencall-*
+ /libxenevtchn-*
+@@ -29,7 +27,6 @@
+ /pciutils-*
+ /pkg-config/*
+ /polarssl-*
+-/stubdompath.sh
+ /tpm_emulator-*
+ /vtpm/vtpm_manager.h
+ /xenstore
+diff --git a/stubdom/Makefile b/stubdom/Makefile
+index 724ce40365..666c3221dc 100644
+--- a/stubdom/Makefile
++++ b/stubdom/Makefile
+@@ -7,7 +7,6 @@ export PKG_CONFIG_DIR = $(CURDIR)/pkg-config
+ 
+ # Remove flags which are meant for tools, e.g. "-m64"
+ export EXTRA_CFLAGS_XEN_TOOLS=
+-export EXTRA_CFLAGS_QEMU_TRADITIONAL=
+ 
+ export stubdom=y
+ export debug=y
+@@ -71,16 +70,12 @@ TARGET_LDFLAGS += -nostdlib -L$(CROSS_PREFIX)/$(GNU_TARGET_ARCH)-xen-elf/lib
+ 
+ TARGETS=$(STUBDOM_TARGETS)
+ 
+-STUBDOMPATH="stubdompath.sh"
+-genpath-target = $(call buildmakevars2file,$(STUBDOMPATH))
+-$(eval $(genpath-target))
+-
+ .PHONY: all
+ all: build
+ ifeq ($(STUBDOM_SUPPORTED),1)
+-build: $(STUBDOMPATH) $(STUBDOM_BUILD)
++build: $(STUBDOM_BUILD)
+ else
+-build: $(STUBDOMPATH)
++build:
  endif
  
- # Suppress the warning about LOAD segments with RWX permissions, as what we
-@@ -76,7 +77,7 @@ rombios.o: roms.inc
- smbios.o: CFLAGS += -D__SMBIOS_DATE__="\"$(SMBIOS_REL_DATE)\""
+ ##############
+@@ -267,43 +262,6 @@ cross-tpmemu: $(TPMEMU_STAMPFILE)
+ .PHONY: $(CROSS_ROOT)
+ $(CROSS_ROOT): cross-newlib cross-zlib cross-libpci
  
- ACPI_PATH = ../../libacpi
--DSDT_FILES = dsdt_anycpu.c dsdt_15cpu.c dsdt_anycpu_qemu_xen.c
-+DSDT_FILES += dsdt_anycpu_qemu_xen.c
- ACPI_OBJS = $(patsubst %.c,%.o,$(DSDT_FILES)) build.o static_tables.o
- $(ACPI_OBJS): CFLAGS += -iquote . -DLIBACPI_STDUTILS=\"$(CURDIR)/util.h\"
- CFLAGS += -I$(ACPI_PATH)
-diff --git a/tools/firmware/hvmloader/pci.c b/tools/firmware/hvmloader/pci.c
-index c3c61ca060..cc67b18c03 100644
---- a/tools/firmware/hvmloader/pci.c
-+++ b/tools/firmware/hvmloader/pci.c
-@@ -113,17 +113,7 @@ void pci_setup(void)
-      * increase the size of the lowmem MMIO hole?  Defaulting to 1
-      * here will mean that non-libxl toolstacks (including xend and
-      * home-grown ones) means that those using qemu-xen will still
--     * experience the memory relocation bug described below; but it
--     * also means that those using qemu-traditional will *not*
--     * experience any change; and it also means that there is a
--     * work-around for those using qemu-xen, namely switching to
--     * qemu-traditional.
--     *
--     * If we defaulted to 0, and failing to resize the hole caused any
--     * problems with qemu-traditional, then there is no work-around.
--     *
--     * Since xend can only use qemu-traditional, I think this is the
--     * option that will have the least impact.
-+     * experience the memory relocation bug described below.
-      */
-     bool allow_memory_relocate = 1;
+-QEMU_ROOT := $(shell if [ -d "$(QEMU_TRADITIONAL_LOC)" ]; then echo "$(QEMU_TRADITIONAL_LOC)"; else echo .; fi)
+-
+-ifneq ($(filter ioemu,$(STUBDOM_TARGETS)),)
+-IOEMU_LINKFARM_TARGET := ioemu/linkfarm.stamp
+-endif
+-
+-ifeq ($(QEMU_ROOT),.)
+-$(XEN_ROOT)/tools/qemu-xen-traditional-dir:
+-	$(MAKE) DESTDIR= -C $(XEN_ROOT)/tools qemu-xen-traditional-dir-find
+-
+-ioemu/linkfarm.stamp: $(XEN_ROOT)/tools/qemu-xen-traditional-dir
+-	mkdir -p ioemu
+-	set -e;									\
+-	$(buildmakevars2shellvars);						\
+-	cd ioemu;								\
+-	src="$$XEN_ROOT/tools/qemu-xen-traditional-dir"; export src;		\
+-	(cd $$src && find * -type d						\
+-		$(addprefix ! -path , '*-softmmu*' '*-linux-user*') -print)	\
+-		| xargs mkdir -p;						\
+-	(cd $$src && find *	! -type l  -type f  $(addprefix ! -path ,	\
+-			'*.[oda1]' 'config-*' config.mak qemu-dm qemu-img-xen	\
+-			'*.html' '*.pod' '*-softmmu*' '*-linux-user*'		\
+-			)) >linkfarm.stamp.tmp;				\
+-	cmp -s linkfarm.stamp.tmp linkfarm.stamp &&			\
+-		rm linkfarm.stamp.tmp || {				\
+-		mv linkfarm.stamp.tmp linkfarm.stamp;			\
+-		cat linkfarm.stamp | while read f;			\
+-			do rm -f "$$f"; ln -s "$$src/$$f" "$$f"; done;	\
+-	}
+-else
+-export QEMU_ROOT
+-
+-ioemu/linkfarm.stamp:
+-	mkdir -p ioemu
+-	touch ioemu/linkfarm.stamp
+-endif
+-
+ #######
+ # libraries under tools/libs
+ #######
+@@ -380,29 +338,6 @@ $(TARGETS_MINIOS): mini-os-%:
+                 mkdir -p $@/$$i ; \
+ 	done
  
-@@ -347,9 +337,8 @@ void pci_setup(void)
-     {
-         /*
-          * At the moment qemu-xen can't deal with relocated memory regions.
--         * It's too close to the release to make a proper fix; for now,
--         * only allow the MMIO hole to grow large enough to move guest memory
--         * if we're running qemu-traditional.  Items that don't fit will be
-+         * Only allow the MMIO hole to grow large enough to move guest memory
-+         * if allow_memory_relocate is true.  Items that don't fit will be
-          * relocated into the 64-bit address space.
-          *
-          * This loop now does the following:
-diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
-index 2d07ce1290..79c0e6bd4a 100644
---- a/tools/firmware/hvmloader/util.c
-+++ b/tools/firmware/hvmloader/util.c
-@@ -843,14 +843,7 @@ void hvmloader_acpi_build_tables(struct acpi_config *config,
+-#######
+-# ioemu
+-#######
+-
+-ioemu-minios.gen.cfg: APP_LIBS = evtchn gnttab ctrl guest
+-ioemu-minios.gen.cfg: ioemu-minios.cfg Makefile
+-	$(GEN_config) >$@
+-
+-ioemu-minios-config.mk: ioemu-minios.gen.cfg
+-	MINIOS_CONFIG="$(CURDIR)/$<" CONFIG_FILE="$(CURDIR)/$@" $(MAKE) DESTDIR= -C $(MINI_OS) config
+-
+-.PHONY: ioemu
+-ioemu: cross-zlib cross-libpci libxenguest ioemu-minios-config.mk
+-	[ -f ioemu/config-host.mak ] || \
+-	  ( $(buildmakevars2shellvars); \
+-	    cd ioemu ; \
+-	    LWIPDIR=$(CURDIR)/lwip-$(XEN_TARGET_ARCH) \
+-	    TARGET_CPPFLAGS="$(TARGET_CPPFLAGS) $(shell cat ioemu-minios-config.mk)" \
+-	    TARGET_CFLAGS="$(TARGET_CFLAGS)" \
+-	    TARGET_LDFLAGS="$(TARGET_LDFLAGS)" \
+-	    $(QEMU_ROOT)/xen-setup-stubdom )
+-	$(MAKE) DESTDIR= -C ioemu -f $(QEMU_ROOT)/Makefile
+-
+ ###
+ # C
+ ###
+@@ -496,11 +431,6 @@ xenstorepvh: $(CROSS_ROOT) xenstorepvh-minios-config.mk
+ # minios
+ ########
  
-     /* If the device model is specified switch to the corresponding tables */
-     s = xenstore_read("platform/device-model", "");
--    if ( !strncmp(s, "qemu_xen_traditional", 21) )
--    {
--        config->dsdt_anycpu = dsdt_anycpu;
--        config->dsdt_anycpu_len = dsdt_anycpu_len;
--        config->dsdt_15cpu = dsdt_15cpu;
--        config->dsdt_15cpu_len = dsdt_15cpu_len;
--    }
--    else if ( !strncmp(s, "qemu_xen", 9) )
-+    if ( !strncmp(s, "qemu_xen", 9) )
-     {
-         config->dsdt_anycpu = dsdt_anycpu_qemu_xen;
-         config->dsdt_anycpu_len = dsdt_anycpu_qemu_xen_len;
-diff --git a/tools/libacpi/mk_dsdt.c b/tools/libacpi/mk_dsdt.c
-index 34f6753f61..227b5ceafb 100644
---- a/tools/libacpi/mk_dsdt.c
-+++ b/tools/libacpi/mk_dsdt.c
-@@ -19,8 +19,8 @@ static bool debug = false;
+-.PHONY: ioemu-stubdom
+-ioemu-stubdom: APP_OBJS=$(CURDIR)/ioemu/i386-stubdom/qemu.a $(CURDIR)/ioemu/i386-stubdom/libqemu.a $(CURDIR)/ioemu/libqemu_common.a
+-ioemu-stubdom: mini-os-$(XEN_TARGET_ARCH)-ioemu lwip-$(XEN_TARGET_ARCH) libxenguest ioemu
+-	DEF_CPPFLAGS="$(TARGET_CPPFLAGS)" DEF_CFLAGS="$(TARGET_CFLAGS)" DEF_LDFLAGS="$(TARGET_LDFLAGS)" MINIOS_CONFIG="$(CURDIR)/ioemu-minios.gen.cfg" $(MAKE) DESTDIR= -C $(MINI_OS) OBJ_DIR=$(CURDIR)/$< LWIPDIR=$(CURDIR)/lwip-$(XEN_TARGET_ARCH) APP_OBJS="$(APP_OBJS)"
+-
+ .PHONY: c-stubdom
+ c-stubdom: mini-os-$(XEN_TARGET_ARCH)-c lwip-$(XEN_TARGET_ARCH) libxenguest c
+ 	DEF_CPPFLAGS="$(TARGET_CPPFLAGS)" DEF_CFLAGS="$(TARGET_CFLAGS)" DEF_LDFLAGS="$(TARGET_LDFLAGS)" MINIOS_CONFIG="$(CURDIR)/c/minios.cfg" $(MAKE) DESTDIR= -C $(MINI_OS) OBJ_DIR=$(CURDIR)/$< LWIPDIR=$(CURDIR)/lwip-$(XEN_TARGET_ARCH) APP_OBJS=$(CURDIR)/c/main.a
+@@ -539,18 +469,11 @@ xenstorepvh-stubdom: mini-os-$(XEN_TARGET_ARCH)-xenstorepvh $(XENSTORE_DEPS) xen
+ #########
  
- typedef enum dm_version {
-     QEMU_NONE,
--    QEMU_XEN_TRADITIONAL,
-     QEMU_XEN,
-+    QEMU_INVALID
- } dm_version;
+ ifeq ($(STUBDOM_SUPPORTED),1)
+-install: $(STUBDOMPATH) $(STUBDOM_INSTALL)
++install: $(STUBDOM_INSTALL)
+ else
+-install: $(STUBDOMPATH)
++install:
+ endif
  
- static void indent(void)
-@@ -68,30 +68,6 @@ static void pop_block(void)
-     printf("}\n");
- }
+-install-ioemu: ioemu-stubdom
+-	$(INSTALL_DIR) "$(DESTDIR)$(LIBEXEC_BIN)"
+-	$(INSTALL_PROG) stubdom-dm "$(DESTDIR)$(LIBEXEC_BIN)"
+-	$(INSTALL_DATA) stubdompath.sh "$(DESTDIR)$(LIBEXEC_BIN)"
+-	$(INSTALL_DIR) "$(DESTDIR)$(XENFIRMWAREDIR)"
+-	$(INSTALL_DATA) mini-os-$(XEN_TARGET_ARCH)-ioemu/mini-os.gz "$(DESTDIR)$(XENFIRMWAREDIR)/ioemu-stubdom.gz"
+-
+ install-grub: pv-grub
+ 	$(INSTALL_DIR) "$(DESTDIR)$(XENFIRMWAREDIR)"
+ 	$(INSTALL_DATA) mini-os-$(XEN_TARGET_ARCH)-grub/mini-os.gz "$(DESTDIR)$(XENFIRMWAREDIR)/pv-grub-$(XEN_TARGET_ARCH).gz"
+@@ -593,11 +516,6 @@ else
+ uninstall:
+ endif
  
--#ifdef CONFIG_X86
--static void pci_hotplug_notify(unsigned int slt)
--{
--    stmt("Notify", "\\_SB.PCI0.S%02X, EVT", slt);
--}
+-uninstall-ioemu:
+-	rm -f $(DESTDIR)$(LIBEXEC_BIN)/stubdom-dm
+-	rm -f $(DESTDIR)$(LIBEXEC_BIN)/stubdompath.sh
+-	rm -f $(DESTDIR)$(XENFIRMWAREDIR)/ioemu-stubdom.gz
 -
--static void decision_tree(
--    unsigned int s, unsigned int e, char *var, void (*leaf)(unsigned int))
--{
--    if ( s == (e-1) )
--    {
--        (*leaf)(s);
--        return;
--    }
--
--    push_block("If", "And(%s, 0x%02x)", var, (e-s)/2);
--    decision_tree((s+e)/2, e, var, leaf);
--    pop_block();
--    push_block("Else", NULL);
--    decision_tree(s, (s+e)/2, var, leaf);
--    pop_block();
--}
--#endif
--
- static struct option options[] = {
-     { "maxcpu", 1, 0, 'c' },
- #ifdef CONFIG_X86
-@@ -105,7 +81,7 @@ int main(int argc, char **argv)
- {
-     unsigned int cpu, max_cpus;
- #if defined(CONFIG_X86)
--    dm_version dm_version = QEMU_XEN_TRADITIONAL;
-+    dm_version dm_version = QEMU_INVALID;
-     unsigned int slot, dev, intx, link;
+ uninstall-grub:
+ 	rm -f $(DESTDIR)$(XENFIRMWAREDIR)/pv-grub-$(XEN_TARGET_ARCH).gz
  
-     max_cpus = HVM_MAX_VCPUS;
-@@ -141,8 +117,6 @@ int main(int argc, char **argv)
-         case 'q':
-             if (strcmp(optarg, "qemu-xen") == 0) {
-                 dm_version = QEMU_XEN;
--            } else if (strcmp(optarg, "qemu-xen-traditional") == 0) {
--                dm_version = QEMU_XEN_TRADITIONAL;
-             } else if (strcmp(optarg, "none") == 0) {
-                 dm_version = QEMU_NONE;
-             } else {
-@@ -160,6 +134,11 @@ int main(int argc, char **argv)
-         }
-     }
+@@ -617,11 +535,10 @@ uninstall-vtpmmgr:
+ # clean
+ #######
  
-+    if (dm_version == QEMU_INVALID) {
-+        fprintf(stderr, "--dm_version is a mandatory parameter.\n");
-+        return -1;
-+    }
-+
-     /**** DSDT DefinitionBlock start ****/
-     /* (we append to existing DSDT definition block) */
-     indent_level++;
-@@ -278,9 +257,7 @@ int main(int argc, char **argv)
+-# Only clean the libxc/ioemu/mini-os part
++# Only clean the libxc/mini-os part
+ .PHONY: clean
+ clean: $(foreach lib,$(STUB_LIBS),clean-libxen$(lib))
+ clean:
+-	rm -fr mini-os-$(XEN_TARGET_ARCH)-ioemu
+ 	rm -fr mini-os-$(XEN_TARGET_ARCH)-c
+ 	rm -fr mini-os-$(XEN_TARGET_ARCH)-grub
+ 	rm -fr mini-os-$(XEN_TARGET_ARCH)-xenstore
+@@ -632,11 +549,9 @@ clean:
+ 	$(MAKE) -C vtpm clean
+ 	$(MAKE) -C vtpmmgr clean
+ 	rm -fr grub-$(XEN_TARGET_ARCH)
+-	rm -f $(STUBDOMPATH)
+ 	rm -f *-minios-config.mk
+ 	rm -f *.gen.cfg
+ 	rm -fr pkg-config
+-	-[ ! -d ioemu ] || $(MAKE) DESTDIR= -C ioemu clean
+ 	-[ ! -d xenstore ] || $(MAKE) -f $(CURDIR)/xenlibs.mk -C xenstore clean
+ 	-[ ! -d xenstorepvh ] || $(MAKE) -f $(CURDIR)/xenlibs.mk -C xenstorepvh clean
  
-     /* Define GPE control method. */
-     push_block("Scope", "\\_GPE");
--    push_block("Method",
--               dm_version == QEMU_XEN_TRADITIONAL ? "_L%02d" : "_E%02d",
--               XEN_ACPI_GPE0_CPUHP_BIT);
-+    push_block("Method", "_E%02d", XEN_ACPI_GPE0_CPUHP_BIT);
-     stmt("\\_SB.PRSC ()", NULL);
-     pop_block();
-     pop_block();
-@@ -302,17 +279,10 @@ int main(int argc, char **argv)
-      */
-     push_block("Device", "HP0"); {
-         stmt("Name", "_HID, EISAID(\"PNP0C02\")");
--        if (dm_version == QEMU_XEN_TRADITIONAL) {
--            stmt("Name", "_CRS, ResourceTemplate() {"
--                 "  IO (Decode16, 0x10c0, 0x10c0, 0x00, 0x82)"
--                 "  IO (Decode16, 0xb044, 0xb044, 0x00, 0x04)"
--                 "}");
--        } else {
--            stmt("Name", "_CRS, ResourceTemplate() {"
--                 "  IO (Decode16, 0xae00, 0xae00, 0x00, 0x10)"
--                 "  IO (Decode16, 0xb044, 0xb044, 0x00, 0x04)"
--                 "}");
--        }
-+        stmt("Name", "_CRS, ResourceTemplate() {"
-+             "  IO (Decode16, 0xae00, 0xae00, 0x00, 0x10)"
-+             "  IO (Decode16, 0xb044, 0xb044, 0x00, 0x04)"
-+             "}");
-     } pop_block();
+@@ -647,7 +562,7 @@ crossclean: clean
+ 	rm -fr newlib-$(XEN_TARGET_ARCH)
+ 	rm -fr zlib-$(XEN_TARGET_ARCH) pciutils-$(XEN_TARGET_ARCH)
+ 	rm -fr libs-$(XEN_TARGET_ARCH)
+-	rm -fr ioemu xenstore xenstorepvh
++	rm -fr xenstore xenstorepvh
+ 	rm -fr gmp-$(XEN_TARGET_ARCH)
+ 	rm -fr polarssl-$(XEN_TARGET_ARCH)
+ 	rm -fr tpm_emulator-$(XEN_TARGET_ARCH)
+diff --git a/stubdom/configure b/stubdom/configure
+index 08cacf764c..9dd0e7c796 100755
+--- a/stubdom/configure
++++ b/stubdom/configure
+@@ -622,7 +622,6 @@ STUBDOM_UNINSTALL
+ STUBDOM_INSTALL
+ STUBDOM_BUILD
+ STUBDOM_TARGETS
+-ioemu
+ vtpmmgr
+ vtpm
+ TPMEMU_VERSION
+@@ -713,14 +712,12 @@ SHELL'
+ ac_subst_files=''
+ ac_user_opts='
+ enable_option_checking
+-enable_ioemu_stubdom
+ enable_c_stubdom
+ enable_pv_grub
+ enable_xenstore_stubdom
+ enable_xenstorepvh_stubdom
+ enable_vtpm_stubdom
+ enable_vtpmmgr_stubdom
+-enable_qemu_traditional
+ enable_debug
+ enable_extfiles
+ '
+@@ -1363,7 +1360,6 @@ Optional Features:
+   --disable-option-checking  ignore unrecognized --enable/--with options
+   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
+   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+-  --enable-ioemu-stubdom  Build and install ioemu-stubdom
+   --enable-c-stubdom      Build and install c-stubdom (default is DISABLED)
+   --enable-pv-grub        Build and install pv-grub (default is DISABLED)
+   --disable-xenstore-stubdom
+@@ -1375,7 +1371,6 @@ Optional Features:
+   --enable-vtpm-stubdom   Build and install vtpm-stubdom
+   --enable-vtpmmgr-stubdom
+                           Build and install vtpmmgr-stubdom
+-
+   --disable-debug         Disable debug build of stubdom (default is ENABLED)
+   --disable-extfiles      Use xen extfiles repository for libraries (default
+                           is ENABLED)
+@@ -2411,40 +2406,6 @@ case $host_os in *\ *) host_os=`echo "$host_os" | sed 's/ /-/g'`;; esac
  
-     /*** PCI-ISA link definitions ***/
-@@ -397,60 +367,27 @@ int main(int argc, char **argv)
-      * QEMU provides a simple hotplug controller with some I/O to handle
-      * the hotplug action and status, which is beyond the ACPI scope.
-      */
--    if (dm_version == QEMU_XEN_TRADITIONAL) {
--        for ( slot = 0; slot < 0x100; slot++ )
--        {
--            push_block("Device", "S%02X", slot);
--            /* _ADR == dev:fn (16:16) */
--            stmt("Name", "_ADR, 0x%08x", ((slot & ~7) << 13) | (slot & 7));
--            /* _SUN == dev */
--            stmt("Name", "_SUN, 0x%08x", slot >> 3);
--            push_block("Method", "_EJ0, 1");
--            if (debug)
--            {
--                stmt("Store", "0x%02x, \\_GPE.DPT1", slot);
--                stmt("Store", "0x88, \\_GPE.DPT2");
--            }
--            stmt("Store", "0x%02x, \\_GPE.PH%02X", /* eject */
--                 (slot & 1) ? 0x10 : 0x01, slot & ~1);
--            pop_block();
--            push_block("Method", "_STA, 0");
--            if (debug)
--            {
--                stmt("Store", "0x%02x, \\_GPE.DPT1", slot);
--                stmt("Store", "0x89, \\_GPE.DPT2");
--            }
--            if ( slot & 1 )
--                stmt("ShiftRight", "\\_GPE.PH%02X, 0x04, Local1", slot & ~1);
--            else
--                stmt("And", "\\_GPE.PH%02X, 0x0f, Local1", slot & ~1);
--            stmt("Return", "Local1"); /* IN status as the _STA */
--            pop_block();
--            pop_block();
--        }
--    } else {
--        stmt("OperationRegion", "SEJ, SystemIO, 0xae08, 0x08");
--        push_block("Field", "SEJ, DWordAcc, NoLock, WriteAsZeros");
--        indent(); printf("B0EJ, 32,\n");
--        indent(); printf("B0RM, 32,\n");
--        pop_block();
-+    stmt("OperationRegion", "SEJ, SystemIO, 0xae08, 0x08");
-+    push_block("Field", "SEJ, DWordAcc, NoLock, WriteAsZeros");
-+    indent(); printf("B0EJ, 32,\n");
-+    indent(); printf("B0RM, 32,\n");
-+    pop_block();
+ # Enable/disable stub domains
  
--        /* hotplug_slot */
--        for (slot = 1; slot <= 31; slot++) {
--            push_block("Device", "S%i", slot); {
--                stmt("Name", "_ADR, %#06x0000", slot);
--                push_block("Method", "_EJ0,1"); {
--                    stmt("Store", "%#010x, B0EJ", 1 << slot);
--                } pop_block();
--                stmt("Name", "_SUN, %i", slot);
--                push_block("Method", "_STA, 0"); {
--                    push_block("If", "And(B0RM, ShiftLeft(1, %i))", slot);
--                    stmt("Return", "0xF");
--                    pop_block();
--                    stmt("Return", "0x0");
--                } pop_block();
-+    /* hotplug_slot */
-+    for (slot = 1; slot <= 31; slot++) {
-+        push_block("Device", "S%i", slot); {
-+            stmt("Name", "_ADR, %#06x0000", slot);
-+            push_block("Method", "_EJ0,1"); {
-+                stmt("Store", "%#010x, B0EJ", 1 << slot);
-             } pop_block();
--        }
-+            stmt("Name", "_SUN, %i", slot);
-+            push_block("Method", "_STA, 0"); {
-+                push_block("If", "And(B0RM, ShiftLeft(1, %i))", slot);
-+                stmt("Return", "0xF");
-+                pop_block();
-+                stmt("Return", "0x0");
-+            } pop_block();
-+        } pop_block();
-     }
+-# Check whether --enable-ioemu-stubdom was given.
+-if test ${enable_ioemu_stubdom+y}
+-then :
+-  enableval=$enable_ioemu_stubdom;
+-
+-if test "x$enableval" = "xyes"
+-then :
+-
+-
+-ioemu=y
+-STUBDOM_TARGETS="$STUBDOM_TARGETS ioemu"
+-STUBDOM_BUILD="$STUBDOM_BUILD ioemu-stubdom"
+-STUBDOM_INSTALL="$STUBDOM_INSTALL install-ioemu"
+-STUBDOM_UNINSTALL="$STUBDOM_UNINSTALL install-ioemu"
+-
+-
+-else $as_nop
+-
+-if test "x$enableval" = "xno"
+-then :
+-
+-
+-ioemu=n
+-
+-
+-fi
+-
+-fi
+-
+-
+-fi
+-
+-
+-
+ # Check whether --enable-c-stubdom was given.
+ if test ${enable_c_stubdom+y}
+ then :
+@@ -2685,35 +2646,6 @@ fi
  
-     pop_block();
-@@ -460,26 +397,11 @@ int main(int argc, char **argv)
-     /**** GPE start ****/
-     push_block("Scope", "\\_GPE");
  
--    if (dm_version == QEMU_XEN_TRADITIONAL) {
--        stmt("OperationRegion", "PHP, SystemIO, 0x10c0, 0x82");
--
--        push_block("Field", "PHP, ByteAcc, NoLock, Preserve");
--        indent(); printf("PSTA, 8,\n"); /* hotplug controller event reg */
--        indent(); printf("PSTB, 8,\n"); /* hotplug controller slot reg */
--        for ( slot = 0; slot < 0x100; slot += 2 )
--        {
--            indent();
--            /* Each hotplug control register manages a pair of pci functions. */
--            printf("PH%02X, 8,\n", slot);
--        }
--        pop_block();
--    } else {
--        stmt("OperationRegion", "PCST, SystemIO, 0xae00, 0x08");
--        push_block("Field", "PCST, DWordAcc, NoLock, WriteAsZeros");
--        indent(); printf("PCIU, 32,\n");
--        indent(); printf("PCID, 32,\n");
--        pop_block();
--    }
-+    stmt("OperationRegion", "PCST, SystemIO, 0xae00, 0x08");
-+    push_block("Field", "PCST, DWordAcc, NoLock, WriteAsZeros");
-+    indent(); printf("PCIU, 32,\n");
-+    indent(); printf("PCID, 32,\n");
-+    pop_block();
  
-     stmt("OperationRegion", "DG1, SystemIO, 0xb044, 0x04");
+-# Check whether --enable-qemu-traditional was given.
+-if test ${enable_qemu_traditional+y}
+-then :
+-  enableval=$enable_qemu_traditional;
+-fi
+-
+-if test "x$enable_qemu_traditional" = "xyes"
+-then :
+-
+-    qemu_traditional=y
+-else $as_nop
+-
+-    qemu_traditional=n
+-
+-fi
+-if test "x$ioemu" = "x"
+-then :
+-
+-    ioemu=$qemu_traditional
+-
+-fi
+-echo "x$ioemu$qemu_traditional"
+-if test "x$ioemu$qemu_traditional" = "xyn"
+-then :
+-
+-    as_fn_error $? "IOEMU stubdomain requires qemu-traditional" "$LINENO" 5
+-
+-fi
+-
  
-@@ -487,35 +409,16 @@ int main(int argc, char **argv)
-     indent(); printf("DPT1, 8, DPT2, 8\n");
-     pop_block();
+ # Check whether --enable-debug was given.
+ if test ${enable_debug+y}
+@@ -4358,27 +4290,6 @@ fi
  
--    if (dm_version == QEMU_XEN_TRADITIONAL) {
--        push_block("Method", "_L03, 0, Serialized");
--        /* Detect slot and event (remove/add). */
--        stmt("Name", "SLT, 0x0");
--        stmt("Name", "EVT, 0x0");
--        stmt("Store", "PSTA, Local1");
--        stmt("And", "Local1, 0xf, EVT");
--        stmt("Store", "PSTB, Local1"); /* XXX: Store (PSTB, SLT) ? */
--        stmt("And", "Local1, 0xff, SLT");
--        if (debug)
--        {
--            stmt("Store", "SLT, DPT1");
--            stmt("Store", "EVT, DPT2");
--        }
--        /* Decision tree */
--        decision_tree(0x00, 0x100, "SLT", pci_hotplug_notify);
-+    push_block("Method", "_E01");
-+    for (slot = 1; slot <= 31; slot++) {
-+        push_block("If", "And(PCIU, ShiftLeft(1, %i))", slot);
-+        stmt("Notify", "\\_SB.PCI0.S%i, 1", slot);
-         pop_block();
--    } else {
--        push_block("Method", "_E01");
--        for (slot = 1; slot <= 31; slot++) {
--            push_block("If", "And(PCIU, ShiftLeft(1, %i))", slot);
--            stmt("Notify", "\\_SB.PCI0.S%i, 1", slot);
--            pop_block();
--            push_block("If", "And(PCID, ShiftLeft(1, %i))", slot);
--            stmt("Notify", "\\_SB.PCI0.S%i, 3", slot);
--            pop_block();
--        }
-+        push_block("If", "And(PCID, ShiftLeft(1, %i))", slot);
-+        stmt("Notify", "\\_SB.PCI0.S%i, 3", slot);
-         pop_block();
-     }
-+    pop_block();
  
-     pop_block();
-     /**** GPE end ****/
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-index e03599ea99..8bc768b515 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -99,35 +99,14 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
-         b_info->device_model_ssidref = SECINITSID_DOMDM;
  
-     if (!b_info->device_model_version) {
--        if (b_info->type == LIBXL_DOMAIN_TYPE_HVM) {
--            if (libxl_defbool_val(b_info->device_model_stubdomain)) {
--                b_info->device_model_version =
--                    LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL;
--            } else {
--                b_info->device_model_version = LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN;
--            }
--        } else {
--            b_info->device_model_version =
--                LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN;
--        }
--        if (b_info->device_model_version
--                == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN) {
--            const char *dm;
+-if test "x$ioemu" = "xy" || test "x$ioemu" = "x"
+-then :
 -
--            dm = libxl__domain_device_model(gc, b_info);
--            rc = access(dm, X_OK);
--            if (rc < 0) {
--                /* qemu-xen unavailable, use qemu-xen-traditional */
--                if (errno == ENOENT) {
--                    LOGE(INFO, "qemu-xen is unavailable"
--                         ", using qemu-xen-traditional instead");
--                    b_info->device_model_version =
--                        LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL;
--                } else {
--                    LOGE(ERROR, "qemu-xen access error");
--                    return ERROR_FAIL;
--                }
--            }
-+        const char *dm;
-+
-+        b_info->device_model_version = LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN;
-+        dm = libxl__domain_device_model(gc, b_info);
-+        rc = access(dm, X_OK);
-+        if (rc < 0) {
-+            LOGE(ERROR, "qemu-xen access error");
-+            return ERROR_FAIL;
-         }
-     }
+-
+-ioemu=y
+-STUBDOM_TARGETS="$STUBDOM_TARGETS ioemu"
+-STUBDOM_BUILD="$STUBDOM_BUILD ioemu-stubdom"
+-STUBDOM_INSTALL="$STUBDOM_INSTALL install-ioemu"
+-STUBDOM_UNINSTALL="$STUBDOM_UNINSTALL install-ioemu"
+-
+-
+-else $as_nop
+-
+-
+-ioemu=n
+-
+-
+-fi
+-
+-
+-
  
-@@ -137,8 +116,6 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
-     if (b_info->type == LIBXL_DOMAIN_TYPE_HVM) {
-         if (!b_info->u.hvm.bios)
-             switch (b_info->device_model_version) {
--            case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--                b_info->u.hvm.bios = LIBXL_BIOS_TYPE_ROMBIOS; break;
-             case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-                 b_info->u.hvm.bios = LIBXL_BIOS_TYPE_SEABIOS; break;
-             default:
-@@ -148,12 +125,6 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
  
-         /* Enforce BIOS<->Device Model version relationship */
-         switch (b_info->device_model_version) {
--        case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--            if (b_info->u.hvm.bios != LIBXL_BIOS_TYPE_ROMBIOS) {
--                LOG(ERROR, "qemu-xen-traditional requires bios=rombios.");
--                return ERROR_INVAL;
--            }
--            break;
-         case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-             if (b_info->u.hvm.bios == LIBXL_BIOS_TYPE_ROMBIOS) {
-                 LOG(ERROR, "qemu-xen does not support bios=rombios.");
-@@ -176,10 +147,6 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
-         libxl_defbool_val(b_info->device_model_stubdomain)) {
-         if (!b_info->stubdomain_kernel) {
-             switch (b_info->device_model_version) {
--                case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--                    b_info->stubdomain_kernel =
--                        libxl__abs_path(NOGC, "ioemu-stubdom.gz", libxl__xenfirmwaredir_path());
--                    break;
-                 case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-                     b_info->stubdomain_kernel =
-                         libxl__abs_path(NOGC,
-@@ -192,8 +159,6 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
-         }
-         if (!b_info->stubdomain_ramdisk) {
-             switch (b_info->device_model_version) {
--                case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--                    break;
-                 case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-                     b_info->stubdomain_ramdisk =
-                         libxl__abs_path(NOGC,
-@@ -299,33 +264,6 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
-             b_info->u.hvm.hdtype = LIBXL_HDTYPE_IDE;
  
-         switch (b_info->device_model_version) {
--        case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--            switch (b_info->u.hvm.vga.kind) {
--            case LIBXL_VGA_INTERFACE_TYPE_NONE:
--                if (b_info->video_memkb == LIBXL_MEMKB_DEFAULT)
--                    b_info->video_memkb = 0;
--                break;
--            case LIBXL_VGA_INTERFACE_TYPE_QXL:
--                LOG(ERROR,"qemu upstream required for qxl vga");
--                return ERROR_INVAL;
--                break;
--            case LIBXL_VGA_INTERFACE_TYPE_STD:
--                if (b_info->video_memkb == LIBXL_MEMKB_DEFAULT)
--                    b_info->video_memkb = 8 * 1024;
--                if (b_info->video_memkb < 8 * 1024) {
--                    LOG(ERROR, "videoram must be at least 8 MB for STDVGA on QEMU_XEN_TRADITIONAL");
--                    return ERROR_INVAL;
--                }
--                break;
--            case LIBXL_VGA_INTERFACE_TYPE_CIRRUS:
--            default:
--                if (b_info->video_memkb == LIBXL_MEMKB_DEFAULT)
--                    b_info->video_memkb = 4 * 1024;
--                if (b_info->video_memkb != 4 * 1024)
--                    LOG(WARN, "ignoring videoram other than 4 MB for CIRRUS on QEMU_XEN_TRADITIONAL");
--                break;
--            }
--            break;
-         case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-         default:
-             switch (b_info->u.hvm.vga.kind) {
-diff --git a/tools/libs/light/libxl_device.c b/tools/libs/light/libxl_device.c
-index 4faa5fa3bd..42d71c17bc 100644
---- a/tools/libs/light/libxl_device.c
-+++ b/tools/libs/light/libxl_device.c
-@@ -1440,25 +1440,6 @@ static void devices_remove_callback(libxl__egc *egc,
-     return;
- }
+diff --git a/stubdom/configure.ac b/stubdom/configure.ac
+index fc736c0387..f07b08c5b3 100644
+--- a/stubdom/configure.ac
++++ b/stubdom/configure.ac
+@@ -18,7 +18,6 @@ m4_include([../m4/depends.m4])
+ m4_include([../m4/fetcher.m4])
  
--int libxl__wait_for_device_model_deprecated(libxl__gc *gc,
--                                 uint32_t domid, char *state,
--                                 libxl__spawn_starting *spawning,
--                                 int (*check_callback)(libxl__gc *gc,
--                                                       uint32_t domid,
--                                                       const char *state,
--                                                       void *userdata),
--                                 void *check_callback_userdata)
--{
--    char *path;
--    uint32_t dm_domid = libxl_get_stubdom_id(CTX, domid);
--
--    path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, "/state");
--    return libxl__xenstore_child_wait_deprecated(gc, domid,
--                                     LIBXL_DEVICE_MODEL_START_TIMEOUT,
--                                     "Device Model", path, state, spawning,
--                                     check_callback, check_callback_userdata);
--}
--
- int libxl__wait_for_backend(libxl__gc *gc, const char *be_path,
-                             const char *state)
- {
-diff --git a/tools/libs/light/libxl_disk.c b/tools/libs/light/libxl_disk.c
-index 6a0b6e06fe..456b5450ca 100644
---- a/tools/libs/light/libxl_disk.c
-+++ b/tools/libs/light/libxl_disk.c
-@@ -1007,13 +1007,6 @@ int libxl_cdrom_insert(libxl_ctx *ctx, uint32_t domid, libxl_device_disk *disk,
-         disk->backend = LIBXL_DISK_BACKEND_PHY;
-     }
+ # Enable/disable stub domains
+-AX_STUBDOM_CONDITIONAL([ioemu-stubdom], [ioemu])
+ AX_STUBDOM_DEFAULT_DISABLE([c-stubdom], [c])
+ AX_STUBDOM_DEFAULT_DISABLE([pv-grub], [grub])
+ AX_STUBDOM_DEFAULT_ENABLE([xenstore-stubdom], [xenstore])
+@@ -26,19 +25,6 @@ AX_STUBDOM_DEFAULT_ENABLE([xenstorepvh-stubdom], [xenstorepvh])
+ AX_STUBDOM_CONDITIONAL([vtpm-stubdom], [vtpm])
+ AX_STUBDOM_CONDITIONAL([vtpmmgr-stubdom], [vtpmmgr])
  
--    if (cis->dm_ver == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL &&
--        stubdomid) {
--        LOGD(ERROR, domid, "cdrom-insert doesn't work for Mini-OS stubdoms");
--        rc = ERROR_INVAL;
--        goto out;
--    }
+-AC_ARG_ENABLE([qemu-traditional])
+-AS_IF([test "x$enable_qemu_traditional" = "xyes"], [
+-    qemu_traditional=y],[
+-    qemu_traditional=n
+-])
+-AS_IF([test "x$ioemu" = "x"], [
+-    ioemu=$qemu_traditional
+-])
+-echo "x$ioemu$qemu_traditional"
+-AS_IF([test "x$ioemu$qemu_traditional" = "xyn"], [
+-    AC_MSG_ERROR(IOEMU stubdomain requires qemu-traditional)
+-])
 -
-     disks = libxl__device_list(gc, &libxl__disk_devtype, cis->disk_domid, &num);
-     for (i = 0; i < num; i++) {
-         if (disks[i].is_cdrom && !strcmp(disk->vdev, disks[i].vdev))
-diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-index 4627564c0d..645119b65a 100644
---- a/tools/libs/light/libxl_dm.c
-+++ b/tools/libs/light/libxl_dm.c
-@@ -328,9 +328,6 @@ const char *libxl__domain_device_model(libxl__gc *gc,
-         dm = libxl__strdup(gc, info->device_model);
-     } else {
-         switch (info->device_model_version) {
--        case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--            dm = libxl__abs_path(gc, "qemu-dm", libxl__private_bindir_path());
--            break;
-         case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN: {
-             const char *configured_dm = qemu_xen_path(gc);
-             if (configured_dm[0] == '/')
-@@ -704,272 +701,6 @@ static const char *dm_keymap(const libxl_domain_config *guest_config)
-         return NULL;
- }
+ AX_ARG_DEFAULT_ENABLE([debug], [Disable debug build of stubdom])
+ AX_ARG_DEFAULT_ENABLE([extfiles], [Use xen extfiles repository for libraries])
  
--static int libxl__build_device_model_args_old(libxl__gc *gc,
--                                        const char *dm, int domid,
--                                        const libxl_domain_config *guest_config,
--                                        char ***args, char ***envs,
--                                        const libxl__domain_build_state *state)
--{
--    const libxl_domain_create_info *c_info = &guest_config->c_info;
--    const libxl_domain_build_info *b_info = &guest_config->b_info;
--    const libxl_device_nic *nics = guest_config->nics;
--    const libxl_vnc_info *vnc = libxl__dm_vnc(guest_config);
--    const libxl_sdl_info *sdl = dm_sdl(guest_config);
--    const int num_nics = guest_config->num_nics;
--    const char *keymap = dm_keymap(guest_config);
--    int i;
--    flexarray_t *dm_args, *dm_envs;
--    dm_args = flexarray_make(gc, 16, 1);
--    dm_envs = flexarray_make(gc, 16, 1);
--
--    assert(state->dm_monitor_fd == -1);
--
--    flexarray_vappend(dm_args, dm,
--                      "-d", GCSPRINTF("%d", domid), NULL);
--
--    if (c_info->name)
--        flexarray_vappend(dm_args, "-domain-name", c_info->name, NULL);
--
--    if (vnc) {
--        char *vncarg = NULL;
--
--        flexarray_append(dm_args, "-vnc");
--
--        /*
--         * If vnc->listen is present and contains a :, and
--         *  - vnc->display is 0, use vnc->listen
--         *  - vnc->display is non-zero, be confused
--         * If vnc->listen is present but doesn't, use vnc->listen:vnc->display.
--         * If vnc->listen is not present, use 127.0.0.1:vnc->display
--         * (Remembering that vnc->display already defaults to 0.)
--         */
--        if (vnc->listen) {
--            if (strchr(vnc->listen, ':') != NULL) {
--                if (vnc->display) {
--                    LOGD(ERROR, domid, "vncdisplay set, vnclisten contains display");
--                    return ERROR_INVAL;
--                }
--                vncarg = vnc->listen;
--            } else {
--                vncarg = GCSPRINTF("%s:%d", vnc->listen, vnc->display);
--            }
--        } else
--            vncarg = GCSPRINTF("127.0.0.1:%d", vnc->display);
--
--        if (vnc->passwd && vnc->passwd[0]) {
--            vncarg = GCSPRINTF("%s,password", vncarg);
--        }
--
--        flexarray_append(dm_args, vncarg);
--
--        if (libxl_defbool_val(vnc->findunused)) {
--            flexarray_append(dm_args, "-vncunused");
--        }
--    } else if (!sdl) {
--        /*
--         * VNC is not enabled by default by qemu-xen-traditional,
--         * however skipping -vnc causes SDL to be
--         * (unexpectedly) enabled by default. If undesired, disable graphics at
--         * all.
--         */
--        flexarray_append(dm_args, "-nographic");
--    }
--
--    if (sdl) {
--        flexarray_append(dm_args, "-sdl");
--        if (!libxl_defbool_val(sdl->opengl)) {
--            flexarray_append(dm_args, "-disable-opengl");
--        }
--        if (sdl->display)
--            flexarray_append_pair(dm_envs, "DISPLAY", sdl->display);
--        if (sdl->xauthority)
--            flexarray_append_pair(dm_envs, "XAUTHORITY", sdl->xauthority);
--    }
--    if (keymap) {
--        flexarray_vappend(dm_args, "-k", keymap, NULL);
--    }
--    if (b_info->type == LIBXL_DOMAIN_TYPE_HVM) {
--        int ioemu_nics = 0;
--        int nr_set_cpus = 0;
--        char *s;
--
--        flexarray_append_pair(dm_envs, "XEN_DOMAIN_ID", GCSPRINTF("%d", domid));
--
--        if (b_info->kernel) {
--            LOGD(ERROR, domid, "HVM direct kernel boot is not supported by "
--                 "qemu-xen-traditional");
--            return ERROR_INVAL;
--        }
--
--        if (b_info->u.hvm.serial || b_info->u.hvm.serial_list) {
--            if ( b_info->u.hvm.serial && b_info->u.hvm.serial_list )
--            {
--                LOGD(ERROR, domid, "Both serial and serial_list set");
--                return ERROR_INVAL;
--            }
--            if (b_info->u.hvm.serial) {
--                flexarray_vappend(dm_args,
--                                  "-serial", b_info->u.hvm.serial, NULL);
--            } else if (b_info->u.hvm.serial_list) {
--                char **p;
--                for (p = b_info->u.hvm.serial_list;
--                     *p;
--                     p++) {
--                    flexarray_vappend(dm_args,
--                                      "-serial",
--                                      *p, NULL);
--                }
--            }
--        }
--
--        if (libxl_defbool_val(b_info->u.hvm.nographic) && (!sdl && !vnc)) {
--            flexarray_append(dm_args, "-nographic");
--        }
--
--        if (b_info->video_memkb) {
--            flexarray_vappend(dm_args, "-videoram",
--                    GCSPRINTF("%d", libxl__sizekb_to_mb(b_info->video_memkb)),
--                    NULL);
--        }
--
--        switch (b_info->u.hvm.vga.kind) {
--        case LIBXL_VGA_INTERFACE_TYPE_STD:
--            flexarray_append(dm_args, "-std-vga");
--            break;
--        case LIBXL_VGA_INTERFACE_TYPE_CIRRUS:
--            break;
--        case LIBXL_VGA_INTERFACE_TYPE_NONE:
--            flexarray_append_pair(dm_args, "-vga", "none");
--            break;
--        case LIBXL_VGA_INTERFACE_TYPE_QXL:
--            break;
--        default:
--            LOGD(ERROR, domid, "Invalid emulated video card specified");
--            return ERROR_INVAL;
--        }
--
--        if (b_info->u.hvm.boot) {
--            flexarray_vappend(dm_args, "-boot", b_info->u.hvm.boot, NULL);
--        }
--        if (libxl_defbool_val(b_info->u.hvm.usb)
--            || b_info->u.hvm.usbdevice
--            || libxl_string_list_length(&b_info->u.hvm.usbdevice_list)) {
--            if (b_info->u.hvm.usbdevice
--                && libxl_string_list_length(&b_info->u.hvm.usbdevice_list)) {
--                LOGD(ERROR, domid, "Both usbdevice and usbdevice_list set");
--                return ERROR_INVAL;
--            }
--            flexarray_append(dm_args, "-usb");
--            if (b_info->u.hvm.usbdevice) {
--                flexarray_vappend(dm_args,
--                                  "-usbdevice", b_info->u.hvm.usbdevice, NULL);
--            } else if (b_info->u.hvm.usbdevice_list) {
--                char **p;
--                for (p = b_info->u.hvm.usbdevice_list;
--                     *p;
--                     p++) {
--                    flexarray_vappend(dm_args,
--                                      "-usbdevice",
--                                      *p, NULL);
--                }
--            }
--        }
--        if (b_info->u.hvm.soundhw) {
--            flexarray_vappend(dm_args, "-soundhw", b_info->u.hvm.soundhw, NULL);
--        }
--        if (libxl__acpi_defbool_val(b_info)) {
--            flexarray_append(dm_args, "-acpi");
--        }
--        if (b_info->max_vcpus > 1) {
--            flexarray_vappend(dm_args, "-vcpus",
--                              GCSPRINTF("%d", b_info->max_vcpus),
--                              NULL);
--        }
--
--        nr_set_cpus = libxl_bitmap_count_set(&b_info->avail_vcpus);
--        s = libxl_bitmap_to_hex_string(CTX, &b_info->avail_vcpus);
--        flexarray_vappend(dm_args, "-vcpu_avail",
--                              GCSPRINTF("%s", s), NULL);
--        free(s);
--
--        for (i = 0; i < num_nics; i++) {
--            if (nics[i].nictype == LIBXL_NIC_TYPE_VIF_IOEMU) {
--                char *smac = GCSPRINTF(
--                                   LIBXL_MAC_FMT, LIBXL_MAC_BYTES(nics[i].mac));
--                const char *ifname = libxl__device_nic_devname(gc,
--                                                domid, nics[i].devid,
--                                                LIBXL_NIC_TYPE_VIF_IOEMU);
--                flexarray_vappend(dm_args,
--                                  "-net",
--                                  GCSPRINTF(
--                                      "nic,vlan=%d,macaddr=%s,model=%s",
--                                      nics[i].devid, smac, nics[i].model),
--                                  "-net",
--                                  GCSPRINTF(
--                                      "tap,vlan=%d,ifname=%s,bridge=%s,"
--                                      "script=%s,downscript=%s",
--                                      nics[i].devid, ifname, nics[i].bridge,
--                                      libxl_tapif_script(gc),
--                                      libxl_tapif_script(gc)),
--                                  NULL);
--                ioemu_nics++;
--            }
--        }
--        /* If we have no emulated nics, tell qemu not to create any */
--        if ( ioemu_nics == 0 ) {
--            flexarray_vappend(dm_args, "-net", "none", NULL);
--        }
--        if (libxl_defbool_val(b_info->u.hvm.gfx_passthru)) {
--            switch (b_info->u.hvm.gfx_passthru_kind) {
--            case LIBXL_GFX_PASSTHRU_KIND_DEFAULT:
--            case LIBXL_GFX_PASSTHRU_KIND_IGD:
--                flexarray_append(dm_args, "-gfx_passthru");
--                break;
--            default:
--                LOGD(ERROR, domid, "unsupported gfx_passthru_kind.");
--                return ERROR_INVAL;
--            }
--        }
--    } else {
--        if (!sdl && !vnc)
--            flexarray_append(dm_args, "-nographic");
--    }
--
--    if (libxl_defbool_val(b_info->dm_restrict)) {
--        LOGD(ERROR, domid,
--             "dm_restrict not supported by qemu-xen-traditional");
--        return ERROR_INVAL;
--    }
--
--    if (state->saved_state) {
--        flexarray_vappend(dm_args, "-loadvm", state->saved_state, NULL);
--    }
--    for (i = 0; b_info->extra && b_info->extra[i] != NULL; i++)
--        flexarray_append(dm_args, b_info->extra[i]);
--    flexarray_append(dm_args, "-M");
--    switch (b_info->type) {
--    case LIBXL_DOMAIN_TYPE_PVH:
--    case LIBXL_DOMAIN_TYPE_PV:
--        flexarray_append(dm_args, "xenpv");
--        for (i = 0; b_info->extra_pv && b_info->extra_pv[i] != NULL; i++)
--            flexarray_append(dm_args, b_info->extra_pv[i]);
--        break;
--    case LIBXL_DOMAIN_TYPE_HVM:
--        flexarray_append(dm_args, "xenfv");
--        for (i = 0; b_info->extra_hvm && b_info->extra_hvm[i] != NULL; i++)
--            flexarray_append(dm_args, b_info->extra_hvm[i]);
--        break;
--    default:
--        abort();
--    }
--    flexarray_append(dm_args, NULL);
--    *args = (char **) flexarray_contents(dm_args);
--    flexarray_append(dm_envs, NULL);
--    if (envs)
--        *envs = (char **) flexarray_contents(dm_envs);
--    return 0;
--}
--
- static char *dm_spice_options(libxl__gc *gc,
-                                     const libxl_spice_info *spice)
- {
-@@ -2096,11 +1827,6 @@ static int libxl__build_device_model_args(libxl__gc *gc,
-  * and therefore will be passing a filename rather than a fd. */
- {
-     switch (guest_config->b_info.device_model_version) {
--    case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--        return libxl__build_device_model_args_old(gc, dm,
--                                                  guest_domid, guest_config,
--                                                  args, envs,
--                                                  state);
-     case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-         if (!libxl_defbool_val(guest_config->b_info.device_model_stubdomain)) {
-             assert(dm_state_fd != NULL);
-@@ -2463,16 +2189,15 @@ void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state *sdss)
-                         "%s",
-                         libxl_bios_type_to_string(guest_config->b_info.u.hvm.bios));
-     }
--    /* Disable relocating memory to make the MMIO hole larger
--     * unless we're running qemu-traditional and vNUMA is not
--     * configured. */
-+
-+    /*
-+     * Disable relocating memory, having a lager MMIO hole isn't
-+     * implemented with qemu-xen.
-+     */
-     libxl__xs_printf(gc, XBT_NULL,
-                      libxl__sprintf(gc, "%s/hvmloader/allow-memory-relocate",
-                                     libxl__xs_get_dompath(gc, guest_domid)),
--                     "%d",
--                     guest_config->b_info.device_model_version
--                        == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL &&
--                     !libxl__vnuma_configured(&guest_config->b_info));
-+                     "0");
-     ret = xc_domain_set_target(ctx->xch, dm_domid, guest_domid);
-     if (ret<0) {
-         LOGED(ERROR, guest_domid, "setting target domain %d -> %d",
-@@ -3156,13 +2881,9 @@ static void device_model_launch(libxl__egc *egc,
-     libxl_domain_config *guest_config = dmss->guest_config;
-     const libxl_domain_create_info *c_info = &guest_config->c_info;
-     const libxl_domain_build_info *b_info = &guest_config->b_info;
--    const libxl_vnc_info *vnc = libxl__dm_vnc(guest_config);
-     char *path;
-     int logfile_w, null;
-     char **args, **arg, **envs;
--    xs_transaction_t t;
--    char *vm_path;
--    char **pass_stuff;
-     int dm_state_fd = -1;
+@@ -69,7 +55,6 @@ AX_STUBDOM_AUTO_DEPENDS([vtpmmgr], [vtpm])
+ #Conditionally enable these stubdoms based on the presense of dependencies
+ AX_STUBDOM_CONDITIONAL_FINISH([vtpm-stubdom], [vtpm])
+ AX_STUBDOM_CONDITIONAL_FINISH([vtpmmgr-stubdom], [vtpmmgr])
+-AX_STUBDOM_CONDITIONAL_FINISH([ioemu-stubdom], [ioemu])
  
-     /* convenience aliases */
-@@ -3196,26 +2917,19 @@ static void device_model_launch(libxl__egc *egc,
-         libxl__xs_printf(gc, XBT_NULL,
-                          GCSPRINTF("%s/hvmloader/bios", path),
-                          "%s", libxl_bios_type_to_string(b_info->u.hvm.bios));
--        /* Disable relocating memory to make the MMIO hole larger
--         * unless we're running qemu-traditional and vNUMA is not
--         * configured. */
-+        /*
-+         * Disable relocating memory, having a lager MMIO hole isn't
-+         * implemented with qemu-xen.
-+         */
-         libxl__xs_printf(gc, XBT_NULL,
-                          GCSPRINTF("%s/hvmloader/allow-memory-relocate", path),
--                         "%d",
--                         b_info->device_model_version==LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL &&
--                         !libxl__vnuma_configured(b_info));
-+                         "0");
-         free(path);
-     }
+ AX_STUBDOM_FINISH
+ AC_OUTPUT()
+diff --git a/stubdom/ioemu-minios.cfg b/stubdom/ioemu-minios.cfg
+deleted file mode 100644
+index 6153ae05f8..0000000000
+--- a/stubdom/ioemu-minios.cfg
++++ /dev/null
+@@ -1,6 +0,0 @@
+-CONFIG_LIBC=y
+-CONFIG_LWIP=y
+-CONFIG_START_NETWORK=n
+-CONFIG_QEMU_XS_ARGS=y
+-CONFIG_PCIFRONT=y
+-XEN_INTERFACE_VERSION=__XEN_LATEST_INTERFACE_VERSION__
+diff --git a/tools/Makefile b/tools/Makefile
+index e9e1cda305..6ecf7c0da8 100644
+--- a/tools/Makefile
++++ b/tools/Makefile
+@@ -24,7 +24,6 @@ SUBDIRS-$(CONFIG_Linux) += vchan
  
-     path = DEVICE_MODEL_XS_PATH(gc, LIBXL_TOOLSTACK_DOMID, domid, "");
-     xs_mkdir(ctx->xsh, XBT_NULL, path);
+ # do not recurse in to a dir we are about to delete
+ ifneq "$(MAKECMDGOALS)" "distclean"
+-SUBDIRS-$(CONFIG_QEMU_TRAD) += qemu-xen-traditional-dir
+ SUBDIRS-$(CONFIG_QEMU_XEN) += qemu-xen-dir
+ endif
  
--    if (b_info->type == LIBXL_DOMAIN_TYPE_HVM &&
--        b_info->device_model_version
--        == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL)
--        libxl__xs_printf(gc, XBT_NULL, GCSPRINTF("%s/disable_pf", path),
--                         "%d", !libxl_defbool_val(b_info->u.hvm.xen_platform_pci));
--
-     logfile_w = libxl__create_qemu_logfile(gc, GCSPRINTF("qemu-dm-%s",
-                                                          c_info->name));
-     if (logfile_w < 0) {
-@@ -3240,25 +2954,6 @@ static void device_model_launch(libxl__egc *egc,
-                          GCSPRINTF("%s/image/device-model-kill-uid", dom_path),
-                          "%s", state->dm_kill_uid);
+@@ -79,7 +78,6 @@ clean: subdirs-clean
  
--    if (vnc && vnc->passwd) {
--        /* This xenstore key will only be used by qemu-xen-traditionnal.
--         * The code to supply vncpasswd to qemu-xen is later. */
--retry_transaction:
--        /* Find uuid and the write the vnc password to xenstore for qemu. */
--        t = xs_transaction_start(ctx->xsh);
--        vm_path = libxl__xs_read(gc,t,GCSPRINTF("%s/vm", dom_path));
--        if (vm_path) {
--            /* Now write the vncpassword into it. */
--            pass_stuff = libxl__calloc(gc, 3, sizeof(char *));
--            pass_stuff[0] = "vncpasswd";
--            pass_stuff[1] = vnc->passwd;
--            libxl__xs_writev(gc,t,vm_path,pass_stuff);
--            if (!xs_transaction_end(ctx->xsh, t, 0))
--                if (errno == EAGAIN)
--                    goto retry_transaction;
--        }
--    }
--
-     LOGD(DEBUG, domid, "Spawning device-model %s with arguments:", dm);
-     for (arg = args; *arg; arg++)
-         LOGD(DEBUG, domid, "  %s", *arg);
-diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
-index 94fef37401..4d67b0d282 100644
---- a/tools/libs/light/libxl_dom.c
-+++ b/tools/libs/light/libxl_dom.c
-@@ -881,7 +881,6 @@ static int libxl__domain_firmware(libxl__gc *gc,
-             switch (info->device_model_version)
-             {
-             case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
--            case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
-                 firmware = "hvmloader";
-                 break;
-             default:
-@@ -1212,15 +1211,6 @@ out:
-     return rc;
- }
+ .PHONY: distclean
+ distclean: subdirs-distclean clean
+-	rm -rf qemu-xen-traditional-dir qemu-xen-traditional-dir-remote
+ 	rm -rf qemu-xen-dir qemu-xen-dir-remote qemu-xen-build
+ 	rm -rf ../config/Tools.mk config.h config.log config.status \
+ 		config.cache autom4te.cache
+@@ -97,11 +95,6 @@ QEMU_UPSTREAM_RPATH := -Wl,-rpath,$(LIBEXEC_LIB)
+ IOEMU_EXTRA_LDFLAGS :=
+ endif
  
--int libxl__qemu_traditional_cmd(libxl__gc *gc, uint32_t domid,
--                                const char *cmd)
--{
--    char *path = NULL;
--    uint32_t dm_domid = libxl_get_stubdom_id(CTX, domid);
--    path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, "/command");
--    return libxl__xs_printf(gc, XBT_NULL, path, "%s", cmd);
--}
+-QEMU_ROOT := $(shell if [ -d "$(QEMU_TRADITIONAL_LOC)" ]; then echo "$(QEMU_TRADITIONAL_LOC)"; else echo .; fi)
+-ifneq ($(QEMU_ROOT),.)
+-export QEMU_ROOT
+-endif
 -
- /*==================== Miscellaneous ====================*/
+ # Targets for external trees:
+ #  ${target}-dir-find
+ #    See if the directory exists and check it out if not.
+@@ -136,54 +129,6 @@ endif
+ #   ${TARGET}_LOC
+ #     The ultimate location of the source (either a local dir or remote URL)
  
- char *libxl__uuid2string(libxl__gc *gc, const libxl_uuid uuid)
-diff --git a/tools/libs/light/libxl_dom_save.c b/tools/libs/light/libxl_dom_save.c
-index 32e3cb5a13..d64fd64f2e 100644
---- a/tools/libs/light/libxl_dom_save.c
-+++ b/tools/libs/light/libxl_dom_save.c
-@@ -28,19 +28,6 @@ static void domain_save_done(libxl__egc *egc,
+-# External target: qemu-xen-traditional
+-qemu-xen-traditional-dir-find:
+-	set -ex; \
+-	if test -d $(QEMU_TRADITIONAL_LOC); then \
+-		mkdir -p qemu-xen-traditional-dir; \
+-	else \
+-		export GIT=$(GIT); \
+-		$(XEN_ROOT)/scripts/git-checkout.sh $(QEMU_TRADITIONAL_LOC) $(QEMU_TRADITIONAL_REVISION) qemu-xen-traditional-dir; \
+-	fi
+-
+-.PHONY: qemu-xen-traditional-dir-force-update
+-qemu-xen-traditional-dir-force-update: qemu-xen-traditional-dir-find
+-	set -ex; \
+-	if [ "$(QEMU_TRADITIONAL_REVISION)" ]; then \
+-		cd qemu-xen-traditional-dir-remote; \
+-		$(GIT) fetch origin; \
+-		$(GIT) reset --hard $(QEMU_TRADITIONAL_REVISION); \
+-	fi
+-
+-qemu-traditional-recurse = \
+-	set -e; \
+-		$(buildmakevars2shellvars); \
+-		export CONFIG_BLKTAP1=n; \
+-		export BUILDING_QEMU_TRAD=y; \
+-		cd qemu-xen-traditional-dir; \
+-		$(1)
+-
+-subdir-all-qemu-xen-traditional-dir: qemu-xen-traditional-dir-find
+-	$(call qemu-traditional-recurse,\
+-		$(QEMU_ROOT)/xen-setup \
+-		--extra-cflags="-D__XEN_TOOLS__ $(EXTRA_CFLAGS_QEMU_TRADITIONAL)" \
+-		$(IOEMU_EXTRA_LDFLAGS) \
+-		--cpu=$(IOEMU_CPU_ARCH) \
+-		$(IOEMU_CONFIGURE_CROSS); \
+-		$(MAKE) all \
+-	)
+-
+-subdir-install-qemu-xen-traditional-dir: subdir-all-qemu-xen-traditional-dir
+-	$(call qemu-traditional-recurse,$(MAKE) install)
+-
+-subdir-clean-qemu-xen-traditional-dir:
+-	set -e; if test -d qemu-xen-traditional-dir/.; then \
+-		$(MAKE) -C qemu-xen-traditional-dir clean; \
+-	fi
+-subdir-uninstall-qemu-xen-traditional-dir:
+-	rm -f $(D)$(bindir)/qemu-nbd*
+-	rm -f $(D)$(bindir)/qemu-img*
+-
+ # External target: qemu-xen
+ qemu-xen-dir-find:
+ 	if test -d $(QEMU_UPSTREAM_LOC) ; then \
+@@ -276,9 +221,6 @@ subtree-force-update:
+ ifeq ($(CONFIG_QEMU_XEN),y)
+ 	$(MAKE) qemu-xen-dir-force-update
+ endif
+-ifeq ($(CONFIG_QEMU_TRAD),y)
+-	$(MAKE) qemu-xen-traditional-dir-force-update
+-endif
+ ifeq ($(CONFIG_X86),y)
+ 	$(MAKE) -C firmware subtree-force-update
+ endif
+diff --git a/tools/Rules.mk b/tools/Rules.mk
+index 6bd636709f..725c3c32e9 100644
+--- a/tools/Rules.mk
++++ b/tools/Rules.mk
+@@ -134,12 +134,9 @@ endif
  
- /*----- complicated callback, called by xc_domain_save -----*/
+ CFLAGS_libxenlight += $(CFLAGS_libxenctrl)
  
--/*
-- * We implement the other end of protocol for controlling qemu-dm's
-- * logdirty.  There is no documentation for this protocol, but our
-- * counterparty's implementation is in
-- * qemu-xen-traditional.git:xenstore.c in the function
-- * xenstore_process_logdirty_event
-- */
--
--static void domain_suspend_switch_qemu_xen_traditional_logdirty
--                               (libxl__egc *egc, int domid, unsigned enable,
--                                libxl__logdirty_switch *lds);
--static void switch_logdirty_xswatch(libxl__egc *egc, libxl__ev_xswatch*,
--                            const char *watch_path, const char *event_path);
- static void domain_suspend_switch_qemu_xen_logdirty
-                                (libxl__egc *egc, int domid, unsigned enable,
-                                 libxl__logdirty_switch *lds);
-@@ -69,10 +56,6 @@ void libxl__domain_common_switch_qemu_logdirty(libxl__egc *egc,
-     STATE_AO_GC(lds->ao);
+-# Don't add -Werror if we are used by qemu-trad build system.
+-ifndef BUILDING_QEMU_TRAD
+ ifeq ($(CONFIG_WERROR),y)
+ CFLAGS += -Werror
+ endif
+-endif
  
-     switch (libxl__device_model_version_running(gc, domid)) {
--    case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--        domain_suspend_switch_qemu_xen_traditional_logdirty(egc, domid, enable,
--                                                            lds);
--        break;
-     case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-         domain_suspend_switch_qemu_xen_logdirty(egc, domid, enable, lds);
-         break;
-@@ -83,129 +66,6 @@ void libxl__domain_common_switch_qemu_logdirty(libxl__egc *egc,
-     }
- }
+ ifeq ($(debug),y)
+ # Use -Og if available, -O0 otherwise
+diff --git a/tools/config.h.in b/tools/config.h.in
+index 0bab3cb136..fe2a94cfc4 100644
+--- a/tools/config.h.in
++++ b/tools/config.h.in
+@@ -42,9 +42,6 @@
+ /* pygrub enabled */
+ #undef HAVE_PYGRUB
  
--static void domain_suspend_switch_qemu_xen_traditional_logdirty
--                               (libxl__egc *egc, int domid, unsigned enable,
--                                libxl__logdirty_switch *lds)
--{
--    STATE_AO_GC(lds->ao);
--    int rc;
--    xs_transaction_t t = 0;
--    const char *got;
+-/* Qemu traditional enabled */
+-#undef HAVE_QEMU_TRADITIONAL
 -
--    if (!lds->cmd_path) {
--        uint32_t dm_domid = libxl_get_stubdom_id(CTX, domid);
--        lds->cmd_path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid,
--                                             "/logdirty/cmd");
--        lds->ret_path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid,
--                                             "/logdirty/ret");
--    }
--    lds->cmd = enable ? "enable" : "disable";
--
--    rc = libxl__ev_xswatch_register(gc, &lds->watch,
--                                switch_logdirty_xswatch, lds->ret_path);
--    if (rc) goto out;
--
--    rc = libxl__ev_time_register_rel(ao, &lds->timeout,
--                                switch_logdirty_timeout, 10*1000);
--    if (rc) goto out;
--
--    for (;;) {
--        rc = libxl__xs_transaction_start(gc, &t);
--        if (rc) goto out;
--
--        rc = libxl__xs_read_checked(gc, t, lds->cmd_path, &got);
--        if (rc) goto out;
--
--        if (got) {
--            const char *got_ret;
--            rc = libxl__xs_read_checked(gc, t, lds->ret_path, &got_ret);
--            if (rc) goto out;
--
--            if (!got_ret || strcmp(got, got_ret)) {
--                LOGD(ERROR, domid, "controlling logdirty: qemu was already sent"
--                     " command `%s' (xenstore path `%s') but result is `%s'",
--                     got, lds->cmd_path, got_ret ? got_ret : "<none>");
--                rc = ERROR_FAIL;
--                goto out;
--            }
--            rc = libxl__xs_rm_checked(gc, t, lds->cmd_path);
--            if (rc) goto out;
--        }
--
--        rc = libxl__xs_rm_checked(gc, t, lds->ret_path);
--        if (rc) goto out;
--
--        rc = libxl__xs_write_checked(gc, t, lds->cmd_path, lds->cmd);
--        if (rc) goto out;
--
--        rc = libxl__xs_transaction_commit(gc, &t);
--        if (!rc) break;
--        if (rc<0) goto out;
--    }
--
--    /* OK, wait for some callback */
--    return;
--
-- out:
--    LOGD(ERROR, domid, "logdirty switch failed (rc=%d), abandoning suspend",rc);
--    libxl__xs_transaction_abort(gc, &t);
--    switch_logdirty_done(egc,lds,rc);
--}
--
--static void switch_logdirty_xswatch(libxl__egc *egc, libxl__ev_xswatch *watch,
--                            const char *watch_path, const char *event_path)
--{
--    libxl__logdirty_switch *lds = CONTAINER_OF(watch, *lds, watch);
--    STATE_AO_GC(lds->ao);
--    const char *got;
--    xs_transaction_t t = 0;
--    int rc;
--
--    for (;;) {
--        rc = libxl__xs_transaction_start(gc, &t);
--        if (rc) goto out;
--
--        rc = libxl__xs_read_checked(gc, t, lds->ret_path, &got);
--        if (rc) goto out;
--
--        if (!got) {
--            rc = +1;
--            goto out;
--        }
--
--        if (strcmp(got, lds->cmd)) {
--            LOG(ERROR,"logdirty switch: sent command `%s' but got reply `%s'"
--                " (xenstore paths `%s' / `%s')", lds->cmd, got,
--                lds->cmd_path, lds->ret_path);
--            rc = ERROR_FAIL;
--            goto out;
--        }
--
--        rc = libxl__xs_rm_checked(gc, t, lds->cmd_path);
--        if (rc) goto out;
--
--        rc = libxl__xs_rm_checked(gc, t, lds->ret_path);
--        if (rc) goto out;
--
--        rc = libxl__xs_transaction_commit(gc, &t);
--        if (!rc) break;
--        if (rc<0) goto out;
--    }
--
-- out:
--    /* rc < 0: error
--     * rc == 0: ok, we are done
--     * rc == +1: need to keep waiting
--     */
--    libxl__xs_transaction_abort(gc, &t);
--
--    if (rc <= 0) {
--        if (rc < 0)
--            LOG(ERROR,"logdirty switch: failed (rc=%d)",rc);
--        switch_logdirty_done(egc,lds,rc);
--    }
--}
--
- static void domain_suspend_switch_qemu_xen_logdirty
-                                (libxl__egc *egc, int domid, unsigned enable,
-                                 libxl__logdirty_switch *lds)
-diff --git a/tools/libs/light/libxl_dom_suspend.c b/tools/libs/light/libxl_dom_suspend.c
-index 6091a5f3f6..f0a74fc82c 100644
---- a/tools/libs/light/libxl_dom_suspend.c
-+++ b/tools/libs/light/libxl_dom_suspend.c
-@@ -85,15 +85,8 @@ void libxl__domain_suspend_device_model(libxl__egc *egc,
-     STATE_AO_GC(dsps->ao);
-     int rc = 0;
-     uint32_t const domid = dsps->domid;
--    const char *const filename = dsps->dm_savefile;
+ /* ROMBIOS enabled */
+ #undef HAVE_ROMBIOS
  
-     switch (libxl__device_model_version_running(gc, domid)) {
--    case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL: {
--        LOGD(DEBUG, domid, "Saving device model state to %s", filename);
--        libxl__qemu_traditional_cmd(gc, domid, "save");
--        libxl__wait_for_device_model_deprecated(gc, domid, "paused", NULL, NULL, NULL);
--        break;
--    }
-     case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-         /* calls dsps->callback_device_model_done when done */
-         libxl__qmp_suspend_save(egc, dsps); /* must be last */
-@@ -420,21 +413,7 @@ static void domain_suspend_callback_common_done(libxl__egc *egc,
+diff --git a/tools/configure b/tools/configure
+index e1f6ea6bf5..27ae7c52fb 100755
+--- a/tools/configure
++++ b/tools/configure
+@@ -726,7 +726,6 @@ BCC
+ LD86
+ AS86
+ ipxe
+-qemu_traditional
+ LINUX_BACKEND_MODULES
+ pygrub
+ golang
+@@ -835,7 +834,6 @@ enable_seabios
+ enable_golang
+ enable_pygrub
+ with_linux_backend_modules
+-enable_qemu_traditional
+ enable_ipxe
+ with_system_ipxe
+ enable_rombios
+@@ -1518,13 +1516,10 @@ Optional Features:
+   --disable-seabios       Disable SeaBIOS (default is ENABLED)
+   --disable-golang        Disable Go tools (default is ENABLED)
+   --disable-pygrub        Disable pygrub (default is ENABLED)
+-  --enable-qemu-traditional
+-                          Enable qemu traditional device model, (DEFAULT is
+-                          off)
+   --enable-ipxe           Enable in-tree IPXE, (DEFAULT is off, see also
+                           --with-system-ipxe)
+-  --enable-rombios        Enable ROMBIOS, (DEFAULT is on if qemu-traditional
+-                          or ipxe is enabled, otherwise off)
++  --enable-rombios        Enable ROMBIOS, (DEFAULT is on if ipxe is enabled,
++                          otherwise off)
+   --enable-libfsimage     Enable libfsimage, (DEFAULT is on if pygrub is
+                           enabled, otherwise off)
+   --enable-systemd        Enable systemd support (default is DISABLED)
+@@ -4838,45 +4833,16 @@ fi
+ LINUX_BACKEND_MODULES="`eval echo $LINUX_BACKEND_MODULES`"
  
- int libxl__domain_resume_device_model_deprecated(libxl__gc *gc, uint32_t domid)
- {
--    const char *path, *state;
--
-     switch (libxl__device_model_version_running(gc, domid)) {
--    case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL: {
--        uint32_t dm_domid = libxl_get_stubdom_id(CTX, domid);
--
--        path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, "/state");
--        state = libxl__xs_read(gc, XBT_NULL, path);
--        if (state != NULL && !strcmp(state, "paused")) {
--            libxl__qemu_traditional_cmd(gc, domid, "continue");
--            libxl__wait_for_device_model_deprecated(gc, domid, "running",
--                                                    NULL, NULL, NULL);
--        }
--        break;
--    }
-     case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-         if (libxl__qmp_resume(gc, domid))
-             return ERROR_FAIL;
-@@ -493,8 +472,6 @@ static void dm_resume_dispose(libxl__gc *gc,
-     libxl__ev_xswatch_deregister(gc, &dmrs->watch);
- }
  
--static void dm_resume_xswatch_cb(libxl__egc *egc,
--    libxl__ev_xswatch *, const char *watch_path, const char *);
- static void dm_resume_qmp_done(libxl__egc *egc,
-     libxl__ev_qmp *qmp, const libxl__json_object *, int rc);
- static void dm_resume_timeout(libxl__egc *egc,
-@@ -521,27 +498,6 @@ void libxl__dm_resume(libxl__egc *egc,
-     if (rc) goto out;
+-# Check whether --enable-qemu-traditional was given.
+-if test ${enable_qemu_traditional+y}
+-then :
+-  enableval=$enable_qemu_traditional;
+-fi
+-
+-if test "x$enable_qemu_traditional" = "xyes"
+-then :
+-
+-
+-printf "%s\n" "#define HAVE_QEMU_TRADITIONAL 1" >>confdefs.h
+-
+-    qemu_traditional=y
+-else $as_nop
+-
+-    qemu_traditional=n
+-
+-fi
+-
+-
+ # Check whether --enable-ipxe was given.
+ if test ${enable_ipxe+y}
+ then :
+   enableval=$enable_ipxe;
+-else $as_nop
+-
+-    if test "x$enable_qemu_traditional" = "xyes"
+-then :
+-
+-        enable_ipxe="yes"
+-
+ else $as_nop
  
-     switch (libxl__device_model_version_running(gc, domid)) {
--    case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL: {
--        uint32_t dm_domid = libxl_get_stubdom_id(CTX, domid);
--        const char *path, *state;
--
--        path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, "/state");
--        rc = libxl__xs_read_checked(gc, XBT_NULL, path, &state);
--        if (rc) goto out;
--        if (!state || strcmp(state, "paused")) {
--            /* already running */
--            rc = 0;
--            goto out;
--        }
--
--        rc = libxl__qemu_traditional_cmd(gc, domid, "continue");
--        if (rc) goto out;
--        rc = libxl__ev_xswatch_register(gc, &dmrs->watch,
--                                        dm_resume_xswatch_cb,
--                                        path);
--        if (rc) goto out;
--        break;
--    }
-     case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-         qmp->ao = dmrs->ao;
-         qmp->domid = domid;
-@@ -561,27 +517,6 @@ out:
-     dm_resume_done(egc, dmrs, rc);
- }
+         enable_ipxe="no"
  
--static void dm_resume_xswatch_cb(libxl__egc *egc,
--                                 libxl__ev_xswatch *xsw,
--                                 const char *watch_path,
--                                 const char *event_path)
--{
--    EGC_GC;
--    libxl__dm_resume_state *dmrs = CONTAINER_OF(xsw, *dmrs, watch);
--    int rc;
--    const char *value;
--
--    rc = libxl__xs_read_checked(gc, XBT_NULL, watch_path, &value);
--    if (rc) goto out;
--
--    if (!value || strcmp(value, "running"))
--        return;
--
--    rc = 0;
--out:
--    dm_resume_done(egc, dmrs, rc);
--}
--
- static void dm_resume_qmp_done(libxl__egc *egc,
-                                libxl__ev_qmp *qmp,
-                                const libxl__json_object *response,
-diff --git a/tools/libs/light/libxl_domain.c b/tools/libs/light/libxl_domain.c
-index 6751fc785f..dd2e5e9a19 100644
---- a/tools/libs/light/libxl_domain.c
-+++ b/tools/libs/light/libxl_domain.c
-@@ -1877,8 +1877,6 @@ int libxl_set_vcpuonline(libxl_ctx *ctx, uint32_t domid,
-     switch (libxl__domain_type(gc, domid)) {
-     case LIBXL_DOMAIN_TYPE_HVM:
-         switch (libxl__device_model_version_running(gc, domid)) {
--        case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--            break;
-         case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-             rc = libxl__ev_time_register_rel(ao, &svos->timeout,
-                                              set_vcpuonline_timeout,
-@@ -2116,7 +2114,6 @@ static void domain_s3_resume(libxl__ao *ao, libxl__egc *egc, int domid)
-     AO_GC;
-     libxl__ev_qmp *qmp;
-     int rc = 0;
--    int r;
+ fi
  
-     GCNEW(qmp);
-     libxl__ev_qmp_init(qmp);
-@@ -2128,14 +2125,6 @@ static void domain_s3_resume(libxl__ao *ao, libxl__egc *egc, int domid)
-     switch (libxl__domain_type(gc, domid)) {
-     case LIBXL_DOMAIN_TYPE_HVM:
-         switch (libxl__device_model_version_running(gc, domid)) {
--        case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--            r = xc_hvm_param_set(CTX->xch, domid, HVM_PARAM_ACPI_S_STATE, 0);
--            if (r) {
--                LOGED(ERROR, domid, "Send trigger '%s' failed",
--                      libxl_trigger_to_string(LIBXL_TRIGGER_S3RESUME));
--                rc = ERROR_FAIL;
--            }
--            break;
-         case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-             rc = libxl__ev_qmp_send(egc, qmp, "system_wakeup", NULL);
-             if (rc) goto out;
-@@ -2481,10 +2470,6 @@ static void retrieve_domain_configuration_end(libxl__egc *egc,
-             case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-                 libxl_bitmap_copy(CTX, map, &rdcs->qemuu_cpus);
-                 break;
--            case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--                rc = libxl__update_avail_vcpus_xenstore(gc, domid,
--                                                        max_vcpus, map);
--                break;
-             default:
-                 abort();
-             }
-diff --git a/tools/libs/light/libxl_exec.c b/tools/libs/light/libxl_exec.c
-index a8b949b193..7a59c050b2 100644
---- a/tools/libs/light/libxl_exec.c
-+++ b/tools/libs/light/libxl_exec.c
-@@ -157,81 +157,6 @@ out:
-     return rc ? SIGTERM : 0;
- }
+-fi
+-
+ if test "x$enable_ipxe" = "xno"
+ then :
+   ipxe=n
+@@ -4912,7 +4878,7 @@ then :
+   enableval=$enable_rombios;
+ else $as_nop
  
--int libxl__xenstore_child_wait_deprecated(libxl__gc *gc,
--                                 uint32_t domid,
--                                 uint32_t timeout, char *what,
--                                 char *path, char *state,
--                                 libxl__spawn_starting *spawning,
--                                 int (*check_callback)(libxl__gc *gc,
--                                                       uint32_t domid,
--                                                       const char *state,
--                                                       void *userdata),
--                                 void *check_callback_userdata)
--{
--    char *p;
--    unsigned int len;
--    int rc = 0;
--    struct xs_handle *xsh;
--    int nfds;
--    fd_set rfds;
--    struct timeval tv;
--    unsigned int num;
--    char **l = NULL;
--
--    xsh = xs_open(0);
--    if (xsh == NULL) {
--        LOG(ERROR, "Unable to open xenstore connection");
--        goto err;
--    }
--
--    xs_watch(xsh, path, path);
--    tv.tv_sec = timeout;
--    tv.tv_usec = 0;
--    nfds = xs_fileno(xsh) + 1;
--    assert(!spawning);
--
--    while (rc > 0 || (!rc && tv.tv_sec > 0)) {
--        p = xs_read(xsh, XBT_NULL, path, &len);
--        if ( NULL == p )
--            goto again;
--
--        if ( NULL != state && strcmp(p, state) )
--            goto again;
--
--        if ( NULL != check_callback ) {
--            rc = (*check_callback)(gc, domid, p, check_callback_userdata);
--            if ( rc > 0 )
--                goto again;
--        }
--
--        free(p);
--        xs_unwatch(xsh, path, path);
--        xs_close(xsh);
--        return rc;
--again:
--        free(p);
--        FD_ZERO(&rfds);
--        FD_SET(xs_fileno(xsh), &rfds);
--        rc = select(nfds, &rfds, NULL, NULL, &tv);
--        if (rc > 0) {
--            if (FD_ISSET(xs_fileno(xsh), &rfds)) {
--                l = xs_read_watch(xsh, &num);
--                if (l != NULL)
--                    free(l);
--                else
--                    goto again;
--            }
--        }
--    }
--    LOG(ERROR, "%s not ready", what);
--
--    xs_unwatch(xsh, path, path);
--    xs_close(xsh);
--err:
--    return -1;
--}
--
--
- /*----- spawn implementation -----*/
+-    if test "x$enable_qemu_traditional" = "xyes" -o "x$enable_ipxe" = "xyes"
++    if test "x$enable_ipxe" = "xyes"
+ then :
  
- /*
-diff --git a/tools/libs/light/libxl_internal.c b/tools/libs/light/libxl_internal.c
-index c95624933f..2941ca0bbd 100644
---- a/tools/libs/light/libxl_internal.c
-+++ b/tools/libs/light/libxl_internal.c
-@@ -387,11 +387,9 @@ int libxl__device_model_version_running(libxl__gc *gc, uint32_t domid)
-     path = libxl__xs_libxl_path(gc, domid);
-     path = GCSPRINTF("%s/dm-version", path);
-     dm_version = libxl__xs_read(gc, XBT_NULL, path);
--    if (!dm_version) {
--        return LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL;
--    }
+         enable_rombios="yes"
+@@ -4928,7 +4894,7 @@ fi
+ if test "x$enable_rombios" = "xyes"
+ then :
  
--    if (libxl_device_model_version_from_string(dm_version, &value) < 0) {
-+    if (!dm_version ||
-+        libxl_device_model_version_from_string(dm_version, &value) < 0) {
-         LOGD(ERROR, domid, "fatal: %s contain a wrong value (%s)", path, dm_version);
-         return -1;
-     }
-diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
-index 408a771310..75bb0b94cf 100644
---- a/tools/libs/light/libxl_internal.h
-+++ b/tools/libs/light/libxl_internal.h
-@@ -1423,8 +1423,6 @@ _hidden int libxl__build_hvm(libxl__gc *gc, uint32_t domid,
-               libxl_domain_config *d_config,
-               libxl__domain_build_state *state);
+-                # Extract the first word of "as86", so it can be a program name with args.
++    # Extract the first word of "as86", so it can be a program name with args.
+ set dummy as86; ac_word=$2
+ { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+ printf %s "checking for $ac_word... " >&6; }
+diff --git a/tools/configure.ac b/tools/configure.ac
+index 0dd6d747ab..dada1c3b15 100644
+--- a/tools/configure.ac
++++ b/tools/configure.ac
+@@ -121,25 +121,11 @@ esac])
+ LINUX_BACKEND_MODULES="`eval echo $LINUX_BACKEND_MODULES`"
+ AC_SUBST(LINUX_BACKEND_MODULES)
  
--_hidden int libxl__qemu_traditional_cmd(libxl__gc *gc, uint32_t domid,
--                                        const char *cmd);
- _hidden int libxl__domain_rename(libxl__gc *gc, uint32_t domid,
-                                  const char *old_name, const char *new_name,
-                                  xs_transaction_t trans);
-@@ -1914,50 +1912,6 @@ static inline int libxl__spawn_inuse(const libxl__spawn_state *ss)
- _hidden int libxl__spawn_record_pid(libxl__gc*, libxl__spawn_state*,
-                                     pid_t innerchild);
+-AC_ARG_ENABLE([qemu-traditional],
+-    AS_HELP_STRING([--enable-qemu-traditional],
+-                   [Enable qemu traditional device model, (DEFAULT is off)]))
+-AS_IF([test "x$enable_qemu_traditional" = "xyes"], [
+-AC_DEFINE([HAVE_QEMU_TRADITIONAL], [1], [Qemu traditional enabled])
+-    qemu_traditional=y],[
+-    qemu_traditional=n
+-])
+-AC_SUBST(qemu_traditional)
+-
+ AC_ARG_ENABLE([ipxe],
+     AS_HELP_STRING([--enable-ipxe],
+                    [Enable in-tree IPXE,
+                     (DEFAULT is off, see also --with-system-ipxe)]),,[
+-    AS_IF([test "x$enable_qemu_traditional" = "xyes"], [
+-        enable_ipxe="yes"
+-    ], [
+         enable_ipxe="no"
+-    ])
+ ])
+ AS_IF([test "x$enable_ipxe" = "xno"], [ipxe=n], [ipxe=y])
+ AC_ARG_WITH([system-ipxe],
+@@ -162,18 +148,15 @@ AC_SUBST(ipxe)
  
--/*
-- * libxl__xenstore_child_wait_deprecated - Wait for daemonic child IPC
-- *
-- * This is a NOT function for waiting for ordinary child processes.
-- * If you want to run (fork/exec/wait) subprocesses from libxl:
-- *  - Make your libxl entrypoint use the ao machinery
-- *  - Use libxl__ev_child_fork, and use the callback programming style
-- *
-- * This function is intended for interprocess communication with a
-- * service process.  If the service process does not respond quickly,
-- * the whole caller may be blocked.  Therefore this function is
-- * deprecated.  This function is currently used only by
-- * libxl__wait_for_device_model_deprecated.
-- *
-- * gc: allocation pool
-- * domid: guest to work with
-- * timeout: how many seconds to wait for the state to appear
-- * what: string describing the spawned process
-- * path: path to the state file in xenstore
-- * state: expected string to wait for in path (optional)
-- * spawning: malloc'd pointer to libxl__spawn_starting (optional)
-- * check_callback: (optional)
-- * check_callback_userdata: data to pass to the callback function
-- *
-- * Returns 0 on success, and < 0 on error.
-- *
-- * This function waits the given timeout for the given path to appear
-- * in xenstore, and optionally for state in path.
-- * If path appears and state matches, check_callback is called.
-- * If check_callback returns > 0, waiting for path or state continues.
-- * Otherwise libxl__xenstore_child_wait_deprecated returns.
-- */
--_hidden int libxl__xenstore_child_wait_deprecated(libxl__gc *gc,
--                                 uint32_t domid,
--                                 uint32_t timeout, char *what,
--                                 char *path, char *state,
--                                 libxl__spawn_starting *spawning,
--                                 int (*check_callback)(libxl__gc *gc,
--                                                       uint32_t domid,
--                                                       const char *state,
--                                                       void *userdata),
--                                 void *check_callback_userdata);
--
--
-  /* low-level stuff, for synchronous subprocesses etc. */
- 
- /*
-@@ -2022,25 +1976,6 @@ _hidden int libxl__domain_device_construct_rdm(libxl__gc *gc,
-                                    uint64_t rdm_mem_guard,
-                                    struct xc_dom_image *dom);
- 
--/*
-- * This function will cause the whole libxl process to hang
-- * if the device model does not respond.  It is deprecated.
-- *
-- * Instead of calling this function:
-- *  - Make your libxl entrypoint use the ao machinery
-- *  - Use libxl__ev_xswatch_register, and use the callback programming
-- *    style
-- */
--_hidden int libxl__wait_for_device_model_deprecated(libxl__gc *gc,
--                                uint32_t domid, char *state,
--                                libxl__spawn_starting *spawning
--                                                    /* NULL allowed */,
--                                int (*check_callback)(libxl__gc *gc,
--                                                      uint32_t domid,
--                                                      const char *state,
--                                                      void *userdata),
--                                void *check_callback_userdata);
--
- _hidden const libxl_vnc_info *libxl__dm_vnc(const libxl_domain_config *g_cfg);
- 
- _hidden char *libxl__abs_path(libxl__gc *gc, const char *s, const char *path);
-@@ -2315,8 +2250,7 @@ _hidden char *libxl__json_object_to_json(libxl__gc *gc,
- #define JSON(o) \
-     (libxl__json_object_to_json(gc, (o)) ? : "<invalid-json-object>")
- 
--  /* Based on /local/domain/$domid/dm-version xenstore key
--   * default is qemu xen traditional */
-+  /* Based on /local/domain/$domid/dm-version xenstore key */
- _hidden int libxl__device_model_version_running(libxl__gc *gc, uint32_t domid);
- 
- static inline
-diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index a8460fb3ec..2ea2caeb66 100644
---- a/tools/libs/light/libxl_pci.c
-+++ b/tools/libs/light/libxl_pci.c
-@@ -1023,82 +1023,6 @@ static int pci_multifunction_check(libxl__gc *gc, libxl_device_pci *pci, unsigne
-     return 0;
- }
- 
--static int pci_ins_check(libxl__gc *gc, uint32_t domid, const char *state, void *priv)
--{
--    char *orig_state = priv;
--
--    if ( !strcmp(state, "pci-insert-failed") )
--        return -1;
--    if ( !strcmp(state, "pci-inserted") )
--        return 0;
--    if ( !strcmp(state, orig_state) )
--        return 1;
--
--    return 1;
--}
--
--static int qemu_pci_add_xenstore(libxl__gc *gc, uint32_t domid,
--                                 libxl_device_pci *pci)
--{
--    libxl_ctx *ctx = libxl__gc_owner(gc);
--    int rc = 0;
--    char *path;
--    char *state, *vdevfn;
--    uint32_t dm_domid;
--
--    dm_domid = libxl_get_stubdom_id(CTX, domid);
--    path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, "/state");
--    state = libxl__xs_read(gc, XBT_NULL, path);
--    path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, "/parameter");
--    if (pci->vdevfn) {
--        libxl__xs_printf(gc, XBT_NULL, path, PCI_BDF_VDEVFN","PCI_OPTIONS,
--                         pci->domain, pci->bus, pci->dev,
--                         pci->func, pci->vdevfn, pci->msitranslate,
--                         pci->power_mgmt);
--    } else {
--        libxl__xs_printf(gc, XBT_NULL, path, PCI_BDF","PCI_OPTIONS,
--                         pci->domain,  pci->bus, pci->dev,
--                         pci->func, pci->msitranslate, pci->power_mgmt);
--    }
--
--    libxl__qemu_traditional_cmd(gc, domid, "pci-ins");
--    rc = libxl__wait_for_device_model_deprecated(gc, domid, NULL, NULL,
--                                      pci_ins_check, state);
--    path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, "/parameter");
--    vdevfn = libxl__xs_read(gc, XBT_NULL, path);
--    path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, "/state");
--    if ( rc < 0 )
--        LOGD(ERROR, domid, "qemu refused to add device: %s", vdevfn);
--    else if ( sscanf(vdevfn, "0x%x", &pci->vdevfn) != 1 ) {
--        LOGD(ERROR, domid, "wrong format for the vdevfn: '%s'", vdevfn);
--        rc = -1;
--    }
--    xs_write(ctx->xsh, XBT_NULL, path, state, strlen(state));
--
--    return rc;
--}
--
--static int check_qemu_running(libxl__gc *gc,
--                              libxl_domid domid,
--                              libxl__xswait_state *xswa,
--                              int rc,
--                              const char *state)
--{
--    if (rc) {
--        if (rc == ERROR_TIMEDOUT) {
--            LOGD(ERROR, domid, "%s not ready", xswa->what);
--        }
--        goto out;
--    }
--
--    if (!state || strcmp(state, "running"))
--        return ERROR_NOT_READY;
--
--out:
--    libxl__xswait_stop(gc, xswa);
--    return rc;
--}
--
- typedef struct pci_add_state {
-     /* filled by user of do_pci_add */
-     libxl__ao_device *aodev;
-@@ -1119,8 +1043,6 @@ typedef struct pci_add_state {
-     int retries;
- } pci_add_state;
- 
--static void pci_add_qemu_trad_watch_state_cb(libxl__egc *egc,
--    libxl__xswait_state *xswa, int rc, const char *state);
- static void pci_add_qmp_device_add(libxl__egc *, pci_add_state *);
- static void pci_add_qmp_device_add_cb(libxl__egc *,
-     libxl__ev_qmp *, const libxl__json_object *, int rc);
-@@ -1156,16 +1078,6 @@ static void do_pci_add(libxl__egc *egc,
- 
-     if (type == LIBXL_DOMAIN_TYPE_HVM) {
-         switch (libxl__device_model_version_running(gc, domid)) {
--            case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--                pas->xswait.ao = ao;
--                pas->xswait.what = "Device Model";
--                pas->xswait.path = DEVICE_MODEL_XS_PATH(gc,
--                    libxl_get_stubdom_id(CTX, domid), domid, "/state");
--                pas->xswait.timeout_ms = LIBXL_DEVICE_MODEL_START_TIMEOUT * 1000;
--                pas->xswait.callback = pci_add_qemu_trad_watch_state_cb;
--                rc = libxl__xswait_start(gc, &pas->xswait);
--                if (rc) goto out;
--                return;
-             case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-                 rc = libxl__ev_time_register_rel(ao, &pas->timeout,
-                                                  pci_add_timeout,
-@@ -1186,29 +1098,6 @@ out:
-     pci_add_dm_done(egc, pas, rc); /* must be last */
- }
- 
--static void pci_add_qemu_trad_watch_state_cb(libxl__egc *egc,
--                                             libxl__xswait_state *xswa,
--                                             int rc,
--                                             const char *state)
--{
--    pci_add_state *pas = CONTAINER_OF(xswa, *pas, xswait);
--    STATE_AO_GC(pas->aodev->ao);
--
--    /* Convenience aliases */
--    libxl_domid domid = pas->domid;
--    libxl_device_pci *pci = &pas->pci;
--
--    rc = check_qemu_running(gc, domid, xswa, rc, state);
--    if (rc == ERROR_NOT_READY)
--        return;
--    if (rc)
--        goto out;
--
--    rc = qemu_pci_add_xenstore(gc, domid, pci);
--out:
--    pci_add_dm_done(egc, pas, rc); /* must be last */
--}
--
- static void pci_add_qmp_device_add(libxl__egc *egc, pci_add_state *pas)
- {
-     STATE_AO_GC(pas->aodev->ao);
-@@ -1882,42 +1771,6 @@ static void add_pcis_done(libxl__egc *egc, libxl__multidev *multidev,
-     aodev->callback(egc, aodev);
- }
- 
--static int qemu_pci_remove_xenstore(libxl__gc *gc, uint32_t domid,
--                                    libxl_device_pci *pci, int force)
--{
--    libxl_ctx *ctx = libxl__gc_owner(gc);
--    char *state;
--    char *path;
--    uint32_t dm_domid;
--
--    dm_domid = libxl_get_stubdom_id(CTX, domid);
--
--    path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, "/state");
--    state = libxl__xs_read(gc, XBT_NULL, path);
--    path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, "/parameter");
--    libxl__xs_printf(gc, XBT_NULL, path, PCI_BDF, pci->domain,
--                     pci->bus, pci->dev, pci->func);
--
--    /* Remove all functions at once atomically by only signalling
--     * device-model for function 0 */
--    if ( !force && (pci->vdevfn & 0x7) == 0 ) {
--        libxl__qemu_traditional_cmd(gc, domid, "pci-rem");
--        if (libxl__wait_for_device_model_deprecated(gc, domid, "pci-removed",
--                                         NULL, NULL, NULL) < 0) {
--            LOGD(ERROR, domid, "Device Model didn't respond in time");
--            /* This depends on guest operating system acknowledging the
--             * SCI, if it doesn't respond in time then we may wish to
--             * force the removal.
--             */
--            return ERROR_FAIL;
--        }
--    }
--    path = DEVICE_MODEL_XS_PATH(gc, dm_domid, domid, "/state");
--    xs_write(ctx->xsh, XBT_NULL, path, state, strlen(state));
--
--    return 0;
--}
--
- typedef struct pci_remove_state {
-     libxl__ao_device *aodev;
-     libxl_domid domid;
-@@ -1940,8 +1793,6 @@ static void libxl__device_pci_remove_common(libxl__egc *egc,
- static void device_pci_remove_common_next(libxl__egc *egc,
-     pci_remove_state *prs, int rc);
- 
--static void pci_remove_qemu_trad_watch_state_cb(libxl__egc *egc,
--    libxl__xswait_state *xswa, int rc, const char *state);
- static void pci_remove_qmp_device_del(libxl__egc *egc,
-     pci_remove_state *prs);
- static void pci_remove_qmp_device_del_cb(libxl__egc *egc,
-@@ -1987,16 +1838,6 @@ static void do_pci_remove(libxl__egc *egc, pci_remove_state *prs)
-     if (type == LIBXL_DOMAIN_TYPE_HVM) {
-         prs->hvm = true;
-         switch (libxl__device_model_version_running(gc, domid)) {
--        case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--            prs->xswait.ao = ao;
--            prs->xswait.what = "Device Model";
--            prs->xswait.path = DEVICE_MODEL_XS_PATH(gc,
--                libxl_get_stubdom_id(CTX, domid), domid, "/state");
--            prs->xswait.timeout_ms = LIBXL_DEVICE_MODEL_START_TIMEOUT * 1000;
--            prs->xswait.callback = pci_remove_qemu_trad_watch_state_cb;
--            rc = libxl__xswait_start(gc, &prs->xswait);
--            if (rc) goto out_fail;
--            return;
-         case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-             pci_remove_qmp_device_del(egc, prs); /* must be last */
-             return;
-@@ -2010,30 +1851,6 @@ out_fail:
-     pci_remove_detached(egc, prs, rc); /* must be last */
- }
- 
--static void pci_remove_qemu_trad_watch_state_cb(libxl__egc *egc,
--                                                libxl__xswait_state *xswa,
--                                                int rc,
--                                                const char *state)
--{
--    pci_remove_state *prs = CONTAINER_OF(xswa, *prs, xswait);
--    STATE_AO_GC(prs->aodev->ao);
--
--    /* Convenience aliases */
--    libxl_domid domid = prs->domid;
--    libxl_device_pci *const pci = &prs->pci;
--
--    rc = check_qemu_running(gc, domid, xswa, rc, state);
--    if (rc == ERROR_NOT_READY)
--        return;
--    if (rc)
--        goto out;
--
--    rc = qemu_pci_remove_xenstore(gc, domid, pci, prs->force);
--
--out:
--    pci_remove_detached(egc, prs, rc);
--}
--
- static void pci_remove_qmp_device_del(libxl__egc *egc,
-                                       pci_remove_state *prs)
- {
-diff --git a/tools/libs/light/libxl_sr_stream_format.h b/tools/libs/light/libxl_sr_stream_format.h
-index 75f5190886..f8f4723c2e 100644
---- a/tools/libs/light/libxl_sr_stream_format.h
-+++ b/tools/libs/light/libxl_sr_stream_format.h
-@@ -45,7 +45,7 @@ typedef struct libxl__sr_emulator_hdr
- } libxl__sr_emulator_hdr;
- 
- #define EMULATOR_UNKNOWN             0x00000000U
--#define EMULATOR_QEMU_TRADITIONAL    0x00000001U
-+#define EMULATOR_QEMU_TRADITIONAL    0x00000001U /* Dropped in Xen 4.21 */
- #define EMULATOR_QEMU_UPSTREAM       0x00000002U
- 
- typedef struct libxl_sr_checkpoint_state
-diff --git a/tools/libs/light/libxl_stream_write.c b/tools/libs/light/libxl_stream_write.c
-index 634f3240d1..98d44597a7 100644
---- a/tools/libs/light/libxl_stream_write.c
-+++ b/tools/libs/light/libxl_stream_write.c
-@@ -252,10 +252,6 @@ void libxl__stream_write_start(libxl__egc *egc,
-         stream->device_model_version =
-             libxl__device_model_version_running(gc, dss->domid);
-         switch (stream->device_model_version) {
--        case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
--            stream->emu_sub_hdr.id = EMULATOR_QEMU_TRADITIONAL;
--            break;
--
-         case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-             stream->emu_sub_hdr.id = EMULATOR_QEMU_UPSTREAM;
-             break;
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 9bb2969931..1985153830 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -104,7 +104,7 @@ libxl_channel_connection = Enumeration("channel_connection", [
- 
- libxl_device_model_version = Enumeration("device_model_version", [
-     (0, "UNKNOWN"),
--    (1, "QEMU_XEN_TRADITIONAL"), # Historical qemu-xen device model (qemu-dm)
-+    (1, "QEMU_XEN_TRADITIONAL"), # Historical dm (qemu-dm, no longer supported)
-     (2, "QEMU_XEN"),             # Upstream based qemu-xen device model
+ AC_ARG_ENABLE([rombios],
+     AS_HELP_STRING([--enable-rombios],
+-                   [Enable ROMBIOS, (DEFAULT is on if qemu-traditional or ipxe is enabled,
++                   [Enable ROMBIOS, (DEFAULT is on if ipxe is enabled,
+                     otherwise off)]),,[
+-    AS_IF([test "x$enable_qemu_traditional" = "xyes" -o "x$enable_ipxe" = "xyes"], [
++    AS_IF([test "x$enable_ipxe" = "xyes"], [
+         enable_rombios="yes"
+     ], [
+         enable_rombios="no"
      ])
- 
-diff --git a/tools/python/xen/migration/libxl.py b/tools/python/xen/migration/libxl.py
-index 5dcb50fe02..dc5c7ac355 100644
---- a/tools/python/xen/migration/libxl.py
-+++ b/tools/python/xen/migration/libxl.py
-@@ -51,12 +51,10 @@ rec_type_to_str = {
- EMULATOR_HEADER_FORMAT = "II"
- 
- EMULATOR_ID_unknown       = 0x00000000
--EMULATOR_ID_qemu_trad     = 0x00000001
- EMULATOR_ID_qemu_upstream = 0x00000002
- 
- emulator_id_to_str = {
-     EMULATOR_ID_unknown       : "Unknown",
--    EMULATOR_ID_qemu_trad     : "Qemu Traditional",
-     EMULATOR_ID_qemu_upstream : "Qemu Upstream",
- }
- 
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 089a88935a..219e924779 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -2733,10 +2733,7 @@ skip_usbdev:
-     xlu_cfg_replace_string (config, "device_model_override",
-                             &b_info->device_model, 0);
-     if (!xlu_cfg_get_string (config, "device_model_version", &buf, 0)) {
--        if (!strcmp(buf, "qemu-xen-traditional")) {
--            b_info->device_model_version
--                = LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL;
--        } else if (!strcmp(buf, "qemu-xen")) {
-+        if (!strcmp(buf, "qemu-xen")) {
-             b_info->device_model_version
-                 = LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN;
-         } else {
+ ])
+ AS_IF([test "x$enable_rombios" = "xyes"], [
+-    dnl as86, ld86, and bcc are only required when building rombios. They
+-    dnl are only needed when the host system is x86 but that check is done
+-    dnl for us above when checking if we should build with qemu-traditional.
+     AX_PATH_PROG_OR_FAIL([AS86], [as86])
+     AX_PATH_PROG_OR_FAIL([LD86], [ld86])
+     AX_PATH_PROG_OR_FAIL([BCC], [bcc])
 -- 
 2.43.0
 
