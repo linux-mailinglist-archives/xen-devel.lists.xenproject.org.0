@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79AA2AA0AE7
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 13:56:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.972192.1360634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A0F2AA0AF5
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 14:01:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.972221.1360643 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9jZd-00045X-Tq; Tue, 29 Apr 2025 11:56:29 +0000
+	id 1u9jeO-0005qE-Kd; Tue, 29 Apr 2025 12:01:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 972192.1360634; Tue, 29 Apr 2025 11:56:29 +0000
+Received: by outflank-mailman (output) from mailman id 972221.1360643; Tue, 29 Apr 2025 12:01:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9jZd-00042u-Pw; Tue, 29 Apr 2025 11:56:29 +0000
-Received: by outflank-mailman (input) for mailman id 972192;
- Tue, 29 Apr 2025 11:56:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1u9jeO-0005nj-Hb; Tue, 29 Apr 2025 12:01:24 +0000
+Received: by outflank-mailman (input) for mailman id 972221;
+ Tue, 29 Apr 2025 12:01:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qXnC=XP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1u9jZb-00042o-W9
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 11:56:28 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fa53e4aa-24f0-11f0-9ffb-bf95429c2676;
- Tue, 29 Apr 2025 13:56:26 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5e8be1c6ff8so9940489a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 04:56:26 -0700 (PDT)
+ id 1u9jeN-0005mG-Id
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 12:01:23 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ab094230-24f1-11f0-9eb4-5ba50f476ded;
+ Tue, 29 Apr 2025 14:01:22 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5bc066283so10526909a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 05:01:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-acec4a84247sm138404366b.55.2025.04.29.04.56.24
+ 4fb4d7f45d1cf-5f70354632bsm7261240a12.57.2025.04.29.05.01.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Apr 2025 04:56:25 -0700 (PDT)
+ Tue, 29 Apr 2025 05:01:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa53e4aa-24f0-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: ab094230-24f1-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745927785; x=1746532585; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745928082; x=1746532882; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Al7jbHKfCWHbWetquYQqKZ92sBbetNU/z8lJJK9x6yc=;
-        b=HqAK3cjk8tMov16lRKmtxVrRaul1hTHrc2yh5YFjJQFIYwVh94B/TrUdLEcdOVUPKw
-         46p76cqyqLMX14azexa2eg0uZll3M9vV46Z67WetMwTXG+xyIfwLoi0qmIdSJ/C+OyC8
-         Fmf9IgUOHjx35wk/YPDNMssLzEp6r4TlH+LZ0JIfw5d4zrNBJsncxF13fbrKm1nZ4Lq4
-         jRF8oaN1C2chNd0IAI5XOGlCKE4aj3hySZRsa3VEsVC1gyHh6DzNSnE5b2vffNGl6+2K
-         oGYPDiQ1SJq9fGzAG8cmN6E9DjmHLNkUwSvOGxgJc/b2YO6/+4JT4fcFaTwu9IphvAsH
-         swng==
+        bh=zP9+7bCC+w4gqi+QE6Bg1Rwd6ocdr+MM4e/OlpnSnxo=;
+        b=PGzMxXnInUA0fE6g+W8OT+HoBAatkb7JnB1JKc0oP04J7XcW1HMMl47y/3bnhiC+fm
+         K6mjYQ1H3MaBhR9CG1GjSgcHVkifSEmk8t5KvI2dzMZ2afvBCHBUdYa/urdC+SbuRZnS
+         b8RXmRo9fcYHK5Ro2jOfHo9saIfiUee7khYgC6IxvN2z6NwJk1Di0HsUuNh5JBs24mgr
+         dOOwkafCCHedBI8GHpIz0nAKt8Bt118S5lYa6bDVtfWfa37eLeDGmNlz4gYmC8Pwe/FF
+         LL2u9/4pZllKiGP4J/8MqOe8b1OqwwWdbP/FhFNI0QkMe7bTvWDRospAqEJIsnfuPCMp
+         cvjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745927785; x=1746532585;
+        d=1e100.net; s=20230601; t=1745928082; x=1746532882;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Al7jbHKfCWHbWetquYQqKZ92sBbetNU/z8lJJK9x6yc=;
-        b=Pfs5sMgbHfwhFOH9HvVR5xT18ULt4iLJHGAEH/fxZU4Et86eV2fwdsJCrQWtFR2kJd
-         VDyB1XXaHmA8nQxczZhkQwMoc1ArUe1GCwwUPQ/bJvR5R2RpbQRc6FsAFybZYxlOvYcZ
-         SLKvhikY1puiopIlvO65ysw6fc6H+tVMpavZxpWu2LEuIGZpUPB555+25mC3lzQjKphj
-         Bm8iDgRd5zFOnvcJlbPwDiscpXmdI2jxFhGKjUW/CZO6mEICsA8V/sE6A/7wULF84WsX
-         8CsojNiCg6i3zsu6WBOKcvm61FbledRJY5hlsZrIrBOHYaY8QB6ZOsFtY8AS0tlWe4pe
-         akcg==
-X-Forwarded-Encrypted: i=1; AJvYcCVag7rn95+ePS0PGRz+aWAkH9Ht+O8p6AghD8VXJjHnDNWSFElql2gwJaVTHfcLJjLz4kGS9eSP3ME=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwXUFl/3RdZGryYyh/2qOyP5qeyrOdtlbr+fqJzr3Ruwn3UUYyA
-	AROv9+rE5a0j9LKZYNMwSzqA6Yn8Keuy0AmoFHICorYvVKX3ww5n21NalGAZMQ==
-X-Gm-Gg: ASbGncsOtuxDD0vY9hN8w0cPKrRhpEXJmhtFu3p4rVBec9S7fae7Nhbv77nWledztge
-	J5At+pQg1lfcaXZkNhf+39IGFMeZjyvpxJd7SP6Bmgqrea6tKJSHs2dXWv25D8v/3baHwjFrbbt
-	x96/xNRZyewGEe1TkXTd4h+vOgqZeAy5CqPpmqgTqKOIVO7Fll9cvmNqqVgHCiAPWNHp4pwyhLE
-	OGXe4xAliXlelnWUhpAVKAXM+C2ZW69aPojPSMCc7F75Ay39LHtVqQLUsN05KVD+dr0prEBEqFU
-	thb7DARu1HS0B5exrA6IHAzuQjCCeObrWG6VLg4NKbGc8/r88hIRDeXZJH3S00mbzKs42oI5+hM
-	kHOfa7a6N66u8SQK4V5Peq5jL3tLMa8uLqXy9
-X-Google-Smtp-Source: AGHT+IGDE09spnIoGG3w926hJkRZ1a2/uHHB9nOp8v3DeXBhVrH6EKc0960kA6vpcsMPsXIkBZNmEw==
-X-Received: by 2002:a17:907:970c:b0:ace:3952:c375 with SMTP id a640c23a62f3a-acec4f35d10mr313281366b.42.1745927785451;
-        Tue, 29 Apr 2025 04:56:25 -0700 (PDT)
-Message-ID: <df18f775-79ff-4509-a10a-cb742762d8b3@suse.com>
-Date: Tue, 29 Apr 2025 13:56:24 +0200
+        bh=zP9+7bCC+w4gqi+QE6Bg1Rwd6ocdr+MM4e/OlpnSnxo=;
+        b=FC8kbHI1MjnVYqO6MGfaZeCfocD7oMMoInFWE8dRAbn3PV+zk/JjsAJM/96PkWELZe
+         Uq/Rz4MZP6MzqFzDTJVnSQZeuy5pXyI1y1u3o6m495sK1S6qnyDPdqcZJZ+HCvWsr6Jt
+         SdrSObrz8QyORDKJg6mnAoa8b5+3nwXhvYVfEiuHeVmjrMFnTwsmg/LNO9oJysxb2E8K
+         4CFtCBOz1osxFVBJ6So/gYwXTktRHiX9x/pvV9Woul9xUA8vBF9KViWzkNAcY2LxTDyo
+         1h0I3Ra6UA8A85RxcZdTCaF8/YfRQED+smimq6puH9loEEKThKNqhjpfT45n0UP3FDN3
+         Nu5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVwPueKFhb7lr1z+ZmJgsYGxp+KKFaQLa/AotC6ZuLfeo7m/xwZd65zVXzvdKgTh5jHrKkngwVZZSE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy9WEsZuxMohG0lgkJLI3Bz0I+HMbI/MnuV5pcR4VeBXJ58CNhT
+	XNXe3JMIim1mwNcfdn+JDo/o31ualBv6HJt0e2FVaXYNw+aYWV66P3lBhX/s6w==
+X-Gm-Gg: ASbGncuzFzCK4pkenh43+SBMpVRl6YgyE5qrSC8NBCx60/cm8ujxmDL56ZbSWYpCuDD
+	Q595lgxSQNFzG5vo8i7kKTnew7JDMo92y0/t8uUIgKN/tndM3Q+lkmQuZ92kiZhKwpGub2I9+JC
+	ydMOXxiv1Ab9i0OkeHZDkSmGskDdpzayxdcGUodqGJ9o5h73ebQblQ2KhaVV7+xsA/qezZrDjfi
+	gweTvBEulZZEiFuQ2/e1urYViq0gWDhekWcae2V3iC/W5MCqgf12dZ3drLU1LKY699rDa/f9jW7
+	13e9wG1YoYmUUH6J3EgYqZ75+MOH1GKAnRhakDZWph3e7YCE8XBrolLTMh+Y0xfYJ0524Vp8q6t
+	MYPbl4lcy1h/ccz816+HYmIPnng==
+X-Google-Smtp-Source: AGHT+IFK7WmynnrU0mYPHUFJjCnKxm5QO+IrHy/2KkAVjTMz66Ce0YXNhZ+9wEihrGP2r8iIcEuoCQ==
+X-Received: by 2002:a05:6402:5243:b0:5f4:d5d2:dd47 with SMTP id 4fb4d7f45d1cf-5f8388909b8mr3295561a12.25.1745928080590;
+        Tue, 29 Apr 2025 05:01:20 -0700 (PDT)
+Message-ID: <b51b142f-d534-48f3-b506-c949ed535623@suse.com>
+Date: Tue, 29 Apr 2025 14:01:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86/hyperv: use dynamically allocated page for
- hypercalls
-To: Alejandro Vallejo <agarciav@amd.com>,
- Ariadne Conill <ariadne@ariadne.space>
-Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3 2/4] tools: remove support for running a guest with
+ qemu-traditional
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Alexander M . Merritt" <alexander@edera.dev>, xen-devel@lists.xenproject.org
-References: <20250428195736.2516-1-ariadne@ariadne.space>
- <77c9529e-8353-479f-994f-d6d668788374@suse.com>
- <D9J2AOMDX4QZ.2ZN0F028I3QIT@amd.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20250429110636.30518-1-jgross@suse.com>
+ <20250429110636.30518-3-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,36 +122,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <D9J2AOMDX4QZ.2ZN0F028I3QIT@amd.com>
+In-Reply-To: <20250429110636.30518-3-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.04.2025 12:48, Alejandro Vallejo wrote:
-> On Tue Apr 29, 2025 at 9:28 AM BST, Jan Beulich wrote:
->> On 28.04.2025 21:57, Ariadne Conill wrote:
->>> Previously Xen placed the hypercall page at the highest possible MFN,
->>> but this caused problems on systems where there is more than 36 bits
->>> of physical address space.
->>
->> Hmm, I should have asked already on the earlier version: What kinds of
->> problems are these, beyond ...
->>
->>> In general, it also seems unreliable to assume that the highest possible
->>> MFN is not already reserved for some other purpose.
->>
->> ... this particular aspect? I find it puzzling that such problems would
->> depend on the number of physical address bits.
-> 
-> Pagefault on access (due to reserved bits being set) on access to the
-> hypercall page. The available guest-physical address space doesn't seem
-> to be as wide as advertised, though I didn't carry enough tests to
-> single this as the only explanation. Seeing how we don't really know
-> what's already on the last mfn this seems like a strict improvement
-> irrespective of the actual cause of the fault.
+On 29.04.2025 13:06, Juergen Gross wrote:
+> --- a/tools/firmware/hvmloader/Makefile
+> +++ b/tools/firmware/hvmloader/Makefile
+> @@ -59,6 +59,7 @@ OBJS += optionroms.o 32bitbios_support.o rombios.o
+>  CFLAGS += -DENABLE_ROMBIOS
+>  ROMBIOS_ROM := $(ROMBIOS_DIR)/BIOS-bochs-latest
+>  ROMS += $(ROMBIOS_ROM) $(STDVGA_ROM) $(CIRRUSVGA_ROM)
+> +DSDT_FILES = dsdt_anycpu.c dsdt_15cpu.c
+>  endif
 
-No question there, yet the first paragraph is a little too vague for my
-taste. It'll also not help people later finding this commit and wondering
-what the issue was.
+To be resilient to a random DSDT_FILES in the environment, I think you want to
+use += here as well, just like ...
+
+> @@ -76,7 +77,7 @@ rombios.o: roms.inc
+>  smbios.o: CFLAGS += -D__SMBIOS_DATE__="\"$(SMBIOS_REL_DATE)\""
+>  
+>  ACPI_PATH = ../../libacpi
+> -DSDT_FILES = dsdt_anycpu.c dsdt_15cpu.c dsdt_anycpu_qemu_xen.c
+> +DSDT_FILES += dsdt_anycpu_qemu_xen.c
+
+... you have it here, and set the variable to nothing yet further up.
+Then
+Acked-by: Jan Beulich <jbeulich@suse.com> # hvmloader
 
 Jan
 
