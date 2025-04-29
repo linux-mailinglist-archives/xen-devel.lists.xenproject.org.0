@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46EFCA9FF0B
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 03:28:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.971333.1359781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6515BA9FF53
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Apr 2025 04:01:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.971345.1359791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Zl3-0005P1-Ds; Tue, 29 Apr 2025 01:27:37 +0000
+	id 1u9aHH-0002uz-R4; Tue, 29 Apr 2025 02:00:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 971333.1359781; Tue, 29 Apr 2025 01:27:37 +0000
+Received: by outflank-mailman (output) from mailman id 971345.1359791; Tue, 29 Apr 2025 02:00:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9Zl3-0005MS-A6; Tue, 29 Apr 2025 01:27:37 +0000
-Received: by outflank-mailman (input) for mailman id 971333;
- Tue, 29 Apr 2025 01:27:36 +0000
+	id 1u9aHH-0002st-Nn; Tue, 29 Apr 2025 02:00:55 +0000
+Received: by outflank-mailman (input) for mailman id 971345;
+ Tue, 29 Apr 2025 02:00:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZtOk=XP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1u9Zl2-0005MM-7b
- for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 01:27:36 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=k9ft=XP=zytor.com=hpa@srs-se1.protection.inumbo.net>)
+ id 1u9aHG-0002sn-2d
+ for xen-devel@lists.xenproject.org; Tue, 29 Apr 2025 02:00:54 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2013d9b6-2499-11f0-9eb4-5ba50f476ded;
- Tue, 29 Apr 2025 03:27:34 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 350A4A4B8DC;
- Tue, 29 Apr 2025 01:22:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8FDFC4CEE4;
- Tue, 29 Apr 2025 01:27:30 +0000 (UTC)
+ id c66262fb-249d-11f0-9eb4-5ba50f476ded;
+ Tue, 29 Apr 2025 04:00:52 +0200 (CEST)
+Received: from [127.0.0.1] ([76.133.66.138]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53T20D5e084945
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Mon, 28 Apr 2025 19:00:14 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,120 +40,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2013d9b6-2499-11f0-9eb4-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1745890052;
-	bh=YTzPsRYYoFP05hjTbkygTPgGb0wiq5NwEppj5vOP3x0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Eph7AMvSWLc0q5WPBpIXCj5/VNi3EtURgh3Sk7LmG2VCBFE//iiuMz7izhXeLGKHP
-	 8P6WW3VFYwVuFdArMh+n/0XwAgEpOgEViY4psS5zCCNi/nBDD4immOUJDl1nuEQoD4
-	 8/cwsOy/nslS9c9b1jNYgKm2aBRJCDK1cceZ5Fr6fkslOAhDq9FtYb1sAXu0+3aTQ+
-	 8IYj+IZW7iCRSIK0icbw4IFIEC2EBUUSXKdVM4Il83AGllYhzU4fpq4MrtS/5AR00Q
-	 loBwRSXV/z0qHlPjgHTpHvlkgvkzqGFqVX70IBorQ/+qXDYZFFZOsxmsoKMpLbV0Ny
-	 zSQIXKJRwwltQ==
-Date: Mon, 28 Apr 2025 18:27:29 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: victorm.lira@amd.com, Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    Federico Serafini <federico.serafini@bugseng.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 1/3] x86: x86_emulate: address violations of MISRA C
- Rule 19.1
-In-Reply-To: <914e3157-736a-4890-9c91-e93fcc260bb0@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2504281625240.785180@ubuntu-linux-20-04-desktop>
-References: <c694069696dd428bc1719e36c378a573b03f74b9.1745624090.git.victorm.lira@amd.com> <914e3157-736a-4890-9c91-e93fcc260bb0@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: c66262fb-249d-11f0-9eb4-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53T20D5e084945
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1745892015;
+	bh=Sa3174tDwufid9lYtjnyXVpiRUMqmxxt9iXJ7zEmUGw=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=a/V8ZtRSqlR1/BTFZqcrwJRErwApyt0cYqkrfh2z+Y4mu9L5CE5/z/brCDx7IZzHv
+	 6JvXaeOjTLJ5lRiQXf1uUMWrsan6raPI66bYVqHA/ogzrNk2rFeAY/fU9UeCuwSISy
+	 4M2dYVdYZ0/QswbcmPcS3vmpM+IH4Qywv7KacDjPN7voCmNLWeYZnnOC6y9atCR9o9
+	 Pb6q9VWcB/JPm13r0lQrSg3wXo+6S28SWaR76gPs5CSv8gCN7pS9LeXwKi3lMcia6J
+	 efQdlKuuHNceK3YKrJrr+ltxXwZFZWk/E5iUbSS/o/oh636eYfed322wFtf7whVNNz
+	 WWkABNEDI7OZQ==
+Date: Mon, 28 Apr 2025 19:00:12 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Ingo Molnar <mingo@kernel.org>
+CC: Arnd Bergmann <arnd@arndb.de>, Arnd Bergmann <arnd@kernel.org>,
+        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        Juergen Gross <jgross@suse.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Alexander Usyskin <alexander.usyskin@intel.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        =?UTF-8?Q?Mateusz_Jo=C5=84czyk?= <mat.jonczyk@o2.pl>,
+        Mike Rapoport <rppt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+        Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+        xen-devel@lists.xenproject.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_bitops/32=3A_Convert_variable?=
+ =?US-ASCII?Q?=5Fffs=28=29_and_fls=28=29_zero-case_handling_to_C?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <67be5eee-b67b-409a-8309-829f891b9944@citrix.com>
+References: <20250425141740.734030-1-arnd@kernel.org> <aAyiganPp_UsNlnZ@gmail.com> <d2b0e71c-e79b-40d6-8693-3202cd894d66@app.fastmail.com> <CAHk-=wh=TUsVv6xhtzYsWJwJggrjyOfYT3kBu+bHtoYLK0M9Xw@mail.gmail.com> <CAHk-=wgfk69H-T-vMWR33xUpVsWJLrF34d0OwUXa2sHhtpSwZg@mail.gmail.com> <e54f1943-e0ff-4f59-b24f-9b5a7a38becf@citrix.com> <CAHk-=wj0S2vWui0Y+1hpYMEhCiXKexbQ01h+Ckvww8hB29az_A@mail.gmail.com> <aA8nF0moBYOIgC5J@gmail.com> <aA8oqKUaFU-0wb-D@gmail.com> <CAHk-=wgJfWfWa2NTiTmev+Xr=e8Uo=aFkrXujLAQBVAVN-VigQ@mail.gmail.com> <B364FF6D-DFCC-42A7-ACA1-6A74E27EE57E@zytor.com> <67be5eee-b67b-409a-8309-829f891b9944@citrix.com>
+Message-ID: <916BD58C-E6A7-495E-9A60-722E130AC7A7@zytor.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 28 Apr 2025, Jan Beulich wrote:
-> On 26.04.2025 01:42, victorm.lira@amd.com wrote:
-> > From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> > 
-> > Rule 19.1 states: "An object shall not be assigned or copied
-> > to an overlapping object". Since the "call" and "compat_call" are
-> 
-> Was this taken from patch 2 without editing?
-> 
-> > --- a/xen/arch/x86/x86_emulate/x86_emulate.c
-> > +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-> > @@ -526,9 +526,19 @@ static inline void put_loop_count(
-> >           */                                                             \
-> >          if ( !amd_like(ctxt) && mode_64bit() && ad_bytes == 4 )         \
-> >          {                                                               \
-> > +            uint64_t tmp;                                               \
-> > +                                                                        \
-> >              _regs.r(cx) = 0;                                            \
-> > -            if ( extend_si ) _regs.r(si) = _regs.esi;                   \
-> > -            if ( extend_di ) _regs.r(di) = _regs.edi;                   \
-> > +            if ( extend_si )                                            \
-> > +            {                                                           \
-> > +                tmp = _regs.esi;                                        \
-> > +                _regs.r(si) = tmp;                                      \
-> > +            }                                                           \
-> > +            if ( extend_di )                                            \
-> > +            {                                                           \
-> > +                tmp = _regs.edi;                                        \
-> > +                _regs.r(di) = tmp;                                      \
-> > +            }                                                           \
-> 
-> See commit 7225f13aef03 for how we chose to address similar issues elsewhere
-> in the emulator. I think we want to be consistent there. This will then also
-> eliminate ...
-> 
-> > @@ -2029,7 +2039,12 @@ x86_emulate(
-> >          switch ( op_bytes )
-> >          {
-> >          case 2: _regs.ax = (int8_t)_regs.ax; break; /* cbw */
-> > -        case 4: _regs.r(ax) = (uint32_t)(int16_t)_regs.ax; break; /* cwde */
-> > +        case 4:
-> > +            {
-> > +                uint32_t tmp = (uint32_t)(int16_t)_regs.ax;
-> > +                _regs.r(ax) = tmp;
-> > +                break; /* cwde */
-> > +            }
-> 
-> ... the odd brace placement here, as well as the inconsistency in the types
-> you used for the temporary variables (both really could have been unsigned
-> int; no need for a fixed-width type).
+On April 28, 2025 5:12:13 PM PDT, Andrew Cooper <andrew=2Ecooper3@citrix=2E=
+com> wrote:
+>On 28/04/2025 10:38 pm, H=2E Peter Anvin wrote:
+>> On April 28, 2025 9:14:45 AM PDT, Linus Torvalds <torvalds@linux-founda=
+tion=2Eorg> wrote:
+>>> On Mon, 28 Apr 2025 at 00:05, Ingo Molnar <mingo@kernel=2Eorg> wrote:
+>>>> And once we remove 486, I think we can do the optimization below to
+>>>> just assume the output doesn't get clobbered by BS*L in the zero-case=
+,
+>>>> right?
+>>> We probably can't, because who knows what "Pentium" CPU's are out ther=
+e=2E
+>>>
+>>> Or even if Pentium really does get it right=2E I doubt we have any
+>>> developers with an original Pentium around=2E
+>>>
+>>> So just leave the "we don't know what the CPU result is for zero"
+>>> unless we get some kind of official confirmation=2E
+>>>
+>>>          Linus
+>> If anyone knows for sure, it is probably Christian Ludloff=2E However, =
+there was a *huge* tightening of the formal ISA when the i686 was introduce=
+d (family=3D6) and I really believe this was part of it=2E
+>>
+>> I also really don't trust that family=3D5 really means conforms to undo=
+cumented P5 behavior, e=2Eg=2E for Quark=2E
+>
+>https://www=2Esandpile=2Eorg/x86/flags=2Ehtm
+>
+>That's a lot of "can't even characterise the result" in the P5=2E
+>
+>Looking at P4 column, that is clearly what the latest SDM has
+>retroactively declared to be architectural=2E
+>
+>~Andrew
 
-Is this what you have in mind?
+Yes, but it wasn't about flags here=2E=20
 
-
-diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
-index 8e14ebb35b..394c96e1f2 100644
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -527,8 +527,8 @@ static inline void put_loop_count(
-         if ( !amd_like(ctxt) && mode_64bit() && ad_bytes == 4 )         \
-         {                                                               \
-             _regs.r(cx) = 0;                                            \
--            if ( extend_si ) _regs.r(si) = _regs.esi;                   \
--            if ( extend_di ) _regs.r(di) = _regs.edi;                   \
-+            if ( extend_si ) _regs.r(si) = (uint64_t)_regs.esi;         \
-+            if ( extend_di ) _regs.r(di) = (uint64_t)_regs.edi;         \
-         }                                                               \
-         goto complete_insn;                                             \
-     }                                                                   \
-@@ -2029,7 +2029,7 @@ x86_emulate(
-         switch ( op_bytes )
-         {
-         case 2: _regs.ax = (int8_t)_regs.ax; break; /* cbw */
--        case 4: _regs.r(ax) = (uint32_t)(int16_t)_regs.ax; break; /* cwde */
-+        case 4: _regs.r(ax) = (int16_t)_regs.ax; break; /* cwde */
-         case 8: _regs.r(ax) = (int32_t)_regs.r(ax); break; /* cdqe */
-         }
-         break;
-
-Unfortunately it doesn't work. The first hunk (put_loop_count) seems to
-be the problem. Neither uint32_t nor unsigned long work, so I am
-probably heading in the wrong direction. Any idea what did I do wrong?
-
+Now, question: can we just use __builtin_*() for these? I think gcc should=
+ always generate inline code for these on x86=2E
 
