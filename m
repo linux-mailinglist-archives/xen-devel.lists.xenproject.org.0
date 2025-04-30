@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FEDCAA4F6B
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 17:02:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973656.1361727 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAD86AA4F84
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 17:05:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973668.1361738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA8wV-0003WJ-0n; Wed, 30 Apr 2025 15:01:47 +0000
+	id 1uA8zp-0004Fx-EH; Wed, 30 Apr 2025 15:05:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973656.1361727; Wed, 30 Apr 2025 15:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 973668.1361738; Wed, 30 Apr 2025 15:05:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA8wU-0003UF-UN; Wed, 30 Apr 2025 15:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 973656;
- Wed, 30 Apr 2025 15:01:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uA8zp-0004EV-Bc; Wed, 30 Apr 2025 15:05:13 +0000
+Received: by outflank-mailman (input) for mailman id 973668;
+ Wed, 30 Apr 2025 15:05:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BSD2=XQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uA8wT-0003U4-8I
- for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 15:01:45 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 062efddd-25d4-11f0-9ffb-bf95429c2676;
- Wed, 30 Apr 2025 17:01:41 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5e5e22e6ed2so11921725a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 08:01:41 -0700 (PDT)
+ id 1uA8zo-0004EP-F8
+ for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 15:05:12 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8320e7c6-25d4-11f0-9eb4-5ba50f476ded;
+ Wed, 30 Apr 2025 17:05:11 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-ace94273f0dso57633466b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 08:05:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace6e4f8814sm951503066b.69.2025.04.30.08.01.37
+ a640c23a62f3a-ace6e59649fsm930887666b.85.2025.04.30.08.05.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Apr 2025 08:01:38 -0700 (PDT)
+ Wed, 30 Apr 2025 08:05:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 062efddd-25d4-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 8320e7c6-25d4-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1746025301; x=1746630101; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1746025511; x=1746630311; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PtCad3HGP91hFCtMuVfO0UGJp2muK1CxZ/JyVbl3QwE=;
-        b=Qrf+Kgefeb4kZ/sxJzGrMGICMy2yj2aNCAdcyMVq2/UxhldNSQHStBtqc42BnQhgOG
-         yPuwE36SVbQcUGJuqAa7Ps+IsU5iJMNqYb8XCNMss9zM+bBESqxnmXA7Z/gD7LTjsCNQ
-         W1Q1f5zD2Mg5UNSGzCa7xiPu7QMyKy0n7MA9o7EnVw7hvcgVCu9uzn/7XNhBy3Fk5YEn
-         VmgJ9/U7EuKHdA7y16vKhb33Uze5Wb8szZrva0CYNJUR71U5Id4OBTx+CbPFU6dNX2fd
-         noLQqpVNa6WEDx/QOiV6OJHu4RwVfzH9Gz68xytf6x+Zs9neRbyE8Xhc/pjIVD/dunZl
-         w8uQ==
+        bh=jk9twuh30/1pOnimYpUmst5+vGSp+PKfratMRpKXvC8=;
+        b=PKfVSqULHEmITTTvIVylZqPWZNXa62WHKggFT1WYB544kEYlvCsFU+8jTPusK6Jczd
+         SHeCuzeBU0ZGNpHyZd2sYw3QS8Lh15ALBmsMVJj/atcMMH5X5zHcWHXpfFAgL0IYYSbc
+         uK/usD9/PJT+9ptGQebDswE49J/pejOYjrxgZIPgHcP3oyl+YFz+Z42PZFQaAivQ2iPF
+         MKTwe5ZeNGyH3lin5KfmnQE7PpHuHZiElARLY1vKYkEqznsXqsZE93BUiiw2WTKUvfSU
+         BjuJNcL+ryZmrMtkXDFEHN6G/g/xmueAZhMqoW+BcC+8MJHAR2IV/KGHlOfmeuNwHIO2
+         oUxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746025301; x=1746630101;
+        d=1e100.net; s=20230601; t=1746025511; x=1746630311;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PtCad3HGP91hFCtMuVfO0UGJp2muK1CxZ/JyVbl3QwE=;
-        b=Mtl2pYIm39/HgaVCja02rooK5iEUQ7P9gWmzl8hawJfe+c+tGXocaG/emFJEeX/wHn
-         K5iRbVN+XkWE7Us6d7EJYSRlCl2eitlPkHJztmySQWkFTKhzlJLTO9AycoJ5q6EDqEnJ
-         skT0qt/1FvLCyiZsUOmlXxYz5LFQzB9h3gXExRPdewt8CSpx/7eX9kQfSFnQxI7bxvBM
-         QhPWbJFxX/Xdwu+McemmVw3gr79WuV32rEcUNKVH8c+PEWFQYgIL05T459BpWuvBGmOn
-         88gR56RrVRZwNY4U8+Z3JgIlP20wgLQDfta0zGFSy2KCItSglFxtDBLibQEtEMHKMto5
-         ZK6A==
-X-Forwarded-Encrypted: i=1; AJvYcCUXrGDZi3UgTSq7V4nWgzi/H7pjF6CUsbvwtBFNZPj62w4Jrz4nevwr+MHMTnQysjLUJqzADgLaHLI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzZGMps8D8h+b9OZCx6XKe2KI+bQWxBOJw2rz6KnbyqxcRj+u5Q
-	es3rElynyEbcvBH+z9DjOGsWTJ+XxcTvfN1XCHRD8K1B6EPm53y0mehrUX1lKw==
-X-Gm-Gg: ASbGncuyW/1WpkzWrZdBbcrPzldHPbARU2ys84dJPyZHXoACOMEof5tSumTDXZip2om
-	7xjzSg4EPjyTJBE/dhS6bfmDxsLs3WKUUTxXag04bUq7m3pKvf0ldiojxFa5Pw0qcpce3V/Juxm
-	YH+ox3Kf7pGoSn+I0FD7e0bJGr9+uxF0tmvq+ha9H6tpA0S0I2k6jpSdX3a/mq6tp/lfudjcbig
-	8gsjJc3290HDkptympH9bqVmCd4tqSwGzyAp6MtZmeezhhcSmW8ln6sup0khWlZrWTLf/TWNUu/
-	3jlx6WJn1fsXTBA0zgF/rMUGDfFdHK5NrxgHNdjDva3PF61XYVKNIW+zw90TZK0tkTCDkiz32Y5
-	0WPLX9vI8nHVFhq+pfiHOYmdsfg==
-X-Google-Smtp-Source: AGHT+IFT2WYfsLVIC0xCVTZj8m6NPDx964UCiSLM1hcile9pgXPvpdbhZXNXDCEdboqMNbv4jLpn0A==
-X-Received: by 2002:a17:907:7b8e:b0:ac1:ea29:4e63 with SMTP id a640c23a62f3a-acedc627312mr359204466b.26.1746025298593;
-        Wed, 30 Apr 2025 08:01:38 -0700 (PDT)
-Message-ID: <239e1256-a47d-44e1-a335-2199b880f5d7@suse.com>
-Date: Wed, 30 Apr 2025 17:01:37 +0200
+        bh=jk9twuh30/1pOnimYpUmst5+vGSp+PKfratMRpKXvC8=;
+        b=G8rrYXQXzAQ0L3VK8aEzubl31d9Mt1txAB0HpbRTRilbgNErEVe8RRwSuQglxGNFWu
+         bUwpbsMAM7qZy4jK1ryt12eMKWWP4zTjD0/Aqf1gZYN7lO+X/EvCpEPfYSk+3rUT9wx8
+         OeJHEsq6vcUi+gkEa8XG4gYGANL5GkcgAKqbl8Y5RPvyClvB3BZJtJYjVrPzn5lK1Qs9
+         MCuZ0qbveIcKCPpeMgeX5SU2nxX0oipkPQpNjyWI0bZWEhR1h1v0PhOcAjscORAM7Fn+
+         oXf24IsO285/UrLfMgofS6wLpuDr/aqtgJSD/224kUbxkPJd6hpB0bm+e30tACURP/ED
+         ESkA==
+X-Forwarded-Encrypted: i=1; AJvYcCUXqOrjzvrLXpJxuQVYAoQmqGUmKDf/Df6N6AXSrarcHamtvCTAW1pt9mnhd8QQuCiajm3Buym3uUQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwT4jbOkLZedsbBvvCGmAPXil6H033sPmOXNcKHN68+zA/7U6fT
+	/lala6boLn3anzoQ+QfuWrbIRIis8hRIbeoJuNChwsfLRY4CQNTgJAl5+ohoCQ==
+X-Gm-Gg: ASbGncuq64B9SngCYARHOE3Wu7sAL5iLM0hDIihDkZyvPLJuUqjoOPA94BVW2nPlhU2
+	bNtHBSrzZ8l36LKEKt8yvan+A4V0R6j5JHA9WBleNt8KyzyvTK7P2cC26WCOI6Os25WrDs2zZfp
+	nqtexNb464zMLuk3JHaiGn/brnoX5VIXtZYG9U88t3XBd7HLVKJwposkiw2rtDg7/rLReLQZsCT
+	/VrcL4iOpNDp1LzyaIFIDK3TPXKJRbqOIeH20308EKH7YHwxPRKW32UUI5wtHY+cIv1as7vsSlh
+	bM7hCl3IUARrgE5JTbF8gMkRXyQTmLmWyhEDTKvSWMke47y/UhJaZWQViP8gYNzdhNxRWBCo6J3
+	nx7vnmI8Cm8RhvEAYazdP/0aZwQ==
+X-Google-Smtp-Source: AGHT+IGtv0/2SmFkWm6b/w5jWgYa+3optGgfdx771s88Jwa5Jzj2qKyJw52Z0Sg3Bqo1tRFbXyuEVg==
+X-Received: by 2002:a17:907:9801:b0:aca:dd0c:cfc8 with SMTP id a640c23a62f3a-acedc56d9b6mr354796266b.10.1746025510525;
+        Wed, 30 Apr 2025 08:05:10 -0700 (PDT)
+Message-ID: <9d2dbf12-802c-483f-84b0-34bb90362b41@suse.com>
+Date: Wed, 30 Apr 2025 17:05:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 15/15] xen/xenpm: Adapt SET/GET_CPUFREQ_CPPC
- xen_sysctl_pm_op for amd-cppc driver
+Subject: Re: [PATCH v3 02/20] xen: introduce CONFIG_SYSCTL
 To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: ray.huang@amd.com, Stefano Stabellini <stefano.stabellini@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
- <20250414074056.3696888-16-Penny.Zheng@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
+References: <20250421073723.3863060-1-Penny.Zheng@amd.com>
+ <20250421073723.3863060-3-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,213 +123,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250414074056.3696888-16-Penny.Zheng@amd.com>
+In-Reply-To: <20250421073723.3863060-3-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.04.2025 09:40, Penny Zheng wrote:
-> Introduce helper set_amd_cppc_para and get_amd_cppc_para to
-> SET/GET CPPC-related para for amd-cppc/amd-cppc-epp driver.
+On 21.04.2025 09:37, Penny Zheng wrote:
+> From: Stefano Stabellini <stefano.stabellini@amd.com>
 > 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> ---
-> v1 -> v2:
-> - Give the variable des_perf an initializer of 0
-> - Use the strncmp()s directly in the if()
-> ---
-> v3 -> v4
-> - refactor comments
-> - remove double blank lines
-> - replace amd_cppc_in_use flag with XEN_PROCESSOR_PM_CPPC
-> ---
->  xen/arch/x86/acpi/cpufreq/amd-cppc.c | 121 +++++++++++++++++++++++++++
->  xen/drivers/acpi/pmstat.c            |  22 ++++-
->  xen/include/acpi/cpufreq/cpufreq.h   |   4 +
->  3 files changed, 143 insertions(+), 4 deletions(-)
+> We introduce a new Kconfig CONFIG_SYSCTL, which shall only be disabled
+> on some dom0less systems, to reduce Xen footprint.
 
-Along the lines of the remark on an earlier patch: Where's the "xenpm"
-change here, that the subject prefix kind of makes one expect? Doesn't
-that want to be "cpufreq:" instead?
+What about the PV shim on x86? That's also relevant ...
 
-> --- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-> @@ -540,6 +540,127 @@ static int cf_check amd_cppc_epp_set_policy(struct cpufreq_policy *policy)
->      return 0;
->  }
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -581,4 +581,15 @@ config BUDDY_ALLOCATOR_SIZE
+>  	  Amount of memory reserved for the buddy allocator to serve Xen heap,
+>  	  working alongside the colored one.
 >  
-> +int get_amd_cppc_para(unsigned int cpu,
-> +                      struct xen_cppc_para *cppc_para)
-> +{
-> +    const struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
+> +menu "Supported hypercall interfaces"
+> +	visible if EXPERT
 > +
-> +    if ( data == NULL )
-> +        return -ENODATA;
-> +
-> +    cppc_para->features         = 0;
+> +config SYSCTL
+> +	bool "Enable sysctl hypercall"
+> +	default y
+> +	help
+> +	  This option shall only be disabled on some dom0less systems,
+> +	  to reduce Xen footprint.
 
-What's the purpose of the field when you store literal 0 into it?
-
-> +    cppc_para->lowest           = data->caps.lowest_perf;
-> +    cppc_para->lowest_nonlinear = data->caps.lowest_nonlinear_perf;
-> +    cppc_para->nominal          = data->caps.nominal_perf;
-> +    cppc_para->highest          = data->caps.highest_perf;
-> +    cppc_para->minimum          = data->req.min_perf;
-> +    cppc_para->maximum          = data->req.max_perf;
-> +    cppc_para->desired          = data->req.des_perf;
-> +    cppc_para->energy_perf      = data->req.epp;
-> +
-> +    return 0;
-> +}
-> +
-> +int set_amd_cppc_para(const struct cpufreq_policy *policy,
-> +                      const struct xen_set_cppc_para *set_cppc)
-> +{
-> +    unsigned int cpu = policy->cpu;
-> +    struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
-> +    uint8_t max_perf, min_perf, des_perf = 0, epp;
-> +
-> +    if ( data == NULL )
-> +        return -ENOENT;
-> +
-> +    /* Validate all parameters - Disallow reserved bits. */
-> +    if ( set_cppc->minimum > UINT8_MAX || set_cppc->maximum > UINT8_MAX ||
-> +         set_cppc->desired > UINT8_MAX || set_cppc->energy_perf > UINT8_MAX )
-> +        return -EINVAL;
-
-Where is what the latter half of the comment says?
-
-> +    /* Only allow values if params bit is set. */
-> +    if ( (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED) &&
-> +          set_cppc->desired) ||
-> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MINIMUM) &&
-> +          set_cppc->minimum) ||
-> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MAXIMUM) &&
-> +          set_cppc->maximum) ||
-> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ENERGY_PERF) &&
-> +          set_cppc->energy_perf) )
-> +        return -EINVAL;
-> +
-> +    /* Activity window not supported in MSR */
-> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ACT_WINDOW )
-> +        return -EOPNOTSUPP;
-> +
-> +    /* Return if there is nothing to do. */
-> +    if ( set_cppc->set_params == 0 )
-> +        return 0;
-> +
-> +    epp = per_cpu(epp_init, cpu);
-> +    /*
-> +     * Apply presets:
-> +     * XEN_SYSCTL_CPPC_SET_DESIRED reflects whether desired perf is set, which
-> +     * is also the flag to distiguish between passive mode and active mode.
-> +     * When it is set, CPPC in passive mode, only
-> +     * XEN_SYSCTL_CPPC_SET_PRESET_NONE could be chosen, where min_perf =
-> +     * lowest_nonlinear_perf to ensures performance in P-state range.
-> +     * when it is not set, CPPC in active mode, three different profile
-> +     * XEN_SYSCTL_CPPC_SET_PRESET_POWERSAVE/PERFORMANCE/BALANCE are provided,
-> +     * where min_perf = lowest_perf having T-state range of performance.
-> +     */
-
-I fear I'm struggling to parse some of this, making it difficult to suggest
-possible adjustments (as I can't derive what is meant to be said). Plus where's
-the term T-state coming from all of the sudden?
-
-> +    switch ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_PRESET_MASK )
-> +    {
-> +    case XEN_SYSCTL_CPPC_SET_PRESET_POWERSAVE:
-> +        if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
-> +            return -EINVAL;
-> +        min_perf = data->caps.lowest_perf;
-> +        /* Lower max frequency to nominal */
-> +        max_perf = data->caps.nominal_perf;
-
-This combination is still not really in line with ...
-
-> +        epp = CPPC_ENERGY_PERF_MAX_POWERSAVE;
-> +        break;
-> +
-> +    case XEN_SYSCTL_CPPC_SET_PRESET_PERFORMANCE:
-> +        if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
-> +            return -EINVAL;
-> +        /* Increase idle frequency to highest */
-> +        min_perf = data->caps.highest_perf;
-> +        max_perf = data->caps.highest_perf;
-
-... this. If "performance" means "always highest", why would "powersave" not
-mean "always lowest"?
-
-> +        epp = CPPC_ENERGY_PERF_MAX_PERFORMANCE;
-> +        break;
-> +
-> +    case XEN_SYSCTL_CPPC_SET_PRESET_BALANCE:
-> +        if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
-> +            return -EINVAL;
-> +        min_perf = data->caps.lowest_perf;
-> +        max_perf = data->caps.highest_perf;
-> +        epp = CPPC_ENERGY_PERF_BALANCE;
-> +        break;
-> +
-> +    case XEN_SYSCTL_CPPC_SET_PRESET_NONE:
-> +        min_perf = data->caps.lowest_nonlinear_perf;
-
-As before: What's the significance of using the non-linear value here? I
-asked to add comments for anything that's potentially unexpected to the
-reader, but here there's still none.
-
-> +        max_perf = data->caps.highest_perf;
-> +        break;
-> +
-> +    default:
-> +        return -EINVAL;
-> +    }
-> +
-> +    /* Further customize presets if needed */
-> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MINIMUM )
-> +        min_perf = set_cppc->minimum;
-> +
-> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MAXIMUM )
-> +        max_perf = set_cppc->maximum;
-> +
-> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ENERGY_PERF )
-> +        epp = set_cppc->energy_perf;
-> +
-> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED )
-> +        des_perf = set_cppc->desired;
-> +
-> +    amd_cppc_write_request(cpu, min_perf, des_perf, max_perf, epp);
-> +    return 0;
-> +}
-
-Nit (as before): Blank line please ahead of the main "return" of a function.
-
-> --- a/xen/drivers/acpi/pmstat.c
-> +++ b/xen/drivers/acpi/pmstat.c
-> @@ -257,7 +257,18 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
->           !strncmp(op->u.get_para.scaling_driver, XEN_HWP_DRIVER_NAME,
->                    CPUFREQ_NAME_LEN) )
->          ret = get_hwp_para(policy->cpu, &op->u.get_para.u.cppc_para);
-> -    else
-> +    else if ( !strncmp(op->u.get_para.scaling_driver,
-> +                       XEN_AMD_CPPC_DRIVER_NAME,
-> +                       CPUFREQ_NAME_LEN) ||
-> +              !strncmp(op->u.get_para.scaling_driver,
-> +                       XEN_AMD_CPPC_EPP_DRIVER_NAME,
-> +                       CPUFREQ_NAME_LEN) )
-
-How about using e.g. strstr(..., XEN_AMD_CPPC_DRIVER_NAME) here? (It's odd
-anyway that we need to resort to string comparisons here.)
-
-> +        ret = get_amd_cppc_para(policy->cpu, &op->u.get_para.u.cppc_para);
-> +
-> +    if ( strncmp(op->u.get_para.scaling_driver, XEN_HWP_DRIVER_NAME,
-> +                 CPUFREQ_NAME_LEN) &&
-> +         strncmp(op->u.get_para.scaling_driver, XEN_AMD_CPPC_EPP_DRIVER_NAME,
-> +                 CPUFREQ_NAME_LEN) )
->      {
->          if ( !(scaling_available_governors =
->                 xzalloc_array(char, gov_num * CPUFREQ_NAME_LEN)) )
-
-Isn't it the non-EPP driver which is governor-independent?
+... for the help text here then.
 
 Jan
 
