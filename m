@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 795F7AA4E3C
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 16:16:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973616.1361698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74A44AA4E98
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 16:30:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973628.1361708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA8EH-00040q-IH; Wed, 30 Apr 2025 14:16:05 +0000
+	id 1uA8Rs-0006pE-MG; Wed, 30 Apr 2025 14:30:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973616.1361698; Wed, 30 Apr 2025 14:16:05 +0000
+Received: by outflank-mailman (output) from mailman id 973628.1361708; Wed, 30 Apr 2025 14:30:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA8EH-0003zN-FO; Wed, 30 Apr 2025 14:16:05 +0000
-Received: by outflank-mailman (input) for mailman id 973616;
- Wed, 30 Apr 2025 14:16:03 +0000
+	id 1uA8Rs-0006mM-J2; Wed, 30 Apr 2025 14:30:08 +0000
+Received: by outflank-mailman (input) for mailman id 973628;
+ Wed, 30 Apr 2025 14:30:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BSD2=XQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uA8EF-0003zH-LN
- for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 14:16:03 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Kwm3=XQ=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1uA8Rr-0006go-AV
+ for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 14:30:07 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20618.outbound.protection.outlook.com
+ [2a01:111:f403:2009::618])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a4c56165-25cd-11f0-9ffb-bf95429c2676;
- Wed, 30 Apr 2025 16:16:01 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5f4d28d9fd8so9238727a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 07:16:01 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f7035464f1sm8738257a12.62.2025.04.30.07.15.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Apr 2025 07:16:00 -0700 (PDT)
+ id 9ac71698-25cf-11f0-9ffb-bf95429c2676;
+ Wed, 30 Apr 2025 16:30:04 +0200 (CEST)
+Received: from DS7PR03CA0275.namprd03.prod.outlook.com (2603:10b6:5:3ad::10)
+ by LV8PR12MB9229.namprd12.prod.outlook.com (2603:10b6:408:191::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.33; Wed, 30 Apr
+ 2025 14:29:58 +0000
+Received: from CY4PEPF0000EDD3.namprd03.prod.outlook.com
+ (2603:10b6:5:3ad:cafe::4f) by DS7PR03CA0275.outlook.office365.com
+ (2603:10b6:5:3ad::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8655.36 via Frontend Transport; Wed,
+ 30 Apr 2025 14:29:58 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD3.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8699.20 via Frontend Transport; Wed, 30 Apr 2025 14:29:58 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 30 Apr
+ 2025 09:29:57 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 30 Apr
+ 2025 09:29:57 -0500
+Received: from [172.25.248.240] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 30 Apr 2025 09:29:56 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,178 +63,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4c56165-25cd-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1746022561; x=1746627361; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+9BRMKSY9c/7zbzbkB40d8yjlwDDdMMZTClJe2wodQI=;
-        b=STvw3+fx97tth4WdmbeTIXItLCszLyICqBjxTHMbtyMb77203dR3nC2VDad9f9s5GK
-         Q//RH7QZBw1vZO5iWi0jduvkxRyWLoJak14cw59JVwvXPFHcdISoLXKNlXnuvMUJhg+W
-         nZWI/cuXSotBbi0alpKJr6VAOBuRzSVIsOJ86oNF4T2FgkuH5lty47plPylTs6mL7gO+
-         VCLwnt8Su+YQghuab3/0woc5YPTpClGl566fz4Xy7DUCD8x33S6RmxgLGyJvl0K3KsdC
-         vbDbT8T1RKonk+foiHkjinIzKb8FWYrFfKhDkLsZ0gAN6qGQC2sEvDAd49jlb2Vd33fB
-         BB5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746022561; x=1746627361;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+9BRMKSY9c/7zbzbkB40d8yjlwDDdMMZTClJe2wodQI=;
-        b=aOCjdsT66ZEHSzjUP+NfN/ggI+n2gmKoe+GRxDk7/YwRyS7Ciyd88VZBTLGlVhgb2C
-         9Tdfl98qc48E1heQGrEAdE8ZBjl2T5AsmkUDVFwDRpb3J5aRnUYRwXYhLEAnA/m/GhjJ
-         aR4lgG3m+MEsztGf6PiHZi517BgKXT5eb0/+o4/6s4elnk2uRX0Is/qzIg6F9iRzAK18
-         htMzE9YKlDS/bQl3ppVtjgiV0oTtcBecBqnZlaM6eaXK7tU30ofHLD+bif/QvSlwYY3W
-         HgFa58Bgx+dTIvEUg5llqy+w/UFfr6xLx4ZwgQFNEa/U8O8IgVSMlruxW2HN+f75g/2R
-         AtXQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXe7W8xwJ5K6xBAOewdXXfWZRLBZqPchHxQhlB13NyIlauS5bMkutx1ej7Sq9V8V9oOPZzYHK+1dNk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwWNw64Sn246ya0+qEOrItBb05wL6rqEu15AcukTrmB0AaZjElf
-	yz2I9ZvBoZuGc/RWcZF7w89+pWewPI+tiGUGH+4dUmNVI1XXI5eGfksodiRxMA==
-X-Gm-Gg: ASbGncvgjNjcNantCkDsucUFUpu103Y+exwiV9UC/dATgVW1omIFm9Fu3GbwoD9gZiu
-	m7sOxGy6Pz3qI3Fvg6qiYMn9ZXuD+/PZinFXgab3qSkNdPveJTIqD9Sq5P19ndA8aTuTkoV+Ffs
-	6kwNIFOw133XMKjfghKOX25jrvikNIfNfM6oqf5196tYMCCxlgJGxjNx1+c7Uhw1hk9q3iDhzmX
-	TX0XH96Zp/mUSiSd1NzgXdWK22OYNBdWjtnYQhVnZIkTwX+kw5Cdd0AL3OBPv7+ePoyHBWjwl5f
-	ViylowZn4h+8T2VHd8unfrSQeQYgCZJYxBt5Oowx7KfyjEwaSKMWkQHvDdOw/0XzpW+dRBxGm+A
-	2cT/80wNTVUZHljeGPiRgivOgkScdGrf0gsjP
-X-Google-Smtp-Source: AGHT+IFw73xQ7w4aVKCar5oYZ6fdYM2vRGUxG6sEgUyC0yEUF124bYzFwAbXeLb0muZcOYVJ/KoXjg==
-X-Received: by 2002:a05:6402:3494:b0:5e5:b53:fd49 with SMTP id 4fb4d7f45d1cf-5f8aef17766mr2826691a12.3.1746022560666;
-        Wed, 30 Apr 2025 07:16:00 -0700 (PDT)
-Message-ID: <3932f6de-ea67-4cc4-95cd-a1b31b342505@suse.com>
-Date: Wed, 30 Apr 2025 16:15:59 +0200
+X-Inumbo-ID: 9ac71698-25cf-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B8OiC/hs5OLtxXL5q0yFrDwVn+gB+PXb3TekhAimNRHyK5xfyVP3999yzEmFRAnKFrttKrnwcCNq9zQakvSCLBFJf2Y5C/JeduL3zJFUQqVfJDSANL3/6Xsmt9GMLowF7JfwjNQ5bmL3f/TRrR+eiSOwzn1g3d6SpJ6y6FQEWkkxa2RHo2mgSEwrLihnmCuw6tB7IguDsbzq0tNNfCEqJY6syiaQnQ1Etgp4Vw5ALdbG506ab3b5Bzg+C8FafZzGyStOU9lgsuqZs+uRwkuyUYdHe4L3bJUeG72UECZf4GWcpLP/2E+aqzhGQqycEhKGZypl/nlyNubvsQyDa/x6/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nj4RH+eKlAWDYAxghd5E9mS1Ai32Wi5A5IgSdoR0AMg=;
+ b=hUZZF2azFXkCTbqbCS9v59sisWqrmIorXm7OlBoTgSn+SsgAR0gC7HyKYtKCh02RgmQ0LtjJWmX8MQGLmdbUhivBAvqiD7eJ/KYd0FQAdQeEaCUeGgM7PyHauIYmg65WTIKfP40165nYlJnVKDk419SUd+Xe9CBZfxxmLV1MDz7vEx6wLn9dic5I2HFKy8HB0venfU0QlDVINMFEGJelgxI/6C14Efee3B1gmBt59ABYv6gEogu+Q8A2IYFXAI8lzHTpPgVo6FnNOFBzxwIuPu5K/1cHPf9bIEDLgi9dg4h9CP2WCKX1TAYEvDSljN9pO4sjzaT6s7n+FG3VxpK0gQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=invisiblethingslab.com
+ smtp.mailfrom=amd.com; dmarc=pass (p=quarantine sp=quarantine pct=100)
+ action=none header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nj4RH+eKlAWDYAxghd5E9mS1Ai32Wi5A5IgSdoR0AMg=;
+ b=v0McVZR9FqNJFPClKNG5XotXGjiYcUAw52D+HT65xVYOznBxwT3lSjMUGWTcVeoc6GthnCllnMwMRdE7K2JO08MPbNV++7fkzoFKkH/clj/6Jsxe5MfrCQla5FsUmjVaLJ8U5PoMc4zO3WoL8u21mWn5Sz+nZvyfzpVX7qt6yek=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <641aef98-5dde-4618-9fa4-7ccfa2e1989d@amd.com>
+Date: Wed, 30 Apr 2025 10:29:58 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 13/15] tools/xenpm: fix unnecessary
- scaling_available_frequencies in CPPC mode
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
- <20250414074056.3696888-14-Penny.Zheng@amd.com>
+Subject: Re: NULL pointer dereference in xenbus_thread->...
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>, Jason Andryuk <jandryuk@gmail.com>
+CC: Julien Grall <julien@xen.org>, xen-devel <xen-devel@lists.xenproject.org>,
+	Juergen Gross <jgross@suse.com>
+References: <ZO0WrR5J0xuwDIxW@mail-itl> <ZTUuRj6e5x5xFVqb@mail-itl>
+ <ZgGjf3hpLHXXtb8z@mail-itl> <0f8c0e27-e60d-4e64-bc8a-6cb407c67ab2@xen.org>
+ <ZlpTwbmDjNLkCNgH@mail-itl> <aAjgGKRAW95BnTiK@mail-itl>
+ <CAKf6xpu7=2O96XK88WL02c-4po3qX-4P4i=2JbD2=o2JcM+_EQ@mail.gmail.com>
+ <aBIBy5eQPypM_UbJ@mail-itl>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250414074056.3696888-14-Penny.Zheng@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <aBIBy5eQPypM_UbJ@mail-itl>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD3:EE_|LV8PR12MB9229:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7429879-f022-430f-9ee7-08dd87f37be5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?MWVRT09zNEdwWGRoS3Jvekw2UmdSQXdRZVpsWFZUYVFkanc3aVVUS0hDVHla?=
+ =?utf-8?B?T3dnMVVxTGhWajNOTjR4Qjd6SUtuUUVLbGx1dklNa2pFQ1NGMDhPM1NITWRT?=
+ =?utf-8?B?ZkFtUVZ3ekFBOGZWVXFSM21nQnZ6eGtGb2ZiWDJVazlmWWJzSFcrOXZ6SWxE?=
+ =?utf-8?B?NWFFV3drQ3lVZlNEN0R4MzZCTThCSWx0VWpvaTM2enc4S2dCSkdXSHlKSmp0?=
+ =?utf-8?B?T1dJdzZ3UlBHV2hDNXNvT1Z6UEQxUlErL1N3a0psZysyaHovdlQ3Zzg2eUlL?=
+ =?utf-8?B?VUFST0xQcVV6bEFrTHUvVWpkb25aRmRmRnlCOFp1cE9qMkxjYXRxWTJkQzk3?=
+ =?utf-8?B?V29hQmpveXh4aE9JU29SUWNQZXpUZ1pBS3NzYlVBbFl2bTRSakhmM244Z2hM?=
+ =?utf-8?B?aTd5VXpNb05mZitkNk9FVDBzZEdKQlR3cGliTTlsWmxLVkNPQnJMWnlJNXc0?=
+ =?utf-8?B?MW5razdNRi9Ob3J1dkpUU0M1WU1FTUMrS050NXZ4aUhMcVd6THdMUURiM051?=
+ =?utf-8?B?MDJ3bWFSR0greWI4bFlyTEQwWXRtbHB1WHRmZjcvTTJKREdmWitnbEltYTJL?=
+ =?utf-8?B?VnVrOUVXcWlNOWZRSmVsc3lEbUFrQW9JQ3dmTU1hNmdBSURFVGxQNmRjNWpW?=
+ =?utf-8?B?QTZiN0doWFNqKzVRV0RpYStIbFd2U1RsdGgwOXE5aGFrMnRuYjdtM2xJSitU?=
+ =?utf-8?B?MnlBZHAreG1QYnUyeHhLbEZxemcyNTcrYTllUFIyVWpTSTJwZm9SODBzU3Iw?=
+ =?utf-8?B?enBpQU9RZVMwMS9QcGdxN3FuQlpFSHZsc2c1VEp6TnVDVlQ4UnloTXloOGMw?=
+ =?utf-8?B?RkI5R1RZd0VGRFNFcUZYM0pBRlJwRFppR0JiL3ppN2dFU3o1d29oeldidGha?=
+ =?utf-8?B?NUdDdCsvRW9Nd05hb2dlYnp1QkM5OVpEMEJCWm9BbnlrVzM5SjhMTm1UU2Za?=
+ =?utf-8?B?WStUdjNBQmtQeWh3Q3RKdWlZT1JrR3lJWk1Bd0gzeWxoSURYQjdBaFFXdnZa?=
+ =?utf-8?B?a3gvR1lFVnJyNHYvZWk2NWp6S2tFbS9xYlZWNFNGamtJb3VVSlFLeXdtNFoy?=
+ =?utf-8?B?YXNNNlZnWktGQzNadEdCM2RxR1UzVFV1OUhpcWdNeTlyM3A3TmxhN2QwMDBQ?=
+ =?utf-8?B?c0pRNUpidXRMMWVpNkZIQTNVTms1b1FpYW5laUs3ZDRGMWxNMnJsK0ppWTVS?=
+ =?utf-8?B?anI1bzZjUUVLVnNaeWdWaDNtZHJZb1U4VEM3Uk1jaHVaWDROdDVmR25EWU9j?=
+ =?utf-8?B?L0pIVnpXdm5VWlhqTEJNSWl1UkRXSUs0RlFDQ1FVQmsybDJtZXlldGFJUkRQ?=
+ =?utf-8?B?TzBaaFFDNHU3Zm8rV01ZMElPTVc3T2svQlpqdDBydFVITThTcWtUYzdCQnNy?=
+ =?utf-8?B?enlwK0JaZElvMjAyKzFEUHFkdDhEKytuTndSU3BJeUZZMzBPZWxRbHZVVDNY?=
+ =?utf-8?B?c21xNURBZDI0Mk03UUNreDVmRUxDNmFERjZaeFhoOHZIaTB5SWFXU3p1azBI?=
+ =?utf-8?B?Z0JFVnQyWFd5cEVpUTNSay9wM04vUFhhSXdkaldiVUVUL0Y4VmtGZVM2c09a?=
+ =?utf-8?B?UUVSMmUvbjRvNER5ZFpVc1RhdGloTWg3ZENxaDd5ejd2dHFDbHByNzI2TW1J?=
+ =?utf-8?B?TDJ1S0JWclN3dVVaMWxLM3oyL2xQZUs3OXE3UzJiUEp3UWNWWnRUTU41bVJD?=
+ =?utf-8?B?ejhZSDZsYUliSFRGdkxmN1lMSnArZ3BSQzJUVExKSkhaR2FUUHV2MGZYRDRw?=
+ =?utf-8?B?R1NySmtCelF5ckdvT0swQmFPQ29xem1GQ1pESmxGMjM1RDBGaGxpUnJxOHBS?=
+ =?utf-8?B?U0wvWXNoemdTOVBXZ1hTcWJtaXBPcExRNFdOSHdUZ3hFUW9ia1UzWGE4M2gy?=
+ =?utf-8?B?d0Zpb1gyNzBPU1VxNjlPOWFpK1hRME40bHFyb0M4NzhRRFBMdDZqeTNCL3Vx?=
+ =?utf-8?B?NWVVL1V2S0lXdkZPMmEvZURYOXRqalE5TmVRRWU2V1JDSnBPNFJ1aWxCellj?=
+ =?utf-8?B?UDIxUzRKcGZmRDdxSHlMZ3RtRmlSTHMzUGxhZ2ZRS1g2UWtyRGFyVGRjM21m?=
+ =?utf-8?B?WFhYOURkUFJBQkhZVmpPeG8zM2R0eEY1NDBIZz09?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2025 14:29:58.0470
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7429879-f022-430f-9ee7-08dd87f37be5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EDD3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9229
 
-On 14.04.2025 09:40, Penny Zheng wrote:
-> In `xenpm get-cpufreq-para <cpuid>`, para scaling_available_frequencies
-> only has meaningful value when cpufreq driver in legacy P-states mode.
+On 2025-04-30 06:56, Marek Marczykowski-Górecki wrote:
+> On Tue, Apr 29, 2025 at 08:59:45PM -0400, Jason Andryuk wrote:
+>> Hi Marek,
+>>
+>> On Wed, Apr 23, 2025 at 8:42 AM Marek Marczykowski-Górecki
+>> <marmarek@invisiblethingslab.com> wrote:
+
+>>> I've got some more report confirming it's still happening on Linux
+>>> 6.12.18. Is there anything I can do to help fixing this? Maybe ask users
+>>> to enable some extra logging?
+>>
+>> Have you been able to capture a crash with debug symbols and run it
+>> through scripts/decode_stacktrace.sh?
 > 
-> So we drop the "has_num" condition check, and mirror the ->gov_num check for
-> both ->freq_num and ->cpu_num in xc_get_cpufreq_para().
-> In get_cpufreq_para(), add "freq_num" check to avoid copying data to
-> op->u.get_para.scaling_available_frequencies in CPPC mode.
+> Not really, as I don't have debug symbols for this kernel. And I can't
+> reliably reproduce it myself (for me it happens about once in a
+> month...). I can try reproducing debug symbols, theoretically I should
+> have all ingredients for it.
 > 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+>> I'm curious what process_msg+0x18e/0x2f0 is.  process_writes() has a
+>> direct call to wake_up(), but process_msg() calling req->cb(req) may
+>> be xs_wake_up() which is a thin wrapper over wake_up().
+> 
+> There is a code dump in the crash message, does it help?
 
-The description doesn't clarify where the bug is that's being fixed (from
-the word "fix" in the subject). If there was one, surely there would also
-want to be a Fixes: tag.
+That's a little deeper in the call chain.  If you have a vmlinux or 
+bzImage with a matching stacktrace, that would work to look up the 
+address in the disassembly.  So if you don't have a matching pair, maybe 
+try to catch it the next time.
 
-> ---
->  tools/libs/ctrl/xc_pm.c   | 45 +++++++++++++++++++++------------------
->  xen/drivers/acpi/pmstat.c | 11 ++++++----
->  2 files changed, 31 insertions(+), 25 deletions(-)
+>> They make me wonder if req has been free()ed and at least partially
+>> zero-ed, but it still has wake_up() called.  The call stack here is
+>> reminiscent of the one here
+>> https://lore.kernel.org/xen-devel/Z_lJTyVipJJEpWg2@mail-itl/ and the
+>> unexpected value there is 0.
+> 
+> That's interesting idea, the one above I've seen only on 6.15-rc1 (and
+> no latter rc). But maybe?
 
-xenpm is entirely untouched, unlike suggested by the subject prefix.
+I am guessing, so I could be wrong.  NULL pointer and unexpected zero 
+value are both 0 at least.  Also Whonix looks like it may use 
+init_on_free=1 to zero memory at free time.
 
-> --- a/tools/libs/ctrl/xc_pm.c
-> +++ b/tools/libs/ctrl/xc_pm.c
-> @@ -212,34 +212,39 @@ int xc_get_cpufreq_para(xc_interface *xch, int cpuid,
->      DECLARE_NAMED_HYPERCALL_BOUNCE(scaling_available_governors,
->  			 user_para->scaling_available_governors,
->  			 user_para->gov_num * CPUFREQ_NAME_LEN * sizeof(char), XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
-> -    bool has_num = user_para->cpu_num && user_para->freq_num;
->  
-> -    if ( has_num )
-> +    if ( (user_para->cpu_num && !user_para->affected_cpus) ||
-> +         (user_para->freq_num && !user_para->scaling_available_frequencies) ||
-> +         (user_para->gov_num && !user_para->scaling_available_governors) )
-> +    {
-> +        errno = EINVAL;
-> +        return -1;
-> +    }
-> +    if ( user_para->cpu_num )
->      {
-> -        if ( (!user_para->affected_cpus)                    ||
-> -             (!user_para->scaling_available_frequencies)    ||
-> -             (user_para->gov_num && !user_para->scaling_available_governors) )
-> -        {
-> -            errno = EINVAL;
-> -            return -1;
-> -        }
->          ret = xc_hypercall_bounce_pre(xch, affected_cpus);
->          if ( ret )
->              return ret;
-> +    }
-> +    if ( user_para->freq_num )
-> +    {
->          ret = xc_hypercall_bounce_pre(xch, scaling_available_frequencies);
->          if ( ret )
->              goto unlock_2;
-> -        if ( user_para->gov_num )
-> -            ret = xc_hypercall_bounce_pre(xch, scaling_available_governors);
-> -        if ( ret )
-> -            goto unlock_3;
-> +    }
-> +    if ( user_para->gov_num )
-> +        ret = xc_hypercall_bounce_pre(xch, scaling_available_governors);
-> +    if ( ret )
-> +        goto unlock_3;
-
-Yes, ret is initialized to 0, so functionally this is okay. But can we please
-have all three pieces be as similar as possible, to make apparent that they're
-_expected_ to be similar?
-
-> --- a/xen/drivers/acpi/pmstat.c
-> +++ b/xen/drivers/acpi/pmstat.c
-> @@ -228,10 +228,13 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
->      ret = copy_to_guest(op->u.get_para.affected_cpus,
->                          data, op->u.get_para.cpu_num);
->  
-> -    for ( i = 0; i < op->u.get_para.freq_num; i++ )
-> -        data[i] = pmpt->perf.states[i].core_frequency * 1000;
-> -    ret += copy_to_guest(op->u.get_para.scaling_available_frequencies,
-> -                         data, op->u.get_para.freq_num);
-> +    if ( op->u.get_para.freq_num )
-> +    {
-> +        for ( i = 0; i < op->u.get_para.freq_num; i++ )
-> +            data[i] = pmpt->perf.states[i].core_frequency * 1000;
-> +        ret += copy_to_guest(op->u.get_para.scaling_available_frequencies,
-> +                             data, op->u.get_para.freq_num);
-> +    }
-
-What's the effect of this change? Without it, the loop will simply have zero
-iterations, and zero items will be copied to the guest. (As with the previous
-patch, this would better be a tools-only one anyway.)
-
-Else the question would be why the same isn't done for cpu_num, which is
-becoming optional now, too (according to the libxc change).
-
-Jan
+Regards,
+Jason
 
