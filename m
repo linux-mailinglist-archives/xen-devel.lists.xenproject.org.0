@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A180AAA50F0
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 17:56:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973834.1361868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 328D5AA510A
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 18:00:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973846.1361878 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA9nI-0002I7-WE; Wed, 30 Apr 2025 15:56:21 +0000
+	id 1uA9ql-0002te-De; Wed, 30 Apr 2025 15:59:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973834.1361868; Wed, 30 Apr 2025 15:56:20 +0000
+Received: by outflank-mailman (output) from mailman id 973846.1361878; Wed, 30 Apr 2025 15:59:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA9nI-0002FB-Sw; Wed, 30 Apr 2025 15:56:20 +0000
-Received: by outflank-mailman (input) for mailman id 973834;
- Wed, 30 Apr 2025 15:56:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uA9ql-0002sC-AZ; Wed, 30 Apr 2025 15:59:55 +0000
+Received: by outflank-mailman (input) for mailman id 973846;
+ Wed, 30 Apr 2025 15:59:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BSD2=XQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uA9nG-0002F1-Q6
- for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 15:56:18 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a629a90c-25db-11f0-9ffb-bf95429c2676;
- Wed, 30 Apr 2025 17:56:16 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5e5deb6482cso2063599a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 08:56:16 -0700 (PDT)
+ id 1uA9qk-0002rq-IJ
+ for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 15:59:54 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2781cdd4-25dc-11f0-9eb4-5ba50f476ded;
+ Wed, 30 Apr 2025 17:59:53 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-acbb48bad09so62867266b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 08:59:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f703831b5csm8873047a12.65.2025.04.30.08.56.15
+ a640c23a62f3a-ace6eda4901sm935196666b.162.2025.04.30.08.59.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Apr 2025 08:56:15 -0700 (PDT)
+ Wed, 30 Apr 2025 08:59:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a629a90c-25db-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 2781cdd4-25dc-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1746028576; x=1746633376; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=LIIm9sMnJx3R9m93jDqQRNtYV1uSDut5QMkJ9c1BK44=;
-        b=dH6E7zKaZ55Iwak+mjqzP5vKBx33sLVof85KGzGFx4AuSy2kRJrOV7jUzSDJE4JB34
-         1gbVHi2hu+UpI8Wt2rVYF7Ca33o/oWOYB7MplIL/jUZ5QzUWUXWWn8F7oeqwzLk2xPgp
-         mCQVusQZ5m9igSvHfBq/5a8eeEdwhLvefVRu4SLJv7txhe6KNgP/OrTMZEbNcHxfDOVB
-         ztqgzH+L4JOOrn7Bm+j84JFi/YPdGBqlTJbScoYI5ROJZymC5bla1z02xHzMrHI9Zak9
-         oC4J0tZWhQqcceuQ8NlVQiPQhG/xQVPb9J/wyTaCHTVPkOWCMcWIZHGFwW7EWz5/Mzka
-         N3UA==
+        d=suse.com; s=google; t=1746028793; x=1746633593; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=UWj5FM9mLjk3pSrQ01H3MlDc5GyIEoIBb6WRU2aa4AA=;
+        b=OQctR93U2J9x9xI5q0weoCSFP276tj1letsAEFpBfIOHJhNB3nMKi6sVAxoAAP2Kua
+         woyMvCyZja5XgqT0enznEG5Fe2rpcfVWUiEjL+iJpTFv2R2kFnj+rFZWSYfWz2AqsZ55
+         mFvSnPDqDE4D6h+AFnRen2wi32sgUtD6vcyirlQm0KYWFhv9EECNU367F12jaoWVs+g+
+         VXI5MkTO53dY1tpJbLCrAwk56nfGgghm3hjh0ykeTkXwyY4UaTaIbyHXCM5OP/wpZsRY
+         Aal0hSEQvwXIWsaL8/QVDkXFrfzSJXDzo+c3xxi2I0CDVYO7a3oyIxHtM180JG/2SEAq
+         fzkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746028576; x=1746633376;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LIIm9sMnJx3R9m93jDqQRNtYV1uSDut5QMkJ9c1BK44=;
-        b=i8HvQwqdeobrF2i60pSgjdzu/ccg5GDe1L+iLs+ep9ufjGXwLbqZM4cBQlzkAhAe7F
-         CD+NALRS5AZHQMmzPMjCgu2pw1qoLNUwLuiQ47IzuJqUCoitoWgsB7ciNU33z/pA5Msk
-         2yltIJUNoOyaBZSCgKTCPNO7C99SPI41k1rCV0JKe9TQbAGM8xZmrx/PqpHLqKfJa1jU
-         2PxXdx5ZsaA8MhVV9ebMYKbnhde6hpd4mNdpianvl+TlSBx4sgISBg3KpUEw7IMnCEs/
-         We8ZP9y4fG298ZoUzVb01qAownAd5ZkAEcESpmsToTK/Lx5uODI63z6uq8u6srlrrhh6
-         Gmmg==
-X-Gm-Message-State: AOJu0YzSTDZfmzTgbuaJg5f7eqWnoet7/MBMBEM/pDNrIj925iQFgp+r
-	3b6yZLQmNkNl6+fuWOnAsZAfflPZPKIjsfJCoDH8KRWd6KlKX61e+y82PI9MVIs9pNzszwv6VsI
-	=
-X-Gm-Gg: ASbGncuRMRkBbTaIT1jqXE6YmWqsNYIl3Jh+CIPuIpU/eE/kunR43KLG5hrh8umY7sY
-	gduj4EL5mQ3IDEQybutpIQBtn/USpCy1BQDXgYVUvTn7pTAlWWKdaRqbnWvGOvY2PxbYYY8g/vV
-	FFUtBvWimpiAvHF1lb7mgC8XXWMaASvdUMWJ4GbFtk1cXCB3afc/0qp40xT1PZt3jJNOBw4TkqT
-	/BQhC/WeLrTSiBti7FSuEh+eoTIs88U/smjE6jEEOr1+nxjQzUPf5JWA+G/wG1+ituxw+TvgEEE
-	nAseNC8CmYjGt01qQ6uyaYT8YKEQcgVnHZwVXVPeEI//matMIb/8oRkO0ioDaU6SPcB06gNd63R
-	Iy8BovChLo0HN/vMY1QXRlKJgpPa17BSnn0r4
-X-Google-Smtp-Source: AGHT+IEmQpeOYBdGfkong6yyDejetchBWKcvjhpKyytn8x9xSS3CUxAzx9Hyhtb5Joy/e5XIscxd5A==
-X-Received: by 2002:a05:6402:5244:b0:5f7:2852:2010 with SMTP id 4fb4d7f45d1cf-5f89fe51a09mr3332576a12.13.1746028576108;
-        Wed, 30 Apr 2025 08:56:16 -0700 (PDT)
-Message-ID: <262b9929-5cbd-4bb1-ac2a-35916273cba5@suse.com>
-Date: Wed, 30 Apr 2025 17:56:14 +0200
+        d=1e100.net; s=20230601; t=1746028793; x=1746633593;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UWj5FM9mLjk3pSrQ01H3MlDc5GyIEoIBb6WRU2aa4AA=;
+        b=dma0bLKcUXM9JnPPDMMydstXdizJTh2Nj11qOKskwmYYdRVOYmTOrOqqOhi3Nenn/D
+         Dsa83Xd116BBycigtIJpHIosiFYr3rRrdfuKSEcUGhf6zi+JQY+QAsBB3xfdHztHTvzs
+         Tcr6OhWT+IXDAGB7Z2gppB7NCLlvUVlXED7HyIWZzpNiauSOtmH5GP3yu12OagmxI0zs
+         cL1bQQLQQjsJCqzdEZ2MSO0Whc5HSNPPmwoAALK9GHyO1wizDLVwMVsgIMpp5U23znw4
+         uO/Hnjb14876PmebVowHsbccVOBxx2/CfBUVLUcHxx/BA0ODYncdQwRyF5M7EIYzN4nx
+         HTMA==
+X-Forwarded-Encrypted: i=1; AJvYcCWGSsTybyts1X/I2h0hlmWfPMrhOxENgRSdZBlkgUKPzBUq3+5qu7FSS742AcUglvp1AXYWqjKCVIc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzCuYqZxa1J6UNLHQak/ymIiu4mGlf5Xw0ODEeeO8AIBXIBdQQ4
+	J4i/jGhZsKV5rvQCmYCLgbNWH5ie9oupWK8Zyo59eFUa9nR38+Qwq/HorJpP1Q==
+X-Gm-Gg: ASbGnctDsTghgO5vSmI6AX96Cy6nQzEPfpq1dnjExoW4Kx+hxvJJEllv1lFU+I7qV5l
+	5plrx4BtNS4LHkWn/hGEWIMOFnKE7s1z/yI6hefocDLpxJ6BvCm8tnaGKNMIks1Ba48toegBCwC
+	LTplYkTSPdDcF//ycTdLu6CeUa8C0zThucPqnjSJykSmXV2XQ7cdO2cbKy/FCoLtnc+RTgcSxCD
+	QV4vUxkYuJsZad0jKf4QqmRyJ47JRCny48RfN0vIEVFW6DXHyqHz9gSVJcbjXOr5gblkrtrDGV+
+	L07GGXtaj3h0l+5sZpOcBJUO5ephMc4r7quKHKOnxdwR24Ksb5dU0zJkng/LWfq+gQqDfxoj9tm
+	cCGe5S9bwuHB6poGVtFreHWJ21g==
+X-Google-Smtp-Source: AGHT+IHjhzikOeH6euXYDS44dghM17JUKB41cPSZTcHYuFKL6y8HwuPpiJw5PjZObNhTxOePMyADaQ==
+X-Received: by 2002:a17:907:3dac:b0:ace:cae6:c85c with SMTP id a640c23a62f3a-acee24b3eb6mr308184866b.39.1746028792984;
+        Wed, 30 Apr 2025 08:59:52 -0700 (PDT)
+Message-ID: <238c657e-a53c-4eaa-84aa-1d3310b65723@suse.com>
+Date: Wed, 30 Apr 2025 17:59:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [RFC PATCH 1/4] xen: Introduce physaddr_abi CDF flag
+To: Teddy Astie <teddy.astie@vates.tech>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1744981654.git.teddy.astie@vates.tech>
+ <df0da6d56a9a9ca440b7bb2c7c0b71d66567e3aa.1744981654.git.teddy.astie@vates.tech>
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] mm: move paddr_to_pdx()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -122,67 +121,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <df0da6d56a9a9ca440b7bb2c7c0b71d66567e3aa.1744981654.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-There's nothing arch-specific about it.
+On 18.04.2025 16:18, Teddy Astie wrote:
+> @@ -745,6 +747,12 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
+>          return -EINVAL;
+>      }
+>  
+> +    if ( physaddr_abi && !hvm )
+> +    {
+> +        dprintk(XENLOG_INFO, "Physical address ABI requested for non-HVM guest");
+> +        return -EINVAL;
+> +    }
 
-While there, on x86 visually separate the vmap_to_*() macros from those
-covered by the earlier comment.
+Why this restriction?
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Jan
 
---- a/xen/arch/arm/include/asm/mm.h
-+++ b/xen/arch/arm/include/asm/mm.h
-@@ -237,7 +237,6 @@ static inline void __iomem *ioremap_wc(p
- /* Convert between frame number and address formats.  */
- #define pfn_to_paddr(pfn) ((paddr_t)(pfn) << PAGE_SHIFT)
- #define paddr_to_pfn(pa)  ((unsigned long)((pa) >> PAGE_SHIFT))
--#define paddr_to_pdx(pa)    mfn_to_pdx(maddr_to_mfn(pa))
- #define gfn_to_gaddr(gfn)   pfn_to_paddr(gfn_x(gfn))
- #define gaddr_to_gfn(ga)    _gfn(paddr_to_pfn(ga))
- #define mfn_to_maddr(mfn)   pfn_to_paddr(mfn_x(mfn))
---- a/xen/arch/ppc/include/asm/mm.h
-+++ b/xen/arch/ppc/include/asm/mm.h
-@@ -13,7 +13,6 @@ void setup_initial_pagetables(void);
- 
- #define pfn_to_paddr(pfn) ((paddr_t)(pfn) << PAGE_SHIFT)
- #define paddr_to_pfn(pa)  ((unsigned long)((pa) >> PAGE_SHIFT))
--#define paddr_to_pdx(pa)  mfn_to_pdx(maddr_to_mfn(pa))
- #define gfn_to_gaddr(gfn) pfn_to_paddr(gfn_x(gfn))
- #define gaddr_to_gfn(ga)  _gfn(paddr_to_pfn(ga))
- #define mfn_to_maddr(mfn) pfn_to_paddr(mfn_x(mfn))
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -19,7 +19,6 @@ extern vaddr_t directmap_virt_start;
- #define pfn_to_paddr(pfn) ((paddr_t)(pfn) << PAGE_SHIFT)
- #define paddr_to_pfn(pa)  ((unsigned long)((pa) >> PAGE_SHIFT))
- 
--#define paddr_to_pdx(pa)    mfn_to_pdx(maddr_to_mfn(pa))
- #define gfn_to_gaddr(gfn)   pfn_to_paddr(gfn_x(gfn))
- #define gaddr_to_gfn(ga)    _gfn(paddr_to_pfn(ga))
- #define mfn_to_maddr(mfn)   pfn_to_paddr(mfn_x(mfn))
---- a/xen/arch/x86/include/asm/page.h
-+++ b/xen/arch/x86/include/asm/page.h
-@@ -258,7 +258,8 @@ void scrub_page_cold(void *);
- #define mfn_to_virt(mfn)    __mfn_to_virt(mfn)
- #define pfn_to_paddr(pfn)   __pfn_to_paddr(pfn)
- #define paddr_to_pfn(pa)    __paddr_to_pfn(pa)
--#define paddr_to_pdx(pa)    pfn_to_pdx(paddr_to_pfn(pa))
-+
-+/* Specialized forms acting on vmap() addresses. */
- #define vmap_to_mfn(va)     xen_map_to_mfn((unsigned long)(va))
- #define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
- 
---- a/xen/include/xen/pdx.h
-+++ b/xen/include/xen/pdx.h
-@@ -98,6 +98,8 @@ bool __mfn_valid(unsigned long mfn);
- #define mfn_to_pdx(mfn) pfn_to_pdx(mfn_x(mfn))
- #define pdx_to_mfn(pdx) _mfn(pdx_to_pfn(pdx))
- 
-+#define paddr_to_pdx(pa) pfn_to_pdx(paddr_to_pfn(pa))
-+
- #ifdef CONFIG_PDX_COMPRESSION
- 
- extern unsigned long pfn_pdx_bottom_mask, ma_va_bottom_mask;
 
