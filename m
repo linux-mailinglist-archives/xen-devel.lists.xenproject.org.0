@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 034EFAA4303
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 08:17:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973330.1361472 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68AF6AA4319
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 08:28:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973342.1361483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA0kV-0004tE-7b; Wed, 30 Apr 2025 06:16:51 +0000
+	id 1uA0vI-0006iw-6j; Wed, 30 Apr 2025 06:28:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973330.1361472; Wed, 30 Apr 2025 06:16:51 +0000
+Received: by outflank-mailman (output) from mailman id 973342.1361483; Wed, 30 Apr 2025 06:28:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA0kV-0004qd-4s; Wed, 30 Apr 2025 06:16:51 +0000
-Received: by outflank-mailman (input) for mailman id 973330;
- Wed, 30 Apr 2025 06:16:48 +0000
+	id 1uA0vI-0006h2-3j; Wed, 30 Apr 2025 06:28:00 +0000
+Received: by outflank-mailman (input) for mailman id 973342;
+ Wed, 30 Apr 2025 06:27:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BSD2=XQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uA0kS-0004qE-UL
- for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 06:16:48 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1uA0vH-0006gt-0s
+ for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 06:27:59 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2568eec-258a-11f0-9eb4-5ba50f476ded;
- Wed, 30 Apr 2025 08:16:47 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-acbb85ce788so1343211966b.3
- for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 23:16:47 -0700 (PDT)
+ id 41840e7f-258c-11f0-9eb4-5ba50f476ded;
+ Wed, 30 Apr 2025 08:27:57 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5f62ef3c383so12548308a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Apr 2025 23:27:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace6eda4901sm874417266b.162.2025.04.29.23.16.46
+ a640c23a62f3a-ace6ecf9a17sm890289466b.99.2025.04.29.23.27.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Apr 2025 23:16:46 -0700 (PDT)
+ Tue, 29 Apr 2025 23:27:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2568eec-258a-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 41840e7f-258c-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1745993807; x=1746598607; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1745994477; x=1746599277; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vFUKgcgVn98RqqzvpGBxxw5VMYDUI/wcwkHYyHu4Vqk=;
-        b=e8B43IHYlS5wwkIS5lYKxWXTUcTckn5IWojhZspn1LeY01WMxAzyluU89EEf7mAwNP
-         g7+BmBTG7UKEdw46pn9QfC8pfcBFMeUFQA92j0QIz2tDll+9sjP4e5KIN4aJItqkPKmn
-         J0rY5pL/2blqHGijTbXmupiOQOZkRFvaUEwUdX8nIFMa7vOft4bJM4N1UGlOnw9usvZ5
-         ccD4FEr9q6vFdnytDwN8b2tBhTL0f37zgkaIn9YkdDKYSJiS79qDZWVy0RjcvPT0CKXt
-         e3kD+AYYWywB3tZaTcpiNyW8z71SXgb7P7ZoTFbKy+rf/pSG58rSN88JR/2tvnxZaNiN
-         dV6Q==
+        bh=1qD8/eC/zZl2V3aqGq7id38qjUXXTHFtyhEwCHL44+k=;
+        b=P/RCrkeX1+uorpIDM2hfXf7DE40YVEwiWwHPXGAjRBpJvp4VVeN/6hxySqqv7+mqFf
+         iLPlQC9KE8wDhCfNyzHfUcSSdM8XlU8EjB9vFE9zM09eCKvL0TZ3kVaBNUm2wfpCy3AE
+         kFuEG1K1339a0juBk/nPAXYHaq1D/I7zQ93XxowrSC9NG0Njp8mQvLws22DYVxPe5INM
+         X8zH/CW2CxrtEwAiyoS6FUlZTS5YdLVqG09/49ag79dD0iJvkhKmsfaSPF7z8wjR1fKd
+         i1nEKPahRr8ltm2sGOrBHXHo+FdII3GvlGHu0AWNqIL0hZbZ3WHmlNogMNFOWGUQkNZR
+         1K4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745993807; x=1746598607;
+        d=1e100.net; s=20230601; t=1745994477; x=1746599277;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vFUKgcgVn98RqqzvpGBxxw5VMYDUI/wcwkHYyHu4Vqk=;
-        b=Awe2fSV9kJvk8pV27QaXykIe6TsK3FHAdtYwfpdwoIDPrsgvlSwxxhvDKJy42IXW4X
-         Dz7d85r1Zr2Al3bd7VglJCF1ncdTmM+q3ZCzXkQkHXeEhEwFUfPj+QwuVx620iZVapfH
-         Vq8teDWyvOW/iUY8RZqmzGbKtWnTtvqOMWigMB+HUG6aP/N++aKcukbPbKOfKuPmp1Ys
-         83Wb0PXbJMhkC4XcApIJ1afGLlNOFtlaFSLgsPRkt4pOz+c2Zj10km3UXePHUwLo/Lwq
-         EC8M6C8QVSkKC1AGUu2o8NdNJYiew8n8P/lzWladrpE+fJUHvEgxIiqUS/+To2Rcnm1V
-         4Crg==
-X-Forwarded-Encrypted: i=1; AJvYcCUGv1KyTLLQKufQ389e+0rDwmXJOVByTu2Qu9G7GM4xHyBzQRxdfmiymxJkavPZ+ccs2pDV3ZK5MPk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQR9E4QMIJ7QcY6kdoKosfQLBI/mIHrdYS0SSM1DOdY6y1eV7J
-	u/B7eYt4OqD8TtEc1laMhpmGvCmn5VbYYsEwttPlGz5h6GTP2QDEuWQ4fpKOtw==
-X-Gm-Gg: ASbGncscOd0HHYCEYFuCc9mIC679yjuBDYdA1277vVGecWlMLF5qKkbFScmyW1yjTQ1
-	Y4rDpfUaMlKrTQQKEkvAJqERKKCqktFSaTe0lCfwWE7jlispT90Xh5M8K2XVKl2og4FB/VurdwN
-	Znro5imNxtydC4HcTgutEQG1oLzw6uGse0n7scranxA0qjC+UtJssjiIqAihLQ5T4APySAkpkLV
-	1WFsY4o19Ifn3yIJSzMEt1nLjM1HiabjR4mtvNPsIfjyC2i3z79rreqGWlg6VdstdG2oA/N3cg0
-	tMZrFaMDl538ZhaYU8qTSZhOC28542L0sZIleVBGIpe5TdN5sjfuLPCQcD2ph9oL2Z5P4pKXUfB
-	2v8kQl7yipImo6SgrsN1/ZqVTgw==
-X-Google-Smtp-Source: AGHT+IFU51h7orpp+QOj7+5RduH1Z3k8AAYTEswNsrISN5DjUlf381gOrUEaQHB2l2ZefxZfZtebPQ==
-X-Received: by 2002:a17:907:948e:b0:acb:b08c:76ae with SMTP id a640c23a62f3a-acedc5da450mr207919266b.16.1745993807178;
-        Tue, 29 Apr 2025 23:16:47 -0700 (PDT)
-Message-ID: <eb623b71-f8f5-490c-a793-9185c1ffda9a@suse.com>
-Date: Wed, 30 Apr 2025 08:16:45 +0200
+        bh=1qD8/eC/zZl2V3aqGq7id38qjUXXTHFtyhEwCHL44+k=;
+        b=REi1HjTF1kDHOWQxpZdHzzvuljoQ0MJ0d3/I2L8YZc65EEQeE4evMORyaBzOvL1WuM
+         knoR73MQRHrHUIIYcLZAqiXeRq4I2mKHbnqhdHLYFKKDLEI5W8YzN31bYFctwNIrDwyb
+         5iOKTSbRzIMk5ZVgzOVCyfNH2B//YSD1qLqn3Y06VY1gefj0taMg5ZU37rM55E7Wi8ci
+         yKuUhxxz/fy8e58J2jnIfX8t5kJ+Owiask1P8mINehsi9pH+xg9ejRxfQNFX9t5DF6Kg
+         XUQKzT2ttQKA6dckgyyi97ScVTDmhLXkwYsxSwlYJ+WhKutUohyyR/EF3bDZSoOZBkRA
+         1ZzA==
+X-Forwarded-Encrypted: i=1; AJvYcCWvadb5qpWp8vEWc+eQVd854EobQ4V32Bsa2uPNicndcykLkvAoI7YMqmgN4HhiMyY0Tjy5j9ypzkk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzVTvSGCM3VfOf0jlkLAuNWEcLFtVve2pi1Mj9mrZGOwdqNWhLq
+	26qHMv6qYRjNAP7L/Bd30m/AfRrNiZU4aswKueDsvzPEGKiurI1W4aPJaT4nKA==
+X-Gm-Gg: ASbGnctwsCUuNdNM46j+EsKnc+GCwBipIVJiB9CrNXM5/DEWsfnXPs1JfI7VXIc2yVB
+	z7XSC+T7X8/LJkuC7MDCnFXbs0xJmyA9H4J1DghFKrVd60nEzKzRjLmeZnweCEODyfY7K9nMfCk
+	eCEp9tbPookisVstEB7tcAeNA9GkMnTUZ6DkJ0buKy/gxNY0olWU1D9tRXJnb6QEh5ry7Qj/OPI
+	LvnS4SWRVWqjQEficG5D2E3HHI5cG+UFlUC9mZsJrUepzaHVuCkTKw/RWFTnjQerUs2ySgTOmt3
+	KDUt+jnN6Q4bea0fWfjIlInbw49y+SKaEcl6hOkOG04WmiGw3b+PT9Rlp4u0fgD60UAhWd4CvsH
+	a3iBFBa0w8nPQxvi9zGzdTrujTA==
+X-Google-Smtp-Source: AGHT+IGue4q2aECjR03a+d+yd0Vbla8JGqM9Y3b0UAPR7VsZH+oxddXv7VbITO36UZvTX5zV55WHEg==
+X-Received: by 2002:a17:907:7285:b0:ac3:49f0:4d10 with SMTP id a640c23a62f3a-acee24b4576mr133689366b.38.1745994476828;
+        Tue, 29 Apr 2025 23:27:56 -0700 (PDT)
+Message-ID: <59bfc389-66c8-4d0f-92e3-c0079a807374@suse.com>
+Date: Wed, 30 Apr 2025 08:27:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] compat: address violations of MISRA C Rule 19.1
+Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: victorm.lira@amd.com, Nicola Vetrini <nicola.vetrini@bugseng.com>,
+Cc: "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Federico Serafini <federico.serafini@bugseng.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <c694069696dd428bc1719e36c378a573b03f74b9.1745624090.git.victorm.lira@amd.com>
- <74b0420ab20fc0204db14c0a1a4a68ed48b25a38.1745624090.git.victorm.lira@amd.com>
- <cb1f8a8f-8834-4610-baab-c53bf5928b0c@suse.com>
- <alpine.DEB.2.22.394.2504281614020.785180@ubuntu-linux-20-04-desktop>
- <dc55282f-f9a1-470b-8126-ca347d44efbc@suse.com>
- <alpine.DEB.2.22.394.2504291501490.3879245@ubuntu-linux-20-04-desktop>
+ jason.andryuk@amd.com, agarciav@amd.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop>
+ <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com>
+ <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop>
+ <06b66971-d8db-456f-8e83-a20ff7df8f5e@suse.com>
+ <alpine.DEB.2.22.394.2504291425320.3879245@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,115 +123,96 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2504291501490.3879245@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2504291425320.3879245@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.04.2025 00:02, Stefano Stabellini wrote:
+On 29.04.2025 23:52, Stefano Stabellini wrote:
 > On Tue, 29 Apr 2025, Jan Beulich wrote:
->> On 29.04.2025 01:21, Stefano Stabellini wrote:
+>> On 28.04.2025 22:00, Stefano Stabellini wrote:
 >>> On Mon, 28 Apr 2025, Jan Beulich wrote:
->>>> On 26.04.2025 01:42, victorm.lira@amd.com wrote:
->>>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>>
->>>>> Rule 19.1 states: "An object shall not be assigned or copied
->>>>> to an overlapping object". Since the "call" and "compat_call" are
->>>>> fields of the same union, reading from one member and writing to
->>>>> the other violates the rule, while not causing Undefined Behavior
->>>>> due to their relative sizes. However, a dummy variable is used to
->>>>> address the violation and prevent the future possibility of
->>>>> incurring in UB.
+>>>> On 25.04.2025 22:19, Stefano Stabellini wrote:
+>>>>> --- a/xen/arch/x86/mm.c
+>>>>> +++ b/xen/arch/x86/mm.c
+>>>>> @@ -4401,7 +4401,7 @@ int steal_page(
+>>>>>      const struct domain *owner;
+>>>>>      int rc;
+>>>>>  
+>>>>> -    if ( paging_mode_external(d) )
+>>>>> +    if ( paging_mode_external(d) && !is_hardware_domain(d) )
+>>>>>          return -EOPNOTSUPP;
+>>>>>  
+>>>>>      /* Grab a reference to make sure the page doesn't change under our feet */
 >>>>
->>>> If there is such a concern, ...
->>>>
->>>>> --- a/xen/common/compat/multicall.c
->>>>> +++ b/xen/common/compat/multicall.c
->>>>> @@ -15,8 +15,13 @@ typedef int ret_t;
->>>>>  static inline void xlat_multicall_entry(struct mc_state *mcs)
->>>>>  {
->>>>>      int i;
->>>>> +    xen_ulong_t arg;
->>>>> +
->>>>>      for (i=0; i<6; i++)
->>>>> -        mcs->compat_call.args[i] = mcs->call.args[i];
->>>>> +    {
->>>>> +        arg = mcs->call.args[i];
->>>>> +        mcs->compat_call.args[i] = arg;
->>>>> +    }
->>>>>  }
->>>>
->>>> ... wouldn't it be of concern as well that the alternating parts of
->>>> the union are still accessed in a flip-flop manner? IOW we continue to
->>>> rely on the relative placement properties of the individual array
->>>> elements. To eliminate such a concern, I think the resulting code would
->>>> also want to be correct if iteration was swapped to work downwards.
->>>>
->>>> Also the scope of the temporary could certainly be the loop body rather
->>>> than the entire function.
+>>>> Is this (in particular the code following below here) a safe thing to do
+>>>> when we don't properly refcount page references from the P2M, yet? It's
+>>>> Dom0, yes, but even there I might see potential security implications (as
+>>>> top violating privacy of a guest).
 >>>
->>> Wouldn't be safer to do this then?
->>>
->>> static inline void xlat_multicall_entry(struct mc_state *mcs)
->>> {
->>>     int i;
->>>     xen_ulong_t args[6];
->>>
->>>     for ( i = 0; i < 6; i++ )
->>>     {
->>>         args[i] = mcs->call.args[i];
->>>     }
->>>     for ( i = 0; i < 6; i++ )
->>>     {
->>>         mcs->compat_call.args[i] = args[i];
->>>     }
->>> }
->>>
->>> If you have any specific suggestions I think C code would be easier to
->>> understand than English.
+>>> I don't think I am following, could you please elaborate more? The
+>>> change I am proposing is to allow Dom0 to share its own pages to the
+>>> co-processor. DomUs are not in the picture. I would be happy to add
+>>> further restriction to that effect. Is there something else you have in
+>>> mind?
 >>
->> Kind of the above, yes, with the further remark below also taken care of.
->> So ...
->>
->>>> I also don't think it needs to be xen_ulong_t,
->>>> but maybe using unsigned int instead wouldn't make a difference in
->>>> generated code.
->>>
->>> Keeping the same type as mcs->call.args[i] would seem more obviously
->>> correct? Not to mention that unsigned long is what we defined as
->>> register type? If we really want to avoid xen_ulong_t, then it should
->>> be uintptr_t?
->>>
->>> We should stick to one type to be used as register type. On ARM, we
->>> defined register_t.
->>
->> ... with both taken into account e.g.:
->>
->>     typeof(mcs->compat_call.args[0]) args[ARRAY_SIZE(mcs->call.args)];
->>
->>     for ( i = 0; i < ARRAY_SIZE(args); i++ )
->>         args[i] = mcs->call.args[i];
->>
->>     memcpy(mcs->compat_call.args, args, sizeof(args));
->>
->> Of course there are variations possible. There also may want to be a
->> BUILD_BUG_ON() to "document" both array sizes match, even if the compat
->> form is auto-generated from the native one.
->>
->> Tangential: As of 2f531c122e95 ("x86: limit number of hypercall parameters
->> to 5") it's kind of bogus that we process 6 array elements here. This even
->> extends to an assertion in hypercall_xlat_continuation() and to some of
->> the handling in hypercall_create_continuation(). I guess I will want to
->> make a patch there, which of course I could make cover the Misra aspect
->> here as well.
+>> Once "shared" with the PSP, how would Xen know that this sharing has stopped?
+>> Without knowing, how could it safely give the same page to a DomU later on?
+>> ("Safely" in both directions: Without compromising privacy of the DomU and
+>> without compromising host safety / security.)
 > 
-> Please do, that would be much appreciated. Thank you!
+> Why would Xen later assign the same page to a DomU? The page comes
+> from the hardware domain, which, as of today, cannot be destroyed. BTW I
+> realize it is a bit different, but we have been doing the same thing
+> with Dom0 1:1 mapped on ARM since the start of the project.
 
-I already did ["{hyper,multi}call: further limit arguments to just 5"]; all I
-need there is an Arm side ack.
+The life cycle of the page within Dom0 may be such that a need arises to
+move it elsewhere (balloon out, grant-transfer, and what not).
 
-> Also thanks for 2f531c122e95.
+>>>>> --- a/xen/common/memory.c
+>>>>> +++ b/xen/common/memory.c
+>>>>> @@ -794,7 +794,7 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
+>>>>>              rc = guest_physmap_add_page(d, _gfn(gpfn), mfn,
+>>>>>                                          exch.out.extent_order) ?: rc;
+>>>>>  
+>>>>> -            if ( !paging_mode_translate(d) &&
+>>>>> +            if ( (!paging_mode_translate(d) || is_hardware_domain(d)) &&
+>>>>>                   __copy_mfn_to_guest_offset(exch.out.extent_start,
+>>>>>                                              (i << out_chunk_order) + j,
+>>>>>                                              mfn) )
+>>>>
+>>>> Wait, no: A PVH domain (Dom0 or not) can't very well make use of MFNs, can
+>>>> it?
+>>>
+>>> One way or another Dom0 PVH needs to know the MFN to pass it to the
+>>> co-processor.
+>>
+>> I see. That's pretty odd, though. I'm then further concerned of the order of
+>> the chunks. At present we're rather lax, in permitting PVH and PV Dom0 the
+>> same upper bound. With both CPU and I/O side translation there is, in
+>> principle, no reason to permit any kind of contiguity. Of course there's a
+>> performance aspect, but that hardly matters in the specific case here. Yet at
+>> the same time, once we expose MFNs, contiguity will start mattering as soon
+>> as any piece of memory needs to be larger than PAGE_SIZE. Which means it will
+>> make tightening of the presently lax handling prone to regressions in this
+>> new behavior you're introducing. What chunk size does the PSP driver require?
+> 
+> I don't know. The memory returned by XENMEM_exchange is contiguous,
+> right? Are you worried that Xen cannot allocate the requested amount of
+> memory contiguously?
 
-I fear I don't understand this part. But it probably also doesn't matter much.
+That would be Dom0's problem then. But really for a translated guest the
+exchanged chunks being contiguous shouldn't matter, correctness-wise. That is,
+within Xen, rather than failing a request, we could choose to retry using
+discontiguous chunks (contiguous only in GFN space). Such an (afaict)
+otherwise correct change would break your use case, as it would invalidate the
+MFN information passed back. (This fallback approach would similarly apply to
+other related mem-ops. It's just that during domain creation the tool stack
+has its own fallback, so it may not be of much use right now.)
+
+> We have been using this patch for months now and it
+> has been working correctly to this day.
+
+Sure, that's a good data point. Yet not a proof of correctness.
 
 Jan
 
