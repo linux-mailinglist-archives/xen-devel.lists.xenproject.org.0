@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26946AA5125
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 18:05:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973883.1361908 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B942AA5130
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 18:07:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973892.1361918 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA9vt-0006fk-EO; Wed, 30 Apr 2025 16:05:13 +0000
+	id 1uA9y2-0007Q8-Q1; Wed, 30 Apr 2025 16:07:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973883.1361908; Wed, 30 Apr 2025 16:05:13 +0000
+Received: by outflank-mailman (output) from mailman id 973892.1361918; Wed, 30 Apr 2025 16:07:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA9vt-0006dW-Bi; Wed, 30 Apr 2025 16:05:13 +0000
-Received: by outflank-mailman (input) for mailman id 973883;
- Wed, 30 Apr 2025 16:05:11 +0000
+	id 1uA9y2-0007OR-NB; Wed, 30 Apr 2025 16:07:26 +0000
+Received: by outflank-mailman (input) for mailman id 973892;
+ Wed, 30 Apr 2025 16:07:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BSD2=XQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uA9vr-0006dO-FF
- for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 16:05:11 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=y9NI=XQ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uA9y1-0007OL-GV
+ for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 16:07:25 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e3c8f364-25dc-11f0-9ffb-bf95429c2676;
- Wed, 30 Apr 2025 18:05:09 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-ac3fcf5ab0dso1221158266b.3
- for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 09:05:09 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aced89270a7sm163846966b.18.2025.04.30.09.05.08
+ id 337209ba-25dd-11f0-9ffb-bf95429c2676;
+ Wed, 30 Apr 2025 18:07:23 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-acbb85ce788so1458794466b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 09:07:23 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-69-225.play-internet.pl.
+ [109.243.69.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ace6e587093sm939655666b.80.2025.04.30.09.07.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Apr 2025 09:05:08 -0700 (PDT)
+ Wed, 30 Apr 2025 09:07:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +45,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3c8f364-25dc-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 337209ba-25dd-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1746029109; x=1746633909; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JdZUkoEsfweykAhRb/6UZyp63WuM+Nh1YapjQxvZKEM=;
-        b=SChhDJ03rAmbUwOasndVVqJ4ltYMqMD2t1PjmQWpJmz/vCkAsk8mC8s4E6JqiXbDfO
-         oSzgKStrHoq7azQ8tZ9x8F1pcK5olHHmPkEU/LX/FcZlMo7sQkho7q0oFQR89BDmjc4B
-         pQU285/D4cHAkQ3ur3Ol6zVkmlqy9qHUg3nAQ1GDVrgYyk26vFpLO5D7LbhQmZeS5y/n
-         XHe9jFCqCgS1gRDAkG9bq56/ygLvUrS8Z91VQruboId/yGB4jaZDBtDv2oflV3e2k1bg
-         Q38uoWPDlTncJPk0/ZqnOxSjYrx3J0QoLS3Xhb6ZRCua37oSz7aAKeG0bFNJayBX+l/M
-         2m5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746029109; x=1746633909;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1746029242; x=1746634042; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JdZUkoEsfweykAhRb/6UZyp63WuM+Nh1YapjQxvZKEM=;
-        b=gJFMTeQ5iCe2M60PkdZiS7ejyIcQVW6VbuKL9S+yeDPO7qGdcnL5yqKz+30IpzWKh9
-         9STjzmS2l+UgxukiAKmT4UTxpp0IcvkWVy81zh18I99yQ2d+Tge4928Pmv3qQgJaRXOf
-         Dv2iTxzPHhtt+KOnaSrQjxd+Hm0s0IaCO28mcYNjzy0o9E25MM1DjwaJRPrLBAIiScmb
-         nOX1RqShtdRppZolPB+McICAhGcofbJEHWzkAVfWE5KWINRkutj+0QTRarRU2mC4LPC4
-         Br0Sv+wO731VWCZPBQDElcAEyS1qE8E4pRfXyMQ6vjgzLtmLtudULVT+8Qj9sMFQw2hM
-         bLBQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUA2bwMJoLEYVgeFd3s5zH5v4OMq9bCKrHLPmgC3gDcqXNhrTWbEFPv3GSHa91w1+X//uAqa726t78=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwujZb9MBPBzlACMlzprl+FLouaqbUCgzlFEwvb2Ozx3LV/clb+
-	Tufcw/1PqR9SrmdeOLIbrj5EwuTUFsz8LtK2J6si1W1KtXvsBX6y9uMUGEG/CQ==
-X-Gm-Gg: ASbGncsz7MeipR/68HD8umGmoYtLjdU1/7IjKz32/EiMPDC2WqOWKs3Ab8ux4zqBnJA
-	6kTHRsYFcNJMBNrkXfnJugbKHEocESUnYUqss/ubd6E1/y+POaKW03FkxKXZVH1P+PpWzqQEGuT
-	W4zUv5E4pldGkPj1pBxH4t72td1y6pns2LKivDNpqAvAZr3iwL3CQo2Gv3zpVcMdBIhxy75PK6q
-	1+ybscJi6gsEIQeSnS66m959yKCCQDXlmFoUgZSQVOudJ9QzuVMSi/SaFgxVD/aO41Yg4hmZpeG
-	8mh3oD7OyRZ4314ce062whRNzkK2erpWy/dDKJleHkZBDLuFX7yWaia3p5vF14mCI+9eezHHpVl
-	LJGpXzEq0jCgC7GcHk+5dXmU26FEOZknGrdo3
-X-Google-Smtp-Source: AGHT+IHR7JBxNM46cnnUHfhAI6VhJeaGbxm8kRnqM0aycaQ5cuaactXeCsgNmkst29kinvt20u4Yrw==
-X-Received: by 2002:a17:907:7f29:b0:ace:ceb0:1089 with SMTP id a640c23a62f3a-acedc7d2c73mr411837966b.61.1746029108873;
-        Wed, 30 Apr 2025 09:05:08 -0700 (PDT)
-Message-ID: <efc6a402-7023-4944-b284-68313bcbf37a@suse.com>
-Date: Wed, 30 Apr 2025 18:05:07 +0200
+        bh=K+y2n5V3Z+H0u5VklEhgPmR5FEmUnDZm4mEPVzDP2N4=;
+        b=FUrvVaZp48P0iZiOqmHGIpZHuNpHsOwG6E+OXceuZkA4qHKPkhFKB934FSP15xyDRl
+         d1hLfEywZ//PrwBeWLQrM8oPpYmhkHx7tjJqrX038R5AZk5byO+9YR75iSk2r9I3Ixr7
+         MI92j5TTSiF6ZpPuFauLL6ieLSs1mdwpS9wKLgIuY9fi4vpzdO2DhFUQVXB/WOdVDaAo
+         Nk54mrcX7XsTuSCoc3Q2MK70av3CA4TyBsGKvL9/rZ0GS2aFOrygDOXuSWC8n+RCn1hS
+         k6G6UZFnRdI9EdHKBvhUfbNcNsGQo1J17Ki95hw5FLIb68DUBl4hHt6Y7Arx42zyzxXS
+         YurA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746029242; x=1746634042;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=K+y2n5V3Z+H0u5VklEhgPmR5FEmUnDZm4mEPVzDP2N4=;
+        b=Be580fgAhVApCqo5rdE5LWqFQ9K4DX/AEAoOWVM3Y20pvRt4+5f2Jvm+v2FU0s/7x1
+         8dfbGcfG8qIg1nB7cH4cgO27XoJ2KixczmmdSRRxUfgLAOEonGCeLiiSFMPCB1KwMLWr
+         72aZBQW1mZEGSY2iWH3tJVdntNrXJ6Fs2NZG2pCYGWEFoKDUDVAbuOEFqSxM9kC7GWlW
+         KsrD4desp0zFQMRDNAwIbzSXA7i/dFE6u8vcUQuIJe7Rt2ZQyByW9OV77V2UJwa9VUP8
+         ublnGlz9IxDdfiTjQaG5YZ3bkKAxkjPhhgm95JBPbqLfBRoaB0A59I651G/Beo+WFEAT
+         kloA==
+X-Forwarded-Encrypted: i=1; AJvYcCV+Y17t023exRnMlyxnyFDntiv+20rIXEgHi0rAItOmPxVr2an0NkYQlh/lg/OjRJvM//8Zsis7zl8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw9/1R/Zm3n1FX6NseKCaqjaKjVsblZWJirq8dK0+Cv+QRmtIYt
+	Kv2xLRvmyx1OCIlolmtESCXP22YEl8AKcywtDiWMQdIBpoQZ1pYe
+X-Gm-Gg: ASbGncsZI5iElm+Q+XMWANVSEAKIMvv+Zal2viZYWlZs1dHJXAH3//gazxs9lvidmUK
+	GcvoUNn1Oa81I72+Wm3590HKTCb1UTEVvV7mfwns6I8dKCZHpqMgKC1Atxccc2AFRsPAqM4XO6m
+	nadXKzbM3AIU1pGPyiENk5Q2ZAuhJZAsvJgnNucK0bMmUMPcUH+qdcAqSD+Bt87+SPE8yPM7wUx
+	/wwikpXyK9n7zMfJvNCKW3KGHDmVsQUeDyWxA/uUVyrkwASrSif6EU22ni6AIfZCsVQ6nU9bq1c
+	wLfa6WtO6t5FBUlyBJsNOr/f9LplAWFNAaJyPL/+IrGb3t7yGU48918gJjgUPFDWM5XNJeY+lho
+	I3PdbHirzX1IwsSDs+kQPto3wB34=
+X-Google-Smtp-Source: AGHT+IE1fp/hZD42M3o1yorc223r4We79UOVvTzzmuN3ZX8SWiN4xI2bAwvPbun6dMZZZ3EQdHEsRw==
+X-Received: by 2002:a17:907:1b11:b0:ac3:8988:deda with SMTP id a640c23a62f3a-acedc6f1ab5mr423348266b.40.1746029242189;
+        Wed, 30 Apr 2025 09:07:22 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------u0Es0HbyotVznTnlDoZ0oTzb"
+Message-ID: <c7ca0d22-42ac-4d52-853c-90247e5402c9@gmail.com>
+Date: Wed, 30 Apr 2025 18:07:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/alternatives: allow replacement code snippets to be
- re-used
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <c4a71d96-b255-432e-b148-1daf1b14c77f@suse.com>
- <192ab217-b7f0-425d-8da4-6270d4494b37@citrix.com>
+Subject: Re: [PATCH v1 10/14] xen/riscv: implementation of aplic and imsic
+ operations
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <74a07ed7c596bbcf581010685e01bfdfa19164f5.1744126720.git.oleksii.kurochko@gmail.com>
+ <35075d73-ec3c-4e8f-b7ed-657b604904bd@suse.com>
+ <9bee5d4e-cad1-4fc1-8b4c-b4a4bab4b76c@gmail.com>
+ <c0bcc9e7-26a6-4a67-8f18-787364b530e4@suse.com>
+ <231e9f4e-a044-49b7-b3a5-26ff2f7f9612@gmail.com>
+ <d00fca13-617b-4687-9a15-131bba352ea1@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <192ab217-b7f0-425d-8da4-6270d4494b37@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <d00fca13-617b-4687-9a15-131bba352ea1@suse.com>
+
+This is a multi-part message in MIME format.
+--------------u0Es0HbyotVznTnlDoZ0oTzb
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 30.04.2025 18:00, Andrew Cooper wrote:
-> On 30/04/2025 2:13 pm, Jan Beulich wrote:
->> In a number of cases we use ALTERNATIVE_2 with both replacement insns /
->> insn sequences being identical. Avoid emitting the same code twice, and
->> instead alias the necessary helper labels to the existing ones.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> On a random build, the size of .altinstr_replacement drops from 0xe47 to
-> 0xdf8, so not too bad.
-> 
-> While the patch is fine, if we're adjusting the assembly ALTERNATIVE_2,
-> we should make the same adjustment to the C version, even if there's
-> nothing to benefit from it immediately.
 
-Can do, but I expect that to end up more clumsy for, as you say, no real
-gain.
+On 4/28/25 10:54 AM, Jan Beulich wrote:
+>>>>>> +    ASSERT(spin_is_locked(&desc->lock));
+>>>>> If this lock (which is an IRQ-safe one) is necessarily held, ...
+>>>>>
+>>>>>> +    spin_lock_irqsave(&aplic.lock, flags);
+>>>>> ... you can use just spin_lock() here.
+>>>>>
+>>>>>> +    clear_bit(_IRQ_DISABLED, &desc->status);
+>>>>> Why an atomic bitop when desc is locked? (And yes, I ought to raise the same
+>>>>> question on Arm code also doing so.)
+>>>> I haven't thought about that. Likely non-atomic bitop could be used here.
+>>> And then - does it need to be a bitop? Aiui that's what Arm uses, while x86
+>>> doesn't. And I see no reason to use other than plain C operators here. If
+>>> Arm was switched, presumably all the redundant (and misnamed) _IRQ_*
+>>> constants could go away, with just the IRQ_* ones left.
+>> The reason for a bitop in Arm is explained in this commithttps://gitlab.com/xen-project/xen/-/commit/50d8fe8fcbab2440cfeeb65c4765868398652473
+>> but all the places where plain C operators were changed to bitops are actually executed under|spin_lock_irqsave(&desc->lock, flags). By quick look I found only two
+>> places one in __setup_irq() but it is called by the functions which do ||spin_lock_irqsave(&desc->lock, flags) and in vgic_v2_fold_lr_state().
+>> Maybe, I'm missing something.|
+>> |RISC-V won't have something similar to ||vgic_v2_fold_lr_state|(), but __setup_irq() is used in a similar way. It can be added ASSERT(spin_is_lock(&desc->lock))
+>> and then it will also safe to use non-bitop function.
+>> Probably, it is a little bit safer to use always bitops for desc->status.
+>> ||
+> I question that. If any accesses outside of locked regions were needed (as the
+> description of that commit suggests), then the situation would be different.
 
-> P.S. it would be even nicer if we would put these in mergeable sections,
-> but I haven't figured out way to set the mergable unit size, which needs
-> to be an absolute expression.
+Okay, then at the moment there is no such cases and I'll use plain C operator instead of
+clear/set_bit().
 
-Well, have you missed
-https://lists.xen.org/archives/html/xen-devel/2021-11/msg01009.html then?
-Yet it might still make sense to use the approach here as well, as there
-are limitations to what can really be merged (by the toolchain).
+>
+> Btw, you not wrapping lines and you adding strange | instances doesn't help
+> readability of your replies.
+>
+>>>>> I'm uncertain about this bit setting anyway - on x86 we would only fiddle
+>>>>> with it for IRQs not in use, not while enabling/disabling one.
+>>> What about this part?
+>> As I understand, based on Arm, code then Xen enables interrupts corresponding to devices assigned
+>> to dom0/domU before booting dom0/domU, resulting in the possibility of receiving an interrupt
+>> and not knowing what to do with it. So it is needed for enablement of IRQs when the guest
+>> requests it and not unconditionally at boot time.
+> I fear I don't understand this. The way we do things on x86 doesn't leave us
+> in such a situation.
 
-Jan
+On Arm, the physical interrupts would be enabled when the interrupt is initially routed and in case guest
+is booting with interrupt disabled, it could introduce a problem when guest enabled interrupts it will
+already have a pending interrupt for which it isn't ready.
+
+How is it handled the case when a device isn't quiescing at the boot time in x86?
+
+But I just realized the way how interrupts are enabled in RISC-V for guest won't lead to such case. The interrupt
+will be enabled only when guest's device driver will request that. So this setting/clearing of IRQ_DISABLED could
+be dropped for RISC-V.
+
+~ Oleksii
+
+--------------u0Es0HbyotVznTnlDoZ0oTzb
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/28/25 10:54 AM, Jan Beulich wrote:</div>
+    <blockquote type="cite"
+      cite="mid:d00fca13-617b-4687-9a15-131bba352ea1@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">+    ASSERT(spin_is_locked(&amp;desc-&gt;lock));
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">If this lock (which is an IRQ-safe one) is necessarily held, ...
+
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">+    spin_lock_irqsave(&amp;aplic.lock, flags);
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">... you can use just spin_lock() here.
+
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">+    clear_bit(_IRQ_DISABLED, &amp;desc-&gt;status);
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">Why an atomic bitop when desc is locked? (And yes, I ought to raise the same
+question on Arm code also doing so.)
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">I haven't thought about that. Likely non-atomic bitop could be used here.
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">And then - does it need to be a bitop? Aiui that's what Arm uses, while x86
+doesn't. And I see no reason to use other than plain C operators here. If
+Arm was switched, presumably all the redundant (and misnamed) _IRQ_*
+constants could go away, with just the IRQ_* ones left.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+The reason for a bitop in Arm is explained in this commithttps://gitlab.com/xen-project/xen/-/commit/50d8fe8fcbab2440cfeeb65c4765868398652473
+but all the places where plain C operators were changed to bitops are actually executed under|spin_lock_irqsave(&amp;desc-&gt;lock, flags). By quick look I found only two 
+places one in __setup_irq() but it is called by the functions which do ||spin_lock_irqsave(&amp;desc-&gt;lock, flags) and in vgic_v2_fold_lr_state(). 
+Maybe, I'm missing something.|
+|RISC-V won't have something similar to ||vgic_v2_fold_lr_state|(), but __setup_irq() is used in a similar way. It can be added ASSERT(spin_is_lock(&amp;desc-&gt;lock))
+and then it will also safe to use non-bitop function.
+Probably, it is a little bit safer to use always bitops for desc-&gt;status.
+||
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I question that. If any accesses outside of locked regions were needed (as the
+description of that commit suggests), then the situation would be different.</pre>
+    </blockquote>
+    <pre>Okay, then at the moment there is no such cases and I'll use plain C operator instead of
+clear/set_bit().
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:d00fca13-617b-4687-9a15-131bba352ea1@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Btw, you not wrapping lines and you adding strange | instances doesn't help
+readability of your replies.
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">I'm uncertain about this bit setting anyway - on x86 we would only fiddle
+with it for IRQs not in use, not while enabling/disabling one.
+</pre>
+            </blockquote>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">What about this part?
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+As I understand, based on Arm, code then Xen enables interrupts corresponding to devices assigned
+to dom0/domU before booting dom0/domU, resulting in the possibility of receiving an interrupt
+and not knowing what to do with it. So it is needed for enablement of IRQs when the guest
+requests it and not unconditionally at boot time.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I fear I don't understand this. The way we do things on x86 doesn't leave us
+in such a situation.</pre>
+    </blockquote>
+    <pre>On Arm, the physical interrupts would be enabled when the interrupt is initially routed and in case guest
+is booting with interrupt disabled, it could introduce a problem when guest enabled interrupts it will
+already have a pending interrupt for which it isn't ready.
+
+How is it handled the case when a device isn't quiescing at the boot time in x86?
+
+But I just realized the way how interrupts are enabled in RISC-V for guest won't lead to such case. The interrupt
+will be enabled only when guest's device driver will request that. So this setting/clearing of IRQ_DISABLED could
+be dropped for RISC-V.
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------u0Es0HbyotVznTnlDoZ0oTzb--
 
