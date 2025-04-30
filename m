@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AB8DAA504F
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 17:33:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973742.1361799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DF27AA505C
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 17:35:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973754.1361807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA9Qn-0003IU-Rx; Wed, 30 Apr 2025 15:33:05 +0000
+	id 1uA9Sf-0003ql-6S; Wed, 30 Apr 2025 15:35:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973742.1361799; Wed, 30 Apr 2025 15:33:05 +0000
+Received: by outflank-mailman (output) from mailman id 973754.1361807; Wed, 30 Apr 2025 15:35:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA9Qn-0003FQ-O7; Wed, 30 Apr 2025 15:33:05 +0000
-Received: by outflank-mailman (input) for mailman id 973742;
- Wed, 30 Apr 2025 15:33:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BSD2=XQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uA9Qm-0002zd-Jt
- for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 15:33:04 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6783cad9-25d8-11f0-9ffb-bf95429c2676;
- Wed, 30 Apr 2025 17:33:03 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5f728aeedacso9089183a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 08:33:03 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5f7013ff4e7sm8854503a12.22.2025.04.30.08.33.01
+	id 1uA9Sf-0003nf-3V; Wed, 30 Apr 2025 15:35:01 +0000
+Received: by outflank-mailman (input) for mailman id 973754;
+ Wed, 30 Apr 2025 15:34:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=y9NI=XQ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uA9Sc-0003nX-Tk
+ for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 15:34:59 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id abfd80c6-25d8-11f0-9eb4-5ba50f476ded;
+ Wed, 30 Apr 2025 17:34:57 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-ac3fcf5ab0dso1215082866b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 08:34:57 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-69-225.play-internet.pl.
+ [109.243.69.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-acebeca80a0sm360909766b.90.2025.04.30.08.34.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Apr 2025 08:33:02 -0700 (PDT)
+ Wed, 30 Apr 2025 08:34:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,90 +45,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6783cad9-25d8-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: abfd80c6-25d8-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1746027182; x=1746631982; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NCTsPDSGYcfXO0Ph3zyQARJhIZesUwt7UeFdOU7TMa8=;
-        b=BcN8vHNazPYZjMk0K4Vl+9D9avcTB1V9mWN0/FGVLL3bZiB2WzsxplzZsYnt4PLvvR
-         DsCIpP7HSqFc32CBJETosuGe9LSc+Z9GQY95aJhqc0GP5dyAEogedMKsxcxB21OHuh7+
-         SY64FW+HpE0NTc+2upUX41wGgTnkS1swgR67KupxiD8vvOsOUC3B2A8cXz5sRAGcruN/
-         T5awYA4X5HVYaw5DHhGKayd9/zAB5cyfccRD/RIO5u4cvk+tQAg7vtsO7CuSwuCo+IFr
-         b3uk3lDBuud5Iuqmw1Rs41iPmTesRSGVOWy54ZJ2dL1pj1/ANncZgCJA2IJ8CLMxD1zE
-         Inqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746027182; x=1746631982;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1746027297; x=1746632097; darn=lists.xenproject.org;
+        h=in-reply-to:content-language:references:cc:to:from:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NCTsPDSGYcfXO0Ph3zyQARJhIZesUwt7UeFdOU7TMa8=;
-        b=QLeY4eLzMiK74G8DpyYmHxLTQAZBMLIfLFKYO7X2VfdQMAlb2HHttM+r9DXrxrTPFW
-         HBxIrE9QEAMNX7vjArFgBVcuPoQnyX0DpR4d1izxbVU+br5qFXYa2ojggwptMieMYgS/
-         KsMRd5uxIW6105w6JFeQKJUsCimVSCtSKbQ8K+pdyJ8/4BevQ0AeWEmrrvF3IbIKmLjK
-         1svfEyw1DT39fmcRwhoThXfhNOZTfIBpP7rPqYloL+2wdcOkP6xFOl1Pr2XzpT4CEcxQ
-         DbkUOVTYFo0VncJOTzHPJCxKmlZovnTThjYD39Oxd68e+iSpmj414r70eaAjbeAQAUHX
-         6iVA==
-X-Forwarded-Encrypted: i=1; AJvYcCX8hvcbiYqk1w6GGYEpHO5IU3tGQVp/Bc0e+iJJcBvqVoOm38JYKoHVQ5S9ez105hWvBIXQutjteAQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxVIQ79K9LbkPo+2qVHOFeF/Yy0kKn/SICpGWezXqeDls3AUs/I
-	20seFRB3RsfcNtFYTrDmHtnOgSVJyGDmC1FZ1p99byk86dk2clLicGLFUr4fCg==
-X-Gm-Gg: ASbGncufLXLa0y7/kVxkvN/W9PGHsNClZwbxPWIkpFkrAkIpv361spx7ySFHQXG8N+X
-	EwOhwesWAde2UaXbOfzJ1SDxUqMFgn8fa195H+qcMuP1sTJh6nimqIks28NLaBCdoEPxmvnoor0
-	mPzBvZ2mhrdu/P2lbi7P2nsZntv76QPN5phCY7CfGnJwCb2lQFgaV1qKpw5p15nRXSKi2ynjskG
-	WgrHRHOX/Psd5tePJgBoVjp5bS0xCwGdVgI/xmV4lLRsYdmG2DQ+Cf7hUWo0FpcJWXH0ATkEwCi
-	JYfxFYjM32o+jamsegGmTXdmzKE2+/+Gyi/EzhjgmDaRT2JpcZ/J8ISGg7G/dMIFn2WPsI+4e/o
-	xYRugzOFYiTMUtoXE7YO7TCODwA==
-X-Google-Smtp-Source: AGHT+IGgIFcPXbVOu9t7FLeJhNsajGLQiBTun22n8N68zo4N+3C9xmevQyrRpEHMGnQtPDeWpfcWPA==
-X-Received: by 2002:a05:6402:268b:b0:5f7:f55a:e5e1 with SMTP id 4fb4d7f45d1cf-5f89be21647mr2981591a12.24.1746027182495;
-        Wed, 30 Apr 2025 08:33:02 -0700 (PDT)
-Message-ID: <2c00e3db-1931-4e73-a40c-907dfdf314f4@suse.com>
-Date: Wed, 30 Apr 2025 17:33:01 +0200
+        bh=ABavY/KIcAykhwbPpugvOHw/3GEOBiDZ2cLV3FkyCYk=;
+        b=j91wmjUN034Q510atgEkDDT3tzY67UiM0DXZNb+qH8Kw7ocy+EGcFoWFbuPIIatJ93
+         39kafo+bJnRzvRAHBtBnlkZF2LRC9WXyreKneRAXoW3xsrVuhMVwdohE4rT8nurHzsAF
+         tW2gKG2hPI7/5mUdNcdKF4VUPrs2mUFLa0ApzmK1TpDewxZgLsKrfDV0i7M+GQwuhSXW
+         BzOBTQ+QGJ47BWOD/o6lQe+VXTWUxppCD/FtRJhln/XNHgk1QItNIh6I8yb48HGqgAIK
+         9V+MRxUwEgk1ADlSzgbNMD9lHUkjt4Mo/f7yLAlqBIC1oQiGiI09js2gJk8td19BKX3L
+         jdUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746027297; x=1746632097;
+        h=in-reply-to:content-language:references:cc:to:from:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ABavY/KIcAykhwbPpugvOHw/3GEOBiDZ2cLV3FkyCYk=;
+        b=bNwnb3CQaReUOgD7vlSLeAvWM5cTGfwjh43ZMY/8S9c1LQyajZ3AagmVqlqbAxY5FV
+         4iQF8vd6MpaYOUR3wIG3foChIy4fBFHgExXxRplMwk/OcN30sWSn2xLRGRlcraiJsfaI
+         YtxrrzkjUk2yt4PWiLxdLQR7Uw1xZGdidMrn0hyk6bZVdO9V97c9nkXa2o/IZyIZdyMz
+         Is8A1Fv128VuL32dr6CcehLAoo8kr/SP8EcNWU3Mh/qdcYVa4/bC2lTivmTc4MCNdnPU
+         iPYnkb/j8KgIYZKw+IbJo8hISa/ug+DqtmJLD6TRS9iBPFqNCrTzH2tXM6hOYFGx++00
+         S8NQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVTEoyCZe803jpGbPe9XjQ2IMPNA6LBtW9hR0h+IC0vSWLYwmwS0G9Mt/hj2LVEBvD+iV1tjAIqzIE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxRFTb2j9S7dfh06Ub0cXRCtd6Qcm5kMY9bYNFYLAEwDQtyUZXZ
+	Q3nK1DWGMIDtZYrzkx2iPf6Q58tB1JMHxaAHtYZkKftRMgzYaMNl
+X-Gm-Gg: ASbGncu16xIIdIhXifSPJvSPZuCjPXM4OEn4uMCiGgcRoM1W8WcnNl1JI9m86b60Nc6
+	tkxLaPwY/i4Y8hXzbQH73T4our0kIvcpJHJJyQDXJJ6Xd3jgMcSGTy0dWs7ai6Tdeds58lfAhbI
+	DRO0VMaC7AGMRs9aZdZtPPjrqfYg6I2kIljhg97iyWjasOmTc0QfRcAhPPlE/UmzTKnovw3/NO/
+	E9LJt/7MnSrQjlwQE2DFrREzF7WHu7LxNeyK/aNTBtalrqnNBwhFT3396MZEG9QXo+NXfkJxYCS
+	bhzqvO8snlEl8QpZXZDgYkXffLs+mHBJsgNCVax59/R5QRAix5WCgCUcYdSVo944TjvR4eTJR9S
+	wNtcsqR5MSttPDt19
+X-Google-Smtp-Source: AGHT+IH1PCoadJD5EXYOsZAaxI/TCJj50tqw18u4Tm1wbMAa/VBg3LSGchScDmVOGQpQLDtal5aC/Q==
+X-Received: by 2002:a17:906:6a19:b0:ac6:fcdd:5a97 with SMTP id a640c23a62f3a-acedc72f834mr430718466b.48.1746027297001;
+        Wed, 30 Apr 2025 08:34:57 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------QJBBg9o5U0y0rBXLrqNR0jkB"
+Message-ID: <ee057161-6f24-44f2-a009-fec5885c6f11@gmail.com>
+Date: Wed, 30 Apr 2025 17:34:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/intel: Move mcu_opt_ctrl_* into __ro_after_init
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250430152720.602045-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v1 13/14] xen/riscv: initialize interrupt controller
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <cb730a1293f14dd7fd58f98f5ecda4e2523b2d90.1744126720.git.oleksii.kurochko@gmail.com>
+ <bcffc56a-5518-4bcc-9124-d49a98ae727a@suse.com>
+ <4851cd30-73a5-4d97-b506-850d67c285d7@gmail.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250430152720.602045-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <4851cd30-73a5-4d97-b506-850d67c285d7@gmail.com>
+
+This is a multi-part message in MIME format.
+--------------QJBBg9o5U0y0rBXLrqNR0jkB
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 30.04.2025 17:27, Andrew Cooper wrote:
-> They're only modified by set_in_mcu_opt_ctrl() which is an __init function.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On 4/17/25 12:11 PM, Oleksii Kurochko wrote:
+>
+>
+> On 4/15/25 5:59 PM, Jan Beulich wrote:
+>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
+>>> Call intc_init() to do basic initialization steps for APLIC and IMISC.
+>>>
+>>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>> Acked-by: Jan Beulich<jbeulich@suse.com>
+>> yet ...
+>>
+>>> --- a/xen/arch/riscv/setup.c
+>>> +++ b/xen/arch/riscv/setup.c
+>>> @@ -136,6 +136,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>>>   
+>>>       intc_preinit();
+>>>   
+>>> +    intc_init();
+>>> +
+>>>       printk("All set up\n");
+>>>   
+>>>       machine_halt();
+>> ... this being everything here I wonder if this can't be folded with the
+>> patch where the function is introduced.
+> Sure, it can be folded. I will do that to reduce patch series.
 
+I doubled checked and, at the moment, when intc_init() is introduced:
+void __init intc_init(void)
+{
+     ASSERT(intc_hw_ops);
 
+     if ( intc_hw_ops->init() )
+         panic("Failed to initialize the interrupt controller drivers\n");
+}
+
+intc_hw_ops isn't registered as they are registered in the next two patches after
+intriduction of intc_hw_ops.
+
+~ Oleksii
+
+--------------QJBBg9o5U0y0rBXLrqNR0jkB
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 4/17/25 12:11 PM, Oleksii Kurochko
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:4851cd30-73a5-4d97-b506-850d67c285d7@gmail.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <p><br>
+      </p>
+      <div class="moz-cite-prefix">On 4/15/25 5:59 PM, Jan Beulich
+        wrote:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:bcffc56a-5518-4bcc-9124-d49a98ae727a@suse.com">
+        <pre wrap="" class="moz-quote-pre">On 08.04.2025 17:57, Oleksii Kurochko wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">Call intc_init() to do basic initialization steps for APLIC and IMISC.
+
+Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E"
+          href="mailto:oleksii.kurochko@gmail.com"
+          moz-do-not-send="true">&lt;oleksii.kurochko@gmail.com&gt;</a>
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">Acked-by: Jan Beulich <a
+        class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com"
+        moz-do-not-send="true">&lt;jbeulich@suse.com&gt;</a>
+yet ...
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/setup.c
++++ b/xen/arch/riscv/setup.c
+@@ -136,6 +136,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+ 
+     intc_preinit();
+ 
++    intc_init();
++
+     printk("All set up\n");
+ 
+     machine_halt();
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">... this being everything here I wonder if this can't be folded with the
+patch where the function is introduced.</pre>
+      </blockquote>
+      <pre>Sure, it can be folded. I will do that to reduce patch series.</pre>
+    </blockquote>
+    <pre>I doubled checked and, at the moment, when intc_init() is introduced:
+void __init intc_init(void)
+{
+    ASSERT(intc_hw_ops);
+
+    if ( intc_hw_ops-&gt;init() )
+        panic("Failed to initialize the interrupt controller drivers\n");
+}
+
+intc_hw_ops isn't registered as they are registered in the next two patches after
+intriduction of intc_hw_ops.
+
+~ Oleksii
+</pre>
+    <blockquote type="cite"
+      cite="mid:4851cd30-73a5-4d97-b506-850d67c285d7@gmail.com"> </blockquote>
+  </body>
+</html>
+
+--------------QJBBg9o5U0y0rBXLrqNR0jkB--
 
