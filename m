@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20701AA510E
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 18:00:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973855.1361887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9497AA5115
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 18:01:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973863.1361898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA9rO-0004pv-L6; Wed, 30 Apr 2025 16:00:34 +0000
+	id 1uA9sV-0005TX-Ts; Wed, 30 Apr 2025 16:01:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973855.1361887; Wed, 30 Apr 2025 16:00:34 +0000
+Received: by outflank-mailman (output) from mailman id 973863.1361898; Wed, 30 Apr 2025 16:01:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA9rO-0004oC-ID; Wed, 30 Apr 2025 16:00:34 +0000
-Received: by outflank-mailman (input) for mailman id 973855;
- Wed, 30 Apr 2025 16:00:33 +0000
+	id 1uA9sV-0005Rh-QB; Wed, 30 Apr 2025 16:01:43 +0000
+Received: by outflank-mailman (input) for mailman id 973863;
+ Wed, 30 Apr 2025 16:01:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wUHs=XQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uA9rN-0002rq-ET
- for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 16:00:33 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1uA9sV-0005Rb-0A
+ for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 16:01:43 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3ef5091f-25dc-11f0-9eb4-5ba50f476ded;
- Wed, 30 Apr 2025 18:00:32 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43690d4605dso57737675e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 09:00:32 -0700 (PDT)
+ id 684af2db-25dc-11f0-9eb4-5ba50f476ded;
+ Wed, 30 Apr 2025 18:01:42 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43690d4605dso57751505e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 09:01:42 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a073ca5debsm17543986f8f.38.2025.04.30.09.00.31
+ ffacd0b85a97d-3a073e46981sm17524777f8f.66.2025.04.30.09.01.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Apr 2025 09:00:31 -0700 (PDT)
+ Wed, 30 Apr 2025 09:01:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ef5091f-25dc-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 684af2db-25dc-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746028832; x=1746633632; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1746028902; x=1746633702; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+vuJKMxrMyX9W9xFKZPwD6p4jB17G4wb6C1vz5GjM+A=;
-        b=CGEWHxph0PCZHhVW9cIMZHINOsh7U5vKRuTMFYlX4xPMLU+cq4EICGUfpegbj9AzFy
-         4XWYepVqM2/S97Gbksr5f03flGhLEx9UT4jD4cZ8DdhnoG9R4XD2vVhSBagSIMdFMCes
-         4iTxFHokOfFHm2AIbhoZU1Q250ZevV/HbZOFc=
+        bh=zwT6J3kF9kG9QGANekRRZ+mMXbVygLTCWianmy3xLSA=;
+        b=fsITYhJK1vLc0FGgFKumOjXkbeR9P5LgBEUgVRVEM3JQgdekNtWG6zCDvdRa05b9hi
+         zMFqSlIvXE+F0/1GMhc2Stj9b+3qjaauQv30aIlaPFXMVFzsHjG4Z1EtnS62a9k423sl
+         6caFkKvO060TkmvFC4UBOF+z1AZ7XMPnaua8Y=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746028832; x=1746633632;
+        d=1e100.net; s=20230601; t=1746028902; x=1746633702;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+vuJKMxrMyX9W9xFKZPwD6p4jB17G4wb6C1vz5GjM+A=;
-        b=QCHWeDU4V/aSnb86/jTSdzgomcvqOqCNIS5W3bnpJqTuZEimknMw2ZrVx6d1A2BB33
-         h0sPiTc7S5TMAaeftaTDecVUoEeNBIkCr859eOp0ggii0IMT6X7rf5b0gUsKZRNTJCPs
-         mnDci2CHtaRlhaPAr1ICTkQD/4UybaAdslBqg995vC15Rbqc/+OV4USn7wfLj3v0oX1p
-         Qa81bPhfVla2LAK16R/usjYn+7za8o//JjfiiaNPByvp7BnatK/5chnAOpZSs+oXnXir
-         KWHlas1T2F6D6A2n5thw5MKgmz3rT0Oe5IqWuYSyDxjX/0uJOgqJscG4G8GJho9nblFj
-         fA1w==
-X-Forwarded-Encrypted: i=1; AJvYcCWup2y7hYDtf/bycULvAnuSNQdd8Q3FtD7//LW64YToGvSmdHcJnyIvrJ2UK4pXgBipDnHj8sP9O1s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxtfh8ZiUYv+gaYiaru+pOQt3lmoMeL8NcAmOyxAazNdjSM3JwV
-	c6WSEx9OLz/dhBDjTywzzLW6YgKKf+IlBezL5ucopfWs1kduKNNN1Gt14WJ7il4=
-X-Gm-Gg: ASbGnctrOrjvQv/xpjvOUIaGuMeRosSVJ+mIcbb4Q/fCtzQvFP7qN5Cb8caQGLrr2yv
-	hQcCK7NpfYRHwl5s74W9g4D9PzYpLUvnkzTK5koFkuTQDWlgHEePaV9sKnp8uXJVQDK/2bqJsMF
-	ysdMBQ+GchaaE6A+M+S32GFhz853WKC9bvT4dubIitF70R2EGy3Nn5NxhOJAsf/i38klaGD2tBz
-	K1q+Ksr4jFH9wWtBLSHRtXVdHb5dhf6P6pARGrINu1QE9EeowOrjyHn/8lVLw7Lw7OHSdWFlvVX
-	upYZH98GODwUZ/RH7lWDDZJESWorI1OD2kg9/i8faJlwKEaEwXGQwNoff13L4/czbgLyeT0z/OT
-	g3tvPXQ==
-X-Google-Smtp-Source: AGHT+IFKzQQGMKKtVSlLRyZcQveTx+dbBWUBkccda8DFrRogQIiup//Bcn0kAC6oeFy5mJ54WjiNbg==
-X-Received: by 2002:a05:6000:3109:b0:38f:4d40:358 with SMTP id ffacd0b85a97d-3a08ff33057mr2832401f8f.9.1746028832307;
-        Wed, 30 Apr 2025 09:00:32 -0700 (PDT)
-Message-ID: <192ab217-b7f0-425d-8da4-6270d4494b37@citrix.com>
-Date: Wed, 30 Apr 2025 17:00:31 +0100
+        bh=zwT6J3kF9kG9QGANekRRZ+mMXbVygLTCWianmy3xLSA=;
+        b=cwMDP25J4ZHvQH/lvQFUAkSP1fRhF5hcjdfQG9aNGO8N4dCRgJC6hJFvCGNqbDOLec
+         z1M0rj5x12kFgVi6k7sPa8npUMg3qhMmri+AmxhFwFwbcAJEy4t2lB8kvMZa9LmXrx61
+         yJs8scBVZ2ec+sjQeMCWwaqBHRpwO8OE/wsmUbYLPXzUAm9W3HMg1THTYI2ectBP/VAl
+         lGLLVCleP+VAPhxcTnXO2fDuJTlLR9xTdHPvosVWL6B+uDRISwiNxI+RgsCsnauhRCYt
+         YdmZMp317/GHD5f2CFcxlRtJvmSE1mApUXMBYaVBwUmxS5Bg35Y5L1CWC3iIurjw48X/
+         F1Bw==
+X-Forwarded-Encrypted: i=1; AJvYcCXgQ/fEbCsn/wI8cZTF6B2RvsUWCWWiRdQwmVUSM9lVJKk94wySz8nzWLtq8oSM2xmt9tF9iq9cjao=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzv+PgQvp3cDXm2sSuZi7zYYc8efrmt1eGBeyV86bVjKuBcIx3U
+	616+59BEWug226t9C3OemHLbXbp5jQQYm7EtJS5+GdeBp4x/e0IYy65SEyNvj9Q=
+X-Gm-Gg: ASbGncsFtTaSSS2jN/pa2rH4VEfPDln9ZGbN6NijjCbAx7F4AApNDLEEYQCDtnepVjd
+	S4pTcgPUsg6go3PceZERlhIWnqPg4CYIDAgNHrA3XPWC+9tfmj5MlPBmkNcutKNEMU+/aBorYYw
+	syfuEEszsxqDGP98/wNgWcuMJSVc0Mz2TXf8mc8BYQURHwn2udsV0ASCEIL/eLs92irX2Qw315i
+	oO6OuBJh8zpd8Yu8JcGW1BxYRdeoEBscxdeb+jODKT5o5SdN6WSqmUK+ZAlUOYOaLAmtircFlFq
+	H4ovZngrRO8NQ+BTNMOHYpblK0pw8vvvZE5HJ30xQAT0na2pdjZ+FuDjGT6JswjgK3/hogHK5a0
+	Vb2T0ig==
+X-Google-Smtp-Source: AGHT+IH2c4twUVYp1uv6no6/dwky8JEj9DxG651CfKDhV9r8JwRIIlV/FyIJyefgGDzCsrfBs/77Ug==
+X-Received: by 2002:a05:6000:40ca:b0:3a0:833b:a1e2 with SMTP id ffacd0b85a97d-3a08ff46712mr2859290f8f.46.1746028901426;
+        Wed, 30 Apr 2025 09:01:41 -0700 (PDT)
+Message-ID: <8c5289c2-809b-4143-8703-aa79063dca49@citrix.com>
+Date: Wed, 30 Apr 2025 17:01:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/alternatives: allow replacement code snippets to be
- re-used
+Subject: Re: [PATCH] mm: move paddr_to_pdx()
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <c4a71d96-b255-432e-b148-1daf1b14c77f@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>
+References: <262b9929-5cbd-4bb1-ac2a-35916273cba5@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,27 +141,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <c4a71d96-b255-432e-b148-1daf1b14c77f@suse.com>
+In-Reply-To: <262b9929-5cbd-4bb1-ac2a-35916273cba5@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30/04/2025 2:13 pm, Jan Beulich wrote:
-> In a number of cases we use ALTERNATIVE_2 with both replacement insns /
-> insn sequences being identical. Avoid emitting the same code twice, and
-> instead alias the necessary helper labels to the existing ones.
+On 30/04/2025 4:56 pm, Jan Beulich wrote:
+> There's nothing arch-specific about it.
+>
+> While there, on x86 visually separate the vmap_to_*() macros from those
+> covered by the earlier comment.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-On a random build, the size of .altinstr_replacement drops from 0xe47 to
-0xdf8, so not too bad.
-
-While the patch is fine, if we're adjusting the assembly ALTERNATIVE_2,
-we should make the same adjustment to the C version, even if there's
-nothing to benefit from it immediately.
-
-~Andrew
-
-P.S. it would be even nicer if we would put these in mergeable sections,
-but I haven't figured out way to set the mergable unit size, which needs
-to be an absolute expression.
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
