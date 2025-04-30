@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0738FAA5049
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 17:32:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973729.1361787 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AB8DAA504F
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 17:33:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973742.1361799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA9Px-0002jL-EG; Wed, 30 Apr 2025 15:32:13 +0000
+	id 1uA9Qn-0003IU-Rx; Wed, 30 Apr 2025 15:33:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973729.1361787; Wed, 30 Apr 2025 15:32:13 +0000
+Received: by outflank-mailman (output) from mailman id 973742.1361799; Wed, 30 Apr 2025 15:33:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA9Px-0002ge-BX; Wed, 30 Apr 2025 15:32:13 +0000
-Received: by outflank-mailman (input) for mailman id 973729;
- Wed, 30 Apr 2025 15:32:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uA9Qn-0003FQ-O7; Wed, 30 Apr 2025 15:33:05 +0000
+Received: by outflank-mailman (input) for mailman id 973742;
+ Wed, 30 Apr 2025 15:33:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BSD2=XQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uA9Pw-0002gY-2g
- for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 15:32:12 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48501700-25d8-11f0-9eb4-5ba50f476ded;
- Wed, 30 Apr 2025 17:32:10 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5f4d28d9fd8so9366051a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 08:32:10 -0700 (PDT)
+ id 1uA9Qm-0002zd-Jt
+ for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 15:33:04 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6783cad9-25d8-11f0-9ffb-bf95429c2676;
+ Wed, 30 Apr 2025 17:33:03 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5f728aeedacso9089183a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 08:33:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace6ed6fe65sm947986566b.142.2025.04.30.08.32.09
+ 4fb4d7f45d1cf-5f7013ff4e7sm8854503a12.22.2025.04.30.08.33.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Apr 2025 08:32:09 -0700 (PDT)
+ Wed, 30 Apr 2025 08:33:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48501700-25d8-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 6783cad9-25d8-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1746027130; x=1746631930; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1746027182; x=1746631982; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CkUHHEEf73XKyHxLupW24gr+zIFT+2sOflzFWZmPAKM=;
-        b=SddaWXzFANqjt2R5tao3J5GPAkzCzquP9fa4VccPDg7Za02BaKzlJyUZvz+qWu+SkZ
-         xss3it/+hZeTOuljDOuoCmCpVPQjzdjdF3jJr9KMfI30CAWiQxZj9388xDw57AhVhH1E
-         ufrm+zbJESn5QmEhFSoBrJA7BGXkUH7yIfPlVT0HhLKpImOCGjdao1ZfgFcLt59QW7+x
-         rCgZgeNE0MkqPUIKHsoNMk9WYUQSMsnzhg179ez+4Z9tNABBlhcETrr74LYKzCYXhze6
-         RkX7PmE8KyAP56QCbqSa/pe3EIdJ/DXcnFDWmj6qS8D49BrOyuJKT+bbEttHkLpdc2+y
-         NZSQ==
+        bh=NCTsPDSGYcfXO0Ph3zyQARJhIZesUwt7UeFdOU7TMa8=;
+        b=BcN8vHNazPYZjMk0K4Vl+9D9avcTB1V9mWN0/FGVLL3bZiB2WzsxplzZsYnt4PLvvR
+         DsCIpP7HSqFc32CBJETosuGe9LSc+Z9GQY95aJhqc0GP5dyAEogedMKsxcxB21OHuh7+
+         SY64FW+HpE0NTc+2upUX41wGgTnkS1swgR67KupxiD8vvOsOUC3B2A8cXz5sRAGcruN/
+         T5awYA4X5HVYaw5DHhGKayd9/zAB5cyfccRD/RIO5u4cvk+tQAg7vtsO7CuSwuCo+IFr
+         b3uk3lDBuud5Iuqmw1Rs41iPmTesRSGVOWy54ZJ2dL1pj1/ANncZgCJA2IJ8CLMxD1zE
+         Inqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746027130; x=1746631930;
+        d=1e100.net; s=20230601; t=1746027182; x=1746631982;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CkUHHEEf73XKyHxLupW24gr+zIFT+2sOflzFWZmPAKM=;
-        b=whfJnpOpzFwH5KEUK8sKTm8lH7Mb3uhicdtWS3FNZWbMBWB2tFQ0Ra8nMDkZyNvPej
-         6ueDcVP9flHazJbIlSZ5yo92J03BqOXORLN72IV3QHnBvNKSN/JpjDSSXc902rYlNZ2M
-         bVwkygc+4XVviAY+dOPePmlT/ZGxxkEwDlNUOvxXNzZpLd3J2tBd6LQg5WEz7PHMrPYE
-         hFLN3IVOFYLQGs6Yf6p802CfT9CwSHnl2olIjKkZn/+5Ob3vSL9WyYKLk7FMpLfjHsVa
-         WK/vBz1IHjvFDoEaLv57bHVXo+paByvgaEaeKgwqQ+cwO9BitxpwGWSL/kO1ytyGbRSo
-         oRfQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWFOdnifNICgy0LrUjvSn+77LDusGhzJRoGHI1pnpUpteHwc3T7vXNoZAP7edfckdnXJiID0TX/CM0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyE2J7cf/PnQvgoIykzDzyjRQBFmpVpX/pcW1w0viczokPv8XMC
-	TYisUtHl+cdgwaHEMuPT7951KkkUXJwEBQtvwejV8CXFVoXB2s0lj/ZZ9ICWSA==
-X-Gm-Gg: ASbGnctzRiDj1bnbvQJ8yKGxioLUZLZduN4sKGvhlvZATsDXLy+ME5L7UnZsRowP1B3
-	C0Fk1LlAzXWYzPtgIk3FB8QySKJgl1EXHUJ51Geg/6L6ZOXS4tBaf7c5VrGW+UmoNttuWDdkurK
-	4n+M4YT4GnDzhQn1RZtStMqiTH+nGyGF1Jmr7ZT7QKfQgZEYFctE0bdriyYZUQE4tnGHV0E6Fwj
-	rgCaYIDBaCjC5r07f8zW9u8QeIN8ED28ZaVH2qCB/U2T1Wa1jvYBAX5eUdSIoIrEzzv6dVWOSkI
-	Fcuu38/Csk/PflnpMB3RYtkPHwW9zKHbmsu/F33VhDyECtfcjoxbyrB2yNoRJU2YHxiO9Az5Nmt
-	UJ1ZpyiuC+tmFm6hqYF7CoQfpdg==
-X-Google-Smtp-Source: AGHT+IHVR93GWWnlBpaaJ8sh+UaEmO43bwyXFZD4sp8jCzjAwUpTO1yv4AT7rBArkrsvR8y9OcTn5A==
-X-Received: by 2002:a17:906:4fcd:b0:ace:68ad:b4d8 with SMTP id a640c23a62f3a-acee25c7624mr341669966b.38.1746027130005;
-        Wed, 30 Apr 2025 08:32:10 -0700 (PDT)
-Message-ID: <1a6f2023-1022-4c22-9a61-4006d94d3c24@suse.com>
-Date: Wed, 30 Apr 2025 17:32:08 +0200
+        bh=NCTsPDSGYcfXO0Ph3zyQARJhIZesUwt7UeFdOU7TMa8=;
+        b=QLeY4eLzMiK74G8DpyYmHxLTQAZBMLIfLFKYO7X2VfdQMAlb2HHttM+r9DXrxrTPFW
+         HBxIrE9QEAMNX7vjArFgBVcuPoQnyX0DpR4d1izxbVU+br5qFXYa2ojggwptMieMYgS/
+         KsMRd5uxIW6105w6JFeQKJUsCimVSCtSKbQ8K+pdyJ8/4BevQ0AeWEmrrvF3IbIKmLjK
+         1svfEyw1DT39fmcRwhoThXfhNOZTfIBpP7rPqYloL+2wdcOkP6xFOl1Pr2XzpT4CEcxQ
+         DbkUOVTYFo0VncJOTzHPJCxKmlZovnTThjYD39Oxd68e+iSpmj414r70eaAjbeAQAUHX
+         6iVA==
+X-Forwarded-Encrypted: i=1; AJvYcCX8hvcbiYqk1w6GGYEpHO5IU3tGQVp/Bc0e+iJJcBvqVoOm38JYKoHVQ5S9ez105hWvBIXQutjteAQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVIQ79K9LbkPo+2qVHOFeF/Yy0kKn/SICpGWezXqeDls3AUs/I
+	20seFRB3RsfcNtFYTrDmHtnOgSVJyGDmC1FZ1p99byk86dk2clLicGLFUr4fCg==
+X-Gm-Gg: ASbGncufLXLa0y7/kVxkvN/W9PGHsNClZwbxPWIkpFkrAkIpv361spx7ySFHQXG8N+X
+	EwOhwesWAde2UaXbOfzJ1SDxUqMFgn8fa195H+qcMuP1sTJh6nimqIks28NLaBCdoEPxmvnoor0
+	mPzBvZ2mhrdu/P2lbi7P2nsZntv76QPN5phCY7CfGnJwCb2lQFgaV1qKpw5p15nRXSKi2ynjskG
+	WgrHRHOX/Psd5tePJgBoVjp5bS0xCwGdVgI/xmV4lLRsYdmG2DQ+Cf7hUWo0FpcJWXH0ATkEwCi
+	JYfxFYjM32o+jamsegGmTXdmzKE2+/+Gyi/EzhjgmDaRT2JpcZ/J8ISGg7G/dMIFn2WPsI+4e/o
+	xYRugzOFYiTMUtoXE7YO7TCODwA==
+X-Google-Smtp-Source: AGHT+IGgIFcPXbVOu9t7FLeJhNsajGLQiBTun22n8N68zo4N+3C9xmevQyrRpEHMGnQtPDeWpfcWPA==
+X-Received: by 2002:a05:6402:268b:b0:5f7:f55a:e5e1 with SMTP id 4fb4d7f45d1cf-5f89be21647mr2981591a12.24.1746027182495;
+        Wed, 30 Apr 2025 08:33:02 -0700 (PDT)
+Message-ID: <2c00e3db-1931-4e73-a40c-907dfdf314f4@suse.com>
+Date: Wed, 30 Apr 2025 17:33:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 10/20] xen/pmstat: introduce CONFIG_PM_OP
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250421073723.3863060-1-Penny.Zheng@amd.com>
- <20250421073723.3863060-11-Penny.Zheng@amd.com>
+Subject: Re: [PATCH] x86/intel: Move mcu_opt_ctrl_* into __ro_after_init
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250430152720.602045-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,176 +117,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250421073723.3863060-11-Penny.Zheng@amd.com>
+In-Reply-To: <20250430152720.602045-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21.04.2025 09:37, Penny Zheng wrote:
-> We move the following functions into a new file drivers/acpi/pm_op.c, as
-> they are all more fitting in performance controling and only called by
-> do_pm_op():
->  - get_cpufreq_para()
->  - set_cpufreq_para()
->  - set_cpufreq_gov()
->  - set_cpufreq_cppc()
->  - cpufreq_driver_getavg()
->  - cpufreq_update_turbo()
->  - cpufreq_get_turbo_status()
-> We introduce a new Kconfig CONFIG_PM_OP to wrap the new file.
+On 30.04.2025 17:27, Andrew Cooper wrote:
+> They're only modified by set_in_mcu_opt_ctrl() which is an __init function.
 > 
-> Also, although the following helpers are only called by do_pm_op(), they have
-> dependency on local variable, we wrap them with CONFIG_PM_OP in place:
->  - write_userspace_scaling_setspeed()
->  - write_ondemand_sampling_rate()
->  - write_ondemand_up_threshold()
->  - get_cpufreq_ondemand_para()
->  - cpufreq_driver.update()
->  - get_hwp_para()
-> Various style corrections shall be applied at the same time while moving these
-> functions, including:
->  - add extra space before and after bracket of if() and switch()
->  - fix indentation
+> No functional change.
 > 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> ---
-> v2 -> v3
-> - new commit
-> ---
->  xen/arch/x86/acpi/cpufreq/hwp.c              |   6 +
->  xen/arch/x86/acpi/cpufreq/powernow.c         |   4 +
->  xen/common/Kconfig                           |   7 +
->  xen/common/sysctl.c                          |   4 +-
->  xen/drivers/acpi/Makefile                    |   1 +
->  xen/drivers/acpi/pm_op.c                     | 409 +++++++++++++++++++
->  xen/drivers/acpi/pmstat.c                    | 357 ----------------
->  xen/drivers/cpufreq/cpufreq_misc_governors.c |   2 +
->  xen/drivers/cpufreq/cpufreq_ondemand.c       |   2 +
->  xen/drivers/cpufreq/utility.c                |  41 --
->  xen/include/acpi/cpufreq/cpufreq.h           |   3 -
->  11 files changed, 434 insertions(+), 402 deletions(-)
->  create mode 100644 xen/drivers/acpi/pm_op.c
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I'm pretty sure I said "pm-op.c" in replies, maybe even moret than once. Now
-you still used an underscore instead of the dash that's preferred.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/common/sysctl.c
-> +++ b/xen/common/sysctl.c
-> @@ -181,13 +181,15 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->      case XEN_SYSCTL_get_pmstat:
->          ret = do_get_pm_info(&op->u.get_pmstat);
->          break;
-> +#endif
->  
-> +#ifdef CONFIG_PM_OP
->      case XEN_SYSCTL_pm_op:
->          ret = do_pm_op(&op->u.pm_op);
->          if ( ret == -EAGAIN )
->              copyback = 1;
->          break;
-> -#endif
-> +#endif /* CONFIG_PM_OP */
 
-Please can you be consistent here with the comment (or not) on the #endif?
-
-> +int do_pm_op(struct xen_sysctl_pm_op *op)
-> +{
-> +    int ret = 0;
-> +    const struct processor_pminfo *pmpt;
-> +
-> +    switch ( op->cmd )
-> +    {
-> +    case XEN_SYSCTL_pm_op_set_sched_opt_smt:
-> +    {
-> +        uint32_t saved_value = sched_smt_power_savings;
-> +
-> +        if ( op->cpuid != 0 )
-> +            return -EINVAL;
-> +        sched_smt_power_savings = !!op->u.set_sched_opt_smt;
-> +        op->u.set_sched_opt_smt = saved_value;
-> +        return 0;
-> +    }
-> +
-> +    case XEN_SYSCTL_pm_op_get_max_cstate:
-> +        BUILD_BUG_ON(XEN_SYSCTL_CX_UNLIMITED != UINT_MAX);
-> +        if ( op->cpuid == 0 )
-> +            op->u.get_max_cstate = acpi_get_cstate_limit();
-> +        else if ( op->cpuid == 1 )
-> +            op->u.get_max_cstate = acpi_get_csubstate_limit();
-> +        else
-> +            ret = -EINVAL;
-> +        return ret;
-> +
-> +    case XEN_SYSCTL_pm_op_set_max_cstate:
-> +        if ( op->cpuid == 0 )
-> +            acpi_set_cstate_limit(op->u.set_max_cstate);
-> +        else if ( op->cpuid == 1 )
-> +            acpi_set_csubstate_limit(op->u.set_max_cstate);
-> +        else
-> +            ret = -EINVAL;
-> +        return ret;
-> +    }
-> +
-> +    if ( op->cpuid >= nr_cpu_ids || !cpu_online(op->cpuid) )
-> +        return -EINVAL;
-> +    pmpt = processor_pminfo[op->cpuid];
-> +
-> +    switch ( op->cmd & PM_PARA_CATEGORY_MASK )
-> +    {
-> +    case CPUFREQ_PARA:
-> +        if ( !(xen_processor_pmbits & XEN_PROCESSOR_PM_PX) )
-> +            return -ENODEV;
-> +        if ( !pmpt || !(pmpt->perf.init & XEN_PX_INIT) )
-> +            return -EINVAL;
-> +        break;
-> +    }
-> +
-> +    switch ( op->cmd )
-> +    {
-> +    case GET_CPUFREQ_PARA:
-> +    {
-> +        ret = get_cpufreq_para(op);
-> +        break;
-> +    }
-> +
-> +    case SET_CPUFREQ_GOV:
-> +    {
-> +        ret = set_cpufreq_gov(op);
-> +        break;
-> +    }
-> +
-> +    case SET_CPUFREQ_PARA:
-> +    {
-> +        ret = set_cpufreq_para(op);
-> +        break;
-> +    }
-> +
-> +    case SET_CPUFREQ_CPPC:
-> +        ret = set_cpufreq_cppc(op);
-> +        break;
-> +
-> +    case GET_CPUFREQ_AVGFREQ:
-> +    {
-> +        op->u.get_avgfreq = cpufreq_driver_getavg(op->cpuid, USR_GETAVG);
-> +        break;
-> +    }
-> +
-> +    case XEN_SYSCTL_pm_op_enable_turbo:
-> +    {
-> +        ret = cpufreq_update_turbo(op->cpuid, CPUFREQ_TURBO_ENABLED);
-> +        break;
-> +    }
-> +
-> +    case XEN_SYSCTL_pm_op_disable_turbo:
-> +    {
-> +        ret = cpufreq_update_turbo(op->cpuid, CPUFREQ_TURBO_DISABLED);
-> +        break;
-> +    }
-
-Please can you drop all the unnecessary inner figure braces here? They hamper
-readability without - imo - providing any gain at all.
-
-With all of the adjustments:
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
 
