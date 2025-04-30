@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAD86AA4F84
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 17:05:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973668.1361738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80C25AA4FF6
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 17:17:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973679.1361748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA8zp-0004Fx-EH; Wed, 30 Apr 2025 15:05:13 +0000
+	id 1uA9BI-00068w-HV; Wed, 30 Apr 2025 15:17:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973668.1361738; Wed, 30 Apr 2025 15:05:13 +0000
+Received: by outflank-mailman (output) from mailman id 973679.1361748; Wed, 30 Apr 2025 15:17:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA8zp-0004EV-Bc; Wed, 30 Apr 2025 15:05:13 +0000
-Received: by outflank-mailman (input) for mailman id 973668;
- Wed, 30 Apr 2025 15:05:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uA9BI-00066x-Ch; Wed, 30 Apr 2025 15:17:04 +0000
+Received: by outflank-mailman (input) for mailman id 973679;
+ Wed, 30 Apr 2025 15:17:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BSD2=XQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uA8zo-0004EP-F8
- for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 15:05:12 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8320e7c6-25d4-11f0-9eb4-5ba50f476ded;
- Wed, 30 Apr 2025 17:05:11 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ace94273f0dso57633466b.3
- for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 08:05:11 -0700 (PDT)
+ id 1uA9BG-00066r-PM
+ for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 15:17:02 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 29c7818e-25d6-11f0-9ffb-bf95429c2676;
+ Wed, 30 Apr 2025 17:17:00 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-ac25520a289so1182143166b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 08:17:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace6e59649fsm930887666b.85.2025.04.30.08.05.09
+ a640c23a62f3a-ace6e58623fsm931994166b.78.2025.04.30.08.16.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Apr 2025 08:05:10 -0700 (PDT)
+ Wed, 30 Apr 2025 08:16:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8320e7c6-25d4-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 29c7818e-25d6-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1746025511; x=1746630311; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1746026220; x=1746631020; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jk9twuh30/1pOnimYpUmst5+vGSp+PKfratMRpKXvC8=;
-        b=PKfVSqULHEmITTTvIVylZqPWZNXa62WHKggFT1WYB544kEYlvCsFU+8jTPusK6Jczd
-         SHeCuzeBU0ZGNpHyZd2sYw3QS8Lh15ALBmsMVJj/atcMMH5X5zHcWHXpfFAgL0IYYSbc
-         uK/usD9/PJT+9ptGQebDswE49J/pejOYjrxgZIPgHcP3oyl+YFz+Z42PZFQaAivQ2iPF
-         MKTwe5ZeNGyH3lin5KfmnQE7PpHuHZiElARLY1vKYkEqznsXqsZE93BUiiw2WTKUvfSU
-         BjuJNcL+ryZmrMtkXDFEHN6G/g/xmueAZhMqoW+BcC+8MJHAR2IV/KGHlOfmeuNwHIO2
-         oUxg==
+        bh=S4jAUdUAzjnrqQFCW197Cj/IsxpypH/rX2sQMuB9+d8=;
+        b=a1YNEIYvA8AwKSlhUXxeJTUQHkCwmdZ0VRJyQFDhsPCxTpHviUe1n6vQWO22NG79Vl
+         033xqLRiVCJU2aaJCwPliCwv5oorRQK4zqihxja5U6MWAWHBF+NfIyWMpTk2lVECHl1W
+         n8gXfbtoNKYAp4G877nUQ8ZNr/YQF9pYM5YpYqtURxCxY7p+3cLjQ2A8QGAzBPsZ7Yvg
+         KjHKbKOgdSwrKlM28TOHE9d1tvNqpiiCvQ0GM1SOa1yKmCe1rn3hWg2eV30IkTPO33Ok
+         agSy1WeYuB0roB0bMLisl0OL1+gXQN8nfKNFr69NVvVMCv1gNa9cO+WB4cnHL+VhwIXb
+         o3IQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746025511; x=1746630311;
+        d=1e100.net; s=20230601; t=1746026220; x=1746631020;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jk9twuh30/1pOnimYpUmst5+vGSp+PKfratMRpKXvC8=;
-        b=G8rrYXQXzAQ0L3VK8aEzubl31d9Mt1txAB0HpbRTRilbgNErEVe8RRwSuQglxGNFWu
-         bUwpbsMAM7qZy4jK1ryt12eMKWWP4zTjD0/Aqf1gZYN7lO+X/EvCpEPfYSk+3rUT9wx8
-         OeJHEsq6vcUi+gkEa8XG4gYGANL5GkcgAKqbl8Y5RPvyClvB3BZJtJYjVrPzn5lK1Qs9
-         MCuZ0qbveIcKCPpeMgeX5SU2nxX0oipkPQpNjyWI0bZWEhR1h1v0PhOcAjscORAM7Fn+
-         oXf24IsO285/UrLfMgofS6wLpuDr/aqtgJSD/224kUbxkPJd6hpB0bm+e30tACURP/ED
-         ESkA==
-X-Forwarded-Encrypted: i=1; AJvYcCUXqOrjzvrLXpJxuQVYAoQmqGUmKDf/Df6N6AXSrarcHamtvCTAW1pt9mnhd8QQuCiajm3Buym3uUQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwT4jbOkLZedsbBvvCGmAPXil6H033sPmOXNcKHN68+zA/7U6fT
-	/lala6boLn3anzoQ+QfuWrbIRIis8hRIbeoJuNChwsfLRY4CQNTgJAl5+ohoCQ==
-X-Gm-Gg: ASbGncuq64B9SngCYARHOE3Wu7sAL5iLM0hDIihDkZyvPLJuUqjoOPA94BVW2nPlhU2
-	bNtHBSrzZ8l36LKEKt8yvan+A4V0R6j5JHA9WBleNt8KyzyvTK7P2cC26WCOI6Os25WrDs2zZfp
-	nqtexNb464zMLuk3JHaiGn/brnoX5VIXtZYG9U88t3XBd7HLVKJwposkiw2rtDg7/rLReLQZsCT
-	/VrcL4iOpNDp1LzyaIFIDK3TPXKJRbqOIeH20308EKH7YHwxPRKW32UUI5wtHY+cIv1as7vsSlh
-	bM7hCl3IUARrgE5JTbF8gMkRXyQTmLmWyhEDTKvSWMke47y/UhJaZWQViP8gYNzdhNxRWBCo6J3
-	nx7vnmI8Cm8RhvEAYazdP/0aZwQ==
-X-Google-Smtp-Source: AGHT+IGtv0/2SmFkWm6b/w5jWgYa+3optGgfdx771s88Jwa5Jzj2qKyJw52Z0Sg3Bqo1tRFbXyuEVg==
-X-Received: by 2002:a17:907:9801:b0:aca:dd0c:cfc8 with SMTP id a640c23a62f3a-acedc56d9b6mr354796266b.10.1746025510525;
-        Wed, 30 Apr 2025 08:05:10 -0700 (PDT)
-Message-ID: <9d2dbf12-802c-483f-84b0-34bb90362b41@suse.com>
-Date: Wed, 30 Apr 2025 17:05:08 +0200
+        bh=S4jAUdUAzjnrqQFCW197Cj/IsxpypH/rX2sQMuB9+d8=;
+        b=wC2FiGuNZE05lxNdq/2ujdN/ibmtwZu19JmiHhpPZxOhrq4C1WMmxE1JBMULzG0Esd
+         nnmp+c/LaGfBoxd+kbEYqVk1ty0yFg5vsO/M2HNX/xqxAOV10s55HiNA26o/RleUj2SC
+         6C3GGR5A+B6yW+1taDsYUmguyfmLWSrWsZCG3HP9jWVKwRbVCZYDJC7B+76yjTSpfqaK
+         ZJZyOdDb+HewXHTb/IgQq1sXng7s3OncyrkP6xDslz9KHj/V1494onfRzYR5Ulomf3qC
+         maTAOch1ahZ2rI2Tn8xEzsarB79Api2gtFqk+HehQ3vEg3a5kk3ET8NAjV5Ee9gu/Nyn
+         vNlA==
+X-Forwarded-Encrypted: i=1; AJvYcCVj5uyF2U6gpIL2bH1uRMBNx5jJztPWJaS0hTYjoHO/8f6Owe1LrEwws8XEW3mh3/TWEuRsge9DehI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YycFQtB2Q2bpN0q/rPN2tDpvv8CrdwHo6L0A8sGjp0SQjVPEOlx
+	Xux2jbx8t3GaICUeRUM6XIK+DzayTUm7p9yr2pggGNtmmML4iiLMgtDc5L2shQ==
+X-Gm-Gg: ASbGncu5FxQoU8sPNBjG8LLzw631IaPLoPQTwTlZqUi0G3W0TqrjZ5/HoV+F2yaC6zL
+	A3kHlJDxeGEQyDAygoqa1puw13cKog3UBuiZuGgejGUJL2Lx0jEHu82sJuPY5bO3QGpYEVP/WM7
+	ho3V8EyBJ7T2/PbR2H1YcxcIX3ImZa6nVLJX0ei3MGsoovsENShyxA0vq9b+E5Hdk0cDAp9MVlH
+	jpO2mW8G+W4RPt4B6DTof9dkX/KuZx7YgOLbYho/pMQsTfGlLOnU0i9Bli/Y2PAyLCndkJn2BXU
+	2+51HNrCaj/FQF90JofeqP2lMsyL548GJlXklkJpFrFcBKQyJOaYvpkR3vm3n8J8nY3jgZ93VuN
+	DsjEAmgPNj/5oNTGdCTPPI8IccA==
+X-Google-Smtp-Source: AGHT+IHyhYqg3/ssGzcATKtsVGK7ejEoF7gOjF5eHR0uuoTyeslGe1m7dUIQwgiQPjMvBMSd8Dnwew==
+X-Received: by 2002:a17:907:1c13:b0:ace:c2d4:bf85 with SMTP id a640c23a62f3a-acedc6ffb39mr434906666b.43.1746026219859;
+        Wed, 30 Apr 2025 08:16:59 -0700 (PDT)
+Message-ID: <7e16adfb-21d7-48e1-ab71-b66efa9553df@suse.com>
+Date: Wed, 30 Apr 2025 17:16:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/20] xen: introduce CONFIG_SYSCTL
+Subject: Re: [PATCH v3 01/20] xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"
 To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Stefano Stabellini <stefano.stabellini@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250421073723.3863060-1-Penny.Zheng@amd.com>
- <20250421073723.3863060-3-Penny.Zheng@amd.com>
+ <20250421073723.3863060-2-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,35 +121,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250421073723.3863060-3-Penny.Zheng@amd.com>
+In-Reply-To: <20250421073723.3863060-2-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 21.04.2025 09:37, Penny Zheng wrote:
-> From: Stefano Stabellini <stefano.stabellini@amd.com>
-> 
-> We introduce a new Kconfig CONFIG_SYSCTL, which shall only be disabled
-> on some dom0less systems, to reduce Xen footprint.
+> Remove all "depends on !PV_SHIM_EXCLUSIVE" (also the functionally
+> equivalent "if !...") in Kconfig file, since negative dependancy will badly
+> affect allyesconfig.
+> This commit is based on "x86: provide an inverted Kconfig control for
+> shim-exclusive mode"[1]
 
-What about the PV shim on x86? That's also relevant ...
+Recall me asking to avoid wording like "This commit" in commit messages?
+Also personally I consider "is based on" ambiguous: It could also mean the
+one here needs to go on top of that other one. It's not entirely clear to
+me what kind of (relevant) information you're trying to convey with this
+sentence. Surely you didn't really need to even look at that patch of mine
+to find all the !PV_SHIM_EXCLUSIVE; that's a matter of a simply grep.
 
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -581,4 +581,15 @@ config BUDDY_ALLOCATOR_SIZE
->  	  Amount of memory reserved for the buddy allocator to serve Xen heap,
->  	  working alongside the colored one.
->  
-> +menu "Supported hypercall interfaces"
-> +	visible if EXPERT
-> +
-> +config SYSCTL
-> +	bool "Enable sysctl hypercall"
-> +	default y
-> +	help
-> +	  This option shall only be disabled on some dom0less systems,
-> +	  to reduce Xen footprint.
+> ---
+>  xen/arch/x86/Kconfig      | 4 ----
+>  xen/arch/x86/hvm/Kconfig  | 1 -
+>  xen/drivers/video/Kconfig | 4 ++--
+>  3 files changed, 2 insertions(+), 7 deletions(-)
 
-... for the help text here then.
+With the changes here, what does this mean for the in-tree shim build, or
+any others using xen/arch/x86/configs/pvshim_defconfig as the basis? You
+aren't altering that file, so I expect the binary produced will change
+significantly (when it shouldn't, unless explicitly stated otherwise in
+the description, which may be warranted for SHADOW_PAGING).
 
 Jan
 
