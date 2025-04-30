@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AFF3AA5060
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 17:35:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973765.1361818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E750AA5087
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 17:39:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973778.1361828 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA9TE-0004JQ-ER; Wed, 30 Apr 2025 15:35:36 +0000
+	id 1uA9X3-0004vd-Sy; Wed, 30 Apr 2025 15:39:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973765.1361818; Wed, 30 Apr 2025 15:35:36 +0000
+Received: by outflank-mailman (output) from mailman id 973778.1361828; Wed, 30 Apr 2025 15:39:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA9TE-0004HY-BK; Wed, 30 Apr 2025 15:35:36 +0000
-Received: by outflank-mailman (input) for mailman id 973765;
- Wed, 30 Apr 2025 15:35:34 +0000
+	id 1uA9X3-0004tb-Pu; Wed, 30 Apr 2025 15:39:33 +0000
+Received: by outflank-mailman (input) for mailman id 973778;
+ Wed, 30 Apr 2025 15:39:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BSD2=XQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uA9TC-0004CA-L3
- for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 15:35:34 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1uA9X2-0004tV-Hw
+ for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 15:39:32 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bf2cd32a-25d8-11f0-9ffb-bf95429c2676;
- Wed, 30 Apr 2025 17:35:30 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5e5e22e6ed2so11990295a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 08:35:30 -0700 (PDT)
+ id 4e7e2229-25d9-11f0-9ffb-bf95429c2676;
+ Wed, 30 Apr 2025 17:39:30 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-ac6e8cf9132so1475595566b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 08:39:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ace6edb0becsm930188666b.167.2025.04.30.08.35.28
+ a640c23a62f3a-ace6ed6aed0sm939586666b.135.2025.04.30.08.39.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Apr 2025 08:35:29 -0700 (PDT)
+ Wed, 30 Apr 2025 08:39:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf2cd32a-25d8-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 4e7e2229-25d9-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1746027329; x=1746632129; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1746027570; x=1746632370; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lGt5RB/CuWxG3gjCtbFUNTnvTo8j63pP6rCc1owRjsM=;
-        b=ckixHHTq7OxHx04APlzVFoyhIrYQDgJmPprslTHOBtnbvpb45Fyneg1Diw3+Xg289i
-         8PWpxpp4CW1g08k7Ht9vci/D+ubJxZgTWdRJf0AtXm1m8vHOZYKTy3nyldhrPnjY6yI+
-         vfJnS/RC8pa2HnhcX9CEiEZ91t0wuEFPWaJk6JS+c923z9U3x+/DgYlwBsZpVKMgrgl2
-         echINKtKUwnVDOx0+TV/TMSLWxRIN9Vgly+SGqLqJh1IGIqgh3uvwDTrhRYyqkPpxpT3
-         vR4kC/QtRGaxnmiNZFT7yaWId/FSiiPZlwS5by418pF2rNRR3YZhMAYKtamPnJNLXmDj
-         1mJA==
+        bh=tZ0FLs3fbIZrV2Du2vPVcS0e7BbfqxRd3da7bpVYfhw=;
+        b=JsOlPoCB7aI5Ap2SO21IyVflqi59xwq+dggJ20p68wFRHZjUAe1zDnEcX7qwz7lS+1
+         932OOsrT+nOfAZhMpBxVmrFpDlen3EEdH9ctLbYEkCcUPjHD1swW7nRyCi6ImKwvVJIm
+         gnzjQtAVFwen8dj+ERbKgv/Z9I+RI5+/0qiA6EF0OnnOOd9zTH5Rl/XYSOfz7vOGf2DE
+         5+orreR6RGo+bzOkYJGyTlveBUeuObMJuqC+8Z2RE/pCAxOTrCRTLoiOJ2nyvyINv2o3
+         7dlpH0AhCpDsK7H1YNVM0qwnSrJ4t/O1OVMDwhy3Cl2Ggn1r4tC/CuL8WKBRV03e/QRY
+         2bjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746027329; x=1746632129;
+        d=1e100.net; s=20230601; t=1746027570; x=1746632370;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lGt5RB/CuWxG3gjCtbFUNTnvTo8j63pP6rCc1owRjsM=;
-        b=F17ik/LXInUleuLSz3KbAKZ2UmNLyzI7rF2j4ANWIYPu2nuhMPNstoNU2FBPd090+A
-         d6IXMkf5xocp5FdS245Tm0S6ukw0qfST2G/NRl4+5U/tkkE5dWGK8+slYxIJuJNmnvSR
-         TXJf65ioND5uvyyRwCKvIAr8fJR7MI02DUd5ELqhrFy7qchxm/QDiplmp8BWomKc/pTs
-         cHUU/huB0vdr0xzFfhT7u0Wh2HGdV9aGfQ33pRkycHQCz7aMczzryxXn+arKaybLfAJQ
-         PiXWD3cADoLVuI7+fsnPoSZQRuVHCr+pQuUrnZxuuttHG6RNw7IbG/t5n/+s9JMM9Svm
-         Ybcg==
-X-Gm-Message-State: AOJu0YwkEfylhux8UZTWeCcmPfOt3uHFY0lcxKA1wHLGZjqXRt54aFFL
-	s3qBa+qPK0MFFu6DPtDum3IJR0FKHyPmqgPNqH7KHCEGfRmfyB+HTbscJt8v+w==
-X-Gm-Gg: ASbGncuH5CntCN7ZA//6v9W074wfpy6XxMLcTu30XD3ogJOd6Y04/2lmFA1pChai/WM
-	vDktehIOGCAGRDqZODtuwyvZNxDETaxb8omlxhnyFLnPgYf+SBlZPa/Gb05cTT7UXcWhifBHww1
-	ruX9M8/UBPCA6bcCrpiziHfi0dylTsn12vtqgPGjeNvMLH+b0462xeP8Ql1zL8OWYatVevIL2Pf
-	dMjIe7DdLemZnSVZZ7UX6dEQnwWYQgjRiyJ7Djt1nFftxeQqlTcYXncVxK+Dca+0zgvZTQZ4o5I
-	gll1R7RMDxc/alfc66BogvOf7qSarD87cK1dLaiz0kL96ADPDqNUNeFCm3P4DVJsL58PGCSp8Mf
-	rRuSoOHhDYOYN6PgFRRiPXN7ulA==
-X-Google-Smtp-Source: AGHT+IFAQA5qed+p9F5KNLRJkfcEF8DBXe8AB05z75IZ+KIniEpjta4LKZo9WU5vwqxYvqJrBtnZ9g==
-X-Received: by 2002:a17:907:728f:b0:aca:b45a:7c86 with SMTP id a640c23a62f3a-acedc579956mr359528466b.1.1746027329506;
-        Wed, 30 Apr 2025 08:35:29 -0700 (PDT)
-Message-ID: <5d57691b-4f77-4c1a-b504-cb6dd8405704@suse.com>
-Date: Wed, 30 Apr 2025 17:35:28 +0200
+        bh=tZ0FLs3fbIZrV2Du2vPVcS0e7BbfqxRd3da7bpVYfhw=;
+        b=pq/rmAyn5fuBEf0GMa/O2tNkIbqHDmk46QPbDCUg0dMM142sA6lala/NQ7eCLqaHbq
+         Q18fqeOKuZCJFJSO/7OngkCgSP4bdPFtkvMETEBQaRtpt/7h7x+TDE0CGKr0jWDzq/vo
+         V+H3BjY/QsTY3En0GfJ6UttreIjWevKsiUmmMCBBx2MphZrI/zG84o9Bc60c1qAgxxXe
+         s07qAwA1eWFictN1/1+uuf/fXkQ2FlwCU1b8DqQ30UQZnUybRgqdZdDhko1fHhLkKbhR
+         +utCfaE4y5I1Lf1HzHS2f6ra5l1DxLz6AT4R6bxgqHPh2einICjc8BIorum9wK9TxOaZ
+         i9uQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVCKysReORQM3FVvRf8fxBV+rsQRCodx15zsh5pB/d8GrQfYLD2Oel2RJjBNr9DFWHT3TLRGbfRRTU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyOyuvb+MvH9TISvf8v1IqMfVwYSfFJgyftGF8uSeddmTX3cjPi
+	oNGIm5382WOmhg9ikK8Ue9GxxuIG7SFPTsjNtZ/64Xv/UQWQjhh9my4bjJdsdA==
+X-Gm-Gg: ASbGnctW9PBJejuuZqThgMxjnPY0aZ+0e33ygCG+b/y7EAtBA5XBZ9L6U8V8AOO9oRL
+	SQKvbD1BX0qafr9gHLIFC/cfp2W7LH4KfmtBisksHAaTNZ543J6jTbD6haObsssgl31ZeRAgreV
+	9nq1p1jIs+6msc+Ia03jXT4SToU/juXdwg4qYFdEoChX4us1xAUcphJqYUQSKhy3+bDcsWeUd6o
+	e82NDZyzY91yBM+P7U62ug0B1+7SArDKENMLPJ5KjEA+iFgLXnZvuYW/55LJPH1RbylZhS+EHte
+	qAtOOY+t0glG75AhcNTXKVpYYSDcb3zqEMiCaRYeKJQFPnTct0jTFjFaWjONnzXiC7F899ah6KL
+	U4lXxm8VNkLMjIgN0lS52xCfxNw==
+X-Google-Smtp-Source: AGHT+IHtlhH+lQgTniT5lCXgwPE32Sg8vCNtLBz1cc7O/sfEzfqXpnLvaFOrqOBsQHdBewsHFLYn8w==
+X-Received: by 2002:a17:907:c22:b0:aca:a35e:59fe with SMTP id a640c23a62f3a-acedc5944e2mr415156466b.1.1746027569980;
+        Wed, 30 Apr 2025 08:39:29 -0700 (PDT)
+Message-ID: <7f0b957d-e519-48f0-b15b-68f7880eece7@suse.com>
+Date: Wed, 30 Apr 2025 17:39:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/20] xen/sysctl: introduce CONFIG_PM_STATS
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: xen-devel@lists.xenproject.org, ray.huang@amd.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v1 13/14] xen/riscv: initialize interrupt controller
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250421073723.3863060-1-Penny.Zheng@amd.com>
- <20250421073723.3863060-12-Penny.Zheng@amd.com>
- <alpine.DEB.2.22.394.2504211412370.785180@ubuntu-linux-20-04-desktop>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1744126720.git.oleksii.kurochko@gmail.com>
+ <cb730a1293f14dd7fd58f98f5ecda4e2523b2d90.1744126720.git.oleksii.kurochko@gmail.com>
+ <bcffc56a-5518-4bcc-9124-d49a98ae727a@suse.com>
+ <4851cd30-73a5-4d97-b506-850d67c285d7@gmail.com>
+ <ee057161-6f24-44f2-a009-fec5885c6f11@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,23 +126,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2504211412370.785180@ubuntu-linux-20-04-desktop>
+In-Reply-To: <ee057161-6f24-44f2-a009-fec5885c6f11@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21.04.2025 23:12, Stefano Stabellini wrote:
-> On Mon, 21 Apr 2025, Penny Zheng wrote:
->> We introduce a new Kconfig CONFIG_PM_STATS for wrapping all operations
->> regarding performance management statistics.
->> The major codes reside in xen/drivers/acpi/pmstat.c, including the
->> pm-statistic-related sysctl op: do_get_pm_info().
->> CONFIG_PM_STATS also shall depend on CONFIG_SYSCTL
->>
->> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+On 30.04.2025 17:34, Oleksii Kurochko wrote:
 > 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> On 4/17/25 12:11 PM, Oleksii Kurochko wrote:
+>>
+>>
+>> On 4/15/25 5:59 PM, Jan Beulich wrote:
+>>> On 08.04.2025 17:57, Oleksii Kurochko wrote:
+>>>> Call intc_init() to do basic initialization steps for APLIC and IMISC.
+>>>>
+>>>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>>> Acked-by: Jan Beulich<jbeulich@suse.com>
+>>> yet ...
+>>>
+>>>> --- a/xen/arch/riscv/setup.c
+>>>> +++ b/xen/arch/riscv/setup.c
+>>>> @@ -136,6 +136,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>>>>   
+>>>>       intc_preinit();
+>>>>   
+>>>> +    intc_init();
+>>>> +
+>>>>       printk("All set up\n");
+>>>>   
+>>>>       machine_halt();
+>>> ... this being everything here I wonder if this can't be folded with the
+>>> patch where the function is introduced.
+>> Sure, it can be folded. I will do that to reduce patch series.
+> 
+> I doubled checked and, at the moment, when intc_init() is introduced:
+> void __init intc_init(void)
+> {
+>      ASSERT(intc_hw_ops);
+> 
+>      if ( intc_hw_ops->init() )
+>          panic("Failed to initialize the interrupt controller drivers\n");
+> }
+> 
+> intc_hw_ops isn't registered as they are registered in the next two patches after
+> intriduction of intc_hw_ops.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Which then feels wrong anyway; you're then merely leveraging that the function
+has no caller, which (as said elsewhere) shouldn't be the case at the very least
+for Misra's sake. So I expect some re-ordering to be necessary. Or you may want
+to introduce the function empty and add the intc_hw_ops uses as intc_hw_ops is
+introduced.
 
-
+Jan
 
