@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 342A6AA40DF
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 04:18:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973286.1361443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78411AA41C7
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 06:22:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973302.1361453 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9x0i-0006rp-8D; Wed, 30 Apr 2025 02:17:20 +0000
+	id 1u9ywT-0006TQ-Uo; Wed, 30 Apr 2025 04:21:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973286.1361443; Wed, 30 Apr 2025 02:17:20 +0000
+Received: by outflank-mailman (output) from mailman id 973302.1361453; Wed, 30 Apr 2025 04:21:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1u9x0i-0006ol-3l; Wed, 30 Apr 2025 02:17:20 +0000
-Received: by outflank-mailman (input) for mailman id 973286;
- Wed, 30 Apr 2025 02:17:18 +0000
+	id 1u9ywT-0006Qe-RW; Wed, 30 Apr 2025 04:21:05 +0000
+Received: by outflank-mailman (input) for mailman id 973302;
+ Wed, 30 Apr 2025 04:21:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mYFu=XQ=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
- id 1u9x0g-0006of-Jz
- for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 02:17:18 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20609.outbound.protection.outlook.com
- [2a01:111:f403:2613::609])
+ <SRS0=DO++=XQ=outlook.com=mhklinux@srs-se1.protection.inumbo.net>)
+ id 1u9ywS-0006QY-Fl
+ for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 04:21:04 +0000
+Received: from SJ2PR03CU002.outbound.protection.outlook.com
+ (mail-westusazolkn190130001.outbound.protection.outlook.com
+ [2a01:111:f403:d000::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c568720-2569-11f0-9eb4-5ba50f476ded;
- Wed, 30 Apr 2025 04:17:16 +0200 (CEST)
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- (2603:10a6:150:16a::21) by DB9PR03MB7290.eurprd03.prod.outlook.com
- (2603:10a6:10:222::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.29; Wed, 30 Apr
- 2025 02:17:14 +0000
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e%3]) with mapi id 15.20.8678.028; Wed, 30 Apr 2025
- 02:17:13 +0000
+ id 84e025b4-257a-11f0-9eb4-5ba50f476ded;
+ Wed, 30 Apr 2025 06:21:01 +0200 (CEST)
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by CY8PR02MB9428.namprd02.prod.outlook.com (2603:10b6:930:75::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.18; Wed, 30 Apr
+ 2025 04:20:54 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::cedd:1e64:8f61:b9df]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::cedd:1e64:8f61:b9df%3]) with mapi id 15.20.8699.008; Wed, 30 Apr 2025
+ 04:20:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,361 +47,281 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c568720-2569-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 84e025b4-257a-11f0-9eb4-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qL+CrOB6mqXP1vydzuu2QJznC0YQYguisndu57db/ZmAftcAPwz2tXzujHOYBzRTFwlUFE/P6balGGfffE9DNgfOcg6AThUwAQtSRDJJ3FD7tNlkNZhSuX58UQ9M+XBxknH2SqTvm5UjEm+KL65OgT53rd69HHDcZK4+L9zyrg8GGXU8oT5SBfacgRi3ESVvqw1uLGdY4F7SHB3RLw1MamlqqPLo+Fo9CSCGWt3RA+fM3sS28piicUCMzXePVIWgt5SFRiyq/MGNLN6XuWW92YkrpCrdCKIu5ovfO6GD4W3CApRMOUnPf388Glb4xjMwQhfsMrF9FQexYSrlAg5D1g==
+ b=ga/E4WGXqv5N4wpBc8DzychM63nQINi3PIZyQhvHEa/DI9rN/3dze5jz+be4ovRww5u7oV93YGi2/72Sz/v4GhJuYuG1Yxdk4vg9qGfOiAJqSGv/tamywScYyFaAyAJWWWe8+xE6gh3JhEuyB/RAWWoNz4GcxeGJbcqFOoWCtiHoWR5FJNXKbUafO9rUf/3A8r4Vdm4QujcxJOkUgMP2OSAmV2PB24uvvXFAhFeQBTojWVg0lfJ2MpNVv0YCPU/e+ngshY7cjd6AfzrRQ2enHaZ2y787IrXA8/gCVQzkOe/DPXoT3zyW0/8YYGnLZQn84Ltm8sJeYXJ7ZNYjJSHMmQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qlWiEDl3v0ISJea4AfslNIvfr6IR2IR3TkfekhZFVsQ=;
- b=IK1nUCksUdamNwSJHySeIdjFwcsXIJ+owXEjR5WLnLynPpGsGSNWplnMk3b2GHujxJR3Xhl1If4QllfpVFUmX/CL6uf+5Hd0irmHtAqYlG6RCaR9DwrDWrfwIxEzyTEw8/5sx52Nr3g2BJt2yBuxWbUPYi0UXOoiLo5e0nJJper9OuSNpVI7/LixdQ6ZktOGWNlD7dG0Pi3vUHx4ffZViEFd14pBuMJGSBWcoDRbxypzMQeezHaVsR+LOJArypO/lc52XqYWzPrZFAMrKt9ll+iY/ianTEKVptQezGHPkZtJPoB1eFRjIu6/6LY9rXnEPTQi8ZVvRDyxKHrDUvoMpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ bh=dvK2r+/hEf2JsEW/4ID2HtZg7/lC0WNw/mRBGzmJ9UI=;
+ b=HHSaZX2FdcEfRpDkg+44rRHuksrqoKqCQVU4akcJXqYupuuu8NeIAFCo2x5WDP3sMG7XuM+RBx2rk2fLzoVMmsiIBqrp/spZE0PkZbXctGsadAUn2YF/9xJVKY1YoOKmKqcBVVXfdAvtwpE0q1cqA19VUz7YK3ag+gUktPqn9wty8CXZc18Sr5rrwmKY2Mw3miOv7gv2w6rdwQaRP4v0ENP6V8K14QrSUHw1c1fhfla4r5seHFMMzHpV9BO7MrF7kKCU0eTexEdv5wQBlQY7HJNaznSaVG6bSTr/KtcfM6ijohzADpOx7p0t2Rebew4kXdk1Wj1yyKuS676JLToDYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qlWiEDl3v0ISJea4AfslNIvfr6IR2IR3TkfekhZFVsQ=;
- b=dNOifEFuaHcAB1RYjUzp7tI+OAdWgeLDHvzVDtmQfjgCnvGQshKs4Z5/oFsFVSunMRxH3AEQor6tnn+2d9eOvmbma0D3jGKOhdzmAvAsl2ENxjFs00qu8epZ0kXTRXZMbiDT8o0bDV3oPYJ2dHjLLKOlNGNUnY9K/XiRZx3KQBdHNV77g4zKIfStix67LrK8FtqHZa1AyMmn66fTV7jqPQbOs/gXonXs37D04sHWQUI6/JtS547XtCQKgKXeo0qPj6skWif8PxylFsTu3omaeVupMvdKNF+Wz+yNP784Xc22RKwtZZZtaNtAXrv1IoFhkBdaLNYfqNlbCzUDXymUaQ==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Julien Grall <julien@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
- Marquis <bertrand.marquis@arm.com>, Dario Faggioli <dfaggioli@suse.com>,
-	Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>
-Subject: Re: [RFC PATCH v2] xen: add libafl-qemu fuzzer support
-Thread-Topic: [RFC PATCH v2] xen: add libafl-qemu fuzzer support
-Thread-Index: AQHblUI7lWJ91U/YVk+TK2sT0KKY9g==
-Date: Wed, 30 Apr 2025 02:17:13 +0000
-Message-ID: <87cycue6l3.fsf@epam.com>
-References: <20250315003544.1101488-1-volodymyr_babchuk@epam.com>
-	<5d519ffd-8747-4367-b92f-01c20a483e72@xen.org>
-In-Reply-To: <5d519ffd-8747-4367-b92f-01c20a483e72@xen.org> (Julien Grall's
-	message of "Fri, 21 Mar 2025 23:31:24 +0000")
+ bh=dvK2r+/hEf2JsEW/4ID2HtZg7/lC0WNw/mRBGzmJ9UI=;
+ b=s1LPyTtzZMFRmWOY43AU9AHEdyANDTA2OH+M60JwjcHqAulz897g+WPHljm3SWLHlWD0DeZ5K/wncSS2kUtNYtjYI2ugYq/CuppAJUqbqXrzy7m/33EwkwATwHm2p+Lz3HYtKIiq1yS36yn4b88GL3g7aM049VGivZpb0IF7vU++ten7/7aB4rSvR5cL8pQCx/Dxr7HN51+xw2+ZXyxdXG+AP5pnM5c7hbL65j9yvB1nzOe9k3GFGXCUhfb+eNaJgoHWL7Rf6SiZ7QeLfJqoiGEuB/xAPexGd4Etmzysf292N3/HpjnSVN1EZW/J0jj5R54qnZ9vY85UJW0PkZh2Xw==
+From: Michael Kelley <mhklinux@outlook.com>
+To: =?iso-8859-1?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, "Xin Li
+ (Intel)" <xin@zytor.com>
+CC: LKML <linux-kernel@vger.kernel.org>, "kvm@vger.kernel.org"
+	<kvm@vger.kernel.org>, "linux-perf-users@vger.kernel.org"
+	<linux-perf-users@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>, "virtualization@lists.linux.dev"
+	<virtualization@lists.linux.dev>, "linux-pm@vger.kernel.org"
+	<linux-pm@vger.kernel.org>, "linux-edac@vger.kernel.org"
+	<linux-edac@vger.kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "linux-acpi@vger.kernel.org"
+	<linux-acpi@vger.kernel.org>, "linux-hwmon@vger.kernel.org"
+	<linux-hwmon@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
+	"platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+	"tglx@linutronix.de" <tglx@linutronix.de>, "mingo@redhat.com"
+	<mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "x86@kernel.org"
+	<x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>, "acme@kernel.org"
+	<acme@kernel.org>, "jgross@suse.com" <jgross@suse.com>,
+	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+	"peterz@infradead.org" <peterz@infradead.org>, "namhyung@kernel.org"
+	<namhyung@kernel.org>, "mark.rutland@arm.com" <mark.rutland@arm.com>,
+	"alexander.shishkin@linux.intel.com" <alexander.shishkin@linux.intel.com>,
+	"jolsa@kernel.org" <jolsa@kernel.org>, "irogers@google.com"
+	<irogers@google.com>, "adrian.hunter@intel.com" <adrian.hunter@intel.com>,
+	"kan.liang@linux.intel.com" <kan.liang@linux.intel.com>, "wei.liu@kernel.org"
+	<wei.liu@kernel.org>, "ajay.kaher@broadcom.com" <ajay.kaher@broadcom.com>,
+	"bcm-kernel-feedback-list@broadcom.com"
+	<bcm-kernel-feedback-list@broadcom.com>, "tony.luck@intel.com"
+	<tony.luck@intel.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>,
+	"vkuznets@redhat.com" <vkuznets@redhat.com>, "seanjc@google.com"
+	<seanjc@google.com>, "luto@kernel.org" <luto@kernel.org>,
+	"boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
+	"kys@microsoft.com" <kys@microsoft.com>, "haiyangz@microsoft.com"
+	<haiyangz@microsoft.com>, "decui@microsoft.com" <decui@microsoft.com>,
+	"dapeng1.mi@linux.intel.com" <dapeng1.mi@linux.intel.com>
+Subject: RE: [PATCH v4 01/15] x86/msr: Add missing includes of <asm/msr.h>
+Thread-Topic: [PATCH v4 01/15] x86/msr: Add missing includes of <asm/msr.h>
+Thread-Index: AQHbt1dCxRX1SSJBLkyUN2kSfV4ndLO6aEuAgAE1BbA=
+Date: Wed, 30 Apr 2025 04:20:53 +0000
+Message-ID:
+ <SN6PR02MB4157EA2E3B827141588DA310D4832@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20250427092027.1598740-1-xin@zytor.com>
+ <20250427092027.1598740-2-xin@zytor.com>
+ <a1917b37-e41e-d303-749b-4007cda01605@linux.intel.com>
+In-Reply-To: <a1917b37-e41e-d303-749b-4007cda01605@linux.intel.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|DB9PR03MB7290:EE_
-x-ms-office365-filtering-correlation-id: e76e3a7b-5627-4964-e6e8-08dd878d1f10
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|CY8PR02MB9428:EE_
+x-ms-office365-filtering-correlation-id: 3d0d210a-0c2d-4037-26cd-08dd879e65cb
+x-ms-exchange-slblob-mailprops:
+ 70qbaZjg4mvbis83qL2U5WvEmRMBS6Og9W/3014Us/uuwmhN2UMLRJLUTlmuqN5h9ehr8uc6w6voiES8QxIGpN0rfCSOM9sOOHGLjemzx5vQcTGO902AiVqPz2A3JQjnNpxe+TmFCiX45epvb1/3E/S3dfmB2IMc6Sb5ndzUEmhxssKtmEvp14NWRaHnFrw0WfyKXLFWZHE9acl4TNTQEsEu2HU3f0UKjU/UX+YJwX4k3uWTUqE0DZHWP69nVlSBLjWeBqPlZ6K1qpn77jaYLfB3Bz0dHAjXzcVxdtqb6xdBDnbSc0yNWRaBrkzWWu+H254LnHV+pHFD/oi59WsjdoBkyG6V20uf+TedjnyD3uFNl6uy6HCeWUb3GCb+Lb9FedlS9/k31aK78fViFEM9TLpwgQO5hAzNa+K5Web9rzREs0PzO5c6XoOeyaNpFknp3pT136KOQpfNix+EqD3O/JhBn7qKAgHbmirv3yzuoEtWGcn68EyMRjFfsGfLhZfEkseUv0Az7QRsqcwv3Q9HNGBWa3Xw5TjT7IVQn6byPyF/rDDHJXJb+Mwu4mQKJbokv5eZrLVW2qFYwPw7+8vJGo55OGPMzuDsYDZBugm826HQBw+0h8GCwcvrySV2YrD8kcpgITqSZ7kSsqNgyf9Jnbw4iT7xLfzQeVeRqwCe6RH/9SRKDXNJ4nD+ryVAdkLeYUb7GEDe/R3Z7K5AeleYFv+p4EhZtZdU3bI6e82Z4MHFIA+tdk5pzQ==
 x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|7416014|38070700018;
+ BCL:0;ARA:14566002|12121999004|19110799003|461199028|15080799006|8062599003|7072599006|8060799006|102099032|3412199025|440099028|19111999003|21061999003|12071999003;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?u22AOjNNWQ2+xNWuMweXGqU5yFomvqLQ/5YZ8KjYB9Pd+m8ZkS9cqH43mR?=
- =?iso-8859-1?Q?HbuumFU/uPdPQ+iUXthZ8t+hOAcF4LN+ehwtXvOKOpvWESCY6TdyA9SpMU?=
- =?iso-8859-1?Q?CADoa951ElsTDKJBchSU8TFQmZRSiUqNXTs6UUYxQAh0SSSCUrzwQVr7Ka?=
- =?iso-8859-1?Q?jjaZRJC/sDnDimOoITiLYU53iQewPOLU8A3mvbp96V0kHhJE31tjD3qch7?=
- =?iso-8859-1?Q?HnEtTm+M1KqhWgOp2GeL1hK4ODtQ9uoOMM8tVf89DZDnPMfyymVZQ+0TCl?=
- =?iso-8859-1?Q?zsU6lpq7RN8TU2MD6qz9bPjAlc3zB0HSKUUI1n1WvqskPfJD1jSY13ipBp?=
- =?iso-8859-1?Q?YAaBvAWFIjIGVSYmDDlvUJrttm/cjcAO+jv4Zxy59BmB1gf0HcvLc/jlJG?=
- =?iso-8859-1?Q?uykpN+F8VT1bFcWHh9DyzOZUA+oe5RqK7ioo0aduUO9z2k0558d3NtRFyB?=
- =?iso-8859-1?Q?uIDSJE7emATKe+FV/SRs4phWthxHemkDY/TEehrV9NBVfh3CUDr2vOZNRe?=
- =?iso-8859-1?Q?GDQvhhaSo+Fc2pyMaVv6epok4j9gLAR+emkPrPUbLBZnQl+qvu4R6/ScEq?=
- =?iso-8859-1?Q?n/XugHHlg7DWm5KH2yz2ZpYAjMNQdXjIBqKNMZ+7tzUiMf02FDuvtE3Xdd?=
- =?iso-8859-1?Q?EOebHCwXgcIYPbfIvvjkkhGhyA4tLeMWHoKeRKuWzaO4j/yA2f/S6Sz2Dz?=
- =?iso-8859-1?Q?3aYSJBV/DLtiAtop1q1hKYf/Jzga5VIKaICM2hiuDxGRlkEXCKRNlWhSsG?=
- =?iso-8859-1?Q?/2ZlHKxDe4CFkQWBX86CZAGHALcuF/tG0mwnhBwf8UXTkkaOUG89GiXzxy?=
- =?iso-8859-1?Q?bCLnLHA04hhYfQfmvyT5YzJuJzTMbS5mXNDGHNx/QVd0LkB/y6JBjjzcrU?=
- =?iso-8859-1?Q?fnuAlO/RA+ometorsZq78MpVqswywdMdPDNr8CSgZQpz9uE53mo6+a0Zn5?=
- =?iso-8859-1?Q?Y9OSwgPkw7jT4i7DbkNM2bUIyq7AtvaURfmjmQueYdQkB1O1xpWFk43RPm?=
- =?iso-8859-1?Q?10eXLtY9QIbkkgjiQcuFKhHSc+OQJaxnnFPm+jq5FQpkUI+KbMOnQZg7aS?=
- =?iso-8859-1?Q?SyZkN8wLDCrzxvQpmGWrY8JZP7E6n8/bz751OUKEtj2jN+CpNAZq8PQEj4?=
- =?iso-8859-1?Q?+YTTxAN81P7/XQMnlUTp5+dgmm0lG7k8BaadN3b2b7+YkhM8XoFki41Ama?=
- =?iso-8859-1?Q?bF343vYoJJ1uIQiTnx+8JS5rVyreC8IUxYetLrjDOIUCFitAKzg+NKR6wD?=
- =?iso-8859-1?Q?9CTsClCVC16ztYy4KFi44ay5IZOd75qrRovG1dEwDodfMmEGfUyD1cfB8N?=
- =?iso-8859-1?Q?aQsh7G9BEbvCQL25vSLdBZ4+GPPFiNTecdji1673OfcNScedBe3cqGjbJF?=
- =?iso-8859-1?Q?sjBaP9C7LFAZSPQKNG29r9YlNbaXYUe/kyoB4fOwabXyv9zxH6MJKcItkw?=
- =?iso-8859-1?Q?T98JiJ4w+lCtoVpthNNj1rfsJ3lpKlCWf2ZAfias9gYlyQP1KB63n+msv9?=
- =?iso-8859-1?Q?VK/+PpXQlAY+aNNgToQJqnzYbYF5XV+tL88zMvD5tyKruaYCDXpAv7x/dH?=
- =?iso-8859-1?Q?SJZFMBo=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700018);DIR:OUT;SFP:1101;
+ =?iso-8859-1?Q?sAHcTpNlk86YDWmdOjpjnVGfqswYWqUmVVV01MSP5d+6CLugqu9DDRrRpW?=
+ =?iso-8859-1?Q?uZZA1rl6GPfrNusZXaarGueIpwi8Q5ayKtp626EpHtCKvNCh/z9omy7Ip1?=
+ =?iso-8859-1?Q?dNi9Vl1FcWAtvxkWHSdNEE7Hfxv/zNDKmPnqFIaBWnb/8w/M+Fo8/DhAkD?=
+ =?iso-8859-1?Q?x1kOGshNgwS6F7jQSuf9Pa6AIACpt8WCaHG0f8XKmVWymesSmiBRtrbPmX?=
+ =?iso-8859-1?Q?pjRhOfEe7fvI4MbaaeYiDrXKKltX9xDawlEiP2muaG4tDot/vad4XOzDV5?=
+ =?iso-8859-1?Q?oDxyzf5WbsSzQeTrF9DR//PpQaO0MC6cX1Y0WDZ07zGJoAe1cCs8tiixaI?=
+ =?iso-8859-1?Q?WgmHuWq+o2li88q4iq+9jlPtL3AEJCJMERnHfaHoPV6NY0awa6rwtI8DYp?=
+ =?iso-8859-1?Q?wVmiG0VKOYaiVszrc1JHCnb2wUZAORWUwRsJBANUc7z945TjgjkIx6fNRx?=
+ =?iso-8859-1?Q?PyRkALMTUxKeqcnJM7Jy/VymuYrnNoPHNm6h59YFI28VA69J36aUTug/Y1?=
+ =?iso-8859-1?Q?hbDJKl9jFRUm6WrQbFvZN6omiAVR8PpCUWRljjjhgLCVIo5ta0QcDlPXjs?=
+ =?iso-8859-1?Q?rsfmnL1o6skGx0vaa06y33p25QviLyrlqdev616BmETRtJ1YiGTwuD4GSo?=
+ =?iso-8859-1?Q?LaueymHkPhouAVIGnKzPyS9hqFmkql7N53RaaAM5lJkf9xtQpExfrmq5zd?=
+ =?iso-8859-1?Q?1jeqo+wfO83sVMoF7ha+nOa34GqzbtcJa2sEckN/90lbL5fRzgK/CsADRi?=
+ =?iso-8859-1?Q?vHaMVScui45ypd0/T+g+xcnRqNdiJNhsC4E5Qz2EDI7+66pyxiTXigV2ds?=
+ =?iso-8859-1?Q?w6FNILVJljSPTqKp/8NoUgVtHYPs7DzFYWyoH8PultihFHpn9giSm+ddPP?=
+ =?iso-8859-1?Q?s4sst1NTjetFCCwqpp+GtZ8XOQ31E3s9GKHbN1lcGDhleXtsAMvPpw9fp+?=
+ =?iso-8859-1?Q?84PamiJ43E7lAfpHbeSbwtZ78XHQh2a1aBRb1DfP9WtmymvkZ+5hiQ+Jtt?=
+ =?iso-8859-1?Q?exCggCOz3vT5JSUMvjl9vC9i5WgIh+VrOo4/bWg/4zeaXIJBUa7u+Txtk8?=
+ =?iso-8859-1?Q?3Ct8MUCtP3mg0j0gqB6TTFxY3IZHSrJ+uDIuepJd+8BqnErUTzv2cdODhU?=
+ =?iso-8859-1?Q?AxL+0XrpyWwdc3zBYWl1cu/OmIkj8gdyAh2cKKG1ljZFKy0eefh/nD9N2Y?=
+ =?iso-8859-1?Q?WBq1xgdNiTFaecZQGenBafpOQalkmcrrn8IkFuPwY3Ct0rvfhqzrSxVw3v?=
+ =?iso-8859-1?Q?hscSj88xP6N7FqaOLiwt1fWf9jRQTG9RH0QKSkH4Q=3D?=
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?BzwxegM//GbWTUhUwLUSFI9vniUtKGFFItP3SlYgFFus59pe3P3n9U3Lc8?=
- =?iso-8859-1?Q?DAmT0xYrWah7zB/VEJDXgD55WpkAMKh1GCkMiTQdRhE0vUWrc+zWN2tqsN?=
- =?iso-8859-1?Q?IraCelUejModtoVSYVeVUYo53Mcvs1+qrNjMWHA8MfXhvGSQrL+Y1Te7/U?=
- =?iso-8859-1?Q?PvlF5N/M+svgTV/lH/khFqhVUN64Pf8w85hRcIX6ZkA9kdw3L2kvuhx7CI?=
- =?iso-8859-1?Q?rlNubDuiPYT7lkTAEyCmpy6Vxo0x4wAUEQ2iN9BqrKCd2Swl4MK/tqJHK6?=
- =?iso-8859-1?Q?dH3yiyrmleyoU7SA/kt4BzJBAryPbpnu6Xa9PrUitF0gxXuL3/6LGMp6+1?=
- =?iso-8859-1?Q?+tW92KBTG6MAEJjx2yqULVay9IdsXtTJroIC9XA76NU6YE00rVob6ylEK4?=
- =?iso-8859-1?Q?jTRUhjIqIfgRJ3Tzl3giQibyybIraBTNbMShluyOxaAD9dr4BJh4O1DYPx?=
- =?iso-8859-1?Q?ZnfzSzoMmsiT10HAgc2ekFwicZL2coqs7KZJkGRmqw0+JSSeEdqPMNjhRa?=
- =?iso-8859-1?Q?sugBxNbljJgU3tmBlV1KrqYSbuwSrzi/zC5mdHrMDTM5muwKd10R/d4ECK?=
- =?iso-8859-1?Q?EzDf3aoD5eBdCIoQ1C0KcH+5jzeKKqKhqvZP8XcWrIHR/ju0vMSvAV2Dv7?=
- =?iso-8859-1?Q?iGtcJaiGsy4/k2b/DMLsCpukX9uHyB6e+7HvP+LjtEDE6Er/dz7kse7sKV?=
- =?iso-8859-1?Q?uZcHpcBQ9mfSdi9QZpTCLhk6Igpz33UlBoPXo3iZi3l4iOhtwEfvU4WpkL?=
- =?iso-8859-1?Q?VkDe1Pp8n9vJYhjTLjCq+SUGUwObzXy3+F9NpgIKc/12O2eoxB4Ex9OAYA?=
- =?iso-8859-1?Q?KRFBymjkbFIXU66Z3v1yThjWeDKihlVJZrZUG93VfqVQ8TxCEBxEcWXNIG?=
- =?iso-8859-1?Q?imdXApCySCKKfrBLLWLbyr0DgY+5XlaiKS/SpyNTqB+MwFuwBeLESyWIvZ?=
- =?iso-8859-1?Q?DJrdwE6DWKjIOOSun91M1vrdn37nSswOSdI826pYffyQQpKgQZ/7h4IuqL?=
- =?iso-8859-1?Q?NxR41Xdb/e8JG9d4z3YxtanuVIhu0CGaAEtL0BHu3vsgO67yVpvj5PfDGl?=
- =?iso-8859-1?Q?aJ+epVjMZpucaqny7DFQ+bSsKAMa9qiGKAqoMnslrIKkZyJA41BDMp+TeM?=
- =?iso-8859-1?Q?tBgJ8Kjn7Dgsh6fOyMpiihU9p2QNq8cFsMgJh8bTRWVM69yYrEhFu/QlLX?=
- =?iso-8859-1?Q?p5xC3EiDolFPrGhz1DPtfoNQYu/sW7v/+KZ9wTJwm1lWxLV8DowkBM6U8g?=
- =?iso-8859-1?Q?IIuVFgmcNbDZXJRyLl0TBSoGqaY6SHM5MJr0SywxTu1xymo8FTZRUZTvIS?=
- =?iso-8859-1?Q?jRY8u4lvOpR7PDcVP/hj4QEfbLC4mDeoIWVqBlHcry/s3OhWNC59K/rQ82?=
- =?iso-8859-1?Q?KQbg7iVMofdqftn+5V0pPZhOhaB4YGp7hGyu0OJDC5JFuJ4kpMG65MyFuL?=
- =?iso-8859-1?Q?Qg+Q0ntCRHFQAnQLbIUCkg6FIg8XTz/OgYfhC8oY/xmNtlZLwZC5HLObkJ?=
- =?iso-8859-1?Q?ZkMn98OcimG20utyYpV/qGivDpLgrGdZSuFjqQgwyBLh0CXCCT5JhV/m2K?=
- =?iso-8859-1?Q?FM0Yh17Sq9b8rD7HKnfZWgCaJjGwYl1M2aysSQJOmXuIgs2X7X02Q42bbI?=
- =?iso-8859-1?Q?qCm+2afBdMDn81R2T9TvvPO5fYU2JWhDBSRXZNdZcryHy8xiRSYhsyAg?=
- =?iso-8859-1?Q?=3D=3D?=
+ =?iso-8859-1?Q?46i1sKkGUf2Kl0zhlolABqRmtZzPSJWRjAt3BFRy8ECcgF+mQjobIr8cFQ?=
+ =?iso-8859-1?Q?+xL9oK/IIbRvPY+mKZFTmaj2v7xwVnxmp5FLnoEHtjFro3dm6V664MBU+3?=
+ =?iso-8859-1?Q?+wPEZkUsza3xlJCNL9TMoEJDpLke0A+mmjcDkB4kRERzec3xK39migWixJ?=
+ =?iso-8859-1?Q?pg5WLKFxzHTPGcw1w3nXH9OHxmF3MHrXV2GSMo5xDw+ZR674xPhR3HKi+3?=
+ =?iso-8859-1?Q?byXeWGntA73Y90gvA/KzHl27/g3QhxIbumHYJx02+nRDrPELJs5pOgfKhg?=
+ =?iso-8859-1?Q?8as9Bh0H2ZTBKlto5EOzn9Sj+k9RlFIvp2h+TdByzwptC7+7jFk2Mmx9hf?=
+ =?iso-8859-1?Q?ahypKdmrVptvlkMPgCJyizYP5ZAqlk3abvjfVjqDqlb6jZneUcJcyEByX9?=
+ =?iso-8859-1?Q?1Pb+zpJtWKqj2u7rSUjduaK4jqrfZ/a2iY5G28cGyaUlHkIwZmU2kj/gYq?=
+ =?iso-8859-1?Q?CEbNY10bJ8JbiO1eRntgpbuCj/c2VX5g+p6o6S5kvJ2iZ1TKI+8rTXyYEw?=
+ =?iso-8859-1?Q?sfgLmQWoIhX/O/4kPtMMUS0GqX8pdwPHqalj3PlCd2XwMLG2Un7beBj5u6?=
+ =?iso-8859-1?Q?fVNgjaQy/9+r1Nrkaqoh8nTd4pi3Y71sGpRLDhBN9tfZ9DHynMkc9gLNXV?=
+ =?iso-8859-1?Q?ZLoTxKuHu2PCJuvV73F7LJNO1AN9ctVA66T9Y5CZv37eA0wxjOnJAXy9L9?=
+ =?iso-8859-1?Q?+X2JXWnztCyw8Oau0IG/Db/UMzkXXXQ0ChVqnz40TvV/MlvlzKHhgegih3?=
+ =?iso-8859-1?Q?qjTKwx2HkgXvMOHanw5rUpwOiTDWV0uyc+kAoOeUmZu68Uri9XOPO7XVd4?=
+ =?iso-8859-1?Q?MF1FFTnKeanbFYR7K0SEvJr7gOTHl6rF0n4hb4A7olHugY6esyZjj//LmC?=
+ =?iso-8859-1?Q?WuRnkqxBF7voOdjtfGN/YqMqHJ8m50DqyqoTnWtFNE05mxqFNmW/oxghUb?=
+ =?iso-8859-1?Q?/IbP705YFTxIZyHYnEw+ClfPc9B+HvOSxdAVPVGbiZwWqp16xrAN9fxEe4?=
+ =?iso-8859-1?Q?Z1cSzpkkI4v4KfI53O1bcxI7Nx/8xDZZVf7wE6+D2s4FGibs3bQMknxKaf?=
+ =?iso-8859-1?Q?N4jVzDAQb32d4v0nmFp+Pj7NVGYtGk391AOzFilb844Vu9pgakBFAiHVjK?=
+ =?iso-8859-1?Q?vxivww+0PJrUeh/POy7j7pEyrr/rYsJvl/6omeOiM9K79pBUxEHyBXaW4m?=
+ =?iso-8859-1?Q?PEGHpafia27LjTH2/m1MbQ3fyjNt7F+AkithQGsohmUxpLpSmgPdAmdaw5?=
+ =?iso-8859-1?Q?D7NbEddypJrHYEzE0DKSxbU0+RQIMRlu4i+2edvB0=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
+X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e76e3a7b-5627-4964-e6e8-08dd878d1f10
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Apr 2025 02:17:13.7371
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d0d210a-0c2d-4037-26cd-08dd879e65cb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Apr 2025 04:20:53.8258
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: woOxFXPjkJeSoBXFDbc7LIhLf2xAXqpiAbz7LXzpMsLm2fWOFzD0XlYjzTAWgxuyUj5Ml+PYb4Sqxzx5sDEGc6MedrV2b1JTCsVu5XrHs88=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7290
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR02MB9428
 
+From: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com> Sent: Tuesday, April =
+29, 2025 2:46 AM
+>=20
+> On Sun, 27 Apr 2025, Xin Li (Intel) wrote:
+>=20
+> > For some reason, there are some TSC-related functions in the MSR
+> > header even though there is a tsc.h header.
+> >
+> > To facilitate the relocation of rdtsc{,_ordered}() from <asm/msr.h>
+> > to <asm/tsc.h> and to eventually eliminate the inclusion of
+> > <asm/msr.h> in <asm/tsc.h>, add <asm/msr.h> to the source files that
+> > reference definitions from <asm/msr.h>.
+> >
+> > Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+> > Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
+> > Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> > ---
+> >
+> > Change in v4:
+> > *) Add missing includes in a different patch (Ilpo J=E4rvinen).
+> > *) Add all necessary direct inclusions for msr.h (Ilpo J=E4rvinen).
+> >
+> > Change in v3:
+> > * Add a problem statement to the changelog (Dave Hansen).
+> > ---
+> >  arch/x86/events/msr.c                                         | 3 +++
+> >  arch/x86/events/perf_event.h                                  | 1 +
+> >  arch/x86/events/probe.c                                       | 2 ++
+>=20
+> Under arch/x86/events/ a few files seem to be missing the include?
+>=20
+> >  arch/x86/hyperv/ivm.c                                         | 1 +
+>=20
+> Also under hyperv/ not all files are covered but I'm a bit hesitant to
+> suggest a change there since I'm not sure if they (hypervisors) do
+> something special w.r.t. msr.
 
-Hi Julien,
+I've worked on the Hyper-V code in Linux for 8 years or so, first as
+a Microsoft employee, and more recently as a retiree. :-) I'm not
+aware of anything special w.r.t. MSR access for Hyper-V guests.
+All the normal Linux code for accessing MSRs just works. Hyper-V
+*does* provide a set of synthetic MSRs that are unique to
+Hyper-V, but they are also accessed using normal Linux code. Of
+course, at runtime the access to these synthetic MSRs always
+traps to the hypervisor.
 
-Julien Grall <julien@xen.org> writes:
+I'm planning to apply Xin Li's patch set and make sure nothing
+breaks for Hyper-V guests, and particularly when running as an
+SEV-SNP or TDX guest. Hopefully I can do that by early next week
+at the latest.
 
-[...]
+Michael
 
->> diff --git a/xen/arch/arm/include/asm/libafl_qemu.h b/xen/arch/arm/inclu=
-de/asm/libafl_qemu.h
->> new file mode 100644
->> index 0000000000..b90cf48b9a
->> --- /dev/null
->> +++ b/xen/arch/arm/include/asm/libafl_qemu.h
->> @@ -0,0 +1,54 @@
->> +#ifndef LIBAFL_QEMU_H
->> +#define LIBAFL_QEMU_H
->> +
->> +#include <xen/stdint.h>
->> +#include "libafl_qemu_defs.h"
->> +#define LIBAFL_QEMU_PRINTF_MAX_SIZE 4096
->
-> Is this defined by libafl or an internal decision?
-
-It is defined by libafl
-
->
-> [...]
->
->> diff --git a/xen/arch/arm/include/asm/libafl_qemu_defs.h b/xen/arch/arm/=
-include/asm/libafl_qemu_defs.h
->> new file mode 100644
->> index 0000000000..2866cadaac
->> --- /dev/null
->> +++ b/xen/arch/arm/include/asm/libafl_qemu_defs.h
->> @@ -0,0 +1,37 @@
->
-> Missing license. Also, is this file taken from somewhere?
->
-
-I add MIT license, as libafl is dual licensed under Apache-2 and
-MIT. This file is based on libafl_qemu [1]
-
->> +#ifndef LIBAFL_QEMU_DEFS
->> +#define LIBAFL_QEMU_DEFS
->> +
->> +#define LIBAFL_STRINGIFY(s) #s
->> +#define XSTRINGIFY(s) LIBAFL_STRINGIFY(s)
->> +
->> +#if __STDC_VERSION__ >=3D 201112L
->> +  #define STATIC_CHECKS                                   \
->> +    _Static_assert(sizeof(void *) <=3D sizeof(libafl_word), \
->> +                   "pointer type should not be larger and libafl_word")=
-;
->> +#else
->> +  #define STATIC_CHECKS
->> +#endif
->
-> No-one seems to use STATIC_CHECKS? Is this intended?
-
-I used this file as is... But I'll rework this part.
-
->> +
->> +#define LIBAFL_SYNC_EXIT_OPCODE 0x66f23a0f
->> +#define LIBAFL_BACKDOOR_OPCODE 0x44f23a0f
->
-> Are the opcode valid for arm32? If not, they should be protected with
-> #ifdef CONFIG_ARM_64.
->
-
-It is valid even for x86_64. They use the same opcode for x86_64, arm,
-aarch64 and riscv.
-
-[...]
-
->> +
->> +#define LIBAFL_DEFINE_FUNCTIONS(name, opcode)				\
->> +	libafl_word _libafl_##name##_call0(	\
->> +		libafl_word action) {					\
->> +		libafl_word ret;					\
->> +		__asm__ volatile (					\
->> +			"mov x0, %1\n"					\
->> +			".word " XSTRINGIFY(opcode) "\n"		\
->> +			"mov %0, x0\n"					\
->> +			: "=3Dr"(ret)					\
->> +			: "r"(action)					\
->> +			: "x0"						\
->
-> Can we store the action directly in x0 (same for the other argunments
-> below)? This would avoid to clobber two registers (See smccc.h as an
-> example).
-
-Yes, this part bothers me also. I'll try to rework it to be more
-efficient.
-
-
-[...]
-
->> +
->> +libafl_word libafl_qemu_start_virt(void       *buf_vaddr,
->> +                                            libafl_word max_len) {
->
-> What coding style is this file meant to use?
-
-Well, LibAFL people is very lax in their coding style. I copied this
-file as is, but probably it should be tidied up and minimized.
-
-
-[...]
-
->> +void lqprintf(const char *fmt, ...) {
->
-> I am not sure I understand the value of lqprinf(). Why can't we use
-> the console? When is this meant to be used?
-
-This is alternative way to output something. It skips all the
-abstractions around console and outputs straight to stdout. At least,
-this is a nice way to check that communication with the fuzzer is
-working.
-
->> +  va_list args;
->> +  int res;
->> +  va_start(args, fmt);
->> +  res =3D vsnprintf(_lqprintf_buffer, LIBAFL_QEMU_PRINTF_MAX_SIZE, fmt,=
- args);
->> +  va_end(args);
->
-> What if lqprintf() is called concurrently?
->
-
-I'll add a spinlock.
-
-[...]
-
->>     void call_psci_cpu_off(void)
->>   {
->> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
->> +    libafl_qemu_end(LIBAFL_QEMU_END_OK);
->> +#endif
->
-> I am a bit confused with this call. For a first, this cannot be
-> reached from a VM (or even dom0). Then, even if it is reached,
-> shouldn't we allow the test continue while other pCPUs are running?
-
-Yes, looks like this particular call is not accessible by a dom0. I'll
-remove it.
-
-> That said, the call to QEMU is not PSCI related. So shouldn't this be
-> called from the callers (same applies to all the changes in PSCI)?
-
-Purpose of fuzzing to cover as much code paths as possible. So it is
-natural to put this as late as possible. I also reworked changes to
-sched/core.c in accordance to this. I.e. moved fuzzer_on_block() calls
-as late as possible.
-
->
->> +
->>       if ( psci_ver > PSCI_VERSION(0, 1) )
->>       {
->>           struct arm_smccc_res res;
->> @@ -62,12 +67,20 @@ void call_psci_cpu_off(void)
->>     void call_psci_system_off(void)
->>   {
->> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
->> +    libafl_qemu_end(LIBAFL_QEMU_END_OK);
->> +#endif
->> +
->>       if ( psci_ver > PSCI_VERSION(0, 1) )
->>           arm_smccc_smc(PSCI_0_2_FN32_SYSTEM_OFF, NULL);
->>   }
->>     void call_psci_system_reset(void)
->>   {
->> +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
->> +    libafl_qemu_end(LIBAFL_QEMU_END_OK);
->> +#endif
->> +
->>       if ( psci_ver > PSCI_VERSION(0, 1) )
->>           arm_smccc_smc(PSCI_0_2_FN32_SYSTEM_RESET, NULL);
->>   }
->> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
->> index 9043414290..55eb132568 100644
->> --- a/xen/common/sched/core.c
->> +++ b/xen/common/sched/core.c
->> @@ -47,6 +47,10 @@
->>   #define pv_shim false
->>   #endif
->>   +#ifdef CONFIG_LIBAFL_QEMU_FUZZER
->
-> This Kconfig is only defined on Arm but you are using in common
-> code. Even if this can't be supported right now, shouldn't this be
-> defined in common code?
-
-Yes, I am going to move it to the common code, but will it be fine to
-have "depends on ARM_64" in the global ./Kconfig.debug for a time being?
-
->
->> +#include <asm/libafl_qemu.h>
->> +#endif
->> +
->>   /* opt_sched: scheduler - default to configured value */
->>   static char __initdata opt_sched[10] =3D CONFIG_SCHED_DEFAULT;
->>   string_param("sched", opt_sched);
->> @@ -1452,6 +1456,10 @@ static long do_poll(const struct sched_poll *sche=
-d_poll)
->>       if ( !guest_handle_okay(sched_poll->ports, sched_poll->nr_ports) )
->>           return -EFAULT;
->>   +#ifdef CONFIG_LIBAFL_QEMU_FUZZER_PASS_BLOCKING
->> +    libafl_qemu_end(LIBAFL_QEMU_END_OK);
->> +#endif
->
-> I think this and all the changes in sched/core need a comment
-> explaning why we want to stop the fuzzing.
-
-I introduced fuzzer_on_block() function and put the following comment
-for it:
-
-/*
- * Conditional success
- *
- * Sometimes a fuzzer might make Xen to do something that prevents
- * from returning to the caller: reboot or turn off the machine, block
- * calling vCPU, crash a domain, etc. Depending on fuzzing goal this
- * may be a valid behavior, but as control is not returned to the
- * fuzzing harness, it can't tell the fuzzer about success, so we need
- * to do this ourselves.
- */
-
-Will it be enough? Or do you want to have a comment before each call to fuz=
-zer_on_block()?
-
-
-[1] https://github.com/AFLplusplus/LibAFL/blob/main/libafl_qemu/runtime/lib=
-afl_qemu_defs.h
-
---=20
-WBR, Volodymyr=
+>=20
+> >  arch/x86/include/asm/fred.h                                   | 1 +
+> >  arch/x86/include/asm/microcode.h                              | 2 ++
+> >  arch/x86/include/asm/mshyperv.h                               | 1 +
+> >  arch/x86/include/asm/msr.h                                    | 1 +
+> >  arch/x86/include/asm/suspend_32.h                             | 1 +
+> >  arch/x86/include/asm/suspend_64.h                             | 1 +
+> >  arch/x86/include/asm/switch_to.h                              | 2 ++
+>=20
+> arch/x86/kernel/acpi/ ?
+> acrh/x86/kernel/cet.c ?
+> ...
+>=20
+> There seem to be quite many under arch/x86/ that still don't have it, I
+> didn't list them all as there were so many after this point.
+>=20
+> But that's up to x86 maintainers how throughout they want you to be.
+>=20
+> This command may be helpful to exclude the files which already have the
+> include so you can focus on the ones that may still be missing it:
+>=20
+> git grep -l -e rdmsr -e wrmsr | grep -v -f <(git grep -l -e 'asm/msr\.h')
+>=20
+> >  arch/x86/kernel/cpu/resctrl/pseudo_lock.c                     | 1 +
+> >  arch/x86/kernel/fpu/xstate.h                                  | 1 +
+> >  arch/x86/kernel/hpet.c                                        | 1 +
+> >  arch/x86/kernel/process_64.c                                  | 1 +
+> >  arch/x86/kernel/trace_clock.c                                 | 2 +-
+> >  arch/x86/kernel/tsc_sync.c                                    | 1 +
+> >  arch/x86/lib/kaslr.c                                          | 2 +-
+> >  arch/x86/mm/mem_encrypt_identity.c                            | 1 +
+> >  arch/x86/realmode/init.c                                      | 1 +
+> >  drivers/acpi/acpi_extlog.c                                    | 1 +
+> >  drivers/acpi/processor_perflib.c                              | 1 +
+> >  drivers/acpi/processor_throttling.c                           | 3 ++-
+> >  drivers/char/agp/nvidia-agp.c                                 | 1 +
+> >  drivers/cpufreq/amd-pstate-ut.c                               | 2 ++
+> >  drivers/crypto/ccp/sev-dev.c                                  | 1 +
+> >  drivers/edac/amd64_edac.c                                     | 1 +
+> >  drivers/edac/ie31200_edac.c                                   | 1 +
+> >  drivers/edac/mce_amd.c                                        | 1 +
+> >  drivers/hwmon/hwmon-vid.c                                     | 4 ++++
+> >  drivers/idle/intel_idle.c                                     | 1 +
+> >  drivers/misc/cs5535-mfgpt.c                                   | 1 +
+> >  drivers/net/vmxnet3/vmxnet3_drv.c                             | 4 ++++
+> >  drivers/platform/x86/intel/ifs/core.c                         | 1 +
+> >  drivers/platform/x86/intel/ifs/load.c                         | 1 +
+> >  drivers/platform/x86/intel/ifs/runtest.c                      | 1 +
+> >  drivers/platform/x86/intel/pmc/cnp.c                          | 1 +
+> >  drivers/platform/x86/intel/speed_select_if/isst_if_common.c   | 1 +
+> >  drivers/platform/x86/intel/speed_select_if/isst_if_mbox_msr.c | 1 +
+> >  drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c   | 1 +
+> >  drivers/platform/x86/intel/turbo_max_3.c                      | 1 +
+> >  .../platform/x86/intel/uncore-frequency/uncore-frequency.c    | 1 +
+> >  drivers/powercap/intel_rapl_common.c                          | 1 +
+> >  drivers/powercap/intel_rapl_msr.c                             | 1 +
+> >  .../thermal/intel/int340x_thermal/processor_thermal_device.c  | 1 +
+> >  drivers/thermal/intel/intel_tcc_cooling.c                     | 1 +
+> >  drivers/thermal/intel/x86_pkg_temp_thermal.c                  | 1 +
+> >  drivers/video/fbdev/geode/display_gx.c                        | 1 +
+> >  drivers/video/fbdev/geode/gxfb_core.c                         | 1 +
+> >  drivers/video/fbdev/geode/lxfb_ops.c                          | 1 +
+>=20
+> Under drivers/ this looked pretty complete. Nice work.
+>=20
+> Acked-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com> # for pdx86
+>=20
+> I also noticed these files might not need to include msr.h:
+>=20
+> drivers/cpufreq/elanfreq.c
+> drivers/cpufreq/sc520_freq.c
+> drivers/accel/habanalabs/common/habanalabs_ioctl.c
+>=20
+> ...so if you want, you may consider optionally adding a cleanup patch to
+> remove the include from them.
+>=20
+> > --- a/drivers/video/fbdev/geode/gxfb_core.c
+> > +++ b/drivers/video/fbdev/geode/gxfb_core.c
+> > @@ -30,6 +30,7 @@
+> >  #include <linux/cs5535.h>
+> >
+> >  #include <asm/olpc.h>
+> > +#include <asm/msr.h>
+>=20
+> In wrong order.
+> >
+> >  #include "gxfb.h"
+>=20
+> --
+>  i.
 
