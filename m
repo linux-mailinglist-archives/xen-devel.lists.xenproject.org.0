@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEBE0AA442F
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 09:41:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973464.1361581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62751AA45BF
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Apr 2025 10:43:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973483.1361608 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA24Z-0005xs-DZ; Wed, 30 Apr 2025 07:41:39 +0000
+	id 1uA311-0006R5-En; Wed, 30 Apr 2025 08:42:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973464.1361581; Wed, 30 Apr 2025 07:41:39 +0000
+Received: by outflank-mailman (output) from mailman id 973483.1361608; Wed, 30 Apr 2025 08:42:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uA24Z-0005v5-B0; Wed, 30 Apr 2025 07:41:39 +0000
-Received: by outflank-mailman (input) for mailman id 973464;
- Wed, 30 Apr 2025 07:41:38 +0000
+	id 1uA311-0006OS-Bh; Wed, 30 Apr 2025 08:42:03 +0000
+Received: by outflank-mailman (input) for mailman id 973483;
+ Wed, 30 Apr 2025 08:42:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qtXD=XQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uA24Y-0005uz-Jo
- for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 07:41:38 +0000
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
- [2607:f8b0:4864:20::42e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1mYU=XQ=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1uA30z-0006OM-Pg
+ for xen-devel@lists.xenproject.org; Wed, 30 Apr 2025 08:42:02 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 890a08c7-2596-11f0-9ffb-bf95429c2676;
- Wed, 30 Apr 2025 09:41:33 +0200 (CEST)
-Received: by mail-pf1-x42e.google.com with SMTP id
- d2e1a72fcca58-736c277331eso639260b3a.1
- for <xen-devel@lists.xenproject.org>; Wed, 30 Apr 2025 00:41:33 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- d2e1a72fcca58-7403991f725sm1022391b3a.52.2025.04.30.00.41.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Apr 2025 00:41:31 -0700 (PDT)
+ id f908b04b-259e-11f0-9ffb-bf95429c2676;
+ Wed, 30 Apr 2025 10:41:57 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 53U8f73s812541
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Wed, 30 Apr 2025 01:41:07 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,169 +40,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 890a08c7-2596-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1745998892; x=1746603692; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=UKhWCt2/Ar1AMFhBPMtsJjqBoZBft5c+tmQ1EZctz9M=;
-        b=pcp5fefgdOnq8aMg6nlMl3dqgjRu0PYSWSTK4Rz4iaD1wJl6zgWVl81Kf4OTIOecsY
-         5VHnG4ngjKXhRqtjESu7i0qYwO8NsTs+xrjrV9aiycox6DAZENLPmGR2Llh6m1t/kywk
-         oqMt2QY7nUDLsdfzT2+/TUSUyprKydxNcDp/g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745998892; x=1746603692;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UKhWCt2/Ar1AMFhBPMtsJjqBoZBft5c+tmQ1EZctz9M=;
-        b=w7fePFYjyG7HbuRmeewyfleOPhydqqBVAvwjDpHY0cJcJ4wn8IWuEdrL5KvxFzh/U4
-         brb8dl4lI5dgZkbg3vi2b/H9wTkBoQxFNeE78jV0wZu09x7Z0P8ydRSuWFqDX88uMiOZ
-         9RrGildZ0g4SdHaP8tgp7R3k/qmUlkTF1wa/KX5KBpSPjzGOcIycSgsCXwzZZQR2SOLb
-         LceFIFEXbrNlN4qophEfD6maPYJVViAXf7xpl0SU4JDw9CXzPTwZ89K/4D+L41X7VlDj
-         laDVpebwKTVjw5QReUMxoBT4XIHSai5RspDv4lH0kgLlC5H3OLUUEYsH3cZZ4+y+z6Aw
-         1EJA==
-X-Forwarded-Encrypted: i=1; AJvYcCU0ixti42Rve7B5UjJWU71IFjBIBpLUeMGGoAWDbW0oYBJ92yKp9UCx5POiMyJw54K8xMBA5oatwrU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzuIntlRfcA0AtB4uxbqD6NNwXjDlxi1a5Aj6gP5mhHWLy0Rm0L
-	9xb0/+4HpKU5YfHCxH/yW93F1vObCt8Q0rmLSJ2BASo8DVyJEEP7Lf3hDQAS3QU=
-X-Gm-Gg: ASbGncv/pfQr1D02s5qw0OFuRbhmsgHFik5qe2R6v0W2xS+jkwFqekcburraMjIGoTl
-	D8dYNfV/DNjGFbKPwHQLDm0BWz8G2Os7oW4rTK+X7a+BXH0dvMe5Yg2eWoVXdT7z6enivZxT0yp
-	PZepBfEj+yDWxwjGF/tZTEPj9jd93AjP7zvyB0RQTBAtLEiiwDSrx+7PW1MWi4IhgJoJzoFVCOB
-	l23mNgDiludOwqguLEQPe9mLPu+9nW/glVs80Ug4vWc8brBZXvvfUj6eUY+pJ9De/L0a1KmPuju
-	mMzNTVyb1bqlfuHJGoyTjjYFlqapttJxnYNhlWmTV5NTWQ==
-X-Google-Smtp-Source: AGHT+IGdw/bypFbKFPXbjR2E48Wzc2TwcjLMPoUSamvvK/g5RRw0TvulM6BoMQiJ3WLF5MmMLMyIXA==
-X-Received: by 2002:a05:6a21:1585:b0:1ee:b5f4:b1d7 with SMTP id adf61e73a8af0-20a8e65a70emr2895145637.7.1745998891628;
-        Wed, 30 Apr 2025 00:41:31 -0700 (PDT)
-Date: Wed, 30 Apr 2025 09:41:26 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, jason.andryuk@amd.com,
-	agarciav@amd.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
-Message-ID: <aBHUJjQk248aLi68@macbook.lan>
-References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop>
- <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com>
- <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop>
- <06b66971-d8db-456f-8e83-a20ff7df8f5e@suse.com>
- <alpine.DEB.2.22.394.2504291425320.3879245@ubuntu-linux-20-04-desktop>
- <59bfc389-66c8-4d0f-92e3-c0079a807374@suse.com>
+X-Inumbo-ID: f908b04b-259e-11f0-9ffb-bf95429c2676
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 53U8f73s812541
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1746002472;
+	bh=2/QHRN+D8/djEoWuIZIlllhMwAZHSg2wUWQdlu6s4Ik=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RJT6OmDAoNn/cc5MacwB1vC5wQ1M64qGWRanjOVN66rVpkGlXaLeGE7PE7eD7mISD
+	 /dIdmza3K+wfDZyQexgmDwpxPQNN4+/Fbw41fhxlT3K0uT/PJjyGzdwaAn+yyr9k0A
+	 CWJPVsS03uahIX8JX2uLwg3Z3hye2BZ7LId8jWJUQAdh/it1N65JzEiy3LsHYL9aJT
+	 C68Y5ccPbfaA9gH+J9F27HnzlVWkht45bvdBotMjohzZpoa3XaE99KXAA3Fc4+U100
+	 OtHQ9EQb/i6ZeoBsZ7v43PfIbFra7Pd1cFeKQ0RpDx0DYLCFE4fbEUVwSoFN8jeJCO
+	 fS0vj6MT1+Cdw==
+Message-ID: <c16677bd-ee63-4032-8825-7d2789dd7555@zytor.com>
+Date: Wed, 30 Apr 2025 01:41:06 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <59bfc389-66c8-4d0f-92e3-c0079a807374@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/15] x86/msr: Add missing includes of <asm/msr.h>
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, kvm@vger.kernel.org,
+        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+        virtualization@lists.linux.dev, linux-pm@vger.kernel.org,
+        linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
+        Netdev <netdev@vger.kernel.org>, platform-driver-x86@vger.kernel.org,
+        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        acme@kernel.org, jgross@suse.com, andrew.cooper3@citrix.com,
+        peterz@infradead.org, namhyung@kernel.org, mark.rutland@arm.com,
+        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
+        wei.liu@kernel.org, ajay.kaher@broadcom.com,
+        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
+        pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
+        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
+        haiyangz@microsoft.com, decui@microsoft.com,
+        dapeng1.mi@linux.intel.com
+References: <20250427092027.1598740-1-xin@zytor.com>
+ <20250427092027.1598740-2-xin@zytor.com>
+ <a1917b37-e41e-d303-749b-4007cda01605@linux.intel.com>
+Content-Language: en-US
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <a1917b37-e41e-d303-749b-4007cda01605@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Apr 30, 2025 at 08:27:55AM +0200, Jan Beulich wrote:
-> On 29.04.2025 23:52, Stefano Stabellini wrote:
-> > On Tue, 29 Apr 2025, Jan Beulich wrote:
-> >> On 28.04.2025 22:00, Stefano Stabellini wrote:
-> >>> On Mon, 28 Apr 2025, Jan Beulich wrote:
-> >>>> On 25.04.2025 22:19, Stefano Stabellini wrote:
-> >>>>> --- a/xen/arch/x86/mm.c
-> >>>>> +++ b/xen/arch/x86/mm.c
-> >>>>> @@ -4401,7 +4401,7 @@ int steal_page(
-> >>>>>      const struct domain *owner;
-> >>>>>      int rc;
-> >>>>>  
-> >>>>> -    if ( paging_mode_external(d) )
-> >>>>> +    if ( paging_mode_external(d) && !is_hardware_domain(d) )
-> >>>>>          return -EOPNOTSUPP;
-> >>>>>  
-> >>>>>      /* Grab a reference to make sure the page doesn't change under our feet */
-> >>>>
-> >>>> Is this (in particular the code following below here) a safe thing to do
-> >>>> when we don't properly refcount page references from the P2M, yet? It's
-> >>>> Dom0, yes, but even there I might see potential security implications (as
-> >>>> top violating privacy of a guest).
-> >>>
-> >>> I don't think I am following, could you please elaborate more? The
-> >>> change I am proposing is to allow Dom0 to share its own pages to the
-> >>> co-processor. DomUs are not in the picture. I would be happy to add
-> >>> further restriction to that effect. Is there something else you have in
-> >>> mind?
-> >>
-> >> Once "shared" with the PSP, how would Xen know that this sharing has stopped?
-> >> Without knowing, how could it safely give the same page to a DomU later on?
-> >> ("Safely" in both directions: Without compromising privacy of the DomU and
-> >> without compromising host safety / security.)
-> > 
-> > Why would Xen later assign the same page to a DomU? The page comes
-> > from the hardware domain, which, as of today, cannot be destroyed. BTW I
-> > realize it is a bit different, but we have been doing the same thing
-> > with Dom0 1:1 mapped on ARM since the start of the project.
-> 
-> The life cycle of the page within Dom0 may be such that a need arises to
-> move it elsewhere (balloon out, grant-transfer, and what not).
+On 4/29/2025 2:45 AM, Ilpo Järvinen wrote:
+>>   arch/x86/events/msr.c                                         | 3 +++
+>>   arch/x86/events/perf_event.h                                  | 1 +
+>>   arch/x86/events/probe.c                                       | 2 ++
+> Under arch/x86/events/ a few files seem to be missing the include?
 
-I think it's up to dom0 to make sure the page is handled
-appropriately, in order for it to keep it's special contiguity
-properties.
 
-If the PSP is not using the IOMMU page-tables for DMA accesses, and
-the hardware domain can freely interact with it, there's no protection
-from such device accessing any random MFN on the system, and hence no
-refcounts or similar will protect from that.
+Most C files in arch/x86/events/ include arch/x86/events/perf_event.h,
+thus they don't need to include <asm/msr.h> directly once
+arch/x86/events/perf_event.h includes <asm/msr.h>, and this patch does
+that.
 
-The only protection would be Xen owning the device, and the hardware
-domain using an emulated/mediated interface to communicate with it.  I
-have no idea how complicated the PSP interface is, and whether it
-would be feasible to trap and emulate/mediate accesses in Xen.
 
-> >>>>> --- a/xen/common/memory.c
-> >>>>> +++ b/xen/common/memory.c
-> >>>>> @@ -794,7 +794,7 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
-> >>>>>              rc = guest_physmap_add_page(d, _gfn(gpfn), mfn,
-> >>>>>                                          exch.out.extent_order) ?: rc;
-> >>>>>  
-> >>>>> -            if ( !paging_mode_translate(d) &&
-> >>>>> +            if ( (!paging_mode_translate(d) || is_hardware_domain(d)) &&
-> >>>>>                   __copy_mfn_to_guest_offset(exch.out.extent_start,
-> >>>>>                                              (i << out_chunk_order) + j,
-> >>>>>                                              mfn) )
-> >>>>
-> >>>> Wait, no: A PVH domain (Dom0 or not) can't very well make use of MFNs, can
-> >>>> it?
-> >>>
-> >>> One way or another Dom0 PVH needs to know the MFN to pass it to the
-> >>> co-processor.
-> >>
-> >> I see. That's pretty odd, though. I'm then further concerned of the order of
-> >> the chunks. At present we're rather lax, in permitting PVH and PV Dom0 the
-> >> same upper bound. With both CPU and I/O side translation there is, in
-> >> principle, no reason to permit any kind of contiguity. Of course there's a
-> >> performance aspect, but that hardly matters in the specific case here. Yet at
-> >> the same time, once we expose MFNs, contiguity will start mattering as soon
-> >> as any piece of memory needs to be larger than PAGE_SIZE. Which means it will
-> >> make tightening of the presently lax handling prone to regressions in this
-> >> new behavior you're introducing. What chunk size does the PSP driver require?
-> > 
-> > I don't know. The memory returned by XENMEM_exchange is contiguous,
-> > right? Are you worried that Xen cannot allocate the requested amount of
-> > memory contiguously?
-> 
-> That would be Dom0's problem then. But really for a translated guest the
-> exchanged chunks being contiguous shouldn't matter, correctness-wise. That is,
-> within Xen, rather than failing a request, we could choose to retry using
-> discontiguous chunks (contiguous only in GFN space). Such an (afaict)
-> otherwise correct change would break your use case, as it would invalidate the
-> MFN information passed back. (This fallback approach would similarly apply to
-> other related mem-ops. It's just that during domain creation the tool stack
-> has its own fallback, so it may not be of much use right now.)
+The following files include arch/x86/events/intel/uncore.h which 
+includes arch/x86/events/perf_event.h, thus no change needed:
+     arch/x86/events/intel/uncore.c
+     arch/x86/events/intel/uncore_discovery.c
+     arch/x86/events/intel/uncore_nhmex.c
+     arch/x86/events/intel/uncore_snb.c
+     arch/x86/events/intel/uncore_snbep.c
 
-I think the description in the public header needs to be expanded to
-specify what the XENMEM_exchange does for translated guests, and
-clearly write down that the underlying MFNs for the exchanged region
-will be contiguous.  Possibly a new XENMEMF_ flag needs to be added to
-request contiguous physical memory for the new range.
+The following 2 files don't include arch/x86/events/perf_event.h so they
+include <asm/msr.h> directly with this patch:
+     arch/x86/events/msr.c
+     arch/x86/events/probe.c
 
-Sadly this also has the side effect of quite likely shattering
-superpages for dom0 EPT/NPT, which will result in decreased dom0
-performance.
+arch/x86/events/amd/uncore.c doesn't include
+arch/x86/events/perf_event.h but includes <asm/msr.h> already.
 
-We have so far avoided exposing MFNs to HVM/PVH, but I don't see much
-way to avoid this if there's no option to use IOMMU or NPT page-tables
-with the PSP and we don't want to intercept PSP accesses in Xen and
-translate requests on the fly.
 
-Thanks, Roger.
+So we are good in this directory, but it should be a separate patch with
+the above explanation then.
+
+
 
