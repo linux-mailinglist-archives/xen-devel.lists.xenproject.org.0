@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 786BCAA58F8
-	for <lists+xen-devel@lfdr.de>; Thu,  1 May 2025 02:19:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.973973.1361976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05A4DAA58FA
+	for <lists+xen-devel@lfdr.de>; Thu,  1 May 2025 02:21:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.973988.1361985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAHe1-0006Wi-Eb; Thu, 01 May 2025 00:19:17 +0000
+	id 1uAHfd-0008Gk-Ri; Thu, 01 May 2025 00:20:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 973973.1361976; Thu, 01 May 2025 00:19:17 +0000
+Received: by outflank-mailman (output) from mailman id 973988.1361985; Thu, 01 May 2025 00:20:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAHe1-0006UD-Bg; Thu, 01 May 2025 00:19:17 +0000
-Received: by outflank-mailman (input) for mailman id 973973;
- Thu, 01 May 2025 00:19:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uAHfd-0008FH-P2; Thu, 01 May 2025 00:20:57 +0000
+Received: by outflank-mailman (input) for mailman id 973988;
+ Thu, 01 May 2025 00:20:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=iHxF=XR=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uAHe0-0006U7-Hi
- for xen-devel@lists.xenproject.org; Thu, 01 May 2025 00:19:16 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e909f96e-2621-11f0-9ffb-bf95429c2676;
- Thu, 01 May 2025 02:19:14 +0200 (CEST)
+ id 1uAHfc-0008F9-3M
+ for xen-devel@lists.xenproject.org; Thu, 01 May 2025 00:20:56 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 24033049-2622-11f0-9eb4-5ba50f476ded;
+ Thu, 01 May 2025 02:20:53 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 34BE2435AA;
- Thu,  1 May 2025 00:19:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48A0BC4CEE7;
- Thu,  1 May 2025 00:19:11 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 237D1A4A5A7;
+ Thu,  1 May 2025 00:15:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC6EC4CEE7;
+ Thu,  1 May 2025 00:20:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,163 +41,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e909f96e-2621-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 24033049-2622-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1746058752;
-	bh=yWmu8O5Zf51smc8pIPQ+qfFl6Ivec1iyV2WZf/mQ8KY=;
+	s=k20201202; t=1746058851;
+	bh=6Ia57A4I5wiXQw9ar830r0742ycof8w5szTvIvQ5wzE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DTFATBY7irq4BT1STNIsVHIqXGx2Z7vIhAKegOgxrDpaPrR89xBFnQ40XftnWfu+J
-	 hc2/EZRkMORem6ldQ/oxKu02xBB8srzU8wvQzsEoF1Da/Odwow8ADWMegHv1vcOROq
-	 ucHwUtVlw11Wx6Pf9c6LsiM/UFcZ7vZOhRGI5rIdqlG83EZlUPbTh+EMrCF2o9ESy8
-	 NfTQNymUC9RnMt8qJjSbR418Tq5nwlcDfit7tif7klh8TWbP93X6O0lD19zn5XXPff
-	 GAF6lv4ZaSKB7WmpGFUiGug+JTjmTA6G9KSnJpAf+Xi5gtBsm3gq31D6H48adqnhDs
-	 9zJD3l/9y+n2A==
-Date: Wed, 30 Apr 2025 17:19:10 -0700 (PDT)
+	b=LgJdiFXUrnvhXsShz3L7tzc8vYV+odiAefXZV0ejwLmScj4FmzOAvIs7LHLOHQe5l
+	 i/ShHOYv9yV3lkiRmPC0DtEjyWBuX8XpdurlHdbOD8vgkeAiGqQyRCnTSFUpUjdOfp
+	 KakDe7iuuIjsjGakj8fK+EjEZINe2q2rnYTPjVaiYyLR+mkbG50VRUToJz5peQS94m
+	 g4Gfl3AhDuEQjBY0qmLcsMGW0ZsjSan5Zsn4xLOTFg1TWc1rnyZIL3qVTlU2e6JDZ4
+	 NzOhgDKvt+q1wgVch6Aa07UuPiJeE60YJMFY3MpfwaCmQJn1lvwDXjKZ5UX8rtRWbc
+	 DJyXTDjsKBFcg==
+Date: Wed, 30 Apr 2025 17:20:48 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-cc: Jan Beulich <jbeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, jason.andryuk@amd.com, 
-    agarciav@amd.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
-In-Reply-To: <aBHUJjQk248aLi68@macbook.lan>
-Message-ID: <alpine.DEB.2.22.394.2504301715300.3879245@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop> <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com> <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop> <06b66971-d8db-456f-8e83-a20ff7df8f5e@suse.com>
- <alpine.DEB.2.22.394.2504291425320.3879245@ubuntu-linux-20-04-desktop> <59bfc389-66c8-4d0f-92e3-c0079a807374@suse.com> <aBHUJjQk248aLi68@macbook.lan>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, victorm.lira@amd.com, 
+    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+    Federico Serafini <federico.serafini@bugseng.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 1/3] x86: x86_emulate: address violations of MISRA C
+ Rule 19.1
+In-Reply-To: <2be0b5a8-50ee-4c3c-9299-0f065ac5aa05@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2504301720070.3879245@ubuntu-linux-20-04-desktop>
+References: <c694069696dd428bc1719e36c378a573b03f74b9.1745624090.git.victorm.lira@amd.com> <914e3157-736a-4890-9c91-e93fcc260bb0@suse.com> <alpine.DEB.2.22.394.2504281625240.785180@ubuntu-linux-20-04-desktop> <350d447e-7316-4d54-8468-68f78675cc8d@suse.com>
+ <alpine.DEB.2.22.394.2504291510120.3879245@ubuntu-linux-20-04-desktop> <2be0b5a8-50ee-4c3c-9299-0f065ac5aa05@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1953259969-1746058752=:3879245"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1953259969-1746058752=:3879245
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Wed, 30 Apr 2025, Roger Pau Monné wrote:
-> On Wed, Apr 30, 2025 at 08:27:55AM +0200, Jan Beulich wrote:
-> > On 29.04.2025 23:52, Stefano Stabellini wrote:
-> > > On Tue, 29 Apr 2025, Jan Beulich wrote:
-> > >> On 28.04.2025 22:00, Stefano Stabellini wrote:
-> > >>> On Mon, 28 Apr 2025, Jan Beulich wrote:
-> > >>>> On 25.04.2025 22:19, Stefano Stabellini wrote:
-> > >>>>> --- a/xen/arch/x86/mm.c
-> > >>>>> +++ b/xen/arch/x86/mm.c
-> > >>>>> @@ -4401,7 +4401,7 @@ int steal_page(
-> > >>>>>      const struct domain *owner;
-> > >>>>>      int rc;
-> > >>>>>  
-> > >>>>> -    if ( paging_mode_external(d) )
-> > >>>>> +    if ( paging_mode_external(d) && !is_hardware_domain(d) )
-> > >>>>>          return -EOPNOTSUPP;
-> > >>>>>  
-> > >>>>>      /* Grab a reference to make sure the page doesn't change under our feet */
-> > >>>>
-> > >>>> Is this (in particular the code following below here) a safe thing to do
-> > >>>> when we don't properly refcount page references from the P2M, yet? It's
-> > >>>> Dom0, yes, but even there I might see potential security implications (as
-> > >>>> top violating privacy of a guest).
-> > >>>
-> > >>> I don't think I am following, could you please elaborate more? The
-> > >>> change I am proposing is to allow Dom0 to share its own pages to the
-> > >>> co-processor. DomUs are not in the picture. I would be happy to add
-> > >>> further restriction to that effect. Is there something else you have in
-> > >>> mind?
-> > >>
-> > >> Once "shared" with the PSP, how would Xen know that this sharing has stopped?
-> > >> Without knowing, how could it safely give the same page to a DomU later on?
-> > >> ("Safely" in both directions: Without compromising privacy of the DomU and
-> > >> without compromising host safety / security.)
-> > > 
-> > > Why would Xen later assign the same page to a DomU? The page comes
-> > > from the hardware domain, which, as of today, cannot be destroyed. BTW I
-> > > realize it is a bit different, but we have been doing the same thing
-> > > with Dom0 1:1 mapped on ARM since the start of the project.
+On Wed, 30 Apr 2025, Jan Beulich wrote:
+> On 30.04.2025 00:54, Stefano Stabellini wrote:
+> > On Tue, 29 Apr 2025, Jan Beulich wrote:
+> >> On 29.04.2025 03:27, Stefano Stabellini wrote:
+> >>> On Mon, 28 Apr 2025, Jan Beulich wrote:
+> >>>> On 26.04.2025 01:42, victorm.lira@amd.com wrote:
+> >>>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> >>>>>
+> >>>>> Rule 19.1 states: "An object shall not be assigned or copied
+> >>>>> to an overlapping object". Since the "call" and "compat_call" are
+> >>>>
+> >>>> Was this taken from patch 2 without editing?
+> >>>>
+> >>>>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+> >>>>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+> >>>>> @@ -526,9 +526,19 @@ static inline void put_loop_count(
+> >>>>>           */                                                             \
+> >>>>>          if ( !amd_like(ctxt) && mode_64bit() && ad_bytes == 4 )         \
+> >>>>>          {                                                               \
+> >>>>> +            uint64_t tmp;                                               \
+> >>>>> +                                                                        \
+> >>>>>              _regs.r(cx) = 0;                                            \
+> >>>>> -            if ( extend_si ) _regs.r(si) = _regs.esi;                   \
+> >>>>> -            if ( extend_di ) _regs.r(di) = _regs.edi;                   \
+> >>>>> +            if ( extend_si )                                            \
+> >>>>> +            {                                                           \
+> >>>>> +                tmp = _regs.esi;                                        \
+> >>>>> +                _regs.r(si) = tmp;                                      \
+> >>>>> +            }                                                           \
+> >>>>> +            if ( extend_di )                                            \
+> >>>>> +            {                                                           \
+> >>>>> +                tmp = _regs.edi;                                        \
+> >>>>> +                _regs.r(di) = tmp;                                      \
+> >>>>> +            }                                                           \
+> >>>>
+> >>>> See commit 7225f13aef03 for how we chose to address similar issues elsewhere
+> >>>> in the emulator. I think we want to be consistent there. This will then also
+> >>>> eliminate ...
+> >>>>
+> >>>>> @@ -2029,7 +2039,12 @@ x86_emulate(
+> >>>>>          switch ( op_bytes )
+> >>>>>          {
+> >>>>>          case 2: _regs.ax = (int8_t)_regs.ax; break; /* cbw */
+> >>>>> -        case 4: _regs.r(ax) = (uint32_t)(int16_t)_regs.ax; break; /* cwde */
+> >>>>> +        case 4:
+> >>>>> +            {
+> >>>>> +                uint32_t tmp = (uint32_t)(int16_t)_regs.ax;
+> >>>>> +                _regs.r(ax) = tmp;
+> >>>>> +                break; /* cwde */
+> >>>>> +            }
+> >>>>
+> >>>> ... the odd brace placement here, as well as the inconsistency in the types
+> >>>> you used for the temporary variables (both really could have been unsigned
+> >>>> int; no need for a fixed-width type).
+> >>>
+> >>> Is this what you have in mind?
+> >>
+> >> No, and that's also not what the referenced commit did in a similar situation.
+> >>
+> >>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+> >>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+> >>> @@ -527,8 +527,8 @@ static inline void put_loop_count(
+> >>>          if ( !amd_like(ctxt) && mode_64bit() && ad_bytes == 4 )         \
+> >>>          {                                                               \
+> >>>              _regs.r(cx) = 0;                                            \
+> >>> -            if ( extend_si ) _regs.r(si) = _regs.esi;                   \
+> >>> -            if ( extend_di ) _regs.r(di) = _regs.edi;                   \
+> >>> +            if ( extend_si ) _regs.r(si) = (uint64_t)_regs.esi;         \
+> >>> +            if ( extend_di ) _regs.r(di) = (uint64_t)_regs.edi;         \
+> >>
+> >>             if ( extend_si ) _regs.r(si) = (uint32_t)_regs.r(si);       \
+> >>             if ( extend_di ) _regs.r(di) = (uint32_t)_regs.r(di);       \
+> >>
+> >> After all what the rule requires is that we use _the same_ field on both sides.
 > > 
-> > The life cycle of the page within Dom0 may be such that a need arises to
-> > move it elsewhere (balloon out, grant-transfer, and what not).
+> > I see, thanks Jan. Yes I did try this version and worked as expected.
 > 
-> I think it's up to dom0 to make sure the page is handled
-> appropriately, in order for it to keep it's special contiguity
-> properties.
+> Except that ...
 > 
-> If the PSP is not using the IOMMU page-tables for DMA accesses, and
-> the hardware domain can freely interact with it, there's no protection
-> from such device accessing any random MFN on the system, and hence no
-> refcounts or similar will protect from that.
-
-Yes, exactly!
-
-
-> The only protection would be Xen owning the device, and the hardware
-> domain using an emulated/mediated interface to communicate with it.  I
-> have no idea how complicated the PSP interface is, and whether it
-> would be feasible to trap and emulate/mediate accesses in Xen.
-
-There will be always the possibility of devices or co-processors or
-firmware not behind the IOMMU and we won't be able to handle them all in
-Xen.
-
-
-> > >>>>> --- a/xen/common/memory.c
-> > >>>>> +++ b/xen/common/memory.c
-> > >>>>> @@ -794,7 +794,7 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
-> > >>>>>              rc = guest_physmap_add_page(d, _gfn(gpfn), mfn,
-> > >>>>>                                          exch.out.extent_order) ?: rc;
-> > >>>>>  
-> > >>>>> -            if ( !paging_mode_translate(d) &&
-> > >>>>> +            if ( (!paging_mode_translate(d) || is_hardware_domain(d)) &&
-> > >>>>>                   __copy_mfn_to_guest_offset(exch.out.extent_start,
-> > >>>>>                                              (i << out_chunk_order) + j,
-> > >>>>>                                              mfn) )
-> > >>>>
-> > >>>> Wait, no: A PVH domain (Dom0 or not) can't very well make use of MFNs, can
-> > >>>> it?
-> > >>>
-> > >>> One way or another Dom0 PVH needs to know the MFN to pass it to the
-> > >>> co-processor.
-> > >>
-> > >> I see. That's pretty odd, though. I'm then further concerned of the order of
-> > >> the chunks. At present we're rather lax, in permitting PVH and PV Dom0 the
-> > >> same upper bound. With both CPU and I/O side translation there is, in
-> > >> principle, no reason to permit any kind of contiguity. Of course there's a
-> > >> performance aspect, but that hardly matters in the specific case here. Yet at
-> > >> the same time, once we expose MFNs, contiguity will start mattering as soon
-> > >> as any piece of memory needs to be larger than PAGE_SIZE. Which means it will
-> > >> make tightening of the presently lax handling prone to regressions in this
-> > >> new behavior you're introducing. What chunk size does the PSP driver require?
-> > > 
-> > > I don't know. The memory returned by XENMEM_exchange is contiguous,
-> > > right? Are you worried that Xen cannot allocate the requested amount of
-> > > memory contiguously?
-> > 
-> > That would be Dom0's problem then. But really for a translated guest the
-> > exchanged chunks being contiguous shouldn't matter, correctness-wise. That is,
-> > within Xen, rather than failing a request, we could choose to retry using
-> > discontiguous chunks (contiguous only in GFN space). Such an (afaict)
-> > otherwise correct change would break your use case, as it would invalidate the
-> > MFN information passed back. (This fallback approach would similarly apply to
-> > other related mem-ops. It's just that during domain creation the tool stack
-> > has its own fallback, so it may not be of much use right now.)
+> > --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+> > +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+> > @@ -527,8 +527,8 @@ static inline void put_loop_count(
+> >          if ( !amd_like(ctxt) && mode_64bit() && ad_bytes == 4 )         \
+> >          {                                                               \
+> >              _regs.r(cx) = 0;                                            \
+> > -            if ( extend_si ) _regs.r(si) = _regs.esi;                   \
+> > -            if ( extend_di ) _regs.r(di) = _regs.edi;                   \
+> > +            if ( extend_si ) _regs.r(si) = (uint32_t)_regs.r(si);        \
+> > +            if ( extend_di ) _regs.r(di) = (uint32_t)_regs.r(di);        \
+> >          }                                                               \
+> >          goto complete_insn;                                             \
+> >      }                                                                   \
+> > @@ -2029,7 +2029,7 @@ x86_emulate(
+> >          switch ( op_bytes )
+> >          {
+> >          case 2: _regs.ax = (int8_t)_regs.ax; break; /* cbw */
+> > -        case 4: _regs.r(ax) = (uint32_t)(int16_t)_regs.ax; break; /* cwde */
+> > +        case 4: _regs.r(ax) = (int16_t)_regs.r(ax); break; /* cwde */
 > 
-> I think the description in the public header needs to be expanded to
-> specify what the XENMEM_exchange does for translated guests, and
-> clearly write down that the underlying MFNs for the exchanged region
-> will be contiguous.  Possibly a new XENMEMF_ flag needs to be added to
-> request contiguous physical memory for the new range.
-> 
-> Sadly this also has the side effect of quite likely shattering
-> superpages for dom0 EPT/NPT, which will result in decreased dom0
-> performance.
-> 
-> We have so far avoided exposing MFNs to HVM/PVH, but I don't see much
-> way to avoid this if there's no option to use IOMMU or NPT page-tables
-> with the PSP and we don't want to intercept PSP accesses in Xen and
-> translate requests on the fly.
- 
-Yeah, I think the same way too.
---8323329-1953259969-1746058752=:3879245--
+> ... the change in casts here renders this wrong now, afaict. We'd sign-
+> extend from 16 to 64 bits, rather than sign-extending to 32 bits and
+> then zero-extending to 64.
+
+Thanks Jan, this should be:
+
+diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
+index bee0332bdf..d678855238 100644
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -2029,7 +2029,7 @@ x86_emulate(
+         switch ( op_bytes )
+         {
+         case 2: _regs.ax = (int8_t)_regs.ax; break; /* cbw */
+-        case 4: _regs.r(ax) = (uint32_t)(int16_t)_regs.ax; break; /* cwde */
++        case 4: _regs.r(ax) = (uint32_t)(int16_t)_regs.r(ax); break; /* cwde */
+         case 8: _regs.r(ax) = (int32_t)_regs.r(ax); break; /* cdqe */
+         }
+         break;
+
+I tested this too and passes MISRA
 
