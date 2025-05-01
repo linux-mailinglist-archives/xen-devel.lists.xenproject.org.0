@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 518EBAA5E77
-	for <lists+xen-devel@lfdr.de>; Thu,  1 May 2025 14:37:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.974121.1362065 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B02FAAA5F05
+	for <lists+xen-devel@lfdr.de>; Thu,  1 May 2025 15:08:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.974133.1362076 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAT9p-0001ez-Fc; Thu, 01 May 2025 12:36:53 +0000
+	id 1uATde-0006Cf-Mj; Thu, 01 May 2025 13:07:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 974121.1362065; Thu, 01 May 2025 12:36:53 +0000
+Received: by outflank-mailman (output) from mailman id 974133.1362076; Thu, 01 May 2025 13:07:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAT9p-0001dP-D0; Thu, 01 May 2025 12:36:53 +0000
-Received: by outflank-mailman (input) for mailman id 974121;
- Thu, 01 May 2025 12:36:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uATde-0006AE-J8; Thu, 01 May 2025 13:07:42 +0000
+Received: by outflank-mailman (input) for mailman id 974133;
+ Thu, 01 May 2025 13:07:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0Eah=XR=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1uAT9n-0001dJ-Hf
- for xen-devel@lists.xenproject.org; Thu, 01 May 2025 12:36:51 +0000
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [2607:f8b0:4864:20::22d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f3faf523-2688-11f0-9eb4-5ba50f476ded;
- Thu, 01 May 2025 14:36:50 +0200 (CEST)
-Received: by mail-oi1-x22d.google.com with SMTP id
- 5614622812f47-4032f863d20so271870b6e.0
- for <xen-devel@lists.xenproject.org>; Thu, 01 May 2025 05:36:50 -0700 (PDT)
+ id 1uATdd-0006A8-0H
+ for xen-devel@lists.xenproject.org; Thu, 01 May 2025 13:07:41 +0000
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [2607:f8b0:4864:20::22a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3cb2c26e-268d-11f0-9ffb-bf95429c2676;
+ Thu, 01 May 2025 15:07:30 +0200 (CEST)
+Received: by mail-oi1-x22a.google.com with SMTP id
+ 5614622812f47-4032f863d20so280570b6e.0
+ for <xen-devel@lists.xenproject.org>; Thu, 01 May 2025 06:07:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,157 +40,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3faf523-2688-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 3cb2c26e-268d-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1746103009; x=1746707809; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1746104849; x=1746709649; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Az6DuxwS+cbj2aShXS/BiWxsPfOevyrOe04Mv86jzsk=;
-        b=QUevDI10i8dzeoAJJLPE45nWya2y4O6WNIdD47L29LWaBlyqDG4GiZoUo2R1Bpm6Li
-         bcOcQfMIlvuYZsJEMsc5o+s0G46wuM7GcfwWtfjlBUJXApNi1E89I3mTHjExONpRvGa3
-         moRsf28CYQiP5MX2RI7XFL/aXlX5VvLYW84s4=
+        bh=hMVaJbvW1c/t9ObxweHk7a2muzcHmtppOv1iFZiigw8=;
+        b=ILHigeOPti3CJSSQxcAZoQIb5o0jdwUWUT51hAZtAKDZhDPlTsqbK2+MUSmzx9/hdb
+         +o6DRBRwEzT/25VPoFOJhlL9tuY00ftC8Yu3ZAw2PzP6TYIyJGdP/u1JFxlygB/q3Zxj
+         YYrmqSEc29MT8VoC+PV7aEpm/5k4ngLNEVA6s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746103009; x=1746707809;
+        d=1e100.net; s=20230601; t=1746104849; x=1746709649;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Az6DuxwS+cbj2aShXS/BiWxsPfOevyrOe04Mv86jzsk=;
-        b=Mxm5EB+PhkAD9EP8NromphBA7ylUd4DCHlumH/8ICzW94fmXTBVBpHOesR7QARdS8v
-         26XeJ+6XEPHSbAUWj2OA4NtWVAUTa/dYYmS6pY0iS9ddDPuMkc0XWwGfV/IyQJr5CXN/
-         S0MLxKkNar3vrbl018qKmUHbszp+nqfrmnKok3IfZMiz4FKVLTIuVlStL646B6YV14DQ
-         YT7g+hzAx+XIGFDfS0zUwIHmMrinIhwMLn6IU75ZfatTQC1qgBA6zlMlkJHKAxh+oWs6
-         RvV9rZQvXAQL8nRk12GjT+lUvh/pWwDbo2LN2qTsVlCAvfSWHldjMcxJQiEHzacvKQRu
-         kZTA==
-X-Forwarded-Encrypted: i=1; AJvYcCUPiIpxAjCoIxXBf+NH5VrB3hSNLTy62NsTHJm9N+KG9QUPzuYmX3Apv82bWC1LtPhcT6EVAWtGtHM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzHifjm6D69vP/i1outhsA4cm9yXzDZqoDQRnM99dbFMqlpvCRg
-	xt58DyrGMeshhQdicVjcwEdnF9zI5LHmUJG5uLdM/fIsdybSm7O4mGyb2cYGw26//RNb5h0aDDr
-	28TwJ7aLhlgA725IvPiMgaB/dLgsXUTf2ZrNufg==
-X-Gm-Gg: ASbGncvCebduy+e9N+gvoUaUypDYAypOldxWyu5atCjhmT+apw64uKs1g6GdVxDyk9Y
-	VI3H6dT7waSQiNVaZGrhEgGd0vv1An9uYAfGnj5e299H/p4AFsYiexawhkrqbOIXWiaha0yZGG+
-	bPupE+8wAAsIBverv1EQgiWg==
-X-Google-Smtp-Source: AGHT+IFiuTYGMm+Zm0WGD2RaB3xbHZ5k2yiaN1eU+R5Y2ogO31PPRkAaa8iM8PIjZc5F1Jc79YH6ulblB4dOrNUM0oA=
-X-Received: by 2002:a05:6808:164a:b0:400:a250:9819 with SMTP id
- 5614622812f47-403343c9da9mr1819994b6e.12.1746103009353; Thu, 01 May 2025
- 05:36:49 -0700 (PDT)
+        bh=hMVaJbvW1c/t9ObxweHk7a2muzcHmtppOv1iFZiigw8=;
+        b=WReenF62vgxMXNxhgoNPn7ukBItP+IhD28iI+Blzop8Wtcg92vsvWEQYe61udzMMux
+         GIqZuxU0MbcZZpj4LtIlmg3AS7lPu+AyDME3b478GokfXy17FvIW15fWuMZFGVH8Czkz
+         UjkRzqW7pS20/T4zjwxlGQZtkpuYZjuZF8DSXGmlUu+iMMh+TCZ5SqKIrcKFh16h9HjX
+         z+wH/jjYnweR9ldrnWiR/+0FzsopWclH0gfjU8wGShFvGAe461hNFIhM+whsXglNBtZR
+         2vmqL+KxIHY5tXrdempn5fwCol4JpenQzfGknryJA6pCIwLR39iq/en9H5sh3I9yafYC
+         TC0A==
+X-Gm-Message-State: AOJu0Yx2b/HmY3ptJLJmhKBct05AHKWifLM2tmCo0BAFd2aAVf0vEWdZ
+	nCXv0mJ34rWIYdj9k+a5YwNZLhAvYHHEXWJtL1W9mfGvNkv8xvgvBQrdVlnKa8MjyS2Q6iEmMma
+	KfuxE5j3V/Yq/fAbdGRnT9m+e/OVcV6urglRp4A==
+X-Gm-Gg: ASbGncvKJ8tJuLh/arV9cWIPvqLZrDqU2/SDU703Rvn2VeJgQctT5PBbZsmStVhDgkX
+	jLcclSHAw3FdoBdshla0+OOBu+F49Z2N24uujHmkKP/CpdAFdYxr+c2IyhaXhnRPiZfXU9K4dFL
+	GawVk3QEbZr2DTJHyVbWW8EfFPgCJF4WOl
+X-Google-Smtp-Source: AGHT+IE8FIUPP7YYZDSn3NECWR/FaVZOJhjWlTuvuBrS8+UpYxMO8Z+akDahkdJ7SJxG/k/j5deWCPpj/V4Jd+oqIGM=
+X-Received: by 2002:a05:6808:2f14:b0:403:3814:7547 with SMTP id
+ 5614622812f47-40338147576mr921715b6e.11.1746104849156; Thu, 01 May 2025
+ 06:07:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250501104925.228351-1-gerald.elder-vass@cloud.com> <a8c18c85-54c6-4aa7-8eef-bb383f3cdfd5@citrix.com>
-In-Reply-To: <a8c18c85-54c6-4aa7-8eef-bb383f3cdfd5@citrix.com>
+References: <20250501122322.230599-1-gerald.elder-vass@cloud.com>
+In-Reply-To: <20250501122322.230599-1-gerald.elder-vass@cloud.com>
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Thu, 1 May 2025 13:36:38 +0100
-X-Gm-Features: ATxdqUHto0FEUA41Nk5XwDfqqyKXwcsd_cmH4msV8t2a6N8Mi6ISMIhKgZ6BMYQ
-Message-ID: <CACHz=ZjdRT42TRP_gyYPR_Djq2F8DNEYh8-C-z7PTy8yoKgW+Q@mail.gmail.com>
-Subject: Re: [XEN PATCH] sbat: Add SBAT section to the xen binary
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Gerald Elder-Vass <gerald.elder-vass@cloud.com>, xen-devel@lists.xenproject.org, 
-	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+Date: Thu, 1 May 2025 14:07:18 +0100
+X-Gm-Features: ATxdqUFcUwyQP1hTK9OK9GVUJTpU_oNAF_3MPp3GpZjkb03yeOjKh8kFoDdJDZg
+Message-ID: <CACHz=ZhtPptqckh1htFXCxgzSvrv05kFNpcyvkWYf=MsK5pNxw@mail.gmail.com>
+Subject: Re: [XEN PATCH v2] sbat: Add SBAT section to the Xen EFI binary
+To: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
 	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 1, 2025 at 12:34=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
-x.com> wrote:
+On Thu, May 1, 2025 at 1:23=E2=80=AFPM Gerald Elder-Vass
+<gerald.elder-vass@cloud.com> wrote:
 >
-> On 01/05/2025 11:49 am, Gerald Elder-Vass wrote:
-> > The SBAT section provides a way for the binary to declare a generation
-> > id for its upstream source and any vendor changes applied. A compatible
-> > loader can then revoke vulnerable binaries by generation, using the
-> > binary's declared generation id(s) to determine if it is safe to load.
-> >
-> > More information about SBAT is available here:
-> > https://github.com/rhboot/shim/blob/main/SBAT.md
-> >
-> > Vendors should append a custom line onto sbat.csv(.in) with their vendo=
-r
-> > specific sbat data.
-> >
-> > Populate the SBAT section in the Xen binary by using the information
-> > in xen/arch/x86/sbat.csv.in
-> >
-> > Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> > Tested-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+> SBAT is a revocation scheme for UEFI SecureBoot, and is mandated by Micro=
+soft
+> for signing.
 >
-> Thankyou for starting to post these patches.
+> The SBAT section provides a way for the binary to declare a generation
+> id for its upstream source and any vendor changes applied. A compatible
+> loader can then revoke vulnerable binaries by generation, using the
+> binary's declared generation id(s) to determine if it is safe to load.
 >
-> The commit message needs that SBAT is a revocation scheme for UEFI
-> SecureBoot, and mandatory now if you want to get signed by Microsoft.
-> This wants to be the first sentence, IMO.
+> More information about SBAT is available here:
+> https://github.com/rhboot/shim/blob/main/SBAT.md
 >
-> That in turn also explains why it's in the EFI binary only, and
-> discarded from the ELF binary.
+> Vendors should append a custom line onto sbat.csv(.in) with their vendor
+> specific sbat data.
 >
-> > diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-> > index d902fb7accd9..6db7475c2c23 100644
-> > --- a/xen/arch/x86/Makefile
-> > +++ b/xen/arch/x86/Makefile
-> > @@ -74,6 +74,7 @@ obj-$(CONFIG_TBOOT) +=3D tboot.o
-> >  obj-y +=3D hpet.o
-> >  obj-y +=3D vm_event.o
-> >  obj-y +=3D xstate.o
-> > +obj-y +=3D sbat_data.o
+> Populate the SBAT section in the Xen binary by using the information
+> in xen/arch/x86/sbat.csv
 >
-> These should be sorted by file name (although hpet.o is clearly out of
-> order here).
+> Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> Tested-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+> ---
+> Changed since v1:
+>  * Updated commit message to explain why SBAT is needed
+>  * Renamed sbat_data.o rule to sbat.o
+>  * Moved sbat.o rule into alphabetical order
+>  * Removed xen specific entry from sbat.csv (and rule for auto filling ve=
+rsion)
+>    - The alternative of adding a "customise me" line would result in more
+>      overhead for anyone else building Xen, regardless of UEFI SecureBoot=
+ usage
 >
-> Where possible, please use dash rather than underscore in filenames,
-> although in this case I'd shorten it to just sbat.o and bypass that probl=
-em.
+> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+> index d902fb7accd9..8fc5c69111d5 100644
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -58,6 +58,7 @@ obj-y +=3D percpu.o
+>  obj-y +=3D physdev.o
+>  obj-$(CONFIG_COMPAT) +=3D x86_64/physdev.o
+>  obj-y +=3D psr.o
+> +obj-y +=3D sbat.o
+>  obj-y +=3D setup.o
+>  obj-y +=3D shutdown.o
+>  obj-y +=3D smp.o
+> @@ -277,6 +278,9 @@ $(obj)/efi.lds: AFLAGS-y +=3D -DEFI
+>  $(obj)/xen.lds $(obj)/efi.lds: $(src)/xen.lds.S FORCE
+>         $(call if_changed_dep,cpp_lds_S)
 >
-> >
-> >  ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
-> >  obj-y +=3D domctl.o
-> > @@ -277,6 +278,12 @@ $(obj)/efi.lds: AFLAGS-y +=3D -DEFI
-> >  $(obj)/xen.lds $(obj)/efi.lds: $(src)/xen.lds.S FORCE
-> >       $(call if_changed_dep,cpp_lds_S)
-> >
-> > +$(obj)/sbat.csv: $(src)/sbat.csv.in
-> > +     sed "s/@@VERSION@@/${XEN_FULLVERSION}/" $< > $@
-> > +
-> > +$(obj)/sbat_data.o: $(obj)/sbat.csv
-> > +     $(OBJCOPY) -I binary -O elf64-x86-64 --rename-section .data=3D.sb=
+> +$(obj)/sbat.o: $(src)/sbat.csv
+> +       $(OBJCOPY) -I binary -O elf64-x86-64 --rename-section .data=3D.sb=
 at,readonly,data,contents $< $@
-> > +
-> >  clean-files :=3D \
-> >      include/asm/asm-macros.* \
-> >      $(objtree)/.xen-syms.[0-9]* \
-> > diff --git a/xen/arch/x86/sbat.csv.in b/xen/arch/x86/sbat.csv.in
-> > new file mode 100644
-> > index 000000000000..7cdc33dbd998
-> > --- /dev/null
-> > +++ b/xen/arch/x86/sbat.csv.in
-> > @@ -0,0 +1,2 @@
-> > +sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SB=
-AT.md
-> > +xen,1,Linux Foundation,xen,@@VERSION@@,https://xenproject.org/
+> +
+>  clean-files :=3D \
+>      include/asm/asm-macros.* \
+>      $(objtree)/.xen-syms.[0-9]* \
+> diff --git a/xen/arch/x86/sbat.csv b/xen/arch/x86/sbat.csv
+> new file mode 100644
+> index 000000000000..1f262b5f038b
+> --- /dev/null
+> +++ b/xen/arch/x86/sbat.csv
+> @@ -0,0 +1 @@
+> +sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT=
+.md
+> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+> index 9a1dfe1b340a..e6405941e1b7 100644
+> --- a/xen/arch/x86/xen.lds.S
+> +++ b/xen/arch/x86/xen.lds.S
+> @@ -343,6 +343,8 @@ SECTIONS
+>      *(.reloc)
+>      __base_relocs_end =3D .;
+>    }
+> +
+> +  .sbat (NOLOAD) : { *(.sbat) }
+>  #elif defined(XEN_BUILD_EFI)
+>    /*
+>     * Due to the way EFI support is currently implemented, these two symb=
+ols
+> diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
+> index a17810bb286f..756f97d48183 100644
+> --- a/xen/include/xen/xen.lds.h
+> +++ b/xen/include/xen/xen.lds.h
+> @@ -92,7 +92,8 @@
+>         *(.comment.*) \
+>         *(.note.*)
+>  #else
+> -#define DISCARD_EFI_SECTIONS
+> +#define DISCARD_EFI_SECTIONS \
+> +       *(.sbat)
+>  #endif
 >
-> I know this is what the SBAT spec says to do, but it's unworkable.
->
-> Upstream Xen cannot state or maintain a global generation ID on behalf
-> of it's downstreams.  This is true in general, not just for Xen.
->
-> For us (XenServer), this needs to be a line starting xen.xenserver,
-> because we (and only we) know how our Xen is built and configured.
-> Every other downstream will need to do the same.
->
-> So, either we want just the SBAT line an nothing else, or we want some
-> kind of "to be filled in by the OSV" info, to make it clear that people
-> need to alter it.
->
+>  /* Sections to be discarded. */
 
-At this point why not make the inclusion of this section conditional?
-If the binary is not going to be signed this section won't be used.
-For instance I would define a dummy variable at the beginning of
-xen/Makefile like XEN_SBAT_NAME.
-If it's not provided (people can use external xen-version file) do not
-include that section.
-
-> When UEFI SecureBoot becomes security supported, the security team
-> probably wants to note in XSAs whether the issue constitutes a breach of
-> UEFI-SB, and remind downstreams to bump their generation IDs.
->
-> ~Andrew
+Reviewed-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
 Frediano
 
