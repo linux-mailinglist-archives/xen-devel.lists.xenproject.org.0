@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBB1EAA6C87
-	for <lists+xen-devel@lfdr.de>; Fri,  2 May 2025 10:30:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.974527.1362370 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E8A5AA6D01
+	for <lists+xen-devel@lfdr.de>; Fri,  2 May 2025 10:53:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.974540.1362380 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAlms-000460-B5; Fri, 02 May 2025 08:30:26 +0000
+	id 1uAm8V-0007qO-3U; Fri, 02 May 2025 08:52:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 974527.1362370; Fri, 02 May 2025 08:30:26 +0000
+Received: by outflank-mailman (output) from mailman id 974540.1362380; Fri, 02 May 2025 08:52:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAlms-00043m-8M; Fri, 02 May 2025 08:30:26 +0000
-Received: by outflank-mailman (input) for mailman id 974527;
- Fri, 02 May 2025 08:30:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uAm8U-0007nf-VR; Fri, 02 May 2025 08:52:46 +0000
+Received: by outflank-mailman (input) for mailman id 974540;
+ Fri, 02 May 2025 08:52:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=k+8a=XS=kernel.org=mingo@srs-se1.protection.inumbo.net>)
- id 1uAlmq-00043e-Ij
- for xen-devel@lists.xenproject.org; Fri, 02 May 2025 08:30:24 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b07759f8-272f-11f0-9eb4-5ba50f476ded;
- Fri, 02 May 2025 10:30:23 +0200 (CEST)
+ id 1uAm8T-0007nZ-0d
+ for xen-devel@lists.xenproject.org; Fri, 02 May 2025 08:52:45 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c7af8759-2732-11f0-9ffb-bf95429c2676;
+ Fri, 02 May 2025 10:52:31 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 2A018A4BB43;
- Fri,  2 May 2025 08:24:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88BD6C4CEEE;
- Fri,  2 May 2025 08:30:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D97EF5C1C03;
+ Fri,  2 May 2025 08:50:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CD4BC4CEE4;
+ Fri,  2 May 2025 08:52:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b07759f8-272f-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: c7af8759-2732-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1746174621;
-	bh=XJ/fOLSZPcDhzbn7SBomjY3ra1ercNwGTwdTApCpr4M=;
+	s=k20201202; t=1746175956;
+	bh=SxBjkp/J5NNckAueMrQukPtaJ3IgnM76Ll+NdIUNXIk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CsCcumy8yvL+I8c/Q+4FCgid3SiZumzGsXHXwXMdYu5Pb//5a+dPYvjCYyRD0S7xR
-	 8OsobySDrVsqsSztegV67tmw+EzZy4UOm+uiwwLSOqz/aq7BngmEF9jCSpd5akyoGf
-	 jMaLyfr2RqTyi2jyDa2H7KelSZY5d/1QPDkg1pXrmQa9gQSSLPwb/gIIrSfO435Of0
-	 0gqTeWxKfMi1jh6+Z8xUkVFzHKvRcUa/gyVx5VK12AAAxHeKAUA7qDytqmewnPFkw4
-	 90zUASti8CLXJfv7JW3XsRHfW5jf8FmECPis1Q3MnBN6EE6TFStJAALK1mkZJmFN08
-	 ftBTm+oNzkoJA==
-Date: Fri, 2 May 2025 10:30:11 +0200
+	b=CJ1UtPGazPk6ZEG0HwcxHRuFOiH/JR3XBtmKJLiHP/jshRcy9Arm4mvyGtimOvgTy
+	 OmBKdXEFyjZ8BZMwd8D5Yrhyf1bz+OVbfKouNV2DcQM8RRSV+d8/qkqc9y00t15W+1
+	 79vLoiUJcrIIg1H9/yghIFiGnP5DFIedHMd4MJHdsNaPcS8RGk10pBZFuSDnIKldZI
+	 i66CAPb8L+3qEo576w8fnUHJl5uZTEiJZdpOmBXZziTwORlH5NpUwvvKUbp9Waeu+E
+	 Y/YctucrsKzRC6TBuMOLWKYkj+excCXHWTN55BMKpApl0iGcZF2wL5SK+lxFB1I13T
+	 UP3Jz5dY9bM3g==
+Date: Fri, 2 May 2025 10:52:26 +0200
 From: Ingo Molnar <mingo@kernel.org>
 To: "Xin Li (Intel)" <xin@zytor.com>
 Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
@@ -73,43 +73,41 @@ Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
 	seanjc@google.com, luto@kernel.org, boris.ostrovsky@oracle.com,
 	kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com,
 	dapeng1.mi@linux.intel.com, ilpo.jarvinen@linux.intel.com
-Subject: Re: [PATCH v4 10/15] x86/xen/msr: Remove calling
- native_{read,write}_msr{,_safe}() in pmu_msr_{read,write}()
-Message-ID: <aBSCk5phiMYO_B6T@gmail.com>
+Subject: Re: [PATCH v4 02/15] x86/msr: Move rdtsc{,_ordered}() to <asm/tsc.h>
+Message-ID: <aBSHyo-pu7K_CfpI@gmail.com>
 References: <20250427092027.1598740-1-xin@zytor.com>
- <20250427092027.1598740-11-xin@zytor.com>
+ <20250427092027.1598740-3-xin@zytor.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250427092027.1598740-11-xin@zytor.com>
+In-Reply-To: <20250427092027.1598740-3-xin@zytor.com>
 
 
 * Xin Li (Intel) <xin@zytor.com> wrote:
 
-> hpa found that pmu_msr_write() is actually a completely pointless
-> function [1]: all it does is shuffle some arguments, then calls
-> pmu_msr_chk_emulated() and if it returns true AND the emulated flag
-> is clear then does *exactly the same thing* that the calling code
-> would have done if pmu_msr_write() itself had returned true.  And
-> pmu_msr_read() does the equivalent stupidity.
+> For some reason, there are some TSC-related functions in the MSR
+> header even though there is a tsc.h header.
 > 
-> Remove the calls to native_{read,write}_msr{,_safe}() within
-> pmu_msr_{read,write}().  Instead reuse the existing calling code
-> that decides whether to call native_{read,write}_msr{,_safe}() based
-> on the return value from pmu_msr_{read,write}().  Consequently,
-> eliminate the need to pass an error pointer to pmu_msr_{read,write}().
+> Relocate rdtsc{,_ordered}() from <asm/msr.h> to <asm/tsc.h>, and
+> subsequently remove the inclusion of <asm/msr.h> in <asm/tsc.h>.
 > 
-> While at it, refactor pmu_msr_write() to take the MSR value as a u64
-> argument, replacing the current dual u32 arguments, because the dual
-> u32 arguments were only used to call native_write_msr{,_safe}(), which
-> has now been removed.
-> 
-> [1]: https://lore.kernel.org/lkml/0ec48b84-d158-47c6-b14c-3563fd14bcc4@zytor.com/
-> 
-> Suggested-by: H. Peter Anvin (Intel) <hpa@zytor.com>
-> Sign-off-by: Xin Li (Intel) <xin@zytor.com>
+> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+> Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
+> Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-'Sign-off-by' is not a proper SOB tag, I've changed it to Signed-off-by.
+> --- a/arch/x86/include/asm/tsc.h
+> +++ b/arch/x86/include/asm/tsc.h
+> @@ -7,7 +7,81 @@
+>  
+>  #include <asm/cpufeature.h>
+>  #include <asm/processor.h>
+> -#include <asm/msr.h>
+
+Note that in the tip:x86/msr commit I've applied today I've 
+intentionally delayed the removal of this header dependency, to reduce 
+the probability of breaking -next today or in the near future.
+
+We can remove that now superfluous header dependency in a future patch.
 
 Thanks,
 
