@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF1EAAA790B
-	for <lists+xen-devel@lfdr.de>; Fri,  2 May 2025 20:02:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.974997.1362714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C109DAA792A
+	for <lists+xen-devel@lfdr.de>; Fri,  2 May 2025 20:10:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.975009.1362724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAuiT-0003xq-Hf; Fri, 02 May 2025 18:02:29 +0000
+	id 1uAupx-0005Vn-7I; Fri, 02 May 2025 18:10:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 974997.1362714; Fri, 02 May 2025 18:02:29 +0000
+Received: by outflank-mailman (output) from mailman id 975009.1362724; Fri, 02 May 2025 18:10:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAuiT-0003vU-ED; Fri, 02 May 2025 18:02:29 +0000
-Received: by outflank-mailman (input) for mailman id 974997;
- Fri, 02 May 2025 18:02:27 +0000
+	id 1uAupx-0005Ts-4g; Fri, 02 May 2025 18:10:13 +0000
+Received: by outflank-mailman (input) for mailman id 975009;
+ Fri, 02 May 2025 18:10:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bscI=XS=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1uAuiR-0003fw-FG
- for xen-devel@lists.xenproject.org; Fri, 02 May 2025 18:02:27 +0000
+ id 1uAupv-0005Tk-Lv
+ for xen-devel@lists.xenproject.org; Fri, 02 May 2025 18:10:11 +0000
 Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 97b1b693-277f-11f0-9ffb-bf95429c2676;
- Fri, 02 May 2025 20:02:22 +0200 (CEST)
+ id ae7b07fa-2780-11f0-9ffb-bf95429c2676;
+ Fri, 02 May 2025 20:10:09 +0200 (CEST)
 Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 542I1mpa2105495
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 542I9URm2109765
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Fri, 2 May 2025 11:01:48 -0700
+ Fri, 2 May 2025 11:09:30 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,20 +40,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97b1b693-277f-11f0-9ffb-bf95429c2676
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 542I1mpa2105495
+X-Inumbo-ID: ae7b07fa-2780-11f0-9ffb-bf95429c2676
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 542I9URm2109765
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1746208911;
-	bh=YB94RPwo0LiI+lMqmkXijW8cqAbUGVDkYACiu4rhJOk=;
+	s=2025042001; t=1746209374;
+	bh=vq/A29GwC24q+yBRNQofOThRodhc2pHOhalxWP8yF44=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VOCJ0eCCKEI1R2ioFr5ehcvkLYBzIHaFZ7pM8wyOLShTf+o7l9PFmGhWDbsdpLxQW
-	 rcoCbdc89fjuUFgfp7bB1gHXoCLu9YHYUOC9OAcpCU56iXWZ2OKCrPGpjrEMLxkE2d
-	 n/S+MTkFrGLR3Rf9GG0B/ASRUKucjVEKTIdvAyOPgijN7QnsACq5Y2axwtq96cdTCl
-	 5+6d46fXskfc2RwEpwu2heXdygLklUe6dzhmSFhZ15wH2HmKiCsM+42OPweeJlvkgL
-	 waa4XMFGYhcr5mQd3ciW2VlgRbYtUdo8/6h8/XYwibFp0MRNe2QxHohkamu9kpC1+h
-	 ynCS6u6OzyyAw==
-Message-ID: <3a88480e-c705-4914-ac18-9764b799a36c@zytor.com>
-Date: Fri, 2 May 2025 11:01:47 -0700
+	b=Ik1PM2pUOLDwsjM0pqh49zNwLFsJWsVvCOj193iIxEYzWbmWmPkLOpNjbPdzrjX3v
+	 011IuXpNubhbptoPBokYY/dElyxPQHBCRBjU3Lulkb2yxO4epZ6XSk5+/VuLkmyTKm
+	 0Ud2Zan/4XorBw9nLxr1az3pZ8UdL1JipoDA4C6q89BQQ1lor7RIvGuJ3g6OnfiFiz
+	 CnEXvlTclGzLsYNkl8D2WwBsbJipZUTOsHbneDfOJuaejckEKDSBWeybOIBPjijOO0
+	 KGDNLUtdX+eqbIB7ygYhUbhkhUiAb06+5ytRj+5jyUF4CBn/8fUyg6Mi66qsYtwZ4H
+	 VoszEMjA20uGw==
+Message-ID: <2cbb468c-188e-4e6b-9b17-b60a66208c7a@zytor.com>
+Date: Fri, 2 May 2025 11:09:29 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 02/15] x86/msr: Move rdtsc{,_ordered}() to <asm/tsc.h>
@@ -77,7 +77,7 @@ Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
         haiyangz@microsoft.com, decui@microsoft.com,
         dapeng1.mi@linux.intel.com, ilpo.jarvinen@linux.intel.com
 References: <20250427092027.1598740-1-xin@zytor.com>
- <20250427092027.1598740-3-xin@zytor.com> <aBR_1oQN-gKCREBD@gmail.com>
+ <20250427092027.1598740-3-xin@zytor.com> <aBR8EoYkxaFHwZN2@gmail.com>
 Content-Language: en-US
 From: Xin Li <xin@zytor.com>
 Autocrypt: addr=xin@zytor.com; keydata=
@@ -114,31 +114,60 @@ Autocrypt: addr=xin@zytor.com; keydata=
  PYbAkjBbm+tuJ/Sm+5Yp5T/BnKz21FoCS8uvTiziHj2H7Cuekn6F8EYhegONm+RVg3vikOpn
  gao85i4HwQTK9/D1wgJIQkdwWXVMZ6q/OALaBp82vQ2U9sjTyFXgDjglgh00VRAHP7u1Rcu4
  l75w1xInsg==
-In-Reply-To: <aBR_1oQN-gKCREBD@gmail.com>
+In-Reply-To: <aBR8EoYkxaFHwZN2@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 5/2/2025 1:18 AM, Ingo Molnar wrote:
+On 5/2/2025 1:02 AM, Ingo Molnar wrote:
 > 
 > * Xin Li (Intel) <xin@zytor.com> wrote:
 > 
->> For some reason, there are some TSC-related functions in the MSR
->    ^^^^^^^^^^^^^^^
->> header even though there is a tsc.h header.
+>> index 94408a784c8e..13335a130edf 100644
+>> --- a/arch/x86/include/asm/tsc.h
+>> +++ b/arch/x86/include/asm/tsc.h
+>> @@ -7,7 +7,81 @@
+>>   
+>>   #include <asm/cpufeature.h>
+>>   #include <asm/processor.h>
+>> -#include <asm/msr.h>
+>> +
+>> +/*
+>> + * both i386 and x86_64 returns 64-bit value in edx:eax, but gcc's "A"
+>> + * constraint has different meanings. For i386, "A" means exactly
+>> + * edx:eax, while for x86_64 it doesn't mean rdx:rax or edx:eax. Instead,
+>> + * it means rax *or* rdx.
+>> + */
+>> +#ifdef CONFIG_X86_64
+>> +/* Using 64-bit values saves one instruction clearing the high half of low */
+>> +#define DECLARE_ARGS(val, low, high)	unsigned long low, high
+>> +#define EAX_EDX_VAL(val, low, high)	((low) | (high) << 32)
+>> +#define EAX_EDX_RET(val, low, high)	"=a" (low), "=d" (high)
+>> +#else
+>> +#define DECLARE_ARGS(val, low, high)	u64 val
+>> +#define EAX_EDX_VAL(val, low, high)	(val)
+>> +#define EAX_EDX_RET(val, low, high)	"=A" (val)
+>> +#endif
 > 
-> The real reason is that the rdtsc{,_ordered}() methods use the
-> EAX_EDX_*() macros to optimize their EDX/EAX assembly accessors, which
-> is why these methods were in <asm/msr.h>.
+> Meh, this patch creates a duplicate copy of DECLARE_ARGS() et al in
+> <asm/tsc.h> now:
 > 
-> Your followup patch tacitly acknowledges this by silently creating
-> duplicate copies of these facilities in both headers ...
+>   arch/x86/include/asm/msr.h:#define DECLARE_ARGS(val, low, high) unsigned long low, high
+>   arch/x86/include/asm/msr.h:#define DECLARE_ARGS(val, low, high) u64 val
+>   arch/x86/include/asm/msr.h:     DECLARE_ARGS(val, low, high);
+>   arch/x86/include/asm/msr.h:     DECLARE_ARGS(val, low, high);
+>   arch/x86/include/asm/msr.h:     DECLARE_ARGS(val, low, high);
+>   arch/x86/include/asm/tsc.h:#define DECLARE_ARGS(val, low, high) unsigned long low, high
+>   arch/x86/include/asm/tsc.h:#define DECLARE_ARGS(val, low, high) u64 val
+>   arch/x86/include/asm/tsc.h:     DECLARE_ARGS(val, low, high);
+>   arch/x86/include/asm/tsc.h:     DECLARE_ARGS(val, low, high);
+>   arch/x86/include/asm/tsc.h:#undef DECLARE_ARGS
 > 
-> I've cleaned it all up in tip:x86/msr via these preparatory patches:
+> Which was both an undeclared change, bloats the code, causes various
+> problems, and is totally unnecessary to boot.
 > 
->    x86/msr: Improve the comments of the DECLARE_ARGS()/EAX_EDX_VAL()/EAX_EDX_RET() facility
->    x86/msr: Rename DECLARE_ARGS() to EAX_EDX_DECLARE_ARGS
->    x86/msr: Move the EAX_EDX_*() methods from <asm/msr.h> to <asm/asm.h>
-> 
+> Please don't do that ...
 
-Brilliant!
+Learned!
+
+Especially that every change needs to explicitly called out.
 
