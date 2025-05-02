@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95564AA7897
-	for <lists+xen-devel@lfdr.de>; Fri,  2 May 2025 19:20:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.974945.1362673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15997AA78D7
+	for <lists+xen-devel@lfdr.de>; Fri,  2 May 2025 19:51:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.974957.1362683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAu3o-00044O-Pj; Fri, 02 May 2025 17:20:28 +0000
+	id 1uAuXH-0000jp-0K; Fri, 02 May 2025 17:50:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 974945.1362673; Fri, 02 May 2025 17:20:28 +0000
+Received: by outflank-mailman (output) from mailman id 974957.1362683; Fri, 02 May 2025 17:50:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAu3o-00041y-NB; Fri, 02 May 2025 17:20:28 +0000
-Received: by outflank-mailman (input) for mailman id 974945;
- Fri, 02 May 2025 17:20:26 +0000
+	id 1uAuXG-0000iK-Tm; Fri, 02 May 2025 17:50:54 +0000
+Received: by outflank-mailman (input) for mailman id 974957;
+ Fri, 02 May 2025 17:50:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mfxJ=XS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uAu3m-00041c-KR
- for xen-devel@lists.xenproject.org; Fri, 02 May 2025 17:20:26 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bscI=XS=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1uAuXG-0000iE-6G
+ for xen-devel@lists.xenproject.org; Fri, 02 May 2025 17:50:54 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bbb9edb0-2779-11f0-9eb4-5ba50f476ded;
- Fri, 02 May 2025 19:20:25 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 31D02434E4;
- Fri,  2 May 2025 17:20:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16A99C4CEE4;
- Fri,  2 May 2025 17:20:21 +0000 (UTC)
+ id fb94231a-277d-11f0-9eb4-5ba50f476ded;
+ Fri, 02 May 2025 19:50:51 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 542Ho3nX2101973
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Fri, 2 May 2025 10:50:03 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,121 +40,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbb9edb0-2779-11f0-9eb4-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1746206423;
-	bh=FzvJMEVywUV1H+jpiVirWxvGVxglVU9u9H1JW19xvuE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=B3kmrDRxZRHtH/oLMWmCnAtpbx4Bc+gIdkj+KwlnvFzdXhFHvd2eY5tA47FG/q+V+
-	 q6kWEkJuMFXpTB4MIkzNqQR2m8mHhOJWJSVQgHYXlfkGcD2qzXLm2SzhUHW1u7q6KC
-	 bBoxGiuslOqmWxCKnbCN1ib37DliZQhM/FFx7RE4gMmTYsEIvQRNjaN/eiR8UlZq+Y
-	 hyDu/Q77OGhDLBscBmyU+IrOW8kRIreKkrVGzcK3x/hr/MyoWL9Sf10+zEqbgXpciD
-	 /GrF0ZpdsjWpw/EDHLVd2GWBgG/fJxVO+THrRGvDFSZehODCgfCQ+NLVqAxc/S43de
-	 9lPQ4ZC2wGtnA==
-Date: Fri, 2 May 2025 10:20:20 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: John Ernberg <john.ernberg@actia.se>
-cc: Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Catalin Marinas <catalin.marinas@arm.com>, 
-    Andrew Morton <akpm@linux-foundation.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "iommu@lists.linux.dev" <iommu@lists.linux.dev>, 
-    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-    "imx@lists.linux.dev" <imx@lists.linux.dev>, 
-    Christoph Hellwig <hch@infradead.org>
-Subject: Re: [PATCH 2/2] xen: swiotlb: Implement map_resource callback
-In-Reply-To: <20250502114043.1968976-3-john.ernberg@actia.se>
-Message-ID: <alpine.DEB.2.22.394.2505021007460.3879245@ubuntu-linux-20-04-desktop>
-References: <20250502114043.1968976-1-john.ernberg@actia.se> <20250502114043.1968976-3-john.ernberg@actia.se>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: fb94231a-277d-11f0-9eb4-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 542Ho3nX2101973
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1746208207;
+	bh=LzR4L+NzvxhTrQ0qnGzytLxrMo2x9HNW2SUoBs+4hnk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=f2DvQ9MW8Z0JHknIhUmlaIPnE6PHfIIPe0rpr7QJUvAXpKBCT+qAa2LT23C9nwyHn
+	 /1a1mWwt981CwHC7LEhukO1K0m1bgC3vouAUx32YzUdMpcsCtQbd/jw/0r9+oZFhHH
+	 zWNmyzJlWsf15/gfOAQCHW/PstZJwBaw5PzyA2AIZsvRshoRiosxrgxL3BGNy8GnvI
+	 j1N92z82OgALfPhLkgXq737LFNKZtz9B4b6V3qkfZIO+IB2Ra6RgpyueZDDglkuTjG
+	 iaLXdZxYtCOMzwCegp0RoTN30GI8VbyzguvhXK2x0MgYmhv6FrtA1j3wSshxLcp5ca
+	 a3YLWxbyYWbZw==
+Message-ID: <a2bdcbaf-2a00-4b12-84e9-14c40610d599@zytor.com>
+Date: Fri, 2 May 2025 10:50:02 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4A 01/15] x86/msr: Add missing includes of <asm/msr.h>
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        mingo@redhat.com
+Cc: LKML <linux-kernel@vger.kernel.org>, kvm@vger.kernel.org,
+        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+        virtualization@lists.linux.dev, linux-pm@vger.kernel.org,
+        linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
+        Netdev <netdev@vger.kernel.org>, platform-driver-x86@vger.kernel.org,
+        tglx@linutronix.de, bp@alien8.de, dave.hansen@linux.intel.com,
+        x86@kernel.org, hpa@zytor.com, acme@kernel.org, jgross@suse.com,
+        andrew.cooper3@citrix.com, peterz@infradead.org, namhyung@kernel.org,
+        mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
+        jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
+        kan.liang@linux.intel.com, wei.liu@kernel.org, ajay.kaher@broadcom.com,
+        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
+        pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
+        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
+        haiyangz@microsoft.com, decui@microsoft.com,
+        dapeng1.mi@linux.intel.com
+References: <a1917b37-e41e-d303-749b-4007cda01605@linux.intel.com>
+ <20250501054241.1245648-1-xin@zytor.com>
+ <a34d7955-aa31-7bef-52cf-65dc4bb7a5c1@linux.intel.com>
+Content-Language: en-US
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <a34d7955-aa31-7bef-52cf-65dc4bb7a5c1@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-+Christoph
-
-On Fri, 2 May 2025, John Ernberg wrote:
-> Needed by the eDMA v3 DMA engine found in iommu-less SoCs such as iMX8QXP
-> to be able to perform DMA operations as a Xen Hardware Domain, which needs
-> to be able to do DMA in MMIO space.
+On 5/2/2025 6:13 AM, Ilpo Järvinen wrote:
+>> diff --git a/arch/x86/kernel/trace_clock.c b/arch/x86/kernel/trace_clock.c
+>> index b8e7abe00b06..708d61743d15 100644
+>> --- a/arch/x86/kernel/trace_clock.c
+>> +++ b/arch/x86/kernel/trace_clock.c
+>> @@ -4,7 +4,7 @@
+>>    */
+>>   #include <asm/trace_clock.h>
+>>   #include <asm/barrier.h>
+>> -#include <asm/msr.h>
+>> +#include <asm/tsc.h>
+> Does this change belong to this patch?
 > 
-> The callback implementation is basically the same as the one for direct
-> mapping of resources, except this also takes into account Xen page
-> mappings.
+> It might even cause a build failure until the second patch which moves
+> the tsc related things to the other file (unless there's indirect include
+> path to asm/msr.h).
+
+Ah, you're right as I have separated the relocation of rdtsc_ordered()
+into a following patch.
+
 > 
-> There is nothing to do for unmap, just like with direct, so the unmap
-> callback is not needed.
+>> diff --git a/arch/x86/lib/kaslr.c b/arch/x86/lib/kaslr.c
+>> index a58f451a7dd3..b5893928d55c 100644
+>> --- a/arch/x86/lib/kaslr.c
+>> +++ b/arch/x86/lib/kaslr.c
+>> @@ -8,7 +8,7 @@
+>>    */
+>>   #include <asm/asm.h>
+>>   #include <asm/kaslr.h>
+>> -#include <asm/msr.h>
+>> +#include <asm/tsc.h>
+> Same thing here.
 > 
-> Signed-off-by: John Ernberg <john.ernberg@actia.se>
+>>   #include <asm/archrandom.h>
+>>   #include <asm/e820/api.h>
+>>   #include <asm/shared/io.h>
+>> diff --git a/drivers/accel/habanalabs/common/habanalabs_ioctl.c b/drivers/accel/habanalabs/common/habanalabs_ioctl.c
+>> index 8729a0c57d78..dc80ca921d90 100644
+>> --- a/drivers/accel/habanalabs/common/habanalabs_ioctl.c
+>> +++ b/drivers/accel/habanalabs/common/habanalabs_ioctl.c
+>> @@ -17,8 +17,6 @@
+>>   #include <linux/uaccess.h>
+>>   #include <linux/vmalloc.h>
+>>   
+>> -#include <asm/msr.h>
+>> -
+> I suggested making a separate patch out of these removals. Currently you
+> do them without any clear warning in the changelog which only talks about
+> adding asm/msr.h.
+>
+
+I didn't want to add an extra patch to the v4 series, but I really
+should have mentioned the removal at least.
+
+
+>> diff --git a/drivers/acpi/processor_throttling.c b/drivers/acpi/processor_throttling.c
+>> index 00d045e5f524..ecd7fe256153 100644
+>> --- a/drivers/acpi/processor_throttling.c
+>> +++ b/drivers/acpi/processor_throttling.c
+>> @@ -18,9 +18,13 @@
+>>   #include <linux/sched.h>
+>>   #include <linux/cpufreq.h>
+>>   #include <linux/acpi.h>
+>> +#include <linux/uaccess.h>
+>>   #include <acpi/processor.h>
+>>   #include <asm/io.h>
+>> -#include <linux/uaccess.h>
+>> +#include <asm/asm.h>
+> ???
+
+Damn me!
+
+Not to find an excuse but I guess I got somewhat tired when doing it.
+
 > 
-> ---
+>> +#ifdef CONFIG_X86
+>> +#include <asm/msr.h>
+>> +#endif
 > 
-> I originally exported dma_direct_map_resource() and used that which
-> appeared to work, but it felt like not checking Xen page mappings wasn't
-> fully correct and I went with this. But if dma_direct_map_resource() is
-> the correct approach here then I can submit that isntead.
-> ---
->  drivers/xen/swiotlb-xen.c | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
-> 
-> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> index ef56a2500ed6..0f02fdd9128d 100644
-> --- a/drivers/xen/swiotlb-xen.c
-> +++ b/drivers/xen/swiotlb-xen.c
-> @@ -285,6 +285,20 @@ static void xen_swiotlb_unmap_page(struct device *hwdev, dma_addr_t dev_addr,
->  					   attrs, pool);
->  }
->  
-> +static dma_addr_t xen_swiotlb_map_resource(struct device *dev, phys_addr_t phys,
-> +					   size_t size, enum dma_data_direction dir,
-> +					   unsigned long attrs)
-> +{
-> +	dma_addr_t dev_addr = xen_phys_to_dma(dev, phys);
+> I really appreciate you took the effort to do this change the correct
+> way! 🙂
 
-Yes, we need the xen_phys_to_dma call here. This is one of the reasons I
-don't think we can use dma_direct_map_resource() to implement
-map_resource
+Same here for pushing it the right direction!
 
 
-> +	BUG_ON(dir == DMA_NONE);
-> +
-> +	if (!dma_capable(dev, dev_addr, size, false))
-> +		return DMA_MAPPING_ERROR;
+Hi Ingo,
 
-But here you also need to check that phys+size doesn't cross a page
-boundary. You need to call range_straddles_page_boundary, like we do at
-the beginning of xen_swiotlb_map_page.
+Since you *wisely* didn't remove msr.h from tsc.h, maybe you could just
+zap this patch and I will send an afterwards patch set to replace this
+patch?
 
-If it is possible to cross a page boundary, then we need to basically to
-do the same thing here as we do in xen_swiotlb_map_page where we check
-for:
+Apology for the noise.
 
-	if (dma_capable(dev, dev_addr, size, true) &&
-	    !range_straddles_page_boundary(phys, size) &&
-		!xen_arch_need_swiotlb(dev, phys, dev_addr) &&
-		!is_swiotlb_force_bounce(dev))
-		goto done;
-
-if all is well, we go with the native path, otherwise we bounce on
-swiotlb-xen.
-
-
-
-> +	return dev_addr;
-> +}
-> +
->  static void
->  xen_swiotlb_sync_single_for_cpu(struct device *dev, dma_addr_t dma_addr,
->  		size_t size, enum dma_data_direction dir)
-> @@ -426,4 +440,5 @@ const struct dma_map_ops xen_swiotlb_dma_ops = {
->  	.alloc_pages_op = dma_common_alloc_pages,
->  	.free_pages = dma_common_free_pages,
->  	.max_mapping_size = swiotlb_max_mapping_size,
-> +	.map_resource = xen_swiotlb_map_resource,
->  };
-> -- 
-> 2.49.0
-> 
+Thanks!
+     Xin
 
