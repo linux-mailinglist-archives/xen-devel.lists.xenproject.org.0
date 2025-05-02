@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C109DAA792A
-	for <lists+xen-devel@lfdr.de>; Fri,  2 May 2025 20:10:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.975009.1362724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 315B8AA7931
+	for <lists+xen-devel@lfdr.de>; Fri,  2 May 2025 20:13:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.975022.1362734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAupx-0005Vn-7I; Fri, 02 May 2025 18:10:13 +0000
+	id 1uAutC-0006at-Is; Fri, 02 May 2025 18:13:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 975009.1362724; Fri, 02 May 2025 18:10:13 +0000
+Received: by outflank-mailman (output) from mailman id 975022.1362734; Fri, 02 May 2025 18:13:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAupx-0005Ts-4g; Fri, 02 May 2025 18:10:13 +0000
-Received: by outflank-mailman (input) for mailman id 975009;
- Fri, 02 May 2025 18:10:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bscI=XS=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1uAupv-0005Tk-Lv
- for xen-devel@lists.xenproject.org; Fri, 02 May 2025 18:10:11 +0000
-Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ae7b07fa-2780-11f0-9ffb-bf95429c2676;
- Fri, 02 May 2025 20:10:09 +0200 (CEST)
-Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 542I9URm2109765
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Fri, 2 May 2025 11:09:30 -0700
+	id 1uAutC-0006ZO-Fe; Fri, 02 May 2025 18:13:34 +0000
+Received: by outflank-mailman (input) for mailman id 975022;
+ Fri, 02 May 2025 18:13:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mfxJ=XS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uAutA-0006ZF-P5
+ for xen-devel@lists.xenproject.org; Fri, 02 May 2025 18:13:32 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org
+ [2600:3c04:e001:324:0:1991:8:25])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 268eda9b-2781-11f0-9eb4-5ba50f476ded;
+ Fri, 02 May 2025 20:13:30 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7304660010;
+ Fri,  2 May 2025 18:13:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 778CBC4CEE9;
+ Fri,  2 May 2025 18:13:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,134 +42,783 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae7b07fa-2780-11f0-9ffb-bf95429c2676
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 542I9URm2109765
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1746209374;
-	bh=vq/A29GwC24q+yBRNQofOThRodhc2pHOhalxWP8yF44=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Ik1PM2pUOLDwsjM0pqh49zNwLFsJWsVvCOj193iIxEYzWbmWmPkLOpNjbPdzrjX3v
-	 011IuXpNubhbptoPBokYY/dElyxPQHBCRBjU3Lulkb2yxO4epZ6XSk5+/VuLkmyTKm
-	 0Ud2Zan/4XorBw9nLxr1az3pZ8UdL1JipoDA4C6q89BQQ1lor7RIvGuJ3g6OnfiFiz
-	 CnEXvlTclGzLsYNkl8D2WwBsbJipZUTOsHbneDfOJuaejckEKDSBWeybOIBPjijOO0
-	 KGDNLUtdX+eqbIB7ygYhUbhkhUiAb06+5ytRj+5jyUF4CBn/8fUyg6Mi66qsYtwZ4H
-	 VoszEMjA20uGw==
-Message-ID: <2cbb468c-188e-4e6b-9b17-b60a66208c7a@zytor.com>
-Date: Fri, 2 May 2025 11:09:29 -0700
+X-Inumbo-ID: 268eda9b-2781-11f0-9eb4-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1746209608;
+	bh=LwJxa40HPDCVnZ/05DntVV8TRZmNP8yD0Unnpj7zVaM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=lVKWvi8UioitMliheJ7qUnAslmDD9e/U81eyHZ5KLpYWgtVznI5GaMBkkTHIqpzx2
+	 w2rmTAi1bb332zErvsCTqoiY3+KptK74pB/d16zgjKg1KKnuWs8ipyZwqFaL1lScpA
+	 XhaUAz+TrZ3FTf5QpECPp2UYC8hf486ycUXxQ5bI3ecYrZRBnAtTOvsd5M1lfvi8sd
+	 t5V/bhi6tz8otxEapEhy7bgTTjORDeBM7KByHVlWVknpXsXQQboirMYaLhs8CoQprT
+	 2+P0BaCzyUUNzDLwqQU0bxlTnuGIio3Q6ZR+MdeYx+pf9mF54tNc+N9pB9NNP16phK
+	 tIXqE+0z84QQw==
+Date: Fri, 2 May 2025 11:13:25 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v3 3/8] asm-generic: move parts of Arm's asm/kernel.h to
+ common code
+In-Reply-To: <0c16f8fb2702db5fd6751c7da347a97caa431002.1746199009.git.oleksii.kurochko@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2505021111220.3879245@ubuntu-linux-20-04-desktop>
+References: <cover.1746199009.git.oleksii.kurochko@gmail.com> <0c16f8fb2702db5fd6751c7da347a97caa431002.1746199009.git.oleksii.kurochko@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/15] x86/msr: Move rdtsc{,_ordered}() to <asm/tsc.h>
-To: Ingo Molnar <mingo@kernel.org>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-        linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
-        virtualization@lists.linux.dev, linux-pm@vger.kernel.org,
-        linux-edac@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linux-acpi@vger.kernel.org, linux-hwmon@vger.kernel.org,
-        netdev@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-        acme@kernel.org, jgross@suse.com, andrew.cooper3@citrix.com,
-        peterz@infradead.org, namhyung@kernel.org, mark.rutland@arm.com,
-        alexander.shishkin@linux.intel.com, jolsa@kernel.org,
-        irogers@google.com, adrian.hunter@intel.com, kan.liang@linux.intel.com,
-        wei.liu@kernel.org, ajay.kaher@broadcom.com,
-        bcm-kernel-feedback-list@broadcom.com, tony.luck@intel.com,
-        pbonzini@redhat.com, vkuznets@redhat.com, seanjc@google.com,
-        luto@kernel.org, boris.ostrovsky@oracle.com, kys@microsoft.com,
-        haiyangz@microsoft.com, decui@microsoft.com,
-        dapeng1.mi@linux.intel.com, ilpo.jarvinen@linux.intel.com
-References: <20250427092027.1598740-1-xin@zytor.com>
- <20250427092027.1598740-3-xin@zytor.com> <aBR8EoYkxaFHwZN2@gmail.com>
-Content-Language: en-US
-From: Xin Li <xin@zytor.com>
-Autocrypt: addr=xin@zytor.com; keydata=
- xsDNBGUPz1cBDACS/9yOJGojBFPxFt0OfTWuMl0uSgpwk37uRrFPTTLw4BaxhlFL0bjs6q+0
- 2OfG34R+a0ZCuj5c9vggUMoOLdDyA7yPVAJU0OX6lqpg6z/kyQg3t4jvajG6aCgwSDx5Kzg5
- Rj3AXl8k2wb0jdqRB4RvaOPFiHNGgXCs5Pkux/qr0laeFIpzMKMootGa4kfURgPhRzUaM1vy
- bsMsL8vpJtGUmitrSqe5dVNBH00whLtPFM7IbzKURPUOkRRiusFAsw0a1ztCgoFczq6VfAVu
- raTye0L/VXwZd+aGi401V2tLsAHxxckRi9p3mc0jExPc60joK+aZPy6amwSCy5kAJ/AboYtY
- VmKIGKx1yx8POy6m+1lZ8C0q9b8eJ8kWPAR78PgT37FQWKYS1uAroG2wLdK7FiIEpPhCD+zH
- wlslo2ETbdKjrLIPNehQCOWrT32k8vFNEMLP5G/mmjfNj5sEf3IOKgMTMVl9AFjsINLHcxEQ
- 6T8nGbX/n3msP6A36FDfdSEAEQEAAc0WWGluIExpIDx4aW5Aenl0b3IuY29tPsLBDQQTAQgA
- NxYhBIUq/WFSDTiOvUIqv2u9DlcdrjdRBQJlD89XBQkFo5qAAhsDBAsJCAcFFQgJCgsFFgID
- AQAACgkQa70OVx2uN1HUpgv/cM2fsFCQodLArMTX5nt9yqAWgA5t1srri6EgS8W3F+3Kitge
- tYTBKu6j5BXuXaX3vyfCm+zajDJN77JHuYnpcKKr13VcZi1Swv6Jx1u0II8DOmoDYLb1Q2ZW
- v83W55fOWJ2g72x/UjVJBQ0sVjAngazU3ckc0TeNQlkcpSVGa/qBIHLfZraWtdrNAQT4A1fa
- sWGuJrChBFhtKbYXbUCu9AoYmmbQnsx2EWoJy3h7OjtfFapJbPZql+no5AJ3Mk9eE5oWyLH+
- QWqtOeJM7kKvn/dBudokFSNhDUw06e7EoVPSJyUIMbYtUO7g2+Atu44G/EPP0yV0J4lRO6EA
- wYRXff7+I1jIWEHpj5EFVYO6SmBg7zF2illHEW31JAPtdDLDHYcZDfS41caEKOQIPsdzQkaQ
- oW2hchcjcMPAfyhhRzUpVHLPxLCetP8vrVhTvnaZUo0xaVYb3+wjP+D5j/3+hwblu2agPsaE
- vgVbZ8Fx3TUxUPCAdr/p73DGg57oHjgezsDNBGUPz1gBDAD4Mg7hMFRQqlzotcNSxatlAQNL
- MadLfUTFz8wUUa21LPLrHBkUwm8RujehJrzcVbPYwPXIO0uyL/F///CogMNx7Iwo6by43KOy
- g89wVFhyy237EY76j1lVfLzcMYmjBoTH95fJC/lVb5Whxil6KjSN/R/y3jfG1dPXfwAuZ/4N
- cMoOslWkfZKJeEut5aZTRepKKF54T5r49H9F7OFLyxrC/uI9UDttWqMxcWyCkHh0v1Di8176
- jjYRNTrGEfYfGxSp+3jYL3PoNceIMkqM9haXjjGl0W1B4BidK1LVYBNov0rTEzyr0a1riUrp
- Qk+6z/LHxCM9lFFXnqH7KWeToTOPQebD2B/Ah5CZlft41i8L6LOF/LCuDBuYlu/fI2nuCc8d
- m4wwtkou1Y/kIwbEsE/6RQwRXUZhzO6llfoN96Fczr/RwvPIK5SVMixqWq4QGFAyK0m/1ap4
- bhIRrdCLVQcgU4glo17vqfEaRcTW5SgX+pGs4KIPPBE5J/ABD6pBnUUAEQEAAcLA/AQYAQgA
- JhYhBIUq/WFSDTiOvUIqv2u9DlcdrjdRBQJlD89ZBQkFo5qAAhsMAAoJEGu9DlcdrjdR4C0L
- /RcjolEjoZW8VsyxWtXazQPnaRvzZ4vhmGOsCPr2BPtMlSwDzTlri8BBG1/3t/DNK4JLuwEj
- OAIE3fkkm+UG4Kjud6aNeraDI52DRVCSx6xff3bjmJsJJMb12mWglN6LjdF6K+PE+OTJUh2F
- dOhslN5C2kgl0dvUuevwMgQF3IljLmi/6APKYJHjkJpu1E6luZec/lRbetHuNFtbh3xgFIJx
- 2RpgVDP4xB3f8r0I+y6ua+p7fgOjDLyoFjubRGed0Be45JJQEn7A3CSb6Xu7NYobnxfkwAGZ
- Q81a2XtvNS7Aj6NWVoOQB5KbM4yosO5+Me1V1SkX2jlnn26JPEvbV3KRFcwV5RnDxm4OQTSk
- PYbAkjBbm+tuJ/Sm+5Yp5T/BnKz21FoCS8uvTiziHj2H7Cuekn6F8EYhegONm+RVg3vikOpn
- gao85i4HwQTK9/D1wgJIQkdwWXVMZ6q/OALaBp82vQ2U9sjTyFXgDjglgh00VRAHP7u1Rcu4
- l75w1xInsg==
-In-Reply-To: <aBR8EoYkxaFHwZN2@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 5/2/2025 1:02 AM, Ingo Molnar wrote:
+On Fri, 2 May 2025, Oleksii Kurochko wrote:
+> Move the following parts to common with the following changes:
+> - struct kernel_info:
+>   - Create arch_kernel_info for arch specific kernel information.
+>     At the moment, it contains domain_type for Arm.
+>   - Rename vpl011 to vuart to have more generic name suitable for other archs.
+>   - s/phandle_gic/phandle_intc to have more generic name suitable for other
+>     archs.
+>   - Make text_offset of zimage structure available for RISCV_64.
+> - Wrap by `#ifdef KERNEL_INFO_SHM_MEM_INIT` definition of KERNEL_SHM_MEM_INIT
+>   and wrap by `#ifndef KERNEL_INFO_INIT` definition of KERNEL_INFO_INIT to have
+>   ability to override KERNEL_INFO_SHM_MEM_INIT for arch in case it doesn't
+>   want to use generic one.
+> - Move DOM0LESS_* macros to dom0less-build.h.
+> - Move all others parts of Arm's kernel.h to xen/fdt-kernel.h.
 > 
-> * Xin Li (Intel) <xin@zytor.com> wrote:
+> Because of the changes in struct kernel_info the correspondent parts of Arm's
+> code are updated.
 > 
->> index 94408a784c8e..13335a130edf 100644
->> --- a/arch/x86/include/asm/tsc.h
->> +++ b/arch/x86/include/asm/tsc.h
->> @@ -7,7 +7,81 @@
->>   
->>   #include <asm/cpufeature.h>
->>   #include <asm/processor.h>
->> -#include <asm/msr.h>
->> +
->> +/*
->> + * both i386 and x86_64 returns 64-bit value in edx:eax, but gcc's "A"
->> + * constraint has different meanings. For i386, "A" means exactly
->> + * edx:eax, while for x86_64 it doesn't mean rdx:rax or edx:eax. Instead,
->> + * it means rax *or* rdx.
->> + */
->> +#ifdef CONFIG_X86_64
->> +/* Using 64-bit values saves one instruction clearing the high half of low */
->> +#define DECLARE_ARGS(val, low, high)	unsigned long low, high
->> +#define EAX_EDX_VAL(val, low, high)	((low) | (high) << 32)
->> +#define EAX_EDX_RET(val, low, high)	"=a" (low), "=d" (high)
->> +#else
->> +#define DECLARE_ARGS(val, low, high)	u64 val
->> +#define EAX_EDX_VAL(val, low, high)	(val)
->> +#define EAX_EDX_RET(val, low, high)	"=A" (val)
->> +#endif
+> As part of this patch the following clean up happens:
+> - Drop asm/setup.h from asm/kernel.h as nothing depends from it.
+>   Add inclusion of asm/setup.h for a code which uses device_tree_get_reg() to
+>   avoid compilation issues for CONFIG_STATIC_MEMORY and CONFIG_STATIC_SHM.
+> - Drop inclusion of asm/kernel.h everywhere except xen/fdt-kernel.h.
 > 
-> Meh, this patch creates a duplicate copy of DECLARE_ARGS() et al in
-> <asm/tsc.h> now:
-> 
->   arch/x86/include/asm/msr.h:#define DECLARE_ARGS(val, low, high) unsigned long low, high
->   arch/x86/include/asm/msr.h:#define DECLARE_ARGS(val, low, high) u64 val
->   arch/x86/include/asm/msr.h:     DECLARE_ARGS(val, low, high);
->   arch/x86/include/asm/msr.h:     DECLARE_ARGS(val, low, high);
->   arch/x86/include/asm/msr.h:     DECLARE_ARGS(val, low, high);
->   arch/x86/include/asm/tsc.h:#define DECLARE_ARGS(val, low, high) unsigned long low, high
->   arch/x86/include/asm/tsc.h:#define DECLARE_ARGS(val, low, high) u64 val
->   arch/x86/include/asm/tsc.h:     DECLARE_ARGS(val, low, high);
->   arch/x86/include/asm/tsc.h:     DECLARE_ARGS(val, low, high);
->   arch/x86/include/asm/tsc.h:#undef DECLARE_ARGS
-> 
-> Which was both an undeclared change, bloats the code, causes various
-> problems, and is totally unnecessary to boot.
-> 
-> Please don't do that ...
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Learned!
+Everything looks good except for one question below. This patch looks
+like a lot of work, thanks Oleksii!
 
-Especially that every change needs to explicitly called out.
+
+> ---
+> Changes in v3:
+>  - Only resolving of merge conflicts.
+> ---
+> Changes in v2:
+>  - Introduce xen/fdt-kernel.h.
+>  - Move DOM0LESS_* macros to dom0less-build.h.
+>  - Move the rest in asm-generic/kernel.h to xen/fdt-kernel.h.
+>  - Drop inclusion of asm/kernel.h everywhere except xen/fdt-kernel.h.
+>  - Wrap by #if __has_include(....) the member of kernel_info structure:
+>      struct arch_kernel_info arch.
+>  - Update the commit message.
+> ---
+>  xen/arch/arm/acpi/domain_build.c         |   2 +-
+>  xen/arch/arm/dom0less-build.c            |  31 +++---
+>  xen/arch/arm/domain_build.c              |  12 +-
+>  xen/arch/arm/include/asm/domain_build.h  |   2 +-
+>  xen/arch/arm/include/asm/kernel.h        | 126 +--------------------
+>  xen/arch/arm/include/asm/static-memory.h |   2 +-
+>  xen/arch/arm/include/asm/static-shmem.h  |   2 +-
+>  xen/arch/arm/kernel.c                    |  12 +-
+>  xen/arch/arm/static-memory.c             |   1 +
+>  xen/arch/arm/static-shmem.c              |   1 +
+>  xen/common/device-tree/dt-overlay.c      |   2 +-
+>  xen/include/asm-generic/dom0less-build.h |  28 +++++
+>  xen/include/xen/fdt-kernel.h             | 133 +++++++++++++++++++++++
+>  13 files changed, 199 insertions(+), 155 deletions(-)
+>  create mode 100644 xen/include/xen/fdt-kernel.h
+> 
+> diff --git a/xen/arch/arm/acpi/domain_build.c b/xen/arch/arm/acpi/domain_build.c
+> index 2ce75543d0..f9ca8b47e5 100644
+> --- a/xen/arch/arm/acpi/domain_build.c
+> +++ b/xen/arch/arm/acpi/domain_build.c
+> @@ -10,6 +10,7 @@
+>   */
+>  
+>  #include <xen/compile.h>
+> +#include <xen/fdt-kernel.h>
+>  #include <xen/mm.h>
+>  #include <xen/sched.h>
+>  #include <xen/acpi.h>
+> @@ -18,7 +19,6 @@
+>  #include <xen/device_tree.h>
+>  #include <xen/libfdt/libfdt.h>
+>  #include <acpi/actables.h>
+> -#include <asm/kernel.h>
+>  #include <asm/domain_build.h>
+>  
+>  /* Override macros from asm/page.h to make them work with mfn_t */
+> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+> index ef49495d4f..c0634dd61e 100644
+> --- a/xen/arch/arm/dom0less-build.c
+> +++ b/xen/arch/arm/dom0less-build.c
+> @@ -1,6 +1,7 @@
+>  /* SPDX-License-Identifier: GPL-2.0-only */
+>  #include <xen/device_tree.h>
+>  #include <xen/domain_page.h>
+> +#include <xen/fdt-kernel.h>
+>  #include <xen/err.h>
+>  #include <xen/event.h>
+>  #include <xen/grant_table.h>
+> @@ -64,11 +65,11 @@ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
+>      if (res)
+>          return res;
+>  
+> -    res = fdt_property_cell(fdt, "linux,phandle", kinfo->phandle_gic);
+> +    res = fdt_property_cell(fdt, "linux,phandle", kinfo->phandle_intc);
+>      if (res)
+>          return res;
+>  
+> -    res = fdt_property_cell(fdt, "phandle", kinfo->phandle_gic);
+> +    res = fdt_property_cell(fdt, "phandle", kinfo->phandle_intc);
+>      if (res)
+>          return res;
+>  
+> @@ -135,11 +136,11 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
+>      if (res)
+>          return res;
+>  
+> -    res = fdt_property_cell(fdt, "linux,phandle", kinfo->phandle_gic);
+> +    res = fdt_property_cell(fdt, "linux,phandle", kinfo->phandle_intc);
+>      if (res)
+>          return res;
+>  
+> -    res = fdt_property_cell(fdt, "phandle", kinfo->phandle_gic);
+> +    res = fdt_property_cell(fdt, "phandle", kinfo->phandle_intc);
+>      if (res)
+>          return res;
+>  
+> @@ -200,7 +201,7 @@ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
+>          return res;
+>  
+>      res = fdt_property_cell(fdt, "interrupt-parent",
+> -                            kinfo->phandle_gic);
+> +                            kinfo->phandle_intc);
+>      if ( res )
+>          return res;
+>  
+> @@ -486,10 +487,10 @@ static int __init domain_handle_dtb_bootmodule(struct domain *d,
+>           */
+>          if ( dt_node_cmp(name, "gic") == 0 )
+>          {
+> -            uint32_t phandle_gic = fdt_get_phandle(pfdt, node_next);
+> +            uint32_t phandle_intc = fdt_get_phandle(pfdt, node_next);
+>  
+> -            if ( phandle_gic != 0 )
+> -                kinfo->phandle_gic = phandle_gic;
+> +            if ( phandle_intc != 0 )
+> +                kinfo->phandle_intc = phandle_intc;
+>              continue;
+>          }
+>  
+> @@ -532,7 +533,7 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>      int addrcells, sizecells;
+>      int ret, fdt_size = DOMU_DTB_SIZE;
+>  
+> -    kinfo->phandle_gic = GUEST_PHANDLE_GIC;
+> +    kinfo->phandle_intc = GUEST_PHANDLE_GIC;
+>      kinfo->gnttab_start = GUEST_GNTTAB_BASE;
+>      kinfo->gnttab_size = GUEST_GNTTAB_SIZE;
+>  
+> @@ -594,7 +595,7 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>      /*
+>       * domain_handle_dtb_bootmodule has to be called before the rest of
+>       * the device tree is generated because it depends on the value of
+> -     * the field phandle_gic.
+> +     * the field phandle_intc.
+>       */
+>      if ( kinfo->dtb_bootmodule )
+>      {
+> @@ -611,7 +612,7 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>      if ( ret )
+>          goto err;
+>  
+> -    if ( kinfo->vpl011 )
+> +    if ( kinfo->vuart )
+>      {
+>          ret = -EINVAL;
+>  #ifdef CONFIG_SBSA_VUART_CONSOLE
+> @@ -839,8 +840,8 @@ int __init construct_domU(struct domain *d,
+>      printk("*** LOADING DOMU cpus=%u memory=%#"PRIx64"KB ***\n",
+>             d->max_vcpus, mem);
+>  
+> -    kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
+> -    if ( kinfo.vpl011 && is_hardware_domain(d) )
+> +    kinfo.vuart = dt_property_read_bool(node, "vpl011");
+> +    if ( kinfo.vuart && is_hardware_domain(d) )
+>          panic("hardware domain cannot specify vpl011\n");
+>  
+>      rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
+> @@ -872,7 +873,7 @@ int __init construct_domU(struct domain *d,
+>  
+>  #ifdef CONFIG_ARM_64
+>      /* type must be set before allocate memory */
+> -    d->arch.type = kinfo.type;
+> +    d->arch.type = kinfo.arch.type;
+>  #endif
+>      if ( is_hardware_domain(d) )
+>      {
+> @@ -898,7 +899,7 @@ int __init construct_domU(struct domain *d,
+>           * tree node in prepare_dtb_domU, so initialization on related variables
+>           * shall be done first.
+>           */
+> -        if ( kinfo.vpl011 )
+> +        if ( kinfo.vuart )
+>          {
+>              rc = domain_vpl011_init(d, NULL);
+>              if ( rc < 0 )
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 270a6b97e4..8c7a054718 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -1,6 +1,7 @@
+>  /* SPDX-License-Identifier: GPL-2.0-only */
+>  #include <xen/init.h>
+>  #include <xen/compile.h>
+> +#include <xen/fdt-kernel.h>
+>  #include <xen/lib.h>
+>  #include <xen/llc-coloring.h>
+>  #include <xen/mm.h>
+> @@ -20,7 +21,6 @@
+>  #include <xen/vmap.h>
+>  #include <xen/warning.h>
+>  #include <asm/device.h>
+> -#include <asm/kernel.h>
+>  #include <asm/setup.h>
+>  #include <asm/tee/tee.h>
+>  #include <asm/pci.h>
+> @@ -747,7 +747,7 @@ static int __init fdt_property_interrupts(const struct kernel_info *kinfo,
+>          return res;
+>  
+>      res = fdt_property_cell(kinfo->fdt, "interrupt-parent",
+> -                            kinfo->phandle_gic);
+> +                            kinfo->phandle_intc);
+>  
+>      return res;
+>  }
+> @@ -2026,7 +2026,7 @@ static int __init prepare_dtb_hwdom(struct domain *d, struct kernel_info *kinfo)
+>  
+>      ASSERT(dt_host && (dt_host->sibling == NULL));
+>  
+> -    kinfo->phandle_gic = dt_interrupt_controller->phandle;
+> +    kinfo->phandle_intc = dt_interrupt_controller->phandle;
+>      fdt = device_tree_flattened;
+>  
+>      new_size = fdt_totalsize(fdt) + DOM0_FDT_EXTRA_SIZE;
+> @@ -2196,13 +2196,13 @@ int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
+>  
+>  #ifdef CONFIG_ARM_64
+>      /* if aarch32 mode is not supported at EL1 do not allow 32-bit domain */
+> -    if ( !(cpu_has_el1_32) && kinfo->type == DOMAIN_32BIT )
+> +    if ( !(cpu_has_el1_32) && kinfo->arch.type == DOMAIN_32BIT )
+>      {
+>          printk("Platform does not support 32-bit domain\n");
+>          return -EINVAL;
+>      }
+>  
+> -    if ( is_sve_domain(d) && (kinfo->type == DOMAIN_32BIT) )
+> +    if ( is_sve_domain(d) && (kinfo->arch.type == DOMAIN_32BIT) )
+>      {
+>          printk("SVE is not available for 32-bit domain\n");
+>          return -EINVAL;
+> @@ -2318,7 +2318,7 @@ int __init construct_hwdom(struct kernel_info *kinfo,
+>  
+>  #ifdef CONFIG_ARM_64
+>      /* type must be set before allocate_memory */
+> -    d->arch.type = kinfo->type;
+> +    d->arch.type = kinfo->arch.type;
+>  #endif
+>      find_gnttab_region(d, kinfo);
+>      if ( is_domain_direct_mapped(d) )
+> diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
+> index 378c10cc98..df1c0fe301 100644
+> --- a/xen/arch/arm/include/asm/domain_build.h
+> +++ b/xen/arch/arm/include/asm/domain_build.h
+> @@ -1,8 +1,8 @@
+>  #ifndef __ASM_DOMAIN_BUILD_H__
+>  #define __ASM_DOMAIN_BUILD_H__
+>  
+> +#include <xen/fdt-kernel.h>
+>  #include <xen/sched.h>
+> -#include <asm/kernel.h>
+>  
+>  typedef __be32 gic_interrupt_t[3];
+>  typedef bool (*alloc_domheap_mem_cb)(struct domain *d, struct page_info *pg,
+> diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+> index bdc96f4c18..cfeab792c7 100644
+> --- a/xen/arch/arm/include/asm/kernel.h
+> +++ b/xen/arch/arm/include/asm/kernel.h
+> @@ -6,137 +6,15 @@
+>  #ifndef __ARCH_ARM_KERNEL_H__
+>  #define __ARCH_ARM_KERNEL_H__
+>  
+> -#include <xen/device_tree.h>
+>  #include <asm/domain.h>
+> -#include <asm/setup.h>
+>  
+> -/*
+> - * List of possible features for dom0less domUs
+> - *
+> - * DOM0LESS_ENHANCED_NO_XS:  Notify the OS it is running on top of Xen. All the
+> - *                           default features (excluding Xenstore) will be
+> - *                           available. Note that an OS *must* not rely on the
+> - *                           availability of Xen features if this is not set.
+> - * DOM0LESS_XENSTORE:        Xenstore will be enabled for the VM. The
+> - *                           xenstore page allocation is done by Xen at
+> - *                           domain creation. This feature can't be
+> - *                           enabled without the DOM0LESS_ENHANCED_NO_XS.
+> - * DOM0LESS_XS_LEGACY        Xenstore will be enabled for the VM, the
+> - *                           xenstore page allocation will happen in
+> - *                           init-dom0less. This feature can't be enabled
+> - *                           without the DOM0LESS_ENHANCED_NO_XS.
+> - * DOM0LESS_ENHANCED:        Notify the OS it is running on top of Xen. All the
+> - *                           default features (including Xenstore) will be
+> - *                           available. Note that an OS *must* not rely on the
+> - *                           availability of Xen features if this is not set.
+> - * DOM0LESS_ENHANCED_LEGACY: Same as before, but using DOM0LESS_XS_LEGACY.
+> - */
+> -#define DOM0LESS_ENHANCED_NO_XS  BIT(0, U)
+> -#define DOM0LESS_XENSTORE        BIT(1, U)
+> -#define DOM0LESS_XS_LEGACY       BIT(2, U)
+> -#define DOM0LESS_ENHANCED_LEGACY (DOM0LESS_ENHANCED_NO_XS | DOM0LESS_XS_LEGACY)
+> -#define DOM0LESS_ENHANCED        (DOM0LESS_ENHANCED_NO_XS | DOM0LESS_XENSTORE)
+> -
+> -struct kernel_info {
+> +struct arch_kernel_info
+> +{
+>  #ifdef CONFIG_ARM_64
+>      enum domain_type type;
+>  #endif
+> -
+> -    struct domain *d;
+> -
+> -    void *fdt; /* flat device tree */
+> -    paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
+> -    struct meminfo mem;
+> -#ifdef CONFIG_STATIC_SHM
+> -    struct shared_meminfo shm_mem;
+> -#endif
+> -
+> -    /* kernel entry point */
+> -    paddr_t entry;
+> -
+> -    /* grant table region */
+> -    paddr_t gnttab_start;
+> -    paddr_t gnttab_size;
+> -
+> -    /* boot blob load addresses */
+> -    const struct bootmodule *kernel_bootmodule, *initrd_bootmodule, *dtb_bootmodule;
+> -    const char* cmdline;
+> -    paddr_t dtb_paddr;
+> -    paddr_t initrd_paddr;
+> -
+> -    /* Enable pl011 emulation */
+> -    bool vpl011;
+> -
+> -    /* Enable/Disable PV drivers interfaces */
+> -    uint16_t dom0less_feature;
+> -
+> -    /* GIC phandle */
+> -    uint32_t phandle_gic;
+> -
+> -    /* loader to use for this kernel */
+> -    void (*load)(struct kernel_info *info);
+> -    /* loader specific state */
+> -    union {
+> -        struct {
+> -            paddr_t kernel_addr;
+> -            paddr_t len;
+> -#ifdef CONFIG_ARM_64
+> -            paddr_t text_offset; /* 64-bit Image only */
+> -#endif
+> -            paddr_t start; /* Must be 0 for 64-bit Image */
+> -        } zimage;
+> -    };
+>  };
+>  
+> -static inline struct membanks *kernel_info_get_mem(struct kernel_info *kinfo)
+> -{
+> -    return container_of(&kinfo->mem.common, struct membanks, common);
+> -}
+> -
+> -static inline const struct membanks *
+> -kernel_info_get_mem_const(const struct kernel_info *kinfo)
+> -{
+> -    return container_of(&kinfo->mem.common, const struct membanks, common);
+> -}
+> -
+> -#ifdef CONFIG_STATIC_SHM
+> -#define KERNEL_INFO_SHM_MEM_INIT                \
+> -    .shm_mem.common.max_banks = NR_SHMEM_BANKS, \
+> -    .shm_mem.common.type = STATIC_SHARED_MEMORY,
+
+This line type = STATIC_SHARED_MEMORY,
+
+
+> -#else
+> -#define KERNEL_INFO_SHM_MEM_INIT
+> -#endif
+> -
+> -#define KERNEL_INFO_INIT                        \
+> -{                                               \
+> -    .mem.common.max_banks = NR_MEM_BANKS,       \
+> -    .mem.common.type = MEMORY,                  \
+
+and also this line type = MEMORY,
+...
+
+
+> -    KERNEL_INFO_SHM_MEM_INIT                    \
+> -}
+> -
+> -/*
+> - * Probe the kernel to detemine its type and select a loader.
+> - *
+> - * Sets in info:
+> - *  ->type
+> - *  ->load hook, and sets loader specific variables ->zimage
+> - */
+> -int kernel_probe(struct kernel_info *info, const struct dt_device_node *domain);
+> -
+> -/*
+> - * Loads the kernel into guest RAM.
+> - *
+> - * Expects to be set in info when called:
+> - *  ->mem
+> - *  ->fdt
+> - *
+> - * Sets in info:
+> - *  ->entry
+> - *  ->dtb_paddr
+> - *  ->initrd_paddr
+> - */
+> -void kernel_load(struct kernel_info *info);
+> -
+>  #endif /* #ifdef __ARCH_ARM_KERNEL_H__ */
+>  
+>  /*
+> diff --git a/xen/arch/arm/include/asm/static-memory.h b/xen/arch/arm/include/asm/static-memory.h
+> index 804166e541..a32a3c6553 100644
+> --- a/xen/arch/arm/include/asm/static-memory.h
+> +++ b/xen/arch/arm/include/asm/static-memory.h
+> @@ -3,8 +3,8 @@
+>  #ifndef __ASM_STATIC_MEMORY_H_
+>  #define __ASM_STATIC_MEMORY_H_
+>  
+> +#include <xen/fdt-kernel.h>
+>  #include <xen/pfn.h>
+> -#include <asm/kernel.h>
+>  
+>  #ifdef CONFIG_STATIC_MEMORY
+>  
+> diff --git a/xen/arch/arm/include/asm/static-shmem.h b/xen/arch/arm/include/asm/static-shmem.h
+> index 94eaa9d500..a4f853805a 100644
+> --- a/xen/arch/arm/include/asm/static-shmem.h
+> +++ b/xen/arch/arm/include/asm/static-shmem.h
+> @@ -3,8 +3,8 @@
+>  #ifndef __ASM_STATIC_SHMEM_H_
+>  #define __ASM_STATIC_SHMEM_H_
+>  
+> +#include <xen/fdt-kernel.h>
+>  #include <xen/types.h>
+> -#include <asm/kernel.h>
+>  #include <asm/setup.h>
+>  
+>  #ifdef CONFIG_STATIC_SHM
+> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+> index 2647812e8e..f00fc388db 100644
+> --- a/xen/arch/arm/kernel.c
+> +++ b/xen/arch/arm/kernel.c
+> @@ -7,6 +7,7 @@
+>  #include <xen/byteorder.h>
+>  #include <xen/domain_page.h>
+>  #include <xen/errno.h>
+> +#include <xen/fdt-kernel.h>
+>  #include <xen/guest_access.h>
+>  #include <xen/gunzip.h>
+>  #include <xen/init.h>
+> @@ -16,6 +17,7 @@
+>  #include <xen/sched.h>
+>  #include <xen/vmap.h>
+>  
+> +#include <asm/domain_build.h>
+>  #include <asm/kernel.h>
+>  #include <asm/setup.h>
+>  
+> @@ -101,7 +103,7 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
+>      paddr_t load_addr;
+>  
+>  #ifdef CONFIG_ARM_64
+> -    if ( (info->type == DOMAIN_64BIT) && (info->zimage.start == 0) )
+> +    if ( (info->arch.type == DOMAIN_64BIT) && (info->zimage.start == 0) )
+>          return mem->bank[0].start + info->zimage.text_offset;
+>  #endif
+>  
+> @@ -371,10 +373,10 @@ static int __init kernel_uimage_probe(struct kernel_info *info,
+>      switch ( uimage.arch )
+>      {
+>      case IH_ARCH_ARM:
+> -        info->type = DOMAIN_32BIT;
+> +        info->arch.type = DOMAIN_32BIT;
+>          break;
+>      case IH_ARCH_ARM64:
+> -        info->type = DOMAIN_64BIT;
+> +        info->arch.type = DOMAIN_64BIT;
+>          break;
+>      default:
+>          printk(XENLOG_ERR "Unsupported uImage arch type %d\n", uimage.arch);
+> @@ -444,7 +446,7 @@ static int __init kernel_zimage64_probe(struct kernel_info *info,
+>  
+>      info->load = kernel_zimage_load;
+>  
+> -    info->type = DOMAIN_64BIT;
+> +    info->arch.type = DOMAIN_64BIT;
+>  
+>      return 0;
+>  }
+> @@ -496,7 +498,7 @@ static int __init kernel_zimage32_probe(struct kernel_info *info,
+>      info->load = kernel_zimage_load;
+>  
+>  #ifdef CONFIG_ARM_64
+> -    info->type = DOMAIN_32BIT;
+> +    info->arch.type = DOMAIN_32BIT;
+>  #endif
+>  
+>      return 0;
+> diff --git a/xen/arch/arm/static-memory.c b/xen/arch/arm/static-memory.c
+> index d4585c5a06..e0f76afcd8 100644
+> --- a/xen/arch/arm/static-memory.c
+> +++ b/xen/arch/arm/static-memory.c
+> @@ -2,6 +2,7 @@
+>  
+>  #include <xen/sched.h>
+>  
+> +#include <asm/setup.h>
+>  #include <asm/static-memory.h>
+>  
+>  static bool __init append_static_memory_to_bank(struct domain *d,
+> diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
+> index e8d4ca3ba3..14ae48fb1e 100644
+> --- a/xen/arch/arm/static-shmem.c
+> +++ b/xen/arch/arm/static-shmem.c
+> @@ -6,6 +6,7 @@
+>  #include <xen/sched.h>
+>  
+>  #include <asm/domain_build.h>
+> +#include <asm/setup.h>
+>  #include <asm/static-memory.h>
+>  #include <asm/static-shmem.h>
+>  
+> diff --git a/xen/common/device-tree/dt-overlay.c b/xen/common/device-tree/dt-overlay.c
+> index 97fb99eaaa..81107cb48d 100644
+> --- a/xen/common/device-tree/dt-overlay.c
+> +++ b/xen/common/device-tree/dt-overlay.c
+> @@ -6,8 +6,8 @@
+>   * Written by Vikram Garhwal <vikram.garhwal@amd.com>
+>   *
+>   */
+> -#include <asm/domain_build.h>
+>  #include <xen/dt-overlay.h>
+> +#include <xen/fdt-kernel.h>
+>  #include <xen/guest_access.h>
+>  #include <xen/iocap.h>
+>  #include <xen/libfdt/libfdt.h>
+> diff --git a/xen/include/asm-generic/dom0less-build.h b/xen/include/asm-generic/dom0less-build.h
+> index 5655571a66..f095135caa 100644
+> --- a/xen/include/asm-generic/dom0less-build.h
+> +++ b/xen/include/asm-generic/dom0less-build.h
+> @@ -16,6 +16,34 @@ struct dt_device_node;
+>  #define XENSTORE_PFN_LATE_ALLOC UINT64_MAX
+>  extern bool need_xenstore;
+>  
+> +/*
+> + * List of possible features for dom0less domUs
+> + *
+> + * DOM0LESS_ENHANCED_NO_XS:  Notify the OS it is running on top of Xen. All the
+> + *                           default features (excluding Xenstore) will be
+> + *                           available. Note that an OS *must* not rely on the
+> + *                           availability of Xen features if this is not set.
+> + * DOM0LESS_XENSTORE:        Xenstore will be enabled for the VM. The
+> + *                           xenstore page allocation is done by Xen at
+> + *                           domain creation. This feature can't be
+> + *                           enabled without the DOM0LESS_ENHANCED_NO_XS.
+> + * DOM0LESS_XS_LEGACY        Xenstore will be enabled for the VM, the
+> + *                           xenstore page allocation will happen in
+> + *                           init-dom0less. This feature can't be enabled
+> + *                           without the DOM0LESS_ENHANCED_NO_XS.
+> + * DOM0LESS_ENHANCED:        Notify the OS it is running on top of Xen. All the
+> + *                           default features (including Xenstore) will be
+> + *                           available. Note that an OS *must* not rely on the
+> + *                           availability of Xen features if this is not set.
+> + * DOM0LESS_ENHANCED_LEGACY: Same as before, but using DOM0LESS_XS_LEGACY.
+> +
+> + */
+> +#define DOM0LESS_ENHANCED_NO_XS  BIT(0, U)
+> +#define DOM0LESS_XENSTORE        BIT(1, U)
+> +#define DOM0LESS_XS_LEGACY       BIT(2, U)
+> +#define DOM0LESS_ENHANCED_LEGACY (DOM0LESS_ENHANCED_NO_XS | DOM0LESS_XS_LEGACY)
+> +#define DOM0LESS_ENHANCED        (DOM0LESS_ENHANCED_NO_XS | DOM0LESS_XENSTORE)
+> +
+>  void create_domUs(void);
+>  bool is_dom0less_mode(void);
+>  void set_xs_domain(struct domain *d);
+> diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
+> new file mode 100644
+> index 0000000000..c81e759423
+> --- /dev/null
+> +++ b/xen/include/xen/fdt-kernel.h
+> @@ -0,0 +1,133 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * For Kernel image loading.
+> + *
+> + * Copyright (C) 2011 Citrix Systems, Inc.
+> + */
+> +#ifndef __XEN_FDT_KERNEL_H__
+> +#define __XEN_FDT_KERNEL_H__
+> +
+> +#include <xen/bootfdt.h>
+> +#include <xen/device_tree.h>
+> +#include <xen/types.h>
+> +
+> +#if __has_include(<asm/kernel.h>)
+> +#   include <asm/kernel.h>
+> +#endif
+> +
+> +struct kernel_info {
+> +    struct domain *d;
+> +
+> +    void *fdt; /* flat device tree */
+> +    paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
+> +    struct meminfo mem;
+> +#ifdef CONFIG_STATIC_SHM
+> +    struct shared_meminfo shm_mem;
+> +#endif
+> +
+> +    /* kernel entry point */
+> +    paddr_t entry;
+> +
+> +    /* grant table region */
+> +    paddr_t gnttab_start;
+> +    paddr_t gnttab_size;
+> +
+> +    /* boot blob load addresses */
+> +    const struct bootmodule *kernel_bootmodule, *initrd_bootmodule, *dtb_bootmodule;
+> +    const char* cmdline;
+> +    paddr_t dtb_paddr;
+> +    paddr_t initrd_paddr;
+> +
+> +    /* Enable uart emulation */
+> +    bool vuart;
+> +
+> +    /* Enable/Disable PV drivers interfaces */
+> +    uint16_t dom0less_feature;
+> +
+> +    /* Interrupt controller phandle */
+> +    uint32_t phandle_intc;
+> +
+> +    /* loader to use for this kernel */
+> +    void (*load)(struct kernel_info *info);
+> +
+> +    /* loader specific state */
+> +    union {
+> +        struct {
+> +            paddr_t kernel_addr;
+> +            paddr_t len;
+> +#if defined(CONFIG_ARM_64) || defined(CONFIG_RISCV_64)
+> +            paddr_t text_offset; /* 64-bit Image only */
+> +#endif
+> +            paddr_t start; /* Must be 0 for 64-bit Image */
+> +        } zimage;
+> +    };
+> +
+> +#if __has_include(<asm/kernel.h>)
+> +    struct arch_kernel_info arch;
+> +#endif
+> +};
+> +
+> +static inline struct membanks *kernel_info_get_mem(struct kernel_info *kinfo)
+> +{
+> +    return container_of(&kinfo->mem.common, struct membanks, common);
+> +}
+> +
+> +static inline const struct membanks *
+> +kernel_info_get_mem_const(const struct kernel_info *kinfo)
+> +{
+> +    return container_of(&kinfo->mem.common, const struct membanks, common);
+> +}
+> +
+> +#ifndef KERNEL_INFO_SHM_MEM_INIT
+> +
+> +#ifdef CONFIG_STATIC_SHM
+> +#define KERNEL_INFO_SHM_MEM_INIT .shm_mem.common.max_banks = NR_SHMEM_BANKS,
+
+they are missing here...
+
+
+> +#else
+> +#define KERNEL_INFO_SHM_MEM_INIT
+> +#endif
+> +
+> +#endif /* KERNEL_INFO_SHM_MEM_INIT */
+> +
+> +#ifndef KERNEL_INFO_INIT
+> +
+> +#define KERNEL_INFO_INIT                        \
+> +{                                               \
+> +    .mem.common.max_banks = NR_MEM_BANKS,       \
+
+and also here.
+
+Why?
+
+
+> +    KERNEL_INFO_SHM_MEM_INIT                    \
+> +}
+> +
+> +#endif /* KERNEL_INFO_INIT */
+> +
+> +/*
+> + * Probe the kernel to detemine its type and select a loader.
+> + *
+> + * Sets in info:
+> + *  ->type
+> + *  ->load hook, and sets loader specific variables ->zimage
+> + */
+> +int kernel_probe(struct kernel_info *info, const struct dt_device_node *domain);
+> +
+> +/*
+> + * Loads the kernel into guest RAM.
+> + *
+> + * Expects to be set in info when called:
+> + *  ->mem
+> + *  ->fdt
+> + *
+> + * Sets in info:
+> + *  ->entry
+> + *  ->dtb_paddr
+> + *  ->initrd_paddr
+> + */
+> +void kernel_load(struct kernel_info *info);
+> +
+> +#endif /* __XEN_FDT_KERNEL_H__ */
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> -- 
+> 2.49.0
+> 
 
