@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F9CEAA6B74
-	for <lists+xen-devel@lfdr.de>; Fri,  2 May 2025 09:19:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.974425.1362288 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF7E9AA6B75
+	for <lists+xen-devel@lfdr.de>; Fri,  2 May 2025 09:21:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.974437.1362298 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAkg6-0005gI-Tx; Fri, 02 May 2025 07:19:22 +0000
+	id 1uAkiK-0007RP-91; Fri, 02 May 2025 07:21:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 974425.1362288; Fri, 02 May 2025 07:19:22 +0000
+Received: by outflank-mailman (output) from mailman id 974437.1362298; Fri, 02 May 2025 07:21:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAkg6-0005eW-QE; Fri, 02 May 2025 07:19:22 +0000
-Received: by outflank-mailman (input) for mailman id 974425;
- Fri, 02 May 2025 07:19:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uAkiK-0007OJ-5s; Fri, 02 May 2025 07:21:40 +0000
+Received: by outflank-mailman (input) for mailman id 974437;
+ Fri, 02 May 2025 07:21:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XN81=XS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uAkg5-0005eO-FL
- for xen-devel@lists.xenproject.org; Fri, 02 May 2025 07:19:21 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3238681-2725-11f0-9eb4-5ba50f476ded;
- Fri, 02 May 2025 09:19:20 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-ac3fcf5ab0dso267907166b.3
- for <xen-devel@lists.xenproject.org>; Fri, 02 May 2025 00:19:19 -0700 (PDT)
+ id 1uAkiI-0007OC-Lm
+ for xen-devel@lists.xenproject.org; Fri, 02 May 2025 07:21:38 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 10612ce7-2726-11f0-9ffb-bf95429c2676;
+ Fri, 02 May 2025 09:21:28 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-acb415dd8faso249884466b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 02 May 2025 00:21:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad189540ea1sm3551066b.184.2025.05.02.00.19.17
+ a640c23a62f3a-ad1895400fesm3833366b.167.2025.05.02.00.21.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 May 2025 00:19:18 -0700 (PDT)
+ Fri, 02 May 2025 00:21:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3238681-2725-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 10612ce7-2726-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1746170358; x=1746775158; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1746170488; x=1746775288; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tf5mdlGtyXkbc4vDEpyoTxqOafm62qytitptj6rk6JQ=;
-        b=AzgIuXLA5M5KjDqOlyI9NVT+VXw0c7DUcG6gZvM46fLwLiQQfK5rzUb3p1NSm/DW63
-         VmBfkoQaS87/hDeMA6y2D/5wM7VRS/DhPUGKI+/zLThG6WwPm1pvzlGkbp/sg7ffxxJY
-         9aUspuKip6lqMYAFyNTv6Qt83lqWL2LaLiox2MHLA+BlEQ55vDvDRJWXJmrde+KdluKp
-         boX9Uae72Aq2aHDvszl8vEIi1uO2V5N2ycM62xHVrleTc94tvHwgofm4P75uy7h44yOg
-         qZ21DPjhl2Vejx9IsOwrkfhxIsfTpB7UwKFLrXAUbrZwxyIA0bg4omjAf6RopiKioK6I
-         TWUw==
+        bh=8ddhgbdH7PhByfv0jkjtKTYrv55l3Yg3DVqXpazV2ss=;
+        b=A+lguSy8rU5YIs2DxNFyftxuzEEaA5ip3jfOC5+ULZC0RR7MSd37W2uL5WktW/mNwT
+         qIH6YALGJpvdMOUUWtvMrj8SarUYiqh0dZZSDJr58cqYcH23fOaBiRV2I21Yt0KdE0pK
+         ToTZYbKEEPephs0sPsUjjPeKMl85pTl5wQhPeFUdu0Gde+AiByp13hw/oNNNw0th/AH5
+         nHD4g+qGNsNR5sHCUcWb/I2OL8GTHKfyQlKvbkvIr6+JICrChUuZYvnCqSTbE1HsEdrI
+         XvhnUaFMLy6LuzWp3F6ltBueZQgDYCoRkoJgXgyCXGmh4nC0OyQgSZtwpBztg86+Gdod
+         A53Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746170358; x=1746775158;
+        d=1e100.net; s=20230601; t=1746170488; x=1746775288;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tf5mdlGtyXkbc4vDEpyoTxqOafm62qytitptj6rk6JQ=;
-        b=pwTR+KjshWREECUhZ5kfCIm+YnK/AivtwDWuRZwnfHxtIxnDDzsI1ZyyfIDFeX9nFN
-         p2APAPmTqvf5I0JgchI3bsTwVfmJhAGXq7lnVlrvq9JKHHwJnco6tGsbmf8l7RCA2eF4
-         JT/iV2dAtd5GS1dvQxw1fN9fnwkTcOhFtR/ra3mcpC0LhFXeXjY3Vsv8b2dfLihZTfPc
-         PQDvmFYx+oevjNKbqstWEVBFAzVMXQslV8PrbGoTVx3DGQX9SRg32YMVvQxO2KZbQhbL
-         aZejsVNsYvGQIRZwNRAZX/jSX49bD8FLEHlA14cqtSzb+5NR5IC512ExJicOBAfvTRWJ
-         06tQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXDMycROJNJPnA13Vh0ebFLtu/bt3smiJGpYyvWKEvD4tTNbPMi62pwiEm2259j+eulYkFYiJcphzs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx/jts/RY/xmiY/nEtOAT73jBmHfblhgZm4YTjm08Ltg2B+dbSU
-	xKmT0C9kUbwGhOdHtwma2p28eqkQQT/YoA3KSX/HkIksqzYfE0CmKNMUwlIR1Q==
-X-Gm-Gg: ASbGncu9kZU/TdSmBSZ7cmbEdzq3XW6ofZQQw/ut76DWewPQCayW5y/ny5TzVZge2FJ
-	DPC9TicLUnj3D10vlao1KOf6KCg88H+vVZrA4L+rFjgrS7YIspFfTvQJOF7MEstTDNyPuChaQNn
-	vv/JWNWEUNoRlNKdTSSAmg+SDmrCuQUs69megs/PFV28djsC5Pq7J5Mx/JLXlqNvdmWkLclVk8N
-	dE1mLidTJVD2h0g9EQfMgvXEdHSr/dgvcTPZmYfq+uzS5W85ySeEnQuU25OERbKwkQx5Fx61MZR
-	+Cflg84MWHolOYYIMohrjmA+s/ClY62YUWc2YgXGJtL53HYKHW4XXOOwD531H398cG2xktYcIPH
-	O5hY3TavlKhUiY5RJdOzq4wAN5A==
-X-Google-Smtp-Source: AGHT+IF0e6O1e4MFUzkW0vJEt/3rNkvlktx8HNISHXg7TDsdHACothWnyOfoTl4tJjGiefClG89dWA==
-X-Received: by 2002:a17:907:c28f:b0:acb:5583:6fe4 with SMTP id a640c23a62f3a-ad17ad3b23dmr183640166b.6.1746170358486;
-        Fri, 02 May 2025 00:19:18 -0700 (PDT)
-Message-ID: <773170d1-d8ba-4ba7-90b0-df0d160d8ba8@suse.com>
-Date: Fri, 2 May 2025 09:19:17 +0200
+        bh=8ddhgbdH7PhByfv0jkjtKTYrv55l3Yg3DVqXpazV2ss=;
+        b=izDkyboAKfKn2V065WfJIdpwR1rSwYQ3OD7rtrGRcLQZ1+psoNIpkTg76dkbeUjupA
+         D2dZhThT27p0/rCtHsJx4FzPt7+KXFMYrLvionAcJJlaocxyNhVjU07u4RzDHsZFRJaz
+         jfMJxqSCN5zHCXV5mn9as1FHZIHQS7xPG2EDXNLLWQXPxbnUSd4zmawQl9ffboWIBih1
+         gP8Q9i6fhslY36TyNnHo5hCrprJl0LF1on0SwgW1A/et/7Rlj+HLL8TlOr6gqucK6oFa
+         Ym5omqLfy0R5ncJrSsE5TytWkBTn4GRnk8Vcw6WZiHKTeZ1HCQw1lTvSac2LtXU42sNm
+         Oihg==
+X-Forwarded-Encrypted: i=1; AJvYcCVfkKWr1URIW7fj16jcPsS7qmnGCz3GjaaQG4ojC+JuKEZogGYkyqhg1pSyNtTh+CvO9pTrhyjRhoI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwyidkbnUrFKCLrM40mGl56VHQH2iO2imetyRl0CFJcH7wUpmht
+	yAOEzpeIMX6psPyCTwIitb/HxsrcrceZTjVL3+aYZFORsz6sZZLkVjwFHiDtlA==
+X-Gm-Gg: ASbGncsd3e4rFkbtDecuTy7qdN6CrQ0x5r2lcyhmM8RbNxqgC/3pC7JQ7JBla3gSkCX
+	4XrTj6M3prGXqL9DzNYWg0icm4Er2y4nOTiPyKFnM4NCiIGFBUu9vWPW9ClAGHAFHvK2PRpEt/G
+	K+iGrtqr3ZfZU8ozOlJvsQ1CkZBOBjfCjGvZC+82F0J9BF+usFpiKr6x8QU0bzTBcywroJBUj3Y
+	pxbD8NngBoSXvTnxN7qWrheD6k1XdiL0TQJplW68r337ZXxv0cbtEOSfDeJcGw0p9IZIRfSI5PL
+	EQmbsWST16yZP8jYn9F+ZqCxQKfmkKNtRqmKPsL61HxUa/7cO8XsxcGZws8Hdv5Ik49KGNUZa9+
+	3D+6h1YncDT+7wQql1o/bkWsJhg==
+X-Google-Smtp-Source: AGHT+IEdzG2gsLM6DuRotLnZp1m52/kvUyL/XIBdplW3NbLCs35Eo/93R1VDAmQa3sYkIYfeVDoUXA==
+X-Received: by 2002:a17:906:d551:b0:aca:e2d9:41f with SMTP id a640c23a62f3a-ad17af8326cmr146243466b.60.1746170488130;
+        Fri, 02 May 2025 00:21:28 -0700 (PDT)
+Message-ID: <29a55d44-c26e-4834-b93b-47cbd98f885e@suse.com>
+Date: Fri, 2 May 2025 09:21:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
-To: Jason Andryuk <jason.andryuk@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, agarciav@amd.com,
- xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop>
- <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com>
- <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop>
- <06b66971-d8db-456f-8e83-a20ff7df8f5e@suse.com>
- <alpine.DEB.2.22.394.2504291425320.3879245@ubuntu-linux-20-04-desktop>
- <59bfc389-66c8-4d0f-92e3-c0079a807374@suse.com>
- <aBHUJjQk248aLi68@macbook.lan>
- <alpine.DEB.2.22.394.2504301715300.3879245@ubuntu-linux-20-04-desktop>
- <3e7b4b20-0127-4db2-806d-f142547f275a@amd.com>
+Subject: Re: [PATCH v6 02/12] common/hyperlaunch: introduce the domain builder
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jason Andryuk <jason.andryuk@amd.com>, Denis Mukhin <dmukhin@ford.com>,
+ Alejandro Vallejo <agarciav@amd.com>, xen-devel@lists.xenproject.org
+References: <20250429123629.20839-1-agarciav@amd.com>
+ <20250429123629.20839-3-agarciav@amd.com>
+ <9021c878-9605-4d6e-95b8-ab97da186542@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,89 +124,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3e7b4b20-0127-4db2-806d-f142547f275a@amd.com>
+In-Reply-To: <9021c878-9605-4d6e-95b8-ab97da186542@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.05.2025 15:44, Jason Andryuk wrote:
-> On 2025-04-30 20:19, Stefano Stabellini wrote:
->> On Wed, 30 Apr 2025, Roger Pau Monné wrote:
->>> On Wed, Apr 30, 2025 at 08:27:55AM +0200, Jan Beulich wrote:
->>>> On 29.04.2025 23:52, Stefano Stabellini wrote:
->>>>> On Tue, 29 Apr 2025, Jan Beulich wrote:
->>>>>> On 28.04.2025 22:00, Stefano Stabellini wrote:
->>>>>>> On Mon, 28 Apr 2025, Jan Beulich wrote:
->>>>>>>> On 25.04.2025 22:19, Stefano Stabellini wrote:
+On 30.04.2025 20:56, Daniel P. Smith wrote:
+> On 4/29/25 08:36, Alejandro Vallejo wrote:
+>> --- a/xen/common/Makefile
+>> +++ b/xen/common/Makefile
+>> @@ -11,6 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
+>>   obj-$(CONFIG_HAS_DEVICE_TREE) += device-tree/
+>>   obj-$(CONFIG_IOREQ_SERVER) += dm.o
+>>   obj-y += domain.o
+>> +obj-$(CONFIG_DOMAIN_BUILDER) += domain-builder/
 > 
->>>>>>>>> --- a/xen/common/memory.c
->>>>>>>>> +++ b/xen/common/memory.c
->>>>>>>>> @@ -794,7 +794,7 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
->>>>>>>>>               rc = guest_physmap_add_page(d, _gfn(gpfn), mfn,
->>>>>>>>>                                           exch.out.extent_order) ?: rc;
->>>>>>>>>   
->>>>>>>>> -            if ( !paging_mode_translate(d) &&
->>>>>>>>> +            if ( (!paging_mode_translate(d) || is_hardware_domain(d)) &&
->>>>>>>>>                    __copy_mfn_to_guest_offset(exch.out.extent_start,
->>>>>>>>>                                               (i << out_chunk_order) + j,
->>>>>>>>>                                               mfn) )
->>>>>>>>
->>>>>>>> Wait, no: A PVH domain (Dom0 or not) can't very well make use of MFNs, can
->>>>>>>> it?
->>>>>>>
->>>>>>> One way or another Dom0 PVH needs to know the MFN to pass it to the
->>>>>>> co-processor.
->>>>>>
->>>>>> I see. That's pretty odd, though. I'm then further concerned of the order of
->>>>>> the chunks. At present we're rather lax, in permitting PVH and PV Dom0 the
->>>>>> same upper bound. With both CPU and I/O side translation there is, in
->>>>>> principle, no reason to permit any kind of contiguity. Of course there's a
->>>>>> performance aspect, but that hardly matters in the specific case here. Yet at
->>>>>> the same time, once we expose MFNs, contiguity will start mattering as soon
->>>>>> as any piece of memory needs to be larger than PAGE_SIZE. Which means it will
->>>>>> make tightening of the presently lax handling prone to regressions in this
->>>>>> new behavior you're introducing. What chunk size does the PSP driver require?
->>>>>
->>>>> I don't know. The memory returned by XENMEM_exchange is contiguous,
->>>>> right? Are you worried that Xen cannot allocate the requested amount of
->>>>> memory contiguously?
-> 
-> In the case I looked at, it is 8 pages.  The driver defines a ring of 32 
-> * 1k entries.  I'm not sure if there are other paths or device versions 
-> where it might differ.
+> Please don't do this, use IF_ENABLED in core.c and then hide the 
+> unnecessary units in domain-builder/Makefile as I originally had it. 
+> This allows for a much easier time incrementally converting the dom0 
+> construction path into a generalized domain construction path.
 
-As per this ...
-
->>>> That would be Dom0's problem then. But really for a translated guest the
->>>> exchanged chunks being contiguous shouldn't matter, correctness-wise. That is,
->>>> within Xen, rather than failing a request, we could choose to retry using
->>>> discontiguous chunks (contiguous only in GFN space). Such an (afaict)
->>>> otherwise correct change would break your use case, as it would invalidate the
->>>> MFN information passed back. (This fallback approach would similarly apply to
->>>> other related mem-ops. It's just that during domain creation the tool stack
->>>> has its own fallback, so it may not be of much use right now.)
->>>
->>> I think the description in the public header needs to be expanded to
->>> specify what the XENMEM_exchange does for translated guests, and
->>> clearly write down that the underlying MFNs for the exchanged region
->>> will be contiguous.  Possibly a new XENMEMF_ flag needs to be added to
->>> request contiguous physical memory for the new range.
->>>
->>> Sadly this also has the side effect of quite likely shattering
->>> superpages for dom0 EPT/NPT, which will result in decreased dom0
->>> performance.
-> 
-> Yes, this appears to happen as memory_exchange seems to always replace 
-> the pages.  I tested returning the existing MFNs if they are already 
-> contiguous since that was sufficient for this driver.  It worked, but it 
-> was messy.  A big loop to copy in the GFN array and check contiguity 
-> which duplicated much of the real loop.
-
-... there may not be a need for the output range to be contiguous? In which
-case - wouldn't a simple "give me the MFN for this GFN" hypercall do? I seem
-to vaguely recall that we even had one, long ago; it was purged because of
-it violating the "no MFNs exposed" principle (and because it not having had
-any use [anymore]). XENMEM_translate_gpfn_list looks like is what I mean;
-see commit 2d2f7977a052.
+That is, are you viewing this as a transitional thing only? If the end
+goal is to have it as Alejandro has it above, that may be acceptable
+(even if not nice).
 
 Jan
 
