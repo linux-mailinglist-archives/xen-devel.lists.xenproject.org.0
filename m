@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94B27AA7901
-	for <lists+xen-devel@lfdr.de>; Fri,  2 May 2025 20:01:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.974987.1362704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF1EAAA790B
+	for <lists+xen-devel@lfdr.de>; Fri,  2 May 2025 20:02:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.974997.1362714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAuhX-0003RM-9n; Fri, 02 May 2025 18:01:31 +0000
+	id 1uAuiT-0003xq-Hf; Fri, 02 May 2025 18:02:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 974987.1362704; Fri, 02 May 2025 18:01:31 +0000
+Received: by outflank-mailman (output) from mailman id 974997.1362714; Fri, 02 May 2025 18:02:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uAuhX-0003P0-6U; Fri, 02 May 2025 18:01:31 +0000
-Received: by outflank-mailman (input) for mailman id 974987;
- Fri, 02 May 2025 18:01:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uAuiT-0003vU-ED; Fri, 02 May 2025 18:02:29 +0000
+Received: by outflank-mailman (input) for mailman id 974997;
+ Fri, 02 May 2025 18:02:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bscI=XS=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1uAuhV-0003NZ-UL
- for xen-devel@lists.xenproject.org; Fri, 02 May 2025 18:01:29 +0000
+ id 1uAuiR-0003fw-FG
+ for xen-devel@lists.xenproject.org; Fri, 02 May 2025 18:02:27 +0000
 Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 779fda5f-277f-11f0-9eb4-5ba50f476ded;
- Fri, 02 May 2025 20:01:28 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 97b1b693-277f-11f0-9ffb-bf95429c2676;
+ Fri, 02 May 2025 20:02:22 +0200 (CEST)
 Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 542I0lLB2105252
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 542I1mpa2105495
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Fri, 2 May 2025 11:00:48 -0700
+ Fri, 2 May 2025 11:01:48 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,20 +40,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 779fda5f-277f-11f0-9eb4-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 542I0lLB2105252
+X-Inumbo-ID: 97b1b693-277f-11f0-9ffb-bf95429c2676
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 542I1mpa2105495
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1746208851;
-	bh=hT0wLy4M/v5r4X1GaFGl658jjbwFpHKBOET/YkmHGHo=;
+	s=2025042001; t=1746208911;
+	bh=YB94RPwo0LiI+lMqmkXijW8cqAbUGVDkYACiu4rhJOk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CAJaBviDhg9dcDsmvqA7VZfyDyiseEFTi17BVGAsmrhSXWlwiI3sYKkn5aE2mwhbP
-	 bgZAZCKk7pLOdVIAGKVBRNa+jDTPSLoC/S4MqW+rGSD/V4WtV8+NS0S15CsAopcW/D
-	 17kzdds9fMZzZC5qWrbmIdApNBkD8vV6qwWs5V7taNjREQAvzbGbXtMwRqqeGWDmv1
-	 xWQCz/zWDImzXOdooMewYA4YdpZtEtQmtoEmaUnapfwXICzNPcQLl4pKTBi4Mr75n/
-	 VvCXK2e99oq/VMAeMrTNHzml4+e9V0yqLoSG6KEbpqN8YhN5gnNNj/Afn1DJ5XrLTD
-	 OXrUGFJVQ0RAQ==
-Message-ID: <4b896294-66a3-4f4b-84f2-ec67dbaa9a6e@zytor.com>
-Date: Fri, 2 May 2025 11:00:47 -0700
+	b=VOCJ0eCCKEI1R2ioFr5ehcvkLYBzIHaFZ7pM8wyOLShTf+o7l9PFmGhWDbsdpLxQW
+	 rcoCbdc89fjuUFgfp7bB1gHXoCLu9YHYUOC9OAcpCU56iXWZ2OKCrPGpjrEMLxkE2d
+	 n/S+MTkFrGLR3Rf9GG0B/ASRUKucjVEKTIdvAyOPgijN7QnsACq5Y2axwtq96cdTCl
+	 5+6d46fXskfc2RwEpwu2heXdygLklUe6dzhmSFhZ15wH2HmKiCsM+42OPweeJlvkgL
+	 waa4XMFGYhcr5mQd3ciW2VlgRbYtUdo8/6h8/XYwibFp0MRNe2QxHohkamu9kpC1+h
+	 ynCS6u6OzyyAw==
+Message-ID: <3a88480e-c705-4914-ac18-9764b799a36c@zytor.com>
+Date: Fri, 2 May 2025 11:01:47 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 02/15] x86/msr: Move rdtsc{,_ordered}() to <asm/tsc.h>
@@ -77,7 +77,7 @@ Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
         haiyangz@microsoft.com, decui@microsoft.com,
         dapeng1.mi@linux.intel.com, ilpo.jarvinen@linux.intel.com
 References: <20250427092027.1598740-1-xin@zytor.com>
- <20250427092027.1598740-3-xin@zytor.com> <aBSHyo-pu7K_CfpI@gmail.com>
+ <20250427092027.1598740-3-xin@zytor.com> <aBR_1oQN-gKCREBD@gmail.com>
 Content-Language: en-US
 From: Xin Li <xin@zytor.com>
 Autocrypt: addr=xin@zytor.com; keydata=
@@ -114,43 +114,31 @@ Autocrypt: addr=xin@zytor.com; keydata=
  PYbAkjBbm+tuJ/Sm+5Yp5T/BnKz21FoCS8uvTiziHj2H7Cuekn6F8EYhegONm+RVg3vikOpn
  gao85i4HwQTK9/D1wgJIQkdwWXVMZ6q/OALaBp82vQ2U9sjTyFXgDjglgh00VRAHP7u1Rcu4
  l75w1xInsg==
-In-Reply-To: <aBSHyo-pu7K_CfpI@gmail.com>
+In-Reply-To: <aBR_1oQN-gKCREBD@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 5/2/2025 1:52 AM, Ingo Molnar wrote:
+On 5/2/2025 1:18 AM, Ingo Molnar wrote:
 > 
 > * Xin Li (Intel) <xin@zytor.com> wrote:
 > 
 >> For some reason, there are some TSC-related functions in the MSR
+>    ^^^^^^^^^^^^^^^
 >> header even though there is a tsc.h header.
->>
->> Relocate rdtsc{,_ordered}() from <asm/msr.h> to <asm/tsc.h>, and
->> subsequently remove the inclusion of <asm/msr.h> in <asm/tsc.h>.
->>
->> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
->> Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
->> Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 > 
->> --- a/arch/x86/include/asm/tsc.h
->> +++ b/arch/x86/include/asm/tsc.h
->> @@ -7,7 +7,81 @@
->>   
->>   #include <asm/cpufeature.h>
->>   #include <asm/processor.h>
->> -#include <asm/msr.h>
+> The real reason is that the rdtsc{,_ordered}() methods use the
+> EAX_EDX_*() macros to optimize their EDX/EAX assembly accessors, which
+> is why these methods were in <asm/msr.h>.
 > 
-> Note that in the tip:x86/msr commit I've applied today I've
-> intentionally delayed the removal of this header dependency, to reduce
-> the probability of breaking -next today or in the near future.
+> Your followup patch tacitly acknowledges this by silently creating
+> duplicate copies of these facilities in both headers ...
 > 
-> We can remove that now superfluous header dependency in a future patch.
+> I've cleaned it all up in tip:x86/msr via these preparatory patches:
+> 
+>    x86/msr: Improve the comments of the DECLARE_ARGS()/EAX_EDX_VAL()/EAX_EDX_RET() facility
+>    x86/msr: Rename DECLARE_ARGS() to EAX_EDX_DECLARE_ARGS
+>    x86/msr: Move the EAX_EDX_*() methods from <asm/msr.h> to <asm/asm.h>
 > 
 
-This is truly a brilliant decision!
-
-Especially regarding the issues Ilpo identified.
-
-Thanks!
-     Xin
+Brilliant!
 
