@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBA21AA95E6
-	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 16:31:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.976162.1363385 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE421AA9A4A
+	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 19:21:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.976180.1363394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBwqX-0004DM-Ov; Mon, 05 May 2025 14:31:05 +0000
+	id 1uBzTw-0006WE-22; Mon, 05 May 2025 17:19:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 976162.1363385; Mon, 05 May 2025 14:31:05 +0000
+Received: by outflank-mailman (output) from mailman id 976180.1363394; Mon, 05 May 2025 17:19:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBwqX-0004AE-Lz; Mon, 05 May 2025 14:31:05 +0000
-Received: by outflank-mailman (input) for mailman id 976162;
- Mon, 05 May 2025 14:31:04 +0000
+	id 1uBzTv-0006U4-Uj; Mon, 05 May 2025 17:19:55 +0000
+Received: by outflank-mailman (input) for mailman id 976180;
+ Mon, 05 May 2025 17:19:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=E8Me=XV=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uBwqW-0004A8-1r
- for xen-devel@lists.xenproject.org; Mon, 05 May 2025 14:31:04 +0000
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [2607:f8b0:4864:20::432])
+ <SRS0=9/1y=XV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uBzTu-0006Ty-IF
+ for xen-devel@lists.xenproject.org; Mon, 05 May 2025 17:19:54 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 91e9432e-29bd-11f0-9eb4-5ba50f476ded;
- Mon, 05 May 2025 16:31:03 +0200 (CEST)
-Received: by mail-pf1-x432.google.com with SMTP id
- d2e1a72fcca58-7398d65476eso3556958b3a.1
- for <xen-devel@lists.xenproject.org>; Mon, 05 May 2025 07:31:03 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- d2e1a72fcca58-7405902144fsm7008388b3a.100.2025.05.05.07.30.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 May 2025 07:31:01 -0700 (PDT)
+ id 26dda250-29d5-11f0-9eb4-5ba50f476ded;
+ Mon, 05 May 2025 19:19:51 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6B76E5C4624;
+ Mon,  5 May 2025 17:17:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA192C4CEE4;
+ Mon,  5 May 2025 17:19:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,95 +41,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91e9432e-29bd-11f0-9eb4-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746455461; x=1747060261; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=eMZ3ZgtWdz2WrPotARKXu8189+8YqmclI8t9PsACamo=;
-        b=FZpKPeUj/EYRSZPAOk02Ip4iNiTq1O1CLZZYOhiby1EY2sSNORhQmQNvVlnZ0QvvVL
-         pFIlN3lQMfF9XRgfrnR86QW1ivt8//WQSMBdrqm8XaSyu00vBo3n24Jhjn/AiW/Nt/1V
-         O16G/UWmPRD/KIank/68Sw6DGfXM5tLRLgw0k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746455461; x=1747060261;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eMZ3ZgtWdz2WrPotARKXu8189+8YqmclI8t9PsACamo=;
-        b=YWkkunXBuvGRArgFB9cvUvSDZbNomu7O3A+gMVU1RFG8Qfvo9cfgHzw4hrgKGkoH4P
-         mZmIKsgwT6h4O2+DvMfMwP5I1DcHoG/QmlOomNS9fx58tTPCXchWfDSemH+v2Cf7VguD
-         Glmk7uoBdJ1cNvTBitR5IXI2FXGFD0wBam5RMvmXX6EQ/6hRghLnp7NRllXG1Cm2dYvk
-         XNJL/knvRdihpKMDN2WwaW/RBKIsq0amk1+a+n4RHMJszCU3EQGduIbrXLPKtQRtyDrQ
-         WF3PTQmBuQa4WDR4NP27Ppv6zSO4UhIJHd1+FO8WkvEv6Npd5VTrKgl3XgqpoAWZH8kj
-         s96g==
-X-Forwarded-Encrypted: i=1; AJvYcCW7wsH4FiAWczO0WDwVUCY1UdTPdgGVnpYImVKrw+IWp5DqOiYXb0CS+zC3Cp1YuwjRuIlcbUvZA6g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzE11h9olTtta58OI2jtnxVbhqYIUsCeErdmbssyBCXr4onAs98
-	6bLLJC/0LazsVHgUk73VNNNXHsMcombclioFq8LD8GT73VL32DsW9PK7W0h7C2c=
-X-Gm-Gg: ASbGncvKnzRIn2VYKis8DRrXQsMWbOnIK1su3ondRNSh6QqlyhUmQ42lLjGDF928AlG
-	sAGs8YciFuj+PcEePh8EV6YOhENMxWQWImiYUFkFOliipM+wWhj5ujbSVFqsoerWlgI1vDvnYdu
-	8Zo5PDAUFaJeyqxXcuQhdL71kFMeKCt+igqJ+5harad3wKtXDNBTQvXA9q7eshjSibyCumLWA5j
-	pftgBe8gjb/TS/UVIETfpQSMDuhd63Eb5U9kKaPNe9u4w6cMoL8f3gi5ZMU5HVT+aAXQsxLZZxJ
-	Qep1oWtG0/Nih2/YbjGCRX3Z99aIams1RbcD0wylqUrDYg==
-X-Google-Smtp-Source: AGHT+IGIDRUgZ+dWKY2YUeYkt0lw9lZQGeJK+U9vLSa7M/qWQUNvqcBiyb6BRudVp6jslHjoB6lpmg==
-X-Received: by 2002:a05:6a00:2e9d:b0:734:26c6:26d3 with SMTP id d2e1a72fcca58-74049198213mr29870873b3a.5.1746455461503;
-        Mon, 05 May 2025 07:31:01 -0700 (PDT)
-Date: Mon, 5 May 2025 16:30:56 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, jason.andryuk@amd.com,
-	agarciav@amd.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
-Message-ID: <aBjLoM_ttxqftzlp@macbook.lan>
-References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop>
- <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com>
- <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop>
- <aBiVkw2SXJHxpieh@mail-itl>
+X-Inumbo-ID: 26dda250-29d5-11f0-9eb4-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1746465589;
+	bh=tKyAZaSY4McK3YCahgeUO7ZbO9yDo3+bLojf3JFda50=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=vMarw99m2Omwn8crTX3hmU1e63RRKqee5hNXLgprEh8wAdP5bm6VHyOSFH7k0jad7
+	 3UkJV+BBSeDb19hBfpUE3zvSLSnwW5ziUYzXo4/Gi58H5jmF/wdUxTyXKrS/4ZIRcS
+	 lrFaOcuQBAISPVP/Gg4sQUsC7WvmHActL918UtuV1pdZv9YQADFNYclXM7tEaNO2Jq
+	 tY4ZR+3nZVTOeKT7bsDEcI7xv2TJsmhp1ZCoZedD+Y73anvR3zg6CpCb7hNuukUp00
+	 zebecKLY3NE4zJXErJFzt+XQEgKJQ7Nhta0WQQyvYZxvCcdFpnw8x7t49x82pt9Wxt
+	 U4R/kaSpFNnkw==
+Date: Mon, 5 May 2025 10:19:46 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v3 2/8] xen/common: dom0less: make some parts of Arm's
+ CONFIG_DOM0LESS common
+In-Reply-To: <ac04dd06-1e7d-4013-8e1b-ab5f8ab39ce3@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2505051019270.3879245@ubuntu-linux-20-04-desktop>
+References: <cover.1746199009.git.oleksii.kurochko@gmail.com> <82f0c1d4fe25b4a52d76f3c8004e107b183af56c.1746199009.git.oleksii.kurochko@gmail.com> <alpine.DEB.2.22.394.2505021028020.3879245@ubuntu-linux-20-04-desktop>
+ <ac04dd06-1e7d-4013-8e1b-ab5f8ab39ce3@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aBiVkw2SXJHxpieh@mail-itl>
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, May 05, 2025 at 12:40:18PM +0200, Marek Marczykowski-Górecki wrote:
-> On Mon, Apr 28, 2025 at 01:00:01PM -0700, Stefano Stabellini wrote:
-> > On Mon, 28 Apr 2025, Jan Beulich wrote:
-> > > On 25.04.2025 22:19, Stefano Stabellini wrote:
-> > > > From: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>
-> > > > 
-> > > > Dom0 PVH might need XENMEM_exchange when passing contiguous memory
-> > > > addresses to firmware or co-processors not behind an IOMMU.
-> > > 
-> > > I definitely don't understand the firmware part: It's subject to the
-> > > same transparent P2M translations as the rest of the VM; it's just
-> > > another piece of software running there.
-> > > 
-> > > "Co-processors not behind an IOMMU" is also interesting; a more
-> > > concrete scenario might be nice, yet I realize you may be limited in
-> > > what you're allowed to say.
-> > 
-> > Sure. On AMD x86 platforms there is a co-processor called PSP running
-> > TEE firmware. The PSP is not behind an IOMMU. Dom0 needs occasionally to
-> > pass addresses to it.  See drivers/tee/amdtee/ and
-> > include/linux/psp-tee.h in Linux.
+On Mon, 5 May 2025, Oleksii Kurochko wrote:
+> On 5/2/25 7:55 PM, Stefano Stabellini wrote:
 > 
-> We had (have?) similar issue with amdgpu (for integrated graphics) - it
-> uses PSP for loading its firmware. With PV dom0 there is a workaround as
-> dom0 kinda knows MFN. I haven't tried PVH dom0 on such system yet, but I
-> expect troubles (BTW, hw1 aka zen2 gitlab runner has amdgpu, and it's
-> the one I used for debugging this issue).
+> On Fri, 2 May 2025, Oleksii Kurochko wrote:
+> Move some parts of Arm's Dom0Less code to be reused by other architectures.
+> At the moment, RISC-V is going to reuse these parts.
+> 
+> Move dom0less-build.h from the Arm-specific directory to asm-generic
+> as these header is expected to be the same across acrhictectures with
+> some updates: add the following declaration of construct_domU(),
+> and arch_create_domUs() as there are some parts which are still
+> architecture-specific.
+> 
+> Introduce HAS_DOM0LESS to provide ability to enable generic Dom0less
+> code for an architecture.
+> 
+> Relocate the CONFIG_DOM0LESS configuration to the common with adding
+> "depends on HAS_DOM0LESS" to not break builds for architectures which
+> don't support CONFIG_DOM0LESS config, especically it would be useful
+> to not provide stubs for  construct_domU(), arch_create_domUs()
+> in case of *-randconfig which may set CONFIG_DOM0LESS=y.
+> 
+> Move is_dom0less_mode() function to the common code, as it depends on
+> boot modules that are already part of the common code.
+> 
+> Move create_domUs() function to the common code with some updates:
+> - Add arch_create_domUs() to cover parsing of arch-specific features,
+>   for example, SVE (Scalar Vector Extension ) exists only in Arm.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> It was suggested to change dom0less to predefined domus or similar
+> (https://lore.kernel.org/xen-devel/cd2a3644-c9c6-4e77-9491-2988703906c0@gmail.com/T/#m1d5e81e5f1faca98a3c51efe4f35af25010edbf0):
+> 
+> I decided to go with dom0less name for now as it will require a lot of places to change,
+> including CI's test, and IMO we could do in a separate patch.
+> If it is necessry to do now, I'll be happy to do that in next version of the current
+> patch series.
+> I think it is fine to use dom0less for now, it will make the code easier
+> to review and it is not necessary to change the name at this point.
+> 
+> The patch looks good to me, except for a couple of minor suggestions I
+> have below. I could make them on commit. With those:
+> 
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> 
+> During the randconfig testing the following issue occurs:
+>   
+> common/device-tree/dom0less-build.c: In function 'create_domUs':
+> common/device-tree/dom0less-build.c:156:42: error: implicit declaration of function 'gnttab_dom0_frames'; did you mean 'gnttab_map_frame'? 
+> [-Werror=implicit-function-declaration]
+>   156 |                 d_cfg.max_grant_frames = gnttab_dom0_frames();
+>       |                                          ^~~~~~~~~~~~~~~~~~
+>       |                                          gnttab_map_frame
+> common/device-tree/dom0less-build.c:156:42: error: nested extern declaration of 'gnttab_dom0_frames' [-Werror=nested-externs]
+> 
+> I fixed that by the following #ifdef-ing:
+> ...
+>         d_cfg.max_grant_frames = -1;
+> ...
+> 
+>         if ( dt_property_read_u32(node, "capabilities", &val) )
+>         {
+> ...
+> 
+> #ifdef CONFIG_GRANT_TABLE
+>                 d_cfg.max_grant_frames = gnttab_dom0_frames();
+> #endif
+>                 d_cfg.max_evtchn_port = -1;
+>                 flags |= CDF_hardware;
+>                 iommu = true;
+>             }
+> 
+> Do you agree with such fix?
+> 
+> If the CONFIG_GRANT_TABLE=n then the init value (d_cfg.max_grant_frames = -1;) will be used.
 
-That's ugly, and problematic when used in conjunction with AMD-SEV.
-
-I wonder if Xen could emulate/mediate some parts of the PSP for dom0
-to use, while allowing Xen to be the sole owner of the device.  Having
-both Xen and dom0 use it (for different purposes) seems like asking
-for trouble.  But I also have no idea how complex the PSP interface
-is, neither whether it would be feasible to emulate the
-interfaces/registers needed for firmware loading.
-
-Regards, Roger.
+Yes, OK
 
