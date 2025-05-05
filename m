@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E503AA9B37
-	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 20:11:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.976213.1363479 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4518AA9B3A
+	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 20:11:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.976206.1363413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uC0HE-0007dT-UR; Mon, 05 May 2025 18:10:52 +0000
+	id 1uC0H6-00060T-RI; Mon, 05 May 2025 18:10:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 976213.1363479; Mon, 05 May 2025 18:10:52 +0000
+Received: by outflank-mailman (output) from mailman id 976206.1363413; Mon, 05 May 2025 18:10:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uC0HE-0007XL-OX; Mon, 05 May 2025 18:10:52 +0000
-Received: by outflank-mailman (input) for mailman id 976213;
- Mon, 05 May 2025 18:10:50 +0000
+	id 1uC0H6-0005yX-Oa; Mon, 05 May 2025 18:10:44 +0000
+Received: by outflank-mailman (input) for mailman id 976206;
+ Mon, 05 May 2025 18:10:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cdRb=XV=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uC0HC-0005wU-72
- for xen-devel@lists.xenproject.org; Mon, 05 May 2025 18:10:50 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1uC0H5-0005wU-0F
+ for xen-devel@lists.xenproject.org; Mon, 05 May 2025 18:10:43 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4141960f-29dc-11f0-9eb4-5ba50f476ded;
- Mon, 05 May 2025 20:10:41 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5f5bef591d6so9552963a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 05 May 2025 11:10:41 -0700 (PDT)
+ id 4197770e-29dc-11f0-9eb4-5ba50f476ded;
+ Mon, 05 May 2025 20:10:42 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ad1a87d93f7so306978866b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 05 May 2025 11:10:42 -0700 (PDT)
 Received: from fedora.. (user-109-243-69-225.play-internet.pl.
  [109.243.69.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad189146fcbsm530372366b.34.2025.05.05.11.10.39
+ a640c23a62f3a-ad189146fcbsm530372366b.34.2025.05.05.11.10.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Mon, 05 May 2025 11:10:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -45,41 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4141960f-29dc-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 4197770e-29dc-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20230601; t=1746468641; x=1747073441; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=KE1jKxotKKMDmhRdw2Lt1lYv08YopenK59ESAW9TYl0=;
-        b=LjVM9A3e8nUUgcsSGnLvoEzPVSRbYP6wcloXa8EqQKce74rNMWw31VEhbosDJUUGh8
-         cCCPHyIEgNQqtBvIomUnoIvYtgJ++AL2mV2W/osMATRoWaK+nfrfkhLUOqbf893gwxGk
-         ncx9ZmdRJ3r6o0cOvC64iUxnV+nL8ac+V0TkkW06T8ZGSUZqGNM9Q+7GO9FvFUQFJ8+u
-         p+lXy4mzLjlriOPek82br16sws0GRmJzTIm9rvFgv2YxV9vX/c6rWjR8sXY9Ewf9Q/2B
-         2Wr98eP9a4Q5bvOwLlZGGT5uL2Un1Gbdk7WflJkz1x+DWcVu6emKuK8IJY4m6T9ntjDK
-         DcBQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=n7TtHnmj/5FH2NS/byj2XTa9Q7kgraZ74IRrvmZxlqM=;
+        b=WkqtxcZr2Or2c8cms/0ltqyD3aGEWqQsxezEaAGfxSUEV1rzpljKa2ZPxUakuVdlKG
+         3nJPSHrDFRq6jf9BZofdGzvNPjWL+85t4QYRffNmQ3mj3xJqKzXcxipO+akjqGAjrS6d
+         jLZ7lLAt1mpka0DPIZqVpnkJSCuo6tyR151r/Anw0MU8cmTbhDRl6GN4wS4qWYujNl7x
+         VJ/EzCwZCc4eFmLY9Nuhn7zc+0oo6Dy27IZ9D7JV2df98datB5jjydh4zdb5GI/GG6JR
+         +mdJYhrnxzNByVv3UGFZ44UyUIQjTmYV+O9k4BfQ3HECHt2WWQggpcmijDiLH3bE68Hk
+         jsXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1746468641; x=1747073441;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KE1jKxotKKMDmhRdw2Lt1lYv08YopenK59ESAW9TYl0=;
-        b=XQ4kD4YYZw7+7seg+MRi9ryZVKXjXfSadaCMFawHHHwwmOvIIHD79nwpjF520hC1UM
-         IBtgm324ets3G85jmoDdkSMmJeXz3nehVHDVezqJVeY7mDB2oEAKiqX8BQIrMOOsbmrR
-         mWt/lGJoHVHSLuL6P13EBbWKFb3kwE8k0cOxthcvCklr+z5X08Oz8w1zscGXskmuUpQa
-         trpsVybD7nE497tJbgr3y/isX1LYk/LhIHYKkRXB7UAhy0N9tjdHiApCz0aqAPqIPH2j
-         MFxfYQwGnAxtgnlx2u6nt5/m0CdiYCyoWGkVIkyrNGWUIfqsVKriM6kdyNFVf5ShKFCX
-         GwxA==
-X-Gm-Message-State: AOJu0YyD4Z/6zmiBaYueh1VSUxng6xo9Ky7mlQ0VbtekPx+Cew82Vk9R
-	vdR6ykDwgnqwmFHAihkNtsuEMewDK9Ts/W72vzDlw7SFijS8Jk/BkWKU1A==
-X-Gm-Gg: ASbGncu8IgC6vAaJ6Casb6oUE4tjR8SLx4FmSSr88jNEStYgjWcaEUOATYN0q0xHhh2
-	0fMLnbqQKWqq6rRfe8oadC+S44M4wmqrYG+f3uFW3Zo7x2eLCm57ox1x3JR0Suz2frVRJivxlJG
-	W6wgPgsdgPvB6osWFeIW2it6zDJVeJoWkM/ZrqAQtMeVfLX2ppRuGV0CuP6DSQgpq4n2iWMPa63
-	ykc3aU/SfVXc2/ku2mMjkeyFG3/9SN/06aPU4Vv2txbNJtQCdToJnqT2cw/ag9dFEwtGRkEGiny
-	mqBgFbIwvZqqdZba64vvfl6Z1sEkJ4DU/bc5X6r45CacdNywYP/qd09i72+EhUCyEz0jPj5hDxA
-	vDOMSzrRInw==
-X-Google-Smtp-Source: AGHT+IGSKAvfanif6qheU3nuI1TNGHrqhgGfeaqR/oM1blP2rJpwQQWxcZh7wVPCC0fxPdovSncb7g==
-X-Received: by 2002:a17:907:3d8c:b0:acb:4f4a:cbd0 with SMTP id a640c23a62f3a-ad17b5ad337mr1255527866b.14.1746468640401;
-        Mon, 05 May 2025 11:10:40 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=n7TtHnmj/5FH2NS/byj2XTa9Q7kgraZ74IRrvmZxlqM=;
+        b=G51MrEIYV4sGpxxZdyLoD8IJM19PIDQRa/7tcSuq/l2t0PWe/tvd1wY2Ayy2oBEOEf
+         BPp7o1AS8jIGX4OhHdYtOmXpB+brvXK7WqxkKKKpTgTvQHstSK4dwwqaRvLQz2NCyuOh
+         NF8Upv/bmmiyHR0VnU4n+kHo0Nc84JODnaudfOuk1mm7NPpN6GSmuUofAVcrm36rPIeK
+         dEi9J3DwGAm8MNrFd7SiFhzaxukDaFhbqArM9nVGGCTWp6sgIUR0qNrfMwiXPAo9Sq9T
+         yjoY6VCmCSQGKo7APaSndFYe/4srXTupoXGPRL8uhFH461+v6b+8BLZYwBcJ7eBXu7PZ
+         BMcg==
+X-Gm-Message-State: AOJu0YyB+GfV4hxR02l6MXuPmQuSfn/x3FwRyOVI6h+uwOV5It5Syhg+
+	Y8aEzpCyaCCi7fwaNsqbuN7W5HrZsoJ1AK9g6Gk5tdZN6xtsCL7jsmKfcQ==
+X-Gm-Gg: ASbGncsghN7tYdiIVZiL3nFX0wkNSfYUv90E0yeSXweLwLHxdTJGSw2YSETyq6diRBp
+	kyD3XuEFl3phITRtHTW+E3UooPswakzBbO6OncIkxYEezpWR/0f8G+wxmlafozrUMAHnxGsVNhv
+	9jqJ88+TjbD/a/RVRJuMUOJ43Rij/jXdCEf5VL3wrviFIffJTbdmB4c+ROuV7H17QQEjCbx0OIx
+	hEkgKmN8jBrQFikTi2YOhFeB+JPx0QQp9gDlXx8nx//vmKALqlaBVI4I+1Uzw7xqyd6KyNUnuCX
+	Om8KLBJue5L1tWkih6KJPzgy0t3BggaxDv8UKt50bkVbUne3zNQjBtalzaHZmtC6j8PM8H+a/AH
+	E+J6VsaiNQQ==
+X-Google-Smtp-Source: AGHT+IFD2fkk0khKwFhTmebLcoTKYeyVppAqrQVO+tbjTiaBVUwoTeZYiCf+3BRsnhWQ4Ahv6bhrYQ==
+X-Received: by 2002:a17:907:7f05:b0:aca:d6f2:5d5 with SMTP id a640c23a62f3a-ad1d355c9f1mr24033866b.39.1746468641001;
+        Mon, 05 May 2025 11:10:41 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -87,134 +88,54 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v4 0/8] Move parts of Arm's Dom0less to common code
-Date: Mon,  5 May 2025 20:10:30 +0200
-Message-ID: <cover.1746468003.git.oleksii.kurochko@gmail.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v4 1/8] xen/arm: drop declaration of handle_device_interrupts()
+Date: Mon,  5 May 2025 20:10:31 +0200
+Message-ID: <f821efeef274bb0cd371c9bd06d39b9924c8d7ef.1746468003.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <cover.1746468003.git.oleksii.kurochko@gmail.com>
+References: <cover.1746468003.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some parts of Arm's Dom0less solution could be moved to common code as they are
-not truly Arm-specific.
+There is no definition of handle_device_interrupts() thereby it
+could be dropped.
 
-Most of the code is moved as is, with only minor changes introduced to provide
-abstractions that hide Arm-specific details, while maintaining functional
-equivalence with original Arm's code.
-
-There are several open questions:
-1. The u64 and u32 types are widely used in the code where device tree
-   functionality is implemented because these types are used in device tree
-   function arguments.
-   Should this be reworked to use uint32_t and uint64_t instead? If so, will it
-   also be necessary to change the type of variables passed to dt-related
-   functions, or should the argument types of device tree functions be updated
-   too? For example:
-   ```
-    u64 mem;
-    ...
-    rc = dt_property_read_u64(node, "memory", &mem);
-   ```
-   where dt_property_read_u64 is declared as:
-     bool dt_property_read_u64(... , u64 *out_value);
-2. Instead of providing init_intc_phandle() (see the patch: [1]), perhaps it
-   would be better to add a for loop in domain_handle_dtb_bootmodule()?
-   Something like:
-   ```
-    bool is_intc_phandle_inited = false;
-    for ( unsigned int i = 0; i < ARRAY_SIZE(intc_names_array); i++ )
-    {
-        if ( dt_node_cmp(name, intc_names_array[i]) == 0 )
-        {
-            uint32_t phandle_intc = fdt_get_phandle(pfdt, node_next);
-
-            if ( phandle_intc != 0 )
-                kinfo->phandle_intc = phandle_intc;
-
-            is_intc_phandle_inited = true;
-            break;
-        }
-    }
-
-    if ( is_intc_phandle_inited ) continue;
-  ```
-
-CI's test for the current patch series:
-  https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/1801183107
-
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 ---
-Changes in v4:
- - Drop item 3 from the cover letter message as it was decided to rename
-   dom0less to predefined domains separately.
- - Update the link with results of CI testing.
- - All other changes please look in the specific patch.
+Change in v4:
+ - Nothing changed. Only rebase.
 ---
-Changes in v3:
-- Rebase on top of current staging and fixing merge conflicts.
-- Ingrate changes done in the commit:
-    "xen/arm: dom0less delay xenstore initialization"
-- All other changes please look in the specific patch.
-- Update cover letter message.
+Change in v3:
+ - Update commit message
+ - Add Reviewed-by: Michal Orzel <michal.orzel@amd.com>.
 ---
-Changes in v2:
-- Update cover letter message.
-- Rebase on top of the current staging.
-- Drop patches:
-   - asm-generic: move Arm's static-memory.h to asm-generic
-   - asm-generic: move Arm's static-shmem.h to asm-generic
-  as in the nearest future there is no real users of STATIC_MEMORY and
-  STATIC_SHMEM.
-- Add new cleanup patch:
-  [PATCH v2 1/8] xen/arm: drop declaration of handle_device_interrupts()
-- All other changes are patch specific. Please check them seprately for each
-  patch
----
+ xen/arch/arm/include/asm/domain_build.h | 11 -----------
+ 1 file changed, 11 deletions(-)
 
-Oleksii Kurochko (8):
-  xen/arm: drop declaration of handle_device_interrupts()
-  xen/common: dom0less: make some parts of Arm's CONFIG_DOM0LESS common
-  asm-generic: move parts of Arm's asm/kernel.h to common code
-  arm/static-shmem.h: drop inclusion of asm/setup.h
-  asm-generic: move some parts of Arm's domain_build.h to common
-  xen/common: dom0less: introduce common kernel.c
-  xen/common: dom0less: introduce common domain-build.c
-  xen/common: dom0less: introduce common dom0less-build.c
-
- xen/arch/arm/Kconfig                      |   10 +-
- xen/arch/arm/acpi/domain_build.c          |    3 +-
- xen/arch/arm/dom0less-build.c             | 1078 ++-------------------
- xen/arch/arm/domain_build.c               |  410 +-------
- xen/arch/arm/include/asm/Makefile         |    1 +
- xen/arch/arm/include/asm/dom0less-build.h |   34 -
- xen/arch/arm/include/asm/domain_build.h   |   32 +-
- xen/arch/arm/include/asm/kernel.h         |  123 +--
- xen/arch/arm/include/asm/static-memory.h  |    2 +-
- xen/arch/arm/include/asm/static-shmem.h   |    3 +-
- xen/arch/arm/kernel.c                     |  235 +----
- xen/arch/arm/static-memory.c              |    1 +
- xen/arch/arm/static-shmem.c               |    2 +
- xen/common/Kconfig                        |   15 +
- xen/common/device-tree/Makefile           |    3 +
- xen/common/device-tree/dom0less-build.c   | 1002 +++++++++++++++++++
- xen/common/device-tree/domain-build.c     |  395 ++++++++
- xen/common/device-tree/dt-overlay.c       |    4 +-
- xen/common/device-tree/kernel.c           |  242 +++++
- xen/include/asm-generic/dom0less-build.h  |   84 ++
- xen/include/xen/fdt-domain-build.h        |   75 ++
- xen/include/xen/fdt-kernel.h              |  145 +++
- 22 files changed, 2094 insertions(+), 1805 deletions(-)
- delete mode 100644 xen/arch/arm/include/asm/dom0less-build.h
- create mode 100644 xen/common/device-tree/dom0less-build.c
- create mode 100644 xen/common/device-tree/domain-build.c
- create mode 100644 xen/common/device-tree/kernel.c
- create mode 100644 xen/include/asm-generic/dom0less-build.h
- create mode 100644 xen/include/xen/fdt-domain-build.h
- create mode 100644 xen/include/xen/fdt-kernel.h
-
+diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
+index 17619c875d..378c10cc98 100644
+--- a/xen/arch/arm/include/asm/domain_build.h
++++ b/xen/arch/arm/include/asm/domain_build.h
+@@ -28,17 +28,6 @@ void evtchn_allocate(struct domain *d);
+ 
+ unsigned int get_allocation_size(paddr_t size);
+ 
+-/*
+- * handle_device_interrupts retrieves the interrupts configuration from
+- * a device tree node and maps those interrupts to the target domain.
+- *
+- * Returns:
+- *   < 0 error
+- *   0   success
+- */
+-int handle_device_interrupts(struct domain *d, struct dt_device_node *dev,
+-                             bool need_mapping);
+-
+ /*
+  * Helper to write an interrupts with the GIC format
+  * This code is assuming the irq is an PPI.
 -- 
 2.49.0
 
