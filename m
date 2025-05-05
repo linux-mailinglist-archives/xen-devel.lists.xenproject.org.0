@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49D08AAA114
-	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 00:43:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.976502.1363644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD198AAA260
+	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 00:59:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.976515.1363653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uC4Wv-00040s-BW; Mon, 05 May 2025 22:43:21 +0000
+	id 1uC4m3-00065p-Hm; Mon, 05 May 2025 22:58:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 976502.1363644; Mon, 05 May 2025 22:43:21 +0000
+Received: by outflank-mailman (output) from mailman id 976515.1363653; Mon, 05 May 2025 22:58:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uC4Wv-0003yd-7n; Mon, 05 May 2025 22:43:21 +0000
-Received: by outflank-mailman (input) for mailman id 976502;
- Mon, 05 May 2025 22:43:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uC4m3-00063W-F4; Mon, 05 May 2025 22:58:59 +0000
+Received: by outflank-mailman (input) for mailman id 976515;
+ Mon, 05 May 2025 22:58:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mk45=XV=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1uC4Wt-0003yX-IM
- for xen-devel@lists.xenproject.org; Mon, 05 May 2025 22:43:19 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 561afd10-2a02-11f0-9eb4-5ba50f476ded;
- Tue, 06 May 2025 00:43:18 +0200 (CEST)
+ id 1uC4m1-00063O-Kr
+ for xen-devel@lists.xenproject.org; Mon, 05 May 2025 22:58:57 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 846708d0-2a04-11f0-9ffb-bf95429c2676;
+ Tue, 06 May 2025 00:58:54 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3335E49CE9;
- Mon,  5 May 2025 22:43:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7F3CC4CEF1;
- Mon,  5 May 2025 22:43:15 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id F00AD5C5B3F;
+ Mon,  5 May 2025 22:56:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02231C4CEEF;
+ Mon,  5 May 2025 22:58:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 561afd10-2a02-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 846708d0-2a04-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1746484996;
+	s=k20201202; t=1746485932;
 	bh=1rX1VygvKUtt1fWJvrpYXGnj2mNZwGwmHDPfH9Do8c8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=g5PP+AIhnTqpIR8E8rShkE+8WwTq89tcv3i6axFqB5+Kt8VXED7wpdCDhQ9VVcfnL
-	 ejmSrXXsFCgCjypYJlbY/R2QMh9zoAWbG8GGgbNAPUkmrTGssUV4sCaa2aReNrVO9G
-	 7om32qCqsbC2c5xwlLPa9iump10x6qRnKQYdh2AP0TVfeX5ijAx3lAnHqRwnciTlo2
-	 93ZdD9GA6CfuraL8WpFxZ7SzhGyuXt0xnpgGzp+ZfRm85qQCAWGnaNrikO4ZtudhYG
-	 N45G5FKuHENeKGsDs3vtteT8/XLvN5l2I2KdDWsHjboN95HzpCHaI1sD7zPVPBZ5l2
-	 Av1mf3WSQuNOg==
+	b=tQj6BFaPpV1r1sbPTgQUPG+EGnURPRbgcwNdnj/JFjuLBenw1bG+MUex0DVfuT6gO
+	 I4BVTJuCT/mK4pUMV9sVsTm274d/ewHHp5gXL5H/cWi7/beeaPzF9I2hOy1zIDitu2
+	 JnMUwJSLDAIUWsfSG6Odyc7D+ERAvusy7JKwmKTen3P9Hi3CzKQxvUjsShMkVe72Ng
+	 93P/1FXS4rR/NIVGFJLg/GZgY6LD4bGWnDfCHnUno1j2mehFyz064D6ZNB4kAtaf0Z
+	 gezh++TZiZjKfD1RO+vfB6GUb25c0jU0LDWQDb02zhub3MPGnDRC5fKRDFGmoFfvBq
+	 8J6vu1izzR5Aw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -61,16 +60,16 @@ Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
 	Sasha Levin <sashal@kernel.org>,
 	sstabellini@kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 6.12 117/486] xen: Add support for XenServer 6.1 platform device
-Date: Mon,  5 May 2025 18:33:13 -0400
-Message-Id: <20250505223922.2682012-117-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 073/294] xen: Add support for XenServer 6.1 platform device
+Date: Mon,  5 May 2025 18:52:53 -0400
+Message-Id: <20250505225634.2688578-73-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250505223922.2682012-1-sashal@kernel.org>
-References: <20250505223922.2682012-1-sashal@kernel.org>
+In-Reply-To: <20250505225634.2688578-1-sashal@kernel.org>
+References: <20250505225634.2688578-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.12.26
+X-stable-base: Linux 6.6.89
 Content-Transfer-Encoding: 8bit
 
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
