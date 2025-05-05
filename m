@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC056AA9593
-	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 16:22:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.976149.1363373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBA21AA95E6
+	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 16:31:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.976162.1363385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBwgX-0002UU-Ra; Mon, 05 May 2025 14:20:45 +0000
+	id 1uBwqX-0004DM-Ov; Mon, 05 May 2025 14:31:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 976149.1363373; Mon, 05 May 2025 14:20:45 +0000
+Received: by outflank-mailman (output) from mailman id 976162.1363385; Mon, 05 May 2025 14:31:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBwgX-0002Rw-On; Mon, 05 May 2025 14:20:45 +0000
-Received: by outflank-mailman (input) for mailman id 976149;
- Mon, 05 May 2025 14:20:44 +0000
+	id 1uBwqX-0004AE-Lz; Mon, 05 May 2025 14:31:05 +0000
+Received: by outflank-mailman (input) for mailman id 976162;
+ Mon, 05 May 2025 14:31:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=E8Me=XV=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uBwgW-0002Rp-Fy
- for xen-devel@lists.xenproject.org; Mon, 05 May 2025 14:20:44 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ id 1uBwqW-0004A8-1r
+ for xen-devel@lists.xenproject.org; Mon, 05 May 2025 14:31:04 +0000
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [2607:f8b0:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 203b4fa6-29bc-11f0-9eb4-5ba50f476ded;
- Mon, 05 May 2025 16:20:42 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-ac2902f7c2aso713001666b.1
- for <xen-devel@lists.xenproject.org>; Mon, 05 May 2025 07:20:42 -0700 (PDT)
+ id 91e9432e-29bd-11f0-9eb4-5ba50f476ded;
+ Mon, 05 May 2025 16:31:03 +0200 (CEST)
+Received: by mail-pf1-x432.google.com with SMTP id
+ d2e1a72fcca58-7398d65476eso3556958b3a.1
+ for <xen-devel@lists.xenproject.org>; Mon, 05 May 2025 07:31:03 -0700 (PDT)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-ad18950964asm503786966b.141.2025.05.05.07.20.41
+ d2e1a72fcca58-7405902144fsm7008388b3a.100.2025.05.05.07.30.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 May 2025 07:20:41 -0700 (PDT)
+ Mon, 05 May 2025 07:31:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,85 +44,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 203b4fa6-29bc-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 91e9432e-29bd-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746454841; x=1747059641; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1746455461; x=1747060261; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=Zm8qqxJidIZwUnpMvKpQaP58jct5MPcPPi8zdUSg0es=;
-        b=Xbqpv9MWvpEPAucdURm6F2fK5rirI9H7pl0pPrbMy7kpPWR5KwttAH/+OA5xNRx6r+
-         95c40v/znUnh+LvMqP2u4uwX1p5zDeFNUqnhcdXL3zFe8xxbn84PdgwX5l2OYAEdmUZp
-         Bgi4m9DzTAVOG07cxVcA9LMMI6yMpTN1ZBb2s=
+        bh=eMZ3ZgtWdz2WrPotARKXu8189+8YqmclI8t9PsACamo=;
+        b=FZpKPeUj/EYRSZPAOk02Ip4iNiTq1O1CLZZYOhiby1EY2sSNORhQmQNvVlnZ0QvvVL
+         pFIlN3lQMfF9XRgfrnR86QW1ivt8//WQSMBdrqm8XaSyu00vBo3n24Jhjn/AiW/Nt/1V
+         O16G/UWmPRD/KIank/68Sw6DGfXM5tLRLgw0k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746454841; x=1747059641;
+        d=1e100.net; s=20230601; t=1746455461; x=1747060261;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Zm8qqxJidIZwUnpMvKpQaP58jct5MPcPPi8zdUSg0es=;
-        b=k5MacOsShZjpHaJzQ5xMshxOQl2oENYGT4SaRanrRIB/vxcLHWuUc59DlRMSlZvfcg
-         br0LW4e6DjUoNNIFmW2ngXXJTtKafNsC1Cq8sPd6TCzsk4YzGcERNBsWXawDLlDEhhyt
-         CFjUosyfBD059yHVN/G7llQ4wuVt8Z8ZVCR/5Hlq5wAeOZyLB9T+0Vc7zf26P9hkM66x
-         lXDsrs3GG5nuclinDe3y7DAxc4/NAn8QeUQyKrUW9DQEuomY4JNUqCFQ4fc2vN5U5anK
-         iaOIn2aNJzCmcOe2si9l/wiBN37BruO+Tk6DWYNMsd+GMgfQU+PNeg1h/ibKskB9E674
-         HmDg==
-X-Forwarded-Encrypted: i=1; AJvYcCWZHUDOFCLdZZkCUEwLd8CbfObzLhy1Pk/HCiPfbiiisL9xvRSlS9Fc9Qfe41e3ZK5GK7qXzqsx1M4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwXOjFv2X55CUAf/L5K3xrWmXFEf2ylIUoMIieUNdRq4zF9GgNr
-	q2MsgPpk7Bv8kMcx2de1Ng8Yl5FC2WL22eS89xjTGiDKUNDc29XyES3XqzISqDlVt01St7Zqflc
-	c
-X-Gm-Gg: ASbGncvi/WilhcGjtxqAiYiEdZYbRLfzjxq6IJOJHUyaqerYS3aPg6FDS/PZup4RawO
-	ZgdYVV1NCw+dCt+T6FMl8/TM/85ZKAw9B4DFsQ3lFZhVJ1mSJI5fDzYJzbchleA0Bw6jVDqv82M
-	0l3DciMVZ/Eh/k0JgGizPpzvLvqE51lYHmz1h98s1SUkt11D9mRw89suWdc8C3c72/ykf20RBb1
-	nDoQhfGYUiHntKT1GzbxWgpApMxgC0Pdsr97RMAjXaE24r4SHZepNTVYEhjc5Ep3sUtKcyaUF2y
-	8Gj8QKNEah4ohibrfCBlINGI9rTB8c9cIRxV/RuGuBQnXA==
-X-Google-Smtp-Source: AGHT+IGKpv6NtcWRfb9+WLroopHpq71353XI9aofjNIk/4qffqQN+DPb/AvtYcd8QpPLgUaTqatH+Q==
-X-Received: by 2002:a17:907:720b:b0:ace:3a24:97d with SMTP id a640c23a62f3a-ad1a48be280mr726975366b.4.1746454841476;
-        Mon, 05 May 2025 07:20:41 -0700 (PDT)
-Date: Mon, 5 May 2025 16:20:40 +0200
+        bh=eMZ3ZgtWdz2WrPotARKXu8189+8YqmclI8t9PsACamo=;
+        b=YWkkunXBuvGRArgFB9cvUvSDZbNomu7O3A+gMVU1RFG8Qfvo9cfgHzw4hrgKGkoH4P
+         mZmIKsgwT6h4O2+DvMfMwP5I1DcHoG/QmlOomNS9fx58tTPCXchWfDSemH+v2Cf7VguD
+         Glmk7uoBdJ1cNvTBitR5IXI2FXGFD0wBam5RMvmXX6EQ/6hRghLnp7NRllXG1Cm2dYvk
+         XNJL/knvRdihpKMDN2WwaW/RBKIsq0amk1+a+n4RHMJszCU3EQGduIbrXLPKtQRtyDrQ
+         WF3PTQmBuQa4WDR4NP27Ppv6zSO4UhIJHd1+FO8WkvEv6Npd5VTrKgl3XgqpoAWZH8kj
+         s96g==
+X-Forwarded-Encrypted: i=1; AJvYcCW7wsH4FiAWczO0WDwVUCY1UdTPdgGVnpYImVKrw+IWp5DqOiYXb0CS+zC3Cp1YuwjRuIlcbUvZA6g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzE11h9olTtta58OI2jtnxVbhqYIUsCeErdmbssyBCXr4onAs98
+	6bLLJC/0LazsVHgUk73VNNNXHsMcombclioFq8LD8GT73VL32DsW9PK7W0h7C2c=
+X-Gm-Gg: ASbGncvKnzRIn2VYKis8DRrXQsMWbOnIK1su3ondRNSh6QqlyhUmQ42lLjGDF928AlG
+	sAGs8YciFuj+PcEePh8EV6YOhENMxWQWImiYUFkFOliipM+wWhj5ujbSVFqsoerWlgI1vDvnYdu
+	8Zo5PDAUFaJeyqxXcuQhdL71kFMeKCt+igqJ+5harad3wKtXDNBTQvXA9q7eshjSibyCumLWA5j
+	pftgBe8gjb/TS/UVIETfpQSMDuhd63Eb5U9kKaPNe9u4w6cMoL8f3gi5ZMU5HVT+aAXQsxLZZxJ
+	Qep1oWtG0/Nih2/YbjGCRX3Z99aIams1RbcD0wylqUrDYg==
+X-Google-Smtp-Source: AGHT+IGIDRUgZ+dWKY2YUeYkt0lw9lZQGeJK+U9vLSa7M/qWQUNvqcBiyb6BRudVp6jslHjoB6lpmg==
+X-Received: by 2002:a05:6a00:2e9d:b0:734:26c6:26d3 with SMTP id d2e1a72fcca58-74049198213mr29870873b3a.5.1746455461503;
+        Mon, 05 May 2025 07:31:01 -0700 (PDT)
+Date: Mon, 5 May 2025 16:30:56 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Demi Marie Obenour <demiobenour@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: Mapping memory into a domain
-Message-ID: <aBjJOFnO-Er7jLvA@macbook.lan>
-References: <82772686-edcd-41e4-b81c-f6b3ded30901@gmail.com>
- <fec23d81-8e31-4a95-9ec1-14148ac2098f@citrix.com>
- <be15867a-f612-4a55-9324-099cae3a1e24@gmail.com>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, jason.andryuk@amd.com,
+	agarciav@amd.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
+Message-ID: <aBjLoM_ttxqftzlp@macbook.lan>
+References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop>
+ <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com>
+ <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop>
+ <aBiVkw2SXJHxpieh@mail-itl>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <be15867a-f612-4a55-9324-099cae3a1e24@gmail.com>
+In-Reply-To: <aBiVkw2SXJHxpieh@mail-itl>
 
-On Sun, May 04, 2025 at 07:24:46PM -0400, Demi Marie Obenour wrote:
-> On 5/4/25 6:56 PM, Andrew Cooper wrote:
-> > On 04/05/2025 11:51 pm, Demi Marie Obenour wrote:
-> >> What are the appropriate Xen internal functions for:
-> >>
-> >> 1. Turning a PFN into an MFN?
-> >> 2. Mapping an MFN into a guest?
-> >> 3. Unmapping that MFN from a guest?
-> >>
-> >> The first patch I am going to send with this information is a documentation
-> >> patch so that others do not need to figure this out for themselves.
-> >> I remember being unsure even after looking through the source code, which
-> >> is why I am asking here.
+On Mon, May 05, 2025 at 12:40:18PM +0200, Marek Marczykowski-Górecki wrote:
+> On Mon, Apr 28, 2025 at 01:00:01PM -0700, Stefano Stabellini wrote:
+> > On Mon, 28 Apr 2025, Jan Beulich wrote:
+> > > On 25.04.2025 22:19, Stefano Stabellini wrote:
+> > > > From: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>
+> > > > 
+> > > > Dom0 PVH might need XENMEM_exchange when passing contiguous memory
+> > > > addresses to firmware or co-processors not behind an IOMMU.
+> > > 
+> > > I definitely don't understand the firmware part: It's subject to the
+> > > same transparent P2M translations as the rest of the VM; it's just
+> > > another piece of software running there.
+> > > 
+> > > "Co-processors not behind an IOMMU" is also interesting; a more
+> > > concrete scenario might be nice, yet I realize you may be limited in
+> > > what you're allowed to say.
 > > 
-> > See the top of xen/include/xen/mm.h which has an overview of
-> > terminology, including an explanation of why Xen doesn't know what the
-> > guest thinks of as PFN.
-> I read that and am still confused.  Are you specifically referring to PV
-> guests?  For PVH and HVM guests, Xen needs to know what the guest’s PFNs
-> are so that it can correctly set up its own page tables.
+> > Sure. On AMD x86 platforms there is a co-processor called PSP running
+> > TEE firmware. The PSP is not behind an IOMMU. Dom0 needs occasionally to
+> > pass addresses to it.  See drivers/tee/amdtee/ and
+> > include/linux/psp-tee.h in Linux.
+> 
+> We had (have?) similar issue with amdgpu (for integrated graphics) - it
+> uses PSP for loading its firmware. With PV dom0 there is a workaround as
+> dom0 kinda knows MFN. I haven't tried PVH dom0 on such system yet, but I
+> expect troubles (BTW, hw1 aka zen2 gitlab runner has amdgpu, and it's
+> the one I used for debugging this issue).
 
-The term PFN on PVH and HVM is confusing, and IMO it shouldn't be used
-in that context.  PFNs should only be used in PV domains context.
+That's ugly, and problematic when used in conjunction with AMD-SEV.
 
-I'm afraid I cannot understand the question in your last sentence.
-What's "its own page tables"?  Are you referring to the domain second
-stage translation page-tables, iow: the p2m?  Or is it something
-else?
+I wonder if Xen could emulate/mediate some parts of the PSP for dom0
+to use, while allowing Xen to be the sole owner of the device.  Having
+both Xen and dom0 use it (for different purposes) seems like asking
+for trouble.  But I also have no idea how complex the PSP interface
+is, neither whether it would be feasible to emulate the
+interfaces/registers needed for firmware loading.
 
 Regards, Roger.
 
