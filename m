@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60170AA8F68
-	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 11:23:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.975940.1363224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A745FAA9096
+	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 12:07:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.975955.1363234 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBs2g-0007QP-BB; Mon, 05 May 2025 09:23:18 +0000
+	id 1uBsir-0004Xj-ME; Mon, 05 May 2025 10:06:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 975940.1363224; Mon, 05 May 2025 09:23:18 +0000
+Received: by outflank-mailman (output) from mailman id 975955.1363234; Mon, 05 May 2025 10:06:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBs2g-0007Nd-89; Mon, 05 May 2025 09:23:18 +0000
-Received: by outflank-mailman (input) for mailman id 975940;
- Mon, 05 May 2025 09:23:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uBsir-0004V9-Fq; Mon, 05 May 2025 10:06:53 +0000
+Received: by outflank-mailman (input) for mailman id 975955;
+ Mon, 05 May 2025 10:06:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cdRb=XV=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uBs2e-0007NW-9t
- for xen-devel@lists.xenproject.org; Mon, 05 May 2025 09:23:16 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 91a637b7-2992-11f0-9eb4-5ba50f476ded;
- Mon, 05 May 2025 11:23:13 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-ace94273f0dso931734466b.3
- for <xen-devel@lists.xenproject.org>; Mon, 05 May 2025 02:23:13 -0700 (PDT)
+ id 1uBsip-0004V3-Qc
+ for xen-devel@lists.xenproject.org; Mon, 05 May 2025 10:06:52 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a86aeaab-2998-11f0-9ffb-bf95429c2676;
+ Mon, 05 May 2025 12:06:48 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-acb5ec407b1so732848866b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 05 May 2025 03:06:48 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-69-225.play-internet.pl.
  [109.243.69.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad1894c02b8sm458575266b.118.2025.05.05.02.23.11
+ a640c23a62f3a-ad189146fb4sm474942266b.10.2025.05.05.03.06.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 May 2025 02:23:12 -0700 (PDT)
+ Mon, 05 May 2025 03:06:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91a637b7-2992-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: a86aeaab-2998-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1746436993; x=1747041793; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1746439608; x=1747044408; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hyRH4wkSwVkkqxc1YM8QButqkjlGpIkyhh5Neaboy0c=;
-        b=OVmafuRyLZ4hdKlk75FSQDrwEiMYkz0nHi3n2QiXpc3cZKktG5pLbuxiiCeCJZ2nZp
-         s2jIWIEphU5tFgk1ZMlH02KWhsrH67kujH4vLdLDhAMz8cdrQEsWA52dfBVtGp7UN1LX
-         hkDEO7IkPifCIhYLrxehqQN7YnhMAokWjMjOaMMA/7X9JFTFxkWXr6ocFNFXbOF2RP7e
-         a4tONFhkBSyiWT+5venPoEdQQp4RqYt2pDK/6+O5q73ViVx+e1T3B/PMZ0gOHqGHNR+T
-         xjWJmA4AB7bbnljzkjEReSOHudi8ZhDs0L4zmR1sE+Yq8rRlNZjcXc5l1QzdvtfQStU+
-         L4rA==
+        bh=wnWbTMR6PFtZ/HWhz6xzS0TH/ykoGRXRZPYKmmnoTOI=;
+        b=JpkPs5vmIJv2gFlok8K3zD0TVmH0ugLHreN+4L2cXGCAuLt9A3dNjh/vI4bOmIBS60
+         p/GrowlNVcbfRA7CHmT92BrLjxKAbe7dpkw47N4q7AmNV3RgjUfak2oBFsNuf/FUMH7n
+         ogtgNVYB7Bv2lPK1HopfEnw0AqwwVpZyCzZ7v5hlTxgJleCtLMbgCiNoP6ee0l4ewW+B
+         gHFnGINEIyE69ISbHxO0hv28z3l+e/tUZPLr/Qogp3ZIS+/EPmg16Eba/nIRD/bF2eFt
+         pmQyuViy+ds54GrHFR7RiHE4VY6W0rS7cEd/Ya5QRW5UnFQiC8fn7D5Qkq16n5hf3/Aj
+         Y5sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746436993; x=1747041793;
+        d=1e100.net; s=20230601; t=1746439608; x=1747044408;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=hyRH4wkSwVkkqxc1YM8QButqkjlGpIkyhh5Neaboy0c=;
-        b=uVjqXwVe+uQafM+qj2/2kssSzw9jQZsF/v7vs1ZpvdnDZoP3tCxKI/TGHpsuQXlCQu
-         cHlrSna66JDcKPxGo1D08/m/VLsxtZoKsD2MzxDB8w4ntp6PQWK3dQnsGmtm2sxBw1aJ
-         h1drQqleHGPFWjwngXTu4xram9IDeQnK9tKb1TUnWfCbCPx1otxLdTdCR1Ax+d0rRk59
-         M/4xz0FzdrYEu7AULyzIv2lnohPkP7iYVpRZxpl/QQ8b+2RsrGGpfRq3sCLRy5wV2aWZ
-         y0g1qenejlFiwiwmjgm1MWcnbzciiEs0N+upArCp6iHBfQ016Au5WCPhQ2G9yg8Wejq4
-         hNPQ==
-X-Gm-Message-State: AOJu0YzyZLEijN4L1FpdZZH6spUYJRzwhtPUk5ba+m2ubDAwAOm15nOl
-	0bWuTyd5lMCkDOSGK4bkyh+Z0fFJDgBT57EmG+hmmZB20I3ViA95
-X-Gm-Gg: ASbGncs9A9+gOcXo3/Ef02mOwLPvEMomZy4zm7LqbKoIAx8oq8TTlrEQ1RDqA3aJYcM
-	mdV3NKny+j6CTRs2eL/vIS06tRNPCDjJgM1ccxDDDR5NedxXUWJkUkgSqLqVEBgrUlfQx6rSzm5
-	+ww0wXXyKTMDC0uGnor9+beWEA6gXnf4YowZBSf4KEr5thLvImoSgaQ/rGNYc6XgDPd4c0MKG5B
-	dzU08s/r6bS8Kcq7xFswgz03SH67oAidHRSEDdmAaWxCN9FCF4+LG6Pv/+AL2SnCAkOpjnd85a3
-	XOTbSJI6kHVA0wqpM9lVFXkE9Srp3N+p0rk/E+/DcqMizmM2fP8GOW0Vamw/tULVitVS3JfReQ/
-	CNmeUDCyuinsX3eyF
-X-Google-Smtp-Source: AGHT+IEEEt5ujVIKkt/LPd6tsQHkcUF59W3zqc9z12xYLKCWBHYsUQDDYdbSil2O2X1NzWUlXUoF7g==
-X-Received: by 2002:a17:906:f58e:b0:ac3:26ff:11a0 with SMTP id a640c23a62f3a-ad1a4aa5d4bmr662095866b.38.1746436992568;
-        Mon, 05 May 2025 02:23:12 -0700 (PDT)
+        bh=wnWbTMR6PFtZ/HWhz6xzS0TH/ykoGRXRZPYKmmnoTOI=;
+        b=Y4SJJH9YeC1KV/TEHzskff4eL95gg6s1ziwQnWmsoV+xR1Bdt8gbPv491Eddmcir59
+         qUf8OV9Ovc0wDJw0e4TkYbwKQjRnHeqdxaaCgwLeXYUsHTR/Bmvjv6Pnt9Bmv4VLi5gh
+         /KDBN22x2IXUDKVCN8y1HLfUV5jXrrshRAeVXJDKOKuwAq9Cnw83yEwildwS0vNPxAJB
+         M/+pKDeKnTJLfUzabmjYjcTwxW6oC22DzTzqXk+MtDVL5HTK+SklVys2j5tACjumsKXh
+         j0CRlHVRRT6OKbEj6MtC89puT1fClF0iYMWAfLCjSy7defA7xHIHUk3kTaghvqXl8Gnh
+         VnIQ==
+X-Gm-Message-State: AOJu0YzIbSYBD5P4ZDzx3hs3co+AYTTzkHvsY7aKoPZJn/ZmSWDnpqZX
+	sTIY7e+29U/5PFQ2Oje/r8noEdONH946Lad19qR+MCxgeqGH89AJ/OOsiA==
+X-Gm-Gg: ASbGncvFnIgomt/toVuE5K2kg8DYnBa6tJGL1MRsquRa1YkPvDvfRCLQmO5hmYmHSeS
+	SdnxJmGs6IpNaC18so6favKUUTQR21rbS/OnnQ7QZOHGKv/1XfheMRtDpHNhEMyE/WKlLRJMCE1
+	m/f/20BRoE3T4vqrt8V7rUt2LSvvvdyYFboTTVSl69IZ1NsahsUcnZ3jhO9MLW4uEnah00zfZnw
+	jVR/HyEd5/FuuCViL+LRyJYZBtteIKRaqGEktYChuLRRRdtSj3zDUxxa1dabk8/pI4fnYWK294d
+	Neh2HBZuqnGlUOACokszW2mumLos79hSF3tWdhUi6LyFfBl1MNAJDZ23WVN5+QrMG72uuU3y1UK
+	3Hv/gra8PSyXsMsVd
+X-Google-Smtp-Source: AGHT+IH1bl3Z5HCcH44OHj+U7z/CJBV4TnuQUNP3FTvsZTQhPCkyw4IX7xlKnsdPXXUHojQ61kzrlA==
+X-Received: by 2002:a17:907:96a2:b0:ac7:391b:e684 with SMTP id a640c23a62f3a-ad1a4b5b9abmr573296666b.58.1746439607617;
+        Mon, 05 May 2025 03:06:47 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------dc0pdxlLpld0MN514z460mo9"
-Message-ID: <9349ea00-0c22-48fe-965b-a4f709d8fb19@gmail.com>
-Date: Mon, 5 May 2025 11:23:11 +0200
+ boundary="------------c3Tx0EG8Ky8f2ynJQQQ1P3ru"
+Message-ID: <e44b9ef7-a2cb-4563-952f-07b1f6250af3@gmail.com>
+Date: Mon, 5 May 2025 12:06:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/8] xen/common: dom0less: introduce common kernel.c
+Subject: Re: [PATCH v3 7/8] xen/common: dom0less: introduce common
+ domain-build.c
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
@@ -97,816 +98,1010 @@ Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
  Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <cover.1746199009.git.oleksii.kurochko@gmail.com>
- <4f178bd0e46adf3d4c7a91d6cdd4a0910dbef490.1746199009.git.oleksii.kurochko@gmail.com>
- <alpine.DEB.2.22.394.2505021223030.3879245@ubuntu-linux-20-04-desktop>
+ <291544ec45d69a3f0ff79eb6770266a0aa04e77d.1746199009.git.oleksii.kurochko@gmail.com>
+ <alpine.DEB.2.22.394.2505021248360.3879245@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <alpine.DEB.2.22.394.2505021223030.3879245@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2505021248360.3879245@ubuntu-linux-20-04-desktop>
 
 This is a multi-part message in MIME format.
---------------dc0pdxlLpld0MN514z460mo9
+--------------c3Tx0EG8Ky8f2ynJQQQ1P3ru
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 5/2/25 9:36 PM, Stefano Stabellini wrote:
+On 5/2/25 10:02 PM, Stefano Stabellini wrote:
 > On Fri, 2 May 2025, Oleksii Kurochko wrote:
->> The following functions don't have arch specific things so it is moved to
->> common:
->> - kernel_prboe()
->> - kernel_load()
->> - output_length()
+>> Some functions of Arm's domain_build.c could be reused by dom0less or other
+>> features connected to domain construction/build.
 >>
->> Functions necessary for dom0less are only moved.
+>> The following functions are moved to common:
+>> - get_allocation_size().
+>> - allocate_domheap_memory().
+>> - guest_map_pages().
+>> - allocate_bank_memory().
+>> - add_hwdom_free_regions().
+>> - find_unallocated_memory().
+>> - allocate_memory().
+>> - dtb_load().
+>> - initrd_load().
+> The declaration of allocate_domheap_memory, allocate_bank_memory,
+> allocate_memory were moved in patch #5. Maybe their movement should be
+> in this patch?
+
+Sure, it makes sense.
+
+>
+>> Prototype of dtb_load() and initrd_load() is updated to recieve a pointer
+>> to copy_to_guest_phys() as some archs require
+>> copy_to_guest_phys_fluch_dcache().
 >>
->> The following changes are done:
->> - Swap __init and return type of kernel_decompress() function to be
->>    consistent with defintions of functions in other files. The same
->>    for output_length().
->> - Wrap by "ifdef CONFIG_ARM" the call of kernel_uimage_probe() in
->>    kernel_probe() as uImage isn't really used nowadays thereby leave
->>    kernel_uimage_probe() call here just for compatability with Arm code.
->> - Introduce kernel_zimage_probe() to cover the case that arch can have
->>    different zimage header.
->> - Add ASSERT() for kernel_load() to check that it argument isn't NULL.
->> - Make kernel_uimage_probe() non-static in Arm's code as it is used in
->>    common/kernel.c.
->>
->> Introduce CONFIG_DOMAIN_BUILD_HELPERS to not provide stubs for archs
->> which don't provide enough functionality to enable it.
->> Select CONFIG_DOMAIN_BUILD_HELPERS for CONFIG_ARM as only Arm supports
->> it, at the moment.
+>> Update arm/include/asm/Makefile to generate  domain-build.h for Arm as it is
+>> used by domain-build.c.
 >>
 >> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 >> ---
 >> Change in v3:
->>   - Empty line after license tag for newly introduced files.
+>>   - Nothing changed. Only rebase.
 >> ---
 >> Change in v2:
->>   - Drop inclusion of asm/kernel.h in kernel.c as everything necessary has
->>     been moved to xen/fdt-kernel.h.
+>>   - Use xen/fdt-domain-build.h instead of asm/domain_build.h.
 >> ---
->>   xen/arch/arm/Kconfig             |   1 +
->>   xen/arch/arm/kernel.c            | 221 +---------------------------
->>   xen/common/Kconfig               |   9 +-
->>   xen/common/device-tree/Makefile  |   1 +
->>   xen/common/device-tree/kernel.c  | 242 +++++++++++++++++++++++++++++++
->>   xen/include/asm-generic/kernel.h | 141 ++++++++++++++++++
->>   xen/include/xen/fdt-kernel.h     |  13 ++
->>   7 files changed, 412 insertions(+), 216 deletions(-)
->>   create mode 100644 xen/common/device-tree/kernel.c
->>   create mode 100644 xen/include/asm-generic/kernel.h
+>>   xen/arch/arm/domain_build.c           | 397 +------------------------
+>>   xen/common/device-tree/Makefile       |   1 +
+>>   xen/common/device-tree/domain-build.c | 404 ++++++++++++++++++++++++++
+>>   xen/include/xen/fdt-domain-build.h    |  33 ++-
+>>   4 files changed, 439 insertions(+), 396 deletions(-)
+>>   create mode 100644 xen/common/device-tree/domain-build.c
 >>
->> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
->> index d0e0a7753c..3321d89068 100644
->> --- a/xen/arch/arm/Kconfig
->> +++ b/xen/arch/arm/Kconfig
->> @@ -11,6 +11,7 @@ config ARM_64
->>   
->>   config ARM
->>   	def_bool y
->> +	select DOMAIN_BUILD_HELPERS
->>   	select FUNCTION_ALIGNMENT_4B
->>   	select GENERIC_UART_INIT
->>   	select HAS_ALTERNATIVE if HAS_VMAP
->> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
->> index 5759a3470a..1168c21e97 100644
->> --- a/xen/arch/arm/kernel.c
->> +++ b/xen/arch/arm/kernel.c
->> @@ -163,105 +163,6 @@ static void __init kernel_zimage_load(struct kernel_info *info)
->>       iounmap(kernel);
+>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>> index 9d649b06b3..df29619c40 100644
+>> --- a/xen/arch/arm/domain_build.c
+>> +++ b/xen/arch/arm/domain_build.c
+>> @@ -120,18 +120,6 @@ struct vcpu *__init alloc_dom0_vcpu0(struct domain *dom0)
+>>       return vcpu_create(dom0, 0);
 >>   }
 >>   
->> -static __init uint32_t output_length(char *image, unsigned long image_len)
+>> -unsigned int __init get_allocation_size(paddr_t size)
 >> -{
->> -    return *(uint32_t *)&image[image_len - 4];
+>> -    /*
+>> -     * get_order_from_bytes returns the order greater than or equal to
+>> -     * the given size, but we need less than or equal. Adding one to
+>> -     * the size pushes an evenly aligned size into the next order, so
+>> -     * we can then unconditionally subtract 1 from the order which is
+>> -     * returned.
+>> -     */
+>> -    return get_order_from_bytes(size + 1) - 1;
 >> -}
 >> -
->> -static __init int kernel_decompress(struct bootmodule *mod, uint32_t offset)
+>>   /*
+>>    * Insert the given pages into a memory bank, banks are ordered by address.
+>>    *
+>> @@ -418,98 +406,6 @@ static void __init allocate_memory_11(struct domain *d,
+>>       }
+>>   }
+>>   
+>> -bool __init allocate_domheap_memory(struct domain *d, paddr_t tot_size,
+>> -                                    alloc_domheap_mem_cb cb, void *extra)
 >> -{
->> -    char *output, *input;
->> -    char magic[2];
->> -    int rc;
->> -    unsigned int kernel_order_out;
->> -    paddr_t output_size;
->> -    struct page_info *pages;
->> -    mfn_t mfn;
->> -    int i;
->> -    paddr_t addr = mod->start;
->> -    paddr_t size = mod->size;
+>> -    unsigned int max_order = UINT_MAX;
 >> -
->> -    if ( size < offset )
->> -        return -EINVAL;
->> -
->> -    /*
->> -     * It might be that gzip header does not appear at the start address
->> -     * (e.g. in case of compressed uImage) so take into account offset to
->> -     * gzip header.
->> -     */
->> -    addr += offset;
->> -    size -= offset;
->> -
->> -    if ( size < 2 )
->> -        return -EINVAL;
->> -
->> -    copy_from_paddr(magic, addr, sizeof(magic));
->> -
->> -    /* only gzip is supported */
->> -    if ( !gzip_check(magic, size) )
->> -        return -EINVAL;
->> -
->> -    input = ioremap_cache(addr, size);
->> -    if ( input == NULL )
->> -        return -EFAULT;
->> -
->> -    output_size = output_length(input, size);
->> -    kernel_order_out = get_order_from_bytes(output_size);
->> -    pages = alloc_domheap_pages(NULL, kernel_order_out, 0);
->> -    if ( pages == NULL )
+>> -    while ( tot_size > 0 )
 >> -    {
->> -        iounmap(input);
->> -        return -ENOMEM;
->> -    }
->> -    mfn = page_to_mfn(pages);
->> -    output = vmap_contig(mfn, 1 << kernel_order_out);
+>> -        unsigned int order = get_allocation_size(tot_size);
+>> -        struct page_info *pg;
 >> -
->> -    rc = perform_gunzip(output, input, size);
->> -    clean_dcache_va_range(output, output_size);
->> -    iounmap(input);
->> -    vunmap(output);
+>> -        order = min(max_order, order);
 >> -
->> -    if ( rc )
->> -    {
->> -        free_domheap_pages(pages, kernel_order_out);
->> -        return rc;
+>> -        pg = alloc_domheap_pages(d, order, 0);
+>> -        if ( !pg )
+>> -        {
+>> -            /*
+>> -             * If we can't allocate one page, then it is unlikely to
+>> -             * succeed in the next iteration. So bail out.
+>> -             */
+>> -            if ( !order )
+>> -                return false;
+>> -
+>> -            /*
+>> -             * If we can't allocate memory with order, then it is
+>> -             * unlikely to succeed in the next iteration.
+>> -             * Record the order - 1 to avoid re-trying.
+>> -             */
+>> -            max_order = order - 1;
+>> -            continue;
+>> -        }
+>> -
+>> -        if ( !cb(d, pg, order, extra) )
+>> -            return false;
+>> -
+>> -        tot_size -= (1ULL << (PAGE_SHIFT + order));
 >> -    }
 >> -
->> -    mod->start = page_to_maddr(pages);
->> -    mod->size = output_size;
+>> -    return true;
+>> -}
+>> -
+>> -static bool __init guest_map_pages(struct domain *d, struct page_info *pg,
+>> -                                   unsigned int order, void *extra)
+>> -{
+>> -    gfn_t *sgfn = (gfn_t *)extra;
+>> -    int res;
+>> -
+>> -    BUG_ON(!sgfn);
+>> -    res = guest_physmap_add_page(d, *sgfn, page_to_mfn(pg), order);
+>> -    if ( res )
+>> -    {
+>> -        dprintk(XENLOG_ERR, "Failed map pages to DOMU: %d", res);
+>> -        return false;
+>> -    }
+>> -
+>> -    *sgfn = gfn_add(*sgfn, 1UL << order);
+>> -
+>> -    return true;
+>> -}
+>> -
+>> -bool __init allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
+>> -                                 paddr_t tot_size)
+>> -{
+>> -    struct membanks *mem = kernel_info_get_mem(kinfo);
+>> -    struct domain *d = kinfo->d;
+>> -    struct membank *bank;
 >> -
 >> -    /*
->> -     * Need to free pages after output_size here because they won't be
->> -     * freed by discard_initial_modules
+>> -     * allocate_bank_memory can be called with a tot_size of zero for
+>> -     * the second memory bank. It is not an error and we can safely
+>> -     * avoid creating a zero-size memory bank.
 >> -     */
->> -    i = PFN_UP(output_size);
->> -    for ( ; i < (1 << kernel_order_out); i++ )
->> -        free_domheap_page(pages + i);
+>> -    if ( tot_size == 0 )
+>> -        return true;
+>> -
+>> -    bank = &mem->bank[mem->nr_banks];
+>> -    bank->start = gfn_to_gaddr(sgfn);
+>> -    bank->size = tot_size;
 >> -
 >> -    /*
->> -     * When using static heap feature, don't give bootmodules memory back to
->> -     * the heap allocator
+>> -     * Allocate pages from the heap until tot_size is zero and map them to the
+>> -     * guest using guest_map_pages, passing the starting gfn as extra parameter
+>> -     * for the map operation.
 >> -     */
->> -    if ( using_static_heap )
+>> -    if ( !allocate_domheap_memory(d, tot_size, guest_map_pages, &sgfn) )
+>> -        return false;
+>> -
+>> -    mem->nr_banks++;
+>> -    kinfo->unassigned_mem -= bank->size;
+>> -
+>> -    return true;
+>> -}
+>> -
+>>   /*
+>>    * When PCI passthrough is available we want to keep the
+>>    * "linux,pci-domain" in sync for every host bridge.
+>> @@ -900,226 +796,6 @@ int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
+>>       return 0;
+>>   }
+>>   
+>> -static int __init add_hwdom_free_regions(unsigned long s_gfn,
+>> -                                         unsigned long e_gfn, void *data)
+>> -{
+>> -    struct membanks *free_regions = data;
+>> -    paddr_t start, size;
+>> -    paddr_t s = pfn_to_paddr(s_gfn);
+>> -    paddr_t e = pfn_to_paddr(e_gfn);
+>> -    unsigned int i, j;
+>> -
+>> -    if ( free_regions->nr_banks >= free_regions->max_banks )
 >> -        return 0;
 >> -
 >> -    /*
->> -     * When freeing the kernel, we need to pass the module start address and
->> -     * size as they were before taking an offset to gzip header into account,
->> -     * so that the entire region will be freed.
+>> -     * Both start and size of the free region should be 2MB aligned to
+>> -     * potentially allow superpage mapping.
 >> -     */
->> -    addr -= offset;
->> -    size += offset;
+>> -    start = (s + SZ_2M - 1) & ~(SZ_2M - 1);
+>> -    if ( start > e )
+>> -        return 0;
 >> -
 >> -    /*
->> -     * Free the original kernel, update the pointers to the
->> -     * decompressed kernel
+>> -     * e is actually "end-1" because it is called by rangeset functions
+>> -     * which are inclusive of the last address.
 >> -     */
->> -    fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
+>> -    e += 1;
+>> -    size = (e - start) & ~(SZ_2M - 1);
+>> -
+>> -    /* Find the insert position (descending order). */
+>> -    for ( i = 0; i < free_regions->nr_banks ; i++ )
+>> -        if ( size > free_regions->bank[i].size )
+>> -            break;
+>> -
+>> -    /* Move the other banks to make space. */
+>> -    for ( j = free_regions->nr_banks; j > i ; j-- )
+>> -    {
+>> -        free_regions->bank[j].start = free_regions->bank[j - 1].start;
+>> -        free_regions->bank[j].size = free_regions->bank[j - 1].size;
+>> -    }
+>> -
+>> -    free_regions->bank[i].start = start;
+>> -    free_regions->bank[i].size = size;
+>> -    free_regions->nr_banks++;
 >> -
 >> -    return 0;
 >> -}
 >> -
->>   /*
->>    * Uimage CPU Architecture Codes
->>    */
->> @@ -274,8 +175,8 @@ static __init int kernel_decompress(struct bootmodule *mod, uint32_t offset)
->>   /*
->>    * Check if the image is a uImage and setup kernel_info
->>    */
->> -static int __init kernel_uimage_probe(struct kernel_info *info,
->> -                                      struct bootmodule *mod)
->> +int __init kernel_uimage_probe(struct kernel_info *info,
->> +                               struct bootmodule *mod)
->>   {
->>       struct {
->>           __be32 magic;   /* Image Header Magic Number */
->> @@ -505,130 +406,20 @@ static int __init kernel_zimage32_probe(struct kernel_info *info,
->>       return 0;
->>   }
->>   
->> -int __init kernel_probe(struct kernel_info *info,
->> -                        const struct dt_device_node *domain)
->> +int __init kernel_zimage_probe(struct kernel_info *info, paddr_t addr,
->> +                               paddr_t size)
->>   {
->> -    struct bootmodule *mod = NULL;
->> -    struct bootcmdline *cmd = NULL;
->> -    struct dt_device_node *node;
->> -    u64 kernel_addr, initrd_addr, dtb_addr, size;
->>       int rc;
->>   
->> -    /*
->> -     * We need to initialize start to 0. This field may be populated during
->> -     * kernel_xxx_probe() if the image has a fixed entry point (for e.g.
->> -     * uimage.ep).
->> -     * We will use this to determine if the image has a fixed entry point or
->> -     * the load address should be used as the start address.
->> -     */
->> -    info->entry = 0;
->> -
->> -    /* domain is NULL only for the hardware domain */
->> -    if ( domain == NULL )
->> -    {
->> -        ASSERT(is_hardware_domain(info->d));
->> -
->> -        mod = boot_module_find_by_kind(BOOTMOD_KERNEL);
->> -
->> -        info->kernel_bootmodule = mod;
->> -        info->initrd_bootmodule = boot_module_find_by_kind(BOOTMOD_RAMDISK);
->> -
->> -        cmd = boot_cmdline_find_by_kind(BOOTMOD_KERNEL);
->> -        if ( cmd )
->> -            info->cmdline = &cmd->cmdline[0];
->> -    }
->> -    else
->> -    {
->> -        const char *name = NULL;
->> -
->> -        dt_for_each_child_node(domain, node)
->> -        {
->> -            if ( dt_device_is_compatible(node, "multiboot,kernel") )
->> -            {
->> -                u32 len;
->> -                const __be32 *val;
->> -
->> -                val = dt_get_property(node, "reg", &len);
->> -                dt_get_range(&val, node, &kernel_addr, &size);
->> -                mod = boot_module_find_by_addr_and_kind(
->> -                        BOOTMOD_KERNEL, kernel_addr);
->> -                info->kernel_bootmodule = mod;
->> -            }
->> -            else if ( dt_device_is_compatible(node, "multiboot,ramdisk") )
->> -            {
->> -                u32 len;
->> -                const __be32 *val;
->> -
->> -                val = dt_get_property(node, "reg", &len);
->> -                dt_get_range(&val, node, &initrd_addr, &size);
->> -                info->initrd_bootmodule = boot_module_find_by_addr_and_kind(
->> -                        BOOTMOD_RAMDISK, initrd_addr);
->> -            }
->> -            else if ( dt_device_is_compatible(node, "multiboot,device-tree") )
->> -            {
->> -                uint32_t len;
->> -                const __be32 *val;
->> -
->> -                val = dt_get_property(node, "reg", &len);
->> -                if ( val == NULL )
->> -                    continue;
->> -                dt_get_range(&val, node, &dtb_addr, &size);
->> -                info->dtb_bootmodule = boot_module_find_by_addr_and_kind(
->> -                        BOOTMOD_GUEST_DTB, dtb_addr);
->> -            }
->> -            else
->> -                continue;
->> -        }
->> -        name = dt_node_name(domain);
->> -        cmd = boot_cmdline_find_by_name(name);
->> -        if ( cmd )
->> -            info->cmdline = &cmd->cmdline[0];
->> -    }
->> -    if ( !mod || !mod->size )
->> -    {
->> -        printk(XENLOG_ERR "Missing kernel boot module?\n");
->> -        return -ENOENT;
->> -    }
->> -
->> -    printk("Loading %pd kernel from boot module @ %"PRIpaddr"\n",
->> -           info->d, info->kernel_bootmodule->start);
->> -    if ( info->initrd_bootmodule )
->> -        printk("Loading ramdisk from boot module @ %"PRIpaddr"\n",
->> -               info->initrd_bootmodule->start);
->> -
->> -    /*
->> -     * uImage header always appears at the top of the image (even compressed),
->> -     * so it needs to be probed first. Note that in case of compressed uImage,
->> -     * kernel_decompress is called from kernel_uimage_probe making the function
->> -     * self-containing (i.e. fall through only in case of a header not found).
->> -     */
->> -    rc = kernel_uimage_probe(info, mod);
->> -    if ( rc != -ENOENT )
->> -        return rc;
->> -
->> -    /*
->> -     * If it is a gzip'ed image, 32bit or 64bit, uncompress it.
->> -     * At this point, gzip header appears (if at all) at the top of the image,
->> -     * so pass 0 as an offset.
->> -     */
->> -    rc = kernel_decompress(mod, 0);
->> -    if ( rc && rc != -EINVAL )
->> -        return rc;
->> -
->>   #ifdef CONFIG_ARM_64
->> -    rc = kernel_zimage64_probe(info, mod->start, mod->size);
->> +    rc = kernel_zimage64_probe(info, addr, size);
->>       if (rc < 0)
->>   #endif
->> -        rc = kernel_zimage32_probe(info, mod->start, mod->size);
->> +        rc = kernel_zimage32_probe(info, addr, size);
->>   
->>       return rc;
->>   }
->>   
->> -void __init kernel_load(struct kernel_info *info)
+>> -/*
+>> - * Find unused regions of Host address space which can be exposed to domain
+>> - * using the host memory layout. In order to calculate regions we exclude every
+>> - * region passed in mem_banks from the Host RAM.
+>> - */
+>> -static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+>> -                                          const struct membanks *mem_banks[],
+>> -                                          unsigned int nr_mem_banks,
+>> -                                          struct membanks *free_regions,
+>> -                                          int (*cb)(unsigned long s_gfn,
+>> -                                                    unsigned long e_gfn,
+>> -                                                    void *data))
 >> -{
->> -    info->load(info);
+>> -    const struct membanks *mem = bootinfo_get_mem();
+>> -    struct rangeset *unalloc_mem;
+>> -    paddr_t start, end;
+>> -    unsigned int i, j;
+>> -    int res;
+>> -
+>> -    ASSERT(domain_use_host_layout(kinfo->d));
+>> -
+>> -    unalloc_mem = rangeset_new(NULL, NULL, 0);
+>> -    if ( !unalloc_mem )
+>> -        return -ENOMEM;
+>> -
+>> -    /* Start with all available RAM */
+>> -    for ( i = 0; i < mem->nr_banks; i++ )
+>> -    {
+>> -        start = mem->bank[i].start;
+>> -        end = mem->bank[i].start + mem->bank[i].size;
+>> -        res = rangeset_add_range(unalloc_mem, PFN_DOWN(start),
+>> -                                 PFN_DOWN(end - 1));
+>> -        if ( res )
+>> -        {
+>> -            printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
+>> -                   start, end);
+>> -            goto out;
+>> -        }
+>> -    }
+>> -
+>> -    /* Remove all regions listed in mem_banks */
+>> -    for ( i = 0; i < nr_mem_banks; i++ )
+>> -        for ( j = 0; j < mem_banks[i]->nr_banks; j++ )
+>> -        {
+>> -            start = mem_banks[i]->bank[j].start;
+>> -
+>> -            /* Shared memory banks can contain INVALID_PADDR as start */
+>> -            if ( INVALID_PADDR == start )
+>> -                continue;
+>> -
+>> -            end = mem_banks[i]->bank[j].start + mem_banks[i]->bank[j].size;
+>> -            res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
+>> -                                        PFN_DOWN(end - 1));
+>> -            if ( res )
+>> -            {
+>> -                printk(XENLOG_ERR
+>> -                       "Failed to add: %#"PRIpaddr"->%#"PRIpaddr", error %d\n",
+>> -                       start, end, res);
+>> -                goto out;
+>> -            }
+>> -        }
+>> -
+>> -    start = 0;
+>> -    end = (1ULL << p2m_ipa_bits) - 1;
+>> -    res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
+>> -                                 cb, free_regions);
+>> -    if ( res )
+>> -        free_regions->nr_banks = 0;
+>> -    else if ( !free_regions->nr_banks )
+>> -        res = -ENOENT;
+>> -
+>> -out:
+>> -    rangeset_destroy(unalloc_mem);
+>> -
+>> -    return res;
+>> -}
+>> -
+>> -void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
+>> -{
+>> -    struct membanks *mem = kernel_info_get_mem(kinfo);
+>> -    unsigned int i, nr_banks = GUEST_RAM_BANKS;
+>> -    struct membanks *hwdom_free_mem = NULL;
+>> -
+>> -    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd:\n",
+>> -           /* Don't want format this as PRIpaddr (16 digit hex) */
+>> -           (unsigned long)(kinfo->unassigned_mem >> 20), d);
+>> -
+>> -    mem->nr_banks = 0;
+>> -    /*
+>> -     * Use host memory layout for hwdom. Only case for this is when LLC coloring
+>> -     * is enabled.
+>> -     */
+>> -    if ( is_hardware_domain(d) )
+>> -    {
+>> -        struct membanks *gnttab = membanks_xzalloc(1, MEMORY);
+>> -        /*
+>> -         * Exclude the following regions:
+>> -         * 1) Remove reserved memory
+>> -         * 2) Grant table assigned to hwdom
+>> -         */
+>> -        const struct membanks *mem_banks[] = {
+>> -            bootinfo_get_reserved_mem(),
+>> -            gnttab,
+>> -        };
+>> -
+>> -        if ( !gnttab )
+>> -            goto fail;
+>> -
+>> -        gnttab->nr_banks = 1;
+>> -        gnttab->bank[0].start = kinfo->gnttab_start;
+>> -        gnttab->bank[0].size = kinfo->gnttab_size;
+>> -
+>> -        hwdom_free_mem = membanks_xzalloc(NR_MEM_BANKS, MEMORY);
+>> -        if ( !hwdom_free_mem )
+>> -            goto fail;
+>> -
+>> -        if ( find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_banks),
+>> -                                     hwdom_free_mem, add_hwdom_free_regions) )
+>> -            goto fail;
+>> -
+>> -        nr_banks = hwdom_free_mem->nr_banks;
+>> -        xfree(gnttab);
+>> -    }
+>> -
+>> -    for ( i = 0; kinfo->unassigned_mem > 0 && nr_banks > 0; i++, nr_banks-- )
+>> -    {
+>> -        paddr_t bank_start, bank_size;
+>> -
+>> -        if ( is_hardware_domain(d) )
+>> -        {
+>> -            bank_start = hwdom_free_mem->bank[i].start;
+>> -            bank_size = hwdom_free_mem->bank[i].size;
+>> -        }
+>> -        else
+>> -        {
+>> -            const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
+>> -            const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
+>> -
+>> -            if ( i >= GUEST_RAM_BANKS )
+>> -                goto fail;
+>> -
+>> -            bank_start = bankbase[i];
+>> -            bank_size = banksize[i];
+>> -        }
+>> -
+>> -        bank_size = MIN(bank_size, kinfo->unassigned_mem);
+>> -        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), bank_size) )
+>> -            goto fail;
+>> -    }
+>> -
+>> -    if ( kinfo->unassigned_mem )
+>> -        goto fail;
+>> -
+>> -    for( i = 0; i < mem->nr_banks; i++ )
+>> -    {
+>> -        printk(XENLOG_INFO "%pd BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%ldMB)\n",
+>> -               d,
+>> -               i,
+>> -               mem->bank[i].start,
+>> -               mem->bank[i].start + mem->bank[i].size,
+>> -               /* Don't want format this as PRIpaddr (16 digit hex) */
+>> -               (unsigned long)(mem->bank[i].size >> 20));
+>> -    }
+>> -
+>> -    xfree(hwdom_free_mem);
+>> -    return;
+>> -
+>> -  fail:
+>> -    panic("Failed to allocate requested domain memory."
+>> -          /* Don't want format this as PRIpaddr (16 digit hex) */
+>> -          " %ldKB unallocated. Fix the VMs configurations.\n",
+>> -          (unsigned long)kinfo->unassigned_mem >> 10);
+>> -}
+>> -
+>>   static int __init handle_pci_range(const struct dt_device_node *dev,
+>>                                      uint64_t addr, uint64_t len, void *data)
+>>   {
+>> @@ -2059,75 +1735,6 @@ static int __init prepare_dtb_hwdom(struct domain *d, struct kernel_info *kinfo)
+>>       return -EINVAL;
+>>   }
+>>   
+>> -static void __init dtb_load(struct kernel_info *kinfo)
+>> -{
+>> -    unsigned long left;
+>> -
+>> -    printk("Loading %pd DTB to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
+>> -           kinfo->d, kinfo->dtb_paddr,
+>> -           kinfo->dtb_paddr + fdt_totalsize(kinfo->fdt));
+>> -
+>> -    left = copy_to_guest_phys_flush_dcache(kinfo->d, kinfo->dtb_paddr,
+>> -                                           kinfo->fdt,
+>> -                                           fdt_totalsize(kinfo->fdt));
+>> -
+>> -    if ( left != 0 )
+>> -        panic("Unable to copy the DTB to %pd memory (left = %lu bytes)\n",
+>> -              kinfo->d, left);
+>> -    xfree(kinfo->fdt);
+>> -}
+>> -
+>> -static void __init initrd_load(struct kernel_info *kinfo)
+>> -{
+>> -    const struct bootmodule *mod = kinfo->initrd_bootmodule;
+>> -    paddr_t load_addr = kinfo->initrd_paddr;
+>> -    paddr_t paddr, len;
+>> -    int node;
+>> -    int res;
+>> -    __be32 val[2];
+>> -    __be32 *cellp;
+>> -    void __iomem *initrd;
+>> -
+>> -    if ( !mod || !mod->size )
+>> -        return;
+>> -
+>> -    paddr = mod->start;
+>> -    len = mod->size;
+>> -
+>> -    printk("Loading %pd initrd from %"PRIpaddr" to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
+>> -           kinfo->d, paddr, load_addr, load_addr + len);
+>> -
+>> -    /* Fix up linux,initrd-start and linux,initrd-end in /chosen */
+>> -    node = fdt_path_offset(kinfo->fdt, "/chosen");
+>> -    if ( node < 0 )
+>> -        panic("Cannot find the /chosen node\n");
+>> -
+>> -    cellp = (__be32 *)val;
+>> -    dt_set_cell(&cellp, ARRAY_SIZE(val), load_addr);
+>> -    res = fdt_setprop_inplace(kinfo->fdt, node, "linux,initrd-start",
+>> -                              val, sizeof(val));
+>> -    if ( res )
+>> -        panic("Cannot fix up \"linux,initrd-start\" property\n");
+>> -
+>> -    cellp = (__be32 *)val;
+>> -    dt_set_cell(&cellp, ARRAY_SIZE(val), load_addr + len);
+>> -    res = fdt_setprop_inplace(kinfo->fdt, node, "linux,initrd-end",
+>> -                              val, sizeof(val));
+>> -    if ( res )
+>> -        panic("Cannot fix up \"linux,initrd-end\" property\n");
+>> -
+>> -    initrd = ioremap_wc(paddr, len);
+>> -    if ( !initrd )
+>> -        panic("Unable to map the %pd initrd\n", kinfo->d);
+>> -
+>> -    res = copy_to_guest_phys_flush_dcache(kinfo->d, load_addr,
+>> -                                          initrd, len);
+>> -    if ( res != 0 )
+>> -        panic("Unable to copy the initrd in the %pd memory\n", kinfo->d);
+>> -
+>> -    iounmap(initrd);
 >> -}
 >> -
 >>   /*
->>    * Local variables:
->>    * mode: C
->> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
->> index be38abf9e1..38981f1d11 100644
->> --- a/xen/common/Kconfig
->> +++ b/xen/common/Kconfig
->> @@ -14,13 +14,20 @@ config CORE_PARKING
+>>    * Allocate the event channel PPIs and setup the HVM_PARAM_CALLBACK_IRQ.
+>>    * The allocated IRQ will be found in d->arch.evtchn_irq.
+>> @@ -2220,8 +1827,8 @@ int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
+>>        */
+>>       kernel_load(kinfo);
+>>       /* initrd_load will fix up the fdt, so call it before dtb_load */
+>> -    initrd_load(kinfo);
+>> -    dtb_load(kinfo);
+>> +    initrd_load(kinfo, copy_to_guest_phys_flush_dcache);
+>> +    dtb_load(kinfo, copy_to_guest_phys_flush_dcache);
 >>   
->>   config DOM0LESS_BOOT
->>   	bool "Dom0less boot support" if EXPERT
->> -	depends on HAS_DOM0LESS
->> +	depends on HAS_DOM0LESS && DOMAIN_BUILD_HELPERS
->>   	default y
->>   	help
->>   	  Dom0less boot support enables Xen to create and start domU guests during
->>   	  Xen boot without the need of a control domain (Dom0), which could be
->>   	  present anyway.
+>>       memset(regs, 0, sizeof(*regs));
 >>   
->> +config DOMAIN_BUILD_HELPERS
->> +	bool
->> +	help
->> +	  Introduce functions necessary for working with domain creation, kernel,
->> +	  etc. As an examples, these type of functions are going to be used by
->> +	  CONFIG_DOM0LESS_BOOT.
-> NIT: If possible, I would make this option a silent option that cannot
-> be manually enabled/disabled. As a choice to the user, I think
-> DOM0LESS_BOOT is sufficient.
-
-Sure, I'll drop 'help' then and add 'select DOMAIN_BUILD_HELPERS' in DOM0LESS_BOOT
-config.
-
->
->
->>   config GRANT_TABLE
->>   	bool "Grant table support" if EXPERT
->>   	default y
 >> diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
->> index f3dafc9b81..e88a4d5799 100644
+>> index e88a4d5799..831b91399b 100644
 >> --- a/xen/common/device-tree/Makefile
 >> +++ b/xen/common/device-tree/Makefile
->> @@ -4,3 +4,4 @@ obj-y += device-tree.o
+>> @@ -1,6 +1,7 @@
+>>   obj-y += bootfdt.init.o
+>>   obj-y += bootinfo.init.o
+>>   obj-y += device-tree.o
+>> +obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += domain-build.o
 >>   obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.o
 >>   obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
 >>   obj-y += intc.o
->> +obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += kernel.o
->> diff --git a/xen/common/device-tree/kernel.c b/xen/common/device-tree/kernel.c
+>> diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
 >> new file mode 100644
->> index 0000000000..1bf3bbf64e
+>> index 0000000000..69257a15ba
 >> --- /dev/null
->> +++ b/xen/common/device-tree/kernel.c
->> @@ -0,0 +1,242 @@
+>> +++ b/xen/common/device-tree/domain-build.c
+>> @@ -0,0 +1,404 @@
 >> +#include <xen/bootfdt.h>
->> +#include <xen/device_tree.h>
->> +#include <xen/fdt-kernel.h>
->> +#include <xen/errno.h>
->> +#include <xen/gunzip.h>
+>> +#include <xen/fdt-domain-build.h>
 >> +#include <xen/init.h>
 >> +#include <xen/lib.h>
+>> +#include <xen/libfdt/libfdt.h>
 >> +#include <xen/mm.h>
->> +#include <xen/pfn.h>
 >> +#include <xen/sched.h>
+>> +#include <xen/sizes.h>
 >> +#include <xen/types.h>
 >> +#include <xen/vmap.h>
 >> +
->> +#include <asm/page.h>
->> +#include <asm/setup.h>
+>> +#include <asm/p2m.h>
 >> +
->> +static uint32_t __init output_length(char *image, unsigned long image_len)
+>> +bool __init allocate_domheap_memory(struct domain *d, paddr_t tot_size,
+>> +                                    alloc_domheap_mem_cb cb, void *extra)
 >> +{
->> +    return *(uint32_t *)&image[image_len - 4];
+>> +    unsigned int max_order = UINT_MAX;
+>> +
+>> +    while ( tot_size > 0 )
+>> +    {
+>> +        unsigned int order = get_allocation_size(tot_size);
+>> +        struct page_info *pg;
+>> +
+>> +        order = min(max_order, order);
+>> +
+>> +        pg = alloc_domheap_pages(d, order, 0);
+>> +        if ( !pg )
+>> +        {
+>> +            /*
+>> +             * If we can't allocate one page, then it is unlikely to
+>> +             * succeed in the next iteration. So bail out.
+>> +             */
+>> +            if ( !order )
+>> +                return false;
+>> +
+>> +            /*
+>> +             * If we can't allocate memory with order, then it is
+>> +             * unlikely to succeed in the next iteration.
+>> +             * Record the order - 1 to avoid re-trying.
+>> +             */
+>> +            max_order = order - 1;
+>> +            continue;
+>> +        }
+>> +
+>> +        if ( !cb(d, pg, order, extra) )
+>> +            return false;
+>> +
+>> +        tot_size -= (1ULL << (PAGE_SHIFT + order));
+>> +    }
+>> +
+>> +    return true;
 >> +}
 >> +
->> +int __init kernel_decompress(struct bootmodule *mod, uint32_t offset)
+>> +static bool __init guest_map_pages(struct domain *d, struct page_info *pg,
+>> +                                   unsigned int order, void *extra)
 >> +{
->> +    char *output, *input;
->> +    char magic[2];
->> +    int rc;
->> +    unsigned int kernel_order_out;
->> +    paddr_t output_size;
->> +    struct page_info *pages;
->> +    mfn_t mfn;
->> +    int i;
->> +    paddr_t addr = mod->start;
->> +    paddr_t size = mod->size;
+>> +    gfn_t *sgfn = (gfn_t *)extra;
+>> +    int res;
 >> +
->> +    if ( size < offset )
->> +        return -EINVAL;
->> +
->> +    /*
->> +     * It might be that gzip header does not appear at the start address
->> +     * (e.g. in case of compressed uImage) so take into account offset to
->> +     * gzip header.
->> +     */
->> +    addr += offset;
->> +    size -= offset;
->> +
->> +    if ( size < 2 )
->> +        return -EINVAL;
->> +
->> +    copy_from_paddr(magic, addr, sizeof(magic));
->> +
->> +    /* only gzip is supported */
->> +    if ( !gzip_check(magic, size) )
->> +        return -EINVAL;
->> +
->> +    input = ioremap_cache(addr, size);
->> +    if ( input == NULL )
->> +        return -EFAULT;
->> +
->> +    output_size = output_length(input, size);
->> +    kernel_order_out = get_order_from_bytes(output_size);
->> +    pages = alloc_domheap_pages(NULL, kernel_order_out, 0);
->> +    if ( pages == NULL )
+>> +    BUG_ON(!sgfn);
+>> +    res = guest_physmap_add_page(d, *sgfn, page_to_mfn(pg), order);
+>> +    if ( res )
 >> +    {
->> +        iounmap(input);
->> +        return -ENOMEM;
->> +    }
->> +    mfn = page_to_mfn(pages);
->> +    output = vmap_contig(mfn, 1 << kernel_order_out);
->> +
->> +    rc = perform_gunzip(output, input, size);
->> +    clean_dcache_va_range(output, output_size);
->> +    iounmap(input);
->> +    vunmap(output);
->> +
->> +    if ( rc )
->> +    {
->> +        free_domheap_pages(pages, kernel_order_out);
->> +        return rc;
+>> +        dprintk(XENLOG_ERR, "Failed map pages to DOMU: %d", res);
+>> +        return false;
 >> +    }
 >> +
->> +    mod->start = page_to_maddr(pages);
->> +    mod->size = output_size;
+>> +    *sgfn = gfn_add(*sgfn, 1UL << order);
+>> +
+>> +    return true;
+>> +}
+>> +
+>> +bool __init allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
+>> +                                 paddr_t tot_size)
+>> +{
+>> +    struct membanks *mem = kernel_info_get_mem(kinfo);
+>> +    struct domain *d = kinfo->d;
+>> +    struct membank *bank;
 >> +
 >> +    /*
->> +     * Need to free pages after output_size here because they won't be
->> +     * freed by discard_initial_modules
+>> +     * allocate_bank_memory can be called with a tot_size of zero for
+>> +     * the second memory bank. It is not an error and we can safely
+>> +     * avoid creating a zero-size memory bank.
 >> +     */
->> +    i = PFN_UP(output_size);
->> +    for ( ; i < (1 << kernel_order_out); i++ )
->> +        free_domheap_page(pages + i);
+>> +    if ( tot_size == 0 )
+>> +        return true;
+>> +
+>> +    bank = &mem->bank[mem->nr_banks];
+>> +    bank->start = gfn_to_gaddr(sgfn);
+>> +    bank->size = tot_size;
 >> +
 >> +    /*
->> +     * When using static heap feature, don't give bootmodules memory back to
->> +     * the heap allocator
+>> +     * Allocate pages from the heap until tot_size is zero and map them to the
+>> +     * guest using guest_map_pages, passing the starting gfn as extra parameter
+>> +     * for the map operation.
 >> +     */
->> +    if ( using_static_heap )
+>> +    if ( !allocate_domheap_memory(d, tot_size, guest_map_pages, &sgfn) )
+>> +        return false;
+>> +
+>> +    mem->nr_banks++;
+>> +    kinfo->unassigned_mem -= bank->size;
+>> +
+>> +    return true;
+>> +}
+>> +
+>> +static int __init add_hwdom_free_regions(unsigned long s_gfn,
+>> +                                         unsigned long e_gfn, void *data)
+>> +{
+>> +    struct membanks *free_regions = data;
+>> +    paddr_t start, size;
+>> +    paddr_t s = pfn_to_paddr(s_gfn);
+>> +    paddr_t e = pfn_to_paddr(e_gfn);
+>> +    unsigned int i, j;
+>> +
+>> +    if ( free_regions->nr_banks >= free_regions->max_banks )
 >> +        return 0;
 >> +
 >> +    /*
->> +     * When freeing the kernel, we need to pass the module start address and
->> +     * size as they were before taking an offset to gzip header into account,
->> +     * so that the entire region will be freed.
+>> +     * Both start and size of the free region should be 2MB aligned to
+>> +     * potentially allow superpage mapping.
 >> +     */
->> +    addr -= offset;
->> +    size += offset;
+>> +    start = (s + SZ_2M - 1) & ~(SZ_2M - 1);
+>> +    if ( start > e )
+>> +        return 0;
 >> +
 >> +    /*
->> +     * Free the original kernel, update the pointers to the
->> +     * decompressed kernel
+>> +     * e is actually "end-1" because it is called by rangeset functions
+>> +     * which are inclusive of the last address.
 >> +     */
->> +    fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
+>> +    e += 1;
+>> +    size = (e - start) & ~(SZ_2M - 1);
+>> +
+>> +    /* Find the insert position (descending order). */
+>> +    for ( i = 0; i < free_regions->nr_banks ; i++ )
+>> +        if ( size > free_regions->bank[i].size )
+>> +            break;
+>> +
+>> +    /* Move the other banks to make space. */
+>> +    for ( j = free_regions->nr_banks; j > i ; j-- )
+>> +    {
+>> +        free_regions->bank[j].start = free_regions->bank[j - 1].start;
+>> +        free_regions->bank[j].size = free_regions->bank[j - 1].size;
+>> +    }
+>> +
+>> +    free_regions->bank[i].start = start;
+>> +    free_regions->bank[i].size = size;
+>> +    free_regions->nr_banks++;
 >> +
 >> +    return 0;
 >> +}
 >> +
->> +int __init kernel_probe(struct kernel_info *info,
->> +                        const struct dt_device_node *domain)
+>> +/*
+>> + * Find unused regions of Host address space which can be exposed to domain
+>> + * using the host memory layout. In order to calculate regions we exclude every
+>> + * region passed in mem_banks from the Host RAM.
+>> + */
+>> +int __init find_unallocated_memory(const struct kernel_info *kinfo,
+>> +                                   const struct membanks *mem_banks[],
+>> +                                   unsigned int nr_mem_banks,
+>> +                                   struct membanks *free_regions,
+>> +                                   int (*cb)(unsigned long s_gfn,
+>> +                                             unsigned long e_gfn,
+>> +                                             void *data))
 >> +{
->> +    struct bootmodule *mod = NULL;
->> +    struct bootcmdline *cmd = NULL;
->> +    struct dt_device_node *node;
->> +    u64 kernel_addr, initrd_addr, dtb_addr, size;
->> +    int rc;
+>> +    const struct membanks *mem = bootinfo_get_mem();
+>> +    struct rangeset *unalloc_mem;
+>> +    paddr_t start, end;
+>> +    unsigned int i, j;
+>> +    int res;
 >> +
->> +    /*
->> +     * We need to initialize start to 0. This field may be populated during
->> +     * kernel_xxx_probe() if the image has a fixed entry point (for e.g.
->> +     * uimage.ep).
->> +     * We will use this to determine if the image has a fixed entry point or
->> +     * the load address should be used as the start address.
->> +     */
->> +    info->entry = 0;
+>> +    ASSERT(domain_use_host_layout(kinfo->d));
 >> +
->> +    /* domain is NULL only for the hardware domain */
->> +    if ( domain == NULL )
+>> +    unalloc_mem = rangeset_new(NULL, NULL, 0);
+>> +    if ( !unalloc_mem )
+>> +        return -ENOMEM;
+>> +
+>> +    /* Start with all available RAM */
+>> +    for ( i = 0; i < mem->nr_banks; i++ )
 >> +    {
->> +        ASSERT(is_hardware_domain(info->d));
->> +
->> +        mod = boot_module_find_by_kind(BOOTMOD_KERNEL);
->> +
->> +        info->kernel_bootmodule = mod;
->> +        info->initrd_bootmodule = boot_module_find_by_kind(BOOTMOD_RAMDISK);
->> +
->> +        cmd = boot_cmdline_find_by_kind(BOOTMOD_KERNEL);
->> +        if ( cmd )
->> +            info->cmdline = &cmd->cmdline[0];
->> +    }
->> +    else
->> +    {
->> +        const char *name = NULL;
->> +
->> +        dt_for_each_child_node(domain, node)
+>> +        start = mem->bank[i].start;
+>> +        end = mem->bank[i].start + mem->bank[i].size;
+>> +        res = rangeset_add_range(unalloc_mem, PFN_DOWN(start),
+>> +                                 PFN_DOWN(end - 1));
+>> +        if ( res )
 >> +        {
->> +            if ( dt_device_is_compatible(node, "multiboot,kernel") )
->> +            {
->> +                u32 len;
->> +                const __be32 *val;
->> +
->> +                val = dt_get_property(node, "reg", &len);
->> +                dt_get_range(&val, node, &kernel_addr, &size);
->> +                mod = boot_module_find_by_addr_and_kind(
->> +                        BOOTMOD_KERNEL, kernel_addr);
->> +                info->kernel_bootmodule = mod;
->> +            }
->> +            else if ( dt_device_is_compatible(node, "multiboot,ramdisk") )
->> +            {
->> +                u32 len;
->> +                const __be32 *val;
->> +
->> +                val = dt_get_property(node, "reg", &len);
->> +                dt_get_range(&val, node, &initrd_addr, &size);
->> +                info->initrd_bootmodule = boot_module_find_by_addr_and_kind(
->> +                        BOOTMOD_RAMDISK, initrd_addr);
->> +            }
->> +            else if ( dt_device_is_compatible(node, "multiboot,device-tree") )
->> +            {
->> +                uint32_t len;
->> +                const __be32 *val;
->> +
->> +                val = dt_get_property(node, "reg", &len);
->> +                if ( val == NULL )
->> +                    continue;
->> +                dt_get_range(&val, node, &dtb_addr, &size);
->> +                info->dtb_bootmodule = boot_module_find_by_addr_and_kind(
->> +                        BOOTMOD_GUEST_DTB, dtb_addr);
->> +            }
->> +            else
->> +                continue;
+>> +            printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
+>> +                   start, end);
+>> +            goto out;
 >> +        }
->> +        name = dt_node_name(domain);
->> +        cmd = boot_cmdline_find_by_name(name);
->> +        if ( cmd )
->> +            info->cmdline = &cmd->cmdline[0];
->> +    }
->> +    if ( !mod || !mod->size )
->> +    {
->> +        printk(XENLOG_ERR "Missing kernel boot module?\n");
->> +        return -ENOENT;
 >> +    }
 >> +
->> +    printk("Loading %pd kernel from boot module @ %"PRIpaddr"\n",
->> +           info->d, info->kernel_bootmodule->start);
->> +    if ( info->initrd_bootmodule )
->> +        printk("Loading ramdisk from boot module @ %"PRIpaddr"\n",
->> +               info->initrd_bootmodule->start);
+>> +    /* Remove all regions listed in mem_banks */
+>> +    for ( i = 0; i < nr_mem_banks; i++ )
+>> +        for ( j = 0; j < mem_banks[i]->nr_banks; j++ )
+>> +        {
+>> +            start = mem_banks[i]->bank[j].start;
 >> +
->> +    /*
->> +     * uImage isn't really used nowadays thereby leave kernel_uimage_probe()
->> +     * call here just for compatability with Arm code.
->> +     */
->> +#ifdef CONFIG_ARM
->> +    /*
->> +     * uImage header always appears at the top of the image (even compressed),
->> +     * so it needs to be probed first. Note that in case of compressed uImage,
->> +     * kernel_decompress is called from kernel_uimage_probe making the function
->> +     * self-containing (i.e. fall through only in case of a header not found).
->> +     */
->> +    rc = kernel_uimage_probe(info, mod);
->> +    if ( rc != -ENOENT )
->> +        return rc;
->> +#endif
+>> +            /* Shared memory banks can contain INVALID_PADDR as start */
+>> +            if ( INVALID_PADDR == start )
+>> +                continue;
 >> +
->> +    /*
->> +     * If it is a gzip'ed image, 32bit or 64bit, uncompress it.
->> +     * At this point, gzip header appears (if at all) at the top of the image,
->> +     * so pass 0 as an offset.
->> +     */
->> +    rc = kernel_decompress(mod, 0);
->> +    if ( rc && rc != -EINVAL )
->> +        return rc;
+>> +            end = mem_banks[i]->bank[j].start + mem_banks[i]->bank[j].size;
+>> +            res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
+>> +                                        PFN_DOWN(end - 1));
+>> +            if ( res )
+>> +            {
+>> +                printk(XENLOG_ERR
+>> +                       "Failed to add: %#"PRIpaddr"->%#"PRIpaddr", error %d\n",
+>> +                       start, end, res);
+>> +                goto out;
+>> +            }
+>> +        }
 >> +
->> +    rc = kernel_zimage_probe(info, mod->start, mod->size);
+>> +    start = 0;
+>> +    end = (1ULL << p2m_ipa_bits) - 1;
+>> +    res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
+>> +                                 cb, free_regions);
+>> +    if ( res )
+>> +        free_regions->nr_banks = 0;
+>> +    else if ( !free_regions->nr_banks )
+>> +        res = -ENOENT;
 >> +
->> +    return rc;
+>> +out:
+>> +    rangeset_destroy(unalloc_mem);
+>> +
+>> +    return res;
 >> +}
 >> +
->> +void __init kernel_load(struct kernel_info *info)
+>> +void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
 >> +{
->> +    ASSERT(info && info->load);
+>> +    struct membanks *mem = kernel_info_get_mem(kinfo);
+>> +    unsigned int i, nr_banks = GUEST_RAM_BANKS;
+>> +    struct membanks *hwdom_free_mem = NULL;
 >> +
->> +    info->load(info);
->> +}
->> diff --git a/xen/include/asm-generic/kernel.h b/xen/include/asm-generic/kernel.h
->> new file mode 100644
->> index 0000000000..6857fabb34
->> --- /dev/null
->> +++ b/xen/include/asm-generic/kernel.h
-> This file seems to be a duplicate of the previously introduced
-> xen/include/xen/fdt-kernel.h ?
+>> +    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd:\n",
+>> +           /* Don't want format this as PRIpaddr (16 digit hex) */
+>> +           (unsigned long)(kinfo->unassigned_mem >> 20), d);
+>> +
+>> +    mem->nr_banks = 0;
+>> +    /*
+>> +     * Use host memory layout for hwdom. Only case for this is when LLC coloring
+>> +     * is enabled.
+>> +     */
+>> +    if ( is_hardware_domain(d) )
+>> +    {
+>> +        struct membanks *gnttab = xzalloc_flex_struct(struct membanks, bank, 1);
+> shouldn't we set gnttab->max_banks and gnttab->type here?
+
+Here and ...
+
 >
-> Other than that, I checked the rest of the patch, including all the code
-> movement, and it looks correct to me.
+>
+>> +        /*
+>> +         * Exclude the following regions:
+>> +         * 1) Remove reserved memory
+>> +         * 2) Grant table assigned to hwdom
+>> +         */
+>> +        const struct membanks *mem_banks[] = {
+>> +            bootinfo_get_reserved_mem(),
+>> +            gnttab,
+>> +        };
+>> +
+>> +        if ( !gnttab )
+>> +            goto fail;
+>> +
+>> +        gnttab->nr_banks = 1;
+>> +        gnttab->bank[0].start = kinfo->gnttab_start;
+>> +        gnttab->bank[0].size = kinfo->gnttab_size;
+>> +
+>> +        hwdom_free_mem = xzalloc_flex_struct(struct membanks, bank,
+>> +                                             NR_MEM_BANKS);
+>> +        if ( !hwdom_free_mem )
+>> +            goto fail;
+>> +
+>> +        hwdom_free_mem->max_banks = NR_MEM_BANKS;
+> here we are missing setting hwdom_free_mem->type ?
 
-I will drop asm-generic/kernel.h, it  was created in the initial version of this
-patch series before it was suggested to move such header to xen/. And I missed to drop it.
+... here, membanks_xzalloc() should be really used.
+for the first one case - membanks_xzalloc(1, MEMORY) and
+for the second - membanks_xzalloc(NR_MEM_BANKS, MEMORY).
+Good catch.
 
-Thanks.
+>
+>> +
+>> +        if ( find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_banks),
+>> +                                     hwdom_free_mem, add_hwdom_free_regions) )
+>> +            goto fail;
+>> +
+>> +        nr_banks = hwdom_free_mem->nr_banks;
+>> +        xfree(gnttab);
+>> +    }
+>> +
+>> +    for ( i = 0; kinfo->unassigned_mem > 0 && nr_banks > 0; i++, nr_banks-- )
+>> +    {
+>> +        paddr_t bank_start, bank_size;
+>> +
+>> +        if ( is_hardware_domain(d) )
+>> +        {
+>> +            bank_start = hwdom_free_mem->bank[i].start;
+>> +            bank_size = hwdom_free_mem->bank[i].size;
+>> +        }
+>> +        else
+>> +        {
+>> +            const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
+>> +            const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
+>> +
+>> +            if ( i >= GUEST_RAM_BANKS )
+>> +                goto fail;
+>> +
+>> +            bank_start = bankbase[i];
+>> +            bank_size = banksize[i];
+>> +        }
+>> +
+>> +        bank_size = MIN(bank_size, kinfo->unassigned_mem);
+>> +        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), bank_size) )
+>> +            goto fail;
+>> +    }
+>> +
+>> +    if ( kinfo->unassigned_mem )
+>> +        goto fail;
+>> +
+>> +    for( i = 0; i < mem->nr_banks; i++ )
+>> +    {
+>> +        printk(XENLOG_INFO "%pd BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%ldMB)\n",
+>> +               d,
+>> +               i,
+>> +               mem->bank[i].start,
+>> +               mem->bank[i].start + mem->bank[i].size,
+>> +               /* Don't want format this as PRIpaddr (16 digit hex) */
+>> +               (unsigned long)(mem->bank[i].size >> 20));
+>> +    }
+>> +
+>> +    xfree(hwdom_free_mem);
+>> +    return;
+>> +
+>> +  fail:
+>> +    panic("Failed to allocate requested domain memory."
+>> +          /* Don't want format this as PRIpaddr (16 digit hex) */
+>> +          " %ldKB unallocated. Fix the VMs configurations.\n",
+>> +          (unsigned long)kinfo->unassigned_mem >> 10);
+>> +}
+>> +
+>> +/* Copy data to guest physical address, then clean the region. */
+>> +typedef unsigned long (*copy_to_guest_phys_cb)(struct domain *d,
+>> +                                               paddr_t gpa,
+>> +                                               void *buf,
+>> +                                               unsigned int len);
+> This shouldn't be needed because copy_to_guest_phys_cb is already
+> declared in xen/include/xen/fdt-domain-build.h
+>
+>
+>> +void __init dtb_load(struct kernel_info *kinfo,
+>> +                     copy_to_guest_phys_cb copy_to_guest)
+>> +{
+>> +    unsigned long left;
+>> +
+>> +    printk("Loading %pd DTB to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
+>> +           kinfo->d, kinfo->dtb_paddr,
+>> +           kinfo->dtb_paddr + fdt_totalsize(kinfo->fdt));
+>> +
+>> +    left = copy_to_guest(kinfo->d, kinfo->dtb_paddr,
+>> +                         kinfo->fdt,
+>> +                         fdt_totalsize(kinfo->fdt));
+>> +
+>> +    if ( left != 0 )
+>> +        panic("Unable to copy the DTB to %pd memory (left = %lu bytes)\n",
+>> +              kinfo->d, left);
+>> +    xfree(kinfo->fdt);
+>> +}
+>> +
+>> +void __init initrd_load(struct kernel_info *kinfo,
+>> +                        copy_to_guest_phys_cb copy_to_guest)
+>> +{
+>> +    const struct bootmodule *mod = kinfo->initrd_bootmodule;
+>> +    paddr_t load_addr = kinfo->initrd_paddr;
+>> +    paddr_t paddr, len;
+>> +    int node;
+>> +    int res;
+>> +    __be32 val[2];
+>> +    __be32 *cellp;
+>> +    void __iomem *initrd;
+>> +
+>> +    if ( !mod || !mod->size )
+>> +        return;
+>> +
+>> +    paddr = mod->start;
+>> +    len = mod->size;
+>> +
+>> +    printk("Loading %pd initrd from %"PRIpaddr" to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
+>> +           kinfo->d, paddr, load_addr, load_addr + len);
+>> +
+>> +    /* Fix up linux,initrd-start and linux,initrd-end in /chosen */
+>> +    node = fdt_path_offset(kinfo->fdt, "/chosen");
+>> +    if ( node < 0 )
+>> +        panic("Cannot find the /chosen node\n");
+>> +
+>> +    cellp = (__be32 *)val;
+>> +    dt_set_cell(&cellp, ARRAY_SIZE(val), load_addr);
+>> +    res = fdt_setprop_inplace(kinfo->fdt, node, "linux,initrd-start",
+>> +                              val, sizeof(val));
+>> +    if ( res )
+>> +        panic("Cannot fix up \"linux,initrd-start\" property\n");
+>> +
+>> +    cellp = (__be32 *)val;
+>> +    dt_set_cell(&cellp, ARRAY_SIZE(val), load_addr + len);
+>> +    res = fdt_setprop_inplace(kinfo->fdt, node, "linux,initrd-end",
+>> +                              val, sizeof(val));
+>> +    if ( res )
+>> +        panic("Cannot fix up \"linux,initrd-end\" property\n");
+>> +
+>> +    initrd = ioremap_wc(paddr, len);
+>> +    if ( !initrd )
+>> +        panic("Unable to map the hwdom initrd\n");
+> The original message was:
+>
+>    panic("Unable to map the %pd initrd\n", kinfo->d);
+>
+> why change it? It can be called for domUs.
+>
+>
+>> +    res = copy_to_guest(kinfo->d, load_addr,
+>> +                        initrd, len);
+>> +    if ( res != 0 )
+>> +        panic("Unable to copy the initrd in the hwdom memory\n");
+> Same here, the original message was:
+>
+>    panic("Unable to copy the initrd in the %pd memory\n", kinfo->d);
+
+This is "new" (introduced 1 month ago), so I just overlooked them when doing rebasing. I'll update
+the messages.
+
+Thanks for review.
 
 ~ Oleksii
 
 >
 >
->
->> @@ -0,0 +1,141 @@
->> +/*
->> + * Kernel image loading.
->> + *
->> + * Copyright (C) 2011 Citrix Systems, Inc.
->> + */
->> +
->> +#ifndef __ASM_GENERIC_KERNEL_H__
->> +#define __ASM_GENERIC_KERNEL_H__
->> +
->> +#include <xen/bootfdt.h>
->> +#include <xen/device_tree.h>
->> +#include <xen/sched.h>
->> +#include <xen/types.h>
->> +
->> +struct kernel_info {
->> +    struct domain *d;
->> +
->> +    void *fdt; /* flat device tree */
->> +    paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
->> +    struct meminfo mem;
->> +#ifdef CONFIG_STATIC_SHM
->> +    struct shared_meminfo shm_mem;
->> +#endif
->> +
->> +    /* kernel entry point */
->> +    paddr_t entry;
->> +
->> +    /* grant table region */
->> +    paddr_t gnttab_start;
->> +    paddr_t gnttab_size;
->> +
->> +    /* boot blob load addresses */
->> +    const struct bootmodule *kernel_bootmodule, *initrd_bootmodule, *dtb_bootmodule;
->> +    const char* cmdline;
->> +    paddr_t dtb_paddr;
->> +    paddr_t initrd_paddr;
->> +
->> +    /* Enable uart emulation */
->> +    bool vuart;
->> +
->> +    /* Enable/Disable PV drivers interfaces */
->> +    uint16_t dom0less_feature;
->> +
->> +    /* Interrupt controller phandle */
->> +    uint32_t phandle_intc;
->> +
->> +    /* loader to use for this kernel */
->> +    void (*load)(struct kernel_info *info);
->> +
->> +    /* loader specific state */
->> +    union {
->> +        struct {
->> +            paddr_t kernel_addr;
->> +            paddr_t len;
->> +#if defined(CONFIG_ARM_64) || defined(CONFIG_RISCV_64)
->> +            paddr_t text_offset; /* 64-bit Image only */
->> +#endif
->> +            paddr_t start; /* Must be 0 for 64-bit Image */
->> +        } zimage;
->> +    };
->> +
->> +    struct arch_kernel_info arch;
->> +};
->> +
->> +static inline struct membanks *kernel_info_get_mem(struct kernel_info *kinfo)
->> +{
->> +    return container_of(&kinfo->mem.common, struct membanks, common);
+>> +    iounmap(initrd);
 >> +}
->> +
->> +static inline const struct membanks *
->> +kernel_info_get_mem_const(const struct kernel_info *kinfo)
->> +{
->> +    return container_of(&kinfo->mem.common, const struct membanks, common);
->> +}
->> +
->> +#ifndef KERNEL_INFO_SHM_MEM_INIT
->> +
->> +#ifdef CONFIG_STATIC_SHM
->> +#define KERNEL_INFO_SHM_MEM_INIT .shm_mem.common.max_banks = NR_SHMEM_BANKS,
->> +#else
->> +#define KERNEL_INFO_SHM_MEM_INIT
->> +#endif
->> +
->> +#endif /* KERNEL_INFO_SHM_MEM_INIT */
->> +
->> +#ifndef KERNEL_INFO_INIT
->> +
->> +#define KERNEL_INFO_INIT                        \
->> +{                                               \
->> +    .mem.common.max_banks = NR_MEM_BANKS,       \
->> +    KERNEL_INFO_SHM_MEM_INIT                    \
->> +}
->> +
->> +#endif /* KERNEL_INFO_INIT */
->> +
->> +/*
->> + * Probe the kernel to detemine its type and select a loader.
->> + *
->> + * Sets in info:
->> + *  ->type
->> + *  ->load hook, and sets loader specific variables ->zimage
->> + */
->> +int kernel_probe(struct kernel_info *info, const struct dt_device_node *domain);
->> +
->> +/*
->> + * Loads the kernel into guest RAM.
->> + *
->> + * Expects to be set in info when called:
->> + *  ->mem
->> + *  ->fdt
->> + *
->> + * Sets in info:
->> + *  ->entry
->> + *  ->dtb_paddr
->> + *  ->initrd_paddr
->> + */
->> +void kernel_load(struct kernel_info *info);
->> +
->> +int kernel_decompress(struct bootmodule *mod, uint32_t offset);
->> +
->> +int kernel_zimage_probe(struct kernel_info *info, paddr_t addr, paddr_t size);
->> +
->> +/*
->> + * uImage isn't really used nowadays thereby leave kernel_uimage_probe()
->> + * call here just for compatability with Arm code.
->> + */
->> +#ifdef CONFIG_ARM
->> +struct bootmodule;
->> +int kernel_uimage_probe(struct kernel_info *info, struct bootmodule *mod);
->> +#endif
->> +
->> +#endif /*__ASM_GENERIC_KERNEL_H__ */
->> +
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
->> diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
->> index c81e759423..d85324c867 100644
->> --- a/xen/include/xen/fdt-kernel.h
->> +++ b/xen/include/xen/fdt-kernel.h
->> @@ -121,6 +121,19 @@ int kernel_probe(struct kernel_info *info, const struct dt_device_node *domain);
->>    */
->>   void kernel_load(struct kernel_info *info);
+>> diff --git a/xen/include/xen/fdt-domain-build.h b/xen/include/xen/fdt-domain-build.h
+>> index b79e9fabfe..4a0052b2e8 100644
+>> --- a/xen/include/xen/fdt-domain-build.h
+>> +++ b/xen/include/xen/fdt-domain-build.h
+>> @@ -6,6 +6,7 @@
+>>   #include <xen/bootfdt.h>
+>>   #include <xen/device_tree.h>
+>>   #include <xen/fdt-kernel.h>
+>> +#include <xen/mm.h>
+>>   #include <xen/types.h>
 >>   
->> +int kernel_decompress(struct bootmodule *mod, uint32_t offset);
->> +
->> +int kernel_zimage_probe(struct kernel_info *info, paddr_t addr, paddr_t size);
->> +
->> +/*
->> + * uImage isn't really used nowadays thereby leave kernel_uimage_probe()
->> + * call here just for compatability with Arm code.
->> + */
->> +#ifdef CONFIG_ARM
->> +struct bootmodule;
->> +int kernel_uimage_probe(struct kernel_info *info, struct bootmodule *mod);
->> +#endif
->> +
->>   #endif /* __XEN_FDT_KERNEL_H__ */
+>>   struct domain;
+>> @@ -29,7 +30,37 @@ int make_memory_node(const struct kernel_info *kinfo, int addrcells,
+>>                        int sizecells, const struct membanks *mem);
+>>   int make_timer_node(const struct kernel_info *kinfo);
 >>   
->>   /*
+>> -unsigned int get_allocation_size(paddr_t size);
+>> +
+>> +static inline int get_allocation_size(paddr_t size)
+>> +{
+>> +    /*
+>> +     * get_order_from_bytes returns the order greater than or equal to
+>> +     * the given size, but we need less than or equal. Adding one to
+>> +     * the size pushes an evenly aligned size into the next order, so
+>> +     * we can then unconditionally subtract 1 from the order which is
+>> +     * returned.
+>> +     */
+>> +    return get_order_from_bytes(size + 1) - 1;
+>> +}
+>> +
+>> +typedef unsigned long (*copy_to_guest_phys_cb)(struct domain *d,
+>> +                                               paddr_t gpa,
+>> +                                               void *buf,
+>> +                                               unsigned int len);
+>> +
+>> +void initrd_load(struct kernel_info *kinfo,
+>> +                 copy_to_guest_phys_cb copy_to_guest);
+>> +
+>> +void dtb_load(struct kernel_info *kinfo,
+>> +              copy_to_guest_phys_cb copy_to_guest);
+>> +
+>> +int find_unallocated_memory(const struct kernel_info *kinfo,
+>> +                            const struct membanks *mem_banks[],
+>> +                            unsigned int nr_mem_banks,
+>> +                            struct membanks *free_regions,
+>> +                            int (*cb)(unsigned long s_gfn,
+>> +                                      unsigned long e_gfn,
+>> +                                      void *data));
+>>   
+>>   #endif /* __XEN_FDT_DOMAIN_BUILD_H__ */
+>>   
 >> -- 
 >> 2.49.0
 >>
---------------dc0pdxlLpld0MN514z460mo9
+--------------c3Tx0EG8Ky8f2ynJQQQ1P3ru
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -918,822 +1113,1045 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 5/2/25 9:36 PM, Stefano Stabellini
+    <div class="moz-cite-prefix">On 5/2/25 10:02 PM, Stefano Stabellini
       wrote:<br>
     </div>
     <blockquote type="cite"
-cite="mid:alpine.DEB.2.22.394.2505021223030.3879245@ubuntu-linux-20-04-desktop">
+cite="mid:alpine.DEB.2.22.394.2505021248360.3879245@ubuntu-linux-20-04-desktop">
       <pre wrap="" class="moz-quote-pre">On Fri, 2 May 2025, Oleksii Kurochko wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">The following functions don't have arch specific things so it is moved to
-common:
-- kernel_prboe()
-- kernel_load()
-- output_length()
+        <pre wrap="" class="moz-quote-pre">Some functions of Arm's domain_build.c could be reused by dom0less or other
+features connected to domain construction/build.
 
-Functions necessary for dom0less are only moved.
+The following functions are moved to common:
+- get_allocation_size().
+- allocate_domheap_memory().
+- guest_map_pages().
+- allocate_bank_memory().
+- add_hwdom_free_regions().
+- find_unallocated_memory().
+- allocate_memory().
+- dtb_load().
+- initrd_load().
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+The declaration of allocate_domheap_memory, allocate_bank_memory,
+allocate_memory were moved in patch #5. Maybe their movement should be
+in this patch?</pre>
+    </blockquote>
+    <pre>Sure, it makes sense.
 
-The following changes are done:
-- Swap __init and return type of kernel_decompress() function to be
-  consistent with defintions of functions in other files. The same
-  for output_length().
-- Wrap by "ifdef CONFIG_ARM" the call of kernel_uimage_probe() in
-  kernel_probe() as uImage isn't really used nowadays thereby leave
-  kernel_uimage_probe() call here just for compatability with Arm code.
-- Introduce kernel_zimage_probe() to cover the case that arch can have
-  different zimage header.
-- Add ASSERT() for kernel_load() to check that it argument isn't NULL.
-- Make kernel_uimage_probe() non-static in Arm's code as it is used in
-  common/kernel.c.
+</pre>
+    <blockquote type="cite"
+cite="mid:alpine.DEB.2.22.394.2505021248360.3879245@ubuntu-linux-20-04-desktop">
+      <pre wrap="" class="moz-quote-pre">
 
-Introduce CONFIG_DOMAIN_BUILD_HELPERS to not provide stubs for archs
-which don't provide enough functionality to enable it.
-Select CONFIG_DOMAIN_BUILD_HELPERS for CONFIG_ARM as only Arm supports
-it, at the moment.
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+Prototype of dtb_load() and initrd_load() is updated to recieve a pointer
+to copy_to_guest_phys() as some archs require
+copy_to_guest_phys_fluch_dcache().
+
+Update arm/include/asm/Makefile to generate  domain-build.h for Arm as it is
+used by domain-build.c.
 
 Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
 ---
 Change in v3:
- - Empty line after license tag for newly introduced files.
+ - Nothing changed. Only rebase.
 ---
 Change in v2:
- - Drop inclusion of asm/kernel.h in kernel.c as everything necessary has
-   been moved to xen/fdt-kernel.h.
+ - Use xen/fdt-domain-build.h instead of asm/domain_build.h.
 ---
- xen/arch/arm/Kconfig             |   1 +
- xen/arch/arm/kernel.c            | 221 +---------------------------
- xen/common/Kconfig               |   9 +-
- xen/common/device-tree/Makefile  |   1 +
- xen/common/device-tree/kernel.c  | 242 +++++++++++++++++++++++++++++++
- xen/include/asm-generic/kernel.h | 141 ++++++++++++++++++
- xen/include/xen/fdt-kernel.h     |  13 ++
- 7 files changed, 412 insertions(+), 216 deletions(-)
- create mode 100644 xen/common/device-tree/kernel.c
- create mode 100644 xen/include/asm-generic/kernel.h
+ xen/arch/arm/domain_build.c           | 397 +------------------------
+ xen/common/device-tree/Makefile       |   1 +
+ xen/common/device-tree/domain-build.c | 404 ++++++++++++++++++++++++++
+ xen/include/xen/fdt-domain-build.h    |  33 ++-
+ 4 files changed, 439 insertions(+), 396 deletions(-)
+ create mode 100644 xen/common/device-tree/domain-build.c
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index d0e0a7753c..3321d89068 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -11,6 +11,7 @@ config ARM_64
- 
- config ARM
- 	def_bool y
-+	select DOMAIN_BUILD_HELPERS
- 	select FUNCTION_ALIGNMENT_4B
- 	select GENERIC_UART_INIT
- 	select HAS_ALTERNATIVE if HAS_VMAP
-diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-index 5759a3470a..1168c21e97 100644
---- a/xen/arch/arm/kernel.c
-+++ b/xen/arch/arm/kernel.c
-@@ -163,105 +163,6 @@ static void __init kernel_zimage_load(struct kernel_info *info)
-     iounmap(kernel);
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 9d649b06b3..df29619c40 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -120,18 +120,6 @@ struct vcpu *__init alloc_dom0_vcpu0(struct domain *dom0)
+     return vcpu_create(dom0, 0);
  }
  
--static __init uint32_t output_length(char *image, unsigned long image_len)
+-unsigned int __init get_allocation_size(paddr_t size)
 -{
--    return *(uint32_t *)&amp;image[image_len - 4];
+-    /*
+-     * get_order_from_bytes returns the order greater than or equal to
+-     * the given size, but we need less than or equal. Adding one to
+-     * the size pushes an evenly aligned size into the next order, so
+-     * we can then unconditionally subtract 1 from the order which is
+-     * returned.
+-     */
+-    return get_order_from_bytes(size + 1) - 1;
 -}
 -
--static __init int kernel_decompress(struct bootmodule *mod, uint32_t offset)
+ /*
+  * Insert the given pages into a memory bank, banks are ordered by address.
+  *
+@@ -418,98 +406,6 @@ static void __init allocate_memory_11(struct domain *d,
+     }
+ }
+ 
+-bool __init allocate_domheap_memory(struct domain *d, paddr_t tot_size,
+-                                    alloc_domheap_mem_cb cb, void *extra)
 -{
--    char *output, *input;
--    char magic[2];
--    int rc;
--    unsigned int kernel_order_out;
--    paddr_t output_size;
--    struct page_info *pages;
--    mfn_t mfn;
--    int i;
--    paddr_t addr = mod-&gt;start;
--    paddr_t size = mod-&gt;size;
+-    unsigned int max_order = UINT_MAX;
 -
--    if ( size &lt; offset )
--        return -EINVAL;
--
--    /*
--     * It might be that gzip header does not appear at the start address
--     * (e.g. in case of compressed uImage) so take into account offset to
--     * gzip header.
--     */
--    addr += offset;
--    size -= offset;
--
--    if ( size &lt; 2 )
--        return -EINVAL;
--
--    copy_from_paddr(magic, addr, sizeof(magic));
--
--    /* only gzip is supported */
--    if ( !gzip_check(magic, size) )
--        return -EINVAL;
--
--    input = ioremap_cache(addr, size);
--    if ( input == NULL )
--        return -EFAULT;
--
--    output_size = output_length(input, size);
--    kernel_order_out = get_order_from_bytes(output_size);
--    pages = alloc_domheap_pages(NULL, kernel_order_out, 0);
--    if ( pages == NULL )
+-    while ( tot_size &gt; 0 )
 -    {
--        iounmap(input);
--        return -ENOMEM;
--    }
--    mfn = page_to_mfn(pages);
--    output = vmap_contig(mfn, 1 &lt;&lt; kernel_order_out);
+-        unsigned int order = get_allocation_size(tot_size);
+-        struct page_info *pg;
 -
--    rc = perform_gunzip(output, input, size);
--    clean_dcache_va_range(output, output_size);
--    iounmap(input);
--    vunmap(output);
+-        order = min(max_order, order);
 -
--    if ( rc )
--    {
--        free_domheap_pages(pages, kernel_order_out);
--        return rc;
+-        pg = alloc_domheap_pages(d, order, 0);
+-        if ( !pg )
+-        {
+-            /*
+-             * If we can't allocate one page, then it is unlikely to
+-             * succeed in the next iteration. So bail out.
+-             */
+-            if ( !order )
+-                return false;
+-
+-            /*
+-             * If we can't allocate memory with order, then it is
+-             * unlikely to succeed in the next iteration.
+-             * Record the order - 1 to avoid re-trying.
+-             */
+-            max_order = order - 1;
+-            continue;
+-        }
+-
+-        if ( !cb(d, pg, order, extra) )
+-            return false;
+-
+-        tot_size -= (1ULL &lt;&lt; (PAGE_SHIFT + order));
 -    }
 -
--    mod-&gt;start = page_to_maddr(pages);
--    mod-&gt;size = output_size;
+-    return true;
+-}
+-
+-static bool __init guest_map_pages(struct domain *d, struct page_info *pg,
+-                                   unsigned int order, void *extra)
+-{
+-    gfn_t *sgfn = (gfn_t *)extra;
+-    int res;
+-
+-    BUG_ON(!sgfn);
+-    res = guest_physmap_add_page(d, *sgfn, page_to_mfn(pg), order);
+-    if ( res )
+-    {
+-        dprintk(XENLOG_ERR, "Failed map pages to DOMU: %d", res);
+-        return false;
+-    }
+-
+-    *sgfn = gfn_add(*sgfn, 1UL &lt;&lt; order);
+-
+-    return true;
+-}
+-
+-bool __init allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
+-                                 paddr_t tot_size)
+-{
+-    struct membanks *mem = kernel_info_get_mem(kinfo);
+-    struct domain *d = kinfo-&gt;d;
+-    struct membank *bank;
 -
 -    /*
--     * Need to free pages after output_size here because they won't be
--     * freed by discard_initial_modules
+-     * allocate_bank_memory can be called with a tot_size of zero for
+-     * the second memory bank. It is not an error and we can safely
+-     * avoid creating a zero-size memory bank.
 -     */
--    i = PFN_UP(output_size);
--    for ( ; i &lt; (1 &lt;&lt; kernel_order_out); i++ )
--        free_domheap_page(pages + i);
+-    if ( tot_size == 0 )
+-        return true;
+-
+-    bank = &amp;mem-&gt;bank[mem-&gt;nr_banks];
+-    bank-&gt;start = gfn_to_gaddr(sgfn);
+-    bank-&gt;size = tot_size;
 -
 -    /*
--     * When using static heap feature, don't give bootmodules memory back to
--     * the heap allocator
+-     * Allocate pages from the heap until tot_size is zero and map them to the
+-     * guest using guest_map_pages, passing the starting gfn as extra parameter
+-     * for the map operation.
 -     */
--    if ( using_static_heap )
+-    if ( !allocate_domheap_memory(d, tot_size, guest_map_pages, &amp;sgfn) )
+-        return false;
+-
+-    mem-&gt;nr_banks++;
+-    kinfo-&gt;unassigned_mem -= bank-&gt;size;
+-
+-    return true;
+-}
+-
+ /*
+  * When PCI passthrough is available we want to keep the
+  * "linux,pci-domain" in sync for every host bridge.
+@@ -900,226 +796,6 @@ int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
+     return 0;
+ }
+ 
+-static int __init add_hwdom_free_regions(unsigned long s_gfn,
+-                                         unsigned long e_gfn, void *data)
+-{
+-    struct membanks *free_regions = data;
+-    paddr_t start, size;
+-    paddr_t s = pfn_to_paddr(s_gfn);
+-    paddr_t e = pfn_to_paddr(e_gfn);
+-    unsigned int i, j;
+-
+-    if ( free_regions-&gt;nr_banks &gt;= free_regions-&gt;max_banks )
 -        return 0;
 -
 -    /*
--     * When freeing the kernel, we need to pass the module start address and
--     * size as they were before taking an offset to gzip header into account,
--     * so that the entire region will be freed.
+-     * Both start and size of the free region should be 2MB aligned to
+-     * potentially allow superpage mapping.
 -     */
--    addr -= offset;
--    size += offset;
+-    start = (s + SZ_2M - 1) &amp; ~(SZ_2M - 1);
+-    if ( start &gt; e )
+-        return 0;
 -
 -    /*
--     * Free the original kernel, update the pointers to the
--     * decompressed kernel
+-     * e is actually "end-1" because it is called by rangeset functions
+-     * which are inclusive of the last address.
 -     */
--    fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
+-    e += 1;
+-    size = (e - start) &amp; ~(SZ_2M - 1);
+-
+-    /* Find the insert position (descending order). */
+-    for ( i = 0; i &lt; free_regions-&gt;nr_banks ; i++ )
+-        if ( size &gt; free_regions-&gt;bank[i].size )
+-            break;
+-
+-    /* Move the other banks to make space. */
+-    for ( j = free_regions-&gt;nr_banks; j &gt; i ; j-- )
+-    {
+-        free_regions-&gt;bank[j].start = free_regions-&gt;bank[j - 1].start;
+-        free_regions-&gt;bank[j].size = free_regions-&gt;bank[j - 1].size;
+-    }
+-
+-    free_regions-&gt;bank[i].start = start;
+-    free_regions-&gt;bank[i].size = size;
+-    free_regions-&gt;nr_banks++;
 -
 -    return 0;
 -}
 -
- /*
-  * Uimage CPU Architecture Codes
-  */
-@@ -274,8 +175,8 @@ static __init int kernel_decompress(struct bootmodule *mod, uint32_t offset)
- /*
-  * Check if the image is a uImage and setup kernel_info
-  */
--static int __init kernel_uimage_probe(struct kernel_info *info,
--                                      struct bootmodule *mod)
-+int __init kernel_uimage_probe(struct kernel_info *info,
-+                               struct bootmodule *mod)
- {
-     struct {
-         __be32 magic;   /* Image Header Magic Number */
-@@ -505,130 +406,20 @@ static int __init kernel_zimage32_probe(struct kernel_info *info,
-     return 0;
- }
- 
--int __init kernel_probe(struct kernel_info *info,
--                        const struct dt_device_node *domain)
-+int __init kernel_zimage_probe(struct kernel_info *info, paddr_t addr,
-+                               paddr_t size)
- {
--    struct bootmodule *mod = NULL;
--    struct bootcmdline *cmd = NULL;
--    struct dt_device_node *node;
--    u64 kernel_addr, initrd_addr, dtb_addr, size;
-     int rc;
- 
--    /*
--     * We need to initialize start to 0. This field may be populated during
--     * kernel_xxx_probe() if the image has a fixed entry point (for e.g.
--     * uimage.ep).
--     * We will use this to determine if the image has a fixed entry point or
--     * the load address should be used as the start address.
--     */
--    info-&gt;entry = 0;
--
--    /* domain is NULL only for the hardware domain */
--    if ( domain == NULL )
--    {
--        ASSERT(is_hardware_domain(info-&gt;d));
--
--        mod = boot_module_find_by_kind(BOOTMOD_KERNEL);
--
--        info-&gt;kernel_bootmodule = mod;
--        info-&gt;initrd_bootmodule = boot_module_find_by_kind(BOOTMOD_RAMDISK);
--
--        cmd = boot_cmdline_find_by_kind(BOOTMOD_KERNEL);
--        if ( cmd )
--            info-&gt;cmdline = &amp;cmd-&gt;cmdline[0];
--    }
--    else
--    {
--        const char *name = NULL;
--
--        dt_for_each_child_node(domain, node)
--        {
--            if ( dt_device_is_compatible(node, "multiboot,kernel") )
--            {
--                u32 len;
--                const __be32 *val;
--
--                val = dt_get_property(node, "reg", &amp;len);
--                dt_get_range(&amp;val, node, &amp;kernel_addr, &amp;size);
--                mod = boot_module_find_by_addr_and_kind(
--                        BOOTMOD_KERNEL, kernel_addr);
--                info-&gt;kernel_bootmodule = mod;
--            }
--            else if ( dt_device_is_compatible(node, "multiboot,ramdisk") )
--            {
--                u32 len;
--                const __be32 *val;
--
--                val = dt_get_property(node, "reg", &amp;len);
--                dt_get_range(&amp;val, node, &amp;initrd_addr, &amp;size);
--                info-&gt;initrd_bootmodule = boot_module_find_by_addr_and_kind(
--                        BOOTMOD_RAMDISK, initrd_addr);
--            }
--            else if ( dt_device_is_compatible(node, "multiboot,device-tree") )
--            {
--                uint32_t len;
--                const __be32 *val;
--
--                val = dt_get_property(node, "reg", &amp;len);
--                if ( val == NULL )
--                    continue;
--                dt_get_range(&amp;val, node, &amp;dtb_addr, &amp;size);
--                info-&gt;dtb_bootmodule = boot_module_find_by_addr_and_kind(
--                        BOOTMOD_GUEST_DTB, dtb_addr);
--            }
--            else
--                continue;
--        }
--        name = dt_node_name(domain);
--        cmd = boot_cmdline_find_by_name(name);
--        if ( cmd )
--            info-&gt;cmdline = &amp;cmd-&gt;cmdline[0];
--    }
--    if ( !mod || !mod-&gt;size )
--    {
--        printk(XENLOG_ERR "Missing kernel boot module?\n");
--        return -ENOENT;
--    }
--
--    printk("Loading %pd kernel from boot module @ %"PRIpaddr"\n",
--           info-&gt;d, info-&gt;kernel_bootmodule-&gt;start);
--    if ( info-&gt;initrd_bootmodule )
--        printk("Loading ramdisk from boot module @ %"PRIpaddr"\n",
--               info-&gt;initrd_bootmodule-&gt;start);
--
--    /*
--     * uImage header always appears at the top of the image (even compressed),
--     * so it needs to be probed first. Note that in case of compressed uImage,
--     * kernel_decompress is called from kernel_uimage_probe making the function
--     * self-containing (i.e. fall through only in case of a header not found).
--     */
--    rc = kernel_uimage_probe(info, mod);
--    if ( rc != -ENOENT )
--        return rc;
--
--    /*
--     * If it is a gzip'ed image, 32bit or 64bit, uncompress it.
--     * At this point, gzip header appears (if at all) at the top of the image,
--     * so pass 0 as an offset.
--     */
--    rc = kernel_decompress(mod, 0);
--    if ( rc &amp;&amp; rc != -EINVAL )
--        return rc;
--
- #ifdef CONFIG_ARM_64
--    rc = kernel_zimage64_probe(info, mod-&gt;start, mod-&gt;size);
-+    rc = kernel_zimage64_probe(info, addr, size);
-     if (rc &lt; 0)
- #endif
--        rc = kernel_zimage32_probe(info, mod-&gt;start, mod-&gt;size);
-+        rc = kernel_zimage32_probe(info, addr, size);
- 
-     return rc;
- }
- 
--void __init kernel_load(struct kernel_info *info)
+-/*
+- * Find unused regions of Host address space which can be exposed to domain
+- * using the host memory layout. In order to calculate regions we exclude every
+- * region passed in mem_banks from the Host RAM.
+- */
+-static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+-                                          const struct membanks *mem_banks[],
+-                                          unsigned int nr_mem_banks,
+-                                          struct membanks *free_regions,
+-                                          int (*cb)(unsigned long s_gfn,
+-                                                    unsigned long e_gfn,
+-                                                    void *data))
 -{
--    info-&gt;load(info);
+-    const struct membanks *mem = bootinfo_get_mem();
+-    struct rangeset *unalloc_mem;
+-    paddr_t start, end;
+-    unsigned int i, j;
+-    int res;
+-
+-    ASSERT(domain_use_host_layout(kinfo-&gt;d));
+-
+-    unalloc_mem = rangeset_new(NULL, NULL, 0);
+-    if ( !unalloc_mem )
+-        return -ENOMEM;
+-
+-    /* Start with all available RAM */
+-    for ( i = 0; i &lt; mem-&gt;nr_banks; i++ )
+-    {
+-        start = mem-&gt;bank[i].start;
+-        end = mem-&gt;bank[i].start + mem-&gt;bank[i].size;
+-        res = rangeset_add_range(unalloc_mem, PFN_DOWN(start),
+-                                 PFN_DOWN(end - 1));
+-        if ( res )
+-        {
+-            printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"-&gt;%#"PRIpaddr"\n",
+-                   start, end);
+-            goto out;
+-        }
+-    }
+-
+-    /* Remove all regions listed in mem_banks */
+-    for ( i = 0; i &lt; nr_mem_banks; i++ )
+-        for ( j = 0; j &lt; mem_banks[i]-&gt;nr_banks; j++ )
+-        {
+-            start = mem_banks[i]-&gt;bank[j].start;
+-
+-            /* Shared memory banks can contain INVALID_PADDR as start */
+-            if ( INVALID_PADDR == start )
+-                continue;
+-
+-            end = mem_banks[i]-&gt;bank[j].start + mem_banks[i]-&gt;bank[j].size;
+-            res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
+-                                        PFN_DOWN(end - 1));
+-            if ( res )
+-            {
+-                printk(XENLOG_ERR
+-                       "Failed to add: %#"PRIpaddr"-&gt;%#"PRIpaddr", error %d\n",
+-                       start, end, res);
+-                goto out;
+-            }
+-        }
+-
+-    start = 0;
+-    end = (1ULL &lt;&lt; p2m_ipa_bits) - 1;
+-    res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
+-                                 cb, free_regions);
+-    if ( res )
+-        free_regions-&gt;nr_banks = 0;
+-    else if ( !free_regions-&gt;nr_banks )
+-        res = -ENOENT;
+-
+-out:
+-    rangeset_destroy(unalloc_mem);
+-
+-    return res;
+-}
+-
+-void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
+-{
+-    struct membanks *mem = kernel_info_get_mem(kinfo);
+-    unsigned int i, nr_banks = GUEST_RAM_BANKS;
+-    struct membanks *hwdom_free_mem = NULL;
+-
+-    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd:\n",
+-           /* Don't want format this as PRIpaddr (16 digit hex) */
+-           (unsigned long)(kinfo-&gt;unassigned_mem &gt;&gt; 20), d);
+-
+-    mem-&gt;nr_banks = 0;
+-    /*
+-     * Use host memory layout for hwdom. Only case for this is when LLC coloring
+-     * is enabled.
+-     */
+-    if ( is_hardware_domain(d) )
+-    {
+-        struct membanks *gnttab = membanks_xzalloc(1, MEMORY);
+-        /*
+-         * Exclude the following regions:
+-         * 1) Remove reserved memory
+-         * 2) Grant table assigned to hwdom
+-         */
+-        const struct membanks *mem_banks[] = {
+-            bootinfo_get_reserved_mem(),
+-            gnttab,
+-        };
+-
+-        if ( !gnttab )
+-            goto fail;
+-
+-        gnttab-&gt;nr_banks = 1;
+-        gnttab-&gt;bank[0].start = kinfo-&gt;gnttab_start;
+-        gnttab-&gt;bank[0].size = kinfo-&gt;gnttab_size;
+-
+-        hwdom_free_mem = membanks_xzalloc(NR_MEM_BANKS, MEMORY);
+-        if ( !hwdom_free_mem )
+-            goto fail;
+-
+-        if ( find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_banks),
+-                                     hwdom_free_mem, add_hwdom_free_regions) )
+-            goto fail;
+-
+-        nr_banks = hwdom_free_mem-&gt;nr_banks;
+-        xfree(gnttab);
+-    }
+-
+-    for ( i = 0; kinfo-&gt;unassigned_mem &gt; 0 &amp;&amp; nr_banks &gt; 0; i++, nr_banks-- )
+-    {
+-        paddr_t bank_start, bank_size;
+-
+-        if ( is_hardware_domain(d) )
+-        {
+-            bank_start = hwdom_free_mem-&gt;bank[i].start;
+-            bank_size = hwdom_free_mem-&gt;bank[i].size;
+-        }
+-        else
+-        {
+-            const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
+-            const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
+-
+-            if ( i &gt;= GUEST_RAM_BANKS )
+-                goto fail;
+-
+-            bank_start = bankbase[i];
+-            bank_size = banksize[i];
+-        }
+-
+-        bank_size = MIN(bank_size, kinfo-&gt;unassigned_mem);
+-        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), bank_size) )
+-            goto fail;
+-    }
+-
+-    if ( kinfo-&gt;unassigned_mem )
+-        goto fail;
+-
+-    for( i = 0; i &lt; mem-&gt;nr_banks; i++ )
+-    {
+-        printk(XENLOG_INFO "%pd BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%ldMB)\n",
+-               d,
+-               i,
+-               mem-&gt;bank[i].start,
+-               mem-&gt;bank[i].start + mem-&gt;bank[i].size,
+-               /* Don't want format this as PRIpaddr (16 digit hex) */
+-               (unsigned long)(mem-&gt;bank[i].size &gt;&gt; 20));
+-    }
+-
+-    xfree(hwdom_free_mem);
+-    return;
+-
+-  fail:
+-    panic("Failed to allocate requested domain memory."
+-          /* Don't want format this as PRIpaddr (16 digit hex) */
+-          " %ldKB unallocated. Fix the VMs configurations.\n",
+-          (unsigned long)kinfo-&gt;unassigned_mem &gt;&gt; 10);
+-}
+-
+ static int __init handle_pci_range(const struct dt_device_node *dev,
+                                    uint64_t addr, uint64_t len, void *data)
+ {
+@@ -2059,75 +1735,6 @@ static int __init prepare_dtb_hwdom(struct domain *d, struct kernel_info *kinfo)
+     return -EINVAL;
+ }
+ 
+-static void __init dtb_load(struct kernel_info *kinfo)
+-{
+-    unsigned long left;
+-
+-    printk("Loading %pd DTB to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
+-           kinfo-&gt;d, kinfo-&gt;dtb_paddr,
+-           kinfo-&gt;dtb_paddr + fdt_totalsize(kinfo-&gt;fdt));
+-
+-    left = copy_to_guest_phys_flush_dcache(kinfo-&gt;d, kinfo-&gt;dtb_paddr,
+-                                           kinfo-&gt;fdt,
+-                                           fdt_totalsize(kinfo-&gt;fdt));
+-
+-    if ( left != 0 )
+-        panic("Unable to copy the DTB to %pd memory (left = %lu bytes)\n",
+-              kinfo-&gt;d, left);
+-    xfree(kinfo-&gt;fdt);
+-}
+-
+-static void __init initrd_load(struct kernel_info *kinfo)
+-{
+-    const struct bootmodule *mod = kinfo-&gt;initrd_bootmodule;
+-    paddr_t load_addr = kinfo-&gt;initrd_paddr;
+-    paddr_t paddr, len;
+-    int node;
+-    int res;
+-    __be32 val[2];
+-    __be32 *cellp;
+-    void __iomem *initrd;
+-
+-    if ( !mod || !mod-&gt;size )
+-        return;
+-
+-    paddr = mod-&gt;start;
+-    len = mod-&gt;size;
+-
+-    printk("Loading %pd initrd from %"PRIpaddr" to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
+-           kinfo-&gt;d, paddr, load_addr, load_addr + len);
+-
+-    /* Fix up linux,initrd-start and linux,initrd-end in /chosen */
+-    node = fdt_path_offset(kinfo-&gt;fdt, "/chosen");
+-    if ( node &lt; 0 )
+-        panic("Cannot find the /chosen node\n");
+-
+-    cellp = (__be32 *)val;
+-    dt_set_cell(&amp;cellp, ARRAY_SIZE(val), load_addr);
+-    res = fdt_setprop_inplace(kinfo-&gt;fdt, node, "linux,initrd-start",
+-                              val, sizeof(val));
+-    if ( res )
+-        panic("Cannot fix up \"linux,initrd-start\" property\n");
+-
+-    cellp = (__be32 *)val;
+-    dt_set_cell(&amp;cellp, ARRAY_SIZE(val), load_addr + len);
+-    res = fdt_setprop_inplace(kinfo-&gt;fdt, node, "linux,initrd-end",
+-                              val, sizeof(val));
+-    if ( res )
+-        panic("Cannot fix up \"linux,initrd-end\" property\n");
+-
+-    initrd = ioremap_wc(paddr, len);
+-    if ( !initrd )
+-        panic("Unable to map the %pd initrd\n", kinfo-&gt;d);
+-
+-    res = copy_to_guest_phys_flush_dcache(kinfo-&gt;d, load_addr,
+-                                          initrd, len);
+-    if ( res != 0 )
+-        panic("Unable to copy the initrd in the %pd memory\n", kinfo-&gt;d);
+-
+-    iounmap(initrd);
 -}
 -
  /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index be38abf9e1..38981f1d11 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -14,13 +14,20 @@ config CORE_PARKING
+  * Allocate the event channel PPIs and setup the HVM_PARAM_CALLBACK_IRQ.
+  * The allocated IRQ will be found in d-&gt;arch.evtchn_irq.
+@@ -2220,8 +1827,8 @@ int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
+      */
+     kernel_load(kinfo);
+     /* initrd_load will fix up the fdt, so call it before dtb_load */
+-    initrd_load(kinfo);
+-    dtb_load(kinfo);
++    initrd_load(kinfo, copy_to_guest_phys_flush_dcache);
++    dtb_load(kinfo, copy_to_guest_phys_flush_dcache);
  
- config DOM0LESS_BOOT
- 	bool "Dom0less boot support" if EXPERT
--	depends on HAS_DOM0LESS
-+	depends on HAS_DOM0LESS &amp;&amp; DOMAIN_BUILD_HELPERS
- 	default y
- 	help
- 	  Dom0less boot support enables Xen to create and start domU guests during
- 	  Xen boot without the need of a control domain (Dom0), which could be
- 	  present anyway.
+     memset(regs, 0, sizeof(*regs));
  
-+config DOMAIN_BUILD_HELPERS
-+	bool
-+	help
-+	  Introduce functions necessary for working with domain creation, kernel,
-+	  etc. As an examples, these type of functions are going to be used by
-+	  CONFIG_DOM0LESS_BOOT.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-NIT: If possible, I would make this option a silent option that cannot
-be manually enabled/disabled. As a choice to the user, I think
-DOM0LESS_BOOT is sufficient.</pre>
-    </blockquote>
-    <pre>Sure, I'll drop 'help' then and add 'select DOMAIN_BUILD_HELPERS' in DOM0LESS_BOOT
-config.
-</pre>
-    <blockquote type="cite"
-cite="mid:alpine.DEB.2.22.394.2505021223030.3879245@ubuntu-linux-20-04-desktop">
-      <pre wrap="" class="moz-quote-pre">
-
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre"> config GRANT_TABLE
- 	bool "Grant table support" if EXPERT
- 	default y
 diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index f3dafc9b81..e88a4d5799 100644
+index e88a4d5799..831b91399b 100644
 --- a/xen/common/device-tree/Makefile
 +++ b/xen/common/device-tree/Makefile
-@@ -4,3 +4,4 @@ obj-y += device-tree.o
+@@ -1,6 +1,7 @@
+ obj-y += bootfdt.init.o
+ obj-y += bootinfo.init.o
+ obj-y += device-tree.o
++obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += domain-build.o
  obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.o
  obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
  obj-y += intc.o
-+obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += kernel.o
-diff --git a/xen/common/device-tree/kernel.c b/xen/common/device-tree/kernel.c
+diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
 new file mode 100644
-index 0000000000..1bf3bbf64e
+index 0000000000..69257a15ba
 --- /dev/null
-+++ b/xen/common/device-tree/kernel.c
-@@ -0,0 +1,242 @@
++++ b/xen/common/device-tree/domain-build.c
+@@ -0,0 +1,404 @@
 +#include &lt;xen/bootfdt.h&gt;
-+#include &lt;xen/device_tree.h&gt;
-+#include &lt;xen/fdt-kernel.h&gt;
-+#include &lt;xen/errno.h&gt;
-+#include &lt;xen/gunzip.h&gt;
++#include &lt;xen/fdt-domain-build.h&gt;
 +#include &lt;xen/init.h&gt;
 +#include &lt;xen/lib.h&gt;
++#include &lt;xen/libfdt/libfdt.h&gt;
 +#include &lt;xen/mm.h&gt;
-+#include &lt;xen/pfn.h&gt;
 +#include &lt;xen/sched.h&gt;
++#include &lt;xen/sizes.h&gt;
 +#include &lt;xen/types.h&gt;
 +#include &lt;xen/vmap.h&gt;
 +
-+#include &lt;asm/page.h&gt;
-+#include &lt;asm/setup.h&gt;
++#include &lt;asm/p2m.h&gt;
 +
-+static uint32_t __init output_length(char *image, unsigned long image_len)
++bool __init allocate_domheap_memory(struct domain *d, paddr_t tot_size,
++                                    alloc_domheap_mem_cb cb, void *extra)
 +{
-+    return *(uint32_t *)&amp;image[image_len - 4];
++    unsigned int max_order = UINT_MAX;
++
++    while ( tot_size &gt; 0 )
++    {
++        unsigned int order = get_allocation_size(tot_size);
++        struct page_info *pg;
++
++        order = min(max_order, order);
++
++        pg = alloc_domheap_pages(d, order, 0);
++        if ( !pg )
++        {
++            /*
++             * If we can't allocate one page, then it is unlikely to
++             * succeed in the next iteration. So bail out.
++             */
++            if ( !order )
++                return false;
++
++            /*
++             * If we can't allocate memory with order, then it is
++             * unlikely to succeed in the next iteration.
++             * Record the order - 1 to avoid re-trying.
++             */
++            max_order = order - 1;
++            continue;
++        }
++
++        if ( !cb(d, pg, order, extra) )
++            return false;
++
++        tot_size -= (1ULL &lt;&lt; (PAGE_SHIFT + order));
++    }
++
++    return true;
 +}
 +
-+int __init kernel_decompress(struct bootmodule *mod, uint32_t offset)
++static bool __init guest_map_pages(struct domain *d, struct page_info *pg,
++                                   unsigned int order, void *extra)
 +{
-+    char *output, *input;
-+    char magic[2];
-+    int rc;
-+    unsigned int kernel_order_out;
-+    paddr_t output_size;
-+    struct page_info *pages;
-+    mfn_t mfn;
-+    int i;
-+    paddr_t addr = mod-&gt;start;
-+    paddr_t size = mod-&gt;size;
++    gfn_t *sgfn = (gfn_t *)extra;
++    int res;
 +
-+    if ( size &lt; offset )
-+        return -EINVAL;
-+
-+    /*
-+     * It might be that gzip header does not appear at the start address
-+     * (e.g. in case of compressed uImage) so take into account offset to
-+     * gzip header.
-+     */
-+    addr += offset;
-+    size -= offset;
-+
-+    if ( size &lt; 2 )
-+        return -EINVAL;
-+
-+    copy_from_paddr(magic, addr, sizeof(magic));
-+
-+    /* only gzip is supported */
-+    if ( !gzip_check(magic, size) )
-+        return -EINVAL;
-+
-+    input = ioremap_cache(addr, size);
-+    if ( input == NULL )
-+        return -EFAULT;
-+
-+    output_size = output_length(input, size);
-+    kernel_order_out = get_order_from_bytes(output_size);
-+    pages = alloc_domheap_pages(NULL, kernel_order_out, 0);
-+    if ( pages == NULL )
++    BUG_ON(!sgfn);
++    res = guest_physmap_add_page(d, *sgfn, page_to_mfn(pg), order);
++    if ( res )
 +    {
-+        iounmap(input);
-+        return -ENOMEM;
-+    }
-+    mfn = page_to_mfn(pages);
-+    output = vmap_contig(mfn, 1 &lt;&lt; kernel_order_out);
-+
-+    rc = perform_gunzip(output, input, size);
-+    clean_dcache_va_range(output, output_size);
-+    iounmap(input);
-+    vunmap(output);
-+
-+    if ( rc )
-+    {
-+        free_domheap_pages(pages, kernel_order_out);
-+        return rc;
++        dprintk(XENLOG_ERR, "Failed map pages to DOMU: %d", res);
++        return false;
 +    }
 +
-+    mod-&gt;start = page_to_maddr(pages);
-+    mod-&gt;size = output_size;
++    *sgfn = gfn_add(*sgfn, 1UL &lt;&lt; order);
++
++    return true;
++}
++
++bool __init allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
++                                 paddr_t tot_size)
++{
++    struct membanks *mem = kernel_info_get_mem(kinfo);
++    struct domain *d = kinfo-&gt;d;
++    struct membank *bank;
 +
 +    /*
-+     * Need to free pages after output_size here because they won't be
-+     * freed by discard_initial_modules
++     * allocate_bank_memory can be called with a tot_size of zero for
++     * the second memory bank. It is not an error and we can safely
++     * avoid creating a zero-size memory bank.
 +     */
-+    i = PFN_UP(output_size);
-+    for ( ; i &lt; (1 &lt;&lt; kernel_order_out); i++ )
-+        free_domheap_page(pages + i);
++    if ( tot_size == 0 )
++        return true;
++
++    bank = &amp;mem-&gt;bank[mem-&gt;nr_banks];
++    bank-&gt;start = gfn_to_gaddr(sgfn);
++    bank-&gt;size = tot_size;
 +
 +    /*
-+     * When using static heap feature, don't give bootmodules memory back to
-+     * the heap allocator
++     * Allocate pages from the heap until tot_size is zero and map them to the
++     * guest using guest_map_pages, passing the starting gfn as extra parameter
++     * for the map operation.
 +     */
-+    if ( using_static_heap )
++    if ( !allocate_domheap_memory(d, tot_size, guest_map_pages, &amp;sgfn) )
++        return false;
++
++    mem-&gt;nr_banks++;
++    kinfo-&gt;unassigned_mem -= bank-&gt;size;
++
++    return true;
++}
++
++static int __init add_hwdom_free_regions(unsigned long s_gfn,
++                                         unsigned long e_gfn, void *data)
++{
++    struct membanks *free_regions = data;
++    paddr_t start, size;
++    paddr_t s = pfn_to_paddr(s_gfn);
++    paddr_t e = pfn_to_paddr(e_gfn);
++    unsigned int i, j;
++
++    if ( free_regions-&gt;nr_banks &gt;= free_regions-&gt;max_banks )
 +        return 0;
 +
 +    /*
-+     * When freeing the kernel, we need to pass the module start address and
-+     * size as they were before taking an offset to gzip header into account,
-+     * so that the entire region will be freed.
++     * Both start and size of the free region should be 2MB aligned to
++     * potentially allow superpage mapping.
 +     */
-+    addr -= offset;
-+    size += offset;
++    start = (s + SZ_2M - 1) &amp; ~(SZ_2M - 1);
++    if ( start &gt; e )
++        return 0;
 +
 +    /*
-+     * Free the original kernel, update the pointers to the
-+     * decompressed kernel
++     * e is actually "end-1" because it is called by rangeset functions
++     * which are inclusive of the last address.
 +     */
-+    fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
++    e += 1;
++    size = (e - start) &amp; ~(SZ_2M - 1);
++
++    /* Find the insert position (descending order). */
++    for ( i = 0; i &lt; free_regions-&gt;nr_banks ; i++ )
++        if ( size &gt; free_regions-&gt;bank[i].size )
++            break;
++
++    /* Move the other banks to make space. */
++    for ( j = free_regions-&gt;nr_banks; j &gt; i ; j-- )
++    {
++        free_regions-&gt;bank[j].start = free_regions-&gt;bank[j - 1].start;
++        free_regions-&gt;bank[j].size = free_regions-&gt;bank[j - 1].size;
++    }
++
++    free_regions-&gt;bank[i].start = start;
++    free_regions-&gt;bank[i].size = size;
++    free_regions-&gt;nr_banks++;
 +
 +    return 0;
 +}
 +
-+int __init kernel_probe(struct kernel_info *info,
-+                        const struct dt_device_node *domain)
++/*
++ * Find unused regions of Host address space which can be exposed to domain
++ * using the host memory layout. In order to calculate regions we exclude every
++ * region passed in mem_banks from the Host RAM.
++ */
++int __init find_unallocated_memory(const struct kernel_info *kinfo,
++                                   const struct membanks *mem_banks[],
++                                   unsigned int nr_mem_banks,
++                                   struct membanks *free_regions,
++                                   int (*cb)(unsigned long s_gfn,
++                                             unsigned long e_gfn,
++                                             void *data))
 +{
-+    struct bootmodule *mod = NULL;
-+    struct bootcmdline *cmd = NULL;
-+    struct dt_device_node *node;
-+    u64 kernel_addr, initrd_addr, dtb_addr, size;
-+    int rc;
++    const struct membanks *mem = bootinfo_get_mem();
++    struct rangeset *unalloc_mem;
++    paddr_t start, end;
++    unsigned int i, j;
++    int res;
 +
-+    /*
-+     * We need to initialize start to 0. This field may be populated during
-+     * kernel_xxx_probe() if the image has a fixed entry point (for e.g.
-+     * uimage.ep).
-+     * We will use this to determine if the image has a fixed entry point or
-+     * the load address should be used as the start address.
-+     */
-+    info-&gt;entry = 0;
++    ASSERT(domain_use_host_layout(kinfo-&gt;d));
 +
-+    /* domain is NULL only for the hardware domain */
-+    if ( domain == NULL )
++    unalloc_mem = rangeset_new(NULL, NULL, 0);
++    if ( !unalloc_mem )
++        return -ENOMEM;
++
++    /* Start with all available RAM */
++    for ( i = 0; i &lt; mem-&gt;nr_banks; i++ )
 +    {
-+        ASSERT(is_hardware_domain(info-&gt;d));
-+
-+        mod = boot_module_find_by_kind(BOOTMOD_KERNEL);
-+
-+        info-&gt;kernel_bootmodule = mod;
-+        info-&gt;initrd_bootmodule = boot_module_find_by_kind(BOOTMOD_RAMDISK);
-+
-+        cmd = boot_cmdline_find_by_kind(BOOTMOD_KERNEL);
-+        if ( cmd )
-+            info-&gt;cmdline = &amp;cmd-&gt;cmdline[0];
-+    }
-+    else
-+    {
-+        const char *name = NULL;
-+
-+        dt_for_each_child_node(domain, node)
++        start = mem-&gt;bank[i].start;
++        end = mem-&gt;bank[i].start + mem-&gt;bank[i].size;
++        res = rangeset_add_range(unalloc_mem, PFN_DOWN(start),
++                                 PFN_DOWN(end - 1));
++        if ( res )
 +        {
-+            if ( dt_device_is_compatible(node, "multiboot,kernel") )
-+            {
-+                u32 len;
-+                const __be32 *val;
-+
-+                val = dt_get_property(node, "reg", &amp;len);
-+                dt_get_range(&amp;val, node, &amp;kernel_addr, &amp;size);
-+                mod = boot_module_find_by_addr_and_kind(
-+                        BOOTMOD_KERNEL, kernel_addr);
-+                info-&gt;kernel_bootmodule = mod;
-+            }
-+            else if ( dt_device_is_compatible(node, "multiboot,ramdisk") )
-+            {
-+                u32 len;
-+                const __be32 *val;
-+
-+                val = dt_get_property(node, "reg", &amp;len);
-+                dt_get_range(&amp;val, node, &amp;initrd_addr, &amp;size);
-+                info-&gt;initrd_bootmodule = boot_module_find_by_addr_and_kind(
-+                        BOOTMOD_RAMDISK, initrd_addr);
-+            }
-+            else if ( dt_device_is_compatible(node, "multiboot,device-tree") )
-+            {
-+                uint32_t len;
-+                const __be32 *val;
-+
-+                val = dt_get_property(node, "reg", &amp;len);
-+                if ( val == NULL )
-+                    continue;
-+                dt_get_range(&amp;val, node, &amp;dtb_addr, &amp;size);
-+                info-&gt;dtb_bootmodule = boot_module_find_by_addr_and_kind(
-+                        BOOTMOD_GUEST_DTB, dtb_addr);
-+            }
-+            else
-+                continue;
++            printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"-&gt;%#"PRIpaddr"\n",
++                   start, end);
++            goto out;
 +        }
-+        name = dt_node_name(domain);
-+        cmd = boot_cmdline_find_by_name(name);
-+        if ( cmd )
-+            info-&gt;cmdline = &amp;cmd-&gt;cmdline[0];
-+    }
-+    if ( !mod || !mod-&gt;size )
-+    {
-+        printk(XENLOG_ERR "Missing kernel boot module?\n");
-+        return -ENOENT;
 +    }
 +
-+    printk("Loading %pd kernel from boot module @ %"PRIpaddr"\n",
-+           info-&gt;d, info-&gt;kernel_bootmodule-&gt;start);
-+    if ( info-&gt;initrd_bootmodule )
-+        printk("Loading ramdisk from boot module @ %"PRIpaddr"\n",
-+               info-&gt;initrd_bootmodule-&gt;start);
++    /* Remove all regions listed in mem_banks */
++    for ( i = 0; i &lt; nr_mem_banks; i++ )
++        for ( j = 0; j &lt; mem_banks[i]-&gt;nr_banks; j++ )
++        {
++            start = mem_banks[i]-&gt;bank[j].start;
 +
-+    /*
-+     * uImage isn't really used nowadays thereby leave kernel_uimage_probe()
-+     * call here just for compatability with Arm code.
-+     */
-+#ifdef CONFIG_ARM
-+    /*
-+     * uImage header always appears at the top of the image (even compressed),
-+     * so it needs to be probed first. Note that in case of compressed uImage,
-+     * kernel_decompress is called from kernel_uimage_probe making the function
-+     * self-containing (i.e. fall through only in case of a header not found).
-+     */
-+    rc = kernel_uimage_probe(info, mod);
-+    if ( rc != -ENOENT )
-+        return rc;
-+#endif
++            /* Shared memory banks can contain INVALID_PADDR as start */
++            if ( INVALID_PADDR == start )
++                continue;
 +
-+    /*
-+     * If it is a gzip'ed image, 32bit or 64bit, uncompress it.
-+     * At this point, gzip header appears (if at all) at the top of the image,
-+     * so pass 0 as an offset.
-+     */
-+    rc = kernel_decompress(mod, 0);
-+    if ( rc &amp;&amp; rc != -EINVAL )
-+        return rc;
++            end = mem_banks[i]-&gt;bank[j].start + mem_banks[i]-&gt;bank[j].size;
++            res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
++                                        PFN_DOWN(end - 1));
++            if ( res )
++            {
++                printk(XENLOG_ERR
++                       "Failed to add: %#"PRIpaddr"-&gt;%#"PRIpaddr", error %d\n",
++                       start, end, res);
++                goto out;
++            }
++        }
 +
-+    rc = kernel_zimage_probe(info, mod-&gt;start, mod-&gt;size);
++    start = 0;
++    end = (1ULL &lt;&lt; p2m_ipa_bits) - 1;
++    res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
++                                 cb, free_regions);
++    if ( res )
++        free_regions-&gt;nr_banks = 0;
++    else if ( !free_regions-&gt;nr_banks )
++        res = -ENOENT;
 +
-+    return rc;
++out:
++    rangeset_destroy(unalloc_mem);
++
++    return res;
 +}
 +
-+void __init kernel_load(struct kernel_info *info)
++void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
 +{
-+    ASSERT(info &amp;&amp; info-&gt;load);
++    struct membanks *mem = kernel_info_get_mem(kinfo);
++    unsigned int i, nr_banks = GUEST_RAM_BANKS;
++    struct membanks *hwdom_free_mem = NULL;
 +
-+    info-&gt;load(info);
-+}
-diff --git a/xen/include/asm-generic/kernel.h b/xen/include/asm-generic/kernel.h
-new file mode 100644
-index 0000000000..6857fabb34
---- /dev/null
-+++ b/xen/include/asm-generic/kernel.h
++    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd:\n",
++           /* Don't want format this as PRIpaddr (16 digit hex) */
++           (unsigned long)(kinfo-&gt;unassigned_mem &gt;&gt; 20), d);
++
++    mem-&gt;nr_banks = 0;
++    /*
++     * Use host memory layout for hwdom. Only case for this is when LLC coloring
++     * is enabled.
++     */
++    if ( is_hardware_domain(d) )
++    {
++        struct membanks *gnttab = xzalloc_flex_struct(struct membanks, bank, 1);
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-This file seems to be a duplicate of the previously introduced
-xen/include/xen/fdt-kernel.h ?
-
-Other than that, I checked the rest of the patch, including all the code
-movement, and it looks correct to me.</pre>
+shouldn't we set gnttab-&gt;max_banks and gnttab-&gt;type here?</pre>
     </blockquote>
-    <pre>I will drop asm-generic/kernel.h, it  was created in the initial version of this
-patch series before it was suggested to move such header to xen/. And I missed to drop it.
+    <pre>Here and ...
 
-Thanks.
-
-~ Oleksii
 </pre>
     <blockquote type="cite"
-cite="mid:alpine.DEB.2.22.394.2505021223030.3879245@ubuntu-linux-20-04-desktop">
+cite="mid:alpine.DEB.2.22.394.2505021248360.3879245@ubuntu-linux-20-04-desktop">
       <pre wrap="" class="moz-quote-pre">
-
 
 
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -0,0 +1,141 @@
-+/*
-+ * Kernel image loading.
-+ *
-+ * Copyright (C) 2011 Citrix Systems, Inc.
-+ */
+        <pre wrap="" class="moz-quote-pre">+        /*
++         * Exclude the following regions:
++         * 1) Remove reserved memory
++         * 2) Grant table assigned to hwdom
++         */
++        const struct membanks *mem_banks[] = {
++            bootinfo_get_reserved_mem(),
++            gnttab,
++        };
 +
-+#ifndef __ASM_GENERIC_KERNEL_H__
-+#define __ASM_GENERIC_KERNEL_H__
++        if ( !gnttab )
++            goto fail;
 +
-+#include &lt;xen/bootfdt.h&gt;
-+#include &lt;xen/device_tree.h&gt;
-+#include &lt;xen/sched.h&gt;
-+#include &lt;xen/types.h&gt;
++        gnttab-&gt;nr_banks = 1;
++        gnttab-&gt;bank[0].start = kinfo-&gt;gnttab_start;
++        gnttab-&gt;bank[0].size = kinfo-&gt;gnttab_size;
 +
-+struct kernel_info {
-+    struct domain *d;
++        hwdom_free_mem = xzalloc_flex_struct(struct membanks, bank,
++                                             NR_MEM_BANKS);
++        if ( !hwdom_free_mem )
++            goto fail;
 +
-+    void *fdt; /* flat device tree */
-+    paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
-+    struct meminfo mem;
-+#ifdef CONFIG_STATIC_SHM
-+    struct shared_meminfo shm_mem;
-+#endif
++        hwdom_free_mem-&gt;max_banks = NR_MEM_BANKS;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+here we are missing setting hwdom_free_mem-&gt;type ?</pre>
+    </blockquote>
+    <pre>... here, membanks_xzalloc() should be really used.
+for the first one case - membanks_xzalloc(1, MEMORY) and
+for the second - membanks_xzalloc(NR_MEM_BANKS, MEMORY).
+Good catch.
+</pre>
+    <blockquote type="cite"
+cite="mid:alpine.DEB.2.22.394.2505021248360.3879245@ubuntu-linux-20-04-desktop">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+
++        if ( find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_banks),
++                                     hwdom_free_mem, add_hwdom_free_regions) )
++            goto fail;
 +
-+    /* kernel entry point */
-+    paddr_t entry;
++        nr_banks = hwdom_free_mem-&gt;nr_banks;
++        xfree(gnttab);
++    }
 +
-+    /* grant table region */
-+    paddr_t gnttab_start;
-+    paddr_t gnttab_size;
++    for ( i = 0; kinfo-&gt;unassigned_mem &gt; 0 &amp;&amp; nr_banks &gt; 0; i++, nr_banks-- )
++    {
++        paddr_t bank_start, bank_size;
 +
-+    /* boot blob load addresses */
-+    const struct bootmodule *kernel_bootmodule, *initrd_bootmodule, *dtb_bootmodule;
-+    const char* cmdline;
-+    paddr_t dtb_paddr;
-+    paddr_t initrd_paddr;
++        if ( is_hardware_domain(d) )
++        {
++            bank_start = hwdom_free_mem-&gt;bank[i].start;
++            bank_size = hwdom_free_mem-&gt;bank[i].size;
++        }
++        else
++        {
++            const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
++            const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
 +
-+    /* Enable uart emulation */
-+    bool vuart;
++            if ( i &gt;= GUEST_RAM_BANKS )
++                goto fail;
 +
-+    /* Enable/Disable PV drivers interfaces */
-+    uint16_t dom0less_feature;
++            bank_start = bankbase[i];
++            bank_size = banksize[i];
++        }
 +
-+    /* Interrupt controller phandle */
-+    uint32_t phandle_intc;
++        bank_size = MIN(bank_size, kinfo-&gt;unassigned_mem);
++        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), bank_size) )
++            goto fail;
++    }
 +
-+    /* loader to use for this kernel */
-+    void (*load)(struct kernel_info *info);
++    if ( kinfo-&gt;unassigned_mem )
++        goto fail;
 +
-+    /* loader specific state */
-+    union {
-+        struct {
-+            paddr_t kernel_addr;
-+            paddr_t len;
-+#if defined(CONFIG_ARM_64) || defined(CONFIG_RISCV_64)
-+            paddr_t text_offset; /* 64-bit Image only */
-+#endif
-+            paddr_t start; /* Must be 0 for 64-bit Image */
-+        } zimage;
-+    };
++    for( i = 0; i &lt; mem-&gt;nr_banks; i++ )
++    {
++        printk(XENLOG_INFO "%pd BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%ldMB)\n",
++               d,
++               i,
++               mem-&gt;bank[i].start,
++               mem-&gt;bank[i].start + mem-&gt;bank[i].size,
++               /* Don't want format this as PRIpaddr (16 digit hex) */
++               (unsigned long)(mem-&gt;bank[i].size &gt;&gt; 20));
++    }
 +
-+    struct arch_kernel_info arch;
-+};
++    xfree(hwdom_free_mem);
++    return;
 +
-+static inline struct membanks *kernel_info_get_mem(struct kernel_info *kinfo)
++  fail:
++    panic("Failed to allocate requested domain memory."
++          /* Don't want format this as PRIpaddr (16 digit hex) */
++          " %ldKB unallocated. Fix the VMs configurations.\n",
++          (unsigned long)kinfo-&gt;unassigned_mem &gt;&gt; 10);
++}
++
++/* Copy data to guest physical address, then clean the region. */
++typedef unsigned long (*copy_to_guest_phys_cb)(struct domain *d,
++                                               paddr_t gpa,
++                                               void *buf,
++                                               unsigned int len);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+This shouldn't be needed because copy_to_guest_phys_cb is already
+declared in xen/include/xen/fdt-domain-build.h
+
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+void __init dtb_load(struct kernel_info *kinfo,
++                     copy_to_guest_phys_cb copy_to_guest)
 +{
-+    return container_of(&amp;kinfo-&gt;mem.common, struct membanks, common);
++    unsigned long left;
++
++    printk("Loading %pd DTB to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
++           kinfo-&gt;d, kinfo-&gt;dtb_paddr,
++           kinfo-&gt;dtb_paddr + fdt_totalsize(kinfo-&gt;fdt));
++
++    left = copy_to_guest(kinfo-&gt;d, kinfo-&gt;dtb_paddr,
++                         kinfo-&gt;fdt,
++                         fdt_totalsize(kinfo-&gt;fdt));
++
++    if ( left != 0 )
++        panic("Unable to copy the DTB to %pd memory (left = %lu bytes)\n",
++              kinfo-&gt;d, left);
++    xfree(kinfo-&gt;fdt);
 +}
 +
-+static inline const struct membanks *
-+kernel_info_get_mem_const(const struct kernel_info *kinfo)
++void __init initrd_load(struct kernel_info *kinfo,
++                        copy_to_guest_phys_cb copy_to_guest)
 +{
-+    return container_of(&amp;kinfo-&gt;mem.common, const struct membanks, common);
++    const struct bootmodule *mod = kinfo-&gt;initrd_bootmodule;
++    paddr_t load_addr = kinfo-&gt;initrd_paddr;
++    paddr_t paddr, len;
++    int node;
++    int res;
++    __be32 val[2];
++    __be32 *cellp;
++    void __iomem *initrd;
++
++    if ( !mod || !mod-&gt;size )
++        return;
++
++    paddr = mod-&gt;start;
++    len = mod-&gt;size;
++
++    printk("Loading %pd initrd from %"PRIpaddr" to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
++           kinfo-&gt;d, paddr, load_addr, load_addr + len);
++
++    /* Fix up linux,initrd-start and linux,initrd-end in /chosen */
++    node = fdt_path_offset(kinfo-&gt;fdt, "/chosen");
++    if ( node &lt; 0 )
++        panic("Cannot find the /chosen node\n");
++
++    cellp = (__be32 *)val;
++    dt_set_cell(&amp;cellp, ARRAY_SIZE(val), load_addr);
++    res = fdt_setprop_inplace(kinfo-&gt;fdt, node, "linux,initrd-start",
++                              val, sizeof(val));
++    if ( res )
++        panic("Cannot fix up \"linux,initrd-start\" property\n");
++
++    cellp = (__be32 *)val;
++    dt_set_cell(&amp;cellp, ARRAY_SIZE(val), load_addr + len);
++    res = fdt_setprop_inplace(kinfo-&gt;fdt, node, "linux,initrd-end",
++                              val, sizeof(val));
++    if ( res )
++        panic("Cannot fix up \"linux,initrd-end\" property\n");
++
++    initrd = ioremap_wc(paddr, len);
++    if ( !initrd )
++        panic("Unable to map the hwdom initrd\n");
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+The original message was:
+
+  panic("Unable to map the %pd initrd\n", kinfo-&gt;d);
+
+why change it? It can be called for domUs.
+
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    res = copy_to_guest(kinfo-&gt;d, load_addr,
++                        initrd, len);
++    if ( res != 0 )
++        panic("Unable to copy the initrd in the hwdom memory\n");
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Same here, the original message was:
+
+  panic("Unable to copy the initrd in the %pd memory\n", kinfo-&gt;d);</pre>
+    </blockquote>
+    <pre>This is "new" (introduced 1 month ago), so I just overlooked them when doing rebasing. I'll update
+the messages.
+
+Thanks for review.
+
+~ Oleksii
+</pre>
+    <blockquote type="cite"
+cite="mid:alpine.DEB.2.22.394.2505021248360.3879245@ubuntu-linux-20-04-desktop">
+      <pre wrap="" class="moz-quote-pre">
+
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    iounmap(initrd);
++}
+diff --git a/xen/include/xen/fdt-domain-build.h b/xen/include/xen/fdt-domain-build.h
+index b79e9fabfe..4a0052b2e8 100644
+--- a/xen/include/xen/fdt-domain-build.h
++++ b/xen/include/xen/fdt-domain-build.h
+@@ -6,6 +6,7 @@
+ #include &lt;xen/bootfdt.h&gt;
+ #include &lt;xen/device_tree.h&gt;
+ #include &lt;xen/fdt-kernel.h&gt;
++#include &lt;xen/mm.h&gt;
+ #include &lt;xen/types.h&gt;
+ 
+ struct domain;
+@@ -29,7 +30,37 @@ int make_memory_node(const struct kernel_info *kinfo, int addrcells,
+                      int sizecells, const struct membanks *mem);
+ int make_timer_node(const struct kernel_info *kinfo);
+ 
+-unsigned int get_allocation_size(paddr_t size);
++
++static inline int get_allocation_size(paddr_t size)
++{
++    /*
++     * get_order_from_bytes returns the order greater than or equal to
++     * the given size, but we need less than or equal. Adding one to
++     * the size pushes an evenly aligned size into the next order, so
++     * we can then unconditionally subtract 1 from the order which is
++     * returned.
++     */
++    return get_order_from_bytes(size + 1) - 1;
 +}
 +
-+#ifndef KERNEL_INFO_SHM_MEM_INIT
++typedef unsigned long (*copy_to_guest_phys_cb)(struct domain *d,
++                                               paddr_t gpa,
++                                               void *buf,
++                                               unsigned int len);
 +
-+#ifdef CONFIG_STATIC_SHM
-+#define KERNEL_INFO_SHM_MEM_INIT .shm_mem.common.max_banks = NR_SHMEM_BANKS,
-+#else
-+#define KERNEL_INFO_SHM_MEM_INIT
-+#endif
++void initrd_load(struct kernel_info *kinfo,
++                 copy_to_guest_phys_cb copy_to_guest);
 +
-+#endif /* KERNEL_INFO_SHM_MEM_INIT */
++void dtb_load(struct kernel_info *kinfo,
++              copy_to_guest_phys_cb copy_to_guest);
 +
-+#ifndef KERNEL_INFO_INIT
-+
-+#define KERNEL_INFO_INIT                        \
-+{                                               \
-+    .mem.common.max_banks = NR_MEM_BANKS,       \
-+    KERNEL_INFO_SHM_MEM_INIT                    \
-+}
-+
-+#endif /* KERNEL_INFO_INIT */
-+
-+/*
-+ * Probe the kernel to detemine its type and select a loader.
-+ *
-+ * Sets in info:
-+ *  -&gt;type
-+ *  -&gt;load hook, and sets loader specific variables -&gt;zimage
-+ */
-+int kernel_probe(struct kernel_info *info, const struct dt_device_node *domain);
-+
-+/*
-+ * Loads the kernel into guest RAM.
-+ *
-+ * Expects to be set in info when called:
-+ *  -&gt;mem
-+ *  -&gt;fdt
-+ *
-+ * Sets in info:
-+ *  -&gt;entry
-+ *  -&gt;dtb_paddr
-+ *  -&gt;initrd_paddr
-+ */
-+void kernel_load(struct kernel_info *info);
-+
-+int kernel_decompress(struct bootmodule *mod, uint32_t offset);
-+
-+int kernel_zimage_probe(struct kernel_info *info, paddr_t addr, paddr_t size);
-+
-+/*
-+ * uImage isn't really used nowadays thereby leave kernel_uimage_probe()
-+ * call here just for compatability with Arm code.
-+ */
-+#ifdef CONFIG_ARM
-+struct bootmodule;
-+int kernel_uimage_probe(struct kernel_info *info, struct bootmodule *mod);
-+#endif
-+
-+#endif /*__ASM_GENERIC_KERNEL_H__ */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
-index c81e759423..d85324c867 100644
---- a/xen/include/xen/fdt-kernel.h
-+++ b/xen/include/xen/fdt-kernel.h
-@@ -121,6 +121,19 @@ int kernel_probe(struct kernel_info *info, const struct dt_device_node *domain);
-  */
- void kernel_load(struct kernel_info *info);
++int find_unallocated_memory(const struct kernel_info *kinfo,
++                            const struct membanks *mem_banks[],
++                            unsigned int nr_mem_banks,
++                            struct membanks *free_regions,
++                            int (*cb)(unsigned long s_gfn,
++                                      unsigned long e_gfn,
++                                      void *data));
  
-+int kernel_decompress(struct bootmodule *mod, uint32_t offset);
-+
-+int kernel_zimage_probe(struct kernel_info *info, paddr_t addr, paddr_t size);
-+
-+/*
-+ * uImage isn't really used nowadays thereby leave kernel_uimage_probe()
-+ * call here just for compatability with Arm code.
-+ */
-+#ifdef CONFIG_ARM
-+struct bootmodule;
-+int kernel_uimage_probe(struct kernel_info *info, struct bootmodule *mod);
-+#endif
-+
- #endif /* __XEN_FDT_KERNEL_H__ */
+ #endif /* __XEN_FDT_DOMAIN_BUILD_H__ */
  
- /*
 -- 
 2.49.0
 
@@ -1743,5 +2161,5 @@ index c81e759423..d85324c867 100644
   </body>
 </html>
 
---------------dc0pdxlLpld0MN514z460mo9--
+--------------c3Tx0EG8Ky8f2ynJQQQ1P3ru--
 
