@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80D98AA8D76
-	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 09:53:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.975870.1363173 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 575B0AA8DAC
+	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 09:57:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.975886.1363184 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBqdP-0000JA-Vp; Mon, 05 May 2025 07:53:07 +0000
+	id 1uBqhS-00013A-El; Mon, 05 May 2025 07:57:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 975870.1363173; Mon, 05 May 2025 07:53:07 +0000
+Received: by outflank-mailman (output) from mailman id 975886.1363184; Mon, 05 May 2025 07:57:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBqdP-0000GF-Ry; Mon, 05 May 2025 07:53:07 +0000
-Received: by outflank-mailman (input) for mailman id 975870;
- Mon, 05 May 2025 07:53:06 +0000
+	id 1uBqhS-00011O-Bj; Mon, 05 May 2025 07:57:18 +0000
+Received: by outflank-mailman (input) for mailman id 975886;
+ Mon, 05 May 2025 07:57:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VAKQ=XV=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uBqdO-0008MG-J4
- for xen-devel@lists.xenproject.org; Mon, 05 May 2025 07:53:06 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20619.outbound.protection.outlook.com
- [2a01:111:f403:2009::619])
+ <SRS0=E8Me=XV=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uBqhR-00011I-3o
+ for xen-devel@lists.xenproject.org; Mon, 05 May 2025 07:57:17 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f9e04fa7-2985-11f0-9eb4-5ba50f476ded;
- Mon, 05 May 2025 09:53:06 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by DS0PR12MB9346.namprd12.prod.outlook.com (2603:10b6:8:1be::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Mon, 5 May
- 2025 07:53:02 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%4]) with mapi id 15.20.8699.026; Mon, 5 May 2025
- 07:53:02 +0000
+ id 8f82b6a2-2986-11f0-9eb4-5ba50f476ded;
+ Mon, 05 May 2025 09:57:16 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-39ee651e419so1975687f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 05 May 2025 00:57:16 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3a099b16f00sm9376659f8f.84.2025.05.05.00.57.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 May 2025 00:57:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,151 +44,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9e04fa7-2985-11f0-9eb4-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eoXP6z363vO+wCgOaAwFGsT+DFRVgZWgjaWYHhziPBEMkgCmgIY1+2XVJafTgwLMXf3Uv4GJYL2fzRuRAcBlQTpuDW3YW8Ey865PP3k6dlF+2XM6/3AQ2YSI+rN95ZZNcBAi8B/OG1GRG5KLlV53jzFmxKKAhtSTXdqQ82i/NMpQk3nUjOT5FlmNZ4+5a4Ac2JCiIsdxiIlbEtCeK9IrUy35KzmRlPoTkovTRTs9/GccAZAfH5uoUP57Nhnkv3CsimoHbCocAp2Dod2eJ7z2fruQ2QiQVR4mNRf+Y9NYXZKtcWmc2vVtyYqwBOrKaoCBgl1UKDnjWgOlxI5OfpKN6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=omH6pmtu5g3vZH53Ks/+qvZpK7FmZYOIbCvEAKvwg7I=;
- b=JPHJLtaougnxv+pC1JcB+CYHJ1fddqXCm8fx1yZ4jRT4aHl7QiYU4UK5ISskU/JHJCIBwpYI+/wlJnUc8DAI329Do5De+Rl8qC2jRk8PNE6hsfkGGZPtjnYzMx1c6fiexN6XFVM8woY3rfUMMdmVQ7aPaecze94y83iblZyEa5ERHehLzppuidUKlWMDAERdVSsD3shMOSfwxRUhM57peYkoBEVakBBzVrVvbsn2HDb8MO8hPwHg0k/fdsyPYIbryOw5UvP5TgFTiLb92dcgk6pMC98bgaMO0XeNfd1SuJEfQ1/UCJcVviwfMFBvK6qkRPRk59/amPTBBPrDMUckzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=omH6pmtu5g3vZH53Ks/+qvZpK7FmZYOIbCvEAKvwg7I=;
- b=fUMSbP9nYoUF85H6dGN/6P48SMFzIAs4OecKBcTS94bc5opgQHEfsDY6B6HfjIskPrWBJ8Sn0dFwLHuCJ5YCAm48tLLBdeZCLr206MyvM/twXIZhVWr1sZeoqneJQQ8WnaQhpg3+bJTy911xmyaxwcmlglg+06KpwjGo3FxyOOI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <fa800ffa-eec3-4496-b157-f89d10b3650b@amd.com>
-Date: Mon, 5 May 2025 09:52:59 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] xen/arm: fix math in add_hwdom_free_regions
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250505025631.207529-1-stewart.hildebrand@amd.com>
- <20250505025631.207529-3-stewart.hildebrand@amd.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <20250505025631.207529-3-stewart.hildebrand@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0007.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::12) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
+X-Inumbo-ID: 8f82b6a2-2986-11f0-9eb4-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1746431835; x=1747036635; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=SS0XKfa2BGFD92M7JF8I+ODFTaJnsxA4wXeJO2N0DmE=;
+        b=nu0JL6rW7uXnvQnZS3QoaxVS44td+8CRrw/tupXFdr7sMcBp1xEY69rqP3Pbn7WXRQ
+         acBDPw0b+NsIdOYkfCZKm8s5mFbw40733NAZxlxs4bi58KPptmePb3MQJw5LxTh2HC7g
+         XOB3RqE+RuGWH12KZteGVf6rsR816UEqCZ7Ek=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746431835; x=1747036635;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=SS0XKfa2BGFD92M7JF8I+ODFTaJnsxA4wXeJO2N0DmE=;
+        b=NDeLq096Ez448s7z9RXLhu02InjehpvuLq2MuU6AR8xrL+aKdWP+9Nio917ftZQZ5f
+         xws0Z8c3qX3ZFqjjviNCGMHKUPuk7uCv6rN02n+stGyzh65E71+ynN0KN1A8uiQohklI
+         pyAY5R4WsLc4TZ1PIxiVXNyMl7PHeHahr1kaLv1nPvPl0oxfuvu6XRJja7qRnU8nrivk
+         J18fdbb0Ckzl2xg6tV+4MldTk8p+VXDCjfUihIjqyTZgTz8YCBrQ0hiJctxRUOK+KgzE
+         /Vt2OkIzrt9pbuFSyF19PhdTiT3ULAW+9SHJ7VtpgFBYhglelaax3hGVyPBtBAjF7Kj/
+         xxMg==
+X-Forwarded-Encrypted: i=1; AJvYcCXsulcPUcHjnTgzVOWTuItRpX+PTHPWZosGUbZJOIyeyUYa6lDriVpj2NhXkJr/hhqlqRDeTeczGgM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzOQU4xjDC3LebOsA6uqrVHdJ3dvFwEnAQizt7lcjdBunyaIZMr
+	aqQl+IbzHD/HprQYHH0UDz9yp4zcKRIfRwM3p+7r47wDxkULZ3Xybo7XJ6F6AWY=
+X-Gm-Gg: ASbGncuQVzIzx2QagvOTAyr/+wd2wgspAy45jul0uNBJZmQ5a5ur0yZIRgdcvQTR3eH
+	zp6ccmpy+B8wDC97G8KD5j5PbMgZWQkW7ZHtOum6sNiNrhpXJ5H/HLDQ1rURDHVAk1Q6CrS8JZe
+	tzjCdPHPm4hp33/UFRUTInsoNy9gezdfdg3wpey+p1F+o8lpAIfu3qgedAEHS9kafbyEjPHCLPH
+	fWE866ut22oTQwAsXxGKOB9Pnx1vW9prhv3Syf104OW2/yD3mlAMXkAlIEpsCTAHzqhxYFubQwT
+	wpPnLIxGP2UjSFIwqlZ8MfGeeYttdMAaQJSsWNTbRLJfnw==
+X-Google-Smtp-Source: AGHT+IEXWUJe30SHxGQ6YXrEAVv1mmhC8ZHAnjwp/t2acmZrTGCcxPvdPGg1OdgZSq8lRn23HO5KdA==
+X-Received: by 2002:a05:6000:3113:b0:390:f9d0:5e3 with SMTP id ffacd0b85a97d-3a099ad1aa7mr10310845f8f.1.1746431835381;
+        Mon, 05 May 2025 00:57:15 -0700 (PDT)
+Date: Mon, 5 May 2025 09:57:14 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Jason Andryuk <jason.andryuk@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, agarciav@amd.com,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
+Message-ID: <aBhvWl6TIAj4P2g3@macbook.lan>
+References: <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com>
+ <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop>
+ <06b66971-d8db-456f-8e83-a20ff7df8f5e@suse.com>
+ <alpine.DEB.2.22.394.2504291425320.3879245@ubuntu-linux-20-04-desktop>
+ <59bfc389-66c8-4d0f-92e3-c0079a807374@suse.com>
+ <aBHUJjQk248aLi68@macbook.lan>
+ <alpine.DEB.2.22.394.2504301715300.3879245@ubuntu-linux-20-04-desktop>
+ <3e7b4b20-0127-4db2-806d-f142547f275a@amd.com>
+ <773170d1-d8ba-4ba7-90b0-df0d160d8ba8@suse.com>
+ <alpine.DEB.2.22.394.2505020948380.3879245@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|DS0PR12MB9346:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb2ee788-b68f-4df1-4b35-08dd8ba9dcc4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RVY4dEhnYmVrZXNmeFUyNXZrTVRGNWxRd3M2WjZKakxFZEJCd1o3TWJzNzVj?=
- =?utf-8?B?cGlURnlIYzhZZkZldUhLQzRQYllid2RVVGY0ZjFYWDQ2VEZ6enc3a092ZWVw?=
- =?utf-8?B?Q1ZCbjlQVnJBQkJkR0lNVXBLY09YbXFBaUJ6YkUxNE93b08rQWFRMHByTExh?=
- =?utf-8?B?bldSMGRJS2l5TTJwYVBYU3FmT0g5YzYvOXExQ1IycGh3RGUvRmtnZE15c0sz?=
- =?utf-8?B?TFA3RmY2d1lCMG5ZTmpjTGtvVVNWM2E3M21iaXB3SnRtZGxqNnZwM202aWdS?=
- =?utf-8?B?c0VvTmlEeHZRcjJYQ3JiaTJrN2NIWVBraEtoSUhQT28vczV5ZUJuejJBdFZJ?=
- =?utf-8?B?SmVBV1AvamRtc3NwZkVweEZMMVNoL2dnUmR6RHUrbnpFbWw5NUtsM2NEbTJn?=
- =?utf-8?B?VW1aZWpUWFcyV0cwNXNVSXRoeHJza2IzcFdkMk1pVjZjQVlBRUhqZktiaW82?=
- =?utf-8?B?cmYxZWVYYWg3TU9nNko2TkdhMmhMc3RjTHN1VlM0Qm5oK2JCQnViSFBKVS92?=
- =?utf-8?B?TTQ3L3NWNW1iNXFMQy9ET0lRSHEwenpneFZRSWdadUVoS1d5b1VqbGpkYk1V?=
- =?utf-8?B?dzBGaXNqUkJabDNueWUrcjYwVHFEV0RzdHRyTm9iZ2JsMlcrTUNTTjVCSnpR?=
- =?utf-8?B?eldVRkR1M2pJZ0xENTFmcTlDV3dZVER5MEZsVkcxR2xGWXFBOERQQXFYbktk?=
- =?utf-8?B?ZFJyQmFYUzdFVE0rcDUwSXlHdTRxNm4wU2prbkJNUE9GUWF6TmpZWCs0Y3pO?=
- =?utf-8?B?elBzc21xazRQVi95Y3l4QmtFS1czUENob1F5TWEzTVpaMzM5QnRUekFpV3RO?=
- =?utf-8?B?bW9CZUtjVG1tQmVZcXgyWE1JaDYwdERIQXFVZ0R1eTRtZEhmYVh1aTB2OVFD?=
- =?utf-8?B?enZrOVlCdTR3ZGdJVnk1bUpwaVN3UHU4U0ZXVVlOWXA5U2t5ZFdDSWp2VFZv?=
- =?utf-8?B?RUlMYWhnYmtmSk11bnFZT0lxUHBsRCtUaGFjNHRXZGZBOE4wNG04Sk8vU0M3?=
- =?utf-8?B?MlJEODh5SHpvWEM4OE1pdVM5dk8wTnU3eUpKNTNsYmZWSjBpVFh4bHRxWFpF?=
- =?utf-8?B?eTE0Y2hETVFnR3J2VjE3NWlldVpGVDhhcWVhZHdZdHBxcjFJQXlKL0RvN3pm?=
- =?utf-8?B?Nkw5U3NlQjk1Ujl0K3pXT2w2MXc5ODlZOGxQUjhmeVlhWWE1K0sySmgvT0Zq?=
- =?utf-8?B?c3BtREw1eHczTDkwTjBQQlFPM09KRHUvRFJDNHZnOVVNS2xBNnJnNTc1eEU4?=
- =?utf-8?B?ZExZK1FiSlJiK2h4cVY5cXY0bGo1SkFVVFRVOTVrNjhiNGFHRE9ySmRsYkVj?=
- =?utf-8?B?dThWN0htVDBLVTJpVVN0a3ZnV0hMYXdhNGhzeDlzU09rbWZBS3RmRkQ3dllu?=
- =?utf-8?B?a011ZzJpS1FmQ2NGbjlDa294QkkyVzlzc0lRY2ZYVmxKL2dIQitUVThMVDNO?=
- =?utf-8?B?MXpJdm0zY0tFUk5vUkJNOE1TTE5WajZEeXdTT1huR3o0Z3R5eTB3dDU2Y1ND?=
- =?utf-8?B?cU9HWCt1VHVHd0x1RVVtMVNiOXVhTmJrRG96UHJuUHpKaTRndmZjUEs4bWpN?=
- =?utf-8?B?WHErZFZQUDE0dUMxUTlmd21pbmp0VWs2NlVqWUoxYjkzS0kwcXhNaFVLanRz?=
- =?utf-8?B?Z1c5dTYrRjBDNTlVekEzdms0WUlDdmZHL1RHd0dQMzdPcGZ0OTRESUF4V0tn?=
- =?utf-8?B?dHRQaEhLc1BhdjN4dDFvd3EraFpUblRBOFRWUEpLbDFlMHh6Q05yT2wzMS9u?=
- =?utf-8?B?ZHArYWp5WFVtZ3I5OVVzMWVtOUVrdmI1SXduZFpjcmlzRUIvY1UvZTAzWjRS?=
- =?utf-8?B?N3FlTytCbGxoVWVBZ3VmbS9xd1FlNnY2cFlNcEFrYitHMjFrUlBTRDlDYW5i?=
- =?utf-8?B?OVk2LzFid0cvdHM4c1g5WWdCSnN6V1Q0cktCTUhlZzE5QVpHeUJyaFhyVGFC?=
- =?utf-8?Q?tKRORr2CnPA=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d0pVdjNVdWJ2QWQ0UzFSUTA1QThDcWphUEdQQnMrTnFYeDN4NHZabzgwMi9L?=
- =?utf-8?B?TUVLR1k3QXk3SHZiSDZtSmhLekczakFtZ3c5MkZTTlV0dURETE5GZHh4MzYw?=
- =?utf-8?B?VTZBVVE2NGI0YTNnTFFaQzN3WXU4RjJxaXFPNU9IM1pTdTFpc2NoU3gwaHdQ?=
- =?utf-8?B?YkhNY0doTmtVZ0x5NlIyczJtTFMzTmFQckpVZVVMaGFyTzBtWnN3UXp1Tm9o?=
- =?utf-8?B?UTZPbXRkdmRNMjlXdDFGZXF3SzA3N0VZNWp5aVB6SmV1L2NPc2tDbkQ2eXUr?=
- =?utf-8?B?OFdpRno3c0pITnp3aEpNdWdZQkJzZ2NSblZ3SGxVV1U1SUdXSzZ6OWcvbnpR?=
- =?utf-8?B?UDErUkFTbzAxckpHVWVkaGRoeE9CWHE0SUt2cGt0eVE1eDZjbk9rLzFLOERZ?=
- =?utf-8?B?bW0xamt4L3hhOFdXcVJ1V3dFbk9CTlJEVS9XeGdlQWIyS0Z5bU5QTDlOQTRU?=
- =?utf-8?B?UlBSSzBobG9jT0xZWnZMeVZzS1Q3L1AvVWtXZDlCSU82K014bDNjMFpGclhN?=
- =?utf-8?B?TGY0ZklRUDhCSE9wNFhsTmlVZjc0U2IvcHpvUE9nVU5qRGI3ZWxSc1F5dWdC?=
- =?utf-8?B?K242TEJZbysvZlpzWDZOaERDMWlXOGpDUkhZWk5ET0JDU2RnSmthT294NDV6?=
- =?utf-8?B?Qno1M09jTHpwU0RNMU1DbE5UMXdHUjJmdmZUQ1VYQU54MHA2bHBvVmNydm9s?=
- =?utf-8?B?RHJQVXp6ZmZ1K3l3aHRNTGVwWHI2cTlDREg2Y2tTLzJtejYwYiszT3hGTEh5?=
- =?utf-8?B?UUN4YW9BOWdIdzFNMEdSTEZuMVZDSk1yZFRhRVRxYWxzd0s4UWdEK29IcjVz?=
- =?utf-8?B?WmxXaDZZWk5QMjc4WnlXUW9tMEo4d2UvMGxENXNFUXRFS28wSXNDWDNQaHV0?=
- =?utf-8?B?cU11dUFCS3JYazFodThvcThCM1BNWUtraFhSWDNFenhtQ0daaHpnWWQrMDBO?=
- =?utf-8?B?cUkycmpHSmFsQzR4dGJHR3Z3TW1HWm42dlE1S3FrSWJoeldDZk9kRnVodFpn?=
- =?utf-8?B?cDAzbG1acFhwaTdSb3FkV0FhOERSSG9lMG9lLzNjN0xpUlFFVXZONlNQbFQ5?=
- =?utf-8?B?QTVLNUJTaXNpWEJDbXBrblEwUHBTK0dzVHdMcmsvZkJ0TVpxQnF3TVRrTW03?=
- =?utf-8?B?dXBTbzNIMHdOeVhYNlRmSTZMYzRvWkxkc2laMW5ZS1ZwMEtoK25WWllLVTll?=
- =?utf-8?B?R1VjL1pyank1M0pvS1pEdlJPVDY0V3N4U2YxaFpvNWF3M1pJNFRkTVlPaytK?=
- =?utf-8?B?STkrUmUwdXljU3UycG5nSzd1R3VQVDlGQWJxb2M1enFKN0ppNkxIaVBxVXcv?=
- =?utf-8?B?bG9kcE1DYXpoRlpVQXZzRnprcGtGRTFyQmREUGNnTGQ3U3ZlcXVjbW1qQ1h1?=
- =?utf-8?B?QmNSNytTbFJlQXh4dWdLZnVlWlpycFduQnZFdXFkQTQ3MkowRTk5dllJSkRJ?=
- =?utf-8?B?S1IzdHlIS0lVM2ZublJPUGRtM3JpL3ZIZ2lLeVFYaHBPVFgvZnZwYm1uTDA0?=
- =?utf-8?B?VCtYUmx0ZHY2Y3NZUzdnUG8rc0JPbC9BM0puUklxcEgwYzRmeU1FRmhpcG9y?=
- =?utf-8?B?MmdueVZ5aC9jb2hHa0FqQkNhTWM5bEVUVEgyQnJ5UlZGbjgrTGdsV29PSHA3?=
- =?utf-8?B?bEE0ZWJ0NnUyK0l5N0RYZ1RuZ085Zk5qYURLQVc2VFFFNkk0Y3VMUXRnK0Uw?=
- =?utf-8?B?Y21HRjRXRnMraktORDhUeXg3VFg5SmxheEN5ZU5zeDVweUJLKzVzWFg5ZVB5?=
- =?utf-8?B?cTd5elFURU95YlVZYjEwN3dwNVBrK3R6dk5rSU9mUWJuNDJldHE5SmtHOVpl?=
- =?utf-8?B?T0ROSkZhVUtsK0V1MUI5OHVpbE9hd2wxajEyQk5BQ2U0dUxINkhDMzhadjJN?=
- =?utf-8?B?Rkg3QU9oS3plbElJZzdXNkFGTDF2clpZaXpIaXFaZmcwdTRseWFBa0YrOFdy?=
- =?utf-8?B?UHk5TUFrN2F0ZzBXRjU1UXFCNVRON0FFMFI4RjlTR1R6dTFvZ1JYRWt2anR3?=
- =?utf-8?B?Q2VxZ3JWQVA2dEJMbDVwRkJ0aUZ0S2Vna3gzMmt6NDlDdHhudkRubGxxQlpv?=
- =?utf-8?B?QTZPbmFWVzV4TUtCaHZrbE83OHRGMnRycXZwcDdKN3R6d2d3SXBjOVZveGNq?=
- =?utf-8?Q?sIUjHIKClI5C6o2ZwiYAVUFXl?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb2ee788-b68f-4df1-4b35-08dd8ba9dcc4
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2025 07:53:02.7735
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LN7WFpPLnsqpBPRHPy64KFmUc/ScaaZoD4sqDHbf8Yt6HnSkgfZelgrJ5+FpeDiZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9346
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <alpine.DEB.2.22.394.2505020948380.3879245@ubuntu-linux-20-04-desktop>
 
-
-
-On 05/05/2025 04:56, Stewart Hildebrand wrote:
-> Erroneous logic was duplicated from add_ext_regions() into
-> add_hwdom_free_regions(). Frame numbers are converted to addresses, but
-> the end address (e) is rounded down to page size alignment. The logic to
-> calculate the size assumes e points to the last address, not page,
-> effectively leading to the region size being erroneously calculated to
-> be 2M smaller than the actual size of the region.
+On Fri, May 02, 2025 at 09:49:30AM -0700, Stefano Stabellini wrote:
+> On Fri, 2 May 2025, Jan Beulich wrote:
+> > On 01.05.2025 15:44, Jason Andryuk wrote:
+> > > On 2025-04-30 20:19, Stefano Stabellini wrote:
+> > >> On Wed, 30 Apr 2025, Roger Pau Monné wrote:
+> > >>> On Wed, Apr 30, 2025 at 08:27:55AM +0200, Jan Beulich wrote:
+> > >>>> On 29.04.2025 23:52, Stefano Stabellini wrote:
+> > >>>>> On Tue, 29 Apr 2025, Jan Beulich wrote:
+> > >>>>>> On 28.04.2025 22:00, Stefano Stabellini wrote:
+> > >>>>>>> On Mon, 28 Apr 2025, Jan Beulich wrote:
+> > >>>>>>>> On 25.04.2025 22:19, Stefano Stabellini wrote:
+> > > 
+> > >>>>>>>>> --- a/xen/common/memory.c
+> > >>>>>>>>> +++ b/xen/common/memory.c
+> > >>>>>>>>> @@ -794,7 +794,7 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
+> > >>>>>>>>>               rc = guest_physmap_add_page(d, _gfn(gpfn), mfn,
+> > >>>>>>>>>                                           exch.out.extent_order) ?: rc;
+> > >>>>>>>>>   
+> > >>>>>>>>> -            if ( !paging_mode_translate(d) &&
+> > >>>>>>>>> +            if ( (!paging_mode_translate(d) || is_hardware_domain(d)) &&
+> > >>>>>>>>>                    __copy_mfn_to_guest_offset(exch.out.extent_start,
+> > >>>>>>>>>                                               (i << out_chunk_order) + j,
+> > >>>>>>>>>                                               mfn) )
+> > >>>>>>>>
+> > >>>>>>>> Wait, no: A PVH domain (Dom0 or not) can't very well make use of MFNs, can
+> > >>>>>>>> it?
+> > >>>>>>>
+> > >>>>>>> One way or another Dom0 PVH needs to know the MFN to pass it to the
+> > >>>>>>> co-processor.
+> > >>>>>>
+> > >>>>>> I see. That's pretty odd, though. I'm then further concerned of the order of
+> > >>>>>> the chunks. At present we're rather lax, in permitting PVH and PV Dom0 the
+> > >>>>>> same upper bound. With both CPU and I/O side translation there is, in
+> > >>>>>> principle, no reason to permit any kind of contiguity. Of course there's a
+> > >>>>>> performance aspect, but that hardly matters in the specific case here. Yet at
+> > >>>>>> the same time, once we expose MFNs, contiguity will start mattering as soon
+> > >>>>>> as any piece of memory needs to be larger than PAGE_SIZE. Which means it will
+> > >>>>>> make tightening of the presently lax handling prone to regressions in this
+> > >>>>>> new behavior you're introducing. What chunk size does the PSP driver require?
+> > >>>>>
+> > >>>>> I don't know. The memory returned by XENMEM_exchange is contiguous,
+> > >>>>> right? Are you worried that Xen cannot allocate the requested amount of
+> > >>>>> memory contiguously?
+> > > 
+> > > In the case I looked at, it is 8 pages.  The driver defines a ring of 32 
+> > > * 1k entries.  I'm not sure if there are other paths or device versions 
+> > > where it might differ.
+> > 
+> > As per this ...
+> > 
+> > >>>> That would be Dom0's problem then. But really for a translated guest the
+> > >>>> exchanged chunks being contiguous shouldn't matter, correctness-wise. That is,
+> > >>>> within Xen, rather than failing a request, we could choose to retry using
+> > >>>> discontiguous chunks (contiguous only in GFN space). Such an (afaict)
+> > >>>> otherwise correct change would break your use case, as it would invalidate the
+> > >>>> MFN information passed back. (This fallback approach would similarly apply to
+> > >>>> other related mem-ops. It's just that during domain creation the tool stack
+> > >>>> has its own fallback, so it may not be of much use right now.)
+> > >>>
+> > >>> I think the description in the public header needs to be expanded to
+> > >>> specify what the XENMEM_exchange does for translated guests, and
+> > >>> clearly write down that the underlying MFNs for the exchanged region
+> > >>> will be contiguous.  Possibly a new XENMEMF_ flag needs to be added to
+> > >>> request contiguous physical memory for the new range.
+> > >>>
+> > >>> Sadly this also has the side effect of quite likely shattering
+> > >>> superpages for dom0 EPT/NPT, which will result in decreased dom0
+> > >>> performance.
+> > > 
+> > > Yes, this appears to happen as memory_exchange seems to always replace 
+> > > the pages.  I tested returning the existing MFNs if they are already 
+> > > contiguous since that was sufficient for this driver.  It worked, but it 
+> > > was messy.  A big loop to copy in the GFN array and check contiguity 
+> > > which duplicated much of the real loop.
+> > 
+> > ... there may not be a need for the output range to be contiguous? In which
+> > case - wouldn't a simple "give me the MFN for this GFN" hypercall do? I seem
+> > to vaguely recall that we even had one, long ago; it was purged because of
+> > it violating the "no MFNs exposed" principle (and because it not having had
+> > any use [anymore]). XENMEM_translate_gpfn_list looks like is what I mean;
+> > see commit 2d2f7977a052.
 > 
-> Fix by adding 1 to the frame number before converting back to address.
-> 
-> Fixes: 02975cc38389 ("xen/arm: permit non direct-mapped Dom0 construction")
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Acked-by: Michal Orzel <michal.orzel@amd.com>
+> Unfortunately I don't think that would work because I am pretty sure
+> that the PSP needs a consecutive range. In other words, I think the
+> output needs to be contiguous.
 
-~Michal
+The plan for AMD-SEV support was to place a PSP driver in Xen, and not
+let dom0 interact with the PSP directly (or at least that was my
+impression from the talks we had about implementing SEV support).
 
+Is what you use from the PSP fully isolated from the functionality
+needed by SEV, so that we could still expose the interface you require
+to dom0 while letting Xen drive the SEV parts?
+
+Otherwise I think we need an agreement about how to integrate your
+usage of the PSP with the SEV work, as having both Xen and dom0
+driving the PSP in parallel might not be a wise idea.
+
+Thanks, Roger.
 
