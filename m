@@ -2,52 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B724AA8B37
-	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 05:00:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.975782.1363113 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2EC2AA8B6F
+	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 06:26:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.975832.1363139 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBm4M-0004Gb-BT; Mon, 05 May 2025 03:00:38 +0000
+	id 1uBnOR-0007v5-Gs; Mon, 05 May 2025 04:25:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 975782.1363113; Mon, 05 May 2025 03:00:38 +0000
+Received: by outflank-mailman (output) from mailman id 975832.1363139; Mon, 05 May 2025 04:25:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBm4M-0004Cv-58; Mon, 05 May 2025 03:00:38 +0000
-Received: by outflank-mailman (input) for mailman id 975782;
- Mon, 05 May 2025 03:00:36 +0000
+	id 1uBnOR-0007tJ-EE; Mon, 05 May 2025 04:25:27 +0000
+Received: by outflank-mailman (input) for mailman id 975832;
+ Mon, 05 May 2025 04:25:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LKXI=XV=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1uBm1b-0000Iv-Lw
- for xen-devel@lists.xenproject.org; Mon, 05 May 2025 02:57:47 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2060e.outbound.protection.outlook.com
- [2a01:111:f403:2407::60e])
+ <SRS0=v7S6=XV=daimlertruck.com=john_preetham.l@srs-se1.protection.inumbo.net>)
+ id 1uBnOQ-0007tD-VA
+ for xen-devel@lists.xenproject.org; Mon, 05 May 2025 04:25:27 +0000
+Received: from FR5P281CU006.outbound.protection.outlook.com
+ (mail-germanywestcentralazlp170120004.outbound.protection.outlook.com
+ [2a01:111:f403:c20c::4])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b892a49d-295c-11f0-9eb4-5ba50f476ded;
- Mon, 05 May 2025 04:57:46 +0200 (CEST)
-Received: from SJ0PR05CA0148.namprd05.prod.outlook.com (2603:10b6:a03:33d::33)
- by SJ0PR12MB8090.namprd12.prod.outlook.com (2603:10b6:a03:4ea::22)
+ id f73891b2-2968-11f0-9eb4-5ba50f476ded;
+ Mon, 05 May 2025 06:25:25 +0200 (CEST)
+Received: from FR2PPF86245AF1B.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d18:2::5d)
+ by FR5P281MB4888.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:14d::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.23; Mon, 5 May
- 2025 02:57:42 +0000
-Received: from SJ5PEPF000001CF.namprd05.prod.outlook.com
- (2603:10b6:a03:33d:cafe::12) by SJ0PR05CA0148.outlook.office365.com
- (2603:10b6:a03:33d::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.22 via Frontend Transport; Mon,
- 5 May 2025 02:57:42 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001CF.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Mon, 5 May 2025 02:57:41 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 4 May
- 2025 21:57:40 -0500
-Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Sun, 4 May 2025 21:57:40 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.24; Mon, 5 May
+ 2025 04:25:23 +0000
+Received: from FR2PPF86245AF1B.DEUP281.PROD.OUTLOOK.COM
+ ([fe80::4e19:b0d5:6db3:dc90]) by FR2PPF86245AF1B.DEUP281.PROD.OUTLOOK.COM
+ ([fe80::4e19:b0d5:6db3:dc90%3]) with mapi id 15.20.8699.019; Mon, 5 May 2025
+ 04:25:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,286 +47,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b892a49d-295c-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: f73891b2-2968-11f0-9eb4-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ya40Kl7vpXW58SbKmT4wy6fSIm6yQZAsZ3pJs0TyxTohPtIFlh1QisUALELjViLYtHBJnL0JemLqq1Zrkc5tM+68pHa/dxHec6ASswHnI2qBkCmFDO6h48pPlzi1rdjr1I8O/ONtUZ0BEvFW8yB5cQ4cBkrAZzCGMOqqGyLsI7LxjWfuWfdMaKiqHRsw1oAzVRblFprWrzs4q59Yog+E9Rin2mlt2zk2O2H4BUrwbqNreB8J+OnDnYhdJoYDTg/lHMWGV/VqLS9rd1nHxRxL8gIVUhoEgcu+fQFkqCd2OqLSiPqejS+T4+nzyEioOYQWZm8VuqVbxHxRokR+VALVfA==
+ b=rubcwpDE08Mfgz7L1c2mh5nQGpYd3rWVIUrwThZOkf08+VV9YBtb6HYI+iZni3uRC57eq7gwbErh//ItUUEY8N66BpZ3OzCsS8D0j3/mI0ERNj+a/1eY2ZGxzMCqYS21zw9C+pSOAW6X1kCM5VlGsJykgU9ASghqRczX9XdbLJUTCc1KgmTpDuRZCSEYQ/7egGhvpaGO/cksOB/G9efqUg1insX6ZCumwPQdl8guM+NH8B9AXTRzFkIuJ8UhUM1Nn2Fk8PTqYjG2x730/SKeihWnbo1riE+bG4A0cswAst5hEMraApabfMjOPjRa3SphzhHWjm0VFYcvY9aDAYyuXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DRovNO/Yx1uPn92Z6qKe3rjpCFrCSbTdMugPgoXK3Mw=;
- b=TthiXljDvLNdx5zvJIWcHuuRtyw4toSL7V75GexyIAEeepcD8MGNSrfJhUdm+wnTvuSvrC/XADFEUqQ6alh4plpDDxl4ib2+TyL4EtmL3pLluI6HmXkUMW2CkfNFvA4PxrLVDN7jKYOphgTeLL3QtqFUtrw4Qivq1gDXUBCTGKw2gRGtjJ0MUocqLc+gqxaQdJzg5yROUv3TYZupjWF/FEPC3glV37FTxLnmWbbve/s9U+WlNDWl2yY8paTH/VC6EFiUuvQ3WQ8G8Wgta6yLYaiHoReupQhSvhIQum7oQsrT+4/qMkBw0bUw6e1Jq7+qFYn6Ldp9cRwIT3fSnYME5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=wCPLpFcuvpNGpG9Zlh+5o7uKYUi9HXdB2CHO+LqZ9RQ=;
+ b=R2kyZK4t49ZgFQCq6wFPVzpZnmWLqSJKG33iAGIq6pzdNMLqbx17eoaEKSxkDTeEv6aHhyPqjDPagnSDTbqi+di2ZFoXNmGSJHm2DROAf8t8G4cAHFNsn24riqROipr7wpKwCyTu9L4MVcHu2IS0wa86vu3kLfMjGKpCoFwr9NoYtQOaxlcSQ8U03emUlH54vMdZUxR7XJ0I2pd+3sXeSzQLFbYVR23TiybwG1LQW7x0ZDK8lIbI1gE7PM+anm8O6WhBOOGL6hRBbZRxInmbDvEx2v1C/C5DKRihI6fEJKzl/oUyDc8jPFkMrBb9RjaF64akxnXW7TFk/6HvfG2J6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=daimlertruck.com; dmarc=pass action=none
+ header.from=daimlertruck.com; dkim=pass header.d=daimlertruck.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daimlertruck.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DRovNO/Yx1uPn92Z6qKe3rjpCFrCSbTdMugPgoXK3Mw=;
- b=nPbo9aXLQz3ssy5pugGLZvdcz8zwjG1V0IQiawQ6gWo5wMO6bVCBsLk/lhFaFhfb0IZZJyynnoH4bSJSFdkG/gphtJUbGdRh2hGZ2KuXfphvGjR40GHHc2vhy6cGU5hlKUIpXUj7aDG3jk0wsCwk79+a02Pbgx9kky9sue0Pxkg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
-Subject: [PATCH 6/6] tools/arm: exclude iomem from domU extended regions
-Date: Sun, 4 May 2025 22:56:29 -0400
-Message-ID: <20250505025631.207529-7-stewart.hildebrand@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250505025631.207529-1-stewart.hildebrand@amd.com>
-References: <20250505025631.207529-1-stewart.hildebrand@amd.com>
+ bh=wCPLpFcuvpNGpG9Zlh+5o7uKYUi9HXdB2CHO+LqZ9RQ=;
+ b=QGus/aLz+rhbUs3vkQoU98bzYCNIJnVXMla69lokupJa2FOLuwE8SbYJZBGOkgZzzcVwmkHgPJ11ai6rzIc3udAZ+KNqSJtZYPMp2ytewcdVvvU7wveapRhlDNfS03u/ZAsloRrHSQJNq3IWaxrWUYpyF8Y7QhPaXTlgFFb3Cdj4hmzoTVCpLlL2q/b2SVziBAp/cvRqocrMC0TlSaP+FHW92e47CzPcc9kISR2bpdITJRMfazhGnVxoQs9GU9Rv5/H7K05Lv7qfAIP1j758lV/H6jG0+yhLn5mUsYUFqeHbvzVitC/dPuooYDnS5xCZUaVtW07fPZozOHtFOVxtkQ==
+From: "L, John Preetham (893)" <john_preetham.l@daimlertruck.com>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Ruslan
+ Shymkevych <Ruslan_Shymkevych@epam.com>
+Subject: RE: Request for Documentation on Bringing Up Xen on R-Car H3e
+ (H3ULCB)
+Thread-Topic: Request for Documentation on Bringing Up Xen on R-Car H3e
+ (H3ULCB)
+Thread-Index: AdtsrjaU74AF3fZpR/+NK9h56D1xZhQx2++A
+Date: Mon, 5 May 2025 04:25:23 +0000
+Message-ID:
+ <FR2PPF86245AF1B97AC233A5D738AD088B4B88E2@FR2PPF86245AF1B.DEUP281.PROD.OUTLOOK.COM>
+References:
+ <FR2PPF86245AF1B81D71CF27EE705ED09B7B8E12@FR2PPF86245AF1B.DEUP281.PROD.OUTLOOK.COM>
+	<8734ha2evr.fsf@epam.com>
+	<FR2PPF86245AF1B0938F55DAF4FF4E63A31B8E02@FR2PPF86245AF1B.DEUP281.PROD.OUTLOOK.COM>
+ <87ldv0248u.fsf@epam.com>
+In-Reply-To: <87ldv0248u.fsf@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_b97ea58d-47e6-47cc-9ab7-39ab03def869_ActionId=cb9711b7-4f14-4229-8820-b10613a1c346;MSIP_Label_b97ea58d-47e6-47cc-9ab7-39ab03def869_ContentBits=0;MSIP_Label_b97ea58d-47e6-47cc-9ab7-39ab03def869_Enabled=true;MSIP_Label_b97ea58d-47e6-47cc-9ab7-39ab03def869_Method=Standard;MSIP_Label_b97ea58d-47e6-47cc-9ab7-39ab03def869_Name=DT_Standard;MSIP_Label_b97ea58d-47e6-47cc-9ab7-39ab03def869_SetDate=2025-05-05T04:24:53Z;MSIP_Label_b97ea58d-47e6-47cc-9ab7-39ab03def869_SiteId=505cca53-5750-4134-9501-8d52d5df3cd1;MSIP_Label_b97ea58d-47e6-47cc-9ab7-39ab03def869_Tag=10,
+ 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=daimlertruck.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: FR2PPF86245AF1B:EE_|FR5P281MB4888:EE_
+x-ms-office365-filtering-correlation-id: a2f51af6-9152-43c0-a082-08dd8b8cda70
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|1800799024|7053199007|38070700018;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?szM+4id2fQPyQr4FxxQXr6nTENY1wJQ8xfLZDgWbw4y2tRW0Ms/Ed2ZPqdY2?=
+ =?us-ascii?Q?/M6E8zcTo1mgRXAdM11LbNI83li7LOUE8rs/K3bfphodbPp/2AzpCk36a7MT?=
+ =?us-ascii?Q?mHoS9VUn1oE70T78NDn2VZNZApHvrpnVI1HUQbxUB6X46eqFNaBkGhjNFFsh?=
+ =?us-ascii?Q?0oDdFsYoiWW36MXNo6eIbPT8E4a2rhTbcnSyC/iG3IPihyLsMs4/k33CUElT?=
+ =?us-ascii?Q?65lLEGtyslmzYWdPunSUSoCSNQsKqBuiH8/Habzink+PqGQvNakRhRFgsVTn?=
+ =?us-ascii?Q?WNgLD34cioZrOUyNNqVkQrcCfJoOppse9wxKPLn4zuyB6Y0wzSgMxgFiTp1m?=
+ =?us-ascii?Q?plzMowELFhPyCvBP3xuZuOWzuRTpwEmtdUMSs+at2QRWitTxNuAcPubiD1Bc?=
+ =?us-ascii?Q?dkVToOw27unJsyAzuI4GRDUtwHq02QUaKF0nSFdVw1wgF4SZoJv6Dq/NNpCi?=
+ =?us-ascii?Q?ja/woXPxikttk5hmWrNTU7nIk6hCPiasX+VhQfQXR40xjWaxmvrbgeVtaq1i?=
+ =?us-ascii?Q?3wFniu7DX+i6KVCOrNWbiQt8+5xXdp/GqfjqlZY/H2AnJBZvIbjfUSDhf/nR?=
+ =?us-ascii?Q?6QSVMCQ9GxD3N7QhMXJlmpbqffBnyIVuWgv58k01dDWozHCgSyq5hcp6lqza?=
+ =?us-ascii?Q?ICJ+U3b/1ZnVCW/WkfWVmOMdtgQ3fZctfV2/+G1oKPwNAzIB0TroTyUYdti3?=
+ =?us-ascii?Q?wiqTQuSjE1C8ZLGu8jTB/B+06uO0szPx3Wi4pydqDw2l6bJzdN+Sc10oBKeo?=
+ =?us-ascii?Q?w6bhZddLkiueV0sMaBtCNDKnuXs5mzOlEDGwCWTIQMGh1U9KEWGR1qOOrH5p?=
+ =?us-ascii?Q?cq67POwhwYNGcBFMxphESbcYOb9Z1CCNvJ8bhaLQ/5rAqCUGlnLn87d8tXs/?=
+ =?us-ascii?Q?2LBiinLtfJLEiNyN4WESivjoWPj8Gno1v1sqe4N7kSdDzjyDCxK1WgJSWnKv?=
+ =?us-ascii?Q?AzKyZGUGvyaIU9geVvlnqL35TdpBKCkAM+UODHpEdbebNeEbXIhH1MwyKtbU?=
+ =?us-ascii?Q?E04UOIevybcOdHYID3UshhJVj7I23tsCNjrxOsDaczR7HX1JHmZFsZm7IjJo?=
+ =?us-ascii?Q?ZTvBRkxYJfEo0X2e2bxK92eYtAW3XGROUKd57aTx2eI473fTBaPj7jc2IfY9?=
+ =?us-ascii?Q?CtAQQP8bEEjA+LRU/cGrhG878ablVkf2V3pYl8d39eXZ137DG1eBISSNEmQZ?=
+ =?us-ascii?Q?8L5qaPlX/0vUt1WAmAkZ61V5oPSTZN0v5rAuOyzdCu0z44337K0hU+ZQiC35?=
+ =?us-ascii?Q?Rs6eXRlUNQodeK25ox1L/7NpQ7EdTcAvRQZavcQGsWdRpwz9nUKSY/OskJKe?=
+ =?us-ascii?Q?MCIqR8h273rUBwiCboVksLchyPEo6BOeddsICdEue4krXWKgCnCERuT+fSmo?=
+ =?us-ascii?Q?JJH/YsRCFwhG6vJ+CBKXLGGczkhrat3PVDReWeGPn538STCUZ7AR/PVPeH9x?=
+ =?us-ascii?Q?58LmVZiSgfg=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:FR2PPF86245AF1B.DEUP281.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?9NDDybl1bK+yvMIVZ139kqZnoFVxMnl6lOLPCGiOHYZIXb8Z7B38RspXQtXB?=
+ =?us-ascii?Q?q0mTezDD169zdhsI0bBDKFb35T0cfmH6nkDIIwznuBSW1vGG9AXzNK7dS4V2?=
+ =?us-ascii?Q?swPwwEdK5L9DClX+kKG90eZ3Ute0/GsH6jA17IffWTUtGk6DJMM7hUwKCLdD?=
+ =?us-ascii?Q?UPbFQYbnfp+SGxHeEFgmkLlDN5uxVzpC0oN08JL5SMkDrFkEU/oWBWjg+iyn?=
+ =?us-ascii?Q?SQVUg5aVbZ0zWQ7VImC33pbYFmlKcJISJH6c5w5YytVFUt+YMLBYVKtuesc8?=
+ =?us-ascii?Q?xmw1gpeB/whPpDhEdSX6gJyVOS8OTstcxSIslwBzySDArDJOfpG0vRSSbYJW?=
+ =?us-ascii?Q?CMeciLCkr7GTCjjYkJA7FTNJlk8o83hMpr9DdyhA49QmQ7+FwhTuu677JQhs?=
+ =?us-ascii?Q?V3GIKtFit7SKM/8UKA0yqDMbTVuDGhW0ygzeEgmIOJq21ja2vCd9gbx/fTwk?=
+ =?us-ascii?Q?dUrxcojB+/d3wk/YSHh0SZTXJ505maFq+Uiu0V+QTIHL9QM/DFvkLbIky8un?=
+ =?us-ascii?Q?BD1XGIz3avqvFes67482/hdQNmrMe0U6p+l7pQ38R90B0njvjm4rUZgiTeTj?=
+ =?us-ascii?Q?P6yLjmuOXXggAvGb3s3acGRXp5Cr2ZtpSe0283ZzYm2gzXifxR6Hu1xpx1Ec?=
+ =?us-ascii?Q?uvKxWfY/ZwfXI5T3wVxrO4nqeiO9mrHeyBB+aaSfF/ow+qhnATDLusHzeOoi?=
+ =?us-ascii?Q?74NTfs3rnCs3p9GDzPjSELxif6iYRPsmSCnMjAj9VSUJPA3VyPCwH6irb+7G?=
+ =?us-ascii?Q?iUp+Fh1+vlA5Tc9XzhVR/CbVwzzRXFDBlTxYb+yRcLNZ3uA4xsg+ykzZZynL?=
+ =?us-ascii?Q?Ma+xqQTuY5BCyx6e6wMrn9NgvIkaceit7A29qB61/PE1BhY0VCCvnKhfWMwL?=
+ =?us-ascii?Q?LGdcjw/DK2nj6IFEcGmLRrhlpNbc/Ppt9//Oy/yf05Tn3TtX5eiffAX1Q5oW?=
+ =?us-ascii?Q?so2cMhX4p8S0p4/GdGgXby39kpxD8H04yJ1vAWK9DwvkGCgTK9GjdK5mwDBT?=
+ =?us-ascii?Q?2Fhgqqd/+RHvr7OpK1riNgSU51EJ3VnNpwKkCl+rwFa+R4w1Sw7HXQC2KK4s?=
+ =?us-ascii?Q?m7+iWsRxAC6qd9iAFkA9ft3OaaMfIFGKKvliZHWJ8qCkklB/Umhb+aT+cgi1?=
+ =?us-ascii?Q?+cQpD0P0XgC7cjIN49A2ewnooo3eUTfTpqcb9A0Fa2AChvyfdXUsDmNgoTqQ?=
+ =?us-ascii?Q?ez6RBx7pZfhg1def+2bzS5rVEFpYq4J2BCpqxU3ulfJCZqg8UC81qvMD5QIV?=
+ =?us-ascii?Q?/MB/dHyr6KYzKJSnfbJdy2zCU4vqvdL9yvMqRfpmSoPhsthRp/794Kosbh4S?=
+ =?us-ascii?Q?eu+v2bg3sqqSVDSddVlQWqvLBVbR9h1s3l6AOOVIOvQUdtJy64Qtbm+CvKQX?=
+ =?us-ascii?Q?muJUHgKLjLG3caxOBkKl31JjXaPkHJdEUbLE1XVFHF1hpIDpyYhJ13UXGPo7?=
+ =?us-ascii?Q?GA3maZRQPOKJrwlH3jMxvgAH828KRvYy/C4ypnM37S3o9PiiV6KapDqVkzft?=
+ =?us-ascii?Q?DbBJ5ghv6w990psQYBfNivRLQ7Fvm5VfOLS9S6DzHmQZNDdCPf5wQHqk2v+e?=
+ =?us-ascii?Q?1qqvYsSxGt/JSk1bWXw=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CF:EE_|SJ0PR12MB8090:EE_
-X-MS-Office365-Filtering-Correlation-Id: b2eaadf3-8d25-4491-f6dc-08dd8b809a5d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?OUaHII7SAKJin7t7jEG4qXm2nsBSz+4FHZWbvgzndMcMrjhMFlcf4lHRpSNv?=
- =?us-ascii?Q?smvr0bDGyOySVrnUlrY/eJN1wsplEPqeo9n6L1sESxpDbVWmaeydP5pLYRtM?=
- =?us-ascii?Q?cescWF7HVYuTwvqmNAh7fJQqCXLb2v8Z+Ovy9EPLClwHA4nami0/D7hKYk3j?=
- =?us-ascii?Q?8DWsW1a14+kjsz3CCNd/IwxHyRCxOKgMP6xmyPFhfBDKMQ2U7dHcBWW2G0J6?=
- =?us-ascii?Q?jqe7l5krdIVe0YjVmIFFFSo56DLraio3wq+BcSyJJkRkmSSCTOERswmUROYZ?=
- =?us-ascii?Q?mSkc8eARiqjMjXmjB6b0jt3/NEEmrh0cNvrZMZ3WScGbzCc8GdPEAXER4LS8?=
- =?us-ascii?Q?+V1dhqgTpg2JMuZ8fKhSqMngJltfxHAVXpuCsDCBP1UPqhjmhQlIrfSNI5hv?=
- =?us-ascii?Q?4f2tK5u6niJu+Efp9wHVQF8dCgkh2i0fUCXSKZx0mBP/PQygMZwKxbJ6QsCm?=
- =?us-ascii?Q?zMgsNNv5Hq0rtab+Clo4ndq/t7f6oDap2hEL55+7x2CgaWnLM/vJ6ZDsNChW?=
- =?us-ascii?Q?E4ej0IOJxReAnBF5SC1R3F3Josk2Z04+tGuVkSTUmSBzVve6TtEv81hSS+Ne?=
- =?us-ascii?Q?ia5QoX3PAGmit6ZlA+BAmD4240rX3Jv+Hb/s1iWTZO9gC+fWGq1uVT24A0O5?=
- =?us-ascii?Q?tAq3mKIy/z835DKWV4HmuR7EnQujZvn/dB67g/RKnuqmff8rta9gsEXxHIso?=
- =?us-ascii?Q?i3PmmW335A4Y/P55WCzZemHzDBbHf82f1jQ5/o9hQ6aXyBnQCfHqj8YT+HIV?=
- =?us-ascii?Q?MC2Nc0LtFDflXhQpH6KqIQ7EgfiuCypLPpafAVnEGMpdWY26J8nIwe7NS97j?=
- =?us-ascii?Q?JDCSyIpVD2IJKIfdaAvl+qZ1b3M+Gbhf//P+8UGqz20erH5SW9fd0ymammpJ?=
- =?us-ascii?Q?OM2GDfFR6DCp13hOFXKrGOb35FChSo5uDsHei5WUSjGxR6u/L8GQRob7zyAB?=
- =?us-ascii?Q?ilwFvXqYewh6K8L8lTqeO0NY71bd1QO6wb1n2izyy5xCAlIT2YvY6LtvtYFF?=
- =?us-ascii?Q?hcs5Vi3lS1kyx/FzbTz60BeuhdvPUHCcUN+rRrrahKzzo4AsVvzqLBF87uUU?=
- =?us-ascii?Q?ZxaCpQIsDGjbkQY4SUZxIUeTjoImwmSzBU+SaGCUAuy0Fd0hGwXCvu9aPVy6?=
- =?us-ascii?Q?D90lL8rMucKIqU/zd0uvR1VWjvPh8QvJFsLCT01r3EIB+OmUi/p826TCm4BN?=
- =?us-ascii?Q?e6zPok+5nILHfBn8+IFGxbuc+sP/dIX6TjG/CdV72lLpsVqzSA6oInKLIeYd?=
- =?us-ascii?Q?339B73G/Mbea+nX5BoqxnLaSioyIbeXauFYpjZcpsMJWCGiIqag1erSW2zJz?=
- =?us-ascii?Q?5QUYnj9UzuHzyzqxVaeU8tHinyDTwKdSeBUCbLSUbywmgKguFLlXs2O7lrv+?=
- =?us-ascii?Q?Rsy8EkYATuqu7gB3bJPtJgqOU/iTjVLa3+ISZsSG5nvFEpyA2M4agNdqUa6S?=
- =?us-ascii?Q?e49r0pWiNvk32ROiBIyK2f6RujjZc+NAbo7U8rUs4+iP8sHL3ZZOS6uoTn04?=
- =?us-ascii?Q?nVAKrcAjMmB9RBYEzCsqQA6A+5vJfMXlCJIH?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2025 02:57:41.6993
+X-OriginatorOrg: daimlertruck.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: FR2PPF86245AF1B.DEUP281.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2f51af6-9152-43c0-a082-08dd8b8cda70
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 May 2025 04:25:23.2824
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2eaadf3-8d25-4491-f6dc-08dd8b809a5d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001CF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8090
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 505cca53-5750-4134-9501-8d52d5df3cd1
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: BqeWnmOdbxEa74/E8UoujiHAXg3da9fqxY0HE0W9IcrJ8RY/WD9NXop4Ud6bP0x8sRDx3JJgCT1TSawVP9tvLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR5P281MB4888
 
-When a device is passed through to a xl domU, the iomem ranges may
-overlap with the extended regions. Remove iomem from extended regions.
+Hi Volodymyr,
 
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
----
-Not sure if we need a Fixes: tag, but if we do:
-Fixes: 57f87857dc2d ("libxl/arm: Add handling of extended regions for DomU")
----
- tools/libs/light/libxl_arm.c | 118 +++++++++++++++++++++++++++++------
- 1 file changed, 99 insertions(+), 19 deletions(-)
+Thank you once again for the detailed explanation and the helpful resources=
+.
 
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index 75c811053c7c..8ae16a1726fc 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -798,6 +798,8 @@ static int make_timer_node(libxl__gc *gc, void *fdt,
-     return 0;
- }
- 
-+#define MAX_NR_EXT_REGIONS   256
-+
- static int make_hypervisor_node(libxl__gc *gc, void *fdt,
-                                 const libxl_version_info *vers)
- {
-@@ -821,7 +823,7 @@ static int make_hypervisor_node(libxl__gc *gc, void *fdt,
-      */
-     res = fdt_property_reg_placeholder(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
-                                        GUEST_ROOT_SIZE_CELLS,
--                                       GUEST_RAM_BANKS + 1);
-+                                       MAX_NR_EXT_REGIONS + 1);
-     if (res) return res;
- 
-     /*
-@@ -1517,17 +1519,29 @@ static void finalise_one_node(libxl__gc *gc, void *fdt, const char *uname,
- 
- #define EXT_REGION_MIN_SIZE   xen_mk_ullong(0x0004000000) /* 64MB */
- 
--static int finalize_hypervisor_node(libxl__gc *gc, struct xc_dom_image *dom)
-+static int compare_iomem(const void *a, const void *b)
-+{
-+    const libxl_iomem_range *x = a, *y = b;
-+
-+    if (x->gfn < y->gfn)
-+        return -1;
-+    if (x->gfn > y->gfn)
-+        return 1;
-+    return 0;
-+}
-+
-+static int finalize_hypervisor_node(libxl__gc *gc,
-+                                    libxl_domain_build_info *b_info,
-+                                    struct xc_dom_image *dom)
- {
-     void *fdt = dom->devicetree_blob;
--    uint64_t region_size[GUEST_RAM_BANKS] = {0}, region_base[GUEST_RAM_BANKS],
--        bankend[GUEST_RAM_BANKS];
-+    uint64_t region_base[MAX_NR_EXT_REGIONS], region_size[MAX_NR_EXT_REGIONS];
-     uint32_t regs[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
--                  (GUEST_RAM_BANKS + 1)];
-+                  (MAX_NR_EXT_REGIONS + 1)];
-     be32 *cells = &regs[0];
-     const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
-     const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
--    unsigned int i, len, nr_regions = 0;
-+    unsigned int i, j, len, nr_regions = 0;
-     libxl_dominfo info;
-     int offset, rc;
- 
-@@ -1542,20 +1556,90 @@ static int finalize_hypervisor_node(libxl__gc *gc, struct xc_dom_image *dom)
-     if (info.gpaddr_bits > 64)
-         return ERROR_INVAL;
- 
-+    qsort(b_info->iomem, b_info->num_iomem, sizeof(libxl_iomem_range),
-+          compare_iomem);
-+
-     /*
-      * Try to allocate separate 2MB-aligned extended regions from the first
-      * and second RAM banks taking into the account the maximum supported
-      * guest physical address space size and the amount of memory assigned
-      * to the guest.
-      */
--    for (i = 0; i < GUEST_RAM_BANKS; i++) {
--        region_base[i] = bankbase[i] +
-+    for (i = 0; i < GUEST_RAM_BANKS && nr_regions < MAX_NR_EXT_REGIONS; i++) {
-+        struct {
-+            uint64_t start;
-+            uint64_t end; /* inclusive */
-+        } unallocated;
-+        uint64_t size = 0;
-+
-+        unallocated.start = bankbase[i] +
-             ALIGN_UP_TO_2MB((uint64_t)dom->rambank_size[i] << XC_PAGE_SHIFT);
- 
--        bankend[i] = ~0ULL >> (64 - info.gpaddr_bits);
--        bankend[i] = min(bankend[i], bankbase[i] + banksize[i] - 1);
--        if (bankend[i] > region_base[i])
--            region_size[i] = bankend[i] - region_base[i] + 1;
-+        unallocated.end = ~0ULL >> (64 - info.gpaddr_bits);
-+        unallocated.end = min(unallocated.end, bankbase[i] + banksize[i] - 1);
-+
-+        if (unallocated.end > unallocated.start)
-+            size = unallocated.end - unallocated.start + 1;
-+
-+        if (size < EXT_REGION_MIN_SIZE)
-+            continue;
-+
-+        /* Exclude iomem */
-+        for (j = 0; j < b_info->num_iomem && nr_regions < MAX_NR_EXT_REGIONS;
-+             j++) {
-+            struct {
-+                uint64_t start;
-+                uint64_t end; /* inclusive */
-+            } iomem;
-+
-+            iomem.start = b_info->iomem[j].gfn << XC_PAGE_SHIFT;
-+            iomem.end = ((b_info->iomem[j].gfn + b_info->iomem[j].number)
-+                         << XC_PAGE_SHIFT) - 1;
-+
-+            if (iomem.end >= unallocated.start
-+                && iomem.start <= unallocated.end) {
-+
-+                if (iomem.start <= unallocated.start) {
-+                    unallocated.start = iomem.end + 1;
-+
-+                    if (iomem.end >= unallocated.end)
-+                        /* Complete overlap, discard unallocated region */
-+                        break;
-+
-+                    /* Beginning overlap */
-+                    continue;
-+                }
-+
-+                if (iomem.start > unallocated.start) {
-+                    assert(unallocated.end > unallocated.start);
-+                    size = iomem.start - unallocated.start;
-+
-+                    if (size >= EXT_REGION_MIN_SIZE) {
-+                        region_base[nr_regions] = unallocated.start;
-+                        region_size[nr_regions] = size;
-+                        nr_regions++;
-+                    }
-+
-+                    unallocated.start = iomem.end + 1;
-+
-+                    if (iomem.end >= unallocated.end)
-+                        /* End overlap, discard remaining unallocated region */
-+                        break;
-+                }
-+            }
-+        }
-+
-+        if (unallocated.end > unallocated.start
-+            && nr_regions < MAX_NR_EXT_REGIONS)
-+        {
-+            size = unallocated.end - unallocated.start + 1;
-+
-+            if (size >= EXT_REGION_MIN_SIZE) {
-+                region_base[nr_regions] = unallocated.start;
-+                region_size[nr_regions] = size;
-+                nr_regions++;
-+            }
-+        }
-     }
- 
-     /*
-@@ -1565,16 +1649,12 @@ static int finalize_hypervisor_node(libxl__gc *gc, struct xc_dom_image *dom)
-     set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-               GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
- 
--    for (i = 0; i < GUEST_RAM_BANKS; i++) {
--        if (region_size[i] < EXT_REGION_MIN_SIZE)
--            continue;
--
-+    for (i = 0; i < nr_regions; i++) {
-         LOG(DEBUG, "Extended region %u: %#"PRIx64"->%#"PRIx64"",
--            nr_regions, region_base[i], region_base[i] + region_size[i]);
-+            i, region_base[i], region_base[i] + region_size[i]);
- 
-         set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-                   region_base[i], region_size[i]);
--        nr_regions++;
-     }
- 
-     if (!nr_regions)
-@@ -1626,7 +1706,7 @@ int libxl__arch_domain_finalise_hw_description(libxl__gc *gc,
- 
-     }
- 
--    res = finalize_hypervisor_node(gc, dom);
-+    res = finalize_hypervisor_node(gc, &d_config->b_info, dom);
-     if (res)
-         return res;
- 
--- 
-2.49.0
+With your guidance, I was able to bring up the XEN hypervisor on the R-Car =
+H3e board successfully. I really appreciate your support.
+
+Now, I'm looking to move forward with bringing up a QNX guest on the XEN hy=
+pervisor. Could you please share the procedure or steps you recommend for t=
+his? It would also be very helpful if you could provide an example Device T=
+ree Source (DTS) and XEN domain configuration (CFG) file for the QNX guest,=
+ if available.
+
+Looking forward to your input.
+
+Best regards,
+John Preetham L
+
+-----Original Message-----
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Sent: 24 January 2025 10:33
+To: L, John Preetham (893) <john_preetham.l@daimlertruck.com>
+Cc: xen-devel@lists.xenproject.org; Ruslan Shymkevych <Ruslan_Shymkevych@ep=
+am.com>
+Subject: Re: Request for Documentation on Bringing Up Xen on R-Car H3e (H3U=
+LCB)
+
+[You don't often get email from volodymyr_babchuk@epam.com. Learn why this =
+is important at https://aka.ms/LearnAboutSenderIdentification ]
+
+"L, John Preetham (893)" <john_preetham.l@daimlertruck.com> writes:
+
+Hi John,
+
+> Hi Volodymyr,
+>
+> Thank you for the detailed suggestions.
+> Since I'm new to XEN hypervisor.
+>
+> I will approach the recommended method.
+
+Yeah, I think this is the best approach if you want get something working A=
+SAP.
+
+> Could you please let me know which Yocto version is stable and tested fro=
+m your end?
+
+As of now we are using Kirkstone. I believe, this is the latest Yocto versi=
+on supported by Renesas BSP. And we of course can't jump over their head. A=
+nyways, if you'll follow instruction in README.md, moulin tool will fetch a=
+ll required meta-layers and configure Yocto for you.
+
+If you are interested in exact commit ids, you can check the YAML file used=
+ by moulin tool:
+
+https://github.com/xen-troops/meta-xt-prod-devel-rcar/blob/master/prod-deve=
+l-rcar.yaml#L32
+
+--
+WBR, Volodymyr
+
+If you are not the addressee, please inform us immediately that you have re=
+ceived this e-mail by mistake, and delete it. We thank you for your support=
+.
 
 
