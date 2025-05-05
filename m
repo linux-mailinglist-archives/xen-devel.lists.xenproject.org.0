@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6030AA9CBF
-	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 21:45:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.976342.1363514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8A24AA9CC8
+	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 21:51:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.976355.1363523 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uC1jx-0007h5-FW; Mon, 05 May 2025 19:44:37 +0000
+	id 1uC1qN-0000uo-3o; Mon, 05 May 2025 19:51:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 976342.1363514; Mon, 05 May 2025 19:44:37 +0000
+Received: by outflank-mailman (output) from mailman id 976355.1363523; Mon, 05 May 2025 19:51:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uC1jx-0007e9-Ck; Mon, 05 May 2025 19:44:37 +0000
-Received: by outflank-mailman (input) for mailman id 976342;
- Mon, 05 May 2025 19:44:36 +0000
+	id 1uC1qN-0000sf-1F; Mon, 05 May 2025 19:51:15 +0000
+Received: by outflank-mailman (input) for mailman id 976355;
+ Mon, 05 May 2025 19:51:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9/1y=XV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uC1jw-0007e3-28
- for xen-devel@lists.xenproject.org; Mon, 05 May 2025 19:44:36 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ id 1uC1qL-0000sZ-FR
+ for xen-devel@lists.xenproject.org; Mon, 05 May 2025 19:51:13 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5cecfa2a-29e9-11f0-9ffb-bf95429c2676;
- Mon, 05 May 2025 21:44:32 +0200 (CEST)
+ id 4aac6a59-29ea-11f0-9ffb-bf95429c2676;
+ Mon, 05 May 2025 21:51:11 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id AA2364A5A1;
- Mon,  5 May 2025 19:44:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9ABAC4CEE4;
- Mon,  5 May 2025 19:44:28 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id F18705C58F9;
+ Mon,  5 May 2025 19:48:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73801C4CEE4;
+ Mon,  5 May 2025 19:51:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,137 +41,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5cecfa2a-29e9-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 4aac6a59-29ea-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1746474270;
-	bh=OA60VWp0llEUQpPM/Acri1qpDoUSmwYiYugg4nz4CZ8=;
+	s=k20201202; t=1746474668;
+	bh=L5JU1f17MQAAFxdWsVzAj7rxAFtDBmBQnvQJHA42sgE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VQo3euLvozySondpySpsUj3pJ2eXh0ez+CM97pmQVbEidIWWkcVAyxVwjBgH24Bdr
-	 i/VGuYZuos/9kTyCaH20vTzj9olf63YoVghd6xG1Y2TNtSUCyL4qqRHZ3hVSitUdGY
-	 hSqoHX1hdHHl5ypr8LJyykx7YbRFvsdQybnMuYnugJlCBtZgXhNeD4ynQ+ISjUiI6W
-	 ntxiU3CdEtCEpK8ZafGlSnU1uaRMdTe2eOqMl3dOsuZDiU5N0xIiC1dQ446/gcsuQh
-	 MKJERQIl0gbb4No+UbcTRlNbjFttScxvY7gD+E9jIxrksayDDoi4DFYhxk/cFX+WWs
-	 BkvZIizArb11g==
-Date: Mon, 5 May 2025 12:44:27 -0700 (PDT)
+	b=tuZP3XN0CqozriUzBDrR2sIwJ4KnSLE/Fn5FOJx33QOdp84qlhb1tgWg+Fy0Fod81
+	 5Jd6vmox1SSXi4RwNzEIQDrQ+nzNu1TjNUrQaJATcDD/TnNNTU3TgyjKAvN+SGvJK4
+	 Zku/E22+Vu/5HcER8WXXXhWSzrs37yamK080uTy6TAG3+AbXniS0h17CwYseEG1yCH
+	 k7S12gBIGOk3CAEoii0/xyCZWlrTvRZOef1lTbOPiUC9OMsMAVNvR9ZpRuhkXGNpQx
+	 Zwpfpf9c4hnMq3G6jndglNw82rI+pIFw5clzyBLLfDlmN3q+tsRJDCme4ooB5qq2Ws
+	 gKJz+l/459SGQ==
+Date: Mon, 5 May 2025 12:51:06 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
     Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Roberto Bagnara <roberto.bagnara@bugseng.com>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    "consulting @ bugseng . com" <consulting@bugseng.com>
-Subject: Re: [PATCH] xen: Use __auto_type
-In-Reply-To: <20250505124646.1569767-1-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2505051244090.3879245@ubuntu-linux-20-04-desktop>
-References: <20250505124646.1569767-1-andrew.cooper3@citrix.com>
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v4 3/8] asm-generic: move parts of Arm's asm/kernel.h to
+ common code
+In-Reply-To: <578b923f4103e312f3840619bb286d3dba39300b.1746468003.git.oleksii.kurochko@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2505051249560.3879245@ubuntu-linux-20-04-desktop>
+References: <cover.1746468003.git.oleksii.kurochko@gmail.com> <578b923f4103e312f3840619bb286d3dba39300b.1746468003.git.oleksii.kurochko@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1097180844-1746474270=:3879245"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Mon, 5 May 2025, Oleksii Kurochko wrote:
+> Move the following parts to common with the following changes:
+> - struct kernel_info:
+>   - Create arch_kernel_info for arch specific kernel information.
+>     At the moment, it contains domain_type for Arm.
+>   - s/phandle_gic/phandle_intc to have more generic name suitable for other
+>     archs.
+>   - Make text_offset of zimage structure available for RISCV_64.
+> - Wrap by `#ifdef KERNEL_INFO_SHM_MEM_INIT` definition of KERNEL_SHM_MEM_INIT
+>   and wrap by `#ifndef KERNEL_INFO_INIT` definition of KERNEL_INFO_INIT to have
+>   ability to override KERNEL_INFO_SHM_MEM_INIT for arch in case it doesn't
+>   want to use generic one.
+> - Move DOM0LESS_* macros to dom0less-build.h.
+> - Move all others parts of Arm's kernel.h to xen/fdt-kernel.h.
+> 
+> Because of the changes in struct kernel_info the correspondent parts of Arm's
+> code are updated.
+> 
+> As part of this patch the following clean up happens:
+> - Drop asm/setup.h from asm/kernel.h as nothing depends from it.
+>   Add inclusion of asm/setup.h for a code which uses device_tree_get_reg() to
+>   avoid compilation issues for CONFIG_STATIC_MEMORY and CONFIG_STATIC_SHM.
+> - Drop inclusion of asm/kernel.h everywhere except xen/fdt-kernel.h.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
---8323329-1097180844-1746474270=:3879245
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
 
-On Mon, 5 May 2025, Andrew Cooper wrote:
-> In macros it is common to declare local variables using typeof(param) in order
-> to ensure that side effects are only evaluated once.  A consequence of this is
-> double textural expansion of the parameter, which can get out of hand very
-> quickly with nested macros.
-> 
-> A GCC extension, __auto_type, is now avaialble in the new toolchain baseline
-> and avoids the double textural expansion.
-
-I think this is a good change
-
-
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Julien Grall <julien@xen.org>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
-> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> CC: consulting@bugseng.com <consulting@bugseng.com>
-> 
-> The resulting build is identical.
-> 
-> RFC.  This requires a MISRA change, as it currently manifests as a R1.1
-> violation.  Nevertheless, I think we want to start using in places where we
-> currently use typeof(expression of <initilaiser>).
-> 
-> Eclair run on this patch (expecting a failure):
->   https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1800631949
-> 
-> Min toolchain check:
->   https://godbolt.org/z/f9WjooPYj
-> 
-> GCC Manual:
->   https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Auto-Type.html
-> ---
->  xen/include/xen/macros.h | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
-> 
-> diff --git a/xen/include/xen/macros.h b/xen/include/xen/macros.h
-> index cd528fbdb127..b5e5ff4b1c2f 100644
-> --- a/xen/include/xen/macros.h
-> +++ b/xen/include/xen/macros.h
-> @@ -71,18 +71,18 @@
->  /* Hide a value from the optimiser. */
->  #define HIDE(x)                                 \
->      ({                                          \
-> -        typeof(x) _x = (x);                     \
-> +        __auto_type _x = (x);                   \
->          asm volatile ( "" : "+r" (_x) );        \
->          _x;                                     \
->      })
->  
->  #define ABS(x) ({                              \
-> -    typeof(x) x_ = (x);                        \
-> +    __auto_type x_ = (x);                      \
->      (x_ < 0) ? -x_ : x_;                       \
->  })
->  
->  #define SWAP(a, b) \
-> -   do { typeof(a) t_ = (a); (a) = (b); (b) = t_; } while ( 0 )
-> +   do { __auto_type t_ = (a); (a) = (b); (b) = t_; } while ( 0 )
->  
->  #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]) + __must_be_array(x))
->  
-> @@ -110,15 +110,15 @@
->   */
->  #define min(x, y)                               \
->      ({                                          \
-> -        const typeof(x) _x = (x);               \
-> -        const typeof(y) _y = (y);               \
-> +        const __auto_type _x = (x);             \
-> +        const __auto_type _y = (y);             \
->          (void)(&_x == &_y); /* typecheck */     \
->          _x < _y ? _x : _y;                      \
->      })
->  #define max(x, y)                               \
->      ({                                          \
-> -        const typeof(x) _x = (x);               \
-> -        const typeof(y) _y = (y);               \
-> +        const __auto_type _x = (x);             \
-> +        const __auto_type _y = (y);             \
->          (void)(&_x == &_y); /* typecheck */     \
->          _x > _y ? _x : _y;                      \
->      })
-> 
-> base-commit: 78ce2be733b1e45e2e190c1765fe31da318d435f
-> -- 
-> 2.39.5
-> 
---8323329-1097180844-1746474270=:3879245--
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
