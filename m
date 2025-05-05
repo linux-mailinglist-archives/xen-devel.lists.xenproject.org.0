@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE421AA9A4A
-	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 19:21:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.976180.1363394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72456AA9AC8
+	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 19:36:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.976195.1363404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBzTw-0006WE-22; Mon, 05 May 2025 17:19:56 +0000
+	id 1uBzjI-0000v4-CS; Mon, 05 May 2025 17:35:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 976180.1363394; Mon, 05 May 2025 17:19:56 +0000
+Received: by outflank-mailman (output) from mailman id 976195.1363404; Mon, 05 May 2025 17:35:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBzTv-0006U4-Uj; Mon, 05 May 2025 17:19:55 +0000
-Received: by outflank-mailman (input) for mailman id 976180;
- Mon, 05 May 2025 17:19:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uBzjI-0000ss-9I; Mon, 05 May 2025 17:35:48 +0000
+Received: by outflank-mailman (input) for mailman id 976195;
+ Mon, 05 May 2025 17:35:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9/1y=XV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uBzTu-0006Ty-IF
- for xen-devel@lists.xenproject.org; Mon, 05 May 2025 17:19:54 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26dda250-29d5-11f0-9eb4-5ba50f476ded;
- Mon, 05 May 2025 19:19:51 +0200 (CEST)
+ id 1uBzjG-0000sm-SS
+ for xen-devel@lists.xenproject.org; Mon, 05 May 2025 17:35:46 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5f28ded2-29d7-11f0-9ffb-bf95429c2676;
+ Mon, 05 May 2025 19:35:44 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6B76E5C4624;
- Mon,  5 May 2025 17:17:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA192C4CEE4;
- Mon,  5 May 2025 17:19:47 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id EBEA8A4C5AB;
+ Mon,  5 May 2025 17:30:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F11D3C4CEE4;
+ Mon,  5 May 2025 17:35:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26dda250-29d5-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 5f28ded2-29d7-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1746465589;
-	bh=tKyAZaSY4McK3YCahgeUO7ZbO9yDo3+bLojf3JFda50=;
+	s=k20201202; t=1746466543;
+	bh=w57YziwY5ywU3p0r/3ZcUL0HAETzSk5/VSiQUFBwBIM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=vMarw99m2Omwn8crTX3hmU1e63RRKqee5hNXLgprEh8wAdP5bm6VHyOSFH7k0jad7
-	 3UkJV+BBSeDb19hBfpUE3zvSLSnwW5ziUYzXo4/Gi58H5jmF/wdUxTyXKrS/4ZIRcS
-	 lrFaOcuQBAISPVP/Gg4sQUsC7WvmHActL918UtuV1pdZv9YQADFNYclXM7tEaNO2Jq
-	 tY4ZR+3nZVTOeKT7bsDEcI7xv2TJsmhp1ZCoZedD+Y73anvR3zg6CpCb7hNuukUp00
-	 zebecKLY3NE4zJXErJFzt+XQEgKJQ7Nhta0WQQyvYZxvCcdFpnw8x7t49x82pt9Wxt
-	 U4R/kaSpFNnkw==
-Date: Mon, 5 May 2025 10:19:46 -0700 (PDT)
+	b=IbcFOjVVXzKHbdSCgJ/ESLUeyKuR093yUX+bXJjgj+4DYW4NX34OfIp8GCWzo6fYx
+	 b6oKl6KXNWX4KRYXdDR3EFKuNw9s1amlbwUMPv+2btTvWBWMFBEklI/WYZ2l8NJAyf
+	 6E4ySEJhEPgqvkZyw6+KZ+yoDHadNOW5TElcFppujgTSb/kGF7v1oWAKq+dtaX04Va
+	 JAnM/teHjkjNWochAJElEs0XJNdeUFEuVw4sz20bubboYD0r+kmmUcO3IuR8lRstNb
+	 rqxZ/XfqMn7Icy8sWfI3lXbcQRNIopLKJrkB27moqOWkZHeXFIb0gOIYiDBT4DB6l6
+	 L9K39SSR+B79A==
+Date: Mon, 5 May 2025 10:35:39 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
@@ -65,92 +65,132 @@ cc: Stefano Stabellini <sstabellini@kernel.org>,
     Anthony PERARD <anthony.perard@vates.tech>, 
     Jan Beulich <jbeulich@suse.com>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v3 2/8] xen/common: dom0less: make some parts of Arm's
- CONFIG_DOM0LESS common
-In-Reply-To: <ac04dd06-1e7d-4013-8e1b-ab5f8ab39ce3@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2505051019270.3879245@ubuntu-linux-20-04-desktop>
-References: <cover.1746199009.git.oleksii.kurochko@gmail.com> <82f0c1d4fe25b4a52d76f3c8004e107b183af56c.1746199009.git.oleksii.kurochko@gmail.com> <alpine.DEB.2.22.394.2505021028020.3879245@ubuntu-linux-20-04-desktop>
- <ac04dd06-1e7d-4013-8e1b-ab5f8ab39ce3@gmail.com>
+Subject: Re: [PATCH v3 8/8] xen/common: dom0less: introduce common
+ dom0less-build.c
+In-Reply-To: <5523bf0d-a94e-444d-a1fa-035ecccb4448@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2505051023110.3879245@ubuntu-linux-20-04-desktop>
+References: <cover.1746199009.git.oleksii.kurochko@gmail.com> <76390ef52f108b580e1c397ed178ceadf1ae53c4.1746199009.git.oleksii.kurochko@gmail.com> <alpine.DEB.2.22.394.2505021321060.3879245@ubuntu-linux-20-04-desktop>
+ <5523bf0d-a94e-444d-a1fa-035ecccb4448@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
+Hi Oleksii,
+
+FYI I know you might not be able to disable HTML in your email client
+replies, but just as a heads up, my email client doesn't support HTML at
+all so my replies will have your text and my older text mixed up.
+
+
 On Mon, 5 May 2025, Oleksii Kurochko wrote:
-> On 5/2/25 7:55 PM, Stefano Stabellini wrote:
+> On 5/2/25 10:53 PM, Stefano Stabellini wrote:
 > 
 > On Fri, 2 May 2025, Oleksii Kurochko wrote:
-> Move some parts of Arm's Dom0Less code to be reused by other architectures.
-> At the moment, RISC-V is going to reuse these parts.
 > 
-> Move dom0less-build.h from the Arm-specific directory to asm-generic
-> as these header is expected to be the same across acrhictectures with
-> some updates: add the following declaration of construct_domU(),
-> and arch_create_domUs() as there are some parts which are still
-> architecture-specific.
+> Part of Arm's dom0less-build.c could be common between architectures which are
+> using device tree files to create guest domains. Thereby move some parts of
+> Arm's dom0less-build.c to common code with minor changes.
 > 
-> Introduce HAS_DOM0LESS to provide ability to enable generic Dom0less
-> code for an architecture.
+> As a part of theses changes the following changes are introduced:
+> - Introduce make_arch_nodes() to cover arch-specific nodes. For example, in
+>   case of Arm, it is PSCI and vpl011 nodes.
+> - Introduce set_domain_type() to abstract a way how setting of domain type
+>   happens. For example, RISC-V won't have this member of arch_domain structure
+>   as vCPUs will always have the same bitness as hypervisor. In case of Arm, it
+>   is possible that Arm64 could create 32-bit and 64-bit domains.
+> - Introduce init_vuart() to cover details of virtual uart initialization.
+> - Introduce init_intc_phandle() to cover some details of interrupt controller
+>   phandle initialization. As an example, RISC-V could have different name for
+>   interrupt controller node ( APLIC, PLIC, IMSIC, etc ) but the code in
+>   domain_handle_dtb_bootmodule() could handle only one interrupt controller
+>   node name.
+> - s/make_gic_domU_node/make_intc_domU_node as GIC is Arm specific naming and
+>   add prototype of make_intc_domU_node() to dom0less-build.h
 > 
-> Relocate the CONFIG_DOM0LESS configuration to the common with adding
-> "depends on HAS_DOM0LESS" to not break builds for architectures which
-> don't support CONFIG_DOM0LESS config, especically it would be useful
-> to not provide stubs for  construct_domU(), arch_create_domUs()
-> in case of *-randconfig which may set CONFIG_DOM0LESS=y.
+> The following functions are moved to xen/common/device-tree:
+> - Functions which are moved as is:
+>   - domain_p2m_pages().
+>   - handle_passthrough_prop().
+>   - handle_prop_pfdt().
+>   - scan_pfdt_node().
+>   - check_partial_fdt().
+> - Functions which are moved with some minor changes:
+>   - alloc_xenstore_evtchn():
+>     - ifdef-ing by CONFIG_HVM accesses to hvm.params.
+>   - prepare_dtb_domU():
+>     - ifdef-ing access to gnttab_{start,size} by CONFIG_GRANT_TABLE.
+>     - s/make_gic_domU_node/make_intc_domU_node.
+>     - Add call of make_arch_nodes().
+> - domain_handle_dtb_bootmodule():
+>   - hide details of interrupt controller phandle initialization by calling
+>     init_intc_phandle().
+>   - Update the comment above init_intc_phandle(): s/gic/interrupt controller.
+> - construct_domU():
+>   - ifdef-ing by CONFIG_HVM accesses to hvm.params.
+>   - Call init_vuart() to hide Arm's vpl011_init() details there.
+>   - Add call of set_domain_type() instead of setting kinfo->arch.type explicitly.
 > 
-> Move is_dom0less_mode() function to the common code, as it depends on
-> boot modules that are already part of the common code.
-> 
-> Move create_domUs() function to the common code with some updates:
-> - Add arch_create_domUs() to cover parsing of arch-specific features,
->   for example, SVE (Scalar Vector Extension ) exists only in Arm.
+> Some parts of dom0less-build.c are wraped by #ifdef CONFIG_STATIC_{SHMEM,MEMORY}
+> as not all archs support these configs.
 > 
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> It was suggested to change dom0less to predefined domus or similar
-> (https://lore.kernel.org/xen-devel/cd2a3644-c9c6-4e77-9491-2988703906c0@gmail.com/T/#m1d5e81e5f1faca98a3c51efe4f35af25010edbf0):
-> 
-> I decided to go with dom0less name for now as it will require a lot of places to change,
-> including CI's test, and IMO we could do in a separate patch.
-> If it is necessry to do now, I'll be happy to do that in next version of the current
-> patch series.
-> I think it is fine to use dom0less for now, it will make the code easier
-> to review and it is not necessary to change the name at this point.
-> 
-> The patch looks good to me, except for a couple of minor suggestions I
-> have below. I could make them on commit. With those:
-> 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> During the randconfig testing the following issue occurs:
->   
-> common/device-tree/dom0less-build.c: In function 'create_domUs':
-> common/device-tree/dom0less-build.c:156:42: error: implicit declaration of function 'gnttab_dom0_frames'; did you mean 'gnttab_map_frame'? 
-> [-Werror=implicit-function-declaration]
->   156 |                 d_cfg.max_grant_frames = gnttab_dom0_frames();
->       |                                          ^~~~~~~~~~~~~~~~~~
->       |                                          gnttab_map_frame
-> common/device-tree/dom0less-build.c:156:42: error: nested extern declaration of 'gnttab_dom0_frames' [-Werror=nested-externs]
-> 
-> I fixed that by the following #ifdef-ing:
-> ...
->         d_cfg.max_grant_frames = -1;
-> ...
-> 
->         if ( dt_property_read_u32(node, "capabilities", &val) )
->         {
-> ...
-> 
-> #ifdef CONFIG_GRANT_TABLE
->                 d_cfg.max_grant_frames = gnttab_dom0_frames();
-> #endif
->                 d_cfg.max_evtchn_port = -1;
->                 flags |= CDF_hardware;
->                 iommu = true;
->             }
-> 
-> Do you agree with such fix?
-> 
-> If the CONFIG_GRANT_TABLE=n then the init value (d_cfg.max_grant_frames = -1;) will be used.
 
-Yes, OK
+[...]
+
+
+> +    ret = make_memory_node(kinfo, addrcells, sizecells,
+> +                           kernel_info_get_mem(kinfo));
+> +    if ( ret )
+> +        goto err;
+> +
+> +#ifdef CONFIG_STATIC_SHM
+> 
+> This should not be necessary because there is a stub implementation of
+> make_resv_memory_node available in static-shmem.h for the
+> !CONFIG_STATIC_SHM case.
+> 
+> But static-shmem.h isn't available on all architectures. Until static-shmem.h isn't moved to
+> asm-generic or xen folders and then re-used by an architecture we have to have #ifdef.
+ 
+OK let's keep it as is so that we don't need to move static-shmem.h
+
+ 
+> +    ret = make_resv_memory_node(kinfo, addrcells, sizecells);
+> +    if ( ret )
+> +        goto err;
+> +#endif
+
+[...]
+
+
+> +    if ( !dt_find_property(node, "xen,static-mem", NULL) )
+> +        allocate_memory(d, &kinfo);
+> +#ifdef CONFIG_STATIC_MEMORY
+> 
+> Also this should not be needed thanks to the stub implementation of
+> allocate_static_memory and assign_static_memory_11
+> 
+> 
+> +    else if ( !is_domain_direct_mapped(d) )
+> +        allocate_static_memory(d, &kinfo, node);
+> +    else
+> +        assign_static_memory_11(d, &kinfo, node);
+> +#endif
+> +
+> +#ifdef CONFIG_STATIC_SHM
+> 
+> There is a stub for process_shm too
+> 
+> The same as with make_resv_memory_node(), static-shmem.h header isn't available for
+> all archs.
+> I can return my patches which move static-shmem.h to asm-generic and then drop all the ifdef-s connect to it:
+> https://lore.kernel.org/xen-devel/0203b98aa6a42aa69e22e7c973320add3ff4bb5d.1736334615.git.oleksii.kurochko@gmail.com/
+> https://lore.kernel.org/xen-devel/0203b98aa6a42aa69e22e7c973320add3ff4bb5d.1736334615.git.oleksii.kurochko@gmail.com/
+> 
+> Let me know if it is better to do now or should it be better to drop #ifdef-ing when an architrecture will require
+> static-shmem or static-mem features?
+
+I see Jan's point that they are advanced features probably not needed
+initially. So maybe it is better to start with something simpler. I
+think it is OK to keep the patch as is.
 
