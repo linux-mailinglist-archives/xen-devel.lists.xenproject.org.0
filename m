@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97C41AA9B3C
+	by mail.lfdr.de (Postfix) with ESMTPS id B508EAA9B3D
 	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 20:11:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.976212.1363473 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.976214.1363488 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uC0HE-0007XR-GE; Mon, 05 May 2025 18:10:52 +0000
+	id 1uC0HF-0007qe-QU; Mon, 05 May 2025 18:10:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 976212.1363473; Mon, 05 May 2025 18:10:52 +0000
+Received: by outflank-mailman (output) from mailman id 976214.1363488; Mon, 05 May 2025 18:10:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uC0HE-0007UA-9f; Mon, 05 May 2025 18:10:52 +0000
-Received: by outflank-mailman (input) for mailman id 976212;
- Mon, 05 May 2025 18:10:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uC0HF-0007hn-DS; Mon, 05 May 2025 18:10:53 +0000
+Received: by outflank-mailman (input) for mailman id 976214;
+ Mon, 05 May 2025 18:10:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cdRb=XV=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uC0HB-000675-FF
- for xen-devel@lists.xenproject.org; Mon, 05 May 2025 18:10:49 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 44ef776e-29dc-11f0-9ffb-bf95429c2676;
- Mon, 05 May 2025 20:10:47 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-ac2902f7c2aso755614966b.1
- for <xen-devel@lists.xenproject.org>; Mon, 05 May 2025 11:10:47 -0700 (PDT)
+ id 1uC0HD-0005wU-7N
+ for xen-devel@lists.xenproject.org; Mon, 05 May 2025 18:10:51 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 458ee132-29dc-11f0-9eb4-5ba50f476ded;
+ Mon, 05 May 2025 20:10:48 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ac3b12e8518so808977266b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 05 May 2025 11:10:48 -0700 (PDT)
 Received: from fedora.. (user-109-243-69-225.play-internet.pl.
  [109.243.69.225]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad189146fcbsm530372366b.34.2025.05.05.11.10.45
+ a640c23a62f3a-ad189146fcbsm530372366b.34.2025.05.05.11.10.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 May 2025 11:10:45 -0700 (PDT)
+ Mon, 05 May 2025 11:10:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44ef776e-29dc-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 458ee132-29dc-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1746468647; x=1747073447; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1746468648; x=1747073448; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xpVFgkcPQ6fPs9H/PlKDyxVc95bTNIcIchbqC+uj+ME=;
-        b=KvPr6GdmCdHQV5/iQXHYFee5+Fp3kRRpC4TBMrGjvWWbGmar2xlTAj/dcNfdGrVmRj
-         6cMQJkfoM1ogvIVMjo+ypnxnDDvsecCWfQRaeOfINzkmUTgcZHwwa2tfhDU3xUOWo5rx
-         iqdjJFzxtBiQp9tFhNGVFiGopKVnsmZP5nvDtnchV73w2FkCuysAfAEf0DaqD0478R8P
-         gw8HAMHCplWY4rz14VuLUbyHjgCzwac42JbLZq4bLmM5Bq0r4LwQhfiuI5q3jafeR04D
-         G46XKHwE64xfPkvqe2iUyYqfAD4IRzW5dGKzEImCMcowrwn0XXRAHS+BEQhRf3bOTuiz
-         PbRw==
+        bh=ALiYnXDRmjufuE9L6F7ReI1kTKI4ociQbNKWfEaDzr0=;
+        b=CHH9IlpkBuLbee/3c0Cih+Zh6c3leKoGBwoPftAdNn31l81l+A9XI/+u8AJaeLNT6g
+         w9+j06AMLxQ0g/u4587ipHlBEcsMNBUxB9QZifZNdj7GJeEBf/PpQBxLY1NdppwEsnZx
+         was+1mkSnmIx6vYl/hXYRIHuNR2aLi5Ks4PGG7AJwse95C4XwhQyxvc03Vt5X5OOZxAt
+         mV7M8qtSDtiB26/j2Y5m1tVsU1tQoQSXnSRmDlFSnpa/DfTDUDS+q97YHAa1yR/k5P1Y
+         i3hzM8EskPlEcYMtPjvi/LcDFUhTsXtGojuQxEgIPtl+kC2ubMVokz88L/Wd/pqPsHQI
+         eOiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746468647; x=1747073447;
+        d=1e100.net; s=20230601; t=1746468648; x=1747073448;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xpVFgkcPQ6fPs9H/PlKDyxVc95bTNIcIchbqC+uj+ME=;
-        b=LnY/cb2IYhi4kK3I7hoJdp2yoLpPMFAEteOtMnrCS9ZpkjHIqh996jj3ug+Kljj92B
-         rjTaIbf9eIKOkegj/h5hHGKGg9Lylu2H7hpdYqoF9uwsnvMXxu2lcamYNFsXOrvrBphd
-         zTFNKbUxGNsnrMmj9X2Rw8bWM2vVqbt2FtimcB+D5qWt6UnTtxX2pI3Ar2sp5aZp2589
-         K6DqHZw8lmUgoZUGJSaYYqUKcQInVOPU4yGmFOSycDkYd6M5oLdAqKCf9r654rEMqwvt
-         vKAs8GSwZgXSoNLPImk+B3hxSKE0DkXh8Dp0sb6tABl2HttixAYWW/tBJ+zgaK8WrkQ4
-         RUqw==
-X-Gm-Message-State: AOJu0YyztQRKYWtSbCqpuHRngLELjPY+00ObRAlXDq6QroaJILrusmVk
-	pa9nByWXV3HVigzynq+69HX64R83NU4m4oTQg/l8RSpwLNzHNFwMo6pkSw==
-X-Gm-Gg: ASbGnctm6CKv5rD5DI+lJSdYWJPrX+AOo6u5hJY4LpTffRnxn2poerr6uWEe9Kk6NAK
-	dbcip/IQi8axTqjYiTZOjM9f5ZIWXHzJTse1uFL5ALD9StUx9/MjSZckHt/bz9T10RYynnLgccY
-	iPVHOJVDCt9/pmShkH8SaBZ3luMWDHuYo+E7xYf8Q/qMrQC8z4ILDHrQOwSp7v+QzX19ZjVylxt
-	bTEYZu2yC2ycMMx3bae96usBU77eQNCzWtvQ4kU8ijaC4BXH42Oq5Ok3OpkB78dFNQBdkjiGP2i
-	Vj4CqIsWeSJlFVmRQRyXCV1zNS7J0q1Z6xATyoJr+s/A/659fWv2gp16msp2R50zYL/xEMQkbEl
-	dgFBoraoO0g==
-X-Google-Smtp-Source: AGHT+IGRhBzizUlE8RqkE341hku/cyOcX635xFjrJDUInJP70tQYN4dzmbu3NGRJdn/q9DY674auoQ==
-X-Received: by 2002:a17:907:7f8b:b0:acb:63a4:e8e5 with SMTP id a640c23a62f3a-ad1a48bc622mr780802066b.6.1746468646378;
-        Mon, 05 May 2025 11:10:46 -0700 (PDT)
+        bh=ALiYnXDRmjufuE9L6F7ReI1kTKI4ociQbNKWfEaDzr0=;
+        b=PgdaIfdB1SO6cwSJspQhpt1CfxlZENZJSnQ02WJQnMc3IaeARtmvor0B1Asqf0cDsY
+         M6XSTRw7cpK3Low8XHpRAkwK/BvnD6Z8GnVIFyHX8hBtuM8vIVIBlSGoWfuSYIPPWgE8
+         /tC36/T24Ba57qcb4GczZKqlK8nOHq+9LTFBJKiTjUksDCF2HI2FQGzcWdc1/adjvlHF
+         nB2CZP26NvM7jlnYbtoD7Aod9lBxH4MN1P5nbrQaFrNHuJOcQuC5A2JbsNsJZFRiwkGO
+         yT4W2AJb7frwGWNRipnntF2jWhgXsrkwoBp8E/ckKYiT4L0su1TFIby8iOpo6W+Ohkn3
+         MC3A==
+X-Gm-Message-State: AOJu0YyVKYlx4nvKOgq7fPdmccNjtIesr75xdsFzbW0+xSfbu6k2BmBn
+	FwUtCLBj2bKo5VNo1wDSZqsFPjq9MarqCc+ZVEnilGoU/cE2zIvnnK+jcw==
+X-Gm-Gg: ASbGncue9VYTR97oqrn+I7zFEwDw52LDRtI5cwN3rVvu4TR43QbKLlZKaHXgIi0DAsS
+	LjJ1Z9qIdtW53UWZ4nJw6YBgCKt7a62wEHkm45mJxAsV46gim4go/rtjuNPfnzmgi7TUkcO9pJo
+	9sWPzei5bOLpq2+n8HgrFVbr09O17VtVDUy6YfFONpvAukKQFRtypi57SQJZzbvrp51Xjiqk0M1
+	G1qtdxcOS75A6M7gtv/79RB+SlguDvELr3/Z6lJTKdBHr0X5DhM5fkzh2TtNnoKMM73p5bT/2ql
+	96CPjkE7JnXZMgUDTGzvymOEfxX/+Y9tWMpV7lvEERQK8BYAqdWgz98cZqaHmVZG8SgjgHLet+9
+	M/cvFq61iTA==
+X-Google-Smtp-Source: AGHT+IGrZ8OuA76+YmtJr9d67MzeH5wY/CQHR5Y1i6moLVLLZhkPUmtx+JMvxT7ATHk3MZ2i6QCENw==
+X-Received: by 2002:a17:907:948c:b0:acb:6081:14ec with SMTP id a640c23a62f3a-ad1a4b85d03mr656873266b.61.1746468647275;
+        Mon, 05 May 2025 11:10:47 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -93,1002 +93,1650 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Jan Beulich <jbeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v4 7/8] xen/common: dom0less: introduce common domain-build.c
-Date: Mon,  5 May 2025 20:10:37 +0200
-Message-ID: <0bfc572f0d82e9d81bbc07bab5b6b7fb0d7634f8.1746468003.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v4 8/8] xen/common: dom0less: introduce common dom0less-build.c
+Date: Mon,  5 May 2025 20:10:38 +0200
+Message-ID: <f8c8d462947c3ebfcbeaa04db582168cbcc752ff.1746468003.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1746468003.git.oleksii.kurochko@gmail.com>
 References: <cover.1746468003.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some functions of Arm's domain_build.c could be reused by dom0less or other
-features connected to domain construction/build.
+Part of Arm's dom0less-build.c could be common between architectures which are
+using device tree files to create guest domains. Thereby move some parts of
+Arm's dom0less-build.c to common code with minor changes.
 
-The following functions are moved to common:
-- get_allocation_size().
-- allocate_domheap_memory().
-- guest_map_pages().
-- allocate_bank_memory().
-- add_hwdom_free_regions().
-- find_unallocated_memory().
-- allocate_memory().
-- dtb_load().
-- initrd_load().
+As a part of theses changes the following changes are introduced:
+- Introduce make_arch_nodes() to cover arch-specific nodes. For example, in
+  case of Arm, it is PSCI and vpl011 nodes.
+- Introduce set_domain_type() to abstract a way how setting of domain type
+  happens. For example, RISC-V won't have this member of arch_domain structure
+  as vCPUs will always have the same bitness as hypervisor. In case of Arm, it
+  is possible that Arm64 could create 32-bit and 64-bit domains.
+- Introduce init_vuart() to cover details of virtual uart initialization.
+- Introduce init_intc_phandle() to cover some details of interrupt controller
+  phandle initialization. As an example, RISC-V could have different name for
+  interrupt controller node ( APLIC, PLIC, IMSIC, etc ) but the code in
+  domain_handle_dtb_bootmodule() could handle only one interrupt controller
+  node name.
+- s/make_gic_domU_node/make_intc_domU_node as GIC is Arm specific naming and
+  add prototype of make_intc_domU_node() to dom0less-build.h
 
-Prototype of dtb_load() and initrd_load() is updated to recieve a pointer
-to copy_to_guest_phys() as some archs require
-copy_to_guest_phys_fluch_dcache().
+The following functions are moved to xen/common/device-tree:
+- Functions which are moved as is:
+  - domain_p2m_pages().
+  - handle_passthrough_prop().
+  - handle_prop_pfdt().
+  - scan_pfdt_node().
+  - check_partial_fdt().
+- Functions which are moved with some minor changes:
+  - alloc_xenstore_evtchn():
+    - ifdef-ing by CONFIG_HVM accesses to hvm.params.
+  - prepare_dtb_domU():
+    - ifdef-ing access to gnttab_{start,size} by CONFIG_GRANT_TABLE.
+    - s/make_gic_domU_node/make_intc_domU_node.
+    - Add call of make_arch_nodes().
+- domain_handle_dtb_bootmodule():
+  - hide details of interrupt controller phandle initialization by calling
+    init_intc_phandle().
+  - Update the comment above init_intc_phandle(): s/gic/interrupt controller.
+- construct_domU():
+  - ifdef-ing by CONFIG_HVM accesses to hvm.params.
+  - Call init_vuart() to hide Arm's vpl011_init() details there.
+  - Add call of set_domain_type() instead of setting kinfo->arch.type explicitly.
 
-Update arm/include/asm/Makefile to generate  domain-build.h for Arm as it is
-used by domain-build.c.
+Some parts of dom0less-build.c are wraped by #ifdef CONFIG_STATIC_{SHMEM,MEMORY}
+as not all archs support these configs.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Change in v4:
- - Move declaration of alloc_*() and get_allocation_size() to xen/fdt-domain-build.h.
- - Allocate gnttab using membanks_xzalloc(1, MEMORY) to have gnttab->max_banks
-   and gnttab->type properly set.
- - Allocate hwdom_free_mem using membanks_xzalloc(NR_MEM_BANKS, MEMORY) to
-   have hwdom_free_mem->type proprely set.
- - Drop introduction of function callbacktype: copy_to_guest_phys_cb() as it
-   is already introduced in xen/fdt-domain-build.h.
- - Return original panic messages at the end of initrd_load() as I missed to
-   align them with the newest staging. There were changed in the patch:
-   "xen/arm: Don't blindly print hwdom in generic panic messages".
+Changes in v4:
+ - Add a chunk of code, which was introduced in the patch:
+   "xen/arm: dom0less hwdom construction", in moved to common
+   construct_domU(). The part which re-uses construct_hwdom().
+ - Use __has_include() instead of #ifdef-ing for inclusion of
+   asm/static-{memory, shmem}.h in the common code.
 ---
 Change in v3:
- - Nothing changed. Only rebase.
+ - Align construct_domU() with the current staging:
+ - Align alloc_xenstore_params() with the current staging.
+ - Move defintion of XENSTORE_PFN_LATE_ALLOC to common and
+   declaration of need_xenstore to common.
 ---
 Change in v2:
- - Use xen/fdt-domain-build.h instead of asm/domain_build.h.
+ - Wrap by #ifdef CONFIG_STATIC_* inclusions of <asm/static-memory.h> and
+   <asm/static-shmem.h>. Wrap also the code which uses something from the
+   mentioned headers.
+ - Add handling of legacy case in construct_domU().
+ - Use xen/fdt-kernel.h and xen/fdt-domain-build.h instead of asm/*.
+ - Update the commit message.
 ---
- xen/arch/arm/domain_build.c             | 397 +-----------------------
- xen/arch/arm/include/asm/domain_build.h |  10 -
- xen/common/device-tree/Makefile         |   1 +
- xen/common/device-tree/domain-build.c   | 395 +++++++++++++++++++++++
- xen/include/xen/fdt-domain-build.h      |  40 +++
- 5 files changed, 438 insertions(+), 405 deletions(-)
- create mode 100644 xen/common/device-tree/domain-build.c
+ xen/arch/arm/dom0less-build.c            | 714 ++---------------------
+ xen/common/device-tree/dom0less-build.c  | 708 ++++++++++++++++++++++
+ xen/include/asm-generic/dom0less-build.h |  18 +-
+ 3 files changed, 760 insertions(+), 680 deletions(-)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 9d649b06b3..df29619c40 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -120,18 +120,6 @@ struct vcpu *__init alloc_dom0_vcpu0(struct domain *dom0)
-     return vcpu_create(dom0, 0);
- }
+diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+index 47eb38b9ad..ebb1c58f0e 100644
+--- a/xen/arch/arm/dom0less-build.c
++++ b/xen/arch/arm/dom0less-build.c
+@@ -25,8 +25,6 @@
+ #include <asm/static-memory.h>
+ #include <asm/static-shmem.h>
  
--unsigned int __init get_allocation_size(paddr_t size)
--{
--    /*
--     * get_order_from_bytes returns the order greater than or equal to
--     * the given size, but we need less than or equal. Adding one to
--     * the size pushes an evenly aligned size into the next order, so
--     * we can then unconditionally subtract 1 from the order which is
--     * returned.
--     */
--    return get_order_from_bytes(size + 1) - 1;
--}
+-bool __initdata need_xenstore;
 -
- /*
-  * Insert the given pages into a memory bank, banks are ordered by address.
-  *
-@@ -418,98 +406,6 @@ static void __init allocate_memory_11(struct domain *d,
-     }
+ #ifdef CONFIG_VGICV2
+ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
+ {
+@@ -152,7 +150,7 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
  }
+ #endif
  
--bool __init allocate_domheap_memory(struct domain *d, paddr_t tot_size,
--                                    alloc_domheap_mem_cb cb, void *extra)
+-static int __init make_gic_domU_node(struct kernel_info *kinfo)
++int __init make_intc_domU_node(struct kernel_info *kinfo)
+ {
+     switch ( kinfo->d->arch.vgic.version )
+     {
+@@ -218,708 +216,60 @@ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
+ }
+ #endif
+ 
+-/*
+- * Scan device tree properties for passthrough specific information.
+- * Returns < 0 on error
+- *         0 on success
+- */
+-static int __init handle_passthrough_prop(struct kernel_info *kinfo,
+-                                          const struct fdt_property *xen_reg,
+-                                          const struct fdt_property *xen_path,
+-                                          bool xen_force,
+-                                          uint32_t address_cells,
+-                                          uint32_t size_cells)
 -{
--    unsigned int max_order = UINT_MAX;
+-    const __be32 *cell;
+-    unsigned int i, len;
+-    struct dt_device_node *node;
+-    int res;
+-    paddr_t mstart, size, gstart;
 -
--    while ( tot_size > 0 )
+-    /* xen,reg specifies where to map the MMIO region */
+-    cell = (const __be32 *)xen_reg->data;
+-    len = fdt32_to_cpu(xen_reg->len) / ((address_cells * 2 + size_cells) *
+-                                        sizeof(uint32_t));
+-
+-    for ( i = 0; i < len; i++ )
 -    {
--        unsigned int order = get_allocation_size(tot_size);
--        struct page_info *pg;
+-        device_tree_get_reg(&cell, address_cells, size_cells,
+-                            &mstart, &size);
+-        gstart = dt_next_cell(address_cells, &cell);
 -
--        order = min(max_order, order);
--
--        pg = alloc_domheap_pages(d, order, 0);
--        if ( !pg )
+-        if ( gstart & ~PAGE_MASK || mstart & ~PAGE_MASK || size & ~PAGE_MASK )
 -        {
--            /*
--             * If we can't allocate one page, then it is unlikely to
--             * succeed in the next iteration. So bail out.
--             */
--            if ( !order )
--                return false;
--
--            /*
--             * If we can't allocate memory with order, then it is
--             * unlikely to succeed in the next iteration.
--             * Record the order - 1 to avoid re-trying.
--             */
--            max_order = order - 1;
--            continue;
+-            printk(XENLOG_ERR
+-                   "DomU passthrough config has not page aligned addresses/sizes\n");
+-            return -EINVAL;
 -        }
 -
--        if ( !cb(d, pg, order, extra) )
--            return false;
+-        res = iomem_permit_access(kinfo->d, paddr_to_pfn(mstart),
+-                                  paddr_to_pfn(PAGE_ALIGN(mstart + size - 1)));
+-        if ( res )
+-        {
+-            printk(XENLOG_ERR "Unable to permit to dom%d access to"
+-                   " 0x%"PRIpaddr" - 0x%"PRIpaddr"\n",
+-                   kinfo->d->domain_id,
+-                   mstart & PAGE_MASK, PAGE_ALIGN(mstart + size) - 1);
+-            return res;
+-        }
 -
--        tot_size -= (1ULL << (PAGE_SHIFT + order));
+-        res = map_regions_p2mt(kinfo->d,
+-                               gaddr_to_gfn(gstart),
+-                               PFN_DOWN(size),
+-                               maddr_to_mfn(mstart),
+-                               p2m_mmio_direct_dev);
+-        if ( res < 0 )
+-        {
+-            printk(XENLOG_ERR
+-                   "Failed to map %"PRIpaddr" to the guest at%"PRIpaddr"\n",
+-                   mstart, gstart);
+-            return -EFAULT;
+-        }
 -    }
 -
--    return true;
+-    /*
+-     * If xen_force, we let the user assign a MMIO region with no
+-     * associated path.
+-     */
+-    if ( xen_path == NULL )
+-        return xen_force ? 0 : -EINVAL;
+-
+-    /*
+-     * xen,path specifies the corresponding node in the host DT.
+-     * Both interrupt mappings and IOMMU settings are based on it,
+-     * as they are done based on the corresponding host DT node.
+-     */
+-    node = dt_find_node_by_path(xen_path->data);
+-    if ( node == NULL )
+-    {
+-        printk(XENLOG_ERR "Couldn't find node %s in host_dt!\n",
+-               xen_path->data);
+-        return -EINVAL;
+-    }
+-
+-    res = map_device_irqs_to_domain(kinfo->d, node, true, NULL);
+-    if ( res < 0 )
+-        return res;
+-
+-    res = iommu_add_dt_device(node);
+-    if ( res < 0 )
+-        return res;
+-
+-    /* If xen_force, we allow assignment of devices without IOMMU protection. */
+-    if ( xen_force && !dt_device_is_protected(node) )
+-        return 0;
+-
+-    return iommu_assign_dt_device(kinfo->d, node);
 -}
 -
--static bool __init guest_map_pages(struct domain *d, struct page_info *pg,
--                                   unsigned int order, void *extra)
+-static int __init handle_prop_pfdt(struct kernel_info *kinfo,
+-                                   const void *pfdt, int nodeoff,
+-                                   uint32_t address_cells, uint32_t size_cells,
+-                                   bool scan_passthrough_prop)
 -{
--    gfn_t *sgfn = (gfn_t *)extra;
+-    void *fdt = kinfo->fdt;
+-    int propoff, nameoff, res;
+-    const struct fdt_property *prop, *xen_reg = NULL, *xen_path = NULL;
+-    const char *name;
+-    bool found, xen_force = false;
+-
+-    for ( propoff = fdt_first_property_offset(pfdt, nodeoff);
+-          propoff >= 0;
+-          propoff = fdt_next_property_offset(pfdt, propoff) )
+-    {
+-        if ( !(prop = fdt_get_property_by_offset(pfdt, propoff, NULL)) )
+-            return -FDT_ERR_INTERNAL;
+-
+-        found = false;
+-        nameoff = fdt32_to_cpu(prop->nameoff);
+-        name = fdt_string(pfdt, nameoff);
+-
+-        if ( scan_passthrough_prop )
+-        {
+-            if ( dt_prop_cmp("xen,reg", name) == 0 )
+-            {
+-                xen_reg = prop;
+-                found = true;
+-            }
+-            else if ( dt_prop_cmp("xen,path", name) == 0 )
+-            {
+-                xen_path = prop;
+-                found = true;
+-            }
+-            else if ( dt_prop_cmp("xen,force-assign-without-iommu",
+-                                  name) == 0 )
+-            {
+-                xen_force = true;
+-                found = true;
+-            }
+-        }
+-
+-        /*
+-         * Copy properties other than the ones above: xen,reg, xen,path,
+-         * and xen,force-assign-without-iommu.
+-         */
+-        if ( !found )
+-        {
+-            res = fdt_property(fdt, name, prop->data, fdt32_to_cpu(prop->len));
+-            if ( res )
+-                return res;
+-        }
+-    }
+-
+-    /*
+-     * Only handle passthrough properties if both xen,reg and xen,path
+-     * are present, or if xen,force-assign-without-iommu is specified.
+-     */
+-    if ( xen_reg != NULL && (xen_path != NULL || xen_force) )
+-    {
+-        res = handle_passthrough_prop(kinfo, xen_reg, xen_path, xen_force,
+-                                      address_cells, size_cells);
+-        if ( res < 0 )
+-        {
+-            printk(XENLOG_ERR "Failed to assign device to %pd\n", kinfo->d);
+-            return res;
+-        }
+-    }
+-    else if ( (xen_path && !xen_reg) || (xen_reg && !xen_path && !xen_force) )
+-    {
+-        printk(XENLOG_ERR "xen,reg or xen,path missing for %pd\n",
+-               kinfo->d);
+-        return -EINVAL;
+-    }
+-
+-    /* FDT_ERR_NOTFOUND => There is no more properties for this node */
+-    return ( propoff != -FDT_ERR_NOTFOUND ) ? propoff : 0;
+-}
+-
+-static int __init scan_pfdt_node(struct kernel_info *kinfo, const void *pfdt,
+-                                 int nodeoff,
+-                                 uint32_t address_cells, uint32_t size_cells,
+-                                 bool scan_passthrough_prop)
+-{
+-    int rc = 0;
+-    void *fdt = kinfo->fdt;
+-    int node_next;
+-
+-    rc = fdt_begin_node(fdt, fdt_get_name(pfdt, nodeoff, NULL));
+-    if ( rc )
+-        return rc;
+-
+-    rc = handle_prop_pfdt(kinfo, pfdt, nodeoff, address_cells, size_cells,
+-                          scan_passthrough_prop);
+-    if ( rc )
+-        return rc;
+-
+-    address_cells = device_tree_get_u32(pfdt, nodeoff, "#address-cells",
+-                                        DT_ROOT_NODE_ADDR_CELLS_DEFAULT);
+-    size_cells = device_tree_get_u32(pfdt, nodeoff, "#size-cells",
+-                                     DT_ROOT_NODE_SIZE_CELLS_DEFAULT);
+-
+-    node_next = fdt_first_subnode(pfdt, nodeoff);
+-    while ( node_next > 0 )
+-    {
+-        rc = scan_pfdt_node(kinfo, pfdt, node_next, address_cells, size_cells,
+-                            scan_passthrough_prop);
+-        if ( rc )
+-            return rc;
+-
+-        node_next = fdt_next_subnode(pfdt, node_next);
+-    }
+-
+-    return fdt_end_node(fdt);
+-}
+-
+-static int __init check_partial_fdt(void *pfdt, size_t size)
++int __init make_arch_nodes(struct kernel_info *kinfo)
+ {
 -    int res;
 -
--    BUG_ON(!sgfn);
--    res = guest_physmap_add_page(d, *sgfn, page_to_mfn(pg), order);
+-    if ( fdt_magic(pfdt) != FDT_MAGIC )
+-    {
+-        dprintk(XENLOG_ERR, "Partial FDT is not a valid Flat Device Tree");
+-        return -EINVAL;
+-    }
+-
+-    res = fdt_check_header(pfdt);
 -    if ( res )
 -    {
--        dprintk(XENLOG_ERR, "Failed map pages to DOMU: %d", res);
--        return false;
+-        dprintk(XENLOG_ERR, "Failed to check the partial FDT (%d)", res);
+-        return -EINVAL;
 -    }
 -
--    *sgfn = gfn_add(*sgfn, 1UL << order);
--
--    return true;
--}
--
--bool __init allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
--                                 paddr_t tot_size)
--{
--    struct membanks *mem = kernel_info_get_mem(kinfo);
--    struct domain *d = kinfo->d;
--    struct membank *bank;
--
--    /*
--     * allocate_bank_memory can be called with a tot_size of zero for
--     * the second memory bank. It is not an error and we can safely
--     * avoid creating a zero-size memory bank.
--     */
--    if ( tot_size == 0 )
--        return true;
--
--    bank = &mem->bank[mem->nr_banks];
--    bank->start = gfn_to_gaddr(sgfn);
--    bank->size = tot_size;
--
--    /*
--     * Allocate pages from the heap until tot_size is zero and map them to the
--     * guest using guest_map_pages, passing the starting gfn as extra parameter
--     * for the map operation.
--     */
--    if ( !allocate_domheap_memory(d, tot_size, guest_map_pages, &sgfn) )
--        return false;
--
--    mem->nr_banks++;
--    kinfo->unassigned_mem -= bank->size;
--
--    return true;
--}
--
- /*
-  * When PCI passthrough is available we want to keep the
-  * "linux,pci-domain" in sync for every host bridge.
-@@ -900,226 +796,6 @@ int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
-     return 0;
- }
- 
--static int __init add_hwdom_free_regions(unsigned long s_gfn,
--                                         unsigned long e_gfn, void *data)
--{
--    struct membanks *free_regions = data;
--    paddr_t start, size;
--    paddr_t s = pfn_to_paddr(s_gfn);
--    paddr_t e = pfn_to_paddr(e_gfn);
--    unsigned int i, j;
--
--    if ( free_regions->nr_banks >= free_regions->max_banks )
--        return 0;
--
--    /*
--     * Both start and size of the free region should be 2MB aligned to
--     * potentially allow superpage mapping.
--     */
--    start = (s + SZ_2M - 1) & ~(SZ_2M - 1);
--    if ( start > e )
--        return 0;
--
--    /*
--     * e is actually "end-1" because it is called by rangeset functions
--     * which are inclusive of the last address.
--     */
--    e += 1;
--    size = (e - start) & ~(SZ_2M - 1);
--
--    /* Find the insert position (descending order). */
--    for ( i = 0; i < free_regions->nr_banks ; i++ )
--        if ( size > free_regions->bank[i].size )
--            break;
--
--    /* Move the other banks to make space. */
--    for ( j = free_regions->nr_banks; j > i ; j-- )
+-    if ( fdt_totalsize(pfdt) > size )
 -    {
--        free_regions->bank[j].start = free_regions->bank[j - 1].start;
--        free_regions->bank[j].size = free_regions->bank[j - 1].size;
+-        dprintk(XENLOG_ERR, "Partial FDT totalsize is too big");
+-        return -EINVAL;
 -    }
--
--    free_regions->bank[i].start = start;
--    free_regions->bank[i].size = size;
--    free_regions->nr_banks++;
 -
 -    return 0;
 -}
 -
--/*
-- * Find unused regions of Host address space which can be exposed to domain
-- * using the host memory layout. In order to calculate regions we exclude every
-- * region passed in mem_banks from the Host RAM.
-- */
--static int __init find_unallocated_memory(const struct kernel_info *kinfo,
--                                          const struct membanks *mem_banks[],
--                                          unsigned int nr_mem_banks,
--                                          struct membanks *free_regions,
--                                          int (*cb)(unsigned long s_gfn,
--                                                    unsigned long e_gfn,
--                                                    void *data))
+-static int __init domain_handle_dtb_bootmodule(struct domain *d,
+-                                               struct kernel_info *kinfo)
 -{
--    const struct membanks *mem = bootinfo_get_mem();
--    struct rangeset *unalloc_mem;
--    paddr_t start, end;
--    unsigned int i, j;
--    int res;
+-    void *pfdt;
+-    int res, node_next;
 -
--    ASSERT(domain_use_host_layout(kinfo->d));
+-    pfdt = ioremap_cache(kinfo->dtb_bootmodule->start,
+-                         kinfo->dtb_bootmodule->size);
+-    if ( pfdt == NULL )
+-        return -EFAULT;
 -
--    unalloc_mem = rangeset_new(NULL, NULL, 0);
--    if ( !unalloc_mem )
--        return -ENOMEM;
+-    res = check_partial_fdt(pfdt, kinfo->dtb_bootmodule->size);
+-    if ( res < 0 )
+-        goto out;
 -
--    /* Start with all available RAM */
--    for ( i = 0; i < mem->nr_banks; i++ )
+-    for ( node_next = fdt_first_subnode(pfdt, 0);
+-          node_next > 0;
+-          node_next = fdt_next_subnode(pfdt, node_next) )
 -    {
--        start = mem->bank[i].start;
--        end = mem->bank[i].start + mem->bank[i].size;
--        res = rangeset_add_range(unalloc_mem, PFN_DOWN(start),
--                                 PFN_DOWN(end - 1));
--        if ( res )
+-        const char *name = fdt_get_name(pfdt, node_next, NULL);
+-
+-        if ( name == NULL )
+-            continue;
+-
+-        /*
+-         * Only scan /gic /aliases /passthrough, ignore the rest.
+-         * They don't have to be parsed in order.
+-         *
+-         * Take the GIC phandle value from the special /gic node in the
+-         * DTB fragment.
+-         */
+-        if ( dt_node_cmp(name, "gic") == 0 )
 -        {
--            printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
--                   start, end);
--            goto out;
+-            uint32_t phandle_intc = fdt_get_phandle(pfdt, node_next);
+-
+-            if ( phandle_intc != 0 )
+-                kinfo->phandle_intc = phandle_intc;
+-            continue;
+-        }
+-
+-        if ( dt_node_cmp(name, "aliases") == 0 )
+-        {
+-            res = scan_pfdt_node(kinfo, pfdt, node_next,
+-                                 DT_ROOT_NODE_ADDR_CELLS_DEFAULT,
+-                                 DT_ROOT_NODE_SIZE_CELLS_DEFAULT,
+-                                 false);
+-            if ( res )
+-                goto out;
+-            continue;
+-        }
+-        if ( dt_node_cmp(name, "passthrough") == 0 )
+-        {
+-            res = scan_pfdt_node(kinfo, pfdt, node_next,
+-                                 DT_ROOT_NODE_ADDR_CELLS_DEFAULT,
+-                                 DT_ROOT_NODE_SIZE_CELLS_DEFAULT,
+-                                 true);
+-            if ( res )
+-                goto out;
+-            continue;
 -        }
 -    }
 -
--    /* Remove all regions listed in mem_banks */
--    for ( i = 0; i < nr_mem_banks; i++ )
--        for ( j = 0; j < mem_banks[i]->nr_banks; j++ )
--        {
--            start = mem_banks[i]->bank[j].start;
--
--            /* Shared memory banks can contain INVALID_PADDR as start */
--            if ( INVALID_PADDR == start )
--                continue;
--
--            end = mem_banks[i]->bank[j].start + mem_banks[i]->bank[j].size;
--            res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
--                                        PFN_DOWN(end - 1));
--            if ( res )
--            {
--                printk(XENLOG_ERR
--                       "Failed to add: %#"PRIpaddr"->%#"PRIpaddr", error %d\n",
--                       start, end, res);
--                goto out;
--            }
--        }
--
--    start = 0;
--    end = (1ULL << p2m_ipa_bits) - 1;
--    res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
--                                 cb, free_regions);
--    if ( res )
--        free_regions->nr_banks = 0;
--    else if ( !free_regions->nr_banks )
--        res = -ENOENT;
--
--out:
--    rangeset_destroy(unalloc_mem);
+- out:
+-    iounmap(pfdt);
 -
 -    return res;
 -}
 -
--void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
+-/*
+- * The max size for DT is 2MB. However, the generated DT is small (not including
+- * domU passthrough DT nodes whose size we account separately), 4KB are enough
+- * for now, but we might have to increase it in the future.
+- */
+-#define DOMU_DTB_SIZE 4096
+-static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
 -{
--    struct membanks *mem = kernel_info_get_mem(kinfo);
--    unsigned int i, nr_banks = GUEST_RAM_BANKS;
--    struct membanks *hwdom_free_mem = NULL;
+-    int addrcells, sizecells;
+-    int ret, fdt_size = DOMU_DTB_SIZE;
 -
--    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd:\n",
--           /* Don't want format this as PRIpaddr (16 digit hex) */
--           (unsigned long)(kinfo->unassigned_mem >> 20), d);
+-    kinfo->phandle_intc = GUEST_PHANDLE_GIC;
+-    kinfo->gnttab_start = GUEST_GNTTAB_BASE;
+-    kinfo->gnttab_size = GUEST_GNTTAB_SIZE;
 -
--    mem->nr_banks = 0;
+-    addrcells = GUEST_ROOT_ADDRESS_CELLS;
+-    sizecells = GUEST_ROOT_SIZE_CELLS;
+-
+-    /* Account for domU passthrough DT size */
+-    if ( kinfo->dtb_bootmodule )
+-        fdt_size += kinfo->dtb_bootmodule->size;
+-
+-    /* Cap to max DT size if needed */
+-    fdt_size = min(fdt_size, SZ_2M);
+-
+-    kinfo->fdt = xmalloc_bytes(fdt_size);
+-    if ( kinfo->fdt == NULL )
+-        return -ENOMEM;
+-
+-    ret = fdt_create(kinfo->fdt, fdt_size);
+-    if ( ret < 0 )
+-        goto err;
+-
+-    ret = fdt_finish_reservemap(kinfo->fdt);
+-    if ( ret < 0 )
+-        goto err;
+-
+-    ret = fdt_begin_node(kinfo->fdt, "");
+-    if ( ret < 0 )
+-        goto err;
+-
+-    ret = fdt_property_cell(kinfo->fdt, "#address-cells", addrcells);
+-    if ( ret )
+-        goto err;
+-
+-    ret = fdt_property_cell(kinfo->fdt, "#size-cells", sizecells);
+-    if ( ret )
+-        goto err;
+-
+-    ret = make_chosen_node(kinfo);
+-    if ( ret )
+-        goto err;
++    int ret;
+ 
+     ret = make_psci_node(kinfo->fdt);
+     if ( ret )
+-        goto err;
+-
+-    ret = make_cpus_node(d, kinfo->fdt);
+-    if ( ret )
+-        goto err;
+-
+-    ret = make_memory_node(kinfo, addrcells, sizecells,
+-                           kernel_info_get_mem(kinfo));
+-    if ( ret )
+-        goto err;
+-
+-    ret = make_resv_memory_node(kinfo, addrcells, sizecells);
+-    if ( ret )
+-        goto err;
+-
 -    /*
--     * Use host memory layout for hwdom. Only case for this is when LLC coloring
--     * is enabled.
+-     * domain_handle_dtb_bootmodule has to be called before the rest of
+-     * the device tree is generated because it depends on the value of
+-     * the field phandle_intc.
 -     */
--    if ( is_hardware_domain(d) )
+-    if ( kinfo->dtb_bootmodule )
 -    {
--        struct membanks *gnttab = membanks_xzalloc(1, MEMORY);
--        /*
--         * Exclude the following regions:
--         * 1) Remove reserved memory
--         * 2) Grant table assigned to hwdom
--         */
--        const struct membanks *mem_banks[] = {
--            bootinfo_get_reserved_mem(),
--            gnttab,
--        };
--
--        if ( !gnttab )
--            goto fail;
--
--        gnttab->nr_banks = 1;
--        gnttab->bank[0].start = kinfo->gnttab_start;
--        gnttab->bank[0].size = kinfo->gnttab_size;
--
--        hwdom_free_mem = membanks_xzalloc(NR_MEM_BANKS, MEMORY);
--        if ( !hwdom_free_mem )
--            goto fail;
--
--        if ( find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_banks),
--                                     hwdom_free_mem, add_hwdom_free_regions) )
--            goto fail;
--
--        nr_banks = hwdom_free_mem->nr_banks;
--        xfree(gnttab);
+-        ret = domain_handle_dtb_bootmodule(d, kinfo);
+-        if ( ret )
+-            goto err;
 -    }
 -
--    for ( i = 0; kinfo->unassigned_mem > 0 && nr_banks > 0; i++, nr_banks-- )
--    {
--        paddr_t bank_start, bank_size;
+-    ret = make_gic_domU_node(kinfo);
+-    if ( ret )
+-        goto err;
 -
--        if ( is_hardware_domain(d) )
--        {
--            bank_start = hwdom_free_mem->bank[i].start;
--            bank_size = hwdom_free_mem->bank[i].size;
--        }
--        else
--        {
--            const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
--            const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
--
--            if ( i >= GUEST_RAM_BANKS )
--                goto fail;
--
--            bank_start = bankbase[i];
--            bank_size = banksize[i];
--        }
--
--        bank_size = MIN(bank_size, kinfo->unassigned_mem);
--        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), bank_size) )
--            goto fail;
+-    ret = make_timer_node(kinfo);
+-    if ( ret )
+-        goto err;
++        return -EINVAL;
+ 
+     if ( kinfo->arch.vpl011 )
+     {
+-        ret = -EINVAL;
+ #ifdef CONFIG_SBSA_VUART_CONSOLE
+         ret = make_vpl011_uart_node(kinfo);
+ #endif
+         if ( ret )
+-            goto err;
 -    }
 -
--    if ( kinfo->unassigned_mem )
--        goto fail;
--
--    for( i = 0; i < mem->nr_banks; i++ )
+-    if ( kinfo->dom0less_feature & DOM0LESS_ENHANCED_NO_XS )
 -    {
--        printk(XENLOG_INFO "%pd BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%ldMB)\n",
--               d,
--               i,
--               mem->bank[i].start,
--               mem->bank[i].start + mem->bank[i].size,
--               /* Don't want format this as PRIpaddr (16 digit hex) */
--               (unsigned long)(mem->bank[i].size >> 20));
--    }
+-        ret = make_hypervisor_node(d, kinfo, addrcells, sizecells);
+-        if ( ret )
+-            goto err;
++            return -EINVAL;
+     }
+ 
+-    ret = fdt_end_node(kinfo->fdt);
+-    if ( ret < 0 )
+-        goto err;
 -
--    xfree(hwdom_free_mem);
--    return;
+-    ret = fdt_finish(kinfo->fdt);
+-    if ( ret < 0 )
+-        goto err;
 -
--  fail:
--    panic("Failed to allocate requested domain memory."
--          /* Don't want format this as PRIpaddr (16 digit hex) */
--          " %ldKB unallocated. Fix the VMs configurations.\n",
--          (unsigned long)kinfo->unassigned_mem >> 10);
--}
+     return 0;
 -
- static int __init handle_pci_range(const struct dt_device_node *dev,
-                                    uint64_t addr, uint64_t len, void *data)
- {
-@@ -2059,75 +1735,6 @@ static int __init prepare_dtb_hwdom(struct domain *d, struct kernel_info *kinfo)
-     return -EINVAL;
+-  err:
+-    printk("Device tree generation failed (%d).\n", ret);
+-    xfree(kinfo->fdt);
+-
+-    return -EINVAL;
  }
  
--static void __init dtb_load(struct kernel_info *kinfo)
--{
--    unsigned long left;
+-#define XENSTORE_PFN_OFFSET 1
+-static int __init alloc_xenstore_page(struct domain *d)
++/* TODO: make arch.type generic ? */
++#ifdef CONFIG_ARM_64
++void __init set_domain_type(struct domain *d, struct kernel_info *kinfo)
+ {
+-    struct page_info *xenstore_pg;
+-    struct xenstore_domain_interface *interface;
+-    mfn_t mfn;
+-    gfn_t gfn;
+-    int rc;
 -
--    printk("Loading %pd DTB to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
--           kinfo->d, kinfo->dtb_paddr,
--           kinfo->dtb_paddr + fdt_totalsize(kinfo->fdt));
+-    if ( (UINT_MAX - d->max_pages) < 1 )
+-    {
+-        printk(XENLOG_ERR "%pd: Over-allocation for d->max_pages by 1 page.\n",
+-               d);
+-        return -EINVAL;
+-    }
 -
--    left = copy_to_guest_phys_flush_dcache(kinfo->d, kinfo->dtb_paddr,
--                                           kinfo->fdt,
--                                           fdt_totalsize(kinfo->fdt));
+-    d->max_pages += 1;
+-    xenstore_pg = alloc_domheap_page(d, MEMF_bits(32));
+-    if ( xenstore_pg == NULL && is_64bit_domain(d) )
+-        xenstore_pg = alloc_domheap_page(d, 0);
+-    if ( xenstore_pg == NULL )
+-        return -ENOMEM;
 -
--    if ( left != 0 )
--        panic("Unable to copy the DTB to %pd memory (left = %lu bytes)\n",
--              kinfo->d, left);
--    xfree(kinfo->fdt);
+-    mfn = page_to_mfn(xenstore_pg);
+-    if ( !mfn_x(mfn) )
+-        return -ENOMEM;
+-
+-    if ( !is_domain_direct_mapped(d) )
+-        gfn = gaddr_to_gfn(GUEST_MAGIC_BASE +
+-                           (XENSTORE_PFN_OFFSET << PAGE_SHIFT));
+-    else
+-        gfn = gaddr_to_gfn(mfn_to_maddr(mfn));
+-
+-    rc = guest_physmap_add_page(d, gfn, mfn, 0);
+-    if ( rc )
+-    {
+-        free_domheap_page(xenstore_pg);
+-        return rc;
+-    }
+-
+-    d->arch.hvm.params[HVM_PARAM_STORE_PFN] = gfn_x(gfn);
+-    interface = map_domain_page(mfn);
+-    interface->connection = XENSTORE_RECONNECT;
+-    unmap_domain_page(interface);
+-
+-    return 0;
++    /* type must be set before allocate memory */
++    d->arch.type = kinfo->arch.type;
+ }
+-
+-static int __init alloc_xenstore_params(struct kernel_info *kinfo)
++#else
++void __init set_domain_type(struct domain *d, struct kernel_info *kinfo)
+ {
+-    struct domain *d = kinfo->d;
+-    int rc = 0;
+-
+-    if ( (kinfo->dom0less_feature & (DOM0LESS_XENSTORE | DOM0LESS_XS_LEGACY))
+-                                 == (DOM0LESS_XENSTORE | DOM0LESS_XS_LEGACY) )
+-        d->arch.hvm.params[HVM_PARAM_STORE_PFN] = XENSTORE_PFN_LATE_ALLOC;
+-    else if ( kinfo->dom0less_feature & DOM0LESS_XENSTORE )
+-    {
+-        rc = alloc_xenstore_page(d);
+-        if ( rc < 0 )
+-            return rc;
+-    }
+-
+-    return rc;
++    /* Nothing to do */
+ }
++#endif
+ 
+-static void __init domain_vcpu_affinity(struct domain *d,
+-                                        const struct dt_device_node *node)
++int __init init_vuart(struct domain *d, struct kernel_info *kinfo,
++                      const struct dt_device_node *node)
+ {
+-    struct dt_device_node *np;
+-
+-    dt_for_each_child_node(node, np)
+-    {
+-        const char *hard_affinity_str = NULL;
+-        uint32_t val;
+-        int rc;
+-        struct vcpu *v;
+-        cpumask_t affinity;
+-
+-        if ( !dt_device_is_compatible(np, "xen,vcpu") )
+-            continue;
+-
+-        if ( !dt_property_read_u32(np, "id", &val) )
+-            panic("Invalid xen,vcpu node for domain %s\n", dt_node_name(node));
+-
+-        if ( val >= d->max_vcpus )
+-            panic("Invalid vcpu_id %u for domain %s, max_vcpus=%u\n", val,
+-                  dt_node_name(node), d->max_vcpus);
+-
+-        v = d->vcpu[val];
+-        rc = dt_property_read_string(np, "hard-affinity", &hard_affinity_str);
+-        if ( rc < 0 )
+-            continue;
+-
+-        cpumask_clear(&affinity);
+-        while ( *hard_affinity_str != '\0' )
+-        {
+-            unsigned int start, end;
+-
+-            start = simple_strtoul(hard_affinity_str, &hard_affinity_str, 0);
+-
+-            if ( *hard_affinity_str == '-' )    /* Range */
+-            {
+-                hard_affinity_str++;
+-                end = simple_strtoul(hard_affinity_str, &hard_affinity_str, 0);
+-            }
+-            else                /* Single value */
+-                end = start;
+-
+-            if ( end >= nr_cpu_ids )
+-                panic("Invalid pCPU %u for domain %s\n", end, dt_node_name(node));
+-
+-            for ( ; start <= end; start++ )
+-                cpumask_set_cpu(start, &affinity);
+-
+-            if ( *hard_affinity_str == ',' )
+-                hard_affinity_str++;
+-            else if ( *hard_affinity_str != '\0' )
+-                break;
+-        }
++    int rc = 0;
+ 
+-        rc = vcpu_set_hard_affinity(v, &affinity);
+-        if ( rc )
+-            panic("vcpu%d: failed (rc=%d) to set hard affinity for domain %s\n",
+-                  v->vcpu_id, rc, dt_node_name(node));
+-    }
 -}
--
--static void __init initrd_load(struct kernel_info *kinfo)
++    kinfo->arch.vpl011 = dt_property_read_bool(node, "vpl011");
+ 
+-#ifdef CONFIG_ARCH_PAGING_MEMPOOL
+-static unsigned long __init domain_p2m_pages(unsigned long maxmem_kb,
+-                                             unsigned int smp_cpus)
 -{
--    const struct bootmodule *mod = kinfo->initrd_bootmodule;
--    paddr_t load_addr = kinfo->initrd_paddr;
--    paddr_t paddr, len;
--    int node;
--    int res;
--    __be32 val[2];
--    __be32 *cellp;
--    void __iomem *initrd;
--
--    if ( !mod || !mod->size )
--        return;
--
--    paddr = mod->start;
--    len = mod->size;
--
--    printk("Loading %pd initrd from %"PRIpaddr" to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
--           kinfo->d, paddr, load_addr, load_addr + len);
--
--    /* Fix up linux,initrd-start and linux,initrd-end in /chosen */
--    node = fdt_path_offset(kinfo->fdt, "/chosen");
--    if ( node < 0 )
--        panic("Cannot find the /chosen node\n");
--
--    cellp = (__be32 *)val;
--    dt_set_cell(&cellp, ARRAY_SIZE(val), load_addr);
--    res = fdt_setprop_inplace(kinfo->fdt, node, "linux,initrd-start",
--                              val, sizeof(val));
--    if ( res )
--        panic("Cannot fix up \"linux,initrd-start\" property\n");
--
--    cellp = (__be32 *)val;
--    dt_set_cell(&cellp, ARRAY_SIZE(val), load_addr + len);
--    res = fdt_setprop_inplace(kinfo->fdt, node, "linux,initrd-end",
--                              val, sizeof(val));
--    if ( res )
--        panic("Cannot fix up \"linux,initrd-end\" property\n");
--
--    initrd = ioremap_wc(paddr, len);
--    if ( !initrd )
--        panic("Unable to map the %pd initrd\n", kinfo->d);
--
--    res = copy_to_guest_phys_flush_dcache(kinfo->d, load_addr,
--                                          initrd, len);
--    if ( res != 0 )
--        panic("Unable to copy the initrd in the %pd memory\n", kinfo->d);
--
--    iounmap(initrd);
--}
--
- /*
-  * Allocate the event channel PPIs and setup the HVM_PARAM_CALLBACK_IRQ.
-  * The allocated IRQ will be found in d->arch.evtchn_irq.
-@@ -2220,8 +1827,8 @@ int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
+     /*
+-     * Keep in sync with libxl__get_required_paging_memory().
+-     * 256 pages (1MB) per vcpu, plus 1 page per MiB of RAM for the P2M map,
+-     * plus 128 pages to cover extended regions.
++     * Base address and irq number are needed when creating vpl011 device
++     * tree node in prepare_dtb_domU, so initialization on related variables
++     * shall be done first.
       */
-     kernel_load(kinfo);
-     /* initrd_load will fix up the fdt, so call it before dtb_load */
--    initrd_load(kinfo);
--    dtb_load(kinfo);
-+    initrd_load(kinfo, copy_to_guest_phys_flush_dcache);
-+    dtb_load(kinfo, copy_to_guest_phys_flush_dcache);
- 
-     memset(regs, 0, sizeof(*regs));
- 
-diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
-index 9d72108f35..9655e9d453 100644
---- a/xen/arch/arm/include/asm/domain_build.h
-+++ b/xen/arch/arm/include/asm/domain_build.h
-@@ -5,20 +5,10 @@
- #include <xen/sched.h>
- 
- typedef __be32 gic_interrupt_t[3];
--typedef bool (*alloc_domheap_mem_cb)(struct domain *d, struct page_info *pg,
--                                     unsigned int order, void *extra);
--bool allocate_domheap_memory(struct domain *d, paddr_t tot_size,
--                             alloc_domheap_mem_cb cb, void *extra);
+-    unsigned long memkb = 4 * (256 * smp_cpus + (maxmem_kb / 1024) + 128);
 -
--bool allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
--                          paddr_t tot_size);
--void allocate_memory(struct domain *d, struct kernel_info *kinfo);
- int domain_fdt_begin_node(void *fdt, const char *name, uint64_t unit);
- int make_psci_node(void *fdt);
- void evtchn_allocate(struct domain *d);
- 
--unsigned int get_allocation_size(paddr_t size);
+-    BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
 -
- /*
-  * Helper to write an interrupts with the GIC format
-  * This code is assuming the irq is an PPI.
-diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index e88a4d5799..831b91399b 100644
---- a/xen/common/device-tree/Makefile
-+++ b/xen/common/device-tree/Makefile
-@@ -1,6 +1,7 @@
- obj-y += bootfdt.init.o
- obj-y += bootinfo.init.o
- obj-y += device-tree.o
-+obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += domain-build.o
- obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.o
- obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
- obj-y += intc.o
-diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
-new file mode 100644
-index 0000000000..762b63e2b0
---- /dev/null
-+++ b/xen/common/device-tree/domain-build.c
-@@ -0,0 +1,395 @@
-+#include <xen/bootfdt.h>
-+#include <xen/fdt-domain-build.h>
-+#include <xen/init.h>
-+#include <xen/lib.h>
-+#include <xen/libfdt/libfdt.h>
-+#include <xen/mm.h>
-+#include <xen/sched.h>
-+#include <xen/sizes.h>
-+#include <xen/types.h>
-+#include <xen/vmap.h>
-+
-+#include <asm/p2m.h>
-+
-+bool __init allocate_domheap_memory(struct domain *d, paddr_t tot_size,
-+                                    alloc_domheap_mem_cb cb, void *extra)
+-    return DIV_ROUND_UP(memkb, 1024) << (20 - PAGE_SHIFT);
+-}
+-
+-static int __init domain_p2m_set_allocation(struct domain *d, uint64_t mem,
+-                                            const struct dt_device_node *node)
+-{
+-    unsigned long p2m_pages;
+-    uint32_t p2m_mem_mb;
+-    int rc;
+-
+-    rc = dt_property_read_u32(node, "xen,domain-p2m-mem-mb", &p2m_mem_mb);
+-    /* If xen,domain-p2m-mem-mb is not specified, use the default value. */
+-    p2m_pages = rc ?
+-                p2m_mem_mb << (20 - PAGE_SHIFT) :
+-                domain_p2m_pages(mem, d->max_vcpus);
+-
+-    spin_lock(&d->arch.paging.lock);
+-    rc = p2m_set_allocation(d, p2m_pages, NULL);
+-    spin_unlock(&d->arch.paging.lock);
+-
+-    return rc;
+-}
+-#else /* !CONFIG_ARCH_PAGING_MEMPOOL */
+-static inline int domain_p2m_set_allocation(struct domain *d, uint64_t mem,
+-                                            const struct dt_device_node *node)
+-{
+-    return 0;
+-}
+-#endif /* CONFIG_ARCH_PAGING_MEMPOOL */
+-
+-int __init construct_domU(struct domain *d,
+-                          const struct dt_device_node *node)
+-{
+-    struct kernel_info kinfo = KERNEL_INFO_INIT;
+-    const char *dom0less_enhanced;
+-    int rc;
+-    u64 mem;
+-
+-    rc = dt_property_read_u64(node, "memory", &mem);
+-    if ( !rc )
+-    {
+-        printk("Error building DomU: cannot read \"memory\" property\n");
+-        return -EINVAL;
+-    }
+-    kinfo.unassigned_mem = (paddr_t)mem * SZ_1K;
+-
+-    rc = domain_p2m_set_allocation(d, mem, node);
+-    if ( rc != 0 )
+-        return rc;
+-
+-    printk("*** LOADING DOMU cpus=%u memory=%#"PRIx64"KB ***\n",
+-           d->max_vcpus, mem);
+-
+-    kinfo.arch.vpl011  = dt_property_read_bool(node, "vpl011");
+-    if ( kinfo.arch.vpl011  && is_hardware_domain(d) )
+-        panic("hardware domain cannot specify vpl011\n");
+-
+-    rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
+-    if ( rc == -EILSEQ ||
+-         rc == -ENODATA ||
+-         (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
+-    {
+-        need_xenstore = true;
+-        kinfo.dom0less_feature = DOM0LESS_ENHANCED;
+-    }
+-    else if ( rc == 0 && !strcmp(dom0less_enhanced, "legacy") )
+-    {
+-        need_xenstore = true;
+-        kinfo.dom0less_feature = DOM0LESS_ENHANCED_LEGACY;
+-    }
+-    else if ( rc == 0 && !strcmp(dom0less_enhanced, "no-xenstore") )
+-        kinfo.dom0less_feature = DOM0LESS_ENHANCED_NO_XS;
+-
+-    if ( vcpu_create(d, 0) == NULL )
+-        return -ENOMEM;
+-
+-    d->max_pages = ((paddr_t)mem * SZ_1K) >> PAGE_SHIFT;
+-
+-    kinfo.d = d;
+-
+-    rc = kernel_probe(&kinfo, node);
+-    if ( rc < 0 )
+-        return rc;
+-
+-#ifdef CONFIG_ARM_64
+-    /* type must be set before allocate memory */
+-    d->arch.type = kinfo.arch.type;
+-#endif
+-    if ( is_hardware_domain(d) )
+-    {
+-        rc = construct_hwdom(&kinfo, node);
+-        if ( rc < 0 )
+-            return rc;
+-    }
+-    else
++    if ( kinfo->arch.vpl011 )
+     {
+-        if ( !dt_find_property(node, "xen,static-mem", NULL) )
+-            allocate_memory(d, &kinfo);
+-        else if ( !is_domain_direct_mapped(d) )
+-            allocate_static_memory(d, &kinfo, node);
+-        else
+-            assign_static_memory_11(d, &kinfo, node);
+-
+-        rc = process_shm(d, &kinfo, node);
+-        if ( rc < 0 )
+-            return rc;
+-
+-        /*
+-         * Base address and irq number are needed when creating vpl011 device
+-         * tree node in prepare_dtb_domU, so initialization on related variables
+-         * shall be done first.
+-         */
+-        if ( kinfo.arch.vpl011  )
+-        {
+-            rc = domain_vpl011_init(d, NULL);
+-            if ( rc < 0 )
+-                return rc;
+-        }
+-
+-        rc = prepare_dtb_domU(d, &kinfo);
+-        if ( rc < 0 )
+-            return rc;
+-
+-        rc = construct_domain(d, &kinfo);
++        rc = domain_vpl011_init(d, NULL);
+         if ( rc < 0 )
+             return rc;
+     }
+ 
+-    domain_vcpu_affinity(d, node);
+-
+-    return alloc_xenstore_params(&kinfo);
++    return rc;
+ }
+ 
+ void __init arch_create_domUs(struct dt_device_node *node,
+@@ -995,6 +345,22 @@ void __init arch_create_domUs(struct dt_device_node *node,
+     }
+ }
+ 
++int __init init_intc_phandle(struct kernel_info *kinfo, const char *name,
++                             const int node_next, const void *pfdt)
 +{
-+    unsigned int max_order = UINT_MAX;
-+
-+    while ( tot_size > 0 )
++    if ( dt_node_cmp(name, "gic") == 0 )
 +    {
-+        unsigned int order = get_allocation_size(tot_size);
-+        struct page_info *pg;
++        uint32_t phandle_intc = fdt_get_phandle(pfdt, node_next);
 +
-+        order = min(max_order, order);
++        if ( phandle_intc != 0 )
++            kinfo->phandle_intc = phandle_intc;
 +
-+        pg = alloc_domheap_pages(d, order, 0);
-+        if ( !pg )
++        return 0;
++    }
++
++    return 1;
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+index 203b762e2c..e1d68cb373 100644
+--- a/xen/common/device-tree/dom0less-build.c
++++ b/xen/common/device-tree/dom0less-build.c
+@@ -3,24 +3,43 @@
+ #include <xen/bootfdt.h>
+ #include <xen/device_tree.h>
+ #include <xen/domain.h>
++#include <xen/domain_page.h>
+ #include <xen/err.h>
+ #include <xen/event.h>
++#include <xen/fdt-domain-build.h>
++#include <xen/fdt-kernel.h>
+ #include <xen/grant_table.h>
+ #include <xen/init.h>
++#include <xen/iocap.h>
+ #include <xen/iommu.h>
++#include <xen/libfdt/libfdt.h>
+ #include <xen/llc-coloring.h>
++#include <xen/sizes.h>
+ #include <xen/sched.h>
+ #include <xen/stdbool.h>
+ #include <xen/types.h>
++#include <xen/vmap.h>
+ 
+ #include <public/bootfdt.h>
+ #include <public/domctl.h>
+ #include <public/event_channel.h>
++#include <public/io/xs_wire.h>
+ 
+ #include <asm/dom0less-build.h>
+ #include <asm/setup.h>
+ 
++#if __has_include(<asm/static-memory.h>)
++#   include <asm/static-memory.h>
++#endif
++
++#if __has_include(<asm/static-shmem.h>)
++#include <asm/static-shmem.h>
++#endif
++
++#define XENSTORE_PFN_LATE_ALLOC UINT64_MAX
++
+ static domid_t __initdata xs_domid = DOMID_INVALID;
++static bool __initdata need_xenstore;
+ 
+ void __init set_xs_domain(struct domain *d)
+ {
+@@ -109,6 +128,695 @@ static void __init initialize_domU_xenstore(void)
+     }
+ }
+ 
++/*
++ * Scan device tree properties for passthrough specific information.
++ * Returns < 0 on error
++ *         0 on success
++ */
++static int __init handle_passthrough_prop(struct kernel_info *kinfo,
++                                          const struct fdt_property *xen_reg,
++                                          const struct fdt_property *xen_path,
++                                          bool xen_force,
++                                          uint32_t address_cells,
++                                          uint32_t size_cells)
++{
++    const __be32 *cell;
++    unsigned int i, len;
++    struct dt_device_node *node;
++    int res;
++    paddr_t mstart, size, gstart;
++
++    /* xen,reg specifies where to map the MMIO region */
++    cell = (const __be32 *)xen_reg->data;
++    len = fdt32_to_cpu(xen_reg->len) / ((address_cells * 2 + size_cells) *
++                                        sizeof(uint32_t));
++
++    for ( i = 0; i < len; i++ )
++    {
++        device_tree_get_reg(&cell, address_cells, size_cells,
++                            &mstart, &size);
++        gstart = dt_next_cell(address_cells, &cell);
++
++        if ( gstart & ~PAGE_MASK || mstart & ~PAGE_MASK || size & ~PAGE_MASK )
 +        {
-+            /*
-+             * If we can't allocate one page, then it is unlikely to
-+             * succeed in the next iteration. So bail out.
-+             */
-+            if ( !order )
-+                return false;
-+
-+            /*
-+             * If we can't allocate memory with order, then it is
-+             * unlikely to succeed in the next iteration.
-+             * Record the order - 1 to avoid re-trying.
-+             */
-+            max_order = order - 1;
-+            continue;
++            printk(XENLOG_ERR
++                   "DomU passthrough config has not page aligned addresses/sizes\n");
++            return -EINVAL;
 +        }
 +
-+        if ( !cb(d, pg, order, extra) )
-+            return false;
++        res = iomem_permit_access(kinfo->d, paddr_to_pfn(mstart),
++                                  paddr_to_pfn(PAGE_ALIGN(mstart + size - 1)));
++        if ( res )
++        {
++            printk(XENLOG_ERR "Unable to permit to dom%d access to"
++                   " 0x%"PRIpaddr" - 0x%"PRIpaddr"\n",
++                   kinfo->d->domain_id,
++                   mstart & PAGE_MASK, PAGE_ALIGN(mstart + size) - 1);
++            return res;
++        }
 +
-+        tot_size -= (1ULL << (PAGE_SHIFT + order));
++        res = map_regions_p2mt(kinfo->d,
++                               gaddr_to_gfn(gstart),
++                               PFN_DOWN(size),
++                               maddr_to_mfn(mstart),
++                               p2m_mmio_direct_dev);
++        if ( res < 0 )
++        {
++            printk(XENLOG_ERR
++                   "Failed to map %"PRIpaddr" to the guest at%"PRIpaddr"\n",
++                   mstart, gstart);
++            return -EFAULT;
++        }
 +    }
 +
-+    return true;
++    /*
++     * If xen_force, we let the user assign a MMIO region with no
++     * associated path.
++     */
++    if ( xen_path == NULL )
++        return xen_force ? 0 : -EINVAL;
++
++    /*
++     * xen,path specifies the corresponding node in the host DT.
++     * Both interrupt mappings and IOMMU settings are based on it,
++     * as they are done based on the corresponding host DT node.
++     */
++    node = dt_find_node_by_path(xen_path->data);
++    if ( node == NULL )
++    {
++        printk(XENLOG_ERR "Couldn't find node %s in host_dt!\n",
++               xen_path->data);
++        return -EINVAL;
++    }
++
++    res = map_device_irqs_to_domain(kinfo->d, node, true, NULL);
++    if ( res < 0 )
++        return res;
++
++    res = iommu_add_dt_device(node);
++    if ( res < 0 )
++        return res;
++
++    /* If xen_force, we allow assignment of devices without IOMMU protection. */
++    if ( xen_force && !dt_device_is_protected(node) )
++        return 0;
++
++    return iommu_assign_dt_device(kinfo->d, node);
 +}
 +
-+static bool __init guest_map_pages(struct domain *d, struct page_info *pg,
-+                                   unsigned int order, void *extra)
++static int __init handle_prop_pfdt(struct kernel_info *kinfo,
++                                   const void *pfdt, int nodeoff,
++                                   uint32_t address_cells, uint32_t size_cells,
++                                   bool scan_passthrough_prop)
 +{
-+    gfn_t *sgfn = (gfn_t *)extra;
++    void *fdt = kinfo->fdt;
++    int propoff, nameoff, res;
++    const struct fdt_property *prop, *xen_reg = NULL, *xen_path = NULL;
++    const char *name;
++    bool found, xen_force = false;
++
++    for ( propoff = fdt_first_property_offset(pfdt, nodeoff);
++          propoff >= 0;
++          propoff = fdt_next_property_offset(pfdt, propoff) )
++    {
++        if ( !(prop = fdt_get_property_by_offset(pfdt, propoff, NULL)) )
++            return -FDT_ERR_INTERNAL;
++
++        found = false;
++        nameoff = fdt32_to_cpu(prop->nameoff);
++        name = fdt_string(pfdt, nameoff);
++
++        if ( scan_passthrough_prop )
++        {
++            if ( dt_prop_cmp("xen,reg", name) == 0 )
++            {
++                xen_reg = prop;
++                found = true;
++            }
++            else if ( dt_prop_cmp("xen,path", name) == 0 )
++            {
++                xen_path = prop;
++                found = true;
++            }
++            else if ( dt_prop_cmp("xen,force-assign-without-iommu",
++                                  name) == 0 )
++            {
++                xen_force = true;
++                found = true;
++            }
++        }
++
++        /*
++         * Copy properties other than the ones above: xen,reg, xen,path,
++         * and xen,force-assign-without-iommu.
++         */
++        if ( !found )
++        {
++            res = fdt_property(fdt, name, prop->data, fdt32_to_cpu(prop->len));
++            if ( res )
++                return res;
++        }
++    }
++
++    /*
++     * Only handle passthrough properties if both xen,reg and xen,path
++     * are present, or if xen,force-assign-without-iommu is specified.
++     */
++    if ( xen_reg != NULL && (xen_path != NULL || xen_force) )
++    {
++        res = handle_passthrough_prop(kinfo, xen_reg, xen_path, xen_force,
++                                      address_cells, size_cells);
++        if ( res < 0 )
++        {
++            printk(XENLOG_ERR "Failed to assign device to %pd\n", kinfo->d);
++            return res;
++        }
++    }
++    else if ( (xen_path && !xen_reg) || (xen_reg && !xen_path && !xen_force) )
++    {
++        printk(XENLOG_ERR "xen,reg or xen,path missing for %pd\n",
++               kinfo->d);
++        return -EINVAL;
++    }
++
++    /* FDT_ERR_NOTFOUND => There is no more properties for this node */
++    return ( propoff != -FDT_ERR_NOTFOUND ) ? propoff : 0;
++}
++
++static int __init scan_pfdt_node(struct kernel_info *kinfo, const void *pfdt,
++                                 int nodeoff,
++                                 uint32_t address_cells, uint32_t size_cells,
++                                 bool scan_passthrough_prop)
++{
++    int rc = 0;
++    void *fdt = kinfo->fdt;
++    int node_next;
++
++    rc = fdt_begin_node(fdt, fdt_get_name(pfdt, nodeoff, NULL));
++    if ( rc )
++        return rc;
++
++    rc = handle_prop_pfdt(kinfo, pfdt, nodeoff, address_cells, size_cells,
++                          scan_passthrough_prop);
++    if ( rc )
++        return rc;
++
++    address_cells = device_tree_get_u32(pfdt, nodeoff, "#address-cells",
++                                        DT_ROOT_NODE_ADDR_CELLS_DEFAULT);
++    size_cells = device_tree_get_u32(pfdt, nodeoff, "#size-cells",
++                                     DT_ROOT_NODE_SIZE_CELLS_DEFAULT);
++
++    node_next = fdt_first_subnode(pfdt, nodeoff);
++    while ( node_next > 0 )
++    {
++        rc = scan_pfdt_node(kinfo, pfdt, node_next, address_cells, size_cells,
++                            scan_passthrough_prop);
++        if ( rc )
++            return rc;
++
++        node_next = fdt_next_subnode(pfdt, node_next);
++    }
++
++    return fdt_end_node(fdt);
++}
++
++static int __init check_partial_fdt(void *pfdt, size_t size)
++{
 +    int res;
 +
-+    BUG_ON(!sgfn);
-+    res = guest_physmap_add_page(d, *sgfn, page_to_mfn(pg), order);
++    if ( fdt_magic(pfdt) != FDT_MAGIC )
++    {
++        dprintk(XENLOG_ERR, "Partial FDT is not a valid Flat Device Tree");
++        return -EINVAL;
++    }
++
++    res = fdt_check_header(pfdt);
 +    if ( res )
 +    {
-+        dprintk(XENLOG_ERR, "Failed map pages to DOMU: %d", res);
-+        return false;
++        dprintk(XENLOG_ERR, "Failed to check the partial FDT (%d)", res);
++        return -EINVAL;
 +    }
 +
-+    *sgfn = gfn_add(*sgfn, 1UL << order);
-+
-+    return true;
-+}
-+
-+bool __init allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
-+                                 paddr_t tot_size)
-+{
-+    struct membanks *mem = kernel_info_get_mem(kinfo);
-+    struct domain *d = kinfo->d;
-+    struct membank *bank;
-+
-+    /*
-+     * allocate_bank_memory can be called with a tot_size of zero for
-+     * the second memory bank. It is not an error and we can safely
-+     * avoid creating a zero-size memory bank.
-+     */
-+    if ( tot_size == 0 )
-+        return true;
-+
-+    bank = &mem->bank[mem->nr_banks];
-+    bank->start = gfn_to_gaddr(sgfn);
-+    bank->size = tot_size;
-+
-+    /*
-+     * Allocate pages from the heap until tot_size is zero and map them to the
-+     * guest using guest_map_pages, passing the starting gfn as extra parameter
-+     * for the map operation.
-+     */
-+    if ( !allocate_domheap_memory(d, tot_size, guest_map_pages, &sgfn) )
-+        return false;
-+
-+    mem->nr_banks++;
-+    kinfo->unassigned_mem -= bank->size;
-+
-+    return true;
-+}
-+
-+static int __init add_hwdom_free_regions(unsigned long s_gfn,
-+                                         unsigned long e_gfn, void *data)
-+{
-+    struct membanks *free_regions = data;
-+    paddr_t start, size;
-+    paddr_t s = pfn_to_paddr(s_gfn);
-+    paddr_t e = pfn_to_paddr(e_gfn);
-+    unsigned int i, j;
-+
-+    if ( free_regions->nr_banks >= free_regions->max_banks )
-+        return 0;
-+
-+    /*
-+     * Both start and size of the free region should be 2MB aligned to
-+     * potentially allow superpage mapping.
-+     */
-+    start = (s + SZ_2M - 1) & ~(SZ_2M - 1);
-+    if ( start > e )
-+        return 0;
-+
-+    /*
-+     * e is actually "end-1" because it is called by rangeset functions
-+     * which are inclusive of the last address.
-+     */
-+    e += 1;
-+    size = (e - start) & ~(SZ_2M - 1);
-+
-+    /* Find the insert position (descending order). */
-+    for ( i = 0; i < free_regions->nr_banks ; i++ )
-+        if ( size > free_regions->bank[i].size )
-+            break;
-+
-+    /* Move the other banks to make space. */
-+    for ( j = free_regions->nr_banks; j > i ; j-- )
++    if ( fdt_totalsize(pfdt) > size )
 +    {
-+        free_regions->bank[j].start = free_regions->bank[j - 1].start;
-+        free_regions->bank[j].size = free_regions->bank[j - 1].size;
++        dprintk(XENLOG_ERR, "Partial FDT totalsize is too big");
++        return -EINVAL;
 +    }
-+
-+    free_regions->bank[i].start = start;
-+    free_regions->bank[i].size = size;
-+    free_regions->nr_banks++;
 +
 +    return 0;
 +}
 +
-+/*
-+ * Find unused regions of Host address space which can be exposed to domain
-+ * using the host memory layout. In order to calculate regions we exclude every
-+ * region passed in mem_banks from the Host RAM.
-+ */
-+int __init find_unallocated_memory(const struct kernel_info *kinfo,
-+                                   const struct membanks *mem_banks[],
-+                                   unsigned int nr_mem_banks,
-+                                   struct membanks *free_regions,
-+                                   int (*cb)(unsigned long s_gfn,
-+                                             unsigned long e_gfn,
-+                                             void *data))
++static int __init domain_handle_dtb_bootmodule(struct domain *d,
++                                               struct kernel_info *kinfo)
 +{
-+    const struct membanks *mem = bootinfo_get_mem();
-+    struct rangeset *unalloc_mem;
-+    paddr_t start, end;
-+    unsigned int i, j;
-+    int res;
++    void *pfdt;
++    int res, node_next;
 +
-+    ASSERT(domain_use_host_layout(kinfo->d));
++    pfdt = ioremap_cache(kinfo->dtb_bootmodule->start,
++                         kinfo->dtb_bootmodule->size);
++    if ( pfdt == NULL )
++        return -EFAULT;
 +
-+    unalloc_mem = rangeset_new(NULL, NULL, 0);
-+    if ( !unalloc_mem )
-+        return -ENOMEM;
++    res = check_partial_fdt(pfdt, kinfo->dtb_bootmodule->size);
++    if ( res < 0 )
++        goto out;
 +
-+    /* Start with all available RAM */
-+    for ( i = 0; i < mem->nr_banks; i++ )
++    for ( node_next = fdt_first_subnode(pfdt, 0);
++          node_next > 0;
++          node_next = fdt_next_subnode(pfdt, node_next) )
 +    {
-+        start = mem->bank[i].start;
-+        end = mem->bank[i].start + mem->bank[i].size;
-+        res = rangeset_add_range(unalloc_mem, PFN_DOWN(start),
-+                                 PFN_DOWN(end - 1));
-+        if ( res )
++        const char *name = fdt_get_name(pfdt, node_next, NULL);
++
++        if ( name == NULL )
++            continue;
++
++        /*
++         * Only scan /$(interrupt_controller) /aliases /passthrough,
++         * ignore the rest.
++         * They don't have to be parsed in order.
++         *
++         * Take the interrupt controller phandle value from the special
++         * interrupt controller node in the DTB fragment.
++         */
++        if ( init_intc_phandle(kinfo, name, node_next, pfdt) == 0 )
++            continue;
++
++        if ( dt_node_cmp(name, "aliases") == 0 )
 +        {
-+            printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
-+                   start, end);
-+            goto out;
++            res = scan_pfdt_node(kinfo, pfdt, node_next,
++                                 DT_ROOT_NODE_ADDR_CELLS_DEFAULT,
++                                 DT_ROOT_NODE_SIZE_CELLS_DEFAULT,
++                                 false);
++            if ( res )
++                goto out;
++            continue;
++        }
++        if ( dt_node_cmp(name, "passthrough") == 0 )
++        {
++            res = scan_pfdt_node(kinfo, pfdt, node_next,
++                                 DT_ROOT_NODE_ADDR_CELLS_DEFAULT,
++                                 DT_ROOT_NODE_SIZE_CELLS_DEFAULT,
++                                 true);
++            if ( res )
++                goto out;
++            continue;
 +        }
 +    }
 +
-+    /* Remove all regions listed in mem_banks */
-+    for ( i = 0; i < nr_mem_banks; i++ )
-+        for ( j = 0; j < mem_banks[i]->nr_banks; j++ )
-+        {
-+            start = mem_banks[i]->bank[j].start;
-+
-+            /* Shared memory banks can contain INVALID_PADDR as start */
-+            if ( INVALID_PADDR == start )
-+                continue;
-+
-+            end = mem_banks[i]->bank[j].start + mem_banks[i]->bank[j].size;
-+            res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
-+                                        PFN_DOWN(end - 1));
-+            if ( res )
-+            {
-+                printk(XENLOG_ERR
-+                       "Failed to add: %#"PRIpaddr"->%#"PRIpaddr", error %d\n",
-+                       start, end, res);
-+                goto out;
-+            }
-+        }
-+
-+    start = 0;
-+    end = (1ULL << p2m_ipa_bits) - 1;
-+    res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
-+                                 cb, free_regions);
-+    if ( res )
-+        free_regions->nr_banks = 0;
-+    else if ( !free_regions->nr_banks )
-+        res = -ENOENT;
-+
-+out:
-+    rangeset_destroy(unalloc_mem);
++ out:
++    iounmap(pfdt);
 +
 +    return res;
 +}
 +
-+void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
++/*
++ * The max size for DT is 2MB. However, the generated DT is small (not including
++ * domU passthrough DT nodes whose size we account separately), 4KB are enough
++ * for now, but we might have to increase it in the future.
++ */
++#define DOMU_DTB_SIZE 4096
++static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
 +{
-+    struct membanks *mem = kernel_info_get_mem(kinfo);
-+    unsigned int i, nr_banks = GUEST_RAM_BANKS;
-+    struct membanks *hwdom_free_mem = NULL;
++    int addrcells, sizecells;
++    int ret, fdt_size = DOMU_DTB_SIZE;
 +
-+    printk(XENLOG_INFO "Allocating mappings totalling %ldMB for %pd:\n",
-+           /* Don't want format this as PRIpaddr (16 digit hex) */
-+           (unsigned long)(kinfo->unassigned_mem >> 20), d);
++    kinfo->phandle_intc = GUEST_PHANDLE_GIC;
 +
-+    mem->nr_banks = 0;
++#ifdef CONFIG_GRANT_TABLE
++    kinfo->gnttab_start = GUEST_GNTTAB_BASE;
++    kinfo->gnttab_size = GUEST_GNTTAB_SIZE;
++#endif
++
++    addrcells = GUEST_ROOT_ADDRESS_CELLS;
++    sizecells = GUEST_ROOT_SIZE_CELLS;
++
++    /* Account for domU passthrough DT size */
++    if ( kinfo->dtb_bootmodule )
++        fdt_size += kinfo->dtb_bootmodule->size;
++
++    /* Cap to max DT size if needed */
++    fdt_size = min(fdt_size, SZ_2M);
++
++    kinfo->fdt = xmalloc_bytes(fdt_size);
++    if ( kinfo->fdt == NULL )
++        return -ENOMEM;
++
++    ret = fdt_create(kinfo->fdt, fdt_size);
++    if ( ret < 0 )
++        goto err;
++
++    ret = fdt_finish_reservemap(kinfo->fdt);
++    if ( ret < 0 )
++        goto err;
++
++    ret = fdt_begin_node(kinfo->fdt, "");
++    if ( ret < 0 )
++        goto err;
++
++    ret = fdt_property_cell(kinfo->fdt, "#address-cells", addrcells);
++    if ( ret )
++        goto err;
++
++    ret = fdt_property_cell(kinfo->fdt, "#size-cells", sizecells);
++    if ( ret )
++        goto err;
++
++    ret = make_chosen_node(kinfo);
++    if ( ret )
++        goto err;
++
++    ret = make_cpus_node(d, kinfo->fdt);
++    if ( ret )
++        goto err;
++
++    ret = make_memory_node(kinfo, addrcells, sizecells,
++                           kernel_info_get_mem(kinfo));
++    if ( ret )
++        goto err;
++
++#ifdef CONFIG_STATIC_SHM
++    ret = make_resv_memory_node(kinfo, addrcells, sizecells);
++    if ( ret )
++        goto err;
++#endif
++
 +    /*
-+     * Use host memory layout for hwdom. Only case for this is when LLC coloring
-+     * is enabled.
++     * domain_handle_dtb_bootmodule has to be called before the rest of
++     * the device tree is generated because it depends on the value of
++     * the field phandle_intc.
 +     */
++    if ( kinfo->dtb_bootmodule )
++    {
++        ret = domain_handle_dtb_bootmodule(d, kinfo);
++        if ( ret )
++            goto err;
++    }
++
++    ret = make_intc_domU_node(kinfo);
++    if ( ret )
++        goto err;
++
++    ret = make_timer_node(kinfo);
++    if ( ret )
++        goto err;
++
++    if ( kinfo->dom0less_feature & DOM0LESS_ENHANCED_NO_XS )
++    {
++        ret = make_hypervisor_node(d, kinfo, addrcells, sizecells);
++        if ( ret )
++            goto err;
++    }
++
++    ret = make_arch_nodes(kinfo);
++    if ( ret )
++        goto err;
++
++    ret = fdt_end_node(kinfo->fdt);
++    if ( ret < 0 )
++        goto err;
++
++    ret = fdt_finish(kinfo->fdt);
++    if ( ret < 0 )
++        goto err;
++
++    return 0;
++
++  err:
++    printk("Device tree generation failed (%d).\n", ret);
++    xfree(kinfo->fdt);
++
++    return -EINVAL;
++}
++
++#define XENSTORE_PFN_OFFSET 1
++static int __init alloc_xenstore_page(struct domain *d)
++{
++    struct page_info *xenstore_pg;
++    struct xenstore_domain_interface *interface;
++    mfn_t mfn;
++    gfn_t gfn;
++    int rc;
++
++    if ( (UINT_MAX - d->max_pages) < 1 )
++    {
++        printk(XENLOG_ERR "%pd: Over-allocation for d->max_pages by 1 page.\n",
++               d);
++        return -EINVAL;
++    }
++
++    d->max_pages += 1;
++    xenstore_pg = alloc_domheap_page(d, MEMF_bits(32));
++    if ( xenstore_pg == NULL && is_64bit_domain(d) )
++        xenstore_pg = alloc_domheap_page(d, 0);
++    if ( xenstore_pg == NULL )
++        return -ENOMEM;
++
++    mfn = page_to_mfn(xenstore_pg);
++    if ( !mfn_x(mfn) )
++        return -ENOMEM;
++
++    if ( !is_domain_direct_mapped(d) )
++        gfn = gaddr_to_gfn(GUEST_MAGIC_BASE +
++                           (XENSTORE_PFN_OFFSET << PAGE_SHIFT));
++    else
++        gfn = gaddr_to_gfn(mfn_to_maddr(mfn));
++
++    rc = guest_physmap_add_page(d, gfn, mfn, 0);
++    if ( rc )
++    {
++        free_domheap_page(xenstore_pg);
++        return rc;
++    }
++
++#ifdef CONFIG_HVM
++    d->arch.hvm.params[HVM_PARAM_STORE_PFN] = gfn_x(gfn);
++#endif
++    interface = map_domain_page(mfn);
++    interface->connection = XENSTORE_RECONNECT;
++    unmap_domain_page(interface);
++
++    return 0;
++}
++
++static int __init alloc_xenstore_params(struct kernel_info *kinfo)
++{
++    struct domain *d = kinfo->d;
++    int rc = 0;
++
++#ifdef CONFIG_HVM
++    if ( (kinfo->dom0less_feature & (DOM0LESS_XENSTORE | DOM0LESS_XS_LEGACY))
++                                 == (DOM0LESS_XENSTORE | DOM0LESS_XS_LEGACY) )
++        d->arch.hvm.params[HVM_PARAM_STORE_PFN] = XENSTORE_PFN_LATE_ALLOC;
++    else
++#endif
++    if ( kinfo->dom0less_feature & DOM0LESS_XENSTORE )
++    {
++        rc = alloc_xenstore_page(d);
++        if ( rc < 0 )
++            return rc;
++    }
++
++    return rc;
++}
++
++static void __init domain_vcpu_affinity(struct domain *d,
++                                        const struct dt_device_node *node)
++{
++    struct dt_device_node *np;
++
++    dt_for_each_child_node(node, np)
++    {
++        const char *hard_affinity_str = NULL;
++        uint32_t val;
++        int rc;
++        struct vcpu *v;
++        cpumask_t affinity;
++
++        if ( !dt_device_is_compatible(np, "xen,vcpu") )
++            continue;
++
++        if ( !dt_property_read_u32(np, "id", &val) )
++            panic("Invalid xen,vcpu node for domain %s\n", dt_node_name(node));
++
++        if ( val >= d->max_vcpus )
++            panic("Invalid vcpu_id %u for domain %s, max_vcpus=%u\n", val,
++                  dt_node_name(node), d->max_vcpus);
++
++        v = d->vcpu[val];
++        rc = dt_property_read_string(np, "hard-affinity", &hard_affinity_str);
++        if ( rc < 0 )
++            continue;
++
++        cpumask_clear(&affinity);
++        while ( *hard_affinity_str != '\0' )
++        {
++            unsigned int start, end;
++
++            start = simple_strtoul(hard_affinity_str, &hard_affinity_str, 0);
++
++            if ( *hard_affinity_str == '-' )    /* Range */
++            {
++                hard_affinity_str++;
++                end = simple_strtoul(hard_affinity_str, &hard_affinity_str, 0);
++            }
++            else                /* Single value */
++                end = start;
++
++            if ( end >= nr_cpu_ids )
++                panic("Invalid pCPU %u for domain %s\n", end, dt_node_name(node));
++
++            for ( ; start <= end; start++ )
++                cpumask_set_cpu(start, &affinity);
++
++            if ( *hard_affinity_str == ',' )
++                hard_affinity_str++;
++            else if ( *hard_affinity_str != '\0' )
++                break;
++        }
++
++        rc = vcpu_set_hard_affinity(v, &affinity);
++        if ( rc )
++            panic("vcpu%d: failed (rc=%d) to set hard affinity for domain %s\n",
++                  v->vcpu_id, rc, dt_node_name(node));
++    }
++}
++
++#ifdef CONFIG_ARCH_PAGING_MEMPOOL
++static unsigned long __init domain_p2m_pages(unsigned long maxmem_kb,
++                                             unsigned int smp_cpus)
++{
++    /*
++     * Keep in sync with libxl__get_required_paging_memory().
++     * 256 pages (1MB) per vcpu, plus 1 page per MiB of RAM for the P2M map,
++     * plus 128 pages to cover extended regions.
++     */
++    unsigned long memkb = 4 * (256 * smp_cpus + (maxmem_kb / 1024) + 128);
++
++    BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
++
++    return DIV_ROUND_UP(memkb, 1024) << (20 - PAGE_SHIFT);
++}
++
++static int __init domain_p2m_set_allocation(struct domain *d, uint64_t mem,
++                                            const struct dt_device_node *node)
++{
++    unsigned long p2m_pages;
++    uint32_t p2m_mem_mb;
++    int rc;
++
++    rc = dt_property_read_u32(node, "xen,domain-p2m-mem-mb", &p2m_mem_mb);
++    /* If xen,domain-p2m-mem-mb is not specified, use the default value. */
++    p2m_pages = rc ?
++                p2m_mem_mb << (20 - PAGE_SHIFT) :
++                domain_p2m_pages(mem, d->max_vcpus);
++
++    spin_lock(&d->arch.paging.lock);
++    rc = p2m_set_allocation(d, p2m_pages, NULL);
++    spin_unlock(&d->arch.paging.lock);
++
++    return rc;
++}
++#else /* !CONFIG_ARCH_PAGING_MEMPOOL */
++static inline int domain_p2m_set_allocation(struct domain *d, uint64_t mem,
++                                            const struct dt_device_node *node)
++{
++    return 0;
++}
++#endif /* CONFIG_ARCH_PAGING_MEMPOOL */
++
++static int __init construct_domU(struct domain *d,
++                          const struct dt_device_node *node)
++{
++    struct kernel_info kinfo = KERNEL_INFO_INIT;
++    const char *dom0less_enhanced;
++    int rc;
++    u64 mem;
++
++    rc = dt_property_read_u64(node, "memory", &mem);
++    if ( !rc )
++    {
++        printk("Error building DomU: cannot read \"memory\" property\n");
++        return -EINVAL;
++    }
++    kinfo.unassigned_mem = (paddr_t)mem * SZ_1K;
++
++    rc = domain_p2m_set_allocation(d, mem, node);
++    if ( rc != 0 )
++        return rc;
++
++    printk("*** LOADING DOMU cpus=%u memory=%#"PRIx64"KB ***\n",
++           d->max_vcpus, mem);
++
++    rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
++    if ( rc == -EILSEQ ||
++         rc == -ENODATA ||
++         (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
++    {
++        need_xenstore = true;
++        kinfo.dom0less_feature = DOM0LESS_ENHANCED;
++    }
++    else if ( rc == 0 && !strcmp(dom0less_enhanced, "legacy") )
++    {
++        need_xenstore = true;
++        kinfo.dom0less_feature = DOM0LESS_ENHANCED_LEGACY;
++    }
++    else if ( rc == 0 && !strcmp(dom0less_enhanced, "no-xenstore") )
++        kinfo.dom0less_feature = DOM0LESS_ENHANCED_NO_XS;
++
++    if ( vcpu_create(d, 0) == NULL )
++        return -ENOMEM;
++
++    d->max_pages = ((paddr_t)mem * SZ_1K) >> PAGE_SHIFT;
++
++    kinfo.d = d;
++
++    rc = kernel_probe(&kinfo, node);
++    if ( rc < 0 )
++        return rc;
++
++    set_domain_type(d, &kinfo);
++
 +    if ( is_hardware_domain(d) )
 +    {
-+        struct membanks *gnttab = membanks_xzalloc(1, MEMORY);
-+        /*
-+         * Exclude the following regions:
-+         * 1) Remove reserved memory
-+         * 2) Grant table assigned to hwdom
-+         */
-+        const struct membanks *mem_banks[] = {
-+            bootinfo_get_reserved_mem(),
-+            gnttab,
-+        };
-+
-+        if ( !gnttab )
-+            goto fail;
-+
-+        gnttab->nr_banks = 1;
-+        gnttab->bank[0].start = kinfo->gnttab_start;
-+        gnttab->bank[0].size = kinfo->gnttab_size;
-+
-+        hwdom_free_mem = membanks_xzalloc(NR_MEM_BANKS, MEMORY);
-+        if ( !hwdom_free_mem )
-+            goto fail;
-+
-+        if ( find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_banks),
-+                                     hwdom_free_mem, add_hwdom_free_regions) )
-+            goto fail;
-+
-+        nr_banks = hwdom_free_mem->nr_banks;
-+        xfree(gnttab);
++        rc = construct_hwdom(&kinfo, node);
++        if ( rc < 0 )
++            return rc;
 +    }
-+
-+    for ( i = 0; kinfo->unassigned_mem > 0 && nr_banks > 0; i++, nr_banks-- )
++    else
 +    {
-+        paddr_t bank_start, bank_size;
-+
-+        if ( is_hardware_domain(d) )
-+        {
-+            bank_start = hwdom_free_mem->bank[i].start;
-+            bank_size = hwdom_free_mem->bank[i].size;
-+        }
++        if ( !dt_find_property(node, "xen,static-mem", NULL) )
++            allocate_memory(d, &kinfo);
++    #ifdef CONFIG_STATIC_MEMORY
++        else if ( !is_domain_direct_mapped(d) )
++            allocate_static_memory(d, &kinfo, node);
 +        else
-+        {
-+            const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
-+            const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
++            assign_static_memory_11(d, &kinfo, node);
++    #endif
 +
-+            if ( i >= GUEST_RAM_BANKS )
-+                goto fail;
++    #ifdef CONFIG_STATIC_SHM
++        rc = process_shm(d, &kinfo, node);
++        if ( rc < 0 )
++            return rc;
++    #endif
 +
-+            bank_start = bankbase[i];
-+            bank_size = banksize[i];
-+        }
++        rc = init_vuart(d, &kinfo, node);
++        if ( rc < 0 )
++            return rc;
 +
-+        bank_size = MIN(bank_size, kinfo->unassigned_mem);
-+        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), bank_size) )
-+            goto fail;
++        rc = prepare_dtb_domU(d, &kinfo);
++        if ( rc < 0 )
++            return rc;
++
++        rc = construct_domain(d, &kinfo);
++        if ( rc < 0 )
++            return rc;
 +    }
 +
-+    if ( kinfo->unassigned_mem )
-+        goto fail;
++    domain_vcpu_affinity(d, node);
 +
-+    for( i = 0; i < mem->nr_banks; i++ )
-+    {
-+        printk(XENLOG_INFO "%pd BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%ldMB)\n",
-+               d,
-+               i,
-+               mem->bank[i].start,
-+               mem->bank[i].start + mem->bank[i].size,
-+               /* Don't want format this as PRIpaddr (16 digit hex) */
-+               (unsigned long)(mem->bank[i].size >> 20));
-+    }
-+
-+    xfree(hwdom_free_mem);
-+    return;
-+
-+  fail:
-+    panic("Failed to allocate requested domain memory."
-+          /* Don't want format this as PRIpaddr (16 digit hex) */
-+          " %ldKB unallocated. Fix the VMs configurations.\n",
-+          (unsigned long)kinfo->unassigned_mem >> 10);
++    return alloc_xenstore_params(&kinfo);
 +}
 +
-+void __init dtb_load(struct kernel_info *kinfo,
-+                     copy_to_guest_phys_cb copy_to_guest)
-+{
-+    unsigned long left;
-+
-+    printk("Loading %pd DTB to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
-+           kinfo->d, kinfo->dtb_paddr,
-+           kinfo->dtb_paddr + fdt_totalsize(kinfo->fdt));
-+
-+    left = copy_to_guest(kinfo->d, kinfo->dtb_paddr,
-+                         kinfo->fdt,
-+                         fdt_totalsize(kinfo->fdt));
-+
-+    if ( left != 0 )
-+        panic("Unable to copy the DTB to %pd memory (left = %lu bytes)\n",
-+              kinfo->d, left);
-+    xfree(kinfo->fdt);
-+}
-+
-+void __init initrd_load(struct kernel_info *kinfo,
-+                        copy_to_guest_phys_cb copy_to_guest)
-+{
-+    const struct bootmodule *mod = kinfo->initrd_bootmodule;
-+    paddr_t load_addr = kinfo->initrd_paddr;
-+    paddr_t paddr, len;
-+    int node;
-+    int res;
-+    __be32 val[2];
-+    __be32 *cellp;
-+    void __iomem *initrd;
-+
-+    if ( !mod || !mod->size )
-+        return;
-+
-+    paddr = mod->start;
-+    len = mod->size;
-+
-+    printk("Loading %pd initrd from %"PRIpaddr" to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
-+           kinfo->d, paddr, load_addr, load_addr + len);
-+
-+    /* Fix up linux,initrd-start and linux,initrd-end in /chosen */
-+    node = fdt_path_offset(kinfo->fdt, "/chosen");
-+    if ( node < 0 )
-+        panic("Cannot find the /chosen node\n");
-+
-+    cellp = (__be32 *)val;
-+    dt_set_cell(&cellp, ARRAY_SIZE(val), load_addr);
-+    res = fdt_setprop_inplace(kinfo->fdt, node, "linux,initrd-start",
-+                              val, sizeof(val));
-+    if ( res )
-+        panic("Cannot fix up \"linux,initrd-start\" property\n");
-+
-+    cellp = (__be32 *)val;
-+    dt_set_cell(&cellp, ARRAY_SIZE(val), load_addr + len);
-+    res = fdt_setprop_inplace(kinfo->fdt, node, "linux,initrd-end",
-+                              val, sizeof(val));
-+    if ( res )
-+        panic("Cannot fix up \"linux,initrd-end\" property\n");
-+
-+    initrd = ioremap_wc(paddr, len);
-+    if ( !initrd )
-+        panic("Unable to map the %pd initrd\n", kinfo->d);
-+
-+    res = copy_to_guest(kinfo->d, load_addr,
-+                        initrd, len);
-+    if ( res != 0 )
-+        panic("Unable to copy the initrd in the %pd memory\n", kinfo->d);
-+
-+    iounmap(initrd);
-+}
-diff --git a/xen/include/xen/fdt-domain-build.h b/xen/include/xen/fdt-domain-build.h
-index 30d5358a0f..45981dbec0 100644
---- a/xen/include/xen/fdt-domain-build.h
-+++ b/xen/include/xen/fdt-domain-build.h
-@@ -6,12 +6,21 @@
- #include <xen/bootfdt.h>
- #include <xen/device_tree.h>
- #include <xen/fdt-kernel.h>
-+#include <xen/mm.h>
- #include <xen/types.h>
+ void __init create_domUs(void)
+ {
+     struct dt_device_node *node;
+diff --git a/xen/include/asm-generic/dom0less-build.h b/xen/include/asm-generic/dom0less-build.h
+index 2003be743f..e0ad0429ec 100644
+--- a/xen/include/asm-generic/dom0less-build.h
++++ b/xen/include/asm-generic/dom0less-build.h
+@@ -12,10 +12,7 @@ struct domain;
+ #include <public/domctl.h>
  
- struct domain;
- struct page_info;
- struct membanks;
- 
-+typedef bool (*alloc_domheap_mem_cb)(struct domain *d, struct page_info *pg,
-+                                     unsigned int order, void *extra);
-+bool allocate_domheap_memory(struct domain *d, paddr_t tot_size,
-+                             alloc_domheap_mem_cb cb, void *extra);
-+
-+bool allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
-+                          paddr_t tot_size);
-+void allocate_memory(struct domain *d, struct kernel_info *kinfo);
- int construct_domain(struct domain *d, struct kernel_info *kinfo);
- int construct_hwdom(struct kernel_info *kinfo,
-                     const struct dt_device_node *node);
-@@ -23,6 +32,37 @@ int make_memory_node(const struct kernel_info *kinfo, int addrcells,
-                      int sizecells, const struct membanks *mem);
- int make_timer_node(const struct kernel_info *kinfo);
- 
-+static inline int get_allocation_size(paddr_t size)
-+{
-+    /*
-+     * get_order_from_bytes returns the order greater than or equal to
-+     * the given size, but we need less than or equal. Adding one to
-+     * the size pushes an evenly aligned size into the next order, so
-+     * we can then unconditionally subtract 1 from the order which is
-+     * returned.
-+     */
-+    return get_order_from_bytes(size + 1) - 1;
-+}
-+
-+typedef unsigned long (*copy_to_guest_phys_cb)(struct domain *d,
-+                                               paddr_t gpa,
-+                                               void *buf,
-+                                               unsigned int len);
-+
-+void initrd_load(struct kernel_info *kinfo,
-+                 copy_to_guest_phys_cb copy_to_guest);
-+
-+void dtb_load(struct kernel_info *kinfo,
-+              copy_to_guest_phys_cb copy_to_guest);
-+
-+int find_unallocated_memory(const struct kernel_info *kinfo,
-+                            const struct membanks *mem_banks[],
-+                            unsigned int nr_mem_banks,
-+                            struct membanks *free_regions,
-+                            int (*cb)(unsigned long s_gfn,
-+                                      unsigned long e_gfn,
-+                                      void *data));
-+
- #endif /* __XEN_FDT_DOMAIN_BUILD_H__ */
+ struct dt_device_node;
+-
+-/* TODO: remove both when construct_domU() will be moved to common. */
+-#define XENSTORE_PFN_LATE_ALLOC UINT64_MAX
+-extern bool need_xenstore;
++struct kernel_info;
  
  /*
+  * List of possible features for dom0less domUs
+@@ -49,12 +46,21 @@ void create_domUs(void);
+ bool is_dom0less_mode(void);
+ void set_xs_domain(struct domain *d);
+ 
+-int construct_domU(struct domain *d, const struct dt_device_node *node);
+-
+ void arch_create_domUs(struct dt_device_node *node,
+                        struct xen_domctl_createdomain *d_cfg,
+                        unsigned int flags);
+ 
++int init_vuart(struct domain *d, struct kernel_info *kinfo,
++               const struct dt_device_node *node);
++
++int make_intc_domU_node(struct kernel_info *kinfo);
++int make_arch_nodes(struct kernel_info *kinfo);
++
++void set_domain_type(struct domain *d, struct kernel_info *kinfo);
++
++int init_intc_phandle(struct kernel_info *kinfo, const char *name,
++                      const int node_next, const void *pfdt);
++
+ #else /* !CONFIG_DOM0LESS_BOOT */
+ 
+ static inline void create_domUs(void) {}
 -- 
 2.49.0
 
