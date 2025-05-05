@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38C4CAA927B
-	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 13:56:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.976060.1363313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3B11AA92B7
+	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 14:08:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.976083.1363323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBuRE-0005bg-1h; Mon, 05 May 2025 11:56:48 +0000
+	id 1uBucR-0007kP-5O; Mon, 05 May 2025 12:08:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 976060.1363313; Mon, 05 May 2025 11:56:48 +0000
+Received: by outflank-mailman (output) from mailman id 976083.1363323; Mon, 05 May 2025 12:08:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBuRD-0005aC-Un; Mon, 05 May 2025 11:56:47 +0000
-Received: by outflank-mailman (input) for mailman id 976060;
- Mon, 05 May 2025 11:56:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uBucR-0007hp-2n; Mon, 05 May 2025 12:08:23 +0000
+Received: by outflank-mailman (input) for mailman id 976083;
+ Mon, 05 May 2025 12:08:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VAKQ=XV=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uBuRC-0005AW-V6
- for xen-devel@lists.xenproject.org; Mon, 05 May 2025 11:56:47 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20600.outbound.protection.outlook.com
- [2a01:111:f403:2407::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 035634b8-29a8-11f0-9eb4-5ba50f476ded;
- Mon, 05 May 2025 13:56:44 +0200 (CEST)
+ id 1uBucP-0007hj-Gk
+ for xen-devel@lists.xenproject.org; Mon, 05 May 2025 12:08:21 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20627.outbound.protection.outlook.com
+ [2a01:111:f403:2414::627])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a088286f-29a9-11f0-9ffb-bf95429c2676;
+ Mon, 05 May 2025 14:08:18 +0200 (CEST)
 Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by SA1PR12MB6869.namprd12.prod.outlook.com (2603:10b6:806:25d::7)
+ by CY3PR12MB9556.namprd12.prod.outlook.com (2603:10b6:930:10a::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Mon, 5 May
- 2025 11:56:40 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.24; Mon, 5 May
+ 2025 12:08:14 +0000
 Received: from BN9PR12MB5273.namprd12.prod.outlook.com
  ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
  ([fe80::cf66:58ab:47be:4b13%4]) with mapi id 15.20.8699.026; Mon, 5 May 2025
- 11:56:40 +0000
+ 12:08:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,389 +47,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 035634b8-29a8-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: a088286f-29a9-11f0-9ffb-bf95429c2676
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IF0e0sxKMPiBo6SBQcbKUmDGKPsA/qIKiVVj69bQr4ZeG+e2kJU7nU5W58qJxeGxGXn3kWXMxEG6P5XUvTBciIXtlvPbOB1Mpk5EY66sBGVDPZsvgteQM99D1bA86tFdvpYTMYDVoHhhnlplWcQSH5UBKOkbmTXZlQ+15y+TLZnYfCiOGpcjxBKAFOB1wG83wK3JueBP9yQklCBpR0CqaEYyCcyG7RuBpmIJ9OxOBMUYsmtw5qmCZLurReZ+tt2HesNdS9sp7sp5Bfmu954kv9wpzY+lHayoWN6CwxmPsli69RWVi5kUfxGxODv1JfRE67l8oHtQNQVRWWpfmUCzvA==
+ b=Hw0Wqakt7LIMbPb8XSIxAtwpYrClvBJiOfVCGtPSaaWxFkOAl59ZDiNBhZZxwKZ/NDPn9Wh6nXHFRjTP3qkMVjtIbMvfh5/5zRpOddrfMDOtwv38u4KkRABnqyvK/cmn5NjOL8/CURmhMnZ2TWe7QQn8WD9E3gNpiGgL4XY0G0J4j2XkxVrYbHIa7S5VJdf9XjOSVI2Ksh12zQfKGdRg4L2TQ5cdFGk6PGJEeX7S78q8z5k0uooTSFjpjTiivE4UJ+hV+95+XZm3zFZvPO0fyZC0p4l+d62Y7Pqr5a1FsuQuPtliQIzeYq9TG0pCNVIcOkpHgwkloKCNMqcQu8IdhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gdyd1A7VaCsDKtBqZm7s0KOI1JJTWCPGPRXkE6vmliU=;
- b=jM+xpHtUM8nCs9s/+W0RJLFFqX/6OhBLU03Ge+Wze+sn3OUH4R6cr7dDZCBPa2F/3izX+qKgkMsx73Vs+3j0bz50H4B42jHumSZsDzMzY/qL0Z1iuNhGzVSe7U/O2A3FyNPdJlGXoh/H/o0NbbXm033BHZSx0u3gplPhK0+t4Q7hYQwhDyf7GtRToTH0V7qf53sUZowpLPOhbLKAYV/QWA2t3Tks1lphA1yrrltC9Dc3gWZtswImKhmZXqC7UkAi5iPUveqdDgZ94NXXqw6+TgPAWkN2Hnk7/scNR4kQvNemtira+jrM4R0VYCVG6U7penWl92i0AFuw+0sm7eQewA==
+ bh=mJJ0qItWcnQ3XRF6aJ7N1gpfTNCYMYpoKwARsVw8rrY=;
+ b=aA77pxBXukECKCmivptTRL1YWbk1xuzbwBDU8yhTEKKKpiS/pedPaRdYeeTu2a6qZ6Ok+l81Uoa43a9jsYdMC9aOLNkiCP4SIY6ECqhcrF0XwNN3bnbuU5JjRaoL26r1nXFQpBsPwNMI0P396Sd2SQKAnMq6D8G6ZD72Gx5HY66Pid/cSRvB5DB5fTrE6+Dio3w9T+6iQhV2ewmIcKlBV4chZa5WYlUHN6lLTAUrcowQ0IzIWJrXnHfaxn/3ml8LY3TY+VGGZv6poy7Aix0ETGsfDJnkWYEh85fY/v5qBu5goROlboL7dNJBtuFMsLngfyJyMP2a4cbd5ELwJOa1gA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gdyd1A7VaCsDKtBqZm7s0KOI1JJTWCPGPRXkE6vmliU=;
- b=m2x7qFCPE4L8sLkHY7YQUAaKcIwDph5u4TYDNJpRIpndKpjm2EFrupXCCUh8gtYISYm7NasKSt+Odmsg8lUquvltJYFMk/jwNP7KMmAre858lgK+3ndpMzaNtq2YzXLf8mPD9eofoDvkJ4I2bSy4EfFegoyq585IbHjlYwjl9jU=
+ bh=mJJ0qItWcnQ3XRF6aJ7N1gpfTNCYMYpoKwARsVw8rrY=;
+ b=TfdvJSNjKn6fjpve0ZOuKJ7QWEGe1ObUW0R5mdMWQTIhHVckaN/OCXrLJDui0hvXD1f1Ym5Ll9rBKVgk8GI9IIcM+GDNWdPIl0d25txVlFenMq6h/medXOXZFTsvMHlqVWxPt20h4bdEnarbqF6pPoowXaEyedSbbIbIm0RhwXE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <e42080c1-495c-406d-b1a3-8af2db8fb22d@amd.com>
-Date: Mon, 5 May 2025 13:56:37 +0200
+Message-ID: <a11855ac-62f1-439b-8fc0-dcf2006a76b0@amd.com>
+Date: Mon, 5 May 2025 14:08:10 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/7] arm/mpu: Provide access to the MPU region from the
- C code
+Subject: Re: [PATCH v4 5/7] arm/mpu: Introduce utility functions for the pr_t
+ type
 To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20250429152057.2380536-1-luca.fancellu@arm.com>
- <20250429152057.2380536-5-luca.fancellu@arm.com>
+ <20250429152057.2380536-6-luca.fancellu@arm.com>
 From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-In-Reply-To: <20250429152057.2380536-5-luca.fancellu@arm.com>
+In-Reply-To: <20250429152057.2380536-6-luca.fancellu@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0161.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:99::20) To BN9PR12MB5273.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0065.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::11) To BN9PR12MB5273.namprd12.prod.outlook.com
  (2603:10b6:408:11e::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|SA1PR12MB6869:EE_
-X-MS-Office365-Filtering-Correlation-Id: caba65c2-20df-48a4-0f50-08dd8bcbe5c2
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|CY3PR12MB9556:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ab03f44-0eb3-477f-9e19-08dd8bcd8349
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?K3Q4VkFyc3RLOGJ0S2lCaEdQWkpNN3dBb0lBcEtWc2dzYTlzUy91MlVBdU5U?=
- =?utf-8?B?Q2hCVm4xNVdnMnJCWjI1YkFEQVlrbC80cWhPTHFXVjZMeElMTUJtcSthMkJ0?=
- =?utf-8?B?cFpuUExWOVVBMms2NkJTZ0R2bVFXTmg3dkE2Tk1HQ1UrVTNqdnhCUzBkMGJY?=
- =?utf-8?B?TEVEazd3VWZCbkdrQXkzdzdTYmRvYWVFcGcyckxRSlhVdFJnc3FJS1B1RSsw?=
- =?utf-8?B?ZVl6NXFRcnhROGY2aGg3LzE5Y09ubGxuZ2J2ZlA4OTBwRVJJM1hZaHBrL0gy?=
- =?utf-8?B?TGRGeVA4eWk0THRNeFpVVFZ2aFdNMTRrTzVjdTlORlZwYUZIaWp1aWFEc3pZ?=
- =?utf-8?B?bmkrNE5QZEY1QXZ1eUhXNXUwV0hnaFdoeHdXRlRJVFVQeG9IVEpQdUh3Vkly?=
- =?utf-8?B?VjFRRnB0VUd3NFU4SHNjNFI2YSs3Tnh0aXEwaHp1YUJXakVidU9qNGlyTUxU?=
- =?utf-8?B?U3B2NjRNVzhOc0lNSEsxMUhaODZqeFFuRnZFSW0xQTZzVHU5TGd2YUh6VmZi?=
- =?utf-8?B?d2VFVkZLNWJUd1Vvc1JrYWQ1Skg2cmJ5SEZncDFYWTkxSXNveVN4Vk9SU0FN?=
- =?utf-8?B?c1ZVa29TaGRES21DenVYTDNNbCtmSlAvSU43K2RWYk01OVhObjIzYTh1R0FP?=
- =?utf-8?B?bVhETWc1ZHZyRWY2WUhVendiWlNXRXR2OEswa3ZvWms5RlZPblM5SmdYbEgr?=
- =?utf-8?B?WHBrczJBa0FlUy9LMWdneUJtWDZCYjdFOFZoSEFvVjFaZWZtSnFkTE9ybTVv?=
- =?utf-8?B?ZG1IUnRjd1RqaFZnYnh3eHNDK0Z3bEFsK0VLVHZ1N3hGNDhObG1UVHJIeHRa?=
- =?utf-8?B?aUtlT1VKVnpmZ3ZuRmgybWdnSlp5K1MwczNveHFNeEsxTGlLTFNhTi9rNUNh?=
- =?utf-8?B?QTJ5NDYrbjYzYjhTOHBaK0k0QzVEb2pVM0dDVi9GQUt4NFk5K25NeHpJYTBw?=
- =?utf-8?B?dXA2ZmhuYW4wTk05cDZQTFUzRlp3RGJuOVFySEdyNFo5M3UrbUdpZlVyWmRO?=
- =?utf-8?B?RjE5QThXYUlkWUFkbjNZbENFdjRaQk5uSzl1RngvZG1rNTl6QXN6YlAxSVZF?=
- =?utf-8?B?OEkzU0RUc3BvWktrVC84enRrNGRkVVFHL3pkWitLOUw1NU12OXRGWURmNlVV?=
- =?utf-8?B?R2R0ZXFZcEVoT0dhZW0zMjhvVmtRMVVtbTFhMVBQZnM0Y3ZmOUlKbjJkVG9O?=
- =?utf-8?B?ZkFvUE9HSHdMREFmZXc4UDZ1ejk2V1FCUHMzaXJZS0FISFZWYUQzbHB5a3Er?=
- =?utf-8?B?SmVHMHQxWDhJZUFZMU1uMlpYbS9JdHI0ZHNaMWhvTUZ4b1REbTArU0pVRHlS?=
- =?utf-8?B?RDFVS3ZPQXFmTlpoc3ZtT0pYNmw3U0VwQ0tTeXVVQ1FmRDVVakI5bnRYa2ps?=
- =?utf-8?B?NFprNHRDTGQ0MW5ocGFPNVk2QlFmNU1EMjkzc3ZZWTkyWFo4OWZOMWkydXd6?=
- =?utf-8?B?VHcwZDVFRGgxbWtmNzFMWEZST3BJT2lUcFQ5YjRUZjRFbWJha1pzcG5PcW8x?=
- =?utf-8?B?VEhWNG9zaE1KczcrcXBmUy9FV3dkc0VnYU53L3hlY1g4cXl2MFlkM0VJWDlh?=
- =?utf-8?B?K3Z1Ry9QNUppRGRsaGZwZGQvWlVTRGlYdkFUU2ZnNTFCaGhHTzFjZHhmY1h0?=
- =?utf-8?B?MVJ2N1NnRkZBSnlXY2NkWUt0NFZ2OVcrbTBQdUpybUhxNW1LWFZ4TGtadVZv?=
- =?utf-8?B?dzY4NzFVTzJ4NUxVRG1hemg4SDlKOXRsZmJhRWxPS1grYnpYM2JZVFc1ZUow?=
- =?utf-8?B?LzJsWDBjKzNUVXNiOFJpMnBWL0R2bW4rY1owaFl4WTNod1BFN253cWw2S1BM?=
- =?utf-8?B?RzNYVGVMS3VUdVZybG9VNjVHWkhuRWdMemphWXRabmdrNzV3MTdaSUVuODJQ?=
- =?utf-8?B?NFFDNndPeHdwUytDQmppTEJra0dvRUhiaExNTGNNUFJGNi94bVhaV1VXWGJ1?=
- =?utf-8?Q?TiOOA0ze60A=3D?=
+	=?utf-8?B?OWpQeGtjVnNlYisvMDdvUlpzOU1xckdWQlBoSTI0dzhKWWsrM050ME1rWUJk?=
+ =?utf-8?B?anBPRE1Rd2hpVW9NTjIvQ2ZRbjBlTkh1dDA5TnhQYkY3U29TdjFpejNnbjFm?=
+ =?utf-8?B?S2JtOVBwL2Y1N1VreVl3NjJwVm1KOUc5a1AweklNUGpqV2Nnd1o3Z0N5VVVG?=
+ =?utf-8?B?UGFXNDl4UjAvRENoemRScW4ycVhMa3R1NG50VVg5eEpXOGZaVDZLb0tTYmNx?=
+ =?utf-8?B?c0JnR2k4T2JvUVVTTEJoQTBDTHg2RFNZaWQ4SVJYcjNmU05naDBDNFBSVVlL?=
+ =?utf-8?B?TDBnc3FuakoxZE41bk5QUTArelNUTmc2eEJMR0FpYnhMZVlvZGFqaElGUHBi?=
+ =?utf-8?B?VFA3cmo5MndYTW13VkFJSHRtcDloTk5jRjU3T2IzZDFhV2l3MnRvK0VrL3dS?=
+ =?utf-8?B?TFFMU2RxQ2FrYnNvbmFiK1B5ajRlMmIya2xYR1JCWHh1bDRTVDBYNVlpUzB2?=
+ =?utf-8?B?a0NGelF4SFdiSHRmTUl1STl0bTN3c2dKWkpqY0s2L2xlWXRBcTJOLzFackVx?=
+ =?utf-8?B?bjFRejUzNXV1RzVvaDVRL0VEdkhDWkFyaGcrcGI2bG0wWHJIYUtMelZobzBn?=
+ =?utf-8?B?aXlPd0ovTXFVYTNJWUY2bEpQVkE4MkpYZDQvdlRmT2RmdmlReFFpaGxnd3VM?=
+ =?utf-8?B?YW5jRW1DSk5BUkl5Qm0rRWFNVzF0WmZvbEUyWjNZeVFPT0wyUkV4Z09FR3c0?=
+ =?utf-8?B?MW5iQnRLYjkvSVE1SWlGVGlQL00rU0JJaEJHSTluMW9rS0FxVHBBWGx6V2VE?=
+ =?utf-8?B?R2g0aDdkWHhzMFo5eDB0aEhJS2FDZDN0RUQvSkIyRERZZmlCbDdDbkc2c0Z2?=
+ =?utf-8?B?cmJnU250WlA4eEF5TW1iVkRDRmdUNmhTaHgyZEluRGhMZ1paRGQzRm9IeXd2?=
+ =?utf-8?B?M1hVaUhhN3ozeE14RjZqUHc2K2JESTdQOVY3ODc5M0pOQURHRTFxY0NnV0Uy?=
+ =?utf-8?B?bGtHK1phb1lERzlHLzgySUF0WjRYK0dJRUpsZk5yZzNxdHRDRitKbzBXWXln?=
+ =?utf-8?B?RTI5VTlpY0tORDRERHptODRBREZObGwvUk00M2lMb2VvSDBoRGI1L1VsZ25O?=
+ =?utf-8?B?NSsvYytYbkE2TGczTS9hY2oxU0FYVkUzVXh0Y2J0ZmppaHNuL2dSK0VXQ0xD?=
+ =?utf-8?B?bXZtSnZkeFNoQ3pmVlFHeE1QQTJrTzh0a0wrUCtuZExyc1VsNlJ5QllhWlZ2?=
+ =?utf-8?B?N3Nia1dvWXp3OXNSTmZxQ1l2KzJiRm1oRVhpRlBVeDFmWk5UMm1VZkl1bXQz?=
+ =?utf-8?B?TTBaVS9pWEY5MlVhK1ZuL0dOUGZOMlZGT0pwVTlaa1pCVlQrb3ppT2lISk5B?=
+ =?utf-8?B?bWhjRE1PMDVVdVJDTWJyb0s3WHhHVGRUZGd4eVB5ci9qV290cU9YNXJQNDJR?=
+ =?utf-8?B?cThTRktlNHNNSHdiRDRHQjlCeGwxcllicFFpby9tU0pIRlRCdTN0djB0aU8w?=
+ =?utf-8?B?ZU5WbFg0Z1FjR2NRYU5rclRlYXE2cHgyNDZXWlUvTzVWL0c1WmVxYnljbXVn?=
+ =?utf-8?B?NWhuR1hnK3lXQUtHVmxmWnpRUTV3bHVVakszb0tDRTEwMTBFcEVtQ2x4bUdl?=
+ =?utf-8?B?Skw1U0JTK1NOdTZ2UjVjOWllNGlwUnYvWVlIUm9naEY5U1JnV2hZSXB5SEVt?=
+ =?utf-8?B?NlByTmk2amw5cHQyUllOaWxhWFVWbmxyM1Yzd3A3Z0xMUWFIeHJmYURIY3N6?=
+ =?utf-8?B?K3FHYnBKWXJpZ3kzUXZBTExEY2FUYTVkT1VOUnN0OWM0aFNvcGQxWjhsbzAv?=
+ =?utf-8?B?azdjei9maWhGdE92SFJJdEZkSXA5VzJkLzBYU2xuWmxQVE44YWdEcnZXTjlP?=
+ =?utf-8?B?WXhFRmozeEc0bTk2eTZSRkUzNllTVkQ4UTBSSHYxQVpuMi9GOTQrYU8zZTBL?=
+ =?utf-8?B?VlJYWk40SU8wS08ycEJTUGhJdWMrTGZVM2oyNmNzUUVVT0VMRG93SThEczcv?=
+ =?utf-8?Q?t+/4W0lc4t0=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7053199007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7053199007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QmxpWGJrTXFKVUhCY1lhODBLUFFCN3NHRHI4M1d2ckF5Rm9sZU44dFJLQjRC?=
- =?utf-8?B?TEZ0V05EaG5UQXF4dE0vc0ltdzdtTEN2TWhNWFEwK3QxSVZZRkQxT1dMR2tW?=
- =?utf-8?B?VFRXSE42SUJUNlljSldPRFZ0S0JyU2JmczhXbGxGQm1EZEE1QXlUekk5RUN2?=
- =?utf-8?B?N1VmQ29HUG43K28vRE44ZzR6U3dtS0xZajRaaHBhWGIraFdhS0RlNzI5OVJK?=
- =?utf-8?B?R3NLSzdhcnpnNDdMOWVBR3NtdFlDbVk1VFM0WmRIT0p0WTlidGhWN0FhczlC?=
- =?utf-8?B?ZlNxZXZsT29hVUpDQzg1OFNXcDdxSnllN1ExOEJCR3FYaTlXcy8veU5IcjJV?=
- =?utf-8?B?M3NaT2lXclBnV2Rhbkl4bnJXQ0hjcmw3azA2OWxYRndpRG10Rmt6ZGpGVkNF?=
- =?utf-8?B?MzkzQ3NUcDZtemRpTTRUaFpWbDNxT0hwRS9PS1UwU0JMbHVXTnFWSjhxNkxn?=
- =?utf-8?B?NzhTUktSZGIvb2lQRzBrdm1aSlQ0ZldyVTNNdGJ2TkpTSU1tMHBwc1NZc0k3?=
- =?utf-8?B?aC9KRjJQellWMGdiRE41VG9ySGZXNlVNMm1IMXB4bE5RZWxCNXVDSkNVQVFP?=
- =?utf-8?B?aDJla20rNWYrUEN1clBXK01XVTBTTm5sSW5ZaTFwV3MyNitORnFaWmhVN3JP?=
- =?utf-8?B?aE1jTEVOSExTWjlOQkg3SXF6UW53TWdvK3dIWjVXWVhPZlJQK2NrcEFMZzBE?=
- =?utf-8?B?VWFZOGk0VWNlV1ZqdEZycmo3azMya2g2RjVQTnpNRDF5Zk0xQmxyN3RQRFF1?=
- =?utf-8?B?eHQ0bkx1SXdFQ2tKUm0vdGpvMzFNUzQvN3owcUMxOERtQWdqTGtNN1M3OFJ4?=
- =?utf-8?B?TFc3VWFWcEQ2dHdEakdLZ3VxYXdLSFZKbng4WG4xbGZDdWcxbWp3dzNhOEM1?=
- =?utf-8?B?SHVRMlRwQjkyclN2TzVwalBLdEpnLzNNK1krSXN4dU5GeTdITjJuL1dRdUMw?=
- =?utf-8?B?bWNGYytnenhGek1JYTNMN09xNU00L2s2TktkNms3TWxBSnk0ZWhwNGJFWGVW?=
- =?utf-8?B?SWpTSVdBWExkNVYwcjMySC8zMWVXdDkxaEJqQU03WUtJbStCZWEwS2U2Zldt?=
- =?utf-8?B?R0pyU294MFNKWEl3bHkvT0dESVBHMWh5RlM0NGRTNFlyY1RrQWxCdEVUZTlx?=
- =?utf-8?B?eENrSWY4KzMvWk9RVFFaOS9YaXZselBsNlhJQWZDa2R5SFZEUTJUMlU5Mmdo?=
- =?utf-8?B?SUx1UHBLRWFUb2tyVitkM0doMUpjaHpHUVFIdndnbWxvbkNTZnJrczMrSHhF?=
- =?utf-8?B?N2N3dmdKcUdQNmFENjhieWMwZzFQNG9RcGt2TkF6ak5lU1VFaWl3SGh6c2ZX?=
- =?utf-8?B?bEx3SEdmSDBFN0plRkFCc09HaFdPZXNRVEZNN3U5d1c1ODJqcmhkUnlqZXdU?=
- =?utf-8?B?MnVEZTYzVzYvRVUyZWVkUTRzRndsKy8wckF5L3pnbTZvNWh0Y0RDakFaR1Az?=
- =?utf-8?B?ZENERHdDME05d3Q3RVRPMkFQSndmaWFyR2szSGlLQXJOL2VQelN5MzJZbGxa?=
- =?utf-8?B?Mnp4N0NNUnlTRFJLUVhKbW1SOXROQmhKclpLYlY1SEUzYkFuaVdUalFuVDEv?=
- =?utf-8?B?VlQyUmloc1JyOE1zMFZRYk5nRVllSkhlbDdBRUlVSi9Yb3ZzLzJKZm1zWmtO?=
- =?utf-8?B?WlJGdGNJMGx4TFF4bGM2U2RGMU9VR3F0ZmV1cW16Z3FNT04xV2E3ODdXTFhU?=
- =?utf-8?B?YUJOSXVvM3ZLdEE0N2VWc2RsNVo2cmR2L25OUDBpVHNocGlJK2dYTGMrUGFI?=
- =?utf-8?B?N1RjNG5GWWNpZW5HQVRnQUdtRWJKUHpCZm1LeklDUm1qYjhCMFp5TjRkZ0JO?=
- =?utf-8?B?VzFQMDROTTh1MEZ6QklmckNqTTZHdjk4TUJ5R25TV1U1R1p4eGI5QlVhbnhw?=
- =?utf-8?B?S1lmaXFBZTlUZlNKQzBlei96UGlnRUt5RlFYQzNyM0E2NGJuQm04aGhOYnJU?=
- =?utf-8?B?alo4NXYyN3VUQk96VHVjNzIrb2wvYWQ5cExaUTZEMDNQeEZQbXNvL0J6QnZx?=
- =?utf-8?B?R285dTZNWU5vMmx4TWFzZGVjRmwrNUFZUTVsbU1zWjRPbXJrQ3RCamlJYVR0?=
- =?utf-8?B?QldnZC9JL0xoNDhXdHRrMTY0L3NTMWtDYXdNT2t4bnZBTnU0U2lldUFQTEx4?=
- =?utf-8?Q?oDaU=3D?=
+	=?utf-8?B?WHNTbmRvdmFLQS9RejBKd3FuSjlycUd0cSt1R05iVTFJMzRuYUxqWVd1WTBy?=
+ =?utf-8?B?WXl5YVltNGN4L1h1M3JEZEhucWU5SkJUTEJnMGxRT0k5RXpWeDBDWUZocml4?=
+ =?utf-8?B?UzhaTjY0UFdKdkMyRUMxcithTmFhMXhZcERFNmJMaUFuRlQ4SnVybXlNUjFn?=
+ =?utf-8?B?UktnOUMxUGdUVEdFWHVhOUtMdEtwVjJDaXNhSXBCYTRLVFo0ejd1R1dTZjlH?=
+ =?utf-8?B?cUNJRGVmbmN1d256WUdTSS82YXRQM0lGMnEvTy90cm93YS9rQ01XREZ0WjZ4?=
+ =?utf-8?B?b2R3cU03TFVvZjVjaXBKTkwyeDdaeUxnVWxCRGkvN2JISXFMbjhmSllqcnQ4?=
+ =?utf-8?B?bzhGV3NYZEtJc1pZK3BDN2VKcUljVjRWOWN6N01KNzRkOHhhblFrOFhzdno1?=
+ =?utf-8?B?UGZSd0tPVjIzMzgyYzFyVW56eC93UnBCUzBnS2JTSDNnZGg0WUlaRTFSS0Jr?=
+ =?utf-8?B?VXM1MFhZZWlxQWhYd0M0SS9CR3ZmWWdhL1ZZWUJMT0hLb3RsL0JJUFVPblRI?=
+ =?utf-8?B?anhSTnhkK1dPWHg1bk9ObDhXaUswVU9DNGlhMWpKbUdGaURwakZWbXYwbzQx?=
+ =?utf-8?B?UGk5blFTaWEwcUphenZCbmxwRzdYTVhZRS9rb0tOUEhvMTRON2NKRHpoMzIy?=
+ =?utf-8?B?dm4rZGFreWR0YWFKdmZVUWttY2V1Ri9ZMlBFQnYrYWlGOWJka3draTYybCtY?=
+ =?utf-8?B?ZGpOcG1wR0ZkZmRRdzM0NkRoK1lBa1RxZmgreGhoWGZYNXhvK0ZmVkJGTkdY?=
+ =?utf-8?B?VUVka1JYZ1ZveE9HeS9KZngwYjIrZFB4a091c2xZUGZVYXliWmhraEJ5OEF0?=
+ =?utf-8?B?bUR0ckRMUlo4VmRJVHU1cHpuYmNRcEpWV0JqMm81Tk1rTHpyWTA1YktEeDU1?=
+ =?utf-8?B?L0dOMGZzK2dlcy93MXJVdk96QmZjWkNCdlVOT2FEbVFYWFRIaldRQ1lMM0xN?=
+ =?utf-8?B?T0g0TVNrK3JxdVoySmlDSmFVd21UNlV1ZXU4QVFzZEw0bWQ3dUg5L1ZzSWxW?=
+ =?utf-8?B?K0hVMHFjbzdmN2cwS2s5U250SThYZ0Fnd2EzTEVWWlBZVktOWFFIbVh0UzM2?=
+ =?utf-8?B?aFlNd29qeE85R3BiclZLL3VOR3lNRU9yNitjMzNqTkRMRDUyYXVxMmtiSWky?=
+ =?utf-8?B?dERBVTBKd3Q4MXVGMlRWNUZLSGRHN080SFNMcmhKd29jc0RxeWpLaSt4OHF4?=
+ =?utf-8?B?aitNeVRRbk5lbVdNU0czZnNzR1poeWtSbWNqSlhOUTBRN3NZWEZRRExKcXp4?=
+ =?utf-8?B?c1h5YW9iQUtoMy9NNGU2T2YvN0J6THNHWW5JUWlabHlsV2pFbEF0MnorYmor?=
+ =?utf-8?B?NHE1b1FkN2s1OURuREVlcmFMSjRMQXF4eUVuOHBIYThuV3FQSURRSEZEWmJC?=
+ =?utf-8?B?WE50YUdSQWk0UExRdFBUS3lOcnVVZ29jUnNaQkFCbGNBVUxqWDNucjN2Nlhw?=
+ =?utf-8?B?bENWME9OTzNMbXdCbHRkSWJDSDd5VFVPczlQZTRuMFZRV2ZjRXA4VzkvYkFD?=
+ =?utf-8?B?ak9Md212bmF5ODJsTzA3TmtPNlNDSGw1SlQ0My9sbDNWWTFpdUZ1NTdaNlph?=
+ =?utf-8?B?VTZwd2JmK3VQVkcxNFBuVGlZVWMySkFLNERNVHE0OG9DSjVFL0lqMUQ4S1JP?=
+ =?utf-8?B?WSt1VW9PYnF2NjBzS1hkcCt4am9sY2UwMmd2NGxEVllWL3N5SUJLVlVpUmxv?=
+ =?utf-8?B?eTUzOU5tN1lLSUthNkJ3NGxYRUlzb25aNjBQYnIrdk54UlBkMDE3c3dGM0sy?=
+ =?utf-8?B?NmljL0wyS0xpdHhBdFprNExuS2RZaFRHNE5WMFBVZ1dwNzJqT1NRMk55UGIv?=
+ =?utf-8?B?eGcyeW5TeG5CMkRtWGtlbFczeXpQSWtNVHNZK3ZuZkR1VVYrNFB4a2hoN1RC?=
+ =?utf-8?B?TWJnOEd6b0tvTFMzbGMrdXhpdDRidWN4dDVtMzRzM1FFRTNHTTM2TUpFajF0?=
+ =?utf-8?B?Vk9MQkp2M3pIZkNOTGxOSzZiUi92VUluaEpFUnJRVUVvYUphSEY2T2RrOUlZ?=
+ =?utf-8?B?WGhDNjhITXdNKzJSTmhpTXV1Y3cwM1QybWkza2l3a1YxRFJ0N3RzSHptbk1W?=
+ =?utf-8?B?d2xWN0NjSnUvZUc0aWlTaEhvSW9rbmVMVWRhaUVYQTZWeUlYWk5VT29mUXhP?=
+ =?utf-8?Q?QUvPf2LVblCkvKdhUPqLtvUZZ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: caba65c2-20df-48a4-0f50-08dd8bcbe5c2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ab03f44-0eb3-477f-9e19-08dd8bcd8349
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2025 11:56:40.7747
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2025 12:08:14.5062
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z+X5u/+7NtQB181h9QnXqRMb+rPQmvAvNCcShO/q5h83A1JmijSArTI06w3fnQL1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6869
+X-MS-Exchange-CrossTenant-UserPrincipalName: a39ga0zNSqkkNN43sewY/xh9atW+Czq8KXMslGZyiWQ+2MDj+fFtNE1+WU2Cq8wu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9556
 
 
 
 On 29/04/2025 17:20, Luca Fancellu wrote:
-> Implement some utility function in order to access the MPU regions
+> Introduce few utility function to manipulate and handle the
+s/few/a few/
 s/function/functions/
 
-> from the C world.
+> pr_t type.
 > 
 > Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 > ---
 > v4 changes:
->  - moved back PRBAR0_EL2/PRLAR0_EL2 to mm.c and protect
->    them with CONFIG_ARM_64, changed comments, fixed typos and code
->    style
->  - Add PRBAR_EL2_(n) definition, to be overriden by Arm32
->  - protect prepare_selector, read_protection_region,
->    write_protection_region by Arm64 to ensure compilation on both
->    arm32 and arm64, Arm32 will modify that later while introducing
->    the arm32 bits.
-> v3 changes:
->  - Moved PRBAR0_EL2/PRLAR0_EL2 to arm64 specific
->  - Modified prepare_selector() to be easily made a NOP
->    for Arm32, which can address up to 32 region without
->    changing selector and it is also its maximum amount
->    of MPU regions.
+>  - Modify comment on top of the helpers. Clarify pr_set_limit
+>    takes exclusive address.
+>    Protected common code with #ifdef Arm64 until Arm32 is ready
+>    with pr_t
 > ---
-> ---
->  xen/arch/arm/include/asm/mpu.h    |   1 +
->  xen/arch/arm/include/asm/mpu/mm.h |  34 +++++++++
->  xen/arch/arm/mpu/mm.c             | 117 ++++++++++++++++++++++++++++++
->  3 files changed, 152 insertions(+)
+>  xen/arch/arm/include/asm/mpu.h | 64 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 64 insertions(+)
 > 
 > diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
-> index 1368b2eb990f..40a86140b6cc 100644
+> index 40a86140b6cc..0e0a7f05ade9 100644
 > --- a/xen/arch/arm/include/asm/mpu.h
 > +++ b/xen/arch/arm/include/asm/mpu.h
-> @@ -17,6 +17,7 @@
->  #define MPU_REGION_SHIFT  6
->  #define MPU_REGION_ALIGN  (_AC(1, UL) << MPU_REGION_SHIFT)
->  #define MPU_REGION_MASK   (~(MPU_REGION_ALIGN - 1))
-> +#define MPU_REGION_RES0   (0xFFFFULL << 48)
-This does not look like a common macro. It's arm64 specific.
-Also, it looks like you use it in macros that are common too.
-
+> @@ -24,6 +24,70 @@
+>  #define NUM_MPU_REGIONS_MASK    (NUM_MPU_REGIONS - 1)
+>  #define MAX_MPU_REGION_NR       255
 >  
->  #define NUM_MPU_REGIONS_SHIFT   8
->  #define NUM_MPU_REGIONS         (_AC(1, UL) << NUM_MPU_REGIONS_SHIFT)
-> diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
-> index 28339259c458..e2235e568e81 100644
-> --- a/xen/arch/arm/include/asm/mpu/mm.h
-> +++ b/xen/arch/arm/include/asm/mpu/mm.h
-> @@ -41,6 +41,40 @@ static inline struct page_info *virt_to_page(const void *v)
->      return mfn_to_page(mfn);
->  }
->  
-> +/* Utility function to be used whenever MPU regions are modified */
-> +static inline void context_sync_mpu(void)
-> +{
-> +    /*
-> +     * ARM DDI 0600B.a, C1.7.1
-> +     * Writes to MPU registers are only guaranteed to be visible following a
-> +     * Context synchronization event and DSB operation.
-> +     */
-> +    dsb(sy);
-> +    isb();
-> +}
+> +#ifndef __ASSEMBLY__
 > +
-> +/*
-> + * The following API requires context_sync_mpu() after being used to modify MPU
-> + * regions:
-> + *  - write_protection_region
-> + */
-> +
-> +/*
-> + * Reads the MPU region with index 'sel' from the HW.
-If you use @foo style, you should use @sel here.
-But IMO this comment does not bring any usefulness.
-The name of the helper and parameter description is enough.
-
-> + *
-> + * @pr_read: mpu protection region returned by read op.
-> + * @sel: mpu protection region selector
-> + */
-> +extern void read_protection_region(pr_t *pr_read, uint8_t sel);
-> +
-> +/*
-> + * Writes the MPU region with index 'sel' to the HW.
-> + *
-> + * @pr_write: const mpu protection region passed through write op.
-No need to say const in parameter description
-
-> + * @sel: mpu protection region selector
-Same here.
-
-> + */
-> +extern void write_protection_region(const pr_t *pr_write, uint8_t sel);
-> +
->  #endif /* __ARM_MPU_MM_H__ */
->  
->  /*
-> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-> index 9eab09ff2044..40ccf99adc94 100644
-> --- a/xen/arch/arm/mpu/mm.c
-> +++ b/xen/arch/arm/mpu/mm.c
-> @@ -8,6 +8,8 @@
->  #include <xen/sizes.h>
->  #include <xen/types.h>
->  #include <asm/mpu.h>
-> +#include <asm/mpu/mm.h>
-> +#include <asm/sysregs.h>
->  
->  struct page_info *frame_table;
->  
-> @@ -26,6 +28,35 @@ DECLARE_BITMAP(xen_mpumap_mask, MAX_MPU_REGION_NR) \
->  /* EL2 Xen MPU memory region mapping table. */
->  pr_t __section(".data.page_aligned") xen_mpumap[MAX_MPU_REGION_NR];
->  
 > +#ifdef CONFIG_ARM_64
 > +/*
-> + * The following are needed for the case generators GENERATE_WRITE_PR_REG_CASE
-It's read a bit odd. Perhaps remove 'generators' word and use 'cases:'
-
-> + * and GENERATE_READ_PR_REG_CASE with num==0
+> + * Set base address of MPU protection region.
+> + *
+> + * @pr: pointer to the protection region structure.
+> + * @base: base address as base of the protection region.
 > + */
-> +#define PRBAR0_EL2 PRBAR_EL2
-> +#define PRLAR0_EL2 PRLAR_EL2
-> +
-> +#define PRBAR_EL2_(n)   PRBAR##n##_EL2
-> +#define PRLAR_EL2_(n)   PRLAR##n##_EL2
-> +
-> +#endif
-> +
-> +#define GENERATE_WRITE_PR_REG_CASE(num, pr)                                 \
-> +    case num:                                                               \
-> +    {                                                                       \
-> +        WRITE_SYSREG(pr->prbar.bits & ~MPU_REGION_RES0, PRBAR_EL2_(num));   \
-> +        WRITE_SYSREG(pr->prlar.bits & ~MPU_REGION_RES0, PRLAR_EL2_(num));   \
-> +        break;                                                              \
-> +    }
-> +
-> +#define GENERATE_READ_PR_REG_CASE(num, pr)                      \
-> +    case num:                                                   \
-> +    {                                                           \
-> +        pr->prbar.bits = READ_SYSREG(PRBAR_EL2_(num));          \
-> +        pr->prlar.bits = READ_SYSREG(PRLAR_EL2_(num));          \
-> +        break;                                                  \
-> +    }
-> +
->  static void __init __maybe_unused build_assertions(void)
->  {
->      /*
-> @@ -36,6 +67,92 @@ static void __init __maybe_unused build_assertions(void)
->      BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
->  }
->  
-> +#ifdef CONFIG_ARM_64
-> +/*
-> + * Armv8-R supports direct access and indirect access to the MPU regions through
-> + * registers, indirect access involves changing the MPU region selector, issuing
-s/registers,/registers:/ and perhaps use bullet points
-
-> + * an isb barrier and accessing the selected region through specific registers;
-> + * instead direct access involves accessing specific registers that points to
-> + * a specific MPU region, without changing the selector (in some cases) and
-What do you mean by "in some cases"?
-
-> + * issuing barriers because of that.
-> + * For Arm64 the PR{B,L}AR_ELx (for n=0) and PR{B,L}AR<n>_ELx, n=1..15, are used
-If for n==0 you used (), why not following the same style for 1..15?
-It all improves readability of such long comments.
-
-> + * for the direct access to the regions selected by PRSELR_EL2.REGION<7:4>:n, so
-> + * 16 regions can be directly access when the selector is multiple of 16, giving
-s/access/accessed/
-s/is multiple/is a multiple/
-
-> + * access to all the supported memory regions.
-> + */
-> +static void prepare_selector(uint8_t *sel)
+> +static inline void pr_set_base(pr_t *pr, paddr_t base)
 > +{
-> +    uint8_t cur_sel = *sel;
-> +
-> +    /*
-> +     * {read,write}_protection_region works using the direct access to the 0..15
-> +     * regions, so in order to save the isb() overhead, change the PRSELR_EL2
-> +     * only when needed, so when the upper 4 bits of the selector will change.
-> +     */
-> +    cur_sel &= 0xF0U;
-> +    if ( READ_SYSREG(PRSELR_EL2) != cur_sel )
-> +    {
-> +        WRITE_SYSREG(cur_sel, PRSELR_EL2);
-> +        isb();
-> +    }
-> +    *sel = *sel & 0xFU;
-> +}
-> +
-> +void read_protection_region(pr_t *pr_read, uint8_t sel)
-> +{
-> +    prepare_selector(&sel);
-> +
-> +    switch ( sel )
-> +    {
-> +        GENERATE_READ_PR_REG_CASE(0, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(1, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(2, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(3, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(4, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(5, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(6, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(7, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(8, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(9, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(10, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(11, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(12, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(13, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(14, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(15, pr_read);
-> +    default:
-> +        BUG(); /* Can't happen */
-> +    }
-> +}
-> +
-> +void write_protection_region(const pr_t *pr_write, uint8_t sel)
-> +{
-> +    prepare_selector(&sel);
-> +
-> +    switch ( sel )
-> +    {
-> +        GENERATE_WRITE_PR_REG_CASE(0, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(1, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(2, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(3, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(4, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(5, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(6, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(7, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(8, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(9, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(10, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(11, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(12, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(13, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(14, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(15, pr_write);
-> +    default:
-> +        BUG(); /* Can't happen */
-> +    }
-> +}
-> +#endif
-> +
->  void __init setup_mm(void)
->  {
->      BUG_ON("unimplemented");
+> +    pr->prbar.reg.base = (base >> MPU_REGION_SHIFT);
+Shouldn't you take MPU_REGION_RES0 into account?
 
 ~Michal
 
