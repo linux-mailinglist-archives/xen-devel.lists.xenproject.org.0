@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F8A3AA8B2D
-	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 04:57:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.975734.1363069 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06614AA8B2E
+	for <lists+xen-devel@lfdr.de>; Mon,  5 May 2025 04:57:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.975740.1363080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBm0d-0000Lh-GN; Mon, 05 May 2025 02:56:47 +0000
+	id 1uBm15-0000pI-RW; Mon, 05 May 2025 02:57:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 975734.1363069; Mon, 05 May 2025 02:56:47 +0000
+Received: by outflank-mailman (output) from mailman id 975740.1363080; Mon, 05 May 2025 02:57:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uBm0d-0000J1-BB; Mon, 05 May 2025 02:56:47 +0000
-Received: by outflank-mailman (input) for mailman id 975734;
- Mon, 05 May 2025 02:56:45 +0000
+	id 1uBm15-0000mm-NX; Mon, 05 May 2025 02:57:15 +0000
+Received: by outflank-mailman (input) for mailman id 975740;
+ Mon, 05 May 2025 02:57:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LKXI=XV=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1uBm0b-0000Iv-FW
- for xen-devel@lists.xenproject.org; Mon, 05 May 2025 02:56:45 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20625.outbound.protection.outlook.com
- [2a01:111:f403:2413::625])
+ id 1uBm14-0000Iv-Vu
+ for xen-devel@lists.xenproject.org; Mon, 05 May 2025 02:57:14 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20621.outbound.protection.outlook.com
+ [2a01:111:f403:2408::621])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 922e261b-295c-11f0-9eb4-5ba50f476ded;
- Mon, 05 May 2025 04:56:42 +0200 (CEST)
-Received: from MW4PR03CA0297.namprd03.prod.outlook.com (2603:10b6:303:b5::32)
- by DM4PR12MB6253.namprd12.prod.outlook.com (2603:10b6:8:a6::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.25; Mon, 5 May
- 2025 02:56:38 +0000
-Received: from SN1PEPF000397B2.namprd05.prod.outlook.com
- (2603:10b6:303:b5:cafe::f6) by MW4PR03CA0297.outlook.office365.com
- (2603:10b6:303:b5::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.29 via Frontend Transport; Mon,
- 5 May 2025 02:56:38 +0000
+ id a5217d05-295c-11f0-9eb4-5ba50f476ded;
+ Mon, 05 May 2025 04:57:14 +0200 (CEST)
+Received: from SN1PR12CA0054.namprd12.prod.outlook.com (2603:10b6:802:20::25)
+ by SA1PR12MB9245.namprd12.prod.outlook.com (2603:10b6:806:3a7::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.24; Mon, 5 May
+ 2025 02:57:08 +0000
+Received: from SN1PEPF000397B5.namprd05.prod.outlook.com
+ (2603:10b6:802:20:cafe::f4) by SN1PR12CA0054.outlook.office365.com
+ (2603:10b6:802:20::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.26 via Frontend Transport; Mon,
+ 5 May 2025 02:57:08 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SN1PEPF000397B2.mail.protection.outlook.com (10.167.248.56) with Microsoft
+ SN1PEPF000397B5.mail.protection.outlook.com (10.167.248.59) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Mon, 5 May 2025 02:56:37 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ 15.20.8722.18 via Frontend Transport; Mon, 5 May 2025 02:57:07 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 4 May
- 2025 21:56:36 -0500
+ 2025 21:57:04 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 4 May
+ 2025 21:56:44 -0500
 Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Sun, 4 May 2025 21:56:35 -0500
+ Transport; Sun, 4 May 2025 21:56:43 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,22 +63,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 922e261b-295c-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: a5217d05-295c-11f0-9eb4-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TwznU89kxl7F1Bv3cV/ws5FygInpU2ikB8giwJQTiwV0QQbpS2Ig1lLzKoz6kP/+ZkSXCMtKtQ90Pp9METxvUQUZVPz2awuVpB/ZOWwLW5j/+zCXgmuZJf3bxVIDLPAoJW5ZwrnwRtsu3Dyv8ElI+otyub4VYxwEJhGJeOe8bly2qXeJZTkHy52JZOcDAt6sLnCRx8XI/AWhbUM2grwS0beaTkBRWR7gxFjVECGi/r4KA965WJV6rg9m6if6piFzeaEXV8mzkaeAb9qzJcEDKT1fnv84q5QtikEwhyFOnDni8fqHKC/MVpiAoJ5Jc0EVb1dcaiCgRMgukAL6AC4gvA==
+ b=VXCThR/1vhbz5eXZFiHV5S3u2jN8mnNGdu7L1AvPtaufzBc2Gp0TKOyM1Kl7PSeJKXvlbmxuLoxMPruEmYuCmv9LeC3ZDNbhf+MQJ8tR1nvGVS9Lfj+2KQIQi4zVT+2k81WJi88AfM0p9lHJChy60Gezx3frSYGcYUjX9AF6Slvx84Mraf7WCoxyhHLjRRvk24SXL49Y4vJNsF5J2mAotp3hajGViAMaKcJMSJWp/PBFsU/Sya0NTrUJ4bu1NxAqOI0BaVcGbUQlT5kMpxZgZLtwRd/QIbPaTuiAlIu8+Wrco3wuRIOcpPoQ/KzPYxIiWbhP9zwuzighJ3NSeBUmZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PVGq8F/Hua4ybpdTW1eQsHcn8bwbEhtWSGvMOWqnUS4=;
- b=bvF7AHsrAJhDlcf9UbVlTl4RHMetnud9aUT2bIMJ9fw9C6vowV44XE13w1ZkFQVvCBqgFj+JybLH94oTXUegSnhX85OSoAiFJyyHbP53ZJXkHJPkwrhAGY3DOibNQdDm3nMBVThgUIQAAKPcrqBGsO68xKMdqDb8gp81bhUvECYJCdgRFKiHEV52PBFESAyMKVU4/NjSJgA9lSwxkXFn0QWiP29IucfehAft1drUM142GW+S4uHPH/6GC8TH2DSS2L4v8foKN5FHzASmdp5sE/Px4uQJTd5AmiGx1Iu3pr+iRLDmZffHmPOpe3TzNtfNhTg35QBr6Yr4yp6bD0e/JQ==
+ bh=B8Ric0W30oVUy1JBURC09V+g0enK44KOZUfYMZtclAQ=;
+ b=XXYnZQ0Jhxl+pWWgs2mZexMAPR1+uxj1//b2LPDOnsfXmviGCE+RmWTLWWDGhv47UScXDtZefhrnwV0OvSy3YRyUmsI5ztEtOD+x/Din+KXmH5Z+Ka/QwbDD5UUq9QgyhCcqqJ95BPw+xb13uzeV61Gl15yMhzoeiUltD8CazV93C1/MUsFm8RsId/wbG5rM1Ghj45NbK5iB8yOC4SSv57maS4GOS+laFWHBkthIbgbs5qCnDWJeZ+FUOjLikRjQJGbc/HY9ON1i3XTIuJTcfRK0Pw1HXzyqbplRC7K90rFNjkKgqckYUlXs+5LWsCKrPdUwRgLvJ3fE68Z/KbS/MA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PVGq8F/Hua4ybpdTW1eQsHcn8bwbEhtWSGvMOWqnUS4=;
- b=4qiV5JhDVkwe5jXEkbzOFJFA+C5avUja0aapm6AllZAebIkhSfch5pV/b9oV0x2jK5JKhLeRTvTii171qF4nB1JW4vSLlDJMsRqKHWFoNbqyTwKBpZXBWfzzaYx58rwhZBjJTvOwG2F6CrIl18+rns88iO2GhwOaTsUtVWK8TdM=
+ bh=B8Ric0W30oVUy1JBURC09V+g0enK44KOZUfYMZtclAQ=;
+ b=zZ85HJ7M1y3lLt5y8PW2NJjj3cRvjiicgIPSvOcFhJoeEzykdHPefHjkyL7mW3CUf5aHvpF2tLf8LWvAmiNZKVd692ym/Nr+U7i2hrySlqwAHwVPkNvhWibPq5N5E3qGGWqqeaxWQ8VfZ8POfKNVRd0u1fLMh1m7F8Q0Q5WKdo8=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -86,93 +90,95 @@ To: <xen-devel@lists.xenproject.org>
 CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
- Beulich" <jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Juergen Gross <jgross@suse.com>, Ayan Kumar Halder
-	<ayan.kumar.halder@amd.com>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>
-Subject: [PATCH 0/6] arm: extended regions fixes
-Date: Sun, 4 May 2025 22:56:23 -0400
-Message-ID: <20250505025631.207529-1-stewart.hildebrand@amd.com>
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Ayan Kumar Halder
+	<ayan.kumar.halder@amd.com>
+Subject: [PATCH 1/6] xen/arm: fix math in add_ext_regions
+Date: Sun, 4 May 2025 22:56:24 -0400
+Message-ID: <20250505025631.207529-2-stewart.hildebrand@amd.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250505025631.207529-1-stewart.hildebrand@amd.com>
+References: <20250505025631.207529-1-stewart.hildebrand@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B2:EE_|DM4PR12MB6253:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6bf3029-20a1-4d9d-2f55-08dd8b807415
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B5:EE_|SA1PR12MB9245:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b3dd7a7-0580-4440-7b3e-08dd8b808630
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|82310400026|376014|36860700013|1800799024|13003099007;
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?n3Jh101DyZSyyNZ6HihYUCi1Hr+VJHHTSI/oHTHonc2bPeoldQBQCPddhAh0?=
- =?us-ascii?Q?XryyG5Q/kBEMQMNXN0cWOBlnXGfV5+8U2KF/+0STFU4zEQ0M45JmEF867WqV?=
- =?us-ascii?Q?/KlbHCrjveIKHC0MKda6bGsLu6R3S/Vi9yQT9flXp4k1jUW0NobLop2pLnd6?=
- =?us-ascii?Q?1+l6KI+CyiwYSdnlL7uOkjrsjxg9gwAuqE9hCTTntvyBinzRnLvr9Gzt9CpV?=
- =?us-ascii?Q?DPurxdf68iX+iuieGHtfxrSMisjcz8Y8pn6gixehNkYYp31ypWTAo7Xz00sj?=
- =?us-ascii?Q?xZj6W/elsuutyHGJ3Hnj9LjFbOJV2cgz1I4aOnVe9M1uoYkHuShlXT/c/+qe?=
- =?us-ascii?Q?ia5jwNiVSvDgNCCo0nCYQm7KoPpoWFFs2aiA6ylDpxmZMah4uR5Tt1OwCwjh?=
- =?us-ascii?Q?ba1LyK288++7K6XLo8u2Oowd2P9DZnHLZqb05z06xeRM/M8JjTKtDYCBsODM?=
- =?us-ascii?Q?ZSjlIS2V4SO+tTItSPb4axp9OqIC8T8Vcd+ZTXACZKUVlPTn/Eg+vWXd5dBx?=
- =?us-ascii?Q?eMZNMQ+ncQ3S5tqBuwbn/gPMlrD5JhpSDgA4h32Bkkls+xP5brD/7C7ima0J?=
- =?us-ascii?Q?CXK4d7vwVApzXxpc+Kuw9H4CB+WFFS22vz+JfGY6fa/xQ1mfkUKmyWRhKlYm?=
- =?us-ascii?Q?cRXqMKHgj0Dt0nd11dTYuRAHTFvLuhOw5Dh8V18tcKRmtZbEWgh0vVTlcVs9?=
- =?us-ascii?Q?+DYzWA3gfWCP8LsVaheYnIb0XMqfXMR0i0dp7FXe6+oY3VJACaVWM07qfc4t?=
- =?us-ascii?Q?E+1hSTzZxSPctMuhHoi3IhEl2rXLVpw1LY1lLqOCG5g86Nlf2y3m8eQ6VLlc?=
- =?us-ascii?Q?gX+9NDJ5mjVIa8J8aHgrYq20lSaRhsrrNrxpluN+YWuaX1ITjgocZRaSJ19/?=
- =?us-ascii?Q?G5obQPwrkowDI/xLaWFsHNHMafJ+Wvo+zGkCRbLgoNHc9kyhdzY72+syBjiR?=
- =?us-ascii?Q?/EDklW3Uhz0DXtHM/yGPoKsfjiW5em3oADaKoUmCcQ0V+RHjAET0ZnPit639?=
- =?us-ascii?Q?4kSaoK7xG36Du7El+S++yzlr7pZ+KaOjZJXXekR4yJSYKjm29LjjU9YX2Uli?=
- =?us-ascii?Q?IpJISQZTjklcawx6sD8qWScAQ4iuu0LGP3jFuUTi9YyGPhQWzCvLdn6ucdT+?=
- =?us-ascii?Q?l1jBJR8BTQxtmqsOq3T/A6sd6bYlT7SkeDAfA7ZbFbD7ARVeUWUZhWxDPBt1?=
- =?us-ascii?Q?/Yg3eGdvwRhKvpkFd7+/ftn488VJEh4b7m7NKF85fYfwUxUzr6KED0hb1gWu?=
- =?us-ascii?Q?khkfCL205U1rLRYbsz5q9b/AOe9LlKc5C1wKOQ+AT6wED5kXmYnfOSBi0TRY?=
- =?us-ascii?Q?mwMsYrU4QLkoib24jkINE7RYqvaH22C6h80PIYjVJZwRq1lawymSXcd1V5Qb?=
- =?us-ascii?Q?Wktm+ymSk8omV3xcpZ1RMKLxOzQspcj2nhoWFRixyZba1Pw3IWZwpvlgOMHN?=
- =?us-ascii?Q?pkl0U06OEmsPH8f4V/2QwdtqOGbNysPRB/HP7uWsUTfogGu9Ca9rZFWAIiA/?=
- =?us-ascii?Q?o0viaMdC8RDTCfuGaFoNRcEJ9+p+Og5om7TWV2gV1Y8uD0WeRW7vkZ9nYw?=
- =?us-ascii?Q?=3D=3D?=
+	=?us-ascii?Q?lBHwNmRKT/24ex0mqx7wfy5/oqLvAJEu6D3VgjNQGgU7GmaH8Sbbw/dNEAZQ?=
+ =?us-ascii?Q?8vE+4ICy+eIvCN+pD1BRXUWG1sKQvgnAO6u3QE2SMXWzRlYArzopvi2TSjFX?=
+ =?us-ascii?Q?07awlh/lBaW/dpoM0TbW+5+tZC0a6DBTkk3mYzUrFsu50MtTW0OsYAGQM+w1?=
+ =?us-ascii?Q?76TGUKJmr4Fyk7P9bTPt2EhIa9Tp+GNMdrhCVeItXZfVhOInICOYNYoODRBL?=
+ =?us-ascii?Q?MXKYRlQ8p30SNnblmY3B907CXAUcuuPXEQY638vWwvA81/QdhtjhoA6NthGt?=
+ =?us-ascii?Q?3DeaftbCValvPrfsgSjSvVdmjdKWLMS7UTGrQGFX/d6xVlmurT7W47T0f0ne?=
+ =?us-ascii?Q?7npOa1gtI6MkxWDl8KQRH7BNzlyPpnHkuRkAssEbARVDiQZQiOoNniROw626?=
+ =?us-ascii?Q?KJ5KLj2v4JZN1C9oNfQR8DzvqHjvqsSvy9b8/E3eOMXmfQpfzZysaLrx3qOt?=
+ =?us-ascii?Q?mzfh2Cgjgg65qfykvavKOQ2RdhULZnuNq/oddm/eHOF8sqzVz1qhGp56NowU?=
+ =?us-ascii?Q?PjRdmK+yLJQaHs2pHraIirUdhMRUbOqRh0+DRxGKi0zpd/8OVbPGAajo5KB3?=
+ =?us-ascii?Q?7YAu4VDFoFNQ0E4unwiA9C6tZec7QLAAA7doJSYMY22JAOzO4vcMyu8p4c4y?=
+ =?us-ascii?Q?li2Tjx74LsevWBt6OM2vUP7fYLeuYTNLY1DWUtkQjFZ/yVnYut5Z4EubElyj?=
+ =?us-ascii?Q?5FXD5sOHeOc6exaTkURn4Ev308pSEDRSUDn0njk48o3YLTPv2rYF1ExiSZxi?=
+ =?us-ascii?Q?FbFgxaibvJZkcQiRjkhdTLRSxpXbCST0cc0iPxqhjpPwGYW7Se0aAj5IWCSS?=
+ =?us-ascii?Q?G7aKISv3lBy63q3IYtY6hR8HV9msNkG8mYFhcKnPpLaeUzrt4guUeXVnUQPn?=
+ =?us-ascii?Q?3bJce7+aZIq27TCMf4YWtZYA/wK6yeExu6xF6ZMk5d9SSmyYW0ajamYKomVF?=
+ =?us-ascii?Q?C1q2MIhpVPvrovx0ZkucFm7u+WQGYvw6v+SF9s2sf8WGXg7LQXu8IKVlpzrz?=
+ =?us-ascii?Q?TooIByYsv6h5XMAn2i1KBv1xNkU9S/5F+B08dr5sC0As4cosepoUD2rmpMRI?=
+ =?us-ascii?Q?DWYccRFp4TkwhdMpeiu/r+Eh7FBgZGc87vUIp43IN9akUuwZxNc1z2FzRyIz?=
+ =?us-ascii?Q?Ov+5i7f9YP1oniBAuQVsDWoE4LOMQNe7zgIXgjGsS9xKSUvUy/GZ1Rpw5KAd?=
+ =?us-ascii?Q?ph55IyN+UlSv4PDq1O6H2qzsRrZlYnNTEapOXI67FoFtUxOEek1urjJvTApp?=
+ =?us-ascii?Q?N+Qet+EQWW/Qx7Lk52Toqn1RBFDVgcPKmcM1uBexac2Pu9uOicNX3INysclX?=
+ =?us-ascii?Q?z8gV5O0RpIorp18zq3d4neE5zFa5S1aV0BF0l0lcuylu/oVdm8x9JGHbMW7o?=
+ =?us-ascii?Q?1UaGovktcp6lSWYvtjeL8aKjeZfINjLuaC6Ueh9bQbmx9zyWv2OyPal2Tf2L?=
+ =?us-ascii?Q?cayQknhbJ5KmVEPgYDOxaRVYlQ4OW6H2zHGtvnyCFOJxhwcUBG+EW5b/CLng?=
+ =?us-ascii?Q?lQatdNVec6xmDxb9ALBriyLhwTrbopiZP558?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(82310400026)(376014)(36860700013)(1800799024)(13003099007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2025 02:56:37.5412
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2025 02:57:07.9152
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6bf3029-20a1-4d9d-2f55-08dd8b807415
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b3dd7a7-0580-4440-7b3e-08dd8b808630
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000397B2.namprd05.prod.outlook.com
+	SN1PEPF000397B5.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6253
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9245
 
-pipeline: https://gitlab.com/xen-project/people/stewarthildebrand/xen/-/pipelines/1799738957
+In commit f37a59813979, the arguments to add_ext_regions() were switched
+from addresses to frame numbers. add_ext_regions() converts the frame
+numbers back to addresses, but the end address (e) is rounded down to
+page size alignment. The logic to calculate the size assumes e points to
+the last address, not page, effectively leading to the region size being
+erroneously calculated to be 2M smaller than the actual size of the
+region.
 
-Stewart Hildebrand (6):
-  xen/arm: fix math in add_ext_regions
-  xen/arm: fix math in add_hwdom_free_regions
-  xen/arm: switch find_domU_holes to rangesets
-  rangeset: introduce rangeset_subtract
-  xen/arm: exclude xen,reg{-cacheable} from domU extended regions
-  tools/arm: exclude iomem from domU extended regions
+Fix by adding 1 to the frame number before converting back to address.
 
- tools/libs/light/libxl_arm.c            | 118 ++++++++++++++++++++----
- xen/arch/arm/dom0less-build.c           |  19 +++-
- xen/arch/arm/domain_build.c             |  63 ++++++++++---
- xen/arch/arm/include/asm/kernel.h       |   1 +
- xen/arch/arm/include/asm/static-shmem.h |   9 --
- xen/arch/arm/static-shmem.c             |  65 -------------
- xen/common/rangeset.c                   |  12 +++
- xen/include/xen/rangeset.h              |   3 +
- 8 files changed, 182 insertions(+), 108 deletions(-)
+Fixes: f37a59813979 ("xen/arm: domain_build: Track unallocated pages using the frame number")
+Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+---
+ xen/arch/arm/domain_build.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
-base-commit: 78ce2be733b1e45e2e190c1765fe31da318d435f
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 270a6b97e42c..2f655bcc2237 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -864,7 +864,7 @@ int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
+     struct membanks *ext_regions = data;
+     paddr_t start, size;
+     paddr_t s = pfn_to_paddr(s_gfn);
+-    paddr_t e = pfn_to_paddr(e_gfn);
++    paddr_t e = pfn_to_paddr(e_gfn + 1) - 1;
+ 
+     if ( ext_regions->nr_banks >= ext_regions->max_banks )
+         return 0;
 -- 
 2.49.0
 
