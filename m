@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DFFEAACC13
-	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 19:17:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.977891.1364806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73F50AACC82
+	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 19:52:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.977919.1364825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCLuy-00052y-1A; Tue, 06 May 2025 17:17:20 +0000
+	id 1uCMS9-0005Iq-MC; Tue, 06 May 2025 17:51:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 977891.1364806; Tue, 06 May 2025 17:17:19 +0000
+Received: by outflank-mailman (output) from mailman id 977919.1364825; Tue, 06 May 2025 17:51:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCLux-00050g-TK; Tue, 06 May 2025 17:17:19 +0000
-Received: by outflank-mailman (input) for mailman id 977891;
- Tue, 06 May 2025 17:17:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uCMS9-0005Gt-JQ; Tue, 06 May 2025 17:51:37 +0000
+Received: by outflank-mailman (input) for mailman id 977919;
+ Tue, 06 May 2025 17:51:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cniF=XW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uCLuw-0003I5-Ks
- for xen-devel@lists.xen.org; Tue, 06 May 2025 17:17:18 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f599a061-2a9d-11f0-9ffb-bf95429c2676;
- Tue, 06 May 2025 19:17:16 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-ac2bdea5a38so848336866b.0
- for <xen-devel@lists.xen.org>; Tue, 06 May 2025 10:17:16 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a099ae0d3csm14060072f8f.3.2025.05.06.10.17.04
+ <SRS0=/GUx=XW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uCMS7-0005Fa-SF
+ for xen-devel@lists.xenproject.org; Tue, 06 May 2025 17:51:35 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bfea1d07-2aa2-11f0-9eb4-5ba50f476ded;
+ Tue, 06 May 2025 19:51:34 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-ac3eb3fdd2eso274843966b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 10:51:34 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-69-225.play-internet.pl.
+ [109.243.69.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad1894c032fsm734079666b.123.2025.05.06.10.51.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 May 2025 10:17:05 -0700 (PDT)
+ Tue, 06 May 2025 10:51:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +45,422 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f599a061-2a9d-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: bfea1d07-2aa2-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746551836; x=1747156636; darn=lists.xen.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/K2DAiP61AzFJhh5IKtXeQcwcXvB3Mgch3kqY1N5EYA=;
-        b=Q6WeiJFOwe4prEOwL+hN0hREB5Qo1QbMhdvVRCXfPTYQ950+c8lLmpupCCuQOyy+jU
-         VdEiAUnI5K/3bO1be1g4avqGrRYf0f+UCaWOSE0xYA30NgCaY1/bHKhpsZB69X9juX+8
-         mXZ/04VsESENkDUHICk0mc0xTDGR86EKkeQMA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746551836; x=1747156636;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1746553893; x=1747158693; darn=lists.xenproject.org;
+        h=content-transfer-encoding:subject:from:cc:to:content-language
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/K2DAiP61AzFJhh5IKtXeQcwcXvB3Mgch3kqY1N5EYA=;
-        b=i16JNMgHgjPFpRyd2sIY5UYbtymOcDGbGFJxkgtW33g6xoi5r0wCWNNYkHXDoUO4It
-         YGjNuavBT4AtV7M24WRk2GJDtQsVBfKD35Smvp8QfF+J8l0K6dNHWn/qMqqnv/Kx2/wH
-         pLY6Fy0GK9tsQHpCxvMgfEetomykjlvy2iotkMyeZJPcdEb9AhhSCzknTEHwjXVSvMTj
-         BMTjh31PdoTYFfB93NbEocKGMox1r1JUqErYkC6WgCAc66nci98noAGmrWlss0M4G1cw
-         zzNTWBMW3fEBF8ZbMjefwW66jpzQ0oKpscOnD1SJ0YWqPLm+UD4sDxcdJQaioyxntryB
-         zuVA==
-X-Gm-Message-State: AOJu0Yyfw3sNCqOjolwlhlHZNHXinVuQbmtMKOYA/FPz4BByyxcb/5Wh
-	B/75T0tfxxaAaWRcTW/WZtAxw4TptoPRJjxmD+Yw8d0N+xhwdRoJ1j1un5slc5hrFv3kFpcqURG
-	N
-X-Gm-Gg: ASbGncteoQ1MFWferdj/QdJ7o5mTysbFsBmvTjCpD/Me/djgpXJp+Fk4r/j8J7x0vH5
-	STTdrWdGxZNdSeJa5EcVCQx+BZ6wVI/QS4XhFfzlukBMkoazLsO0dlMZtln6yoV8xvRmVIPHbK2
-	CAziiiVhfrtX46bC8GktTWUj3S7BdmRgSeuApo2QSSDJphSH3OEMZ192CI1ovJ4FOzs80KbMLN/
-	Pkju9WMjYYDiz5vdx29N3WNX0fNC+R4k9i0VtpADkZsK36xv+8cXSacAgcjWBjl0//vQ37JUxHK
-	RwSVgqRwF7A8a+wvqlAflriAc5vZ90T0S8mETNabduuGMwqpnbGQ1lTUcXRrwQJYJZLd6my3S9f
-	/9GzY8xfIk2RfnM9j
-X-Google-Smtp-Source: AGHT+IE7WvgW137d9MbIxSGvM3QzFwdjuJR34rRXmb+ey1pdkoGyEw8Azw3cGXJuFkjGHKBcOXB2sQ==
-X-Received: by 2002:a05:600d:1a:b0:43c:e70d:44f0 with SMTP id 5b1f17b1804b1-441c4a6741amr95750765e9.19.1746551825773;
-        Tue, 06 May 2025 10:17:05 -0700 (PDT)
-Message-ID: <16cc1b4b-a817-436e-b1fc-09c3a535db08@citrix.com>
-Date: Tue, 6 May 2025 18:17:04 +0100
+        bh=nAWYLbzn1+723Y94D+eOLInpPW/dsArCy8vAsFJa6uI=;
+        b=hPpvHAhn1/dR95qpFClMuEVwZEbepqJBwpE68pCwJ20V00cAtMS3btUxGahb2LzThZ
+         565hv45hBTgUg9Ll1ZmBt1IDmQ38Sim2LbZhJiDILqtRK2M56Czmk30odCCrN+0qjueb
+         MeLzqvhTRvDwp+Cjw8bgepJo24r/9J4RoGnAbw0gH01y/qdkVXVi2FbS2hFcZ7N1InMJ
+         flRnXswvnqtlBqN2D/tbEMjveSCFLVaLZ8o4Oj1dUETfOPCIsF+X0F1Gl+2Bk2T+abPM
+         gDH/vZj6JHi/0+LZLlUTg6kDRyOV3ABHhzmA1hHEzEhLd+dy3Iffc5KVTzTu9k/1cb+G
+         eV0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746553893; x=1747158693;
+        h=content-transfer-encoding:subject:from:cc:to:content-language
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=nAWYLbzn1+723Y94D+eOLInpPW/dsArCy8vAsFJa6uI=;
+        b=lh2XTqbMUiEUN8AqxqacPdeW6g2BEdf2K527+FpaygP7M+mliNMEgADyBoMEmYye6C
+         gCxkMYJKU8d0iXsRQrP1q6UTB9+Ska1J5LjftsSwjP5ch/sGzxOePetzYwNYpmcDTJ6j
+         65WPkhl/ESbJUMQkh1tT/41TLkcWBn71ASWz6RY+Gxb4jwWqIo9D2Y6iLIPcG4qIHWhE
+         KQ9q3CNQd+kilGf3Q6m+SAhgtslzFCGRhmCu0vEw4CAr0jKfRF+pHygUcmE5o7nLJPIk
+         l17XO4q/T2aJCeREk+hdzMR/TNFk1yuXRnfSZfu5TSpgw1k45R24OllgIGTAzlaOVaVu
+         ++Ag==
+X-Gm-Message-State: AOJu0YxngixCvoxAs9LTIGt1amCRo2Km9jqBbJQAIwnfV2p6ucUCWRnO
+	ypFwbi5PVxlVEVS8XihpAcoO5xhUh/A2lPc3MoKEGUzcuV+23Eynml9kPp+S
+X-Gm-Gg: ASbGncuCt2ayvi4cn6gQmRIoltkCdjLm5tT4wGfTBKmnxZuMmDweKi9fBzrUKoTOjJS
+	VlK8ATpR7n5EOeQp7Uune2xidvB7LYe5sTZnfwWvOgbpqTk2JAJPFw8S4cr9fec/5OVlnidfCMw
+	bWcE2asILmrxvgMbQJfjx/cKuGZC6ktMrjreSHAhZgtgck0Rbl0reS4USFBriZLO1qOHgZ3xX2m
+	XpwycMzVGr8d9NDfk8ze1k3opm0IXWeifRklWXsuAOBYg0cIkKzjg1RdW4ppRyV1F2vLrmSjVbN
+	L2DUtQX4YYFwb40+5KU6E2ljZdbXcIY/EgpZEl9gSePBrtjN9SdsPI3EmXnbDVX+U9oq9mCrjA+
+	T3rW2dx64HEmYoQo4
+X-Google-Smtp-Source: AGHT+IEY+d2D7a/fSHoybyiGHQaCY/PPhhU4ivOIpW2b428UWczSiZI904ofZualI43vAI2NMTDL7g==
+X-Received: by 2002:a17:907:94c7:b0:ace:6703:3cd5 with SMTP id a640c23a62f3a-ad1e8bc9451mr36443666b.19.1746553893145;
+        Tue, 06 May 2025 10:51:33 -0700 (PDT)
+Message-ID: <26aa7922-d5d4-4c26-bab5-cfe298a32f0f@gmail.com>
+Date: Tue, 6 May 2025 19:51:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] LivePatch signing support
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xen.org>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250506143218.1782603-1-ross.lagerwall@citrix.com>
- <aBpDxXKVHdt8IQX5@mail-itl>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <aBpDxXKVHdt8IQX5@mail-itl>
-Content-Type: text/plain; charset=UTF-8
+Content-Language: en-US
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Community Manager <community.manager@xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Xen 4.21 Development Update [March-April]
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 06/05/2025 6:15 pm, Marek Marczykowski-Górecki wrote:
-> On Tue, May 06, 2025 at 03:32:12PM +0100, Ross Lagerwall wrote:
->> Live patch signing support was mentioned as future work in the design
->> document several years ago. This series finally implements support for
->> it since it is a requirement of Secure Boot to prevent loading unsigned
->> code into Xen.
->>
->> Note that this series depends on another patch that has not yet been
->> merged:
->> xen/lib: Export additional sha256 functions
->> https://lists.xenproject.org/archives/html/xen-devel/2025-05/msg00222.html
->>
->> Jennifer Herbert (1):
->>   livepatch: Verify livepatch signatures
->>
->> Kevin Lampis (1):
->>   livepatch: Embed public key in Xen
->>
->> Ross Lagerwall (2):
->>   docs: Introduce live patch signing
->>   crypto: Add RSA support
-> Patches 1 and 4 seems to be lost...
+Hello everyone,
 
-Yes, we're working on that.  (Corporate email fun)
+This email only tracks big items for xen.git tree. Please reply for 
+items you
+would like to see in 4.21 so that people have an idea what is going on and
+prioritise accordingly.
 
-~Andrew
+You're welcome to provide description and use cases of the feature you're
+working on.
+
+= Timeline =
+
+Suggested timeline could be found here:
+https://lore.kernel.org/xen-devel/666e3f49-2f92-4828-8897-8579832bcaa2@gmail.com/T/#u
+
+The following items ( the links for them could be found int the list below )
+were moved to completed:
+   [since 4.20 relese - May 6]:
+     * Hypervisor:
+       - Move parts of Arm's Dom0less to common code
+       - remove libxenctrl usage from xenstored
+     * Arm:
+       - Enable early bootup of Armv8-R AArch32 systems
+     * x86:
+       - x86/HVM: emulation (MMIO) improvements
+     * RISC-V:
+       - RISC-V some preinit calls.
+       - Fixes for UBSAN & GCOV support for RISC-V.
+
+Some new items added since 4.20 release:
+  * Hypervisor:
+    - tools: remove qemu-traditional
+    - Physical address hypercall ABI ("HVMv2")
+    - xen: Untangle mm.h
+    - xen: introduce CONFIG_SYSCTL
+    - Add support for exact-node memory claims
+    - Several CI cleanups and improvements, plus yet another new runner
+  * x86:
+    - x86/EFI: prevent write-execute sections
+    - x86: Trenchboot Secure Launch DRTM (Xen)
+    - Hyperlaunch device tree for dom0 (v6)
+    - amd-cppc CPU Performance Scaling Driver (v4)
+    - Hyperlaunch domain builder
+    - kexec: add kexec support to Mini-OS
+    - xen: cache control improvements (should be moved to "Hypervisor"?)
+    - x86: generate xen.efi image with no write-execute sections
+    - x86/asm: cleanups after toolchain baseline upgrade
+  * Arm:
+    - Add support for R-Car Gen4 PCI host controller (v4)
+    - FF-A VM to VM support (v5)
+    - First chunk for Arm R82 and MPU support (v4)
+    - ARM split hardware and control domains (v5)
+    - MPU mm subsistem skeleton
+  * RISC-V:
+    - riscv: introduce basic UART support and interrupts for hypervisor 
+mode
+
+* Full list of items : *
+
+= Projects =
+
+== Hypervisor ==
+
+* tools: remove qemu-traditional
+   - Juergen Gross <jgross@suse.com>
+   - 
+https://lore.kernel.org/xen-devel/20250429110636.30518-4-jgross@suse.com/
+
+* Physical address hypercall ABI ("HVMv2")
+   - Teddy Astie
+   - 
+https://lore.kernel.org/xen-devel/cover.1744981654.git.teddy.astie@vates.tech/
+
+* xen: Untangle mm.h
+   -  Andrew Cooper
+   - 
+https://lore.kernel.org/xen-devel/20250312174513.4075066-1-andrew.cooper3@citrix.com/
+
+* xen: introduce CONFIG_SYSCTL (v3)
+   -  Penny Zheng
+   - 
+https://lore.kernel.org/xen-devel/20250421073723.3863060-1-Penny.Zheng@amd.com/
+   - https://patchew.org/Xen/20250421073723.3863060-1-Penny.Zheng@amd.com/
+
+* Add support for exact-node memory claims
+   -  Alejandro Vallejo
+   - 
+https://lore.kernel.org/xen-devel/20250314172502.53498-1-alejandro.vallejo@cloud.com/
+   - 
+https://patchew.org/Xen/20250314172502.53498-1-alejandro.vallejo@cloud.com/
+
+* Several CI cleanups and improvements, plus yet another new runner
+   - Marek Marczykowski-Górecki
+   - 
+https://lore.kernel.org/xen-devel/cover.7da1777882774486a13e6f39ff4a2096f6b7901e.1744028549.git-series.marmarek@invisiblethingslab.com/
+   - 
+https://patchew.org/Xen/cover.7da1777882774486a13e6f39ff4a2096f6b7901e.1744028549.git-series.marmarek@invisiblethingslab.com/
+
+* xen/console: cleanup console input switch logic
+   - Denis Mukhin
+   - 
+https://lore.kernel.org/xen-devel/20250331230508.440198-1-dmukhin@ford.com/
+
+*  Remove the directmap (v5)
+   -  Alejandro Vallejo
+   - 
+https://lore.kernel.org/xen-devel/20250108151822.16030-1-alejandro.vallejo@cloud.com/
+
+*  automation: Refresh the remaining Debian containers (v2)
+   -  Javi Merino
+   - 
+https://lore.kernel.org/xen-devel/cover.1730743077.git.javi.merino@cloud.com/T/#m5d9acb7cf5db3c2be3d6527de14b69b07812314e
+
+*  GRUB: Supporting Secure Boot of xen.gz (v1)
+   -  Ross Lagerwall
+   - 
+https://patchew.org/Xen/20240313150748.791236-1-ross.lagerwall@citrix.com/
+
+*  MSI-X support with qemu in stubdomain, and other related changes (v8)
+   -  Marek Marczykowski-Górecki
+   - 
+https://lore.kernel.org/xen-devel/cover.33fb4385b7dd6c53bda4acf0a9e91748b3d7b1f7.1715313192.git-series.marmarek@invisiblethingslab.com/
+   -  Only automation patch left to be reviewed/merged.
+
+*  [RFC] Introduce xenbindgen to autogen hypercall structs (v1)
+   -  Alejandro Vallejo
+   - 
+https://patchew.org/Xen/20241115115200.2824-1-alejandro.vallejo@cloud.com/
+
+*  Introduce NS8250 UART emulator (v2)
+   -  Denis Mukhin
+   - 
+https://patchew.org/Xen/20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com/
+
+=== x86 ===
+
+* x86/EFI: prevent write-execute sections
+   - Roger Pau Monne <roger.pau@citrix.com>
+   - 
+https://lore.kernel.org/xen-devel/20250401130840.72119-1-roger.pau@citrix.com/
+
+* x86: Trenchboot Secure Launch DRTM (Xen)
+   - Sergii Dmytruk
+   - https://patchew.org/Xen/cover.1745172094.git.sergii.dmytruk@3mdeb.com/
+   - 
+https://lore.kernel.org/xen-devel/cover.1745172094.git.sergii.dmytruk@3mdeb.com/
+
+* Hyperlaunch device tree for dom0 (v6)
+   - Alejandro Vallejo
+   - https://patchew.org/Xen/20250429123629.20839-1-agarciav@amd.com/
+   - 
+https://lore.kernel.org/xen-devel/20250429123629.20839-1-agarciav@amd.com/
+
+* amd-cppc CPU Performance Scaling Driver (v4)
+   - Penny Zheng
+   - 
+https://lore.kernel.org/xen-devel/20250414074056.3696888-1-Penny.Zheng@amd.com/
+   - https://patchew.org/Xen/20250414074056.3696888-1-Penny.Zheng@amd.com/
+
+* Hyperlaunch domain builder
+   - Daniel P. Smith
+   - 
+https://patchew.org/Xen/20250419220820.4234-1-dpsmith@apertussolutions.com/
+
+* kexec: add kexec support to Mini-OS
+   - Juergen Gross <jgross@suse.com>
+   - 
+https://lore.kernel.org/xen-devel/20250321092451.17309-1-jgross@suse.com/
+
+* xen: cache control improvements
+   - Roger Pau Monne
+   - 
+https://lore.kernel.org/xen-devel/20250506083148.34963-1-roger.pau@citrix.com/
+
+* x86: generate xen.efi image with no write-execute sections
+   - Roger Pau Monne
+   - 
+https://lore.kernel.org/xen-devel/20250318173547.59475-1-roger.pau@citrix.com/
+
+* x86/asm: cleanups after toolchain baseline upgrade
+   - Denis Mukhin
+   - 
+https://lore.kernel.org/xen-devel/20250403182250.3329498-1-dmukhin@ford.com/
+
+*  Expose consistent topology to guests (v7)
+   -  Alejandro Vallejo
+   - 
+https://patchew.org/Xen/20241021154600.11745-1-alejandro.vallejo@cloud.com/
+
+*  Boot modules for Hyperlaunch (v9)
+   -  Daniel P. Smith
+   - 
+https://patchew.org/Xen/20241115131204.32135-1-dpsmith@apertussolutions.com/
+
+*  Address Space Isolation FPU preparations (v2->v3)
+   -  Alejandro Vallejo
+   - 
+https://patchew.org/Xen/20250110132823.24348-1-alejandro.vallejo@cloud.com/
+
+*  x86/alternatives: Adjust all insn-relative fields (v2)
+   -  Andrew Cooper
+   - 
+https://lore.kernel.org/xen-devel/20241002152725.1841575-1-andrew.cooper3@citrix.com/T/#mac2deaea7e02a343210d61887486433d946ad129
+
+*  x86emul: misc additions (v7)
+   -  Jan Beulich
+   - https://patchew.org/Xen/3a25cd59-e1cb-4bfc-b868-fb11599d22f5@suse.com/
+
+*  x86: support AVX10 (v3)
+   -  Jan Beulich
+   - https://patchew.org/Xen/516b7f9a-048e-409d-8a4e-89aeb8ffacc4@suse.com/
+
+*  VT-d: SATC handling; ATS: tidying (v2)
+   -  Jan Beulich
+   - https://patchew.org/Xen/64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com/
+
+*  x86: parallelize AP bring-up during boot (v1)
+   -  Krystian Hebel
+   - 
+https://lore.kernel.org/xen-devel/cover.1699982111.git.krystian.hebel@3mdeb.com/
+
+*  x86/spec-ctrl: IBPB improvements (v4)
+   -  Jan Beulich
+   - https://patchew.org/Xen/06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com/
+
+*  Move some boot code from assembly to C (v2)
+   -  Frediano Ziglio
+   - 
+https://patchew.org/Xen/20241122093358.478774-1-frediano.ziglio@cloud.com/
+
+*  Hyperlaunch device tree for dom0 (v2 -> v6)
+   -  Alejandro Vallejo
+   - https://patchew.org/Xen/20250429123629.20839-1-agarciav@amd.com/
+
+*  x86: memcpy() / memset() (non-)ERMS flavors plus fallout (v4)
+   -  Jan Beulich
+   - https://patchew.org/Xen/14b65231-b83b-43fb-bbcf-dec5c07d285b@suse.com/
+
+*  amd-pstate CPU Performance Scaling Driver (v1)
+   -  Penny Zheng
+   - https://patchew.org/Xen/20241203081111.463400-1-Penny.Zheng@amd.com/
+
+* x86/efi: Fix booting when NX is disabled (v1)
+   - Andrew Cooper
+   - 
+https://patchew.org/Xen/20240722101838.3946983-1-andrew.cooper3@citrix.com/
+
+=== ARM ===
+
+* Add support for R-Car Gen4 PCI host controller (v4)
+   - Mykyta Poturai
+   - 
+https://lore.kernel.org/xen-devel/cover.1745402473.git.mykyta_poturai@epam.com/
+   - 
+https://patchew.org/Xen/cover.1745402473.git.mykyta._5Fpoturai@epam.com/
+
+* FF-A VM to VM support (v5)
+   - Bertrand Marquis <bertrand.marquis@arm.com>
+   - 
+https://lore.kernel.org/xen-devel/cover.1744787720.git.bertrand.marquis@arm.com/
+   - https://patchew.org/Xen/cover.1744787720.git.bertrand.marquis@arm.com/
+
+* First chunk for Arm R82 and MPU support (v4)
+   - Luca Fancellu
+   - 
+https://lore.kernel.org/xen-devel/20250429152057.2380536-1-luca.fancellu@arm.com/
+   - https://patchew.org/Xen/20250429152057.2380536-1-luca.fancellu@arm.com/
+
+* ARM split hardware and control domains (v5)
+   - Jason Andryuk
+   - 
+https://lore.kernel.org/xen-devel/20250416212911.410946-1-jason.andryuk@amd.com/
+   - https://patchew.org/Xen/20250416212911.410946-1-jason.andryuk@amd.com/
+
+* MPU mm subsistem skeleton
+   - Luca Fancellu
+   - 
+https://lore.kernel.org/xen-devel/20250312135258.1815706-1-luca.fancellu@arm.com/
+   - https://patchew.org/Xen/20250312135258.1815706-1-luca.fancellu@arm.com/
+
+*  Add Virtio-PCI for dom0less on ARM (v1)
+   -  Edgar E. Iglesias
+   - 
+https://lore.kernel.org/xen-devel/20240924162359.1390487-1-edgar.iglesias@gmail.com/T/#mfa148991b9408f223a079d4cef610244d5b04c2b
+   - 
+https://patchew.org/Xen/20240924162359.1390487-1-edgar.iglesias@gmail.com/
+
+*  PCI devices passthrough on Arm, part 3 (v16->v20)
+   -  Stewart Hildebrand
+   - 
+https://patchew.org/Xen/20250418185840.335816-1-stewart.hildebrand@amd.com/
+   - 
+https://lore.kernel.org/xen-devel/20250418185840.335816-1-stewart.hildebrand@amd.com/
+   -  last patch waiting to be merged?
+
+*  DOMCTL-based guest magic region allocation for 11 domUs (v4)
+   -  Henry Wang
+   - https://patchew.org/Xen/20240409045357.236802-1-xin.wang2@amd.com/
+
+=== RISCV ===
+
+* riscv: introduce basic UART support and interrupts for hypervisor mode 
+(v2)
+   -  Oleksii Kurochko
+   - 
+https://lore.kernel.org/xen-devel/cover.1746530883.git.oleksii.kurochko@gmail.com/T/#m9f3affc0f8ded50ab26c0842613b553b56bce782
+
+=== PPC ===
+
+*  Early Boot Allocation on Power (v5)
+   -  Shawn Anastasio
+   - 
+https://lore.kernel.org/xen-devel/cover.1727388925.git.sanastasio@raptorengineering.com/T/#m8cac91a93b56a359fa2d5f08596c4be61dca290d
+   - 
+https://patchew.org/Xen/cover.1727388925.git.sanastasio@raptorengineering.com/
+
+== Completed ==
+
+=== Hypervisor ===
+
+*  remove libxenctrl usage from xenstored (v8)
+   -  Juergen Gross
+   - 
+https://lore.kernel.org/xen-devel/20250204113407.16839-1-jgross@suse.com/
+
+* xen/config.h: Move BITS_PER_* definitions from asm/config.h to 
+xen/config.h
+   - Oleksii Kurochko
+   - 
+https://lore.kernel.org/xen-devel/6b21fb046cf1c8ca760f5ad72fa3cc13b59c4069.1743092485.git.oleksii.kurochko@gmail.com/
+
+* Move parts of Arm's Dom0less to common code
+   -  Oleksii Kurochko
+   - 
+https://patchew.org/Xen/cover.1746468003.git.oleksii.kurochko@gmail.com/
+   - 
+https://lore.kernel.org/xen-devel/cover.1746468003.git.oleksii.kurochko@gmail.com/T/#t
+
+=== x86 ===
+
+*  x86/HVM: emulation (MMIO) improvements (v3)
+   -  Jan Beulich
+   - https://patchew.org/Xen/729f7896-55b7-4b5b-a7e9-6eb0420e0b14@suse.com/
+
+=== ARM ===
+* Enable early bootup of Armv8-R AArch32 systems
+   - Ayan Kumar Halder
+   - 
+https://lore.kernel.org/xen-devel/20250414164514.588373-1-ayan.kumar.halder@amd.com/
+   - 
+https://patchew.org/Xen/20250414164514.588373-1-ayan.kumar.halder@amd.com/
+
+=== RISC-V ===
+
+* RISC-V some preinit calls:
+   -  Oleksii Kurochko
+   - 
+https://lore.kernel.org/xen-devel/4ddde60347edf6740fbc69b5739d099616f5b5ff.1743165791.git.oleksii.kurochko@gmail.com/
+
+* Fixes for UBSAN & GCOV support for RISC-V:
+   -  Oleksii Kurochko
+   - 
+https://lore.kernel.org/xen-devel/9fbb5e1389b84bed2e95f99e4c383d0215c7a524.1744889185.git.oleksii.kurochko@gmail.com/
+
+Have a good week!
+
+Best regards,
+  Oleksii
+
 
