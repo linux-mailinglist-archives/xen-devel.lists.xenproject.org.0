@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07F08AAC402
-	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 14:29:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.977144.1364215 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DBEBAAC401
+	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 14:29:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.977143.1364205 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCHQc-0004dv-JM; Tue, 06 May 2025 12:29:42 +0000
+	id 1uCHQa-0004Q6-9g; Tue, 06 May 2025 12:29:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 977144.1364215; Tue, 06 May 2025 12:29:42 +0000
+Received: by outflank-mailman (output) from mailman id 977143.1364205; Tue, 06 May 2025 12:29:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCHQc-0004cU-GO; Tue, 06 May 2025 12:29:42 +0000
-Received: by outflank-mailman (input) for mailman id 977144;
- Tue, 06 May 2025 12:29:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cniF=XW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uCHQb-0004X2-0H
- for xen-devel@lists.xenproject.org; Tue, 06 May 2025 12:29:41 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c511d387-2a75-11f0-9ffb-bf95429c2676;
- Tue, 06 May 2025 14:29:35 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3a0b291093fso214426f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 05:29:35 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a099ae3ccdsm13677750f8f.38.2025.05.06.05.29.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 May 2025 05:29:34 -0700 (PDT)
+	id 1uCHQa-0004Nr-77; Tue, 06 May 2025 12:29:40 +0000
+Received: by outflank-mailman (input) for mailman id 977143;
+ Tue, 06 May 2025 12:29:38 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1uCHQY-0004Nl-Ie
+ for xen-devel@lists.xenproject.org; Tue, 06 May 2025 12:29:38 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uCHQY-00Cg5L-0w;
+ Tue, 06 May 2025 12:29:38 +0000
+Received: from [2a02:8012:3a1:0:7157:32ca:2aea:33a3]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uCHQY-000QuW-0O;
+ Tue, 06 May 2025 12:29:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,189 +39,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c511d387-2a75-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746534575; x=1747139375; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ri0TWyC/dx2Y2lR9cNpuRp+Af8FuS6meweaINUQtdlU=;
-        b=BqiLN2ABOy12yHfy8RtzZXZM2J9XI/h14IEWxera4slxRp7kHNnPXvdGaxVN8Dc4M5
-         qB9A5YjhWrfr856m0KXB1vFE48+Bk28fmredpcqz3aOeoy2VGLD5tWeNN9lFS6VQzcZj
-         +zyLdWoJczlABzcp4Wo6JfweCpMSq6JPeAolI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746534575; x=1747139375;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ri0TWyC/dx2Y2lR9cNpuRp+Af8FuS6meweaINUQtdlU=;
-        b=SM3sq+pOxNNO9LZXIW+PklgFRVIpzEg4aNRP5cfU1n5VicIFfpJdlepyDcu1mbmDn/
-         /9gTwTR35CtTJjm+PFNSiihlrIxuOnXH2y7aHAiSIrSicjT0HqJ2FF0knqS9RSP6xFO3
-         ZTcA4IzaxyIHaKEVciobXLXDyBVwUp7BCmBuxICz6A8DahTyBZSEfpJwaLbqONuf0fC0
-         ncA3aitAbvCwJzBHaUbXB1XqUcbDyuRNqbqMqJK4X83P0j9dAm0kkXw/qgMJbAEtMKtQ
-         kbMkK897RZd+OZRa4r1vcyk0Ktje1bgrf8kIp4t+3xF5yWFJTOzL8qz1z+o4GHVr2qVF
-         pvmQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV9msM7xHic/XgYR5V66EKB3JVli7oR1jcinSPYpD8zqLEI7hYH+OPfqj2Y+OnfMG9Ok007GPd4LCw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxW7yNofXXZ0iNAIRyKeXKnUczQWAaSm/Bm6ZdXQj+gr0mA0rL0
-	qzkF79ALawhMysFtS1+5aD5cgU7+VrWhawdIZ8+1PsJBxkwzWUf2zoElvdC1k8c=
-X-Gm-Gg: ASbGncvo9rPJKFCZs+bNBUp/1e9FJZo75EQiNtd1wXWXemGC99qdkXQgzjLAmBInq2I
-	cg4CZW5kzs8S30v9tjIlRWaQ4MhfegyZdOh4LuiD35udgirFUQRgThXPAUFX3yowjSce6ScWpbV
-	cL+884i3PDFWS3lPhdgFP5G1Nozh73uVIV1a4cj+dp5QoKgQlImrON9YW48oFpmp4bq+vIpel26
-	s0FngK7LcpNRf08DT6ijMCD1FxiHqjtO2yBXQO8a0a6TIQRfvLlefYeC7g698MeOCgNtWBVVESx
-	/WO68dOQhd7MVQtvkaKgYpoV4ka93M0hJ6NQnWZ6hnbjyxql1RLBUB5fHpjy38eLEkJZ1kJTD/B
-	HOvuHLBY6nubpto0U
-X-Google-Smtp-Source: AGHT+IHeJ2wBA17F+Y0FjU2lgspjn2nWCxmL/AP37ejaiya6SPne1RSviTmJO/DgZt9l0c5W9GueAg==
-X-Received: by 2002:a05:6000:43cc:10b0:39c:2673:4f10 with SMTP id ffacd0b85a97d-3a0ab5b3305mr1965724f8f.23.1746534574994;
-        Tue, 06 May 2025 05:29:34 -0700 (PDT)
-Message-ID: <10538064-1085-4ae4-82f8-0aa9cabcfe23@citrix.com>
-Date: Tue, 6 May 2025 13:29:33 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Cy5/8twqUfPNbpHxqJlEDdXb+Jj9THtCRDc+J3ZAY9I=; b=0TDOY8WRwEw+Ch/9G990EjK2Y8
+	IKaWr4L/c8HR14L5IFI6vv0JYQ/iapO6myVnnZeTRwYq9faZHQ3SUUsHECz6HdEFUkO0OBVC2HJYg
+	qdo6NJuGuIOUrdQ3TAQWtxEUHv0NcGa7SqMzrp0Exue7/BPYeHGVWTlmkpPl1mAuorYw=;
+Message-ID: <df5d09ae-ba1f-43c5-8d96-fd363597e799@xen.org>
+Date: Tue, 6 May 2025 13:29:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/cpufeatures: cpuid features for Sierra Forest
-To: Kevin Lampis <kevin.lampis@cloud.com>, xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com, roger.pau@citrix.com
-References: <20250506081456.1572050-1-kevin.lampis@cloud.com>
+Subject: Re: [PATCH v4 1/7] docs/arm: Document Xen booting protocol on Armv8-R
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250506081456.1572050-1-kevin.lampis@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250429152057.2380536-1-luca.fancellu@arm.com>
+ <20250429152057.2380536-2-luca.fancellu@arm.com>
+ <a96a2e51-7b00-45a3-9f75-0a062c8defd8@xen.org>
+ <FB60F408-6ECE-4396-BAE4-E9D70F9E9DA6@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <FB60F408-6ECE-4396-BAE4-E9D70F9E9DA6@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 06/05/2025 9:13 am, Kevin Lampis wrote:
-> Add new cpuid features for Sierra Forest.
->
-> Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
-> ---
-> Changes in v2:
-> - change INVD_DISABLE to NO_INVD
-> - change UC_LOCK_DISABLE to UC_LOCK_DIS
-> - better comment for UIRET_UIF
-> - use MCU_ENUM because it's shorter and add better comment
-> ---
->  xen/include/public/arch-x86/cpufeatureset.h | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-> index cc6e984a88..089a133519 100644
-> --- a/xen/include/public/arch-x86/cpufeatureset.h
-> +++ b/xen/include/public/arch-x86/cpufeatureset.h
-> @@ -304,13 +304,18 @@ XEN_CPUFEATURE(SM3,          10*32+ 1) /*A  SM3 Instructions */
->  XEN_CPUFEATURE(SM4,          10*32+ 2) /*A  SM4 Instructions */
->  XEN_CPUFEATURE(AVX_VNNI,     10*32+ 4) /*A  AVX-VNNI Instructions */
->  XEN_CPUFEATURE(AVX512_BF16,  10*32+ 5) /*A  AVX512 BFloat16 Instructions */
-> +XEN_CPUFEATURE(LASS,         10*32+ 6) /*   Linear Address Space Separation */
->  XEN_CPUFEATURE(CMPCCXADD,    10*32+ 7) /*a  CMPccXADD Instructions */
-> +XEN_CPUFEATURE(ARCH_PERF_MON, 10*32+ 8) /*  ArchPerfMonExt */
->  XEN_CPUFEATURE(FZRM,         10*32+10) /*A  Fast Zero-length REP MOVSB */
->  XEN_CPUFEATURE(FSRS,         10*32+11) /*A  Fast Short REP STOSB */
->  XEN_CPUFEATURE(FSRCS,        10*32+12) /*A  Fast Short REP CMPSB/SCASB */
->  XEN_CPUFEATURE(WRMSRNS,      10*32+19) /*S  WRMSR Non-Serialising */
->  XEN_CPUFEATURE(AMX_FP16,     10*32+21) /*   AMX FP16 instruction */
->  XEN_CPUFEATURE(AVX_IFMA,     10*32+23) /*A  AVX-IFMA Instructions */
-> +XEN_CPUFEATURE(LAM,          10*32+26) /*   Linear Address Masking */
-> +XEN_CPUFEATURE(MSRLIST,      10*32+27) /*   RDMSRLIST/WRMSRLIST/WRMSRNS */
+On 06/05/2025 13:24, Luca Fancellu wrote:
+> Hi Julien,
 
-"{RD,WR}MSRLIST instructions"
+Hi Luca,
 
-WRMSRNS is separately enumerated (bit 19).
+> 
+>> On 6 May 2025, at 12:44, Julien Grall <julien@xen.org> wrote:
+>>
+>>
+>>
+>> On 29/04/2025 16:20, Luca Fancellu wrote:
+>>> Document the requirement needed to boot Xen on Armv8-R platforms.
+>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>> ---
+>>> v4 changes:
+>>>   - New patch
+>>> ---
+>>>   docs/misc/arm/booting.txt | 8 ++++++++
+>>>   1 file changed, 8 insertions(+)
+>>> diff --git a/docs/misc/arm/booting.txt b/docs/misc/arm/booting.txt
+>>> index 21ae74837dcc..719af74f1e69 100644
+>>> --- a/docs/misc/arm/booting.txt
+>>> +++ b/docs/misc/arm/booting.txt
+>>> @@ -62,6 +62,14 @@ Xen relies on some settings the firmware has to configure in EL3 before starting
+>>>     * The bit SCR_EL3.HCE (resp. SCR.HCE for 32-bit ARM) must be set to 1.
+>>>   +When Xen runs on Armv8-R, the highest exception level is EL2 and the only
+>>> +available state is secure (S) on Arm64 and non secure (NS) on Arm32, hence the
+>>> +above requirements need to be adjusted to this case:
+>>> +> +* Xen must be entered in S EL2 mode on Arm64 and in NS EL2 mode on Arm32.
+>>
+>> I think it would be better to update the line "Xen must be entered in NS EL2 mode" to clarify the state for 64-bit Arm.
+>>
+>>> +> +* Xen must be entered with MPU off and data cache disabled (SCTLR_EL2.M bit and
+>>> +  SCTLR_EL2.C set to 0).
+>>
+>> This line is valid for Armv8-A/Armv7-A when using the Image/zImage protocol.
+>>
+>>>     [1] linux/Documentation/arm/booting.rst
+>>>   Latest version: http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/arch/arm/booting.rst
+> 
+> Just to be sure to be on the same page, are you suggesting these changes on the original file?
 
-> +XEN_CPUFEATURE(NO_INVD,      10*32+30) /*   INVD_DISABLE_POST_BIOS_DONE */
->  
->  /* AMD-defined CPU features, CPUID level 0x80000021.eax, word 11 */
->  XEN_CPUFEATURE(NO_NEST_BP,         11*32+ 0) /*A  No Nested Data Breakpoints */
-> @@ -340,6 +345,7 @@ XEN_CPUFEATURE(RRSBA_CTRL,         13*32+ 2) /*S  MSR_SPEC_CTRL.RRSBA_DIS_* */
->  XEN_CPUFEATURE(DDP_CTRL,           13*32+ 3) /*   MSR_SPEC_CTRL.DDP_DIS_U */
->  XEN_CPUFEATURE(BHI_CTRL,           13*32+ 4) /*S  MSR_SPEC_CTRL.BHI_DIS_S */
->  XEN_CPUFEATURE(MCDT_NO,            13*32+ 5) /*A  MCDT_NO */
-> +XEN_CPUFEATURE(UC_LOCK_DIS,        13*32+ 6) /*   UC-lock disable */
->  
->  /* Intel-defined CPU features, CPUID level 0x00000007:1.ecx, word 14 */
->  
-> @@ -349,7 +355,9 @@ XEN_CPUFEATURE(AVX_NE_CONVERT,     15*32+ 5) /*A  AVX-NE-CONVERT Instructions */
->  XEN_CPUFEATURE(AMX_COMPLEX,        15*32+ 8) /*   AMX Complex Instructions */
->  XEN_CPUFEATURE(AVX_VNNI_INT16,     15*32+10) /*A  AVX-VNNI-INT16 Instructions */
->  XEN_CPUFEATURE(PREFETCHI,          15*32+14) /*A  PREFETCHIT{0,1} Instructions */
-> +XEN_CPUFEATURE(UIRET_UIF,          15*32+17) /*   UIRET updates UIF */
->  XEN_CPUFEATURE(CET_SSS,            15*32+18) /*   CET Supervisor Shadow Stacks safe to use */
-> +XEN_CPUFEATURE(SLSM,               15*32+24) /*   Static Lockstep Mode */
->  
->  /* Intel-defined CPU features, MSR_ARCH_CAPS 0x10a.eax, word 16 */
->  XEN_CPUFEATURE(RDCL_NO,            16*32+ 0) /*A  No Rogue Data Cache Load (Meltdown) */
-> @@ -368,6 +376,7 @@ XEN_CPUFEATURE(DOITM,              16*32+12) /*   Data Operand Invariant Timing
->  XEN_CPUFEATURE(SBDR_SSDP_NO,       16*32+13) /*A  No Shared Buffer Data Read or Sideband Stale Data Propagation */
->  XEN_CPUFEATURE(FBSDP_NO,           16*32+14) /*A  No Fill Buffer Stale Data Propagation */
->  XEN_CPUFEATURE(PSDP_NO,            16*32+15) /*A  No Primary Stale Data Propagation */
-> +XEN_CPUFEATURE(MCU_ENUM,           16*32+16) /*   Runtime Microcode Update features */
+Yes with one tweak.
 
-Thinking about this, I'm tempted to call it MCU_EXT because that's a bit
-better than MCU_ENUM.
+ > > diff --git a/docs/misc/arm/booting.txt b/docs/misc/arm/booting.txt
+> index 21ae74837dcc..c00c651805d7 100644
+> --- a/docs/misc/arm/booting.txt
+> +++ b/docs/misc/arm/booting.txt
+> @@ -58,10 +58,14 @@ Firmware/bootloader requirements
+>   
+>   Xen relies on some settings the firmware has to configure in EL3 before starting Xen.
 
-That, and "MCU_STATUS/ENUM MSRs" as a comment gets the point across, I
-think.
+I think you want to update this sentence to remove the reference to EL3. 
+Even on A-profile EL3 is not mandatory (I vaguely remember one of the 
+platform I worked on had no EL3).
 
->  XEN_CPUFEATURE(FB_CLEAR,           16*32+17) /*!A| Fill Buffers cleared by VERW */
->  XEN_CPUFEATURE(FB_CLEAR_CTRL,      16*32+18) /*   MSR_OPT_CPU_CTRL.FB_CLEAR_DIS */
->  XEN_CPUFEATURE(RRSBA,              16*32+19) /*!  Restricted RSB Alternative */
-> @@ -379,6 +388,7 @@ XEN_CPUFEATURE(GDS_CTRL,           16*32+25) /*   MCU_OPT_CTRL.GDS_MIT_{DIS,LOCK
->  XEN_CPUFEATURE(GDS_NO,             16*32+26) /*A  No Gather Data Sampling */
->  XEN_CPUFEATURE(RFDS_NO,            16*32+27) /*A  No Register File Data Sampling */
->  XEN_CPUFEATURE(RFDS_CLEAR,         16*32+28) /*!A| Register File(s) cleared by VERW */
-> +XEN_CPUFEATURE(IGN_UMONITOR,       16*32+29) /*   IGN_UMONITOR_SUPPORT */
+>   
+> -* Xen must be entered in NS EL2 mode
+> +* Xen must be entered in:
+> +  * Non-Secure EL2 mode for Armv8-A Arm64 and Arm32, Armv8-R Arm32.
+> +  * Secure EL2 mode for Armv8-R Arm64.
+>   
+>   * The bit SCR_EL3.HCE (resp. SCR.HCE for 32-bit ARM) must be set to 1.
 
-"MCU_OPT_CTRL.IGN_UMONITOR"
+And then here: "When EL3 is supported, ...". This would also cover the 
+R-profile change.
 
-While not strictly SRF, We should include bit 30 too, because its
-related and retrofitted onto older CPUs in microcode.  See
-https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/monitor-umonitor-performance-guidance.html
-for full details.
+Cheers,
 
-Otherwise, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>   
+> +* Xen must be entered with MMU/MPU off and data cache disabled (SCTLR_EL2.M bit
+> +  and SCTLR_EL2.C set to 0).
+>   
+>   [1] linux/Documentation/arm/booting.rst
+>   Latest version: http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/arch/arm/booting.rst
+> 
+> Cheers,
+> Luca
+> 
 
-I can fix all on commit.
+-- 
+Julien Grall
 
-~Andrew
 
