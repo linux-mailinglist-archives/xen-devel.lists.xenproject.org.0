@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FC5BAAC23D
-	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 13:17:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.977058.1364145 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4801AAC266
+	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 13:21:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.977076.1364156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCGHy-0008QC-1a; Tue, 06 May 2025 11:16:42 +0000
+	id 1uCGMt-0001dv-KQ; Tue, 06 May 2025 11:21:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 977058.1364145; Tue, 06 May 2025 11:16:42 +0000
+Received: by outflank-mailman (output) from mailman id 977076.1364156; Tue, 06 May 2025 11:21:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCGHx-0008Nb-Uc; Tue, 06 May 2025 11:16:41 +0000
-Received: by outflank-mailman (input) for mailman id 977058;
- Tue, 06 May 2025 11:16:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uCGMt-0001au-Gt; Tue, 06 May 2025 11:21:47 +0000
+Received: by outflank-mailman (input) for mailman id 977076;
+ Tue, 06 May 2025 11:21:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vx1h=XW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uCGHw-0007yc-IX
- for xen-devel@lists.xenproject.org; Tue, 06 May 2025 11:16:40 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 945ea082-2a6b-11f0-9ffb-bf95429c2676;
- Tue, 06 May 2025 13:16:38 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43d04dc73b7so47617525e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 04:16:38 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-441b89ee39esm164579905e9.21.2025.05.06.04.16.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 May 2025 04:16:37 -0700 (PDT)
+ <SRS0=myEs=XW=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
+ id 1uCGMr-0001ao-Vc
+ for xen-devel@lists.xenproject.org; Tue, 06 May 2025 11:21:46 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2062b.outbound.protection.outlook.com
+ [2a01:111:f403:2613::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4a8ec762-2a6c-11f0-9eb4-5ba50f476ded;
+ Tue, 06 May 2025 13:21:44 +0200 (CEST)
+Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
+ (2603:10a6:150:16a::21) by AM9PR03MB7505.eurprd03.prod.outlook.com
+ (2603:10a6:20b:26a::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Tue, 6 May
+ 2025 11:21:42 +0000
+Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
+ ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
+ ([fe80::a41e:5aa8:e298:757e%6]) with mapi id 15.20.8699.026; Tue, 6 May 2025
+ 11:21:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,305 +47,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 945ea082-2a6b-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746530198; x=1747134998; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=jOz+2FH14WmCp86+v7BdR10VKsnfBPcIlT2o9AYI1j8=;
-        b=mlJblhf/ISPfib71GxcIJ/Ouu1JDakxZl2vdxYwDrQvAMXFkznpwsww6y+nfek25gH
-         HKMIcp+P5R0QpU8k/xJk0tfTKd8bK0KfA/Eo8fes8+aMVQGRotadcBlwCnKvP5qabU+6
-         ZvWi4ctkiA8k3ttGxjxZGS2MeASMC2CH2jKKo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746530198; x=1747134998;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jOz+2FH14WmCp86+v7BdR10VKsnfBPcIlT2o9AYI1j8=;
-        b=cFFM3riibQGYsXbYPqh+S8Yvgy2gvkRaZwQN4aRYJ957f1icbCdXJPJc/DCUEgCLnA
-         lUYxu/3sQIIQSBCl9LrzRb4OokHsAbuR+bCZ67vaR+89B/7aVaCipBzxMsrYvmypAJBs
-         67uhjEGo52mjiK5SoQnJvD9cxVgWYiBizVpEX0B75SYiikGvIZwnNwQYAtlaPJTKMq9g
-         qmqS1AVg4qJsv2FuD1emHMbvg04K5JUllvkN3ZARAE7dWudDxFYvYaQ4LtjJFRSieCad
-         jstk9gpm8LHr286BzUkKSATCv63PRg0eweV2A+++HnqeTy8K5MPVUrOrfdsNSnmL3ds6
-         0I/A==
-X-Gm-Message-State: AOJu0YwDrX6/bSBOjioDXj3msdUPAne6NpZdsB9dIz7pGenJOvY4ZRXi
-	K+RBWyT32qk/l9JfVXlbwteoGwNa7XEbhJcYEP+nSGUQXvjy45KFfusS1hx6IW8=
-X-Gm-Gg: ASbGncsh8ol5fWX2fASB4E8lDhaSIsBdrbY/YSvIR7xAFTM3BgIPBo3JsjrdJFGGFiz
-	yXhkdXGJSN1fE0TEchd331/nDCk5/sVi8oLlhryLp8NhWM7Uzqs3Jg6/uVoR/JKVyEf77veA25B
-	U47gGSfKNkdmZB3D4WqYwWiuzj6FuW3WSxYxnt7Px/zty7ff/9UO4CovTyAQ8b1XSJnd+sKNIeL
-	eQkAisD07kktcVjHVJseW4W9syf7rmhlidfyf51Fl340erKDKuLTfpLZU6pe4+nW0n5kb+iz2+E
-	d1CJSJxnyE8UwmJOqOIkeGF+n9MIX2dTr7j3zANT/kNDAw==
-X-Google-Smtp-Source: AGHT+IFwT0GKnkfRq942f0gj0qAW9bTOBr4A1kjgbQpkyZViemGMq9+1XksgvswWPdvJYiZGm0Pxig==
-X-Received: by 2002:a05:600c:3d8e:b0:43e:a7c9:8d2b with SMTP id 5b1f17b1804b1-441c4919de9mr91549845e9.24.1746530198257;
-        Tue, 06 May 2025 04:16:38 -0700 (PDT)
-Date: Tue, 6 May 2025 13:16:37 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: xen-devel@lists.xenproject.org,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jiqian Chen <Jiqian.Chen@amd.com>,
-	Mykyta Poturai <Mykyta_Poturai@epam.com>
-Subject: Re: [PATCH v20 2/2] vpci: translate virtual PCI bus topology for
- guests
-Message-ID: <aBnvlY3Dfc_Wpljw@macbook.lan>
-References: <20250418185840.335816-1-stewart.hildebrand@amd.com>
- <20250418185840.335816-3-stewart.hildebrand@amd.com>
+X-Inumbo-ID: 4a8ec762-2a6c-11f0-9eb4-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WjwERvgh0zYWf1BggqY3tir3F9hrXvwIuO9xmObWgVFFHW7I+QA9jpG7SxmNWkzYKUXuBD+uF+H3dKLaNC75uWl20KdYZGPjBcHs0SaIFfb+ZT8UZzC7kefLHu9IIh3VjgflY0GgzW7iPuKhWiWdOK/kCQZy0y+ozffLWK9QISkYFr74VzSqrMA4axjj2GrJN8wdKmRpjqSDbIwRocM5t/VgqDr0XD19iSm8VcWERbq3++ByAlgXDmvhOJkl5YRBxmbi1uVnBRFuvbxH1+LlPprubA+RGk+FRsX6g84jAOoR7buM5E92S0CI0ibvhnPcQkXGwkUN+sYiNA/ffNN9oA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M45di3iSaRMQXjpi/0MmGxQEPbRVX08J3En+WQrth2A=;
+ b=GtrZ9Tn0xt3HUWqzP8f9LDYXEFYPSNVkMr2EuwvV6Wme22FUzpGK5lsbrlRCrkvHh2DjcGmwGr9XZs+iKr10kg75pm9bGIZiHtkKfjTW3c2msT+kGap1X4vn0E6u1WYN/OBUNzwYqSxfTfLTMDrZGWR3qZ0nrhzVYVBtlNTtReTcJUJLk0hq0ZaFpTrqiyrN5f0HODASBSzNRo/XEn9jn+CQBRxD9L0vfE5R12isuXQVl4+LASSjnTISbNelYP6AG7sZ0Coi+pU6GrkDtkEPGOowAXMQZiWzT4pLdVIwZDIebwJAiapjbu8CZNWWmqEZ8lAQDCFxoqVbw3uAfkoIpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M45di3iSaRMQXjpi/0MmGxQEPbRVX08J3En+WQrth2A=;
+ b=EkmUJlgdIxCqtXgVTOzJnmgSaSQJ362m/WSmCQ+7bZ/syW9YPxhc3Z3IEnE+w8nf5HzgKG7K1xS3704+PP+6KhylPi5NRw9rhlTk9wfLJGTCN39V0ZkCesNRygObOUQsuDtg30eNKBWl2XRIgyET+OAldUZsNt+fMbjiLB8Q38d1VorO7vgS02FkalGVXs6FnWsO82J4FD8gt/7Q/Et9b9OIwH71AYxWpGfOWXhQ2WkaEnPwZWbrREn/Pt2b9msWjp1WXn7+OLgNKbB2OTsIeM+x1/j68kESYV8aRgSRz1DeW8OECYqZIu8v5im7n2s3qOKg6/xm8OrnTM1NFJJvhw==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: "L, John Preetham (893)" <john_preetham.l@daimlertruck.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Ruslan
+ Shymkevych <Ruslan_Shymkevych@epam.com>
+Subject: Re: Request for Documentation on Bringing Up Xen on R-Car H3e
+ (H3ULCB)
+Thread-Topic: Request for Documentation on Bringing Up Xen on R-Car H3e
+ (H3ULCB)
+Thread-Index: AdtsrjaU74AF3fZpR/+NK9h56D1xZg==
+Date: Tue, 6 May 2025 11:21:42 +0000
+Message-ID: <87v7qec7cr.fsf@epam.com>
+References:
+ <FR2PPF86245AF1B81D71CF27EE705ED09B7B8E12@FR2PPF86245AF1B.DEUP281.PROD.OUTLOOK.COM>
+	<8734ha2evr.fsf@epam.com>
+	<FR2PPF86245AF1B0938F55DAF4FF4E63A31B8E02@FR2PPF86245AF1B.DEUP281.PROD.OUTLOOK.COM>
+	<87ldv0248u.fsf@epam.com>
+	<FR2PPF86245AF1B97AC233A5D738AD088B4B88E2@FR2PPF86245AF1B.DEUP281.PROD.OUTLOOK.COM>
+In-Reply-To:
+ <FR2PPF86245AF1B97AC233A5D738AD088B4B88E2@FR2PPF86245AF1B.DEUP281.PROD.OUTLOOK.COM>
+	(John Preetham L.'s message of "Mon, 5 May 2025 04:25:23 +0000")
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|AM9PR03MB7505:EE_
+x-ms-office365-filtering-correlation-id: a9556a80-dee2-45b0-f97e-08dd8c902d9d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?aNO2k1fg6VLzUgMSYtIvO+X2kMQGsQ4YXRllRMcCmRcZAiaY/p3Mc5MD1O?=
+ =?iso-8859-1?Q?bx7SI9HysKpjJt7sbtz1vHlSM7hWcflkRcyDH6BirWLaAYrUvwg9LsXmTo?=
+ =?iso-8859-1?Q?+k5WVx6eeR3sGBKKq0RurH5rtBHuuz0XNYiqyuIrb/aGFvmAnVQGOkkTy2?=
+ =?iso-8859-1?Q?pkZDxQosPUEZHuCfpPLeBuZnTFcxFVTiELUFrj9wdbIdi1y2s/FkK6Uwah?=
+ =?iso-8859-1?Q?utPVMsLoJBK0xgvoRZ72t7JOzB4ilNa2ddb7foDL10rNXQSPWmeQumEd8G?=
+ =?iso-8859-1?Q?gKtwzvZYadM4Gp2NMdvdNnb7tkes/NJ9kLOSmEl40lC+LnIp8tY1QGw1x0?=
+ =?iso-8859-1?Q?6d9e+Vme90vBfesMXxM0DIPeZx5oKThIPt2jzyEa7dBDVtL4xthNR1P7m7?=
+ =?iso-8859-1?Q?0zJzdN9+khumwlVwGUVMt7GeAaA/cVDIp9LhqJtTINEQ7FaIWwPjrrhDDT?=
+ =?iso-8859-1?Q?zWl/Q5J10afASMT88hCiQVQcd7AOmVd4MiNjN1o60pWziqX7xmqJOT5mJd?=
+ =?iso-8859-1?Q?tvFPPw8ftz/GvxphQpbOKussKIdYWI7pVmc1jR2G8fGvrGKc3z5ksKTCTm?=
+ =?iso-8859-1?Q?ZcuzUUXMJZ2TsMZslRjIRAAawaNJgAgmZBo7a/Y/Wa3VQrbvJD/mmBXkbG?=
+ =?iso-8859-1?Q?KdCn5JkpmBNgbAXDyl+DHYelanG3yebb/qR9BRQI0LOP+um6xylSIiEYVp?=
+ =?iso-8859-1?Q?82A8Yh7IptyQNOUBvh9BQ8cpG/iYrvii0gSwjbqfXSUEoinujjjhnzzONE?=
+ =?iso-8859-1?Q?pSI8QsRzncAio4PO/svFApXPe0mj9E7VqoscCoM9z/qvFIF150H8gl1BnS?=
+ =?iso-8859-1?Q?NnOpL4Rv4hIvsR5M6eBv+8u+CQwJ9WNVQMHMDba47cFB1FNAYVQun/ZBh/?=
+ =?iso-8859-1?Q?BXGbWYlC/kClHBDAWkaUU506RXvh0J97ZuBxxqoINlsFP3SZQHTnT4JTVC?=
+ =?iso-8859-1?Q?sg2uRzgVsQ5meRa5iBL/HZWZf8jr8SN8d1QWHaZPU1q/3SyC0xN8Onv99p?=
+ =?iso-8859-1?Q?ZPGfL1jFEjnGda2hFZNwtJ1Szd3y3wS3ch+IYw74vgUmbZx4uenPg1lCFM?=
+ =?iso-8859-1?Q?XGVVzcEM1JmnAG2BfgpVUsD06XOZDid9jTVY1Y+Zog1SpY76h06n9jz0J4?=
+ =?iso-8859-1?Q?s6gnFZx8AByUpnWmb6ieyPQPZhzrT9xKb2aUNBWXCK5v57T6SUisMVSBwb?=
+ =?iso-8859-1?Q?1LtvX4BrPMEJ0yKRH6cQkGqbQCPJ3rJutjXVEC+P31f/LUIEJqb0B1v+Ol?=
+ =?iso-8859-1?Q?il0gaxbPCTk/ch+fkYWOAfNGpnEfIw6LrIyjldDq4gWb+t644kxULvEev5?=
+ =?iso-8859-1?Q?W3kdpXWPBt52TmCzZfkZ7OmGEvBBnq2nRFloKMOG1YdIeNTAtPMzbXYnkK?=
+ =?iso-8859-1?Q?fDQwql4KVrkPph89aEO1b9soX4jhp1vYLRgBwI8lp3SupikkXm3GsxcF36?=
+ =?iso-8859-1?Q?rNargdyOXimAKGZfOHJ7j+H5I6RMMfWQrSorSyDip0bl/IslDC0wMEXPFp?=
+ =?iso-8859-1?Q?o=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?qRNqAe3Z/VE/gBnYb/hCvtvpcCP1yzN+LvP959q9E2eu4opkNdW0zg45m3?=
+ =?iso-8859-1?Q?FUl+Th0EoIY6fmA7FY+Of7cEbILZJGmm7xwTnC+NdMH53qa7qrWbfdKk5p?=
+ =?iso-8859-1?Q?53KsuZrSIdSGEQAllvgjGeqr2TGNDIR4wivEG6Hwg7uBR2aZvIbgXC/Wck?=
+ =?iso-8859-1?Q?tj86wIoqVbFqUgbrs6p6uE2NXQ0Mm0mI4V0uB8ijWKZJCXPagHkVBiBBL8?=
+ =?iso-8859-1?Q?es4tk+iWvBrR7RBv/cI524t2/g9IJDT1d0wU7bdU4+jk5QsLjszNNqJk/7?=
+ =?iso-8859-1?Q?qVQm5xgV/E1GLhc2RwpMLRJNLU3gZhz25xZbO/vPxcrx3T+Qitfolm6qod?=
+ =?iso-8859-1?Q?JeC7T+5Apar14WUJTenV9OnPoc/KSlpjEwYrkqMYVole26yf4lbNB3KXDi?=
+ =?iso-8859-1?Q?maRUpPAPj8GzfbzgGbpmhvz1XWYZfVNJpmj5zG7h8ot7uVvTaCe5BKwQao?=
+ =?iso-8859-1?Q?3E/2huFy0q3wJrVdwyHrJ/miIKfQ690BcHCpRydQwYknvt/xITUpR9H7Zq?=
+ =?iso-8859-1?Q?6yaV76xPmqE0z8Nh68tjllgbCBl9o0DEVUx/3dUsjKzEw2SIrMT6nD7jpY?=
+ =?iso-8859-1?Q?PzVCULYaxQqKlE5J3oJpzgl7cL2CjAUGkALYLXwwxEHhoeWADdzSibkiti?=
+ =?iso-8859-1?Q?hW6y3F6c3kqrY8Aq9GlhEUbuhGLAg6PKVDFr95xkCXzpYRUJCaDvDOQgnK?=
+ =?iso-8859-1?Q?6eaAjr1IWizGHxSt+fwWrHBN16F6cJE8Wz0I8BFe+F3EPkBtXAuA0aupYe?=
+ =?iso-8859-1?Q?giEWKdtMF+tKjcTcfvSeBRJctPqjPOYtne6IE4iuvvxaEcyGYfCPg3zL5Q?=
+ =?iso-8859-1?Q?+LlQ/rSDQ6PgbSaXtK3MwoJB9dLZU+JAdxP9UEtFlaXjfTQyTrcE9scoVV?=
+ =?iso-8859-1?Q?OJvZ2KQwX+dyDFvH3xaG0e8XQsiocvyu31PpdGPafgGDyvSUk+ZuRU2ywP?=
+ =?iso-8859-1?Q?hxgedtzOqrr7PHncn/EeL6BpR4m/PpyF/0rk69UTTlfXyCdilElmWtlgtt?=
+ =?iso-8859-1?Q?OejrArWrIC6ji2tc/TOAc6KC4sDqsYQdjhtexWxd2tW/LK8zLoo2oLLhPS?=
+ =?iso-8859-1?Q?7u4SaZM5x6Hugn/8idY01qO8GZp5rAxyzJJxPFhxDXvip9Z9QwoaswJOQn?=
+ =?iso-8859-1?Q?wHeeuzqKaaSczKrHsHjpGKvqXY/HO2H7cvbK0GIZs+0JNG0jo4Ufz6cgKs?=
+ =?iso-8859-1?Q?Pu4BxfL1UuUsvlC0/Otk/WI6XktjR3dF+T6im3rvuTGOvqfwaaxfhZkt45?=
+ =?iso-8859-1?Q?HF+bTOU8WhUP4hgzoruiLJbBexiZFL6UAX4GQnisUlv6aCgWGFW15qQXp8?=
+ =?iso-8859-1?Q?FJM1CXZnL4xtcYT5d3J49EZo+ywdkr9IfX/D50305riDRdxJx8eQDNLgKT?=
+ =?iso-8859-1?Q?FsH8lEHYlExyZc7/4iiIgEsniXm1x67vMSCUdKrTrZmTyK+06gdgHQIz4Q?=
+ =?iso-8859-1?Q?fI2+PI732mjX39sF5yuN1lfeZtlpp2Q5wp7wTq6Ayr0qahs/shloYidNXl?=
+ =?iso-8859-1?Q?5tD1K37jrGIRZ/Vt6+b5enCUnZMfV56L/Mg4rdWKZeUNWYyT1qmTjQZ6e0?=
+ =?iso-8859-1?Q?dOQLEhCCWqzAz2axJ184+2Wrrdi4G1jAaMQBz/bNQ1ugrkyTuZvoGWoitV?=
+ =?iso-8859-1?Q?fR9jVcX7k20yhkyN01Un5PGAU0bAdrkEFlAg9rAsqN2lJhWkCqp7iKLw?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250418185840.335816-3-stewart.hildebrand@amd.com>
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9556a80-dee2-45b0-f97e-08dd8c902d9d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 May 2025 11:21:42.4938
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rn/SbznHtrbRnYseiqTzwFHVuFzT/sgSe4BHwwc2690TSeKYWejNuuO24bH6d2mgRHnOpezxSk5sy1wQz55DXlnnQ7ZlhIPEQE/YfSjCbWg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7505
 
-Hello,
 
-Sorry I haven't looked at this before, I was confused with the cover
-letter having ARM in the subject and somehow assumed all the code was
-ARM related.
+Hi John,
 
-On Fri, Apr 18, 2025 at 02:58:37PM -0400, Stewart Hildebrand wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> There are two originators for the PCI configuration space access:
-> 1. The domain that owns physical host bridge: MMIO handlers are
-> there so we can update vPCI register handlers with the values
-> written by the hardware domain, e.g. physical view of the registers
-> vs guest's view on the configuration space.
-> 2. Guest access to the passed through PCI devices: we need to properly
-> map virtual bus topology to the physical one, e.g. pass the configuration
-> space access to the corresponding physical devices.
-> 
-> In vpci_read(), use the access size to create a mask so as to not set
-> any bits above the access size when returning an error.
+"L, John Preetham (893)" <john_preetham.l@daimlertruck.com> writes:
 
-I see this here, and the code below, yet I'm not following why this is
-a requirement for the code added here.  It seems like an unrelated
-change?
+> Hi Volodymyr,
+>
+> Thank you once again for the detailed explanation and the helpful resourc=
+es.
+>
+> With your guidance, I was able to bring up the XEN hypervisor on the R-Ca=
+r H3e board successfully. I really appreciate your support.
+>
 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> ---
-> In v20:
-> * call translate_virtual_device() from within locked context of
->   vpci_{read,write}
-> * update commit message
-> In v19:
-> * move locking to pre-patch
-> In v18:
-> * address warning in vpci test suite
-> In v17:
-> * move lock to inside vpci_translate_virtual_device()
-> * acks were previously given for Arm [0] and vPCI [1], but since it was
->   two releases ago and the patch has changed, I didn't pick them up
-> 
-> [0] https://lore.kernel.org/xen-devel/4afe33f2-72e6-4755-98ce-d7f9da374e90@xen.org/
-> [1] https://lore.kernel.org/xen-devel/Zk70udmiriruMt0r@macbook/
-> 
-> In v15:
-> - base on top of ("arm/vpci: honor access size when returning an error")
-> In v11:
-> - Fixed format issues
-> - Added ASSERT_UNREACHABLE() to the dummy implementation of
-> vpci_translate_virtual_device()
-> - Moved variable in vpci_sbdf_from_gpa(), now it is easier to follow
-> the logic in the function
-> Since v9:
-> - Commend about required lock replaced with ASSERT()
-> - Style fixes
-> - call to vpci_translate_virtual_device folded into vpci_sbdf_from_gpa
-> Since v8:
-> - locks moved out of vpci_translate_virtual_device()
-> Since v6:
-> - add pcidevs locking to vpci_translate_virtual_device
-> - update wrt to the new locking scheme
-> Since v5:
-> - add vpci_translate_virtual_device for #ifndef CONFIG_HAS_VPCI_GUEST_SUPPORT
->   case to simplify ifdefery
-> - add ASSERT(!is_hardware_domain(d)); to vpci_translate_virtual_device
-> - reset output register on failed virtual SBDF translation
-> Since v4:
-> - indentation fixes
-> - constify struct domain
-> - updated commit message
-> - updates to the new locking scheme (pdev->vpci_lock)
-> Since v3:
-> - revisit locking
-> - move code to vpci.c
-> Since v2:
->  - pass struct domain instead of struct vcpu
->  - constify arguments where possible
->  - gate relevant code with CONFIG_HAS_VPCI_GUEST_SUPPORT
-> New in v2
-> ---
->  tools/tests/vpci/emul.h |  2 +-
->  xen/arch/arm/vpci.c     |  4 +++
->  xen/drivers/vpci/vpci.c | 73 +++++++++++++++++++++++++++++++++++++----
->  3 files changed, 71 insertions(+), 8 deletions(-)
-> 
-> diff --git a/tools/tests/vpci/emul.h b/tools/tests/vpci/emul.h
-> index da446bba86b4..dd048cffbf9d 100644
-> --- a/tools/tests/vpci/emul.h
-> +++ b/tools/tests/vpci/emul.h
-> @@ -89,7 +89,7 @@ typedef union {
->  
->  #define __hwdom_init
->  
-> -#define is_hardware_domain(d) ((void)(d), false)
-> +#define is_hardware_domain(d) ((void)(d), true)
->  
->  #define has_vpci(d) true
->  
-> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
-> index b63a356bb4a8..618ddb7f6547 100644
-> --- a/xen/arch/arm/vpci.c
-> +++ b/xen/arch/arm/vpci.c
-> @@ -34,6 +34,8 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
->      /* data is needed to prevent a pointer cast on 32bit */
->      unsigned long data;
->  
-> +    ASSERT(!bridge == !is_hardware_domain(v->domain));
-> +
->      if ( vpci_ecam_read(sbdf, ECAM_REG_OFFSET(info->gpa),
->                          1U << info->dabt.size, &data) )
->      {
-> @@ -52,6 +54,8 @@ static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
->      struct pci_host_bridge *bridge = p;
->      pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
->  
-> +    ASSERT(!bridge == !is_hardware_domain(v->domain));
-> +
->      return vpci_ecam_write(sbdf, ECAM_REG_OFFSET(info->gpa),
->                             1U << info->dabt.size, r);
->  }
-> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-> index 1e6aa5d799b9..fc409f3fc346 100644
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -174,6 +174,41 @@ int vpci_assign_device(struct pci_dev *pdev)
->  }
->  #endif /* __XEN__ */
->  
-> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-> +/*
-> + * Find the physical device which is mapped to the virtual device
-> + * and translate virtual SBDF to the physical one.
-> + */
-> +static const struct pci_dev *translate_virtual_device(const struct domain *d,
-> +                                                      pci_sbdf_t *sbdf)
-> +{
-> +    const struct pci_dev *pdev;
-> +
-> +    ASSERT(!is_hardware_domain(d));
-> +    ASSERT(rw_is_locked(&d->pci_lock));
-> +
-> +    for_each_pdev ( d, pdev )
-> +    {
-> +        if ( pdev->vpci && (pdev->vpci->guest_sbdf.sbdf == sbdf->sbdf) )
-> +        {
-> +            /* Replace guest SBDF with the physical one. */
-> +            *sbdf = pdev->sbdf;
-> +            return pdev;
-> +        }
-> +    }
-> +
-> +    return NULL;
-> +}
-> +#else
-> +static const struct pci_dev *translate_virtual_device(const struct domain *d,
-> +                                                      pci_sbdf_t *sbdf)
-> +{
-> +    ASSERT_UNREACHABLE();
-> +
-> +    return NULL;
-> +}
-> +#endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
+I glad that it worked.
 
-Jan's suggestion avoids having duplicate headers, and results in less
-code overall:
+> Now, I'm looking to move forward with bringing up a QNX guest on the
+> XEN hypervisor.
 
-static const struct pci_dev *translate_virtual_device(const struct domain *d,
-                                                      pci_sbdf_t *sbdf)
-{
-#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-    const struct pci_dev *pdev;
-    ...
-#else /* !CONFIG_HAS_VPCI_GUEST_SUPPORT */
-    ASSERT_UNREACHABLE()
-#endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
+If your QNX guest supports arm64 boot protocol (which is defined at [1])
+and supports either Xen HVC console or SBSA (pl011-ish) UART - you can just
+boot it by providing kernel=3D option in your domain configuration file.
 
-    return NULL;
-}
+This at least should give you access to guest's serial console, which is
+a good starting point to further bring-up.
 
-I've not overly fuzzed either way, but if changes are required you
-might as well change to this form.
+> Could you please share the procedure or steps you
+> recommend for this?
 
->  static int vpci_register_cmp(const struct vpci_register *r1,
->                               const struct vpci_register *r2)
->  {
-> @@ -438,7 +473,7 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
->      const struct pci_dev *pdev;
->      const struct vpci_register *r;
->      unsigned int data_offset = 0;
-> -    uint32_t data = ~(uint32_t)0;
-> +    uint32_t data = 0xffffffffU >> (32 - 8 * size);
+If I'd did this, I'd done this in the following way:
 
-This seems kind of unrelated to the rest of the code in the patch,
-why is this needed?  Isn't it always fine to return all ones, and let
-the caller truncate to the required size?
+1. Check that QNX kernel image is compatible with aarch64 boot
+protocol. Most of projects (Linux kernel, Xen, U-boot, etc) use it and
+it become de-facto standard, so probably QNX should support it too. But
+if not - you'll need another loader to boot QNX. We have Xen-enabled
+U-Boot, by the way.
 
-Otherwise the code in vpci_read_hw() also needs to be adjusted.  And
-you can likely use GENMASK(size * 8, 0) as it's easier to read.
+2. Boot QNX kernel and get serial console working. As I said, - either via
+HVC or SBSA. This is crucial, as you need some feedback from your guest
+to understand what going on.
 
->  
->      if ( !size )
->      {
-> @@ -453,9 +488,21 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
->       * pci_lock is sufficient.
->       */
->      read_lock(&d->pci_lock);
-> -    pdev = pci_get_pdev(d, sbdf);
-> -    if ( !pdev && is_hardware_domain(d) )
-> -        pdev = pci_get_pdev(dom_xen, sbdf);
-> +    if ( is_hardware_domain(d) )
-> +    {
-> +        pdev = pci_get_pdev(d, sbdf);
-> +        if ( !pdev )
-> +            pdev = pci_get_pdev(dom_xen, sbdf);
-> +    }
-> +    else
-> +    {
-> +        pdev = translate_virtual_device(d, &sbdf);
-> +        if ( !pdev )
-> +        {
-> +            read_unlock(&d->pci_lock);
-> +            return data;
-> +        }
+3. Boot rest of QNX environment. See what is working, fix things that
+don't :) It would be great if QNX supports Xen PV drivers for block
+and network devices, otherwise, you'll have to use virtio or
+pass-through, which is somewhat more difficult to configure.
 
-You don't need this checking here, as the check below will already be
-enough AFAICT, iow:
+> It would also be very helpful if you could provide
+> an example Device Tree Source (DTS) and
 
-    if ( is_hardware_domain(d) )
-    {
-        pdev = pci_get_pdev(d, sbdf);
-        if ( !pdev )
-            pdev = pci_get_pdev(dom_xen, sbdf);
-    }
-    else
-        pdev = translate_virtual_device(d, &sbdf);
+If you are not doing real device passthrough (and I recommend to
+postpone this until you'll get your guest running) - you don't need any
+DTS files. Xen toolstack will generate all the required DTS entries
+automatically for the given configuration.
 
-    if ( !pdev || !pdev->vpci )
-    {
-        read_unlock(&d->pci_lock);
-        return vpci_read_hw(sbdf, reg, size);
-    }
+> XEN domain configuration (CFG)
+> file for the QNX guest, if available.
 
-Achieves the same and is more compact by having a single return for
-all the possible cases?  Same for the write case below.
+No, we don't have any. We had experience with QNX guests, but that was
+really long time ago and I don't think that any data survived. Anyways,
+I recommend checking manual on xl.cfg ([2]).
 
-Thanks, Roger.
+Please note, that if you want to use SBSA uart, you need to enable it in
+your configuration file. It should be vuart =3D "sbsa_uart", I
+believe. Also, you'll have to run xl console with additional arguments
+to make it access SBSA uart console, not default HVC one.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/arch/arm64/booting.rst?h=3Dv6.15-rc5
+[2] https://xenbits.xen.org/docs/unstable/man/xl.cfg.5.html
+
+--=20
+WBR, Volodymyr=
 
