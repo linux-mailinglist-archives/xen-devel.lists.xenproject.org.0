@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 078E4AACB9E
-	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 18:56:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.977694.1364706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83E52AACC0E
+	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 19:16:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.977867.1364796 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCLaM-0003d7-5w; Tue, 06 May 2025 16:56:02 +0000
+	id 1uCLu6-000498-Mn; Tue, 06 May 2025 17:16:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 977694.1364706; Tue, 06 May 2025 16:56:02 +0000
+Received: by outflank-mailman (output) from mailman id 977867.1364796; Tue, 06 May 2025 17:16:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCLaM-0003aG-2k; Tue, 06 May 2025 16:56:02 +0000
-Received: by outflank-mailman (input) for mailman id 977694;
- Tue, 06 May 2025 16:56:01 +0000
+	id 1uCLu6-00046n-Gz; Tue, 06 May 2025 17:16:26 +0000
+Received: by outflank-mailman (input) for mailman id 977867;
+ Tue, 06 May 2025 17:16:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cniF=XW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uCLaL-0003a4-A4
- for xen-devel@lists.xenproject.org; Tue, 06 May 2025 16:56:01 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ <SRS0=/GUx=XW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uCLjP-00068s-Ar
+ for xen-devel@lists.xenproject.org; Tue, 06 May 2025 17:05:23 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fcb86f3a-2a9a-11f0-9eb4-5ba50f476ded;
- Tue, 06 May 2025 18:56:00 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43cef035a3bso38010355e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 09:56:00 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-441b391c42bsm213418805e9.39.2025.05.06.09.55.58
+ id 4bf75eba-2a9c-11f0-9eb4-5ba50f476ded;
+ Tue, 06 May 2025 19:05:22 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5e22e6ed2so9356575a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 10:05:22 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-69-225.play-internet.pl.
+ [109.243.69.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad1895087d1sm734784366b.128.2025.05.06.10.05.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 May 2025 09:55:59 -0700 (PDT)
+ Tue, 06 May 2025 10:05:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,158 +45,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fcb86f3a-2a9a-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 4bf75eba-2a9c-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746550560; x=1747155360; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f0QPuDckgmBjGtmjN6+ro2L4EL4408HeOivJnI0knug=;
-        b=mumb5Drg+xbkgfXoDrDS7JDUBQYSlX4o3BmGSzoK4A4rs0mYZBx3YoxcwlJIHlDBM7
-         E+4U7F/sHvvEdI/gz/oMzHAsfPVMMramPSqzIhovB3v0rdwZtbHebILejlohqLPswd1x
-         X4umHUMADjn8ej8GHvM7UdKaTrDrAGLQ3Dm0A=
+        d=gmail.com; s=20230601; t=1746551122; x=1747155922; darn=lists.xenproject.org;
+        h=cc:to:subject:from:content-language:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=pDa0D1+aR8Ko4O2Nqip7CmD95+rrrCXpgxd1DZMq3A4=;
+        b=Q7aLYrezoz9adBIuNsYbO4fBLZ/QLqQtDcrefKOTr/tTWUTrcIbmw/2G53GP23eoZu
+         0gxrUY3uSFXSzjjC+3Te2kaPSrE2fiknmdZohPPKxX0IpSTnjsoeyLOu2D/hq659S09P
+         uPD1iA3PmNOV1D++Db9ts41hKKmu/SnrHhcLa2aRmMGdRX9XF9zqKNBxE233gw/VZNnK
+         uo3Bwd2pKW48xkX7JZGOMBvhej+Frbbdzh4vIX6PLDBsj1V/79PY2/4ILblJK0pQkEEt
+         zVFtZ6FEuoPxIn5qPRJZaoOi4eObEHx/N/I3npCLRqoG1nGgUdYbvukND34J8cAWlUQW
+         XzEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746550560; x=1747155360;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=f0QPuDckgmBjGtmjN6+ro2L4EL4408HeOivJnI0knug=;
-        b=Ws88sj5luLKPc4K+501YRRZh7e9LAgG7rxnOAmZrQTC9r0cZqcqkQ6qJZXKal78SAr
-         Xvz/hOwoSWhtrkUhz/hkNIkOZgZFCtCbLl+LMHKm9bOuJZ/8LOy3+1LJQgHBV/FVUA/P
-         +fj5FApjSU8N1vAlL3aTCEqJdJei9EYg+AhL+wrTBoXwpZQdlW9HIRg1hhhX66dVBIkS
-         rbVt7b7UlbPHm2aKI79IhrdWCOPd0O+eg7mCR1vrD22/5t8JrxIzOhmZU9sdeY3gYC0P
-         PKN/2btNqEN+LRWCEIFlCrS7WM9gtG1C38tQRS3YEqnu4u01Orto/vWJuU2A1MIKHfz9
-         FYag==
-X-Forwarded-Encrypted: i=1; AJvYcCUTggKxxdLgh0DFCT8wK9P7vL8SZJ+2naqalI5x/JSEE1aUdBd595OMgDVVngCkyuf1QSqSMDqUMNA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwBGTqTx7o8PbTYiaZPCWt49E4LeO6gjw4jB3qSvoJKVWEWYWjv
-	9TGkjdFTEue7vlFh8LhEMiYCLHzJZQvVndmMtFqqeSZ1omREcauuMLwr7cZ3v6S96SOyccg1Bk9
-	C
-X-Gm-Gg: ASbGnctAO1g6ZPiwhJHgaCF/6kcMXKf7jB5NcQ+iSCUqKk05Qi8hLTAfFam2cy5Nu6s
-	Un1RcQYUhn5ABck6zsXIEn07V3o2iYtGe5m31YXgZMWt5uGMYU40g8nCLIEj0yNJ3w4C3vIQbxP
-	eGL3cJCk7lE8BBLnM6/asw78LystqvMJ8ThY211NtLosT5lr9FgcrbYf64Sp2zIdY7EtOIgFvtW
-	z/FY/5WZ6NaZdQAK9CGEK4fSy/WqB46BRBa1ztxgfiSTdzXNt/56casDkDOIK3POfkc0cnN23FW
-	SJ2kgqLqmD/hvDS9BMGLrLQ+OAtoFyZpFHm94hfWlCzs8HGQvD7n/1GTMbuNhOke4BvTqxSMExg
-	gVClezw7MMH1BOBHt
-X-Google-Smtp-Source: AGHT+IEWs9FBr+MfhSGpyAnzkxWzwR5cuBv9L7wLnjU62hB26r925f/QCitetRdkbPpj6fQ8R1Lm0g==
-X-Received: by 2002:a05:600c:4e09:b0:43d:224:86b5 with SMTP id 5b1f17b1804b1-441c48b0213mr115376295e9.4.1746550559648;
-        Tue, 06 May 2025 09:55:59 -0700 (PDT)
-Message-ID: <cf3e9dbf-7ea7-4b33-a4be-14cb5dac0ebc@citrix.com>
-Date: Tue, 6 May 2025 17:55:58 +0100
+        d=1e100.net; s=20230601; t=1746551122; x=1747155922;
+        h=cc:to:subject:from:content-language:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=pDa0D1+aR8Ko4O2Nqip7CmD95+rrrCXpgxd1DZMq3A4=;
+        b=xDYwfplDD8lnRF+/49mLTibNFw9j58Z4qp3vbPj/tNFSnWaKjGqxX8UlfwzuB6IaER
+         Ulhz0hTziOPbhuWXWZwbauGv3mhVzYc5/jD/HFY1Ir5u1Eh2EhK91GhBAqfek/Ui3hP1
+         7cQ0E15izusJOLjPDuqbXQgZdqY9NEI5+GpvRB8PPe0Fjdh672Z4XOYC18H6RkEKqyCE
+         jGdSj5FbjM5g42HngQSKo2JbWqkWQtIVg1Y4RO01cLxVSR4CeqwSX9E9gk2E7fCklfvn
+         F1w8XSavoDXPHUeChcp+PKqMyp6pJBhGiWa7EHclH8d5JmuwN4dG6P+IvAybxgtRI0dL
+         Um4w==
+X-Gm-Message-State: AOJu0YxhsMB+oIvpZIkocFygBjJnPjajPmCfWDAbssfFHmYWOk7nigPy
+	K5MJ+Mtx/NM6NlIxWJcPFAWNP1bfZX5yVXrF8XYohGEglCRIcj38cRWMMQ==
+X-Gm-Gg: ASbGncuwKWn+ttsq840usHD0HaLUc7bSoTkFjgdvktWgoVR5K/J+02SQqn/apwekSB5
+	klyYglHVYQuLTK2rIiCZgVhNBYKmBtBQtFs5NaucP/ZznUoQ4PavaWK7FHF85eXDd/cb/9iH0Jq
+	9DdpSlS/r/NliKQOqoxj03emwZxyCASE+d2UwQN+w5XCrqwduxhzEoqpStbiqoWlTckH0769sOb
+	19SwFpnDnkeVy7YvYkzcyd5oEvf9YLVd0vIgZclU1SKx2zfpR5ji1v33Ylyi4kmZz+SyxUGAp3/
+	WsLe04cKPqz79mjTgUhleDLJSs/4xGP94APgON2nlJMPVqAMbCZrmzH3biKkaNXfiQ6DpsLIiJ+
+	yf1O9GOjj56tND/NO
+X-Google-Smtp-Source: AGHT+IEVjhy5HF3PwgOBcWMoWA8WYUsi+JV7gB6U0aftrO7QSii4fQf5ik3/xNjNQHIxhLop4oXvXg==
+X-Received: by 2002:a17:906:794f:b0:ace:388e:d84a with SMTP id a640c23a62f3a-ad1e8e66735mr18410966b.47.1746551109058;
+        Tue, 06 May 2025 10:05:09 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------eFso15EVoD0XLSWwdndnFzyY"
+Message-ID: <666e3f49-2f92-4828-8897-8579832bcaa2@gmail.com>
+Date: Tue, 6 May 2025 19:05:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] efi: Add a function to check if Secure Boot mode is
- enabled
-To: Kevin Lampis <kevin.lampis@cloud.com>, xen-devel@lists.xenproject.org
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Daniel Smith <dpsmith@apertussolutions.com>
-References: <20250506162449.1676405-1-kevin.lampis@cloud.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250506162449.1676405-1-kevin.lampis@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Xen 4.21 release schedule proposal
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Community Manager <community.manager@xenproject.org>,
+ "committers @ xenproject . org" <committers@xenproject.org>
 
-CC'ing the EFI maintainers.
+This is a multi-part message in MIME format.
+--------------eFso15EVoD0XLSWwdndnFzyY
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 06/05/2025 5:24 pm, Kevin Lampis wrote:
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index e39fbc3529..7c528cd5dd 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -870,6 +870,27 @@ static void __init pre_parse(const struct file *file)
->                     " last line will be ignored.\r\n");
->  }
->  
-> +static void __init init_secure_boot_mode(void)
-> +{
-> +    EFI_STATUS status;
-> +    EFI_GUID gv_uuid = EFI_GLOBAL_VARIABLE;
-> +    uint8_t data = 0;
-> +    UINTN size = sizeof(data);
-> +    UINT32 attr = 0;
+Hello everyone,
 
-Newline between variables and code please.
+Following the 8-month release cycle, also taking into account that 4.20
+has been released 5 March 2025 and the next "good" month for release should
+be November according to:
+https://lists.xen.org/archives/html/xen-devel/2018-07/msg02240.html
 
-> +    status = efi_rs->GetVariable((CHAR16 *)L"SecureBoot", &gv_uuid, &attr,
-> +                                 &size, &data);
-> +
-> +    if ( status == EFI_NOT_FOUND ||
-> +         (status == EFI_SUCCESS &&
-> +          attr == (EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS) &&
-> +          size == 1 && data == 0) )
-> +        /* Platform does not support Secure Boot or it's disabled. */
-> +        efi_secure_boot = false;
-> +    else
-> +        /* Everything else play it safe and assume enabled. */
-> +        efi_secure_boot = true;
-> +}
+Here is suggested schedule:
 
-I'm not sure this logic does what you want when a weird answer comes
-back from GetVariable().
+** Proposed option: Wed Nov 12, 2025 **
+  (~ +8 months from Xen 4.20 release)
 
-Also, you can't have this be a common function, yet ...
+- Last posting date          Fri Aug 08, 2025 (+15 weeks from now)
 
-> diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
-> index 7e1fce291d..b63d21f16c 100644
-> --- a/xen/common/efi/runtime.c
-> +++ b/xen/common/efi/runtime.c
-> @@ -40,6 +40,9 @@ void efi_rs_leave(struct efi_rs_state *state);
->  unsigned int __read_mostly efi_num_ct;
->  const EFI_CONFIGURATION_TABLE *__read_mostly efi_ct;
->  
-> +#if defined(CONFIG_X86) && !defined(CONFIG_PV_SHIM)
-> +bool __ro_after_init efi_secure_boot;
-> +#endif
+Patches adding new features are expected to be posted to the mailing
+list by this date, although perhaps not in their final version.
 
-... this variable exist only on x86.
+- Feature freeze             Fri Aug 29, 2025 (+3 weeks from Last posting date)
 
-Also, why adjust it for PV shim?  None of this is even compiled for PV shim.
+Patches adding new features should be committed by this date.
+Straightforward bugfixes may continue to be accepted by maintainers.
 
-~Andrew
+- Code freeze                Fri Sep 26, 2025 (+4 weeks from Feature freeze)
+
+Bugfixes only.
+
+- Hard code freeze           Fri Oct 24, 2025 (+3 weeks from Code freeze)
+
+Bugfixes for serious bugs (including regressions), and low-risk fixes only.
+
+- Final commits              Fri Nov 07, 2025 (+2 weeks from Hard code freeze)
+
+Branch off staging-4.20.
+
+- Release                    Wed Nov 12, 2025
+
+
+Please don't hesitate to provide your feedback.
+
+If there are no objections, I plan to update the Wiki page
+Xen_Project_X.YY_Release_Notes to make it easier to find our final schedule
+( especially for the people who aren't following xen-devel mailing list ).
+As an additional benefit, it will also be accessible via SUPPORT.md (in the
+wiki athttps://xenbits.xen.org/docs/unstable-staging/support-matrix.html).
+
+Thanks and have a good week.
+
+Best regards,
+  Oleksii
+
+--------------eFso15EVoD0XLSWwdndnFzyY
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <pre id="b"
+style="font-size: 13px; font-family: monospace; background: rgb(255, 255, 255); color: rgb(0, 0, 51); white-space: pre-wrap; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">Hello everyone,
+
+Following the 8-month release cycle, also taking into account that 4.20
+has been released 5 March 2025 and the next "good" month for release should
+be November according to:
+<a
+href="https://lists.xen.org/archives/html/xen-devel/2018-07/msg02240.html"
+style="font-size: 13px; font-family: monospace; background: rgb(255, 255, 255); color: rgb(0, 0, 255); text-decoration: none;"
+    class="moz-txt-link-freetext">https://lists.xen.org/archives/html/xen-devel/2018-07/msg02240.html</a>
+
+Here is suggested schedule:
+
+** Proposed option: Wed Nov 12, 2025 **
+ (~ +8 months from Xen 4.20 release)
+
+- Last posting date          Fri Aug 08, 2025 (+15 weeks from now)
+
+Patches adding new features are expected to be posted to the mailing
+list by this date, although perhaps not in their final version.
+
+- Feature freeze             Fri Aug 29, 2025 (+3 weeks from Last posting date)
+
+Patches adding new features should be committed by this date.
+Straightforward bugfixes may continue to be accepted by maintainers.
+
+- Code freeze                Fri Sep 26, 2025 (+4 weeks from Feature freeze)
+
+Bugfixes only.
+
+- Hard code freeze           Fri Oct 24, 2025 (+3 weeks from Code freeze)
+
+Bugfixes for serious bugs (including regressions), and low-risk fixes only.
+
+- Final commits              Fri Nov 07, 2025 (+2 weeks from Hard code freeze)
+
+Branch off staging-4.20.
+
+- Release                    Wed Nov 12, 2025
+
+
+Please don't hesitate to provide your feedback.
+
+If there are no objections, I plan to update the Wiki page
+Xen_Project_X.YY_Release_Notes to make it easier to find our final schedule
+( especially for the people who aren't following xen-devel mailing list ).
+As an additional benefit, it will also be accessible via SUPPORT.md (in the
+wiki at <a
+href="https://xenbits.xen.org/docs/unstable-staging/support-matrix.html"
+style="font-size: 13px; font-family: monospace; background: rgb(255, 255, 255); color: rgb(0, 0, 255); text-decoration: none;"
+    class="moz-txt-link-freetext">https://xenbits.xen.org/docs/unstable-staging/support-matrix.html</a>).
+
+Thanks and have a good week.
+
+Best regards,
+ Oleksii
+</pre>
+    <p></p>
+  </body>
+</html>
+
+--------------eFso15EVoD0XLSWwdndnFzyY--
 
