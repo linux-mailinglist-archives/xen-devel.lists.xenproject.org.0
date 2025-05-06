@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EF13AAB87D
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E2FCAAB87C
 	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 08:36:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.976644.1363836 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.976646.1363842 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCBu4-0002lq-3N; Tue, 06 May 2025 06:35:44 +0000
+	id 1uCBu4-0002p1-Ar; Tue, 06 May 2025 06:35:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 976644.1363836; Tue, 06 May 2025 06:35:44 +0000
+Received: by outflank-mailman (output) from mailman id 976646.1363842; Tue, 06 May 2025 06:35:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCBu3-0002jx-UU; Tue, 06 May 2025 06:35:43 +0000
-Received: by outflank-mailman (input) for mailman id 976644;
- Tue, 06 May 2025 02:32:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uCBu4-0002lp-4u; Tue, 06 May 2025 06:35:44 +0000
+Received: by outflank-mailman (input) for mailman id 976646;
+ Tue, 06 May 2025 02:41:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rrwm=XW=uniontech.com=chenlinxuan@srs-se1.protection.inumbo.net>)
- id 1uC86o-0007B0-Al
- for xen-devel@lists.xenproject.org; Tue, 06 May 2025 02:32:38 +0000
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b290666-2a22-11f0-9ffb-bf95429c2676;
- Tue, 06 May 2025 04:32:31 +0200 (CEST)
-Received: from localhost.localdomain ( [113.57.152.160])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 06 May 2025 10:30:59 +0800 (CST)
+ id 1uC8FN-0008H2-0X
+ for xen-devel@lists.xenproject.org; Tue, 06 May 2025 02:41:29 +0000
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 95b42aea-2a23-11f0-9eb4-5ba50f476ded;
+ Tue, 06 May 2025 04:41:22 +0200 (CEST)
+Received: from mail-yb1-f171.google.com ( [209.85.219.171])
+ by bizesmtp.qq.com (ESMTP) with SMTP id 0
+ for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 10:41:11 +0800 (CST)
+Received: by mail-yb1-f171.google.com with SMTP id
+ 3f1490d57ef6-e6e1cd3f1c5so4199383276.0
+ for <xen-devel@lists.xenproject.org>; Mon, 05 May 2025 19:41:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,131 +42,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b290666-2a22-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 95b42aea-2a23-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1746498699;
-	bh=RK8CB/ILucoxkojMLroxyaAqpj6rXkr8cb1h0tuO+FM=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=kafLiDKXS816BmywaQFx+/F9Y6knLlHjegnJC8EOCpdTsnxr/e1yaY6y4wWVWU5Cc
-	 pEmJcSIFvrEg1Nxq/uND+kyneyz+lm4cL848VLV2wWlvOab3SEPuOTkyOQdSj+ClQW
-	 LZ+Ex6H0L9ikuOIyZud7Tr25Wd3PVQAdT9G4v3o8=
-X-QQ-mid: esmtpsz17t1746498663t4c1b9905
-X-QQ-Originating-IP: 2vhUXsJq6NqiLO1Htm0IxhFYAPx746WeA0MvTVyM9nk=
+	s=onoh2408; t=1746499275;
+	bh=dDn4W5v9t6AyHBHxLWO7FuLjj98KbpZnLxWf1Zria3s=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To;
+	b=n8r4R3u7gzqMxHc2aQ3peYjPOWOKjtBW9b6RgtRAJNk6dHbpxJUR6DPrZeBXWPSF+
+	 GczkkIOhC7KbRR9T2Skwi+6r4ccDpcJQF645RYV3AIcSq6bm92mzpeTq02mh5qfw7h
+	 qDLlodeU0Vqb3lAfPTGJoozZFJW/oNaQXlsuI5BE=
+X-QQ-mid: esmtpsz17t1746499273t630b486b
+X-QQ-Originating-IP: 4wO1RVpWYuRmz1iqaXDmgWdmyHXV9qrlyAfAABcWJFU=
 X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 1353101163767275647
-EX-QQ-RecipientCnt: 52
-From: Chen Linxuan <chenlinxuan@uniontech.com>
-To: hch@lst.de
-Cc: akpm@linux-foundation.org,
-	alex.williamson@redhat.com,
-	andreyknvl@gmail.com,
-	axboe@kernel.dk,
-	boqun.feng@gmail.com,
-	boris.ostrovsky@oracle.com,
-	bp@alien8.de,
-	changbin.du@intel.com,
-	chenlinxuan@uniontech.com,
-	dave.hansen@linux.intel.com,
-	dvyukov@google.com,
-	hannes@cmpxchg.org,
-	hpa@zytor.com,
-	jackmanb@google.com,
-	jarkko@kernel.org,
-	jgg@ziepe.ca,
-	jgross@suse.com,
-	justinstitt@google.com,
-	kasan-dev@googlegroups.com,
-	kbusch@kernel.org,
-	kevin.tian@intel.com,
-	kvm@vger.kernel.org,
-	linux-integrity@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-nvme@lists.infradead.org,
-	llvm@lists.linux.dev,
-	masahiroy@kernel.org,
-	mathieu.desnoyers@efficios.com,
-	mhocko@suse.com,
-	mingo@redhat.com,
-	morbo@google.com,
-	nathan@kernel.org,
-	nick.desaulniers+lkml@gmail.com,
-	nicolas.schier@linux.dev,
-	paulmck@kernel.org,
-	peterhuewe@gmx.de,
-	peterz@infradead.org,
-	sagi@grimberg.me,
-	shameerali.kolothum.thodi@huawei.com,
-	surenb@google.com,
-	tglx@linutronix.de,
-	torvalds@linux-foundation.org,
-	vbabka@suse.cz,
-	virtualization@lists.linux.dev,
-	wentao@uniontech.com,
-	x86@kernel.org,
-	xen-devel@lists.xenproject.org,
-	yishaih@nvidia.com,
-	ziy@nvidia.com
-Subject: Re: [PATCH RFC v3 0/8] kernel-hacking: introduce CONFIG_NO_AUTO_INLINE
-Date: Tue,  6 May 2025 10:30:53 +0800
-Message-ID: <AB2D78307A5FD403+20250506023053.541751-1-chenlinxuan@uniontech.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250429123504.GA13093@lst.de>
-References: <20250429123504.GA13093@lst.de>
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 17737050764760768362
+X-Forwarded-Encrypted: i=1; AJvYcCUGXp1kBSkowvVxMJblx8erT58a8VX6M1MkWy+OEjoEi4Gel8nF2tKgs72C0MfkOXD9YWY4zwcr6/s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzebVtWAqvEUuTSIXBPIwaN+Hor+QOmLgd2pj8IHXdLZqgaJrQo
+	AEp/wVU3qM0TZmbPzcN+tGyAtX/09yeKP+lG7saWO4QmnFDS626NmRJojwUgLltDzSAIXSjc+wM
+	0yI1PAC08mBvQMuBIbrGNGKicwi4=
+X-Google-Smtp-Source: AGHT+IFgFFlMacdloLtgDC8BYlif3b1M5uLk0pWcJg25Fujp9vccWuhfsfXobAggGBnTnNta+8cIxYeCcW4lzf1hqZQ=
+X-Received: by 2002:a05:6902:1ac5:b0:e6d:f3ca:3e15 with SMTP id
+ 3f1490d57ef6-e75c08b698bmr1960395276.3.1746499270786; Mon, 05 May 2025
+ 19:41:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250429-noautoinline-v3-0-4c49f28ea5b5@uniontech.com>
+ <20250429123504.GA13093@lst.de> <D9KW1QQR88EY.2TOSTVYZZH5KN@google.com>
+ <20250501150229.GU4439@noisy.programming.kicks-ass.net> <D9KXE2YX8R2M.3L7Q6NVIXKPE9@google.com>
+ <08163d8b-4056-4b84-82a1-3dd553ee6468@acm.org>
+In-Reply-To: <08163d8b-4056-4b84-82a1-3dd553ee6468@acm.org>
+From: Chen Linxuan <chenlinxuan@uniontech.com>
+Date: Tue, 6 May 2025 10:40:59 +0800
+X-Gmail-Original-Message-ID: <973B455678FC1BDD+CAC1kPDM2pUEwFRiUZFHKq_7sYpjARkFczJnp_FRu+r9-xYdgKg@mail.gmail.com>
+X-Gm-Features: ATxdqUHhA0M6lhr1xavQzClQ8qzartLkG1qHh9aYbVlX-6LFgZ39KxjHPoTQnkI
+Message-ID: <CAC1kPDM2pUEwFRiUZFHKq_7sYpjARkFczJnp_FRu+r9-xYdgKg@mail.gmail.com>
+Subject: Re: [PATCH RFC v3 0/8] kernel-hacking: introduce CONFIG_NO_AUTO_INLINE
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Brendan Jackman <jackmanb@google.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Christoph Hellwig <hch@lst.de>, chenlinxuan@uniontech.com, Keith Busch <kbusch@kernel.org>, 
+	Jens Axboe <axboe@kernel.dk>, Sagi Grimberg <sagi@grimberg.me>, 
+	Andrew Morton <akpm@linux-foundation.org>, Yishai Hadas <yishaih@nvidia.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>, 
+	Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex.williamson@redhat.com>, 
+	Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nicolas Schier <nicolas.schier@linux.dev>, 
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Vlastimil Babka <vbabka@suse.cz>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
+	Boqun Feng <boqun.feng@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Juergen Gross <jgross@suse.com>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, linux-nvme@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
+	virtualization@lists.linux.dev, linux-integrity@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
+	Winston Wen <wentao@uniontech.com>, kasan-dev@googlegroups.com, 
+	xen-devel@lists.xenproject.org, Changbin Du <changbin.du@intel.com>, 
+	Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5a-1
-X-QQ-XMAILINFO: MIXayioyWBZjdXIIg9vqEFEP1rndaeDbBxgcX+6TdOBY4fgPWBVGCH7p
-	2JsHdKJTuNk6u8AM4q4ieHCa2JqpFTHWwRRL4JiA/mhRy6XEomq0Rcxy/vNg3zyQ8FVuKLk
-	8u8FKj8M5lKtxCc/AqTb4cgg61ofZ0b0vrixlYN4JBF1kCxPgn8qobIDmHUgdW9IFOYw1+N
-	NzCrUuumdTal59UvJXIVIFoyfA9UBsYY3QApHJufslFjIYbt35eMNpV5rvVKf1I/YYKCDNC
-	P9yTyAZep/MN4DPY0aYU4VKEhzq4hfUEtrTG+yS8IFi8cu4WnxADpZzlhEfh6sgIPFr9D/5
-	LAjp9zJsR/w/WJBlV0/AeccvTg2ivMv8/8ld0KRxxvkD56dIxmj6YXZNshVuONjuE0nJjBO
-	/ZkGZ6luDwhjEO+vkDN/jlP28nAAeQhf+qskcK1/Y9pNoGKLQM3DBAIcozpo04ivN/6cYTB
-	mj2nrsDyaK1C+tCjVrjTPZFIfhssizrE/gf8iGN1F7O/hmuxJwA/dK3NI1t8SeRqO7lQz4L
-	B4hzjQne+6C9oeYpkB+VOOK9PsOSswtEhn02iTK5I9PQ+Ycv7ivq6ZY5n6oWMcqKlxPN7BO
-	H5JnZY5xmDNSQq3b5Wuosg7tUvfTmTgSSX4FEIzlh0XnGAcc9uh0LsxhMPWJEoyR1zYtXT8
-	wYAyFsEm6cQkmgHkhA1RIcJKVmauWeY1Ior96a9f1buQZB8VVfJt+WJbMtDmDfETYG5hNrJ
-	v32eTkTlFFTYKKE7IcWnK/aaTY4CI/qOHh5uVSzxCPgXjhOLX3h3MBL7nZPgOYEiV7v/m1b
-	LeNwKkEEMf/YAs1XwZqw6xD/OrRuB9gCzaDRun3T8Eq2tb0DK8XA3tPUX/869R/Ki7azM8P
-	ztB3y+QhyBBY/ymt6WbrLX+aRWFcGEL38eFBGQtoKi2UIVz7HU4hJjuodhguJq7uPcST0KO
-	L2QyrEpCbzrrs0aGqC9GCbTWQp+Bzf9NeEGo3iubNJE93+fc0YEPkQoz3WNGg0lh7Q8ZEbe
-	a4N/7YW8KVwYAvMNJi3geZoASlc1w=
+X-QQ-XMAILINFO: OH9BrnvZTfElGrk0Q+UcGL13NtIpBrfmPUi86ZY2KkfllqNFAYDgaUPV
+	VZvCUUzOCij0nuQiYaPOgDiTD4unvG1IRatUdaoxL77lni/qTmQdoy/ziJTVvwQPRQCLSP+
+	UWVPnBF3hxTykpaxkHQISpwNN5S4GTx8C/HvRPede4zDvdp40TBIg9pfQMQDoNOJQaYGIGu
+	o9mbDBzIuiIVI/VXuY5xd+RH1iuWNUdibI0sAQh3as12Ue27r7JgCFBDeshb4L9pURKODNv
+	OtK0AzvBPtoq/JyPjHBU9zjdJKALP6GXt7xfiueG03xs50BR8Mexq7F0rLNHMqmmW3z4mRS
+	xLlB73rspaiZBp6Tj4IBXyG001C90qyMj43tdJlq/2W9VWzO1EeH0s27fOaVqibkhcVxgry
+	o5v3McDa3EBRjZ7QJhHKbKpoa/0wCBvSKT1bs791DWg/NFzS6Hu32t8/a4kcIzArmC4NN5M
+	pAxdaq2aOqOYn2JPEEMs67SsMKjaOeO2x821QgQ+UFr6I8pYG1fXU513x+NwPf0oqk2xXlx
+	y+VhTq58W6Bv/QMwdP0F4yvqsfy/uyIU/ILOfYLMkxD91IDUU71/vdf6NKwinH1ek0sKbd6
+	Z7HfMdFfLfrcl+l1gEKLMT5cUuB5urXgAg6sg5YqL68P5qa45mSB3REQ9p9lJrLQWFbrY/U
+	tLQeqwpgzyDyszI+BvZvMAxbZAM1XPwxuVAfp21i1gnnp34nH9fFfMTldYimu6rH3ThdHkQ
+	XFYC3jMDZb2a92TDn+bS8pW9xPAnUBRpwJGrJAFW0cS0a1ZJccTWlybYMDCK6kWzyIs/5SF
+	sZHWdHNl3DB2TLuEkAXXWRFN4JYxaCxpCfjGBnJ9EYBEU2qbS8XoK1y3ZW3Ow6FUZgUy4PU
+	UoDVD2kRdiJ0cYSKho3png0ZnlCZmPKM0QL76MibOc2eJ+9wF6wn4KJxIDtQfI0Hif+TTB4
+	kukqkk3URjYZqLHuZSAznNm1UHfwaudBIVl+BTnrwV0di1n8e6Z1Sx7VKy+XuNUBceE+R0A
+	X20OZ1qxKLut4syR/+OtozPCutGkj413SvYNnA8kOzU/VdUY3P
 X-QQ-XMRINFO: NyFYKkN4Ny6FSmKK/uo/jdU=
 X-QQ-RECHKSPAM: 0
 
-On Tue, 29 Apr 2025 14:35:04 +0200 Christoph Hellwig wrote:
+On Sun, May 4, 2025 at 3:14=E2=80=AFAM Bart Van Assche <bvanassche@acm.org>=
+ wrote:
 
-> On Tue, Apr 29, 2025 at 12:06:04PM +0800, Chen Linxuan via B4 Relay wrote:
->
-> > This series introduces a new kernel configuration option NO_AUTO_INLINE,
-> > which can be used to disable the automatic inlining of functions.
-> >
-> > This will allow the function tracer to trace more functions
-> > because it only traces functions that the compiler has not inlined.
->
-> This still feels like a bad idea because it is extremely fragile.
+> If this is for test builds only, has it been consider to add
+> -fno-inline-functions as a local change in the top-level Makefile?
 
-I'm not entirely sure if we're on the same page regarding this issue.
-However, I'd like to address the concerns about the fragility of NO_AUTO_INLINE.
-
-Maintaining NO_AUTO_INLINE to function correctly is indeed challenging,
-and I share some reservations about whether it should exist as a Kbuild option,
-which is precisely why this patch series is submitted as an RFC.
-I cannot even guarantee that I've addressed all existing issues in the current
-kernel repository with this patch series, as testing all possible compilation
-configurations is beyond my capabilities.
-
-Looking at the functions where I've added __always_inline in this patch series,
-nearly all of them require inlining specifically because their calls need to be
-resolved at compile time.
-
-The fundamental source of this fragility stems from the fact that compiler
-auto-inlining decisions aren't well-defined. If these functions were to change
-in the future for unrelated reasons - for example, if they became longer - and
-the compiler consequently decided not to automatically inline them, these same
-issues would surface regardless.
+The issue here is that the current kernel cannot be compiled when
+these compiler options that reduce inlining behavior are added.
 
