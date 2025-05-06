@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F75CAACB79
-	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 18:49:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.977606.1364565 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31B11AACB81
+	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 18:52:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.977617.1364575 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCLU8-0003IB-Ml; Tue, 06 May 2025 16:49:36 +0000
+	id 1uCLWR-0005AY-1D; Tue, 06 May 2025 16:51:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 977606.1364565; Tue, 06 May 2025 16:49:36 +0000
+Received: by outflank-mailman (output) from mailman id 977617.1364575; Tue, 06 May 2025 16:51:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCLU8-0003Fo-Jv; Tue, 06 May 2025 16:49:36 +0000
-Received: by outflank-mailman (input) for mailman id 977606;
- Tue, 06 May 2025 16:49:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uCLWQ-00058K-Ur; Tue, 06 May 2025 16:51:58 +0000
+Received: by outflank-mailman (input) for mailman id 977617;
+ Tue, 06 May 2025 16:51:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sZVp=XW=bounce.vates.tech=bounce-md_30504962.681a3d8c.v1-27e1172defaa4476915b7f165b02826a@srs-se1.protection.inumbo.net>)
- id 1uCLU7-0003Fi-3T
- for xen-devel@lists.xenproject.org; Tue, 06 May 2025 16:49:35 +0000
-Received: from mail137-14.atl71.mandrillapp.com
- (mail137-14.atl71.mandrillapp.com [198.2.137.14])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ce942c7-2a9a-11f0-9ffb-bf95429c2676;
- Tue, 06 May 2025 18:49:25 +0200 (CEST)
-Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail137-14.atl71.mandrillapp.com (Mailchimp) with ESMTP id
- 4ZsPW01ZkHz705qnc
- for <xen-devel@lists.xenproject.org>; Tue,  6 May 2025 16:49:16 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 27e1172defaa4476915b7f165b02826a; Tue, 06 May 2025 16:49:16 +0000
+ <SRS0=/GUx=XW=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uCLWP-00058E-Fy
+ for xen-devel@lists.xenproject.org; Tue, 06 May 2025 16:51:57 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6b5ab168-2a9a-11f0-9eb4-5ba50f476ded;
+ Tue, 06 May 2025 18:51:56 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-ac2963dc379so858793266b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 09:51:56 -0700 (PDT)
+Received: from fedora.. (user-109-243-69-225.play-internet.pl.
+ [109.243.69.225]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad1891a3cb9sm740295366b.60.2025.05.06.09.51.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 May 2025 09:51:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,233 +45,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ce942c7-2a9a-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1746550156; x=1746820156;
-	bh=94gLD2TU1RziIJLzd2SkFBfyeSw38UC4+1m8vKkod+s=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=gvSxgsxmUAqSdu50SPG1dOvguybcl5hcgVq5Y8yiKHe1JeZyaoTqKqD2kjAHBp52L
-	 Six+6R1WAbTl2PDPDepXgDcIhN6urQctIPtQaxfXrqLq0xZTrzigEdElgWCQm4hLIJ
-	 vr9scK2cWjK9QpV5b6Gp39M3DhwhViYS2fIaxIvQJZBrQPNU4PJmU3OHFtWkxdvGzM
-	 E9P+xgsUQ7sxNhECxFCJ14w0T+8LO9cysXA5ra74hthgHkFTiCuu4rcoNTvH5i3duu
-	 Zbtwrmr/UiGoMtvalIX9MIrcgSdKD1m5O/Y2HHV8IbDzwrrjG/TTSwJNmHYSset8gH
-	 NAZ0FnDVB98uw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1746550156; x=1746810656; i=teddy.astie@vates.tech;
-	bh=94gLD2TU1RziIJLzd2SkFBfyeSw38UC4+1m8vKkod+s=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=p423RydLrFi3K7uY16uxnU0iJW7Vwn9W5YSNQjUV1QFbAebofG9xXhunvx13zAbxL
-	 sdL97jbcVTP/Z4HTWqPfslvT7AkFH8QvwLUBxap/7Hlwju/TbO10QlMDmynPoLoWJF
-	 DBEuHFNKcqVL9SbDMCYs/8zYYSss0HoCY4eUBz5qjT0RfdM/jaywtA49rvDUSW3uSQ
-	 /vbkQpcclssiVSDEypomd1X2pimv/nWMWOoZyHQONPCj/lV98YYFI0Ibrcz8CRXvyK
-	 4BLR+JgNMuZJj+jJYyMtLm1bSPmYbORVxgdSxHSK58ssNsnm3fMkGRIAc56Nl7CotD
-	 iUmdKHV+N6XgA==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=203/4]=20Add=20lockdown=20mode?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1746550154364
-Message-Id: <c853b996-76ea-405c-aee0-b4a26dc149fa@vates.tech>
-To: "Kevin Lampis" <kevin.lampis@cloud.com>, xen-devel@lists.xenproject.org
-Cc: "Ross Lagerwall" <ross.lagerwall@citrix.com>
-References: <20250506162510.1676425-1-kevin.lampis@cloud.com>
-In-Reply-To: <20250506162510.1676425-1-kevin.lampis@cloud.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.27e1172defaa4476915b7f165b02826a?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250506:md
-Date: Tue, 06 May 2025 16:49:16 +0000
+X-Inumbo-ID: 6b5ab168-2a9a-11f0-9eb4-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1746550315; x=1747155115; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=V/RLhiHCsiN1AHTlwEL0kP9rTdEVLgajlHgh0IyFuAo=;
+        b=AupZZSeNRKWmo91Fh48hCCyuUJQbsxjbPWx60qlx4y5HnOpKjegJIYjvOqKiyYlMVs
+         T5IvMFAo1VJMwympA9TgecH3c7Mh8iW+IejjDKwAWGjgz/+P+x3OJNwxhARmySCkLD4z
+         gRujVabPyPwCChfyDSWAA7fMSFPRoaI2+YaRDx7k07mil6BQyhE0IspxL6TKD3+TQ2O/
+         SNGcghs7jl49V2KIHmM2CTg9m1zbs+qYhelW/EG0WPQXPFqilVbb+ezpC7rXPaswDL1g
+         MbkkflO/lxOtmqdOUwezCyZ1ARVdermqDMpJeXlQnaaxgNWm+s7P3B6wh60ake0fd0Wl
+         f7PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746550315; x=1747155115;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=V/RLhiHCsiN1AHTlwEL0kP9rTdEVLgajlHgh0IyFuAo=;
+        b=qsfKgf87FPdL/pVK9rGgPNyUaFet+CCgo9k+T/e9SR5K1eXEEMzNJ+Bb9B2sa9Z5d9
+         HGeHB7xHqJtJR5qtEDlvfUviKrQDn0ONQXdNDS7g0SObgxdl9gwQbeD02JkmqZV5eAqR
+         dFtUAKwi4XkgayAtLEFesat4I2oAoXg3lZJE7chm3qlxHX/BbWQiEtsbLh14BCM92J2O
+         x8pJE7JD+ImUkfDuHu9OBw7q/4IlN9f2jL3fNvU22jFAEaPy89bWWIdV0M+XxJnDji3h
+         C7ssTZDgoWRMq2Xzj+HtIhJcqd2KeMZ2ElC0HV0pOynVkUPFHK7EGf9htZdmB2drgCHZ
+         kQGQ==
+X-Gm-Message-State: AOJu0YwzQya1TcHaYGuNG7yqyLXPheiMCIIRbS0ZcsistsBSWLRhvzQp
+	b/GLAi0S12IAMK8jbkGL35nw8y/GGrSaG/BoG9KwHuchB3Q8i4W4bpu3Qg==
+X-Gm-Gg: ASbGncv3WhRUtB80uSFSLNPY8lwqvsTgCXAOEII6JKDW9aZvy30N6jLFSxjLIbMRVLq
+	IGfGG0khyZPagzYShu5mVR3FQ0Suz3biJWnXYdkxswnyRh7NkXlbIsqXO3omPpZFF//3IhF8sQZ
+	imHSzqBWg4Ffm6GT2FWyG4Kb+CSapnXf6t8crB5z9y6zEWsl249yehxH5tZfRoncPjow7QQdn1j
+	haQsc9nOSPE6ekpggKEBU7KDn518y72zWwqo1+sbLOWVWnxEDUy2aG0QAMHVB30dqpfxn2f4lxT
+	lWkGdejay0wEyeQ4ZzodUiMHjDG/KZpLIERME82Jzg0b+lMo46dlLTPuyVA42zUouUHWc6WLzka
+	4A+TxCmQWKw==
+X-Google-Smtp-Source: AGHT+IHiXwKwTWVak5d5rizsrbufwwxhei23r2nUtb12UZhI0brzCDQ3SRr8xWA5EfqmoUcZsUY5eg==
+X-Received: by 2002:a17:907:7fa7:b0:ac2:88d5:770b with SMTP id a640c23a62f3a-ad1e8c91ed4mr22334466b.25.1746550314962;
+        Tue, 06 May 2025 09:51:54 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2 00/16] riscv: introduce basic UART support and interrupts for hypervisor mode
+Date: Tue,  6 May 2025 18:51:30 +0200
+Message-ID: <cover.1746530883.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello Kevin,
+The patch series introduces basic UART support (in interrupt mode) and support of
+interrupts for hypervisor mode.
 
-Le 06/05/2025 =C3=A0 18:32, Kevin Lampis a =C3=A9crit=C2=A0:
-> The intention of lockdown mode is to prevent attacks from a rogue dom0
-> userspace from compromising the system. Lockdown mode can be controlled b=
-y a
-> Kconfig option and a command-line parameter.
+To implement this the following has been added:
+- APLIC and IMISC initialization.
+- Introduce of intc_hw_operations abstraction.
+- Introduce some APLIC and IMSIC operations.
+- Introduce init_IRQ(), platform_get_irq() and setup_irq() functions.
+- Update do_trap() handler to handle IRQ_S_EXT.
+- Introduce some other functions such as: get_s_time(), smp_clear_cpu_maps(),
+  ioremap().
+- Enable UART. 
 
-What is the effective effect of such mode ? How does it protect the 
-hypervisor from Dom0 ?
-(I can't find the PATCH 4/4 which seems to give a explanation)
+CI tests: https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/1802596163
 
-  It is also enabled automatically
-> when Secure Boot is enabled and it cannot be disabled in that case.
-> 
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
-> ---
->   xen/arch/x86/setup.c       |  1 +
->   xen/common/Kconfig         |  8 ++++++
->   xen/common/Makefile        |  1 +
->   xen/common/kernel.c        |  3 +++
->   xen/common/lockdown.c      | 52 ++++++++++++++++++++++++++++++++++++++
->   xen/include/xen/lockdown.h |  9 +++++++
->   6 files changed, 74 insertions(+)
->   create mode 100644 xen/common/lockdown.c
->   create mode 100644 xen/include/xen/lockdown.h
-> 
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index 2518954124..276957c4ed 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -15,6 +15,7 @@
->   #include <xen/kexec.h>
->   #include <xen/keyhandler.h>
->   #include <xen/lib.h>
-> +#include <xen/lockdown.h>
->   #include <xen/multiboot.h>
->   #include <xen/nodemask.h>
->   #include <xen/numa.h>
-> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-> index 4bec78c6f2..63ff37d046 100644
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -596,4 +596,12 @@ config BUDDY_ALLOCATOR_SIZE
->   =09  Amount of memory reserved for the buddy allocator to serve Xen hea=
-p,
->   =09  working alongside the colored one.
->   
-> +config LOCKDOWN_DEFAULT
-> +=09bool "Enable lockdown mode by default"
-> +=09default n
-> +=09help
-> +=09  Lockdown mode prevents attacks from a rogue dom0 userspace from
-> +=09  compromising the system. This is automatically enabled when Secure
-> +=09  Boot is enabled.
-> +
->   endmenu
-> diff --git a/xen/common/Makefile b/xen/common/Makefile
-> index 98f0873056..b00a8a925a 100644
-> --- a/xen/common/Makefile
-> +++ b/xen/common/Makefile
-> @@ -26,6 +26,7 @@ obj-$(CONFIG_KEXEC) +=3D kexec.o
->   obj-$(CONFIG_KEXEC) +=3D kimage.o
->   obj-$(CONFIG_LIVEPATCH) +=3D livepatch.o livepatch_elf.o
->   obj-$(CONFIG_LLC_COLORING) +=3D llc-coloring.o
-> +obj-y +=3D lockdown.o
->   obj-$(CONFIG_VM_EVENT) +=3D mem_access.o
->   obj-y +=3D memory.o
->   obj-y +=3D multicall.o
-> diff --git a/xen/common/kernel.c b/xen/common/kernel.c
-> index 8b63ca55f1..6658db9514 100644
-> --- a/xen/common/kernel.c
-> +++ b/xen/common/kernel.c
-> @@ -216,6 +216,9 @@ static void __init _cmdline_parse(const char *cmdline=
-)
->    */
->   void __init cmdline_parse(const char *cmdline)
->   {
-> +    /* Call this early since it affects command-line parsing */
-> +    lockdown_init(cmdline);
-> +
->       if ( opt_builtin_cmdline[0] )
->       {
->           printk("Built-in command line: %s\n", opt_builtin_cmdline);
-> diff --git a/xen/common/lockdown.c b/xen/common/lockdown.c
-> new file mode 100644
-> index 0000000000..935911dfd0
-> --- /dev/null
-> +++ b/xen/common/lockdown.c
-> @@ -0,0 +1,52 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +#include <xen/efi.h>
-> +#include <xen/kernel.h>
-> +#include <xen/lockdown.h>
-> +#include <xen/param.h>
-> +#include <xen/string.h>
-> +
-> +static bool __ro_after_init lockdown =3D IS_ENABLED(CONFIG_LOCKDOWN_DEFA=
-ULT);
-> +ignore_param("lockdown");
-> +
-> +bool is_locked_down(void)
-> +{
-> +    return lockdown;
-> +}
-> +
-> +void __init lockdown_init(const char *cmdline)
-> +{
-> +    if ( efi_secure_boot )
-> +    {
-> +        printk("Enabling lockdown mode because Secure Boot is enabled\n"=
-);
-> +        lockdown =3D true;
-> +    }
-> +    else
-> +    {
-> +        while ( *cmdline )
-> +        {
-> +            size_t param_len, name_len;
-> +            int ret;
-> +
-> +            cmdline +=3D strspn(cmdline, " \n\r\t");
-> +            param_len =3D strcspn(cmdline, " \n\r\t");
-> +            name_len =3D strcspn(cmdline, "=3D \n\r\t");
-> +
-> +            if ( !strncmp(cmdline, "lockdown", max(name_len, strlen("loc=
-kdown"))) ||
-> +                 !strncmp(cmdline, "no-lockdown", max(name_len, strlen("=
-no-lockdown"))) )
-> +            {
-> +                ret =3D parse_boolean("lockdown", cmdline, cmdline + par=
-am_len);
-> +                if ( ret >=3D 0 )
-> +                {
-> +                    lockdown =3D ret;
-> +                    printk("Lockdown mode set from command-line\n");
-> +                    break;
-> +                }
-> +            }
-> +
-> +            cmdline +=3D param_len;
-> +        }
-> +    }
-> +
-> +    printk("Lockdown mode is %s\n", lockdown ? "enabled" : "disabled");
-> +}
+---
+Changes in v2:
+- Split patch [PATCH v1 07/14] xen/riscv: Introduce intc_hw_operations abstraction
+  into two:
+  - xen/riscv: introduce register_intc_ops() and intc_hw_ops
+  - xen/riscv: introduce intc_init() and helpers
+  It was needed to be able to merge [PATCH v1 13/14] xen/riscv: initialize interrupt controller
+  into the patch where intc_init() is introduced.
+- Merge  [PATCH v1 13/14] xen/riscv: initialize interrupt controller to
+  xen/riscv: introduce intc_init() and helpers.
+- xen/riscv: implement get_s_time() has been merged to staging.
+- All other changes please look in specific patch.
+---
 
-With
-> Kevin Lampis (1):
->   Disallow most command-line options when lockdown mode is enabled
+Oleksii Kurochko (16):
+  xen/riscv: initialize bitmap to zero in
+    riscv_fill_hwcap_from_isa_string()
+  xen/riscv: introduce smp_prepare_boot_cpu()
+  xen/riscv: introduce support of Svpbmt extension
+  xen/riscv: add ioremap_*() variants using ioremap_attr()
+  xen/asm-generic: introduce asm-generic/irq-dt.h
+  xen/riscv: introduce init_IRQ()
+  xen/riscv: introduce platform_get_irq()
+  xen/riscv: dt_processor_cpuid() implementation
+  xen/riscv: introduce register_intc_ops() and intc_hw_ops.
+  xen/riscv: imsic_init() implementation
+  xen/riscv: aplic_init() implementation
+  xen/riscv: introduce intc_init() and helpers
+  xen/riscv: implementation of aplic and imsic operations
+  xen/riscv: add external interrupt handling for hypervisor mode
+  xen/riscv: implement setup_irq()
+  xen/riscv: add basic UART support
 
-I am not convinced of the efficiency of being able to toggle lockdown 
-(including disabling it) mode from command-line. In case the userland 
-can hijack the cmdline, I can't see what would prevent it from setting 
-no-lockdown, which will disable the lockdown mode (also overriding 
-CONFIG_LOCKDOWN_DEFAULT).
+ automation/scripts/qemu-smoke-riscv64.sh |   1 +
+ docs/misc/riscv/booting.txt              |   4 +
+ xen/arch/arm/include/asm/Makefile        |   1 +
+ xen/arch/arm/include/asm/irq.h           |  15 +-
+ xen/arch/riscv/Kconfig                   |  15 +
+ xen/arch/riscv/Makefile                  |   3 +
+ xen/arch/riscv/aplic-priv.h              |  38 +++
+ xen/arch/riscv/aplic.c                   | 309 ++++++++++++++++++
+ xen/arch/riscv/cpufeature.c              |   4 +
+ xen/arch/riscv/imsic.c                   | 390 +++++++++++++++++++++++
+ xen/arch/riscv/include/asm/Makefile      |   1 +
+ xen/arch/riscv/include/asm/aplic.h       |  73 +++++
+ xen/arch/riscv/include/asm/cpufeature.h  |   1 +
+ xen/arch/riscv/include/asm/fixmap.h      |   2 +-
+ xen/arch/riscv/include/asm/imsic.h       |  84 +++++
+ xen/arch/riscv/include/asm/intc.h        |  34 ++
+ xen/arch/riscv/include/asm/io.h          |  11 +-
+ xen/arch/riscv/include/asm/irq.h         |  16 +
+ xen/arch/riscv/include/asm/mm-types.h    |   8 +
+ xen/arch/riscv/include/asm/page.h        |  17 +-
+ xen/arch/riscv/include/asm/smp.h         |   3 +
+ xen/arch/riscv/intc.c                    |  59 ++++
+ xen/arch/riscv/irq.c                     | 218 +++++++++++++
+ xen/arch/riscv/mm.c                      |  34 ++
+ xen/arch/riscv/pt.c                      |  20 +-
+ xen/arch/riscv/setup.c                   |  22 +-
+ xen/arch/riscv/smpboot.c                 |  78 +++++
+ xen/arch/riscv/stubs.c                   |  11 -
+ xen/arch/riscv/traps.c                   |  19 ++
+ xen/arch/riscv/xen.lds.S                 |   2 +
+ xen/drivers/char/Kconfig                 |   3 +-
+ xen/include/asm-generic/irq-dt.h         |  21 ++
+ 32 files changed, 1470 insertions(+), 47 deletions(-)
+ create mode 100644 xen/arch/riscv/aplic-priv.h
+ create mode 100644 xen/arch/riscv/imsic.c
+ create mode 100644 xen/arch/riscv/include/asm/aplic.h
+ create mode 100644 xen/arch/riscv/include/asm/imsic.h
+ create mode 100644 xen/arch/riscv/include/asm/mm-types.h
+ create mode 100644 xen/arch/riscv/irq.c
+ create mode 100644 xen/arch/riscv/smpboot.c
+ create mode 100644 xen/include/asm-generic/irq-dt.h
 
-> diff --git a/xen/include/xen/lockdown.h b/xen/include/xen/lockdown.h
-> new file mode 100644
-> index 0000000000..b2baa31caa
-> --- /dev/null
-> +++ b/xen/include/xen/lockdown.h
-> @@ -0,0 +1,9 @@
-> +#ifndef XEN__LOCKDOWN_H
-> +#define XEN__LOCKDOWN_H
-> +
-> +#include <xen/types.h>
-> +
-> +bool is_locked_down(void);
-> +void lockdown_init(const char *cmdline);
-> +
-> +#endif /* XEN__LOCKDOWN_H */
-
-Teddy
-
-
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+-- 
+2.49.0
 
 
