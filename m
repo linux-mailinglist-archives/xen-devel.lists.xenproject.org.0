@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 274ADAAC795
-	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 16:14:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.977380.1364395 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1F41AAC7D6
+	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 16:25:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.977393.1364407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCJ45-0004vX-Uk; Tue, 06 May 2025 14:14:33 +0000
+	id 1uCJDt-00071I-S5; Tue, 06 May 2025 14:24:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 977380.1364395; Tue, 06 May 2025 14:14:33 +0000
+Received: by outflank-mailman (output) from mailman id 977393.1364407; Tue, 06 May 2025 14:24:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCJ45-0004sw-S6; Tue, 06 May 2025 14:14:33 +0000
-Received: by outflank-mailman (input) for mailman id 977380;
- Tue, 06 May 2025 14:14:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uCJDt-0006yA-P7; Tue, 06 May 2025 14:24:41 +0000
+Received: by outflank-mailman (input) for mailman id 977393;
+ Tue, 06 May 2025 14:24:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vx1h=XW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uCJ44-0004sq-HY
- for xen-devel@lists.xenproject.org; Tue, 06 May 2025 14:14:32 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6dfa8867-2a84-11f0-9eb4-5ba50f476ded;
- Tue, 06 May 2025 16:14:31 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-43d04ea9d9aso26215205e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 07:14:31 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-441b2ad78f6sm218721635e9.2.2025.05.06.07.14.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 May 2025 07:14:31 -0700 (PDT)
+ <SRS0=lund=XW=flex--seanjc.bounces.google.com=3oBsaaAYKCYc3plyunrzzrwp.nzx8py-op6pwwt343.8py02zupn4.z2r@srs-se1.protection.inumbo.net>)
+ id 1uCJDr-0006y4-SR
+ for xen-devel@lists.xenproject.org; Tue, 06 May 2025 14:24:39 +0000
+Received: from mail-pg1-x549.google.com (mail-pg1-x549.google.com
+ [2607:f8b0:4864:20::549])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d4c9c7db-2a85-11f0-9ffb-bf95429c2676;
+ Tue, 06 May 2025 16:24:34 +0200 (CEST)
+Received: by mail-pg1-x549.google.com with SMTP id
+ 41be03b00d2f7-af2f03fcc95so5676845a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 07:24:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,118 +40,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6dfa8867-2a84-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: d4c9c7db-2a85-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746540871; x=1747145671; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=OZz4YrC1KS2SabAnChJUkqQGGPUK/TePs3MU2l5rXRM=;
-        b=bv3QbVoBIY82aPqulHki7N50vEF+XIbkl4rQmZ34e2aiFsHaMnx7wi7+htovnu2CyV
-         lGCjAtG0SG7TNbsB7Bcp0evLX9gQ/Rm7/yqEXcs822r9rQsWLxropXOKjsz95t3dcHgo
-         9O97r/HK8EdqaecxQqbhGFYB8jVZHx8U3nNbg=
+        d=google.com; s=20230601; t=1746541473; x=1747146273; darn=lists.xenproject.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=GvQ0P+wUKfaLn/ATwLSuvFKy87onNqdIa1sjwEnWlHA=;
+        b=W97w3FdelJF9qHAJtJOy3dE8dui9QHrhWYFE+QtCSymT17lNJsmIoEtfbUklnflV2g
+         OYKdiMk/zSyH3NYvDSp8fBhrI+y1os9ioPBbje+uDCNxfMvqYMYWlFA2bv6kB7kaO/a1
+         UFQKGvaaqrcuF0IXCG5/QcU5yFQw3Fo8M1QrF/YzIAnQSWtyKmRsqn/IAiaQglvEZbmw
+         UP3kdWN4EEe3AY9947up8mlVgXjfZPye7aNKaVbdKHpbTn9rQIZfjggl74xnhQW6zYpz
+         lgyDlSsvprgcnoizlj0ty1DfUAI5SxQjFEkorakRJzWQmnusclOPCRV/H9gEhwP8EgaR
+         1xLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746540871; x=1747145671;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OZz4YrC1KS2SabAnChJUkqQGGPUK/TePs3MU2l5rXRM=;
-        b=EfDyZp+b2tRFJGGtOZ8lpuSuj3RuCRXG14vvC0NCdjQtNoQ86yhf0LDjdIMMO5SZN8
-         BY3L1W6aJpKo376/S0jiTTVPPjREYf1R+gez77S6TYpQH5gjgVxhb4Pqyv4oMXV2sMIz
-         6sR0zN2G9Fd6WqwKZEslJOjrVgk7UlqyzOGGqEE/EvNDNL0dk52doJUd/uhzXgm0B6F/
-         WDSGcUOuvvwdr4rXc49kQfBeu2C7vUdSZnf2PCr6o85u9P8X6wX/VY9Kdfw+VBh2dCW+
-         lOCbfLfmvG4S/6QJOX+sh2wLSIadpaMx/avJfoweNCKJswX7a3OfYJpZztFh8WHo3ubI
-         v0bg==
-X-Gm-Message-State: AOJu0YxgNYgyF7t/4zBoKlhr8Gw2cqHYozEFqX1pKfCSuzWrA3neg5Rc
-	rbPIqv2YEvJ77V3IOuIc5UVeIC4eFMp9Mv3KHRHSZygoiIEnJm0hANUyfQVj83s=
-X-Gm-Gg: ASbGncsbUSIiiepDOF3z9KaC0q4/2tcAf+kHZtgNeB8Z0vpVoDIX6WkH9HU4D5nSkVI
-	HwxHcFNp9quWJDn8n/ekR3RBPa71m0qBkGPnzPdrq8NP/sE4taQ/daITV/GviGQek+6fa5vQ2mD
-	1dCvXUwyvyjHKukhI1Ir/lNdB1EPrr8stMf4R5xCao+pHRIrSO6Axc+xwryvsY644xfL7SFbvt/
-	R/gWaO+8TJ1JljAlu0vdBst3rC/ETBwxLXCyke29qefnYkTV63I1yu+WAxKRta/w894qvUfcNk+
-	q2UD9+xVm6SLnhbHWGKONSdMNXHjmLUxT1nzVcciHWZv0A==
-X-Google-Smtp-Source: AGHT+IFgIwrgNHbVWIfOS8wlE/K8hEnuiijOz2FqOk4D9ubjD5R9e1uJnQ3MqzPGB+lQKV5DJWgtJA==
-X-Received: by 2002:a05:600c:5010:b0:441:bf4e:89c8 with SMTP id 5b1f17b1804b1-441c48b02e1mr112757135e9.3.1746540871314;
-        Tue, 06 May 2025 07:14:31 -0700 (PDT)
-Date: Tue, 6 May 2025 16:14:30 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>
-Subject: Re: [PATCH v3 04/11] vpci/header: Emulate extended capability list
- for dom0
-Message-ID: <aBoZRicr20a4eCNV@macbook.lan>
-References: <20250421061903.1542652-1-Jiqian.Chen@amd.com>
- <20250421061903.1542652-5-Jiqian.Chen@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250421061903.1542652-5-Jiqian.Chen@amd.com>
+        d=1e100.net; s=20230601; t=1746541473; x=1747146273;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GvQ0P+wUKfaLn/ATwLSuvFKy87onNqdIa1sjwEnWlHA=;
+        b=MVR7Kk57LeVYS+RmBs7QOxYUho6XYfgY0PdJS056KbbinFKyXXhl5qNa+tS7es1M/3
+         j9EKNKUq6XMEYZxF2EaeDRIGXk18KZD7ABN1drrq8qoyVouLpKGAWHLagsS/MCVjimJ4
+         5PJ8O8ur6TS3ncwIj93nprbraLE5xK4SzZo5RrXBVUVgFfZs9SxxtigjQ1fFGBzHgifh
+         tRw+rBugHpTJS/WOw/7Xtx7w9WGzAp4AZKSXngasTWovGmysIArJbF0hNaeGPT3GfZ2Z
+         oorpHJj7aqv9BE87ImeLQdXZcO7tcvpSgLqoMEfYjQ5t24m5ghKey98XOz4RFolWcQNo
+         86dw==
+X-Forwarded-Encrypted: i=1; AJvYcCXn+pOzphPCDkUVJOHT7zEy7ts2ZqgRc0z9JLI7RfJZ6OuFEgGnpw0umgS0cfmjhG9g92JKT3/x4jE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy77/fPhwlqf/FEGpk610q+U+uhCZInYuMlUYG+e8s5tezJyUaq
+	UZh5aSLJN5bCL3EuzFAqac+x12sHw5BJnqSirfkKphjX8J9KNj/3iNNj60jocbJwpq0GqmUrY5u
+	AVA==
+X-Google-Smtp-Source: AGHT+IG+tb6DAqfEkF2OtffXMj0e0GMqYjoEo/yCNWTnFNMEaweQ67wd6DzOO6xB801yCXPJlU9wA/n2y+w=
+X-Received: from pfay24.prod.google.com ([2002:a05:6a00:1818:b0:736:b2a2:5bfe])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:cf42:b0:227:e709:f71
+ with SMTP id d9443c01a7336-22e1ea822aemr186821615ad.29.1746541472989; Tue, 06
+ May 2025 07:24:32 -0700 (PDT)
+Date: Tue, 6 May 2025 07:24:31 -0700
+In-Reply-To: <20250506092015.1849-4-jgross@suse.com>
+Mime-Version: 1.0
+References: <20250506092015.1849-1-jgross@suse.com> <20250506092015.1849-4-jgross@suse.com>
+Message-ID: <aBobn8kaiDVCEqK4@google.com>
+Subject: Re: [PATCH 3/6] x86/msr: minimize usage of native_*() msr access functions
+From: Sean Christopherson <seanjc@google.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, linux-hyperv@vger.kernel.org, 
+	kvm@vger.kernel.org, xin@zytor.com, "K. Y. Srinivasan" <kys@microsoft.com>, 
+	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Dexuan Cui <decui@microsoft.com>, Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"H. Peter Anvin" <hpa@zytor.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Vitaly Kuznetsov <vkuznets@redhat.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Mon, Apr 21, 2025 at 02:18:56PM +0800, Jiqian Chen wrote:
-> Add a new function to emulate extended capability list for dom0,
-> and call it in init_header(). So that it will be easy to hide a
-> extended capability whose initialization fails.
+On Tue, May 06, 2025, Juergen Gross wrote:
+> In order to prepare for some MSR access function reorg work, switch
+> most users of native_{read|write}_msr[_safe]() to the more generic
+> rdmsr*()/wrmsr*() variants.
 > 
-> As for the extended capability list of domU, just move the logic
-> into above function and keep hiding it for domU.
+> For now this will have some intermediate performance impact with
+> paravirtualization configured when running on bare metal, but this
+> is a prereq change for the planned direct inlining of the rdmsr/wrmsr
+> instructions with this configuration.
+
+Oh the horror, KVM's probing of errata will be marginally slower :-)
+
+> The main reason for this switch is the planned move of the MSR trace
+> function invocation from the native_*() functions to the generic
+> rdmsr*()/wrmsr*() variants. Without this switch the users of the
+> native_*() functions would lose the related tracing entries.
 > 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Note that the Xen related MSR access functions will not be switched,
+> as these will be handled after the move of the trace hooks.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 > ---
-> cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> ---
-> v2->v3 changes:
-> * In vpci_init_ext_capability_list(), when domain is domU, directly return after adding a handler(hiding all extended capability for domU).
-> * In vpci_init_ext_capability_list(), change condition to be "while ( pos >= 0x100U && ttl-- )" instead of "while ( pos && ttl-- )".
-> * Add new function vpci_hw_write32, and pass it to extended capability handler for dom0.
-> 
-> v1->v2 changes:
-> new patch
-> 
-> Best regards,
-> Jiqian Chen.
-> ---
->  xen/drivers/vpci/header.c | 36 ++++++++++++++++++++++++++++--------
->  xen/drivers/vpci/vpci.c   |  6 ++++++
->  xen/include/xen/vpci.h    |  2 ++
->  3 files changed, 36 insertions(+), 8 deletions(-)
-> 
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index c98cd211d9d7..ee94ad8e5037 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -817,6 +817,31 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
->                                    PCI_STATUS_RSVDZ_MASK);
->  }
->  
-> +static int vpci_init_ext_capability_list(struct pci_dev *pdev)
-> +{
-> +    unsigned int pos = PCI_CFG_SPACE_SIZE, ttl = 480;
-> +
-> +    if ( !is_hardware_domain(pdev->domain) )
-> +        /* Extended capabilities read as zero, write ignore for guest */
-> +        return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
-> +                                 pos, 4, (void *)0);
-> +
-> +    while ( pos >= PCI_CFG_SPACE_SIZE && ttl-- )
-> +    {
-> +        uint32_t header = pci_conf_read32(pdev->sbdf, pos);
-> +        int rc;
 
-I'm thinking it might be helpful to avoid setting the handler for the
-last capability on the list, or simply for devices that have no
-extended capabilities at all:
-
-if ( PCI_EXT_CAP_NEXT(header) >= PCI_CFG_SPACE_SIZE )
-{
-    int rc = vpci_add_register(pdev->vpci, vpci_read_val, vpci_hw_write32,
-                               pos, 4, (void *)(uintptr_t)header);
-
-    if ( rc )
-        return rc;
-}
-
-Otherwise on systems with a lot of devices it can be quite wasteful to
-set a handler to just return the next capability as 0.
-
-Thanks, Roger.
+Acked-by: Sean Christopherson <seanjc@google.com>
 
