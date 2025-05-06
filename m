@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A97CAACAFA
-	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 18:29:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.977556.1364535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00A41AACB23
+	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 18:37:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.977590.1364556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCLAb-00077G-NJ; Tue, 06 May 2025 16:29:25 +0000
+	id 1uCLID-0001Bi-Kk; Tue, 06 May 2025 16:37:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 977556.1364535; Tue, 06 May 2025 16:29:25 +0000
+Received: by outflank-mailman (output) from mailman id 977590.1364556; Tue, 06 May 2025 16:37:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCLAb-00075U-KA; Tue, 06 May 2025 16:29:25 +0000
-Received: by outflank-mailman (input) for mailman id 977556;
- Tue, 06 May 2025 16:29:24 +0000
+	id 1uCLID-0001A2-H7; Tue, 06 May 2025 16:37:17 +0000
+Received: by outflank-mailman (input) for mailman id 977590;
+ Tue, 06 May 2025 16:37:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vx1h=XW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uCLAa-00075O-M8
- for xen-devel@lists.xenproject.org; Tue, 06 May 2025 16:29:24 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ <SRS0=cniF=XW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uCLIC-00019w-92
+ for xen-devel@lists.xenproject.org; Tue, 06 May 2025 16:37:16 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 447d6efc-2a97-11f0-9ffb-bf95429c2676;
- Tue, 06 May 2025 18:29:22 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-43cf628cb14so228495e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 09:29:22 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-441b2aed5e8sm219314395e9.16.2025.05.06.09.29.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 May 2025 09:29:21 -0700 (PDT)
+ id 5d9b5395-2a98-11f0-9ffb-bf95429c2676;
+ Tue, 06 May 2025 18:37:14 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-39c266c1389so4435241f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 09:37:14 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a0b1ff8453sm1822959f8f.34.2025.05.06.09.37.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 06 May 2025 09:37:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,154 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 447d6efc-2a97-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 5d9b5395-2a98-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746548962; x=1747153762; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=gLEmCeRhHkfWsc5rFKS7lzRxbqkLvJ9nzlxOV4xFa40=;
-        b=uZMO/DNw1XNb+FCnSdXvh0tottZMxb9D4p0bpJ//vqBbYWL2sPZgpLmXdM8Z/dib7T
-         y4SZ/Aca04pByDuMphaVGRajoYSKOkbeQhNNusLWdLxH7r7YQ+lgA/dLI1FLIB4Zb08c
-         RpElBmma4piZd43jLQ8aHDjdf2q5yCGvuCGq8=
+        d=citrix.com; s=google; t=1746549434; x=1747154234; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=iBQnOG6o2JoKa54f3witE8SkuGiquIWiHkM+EA3gCYM=;
+        b=mQ/dM4As+ZkYLjsSiGzp4exvUcth7x76d98pPEtYRTjVUhXaleT+srnRop4AuhGenw
+         eSPLJx6QFC51rT4DhYhD3S7+TD7jmr7oz4kr964/586WFha3+cYjG83ZySQHPkAFOS/j
+         Nrsod1jlCJ+EVnUOa9jDdJeiN+IwRgsZ+VeUo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746548962; x=1747153762;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gLEmCeRhHkfWsc5rFKS7lzRxbqkLvJ9nzlxOV4xFa40=;
-        b=vAaKHzYSnVnyuhYhef4WtmXFta6py98hhGzyv0pDnHb6K+PpWqOTslr22O6K4rmWWs
-         NQ/6P0SCUkKne0ZWmhMLL9ClOciRPSr3e7oC98Wel0CBLPFSPNCak9eYID0ihhJLQee4
-         kgOQkWCpddaSuGMQspwODeihMzdxEXCw0hvpRsBmV853iu7QPQFPxEhbEeP+plc4JR1S
-         l2T5i6KTIDF6wsc0d0RZDYC1o93j4pq3hDQ8QJEJO8eEMQxIuWfQeja/UXVzWDWHlcWI
-         wP3rk2eV8hQN2nwPfBDvK0gPVqhcm8Je+IOh7eY3teUVw3oRxmudSFwgnOL9sG8yTDI8
-         sBtw==
-X-Gm-Message-State: AOJu0YzJvxT/AfmJypEseZcwEcK4CgMOPuiVVX136QwseUlKhYsgldiA
-	7iUyj91qUJwUdIoNnEM5W/3l/QTnObdJjVNjNs8ltxm3EGXC7QBqVslbvr+Yk6M=
-X-Gm-Gg: ASbGncsEiaEWKCfTNv1ogmD8h+yf0vJSbXpgyUuFFZhbAiZXArc0j0XjXAaQGmp3bu3
-	ebnbqVvEcYS5aQVSQQI6nVR9RO1y1hLDrvqdZaVraxJghf95hgqxBKPvYiJD0ED7acvppCNbNDQ
-	6EQPZgQqttMD+sD/xAubGYip5n/tIPQlrIvT2f3xWqq6RjtVM+1ZIS1w5LQE8s2r/pmniEaDJ4c
-	AXU5HmQiK3juB4Ji2Ofx1AeBAEg+sKjLpLy9uG5WPCw1mOi6bTeHJCovGkSHx3NRKm4a5U2IcFl
-	12ZUzr+P5BxC9h8NUA1gPb4uRqhxcJ4dmSNZywgmmcMzF0l4mxNhgiBC
-X-Google-Smtp-Source: AGHT+IFAj+pA4ZSXGfXmmIHdthc3X6R1zWY8RdfnPGnwRrBr46HvSIS2MJb6Y12Q2lCUaJBRzPh5wQ==
-X-Received: by 2002:a05:600c:c1c8:20b0:43d:186d:a4bf with SMTP id 5b1f17b1804b1-441d3a91a78mr2650365e9.0.1746548962193;
-        Tue, 06 May 2025 09:29:22 -0700 (PDT)
-Date: Tue, 6 May 2025 18:29:20 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: Re: [PATCH v3 08/11] vpci: Refactor vpci_remove_register to remove
- matched registers
-Message-ID: <aBo44G-DuEFO4_7S@macbook.lan>
-References: <20250421061903.1542652-1-Jiqian.Chen@amd.com>
- <20250421061903.1542652-9-Jiqian.Chen@amd.com>
+        d=1e100.net; s=20230601; t=1746549434; x=1747154234;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iBQnOG6o2JoKa54f3witE8SkuGiquIWiHkM+EA3gCYM=;
+        b=wWqssgEdztaWfp91ElXbNyZzHwgvHWZswZUmHg9y7lNk3Kg0i7NkOwLHd9SF8EtUVS
+         CXmkhFnQ1TShjEuGg5qHLOX10ZoF8jdZWGM9iKhTwsvYen922tyE6YF5xqbdGPZER5Sg
+         GHzq6yrFhwLWDcVLFT6wBFrqSTX27RF1fLlSwr4HL5InUNoohSQVqQAtHWCCMFTW3YQw
+         omwXmN3MaaMzA7MqfE+U81NhPlV/xBK7D6zcko06BI6s4lOMnwwv/YOu1qART2XmUwi5
+         zU3hnykq7CErbPTfWxGBIXwQVcb2YFhV+vUOII1AExUjyfDWDUDSWiznKjYkP23vg5WQ
+         l1nQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVShdBTjk2p98R8k50hZtrmf0IBF/V4Z1oliwwPhhLlE0u2TyZzeCqP6PqDXBc6UIT4XKG6rwiuH4c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx63oPDwSSZRonkRAlKEFEyMLcq1H2AxArDAghH7jzTKC+xLfcn
+	ma6Aj03CfhZRL/PJVxjqr58Di4rfOwtPM0QzmY/QK20JWdy40TtznrlKUFAlxKw=
+X-Gm-Gg: ASbGncstBHJRSTPceLyg2SsWNzI2gSygbl42mXwPlq9wlDsVTVSU3flD0UFZb1Wx26k
+	ws09KXVfoT29IliduFpZIx722kLUF5ihVfBw5z4nMLClGLn/KnrfOci6R2FnRyzyCxjA28d4J4K
+	OUGVFIKZulGpMtyF1/zWLbntU1JQGw0Nk0ExP2q3q6vcdP35+Roedp4RbOErFf8S3kN236Ucl5F
+	oC6axft2hcSrgLU6+aAXZnkVP1+yr3tCSL5JF2kzjK9YIp+rnfTUAZ5VNPor+GOgVpK8hWk85hf
+	eMq3Ue6SKFFzRRPEI8WypnWkckZ+L3ZcOAQT8mR2OdpLGgoo3+xnpfO78iBLYyVTTXMRNfBOSjW
+	bmu4WHg==
+X-Google-Smtp-Source: AGHT+IHBU7Q+8gbjZ4t/VsXPP1b4iP8uzN6tgSvEXW8vdfXiJTdtRcE011KxXw5yYmUF4x159MxtiA==
+X-Received: by 2002:a05:6000:401f:b0:3a0:88b0:b81e with SMTP id ffacd0b85a97d-3a0b4a1917fmr117675f8f.36.1746549433782;
+        Tue, 06 May 2025 09:37:13 -0700 (PDT)
+Message-ID: <50a2737a-611a-4d83-aee6-de23619b0b6b@citrix.com>
+Date: Tue, 6 May 2025 17:37:12 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] lib: Add strcspn function
+To: Kevin Lampis <kevin.lampis@cloud.com>, xen-devel@lists.xenproject.org
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
+References: <20250506162420.1676377-1-kevin.lampis@cloud.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250506162420.1676377-1-kevin.lampis@cloud.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250421061903.1542652-9-Jiqian.Chen@amd.com>
 
-On Mon, Apr 21, 2025 at 02:19:00PM +0800, Jiqian Chen wrote:
-> vpci_remove_register() only supports removing a register in a time,
-> but the follow-on changes need to remove all registers within a
-> range. And vpci_remove_register() is only used for test currently.
-> So, refactor it to support removing all matched registers in a
-> calling time.
-> 
-> And it is no matter to remove a non exist register, so remove the
-> __must_check prefix.
-> 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> ---
-> cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> cc: Anthony PERARD <anthony.perard@vates.tech>
-> ---
-> v2->v3 changes:
-> * Add new check to return error if registers overlap but not inside range.
-> 
-> v1->v2 changes:
-> new patch
-> 
-> Best regards,
-> Jiqian Chen.
-> ---
->  tools/tests/vpci/main.c |  4 ++--
->  xen/drivers/vpci/vpci.c | 34 ++++++++++++++++++++--------------
->  xen/include/xen/vpci.h  |  4 ++--
->  3 files changed, 24 insertions(+), 18 deletions(-)
-> 
-> diff --git a/tools/tests/vpci/main.c b/tools/tests/vpci/main.c
-> index 33223db3eb77..ca72877d60cd 100644
-> --- a/tools/tests/vpci/main.c
-> +++ b/tools/tests/vpci/main.c
-> @@ -132,10 +132,10 @@ static void vpci_write32_mask(const struct pci_dev *pdev, unsigned int reg,
->                                    rsvdz_mask))
+On 06/05/2025 5:24 pm, Kevin Lampis wrote:
+> diff --git a/xen/include/xen/string.h b/xen/include/xen/string.h
+> index bd4a8f48e9..70c231b690 100644
+> --- a/xen/include/xen/string.h
+> +++ b/xen/include/xen/string.h
+> @@ -26,6 +26,7 @@ size_t strnlen(const char *s, size_t count);
+>  char *strpbrk(const char *cs,const char *ct);
+>  char *strsep(char **s, const char *ct);
+>  size_t strspn(const char *s, const char *accept);
+> +size_t strcspn(const char *s, const char *reject);
 >  
->  #define VPCI_REMOVE_REG(off, size)                                          \
-> -    assert(!vpci_remove_register(test_pdev.vpci, off, size))
-> +    assert(!vpci_remove_registers(test_pdev.vpci, off, size))
->  
->  #define VPCI_REMOVE_INVALID_REG(off, size)                                  \
-> -    assert(vpci_remove_register(test_pdev.vpci, off, size))
-> +    assert(vpci_remove_registers(test_pdev.vpci, off, size))
->  
->  /* Read a 32b register using all possible sizes. */
->  void multiread4_check(unsigned int reg, uint32_t val)
-> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-> index 8ff5169bdd18..904770628a2a 100644
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -497,34 +497,40 @@ int vpci_add_register_mask(struct vpci *vpci, vpci_read_t *read_handler,
->      return 0;
->  }
->  
-> -int vpci_remove_register(struct vpci *vpci, unsigned int offset,
-> -                         unsigned int size)
-> +int vpci_remove_registers(struct vpci *vpci, unsigned int start,
-> +                          unsigned int size)
->  {
-> -    const struct vpci_register r = { .offset = offset, .size = size };
->      struct vpci_register *rm;
-> +    unsigned int end = start + size;
->  
->      spin_lock(&vpci->lock);
->      list_for_each_entry ( rm, &vpci->handlers, node )
+>  void *memset(void *s, int c, size_t n);
+>  void *memcpy(void *dest, const void *src, size_t n);
 
-You might want to use list_for_each_entry_safe ( ) so that...
+Lower down in this file, you also want a define aliasing to
+__builtin_strcspn() in the style of the others you'll see.  In turn,
+you'll need to...
 
->      {
-> -        int cmp = vpci_register_cmp(&r, rm);
-> -
-> -        /*
-> -         * NB: do not use a switch so that we can use break to
-> -         * get out of the list loop earlier if required.
-> -         */
-> -        if ( !cmp && rm->offset == offset && rm->size == size )
-> +        /* Remove rm if rm is inside the range. */
-> +        if ( rm->offset >= start && rm->offset + rm->size <= end )
->          {
-> +            struct vpci_register *prev =
-> +                list_entry(rm->node.prev, struct vpci_register, node);
-
-... you don't need to find prev here.
-
->              list_del(&rm->node);
-> -            spin_unlock(&vpci->lock);
->              xfree(rm);
-> -            return 0;
-> +            rm = prev;
-> +            continue;
->          }
-> -        if ( cmp <= 0 )
+> diff --git a/xen/lib/strcspn.c b/xen/lib/strcspn.c
+> new file mode 100644
+> index 0000000000..42e3308dac
+> --- /dev/null
+> +++ b/xen/lib/strcspn.c
+> @@ -0,0 +1,22 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + *  Copyright (C) 1991, 1992  Linus Torvalds
+> + */
 > +
-> +        /* Return error if registers overlap but not inside. */
-> +        if ( rm->offset + rm->size > start && rm->offset < end )
-> +        {
-> +            spin_unlock(&vpci->lock);
-> +            return -EINVAL;
+> +#include <xen/string.h>
+> +
+> +/**
+> + * strcspn - Calculate the length of the initial substring of @s which does not contain letters in @reject
+> + * @s: The string to be searched
+> + * @reject: The string to avoid
+> + */
+> +size_t strcspn(const char *s, const char *reject)
 
--ERANGE might be more descriptive here.
+... write this as "size_t (strcspn)(const ..."
 
-Thanks, Roger.
+to avoid the macro expansion in this one place.
+
+~Andrew
 
