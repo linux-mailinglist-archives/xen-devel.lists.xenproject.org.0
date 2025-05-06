@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C0B8AACF5B
-	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 23:09:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.978043.1364917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC76DAAD0DA
+	for <lists+xen-devel@lfdr.de>; Wed,  7 May 2025 00:18:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.978056.1364926 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCPXj-0003ZT-Py; Tue, 06 May 2025 21:09:35 +0000
+	id 1uCQbB-0004Qn-H1; Tue, 06 May 2025 22:17:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 978043.1364917; Tue, 06 May 2025 21:09:35 +0000
+Received: by outflank-mailman (output) from mailman id 978056.1364926; Tue, 06 May 2025 22:17:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCPXj-0003WL-Mj; Tue, 06 May 2025 21:09:35 +0000
-Received: by outflank-mailman (input) for mailman id 978043;
- Tue, 06 May 2025 21:09:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uCQbB-0004Nu-Dh; Tue, 06 May 2025 22:17:13 +0000
+Received: by outflank-mailman (input) for mailman id 978056;
+ Tue, 06 May 2025 22:17:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LATA=XW=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1uCPXi-0003WF-Fq
- for xen-devel@lists.xenproject.org; Tue, 06 May 2025 21:09:34 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061e.outbound.protection.outlook.com
- [2a01:111:f403:2412::61e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 669ede2d-2abe-11f0-9eb4-5ba50f476ded;
- Tue, 06 May 2025 23:09:32 +0200 (CEST)
-Received: from MW4PR04CA0355.namprd04.prod.outlook.com (2603:10b6:303:8a::30)
- by SA1PR12MB8945.namprd12.prod.outlook.com (2603:10b6:806:375::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Tue, 6 May
- 2025 21:09:25 +0000
-Received: from SJ1PEPF00002321.namprd03.prod.outlook.com
- (2603:10b6:303:8a:cafe::ca) by MW4PR04CA0355.outlook.office365.com
- (2603:10b6:303:8a::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.26 via Frontend Transport; Tue,
- 6 May 2025 21:09:25 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00002321.mail.protection.outlook.com (10.167.242.91) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Tue, 6 May 2025 21:09:24 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 6 May
- 2025 16:09:23 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 6 May
- 2025 16:09:23 -0500
-Received: from amd-BIRMANPLUS.mshome.net (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Tue, 6 May 2025 16:09:22 -0500
+ <SRS0=cniF=XW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uCQbA-0004No-4E
+ for xen-devel@lists.xenproject.org; Tue, 06 May 2025 22:17:12 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d5b23358-2ac7-11f0-9ffb-bf95429c2676;
+ Wed, 07 May 2025 00:17:02 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-39c31e4c3e5so3839204f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 15:17:02 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-441d43cb5e5sm8161145e9.7.2025.05.06.15.17.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 06 May 2025 15:17:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,272 +45,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 669ede2d-2abe-11f0-9eb4-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JkM98pa5bLac5LeVj+T/abpH51hVU/ad1FMWkzbjhZatvdh2FQ9v7ksZEgSssViDnBuapZkp8Zbx7iT+ANSfS+hRNsZgz30bnOhuPeX4tl0FvRK6JR3rrtLwbFmgRixPV3oVV5lcWAbQ732tbnnpZS5ZDAo1kHyByFkuTqWt/VUhFO5JLdnSLfjJDaNXbBecHvFUad4cVaQK++ORHrulMmFZ03EQo/SUpT/M2e8eiGec6iG9MgpKvxMYzvwJ+nNhvPXdSskkeIuoZI5t1ZPXsQrZXLgP1CMMPWmmosL8UbvNIRXHWCLLaYTrX4kEqY/7bs2QGCAJ5FjmcbMoq8qVTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LexVX8ApKvljcmQ19kTQlqapvR2rrjJA4xi625UdRDk=;
- b=Mt5kc/zo726CZLgjjKAyhgX+FjX+f1Qlo2xAaIiRj/CTnwFO8BK8QITULfNI3Ei4eOBCUsjnSQ6c3SL68HNBsO0/khay1CNk3z9W4RogJ4dXlmXpDQ81nzmsZCjAtvaB2OdVacDBxXHi7Ovxl8Z2bsBD1n4JWkIQAohXNjA1jM88cYRVqt98QSCqakM21RIBTu99T/L7kw5+j2If4vaCdjlEKW7uSc//hTNxVEgSvtoCTXOJtWIeGOzQqKuqBDwqHV+KCNfAvpMuovae7sYJZjn9RVuWRlM0k5S8u6zqY8G7UpEMd5h0A+5MJmhN7z/uYKBLW9/ftIWcqJ3KdRQ1xQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LexVX8ApKvljcmQ19kTQlqapvR2rrjJA4xi625UdRDk=;
- b=VuHQH+aTQNiDh1JEIWS1hKYNrsguHV82/Jbrp9GvzIgfhLAsRSxgjZ9qJ2fA5JmGoyekF6YjC9AxwPQaA+YykvxnMc8DwQ7QsAV/Fl9Asfw58l6vb/zfW2bzd+Srv5GNQrw50bfsHQfNe+1YB7i2aVj5xlV7oavZTRmVkwwBDac=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: Juergen Gross <jgross@suse.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>
-CC: Jason Andryuk <jason.andryuk@amd.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, <stable@vger.kernel.org>,
-	<xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] xenbus: Use kref to track req lifetime
-Date: Tue, 6 May 2025 17:09:33 -0400
-Message-ID: <20250506210935.5607-1-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: d5b23358-2ac7-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1746569822; x=1747174622; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=WOLLM1nZ2VFgS6llNyqg6FWUpWb8G4v8eubCWc5XIFQ=;
+        b=NTndIjVaGaSSBksUR+5WNwnBMBS+/BURPB/a9TFNYoez/M6dO5Kk6Ga8IRebuFCYHt
+         Q0H4zT/Z9QYG5ZDOJepwFkWl9fOLTUapdYTK0YUU96i70TE3HHpfyLMPh/kCx2xVq48r
+         CoD/t8YMwVCMvt5zqJAj/O5XQANiLnS3ADo9I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746569822; x=1747174622;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=WOLLM1nZ2VFgS6llNyqg6FWUpWb8G4v8eubCWc5XIFQ=;
+        b=IVFGXmvFPNDJDKhIKnf4W58p9JmT+Wg9LFLDUiSmdxQyyf878vuZI5pF421jjT+drb
+         alc7Ao3BwEyMcMOgh1gis1XVcy4+6fDHOl56dGwWt43MVZbmXmT2ySUPoAqVEyxn2KTb
+         mviXyb0ChPySD2Gs6ZfplibGBqI4sc1Q1m7nxtpgP6fpr465U4/bQ6GvgTduPjloxE7c
+         EQXX9gHv3661l1GOSfkY2xpIdyNH2DxjjDZX8a62Gj/+rH+OJZM8Naz1kw9Z6mdLTrMZ
+         fWa4E3joYbBWBLZqOX+S5Uz5CHjFLpr1BYtwioej2Brtz6RHKDTHxVfVD72m3y0LqIjS
+         xNHw==
+X-Forwarded-Encrypted: i=1; AJvYcCUaSIg0eeX/wCiUPIilxZ644TGAVi6mbIYcWQpFwGKWeqAlj8yGukJkOTdazV+8Y/9SWciaU2LCabk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzd7bZ+KpFlGx5wouONKnW9IuW9S6oPTrhGXuT9t6zC0bVD9GTl
+	feWvgbsr8nJkVsMvSqDsboTlaBobuv2hT57AsY0uuELK7xMqAhft84FK1ab1U7s=
+X-Gm-Gg: ASbGncsi/H0p45J15tVLnPJPV5zxZLUnkWIxyx9gOJWsd+PBaHKePL52HnKC0kim+/+
+	z8vgF9ygsK6SRm7hBvBDzVA6vRrOTIuxGOVc62hWwdvNWht4HrjhL40dTXShRMnt/XjfAzcvOBL
+	hmzbNylBOeEiVNyr+WBHF2ZgTRkLXQbhBSJ0UGUEGlS65S6O3+3la7Zt81/M1uF9l/Nu+GUNtea
+	aMjcOlBQJxoVDd9b8g0lt5WcIJ80NT7cDSqSG/uC9S1ow6W4s1WJssJhWClSZBHFjqzeVVUPEHw
+	lo4kUtxt7rcrsVORKp2nt5uA/sVwDKg77ywH9epGotxvjxNTUas+JF761yDODb8k5bjLgie4IZw
+	T0PXQp3UvfWkgPECX
+X-Google-Smtp-Source: AGHT+IEOlXHPWvrY6jY6PfXrSE0R7h9lROIErZBHwGdvPv16ypp10sJd8KEMtfJV9OLpiY3vCR9ExA==
+X-Received: by 2002:a5d:588e:0:b0:391:2f15:c1f4 with SMTP id ffacd0b85a97d-3a0b4a68783mr773759f8f.55.1746569821672;
+        Tue, 06 May 2025 15:17:01 -0700 (PDT)
+Message-ID: <5698b996-e23d-49f7-af37-645d4784dc67@citrix.com>
+Date: Tue, 6 May 2025 23:17:00 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] xen/lib: Export additional sha256 functions
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ xen-devel@lists.xenproject.org
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250506135655.187014-1-frediano.ziglio@cloud.com>
+ <20250506135655.187014-2-frediano.ziglio@cloud.com>
+ <de48c8bc-a7b2-4b9f-b45e-cbe3f7eb03c4@citrix.com>
+Content-Language: en-GB
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <de48c8bc-a7b2-4b9f-b45e-cbe3f7eb03c4@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002321:EE_|SA1PR12MB8945:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a3ed70f-39bd-49f0-e110-08dd8ce247af
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?eXZQNGtuRnM1bnppMDJ1ZU40SGh2M2ZsNDU5VEVpczQ2eisyNHIwdVVSL1ZY?=
- =?utf-8?B?Y0dOQVZTQUlrU2FaY21GQmg1RXJCb3ZpMExHb0VxbENzMk53RGZHQzNqSnha?=
- =?utf-8?B?N3Z2elVEZCtCOHlrR0lQZXYzb1JjQkFZQnZSdjhwQ1FxTGhEYStMRjhMMjB4?=
- =?utf-8?B?K1dac3cwMld0TWNkOWtrU1FYT1dQUm5RMVlTcmphcG4rQ0h0YjdpZy9Tek1E?=
- =?utf-8?B?dlBVdU1PUTV5aVU3Q3U0eXpDWGd5L0FxU2xnTTQxMytNeHZna1pDNUFqV1E3?=
- =?utf-8?B?Z1hsNUxjb1FPenpSdkw4VllvNFJCLy82Nmk0U2ZtelhJbzFyWGVlVnkwSzFD?=
- =?utf-8?B?aVBpd0YySFVuOUM4U1Q3Ry9ZeTh5NkVwR09JclNUeitvT3dxRTM1cjQrdzh5?=
- =?utf-8?B?TjJSVDcycDlhTTNaNnl2NGdRRndrSW43bm15MVVnUTZuQ20xVFJyYkkwWXVw?=
- =?utf-8?B?ZzhqTTVKb3hrTlg3UHZEVk8wWVE0QWoyS0pqbkVvNnd6dzBGZSs5NjdEbzky?=
- =?utf-8?B?dG5yY0Qxa1JPdW9VSU5rQ1FnTDNTYUhHcW5VYU1GMkZreW92U1N0RGIxSWE2?=
- =?utf-8?B?dzdTYnhCR0lwOG8zSEowUnRoaU8xL2ZDMjRpbExHcHJpTDVBTGU2MmxWWnFH?=
- =?utf-8?B?ejRZS3VoR0Mvd2RPZUlVaEF3YktSKy8xM2R0ejVkYkRoNnFQbFZvQzdtVy9E?=
- =?utf-8?B?cTE0MXB4cW4xWGNEMU5rQ05qMUdmTXRzeEpqUmxnTFRMVVBBMlNHVWE5RlZS?=
- =?utf-8?B?ZGtlZzhvVndmL3IvbFQxV3ZvVmFsOUprRUxnSnE2RUtoWmFHOTZXcVVLR0Ns?=
- =?utf-8?B?ZjZIWTgvTURtREFjRHhJU0lBd1lDVStlaThHYW9xZzRHVVFQSUkweGVLSTNF?=
- =?utf-8?B?MW5YeDJGaWdxQ2JsMGNGK0Nla01UVEp0YjNtY0E2dDdBdFoxenRkUHdBSEdV?=
- =?utf-8?B?NGhDMHlJZDd0MkJrVW5pNHdSYnhQRkhOeSsvZHk5eU9HeThvblNUbGpqcnVK?=
- =?utf-8?B?S282dHZsNWdSRVhTODlHVXl5Qjh0SzJKdS9WYlZMNWYvL2pKd3EvZk8vSlNQ?=
- =?utf-8?B?amtjYmw3bmtjeEJGYkcveDFZNnZ2ZVpCdThCcjZ2T2lFNDFCcDBmT1RLMVFB?=
- =?utf-8?B?S1V4VEwyQW9JV2JoMC81Z1ovdkp3VWJBWVIzNmYzOG1mSkQ4L3JQMGNUQjl4?=
- =?utf-8?B?MUxPZjErUmc3WERHVnVJVGExekYzcmNsM1R4ckxUVldKQmxxcTl3SXRxVlhJ?=
- =?utf-8?B?aks5V0RsSkNVdFY1ZEtzUE5FOWZyODZxN0l4elZGTHF5WDd0TExiMnNkVEhr?=
- =?utf-8?B?Q0RTWG9wYndBelFRL1R3cmxFMVlyeHJTNkEvb2JwcjhYR01JTDNCS3RWVStP?=
- =?utf-8?B?VzlYNU4yTi9ydGxyTkRyMTZWZHdNTmI0dEZjVmlWcmpUUHJwN01PMmhLQmJC?=
- =?utf-8?B?MTRpWVpYYUdOdXFhS1BOVCtTc0xwM29BcjhJd3hNUXRObXYzRWdNcU95ZG5K?=
- =?utf-8?B?RGlPbWxhaGVJeGNXdGZOb2FWekxmdnBYbkY5WllIODFFWUJxa3dDb1B2cXFu?=
- =?utf-8?B?SUZUWGJhOEUwZ2hLcDlXQnpTRUVpdlJPb0pMQmlaY1k1bGc2QWcvTjgxYTZU?=
- =?utf-8?B?a3RHOUJwTUE3N3lVbjVlTDM0ZjNBS2ZqdGVOS09lbjZkUng5L3grV3JTQlRX?=
- =?utf-8?B?UDJlVTZUVmNQTFcxZTBMRGZNUzRhemZZSC9nZzREaUl5MTkzU0M1NWtFc3NW?=
- =?utf-8?B?b01jMnFtb1JrMldoeG02dVRwMHArcjVOZUlEenZrdTA5TW5lM2ZUTE9UTVhT?=
- =?utf-8?B?MThEUEg0VEFIOGhkcWpvUnkrRWFXWWVxdHl2dVhxbjJJNG03bS9aMmJCTkRi?=
- =?utf-8?B?eUlmR291SXV0STVFRlc3VmdEVGI1ZkhGSkFIQUlqT29FNFVqRnVwVHZhVEN5?=
- =?utf-8?B?VktTRnh2dTJmd3dNb1RYY0NGSllmemNFcHRBcjdJc0dQZHgrU1JrRWxnc04w?=
- =?utf-8?B?SFp0L2gyZnl4elZOa05pNjE4L3VJQy9ZWUhrbEU4eHBoTFJlUE53am1IR1Qy?=
- =?utf-8?B?MUtFMFVIN0JiVkNxZlk2SWt2ZEkrVkRHdXhkQT09?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2025 21:09:24.8239
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a3ed70f-39bd-49f0-e110-08dd8ce247af
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002321.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8945
 
-Marek reported seeing a NULL pointer fault in the xenbus_thread
-callstack:
-BUG: kernel NULL pointer dereference, address: 0000000000000000
-RIP: e030:__wake_up_common+0x4c/0x180
-Call Trace:
- <TASK>
- __wake_up_common_lock+0x82/0xd0
- process_msg+0x18e/0x2f0
- xenbus_thread+0x165/0x1c0
+On 06/05/2025 3:05 pm, Andrew Cooper wrote:
+> On 06/05/2025 2:56 pm, Frediano Ziglio wrote:
+>> diff --git a/xen/include/xen/sha2.h b/xen/include/xen/sha2.h
+>> index 47d97fbf01..ea8bad67e4 100644
+>> --- a/xen/include/xen/sha2.h
+>> +++ b/xen/include/xen/sha2.h
+>> @@ -9,6 +9,16 @@
+>>  
+>>  #define SHA2_256_DIGEST_SIZE 32
+>>  
+>> +struct sha2_256_state {
+>> +    uint32_t state[SHA2_256_DIGEST_SIZE / sizeof(uint32_t)];
+>> +    uint8_t buf[64];
+>> +    size_t count; /* Byte count. */
+>> +};
+>> +
+>> +void sha2_256_init(struct sha2_256_state *s);
+>> +void sha2_256_update(struct sha2_256_state *s, const void *msg,
+>> +                     size_t len);
+>> +void sha2_256_final(struct sha2_256_state *s, void *_dst);
+>>  void sha2_256_digest(uint8_t digest[SHA2_256_DIGEST_SIZE],
+>>                       const void *msg, size_t len);
+> sha2_256_digest() is unlike the others as it holds sha2_256_state
+> internally.  I'd suggest having all of the additions below this point,
+> which group them more nicely.
+>
+> Can fix on commit.  Otherwise LGTM.
 
-process_msg+0x18e is req->cb(req).  req->cb is set to xs_wake_up(), a
-thin wrapper around wake_up(), or xenbus_dev_queue_reply().  It seems
-like it was xs_wake_up() in this case.
+Not quite.  Now that sha2_256_final() is exported, it should have a
+proper type for  _dst.  I've folded:
 
-It seems like req may have woken up the xs_wait_for_reply(), which
-kfree()ed the req.  When xenbus_thread resumes, it faults on the zero-ed
-data.
+diff --git a/xen/include/xen/sha2.h b/xen/include/xen/sha2.h
+index 0d55fe640431..cb30e8f8d77c 100644
+--- a/xen/include/xen/sha2.h
++++ b/xen/include/xen/sha2.h
+@@ -21,6 +21,7 @@ struct sha2_256_state {
+ void sha2_256_init(struct sha2_256_state *s);
+ void sha2_256_update(struct sha2_256_state *s, const void *msg,
+                      size_t len);
+-void sha2_256_final(struct sha2_256_state *s, void *_dst);
++void sha2_256_final(struct sha2_256_state *s,
++                    uint8_t digest[SHA2_256_DIGEST_SIZE]);
+ 
+ #endif /* XEN_SHA2_H */
+diff --git a/xen/lib/sha2-256.c b/xen/lib/sha2-256.c
+index 896a257ed9b7..08ef7011a1c3 100644
+--- a/xen/lib/sha2-256.c
++++ b/xen/lib/sha2-256.c
+@@ -171,9 +171,9 @@ void sha2_256_update(struct sha2_256_state *s, const
+void *msg,
+     memcpy(s->buf + partial, msg, len);
+ }
+ 
+-void sha2_256_final(struct sha2_256_state *s, void *_dst)
++void sha2_256_final(struct sha2_256_state *s, uint8_t
+digest[SHA2_256_DIGEST_SIZE])
+ {
+-    uint32_t *dst = _dst;
++    uint32_t *dst = (uint32_t *)digest;
+     unsigned int i, partial = s->count & 63;
+ 
+     /* Start padding */
 
-Linux Device Drivers 2nd edition states:
-"Normally, a wake_up call can cause an immediate reschedule to happen,
-meaning that other processes might run before wake_up returns."
-... which would match the behaviour observed.
+in too, which is compatible with the rest of the series too.
 
-Change to keeping two krefs on each request.  One for the caller, and
-one for xenbus_thread.  Each will kref_put() when finished, and the last
-will free it.
-
-This use of kref matches the description in
-Documentation/core-api/kref.rst
-
-Link: https://lore.kernel.org/xen-devel/ZO0WrR5J0xuwDIxW@mail-itl/
-Reported-by: "Marek Marczykowski-Górecki" <marmarek@invisiblethingslab.com>
-Fixes: fd8aa9095a95 ("xen: optimize xenbus driver for multiple concurrent xenstore accesses")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
-Kinda RFC-ish as I don't know if it fixes Marek's issue.  This does seem
-like the correct approach if we are seeing req free()ed out from under
-xenbus_thread.
-
- drivers/xen/xenbus/xenbus.h              |  2 ++
- drivers/xen/xenbus/xenbus_comms.c        |  9 ++++-----
- drivers/xen/xenbus/xenbus_dev_frontend.c |  2 +-
- drivers/xen/xenbus/xenbus_xs.c           | 18 ++++++++++++++++--
- 4 files changed, 23 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/xen/xenbus/xenbus.h b/drivers/xen/xenbus/xenbus.h
-index 13821e7e825e..9ac0427724a3 100644
---- a/drivers/xen/xenbus/xenbus.h
-+++ b/drivers/xen/xenbus/xenbus.h
-@@ -77,6 +77,7 @@ enum xb_req_state {
- struct xb_req_data {
- 	struct list_head list;
- 	wait_queue_head_t wq;
-+	struct kref kref;
- 	struct xsd_sockmsg msg;
- 	uint32_t caller_req_id;
- 	enum xsd_sockmsg_type type;
-@@ -103,6 +104,7 @@ int xb_init_comms(void);
- void xb_deinit_comms(void);
- int xs_watch_msg(struct xs_watch_event *event);
- void xs_request_exit(struct xb_req_data *req);
-+void xs_free_req(struct kref *kref);
- 
- int xenbus_match(struct device *_dev, const struct device_driver *_drv);
- int xenbus_dev_probe(struct device *_dev);
-diff --git a/drivers/xen/xenbus/xenbus_comms.c b/drivers/xen/xenbus/xenbus_comms.c
-index e5fda0256feb..82df2da1b880 100644
---- a/drivers/xen/xenbus/xenbus_comms.c
-+++ b/drivers/xen/xenbus/xenbus_comms.c
-@@ -309,8 +309,8 @@ static int process_msg(void)
- 			virt_wmb();
- 			req->state = xb_req_state_got_reply;
- 			req->cb(req);
--		} else
--			kfree(req);
-+		}
-+		kref_put(&req->kref, xs_free_req);
- 	}
- 
- 	mutex_unlock(&xs_response_mutex);
-@@ -386,14 +386,13 @@ static int process_writes(void)
- 	state.req->msg.type = XS_ERROR;
- 	state.req->err = err;
- 	list_del(&state.req->list);
--	if (state.req->state == xb_req_state_aborted)
--		kfree(state.req);
--	else {
-+	if (state.req->state != xb_req_state_aborted) {
- 		/* write err, then update state */
- 		virt_wmb();
- 		state.req->state = xb_req_state_got_reply;
- 		wake_up(&state.req->wq);
- 	}
-+	kref_put(&state.req->kref, xs_free_req);
- 
- 	mutex_unlock(&xb_write_mutex);
- 
-diff --git a/drivers/xen/xenbus/xenbus_dev_frontend.c b/drivers/xen/xenbus/xenbus_dev_frontend.c
-index 46f8916597e5..f5c21ba64df5 100644
---- a/drivers/xen/xenbus/xenbus_dev_frontend.c
-+++ b/drivers/xen/xenbus/xenbus_dev_frontend.c
-@@ -406,7 +406,7 @@ void xenbus_dev_queue_reply(struct xb_req_data *req)
- 	mutex_unlock(&u->reply_mutex);
- 
- 	kfree(req->body);
--	kfree(req);
-+	kref_put(&req->kref, xs_free_req);
- 
- 	kref_put(&u->kref, xenbus_file_free);
- 
-diff --git a/drivers/xen/xenbus/xenbus_xs.c b/drivers/xen/xenbus/xenbus_xs.c
-index d32c726f7a12..dcf9182c8451 100644
---- a/drivers/xen/xenbus/xenbus_xs.c
-+++ b/drivers/xen/xenbus/xenbus_xs.c
-@@ -112,6 +112,12 @@ static void xs_suspend_exit(void)
- 	wake_up_all(&xs_state_enter_wq);
- }
- 
-+void xs_free_req(struct kref *kref)
-+{
-+	struct xb_req_data *req = container_of(kref, struct xb_req_data, kref);
-+	kfree(req);
-+}
-+
- static uint32_t xs_request_enter(struct xb_req_data *req)
- {
- 	uint32_t rq_id;
-@@ -237,6 +243,12 @@ static void xs_send(struct xb_req_data *req, struct xsd_sockmsg *msg)
- 	req->caller_req_id = req->msg.req_id;
- 	req->msg.req_id = xs_request_enter(req);
- 
-+	/*
-+	 * Take 2nd ref.  One for this thread, and the second for the
-+	 * xenbus_thread.
-+	 */
-+	kref_get(&req->kref);
-+
- 	mutex_lock(&xb_write_mutex);
- 	list_add_tail(&req->list, &xb_write_list);
- 	notify = list_is_singular(&xb_write_list);
-@@ -261,8 +273,8 @@ static void *xs_wait_for_reply(struct xb_req_data *req, struct xsd_sockmsg *msg)
- 	if (req->state == xb_req_state_queued ||
- 	    req->state == xb_req_state_wait_reply)
- 		req->state = xb_req_state_aborted;
--	else
--		kfree(req);
-+
-+	kref_put(&req->kref, xs_free_req);
- 	mutex_unlock(&xb_write_mutex);
- 
- 	return ret;
-@@ -291,6 +303,7 @@ int xenbus_dev_request_and_reply(struct xsd_sockmsg *msg, void *par)
- 	req->cb = xenbus_dev_queue_reply;
- 	req->par = par;
- 	req->user_req = true;
-+	kref_init(&req->kref);
- 
- 	xs_send(req, msg);
- 
-@@ -319,6 +332,7 @@ static void *xs_talkv(struct xenbus_transaction t,
- 	req->num_vecs = num_vecs;
- 	req->cb = xs_wake_up;
- 	req->user_req = false;
-+	kref_init(&req->kref);
- 
- 	msg.req_id = 0;
- 	msg.tx_id = t.id;
--- 
-2.34.1
-
+~Andrew
 
