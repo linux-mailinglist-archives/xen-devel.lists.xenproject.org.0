@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40B94AABCA0
-	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 10:09:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.976719.1363865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A543AABCD6
+	for <lists+xen-devel@lfdr.de>; Tue,  6 May 2025 10:15:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.976732.1363876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCDLW-0007fz-UC; Tue, 06 May 2025 08:08:10 +0000
+	id 1uCDSD-0000xF-KX; Tue, 06 May 2025 08:15:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 976719.1363865; Tue, 06 May 2025 08:08:10 +0000
+Received: by outflank-mailman (output) from mailman id 976732.1363876; Tue, 06 May 2025 08:15:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCDLW-0007dl-RZ; Tue, 06 May 2025 08:08:10 +0000
-Received: by outflank-mailman (input) for mailman id 976719;
- Tue, 06 May 2025 08:08:09 +0000
+	id 1uCDSD-0000uu-GZ; Tue, 06 May 2025 08:15:05 +0000
+Received: by outflank-mailman (input) for mailman id 976732;
+ Tue, 06 May 2025 08:15:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bva9=XW=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uCDLV-0007de-0R
- for xen-devel@lists.xenproject.org; Tue, 06 May 2025 08:08:09 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20624.outbound.protection.outlook.com
- [2a01:111:f403:2416::624])
+ <SRS0=oEbg=XW=cloud.com=kevin.lampis@srs-se1.protection.inumbo.net>)
+ id 1uCDSC-0000um-1G
+ for xen-devel@lists.xenproject.org; Tue, 06 May 2025 08:15:04 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d54f7d8-2a51-11f0-9eb4-5ba50f476ded;
- Tue, 06 May 2025 10:08:07 +0200 (CEST)
-Received: from BN6PR17CA0047.namprd17.prod.outlook.com (2603:10b6:405:75::36)
- by MW5PR12MB5649.namprd12.prod.outlook.com (2603:10b6:303:19d::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.23; Tue, 6 May
- 2025 08:07:56 +0000
-Received: from BN2PEPF000044A4.namprd02.prod.outlook.com
- (2603:10b6:405:75:cafe::b9) by BN6PR17CA0047.outlook.office365.com
- (2603:10b6:405:75::36) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.29 via Frontend Transport; Tue,
- 6 May 2025 08:07:56 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN2PEPF000044A4.mail.protection.outlook.com (10.167.243.155) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Tue, 6 May 2025 08:07:55 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 6 May
- 2025 03:07:55 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 6 May
- 2025 03:07:54 -0500
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Tue, 6 May 2025 03:07:53 -0500
+ id 35d1acb1-2a52-11f0-9eb4-5ba50f476ded;
+ Tue, 06 May 2025 10:15:02 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5e5bc066283so7940026a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 06 May 2025 01:15:02 -0700 (PDT)
+Received: from fedora.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad1894c0276sm659748166b.108.2025.05.06.01.15.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 May 2025 01:15:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,170 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d54f7d8-2a51-11f0-9eb4-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q2M1IYxMoMwfeClqAboUuEFXf0mjFPU+nH6pkTz5Rd8OIggVQVXd6ycZCBAYCn3zG1V2ekcQqKPktV9dTtoa2wCmcN9ETie4M6cj/HuB41RxmMgrlBXRqGPEpRR1WveehPPHpNBfKtuUv2isFgRtmjdeqpGxxpF8NOQGXnEa58I9c9t1Lks1txwx+npwH0y9Mvy6oFjk8+7NU0u2OmLBSZ1QXMsIzkML/xn7R3NuIO/D69ZnXlWgG1dJndZKTf9yYa4pPYjdwxj+tPy1gF6bHypGF8jpMJ/FrkFXRaQoUWIFbSWX3X5GUrzpusUALzXedf7rPV3ArGvgVRJU28KLOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8ILS/hC1n3y4E0velyOtlWSjEyWQphmIDe8wp9R6jOE=;
- b=kf0U6uHO2CyVstKelXW9V5/DThVrL+wwXC7EZAZndi/mi75XjJRp3zmYvJDFyPWBXn6BeXBV2D1gIavLUz3jAs33sjj/PNPVSucRMs8MnNKVTa3H1Ywh+e7JKjiHsKFjP/9xYjHMLkCsegPeGAOM+obijwYKDDq1RH24lTW8dOlkeZgBXgaX3EV7bdBvFFPBye5uqPdabFCpOZhcm72PTUNxdePpNN1Mul5cuNB28t7u24ed9tytWJ7Hrn+FtNI4voU6ioZRNNV7HMeC9zUX1wa4QZueOW0vWvAh5rHXM4yLEuaZfYL27wJ5SDw4422IzGTEek15xGWmMn0NWUJWYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8ILS/hC1n3y4E0velyOtlWSjEyWQphmIDe8wp9R6jOE=;
- b=TuBG973LO0eZ2jY10X6unhpAgHZZe/hg+qMagZhkazEm/Kd036yefUAU3zDyf/OlkfCDzh/N75rUV91FXBoKpq0sTcyYnlkxPijLemAQW4+Ah2GfyiOHCDsRPeJeyn347NdGUy1yyjZXl5HyD68kolkpPDmnB6KztHM9PznLArk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>
-Subject: [PATCH] device-tree: Add missing SPDX identifiers and EMACS comment blocks
-Date: Tue, 6 May 2025 10:07:52 +0200
-Message-ID: <20250506080752.23307-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 35d1acb1-2a52-11f0-9eb4-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1746519302; x=1747124102; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=uqyBqxUAyi5ilsJoxz1bXn/zQ+HZlt2a0tHEzNMVOEE=;
+        b=QOYEnr2YVOanOscx148E3l6qbMEb9BM6SLXd1XR1fUa3NRWkfjU32mYnqpWuJPrF6v
+         RAvUheezvecZLk+mhsQ1TDJCQDmbIyVyWG81UnHn4hXLeB8yMjgkA0gatHutJ1Z9gKhL
+         BMPzFXzztvkWc4Qwg3FM1KFkehLKKkOntqPEQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746519302; x=1747124102;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=uqyBqxUAyi5ilsJoxz1bXn/zQ+HZlt2a0tHEzNMVOEE=;
+        b=RsMo8YS9W/SoW9YYMaGvijcTi8Ujf3bfRVCH1+j5uVoMF7rkmfGfU/ZsA/HPLLdqI4
+         XFx/d0sf0VMTwy7d29tjh58qsKr+Ec1j/UXQbyV3Gr1D/63/PXA3ALfL4uA8e7ztiFAC
+         ZeYdiEikSbPl3a9EI/n/gtqkIBbj0s2anpsmNDoGhZDsNvvxAP/mtXMpWMqxFJSxsX/p
+         IShZznatzAE9aBPn4fjj4KTfMCWzgOre61brJ4ssfL7paKZBOVEApFqnM60olRZYzNrG
+         yx/eCseR2ShWPNttlLwbrUPY5lX3XM+X7S6YaoNdIhkEXmxwsZq5oJG/FyRYgY6Ldxn1
+         kkIg==
+X-Gm-Message-State: AOJu0YwJ5h+l2bwWsCTUU+yeP1Qr+D4qSxjW6sK/2vVnGwkcWsgv+0rn
+	vY83vOZ8ezfCBRsr9thoyHd4jy451vlhJ5tJtQceWoB/MZa7sA6v7hCZkIRWn21CVpsEn8YyXFV
+	58nk=
+X-Gm-Gg: ASbGncubodelbNUlW15a/TIditUB4LfNeGs3/R1FHvWJBOCH7uITY61tI1rY9s4iXrM
+	9myHnRhGdNPrnkyJQ+xcsA2x6/e4Xz0zYMM9H4LzKgtkraF2XhIB/MrQ+KNoWfHBe3N3SDRzKNT
+	hyxzHgSua7Id7WX496keoMuJyOQfOiTf+it2sdcS7XT7XzqMfs/5qOTIPvRsLhe/fgoftZdzeYo
+	PJoJeT7ptfGtmGQzEcyxZfPEZRH6j+Bq8fVQFkTHiTfl9RSaYpUKX4A8XCTsWYFJiaqGLNegqdL
+	Jyp1XLZ+b41AJHKnqpwUJz9Daf1p+Slb8Hbkw7tw8XwhHlLrzVW1WCOnBQ==
+X-Google-Smtp-Source: AGHT+IEOLk7s4WFABEB2b+m3lLblkvJi77LlzsZeXTYNRTVqnUswZZeYA5wwORlj3zO7NlB+NMu3kA==
+X-Received: by 2002:a17:907:86a2:b0:acb:94d6:a841 with SMTP id a640c23a62f3a-ad1a490fc9emr959820766b.16.1746519301693;
+        Tue, 06 May 2025 01:15:01 -0700 (PDT)
+From: Kevin Lampis <kevin.lampis@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com,
+	roger.pau@citrix.com,
+	andrew.cooper3@citrix.com,
+	Kevin Lampis <kevin.lampis@cloud.com>
+Subject: [PATCH v2] x86/cpufeatures: cpuid features for Sierra Forest
+Date: Tue,  6 May 2025 09:13:30 +0100
+Message-ID: <20250506081456.1572050-1-kevin.lampis@cloud.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A4:EE_|MW5PR12MB5649:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6d9aeda-178a-4ea9-ff2a-08dd8c751b74
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?VqyR1kQrjuDsmWm55ZL9F4dxvsMf7tEY5iA6a3MASLJ6/+9nAsgdqILt1xon?=
- =?us-ascii?Q?acjSmycOBfugrKiViTQ2A3b+/JnIz5YvKHPEGUeCZW0Sj/oLB0KiJCQTD9iz?=
- =?us-ascii?Q?ZPZ8PASTm4oOeTZp0aCmHzCFyHtizuScbzq6mwbgl85qbC6rv9kyzDYmVIsw?=
- =?us-ascii?Q?spV+H8Atyr5vVhnnjrh/uw1gtLFBjtm/T9tzSybsSBzyDEBQx9xw7vlK4Ubk?=
- =?us-ascii?Q?O1j6rAAQV3Ti2QJKQ18S4sYD2kFEhQEEEGZnVtB7xzxOIh27Q7JqPqkwFHhi?=
- =?us-ascii?Q?iWid0UiNw4PsaeTOf6SIQZUhPSqJ9VxiNAJpjgmCYKrGIMzboPBapCgE4ujc?=
- =?us-ascii?Q?32UTj5i4U9VG8988E0O/w4EYBFfcIb9Z/7lMTJvc/jS1auIO78BT+4X5/pD/?=
- =?us-ascii?Q?31xCgT4Y6UogkSvxeFmMgF2RA3w7QjWVKYGzX0Jn164kDgR2hxPRp1Bgt5Yo?=
- =?us-ascii?Q?/TB3yBHvIk4LY2nSgz7BnVoXR1GkYT2/ZEpzMy5Cz3vvu6n1h+Z/hrKGMZdy?=
- =?us-ascii?Q?00DJg7hAnvWoDw7Pl8wwWOSKTbQ2f9DOeqm4xWlqJL02Av54TsbXKtMnqN8Y?=
- =?us-ascii?Q?l1AP4CK9PaNMii7REJKM06h2PozwpRjGvoDWKW8bKq21suJq9QwdEM1Am7PJ?=
- =?us-ascii?Q?nNDQV/jfUua6uE/glG2JPqD9ykbUTY55sV9wOWjfPC91eZsemz4bOGzYS3qb?=
- =?us-ascii?Q?mBPg6AoUqt1nJHLxZyRXfppX8jgj6pmbRRORg3YOi5DG2xoh2ds1AkLJE48K?=
- =?us-ascii?Q?PcGUWWrRuvlOlCscgONG1Mr1YqS4QSRgInH1A7ekgvwp61Y7tcVnACKyvBcH?=
- =?us-ascii?Q?VidzwPvz5IbDoO51Hj/txCO2RjvCucDu8MTD+lR9aFQqe3SfHDaNCcuVctvg?=
- =?us-ascii?Q?K0OAUUqPz0cF6m9SODpDyUFiwPkc5bPMCWibZoDW37OIJGJaHQhWUfKVJkzV?=
- =?us-ascii?Q?zwNwowxA5lhXjPvQ1NQ5F6lTfNNnbTv6fRca9osfIJ363q8zamP4oMsuaEa8?=
- =?us-ascii?Q?MM66Ms0zNGCD5ejJoVfpuL0g1VP31eqZd0diMi1XmIYgkuMUeePwSi0dYaUl?=
- =?us-ascii?Q?20wSenXyuBk1EhtdMfSwV2xE9CfomUnx+lm97Ac4TWFzo68eVyNE3OAB5uIZ?=
- =?us-ascii?Q?c17wATVmUXCmmBQe7MrgSP/cUnwoFaEpKEwBy6n4JitCobkD8i8j/N2LLTsE?=
- =?us-ascii?Q?Q8H1XKAxANiOG/QlQ/IsJV1MLH/J4XvhF/L/6LIz5IQj7IoJSRRYLeWQWu6q?=
- =?us-ascii?Q?ZNBm5Jci0guHS+LK3dmsmFsEbphzEb1EQ76qsFlimaPAH6mw4GQHcxTV0AfE?=
- =?us-ascii?Q?Y+Mk4xQG0NzsDg3CSDpJgXYhxTYuCFtcxeAm4DJFKHqhR0bZHlaq5d6/EFeE?=
- =?us-ascii?Q?uYD4UQsWlYPpDljqgLdcCiae0XMUJcH4k+oOEoo35hQB0fVhXI86yzZVafUd?=
- =?us-ascii?Q?lMHh0679PfwiPFFZA0qU9i1odCZvvFd6Mi17zpHhKKnPy0sJXVbNZcVJOlHh?=
- =?us-ascii?Q?6y0XBeZxp1i7Zm1P0V9SWNgwSa2bpJWo2x4P?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2025 08:07:55.5744
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6d9aeda-178a-4ea9-ff2a-08dd8c751b74
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044A4.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5649
 
-Use the same license as the files from which the code originated during
-recent code movements. Take the opportunity to add SPDX identifier for
-device-tree.c and remove the license text.
+Add new cpuid features for Sierra Forest.
 
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
 ---
-This is mostly fixing files added recently by Oleksii.
+Changes in v2:
+- change INVD_DISABLE to NO_INVD
+- change UC_LOCK_DISABLE to UC_LOCK_DIS
+- better comment for UIRET_UIF
+- use MCU_ENUM because it's shorter and add better comment
 ---
- xen/common/device-tree/device-tree.c  |  5 +----
- xen/common/device-tree/domain-build.c | 11 +++++++++++
- xen/common/device-tree/kernel.c       | 11 +++++++++++
- 3 files changed, 23 insertions(+), 4 deletions(-)
+ xen/include/public/arch-x86/cpufeatureset.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/device-tree.c
-index 90fee2ba0315..886e6c7712de 100644
---- a/xen/common/device-tree/device-tree.c
-+++ b/xen/common/device-tree/device-tree.c
-@@ -1,13 +1,10 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
- /*
-  * Device Tree
-  *
-  * Copyright (C) 2012 Citrix Systems, Inc.
-  * Copyright 2009 Benjamin Herrenschmidt, IBM Corp
-  * benh@kernel.crashing.org
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License version 2 as
-- * published by the Free Software Foundation.
-  */
+diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
+index cc6e984a88..089a133519 100644
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -304,13 +304,18 @@ XEN_CPUFEATURE(SM3,          10*32+ 1) /*A  SM3 Instructions */
+ XEN_CPUFEATURE(SM4,          10*32+ 2) /*A  SM4 Instructions */
+ XEN_CPUFEATURE(AVX_VNNI,     10*32+ 4) /*A  AVX-VNNI Instructions */
+ XEN_CPUFEATURE(AVX512_BF16,  10*32+ 5) /*A  AVX512 BFloat16 Instructions */
++XEN_CPUFEATURE(LASS,         10*32+ 6) /*   Linear Address Space Separation */
+ XEN_CPUFEATURE(CMPCCXADD,    10*32+ 7) /*a  CMPccXADD Instructions */
++XEN_CPUFEATURE(ARCH_PERF_MON, 10*32+ 8) /*  ArchPerfMonExt */
+ XEN_CPUFEATURE(FZRM,         10*32+10) /*A  Fast Zero-length REP MOVSB */
+ XEN_CPUFEATURE(FSRS,         10*32+11) /*A  Fast Short REP STOSB */
+ XEN_CPUFEATURE(FSRCS,        10*32+12) /*A  Fast Short REP CMPSB/SCASB */
+ XEN_CPUFEATURE(WRMSRNS,      10*32+19) /*S  WRMSR Non-Serialising */
+ XEN_CPUFEATURE(AMX_FP16,     10*32+21) /*   AMX FP16 instruction */
+ XEN_CPUFEATURE(AVX_IFMA,     10*32+23) /*A  AVX-IFMA Instructions */
++XEN_CPUFEATURE(LAM,          10*32+26) /*   Linear Address Masking */
++XEN_CPUFEATURE(MSRLIST,      10*32+27) /*   RDMSRLIST/WRMSRLIST/WRMSRNS */
++XEN_CPUFEATURE(NO_INVD,      10*32+30) /*   INVD_DISABLE_POST_BIOS_DONE */
  
- #include <xen/types.h>
-diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
-index 762b63e2b00a..3d7fc7a19ef6 100644
---- a/xen/common/device-tree/domain-build.c
-+++ b/xen/common/device-tree/domain-build.c
-@@ -1,3 +1,5 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
- #include <xen/bootfdt.h>
- #include <xen/fdt-domain-build.h>
- #include <xen/init.h>
-@@ -393,3 +395,12 @@ void __init initrd_load(struct kernel_info *kinfo,
+ /* AMD-defined CPU features, CPUID level 0x80000021.eax, word 11 */
+ XEN_CPUFEATURE(NO_NEST_BP,         11*32+ 0) /*A  No Nested Data Breakpoints */
+@@ -340,6 +345,7 @@ XEN_CPUFEATURE(RRSBA_CTRL,         13*32+ 2) /*S  MSR_SPEC_CTRL.RRSBA_DIS_* */
+ XEN_CPUFEATURE(DDP_CTRL,           13*32+ 3) /*   MSR_SPEC_CTRL.DDP_DIS_U */
+ XEN_CPUFEATURE(BHI_CTRL,           13*32+ 4) /*S  MSR_SPEC_CTRL.BHI_DIS_S */
+ XEN_CPUFEATURE(MCDT_NO,            13*32+ 5) /*A  MCDT_NO */
++XEN_CPUFEATURE(UC_LOCK_DIS,        13*32+ 6) /*   UC-lock disable */
  
-     iounmap(initrd);
- }
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/common/device-tree/kernel.c b/xen/common/device-tree/kernel.c
-index 1bf3bbf64eae..cb04cd9d5014 100644
---- a/xen/common/device-tree/kernel.c
-+++ b/xen/common/device-tree/kernel.c
-@@ -1,3 +1,5 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
- #include <xen/bootfdt.h>
- #include <xen/device_tree.h>
- #include <xen/fdt-kernel.h>
-@@ -240,3 +242,12 @@ void __init kernel_load(struct kernel_info *info)
+ /* Intel-defined CPU features, CPUID level 0x00000007:1.ecx, word 14 */
  
-     info->load(info);
- }
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
+@@ -349,7 +355,9 @@ XEN_CPUFEATURE(AVX_NE_CONVERT,     15*32+ 5) /*A  AVX-NE-CONVERT Instructions */
+ XEN_CPUFEATURE(AMX_COMPLEX,        15*32+ 8) /*   AMX Complex Instructions */
+ XEN_CPUFEATURE(AVX_VNNI_INT16,     15*32+10) /*A  AVX-VNNI-INT16 Instructions */
+ XEN_CPUFEATURE(PREFETCHI,          15*32+14) /*A  PREFETCHIT{0,1} Instructions */
++XEN_CPUFEATURE(UIRET_UIF,          15*32+17) /*   UIRET updates UIF */
+ XEN_CPUFEATURE(CET_SSS,            15*32+18) /*   CET Supervisor Shadow Stacks safe to use */
++XEN_CPUFEATURE(SLSM,               15*32+24) /*   Static Lockstep Mode */
+ 
+ /* Intel-defined CPU features, MSR_ARCH_CAPS 0x10a.eax, word 16 */
+ XEN_CPUFEATURE(RDCL_NO,            16*32+ 0) /*A  No Rogue Data Cache Load (Meltdown) */
+@@ -368,6 +376,7 @@ XEN_CPUFEATURE(DOITM,              16*32+12) /*   Data Operand Invariant Timing
+ XEN_CPUFEATURE(SBDR_SSDP_NO,       16*32+13) /*A  No Shared Buffer Data Read or Sideband Stale Data Propagation */
+ XEN_CPUFEATURE(FBSDP_NO,           16*32+14) /*A  No Fill Buffer Stale Data Propagation */
+ XEN_CPUFEATURE(PSDP_NO,            16*32+15) /*A  No Primary Stale Data Propagation */
++XEN_CPUFEATURE(MCU_ENUM,           16*32+16) /*   Runtime Microcode Update features */
+ XEN_CPUFEATURE(FB_CLEAR,           16*32+17) /*!A| Fill Buffers cleared by VERW */
+ XEN_CPUFEATURE(FB_CLEAR_CTRL,      16*32+18) /*   MSR_OPT_CPU_CTRL.FB_CLEAR_DIS */
+ XEN_CPUFEATURE(RRSBA,              16*32+19) /*!  Restricted RSB Alternative */
+@@ -379,6 +388,7 @@ XEN_CPUFEATURE(GDS_CTRL,           16*32+25) /*   MCU_OPT_CTRL.GDS_MIT_{DIS,LOCK
+ XEN_CPUFEATURE(GDS_NO,             16*32+26) /*A  No Gather Data Sampling */
+ XEN_CPUFEATURE(RFDS_NO,            16*32+27) /*A  No Register File Data Sampling */
+ XEN_CPUFEATURE(RFDS_CLEAR,         16*32+28) /*!A| Register File(s) cleared by VERW */
++XEN_CPUFEATURE(IGN_UMONITOR,       16*32+29) /*   IGN_UMONITOR_SUPPORT */
+ 
+ /* Intel-defined CPU features, MSR_ARCH_CAPS 0x10a.edx, word 17 */
+ 
 -- 
-2.25.1
+2.42.0
 
 
