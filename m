@@ -2,52 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0220EAAEDCB
-	for <lists+xen-devel@lfdr.de>; Wed,  7 May 2025 23:18:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.978827.1365675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFFADAAEECB
+	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 00:47:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.978860.1365697 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCm9e-0007YB-Pq; Wed, 07 May 2025 21:18:14 +0000
+	id 1uCnXo-0002P9-94; Wed, 07 May 2025 22:47:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 978827.1365675; Wed, 07 May 2025 21:18:14 +0000
+Received: by outflank-mailman (output) from mailman id 978860.1365697; Wed, 07 May 2025 22:47:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCm9e-0007Wb-N0; Wed, 07 May 2025 21:18:14 +0000
-Received: by outflank-mailman (input) for mailman id 978827;
- Wed, 07 May 2025 21:18:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uCnXo-0002Lz-61; Wed, 07 May 2025 22:47:16 +0000
+Received: by outflank-mailman (input) for mailman id 978860;
+ Wed, 07 May 2025 22:47:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fqG7=XX=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1uCm9d-0007WV-AK
- for xen-devel@lists.xenproject.org; Wed, 07 May 2025 21:18:13 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061e.outbound.protection.outlook.com
- [2a01:111:f403:2418::61e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c6238b91-2b88-11f0-9eb4-5ba50f476ded;
- Wed, 07 May 2025 23:18:09 +0200 (CEST)
-Received: from BYAPR07CA0101.namprd07.prod.outlook.com (2603:10b6:a03:12b::42)
- by CH3PR12MB8657.namprd12.prod.outlook.com (2603:10b6:610:172::6)
+ <SRS0=sPgg=XX=amd.com=VictorM.Lira@srs-se1.protection.inumbo.net>)
+ id 1uCnXm-00027q-JU
+ for xen-devel@lists.xenproject.org; Wed, 07 May 2025 22:47:14 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2061f.outbound.protection.outlook.com
+ [2a01:111:f403:2416::61f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 369ed8ad-2b95-11f0-9ffb-bf95429c2676;
+ Thu, 08 May 2025 00:47:12 +0200 (CEST)
+Received: from MW4PR04CA0281.namprd04.prod.outlook.com (2603:10b6:303:89::16)
+ by MW6PR12MB9018.namprd12.prod.outlook.com (2603:10b6:303:241::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.26; Wed, 7 May
- 2025 21:18:00 +0000
-Received: from SJ5PEPF000001D5.namprd05.prod.outlook.com
- (2603:10b6:a03:12b:cafe::81) by BYAPR07CA0101.outlook.office365.com
- (2603:10b6:a03:12b::42) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.29 via Frontend Transport; Wed,
- 7 May 2025 21:18:00 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ5PEPF000001D5.mail.protection.outlook.com (10.167.242.57) with Microsoft
+ 2025 22:47:00 +0000
+Received: from MWH0EPF000971E4.namprd02.prod.outlook.com
+ (2603:10b6:303:89:cafe::79) by MW4PR04CA0281.outlook.office365.com
+ (2603:10b6:303:89::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.32 via Frontend Transport; Wed,
+ 7 May 2025 22:47:00 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E4.mail.protection.outlook.com (10.167.243.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Wed, 7 May 2025 21:18:00 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8722.18 via Frontend Transport; Wed, 7 May 2025 22:46:59 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 7 May
- 2025 16:17:59 -0500
-Received: from [172.31.225.170] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 7 May 2025 16:17:58 -0500
+ 2025 17:46:58 -0500
+Received: from xsjstefanos51.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39 via Frontend
+ Transport; Wed, 7 May 2025 17:46:58 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,178 +60,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6238b91-2b88-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 369ed8ad-2b95-11f0-9ffb-bf95429c2676
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gDDHWkTLTrkGc3ektELJ5P/F0mXymp7YAs0q1IQmHgP20WPY6dkaXAW0k+7hSKXvYdJDIg4WTQ6IqvAh0oCzyxT3pF+hGbB8oymc+ikfSAYWpz4pM5E0ZOUZ9ModTHWDoYrTExWUshkb4WlLoGbrB0WSvUQn/cGOwR6Ny8ujjqbn1DRIvoGUAeOduokl+2yq1ys1Wyj+4evlwaLNabG+IoSNnuUEU14YPN9IeVBaXe++Y0jB15fh8YVt7DN3ZflaIf5yzNIF53ZepH4U+iKj/smSSW8L/J8Ka2s3aPlpSNptzHvo58b/ABxnKAfjTNQD5OyuwwSq0zvPzYXkQ2nC9w==
+ b=D+lxbHcTN0tQnvxPin5mebs7QJV73W7GqjyqL28/QZfoQHXbT/xaSIw8MHs9cVV1KuYEi+X1PvYHOtO4BS0bNBnHDw5LCegXNhg4iUoH0DQalbhU3K7mPwQNvx1bBrZWp252lF08EbkW9/eLVibcWTnhgWxQLs2Rcn+huUafcrIr4z7f1JLX1DiBa5og5e2MtNzwlCPUf/tXjvwDnXAlfEaV7/xs0lfJ5O06tA4NwjwT8j7nc+kqmbXnjxXsSF8E/3Xko5RuYlCpwA6yC1LKjSLY9Ppc8fCMnp0XqWZk5yplO4UZqoswg4k8U2lbTyDoQ2c8UssnIlEp8AqGG5Q1MA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nEJJfgVNEXP58Hz375A3LbpVOdQlQpOr8EdhETwuh6g=;
- b=ceEwTTeNhM9gM9G/AHJ4C4L1+E1tvQ7XhPApjKEuKkBmLvg7qxiNmj/d3Ex5wuH+Iq64sJO471/kvGHECgJxqUUNZvA+dN7cEb7GlWDc9KKwlEFp947KTRFrbkrTzaxxDxEPegPTibBde322KUtscaG+BB5Vqod3mzhnkVR3mevOweyOncZda1/r61muevCOm0Oq+EUx/LD9Yy6IlGedcp6ix1279+NQdTk3gD9Yp5tXwpxVy/QkAWKftEmiIdCQYJD6Q9FcEudAfvQ9Fy3yBZRc7raz9U8HS8bKkxpvoI3Xy3zncKuScVPtFMbLQLmzduEun9S2u5ZePDTIuBdtLQ==
+ bh=6mFAi4zYRUkBuhbz9pnZdU9K7CsFcZrta7WY6BXIQCE=;
+ b=H3cZ8XRucGENSuyxpXXPUuD0Ghk8SJP72ocvOLcf/IGvGpmPExjEmNLOqnG31p9iw0fkTmnWcHf2r5wtWkhSnWiJsE3e+Mzo+Rv6TPSvat2AW1DapnF89ysgcptiIeHRd3Oz/ygbFSO3AFrA8Ug/dXDBlMv6yvofzqVmjHsQQWsIoqhuLAU9t5bk51ROTI5Rh4qdoTPlzC3caggmeMJWPTLILKx1qWjjMx9G5T7Y54uRqQ+MYkvAvYzLE+F7D/k1NCSrp0d09pVVUmEPkpgCmoytM4ZPNjnsDNkDZ4SXIVYGNMf8/m9caHJM/5sD7xVhCf+tHuTW5dhOzx+JC92gxw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nEJJfgVNEXP58Hz375A3LbpVOdQlQpOr8EdhETwuh6g=;
- b=QO1oxQWovA6uA7gRBBJ7NFUYVvnNYRLz/EGRHL4XR7d8R8urSuEyHdqy40/0irJ3sSU0doABLqVsRGVU58bn2uqW3jQo+HLKoaELBvFxOdzFgupm611SL+VBeff/LNjJMXL9a4J0t3J/wpZ9CyJwRuQWMfk6Gf7UxCfvrM0BvAA=
+ bh=6mFAi4zYRUkBuhbz9pnZdU9K7CsFcZrta7WY6BXIQCE=;
+ b=Ep0PGq2zTclxeRcF41CsCGmjgeqkccPQNVh/GZBd8zqdjtY3HwoZC0AsH60pgGPvx4ZPWu34cmUlkOov5CeV4VL6KRp4m0mDP20Gc2FwR6Ss24e/p1Y5Ot0FEYtPVnT5Tx3NnwzTIV8HopycU/LDUmaRosl+jVG9q9TMQwaHEjU=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <47ee8b59-7b6a-4248-a4bd-f5be9f00f562@amd.com>
-Date: Wed, 7 May 2025 17:17:58 -0400
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: <victorm.lira@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>, Victor Lira
+	<victorm.lira@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Anthony
+ PERARD" <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
+	"Jan Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Federico Serafini
+	<federico.serafini@bugseng.com>, Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: [PATCH v1 1/2] x86: x86_emulate: address violation of MISRA C Rule 13.2
+Date: Wed, 7 May 2025 15:46:39 -0700
+Message-ID: <77f9c4cabe607ce4024013c604bc790fb629d322.1746657135.git.victorm.lira@amd.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v20 2/2] vpci: translate virtual PCI bus topology for
- guests
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-CC: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>,
-	"Oleksandr Andrushchenko" <oleksandr_andrushchenko@epam.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
-	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jiqian Chen <Jiqian.Chen@amd.com>, Mykyta Poturai <Mykyta_Poturai@epam.com>
-References: <20250418185840.335816-1-stewart.hildebrand@amd.com>
- <20250418185840.335816-3-stewart.hildebrand@amd.com>
- <aBnvlY3Dfc_Wpljw@macbook.lan> <3693f1ef-e305-4a6b-bb4e-3b842418387f@amd.com>
- <aBsPbyqL0XpjEdeo@macbook.lan> <eee6811b-36da-41be-83b0-21ec99d3b829@amd.com>
- <aBucENdwFYacsQAX@macbook.lan>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <aBucENdwFYacsQAX@macbook.lan>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
+Received-SPF: None (SATLEXMB04.amd.com: victorm.lira@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|CH3PR12MB8657:EE_
-X-MS-Office365-Filtering-Correlation-Id: bf1c0a03-e399-477b-5b34-08dd8daca53b
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E4:EE_|MW6PR12MB9018:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75777940-4063-49b3-cf23-08dd8db913df
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024|13003099007;
+	BCL:0;ARA:13230040|1800799024|36860700013|7416014|376014|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Mkd4cmtHdElMTSthbHVtK0YzZktCZjRnOHNyYjF0VFpZd3ZiVXp6dVBCQjZ6?=
- =?utf-8?B?d2F2aVB6bTgwQ0F4WmlpNTUweU1qTFhQUUN4QmMzMlBuWkVrOUFUUGJUUVAx?=
- =?utf-8?B?UG5tWEE1SnhIYzBPNktOMDNpR1J3T3Jhd2FHbkZpT3RIcWhBYXpRVjErY0JW?=
- =?utf-8?B?OXcvc3U5YXVGTWhVWktITEtOOE1DK3lyYzdyN2JNczlEV0xrVmtmUjAyK1Rt?=
- =?utf-8?B?VlhMUE1jdUZxaVpjeGRLalhzemtOUS8zNGNXUXlaOGdtMC8rTW1nTU50S05V?=
- =?utf-8?B?OExzNFMvZzlzSEprZUt1MUxGSmtLZUZRYkt4bkNaL3ZGSUpvTjQ1Ly83c2pr?=
- =?utf-8?B?YVEvVkUzZzNFTkY2K2gxMUp3RU0xSFAySkRGOEhUeHU4WWcwUFpWWGp6eVpM?=
- =?utf-8?B?UXliUXkzd2xqSDVkNWpkaXEvUmVjeGNPSmtScUUvVjY5bmdQQ0RqdXVQem1p?=
- =?utf-8?B?bnRlSlJzcFE3QmVSR1dwWkgyYllabEFDU1ltc3N5dm51bTNkK3QrcE1ZV1J4?=
- =?utf-8?B?cjU2cVd2WUpuWWtScTlQVjJja2FNVTZEMXNkVmxVYS9PZXJaN2x2REF3SmN4?=
- =?utf-8?B?cjBEaE91UHYrYU05K2ltaWdhT1hBQUhiSWlOVUNNSEE5SWQ5QTJuVFJDWk5T?=
- =?utf-8?B?Tmd0MG9sdVFqWDNSWnYwcXVVWHRadTNBMnU2WDV6ZXVsTDdGZ0E1c1NNQ1F1?=
- =?utf-8?B?bFh0eUErek1zWnJ5bVpVNWExTXRHMU51dUNaRmxnUHppWDQ2a1c0VmJ3UDNU?=
- =?utf-8?B?cnBhY1pJeC9KSlQ0dGxCeXE2RGdZdE1GTmtFZXBtdTh5akhiNE5pbkQrRURn?=
- =?utf-8?B?RXhOYTlMUEg5cFhMYVdCZkZ2WkI3MVVPNmpSL3o3V1hiSTBwYzBYUmFNOVQw?=
- =?utf-8?B?TTBUbEV3Qm9wUVJQUnFjWlVFd01LbmxpUGUzN0wwbnEwa0tDL1FadU9rTlM4?=
- =?utf-8?B?M1dwRjhodHkrcHhra2l0eEpWaEkvOEF2MlNpbWZUcGI2TUxkaUV5c2RSOGx1?=
- =?utf-8?B?RlVFc1ZwaDdHNzVtOW42cGlob0F2UW1kSDNOdTJsS2ZPcGttMFduUVA4ZnNF?=
- =?utf-8?B?dUNLSVFWbE9QNXArUmRuNmc1NG5ZS2IyL01PS002cEw3MkYzbGJnZTZPQStZ?=
- =?utf-8?B?MEVVaC9HYzdRbjQ5WE0xbTFxd2ZJNTJKbFF4TUs5V3VBQlFOc1h0MlBQRkpq?=
- =?utf-8?B?Vi8xTXd5b2d3bU9WWG1LdUdNdmRZU3BpamZQK1ViQnpzdEIxa0NiOU8wallF?=
- =?utf-8?B?R0l3N3ZrYWY3bHlGQjMvTG1OZmErYmtkNTJRcklTaGhQTlJoZkk5SlJmR1Qw?=
- =?utf-8?B?SXdsMUxoQTNzd2NNYnJKSnY5WFY4VWszaGM3c2FrdEJLY1pMNHJPWGRDT1Js?=
- =?utf-8?B?dTRlY0E4eHREWkVOd3pjVDYyd1hrRzB5Q2VhL3lvUHU0c0FleTV2UHlPTVZ5?=
- =?utf-8?B?eHd6b3pvZEYxVXd3MGlPdzIwT1Q5d0x2cUhGSDVDbWhBRGJ1NXl0bEFVNHl6?=
- =?utf-8?B?UWRGNE9TUW9RSGx2R0c2ckZaYmVBOTQvMFBoNGl5dUY4ZDFwUFVubzUrbkJU?=
- =?utf-8?B?SjFrR2s5ZTM4VlJuOFdZTkF5UDk4VWI2VFVhdE12WGM5MXFCTTVPMWplMG1W?=
- =?utf-8?B?T0hGNHFEZWNyMW1BMENobFo4ZnVNd1hpOEVWZ3JaS2IvV09DdERwbGZ2RlVl?=
- =?utf-8?B?eVk1NWVmcHdwVzd3ZW1UYXpNUXQzRTZHdXc5TzVyVzFQTTl6cXd3SlQ2blFT?=
- =?utf-8?B?RzBDS1dwa1dzOWNTNStkYitNcTBiTlkzZngvZ1JZb3k3a2xuTGw3OVVjbjIv?=
- =?utf-8?B?VVc0VzJWWERiUEZzbHhjWUcrOWNkTWhkbTlYZitVY2FGcjRFYTFmK3V2VENH?=
- =?utf-8?B?OVhQalhadGh0cWc5Q2g2UXpybFNEY1JIWjVjN3hHWXBSQytEblhiVFBaSys1?=
- =?utf-8?B?VEFKSE82aEZ5TUhycXdIVHYyYk4zY0RkaStDSmhjZGZSK05VVEN0RGZVSHZJ?=
- =?utf-8?Q?J1uC3itKQIMiomIQHhnDUUFUR+Of1k=3D?=
+	=?utf-8?B?elozb1hJYkY1Z1Y3Nm5RMWJiZk4wNHIyR1dzak9PZlA0V3FJa3ZkQitRT2p3?=
+ =?utf-8?B?bzd0VzdPOE1yRVRoeEo4Vm1TNE9aYUs1NWhTSUVSV01JQ2lDR2xHSDJabTg1?=
+ =?utf-8?B?SlFOcjZSRDVsVkJxdFhXNHJlZjRSczk0WU1lekhVaVBsNFpOY2wzZjBVNHJy?=
+ =?utf-8?B?MG5DN0wxQWJRQXMwaEszc3EwZDdKK3RUSFZqZHBrak9jcHgzaTNwcWN2d3Nj?=
+ =?utf-8?B?L3lvUHBPSGw4NXVtMXhxTDk2L1A5S2psYXNjajRVc3R5YVNYOVdzckxzN0JX?=
+ =?utf-8?B?TnBmT3dSZ3loeUEvS3Mya3B6MCsyUG8vZ2cveU9jRlRoU3VJcmtFc1hvL1hi?=
+ =?utf-8?B?Q1JpbzBpZnhncGpvbWt0Vk1xaFVEMmlZTk45ZjJsMXBlZ0N2Z0d1RXhrZVBP?=
+ =?utf-8?B?K3J6VmhVU1h1dzFJVWVUcXRPRi9ObkM1eWhLUXdSZXV5RmNkMDcrYUxmVjBI?=
+ =?utf-8?B?dUlhcFkyUjQxQjVUT3RaQmFUOTJQOG13ekhRM3V5TFFlRXRjenY5dCtoQ2Vs?=
+ =?utf-8?B?L3YxVUJFQ3BiSnZvRTlaUFh2dmo4alJyMXlGQUszVzF4b3dDQTl2VjFpcktW?=
+ =?utf-8?B?MXFCSmx6aytCT241dk5nRVBPZytCaUoxRFVRLzNhMmdLTjVHRFNwdFJPUm41?=
+ =?utf-8?B?bVJnczlXV1kzeTZsNVdsSkkxN0o1bjFEdldXSUlmTnQ5TjJpbUlxbkVTTVRz?=
+ =?utf-8?B?SkpLYlZnU1JaMnFXTVZCSWFKQ2F6OGRiQ2t1T29mK3ZWM0pzTXVoTzhNZTI1?=
+ =?utf-8?B?S1M5WG9ZdjU1RW16RmJ3QkFES08vSG1OL1ZTcldRWUlURlZFOGNveXMrdDZP?=
+ =?utf-8?B?QXJtek4vTE1KWXk1Z3VsUlI0T3dDR2VMU25HeW1WeXJMMXJuT2dPRTFFTDVE?=
+ =?utf-8?B?eFV0YWhjRlpFR3Y4Zlkxa1RMdlplakxqaFRzZHBya1VNWG1mSlAyUDlIV1F2?=
+ =?utf-8?B?QVpJYTJjN2ZhTjlhM2lPcy9Md3ZPRGd2SzJBYlVHVmR4d21FRDdGb1JiaEJy?=
+ =?utf-8?B?TXJyZDdpZk1xQzBpNVhmRVhNTTFrZDg0Y0NVMzhsR2ZmTlhFVjI1UkNzME56?=
+ =?utf-8?B?R1ZkREtZOTZJMVFMSXhGbjRxODZSTDc0OUcwbG4yaXZDY3hYbmRpOEdnbE5y?=
+ =?utf-8?B?cEQyWnE5QjFMMWhqeFk1czBNdWYxZFlKRFRTZU1ORW9CY1N1MU4rK0U0L0lF?=
+ =?utf-8?B?RXN0WnJLb3hZZ2Y4b1ZUbnN3a2l6R2ZDeFh4RDZXaFlNWnZmWW9IamJlL3J6?=
+ =?utf-8?B?OUZHZjRWamFtMVRvZnZhSkdQTnB0anROUkREYjI5NkZ0aUlxaVl4UWZ3SUxa?=
+ =?utf-8?B?V2pmbHhZUzdqa2Y2d3FFa1NXYnhyQ2VVS0lqUWlyamVJbWNocTZZd1Zvb042?=
+ =?utf-8?B?MTZtT3o1eDdEY2h2UVNkOE5ObkI1ZitPOEJwQTVzTTU2SU1yM0RLUDgvS255?=
+ =?utf-8?B?OTc3VXF4b2F5ZmxlOU9YUmtpV3RENUF1ZFZtdDNiYW5jd2QwZWtSVUVBNGw5?=
+ =?utf-8?B?b3AxNXZzeW5pMk04VmNKcHRJa2JmU2JTaDJlbU9VSXZDNlk2Y3ZaaGFJZXVV?=
+ =?utf-8?B?cTZwKzN2eFNTKzJGTEt2Mkljb2xvekJ4bXc4UkRiUjYvL0s0ZG5Qc3NaQkV3?=
+ =?utf-8?B?NVMvSzA4V3hrdncwUDBMZk4zSlRMc0NrTWtVaGdsYk9udXFxM2IvVG1vQnZH?=
+ =?utf-8?B?SkEwYXpvbVg4cnc3RisyNDhCUXFNOVJjYkxXeUgxcHpzUzZ5K2phYlBhVE9X?=
+ =?utf-8?B?RFRpK252T2pFd3drM3cvMmV3ak5nb2hrWWdoWkM4Y3lOVC93UmR2QTRTYm1i?=
+ =?utf-8?B?b01lR0k0U01pL2JmbzBRZVFnM1F3a0JBOXl1V1UrOXpEb3BDNnlhZGx1ZUxS?=
+ =?utf-8?B?QU1KSDZPb2pvQlNXblZsWnl5b2pjSUc4M2JTRkg5V3BZNTIrZEJvRzI1RElO?=
+ =?utf-8?B?Z1JqQnBNY3BtQ0Z6QXozTWZmSG82SnBFSnVldG0zRVhCcERPWXdoZHNmUnRn?=
+ =?utf-8?B?L0M0WnlNa0RTUGw4Ty9LS3FMUmRpSXZ6Vy93bzgrUFhDdC8xTGdLNjZKRUND?=
+ =?utf-8?Q?jZEuZI?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024)(13003099007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(7416014)(376014)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2025 21:18:00.1086
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2025 22:46:59.6926
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf1c0a03-e399-477b-5b34-08dd8daca53b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75777940-4063-49b3-cf23-08dd8db913df
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001D5.namprd05.prod.outlook.com
+	MWH0EPF000971E4.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8657
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9018
 
-On 5/7/25 13:44, Roger Pau Monné wrote:
-> On Wed, May 07, 2025 at 09:38:51AM -0400, Stewart Hildebrand wrote:
->> On 5/7/25 03:44, Roger Pau Monné wrote:
->>> On Tue, May 06, 2025 at 11:05:13PM -0400, Stewart Hildebrand wrote:
->>>> On 5/6/25 07:16, Roger Pau Monné wrote:
->>>>> On Fri, Apr 18, 2025 at 02:58:37PM -0400, Stewart Hildebrand wrote:
->>>>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>>>>>  static int vpci_register_cmp(const struct vpci_register *r1,
->>>>>>                               const struct vpci_register *r2)
->>>>>>  {
->>>>>> @@ -438,7 +473,7 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
->>>>>>      const struct pci_dev *pdev;
->>>>>>      const struct vpci_register *r;
->>>>>>      unsigned int data_offset = 0;
->>>>>> -    uint32_t data = ~(uint32_t)0;
->>>>>> +    uint32_t data = 0xffffffffU >> (32 - 8 * size);
->>>>>
->>>>> This seems kind of unrelated to the rest of the code in the patch,
->>>>> why is this needed?  Isn't it always fine to return all ones, and let
->>>>> the caller truncate to the required size?
->>>>>
->>>>> Otherwise the code in vpci_read_hw() also needs to be adjusted.
->>>>
->>>> On Arm, since 9a5e22b64266 ("xen/arm: check read handler behavior") we
->>>> assert that the read handlers don't set any bits above the access size.
->>>
->>> I see.  That kind of diverges from x86 behavior, that AFAICT (see
->>> memcpy() at tail of hvmemul_do_io()) instead truncates the memcpy to
->>> the size of the access.
->>>
->>> Maybe it would be better to instead of asserting just truncate the
->>> returned value to the given size, as that would allow to just return
->>> ~0 from handlers without having to care about the specific access
->>> size.
->>
->> The impression I get from [0] is that that on Arm, there's no benefit to
->> performing truncation in xen/arch/arm/io.c. Doing so would needlessly
->> affect other Arm internal read handlers (e.g. vGIC).
-> 
-> But isn't this truncation desirable in order to avoid possibly setting
-> bits outside of the access size?
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-On Arm we expect the read handlers to have the bits above the access
-size zeroed. If a read handler sets bits above the access size, it could
-indicate a bug in the read handler. As a reminder, this was already
-discussed at [0] and a patch was already committed 9a5e22b64266
-("xen/arm: check read handler behavior"). Perhaps we could both keep the
-ASSERT (for debug builds) and perform truncation (for release builds) in
-xen/arch/arm/io.c:handle_read(), but that's patch for another day.
+Rule 13.2 states: "The value of an expression and its persistent
+side effects shall be the same under all permitted evaluation orders".
 
-[0] https://lore.kernel.org/xen-devel/20240522225927.77398-1-stewart.hildebrand@amd.com/T/#t
+The full expansion of macro "commit_far_branch" contains an assignment to
+variable "rc", which is also assigned to the result of the GNU statement
+expression which "commit_far_branch" expands to.
 
->> For vPCI
->> specifically, however, we could potentially perform truncation in
->> xen/arch/arm/vpci.c. So I guess it's a question of whether we want to
->> give special treatment to vPCI compared to all other read handlers on
->> Arm?
-> 
-> I would think doing the truncation uniformly for all reads would be
-> better, as we then ensure the value propagated to the registers always
-> matches the access size?
-> 
-> I'm not expert on ARM, but it seems cumbersome to force this to all
-> internal handlers, instead of just truncating the value in a single
-> place.
+To avoid any dependence on the order of evaluation, the latter assignment
+is moved inside the macro.
 
-To move this forward, I suggest performing this truncation in
-xen/arch/arm/vpci.c:vpci_mmio_read(). This will be a single place to
-perform truncation for Arm vPCI, and will not affect other Arm internal
-mmio handlers.
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Signed-off-by: Victor Lira <victorm.lira@amd.com>
+---
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>
+Cc: Michal Orzel <michal.orzel@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>
+Cc: Roger Pau Monné <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Federico Serafini <federico.serafini@bugseng.com>
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>
+---
+ xen/arch/x86/x86_emulate/x86_emulate.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
+index 8e14ebb35b..7108fe7b30 100644
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -337,7 +337,7 @@ do {                                                                    \
+     validate_far_branch(cs, newip);                                     \
+     _regs.r(ip) = (newip);                                              \
+     singlestep = _regs.eflags & X86_EFLAGS_TF;                          \
+-    ops->write_segment(x86_seg_cs, cs, ctxt);                           \
++    rc = ops->write_segment(x86_seg_cs, cs, ctxt);                      \
+ })
+
+ int x86emul_get_fpu(
+@@ -2382,7 +2382,7 @@ x86_emulate(
+              (rc = read_ulong(x86_seg_ss, sp_post_inc(op_bytes + src.val),
+                               &src.val, op_bytes, ctxt, ops)) ||
+              (rc = load_seg(x86_seg_cs, src.val, 1, &cs, ctxt, ops)) ||
+-             (rc = commit_far_branch(&cs, dst.val)) )
++             commit_far_branch(&cs, dst.val) )
+             goto done;
+         break;
+
+@@ -2438,7 +2438,7 @@ x86_emulate(
+         _regs.eflags &= mask;
+         _regs.eflags |= (eflags & ~mask) | X86_EFLAGS_MBS;
+         if ( (rc = load_seg(x86_seg_cs, sel, 1, &cs, ctxt, ops)) ||
+-             (rc = commit_far_branch(&cs, (uint32_t)eip)) )
++             commit_far_branch(&cs, (uint32_t)eip) )
+             goto done;
+         break;
+     }
+@@ -2557,7 +2557,7 @@ x86_emulate(
+         ASSERT(!mode_64bit());
+     far_jmp:
+         if ( (rc = load_seg(x86_seg_cs, imm2, 0, &cs, ctxt, ops)) ||
+-             (rc = commit_far_branch(&cs, imm1)) )
++             commit_far_branch(&cs, imm1) )
+             goto done;
+         break;
+
+--
+2.47.0
 
