@@ -2,53 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF9ECAAEECC
-	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 00:47:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.978859.1365685 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 916F4AAEEF2
+	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 01:02:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.978881.1365705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCnXm-0002Ai-0N; Wed, 07 May 2025 22:47:14 +0000
+	id 1uCnmR-0005fF-Fq; Wed, 07 May 2025 23:02:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 978859.1365685; Wed, 07 May 2025 22:47:13 +0000
+Received: by outflank-mailman (output) from mailman id 978881.1365705; Wed, 07 May 2025 23:02:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCnXl-00027w-U3; Wed, 07 May 2025 22:47:13 +0000
-Received: by outflank-mailman (input) for mailman id 978859;
- Wed, 07 May 2025 22:47:12 +0000
+	id 1uCnmR-0005cT-C3; Wed, 07 May 2025 23:02:23 +0000
+Received: by outflank-mailman (input) for mailman id 978881;
+ Wed, 07 May 2025 23:02:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sPgg=XX=amd.com=VictorM.Lira@srs-se1.protection.inumbo.net>)
- id 1uCnXk-00027q-HD
- for xen-devel@lists.xenproject.org; Wed, 07 May 2025 22:47:12 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20601.outbound.protection.outlook.com
- [2a01:111:f403:2414::601])
+ <SRS0=rmgq=XX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uCnmQ-0005cN-AK
+ for xen-devel@lists.xenproject.org; Wed, 07 May 2025 23:02:22 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3396a786-2b95-11f0-9ffb-bf95429c2676;
- Thu, 08 May 2025 00:47:07 +0200 (CEST)
-Received: from MW4PR04CA0300.namprd04.prod.outlook.com (2603:10b6:303:89::35)
- by MN0PR12MB5906.namprd12.prod.outlook.com (2603:10b6:208:37a::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.24; Wed, 7 May
- 2025 22:47:01 +0000
-Received: from MWH0EPF000971E4.namprd02.prod.outlook.com
- (2603:10b6:303:89:cafe::f0) by MW4PR04CA0300.outlook.office365.com
- (2603:10b6:303:89::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.31 via Frontend Transport; Wed,
- 7 May 2025 22:47:01 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E4.mail.protection.outlook.com (10.167.243.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Wed, 7 May 2025 22:47:00 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 7 May
- 2025 17:47:00 -0500
-Received: from xsjstefanos51.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39 via Frontend
- Transport; Wed, 7 May 2025 17:46:59 -0500
+ id 51321e96-2b97-11f0-9ffb-bf95429c2676;
+ Thu, 08 May 2025 01:02:16 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id CD6665C465D;
+ Wed,  7 May 2025 22:59:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A9F6C4CEE2;
+ Wed,  7 May 2025 23:02:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,140 +41,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3396a786-2b95-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jcbApUvtbgwqD43yVdf+Dd5YV8ztzgpvefJW4/eOQ05uieWdwst4oAvc1V8mJH5uFeDm9tkFprst+7Q30f0P5e6LSDs6fzMB71+o1VW1AQjPPEIg6NNTg7ivp4a10HhtVZDPOodbRGtiCJ6tIqWvY1qqzKD6psa+tw67URFCZ9sX4/ziwwojxGJtO7+9nOzakvMosD3qzIvSdvEjabDQGz+WAWheV8+OU26PTPiLTeMEIDcFRb0onqFiSoLQQhP4a1stRHyBgBU3yfP9ldl+/5BybBsmdcG8RK7B6kOn/JNqxjdWRw9RjCmmeFByAuBZFxt18nFJIvWk9JGCiup7Og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9h1zJoppazSV/QiQJBgP0elD4xcBB4mfIivoo79ocI0=;
- b=IQEUVCUYNA3kRRY89cnn6x0YvicrwIG/6KLNHNixafe13A1Y2Yyc8ypsKptb3f/jn2m5N8VOAly3iy0tOQtSF2Fvm4X3BLZGzhqK60rA12hPZmrCb2wMLOr3qqzufYWCR25GWY5Pf6OvwvpHEQ+Qe9z9SRyGWf8Uadi66IfhlfQQYZ8vpNfnltaDDuITd2/wzSdaBfEJ9cuMFuAbiwm+bdZUBwBsE24YlxAVjrPi8LMWG6AXvST/M7yrszGbGkBE26P6T03TIhkE0rZ4JpNw8l3TPsD1UMarbff2uwfAWzjDs068De3TB2G3ltDEsuGcrQe2n37e5Imc1iX05FwxjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9h1zJoppazSV/QiQJBgP0elD4xcBB4mfIivoo79ocI0=;
- b=hFC1MAPbVv/5K7kNaJLfGuDaXWuoVW85dGmP9o+DguVigMYVwKq5FaViYkmxHMKyVIXPjYFCbbrxgjVi6L7T6GVMUVyJff65lg4Bd31vEh/TUyD1KcB2rRF0ZYYdy9QcF1CMwJZkxi0uRGUpVPhoZHuFYUDOjlZSx1RpxpTXi0M=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: <victorm.lira@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Federico Serafini <federico.serafini@bugseng.com>, Victor Lira
-	<victorm.lira@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Anthony
- PERARD" <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
-	"Jan Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Nicola Vetrini
-	<nicola.vetrini@bugseng.com>, Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [PATCH v1 2/2] automation/eclair: tag Rule 13.2 as clean
-Date: Wed, 7 May 2025 15:46:40 -0700
-Message-ID: <aaba25c80b365fe0177ab976579f9a4e2cc3d2c0.1746657135.git.victorm.lira@amd.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <77f9c4cabe607ce4024013c604bc790fb629d322.1746657135.git.victorm.lira@amd.com>
-References: <77f9c4cabe607ce4024013c604bc790fb629d322.1746657135.git.victorm.lira@amd.com>
+X-Inumbo-ID: 51321e96-2b97-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1746658933;
+	bh=cvA0hU8fRMdH3DNXGdnJMKTk0d4FGdmMHYBwW5VuKXM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Up8Yc0Ta3SGyGm0R26tYopUQJnzTzuceV56ruNcr691y20uKDI+STnBJNb3jrS0+u
+	 X9ywPheN6WK2bllOm/zQO6SJHd5/1wATc9BXkIWDlSTm63JyDyOtqEfsN0sERBwhTi
+	 ndYzvDpJer8LZOfTWUYLKSxA/NG7hOaCFEt6NhfWKGCqXFOqqcUJp9IuhDljrp+Qlx
+	 hNyqakAbTGFBuetZyOXk66+OVSw7S52T3uVMmJ0F9S97nnWC9q3TGllvueemYH2X/e
+	 8SVca7VAtN9sEbDV8iPKh7BEnL4tN9lxVGF69MSnxoYAQ61uI2Ot28xY+TM6MvIPMV
+	 ZOmNtxEb3iZBQ==
+Date: Wed, 7 May 2025 16:02:11 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, jason.andryuk@amd.com, 
+    agarciav@amd.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
+In-Reply-To: <aBnOQyXSz-j33Wux@macbook.lan>
+Message-ID: <alpine.DEB.2.22.394.2505061658330.3879245@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop> <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com> <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop> <aBiVkw2SXJHxpieh@mail-itl> <aBjLoM_ttxqftzlp@macbook.lan>
+ <alpine.DEB.2.22.394.2505051100050.3879245@ubuntu-linux-20-04-desktop> <aBnOQyXSz-j33Wux@macbook.lan>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: victorm.lira@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E4:EE_|MN0PR12MB5906:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80bf0b4a-fd3d-4aa7-9547-08dd8db9148f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014|7416014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bUpDNDc3L2lFSDRiczFPZXBXMEhQUXp4SkhVVVpXZTdZZmRZMlJkNWxiMThx?=
- =?utf-8?B?MzBGSWk0ejA1OG5KZCtIVkZVV0pMY0ErWFJCVHZEcCs4MWhnS2hBRUNJMkx0?=
- =?utf-8?B?UlJPNmg4Y1doVlZKcWcxRThiSEtwcDlYTytlUE5XbExLbDJGNXJDcG1DcCtY?=
- =?utf-8?B?VVlGcytsZzY1UFFtcklwK2xueXdUREFRMWV5VzJvd09vNlQrNml1QTk1TS9w?=
- =?utf-8?B?ek0xTHFiNTNmNlQ2MmMwam1zaVFyT3pjQ3FJNGp6Q2J3OWJkZExWZlVycmd1?=
- =?utf-8?B?WGF6REJHRHZnNkZveTZwL0lRSkh0ajU3RWYrMExQbGU1Wm56b2RYeXdXdHdw?=
- =?utf-8?B?YWZDMmhySHlQRW5KMGI3cUhPVCszNFJUQzlmRVdDWVlqNGJhdm5PaU1GSStS?=
- =?utf-8?B?bWlNUml2aUNQWjhzL2pjaUpuL0RENFZ3UEhqbFo3VlY5NVFtWHpIdkxKSXNz?=
- =?utf-8?B?bmtWZjNGSnZSMGhKRG1ycDg1T1hLaVA3WGl2T3hDdjNWNmF5cFNLSlE2WXZC?=
- =?utf-8?B?RDF2bTFJd1gwbzRzYU9KZkhJSWp4QXdicWJXaXlZaDdVU0w3anBZUnp4eXVo?=
- =?utf-8?B?RUw0cG40aDNlYmRsb1JLd0pHQnEwNE5kSElDSzJEKzNIeU1hN2NPdm1BcGU3?=
- =?utf-8?B?amFKTmVQWHFWNG1XTGpvNjZUODJLQ2x1NWtmaUNSYVpBK04vSnpwTmxRMGhW?=
- =?utf-8?B?R3JERkZGMnVGbFJCVVYyL3grQWRnaEdzNmlzQ3EvVURZUmlWeC91aWY0WTNB?=
- =?utf-8?B?K2JXcnZtQzd5ZmFFa0cyNEF2L254KzVlSGxQQm15clZ4aXl6N1lId2NPTStC?=
- =?utf-8?B?OFhYZWdEektqcEpMbS83ckRlaVNrdFRyR2lLcUtUaVVVNjA3QWoreW0rVzZH?=
- =?utf-8?B?RWowN3RJeVRYdlZlcUpNV3RJWmNNSXFVRkw5clpUYzRzZjUyMTRDR1RvYWZT?=
- =?utf-8?B?VS9CazJGMmhKWFRjdnpUWjZDeERkakU4alBHM25GQk53My9KaTVYd1F2SWhi?=
- =?utf-8?B?N1RXb3plWm9qeFA5NE9RbldxQytXMlpMWjU4MDJJRitoak5STGV5TVBKRzhY?=
- =?utf-8?B?eDdIVGFJcmxkQkp2VDhFbCtNcjVjU2M2YzE4OEY1QndqL0tnT1FnZlpEMk4x?=
- =?utf-8?B?UlY2Z1J0Z1VSSkE0KzZkU0FtN0RIQ3lsdnA2VjkyWFNsMmJKaE1EblJUallr?=
- =?utf-8?B?YjZ6RFdMWUFoUW1KMFkydFdUbllBYUhNbkVwY1JJSlJhck9OZkJhNVBEU0Vz?=
- =?utf-8?B?dzVocXlqdllGOC9td2liUGQ3RUtmZnlQS2Eva1kwV0ZIYld3T2ljbHpXbUc3?=
- =?utf-8?B?SmdrbTRXdnNwRWpDeHg4RWNISllxNWNtbTZFRE9pNTgvYVhKaU94MGVxZW50?=
- =?utf-8?B?cHlNbmo2VVJEdGxxbWhnQ21tQ1RqTDlhWkMwTnkrU0hJSEJIQjVOWFNlYi94?=
- =?utf-8?B?K2xZSDNPOHc1Yk9kRmhhdXVSZmJ4OHRtRklEdFpsMGRySTF6eTB6S05XMSt4?=
- =?utf-8?B?NDZOMlRsTlFyNTJkaDY0K0dRMjZIZTAzbFl1TmVCT3g5eU9JS2RTZTJBS2dE?=
- =?utf-8?B?MkN6K0swSytlU3NjVGJDbjQxYzBqZGY4eWkzbkMvRDRPVmVWbXZQZGlMSzBH?=
- =?utf-8?B?dEl5bnB2ZGVDZ3pieGl6TWQzM0c5RVRYRzVKQlVtWXdOUmg4WDJLZ2g1R2Zm?=
- =?utf-8?B?M205WDVpcDZweFdPbGtVK0JVQlJsdmREbldJdzAweDNzRTBucmVsVHg5eVdU?=
- =?utf-8?B?Zk5ub3Fpd0gwYmtWOWhEcHE3cWFrMXdCbkVUQjl2eWMzUWoxY0c3NmkyTjkv?=
- =?utf-8?B?ZmZTQ3NsVkRzT3Y5K04vdEE0VUhtbGFvRllLY3I3NThqMEZHNDNmMUNYM3BH?=
- =?utf-8?B?TXlaUHJaN2dVSi9xWUV5cGFrOGpqQ1NiYk5TTDROcmcwSCtSejVmOHJDbGFw?=
- =?utf-8?B?dThGdDVCeDFhcDhLREhNQ21KczBHOWpwcmxmMkd6Q2JQa3VFUjlxd0IxUzR5?=
- =?utf-8?B?TXlPVC9PbkxjSE9XUUJzMXNPRlliVVBEVEZCYmV1OE1MQ1J5OHVrRXR6LzVw?=
- =?utf-8?Q?/w63sd?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(7416014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2025 22:47:00.8442
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80bf0b4a-fd3d-4aa7-9547-08dd8db9148f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000971E4.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5906
+Content-Type: multipart/mixed; BOUNDARY="8323329-1460966867-1746576173=:3879245"
+Content-ID: <alpine.DEB.2.22.394.2505061702580.3879245@ubuntu-linux-20-04-desktop>
 
-From: Federico Serafini <federico.serafini@bugseng.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Update ECLAIR configuration to consider Rule 13.2 as clean so as to
-avoid regressions.
+--8323329-1460966867-1746576173=:3879245
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2505061702581.3879245@ubuntu-linux-20-04-desktop>
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-Signed-off-by: Victor Lira <victorm.lira@amd.com>
----
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>
-Cc: Michal Orzel <michal.orzel@amd.com>
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>
-Cc: Roger Pau Monné <roger.pau@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Federico Serafini <federico.serafini@bugseng.com>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>
----
- automation/eclair_analysis/ECLAIR/tagging.ecl | 1 +
- 1 file changed, 1 insertion(+)
+On Tue, 6 May 2025, Roger Pau Monné wrote:
+> On Mon, May 05, 2025 at 11:11:10AM -0700, Stefano Stabellini wrote:
+> > On Mon, 5 May 2025, Roger Pau Monné wrote:
+> > > On Mon, May 05, 2025 at 12:40:18PM +0200, Marek Marczykowski-Górecki wrote:
+> > > > On Mon, Apr 28, 2025 at 01:00:01PM -0700, Stefano Stabellini wrote:
+> > > > > On Mon, 28 Apr 2025, Jan Beulich wrote:
+> > > > > > On 25.04.2025 22:19, Stefano Stabellini wrote:
+> > > > > > > From: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>
+> > > > > > > 
+> > > > > > > Dom0 PVH might need XENMEM_exchange when passing contiguous memory
+> > > > > > > addresses to firmware or co-processors not behind an IOMMU.
+> > > > > > 
+> > > > > > I definitely don't understand the firmware part: It's subject to the
+> > > > > > same transparent P2M translations as the rest of the VM; it's just
+> > > > > > another piece of software running there.
+> > > > > > 
+> > > > > > "Co-processors not behind an IOMMU" is also interesting; a more
+> > > > > > concrete scenario might be nice, yet I realize you may be limited in
+> > > > > > what you're allowed to say.
+> > > > > 
+> > > > > Sure. On AMD x86 platforms there is a co-processor called PSP running
+> > > > > TEE firmware. The PSP is not behind an IOMMU. Dom0 needs occasionally to
+> > > > > pass addresses to it.  See drivers/tee/amdtee/ and
+> > > > > include/linux/psp-tee.h in Linux.
+> > > > 
+> > > > We had (have?) similar issue with amdgpu (for integrated graphics) - it
+> > > > uses PSP for loading its firmware. With PV dom0 there is a workaround as
+> > > > dom0 kinda knows MFN. I haven't tried PVH dom0 on such system yet, but I
+> > > > expect troubles (BTW, hw1 aka zen2 gitlab runner has amdgpu, and it's
+> > > > the one I used for debugging this issue).
+> > > 
+> > > That's ugly, and problematic when used in conjunction with AMD-SEV.
+> > > 
+> > > I wonder if Xen could emulate/mediate some parts of the PSP for dom0
+> > > to use, while allowing Xen to be the sole owner of the device.  Having
+> > > both Xen and dom0 use it (for different purposes) seems like asking
+> > > for trouble.  But I also have no idea how complex the PSP interface
+> > > is, neither whether it would be feasible to emulate the
+> > > interfaces/registers needed for firmware loading.
+> > 
+> > Let me take a step back from the PSP for a moment. I am not opposed to a
+> > PSP mediator in Xen, but I want to emphasize that the issue is more
+> > general and extends well beyond the PSP.
+> > 
+> > In my years working in embedded systems, I have consistently seen cases
+> > where Dom0 needs to communicate with something that does not go through
+> > the IOMMU. This could be due to special firmware on a co-processor, a
+> > hardware erratum that prevents proper IOMMU usage, or a high-bandwidth
+> > device that technically supports the IOMMU but performs poorly unless
+> > the IOMMU is disabled. All of these are real-world examples that I have
+> > seen personally.
+> 
+> I wouldn't be surprised, classic PV dom0 avoided those issues because
+> it was dealing directly with host addresses (mfns), but that's not the
+> case with PVH dom0.
 
-diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
-index 1d078d8905..c958d3ed59 100644
---- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-+++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-@@ -63,6 +63,7 @@ MC3A2.R11.6||
- MC3A2.R11.7||
- MC3A2.R11.9||
- MC3A2.R12.5||
-+MC3A2.R13.2||
- MC3A2.R13.6||
- MC3A2.R14.1||
- MC3A2.R14.3||
---
-2.47.0
+Yeah
+
+
+> > In my opinion, we definitely need a solution like this patch for Dom0
+> > PVH to function correctly in all scenarios.
+> 
+> I'm not opposed to having such interface available for PVH hardware
+> domains.  I find it ugly, but I don't see much other way to deal with
+> those kind of "devices".  Xen mediating accesses for each one of them
+> is unlikely to be doable.
+> 
+> How do you hook this exchange interface into Linux to differentiate
+> which drivers need to use mfns when interacting with the hardware?
+
+In the specific case we have at hands the driver is in Linux userspace
+and is specially-written for our use case. It is not generic, so we
+don't have this problem. But your question is valid.
+
+In Linux, the issue is hidden behind drivers/xen/swiotlb-xen.c and
+xen_arch_need_swiotlb. There are a few options:
+- force swiotlb bounce for everything on the problematic SoC
+- edit xen_arch_need_swiotlb to return true for the problematic device
+- introduce a kernel command line option to specify which device
+  xen_arch_need_swiotlb should return true for
+- introduce an ACPI table with the relevant info
+--8323329-1460966867-1746576173=:3879245--
 
