@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 916F4AAEEF2
-	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 01:02:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.978881.1365705 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9ED4AAEF07
+	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 01:09:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.978896.1365715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCnmR-0005fF-Fq; Wed, 07 May 2025 23:02:23 +0000
+	id 1uCntF-0006Io-7E; Wed, 07 May 2025 23:09:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 978881.1365705; Wed, 07 May 2025 23:02:23 +0000
+Received: by outflank-mailman (output) from mailman id 978896.1365715; Wed, 07 May 2025 23:09:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCnmR-0005cT-C3; Wed, 07 May 2025 23:02:23 +0000
-Received: by outflank-mailman (input) for mailman id 978881;
- Wed, 07 May 2025 23:02:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uCntF-0006HM-4M; Wed, 07 May 2025 23:09:25 +0000
+Received: by outflank-mailman (input) for mailman id 978896;
+ Wed, 07 May 2025 23:09:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rmgq=XX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uCnmQ-0005cN-AK
- for xen-devel@lists.xenproject.org; Wed, 07 May 2025 23:02:22 +0000
+ id 1uCntD-0006HG-5b
+ for xen-devel@lists.xenproject.org; Wed, 07 May 2025 23:09:23 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51321e96-2b97-11f0-9ffb-bf95429c2676;
- Thu, 08 May 2025 01:02:16 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4e700266-2b98-11f0-9eb4-5ba50f476ded;
+ Thu, 08 May 2025 01:09:21 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id CD6665C465D;
- Wed,  7 May 2025 22:59:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A9F6C4CEE2;
- Wed,  7 May 2025 23:02:12 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D4B245C47D8;
+ Wed,  7 May 2025 23:07:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4150CC4CEE2;
+ Wed,  7 May 2025 23:09:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,125 +41,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51321e96-2b97-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 4e700266-2b98-11f0-9eb4-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1746658933;
-	bh=cvA0hU8fRMdH3DNXGdnJMKTk0d4FGdmMHYBwW5VuKXM=;
+	s=k20201202; t=1746659358;
+	bh=if38SdnC0AJjNobF5sj+Z+diQFRQsDZaQWTmcM3J0z0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Up8Yc0Ta3SGyGm0R26tYopUQJnzTzuceV56ruNcr691y20uKDI+STnBJNb3jrS0+u
-	 X9ywPheN6WK2bllOm/zQO6SJHd5/1wATc9BXkIWDlSTm63JyDyOtqEfsN0sERBwhTi
-	 ndYzvDpJer8LZOfTWUYLKSxA/NG7hOaCFEt6NhfWKGCqXFOqqcUJp9IuhDljrp+Qlx
-	 hNyqakAbTGFBuetZyOXk66+OVSw7S52T3uVMmJ0F9S97nnWC9q3TGllvueemYH2X/e
-	 8SVca7VAtN9sEbDV8iPKh7BEnL4tN9lxVGF69MSnxoYAQ61uI2Ot28xY+TM6MvIPMV
-	 ZOmNtxEb3iZBQ==
-Date: Wed, 7 May 2025 16:02:11 -0700 (PDT)
+	b=bVUT35wFQvPLtu0LytwChJj8OCMGL50uKSUkAw/N299dum2gMqiUCpyl5S06wAMwP
+	 LCEdm1qGVJNMvc0xia9kjE1XilBbXfDOpHCsU+MT0fvQXnKV30xtuGljLYyec6KmdU
+	 oULJXb2Q7uBOQcET4vHAELvnYz0czULBYVtQ6q33A3B4HtESvwX2yIvtSGq/aN99sv
+	 nupLajSjMLfm3Xb5VyTkcRwbKAkT+w97QNGWS/Nsk9lDPzNTbaXKMCQbpExRU3KOvb
+	 aFIvTIa68tC4XysVp57S5ddzdoZm1eOBI+/yvxN/Snhy0o+j9u8OrcZTJ8DARIVDKk
+	 8PdOrgh3+9ShA==
+Date: Wed, 7 May 2025 16:09:15 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+To: John Ernberg <john.ernberg@actia.se>
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, jason.andryuk@amd.com, 
-    agarciav@amd.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
-In-Reply-To: <aBnOQyXSz-j33Wux@macbook.lan>
-Message-ID: <alpine.DEB.2.22.394.2505061658330.3879245@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop> <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com> <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop> <aBiVkw2SXJHxpieh@mail-itl> <aBjLoM_ttxqftzlp@macbook.lan>
- <alpine.DEB.2.22.394.2505051100050.3879245@ubuntu-linux-20-04-desktop> <aBnOQyXSz-j33Wux@macbook.lan>
+    Juergen Gross <jgross@suse.com>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Catalin Marinas <catalin.marinas@arm.com>, 
+    Andrew Morton <akpm@linux-foundation.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "iommu@lists.linux.dev" <iommu@lists.linux.dev>, 
+    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+    "imx@lists.linux.dev" <imx@lists.linux.dev>, 
+    Christoph Hellwig <hch@infradead.org>
+Subject: Re: [PATCH 2/2] xen: swiotlb: Implement map_resource callback
+In-Reply-To: <75266eb7-66a4-4477-ae8a-cbd1ebbee8db@actia.se>
+Message-ID: <alpine.DEB.2.22.394.2505071602570.3879245@ubuntu-linux-20-04-desktop>
+References: <20250502114043.1968976-1-john.ernberg@actia.se> <20250502114043.1968976-3-john.ernberg@actia.se> <alpine.DEB.2.22.394.2505021007460.3879245@ubuntu-linux-20-04-desktop> <75266eb7-66a4-4477-ae8a-cbd1ebbee8db@actia.se>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1460966867-1746576173=:3879245"
-Content-ID: <alpine.DEB.2.22.394.2505061702580.3879245@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1460966867-1746576173=:3879245
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2505061702581.3879245@ubuntu-linux-20-04-desktop>
-
-On Tue, 6 May 2025, Roger Pau Monné wrote:
-> On Mon, May 05, 2025 at 11:11:10AM -0700, Stefano Stabellini wrote:
-> > On Mon, 5 May 2025, Roger Pau Monné wrote:
-> > > On Mon, May 05, 2025 at 12:40:18PM +0200, Marek Marczykowski-Górecki wrote:
-> > > > On Mon, Apr 28, 2025 at 01:00:01PM -0700, Stefano Stabellini wrote:
-> > > > > On Mon, 28 Apr 2025, Jan Beulich wrote:
-> > > > > > On 25.04.2025 22:19, Stefano Stabellini wrote:
-> > > > > > > From: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>
-> > > > > > > 
-> > > > > > > Dom0 PVH might need XENMEM_exchange when passing contiguous memory
-> > > > > > > addresses to firmware or co-processors not behind an IOMMU.
-> > > > > > 
-> > > > > > I definitely don't understand the firmware part: It's subject to the
-> > > > > > same transparent P2M translations as the rest of the VM; it's just
-> > > > > > another piece of software running there.
-> > > > > > 
-> > > > > > "Co-processors not behind an IOMMU" is also interesting; a more
-> > > > > > concrete scenario might be nice, yet I realize you may be limited in
-> > > > > > what you're allowed to say.
-> > > > > 
-> > > > > Sure. On AMD x86 platforms there is a co-processor called PSP running
-> > > > > TEE firmware. The PSP is not behind an IOMMU. Dom0 needs occasionally to
-> > > > > pass addresses to it.  See drivers/tee/amdtee/ and
-> > > > > include/linux/psp-tee.h in Linux.
-> > > > 
-> > > > We had (have?) similar issue with amdgpu (for integrated graphics) - it
-> > > > uses PSP for loading its firmware. With PV dom0 there is a workaround as
-> > > > dom0 kinda knows MFN. I haven't tried PVH dom0 on such system yet, but I
-> > > > expect troubles (BTW, hw1 aka zen2 gitlab runner has amdgpu, and it's
-> > > > the one I used for debugging this issue).
-> > > 
-> > > That's ugly, and problematic when used in conjunction with AMD-SEV.
-> > > 
-> > > I wonder if Xen could emulate/mediate some parts of the PSP for dom0
-> > > to use, while allowing Xen to be the sole owner of the device.  Having
-> > > both Xen and dom0 use it (for different purposes) seems like asking
-> > > for trouble.  But I also have no idea how complex the PSP interface
-> > > is, neither whether it would be feasible to emulate the
-> > > interfaces/registers needed for firmware loading.
+On Tue, 6 May 2025, John Ernberg wrote:
+> Hi Stefano,
+> 
+> On 5/2/25 7:20 PM, Stefano Stabellini wrote:
+> > +Christoph
 > > 
-> > Let me take a step back from the PSP for a moment. I am not opposed to a
-> > PSP mediator in Xen, but I want to emphasize that the issue is more
-> > general and extends well beyond the PSP.
+> > On Fri, 2 May 2025, John Ernberg wrote:
+> >> Needed by the eDMA v3 DMA engine found in iommu-less SoCs such as iMX8QXP
+> >> to be able to perform DMA operations as a Xen Hardware Domain, which needs
+> >> to be able to do DMA in MMIO space.
+> 
+> Self-note: The above part of the commit message is a disaster and should 
+> read something like.
+> 
+> Needed by SoCs without an iommu (such as the iMX8QXP and it's eDMA v3 
+> engine) that need to be able to perform DMA operations in MMIO space.
+> 
+> >>
+> >> The callback implementation is basically the same as the one for direct
+> >> mapping of resources, except this also takes into account Xen page
+> >> mappings.
+> >>
+> >> There is nothing to do for unmap, just like with direct, so the unmap
+> >> callback is not needed.
+> >>
+> >> Signed-off-by: John Ernberg <john.ernberg@actia.se>
+> >>
+> >> ---
+> >>
+> >> I originally exported dma_direct_map_resource() and used that which
+> >> appeared to work, but it felt like not checking Xen page mappings wasn't
+> >> fully correct and I went with this. But if dma_direct_map_resource() is
+> >> the correct approach here then I can submit that isntead.
+> >> ---
+> >>   drivers/xen/swiotlb-xen.c | 15 +++++++++++++++
+> >>   1 file changed, 15 insertions(+)
+> >>
+> >> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> >> index ef56a2500ed6..0f02fdd9128d 100644
+> >> --- a/drivers/xen/swiotlb-xen.c
+> >> +++ b/drivers/xen/swiotlb-xen.c
+> >> @@ -285,6 +285,20 @@ static void xen_swiotlb_unmap_page(struct device *hwdev, dma_addr_t dev_addr,
+> >>                                           attrs, pool);
+> >>   }
+> >>
+> >> +static dma_addr_t xen_swiotlb_map_resource(struct device *dev, phys_addr_t phys,
+> >> +                                        size_t size, enum dma_data_direction dir,
+> >> +                                        unsigned long attrs)
+> >> +{
+> >> +     dma_addr_t dev_addr = xen_phys_to_dma(dev, phys);
 > > 
-> > In my years working in embedded systems, I have consistently seen cases
-> > where Dom0 needs to communicate with something that does not go through
-> > the IOMMU. This could be due to special firmware on a co-processor, a
-> > hardware erratum that prevents proper IOMMU usage, or a high-bandwidth
-> > device that technically supports the IOMMU but performs poorly unless
-> > the IOMMU is disabled. All of these are real-world examples that I have
-> > seen personally.
+> > Yes, we need the xen_phys_to_dma call here. This is one of the reasons I
+> > don't think we can use dma_direct_map_resource() to implement
+> > map_resource
+> > 
+> > 
+> >> +     BUG_ON(dir == DMA_NONE);
+> >> +
+> >> +     if (!dma_capable(dev, dev_addr, size, false))
+> >> +             return DMA_MAPPING_ERROR;
+> > 
+> > But here you also need to check that phys+size doesn't cross a page
+> > boundary. You need to call range_straddles_page_boundary, like we do at
+> > the beginning of xen_swiotlb_map_page.
+> > 
+> > If it is possible to cross a page boundary, then we need to basically to
+> > do the same thing here as we do in xen_swiotlb_map_page where we check
+> > for:
+> > 
+> >          if (dma_capable(dev, dev_addr, size, true) &&
+> >              !range_straddles_page_boundary(phys, size) &&
+> >                  !xen_arch_need_swiotlb(dev, phys, dev_addr) &&
+> >                  !is_swiotlb_force_bounce(dev))
+> >                  goto done;
+> > 
+> > if all is well, we go with the native path, otherwise we bounce on
+> > swiotlb-xen.
+> > 
 > 
-> I wouldn't be surprised, classic PV dom0 avoided those issues because
-> it was dealing directly with host addresses (mfns), but that's not the
-> case with PVH dom0.
-
-Yeah
-
-
-> > In my opinion, we definitely need a solution like this patch for Dom0
-> > PVH to function correctly in all scenarios.
+> I'll preface this with that it's my first deep dive in DMA, so the 
+> following may entirely be me being stupid:
 > 
-> I'm not opposed to having such interface available for PVH hardware
-> domains.  I find it ugly, but I don't see much other way to deal with
-> those kind of "devices".  Xen mediating accesses for each one of them
-> is unlikely to be doable.
+> I'm not sure a straddles page boundary path makes sense.
 > 
-> How do you hook this exchange interface into Linux to differentiate
-> which drivers need to use mfns when interacting with the hardware?
+> This mapping is not for a RAM backed address. In the eDMA case for the 
+> iMX8QXP the `phys` coming in here is the address of a register.
 
-In the specific case we have at hands the driver is in Linux userspace
-and is specially-written for our use case. It is not generic, so we
-don't have this problem. But your question is valid.
+Ok, this information is important :-)
 
-In Linux, the issue is hidden behind drivers/xen/swiotlb-xen.c and
-xen_arch_need_swiotlb. There are a few options:
-- force swiotlb bounce for everything on the problematic SoC
-- edit xen_arch_need_swiotlb to return true for the problematic device
-- introduce a kernel command line option to specify which device
-  xen_arch_need_swiotlb should return true for
-- introduce an ACPI table with the relevant info
---8323329-1460966867-1746576173=:3879245--
+I am not certain whether the map_resource interface can only be called
+for MMIO addresses or if it can also be called for RAM-backed addresses
+with a size > PAGE_SIZE. In the latter case, we could run into the issue
+I was describing.
+
+
+> I cannot see how a swiotlb bounce would fix anything if you end up
+> straddling a page boundary. At most I can see a WARN_ON with a
+> DMA_MAPPING_ERROR return if such a check would yield true.
+> 
+> Let's say you want to do a DEV_TO_MEM and a check decides you need to 
+> bounce it you'd bounce an RX register address. I cannot see how that DMA 
+> would ever end up doing the expected thing.
+> 
+> The eDMA engine will manage the RX/TX registers for an IP block and move 
+> the data between them and RAM, where the RAM memory is mapped separately 
+> by dma_map_page (and family). And these can be swiotlb bounced via the 
+> map page callback with no problem.
+
+OK thanks for the explanation. Like I wrote above, if we are guaranteed
+that map_resource cannot be called for RAM-backed addresses or size is
+less than PAGE_SIZE, then your patch is good as-is. If there are no such
+guarantees, then we'll have to think a bit more about it.
 
