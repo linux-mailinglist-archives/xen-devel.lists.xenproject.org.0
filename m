@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94298AAF9EC
-	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 14:29:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.979347.1365986 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77AEAAAFA4F
+	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 14:44:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.979360.1365996 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uD0Mf-0005hZ-IO; Thu, 08 May 2025 12:28:37 +0000
+	id 1uD0bV-0000G3-P2; Thu, 08 May 2025 12:43:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 979347.1365986; Thu, 08 May 2025 12:28:37 +0000
+Received: by outflank-mailman (output) from mailman id 979360.1365996; Thu, 08 May 2025 12:43:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uD0Mf-0005es-F3; Thu, 08 May 2025 12:28:37 +0000
-Received: by outflank-mailman (input) for mailman id 979347;
- Thu, 08 May 2025 12:28:36 +0000
+	id 1uD0bV-0000DW-Lq; Thu, 08 May 2025 12:43:57 +0000
+Received: by outflank-mailman (input) for mailman id 979360;
+ Thu, 08 May 2025 12:43:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6hWE=XY=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1uD0Md-0005em-V4
- for xen-devel@lists.xenproject.org; Thu, 08 May 2025 12:28:36 +0000
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [2607:f8b0:4864:20::331])
+ <SRS0=LuaF=XY=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uD0bU-0000DA-3M
+ for xen-devel@lists.xenproject.org; Thu, 08 May 2025 12:43:56 +0000
+Received: from fout-b6-smtp.messagingengine.com
+ (fout-b6-smtp.messagingengine.com [202.12.124.149])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4b371e9-2c07-11f0-9ffb-bf95429c2676;
- Thu, 08 May 2025 14:28:33 +0200 (CEST)
-Received: by mail-ot1-x331.google.com with SMTP id
- 46e09a7af769-7311a8bb581so704331a34.0
- for <xen-devel@lists.xenproject.org>; Thu, 08 May 2025 05:28:33 -0700 (PDT)
+ id 1885c8eb-2c0a-11f0-9ffb-bf95429c2676;
+ Thu, 08 May 2025 14:43:53 +0200 (CEST)
+Received: from phl-compute-04.internal (phl-compute-04.phl.internal
+ [10.202.2.44])
+ by mailfout.stl.internal (Postfix) with ESMTP id 7B3FC11400E9;
+ Thu,  8 May 2025 08:43:51 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-04.internal (MEProxy); Thu, 08 May 2025 08:43:51 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 8 May 2025 08:43:49 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,91 +45,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4b371e9-2c07-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1746707312; x=1747312112; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=44T5OMorfHOKCGvj4mHS3mPDbc4n6JdYUOwE7sy2fIU=;
-        b=bFv0ABbaK27kAg39pqNPXheNC+QMzGlXd5l7x1g27Wb5QLORm/U6kJGgt5tIBCAadV
-         Pdqj6EOB8cz2FZ1yQrhMA3GKz2j7q5lpALGtiMsRABoeXEQG3AO4xoBRal/Gae6A9y5d
-         x2MtrdJldYBzUJFLdo5jImNvEdwoDOlNGBYfk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746707312; x=1747312112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=44T5OMorfHOKCGvj4mHS3mPDbc4n6JdYUOwE7sy2fIU=;
-        b=ZKPrtmWXz77Lg4G1WWiKjk6cSv0sJlv5oiinSjAy0q133zGyw4fhdNZbpAnc7A+VBk
-         r5klPwYK3EaSot5BLa4Pl70JCyGshCft4erhYfOSbw4iCuBa2fx8J0xVcVJIw7KjE8Df
-         lj0sza4ZW+C55Lps/eXiL2obl7Y2w6IifLOXQkriajoqrjUDqlg37T36c3LOFqPr8Psa
-         o4C1fAGqZOrrh4mk9n/fYsUcDGCFkE8v28N+0CRrWY6YQckaR9ZVDAkC9qoRVW2c3X5C
-         YCWa2c2yHrT+GtnYwt+oxFBKcsmsQ4UeP6qjbrE6zufjWH8BlbR7k91m35d95aSnAIMn
-         JZXw==
-X-Forwarded-Encrypted: i=1; AJvYcCU3VqsatyDmNnxqA46NzHgkiQNQiqPJXz2LEVnLG5zPR/n9QigQrp4M3/mbFzu+WvfDKoaZ4qB57pA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwZcyRneE27UpTA2YAjrH9o6HG64PblBuFAE37yW1LscxU059rv
-	wDQjzUBqvtJl3WS7Tn06QmNHQQmYQRnUNqtnYeB0jqwtKXRXsMf9IcADJq8JVynCxkG/AHcqMqu
-	VJmACyOQQwes0MHMXYUUlKBd4jAUN0tJ2gQiUKg==
-X-Gm-Gg: ASbGncsK9cjJiiZC+Gz3p8cowF64JMPBMMT1d9wjwik7wCDV9KzmkAycaO2mm804P5U
-	0NCIk9P1L7zoPow7YMrZmrmhxqQosNJZb2uaBNlrDcCwM5Tvket+lN0ML3ytwrjS2Mdgrr75PpI
-	GzGsfPe9XO1EGmgXkvo3xF
-X-Google-Smtp-Source: AGHT+IGSiMqAtNAruJHbQVd7nu7e/91PwpKHqnP9ppQ5oUuBTJuVd5dTtRKzC8ZIcNaXvufWtnlcU6LdjAwqZs0CzJs=
-X-Received: by 2002:a05:6808:2016:b0:3f7:d16c:e283 with SMTP id
- 5614622812f47-40377f23863mr1841973b6e.11.1746707312496; Thu, 08 May 2025
- 05:28:32 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250507135442.3439237-1-gerald.elder-vass@cloud.com>
- <94652153-99fe-47d8-84d5-cbf2865ad6e0@citrix.com> <aByIDP2iEHjmo99t@mail-itl> <fab47327-e885-4565-817b-16343f41f487@citrix.com>
-In-Reply-To: <fab47327-e885-4565-817b-16343f41f487@citrix.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Thu, 8 May 2025 13:28:21 +0100
-X-Gm-Features: ATxdqUFvfG0HOIyyKJXIqb5i3nRLTGXnv4GTo0SD429EKKfCTA25xnVtcDt0JvI
-Message-ID: <CACHz=ZjtMSe8EzG-wTMCz=kecwzYGR14cu29JwQ0oozK6fr_MQ@mail.gmail.com>
+X-Inumbo-ID: 1885c8eb-2c0a-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1746708231;
+	 x=1746794631; bh=VjAzjMR97l41RykYlGvw8f0ThPA/qmCei8qGQl+8pio=; b=
+	lX7SQr98W4Xx4E/2GUR/N02URW0jvy5TOPr4vG59Xzy0eYPIrRwj1Co3kXGe78y0
+	rwzLJq5IKRSxJ12jP1miMl4XTy9y3NaSmbXqo1ChZdG1MDYFnRFkgqvW9oYM31sB
+	/fvBSCHOguB2FxNaxXCw/Y0pk2S3vIiDn4m00PjdtD0+tfiVsU/dxksEaKuM0AiN
+	nqwzewsq08koC5AsLR3I5C7IHjVKo6GYqtijSD88fa8Po2LBmYpqKBjxfD+R0Wq5
+	3+cvJ3Uem2OkM+puW+mPIQR10jfW23HGwwVPhVY8+mNzjb61FmDtnUWWbFAgAEJ/
+	ac2DBl+LAY2qhDWGhWkVnQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1746708231; x=1746794631; bh=VjAzjMR97l41RykYlGvw8f0ThPA/qmCei8q
+	GQl+8pio=; b=FVlMEe6+x6f3rGrEen0UL95QqBwNYtbFVTYO6sON9mpRMiRBjQj
+	PhjM5fqDM9PxR3QyQ/9Zu0o7MOflTZYwxCIhCR4429AteNoVaB2POEgl9/vlgHjh
+	pIvpCOClv+ivGbvjDBscHAMYTTH0hqvo82RSoFB7rxbEXMmZnYyGdri5imnMkzNw
+	UU4WB2J1dzqjQ6aLS49vbsEB3bUNaDCvr5tRmipopKk42VRBieZX2+kOWEZCIiBn
+	uOr5P+Oz6EDaaKFUYQvLbq01sf/mUj89eWvauw6Fmc+UExL9sd9GrkGo/xFyauhM
+	XNcsq+Y+wV4E1/A1IWLtw3qDTtYkSdBrUwg==
+X-ME-Sender: <xms:B6ccaPTSBgKiygzd7OU638JWoOkkzn8OUIG-f0Q5_Js6OHDgCB99EA>
+    <xme:B6ccaAwmVVcv6Q3vZRo8gcbUEMA5xQ9nnYo-u-WfIzcIJ5MWUp1_HX_ihDMjuf3em
+    m-gZqzuQMMLCQ>
+X-ME-Received: <xmr:B6ccaE1T4CGqqSKgg7kfWnQDo86fkV9VYUjB2NBvD2kj-yKD4U4a40GUtGsxXqqupRbj_PqSzupgYJr_dG2aWarDO_973BA0LQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvkeeljeejucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepieeluddvkeejueekhfffteegfeeiffefjeejvdeijedvgfejhe
+    etuddvkeffudeinecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghr
+    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeejpdhmohgu
+    vgepshhmthhpohhuthdprhgtphhtthhopehfrhgvughirghnohdriihighhlihhosegtlh
+    houhgurdgtohhmpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhi
+    gidrtghomhdprhgtphhtthhopehgvghrrghlugdrvghluggvrhdqvhgrshhssegtlhhouh
+    gurdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhho
+    jhgvtghtrdhorhhgpdhrtghpthhtohepughpshhmihhthhesrghpvghrthhushhsohhluh
+    htihhonhhsrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdp
+    rhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomh
+X-ME-Proxy: <xmx:B6ccaPAROs3eWbnJRQ_AFOukVeYVLHX8yCqg9LO4GSNRshnlXUjp1A>
+    <xmx:B6ccaIgHW3P8u1xWdsD9UuGKE4ErSPBzeXEnJek4mc3c9lyXKRR8pg>
+    <xmx:B6ccaDoBzUh86xWhAbEEG8gmBrrTj-RoBz8CkTvkhnGvgP17k6JBMg>
+    <xmx:B6ccaDgzeQ4SBUvqoD9NeYQAvVO3KmKODYlhGXQsWPdFvY4AkL94tg>
+    <xmx:B6ccaIRnJ-BssdIAo78Y0cAciKEWhw6cNggfkYFejobVvg9_N-TAPmCT>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 8 May 2025 14:43:47 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+	xen-devel@lists.xenproject.org, dpsmith@apertussolutions.com,
+	Jan Beulich <jbeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 Subject: Re: [XEN PATCH v3] sbat: Add SBAT section to the Xen EFI binary
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	Gerald Elder-Vass <gerald.elder-vass@cloud.com>, xen-devel@lists.xenproject.org, 
-	dpsmith@apertussolutions.com, Jan Beulich <jbeulich@suse.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <aBynA-TiQNwCAOkG@mail-itl>
+References: <20250507135442.3439237-1-gerald.elder-vass@cloud.com>
+ <94652153-99fe-47d8-84d5-cbf2865ad6e0@citrix.com>
+ <aByIDP2iEHjmo99t@mail-itl>
+ <fab47327-e885-4565-817b-16343f41f487@citrix.com>
+ <CACHz=ZjtMSe8EzG-wTMCz=kecwzYGR14cu29JwQ0oozK6fr_MQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="yxgSmfUD35M1RgN/"
+Content-Disposition: inline
+In-Reply-To: <CACHz=ZjtMSe8EzG-wTMCz=kecwzYGR14cu29JwQ0oozK6fr_MQ@mail.gmail.com>
+
+
+--yxgSmfUD35M1RgN/
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 8 May 2025 14:43:47 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+	xen-devel@lists.xenproject.org, dpsmith@apertussolutions.com,
+	Jan Beulich <jbeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [XEN PATCH v3] sbat: Add SBAT section to the Xen EFI binary
 
-On Thu, May 8, 2025 at 12:55=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
-x.com> wrote:
->
-> On 08/05/2025 11:31 am, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Thu, May 08, 2025 at 09:51:59AM +0100, Andrew Cooper wrote:
-> >> Also,
-> >>
-> >>> ld: warning: orphan section `.sbat' from `prelink.o' being placed in =
-section `.sbat'
-> >> This is because sbat.o is getting linked into the non-EFI build of Xen=
- too.
-> >>
-> >> I'm less sure how to go about fixing this.  There's no nice way I can
-> >> see of of getting sbat.o only in the EFI build.  The other option is t=
-o
-> >> discard it for the ELF build.
-> > This is kinda related to my question on Matrix - is multiboot2 binary
-> > also supposed to (eventually) support UEFI SB?
->
-> This is mixing two things.
->
-> Xen is either an ELF binary (ultimately zipped, so xen.gz) or is an EFI
-> binary (xen.efi).
->
-> Both of these binaries currently have an MB2 header.  This was by
-> accident, as xen.efi is a strict superset of the ELF build.
->
+On Thu, May 08, 2025 at 01:28:21PM +0100, Frediano Ziglio wrote:
+> On Thu, May 8, 2025 at 12:55=E2=80=AFPM Andrew Cooper <andrew.cooper3@cit=
+rix.com> wrote:
+> >
+> > On 08/05/2025 11:31 am, Marek Marczykowski-G=C3=B3recki wrote:
+> > > On Thu, May 08, 2025 at 09:51:59AM +0100, Andrew Cooper wrote:
+> > >> Also,
+> > >>
+> > >>> ld: warning: orphan section `.sbat' from `prelink.o' being placed i=
+n section `.sbat'
+> > >> This is because sbat.o is getting linked into the non-EFI build of X=
+en too.
+> > >>
+> > >> I'm less sure how to go about fixing this.  There's no nice way I can
+> > >> see of of getting sbat.o only in the EFI build.  The other option is=
+ to
+> > >> discard it for the ELF build.
+> > > This is kinda related to my question on Matrix - is multiboot2 binary
+> > > also supposed to (eventually) support UEFI SB?
+> >
+> > This is mixing two things.
+> >
+> > Xen is either an ELF binary (ultimately zipped, so xen.gz) or is an EFI
+> > binary (xen.efi).
+> >
+> > Both of these binaries currently have an MB2 header.  This was by
+> > accident, as xen.efi is a strict superset of the ELF build.
+> >
+>=20
+> We are planning to use multiboot2 booting. The reason is the way we
+> want some parameters (like command line) to be passed. We are going to
+> use grub2.
 
-We are planning to use multiboot2 booting. The reason is the way we
-want some parameters (like command line) to be passed. We are going to
-use grub2.
+Which means that multiboot2 binary needs to be signed somehow, and for
+MS to be happy, needs to include SBAT too.
 
-> AIUI, SBAT only makes sense to exist in the EFI binary.
->
-> ~Andrew
+Relevant series:
+https://lore.kernel.org/xen-devel/20240328151106.1451104-1-ross.lagerwall@c=
+itrix.com/
+I don't recall seeing v3 posted.
 
-Frediano
+And relevant grub series:
+https://lore.kernel.org/xen-devel/20240328151302.1451158-1-ross.lagerwall@c=
+itrix.com/
+
+> > AIUI, SBAT only makes sense to exist in the EFI binary.
+> >
+> > ~Andrew
+>=20
+> Frediano
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--yxgSmfUD35M1RgN/
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmgcpwMACgkQ24/THMrX
+1ywMNwf/dyVtXhaDhhtskdBux0HZK5GmacoEjGfekF9ePCu1+hho6blFtlOMcLGb
+ojzq6w4rhOPFGlvMOqnzbBpwNJUZd3rczOApTFeG4xownH3QDjLmwoUofM/Cm/2q
+QBstivZjrg2/6s6KRJRQO2cqXqg5UaTFLt6loDfMJG15TUsIYtDxR/nJ4R1OS7i2
+Wl9QD+jg1HpH6hOa6o5aeYZ9xMJN/Ej5TesrIqB+WbyQ0Ojq4r6fENZVbprkP7TL
+uKd5U0hUyaq+J7PecWYNZ5TwE5u3YLxqO0MNDfYFzHD4iciH5kgytwoPEkDnVZiH
+Io0f/7o2ecK44mGHHyM/Ba0Q5BRPhA==
+=Sdn9
+-----END PGP SIGNATURE-----
+
+--yxgSmfUD35M1RgN/--
 
