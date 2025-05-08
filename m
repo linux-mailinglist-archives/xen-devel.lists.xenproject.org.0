@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0478FAAF431
-	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 08:57:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.979014.1365756 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45987AAF504
+	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 09:53:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.979034.1365766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCvBv-0007cU-4W; Thu, 08 May 2025 06:57:11 +0000
+	id 1uCw3n-00071k-0f; Thu, 08 May 2025 07:52:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 979014.1365756; Thu, 08 May 2025 06:57:11 +0000
+Received: by outflank-mailman (output) from mailman id 979034.1365766; Thu, 08 May 2025 07:52:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCvBv-0007Zp-1K; Thu, 08 May 2025 06:57:11 +0000
-Received: by outflank-mailman (input) for mailman id 979014;
- Thu, 08 May 2025 06:57:09 +0000
+	id 1uCw3m-0006zj-T2; Thu, 08 May 2025 07:52:50 +0000
+Received: by outflank-mailman (input) for mailman id 979034;
+ Thu, 08 May 2025 07:52:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BiTB=XY=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uCvBt-0007Yw-Kk
- for xen-devel@lists.xenproject.org; Thu, 08 May 2025 06:57:09 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20627.outbound.protection.outlook.com
- [2a01:111:f403:2009::627])
+ <SRS0=326h=XY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uCw3l-0006zc-N7
+ for xen-devel@lists.xenproject.org; Thu, 08 May 2025 07:52:49 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a7b5a440-2bd9-11f0-9eb4-5ba50f476ded;
- Thu, 08 May 2025 08:57:07 +0200 (CEST)
-Received: from DM4PR12MB5277.namprd12.prod.outlook.com (2603:10b6:5:390::7) by
- BL4PR12MB9506.namprd12.prod.outlook.com (2603:10b6:208:590::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.20; Thu, 8 May
- 2025 06:57:03 +0000
-Received: from DM4PR12MB5277.namprd12.prod.outlook.com
- ([fe80::9ab:5367:ba51:af6e]) by DM4PR12MB5277.namprd12.prod.outlook.com
- ([fe80::9ab:5367:ba51:af6e%3]) with mapi id 15.20.8699.026; Thu, 8 May 2025
- 06:57:03 +0000
+ id 6f75b134-2be1-11f0-9eb4-5ba50f476ded;
+ Thu, 08 May 2025 09:52:48 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43cfe63c592so6093335e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 08 May 2025 00:52:48 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-442cd38179csm27202985e9.39.2025.05.08.00.52.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 May 2025 00:52:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,158 +44,303 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7b5a440-2bd9-11f0-9eb4-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xeespZwsHXly5dvdO5PYQLOKT6iVfQ5ua2XQ4NVOppXGSUEZK3CHdOF06zzDBAvA+rtOnvR9OfEecHA4YRejJqc8ieds9A1DY26lYpvN7F/0I1MO9cDFabJNP/xSpj57qX3ZQVjaD7Z1t0FRF80Cb4rURAzZjhQqnR94aDF8g+S0gbfwHW97ykPDaIT6SnixuL8XBEN538S0wTIgopHOrcGDpoCsth8hqdt6LxdXlyqVBC/Du3bxLhsU/np2eXDcvV6IVhDRL6+agKP22JLw0zV3qgp3bdUo/tYSGQOlJyAvDEbmczLbnbmjRXeW52PQz0aAZlqngn2Ox18TOY+hWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+fkPwAMOp4RrlCimDfX482BQVD3/fdFEG27YxMCYuPc=;
- b=QBTtJbRh4+NyE5Bvu+GolnvS4KkHOcjp42X+7VKf9jX7MbO+npM+ylK1pNxJbXoA/8QuOx6vamWy4y54kC/nDB1Kqgp7LEl4TNqs3CZwzy9TzGi3d9UXKCHOSqbWPb6MBwCltrZS1JxBX9n1cdYk8dlKjy7Jr00RdL1aiOjk2xtqy9FRUTqyaOgUcSl1+Jxc6/gZEo4fhdqFNFw5nCnPyLdfT2dLqmIhGnJdJUNmfD3kQJhr/WXGqslAiOYCiHN0JBVWP3Hb/k/6fA7V6URLlPdupx0pN1PEWGBU7qdzvpQw1Gmuu2ns4/OGvjtT2Afv9NNR+xp9kd1ZYAW8xfcXFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+fkPwAMOp4RrlCimDfX482BQVD3/fdFEG27YxMCYuPc=;
- b=qkPS3WCBjI1R3HgDSfpBfLy2cAfkEZECdlEp3xtZDg4xny5fvkfwiEaHEZB3fOs/02csePXBShAznPgYtCuYVeq0tIiAPPF6luxBHlTAR98EI1MymvYjfGrSwp3Dd7fu5dXXsdN3JCcclpNlZi9sw0DTKwZAQtkf1oL+hi/gnX4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <7ad1dde2-0af3-4a8c-a67e-3eafdea5822f@amd.com>
-Date: Thu, 8 May 2025 08:56:59 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] xen/arm: fix math in add_hwdom_free_regions
-From: "Orzel, Michal" <michal.orzel@amd.com>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250505025631.207529-1-stewart.hildebrand@amd.com>
- <20250505025631.207529-3-stewart.hildebrand@amd.com>
- <fa800ffa-eec3-4496-b157-f89d10b3650b@amd.com>
-Content-Language: en-US
-In-Reply-To: <fa800ffa-eec3-4496-b157-f89d10b3650b@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0027.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c9::8) To DM4PR12MB5277.namprd12.prod.outlook.com
- (2603:10b6:5:390::7)
+X-Inumbo-ID: 6f75b134-2be1-11f0-9eb4-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1746690768; x=1747295568; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=f3PrLJDUYUU3YfJ9W2ToLgnF6ou64u7VpIA85WA5OSo=;
+        b=LkW3dooyNNxkd4T7bopthrKm7f2IaQRFg4FxnZEr1aB+Rz8ga2VfP7ysaf8b+5yfr1
+         0L9LkL/uaFy+/4CSbn58nB3q7AfoBpghp7Vr3zOP2n/zW0Z8dN+gjS7OHKwEE5rmDnqK
+         eeHqF9kWjuOzPw7JNnLFxjTHJqFJZLYBBLtuI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746690768; x=1747295568;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=f3PrLJDUYUU3YfJ9W2ToLgnF6ou64u7VpIA85WA5OSo=;
+        b=b/rckqBy95/mfhOMjeTF3PGNbfngd+7xAModPAhUwu6ig7hvq8yUhuktAR3aaJ/Yum
+         b1krpxXlfoiB9D9j/d94AYHzN+8oeM8EMJ8XEh9Xxw3AsIDkbtxCE57KtE8Rn90hsQXd
+         cSwI9P4Yp34ck8Qi839ktWZf1FU7qcAJQaj6dcWhSzq0OgNySMgyEDzu2jTPOn6qBBm8
+         lX+eol777Km2EkE0YQkFx9gnfuYN4dHHVQoQHLvn2p9sJtX2A9N4btF5w4FM7CCUZcub
+         Xg8iGdpO3PfvxTEdGNS46DU/+vb02WekxCmtpb9y7utVnfYX9D58xNdSMkhcqnb5j/5w
+         Gjig==
+X-Forwarded-Encrypted: i=1; AJvYcCWrIHWY1As+J+jeObT1NVLzaYRzOHdB4gf2573jrfSdJW3l1XRe9VLQunwl+DYpkJncYRWBLa1HGdM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx3lzu9oQqrora6IVk/t1nDzXPq/HVNsv8j1Sp8u5YiLqsD37Qz
+	a2IyxZ8fTwYasUIIJrsGSZ+ZeJUEalURuM9FwAs/fWf4XNH9ChEtT2dzfzyL6jA=
+X-Gm-Gg: ASbGncu8i/jttQ7yaIkSgPYk2QRrnxT/Xvz9Sm9I0oRgesNtsaf2qmb1nr/Kga6wl4s
+	++qgPKK49eZFHM4voKXphJS5Q7wgqXNvQaYfFbRvR8yCJb2GtMQPZdkRAFr/ZoWczsDdLkd+ubs
+	7Br/0PEr7pzThllWOut4UmMZfhnc0paxBEANcdCfzDYwN1o7+RB4RINMqdaZpxt9SD49H8UBOfQ
+	ZfikVGnmNZ/UIB8qquM+vrXc/ZjpmDuy79/KWMMr8VyGlHGrx9yV5FNOGhmUX6XgwQiojkyfxdC
+	BMfraP5JFbX6axwyfozNKG95XSR9JvJo4CiQvMOkVHThCA==
+X-Google-Smtp-Source: AGHT+IFC1DyF4d+X5J3BxbLb2CnYYX+Er6gtoQAzdbxu7TwNyk7ObTMx4o7w8u4j2nPP9eRdM+vWUQ==
+X-Received: by 2002:a05:600c:83c4:b0:43c:fad6:fa5a with SMTP id 5b1f17b1804b1-442d033f8cemr19606855e9.24.1746690767933;
+        Thu, 08 May 2025 00:52:47 -0700 (PDT)
+Date: Thu, 8 May 2025 09:52:46 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Demi Marie Obenour <demiobenour@gmail.com>
+Cc: Alejandro Vallejo <agarciav@amd.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Xen-devel <xen-devel-bounces@lists.xenproject.org>
+Subject: Re: Mapping memory into a domain
+Message-ID: <aBxizlMj3D94M3WS@macbook.lan>
+References: <82772686-edcd-41e4-b81c-f6b3ded30901@gmail.com>
+ <D9O702EAEGRU.10CY1WTUELAKF@amd.com>
+ <24a0a77b-e543-453d-b20b-0dbac111287c@gmail.com>
+ <D9P3M1Z20DAB.1HSZ79GOZOMKR@amd.com>
+ <ae3465e2-b803-4a26-8443-0bc1d38da7ac@gmail.com>
+ <aBuatoL1dm0tjZ9P@macbook.lan>
+ <30243d25-881d-42d3-90c2-f791c3632372@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5277:EE_|BL4PR12MB9506:EE_
-X-MS-Office365-Filtering-Correlation-Id: a419b740-61a2-4de6-d33a-08dd8dfd8988
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RExqeG1GanFpL2x0cTZ4dW1ZekVkTzFablZlWjlQUjRmOG1LY0h0d1k4azM1?=
- =?utf-8?B?dFNZQm1vbVZMVk5mRStQWUNmTy9BdW8yNEFpOElBZEpPOXBUakNNbXZrcFVJ?=
- =?utf-8?B?Z3VCbTJvNUs5WktyUUc4QnF3QTVRYXd1YnJiWFRabGNwdkN4enpjNmFrTkFM?=
- =?utf-8?B?Ry9VQ1dpcXZRaEJudU9HcFN4S216OEhHSTJGOTVMOC9hY0N4MHpkVnVjR2cx?=
- =?utf-8?B?Nmg3b1hzb1hob0Ftbnk3RTFZYjNHK0RrcWJURk52czhVYjVGZ0VEK3VDU0I1?=
- =?utf-8?B?WkFjeDBXZms3L0VBZStNeCtCejM0bUIySWVjRkZFM3l1V3A2TjRXQ1RqdVhk?=
- =?utf-8?B?SkZMM3Roc3lUYTdSdUdvSzNFMUppcFpIRkFXYzRkUndxVytnSE1UcDNIWnhi?=
- =?utf-8?B?RXZjTmJMTnFwSzJCbndJVEdPSm93U04wUGYxbSttUDI1WTVCY1hRNkhUMW5X?=
- =?utf-8?B?NnpxMEpJTExFYllMN3Y3amdZMDc4bVJDcUVqMCtpVEZ0NTJwYU9Ma0E4SlpR?=
- =?utf-8?B?TWxaYzdWckNiRllkOXI0VDBhLzZrbGJrU3hlcnBxbmVRSkdJRmNBRTI1OHNQ?=
- =?utf-8?B?ZFl3N2cyYlhVc1NYNGs0bVBYNmFncUFiUVViRUF3c1pYK2RIRHhGZDk2ZUhW?=
- =?utf-8?B?UWRpU1ZyL2JjY0U2U3gvZlY4T1p4RkR6bDBJOWw2UTF0UVVNNnlsSThjajBN?=
- =?utf-8?B?Vk81Y3UzVnEwclM0b2s2Z3A3Vm5KTVBjcFF4R1dnaTJ6ZU9tVjRjaWl6WGl3?=
- =?utf-8?B?M3dJY0RLS1lMU2FiTCtoRFBib1U0SHcyRmF0dzR6U09LRmR6NmtRRnBYQTFl?=
- =?utf-8?B?UFRLbWpkSkNsUm5vbFcxdFh5UnM3cHhGNVZzY0NWRVRYZHRRcTlXQUU2cmxH?=
- =?utf-8?B?dHVtNWYzcXNmVU9rY0hncmxSeUtST21wNmN1ZDVlMk5Dd1ZGTjhBTlMyRm9t?=
- =?utf-8?B?VVIwTHQ2MFJtT1dpNGR5QmRROTNrbjhoZXI5dS9jbkcyK2U5MW5rUW1zby9l?=
- =?utf-8?B?eTZzZE9Mb3dsc0dwb3hoM3dQVWo0VXMwdHBndTFGT0NqTU5POFoyVXVtQ0Nm?=
- =?utf-8?B?ZVVZcU5NSlhjU2ZqRXI0VEdFaWFQa1JuUWwwazNWVkNTdVUvbTJvcUlRUlhn?=
- =?utf-8?B?ZjlSZzNuaGhicldqKzVYUVd1Q0hPTnAxWFl4YXgxSlllN0JsYmtjZ0JaNmFp?=
- =?utf-8?B?M010dHdpVEFQRjN2N3Jhc3YwTnZ4eFVKMGpKRjZaN0RkOC9YVjUyayt1NnFu?=
- =?utf-8?B?dTJoRG50NHd4c3R5S3oyaDJzQUNiYzZxY3RSaTcxV05PYXQ1M1Z5NXdLcEhV?=
- =?utf-8?B?dWFvaGtiM2pJb3hSM2tqUjJabjNwSjdPa2F1dXczTk5jTzgyZ3ovcWlJQUlY?=
- =?utf-8?B?ZTVQdkhZRi82end4amFBMzd2VlEzVGduSlZoQmZtYVZ3MExzQXJSTkJFUG1B?=
- =?utf-8?B?c3I5SlBON1lyMlIyTTNObUVsVEluR0NVMVNSSVJ6NDY1ZmNybUpVYjduVHNW?=
- =?utf-8?B?S05hMlNFeUxUVUgvT2kwT2dkcDlKMlBiMVRRZ2NNQVZtUFJ4cDVtTWpZZXBs?=
- =?utf-8?B?RkhER09xMGpFV3pyQUdqMlZRc3JWeWI5YlpBTFBvOTVaWlNGaXBhNlNVaTZV?=
- =?utf-8?B?d0dNdVE2SkZDalBPYkpKdUtzb2RHNDYzRVI5NnhHQkdLMVp4aFFnb081Qjdn?=
- =?utf-8?B?R0YwTXI0TXFYQUkwTzk3bm9GT2xlN0d6TFFSUHVLNis3UWF2OHBCek84dmxq?=
- =?utf-8?B?K3JhL0VTRDcydkFGeGVSa2FaRGt1VlY3SmlpNVVIR1FoRnZvdWJEdTZPYk01?=
- =?utf-8?B?NTZrMDJ0VGthVGJ4QTdCTlk1bjhqMUFidWhTSEFwYittMk1lcWpKQzI2dVg1?=
- =?utf-8?B?VVJweVB0aU5SM0U4VVJldkZqdlBKTHB5SHhYb0hEVFIzS0Mvb2NhTEdBdFRk?=
- =?utf-8?Q?xh7v+iqP84Q=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5277.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RWlsemNrejFKRmRGdjVOZjR3dFFNa3czamRPem9MOEpIV2dGMEdSWTcwY3BQ?=
- =?utf-8?B?cXNOZWFRYndzV3VKaUtCM0JUdTAwOU5kbU4wcGR3cTZBaEVlUzlEYlRyaDk2?=
- =?utf-8?B?SmNkYlpIaXZoTTZ3c1RQUHNrU21WK21VMVBVVnd2OXc4TGI0NmJZcHVLNUVz?=
- =?utf-8?B?MHRHd1V5NDhsY25mZHNmVUhCU3JwYk9qRk04Vk1FVWNrZk5QaTZld3k5MlZM?=
- =?utf-8?B?NXpyN1ZVUU40V0J1ZWpFc011ZFNHOVlwNldKV1hHQ21IRHBSVTQ0bjVZZ0FO?=
- =?utf-8?B?aXBZUVhtWmlTc3d1Zlh6MlBMY1BPYy9CTmZJZmZXRzViSFNwK2VPTUhpMTRO?=
- =?utf-8?B?OS9HVW5iOWNQVDhmYkQxbnFqcVhPYnprRE5LRlc0WEh3eE84eE5xb05nbWd6?=
- =?utf-8?B?NWpmNjdKTnEyeUR3QkYwZkd3N0N2OUpadWVIWG9GRDVLaytJRld2eEV6NWQ3?=
- =?utf-8?B?ZisrbEp0SzV2TDl4bHA0bG14cHc0YXBEOFRURXBvUVFqcXd0RzE5YWJ1RjY3?=
- =?utf-8?B?aUJYY1pUK2phajY2MExDZER1S0g3U2JiSElzQ3pSS1gzYVhCM2xrcGFrZzV2?=
- =?utf-8?B?REphVG12c3NTNTdMZUFEMUsvMWhPZG90MTl1SE52a2t6VDY3cjJnMithaEZ0?=
- =?utf-8?B?ZEpqNFpwYUVhaWw4WTRpZyttWDJrM2V1dUJ3L0NoaW9rMk1ML21sNzlHRmZP?=
- =?utf-8?B?TnNZZkVaUlV5VCswUmRWNFFsWWhBcnV0MVo4YUhteVVQMlRkV1A0SkFnYlNz?=
- =?utf-8?B?alBYdzJqa3NTbGQvMHNtQjVneHhCSU9rbjFyNXJaMW9tTzRkdWhhWVpLd2p4?=
- =?utf-8?B?UU5Xcm8yZjdvYlB4ZElUNElzSlZnSEdoOExsL3pLYmpGTlVJSmlOZzVoSlIv?=
- =?utf-8?B?MEE2R0F4SlhSQ0VMbjhYajlud0ljeFpVZjNXT3ovSDJYWjBodmY2M016N2xV?=
- =?utf-8?B?RkN0eDRSaHZ2bmkrN0dPSVdSOXhKT20xYnI4YmlxaXg5YmtIbWdhc01aa3RP?=
- =?utf-8?B?cHlySS83NHkwSWVFTVU5azB0LytJV1Rob1BUQXNDYS9rMUlBWTE5Wnh4NkVw?=
- =?utf-8?B?N09OVzhlUkd2TFpuMzRZYzhKZkZCRDFqTVlIK0ViVXZ3M2JsempNZUZ3a0hI?=
- =?utf-8?B?OFYvK0xSejVtdnh5RTViWmUvc0NVbDM2eXJERDZsdXpLaW1zSU91NFo1WUNU?=
- =?utf-8?B?Y2FHcG5iTE55aTNUYjJONXM0MUpDNk10RURJK2pMdFpWZGU3cFJDbS92ZkJo?=
- =?utf-8?B?dXhudjhkUmxPT3pHdnh5UnFwOWJTZEd6Y1A4NFhseWtpWlB6dzVkMWVrWEl4?=
- =?utf-8?B?TTN5YjlPQmZZZSs1VFFRV0NLRUU4MVJVeFZMV1BZZ0t1MDgyWnZ1ZWhLTWRZ?=
- =?utf-8?B?ZFpoOG9Ed0h0WEhyU2hWa1N0Y091ZytmcXdXQkxva1luWkhYbE1kaXBienBq?=
- =?utf-8?B?SUsrR1hrSEdWMlZEWnZNNi8wVkVNTnF4eFQxU2FaYzhzLzl0YkRrNzFnV2NS?=
- =?utf-8?B?TXBpV3RWcXQxMEhNSjNteWl6b0hlNDZac21YQzNuVmhPL1piaC8zYkhjclhE?=
- =?utf-8?B?WUpySTN3TUVzY3ZVaWFHOFNaODJhVHZUMzRXbnA0RDBqN0pWTVlmdk9TMXg4?=
- =?utf-8?B?aEhtM1RKWlUxMDJaR011NUJPQ1paV3lnTDUxVVYzTXV3SWpQdFlCUGl1M3RP?=
- =?utf-8?B?QU5zOFFHUFRvTDFqWFVRVWt3dEd0K25xTys1MHdRemYybkEySS9FT3o5eTJi?=
- =?utf-8?B?L1VMeVFzbjVhRGtGWFczZ003Tk8zMzRGT2VUekZ0bE9GMWJZNVJBVDkzNVNZ?=
- =?utf-8?B?T2M3dFc0SEMzcVFIQ3VFcStUVTJHbVBtdlZLUmk5dldBakRZZ3dLbnVhdGYx?=
- =?utf-8?B?aVVSVHNya1lIN2wwbmo2L09uVzlkbERTTEFNQk5zT2VjemtwOXVXK0JmMTV1?=
- =?utf-8?B?eFcrRDBRYjNkcDBrdFcrMUc3WnRyN284OVI2cjV3WnpLdDJoejh5UWVTK1BC?=
- =?utf-8?B?Y0dMMFpvL29PczIrODl6eGs1M3dwMUVrUyt0UExjd1Iveit5bE16S2RuWlNa?=
- =?utf-8?B?b3ZDNDZVeDRyNGtYbGRRYnNyVjZIai9BT2lEYkZoc2I1MVdIK0lKQldkT0Rk?=
- =?utf-8?Q?h7aK+Va3lZxyilGCZ9UvRQ6oc?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a419b740-61a2-4de6-d33a-08dd8dfd8988
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5277.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2025 06:57:03.2745
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1YCLiueqXu4YyleddC96eBD48cJwKYvTmPRnEwzaYt+4k6L8mjCKQdHcp/wu2IWI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9506
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <30243d25-881d-42d3-90c2-f791c3632372@gmail.com>
 
-
-
-On 05/05/2025 09:52, Orzel, Michal wrote:
+On Wed, May 07, 2025 at 08:36:07PM -0400, Demi Marie Obenour wrote:
+> On 5/7/25 1:39 PM, Roger Pau Monné wrote:
+> > On Tue, May 06, 2025 at 04:56:12PM -0400, Demi Marie Obenour wrote:
+> >> On 5/6/25 9:06 AM, Alejandro Vallejo wrote:
+> >>> On Tue May 6, 2025 at 3:02 AM CEST, Demi Marie Obenour wrote:
+> >>>> On 5/5/25 7:32 AM, Alejandro Vallejo wrote:
+> >>>>> I suppose this is still about multiplexing the GPU driver the way we
+> >>>>> last discussed at Xen Summit?
+> >>>>>
+> >>>>> On Mon May 5, 2025 at 12:51 AM CEST, Demi Marie Obenour wrote:
+> >>>>>> What are the appropriate Xen internal functions for:
+> >>>>>>
+> >>>>>> 1. Turning a PFN into an MFN?
+> >>>>>> 2. Mapping an MFN into a guest?
+> >>>>>> 3. Unmapping that MFN from a guest?
+> >>>>>
+> >>>>> The p2m is the single source of truth about such mappings.
+> >>>>>
+> >>>>> This is all racy business. You want to keep the p2m lock for the full
+> >>>>> duration of whatever operation you wish do, or you risk another CPU
+> >>>>> taking it and pulling the rug under your feet at the most inconvenient
+> >>>>> time.
+> >>>>>
+> >>>>> In general all this faff is hidden under way too many layers beneath
+> >>>>> copy_{to,from}_guest(). Other p2m manipulation high-level constructs
+> >>>>> that might do interesting things worth looking at may be {map,unmap}_mmio_region()
+> >>>>>
+> >>>>> Note that not every pfn has an associated mfn. Not even every valid pfn
+> >>>>> has necessarily an associated mfn (there's pod). And all of this is
+> >>>>> volatile business in the presence of a baloon driver or vPCI placing
+> >>>>> mmio windows over guest memory.
+> >>>>
+> >>>> Can I check that POD is not in use?  
+> >>>
+> >>> Maybe, but now you're reaching exponential complexity considering each
+> >>> individual knob of the p2m into account.
+> >>>
+> >>>>
+> >>>>> In general anything up this alley would need a cohesive pair for
+> >>>>> map/unmap and a credible plan for concurrency and how it's all handled
+> >>>>> in conjunction with other bits that touch the p2m.
+> >>>>
+> >>>> Is taking the p2m lock for the entire operation a reasonable approach
+> >>>> for concurrency?  Will this cause too much lock contention?
+> >>>
+> >>> Maybe. It'd be fine for a page. Likely not so for several GiB if they
+> >>> aren't already superpages.
+> >>>
+> >>>>
+> >>>>>> The first patch I am going to send with this information is a documentation
+> >>>>>> patch so that others do not need to figure this out for themselves.
+> >>>>>> I remember being unsure even after looking through the source code, which
+> >>>>>> is why I am asking here.
+> >>>>>
+> >>>>> That's not surprising. There's per-arch stuff, per-p2mtype stuff,
+> >>>>> per-guesttype stuff. Plus madness like on-demand memory. It's no wonder
+> >>>>> such helpers don't exist and the general manipulations are hard to
+> >>>>> explain.
+> >>>>
+> >>>> Is this a task that is only suitable for someone who has several years
+> >>>> experience working on Xen, or is it something that would make sense for
+> >>>> someone who is less experienced?
+> >>>
+> >>> The p2m is a very complex beast that integrates more features than I
+> >>> care to count. It requires a lot of prior knowledge. Whoever does it
+> >>> must know Xen fairly well in many configurations.
+> >>>
+> >>> The real problem is finding the right primitives that do what you want
+> >>> without overcomplicating everything else, preserving system security
+> >>> invariants and have benign (and ideally clear) edge cases.
+> >>>
+> >>> This was the last email you sent (I think?). Has any of the requirements
+> >>> changed in any direction?
+> >>>
+> >>>   https://lore.kernel.org/xen-devel/Z5794ysNE4KDkFuT@itl-email/
+> >>
+> >> Map and Revoke are still needed, with the same requirements as described
+> >> in this email.  Steal and Return were needed for GPU shared virtual memory,
+> >> but it has been decided to not support this with virtio-GPU, so these
+> >> primitives are no longer needed.
+> >>
+> >>> Something I'm missing there is how everything works without Xen. That
+> >>> might help (me, at least) guage what could prove enough to support the
+> >>> usecase. Are there sequence diagrams anywhere about how this whole thing
+> >>> works without Xen? I vaguely remember you showing something last year in
+> >>> Xen Summit in the design session, but my memory isn't that good :)
+> > 
+> > Hello,
+> > 
+> > Sorry, possibly replying a bit out of context here.
+> > 
+> > Since I will mention this in several places: p2m is the second stage
+> > page-tables used by Xen for PVH and HVM guests.  A p2m violation is
+> > the equivalent of a page-fault for guest p2m accesses.
+> > 
+> >> A Linux driver that needs access to userspace memory
+> >> pages can get it in two different ways:
+> >>
+> >> 1. It can pin the pages using the pin_user_pages family of APIs.
+> >>    If these functions succeed, the driver is guaranteed to be able
+> >>    to access the pages until it unpins them.  However, this also
+> >>    means that the pages cannot be paged out or migrated.  Furthermore,
+> >>    file-backed pages cannot be safely pinned, and pinning GPU memory
+> >>    isn’t supported.  (At a minimum, it would prevent the pages from
+> >>    migrating from system RAM to VRAM, so all access by a dGPU would
+> >>    cross the PCIe bus, which would be very slow.)
+> > 
+> > From a Xen p2m this is all fine - Xen will never remove pages from the
+> > p2m unless it's requested to.  So the pining, while needed on the Linux
+> > side, doesn't need to be propagated to Xen I would think.
 > 
+> If pinning were enough things would be simple, but sadly it’s not.
 > 
-> On 05/05/2025 04:56, Stewart Hildebrand wrote:
->> Erroneous logic was duplicated from add_ext_regions() into
->> add_hwdom_free_regions(). Frame numbers are converted to addresses, but
->> the end address (e) is rounded down to page size alignment. The logic to
->> calculate the size assumes e points to the last address, not page,
->> effectively leading to the region size being erroneously calculated to
->> be 2M smaller than the actual size of the region.
->>
->> Fix by adding 1 to the frame number before converting back to address.
->>
->> Fixes: 02975cc38389 ("xen/arm: permit non direct-mapped Dom0 construction")
->> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> Acked-by: Michal Orzel <michal.orzel@amd.com>
+> >> 2. It can grab the *current* location of the pages and register an
+> >>    MMU notifier.  This works for GPU memory and file-backed memory.
+> >>    However, when the invalidate_range function of this callback, the
+> >>    driver *must* stop all further accesses to the pages.
+> >>
+> >>    The invalidate_range callback is not allowed to block for a long
+> >>    period of time.  My understanding is that things like dirty page
+> >>    writeback are blocked while the callback is in progress.  My
+> >>    understanding is also that the callback is not allowed to fail.
+> >>    I believe it can return a retryable error but I don’t think that
+> >>    it is allowed to keep failing forever.
+> >>
+> >>    Linux’s grant table driver actually had a bug in this area, which
+> >>    led to deadlocks.  I fixed that a while back.
+> >>
+> >> KVM implements the second option: it maps pages into the stage-2
+> >> page tables (or shadow page tables, if that is chosen) and unmaps
+> >> them when the invalidate_range callback is called.
+> > 
+> > I assume this map and unmap is done by the host as a result of some
+> > guest action?
+> 
+> Unmapping can happen at any time for any or no reason.  Semantically,
+> it would be correct to only map the pages in response to a p2m violation,
+> but for performance it might be better to map the pages eagerly instead.
 
-I wanted to commit your fixes but rebase is required after recent dom0less code
-movement. Please do.
+That's an implementation detail, you can certainly map the pages
+eagerly, or even map multiple contiguous pages as a result of a single
+p2m violation.
 
-~Michal
+I would focus on making a functioning prototype first, performance
+comes afterwards.
 
+> >> Furthermore,
+> >> if a page fault happens while the page is unmapped, KVM will try
+> >> to bring the pages back into memory so the guest can access it.
+> > 
+> > You could likely handle this in Xen in the following way:
+> > 
+> >  - A device model will get p2m violations forwarded, as it's the same
+> >    model that's used to handle emulation of device MMIO.  You will
+> >    need to register an ioreq server to request those faults to be
+> >    forwarded, I think the hardware domain kernel will handle those?
+> > 
+> >  - Allow ioreqs to signal to Xen that a guest operation must be
+> >    retried.  IOW: resume guest execution without advancing the IP.
+> > 
+> > I think this last bit is the one that will require changes to Xen, so
+> > that you can add a type of ioreq reply that implies a retry from the
+> > guest context.
+> I’m not actually sure if this is needed, though it would be nice.  It
+> might be possible for Xen to instead emulate the current instruction and
+> continue, with the ioreq server just returning the current value of the
+> pages.
+
+You can, indeed, but it's cumbersome?  You might have to map the page
+in the context of the entity that implements the ioreq server to
+access the data.  Allowing retries would be more generic, and reduce
+the code in the ioreq server handler, that would only map the page
+to the guest p2m and request a retry.
+
+> What I’m more concerned about is being able to provide a page
+> into the p2m so that the *next* access doesn’t fault, and being able
+> to remove that page from the p2m so that the next access *does* fault.
+
+Maybe I'm not getting the question right, all Xen modifications to the
+p2m take immediate effect.  By the time a XEN_DOMCTL_memory_mapping
+hypercall returns the operation would have taken effect.
+
+> Are there any hypercalls that can be used for these operations right
+> now?
+
+With some trickery you could likely use XEN_DOMCTL_memory_mapping to
+add and remove those pages.  You will need calls to
+XEN_DOMCTL_iomem_permission beforehand so that you grant the receiving
+domain permissions to access those (and of course the granting domain
+needs to have full access to them).
+
+This is no ideal if mapping RAM pages, AFAICT there are no strict
+checks that the added page is not RAM, but still you will need to
+handle RAM pages as IOMEM so and grant them using
+XEN_DOMCTL_iomem_permission which is not great.  Also note that this
+is a domctl, so not stable.  It might however be enough for a
+prototype.
+
+Long term I think we want to expand XENMEM_add_to_physmap{,_batch} to
+handle this use-case.
+
+> If not, which Xen functions would one use to implement them?
+> Some notes:
+> 
+> - The p2m might need to be made to point to a PCI BAR or system RAM.
+>   The guest kernel and host userspace don’t know which, and in any
+>   case don’t need to care.  The host kernel knows, but I don’t know
+>   if the information is exposed to the Xen driver.
+
+Hm, as said above, while you could possible handle RAM as IOMEM, it
+has the slight inconvenience of having to add such RAM pages to the
+d->iomem_caps rangeset for XEN_DOMCTL_memory_mapping to succeed.
+
+From a guest PoV, it doesn't matter if the underlying page is RAM or
+MMIO, as long as it's mapped in the p2m.
+
+> 
+> - If the p2m needs to point to system RAM, the RAM will be memory
+>   that belongs to the backend.
+> 
+> - If the p2m needs to point to a PCI BAR, it will initially need
+>   to point to a real PCI device that is owned by the backend.
+
+As long as you give the destination domain access to the page using
+XEN_DOMCTL_iomem_permission prior to the XEN_DOMCTL_memory_mapping
+call it should work.
+
+How does this work for device DMA accesses?  If the device is assigned
+to the backend domain (and thus using the backend domain IOMMU context
+entry and page-tables) DMA accesses cannot be done against guest
+provided addresses, there needs to be some kind of translation layer
+that filters commands?
+
+My initial recommendation would be to look into what you can do with
+the existing XEN_DOMCTL_iomem_permission and XEN_DOMCTL_memory_mapping
+hypercalls.
+
+> - The switch from “emulated MMIO” to “MMIO or real RAM” needs to
+>   be atomic from the guest’s perspective.
+
+Updates of p2m PTEs are always atomic.
+
+Regards, Roger.
 
