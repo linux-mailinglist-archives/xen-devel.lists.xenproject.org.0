@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26571AAFF07
-	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 17:22:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.979502.1366093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9467DAAFFDE
+	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 18:04:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.979516.1366104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uD34R-0000hN-Q0; Thu, 08 May 2025 15:21:59 +0000
+	id 1uD3is-0006fA-PC; Thu, 08 May 2025 16:03:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 979502.1366093; Thu, 08 May 2025 15:21:59 +0000
+Received: by outflank-mailman (output) from mailman id 979516.1366104; Thu, 08 May 2025 16:03:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uD34R-0000fu-NF; Thu, 08 May 2025 15:21:59 +0000
-Received: by outflank-mailman (input) for mailman id 979502;
- Thu, 08 May 2025 15:21:57 +0000
+	id 1uD3is-0006ca-Ln; Thu, 08 May 2025 16:03:46 +0000
+Received: by outflank-mailman (input) for mailman id 979516;
+ Thu, 08 May 2025 16:03:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Hq4O=XY=kernel.org=cmarinas@srs-se1.protection.inumbo.net>)
- id 1uD34P-0000fY-NX
- for xen-devel@lists.xenproject.org; Thu, 08 May 2025 15:21:57 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org
- [2600:3c04:e001:324:0:1991:8:25])
+ <SRS0=5q/z=XY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uD3ir-0006cT-Oi
+ for xen-devel@lists.xenproject.org; Thu, 08 May 2025 16:03:45 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2a7b7888-2c20-11f0-9ffb-bf95429c2676;
- Thu, 08 May 2025 17:21:52 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 589CE60008;
- Thu,  8 May 2025 15:21:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F907C4CEE7;
- Thu,  8 May 2025 15:21:47 +0000 (UTC)
+ id 0206b3fa-2c26-11f0-9ffb-bf95429c2676;
+ Thu, 08 May 2025 18:03:40 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43cfdc2c8c9so5732745e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 08 May 2025 09:03:40 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-442cd350cebsm41331215e9.17.2025.05.08.09.03.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 May 2025 09:03:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,80 +45,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a7b7888-2c20-11f0-9ffb-bf95429c2676
-Date: Thu, 8 May 2025 16:21:45 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: John Ernberg <john.ernberg@actia.se>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"stable@kernel.org" <stable@kernel.org>
-Subject: Re: [PATCH 1/2] xen: swiotlb: Use swiotlb bouncing if kmalloc
- allocation demands it
-Message-ID: <aBzMCWmTMzLNuvmJ@arm.com>
-References: <20250502114043.1968976-1-john.ernberg@actia.se>
- <20250502114043.1968976-2-john.ernberg@actia.se>
+X-Inumbo-ID: 0206b3fa-2c26-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1746720220; x=1747325020; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=mD1Fttxwc1KIw4cAsVczbb+IYoS9N4VRg6BR85MLJbA=;
+        b=DUV2S7ChSofO7NKX9tooClTXrZ9u2GYltOCLGMSQhLCKvgK0RlWOH/UtTv2I91XgIW
+         iasOoVXow+6vpHDfPTYNF/yVc+OQvkFjSBRsrfiil8msLTS6wFcQ2M2o72o3skRGmbN4
+         4GfwTK+AMsaZ1QMeSfuC6ImmFNj8vFIBZZbng=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746720220; x=1747325020;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mD1Fttxwc1KIw4cAsVczbb+IYoS9N4VRg6BR85MLJbA=;
+        b=LC0zsK5gsIeeHSCs4fmMNCE6lLOcOGBof+qo976yabnuVa+sIu59XuHEg3/Xncq4rQ
+         lmj3hSPZd7LlcNHrQBCkqqnkR6R7Dn9O286aDSLK2Rhu0JofW5sAYG0fw9dQo7RHnD6b
+         7MKZdYlSs6kmqSwD8uqUo6FATrKfj/Ou7XxKAFH0wTyHVilbcTfjft/hs0g2zqvtA0z7
+         pL0axJjn9hppe+OKxjIlO9jzlTW8g7LCg/9/BLEnUrGMuzb8+k3pAHEOb9JBSGiFHnKs
+         p+9OQpzwd8EVMeXlKY0QS5zpCastOpt3WF+uiz7Csy/ELnc1/+rhJJ21Mt7JYylE+tDA
+         3hxg==
+X-Gm-Message-State: AOJu0YyX9rEZU9XpCNYpW7VgBcyo53SLlIqnBZIMOy6Rn7b5x64KcDhA
+	CyhAKN+rAGpxsK+tl2ItgT7BIWjCKJVxBX7oOdToQBZj9THLUEj1SgdfqK2sEM/YXXIOgx5GhJU
+	x
+X-Gm-Gg: ASbGnctdtn2zTIS8YgbC58wO7Yj21nEArVaql78muYBKQ7uiDZTJ9glWhIZpkpYGR1/
+	dIWWa1kqv2Kz0qn7MPH6GSQCl/7qma/pft0OuyG176dYaGa7u/R5dArDc4ZdEUKMAFmzHqgUReI
+	Zgr3+q5TwJi0kbu1a+HyJByWuhnGRa/oP/NdL9HbrASWcrozK1oxiCwT4Y+6R1im+us9HtK8nPt
+	dr4jK+BhJ2XdAZT17yGsigJlH4mpVhZ8lpfKLshIDOEqg4t2ZIyR63wLRo9/41TurQnPCM6sw+s
+	BCI2tzA9VogdOQLwaBW2KaMO8BfoyI3rzuJHXAL4pd5/+sPs3vPVpGnUGhmm9Q0lHow4iHMKml+
+	b89vuesQTGXF1yw==
+X-Google-Smtp-Source: AGHT+IEKgWW3n5ZojGeTjoQzvcvOOc/DDSnpHeGPPoSC171eFZW2twbVhVK6A2XKithxs61cA0mF5w==
+X-Received: by 2002:a05:600c:820a:b0:43c:f0ae:da7 with SMTP id 5b1f17b1804b1-441d44bb7f4mr74411555e9.7.1746720219417;
+        Thu, 08 May 2025 09:03:39 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] xen/Kconfig: Improve help test for speculative options
+Date: Thu,  8 May 2025 17:03:36 +0100
+Message-Id: <20250508160336.2232152-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250502114043.1968976-2-john.ernberg@actia.se>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, May 02, 2025 at 11:40:55AM +0000, John Ernberg wrote:
-> Xen swiotlb support was missed when the patch set starting with
-> 4ab5f8ec7d71 ("mm/slab: decouple ARCH_KMALLOC_MINALIGN from
-> ARCH_DMA_MINALIGN") was merged.
-> 
-> When running Xen on iMX8QXP, a SoC without IOMMU, the effect was that USB
-> transfers ended up corrupted when there was more than one URB inflight at
-> the same time.
-> 
-> Add a call to dma_kmalloc_needs_bounce() to make sure that allocations too
-> small for DMA get bounced via swiotlb.
-> 
-> Closes: https://lore.kernel.org/linux-usb/ab2776f0-b838-4cf6-a12a-c208eb6aad59@actia.se/
-> Fixes: 4ab5f8ec7d71 ("mm/slab: decouple ARCH_KMALLOC_MINALIGN from ARCH_DMA_MINALIGN")
-> Cc: stable@kernel.org # v6.5+
-> Signed-off-by: John Ernberg <john.ernberg@actia.se>
-> 
-> ---
-> 
-> It's impossible to pick an exact fixes tag since this driver was missed
-> in the flagged patch set. I picked one I felt gave a decent enough picture
-> for someone coming across this later.
+The text for CONFIG_INDIRECT_THUNK isn't really correct, and was already stale
+by the time speculative vulnerabilities hit the headlines in 2018.  It is
+specifically an out-of-line-ing mechansim, and repoline is one of several
+safety sequences used.
 
-All the above patches went in at the same time in 6.5, so it probably
-doesn't matter. In theory, you could add:
+Some of this boilerplate has been copied into all other options, and isn't
+interesting for the target audience given that they're all in a "Speculative
+Hardning" menu.
 
-Fixes: 370645f41e6e ("dma-mapping: force bouncing if the kmalloc() size is not cache-line-aligned")
-Cc: <stable@vger.kernel.org> # 6.5.x
+Reword it to be more concise.
 
-as that's when dma_kmalloc_needs_bounce() was added (a few commits after
-the "decouple ARCH_KMALLOC_MINALIGN..." one). However, actual problems
-started to appear with commit 9382bc44b5f5 ("arm64: allow kmalloc()
-caches aligned to the smaller cache_line_size()") which makes
-ARCH_KMALLOC_MINALIGN equal 8 on arm64.
+No functional change.
 
-> ---
->  drivers/xen/swiotlb-xen.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-> index 1f65795cf5d7..ef56a2500ed6 100644
-> --- a/drivers/xen/swiotlb-xen.c
-> +++ b/drivers/xen/swiotlb-xen.c
-> @@ -217,6 +217,7 @@ static dma_addr_t xen_swiotlb_map_page(struct device *dev, struct page *page,
->  	 * buffering it.
->  	 */
->  	if (dma_capable(dev, dev_addr, size, true) &&
-> +	    !dma_kmalloc_needs_bounce(dev, size, dir) &&
->  	    !range_straddles_page_boundary(phys, size) &&
->  		!xen_arch_need_swiotlb(dev, phys, dev_addr) &&
->  		!is_swiotlb_force_bounce(dev))
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+CONFIG_SPECULATIVE_HARDEN_BRANCH really ought to be named
+CONFIG_SPECULATIVE_HARDEN_CONDITIONAL, but this would be a (minor) functional
+change.
+---
+ xen/common/Kconfig | 51 +++++++++-------------------------------------
+ 1 file changed, 10 insertions(+), 41 deletions(-)
+
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 4bec78c6f267..03ef6d87abc0 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -162,29 +162,21 @@ config STATIC_MEMORY
+ menu "Speculative hardening"
+ 
+ config INDIRECT_THUNK
+-	bool "Speculative Branch Target Injection Protection"
++	bool "Out-of-line Indirect Call/Jumps"
+ 	depends on CC_HAS_INDIRECT_THUNK
+ 	default y
+ 	help
+-	  Contemporary processors may use speculative execution as a
+-	  performance optimisation, but this can potentially be abused by an
+-	  attacker to leak data via speculative sidechannels.
++	  Compile Xen with out-of-line indirect call and jumps.
+ 
+-	  One source of data leakage is via branch target injection.
+-
+-	  When enabled, indirect branches are implemented using a new construct
+-	  called "retpoline" that prevents speculation.
++	  This allows Xen to mitigate a variety of speculative vulnerabilities
++	  by choosing a hardware-dependent instruction sequence to implement
++	  (e.g. function pointers) safely.  "Retpoline" is one such sequence.
+ 
+ config SPECULATIVE_HARDEN_ARRAY
+ 	bool "Speculative Array Hardening"
+ 	default y
+ 	help
+-	  Contemporary processors may use speculative execution as a
+-	  performance optimisation, but this can potentially be abused by an
+-	  attacker to leak data via speculative sidechannels.
+-
+-	  One source of data leakage is via speculative out-of-bounds array
+-	  accesses.
++	  Compile Xen with extra hardening for some array accesses.
+ 
+ 	  When enabled, specific array accesses which have been deemed liable
+ 	  to be speculatively abused will be hardened to avoid out-of-bounds
+@@ -193,19 +185,12 @@ config SPECULATIVE_HARDEN_ARRAY
+ 	  This is a best-effort mitigation.  There are no guarantees that all
+ 	  areas of code open to abuse have been hardened.
+ 
+-	  If unsure, say Y.
+-
+ config SPECULATIVE_HARDEN_BRANCH
+ 	bool "Speculative Branch Hardening"
+ 	default y
+ 	depends on X86
+-        help
+-	  Contemporary processors may use speculative execution as a
+-	  performance optimisation, but this can potentially be abused by an
+-	  attacker to leak data via speculative sidechannels.
+-
+-	  One source of misbehaviour is by executing the wrong basic block
+-	  following a conditional jump.
++	help
++	  Compile Xen with extra hardening for some conditional branches.
+ 
+ 	  When enabled, specific conditions which have been deemed liable to
+ 	  be speculatively abused will be hardened to avoid entering the wrong
+@@ -216,43 +201,27 @@ config SPECULATIVE_HARDEN_BRANCH
+ 	  optimisations in the compiler haven't subverted the attempts to
+ 	  harden.
+ 
+-	  If unsure, say Y.
+-
+ config SPECULATIVE_HARDEN_GUEST_ACCESS
+ 	bool "Speculative PV Guest Memory Access Hardening"
+ 	default y
+ 	depends on PV
+ 	help
+-	  Contemporary processors may use speculative execution as a
+-	  performance optimisation, but this can potentially be abused by an
+-	  attacker to leak data via speculative sidechannels.
+-
+-	  One source of data leakage is via speculative accesses to hypervisor
+-	  memory through guest controlled values used to access guest memory.
++	  Compile Xen with extra hardening for PV guest memory access.
+ 
+ 	  When enabled, code paths accessing PV guest memory will have guest
+ 	  controlled addresses massaged such that memory accesses through them
+ 	  won't touch hypervisor address space.
+ 
+-	  If unsure, say Y.
+-
+ config SPECULATIVE_HARDEN_LOCK
+ 	bool "Speculative lock context hardening"
+ 	default y
+ 	depends on X86
+ 	help
+-	  Contemporary processors may use speculative execution as a
+-	  performance optimisation, but this can potentially be abused by an
+-	  attacker to leak data via speculative sidechannels.
+-
+-	  One source of data leakage is via speculative accesses to lock
+-	  critical regions.
++	  Compile Xen with extra hardening for locked regions.
+ 
+ 	  This option is disabled by default at run time, and needs to be
+ 	  enabled on the command line.
+ 
+-	  If unsure, say Y.
+-
+ endmenu
+ 
+ menu "Other hardening"
+
+base-commit: aea52ce607fe716acc56ad89f07e1513c89018eb
+-- 
+2.39.5
+
 
