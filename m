@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9467DAAFFDE
-	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 18:04:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.979516.1366104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5ED9AB00D4
+	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 19:02:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.979533.1366113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uD3is-0006fA-PC; Thu, 08 May 2025 16:03:46 +0000
+	id 1uD4dJ-0006U7-Ps; Thu, 08 May 2025 17:02:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 979516.1366104; Thu, 08 May 2025 16:03:46 +0000
+Received: by outflank-mailman (output) from mailman id 979533.1366113; Thu, 08 May 2025 17:02:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uD3is-0006ca-Ln; Thu, 08 May 2025 16:03:46 +0000
-Received: by outflank-mailman (input) for mailman id 979516;
- Thu, 08 May 2025 16:03:45 +0000
+	id 1uD4dJ-0006S6-Ms; Thu, 08 May 2025 17:02:05 +0000
+Received: by outflank-mailman (input) for mailman id 979533;
+ Thu, 08 May 2025 17:02:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5q/z=XY=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uD3ir-0006cT-Oi
- for xen-devel@lists.xenproject.org; Thu, 08 May 2025 16:03:45 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ <SRS0=FGkx=XY=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
+ id 1uD4dH-0006Rv-V5
+ for xen-devel@lists.xenproject.org; Thu, 08 May 2025 17:02:03 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0206b3fa-2c26-11f0-9ffb-bf95429c2676;
- Thu, 08 May 2025 18:03:40 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43cfdc2c8c9so5732745e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 08 May 2025 09:03:40 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442cd350cebsm41331215e9.17.2025.05.08.09.03.37
+ id 28a6385e-2c2e-11f0-9ffb-bf95429c2676;
+ Thu, 08 May 2025 19:02:01 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-ac345bd8e13so167543466b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 08 May 2025 10:02:01 -0700 (PDT)
+Received: from rossla-pc.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad2197be6d7sm11669266b.157.2025.05.08.10.01.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 May 2025 09:03:38 -0700 (PDT)
+ Thu, 08 May 2025 10:01:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,196 +45,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0206b3fa-2c26-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 28a6385e-2c2e-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746720220; x=1747325020; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1746723720; x=1747328520; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mD1Fttxwc1KIw4cAsVczbb+IYoS9N4VRg6BR85MLJbA=;
-        b=DUV2S7ChSofO7NKX9tooClTXrZ9u2GYltOCLGMSQhLCKvgK0RlWOH/UtTv2I91XgIW
-         iasOoVXow+6vpHDfPTYNF/yVc+OQvkFjSBRsrfiil8msLTS6wFcQ2M2o72o3skRGmbN4
-         4GfwTK+AMsaZ1QMeSfuC6ImmFNj8vFIBZZbng=
+        bh=svV216COIFgHM/2K92/3WYhrsgYMfWGjXZ9ca1Af6v0=;
+        b=NMyG/gyIlm3n+NpFFQOYySIFPy4d+GkZnGyz6MiWiow7tY+U8FiBAGNMbOIbu1DERc
+         cvdRg8oXP2U2H4/8GZsrfZcNF15ptmIQSWsb4Wq2xEwV7NyFoRxAvRMwzs2sWvb5ztH4
+         C/OdPT92tz8y5L4JswA+dXz6bQlSlNWK2eV6E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746720220; x=1747325020;
+        d=1e100.net; s=20230601; t=1746723720; x=1747328520;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=mD1Fttxwc1KIw4cAsVczbb+IYoS9N4VRg6BR85MLJbA=;
-        b=LC0zsK5gsIeeHSCs4fmMNCE6lLOcOGBof+qo976yabnuVa+sIu59XuHEg3/Xncq4rQ
-         lmj3hSPZd7LlcNHrQBCkqqnkR6R7Dn9O286aDSLK2Rhu0JofW5sAYG0fw9dQo7RHnD6b
-         7MKZdYlSs6kmqSwD8uqUo6FATrKfj/Ou7XxKAFH0wTyHVilbcTfjft/hs0g2zqvtA0z7
-         pL0axJjn9hppe+OKxjIlO9jzlTW8g7LCg/9/BLEnUrGMuzb8+k3pAHEOb9JBSGiFHnKs
-         p+9OQpzwd8EVMeXlKY0QS5zpCastOpt3WF+uiz7Csy/ELnc1/+rhJJ21Mt7JYylE+tDA
-         3hxg==
-X-Gm-Message-State: AOJu0YyX9rEZU9XpCNYpW7VgBcyo53SLlIqnBZIMOy6Rn7b5x64KcDhA
-	CyhAKN+rAGpxsK+tl2ItgT7BIWjCKJVxBX7oOdToQBZj9THLUEj1SgdfqK2sEM/YXXIOgx5GhJU
-	x
-X-Gm-Gg: ASbGnctdtn2zTIS8YgbC58wO7Yj21nEArVaql78muYBKQ7uiDZTJ9glWhIZpkpYGR1/
-	dIWWa1kqv2Kz0qn7MPH6GSQCl/7qma/pft0OuyG176dYaGa7u/R5dArDc4ZdEUKMAFmzHqgUReI
-	Zgr3+q5TwJi0kbu1a+HyJByWuhnGRa/oP/NdL9HbrASWcrozK1oxiCwT4Y+6R1im+us9HtK8nPt
-	dr4jK+BhJ2XdAZT17yGsigJlH4mpVhZ8lpfKLshIDOEqg4t2ZIyR63wLRo9/41TurQnPCM6sw+s
-	BCI2tzA9VogdOQLwaBW2KaMO8BfoyI3rzuJHXAL4pd5/+sPs3vPVpGnUGhmm9Q0lHow4iHMKml+
-	b89vuesQTGXF1yw==
-X-Google-Smtp-Source: AGHT+IEKgWW3n5ZojGeTjoQzvcvOOc/DDSnpHeGPPoSC171eFZW2twbVhVK6A2XKithxs61cA0mF5w==
-X-Received: by 2002:a05:600c:820a:b0:43c:f0ae:da7 with SMTP id 5b1f17b1804b1-441d44bb7f4mr74411555e9.7.1746720219417;
-        Thu, 08 May 2025 09:03:39 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+        bh=svV216COIFgHM/2K92/3WYhrsgYMfWGjXZ9ca1Af6v0=;
+        b=iVReZbLNCpnJ5DCwo2vHVwJ5je9LZqjNvlt832SF/6TTOc7a65x6h/E656nSR/nLfP
+         Wly1AqLihEG1Ijz08Uok75kOMZpx3wVuAMJHYA+Y9f5e+yA7EBLQdZ9Ryed97rlvGNrK
+         qDPTQulxCvcVBeIZCqcowGOqUY+pjw43XbSJ/QmoLKDeDVwB5OatCfA8FaDIOG7kL0VR
+         +QYEPN9z2G/dGpey2y6oo5wIie1i9in0ZYyO4SIM4/xqM1vDEKo4b4bGQsx7xso1lezr
+         t0JU49PJDmFaexRHp2Ke0vJJV9jrtCXXdg34/r9dfoqPo5mltNlD2AawXel4fRMSalyH
+         mFEQ==
+X-Gm-Message-State: AOJu0Yy2S5rP+9rI6bAuNA55zjvcJqHA/jeA0YbeU/TRE1MS4q+tZlzi
+	hkoUbZTvpmtMg0JiSCqgZd8rCIK6+/6jOlfROD0PHAyHLcQsHURzH5VNaThrrQmbo9m661dy6Ho
+	=
+X-Gm-Gg: ASbGncv8GW81Rjl33cAItQOnd89D/EKhy5jxCoeh/s2EK9VkEhYJanT0u5H1ACb+Vfx
+	Z9x+imfFO5eKI8xEOL8gZd2yXYwqB6d8g2HpxKKbVCPkhNjLf4kYeTqxM7wdTxwdKxhjMIHu+t+
+	X55EtrgLDJ51pTrSBdGUbSfelDQYrynEYr3y46lgX6HvYu9EQUp3nXzUK+tQdZOBDrd0cqA8dqn
+	b+FoiNj/s3zzyNI1G8MaBHH/nqHAe+quqExAOrML7ONsNpK++5/D5J4wQXlV54nDOmLYbsDeuJa
+	yaciqbvVeMyp0EnI1e8lXJHmHB6VQyxIXMaU6Y70xv4lX1uh6H050o6yBYgFXZ1p
+X-Google-Smtp-Source: AGHT+IHGemGNy+Yzyuspx8Nc/iVVq/FO96sw/M2WjuMroEh4CB4QyLlfMjGB0ELXvKT3AjvCUGh4Xw==
+X-Received: by 2002:a17:907:6a13:b0:ace:6f45:b5c6 with SMTP id a640c23a62f3a-ad218edd00cmr48084366b.22.1746723719996;
+        Thu, 08 May 2025 10:01:59 -0700 (PDT)
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Kevin Lampis <kevin.lampis@cloud.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] xen/Kconfig: Improve help test for speculative options
-Date: Thu,  8 May 2025 17:03:36 +0100
-Message-Id: <20250508160336.2232152-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>
+Subject: [PATCH v2] livepatch: Pass buffer size to list sysctl
+Date: Thu,  8 May 2025 18:01:56 +0100
+Message-ID: <20250508170156.558291-1-ross.lagerwall@citrix.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The text for CONFIG_INDIRECT_THUNK isn't really correct, and was already stale
-by the time speculative vulnerabilities hit the headlines in 2018.  It is
-specifically an out-of-line-ing mechansim, and repoline is one of several
-safety sequences used.
+From: Kevin Lampis <kevin.lampis@cloud.com>
 
-Some of this boilerplate has been copied into all other options, and isn't
-interesting for the target audience given that they're all in a "Speculative
-Hardning" menu.
+The livepatch list sysctl writes metadata into a buffer provided by the
+caller. The caller is expected to allocate an appropriately sized buffer
+but this is racy and may result in Xen writing beyond the end of the
+buffer should the metadata size change.
 
-Reword it to be more concise.
+The name buffer is expected to be an array of elements with size
+XEN_LIVEPATCH_NAME_SIZE to avoid this kind of race but the xen-livepatch
+tool allocates only as many bytes as needed, therefore encountering the
+same potential race condition.
 
-No functional change.
+Fix both these issues by requiring the caller to pass in the size of the
+name and metadata buffers and then not writing beyond the allocated
+size.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+The sysctl interface version is bumped due to the change in semantics of
+the fields.
+
+Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
+Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 ---
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
 
-CONFIG_SPECULATIVE_HARDEN_BRANCH really ought to be named
-CONFIG_SPECULATIVE_HARDEN_CONDITIONAL, but this would be a (minor) functional
-change.
----
- xen/common/Kconfig | 51 +++++++++-------------------------------------
- 1 file changed, 10 insertions(+), 41 deletions(-)
+In v2:
 
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 4bec78c6f267..03ef6d87abc0 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -162,29 +162,21 @@ config STATIC_MEMORY
- menu "Speculative hardening"
- 
- config INDIRECT_THUNK
--	bool "Speculative Branch Target Injection Protection"
-+	bool "Out-of-line Indirect Call/Jumps"
- 	depends on CC_HAS_INDIRECT_THUNK
- 	default y
- 	help
--	  Contemporary processors may use speculative execution as a
--	  performance optimisation, but this can potentially be abused by an
--	  attacker to leak data via speculative sidechannels.
-+	  Compile Xen with out-of-line indirect call and jumps.
- 
--	  One source of data leakage is via branch target injection.
--
--	  When enabled, indirect branches are implemented using a new construct
--	  called "retpoline" that prevents speculation.
-+	  This allows Xen to mitigate a variety of speculative vulnerabilities
-+	  by choosing a hardware-dependent instruction sequence to implement
-+	  (e.g. function pointers) safely.  "Retpoline" is one such sequence.
- 
- config SPECULATIVE_HARDEN_ARRAY
- 	bool "Speculative Array Hardening"
- 	default y
- 	help
--	  Contemporary processors may use speculative execution as a
--	  performance optimisation, but this can potentially be abused by an
--	  attacker to leak data via speculative sidechannels.
--
--	  One source of data leakage is via speculative out-of-bounds array
--	  accesses.
-+	  Compile Xen with extra hardening for some array accesses.
- 
- 	  When enabled, specific array accesses which have been deemed liable
- 	  to be speculatively abused will be hardened to avoid out-of-bounds
-@@ -193,19 +185,12 @@ config SPECULATIVE_HARDEN_ARRAY
- 	  This is a best-effort mitigation.  There are no guarantees that all
- 	  areas of code open to abuse have been hardened.
- 
--	  If unsure, say Y.
--
- config SPECULATIVE_HARDEN_BRANCH
- 	bool "Speculative Branch Hardening"
- 	default y
- 	depends on X86
--        help
--	  Contemporary processors may use speculative execution as a
--	  performance optimisation, but this can potentially be abused by an
--	  attacker to leak data via speculative sidechannels.
--
--	  One source of misbehaviour is by executing the wrong basic block
--	  following a conditional jump.
-+	help
-+	  Compile Xen with extra hardening for some conditional branches.
- 
- 	  When enabled, specific conditions which have been deemed liable to
- 	  be speculatively abused will be hardened to avoid entering the wrong
-@@ -216,43 +201,27 @@ config SPECULATIVE_HARDEN_BRANCH
- 	  optimisations in the compiler haven't subverted the attempts to
- 	  harden.
- 
--	  If unsure, say Y.
--
- config SPECULATIVE_HARDEN_GUEST_ACCESS
- 	bool "Speculative PV Guest Memory Access Hardening"
- 	default y
- 	depends on PV
- 	help
--	  Contemporary processors may use speculative execution as a
--	  performance optimisation, but this can potentially be abused by an
--	  attacker to leak data via speculative sidechannels.
--
--	  One source of data leakage is via speculative accesses to hypervisor
--	  memory through guest controlled values used to access guest memory.
-+	  Compile Xen with extra hardening for PV guest memory access.
- 
- 	  When enabled, code paths accessing PV guest memory will have guest
- 	  controlled addresses massaged such that memory accesses through them
- 	  won't touch hypervisor address space.
- 
--	  If unsure, say Y.
--
- config SPECULATIVE_HARDEN_LOCK
- 	bool "Speculative lock context hardening"
- 	default y
- 	depends on X86
- 	help
--	  Contemporary processors may use speculative execution as a
--	  performance optimisation, but this can potentially be abused by an
--	  attacker to leak data via speculative sidechannels.
--
--	  One source of data leakage is via speculative accesses to lock
--	  critical regions.
-+	  Compile Xen with extra hardening for locked regions.
- 
- 	  This option is disabled by default at run time, and needs to be
- 	  enabled on the command line.
- 
--	  If unsure, say Y.
--
- endmenu
- 
- menu "Other hardening"
+Change type to size_t and fix line length.
 
-base-commit: aea52ce607fe716acc56ad89f07e1513c89018eb
+ tools/libs/ctrl/xc_misc.c   |  3 +++
+ xen/common/livepatch.c      | 23 ++++++++++++++++++-----
+ xen/include/public/sysctl.h | 12 ++++++++----
+ 3 files changed, 29 insertions(+), 9 deletions(-)
+
+diff --git a/tools/libs/ctrl/xc_misc.c b/tools/libs/ctrl/xc_misc.c
+index 6a60216bda03..33e87bac2868 100644
+--- a/tools/libs/ctrl/xc_misc.c
++++ b/tools/libs/ctrl/xc_misc.c
+@@ -867,6 +867,9 @@ int xc_livepatch_list(xc_interface *xch, const unsigned int max,
+         set_xen_guest_handle(sysctl.u.livepatch.u.list.metadata, metadata);
+         set_xen_guest_handle(sysctl.u.livepatch.u.list.metadata_len, metadata_len);
+ 
++        sysctl.u.livepatch.u.list.name_total_size = name_sz;
++        sysctl.u.livepatch.u.list.metadata_total_size = metadata_sz;
++
+         rc = do_sysctl(xch, &sysctl);
+         /*
+          * From here on we MUST call xc_hypercall_bounce. If rc < 0 we
+diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
+index be9b7e367553..fc250c338da9 100644
+--- a/xen/common/livepatch.c
++++ b/xen/common/livepatch.c
+@@ -1311,11 +1311,10 @@ static int livepatch_list(struct xen_sysctl_livepatch_list *list)
+         return -EINVAL;
+     }
+ 
+-    list->name_total_size = 0;
+-    list->metadata_total_size = 0;
+     if ( list->nr )
+     {
+         size_t name_offset = 0, metadata_offset = 0;
++        size_t name_total_copied = 0, metadata_total_copied = 0;
+ 
+         list_for_each_entry( data, &payload_list, list )
+         {
+@@ -1328,10 +1327,15 @@ static int livepatch_list(struct xen_sysctl_livepatch_list *list)
+             status.rc = data->rc;
+ 
+             name_len = strlen(data->name) + 1;
+-            list->name_total_size += name_len;
+-
+             metadata_len = data->metadata.len;
+-            list->metadata_total_size += metadata_len;
++
++            if ( (name_total_copied + name_len) > list->name_total_size ||
++                 (metadata_total_copied + metadata_len) >
++                 list->metadata_total_size )
++            {
++                rc = -ENOMEM;
++                break;
++            }
+ 
+             if ( !guest_handle_subrange_okay(list->name, name_offset,
+                                              name_offset + name_len - 1) ||
+@@ -1355,6 +1359,9 @@ static int livepatch_list(struct xen_sysctl_livepatch_list *list)
+                 break;
+             }
+ 
++            name_total_copied += name_len;
++            metadata_total_copied += metadata_len;
++
+             idx++;
+             name_offset += name_len;
+             metadata_offset += metadata_len;
+@@ -1362,9 +1369,15 @@ static int livepatch_list(struct xen_sysctl_livepatch_list *list)
+             if ( (idx >= list->nr) || hypercall_preempt_check() )
+                 break;
+         }
++
++        list->name_total_size = name_total_copied;
++        list->metadata_total_size = metadata_total_copied;
+     }
+     else
+     {
++        list->name_total_size = 0;
++        list->metadata_total_size = 0;
++
+         list_for_each_entry( data, &payload_list, list )
+         {
+             list->name_total_size += strlen(data->name) + 1;
+diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
+index b0fec271d36f..9eca72865b87 100644
+--- a/xen/include/public/sysctl.h
++++ b/xen/include/public/sysctl.h
+@@ -26,9 +26,9 @@
+  * (e.g. adding semantics to 0-checked input fields or data to zeroed output
+  * fields) don't require a change of the version.
+  *
+- * Last version bump: Xen 4.17
++ * Last version bump: Xen 4.21
+  */
+-#define XEN_SYSCTL_INTERFACE_VERSION 0x00000015
++#define XEN_SYSCTL_INTERFACE_VERSION 0x00000016
+ 
+ /*
+  * Read console content from Xen buffer ring.
+@@ -1101,8 +1101,12 @@ struct xen_sysctl_livepatch_list {
+                                                amount of payloads and version.
+                                                OUT: How many payloads left. */
+     uint32_t pad;                           /* IN: Must be zero. */
+-    uint32_t name_total_size;               /* OUT: Total size of all transfer names */
+-    uint32_t metadata_total_size;           /* OUT: Total size of all transfer metadata */
++    uint32_t name_total_size;               /* IN: Size of name buffer
++                                               OUT: Total size of transferred
++                                               names */
++    uint32_t metadata_total_size;           /* IN: Size of metadata buffer
++                                               OUT: Total size of transferred
++                                               metadata */
+     XEN_GUEST_HANDLE_64(xen_livepatch_status_t) status;  /* OUT. Must have enough
+                                                space allocate for nr of them. */
+     XEN_GUEST_HANDLE_64(char) name;         /* OUT: Array of names. Each member
 -- 
-2.39.5
+2.49.0
 
 
