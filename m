@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10164AAFB32
-	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 15:21:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.979388.1366041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A7D7AAFB2F
+	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 15:21:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.979391.1366050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uD1Bn-0006ah-CW; Thu, 08 May 2025 13:21:27 +0000
+	id 1uD1Bt-000703-Ni; Thu, 08 May 2025 13:21:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 979388.1366041; Thu, 08 May 2025 13:21:27 +0000
+Received: by outflank-mailman (output) from mailman id 979391.1366050; Thu, 08 May 2025 13:21:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uD1Bn-0006XF-92; Thu, 08 May 2025 13:21:27 +0000
-Received: by outflank-mailman (input) for mailman id 979388;
- Thu, 08 May 2025 13:21:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uD1Bt-0006xz-IZ; Thu, 08 May 2025 13:21:33 +0000
+Received: by outflank-mailman (input) for mailman id 979391;
+ Thu, 08 May 2025 13:21:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IqQS=XY=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1uD1Bm-0005gg-6D
- for xen-devel@lists.xenproject.org; Thu, 08 May 2025 13:21:26 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20630.outbound.protection.outlook.com
- [2a01:111:f403:2412::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 555ebded-2c0f-11f0-9ffb-bf95429c2676;
- Thu, 08 May 2025 15:21:23 +0200 (CEST)
-Received: from BYAPR08CA0009.namprd08.prod.outlook.com (2603:10b6:a03:100::22)
- by SJ5PPF28EF61683.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::98e) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.23; Thu, 8 May
- 2025 13:21:13 +0000
-Received: from SJ1PEPF00002323.namprd03.prod.outlook.com
- (2603:10b6:a03:100:cafe::bc) by BYAPR08CA0009.outlook.office365.com
- (2603:10b6:a03:100::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.32 via Frontend Transport; Thu,
- 8 May 2025 13:21:13 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00002323.mail.protection.outlook.com (10.167.242.85) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Thu, 8 May 2025 13:21:13 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ id 1uD1Br-0005gY-FM
+ for xen-devel@lists.xenproject.org; Thu, 08 May 2025 13:21:31 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2062c.outbound.protection.outlook.com
+ [2a01:111:f403:2415::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5a0fe31f-2c0f-11f0-9eb4-5ba50f476ded;
+ Thu, 08 May 2025 15:21:30 +0200 (CEST)
+Received: from CH0PR13CA0041.namprd13.prod.outlook.com (2603:10b6:610:b2::16)
+ by PH0PR12MB7861.namprd12.prod.outlook.com (2603:10b6:510:26e::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.25; Thu, 8 May
+ 2025 13:21:22 +0000
+Received: from DS3PEPF0000C37F.namprd04.prod.outlook.com
+ (2603:10b6:610:b2:cafe::bf) by CH0PR13CA0041.outlook.office365.com
+ (2603:10b6:610:b2::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.24 via Frontend Transport; Thu,
+ 8 May 2025 13:21:22 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS3PEPF0000C37F.mail.protection.outlook.com (10.167.23.9) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8722.18 via Frontend Transport; Thu, 8 May 2025 13:21:21 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 8 May
- 2025 08:21:12 -0500
+ 2025 08:21:21 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 8 May
+ 2025 08:21:20 -0500
 Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 8 May 2025 08:21:11 -0500
+ Transport; Thu, 8 May 2025 08:21:18 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,291 +63,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 555ebded-2c0f-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 5a0fe31f-2c0f-11f0-9eb4-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gYSZY/IaWV1JmK2nvjWIcKYTOX1umU5ouK+cCenZrgyd9XLLlr44oU7U9UUKEk2g2/X1mIfmrL3Q9LegyBwFhSAXdllNsiwl3HWD0Yq7SFQyN9RHSDPJLHBlE5TsoMdMZzXQUGYWcWRGyAxDz3gtI/wiuYDjJXgztgDykbO26/3oNNX67om6SNhqp572wyiy8ptt4FZpdFroZEuNT7m2stpQXTOk3WXVUHKgFO27Eg2qWNZrUPlUTECBiPMudJCYlb7Oxn7lIZ3w4eWi8y1M3RPKfhwCfXoWgqyrxVAxeYmGi+6mJem5XZi0lCvAiUizC5o2rXJJ1RfN8wB5OosLdw==
+ b=QivDNAi660V+JVq6wiiyJu65xyw//QBuS0CM0s775D4ap5o5XA+UnBHrHq3ZQYIEIWgQIATc3G3jDs04Ng7AyUrF5qDxJnjNJFPQDglRLGUIYF9phV9zOSgG9UzIySTJg3wIjMkaabim+ywuTrXcVc7NVbsx05ukhVPDjzrkz33N++/SCC9XOp9xBl7y+RtKS+3u+e0/YlCuoU0ohavL2FasPxf/uyrrA7sEkiHB7WhKIVoeQkrAyz5JxH4ezDY2aZe2gD4k+Fe0EXnBmrvp4Jh6vEopBoHEjP+XpUIbsnbR2ilt8p2GgSiRtXkQscsG3VsBl79PzufImql+8uJLFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s98qA+3lKzwYOBQMdaI/VMDUPTm2nFYBtd/o5egu+bU=;
- b=faqfcsseKWdg4QWxnJ4rd5jVoSnohmxHqm+8MN0qNOSxTjewo/ATvEjWNxeOOlacQ7xALIhFoVVi9bt8oAzd9f/fJf7EK46GbdmQBAu2lITtfBjoxQ8WRjhU1FhoBnB4Q11VHXj9b0ilVQi3/5XtQA3sK05n4zDW0SNj7cmOuK3EqvWU+2V6sNRB0siUrkWlrlup7zdSs6Kb+WN00qMJcW8uG9VgFPNiGBZKYFhIOnBTMdDkoA5JVuIzQSdJzvBHeM2cz5c8JzvoG70C1n2RzCZGQg9/XpyHtIPaHxAruzEQIkyqHO9H80SsCK1IqAnEMcOGsVxzVv+OpiknEh+/vw==
+ bh=J7QqFU341kNEQ1CkVHUs9vf850fY7Y4Ivh8PGVOXOpI=;
+ b=eE7oH9/eKJ4JJ4OyFa6EqKHGFKxXs1PqcG1qDhCNBHkW0GPjHX+I7bjk6k2hTaLKRLLGkh0wZSOa91HzNOFYoWYqj/Q4GHze7PPL1ozrFDEqa4RiVpwJ3LCn2ooW8w6UfLRI0wU/+XBYSCz+wY/LHBH7+oTi5ucC+l2rVRoD7ccoUyXRpUbeciXBnKsx3VcF2Vcht/GtJMLOogrowvrJox31JZZWVOS7yXuI8iqaYrLWLBjgoyq/cvuWvVJBRdU4JmUQWW4OZ7V7mAXA8QtABImGMcVP4pgXSivY01jkkPjZXOGE7tWCqVJc/QGK+qqt0X2HhUQBWqP8ZLUrYWsFDA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s98qA+3lKzwYOBQMdaI/VMDUPTm2nFYBtd/o5egu+bU=;
- b=kp3pMFaGj1gmBZ89EW7aEF02uA+jzBs30w3yjwuJxxLgbYHsaeqrAEewoRJaG9n5rM9X0l147LTbxBiMHcqYWbaj9uq49gNZlID+rDVS8/f47Z7VuYjDkovI8mntmbZkXrkNoLHWXyZoc5jgDsBqM/QlA83qTXrD18t4Mcr5ESg=
+ bh=J7QqFU341kNEQ1CkVHUs9vf850fY7Y4Ivh8PGVOXOpI=;
+ b=mnp49ONcDUihTvyHWcA+e/2VxdGZmpJETyRKuvvENHViXsoVrfA8g4fn8qIwazibmuR2MQYymmJ8xdVzPfW7KBcrqTV14OS29G6bizLkoQ2hCdPiPanA2dATGGTKbQRAiO5g8/0BcKYGzxanVF0yfzJDnOKB/utsAl9rF7pWGFA=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 3/6] xen/arm: switch find_domU_holes to rangesets
-Date: Thu, 8 May 2025 09:20:32 -0400
-Message-ID: <20250508132040.532898-4-stewart.hildebrand@amd.com>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 4/6] rangeset: introduce rangeset_subtract
+Date: Thu, 8 May 2025 09:20:33 -0400
+Message-ID: <20250508132040.532898-5-stewart.hildebrand@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250508132040.532898-1-stewart.hildebrand@amd.com>
 References: <20250508132040.532898-1-stewart.hildebrand@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002323:EE_|SJ5PPF28EF61683:EE_
-X-MS-Office365-Filtering-Correlation-Id: 869a1447-e7e2-42a9-ca06-08dd8e3334d6
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37F:EE_|PH0PR12MB7861:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8511870a-95e9-4046-2f0f-08dd8e333994
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700013|1800799024;
+	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?naOKwUJ/J8MOtg/MKPER9fJbyjQklQ8X5hsMEJcobXMTzKmI9MnGBt4avzBd?=
- =?us-ascii?Q?He4C5KMeqJDBQtgv9b89DVpEl9WRN4qqFIcm+Ebk7pBp8LsXYM3SEIOebp9f?=
- =?us-ascii?Q?AupqZPEzDD0o22QSB9+bFDNYZk1FMW6N2PzgRbG6z2yFKqwywNqcdVeTctK7?=
- =?us-ascii?Q?NmJzbgSJbCjJUE4oNP7pPQVNv3bixP6ppTZp44uwzUM97SrdpdMm+ay2VW/C?=
- =?us-ascii?Q?5tVWrhvD1b1tXcmlTxhPvujeAmJEPB5RQJBhZHUhVcEc6gmdyMqJHHywZNrK?=
- =?us-ascii?Q?VkyAyRsd5vGJsefOw0zlrxvjTkBV7wP3O0xTcy6JnYUS//MhRpUVdoSTSFTx?=
- =?us-ascii?Q?+7cv9vPoVOsJpD7UFKDbbHkUGrll8fwpkKJOD7idhl1uIU1ZmACyjG1dEwcO?=
- =?us-ascii?Q?eMkD29vL2uBtw/lbbvVtXL/mZHrLv0+06JPGlZSxqUTMCNrDYs3/7zXmuzue?=
- =?us-ascii?Q?DbdF/X/UihBnj6pBykbIw+KpwWJUyXLluUV7WPOJBioVAdVtZ8x1/b2r3IxS?=
- =?us-ascii?Q?VuRSlHTNlGzKKbIZ+r1b1t01SXYmyVTuZOqblZCh++m02x1agspvAnYGIPAD?=
- =?us-ascii?Q?2/5PD7cyD3tysyWrdfSOB3mYgJVh0sXqoNjcfihAPsEaC+T0CuQ+37z/zMnO?=
- =?us-ascii?Q?SqPZOfNmPbpOxK9Tyyc9bOfWqQE+0jPNbzcVy2eYWm7JD45DgEIs+ZaO9DV1?=
- =?us-ascii?Q?SOeedEt4lI/g5wkpcoLbc3OS9tEq0D2FaPOgZHtwon/gKyc67AGtu84KlkGQ?=
- =?us-ascii?Q?YNMFHRKbAvLQ4gmjEIQY2dhYeYJP2FL/abcUaCHmRu8h29kgoQQpcpOPicZN?=
- =?us-ascii?Q?8yYv887sYvJAb2c4yJeqdJEx68o1Y1RHfVYSfhWLykBMz8iWy86mTSEYFWKz?=
- =?us-ascii?Q?3WYsCtUyKE+3nV7jz8G2JRVwUNO8slqMs8eSYBf/vhYFCaPPXWA9SCiRFTOT?=
- =?us-ascii?Q?m2xHrUOmawQY7dTiYndq49IjgcWBi6B78+s5xVqJ5bZ4UPjVilmygOoLq7ob?=
- =?us-ascii?Q?Cmlx7Iq0neHU15CReXriQPwn6m6Tv58QtqqoDnmfsWwEi3tNvPbfcc3pAvH3?=
- =?us-ascii?Q?x0B3tmpKFvH5F5ykMrEj8eCh8hTGyzhTcMwfnLVvr1kv+Aj81927uNooxvXN?=
- =?us-ascii?Q?YE9em5k4GE1ISU/ELx9NKnge3a5SKqLzpaddqn9BKynRToYnBGhzly9AUE4w?=
- =?us-ascii?Q?sFXEW2xPTf/ZOzGm7twKEOsVUNLyoTexYoTSwzNq+LoasMLKepIYXnR4VfcE?=
- =?us-ascii?Q?E8jmNK93u+usselNeo61ueL4RwKtQVVobCsFW+2ph8WfgD8+PXIF/qBxWVt3?=
- =?us-ascii?Q?Ep/oWOuP09k57AeJWweWEUaSRKuFIWhka7z5BzV8uiefozjD498TmfqHbO1e?=
- =?us-ascii?Q?M8e6Vjj8+XUvfcfmChPo2nnyhMxzkZi3P9fWDdx8okYE7ht1E+Pio40UgWGl?=
- =?us-ascii?Q?ZIvebXc+xjV57YHrDHj53ksr9U69blQPWG5TwuPQ2FGk4OiBWM2k+cSfnLzG?=
- =?us-ascii?Q?sMddWsfOWVx6Ha7fu2du1c03BXl/4RAOkclM?=
+	=?us-ascii?Q?ZbInkedcqu5genAzw129cRYQRS51zzv3DFu5gj6FY39je0tC+PuuDl4ccaxT?=
+ =?us-ascii?Q?AuG2PE6HHzvyCNzBsMCR3O4pOe2NiwBNNZM4hFvMyvmW2FSp11Av7RbQBju4?=
+ =?us-ascii?Q?5vzJplBIsZoJADjevLToJi91cQbQoc6ZdILb8MhiCV/MGOfUEz1IfbvGeOLh?=
+ =?us-ascii?Q?2+2rDu09lnXJLrNtWpuagP05h5TjJ55r0Tpn+ABdWCiw7npAcChrsuc5TGb8?=
+ =?us-ascii?Q?hISmmoZFXc1EFkr6JL/LeCJLcv/S4vm0x2jwC2zDKTWJX9q7DmbVb2bYjhA7?=
+ =?us-ascii?Q?y1mhSrt63HiwZ1Z1RNBGn6/4BznK6c19GcLABPCrVsvdY2G2NR0jc/7N6oC5?=
+ =?us-ascii?Q?W0cY98oEoW0P1xA7JU0xEDQ+tfYOtDKSsqN9b6d4CHyTqJsxxZLp+z2tlnE3?=
+ =?us-ascii?Q?23GUv7ro5jYyj8ZgxFoM6cwPMMoe8gAwig6V4FcHyUeRUj/nOtPqkGVevdm6?=
+ =?us-ascii?Q?SHTMIOvIL4rVysHT2tY1XOOaZzGSNVzuzjhxGKACvmIt97elOzNbIUfAX4OB?=
+ =?us-ascii?Q?CGSV/ShypZ9pErNWrup/YlEHZaz6XVqsYQWVJK3ZqXrh4/83O1/rEy5GI01F?=
+ =?us-ascii?Q?jBQRDgXQx8LRtzM4jLCwiZ/3zVRKXfdd4z86C6dqBUmKrWcRbEpu2O+8fxDb?=
+ =?us-ascii?Q?JXiYe09TPc4tpzC639WCJNGfx0N4aGXDTpfGZ3J/MfJZrQx/w4DHrEgaxlH4?=
+ =?us-ascii?Q?yJvGBOazkRAC0jPHbEqPiNXc5oHbpjusau2xnWkD9dbJsqaYuXWtUvAEBPPV?=
+ =?us-ascii?Q?GiWsyJ97IKMLTPWGjnDRr+DFWcZZroYzUMFlt5TIo4u+gKI2RvkdC9rEARad?=
+ =?us-ascii?Q?vYkgG1lMzl6nbQ4ToDoqUJ3hPUQKS18hDr8hMfAXgP3Gzcm/SsR+x4MwDyz+?=
+ =?us-ascii?Q?pgjVDdkdjSlDPdi0K87k3P92K/2nWOoGQxUVKcoUmW7bOqAOqBiZa+kyW0n7?=
+ =?us-ascii?Q?9LGxMjkhjcndIhY3K1hThiPw/0fB2sefiv9/iO/VKqZgx9jftWhfmU2t8U4S?=
+ =?us-ascii?Q?3jXWvy2+eyZ6joS1CH4BrdRJJqSR81OstkHZkA4hso857BOrBbuf+BEJrTg7?=
+ =?us-ascii?Q?9j/BjYX1tKQjL0LM6niESsQ3cBdHB0ROzBuBIBdyi1sGEC56Zdg9btR0WI5l?=
+ =?us-ascii?Q?FbXTOH9cjPVBMg+Kv5z7ZIbnTHYo8UKqSOI4aNuVPyGS1MOGFhvtzTfdVCN4?=
+ =?us-ascii?Q?faCP+GBOf8KL/Ue5iS+zroCw0nQNxV70p/KDb+SOK+oQ8lj3OeRTxsjom/mu?=
+ =?us-ascii?Q?wURqQbya9wQNQZvNFRbXZ+Lv8XUGwMJk9ltaiUdwf+zTNx3vrJxOeEIkpDZ4?=
+ =?us-ascii?Q?nxsm9dOTU2EeVrk1jCymbObzz38+YuTgtZlrhO5Dl35UgFwW8JJKDuwmAxRx?=
+ =?us-ascii?Q?s81tZOOw5UseDt6fqdAx325QnEgpIr7vjpIR/UqHkAKNAxBK2kMhICTmoh4b?=
+ =?us-ascii?Q?yS5cCvSKkvXCO3qJFMww5a+fSBqLhnxpong6ExgG5VnTpckZ///YdNE39ejF?=
+ =?us-ascii?Q?TpChSIU6cNS/41j6QbOxipqchs7cL7CCbYQH?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2025 13:21:13.6015
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2025 13:21:21.6197
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 869a1447-e7e2-42a9-ca06-08dd8e3334d6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8511870a-95e9-4046-2f0f-08dd8e333994
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002323.namprd03.prod.outlook.com
+	DS3PEPF0000C37F.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF28EF61683
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7861
 
-remove_shm_holes_for_domU() is unnecessarily complex: it re-creates the
-extended regions from scratch.
-
-Move the rangeset into find_domU_holes() and create the extended regions
-only once. This makes is simpler to further manipulate the rangeset for
-removing other regions.
-
-Remove now-unused remove_shm_holes_for_domU().
+Introduce rangeset_subtract() to remove regions in r2 from r1.
 
 Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
 v1->v2:
-* add Stefano's R-b
+* no change
 ---
- xen/arch/arm/domain_build.c             | 46 ++++++++++++-----
- xen/arch/arm/include/asm/static-shmem.h |  9 ----
- xen/arch/arm/static-shmem.c             | 65 -------------------------
- 3 files changed, 35 insertions(+), 85 deletions(-)
+ xen/common/rangeset.c      | 12 ++++++++++++
+ xen/include/xen/rangeset.h |  3 +++
+ 2 files changed, 15 insertions(+)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 2f2b021dec3e..05a77a4f92c6 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -933,34 +933,58 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
-                                   struct membanks *ext_regions)
+diff --git a/xen/common/rangeset.c b/xen/common/rangeset.c
+index e75871039087..b9e8912fb1c3 100644
+--- a/xen/common/rangeset.c
++++ b/xen/common/rangeset.c
+@@ -397,6 +397,18 @@ int rangeset_merge(struct rangeset *r1, struct rangeset *r2)
+     return rangeset_report_ranges(r2, 0, ~0UL, merge, r1);
+ }
+ 
++static int cf_check subtract(unsigned long s, unsigned long e, void *data)
++{
++    struct rangeset *r = data;
++
++    return rangeset_remove_range(r, s, e);
++}
++
++int rangeset_subtract(struct rangeset *r1, struct rangeset *r2)
++{
++    return rangeset_report_ranges(r2, 0, ~0UL, subtract, r1);
++}
++
+ int rangeset_add_singleton(
+     struct rangeset *r, unsigned long s)
  {
-     unsigned int i;
--    uint64_t bankend;
-     const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
-     const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
-     const struct membanks *kinfo_mem = kernel_info_get_mem_const(kinfo);
--    int res = -ENOENT;
-+    struct rangeset *mem_holes;
-+    int res;
+diff --git a/xen/include/xen/rangeset.h b/xen/include/xen/rangeset.h
+index 96c918082501..817505badf6f 100644
+--- a/xen/include/xen/rangeset.h
++++ b/xen/include/xen/rangeset.h
+@@ -85,6 +85,9 @@ int rangeset_consume_ranges(struct rangeset *r,
+ /* Merge rangeset r2 into rangeset r1. */
+ int __must_check rangeset_merge(struct rangeset *r1, struct rangeset *r2);
+ 
++/* Subtract rangeset r2 from rangeset r1. */
++int __must_check rangeset_subtract(struct rangeset *r1, struct rangeset *r2);
 +
-+    mem_holes = rangeset_new(NULL, NULL, 0);
-+    if ( !mem_holes )
-+        return -ENOMEM;
- 
-     for ( i = 0; i < GUEST_RAM_BANKS; i++ )
-     {
--        struct membank *ext_bank = &(ext_regions->bank[ext_regions->nr_banks]);
-+        uint64_t bankend, start, size = 0;
- 
--        ext_bank->start = ROUNDUP(bankbase[i] + kinfo_mem->bank[i].size, SZ_2M);
-+        start = ROUNDUP(bankbase[i] + kinfo_mem->bank[i].size, SZ_2M);
- 
-         bankend = ~0ULL >> (64 - p2m_ipa_bits);
-         bankend = min(bankend, bankbase[i] + banksize[i] - 1);
--        if ( bankend > ext_bank->start )
--            ext_bank->size = bankend - ext_bank->start + 1;
-+
-+        if ( bankend > start )
-+            size = bankend - start + 1;
- 
-         /* 64MB is the minimum size of an extended region */
--        if ( ext_bank->size < MB(64) )
-+        if ( size < MB(64) )
-             continue;
--        ext_regions->nr_banks++;
--        res = 0;
-+
-+        res = rangeset_add_range(mem_holes, PFN_DOWN(start), PFN_DOWN(bankend));
-+        if ( res )
-+        {
-+            printk(XENLOG_ERR "Failed to add: %#"PRIx64"->%#"PRIx64"\n",
-+                   start, start + size - 1);
-+            goto out;
-+        }
-     }
- 
-+    /* Remove static shared memory regions */
-+    res = remove_shm_from_rangeset(kinfo, mem_holes);
-     if ( res )
--        return res;
-+        goto out;
-+
-+    res = rangeset_report_ranges(mem_holes, 0,
-+                                 PFN_DOWN((1ULL << p2m_ipa_bits) - 1),
-+                                 add_ext_regions, ext_regions);
-+    if ( res )
-+        ext_regions->nr_banks = 0;
-+    else if ( !ext_regions->nr_banks )
-+        res = -ENOENT;
- 
--    return remove_shm_holes_for_domU(kinfo, ext_regions);
-+ out:
-+    rangeset_destroy(mem_holes);
-+
-+    return res;
- }
- 
- static int __init find_host_extended_regions(const struct kernel_info *kinfo,
-diff --git a/xen/arch/arm/include/asm/static-shmem.h b/xen/arch/arm/include/asm/static-shmem.h
-index 4034cec32f87..6a4c33cca8c2 100644
---- a/xen/arch/arm/include/asm/static-shmem.h
-+++ b/xen/arch/arm/include/asm/static-shmem.h
-@@ -27,9 +27,6 @@ void init_sharedmem_pages(void);
- int remove_shm_from_rangeset(const struct kernel_info *kinfo,
-                              struct rangeset *rangeset);
- 
--int remove_shm_holes_for_domU(const struct kernel_info *kinfo,
--                              struct membanks *ext_regions);
--
- int make_shm_resv_memory_node(const struct kernel_info *kinfo, int addrcells,
-                               int sizecells);
- 
-@@ -73,12 +70,6 @@ static inline int remove_shm_from_rangeset(const struct kernel_info *kinfo,
-     return 0;
- }
- 
--static inline int remove_shm_holes_for_domU(const struct kernel_info *kinfo,
--                                            struct membanks *ext_regions)
--{
--    return 0;
--}
--
- static inline int make_shm_resv_memory_node(const struct kernel_info *kinfo,
-                                             int addrcells, int sizecells)
- {
-diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
-index 1f8441d92046..32ec6d4bc69f 100644
---- a/xen/arch/arm/static-shmem.c
-+++ b/xen/arch/arm/static-shmem.c
-@@ -822,71 +822,6 @@ int __init remove_shm_from_rangeset(const struct kernel_info *kinfo,
-     return 0;
- }
- 
--int __init remove_shm_holes_for_domU(const struct kernel_info *kinfo,
--                                     struct membanks *ext_regions)
--{
--    const struct membanks *shm_mem = kernel_info_get_shm_mem_const(kinfo);
--    struct rangeset *guest_holes;
--    unsigned int i;
--    paddr_t start;
--    paddr_t end;
--    int res;
--
--    /* No static shared memory region. */
--    if ( shm_mem->nr_banks == 0 )
--        return 0;
--
--    dt_dprintk("Remove static shared memory holes from extended regions of DomU\n");
--
--    guest_holes = rangeset_new(NULL, NULL, 0);
--    if ( !guest_holes )
--        return -ENOMEM;
--
--    /* Copy extended regions sets into the rangeset */
--    for ( i = 0; i < ext_regions->nr_banks; i++ )
--    {
--        start = ext_regions->bank[i].start;
--        end = start + ext_regions->bank[i].size;
--
--        res = rangeset_add_range(guest_holes, PFN_DOWN(start),
--                                 PFN_DOWN(end - 1));
--        if ( res )
--        {
--            printk(XENLOG_ERR
--                   "Failed to add: %#"PRIpaddr"->%#"PRIpaddr", error: %d\n",
--                   start, end, res);
--            goto out;
--        }
--    }
--
--    /* Remove static shared memory regions */
--    res = remove_shm_from_rangeset(kinfo, guest_holes);
--    if ( res )
--        goto out;
--
--    /*
--     * Take the interval of memory starting from the first extended region bank
--     * start address and ending to the end of the last extended region bank.
--     */
--    i = ext_regions->nr_banks - 1;
--    start = ext_regions->bank[0].start;
--    end = ext_regions->bank[i].start + ext_regions->bank[i].size - 1;
--
--    /* Reset original extended regions to hold new value */
--    ext_regions->nr_banks = 0;
--    res = rangeset_report_ranges(guest_holes, PFN_DOWN(start), PFN_DOWN(end),
--                                 add_ext_regions, ext_regions);
--    if ( res )
--        ext_regions->nr_banks = 0;
--    else if ( !ext_regions->nr_banks )
--        res = -ENOENT;
--
-- out:
--    rangeset_destroy(guest_holes);
--
--    return res;
--}
--
- void __init shm_mem_node_fill_reg_range(const struct kernel_info *kinfo,
-                                         __be32 *reg, int *nr_cells,
-                                         int addrcells, int sizecells)
+ /* Add/remove/query a single number. */
+ int __must_check rangeset_add_singleton(
+     struct rangeset *r, unsigned long s);
 -- 
 2.49.0
 
