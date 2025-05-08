@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 318CFAAF208
-	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 06:15:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.978967.1365735 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 689A1AAF39E
+	for <lists+xen-devel@lfdr.de>; Thu,  8 May 2025 08:21:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.978991.1365746 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCsem-0003WJ-0I; Thu, 08 May 2025 04:14:48 +0000
+	id 1uCucO-000323-HE; Thu, 08 May 2025 06:20:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 978967.1365735; Thu, 08 May 2025 04:14:47 +0000
+Received: by outflank-mailman (output) from mailman id 978991.1365746; Thu, 08 May 2025 06:20:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uCsel-0003Tw-To; Thu, 08 May 2025 04:14:47 +0000
-Received: by outflank-mailman (input) for mailman id 978967;
- Thu, 08 May 2025 04:14:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uCucO-0002zV-D5; Thu, 08 May 2025 06:20:28 +0000
+Received: by outflank-mailman (input) for mailman id 978991;
+ Thu, 08 May 2025 06:20:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RvPD=XY=bombadil.srs.infradead.org=BATV+b29930b5fa9b2b8daadf+7928+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1uCsej-0003Tm-C0
- for xen-devel@lists.xenproject.org; Thu, 08 May 2025 04:14:46 +0000
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [2607:7c80:54:3::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f7246e4c-2bc2-11f0-9eb4-5ba50f476ded;
- Thu, 08 May 2025 06:14:43 +0200 (CEST)
-Received: from hch by bombadil.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1uCsea-0000000HGrC-1ecu;
- Thu, 08 May 2025 04:14:36 +0000
+ <SRS0=vw9d=XY=linaro.org=dan.carpenter@srs-se1.protection.inumbo.net>)
+ id 1uCucM-0002zO-GW
+ for xen-devel@lists.xenproject.org; Thu, 08 May 2025 06:20:26 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 86ca7521-2bd4-11f0-9ffb-bf95429c2676;
+ Thu, 08 May 2025 08:20:24 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-43cec5cd73bso3397015e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 07 May 2025 23:20:24 -0700 (PDT)
+Received: from localhost ([196.207.164.177])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-442cd331281sm24790075e9.15.2025.05.07.23.20.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 May 2025 23:20:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,54 +45,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f7246e4c-2bc2-11f0-9eb4-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=41y5a2fmLpkUVnjUrs+3spKKdWGJe+CFaj83hBx9tto=; b=il6E3u2hODnTYTdHGLvese8c4k
-	moZHoVqHVx9Mv3WchvyW0oJ9k2NMXgY+5X9tjKFn7cA9vt21hz7oDJW7uw+PrrxehnVWvrK004O68
-	bJ4+p3xV5IPwiv3dGKLczXIM4GPVqkBYvjUScsbDBcGBHg2oLTcs4N2xDXtIq+ZSSmkv4h+jE8Gmb
-	cqrLDED7/LnE4h9Yt8IilMzCzlDps8RAVHzWoTPO/AzxKfR4dp8rS2f6w6zOEZ2tYNjGBarV+gnyl
-	oCaJvmyAKhjtT+SuVOPqH3ZLM1fJ5Mt2yysevzIoCkfDmMs3PpP69DckYB5Sw/pwLSyRNMQHPpcyW
-	OWLzkU0A==;
-Date: Wed, 7 May 2025 21:14:36 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: John Ernberg <john.ernberg@actia.se>, Juergen Gross <jgross@suse.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	Christoph Hellwig <hch@infradead.org>
-Subject: Re: [PATCH 2/2] xen: swiotlb: Implement map_resource callback
-Message-ID: <aBwvrLKD_VJapYkB@infradead.org>
-References: <20250502114043.1968976-1-john.ernberg@actia.se>
- <20250502114043.1968976-3-john.ernberg@actia.se>
- <alpine.DEB.2.22.394.2505021007460.3879245@ubuntu-linux-20-04-desktop>
- <75266eb7-66a4-4477-ae8a-cbd1ebbee8db@actia.se>
- <alpine.DEB.2.22.394.2505071602570.3879245@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: 86ca7521-2bd4-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1746685224; x=1747290024; darn=lists.xenproject.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=erP9N5irA1Qn4rtwySzPgfrOs/l9lOODRxSitTYyXXo=;
+        b=JqX73l3xnz4P6NrflpsMfeYmitFmcTHx8cuMiczgNkIdoVFlTPasrGmvo7KSnpOOv3
+         nnGeOq//Mo0GMYvj6iU9FalUQNtWqwqmRJDuvVv5UBebRoejLSfQyoxzt7+tIne8K6Nw
+         TG/XZDFKNlKJJcl16inbKIB7AkUCc0bi+7WBA2ouoilKExKQsndHHDPY1EfuDwjHyQkJ
+         u9rIAALAnuu2gxHIXyIFYx/5DfFVuFu6GTE0C3iIFWasqqbs9NQzgcHk4rwbeUgIiwvx
+         O8BbLRE8aFlZTKn1UQYZuorezY2s18nDtFF72adVMGhPk7YqAK7RDO/EYbIvJUlyoo7H
+         Wl8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746685224; x=1747290024;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=erP9N5irA1Qn4rtwySzPgfrOs/l9lOODRxSitTYyXXo=;
+        b=QtGFYPSUT+lHx4naSLFG6apOWLHWfCN7zqtxj92LYxij94IbCGhQq0k4U5cQ6w4BVG
+         wKvZRDOwcRJcNozQPSRqbmBsWjeTPmILQamV1OidSx/84cUnVzOc60i2T/nIy2+Z/8Z6
+         FcSQ6v+sB6enuWCO3qHzWeIS2zMN0tzKCINcxHGYlqjam5UDmkYsiPR7grfkWlBfhjo6
+         VR/3DSPW3RoSddyZBHpiu/6HF4fYRJ/0H32k8oZ5t1vQxtsEep0E0b0W43CzHhTV3wV+
+         DNdcVJQMHJ+8ixIF3VbXFOUe1VkjTMBBivYJ2pI/Esecgw+PLLL+toWIvfNFP2XSBmOG
+         cSDQ==
+X-Gm-Message-State: AOJu0Ywh59Jr6LKEsSKKzZx4DHLD8vPCHl12Vlzg0pZorl3epYB6Ta2D
+	MAd/ij3DDruh7RsAMgi49uXNAhb1tWpLjG7Nw/F5ExvyKBAgjlyh2Zs3gS56Tbvo5xNrkUBlGI4
+	8
+X-Gm-Gg: ASbGnct0Jc72/g5r9vhZB6XyDHW6OMdNmiXRp9L1So0dcA1Ys/ibW9ZyTHDu8I1Ao42
+	9FE+h7tRB+SKhj6kv8oxaDr0v99FzE8YCM3VU4j97dOyUiUW80b5l1bPsqSK1AafhHDhgf/wodg
+	OsDB0Xr7XUeZ/GuiBsVhWYJaumP1OA9hrWFqf34PoThtBebGVZpT6Yll2e7tKSDJQzPMyU0iT9F
+	U9hOVvF62oMw5frJeLDrtqOh6v4kJbgVkdvTQEKAvKcxTUOfVy3CJPKHx2eyKdBzlzCy6ylVEs/
+	IpnJRsyENzVpQX7AY2Am6IofuKtAmNSSy79sB89FD4kiLg==
+X-Google-Smtp-Source: AGHT+IHo8NnLYyInT7/v8s7jzqlUhT5bNQvADa53LAavwKI6cC2BBKGtm3E5BcvLUbGxeJwnQ4G6SA==
+X-Received: by 2002:a05:600c:3b11:b0:43d:526:e0ce with SMTP id 5b1f17b1804b1-442d095337emr12392365e9.21.1746685223859;
+        Wed, 07 May 2025 23:20:23 -0700 (PDT)
+Date: Thu, 8 May 2025 09:20:19 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Xin Li <xin@zytor.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: [bug report] x86/xen/msr: Remove calling
+ native_{read,write}_msr{,_safe}() in pmu_msr_{read,write}()
+Message-ID: <aBxNI_Q0-MhtBSZG@stanley.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2505071602570.3879245@ubuntu-linux-20-04-desktop>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Wed, May 07, 2025 at 04:09:15PM -0700, Stefano Stabellini wrote:
-> > This mapping is not for a RAM backed address. In the eDMA case for the 
-> > iMX8QXP the `phys` coming in here is the address of a register.
-> 
-> Ok, this information is important :-)
-> 
-> I am not certain whether the map_resource interface can only be called
-> for MMIO addresses or if it can also be called for RAM-backed addresses
-> with a size > PAGE_SIZE. In the latter case, we could run into the issue
-> I was describing.
+Hello Xin Li (Intel),
 
-map_resource is intended for MMIO regions, although those could be >
-PAGE_SIZE.  It must not be called on RAM.
+Commit 0cb6f4128a7d ("x86/xen/msr: Remove calling
+native_{read,write}_msr{,_safe}() in pmu_msr_{read,write}()") from
+Apr 27, 2025 (linux-next), leads to the following Smatch static
+checker warning:
 
+	arch/x86/xen/enlighten_pv.c:1168 xen_read_msr_safe()
+	error: uninitialized symbol 'err'.
+
+arch/x86/xen/enlighten_pv.c
+    1163 static int xen_read_msr_safe(u32 msr, u64 *val)
+    1164 {
+    1165         int err;
+    1166 
+    1167         *val = xen_do_read_msr(msr, &err);
+                                              ^^^
+The first return in xen_do_read_msr() doesn't set *err.
+
+--> 1168         return err;
+    1169 }
+
+regards,
+dan carpenter
 
