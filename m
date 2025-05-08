@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D35BAB067A
-	for <lists+xen-devel@lfdr.de>; Fri,  9 May 2025 01:28:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.979653.1366164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3136AAB06A2
+	for <lists+xen-devel@lfdr.de>; Fri,  9 May 2025 01:40:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.979667.1366174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDAfN-0005MJ-6X; Thu, 08 May 2025 23:28:37 +0000
+	id 1uDAqY-0007xp-5a; Thu, 08 May 2025 23:40:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 979653.1366164; Thu, 08 May 2025 23:28:37 +0000
+Received: by outflank-mailman (output) from mailman id 979667.1366174; Thu, 08 May 2025 23:40:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDAfN-0005JP-3a; Thu, 08 May 2025 23:28:37 +0000
-Received: by outflank-mailman (input) for mailman id 979653;
- Thu, 08 May 2025 23:28:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uDAqY-0007w1-2b; Thu, 08 May 2025 23:40:10 +0000
+Received: by outflank-mailman (input) for mailman id 979667;
+ Thu, 08 May 2025 23:40:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QXoN=XY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uDAfL-0005JJ-Im
- for xen-devel@lists.xenproject.org; Thu, 08 May 2025 23:28:35 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 282a252c-2c64-11f0-9eb4-5ba50f476ded;
- Fri, 09 May 2025 01:28:34 +0200 (CEST)
+ id 1uDAqW-0007vv-M8
+ for xen-devel@lists.xenproject.org; Thu, 08 May 2025 23:40:08 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c30d66d6-2c65-11f0-9ffb-bf95429c2676;
+ Fri, 09 May 2025 01:40:03 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 8CA10A4E2BD;
- Thu,  8 May 2025 23:28:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD24FC4CEE7;
- Thu,  8 May 2025 23:28:30 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 87E745C64F1;
+ Thu,  8 May 2025 23:37:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24035C4CEE7;
+ Thu,  8 May 2025 23:40:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,151 +41,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 282a252c-2c64-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: c30d66d6-2c65-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1746746912;
-	bh=Vg6cN5pfI6Y+lpc133cxHERBv6bpN7iNionBjfwpZfc=;
+	s=k20201202; t=1746747601;
+	bh=mZxVjGpeSSpFLUdqkfS8uq9d2sBJk5V9W2sj3YRjbsQ=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=UB2RloDkwM8rimcP5E+U3iCYulg8iOg3KP/Vr5zn3WkdVIK9ahbrV+k8R/3keiTbA
-	 gvgbPHFciybDH+IakF2CU0bxSfnF5EPBlzHTfWdlIWl5zlDQUTh3SUVaPbST7cmYbI
-	 AQ1YSbJqB9bibnlHLsRGF7F5tP24sXWGfqLiazKXsDDqO8jTDlbU+nXX14W2EraMdN
-	 WWNjzRR0ocxRqgJvLr79lYZDRX8Lm4Sz2pd7pBRL8Q5A1ybiDkqrgKbXoXOSzrhqJC
-	 c2sVZefjYdBTQ7vfStt8U2Rg2sqQA/PDNe0pQxCyfbKQQb94OyZ5nCLZAINq72AJ3i
-	 npE9Mb07KCEEw==
-Date: Thu, 8 May 2025 16:28:29 -0700 (PDT)
+	b=nmWQYDDV33llq5/hzdJbYU83g66ERcuU1WGWZtl3UMoOpwgJfPIxI0X9rlrWb89vu
+	 TSGgxfYmHMTsU6bqCGUZjiyMznHAQIv+LBW2+HV0XTGltUYIrmwNdcSj8h7Ppo3OJg
+	 blOI9eJ8/gcwHb3htCEBfTar5gKxeFo45s17PMrXatMwLRv5t8Au51n5k1rFlnw2n7
+	 rypE7YOmIlovxbZ5QX7Yzw9bsXsICkJY31fSkz9LKoAuDhS57uoVb/koSnZR84fo8I
+	 /b7RUoVzEMsUPbHd7gMXI8jXYAL0IQkVKJjnupv7QqAs9mUR+5mWEoF66/seuItPEm
+	 OXGbPELyIahEQ==
+Date: Thu, 8 May 2025 16:39:58 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
     Jan Beulich <jbeulich@suse.com>, 
-    "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, jason.andryuk@amd.com, 
-    agarciav@amd.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
-In-Reply-To: <aByHaI1ST9v58K6e@mail-itl>
-Message-ID: <alpine.DEB.2.22.394.2505081626060.3879245@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop> <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com> <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop> <aBiVkw2SXJHxpieh@mail-itl> <aBjLoM_ttxqftzlp@macbook.lan>
- <alpine.DEB.2.22.394.2505051100050.3879245@ubuntu-linux-20-04-desktop> <aBnOQyXSz-j33Wux@macbook.lan> <alpine.DEB.2.22.394.2505061658330.3879245@ubuntu-linux-20-04-desktop> <aBx1gv6BXhZ0pSYt@macbook.lan> <aByHaI1ST9v58K6e@mail-itl>
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v2 5/6] xen/arm: exclude xen,reg from domU extended
+ regions
+In-Reply-To: <20250508132040.532898-6-stewart.hildebrand@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2505081639510.3879245@ubuntu-linux-20-04-desktop>
+References: <20250508132040.532898-1-stewart.hildebrand@amd.com> <20250508132040.532898-6-stewart.hildebrand@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1739614822-1746746911=:3879245"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1739614822-1746746911=:3879245
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Thu, 8 May 2025, Marek Marczykowski-Górecki wrote:
-> On Thu, May 08, 2025 at 11:12:34AM +0200, Roger Pau Monné wrote:
-> > On Wed, May 07, 2025 at 04:02:11PM -0700, Stefano Stabellini wrote:
-> > > On Tue, 6 May 2025, Roger Pau Monné wrote:
-> > > > On Mon, May 05, 2025 at 11:11:10AM -0700, Stefano Stabellini wrote:
-> > > > > On Mon, 5 May 2025, Roger Pau Monné wrote:
-> > > > > > On Mon, May 05, 2025 at 12:40:18PM +0200, Marek Marczykowski-Górecki wrote:
-> > > > > > > On Mon, Apr 28, 2025 at 01:00:01PM -0700, Stefano Stabellini wrote:
-> > > > > > > > On Mon, 28 Apr 2025, Jan Beulich wrote:
-> > > > > > > > > On 25.04.2025 22:19, Stefano Stabellini wrote:
-> > > > > > > > > > From: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>
-> > > > > > > > > > 
-> > > > > > > > > > Dom0 PVH might need XENMEM_exchange when passing contiguous memory
-> > > > > > > > > > addresses to firmware or co-processors not behind an IOMMU.
-> > > > > > > > > 
-> > > > > > > > > I definitely don't understand the firmware part: It's subject to the
-> > > > > > > > > same transparent P2M translations as the rest of the VM; it's just
-> > > > > > > > > another piece of software running there.
-> > > > > > > > > 
-> > > > > > > > > "Co-processors not behind an IOMMU" is also interesting; a more
-> > > > > > > > > concrete scenario might be nice, yet I realize you may be limited in
-> > > > > > > > > what you're allowed to say.
-> > > > > > > > 
-> > > > > > > > Sure. On AMD x86 platforms there is a co-processor called PSP running
-> > > > > > > > TEE firmware. The PSP is not behind an IOMMU. Dom0 needs occasionally to
-> > > > > > > > pass addresses to it.  See drivers/tee/amdtee/ and
-> > > > > > > > include/linux/psp-tee.h in Linux.
-> > > > > > > 
-> > > > > > > We had (have?) similar issue with amdgpu (for integrated graphics) - it
-> > > > > > > uses PSP for loading its firmware. With PV dom0 there is a workaround as
-> > > > > > > dom0 kinda knows MFN. I haven't tried PVH dom0 on such system yet, but I
-> > > > > > > expect troubles (BTW, hw1 aka zen2 gitlab runner has amdgpu, and it's
-> > > > > > > the one I used for debugging this issue).
-> > > > > > 
-> > > > > > That's ugly, and problematic when used in conjunction with AMD-SEV.
-> > > > > > 
-> > > > > > I wonder if Xen could emulate/mediate some parts of the PSP for dom0
-> > > > > > to use, while allowing Xen to be the sole owner of the device.  Having
-> > > > > > both Xen and dom0 use it (for different purposes) seems like asking
-> > > > > > for trouble.  But I also have no idea how complex the PSP interface
-> > > > > > is, neither whether it would be feasible to emulate the
-> > > > > > interfaces/registers needed for firmware loading.
-> > > > > 
-> > > > > Let me take a step back from the PSP for a moment. I am not opposed to a
-> > > > > PSP mediator in Xen, but I want to emphasize that the issue is more
-> > > > > general and extends well beyond the PSP.
-> > > > > 
-> > > > > In my years working in embedded systems, I have consistently seen cases
-> > > > > where Dom0 needs to communicate with something that does not go through
-> > > > > the IOMMU. This could be due to special firmware on a co-processor, a
-> > > > > hardware erratum that prevents proper IOMMU usage, or a high-bandwidth
-> > > > > device that technically supports the IOMMU but performs poorly unless
-> > > > > the IOMMU is disabled. All of these are real-world examples that I have
-> > > > > seen personally.
-> > > > 
-> > > > I wouldn't be surprised, classic PV dom0 avoided those issues because
-> > > > it was dealing directly with host addresses (mfns), but that's not the
-> > > > case with PVH dom0.
-> > > 
-> > > Yeah
-> > > 
-> > > 
-> > > > > In my opinion, we definitely need a solution like this patch for Dom0
-> > > > > PVH to function correctly in all scenarios.
-> > > > 
-> > > > I'm not opposed to having such interface available for PVH hardware
-> > > > domains.  I find it ugly, but I don't see much other way to deal with
-> > > > those kind of "devices".  Xen mediating accesses for each one of them
-> > > > is unlikely to be doable.
-> > > > 
-> > > > How do you hook this exchange interface into Linux to differentiate
-> > > > which drivers need to use mfns when interacting with the hardware?
-> > > 
-> > > In the specific case we have at hands the driver is in Linux userspace
-> > > and is specially-written for our use case. It is not generic, so we
-> > > don't have this problem. But your question is valid.
-> > 
-> > Oh, so you then have some kind of ioctl interface that does the memory
-> > exchange and bouncing inside of the kernel on behalf of the user-space
-> > side I would think?
-> > 
-> > > In Linux, the issue is hidden behind drivers/xen/swiotlb-xen.c and
-> > > xen_arch_need_swiotlb. There are a few options:
-> > > - force swiotlb bounce for everything on the problematic SoC
-> > > - edit xen_arch_need_swiotlb to return true for the problematic device
-> > > - introduce a kernel command line option to specify which device
-> > >   xen_arch_need_swiotlb should return true for
-> > 
-> > Isn't it a bit misleading to use the swiotlb for this purpose?  Won't
-> > this usage of the swiotlb (to bounce from gfns to mfns) create issues
-> > if there's any devices that have a DMA physical address limitation and
-> > also needs to use the swiotlb while being behind the IOMMU?
-> > 
-> > > - introduce an ACPI table with the relevant info
-> > 
-> > Hm, best option might be an ACPI table so that Xen can signal to the
-> > hardware domain whether communication with the device must be done
-> > using mfns, or if accesses are mediated and hence can be done using
-> > gfns?
+On Thu, 8 May 2025, Stewart Hildebrand wrote:
+> When a device is passed through to a dom0less domU, the xen,reg ranges
+> may overlap with the extended regions. Remove xen,reg from extended
+> regions.
 > 
-> How does it work on native when some devices are not behind IOMMU? Is it
-> signaled via an ACPI table? It feels like it's a similar (although not
-> the same) situation here.
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
-The ACPI AMD IVRS table should have this information, but we cannot use
-the IVRS table for the guest.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Sometimes this kind of information for platform devices (e.g. GPIO, i2c)
-is not reported at all.
---8323329-1739614822-1746746911=:3879245--
+
+> ---
+> Not sure if we need a Fixes: tag, but if we do:
+> Fixes: 2a2447757b3c ("xen/arm: implement domU extended regions")
+> 
+> v1->v2:
+> * adjust commit message to not mention xen,reg-cacheable
+> * don't call rangeset_destroy() in construct_dom0()
+> * rebase
+> 
+> I investigated an alternate approach of parsing the partial device tree
+> again to scan for xen,reg properties, but it resulted in quite a lot of
+> code duplication. Adding a rangeset pointer to "struct kernel_info" has
+> a much smaller diffstat, and then we avoid the need to parse the partial
+> device tree a second time.
+> 
+> I discovered this issue when booting a dom0less domU with a device
+> passed through. Partial device tree excerpt:
+> 
+>     passthrough {
+>         ... <snip> ...
+> 
+>         axi_uart16550_0: serial@a0001000 {
+>             clocks = <&uart_fixed_clk>;
+>             compatible = "ns16550a";
+>             interrupt-parent = <&gic>;
+>             interrupts = <0 89 4>;
+>             reg = <0x0 0xa0001000 0x0 0x1000>;
+>             reg-shift = <2>;
+> 
+>             xen,reg = <0x0 0xa0001000 0x00 0x1000 0x0 0xa0001000>;
+>             xen,path = "/amba_pl@0/serial@a0000000";
+>             xen,force-assign-without-iommu;
+>         };
+>     };
+> 
+> The domU was assigned an extended region overlapping with MMIO of the
+> passed through device:
+> 
+> (XEN) d1: extended region 0: 0xa0000000->0x100000000
+> (XEN) d1: extended region 1: 0x200000000->0xf000000000
+> 
+> The domU panicked when attempting to initialize the device:
+> 
+> [    3.490068] a0001000.serial: ttyS0 at MMIO 0xa0001000 (irq = 15, base_baud = 6249375) is a 16550A
+> [    3.498843] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000010
+> [    3.498853] Mem abort info:
+> [    3.498855]   ESR = 0x0000000096000044
+> [    3.498859]   EC = 0x25: DABT (current EL), IL = 32 bits
+> [    3.498864]   SET = 0, FnV = 0
+> [    3.498867]   EA = 0, S1PTW = 0
+> [    3.498870]   FSC = 0x04: level 0 translation fault
+> [    3.498874] Data abort info:
+> [    3.498876]   ISV = 0, ISS = 0x00000044, ISS2 = 0x00000000
+> [    3.498879]   CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+> [    3.498884]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+> [    3.498888] [0000000000000010] user address but active_mm is swapper
+> [    3.498894] Internal error: Oops: 0000000096000044 [#1] SMP
+> [    3.498899] Modules linked in:
+> [    3.498908] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 6.12.10-stew #1
+> [    3.498917] pstate: 400000c5 (nZcv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> [    3.498924] pc : mem_serial_out+0x18/0x20
+> [    3.498936] lr : serial8250_do_set_mctrl+0x6c/0xc0
+> [    3.498943] sp : ffff800081bab6d0
+> [    3.498946] x29: ffff800081bab6d0 x28: ffff8000815e0dc8 x27: ffff000001c29c60
+> [    3.498957] x26: 0000000000000000 x25: ffff00000347b900 x24: ffff000005504c00
+> [    3.498968] x23: ffff00000347b800 x22: 0000000000000000 x21: ffff800081b69d78
+> [    3.498978] x20: ffff800081b69d78 x19: 0000000000000000 x18: ffffffffffffffff
+> [    3.498989] x17: 3d20647561625f65 x16: 736162202c353120 x15: 3d20717269282030
+> [    3.498999] x14: 3030313030306178 x13: ffff800081a21ff0 x12: 00000000000007fe
+> [    3.499010] x11: 00000000000002aa x10: ffff800081a4dff0 x9 : ffff800081a21ff0
+> [    3.499020] x8 : 00000000fffff7ff x7 : ffff800081a4dff0 x6 : 0000000000000008
+> [    3.499030] x5 : 0000000000000000 x4 : ffff800080797584 x3 : 0000000000000002
+> [    3.499040] x2 : 0000000000000000 x1 : 0000000000000010 x0 : 0000000000000000
+> [    3.499050] Call trace:
+> [    3.499053]  mem_serial_out+0x18/0x20
+> [    3.499059]  serial8250_set_mctrl+0x34/0x40
+> [    3.499065]  serial_core_register_port+0x534/0x7dc
+> [    3.499075]  serial_ctrl_register_port+0x10/0x1c
+> [    3.499084]  uart_add_one_port+0x10/0x1c
+> [    3.499092]  serial8250_register_8250_port+0x308/0x4c0
+> [    3.499102]  of_platform_serial_probe+0x2c4/0x48c
+> [    3.499110]  platform_probe+0x68/0xdc
+> [    3.499120]  really_probe+0xbc/0x298
+> [    3.499128]  __driver_probe_device+0x78/0x12c
+> [    3.499135]  driver_probe_device+0xdc/0x160
+> [    3.499142]  __driver_attach+0x94/0x19c
+> [    3.499149]  bus_for_each_dev+0x74/0xd0
+> [    3.499155]  driver_attach+0x24/0x30
+> [    3.499162]  bus_add_driver+0xe4/0x208
+> [    3.499168]  driver_register+0x60/0x128
+> [    3.499176]  __platform_driver_register+0x24/0x30
+> [    3.499184]  of_platform_serial_driver_init+0x1c/0x28
+> [    3.499192]  do_one_initcall+0x6c/0x1b0
+> [    3.499199]  kernel_init_freeable+0x178/0x258
+> [    3.499209]  kernel_init+0x20/0x1d0
+> [    3.499218]  ret_from_fork+0x10/0x20
+> [    3.499228] Code: f9400800 1ac32021 8b21c001 d50332bf (39000022)
+> [    3.499233] ---[ end trace 0000000000000000 ]---
+> [    3.499237] note: swapper/0[1] exited with irqs disabled
+> [    3.499247] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+> [    3.499251] SMP: stopping secondary CPUs
+> [    3.499284] Kernel Offset: disabled
+> [    3.499286] CPU features: 0x00,00000080,00200000,0200420b
+> [    3.499292] Memory Limit: none
+> [    3.792412] ---[ end Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b ]---
+> ---
+>  xen/arch/arm/domain_build.c             |  7 +++++++
+>  xen/common/device-tree/dom0less-build.c | 19 ++++++++++++++++++-
+>  xen/include/xen/fdt-kernel.h            |  1 +
+>  3 files changed, 26 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 05a77a4f92c6..b189a7cfae9f 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -973,6 +973,13 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
+>      if ( res )
+>          goto out;
+>  
+> +    if ( kinfo->xen_reg_assigned )
+> +    {
+> +        res = rangeset_subtract(mem_holes, kinfo->xen_reg_assigned);
+> +        if ( res )
+> +            goto out;
+> +    }
+> +
+>      res = rangeset_report_ranges(mem_holes, 0,
+>                                   PFN_DOWN((1ULL << p2m_ipa_bits) - 1),
+>                                   add_ext_regions, ext_regions);
+> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+> index 4aa36c8ef33f..2c56f13771ab 100644
+> --- a/xen/common/device-tree/dom0less-build.c
+> +++ b/xen/common/device-tree/dom0less-build.c
+> @@ -146,6 +146,14 @@ static int __init handle_passthrough_prop(struct kernel_info *kinfo,
+>      int res;
+>      paddr_t mstart, size, gstart;
+>  
+> +    if ( !kinfo->xen_reg_assigned )
+> +    {
+> +        kinfo->xen_reg_assigned = rangeset_new(NULL, NULL, 0);
+> +
+> +        if ( !kinfo->xen_reg_assigned )
+> +            return -ENOMEM;
+> +    }
+> +
+>      /* xen,reg specifies where to map the MMIO region */
+>      cell = (const __be32 *)xen_reg->data;
+>      len = fdt32_to_cpu(xen_reg->len) / ((address_cells * 2 + size_cells) *
+> @@ -187,6 +195,11 @@ static int __init handle_passthrough_prop(struct kernel_info *kinfo,
+>                     mstart, gstart);
+>              return -EFAULT;
+>          }
+> +
+> +        res = rangeset_add_range(kinfo->xen_reg_assigned, PFN_DOWN(gstart),
+> +                                 PFN_DOWN(gstart + size - 1));
+> +        if ( res )
+> +            return res;
+>      }
+>  
+>      /*
+> @@ -814,7 +827,11 @@ static int __init construct_domU(struct domain *d,
+>  
+>      domain_vcpu_affinity(d, node);
+>  
+> -    return alloc_xenstore_params(&kinfo);
+> +    rc = alloc_xenstore_params(&kinfo);
+> +
+> +    rangeset_destroy(kinfo.xen_reg_assigned);
+> +
+> +    return rc;
+>  }
+>  
+>  void __init create_domUs(void)
+> diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
+> index 7a6cd67c22f1..1939c3ebf7dc 100644
+> --- a/xen/include/xen/fdt-kernel.h
+> +++ b/xen/include/xen/fdt-kernel.h
+> @@ -24,6 +24,7 @@ struct kernel_info {
+>  #ifdef CONFIG_STATIC_SHM
+>      struct shared_meminfo shm_mem;
+>  #endif
+> +    struct rangeset *xen_reg_assigned;
+>  
+>      /* kernel entry point */
+>      paddr_t entry;
+> -- 
+> 2.49.0
+> 
 
