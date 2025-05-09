@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFC26AB198F
-	for <lists+xen-devel@lfdr.de>; Fri,  9 May 2025 18:00:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.980176.1366674 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F482AB1A0F
+	for <lists+xen-devel@lfdr.de>; Fri,  9 May 2025 18:15:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.980215.1366684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDQ8x-000300-NA; Fri, 09 May 2025 16:00:11 +0000
+	id 1uDQMz-0005jD-RA; Fri, 09 May 2025 16:14:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 980176.1366674; Fri, 09 May 2025 16:00:11 +0000
+Received: by outflank-mailman (output) from mailman id 980215.1366684; Fri, 09 May 2025 16:14:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDQ8x-0002yR-J9; Fri, 09 May 2025 16:00:11 +0000
-Received: by outflank-mailman (input) for mailman id 980176;
- Fri, 09 May 2025 16:00:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uDQMz-0005hY-OK; Fri, 09 May 2025 16:14:41 +0000
+Received: by outflank-mailman (input) for mailman id 980215;
+ Fri, 09 May 2025 16:14:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SZc7=XZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uDQ8w-0002yI-3m
- for xen-devel@lists.xenproject.org; Fri, 09 May 2025 16:00:10 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ae87a847-2cee-11f0-9eb4-5ba50f476ded;
- Fri, 09 May 2025 18:00:09 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43ce70f9afbso24099385e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 09 May 2025 09:00:09 -0700 (PDT)
+ id 1uDQMy-0005hM-NX
+ for xen-devel@lists.xenproject.org; Fri, 09 May 2025 16:14:40 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b4cf4280-2cf0-11f0-9ffb-bf95429c2676;
+ Fri, 09 May 2025 18:14:38 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-43cf628cb14so23936625e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 09 May 2025 09:14:38 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442d67d74c0sm34066805e9.3.2025.05.09.09.00.07
+ ffacd0b85a97d-3a1f58ec98dsm3658098f8f.25.2025.05.09.09.14.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 May 2025 09:00:08 -0700 (PDT)
+ Fri, 09 May 2025 09:14:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae87a847-2cee-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: b4cf4280-2cf0-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746806408; x=1747411208; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1746807278; x=1747412078; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tMn6+fuiwGgksToBwVufjtRLsjgsl32mgBns5CI+TlY=;
-        b=oqOsf9vcPs/QrPQ73MFmrV0mOWEEMgr7seA2Lz1qA64kOTS+KSKOqDVhqHKQAdMO3K
-         OIafDUYDcen+qEMX01lsAZbhBefZmxamJMiVKuoEeC0ucDSmTqlOW+JvidksxZluNpdg
-         vNS2pVc5fHGrAtnVd8sW3MUtLO5hMTSwD8t1c=
+        bh=w9KhlxihKBcpctm46Qfx1HSfYTtqhDb8K/RQu8cFu3I=;
+        b=TBfkDZSFKCAnGNtHWpoVbB+joBYxn9eKYXqRTyLtgER0YBoHR9TVuRjSHxNeLNEnaH
+         5N53792CMYccPCMqUvAcrK93KDm2zff2UHQ1qD2XOwS3w0M4l87iLAqYwx0DlEmx/v3Z
+         8iVVHD9Dlpe6v4tgeOIO+H2EGJYC9drREvEnA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746806408; x=1747411208;
+        d=1e100.net; s=20230601; t=1746807278; x=1747412078;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tMn6+fuiwGgksToBwVufjtRLsjgsl32mgBns5CI+TlY=;
-        b=WRKo5Oq2pPumJjz0/SYSH9Niw9uL0KDMa4sJAijc/ic49f+RqD3QlQiRhtJc3v7rXx
-         AH8mooZNiNtPsHgt+MVSxN/J9shGrvcaW+WsI3JmSGoY826h5HOCkeJjxQ0NLLpuL5AE
-         97dbPcPmCKd4NT9Rji2Wd/p4efH1KLaN+emnaLjpZAWmprP8noVME6zuvusJnd0FeHHm
-         omHMpPNtqwtDSpe3M25F7NOulUROKocU07JW+oZmVBKD16NZmeT5yoMS07ypqkMlp2jZ
-         aUoY9toSlE5hBU74toirBxF0stn4yUw4+DFDWKzb5151qDGlid68lM6UrBRZ0/nVPlXQ
-         bSjA==
-X-Forwarded-Encrypted: i=1; AJvYcCWUJWBgZi1/HiwVL78mKhLEfla+BJRCTta3tm4gwWfFQldMhTiUVn0bsamarRh9q28IlymRQV+rHxY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwR7wlb2EHN62wYzwaROLypX5GQAPcOR65pJNsWQ828yzB7eoAN
-	ehCmvyZvrQxAOUKOGGbxKKLqE2Ba7YuVcPh6dhrdfmRe5hyQq2h+LUvARuI7uvs=
-X-Gm-Gg: ASbGncthtkylZHkZRVCYOym4pPPlIiDTWTv5VXBZ4YhH7tclgIosCacNWpuXQ71s0Im
-	yGVUfVQb+MtNthfwlIdZoggErDYMZMiL37evM9Uz4kmVZ+ix+vPCWkgKIfMYJEIt5gFUWdttgGY
-	pYz2Ci9I57ghVT2auHhujrFyjqryK/ezw3AxvpHFHg6fxNq92r4VoeLw6Ayxp3/vlN4qIAmnZ5t
-	SAf/2Wffk/XgJNEWlBPQl72u5B8aGMcAla/1OKIdtT9+vAF4OyhYpbRrDtaNAonUv15Vg9R5m0j
-	UxsTHHglvAcDeigG2PUBG96UxaW2YOSzhkzp8ivSJb5ke1lTJumChriBIfaogorDJRn/w3AvjTL
-	vEmnrBg==
-X-Google-Smtp-Source: AGHT+IHjVQfDLc2idwzhQsSNfI3zWzVcZxuw12wHYj/0SIW8O5CFLWZVsr0apCrmsdZ3iInZI2rPrQ==
-X-Received: by 2002:a05:600c:3b0c:b0:43d:160:cd9e with SMTP id 5b1f17b1804b1-442d6d4faf3mr37208365e9.17.1746806408492;
-        Fri, 09 May 2025 09:00:08 -0700 (PDT)
-Message-ID: <70fcfc7d-1562-41fc-b536-4558fe25d231@citrix.com>
-Date: Fri, 9 May 2025 17:00:06 +0100
+        bh=w9KhlxihKBcpctm46Qfx1HSfYTtqhDb8K/RQu8cFu3I=;
+        b=bXS8WjdQpsGwmOAT/H/qB5SsFOk2lG42+Nt16CtvteCyT8nGc2JDKlNGCmDNKJn+5p
+         9i4wlb7MXo7eGA8KxxXwBxJQuW8HEIq8MRsYvscAdzRDKCe4gekugMossaeLhK5jemMd
+         rKefdJrSO0ugyHfbcbdAwqQCZnk7HPxB3ToIjay/KpAW5slr3YC/ULw4SsitH2vBGGU2
+         ngY72D92oolvpN1Icbm4YkuYPbjdHJT9hJ0MPynp1rZZRLIDcMJC00P3v8ir5bHyfL1H
+         ElcXyh8Dk1CR1/jiQ2yNL/jdbxuZk+KPklCo2A5Zp45wdFneoT9kG3rslJ5npU73T3U3
+         98jA==
+X-Forwarded-Encrypted: i=1; AJvYcCVOx1LzNbxZ866/FyK+2SFzJProdyHMS8xgAL6g3bPDcBQpti8QrwEuW+Hi4KiXfmfkqiuR7RAPGWI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyqqYN78Tuvvd8HZ2FR6u+4r9DCN07vZPimM7aRNmKj26YsQlUP
+	ztXvI2NplMXjmg+3lCx4EvZRZoPOwNHby/5rudhYyKhPMYKfsnuaETpP/SaG6ZQ=
+X-Gm-Gg: ASbGncuHaqEcd9uxrYhlbLGSjLZM++unTptyEPyY4ngRDNwTfE81OvB+DYNW2P/3TpL
+	Z+nYlFUafKiVntLxoCCR/kKDcTUiNBeAKzxUcZaIyLWgRf4jqyJubfwprn6oJXDtDc6KdFK67Nz
+	T6rQ3AxxivaY6dUOfVZoyL6FDTJCbtZ4X05Y+iXZJGubT3yZ8k0YWHgk9QyGiqNXQjUjMsXLHRE
+	QBM+KyQk4+JNGFFWsCEvwmdDMNHCGs8jmwmAkz81wEQJJOzoG5fQdApIpyoGDqonZUXzJNUuv9a
+	bOhmLHJSQ9t7vs4GtVSeptDRKSuG3pCs6VDesEcggSC9pUkFJTu8hwKcQqZ1O3lmBB10bxzhy7R
+	GuTbmwQ==
+X-Google-Smtp-Source: AGHT+IEsNj96Iroq0w9Ijl33CXf57djYDniySN+2kycTcj4Prjhezv9/VsJB03qzvuIsIdjbo1td7g==
+X-Received: by 2002:a05:6000:1882:b0:3a1:f563:a057 with SMTP id ffacd0b85a97d-3a1f563a104mr4490246f8f.18.1746807278035;
+        Fri, 09 May 2025 09:14:38 -0700 (PDT)
+Message-ID: <70186bd9-20b6-48a2-9dd0-25cdc30e81f0@citrix.com>
+Date: Fri, 9 May 2025 17:14:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/6] xen/riscv: add inclusion of xen/bitops.h to
- asm/cmpxchg.h
+Subject: Re: [PATCH v1 2/6] xen/riscv: introduce things necessary for p2m
+ initialization
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  xen-devel@lists.xenproject.org
 Cc: Alistair Francis <alistair.francis@wdc.com>,
@@ -95,7 +95,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.1746805907.git.oleksii.kurochko@gmail.com>
- <876ca1a5dcf7523657ed722f588824f6d8bfb171.1746805907.git.oleksii.kurochko@gmail.com>
+ <0a03d1f38649cfd8656147f209652dff0f9d170c.1746805907.git.oleksii.kurochko@gmail.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -141,15 +141,127 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <876ca1a5dcf7523657ed722f588824f6d8bfb171.1746805907.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <0a03d1f38649cfd8656147f209652dff0f9d170c.1746805907.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 09/05/2025 4:57 pm, Oleksii Kurochko wrote:
-> Add inclusion of xen/bitops.h to asm/cmpxchg.h to avoid compilation issues
-> connected to GENMASK() which is used inside asm/cmpxchg.h.
->
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
+> index 28f57a74f2..8b46210768 100644
+> --- a/xen/arch/riscv/include/asm/p2m.h
+> +++ b/xen/arch/riscv/include/asm/p2m.h
+> @@ -3,11 +3,73 @@
+>  #define ASM__RISCV__P2M_H
+>  
+>  #include <xen/errno.h>
+> +#include <xen/mem_access.h>
+> +#include <xen/mm.h>
+> +#include <xen/radix-tree.h>
+> +#include <xen/rwlock.h>
+> +#include <xen/types.h>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+We're phasing out the inclusion of xen/types.h for complex headers like
+this, as it's pulled in by almost all dependencies.
+
+> diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
+> new file mode 100644
+> index 0000000000..ad4beef8f9
+> --- /dev/null
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -0,0 +1,168 @@
+> +#include <xen/domain_page.h>
+> +#include <xen/iommu.h>
+> +#include <xen/lib.h>
+> +#include <xen/mm.h>
+> +#include <xen/pfn.h>
+> +#include <xen/rwlock.h>
+> +#include <xen/sched.h>
+> +#include <xen/spinlock.h>
+> +
+> +#include <asm/page.h>
+> +#include <asm/p2m.h>
+> +
+> +/*
+> + * Force a synchronous P2M TLB flush.
+> + *
+> + * Must be called with the p2m lock held.
+> + *
+> + * TODO: add support of flushing TLB connected to VMID.
+> + */
+> +static void p2m_force_tlb_flush_sync(struct p2m_domain *p2m)
+> +{
+> +    ASSERT(p2m_is_write_locked(p2m));
+> +
+> +    /*
+> +     * TODO: shouldn't be this flush done for each physical CPU?
+> +     *       If yes, then SBI call sbi_remote_hfence_gvma() could
+> +     *       be used for that.
+> +     */
+> +#if defined(__riscv_hh) || defined(__riscv_h)
+> +    asm volatile ( "hfence.gvma" ::: "memory" );
+> +#else
+> +    asm volatile ( ".insn r 0x73, 0x0, 0x31, x0, x0, x0" ::: "memory" );
+> +#endif
+
+TLB flushing needs to happen for each pCPU which potentially has cached
+a mapping.
+
+In other arches, this is tracked by d->dirty_cpumask which is the bitmap
+of pCPUs where this domain is scheduled.
+
+CPUs need to flush their TLBs before removing themselves from
+d->dirty_cpumask, which is typically done during context switch, but it
+means that to flush the P2M, you only need to IPI a subset of CPUs.
+
+
+> +
+> +    p2m->need_flush = false;
+> +}
+> +
+> +static void p2m_tlb_flush_sync(struct p2m_domain *p2m)
+> +{
+> +    if ( p2m->need_flush )
+> +        p2m_force_tlb_flush_sync(p2m);
+> +}
+> +
+> +/* Unlock the flush and do a P2M TLB flush if necessary */
+> +void p2m_write_unlock(struct p2m_domain *p2m)
+> +{
+> +    /*
+> +     * The final flush is done with the P2M write lock taken to avoid
+> +     * someone else modifying the P2M wbefore the TLB invalidation has
+> +     * completed.
+> +     */
+> +    p2m_tlb_flush_sync(p2m);
+> +
+> +    write_unlock(&p2m->lock);
+> +}
+> +
+> +static void clear_and_clean_page(struct page_info *page)
+> +{
+> +    void *p = __map_domain_page(page);
+> +
+> +    clear_page(p);
+> +    unmap_domain_page(p);
+> +}
+> +
+> +static struct page_info *p2m_get_clean_page(struct domain *d)
+> +{
+> +    struct page_info *page;
+> +
+> +    /*
+> +     * As mentioned in the Priviliged Architecture Spec (version 20240411)
+> +     * As explained in Section 18.5.1, for the paged virtual-memory schemes
+> +     * (Sv32x4, Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB
+> +     * and must be aligned to a 16-KiB boundary.
+> +     */
+> +    page = alloc_domheap_pages(NULL, 2, 0);
+> +    if ( page == NULL )
+> +        return NULL;
+> +
+> +    clear_and_clean_page(page);
+
+You appear to have allocated 4 pages, but only zeroed one.
+
+~Andrew
 
