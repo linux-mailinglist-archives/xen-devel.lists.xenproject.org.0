@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 788BFAB1C31
-	for <lists+xen-devel@lfdr.de>; Fri,  9 May 2025 20:21:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.980329.1366777 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0963AB1C51
+	for <lists+xen-devel@lfdr.de>; Fri,  9 May 2025 20:29:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.980338.1366788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDSLU-0001ay-Jh; Fri, 09 May 2025 18:21:16 +0000
+	id 1uDSTM-0002Em-DM; Fri, 09 May 2025 18:29:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 980329.1366777; Fri, 09 May 2025 18:21:16 +0000
+Received: by outflank-mailman (output) from mailman id 980338.1366788; Fri, 09 May 2025 18:29:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDSLU-0001Z3-Gv; Fri, 09 May 2025 18:21:16 +0000
-Received: by outflank-mailman (input) for mailman id 980329;
- Fri, 09 May 2025 18:21:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uDSTM-0002Bo-9S; Fri, 09 May 2025 18:29:24 +0000
+Received: by outflank-mailman (input) for mailman id 980338;
+ Fri, 09 May 2025 18:29:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AoqA=XZ=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1uDSLT-0001YZ-Eu
- for xen-devel@lists.xenproject.org; Fri, 09 May 2025 18:21:15 +0000
-Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
- [2607:f8b0:4864:20::1131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 635f23b8-2d02-11f0-9eb4-5ba50f476ded;
- Fri, 09 May 2025 20:21:13 +0200 (CEST)
-Received: by mail-yw1-x1131.google.com with SMTP id
- 00721157ae682-7091d7244e8so24517387b3.3; 
- Fri, 09 May 2025 11:21:13 -0700 (PDT)
+ id 1uDSTL-0002Bd-4E
+ for xen-devel@lists.xenproject.org; Fri, 09 May 2025 18:29:23 +0000
+Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
+ [2607:f8b0:4864:20::b2d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 852277ba-2d03-11f0-9ffb-bf95429c2676;
+ Fri, 09 May 2025 20:29:19 +0200 (CEST)
+Received: by mail-yb1-xb2d.google.com with SMTP id
+ 3f1490d57ef6-e733e25bfc7so2489611276.3; 
+ Fri, 09 May 2025 11:29:19 -0700 (PDT)
 Received: from [10.138.7.94] ([45.134.140.51])
  by smtp.gmail.com with ESMTPSA id
- 00721157ae682-70a3d8b5f02sm6903137b3.40.2025.05.09.11.21.10
+ 3f1490d57ef6-e78fd4480e7sm662434276.7.2025.05.09.11.29.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 May 2025 11:21:11 -0700 (PDT)
+ Fri, 09 May 2025 11:29:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 635f23b8-2d02-11f0-9eb4-5ba50f476ded
+X-Inumbo-ID: 852277ba-2d03-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1746814872; x=1747419672; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1746815358; x=1747420158; darn=lists.xenproject.org;
         h=in-reply-to:subject:autocrypt:from:content-language:references:cc
          :to:user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4zntexxrtXbGpTr0IqtCk77DyvW9plnkfX84H0ipa94=;
-        b=IIZyrHZWD2/hDrPwai/KWi9/HISPbEcnzKsFukyGui8o7nJ43GAj+40k6tfJxglNEz
-         v5iWFhaQ5D9jIA/z7rHEQQ/UW3A6i3TxCR8GS597n5OBU/tXxkkLULXFN/j3fgP3Pf7T
-         Uza+eW62lwrLcjAaGvOkZtX9VwJn4+0A9K5gC23GcG3BG/g7V36SijooCFTbH+fcsupT
-         cy6qaxM4fVMBtuLn14YSE5u6qvu98wRkhIQOBxkv0y07P+wtBDF+XkYP0wbOneMQlJyc
-         +EYJoT8HDhyhxEAF4mp331YoQn8RsiIQYGgZvndP3xkbN9XWxOroaFAWMTJy/OaFtEUL
-         UpVQ==
+        bh=ddpdl6P19DyGPh9AM2PoOfRexY84/fwwCTxcUJ0MLoI=;
+        b=Um6uE+Ve9RFyPsJn8apCUl71HsFxTcq0hqhlURP4NHTGcZbAIT/8/YbfjVG47iHjWK
+         y1ZIvHl8xzEO4XN8WgFrRVIjfOBVvuZuE8vTUPy3+6E0VbJjQSlCqjGluK/5X6YciX2L
+         1KgUvYGEkyKId+FEQclrYysBICox9UM9ObIuK+IjNDzyzlCLzTUF/CeOOZyCWK9H59TX
+         XVjbGSTuO1olFAJGlTJDbmbosVjHQe+tKWRrxA6KfSgV3cTvAo+2ZL+otZZdmG/BOPPt
+         I0B6DUq/CyFDlKB3xFktjyy61ORDvPqyuZs6xT8vIqRmUzZhH58Y+4EUlMibsoBITv+j
+         UX+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746814872; x=1747419672;
+        d=1e100.net; s=20230601; t=1746815358; x=1747420158;
         h=in-reply-to:subject:autocrypt:from:content-language:references:cc
          :to:user-agent:mime-version:date:message-id:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=4zntexxrtXbGpTr0IqtCk77DyvW9plnkfX84H0ipa94=;
-        b=CsrQFeksRQ6tD0hjZJwLZpNt5Du8KghjC1mdytR3g8SbFT657koDtueiLQs9JzsSDf
-         EEG4j4LtJDM9Jn2epbCfUI5lX50zrve9Y5Kpd+a1L2nS6v2n1Zq0tFf2NVyd2onqJgXj
-         DHfQUfLfQpAki+ZdPaaUTNSpsD/xEOHXb/U9T92uBm/gC1fgqe9l6Qd+F4TR9ufH7Avm
-         E6kkTNEZ7nvhFHnv1fPEXUEjv+8fQv5PnPaPj5W7wTC1EXf1e6WSErePfPUTuoss933o
-         kxXa+tfLic24zkLlYbuxl//lFldUeUwdAKB8bFfqNjCJRquqChLpgB46B62xgk+Fq0p2
-         Kc1A==
-X-Forwarded-Encrypted: i=1; AJvYcCU0mc6fNkrjZU8SrVU1JHr7Gw0hpzKjZtc5tjAnvX848R0AFnLUaMoCVytrRDZipkJ8oiwtg/MZz7MbK9mQ89W5bw==@lists.xenproject.org, AJvYcCWWks0bRWWN9exPuKdNIdRIMhwZ9+A2REl5ifKrI6/feWoXcNJhn/DvVnLf41A3+HMsM0C3ccLX36Kc@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy6CCLbgn+e4I2vc9KHNLwure82ZlPpM9is8SP1obNNU1kncUto
-	mQs19heDTPfH5LzIWAdbhuUiARsKOkt9SEVDRqdtCk60i86jT4hP
-X-Gm-Gg: ASbGncvB9XzrbFLAy0C0QqTZ6wLfw04moqfFzHBPjjQpy3QqwdfBrgbagWyjSIuyNsu
-	P3KvoZYD3Kc8yZDYiLv2VCAr3+VoWafqJ8mYtbDEn1zATIKHm0/B6E8QTVJH86YSAk/ltcN3teM
-	zgv7D2hw6l50ALtP8QlTTIOAfZoDZOxCjJUXMla8eeW353txAEUJ1911zRDh8p/bLPC3Kc8kHW3
-	kwjuBloutXLCPxjaod193mcPaQHoHt4jhaF7MBv0YJ1Mw+1wnVA50kbfKR/sBOd6FaJqLNkp2QR
-	4NtyUo46U8opI9kLX1VDIsL+V4gGYeArew2J3Yjw6axWAKC+dDs2uvo=
-X-Google-Smtp-Source: AGHT+IEVsyM6X3IrOQru5hGqsmstAlL2AaflPi/HB4Jiv7oZZWGZRYTglSAxu4m6CCDbcmJEfM6K4Q==
-X-Received: by 2002:a05:690c:708d:b0:709:1405:5311 with SMTP id 00721157ae682-70a3f872c98mr59076917b3.0.1746814872105;
-        Fri, 09 May 2025 11:21:12 -0700 (PDT)
-Message-ID: <cfec871c-4785-4c36-80fb-b1ddb461c5bb@gmail.com>
-Date: Fri, 9 May 2025 14:21:57 -0400
+        bh=ddpdl6P19DyGPh9AM2PoOfRexY84/fwwCTxcUJ0MLoI=;
+        b=Ma3FDa9XwSbgmanaTQJGbZp1WMtNcA5c/bsSLUsZSehppWGR1xUMSFG13SaLq8DsxH
+         Pbos/UffWiPXBeF6YFDJZsvBaD9los5tPPfbAGyJUU2MK4XqaVGTERLuGTpmEHJwMKmx
+         XVVr7ZRUq2+aXageUUXFPq46pulsfScdGmWBqSoDYurca+Zq76IAD5gfH8gDIoTL9ThT
+         Qq0W12hMxvbOcFT5yHEoZ67DQMZRkOleJuMpXsdP8nwrKHu20ioCEp7dOSrnGXpo2Ruz
+         FW71qW5QaBUX6cXqU9LasPhi1rYbQEjSiWpjAaDw2EYikmQTVE5pMTIJmiSvnQqm/23i
+         eS0w==
+X-Forwarded-Encrypted: i=1; AJvYcCWJ7CSYDa+H3Wwm6WRF+dOEmpXZyXNk0VgeXu9qj8x1WNcI3kxwbyEXYAoHe9y4L2VD3h/OIEFtS574GdbgieArTg==@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzwT2PReKdlz97r8ccTTm+ZMi0HWqYf3Hl/Mxdv0enCHTc/jAWP
+	O0Q3oFB/XWBFI5q2djZOFXV4F/9vn4S0+DHbZ3/c5+oRrz5DK/OMReamwVRf
+X-Gm-Gg: ASbGncusFFxB3cAI7ljipSlQlRiUT2fbv9Pujs6GyEEGAB3k2MQHy+hcYZ0JTf652bt
+	sYaoQsMTbss3BMGbABzuvwtMmo6sHF2naEHpydPMiCeA3R5vyUH3pKlNYieeMO7d35bpCdGVnCr
+	ACpyvjvvg9xjKqSdQDVK2xNAKau52O7pV28FlBKnSPzX0ac30EVIr9UbahYH9b5olZ81uy0AtHc
+	YfrsFFafQZi4jIFkrf/WCektrFBeaMnchTotUjpEqnupIlSMMMQvqy25C5+4dxRxBRZhWxnE21T
+	tOERujR0VP0W6kbV0TEhOv6NNpC35tZ+1Ajov98PDtUbQPaQxpSQvIw=
+X-Google-Smtp-Source: AGHT+IGUFXf3c2GGNwUxL7joXA0AcVLWidDvGqDyjWOTQmrXGtP5EeeJjem7sU4xh84TWmTlpG8Ciw==
+X-Received: by 2002:a05:6902:2708:b0:e78:f00e:882f with SMTP id 3f1490d57ef6-e78fdcd59c3mr6117751276.25.1746815358172;
+        Fri, 09 May 2025 11:29:18 -0700 (PDT)
+Message-ID: <4eedf533-493c-497e-a9a3-55a8c3a015ba@gmail.com>
+Date: Fri, 9 May 2025 14:30:01 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <agarciav@amd.com>
-Cc: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
+To: Alejandro Vallejo <agarciav@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross <jgross@suse.com>,
  Xen-devel <xen-devel-bounces@lists.xenproject.org>
 References: <82772686-edcd-41e4-b81c-f6b3ded30901@gmail.com>
@@ -101,7 +101,7 @@ References: <82772686-edcd-41e4-b81c-f6b3ded30901@gmail.com>
  <30243d25-881d-42d3-90c2-f791c3632372@gmail.com>
  <aBxizlMj3D94M3WS@macbook.lan>
  <ae1a35dd-b7b2-426f-b2d5-723bb07b0e79@gmail.com>
- <D9RJ9PK28QNQ.EKGYRHXWTYZ1@amd.com> <aB3d2FxH8JOxM5q9@macbook.lan>
+ <D9RJ9PK28QNQ.EKGYRHXWTYZ1@amd.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -148,24 +148,24 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
 Subject: Re: Mapping memory into a domain
-In-Reply-To: <aB3d2FxH8JOxM5q9@macbook.lan>
+In-Reply-To: <D9RJ9PK28QNQ.EKGYRHXWTYZ1@amd.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------mmEGf3cXJ3YhKA4aWHKQ0WFS"
+ boundary="------------DrPY0QcYqVlmivEVxLRIndc0"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------mmEGf3cXJ3YhKA4aWHKQ0WFS
-Content-Type: multipart/mixed; boundary="------------594XE7K068CkFPjoQ0OSmnV0";
+--------------DrPY0QcYqVlmivEVxLRIndc0
+Content-Type: multipart/mixed; boundary="------------onXR0Ub3cBF4WnaNrm5ecFJg";
  protected-headers="v1"
 From: Demi Marie Obenour <demiobenour@gmail.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <agarciav@amd.com>
-Cc: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
+To: Alejandro Vallejo <agarciav@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross <jgross@suse.com>,
  Xen-devel <xen-devel-bounces@lists.xenproject.org>
-Message-ID: <cfec871c-4785-4c36-80fb-b1ddb461c5bb@gmail.com>
+Message-ID: <4eedf533-493c-497e-a9a3-55a8c3a015ba@gmail.com>
 Subject: Re: Mapping memory into a domain
 References: <82772686-edcd-41e4-b81c-f6b3ded30901@gmail.com>
  <D9O702EAEGRU.10CY1WTUELAKF@amd.com>
@@ -176,8 +176,8 @@ References: <82772686-edcd-41e4-b81c-f6b3ded30901@gmail.com>
  <30243d25-881d-42d3-90c2-f791c3632372@gmail.com>
  <aBxizlMj3D94M3WS@macbook.lan>
  <ae1a35dd-b7b2-426f-b2d5-723bb07b0e79@gmail.com>
- <D9RJ9PK28QNQ.EKGYRHXWTYZ1@amd.com> <aB3d2FxH8JOxM5q9@macbook.lan>
-In-Reply-To: <aB3d2FxH8JOxM5q9@macbook.lan>
+ <D9RJ9PK28QNQ.EKGYRHXWTYZ1@amd.com>
+In-Reply-To: <D9RJ9PK28QNQ.EKGYRHXWTYZ1@amd.com>
 Autocrypt-Gossip: addr=jgross@suse.com; keydata=
  xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
  ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
@@ -202,236 +202,163 @@ Autocrypt-Gossip: addr=jgross@suse.com; keydata=
  QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
  ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
 
---------------594XE7K068CkFPjoQ0OSmnV0
-Content-Type: multipart/mixed; boundary="------------BmcfzFNLdI0dHm9vE8MzCBbZ"
+--------------onXR0Ub3cBF4WnaNrm5ecFJg
+Content-Type: multipart/mixed; boundary="------------YpK2eUlpZN6RbIwMzuTCLyik"
 
---------------BmcfzFNLdI0dHm9vE8MzCBbZ
+--------------YpK2eUlpZN6RbIwMzuTCLyik
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 5/9/25 6:50 AM, Roger Pau Monn=C3=A9 wrote:
-> On Fri, May 09, 2025 at 11:47:36AM +0200, Alejandro Vallejo wrote:
->>>>>>> A Linux driver that needs access to userspace memory
->>>>>>> pages can get it in two different ways:
->>>>>>>
->>>>>>> 1. It can pin the pages using the pin_user_pages family of APIs.
->>>>>>>    If these functions succeed, the driver is guaranteed to be abl=
-e
->>>>>>>    to access the pages until it unpins them.  However, this also
->>>>>>>    means that the pages cannot be paged out or migrated.  Further=
-more,
->>>>>>>    file-backed pages cannot be safely pinned, and pinning GPU mem=
-ory
->>>>>>>    isn=E2=80=99t supported.  (At a minimum, it would prevent the =
-pages from
->>>>>>>    migrating from system RAM to VRAM, so all access by a dGPU wou=
-ld
->>>>>>>    cross the PCIe bus, which would be very slow.)
+On 5/9/25 5:47 AM, Alejandro Vallejo wrote:
+>>>>>> A Linux driver that needs access to userspace memory
+>>>>>> pages can get it in two different ways:
 >>>>>>
->>>>>> From a Xen p2m this is all fine - Xen will never remove pages from=
- the
->>>>>> p2m unless it's requested to.  So the pining, while needed on the =
-Linux
->>>>>> side, doesn't need to be propagated to Xen I would think.
->>
->> It might still be helpful to have the concept of pinning to avoid them=
+>>>>>> 1. It can pin the pages using the pin_user_pages family of APIs.
+>>>>>>    If these functions succeed, the driver is guaranteed to be able=
 
->> being evicted for other reasons (ballooning?). I don't think it'd be
->> sane to allow returning to Xen a page that a domain ever shared with a=
-
->> device.
->=20
-> If mapped using the p2m_mmio_direct type in the p2m a domain won't be
-> able to balloon them out.  It would also be misguided for a guest
-> kernel to attempt to balloon out memory that I presume will be inside
-> of a PCI device BAR from the guest point of view.
-
-Indeed it will be inside a BAR.
-
->> re: being requested. Are there real promises from Xen to that effect? =
-I
->> could make a hypervisor oversubscribing on memory that swaps non-IOVA
->> mem in and out to disk, moving it around all the time and it would be
->> compliant with the current behaviour AIUI, but it wouldn't work with
->> this scheme, because the mfn's would be off more often than not.
->=20
-> Even if Xen supported domain memory swapping, that could never be used
-> with domains that have devices attached, as it's not possible to fixup
-> the p2m on IOMMU fault and retry the access.
->=20
-> Not sure you could even move mfns around, as you would need an atomic
-> way to copy the previous page contents and set the PTE to point to the
-> new page.
->=20
-> Unless you want to get into a (IMO) complicated scheme where the
-> domain notifies the hypervisor which ranges are being used for device
-> DMA accesses (and thus requires guest kernel changes), I think
-> swapping of guest memory when there are assigned devices is a no-go.
->=20
-> Xen has (or had? as I never actually seen it being used) a mechanism
-> to swap domain memory to a dom0 file (see tools/xenpaging.c).  However
-> more than one provider had mentioned to me that one feature they
-> particularly preferred of Xen over KVM is that it would never swap
-> guest memory.  Not sure if that's still the case, but some struggled
-> to prevent KVM from swapping guest memory, and got complains of
-> slowness from their tenants.
->=20
-> For the purposes of getting a prototype I would suggest that you
-> assume p2m memory cannot be randomly swapped out, unless requested by
-> either the guest or the control domain.
-
-The API being discussed here needs to support frontends that have
-assigned PCI devices, but the pages should never be mapped into
-the frontend domain=E2=80=99s IOMMU context.  If the frontend tries to
-DMA into one of these pages it=E2=80=99s a frontend bug.
-
->>>>> If pinning were enough things would be simple, but sadly it=E2=80=99=
-s not.
->>>>>
->>>>>>> 2. It can grab the *current* location of the pages and register a=
-n
->>>>>>>    MMU notifier.  This works for GPU memory and file-backed memor=
-y.
->>>>>>>    However, when the invalidate_range function of this callback, =
-the
->>>>>>>    driver *must* stop all further accesses to the pages.
->>>>>>>
->>>>>>>    The invalidate_range callback is not allowed to block for a lo=
-ng
->>>>>>>    period of time.  My understanding is that things like dirty pa=
-ge
->>>>>>>    writeback are blocked while the callback is in progress.  My
->>>>>>>    understanding is also that the callback is not allowed to fail=
-=2E
->>>>>>>    I believe it can return a retryable error but I don=E2=80=99t =
-think that
->>>>>>>    it is allowed to keep failing forever.
->>>>>>>
->>>>>>>    Linux=E2=80=99s grant table driver actually had a bug in this =
-area, which
->>>>>>>    led to deadlocks.  I fixed that a while back.
->>>>>>>
->>>>>>> KVM implements the second option: it maps pages into the stage-2
->>>>>>> page tables (or shadow page tables, if that is chosen) and unmaps=
-
->>>>>>> them when the invalidate_range callback is called.
->>
->> I'm still lost as to what is where, who initiates what and what the en=
+>>>>>>    to access the pages until it unpins them.  However, this also
+>>>>>>    means that the pages cannot be paged out or migrated.  Furtherm=
+ore,
+>>>>>>    file-backed pages cannot be safely pinned, and pinning GPU memo=
+ry
+>>>>>>    isn=E2=80=99t supported.  (At a minimum, it would prevent the p=
+ages from
+>>>>>>    migrating from system RAM to VRAM, so all access by a dGPU woul=
 d
->> goal is. Is this about using userspace memory in dom0, and THEN sharin=
-g
->> that with guests for as long as its live? And make enough magic so the=
-
->> guests don't notice the transitionary period in which there may not be=
-
->> any memory?
->>
->> Or is this about using domU memory for the driver living in dom0?
->>
->> Or is this about something else entirely?
->>
->> For my own education. Is the following sequence diagram remotely accur=
-ate?
->>
->> dom0                              domU
->>  |                                  |
->>  |---+                              |
->>  |   | use gfn3 in the driver       |
->>  |   | (mapped on user thread)      |
->>  |<--+                              |
->>  |                                  |
->>  |  map mfn(gfn3) in domU BAR       |
->>  |--------------------------------->|
->>  |                              +---|
->>  |              happily use BAR |   |
->>  |                              +-->|
->>  |---+                              |
->>  |   | mmu notifier for gfn3        |
->>  |   | (invalidate_range)           |
->>  |<--+                              |
->>  |                                  |
->>  |  unmap mfn(gfn3)                 |
->>  |--------------------------------->| <--- Plus some means to making g=
-uest=20
->>  |---+                          +---|      vCPUs pause on access.
->>  |   | reclaim gfn3    block on |   |
->>  |<--+                 access   |   |
->>  |                              |   |
->>  |---+                          |   |
->>  |   | use gfn7 in the driver   |   |
->>  |   | (mapped on user thread)  |   |
->>  |<--+                          |   |
->>  |                              |   |
->>  |  map mfn(gfn7) in domU BAR   |   |
->>  |------------------------------+-->| <--- Unpause blocked domU vCPUs
+>>>>>>    cross the PCIe bus, which would be very slow.)
+>>>>>
+>>>>> From a Xen p2m this is all fine - Xen will never remove pages from =
+the
+>>>>> p2m unless it's requested to.  So the pining, while needed on the L=
+inux
+>>>>> side, doesn't need to be propagated to Xen I would think.
 >=20
-> The guest vCPU will already pause on access if there's a p2m
-> violation, until the ioreq has completed and the vCPU execution can
-> resume.  That's in control of the ioreq server that handles the
-> request.
->=20
-> I don't know about the dom0 user-space part, but that's possibly of no
-> concern for the implementation side in Xen?
+> It might still be helpful to have the concept of pinning to avoid them
+> being evicted for other reasons (ballooning?). I don't think it'd be
+> sane to allow returning to Xen a page that a domain ever shared with a
+> device.
 
-I believe so, yes.
+Memory mapped into a domain using this API must not be mapped into the
+IOMMU contexts of any devices assigned to the frontend.  This ensures
+that the backend unexpectedly reclaiming the memory doesn=E2=80=99t cause=
 
-> My understanding of the actions needed from the Xen side is:
->=20
->  1. Map either RAM owned by the hardware domain or an MMIO page into
->     a domain p2m.
->  2. Remove entries from a domain p2m.
->  3. Handle p2m violations resulting from guest accesses, using 1. and
->     force a guest access retry (or emulate the access).
->=20
-> 1. Can possibly be done with XEN_DOMCTL_memory_mapping and
-> XENMEM_add_to_physmap_batch, but as I understood it it's not ideal.
-> Demi would like a way to use the same hypercall to map either RAM or
-> IOMEM into a domain p2m.
+problems, even if the frontend has an assigned PCI device.  If the
+frontend tries to perform DMA from a different PCI device into memory
+mapped into a domain using this API, it=E2=80=99s a frontend bug and the =
+IOMMU
+must block the access.
 
-Indeed so, and also the backend domain might be a driver domain instead
-of the hardware domain.  It needs to have privilege over the frontend,
-but it should not need privilege over the whole system.
-
-> 2. What hypercall to use depends on how the memory is mapped.
->=20
-> 3. ioreq servers will already get requests for accesses to unmapped
-> regions they have registered for.  If the access is to be retried we
-> need to expand ioreq interface a bit to handle this case.  Adding a
-> new ioreq state like STATE_IORESP_RETRY might be enough?  Maybe I'm
-> being naive though.
-
-This is where an implementation in a real userspace emulator would
-be very useful, to ensure that the API being implemented is actually
-usable in practice.
-
->>>>> - The switch from =E2=80=9Cemulated MMIO=E2=80=9D to =E2=80=9CMMIO =
-or real RAM=E2=80=9D needs to
->>>>>   be atomic from the guest=E2=80=99s perspective.
+>>>> If pinning were enough things would be simple, but sadly it=E2=80=99=
+s not.
 >>>>
->>>> Updates of p2m PTEs are always atomic.
->>> That=E2=80=99s good.
->>
->> Updates to a single PTE are atomic, sure. But mapping/unmapping sizes
->> not congruent with a whole superpage size (i.e: 256 KiB, more than a
->> page, less than a superpage) wouldn't be, as far as the guest is
->> concerned.
->=20
-> I've assumed the question was towards PTE updates, as to whether
-> PTE entries where always consistent.
->=20
->> But if my understanding above is correct maybe it doesn't matter? It
->> only needs to be atomic wrt the hypercall that requests it, so that th=
+>>>>>> 2. It can grab the *current* location of the pages and register an=
+
+>>>>>>    MMU notifier.  This works for GPU memory and file-backed memory=
+=2E
+>>>>>>    However, when the invalidate_range function of this callback, t=
+he
+>>>>>>    driver *must* stop all further accesses to the pages.
+>>>>>>
+>>>>>>    The invalidate_range callback is not allowed to block for a lon=
+g
+>>>>>>    period of time.  My understanding is that things like dirty pag=
 e
->> gfn is never reused while the guest p2m still holds that mfn.
+>>>>>>    writeback are blocked while the callback is in progress.  My
+>>>>>>    understanding is also that the callback is not allowed to fail.=
+
+>>>>>>    I believe it can return a retryable error but I don=E2=80=99t t=
+hink that
+>>>>>>    it is allowed to keep failing forever.
+>>>>>>
+>>>>>>    Linux=E2=80=99s grant table driver actually had a bug in this a=
+rea, which
+>>>>>>    led to deadlocks.  I fixed that a while back.
+>>>>>>
+>>>>>> KVM implements the second option: it maps pages into the stage-2
+>>>>>> page tables (or shadow page tables, if that is chosen) and unmaps
+>>>>>> them when the invalidate_range callback is called.
 >=20
-> I think it only matters that the PTE is always consistent, either
-> mapped or unmapped (and thus generate an ioreq request on access when
-> unmapped).
-You are correct.
+> I'm still lost as to what is where, who initiates what and what the end=
+
+> goal is. Is this about using userspace memory in dom0, and THEN sharing=
+
+> that with guests for as long as its live? And make enough magic so the
+> guests don't notice the transitionary period in which there may not be
+> any memory?
+
+It is exactly about this, except that the backend domain can be any domai=
+n
+that is privileged over the frontend domain, rather than only dom0 or the=
+
+hardware domain.
+
+> Or is this about using domU memory for the driver living in dom0?
+
+Unfortunately no.  This would be a better fit to how Xen is designed,
+but it isn=E2=80=99t compatible with Linux=E2=80=99s memory management re=
+quirements.
+
+> Or is this about something else entirely?
+>=20
+> For my own education. Is the following sequence diagram remotely accura=
+te?
+>=20
+> dom0                              domU
+>  |                                  |
+>  |---+                              |
+>  |   | use gfn3 in the driver       |
+>  |   | (mapped on user thread)      |
+>  |<--+                              |
+>  |                                  |
+>  |  map mfn(gfn3) in domU BAR       |
+>  |--------------------------------->|
+>  |                              +---|
+>  |              happily use BAR |   |
+>  |                              +-->|
+>  |---+                              |
+>  |   | mmu notifier for gfn3        |
+>  |   | (invalidate_range)           |
+>  |<--+                              |
+>  |                                  |
+>  |  unmap mfn(gfn3)                 |
+>  |--------------------------------->| <--- Plus some means to making gu=
+est=20
+>  |---+                          +---|      vCPUs pause on access.
+>  |   | reclaim gfn3    block on |   |
+>  |<--+                 access   |   |
+>  |                              |   |
+>  |---+                          |   |
+>  |   | use gfn7 in the driver   |   |
+>  |   | (mapped on user thread)  |   |
+>  |<--+                          |   |
+>  |                              |   |
+>  |  map mfn(gfn7) in domU BAR   |   |
+>  |------------------------------+-->| <--- Unpause blocked domU vCPUs
+>  |                                  |
+
+This diagram is accurate.
+
+>>>> - The switch from =E2=80=9Cemulated MMIO=E2=80=9D to =E2=80=9CMMIO o=
+r real RAM=E2=80=9D needs to
+>>>>   be atomic from the guest=E2=80=99s perspective.
+>>>
+>>> Updates of p2m PTEs are always atomic.
+>> That=E2=80=99s good.
+>=20
+> Updates to a single PTE are atomic, sure. But mapping/unmapping sizes
+> not congruent with a whole superpage size (i.e: 256 KiB, more than a
+> page, less than a superpage) wouldn't be, as far as the guest is
+> concerned.
+>=20
+> But if my understanding above is correct maybe it doesn't matter? It
+> only needs to be atomic wrt the hypercall that requests it, so that the=
+
+> gfn is never reused while the guest p2m still holds that mfn.
+Correct.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------BmcfzFNLdI0dHm9vE8MzCBbZ
+--------------YpK2eUlpZN6RbIwMzuTCLyik
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -551,31 +478,31 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------BmcfzFNLdI0dHm9vE8MzCBbZ--
+--------------YpK2eUlpZN6RbIwMzuTCLyik--
 
---------------594XE7K068CkFPjoQ0OSmnV0--
+--------------onXR0Ub3cBF4WnaNrm5ecFJg--
 
---------------mmEGf3cXJ3YhKA4aWHKQ0WFS
+--------------DrPY0QcYqVlmivEVxLRIndc0
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmgeR8YACgkQszaHOrMp
-8lNy4Q//bDBOBVqy979AokZ3OzDlS1RLWu8cviF4QxcvcW1d0PZA6RRQppGYizgZ
-LywUjHCCB1c0mFg9ss5lOz+TuDWmh94J5qyfPRqSFyGPKCPILeoR4LuKNpg7UQAe
-evGPOHxsyKRKEtJwvKuxaU3BgdBWBWWMa5NkOdlRb/hBm1efefeKdXOw9QYm8vUM
-uQ+6B93jX9YMqTaZR4s/bmRYnmKwQ7FNegDLAWFbMyV0YHBLeKRDkqS8XHb4oPgW
-wqUbpV04fUouvThSgaUnFLxZSNIZWS7fhbvT3TrHsY8M2Y98NHQeCetw6Tz4/JAP
-jsrvDgb0uxmg78//WxwKfCgOzr0S0NtOTS6AgZHqmyoAfUqCwj6m4qZMWWlOV/j5
-kIAZrqPnxkXLsZdSfagMz4cHyWsLU7enwTdAqyUt5alGCG9h7WapKpoqWt4JwPga
-OySmok6+JkqjAKZ4xG27txvp6Eykpe/g3PoFjKlmahzjRVMXlipTl24fH4Rx3LTu
-NEdwAfoodtnimlaOxQprkOw+a88Vv1D+XTHSpud6HKu+61CbaMBUNaVwrLSvkmcq
-teT28YcZM+9IAiuhBWOorZo+V/RtkXcRmXy75LAOmbJCO++Xj8HSThpSxSap+d9Z
-ygeOslHFc0wF0zC56e1Uxze5lJsl35DuiSjeD5b6lJdUSTjBXdU=
-=p1Ht
+iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmgeSaoACgkQszaHOrMp
+8lPhiw/9Fux74W4Bjg9NWiGtXGBqpe7qkeVGCXeWZ6oKghya9ag1Y7X0hdtODPdH
+/FLrKUQZCgTCfCYIU8D4dJLGzdWc9rv301aq3HMswmSKOQL7cs4LuGQ5LEV8iDxX
+cEh/c4meATvDjL672HhDtYAOsF/S2UR13ibubuGRbV0xmorXFwrkgu9MUrAwuQIq
+9QlkF8NVKYZtDIzR2BQ+df75O5JLWZZafe80vxR4/xIkq7x9J13Ug3tCWEzf8cW8
+mE+vSIXArz9oszpMPJg0MdEcqxlbX+MXLhrtyuW/P9DumSiN2veUQj846Cu3vUz+
+kVocSO5eWyVO53pFMsTUXT1otF3UHHmvIeWf9mRLbQIAmEqwiPldMo+yom70NazF
+AHR1O7wd5fftTl28RQP8OHR23Gt5afixW9UG1FTT7WAhkcVEuIHrhQfZUyAPV0Db
+ovJibbTrXmoP3fAVlNAA9xnguPUVwrF+HdMIMbnN6ToHyCwWmcvP4ci05BMM2YVv
+Rh714s+3MTvPy9FuNXk2zE6x4czZlsfki8AU2qIoy+BnKNmjNKkVkm08SVNKGLFb
+UgKhXSslIRZDLAzxVye81jnfZS6tig2IZHTu3ELch6LGxi00M7vPj0yQzAmrLbIZ
+7h8sXwzlUWYjXXukaOMx0e4jEmNZTLZNgMJVQQjtHo0g8Xvb3as=
+=suJu
 -----END PGP SIGNATURE-----
 
---------------mmEGf3cXJ3YhKA4aWHKQ0WFS--
+--------------DrPY0QcYqVlmivEVxLRIndc0--
 
