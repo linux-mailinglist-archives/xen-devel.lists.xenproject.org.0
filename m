@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64A0DAB204F
-	for <lists+xen-devel@lfdr.de>; Sat, 10 May 2025 01:39:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.980526.1367066 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25F99AB2054
+	for <lists+xen-devel@lfdr.de>; Sat, 10 May 2025 01:46:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.980538.1367075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDXIm-00071h-HB; Fri, 09 May 2025 23:38:48 +0000
+	id 1uDXQH-0000ON-Au; Fri, 09 May 2025 23:46:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 980526.1367066; Fri, 09 May 2025 23:38:48 +0000
+Received: by outflank-mailman (output) from mailman id 980538.1367075; Fri, 09 May 2025 23:46:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDXIm-0006zB-DB; Fri, 09 May 2025 23:38:48 +0000
-Received: by outflank-mailman (input) for mailman id 980526;
- Fri, 09 May 2025 23:38:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uDXQH-0000LX-85; Fri, 09 May 2025 23:46:33 +0000
+Received: by outflank-mailman (input) for mailman id 980538;
+ Fri, 09 May 2025 23:46:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SZc7=XZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uDXIk-0006z4-UZ
- for xen-devel@lists.xenproject.org; Fri, 09 May 2025 23:38:46 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bc5c07a0-2d2e-11f0-9ffb-bf95429c2676;
- Sat, 10 May 2025 01:38:40 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-43d0359b1fcso18088115e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 09 May 2025 16:38:40 -0700 (PDT)
+ id 1uDXQF-0000LR-Qy
+ for xen-devel@lists.xenproject.org; Fri, 09 May 2025 23:46:31 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d4fef3b3-2d2f-11f0-9eb5-5ba50f476ded;
+ Sat, 10 May 2025 01:46:31 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43ce70f9afbso27539065e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 09 May 2025 16:46:31 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442cd32f1eesm87934365e9.9.2025.05.09.16.38.38
+ 5b1f17b1804b1-442cd3b7e7fsm86866955e9.39.2025.05.09.16.46.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 May 2025 16:38:39 -0700 (PDT)
+ Fri, 09 May 2025 16:46:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc5c07a0-2d2e-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: d4fef3b3-2d2f-11f0-9eb5-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746833919; x=1747438719; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1746834390; x=1747439190; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tfGnq1EXhocFdfUvXVBlX/+XWHR2QoNlSJ/ODH5dDRw=;
-        b=MONgoIgsvbZjJRcTPEa14RBA5bLJvtnProbHTB28yt3CVUHp5+TEM751/0ReA7HZtB
-         oLtErpt9wc+K29C67+PjDEmPtzslJ8DXqNKxWyiOZRmrDH1vHYhUeboTmq93nbppvadP
-         s2E17wq7hOOkYFw94C/KIZ5zhq6rdpUG6FK4w=
+        bh=AzTEoxE9eD7tVfQPW14WwTZ0Djka5W2LriqmxdoQyfg=;
+        b=SqSD4FITkaXHxZ2+WF+Av1rJjMCn2mXM9EEPmkEW/u4CNtORLEhsTdrFzr07PWboWU
+         4SX0vcWeT3F1IXceaPE9h2u4SByNcsK+HfTFRLNsGW66kp/5Y+seVqcQg5M/OphWv4/a
+         6A91UY2XNHxMRsm2gUQLuu0QjqIGkUGyDKtt4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746833919; x=1747438719;
+        d=1e100.net; s=20230601; t=1746834390; x=1747439190;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tfGnq1EXhocFdfUvXVBlX/+XWHR2QoNlSJ/ODH5dDRw=;
-        b=g4khFxzr0MaCGd0gHe0D8+y+Eb4V6lYh7Uv/jqkdflDEMCosW9ZymVXsmEH7vZytVe
-         DTMAVzT/T3b9U2NGr2nx4wq6bBvjAifvDYNq7VWSsnTD4qV9m7dJLctUCWdXNoVLQtZU
-         EhO04xwmEGXdUuVtu5Y6UVkmVP/vWxb0StONvGcm2iZv7VYQ7kWgvozVYj0Y2g9pFj/a
-         Iql04hguMNCEx3Te0qcPBz/DIfiK48TME063Q9rzgR5bKDYF3q2/8jBv105EuNt38EQf
-         QSorPRBLOag+YQkLx3p+anlkZ46qvCa1+frEa38zTOgJIjrnjNDhvPw+MU5RPMnbB2nX
-         9AoQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVps4ZRQAOH/8SzKrwhcJ1FRy00mfU+QVXc2ZhRHJ3buOxKGCNV6uLGlZiSOtofPhrZZMzmooWYaZE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxzGX72KFzuAph6z4Aq3MVqzllmLoOznSQZt/2IjJmE6uLe9Lfs
-	+Czp47imv1E6Dyb+t+rEK63j9M9AZDU7zxUs6scMvg6WWL7p9UTnRugkrn1BQ7g=
-X-Gm-Gg: ASbGncv+0A2z9CuQncM1mCjOvhyJZZn3XSB3YtZlajYlLlic9YUMQ+fbjFc3jO7ShnY
-	E4i8iZkcnaK+BqE7iPC7oq/XVTs7FYccGrKd3cQnwfLXB+Mij7nHYG0FswQoZWe+wCdXZDnpoyR
-	PwIsrXbbZytf7fP7L2ujL03MmiRrRuvYm/2suWwjzjXyiqhaWkgZk5mt030aUxVf76zaHAoYq6v
-	SW5arN3hKrto0zEiucgrcAptXQu3OspGtl60bhfdTBIrXdgKwZ1/iJO0IgiNWn1ZSCkyXGrm7KZ
-	M22K6Hz72TcnOpbBLTU6t6KJuHKC+zUsK0MAv1mNIv1hqV88P1eYUytSHfpP3HodCXx4dcTyaBU
-	GCvmD6IuIbkbwt5Sn
-X-Google-Smtp-Source: AGHT+IEae2MPb76Clvr5W2iymYTJ2TXc5olW/Q2ckKztkPuDK+9S/uDttDbkbOmUiRg8CFyQHP6Wxw==
-X-Received: by 2002:a05:600c:a54:b0:43d:16a0:d98d with SMTP id 5b1f17b1804b1-442dc7a876bmr10479485e9.15.1746833919613;
-        Fri, 09 May 2025 16:38:39 -0700 (PDT)
-Message-ID: <8300d8e8-3f0b-4f88-913b-8970233362e4@citrix.com>
-Date: Sat, 10 May 2025 00:38:38 +0100
+        bh=AzTEoxE9eD7tVfQPW14WwTZ0Djka5W2LriqmxdoQyfg=;
+        b=Cy9mVqU+OWfQZ8+8chNM0NNJSbtIoWiLNdqjTpkrV26XGyJx09YkAn4HuFOaDEIrkh
+         iNgjkAYuIZBryjMFYWtYOzVBYudh0ltzORZxjDuu/QhZWuHp4HkqLVsCAc5wvVpMh5QD
+         H4xhb3pvu/6DRN88MFWc74wJN+KFnmUliDtIYyJaeqp0ugJHVC/lw0XsZ5gkEG1uaPaL
+         qf+ZJywS/vHSGNTTDecbvLTVbF071HRSJgMECs8zmnhWWfuOVtkOxVb2Z0nzEGszbmIr
+         VrjsNtvXhWbkZYKdIzJwuxSlEVohx05nn7pQYOzhr4V5ehdK+2buwoivVV8DKW7g0ZNG
+         tNpA==
+X-Forwarded-Encrypted: i=1; AJvYcCUFTquaXDkeweYX7o7Zftwo6HgQWejGI8GWSgpPLl9zt0hjobytRdRS3TN9gOIStVuq3PvVwdzxTCE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YziqSb4aSCcZKf5QIqQRgGu1y/lkFp4c5sy0wT3gGzPmgte6KCp
+	hciyUauKoaxok68Od8s+k0OiX7j0mJteWNN4NNRN2h/EvS38k7qNv4Pd+v/AQpk=
+X-Gm-Gg: ASbGncuwXabEOwvCqK6Jl/DtI0uLxXlJ+uxUBeHu25n+4WeiKFXnJuKDTCiB45rc0V6
+	cplG7Wsez8wEQv+tp/3cjPpT3V2/TD7TwzJU/FN0ED1Da4EugKvSMKMGl7LKjAlt9XSpBtqi10i
+	lomMMMgDFKY+Z+1wr7hwrdiNCq783Jh1MAI4o/Qck/g4GwBhatVJHEFxRWOocIhPPcRH0eNq+vk
+	OMa00pVyms8EMsWLD9YSWo/6u2DTwyLBMolNG5k6Q60T7SWG4I6AvODOOSvUv1D1bcUfADsJyUQ
+	xy0z0k5ufYFxYvrrjyRitjHx5MsZ/lxbTygPAOm7a7eaNF1RVw1o3nuuFPC0/NNZ/qhFlX8i9bW
+	v7RBOjwhPQ8HXlbVE8tZumdukUGI=
+X-Google-Smtp-Source: AGHT+IGwM6KhKJEJ1+Tt7faTOPl6uXUm9FjGeX2Dpg3CwrlFV8sfdAxRYP9iV6wEuaUwt+ESzWy6Jw==
+X-Received: by 2002:a05:600c:6487:b0:43c:e70d:44f0 with SMTP id 5b1f17b1804b1-442d6d516efmr48458015e9.19.1746834390394;
+        Fri, 09 May 2025 16:46:30 -0700 (PDT)
+Message-ID: <82b13a72-5b14-4e3c-ad98-fff1e13308ab@citrix.com>
+Date: Sat, 10 May 2025 00:46:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] xen/page_alloc: address violation of Rule 14.3
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 1/2] x86: x86_emulate: address violation of MISRA C
+ Rule 13.2
+To: victorm.lira@amd.com, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>
 Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Victor Lira <victorm.lira@amd.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
  Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, Federico Serafini <federico.serafini@bugseng.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>
-References: <alpine.DEB.2.22.394.2505091625390.3879245@ubuntu-linux-20-04-desktop>
+References: <77f9c4cabe607ce4024013c604bc790fb629d322.1746657135.git.victorm.lira@amd.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -140,20 +140,127 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <alpine.DEB.2.22.394.2505091625390.3879245@ubuntu-linux-20-04-desktop>
+In-Reply-To: <77f9c4cabe607ce4024013c604bc790fb629d322.1746657135.git.victorm.lira@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/05/2025 12:28 am, Stefano Stabellini wrote:
-> From: Federico Serafini <federico.serafini@bugseng.com>
+On 07/05/2025 11:46 pm, victorm.lira@amd.com wrote:
+> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 >
-> MISRA C Rule 14.3 states that "Controlling expressions shall not be
-> invariant".
+> Rule 13.2 states: "The value of an expression and its persistent
+> side effects shall be the same under all permitted evaluation orders".
 >
-> Change the #define to static inline to resolve the violation.
+> The full expansion of macro "commit_far_branch" contains an assignment to
+> variable "rc", which is also assigned to the result of the GNU statement
+> expression which "commit_far_branch" expands to.
 >
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+> To avoid any dependence on the order of evaluation, the latter assignment
+> is moved inside the macro.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+The (mostly expanded) and reformatted expression is:
+
+> if ( (rc = load_seg(x86_seg_cs, src.val, 1, &cs, ctxt, ops)) ||
+>      (rc = ({
+>              ({
+>                  if ( sizeof(dst.val) <= 4 )
+>                  {
+>                      do {
+>                          if ( __builtin_expect(!!(!(!ctxt->lma)),0) )
+>                              ASSERT();
+>                      } while ( 0 );
+>                      ({
+>                          if ( ((dst.val) > (&cs)->limit) )
+>                          {
+>                              x86_emul_hw_exception(13, mkec(13, 0, 0), ctxt);
+>                              rc = 2;
+>                              goto done;
+>                          }
+>                      });
+>                  }
+>                  else
+>                      ({
+>                          if ( (ctxt->lma && (&cs)->l
+>                                ? !(((long)(dst.val) >> 47) == ((long)(dst.val) >> 63))
+>                                : (dst.val) > (&cs)->limit) )
+>                          {
+>                              x86_emul_hw_exception(13, mkec(13, 0, 0), ctxt);
+>                              rc = 2;
+>                              goto done;
+>                          }
+>                      });
+>              });
+>              _regs.rip = (dst.val);
+>              singlestep = _regs.eflags & 0x00000100;
+>              ops->write_segment(x86_seg_cs, &cs, ctxt);
+>          })) )
+
+And I can't identify anywhere where there is an ambiguous order of
+evaluation.
+
+The problem with this patch is that, while the existing logic is not
+exactly great, ...
+
+> diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
+> index 8e14ebb35b..7108fe7b30 100644
+> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+> @@ -337,7 +337,7 @@ do {                                                                    \
+>      validate_far_branch(cs, newip);                                     \
+>      _regs.r(ip) = (newip);                                              \
+>      singlestep = _regs.eflags & X86_EFLAGS_TF;                          \
+> -    ops->write_segment(x86_seg_cs, cs, ctxt);                           \
+> +    rc = ops->write_segment(x86_seg_cs, cs, ctxt);                      \
+>  })
+>
+>  int x86emul_get_fpu(
+> @@ -2382,7 +2382,7 @@ x86_emulate(
+>               (rc = read_ulong(x86_seg_ss, sp_post_inc(op_bytes + src.val),
+>                                &src.val, op_bytes, ctxt, ops)) ||
+>               (rc = load_seg(x86_seg_cs, src.val, 1, &cs, ctxt, ops)) ||
+> -             (rc = commit_far_branch(&cs, dst.val)) )
+> +             commit_far_branch(&cs, dst.val) )
+>              goto done;
+
+... this is breaking a visual layout pattern where you can always see
+the update to rc beside the "goto done".
+
+This code is complicated enough without making it harder.
+
+One option which might work is this:
+
+diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c
+b/xen/arch/x86/x86_emulate/x86_emulate.c
+index 3350303f8634..dab4373ece1e 100644
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -333,12 +333,14 @@ do
+{                                                                    \
+                               : (ip) > (cs)->limit, X86_EXC_GP, 0);     \
+ })
+ 
+-#define commit_far_branch(cs, newip) ({                                 \
+-    validate_far_branch(cs, newip);                                     \
+-    _regs.r(ip) = (newip);                                              \
+-    singlestep = _regs.eflags & X86_EFLAGS_TF;                          \
+-    ops->write_segment(x86_seg_cs, cs, ctxt);                           \
+-})
++#define commit_far_branch(cs, newip) (                                  \
++        ({                                                              \
++            validate_far_branch(cs, newip);                             \
++            _regs.r(ip) = (newip);                                      \
++            singlestep = _regs.eflags & X86_EFLAGS_TF;                  \
++        }),                                                             \
++        ops->write_segment(x86_seg_cs, cs, ctxt)                        \
++    )
+ 
+ int x86emul_get_fpu(
+     enum x86_emulate_fpu_type type,
+
+
+This rearranges commit_far_branch() to use the comma operator, but
+maintains the previous property that it's still overall an assignment to rc.
+
+However, I don't have much confidence that Eclair is going to like it more.
+
+~Andrew
 
