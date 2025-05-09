@@ -2,37 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12BDEAB1120
-	for <lists+xen-devel@lfdr.de>; Fri,  9 May 2025 12:50:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.980055.1366535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55B14AB122A
+	for <lists+xen-devel@lfdr.de>; Fri,  9 May 2025 13:25:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.980065.1366547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDLIu-0002tk-L2; Fri, 09 May 2025 10:50:08 +0000
+	id 1uDLqi-0006w6-5H; Fri, 09 May 2025 11:25:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 980055.1366535; Fri, 09 May 2025 10:50:08 +0000
+Received: by outflank-mailman (output) from mailman id 980065.1366547; Fri, 09 May 2025 11:25:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDLIu-0002qy-IR; Fri, 09 May 2025 10:50:08 +0000
-Received: by outflank-mailman (input) for mailman id 980055;
- Fri, 09 May 2025 10:50:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uDLqi-0006tN-0R; Fri, 09 May 2025 11:25:04 +0000
+Received: by outflank-mailman (input) for mailman id 980065;
+ Fri, 09 May 2025 11:25:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eMqf=XZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uDLIt-0002qs-1P
- for xen-devel@lists.xenproject.org; Fri, 09 May 2025 10:50:07 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5e01014d-2cc3-11f0-9eb4-5ba50f476ded;
- Fri, 09 May 2025 12:50:05 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-43cf257158fso12967255e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 09 May 2025 03:50:05 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a1f58f2961sm2855610f8f.45.2025.05.09.03.50.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 May 2025 03:50:04 -0700 (PDT)
+ <SRS0=EUpd=XZ=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1uDLqg-0006tC-1D
+ for xen-devel@lists.xenproject.org; Fri, 09 May 2025 11:25:02 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20611.outbound.protection.outlook.com
+ [2a01:111:f403:240a::611])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3bdf88c1-2cc8-11f0-9ffb-bf95429c2676;
+ Fri, 09 May 2025 13:24:57 +0200 (CEST)
+Received: from DM6PR14CA0039.namprd14.prod.outlook.com (2603:10b6:5:18f::16)
+ by PH0PR12MB7813.namprd12.prod.outlook.com (2603:10b6:510:286::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.24; Fri, 9 May
+ 2025 11:24:51 +0000
+Received: from DS3PEPF000099D5.namprd04.prod.outlook.com
+ (2603:10b6:5:18f:cafe::62) by DM6PR14CA0039.outlook.office365.com
+ (2603:10b6:5:18f::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8699.31 via Frontend Transport; Fri,
+ 9 May 2025 11:24:51 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS3PEPF000099D5.mail.protection.outlook.com (10.167.17.6) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8722.18 via Frontend Transport; Fri, 9 May 2025 11:24:50 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 9 May
+ 2025 06:24:50 -0500
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Fri, 9 May 2025 06:24:49 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,242 +59,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e01014d-2cc3-11f0-9eb4-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1746787805; x=1747392605; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=FjIqqJel1+4NNYYXuRdtjsXhMEIDc9qYF/U8D65cpog=;
-        b=ONlCtr8y2tC8EhzJrzrVl4nlo6KjEFC0cKp8joPDodYNkwmT7S9b941mcjw4C1ukWK
-         iHC5c0cVw3ZRbJiO+4lQNVZhhJmXrThMrjhp95VVn8Oh3+0gZr31mQSwiQOJ/FD6eYP3
-         x7LYa8aE0TSoNzXM4h5Nwwa/y0hVDhvUPFric=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1746787805; x=1747392605;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FjIqqJel1+4NNYYXuRdtjsXhMEIDc9qYF/U8D65cpog=;
-        b=B4keBgBJJPVcv7H7bikJ4/Wc4vQYtV+GsLmka7kNKRa920K+Z5/8PdZOqvD6vgdf+E
-         3AxeUx4CFunJTo0rUkZvTXMYhlp7XLN+fOhvGPfZJeRvIB+UjSIvbRzdB6ScylVlVivu
-         9Xterj6haoUToDBjCDT2hKfOE5oyfe2MwcWLXoCxbD+P8oIboPF9m80j26qtMckOCdRr
-         guyhNC3+I5fWKTV+CXcKmDxwaMIQpmU258+SWOuff+wswmuSVHN+0tro501a6ICaPJ3l
-         RPDptNLtMaYpYDMSZxpL+KVbJByrqT184pSW2kRlgApo5hXp8v9mmNmvA92K4dktK/wx
-         litw==
-X-Forwarded-Encrypted: i=1; AJvYcCXtxvSKNdLykFnhR7ZMRRtcyUvx7yvfKXlzgRj2aaJBZDXp0fy32RHzvUVIO7Mb4Xp7CbserQlQKJ4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwbV4gFeEd8Yaotlw9oNVMhNlXbxj/22/ZYTU4W9tRsf5Qy6GWV
-	hV5ItIQsterdvBEW1uvRqGLqleHptf0fp5u+MHgkFBquuDH0dv00hTleid4BiS8=
-X-Gm-Gg: ASbGncuLwd042uxhiIuCPkL2G9addrIF+BrIVUCaVTtUF7Tr5760F+bLRthYvCk8W1m
-	d2cu2YtDTVO3NqzwMZlB26jiw+WQotA295M448oycX5rNDPSGpqdFT1bdbp5fw7M1RfADI3ea0l
-	4BkJAWPRHJHidA/SNjVOjzWCxhxVQ35Wr2E4hquELMaw0viVN2z3u5fQpfLA2jc+y1hBbmmLbOB
-	JRBZzibyN23nRG4Tz+dP4sA5TN22R8NuEekRy9ObcZivdv8F7JVQLhFPAoHp5Z3TKhqBtlBFz+b
-	uX2MfV8iTW9d0ppBztsoBxQQ5+LwXuyco9nE1E/AoM88wA==
-X-Google-Smtp-Source: AGHT+IGyHMp5LBetRR3pOIoQzV/u48nYBSP967mk/UeC22N94UEMO60s/S34SR3X9zqHAen9HNO+mQ==
-X-Received: by 2002:a05:6000:200d:b0:3a0:be75:1bb1 with SMTP id ffacd0b85a97d-3a1f647ffe8mr2023809f8f.42.1746787805007;
-        Fri, 09 May 2025 03:50:05 -0700 (PDT)
-Date: Fri, 9 May 2025 12:50:00 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alejandro Vallejo <agarciav@amd.com>
-Cc: Demi Marie Obenour <demiobenour@gmail.com>,
-	Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Xen-devel <xen-devel-bounces@lists.xenproject.org>
-Subject: Re: Mapping memory into a domain
-Message-ID: <aB3d2FxH8JOxM5q9@macbook.lan>
-References: <82772686-edcd-41e4-b81c-f6b3ded30901@gmail.com>
- <D9O702EAEGRU.10CY1WTUELAKF@amd.com>
- <24a0a77b-e543-453d-b20b-0dbac111287c@gmail.com>
- <D9P3M1Z20DAB.1HSZ79GOZOMKR@amd.com>
- <ae3465e2-b803-4a26-8443-0bc1d38da7ac@gmail.com>
- <aBuatoL1dm0tjZ9P@macbook.lan>
- <30243d25-881d-42d3-90c2-f791c3632372@gmail.com>
- <aBxizlMj3D94M3WS@macbook.lan>
- <ae1a35dd-b7b2-426f-b2d5-723bb07b0e79@gmail.com>
- <D9RJ9PK28QNQ.EKGYRHXWTYZ1@amd.com>
+X-Inumbo-ID: 3bdf88c1-2cc8-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lyWvZSoNUoMHKijHcMhnfh6pF48IqNXKvXudn/wqdHloom3Qf42Yey1VUsH1sgBabfOGFSZ7XkYZMuEj9lNWtcwrpb4PCj3dwJBKgvk/T/Fr8nu0OAmu5dXq0+SqZwW0FnxxMT1LNF95A4b38ka78yUKa0v7BIgxROQzL1qcOCNJxkcdAlSZ6ugpDjpLvD1Gd0s/hFCVOJ6u3aJi31G4TIj4gjEoJ/98bLa52ILx5sTgGCMIJKKLO6++URAgDPhg35CRLy4SVZUm3HStr5AKaOKSDYG3QXymhbOX8VdJNUASlWEgLs/Tdr8O34cr7vdgNptzUNVOEI4OrTcU/gD8ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fZyp0GNbJksOPcIWZWqmgu1NYPhso8bddmHyo8chcVc=;
+ b=ajEXH7STkKuxaI0ImID0AqFe7aCCa+nPMuJgOBwnHhn7kBaL0NA5zeGKcS70V3Yxo8fo0rGTxSbRU3oBOjR6hLkKjzVUR064WoTaG+SQEMpAqI3x74y566EnlrC7V48yrRVL2zZZFdtIPNuw3hatpftzoDRHLadDrJ6W5wGTSO0OX+y1gXMPdrSa7IEAVcc01RU2Lm0J9VG0ho6DYCGgHW9ZU4MHriuLm/IexxpUloTNkPY6Buq708TpV35a0kEkg2u9wGT1VWBUjvrxuRr0KDsTgRXdBl8K/fmYCtX+Mo9EgI4M86FRc4aG/cK+fQhRuU7nm3jOzA8LjV+w4045ug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fZyp0GNbJksOPcIWZWqmgu1NYPhso8bddmHyo8chcVc=;
+ b=CCOSC0JXarWFWwS6SRRlnSRQnyYlJDqaNGKKhbiuJFqJp/dW9gQXY4gJk8PT+Ozq4YUO44we+6nCMQgSmolgAxoehvf+BKquLV7ja9ZSLPHGj0zx06o/tIWc0YEIOQY15tu+mOAiWRUEHq/N4VnS4f3lska3FOk5eAUqRho4M3A=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	"Michal Orzel" <michal.orzel@amd.com>, Artem Mygaiev <artem_mygaiev@epam.com>
+Subject: [PATCH v3 1/2] docs: fusa: Define the requirements for XEN_VERSION hypercall.
+Date: Fri, 9 May 2025 12:24:46 +0100
+Message-ID: <20250509112447.2931909-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <D9RJ9PK28QNQ.EKGYRHXWTYZ1@amd.com>
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: ayan.kumar.halder@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099D5:EE_|PH0PR12MB7813:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6cfaa00c-ae04-4366-594d-08dd8eec1d30
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700013|1800799024|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?LIwssxKMsxOlYLzl/8H3LJ3GCLVVGhEhuea47TodAIAipk1fLq2aSVjOMfKr?=
+ =?us-ascii?Q?iQaK+73rlhXL460lJaWjIcRPzVIwAK8tnbz6GU9KBZnJi3MFr4UKpBKIMCDQ?=
+ =?us-ascii?Q?vtgyYlWUNZYLQ+m4v76Y0mOq5GBpAfy95Fzpw46HVOXackm1awKkUghBm4V8?=
+ =?us-ascii?Q?sxcy8G1bHC7SEm063iXWNaiWaBFcAAGiI/0+b+b06v33khOLOYMLgs2lMrvg?=
+ =?us-ascii?Q?sTaEUuo8ofOjXf5pXylrnn8/4FA/xdzFMWgkMpPgBMsJfWRVld0VtiBA4pmr?=
+ =?us-ascii?Q?bxRIGmpeo1OLL1Gv9aq265Kv2OMQkKW3lAlN21rUPx0sRnXrPbxwB3W8OeWR?=
+ =?us-ascii?Q?/wabbS96AGiFPn95mg7PPuyWbT5VCg1Y55DH8BlHSCE4jlA2UXyWulq7h8oc?=
+ =?us-ascii?Q?KIaSkhTg+GVpTXpYCvuOxJUk1++G/d8pug7KOf6YcqBwYHxBgc8XaLWzeYdG?=
+ =?us-ascii?Q?mhWcQQ8cULSnzNUBCoT96FOIYz4gI4F0TynhkNlAozUkMEo60cuRe3/xdzYg?=
+ =?us-ascii?Q?q2sPd4/9KJqVkhBO+sZm0M7lrk+QHFd0bvb+aHdGtjJAkP8LDjhX64UUfHIN?=
+ =?us-ascii?Q?A/tZgUdPPKPlF8VyX/OgI/CvR2NbniiZOT+fRGhUFE2q8DuFDzCKqmiJU2DH?=
+ =?us-ascii?Q?0zNhFCc2C2wnRsr8dd7ZXbuQJgHKj4L+jsqUDNoomCjK4JEiEkJ9HAw4SdKV?=
+ =?us-ascii?Q?nO25mzzHcoUuxTCVZg3f0FODJp9YegmoePiH6sNpzXOJjRBN0CvITyGemBwM?=
+ =?us-ascii?Q?6PVqm768I9bfP06NALO6VAQwYtEdoDTAZPS4wbujzNAUkAgVxeysbbFnfyu4?=
+ =?us-ascii?Q?Vq1ZN8YdEGwppl4PusF5htZukNppRLsgIpvszxVCDTsJb9sxvU6MlBADWsfB?=
+ =?us-ascii?Q?C5UDPKA7y4yG6CdIci8oulhkeUaX8W9EJTssweNkTuik8OSysG5si15BmEjS?=
+ =?us-ascii?Q?2HO3TNGVhNPB0Y1fjAv8M4Lw9y5v0PWJ0w0pPGBEX7s4ksv1jYfW43U4jsN4?=
+ =?us-ascii?Q?WR1nQpXr+bjgaxR+2rApPuUQmSOQ4ccqhelBrfXzMdKkfz8v3zBY1JkubrF6?=
+ =?us-ascii?Q?wyM+EYDHOms4BaBgbUIhcXZHguWGrFxy5DJYEhELhJCfQpLMLOkrLK0fHbYP?=
+ =?us-ascii?Q?dKUwKWSqCQsX1GYo+KtW8o2YptVXqvvwOuqsJYPdSh9W1ZyHzUGwyNl3BMPk?=
+ =?us-ascii?Q?F21E+Y4Csq/a6n6ZZcohcrhdesmm5lwmqmlAYkAookIe6cMgDyaaAhUdV2Gk?=
+ =?us-ascii?Q?NgeCJecuBuomfeHRXCDYcQRavb/IDbaTMPM0cRpej6Hz/ds85PxUxfWFhWCv?=
+ =?us-ascii?Q?lX52+Ee99+iaOBrrxQPXtvI/Q4zKqiOqsfGsQfIWX2Ehnq7NLnn6K7EeTmQ7?=
+ =?us-ascii?Q?GtEKFWaBCD4SaGmQZAMEDTE+3Rf4qf4nFkN89YkrPZhtKl434KHpuB5ews6k?=
+ =?us-ascii?Q?bm86VRDnGGpOLRIx1rd4h2wZ4ZD8vQgfnPTaZHpj4AiK2xGp9pwwRYxi+2VG?=
+ =?us-ascii?Q?gJwpzf7edl9Bppy5gqhGO3JFTF9QVYtAjdUe?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2025 11:24:50.8821
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6cfaa00c-ae04-4366-594d-08dd8eec1d30
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF000099D5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7813
 
-On Fri, May 09, 2025 at 11:47:36AM +0200, Alejandro Vallejo wrote:
-> >>>>> A Linux driver that needs access to userspace memory
-> >>>>> pages can get it in two different ways:
-> >>>>>
-> >>>>> 1. It can pin the pages using the pin_user_pages family of APIs.
-> >>>>>    If these functions succeed, the driver is guaranteed to be able
-> >>>>>    to access the pages until it unpins them.  However, this also
-> >>>>>    means that the pages cannot be paged out or migrated.  Furthermore,
-> >>>>>    file-backed pages cannot be safely pinned, and pinning GPU memory
-> >>>>>    isn’t supported.  (At a minimum, it would prevent the pages from
-> >>>>>    migrating from system RAM to VRAM, so all access by a dGPU would
-> >>>>>    cross the PCIe bus, which would be very slow.)
-> >>>>
-> >>>> From a Xen p2m this is all fine - Xen will never remove pages from the
-> >>>> p2m unless it's requested to.  So the pining, while needed on the Linux
-> >>>> side, doesn't need to be propagated to Xen I would think.
-> 
-> It might still be helpful to have the concept of pinning to avoid them
-> being evicted for other reasons (ballooning?). I don't think it'd be
-> sane to allow returning to Xen a page that a domain ever shared with a
-> device.
+Define the requirements which are common for all the commands for XEN_VERSION
+hypercall.
 
-If mapped using the p2m_mmio_direct type in the p2m a domain won't be
-able to balloon them out.  It would also be misguided for a guest
-kernel to attempt to balloon out memory that I presume will be inside
-of a PCI device BAR from the guest point of view.
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+---
+Changes from -
 
-> re: being requested. Are there real promises from Xen to that effect? I
-> could make a hypervisor oversubscribing on memory that swaps non-IOVA
-> mem in and out to disk, moving it around all the time and it would be
-> compliant with the current behaviour AIUI, but it wouldn't work with
-> this scheme, because the mfn's would be off more often than not.
+v1 - 1. Fixed `XenProd~version_hyp_ret_val~1` requirement as Xen does not return
+0 for success in all the cases.
+2. Reworded the requirements so as to write them from Xen's perspective (not
+domain's perspective).
 
-Even if Xen supported domain memory swapping, that could never be used
-with domains that have devices attached, as it's not possible to fixup
-the p2m on IOMMU fault and retry the access.
+v2 - 1. Specified the register details.
+2. Specified the type of buffer. 
 
-Not sure you could even move mfns around, as you would need an atomic
-way to copy the previous page contents and set the PTE to point to the
-new page.
+ .../fusa/reqs/design-reqs/arm64/hypercall.rst | 58 +++++++++++++++++++
+ docs/fusa/reqs/index.rst                      |  2 +
+ docs/fusa/reqs/market-reqs/reqs.rst           | 16 +++++
+ .../reqs/product-reqs/version_hypercall.rst   | 43 ++++++++++++++
+ 4 files changed, 119 insertions(+)
+ create mode 100644 docs/fusa/reqs/design-reqs/arm64/hypercall.rst
+ create mode 100644 docs/fusa/reqs/product-reqs/version_hypercall.rst
 
-Unless you want to get into a (IMO) complicated scheme where the
-domain notifies the hypervisor which ranges are being used for device
-DMA accesses (and thus requires guest kernel changes), I think
-swapping of guest memory when there are assigned devices is a no-go.
+diff --git a/docs/fusa/reqs/design-reqs/arm64/hypercall.rst b/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
+new file mode 100644
+index 0000000000..f00b0b00f9
+--- /dev/null
++++ b/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
+@@ -0,0 +1,58 @@
++.. SPDX-License-Identifier: CC-BY-4.0
++
++Hypercall
++=========
++
++Instruction
++-----------
++
++`XenSwdgn~arm64_hyp_instr~1`
++
++Description:
++Xen shall treat domain hypercall exception as hypercall requests.
++
++Rationale:
++
++Comments:
++Hypercall is one of the communication mechanism between Xen and domains.
++Domains use hypercalls for various requests to Xen.
++Domains use 'hvc #0xEA1' instruction to invoke hypercalls.
++
++Covers:
++ - `XenProd~version_hyp_first_param~1`
++ - `XenProd~version_hyp_second_param~1`
++
++Parameters
++----------
++
++`XenSwdgn~arm64_hyp_param~1`
++
++Description:
++Xen shall use the first five cpu core registers to obtain the arguments for
++domain hypercall requests.
++
++Rationale:
++
++Comments:
++Xen shall read the first register for the first argument, second register for
++the second argument and so on.
++
++Covers:
++ - `XenProd~version_hyp_first_param~1`
++ - `XenProd~version_hyp_second_param~1`
++
++Hypercall number
++----------------
++
++`XenSwdgn~arm64_hyp_num~1`
++
++Description:
++Xen shall read x16 to obtain the hypercall number.
++
++Rationale:
++
++Comments:
++
++Covers:
++ - `XenProd~version_hyp_first_param~1`
++ - `XenProd~version_hyp_second_param~1`
+diff --git a/docs/fusa/reqs/index.rst b/docs/fusa/reqs/index.rst
+index 1088a51d52..d8683edce7 100644
+--- a/docs/fusa/reqs/index.rst
++++ b/docs/fusa/reqs/index.rst
+@@ -10,5 +10,7 @@ Requirements documentation
+    market-reqs/reqs
+    product-reqs/reqs
+    product-reqs/arm64/reqs
++   product-reqs/version_hypercall
+    design-reqs/arm64/generic-timer
+    design-reqs/arm64/sbsa-uart
++   design-reqs/arm64/hypercall
+diff --git a/docs/fusa/reqs/market-reqs/reqs.rst b/docs/fusa/reqs/market-reqs/reqs.rst
+index 2d297ecc13..0e29fe5362 100644
+--- a/docs/fusa/reqs/market-reqs/reqs.rst
++++ b/docs/fusa/reqs/market-reqs/reqs.rst
+@@ -79,3 +79,19 @@ Comments:
+ 
+ Needs:
+  - XenProd
++
++Version hypercall
++-----------------
++
++`XenMkt~version_hypercall~1`
++
++Description:
++Xen shall provide an interface for the domains to retrieve Xen's version, type
++and compilation information.
++
++Rationale:
++
++Comments:
++
++Needs:
++ - XenProd
+diff --git a/docs/fusa/reqs/product-reqs/version_hypercall.rst b/docs/fusa/reqs/product-reqs/version_hypercall.rst
+new file mode 100644
+index 0000000000..400d51bbeb
+--- /dev/null
++++ b/docs/fusa/reqs/product-reqs/version_hypercall.rst
+@@ -0,0 +1,43 @@
++.. SPDX-License-Identifier: CC-BY-4.0
++
++Version hypercall
++=================
++
++First Parameter
++---------------
++
++`XenProd~version_hyp_first_param~1`
++
++Description:
++Xen shall treat the first argument (as an integer) to denote the command number
++for the hypercall.
++
++Rationale:
++
++Comments:
++
++Covers:
++ - `XenMkt~version_hypercall~1`
++
++Needs:
++ - XenSwdgn
++
++Second Parameter
++----------------
++
++`XenProd~version_hyp_second_param~1`
++
++Description:
++Xen shall treat the second argument as a virtual address (mapped as Normal
++Inner Write-Back Outer Write-Back Inner-Shareable) to buffer in domain's
++memory.
++
++Rationale:
++
++Comments:
++
++Covers:
++ - `XenMkt~version_hypercall~1`
++
++Needs:
++ - XenSwdgn
+-- 
+2.25.1
 
-Xen has (or had? as I never actually seen it being used) a mechanism
-to swap domain memory to a dom0 file (see tools/xenpaging.c).  However
-more than one provider had mentioned to me that one feature they
-particularly preferred of Xen over KVM is that it would never swap
-guest memory.  Not sure if that's still the case, but some struggled
-to prevent KVM from swapping guest memory, and got complains of
-slowness from their tenants.
-
-For the purposes of getting a prototype I would suggest that you
-assume p2m memory cannot be randomly swapped out, unless requested by
-either the guest or the control domain.
-
-> >>>
-> >>> If pinning were enough things would be simple, but sadly it’s not.
-> >>>
-> >>>>> 2. It can grab the *current* location of the pages and register an
-> >>>>>    MMU notifier.  This works for GPU memory and file-backed memory.
-> >>>>>    However, when the invalidate_range function of this callback, the
-> >>>>>    driver *must* stop all further accesses to the pages.
-> >>>>>
-> >>>>>    The invalidate_range callback is not allowed to block for a long
-> >>>>>    period of time.  My understanding is that things like dirty page
-> >>>>>    writeback are blocked while the callback is in progress.  My
-> >>>>>    understanding is also that the callback is not allowed to fail.
-> >>>>>    I believe it can return a retryable error but I don’t think that
-> >>>>>    it is allowed to keep failing forever.
-> >>>>>
-> >>>>>    Linux’s grant table driver actually had a bug in this area, which
-> >>>>>    led to deadlocks.  I fixed that a while back.
-> >>>>>
-> >>>>> KVM implements the second option: it maps pages into the stage-2
-> >>>>> page tables (or shadow page tables, if that is chosen) and unmaps
-> >>>>> them when the invalidate_range callback is called.
-> 
-> I'm still lost as to what is where, who initiates what and what the end
-> goal is. Is this about using userspace memory in dom0, and THEN sharing
-> that with guests for as long as its live? And make enough magic so the
-> guests don't notice the transitionary period in which there may not be
-> any memory?
-> 
-> Or is this about using domU memory for the driver living in dom0?
-> 
-> Or is this about something else entirely?
-> 
-> For my own education. Is the following sequence diagram remotely accurate?
-> 
-> dom0                              domU
->  |                                  |
->  |---+                              |
->  |   | use gfn3 in the driver       |
->  |   | (mapped on user thread)      |
->  |<--+                              |
->  |                                  |
->  |  map mfn(gfn3) in domU BAR       |
->  |--------------------------------->|
->  |                              +---|
->  |              happily use BAR |   |
->  |                              +-->|
->  |---+                              |
->  |   | mmu notifier for gfn3        |
->  |   | (invalidate_range)           |
->  |<--+                              |
->  |                                  |
->  |  unmap mfn(gfn3)                 |
->  |--------------------------------->| <--- Plus some means to making guest 
->  |---+                          +---|      vCPUs pause on access.
->  |   | reclaim gfn3    block on |   |
->  |<--+                 access   |   |
->  |                              |   |
->  |---+                          |   |
->  |   | use gfn7 in the driver   |   |
->  |   | (mapped on user thread)  |   |
->  |<--+                          |   |
->  |                              |   |
->  |  map mfn(gfn7) in domU BAR   |   |
->  |------------------------------+-->| <--- Unpause blocked domU vCPUs
-
-The guest vCPU will already pause on access if there's a p2m
-violation, until the ioreq has completed and the vCPU execution can
-resume.  That's in control of the ioreq server that handles the
-request.
-
-I don't know about the dom0 user-space part, but that's possibly of no
-concern for the implementation side in Xen?
-
-My understanding of the actions needed from the Xen side is:
-
- 1. Map either RAM owned by the hardware domain or an MMIO page into
-    a domain p2m.
- 2. Remove entries from a domain p2m.
- 3. Handle p2m violations resulting from guest accesses, using 1. and
-    force a guest access retry (or emulate the access).
-
-1. Can possibly be done with XEN_DOMCTL_memory_mapping and
-XENMEM_add_to_physmap_batch, but as I understood it it's not ideal.
-Demi would like a way to use the same hypercall to map either RAM or
-IOMEM into a domain p2m.
-
-2. What hypercall to use depends on how the memory is mapped.
-
-3. ioreq servers will already get requests for accesses to unmapped
-regions they have registered for.  If the access is to be retried we
-need to expand ioreq interface a bit to handle this case.  Adding a
-new ioreq state like STATE_IORESP_RETRY might be enough?  Maybe I'm
-being naive though.
-
->  |                                  |
-> 
-> >>> - The switch from “emulated MMIO” to “MMIO or real RAM” needs to
-> >>>   be atomic from the guest’s perspective.
-> >> 
-> >> Updates of p2m PTEs are always atomic.
-> > That’s good.
-> 
-> Updates to a single PTE are atomic, sure. But mapping/unmapping sizes
-> not congruent with a whole superpage size (i.e: 256 KiB, more than a
-> page, less than a superpage) wouldn't be, as far as the guest is
-> concerned.
-
-I've assumed the question was towards PTE updates, as to whether
-PTE entries where always consistent.
-
-> But if my understanding above is correct maybe it doesn't matter? It
-> only needs to be atomic wrt the hypercall that requests it, so that the
-> gfn is never reused while the guest p2m still holds that mfn.
-
-I think it only matters that the PTE is always consistent, either
-mapped or unmapped (and thus generate an ioreq request on access when
-unmapped).
-
-Regards, Roger.
 
