@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9454BAB1FD5
-	for <lists+xen-devel@lfdr.de>; Sat, 10 May 2025 00:16:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.980445.1366904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B1E3AB1FF0
+	for <lists+xen-devel@lfdr.de>; Sat, 10 May 2025 00:29:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.980456.1366914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDW1A-00019t-Sd; Fri, 09 May 2025 22:16:32 +0000
+	id 1uDWD1-0003C1-TR; Fri, 09 May 2025 22:28:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 980445.1366904; Fri, 09 May 2025 22:16:32 +0000
+Received: by outflank-mailman (output) from mailman id 980456.1366914; Fri, 09 May 2025 22:28:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDW1A-00018R-Po; Fri, 09 May 2025 22:16:32 +0000
-Received: by outflank-mailman (input) for mailman id 980445;
- Fri, 09 May 2025 22:16:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uDWD1-0003AV-Qe; Fri, 09 May 2025 22:28:47 +0000
+Received: by outflank-mailman (input) for mailman id 980456;
+ Fri, 09 May 2025 22:28:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bQVm=XZ=bounce.vates.tech=bounce-md_30504962.681e7eb9.v1-3226c0e946ab49dfb8d82f95890561d3@srs-se1.protection.inumbo.net>)
- id 1uDW1A-0000We-6A
- for xen-devel@lists.xenproject.org; Fri, 09 May 2025 22:16:32 +0000
-Received: from mail187-10.suw11.mandrillapp.com
- (mail187-10.suw11.mandrillapp.com [198.2.187.10])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3f8c0a6a-2d23-11f0-9ffb-bf95429c2676;
- Sat, 10 May 2025 00:16:27 +0200 (CEST)
-Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-10.suw11.mandrillapp.com (Mailchimp) with ESMTP id
- 4ZvNd54FJ6z5QkLg3
- for <xen-devel@lists.xenproject.org>; Fri,  9 May 2025 22:16:25 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 3226c0e946ab49dfb8d82f95890561d3; Fri, 09 May 2025 22:16:25 +0000
+ <SRS0=SZc7=XZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uDWD0-0003AP-If
+ for xen-devel@lists.xenproject.org; Fri, 09 May 2025 22:28:46 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f7d5a1fc-2d24-11f0-9eb5-5ba50f476ded;
+ Sat, 10 May 2025 00:28:45 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-43cebe06e9eso19009125e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 09 May 2025 15:28:45 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-442cd32f24fsm83663935e9.16.2025.05.09.15.28.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 09 May 2025 15:28:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,199 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f8c0a6a-2d23-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1746828985; x=1747098985;
-	bh=OXsoqPwyut9I+YFQikpK6g6RfD5Cgj76YWmrM/Yc3gI=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=pgIEIgMBZIa7uQEilLYAxhZY6YFl9aW1MyUZGJb1rfsyNzRfLK/DIsyRlRWwaiYfe
-	 XMQnZBrjCMSjw3aD74p5EUYytDmy323/0+SohfAMeujnV7nA8QDgRqtTb02hok4qN0
-	 /zxbq5RNYFQnE+btpUuWk/fmMlzrL6CQjeEQbxtWMDfKwj6y2rKUI0RsMVWgNve4O3
-	 ezboqig7TKV6uh1jS7mk1L2MJtea3+v49yrW3YS4SbokR1RSJGTtoD4VelycZAj5MW
-	 DQozc6oSHjc4iY5z71S+y6GbRi3uIfy/QiGu9qyoJpZXZzJs3A3LuysRJ5ThgvEoMO
-	 QY/lOxqXUonVg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1746828985; x=1747089485; i=teddy.astie@vates.tech;
-	bh=OXsoqPwyut9I+YFQikpK6g6RfD5Cgj76YWmrM/Yc3gI=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=bvEMRYf3riY++iA5uqnoEp74RlAMv7L5w9Ekk7Klkg8EmQFblSSwZ1pbcImskLaPj
-	 NTN8g9iHX1T8Y7+qVMf9CupZ/d9J9Hv0U3la+3FPVsYj+ZET/zJ+SAGik8prk/awbE
-	 ZriEuFR8wcM5Ml3UspTGSpzG4+YFACBKmgbTeye90izqU3U7jL+Nbcwucur/rsi+Ga
-	 dsvqDBeRlJ+jJmn2pZEOoKfDbhxgrVFPE+x3vhdI20CNn7cxtu/lOi4yl7byj4LORT
-	 gzir7P/kxEQXgN0FdbOKyQLx/8hinzqoYnfWgCHni3bro6qzMFsw/Wht3gay386jOF
-	 7RZW1DgbjCQpg==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH]=20xen/x86:=20allow=20Dom0=20PVH=20to=20call=20XENMEM=5Fexchange?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1746828983691
-Message-Id: <f49f95ed-81f2-45f5-a5e6-26df1c32ee57@vates.tech>
-To: "Stefano Stabellini" <sstabellini@kernel.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-Cc: "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>, "Jan Beulich" <jbeulich@suse.com>, "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, jason.andryuk@amd.com, agarciav@amd.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop> <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com> <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop> <aBiVkw2SXJHxpieh@mail-itl> <aBjLoM_ttxqftzlp@macbook.lan> <alpine.DEB.2.22.394.2505051100050.3879245@ubuntu-linux-20-04-desktop> <aBnOQyXSz-j33Wux@macbook.lan> <alpine.DEB.2.22.394.2505061658330.3879245@ubuntu-linux-20-04-desktop> <aBx1gv6BXhZ0pSYt@macbook.lan> <alpine.DEB.2.22.394.2505081617080.3879245@ubuntu-linux-20-04-desktop> <aB29o70zT_jUjdQv@macbook.lan> <alpine.DEB.2.22.394.2505091401330.3879245@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2505091401330.3879245@ubuntu-linux-20-04-desktop>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.3226c0e946ab49dfb8d82f95890561d3?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250509:md
-Date: Fri, 09 May 2025 22:16:25 +0000
+X-Inumbo-ID: f7d5a1fc-2d24-11f0-9eb5-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1746829724; x=1747434524; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=q6Mv2KUNJ1pEFAJxliR+wXXJ2uTuxdCYPeUE7WHu20E=;
+        b=TEqzcS9vd5hfb8SjcUfPUtrORd87ljdH7kz4dc2ZdQFG/oA4oD1vHCWo7ELaUJ1NWb
+         /avxvO5EVkGfCGOZTrnQNuM6yAM6sv5HNoFbW9YB9p9dZnM9Lf57VQ/+CzkoN6tFlF2M
+         xUP5jmkYG6pzZ1wzHOF7VC3L8N4rz4FIAJwrw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746829724; x=1747434524;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=q6Mv2KUNJ1pEFAJxliR+wXXJ2uTuxdCYPeUE7WHu20E=;
+        b=V8EXVP2oGd7iCmTlmY3+UU97156fzNlkDMS/HBXTIaWCkgkLooBc2aMowrKttwM1Ik
+         cUfktS61hekK87s77A9HJdyS0lXAxhvdBc+sIErdtNUyLrEVYuc2LIw95JMJ2S92ewch
+         T0deQotL5iNhSeH43cWCxBYn57ngbia6hw1LOy1YN81bQZ2jr/H6q8jN2Hk3QHAiXndy
+         2Y+Z7IiIRFI7bBBGqam4rmvLQg2qkk892YKWhBdZtfpfnm2X23r3DJPFjAQPC+Z3HlZH
+         Wodmy73KyJdHYm5MDsYZ8h2nvbba9tKFXWKUwXSxf3iPGvAG21DUSkg9PpvGX5Ikoize
+         8Irw==
+X-Gm-Message-State: AOJu0YyQuzi5vF5Me4X9hlxutmJ2gA53dSkMAUV+OxqrUcCiESTZhF0M
+	F+j6baoPc7niWm1ReeCIkD+GZeHJiA+MQ0CsU5boyx6VqUDLWKHEZNHuEXCIhz8=
+X-Gm-Gg: ASbGncv7hVvnHU/T7izhvrFtsda5Ha3wHlYspPL+5PB1uGUKrt0HUe7t5AS27mm6j/Z
+	JMAPDxaAcCgC6ku1kukNdddiAuHJH8StHEdRgRJcZzL+kUzH1ydPGG/oj1/HfRL1cRXDQew7kB3
+	S9IZIfd8f2C0y6o/zUx8AliINJFWRYf8GQiAPXMkynMAYyPmrOf/Z40EHzOOB+tb2jPlMzYiXhr
+	t43MAcUoj2I6x10/6QckmJ1eQogElptFi1oo/2xLibFriGqR9t/uKJ8fYmlYD1OvtDBhtp9+v4l
+	uITw0nUr42JsHugpZbCanamVrtKlz14Ur4NX7tH/Bqax9EXxe23+lTCxkFyXaVUvBile2qFEC1R
+	wLsD04a/DOwfvXdfFpbXFRzLGhtw=
+X-Google-Smtp-Source: AGHT+IFN3xO/KhMKZUHcxpXbrpXezOjFti6lE4V+tAC6aU7badc5rhgXG02hmj5P6BBVPRFw/p6aSg==
+X-Received: by 2002:a05:600c:4e45:b0:43b:cd0d:9466 with SMTP id 5b1f17b1804b1-442d6d44b3cmr44554575e9.9.1746829724392;
+        Fri, 09 May 2025 15:28:44 -0700 (PDT)
+Message-ID: <863d49fc-22a2-4bf3-880d-5da331c73f8a@citrix.com>
+Date: Fri, 9 May 2025 23:28:41 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] x86: x86_emulate: address violations of MISRA C
+ Rule 19.1
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Victor Lira <victorm.lira@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20250502233535.3532279-1-victorm.lira@amd.com>
+ <alpine.DEB.2.22.394.2505051611190.3879245@ubuntu-linux-20-04-desktop>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <alpine.DEB.2.22.394.2505051611190.3879245@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Le 09/05/2025 =C3=A0 23:13, Stefano Stabellini a =C3=A9crit=C2=A0:
-> On Fri, 9 May 2025, Roger Pau Monn=C3=A9 wrote:
->> On Thu, May 08, 2025 at 04:25:28PM -0700, Stefano Stabellini wrote:
->>> On Thu, 8 May 2025, Roger Pau Monn=C3=A9 wrote:
->>>> On Wed, May 07, 2025 at 04:02:11PM -0700, Stefano Stabellini wrote:
->>>>> On Tue, 6 May 2025, Roger Pau Monn=C3=A9 wrote:
->>>>>> On Mon, May 05, 2025 at 11:11:10AM -0700, Stefano Stabellini wrote:
->>>>>>> On Mon, 5 May 2025, Roger Pau Monn=C3=A9 wrote:
->>>>>>>> On Mon, May 05, 2025 at 12:40:18PM +0200, Marek Marczykowski-G=C3=
-=B3recki wrote:
->>>>>>>>> On Mon, Apr 28, 2025 at 01:00:01PM -0700, Stefano Stabellini wrot=
-e:
->>>>>>>>>> On Mon, 28 Apr 2025, Jan Beulich wrote:
->>>>>>>>>>> On 25.04.2025 22:19, Stefano Stabellini wrote:
->>>>>>>>>>>> From: Xenia Ragiadakou <Xenia.Ragiadakou@amd.com>
->>>>>>>>>>>>
->>>>>>>>>>>> Dom0 PVH might need XENMEM_exchange when passing contiguous me=
-mory
->>>>>>>>>>>> addresses to firmware or co-processors not behind an IOMMU.
->>>>>>>>>>>
->>>>>>>>>>> I definitely don't understand the firmware part: It's subject t=
-o the
->>>>>>>>>>> same transparent P2M translations as the rest of the VM; it's j=
-ust
->>>>>>>>>>> another piece of software running there.
->>>>>>>>>>>
->>>>>>>>>>> "Co-processors not behind an IOMMU" is also interesting; a more
->>>>>>>>>>> concrete scenario might be nice, yet I realize you may be limit=
-ed in
->>>>>>>>>>> what you're allowed to say.
->>>>>>>>>>
->>>>>>>>>> Sure. On AMD x86 platforms there is a co-processor called PSP ru=
-nning
->>>>>>>>>> TEE firmware. The PSP is not behind an IOMMU. Dom0 needs occasio=
-nally to
->>>>>>>>>> pass addresses to it.  See drivers/tee/amdtee/ and
->>>>>>>>>> include/linux/psp-tee.h in Linux.
->>>>>>>>>
->>>>>>>>> We had (have?) similar issue with amdgpu (for integrated graphics=
-) - it
->>>>>>>>> uses PSP for loading its firmware. With PV dom0 there is a workar=
-ound as
->>>>>>>>> dom0 kinda knows MFN. I haven't tried PVH dom0 on such system yet=
-, but I
->>>>>>>>> expect troubles (BTW, hw1 aka zen2 gitlab runner has amdgpu, and =
-it's
->>>>>>>>> the one I used for debugging this issue).
->>>>>>>>
->>>>>>>> That's ugly, and problematic when used in conjunction with AMD-SEV=
-.
->>>>>>>>
->>>>>>>> I wonder if Xen could emulate/mediate some parts of the PSP for do=
-m0
->>>>>>>> to use, while allowing Xen to be the sole owner of the device.  Ha=
-ving
->>>>>>>> both Xen and dom0 use it (for different purposes) seems like askin=
-g
->>>>>>>> for trouble.  But I also have no idea how complex the PSP interfac=
-e
->>>>>>>> is, neither whether it would be feasible to emulate the
->>>>>>>> interfaces/registers needed for firmware loading.
->>>>>>>
->>>>>>> Let me take a step back from the PSP for a moment. I am not opposed=
- to a
->>>>>>> PSP mediator in Xen, but I want to emphasize that the issue is more
->>>>>>> general and extends well beyond the PSP.
->>>>>>>
->>>>>>> In my years working in embedded systems, I have consistently seen c=
-ases
->>>>>>> where Dom0 needs to communicate with something that does not go thr=
-ough
->>>>>>> the IOMMU. This could be due to special firmware on a co-processor,=
- a
->>>>>>> hardware erratum that prevents proper IOMMU usage, or a high-bandwi=
-dth
->>>>>>> device that technically supports the IOMMU but performs poorly unle=
-ss
->>>>>>> the IOMMU is disabled. All of these are real-world examples that I =
-have
->>>>>>> seen personally.
->>>>>>
->>>>>> I wouldn't be surprised, classic PV dom0 avoided those issues becaus=
-e
->>>>>> it was dealing directly with host addresses (mfns), but that's not t=
-he
->>>>>> case with PVH dom0.
->>>>>
->>>>> Yeah
->>>>>
->>>>>
->>>>>>> In my opinion, we definitely need a solution like this patch for Do=
-m0
->>>>>>> PVH to function correctly in all scenarios.
->>>>>>
->>>>>> I'm not opposed to having such interface available for PVH hardware
->>>>>> domains.  I find it ugly, but I don't see much other way to deal wit=
-h
->>>>>> those kind of "devices".  Xen mediating accesses for each one of the=
-m
->>>>>> is unlikely to be doable.
->>>>>>
->>>>>> How do you hook this exchange interface into Linux to differentiate
->>>>>> which drivers need to use mfns when interacting with the hardware?
->>>>>
->>>>> In the specific case we have at hands the driver is in Linux userspac=
-e
->>>>> and is specially-written for our use case. It is not generic, so we
->>>>> don't have this problem. But your question is valid.
->>>>
->>>> Oh, so you then have some kind of ioctl interface that does the memory
->>>> exchange and bouncing inside of the kernel on behalf of the user-space
->>>> side I would think?
->>>
->>> I am not sure... Xenia might know more than me here.
->>
->> One further question I have regarding this approach: have you
->> considered just populating an empty p2m space with contiguous physical
->> memory instead of exchanging an existing area?  That would increase
->> dom0 memory usage, but would prevent super page shattering in the p2m.
->> You could use a dom0_mem=3DX,max:X+Y command line option, where Y
->> would be your extra room for swiotlb-xen bouncing usage.
->>
->> XENMEM_increase_reservation documentation notes such hypercall already
->> returns the base MFN of the allocated page (see comment in
->> xen_memory_reservation struct declaration).
->   
-> XENMEM_exchange is the way it has been implemented traditionally in
-> Linux swiotlb-xen (it has been years). But your idea is good.
-> 
-> Another, more drastic, idea would be to attempt to map Dom0 PVH memory
-> 1:1 at domain creation time like we do on ARM. If not all of it, as much
-> as possible. That would resolve the problem very efficiently. We could
-> communicate to Dom0 PVH the range that is 1:1 in one of the initial data
-> structures, and that would be the end of it.
-> 
+On 06/05/2025 12:12 am, Stefano Stabellini wrote:
+> On Fri, 2 May 2025, victorm.lira@amd.com wrote:
+>> diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
+>> index 8e14ebb35b..d678855238 100644
+>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+>> @@ -527,8 +527,8 @@ static inline void put_loop_count(
+>>          if ( !amd_like(ctxt) && mode_64bit() && ad_bytes == 4 )         \
+>>          {                                                               \
+>>              _regs.r(cx) = 0;                                            \
+>> -            if ( extend_si ) _regs.r(si) = _regs.esi;                   \
+>> -            if ( extend_di ) _regs.r(di) = _regs.edi;                   \
+>> +            if ( extend_si ) _regs.r(si) = (uint32_t)_regs.r(si);        \
+>> +            if ( extend_di ) _regs.r(di) = (uint32_t)_regs.r(di);        \
+> NIT: code style, alignment of the \
+>
+> Can be fixed on commit.
+>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Could that be done by introducing a "fake" reserved region in advance 
-(IVMD?) ? Such region are usually mapped to the domain 1:1 in addition 
-to be coherent on the IOMMU side (so it doesn't break in case the PSP 
-gets IOMMU-aware).
-
-Teddy
-
-
- | Vates
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
