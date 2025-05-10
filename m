@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00543AB206C
-	for <lists+xen-devel@lfdr.de>; Sat, 10 May 2025 02:03:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.980547.1367086 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5876DAB2078
+	for <lists+xen-devel@lfdr.de>; Sat, 10 May 2025 02:19:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.980556.1367096 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDXgX-0003zK-Gu; Sat, 10 May 2025 00:03:21 +0000
+	id 1uDXvb-0005l1-NG; Sat, 10 May 2025 00:18:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 980547.1367086; Sat, 10 May 2025 00:03:21 +0000
+Received: by outflank-mailman (output) from mailman id 980556.1367096; Sat, 10 May 2025 00:18:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDXgX-0003wh-Cp; Sat, 10 May 2025 00:03:21 +0000
-Received: by outflank-mailman (input) for mailman id 980547;
- Sat, 10 May 2025 00:03:19 +0000
+	id 1uDXvb-0005ia-Ki; Sat, 10 May 2025 00:18:55 +0000
+Received: by outflank-mailman (input) for mailman id 980556;
+ Sat, 10 May 2025 00:18:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JHuc=X2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uDXgV-0003wb-PV
- for xen-devel@lists.xenproject.org; Sat, 10 May 2025 00:03:19 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ <SRS0=8Vxe=X2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uDXva-0005iU-Dp
+ for xen-devel@lists.xenproject.org; Sat, 10 May 2025 00:18:54 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ba27880-2d32-11f0-9eb5-5ba50f476ded;
- Sat, 10 May 2025 02:03:17 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 25FD55C5434;
- Sat, 10 May 2025 00:00:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85BDDC4CEED;
- Sat, 10 May 2025 00:03:12 +0000 (UTC)
+ id 5a68d50f-2d34-11f0-9eb5-5ba50f476ded;
+ Sat, 10 May 2025 02:18:52 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a1d8c0966fso1331966f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 09 May 2025 17:18:52 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a1f58f33b5sm4815178f8f.54.2025.05.09.17.18.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 May 2025 17:18:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,167 +45,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ba27880-2d32-11f0-9eb5-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1746835394;
-	bh=apxLBoPSgiWknjoB+6ASLhkhAwSY/vTIVv34g3VfLRA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=jPZ9k3/3Klnj5wliuifJfU4TjvGT7HLY7qoPfyNTOPmAkKYYmGPSskBG8nFnZdI8v
-	 /4mNSvkQBsTvDe8ipvsXu3/fSX9sTAZeUusGB6yqr3JnvwIYtKjs7ARth3BngkOO/X
-	 7ly+TZHntFuPG79lUGuxwKRj8JQ/k7n6gfhlCiRtf60oCBfFEh+7z6lYNZo3e4+KBV
-	 2EEl/LpmgnmzCAN6YM1DthANXAq1kFdOwOADmd2vbiNAbU4/Jo2mjM5FFSVaCDmJRu
-	 yXOYrFEnvDu51Mco5SAIdQJzzBl2hUnhv/LGLpm0FiMBXcXgw1cyls9Yo4+WN6rqQC
-	 37RkJCGd3mW9Q==
-Date: Fri, 9 May 2025 17:03:11 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: victorm.lira@amd.com, xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Federico Serafini <federico.serafini@bugseng.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH v1 1/2] x86: x86_emulate: address violation of MISRA C
- Rule 13.2
-In-Reply-To: <82b13a72-5b14-4e3c-ad98-fff1e13308ab@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2505091702100.3879245@ubuntu-linux-20-04-desktop>
-References: <77f9c4cabe607ce4024013c604bc790fb629d322.1746657135.git.victorm.lira@amd.com> <82b13a72-5b14-4e3c-ad98-fff1e13308ab@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 5a68d50f-2d34-11f0-9eb5-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1746836332; x=1747441132; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=WpsUSj92KqDrKgsNySV/kwZnYdiagcD3GXuPXffrzeA=;
+        b=UiufKp+DdsTKa+VGCp2iBAPr79VzQ7gHAnzRKtaAGiezwWAq0oAUK4OjQYD4yTAyHJ
+         z/IQJSmXtrORDhVPL70JVaWobcDMkiqQRGh1QK340RDgm/uPTPBcG+ivyOSr3a1dex31
+         5G/+116P+H9EscLyseWux8Qm3j7FqdBdF0wtY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1746836332; x=1747441132;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=WpsUSj92KqDrKgsNySV/kwZnYdiagcD3GXuPXffrzeA=;
+        b=pXZ/iNzOJn4NvAvmJOkt4k/MCQ92MGxlduAczJYG+QgB9wiphzvJX370r+KgqLECCS
+         8DyXRuvDPtkZsfAL0YPF7LJ1cD8uSrpqnj+0RcUgNoMYWZaDcIesiXkfhuwzDWUpBZwV
+         GwUb8MIAcgHbHroqZYh1wjqCw7dYkkPdTg/NECMk13gR7E57G7bPujfUgHplRNIOkitr
+         xOJ0nB0q3qxJ2UQEY01TuOSvE9P7RO0RjrK5xAaWKj/RzNXMqRxXbU/twfdZqumyCNOa
+         10AbyETL8BWsyH82k/LlVXW7NoZqKd6mtEyhowkor3/nK87dLrSQJfOpS2lM8sEQad0k
+         n2SQ==
+X-Gm-Message-State: AOJu0YzSAyHOnGNqjRVF06MwA8Twb2Wp0ZQe1PN6u86NqB7914Nz8Jyw
+	qZSXxTEUQS12rqNf2kE0CF9SbFY315IVUv0HQXIqpB0UmwzHSIoqoJmNFn1Pl/64FYsNkI/Yfnf
+	S
+X-Gm-Gg: ASbGncvmV+iuM0QLp693+nDnZpxfxDAxLBE4LQuL+Srwu8kec7dytT+qz67GvXcW+u5
+	q6IYl4GLrrVyDaREm/a5HTyJ+htczthL5op78QuGitm1O3NLPkrlEnjbyX8FUSQxylaxz+7bAog
+	TznmY40wun8a6ebxUHL+IKMp7ameO/OLWQaeWN2FMkxeJrUnWohTtLuhw+TPDMS5bBA43EYDXyc
+	Q4A0JpRGi2c9zLthfpWstdF7F5/WpkAeaZ5qO+/bTtZAyBb0irXhl0wrtjMCOpB+TbV5zfGwUuL
+	sCh0XJCazrR7f7akO8omYMsIxblONK46q61g8yOuLd7SPPBDAY8rxejemdxMFRCbCO2z9Nq6yES
+	Cp01Cg9gzZliphuOsgizerllz
+X-Google-Smtp-Source: AGHT+IHWB7vCxOxRF+vH9VPWcZs/ZlaJZU2ELk53LgETMksHk2Ux/CQSUJCmcGuO/aBH/aY5tp13eQ==
+X-Received: by 2002:a05:6000:4007:b0:3a0:9f4c:ca85 with SMTP id ffacd0b85a97d-3a0b99078a9mr8014264f8f.10.1746836332012;
+        Fri, 09 May 2025 17:18:52 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] x86/emul: Work around MISRA R13.2 complaint
+Date: Sat, 10 May 2025 01:18:48 +0100
+Message-Id: <20250510001848.2993380-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-251233205-1746835393=:3879245"
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Rule 13.2 states: "The value of an expression and its persistent side effects
+shall be the same under all permitted evaluation orders".
 
---8323329-251233205-1746835393=:3879245
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Eclair complains about a Rule 13.2 violations because validate_far_branch()
+assigns to rc, and the entirety of commit_far_branch() is also assigned to rc.
 
-On Sat, 10 May 2025, Andrew Cooper wrote:
-> On 07/05/2025 11:46 pm, victorm.lira@amd.com wrote:
-> > From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> >
-> > Rule 13.2 states: "The value of an expression and its persistent
-> > side effects shall be the same under all permitted evaluation orders".
-> >
-> > The full expansion of macro "commit_far_branch" contains an assignment to
-> > variable "rc", which is also assigned to the result of the GNU statement
-> > expression which "commit_far_branch" expands to.
-> >
-> > To avoid any dependence on the order of evaluation, the latter assignment
-> > is moved inside the macro.
-> 
-> The (mostly expanded) and reformatted expression is:
-> 
-> > if ( (rc = load_seg(x86_seg_cs, src.val, 1, &cs, ctxt, ops)) ||
-> >      (rc = ({
-> >              ({
-> >                  if ( sizeof(dst.val) <= 4 )
-> >                  {
-> >                      do {
-> >                          if ( __builtin_expect(!!(!(!ctxt->lma)),0) )
-> >                              ASSERT();
-> >                      } while ( 0 );
-> >                      ({
-> >                          if ( ((dst.val) > (&cs)->limit) )
-> >                          {
-> >                              x86_emul_hw_exception(13, mkec(13, 0, 0), ctxt);
-> >                              rc = 2;
-> >                              goto done;
-> >                          }
-> >                      });
-> >                  }
-> >                  else
-> >                      ({
-> >                          if ( (ctxt->lma && (&cs)->l
-> >                                ? !(((long)(dst.val) >> 47) == ((long)(dst.val) >> 63))
-> >                                : (dst.val) > (&cs)->limit) )
-> >                          {
-> >                              x86_emul_hw_exception(13, mkec(13, 0, 0), ctxt);
-> >                              rc = 2;
-> >                              goto done;
-> >                          }
-> >                      });
-> >              });
-> >              _regs.rip = (dst.val);
-> >              singlestep = _regs.eflags & 0x00000100;
-> >              ops->write_segment(x86_seg_cs, &cs, ctxt);
-> >          })) )
-> 
-> And I can't identify anywhere where there is an ambiguous order of
-> evaluation.
-> 
-> The problem with this patch is that, while the existing logic is not
-> exactly great, ...
-> 
-> > diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
-> > index 8e14ebb35b..7108fe7b30 100644
-> > --- a/xen/arch/x86/x86_emulate/x86_emulate.c
-> > +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-> > @@ -337,7 +337,7 @@ do {                                                                    \
-> >      validate_far_branch(cs, newip);                                     \
-> >      _regs.r(ip) = (newip);                                              \
-> >      singlestep = _regs.eflags & X86_EFLAGS_TF;                          \
-> > -    ops->write_segment(x86_seg_cs, cs, ctxt);                           \
-> > +    rc = ops->write_segment(x86_seg_cs, cs, ctxt);                      \
-> >  })
-> >
-> >  int x86emul_get_fpu(
-> > @@ -2382,7 +2382,7 @@ x86_emulate(
-> >               (rc = read_ulong(x86_seg_ss, sp_post_inc(op_bytes + src.val),
-> >                                &src.val, op_bytes, ctxt, ops)) ||
-> >               (rc = load_seg(x86_seg_cs, src.val, 1, &cs, ctxt, ops)) ||
-> > -             (rc = commit_far_branch(&cs, dst.val)) )
-> > +             commit_far_branch(&cs, dst.val) )
-> >              goto done;
-> 
-> ... this is breaking a visual layout pattern where you can always see
-> the update to rc beside the "goto done".
-> 
-> This code is complicated enough without making it harder.
-> 
-> One option which might work is this:
-> 
-> diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c
-> b/xen/arch/x86/x86_emulate/x86_emulate.c
-> index 3350303f8634..dab4373ece1e 100644
-> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
-> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-> @@ -333,12 +333,14 @@ do
-> {                                                                    \
->                                : (ip) > (cs)->limit, X86_EXC_GP, 0);     \
->  })
->  
-> -#define commit_far_branch(cs, newip) ({                                 \
-> -    validate_far_branch(cs, newip);                                     \
-> -    _regs.r(ip) = (newip);                                              \
-> -    singlestep = _regs.eflags & X86_EFLAGS_TF;                          \
-> -    ops->write_segment(x86_seg_cs, cs, ctxt);                           \
-> -})
-> +#define commit_far_branch(cs, newip) (                                  \
-> +        ({                                                              \
-> +            validate_far_branch(cs, newip);                             \
-> +            _regs.r(ip) = (newip);                                      \
-> +            singlestep = _regs.eflags & X86_EFLAGS_TF;                  \
-> +        }),                                                             \
-> +        ops->write_segment(x86_seg_cs, cs, ctxt)                        \
-> +    )
->  
->  int x86emul_get_fpu(
->      enum x86_emulate_fpu_type type,
-> 
-> 
-> This rearranges commit_far_branch() to use the comma operator, but
-> maintains the previous property that it's still overall an assignment to rc.
-> 
-> However, I don't have much confidence that Eclair is going to like it more.
+I'm unsure that the complaint is accurate, but rewriting commit_far_branch()
+to use the comma operator seems to make Eclair happy.
 
-Eclair likes it:
-
+Reported-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
---8323329-251233205-1746835393=:3879245--
+---
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+ xen/arch/x86/x86_emulate/x86_emulate.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
+index 8e14ebb35b0e..6ee64cb85987 100644
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -333,12 +333,14 @@ do {                                                                    \
+                               : (ip) > (cs)->limit, X86_EXC_GP, 0);     \
+ })
+ 
+-#define commit_far_branch(cs, newip) ({                                 \
+-    validate_far_branch(cs, newip);                                     \
+-    _regs.r(ip) = (newip);                                              \
+-    singlestep = _regs.eflags & X86_EFLAGS_TF;                          \
+-    ops->write_segment(x86_seg_cs, cs, ctxt);                           \
+-})
++#define commit_far_branch(cs, newip) (                                  \
++        ({                                                              \
++            validate_far_branch(cs, newip);                             \
++            _regs.r(ip) = (newip);                                      \
++            singlestep = _regs.eflags & X86_EFLAGS_TF;                  \
++        }),                                                             \
++        ops->write_segment(x86_seg_cs, cs, ctxt)                        \
++    )
+ 
+ int x86emul_get_fpu(
+     enum x86_emulate_fpu_type type,
+
+base-commit: 9b3a02e66f058ebd77db6628e3144352857bdf2b
+-- 
+2.39.5
+
 
