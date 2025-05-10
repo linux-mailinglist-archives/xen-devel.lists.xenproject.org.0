@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17840AB24AF
-	for <lists+xen-devel@lfdr.de>; Sat, 10 May 2025 18:28:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.980690.1367300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88589AB24FA
+	for <lists+xen-devel@lfdr.de>; Sat, 10 May 2025 20:38:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.980704.1367310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDn3q-0002I6-HX; Sat, 10 May 2025 16:28:26 +0000
+	id 1uDp4l-0000r5-1a; Sat, 10 May 2025 18:37:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 980690.1367300; Sat, 10 May 2025 16:28:26 +0000
+Received: by outflank-mailman (output) from mailman id 980704.1367310; Sat, 10 May 2025 18:37:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uDn3q-0002Fd-F1; Sat, 10 May 2025 16:28:26 +0000
-Received: by outflank-mailman (input) for mailman id 980690;
- Sat, 10 May 2025 16:28:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uDp4k-0000pc-Uz; Sat, 10 May 2025 18:37:30 +0000
+Received: by outflank-mailman (input) for mailman id 980704;
+ Sat, 10 May 2025 18:37:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=prUP=X2=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
- id 1uDn3p-0002FW-LF
- for xen-devel@lists.xenproject.org; Sat, 10 May 2025 16:28:25 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [2604:1380:45d1:ec00::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c86a62cb-2dbb-11f0-9ffb-bf95429c2676;
- Sat, 10 May 2025 18:28:20 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id D40D3A4BD86;
- Sat, 10 May 2025 16:28:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7923AC4CEE2;
- Sat, 10 May 2025 16:28:18 +0000 (UTC)
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- EAE8C3822D42; Sat, 10 May 2025 16:28:57 +0000 (UTC)
+ <SRS0=4pzd=X2=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1uDp4k-0000pW-9F
+ for xen-devel@lists.xenproject.org; Sat, 10 May 2025 18:37:30 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d18f1a14-2dcd-11f0-9eb5-5ba50f476ded;
+ Sat, 10 May 2025 20:37:28 +0200 (CEST)
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-462-RsyE8OITNZmsNK-Eh3G34g-1; Sat,
+ 10 May 2025 14:37:23 -0400
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id E7B83180035E; Sat, 10 May 2025 18:37:20 +0000 (UTC)
+Received: from localhost (unknown [10.2.16.39])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id D9D9F19560B0; Sat, 10 May 2025 18:37:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +52,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c86a62cb-2dbb-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1746894498;
-	bh=R4+pyvED4JPWaKKZNPWCeKPn1xFDJDCAuUXhwp+6kZ0=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
-	b=VfDUI3vyfbRoiK68I7/X7BAioQ7uZpKBJ0OOJ2Tn73eNCkLK36TteA6MhyPNGks1K
-	 GDpK9UhlojkAlZzYmGnOKKrs5g84GxcJSu9S2NTjOX9U++WRHDdN5kcAoUVSSGpuJB
-	 INeMT2ThmfnXRdKr1J3DIXiEylmG8pHCtrlcntS/Y1FpyavxQ2zj6DYE64l+m1VLnm
-	 X9dwji2PchlpWwlGnFODccK9PrXPu/KMkglmlob+qSWZJyEr3ceBZxldQ7Pf2qfzxX
-	 p5qLavK/LfDByJfzPLCFehtQhKKVfvaA+4rWi0oh9oHQ9bMcM6etzs0PF6m8rtFmvp
-	 y4rqs4TRvSXjw==
-Subject: Re: [GIT PULL] xen: branch for v6.15-rc6
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20250510060239.18894-1-jgross@suse.com>
-References: <20250510060239.18894-1-jgross@suse.com>
-X-PR-Tracked-List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
-X-PR-Tracked-Message-Id: <20250510060239.18894-1-jgross@suse.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.15a-rc6-tag
-X-PR-Tracked-Commit-Id: 1f0304dfd9d217c2f8b04a9ef4b3258a66eedd27
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 86c019597cd4e0fc90dfa9ebba9282b2d122c187
-Message-Id: <174689453659.4001425.18085781507262219952.pr-tracker-bot@kernel.org>
-Date: Sat, 10 May 2025 16:28:56 +0000
-To: Juergen Gross <jgross@suse.com>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, sstabellini@kernel.org
+X-Inumbo-ID: d18f1a14-2dcd-11f0-9eb5-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1746902245;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZwFEh6TeQ/8H51vJTIhIozvJpz7tQ/a2+PVeDJq/CUE=;
+	b=EuQ8k/Grf/wlVdNrFxAk3n3XD8EyLxd6owovfgcJlXKQpBiRHbP8/XdAkXWe5o3FT4QjeS
+	sAaf6RJGMQrA1TUuG2xmiOy70ilOum+JiaRqd/FbqitjG/FtGxxznEPxfVTzS94l27l7WY
+	aUYW5wVN0U99CNVTF0LgCuHLnXHo/PQ=
+X-MC-Unique: RsyE8OITNZmsNK-Eh3G34g-1
+X-Mimecast-MFC-AGG-ID: RsyE8OITNZmsNK-Eh3G34g_1746902241
+Date: Sat, 10 May 2025 14:35:30 -0400
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+Cc: qemu-devel@nongnu.org, qemu-stable@nongnu.org, sstabellini@kernel.org,
+	anthony@xenproject.org, paul@xen.org, alex.pentagrid@gmail.com,
+	peter.maydell@linaro.org, edgar.iglesias@amd.com,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PULL v1 0/2] xen: mapcache: Fixes
+Message-ID: <20250510183530.GA116869@fedora>
+References: <20250506182647.302961-1-edgar.iglesias@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/i3kukPHmWcJP39C"
+Content-Disposition: inline
+In-Reply-To: <20250506182647.302961-1-edgar.iglesias@gmail.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-The pull request you sent on Sat, 10 May 2025 08:02:39 +0200:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.15a-rc6-tag
+--/i3kukPHmWcJP39C
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/86c019597cd4e0fc90dfa9ebba9282b2d122c187
+Applied, thanks.
 
-Thank you!
+Please update the changelog at https://wiki.qemu.org/ChangeLog/10.1 for any user-visible changes.
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+--/i3kukPHmWcJP39C
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmgfnHEACgkQnKSrs4Gr
+c8j8tggAvnRrQweJgUw6K7reSq12P9b9XzUcjumibOgBBolATBPlplHyEtE9ACvB
+NRsd6Bs/yfcCpKc8elPDC0jhrWC/Ii9d/a7xOLpSJpb4X6Jvmvl2LIC2IYmbMQ7x
+zJGZuKSQ39p8RqpHQbS8Lc7vM83susWIiV6o6N0ErjvCUbQ/0h5iCCd4t0GPszWE
+tT/7YXlCnpdR/S4e7E9W51+JKdD+r+rgFayQjvZb+oJZaMkB3u6laSeGkbicsWh4
+JgDmRN6jagWI03mSTK111WVYR40uXtKVxEKCHxCMQzE3YLzGvFcS567KLMuRLfIQ
+oWxSrz3tDIpJLDUdKz31VOHzLm6y/Q==
+=+iw6
+-----END PGP SIGNATURE-----
+
+--/i3kukPHmWcJP39C--
+
 
