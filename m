@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C38BAB3EA1
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 19:06:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981843.1368253 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61D17AB3EC7
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 19:16:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981919.1368386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEWb5-0005gn-1o; Mon, 12 May 2025 17:05:47 +0000
+	id 1uEWkW-00013k-Io; Mon, 12 May 2025 17:15:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981843.1368253; Mon, 12 May 2025 17:05:46 +0000
+Received: by outflank-mailman (output) from mailman id 981919.1368386; Mon, 12 May 2025 17:15:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEWb4-0005eT-Sy; Mon, 12 May 2025 17:05:46 +0000
-Received: by outflank-mailman (input) for mailman id 981843;
- Mon, 12 May 2025 17:05:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uEWkW-00010b-EO; Mon, 12 May 2025 17:15:32 +0000
+Received: by outflank-mailman (input) for mailman id 981919;
+ Mon, 12 May 2025 17:15:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JoYk=X4=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
- id 1uEWb2-0005eI-Dl
- for xen-devel@lists.xen.org; Mon, 12 May 2025 17:05:45 +0000
+ id 1uEWkU-0000y3-Gw
+ for xen-devel@lists.xen.org; Mon, 12 May 2025 17:15:31 +0000
 Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 528a4fdb-2f53-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 19:05:38 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b2d9fcbe-2f54-11f0-9eb6-5ba50f476ded;
+ Mon, 12 May 2025 19:15:28 +0200 (CEST)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <andrewcoop@xenbits.xen.org>) id 1uEWan-004GYa-2u;
- Mon, 12 May 2025 17:05:29 +0000
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1uEWkM-004GoG-2v;
+ Mon, 12 May 2025 17:15:22 +0000
 Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.96)
- (envelope-from <andrewcoop@xenbits.xen.org>) id 1uEWan-002juL-1i;
- Mon, 12 May 2025 17:05:29 +0000
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1uEWkM-002pP4-24;
+ Mon, 12 May 2025 17:15:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 528a4fdb-2f53-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: b2d9fcbe-2f54-11f0-9eb6-5ba50f476ded
 Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
 Content-Transfer-Encoding: binary
 MIME-Version: 1.0
@@ -52,9 +52,10 @@ To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
  xen-users@lists.xen.org, oss-security@lists.openwall.com
 From: Xen.org security team <security@xen.org>
 CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 469 v1 - x86: Indirect Target Selection
-Message-Id: <E1uEWan-002juL-1i@xenbits.xenproject.org>
-Date: Mon, 12 May 2025 17:05:29 +0000
+Subject: Xen Security Advisory 469 v2 (CVE-2024-28956) - x86: Indirect
+ Target Selection
+Message-Id: <E1uEWkM-002pP4-24@xenbits.xenproject.org>
+Date: Mon, 12 May 2025 17:15:22 +0000
 
 --=separator
 Content-Type: text/plain; charset="utf-8"
@@ -64,9 +65,15 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
-                    Xen Security Advisory XSA-469
+            Xen Security Advisory CVE-2024-28956 / XSA-469
+                               version 2
 
                     x86: Indirect Target Selection
+
+UPDATES IN VERSION 2
+====================
+
+State the CVE.
 
 ISSUE DESCRIPTION
 =================
@@ -174,14 +181,14 @@ fa8b7ed035e242a3881431150ee86965f26520dab4432e3f7ac9862063491f72  xsa469/xsa469-
 $
 -----BEGIN PGP SIGNATURE-----
 
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmgiKiwMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZ34YIAL+cSkrufuniNR6qUkRfhVJhuB8fZ+xfg6Cb37H6
-Gsqc2b+ABlDDb0SLPhN/LcPTSOL5ypoWZ6+ZUZg+66++O8NjfBu7HDaNFlQsN6o3
-cCV1Go04fMivE5BygYwhyvGUTCCoB21+AZAdWU6MHZcgrof2rJmaB+D+Und6ihd9
-g9kQYRQNoWs/tyRrv27XUdmRokh1ozB6bcPAaCMOpbHDiQwVtHogUruFS7Gaoahx
-tv/NeTzl8NKtpovBK1KHGxCvcLnDTz3CKQbV0W653qvt743H6/5nA9LwFdOKWG8T
-UzIfCGVVgUo8MjLIwAnqSvH1pD3btMLzosdl0Eg6ekuQW84=
-=/wFw
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmgiLJAMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZ7uUIAIrV83bfhcHAnZvWo5CGOtuyuwQQuobYKqUcC3fq
+/LGKVwmrQVCR6qm2YeI8TIhJfet8OiqutteaVknAJlegVR8uTIznIr7CzjmzgoR5
+ojnw0Ae0rQ5rhzSeMvBD1VsbheBI7nmLR9dorMs+Rp9MiVzboT81XOpWDTMHisjI
+4LpN+TB+yIB76hQQ4divDnqFKxA1SFQWrmn2bcr3v5cJ1cctvLOic/67WO9Uto92
+5tG7iV68cStski0wMvjO1isalCTKSaU7eDjTe1ar+/SwhE4T0RKfcpim3xcc5ZVk
+cH/xKcK4vbJUKIxjqnDrEdT3uGk1vdVxJfNAOCpfZc5EwiI=
+=A2YZ
 -----END PGP SIGNATURE-----
 
 --=separator
