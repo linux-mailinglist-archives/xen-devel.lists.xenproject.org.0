@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B0CDAB3516
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 12:41:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981235.1367630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B23AB3535
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 12:51:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981245.1367640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEQam-0001JA-0t; Mon, 12 May 2025 10:41:04 +0000
+	id 1uEQjz-0003Du-Ty; Mon, 12 May 2025 10:50:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981235.1367630; Mon, 12 May 2025 10:41:03 +0000
+Received: by outflank-mailman (output) from mailman id 981245.1367640; Mon, 12 May 2025 10:50:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEQal-0001Hh-UE; Mon, 12 May 2025 10:41:03 +0000
-Received: by outflank-mailman (input) for mailman id 981235;
- Mon, 12 May 2025 10:41:01 +0000
+	id 1uEQjz-0003Ar-QU; Mon, 12 May 2025 10:50:35 +0000
+Received: by outflank-mailman (input) for mailman id 981245;
+ Mon, 12 May 2025 10:50:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEQaj-0000zV-Nd
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 10:41:01 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1uEQjz-0003Al-9r
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 10:50:35 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 981e1aee-2f1d-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 12:41:00 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-ad2414a412dso244188666b.0
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 03:41:00 -0700 (PDT)
+ id ecbbf5ae-2f1e-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 12:50:31 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-5fcaff7274bso4859050a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 03:50:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad219348762sm609488866b.69.2025.05.12.03.40.59
+ 4fb4d7f45d1cf-5fc9d73fdd0sm5563952a12.81.2025.05.12.03.50.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 03:40:59 -0700 (PDT)
+ Mon, 12 May 2025 03:50:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 981e1aee-2f1d-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: ecbbf5ae-2f1e-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747046460; x=1747651260; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2zfYaxISaj+yDKSdksgMUbW9zDUBJHWIipBVoHndYs0=;
-        b=NZrXDdnWkJQEP+Z7g7/XMfNkVPAxgOoskXoIXEspBmJD6TFCdX1VW4QH1iBOXVhODk
-         ftrb3BCw/t32ndHMavkb1sI9sqSMcApcMIu4E0QjmRupcsLpMbxJGtcciaiv813DwdsV
-         0APyAles8vWozodfrxuGEc5r47KwrTtjuxlP59rvTBiHQ9ru93B8stmzHCra8fYe3Nds
-         ETodPWlIMmtwfTm2mjCWl9T8+yd1VqcAh3DVMp165JlKeD7g+p4Ep01H8+4ZBxmngThM
-         yCiv+uHVtBuSq4kLaZLJu7XFDlyU6v/StvwtNqdgRRyh8I2y12bxYVtwZe4U6YrCbhkg
-         1dhg==
+        d=suse.com; s=google; t=1747047031; x=1747651831; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=WNOwQrQJ14uBBj+k/RnMLT9hO+/IJT7VGUvGaoFWIrI=;
+        b=SNwyrAoE1hyoHdyOKML7O0n9LR7xibpuI07wYA8hp4d34VnWNRzlMr+4LDYUmbPrn2
+         oiGofynu1mwna8FjdpmrELEdmfh+3gRngOcvsn8PswpcuFt+VQ0Ykr2oOODbbjCEb7qs
+         QRNOshoRtcRlQlN/Uas1hy03sSIJvRwBat+BeQg9+qTgF3a+o7Cf/mQC3duqOgAlRk1/
+         qrEO0jNt8DLhxQAiyg1SeGpHwBU2eSMhqbQljZoXrBo+x2UKkyCfFhwO2nvrDm1JCLaW
+         E/qGuJBWugJTYEPSyS9RufQGukCfwVGX6YmeYGFM26gjxn+Jooi+7bOcP/d8sH0Xv1bd
+         vcwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747046460; x=1747651260;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2zfYaxISaj+yDKSdksgMUbW9zDUBJHWIipBVoHndYs0=;
-        b=ttaT7mBotoDgDvqmKEGTL4LVuFziUUvU4s/ggIu921qTf7LOQ/rNzDP9YAWIzOTjPw
-         tpIfR7RUH9JkBCAPuiMKiTitAbL/ud9IvRxQNSjNVhr5WkVHDzNCebMVp9OlxGzkYv5u
-         C6IolM+Wgx50X8O1bZrGp0IxrcUHQDTjwu0ex/YM2l4rELXQmK0dAWQMRSOexqEYe1Hq
-         j+SGvA6oF8xbfgBwwqRmWgBXUHaTz15eM4Dnv/XrlhwS1snBg8z7PrV0Vw22MChCeMgE
-         P0GNk+OzwqAcAly1w+ryOvr3pnk+Em4wO6/bVc59PkfrtPlV2dYmu3xmFx7sJoDG3Vru
-         wGfA==
-X-Gm-Message-State: AOJu0Ywb0jUs/qko+kuCCxo8eTK1DduqvMKVO0u7tme7UGiNgsdWC/F+
-	+bo0vuoEACYbrSnM82KiJTYcqsc7kK7I64H9T3rQ+k8j9O2BvrzUJswz+i94BPkHjJFNHXKaEIg
-	=
-X-Gm-Gg: ASbGnctHLenSEiobd1UR70ktmisN5Mgi1s2L68Tdc38IuJ4wWbEPIUQuq2irxYDYwNZ
-	/IL9blbfFUZVDA9mCZtq5iywM96dBUFo1mcE517lRy7FhwaI1BTaRsgL7Y+eKL+URPB6jLSUQ+U
-	pPj+52IhZcEsIkA4yzkj2AD6UHEpSOJoPmMw9V4DbBbV0BLzm+HY35CAFJRqflHwWo8wkN0T8dX
-	aW3OSnhbBQ2GOaneTieZ6bahgap17+SBaDEbydWaGarY3wq4GG56WteBLFPo6zod1DepCqpsx9c
-	qXxp92IqVIAkjcto4SeQtFxwjj/LftGtDsTmvhJTtGQMzGfr8pSgLKfWkS8owZuScrsBnE3muVJ
-	xjy0WGMuIdhqLM2QFdDS+pTU/4JJizcIiXT1a
-X-Google-Smtp-Source: AGHT+IEscQrgnYLbyxIlixdwMoZb/6ttgq6DUpidVMZ48V3/y8jCqOvY2oHKfX1kqmjv40zTRbAdhw==
-X-Received: by 2002:a17:907:e918:b0:ace:9d35:6987 with SMTP id a640c23a62f3a-ad218ea5b7dmr1138581066b.3.1747046459676;
-        Mon, 12 May 2025 03:40:59 -0700 (PDT)
-Message-ID: <db2cbf92-303f-47df-8ba6-89cb604db3fe@suse.com>
-Date: Mon, 12 May 2025 12:40:58 +0200
+        d=1e100.net; s=20230601; t=1747047031; x=1747651831;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WNOwQrQJ14uBBj+k/RnMLT9hO+/IJT7VGUvGaoFWIrI=;
+        b=bmg+Xwa2xxt5jGWHnRvuevrUD6P/q+H/bYn/0rSlG0CjuVMZraKiPioy1AtTZHDqeN
+         4EmlRx4J7IOfoUrRVrrXw2Jqv9nQB9N1pEPhN3FVA6XRA+NW1lHqZ0Tb5emd8dxMtoJt
+         Et/7noGFryhcer3IiMonbA2Yq3O05sTq3eFAOu592vPV9kEMKJ5NjD/+qW0agvgDj7QY
+         dbW6IDLwIECeYHSDiXyB2c6X18hPvlrE3uResZHjURiSxC44Sti7vAskGD0baUwvwKci
+         r7PUTDc6YRfbu0zyM3e0OE9H1zt+r8wW7MvVmWIxoVnJdjDfJmxQMWPrxc7mQ+Sg82gz
+         Vm3w==
+X-Forwarded-Encrypted: i=1; AJvYcCUy+Z0KplN5RC9DuFV+el5Uw1a0FlA3vnVKU+lD3d+rrVgJbAVXEodcQOggOMq/AQd4ARmaDpeOE9Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxy2+jCid8lpooUBnX69o8jK6gbAGo2BmTmJAflwIa3iuzd9ZUV
+	wCrD0UaLWyxl7+tDzmgQgQR7af1SAQYw5UixtMXHffit40vzukY03CRiM8WCFw==
+X-Gm-Gg: ASbGncsorX28hXYkXHYvKp5o+aY+8n0RT/Qq+aI+n3rgSX2Vfni9px16Zc25Q5vWYa4
+	13xNMoq6GCrsb/TJFrrdyoQ3y4g/5UZdmDj2kS/CAA+o6Rgj8sW02K1jciEo0/ejEoHZyukY+Qn
+	Dq10xRCvIm37o/coiXW94Xl4k1daKy9KJZeL6ntedi7CkgB1AoONmOS6IQMpbI7W4dLwKtVJsKl
+	UR8To1ze1+1A31GRuxkYvEh3WlfvNXWAp6bbIB3UB96y+IKKQhqCK9WI/+D3LFZAcmJeWMvkjlE
+	P5GRfMm11jPZ3eCCMwHf7UjSj3IW6Ni4TJPMvA/bm0pCTdNpEWr9dELgVkj8mqyWLpE5PEHKW94
+	8IICSTUslXb5uXQ/UrxMN5Oujnxs73jNX1NjH
+X-Google-Smtp-Source: AGHT+IECvw8pgmhSxPsfVyanFdXvc6giN0nPQdBy4KAjwqVAAhaf55cdVO4sXRn4aEK8eCrozmlOjg==
+X-Received: by 2002:a05:6402:90d:b0:5fc:3f48:a673 with SMTP id 4fb4d7f45d1cf-5fca07314a4mr9693065a12.2.1747047031136;
+        Mon, 12 May 2025 03:50:31 -0700 (PDT)
+Message-ID: <f43c7091-bd82-4341-9143-dd4a78e6bbc6@suse.com>
+Date: Mon, 12 May 2025 12:50:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] Disallow most command-line options when lockdown mode
- is enabled
-To: Kevin Lampis <kevin.lampis@cloud.com>
-References: <20250506162347.1676357-1-kevin.lampis@cloud.com>
- <20250512090210.1718623-1-kevin.lampis@cloud.com>
+Subject: Re: [XEN PATCH v3] sbat: Add SBAT section to the Xen EFI binary
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+Cc: dpsmith@apertussolutions.com, marmarek@invisiblethingslab.com,
+ Frediano Ziglio <frediano.ziglio@cloud.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20250507135442.3439237-1-gerald.elder-vass@cloud.com>
+ <94652153-99fe-47d8-84d5-cbf2865ad6e0@citrix.com>
 Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,16 +121,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250512090210.1718623-1-kevin.lampis@cloud.com>
+In-Reply-To: <94652153-99fe-47d8-84d5-cbf2865ad6e0@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12.05.2025 11:02, Kevin Lampis wrote:
-> A subset of command-line parameters that are specifically safe to use
-> when lockdown mode is enabled are annotated as such.
+On 08.05.2025 10:51, Andrew Cooper wrote:
+> On 07/05/2025 2:54 pm, Gerald Elder-Vass wrote:
+> Also,
+> 
+>> ld: warning: orphan section `.sbat' from `prelink.o' being placed in section `.sbat'
+> 
+> This is because sbat.o is getting linked into the non-EFI build of Xen too.
+> 
+> I'm less sure how to go about fixing this.  There's no nice way I can
+> see of of getting sbat.o only in the EFI build.  The other option is to
+> discard it for the ELF build.
 
-You want to go into more detail here, specifically to describe the criteria
-of "specifically safe". The command line doc may also want updating.
+We already link $(note_file) into just xen.efi; I'm pretty sure the same could
+be done for this new object.
 
 Jan
+
 
