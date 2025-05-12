@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EBCBAB4546
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 21:58:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.982171.1368732 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9867DAB46D3
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 23:55:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.982202.1368752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEZIV-00005F-0o; Mon, 12 May 2025 19:58:47 +0000
+	id 1uEb6y-0000fF-7P; Mon, 12 May 2025 21:55:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 982171.1368732; Mon, 12 May 2025 19:58:46 +0000
+Received: by outflank-mailman (output) from mailman id 982202.1368752; Mon, 12 May 2025 21:55:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEZIU-0008Ve-Rv; Mon, 12 May 2025 19:58:46 +0000
-Received: by outflank-mailman (input) for mailman id 982171;
- Mon, 12 May 2025 19:58:45 +0000
+	id 1uEb6y-0000d7-4G; Mon, 12 May 2025 21:55:00 +0000
+Received: by outflank-mailman (input) for mailman id 982202;
+ Mon, 12 May 2025 21:54:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xFmg=X4=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1uEZIS-0008VY-Hd
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 19:58:45 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=KLgg=X4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uEb6w-0000d1-Bu
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 21:54:58 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 81303be0-2f6b-11f0-9eb6-5ba50f476ded;
- Mon, 12 May 2025 21:58:42 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 984894EE7BD4;
- Mon, 12 May 2025 21:58:41 +0200 (CEST)
+ id bd937136-2f7b-11f0-9eb6-5ba50f476ded;
+ Mon, 12 May 2025 23:54:56 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1E26A61149;
+ Mon, 12 May 2025 21:54:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F55C4CEE7;
+ Mon, 12 May 2025 21:54:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,113 +41,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81303be0-2f6b-11f0-9eb6-5ba50f476ded
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1747079921;
-	b=dvBOSiPd7+CC0hMUYDV6HlpdI9wxv/KSPOziqznBXXohfDeiuGrWiMrPNCIOdZHLSRZN
-	 +/IHwcN3oEZcILLKeYU6BjHA4ucaMeeQXpge9oRFn2tldWooYzpJEgiLxrmEaUyC6gEVl
-	 E5b11nJ3y3Lo+YP9BUCJAta0BGprcHTHYR9aVm5OxHtOGaPKCMNOLoXhdPRbbCHsz4GV9
-	 N9DZd2Uus9x1EF08FSqcUyyaitSYTk5besnTdi6td3cAYX+4rOWpFwJJesslkHra8pb14
-	 s7gEYWdtPsQ3YfBk4v7MPrj90HTCbdWbCyAGIlDQt/O0EDwLSr3sbNgjm00BPjJj7SnRx
-	 7O2f+NUZUr3+dirI/GLJm6LXqeBwdjtMGyj/5mbfOwKBiJOqhHy2rxyggwtTaJPVKOUdH
-	 SQCEGCyhwtJBJULk6hh9QJkxQR8ByIlp8EmxFS8KeSUKKz3nybJ6yydPpkl14lsEtZbyL
-	 6SHO9G1UKaetRy2BMT6l28bVK/gMihLrLEoEhreLHVu3kf7/dbC74gammcZjGEjt6tU3D
-	 LPS3eIExEwKxjXlJ/MR5291Cr+2+1HGANDeSP+itl4UpvNqeIlIWXduuNTSNiONuTAZCE
-	 QEaVHmsY1NsaKJY+FjoE4WFPFxaY9whT0CJU6KYhAbTy8vBhDHMgrUksZgDNFSk=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1747079921;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hR+3qkPcfLW/IX3IURdsuWso1H/te0G+BUEbl/2Gy1Q=;
-	b=PPkyTUwpmGOtS7oNaz5J2vqqoAyBZ8v0UwIS+OJnsMv5J9qSjXsNvwq35DXhfBgaPk0w
-	 abp9dxc6Trq1VUxTvlshU5lOo4rjHLU9ZfYEqbmnWwDvxf/C9sePCXPjsaHZij5ZFu8vP
-	 uDDSqxc11b8sDSh4nPRnGkJBG0GauGK2nUqmgzyzolZBUCbuanr+/7YEgtomP5E+076vK
-	 0ACc41mt4L6IJ76sOrgOYLMmu+mQh/XBNgWVMBeAyie1uiDfa/nWWriANYwRtXg4cTWtJ
-	 UfuZPezH5c+XqRp5VxFRld5I7DWLpN/zlmbocg6cHT1Dxdjuz6K6u5oQhjYj5HWxX/qy9
-	 wL+EvmfMCNbGl/1+cYH4wXU8MvQKYfPkl5C9w5a1iz1VTXz2juW7BcJ6DIWQVrgWAh6w8
-	 UkIizazmJwauFIrKfsDlaezr0AaAgkmh8YKX1VJWKiIv+6Kr4qBB9rlRRs4rwcNd+B/dt
-	 XnPxfR86pCK+dMJGsiKzXPkjqJmzYCS/ANmnUVFdbJ5viGTz6gaH06nBHZWhbMpMq/oqw
-	 nb4JM4Dskzm85D9Lzi8lCPm/mG77F3iWusvhzh7vzEoTPkb4FZLmFVLJVM7cTfndWBJim
-	 KqJGCLnMClqCTR8t47ZkBY+LzC7h1IuMQyu1W4WsFrE21tJb66viKhdApZdhdzU=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1747079921; bh=hcd7wQmJhh6MtgN4rwVGiFoEBqI4jUsM/KzB0GxjYII=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=P9qDIyiq4ftq+9djKYWiPSp/1ZumfA9pDUKFs01wF/YYVK6e+rBEjcU2wJvZUjSJC
-	 GMJhGgdO5oMYiygdzJyNZjFDNmw+MzaJfd31YQJTvkDw5pycDx7htuKpjcYcULXe83
-	 nZFsZBmH1SQZXvqeZ0vQoWEd/PRoBLKHHtcb4x+r+M84c0Jiy9LsNbYdhHq/MmSY8h
-	 LgyE4SwzArlzf7P+CaYy588MIyzy03eNfHO9HlR7Zzl6dy+rV1Aj2pg2kf3rwFeiEp
-	 M+41gleR3G17KX0nSPeOeGchoADQeRzc3/0E8tRw39uYbzoHVub2tsmi3wX7IrulAX
-	 kC93I/HkSPVAA==
+X-Inumbo-ID: bd937136-2f7b-11f0-9eb6-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1747086894;
+	bh=4x5B7a6fKHJMZ6PV1sqoeNUXHRhVpSMgwJruLge+DnE=;
+	h=Date:From:To:cc:Subject:From;
+	b=cjowzAc1Bm9WvC1MWYxn1GIzVoJp+m9oyobRRF320RFUBrrjFHP8WRpdhPwVBJwZA
+	 FKgC6cYHcI9ADKhSsfPDoW91bPrC6XaJVW8xDQ2Y1ivcINO6yLGZpyikJx33h2/IlW
+	 UGZZF3suvOx3LgRqevAXylKs4FVuRwmaBoze7Fkfe30h6nCOd1Aupuk6w6Wzi3y4CV
+	 Dv/aUlaXrFzPf/drEwwyjtQKdFeSyr/j0wP3K0YKyMlwceAcLTPj6BbdJIMbCDFSOM
+	 Ddbgqpayyw4QNij8YeJh5oo4i3jCnVv/6cRmrcYINGbVIW3GVXxcck02s17H4RF2G9
+	 D89Bzt4LKr+nA==
+Date: Mon, 12 May 2025 14:54:52 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: xen-devel@lists.xenproject.org
+cc: sstabellini@kernel.org, Juergen Gross <jgross@suse.com>, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    linux-kernel@vger.kernel.org, stable@kernel.org
+Subject: [PATCH] xen/arm: call uaccess_ttbr0_enable for dm_op hypercall
+Message-ID: <alpine.DEB.2.22.394.2505121446370.8380@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Date: Mon, 12 May 2025 21:58:41 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel
- <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger?=
- =?UTF-8?Q?_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Roberto Bagnara
- <roberto.bagnara@bugseng.com>, "consulting @ bugseng . com"
- <consulting@bugseng.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] xen: Use __auto_type
-In-Reply-To: <aCI9MZRN1A753Nw9@mattapan.m5p.com>
-References: <20250505124646.1569767-1-andrew.cooper3@citrix.com>
- <alpine.DEB.2.22.394.2505051244090.3879245@ubuntu-linux-20-04-desktop>
- <548430a5-fa4a-41d1-b5ba-ba45efa90bbc@suse.com>
- <7acc83a3-2b15-4557-b293-0832b35e3680@citrix.com>
- <35826c2a-4266-49d2-b1b8-1248aac227b5@suse.com>
- <aCI9MZRN1A753Nw9@mattapan.m5p.com>
-Message-ID: <9b616ece73d57d8bf5f524e50da14640@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 2025-05-12 20:25, Elliott Mitchell wrote:
-> On Mon, May 12, 2025 at 03:00:18PM +0200, Jan Beulich wrote:
->> On 12.05.2025 14:09, Andrew Cooper wrote:
->> >
->> > Now for the (new) controversial part.  Since sending this, Linux has
->> > decided to just #define auto __auto_type for C < 23, in order to start
->> > writing C23 compatible code from now.  It's more succinct, and has
->> > better longevity.
->> >
->> > We might want to consider the same, although it will introduce a new
->> > example of defining a keyword, which we'd have to call out in the
->> > MISRA/Eclair config.
->> 
->> I'm not outright opposed, as I don't think we use "auto" with its
->> original semantics, but it feels somewhat odd.
-> 
-> Problem is "auto" already has a defined meaning in C.  Having this will
-> subtly break contributions from authors who weren't familiar with
-> everything in Xen's headers.  For anyone who does anything with 
-> projects
-> besides Xen this will encourage bad habits.
-> 
-> I believe many projects have a rule of *never* #define C keywords.  I'm
-> surprised such made it into the Linux kernel.  I expect it will be 
-> ripped
-> out in the near future.
-> 
-> MISRA *doesn't* absolutely forbid this?
+From: Stefano Stabellini <stefano.stabellini@amd.com>
 
-It does, and in fact I don't think that is a wise decision (it's not 
-quite UB I think because Xen does not use standard library headers, but 
-still). However Xen does already #define "inline" with a specific 
-rationale. I could find only [1] as a reference to the discussion in 
-Linux, but perhaps I missed something. Do you have more recent thread 
-@Andrew?
+dm_op hypercalls might come from userspace and pass memory addresses as
+parameters. The memory addresses typically correspond to buffers
+allocated in userspace to hold extra hypercall parameters.
 
-[1] 
-https://lore.kernel.org/lkml/d4f87590-6cbb-4ee9-bead-7d958fc1fa83@p183/#R
+On ARM, when CONFIG_ARM64_SW_TTBR0_PAN is enabled, they might not be
+accessible by Xen, as a result ioreq hypercalls might fail. See the
+existing comment in arch/arm64/xen/hypercall.S regarding privcmd_call
+for reference.
 
+For privcmd_call, Linux calls uaccess_ttbr0_enable before issuing the
+hypercall thanks to commit 9cf09d68b89a. We need to do the same for
+dm_op. This resolves the problem.
+
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+Fixes: 9cf09d68b89a ("arm64: xen: Enable user access before a privcmd
+hvc call")
+Cc: stable@kernel.org
+---
+ arch/arm64/xen/hypercall.S | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/xen/hypercall.S b/arch/arm64/xen/hypercall.S
+index 9d01361696a14..691ca70407c57 100644
+--- a/arch/arm64/xen/hypercall.S
++++ b/arch/arm64/xen/hypercall.S
+@@ -83,7 +83,26 @@ HYPERCALL3(vcpu_op);
+ HYPERCALL1(platform_op_raw);
+ HYPERCALL2(multicall);
+ HYPERCALL2(vm_assist);
+-HYPERCALL3(dm_op);
++
++SYM_FUNC_START(HYPERVISOR_dm_op)
++	mov x16, #__HYPERVISOR_dm_op;	\
++	/*
++	 * dm_op hypercalls are issued by the userspace. The kernel needs to
++	 * enable access to TTBR0_EL1 as the hypervisor would issue stage 1
++	 * translations to user memory via AT instructions. Since AT
++	 * instructions are not affected by the PAN bit (ARMv8.1), we only
++	 * need the explicit uaccess_enable/disable if the TTBR0 PAN emulation
++	 * is enabled (it implies that hardware UAO and PAN disabled).
++	 */
++	uaccess_ttbr0_enable x6, x7, x8
++	hvc XEN_IMM
++
++	/*
++	 * Disable userspace access from kernel once the hyp call completed.
++	 */
++	uaccess_ttbr0_disable x6, x7
++	ret
++SYM_FUNC_END(HYPERVISOR_dm_op);
+ 
+ SYM_FUNC_START(privcmd_call)
+ 	mov x16, x0
 -- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+2.25.1
+
 
