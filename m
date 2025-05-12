@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3994AB3B80
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 16:59:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981672.1368079 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A56FAB3B98
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 17:05:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981685.1368090 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEUcH-0001jn-6Q; Mon, 12 May 2025 14:58:53 +0000
+	id 1uEUiD-0004AW-Tt; Mon, 12 May 2025 15:05:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981672.1368079; Mon, 12 May 2025 14:58:53 +0000
+Received: by outflank-mailman (output) from mailman id 981685.1368090; Mon, 12 May 2025 15:05:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEUcH-0001iN-3h; Mon, 12 May 2025 14:58:53 +0000
-Received: by outflank-mailman (input) for mailman id 981672;
- Mon, 12 May 2025 14:58:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oz7/=X4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uEUcF-0001iH-4h
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 14:58:51 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 99f5e65d-2f41-11f0-9eb6-5ba50f476ded;
- Mon, 12 May 2025 16:58:45 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-442ccf0e1b3so53234465e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 07:58:45 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442cd34bde2sm169088925e9.19.2025.05.12.07.58.43
+	id 1uEUiD-000494-Qh; Mon, 12 May 2025 15:05:01 +0000
+Received: by outflank-mailman (input) for mailman id 981685;
+ Mon, 12 May 2025 15:05:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uEUiC-00048i-JA
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 15:05:00 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 78706fd7-2f42-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 17:04:58 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-acb39c45b4eso745907766b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 08:04:58 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad24121e992sm359062466b.14.2025.05.12.08.04.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 07:58:44 -0700 (PDT)
+ Mon, 12 May 2025 08:04:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,163 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99f5e65d-2f41-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 78706fd7-2f42-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747061925; x=1747666725; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747062298; x=1747667098; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oECtGyyiEbPi9KU2nBruScd8gOF2xB3/flfzNokTBcM=;
-        b=c10NYhyxocF0goXqPe3fORb/dGCfKGjM5yNoUr3VIXAgsVdtI2pz58aZ+N2XT36Um3
-         BFG1AoEf31aL1jvJvLJLFgy75vWBC+kC42wOtRiD0BrfqOPIzuJYZO36CqeqLW7ac8jB
-         XKrPL8XJiLPXbxIBI3+HGyEIy7v7xteq/qzaU=
+        bh=unh1Z08yi853tTMmNV7mBkk/ke51ca0jr1QFjP9DroA=;
+        b=Ue3/Zb3/5/E/9x9O5VD+/2m/80O6zC4/ie1s42WvLUxFWn3HSVZSNm0SSW/nF+HRkN
+         gCRCiajy7TWsuzmP0hKaRxFR4VJVPDiKP85kIR/e1MQs29W9/Mee/CD3Wru1g9l559Pd
+         iR6bLOCx32gBTL/LyucVarB2lSWyANKxN4S5gxGx0pSlX11Q07VO9v/f21FgHnLing9H
+         DBnqsghRJjBqFFKvLdHYWKftSPpTZiw111iAimPwkzZFNDsvAnGZB639ncH8UFcRVjtk
+         te20SAuRDEc7IyobdrvzQ6xYKIG2HIj/Mv5NZnqPQf0ZDuRgTZzeBD5zphRGDqFoQW88
+         UWUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747061925; x=1747666725;
+        d=1e100.net; s=20230601; t=1747062298; x=1747667098;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oECtGyyiEbPi9KU2nBruScd8gOF2xB3/flfzNokTBcM=;
-        b=AMxBoYZqyqUlWs6NYF+/KpjwmJlL/AYdRpKnJ37pGLHtVcME5t2U/F/gDZ9R0vsbIg
-         hN6/NbtDTg1U7o11mEZ0PK94R66ky6LRp6r/uQYQGTVaZAqsB3LrV3VGyN4yD4BUKaZy
-         +V87k8K/sMcxfFT74+bPJVYMJTgEkWFdqfIRgasn1H3JBsi1+LB3zA9KXcKZkyI8dIpz
-         eMHscqYQX4isMNDvHowI+4OYClMLqS3kT3lT0VXpkkcEA8I5nsGbgpKIjiXBQtSdCW+z
-         PeVWzsz1UcFAXUWXDKibni4fxUXzhgoia4xem0FVHlJMml28hPismXzMm8qdqjWBI9/J
-         4kxA==
-X-Forwarded-Encrypted: i=1; AJvYcCVEUJ8byPSSH9CpbwEzypqDRZLa0R8fqtRKbApaQgducT/7ubq7DUJNVN7ZeMHD2T3N0ZJDkaYKay8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyIRHgsNxxZYsg/Rr/dtCCycMTkZcz3lFB6YAEZPRFtZZ9WiF+T
-	cLPCheOBkt62bLsOjTdxNpOPboZS5DLtEdGyvZvSd0rYsbx9w65D26AjQF/V2bA=
-X-Gm-Gg: ASbGncunSOdhvmHSSGvcotQaEOKApK3OuOHZjUTjTcbatvFBw2BCa//JOtIsM0qReFs
-	HTwYPBUPuT22geZzmTAUvZP/owc+gt06VAlI/lQ3ks+EdKcUmJU6vrDpHgzrlMV+9z56+uGlN6E
-	Y5BCXghEHJzgjfsk5IdfAGyhzA/L28jYjHa+hzY4doZZNGNDTbrK5XF4wohdx0XnRKTO3F6rt1p
-	jaWBp6TPo156mLFCbD72M7QoQ3/+RZCERNfNaVS86+57R8RwLwouMWELEuWnIziLugd3lhvOcTN
-	3uu4Xw1G7Ag4FIidZEjIz0Fs1QeAK1rH8WYLjNEYm22XfbZTj0uCd2UnZaWizV2e82Xz3t5lP1/
-	XAVi2RXKILq7Bt1SR
-X-Google-Smtp-Source: AGHT+IEW7PuhQk6tqVlitcwb25jEIiD7HkCOPGAUZblwFTjuhLPszhi9agikIkQc6V5LgJP0OKNLxw==
-X-Received: by 2002:a05:600c:46c3:b0:43c:f44c:72a6 with SMTP id 5b1f17b1804b1-442d6d18bdcmr122788675e9.2.1747061924600;
-        Mon, 12 May 2025 07:58:44 -0700 (PDT)
-Message-ID: <63652356-4b82-401f-a6ba-8eb53b2f8317@citrix.com>
-Date: Mon, 12 May 2025 15:58:43 +0100
+        bh=unh1Z08yi853tTMmNV7mBkk/ke51ca0jr1QFjP9DroA=;
+        b=Gbar+QXyB++sNf/o8L+EsgwU2ZIA/LJ7debGRl17VWde6szNe6YAke5M5Loy8f5jFr
+         FiEjKw04qWJnU97aziK4iXPZ0Kids/LeMpb+iA6u4/5nziMQwVhuccA3Smr7raSMKU7+
+         ojkqFx2wjeUHgOXuQAKgaWG72cpzdtcBGQ5oF0pkfKB4Dc2axKNVg4oPBhMMC8YA7XFn
+         0sXXztX7rU2gD8dLMcMIDukCZ//z0yWJDAprkbF/9WhjSLzU6vrQm8Xdh5BZ8WyxpvJm
+         X+b2YJvnJ7UixCkKvtESN4x1P1agkYNJdl1KIHttQNOi1mM+p4DyZ7gxt3wqQHdMUPQp
+         SphQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWlN2yV51evoYyEcaFhNfmmgbnPJW5WLuMXpj/X1DOWytwjH1AKXVKHj5mex9JtEkQqat8HROFprso=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxX1asoJzi3O2s/y7KYfOnHGCTV6hZh4DlXLKR4tPdKaSjxhpD6
+	XGdEU2+7TKlaJAhtV3Ll3DMrqYjAzo7Y04j+5Sbi/XZnp0NFyTlHhjI2R/55mA==
+X-Gm-Gg: ASbGncsv1qfG/eCbUYwN88LnHO5Vpm2V6uzbAjawgr5LWZxBmztSoNgCJdp+eY1YDEP
+	YdpcZ0xrofQ4XMCmrVnbt1AOC2lBB9jzvcH1g3OTvwAKNZgUxCnEVVAeUD5BmW1hfIxJPmjqhl2
+	jIv1rDrjmgHW6n1dZ7Ew5sVjUBDcQFTW7goxt1jY0QcH9MiFlsu9C/OmblljyACDUbL5su1X2WT
+	JDH5Dy4ul+sD5t5Nr4hDhuSfcVWUvnrgp9nWrccmNfCEIzJTWwACCw32yX293FgKRCdQaL4kAQU
+	kViQjPe7g++yIXM9jcaT7tguQZo8LICiYURjwIyyQnlUqsSIFcaU3vPnbp9XLPGt+epfGmJ1AVu
+	r0gbNrQGvX+yfVcqeDH0/prf4Tx6wRYcVIbk1
+X-Google-Smtp-Source: AGHT+IHIufP0jYW6y/4AHW+DTVoBN67DkruUehK8TXSz5LL7qGijP9kOuuL13ctSG5wUwERzq93p7w==
+X-Received: by 2002:a17:907:7fa6:b0:ad2:54c5:42e8 with SMTP id a640c23a62f3a-ad254c54483mr279783366b.8.1747062297748;
+        Mon, 12 May 2025 08:04:57 -0700 (PDT)
+Message-ID: <853ffc16-f14b-44fa-9e71-4fae8377fa95@suse.com>
+Date: Mon, 12 May 2025 17:04:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/Kconfig: Improve help test for speculative options
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250508160336.2232152-1-andrew.cooper3@citrix.com>
- <18f73078-c512-416b-9406-c76f8db178eb@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <18f73078-c512-416b-9406-c76f8db178eb@suse.com>
+Subject: Re: [PATCH 5/9] x86/mtrr: use memory_type_changed() in
+ hvm_set_mem_pinned_cacheattr()
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250506083148.34963-1-roger.pau@citrix.com>
+ <20250506083148.34963-6-roger.pau@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250506083148.34963-6-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12/05/2025 11:58 am, Jan Beulich wrote:
-> On 08.05.2025 18:03, Andrew Cooper wrote:
->> The text for CONFIG_INDIRECT_THUNK isn't really correct, and was already stale
->> by the time speculative vulnerabilities hit the headlines in 2018.  It is
->> specifically an out-of-line-ing mechansim, and repoline is one of several
->> safety sequences used.
->>
->> Some of this boilerplate has been copied into all other options, and isn't
->> interesting for the target audience given that they're all in a "Speculative
->> Hardning" menu.
->>
->> Reword it to be more concise.
->>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Anthony PERARD <anthony.perard@vates.tech>
->> CC: Michal Orzel <michal.orzel@amd.com>
->> CC: Jan Beulich <jbeulich@suse.com>
->> CC: Julien Grall <julien@xen.org>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->>
->> CONFIG_SPECULATIVE_HARDEN_BRANCH really ought to be named
->> CONFIG_SPECULATIVE_HARDEN_CONDITIONAL, but this would be a (minor) functional
->> change.
-> Hmm, so you're suggesting all the straight-line speculation changes then ought
-> to be conditional upon a separate, new Kconfig control? So far I've keyed them
-> all to this one.
+On 06.05.2025 10:31, Roger Pau Monne wrote:
+> The current logic partially open-codes memory_type_changed(), but doesn't
+> check whether the type change or the cache flush is actually needed.
+> Instead switch to using memory_type_changed(), at possibly a higher expense
+> cost of not exclusively issuing cache flushes when limiting cacheability.
+> 
+> However using memory_type_changed() has the benefit of limiting
+> recalculations and cache flushes to strictly only when it's meaningful due
+> to the guest configuration, like having devices or IO regions assigned.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Straight line speculation is complicated in multiple ways, and our
-understanding has evolved over time.
+Hmm, I'm not convinced this is a win. This operation isn't normally used on
+a running guest, aiui.
 
-I'd forgotten that we grouped it with HARDEN_BRANCH, and it is not an
-ideal grouping.  What we have in the way of SLS protections are token at
-best.
+What's more, this heavily conflicts with a patch posted (again) over 2 years
+ago [1]. Unless there's something severely wrong with that (and unless your
+patch would make that old one unnecessary), I'm again of the opinion that
+that one should go in first. It is becoming increasingly noticeable that it's
+unhelpful if posted patches aren't being looked at.
 
-First, in light of Branch Type Confusion on Fam17h processors, where any
-instruction can manifest as a speculative branch, there's nothing that
-can be done.  (This was demonstrated rather more thoroughly with SRSO
-than BTC.)
+Jan
 
-There is straight line decode (at least) through any branch the
-predictor doesn't know about.  Only "taken branches" get tracked, but
-also you get a higher rate of SLS immediately after leaving userspace
-for a long time (such that the branch predictor fully lost supervisor
-state).  Again, this is inherent and we cannot control it.
+[1] https://lists.xen.org/archives/html/xen-devel/2023-03/msg01551.html
 
-Intel say that a branch type mismatch (for a direct branch) will halt at
-decode.  Indirect branches are documented to potentially suffer SLS. 
-AMD Fam19h say that any branch type mismatch will halt at decode.  Also,
-with AMD IBRS, indirect branches stall dispatch until they execute.
-
-
-Therefore, it's indirect branches which are of most concern.
-
-Putting an INT3 after any unconditional JMP *ind is easy.  Compilers
-even support doing this.  CALL *ind on the other hand has architectural
-execution beyond it, so if protection is needed, LFENCE is the only option.
-
-~Andrew
 
