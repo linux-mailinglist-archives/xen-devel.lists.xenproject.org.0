@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47353AB350F
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 12:39:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981215.1367610 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB773AB3512
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 12:39:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981219.1367619 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEQZK-0007Ty-Ch; Mon, 12 May 2025 10:39:34 +0000
+	id 1uEQZc-0007qn-OA; Mon, 12 May 2025 10:39:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981215.1367610; Mon, 12 May 2025 10:39:34 +0000
+Received: by outflank-mailman (output) from mailman id 981219.1367619; Mon, 12 May 2025 10:39:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEQZK-0007Rj-9v; Mon, 12 May 2025 10:39:34 +0000
-Received: by outflank-mailman (input) for mailman id 981215;
- Mon, 12 May 2025 10:39:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEQZJ-0007Rb-CQ
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 10:39:33 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 63d10dcf-2f1d-11f0-9eb5-5ba50f476ded;
- Mon, 12 May 2025 12:39:32 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ad4ce8cc3c1so14697166b.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 03:39:32 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad24677c9e1sm276342666b.88.2025.05.12.03.39.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 03:39:31 -0700 (PDT)
+	id 1uEQZc-0007om-LI; Mon, 12 May 2025 10:39:52 +0000
+Received: by outflank-mailman (input) for mailman id 981219;
+ Mon, 12 May 2025 10:39:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fCfZ=X4=cloud.com=gerald.elder-vass@srs-se1.protection.inumbo.net>)
+ id 1uEQZa-0007nL-VC
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 10:39:51 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6df410e2-2f1d-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 12:39:49 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-ad216a5a59cso454971566b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 03:39:49 -0700 (PDT)
+Received: from eddie5.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad2192c83d9sm601141866b.28.2025.05.12.03.39.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 May 2025 03:39:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +45,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63d10dcf-2f1d-11f0-9eb5-5ba50f476ded
+X-Inumbo-ID: 6df410e2-2f1d-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747046372; x=1747651172; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=exQPuTht+GSMr0VIsjWW4944+BjRY/yJqL7kMbH5fUA=;
-        b=K4XAbBm36ocj6mbW7IQ2fmqLUJRQc+tbb3KZdPLfuOkB7vglAucEnJvPmxow+1ShsK
-         X4nBNdebhWntHFsP7wqJLdQOGE2zg0p4wNZ/gbdx3K6zpf+phsMDHEnjpou4AhmOHYke
-         6FkE2bUOQxGbueCJXFH9VyD92jvj2hfy+A5O+E39GSxDXLW9LcZ5p501ILRMQSNMNUhk
-         DBOQDqLNrGQhx/83QOtmmKqxn1dlNBYdzKwqyXOWfAqtVkIa5cUaQUe9wCPqbvYsIm0n
-         32BBCADzP8QZFCIoYK9fvDP0KudLS1AX7T62VKodIp7K9o72MN74WwGwJjAjuj7EirIB
-         P+2Q==
+        d=cloud.com; s=cloud; t=1747046389; x=1747651189; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=AZc5LtYl4BmVK65ksI2W32npsbKVS6L8xz5bNRK6Omk=;
+        b=IWlb/5HzTTm4r74s1AozhIFAH1UW8h+PieIKI9+LT6m35C6k1gIuM2wHrM2DUqPS1+
+         mhvJ87JGa/93ptj1e0dCIODUxYwhEJwBB4SO0/0UM3f2M/mF7rgndZK6SJzdrM73O5EI
+         ezfnE1dy/+LuaInleXwSPGqpD9Ski0/ntI1Fg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747046372; x=1747651172;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=exQPuTht+GSMr0VIsjWW4944+BjRY/yJqL7kMbH5fUA=;
-        b=vcgEZ/uID0yKhxyuKjYlcE06i6u1nx5473PSP+7IZwBTLfJugOz4bZ3Og7xlPTHCqC
-         7WHrh0u2ajfTxN1rnAP3d+CimWFQgd/Kz+snwn1M0BrYfY2918YMUR6qa8HIH0SuFiPA
-         eD5E95rKnXr+u9VO5PZsvmEb+xusAvEwLu6JfPDFf4RvajmkCzr9pFIXk85iZyVOp5W/
-         A2ja1KR3S+F7tS5XWG+VM2VMhPEAZwMihN81aLukWPaHhN+FXJ3o1bJ/lJW1O5G6nUqK
-         VebkbPfz3/kSJ68O6vy3Us2w3n4p2SbD6HokU0HHu2o6/kMSOcA23Zow4Eadu79yTW6h
-         Vviw==
-X-Gm-Message-State: AOJu0Yznn8errjQDGTquyvgQPB9TYo5PJkprNrNHk7QwUz4hXpLTs6g6
-	rZFUOEEln+shMzM/s0OtMbnzgFnUMkPlLNIbqPUiiGNT+d14fU/ftlTXqfymcQ==
-X-Gm-Gg: ASbGncuuT7tRWgY7DL9mdyE6izfYFn6ol2N2shXx6Q4XXuo9iYvJVxxvvaqfZfwl1c5
-	3pPJJMlSPKfWC4fNo/w1AItBhQXIGrCXgX2EucfelbzYv8BJMrunrvVhqbdy4DT4ObK8NQnEhgS
-	u+C1nWIFXuSVw0vHLWRbWdJNLBx8VugGOoGFu8U1YCmK4rBL68kRSfxM/O7Fvs+QdKBWw6LXVq0
-	zJKGgOafQBXS3AmZ+ULRpp/W+c2PB/myKLChhWKDjTSxgo0EynIzgTmFlAoc1g5WVCkA1Vd3car
-	GrKk/uT7UbKfwFNi7bnJ/193I+FRA/leXZNRTjQrIXE8P8xWQAftR0LhWS5L6bKhU3uoMl9eReR
-	bHpPme7sFIcKfSXX+xnEiYp9wZh2vKGiUDGqWQVr9p3wof4g=
-X-Google-Smtp-Source: AGHT+IEzdbnj11R17qz2QklyYPqNgpN0+nOeDC9+0zzbNDnF4Sf6TfpFgS716le9FoIJxlKAy9RFIw==
-X-Received: by 2002:a17:907:97d0:b0:ad2:595d:dd2d with SMTP id a640c23a62f3a-ad2595de071mr203214166b.44.1747046371830;
-        Mon, 12 May 2025 03:39:31 -0700 (PDT)
-Message-ID: <db6316fb-89bd-4891-a4ff-2a13feda112f@suse.com>
-Date: Mon, 12 May 2025 12:39:30 +0200
+        d=1e100.net; s=20230601; t=1747046389; x=1747651189;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=AZc5LtYl4BmVK65ksI2W32npsbKVS6L8xz5bNRK6Omk=;
+        b=YfSFO5j3qK5zcgv45KM3TjyqM9ytNzgZAJ+wJ2FXQaTAeViekRxlunB5h4SNKk/cR6
+         BQKAJ2Gj5IsFgiBu2dYLOJ12EKc9EY5kuotuBhSygF5ObAjpMmHjpVbPX6Pbo+DoS8kc
+         W8ChUZBJXb4PqWH17ordhX0A/Ft60sCBbcwd5XDF+pABD4ubCxxjEwytbvEv1aXeW96l
+         nn2esG3aRfasiyJZ2fsFec72tReiZ57aR5N1mzJzkWk0eFCTX4zD17ecaTnsak87sh0y
+         9KKAR+G0KkvUxeYOdj3xomWKSF2jfrCpN1ZbDBDqrGewpYawIHQXdSG5ZY951oNyHyav
+         sJGQ==
+X-Gm-Message-State: AOJu0YwqKI6ob+21v65QBTD+q4XGP/wej0xxI8G8+wKHd091Cm63Krez
+	T+rNGuBxw1d6gb6gjvDwrNQxwSJKV3TG98r7yhX5vtxVtN9v/ElCEEQkwg+TAt8E8ofeN9aWVlE
+	d2rc=
+X-Gm-Gg: ASbGncu4lWytiMWB97pkBrx3+rIilNHBDJoRN/siHIIQYCQkznyO2sJAUkPjMSkrFJn
+	YHgQJLZmkEWkQtJg5MFkQfO1F3OyxBHRHaY24iYGSgegLjttgWkEeecSiTk3NP1fMtE+S5SFSm2
+	p9dbsAVa/bxwxJeevhbKHcNEDkp4ZdlSFbN3U3tFNsAgE3sMkVdCuHLldE+E2SR0zoCVNgIoM3f
+	/KVfHBMweixrzQ4VMDHwmPwx6yMqosLLZpZr/b2HeSzSQHmSRfGR0DHDRFvKLmsgfADEU8CHiUA
+	BtknyljyvaDT8cyQO2GM9W/opmHyRmFtMAZ5oOKDnurgdF3GIH0u4tJXjQIYqt670Jpjt058ORQ
+	=
+X-Google-Smtp-Source: AGHT+IFAcKScBC4Mu4IhxE7Rdt/G3/sCgNspG9WxLbqThubtdn86RX25W42OY5W1GcTtjuZCBNiYsQ==
+X-Received: by 2002:a17:907:2da1:b0:ad2:3f21:a0a1 with SMTP id a640c23a62f3a-ad23f21b350mr530556466b.37.1747046388608;
+        Mon, 12 May 2025 03:39:48 -0700 (PDT)
+From: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: marmarek@invisiblethingslab.com,
+	dpsmith@apertussolutions.com,
+	Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+	Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v4] sbat: Add SBAT section to the Xen EFI binary
+Date: Mon, 12 May 2025 10:39:42 +0000
+Message-ID: <20250512103942.173136-1-gerald.elder-vass@cloud.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] Add lockdown mode
-To: Kevin Lampis <kevin.lampis@cloud.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-References: <20250506162510.1676425-1-kevin.lampis@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250506162510.1676425-1-kevin.lampis@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06.05.2025 18:25, Kevin Lampis wrote:
-> --- a/xen/common/kernel.c
-> +++ b/xen/common/kernel.c
-> @@ -216,6 +216,9 @@ static void __init _cmdline_parse(const char *cmdline)
->   */
->  void __init cmdline_parse(const char *cmdline)
->  {
-> +    /* Call this early since it affects command-line parsing */
-> +    lockdown_init(cmdline);
+SBAT is a revocation scheme for UEFI SecureBoot, and is mandated by Microsoft
+for signing.
 
-I can't spot the effect the comment mentions anywhere in this patch. Is the
-description perhaps lacking some detail? It's rather odd after all to see ...
+The SBAT section provides a way for the binary to declare a generation
+id for its upstream source and any vendor changes applied. A compatible
+loader can then revoke vulnerable binaries by generation, using the
+binary's declared generation id(s) to determine if it is safe to load.
 
-> --- /dev/null
-> +++ b/xen/common/lockdown.c
-> @@ -0,0 +1,52 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +#include <xen/efi.h>
-> +#include <xen/kernel.h>
-> +#include <xen/lockdown.h>
-> +#include <xen/param.h>
-> +#include <xen/string.h>
-> +
-> +static bool __ro_after_init lockdown = IS_ENABLED(CONFIG_LOCKDOWN_DEFAULT);
-> +ignore_param("lockdown");
-> +
-> +bool is_locked_down(void)
-> +{
-> +    return lockdown;
-> +}
-> +
-> +void __init lockdown_init(const char *cmdline)
-> +{
-> +    if ( efi_secure_boot )
-> +    {
-> +        printk("Enabling lockdown mode because Secure Boot is enabled\n");
-> +        lockdown = true;
-> +    }
-> +    else
-> +    {
-> +        while ( *cmdline )
-> +        {
-> +            size_t param_len, name_len;
-> +            int ret;
-> +
-> +            cmdline += strspn(cmdline, " \n\r\t");
-> +            param_len = strcspn(cmdline, " \n\r\t");
-> +            name_len = strcspn(cmdline, "= \n\r\t");
+More information about SBAT is available here:
+https://github.com/rhboot/shim/blob/main/SBAT.md
 
-... such custom token splitting ahead of normal command line handling.
+Vendors should append a custom line onto sbat.csv(.in) with their vendor
+specific sbat data.
 
-Jan
+Populate the SBAT section in the Xen binary by using the information
+in xen/arch/xs86/efi/sbat.sbat
+
+Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+Tested-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
+---
+Changed since v3:
+ * Rebased patch onto 'staging' branch
+ * Included an empty .note.GNU-stack section to sbat.o to fix linker warning
+ * Discard .sbat section from ELF (non-EFI) build
+
+Changed since v2:
+ * Moved sbat files and rules to arch/x86/efi
+ * Updated sbat rule to reuse existing objcopy command
+
+Changed since v1:
+ * Updated commit message to explain why SBAT is needed
+ * Renamed sbat_data.o rule to sbat.o
+ * Moved sbat.o rule into alphabetical order
+ * Removed xen specific entry from sbat.csv (and rule for auto filling version)
+   - The alternative of adding a "customise me" line would result in more
+     overhead for anyone else building Xen, regardless of UEFI SecureBoot usage
+
+diff --git a/xen/arch/x86/efi/Makefile b/xen/arch/x86/efi/Makefile
+index c6678652fc98..530a76dc4f42 100644
+--- a/xen/arch/x86/efi/Makefile
++++ b/xen/arch/x86/efi/Makefile
+@@ -6,11 +6,19 @@ cmd_objcopy_o_ihex = $(OBJCOPY) -I ihex -O binary $< $@
+ $(obj)/%.o: $(src)/%.ihex FORCE
+ 	$(call if_changed,objcopy_o_ihex)
+ 
++$(obj)/sbat.o: OBJCOPYFLAGS := -I binary -O elf64-x86-64 \
++	--rename-section .data=.sbat,readonly,data,contents \
++	--add-section .note.GNU-stack=/dev/null
++$(obj)/sbat.o: $(src)/sbat.sbat FORCE
++	$(call if_changed,objcopy)
++
+ $(obj)/boot.init.o: $(obj)/buildid.o
+ 
+ $(call cc-option-add,cflags-stack-boundary,CC,-mpreferred-stack-boundary=4)
+ $(addprefix $(obj)/,$(EFIOBJ-y) mbi2.init.o): CFLAGS_stack_boundary := $(cflags-stack-boundary)
+ 
++EFIOBJ-y += sbat.o
++
+ obj-y := common-stub.o stub.o
+ obj-$(XEN_BUILD_EFI) := $(filter-out %.init.o,$(EFIOBJ-y))
+ obj-bin-$(XEN_BUILD_EFI) := $(filter %.init.o,$(EFIOBJ-y))
+diff --git a/xen/arch/x86/efi/sbat.sbat b/xen/arch/x86/efi/sbat.sbat
+new file mode 100644
+index 000000000000..1f262b5f038b
+--- /dev/null
++++ b/xen/arch/x86/efi/sbat.sbat
+@@ -0,0 +1 @@
++sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+index 53bafc98a536..a9240fa51a5e 100644
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -343,6 +343,8 @@ SECTIONS
+     *(.reloc)
+     __base_relocs_end = .;
+   }
++
++  .sbat (NOLOAD) : { *(.sbat) }
+ #elif defined(XEN_BUILD_EFI)
+   /*
+    * Due to the way EFI support is currently implemented, these two symbols
+diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
+index 793d0e11450c..725ecae11893 100644
+--- a/xen/include/xen/xen.lds.h
++++ b/xen/include/xen/xen.lds.h
+@@ -99,7 +99,8 @@
+        *(.comment.*) \
+        *(.note.*)
+ #else
+-#define DISCARD_EFI_SECTIONS
++#define DISCARD_EFI_SECTIONS \
++       *(.sbat)
+ #endif
+ 
+ /* Sections to be discarded. */
 
