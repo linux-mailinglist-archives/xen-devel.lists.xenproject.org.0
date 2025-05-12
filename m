@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8748EAB34E1
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 12:28:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981166.1367560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84581AB34E2
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 12:28:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981175.1367569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEQOB-0003LT-Di; Mon, 12 May 2025 10:28:03 +0000
+	id 1uEQOw-0003qj-N2; Mon, 12 May 2025 10:28:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981166.1367560; Mon, 12 May 2025 10:28:03 +0000
+Received: by outflank-mailman (output) from mailman id 981175.1367569; Mon, 12 May 2025 10:28:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEQOB-0003J6-Ax; Mon, 12 May 2025 10:28:03 +0000
-Received: by outflank-mailman (input) for mailman id 981166;
- Mon, 12 May 2025 10:28:02 +0000
+	id 1uEQOw-0003o5-Jy; Mon, 12 May 2025 10:28:50 +0000
+Received: by outflank-mailman (input) for mailman id 981175;
+ Mon, 12 May 2025 10:28:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEQOA-0003Iy-IQ
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 10:28:02 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XwtN=X4=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1uEQOv-0003nz-87
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 10:28:49 +0000
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [2607:f8b0:4864:20::233])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c77a8601-2f1b-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 12:28:00 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-5fcc96b6a64so4116620a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 03:28:00 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad2290a4cc2sm489535466b.183.2025.05.12.03.27.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 03:27:59 -0700 (PDT)
+ id e2a94fb6-2f1b-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 12:28:47 +0200 (CEST)
+Received: by mail-oi1-x233.google.com with SMTP id
+ 5614622812f47-400fa6eafa9so2966800b6e.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 03:28:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,100 +40,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c77a8601-2f1b-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: e2a94fb6-2f1b-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747045680; x=1747650480; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XX/SpC7l0v7XOnAbPzQ+K7NcMeRRtuqI9xd7Z7SsYXw=;
-        b=SpTcJRuT1MkvFmUWAi4GcgaUibvUcVosCeb8hoX23zo7xrX5pb55bBV00wYFPMfDP+
-         RXW8fiYtvtpzNxLyBpvxO9xveOmlIrj9HOkpdroZ/nf9mw9dXRA1RoRme4MkJZ/ZD8hL
-         J9q/XoDhbwT4p0BSyIRl0A6WMFT8Xrb7+DRrkUZd0/eeyXA9YaQEH0a5FNtRcFTl/JrT
-         vmYEORrzSZ5cyz0/4YmxJ361Kju05FiUOW2jDmWO0g/Xl3xgWqnGDSAN7k/dmINOk3po
-         MqweqW09q5w3OE9cFNXk7c7n0Z81qszv39CDt8YiQzoaz/j1W+RK6QgPTUvzBuaHs+2e
-         OUCA==
+        d=cloud.com; s=cloud; t=1747045725; x=1747650525; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/XtbFrKz68AqwrIR8yQqRG98LYiZ3G4Jd1hdWbauKbU=;
+        b=abtTiI+2oegqdqak22zF/kmuwq2WntyQh9GfMytWYU26bE71vM4Vu/6aM7K6ktaAVr
+         kvXY/f/13VBGpTD6G1HcDIW7ziCb478G3sqRCkjYeKuIdf/psD1r2zAI8QZFuepw6h2O
+         cDYmxsXg4KtvBBzCVo/5Mt/ic7vKjBrFYcru0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747045680; x=1747650480;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=XX/SpC7l0v7XOnAbPzQ+K7NcMeRRtuqI9xd7Z7SsYXw=;
-        b=WAdnsrBZaM9Cd6FFAQ8h7e0sn5x3v7bZPkt+kyUFnlmfodRHuQ8UdBhymadRk5Q6Sn
-         jBTXjnQyE/drPQ5vLSOmwyV0fmybR+Vf7lqsvm9gHdZr8dmSjpnQdz+N4738MxCCdOHT
-         0ThdJNAY2BgLLMwClVgVbvYdeJFU39KpfK+JcFdE03udLgNyPOeHDRXBoBX4XgBEqDbN
-         FrW+iupMjLJce+78TuZWPsEDpwcR3dG1N/3EVAThvOr3szmvum1yI02jaN7sBV9LK9Ny
-         bVK9BxIuJEf3Z8CTOzduwXIYzbpWD9u2ARV4NwSURdfemZSCmxE1+3Qx86YlM4LV6UlO
-         9v1w==
-X-Gm-Message-State: AOJu0Yx1Sx9lQkTeoFwy49epDgd257VAGH3CclVnn8HK4myhEUNtUjHz
-	lvSEK0E1iMgJGkKw2Af4Tx7r0FSqEb0VzWkiGyQ2MxZOysDTCOO+2TvrJApFlg==
-X-Gm-Gg: ASbGnctJ9MftppiyFZXqCmCfxXxa58h+oE+x7ASH/00doYgUdIcKEmDh19jwXOIFAa7
-	EBN/rRTDTPL2NRDzpmDsbnqwac8ZQXgKoIoIw80Ip9bw3YOHIbZbWxSMWqPQS3aQKGVrl1gR0Tj
-	OGymfqxJhOHbCRQpdPiCpb7F6+cLc/jfUJwC9Z6XS0pZA7S8wqEZzGa2JAHZQFpPvhxruzi9vHL
-	LDg5tLnbKyCXLZrjYsk2iYl0Jud06ab4Jo705ZXshTXHt/tIFjdII+7d3tm5IpToET1RD6bAeq0
-	rY1XixspWYMTGvoxIH+LHgTDdwfQihpgVquUODd0l+UQJHTdZ0lifEHMqZaWDptOXuCWaLUbea9
-	ghG6aj9WOAAL7w4MPi9ZO2DaAWPn1P/jDQIpr
-X-Google-Smtp-Source: AGHT+IEfB73BdWUqScASbDsnPJRt6WdGZOSlC3Fv2mZugg7J7wYjBzdBZbmmQu3zkuNjQZ6K00jh0A==
-X-Received: by 2002:a17:907:9810:b0:ad2:4144:2329 with SMTP id a640c23a62f3a-ad2414424e5mr633210566b.7.1747045680042;
-        Mon, 12 May 2025 03:28:00 -0700 (PDT)
-Message-ID: <10454237-2ada-4972-8e31-8ae21a6d6d22@suse.com>
-Date: Mon, 12 May 2025 12:27:59 +0200
+        d=1e100.net; s=20230601; t=1747045725; x=1747650525;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/XtbFrKz68AqwrIR8yQqRG98LYiZ3G4Jd1hdWbauKbU=;
+        b=eI3PVN1KNFII9hjUwPNpI0Z+HNzsL0F/PmCrV4iLw7aflCpAqmAvknlJ4anv/oz46m
+         ea/F+6Dl0GV4MSItU8GTlh+sEXaXuWRWIJd34vtF/16x+vSPQIw0anBoMuHITy5q5JgW
+         a2aFMjkt7XtbCxcemdFeGyLh8yNGcxT6nh+Fk+Cot7Fg2tyWchhbrskmN/UBOCriab3V
+         d5WP2IOxHl5f4i50rELEnoNTcGniJdHhMvrkZcIIXLNeeht/x6AIwBv+7He7ihOmVOZ9
+         uLFKiqVBUTJBo9Vd34+7V62EWrVVSoO+/LYsnuyo1ufu8Djoci3lvYi1dHAArflg1XTc
+         ZAYA==
+X-Forwarded-Encrypted: i=1; AJvYcCXF62ajW3nv4k+cry56D/nfQ1zKpyBbiaLb/Z9WJAMKAcTRMgAX00v7QRaNn7t4pO2Os8uSzG6RYSE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx5I1I0ZCFSlJmQqYOYLmR5Z7UC+zfZ3OK2BCCFCFca00WJQibn
+	zreWeGcmjronh+JtCpUwHDmdx6nat8pmlBbV1LAvDw43xb0Y8Ub3QNsHrTV0thwSQD2R25eZmxa
+	+PVSebu6PnEgdgPoYze9x462raC6qjtOhYp2JaQ==
+X-Gm-Gg: ASbGnctLqnYkUS7BK9z1hBf38hmWshZpkYEQTFW6D6DjRkdzR3SgQctV6tNkPe/dRW5
+	UTesgKYOPlh7Zh/4nnLKxb9zd8qbHSuGnN4joZlj1s72taaY2J/5dJ3Pf8IEo2Rczmyt7OXLfPa
+	4BKv04mSEiuU6bLaf0gvDT8Zw/b+5yB8FF
+X-Google-Smtp-Source: AGHT+IFFzu1ORYqSIozHZ3xuVTtZI83Oufch5vo7KWoUfwttPKBfoUPsyBxHX8RQgDTU0T4feH2qmc0i8QigLnnaRHM=
+X-Received: by 2002:a05:6808:f14:b0:403:34b3:c986 with SMTP id
+ 5614622812f47-4037fe51d2emr8017117b6e.17.1747045725561; Mon, 12 May 2025
+ 03:28:45 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] Add lockdown mode
-To: Kevin Lampis <kevin.lampis@cloud.com>
-References: <20250506162347.1676357-1-kevin.lampis@cloud.com>
-Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250506162347.1676357-1-kevin.lampis@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20250507094253.10395-1-freddy77@gmail.com> <a197c145-1fc5-4482-bce9-12511a816a63@citrix.com>
+ <CACHz=ZjuJoWCH7Dr4oXSXsFqKHcW3meRGrnPA0zBqZ89Y=DtSA@mail.gmail.com> <16fa3d79-7963-4334-a587-5cc289cfd693@citrix.com>
+In-Reply-To: <16fa3d79-7963-4334-a587-5cc289cfd693@citrix.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 12 May 2025 11:28:34 +0100
+X-Gm-Features: AX0GCFuWJfs8umPHia4GQaYwbcR7v0ED4R-F_frzpnSe2DqAv59YCt6K2LAZYaQ
+Message-ID: <CACHz=Zgu1CVZqZO8O8gc2=0YQbGpzpiZGuCGoa=WfViQDbc_Rg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/4] Allows Secure Boot for Kexec
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Frediano Ziglio <freddy77@gmail.com>, xen-devel@lists.xenproject.org, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 06.05.2025 18:23, Kevin Lampis wrote:
-> Add lockdown mode
-> 
-> The intention of lockdown mode is to prevent attacks from a rogue dom0
-> userspace from compromising the system. Lockdown mode can be controlled by a
-> Kconfig option and a command-line parameter. It is also enabled automatically
-> when Secure Boot is enabled and it cannot be disabled in that case.
-> 
-> Ross Lagerwall (3):
->   lib: Add strcspn function
->   efi: Add a function to check if Secure Boot mode is enabled
->   Add lockdown mode
-> 
-> Kevin Lampis (1):
->   Disallow most command-line options when lockdown mode is enabled
+On Fri, May 9, 2025 at 6:40=E2=80=AFPM Andrew Cooper <andrew.cooper3@citrix=
+.com> wrote:
+>
+> On 09/05/2025 4:34 pm, Frediano Ziglio wrote:
+> > On Fri, May 9, 2025 at 4:04=E2=80=AFPM Andrew Cooper <andrew.cooper3@ci=
+trix.com> wrote:
+> >> On 07/05/2025 10:42 am, Frediano Ziglio wrote:
+> >>> Ross Lagerwall (4):
+> >>>   xen/lib: Export additional sha256 functions
+> >>>   kexec: Include purgatory in Xen
+> >>>   kexec: Implement new EFI load types
+> >>>   kexec: Support non-page-aligned kexec segments
+> >> I realise a lot of this is coming from kexec-tools and/or Linux, but i=
+t
+> >> looks very very mad.
+> >>
+> >> From patch 1, we're embedding this in Xen:
+> >>
+> >> xen.git/xen/arch/x86/purgatory$ ls -lah purgatory.ro
+> >> -rw-r--r-- 1 andrew andrew 30K May  9 15:24 purgatory.ro
+> >>
+> >> yet -Wa,--strip-local-absolute alone halves the size:
+> >>
+> >> xen.git/xen/arch/x86/purgatory$ ls -lah purgatory.ro
+> >> -rw-r--r-- 1 andrew andrew 17K May  9 15:25 purgatory.ro
+> >>
+> >> Looking at purgatory itself, we enter at purgatory_start, load a local
+> >> GDT, set up a local stack, call into C for the hashing (and nothing
+> >> else), then jmp to entry64...
+> >>
+> >> ... which loads a (different) local GDT, (different) local stack, load=
+s
+> >> the GPRs and then jumps into the new kernel.
+> >>
+> >> Combined with kexec_reloc(), that's 3x we change GDT and stack in
+> >> several hundred instructions.
+> >>
+> >>
+> >> Looking further at patch 2, we only set up 3 GPRs; %rip, %rsp and %rdi
+> >> pointing the parameter block.
+> >>
+> >> Patch 2 also contains an a large amount of EFI-editing logic (all
+> >> vulnerable to XSA-25), which AFAICT exists only because purgatory is
+> >> built non-PIC and wants relocating.  I can't see any external
+> >> references, or anything that couldn't be resolved at link time for a P=
+IC
+> >> build.
+> >>
+> >>
+> >> There are two things which purgatory does which Xen doesn't currently
+> >> cater for:
+> >>
+> >> 1) Setting up the GPRs in that manner
+> >> 2) The digest checks
+> >>
+> >> #1 is very easy to fix and can probably even be done on the current AB=
+I
+> >> (older Kexecs using purgatory won't care), and #2 ought to be easy too
+> >> by extending machine_kexec().  We can do the digest checks
+> >> unconditionally (it's a sensible check irrespective).
+> >>
+> > I think the problem of #2 is that doing in the purgatory avoids
+> > problems like possible memory corruptions. For instance if the host is
+> > crashing due to some corruption it could not always be possible to
+> > boot the saved kernel.
+>
+> It doesn't really matter if Xen does the digest check right at the point
+> of exiting, or purgatory does it moments later.
+>
+> If there's memory corruption anywhere on this path, we're not making it
+> into the crash kernel whomever does the digest check.
+>
+> Crashing is a best-effort exercise; it's never guaranteed to be successfu=
+l.
+> >> I think that removes the majority of this series, with no loss in
+> >> functionality?
+> >>
+> >> Given that we're leaving the signature check to the dom0 kernel (which
+> >> is TCB and therefore can in the UEFI-SB model), we just might be able =
+to
+> >> get away without any hypercall changes at all?
+> >>
+> > Yes and no. The user space could not provide the purgatory. But if the
+> > kernel is providing it, preventing the user space to send it, I
+> > suppose it can be done. At this point however the question is how to
+> > change the interface provided to userspace for doing it. It could make
+> > sense to have the changes in xen/include/public/kexec.h and let the
+> > kernel do the rest.
+>
+> I'm not really suggesting any change in userpsace/dom0 kernel.  I'm
+> suggesting "we don't need a purgatory blob at all given two simple
+> changes in Xen."
+>
 
-Returning from vacation, this series is a mess in my inbox (and also on
-https://lists.xen.org/archives/html/xen-devel/2025-05/threads.html): Only
-patch 4 is properly threaded. Please can you see about adjusting your
-mail configuration?
+Maybe it was not clear from my previous comment. A change to the
+userspace interface is needed. One reason is the mentioned purgatory,
+it cannot be provided by userspace. The other reason is checking the
+signature, the kernel should be passed verbatim in order to check it.
 
-Jan
+Which specific 2 changes are you referring to?
+
+Given that the kernel already does the signature, having the kernel
+providing the purgatory too would be sensible.
+
+> This in turn means (I think) we can drop all the ELF relocation logic.
+>
+> I'm unsure whether we need new hypercall subopts or not.  Even if we do,
+> I think the result can still be more simple than currently presented.
+>
+> ~Andrew
+
+Possibly the Xen interface could stay the same. Still, as explained
+above, a userspace change is needed.
+
+Frediano
 
