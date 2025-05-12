@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0E6FAB313D
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 10:12:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.980950.1367340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F61DAB3212
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 10:47:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.980961.1367360 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEOHE-0007dw-BY; Mon, 12 May 2025 08:12:44 +0000
+	id 1uEOnw-0003gv-Ur; Mon, 12 May 2025 08:46:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 980950.1367340; Mon, 12 May 2025 08:12:44 +0000
+Received: by outflank-mailman (output) from mailman id 980961.1367360; Mon, 12 May 2025 08:46:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEOHE-0007bN-8Q; Mon, 12 May 2025 08:12:44 +0000
-Received: by outflank-mailman (input) for mailman id 980950;
- Mon, 12 May 2025 08:12:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1uEOnw-0003eP-Qk; Mon, 12 May 2025 08:46:32 +0000
+Received: by outflank-mailman (input) for mailman id 980961;
+ Mon, 12 May 2025 08:46:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uEOHD-0007bH-9S
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 08:12:43 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uEOHC-0046GR-2R;
- Mon, 12 May 2025 08:12:42 +0000
-Received: from [2a02:8012:3a1:0:e418:e534:35e5:729f]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uEOHC-00HBB7-16;
- Mon, 12 May 2025 08:12:42 +0000
+ (envelope-from <SRS0=4gEQ=X4=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1uEOnw-0003Qj-2f
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 08:46:32 +0000
+Received: from mail.zytor.com (terminus.zytor.com [2607:7c80:54:3::136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 970efc9c-2f0d-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 10:46:28 +0200 (CEST)
+Received: from terminus.zytor.com (terminus.zytor.com
+ [IPv6:2607:7c80:54:3:0:0:0:136]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 54C8jqc41586901
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Mon, 12 May 2025 01:45:59 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,92 +41,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=wMhMM3mFYIBgz1H0tcaMRxSBgo0nSNRZ2Pqjuhy1X5U=; b=MSUAKWBosAg7rV2hHbdsReOfFX
-	5MIg+/gYFffWAQHmGMOxZkiPkelE30tEYi/SAz+JpmKi01wVLlWlfJoQjvcHFBnwHZbTJwAAWhhGN
-	2fcbnqrbLB8+Kh0R76h+ktrQqmGnLrWSFDI3n/20pyw4HSs6PYmp1a+ogM/xvrXp8Rqk=;
-Message-ID: <97909432-2199-4d57-98bf-3aaa373a46bf@xen.org>
-Date: Mon, 12 May 2025 09:12:40 +0100
+X-Inumbo-ID: 970efc9c-2f0d-11f0-9ffb-bf95429c2676
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 54C8jqc41586901
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1747039560;
+	bh=7a7DioSZkOkbzgFBLNF+1MMN8PbvCPClN1vs7CkMDT4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=g9yE1SUIh+a4/A07fhKWcikSvZS/B1o32tMs/ljMYpKNDM5Mzs8/5CLXUUzW+O2d9
+	 anFCSIGiPm6lXib7pAMPfKu9y7K6kCM65jPzDHqpFTNgaiVUrnm8LLASk4DkkPleFV
+	 KXWcQs4YY0htPPFfCvcSwzJaxgP0bip3uPvcLW58ILxilulgaXhzoJ3fH7rYGNjr2W
+	 Jti+nP3nWugH5PAeH7DXNtt/R17RvC/pPhDLA2a7XbxaimpeGRXO4LZHZhIhz24/d8
+	 76LsC0rfGbo5S8nmx6unBRR1HHW9iyGvQiDbgcMLTqL2t+jkloEdlVTsyQg+vtg+z7
+	 TwX8Nrssqf2bQ==
+From: "Xin Li (Intel)" <xin@zytor.com>
+To: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-acpi@vger.kernel.org
+Cc: tglx@linutronix.de, mingo@kernel.org, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        peterz@infradead.org, jgross@suse.com, boris.ostrovsky@oracle.com,
+        rafael@kernel.org, lenb@kernel.org
+Subject: [PATCH v1 0/3] MSR fixes and cleanups after last round of MSR cleanups
+Date: Mon, 12 May 2025 01:45:49 -0700
+Message-ID: <20250512084552.1586883-1-xin@zytor.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/bitmap: Drop unused headers
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250510131245.3062123-1-andrew.cooper3@citrix.com>
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20250510131245.3062123-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Andrew,
+These patches:
 
-On 10/05/2025 14:12, Andrew Cooper wrote:
-> Nothing in bitmap.h uses lib.h.  Reduce to just macros.h and string.h.  Drop
-> types.h while at it, as it comes in through bitops.h
-> 
-> cpumask.h and nodemask.h only include kernel.h to get container_of().  Move it
-> into macros.h where it belongs.
+1) remove a superfluous inclusion of <asm/asm.h> accidently added to
+   drivers/acpi/processor_throttling.c in commit:
 
-The wording implies that container_of() will be moved as-is (barring 
-coding style). However...
+     efef7f184f2e ("x86/msr: Add explicit includes of <asm/msr.h>").
 
-[...]
+2) Fix uninitialized symbol 'err' introduced by:
 
-> -/**
-> - * container_of - cast a member of a structure out to the containing structure
-> - *
-> - * @ptr:	the pointer to the member.
-> - * @type:	the type of the container struct this is embedded in.
-> - * @member:	the name of the member within the struct.
-> - *
-> - */
-> -#define container_of(ptr, type, member) ({                      \
-> -        typeof_field(type, member) *__mptr = (ptr);             \
-> -        (type *)( (char *)__mptr - offsetof(type,member) );})
-> -
+     d815da84fdd0 ("x86/msr: Change the function type of native_read_msr_safe()").
 
-I see the cast was switch from "char *" to ...
+3) Convert a native_wrmsr() use to native_wrmsrq() in
+   arch/x86/coco/sev/core.c.
 
->   /**
->    * __struct_group() - Create a mirrored named and anonyomous struct
->    *
-> diff --git a/xen/include/xen/macros.h b/xen/include/xen/macros.h
-> index cd528fbdb127..58affb1588c5 100644
-> --- a/xen/include/xen/macros.h
-> +++ b/xen/include/xen/macros.h
-> @@ -102,6 +102,19 @@
->    */
->   #define sizeof_field(type, member) sizeof(((type *)NULL)->member)
->   
-> +/**
-> + * container_of - cast a member of a structure out to the containing structure
-> + *
-> + * @ptr:	the pointer to the member.
-> + * @type:	the type of the container struct this is embedded in.
-> + * @member:	the name of the member within the struct.
-> + */
-> +#define container_of(ptr, type, member)                         \
-> +    ({                                                          \
-> +        typeof_field(type, member) *__mptr = (ptr);             \
-> +        (type *)((void *)__mptr - offsetof(type, member));      \
 
-... "void *". AFAICT, this is doesn't change anything. However, I think 
-it is worth mentioning in the commit message to show this was intended.
+Xin Li (Intel) (3):
+  x86/msr: Remove a superfluous inclusion of <asm/asm.h>
+  x86/xen/msr: Fix uninitialized symbol 'err'
+  x86/msr: Convert a native_wrmsr() use to native_wrmsrq()
 
-With that:
+ arch/x86/coco/sev/core.c            | 7 +------
+ arch/x86/xen/enlighten_pv.c         | 5 ++++-
+ drivers/acpi/processor_throttling.c | 1 -
+ 3 files changed, 5 insertions(+), 8 deletions(-)
 
-Acked-by: Julien Grall <jgrall@amazon.com>
 
-Cheers,
-
+base-commit: 9cf78722003178b09c409df9aafe9d79e5b9a74e
 -- 
-Julien Grall
+2.49.0
 
 
