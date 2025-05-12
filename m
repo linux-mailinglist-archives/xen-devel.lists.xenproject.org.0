@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7D13AB37FC
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 15:01:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981426.1367819 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93363AB3828
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 15:11:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981434.1367830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uESlc-0005TE-01; Mon, 12 May 2025 13:00:24 +0000
+	id 1uESwS-0007b6-0F; Mon, 12 May 2025 13:11:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981426.1367819; Mon, 12 May 2025 13:00:23 +0000
+Received: by outflank-mailman (output) from mailman id 981434.1367830; Mon, 12 May 2025 13:11:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uESlb-0005QW-TK; Mon, 12 May 2025 13:00:23 +0000
-Received: by outflank-mailman (input) for mailman id 981426;
- Mon, 12 May 2025 13:00:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uESwR-0007Y0-Sq; Mon, 12 May 2025 13:11:35 +0000
+Received: by outflank-mailman (input) for mailman id 981434;
+ Mon, 12 May 2025 13:11:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uESla-0005QQ-Fr
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 13:00:22 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f478981-2f31-11f0-9eb6-5ba50f476ded;
- Mon, 12 May 2025 15:00:20 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-ac3eb3fdd2eso815163866b.0
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 06:00:20 -0700 (PDT)
+ id 1uESwQ-0007Xu-Q6
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 13:11:34 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9f5f0279-2f32-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 15:11:31 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-ace94273f0dso853073466b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 06:11:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad2197bd4d3sm612394466b.132.2025.05.12.06.00.19
+ 4fb4d7f45d1cf-5fd29f9fdc2sm2292434a12.4.2025.05.12.06.11.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 06:00:19 -0700 (PDT)
+ Mon, 12 May 2025 06:11:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f478981-2f31-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 9f5f0279-2f32-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747054820; x=1747659620; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747055492; x=1747660292; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jo9IgKAX9RI6Gt2JpUdnx0f6/WDvpERGqs2A7RSta38=;
-        b=Xy9Zekh440WoUNY0fTbkGimXitueHB8azHOoPlmjOgB73AotAmb/g8OXoTzrzzuqLs
-         8cd2EhEFOf9c4d68nEAYGHhD7201+cFe+iVj2Vi3lg9ME4gVj8QxGjI33xxRvsrkqXNx
-         12G7jrPdrTYXBBgyOlHaz7gMR5CIrnn3mWxv4iV+OYN/2UWdY3mFFNqLagYhT/FP4Pl7
-         PG+ZM77uelXeymw07Vgd7WMqmGIPGTVcOZlxfrCv0WyMmIMUT4UqEx4wiQYc8vNSAoyx
-         Mi3vrtNGmdY5u3Dy0eNN4Ui9qm8oBUWxF+r8BU5fB8ZHncQhJe9TuSq+Y01gEBDzz1lv
-         Q0Fw==
+        bh=ri7MrhNgClldSHZwYBLId7hYhTsIsGemJo+9YJa1G7c=;
+        b=DcEKC2mxV/QN8HwFT+vMJRYwOatQ9FeMO2oGLPV5mpEZQdSG6+Z7ehokN0Byg6oV37
+         d+xqFRcaq7zb9Y6QBuztbLQK2CM58yQ5Guy8EuECvebUqbEpSbLmcpV0+cPC61LmJLh+
+         pIhGGX1lpj+vWSZc37UbjRGd+fWgcmAxb7SypG1I4+b819+il46RKz2oJjZoXzV33V4M
+         9KXNKBjP6ZlhyeH+QSxemc/V3JlNVup5eck5Lyul9jbApDDkXnclckCre7aNf/IyVwPu
+         KSJpP8WT5xTXinPTq9KAMiMVpl3FggvXyqpVQEkzXzNpe3D6LK1R2wBk+TKGL9Ja9JQh
+         tjtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747054820; x=1747659620;
+        d=1e100.net; s=20230601; t=1747055492; x=1747660292;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jo9IgKAX9RI6Gt2JpUdnx0f6/WDvpERGqs2A7RSta38=;
-        b=M2rZkptOfEGkt48ldIn7jiufzuSGtkI0QZvOrchrfh/8n27iCW3Ho3jlMPe3C2zu9z
-         4wCe7bq0w04FhuP3XBUpNpDrtKhvGD5wrPOGt2vMfLVOkfFQpF/bDvs5XTsrVUCfG+BQ
-         0t1iBaE3CawpBm4/BrjlUVjEmPtD0ZFtvCyFsUOdI3gxSynsPF2TtkAYFwVB5GoLaG/E
-         +AiMoVNH/OAXyxpGfFicrUYlKs8o5PfagMXhVgdYl4HXdBqB9lxokZOjPwcOVKj++x5T
-         h5HQPgj8MjnoP9RZAYb4dJlShVv2Yoe964/RyvJkZagKX44bmUGc18smcukeXZRx2cqs
-         QAow==
-X-Gm-Message-State: AOJu0YzTypgMqflTCSrmrIpeSXHrjBEoEhq1fqukjppkeJS1+xM+efOD
-	f7XeRgrl5LUtnGTJUHECYfUBAXdCGShzaQRC76y4zHiDKkUh2sGmavSeHJ18eQ==
-X-Gm-Gg: ASbGncuaOtkUHTM9sv4GEfxU8dHIlPgdeJ547MrKcRxmR8pIZDaMNJ5LgUsRvVXstax
-	cFQLISdSO/FmornPMKZUydqRU5wXO69wAuwbD5siSWa3evAQ2TC8JGRpgy+6R8cLiOojrRKsjSU
-	xyxi4lc+RiTprBRAU+SsbNdDjufZF2B74KLEzWPAM79dvT5RT12EtPd+Rd0B0/2GVWsRhR8DgC0
-	x6NV4SDtnMPMClX4z4+1xsgn1b24JvwQNElwJo8w6P22FmNNwOuYMazgtbcomUp9eG05iGVk9oy
-	NFr/Uh/VNdRN0Kkd7EGUaW0zVAbraMsEyNgxIfX8koGERm523Py9I4rz/Cy99GaI970cEhUNInK
-	GezkxRjPOheleFU4u43/mIttGFtw3pmQw1Ecq
-X-Google-Smtp-Source: AGHT+IHU+M4bIUTMYDFmjS/Jo1QWuh2+ZV4wmuVeX0lI22uNsj1iBGXWatJplcZp7A6b4hUuhLh4Lg==
-X-Received: by 2002:a17:906:9c8a:b0:ac7:805f:9056 with SMTP id a640c23a62f3a-ad21905690amr1142936466b.32.1747054819968;
-        Mon, 12 May 2025 06:00:19 -0700 (PDT)
-Message-ID: <35826c2a-4266-49d2-b1b8-1248aac227b5@suse.com>
-Date: Mon, 12 May 2025 15:00:18 +0200
+        bh=ri7MrhNgClldSHZwYBLId7hYhTsIsGemJo+9YJa1G7c=;
+        b=eQvyrHpigW3fZQBtNhIqAxV24WoIJVfuaQFeLP5sYFWJxA5nxdWZrkAfRh8UPzZloP
+         GgW7NRorm6b6YUqDRRvST7vKCu8vCY79ZgJKC5yRbB7bFtEyZuE6jpqyNf8TRoMmJMhK
+         iL1fa/dYNqgFKeB07gIoBPkXcir2NWtE/4gGkQBq40vVQaUEyaj1oR6Dqvn7E2cPjxBb
+         jiEcLFSarJRcyfXgh1yMA2hCgFcMW+LFY5heIEvAuQ7ZgXGM1Vi3xnfIFgky15MdHD76
+         qSGK5mRzAlUVN0tf9AXE2p8kPfkDe4e4QwQiVG74CAaTpGm2sl7LUVkFuvzdWKgkX/wG
+         dciw==
+X-Forwarded-Encrypted: i=1; AJvYcCWLag96GeD70Vtzal+RtlMoH/M2RGZZKSA1kZr0Dsc8sHV4vmNrXbH+F39nQx8QnCevx4+/ISuoaYE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJgu8+lniMR9A+Fo3+meKNaFu/Os+rZkP3xtf4XA+e+20Kg7+N
+	icHtmpd2dwnWnofbHeICxeLT8t6UqdXEizzJ19XaaBy9nrQJtWD0Iemo7bLHSg==
+X-Gm-Gg: ASbGncuAw5+39e7En7KVIA3YtaCVSWCGgdsTxT7fab4gL50IYJYQQWKQuquxiNBiOd6
+	Y9grbGLmhaOONaD/MGNJ/p6MdS75XuiT0IVB/ncl9CMpjbpxtAtOfb1gQEXMk0dqqt02AiStpt7
+	WOD21n/MeRgHhyAOeIf1D2vXZcaEimvZ/HvPBeJQbj4MXsgEe5XVqKB6MxamFc8XV2OhwesmvPC
+	9vsLuheCUXfs9bICMYi+VMdpuDhKwa5lyF6pkaq8T3N9Ohe6SACwgCZr3hQdj1oAVdYVbw8Hcp6
+	9JHqhj4gz8SrNf+BtoS8FlQo505w5aZR4mHAeyF2T+UQ6BDY/PwMqAigSZDuVWn4Zggb7ZmBWB6
+	6Ys33feyPS7JFBJhyu6/6k7swmM8mqW+iVZUe
+X-Google-Smtp-Source: AGHT+IFZEQllPc9mbdtmDR6Mvlca7IMg4bvgILHGwdaHdPdkktiW14Ee4dWrBtjQnppncRYj0f0VGA==
+X-Received: by 2002:a17:906:f80f:b0:ad2:238e:4a1b with SMTP id a640c23a62f3a-ad2238e4b77mr980151266b.15.1747055492045;
+        Mon, 12 May 2025 06:11:32 -0700 (PDT)
+Message-ID: <71bdba1f-8e2a-4335-8302-b14fd1dcfe7a@suse.com>
+Date: Mon, 12 May 2025 15:11:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Use __auto_type
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+Subject: Re: [RFC PATCH v3 1/2] xen: add libafl-qemu fuzzer support
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Roberto Bagnara <roberto.bagnara@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250505124646.1569767-1-andrew.cooper3@citrix.com>
- <alpine.DEB.2.22.394.2505051244090.3879245@ubuntu-linux-20-04-desktop>
- <548430a5-fa4a-41d1-b5ba-ba45efa90bbc@suse.com>
- <7acc83a3-2b15-4557-b293-0832b35e3680@citrix.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <gwd@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250507095338.735228-1-volodymyr_babchuk@epam.com>
+ <20250507095338.735228-2-volodymyr_babchuk@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,37 +125,138 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7acc83a3-2b15-4557-b293-0832b35e3680@citrix.com>
+In-Reply-To: <20250507095338.735228-2-volodymyr_babchuk@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 12.05.2025 14:09, Andrew Cooper wrote:
-> On 12/05/2025 12:59 pm, Jan Beulich wrote:
->> On 05.05.2025 21:44, Stefano Stabellini wrote:
->>> On Mon, 5 May 2025, Andrew Cooper wrote:
->>>> In macros it is common to declare local variables using typeof(param) in order
->>>> to ensure that side effects are only evaluated once.  A consequence of this is
->>>> double textural expansion of the parameter, which can get out of hand very
->>>> quickly with nested macros.
->>>>
->>>> A GCC extension, __auto_type, is now avaialble in the new toolchain baseline
->>>> and avoids the double textural expansion.
->>> I think this is a good change
->> +1
-> 
-> That looks like agreement.
-> 
-> Now for the (new) controversial part.  Since sending this, Linux has
-> decided to just #define auto __auto_type for C < 23, in order to start
-> writing C23 compatible code from now.  It's more succinct, and has
-> better longevity.
-> 
-> We might want to consider the same, although it will introduce a new
-> example of defining a keyword, which we'd have to call out in the
-> MISRA/Eclair config.
+On 07.05.2025 11:53, Volodymyr Babchuk wrote:
+> --- a/xen/common/Makefile
+> +++ b/xen/common/Makefile
+> @@ -78,6 +78,7 @@ extra-y := symbols-dummy.o
+>  obj-$(CONFIG_COVERAGE) += coverage/
+>  obj-y += sched/
+>  obj-$(CONFIG_UBSAN) += ubsan/
+> +obj-$(CONFIG_FUZZER_LIBAFL_QEMU) += libafl-qemu.o
 
-I'm not outright opposed, as I don't think we use "auto" with its
-original semantics, but it feels somewhat odd.
+This ought to move up into the list of (mostly?) sorted object files.
+
+> --- /dev/null
+> +++ b/xen/common/libafl-qemu.c
+> @@ -0,0 +1,80 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/*
+> +  This file is based on libafl_qemu_impl.h, libafl_qemu_qemu_arch.h
+> +  and libafl_qemu_defs.h from LibAFL project.
+> +*/
+> +#include <xen/lib.h>
+> +#include <xen/init.h>
+> +#include <xen/kernel.h>
+> +#include <xen/spinlock.h>
+> +#include <xen/libafl-qemu.h>
+> +#include <asm/libafl-qemu.h>
+> +
+> +/* Generates sync exit functions */
+> +LIBAFL_DEFINE_FUNCTIONS(sync_exit, LIBAFL_SYNC_EXIT_OPCODE)
+> +
+> +    void libafl_qemu_end(enum LibaflQemuEndStatus status)
+> +{
+> +    _libafl_sync_exit_call1(LIBAFL_QEMU_COMMAND_END, status);
+> +}
+> +
+> +void libafl_qemu_internal_error(void)
+> +{
+> +    _libafl_sync_exit_call0(LIBAFL_QEMU_COMMAND_INTERNAL_ERROR);
+> +}
+> +
+> +void lqprintf(const char *fmt, ...)
+
+At least this one looks as if it can be static. Anything which can be should
+be made so.
+
+> +{
+> +    static DEFINE_SPINLOCK(lock);
+> +    static char buffer[LIBAFL_QEMU_PRINTF_MAX_SIZE] = {0};
+> +    va_list args;
+> +    int res;
+> +
+> +    spin_lock(&lock);
+> +
+> +    va_start(args, fmt);
+> +    res = vsnprintf(buffer, LIBAFL_QEMU_PRINTF_MAX_SIZE, fmt, args);
+> +    va_end(args);
+> +
+> +    if ( res >= LIBAFL_QEMU_PRINTF_MAX_SIZE )
+> +    {
+> +        /* buffer is not big enough, either recompile the target with more */
+> +        /* space or print less things */
+> +        libafl_qemu_internal_error();
+> +    }
+> +
+> +    _libafl_sync_exit_call2(LIBAFL_QEMU_COMMAND_LQPRINTF,
+> +                            (libafl_word)buffer, res);
+> +    spin_unlock(&lock);
+> +}
+> +
+> +void libafl_qemu_trace_vaddr_range(libafl_word start,
+> +                                   libafl_word end)
+> +{
+> +    _libafl_sync_exit_call2(LIBAFL_QEMU_COMMAND_VADDR_FILTER_ALLOW, start, end);
+> +}
+> +
+> +static int init_afl(void)
+> +{
+> +    vaddr_t xen_text_start = (vaddr_t)_stext;
+> +    vaddr_t xen_text_end = (vaddr_t)_etext;
+> +
+> +    lqprintf("Telling AFL about code section: %lx - %lx\n", xen_text_start,
+> +             xen_text_end);
+> +
+> +    libafl_qemu_trace_vaddr_range(xen_text_start, xen_text_end);
+> +
+> +    return 0;
+> +}
+> +
+> +__initcall(init_afl);
+
+Please omit the blank line ahead of the __initcall() if that immediately
+follows the respective function.
+
+> --- /dev/null
+> +++ b/xen/include/xen/libafl-qemu.h
+> @@ -0,0 +1,63 @@
+> +/* SPDX-License-Identifier: MIT */
+> +#ifndef __XEN_LIBAFL_QEMU_H
+> +#define __XEN_LIBAFL_QEMU_H
+> +
+> +#include <xen/stdint.h>
+> +#define LIBAFL_QEMU_PRINTF_MAX_SIZE 4096
+> +
+> +#define LIBAFL_STRINGIFY(s) #s
+> +#define XSTRINGIFY(s) LIBAFL_STRINGIFY(s)
+
+We have STR() (and stringify()) - why would we need yet another macro?
+
+> +#define LIBAFL_SYNC_EXIT_OPCODE 0x66f23a0f
+> +
+> +typedef enum LibaflQemuCommand
+> +{
+> +  LIBAFL_QEMU_COMMAND_START_VIRT = 0,
+> +  LIBAFL_QEMU_COMMAND_START_PHYS = 1,
+> +  LIBAFL_QEMU_COMMAND_INPUT_VIRT = 2,
+> +  LIBAFL_QEMU_COMMAND_INPUT_PHYS = 3,
+> +  LIBAFL_QEMU_COMMAND_END = 4,
+> +  LIBAFL_QEMU_COMMAND_SAVE = 5,
+> +  LIBAFL_QEMU_COMMAND_LOAD = 6,
+> +  LIBAFL_QEMU_COMMAND_VERSION = 7,
+> +  LIBAFL_QEMU_COMMAND_VADDR_FILTER_ALLOW = 8,
+> +  LIBAFL_QEMU_COMMAND_INTERNAL_ERROR = 9,
+> +  LIBAFL_QEMU_COMMAND_LQPRINTF = 10,
+> +  LIBAFL_QEMU_COMMAND_TEST = 11,
+> +} LibaflExit;
+> +
+> +typedef uint64_t libafl_word;
+
+Looking at its uses, this rather wants to be unsigned long as it seems.
 
 Jan
 
