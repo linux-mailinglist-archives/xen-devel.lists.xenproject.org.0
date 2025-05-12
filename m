@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5242AB3C52
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 17:38:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981749.1368160 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 105FAAB3C66
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 17:41:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981763.1368169 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEVEJ-0004Zr-Me; Mon, 12 May 2025 15:38:11 +0000
+	id 1uEVHR-0006Ux-7c; Mon, 12 May 2025 15:41:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981749.1368160; Mon, 12 May 2025 15:38:11 +0000
+Received: by outflank-mailman (output) from mailman id 981763.1368169; Mon, 12 May 2025 15:41:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEVEJ-0004Wz-Jw; Mon, 12 May 2025 15:38:11 +0000
-Received: by outflank-mailman (input) for mailman id 981749;
- Mon, 12 May 2025 15:38:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uEVHR-0006T1-4t; Mon, 12 May 2025 15:41:25 +0000
+Received: by outflank-mailman (input) for mailman id 981763;
+ Mon, 12 May 2025 15:41:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEVEI-0004Wt-LD
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 15:38:10 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1aaf2a4d-2f47-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 17:38:08 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5fd0d383b32so3167973a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 08:38:08 -0700 (PDT)
+ id 1uEVHP-0006Rg-6B
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 15:41:23 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8df788b3-2f47-11f0-9eb6-5ba50f476ded;
+ Mon, 12 May 2025 17:41:22 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5fbf52aad74so9541022a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 08:41:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5fe943484e6sm1315048a12.24.2025.05.12.08.38.07
+ 4fb4d7f45d1cf-5fe17c6c918sm2190808a12.23.2025.05.12.08.41.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 08:38:07 -0700 (PDT)
+ Mon, 12 May 2025 08:41:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1aaf2a4d-2f47-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 8df788b3-2f47-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747064288; x=1747669088; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747064481; x=1747669281; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MG1uROywJGEjyfQbCjXiFOg6F5BMz/3WanvKrrzvY2g=;
-        b=Pg0GHIt5Wnvee3/al2oPwamUKljr4LUURYl+jowz/Sub7WqJoclwvTqufBwsC3hlPX
-         bTL3BO7vgMbK7zYGi3zy9obKA4N6J7muLR5DOV1+6+rDQmWpEYPHklQs2tAJavX/eFoL
-         AZGHmne0IQ2cx6gM2m9zRi6VRK8d2WVC22zckUybAvHnm2zjHLjKLWB20Y989YNpYIEM
-         t1ayxNlfKO+ENALt/Zj12G4buFu55+qSDOANDdSLOu8nWPVN3Y15zUutYlZIeKmoIKbW
-         JxpY4yEMDIW0B1c67fXj7+xNY/6NCJHaX9fzyaHaevC4cXJHemhhweUy45vyZzbzMPTI
-         kKnw==
+        bh=20xrL+8f4Mo1wmEMliefXpltpUJiQP3DhTavYpR2koU=;
+        b=ZLVTMlOEg/JzbG68X7dUoQZ2vkt7N0sK1mc6TNM8hy6rbLZmA3Cx3aSpHW3uv9Zo3a
+         fcSCVNz9MrbHnaQ0z3YyP6xlpc39eVUsN1Gv/t7KCLMIhFVAb5cPw8KQTddi7olIbvaS
+         CcqvmXCr/tkoRkcJ/IMmyoIm4DLOGP8PS5RUJrHEzuSd+T/9+Q/KTu6aikkmBXqNsxCS
+         xCgC0t3cMMDgCKRRIupVSMnvH+6sR9HlR3fVCEnrNMUSG/rtcmZeNtTLznv3ytH0z0iB
+         mMORQMt41eu0zZFE13mp75SEFbJjFhRLfuDqCZdBMlPqU48vJS9jujvc/BpdwlTP2C3o
+         KB5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747064288; x=1747669088;
+        d=1e100.net; s=20230601; t=1747064481; x=1747669281;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MG1uROywJGEjyfQbCjXiFOg6F5BMz/3WanvKrrzvY2g=;
-        b=XqMqX6or2xbG2a57dv2qKqFJ6fr2sRMVWTkWZ8kochvrh+o788JLrfERLfEeTxm3J9
-         ujEnTCmUgoQqISzLsAUvbSOD1zdDMFvXln55uQnMq1SSzNwabnteyEayf12MhI+C0FoK
-         1ul9mEGAJCvQ4zlPQtJpXKN5NL9m5UYyeu25Mf6OQg3HSb8AgmMvtS4x72zG5AjkrIuD
-         GtnzAexwvuRUFItf2+nluyN/uli3Z0zGIqC4P00hQJ+99t/0+j8Jumzn4l9JQgfoB/SB
-         cF4KM9JmSz/LNTGMeG+gNChvrFxHcY++Cz0Fv2sFe9921VasaKRai1bP8YeC3M+FAvsB
-         /oWw==
-X-Gm-Message-State: AOJu0YzGQzxQLB4o9jgV1lJQRPmH1LrduXNEhw3MWGlp7Klmh0L9xOlB
-	flWiAabBMo7BAVYgQDODnpsWirnz25u8whi6/MQJeTC/3/Wf6g9RI7kQhFSGGQ==
-X-Gm-Gg: ASbGnct06MONNYgyC5SklWLs0Utq4LIGYLF5XKR8OGitHWLQ7b5a3YbaMcqQAbqtmhh
-	N1jkXXIKnwM3yU7lig3CdTPCn1OnFGvMFYQSMW8m8uSW4YBGFm2fJnUfc7bVJHBJLVjCgCwb79E
-	44Zf+qfIRde19IL2w5epjUQatZ2+q5fOE/9aAc5M5XPy/zhvcC4Dy2ATqHHIuilfvLQTOWMb6de
-	jDGccsWb6Nk7X0gat6rRzuk1h/kAgiTV/UPBr5JG7NS4sBAiUCgMp/eckOnx+/vvHMtY/pXu0Yb
-	q8WYmVQSMVBDKDq0iC94umZ2oKafpNSLcKFs30ZcwNSEzWR1adsJ4d6MbF+M56GDydeI7OHmVkA
-	jiF6KXjSfnC61R3KO4J0eQ/NgRePQmJQ+x7KY
-X-Google-Smtp-Source: AGHT+IEHSeMTKrvK9dL59lb3BXVTQPPUkdhwQ4O3JadntKeohaOG0mf6TcDvQNBhaPO/ODJ+n7B9cQ==
-X-Received: by 2002:a05:6402:2686:b0:5f6:218d:34f3 with SMTP id 4fb4d7f45d1cf-5fca11dd3b6mr13630921a12.28.1747064288165;
-        Mon, 12 May 2025 08:38:08 -0700 (PDT)
-Message-ID: <d9a960ba-9690-4d0c-8b1a-1fa9275bcf22@suse.com>
-Date: Mon, 12 May 2025 17:38:07 +0200
+        bh=20xrL+8f4Mo1wmEMliefXpltpUJiQP3DhTavYpR2koU=;
+        b=TTWM+awhCDyN721kjuPI+GhCLDYHfMAMFFiW/MxrwAPQf4NzxFi6tOVKJ6A6Qa/oCn
+         c4ne1qS9FNefxDbfY0izmGWVh20uOWCeUbwRaKI+stSHlDVHBjLwT1MKfUMSszwj+cmu
+         PbUVKR8GrieANur9blTC6F6ypH+Avx2ghR7e6zC32WjWd/G7/m7OT5elmNHPFfVI2Awi
+         +a6H36V71e+7Aonri2HisN9ywR5zQYiYxMTi7YDMY8sfNXD4MAQFNb4NNjKnDVUD/Rtv
+         Zgnbpje+Bh834EKk9eJ6E+phYaTk3e+15M2muAVvyRYxrVxZPnrIhvc+cVlLCn+7bmZM
+         ptmg==
+X-Forwarded-Encrypted: i=1; AJvYcCW1r+lCdqop6iQ8ecx09DMs53GQpEIh0jm/d2FCCH3zLUKQcGfcjsqIARMDBhperMxILiOSnknCAxk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyowywI5mJS3X/PCoIegcv4Nku0Kkg86faYXFm/zTfAo8Hk0rsK
+	4VVTaJTaE9rP5S8z/3gAztNH3af71OxeRp80QJsBMK7rVP93SZyNAspY7BUZZQ==
+X-Gm-Gg: ASbGncvUjtB9R7B4TIlMpZ1j5c3vV9dh3vXS5nqKGaHUTfvHVj5JWPDeb2rod68qb3s
+	FdW5KiPrPkk4LAXjHSsD8d5fwehyt1Yi3ZaRfi2hivOvNZ0MnLbo0iaFv4y5pGMi8lBzHjNEfPt
+	8ccb0QT39T2CkhwMcX1tt7pPb3PhOxHh78i03Qm7VbAUm5Bk1rfC/S9dvgsb8nzzcu+ZoEgeZgc
+	q9pjEJPRoTspkNjD9KPokh/2jA8nBVeqCb6POnqb32M5zmuQSzvlPCM7ZSdfG9IrthTbDqwa81P
+	yxiB0fwYCa7Q9HN+0o7JYGaf2psJhEKMBw+8hlQZmpOHcvpRtBpiLenuat3O62s2xZb67+0cFwP
+	uoZTJDJI3DzaO0lh75zlw7B5s/kKMvWgBD9pv
+X-Google-Smtp-Source: AGHT+IFZ2sqk6xq36aEbJGk2UL4LcptumihTR160i108p3SH5xk+Wa1IkpsxBjz2ADR0uk/VpR40aA==
+X-Received: by 2002:a17:907:74c:b0:acf:b9b6:9608 with SMTP id a640c23a62f3a-ad1fca0fd60mr1587459766b.9.1747064481499;
+        Mon, 12 May 2025 08:41:21 -0700 (PDT)
+Message-ID: <03caed8e-91fc-4bfd-8623-d5a2efdaadbf@suse.com>
+Date: Mon, 12 May 2025 17:41:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 9/9] xen/x86: track dirty pCPU caches for a given vCPU
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20250506083148.34963-1-roger.pau@citrix.com>
- <20250506083148.34963-10-roger.pau@citrix.com>
- <cecf40ed-9cf2-4e86-aa82-e0c33643868d@citrix.com>
- <aBoGyekf9KZeZCrK@macbook.lan>
+Subject: Re: [PATCH v4 01/15] xen/cpufreq: move "init" flag into common
+ structure
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
+ <20250414074056.3696888-2-Penny.Zheng@amd.com>
+ <26067708-2854-4493-8801-d0fb709242d0@suse.com>
+ <DM4PR12MB84516D714BA53A40978B96F8E1892@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,49 +121,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aBoGyekf9KZeZCrK@macbook.lan>
+In-Reply-To: <DM4PR12MB84516D714BA53A40978B96F8E1892@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.05.2025 14:55, Roger Pau Monné wrote:
-> On Tue, May 06, 2025 at 12:16:00PM +0100, Andrew Cooper wrote:
->> On 06/05/2025 9:31 am, Roger Pau Monne wrote:
->>> When a guest is allowed access to cache control operations such tracking
->>> prevents having to issue a system-wide cache flush, and rather just flush
->>> the pCPUs where the vCPU has been scheduled since the last flush.
->>>
->>> Note that domain-wide flushes accumulate the dirty caches from all the
->>> vCPUs, but clearing the vCPU masks will require pausing all vCPUs, which
->>> seems overkill.  Instead leave the vCPU dirty masks as-is, worse case it
->>> will result in redundant flushes in further calls.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 06.05.2025 07:33, Penny, Zheng wrote:
+> [Public]
+> 
+> Hi,
+> 
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Thursday, April 17, 2025 11:12 PM
+>> To: Penny, Zheng <penny.zheng@amd.com>
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; xen-devel@lists.xenproject.org
+>> Subject: Re: [PATCH v4 01/15] xen/cpufreq: move "init" flag into common structure
 >>
->> I'm afraid this doesn't work.
+>> On 14.04.2025 09:40, Penny Zheng wrote:
+>>> AMD cpufreq cores will be intialized in two modes, legacy P-state
+>>> mode, and CPPC mode. So "init" flag shall be extracted from specific
+>>> "struct xen_processor_perf", and placed in the common "struct
+>>> processor_pminfo".
 >>
->> Unlike TLBs, dirty cacheline can move sideways, e.g. by foreign or grant
->> mapping, but also naturally because of how cache coherency works.
+>> The code change is certainly acceptable, as being largely mechanical.
+>> However, the above doesn't explain _why_ we need that change. There's
+>> probably a little more connection that needs making between that's there and what
+>> you mean to add.
+>>
 > 
-> Does such sideway moving also imply that local WB{NO,}INVD on native
-> could be equally bogus?
-> 
-> According to the SDM, cache lines can indeed move between processor
-> caches, but the memory controller must always snoop such moves and
-> flush the data to memory:
-> 
-> "Here, the processor with the valid data may pass the data to the
-> other processors without actually writing it to system memory;
-> however, it is the responsibility of the memory controller to snoop
-> this operation and update memory."
-> 
-> So a cache line moving sideways will always be propagated to memory as
-> part of the move, and hence the data in the previous pCPU cache will
-> always hit memory.
+> How about complement the following description:
+> ```
+> Otherwise, later when introducing new sub-hypercall
+> to propagate CPPC data in commit "xen/x86: introduce new sub-hypercall to
+> propagate CPPC data", we need to pass irrelevant px-specific
+> "struct xen_processor_perf" in set_cppc_pminfo() to just set init flag.
+> ```
 
-But that's only one of the two aspects of a flush. The other is to ensure
-respective data isn't in any (covered) cache anymore. IOW dirty-ness (as
-the title has it) isn't a criteria, unless of course you mean "dirty" in
-a sense different from what it means in the cache coherency model.
+If spelled out in more abstract terms, in particular without a forward
+reference to a future commit, whose title may still change, this may
+then be okay if added.
 
 Jan
 
