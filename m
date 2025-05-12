@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55D72AB3A19
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 16:10:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981514.1367909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66090AB3A21
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 16:12:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981520.1367919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uETqX-0001o9-Os; Mon, 12 May 2025 14:09:33 +0000
+	id 1uETt0-0003Zj-51; Mon, 12 May 2025 14:12:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981514.1367909; Mon, 12 May 2025 14:09:33 +0000
+Received: by outflank-mailman (output) from mailman id 981520.1367919; Mon, 12 May 2025 14:12:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uETqX-0001lw-MH; Mon, 12 May 2025 14:09:33 +0000
-Received: by outflank-mailman (input) for mailman id 981514;
- Mon, 12 May 2025 14:09:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uETt0-0003YH-2E; Mon, 12 May 2025 14:12:06 +0000
+Received: by outflank-mailman (input) for mailman id 981520;
+ Mon, 12 May 2025 14:12:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uETqW-0001lq-8P
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 14:09:32 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8e966dc-2f3a-11f0-9eb6-5ba50f476ded;
- Mon, 12 May 2025 16:09:30 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-ad257009e81so159531266b.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 07:09:30 -0700 (PDT)
+ id 1uETsz-0003YB-HU
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 14:12:05 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 13fc3cc9-2f3b-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 16:12:03 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-54fcd7186dfso2597597e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 07:12:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad2198505fdsm617151266b.168.2025.05.12.07.09.29
+ a640c23a62f3a-ad2197bd2c0sm620776866b.130.2025.05.12.07.11.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 07:09:29 -0700 (PDT)
+ Mon, 12 May 2025 07:11:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8e966dc-2f3a-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 13fc3cc9-2f3b-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747058970; x=1747663770; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747059123; x=1747663923; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zouBe1hKJ+wNHpNuXJcq0KUvEJkKnc5aDdoaZSgHJ84=;
-        b=J/9mwooGrBs0MHoQVCVkhCzN01n6pkA8HbkN9i/vYHWoYI6M5LFfvSAkl7YK7RRKHs
-         Xa2Ti3Q6YZv7zusOhgZticacq93dNbhbBflVL6p3WfuzpihRHOvkPeSNrQbq4A+DyacJ
-         H2ZmvPswRMp5zAe05IRdvFvWVc/V7mzliat0DMz3jBUbFOO0Zsi9fJ9/rPScGjJAHhtY
-         9bwpo5aBjHEQSi4UH5dLodInG2xVW++vmVJ4ysuQL7wXjntdFKi0STowv03hJYb968rw
-         03RO1lWYc6cPkbuamesD1ga1Y8xBPGfojfUifK61wynXx3yrHn8YXH4E4B3nvGiN6Kbn
-         aebg==
+        bh=lWEcYkHkTxvckQRlU57M5o6O+Ermhnn7bjn+A02xAY8=;
+        b=aR/VF3+VlFKMQvn4egzfTZfNykURy6UL6wTytGKw41oWhm4lEYnm3XDQeAVWk2tWcf
+         GgLzVtzl6YO7IHhCNiseGylF4UYhtW6dlSiovl8TBCJkOhl3NrkaxBPil2a2v5xYVZV/
+         RH4e6ySfOfBN3SwwHz9q+9RXRwXdIEMUEpTTK1TL8CpSbGMMxVRtcDSLYDHiWONPEpff
+         j6JnoGFqau6dtejRtYwWzrrzDBmsrr90mZ8dTKK6/a8uQtYZh0F7YIlvM3n6KL64UNJD
+         CNuceKR0Sm4Hl9QwFRHlfIhZWBl6Qr9gTaNnjcG0EOdUb2wtzwQf6Idpp26KIvuX58t+
+         7p7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747058970; x=1747663770;
+        d=1e100.net; s=20230601; t=1747059123; x=1747663923;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zouBe1hKJ+wNHpNuXJcq0KUvEJkKnc5aDdoaZSgHJ84=;
-        b=NXcLLq0kgdW7U2qk6upDhzQTKSuIJ9a8W+tWnpKkxqDl0mTEa95SmaAMXvXHpJ2Dxv
-         FfeTeOq8DA4NI2ifz2/1NjJNAxPC3ARI65R+xcEOUwAgmlnPoBfp+Bmc6C4RBLv2xx2G
-         XMo/BGJd2yXSK0hTepFmEuMYV/M34WbKdI8TKNyp/mAvFgFjQ++3BW84J4cdc44PsGUa
-         Wx8mpAG54e0LO71JDQPhUcnjQbNfGXdJXHr0TRrA8Dn6mzBSrwH1GeG2EC/7Rka1mpRM
-         hS76JYmnZrw6Mn4SVXw6Hb2sDtPUp9SKnfmv7V2VLd7nNJ0z/Z2RQbegBTz8yZeutrdp
-         eywQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWa201ZkFpizNweqnLyEdrK6zy76L0TELkgqAeqfJYSYqq81+dHQRh1kb2tvcMem+Q/m+r+ItYiTQM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx5ayMmPF4lAqX9GpCao4noLcmiMaVz0E+4L+v78xWL4YXSAsHu
-	6E7GU7GlHvzfd5CAiZfxCHurHm1mhPuNWMspdiPzdzMB0rVDXH7Xo2AfwrJeMVh2EVIaoz2njhc
+        bh=lWEcYkHkTxvckQRlU57M5o6O+Ermhnn7bjn+A02xAY8=;
+        b=t1UkmiUPNeYzdOQe1x5sYfwiggnbUwf/qdZwi31gmnLx3qbZkPNqOYk0yodlrozdLN
+         8FHond6CeRD9H3REkg9HYXFdulKAdCFA+GYaOqjwJ3z7yWQuXpEyOpsUTVGrg7UpP9sX
+         fpa+lYo5kr1tEaft7emtFkWI7ZlWfEGx4l9M4WQhrymZMJs1WtV+Ik7w/MUBEE/VGFcH
+         JWCnarcVE4QNdQUsqXs/XXf3CfDdIzUZrBgdxvhL68ldRGb8UzN5tgDWhG8nw3XcHOre
+         fcT3/anRezIcaE3HGoE1vNUr145oPIPgqljm82YE5+EKkkT+iN8asWgQadsHj4AF9EjH
+         dRwQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW/DaR669SxzwziCEZJF4/pB7VsSxrbFAx1gE4b5j+FUf/SxAITJ9jZ/+cu5amQ2dRNXWPMTzkH5NE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwNA6LZLAgQQw8MLIttShFGggNAZy0j4IOU2WIFTz3qnF0qkQcT
+	YFR3kVW0ufHyHc5Ip/DV4E62XqcGiyvIBfNeTa6kJ6g2jc2nzGvWqUFd87mZcxWaOy+9FXP6RF4
 	=
-X-Gm-Gg: ASbGncs1N4HpB5sZQ+tc9ErBJPo/AsF+CI63zsfdsEb2x2Dl/Qkj+EC5OpN2JoQ+cNM
-	gH+JQBBrHQqdj7TO+zfDxxzmAJckq4OSPqjnBcLBQqTVz9Ca0Z11eOU0TF4K0f98HuZfTRPJiFr
-	Pc2qm+n2z1uhT9yxuF70ARv9CukdoVCbDW7Eckz05llrRy/gQRnYgX/bV7X5+QuIuFPM2Pcns+s
-	z8KKMgUUfdOEvkb6gRPBPKDvSmYYT7OX5du+Si4+82JQS8GV1LutyDFBzMrBa8+y9LidyuCKEfq
-	/426ILptIwsBi7paT761GmB9VUpmE3X9wQLUBsp29KGeKyOmiDPWnebB+uEaKYX8zkSoVTZ0eq3
-	rAsQYQsMLAdBGqpHhzS3gvTEhSQnBGF9yxEUm
-X-Google-Smtp-Source: AGHT+IHadKJX9nJXfl5J887yW6e/hPewvrqQ/Pkd6Wxu+xOWdJbTUengzEU//H43pRYTwWpGseRusg==
-X-Received: by 2002:a17:907:7b08:b0:ad2:2ff9:c912 with SMTP id a640c23a62f3a-ad22ff9dfebmr975288066b.17.1747058969947;
-        Mon, 12 May 2025 07:09:29 -0700 (PDT)
-Message-ID: <81a5182a-19aa-437d-b575-f3d8e45e4ca9@suse.com>
-Date: Mon, 12 May 2025 16:09:28 +0200
+X-Gm-Gg: ASbGncseP6CIWBHk94PAz3gQ0nxm8/VT/IK0MDE88czSZzlN3n934hAF80xSUvCGQSc
+	at8iBUQQfiMtcnzk4NG76Pj91DYJVtWh51f01TrP/9nOh3yptsCrM9UBpX10P/AyTGOKoBsScAW
+	m2Fh2B+jZ057WS6IiQ/H9lfuyJUL5PAoDAKt0hcT8QIuozRsG4csa3Hb7QykbA1QXQyakswNFOB
+	rrykqQJ1gpDOCtzQIP1fmZLT/sAjMcGvcMf6cSv+r11EfaUO1HffnuLzdKEEtVcCxkqkNacb/yd
+	kFEYtONWGeD43TlQEwJvApilqtPEbe4he8OZHIbENwdOD6eBTvCct9+t1uml+BFguXwySvjyY4C
+	puNbJSlHCiA51hTwxJzD4tcLRKI9c8OnWMrTv
+X-Google-Smtp-Source: AGHT+IEGyjYoIc8cSC1xhOIpQ9+Idd3o4q0Fy2ouqKpbgImZH7dZC899Y6zAu/SkrBwCLTlphqPQrg==
+X-Received: by 2002:a17:907:1c08:b0:ad2:2ed0:74a9 with SMTP id a640c23a62f3a-ad22ed07544mr1013416166b.59.1747059112024;
+        Mon, 12 May 2025 07:11:52 -0700 (PDT)
+Message-ID: <66f5d1f8-7d46-43e8-989a-040c3b1022bc@suse.com>
+Date: Mon, 12 May 2025 16:11:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/9] x86/pv: fix MMUEXT_FLUSH_CACHE to flush all pCPU
@@ -121,7 +121,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <20250506083148.34963-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 06.05.2025 10:31, Roger Pau Monne wrote:
 > The implementation of MMUEXT_FLUSH_CACHE is bogus, as it doesn't account to
@@ -132,45 +132,9 @@ On 06.05.2025 10:31, Roger Pau Monne wrote:
 > which will be correct in all cases.
 > 
 > Fixes: 534ffcb416bb ("Fix WBINVD by adding a new hypercall.")
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> Alternatively, the hypercall could be made correct by keeping track of the
-> pCPUs the vCPU has run on since the last cache flush.  That's however more
-> work.  See later in the series.
 
-Since, as iirc you indicated elsewhere, there's no actual user of this sub-op,
-doing as you do here is likely good enough. Just one concern:
-
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -3805,14 +3805,11 @@ long do_mmuext_op(
->              break;
->  
->          case MMUEXT_FLUSH_CACHE:
-> -            if ( unlikely(currd != pg_owner) )
-> -                rc = -EPERM;
-> -            else if ( unlikely(!cache_flush_permitted(currd)) )
-> -                rc = -EACCES;
-
-This error code will change to ...
-
-> -            else
-> -                wbinvd();
-> -            break;
-> -
-> +            /*
-> +             * Dirty pCPU caches where the current vCPU has been scheduled are
-> +             * not tracked, and hence we need to resort to a global cache
-> +             * flush for correctness.
-> +             */
->          case MMUEXT_FLUSH_CACHE_GLOBAL:
->              if ( unlikely(currd != pg_owner) )
->                  rc = -EPERM;
-
-... -EINVAL (sitting out of context). If we accept any error code change here,
-I think it wants to be the other way around, as EINVAL isn't quite appropriate
-to signal !cache_flush_permitted() to the caller. With that extra adjustment:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Oh, and: I've looked up this hash, and found a "trivial merge". Are you sure
+here?
 
 Jan
 
