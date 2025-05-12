@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBA5AAB34F2
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 12:32:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981197.1367590 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE358AB3500
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 12:36:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981206.1367600 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEQSb-0006NC-Ft; Mon, 12 May 2025 10:32:37 +0000
+	id 1uEQVj-0006vE-TJ; Mon, 12 May 2025 10:35:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981197.1367590; Mon, 12 May 2025 10:32:37 +0000
+Received: by outflank-mailman (output) from mailman id 981206.1367600; Mon, 12 May 2025 10:35:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEQSb-0006Ky-Cc; Mon, 12 May 2025 10:32:37 +0000
-Received: by outflank-mailman (input) for mailman id 981197;
- Mon, 12 May 2025 10:32:35 +0000
+	id 1uEQVj-0006sg-QX; Mon, 12 May 2025 10:35:51 +0000
+Received: by outflank-mailman (input) for mailman id 981206;
+ Mon, 12 May 2025 10:35:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEQSZ-0006Kq-KH
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 10:32:35 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1uEQVi-0006sa-Ma
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 10:35:50 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a4797a2-2f1c-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 12:32:33 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-ad2440926adso232092466b.1
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 03:32:33 -0700 (PDT)
+ id de5fefe6-2f1c-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 12:35:48 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-ad216a5a59cso454326466b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 03:35:48 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad2197bd432sm591146466b.129.2025.05.12.03.32.32
+ a640c23a62f3a-ad22ba47376sm476427566b.53.2025.05.12.03.35.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 03:32:33 -0700 (PDT)
+ Mon, 12 May 2025 03:35:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a4797a2-2f1c-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: de5fefe6-2f1c-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747045953; x=1747650753; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747046148; x=1747650948; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GJbhpxkf3ajSrDGzznvlJI+SxDkvgHXqyvATii9gm3M=;
-        b=g87TbXgmgpLtbFwRgTkB28DwftUP79tV6w4eu3lni7wiTLvAIzg6a64zMARjR35gK1
-         NoigRMkkGAniMb/O5GeRycqk6DbwYEDctP65rMn/xbEtSHXTGZeGj6LlrMzAVBvVRw8Q
-         tvD4zSW09FX7OeytNq8bOpAPjIDj4NVg3SPdTPj7ULwUELx3AtK6393FC6oav1K7sDA9
-         u0bhxOkA251c65OBZgsQ0bnySq2bzwBjuQ1Ka9TvQwNxNoXOLTOmQKmoJ2iZnDU0Hs4t
-         Ingx1SqRRA+sLxLoaJTgejcNXFr61yXcht3lQ5/S60LddiCMMD8DAvMqG8aZnR9ukhy+
-         cMDw==
+        bh=/TQxKoDRpi2LmoDIwPG42ja98rh9/A6V3O+YYXOfXc4=;
+        b=TNbsiFTOKtsfdygvbQOhX4LFTcdfiKLXOJwUmtgK9+rO9852brWzE9TljYWV47DY/F
+         k/LlGN7ueaILvr7DISToKKdh/7R/Y0Lzjz21x5t/3w55qhw6QizHhoux8AlKZzCi1hOe
+         Z/pToN+0syf0EUp4X7imckTChQ+kruq1bppbAT+tD4a//7Obrm8cuPO4GrGaQR5dGwIR
+         U2KHnQYKxeZE3ywu3/TnAIs1K2BpdDkkH2F4o3IDwnLd7qaoN4Uj3ZxAXPebbH3vu3ry
+         LokD0oOI32xnn/QIFnYn0+6orGzrQanj7C+F0MS0a3DZiuHfjb51kKJe7YhE5WdnpCHX
+         +/MA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747045953; x=1747650753;
+        d=1e100.net; s=20230601; t=1747046148; x=1747650948;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GJbhpxkf3ajSrDGzznvlJI+SxDkvgHXqyvATii9gm3M=;
-        b=vpJYZhacIrqrMkDW2rqO0sfKZfbs+23z0rZZ456EIM+hzMc+cKL8H0wv+d09Zb7iSz
-         h8S/pY99fodeoErdPblZWtpUsnZA+KtJyNobgJj1oPcoa9t2bBdtosEOiE0CJ8/ho2Z4
-         bB80RwtoX/0EHslzex85KAm6M3dc/NfOrN1LTtLjgq272MkuG1fquJADAjmYxQqSBxqs
-         QTjPu//V6JtFa6Qie/aHdgfbxxrubggdUSdp+o86WagDAC+Qfov1MVZjj+K/mQbsewtY
-         S5/8gNwj6q2L0Gis+zPCPNskGZpm89Q/qkskM1CcgRAU7YD4PDAagCNfWrvPFQotI/Bf
-         PAQw==
-X-Gm-Message-State: AOJu0YxL2Sd1J49DKo7m/BZxrWt0q5f5ee8LfITzdeW+pcCjcc9bmw1j
-	oi08a7d58f+ZPKk13Amzwk21tWZC7IvnQyVLpLixrdrY5+XOZg+ddygjynE/qg==
-X-Gm-Gg: ASbGnctmjUnh4xC+7RtUCmSPCLClRO4IE3S1OIeIvtq9LzrcnHDMr1Ok5LTAnt98IyE
-	bo1NhT7AxM8Y6+WJrgnKGhpsnbhNeZK1A2gWt9hlCbvyPIwkKwHE98htCuO6FXPdsdKKOWLeioH
-	l5Tq2QQgsXQ8/Su8wqcyvSfDPkiF+KDyyy8yUPpLAtIkEVtp+duXHL7cRuhNAwfCBp9IcMvZSzv
-	dCz3afog1kZeY/AlQt3haBWmd+vJsqfxLjhwR1bWE64LNDLCoAlr2Rvx6hq+SVfQp99pcHGwuq1
-	w28+miWQpA5fMybk4+3pJUBtH+XVvKESbEftizx6vwTs7CPQWdDYo+D6Fo6bWNuqy5p/gIkWcQJ
-	uKGDlsCSMHdSlGaGnqRvAYOHXNmOnuGk5zEMs
-X-Google-Smtp-Source: AGHT+IHQTqH8s9Nx5x6BNxhk9D5wki9EK8zVdMoRuE+eDnCoX5fZGhyRl5gsezockGzTj5HF4sjtWw==
-X-Received: by 2002:a17:907:72ca:b0:ad2:3d34:e2a4 with SMTP id a640c23a62f3a-ad23d350ffbmr693850366b.30.1747045953235;
-        Mon, 12 May 2025 03:32:33 -0700 (PDT)
-Message-ID: <99937f20-a6e8-4bd5-afcf-8f57c925eca4@suse.com>
-Date: Mon, 12 May 2025 12:32:32 +0200
+        bh=/TQxKoDRpi2LmoDIwPG42ja98rh9/A6V3O+YYXOfXc4=;
+        b=LJ4qvGKgt5FlQdny9YFyKM8cPmcleGYpEWK/cAtJE4ILp12iYabmF3AHBv5aO+vFGD
+         DOvXlk3nEu1w6J71xkqgST0TMuHAF/0h/k5mRKjrhSbyGWLa5DEMmoM10h2ORaIcU4dh
+         LmsHa4osR/H+GZ38Ju9WXG+OLDmw4r86Go2/lzYl5gG5lop2bYhPJgVOIw4tmIg01iAS
+         Un0YGmkdxTKHU1/m/yZjci1gakb/UI7h7ce0H+SSXwRW1V8c1/paSDDN1r61ZKU3nL+j
+         Rp9xQVLl5xZQLYcTP02UHLOmixC18x3eIgs+eYQDMkGUYVdoP2oTfskrXcimM56Om1qB
+         Jewg==
+X-Forwarded-Encrypted: i=1; AJvYcCWbkfJXEhDY9oTyI6K/3SiMOluRGp31nvuNSLeU1p1LG9H15X9sirIUsuOzG6sIWWsL0acDnXO1++o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyYXp6nFnebHUj79TE/Ek9ORhUWFpexLCnzO37QkvfoeUrUd42u
+	Xb6g831MqH06q5Ll1Nj8tmmH4IdnkxdEGFCAdDg1/nqNncz8GdHW+huxZ8d1xrkoVDteh4F+Xgs
+	=
+X-Gm-Gg: ASbGncsOlZNizeqzbaeyMNV5MLKi+81NmZxjhkrMUz0htNI81PlH151TeNjz/+LmT8h
+	1sJOdkBHu7W7bQWCASPN26+kfAOeiopPUQR9kdFS7/U3ZQ77TxKv2o+Oitpyc+EaAqo9qTWRTBo
+	829M1Gfrw8jgNFxMri9DVK0MmCLx+DqTFE61wCSZFr0PVWX30dOzVaR+KcPkw3krVyv5IHfXoEu
+	sVpQo33zbbKX/+TJwVYf8kVPShIzoVbhOZKKWSoVdDNBJFr8nQIZp7W7hHbCW9eqe0L5sj7Y02U
+	Y2Kw7vqEV84ENb5oES4EAzmQ/7p2NVc/GTXDK7bjAic1+a/7MVf+74ehjV6vo84jnAXXyzA2q43
+	FyZ1ROg+IGE6ZAg9Vk41vwm0zK2vY+KKv5vdqVTLypWxqWpo=
+X-Google-Smtp-Source: AGHT+IHJNi7M6wNvfj9jogqHyBDe742zT4P16y/6DSjsYArkTmyDoexsaE/+oPaHHq9kD5FMpXxK8w==
+X-Received: by 2002:a17:907:6a13:b0:acb:6746:8769 with SMTP id a640c23a62f3a-ad218f48713mr1223416466b.18.1747046147995;
+        Mon, 12 May 2025 03:35:47 -0700 (PDT)
+Message-ID: <35e372a2-3ec8-415a-a594-201b8b0d8bd6@suse.com>
+Date: Mon, 12 May 2025 12:35:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] lib: Add strcspn function
+Subject: Re: [PATCH 2/4] efi: Add a function to check if Secure Boot mode is
+ enabled
 To: Andrew Cooper <andrew.cooper3@citrix.com>,
  Kevin Lampis <kevin.lampis@cloud.com>,
  Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
- "consulting@bugseng.com" <consulting@bugseng.com>
-References: <50a2737a-611a-4d83-aee6-de23619b0b6b@citrix.com>
- <20250507144515.1704100-1-kevin.lampis@cloud.com>
- <1aefa7da-7f90-4163-b9bb-78b9f98099bd@citrix.com>
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>, xen-devel@lists.xenproject.org
+References: <20250506162449.1676405-1-kevin.lampis@cloud.com>
+ <cf3e9dbf-7ea7-4b33-a4be-14cb5dac0ebc@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,25 +123,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1aefa7da-7f90-4163-b9bb-78b9f98099bd@citrix.com>
+In-Reply-To: <cf3e9dbf-7ea7-4b33-a4be-14cb5dac0ebc@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.05.2025 11:43, Andrew Cooper wrote:
-> On 07/05/2025 3:45 pm, Kevin Lampis wrote:
->> From: Ross Lagerwall <ross.lagerwall@citrix.com>
->>
->> This will be used by future patches.
->>
->> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
->> Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
+On 06.05.2025 18:55, Andrew Cooper wrote:
+> On 06/05/2025 5:24 pm, Kevin Lampis wrote:
+>> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+>> index e39fbc3529..7c528cd5dd 100644
+>> --- a/xen/common/efi/boot.c
+>> +++ b/xen/common/efi/boot.c
+>> @@ -870,6 +870,27 @@ static void __init pre_parse(const struct file *file)
+>>                     " last line will be ignored.\r\n");
+>>  }
+>>  
+>> +static void __init init_secure_boot_mode(void)
+>> +{
+>> +    EFI_STATUS status;
+>> +    EFI_GUID gv_uuid = EFI_GLOBAL_VARIABLE;
+>> +    uint8_t data = 0;
+>> +    UINTN size = sizeof(data);
+>> +    UINT32 attr = 0;
 > 
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Newline between variables and code please.
+> 
+>> +    status = efi_rs->GetVariable((CHAR16 *)L"SecureBoot", &gv_uuid, &attr,
+>> +                                 &size, &data);
+>> +
+>> +    if ( status == EFI_NOT_FOUND ||
+>> +         (status == EFI_SUCCESS &&
+>> +          attr == (EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS) &&
+>> +          size == 1 && data == 0) )
+>> +        /* Platform does not support Secure Boot or it's disabled. */
+>> +        efi_secure_boot = false;
+>> +    else
+>> +        /* Everything else play it safe and assume enabled. */
+>> +        efi_secure_boot = true;
+>> +}
+> 
+> I'm not sure this logic does what you want when a weird answer comes
+> back from GetVariable().
+> 
+> Also, you can't have this be a common function, yet ...
+> 
+>> diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
+>> index 7e1fce291d..b63d21f16c 100644
+>> --- a/xen/common/efi/runtime.c
+>> +++ b/xen/common/efi/runtime.c
+>> @@ -40,6 +40,9 @@ void efi_rs_leave(struct efi_rs_state *state);
+>>  unsigned int __read_mostly efi_num_ct;
+>>  const EFI_CONFIGURATION_TABLE *__read_mostly efi_ct;
+>>  
+>> +#if defined(CONFIG_X86) && !defined(CONFIG_PV_SHIM)
+>> +bool __ro_after_init efi_secure_boot;
+>> +#endif
+> 
+> ... this variable exist only on x86.
+> 
+> Also, why adjust it for PV shim?  None of this is even compiled for PV shim.
 
-Like for the sha256 change - isn't this introducing a new Misra violation
-until a caller appears? Or are we deeming this okay here (unlike in the
-sha256 case) because the CU will only be included in the final image if a
-caller actually exists?
+For shim it might be (and a proper variable is needed in that case); for
+shim-exclusive it shouldn't be.
 
 Jan
 
