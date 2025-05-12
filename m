@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45B14AB47EA
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 01:32:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.982246.1368792 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF14CAB480F
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 01:54:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.982255.1368802 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEccj-0007BY-DS; Mon, 12 May 2025 23:31:53 +0000
+	id 1uEcyY-0001ya-1q; Mon, 12 May 2025 23:54:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 982246.1368792; Mon, 12 May 2025 23:31:53 +0000
+Received: by outflank-mailman (output) from mailman id 982255.1368802; Mon, 12 May 2025 23:54:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEccj-00078c-AD; Mon, 12 May 2025 23:31:53 +0000
-Received: by outflank-mailman (input) for mailman id 982246;
- Mon, 12 May 2025 23:31:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uEcyX-0001wE-Tw; Mon, 12 May 2025 23:54:25 +0000
+Received: by outflank-mailman (input) for mailman id 982255;
+ Mon, 12 May 2025 23:54:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oz7/=X4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uEcci-00078W-1y
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 23:31:52 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46c116e8-2f89-11f0-9eb6-5ba50f476ded;
- Tue, 13 May 2025 01:31:49 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a0b933f214so2199518f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 16:31:49 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a1f57ddd2dsm14027409f8f.9.2025.05.12.16.31.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 16:31:47 -0700 (PDT)
+ <SRS0=YNBB=X4=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1uEcyW-0001w8-24
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 23:54:24 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2060a.outbound.protection.outlook.com
+ [2a01:111:f403:2412::60a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6ca86e4e-2f8c-11f0-9ffb-bf95429c2676;
+ Tue, 13 May 2025 01:54:21 +0200 (CEST)
+Received: from CH0PR13CA0044.namprd13.prod.outlook.com (2603:10b6:610:b2::19)
+ by PH8PR12MB7157.namprd12.prod.outlook.com (2603:10b6:510:22b::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.28; Mon, 12 May
+ 2025 23:54:16 +0000
+Received: from CH1PEPF0000AD79.namprd04.prod.outlook.com
+ (2603:10b6:610:b2:cafe::4e) by CH0PR13CA0044.outlook.office365.com
+ (2603:10b6:610:b2::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8722.20 via Frontend Transport; Mon,
+ 12 May 2025 23:54:15 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH1PEPF0000AD79.mail.protection.outlook.com (10.167.244.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8722.18 via Frontend Transport; Mon, 12 May 2025 23:54:15 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 12 May
+ 2025 18:54:14 -0500
+Received: from fedora.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 12 May 2025 18:54:14 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,164 +59,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46c116e8-2f89-11f0-9eb6-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747092709; x=1747697509; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+btDOojkAlbFtzcpa3KzqDOzCKQ2qfLl/63heWYuPdE=;
-        b=R5s2sZXX0M465t3I31Uzd9zza8YtE938eSA3XIv815E/8is3Dg4CS6dOvWZDVkYhEr
-         irtVa8oyzUPizDEcTWkLPU/k96WkyjWoKP+bbFqyRef9bPKPmtOJ90RurTjA5GTHAXrM
-         vjYDSCHqrfCBRdHS6wtWxqykiGSyhkPV0TCf8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747092709; x=1747697509;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+btDOojkAlbFtzcpa3KzqDOzCKQ2qfLl/63heWYuPdE=;
-        b=QKUlrDZ1RzZgrUlU5dWgRnbk+EJtOA8DRlxSRM19ktEku+6Ya5NcvCTzMGbtwyTLsq
-         XN+1MC6bZBT8kiT9FCa0GbgwV0kE6bJztWy/E8h2JtaIWTvY3RugyMX/atRlg5tuKsXi
-         j1XLz7vmmZLwYKJLDT0CKjTfQB1i9VgjmFjtDIA0D8MeQkX9a1qTYMF8RZ6hfSs9x51f
-         eI1mXtbQUH7ZCwYryM2wO+cbbXsdAtwd3RKfobDDf+m4RSOQVzjw+PrsuHbf04rOgrd+
-         QklXzpNKN1iH2d4/FTfNVhUBCOxz7b4ZJSkogR67eAx4SO3M6xaSQjdERf+0JcUDJYcR
-         6jQg==
-X-Gm-Message-State: AOJu0Yyowk7c/BOQLIdNg0LxUz9MuzzwTW0UXKkqGqUhk4UsmOnl6rh8
-	N4ZNPG/vofQtWNSuf+QevXnegJOHo9rGJVPLcSUCy0sE/V2VlFfaygNylwKKYHg=
-X-Gm-Gg: ASbGncuSEsjPC2CxGigr4yfrOKiapMOilBBHR3wWrkrK2fhaHwllp0CzhKkE0jn9UiV
-	luXaXbFlNb6KvARhYd9nwXmhiEWNhkwNGwgQBOi2/5nrN9Z1cxj/hiRHdJ9QKREazYMdONnvVkN
-	g/Bfq7y0sMnUs4VEAZzC9dp0OAZFSKvMWNzxQwRdf2/iju0WTRjC794ssmNMssrl7txTM0o/JWA
-	CU0EIqS+biGAzuXa88OA+mAmN+hKo0tY/HKiMWo0FdYenEhdf6ykuU8VCLRV7RDwPOLMniq/Lmb
-	BYy82/xCBD8Hw00ail3gVoTAr5CPhWZyreh7FVU4fYnZH+G/pyOuQaBSg/E6crTe/yd5RVqdFIH
-	MSEGwt8NN/XddLSqU
-X-Google-Smtp-Source: AGHT+IEvE1q9G3IJPP49pmVWuZgYrLbp37azE5xeqKZ8DTYLKd8N2w6fKE2ZbVu4DD6h8MsSp5+zdg==
-X-Received: by 2002:a05:6000:186e:b0:39d:724f:a8f1 with SMTP id ffacd0b85a97d-3a1f64279e0mr12271078f8f.10.1747092708726;
-        Mon, 12 May 2025 16:31:48 -0700 (PDT)
-Message-ID: <1b6a07cf-497a-4d35-8836-5011537f1110@citrix.com>
-Date: Tue, 13 May 2025 00:31:45 +0100
+X-Inumbo-ID: 6ca86e4e-2f8c-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N3kzDHPIpEf5EevnDgjJoEcaI7xJ4C3ubiE8ViyT1eA2PBSt2peEzGa/cR5yd0pgIiz1SspbJR5fIMjk/Gp6xmIHy0iQDkM/Hf6+t8TmNk/262PQZFGaFdMBF5MITADqKpDpcIAz/GKNzo/rl0czspY1NV8V4YIX3aQgrT2AbIw2ziB7jTzq1w5LxSP7vDfAnG1zoYhslbB01gxN5gy+Co9gmB0Z7LV3ugdtDPnE3pxQp2dhs7+J01kQoDKa6kbwmUpXf3kINubNwRX1/WgEc8GeayZpZGXtz6E96HCOBWd3UMS5Fg677WwNVRVLJ6CWzmwWsl199gEBZale8AbYjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aF6YROwOuGlvpozS/KCefgc2H3PvRpkN/JGW+4Y0CPA=;
+ b=xU1xSWwx7ZVIohcRScwyuqPyAUI4B4/GKCfyQ4Lhpj3Ef2lbC6xZTRWq7rogajTmaElu++RQHAxamFg+BZUY76cJKd136ydzVctRCb535MV4YPa8inTBQ8yv5bUfxen9kouQ6KTc5TQUXnDNsWHuZ+a6CKBXshqJZ1TnoM1cdo/3PbIB5A15ETBnpk8EirH22ompcajAnWv7r/SVtvYIDI4JRCxbSiMT1JKwCC+p1Y8KTRkwooKAJ0e3K7Rhv+kMibOa/tafx6m8/AUe/fFimNd4V4NoiNGbuhLL7VVmwJzh13uOBxzjiYtmwWVTtpWwfmEgnNioA4+7XQTiu2S4tw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aF6YROwOuGlvpozS/KCefgc2H3PvRpkN/JGW+4Y0CPA=;
+ b=0X9MIKAACl7ySVZ91FvLVWm9Onsjzjrapql63uh1ojRvVSvqG553rD/ejl6fTggA57hISZBbSPoAD47WFFV3nYL6hsOuw5fz+iUqCy/2OGAE767AqwFaKMUpG9SP7eOaUBiJ3iJFXky+zW74Glv7ArxYH04N/25wQCDeKN2J9V8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Jason Andryuk <jason.andryuk@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Jason Andryuk <jason.andryuk@amd.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
+Subject: [PATCH] tools/libxl: Only access legacy altp2m on HVM
+Date: Mon, 12 May 2025 19:54:07 -0400
+Message-ID: <20250512235409.18545-1-jason.andryuk@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Use __auto_type
-To: Demi Marie Obenour <demiobenour@gmail.com>,
- Elliott Mitchell <ehem+xen@m5p.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Roberto Bagnara <roberto.bagnara@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250505124646.1569767-1-andrew.cooper3@citrix.com>
- <alpine.DEB.2.22.394.2505051244090.3879245@ubuntu-linux-20-04-desktop>
- <548430a5-fa4a-41d1-b5ba-ba45efa90bbc@suse.com>
- <7acc83a3-2b15-4557-b293-0832b35e3680@citrix.com>
- <35826c2a-4266-49d2-b1b8-1248aac227b5@suse.com>
- <aCI9MZRN1A753Nw9@mattapan.m5p.com>
- <b7e112db-6e41-401d-9486-eb561c4786b7@gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <b7e112db-6e41-401d-9486-eb561c4786b7@gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD79:EE_|PH8PR12MB7157:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9536bfef-7361-4bc2-e442-08dd91b04d44
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?m3YSaJUj3TVL/jhTDnprYriagf6IuKWqYmYTAAj3zQhMAgORb+wvZMMaNlQs?=
+ =?us-ascii?Q?A9y3uJLfO9LkaL3eSE1Hw2yfrbJIU/VwVtfVkoTVcxf2M+UNoezRLbTnqVzE?=
+ =?us-ascii?Q?OnO3w9AoGWHrldYn0Grgv3pas1gqCpqWRP1k2rzj4Ieyy24RqtPOWCDijCRz?=
+ =?us-ascii?Q?Eb1BPjvHWOmYYdrbP1d4JXWtJMQuW3tEzTWhJL0tLxIYx+SL3zm221E8GKd/?=
+ =?us-ascii?Q?A8WiRHI/VLa4lhn1yQkZElIhbrSsBhIeWaNYckcl3MNbKl7g7yqjZN83IB71?=
+ =?us-ascii?Q?LgWOl3/f9kkHdsJuVoEugGEPBlBZQIJlCejvjVfDI7dutHE3Rf4psqha0/QW?=
+ =?us-ascii?Q?Gc4IyLNvbaLlag45qsVVq7q/j4BN0VJwY6p6+QsVZ1yqKDiMzoaF8H1MaqYF?=
+ =?us-ascii?Q?mUba+46GIzNE845pe9QzzDxfpSqZWQKYT522o164neyJUX2Ohc7Mbe9nA4CA?=
+ =?us-ascii?Q?QFvrHgA7kC2iyiZQDxyvizA/tASegVZs6ftu6U0eDxsFr84YOOspu5U6+X2s?=
+ =?us-ascii?Q?1FJrh+HhIcTCO6kB4DgdJNrh/RvHRC0TJX90Rkk7e5pauywkzXMaHH+h/ct7?=
+ =?us-ascii?Q?CrBWdWF0pxpv4vyNntAu9JrLuU0DgCoWHgFxwdEBjy4lLKyyB69g9YLGllQD?=
+ =?us-ascii?Q?kCHno6ErHxmFd2XTQvD0kh5zu3IKyjW/lBHtOk9ONnyXdPSotPVy4WpbLmOl?=
+ =?us-ascii?Q?LL1aaiuGizUV6ajnrMLle20rSWlyFlxdhzxJuEphKCoQNb/SGKIyo0B4aCof?=
+ =?us-ascii?Q?iuT7ba7pHJYDj7n567jQeZeAtZPBAY4tVGgO2PxC3+sUMFjwFR4Yt6678VGF?=
+ =?us-ascii?Q?0tQO4pqloajPsyIK47a2Q7tcT99YAC/FJJ2Ye2yRDNVW2CP5IoWmE5HvnKgk?=
+ =?us-ascii?Q?+nmc+sEIoMYVHWD40qlDzySYpOZ7IFLfOwhdzYl7M10YmM1oNytK/AKtjGdS?=
+ =?us-ascii?Q?/gh0iOu9RDBTep61IqL75FhRW5aIySLQgKSTmVj/v5g2zWpQm+1nSYBqJQbJ?=
+ =?us-ascii?Q?RTwiBBH1+PZMn3tQHvdL749T8nCzORkKfiAhk369lfZOAeeha20EqxmLNF2f?=
+ =?us-ascii?Q?+7cfVKejnlKJgfOolHvF0cGYVVRhr8Ufhh8wfW+TSKNH2Tcj0jQhnJRG+g3P?=
+ =?us-ascii?Q?tZuQ+8TJJh5gBf2vKKOYii5K6QTTG6KKq083iuJivt1KEeoKhRs1grMSwGra?=
+ =?us-ascii?Q?+5KPSmQcztjOvw1b2ks6s/ZeyIv4DgdFCgK+YlhRr6WpXnK1qLJ3cmdVapVu?=
+ =?us-ascii?Q?WDonMFRkxig03i4lTyXm75VdbNaCVsIlxNfgirH9i8XUJqCfedpDfir+U8bP?=
+ =?us-ascii?Q?bB0K6aBGBqRv4UxsJTqgvcGgRwcvAx6Cy3aQB2dsTEIYT20dHaesJrKlqfwY?=
+ =?us-ascii?Q?6YfJvid51peOPWUSJ2enm0vm0slqj211G6LfgfoJldUsRntXnshJs87OiueT?=
+ =?us-ascii?Q?6hAnVKtcIRplIbxwU8yjwZHJKwWYXwqwmDAw4jshnjhEVFQoygx5TZeWHxPt?=
+ =?us-ascii?Q?ltpc1ARLKbEIYBHjJF8zio2c8BAXGe0RJAuV?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2025 23:54:15.2549
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9536bfef-7361-4bc2-e442-08dd91b04d44
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD79.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7157
 
-On 13/05/2025 12:04 am, Demi Marie Obenour wrote:
-> On 5/12/25 2:25 PM, Elliott Mitchell wrote:
->> On Mon, May 12, 2025 at 03:00:18PM +0200, Jan Beulich wrote:
->>> On 12.05.2025 14:09, Andrew Cooper wrote:
->>>> Now for the (new) controversial part.  Since sending this, Linux has
->>>> decided to just #define auto __auto_type for C < 23, in order to start
->>>> writing C23 compatible code from now.  It's more succinct, and has
->>>> better longevity.
->>>>
->>>> We might want to consider the same, although it will introduce a new
->>>> example of defining a keyword, which we'd have to call out in the
->>>> MISRA/Eclair config.
->>> I'm not outright opposed, as I don't think we use "auto" with its
->>> original semantics, but it feels somewhat odd.
->> Problem is "auto" already has a defined meaning in C.Having this will
->> subtly break contributions from authors who weren't familiar with
->> everything in Xen's headers.  For anyone who does anything with projects
->> besides Xen this will encourage bad habits.
->>
->> I believe many projects have a rule of *never* #define C keywords.  I'm
->> surprised such made it into the Linux kernel.  I expect it will be ripped
->> out in the near future.
->>
->> MISRA *doesn't* absolutely forbid this?
-> I'm no expert on the C standard, but my understanding is that "auto" was
-> redundant starting in C89, so it is almost entirely unused.  C++11 and later
-> *do* heavily use "auto", and they use it for roughly the same purpose as C23
-> does, so I suspect that contributors are far more likely to be familiar with
-> the C23 "auto" than they are with the pre-C23 version, 
+Only access the HVM union b_info->u.hvm on HVM guests.  The union
+access is not guarded, so this reads and sets the default even on
+non-HVM guests.  Usually this doesn't matter as PV and PVH unions are
+smaller and zero-initialized, but the zero default will be re-written as
+a -1 boolean.  Generally, it it could incorrectly set b_info->altp2m
+through aliased data.
 
-auto in older versions of C is a storage classifier, so grouped with
-static, extern and register.
+Fixes: 0291089f6ea8 ("xen: enable altp2m at create domain domctl")
+Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+Change-Id: Ifaca3533dcce3f409c2efa292c7e96fba6371d9d
+---
+ tools/libs/light/libxl_x86.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-It is inherited from B, and along with K&R's having implicit int types,
-was there for familiarity of code to existing programmers.  e.g. "auto
-a, b, c;" was B's way of saying "I'd like 3 ints on the stack please". 
-It is very rare to see in C these days.
+diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
+index 0b1c2d3a96..b8f6663829 100644
+--- a/tools/libs/light/libxl_x86.c
++++ b/tools/libs/light/libxl_x86.c
+@@ -821,10 +821,12 @@ int libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
+      * If the legacy field info->u.hvm.altp2m is set, activate altp2m.
+      * Otherwise set altp2m based on the field info->altp2m.
+      */
+-    libxl_defbool_setdefault(&b_info->u.hvm.altp2m, false);
+-    if (b_info->altp2m == LIBXL_ALTP2M_MODE_DISABLED &&
+-        libxl_defbool_val(b_info->u.hvm.altp2m))
+-        b_info->altp2m = libxl_defbool_val(b_info->u.hvm.altp2m);
++    if (b_info->type == LIBXL_DOMAIN_TYPE_HVM) {
++        libxl_defbool_setdefault(&b_info->u.hvm.altp2m, false);
++        if (b_info->altp2m == LIBXL_ALTP2M_MODE_DISABLED &&
++            libxl_defbool_val(b_info->u.hvm.altp2m))
++            b_info->altp2m = libxl_defbool_val(b_info->u.hvm.altp2m);
++    }
+ 
+     return 0;
+ }
+-- 
+2.49.0
 
-C++11 repurposed 'auto' as a type, and C23 has followed suit.  This is
-compatible with the prior meaning, and 'auto' can still be used as a
-storage classifier in C23.  You can't however use 'auto auto'.  In
-GCC/Clang prior to C23, the same behaviour is available from __auto_type.
-
-
-So.  auto as a type inference keyword will be commonplace C in few
-years, just like it is already commonplace C++ for a decade.
-
-Right now in Xen, we can choose to either use something that is on the
-brink of becoming normal, or we can use the older form which will get
-changed at some point in the future.
-
-One of these makes far more sense than the other, considering that it is
-already standardised C23.
-
-~Andrew
 
