@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1E35AB4161
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 20:05:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.982008.1368498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD718AB4164
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 20:05:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.982013.1368508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEXWZ-0002DG-Qw; Mon, 12 May 2025 18:05:11 +0000
+	id 1uEXWi-0002YO-2h; Mon, 12 May 2025 18:05:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 982008.1368498; Mon, 12 May 2025 18:05:11 +0000
+Received: by outflank-mailman (output) from mailman id 982013.1368508; Mon, 12 May 2025 18:05:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEXWZ-0002Bg-NV; Mon, 12 May 2025 18:05:11 +0000
-Received: by outflank-mailman (input) for mailman id 982008;
- Mon, 12 May 2025 18:05:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uEXWh-0002VY-Un; Mon, 12 May 2025 18:05:19 +0000
+Received: by outflank-mailman (input) for mailman id 982013;
+ Mon, 12 May 2025 18:05:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=tILs=X4=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1uEXWX-0001iN-QY
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 18:05:09 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org
- [2600:3c04:e001:324:0:1991:8:25])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a3002133-2f5b-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 20:05:07 +0200 (CEST)
+ id 1uEXWh-0001Kz-4G
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 18:05:19 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a94e4a92-2f5b-11f0-9eb6-5ba50f476ded;
+ Mon, 12 May 2025 20:05:18 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9C542614B3;
- Mon, 12 May 2025 18:05:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CD05C4CEEF;
- Mon, 12 May 2025 18:05:04 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 82434614B3;
+ Mon, 12 May 2025 18:05:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0911C4CEE7;
+ Mon, 12 May 2025 18:05:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3002133-2f5b-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: a94e4a92-2f5b-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747073106;
+	s=k20201202; t=1747073117;
 	bh=CUwTTRBoepiWy3eBVkjtl52xMaizXnQOALV0fmgcrHo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=RAB63nsHcTpOzKtm2P4jVzIJJ9bHeKAG2ycXy8HkEScyMbMrSCNRI7MQvueKz1v1U
-	 H79sVzfY39Fk9quxMMWnx8NmtYinU8oa+J2q6dwDKYX3wPrn4rThgGOoxJUjwL8W+E
-	 HUw1D8A2F+UweffjCsB5rBnupWCoogfSQ4pa/kFHlQQEltX5Hue9Obw5hGPOXfBZjy
-	 mQ18QZA1sYB/xuJZdNZC8bjE16n1JvmPzkpv9lmECm1AggAgfK0jLRvEZLPB6iZnTb
-	 G3ukswHoBnyWkldW0Qa7TXtkwrC22vN4iVV3/VjKbnudHV+5nudK568SUPWRvEW84X
-	 mBoyFNkPVI+JQ==
+	b=j2irdoKQ1ovlV+17jJfSXbJ/8/i+TtLcyIs/53YehDBnIiGP19LFzLEFNphKTK2ea
+	 Y4EGjNagxgZ/Sv29nYQi0+XN3qIypZFKOQNs79cPkTTcHNhpXY7/5PoWlWPeyFKlqN
+	 dHrF3usEx5yyYf9cuWBFqol1Z0pR6WgLXUg4fYkcBz11Z7Me1OVQBkbWCapGYGbTg1
+	 /I4A9LJgqFZwR4b4wfHCqa6NwoRfSrwNUNeryjk17heawIICdtTmvE+yQG8W1rA05W
+	 7U862n5/sL5bDZ0N3gk1w8ZwGRkjHwZYSfBDlLgklwVYn2TEkLTfpuLY/UUZLBoQK2
+	 e5K0Wh+ZJq/TQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
@@ -60,22 +59,23 @@ Cc: Jason Andryuk <jason.andryuk@amd.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Juergen Gross <jgross@suse.com>,
 	Sasha Levin <sashal@kernel.org>,
-	elder@kernel.org,
 	chenqiuji666@gmail.com,
+	elder@kernel.org,
+	michal.orzel@amd.com,
 	gregkh@linuxfoundation.org,
 	xin.wang2@amd.com,
 	xen-devel@lists.xenproject.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 5/6] xenbus: Allow PVH dom0 a non-local xenstore
-Date: Mon, 12 May 2025 14:04:51 -0400
-Message-Id: <20250512180452.437844-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 3/4] xenbus: Allow PVH dom0 a non-local xenstore
+Date: Mon, 12 May 2025 14:05:06 -0400
+Message-Id: <20250512180508.437991-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250512180452.437844-1-sashal@kernel.org>
-References: <20250512180452.437844-1-sashal@kernel.org>
+In-Reply-To: <20250512180508.437991-1-sashal@kernel.org>
+References: <20250512180508.437991-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.90
+X-stable-base: Linux 6.1.138
 Content-Transfer-Encoding: 8bit
 
 From: Jason Andryuk <jason.andryuk@amd.com>
