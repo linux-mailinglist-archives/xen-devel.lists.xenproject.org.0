@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F80CAB3296
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 11:02:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981018.1367409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFE88AB32D1
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 11:14:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981031.1367420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEP3F-0000ue-6R; Mon, 12 May 2025 09:02:21 +0000
+	id 1uEPEd-0002sT-9p; Mon, 12 May 2025 09:14:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981018.1367409; Mon, 12 May 2025 09:02:21 +0000
+Received: by outflank-mailman (output) from mailman id 981031.1367420; Mon, 12 May 2025 09:14:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEP3F-0000sU-3m; Mon, 12 May 2025 09:02:21 +0000
-Received: by outflank-mailman (input) for mailman id 981018;
- Mon, 12 May 2025 09:02:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f4yg=X4=cloud.com=kevin.lampis@srs-se1.protection.inumbo.net>)
- id 1uEP3D-0000sO-S5
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 09:02:20 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cdde3c0b-2f0f-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 11:02:17 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5fc7edf00b2so5767330a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 02:02:17 -0700 (PDT)
-Received: from fedora.eng.citrite.net ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5fd29adb7absm2045572a12.32.2025.05.12.02.02.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 May 2025 02:02:15 -0700 (PDT)
+	id 1uEPEd-0002qa-77; Mon, 12 May 2025 09:14:07 +0000
+Received: by outflank-mailman (input) for mailman id 981031;
+ Mon, 12 May 2025 09:14:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uEPEb-0002qU-J4
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 09:14:05 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 730f128c-2f11-11f0-9eb5-5ba50f476ded;
+ Mon, 12 May 2025 11:14:04 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5f7ec0e4978so94407a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 02:14:04 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5fe943484e6sm876934a12.24.2025.05.12.02.14.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 May 2025 02:14:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,487 +45,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdde3c0b-2f0f-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 730f128c-2f11-11f0-9eb5-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1747040536; x=1747645336; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yN5yu45Sx9N3uJwjmW+3tVTSQQfJPYLSsmcXKIDbcxo=;
-        b=fB7gl9sO+W5PBHEbhDRxnWsjiKctW7AtOe2RKH1o5AiRk3B49Ixmxp+gq9c+yrzh5E
-         RYpf8KnLRAAB6TJx6w/q1e5xJ348IqPRDCEdXKkphG9gQOnViYGl+Yn9Gtw9c5BT+dyp
-         C96QVJ2r2G+ytDmHOQ1rd7qj/gDex+VZNv1Rk=
+        d=suse.com; s=google; t=1747041243; x=1747646043; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=4c1GrDbSXgB72qeN8UrJP66xKQdIF/Qr+phQ+gqlv0k=;
+        b=ctVenXGvL4/B2i2voFpbdBJPk+oHtczgBwRHEtUNFAgagGiRKhJQGtxCGmrR/TcGDz
+         pNcfkFQ4oE/dDpgqwidsD7tDqctcQ1XQ3kLe2bwMkzXxtb1AUiElXIZnZozRoMXAQOdZ
+         k5W3H8p2HGwy2LofbflkvB2ngsupZSLDHQ2pvc5J9adjKOt8UHNMMrTmqysjr1x7ZJHx
+         3gGG3yIr2RMZCxjtcQARopm2Ekh1fkFoY0mZpFg5P33FkkIdFLiJzekyEfidP1/DEGz/
+         v3fkrij1ItAFdKfZhsSrunDRonu6AdvoqMWoCh8T0IewLk0lPr14t/nNYeRGPuPuuh1i
+         ydPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747040536; x=1747645336;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=yN5yu45Sx9N3uJwjmW+3tVTSQQfJPYLSsmcXKIDbcxo=;
-        b=izDDaR4sJUEi4qZucgHryBxbL8u+TXNCSRyiF6kGg8pJOURNR2tEkOca5LdS6bexPS
-         M10bDU1i6i6dcHi5Hq0giOCK0rv4yJlAKK8d4qgBSvcO/njeEmDhNvwoHpe3dJCBBHuh
-         RXvDgvu9uqiPzXJ/x7ra+a6dDnG5uKCDPAZaJjIj8xWoaMNgWlOo3QN+YAs23oqD9TjA
-         i93RbllRZIJ527AXxY5CKRvXMLlQhKqWk7T3b/ni3W8kTdJiSi+Js0t9LywX0X6e4EwP
-         YOI71F5GxGQJbWru7INadslSdoM8WCM0aBJ2+waCGUo8hC59Y4fjEx1ZHhLTQjmuwihz
-         /1EQ==
-X-Gm-Message-State: AOJu0Yyk9A23YU/pi1jcOwtWlcDU8rAL1CNY2j3PVjNK0iqOTQpFJEMb
-	WzU7U7ODEh4S8rWpHsbc2a9/aH1Rr2HbJ8Riog4CPZC3mFbbSiyZPEDHMDoUdc0FhHZ5Eby4Fd+
-	n
-X-Gm-Gg: ASbGncsbl5VuLvnMCIe/64ExejB0BfqzPUky494wAggH+SMnUveyYpSZMasgK7TbIp1
-	vS5UbmPWaaEBbFhvXz91tUxwUbwnQzfo28vbP3msoBU9BfX0/t1XnyL1RC+tD0Bb2UHxPoMRo/O
-	TXjE+30lE3IwU5EV+oH8y2WXqZofI0SwdkC8dcwxjNm1DSbzTuFOcuL5o3WE0k5TYVx1O5GUwYk
-	F/Wik32Ru/67KEoD8jJxyK5UzRMop2f06J6VDPBKVSeSsj1N9kq7ODuUTJt8iqIElafCQiupPut
-	bEm6Ue4Tf6nnKC/KwJfZdiYRucDLUxQYl2bf7KPSQRiIdIwM27qpGBSs1Hmhhpk6e6re
-X-Google-Smtp-Source: AGHT+IHheQsadyUnmBbj8VlxVQDotIbnDc7IA4/FSfP1/UuHVX9zu/D/VHNsfbg+zTTEsQ0mbELPrA==
-X-Received: by 2002:a05:6402:2115:b0:5fd:1c90:e5d5 with SMTP id 4fb4d7f45d1cf-5fd1c90e7a1mr5359213a12.20.1747040535994;
-        Mon, 12 May 2025 02:02:15 -0700 (PDT)
-From: Kevin Lampis <kevin.lampis@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Kevin Lampis <kevin.lampis@cloud.com>
-Subject: [PATCH 4/4] Disallow most command-line options when lockdown mode is enabled
-Date: Mon, 12 May 2025 10:02:10 +0100
-Message-ID: <20250512090210.1718623-1-kevin.lampis@cloud.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20250506162347.1676357-1-kevin.lampis@cloud.com>
-References: <20250506162347.1676357-1-kevin.lampis@cloud.com>
+        d=1e100.net; s=20230601; t=1747041243; x=1747646043;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4c1GrDbSXgB72qeN8UrJP66xKQdIF/Qr+phQ+gqlv0k=;
+        b=qfOevqlwiN9T2XSqayy/uue2sQya8679aLIDjEBzvmH97uo9Cm8x3nMK4uv/HLXQjP
+         QMFb4bY5E+9e/FLnwBCeEnUnrgUWKgFxucHjnV+gMqVOtSXF34CLi8Obv7OBO+O/KtFl
+         NZ5b9wjIgzQZQHyssZ+YI8TAcsBjQ8NwsyTDFxrwElhpqpkv1XuccBM7yZAx7Cl22aX2
+         WBx+AjGFIWJFiTxtpd7/5sqq/AFxhES48OQ6ultStrJCS4G+a73AUFrTHWDVl8VCMTQ8
+         hpgoRtD+m/CIFYRuDqujUd85qaMyhDgW/2XUwU1LkCn3UaGu9MLc6UDbCptUS675Lw35
+         KFGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXLNEF+MJVjBI/pwjSKEhrW9YuDrW/iYPKoGraSOodPxl8U+znFdGylaRWOegdIFXxVk23k2ClnFvA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywu2BO0JiHtU2o5G5+OZBfr7o2J06Wkqn3A2N8G58G6EjCsqOB/
+	EqiBiS6lJW09FP/ulTHYH4aVnhxfyQvuizr/94h9dnS2NDsDMvuEHibigNUJGQ==
+X-Gm-Gg: ASbGncuSfqOMAAs0BEBr5lW1ajkqJTs3Qt+p8GCdOLhgpAMtBU2rQ+fO8dePXyt9mNL
+	V6UEfX44kNfvE/zJhIsMl3gvY8lIs+XKGT0JgOm5CTl7tH6eGH7AqlYzt7GShjjXAhC7U4Ww0vG
+	R0yJCZ3FK3BbsfRZgc0U2U9yoeI9ECq4EaqVgrA3KE+YVDgILPUdoUbxMP/y/LKbOT6Z/lobHTj
+	MFNHNuEZsT2BVmmB+VdaUuIqW02b8YCD4V96+380p7kfLmErBLHLUNK5ago8pMZhC/a4IA3g2p7
+	bYyJhtfsGqM9Ch4E/44LomC3KyElK0e3GyQCeLJbMBW0kwCgzWELhj/xOZEuT/rgXdIR437CmuX
+	GdKW/iQe+Tg8s8cv5TlgrI2ZyTQHDWmxoYrjA
+X-Google-Smtp-Source: AGHT+IE18TZshNNsvq9zIZfNo173KX3nov+MisGnA1oe3hqD8symAjmY/JBNqVw84E/3ucMouB6TzA==
+X-Received: by 2002:a05:6402:2b91:b0:5fc:6f12:b5db with SMTP id 4fb4d7f45d1cf-5fca0759ae1mr9307543a12.11.1747041243507;
+        Mon, 12 May 2025 02:14:03 -0700 (PDT)
+Message-ID: <f5074258-6520-4549-a639-ba483099b3f8@suse.com>
+Date: Mon, 12 May 2025 11:14:02 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/x86: allow Dom0 PVH to call XENMEM_exchange
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
+ "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, agarciav@amd.com,
+ xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <alpine.DEB.2.22.394.2504251314050.785180@ubuntu-linux-20-04-desktop>
+ <19d9aec4-c21a-47a9-9c58-6bfcadbd22e0@suse.com>
+ <alpine.DEB.2.22.394.2504281242240.785180@ubuntu-linux-20-04-desktop>
+ <06b66971-d8db-456f-8e83-a20ff7df8f5e@suse.com>
+ <alpine.DEB.2.22.394.2504291425320.3879245@ubuntu-linux-20-04-desktop>
+ <59bfc389-66c8-4d0f-92e3-c0079a807374@suse.com>
+ <aBHUJjQk248aLi68@macbook.lan>
+ <alpine.DEB.2.22.394.2504301715300.3879245@ubuntu-linux-20-04-desktop>
+ <3e7b4b20-0127-4db2-806d-f142547f275a@amd.com>
+ <773170d1-d8ba-4ba7-90b0-df0d160d8ba8@suse.com>
+ <alpine.DEB.2.22.394.2505020948380.3879245@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2505020948380.3879245@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A subset of command-line parameters that are specifically safe to use
-when lockdown mode is enabled are annotated as such.
+On 02.05.2025 18:49, Stefano Stabellini wrote:
+> On Fri, 2 May 2025, Jan Beulich wrote:
+>> On 01.05.2025 15:44, Jason Andryuk wrote:
+>>> On 2025-04-30 20:19, Stefano Stabellini wrote:
+>>>> On Wed, 30 Apr 2025, Roger Pau Monné wrote:
+>>>>> On Wed, Apr 30, 2025 at 08:27:55AM +0200, Jan Beulich wrote:
+>>>>>> On 29.04.2025 23:52, Stefano Stabellini wrote:
+>>>>>>> On Tue, 29 Apr 2025, Jan Beulich wrote:
+>>>>>>>> On 28.04.2025 22:00, Stefano Stabellini wrote:
+>>>>>>>>> On Mon, 28 Apr 2025, Jan Beulich wrote:
+>>>>>>>>>> On 25.04.2025 22:19, Stefano Stabellini wrote:
+>>>
+>>>>>>>>>>> --- a/xen/common/memory.c
+>>>>>>>>>>> +++ b/xen/common/memory.c
+>>>>>>>>>>> @@ -794,7 +794,7 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM(xen_memory_exchange_t) arg)
+>>>>>>>>>>>               rc = guest_physmap_add_page(d, _gfn(gpfn), mfn,
+>>>>>>>>>>>                                           exch.out.extent_order) ?: rc;
+>>>>>>>>>>>   
+>>>>>>>>>>> -            if ( !paging_mode_translate(d) &&
+>>>>>>>>>>> +            if ( (!paging_mode_translate(d) || is_hardware_domain(d)) &&
+>>>>>>>>>>>                    __copy_mfn_to_guest_offset(exch.out.extent_start,
+>>>>>>>>>>>                                               (i << out_chunk_order) + j,
+>>>>>>>>>>>                                               mfn) )
+>>>>>>>>>>
+>>>>>>>>>> Wait, no: A PVH domain (Dom0 or not) can't very well make use of MFNs, can
+>>>>>>>>>> it?
+>>>>>>>>>
+>>>>>>>>> One way or another Dom0 PVH needs to know the MFN to pass it to the
+>>>>>>>>> co-processor.
+>>>>>>>>
+>>>>>>>> I see. That's pretty odd, though. I'm then further concerned of the order of
+>>>>>>>> the chunks. At present we're rather lax, in permitting PVH and PV Dom0 the
+>>>>>>>> same upper bound. With both CPU and I/O side translation there is, in
+>>>>>>>> principle, no reason to permit any kind of contiguity. Of course there's a
+>>>>>>>> performance aspect, but that hardly matters in the specific case here. Yet at
+>>>>>>>> the same time, once we expose MFNs, contiguity will start mattering as soon
+>>>>>>>> as any piece of memory needs to be larger than PAGE_SIZE. Which means it will
+>>>>>>>> make tightening of the presently lax handling prone to regressions in this
+>>>>>>>> new behavior you're introducing. What chunk size does the PSP driver require?
+>>>>>>>
+>>>>>>> I don't know. The memory returned by XENMEM_exchange is contiguous,
+>>>>>>> right? Are you worried that Xen cannot allocate the requested amount of
+>>>>>>> memory contiguously?
+>>>
+>>> In the case I looked at, it is 8 pages.  The driver defines a ring of 32 
+>>> * 1k entries.  I'm not sure if there are other paths or device versions 
+>>> where it might differ.
+>>
+>> As per this ...
+>>
+>>>>>> That would be Dom0's problem then. But really for a translated guest the
+>>>>>> exchanged chunks being contiguous shouldn't matter, correctness-wise. That is,
+>>>>>> within Xen, rather than failing a request, we could choose to retry using
+>>>>>> discontiguous chunks (contiguous only in GFN space). Such an (afaict)
+>>>>>> otherwise correct change would break your use case, as it would invalidate the
+>>>>>> MFN information passed back. (This fallback approach would similarly apply to
+>>>>>> other related mem-ops. It's just that during domain creation the tool stack
+>>>>>> has its own fallback, so it may not be of much use right now.)
+>>>>>
+>>>>> I think the description in the public header needs to be expanded to
+>>>>> specify what the XENMEM_exchange does for translated guests, and
+>>>>> clearly write down that the underlying MFNs for the exchanged region
+>>>>> will be contiguous.  Possibly a new XENMEMF_ flag needs to be added to
+>>>>> request contiguous physical memory for the new range.
+>>>>>
+>>>>> Sadly this also has the side effect of quite likely shattering
+>>>>> superpages for dom0 EPT/NPT, which will result in decreased dom0
+>>>>> performance.
+>>>
+>>> Yes, this appears to happen as memory_exchange seems to always replace 
+>>> the pages.  I tested returning the existing MFNs if they are already 
+>>> contiguous since that was sufficient for this driver.  It worked, but it 
+>>> was messy.  A big loop to copy in the GFN array and check contiguity 
+>>> which duplicated much of the real loop.
+>>
+>> ... there may not be a need for the output range to be contiguous? In which
+>> case - wouldn't a simple "give me the MFN for this GFN" hypercall do? I seem
+>> to vaguely recall that we even had one, long ago; it was purged because of
+>> it violating the "no MFNs exposed" principle (and because it not having had
+>> any use [anymore]). XENMEM_translate_gpfn_list looks like is what I mean;
+>> see commit 2d2f7977a052.
+> 
+> Unfortunately I don't think that would work because I am pretty sure
+> that the PSP needs a consecutive range. In other words, I think the
+> output needs to be contiguous.
 
-Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
----
- xen/arch/arm/domain_build.c           |  4 +--
- xen/arch/x86/acpi/cpu_idle.c          |  2 +-
- xen/arch/x86/cpu/amd.c                |  2 +-
- xen/arch/x86/cpu/mcheck/mce.c         |  2 +-
- xen/arch/x86/cpu/microcode/core.c     |  2 +-
- xen/arch/x86/dom0_build.c             |  4 +--
- xen/arch/x86/hvm/hvm.c                |  2 +-
- xen/arch/x86/irq.c                    |  2 +-
- xen/arch/x86/nmi.c                    |  2 +-
- xen/arch/x86/setup.c                  |  2 +-
- xen/arch/x86/traps.c                  |  2 +-
- xen/arch/x86/x86_64/mmconfig-shared.c |  2 +-
- xen/common/domain.c                   |  2 +-
- xen/common/kernel.c                   | 10 +++++-
- xen/common/kexec.c                    |  2 +-
- xen/common/numa.c                     |  2 +-
- xen/common/page_alloc.c               |  2 +-
- xen/common/shutdown.c                 |  2 +-
- xen/drivers/char/console.c            |  2 +-
- xen/drivers/char/ns16550.c            |  4 +--
- xen/drivers/video/vga.c               |  2 +-
- xen/include/xen/param.h               | 49 +++++++++++++++++++++------
- 22 files changed, 70 insertions(+), 35 deletions(-)
+Hmm, higher up (context) you said "ring of 32 * 1k entries". That reads like
+independent 1k areas, and hence no need for contiguity.
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index df29619c40..8ff1af3787 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -41,7 +41,7 @@
- #include <xen/serial.h>
- 
- static unsigned int __initdata opt_dom0_max_vcpus;
--integer_param("dom0_max_vcpus", opt_dom0_max_vcpus);
-+integer_secure_param("dom0_max_vcpus", opt_dom0_max_vcpus);
- 
- /*
-  * If true, the extended regions support is enabled for dom0 and
-@@ -61,7 +61,7 @@ static int __init parse_dom0_mem(const char *s)
- 
-     return *s ? -EINVAL : 0;
- }
--custom_param("dom0_mem", parse_dom0_mem);
-+custom_secure_param("dom0_mem", parse_dom0_mem);
- 
- int __init parse_arch_dom0_param(const char *s, const char *e)
- {
-diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
-index 1dbf15b01e..431fd0c997 100644
---- a/xen/arch/x86/acpi/cpu_idle.c
-+++ b/xen/arch/x86/acpi/cpu_idle.c
-@@ -113,7 +113,7 @@ static int __init cf_check parse_cstate(const char *s)
-         max_csubstate = simple_strtoul(s + 1, NULL, 0);
-     return 0;
- }
--custom_param("max_cstate", parse_cstate);
-+custom_secure_param("max_cstate", parse_cstate);
- 
- static bool __read_mostly local_apic_timer_c2_ok;
- boolean_param("lapic_timer_c2_ok", local_apic_timer_c2_ok);
-diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-index 37d67dd15c..c36351c968 100644
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -47,7 +47,7 @@ integer_param("cpuid_mask_thermal_ecx", opt_cpuid_mask_thermal_ecx);
- 
- /* 1 = allow, 0 = don't allow guest creation, -1 = don't allow boot */
- int8_t __read_mostly opt_allow_unsafe;
--boolean_param("allow_unsafe", opt_allow_unsafe);
-+boolean_secure_param("allow_unsafe", opt_allow_unsafe);
- 
- /* Signal whether the ACPI C1E quirk is required. */
- bool __read_mostly amd_acpi_c1e_quirk;
-diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
-index 1c348e557d..a229af6fd3 100644
---- a/xen/arch/x86/cpu/mcheck/mce.c
-+++ b/xen/arch/x86/cpu/mcheck/mce.c
-@@ -31,7 +31,7 @@
- #include "vmce.h"
- 
- bool __read_mostly opt_mce = true;
--boolean_param("mce", opt_mce);
-+boolean_secure_param("mce", opt_mce);
- bool __read_mostly mce_broadcast;
- bool is_mc_panic;
- DEFINE_PER_CPU_READ_MOSTLY(unsigned int, nr_mce_banks);
-diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index 34a94cd25b..b5b7304ae7 100644
---- a/xen/arch/x86/cpu/microcode/core.c
-+++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -160,7 +160,7 @@ static int __init cf_check parse_ucode(const char *s)
- 
-     return rc;
- }
--custom_param("ucode", parse_ucode);
-+custom_secure_param("ucode", parse_ucode);
- 
- static struct microcode_ops __ro_after_init ucode_ops;
- 
-diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
-index 0b467fd4a4..6d42acb661 100644
---- a/xen/arch/x86/dom0_build.c
-+++ b/xen/arch/x86/dom0_build.c
-@@ -142,7 +142,7 @@ static int __init cf_check parse_dom0_mem(const char *s)
- 
-     return s[-1] ? -EINVAL : ret;
- }
--custom_param("dom0_mem", parse_dom0_mem);
-+custom_secure_param("dom0_mem", parse_dom0_mem);
- 
- static unsigned int __initdata opt_dom0_max_vcpus_min = 1;
- static unsigned int __initdata opt_dom0_max_vcpus_max = UINT_MAX;
-@@ -164,7 +164,7 @@ static int __init cf_check parse_dom0_max_vcpus(const char *s)
- 
-     return *s ? -EINVAL : 0;
- }
--custom_param("dom0_max_vcpus", parse_dom0_max_vcpus);
-+custom_secure_param("dom0_max_vcpus", parse_dom0_max_vcpus);
- 
- static __initdata unsigned int dom0_nr_pxms;
- static __initdata unsigned int dom0_pxms[MAX_NUMNODES] =
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 4cb2e13046..97afb274fe 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -87,7 +87,7 @@ unsigned long __section(".bss.page_aligned") __aligned(PAGE_SIZE)
- 
- /* Xen command-line option to enable HAP */
- static bool __initdata opt_hap_enabled = true;
--boolean_param("hap", opt_hap_enabled);
-+boolean_secure_param("hap", opt_hap_enabled);
- 
- #ifndef opt_hvm_fep
- /* Permit use of the Forced Emulation Prefix in HVM guests */
-diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-index 38ac0823d7..453bdb9910 100644
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -34,7 +34,7 @@
- 
- /* opt_noirqbalance: If true, software IRQ balancing/affinity is disabled. */
- bool __read_mostly opt_noirqbalance;
--boolean_param("noirqbalance", opt_noirqbalance);
-+boolean_secure_param("noirqbalance", opt_noirqbalance);
- 
- unsigned int __read_mostly nr_irqs_gsi = NR_ISA_IRQS;
- unsigned int __read_mostly nr_irqs;
-diff --git a/xen/arch/x86/nmi.c b/xen/arch/x86/nmi.c
-index 9793fa2316..3735f22e88 100644
---- a/xen/arch/x86/nmi.c
-+++ b/xen/arch/x86/nmi.c
-@@ -73,7 +73,7 @@ static int __init cf_check parse_watchdog(const char *s)
- 
-     return 0;
- }
--custom_param("watchdog", parse_watchdog);
-+custom_secure_param("watchdog", parse_watchdog);
- 
- /* opt_watchdog_timeout: Number of seconds to wait before panic. */
- static unsigned int opt_watchdog_timeout = 5;
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 276957c4ed..1018cdb771 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -70,7 +70,7 @@
- 
- /* opt_nosmp: If true, secondary processors are ignored. */
- static bool __initdata opt_nosmp;
--boolean_param("nosmp", opt_nosmp);
-+boolean_secure_param("nosmp", opt_nosmp);
- 
- /* maxcpus: maximum number of CPUs to activate. */
- static unsigned int __initdata max_cpus;
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index 25e0d5777e..1af67d2256 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -86,7 +86,7 @@ static char __read_mostly opt_nmi[10] = "dom0";
- #else
- static char __read_mostly opt_nmi[10] = "fatal";
- #endif
--string_param("nmi", opt_nmi);
-+string_secure_param("nmi", opt_nmi);
- 
- DEFINE_PER_CPU(uint64_t, efer);
- static DEFINE_PER_CPU(unsigned long, last_extable_addr);
-diff --git a/xen/arch/x86/x86_64/mmconfig-shared.c b/xen/arch/x86/x86_64/mmconfig-shared.c
-index f1a3d42c5b..80cdca7d77 100644
---- a/xen/arch/x86/x86_64/mmconfig-shared.c
-+++ b/xen/arch/x86/x86_64/mmconfig-shared.c
-@@ -60,7 +60,7 @@ static int __init cf_check parse_mmcfg(const char *s)
- 
-     return rc;
- }
--custom_param("mmcfg", parse_mmcfg);
-+custom_secure_param("mmcfg", parse_mmcfg);
- 
- static const char *__init cf_check pci_mmcfg_e7520(void)
- {
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index abf1969e60..c95988c067 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -55,7 +55,7 @@ unsigned int xen_processor_pmbits = XEN_PROCESSOR_PM_PX;
- 
- /* opt_dom0_vcpus_pin: If true, dom0 VCPUs are pinned. */
- bool opt_dom0_vcpus_pin;
--boolean_param("dom0_vcpus_pin", opt_dom0_vcpus_pin);
-+boolean_secure_param("dom0_vcpus_pin", opt_dom0_vcpus_pin);
- 
- /* Protect updates/reads (resp.) of domain_list and domain_hash. */
- DEFINE_SPINLOCK(domlist_update_lock);
-diff --git a/xen/common/kernel.c b/xen/common/kernel.c
-index 6658db9514..eaa509f317 100644
---- a/xen/common/kernel.c
-+++ b/xen/common/kernel.c
-@@ -14,6 +14,8 @@
- #include <xen/guest_access.h>
- #include <xen/hypercall.h>
- #include <xen/hypfs.h>
-+#include <xen/efi.h>
-+#include <xen/lockdown.h>
- #include <xsm/xsm.h>
- #include <asm/current.h>
- #include <public/version.h>
-@@ -135,9 +137,15 @@ static int parse_params(const char *cmdline, const struct kernel_param *start,
-                 }
-                 continue;
-             }
-+            found = true;
-+
-+            if ( !param->is_lockdown_safe && is_locked_down() )
-+            {
-+              printk("Ignoring unsafe cmdline option %s in lockdown mode\n", param->name);
-+              break;
-+            }
- 
-             rctmp = 0;
--            found = true;
-             switch ( param->type )
-             {
-             case OPT_STR:
-diff --git a/xen/common/kexec.c b/xen/common/kexec.c
-index 84fe8c3597..790839657d 100644
---- a/xen/common/kexec.c
-+++ b/xen/common/kexec.c
-@@ -189,7 +189,7 @@ static int __init cf_check parse_crashkernel(const char *str)
- 
-     return rc;
- }
--custom_param("crashkernel", parse_crashkernel);
-+custom_secure_param("crashkernel", parse_crashkernel);
- 
- /* Parse command lines in the format:
-  *
-diff --git a/xen/common/numa.c b/xen/common/numa.c
-index ad75955a16..c4981f2ff1 100644
---- a/xen/common/numa.c
-+++ b/xen/common/numa.c
-@@ -687,7 +687,7 @@ static int __init cf_check numa_setup(const char *opt)
- 
-     return 0;
- }
--custom_param("numa", numa_setup);
-+custom_secure_param("numa", numa_setup);
- 
- static void cf_check dump_numa(unsigned char key)
- {
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index bd4538c28d..5f26e242c2 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -235,7 +235,7 @@ static int __init cf_check parse_bootscrub_param(const char *s)
- 
-     return 0;
- }
--custom_param("bootscrub", parse_bootscrub_param);
-+custom_secure_param("bootscrub", parse_bootscrub_param);
- 
- /*
-  * bootscrub_chunk -> Amount of bytes to scrub lockstep on non-SMT CPUs
-diff --git a/xen/common/shutdown.c b/xen/common/shutdown.c
-index c47341b977..231de1454a 100644
---- a/xen/common/shutdown.c
-+++ b/xen/common/shutdown.c
-@@ -13,7 +13,7 @@
- 
- /* opt_noreboot: If true, machine will need manual reset on error. */
- bool __ro_after_init opt_noreboot;
--boolean_param("noreboot", opt_noreboot);
-+boolean_secure_param("noreboot", opt_noreboot);
- 
- static void noreturn reboot_or_halt(void)
- {
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index c3150fbdb7..45a35903fe 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -43,7 +43,7 @@
- 
- /* console: comma-separated list of console outputs. */
- static char __initdata opt_console[30] = OPT_CONSOLE_STR;
--string_param("console", opt_console);
-+string_secure_param("console", opt_console);
- 
- /* conswitch: a character pair controlling console switching. */
- /* Char 1: CTRL+<char1> is used to switch console input between Xen and DOM0 */
-diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index eaeb0e09d0..fae509cbd8 100644
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -1390,8 +1390,8 @@ static void enable_exar_enhanced_bits(const struct ns16550 *uart)
-  */
- static char __initdata opt_com1[128] = "";
- static char __initdata opt_com2[128] = "";
--string_param("com1", opt_com1);
--string_param("com2", opt_com2);
-+string_secure_param("com1", opt_com1);
-+string_secure_param("com2", opt_com2);
- 
- enum serial_param_type {
-     baud_rate,
-diff --git a/xen/drivers/video/vga.c b/xen/drivers/video/vga.c
-index b577b24619..abc6e56aa3 100644
---- a/xen/drivers/video/vga.c
-+++ b/xen/drivers/video/vga.c
-@@ -48,7 +48,7 @@ void (*video_puts)(const char *s, size_t nr) = vga_noop_puts;
-  * control of the console to domain 0.
-  */
- static char __initdata opt_vga[30] = "";
--string_param("vga", opt_vga);
-+string_secure_param("vga", opt_vga);
- 
- /* VGA text-mode definitions. */
- static unsigned int columns, lines;
-diff --git a/xen/include/xen/param.h b/xen/include/xen/param.h
-index 1bdbab34ab..31e7326d88 100644
---- a/xen/include/xen/param.h
-+++ b/xen/include/xen/param.h
-@@ -25,6 +25,7 @@ struct kernel_param {
-         void *var;
-         int (*func)(const char *s);
-     } par;
-+    bool is_lockdown_safe;
- };
- 
- /* Maximum length of a single parameter string. */
-@@ -44,46 +45,72 @@ extern const struct kernel_param __setup_start[], __setup_end[];
- #define _TEMP_NAME(base, line) __TEMP_NAME(base, line)
- #define TEMP_NAME(base) _TEMP_NAME(base, __LINE__)
- 
--#define custom_param(_name, _var) \
-+#define custom_param_(_name, _var, _sec) \
-     __setup_str __setup_str_##_var[] = (_name); \
-     __kparam __setup_##_var = \
-         { .name = __setup_str_##_var, \
-           .type = OPT_CUSTOM, \
--          .par.func = (_var) }
--#define boolean_param(_name, _var) \
-+          .par.func = (_var), \
-+          .is_lockdown_safe = (_sec) }
-+#define custom_param(_name, _var) \
-+    custom_param_(_name, _var, false)
-+#define custom_secure_param(_name, _var) \
-+    custom_param_(_name, _var, true)
-+#define boolean_param_(_name, _var, _sec) \
-     __setup_str __setup_str_##_var[] = (_name); \
-     __kparam __setup_##_var = \
-         { .name = __setup_str_##_var, \
-           .type = OPT_BOOL, \
-           .len = sizeof(_var) + \
-                  BUILD_BUG_ON_ZERO(sizeof(_var) != sizeof(bool)), \
--          .par.var = &(_var) }
--#define integer_param(_name, _var) \
-+          .par.var = &(_var), \
-+          .is_lockdown_safe = (_sec) }
-+#define boolean_param(_name, _var) \
-+    boolean_param_(_name, _var, false)
-+#define boolean_secure_param(_name, _var) \
-+    boolean_param_(_name, _var, true)
-+#define integer_param_(_name, _var, _sec) \
-     __setup_str __setup_str_##_var[] = (_name); \
-     __kparam __setup_##_var = \
-         { .name = __setup_str_##_var, \
-           .type = OPT_UINT, \
-           .len = sizeof(_var), \
--          .par.var = &(_var) }
--#define size_param(_name, _var) \
-+          .par.var = &(_var), \
-+          .is_lockdown_safe = (_sec) }
-+#define integer_param(_name, _var) \
-+    integer_param_(_name, _var, false)
-+#define integer_secure_param(_name, _var) \
-+    integer_param_(_name, _var, true)
-+#define size_param_(_name, _var, _sec) \
-     __setup_str __setup_str_##_var[] = (_name); \
-     __kparam __setup_##_var = \
-         { .name = __setup_str_##_var, \
-           .type = OPT_SIZE, \
-           .len = sizeof(_var), \
--          .par.var = &(_var) }
--#define string_param(_name, _var) \
-+          .par.var = &(_var), \
-+          .is_lockdown_safe = (_sec) }
-+#define size_param(_name, _var) \
-+    size_param_(_name, _var, false)
-+#define size_secure_param(_name, _var) \
-+    size_param_(_name, _var, true)
-+#define string_param_(_name, _var, _sec) \
-     __setup_str __setup_str_##_var[] = (_name); \
-     __kparam __setup_##_var = \
-         { .name = __setup_str_##_var, \
-           .type = OPT_STR, \
-           .len = sizeof(_var), \
--          .par.var = &(_var) }
-+          .par.var = &(_var), \
-+          .is_lockdown_safe = (_sec) }
-+#define string_param(_name, _var) \
-+  string_param_(_name, _var, false)
-+#define string_secure_param(_name, _var) \
-+  string_param_(_name, _var, true)
- #define ignore_param(_name)                 \
-     __setup_str TEMP_NAME(__setup_str_ign)[] = (_name);  \
-     __kparam TEMP_NAME(__setup_ign) =                    \
-         { .name = TEMP_NAME(__setup_str_ign),            \
--          .type = OPT_IGNORE }
-+          .type = OPT_IGNORE,                            \
-+          .is_lockdown_safe = true }
- 
- #ifdef CONFIG_HYPFS
- 
--- 
-2.42.0
-
+Jan
 
