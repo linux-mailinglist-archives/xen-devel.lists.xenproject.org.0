@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99E5EAB3CD2
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 17:58:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981811.1368220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FBF0AB3CEA
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 18:02:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981820.1368230 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEVXV-0002Kk-F3; Mon, 12 May 2025 15:58:01 +0000
+	id 1uEVbr-0004h4-VL; Mon, 12 May 2025 16:02:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981811.1368220; Mon, 12 May 2025 15:58:01 +0000
+Received: by outflank-mailman (output) from mailman id 981820.1368230; Mon, 12 May 2025 16:02:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEVXV-0002JD-Bq; Mon, 12 May 2025 15:58:01 +0000
-Received: by outflank-mailman (input) for mailman id 981811;
- Mon, 12 May 2025 15:57:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uEVbr-0004eo-Ra; Mon, 12 May 2025 16:02:31 +0000
+Received: by outflank-mailman (input) for mailman id 981820;
+ Mon, 12 May 2025 16:02:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEVXT-0002Io-Ct
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 15:57:59 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dfc952ba-2f49-11f0-9eb6-5ba50f476ded;
- Mon, 12 May 2025 17:57:58 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-ad1a87d93f7so718547066b.0
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 08:57:58 -0700 (PDT)
+ id 1uEVbq-0004ei-Bk
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 16:02:30 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 80ad1046-2f4a-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 18:02:28 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-ad1b94382b8so755324666b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 09:02:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad2198b6ebcsm629255866b.185.2025.05.12.08.57.57
+ a640c23a62f3a-ad2290a4cc2sm526861366b.183.2025.05.12.09.02.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 08:57:57 -0700 (PDT)
+ Mon, 12 May 2025 09:02:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfc952ba-2f49-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 80ad1046-2f4a-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747065478; x=1747670278; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747065748; x=1747670548; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=URsiW6etZeVXBbbA4YDam9YA558UTVI6TLs+9tPd8hA=;
-        b=R6ZNdu7bgMeqILBcPzPODeR1qBrUAXEBT++84hkx0xR/bMo7B3eJ8Ba6wZfeZ4uD5z
-         dfzcnftL5Jhwf+VHtH4JObA4uFAo9j0JSvF4lVRkmSXHezz9ZZ9zYr3gxUMj/R5Xx5gU
-         h9M92IrBnqt6YHEUmyGPym/24yPVjB3vl6G8hpnqnNkQgZWt4AqPpj3BsE6Te8ODP/VR
-         H6WrkRdmPB+LZ/ugwv9WrT7ASEL8PMq2raqNkQZDFaK9ONBso+4U9tR8a5unMM3lYHDY
-         qpdNzbJbW8dVC0Z2iGozMD35o1qsg1G8mwPJWdQK+9GHPdyz2tht5JoDcM0GWl8m/ygZ
-         LYjg==
+        bh=nBDzpcpLffFQaUT3+67+bqNJ0RPcHCafk40SE2v99U4=;
+        b=OFPAEyiQwQ1hbxDTLaAuRVg53K0D4f5B/75puT3ekeSTmYDieZ/xAW897iQcKDNBcq
+         f6IfiP5u85iA8r+v1yK2j/9bfylctwxugnCiQ06YGQ86+8hh+GcdXv7LBvWIK4Y5WrvE
+         rj2YJ6+b26ZVgsvg7mDjQpp9I3tPK4BwdS5DNWD7VlCwBLrziC0RU8ozb7UaiiHuaS/P
+         gWhL8AinsSmZiCuLrXNgqZRb4wgVq75+c8CVmUkFUbR4nthic4fOI0EQiB2mT1wU5LGY
+         crYLRaDZ+GSCt0NvgNXeXX9J/i9nA8WeJ1oznR7XQBaJTEmpbe1nJICb9dTYZZYD66DV
+         m+rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747065478; x=1747670278;
+        d=1e100.net; s=20230601; t=1747065748; x=1747670548;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=URsiW6etZeVXBbbA4YDam9YA558UTVI6TLs+9tPd8hA=;
-        b=HJNh5Nv+YS1AS/BcsBb888vDXp5ZqzhC+ejpYXzZA9UxHa3NPc8pA1w6mz9m9nfOlT
-         wJbFFtud9Tj2OBV0O+KzhqSu16l+ZoZ09VUT3EtPV/pqho8UQm+8Mwa/1g/2Kqd2+RDU
-         dn5pCIauxTuc7UXoQHZq6wVC1XeDy7RFDK4pi3VyfTlIQgPZPOLPKE25LWXfnTY9XuQN
-         Mzgru1nYVCHS3kdqziWhfSO7wXYTybhEY8SGJwZWRxd7X2a9mRM7XWiEpQUyW6xlU/qV
-         g6aQ4Y/3S68Ro2NjPqx/7v8OCwh6Pl48ZXq4wNQqdXr5/APHSr31zH2+xJEbaqEGF4t7
-         Ja0w==
-X-Forwarded-Encrypted: i=1; AJvYcCW+NJn/vGPtTNMYkI+aeAMn/KdbgGVAAMd1u4L5TBaGHKiM3gpWk9oCDS4z6RZYO2JtcW3+w8fwEPw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxTMTejKXnj/uA4Rl4Wnh0Hoh+jr3Unw5RMC9FyGhpuJz2FJUzA
-	zkO49kH3ZgKqECslnHdPy1Vb93GEDDgfFR5NG/r/P97UBl+nQC4NzeYPTacqDw==
-X-Gm-Gg: ASbGnctwrQOUQclEAV4pE/ng8qesEPWOfZwMEduRYubBbkWaG5zeDAc4/xvFZQIwdFN
-	t4Z1nyimWaD/bWveuioA3Mmndx1NgpFIU9tC+C92A21J52tcmRxaua76kUez/KkEVxJE47n0iYi
-	cgltSH87TU98cFgeAThtcnDHn930EjebPraQiA3iBu9u/DOwSc6nGTgUxtkQJ3OezgYIi8Q6Jd5
-	tpmTgCOmfxO17XTWyDyqc186TteNPFkOw0ulkoN9WzNS3Y7TsrqxhIgVVQYeojJRaQM/AGjBDHu
-	H/qs78n61Dc2mxPS7WHefKtPts2dK7WXsDX3X8t2T2EhthhZNZpl0YLGUIjXxmDvaYfQ+oWb1+N
-	OMIGRKjA7hsFL2lKOdHosXd3XUNmdSLiZIIAY
-X-Google-Smtp-Source: AGHT+IGYzBCPpKKDd6jx8W288tNm6UNLaayrzFAg/SP6KqOZEzURr1agHSigVs4ba4R7TcJO9Rr8jg==
-X-Received: by 2002:a17:907:7216:b0:ad3:f3dc:e36d with SMTP id a640c23a62f3a-ad3f3dce636mr251179766b.50.1747065477824;
-        Mon, 12 May 2025 08:57:57 -0700 (PDT)
-Message-ID: <eeb66db3-623f-4ca8-9ea5-4d89e5b4a824@suse.com>
-Date: Mon, 12 May 2025 17:57:56 +0200
+        bh=nBDzpcpLffFQaUT3+67+bqNJ0RPcHCafk40SE2v99U4=;
+        b=CZZH/MaFtGIhsolcJJOJ4fukR8D65Y3SaEXdr7LE4fGrLyPMUPRcygQ+gsXtpoNafT
+         44ab/m9LcZU+wcQEby8I/2/j3pebz4i41EyUlrxAbdzUOrT4zHiQYEWBnoooQAXAcwiC
+         oS5nmRcRKL+pCX3C2rGGPSlBU7SwPB7t4qYjQjM+Iijdzmw1L+u7Ki9aBqRoG5EWbOA+
+         /bJ8in7u7jp+2a7A3LEzD7oHZF+K6M7ZHevXcyxA4Rg7r5Q3dHLckhRQRKcWIwjdgc+w
+         JW+NzwVGm9+Dm3lyy6WJprWA/oYt+TmeZtnfSa9ti8ysBiXd4RYguafYMXnQ4QWiwUTq
+         ytMw==
+X-Forwarded-Encrypted: i=1; AJvYcCXmZUwoccaMcWEqKZ38OoGEHLqFr6h+A7bAqraGzWhH3M6GdLOjDCYnxH+aK6VZIRp96/C/TjAvPAs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxWYleOSm0I8xxryr1Cn3UJAH2Ohy99cy3uCIuOxy3uKCRdEWV3
+	ceMBqqbMdehRu9YLlCZcYAHO8XJjUmzE59NrGM6URaFrlsN+QVQZ4zPvLeOM6Q==
+X-Gm-Gg: ASbGnctU9UN+jXlIWeI2G6sbiOVuzhx6cMNwFyat+zoG4Lxa9aPAE80GW8IC//Q993/
+	/osD9hiaF/x2+44bYuhx4aT9llecw3/FkBSKSTd79nv/VQkuaX7MIU08fkN4VMd2dKcsetcTXFU
+	tGLteNo1vxg7F+a6qrcbvbyjP+V4Z5YbmHAoZG5a2J/f1KPg+CPqW7wof1mOVGOEc0OyLinoToo
+	gayeJBNnyLcWwXF8ToXuBi6hnQjtASyCFLKdjCi9owwm6RY/BwhUci4IgcfRNGUfH1XZfRfTk4E
+	WCUMMhp/MgPKbUmvBmBJsG/p8d2iMKh4efpbtoYZa7rNgiH82mht4DrQezuetc+OMjLUMGsszB+
+	u5pJtzGlPap+noDlkWk4Tn0NFh3B5s+nQoVNg
+X-Google-Smtp-Source: AGHT+IFEBteYHD2pe1od47+0ZyqZSEHibimfVYcVMHJD8zvi6WL6upUaJ8ZvrWCRlyafv2yNSljCDQ==
+X-Received: by 2002:a17:907:3f11:b0:ace:d710:a8d1 with SMTP id a640c23a62f3a-ad218f1bafcmr1251884266b.24.1747065747621;
+        Mon, 12 May 2025 09:02:27 -0700 (PDT)
+Message-ID: <9ca29295-717b-46c6-be00-a86217ec4550@suse.com>
+Date: Mon, 12 May 2025 18:02:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 04/15] xen/cpufreq: refactor cmdline "cpufreq=xxx"
+Subject: Re: [PATCH v4 05/15] xen/x86: introduce "cpufreq=amd-cppc" xen
+ cmdline
 To: "Penny, Zheng" <penny.zheng@amd.com>
 Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
- <20250414074056.3696888-5-Penny.Zheng@amd.com>
- <2f3702f3-a46b-4161-a890-7aad9bbbcac4@suse.com>
- <889d2b2b-db42-43d2-9da0-dcd130d64d9c@suse.com>
- <DM4PR12MB845196DB77AC3D6FBCC1C69BE188A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <20250414074056.3696888-6-Penny.Zheng@amd.com>
+ <57a3b2c0-d57d-46e3-b248-0e243f715423@suse.com>
+ <DM4PR12MB84510753F3B015F1404803FDE188A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,83 +126,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB845196DB77AC3D6FBCC1C69BE188A@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB84510753F3B015F1404803FDE188A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07.05.2025 05:18, Penny, Zheng wrote:
-> [Public]
-> 
-> Hi,
-> 
+On 07.05.2025 07:27, Penny, Zheng wrote:
 >> -----Original Message-----
 >> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Tuesday, April 29, 2025 7:47 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; xen-devel@lists.xenproject.org
->> Subject: Re: [PATCH v4 04/15] xen/cpufreq: refactor cmdline "cpufreq=xxx"
+>> Sent: Tuesday, April 29, 2025 8:52 PM
 >>
->> On 29.04.2025 12:36, Jan Beulich wrote:
->>> On 14.04.2025 09:40, Penny Zheng wrote:
->>>> --- a/xen/drivers/cpufreq/cpufreq.c
->>>> +++ b/xen/drivers/cpufreq/cpufreq.c
->>>> @@ -71,6 +71,49 @@ unsigned int __initdata cpufreq_xen_cnt = 1;
->>>>
->>>>  static int __init cpufreq_cmdline_parse(const char *s, const char
->>>> *e);
->>>>
->>>> +static bool __init cpufreq_opts_contain(enum cpufreq_xen_opt option)
->>>> +{
->>>> +    unsigned int count = cpufreq_xen_cnt;
->>>> +
->>>> +    while ( count )
->>>> +    {
->>>> +        if ( cpufreq_xen_opts[--count] == option )
->>>> +            return true;
->>>> +    }
->>>> +
->>>> +    return false;
->>>> +}
->>>> +
->>>> +static int __init handle_cpufreq_cmdline(enum cpufreq_xen_opt
->>>> +option) {
->>>> +    int ret = 0;
->>>> +
->>>> +    if ( cpufreq_opts_contain(option) )
->>>> +    {
->>>> +        const char *cpufreq_opts_str[] = { "CPUFREQ_xen",
->>>> + "CPUFREQ_hwp" };
+>> On 14.04.2025 09:40, Penny Zheng wrote:
+>>> @@ -573,6 +576,14 @@ ret_t do_platform_op(
+>>>          }
 >>>
->>>         const char *const __initconstrel cpufreq_opts_str[] = {
->>> "CPUFREQ_xen", "CPUFREQ_hwp" };
->>>
->>> (line wrapped suitably, of course) Or maybe even better
->>>
->>>         const char __initconst cpufreq_opts_str[][12] = {
->>> "CPUFREQ_xen", "CPUFREQ_hwp" };
->>>
->>> for the string literals to also end up in .init.rodata.
+>>>          case XEN_PM_CPPC:
+>>> +            if ( !(xen_processor_pmbits & XEN_PROCESSOR_PM_CPPC) )
+>>> +            {
+>>> +                ret = -EOPNOTSUPP;
+>>> +                break;
+>>> +            }
 >>
->> Actually, it didn't even occur to me that there might be a "static" missing here, too.
-> 
-> Sorry, I may need more explanation, what is the "static" missing you are referring?
-
-In your code cpufreq_opts_str[] is an automatic variable, which the compiler
-needs to emit code for in order to instantiate it on the stack. This can be
-avoided if you make the array a static variable, as then all construction
-occurs at build time.
-
->> Plus I'm missing any arrangement for the array slots to remain in sync with the
->> corresponding enumerators. With that ...
+>> While at least you no longer use -ENOSYS here, I question this behavior, including
+>> that for the pre-existing cases: How is the caller supposed to know whether to
+>> invoke this sub-op? Ignoring errors is generally not a good idea, so it would be
+>> better if the caller could blindly issue this request, getting back success unless
+>> there really was an issue with the data provided.
 >>
 > 
-> Thanks for the detailed instructions, learned and I'll change it to
->         const char __initconst cpufreq_opts_str[][4] = { "xen", "hwp" };
-> And for in sync with the corresponding enumerators, maybe we shall add comment here,
->         /* The order of cpufreq string literal must be in sync with  the order in "enum cpufreq_xen_opt" */
+> Understood.
+> I will change it to ret = 0. Do you think we shall add warning info here?
 
-Instead of a comment I has rather hoping for some use of dedicated array slot
-initializers.
+No, for precisely ...
+
+> Dom0 will send the CPPC data whenever it could.
+
+... this reason.
 
 Jan
+
+> XEN_PROCESSOR_PM_CPPC
+> is not set could largely be users choosing not to. In such case, silently getting back success
+> shall be enough.
+> 
+> 
+>> Jan
+
 
