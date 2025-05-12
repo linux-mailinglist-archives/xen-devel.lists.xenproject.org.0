@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC9DCAB3BC6
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 17:16:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981708.1368120 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23F53AB3BCE
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 17:18:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981723.1368130 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEUsx-0007Tb-Be; Mon, 12 May 2025 15:16:07 +0000
+	id 1uEUvU-00086o-P2; Mon, 12 May 2025 15:18:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981708.1368120; Mon, 12 May 2025 15:16:07 +0000
+Received: by outflank-mailman (output) from mailman id 981723.1368130; Mon, 12 May 2025 15:18:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEUsx-0007RM-7A; Mon, 12 May 2025 15:16:07 +0000
-Received: by outflank-mailman (input) for mailman id 981708;
- Mon, 12 May 2025 15:16:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uEUvU-00084B-M9; Mon, 12 May 2025 15:18:44 +0000
+Received: by outflank-mailman (input) for mailman id 981723;
+ Mon, 12 May 2025 15:18:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEUsw-0007RG-41
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 15:16:06 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0529d887-2f44-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 17:16:04 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5fbeadf2275so7965182a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 08:16:04 -0700 (PDT)
+ id 1uEUvT-000845-CS
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 15:18:43 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 639e4a42-2f44-11f0-9eb6-5ba50f476ded;
+ Mon, 12 May 2025 17:18:42 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-ad2452e877aso274752266b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 08:18:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad2290a4cc2sm521517166b.183.2025.05.12.08.16.02
+ a640c23a62f3a-ad2197be656sm625041266b.127.2025.05.12.08.18.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 08:16:03 -0700 (PDT)
+ Mon, 12 May 2025 08:18:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0529d887-2f44-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 639e4a42-2f44-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747062963; x=1747667763; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747063122; x=1747667922; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1vaOAeO+2iZcxputsDsvjqYlnmGm22ZI4rH48ZJ96VM=;
-        b=D6wk1Jt7beSU76p6reZgCuDmgIi7BUpsAjKR1j11WJtpM1UHtDftvvhssOHlK0Ssss
-         O4ZmKiX0AjDinuuAgkg8EmHbtknSGeWpIxA/U95vN5kp5C4PwHHmK6ijzJwikgPHvr5Q
-         xXdUtYmNDQeDWRFNMKwL1OfhbJiGWlGs9P59Ch6Rk8Y3T0dc0mGiY4VMzSJEjeyNrjzq
-         cbYBd7SQ4fWplu9zx1gJtObVEstihArOPaMjiOzUhDqYTRekEYvd7OAwz+1ZcW+TOpaa
-         qpUeJq5LCau7aIs2QuWUenhW+w4u5cR9QMm1C6Mx8Zf9KquKquNf3Y75q/Y4CSbLsGTK
-         SKQw==
+        bh=fUpJg3iDtLKAgpJKRCZ+4fA5gkgvCqcGcbCcDERqGkY=;
+        b=O5yU/AXntzsNLsBJPfA2smiGJ+toqoBSGpGIg+w4i/rfwQaVdnE8ZScqSAHgAvUyIS
+         LxA0rmpZMlmc6rwNd2LL+otEfbQKxDDlO+LjTbnQxIGxKUd5TWPADwWJ/VbVOUp9b5iQ
+         1sqMNtQRrtyDz2/qn+59s+9xQ0Q0Vbm/WIeBk3XbO1uTyTp+XOVz5XoQkMhHuqfBktfW
+         Sme2haUFG7Iw+m/oESIgXsSaeVCwtBIxPzjm02splGqBTDVPbFDGDj/jyxuvrZo4Lh2U
+         H5yr1K+I+b0MF3bFO2TxfHcRl8KVd2JKLhB3+VUucwGTAAapQQNbPnbi0iEnzH/uJkuX
+         2sJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747062963; x=1747667763;
+        d=1e100.net; s=20230601; t=1747063122; x=1747667922;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1vaOAeO+2iZcxputsDsvjqYlnmGm22ZI4rH48ZJ96VM=;
-        b=eYvJfveu8BVwM8ViKKwxDZUyHcNEXVkIJfJ3cdJebJyoUn0ufPA4nX/WFK8uh3mqPt
-         q/SSB/dOnduPHdKturQbzN8lndaKJAlsWwyKQXUCf05ZwBZqA37Ps7eqvO9MXYo//+iH
-         S+HYXlZ7Ht/5icXDC7ASK89bB2rQFmBi+/dXDtzv0HYI7475DXNlNOktj/wZj73srQpC
-         yri9z5bJ9koSJ7sgXuw+akb+wcZGV172bDmgXAZaDZtZBvXlNOi/gaqIhcrg8vp53qPT
-         A6OYg2Wd0mmGQ83COKYlAgJM9KZC9O5BQMzPhgMY6Qwy8tv38Tu8hr+nW9ujR7qMfzmP
-         +fcQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXrUTNwHNcbWjLr/QGl7vZRxrL/dsDXJ4XJSzLDCNXyCA0wY70T/lDW03M/5aD5aIpO5SIdq2nslHs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxEiAsST0Qqq9JGEC+9f5muEV3nBTLr+N9AOft0E8Lwq0eSnLx0
-	PQNrJGGQRAZigYOklmKR5zMdaiUXEmqBvR4kbsll83nC9Twh103VT6YLHCtWlw==
-X-Gm-Gg: ASbGnct8xputuiwUQPZ/T8Zoelnv1c0Fa7ZDo9DovmARBsp8mXTiQEeRDJUZc+uLEQ2
-	PREOh3UglQwdBSJzQ+2NWKb4ORLZIahIcj3dXnxuRKP+0b13MqosPEHAhM3p2FpWlBUuGWv9Egq
-	+HEB+azNYMgkrTyC6gevas0bpsSGf9T1mUZB+FDPO4blsgT/jUM8mV6Q0Xp8BtxvZe7gsNqYLGY
-	HAtkpGF9bBhlc4WWXhu2Uh9dfCloO5gREJvaKfe6PX1sXSxaKn4LUiJnkUZE49QpfroxOlB+BDc
-	1sniyqbtfN5tRs2xRqiVck431onWqW8msIt6BsKqrv7hPZTnqSoRqfzc55vNMAAMSoXk91vgqt/
-	Lu0hu/FxYdzVaiCAzaCX9/CBsMS0AazkkFcvO
-X-Google-Smtp-Source: AGHT+IGT/brKM2IUCwhqhCRK+2J/fKmc59SeAAQTZPOM1JcySiQGkMtb1Oqj/p+yiR6kqDc8FOmzkw==
-X-Received: by 2002:a17:907:8990:b0:ad2:2ba6:2012 with SMTP id a640c23a62f3a-ad22ba6342fmr912545966b.11.1747062963445;
-        Mon, 12 May 2025 08:16:03 -0700 (PDT)
-Message-ID: <e2396e92-79b6-487a-88d6-725cd9e173a9@suse.com>
-Date: Mon, 12 May 2025 17:16:02 +0200
+        bh=fUpJg3iDtLKAgpJKRCZ+4fA5gkgvCqcGcbCcDERqGkY=;
+        b=Xe9cfWnz7yOfT7sbIQWUNeX6HV964enDB2yMQPYclz7cV+bcnF4GAkmHyrqlcRYtGa
+         K1wg+L68I/UWNzvuVFuYlR5JH/oo0tqe7pUtZsooNFfpkUEQXs3hWHSYbuNjPzZVPOw8
+         b/CQSExaRMX4Fe7Qf1UPBkHULjz17WoGpWN58myjanqUajboV6dh+tuSf/6mFgmZXtn/
+         AcLsK9A8iarrveYEsQV8PJMMWOyaz8vbIuPQQ27R0zmmvLhnQcgNGiB8BqVboPQ2g0wd
+         XHGAmR+/wcrBEvR3zJMa9TbU1VGK5hMUowE4/txAy1VIGQ6krZYaiNSNgp7ABxn4kals
+         4QaQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVKRbhEtRDH4y1F8zUmvfjeMoh7msSzlZkPXa9FKC4v7hPGAnIJLEbsfe4xB2Y3SoJm605atfwykoQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwrpyMEy31LQumA4jpuU8SGMmD/4u+bE7o7rvquf4JgkSTGnpdw
+	/10rmrsE/HImLUBUFwaUXcs3qmWSnUgmlFjYs1Ge4NLXor98i2cmC1njeY63Cg==
+X-Gm-Gg: ASbGncu9tb65fTMdxaM+eaKLlfa+ipVJEP6WPNE6DlaDXmrwCqCgeARjix7ab1oXRv4
+	yn59lUQThX8ETPY27YienuCm1+ngjsYIvEbnDgkpe+1Ek7VKrwFIqZswhnxr4w1OiXiFEmSwrT6
+	R1yO7VJQRcY9wBglmUINZb2pw74lj9hg8O7VLzYzGmWVI2+fUlMfpXUyWNYiAkgjR/4ofbCFrLp
+	ko418BfXr25cxgepbQ4o9bVGcais719WVnjfO6/nH0+9h3D/s09CycwadGpoCedwwLxyJs1emX2
+	clQo60F4iD08IL+GoW67ZH/LlBzwKHY6jIccwQsAz/JGPHRiY6w2PPHnEn34ZZxu5VOJ/n2BM8q
+	2louK/xL2ko6/7sRdfPDqW3MYx5YjbDAbmB8F
+X-Google-Smtp-Source: AGHT+IHd2k4msB0DofIG5f0ThGTdHRlto2SIRi4HnVJBGDXAmo/CxDaAxwdGIQ54zgGQu5ZX1gYIZg==
+X-Received: by 2002:a17:907:7f9e:b0:ad2:411b:589e with SMTP id a640c23a62f3a-ad2411b5dbbmr871077466b.43.1747063121952;
+        Mon, 12 May 2025 08:18:41 -0700 (PDT)
+Message-ID: <3abf6813-d251-4672-838b-af01a05c84d4@suse.com>
+Date: Mon, 12 May 2025 17:18:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/9] xen/x86: rename cache_flush_permitted() to
- has_arch_io_resources()
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH] xen/Kconfig: Improve help test for speculative options
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250506083148.34963-1-roger.pau@citrix.com>
- <20250506083148.34963-8-roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250508160336.2232152-1-andrew.cooper3@citrix.com>
+ <18f73078-c512-416b-9406-c76f8db178eb@suse.com>
+ <63652356-4b82-401f-a6ba-8eb53b2f8317@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,46 +122,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250506083148.34963-8-roger.pau@citrix.com>
+In-Reply-To: <63652356-4b82-401f-a6ba-8eb53b2f8317@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06.05.2025 10:31, Roger Pau Monne wrote:
-> To better describe the underlying implementation.  Define
-> cache_flush_permitted() as an alias of has_arch_io_resources(), so that
-> current users of cache_flush_permitted() are not effectively modified.
+On 12.05.2025 16:58, Andrew Cooper wrote:
+> On 12/05/2025 11:58 am, Jan Beulich wrote:
+>> On 08.05.2025 18:03, Andrew Cooper wrote:
+>>> The text for CONFIG_INDIRECT_THUNK isn't really correct, and was already stale
+>>> by the time speculative vulnerabilities hit the headlines in 2018.  It is
+>>> specifically an out-of-line-ing mechansim, and repoline is one of several
+>>> safety sequences used.
+>>>
+>>> Some of this boilerplate has been copied into all other options, and isn't
+>>> interesting for the target audience given that they're all in a "Speculative
+>>> Hardning" menu.
+>>>
+>>> Reword it to be more concise.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Anthony PERARD <anthony.perard@vates.tech>
+>>> CC: Michal Orzel <michal.orzel@amd.com>
+>>> CC: Jan Beulich <jbeulich@suse.com>
+>>> CC: Julien Grall <julien@xen.org>
+>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>>
+>>> CONFIG_SPECULATIVE_HARDEN_BRANCH really ought to be named
+>>> CONFIG_SPECULATIVE_HARDEN_CONDITIONAL, but this would be a (minor) functional
+>>> change.
+>> Hmm, so you're suggesting all the straight-line speculation changes then ought
+>> to be conditional upon a separate, new Kconfig control? So far I've keyed them
+>> all to this one.
 > 
-> With the introduction of the new handler, change some of the call sites of
-> cache_flush_permitted() to instead use has_arch_io_resources() as such
-> callers are not after whether cache flush is enabled, but rather whether
-> the domain has any IO resources assigned.
+> Straight line speculation is complicated in multiple ways, and our
+> understanding has evolved over time.
 > 
-> Take the opportunity to adjust l1_disallow_mask() to use the newly
-> introduced has_arch_io_resources() macro.
+> I'd forgotten that we grouped it with HARDEN_BRANCH, and it is not an
+> ideal grouping.  What we have in the way of SLS protections are token at
+> best.
+> 
+> First, in light of Branch Type Confusion on Fam17h processors, where any
+> instruction can manifest as a speculative branch, there's nothing that
+> can be done.  (This was demonstrated rather more thoroughly with SRSO
+> than BTC.)
+> 
+> There is straight line decode (at least) through any branch the
+> predictor doesn't know about.  Only "taken branches" get tracked, but
+> also you get a higher rate of SLS immediately after leaving userspace
+> for a long time (such that the branch predictor fully lost supervisor
+> state).  Again, this is inherent and we cannot control it.
+> 
+> Intel say that a branch type mismatch (for a direct branch) will halt at
+> decode.  Indirect branches are documented to potentially suffer SLS. 
+> AMD Fam19h say that any branch type mismatch will halt at decode.  Also,
+> with AMD IBRS, indirect branches stall dispatch until they execute.
+> 
+> 
+> Therefore, it's indirect branches which are of most concern.
+> 
+> Putting an INT3 after any unconditional JMP *ind is easy.  Compilers
+> even support doing this.  CALL *ind on the other hand has architectural
+> execution beyond it, so if protection is needed, LFENCE is the only option.
 
-While I'm happy with everything else here, to me it's at least on the
-edge whether cache_flush_permitted() wouldn't be the better predicate
-to use there, for this being about ...
-
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -172,8 +172,7 @@ static DEFINE_SPINLOCK(subpage_ro_lock);
->  
->  #define l1_disallow_mask(d)                                     \
->      (((d) != dom_io) &&                                         \
-> -     (rangeset_is_empty((d)->iomem_caps) &&                     \
-> -      rangeset_is_empty((d)->arch.ioport_caps) &&               \
-> +     (!has_arch_io_resources(d) &&                              \
->        !has_arch_pdevs(d) &&                                     \
->        is_pv_domain(d)) ?                                        \
->       L1_DISALLOW_MASK : (L1_DISALLOW_MASK & ~PAGE_CACHE_ATTRS))
-
-... cachability, which goes hand in hand with the ability to also
-flush cache contents.
-
-Tangentially - is it plausible for has_arch_io_resources() to return
-false when has_arch_pdevs() returns true? Perhaps there are exotic
-PCI devices (but non-bridges) which work with no BARs at all ...
+Is it valid to summarize your reply as "throw away any SLS patches you have"?
 
 Jan
 
