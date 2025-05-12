@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AA44AB3564
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 12:58:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981261.1367659 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4EDDAB3566
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 12:58:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981265.1367669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEQrT-0004lA-QM; Mon, 12 May 2025 10:58:19 +0000
+	id 1uEQrw-0005Cd-6z; Mon, 12 May 2025 10:58:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981261.1367659; Mon, 12 May 2025 10:58:19 +0000
+Received: by outflank-mailman (output) from mailman id 981265.1367669; Mon, 12 May 2025 10:58:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEQrT-0004iJ-NW; Mon, 12 May 2025 10:58:19 +0000
-Received: by outflank-mailman (input) for mailman id 981261;
- Mon, 12 May 2025 10:58:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uEQrw-00059c-41; Mon, 12 May 2025 10:58:48 +0000
+Received: by outflank-mailman (input) for mailman id 981265;
+ Mon, 12 May 2025 10:58:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEQrS-0004iD-Kj
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 10:58:18 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 01d10449-2f20-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 12:58:16 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ad24b7e0331so203978466b.0
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 03:58:16 -0700 (PDT)
+ id 1uEQru-00058c-3U
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 10:58:46 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1316e348-2f20-11f0-9eb5-5ba50f476ded;
+ Mon, 12 May 2025 12:58:45 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-5faaddb09feso8583489a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 03:58:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5fc9d7016b4sm5606383a12.49.2025.05.12.03.58.15
+ 4fb4d7f45d1cf-5fc9d710549sm5523822a12.76.2025.05.12.03.58.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 03:58:15 -0700 (PDT)
+ Mon, 12 May 2025 03:58:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01d10449-2f20-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 1316e348-2f20-11f0-9eb5-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747047496; x=1747652296; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747047525; x=1747652325; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sU8IqMrzuksqrF54Hs2THJoM1tfZUvrHJnHHfcY8zM8=;
-        b=BDImeEIhbsSdwL/5wSvDPEsStMMnQYw3UrJWi3mVtDEpMTHz3DZGvsSFhNBVmdribl
-         nWw84d4N3MRjCVK5XHCcxEm8eYP8haImqcJ6HTuvtXjcwGS9OHTxUrmWVrANVLnwP2Ah
-         xCqhqMRCyH+lWaCnLu6Aj/h/evcuiL/gfIsvQkjImtHgRdccQIGkPgad6Stq+0nN6x7p
-         ERWF5TVGWNxj4m+t1oSNK3J28MH0oLle+UNpeamKKloKGZJHB/EaoG5ykIQ5F18gh6Lb
-         WXsYT7oIudbePeN+Igof375iyqkMDjx+0GrTj6kpoNq+uuYW184WnoQ37CHuoBoOqK7h
-         HuCA==
+        bh=PIr9ru3uBaMG5TqjteH4QmSYT4w5JsZLcfPm/fOk++Y=;
+        b=Yzpe/ZvGpARolD/0PfcqrFU29EBiyWIXu01hQxsymC6RF9sf6AduMmTroLC68giIhW
+         BsKmL1cRr+Xz1So5GyOXhnIJ5b9fwuBwtxJvJXOS4xCMdvFM/CrV9m1JNGRdqKrFPavi
+         YnaATKhNne37Yz7QrSKGS+fej3aKPJpVvWZiMQXqkElDku71FNyT6PjQrVCVgs6HIY66
+         JoY2PPtVhb/JtK0MJy17CE+DKjIEEDffg8/AHTfNTOu7RKEvy07iMH4Evkp0pIRDGhA3
+         76WLVL2GDYHVNHIbvPuPsF2+a9X88QsYVUE01VG0MwmzniCZfKqLPaPDOgP1N4cK4cd/
+         DaSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747047496; x=1747652296;
+        d=1e100.net; s=20230601; t=1747047525; x=1747652325;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sU8IqMrzuksqrF54Hs2THJoM1tfZUvrHJnHHfcY8zM8=;
-        b=YWu+XJ1XiO6TAyN7F08kLsDKJ8fn/xLA2AS2P5cvixgJ79Ry46vlEKw2/hM8PqF9Jq
-         sOsecpyByuRKAnIUF1U2ukmP3tU5i14TrIeWQqWWOlAgnWxNOMnplCkRy9OtnERE9TJF
-         oy8ORIAa+mdAx8MQ8pKpjUqLAuro59Qs/ntD1WwfICP0ErFNn9N5xoqJJfXQpxi7w35Q
-         QO//Mho7xPTBeXxSHrKKHQyPDiAml8Yqm5g6sEmg43ghldinTqEj3MfZ/E4IXIuXdMMe
-         z5zz4w8AsxyNFIRdDYPc6u4KN6R1tQt9ru5U63h8dLZVd9DvKuWGYnkL2O48iH04/8ep
-         BN3A==
-X-Forwarded-Encrypted: i=1; AJvYcCWAGhMWw9cUDkY/9n6Lf7SvHssl3o6GuhX1bfPn3+G5tF/xXjpta8bSC/4X5xHywxCnpfEkOgkeZCE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxwIe5CClLm54s9Ixk8WyDpZ2aqdmoZzDqNcBwMRcs+NDmKkkRB
-	M8poQFdQ1eYEgoli3y95IockbxX8u0cqYXDTgznJ45Gb3R2/rqN+vUbpjIYA7Q==
-X-Gm-Gg: ASbGncvNITtPIid1jTxo3IzwoveMBEVv3LwvT3EbP4pRwc3lyI4uKCo4CiLIoEtpPkp
-	9sRo7T0kK7gxkBp+nLJ9RFw2R9jOZDy0FBrJeCk7nN2lSYiwaqHBOuS4LrMN1ow0ohyD3MMBn53
-	m9+EvSdYY99g7abciFtjdzHc35RQBQsvUoabF3uAxvdjnlcuTMq2UyRf6GL+0gW0shH0JYE7IMT
-	DubuMTpfLWX6aTeSWt9SVXrToKlW2oe109Emqx8AndWYeEvpVJrj9CkTw6SiXsDKsIdXgv2R7U5
-	xYNsvyya69L3qQTlYUDXjq5v9J5lVD74oROGIasJeFqXLnZM/D91oLBR7E7kewAYqa9008ZtxqY
-	iZH0Ymv/Wh9CUnMULKdKX6ccDogHpa8zcdMaC
-X-Google-Smtp-Source: AGHT+IGw+L61ZHJpkaQr/+fzTChmU6aS5hpeTKheQEP2Tenw4Il53V2FslNlS8todAATczkzE4Es8Q==
-X-Received: by 2002:a17:907:72d0:b0:ace:6d5b:e785 with SMTP id a640c23a62f3a-ad2192b6b17mr1133728266b.47.1747047495965;
-        Mon, 12 May 2025 03:58:15 -0700 (PDT)
-Message-ID: <18f73078-c512-416b-9406-c76f8db178eb@suse.com>
-Date: Mon, 12 May 2025 12:58:14 +0200
+        bh=PIr9ru3uBaMG5TqjteH4QmSYT4w5JsZLcfPm/fOk++Y=;
+        b=KZReElTsnsTfRhRy2sZcQLyepq+pph03l1iaiio+pesdf4Kw2vgPLuTjin6owaLcv6
+         oO0JGFaCNx1GIgvoxL2sOLfLFMCTS8mtUPX162BsB6/+RCsh6ifmbuJvEeiWxkyKoXqP
+         29+u/Z43fMNCHc46WyWCyvPkz7uEDn8cl5QlLsRtW9BQEUvABsdWQJHG+ypX0t8k32Wn
+         shPALbZZqcIOpRcU4NRln7S2GuTpRdSoYuWyB8ogJfrgzuQ3doPxjC9uG1B7gehAvHj0
+         nzIl0lRIjORomg/26YJNclt5i9cH5Fdak7vFxZG5L8aW78EGMNAEULI9omNqf8kjZOTt
+         F5Bw==
+X-Forwarded-Encrypted: i=1; AJvYcCXAIDPA6ixNAefxUQfNknNA2C5IPTVvPlCyD04Slb4xy1y6d3rOzvcpAuWocvLa34fsEXADlt9Uxb0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxvKEsKhOuThEp0muFA5l2j6kobeP0YD6l/t8dB9S9RlQXKHNjz
+	pmU2CGzag1pQaVGjjaUknges17gNqGoZDsdJvMYfRaBgVunAKvpTjoEDKMg9a8h1ZMjGgZpGR6E
+	=
+X-Gm-Gg: ASbGncv1rF95GaNuj6FHm8wvC9Ac+ioRMyFNAMSS8szQjWZBNxyP4VicCh6YYSLHH/S
+	aziuQJzFQMpkL/2Xphk1InhyEmzzx4N4JloqSysDvFf8xDNmXYhCFf0C23GAQEw07nwPm8cWUEf
+	Qqx5VyZMADmfO63JVFP7bt2rXQm7qtKKkxJ/KQr+MG0KNdUct03UtRvbzMV/ealtNnLnAjIxl8Z
+	6d1/flwz2NJrdq3tcd6Re+UDNodXF3WA9HpAoZqbuEmiaWYugCY6QrnwxjB9maNIKjyzSL9DpSC
+	6XaFwqn93lmZLugdPgbrph3GEttYfE6jdhINFJIK/YpSxd0LWWnTjCTWiwrfW++DzWuhrGhMt25
+	47Mc3erC1kerzxLDZqCPUAU4/f9SBuhGGnd5q
+X-Google-Smtp-Source: AGHT+IEkAcNh92M4Dvid3pqmtdIwiS4lraMB5PUWsD9Cmz2OBessHJEOrniS35MJOtJjOmIGvWy3rA==
+X-Received: by 2002:a05:6402:3507:b0:5f6:c638:c72d with SMTP id 4fb4d7f45d1cf-5fca0730831mr11703568a12.7.1747047524989;
+        Mon, 12 May 2025 03:58:44 -0700 (PDT)
+Message-ID: <4b492493-5390-4759-98f9-859fe43bb7e0@suse.com>
+Date: Mon, 12 May 2025 12:58:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/Kconfig: Improve help test for speculative options
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH v2] livepatch: Pass buffer size to list sysctl
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Kevin Lampis <kevin.lampis@cloud.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250508160336.2232152-1-andrew.cooper3@citrix.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250508170156.558291-1-ross.lagerwall@citrix.com>
+ <e9f0e66c-a05d-4e95-9446-435d9ca51753@suse.com>
+ <aCHTaXClFFRUX2tv@macbook.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,40 +124,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250508160336.2232152-1-andrew.cooper3@citrix.com>
+In-Reply-To: <aCHTaXClFFRUX2tv@macbook.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 08.05.2025 18:03, Andrew Cooper wrote:
-> The text for CONFIG_INDIRECT_THUNK isn't really correct, and was already stale
-> by the time speculative vulnerabilities hit the headlines in 2018.  It is
-> specifically an out-of-line-ing mechansim, and repoline is one of several
-> safety sequences used.
+On 12.05.2025 12:54, Roger Pau Monné wrote:
+> On Mon, May 12, 2025 at 11:51:35AM +0200, Jan Beulich wrote:
+>> On 08.05.2025 19:01, Ross Lagerwall wrote:
+>>> @@ -1328,10 +1327,15 @@ static int livepatch_list(struct xen_sysctl_livepatch_list *list)
+>>>              status.rc = data->rc;
+>>>  
+>>>              name_len = strlen(data->name) + 1;
+>>> -            list->name_total_size += name_len;
+>>> -
+>>>              metadata_len = data->metadata.len;
+>>> -            list->metadata_total_size += metadata_len;
+>>> +
+>>> +            if ( (name_total_copied + name_len) > list->name_total_size ||
+>>> +                 (metadata_total_copied + metadata_len) >
+>>> +                 list->metadata_total_size )
+>>> +            {
+>>> +                rc = -ENOMEM;
+>>
+>> -ENOBUFS or maybe -ENOSPC, but certainly not -ENOMEM.
 > 
-> Some of this boilerplate has been copied into all other options, and isn't
-> interesting for the target audience given that they're all in a "Speculative
-> Hardning" menu.
-> 
-> Reword it to be more concise.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Julien Grall <julien@xen.org>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> CONFIG_SPECULATIVE_HARDEN_BRANCH really ought to be named
-> CONFIG_SPECULATIVE_HARDEN_CONDITIONAL, but this would be a (minor) functional
-> change.
+> Jan, are you fine if I replace with -ENOBUFS on commit?
 
-Hmm, so you're suggesting all the straight-line speculation changes then ought
-to be conditional upon a separate, new Kconfig control? So far I've keyed them
-all to this one.
+Yes.
 
 Jan
+
 
