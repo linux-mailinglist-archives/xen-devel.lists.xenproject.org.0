@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1831DAB33A6
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 11:33:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981063.1367449 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B53B3AB33ED
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 11:44:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981072.1367459 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEPXa-0007DC-By; Mon, 12 May 2025 09:33:42 +0000
+	id 1uEPhH-0000ea-7d; Mon, 12 May 2025 09:43:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981063.1367449; Mon, 12 May 2025 09:33:42 +0000
+Received: by outflank-mailman (output) from mailman id 981072.1367459; Mon, 12 May 2025 09:43:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEPXa-0007Bv-94; Mon, 12 May 2025 09:33:42 +0000
-Received: by outflank-mailman (input) for mailman id 981063;
- Mon, 12 May 2025 09:33:40 +0000
+	id 1uEPhH-0000cc-51; Mon, 12 May 2025 09:43:43 +0000
+Received: by outflank-mailman (input) for mailman id 981072;
+ Mon, 12 May 2025 09:43:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aA1K=X4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uEPXY-0007Bp-Tp
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 09:33:40 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uEPhF-0000cW-Gn
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 09:43:41 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2a87b79d-2f14-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 11:33:30 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-5f63ac6ef0fso77360a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 02:33:30 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5fe43357d45sm1697733a12.54.2025.05.12.02.33.29
+ id 953f27c1-2f15-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 11:43:39 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-ad23db02350so314900466b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 02:43:39 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad2417f2341sm319056866b.19.2025.05.12.02.43.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 02:33:29 -0700 (PDT)
+ Mon, 12 May 2025 02:43:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,268 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a87b79d-2f14-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 953f27c1-2f15-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1747042410; x=1747647210; darn=lists.xenproject.org;
-        h=in-reply-to:content-language:references:cc:to:from:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0ln4VS6DP23i5PPDPc9eIW9sj98gvcZ5kmyUqXZJHQw=;
-        b=Y4P8EEJzwgIabhsQydAy5Rap736NxzKJBKrpctMlExqins/N6cR5gCc0EuvXl97JnQ
-         IsQ0SPs42mFo54ZC/sBgkAmSuv6zgxtvkzgGWsa5a7ZKcLSt9AHr7l+yoislZ6hQ/FU+
-         9bsrgO7eLMVAAr+5NNH+I6GAmUmx3MJ6PUrmQ3iPYIss3HvZAWFQqQN3RSdYDfrcf0JW
-         zvK+cA1AlRZXZuOOLKFMQXiSJR8/xqCW9pPrn1sBz+4rtYaKNzyUmD2AMCJh4jLhZwI3
-         b/ZGrT6YH2X720CAy/zZe+Z8f7KMbluEL9rNyYy/ePstO1LAIsoqRcAZLm+VJSgZ879q
-         OlEA==
+        d=suse.com; s=google; t=1747043019; x=1747647819; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=CArXeoVkfSTjrHO91BI3DtDiZgfxPGCnLmt7jUBicWc=;
+        b=QdOOir8EsvtQJn+IODdPl35zYk7L9tUVCsBnu9BsxYsR7nzn/oX7Np6CJf2swU/KAo
+         F2G465oaNNjlZBJS2SbHbFDCAnRZVX9c4N8rf1fIpOah2J/feZ9mv5QBArM10hTU5Txb
+         7OfaKXv7kTmDQ7swYJF9GICD19AwmTnxRDv/K3QE2fzzyj8SN7HB8h5yieiZCeRrsHqw
+         s1Ao4/rzu4sAJxEsJrgX2e9eeFDr0pjlyFaEWbW3yzQKnDlbMjS1AX7hHX1axgtKnt3w
+         QpHEBQ581Vlq/Gt7n/EZpIkORprchXvmwCNJaK6/lP3r+/Zvp9OSvX0oasfqBhCVrLHD
+         lVSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747042410; x=1747647210;
-        h=in-reply-to:content-language:references:cc:to:from:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=0ln4VS6DP23i5PPDPc9eIW9sj98gvcZ5kmyUqXZJHQw=;
-        b=go1OXlsOdgpbX0iFS3DEVmgUaUYgqr3hILyJbDvyChjOZWRR68eVDltqTXcuJsvZyv
-         mDRkI2Yz47j16ycBLhnnJCasOz9jFKTQRHwida23ux43SxUamWZI/dE8mXJ4Om75EQ68
-         mBqtCRKXDdMPLQdJdW5kuZNL2/9GBUgEoJlHvt4HLDcpg3k+8RkhOS7/SOjUmRy3IEqN
-         D4tVdVXHmS7laARN2g5YvsC9b9MtAosfd9QLgtB/8AzOoujr7ToKzvs++TPb7gOXugqY
-         i+s0pUbtGGlx18OAYIlx+j2ZfE6OWPEUfN+Mey5OSS6WdqV47cAEmqrUWVh+oyqXvsqX
-         kqSQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUkoOI0VWJ5LNyPkCHWkefqaknpByStRS/yKZGonxqPqoqK7h3eOcTeCz84bpbcR92i3pZoWA3fYEc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxqBosy7YEOdjtjh3hAQIsEyEVUAau1istkfc4SAYMWUpihOeBb
-	7QHt/xa3Qi/Hwt4xjXj4WngnGnVixgbJaqR0k5dzk8avMQctHIE8
-X-Gm-Gg: ASbGncvIyF23H7jEUW1/k8nssNA4nV/SMd6r1G+ptTOXYjb4dyuxONcibeuJGIMtffS
-	LBcp6KP9iW5Qp0DYuwMfnd56AYXYVnOVctRNvMROcz8QkirrAFFk85yYTVEwyWJIbH1hFTY8fEf
-	P7JAC1J8be4Cwu7OlKUk2rIj5CUkXaBVgQ7XtMAu5jjXZBRO9lQJQREbIW4Jcmk+PXboxT7eXgC
-	myoOBsLYgQpQ8+3+SdUe6JiWBZQdWfp3SAdkzLCrtIg5GhXpu0yEitMZNMfgESDc5lzk3wUc/Oh
-	8y0XuKbYyl3Dplxx228+VazqeNYPQ+ZvjMU5TEOZh//0TqGYRKgSwX280Cti9qqZ7Q/GTYYxJze
-	d+JW/Y57PbnxuVyZUqDqxXNTk
-X-Google-Smtp-Source: AGHT+IG0EDu/7Ch8JdgS5A9imZV1onvlMNgrzOXTVC3oCUw/B2X1nXdQ8L/dXjFr0e6jF2RWYBkXuQ==
-X-Received: by 2002:a05:6402:1ecd:b0:5fa:bb9d:9677 with SMTP id 4fb4d7f45d1cf-5fca1619c99mr8926539a12.11.1747042409932;
-        Mon, 12 May 2025 02:33:29 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------BRwNd3NIEZU91JKGntAS0xEt"
-Message-ID: <7aa60d22-b2c6-4e11-bb40-c5d6d66a6182@gmail.com>
-Date: Mon, 12 May 2025 11:33:28 +0200
+        d=1e100.net; s=20230601; t=1747043019; x=1747647819;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CArXeoVkfSTjrHO91BI3DtDiZgfxPGCnLmt7jUBicWc=;
+        b=ITvu2K1b+3xceWeL5sZO3+YNEtyOu2zVNTYwxjr3VLI6q17SETddwF0B6LJSs1z/TT
+         0k6xmj8PjTxQBh3Z8Z8NbyNlfRrr1ZuY/u4Socr162UZIfboWO+dVE9fbmysRxITxUN9
+         DqNkHFUZhZr0X9Qm9Xh6juhwpa4ZxuhiidBqW6Wzoe/HwCT5S/yIKSuNjTp4tZ2jBgpK
+         xG/beH2Q6fIveiXHdeyBUyKtIkkmqKA2ErrE21s3iiZJMeRgHX/iexDq3bAzx1qLiEu0
+         KvoRozz6+8KrETEujMYsbEhFp6RVg6P9Vf8suBQMzZAevXqjD+niKI51ek89uvtDX5IG
+         rVYw==
+X-Gm-Message-State: AOJu0YxPBfS7+HjPpOfl/+YJQFBoXynUphqhurfRd5eIuQDnLg2D6NTc
+	HcWuwPtPGd2Hc7feY4DERSXPGc4E6yT7zVeLpaNfTz0RTj5KeKFTeGmnhSmapg==
+X-Gm-Gg: ASbGncs7maJEb3IyNDk2q1EStinjxj904pjYPH8HfOJl162DqWg2isJKJHThQgoOa3d
+	c3XWnpxsR1FiwgWjZAx3EDSPmsNT1DoXtlSKhnFvkVY3m89yl/38KPB+hEY3p9xEVhNQFSr1DGW
+	h9802QueVJlTzHyX0kjZ9k9sXn+4Fs681CuaeaUnjDvyq89iFrYzhS6svwKLQBJ/pvMnF1cyy5o
+	o2gyLWygstoeu3mhjeGNds/6syEx2H6BWYdLER5ur3+4MQ/dcnrq6IwBCX6oWIo2KJn8gNRDDux
+	xohGycmlTpFWr/W3CU57KfNvaZKC7VUk2DEx0Z+nJ4Tj9+slKkilB+DZiZTfVEWF2FLD4s6PWHe
+	IIuftUsbR01BAaJs7Co6vZi0S/AfuU0OKwR/R3bqC7gtoynY=
+X-Google-Smtp-Source: AGHT+IHAZjCcvNc7r6A8B2zlm6U2APdg32Z1I9lQCvneTa3qjJoO8d/CH89nO8khnthh1yzWWeZ+Nw==
+X-Received: by 2002:a17:907:8b95:b0:ad2:4b0c:ee8c with SMTP id a640c23a62f3a-ad24b0cf5a5mr422369266b.35.1747043018925;
+        Mon, 12 May 2025 02:43:38 -0700 (PDT)
+Message-ID: <381841d2-08af-46cf-9647-6ef16eeaba21@suse.com>
+Date: Mon, 12 May 2025 11:43:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/6] xen/riscv: introduce things necessary for p2m
- initialization
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1746805907.git.oleksii.kurochko@gmail.com>
- <0a03d1f38649cfd8656147f209652dff0f9d170c.1746805907.git.oleksii.kurochko@gmail.com>
- <70186bd9-20b6-48a2-9dd0-25cdc30e81f0@citrix.com>
- <b7dc409e-d18c-40eb-bbdf-86ba43b5ce74@gmail.com>
+Subject: Re: [PATCH] x86/pmstat: Check size of PMSTAT_get_pxstat buffers
+To: Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+References: <20250417103000.827661-1-ross.lagerwall@citrix.com>
+ <37065e8d-33c2-4e6e-8c2c-f4f8a9cd3ce1@suse.com>
+ <CAG7k0EoSEZruueJP3Xwu309tjx+wEnC28Q4D2DE=DcRF=cJAeg@mail.gmail.com>
 Content-Language: en-US
-In-Reply-To: <b7dc409e-d18c-40eb-bbdf-86ba43b5ce74@gmail.com>
-
-This is a multi-part message in MIME format.
---------------BRwNd3NIEZU91JKGntAS0xEt
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAG7k0EoSEZruueJP3Xwu309tjx+wEnC28Q4D2DE=DcRF=cJAeg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-On 5/12/25 11:24 AM, Oleksii Kurochko wrote:
->
->
-> On 5/9/25 6:14 PM, Andrew Cooper wrote:
->> On 09/05/2025 4:57 pm, Oleksii Kurochko wrote:
->>> diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
->>> new file mode 100644
->>> index 0000000000..ad4beef8f9
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/p2m.c
->>> @@ -0,0 +1,168 @@
->>> +#include <xen/domain_page.h>
->>> +#include <xen/iommu.h>
->>> +#include <xen/lib.h>
->>> +#include <xen/mm.h>
->>> +#include <xen/pfn.h>
->>> +#include <xen/rwlock.h>
->>> +#include <xen/sched.h>
->>> +#include <xen/spinlock.h>
->>> +
->>> +#include <asm/page.h>
->>> +#include <asm/p2m.h>
->>> +
->>> +/*
->>> + * Force a synchronous P2M TLB flush.
->>> + *
->>> + * Must be called with the p2m lock held.
->>> + *
->>> + * TODO: add support of flushing TLB connected to VMID.
->>> + */
->>> +static void p2m_force_tlb_flush_sync(struct p2m_domain *p2m)
->>> +{
->>> +    ASSERT(p2m_is_write_locked(p2m));
->>> +
->>> +    /*
->>> +     * TODO: shouldn't be this flush done for each physical CPU?
->>> +     *       If yes, then SBI call sbi_remote_hfence_gvma() could
->>> +     *       be used for that.
->>> +     */
->>> +#if defined(__riscv_hh) || defined(__riscv_h)
->>> +    asm volatile ( "hfence.gvma" ::: "memory" );
->>> +#else
->>> +    asm volatile ( ".insn r 0x73, 0x0, 0x31, x0, x0, x0" ::: "memory" );
->>> +#endif
->> TLB flushing needs to happen for each pCPU which potentially has cached
->> a mapping.
+On 07.05.2025 16:37, Ross Lagerwall wrote:
+> On Thu, Apr 17, 2025 at 2:23 PM Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> In other arches, this is tracked by d->dirty_cpumask which is the bitmap
->> of pCPUs where this domain is scheduled.
-> I could only find usage of|d->dirty_cpumask| in x86 and common code (grant
-> tables) for flushing the TLB. However, it seems that|d->dirty_cpumask| is
-> not set anywhere for ARM. Is it sufficient to set a bit in|d->dirty_cpumask|
-> in|startup_cpu_idle_loop()|?
+>> On 17.04.2025 12:30, Ross Lagerwall wrote:
+>>> --- a/xen/drivers/acpi/pmstat.c
+>>> +++ b/xen/drivers/acpi/pmstat.c
+>>> @@ -104,6 +104,14 @@ int do_get_pm_info(struct xen_sysctl_get_pmstat *op)
+>>>          cpufreq_residency_update(op->cpuid, pxpt->u.cur);
+>>>
+>>>          ct = pmpt->perf.state_count;
+>>> +
+>>> +        if ( op->u.getpx.total < ct )
+>>> +        {
+>>> +            spin_unlock(cpufreq_statistic_lock);
+>>> +            ret = -ENOSPC;
+>>> +            break;
+>>> +        }
+>>
+>> Simply producing an error is not an option imo. See pmstat_get_cx_stat()'s
+>> behavior. Imo the calculation of ct wants to become
+>>
+>>         ct = min(pmpt->perf.state_count, op->u.getpx.total);
+>>
+>> yet then the copying of the 2-dim array of data becomes more complicated
+>> when ct < pmpt->perf.state_count. An option may be to document that this
+>> array is copied only when the buffer is large enough.
+> 
+> Another option would be for the caller to explicitly pass in both array sizes
+> and Xen can copy as much as fits since in either case there would need to be a
+> way for Xen to return how much it has (separately) copied for both arrays. Does
+> that make sense?
 
-And one more thing.
-If|d->dirty_cpumask| is empty (for example, on p2m initialization stage) then
-p2m TLB flush could be skipped at all, right?
+May be an option, but would require adjustments to the interface itself.
 
-~ Oleksii
-
-> In addition, it’s also necessary to set and clear bits in|d->dirty_cpumask|
-> during|context_switch|, correct? Set it before switching from the previous
-> domain, and clear it after switching to the new domain?
-> Also, when a bit is set in|d->dirty_cpumask|, the|v->processor| value is also
-> stored in|v->dirty_cpu|. Is this needed to track which processor is
-> currently being used for the vCPU?
->> CPUs need to flush their TLBs before removing themselves from
->> d->dirty_cpumask, which is typically done during context switch, but it
->> means that to flush the P2M, you only need to IPI a subset of CPUs.
-> I can't find where the P2M flush happens for x86/ARM. Could you please point me
-> to where it is handled?
->
-> Also, I found guest_flush_tlb_mask() for x86. I assume that it is x86 specific
-> and generally it is enough to have only flush_tlb_mask(), right?
->
-> Thanks in advance for the answers.
-> ~ Oleksii
---------------BRwNd3NIEZU91JKGntAS0xEt
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 5/12/25 11:24 AM, Oleksii Kurochko
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:b7dc409e-d18c-40eb-bbdf-86ba43b5ce74@gmail.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <p><br>
-      </p>
-      <div class="moz-cite-prefix">On 5/9/25 6:14 PM, Andrew Cooper
-        wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:70186bd9-20b6-48a2-9dd0-25cdc30e81f0@citrix.com">
-        <pre wrap="" class="moz-quote-pre">On 09/05/2025 4:57 pm, Oleksii Kurochko wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
-new file mode 100644
-index 0000000000..ad4beef8f9
---- /dev/null
-+++ b/xen/arch/riscv/p2m.c
-@@ -0,0 +1,168 @@
-+#include &lt;xen/domain_page.h&gt;
-+#include &lt;xen/iommu.h&gt;
-+#include &lt;xen/lib.h&gt;
-+#include &lt;xen/mm.h&gt;
-+#include &lt;xen/pfn.h&gt;
-+#include &lt;xen/rwlock.h&gt;
-+#include &lt;xen/sched.h&gt;
-+#include &lt;xen/spinlock.h&gt;
-+
-+#include &lt;asm/page.h&gt;
-+#include &lt;asm/p2m.h&gt;
-+
-+/*
-+ * Force a synchronous P2M TLB flush.
-+ *
-+ * Must be called with the p2m lock held.
-+ *
-+ * TODO: add support of flushing TLB connected to VMID.
-+ */
-+static void p2m_force_tlb_flush_sync(struct p2m_domain *p2m)
-+{
-+    ASSERT(p2m_is_write_locked(p2m));
-+
-+    /*
-+     * TODO: shouldn't be this flush done for each physical CPU?
-+     *       If yes, then SBI call sbi_remote_hfence_gvma() could
-+     *       be used for that.
-+     */
-+#if defined(__riscv_hh) || defined(__riscv_h)
-+    asm volatile ( "hfence.gvma" ::: "memory" );
-+#else
-+    asm volatile ( ".insn r 0x73, 0x0, 0x31, x0, x0, x0" ::: "memory" );
-+#endif
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">TLB flushing needs to happen for each pCPU which potentially has cached
-a mapping.
-
-In other arches, this is tracked by d-&gt;dirty_cpumask which is the bitmap
-of pCPUs where this domain is scheduled.</pre>
-      </blockquote>
-      <pre data-start="59" data-end="317" class="">I could only find usage of <code
-      data-start="86" data-end="104">d-&gt;dirty_cpumask</code> in x86 and common code (grant
-tables) for flushing the TLB. However, it seems that <code
-      data-start="188" data-end="206">d-&gt;dirty_cpumask</code> is
-not set anywhere for ARM. Is it sufficient to set a bit in <code
-      data-start="269" data-end="287">d-&gt;dirty_cpumask</code>
-in <code data-start="291" data-end="316">startup_cpu_idle_loop()</code>?</pre>
-    </blockquote>
-    <pre>And one more thing.
-If <code data-start="188" data-end="206">d-&gt;dirty_cpumask</code> is empty (for example, on p2m initialization stage) then
-p2m TLB flush could be skipped at all, right?
-
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:b7dc409e-d18c-40eb-bbdf-86ba43b5ce74@gmail.com">
-      <pre data-start="319" data-end="527" class="">In addition, it’s also necessary to set and clear bits in <code
-      data-start="377" data-end="395">d-&gt;dirty_cpumask</code>
-during <code data-start="403" data-end="419">context_switch</code>, correct? Set it before switching from the previous
-domain, and clear it after switching to the new domain?</pre>
-      <pre data-start="529" data-end="712" class="">Also, when a bit is set in <code
-      data-start="556" data-end="574">d-&gt;dirty_cpumask</code>, the <code
-      data-start="580" data-end="594">v-&gt;processor</code> value is also
-stored in <code data-start="619" data-end="633">v-&gt;dirty_cpu</code>. Is this needed to track which processor is
-currently being used for the vCPU?</pre>
-      <blockquote type="cite"
-        cite="mid:70186bd9-20b6-48a2-9dd0-25cdc30e81f0@citrix.com">
-        <pre wrap="" class="moz-quote-pre">CPUs need to flush their TLBs before removing themselves from
-d-&gt;dirty_cpumask, which is typically done during context switch, but it
-means that to flush the P2M, you only need to IPI a subset of CPUs.</pre>
-      </blockquote>
-      <pre>I can't find where the P2M flush happens for x86/ARM. Could you please point me
-to where it is handled?
-
-Also, I found guest_flush_tlb_mask() for x86. I assume that it is x86 specific
-and generally it is enough to have only flush_tlb_mask(), right?
-
-Thanks in advance for the answers.
-</pre>
-      <pre>~ Oleksii
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------BRwNd3NIEZU91JKGntAS0xEt--
+Jan
 
