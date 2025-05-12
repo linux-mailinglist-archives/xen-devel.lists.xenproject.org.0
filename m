@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6595AB343E
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 11:58:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981120.1367510 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F1F2AB3456
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 12:01:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981129.1367520 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEPvJ-0004lw-B8; Mon, 12 May 2025 09:58:13 +0000
+	id 1uEPyV-0006mR-On; Mon, 12 May 2025 10:01:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981120.1367510; Mon, 12 May 2025 09:58:13 +0000
+Received: by outflank-mailman (output) from mailman id 981129.1367520; Mon, 12 May 2025 10:01:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEPvJ-0004jw-8B; Mon, 12 May 2025 09:58:13 +0000
-Received: by outflank-mailman (input) for mailman id 981120;
- Mon, 12 May 2025 09:58:11 +0000
+	id 1uEPyV-0006kU-L7; Mon, 12 May 2025 10:01:31 +0000
+Received: by outflank-mailman (input) for mailman id 981129;
+ Mon, 12 May 2025 10:01:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEPvH-0004jq-Gp
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 09:58:11 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1uEPyU-0006kO-01
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 10:01:30 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9bf62f9a-2f17-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 11:58:09 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5fc5bc05f99so8135211a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 02:58:09 -0700 (PDT)
+ id 1229c687-2f18-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 12:01:28 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-ad238c68b35so370004366b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 03:01:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5fc9cc4f240sm5487623a12.33.2025.05.12.02.58.08
+ a640c23a62f3a-ad22f16271esm449859566b.103.2025.05.12.03.01.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 02:58:08 -0700 (PDT)
+ Mon, 12 May 2025 03:01:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9bf62f9a-2f17-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 1229c687-2f18-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747043889; x=1747648689; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=y4MR3mRtHrBWNG5MKpQtUUeCHWbtPAyEinULCkGPeCM=;
-        b=FOe/pXGtXYM/rtJunP+SvKimXifmEHB5PXFxGvPBWarg0XSv295BxPhC1e5kNZUGXt
-         q2XMhqWMApomL/kC7z/RR4cP0P49ac/p/3RxQUS15k/P5T+jes29fks0SGx5vzQGnW+H
-         jII+SChgEhw7XSb+jQDLQ4A+KcUo6MLttx8koFAEWYDZqd2KtJ3L+eSvCJbFyNSxZ9kp
-         3Ix22eSxNh60Qr5t2wbJr0GT6PTYjplz0/wTgKzhFmgnEoNIteeedIdvREz2MSU/PsA5
-         W4bqHF9lpwuIT97ApvePwbtHH2wW/7HNe+7ok7LgtynbqMX5nxdM4GHfYjwLtzPTWE4g
-         f7Jg==
+        d=suse.com; s=google; t=1747044087; x=1747648887; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=7eYMI+U6ZtMCOHreDEjup5mxhVO3mWqxrAvjpfknON8=;
+        b=R7YxMroxjaHb+ie3OjNgcTo/W3z/sOfZMf1Mf7bIogwYTHPzaMIRr4nTm0KC/Mi44x
+         fjojlEl4M4e3HO02NWmYcBwdkIO7Ngo2FTvRKXyOYz/33x2ZGnsSUwtMnClmO2GWbjh5
+         CVXp104l3+e7P/BPgqshCFolrf8P/Z39doEUcamvTCYZALJWFlgaNFNZOmdpGYHadRTx
+         HGoxcCU/8s/YXfaZe3mGL7+YpHAcW9YvOMjPTHGZMIHmxSohG1r1QL7IrkOktQ5wEEpy
+         VYZcAyVs+5eaaQSUExMnP7uH13500RunPQ/T7GgGoDTnbKfpsDzUlHlNu06U7pehLfc9
+         IErA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747043889; x=1747648689;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=y4MR3mRtHrBWNG5MKpQtUUeCHWbtPAyEinULCkGPeCM=;
-        b=RgvfMvUwt3AHb16jEjCA8NfXpO/8vYLPSrZOSpmTmKIAF4pjpYp8DNJOuf09a8zJaE
-         nJQiS47o7EUQUl+nY0ms1mDfmZCWb8nqkrk1xUavcCqJVcnToRVebBx/Eu/aBM6WXZpB
-         fU3n8EinvuezgzdI4z5kDbImiBdnsZzMZKQOKGTyGiciOS49LnHr0ac2gTFP/iE/u7x8
-         h4NaO2qGWHwV0/xC0zzZEy89RBW8kSdSr0A1wuDaFktC0fL4QM7QSP4YhpjSrjhfAPq+
-         Z+HiNx7lvKebLUpaQzaIRk838uJHipsYcBkxlkvMJGb60MR2gK5f1zCRA0UeDUEDlrhA
-         pMig==
-X-Forwarded-Encrypted: i=1; AJvYcCXQp7CskPzL2ZHMgar5ogkI7iekFTGw3T6hi6//1B73kJ99go1R00jX326rtNERylnPmnt3JOTFxiE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxQtV0YpUYmwBJnwZC+1evFP9Kc0fRoYxC7MK4Co6EaShPN/m+Z
-	dEdm7euj3VNFuoCKE3cuYTtljtTCraK31TaFgbxobPJpa23Y4v9mR1go9wp5Dw==
-X-Gm-Gg: ASbGncvQTZN1Obsn4wMfO9v0qX3CFd2HQH9Mg1kF+iKzbdOPBsOuDJJ1BpaIF3EATtC
-	V2KNKjQ7kdpVW9CYyzATz5X5a17DRp/zKogcK6s1rZfxj7yPkOo7Ne6m5gLmlD5YBZKEoGVxiJn
-	yyXtLewZ2Bm1eFV+9gMX8B+Tmo8FdtbjeqyrD5bWWOoZ2jnNyqZInOlyHLsTHTsQu8ve5G+gh9Y
-	3zzxdntj9pBbPo5meRZhvZQm5KnUfHDuwDw/qViOwmKKZ7p1GkmrvLJ85llOSxEz9xpgKGES/GY
-	Ma4Gf4nlI8fRVlEBDGuqRQ05WurzFWRIk1LNSG4RuXJRoD5jTryeFFA/dJaWjLrtBpnYBLLJzFr
-	S3k28EplSNoJQAhJt7ZZh6NzgD9LgsxLZtvUJFfjedEvHS/4=
-X-Google-Smtp-Source: AGHT+IE6KJHUSgr7n0CwHUQUMdPbqv8zagAHExJD2n4ZSLO+Nh7AuXZ+xg7Z1kyfARcPNQKIcS0nkQ==
-X-Received: by 2002:a17:907:cf46:b0:ad2:4b93:1205 with SMTP id a640c23a62f3a-ad24b9313cdmr431548166b.41.1747043889158;
-        Mon, 12 May 2025 02:58:09 -0700 (PDT)
-Message-ID: <0befe246-17cb-4e5c-811d-10a649c86729@suse.com>
-Date: Mon, 12 May 2025 11:58:08 +0200
+        d=1e100.net; s=20230601; t=1747044087; x=1747648887;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7eYMI+U6ZtMCOHreDEjup5mxhVO3mWqxrAvjpfknON8=;
+        b=xRjOiUxg+/JeXkd7l6ZMs4gRBAQXiVws0JFEP91S8roIq6QX6xPsp+Vx8ldHIhENAc
+         eq0UdJRIKfNxk6VuNJiZKzoGgj4Jlx4NXJ6TvJHwPC/Pl+bGlIW5k6aFu+vqOottpI6p
+         sGj6x7Y/CVFj10cbHjTvo9X/tD8nRerCBgGTEtuXYKIEjsxetqu4KNG8+xA55ikoYaW+
+         SzfGNaID5aAj3IJnXomg/g1cib/NxagVoBuNWkHAQYs9F1oiqptGU6vzjgEOPmWMioyv
+         FcQZsW/pun0fUwtTVZzao12cRy2+MIVNXvAxSCgO42zzavyEuyEE3vguQBZClER3MRng
+         dazA==
+X-Gm-Message-State: AOJu0YwMj/NjKYX+hLqB5oHwytPByjIf3WHH3dENgSPtLEBVDsq70KuU
+	u6DNDrY21fVyTJBxwAMNiljsNag3FFwyLFPuOa0Y++VXLHmsBKNtzAkOmIKfrtyPPq8qEcU6jEM
+	=
+X-Gm-Gg: ASbGncuzbxpjBu7hGlMp6ZlaYAtUL+d13/eW/1BoNJ73khIMBODYvsk1rvvrCyUO/LF
+	S1PvYGq4ruDx2DnroGAQkQgILxxP59dyqF+vVmmxheX6vM4YG1vKfTyD5eeyWLE579lRKB+55OJ
+	VvUNPFDmnMeluswJxM88BEYelaxBX7iHkqahM9150z3ni9lFzvVbshGdi3SIvzDIpN6abYBhhKR
+	0QyaGbzLhpJuCNMiBBKhbdg+54USOWXPGpHCADpdLsJPYjIH7QPUfytU+zGpK5K+OYjps8CSYS2
+	m9F2A6V3JVTcb4JFFLn8sfrqHeI4hkeDPW8NhAouQmoxVC4eS7rN/JyGb4/cfcQrWwm2Tw0uYk0
+	zGQYAiqjNtcTzSSoHqzxQ0+Dhx8jna6Td/ueP
+X-Google-Smtp-Source: AGHT+IFFVbLPTdVb6oEG7MIPByXWkEzPFkhX4MEq4zQYRmGloNeQkXZcbqxiLNdFlc5stmb8douxaw==
+X-Received: by 2002:a17:907:7fa6:b0:ad2:40f4:c251 with SMTP id a640c23a62f3a-ad240f4cad2mr649827666b.35.1747044087371;
+        Mon, 12 May 2025 03:01:27 -0700 (PDT)
+Message-ID: <57f4b57d-9382-4844-b29c-19f678642fa5@suse.com>
+Date: Mon, 12 May 2025 12:01:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] xen/console: cleanup conring management
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250504181423.2302345-1-dmukhin@ford.com>
- <20250504181423.2302345-2-dmukhin@ford.com>
+Subject: Re: Issues on Zen4 (hw12) runner
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+References: <aB0XtEor2rCxBKWR@mail-itl>
 Content-Language: en-US
+Cc: xen-devel <xen-devel@lists.xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,22 +117,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250504181423.2302345-2-dmukhin@ford.com>
+In-Reply-To: <aB0XtEor2rCxBKWR@mail-itl>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04.05.2025 20:14, dmkhn@proton.me wrote:
-> @@ -334,6 +344,9 @@ static void conring_puts(const char *str, size_t len)
->  
->      if ( conringp - conringc > conring_size )
->          conringc = conringp - conring_size;
-> +
-> +    if ( notify )
-> +        tasklet_schedule(&conring_tasklet);
->  }
+On 08.05.2025 22:44, Marek Marczykowski-Górecki wrote:
+> Hi,
+> 
+> I wanted to post another revision of the series adding hw12 runner,
+> hoping that all known issues are fixed now, but unfortunately there is
+> still something broken. I've rebased my series on top of staging
+> (ed9488a0d) and got this pipeline:
+> 
+> https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1807819142
+> (note due to some added debugging, some tests are incorrectly marked as
+> success even if they failed...)
+> 
+> 1. USB ethernet doesn't work on PVH dom0: https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/9978694739
+> There supposed to be an USB ethernet device connected to the USB
+> controller at c3:00.4. In the PV dom0 case it's detected as:
+> 
+>     [    3.911555] usb 7-1.4: new high-speed USB device number 3 using xhci_hcd
+>     [    4.004201] usb 7-1.4: New USB device found, idVendor=0bda, idProduct=8153, bcdDevice=30.00
+>     [    4.004675] usb 7-1.4: New USB device strings: Mfr=1, Product=2, SerialNumber=6
+>     [    4.005079] usb 7-1.4: Product: USB 10/100/1000 LAN
+>     [    4.005349] usb 7-1.4: Manufacturer: Realtek
+>     [    4.005599] usb 7-1.4: SerialNumber: 684D35
+> 
+> But it's not there on PVH. The USB controller itself is detected, just
+> not device(s) connected to it. This applies to other controllers too
+> (there should be about 3 or 4 other USB devices - none of them show up).
+> 
+> 2. There is a bunch of "unhandled memory read" errors during PVH dom0
+> startup: https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/9978694739
+> 
+>     (XEN) [    4.026323] arch/x86/hvm/emulate.c:417:d0v0 unhandled memory read from 0xfedc0020 size 1
+>     (XEN) [    4.026789] arch/x86/hvm/emulate.c:417:d0v0 unhandled memory read from 0xfedc0021 size 1
+>     (XEN) [    4.027247] arch/x86/hvm/emulate.c:417:d0v0 unhandled memory read from 0xfedc0020 size 1
+>     (XEN) [    4.027671] arch/x86/hvm/emulate.c:417:d0v0 unhandled memory read from 0xfedc0021 size 1
+>     ...
+> 
+> This repeats several times. Could be related to the USB issue above?
 
-Just to re-state my earlier concern: I'm not convinced this belongs in a
-function named "puts".
+Yes.
+
+> There is also, likely related:
+> 
+>     (XEN) [    5.002036] arch/x86/hvm/vmsi.c:845:d0v9 0000:c1:00.1: PIRQ 2484: unsupported address 0
+>     (XEN) [    5.002365] arch/x86/hvm/vmsi.c:845:d0v9 0000:c1:00.1: PIRQ 2484: unsupported address 0
+>     (XEN) [    5.002693] arch/x86/hvm/vmsi.c:845:d0v9 0000:c1:00.1: PIRQ 2484: unsupported address 0
+
+Not very likely - these are (sadly) normal to see when MSIs are being turned
+off by the kernel.
 
 Jan
 
