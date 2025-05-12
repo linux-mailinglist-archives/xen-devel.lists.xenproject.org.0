@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FBF0AB3CEA
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 18:02:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981820.1368230 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D39FAAB3D35
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 18:17:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981829.1368240 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEVbr-0004h4-VL; Mon, 12 May 2025 16:02:31 +0000
+	id 1uEVpo-0006xN-4G; Mon, 12 May 2025 16:16:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981820.1368230; Mon, 12 May 2025 16:02:31 +0000
+Received: by outflank-mailman (output) from mailman id 981829.1368240; Mon, 12 May 2025 16:16:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEVbr-0004eo-Ra; Mon, 12 May 2025 16:02:31 +0000
-Received: by outflank-mailman (input) for mailman id 981820;
- Mon, 12 May 2025 16:02:30 +0000
+	id 1uEVpo-0006vF-09; Mon, 12 May 2025 16:16:56 +0000
+Received: by outflank-mailman (input) for mailman id 981829;
+ Mon, 12 May 2025 16:16:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEVbq-0004ei-Bk
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 16:02:30 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zSlO=X4=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uEVpm-0006v7-7R
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 16:16:54 +0000
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
+ [2607:f8b0:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80ad1046-2f4a-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 18:02:28 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-ad1b94382b8so755324666b.0
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 09:02:28 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad2290a4cc2sm526861366b.183.2025.05.12.09.02.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 09:02:27 -0700 (PDT)
+ id 821133ff-2f4c-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 18:16:50 +0200 (CEST)
+Received: by mail-pf1-x42d.google.com with SMTP id
+ d2e1a72fcca58-7424c24f88bso2948569b3a.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 09:16:50 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d2e1a72fcca58-74237a8f805sm6407121b3a.170.2025.05.12.09.16.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 May 2025 09:16:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,130 +44,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80ad1046-2f4a-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 821133ff-2f4c-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747065748; x=1747670548; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nBDzpcpLffFQaUT3+67+bqNJ0RPcHCafk40SE2v99U4=;
-        b=OFPAEyiQwQ1hbxDTLaAuRVg53K0D4f5B/75puT3ekeSTmYDieZ/xAW897iQcKDNBcq
-         f6IfiP5u85iA8r+v1yK2j/9bfylctwxugnCiQ06YGQ86+8hh+GcdXv7LBvWIK4Y5WrvE
-         rj2YJ6+b26ZVgsvg7mDjQpp9I3tPK4BwdS5DNWD7VlCwBLrziC0RU8ozb7UaiiHuaS/P
-         gWhL8AinsSmZiCuLrXNgqZRb4wgVq75+c8CVmUkFUbR4nthic4fOI0EQiB2mT1wU5LGY
-         crYLRaDZ+GSCt0NvgNXeXX9J/i9nA8WeJ1oznR7XQBaJTEmpbe1nJICb9dTYZZYD66DV
-         m+rA==
+        d=citrix.com; s=google; t=1747066609; x=1747671409; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=nN/S4cK2LyFgxGlldWjXucgg0EQKtBoxU2FXSYhGWuw=;
+        b=JZkFH+CUqfeilhhIrDyf8GeyYtmWNRYig4vFCc6wnwgfkOlLSVKvXUCtbxn4nzH2Nr
+         U35+HhgOQlnkSh03I7mlHtOPS1fGo3T//R8VKcem0sWvFu19V3J+xsVv8pxueg8qWr77
+         PPa7SM1eX7DSXZo04eu5Y2MVRe1pjEcZp129w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747065748; x=1747670548;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1747066609; x=1747671409;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nBDzpcpLffFQaUT3+67+bqNJ0RPcHCafk40SE2v99U4=;
-        b=CZZH/MaFtGIhsolcJJOJ4fukR8D65Y3SaEXdr7LE4fGrLyPMUPRcygQ+gsXtpoNafT
-         44ab/m9LcZU+wcQEby8I/2/j3pebz4i41EyUlrxAbdzUOrT4zHiQYEWBnoooQAXAcwiC
-         oS5nmRcRKL+pCX3C2rGGPSlBU7SwPB7t4qYjQjM+Iijdzmw1L+u7Ki9aBqRoG5EWbOA+
-         /bJ8in7u7jp+2a7A3LEzD7oHZF+K6M7ZHevXcyxA4Rg7r5Q3dHLckhRQRKcWIwjdgc+w
-         JW+NzwVGm9+Dm3lyy6WJprWA/oYt+TmeZtnfSa9ti8ysBiXd4RYguafYMXnQ4QWiwUTq
-         ytMw==
-X-Forwarded-Encrypted: i=1; AJvYcCXmZUwoccaMcWEqKZ38OoGEHLqFr6h+A7bAqraGzWhH3M6GdLOjDCYnxH+aK6VZIRp96/C/TjAvPAs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxWYleOSm0I8xxryr1Cn3UJAH2Ohy99cy3uCIuOxy3uKCRdEWV3
-	ceMBqqbMdehRu9YLlCZcYAHO8XJjUmzE59NrGM6URaFrlsN+QVQZ4zPvLeOM6Q==
-X-Gm-Gg: ASbGnctU9UN+jXlIWeI2G6sbiOVuzhx6cMNwFyat+zoG4Lxa9aPAE80GW8IC//Q993/
-	/osD9hiaF/x2+44bYuhx4aT9llecw3/FkBSKSTd79nv/VQkuaX7MIU08fkN4VMd2dKcsetcTXFU
-	tGLteNo1vxg7F+a6qrcbvbyjP+V4Z5YbmHAoZG5a2J/f1KPg+CPqW7wof1mOVGOEc0OyLinoToo
-	gayeJBNnyLcWwXF8ToXuBi6hnQjtASyCFLKdjCi9owwm6RY/BwhUci4IgcfRNGUfH1XZfRfTk4E
-	WCUMMhp/MgPKbUmvBmBJsG/p8d2iMKh4efpbtoYZa7rNgiH82mht4DrQezuetc+OMjLUMGsszB+
-	u5pJtzGlPap+noDlkWk4Tn0NFh3B5s+nQoVNg
-X-Google-Smtp-Source: AGHT+IFEBteYHD2pe1od47+0ZyqZSEHibimfVYcVMHJD8zvi6WL6upUaJ8ZvrWCRlyafv2yNSljCDQ==
-X-Received: by 2002:a17:907:3f11:b0:ace:d710:a8d1 with SMTP id a640c23a62f3a-ad218f1bafcmr1251884266b.24.1747065747621;
-        Mon, 12 May 2025 09:02:27 -0700 (PDT)
-Message-ID: <9ca29295-717b-46c6-be00-a86217ec4550@suse.com>
-Date: Mon, 12 May 2025 18:02:26 +0200
+        bh=nN/S4cK2LyFgxGlldWjXucgg0EQKtBoxU2FXSYhGWuw=;
+        b=kndwTZ6kSypChE4FjDit68t4X0fF/0c25Dwr47T5uCgbKlm51bZSXhNugWZdCrSlBP
+         tgkzMGrlpdF8VilsSqLhNQtWSE3EVruHuaFtsE+945TxgSwGusAax77jlncQyN6A1F0B
+         O9ZlV07Mky/VLSkIu8QhvFXb54+Aa1Jep/nNZSf5JpoAF3p/I3SWindMQaruul/T7O3M
+         3QIcEieeSjdypYYGsJtsUlCsyqfwBnMNwChJzmjlqO9IuXcet+d6OD5NAz4tBuQy3Jh2
+         AYWImJtZjRVt3JqU6X8Czqm/jNQRudQWmpuV4w/DCGqX/twQhvJUuzkJy0AEzdlb61t9
+         EGfA==
+X-Forwarded-Encrypted: i=1; AJvYcCWBMen2OaF9AfQ2JdY4K/BfVeURaxHhw9varCuXC4d1WrVjfy6ZnnVUJ6w3m1QNunY/9HgNsqBRHIw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YySb8gvLuoiMKP2xFyCNjydAfuBUPQbUSzT/QMhvb5QtkyzgXGD
+	1svFZWHMS8u8ATG+nKk3tmDq5/k7EJmhl4QT8bnCE0PVfpF/2xGvmVid4RfyqFY=
+X-Gm-Gg: ASbGncvW2W2/H21SA+2kFhlSqimHTSZvgYRVOxgH35J5jF6yvBslQYAqiL6s1SNloGQ
+	o/CANODB1/F4iIADrX1GtPZnx8Zz4vnS+pj8Aobr95ytYlB88xrEB4VECdJtFySqYseLyR9afJt
+	9XGBHDUr6pr9BB8VqQb6eWe/xIhVZn1D4K5e/0eDWA1pTuqoi5vBxCQSVOdluwuNrDtQsx10LZg
+	2Gk3Smx+VBudT0AnPGJY0p99g5DmTO/if1YffnsI1s9WVNKCTvjXd3d6LMFy/uvl00neepWwFS/
+	UH5og1X1pbx3u9xbrgNhS0yhYZpMpA8R6AcaUnnBnSRiD9yg/9C4xXGE
+X-Google-Smtp-Source: AGHT+IEzDQhrQsnDKcstSjrZA+fIg9XIH70ZRMYMvAo6RsBaOI1k/Dqiq37ekiLbLa5j2ahFagTpCw==
+X-Received: by 2002:a05:6a00:3d43:b0:73e:23bb:e750 with SMTP id d2e1a72fcca58-7423c02cdcamr20611593b3a.23.1747066608721;
+        Mon, 12 May 2025 09:16:48 -0700 (PDT)
+Date: Mon, 12 May 2025 18:16:43 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Lira, Victor M" <VictorM.Lira@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Jason Andryuk <jason.andryuk@amd.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Xenia.Ragiadakou@amd.com,
+	Alejandro.GarciaVallejo@amd.com
+Subject: Re: [RFC] xen/x86: allow overlaps with non-RAM regions
+Message-ID: <aCIe60al7G7pfeUJ@macbook.lan>
+References: <ce06ec74-1a73-4a02-87fc-3e829399cc77@amd.com>
+ <aAnvRMgJxAskbCtE@macbook.lan>
+ <aAoPNTsLjMMfsHvJ@mail-itl>
+ <aAoW-kvpsWuPJwrC@macbook.lan>
+ <775d3ac0-8f43-415a-a32d-14377092b96b@amd.com>
+ <554026de-bbb4-488f-95c4-8e2f034d6d0e@amd.com>
+ <aAtPpOq2Kc_N6hBy@macbook.lan>
+ <2acad9ba-564a-4d18-9b09-dcabe8f7b025@suse.com>
+ <aAttUBx57tds8WJJ@macbook.lan>
+ <e5d464f3-6675-4fd6-a834-7f743fee668a@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/15] xen/x86: introduce "cpufreq=amd-cppc" xen
- cmdline
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
- <20250414074056.3696888-6-Penny.Zheng@amd.com>
- <57a3b2c0-d57d-46e3-b248-0e243f715423@suse.com>
- <DM4PR12MB84510753F3B015F1404803FDE188A@DM4PR12MB8451.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB84510753F3B015F1404803FDE188A@DM4PR12MB8451.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <e5d464f3-6675-4fd6-a834-7f743fee668a@amd.com>
 
-On 07.05.2025 07:27, Penny, Zheng wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Tuesday, April 29, 2025 8:52 PM
->>
->> On 14.04.2025 09:40, Penny Zheng wrote:
->>> @@ -573,6 +576,14 @@ ret_t do_platform_op(
->>>          }
->>>
->>>          case XEN_PM_CPPC:
->>> +            if ( !(xen_processor_pmbits & XEN_PROCESSOR_PM_CPPC) )
->>> +            {
->>> +                ret = -EOPNOTSUPP;
->>> +                break;
->>> +            }
->>
->> While at least you no longer use -ENOSYS here, I question this behavior, including
->> that for the pre-existing cases: How is the caller supposed to know whether to
->> invoke this sub-op? Ignoring errors is generally not a good idea, so it would be
->> better if the caller could blindly issue this request, getting back success unless
->> there really was an issue with the data provided.
->>
-> 
-> Understood.
-> I will change it to ret = 0. Do you think we shall add warning info here?
+On Fri, Apr 25, 2025 at 09:47:57AM -0700, Lira, Victor M wrote:
+> I can confirm with the patch the NVME drive can be accessed despite the "not
+> mapping BAR" warning from Xen.
+> Output log attached.
 
-No, for precisely ...
+Thanks a lot for the test, and sorry for the delay in getting back.  I
+was busy with other stuff and needed some time to figure out the best
+way to deal with this.  Can you give a try to the patch below?  I hope
+it will still fix the issue.
 
-> Dom0 will send the CPPC data whenever it could.
-
-... this reason.
-
-Jan
-
-> XEN_PROCESSOR_PM_CPPC
-> is not set could largely be users choosing not to. In such case, silently getting back success
-> shall be enough.
-> 
-> 
->> Jan
+Thanks, Roger.
+---
+diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.h
+index 7f77226c9bbf..1605ec660d0b 100644
+--- a/xen/arch/arm/include/asm/pci.h
++++ b/xen/arch/arm/include/asm/pci.h
+@@ -128,6 +128,9 @@ int pci_host_bridge_mappings(struct domain *d);
+ 
+ bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
+ 
++static inline int pci_sanitize_bar_memory(struct rangeset *r)
++{ return 0; }
++
+ #else   /*!CONFIG_HAS_PCI*/
+ 
+ struct pci_dev;
+diff --git a/xen/arch/x86/include/asm/pci.h b/xen/arch/x86/include/asm/pci.h
+index fd5480d67d43..d2701f2deb62 100644
+--- a/xen/arch/x86/include/asm/pci.h
++++ b/xen/arch/x86/include/asm/pci.h
+@@ -2,6 +2,7 @@
+ #define __X86_PCI_H__
+ 
+ #include <xen/mm.h>
++#include <xen/rangeset.h>
+ 
+ #define CF8_BDF(cf8)     (  ((cf8) & 0x00ffff00U) >> 8)
+ #define CF8_ADDR_LO(cf8) (   (cf8) & 0x000000fcU)
+@@ -57,14 +58,7 @@ static always_inline bool is_pci_passthrough_enabled(void)
+ 
+ void arch_pci_init_pdev(struct pci_dev *pdev);
+ 
+-static inline bool pci_check_bar(const struct pci_dev *pdev,
+-                                 mfn_t start, mfn_t end)
+-{
+-    /*
+-     * Check if BAR is not overlapping with any memory region defined
+-     * in the memory map.
+-     */
+-    return is_memory_hole(start, end);
+-}
++bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
++int pci_sanitize_bar_memory(struct rangeset *r);
+ 
+ #endif /* __X86_PCI_H__ */
+diff --git a/xen/arch/x86/pci.c b/xen/arch/x86/pci.c
+index 97b792e578f1..de9ce76e1c8a 100644
+--- a/xen/arch/x86/pci.c
++++ b/xen/arch/x86/pci.c
+@@ -98,3 +98,56 @@ int pci_conf_write_intercept(unsigned int seg, unsigned int bdf,
+ 
+     return rc;
+ }
++
++bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
++{
++    /*
++     * Check if BAR is not overlapping with any memory region defined
++     * in the memory map.
++     */
++    if ( !is_memory_hole(start, end) )
++        gdprintk(XENLOG_WARNING,
++                 "%pp: BAR at [%"PRI_mfn", %"PRI_mfn"] not in memory map hole\n",
++                 &pdev->sbdf, mfn_x(start), mfn_x(end));
++
++    /*
++     * Unconditionally return true, pci_sanitize_bar_memory() will remove any
++     * non-hole regions.
++     */
++    return true;
++}
++
++int pci_sanitize_bar_memory(struct rangeset *r)
++{
++    unsigned int i;
++
++    for ( i = 0; i < e820.nr_map; i++ )
++    {
++        const struct e820entry *entry = &e820.map[i];
++        int rc;
++
++        if ( !entry->size )
++            continue;
++
++        /*
++         * Remove overlaps with any memory ranges defined in the host memory
++         * map.
++         */
++        rc = rangeset_remove_range(r, PFN_DOWN(entry->addr),
++                                   PFN_DOWN(entry->addr + entry->size - 1));
++        if ( rc )
++            return rc;
++    }
++
++    return 0;
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+index ef6c965c081c..533e24ca3674 100644
+--- a/xen/drivers/vpci/header.c
++++ b/xen/drivers/vpci/header.c
+@@ -394,6 +394,14 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
+                 return rc;
+             }
+         }
++
++        rc = pci_sanitize_bar_memory(bar->mem);
++        if ( rc )
++        {
++            gprintk(XENLOG_WARNING, "%pp: failed to sanitize BAR memory: %d\n",
++                    &pdev->sbdf, rc);
++            return rc;
++        }
+     }
+ 
+     /* Remove any MSIX regions if present. */
 
 
