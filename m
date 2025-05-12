@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3552CAB3BF6
-	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 17:24:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.981732.1368139 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37117AB3C2D
+	for <lists+xen-devel@lfdr.de>; Mon, 12 May 2025 17:34:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.981741.1368149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEV0h-0001vL-AC; Mon, 12 May 2025 15:24:07 +0000
+	id 1uEVAK-0003vd-6S; Mon, 12 May 2025 15:34:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 981732.1368139; Mon, 12 May 2025 15:24:07 +0000
+Received: by outflank-mailman (output) from mailman id 981741.1368149; Mon, 12 May 2025 15:34:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEV0h-0001tR-7W; Mon, 12 May 2025 15:24:07 +0000
-Received: by outflank-mailman (input) for mailman id 981732;
- Mon, 12 May 2025 15:24:06 +0000
+	id 1uEVAK-0003t1-3s; Mon, 12 May 2025 15:34:04 +0000
+Received: by outflank-mailman (input) for mailman id 981741;
+ Mon, 12 May 2025 15:34:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1o4g=X4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEV0f-0001tL-Ul
- for xen-devel@lists.xenproject.org; Mon, 12 May 2025 15:24:05 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1uEVAI-0003sv-Oo
+ for xen-devel@lists.xenproject.org; Mon, 12 May 2025 15:34:02 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 23099059-2f45-11f0-9ffb-bf95429c2676;
- Mon, 12 May 2025 17:24:03 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-ad21c5d9db2so555994366b.3
- for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 08:24:03 -0700 (PDT)
+ id 8668c418-2f46-11f0-9ffb-bf95429c2676;
+ Mon, 12 May 2025 17:34:00 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5f7ec0e4978so862312a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 May 2025 08:34:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5fe7fb0ac1asm1852705a12.7.2025.05.12.08.24.02
+ 4fb4d7f45d1cf-5fc9d700e56sm5842028a12.57.2025.05.12.08.33.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 May 2025 08:24:02 -0700 (PDT)
+ Mon, 12 May 2025 08:33:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23099059-2f45-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 8668c418-2f46-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747063443; x=1747668243; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747064039; x=1747668839; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3QTd3xrVP/KI7ZiDMztUI9sKFVgx/mAQLfFiF91k6SA=;
-        b=KfhwRmZOfVb3KQzOZNVkfsvdecac8PO+7B704HA/jBss17R+g3QYhWnmOggpvZ1orl
-         f0zG0xr9CFgC0U3OUnYkdhFdGU4+3RM0CcktC/50TPG/nsdZ0k1h1c/IHv3geOQy1R3i
-         LGe2g4rx64/0dhKHcie9KSJF7boIs+g7TGmMluitXq5cALFrPfZXYjXahDwL+MErGvSN
-         xGeGXuqBrqjMlyJ/m/fWmxdinG3K2AQbi2ZPdMeedlrr2ZxaW2iDi+dxm+wOKIbnLioS
-         hToNCm6ZxNbztkHSS0gYEtfaI6j9Hwn/UqW6Ad9Eg8VXCQxMS2i2HKr3ELYPRPNAL7IW
-         mJ/A==
+        bh=QPIXPAv4PPVLmmkjR87Ub2AuyzhTKKJSpkg0dNS1NR0=;
+        b=DDNivKTg9FRivwKYO+Vhcf1HofOHoM4CgOPHd5SNbqEiKLjfyfbH8FFTi9Dv/XybcK
+         0pycNPY0U+TV6yge1Qw2rW8u9RAag8QSAgJIV/2pwULLZwixquIccJb1QJlkvOENh5tl
+         I5y9D0091QGemZwE9ClA7a3vwGDxaRtQg9maZj00Sc0oXMBTXrwRB57xZQfhsQqyXFTm
+         3QuOMBzwe2g6MITofOvE97esNG/u1BQtFoxd2vebt3HLknR/a9PNXVK5/Idu6kIp0jUA
+         vlQWHoWuHAE0LJEA3fAFdwed+dKvM4hlecm95kuNIji76sKvOE+S1GvHIiPzqwCnD9dA
+         UMiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747063443; x=1747668243;
+        d=1e100.net; s=20230601; t=1747064039; x=1747668839;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3QTd3xrVP/KI7ZiDMztUI9sKFVgx/mAQLfFiF91k6SA=;
-        b=u1imaZo3P8J1HKq6wpQFz+gHY3mDCFd8TG14YQS5tDpqWbxIEcAbLfekfMeCUZrOSB
-         KweckdINRqO6ir7LPgGXjfCJdYM9GoijyZ6iSR8x8ro1e7LpHYTR1LltQ8LaSuvTTDfc
-         aBPejOqrzKqVg8lC0RU9Xof32dOwbiBE4VL7e/+8S+1+7s+PoD6a0/DC0rm27YNLebj4
-         Qao9d2Lnc02a79JLtIVvu6NfhQdBREdJY7vk56yi4toYSzGSsRhfeGQ0hSPi4DlKCkHh
-         WeFaEJHSeCWaNw5mbHhGmLerdYESv9tpbXUhEGPyjiJxSYK1MQOdT6VNIAYB0brieW7W
-         p+Yw==
-X-Forwarded-Encrypted: i=1; AJvYcCWilhZdkYv9Sf+HQQoyrzboohFM7a3chSYOXUsDPEJVPOSpnwVzEPQyZUb/kxlKaAONMSSwDQhsiVk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwMSFPdo8DTArjgVBVOEihP3EpNJI+kdzS1q6jPApj+dWG5NU0g
-	glF817yachymOpyinoU6kpiuCUpMlxixNxjBeXFyfxpengk2VtKrSmXRqpRZZQ==
-X-Gm-Gg: ASbGnctWBl+paOhXlsOKtynwn6hyNymOJxztgb8PIMsrD34dkbJ/MbmbTK/VSlars+4
-	gNb3yj/BIbTxFA8zpeAl2mXvohI3FfRDt91VlV2CYZcQvi+rYxMB83xhQRZ+VQrLEcMTtZLG0PF
-	pYWFhHSMIaCGd6jWySaBfUJdKRG/sdQtLgYW7/2V2NCLpL4nCnsDgLv6mY+DxjWi7bNRAFmU0ro
-	1PPNaf3sSqYrtDpSXRQ+R2SGtTb2tf9E+PVXRn+hjw5c56Sf5TjNE3Hzyv0U3xe3C/iJAFe5F4V
-	vNkWGUxImOVcmIh77Kma5jintP4/WT42+0yogEvv6v/5WsNScHrveVu4ECEt0gcaETLxJHg7UYK
-	fo9xbnPu1Nw4YFdHyqa4YP9lucx/mnOmvTnRC
-X-Google-Smtp-Source: AGHT+IFgXJglUc30cMkXqqpT1tGlPTXMgOLjq79RpYURz07MLDp+7EaNgn39pCdmXToT+a7HM1K/xg==
-X-Received: by 2002:a17:907:9723:b0:ad2:40ee:5e26 with SMTP id a640c23a62f3a-ad240ee6004mr714275666b.4.1747063443150;
-        Mon, 12 May 2025 08:24:03 -0700 (PDT)
-Message-ID: <b9a2b6fb-af34-443e-93b6-a5e827259a4b@suse.com>
-Date: Mon, 12 May 2025 17:24:01 +0200
+        bh=QPIXPAv4PPVLmmkjR87Ub2AuyzhTKKJSpkg0dNS1NR0=;
+        b=qJ6RJvVdOCq+FP5p8eWSI3U8mO3KT+9E42D1zNNd46t7ltyFrAHCflMip7zKguvZSi
+         hRtf/EjqZUsDibMiZCnVJLkCue8xUmQLWNCqEW5Nn7/KQF1hAhKTgFJ9ncFqkHN6b6MQ
+         RSktdrporHjeaSuiJjRJ9DtdOk81Hq68NG6k+YemZTUws9eIs4uiUeFD8VEcWClSBgXI
+         LW4txJHExpKS2DkFVywB6cMwy0LDe3+jBVhxHBHH4G0gWFDYAjWuemof9lBmLlI8HcZV
+         oxLldY4ph01Ug3Afi4XX+7FewcF+QzNO6VbnqHfz9UjfRCeHcD7gywI2olqdhQmCuD/A
+         gbug==
+X-Forwarded-Encrypted: i=1; AJvYcCW74ynLpuZZG+tVamcGPEV6/ZmuViPiro6yBsSGHlwAv6nEnUq7/QnSDTQewpypCifOkOkdMrAmIDo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxoTC/fmS9DMxsGLS8lBXuBirIvu5Jc8VtCsz1OjZ+YxkYncPur
+	OrJcbTZjliAHCxS8Gf5rgdmK8Exc5jFRNE8yeIuxjhqkSI3MxE3uWNNitrTsxw==
+X-Gm-Gg: ASbGncsoDr8SJou5l2lhnzKEfBw1qTZWOGh5StV8PQN9VKkHfYYoNy0AKZr2Jaz/RvN
+	mtX7yExOkneX8R+MBpJ3Hrp1rWBig0LPx8gS/szMdi1jV6YQoPdA2scemNJ5z2YZyIKyDZbtJtJ
+	rFpQUOH+19bpTtvhlWBh+glIWJyR6XsaWnh3Yhl6liBLETSNkd/IkZxGwkkkebiagBaae2loxxs
+	F4MbpuxePi1u+veExogXX8MMVw7iPDC8gRZL2s+qJdJiGrY+j83S+4Rc/sHmiJdV/0Eg2tRksIF
+	iEuZXEJr0LmaOdWbH2prlctdxU1k4xE6h2UqIkWwGw+CiGsSkW5RyfsgiiqQTCvmF+FbPcu3lu5
+	MY1YLgLGlJLbi17/fL5jiy44Hc/4BDXG6LlTV
+X-Google-Smtp-Source: AGHT+IGxopyOP86skr4mx/8q8/3wLGXVVktB59X6nLu8qcKQmi42DK3JomojZ7id53QgedcXwlHdzg==
+X-Received: by 2002:a05:6402:280a:b0:5fc:a510:502e with SMTP id 4fb4d7f45d1cf-5fca510505cmr9314145a12.29.1747064039411;
+        Mon, 12 May 2025 08:33:59 -0700 (PDT)
+Message-ID: <50d87c60-55fa-49c8-be85-7c70ee6dcb42@suse.com>
+Date: Mon, 12 May 2025 17:33:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/9] xen: introduce flag when a domain requires cache
- control
+Subject: Re: [PATCH 9/9] xen/x86: track dirty pCPU caches for a given vCPU
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
 References: <20250506083148.34963-1-roger.pau@citrix.com>
- <20250506083148.34963-9-roger.pau@citrix.com>
+ <20250506083148.34963-10-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,27 +117,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250506083148.34963-9-roger.pau@citrix.com>
+In-Reply-To: <20250506083148.34963-10-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 06.05.2025 10:31, Roger Pau Monne wrote:
-> Such flag is added to the domain create hypercall, and a matching option is
-> added to xl and libxl to set the flag: `cache_control`.  When the flag is
-> set, the domain is allowed the usage of cache control operations.  If the
-> flag is not explicitly set, libxl will set it if the domain has any `iomem`
-> or `ioports` ranges assigned.
-> 
-> Modify cache_flush_permitted() helper so that it's return value is no
-> longer based on the IO resources assigned to the domain, but rather whether
-> the domain has been explicitly allowed control over the cache, or if it has
-> IOMMU support and there's a single IOMMU in the system that doesn't allow
-> forcing snooping behind the guest back.  As a result of this, the return of
-> cache_flush_permitted() is constant for the lifetime of a domain, based on
-> the domain creation flags and the capabilities of the IOMMU if enabled
-> for the domain.
+> @@ -2606,6 +2619,36 @@ unsigned int domain_max_paddr_bits(const struct domain *d)
+>      return bits;
+>  }
+>  
+> +void vcpu_flush_cache(struct vcpu *curr)
+> +{
+> +    ASSERT(curr == current);
+> +    ASSERT(cache_flush_permitted(curr->domain));
+> +
+> +    flush_mask(curr->arch.dirty_cache, FLUSH_CACHE);
+> +    cpumask_clear(curr->arch.dirty_cache);
 
-This then further emphasizes the remark made for patch 7.
+While here re-ordering of the two operations would be merely for (kind of)
+doc purposes, ...
+
+> +    __cpumask_set_cpu(smp_processor_id(), curr->arch.dirty_cache);
+> +}
+> +
+> +void domain_flush_cache(const struct domain *d)
+> +{
+> +    const struct vcpu *v;
+> +    cpumask_t *mask = this_cpu(scratch_cpumask);
+> +
+> +    ASSERT(cache_flush_permitted(d));
+> +
+> +    cpumask_clear(mask);
+> +    for_each_vcpu( d, v )
+> +        cpumask_or(mask, mask, v->arch.dirty_cache);
+> +
+> +    flush_mask(mask, FLUSH_CACHE);
+> +    /*
+> +     * Clearing the mask of vCPUs in the domain would be racy unless all vCPUs
+> +     * are paused, so just leave them as-is, at the cost of possibly doing
+> +     * redundant flushes in later calls.  It's still better than doing a
+> +     * host-wide cache flush.
+> +     */
+
+... wouldn't clearing before flushing avoid the raciness here?
+
+> +}
+
+Also imo both functions are a better fit in mm.c.
 
 Jan
 
