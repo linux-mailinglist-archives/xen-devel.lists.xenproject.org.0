@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D576AB5380
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 13:09:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.982751.1369092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59F95AB542B
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 13:57:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.982766.1369101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEnWD-0006BI-Fy; Tue, 13 May 2025 11:09:53 +0000
+	id 1uEoFT-0003vO-SH; Tue, 13 May 2025 11:56:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 982751.1369092; Tue, 13 May 2025 11:09:53 +0000
+Received: by outflank-mailman (output) from mailman id 982766.1369101; Tue, 13 May 2025 11:56:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEnWD-00069I-DC; Tue, 13 May 2025 11:09:53 +0000
-Received: by outflank-mailman (input) for mailman id 982751;
- Tue, 13 May 2025 11:09:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iHDm=X5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEnWC-00067M-R6
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 11:09:52 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca445b26-2fea-11f0-9ffb-bf95429c2676;
- Tue, 13 May 2025 13:09:51 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5fbf534f8dbso8410907a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 04:09:51 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5fc9d70d55bsm7051474a12.65.2025.05.13.04.09.50
+	id 1uEoFT-0003se-Pd; Tue, 13 May 2025 11:56:39 +0000
+Received: by outflank-mailman (input) for mailman id 982766;
+ Tue, 13 May 2025 11:56:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=p0QL=X5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uEoFR-0003sY-VA
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 11:56:38 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 52889e0d-2ff1-11f0-9eb6-5ba50f476ded;
+ Tue, 13 May 2025 13:56:36 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-441d1ed82faso38614325e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 04:56:36 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-442d67df5ecsm163763805e9.9.2025.05.13.04.56.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 May 2025 04:09:50 -0700 (PDT)
+ Tue, 13 May 2025 04:56:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +45,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca445b26-2fea-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 52889e0d-2ff1-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747134591; x=1747739391; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1747137396; x=1747742196; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=nNM21eq9u1oC73bbfqviyTd2L8fCDU+BOAj5ecnoVH8=;
-        b=ZAbNlrAG5EJ3l91xfhEvZVz0lOchRrNRrhCNvA3DZLITlvE6FDDOJ59EHGWTT/DnSP
-         NHKrfLaQtUmAGhEOL2h1Txrt6pXSB2n7xDpQo/P97m/UPkK+TXD0Sm4QayANCCsQxC8d
-         DRDZijH3U8h7Yx7GK/F+WGpCnMk0VK6Yfp22EZ/4vRyrRceQNDWJq+Z53fUyn/UXHgac
-         yrIsGNqBhntWpKeH3VtkDcUY91GixoCGdIa2JG1RjDbIiGXkvBpM1iYxWEzj6lt6ioLL
-         Gs/QObjo4R02L9V9gN5ckIyAv6dBhfoQ7hR9IQ2/3FCFsY6n39b5tEVdh5IJwYLAEDtD
-         PH+Q==
+        bh=uKWHcb5UhDMvTvtdTVV8vNFfjuOzkIhKzAOTGnbwEO0=;
+        b=VdKo6TyeIpD1Hx0qlVP6/1k6eC6MHnsq457XRJm/B8ND46gBNjTnS1vjP2tjAZC+2A
+         B2spHDCJjTfxf0bRt3QGjhH+buJxKsZdL71cQR8fssCenHTqNiCvcQDIIQIPrgTiIVWh
+         BxCkeMHWDJJ9i9RjnPfy20ErV2cKcebLaUH/M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747134591; x=1747739391;
+        d=1e100.net; s=20230601; t=1747137396; x=1747742196;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nNM21eq9u1oC73bbfqviyTd2L8fCDU+BOAj5ecnoVH8=;
-        b=hZIoMXcfrnMKmwrEBsALdVkZwTpMNnWLFHlwdj6fy51HwrFRllnWnEBHvHDtZNDcXZ
-         /PtS6tw+7k6/r2gjRJyf/sRcIxKbj8jLB4PuRVjua5So9dQ4zNwFsWAvwDh3Ep5L59BG
-         CeZTIt2S/Nhr49PVPvIb/8Ras7LTetIXhTnL1G6tKJSChCiXdd4tZuuCOQsdzRSaY+zJ
-         xnt+nMVL2jrlDgn3QbhW408/ruGKMioD4CRwI/885HwL0vTk3xxRfOPRBlTp05SjOg85
-         nAwzuLz2Rc8MjOAMMyQLHajPyY8IyojiovbyA32outKrdGqv9IQu6S5Tz8fwMvY0Vv2D
-         9t4Q==
-X-Forwarded-Encrypted: i=1; AJvYcCX2vxrIcGUUe6V2gBVp5b5jk7LeYOw5DwtyQLbSGdMqhCyeTW90I2eL/il1zLoh/LNDtItR4fJKLs4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx6lO5NI3Tjt8Ie05RCXdK+gcCCBrr3SYm62tA6iACSVH1b419a
-	yvs2cAuc8KoaYgRYsZTbcthNeOPXKeUmcnkUmASfQBiDRfpZGDRyyFkEXnkcmA==
-X-Gm-Gg: ASbGncvlW1kGe2dd2x+cH1K4lourQ68HAOz2T3wMdcEuOzMwcQoCILPR+5zIDQDBeO0
-	aTr/1Q5trmCK5BC3G50124lGn4dArkLLEa1HBwv7SCG/MiZkZUm34oPSMd+tOQtPze63Dv8HvLB
-	l11qckGOBlBLGBh4bYQU5Xhss7K45jiGRNhJdL+kKdPWq1efYRt3dUK5miDsezOFUJHIJWE1KnL
-	y9OA838dbXh/peKnQUV7LTwXJ52NwuR/QPRGqzQJUL7qZbSIl8ugJm/IMCRdgKxtFqUox/Iang1
-	9m058/eGJvoMogvWO3G3MyQiuLZwGqzqFXSg/5MnoR6JVhpuoygtqfPm5zlbVmmsOWVZR8fBtUX
-	olNiG/zt+mYJ4GFFTJfS81RZvPgriDF2DUd3D
-X-Google-Smtp-Source: AGHT+IGF7P+W97cyL4RKmFF8g/lAkpuY+/rwoT5TqVKVjSE+jHYA/2UOREs2lLjwvdc1vQCo11Bw8Q==
-X-Received: by 2002:a05:6402:5388:b0:5f8:e6de:fd0f with SMTP id 4fb4d7f45d1cf-5fca0770801mr12781385a12.15.1747134590623;
-        Tue, 13 May 2025 04:09:50 -0700 (PDT)
-Message-ID: <55e73266-7727-4a1c-93e8-dd69712d64d2@suse.com>
-Date: Tue, 13 May 2025 13:09:49 +0200
+        bh=uKWHcb5UhDMvTvtdTVV8vNFfjuOzkIhKzAOTGnbwEO0=;
+        b=BIJ8Ka91GGpQOPTp1r73hwBqR1jpebK7NL4FDFRyDwtaVrNnEVoUoeXL1ZGJsQnWEW
+         wH9lX008Ow2gl2Ikub3lsnzW3Zx6TWUV46sJBHW/P8LTD3onE0POGjtuggoNq9SeJKWp
+         pQpO6nR5k33x3vnlB4ukwnT76HrxsZu98EESPrIBeAixpp3clx7AjcMINfMkNY6V6qjV
+         N7SgWxq0CTLrqn9NOBO3m7SuPW+wtepzmU73h5hoK/xBH9MVo66vCM0lbpcXkhFPdwUg
+         QjQL/oUIxrps3ZRMiXOMvUDK0/vx+0aaNI3HgvxgLEHkqqWmc+H/jjylanY3zKoRVk4l
+         /T1A==
+X-Forwarded-Encrypted: i=1; AJvYcCVim04OunjIwjHksM4mp5CrHpUm5eVyiKnW82QoiBZaG+OaEY170NJjTVHGEsXWFFnL7LYMGD9M43k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yws5SQF2LHN39S00ppE71gr9QZ/ymlIDTAejZxs2wnS6+DO6+OG
+	B0nIdcFdDHfx+WbLvMMQpn5YfwtySTfDAAhHtKRje+R+Mjkl/HwnPL39KBSlvVI=
+X-Gm-Gg: ASbGncuhsJAy6GXyWExWtu+FfkI6cN6ToSNLrI6wfeKukuaNN44lTZ7GuoBqcZ/zZon
+	VUieQD4mHqFYt7+zAiELTdQlQFhWuW2Qjimdb07Qzm05j1je5Qx16fVCbqwXSmzd8OjFNN0Yp/t
+	JrrB99a0drohPwpem4xtcoHQRdTuVbntp2csi3Dm31k0XNj0A6Uu9X/SRvhdyD1Tudeii5Yo3CR
+	EMV7lnNBwNioUkG8PC4nKqJs2wapDSQ+sDsSO6utnHkDowAeBo8yQjhD637h49sH6Lk7aiSPq2J
+	z5DToRIZPs7hWcyBftwL/y9F8kQGBcYjkwiaKVBa7Kej5QQMHHxN5t3zVzK6l1X5Oz1mD91CZw+
+	Zat3xxXqA/nU2C96sX/472RMvn70=
+X-Google-Smtp-Source: AGHT+IEfoGTwU2AfFnFgCbKafDs1veM3mLjPpDZUhgH/p67yibV96JvUeTV+RfHFDakIwWqTYBYxxQ==
+X-Received: by 2002:a05:6000:2ce:b0:3a0:b7e7:1076 with SMTP id ffacd0b85a97d-3a1f646d9ecmr12427534f8f.11.1747137396231;
+        Tue, 13 May 2025 04:56:36 -0700 (PDT)
+Message-ID: <d76f85a8-cbe7-43b5-85e8-fb46cd0be0d7@citrix.com>
+Date: Tue, 13 May 2025 12:56:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] Add lockdown mode
-To: Kevin Lampis <kevin.lampis@cloud.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250506162510.1676425-1-kevin.lampis@cloud.com>
- <db6316fb-89bd-4891-a4ff-2a13feda112f@suse.com>
- <CAHaoHxY4W2bbi3i+R_-tk7PG+4s2OdU9OSf1+o1wDXTvMBJozA@mail.gmail.com>
- <504f0be0-91fd-4847-8fcd-505771674814@suse.com>
- <CAHaoHxYojvmAe_jtwjHzCMKGKa_0fkGc-cbypRpKCRFQt0sbHw@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAHaoHxYojvmAe_jtwjHzCMKGKa_0fkGc-cbypRpKCRFQt0sbHw@mail.gmail.com>
+Subject: Re: [PATCH 2/4] crypto: Add RSA support
+To: Jan Beulich <jbeulich@suse.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250506143218.1782603-1-ross.lagerwall@citrix.com>
+ <20250506143218.1782603-3-ross.lagerwall@citrix.com>
+ <e59ff21f-b597-460a-af82-371dc454b676@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <e59ff21f-b597-460a-af82-371dc454b676@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 13.05.2025 13:07, Kevin Lampis wrote:
-> On Tue, May 13, 2025 at 8:00 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> Well, there is an alternative: Require the lockdown argument to be absolutely
->> first. (There are further alternatives, but likely less usable.)
-> 
-> Is this your recommendation?
+On 12/05/2025 1:38 pm, Jan Beulich wrote:
+>> + *	Copyright (C) 1994, 1996, 1998, 2000 Free Software Foundation, Inc.
+>> + *
+>> + * This file is part of GnuPG.
+>> + *
+>> + * GnuPG is free software; you can redistribute it and/or modify
+>> + * it under the terms of the GNU General Public License as published by
+>> + * the Free Software Foundation; either version 2 of the License, or
+>> + * (at your option) any later version.
+>> + *
+>> + * GnuPG is distributed in the hope that it will be useful,
+>> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+>> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+>> + * GNU General Public License for more details.
+>> + *
+>> + * You should have received a copy of the GNU General Public License
+>> + * along with this program; if not, write to the Free Software
+>> + * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
+>> + *
+>> + * Note: This code is heavily based on the GNU MP Library.
+>> + *	 Actually it's the same code with only minor changes in the
+>> + *	 way the data is stored; this is to support the abstraction
+>> + *	 of an optional secure memory allocation which may be used
+>> + *	 to avoid revealing of sensitive data due to paging etc.
+>> + *	 The GNU MP Library itself is published under the LGPL;
+>> + *	 however I decided to publish this code under the plain GPL.
+>> + *
+>> + * mpi.c code extracted from linux @ eef0df6a5953, lib/mpi
+> I fear this line would go unnoticed with future changes, and hence go stale
+> rather easily. Menioning the origin in just the commit message ought to be
+> sufficient.
+>
+> Btw - how heavily did you need to adjust the code to pass our Eclair scan?
+> Depending on that I then might raise the question of converting to proper
+> Xen style (it currently isn't even proper Linux style, afaict).
 
-I would like this to at least be considered. As you likely were able to guess,
-I don't like that custom command line parsing very much.
+I've put this through Eclair.  Single R16.3 (missing break) violation. 
+Happy otherwise.
 
-Jan
+~Andrew
 
