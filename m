@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59F95AB542B
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 13:57:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.982766.1369101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C0AFAB552E
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 14:49:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.982798.1369153 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEoFT-0003vO-SH; Tue, 13 May 2025 11:56:39 +0000
+	id 1uEp3T-0001zv-TF; Tue, 13 May 2025 12:48:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 982766.1369101; Tue, 13 May 2025 11:56:39 +0000
+Received: by outflank-mailman (output) from mailman id 982798.1369153; Tue, 13 May 2025 12:48:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEoFT-0003se-Pd; Tue, 13 May 2025 11:56:39 +0000
-Received: by outflank-mailman (input) for mailman id 982766;
- Tue, 13 May 2025 11:56:38 +0000
+	id 1uEp3T-0001xf-Pb; Tue, 13 May 2025 12:48:19 +0000
+Received: by outflank-mailman (input) for mailman id 982798;
+ Tue, 13 May 2025 12:48:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=p0QL=X5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uEoFR-0003sY-VA
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 11:56:38 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1uEp3S-0001xZ-FG
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 12:48:18 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 52889e0d-2ff1-11f0-9eb6-5ba50f476ded;
- Tue, 13 May 2025 13:56:36 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-441d1ed82faso38614325e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 04:56:36 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442d67df5ecsm163763805e9.9.2025.05.13.04.56.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 May 2025 04:56:35 -0700 (PDT)
+ id 8a9dcfb0-2ff8-11f0-9eb6-5ba50f476ded;
+ Tue, 13 May 2025 14:48:17 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-442e9c00bf4so11139275e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 05:48:17 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-442d5cf5d6bsm170957265e9.1.2025.05.13.05.48.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 May 2025 05:48:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +45,261 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52889e0d-2ff1-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 8a9dcfb0-2ff8-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747137396; x=1747742196; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uKWHcb5UhDMvTvtdTVV8vNFfjuOzkIhKzAOTGnbwEO0=;
-        b=VdKo6TyeIpD1Hx0qlVP6/1k6eC6MHnsq457XRJm/B8ND46gBNjTnS1vjP2tjAZC+2A
-         B2spHDCJjTfxf0bRt3QGjhH+buJxKsZdL71cQR8fssCenHTqNiCvcQDIIQIPrgTiIVWh
-         BxCkeMHWDJJ9i9RjnPfy20ErV2cKcebLaUH/M=
+        d=citrix.com; s=google; t=1747140496; x=1747745296; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=EwU7cIuXAcZQkhkLVi2ursHZkv24X8sAV3YSXlpJuPw=;
+        b=fvevpl8JV/THltnaPQxgH6JG8guAfC8LRQX3G9XdFLG5r9WnYhvzkKdpme/DPyMjBl
+         TDL6OMLsGAYLzTJFckvVijB8kzQoesxQ3wXFW8SglUS2qS1e9P5N9/eCHlywgecNof6g
+         JO8+7zlqNCfCg98vRLpxCUKx0RXRzAH4pAhEQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747137396; x=1747742196;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uKWHcb5UhDMvTvtdTVV8vNFfjuOzkIhKzAOTGnbwEO0=;
-        b=BIJ8Ka91GGpQOPTp1r73hwBqR1jpebK7NL4FDFRyDwtaVrNnEVoUoeXL1ZGJsQnWEW
-         wH9lX008Ow2gl2Ikub3lsnzW3Zx6TWUV46sJBHW/P8LTD3onE0POGjtuggoNq9SeJKWp
-         pQpO6nR5k33x3vnlB4ukwnT76HrxsZu98EESPrIBeAixpp3clx7AjcMINfMkNY6V6qjV
-         N7SgWxq0CTLrqn9NOBO3m7SuPW+wtepzmU73h5hoK/xBH9MVo66vCM0lbpcXkhFPdwUg
-         QjQL/oUIxrps3ZRMiXOMvUDK0/vx+0aaNI3HgvxgLEHkqqWmc+H/jjylanY3zKoRVk4l
-         /T1A==
-X-Forwarded-Encrypted: i=1; AJvYcCVim04OunjIwjHksM4mp5CrHpUm5eVyiKnW82QoiBZaG+OaEY170NJjTVHGEsXWFFnL7LYMGD9M43k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yws5SQF2LHN39S00ppE71gr9QZ/ymlIDTAejZxs2wnS6+DO6+OG
-	B0nIdcFdDHfx+WbLvMMQpn5YfwtySTfDAAhHtKRje+R+Mjkl/HwnPL39KBSlvVI=
-X-Gm-Gg: ASbGncuhsJAy6GXyWExWtu+FfkI6cN6ToSNLrI6wfeKukuaNN44lTZ7GuoBqcZ/zZon
-	VUieQD4mHqFYt7+zAiELTdQlQFhWuW2Qjimdb07Qzm05j1je5Qx16fVCbqwXSmzd8OjFNN0Yp/t
-	JrrB99a0drohPwpem4xtcoHQRdTuVbntp2csi3Dm31k0XNj0A6Uu9X/SRvhdyD1Tudeii5Yo3CR
-	EMV7lnNBwNioUkG8PC4nKqJs2wapDSQ+sDsSO6utnHkDowAeBo8yQjhD637h49sH6Lk7aiSPq2J
-	z5DToRIZPs7hWcyBftwL/y9F8kQGBcYjkwiaKVBa7Kej5QQMHHxN5t3zVzK6l1X5Oz1mD91CZw+
-	Zat3xxXqA/nU2C96sX/472RMvn70=
-X-Google-Smtp-Source: AGHT+IEfoGTwU2AfFnFgCbKafDs1veM3mLjPpDZUhgH/p67yibV96JvUeTV+RfHFDakIwWqTYBYxxQ==
-X-Received: by 2002:a05:6000:2ce:b0:3a0:b7e7:1076 with SMTP id ffacd0b85a97d-3a1f646d9ecmr12427534f8f.11.1747137396231;
-        Tue, 13 May 2025 04:56:36 -0700 (PDT)
-Message-ID: <d76f85a8-cbe7-43b5-85e8-fb46cd0be0d7@citrix.com>
-Date: Tue, 13 May 2025 12:56:34 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] crypto: Add RSA support
-To: Jan Beulich <jbeulich@suse.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250506143218.1782603-1-ross.lagerwall@citrix.com>
- <20250506143218.1782603-3-ross.lagerwall@citrix.com>
- <e59ff21f-b597-460a-af82-371dc454b676@suse.com>
-Content-Language: en-GB
+        d=1e100.net; s=20230601; t=1747140496; x=1747745296;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=EwU7cIuXAcZQkhkLVi2ursHZkv24X8sAV3YSXlpJuPw=;
+        b=BlYIdnw1qNJg3li1H/MqyXjGV6gyDRvWSnX/ubo58WCFbjF6xKMKCBgKVQBmo8PnuP
+         MhDXiU2yOeiJBIVcZf3Vm7CbfCCxo6nMuiv/TUFclZ/c6vCASXcCLGZ3byEmadeCx9h+
+         rjMIK8/wyzjX9ZC7zkUzs4W/CYz0kCq+DPmXXNDs1ECQk44d9irrTMyhHGwDP2YKKPMc
+         +SpD/oa+L13/2tP+Dfq4L2JKGIQw1qYCnVvGTw6ELe/JYlaXYnIwQoxD2FWGZpbdzS16
+         tKwAGSa3QGbl6zrzgZGnco4QZwxy9qiE+S1Hkbl/QgLis9PlFxkhrGUKvVm1YEeN+SVW
+         KXgQ==
+X-Gm-Message-State: AOJu0Yx6Tf5/vTJRMVS7JFTJVjmJoX6c4lNBGuK/jwNlvFpgrWp1nrEp
+	zkeFzFbkl2B/wJzvJ1H6l0jRcmIlEvZBFlw/65nfE/QVx9REkqxMNcQw1dILObofEx3N5PtfQsC
+	Y
+X-Gm-Gg: ASbGncuBaqJ7PLW8cHCnBXl9bJcWGzTKkheLuy7CV+tok36w7RDFc05VoWHtRcMINfk
+	tjOUg1a99HBpKRJ2WiqIK4jbvKDYig3cwq1BvRKpb7Eq5B52IAQv5X+M0SoLX9KQLV19v7kEsG5
+	vRjbGTRyVLKqdzk5AmcFsj0sK0lgkDZfcfffbXOWyZgMgG1+9Qhm069w6QfjPPUiulHV57aVrfT
+	8QeePwZBkl8BJhwGuxoSAbcGop7smU9zHfa05t9ko8J2Y0yCAqO1tITV2AnIH0X1qFi57vjOYig
+	5/dxz05beGdgPt1ypzZ9VpEmwVWLltH0Id98IaD2NANtsF9+mTka5aizd4O9Q/SYSr/6rubZcdB
+	SkEitIgMh46qVxv8XOlY5eaoB
+X-Google-Smtp-Source: AGHT+IFCknagyukqmUBlsMqarGV3XhKu5cMo7JA5t+Y0usDLHGSMDC2/Ehb0SBbA29gxnoaHoxlEwQ==
+X-Received: by 2002:a05:600c:b91:b0:441:b3eb:5720 with SMTP id 5b1f17b1804b1-442d6ddeb79mr135079065e9.29.1747140496511;
+        Tue, 13 May 2025 05:48:16 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <e59ff21f-b597-460a-af82-371dc454b676@suse.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/spec-ctrl: Support Intel's new PB-OPT
+Date: Tue, 13 May 2025 13:48:14 +0100
+Message-Id: <20250513124814.3500710-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12/05/2025 1:38 pm, Jan Beulich wrote:
->> + *	Copyright (C) 1994, 1996, 1998, 2000 Free Software Foundation, Inc.
->> + *
->> + * This file is part of GnuPG.
->> + *
->> + * GnuPG is free software; you can redistribute it and/or modify
->> + * it under the terms of the GNU General Public License as published by
->> + * the Free Software Foundation; either version 2 of the License, or
->> + * (at your option) any later version.
->> + *
->> + * GnuPG is distributed in the hope that it will be useful,
->> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
->> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->> + * GNU General Public License for more details.
->> + *
->> + * You should have received a copy of the GNU General Public License
->> + * along with this program; if not, write to the Free Software
->> + * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
->> + *
->> + * Note: This code is heavily based on the GNU MP Library.
->> + *	 Actually it's the same code with only minor changes in the
->> + *	 way the data is stored; this is to support the abstraction
->> + *	 of an optional secure memory allocation which may be used
->> + *	 to avoid revealing of sensitive data due to paging etc.
->> + *	 The GNU MP Library itself is published under the LGPL;
->> + *	 however I decided to publish this code under the plain GPL.
->> + *
->> + * mpi.c code extracted from linux @ eef0df6a5953, lib/mpi
-> I fear this line would go unnoticed with future changes, and hence go stale
-> rather easily. Menioning the origin in just the commit message ought to be
-> sufficient.
->
-> Btw - how heavily did you need to adjust the code to pass our Eclair scan?
-> Depending on that I then might raise the question of converting to proper
-> Xen style (it currently isn't even proper Linux style, afaict).
+In IPU 2025.2 (May 2025), Intel have released an alternative mitigation for a
+prior security issue (SA-00982) on Sappire and Emerald Rapids CPUs.
 
-I've put this through Eclair.  Single R16.3 (missing break) violation. 
-Happy otherwise.
+Intel suggest that certain workloads will benefit from using the alternative
+mode.  This can be selected by booting with `spec-ctrl=ibpb-alt`.
 
-~Andrew
+https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/cpuid-enumeration-and-architectural-msrs.html
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+
+Intel have named this PBOPT (no space), but that's too close to PBRSB for my
+liking.  PB_OPT (with a space) is also consistent with MCU_OPT, it's closest
+neighbour.
+
+I've chosen not to extend print_details() with this.  It's specific to two
+Intel CPUs and not being continued into future ones.
+
+I'm not sure what else to say in the cmdline docs.  Intel is very sparse on
+details.  An educated guess is that in the default mode, part of the predictor
+is inhibited, while in the alternative mode it's active, but at the cost of
+extra scrubbing in IBPB.
+---
+ docs/misc/xen-command-line.pandoc           |  6 ++++-
+ xen/arch/x86/acpi/power.c                   |  1 +
+ xen/arch/x86/cpu/intel.c                    | 28 +++++++++++++++++++++
+ xen/arch/x86/include/asm/cpufeature.h       |  1 +
+ xen/arch/x86/include/asm/msr-index.h        |  3 +++
+ xen/arch/x86/include/asm/processor.h        |  3 +++
+ xen/arch/x86/smpboot.c                      |  1 +
+ xen/arch/x86/spec_ctrl.c                    |  7 ++++++
+ xen/include/public/arch-x86/cpufeatureset.h |  1 +
+ 9 files changed, 50 insertions(+), 1 deletion(-)
+
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 89db6e83be66..b0eadd2c5d58 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -2470,7 +2470,7 @@ By default SSBD will be mitigated at runtime (i.e `ssbd=runtime`).
+ >              {ibrs,ibpb,ssbd,psfd,
+ >              eager-fpu,l1d-flush,branch-harden,srb-lock,
+ >              unpriv-mmio,gds-mit,div-scrub,lock-harden,
+->              bhi-dis-s,bp-spec-reduce}=<bool> ]`
++>              bhi-dis-s,bp-spec-reduce,ibpb-alt}=<bool> ]`
+ 
+ Controls for speculative execution sidechannel mitigations.  By default, Xen
+ will pick the most appropriate mitigations based on compiled in support,
+@@ -2626,6 +2626,10 @@ bp-spec-reduce when available, as it is preferable to using `ibpb-entry=hvm`
+ to mitigate SRSO for HVM guests, and because it is a prerequisite to advertise
+ SRSO_U/S_NO to PV guests.
+ 
++On Sappire and Emerald Rapids CPUs with May 2025 microcode or later, the
++`ibpb-alt=` option can be used to switch to the alternative mitigation for
++Intel SA-00982.  Intel suggest that some workloads will benefit from this.
++
+ ### sync_console
+ > `= <boolean>`
+ 
+diff --git a/xen/arch/x86/acpi/power.c b/xen/arch/x86/acpi/power.c
+index 3196a33b1918..095ca391ad22 100644
+--- a/xen/arch/x86/acpi/power.c
++++ b/xen/arch/x86/acpi/power.c
+@@ -306,6 +306,7 @@ static int enter_state(u32 state)
+     }
+ 
+     update_mcu_opt_ctrl();
++    update_pb_opt_ctrl();
+ 
+     /*
+      * This should be before restoring CR4, but that is earlier in asm and
+diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
+index 12c3ff65e02f..ef9368167a0d 100644
+--- a/xen/arch/x86/cpu/intel.c
++++ b/xen/arch/x86/cpu/intel.c
+@@ -49,6 +49,34 @@ void __init set_in_mcu_opt_ctrl(uint32_t mask, uint32_t val)
+     update_mcu_opt_ctrl();
+ }
+ 
++static uint32_t __ro_after_init pb_opt_ctrl_mask;
++static uint32_t __ro_after_init pb_opt_ctrl_val;
++
++void update_pb_opt_ctrl(void)
++{
++    uint32_t mask = pb_opt_ctrl_mask, lo, hi;
++
++    if ( !mask )
++        return;
++
++    rdmsr(MSR_PB_OPT_CTRL, lo, hi);
++
++    lo &= ~mask;
++    lo |= pb_opt_ctrl_val;
++
++    wrmsr(MSR_PB_OPT_CTRL, lo, hi);
++}
++
++void __init set_in_pb_opt_ctrl(uint32_t mask, uint32_t val)
++{
++    pb_opt_ctrl_mask |= mask;
++
++    pb_opt_ctrl_val &= ~mask;
++    pb_opt_ctrl_val |= (val & mask);
++
++    update_pb_opt_ctrl();
++}
++
+ /*
+  * Processors which have self-snooping capability can handle conflicting
+  * memory type across CPUs by snooping its own cache. However, there exists
+diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
+index 397a04af41a1..6c5f5ce0cfc5 100644
+--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+@@ -219,6 +219,7 @@ static inline bool boot_cpu_has(unsigned int feat)
+ #define cpu_has_gds_no          boot_cpu_has(X86_FEATURE_GDS_NO)
+ #define cpu_has_rfds_no         boot_cpu_has(X86_FEATURE_RFDS_NO)
+ #define cpu_has_rfds_clear      boot_cpu_has(X86_FEATURE_RFDS_CLEAR)
++#define cpu_has_pb_opt_ctrl     boot_cpu_has(X86_FEATURE_PB_OPT_CTRL)
+ #define cpu_has_its_no          boot_cpu_has(X86_FEATURE_ITS_NO)
+ 
+ /* Synthesized. */
+diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
+index 22d9e76e5521..6f2c3147e343 100644
+--- a/xen/arch/x86/include/asm/msr-index.h
++++ b/xen/arch/x86/include/asm/msr-index.h
+@@ -56,6 +56,9 @@
+ #define MSR_MISC_PACKAGE_CTRL               0x000000bc
+ #define  PGK_CTRL_ENERGY_FILTER_EN          (_AC(1, ULL) <<  0)
+ 
++#define MSR_PB_OPT_CTRL                     0x000000bf
++#define  PB_OPT_IBPB_ALT                    (_AC(1, ULL) <<  0)
++
+ #define MSR_CORE_CAPABILITIES               0x000000cf
+ #define  CORE_CAPS_SPLITLOCK_DETECT         (_AC(1, ULL) <<  5)
+ 
+diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
+index 75af7ea3c476..eacd425c5350 100644
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -470,6 +470,9 @@ static inline void tsx_init(void) {}
+ void update_mcu_opt_ctrl(void);
+ void set_in_mcu_opt_ctrl(uint32_t mask, uint32_t val);
+ 
++void update_pb_opt_ctrl(void);
++void set_in_pb_opt_ctrl(uint32_t mask, uint32_t val);
++
+ enum ap_boot_method {
+     AP_BOOT_NORMAL,
+     AP_BOOT_SKINIT,
+diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
+index 54207e6d8830..80c729d74895 100644
+--- a/xen/arch/x86/smpboot.c
++++ b/xen/arch/x86/smpboot.c
+@@ -383,6 +383,7 @@ void asmlinkage start_secondary(void *unused)
+         info->last_spec_ctrl = default_xen_spec_ctrl;
+     }
+     update_mcu_opt_ctrl();
++    update_pb_opt_ctrl();
+ 
+     tsx_init(); /* Needs microcode.  May change HLE/RTM feature bits. */
+ 
+diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
+index 0a635025e488..79c0a9df66f8 100644
+--- a/xen/arch/x86/spec_ctrl.c
++++ b/xen/arch/x86/spec_ctrl.c
+@@ -85,6 +85,8 @@ static int8_t __initdata opt_gds_mit = -1;
+ static int8_t __initdata opt_div_scrub = -1;
+ bool __ro_after_init opt_bp_spec_reduce = true;
+ 
++static __initdata bool opt_ibpb_alt;
++
+ static int __init cf_check parse_spec_ctrl(const char *s)
+ {
+     const char *ss;
+@@ -369,6 +371,8 @@ static int __init cf_check parse_spec_ctrl(const char *s)
+             opt_div_scrub = val;
+         else if ( (val = parse_boolean("bp-spec-reduce", s, ss)) >= 0 )
+             opt_bp_spec_reduce = val;
++        else if ( (val = parse_boolean("ibpb-alt", s, ss)) >= 0 )
++            opt_ibpb_alt = val;
+         else
+             rc = -EINVAL;
+ 
+@@ -2494,6 +2498,9 @@ void __init init_speculation_mitigations(void)
+         wrmsrl(MSR_SPEC_CTRL, val);
+         info->last_spec_ctrl = val;
+     }
++
++    if ( cpu_has_pb_opt_ctrl )
++        set_in_pb_opt_ctrl(PB_OPT_IBPB_ALT, opt_ibpb_alt);
+ }
+ 
+ static void __init __maybe_unused build_assertions(void)
+diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
+index a6d4a0cba7d8..044230bfe854 100644
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -392,6 +392,7 @@ XEN_CPUFEATURE(IGN_UMONITOR,       16*32+29) /*   MCU_OPT_CTRL.IGN_UMONITOR */
+ XEN_CPUFEATURE(MON_UMON_MITG,      16*32+30) /*   MCU_OPT_CTRL.MON_UMON_MITG */
+ 
+ /* Intel-defined CPU features, MSR_ARCH_CAPS 0x10a.edx, word 17 (express in terms of word 16) */
++XEN_CPUFEATURE(PB_OPT_CTRL,        16*32+32) /*   MSR_PB_OPT_CTRL.IBPB_ALT */
+ XEN_CPUFEATURE(ITS_NO,             16*32+62) /*!A No Indirect Target Selection */
+ 
+ #endif /* XEN_CPUFEATURE */
+
+base-commit: f6042f38e621525feff86bb101dc751d2d87cff8
+-- 
+2.39.5
+
 
