@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81230AB566D
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 15:46:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.982870.1369232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF928AB5691
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 15:55:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.982889.1369241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEpy8-0004Sy-NN; Tue, 13 May 2025 13:46:52 +0000
+	id 1uEq61-0006VE-Eb; Tue, 13 May 2025 13:55:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 982870.1369232; Tue, 13 May 2025 13:46:52 +0000
+Received: by outflank-mailman (output) from mailman id 982889.1369241; Tue, 13 May 2025 13:55:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEpy8-0004QZ-K5; Tue, 13 May 2025 13:46:52 +0000
-Received: by outflank-mailman (input) for mailman id 982870;
- Tue, 13 May 2025 13:46:51 +0000
+	id 1uEq61-0006Tc-Bm; Tue, 13 May 2025 13:55:01 +0000
+Received: by outflank-mailman (input) for mailman id 982889;
+ Tue, 13 May 2025 13:55:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p0QL=X5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uEpy7-0004L0-5s
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 13:46:51 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iHDm=X5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uEq60-0006TW-2i
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 13:55:00 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b81819f0-3000-11f0-9ffb-bf95429c2676;
- Tue, 13 May 2025 15:46:49 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5fbf007ea38so9327485a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 06:46:49 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad21933f4e6sm787374266b.54.2025.05.13.06.46.48
+ id db4151b9-3001-11f0-9ffb-bf95429c2676;
+ Tue, 13 May 2025 15:54:58 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-ad241baf856so556828466b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 06:54:58 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad236cb21a2sm602973566b.159.2025.05.13.06.54.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 May 2025 06:46:48 -0700 (PDT)
+ Tue, 13 May 2025 06:54:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,129 +45,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b81819f0-3000-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: db4151b9-3001-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747144009; x=1747748809; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747144497; x=1747749297; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AS3DnpownWeR82CqRsAbYVA6LFIoGSSjqX5AJvW/hmI=;
-        b=KYdeFhfW/7NEMpsxu/3Bb1KIu2fq1yuLoqIEJmjx4ChHsqCiO+AWtftba4/cKzUE9n
-         S+xnmP2lz+qTIx8h8fcfPKpaNs5njX1+lIRUlKd3w+A8zB6RRM1wbSdb7Ofr2P/iESKy
-         DDB9L4C5L412h9V+l87iqIMjRynuENWdngDz0=
+        bh=oyxsQtOlJqzbvOYH9xERmP88RL3iOliw5gVY/G40uZQ=;
+        b=T9dzBX4TnOKQz7l2uBqpMhE5vyOTbX9srcPzlV5EyXbH80jQb0VaSc00b5CHSauL+P
+         s45v4+BbUHWTM1a+T0nMIq4ric/yySg9Oasxt6IpQ+NA+Rh8Ng65aGZsqXmmSw16z821
+         tUsc5W33d3R2ivpCdQwsOBozaIFpviP791fLXT7juEJ8o7HtcazQLcqm0EROFzAA0g4c
+         zVtYFK6JJli6Co0yl3N1kw/YellIkNLiOKwjVlSXvMoXgHX1Z9hMhVyQXgtqSLvTAsj5
+         0S8NLfHUA2vqjy7oO5QgDVZuIm4gW7fvwjj5PV+Hxkgzf0EH7yNgrhOvHTqqN7e8tlr2
+         VELw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747144009; x=1747748809;
+        d=1e100.net; s=20230601; t=1747144497; x=1747749297;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AS3DnpownWeR82CqRsAbYVA6LFIoGSSjqX5AJvW/hmI=;
-        b=CuiD2ia5ENcTdX7Konu7cJ1AmIg90e0U8L6qxcpQKA3pS/J84Xb0PZ5bkxjPS62uCN
-         CTYReu7jFGoEOM6KKvo/4OVuDUbyxdsZmIUN4Mfd2MgePyJbfLQKYH3MaEt6tlVMGJ3J
-         cLs4qsHtrdoG6ah+8t9SFgxCmZD41k35cvvRKKu/OFKsiHsOjX2gsWG9Sxnq7vghTyh3
-         P3uc6E8UyWOzXs22X5g5T5MephIpbUKehfOspifdALJ1bowMw2JjHU6s4EJyWz2yGUzo
-         ochv5BsirwHXKjR49t0XF2J8d9ubsbwCJPpyrfKMRf5/x6DIm3WI7QiJ7yU+Z4UNB33P
-         s8YQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXyY6QIyVUw54VO51ytNQmiWiFUcSgLNPheZ9OFzfM10z42QxwzShlYHcbdBtjnzDaGJnTepCCzYqY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyMukSwgIuwgGtWwbCZ2S1541fE9PCmLb7D5k6Jvwguh70ouL6G
-	PjDo+ndkznFM1f3fgRcHrdf/lXsaN7Ot+WQUFbmxEH7gkYS+hBcudtDNuBX3AKw=
-X-Gm-Gg: ASbGncv22D6a09p7SYUwdKGzBGBY48rbsjhlmpCaFAOBpAmd5M29nDo/1uBRrB4F5r7
-	/I8YXaQuKlWgu8Ng1RSB6HvVKhM+1MHqGIt/xgJfy/j3ADkzTPC4tBRzrDm/0Vcl6uq/velSsje
-	zRxASDEphabukKnkuSGQITjhqgEVytIP43LLY0em50vvpFBQZH/RqkK+R2nMnEq4UjIUCZclo/V
-	d4LLjRpGPiZr4FmBbEqq5Aml6wfOZTX3OPxp5uKpGP9cpNIsJFMqlursY3Xo3dUQWaYWiSavq9W
-	t0cJRO+R5OzUXSXbD2Ig39ZAbOi3sx58tBnGbciS48T3wXtFD3tYZbpEeEqKjfZLY70chqkJxMo
-	ro/fEALW5HcsqTApn
-X-Google-Smtp-Source: AGHT+IHdp+jEzdSRUP9XljIwWFKtEjWShJ2MqPEq+EFHYL7IgiY9WDoOGF0iZIF5MFDudQ1fsuYn+w==
-X-Received: by 2002:a17:907:c50e:b0:ad2:23a8:c71e with SMTP id a640c23a62f3a-ad223a8ceb2mr1380964666b.27.1747144009005;
-        Tue, 13 May 2025 06:46:49 -0700 (PDT)
-Message-ID: <8b34653d-d83e-41f0-b4e7-58f7d5ca2b1f@citrix.com>
-Date: Tue, 13 May 2025 14:46:47 +0100
+        bh=oyxsQtOlJqzbvOYH9xERmP88RL3iOliw5gVY/G40uZQ=;
+        b=cq9jUTpxWT8KafSU9Y1xbQykGujRcEKU9S6jjXA2JQTvHZ9HLIKRDJ56RGrFGSD7m5
+         yLMNSVATzm0MGegXXkT5+o4XlkBKVbt32YNhLUcQifkE/5kLv69uMr5XjDJ0/oUjmyk8
+         5k0eVFdghtxYpLt1Az+my56DIyd1ab5sa49U4xkR3DIW9HHMj+TWPXPe0nLpBUSJoFfk
+         n2CtGLplLfxJAGVPv5u4b5riFxlFcFa31IBthnzKXt8x2RHvQBdAoSBvi+Hv45rCsXQ8
+         Q9GVuXO+3Kto/7ppA/iYSICg9lwwmE7P+oTxg8SFmMXziqh7E9pMGzSnpb2PiwJxLFO9
+         9U+w==
+X-Gm-Message-State: AOJu0Yzy9zAWQU8Sn2m922nJpzbht3VsbiqIM/ObyTgXZcVkAEo9WFh/
+	hdtwTYUMny+mgMtjNMpwCv3Q7aNyx1h8LmXLWXCZkQKdjCGyYm7bVhXefAUBbK29tRjpF1hQ/4s
+	=
+X-Gm-Gg: ASbGncsUx1Ia5c+wGak3nHd7O1Tu5Soi6DM39DJmov+tYGes015twIgAj6O2TiTFFS1
+	RCNUU50iwvfvJLS8HarhS4wkTLWCGvMlYqmOPbqYR2mnw6ppxN5RDFD11e9Fp4qr+LzEympVvrT
+	WoWTzuJStw/8zOQz7hak5RgfDWAZGDxb+dZkQ2PJTCR2B3ZoqOsZb66YayVeg7pmOBETYD7GmLm
+	x8bsbRhJ4eWg05gMoYREw/zLddQgtMhuz61315gyxDhnCvhHe9QBLFOp0tDpMDkMrwJEnH+w9GP
+	F+Vsz91TplqaTs+3QI1vpTd/bBdrSFAHUbmGSPqAQwdcCJPzq7F+5kOqGo4VigOof5SnUxeSlO7
+	JEExZEwZ9c6NLt3BqW2QlI8TE/jPQlgeMhA19
+X-Google-Smtp-Source: AGHT+IFpPEqfWY1daqN5ckJL0Xw3NFizx0fyh7PZ1P7CmrKG4vIrvBfpDg8e49ErG1/Q0pVy+uZV6g==
+X-Received: by 2002:a17:906:6a22:b0:ad2:16ce:7c38 with SMTP id a640c23a62f3a-ad4d4e326camr351413166b.16.1747144497551;
+        Tue, 13 May 2025 06:54:57 -0700 (PDT)
+Message-ID: <80ab4cdf-dbbb-4daa-831e-c6d92f5dcf13@suse.com>
+Date: Tue, 13 May 2025 15:54:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/spec-ctrl: Support Intel's new PB-OPT
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250513124814.3500710-1-andrew.cooper3@citrix.com>
- <39eb1f57-fb2f-4c55-ac79-a6e81a1c5b40@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <39eb1f57-fb2f-4c55-ac79-a6e81a1c5b40@suse.com>
+Subject: Re: [PATCH v2 2/6] x86/HVM: restrict guest-induced WBINVD to cache
+ writeback
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
+References: <c030bfde-c5bb-f205-edff-435278a435f4@suse.com>
+ <d55070c0-04c5-70a4-f9f3-3227d42578e6@suse.com>
+ <aCNMEadsYoIKLbSp@macbook.lan>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aCNMEadsYoIKLbSp@macbook.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 13/05/2025 2:42 pm, Jan Beulich wrote:
-> On 13.05.2025 14:48, Andrew Cooper wrote:
->> In IPU 2025.2 (May 2025), Intel have released an alternative mitigation for a
->> prior security issue (SA-00982) on Sappire and Emerald Rapids CPUs.
->>
->> Intel suggest that certain workloads will benefit from using the alternative
->> mode.  This can be selected by booting with `spec-ctrl=ibpb-alt`.
->>
->> https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/cpuid-enumeration-and-architectural-msrs.html
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On 13.05.2025 15:41, Roger Pau Monné wrote:
+> On Wed, May 03, 2023 at 11:45:22AM +0200, Jan Beulich wrote:
+>> We allow its use for writeback purposes only anyway, so let's also carry
+>> these out that way on capable hardware.
+> 
+> "for writeback purposes only" > is such the case because we cannot
+> guarantee the guest in which state the cache will be when resuming
+> from a wbinvd operation, and hence won't be "clean"?
 
-Thanks.
+Not really, no (see below). This is inferred from us limiting flushing
+operations to domains with physical hardware assigned plus the fact
+that we avoid the overhead in vmx_do_resume() when the IOMMU is snoop-
+capable. (Plus I did all this work over 2 years ago, and hence I now
+don't recall what other commentary I may have come across saying
+things along these lines.)
 
-> with two nits: For one, s/Sappire/Sapphire/ throughout. And  then ...
->
->> --- a/xen/arch/x86/spec_ctrl.c
->> +++ b/xen/arch/x86/spec_ctrl.c
->> @@ -85,6 +85,8 @@ static int8_t __initdata opt_gds_mit = -1;
->>  static int8_t __initdata opt_div_scrub = -1;
->>  bool __ro_after_init opt_bp_spec_reduce = true;
->>  
->> +static __initdata bool opt_ibpb_alt;
-> ... type and attribute would preferably be swapped here, just like it's
-> in context above as well as for the statics you add to cpu/intel.c.
+Which, thinking about it while writing this reply (and also taking
+into consideration Andrew's earlier reply), may be all wrong.
 
-Oops, both fixed.  (The public probably aren't aware, but this patch got
-lost in a bit of a mad rush of the late breaking changes to XSA-469
-yesterday.)
+> It's my understanding that the same is possible on native, as the CPU
+> might speculatively pull lines into the cache.  So there's no reason
+> for an OS to use wbinvd if wbnoinvd is available?
 
-~Andrew
+Speculatively pulling data into the cache is possible only when page
+table entries permit caching. Hence after changing all mappings of a
+certain page to UC, an OS may have a need to ensure that no data of
+this page is left in any cache (and it can't be pulled back in
+speculatively then).
+
+IOW if the goal of the OS is write-back, then indeed it should prefer
+WBNOINVD if available. Yet the same "replacement" isn't possible when
+the goal is pruning of the cache(s).
+
+Jan
 
