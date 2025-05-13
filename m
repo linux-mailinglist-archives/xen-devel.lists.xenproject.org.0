@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF928AB5691
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 15:55:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.982889.1369241 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 214E7AB5718
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 16:27:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.982913.1369275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEq61-0006VE-Eb; Tue, 13 May 2025 13:55:01 +0000
+	id 1uEqbA-0002tK-26; Tue, 13 May 2025 14:27:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 982889.1369241; Tue, 13 May 2025 13:55:01 +0000
+Received: by outflank-mailman (output) from mailman id 982913.1369275; Tue, 13 May 2025 14:27:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEq61-0006Tc-Bm; Tue, 13 May 2025 13:55:01 +0000
-Received: by outflank-mailman (input) for mailman id 982889;
- Tue, 13 May 2025 13:55:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uEqb9-0002qI-Vn; Tue, 13 May 2025 14:27:11 +0000
+Received: by outflank-mailman (input) for mailman id 982913;
+ Tue, 13 May 2025 14:27:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iHDm=X5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEq60-0006TW-2i
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 13:55:00 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id db4151b9-3001-11f0-9ffb-bf95429c2676;
- Tue, 13 May 2025 15:54:58 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-ad241baf856so556828466b.0
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 06:54:58 -0700 (PDT)
+ id 1uEqb8-0002qC-Sh
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 14:27:10 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5a840b0e-3006-11f0-9eb6-5ba50f476ded;
+ Tue, 13 May 2025 16:27:09 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-ad243cdbe98so505756766b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 07:27:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad236cb21a2sm602973566b.159.2025.05.13.06.54.57
+ a640c23a62f3a-ad2198b68dasm781774466b.181.2025.05.13.07.27.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 May 2025 06:54:57 -0700 (PDT)
+ Tue, 13 May 2025 07:27:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db4151b9-3001-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 5a840b0e-3006-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747144497; x=1747749297; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oyxsQtOlJqzbvOYH9xERmP88RL3iOliw5gVY/G40uZQ=;
-        b=T9dzBX4TnOKQz7l2uBqpMhE5vyOTbX9srcPzlV5EyXbH80jQb0VaSc00b5CHSauL+P
-         s45v4+BbUHWTM1a+T0nMIq4ric/yySg9Oasxt6IpQ+NA+Rh8Ng65aGZsqXmmSw16z821
-         tUsc5W33d3R2ivpCdQwsOBozaIFpviP791fLXT7juEJ8o7HtcazQLcqm0EROFzAA0g4c
-         zVtYFK6JJli6Co0yl3N1kw/YellIkNLiOKwjVlSXvMoXgHX1Z9hMhVyQXgtqSLvTAsj5
-         0S8NLfHUA2vqjy7oO5QgDVZuIm4gW7fvwjj5PV+Hxkgzf0EH7yNgrhOvHTqqN7e8tlr2
-         VELw==
+        d=suse.com; s=google; t=1747146429; x=1747751229; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Pab7t/HmM//a4/BkuGC4VNRQRXAmMookN/PuxnC12B8=;
+        b=VZSJlu9whlde0Qu1iy2yoZervREQj+jm08ShZUsbSgbEnOOeVlT3VH6ZagSjSMc6HY
+         v+25o+megeAMrU4U9Oww5qxbZP+c0tE/0zkAa1hh6THuB3pJgvoH5XRWD3HgqnW6j0wE
+         22mNh+wmvHTFU/MTUzkwQVGxk5QUh1U+kHpx5zIX6Nt7w45PkaDlzsN6G7vTmo/rw+Tn
+         O7/scN9Fr2lq0dl7C1ncREC54ub8pPK5VxnuQt4oOaj8ZtTp0AXCkD7SCf8cHoPEBRxo
+         a6MeNja0gAX5GDFWftJd2BN0fGhgeG5niy/2vNIPdCW64qCyMNAEIreDOIoiV1BMsGsQ
+         L5iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747144497; x=1747749297;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oyxsQtOlJqzbvOYH9xERmP88RL3iOliw5gVY/G40uZQ=;
-        b=cq9jUTpxWT8KafSU9Y1xbQykGujRcEKU9S6jjXA2JQTvHZ9HLIKRDJ56RGrFGSD7m5
-         yLMNSVATzm0MGegXXkT5+o4XlkBKVbt32YNhLUcQifkE/5kLv69uMr5XjDJ0/oUjmyk8
-         5k0eVFdghtxYpLt1Az+my56DIyd1ab5sa49U4xkR3DIW9HHMj+TWPXPe0nLpBUSJoFfk
-         n2CtGLplLfxJAGVPv5u4b5riFxlFcFa31IBthnzKXt8x2RHvQBdAoSBvi+Hv45rCsXQ8
-         Q9GVuXO+3Kto/7ppA/iYSICg9lwwmE7P+oTxg8SFmMXziqh7E9pMGzSnpb2PiwJxLFO9
-         9U+w==
-X-Gm-Message-State: AOJu0Yzy9zAWQU8Sn2m922nJpzbht3VsbiqIM/ObyTgXZcVkAEo9WFh/
-	hdtwTYUMny+mgMtjNMpwCv3Q7aNyx1h8LmXLWXCZkQKdjCGyYm7bVhXefAUBbK29tRjpF1hQ/4s
-	=
-X-Gm-Gg: ASbGncsUx1Ia5c+wGak3nHd7O1Tu5Soi6DM39DJmov+tYGes015twIgAj6O2TiTFFS1
-	RCNUU50iwvfvJLS8HarhS4wkTLWCGvMlYqmOPbqYR2mnw6ppxN5RDFD11e9Fp4qr+LzEympVvrT
-	WoWTzuJStw/8zOQz7hak5RgfDWAZGDxb+dZkQ2PJTCR2B3ZoqOsZb66YayVeg7pmOBETYD7GmLm
-	x8bsbRhJ4eWg05gMoYREw/zLddQgtMhuz61315gyxDhnCvhHe9QBLFOp0tDpMDkMrwJEnH+w9GP
-	F+Vsz91TplqaTs+3QI1vpTd/bBdrSFAHUbmGSPqAQwdcCJPzq7F+5kOqGo4VigOof5SnUxeSlO7
-	JEExZEwZ9c6NLt3BqW2QlI8TE/jPQlgeMhA19
-X-Google-Smtp-Source: AGHT+IFpPEqfWY1daqN5ckJL0Xw3NFizx0fyh7PZ1P7CmrKG4vIrvBfpDg8e49ErG1/Q0pVy+uZV6g==
-X-Received: by 2002:a17:906:6a22:b0:ad2:16ce:7c38 with SMTP id a640c23a62f3a-ad4d4e326camr351413166b.16.1747144497551;
-        Tue, 13 May 2025 06:54:57 -0700 (PDT)
-Message-ID: <80ab4cdf-dbbb-4daa-831e-c6d92f5dcf13@suse.com>
-Date: Tue, 13 May 2025 15:54:56 +0200
+        d=1e100.net; s=20230601; t=1747146429; x=1747751229;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Pab7t/HmM//a4/BkuGC4VNRQRXAmMookN/PuxnC12B8=;
+        b=dDXmCc8WBE9NlTIX3Ld1qLApHtZnPhxw7N3H70dVP+yP2wQwTyQDdBH5eXMdmqmzeS
+         plQn3jAnh3P3YCdTTUmdpvoH/hYfhgtw64TEBrnDQdYXsRvogJqNty3gUzuIgLJwXUQf
+         5ynFkRUphtCVYRj+Kgssp1GEnfCs2/TDN/EhRNHWerJ2JR+Be6oQke3y4FH3JO2mp84x
+         KcLM3apw9xqcSRlQQY/xV5r64N9nwg5e6MNCCqHT1sJ/S+xBkTa8JTivzAKTSACKspNt
+         scqdcspZt8QQ+ueUs1GW0E3SAKe0pva7xJDA0fOCrYy+No0OzaR9fzMIQNzbVkZqiCtp
+         M0cA==
+X-Gm-Message-State: AOJu0Yz8OfUEa4wO5JcbWMrocdKWyZLXksciIQJH5oUIoxjWDaxyRspn
+	4CgJB/WekRVUnBOkvPZhlZ99U5Dc8b1KEElaewvG3hnhHwKhG1bXCrNYG3A8Vg==
+X-Gm-Gg: ASbGnctL0HfstmRksCPl6p+87hh2UkMsDVIBs6rzYOf1y6nE2dDYJVvjaIN42CmbHsa
+	gJa3SVk3g61Phg9f8VS08G/GDMSfZyr1agC/NlxRuCuGhuSf5vk9h/edi7TBt40PYD3mct3cDKD
+	PVMpwsb8ZKn4lIBILE4KFX/IM/I33c8g5nZ03Bu+er0UenE5/vV2a1RllfOyIhiPUhtQD2QSNmV
+	/XHO7+UUsyCnCMuuibv4EEJ64RqjufFYosyDZXhv4YBgfz+yKzdSlQ23zFU7JZSL9k9s6VNmh9q
+	yRooe7mZj29wb4kdcZ6xAjxlv24HRgprThHq7RAl123QuizbgAoos2QUGPYEZSI3Y+wYRuLSFKz
+	oegPiQxpiBrqcJhLXRZGbqXiGa1vqoxiHdy716zfSAxCza5I=
+X-Google-Smtp-Source: AGHT+IFGUJjgx/c/psHLy8KVsszJIb81qRGrH7azlLMXp7YDmwhkMpZ5m8C3HSDtTXB39dggmTBCZg==
+X-Received: by 2002:a17:907:c717:b0:ace:c505:3349 with SMTP id a640c23a62f3a-ad218e3f64fmr1749854466b.12.1747146429086;
+        Tue, 13 May 2025 07:27:09 -0700 (PDT)
+Message-ID: <204e177c-beba-41a1-93bf-3ae6454875cc@suse.com>
+Date: Tue, 13 May 2025 16:27:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] x86/HVM: restrict guest-induced WBINVD to cache
- writeback
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
-References: <c030bfde-c5bb-f205-edff-435278a435f4@suse.com>
- <d55070c0-04c5-70a4-f9f3-3227d42578e6@suse.com>
- <aCNMEadsYoIKLbSp@macbook.lan>
+Subject: Re: [PATCH v2 1/5] x86/pmstat: Check size of PMSTAT_get_pxstat
+ buffers
+To: Ross Lagerwall <ross.lagerwall@citrix.com>
+References: <20250512144656.314925-1-ross.lagerwall@citrix.com>
+ <20250512144656.314925-2-ross.lagerwall@citrix.com>
 Content-Language: en-US
+Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,42 +117,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aCNMEadsYoIKLbSp@macbook.lan>
+In-Reply-To: <20250512144656.314925-2-ross.lagerwall@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13.05.2025 15:41, Roger Pau Monné wrote:
-> On Wed, May 03, 2023 at 11:45:22AM +0200, Jan Beulich wrote:
->> We allow its use for writeback purposes only anyway, so let's also carry
->> these out that way on capable hardware.
+On 12.05.2025 16:46, Ross Lagerwall wrote:
+> Check that the total number of states passed in and hence the size of
+> buffers is sufficient to avoid writing more than the caller has
+> allocated.
 > 
-> "for writeback purposes only" > is such the case because we cannot
-> guarantee the guest in which state the cache will be when resuming
-> from a wbinvd operation, and hence won't be "clean"?
+> The interface is not explicit about whether getpx.total is expected to
+> be set by the caller in this case but since it is always set in
+> libxenctrl it seems reasonable to check it.
 
-Not really, no (see below). This is inferred from us limiting flushing
-operations to domains with physical hardware assigned plus the fact
-that we avoid the overhead in vmx_do_resume() when the IOMMU is snoop-
-capable. (Plus I did all this work over 2 years ago, and hence I now
-don't recall what other commentary I may have come across saying
-things along these lines.)
+Yet if we start checking the value, I think the public header should also
+be made say so (in a comment).
 
-Which, thinking about it while writing this reply (and also taking
-into consideration Andrew's earlier reply), may be all wrong.
+> --- a/xen/drivers/acpi/pmstat.c
+> +++ b/xen/drivers/acpi/pmstat.c
+> @@ -103,8 +103,10 @@ int do_get_pm_info(struct xen_sysctl_get_pmstat *op)
+>  
+>          cpufreq_residency_update(op->cpuid, pxpt->u.cur);
+>  
+> -        ct = pmpt->perf.state_count;
+> -        if ( copy_to_guest(op->u.getpx.trans_pt, pxpt->u.trans_pt, ct*ct) )
+> +        ct = min_t(uint32_t, pmpt->perf.state_count, op->u.getpx.total);
 
-> It's my understanding that the same is possible on native, as the CPU
-> might speculatively pull lines into the cache.  So there's no reason
-> for an OS to use wbinvd if wbnoinvd is available?
+With this, ...
 
-Speculatively pulling data into the cache is possible only when page
-table entries permit caching. Hence after changing all mappings of a
-certain page to UC, an OS may have a need to ensure that no data of
-this page is left in any cache (and it can't be pulled back in
-speculatively then).
+> +        if ( ct <= op->u.getpx.total &&
 
-IOW if the goal of the OS is write-back, then indeed it should prefer
-WBNOINVD if available. Yet the same "replacement" isn't possible when
-the goal is pruning of the cache(s).
+... this is going to be always true, isn't it? Which constitutes a violation
+of Misra rule 14.3.
+
+Also it would be nice if the min_t() could become a normal min(), e.g. by
+"promoting" op->u.getpx.total to unsigned int via adding 0U. This way it's
+clear there's no hidden truncation (or else there might be an argument for
+keeping the check above).
+
+> +             copy_to_guest(op->u.getpx.trans_pt, pxpt->u.trans_pt, ct * ct) )
+>          {
+>              spin_unlock(cpufreq_statistic_lock);
+>              ret = -EFAULT;
+
+Why would you constrain this copy-out but not the one just out of context
+below here? (The question is of course moot if the condition was dropped.)
 
 Jan
 
