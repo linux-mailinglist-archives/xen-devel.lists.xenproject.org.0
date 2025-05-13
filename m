@@ -2,31 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81ACDAB5F43
-	for <lists+xen-devel@lfdr.de>; Wed, 14 May 2025 00:24:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.983588.1369833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C892CAB5F45
+	for <lists+xen-devel@lfdr.de>; Wed, 14 May 2025 00:25:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.983597.1369844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEy29-0006iM-Ac; Tue, 13 May 2025 22:23:33 +0000
+	id 1uEy3v-0007Dr-L9; Tue, 13 May 2025 22:25:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 983588.1369833; Tue, 13 May 2025 22:23:33 +0000
+Received: by outflank-mailman (output) from mailman id 983597.1369844; Tue, 13 May 2025 22:25:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEy29-0006gh-7e; Tue, 13 May 2025 22:23:33 +0000
-Received: by outflank-mailman (input) for mailman id 983588;
- Tue, 13 May 2025 22:23:31 +0000
+	id 1uEy3v-0007Bk-IQ; Tue, 13 May 2025 22:25:23 +0000
+Received: by outflank-mailman (input) for mailman id 983597;
+ Tue, 13 May 2025 22:25:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JDEU=X5=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1uEy27-0006gW-38
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 22:23:31 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e37adb1d-3048-11f0-9eb6-5ba50f476ded;
- Wed, 14 May 2025 00:23:27 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 174717499037724.98380287927887;
- Tue, 13 May 2025 15:23:10 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=sQlm=X5=zytor.com=hpa@srs-se1.protection.inumbo.net>)
+ id 1uEy3t-0007BB-G3
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 22:25:21 +0000
+Received: from mail.zytor.com (terminus.zytor.com [2607:7c80:54:3::136])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 26886216-3049-11f0-9eb6-5ba50f476ded;
+ Wed, 14 May 2025 00:25:20 +0200 (CEST)
+Received: from [127.0.0.1] ([76.133.66.138]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 54DMOpTA2629221
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Tue, 13 May 2025 15:24:51 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,121 +40,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e37adb1d-3048-11f0-9eb6-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; t=1747174994; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=dnbxfO9FO9L9jHwq5lmiybVz8M4I7DPxem85dxhxHznEk7x7w0/Z2ZGtG/RLDnxTDxkR3vlhUISZtLGaXcorv7UGwVZb2ZhvXAAZZsPNtAT3PL1sXEUcKZOxOia5xTeHbxQrPY6CdC7KpX9Dy35e5SLT3OZ2/nKZpnyoYuKex6I=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1747174994; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=NXg63RRzJ4hapBxJNGZiNbaJBJJTD1PtZ9P4eE9E0wc=; 
-	b=Iheu5mM+XTRBV24/BjGZqHB/SiWlDpdZajRsLqfxfXhcEYEoBFhVcnCimVch0k9NePuiBhY/lubWsQ1OPv5yK7YWzLTR4YQnWuSzIV2khIOShmtmbcQaClRk1g1fvg2kHsOXB3ryYC3GL6T71poVcbMsMoItBpxVLD3w+/gmGjQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1747174994;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=NXg63RRzJ4hapBxJNGZiNbaJBJJTD1PtZ9P4eE9E0wc=;
-	b=M3lNsuLX15puJACVHh8doX92RV7e0plEgvnwUS3LZ2rgZSHRjJ8fuJWXtpp6nf/Y
-	g5bKGCW3jjtTHkh4urWT70bo37Zvu1bQU6/Pj8POnxLNEJM3oAgfMZbMAXpq7nBwp2j
-	cbpu41wgPtPvOiw3DtoZnjGqYHCP3Nfek8xAg1dw=
-Message-ID: <6e3f3727-d084-40b9-a42a-46c52e770c88@apertussolutions.com>
-Date: Tue, 13 May 2025 18:23:09 -0400
+X-Inumbo-ID: 26886216-3049-11f0-9eb6-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 54DMOpTA2629221
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1747175093;
+	bh=7lqXvgutqBhxBiqB2WRmqV45ZUWRMix0kVNa0a5yjjE=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=jRy0VsKlS3Nvf/A+ezlJoCBAkUunwHrhNiPzC26OWpSiO3GDjxRzVP+5usgYjAIWk
+	 4FbNyhxrRkEl/j9FrntXweVv7V7NhKgxIXbEFR4cSrHZghN5QHXW8xvOL1ahGOfAha
+	 yfsgN1IllT6qL/n3XTuX23ybYMKX3K7jJyvYgvx7mujkTK0PdIk4SJXKIbmmrS/DwM
+	 xGBftzkT6HDCYa7z4oqwVfxG6xNOgdX+bDVOKF/YLznkmBnGWkksg3pKNzqLjeTs18
+	 gcIkkwKjMEK8SmckOFvoI3Wrlf8chFeD3NCcX5NUHCT9kSfqob8w7uGl9BPhSJKEAH
+	 Hsq+1NLFpOPcQ==
+Date: Tue, 13 May 2025 15:24:51 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Xin Li <xin@zytor.com>,
+        linux-kernel@vger.kernel.org, x86@kernel.org,
+        virtualization@lists.linux.dev
+CC: Ajay Kaher <ajay.kaher@broadcom.com>,
+        Alexey Makhalov <alexey.amakhalov@broadcom.com>,
+        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        xen-devel@lists.xenproject.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_5/6=5D_x86/paravirt=3A_Switch_MSR_acce?=
+ =?US-ASCII?Q?ss_pv=5Fops_functions_to_instruction_interfaces?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <6cc20ef6-d8e5-4c74-89d9-6a949c84b397@suse.com>
+References: <20250506092015.1849-1-jgross@suse.com> <20250506092015.1849-6-jgross@suse.com> <722f5b30-20e9-4540-98e4-d211d7c44cbe@zytor.com> <9f4e33d5-9cb3-4079-b764-87a15265fd52@suse.com> <ff567466-a46a-4f66-935a-8fae1140c1a2@suse.com> <eb077393-ea95-4ac0-9479-980e227f7bff@zytor.com> <6cc20ef6-d8e5-4c74-89d9-6a949c84b397@suse.com>
+Message-ID: <DDA7C560-1BD9-40A6-8B93-28D5AC10EBB2@zytor.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 02/12] common/hyperlaunch: introduce the domain builder
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jason Andryuk <jason.andryuk@amd.com>, Denis Mukhin <dmukhin@ford.com>,
- Alejandro Vallejo <agarciav@amd.com>, xen-devel@lists.xenproject.org
-References: <20250429123629.20839-1-agarciav@amd.com>
- <20250429123629.20839-3-agarciav@amd.com>
- <9021c878-9605-4d6e-95b8-ab97da186542@apertussolutions.com>
- <29a55d44-c26e-4834-b93b-47cbd98f885e@suse.com>
- <f199c2a3-88c6-4578-8667-2060a79285d6@apertussolutions.com>
- <f8828ac3-face-401b-bad6-84eef390cab6@suse.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <f8828ac3-face-401b-bad6-84eef390cab6@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 5/13/25 04:05, Jan Beulich wrote:
-> On 06.05.2025 21:29, Daniel P. Smith wrote:
->> On 5/2/25 03:21, Jan Beulich wrote:
->>> On 30.04.2025 20:56, Daniel P. Smith wrote:
->>>> On 4/29/25 08:36, Alejandro Vallejo wrote:
->>>>> --- a/xen/common/Makefile
->>>>> +++ b/xen/common/Makefile
->>>>> @@ -11,6 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
->>>>>     obj-$(CONFIG_HAS_DEVICE_TREE) += device-tree/
->>>>>     obj-$(CONFIG_IOREQ_SERVER) += dm.o
->>>>>     obj-y += domain.o
->>>>> +obj-$(CONFIG_DOMAIN_BUILDER) += domain-builder/
->>>>
->>>> Please don't do this, use IF_ENABLED in core.c and then hide the
->>>> unnecessary units in domain-builder/Makefile as I originally had it.
->>>> This allows for a much easier time incrementally converting the dom0
->>>> construction path into a generalized domain construction path.
->>>
->>> That is, are you viewing this as a transitional thing only? If the end
->>> goal is to have it as Alejandro has it above, that may be acceptable
->>> (even if not nice).
->>
->> There is/will be shared domain construction code between dom0-only and
->> multidomain construction, with it will all living under domain builder.
->> So no, the end goal is not what Alejandro just did. The end result will
->> be the way I had it, with a different kconfig option to enable/disable
->> the multidomain construction path.
-> 
-> Isn't CONFIG_DOMAIN_BUILDER a misnomer then?
+On May 12, 2025 11:06:02 PM PDT, "J=C3=BCrgen Gro=C3=9F" <jgross@suse=2Ecom=
+> wrote:
+>On 13=2E05=2E25 07:55, Xin Li wrote:
+>> On 5/12/2025 4:24 AM, Juergen Gross wrote:
+>>> Now with the mentioned patch really attached=2E :-)
+>>>=20
+>>=20
+>> Does it allow patching with an instruction more than 6 bytes long?
+>>=20
+>> The immediate form MSR instructions are 9 bytes long=2E
+>
+>Yes, shouldn't be a problem=2E
+>
+>
+>Juergen
 
-Which is why I originally had two kconfig flags, one to enable dtb 
-parsing for domain configuration, which allowed dom0 construction from 
-dtb. Then there was the second flag that was to enable multi-domain 
-construction. I have reworked a portion of the approach in the RFC based 
-on feedback, which is based off of this series. In it, I tried to 
-minimize how much went into common, but you will see how I still had to 
-rework the kconfig flags.
+However, it is more than that=2E The immediate instructions have a differe=
+nt interface, and it makes more sense to use the extra bytes to shuffle the=
+ bits around for the legacy forms:
 
-v/r,
-dps
+Write:
 
+    mov %rax,%rdx
+    shr $32,%rdx
+    wrmsr(ns)
+
+Read:
+
+    rdmsr
+    shl $32,%rdx
+    or %rdx,%rax
+
+For the write case, this also means that two separate trap points are need=
+ed=2E
+
+As far as Xen (the only user of pv msrs), note that it only paravirtualize=
+s a very small number of MSRs, and some of those are fairly performance sen=
+sitive, so not going through the Xen framework for MSRs known to be either =
+native or null on Xen would definitely be a win=2E
 
