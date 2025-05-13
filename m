@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C0AFAB552E
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 14:49:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.982798.1369153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09B1EAB5579
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 15:02:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.982808.1369162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEp3T-0001zv-TF; Tue, 13 May 2025 12:48:19 +0000
+	id 1uEpGl-0004g3-Vg; Tue, 13 May 2025 13:02:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 982798.1369153; Tue, 13 May 2025 12:48:19 +0000
+Received: by outflank-mailman (output) from mailman id 982808.1369162; Tue, 13 May 2025 13:02:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEp3T-0001xf-Pb; Tue, 13 May 2025 12:48:19 +0000
-Received: by outflank-mailman (input) for mailman id 982798;
- Tue, 13 May 2025 12:48:18 +0000
+	id 1uEpGl-0004dL-SN; Tue, 13 May 2025 13:02:03 +0000
+Received: by outflank-mailman (input) for mailman id 982808;
+ Tue, 13 May 2025 13:02:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p0QL=X5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uEp3S-0001xZ-FG
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 12:48:18 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ <SRS0=dY5U=X5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uEpGk-0004dD-MU
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 13:02:02 +0000
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [2607:f8b0:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a9dcfb0-2ff8-11f0-9eb6-5ba50f476ded;
- Tue, 13 May 2025 14:48:17 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-442e9c00bf4so11139275e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 05:48:17 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442d5cf5d6bsm170957265e9.1.2025.05.13.05.48.15
+ id 7579791e-2ffa-11f0-9eb6-5ba50f476ded;
+ Tue, 13 May 2025 15:02:01 +0200 (CEST)
+Received: by mail-pl1-x630.google.com with SMTP id
+ d9443c01a7336-2301ac32320so22155955ad.1
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 06:02:01 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ d9443c01a7336-22fc82a16basm80004475ad.230.2025.05.13.06.01.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 May 2025 05:48:15 -0700 (PDT)
+ Tue, 13 May 2025 06:01:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,261 +44,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a9dcfb0-2ff8-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 7579791e-2ffa-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747140496; x=1747745296; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=EwU7cIuXAcZQkhkLVi2ursHZkv24X8sAV3YSXlpJuPw=;
-        b=fvevpl8JV/THltnaPQxgH6JG8guAfC8LRQX3G9XdFLG5r9WnYhvzkKdpme/DPyMjBl
-         TDL6OMLsGAYLzTJFckvVijB8kzQoesxQ3wXFW8SglUS2qS1e9P5N9/eCHlywgecNof6g
-         JO8+7zlqNCfCg98vRLpxCUKx0RXRzAH4pAhEQ=
+        d=citrix.com; s=google; t=1747141320; x=1747746120; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=lc3BOQgtPalWPQo2SYdws3VVJyyUIiwl4Eaj0tViT5k=;
+        b=NEGL4X5QuqN8cPvUZImTa4K75/WYkXKQlstTnO0s5y4OZQ4jCbRfVjW5FMSTfPONZX
+         HYttMI5bSW50Hblr+QS41jfsxf0JduD/KWNqZW+j/U3geX0feNXfXV8kRgsTjwHRjURR
+         mcOYde72e8Vjgp9GW85P6dVprQz1gOSC1wzJs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747140496; x=1747745296;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=EwU7cIuXAcZQkhkLVi2ursHZkv24X8sAV3YSXlpJuPw=;
-        b=BlYIdnw1qNJg3li1H/MqyXjGV6gyDRvWSnX/ubo58WCFbjF6xKMKCBgKVQBmo8PnuP
-         MhDXiU2yOeiJBIVcZf3Vm7CbfCCxo6nMuiv/TUFclZ/c6vCASXcCLGZ3byEmadeCx9h+
-         rjMIK8/wyzjX9ZC7zkUzs4W/CYz0kCq+DPmXXNDs1ECQk44d9irrTMyhHGwDP2YKKPMc
-         +SpD/oa+L13/2tP+Dfq4L2JKGIQw1qYCnVvGTw6ELe/JYlaXYnIwQoxD2FWGZpbdzS16
-         tKwAGSa3QGbl6zrzgZGnco4QZwxy9qiE+S1Hkbl/QgLis9PlFxkhrGUKvVm1YEeN+SVW
-         KXgQ==
-X-Gm-Message-State: AOJu0Yx6Tf5/vTJRMVS7JFTJVjmJoX6c4lNBGuK/jwNlvFpgrWp1nrEp
-	zkeFzFbkl2B/wJzvJ1H6l0jRcmIlEvZBFlw/65nfE/QVx9REkqxMNcQw1dILObofEx3N5PtfQsC
-	Y
-X-Gm-Gg: ASbGncuBaqJ7PLW8cHCnBXl9bJcWGzTKkheLuy7CV+tok36w7RDFc05VoWHtRcMINfk
-	tjOUg1a99HBpKRJ2WiqIK4jbvKDYig3cwq1BvRKpb7Eq5B52IAQv5X+M0SoLX9KQLV19v7kEsG5
-	vRjbGTRyVLKqdzk5AmcFsj0sK0lgkDZfcfffbXOWyZgMgG1+9Qhm069w6QfjPPUiulHV57aVrfT
-	8QeePwZBkl8BJhwGuxoSAbcGop7smU9zHfa05t9ko8J2Y0yCAqO1tITV2AnIH0X1qFi57vjOYig
-	5/dxz05beGdgPt1ypzZ9VpEmwVWLltH0Id98IaD2NANtsF9+mTka5aizd4O9Q/SYSr/6rubZcdB
-	SkEitIgMh46qVxv8XOlY5eaoB
-X-Google-Smtp-Source: AGHT+IFCknagyukqmUBlsMqarGV3XhKu5cMo7JA5t+Y0usDLHGSMDC2/Ehb0SBbA29gxnoaHoxlEwQ==
-X-Received: by 2002:a05:600c:b91:b0:441:b3eb:5720 with SMTP id 5b1f17b1804b1-442d6ddeb79mr135079065e9.29.1747140496511;
-        Tue, 13 May 2025 05:48:16 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/spec-ctrl: Support Intel's new PB-OPT
-Date: Tue, 13 May 2025 13:48:14 +0100
-Message-Id: <20250513124814.3500710-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20230601; t=1747141320; x=1747746120;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=lc3BOQgtPalWPQo2SYdws3VVJyyUIiwl4Eaj0tViT5k=;
+        b=YnVcc1ljT7b3GVfm16jdsGoRaPHQwfhQbgtPqWKSmvz4lYcFkxnP8E7Othiewtb+H5
+         fhbslq46q67XYDWblvTVbu2QpEcDK4aKgmI0bPdGdwU0m2oELhRbmO3kkYIZaNulYZAJ
+         WuowbhJLWxp3c9QOvplStZYq3+7+xrPAnzYYQLqVaiX5A3Mxxdmx+cpZ1dG6qnXS+I/l
+         B1jFNJsR4ER2TvcexX0wkSopGQ3E441Qqa1Z1VSfiWFin4zQgIEknVvcv9yr25M4ulkg
+         2ZhNOgdMcMWkwrO57jrHgS6amuHz4kEwNPR8ptxcerqnY4rPGB2ViRsv9VY1SYLKOI6Z
+         TVzg==
+X-Gm-Message-State: AOJu0YwAPHxE0MqFhLLUgJ6rjFRmMUJ5KURh3OY/UyY4JG+wu8GJYcgg
+	J0cxyBqZAUAiboTFv2JwSQciUws207DEg+1AhvBDM2CpI/ehNGp02Q9T3m/Q9ZU=
+X-Gm-Gg: ASbGncuBMYoLZyQW/GrLhHiDxkG8vgeBUSBeFRx1U+0qYfxmMP0zvOJbg74FmZraIhp
+	fZEog69szTuA5AqbL060Sodx11O+OWVB3MvrA1PBYzwEqbg0cRoYpFDS2EPazthOJfjgLGKQHCM
+	ZZWWCwvQoU0MsMkWrEhMLJ0mqK5STYQ2AcNSQ6jzA1LNGDVEy/KqBQpaccgQgPaMNwrb0ZRFoBi
+	qL2XaUTS+OVouPK1jZi1N1/Rlbyw1dbjpu0NqBw90RSERX5YGeh5/yhro7Nt4tOIAH5hMymRsCI
+	FgxTG5Qt2TYzmdeD1+RZUlAC81LXblj6ju6oPNOqoQ9lji+IyL5C8/1fqpyBrA==
+X-Google-Smtp-Source: AGHT+IHgAhPx5do4QHswfjkdmFRUXRGa5Si/o37pZLP+q8VQckuelOUeZwBMJn2v5Hr8IQu/tHvMQg==
+X-Received: by 2002:a17:902:ce12:b0:223:3396:15e8 with SMTP id d9443c01a7336-22fc8b6cbd0mr303518315ad.22.1747141320055;
+        Tue, 13 May 2025 06:02:00 -0700 (PDT)
+Date: Tue, 13 May 2025 15:01:54 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v2 1/6] x86: support cache-writeback in
+ flush_area_local() et al
+Message-ID: <aCNCwkGbhj-uy-vD@macbook.lan>
+References: <c030bfde-c5bb-f205-edff-435278a435f4@suse.com>
+ <e27ff909-93d1-b51b-ac88-20b17f5cf642@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <e27ff909-93d1-b51b-ac88-20b17f5cf642@suse.com>
 
-In IPU 2025.2 (May 2025), Intel have released an alternative mitigation for a
-prior security issue (SA-00982) on Sappire and Emerald Rapids CPUs.
+On Wed, May 03, 2023 at 11:44:39AM +0200, Jan Beulich wrote:
+> The majority of the present callers really aren't after invalidating
+> cache contents, but only after writeback. Make this available by simply
+> extending the FLUSH_CACHE handling accordingly. No feature checks are
+> required here: cache_writeback() falls back to cache_flush() as
+> necessary, while WBNOINVD degenerates to WBINVD on older hardware.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Intel suggest that certain workloads will benefit from using the alternative
-mode.  This can be selected by booting with `spec-ctrl=ibpb-alt`.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/cpuid-enumeration-and-architectural-msrs.html
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> v2: FLUSH_WRITEBACK -> FLUSH_CACHE_WRITEBACK.
+> 
+> --- a/xen/arch/x86/flushtlb.c
+> +++ b/xen/arch/x86/flushtlb.c
+> @@ -232,7 +232,7 @@ unsigned int flush_area_local(const void
+>      if ( flags & FLUSH_HVM_ASID_CORE )
+>          hvm_flush_guest_tlbs();
+>  
+> -    if ( flags & FLUSH_CACHE )
+> +    if ( flags & (FLUSH_CACHE | FLUSH_CACHE_WRITEBACK) )
+>      {
+>          const struct cpuinfo_x86 *c = &current_cpu_data;
+>          unsigned long sz = 0;
+> @@ -245,13 +245,16 @@ unsigned int flush_area_local(const void
+>               c->x86_clflush_size && c->x86_cache_size && sz &&
+>               ((sz >> 10) < c->x86_cache_size) )
+>          {
+> -            cache_flush(va, sz);
+> -            flags &= ~FLUSH_CACHE;
+> +            if ( flags & FLUSH_CACHE )
+> +                cache_flush(va, sz);
+> +            else
+> +                cache_writeback(va, sz);
+> +            flags &= ~(FLUSH_CACHE | FLUSH_CACHE_WRITEBACK);
+>          }
+> -        else
+> -        {
+> +        else if ( flags & FLUSH_CACHE )
+>              wbinvd();
+> -        }
+> +        else
+> +            wbnoinvd();
+>      }
+>  
+>      if ( flags & FLUSH_ROOT_PGTBL )
+> --- a/xen/arch/x86/include/asm/flushtlb.h
+> +++ b/xen/arch/x86/include/asm/flushtlb.h
+> @@ -135,6 +135,8 @@ void switch_cr3_cr4(unsigned long cr3, u
+>  #else
+>  # define FLUSH_NO_ASSIST 0
+>  #endif
+> + /* Write back data cache contents */
+> +#define FLUSH_CACHE_WRITEBACK  0x10000
+>  
+>  /* Flush local TLBs/caches. */
+>  unsigned int flush_area_local(const void *va, unsigned int flags);
+> @@ -194,7 +196,11 @@ static inline int clean_and_invalidate_d
+>  }
+>  static inline int clean_dcache_va_range(const void *p, unsigned long size)
+>  {
+> -    return clean_and_invalidate_dcache_va_range(p, size);
+> +    unsigned int order = get_order_from_bytes(size);
+> +
+> +    /* sub-page granularity support needs to be added if necessary */
+> +    flush_area_local(p, FLUSH_CACHE_WRITEBACK | FLUSH_ORDER(order));
+> +    return 0;
+>  }
 
-Intel have named this PBOPT (no space), but that's too close to PBRSB for my
-liking.  PB_OPT (with a space) is also consistent with MCU_OPT, it's closest
-neighbour.
+I'm planning to get rid of the clean_dcache_va_range() helper on x86,
+but I don't want to force you to rebase on top of that.
 
-I've chosen not to extend print_details() with this.  It's specific to two
-Intel CPUs and not being continued into future ones.
-
-I'm not sure what else to say in the cmdline docs.  Intel is very sparse on
-details.  An educated guess is that in the default mode, part of the predictor
-is inhibited, while in the alternative mode it's active, but at the cost of
-extra scrubbing in IBPB.
----
- docs/misc/xen-command-line.pandoc           |  6 ++++-
- xen/arch/x86/acpi/power.c                   |  1 +
- xen/arch/x86/cpu/intel.c                    | 28 +++++++++++++++++++++
- xen/arch/x86/include/asm/cpufeature.h       |  1 +
- xen/arch/x86/include/asm/msr-index.h        |  3 +++
- xen/arch/x86/include/asm/processor.h        |  3 +++
- xen/arch/x86/smpboot.c                      |  1 +
- xen/arch/x86/spec_ctrl.c                    |  7 ++++++
- xen/include/public/arch-x86/cpufeatureset.h |  1 +
- 9 files changed, 50 insertions(+), 1 deletion(-)
-
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 89db6e83be66..b0eadd2c5d58 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -2470,7 +2470,7 @@ By default SSBD will be mitigated at runtime (i.e `ssbd=runtime`).
- >              {ibrs,ibpb,ssbd,psfd,
- >              eager-fpu,l1d-flush,branch-harden,srb-lock,
- >              unpriv-mmio,gds-mit,div-scrub,lock-harden,
-->              bhi-dis-s,bp-spec-reduce}=<bool> ]`
-+>              bhi-dis-s,bp-spec-reduce,ibpb-alt}=<bool> ]`
- 
- Controls for speculative execution sidechannel mitigations.  By default, Xen
- will pick the most appropriate mitigations based on compiled in support,
-@@ -2626,6 +2626,10 @@ bp-spec-reduce when available, as it is preferable to using `ibpb-entry=hvm`
- to mitigate SRSO for HVM guests, and because it is a prerequisite to advertise
- SRSO_U/S_NO to PV guests.
- 
-+On Sappire and Emerald Rapids CPUs with May 2025 microcode or later, the
-+`ibpb-alt=` option can be used to switch to the alternative mitigation for
-+Intel SA-00982.  Intel suggest that some workloads will benefit from this.
-+
- ### sync_console
- > `= <boolean>`
- 
-diff --git a/xen/arch/x86/acpi/power.c b/xen/arch/x86/acpi/power.c
-index 3196a33b1918..095ca391ad22 100644
---- a/xen/arch/x86/acpi/power.c
-+++ b/xen/arch/x86/acpi/power.c
-@@ -306,6 +306,7 @@ static int enter_state(u32 state)
-     }
- 
-     update_mcu_opt_ctrl();
-+    update_pb_opt_ctrl();
- 
-     /*
-      * This should be before restoring CR4, but that is earlier in asm and
-diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
-index 12c3ff65e02f..ef9368167a0d 100644
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -49,6 +49,34 @@ void __init set_in_mcu_opt_ctrl(uint32_t mask, uint32_t val)
-     update_mcu_opt_ctrl();
- }
- 
-+static uint32_t __ro_after_init pb_opt_ctrl_mask;
-+static uint32_t __ro_after_init pb_opt_ctrl_val;
-+
-+void update_pb_opt_ctrl(void)
-+{
-+    uint32_t mask = pb_opt_ctrl_mask, lo, hi;
-+
-+    if ( !mask )
-+        return;
-+
-+    rdmsr(MSR_PB_OPT_CTRL, lo, hi);
-+
-+    lo &= ~mask;
-+    lo |= pb_opt_ctrl_val;
-+
-+    wrmsr(MSR_PB_OPT_CTRL, lo, hi);
-+}
-+
-+void __init set_in_pb_opt_ctrl(uint32_t mask, uint32_t val)
-+{
-+    pb_opt_ctrl_mask |= mask;
-+
-+    pb_opt_ctrl_val &= ~mask;
-+    pb_opt_ctrl_val |= (val & mask);
-+
-+    update_pb_opt_ctrl();
-+}
-+
- /*
-  * Processors which have self-snooping capability can handle conflicting
-  * memory type across CPUs by snooping its own cache. However, there exists
-diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
-index 397a04af41a1..6c5f5ce0cfc5 100644
---- a/xen/arch/x86/include/asm/cpufeature.h
-+++ b/xen/arch/x86/include/asm/cpufeature.h
-@@ -219,6 +219,7 @@ static inline bool boot_cpu_has(unsigned int feat)
- #define cpu_has_gds_no          boot_cpu_has(X86_FEATURE_GDS_NO)
- #define cpu_has_rfds_no         boot_cpu_has(X86_FEATURE_RFDS_NO)
- #define cpu_has_rfds_clear      boot_cpu_has(X86_FEATURE_RFDS_CLEAR)
-+#define cpu_has_pb_opt_ctrl     boot_cpu_has(X86_FEATURE_PB_OPT_CTRL)
- #define cpu_has_its_no          boot_cpu_has(X86_FEATURE_ITS_NO)
- 
- /* Synthesized. */
-diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
-index 22d9e76e5521..6f2c3147e343 100644
---- a/xen/arch/x86/include/asm/msr-index.h
-+++ b/xen/arch/x86/include/asm/msr-index.h
-@@ -56,6 +56,9 @@
- #define MSR_MISC_PACKAGE_CTRL               0x000000bc
- #define  PGK_CTRL_ENERGY_FILTER_EN          (_AC(1, ULL) <<  0)
- 
-+#define MSR_PB_OPT_CTRL                     0x000000bf
-+#define  PB_OPT_IBPB_ALT                    (_AC(1, ULL) <<  0)
-+
- #define MSR_CORE_CAPABILITIES               0x000000cf
- #define  CORE_CAPS_SPLITLOCK_DETECT         (_AC(1, ULL) <<  5)
- 
-diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
-index 75af7ea3c476..eacd425c5350 100644
---- a/xen/arch/x86/include/asm/processor.h
-+++ b/xen/arch/x86/include/asm/processor.h
-@@ -470,6 +470,9 @@ static inline void tsx_init(void) {}
- void update_mcu_opt_ctrl(void);
- void set_in_mcu_opt_ctrl(uint32_t mask, uint32_t val);
- 
-+void update_pb_opt_ctrl(void);
-+void set_in_pb_opt_ctrl(uint32_t mask, uint32_t val);
-+
- enum ap_boot_method {
-     AP_BOOT_NORMAL,
-     AP_BOOT_SKINIT,
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index 54207e6d8830..80c729d74895 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -383,6 +383,7 @@ void asmlinkage start_secondary(void *unused)
-         info->last_spec_ctrl = default_xen_spec_ctrl;
-     }
-     update_mcu_opt_ctrl();
-+    update_pb_opt_ctrl();
- 
-     tsx_init(); /* Needs microcode.  May change HLE/RTM feature bits. */
- 
-diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index 0a635025e488..79c0a9df66f8 100644
---- a/xen/arch/x86/spec_ctrl.c
-+++ b/xen/arch/x86/spec_ctrl.c
-@@ -85,6 +85,8 @@ static int8_t __initdata opt_gds_mit = -1;
- static int8_t __initdata opt_div_scrub = -1;
- bool __ro_after_init opt_bp_spec_reduce = true;
- 
-+static __initdata bool opt_ibpb_alt;
-+
- static int __init cf_check parse_spec_ctrl(const char *s)
- {
-     const char *ss;
-@@ -369,6 +371,8 @@ static int __init cf_check parse_spec_ctrl(const char *s)
-             opt_div_scrub = val;
-         else if ( (val = parse_boolean("bp-spec-reduce", s, ss)) >= 0 )
-             opt_bp_spec_reduce = val;
-+        else if ( (val = parse_boolean("ibpb-alt", s, ss)) >= 0 )
-+            opt_ibpb_alt = val;
-         else
-             rc = -EINVAL;
- 
-@@ -2494,6 +2498,9 @@ void __init init_speculation_mitigations(void)
-         wrmsrl(MSR_SPEC_CTRL, val);
-         info->last_spec_ctrl = val;
-     }
-+
-+    if ( cpu_has_pb_opt_ctrl )
-+        set_in_pb_opt_ctrl(PB_OPT_IBPB_ALT, opt_ibpb_alt);
- }
- 
- static void __init __maybe_unused build_assertions(void)
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index a6d4a0cba7d8..044230bfe854 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -392,6 +392,7 @@ XEN_CPUFEATURE(IGN_UMONITOR,       16*32+29) /*   MCU_OPT_CTRL.IGN_UMONITOR */
- XEN_CPUFEATURE(MON_UMON_MITG,      16*32+30) /*   MCU_OPT_CTRL.MON_UMON_MITG */
- 
- /* Intel-defined CPU features, MSR_ARCH_CAPS 0x10a.edx, word 17 (express in terms of word 16) */
-+XEN_CPUFEATURE(PB_OPT_CTRL,        16*32+32) /*   MSR_PB_OPT_CTRL.IBPB_ALT */
- XEN_CPUFEATURE(ITS_NO,             16*32+62) /*!A No Indirect Target Selection */
- 
- #endif /* XEN_CPUFEATURE */
-
-base-commit: f6042f38e621525feff86bb101dc751d2d87cff8
--- 
-2.39.5
-
+Thanks, Roger.
 
