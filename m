@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7534DAB4C73
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 09:07:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.982557.1368913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68957AB4CAF
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 09:28:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.982565.1368921 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEjjL-00025m-CI; Tue, 13 May 2025 07:07:11 +0000
+	id 1uEk3D-00055r-JF; Tue, 13 May 2025 07:27:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 982557.1368913; Tue, 13 May 2025 07:07:11 +0000
+Received: by outflank-mailman (output) from mailman id 982565.1368921; Tue, 13 May 2025 07:27:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEjjL-00022e-8y; Tue, 13 May 2025 07:07:11 +0000
-Received: by outflank-mailman (input) for mailman id 982557;
- Tue, 13 May 2025 07:07:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uEk3D-00054B-Gb; Tue, 13 May 2025 07:27:43 +0000
+Received: by outflank-mailman (input) for mailman id 982565;
+ Tue, 13 May 2025 07:27:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iHDm=X5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEjjK-00022I-6q
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 07:07:10 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e1ff236c-2fc8-11f0-9ffb-bf95429c2676;
- Tue, 13 May 2025 09:07:08 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5fc7edf00b2so7230049a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 00:07:08 -0700 (PDT)
+ id 1uEk3C-000545-FJ
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 07:27:42 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c0c2d5ee-2fcb-11f0-9eb6-5ba50f476ded;
+ Tue, 13 May 2025 09:27:40 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-ad24b7e0331so359217966b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 00:27:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5fda01f4da6sm3294692a12.38.2025.05.13.00.07.07
+ a640c23a62f3a-ad21988d6bdsm729136366b.180.2025.05.13.00.27.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 May 2025 00:07:07 -0700 (PDT)
+ Tue, 13 May 2025 00:27:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1ff236c-2fc8-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: c0c2d5ee-2fcb-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747120027; x=1747724827; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4gayBjEZvREEXqM82tQUjyMR6cCyOQLO8tYV9dOJ+sA=;
-        b=F7JXlDrrwkwF7Yu59YE1/werN3hJY7F8MSgbdrchf2QQkToBFmnRNT095td/1oGVfk
-         bbNs+2BQRflRQ1PPkYu75FjEX9Z+7UgwpNeCPcNi66hjXQzZ3l1l83mgtq5kpYWptgj8
-         W+K0vnmH4pr2dBKSamqzUvz42tZLOgdWfgJZX7sbG60/zqwcaskzhUaCNQc0tWsfrcTp
-         bnnhonPROKIs0gOYn+Wxw09C6p8sbA3jCuKKhlOq9GogcYDZNfzjEEx2ubNKPBsmFsYJ
-         GKd1zI8oooZxJVPybN5La4Wp6qteD+eZgqgcK0icjeYt68i7PIpvXU7gS8Lr8SEWaxfl
-         w2eg==
+        d=suse.com; s=google; t=1747121260; x=1747726060; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=MSzCmzilu7/zkEIRhC3YM2VZUgiSq/7mSAbdIC4GE6Q=;
+        b=bpiRHyGncA+PGF+5ZoioIvKAr8jhNCt1k8x9lMGiuS6quZ1k2sxkmKM7hCJ7kZYZtE
+         by50VG0Myy890aWfMwf0JaYnGkKliQu9YTwhp/y3xhcIiS12W3xindsgbayr9UoNkgDI
+         w/jP88kHLB4hu6pTDGssmSInqrjK4skDCXPh+JYIy5UXTfb1gE2Z3/6gF5JQRaL2EOyA
+         Swmyv38YyBcIPvnK17rIuUBj+RxSzxBW2in7RgKeLxbsSAJbsrkMLtLFFgNbC5tJWqj6
+         w3gLk4FbRQxUQh2sAp1swimuUdr6zFZtq96JqtV+wSpnQKplRxsZgLc16tSQU719ZFXJ
+         x4BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747120027; x=1747724827;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4gayBjEZvREEXqM82tQUjyMR6cCyOQLO8tYV9dOJ+sA=;
-        b=B7JnG9d79Jlw3XZ6kAXGQ52UKIdxwOIc4TYMwcog4vkjxorMkHWldGQ3uW0nZC9eMH
-         tOK4p166Ssj3GEwdk8j8I4ryc/wdCGZtlqJi8WXcKvI38+IrpuBpyF0AMtm50pumhWsf
-         2PK+uK5HrWSXXoNduvchtNVEMBFpINfYoSA3DZcWbPUXgF7lFNBuf58khvH2xehxJBEX
-         kKhB6lBkMIHt1OR8SjRoDi1Q8y93e8S4G/fe55gmI25iY1wZ6hr94xhzGkMOJZa5Axh0
-         Zf7aiNc4sYMacGZTBD11w5CaA8D1c+1dd5tdjsv3QflL8OSx9Fef1DeBdrqfoTPjc/9w
-         la8w==
-X-Gm-Message-State: AOJu0YxuJsOPh6sFtuI/kYpboxYHdlLQhR5IBvaX177kJTTh3NIgG2PM
-	ybWv2+azIhP9R+y74keon9ykojHSWjmNbky5ZSQYEHcMGkwubtWVWkazmuGGlw==
-X-Gm-Gg: ASbGncsOiKafpM7FSMcoEvfXCagmzMs3moVeZmMqwUxfSamOMPcN4LruWAXgAW4XZzt
-	21ow8sp24/kKxJHNWg8xP29nhF9/dDXNIJExvsej1TJtz6zTsKeeD+6pLxeuZ4BK2vHbSlaxzPF
-	8cKAlVwDhiNUQ0Jj+FEr8P4wftnTMfWS+Fkgi7LqMf4JPRXXoiPpozOnOqtKAvaN4SKJ/NLuvdx
-	lZpEcdgW4lZXtNG40RSGV3yRUd4MmEyqwOuaWtJOMH7ylVANF9g40SryX52iwLe8GJXEnJoKBtn
-	TPzAgbYozN7B3M9sJsNdCmCRIjJjRyU+3ktvHOCiWryv5MNu3qjBzxnF8OtPJ8c6FxS0/XVjTXA
-	LrYE47UaFuLds9p5ZdHyGYLf+Ax+DKGHQj1d+
-X-Google-Smtp-Source: AGHT+IH7kzdBLU6WMTgKNgoEdcD1UZeSWWYouxlFmBmJ2sd6bA14R2R8H8/UC6ag9OziCHUvLakVkQ==
-X-Received: by 2002:a05:6402:43ce:b0:5fd:10fe:9e86 with SMTP id 4fb4d7f45d1cf-5fd10fea100mr8845709a12.28.1747120027486;
-        Tue, 13 May 2025 00:07:07 -0700 (PDT)
-Message-ID: <b00ae1e3-9812-411a-aaa5-b191c94a16a2@suse.com>
-Date: Tue, 13 May 2025 09:07:06 +0200
+        d=1e100.net; s=20230601; t=1747121260; x=1747726060;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MSzCmzilu7/zkEIRhC3YM2VZUgiSq/7mSAbdIC4GE6Q=;
+        b=kkbR9JR1L4J3EdM+dGMv5sNtM11MyGCrjDDc1dZ627e8E94kz0VWZ7ro66q7I3XuRC
+         DtcYq2RZzmQiPtJYQpdMn/O6LeE9PqliHPHWA8qF5On8fXQSv3cB5nANvHrPI3OG3RfH
+         ZNdROoZcOW57bpnNdMo6xcsaNh6XzRuKP/2oBax3Gd9PmLtTiRD3zh9fxnMg2pu5u5US
+         x5lJLuXsLu71BTeNRMSeEw58OsXzSH+tSXvcJ4Aw+f1nW9ZCmDiPTswLbcxu3cGZO1Ki
+         JytmW3wg+oSXYFIKJRRXJv2Rp+FM2yMfHVQKj0pKVq5t2LpOVEIFIuW+A3DQR2PgrslV
+         Vfaw==
+X-Forwarded-Encrypted: i=1; AJvYcCWm+OyeNhtFirB4Gf9N0fopuYdwY0sZ3ziK17uZm4SZjw8YN37GKF/wSKF4foeJJmhK2Fozz7dtBQA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyXTPS4n7RCF5J4/hZNx6vsQnKGepnZf/nnrCn8ZHQz21f8ivjc
+	v7/QpGCNKDJhPbdhO9JI5ZrHoPmekeoucPtjMObk7rbgut76YRu0ZYqmX/zDdg==
+X-Gm-Gg: ASbGncuom8tEjX2mH3QVPXUmhCgQYP7SgRRPwOq0gn8MXQY0M6/fvneytMhBbwZrXxi
+	/RZCznAeZu8daWYY9oh9YJJ+tW1QUgW83UEEhuqvJx4s59YXhmPSswhcW1Dmj/iUZ7aXeNNNGzD
+	17OTjNXQL7v3BTN1hZeE6/HhtQjnRsJhNVJhiKDkO5ZiDAZNEUopRQ7cZH5OR3RS/ABQg284l22
+	SX21hgQCAdSsEHZZIjU7nxekkk5SG3QUn/sy4j223PMrDrRHe2MULi5dAR0X/2SVwt5MTHzw1tl
+	u3OB9r+QO3nUI2y8HzAANlUu0xh49Kg6iIo/MsqQGfZuTODnRQFsoScKmZ0kYunAGAw3J+ECp9M
+	ra5QoHmJB8ipYiTPpaVcn1Lq43u/qAzzm1/pI
+X-Google-Smtp-Source: AGHT+IEFqvB1gs0Yf5YXXEYMeelmtixAOQOKGzBBiecrww3fZouJPsUqwuVuviRDPnXRRrb2L/vK/Q==
+X-Received: by 2002:a17:907:7f21:b0:ac2:a50a:51ad with SMTP id a640c23a62f3a-ad218fc869emr1405766966b.14.1747121260322;
+        Tue, 13 May 2025 00:27:40 -0700 (PDT)
+Message-ID: <d7fae914-392c-4f5f-a769-194673515901@suse.com>
+Date: Tue, 13 May 2025 09:27:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] Add lockdown mode
-To: Kevin Lampis <kevin.lampis@cloud.com>
-References: <20250512195628.1728455-1-kevin.lampis@cloud.com>
+Subject: Re: [PATCH] tools/libxl: Only access legacy altp2m on HVM
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20250512235409.18545-1-jason.andryuk@amd.com>
 Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,27 +117,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250512195628.1728455-1-kevin.lampis@cloud.com>
+In-Reply-To: <20250512235409.18545-1-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.05.2025 21:56, Kevin Lampis wrote:
-> The intention of lockdown mode is to prevent attacks from a rogue dom0
-> userspace from compromising the system. Lockdown mode can be controlled by a
-> Kconfig option and a command-line parameter. It is also enabled automatically
-> when Secure Boot is enabled and it cannot be disabled in that case.
+On 13.05.2025 01:54, Jason Andryuk wrote:
+> Only access the HVM union b_info->u.hvm on HVM guests.  The union
+> access is not guarded, so this reads and sets the default even on
+> non-HVM guests.  Usually this doesn't matter as PV and PVH unions are
+> smaller and zero-initialized, but the zero default will be re-written as
+> a -1 boolean.  Generally, it it could incorrectly set b_info->altp2m
+> through aliased data.
 > 
-> Ross Lagerwall (2):
->   efi: Add a function to check if Secure Boot mode is enabled
->   Add lockdown mode
+> Fixes: 0291089f6ea8 ("xen: enable altp2m at create domain domctl")
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> Change-Id: Ifaca3533dcce3f409c2efa292c7e96fba6371d9d
+> ---
+>  tools/libs/light/libxl_x86.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
 > 
-> Kevin Lampis (1):
->   Disallow most command-line options when lockdown mode is enabled
+> diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
+> index 0b1c2d3a96..b8f6663829 100644
+> --- a/tools/libs/light/libxl_x86.c
+> +++ b/tools/libs/light/libxl_x86.c
+> @@ -821,10 +821,12 @@ int libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
+>       * If the legacy field info->u.hvm.altp2m is set, activate altp2m.
+>       * Otherwise set altp2m based on the field info->altp2m.
+>       */
+> -    libxl_defbool_setdefault(&b_info->u.hvm.altp2m, false);
+> -    if (b_info->altp2m == LIBXL_ALTP2M_MODE_DISABLED &&
+> -        libxl_defbool_val(b_info->u.hvm.altp2m))
+> -        b_info->altp2m = libxl_defbool_val(b_info->u.hvm.altp2m);
+> +    if (b_info->type == LIBXL_DOMAIN_TYPE_HVM) {
+> +        libxl_defbool_setdefault(&b_info->u.hvm.altp2m, false);
+> +        if (b_info->altp2m == LIBXL_ALTP2M_MODE_DISABLED &&
+> +            libxl_defbool_val(b_info->u.hvm.altp2m))
+> +            b_info->altp2m = libxl_defbool_val(b_info->u.hvm.altp2m);
+> +    }
 
-This looks to be a plain re-posting, without addressing comments already
-given. For my part, I'm not going to repeat them on this (now properly
-threaded) re-submission.
+I think at least the latter half of the comment wants to move inside the
+if() then.
 
 Jan
-
 
