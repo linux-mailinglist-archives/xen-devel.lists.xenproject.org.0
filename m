@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7289FAB57B0
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 16:55:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.983025.1369399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0103AB58DF
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 17:40:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.983049.1369407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEr22-000548-Ri; Tue, 13 May 2025 14:54:58 +0000
+	id 1uErix-0002ld-0X; Tue, 13 May 2025 15:39:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 983025.1369399; Tue, 13 May 2025 14:54:58 +0000
+Received: by outflank-mailman (output) from mailman id 983049.1369407; Tue, 13 May 2025 15:39:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEr22-000510-OW; Tue, 13 May 2025 14:54:58 +0000
-Received: by outflank-mailman (input) for mailman id 983025;
- Tue, 13 May 2025 14:54:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uEriw-0002j4-Tt; Tue, 13 May 2025 15:39:18 +0000
+Received: by outflank-mailman (input) for mailman id 983049;
+ Tue, 13 May 2025 15:39:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iHDm=X5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEr20-00050u-PH
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 14:54:56 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3b5fbd62-300a-11f0-9eb6-5ba50f476ded;
- Tue, 13 May 2025 16:54:55 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5fc3f0a5506so3222483a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 07:54:55 -0700 (PDT)
+ id 1uEriw-0002iY-0i
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 15:39:18 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6d7d7081-3010-11f0-9ffb-bf95429c2676;
+ Tue, 13 May 2025 17:39:16 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-ad1f6aa2f84so1211658266b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 08:39:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5fd1950e6dbsm4773513a12.80.2025.05.13.07.54.54
+ 4fb4d7f45d1cf-5fe8772f75bsm2995443a12.74.2025.05.13.08.39.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 May 2025 07:54:54 -0700 (PDT)
+ Tue, 13 May 2025 08:39:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b5fbd62-300a-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 6d7d7081-3010-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747148095; x=1747752895; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=h+++0xaQaSV6qY7bRFJoTyZqXPWg4nujXKCNe1Ogx1k=;
-        b=NZnUQnxvYF/zB7Dq8V8op1qszlezzNyJMVxAD9V0fX2Tfd0cKnZRkcHLGQRDuTpHW+
-         2qt8X0C6Zl3BFevMtkgUxgXSHRNWG1e+iecphhL0iSlvgZ0NzPSGmsjycdtszTl4/3lx
-         YQ0oz5HVLjEsSWWpyk2A0vgXXF497nxXBIbwNuzJroLu8u32z4E8CU2qaOvRI5Ab9RuC
-         Jjb5vGaEpCgR0tozoH57yTpdma92J4eL1CfjwyX+vIPa2m/3NG5JxNL5gz6h4OfjvbK/
-         ifwDfjGY8mPgM9W0TnTeCn9g8P9zqBZAnCqoMvgQRs3p59Pi+ink5IZDjyxk2TPflUjA
-         VFCw==
+        d=suse.com; s=google; t=1747150756; x=1747755556; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=kzrbVqjmBV9ls/UyKHlCvrKeI1WB3fiHrZ04Xlb8BJ8=;
+        b=KDlHZgx3YquK0xvdsaM4mvz6Olp8CGEMpsqJThI1uiiWMFhIPf0zFX37HNA3g9c3vO
+         cwy6j6dEQnKmiLJAEtjYvjAw44s+TNYAg3v4Yz4tXMEL7Dhc8E8q6/BA3J6p+3/EVrmu
+         ycVnfb/3uxuj4HSclVJPHaw6+TWOuHB/Y/e/c8hlk/cMqqJ3SEPMg+5BD+ZOBJ6K+kVg
+         4RLT13ErZOKsouY6ZGsYAYT01XMEygHcg6tfHO0EaI2XAjGozG+lULCR26nAUK8HlFkI
+         Pv9VGHweZ7EKY05H2jGx7KfCxGE/2b/uoRO01ZSw+iidUjg2/+t9YLJG1pYYpktmSef3
+         ybfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747148095; x=1747752895;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=h+++0xaQaSV6qY7bRFJoTyZqXPWg4nujXKCNe1Ogx1k=;
-        b=jebjOrVZVkQYDP1H5Y4huSmdRjW41+eMxFyHd2l5/iTDwfd8ui6eLTiHjcpkUuTXMO
-         ekNEXnJh7nN4EdYevkwhThmq2YzzySjWOiwplGeyhkDxEEIe8dzHOs5tYSGnsnY/hHYA
-         mc5yNTfZv6Ow/Tnpgiege9V5PoUwL+hxyKl2neUC/KKO2p7mq3f1Kt4LQDmw+Ckh/1+w
-         wr90HjhjPqiY7Pv9etgrH1uYbmy1SaiuZ4pwi+elin4l/LJLFQXT7kKoZGhEG56zGNQO
-         L+PhbxmebDrvcuU7jrOLoR6e/uLNznaGuCC7BcAO/+Q2rEB/fOkqzexx/kIaC/w2U8AE
-         BSTQ==
-X-Gm-Message-State: AOJu0YxvTz2/4OA+7egt9yxq+ZCDPhPpH4i1baxLSLMoyLqy35amLdmM
-	lqNfNOovSXAGvsnYi53v+1imnP3nqcmOu2ol9A4mHt7HaADJa9445dDZD8sQ0g==
-X-Gm-Gg: ASbGnctx5fRO694DLLtr54XUYrA7K0OZOkx8igKq3fJl68BzNVSQyxgCymIDqhziNpv
-	DAspajjUfTlYWAyrA2IPezB/zG1tlj9u0eQmvH8pbH/ghC1w8HxR3Az6R7GKGxn8UnvtfyM5jSw
-	8Bl44/d7K/ukkFokWWp6GdXDFpzJWyH8PpransdWy40UcXR/YPAxKb01q6pw1acSNXJdyy/cY0p
-	EGShUoZUiKbvCviBXbVMPCsvjHJZsTpmztgThSk9ve/KSiVV0K3JmIuonP44NBQaWUHs2YXtMUT
-	dHPsPD5xbZuMVfYiav9Cg4FihVKk6zgKAjnhgfaR0jig3FT3hRaOXcq8eB6LaePEf5jJvehj4BY
-	zCLkxEzsUdO2iOUX2svgq4O43TeAHley9HxVK
-X-Google-Smtp-Source: AGHT+IFepcTsJCpcjIK4yDIPBNJ6TeQDu6F1Rv4OMAZJWLC0wg/eDV/kWkCaI0wZ0+VSWBUdoq5ftA==
-X-Received: by 2002:a05:6402:350d:b0:5fb:206f:784e with SMTP id 4fb4d7f45d1cf-5fca0758c0cmr15461357a12.9.1747148094782;
-        Tue, 13 May 2025 07:54:54 -0700 (PDT)
-Message-ID: <d6208205-0a60-41f1-b7b8-ac12f13ee63c@suse.com>
-Date: Tue, 13 May 2025 16:54:53 +0200
+        d=1e100.net; s=20230601; t=1747150756; x=1747755556;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kzrbVqjmBV9ls/UyKHlCvrKeI1WB3fiHrZ04Xlb8BJ8=;
+        b=Z5CuthnRt55RvInYLywZN6c4YbawvYv5xQN1M+vQHBj0LtCFSqfyp3AX5IG3NX+GS1
+         TNhlI3btyj0xqhVF4Et2n/vj1bC0nsa1A2Ny0E+i972rEA5xpmPZz+aqrrx+YgWyhvl+
+         aYqeZF7MHUsrS82o9f7pQ1Ez8HUWGlamJ+XULcHAdxYmqSdDBwxybPPw4SPx4VuoMDg0
+         4QNKwNUmX+tocrT0UwuI6dvheI5iHb3qeS5WxqSVbEYize2nwvZ5ly9A73M289TaL2DH
+         pub9auy+mm78QoIxh67Wgdn7ZPgQccjqXkE1TslSCyfP40X8FP9MC3SEY+TFt2NLs1Bi
+         nZ+g==
+X-Forwarded-Encrypted: i=1; AJvYcCUbdh1vmE2IvOvhyJXfy7p6WcxLw0CkwTQZW8NVL45s355ZXFaYIK4Akd7D1aaqlNEGo2WMyux1iLQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJREnm0h5bHIM4VzcMHoVQUDbYBg2vbp2OdYT+M+G3NdadA4OW
+	mDckvpCj6rPNJONYMnQpA9f6agUEz5vs4odUSShHNTrMhno7VO7vH/alhkiQKWHconbNfuYdMr4
+	=
+X-Gm-Gg: ASbGncujnOZGcKRKQNHC+mobXfSXKW6O3JK2/HmoIn/EOlMfoEuK2abLyIUwEYXgyzK
+	Ccd1wYtY2xTmoK0qXh7IuwBa0/+hRhZsDgibsY26wcAf+o2NPXpzOKwpuXdluO/wX86co/2gBgT
+	+4twT4RVbDC3MVybHg2y41xQ+ZEjBPmiv/43GCS6ULDwPRYT3oReIzC52bJNyoGYA7A4lfqIYcl
+	R9LljdPQq/ijgnWYhJqh79Mu3s2NPNWNdXcID8Q5fThKIv1/T6R2ttFm1nXVw4IR08Mv99D5bu6
+	Dgiq6q7IZhXDEtgmbgo6l4JCJhyAk8lEFb0efXU5JA0smBe6pYaTUvXny+bAaIm0PemHgxDNXb3
+	S1fqXYRBjyQ5qj6scHWm+BCFyEua0HhF1LJCD
+X-Google-Smtp-Source: AGHT+IGmVG1mPSrbv/cCefUCrRXB9RkY23N3EG7LDkdtJYph9TlG2DPTFx5h0J+Fa4OX16INxOlJlA==
+X-Received: by 2002:a05:6402:34c5:b0:5fc:ae51:ba0 with SMTP id 4fb4d7f45d1cf-5feebe2d581mr3563195a12.14.1747150745124;
+        Tue, 13 May 2025 08:39:05 -0700 (PDT)
+Message-ID: <46dfb68b-7e94-40a8-9900-883ac899346e@suse.com>
+Date: Tue, 13 May 2025 17:39:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] cpufreq: Avoid potential buffer overrun and leak
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-References: <20250512144656.314925-1-ross.lagerwall@citrix.com>
- <20250512144656.314925-4-ross.lagerwall@citrix.com>
+Subject: Re: [PATCH v2 4/6] rangeset: introduce rangeset_subtract
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20250508132040.532898-1-stewart.hildebrand@amd.com>
+ <20250508132040.532898-5-stewart.hildebrand@amd.com>
 Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,60 +123,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250512144656.314925-4-ross.lagerwall@citrix.com>
+In-Reply-To: <20250508132040.532898-5-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.05.2025 16:46, Ross Lagerwall wrote:
-> If set_px_pminfo is called a second time with a larger state_count than
-> the first call, calls to PMSTAT_get_pxstat will read beyond the end of
-> the pt and trans_pt buffers allocated in cpufreq_statistic_init() since
-> they would have been allocated with the original state_count.
-> 
-> Secondly, the states array leaks on each subsequent call of
-> set_px_pminfo.
-> 
-> As far as I know, there is no valid reason to call set_px_pminfo
-> multiple times for the same CPU so fix both these issues by disallowing
-> it.
+On 08.05.2025 15:20, Stewart Hildebrand wrote:
+> --- a/xen/common/rangeset.c
+> +++ b/xen/common/rangeset.c
+> @@ -397,6 +397,18 @@ int rangeset_merge(struct rangeset *r1, struct rangeset *r2)
+>      return rangeset_report_ranges(r2, 0, ~0UL, merge, r1);
+>  }
+>  
+> +static int cf_check subtract(unsigned long s, unsigned long e, void *data)
+> +{
+> +    struct rangeset *r = data;
+> +
+> +    return rangeset_remove_range(r, s, e);
+> +}
+> +
+> +int rangeset_subtract(struct rangeset *r1, struct rangeset *r2)
+> +{
+> +    return rangeset_report_ranges(r2, 0, ~0UL, subtract, r1);
+> +}
 
-Iirc it's the processor driver in Linux which would invoke this upon being
-loaded. It can be unloaded and loaded again. Will it ignore the errors in
-such a case? As suggested to Penny for some of her work in this area, it
-may be better to return success instead, to avoid the need for following
-bad practice in drivers by ignoring errors.
-
-> --- a/xen/drivers/cpufreq/cpufreq.c
-> +++ b/xen/drivers/cpufreq/cpufreq.c
-> @@ -520,7 +520,7 @@ int set_px_pminfo(uint32_t acpi_id, struct xen_processor_performance *perf)
->      if ( perf->flags & XEN_PX_PSS )
->      {
->          /* capability check */
-> -        if ( perf->state_count <= 1 )
-> +        if ( perf->state_count <= 1 || pxpt->states )
-
-Even without the remark above, there probably would want to be two separate
-if()s, each with a distinctive comment. The comment that's there would go
-partly stale by the change you suggest. Or perhaps the extra condition could
-move (inverted) into the outer if()'s clause.
-
->          {
->              ret = -EINVAL;
->              goto out;
-> @@ -534,6 +534,8 @@ int set_px_pminfo(uint32_t acpi_id, struct xen_processor_performance *perf)
->          }
->          if ( copy_from_guest(pxpt->states, perf->states, perf->state_count) )
->          {
-> +            xfree(pxpt->states);
-> +            pxpt->states = NULL;
-
-Please avoid open-coding XFREE().
-
-Further related to the earlier comment: Beyond the processing of PSS there's
-more processing below here. If the PSS part succeeded and some later part
-failed, it may actually be necessary to invoke this operation again. I.e.
-even more so relevant that it won't fail just because PSS was already
-processed.
+I understand this was committed already, but I don't understand why: This
+introduces a Misra rule 2.1 violation aiui. The rule isn't tagged as clean
+yet, but it was accepted and hence I thought we would strive towards not
+introducing new violations. What's the deal?
 
 Jan
 
