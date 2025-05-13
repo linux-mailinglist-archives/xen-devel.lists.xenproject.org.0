@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 377AAAB4D93
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 10:03:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.982608.1368962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30316AB4D9C
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 10:05:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.982615.1368972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEkbS-0004GD-2f; Tue, 13 May 2025 08:03:06 +0000
+	id 1uEkdX-0004ll-Ck; Tue, 13 May 2025 08:05:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 982608.1368962; Tue, 13 May 2025 08:03:06 +0000
+Received: by outflank-mailman (output) from mailman id 982615.1368972; Tue, 13 May 2025 08:05:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEkbR-0004DU-Uy; Tue, 13 May 2025 08:03:05 +0000
-Received: by outflank-mailman (input) for mailman id 982608;
- Tue, 13 May 2025 08:03:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uEkdX-0004jy-95; Tue, 13 May 2025 08:05:15 +0000
+Received: by outflank-mailman (input) for mailman id 982615;
+ Tue, 13 May 2025 08:05:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iHDm=X5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEkbQ-0004DO-TG
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 08:03:04 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2113946-2fd0-11f0-9eb6-5ba50f476ded;
- Tue, 13 May 2025 10:03:03 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5faaddb09feso10576880a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 01:03:03 -0700 (PDT)
+ id 1uEkdW-0004jq-Bk
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 08:05:14 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id febdeaa5-2fd0-11f0-9ffb-bf95429c2676;
+ Tue, 13 May 2025 10:05:12 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-ad220f139adso668911066b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 01:05:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad2406eeadasm483804166b.97.2025.05.13.01.03.02
+ a640c23a62f3a-ad2197bd3easm746030766b.147.2025.05.13.01.05.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 May 2025 01:03:02 -0700 (PDT)
+ Tue, 13 May 2025 01:05:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2113946-2fd0-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: febdeaa5-2fd0-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747123383; x=1747728183; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747123512; x=1747728312; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=m1m9swlxKhyehhxIC3pQfEf5rgn7GIpkaqgV9FzyeqQ=;
-        b=ZllGngM7VShLEg3af/cGoJJjDfYW+KrFD+F697Ne53ofsyAMpHjch0GQi9F0Txc95N
-         wkAAUcXO05PaxQhN1IUdCXLbf7uUjaMFTqJ/PJyT1DnXZf/Z7NXrJUoFC25Z+JQ/xV7t
-         J3tJbB2Q1gnvl4MNq07ewjrAnNndtvLzD4XxFe23d+SCucMtbycCXAvndNXITxIo2qBJ
-         FV0K0uWhF9QZaQTRN329o9sHnDP1Uer3tsD+whiC/9/2a0YuRENUUxJsHjW2/ovKVioY
-         6OjvSYYjtAIXRITYe0Z3hCdSfKy5XPUIGWSpQZrc9/tzLfv6E/w37dzucd+dIBuorLCO
-         f1XA==
+        bh=Qhc7KU2TkVmWCuYhyiKWn2JMdy9m2ONo+uhDFAimjcs=;
+        b=NV4lymZWhBKIwr+/Eh0wh9igPS9hV3DBxBtW3yyBl3BAz2jZUvO3G0Zu5VftIeAP3B
+         rPTRPcINRCHuH4J1eLaPr6+pjkcKMtSILbjDQ+Zb0UoU7v/I3BWDkRI+TT4FaCq0rBje
+         elwo1zPBV8ooD2avU1eX8Pe3b4ZXSvvY7VwIUjgVE7QidOBnL2alaC5C49Oo5W2wiu4x
+         mUwZMdRBHbhe73cp5cM8VT8HQw2FfhtO9V5L4nf0KV4/l8Fqi843ZJr9O39RrG/mZZED
+         vR9dgLBjtjSG4mAydSbs0oWf6zEPUe71dUgGQ4yjI18fPLPoYUmFoKOFFidH5aOlkNoL
+         Zy+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747123383; x=1747728183;
+        d=1e100.net; s=20230601; t=1747123512; x=1747728312;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=m1m9swlxKhyehhxIC3pQfEf5rgn7GIpkaqgV9FzyeqQ=;
-        b=KJ3vbby3aifuupeEn/y0FlL2fbNwfNJ1vFZ37r6h1mBPZNg0AdNjnAEtRg/UPl/rVr
-         8zwIldgd1jVlY37luCJ4SmfB2ltvv+YCA9jgBj56Td836Y2iEG5YAPKPaPckvAMWG1NZ
-         dx0lXL+rxNjwamYxDcLU36WNMzKRGA+vYhlGnErGS6tII0CHzq2Nu3TjN++XgWtM8YAc
-         PUdg5LWCSobbd5GcXR+3mlzP26n2LXoRyiaX/8QILPT0RjsbEFjKrrNChTWuYpjg9/WV
-         5rxwRxoIJJJGPNgmhggd/I8BqDkdIJsdk4bvhy7FDis6c0mhJfDWN5Mv2xQMF9WLHadX
-         RiNQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW3DJmtihiWLMjyRrbzws+6tSHwxSLI5kR9BqesaIKQY3y7N4xWPCipmOqxwpiaPmb6BK8KznUWToA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzo/MsaX/cQVea3/Wnkgbx0LjO2s8kKnyW94pjLwTtpj0A4JEQ+
-	6nShg3w6rcnC4JidVpruHeGlE8/cZCQYpMghUV1WtkMgrMQ3rgT9H7nVmTMcGqZNchbSVAcA7ns
-	=
-X-Gm-Gg: ASbGnctgwkkK4N9tfGSWzkDapFLx11/WOfc7ks4dcEcYm21gbd0lVJhSpuDI411GkGp
-	ayZ2u51zwjxoz/WDfStl7IOSvlHf4MXaB3KizlHEQ64m6tYtA35id3Qs7EX5z3ES+axTjFJcOV6
-	VQjNthV9MIarbg/ZZlbHiBjXbq9uuLgg7rKyyRAl98uEPnKjtB6cqjdp/OXAMuNrZJLSSEmMu/U
-	QQ20NbuMvqXrgT4EKjDXm/ldgbIX3abJ3/vaffFhOKD+u/AN+Y19p6IZc73/+7ZY4ydSsaFZmYy
-	eqxaUGeGErZlDe/Zbccjuiy8jVEMnr3UCn2rGozIIb0ud4YqlDOS38LZ9W5V9E1/FmqFH/MOR+b
-	YCERcoALgswXjdRXR2tWcLsD/Hz+IciMjePEs
-X-Google-Smtp-Source: AGHT+IH7BQaa5iSi90dldaCQe+ofINMskpGyVyQYUXrJUeyD+eWdWmx8x5W9iAHX2UzCQduapuZs0g==
-X-Received: by 2002:a17:906:4ecc:b0:ad2:1b50:891b with SMTP id a640c23a62f3a-ad21b509698mr1217876466b.52.1747123383013;
-        Tue, 13 May 2025 01:03:03 -0700 (PDT)
-Message-ID: <75679a60-7ca0-41da-b542-c5b9d5efdfbe@suse.com>
-Date: Tue, 13 May 2025 10:03:02 +0200
+        bh=Qhc7KU2TkVmWCuYhyiKWn2JMdy9m2ONo+uhDFAimjcs=;
+        b=PJa7lKgK+kIz56Fu/ylwNk2C/tI1JzgUXjmUhikrVaZ5GRFhvDyG3PEaPYfqKqguIS
+         WK2CDhMVkWyMhq0TX85uQWbB3Zas6iz3RyHrEepXgqSS53XUifXFRzjbbt6ODOwi2MYk
+         EvxGNING6fijnjoerZeGHM873JdCw2HDO1DBNuowjX2HJrkAMwfLlR4eoSGu2tvL7fbH
+         BrfhZCb5Fiinwym1fwtCSqa4hb493k5nJHzsAWT3lLjfjYMqDqr/F+A9UeTtOtwZKFRi
+         esV4BvHpTubL9xekAw8cpdXMpmobCGF3ehFVUdfaQANG60bwRMWrjeRGBB+AJcLYMr3u
+         8Hqw==
+X-Forwarded-Encrypted: i=1; AJvYcCVLlyk47hYZJEOv5gFFq9mSim/aJ+pxCMkgnk21gHmgE7EfRUA4LSRhhmZ85Jtw/vybORhTeO8d+aU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzY+kOIG/qthQGNBphvEcSSM0ctfRjhLmnfcDQSVBx7vMbl3d6u
+	MOmtPMKQQ8IXTYKRr5GmIcyJyEBjC0781nhBoGDyN10VAK+gVGJ16MIt36vubg==
+X-Gm-Gg: ASbGnctRpZs95KCgc+pby6JFyXu5a/39CFfrllopcy37p31bhb1YHFdAq3y4i7QkKxi
+	W2G+arHjRYAwbm+JqR1h08EA8QG8/B10p4yfZpMQhIxvlAK93t3pX117SVAFsIzv4+qZZxhoryt
+	W+9X77xcYQAwXpIaffzyGuu1mRhYiX2qvuRBc5btB/SUKxnwXf0ku+q6pps+SMP8edKujZmLAVF
+	+BPDrk4P74ZQZ4A+64Tmu3g3+wMyxABBBGjLa/gj+DKpZZs6Jbd82Pn8xoNOS/SljBIBm1Mvy0h
+	VEymRJevZyX5debkW3QxJwfhlz7IdOiX0euDGMKoeOFJWkk+B9ofU36/s9P6+1uG7ZwijUzP3kL
+	RA/GAAXct2tjyOPiQTMvQDWCTuHetO/EMHS5p
+X-Google-Smtp-Source: AGHT+IGdpkV1rXfWFW5ArV5p4x5mkMBmQVRGiazEKUYiqL7e/hqzy2KHwOgPazQM+Wj2IUhzpEiSGg==
+X-Received: by 2002:a17:907:d30a:b0:ac7:3817:d8da with SMTP id a640c23a62f3a-ad2192b5b2dmr1439829566b.52.1747123511686;
+        Tue, 13 May 2025 01:05:11 -0700 (PDT)
+Message-ID: <f8828ac3-face-401b-bad6-84eef390cab6@suse.com>
+Date: Tue, 13 May 2025 10:05:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/15] tools/xenpm: Print CPPC parameters for amd-cppc
- driver
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+Subject: Re: [PATCH v6 02/12] common/hyperlaunch: introduce the domain builder
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
- <20250414074056.3696888-13-Penny.Zheng@amd.com>
- <63b3b016-551c-4201-a3b3-db19b27ea649@suse.com>
- <DM4PR12MB8451F0794ED87DE6F9E5F2A3E18AA@DM4PR12MB8451.namprd12.prod.outlook.com>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jason Andryuk <jason.andryuk@amd.com>, Denis Mukhin <dmukhin@ford.com>,
+ Alejandro Vallejo <agarciav@amd.com>, xen-devel@lists.xenproject.org
+References: <20250429123629.20839-1-agarciav@amd.com>
+ <20250429123629.20839-3-agarciav@amd.com>
+ <9021c878-9605-4d6e-95b8-ab97da186542@apertussolutions.com>
+ <29a55d44-c26e-4834-b93b-47cbd98f885e@suse.com>
+ <f199c2a3-88c6-4578-8667-2060a79285d6@apertussolutions.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,93 +126,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB8451F0794ED87DE6F9E5F2A3E18AA@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <f199c2a3-88c6-4578-8667-2060a79285d6@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.05.2025 08:36, Penny, Zheng wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Wednesday, April 30, 2025 9:55 PM
->>
->> On 14.04.2025 09:40, Penny Zheng wrote:
->>> HWP, amd-cppc, amd-cppc-epp are all the implementation of ACPI CPPC
->>> (Collaborative Processor Performace Control), so we introduce
->>> cppc_mode flag to print CPPC-related para.
+On 06.05.2025 21:29, Daniel P. Smith wrote:
+> On 5/2/25 03:21, Jan Beulich wrote:
+>> On 30.04.2025 20:56, Daniel P. Smith wrote:
+>>> On 4/29/25 08:36, Alejandro Vallejo wrote:
+>>>> --- a/xen/common/Makefile
+>>>> +++ b/xen/common/Makefile
+>>>> @@ -11,6 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
+>>>>    obj-$(CONFIG_HAS_DEVICE_TREE) += device-tree/
+>>>>    obj-$(CONFIG_IOREQ_SERVER) += dm.o
+>>>>    obj-y += domain.o
+>>>> +obj-$(CONFIG_DOMAIN_BUILDER) += domain-builder/
 >>>
->>> And HWP and amd-cppc-epp are both governor-less driver, so we
->>> introduce hw_auto flag to bypass governor-related print.
+>>> Please don't do this, use IF_ENABLED in core.c and then hide the
+>>> unnecessary units in domain-builder/Makefile as I originally had it.
+>>> This allows for a much easier time incrementally converting the dom0
+>>> construction path into a generalized domain construction path.
 >>
->> But in the EPP driver you use the information which governor is active.
+>> That is, are you viewing this as a transitional thing only? If the end
+>> goal is to have it as Alejandro has it above, that may be acceptable
+>> (even if not nice).
 > 
-> We want to have a one-one mapping between governor and epp value, such as,
-> If users choose performance governor, no matter via "xenpm" or cmdline, users want maximum performance,
-> We set epp with 0 to meet the expectation.
-> And if users choose powersave governor, users want the least power consumption, then we shall set
-> epp with 255 to meet the expectation.
+> There is/will be shared domain construction code between dom0-only and 
+> multidomain construction, with it will all living under domain builder. 
+> So no, the end goal is not what Alejandro just did. The end result will 
+> be the way I had it, with a different kconfig option to enable/disable 
+> the multidomain construction path.
 
-That's all fine, but completely misses the point of my question: If the
-governor is relevant, why would you bypass respective printing?
-
-> Ondemand is a tricky part, hmmmm, I don't know which value is suitable for it, the medium one? So I neglect it in the first place
-
-Medium one may be okay-ish, but it's not really an appropriate fit. We may
-want to at least consider rejecting the use of ondemand with the EPP driver.
-That, however, heavily depends on how hardware would behave when using the
-medium value.
-
->>> --- a/tools/misc/xenpm.c
->>> +++ b/tools/misc/xenpm.c
->>> @@ -790,9 +790,18 @@ static unsigned int
->>> calculate_activity_window(const xc_cppc_para_t *cppc,
->>>  /* print out parameters about cpu frequency */  static void
->>> print_cpufreq_para(int cpuid, struct xc_get_cpufreq_para *p_cpufreq)
->>> {
->>> -    bool hwp = strcmp(p_cpufreq->scaling_driver, XEN_HWP_DRIVER_NAME)
->> == 0;
->>> +    bool cppc_mode = false, hw_auto = false;
->>>      int i;
->>>
->>> +    if ( !strcmp(p_cpufreq->scaling_driver, XEN_HWP_DRIVER_NAME) ||
->>> +         !strcmp(p_cpufreq->scaling_driver, XEN_AMD_CPPC_DRIVER_NAME) ||
->>> +         !strcmp(p_cpufreq->scaling_driver,
->> XEN_AMD_CPPC_EPP_DRIVER_NAME) )
->>> +        cppc_mode = true;
->>> +
->>> +    if ( !strcmp(p_cpufreq->scaling_driver, XEN_HWP_DRIVER_NAME) ||
->>> +         !strcmp(p_cpufreq->scaling_driver,
->> XEN_AMD_CPPC_EPP_DRIVER_NAME) )
->>> +        hw_auto = true;
->>
->> Please avoid doing the same strcmp()s twice. There are several ways how to, so
->> I'm not going to make a particular suggestion.
-> 
-> Maybe we shall use switch-case() to replace the same strcmp()s
-> Since it's not easy to switch-case() string value, I had a draft idea to include an new entry in "struct xen_cppc_para",
-> See:
-> ```
-> diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-> index fa431fd983..b872f1b66a 100644
-> --- a/xen/include/public/sysctl.h
-> +++ b/xen/include/public/sysctl.h
-> @@ -308,6 +308,10 @@ struct xen_ondemand {
-> 
->  struct xen_cppc_para {
->      /* OUT */
-> +#define XEN_SYSCTL_CPPC_VENDOR_HWP      1
-> +#define XEN_SYSCTL_CPPC_VENDOR_AMD      2
-> +#define XEN_SYSCTL_CPPC_VENDOR_AMD_EPP  3
-> +    uint8_t vendor;
->      /* activity_window supported if set */
->  #define XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW  (1 << 0)
->      uint32_t features; /* bit flags for features */
-> 
-> ```
-> A new vendor filed in struct xen_cppc_para could help us differ the underlying implementation.
-> Or any better suggestions?
-
-Well, if you set hw_auto first, then you can use that variable plus one
-more strcmp() to set cppc_mode.
+Isn't CONFIG_DOMAIN_BUILDER a misnomer then?
 
 Jan
 
