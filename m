@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18810AB5ABC
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 19:06:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.983189.1369586 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C877AB5ADA
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 19:12:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.983343.1369728 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEt5Y-0005OW-AL; Tue, 13 May 2025 17:06:44 +0000
+	id 1uEtAt-0007Lr-Ba; Tue, 13 May 2025 17:12:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 983189.1369586; Tue, 13 May 2025 17:06:44 +0000
+Received: by outflank-mailman (output) from mailman id 983343.1369728; Tue, 13 May 2025 17:12:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEt5Y-0005LY-59; Tue, 13 May 2025 17:06:44 +0000
-Received: by outflank-mailman (input) for mailman id 983189;
- Tue, 13 May 2025 17:06:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uEtAt-0007JP-3h; Tue, 13 May 2025 17:12:15 +0000
+Received: by outflank-mailman (input) for mailman id 983343;
+ Tue, 13 May 2025 17:12:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dvFL=X5=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1uEt5W-0003Uz-52
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 17:06:42 +0000
-Received: from 3.mo560.mail-out.ovh.net (3.mo560.mail-out.ovh.net
- [46.105.58.226]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a32417f8-301c-11f0-9ffb-bf95429c2676;
- Tue, 13 May 2025 19:06:40 +0200 (CEST)
-Received: from director11.ghost.mail-out.ovh.net (unknown [10.108.9.41])
- by mo560.mail-out.ovh.net (Postfix) with ESMTP id 4ZxjYr0fnXz2608
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 17:06:40 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-zc9lv (unknown [10.111.182.11])
- by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id E92D51FE93;
- Tue, 13 May 2025 17:06:38 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.97])
- by ghost-submission-5b5ff79f4f-zc9lv with ESMTPSA
- id v4giIh58I2hOCwAAwZMn8g
- (envelope-from <sergii.dmytruk@3mdeb.com>); Tue, 13 May 2025 17:06:38 +0000
+ id 1uEt5X-0003Mm-LE
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 17:06:43 +0000
+Received: from 9.mo581.mail-out.ovh.net (9.mo581.mail-out.ovh.net
+ [46.105.60.248]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a490bcf8-301c-11f0-9eb6-5ba50f476ded;
+ Tue, 13 May 2025 19:06:42 +0200 (CEST)
+Received: from director7.ghost.mail-out.ovh.net (unknown [10.109.140.207])
+ by mo581.mail-out.ovh.net (Postfix) with ESMTP id 4ZxjYt3ypbz1F88
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 17:06:42 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-mdgms (unknown [10.110.164.115])
+ by director7.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 07C2E1FD39;
+ Tue, 13 May 2025 17:06:41 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.114])
+ by ghost-submission-5b5ff79f4f-mdgms with ESMTPSA
+ id JVrPMyF8I2ikSwEARrC/kw
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Tue, 13 May 2025 17:06:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,8 +46,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a32417f8-301c-11f0-9ffb-bf95429c2676
-Authentication-Results:garm.ovh; auth=pass (GARM-97G0027c0ea9b5-02f7-4c0b-a2ce-a4b0217a26c7,
+X-Inumbo-ID: a490bcf8-301c-11f0-9eb6-5ba50f476ded
+Authentication-Results:garm.ovh; auth=pass (GARM-114S0082d89efb0-7dca-433b-9db6-efa760fdab17,
                     0F27B6D195039ACFBDF5EC7F2AC12BEA7E98F15C) smtp.auth=sergii.dmytruk@3mdeb.com
 X-OVh-ClientIp:176.111.181.178
 From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
@@ -55,433 +55,195 @@ To: xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Ross Philipson <ross.philipson@oracle.com>,
 	trenchboot-devel@googlegroups.com
-Subject: [PATCH v2 06/22] xen/arch/x86: reserve TXT memory during Slaunch
-Date: Tue, 13 May 2025 20:05:43 +0300
-Message-ID: <1de7add75db7b15f157adc89922470bed67bef09.1747155790.git.sergii.dmytruk@3mdeb.com>
+Subject: [PATCH v2 07/22] x86/mtrr: expose functions for pausing caching
+Date: Tue, 13 May 2025 20:05:44 +0300
+Message-ID: <e67b2d4c04549b20871be759f4ccaf29d2f46d37.1747155790.git.sergii.dmytruk@3mdeb.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1747155790.git.sergii.dmytruk@3mdeb.com>
 References: <cover.1747155790.git.sergii.dmytruk@3mdeb.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 8944148862897534108
+X-Ovh-Tracer-Id: 8944711813313967260
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdeftdegieejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepgeekffeiiedtveekhfdugeffveeigefgleegvdeghefftdetheefueeliedukedvnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukedurddujeekpdefjedrheelrddugedvrdeljeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehiedtmgdpmhhouggvpehsmhhtphhouhht
-DKIM-Signature: a=rsa-sha256; bh=NikVSRACtV+SZZqcNOgRXTNCO+PpplVigM2Tfg0XHoo=;
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdeftdegieejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepufgvrhhgihhiucffmhihthhruhhkuceoshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpefhheefheduieelieekfffgfffgfedutdevleevvdfhfffgledvgfdtuddtheefieenucfkphepuddvjedrtddrtddruddpudejiedrudduuddrudekuddrudejkedpfeejrdehledrudegvddruddugeenucevlhhushhtvghrufhiiigvpeegnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehkedumgdpmhhouggvpehsmhhtphhouhht
+DKIM-Signature: a=rsa-sha256; bh=p5/X8odYi3YN7N37QJCMftuc5hqSiV9vDM1ybqq3iiI=;
  c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1747156000; v=1;
- b=fZtKCBjbDDeZMd8KNSZTJYb/vINI0F8DKvSdgoBZUILNd4RKah16AszQefIyF12e8dIuMd0n
- yYvjQbpQOnuFQccFMO0sY94Me/3HiSSHNRUIPCRqOw7Ech47Ta6ZvzwA1/+3VeddU6InO02d2zf
- CMVb1UK1ZBNMtUcSMAeFt6fqpRRh/pJsolZjXKvrUx/swM8ReHcfhwYioDH4tp8v2pT1TBJmF63
- COz86IOfgQUiXi3Mgb2GHsHOu34gvAtNb4wZwuk+jaCC9CZJ5aZGbVPTfk1rSaqrFnmWQDQVdE3
- 62WOWeTv1fe2VgogoXWvRlhYVko0BgYFj+Q72Zxe7Ruzg==
+ t=1747156002; v=1;
+ b=hGHensDJA5nIUwOWVrg1VRKg9jr4cvOCYo5VjuKrGN6AbVFlRNHhkNOCFVPK/XTOonZ1uPZw
+ 1Gy9IgTSIK9REdsVXBm+mwzxcZHM1QG+pkrgWozYCrVueAcCT/WST6u7gyWyqZY3Ge5e4wUv4ts
+ Tc1wmPYeKYNbG2/D8w2rmISFfW1Hj/FM41MrPp6wwkULLg3sxzTj/0yhcWLrEOKi/pFCTbAMGTY
+ tJnxdMnr50bxsY+/J2AGNSfr/ZaxQy/YGixIBZ233hy58iaG+lvXIMRbMsUhr+1O1KyL659V+po
+ 0CQL3/X7p60mEcu223kHJvL/vOgrzHIsmEW2Wk9S01uPg==
 
-From: Kacper Stojek <kacper.stojek@3mdeb.com>
+This allows the functionality to be reused by other units that need to
+update MTRRs.
 
-TXT heap, SINIT and TXT private space are marked as reserved or unused
-in e820 to protect from unintended uses.
+This also gets rid of a static variable.
 
-Signed-off-by: Kacper Stojek <kacper.stojek@3mdeb.com>
-Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
-Signed-off-by: Michał Żygowski <michal.zygowski@3mdeb.com>
 Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 ---
- xen/arch/x86/Makefile                |   1 +
- xen/arch/x86/include/asm/intel-txt.h |   6 ++
- xen/arch/x86/include/asm/mm.h        |   3 +
- xen/arch/x86/include/asm/slaunch.h   |  44 +++++++++++
- xen/arch/x86/intel-txt.c             | 113 +++++++++++++++++++++++++++
- xen/arch/x86/setup.c                 |  10 ++-
- xen/arch/x86/slaunch.c               |  98 ++++++++++++++++++++++-
- 7 files changed, 271 insertions(+), 4 deletions(-)
- create mode 100644 xen/arch/x86/intel-txt.c
+ xen/arch/x86/cpu/mtrr/generic.c | 51 ++++++++++++++++-----------------
+ xen/arch/x86/include/asm/mtrr.h |  8 ++++++
+ 2 files changed, 33 insertions(+), 26 deletions(-)
 
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index 43a80be458..6f15c5a87a 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -38,6 +38,7 @@ obj-$(CONFIG_GDBSX) += gdbsx.o
- obj-y += hypercall.o
- obj-y += i387.o
- obj-y += i8259.o
-+obj-y += intel-txt.o
- obj-y += io_apic.o
- obj-$(CONFIG_LIVEPATCH) += livepatch.o
- obj-y += msi.o
-diff --git a/xen/arch/x86/include/asm/intel-txt.h b/xen/arch/x86/include/asm/intel-txt.h
-index 339c29ebef..0126f56a6c 100644
---- a/xen/arch/x86/include/asm/intel-txt.h
-+++ b/xen/arch/x86/include/asm/intel-txt.h
-@@ -399,6 +399,12 @@ static inline void txt_verify_pmr_ranges(struct txt_os_mle_data *os_mle,
-     */
+diff --git a/xen/arch/x86/cpu/mtrr/generic.c b/xen/arch/x86/cpu/mtrr/generic.c
+index c587e9140e..2a8dd1d8ff 100644
+--- a/xen/arch/x86/cpu/mtrr/generic.c
++++ b/xen/arch/x86/cpu/mtrr/generic.c
+@@ -396,9 +396,7 @@ static bool set_mtrr_var_ranges(unsigned int index, struct mtrr_var_range *vr)
+ 	return changed;
  }
  
-+/* Prepares for accesses to TXT-specific memory. */
-+void txt_map_mem_regions(void);
-+
-+/* Marks TXT-specific memory as used to avoid its corruption. */
-+void txt_reserve_mem_regions(void);
-+
- #endif /* __ASSEMBLY__ */
- 
- #endif /* ASM__X86__INTEL_TXT_H */
-diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
-index d6e80db71c..91fa95cd90 100644
---- a/xen/arch/x86/include/asm/mm.h
-+++ b/xen/arch/x86/include/asm/mm.h
-@@ -106,6 +106,9 @@
- #define _PGC_need_scrub   _PGC_allocated
- #define PGC_need_scrub    PGC_allocated
- 
-+/* How much of the directmap is prebuilt at compile time. */
-+#define PREBUILT_MAP_LIMIT (1 << L2_PAGETABLE_SHIFT)
-+
- #ifndef CONFIG_BIGMEM
- /*
-  * This definition is solely for the use in struct page_info (and
-diff --git a/xen/arch/x86/include/asm/slaunch.h b/xen/arch/x86/include/asm/slaunch.h
-index 3fc5f00073..ddc1bd2361 100644
---- a/xen/arch/x86/include/asm/slaunch.h
-+++ b/xen/arch/x86/include/asm/slaunch.h
-@@ -7,6 +7,7 @@
- #ifndef ASM__X86__SLAUNCH_H
- #define ASM__X86__SLAUNCH_H
- 
-+#include <xen/slr-table.h>
- #include <xen/types.h>
- 
- /* Indicates an active Secure Launch boot. */
-@@ -18,9 +19,52 @@ extern bool slaunch_active;
-  */
- extern uint32_t slaunch_slrt;
- 
-+/*
-+ * evt_log is assigned a physical address and the caller must map it to
-+ * virtual, if needed.
-+ */
-+static inline void find_evt_log(struct slr_table *slrt, void **evt_log,
-+                                uint32_t *evt_log_size)
-+{
-+    struct slr_entry_log_info *log_info;
-+
-+    log_info = (struct slr_entry_log_info *)
-+        slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_LOG_INFO);
-+    if ( log_info != NULL )
-+    {
-+        *evt_log = _p(log_info->addr);
-+        *evt_log_size = log_info->size;
-+    }
-+    else
-+    {
-+        *evt_log = NULL;
-+        *evt_log_size = 0;
-+    }
-+}
-+
- /*
-  * Retrieves pointer to SLRT.  Checks table's validity and maps it as necessary.
-  */
- struct slr_table *slaunch_get_slrt(void);
- 
-+/*
-+ * Prepares for accesses to essential data structures setup by boot environment.
-+ */
-+void slaunch_map_mem_regions(void);
-+
-+/* Marks regions of memory as used to avoid their corruption. */
-+void slaunch_reserve_mem_regions(void);
-+
-+/*
-+ * This helper function is used to map memory using L2 page tables by aligning
-+ * mapped regions to 2MB. This way page allocator (which at this point isn't
-+ * yet initialized) isn't needed for creating new L1 mappings. The function
-+ * also checks and skips memory already mapped by the prebuilt tables.
-+ *
-+ * There is no unmap_l2() because the function is meant to be used by the code
-+ * that accesses DRTM-related memory soon after which Xen rebuilds memory maps,
-+ * effectively dropping all existing mappings.
-+ */
-+int slaunch_map_l2(unsigned long paddr, unsigned long size);
-+
- #endif /* ASM__X86__SLAUNCH_H */
-diff --git a/xen/arch/x86/intel-txt.c b/xen/arch/x86/intel-txt.c
-new file mode 100644
-index 0000000000..67051b0917
---- /dev/null
-+++ b/xen/arch/x86/intel-txt.c
-@@ -0,0 +1,113 @@
-+/*
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ *
-+ * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
-+ */
-+
-+#include <xen/bug.h>
-+#include <xen/init.h>
-+#include <xen/lib.h>
-+#include <xen/types.h>
-+#include <asm/e820.h>
-+#include <asm/intel-txt.h>
-+#include <asm/slaunch.h>
-+
-+static uint64_t __initdata txt_heap_base, txt_heap_size;
-+
-+void __init txt_map_mem_regions(void)
-+{
-+    int rc;
-+
-+    rc = slaunch_map_l2(TXT_PRIV_CONFIG_REGS_BASE, NR_TXT_CONFIG_SIZE);
-+    BUG_ON(rc != 0);
-+
-+    txt_heap_base = read_txt_reg(TXTCR_HEAP_BASE);
-+    BUG_ON(txt_heap_base == 0);
-+
-+    txt_heap_size = read_txt_reg(TXTCR_HEAP_SIZE);
-+    BUG_ON(txt_heap_size == 0);
-+
-+    rc = slaunch_map_l2(txt_heap_base, txt_heap_size);
-+    BUG_ON(rc != 0);
-+}
-+
-+/* Mark RAM region as RESERVED if it isn't marked that way already. */
-+static int __init mark_ram_as(struct e820map *map, uint64_t start,
-+                              uint64_t end, uint32_t type)
-+{
-+    unsigned int i;
-+    uint32_t from_type = E820_RAM;
-+
-+    for ( i = 0; i < map->nr_map; i++ )
-+    {
-+        uint64_t rs = map->map[i].addr;
-+        uint64_t re = rs + map->map[i].size;
-+
-+        /* The entry includes the range. */
-+        if ( start >= rs && end <= re )
-+            break;
-+
-+        /* The entry intersects the range. */
-+        if ( end > rs && start < re )
-+        {
-+            /* Fatal failure. */
-+            return 0;
-+        }
-+    }
-+
-+    /*
-+     * If the range is not included by any entry and no entry intersects it,
-+     * then it's not listed in the memory map.  Consider this case as a success
-+     * since we're only preventing RAM from being used and unlisted range should
-+     * not be used.
-+     */
-+    if ( i == map->nr_map )
-+        return 1;
-+
-+    /*
-+     * e820_change_range_type() fails if the range is already marked with the
-+     * desired type.  Don't consider it an error if firmware has done it for us.
-+     */
-+    if ( map->map[i].type == type )
-+        return 1;
-+
-+    /* E820_ACPI or E820_NVS are really unexpected, but others are fine. */
-+    if ( map->map[i].type == E820_RESERVED ||
-+         map->map[i].type == E820_UNUSABLE )
-+        from_type = map->map[i].type;
-+
-+    return e820_change_range_type(map, start, end, from_type, type);
-+}
-+
-+void __init txt_reserve_mem_regions(void)
-+{
-+    int rc;
-+    uint64_t sinit_base, sinit_size;
-+
-+    /* TXT Heap */
-+    BUG_ON(txt_heap_base == 0);
-+    printk("SLAUNCH: reserving TXT heap (%#lx - %#lx)\n", txt_heap_base,
-+           txt_heap_base + txt_heap_size);
-+    rc = mark_ram_as(&e820_raw, txt_heap_base, txt_heap_base + txt_heap_size,
-+                     E820_RESERVED);
-+    BUG_ON(rc == 0);
-+
-+    sinit_base = read_txt_reg(TXTCR_SINIT_BASE);
-+    BUG_ON(sinit_base == 0);
-+
-+    sinit_size = read_txt_reg(TXTCR_SINIT_SIZE);
-+    BUG_ON(sinit_size == 0);
-+
-+    /* SINIT */
-+    printk("SLAUNCH: reserving SINIT memory (%#lx - %#lx)\n", sinit_base,
-+           sinit_base + sinit_size);
-+    rc = mark_ram_as(&e820_raw, sinit_base, sinit_base + sinit_size,
-+                     E820_RESERVED);
-+    BUG_ON(rc == 0);
-+
-+    /* TXT Private Space */
-+    rc = mark_ram_as(&e820_raw, TXT_PRIV_CONFIG_REGS_BASE,
-+                     TXT_PRIV_CONFIG_REGS_BASE + NR_TXT_CONFIG_SIZE,
-+                     E820_UNUSABLE);
-+    BUG_ON(rc == 0);
-+}
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 2518954124..479d2d744e 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -53,6 +53,7 @@
- #include <asm/prot-key.h>
- #include <asm/pv/domain.h>
- #include <asm/setup.h>
-+#include <asm/slaunch.h>
- #include <asm/smp.h>
- #include <asm/spec_ctrl.h>
- #include <asm/tboot.h>
-@@ -1086,9 +1087,6 @@ static struct domain *__init create_dom0(struct boot_info *bi)
-     return d;
- }
- 
--/* How much of the directmap is prebuilt at compile time. */
--#define PREBUILT_MAP_LIMIT (1 << L2_PAGETABLE_SHIFT)
+-static uint64_t deftype;
 -
- void asmlinkage __init noreturn __start_xen(void)
- {
-     const char *memmap_type = NULL;
-@@ -1424,6 +1422,12 @@ void asmlinkage __init noreturn __start_xen(void)
- #endif
-     }
+-static unsigned long set_mtrr_state(void)
++static unsigned long set_mtrr_state(uint64_t *deftype)
+ /*  [SUMMARY] Set the MTRR state for this CPU.
+     <state> The MTRR state information to read.
+     <ctxt> Some relevant CPU context.
+@@ -416,14 +414,12 @@ static unsigned long set_mtrr_state(void)
+ 	if (mtrr_state.have_fixed && set_fixed_ranges(mtrr_state.fixed_ranges))
+ 		change_mask |= MTRR_CHANGE_MASK_FIXED;
  
-+    if ( slaunch_active )
-+    {
-+        slaunch_map_mem_regions();
-+        slaunch_reserve_mem_regions();
-+    }
-+
-     /* Sanitise the raw E820 map to produce a final clean version. */
-     max_page = raw_max_page = init_e820(memmap_type, &e820_raw);
+-	/*  Set_mtrr_restore restores the old value of MTRRdefType,
+-	   so to set it we fiddle with the saved value  */
+-	if ((deftype & 0xff) != mtrr_state.def_type
+-	    || MASK_EXTR(deftype, MTRRdefType_E) != mtrr_state.enabled
+-	    || MASK_EXTR(deftype, MTRRdefType_FE) != mtrr_state.fixed_enabled) {
+-		deftype = (deftype & ~0xcff) | mtrr_state.def_type |
+-		          MASK_INSR(mtrr_state.enabled, MTRRdefType_E) |
+-		          MASK_INSR(mtrr_state.fixed_enabled, MTRRdefType_FE);
++	if ((*deftype & 0xff) != mtrr_state.def_type
++	    || MASK_EXTR(*deftype, MTRRdefType_E) != mtrr_state.enabled
++	    || MASK_EXTR(*deftype, MTRRdefType_FE) != mtrr_state.fixed_enabled) {
++		*deftype = (*deftype & ~0xcff) | mtrr_state.def_type |
++		           MASK_INSR(mtrr_state.enabled, MTRRdefType_E) |
++		           MASK_INSR(mtrr_state.fixed_enabled, MTRRdefType_FE);
+ 		change_mask |= MTRR_CHANGE_MASK_DEFTYPE;
+ 	}
  
-diff --git a/xen/arch/x86/slaunch.c b/xen/arch/x86/slaunch.c
-index a3e6ab8d71..ac3b43942b 100644
---- a/xen/arch/x86/slaunch.c
-+++ b/xen/arch/x86/slaunch.c
-@@ -7,14 +7,18 @@
- #include <xen/compiler.h>
- #include <xen/init.h>
- #include <xen/macros.h>
-+#include <xen/mm.h>
- #include <xen/types.h>
-+#include <asm/e820.h>
-+#include <asm/intel-txt.h>
-+#include <asm/page.h>
- #include <asm/slaunch.h>
- 
- /*
-  * These variables are assigned to by the code near Xen's entry point.
-  *
-  * slaunch_active is not __initdata to allow checking for an active Secure
-- * Launch boot.
-+ * Launch boot at any point.
+@@ -440,9 +436,10 @@ static DEFINE_SPINLOCK(set_atomicity_lock);
+  * has been called.
   */
- bool slaunch_active;
- uint32_t __initdata slaunch_slrt; /* physical address */
-@@ -25,3 +29,95 @@ static void __maybe_unused compile_time_checks(void)
+ 
+-static bool prepare_set(void)
++struct mtrr_pausing_state mtrr_pause_caching(void)
  {
-     BUILD_BUG_ON(sizeof(slaunch_active) != 1);
+ 	unsigned long cr4;
++	struct mtrr_pausing_state state;
+ 
+ 	/*  Note that this is not ideal, since the cache is only flushed/disabled
+ 	   for this CPU while the MTRRs are changed, but changing this requires
+@@ -462,7 +459,9 @@ static bool prepare_set(void)
+ 	alternative("wbinvd", "", X86_FEATURE_XEN_SELFSNOOP);
+ 
+ 	cr4 = read_cr4();
+-	if (cr4 & X86_CR4_PGE)
++	state.pge = cr4 & X86_CR4_PGE;
++
++	if (state.pge)
+ 		write_cr4(cr4 & ~X86_CR4_PGE);
+ 	else if (use_invpcid)
+ 		invpcid_flush_all();
+@@ -470,27 +469,27 @@ static bool prepare_set(void)
+ 		write_cr3(read_cr3());
+ 
+ 	/*  Save MTRR state */
+-	rdmsrl(MSR_MTRRdefType, deftype);
++	rdmsrl(MSR_MTRRdefType, state.def_type);
+ 
+ 	/*  Disable MTRRs, and set the default type to uncached  */
+-	mtrr_wrmsr(MSR_MTRRdefType, deftype & ~0xcff);
++	mtrr_wrmsr(MSR_MTRRdefType, state.def_type & ~0xcff);
+ 
+ 	/* Again, only flush caches if we have to. */
+ 	alternative("wbinvd", "", X86_FEATURE_XEN_SELFSNOOP);
+ 
+-	return cr4 & X86_CR4_PGE;
++	return state;
  }
+ 
+-static void post_set(bool pge)
++void mtrr_resume_caching(struct mtrr_pausing_state state)
+ {
+ 	/* Intel (P6) standard MTRRs */
+-	mtrr_wrmsr(MSR_MTRRdefType, deftype);
++	mtrr_wrmsr(MSR_MTRRdefType, state.def_type);
+ 
+ 	/*  Enable caches  */
+ 	write_cr0(read_cr0() & ~X86_CR0_CD);
+ 
+ 	/*  Reenable CR4.PGE (also flushes the TLB) */
+-	if (pge)
++	if (state.pge)
+ 		write_cr4(read_cr4() | X86_CR4_PGE);
+ 	else if (use_invpcid)
+ 		invpcid_flush_all();
+@@ -504,15 +503,15 @@ void mtrr_set_all(void)
+ {
+ 	unsigned long mask, count;
+ 	unsigned long flags;
+-	bool pge;
++	struct mtrr_pausing_state pausing_state;
+ 
+ 	local_irq_save(flags);
+-	pge = prepare_set();
++	pausing_state = mtrr_pause_caching();
+ 
+ 	/* Actually set the state */
+-	mask = set_mtrr_state();
++	mask = set_mtrr_state(&pausing_state.def_type);
+ 
+-	post_set(pge);
++	mtrr_resume_caching(pausing_state);
+ 	local_irq_restore(flags);
+ 
+ 	/*  Use the atomic bitops to update the global mask  */
+@@ -537,12 +536,12 @@ void mtrr_set(
+ {
+ 	unsigned long flags;
+ 	struct mtrr_var_range *vr;
+-	bool pge;
++	struct mtrr_pausing_state pausing_state;
+ 
+ 	vr = &mtrr_state.var_ranges[reg];
+ 
+ 	local_irq_save(flags);
+-	pge = prepare_set();
++	pausing_state = mtrr_pause_caching();
+ 
+ 	if (size == 0) {
+ 		/* The invalid bit is kept in the mask, so we simply clear the
+@@ -563,7 +562,7 @@ void mtrr_set(
+ 		mtrr_wrmsr(MSR_IA32_MTRR_PHYSMASK(reg), vr->mask);
+ 	}
+ 
+-	post_set(pge);
++	mtrr_resume_caching(pausing_state);
+ 	local_irq_restore(flags);
+ }
+ 
+diff --git a/xen/arch/x86/include/asm/mtrr.h b/xen/arch/x86/include/asm/mtrr.h
+index 25d442659d..82ea427ba0 100644
+--- a/xen/arch/x86/include/asm/mtrr.h
++++ b/xen/arch/x86/include/asm/mtrr.h
+@@ -66,6 +66,14 @@ extern uint8_t pat_type_2_pte_flags(uint8_t pat_type);
+ extern void mtrr_aps_sync_begin(void);
+ extern void mtrr_aps_sync_end(void);
+ 
++struct mtrr_pausing_state {
++	bool pge;
++	uint64_t def_type;
++};
 +
-+struct slr_table *__init slaunch_get_slrt(void)
-+{
-+    static struct slr_table *slrt;
++extern struct mtrr_pausing_state mtrr_pause_caching(void);
++extern void mtrr_resume_caching(struct mtrr_pausing_state state);
 +
-+    if (slrt == NULL) {
-+        int rc;
-+
-+        slrt = __va(slaunch_slrt);
-+
-+        rc = slaunch_map_l2(slaunch_slrt, PAGE_SIZE);
-+        BUG_ON(rc != 0);
-+
-+        if ( slrt->magic != SLR_TABLE_MAGIC )
-+            panic("SLRT has invalid magic value: %#08x!\n", slrt->magic);
-+        /* XXX: are newer revisions allowed? */
-+        if ( slrt->revision != SLR_TABLE_REVISION )
-+            panic("SLRT is of unsupported revision: %#04x!\n", slrt->revision);
-+        if ( slrt->architecture != SLR_INTEL_TXT )
-+            panic("SLRT is for unexpected architecture: %#04x!\n",
-+                  slrt->architecture);
-+        if ( slrt->size > slrt->max_size )
-+            panic("SLRT is larger than its max size: %#08x > %#08x!\n",
-+                  slrt->size, slrt->max_size);
-+
-+        if ( slrt->size > PAGE_SIZE )
-+        {
-+            rc = slaunch_map_l2(slaunch_slrt, slrt->size);
-+            BUG_ON(rc != 0);
-+        }
-+    }
-+
-+    return slrt;
-+}
-+
-+void __init slaunch_map_mem_regions(void)
-+{
-+    void *evt_log_addr;
-+    uint32_t evt_log_size;
-+
-+    /* Vendor-specific part. */
-+    txt_map_mem_regions();
-+
-+    find_evt_log(slaunch_get_slrt(), &evt_log_addr, &evt_log_size);
-+    if ( evt_log_addr != NULL )
-+    {
-+        int rc = slaunch_map_l2((uintptr_t)evt_log_addr, evt_log_size);
-+        BUG_ON(rc != 0);
-+    }
-+}
-+
-+void __init slaunch_reserve_mem_regions(void)
-+{
-+    int rc;
-+
-+    void *evt_log_addr;
-+    uint32_t evt_log_size;
-+
-+    /* Vendor-specific part. */
-+    txt_reserve_mem_regions();
-+
-+    find_evt_log(slaunch_get_slrt(), &evt_log_addr, &evt_log_size);
-+    if ( evt_log_addr != NULL )
-+    {
-+        printk("SLAUNCH: reserving event log (%#lx - %#lx)\n",
-+               (uint64_t)evt_log_addr,
-+               (uint64_t)evt_log_addr + evt_log_size);
-+        rc = reserve_e820_ram(&e820_raw, (uint64_t)evt_log_addr,
-+                              (uint64_t)evt_log_addr + evt_log_size);
-+        BUG_ON(rc == 0);
-+    }
-+}
-+
-+int __init slaunch_map_l2(unsigned long paddr, unsigned long size)
-+{
-+    unsigned long aligned_paddr = paddr & ~((1ULL << L2_PAGETABLE_SHIFT) - 1);
-+    unsigned long pages = ((paddr + size) - aligned_paddr);
-+    pages = ROUNDUP(pages, 1ULL << L2_PAGETABLE_SHIFT) >> PAGE_SHIFT;
-+
-+    if ( aligned_paddr + pages * PAGE_SIZE <= PREBUILT_MAP_LIMIT )
-+        return 0;
-+
-+    if ( aligned_paddr < PREBUILT_MAP_LIMIT )
-+    {
-+        pages -= (PREBUILT_MAP_LIMIT - aligned_paddr) >> PAGE_SHIFT;
-+        aligned_paddr = PREBUILT_MAP_LIMIT;
-+    }
-+
-+    return map_pages_to_xen((uintptr_t)__va(aligned_paddr),
-+                            maddr_to_mfn(aligned_paddr),
-+                            pages, PAGE_HYPERVISOR);
-+}
+ extern bool mtrr_var_range_msr_set(struct domain *d, struct mtrr_state *m,
+                                    uint32_t msr, uint64_t msr_content);
+ extern bool mtrr_fix_range_msr_set(struct domain *d, struct mtrr_state *m,
 -- 
 2.49.0
 
