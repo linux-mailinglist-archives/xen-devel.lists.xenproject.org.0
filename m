@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DBE5AB5964
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 18:09:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.983111.1369468 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0CE0AB5AAD
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 19:02:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.983130.1369478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEsC8-0001uF-FB; Tue, 13 May 2025 16:09:28 +0000
+	id 1uEt0Z-0001Bi-VC; Tue, 13 May 2025 17:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 983111.1369468; Tue, 13 May 2025 16:09:28 +0000
+Received: by outflank-mailman (output) from mailman id 983130.1369478; Tue, 13 May 2025 17:01:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEsC8-0001rK-Bx; Tue, 13 May 2025 16:09:28 +0000
-Received: by outflank-mailman (input) for mailman id 983111;
- Tue, 13 May 2025 16:09:27 +0000
+	id 1uEt0Z-00019J-Rs; Tue, 13 May 2025 17:01:35 +0000
+Received: by outflank-mailman (input) for mailman id 983130;
+ Tue, 13 May 2025 17:01:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iHDm=X5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uEsC7-0001rE-4Z
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 16:09:27 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FKf8=X5=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1uEt0Y-00019D-RJ
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 17:01:34 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20619.outbound.protection.outlook.com
+ [2a01:111:f403:2418::619])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a38c8a46-3014-11f0-9ffb-bf95429c2676;
- Tue, 13 May 2025 18:09:25 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-ad1a87d93f7so885480966b.0
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 09:09:25 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad2197bd2c0sm798346566b.130.2025.05.13.09.09.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 May 2025 09:09:19 -0700 (PDT)
+ id eb172148-301b-11f0-9ffb-bf95429c2676;
+ Tue, 13 May 2025 19:01:32 +0200 (CEST)
+Received: from MW4PR04CA0077.namprd04.prod.outlook.com (2603:10b6:303:6b::22)
+ by IA0PPF8FC6E1236.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::bda) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.31; Tue, 13 May
+ 2025 17:01:27 +0000
+Received: from SJ5PEPF000001CD.namprd05.prod.outlook.com
+ (2603:10b6:303:6b:cafe::7d) by MW4PR04CA0077.outlook.office365.com
+ (2603:10b6:303:6b::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8722.20 via Frontend Transport; Tue,
+ 13 May 2025 17:01:26 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ5PEPF000001CD.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8722.18 via Frontend Transport; Tue, 13 May 2025 17:01:26 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 13 May
+ 2025 12:01:26 -0500
+Received: from [172.31.225.170] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 13 May 2025 12:01:24 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +59,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a38c8a46-3014-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747152564; x=1747757364; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+EF/B3R6fhMuYybsaftITDkJqLfXGKGTJ0TR54IzNfQ=;
-        b=B6oxkMSbrhy2ylK7y2EYUbhnbGvEd1a7H5AzHTZdpgttk4s1sUTC5I5BzTAjJ/O3vL
-         nY6HTDBtaHlTfM9dHpGMK8hwKsyFH2fqTUdqIyq3uMtX894+GvIKICt38MCWF810CTCr
-         CfZgxAhwF9D3//tnoToqI+7ioZIPnb1Zy7faajIikeRA3aLsD2MhMfqvLbpzdBnSnHGc
-         5fxF7PuQSBpzEvuQSZM3ls8jjnlgWkZhwCfq9Ka5oHOo4uOszFjKpTO4Y31nkwHcwxb3
-         vqJtQRF4zA/67XXOD3qzsftBSx15VXQw5TYWukFc5rr1MynPFVf6Xo92R1cH9xesscIX
-         nIlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747152564; x=1747757364;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+EF/B3R6fhMuYybsaftITDkJqLfXGKGTJ0TR54IzNfQ=;
-        b=hweiD8b2vXZH5BFpyKdz1mwpEwLukpzGGN9esGqYwFlpepkAEr8KLGfeMR/gFjHyx6
-         EywWcr4KgzN0a+OgQk5i5msRls3NXUimUURIShbniXhbkc2gN5+hb8+K1jhY5mNgpIGg
-         Vpsw+ImjXR4xZAK/517AImCh1h9DqJRHMcCf+Vfri3Ie5+DcYiFfKFkZFLVnwiTr882z
-         xGcTiOLToQ2IWVBb+wdYxP4jyVGErQxOI6e/ry6zGF8bAxUbz5LZbmJjI+2PQZm+mtef
-         oNbhkWmOIOElLZUc+KIxFFOyjARsj72Y59c2pheVB0+7FMocpSWHPz/ZldsrDx8RA7Tp
-         EQzA==
-X-Forwarded-Encrypted: i=1; AJvYcCU1Av9VU2iKA7J+45L05FkAsG1YdEfeOu/5O10vmxAwo6ilUxSvP3xE9pH77o8jplpMQc3i/FzjnTY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YydUomdtho0eLT7PP0RyOYslfe4q/BGd0eoJ8Mnkof3V8Gztv/w
-	mhC1zCRayZMGOf3OMY1BvwWlLfF2IQrE8dYzlX//uunJGqG+vbbviRVk0Bb6hg==
-X-Gm-Gg: ASbGncuj2gcRtpfzbSbDFBLpIkZwvN+XF+ZZdLDqI/6eGV/B9sEna+46SL9pVzhMLmR
-	YdYih7uNPA0VPM319TzGjcxOe6iryYm8Fqav7klSh72I6O7aY7aFwqREGpjnHOieRC1Ces/NhLW
-	Gx/xaCLMbhCVosrMp9Czd5QIK/oagWGAFbqFIk5IkIZ9miLuAaZ1ZqlSOsN5Tmgzucm15GDfScJ
-	9HKABCic8+ZsrfbZyEJhNsFdAnc8K9PCYarF/HOaSNpHiYNKsCbKbDH1W0gY0FenQ4pLhIUMrCk
-	pflsW9I6CWP2V9dzETBSLq0BKWTOWgJmpsE4rf//FrMcDUdZHapztUnZlEyn5IVezkljlIt0miy
-	KRY+CXxj4xzDiqqNW8JqkbecW+JywR6i/hPr9
-X-Google-Smtp-Source: AGHT+IFPpu4pfQ5TpO7rV+E6nGI8SR/dPtvjKtLLetPlJSSudg6HOgJZ/7VLC1Ml+Lxr6aSgzKLY1Q==
-X-Received: by 2002:a17:906:6207:b0:ad2:5499:75a1 with SMTP id a640c23a62f3a-ad4f715873cmr14568266b.32.1747152559332;
-        Tue, 13 May 2025 09:09:19 -0700 (PDT)
-Message-ID: <9575eb5b-d789-4430-aafa-0b8fc5070952@suse.com>
-Date: Tue, 13 May 2025 18:09:17 +0200
+X-Inumbo-ID: eb172148-301b-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F3jAyDo38JUsnmTZJ0ZXPUmQ+MRZpQxnDEvffTrI4A6fM204jiqd6OhWrtlFFc9hjP1fRpz0Gd+8OXkNf+c+hHrBYTMZ9zOhj4M/GTe3H7B/0dVUJF4/7zGIvwznaYLC19lpWeWIwvfj8i9cJyHGRYuNiFC+yNR+hROk8TxWhisQz2A6Vv1lGPqXLjYC7bjPKHaqJwh41GTHkXouZXJfAVxtBwQdO3nbJVf4VZS6Tx4Rz1AMl/4cQFmFa3WaOmurk4qw6Y+W2aYt2H022htsOlCXRPBexJPL9jWU88vTJ3h/G8UlTrOXx7B9BXLj988Jqk2jIzTNT3NJuR2AbdLu8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=30MnAZhpTp4Df94mweho2LyHvUayV6y9u7bd0wWM2WA=;
+ b=W7RRGS6ButxoP/TxJ/X/pq7MdNdA3p6afjwBkvHlDgpAtFI3gNdET0F4yg8hZZUs1fOrzDlmBx8qnF+3LTPDYzX7R2FqIiRvQUqTtV+tKwue6m5CwORkAaBycVhBvWBfXhBWTVoi6dbZ16l62R+8XvzHlU7Cc0Yp0IisFCXftevHpUgwQpeHqK9yamHhdkPxsrqgq9Jdb6S9DORqHc9HhKNRiLRzvG2QF1nK/+LrXAKyIfh52J8CmXN2czPJIlroFAN0LF99c4ZRLjQ3mFiVckiL1E6++GdLCnCTAuF0hzFSBP2vgCfpmfZ5s6+rgCP9EJFdLxGpB/zxoQrqP0DSpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=30MnAZhpTp4Df94mweho2LyHvUayV6y9u7bd0wWM2WA=;
+ b=J3nxZiQEsrOuSbK7tbo+7uu4Gl9u1Blo1sajuTDF5kyM3uI4HHWemhRdKbZgcPoUzFLEGBad54CLW5qYDvhg2sCN+biH4o6WPCiUzxViU9R1wLJssJLOEVvgofCw8Mt8NUP0rgSvo8ud9yalTknWr46Bbs7HPgO6UK4/4T+73zo=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <914a4bc2-aa18-478f-b175-b89b56beaf3b@amd.com>
+Date: Tue, 13 May 2025 13:01:24 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] Add lockdown mode
-To: Kevin Lampis <kevin.lampis@cloud.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250506162510.1676425-1-kevin.lampis@cloud.com>
- <db6316fb-89bd-4891-a4ff-2a13feda112f@suse.com>
- <CAHaoHxY4W2bbi3i+R_-tk7PG+4s2OdU9OSf1+o1wDXTvMBJozA@mail.gmail.com>
- <504f0be0-91fd-4847-8fcd-505771674814@suse.com>
- <CAHaoHxYojvmAe_jtwjHzCMKGKa_0fkGc-cbypRpKCRFQt0sbHw@mail.gmail.com>
- <55e73266-7727-4a1c-93e8-dd69712d64d2@suse.com>
- <CAHaoHxbvT5dbhVMnrPoWq3ma-maeLJh56N--B7svMXU+gY2Yrw@mail.gmail.com>
- <d5e62b4f-816f-4948-a9ec-4a7dedcb31d2@suse.com>
- <CAHaoHxbiQgiRpZLTP4RaEyNyhXYaUejZrESqM6NzH_t+EqdqQA@mail.gmail.com>
+Subject: Re: [PATCH v2 4/6] rangeset: introduce rangeset_subtract
+To: Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+	<sstabellini@kernel.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>
+References: <20250508132040.532898-1-stewart.hildebrand@amd.com>
+ <20250508132040.532898-5-stewart.hildebrand@amd.com>
+ <46dfb68b-7e94-40a8-9900-883ac899346e@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAHaoHxbiQgiRpZLTP4RaEyNyhXYaUejZrESqM6NzH_t+EqdqQA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <46dfb68b-7e94-40a8-9900-883ac899346e@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CD:EE_|IA0PPF8FC6E1236:EE_
+X-MS-Office365-Filtering-Correlation-Id: 876c5b43-482c-449f-cb62-08dd923fcc78
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZExYd3FFb3J0czlBaktMOEw1SThERytxNjU3cHVIVnQzTzFiUUdLYVhJY3Iv?=
+ =?utf-8?B?cW8xKzZ4TjVRMDlNOW1TS1VqV2s4L2UzMDdXSG9Zd0FMdnNoaURzRHc1b3RZ?=
+ =?utf-8?B?Y2ZidXUvOG1NTktsMUxJdklVM0o1QWs1dmVyQVBkeVhRaFBJSmZNNlBSTHNk?=
+ =?utf-8?B?UTBObzZycHNjdWRqaTh3YVhDbmdvbC9JalMvcXpSZ0NtSkxWbVNYSXhjYzJS?=
+ =?utf-8?B?Mm9Ja0ZBM1k2dG1jZjg0Z09wWkc1dXlhNUZ6QzZCemdHcW9jRkdTTFc3Z0ZJ?=
+ =?utf-8?B?czhUNXk3Y3pTTm55N0VmNGg2cDRQK2hielZ2Qll1aG54VHpFOE9iWHpubVRm?=
+ =?utf-8?B?bHNmVlZ5bGR0b1JHcm5JVDdubmJvdE1jTmx3WUpHT0xueUwwaHNXLzRtdUY3?=
+ =?utf-8?B?cTRVU0hEOUhncGRLbG4zOW1xa3UxVUtDaVpqb3creG1pVm56NlFIa2tjTUk2?=
+ =?utf-8?B?UmFGeEtmOVkvVDVkY21jTmp2ZWVvc2lZdnhOL3dVKzlUalZOdmFYUXZUc2o1?=
+ =?utf-8?B?Sk9LNEVxMDlkUmVBREt4TjRTWVBwUDlQT2dtZTFXYk9SRDdZQnVJOElCdk0r?=
+ =?utf-8?B?T3ovNVlmS2ZFS1FUak1VOTZWYndUSWM2bCtCcUI0Y2xhMDBSN25sQk55bi9R?=
+ =?utf-8?B?eTkrTGFKQzRUWEhESC9FbENNaWVRRzNjT1plZVAvb0VlejR5bUdtRlRRcHRK?=
+ =?utf-8?B?Ukd2YXkvTGNuUTdKOXE2V1ZROUN6WWFaTG41a3Qvc0E5RXV1OWo4MmJHMTY2?=
+ =?utf-8?B?aTFmL3NtcWtvRkpkVndGT2QwMWs1QkRUWjVJa2dLd1dKZlBLOS9GeTRjNUxJ?=
+ =?utf-8?B?Um5lUzB4V0xkMEp6eWQwRm1kYThxWnhsY0t6MWNkVU1GZ3E0cGNvdHJ5QVZQ?=
+ =?utf-8?B?RERoTjROaE5aaGVhL3FSYzlCY01ieUxWM3M4V0NJVm42d0FRVzJGOHFFeWNF?=
+ =?utf-8?B?NEVZRWoxSVVFY1B0MXlrdDhsdjZOREd5WGtJZHBaRHZiUzZueUF6NzRLNkFh?=
+ =?utf-8?B?aU1sMCt2blNncit5azZ1WWN6YVZFQ0NKU2FtcFNOK0g0WkQyYVNvQVJpL0pI?=
+ =?utf-8?B?NEplYm8wQUlBMUFFUzVXbktMYzZqd1M2T0hjOGkxQkVXaEdQN2ZDaGtyK2VP?=
+ =?utf-8?B?ckNSNVk1dko3NndtUHJ3Y3NQcURLQ2E2Q3ZIZENzMFdmSXVicTlGZDYvV1Qy?=
+ =?utf-8?B?U1ZGelk1VjRSZjV4RGdIOWJRcnFObXRob09BemtZa2RKa2U3TkovYTU3VEJR?=
+ =?utf-8?B?WFN2YVE3ckZscFlLelpyUWk5bTN6anlWcEdzbThwU00xemorODhRMVYyamhy?=
+ =?utf-8?B?VG9RZnhKcDEzUWJxSjNWdldzMzhEYVZuV2k3alhjVGZ5RFdUSjNFZnZHMDJr?=
+ =?utf-8?B?MDdDTVk4NW92N2c4L1V4cUVyUVBXa1gxSTNEZEF3eEVQYjlEK3Z0N0dGdU9G?=
+ =?utf-8?B?UjBhOFd1VC9JVHZUVFpUUjNLdTdnVFF6NHVxUEdiWFFSQkZRMW56MVFYMW14?=
+ =?utf-8?B?M1V0eDNpSDNxS1NWZXNIVnRWdTB1ejdwRHlDVmlJbEc5Y3VOc3hVR2lCVnMw?=
+ =?utf-8?B?K2F2NS9acnludzVEMElUNDBaMEYyNStVWHpPbjFDQlJmN1Ixak0rYW5IZkJW?=
+ =?utf-8?B?L0NUUkhJYWpBRU9YQVl0WTVrSEFjcTJmdmZOZCtnbHlMclc1ek42QnYwTGU5?=
+ =?utf-8?B?eTJtTDREejhPUUtvM1pmb3p6bUtuWnhSSTJIMklWNXZ0SytESURWYVRNWlMz?=
+ =?utf-8?B?aDBJcGJQYUFtRWZpb2FhUG5qZHlwbUtibzZxeFhhc3N2T1VibDM3OVVXUzU4?=
+ =?utf-8?B?YW1OVGFvc1hZYVZVOHJoUmh4VzZWOFBPMjN0NkIrK21GUUsvVFRpRnN6N2NG?=
+ =?utf-8?B?VlkxdTZLeVFlbDlLMk80R2tNTElzanp5ZS96azB6OVhjOEE1c29FdjJ5OFhW?=
+ =?utf-8?B?REIvcU9IaktwWnZ6SFZDTy9YMHZoSm8wdkRUR01TclJsWnlZaTBIdUduRk4v?=
+ =?utf-8?B?MXh4aUdubTdnPT0=?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013)(13003099007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2025 17:01:26.6188
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 876c5b43-482c-449f-cb62-08dd923fcc78
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001CD.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF8FC6E1236
 
-On 13.05.2025 17:59, Kevin Lampis wrote:
-> On Tue, May 13, 2025 at 3:32 PM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> Well, it's easily possible to catch that error without any extra parsing.
+On 5/13/25 11:39, Jan Beulich wrote:
+> On 08.05.2025 15:20, Stewart Hildebrand wrote:
+>> --- a/xen/common/rangeset.c
+>> +++ b/xen/common/rangeset.c
+>> @@ -397,6 +397,18 @@ int rangeset_merge(struct rangeset *r1, struct rangeset *r2)
+>>      return rangeset_report_ranges(r2, 0, ~0UL, merge, r1);
+>>  }
+>>  
+>> +static int cf_check subtract(unsigned long s, unsigned long e, void *data)
+>> +{
+>> +    struct rangeset *r = data;
+>> +
+>> +    return rangeset_remove_range(r, s, e);
+>> +}
+>> +
+>> +int rangeset_subtract(struct rangeset *r1, struct rangeset *r2)
+>> +{
+>> +    return rangeset_report_ranges(r2, 0, ~0UL, subtract, r1);
+>> +}
 > 
-> If `lockdown` is not the first argument then we should print a warning
-> to tell the user that Xen may have already parsed some insecure
-> arguments and lockdown mode will not be effective.
+> I understand this was committed already, but I don't understand why: This
+> introduces a Misra rule 2.1 violation aiui. The rule isn't tagged as clean
+> yet, but it was accepted and hence I thought we would strive towards not
+> introducing new violations. What's the deal?
 > 
-> What would be a good way to check if lockdown is or isn't the first
-> argument? I am not sure.
+> Jan
 
-It'll be a little hack-ish, I suppose (yet the option is quite special,
-after all), but I can see various options. For example, have the resulting
-variable not be boolean, and OR in a separate flag after parsing the first
-option. Then warn if the flag is clear after all options were parsed.
+The very next patch (also committed) makes use of the function, so the
+series as a whole did not introduce a violation. Our code review
+guidelines still say to organize new independent helper functions into
+logically separate patches [0]. To be clear, and for future reference,
+would your expectation be to squash the introduction of the helper
+function into the patch where it's used? Perhaps we ought to finally
+update the code review guidelines...
 
-Jan
+[0] https://xenbits.xenproject.org/governance/code-review-guide.html
 
