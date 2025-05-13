@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C668AAB5D77
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D485AB5D76
 	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 21:55:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.983526.1369815 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.983527.1369820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEvif-0004LD-QR; Tue, 13 May 2025 19:55:17 +0000
+	id 1uEvig-0004Qe-4t; Tue, 13 May 2025 19:55:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 983526.1369815; Tue, 13 May 2025 19:55:17 +0000
+Received: by outflank-mailman (output) from mailman id 983527.1369820; Tue, 13 May 2025 19:55:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEvif-0004I3-MY; Tue, 13 May 2025 19:55:17 +0000
-Received: by outflank-mailman (input) for mailman id 983526;
- Tue, 13 May 2025 19:55:15 +0000
+	id 1uEvig-0004LF-0d; Tue, 13 May 2025 19:55:18 +0000
+Received: by outflank-mailman (input) for mailman id 983527;
+ Tue, 13 May 2025 19:55:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FKf8=X5=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1uEvid-0004HX-Mu
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 19:55:15 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2061f.outbound.protection.outlook.com
- [2a01:111:f403:2414::61f])
+ id 1uEvie-0004HX-CM
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 19:55:16 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20626.outbound.protection.outlook.com
+ [2a01:111:f403:2412::626])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c19ab16-3034-11f0-9eb6-5ba50f476ded;
- Tue, 13 May 2025 21:55:09 +0200 (CEST)
-Received: from PH8PR07CA0018.namprd07.prod.outlook.com (2603:10b6:510:2cd::15)
- by SJ2PR12MB7917.namprd12.prod.outlook.com (2603:10b6:a03:4c7::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.28; Tue, 13 May
- 2025 19:55:03 +0000
-Received: from SA2PEPF000015C9.namprd03.prod.outlook.com
- (2603:10b6:510:2cd:cafe::92) by PH8PR07CA0018.outlook.office365.com
- (2603:10b6:510:2cd::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.16 via Frontend Transport; Tue,
- 13 May 2025 19:55:03 +0000
+ id 2ef48e13-3034-11f0-9eb6-5ba50f476ded;
+ Tue, 13 May 2025 21:55:14 +0200 (CEST)
+Received: from SA9PR11CA0004.namprd11.prod.outlook.com (2603:10b6:806:6e::9)
+ by CY3PR12MB9554.namprd12.prod.outlook.com (2603:10b6:930:109::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.30; Tue, 13 May
+ 2025 19:55:10 +0000
+Received: from SA2PEPF000015CC.namprd03.prod.outlook.com
+ (2603:10b6:806:6e:cafe::3a) by SA9PR11CA0004.outlook.office365.com
+ (2603:10b6:806:6e::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8722.30 via Frontend Transport; Tue,
+ 13 May 2025 19:55:10 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SA2PEPF000015C9.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ SA2PEPF000015CC.mail.protection.outlook.com (10.167.241.202) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8722.18 via Frontend Transport; Tue, 13 May 2025 19:55:03 +0000
+ 15.20.8722.18 via Frontend Transport; Tue, 13 May 2025 19:55:09 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 13 May
- 2025 14:55:02 -0500
+ 2025 14:55:08 -0500
 Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 13 May 2025 14:55:01 -0500
+ Transport; Tue, 13 May 2025 14:55:08 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,22 +59,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c19ab16-3034-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 2ef48e13-3034-11f0-9eb6-5ba50f476ded
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WFEeT8afkKAomjAYG3V3V2NvrxHCroYvJeYj3AslNkRF+BGD00xXloMLi+e3jFmrYBtGt071AfnovKYDw9PJnAvJh5ngdmOBZLf2lqy5PCRWSePxfdNmf8Xgfixmgny0bQbC6wF2KYFShAKI1UtAt8eraWgG6DEo2JOa48hlLbf7tbKwpLBn0H5XOzJk5M+FoImtPKsBvSuES3GkqOr9oxQAJ1YSN8ptFSbgiYQkGimGAdcOgE71VQA6L97miNOLqZmiom21IRKJT1ro4i20hYEr/C70xqefCNADu5W7GzuU6WwkeHPx3VR50+0pqFAQbeDBiNFIY2TF1a/QoiYUwg==
+ b=nCpGVmIBjn2wOkpuMNDC822wlOz1QvGWHKk3Izp0zg3gDVMW+0YR3whimP/dJrk85eKVFuVkYNvJWudATrTzgjvz9YzZUT0RTRwsCtGrI147Epn3jUvjzFiVsQV4e1TUvFMvT5prWVz8unC2MadeF6mkmgZ90Fl5nb5inSo/+mjtYe5GWLZK22wWK4LUDdo+QE1eXiEU2LsaOswLUYAXRwVUrOJbumDXqy6oxdZfykx5weRK20W/cVTKmaLlxjHP6Yn7hhKr4R0mCb8uIdRAeUBKGX/j1zLrmizZARR09A803bzjkpgBttq4XkcLZujmHBxEZxrI8+QB+0ovmSOUYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x0ewlAJEI0hIyeEIlh2itiScntWQay2krF1ORaplPvc=;
- b=qBao+hnhPQvZ9Hu/0egHwpr8EOxNqck8zvPV4OjmNof/rNov+dA2QjViqJls3r3HGdQqGl55fu+ueFvxl/OXkpkXWDeu8LQoeAiRTLzVH7bWv354ZF+e0x3EOPfd9b/SbgzYsFnND9F9s4+Wi1zDZ4pZXUsJ8AEFOA6PkPEnBBSbGM39z3M1lK4DtdCwaBgb+pJmFUz7P6UlgbnMYz87nIMichJGaxCyQQDEw4fXSwSWIRrmd/1TvmD5YRVLJ2bWHTalhulJ+yfE2LMqlYjFoJZfS/nX0is8C1zMHUi+66KNFTVLfk7UMw0pzvwtTreQp1rdT5nvbSMPGRLIdwzIaQ==
+ bh=2q/AfSxkx8gwLWAIeOfpqYIVtb/6CQnpScz5R+ZxTS0=;
+ b=MiTeB2klZHi85ucFX/iRX1JFfxEzBsp0T39yECVUqUb0tUoZkHVJMIXLh6UL/XeRgz7YU0QC0uYnWeWPGTNvPU2R/dwaIyTfTaj1Jd1FN3sW9Alc1//fVi9zIzVpE/DGSLrnvzIw+E7aCVoD+UKAgqz1rdrvXDA5rvWsacQSGQ3SlAIvvKPoLaou/A7vWS7YL2nqm+M23I54iSkEOvPrq6/RJyZ1IohZjzKm4OpwADYhB8EZCt0u6cMqtE3erdnaWCz3vMHAM8Q7cp7o52qHEjSt8jCGTqaFoyfZ7SsqhkVA369tqb5y+IBHNe7FUfea1ltxyq7bsDqfgl8J09gtLA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x0ewlAJEI0hIyeEIlh2itiScntWQay2krF1ORaplPvc=;
- b=rMWJZlJn9jaz9pP8daOjIMowjOFpSwpKVQMBOst+zbyxL4nVzqqfSu44U6TjAjtbWiCs/qHsJB4hiVjs3PU5MjKplkQltnDngmSu/l+a2ZJAhamhP9/2DjJm4m+706u8S5pUUQPo6fAbztWrXNGaBSO06wwf/ZdkjJw91LzElTw=
+ bh=2q/AfSxkx8gwLWAIeOfpqYIVtb/6CQnpScz5R+ZxTS0=;
+ b=iIQS7ThyaZoN5n6YMm7EiMa5aLcIopP+DXjS2CjIikmOUzd9DJhB2gGZ8w7fBr6E92KHNeIFmm1u6HG/LtSMpET8d2NNV2B+evuwCShNfmxSJJUbkQjOV63DKgQr97YilfKQFcl6JIZaKjOlKKxBxAZWcZnzGWc3mGuN6oFeM98=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -83,16 +83,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
- Beulich" <jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>
-Subject: [PATCH v3 1/2] xen/arm: exclude xen,reg from direct-map domU extended regions
-Date: Tue, 13 May 2025 15:54:49 -0400
-Message-ID: <20250513195452.699600-2-stewart.hildebrand@amd.com>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
+Subject: [PATCH v3 2/2] tools/arm: exclude iomem from domU extended regions
+Date: Tue, 13 May 2025 15:54:50 -0400
+Message-ID: <20250513195452.699600-3-stewart.hildebrand@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250513195452.699600-1-stewart.hildebrand@amd.com>
 References: <20250513195452.699600-1-stewart.hildebrand@amd.com>
@@ -103,227 +98,252 @@ Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015C9:EE_|SJ2PR12MB7917:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9dabeee6-a1e5-4df3-bf97-08dd92580d7a
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CC:EE_|CY3PR12MB9554:EE_
+X-MS-Office365-Filtering-Correlation-Id: beb95c2c-6f4b-4791-996a-08dd925810b6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700013|1800799024|82310400026;
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?FERx/En4WeVbzooEZngMr7JIbqU2Fe3kOTcItSiCCyr4JvfGnSbdCbsA8nNV?=
- =?us-ascii?Q?AgrAm5fGZ1rkZgXrE+BSrhjWgwjoNifxtQ6DGy6oHzNonOnPORU1Xoya1VfS?=
- =?us-ascii?Q?tbIjJyA5uHiFdzleAmNg6WrmBq14kiNb+qMzWBTKgtcRlkFfSQZVbkaNYUJO?=
- =?us-ascii?Q?u4XjW8UBuVAlqosna/LJAPS5zkMxLIoojRfohHvJuI9TXXFq2dsBGwyqlqIr?=
- =?us-ascii?Q?NMEmUXgCjBTt+VYXDcVl6SU3qsNUT3qQucmeGjGTS0wTptIkdpNN8PG4B7I3?=
- =?us-ascii?Q?d57CD80EUJzxeALUWtBjARfn28/fb4tmEUtv+xm2h+DL71b8FQsjdO4P46Zy?=
- =?us-ascii?Q?hLtXB1KyS72c4PBOXFsBjpVuDBlos4ZgyUzDwGqu6++KnSCgWbng0vVfVxCn?=
- =?us-ascii?Q?sbD86ZkZaA/IrqwHD/Yzbw4MSMyWshVSpcQk8/wrffFQBAFDkdyUOL+L/IFL?=
- =?us-ascii?Q?Lw3n9hrzLoL2LwJc49HB35Q3TNiCm1aeGoeB+ize2cmqRGSTUrvONuhIlAvk?=
- =?us-ascii?Q?v91dSft0j4u1vKaywH55yvwiavCllpREk76Y00ivoLjXRD1WiNwNKdmK/tS8?=
- =?us-ascii?Q?m63Dj6TGlhDCPACN/ActWCZN6CiHqhyiJXS+0asiRjAt8yWPNynWbBR3SCKv?=
- =?us-ascii?Q?YsNlXRl+p/RTLoHTUtVJAJ/oa30Nkpixq5PAWGNxI8Jw/y7aFxS02C4xDN9x?=
- =?us-ascii?Q?7nMqsXosx6q3U+vUfh9nmu0N8KIZnIK6R+vJGtCm7V5LikUztvbddKLhsiyR?=
- =?us-ascii?Q?/5MQCOkoyTTTcBJQ/uRQRVyisHMA5/jD6Gm22Rv5jwBJUVfx0PHfUVANex0P?=
- =?us-ascii?Q?h/2W3bn4Lx2OvdX5dnzsgBmdcP3XSx3VQ/TiT5W49FZ9a3CrIDqpH7fXwyH3?=
- =?us-ascii?Q?QxOJRnEexqQZGgVLeWv1Z2N2o9UK/OQavkTx0dy6CrGdk9SSeVbIuvGPsVyg?=
- =?us-ascii?Q?573mDfWd3WYpSJ6maKR/Ygh8NFLakX1Ek0z+OaGT5ngATS7sDTW4kDAAFvMV?=
- =?us-ascii?Q?ADeFVXphJqSNwUlJw44xPxK8q1PxAnXAwm5v9Xc5iZLsLszXry3lAzxFUoxn?=
- =?us-ascii?Q?85KaknH1E2xmBX2FWTCReqBfvqnSlN4mb4ZK4xrf3o7YCwNXMBgrrxcxbBPs?=
- =?us-ascii?Q?MXRqbvFJWXJe8KrHZDY9YYP5wstOdOaIYG15pTmq8m8i4L6votBAnW2emMWx?=
- =?us-ascii?Q?MnKyS02IQDikkDob+hfwlGGXoykPk/yBjEqlRgHIydgs+T3Drkj5p73zFjmM?=
- =?us-ascii?Q?DaJ3oYgLc/MDR0YV5lOhzzl+34IdPXRqDFzC/9eQ3/b0CmqpTKCTEFoaw8U7?=
- =?us-ascii?Q?XfsFoB+CM7CHW/L7D58r3AmPv9/CXbV4qD7Z8AfbJ04RvAhso2cINN/lAouE?=
- =?us-ascii?Q?c1b2kZao5ohgM1PdiCAKPfJIhhWoEoJPVZ0my/1TMose2t1O6qvgYuLFA1/d?=
- =?us-ascii?Q?EMj64s4ye3rCNKnaVINV/7EDJ6XiZmygqql57iAxgsLWSIiVtIo+w/t7v7tn?=
- =?us-ascii?Q?Hkn6uS6WqXe6tLOkQ2/3R8dw+hWS/0+t6AH+?=
+	=?us-ascii?Q?i8MeGLh9iTGti8f4ipxcpLOLCSixB20FnO0wN+GSvXkGyD+Q9vROcA5oqBEe?=
+ =?us-ascii?Q?87tfM/Mu0frC3MOleyugvNrdr57GWqf1XoKWFOk/gOlmHoPnchIwHCRB3TJ1?=
+ =?us-ascii?Q?8JyGr/QR17k3YntvVvHxwgCIhRTgzbk/a1MWAb1SMl+sDuGxAkJhcJTymsDz?=
+ =?us-ascii?Q?RpJHTniu2ryV24wFJSrIcaOdQOq+mLQmMo6aTfVS6GDUiSJC2gu0ak5e0Y3R?=
+ =?us-ascii?Q?4XzwyrqD3oFBNX3dhKJ4Hr+CeMsHLHVzo4Vz2xEEfNXIhQXnj74aMdt/bFb+?=
+ =?us-ascii?Q?0MnGcjdHq/cbWb4psJ+8k9ym5/jmoI1IEqwIAAKa8St8WJH+H0MmVJhrbSUS?=
+ =?us-ascii?Q?v0pj1V8qtB806aO7wemUS3CK+Dhp5niKL8imTm/7Nyu7/zQEvQiPVNFMzIdM?=
+ =?us-ascii?Q?N3pm+6qH9yHN7IY0zH8EqcC1nkgfpn0046ZXzRnW6ix6uMX43cXNqbx5nJQ1?=
+ =?us-ascii?Q?CTJdQGNk9UvGbVCNEuedHlQbsDh/VYv42IPzJQh5ynCZKKN/4tRjJKzb+GJX?=
+ =?us-ascii?Q?DgzJuc0JyjSuIfatANP2Y4ZcuzfzIh/bjuasxjAQDDJRFSwl+wyZH6BG10Sr?=
+ =?us-ascii?Q?JvwEJsdET9H6ACM4jCdyO7YYsQHmSv1hlvtJmgS97YRKqjI3RISCE8ftQ08a?=
+ =?us-ascii?Q?qRLt06XCMAWavTet9Wh92LjOvE1N93hncB9BSFOJpau2SXNpzsJQ2NIjqX2Y?=
+ =?us-ascii?Q?o4BXPheau2AcuPgTtSzfyHhCY9xIC86Qqo0AJk7V9GudhUNris/PC/CLspsO?=
+ =?us-ascii?Q?T6EZMsA2NeVlLbxyzm+Ag4STUHRYVf7AqlxKxFL3ftQ6jk872zivqldrYO+S?=
+ =?us-ascii?Q?YbM2SF3Rf9eyjAwFpMopmT7NdXW1R+r8zOySft9jKaiZSzP2UpfFyQt7T5wW?=
+ =?us-ascii?Q?Q7bpmgXqmFrV+dVvjTmafRjp+45nvlkTJr0HdOL+CDuUPTjH7QZaCkvaPuED?=
+ =?us-ascii?Q?lH0gmcL+V4/nvqlRDNG4Qhs5kvHno9OJPZtyM252QHvFJ/yDPRPe9LEwLvMP?=
+ =?us-ascii?Q?SvhtJKiuUw7MdcOauHvAH7Nfg0gGBlw26uw/tRXUE6wQ7GboEa2Sg2XJ7r0Q?=
+ =?us-ascii?Q?PK3qOLrrcBLsQsL1Gj+KZ2Jcj9GLNFLF3n5x7X+KFCaC6n9CBTv8Hy1hPAUV?=
+ =?us-ascii?Q?DomrOMeE1RbgyiqQfCROwNLrxFONCjr4RyB8rrXgTCwAPjM1JnUbzwkQq0W1?=
+ =?us-ascii?Q?kzJT0T6kqY23kqNvcEdHY4GQ3oZVzL22P1R0TJKTv/btqXesX8INlQuw1F0K?=
+ =?us-ascii?Q?yx/SWuYMZgTL9OOyFJmAa8M0My9HTazRf4ngqxbXBdOMBp31xR1RFFJcxyDl?=
+ =?us-ascii?Q?OPMFOAaG1lnHo0OpaLm5Us1841g5PGfHb8XrAfo9hTAGVHpJJICH4uHhFZb5?=
+ =?us-ascii?Q?eC9EQlgDSc71iM8Ca+wHQxecYXNwQ2UwcXBqdrA9IYx83Q/PEJdApIvsZjFg?=
+ =?us-ascii?Q?1fUCbJ8cZgu9cJMgsWfjeH0A0IgUZ1yaM7jm0xx5ZFGURGhUsxUGMNcgcOHa?=
+ =?us-ascii?Q?O4yy/UzLxgLRvdXmQO/q/A0oEgD9+ioGiD8a?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2025 19:55:03.6690
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2025 19:55:09.1341
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9dabeee6-a1e5-4df3-bf97-08dd92580d7a
+X-MS-Exchange-CrossTenant-Network-Message-Id: beb95c2c-6f4b-4791-996a-08dd925810b6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF000015C9.namprd03.prod.outlook.com
+	SA2PEPF000015CC.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7917
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9554
 
-Similarly to fba1b0974dd8, when a device is passed through to a
-direct-map dom0less domU, the xen,reg ranges may overlap with the
-extended regions. Remove xen,reg from direct-map domU extended regions.
-
-Introduce rangeset_count_ranges().
-
-Take the opportunity to update the comment ahead of find_memory_holes().
+When a device is passed through to a xl domU, the iomem ranges may
+overlap with the extended regions. Remove iomem from extended regions.
 
 Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 ---
-v2->v3:
-* new patch
----
- xen/arch/arm/domain_build.c | 57 +++++++++++++++++++++++++++++++++----
- xen/common/rangeset.c       | 14 +++++++++
- xen/include/xen/rangeset.h  |  2 ++
- 3 files changed, 68 insertions(+), 5 deletions(-)
+Not sure if we need a Fixes: tag, but if we do:
+Fixes: 57f87857dc2d ("libxl/arm: Add handling of extended regions for DomU")
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index b189a7cfae9f..3cdf5839bc98 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -824,15 +824,17 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
+v2->v3:
+* no change
+
+v1->v2:
+* no change
+---
+ tools/libs/light/libxl_arm.c | 118 +++++++++++++++++++++++++++++------
+ 1 file changed, 99 insertions(+), 19 deletions(-)
+
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index 75c811053c7c..8ae16a1726fc 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -798,6 +798,8 @@ static int make_timer_node(libxl__gc *gc, void *fdt,
+     return 0;
  }
  
- /*
-- * Find the holes in the Host DT which can be exposed to Dom0 as extended
-- * regions for the special memory mappings. In order to calculate regions
-- * we exclude every addressable memory region described by "reg" and "ranges"
-- * properties from the maximum possible addressable physical memory range:
-+ * Find the holes in the Host DT which can be exposed to Dom0 or a direct-map
-+ * domU as extended regions for the special memory mappings. In order to
-+ * calculate regions we exclude every addressable memory region described by
-+ * "reg" and "ranges" properties from the maximum possible addressable physical
-+ * memory range:
-  * - MMIO
-  * - Host RAM
-  * - PCI aperture
-  * - Static shared memory regions, which are described by special property
-  *   "xen,shared-mem"
-+ * - xen,reg mappings
-  */
- static int __init find_memory_holes(const struct kernel_info *kinfo,
-                                     struct membanks *ext_regions)
-@@ -914,6 +916,13 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
-         }
-     }
- 
-+    if ( kinfo->xen_reg_assigned )
-+    {
-+        res = rangeset_subtract(mem_holes, kinfo->xen_reg_assigned);
-+        if ( res )
-+            goto out;
-+    }
++#define MAX_NR_EXT_REGIONS   256
 +
-     start = 0;
-     end = (1ULL << p2m_ipa_bits) - 1;
-     res = rangeset_report_ranges(mem_holes, PFN_DOWN(start), PFN_DOWN(end),
-@@ -994,11 +1003,30 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
-     return res;
- }
+ static int make_hypervisor_node(libxl__gc *gc, void *fdt,
+                                 const libxl_version_info *vers)
+ {
+@@ -821,7 +823,7 @@ static int make_hypervisor_node(libxl__gc *gc, void *fdt,
+      */
+     res = fdt_property_reg_placeholder(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
+                                        GUEST_ROOT_SIZE_CELLS,
+-                                       GUEST_RAM_BANKS + 1);
++                                       MAX_NR_EXT_REGIONS + 1);
+     if (res) return res;
  
-+static int __init rangeset_to_membank(unsigned long s_gfn, unsigned long e_gfn,
-+                                      void *data)
+     /*
+@@ -1517,17 +1519,29 @@ static void finalise_one_node(libxl__gc *gc, void *fdt, const char *uname,
+ 
+ #define EXT_REGION_MIN_SIZE   xen_mk_ullong(0x0004000000) /* 64MB */
+ 
+-static int finalize_hypervisor_node(libxl__gc *gc, struct xc_dom_image *dom)
++static int compare_iomem(const void *a, const void *b)
 +{
-+    struct membanks *membank = data;
-+    paddr_t s = pfn_to_paddr(s_gfn);
-+    paddr_t e = pfn_to_paddr(e_gfn + 1) - 1;
++    const libxl_iomem_range *x = a, *y = b;
 +
-+    if ( membank->nr_banks >= membank->max_banks )
-+        return 0;
-+
-+    membank->bank[membank->nr_banks].start = s;
-+    membank->bank[membank->nr_banks].size = e - s + 1;
-+    membank->nr_banks++;
-+
++    if (x->gfn < y->gfn)
++        return -1;
++    if (x->gfn > y->gfn)
++        return 1;
 +    return 0;
 +}
 +
- static int __init find_host_extended_regions(const struct kernel_info *kinfo,
-                                              struct membanks *ext_regions)
++static int finalize_hypervisor_node(libxl__gc *gc,
++                                    libxl_domain_build_info *b_info,
++                                    struct xc_dom_image *dom)
  {
-     int res;
-     struct membanks *gnttab = membanks_xzalloc(1, MEMORY);
-+    struct membanks *xen_reg = membanks_xzalloc(
-+        max(1, rangeset_count_ranges(kinfo->xen_reg_assigned)), MEMORY);
+     void *fdt = dom->devicetree_blob;
+-    uint64_t region_size[GUEST_RAM_BANKS] = {0}, region_base[GUEST_RAM_BANKS],
+-        bankend[GUEST_RAM_BANKS];
++    uint64_t region_base[MAX_NR_EXT_REGIONS], region_size[MAX_NR_EXT_REGIONS];
+     uint32_t regs[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
+-                  (GUEST_RAM_BANKS + 1)];
++                  (MAX_NR_EXT_REGIONS + 1)];
+     be32 *cells = &regs[0];
+     const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
+     const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
+-    unsigned int i, len, nr_regions = 0;
++    unsigned int i, j, len, nr_regions = 0;
+     libxl_dominfo info;
+     int offset, rc;
+ 
+@@ -1542,20 +1556,90 @@ static int finalize_hypervisor_node(libxl__gc *gc, struct xc_dom_image *dom)
+     if (info.gpaddr_bits > 64)
+         return ERROR_INVAL;
+ 
++    qsort(b_info->iomem, b_info->num_iomem, sizeof(libxl_iomem_range),
++          compare_iomem);
++
+     /*
+      * Try to allocate separate 2MB-aligned extended regions from the first
+      * and second RAM banks taking into the account the maximum supported
+      * guest physical address space size and the amount of memory assigned
+      * to the guest.
+      */
+-    for (i = 0; i < GUEST_RAM_BANKS; i++) {
+-        region_base[i] = bankbase[i] +
++    for (i = 0; i < GUEST_RAM_BANKS && nr_regions < MAX_NR_EXT_REGIONS; i++) {
++        struct {
++            uint64_t start;
++            uint64_t end; /* inclusive */
++        } unallocated;
++        uint64_t size = 0;
++
++        unallocated.start = bankbase[i] +
+             ALIGN_UP_TO_2MB((uint64_t)dom->rambank_size[i] << XC_PAGE_SHIFT);
+ 
+-        bankend[i] = ~0ULL >> (64 - info.gpaddr_bits);
+-        bankend[i] = min(bankend[i], bankbase[i] + banksize[i] - 1);
+-        if (bankend[i] > region_base[i])
+-            region_size[i] = bankend[i] - region_base[i] + 1;
++        unallocated.end = ~0ULL >> (64 - info.gpaddr_bits);
++        unallocated.end = min(unallocated.end, bankbase[i] + banksize[i] - 1);
++
++        if (unallocated.end > unallocated.start)
++            size = unallocated.end - unallocated.start + 1;
++
++        if (size < EXT_REGION_MIN_SIZE)
++            continue;
++
++        /* Exclude iomem */
++        for (j = 0; j < b_info->num_iomem && nr_regions < MAX_NR_EXT_REGIONS;
++             j++) {
++            struct {
++                uint64_t start;
++                uint64_t end; /* inclusive */
++            } iomem;
++
++            iomem.start = b_info->iomem[j].gfn << XC_PAGE_SHIFT;
++            iomem.end = ((b_info->iomem[j].gfn + b_info->iomem[j].number)
++                         << XC_PAGE_SHIFT) - 1;
++
++            if (iomem.end >= unallocated.start
++                && iomem.start <= unallocated.end) {
++
++                if (iomem.start <= unallocated.start) {
++                    unallocated.start = iomem.end + 1;
++
++                    if (iomem.end >= unallocated.end)
++                        /* Complete overlap, discard unallocated region */
++                        break;
++
++                    /* Beginning overlap */
++                    continue;
++                }
++
++                if (iomem.start > unallocated.start) {
++                    assert(unallocated.end > unallocated.start);
++                    size = iomem.start - unallocated.start;
++
++                    if (size >= EXT_REGION_MIN_SIZE) {
++                        region_base[nr_regions] = unallocated.start;
++                        region_size[nr_regions] = size;
++                        nr_regions++;
++                    }
++
++                    unallocated.start = iomem.end + 1;
++
++                    if (iomem.end >= unallocated.end)
++                        /* End overlap, discard remaining unallocated region */
++                        break;
++                }
++            }
++        }
++
++        if (unallocated.end > unallocated.start
++            && nr_regions < MAX_NR_EXT_REGIONS)
++        {
++            size = unallocated.end - unallocated.start + 1;
++
++            if (size >= EXT_REGION_MIN_SIZE) {
++                region_base[nr_regions] = unallocated.start;
++                region_size[nr_regions] = size;
++                nr_regions++;
++            }
++        }
+     }
  
      /*
-      * Exclude the following regions:
-@@ -1006,6 +1034,7 @@ static int __init find_host_extended_regions(const struct kernel_info *kinfo,
-      * 2) Remove reserved memory
-      * 3) Grant table assigned to domain
-      * 4) Remove static shared memory (when the feature is enabled)
-+     * 5) Remove xen,reg
-      */
-     const struct membanks *mem_banks[] = {
-         kernel_info_get_mem_const(kinfo),
-@@ -1014,12 +1043,27 @@ static int __init find_host_extended_regions(const struct kernel_info *kinfo,
- #ifdef CONFIG_STATIC_SHM
-         bootinfo_get_shmem(),
- #endif
-+        xen_reg,
-     };
+@@ -1565,16 +1649,12 @@ static int finalize_hypervisor_node(libxl__gc *gc, struct xc_dom_image *dom)
+     set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
+               GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
  
-     dt_dprintk("Find unallocated memory for extended regions\n");
+-    for (i = 0; i < GUEST_RAM_BANKS; i++) {
+-        if (region_size[i] < EXT_REGION_MIN_SIZE)
+-            continue;
+-
++    for (i = 0; i < nr_regions; i++) {
+         LOG(DEBUG, "Extended region %u: %#"PRIx64"->%#"PRIx64"",
+-            nr_regions, region_base[i], region_base[i] + region_size[i]);
++            i, region_base[i], region_base[i] + region_size[i]);
  
-     if ( !gnttab )
--        return -ENOMEM;
-+    {
-+        res = -ENOMEM;
-+        goto out;
-+    }
-+
-+    if ( !xen_reg )
-+    {
-+        res = -ENOMEM;
-+        goto out;
-+    }
-+
-+    if ( kinfo->xen_reg_assigned )
-+        rangeset_report_ranges(kinfo->xen_reg_assigned, 0,
-+                               PFN_DOWN((1ULL << p2m_ipa_bits) - 1),
-+                               rangeset_to_membank, xen_reg);
+         set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
+                   region_base[i], region_size[i]);
+-        nr_regions++;
+     }
  
-     gnttab->nr_banks = 1;
-     gnttab->bank[0].start = kinfo->gnttab_start;
-@@ -1027,6 +1071,9 @@ static int __init find_host_extended_regions(const struct kernel_info *kinfo,
+     if (!nr_regions)
+@@ -1626,7 +1706,7 @@ int libxl__arch_domain_finalise_hw_description(libxl__gc *gc,
  
-     res = find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_banks),
-                                   ext_regions, add_ext_regions);
-+
-+ out:
-+    xfree(xen_reg);
-     xfree(gnttab);
+     }
  
-     return res;
-diff --git a/xen/common/rangeset.c b/xen/common/rangeset.c
-index b9e8912fb1c3..77b37ad9b196 100644
---- a/xen/common/rangeset.c
-+++ b/xen/common/rangeset.c
-@@ -433,6 +433,20 @@ bool rangeset_is_empty(
-     return ((r == NULL) || list_empty(&r->range_list));
- }
+-    res = finalize_hypervisor_node(gc, dom);
++    res = finalize_hypervisor_node(gc, &d_config->b_info, dom);
+     if (res)
+         return res;
  
-+int rangeset_count_ranges(const struct rangeset *r)
-+{
-+    int nr = 0;
-+    struct list_head *list;
-+
-+    if ( r == NULL )
-+        return 0;
-+
-+    list_for_each( list, &r->range_list )
-+        nr++;
-+
-+    return nr;
-+}
-+
- struct rangeset *rangeset_new(
-     struct domain *d, const char *name, unsigned int flags)
- {
-diff --git a/xen/include/xen/rangeset.h b/xen/include/xen/rangeset.h
-index 817505badf6f..96cc0b5d7930 100644
---- a/xen/include/xen/rangeset.h
-+++ b/xen/include/xen/rangeset.h
-@@ -56,6 +56,8 @@ void rangeset_limit(
- bool __must_check rangeset_is_empty(
-     const struct rangeset *r);
- 
-+int __must_check rangeset_count_ranges(const struct rangeset *r);
-+
- /* Add/claim/remove/query/purge a numeric range. */
- int __must_check rangeset_add_range(
-     struct rangeset *r, unsigned long s, unsigned long e);
 -- 
 2.49.0
 
