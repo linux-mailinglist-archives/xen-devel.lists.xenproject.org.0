@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46B0CAB5AD0
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 19:10:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.983250.1369632 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33860AB5AD5
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 19:11:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.983304.1369676 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEt9N-0000yB-S2; Tue, 13 May 2025 17:10:41 +0000
+	id 1uEtA5-0004Nt-OJ; Tue, 13 May 2025 17:11:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 983250.1369632; Tue, 13 May 2025 17:10:41 +0000
+Received: by outflank-mailman (output) from mailman id 983304.1369676; Tue, 13 May 2025 17:11:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEt9N-0000pg-JR; Tue, 13 May 2025 17:10:41 +0000
-Received: by outflank-mailman (input) for mailman id 983250;
- Tue, 13 May 2025 17:10:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uEtA5-0004LE-J4; Tue, 13 May 2025 17:11:25 +0000
+Received: by outflank-mailman (input) for mailman id 983304;
+ Tue, 13 May 2025 17:11:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dvFL=X5=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1uEt67-0003Mm-8n
- for xen-devel@lists.xenproject.org; Tue, 13 May 2025 17:07:19 +0000
-Received: from 5.mo576.mail-out.ovh.net (5.mo576.mail-out.ovh.net
- [46.105.43.105]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b9c2dcc8-301c-11f0-9eb6-5ba50f476ded;
- Tue, 13 May 2025 19:07:18 +0200 (CEST)
-Received: from director9.ghost.mail-out.ovh.net (unknown [10.109.148.7])
- by mo576.mail-out.ovh.net (Postfix) with ESMTP id 4ZxjZZ0sZDz27tZ
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 17:07:18 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-ss9cm (unknown [10.108.54.212])
- by director9.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 460481FE9A;
- Tue, 13 May 2025 17:07:17 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.114])
- by ghost-submission-5b5ff79f4f-ss9cm with ESMTPSA
- id 2DmeAEV8I2gIEQEAgzAcRQ
- (envelope-from <sergii.dmytruk@3mdeb.com>); Tue, 13 May 2025 17:07:17 +0000
+ id 1uEt6C-0003Uz-HR
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 17:07:24 +0000
+Received: from 12.mo581.mail-out.ovh.net (12.mo581.mail-out.ovh.net
+ [178.33.107.167]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bc38064f-301c-11f0-9ffb-bf95429c2676;
+ Tue, 13 May 2025 19:07:22 +0200 (CEST)
+Received: from director6.ghost.mail-out.ovh.net (unknown [10.109.176.215])
+ by mo581.mail-out.ovh.net (Postfix) with ESMTP id 4ZxjZf1Yq3z1L93
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 17:07:22 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-2q4jk (unknown [10.108.42.75])
+ by director6.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 440FB1FDC5;
+ Tue, 13 May 2025 17:07:20 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.97])
+ by ghost-submission-5b5ff79f4f-2q4jk with ESMTPSA
+ id 9HLkNUd8I2ikAAAAzEFtag
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Tue, 13 May 2025 17:07:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,337 +46,766 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9c2dcc8-301c-11f0-9eb6-5ba50f476ded
-Authentication-Results:garm.ovh; auth=pass (GARM-114S008001f1f46-d194-4037-818a-410a4b9d68a0,
+X-Inumbo-ID: bc38064f-301c-11f0-9ffb-bf95429c2676
+Authentication-Results:garm.ovh; auth=pass (GARM-97G002691fa020-5b77-4e47-953a-62ec58cd6b8e,
                     0F27B6D195039ACFBDF5EC7F2AC12BEA7E98F15C) smtp.auth=sergii.dmytruk@3mdeb.com
 X-OVh-ClientIp:176.111.181.178
 From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Ross Philipson <ross.philipson@oracle.com>,
 	trenchboot-devel@googlegroups.com
-Subject: [PATCH v2 19/22] x86/slaunch: support AMD SKINIT
-Date: Tue, 13 May 2025 20:05:56 +0300
-Message-ID: <bd428ab4b6a2002a2ca6bddf619481a1d493e058.1747155790.git.sergii.dmytruk@3mdeb.com>
+Subject: [PATCH v2 20/22] x86/slaunch: support EFI boot
+Date: Tue, 13 May 2025 20:05:57 +0300
+Message-ID: <cc6da1456dfc87ed12d78f2e47e35987ec628711.1747155790.git.sergii.dmytruk@3mdeb.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1747155790.git.sergii.dmytruk@3mdeb.com>
 References: <cover.1747155790.git.sergii.dmytruk@3mdeb.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 8954844911462364316
+X-Ovh-Tracer-Id: 8955970812598596764
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdeftdegieeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepufgvrhhgihhiucffmhihthhruhhkuceoshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpefhheefheduieelieekfffgfffgfedutdevleevvdfhfffgledvgfdtuddtheefieenucfkphepuddvjedrtddrtddruddpudejiedrudduuddrudekuddrudejkedpfeejrdehledrudegvddruddugeenucevlhhushhtvghrufhiiigvpeehnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehjeeimgdpmhhouggvpehsmhhtphhouhht
-DKIM-Signature: a=rsa-sha256; bh=I4A1LgkNpCIY8hzEp8h2TJ6VL6QVw7kE9g1WIgyMW2Q=;
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdeftdegieejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepufgvrhhgihhiucffmhihthhruhhkuceoshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpeelleekkefhieekieefkefgtefhvdehkeefvdffteefgfevleelkeekvdegkeduvdenucffohhmrghinhephhgvrggurdhssgdpgiekiegpieegrdhssgenucfkphepuddvjedrtddrtddruddpudejiedrudduuddrudekuddrudejkedpfeejrdehledrudegvddrleejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheekudgmpdhmohguvgepshhmthhpohhuth
+DKIM-Signature: a=rsa-sha256; bh=Cu1xkQ6GuDdEObhFAI3AikBnobBTD4vWIFp+Q1jG7HI=;
  c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1747156038; v=1;
- b=OGQxphxCyM44df28KvwcxsN4P4Ryh5QW7XoLVUAv+Ed5Q4dT7TyS0s6qjZj3zCsAOUo2spoa
- 1npnk5utsMfiHhDutLoM8kUWCHE47d651KU4eAq80UYrAW6eMJr+PqmtpZtZYm6+E2SZ5h7Qv61
- NYuwvnvDGIuPVYUqOU9qc8fullaxAffJ7bN80vGFygiQplKKC0TdcBk7mCqdyCP3QnJPpTTOGUL
- GPA9O8pb+OsccKJmC0rAwgctc8L78Kik1LRix5NM8byfykk8UqiRnsEGKmUiUj/KRobQrlUHf7D
- qyil0sWm9TSSD0Neumg+4AL+wQamthMH44PwnRFHLSnQQ==
+ t=1747156042; v=1;
+ b=EGGcy8DJmEndR66YmDIGBC6hLk1rJ6/qF/VtYajbuUedd0CDY/5Uv7bdrkReytR/gLfdVHod
+ 23VqD5Epj9ZqAgsnV3Lk4RvxUNxVAQZ6YwmTL064i3j3JoDvhrDr18e0+YsKp6DuJzj+2WakWpB
+ S1Fu+PW35AGCPUH6sOA8h9uWAo/ix8Af3EbvzmrVu+JZjhl5AyTXbqLklSZmTZ/pKocTJ6xqBnX
+ Co6ZR8w3w/R+5fTDawCs2PlZB2l1Rg6eAnyLtvKhIxeW2g+Yzn/xPXz6yrwynENJIkP+mwBCBlD
+ dnjewcveW/HTOpn0R1AcCogUbtAo5S0LjZsd10NlRdAdA==
 
-This mostly involves not running Intel-specific code when on AMD.
+When running on an EFI-enabled system, Xen needs to have access to Boot
+Services in order to initialize itself properly and reach a state in
+which a dom0 kernel can operate without issues.
 
-There are only a few new AMD-specific implementation details:
- - finding SLB start and size and then mapping and reserving it in e820
- - managing offset for adding the next TPM log entry (TXT-compatible
-   data prepared by SKL is stored inside of vendor data field within TCG
-   header)
+This means that DRTM must be started in the middle of Xen's
+initialization process.  This effect is achieved via a callback into
+bootloader (GRUB) which is responsible for initiating DRTM and
+continuing Xen's initialization process.  The latter is done by
+branching in Slaunch entry point on a flag to switch back into long mode
+before calling the same function which Xen would execute as the next
+step without DRTM.
 
 Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
 Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 ---
- xen/arch/x86/e820.c    |  2 +-
- xen/arch/x86/slaunch.c | 90 ++++++++++++++++++++++++++++++++++--------
- xen/arch/x86/tpm.c     | 68 ++++++++++++++++++++++++++++++-
- 3 files changed, 141 insertions(+), 19 deletions(-)
+ .gitignore                                    |   1 +
+ .../eclair_analysis/ECLAIR/out_of_scope.ecl   |   1 +
+ docs/hypervisor-guide/x86/how-xen-boots.rst   |  10 +-
+ xen/arch/x86/Makefile                         |   9 +-
+ xen/arch/x86/boot/head.S                      | 124 +++++++++++++++++
+ xen/arch/x86/boot/x86_64.S                    |  14 +-
+ xen/arch/x86/efi/efi-boot.h                   |  88 +++++++++++-
+ xen/arch/x86/efi/fixmlehdr.c                  | 127 ++++++++++++++++++
+ xen/arch/x86/slaunch.c                        |  74 +++++++++-
+ xen/common/efi/boot.c                         |   4 +
+ xen/common/efi/runtime.c                      |   1 +
+ xen/include/xen/efi.h                         |   1 +
+ 12 files changed, 441 insertions(+), 13 deletions(-)
+ create mode 100644 xen/arch/x86/efi/fixmlehdr.c
 
-diff --git a/xen/arch/x86/e820.c b/xen/arch/x86/e820.c
-index 60f00e5259..cf13ab269a 100644
---- a/xen/arch/x86/e820.c
-+++ b/xen/arch/x86/e820.c
-@@ -444,7 +444,7 @@ static uint64_t __init mtrr_top_of_ram(void)
-     ASSERT(paddr_bits);
-     addr_mask = ((1ULL << paddr_bits) - 1) & PAGE_MASK;
+diff --git a/.gitignore b/.gitignore
+index 53f5df0003..dab829d7e1 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -201,6 +201,7 @@ xen/.xen.elf32
+ xen/System.map
+ xen/arch/x86/efi.lds
+ xen/arch/x86/efi/check.efi
++xen/arch/x86/efi/fixmlehdr
+ xen/arch/x86/efi/mkreloc
+ xen/arch/x86/include/asm/asm-macros.h
+ xen/arch/*/xen.lds
+diff --git a/automation/eclair_analysis/ECLAIR/out_of_scope.ecl b/automation/eclair_analysis/ECLAIR/out_of_scope.ecl
+index 9bcec4c69d..a09cf5442c 100644
+--- a/automation/eclair_analysis/ECLAIR/out_of_scope.ecl
++++ b/automation/eclair_analysis/ECLAIR/out_of_scope.ecl
+@@ -19,6 +19,7 @@
  
--    if ( slaunch_active )
-+    if ( slaunch_active && boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
-         txt_restore_mtrrs(e820_verbose);
+ -doc_begin="Build tools are out of scope."
+ -file_tag+={out_of_scope_tools,"^xen/tools/.*$"}
++-file_tag+={out_of_scope_tools,"^xen/arch/x86/efi/fixmlehdr\\.c$"}
+ -file_tag+={out_of_scope_tools,"^xen/arch/x86/efi/mkreloc\\.c$"}
+ -file_tag+={out_of_scope_tools,"^xen/arch/x86/boot/mkelf32\\.c$"}
+ -doc_end
+diff --git a/docs/hypervisor-guide/x86/how-xen-boots.rst b/docs/hypervisor-guide/x86/how-xen-boots.rst
+index 050fe9c61f..63f81a8198 100644
+--- a/docs/hypervisor-guide/x86/how-xen-boots.rst
++++ b/docs/hypervisor-guide/x86/how-xen-boots.rst
+@@ -55,10 +55,12 @@ If ``CONFIG_PVH_GUEST`` was selected at build time, an Elf note is included
+ which indicates the ability to use the PVH boot protocol, and registers
+ ``__pvh_start`` as the entrypoint, entered in 32bit mode.
  
-     rdmsrl(MSR_MTRRcap, mtrr_cap);
+-A combination of Multiboot 2 and MLE headers is used to implement DRTM for
+-legacy (BIOS) boot. The separate entry point is used mainly to differentiate
+-from other kinds of boots. It moves a magic number to EAX before jumping into
+-common startup code.
++A combination of Multiboot 2 and MLE headers is used to implement DRTM. The
++separate entry point is used mainly to differentiate from other kinds of boots.
++For a legacy (BIOS) boot, it moves a magic number to EAX before jumping into
++common startup code.  For a EFI boot, it resumes execution of Xen.efi which was
++paused by handing control to a part of a bootloader responsible for initiating
++DRTM sequence.
+ 
+ 
+ xen.gz
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 2527a1909c..7c2c0b5e4c 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -89,6 +89,7 @@ extra-y += xen.lds
+ 
+ hostprogs-y += boot/mkelf32
+ hostprogs-y += efi/mkreloc
++hostprogs-y += efi/fixmlehdr
+ 
+ $(obj)/efi/mkreloc: HOSTCFLAGS += -I$(srctree)/include
+ 
+@@ -140,6 +141,10 @@ $(TARGET): $(TARGET)-syms $(efi-y) $(obj)/boot/mkelf32
+ 
+ CFLAGS-$(XEN_BUILD_EFI) += -DXEN_BUILD_EFI
+ 
++ifeq ($(XEN_BUILD_EFI),y)
++XEN_AFLAGS += -DXEN_BUILD_EFI
++endif
++
+ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
+ 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
+ 	    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
+@@ -209,7 +214,7 @@ note_file_option ?= $(note_file)
+ 
+ extra-$(XEN_BUILD_PE) += efi.lds
+ ifeq ($(XEN_BUILD_PE),y)
+-$(TARGET).efi: $(objtree)/prelink.o $(note_file) $(obj)/efi.lds $(obj)/efi/relocs-dummy.o $(obj)/efi/mkreloc
++$(TARGET).efi: $(objtree)/prelink.o $(note_file) $(obj)/efi.lds $(obj)/efi/relocs-dummy.o $(obj)/efi/mkreloc $(obj)/efi/fixmlehdr
+ ifeq ($(CONFIG_DEBUG_INFO),y)
+ 	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),echo,:) "Will strip debug info from $(@F)"
+ endif
+@@ -236,6 +241,8 @@ endif
+ 	$(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds $< \
+ 	      $(dot-target).1r.o $(dot-target).1s.o $(orphan-handling-y) \
+ 	      $(note_file_option) -o $@
++	# take image offset into account
++	$(obj)/efi/fixmlehdr $@ $(XEN_IMG_OFFSET)
+ 	$(NM) -pa --format=sysv $@ \
+ 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+ 		> $@.map
+diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+index 66e1a21033..5ec2a272a9 100644
+--- a/xen/arch/x86/boot/head.S
++++ b/xen/arch/x86/boot/head.S
+@@ -397,6 +397,12 @@ slaunch_stub_entry:
+         mov     %ebx, %esi
+         sub     $sym_offs(slaunch_stub_entry), %esi
+ 
++#ifdef XEN_BUILD_EFI
++        /* If the flag is already set, then Xen should continue execution. */
++        cmpb    $0, sym_esi(slaunch_active)
++        jne     slaunch_efi_jumpback
++#endif
++
+         /* On AMD, %ebp holds the base address of SLB, save it for later. */
+         mov     %ebp, %ebx
+ 
+@@ -836,6 +842,124 @@ trampoline_setup:
+         /* Jump into the relocated trampoline. */
+         lret
+ 
++#ifdef XEN_BUILD_EFI
++
++        /*
++         * The state matches that of slaunch_stub_entry above, but with %esi
++         * already initialized.
++         */
++slaunch_efi_jumpback:
++        lea     STACK_SIZE - CPUINFO_sizeof + sym_esi(cpu0_stack), %esp
++
++        /* Prepare gdt and segments. */
++        add     %esi, sym_esi(gdt_boot_base)
++        lgdt    sym_esi(gdt_boot_descr)
++
++        mov     $BOOT_DS, %ecx
++        mov     %ecx, %ds
++        mov     %ecx, %es
++        mov     %ecx, %ss
++
++        push    $BOOT_CS32
++        lea     sym_esi(.Lgdt_is_set),%edx
++        push    %edx
++        lret
++.Lgdt_is_set:
++
++        /*
++         * Stash TSC as above because it was zeroed on jumping into bootloader
++         * to not interfere with measurements.
++         */
++        rdtsc
++        mov     %eax,     sym_esi(boot_tsc_stamp)
++        mov     %edx, 4 + sym_esi(boot_tsc_stamp)
++
++        /*
++         * Clear the pagetables before the use. We are loaded below 4GiB and
++         * this avoids the need for writing to higher dword of each entry.
++         * Additionally, this ensures those dwords are actually zero and the
++         * mappings aren't manipulated from outside.
++         */
++        lea     sym_esi(bootmap_start), %edi
++        lea     sym_esi(bootmap_end), %ecx
++        sub     %edi, %ecx
++        xor     %eax, %eax
++        shr     $2, %ecx
++        rep stosl
++
++        /* 1x L1 page, 512 entries mapping total of 2M. */
++        lea     sym_esi(l1_bootmap), %edi
++        mov     $512, %ecx
++        mov     $(__PAGE_HYPERVISOR + 512 * PAGE_SIZE), %edx
++.Lfill_l1_identmap:
++        sub     $PAGE_SIZE, %edx
++        /* Loop runs for ecx=[512..1] for entries [511..0], hence -8. */
++        mov     %edx, -8(%edi,%ecx,8)
++        loop    .Lfill_l1_identmap
++
++        /* 4x L2 pages, each page mapping 1G of RAM. */
++        lea     sym_esi(l2_bootmap), %edi
++        /* 1st entry points to L1. */
++        lea     (sym_offs(l1_bootmap) + __PAGE_HYPERVISOR)(%esi), %edx
++        mov     %edx, (%edi)
++        /* Other entries are 2MB pages. */
++        mov     $(4 * 512 - 1), %ecx
++        /*
++         * Value below should be 4GB + flags, which wouldn't fit in 32b
++         * register. To avoid warning from the assembler, 4GB is skipped here.
++         * Substitution in first iteration makes the value roll over and point
++         * to 4GB - 2MB + flags.
++         */
++        mov     $(_PAGE_PSE + __PAGE_HYPERVISOR), %edx
++.Lfill_l2_identmap:
++        sub     $(1 << L2_PAGETABLE_SHIFT), %edx
++        /* Loop runs for ecx=[2047..1] for entries [2047..1]. */
++        mov     %edx, (%edi,%ecx,8)
++        loop    .Lfill_l2_identmap
++
++        /* 1x L3 page, mapping the 4x L2 pages. */
++        lea     sym_esi(l3_bootmap), %edi
++        mov     $4, %ecx
++        lea     (sym_offs(l2_bootmap) + 4 * PAGE_SIZE + __PAGE_HYPERVISOR)(%esi), %edx
++.Lfill_l3_identmap:
++        sub     $PAGE_SIZE, %edx
++        /* Loop runs for ecx=[4..1] for entries [3..0], hence -8. */
++        mov     %edx, -8(%edi,%ecx,8)
++        loop    .Lfill_l3_identmap
++
++        /* 1x L4 page, mapping the L3 page. */
++        lea     (sym_offs(l3_bootmap) + __PAGE_HYPERVISOR)(%esi), %edx
++        mov     %edx, sym_esi(l4_bootmap)
++
++        /* Restore CR4, PAE must be enabled before IA-32e mode */
++        mov     %cr4, %ecx
++        or      $X86_CR4_PAE, %ecx
++        mov     %ecx, %cr4
++
++        /* Load PML4 table location into PT base register */
++        lea     sym_esi(l4_bootmap), %eax
++        mov     %eax, %cr3
++
++        /* Enable IA-32e mode and paging */
++        mov     $MSR_EFER, %ecx
++        rdmsr
++        or      $EFER_LME >> 8, %ah
++        wrmsr
++
++        mov     %cr0, %eax
++        or      $X86_CR0_PG | X86_CR0_NE | X86_CR0_TS | X86_CR0_MP, %eax
++        mov     %eax, %cr0
++
++        /* Now in IA-32e compatibility mode, use lret to jump to 64b mode */
++        lea     sym_esi(start_xen_from_efi), %ecx
++        push    $BOOT_CS64
++        push    %ecx
++        lret
++
++.global start_xen_from_efi
++
++#endif /* XEN_BUILD_EFI */
++
+ ENTRY(trampoline_start)
+ #include "trampoline.S"
+ ENTRY(trampoline_end)
+diff --git a/xen/arch/x86/boot/x86_64.S b/xen/arch/x86/boot/x86_64.S
+index ac33576d8f..67896f5fe5 100644
+--- a/xen/arch/x86/boot/x86_64.S
++++ b/xen/arch/x86/boot/x86_64.S
+@@ -221,14 +221,22 @@ GLOBAL(__page_tables_end)
+ /* Init pagetables. Enough page directories to map into 4GB. */
+         .section .init.data, "aw", @progbits
+ 
+-DATA_LOCAL(l1_bootmap, PAGE_SIZE)
++bootmap_start:
++
++DATA_LOCAL(l1_bootmap, PAGE_SIZE) /* 1x L1 page, mapping 2M of RAM. */
+         .fill L1_PAGETABLE_ENTRIES, 8, 0
+ END(l1_bootmap)
+ 
+-DATA(l2_bootmap, PAGE_SIZE)
++DATA(l2_bootmap, PAGE_SIZE) /* 4x L2 pages, each mapping 1G of RAM. */
+         .fill 4 * L2_PAGETABLE_ENTRIES, 8, 0
+ END(l2_bootmap)
+ 
+-DATA(l3_bootmap, PAGE_SIZE)
++DATA(l3_bootmap, PAGE_SIZE) /* 1x L3 page, mapping the 4x L2 pages. */
+         .fill L3_PAGETABLE_ENTRIES, 8, 0
+ END(l3_bootmap)
++
++DATA_LOCAL(l4_bootmap, PAGE_SIZE) /* 1x L4 page, mapping the L3 page. */
++        .fill L4_PAGETABLE_ENTRIES, 8, 0
++END(l4_bootmap)
++
++bootmap_end:
+diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+index 1d8902a9a7..6aaba4a966 100644
+--- a/xen/arch/x86/efi/efi-boot.h
++++ b/xen/arch/x86/efi/efi-boot.h
+@@ -5,6 +5,12 @@
+  */
+ #include <xen/vga.h>
+ 
++/*
++ * Tell <asm/intel-txt.h> to access TXT registers without address translation
++ * which has not yet been set up.
++ */
++#define __EARLY_SLAUNCH__
++
+ #include <asm/boot-helpers.h>
+ #include <asm/e820.h>
+ #include <asm/edd.h>
+@@ -13,8 +19,11 @@
+ #include <asm/setup.h>
+ #include <asm/trampoline.h>
+ #include <asm/efi.h>
++#include <asm/intel-txt.h>
++#include <asm/slaunch.h>
+ 
+ static struct file __initdata ucode;
++static uint64_t __initdata xen_image_size;
+ static multiboot_info_t __initdata mbi = {
+     .flags = MBI_MODULES | MBI_LOADERNAME
+ };
+@@ -230,10 +239,29 @@ static void __init efi_arch_pre_exit_boot(void)
+     }
+ }
+ 
+-static void __init noreturn efi_arch_post_exit_boot(void)
++void __init asmlinkage noreturn start_xen_from_efi(void)
+ {
+     u64 cr4 = XEN_MINIMAL_CR4 & ~X86_CR4_PGE, efer;
+ 
++    if ( slaunch_active )
++    {
++        struct slr_table *slrt = (struct slr_table *)efi.slr;
++        struct slr_entry_intel_info *intel_info;
++
++        intel_info = (struct slr_entry_intel_info *)
++            slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_INTEL_INFO);
++        if ( intel_info != NULL )
++        {
++            void *txt_heap = txt_init();
++            struct txt_os_mle_data *os_mle = txt_os_mle_data_start(txt_heap);
++            struct txt_os_sinit_data *os_sinit =
++                txt_os_sinit_data_start(txt_heap);
++
++            txt_verify_pmr_ranges(os_mle, os_sinit, intel_info, xen_phys_start,
++                                  xen_phys_start, xen_image_size);
++        }
++    }
++
+     efi_arch_relocate_image(__XEN_VIRT_START - xen_phys_start);
+     memcpy(_p(trampoline_phys), trampoline_start, cfg.size);
+ 
+@@ -279,6 +307,63 @@ static void __init noreturn efi_arch_post_exit_boot(void)
+     unreachable();
+ }
+ 
++static void __init attempt_secure_launch(void)
++{
++    struct slr_table *slrt;
++    struct slr_entry_dl_info *dlinfo;
++    dl_handler_func handler_callback;
++
++    /* The presence of this table indicates a Secure Launch boot. */
++    slrt = (struct slr_table *)efi.slr;
++    if ( efi.slr == EFI_INVALID_TABLE_ADDR || slrt->magic != SLR_TABLE_MAGIC ||
++         slrt->revision != SLR_TABLE_REVISION )
++        return;
++
++    /* Avoid calls into firmware after DRTM. */
++    __clear_bit(EFI_RS, &efi_flags);
++
++    /*
++     * Make measurements less sensitive to hardware-specific details.
++     *
++     * Intentionally leaving efi_ct and efi_num_ct intact.
++     */
++    efi_ih = NULL;
++    efi_bs = NULL;
++    efi_bs_revision = 0;
++    efi_rs = NULL;
++    efi_version = 0;
++    efi_fw_vendor = NULL;
++    efi_fw_revision = 0;
++    StdOut = NULL;
++    StdErr = NULL;
++    boot_tsc_stamp = 0;
++
++    slaunch_active = true;
++    slaunch_slrt = efi.slr;
++
++    /* Jump through DL stub to initiate Secure Launch. */
++    dlinfo = (struct slr_entry_dl_info *)
++        slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_DL_INFO);
++
++    handler_callback = (dl_handler_func)dlinfo->dl_handler;
++    handler_callback(&dlinfo->bl_context);
++
++    unreachable();
++}
++
++static void __init noreturn efi_arch_post_exit_boot(void)
++{
++    /*
++     * If Secure Launch happens, attempt_secure_launch() doesn't return and
++     * start_xen_from_efi() is invoked after DRTM has been initiated.
++     * Otherwise, attempt_secure_launch() returns and execution continues as
++     * usual.
++     */
++    attempt_secure_launch();
++
++    start_xen_from_efi();
++}
++
+ static void __init efi_arch_cfg_file_early(const EFI_LOADED_IMAGE *image,
+                                            EFI_FILE_HANDLE dir_handle,
+                                            const char *section)
+@@ -775,6 +860,7 @@ static void __init efi_arch_halt(void)
+ static void __init efi_arch_load_addr_check(const EFI_LOADED_IMAGE *loaded_image)
+ {
+     xen_phys_start = (UINTN)loaded_image->ImageBase;
++    xen_image_size = loaded_image->ImageSize;
+     if ( (xen_phys_start + loaded_image->ImageSize - 1) >> 32 )
+         blexit(L"Xen must be loaded below 4Gb.");
+     if ( xen_phys_start & ((1 << L2_PAGETABLE_SHIFT) - 1) )
+diff --git a/xen/arch/x86/efi/fixmlehdr.c b/xen/arch/x86/efi/fixmlehdr.c
+new file mode 100644
+index 0000000000..60a91c6b73
+--- /dev/null
++++ b/xen/arch/x86/efi/fixmlehdr.c
+@@ -0,0 +1,127 @@
++#include <stdint.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++
++/*
++ * Depending on the toolchain and its configuration the header can end up quite
++ * far from the start of the file.
++ */
++#define PREFIX_SIZE (8*1024)
++
++struct mle_header
++{
++    uint8_t uuid[16];
++    uint32_t header_len;
++    uint32_t version;
++    uint32_t entry_point;
++    uint32_t first_valid_page;
++    uint32_t mle_start;
++    uint32_t mle_end;
++    uint32_t capabilities;
++    uint32_t cmdline_start;
++    uint32_t cmdline_end;
++} __attribute__ ((packed));
++
++static const uint8_t MLE_HEADER_UUID[] = {
++    0x5a, 0xac, 0x82, 0x90, 0x6f, 0x47, 0xa7, 0x74,
++    0x0f, 0x5c, 0x55, 0xa2, 0xcb, 0x51, 0xb6, 0x42
++};
++
++int main(int argc, char *argv[])
++{
++    FILE *fp;
++    struct mle_header header;
++    int i;
++    char *end_ptr;
++    long long correction;
++    const char *file_path;
++
++    if ( argc != 3 )
++    {
++        fprintf(stderr, "Usage: %s <xen.efi> <entry-correction>\n", argv[0]);
++        return 1;
++    }
++
++    correction = strtoll(argv[2], &end_ptr, 0);
++    if ( *end_ptr != '\0' )
++    {
++        fprintf(stderr, "Failed to parse '%s' as a number\n", argv[2]);
++        return 1;
++    }
++    if ( correction < INT32_MIN  )
++    {
++        fprintf(stderr, "Correction '%s' is too small\n", argv[2]);
++        return 1;
++    }
++    if ( correction > INT32_MAX  )
++    {
++        fprintf(stderr, "Correction '%s' is too large\n", argv[2]);
++        return 1;
++    }
++
++    file_path = argv[1];
++
++    fp = fopen(file_path, "r+");
++    if ( fp == NULL )
++    {
++        fprintf(stderr, "Failed to open %s\n", file_path);
++        return 1;
++    }
++
++    for ( i = 0; i < PREFIX_SIZE; i += 16 )
++    {
++        uint8_t bytes[16];
++
++        if ( fread(bytes, sizeof(bytes), 1, fp) != 1 )
++        {
++            fprintf(stderr, "Failed to find MLE header in %s\n", file_path);
++            goto fail;
++        }
++
++        if ( memcmp(bytes, MLE_HEADER_UUID, 16) == 0 )
++        {
++            break;
++        }
++    }
++
++    if ( i >= PREFIX_SIZE )
++    {
++        fprintf(stderr, "Failed to find MLE header in %s\n", file_path);
++        goto fail;
++    }
++
++    if ( fseek(fp, -16, SEEK_CUR) )
++    {
++        fprintf(stderr, "Failed to seek back to MLE header in %s\n", file_path);
++        goto fail;
++    }
++
++    if ( fread(&header, sizeof(header), 1, fp) != 1 )
++    {
++        fprintf(stderr, "Failed to read MLE header from %s\n", file_path);
++        goto fail;
++    }
++
++    if ( fseek(fp, -(int)sizeof(header), SEEK_CUR) )
++    {
++        fprintf(stderr, "Failed to seek back again to MLE header in %s\n",
++                file_path);
++        goto fail;
++    }
++
++    header.entry_point += correction;
++
++    if ( fwrite(&header, sizeof(header), 1, fp) != 1 )
++    {
++        fprintf(stderr, "Failed to write MLE header in %s\n", file_path);
++        goto fail;
++    }
++
++    fclose(fp);
++    return 0;
++
++fail:
++    fclose(fp);
++    return 1;
++}
 diff --git a/xen/arch/x86/slaunch.c b/xen/arch/x86/slaunch.c
-index 7cc1831f15..f0447f91d2 100644
+index f0447f91d2..15cfe944a7 100644
 --- a/xen/arch/x86/slaunch.c
 +++ b/xen/arch/x86/slaunch.c
-@@ -17,6 +17,10 @@
- #include <asm/slaunch.h>
- #include <asm/tpm.h>
+@@ -5,6 +5,7 @@
+  */
  
-+/* SLB is 64k, 64k-aligned */
-+#define SKINIT_SLB_SIZE   0x10000
-+#define SKINIT_SLB_ALIGN  0x10000
-+
- /*
-  * These variables are assigned to by the code near Xen's entry point.
-  *
-@@ -39,6 +43,8 @@ struct slr_table *__init slaunch_get_slrt(void)
- 
-     if (slrt == NULL) {
-         int rc;
-+        bool intel_cpu = (boot_cpu_data.x86_vendor == X86_VENDOR_INTEL);
-+        uint16_t slrt_architecture = intel_cpu ? SLR_INTEL_TXT : SLR_AMD_SKINIT;
- 
-         slrt = __va(slaunch_slrt);
- 
-@@ -50,9 +56,9 @@ struct slr_table *__init slaunch_get_slrt(void)
-         /* XXX: are newer revisions allowed? */
-         if ( slrt->revision != SLR_TABLE_REVISION )
-             panic("SLRT is of unsupported revision: %#04x!\n", slrt->revision);
--        if ( slrt->architecture != SLR_INTEL_TXT )
--            panic("SLRT is for unexpected architecture: %#04x!\n",
--                  slrt->architecture);
-+        if ( slrt->architecture != slrt_architecture )
-+            panic("SLRT is for unexpected architecture: %#04x != %#04x!\n",
-+                  slrt->architecture, slrt_architecture);
-         if ( slrt->size > slrt->max_size )
-             panic("SLRT is larger than its max size: %#08x > %#08x!\n",
-                   slrt->size, slrt->max_size);
-@@ -67,6 +73,23 @@ struct slr_table *__init slaunch_get_slrt(void)
-     return slrt;
- }
- 
-+static uint32_t __init get_slb_start(void)
-+{
-+    /*
-+     * The runtime computation relies on size being a power of 2 and equal to
-+     * alignment. Make sure these assumptions hold.
-+     */
-+    BUILD_BUG_ON(SKINIT_SLB_SIZE != SKINIT_SLB_ALIGN);
-+    BUILD_BUG_ON(SKINIT_SLB_SIZE == 0);
-+    BUILD_BUG_ON((SKINIT_SLB_SIZE & (SKINIT_SLB_SIZE - 1)) != 0);
-+
-+    /*
-+     * Rounding any address within SLB down to alignment gives SLB base and
-+     * SLRT is inside SLB on AMD.
-+     */
-+    return slaunch_slrt & ~(SKINIT_SLB_SIZE - 1);
-+}
-+
- void __init slaunch_map_mem_regions(void)
- {
-     int rc;
-@@ -77,7 +100,10 @@ void __init slaunch_map_mem_regions(void)
-     BUG_ON(rc != 0);
- 
-     /* Vendor-specific part. */
--    txt_map_mem_regions();
-+    if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
-+        txt_map_mem_regions();
-+    else if ( boot_cpu_data.x86_vendor == X86_VENDOR_AMD )
-+        slaunch_map_l2(get_slb_start(), SKINIT_SLB_SIZE);
- 
-     find_evt_log(slaunch_get_slrt(), &evt_log_addr, &evt_log_size);
-     if ( evt_log_addr != NULL )
-@@ -95,7 +121,18 @@ void __init slaunch_reserve_mem_regions(void)
-     uint32_t evt_log_size;
- 
-     /* Vendor-specific part. */
--    txt_reserve_mem_regions();
-+    if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
-+    {
-+        txt_reserve_mem_regions();
-+    }
-+    else if ( boot_cpu_data.x86_vendor == X86_VENDOR_AMD )
-+    {
-+        uint64_t slb_start = get_slb_start();
-+        uint64_t slb_end = slb_start + SKINIT_SLB_SIZE;
-+        printk("SLAUNCH: reserving SLB (%#lx - %#lx)\n", slb_start, slb_end);
-+        rc = reserve_e820_ram(&e820_raw, slb_start, slb_end);
-+        BUG_ON(rc == 0);
-+    }
- 
-     find_evt_log(slaunch_get_slrt(), &evt_log_addr, &evt_log_size);
-     if ( evt_log_addr != NULL )
-@@ -119,20 +156,41 @@ void __init slaunch_measure_slrt(void)
-          * In revision one of the SLRT, only platform-specific info table is
-          * measured.
-          */
--        struct slr_entry_intel_info tmp;
--        struct slr_entry_intel_info *entry;
-+        if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
-+        {
-+            struct slr_entry_intel_info tmp;
-+            struct slr_entry_intel_info *entry;
-+
-+            entry = (struct slr_entry_intel_info *)
-+                slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_INTEL_INFO);
-+            if ( entry == NULL )
-+                panic("SLRT is missing Intel-specific information!\n");
- 
--        entry = (struct slr_entry_intel_info *)
--            slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_INTEL_INFO);
--        if ( entry == NULL )
--            panic("SLRT is missing Intel-specific information!\n");
-+            tmp = *entry;
-+            tmp.boot_params_base = 0;
-+            tmp.txt_heap = 0;
- 
--        tmp = *entry;
--        tmp.boot_params_base = 0;
--        tmp.txt_heap = 0;
-+            tpm_hash_extend(DRTM_LOC, DRTM_DATA_PCR, (uint8_t *)&tmp,
-+                            sizeof(tmp), DLE_EVTYPE_SLAUNCH, NULL, 0);
-+        }
-+        else if ( boot_cpu_data.x86_vendor == X86_VENDOR_AMD )
-+        {
-+            struct slr_entry_amd_info tmp;
-+            struct slr_entry_amd_info *entry;
-+
-+            entry = (struct slr_entry_amd_info *)
-+                slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_AMD_INFO);
-+            if ( entry == NULL )
-+                panic("SLRT is missing AMD-specific information!\n");
- 
--        tpm_hash_extend(DRTM_LOC, DRTM_DATA_PCR, (uint8_t *)&tmp,
--                        sizeof(tmp), DLE_EVTYPE_SLAUNCH, NULL, 0);
-+            tmp = *entry;
-+            tmp.next = 0;
-+            tmp.slrt_base = 0;
-+            tmp.boot_params_base = 0;
-+
-+            tpm_hash_extend(DRTM_LOC, DRTM_DATA_PCR, (uint8_t *)&tmp,
-+                            sizeof(tmp), DLE_EVTYPE_SLAUNCH, NULL, 0);
-+        }
-     }
-     else
-     {
-diff --git a/xen/arch/x86/tpm.c b/xen/arch/x86/tpm.c
-index 47a9edef50..e9ba073d55 100644
---- a/xen/arch/x86/tpm.c
-+++ b/xen/arch/x86/tpm.c
-@@ -11,6 +11,7 @@
- #include <asm/intel-txt.h>
- #include <asm/slaunch.h>
- #include <asm/tpm.h>
-+#include <asm/x86-vendors.h>
- 
- #ifdef __EARLY_SLAUNCH__
- 
-@@ -52,11 +53,31 @@ void *(memcpy)(void *dest, const void *src, size_t n)
-     return dest;
- }
- 
-+static bool is_amd_cpu(void)
-+{
-+    /*
-+     * asm/processor.h can't be included in early code, which means neither
-+     * cpuid() function nor boot_cpu_data can be used here.
-+     */
-+    uint32_t eax, ebx, ecx, edx;
-+    asm volatile ( "cpuid"
-+          : "=a" (eax), "=b" (ebx), "=c" (ecx), "=d" (edx)
-+          : "0" (0), "c" (0) );
-+    return ebx == X86_VENDOR_AMD_EBX
-+        && ecx == X86_VENDOR_AMD_ECX
-+        && edx == X86_VENDOR_AMD_EDX;
-+}
-+
- #else   /* __EARLY_SLAUNCH__ */
- 
+ #include <xen/compiler.h>
++#include <xen/efi.h>
+ #include <xen/init.h>
+ #include <xen/macros.h>
  #include <xen/mm.h>
- #include <xen/pfn.h>
- 
-+static bool is_amd_cpu(void)
-+{
-+    return boot_cpu_data.x86_vendor == X86_VENDOR_AMD;
-+}
-+
- #endif  /* __EARLY_SLAUNCH__ */
- 
- #define TPM_LOC_REG(loc, reg)   (0x1000 * (loc) + (reg))
-@@ -241,6 +262,21 @@ struct TPM12_PCREvent {
-     uint8_t Data[];
- };
- 
-+struct tpm1_spec_id_event {
-+    uint32_t pcrIndex;
-+    uint32_t eventType;
-+    uint8_t digest[20];
-+    uint32_t eventSize;
-+    uint8_t signature[16];
-+    uint32_t platformClass;
-+    uint8_t specVersionMinor;
-+    uint8_t specVersionMajor;
-+    uint8_t specErrata;
-+    uint8_t uintnSize;
-+    uint8_t vendorInfoSize;
-+    uint8_t vendorInfo[0];  /* variable number of members */
-+} __packed;
-+
- struct txt_ev_log_container_12 {
-     char        Signature[20];      /* "TXT Event Container", null-terminated */
-     uint8_t     Reserved[12];
-@@ -384,6 +420,16 @@ static void *create_log_event12(struct txt_ev_log_container_12 *evt_log,
+@@ -244,10 +245,23 @@ check_drtm_policy(struct slr_table *slrt,
  {
-     struct TPM12_PCREvent *new_entry;
+     uint32_t i;
+     uint32_t num_mod_entries;
++    int min_entries;
  
-+    if ( is_amd_cpu() )
+-    if ( policy->nr_entries < 2 )
+-        panic("DRTM policy in SLRT contains less than 2 entries (%d)!\n",
+-              policy->nr_entries);
++    min_entries = efi_enabled(EFI_BOOT) ? 1 : 2;
++    if ( policy->nr_entries < min_entries )
 +    {
-+        /*
-+         * On AMD, TXT-compatible structure is stored as vendor data of
-+         * TCG-defined event log header.
-+         */
-+        struct tpm1_spec_id_event *spec_id = (void *)evt_log;
-+        evt_log = (struct txt_ev_log_container_12 *)&spec_id->vendorInfo[0];
++        panic("DRTM policy in SLRT contains less than %d entries (%d)!\n",
++              min_entries, policy->nr_entries);
 +    }
 +
-     new_entry = (void *)(((uint8_t *)evt_log) + evt_log->NextEventOffset);
++    if ( efi_enabled(EFI_BOOT) )
++    {
++        check_slrt_policy_entry(&policy_entry[0], 0, slrt);
++        /* SLRT was measured in tpm_measure_slrt(). */
++        return 1;
++    }
++
++    /* This must be legacy MultiBoot2 boot. */
  
      /*
-@@ -832,11 +878,29 @@ static uint32_t tpm2_hash_extend(unsigned loc, const uint8_t *buf,
+      * MBI policy entry must be the first one, so that measuring order matches
+@@ -316,6 +330,7 @@ void __init slaunch_process_drtm_policy(const struct boot_info *bi)
+     struct slr_table *slrt;
+     struct slr_entry_policy *policy;
+     struct slr_policy_entry *policy_entry;
++    int rc;
+     uint16_t i;
+     unsigned int measured;
  
- #endif /* __EARLY_SLAUNCH__ */
+@@ -331,7 +346,6 @@ void __init slaunch_process_drtm_policy(const struct boot_info *bi)
  
--static struct heap_event_log_pointer_element2_1 *find_evt_log_ext_data(void)
-+static struct heap_event_log_pointer_element2_1 *
-+find_evt_log_ext_data(struct tpm2_spec_id_event *evt_log)
- {
-     struct txt_os_sinit_data *os_sinit;
-     struct txt_ext_data_element *ext_data;
+     for ( i = measured; i < policy->nr_entries; i++ )
+     {
+-        int rc;
+         uint64_t start = policy_entry[i].entity;
+         uint64_t size = policy_entry[i].size;
  
-+    if ( is_amd_cpu() )
+@@ -376,6 +390,58 @@ void __init slaunch_process_drtm_policy(const struct boot_info *bi)
+ 
+         policy_entry[i].flags |= SLR_POLICY_FLAG_MEASURED;
+     }
++
++    /*
++     * On x86 EFI platforms Xen reads its command-line options and kernel/initrd
++     * from configuration files (several can be chained). Bootloader can't know
++     * contents of the configuration beforehand without parsing it, so there
++     * will be no corresponding policy entries. Instead, measure command-line
++     * and all modules here.
++     */
++    if ( efi_enabled(EFI_BOOT) )
 +    {
-+        /*
-+         * Event log pointer is defined by TXT specification, but
-+         * secure-kernel-loader provides a compatible structure in vendor data
-+         * of the log.
-+         */
-+        const uint8_t *data_size =
-+            (void *)&evt_log->digestSizes[evt_log->digestCount];
++#define LOG_DATA(str) (uint8_t *)(str), (sizeof(str) - 1)
 +
-+        if ( *data_size != sizeof(struct heap_event_log_pointer_element2_1) )
-+            return NULL;
++        tpm_hash_extend(DRTM_LOC, DRTM_DATA_PCR,
++                        (const uint8_t *)bi->cmdline, strlen(bi->cmdline),
++                        DLE_EVTYPE_SLAUNCH, LOG_DATA("Xen's command line"));
 +
-+        /* Vendor data directly follows one-byte size. */
-+        return (void *)(data_size + 1);
++        for ( i = 0; i < bi->nr_modules; i++ )
++        {
++            const struct boot_module *mod = &bi->mods[i];
++
++            paddr_t string = mod->cmdline_pa;
++            paddr_t start = mod->start;
++            size_t size = mod->size;
++
++            if ( mod->relocated || mod->released )
++            {
++                panic("A module \"%s\" (#%d) was consumed before measurement\n",
++                      (const char *)__va(string), i);
++            }
++
++            /*
++             * Measuring module's name separately because module's command-line
++             * parameters are appended to its name when present.
++             *
++             * 2 MiB is minimally mapped size and it should more than suffice.
++             */
++            rc = slaunch_map_l2(string, 2 * 1024 * 1024);
++            BUG_ON(rc != 0);
++
++            tpm_hash_extend(DRTM_LOC, DRTM_DATA_PCR,
++                            __va(string), strlen(__va(string)),
++                            DLE_EVTYPE_SLAUNCH, LOG_DATA("MB module string"));
++
++            rc = slaunch_map_l2(start, size);
++            BUG_ON(rc != 0);
++
++            tpm_hash_extend(DRTM_LOC, DRTM_CODE_PCR, __va(start), size,
++                            DLE_EVTYPE_SLAUNCH, LOG_DATA("MB module"));
++        }
++
++#undef LOG_DATA
 +    }
-+
-     os_sinit = txt_os_sinit_data_start(__va(read_txt_reg(TXTCR_HEAP_BASE)));
-     ext_data = (void *)((uint8_t *)os_sinit + sizeof(*os_sinit));
+ }
  
-@@ -870,7 +934,7 @@ create_log_event20(struct tpm2_spec_id_event *evt_log, uint32_t evt_log_size,
-     unsigned i;
-     uint8_t *p;
+ int __init slaunch_map_l2(unsigned long paddr, unsigned long size)
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index e39fbc3529..35501ee4de 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -19,6 +19,7 @@
+ #if EFI_PAGE_SIZE != PAGE_SIZE
+ # error Cannot use xen/pfn.h here!
+ #endif
++#include <xen/slr-table.h>
+ #include <xen/string.h>
+ #include <xen/stringify.h>
+ #ifdef CONFIG_X86
+@@ -1004,6 +1005,7 @@ static void __init efi_tables(void)
+         static EFI_GUID __initdata mps_guid = MPS_TABLE_GUID;
+         static EFI_GUID __initdata smbios_guid = SMBIOS_TABLE_GUID;
+         static EFI_GUID __initdata smbios3_guid = SMBIOS3_TABLE_GUID;
++        static EFI_GUID __initdata slr_guid = UEFI_SLR_TABLE_GUID;
  
--    log_ext_data = find_evt_log_ext_data();
-+    log_ext_data = find_evt_log_ext_data(evt_log);
-     if ( log_ext_data == NULL )
-         return log_hashes;
+         if ( match_guid(&acpi2_guid, &efi_ct[i].VendorGuid) )
+             efi.acpi20 = (unsigned long)efi_ct[i].VendorTable;
+@@ -1015,6 +1017,8 @@ static void __init efi_tables(void)
+             efi.smbios = (unsigned long)efi_ct[i].VendorTable;
+         if ( match_guid(&smbios3_guid, &efi_ct[i].VendorGuid) )
+             efi.smbios3 = (unsigned long)efi_ct[i].VendorTable;
++        if ( match_guid(&slr_guid, &efi_ct[i].VendorGuid) )
++            efi.slr = (unsigned long)efi_ct[i].VendorTable;
+         if ( match_guid(&esrt_guid, &efi_ct[i].VendorGuid) )
+             esrt = (UINTN)efi_ct[i].VendorTable;
+     }
+diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
+index 7e1fce291d..e1b339f162 100644
+--- a/xen/common/efi/runtime.c
++++ b/xen/common/efi/runtime.c
+@@ -70,6 +70,7 @@ struct efi __read_mostly efi = {
+ 	.mps    = EFI_INVALID_TABLE_ADDR,
+ 	.smbios = EFI_INVALID_TABLE_ADDR,
+ 	.smbios3 = EFI_INVALID_TABLE_ADDR,
++	.slr    = EFI_INVALID_TABLE_ADDR,
+ };
  
+ const struct efi_pci_rom *__read_mostly efi_pci_roms;
+diff --git a/xen/include/xen/efi.h b/xen/include/xen/efi.h
+index 160804e294..614dfce66a 100644
+--- a/xen/include/xen/efi.h
++++ b/xen/include/xen/efi.h
+@@ -19,6 +19,7 @@ struct efi {
+     unsigned long acpi20;       /* ACPI table (ACPI 2.0) */
+     unsigned long smbios;       /* SM BIOS table */
+     unsigned long smbios3;      /* SMBIOS v3 table */
++    unsigned long slr;          /* SLR table */
+ };
+ 
+ extern struct efi efi;
 -- 
 2.49.0
 
