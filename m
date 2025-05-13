@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9BDEAB5AB2
-	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 19:04:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.983137.1369488 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5709EAB5AB8
+	for <lists+xen-devel@lfdr.de>; Tue, 13 May 2025 19:06:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.983181.1369528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEt2r-0001hK-BJ; Tue, 13 May 2025 17:03:57 +0000
+	id 1uEt5H-0003cJ-EG; Tue, 13 May 2025 17:06:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 983137.1369488; Tue, 13 May 2025 17:03:57 +0000
+Received: by outflank-mailman (output) from mailman id 983181.1369528; Tue, 13 May 2025 17:06:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uEt2r-0001es-8D; Tue, 13 May 2025 17:03:57 +0000
-Received: by outflank-mailman (input) for mailman id 983137;
- Tue, 13 May 2025 17:03:55 +0000
+	id 1uEt5H-0003aQ-7n; Tue, 13 May 2025 17:06:27 +0000
+Received: by outflank-mailman (input) for mailman id 983181;
+ Tue, 13 May 2025 17:06:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p0QL=X5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uEt2p-0001em-Ti
- for xen-devel@lists.xen.org; Tue, 13 May 2025 17:03:55 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f61f8f5-301c-11f0-9eb6-5ba50f476ded;
- Tue, 13 May 2025 19:03:53 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43cf06eabdaso58467385e9.2
- for <xen-devel@lists.xen.org>; Tue, 13 May 2025 10:03:53 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442cd3b7dd5sm215452485e9.35.2025.05.13.10.03.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 May 2025 10:03:51 -0700 (PDT)
+ <SRS0=dvFL=X5=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
+ id 1uEt5E-0003Mm-It
+ for xen-devel@lists.xenproject.org; Tue, 13 May 2025 17:06:25 +0000
+Received: from 14.mo582.mail-out.ovh.net (14.mo582.mail-out.ovh.net
+ [46.105.56.113]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 981fcbe8-301c-11f0-9eb6-5ba50f476ded;
+ Tue, 13 May 2025 19:06:22 +0200 (CEST)
+Received: from director2.ghost.mail-out.ovh.net (unknown [10.109.148.65])
+ by mo582.mail-out.ovh.net (Postfix) with ESMTP id 4ZxjYT3Fl9z1fD3
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 17:06:21 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-tzcrg (unknown [10.110.101.251])
+ by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 5101D1FD1D;
+ Tue, 13 May 2025 17:06:19 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.96])
+ by ghost-submission-5b5ff79f4f-tzcrg with ESMTPSA
+ id fnX0Mgp8I2j3JwEAShSnmA
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Tue, 13 May 2025 17:06:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +46,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f61f8f5-301c-11f0-9eb6-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747155832; x=1747760632; darn=lists.xen.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=CdiKmgPiB83vyJbNLyqD6vCzUOha0hDNrkNpiC/2CX8=;
-        b=AQ27NaMJkxHF59O1egyWODt37+j7G6HBrm1MMp2X+9j5NEap+Z4rsIO9l+TY+eJzrb
-         nTO38jIqWCQY+NIqGYCXBE7fF/r0EZegPAktimt3keZUuIn3vbhgYGZZQLxM22ns2GXq
-         3ABiMN2kw9tTg9uaAUI8rtBTQOsf4nIgbx7eI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747155832; x=1747760632;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=CdiKmgPiB83vyJbNLyqD6vCzUOha0hDNrkNpiC/2CX8=;
-        b=CdTTfgTljN/WfM6Xa+pxdTfKxSV/4eg4bXoQos55+90J+T3EZDknr+XH1ebBbhBLXH
-         bXu5lMfywgEL/Kzf93E6sphKCCYVvv9cr6mqhsqnufpGrZm3xi8S57CZ9j/ZN7tu8XrX
-         M53UhsecqyK48t6AiIDlZk+XipsPXkuFseFz1VPWcUBaBuWmZinvHR+l8vwPO2ljx0zj
-         jSPrgeB1hjoJz0Gc07EIngxr6ltARp2oIAzroGC3b959dz6+w3/3o6CQa0Ogbjhm3H9M
-         eY/yRiSTJTw0mryjnjZdNrNE9ColufTP9IyFlytUOfplzPSkRpv6R8AcX5+tRLlwdW5g
-         iZ4w==
-X-Forwarded-Encrypted: i=1; AJvYcCW6dByw8u1yvwFAN1FhMJVSJobBcJGiP1bZ1CR1DvWTstte8s+3KbKTepqbA6Lz0svyxUokfYxZEqE=@lists.xen.org
-X-Gm-Message-State: AOJu0YyLUR4FI7MwKzT5XMTNeoesaXRaqoiiQLpg7+hX9BzFe5YQxq8N
-	FIUFg5e149hANHlewD3sSIQbPCBAyXuR0OTOMqu8iBXbC+4P0FbgOhAiDQeQ/WeTJqYYzCrZ1Dl
-	d
-X-Gm-Gg: ASbGncsFWpfO+u+EVP/pSRhhGG6bLSn9z+HtdXBabGPIf4vEK5/cYRWfrpgmjECZKDN
-	T1GtugUciGayC8umZivp/8lc24bIBsLLIul1dOS78LiTeA748rFpoDMQV5ByyjOQsnvwu0B3f4T
-	ybD5Y57faF85yGqF5j3yAcROz4ibf82tL1Q0FRGpd7BVVVTmKm7NpDPni/a5jcb7gqUbaINH3v2
-	UlgTj/6bWCFPVQncCrcfwcBZ+uDNCCjUghhFX3ORsySLNSFrUTsPrteDS6sFSWuepMiHC/TV+/3
-	QOHAhNyUrFqW2hEtwjv67jrAdGqyi5AsLLSfOgaqQYDjw4bNXeTyjyYEEnMWOHphjiHXtPgnWxB
-	V5eFbNnRxVhja6l69
-X-Google-Smtp-Source: AGHT+IFsHFUoejrqrNdXTxQcPHJd+q6q34anRsCYXGuSkQdKkx7aDqCHjt0t1A7Bq6ooEOFq8jkq5A==
-X-Received: by 2002:a05:6000:2907:b0:39c:1429:fa57 with SMTP id ffacd0b85a97d-3a34968fc0emr71795f8f.3.1747155832320;
-        Tue, 13 May 2025 10:03:52 -0700 (PDT)
-Message-ID: <6ff1387d-6577-455d-8a1a-0dee04907b1c@citrix.com>
-Date: Tue, 13 May 2025 18:03:51 +0100
+X-Inumbo-ID: 981fcbe8-301c-11f0-9eb6-5ba50f476ded
+Authentication-Results:garm.ovh; auth=pass (GARM-96R001ee74798f-ac1a-4ede-9fca-0d0d4df457d9,
+                    0F27B6D195039ACFBDF5EC7F2AC12BEA7E98F15C) smtp.auth=sergii.dmytruk@3mdeb.com
+X-OVh-ClientIp:176.111.181.178
+From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
+To: xen-devel@lists.xenproject.org
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Ross Philipson <ross.philipson@oracle.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Lukasz Hawrylko <lukasz@hawrylko.pl>,
+	=?UTF-8?q?Mateusz=20M=C3=B3wka?= <mateusz.mowka@intel.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	trenchboot-devel@googlegroups.com
+Subject: [PATCH v2 00/22] x86: Trenchboot Secure Launch DRTM (Xen)
+Date: Tue, 13 May 2025 20:05:37 +0300
+Message-ID: <cover.1747155790.git.sergii.dmytruk@3mdeb.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: "xen-announce@lists.xen.org" <xen-announce@lists.xen.org>,
- Xen-devel <xen-devel@lists.xen.org>,
- "xen-users@lists.xen.org" <xen-users@lists.xen.org>,
- "oss-security@lists.openwall.com" <oss-security@lists.openwall.com>
-Cc: "Xen.org security team" <security-team-members@xen.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Xen Security Notice 3 (CVE-2024-45332) Intel Branch Privilege
- Injection
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 8938800839277393052
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -51
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdeftdegieejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnegoufhushhpvggtthffohhmrghinhculdegledmnecujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepudehtdekieegfeffveejtddufeelleegfeevkedtgedvgeffieejjeelgeevgfegnecuffhomhgrihhnpehgihhthhhusgdrtghomhdpghhithhlrggsrdgtohhmpdhtrhgvnhgthhgsohhothdrohhrghdpshhouhhrtggvfhhorhhgvgdrnhgvthdpkhgvrhhnvghlrdhorhhgnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukedurddujeekpdefjedrheelrddugedvrdelieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehkedvmgdpmhhouggvpehsmhhtph
+ houhht
+DKIM-Signature: a=rsa-sha256; bh=uUInVjt0zHUzX1YlJgsoYmHPLtR542NbxOEr3R3yCWg=;
+ c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
+ t=1747155981; v=1;
+ b=B8/HTKTvXXIUoeAnuwFCNdUIbYLMSOSrQX7zxIYj6HMRWp5+MiiUKurncb10038t0oDCA5vj
+ 0BIUTTFeTtT/5HjIMvrVLeXRcd/BngwXSoT6s2erpQscaT/xTTUKTY06LHCn7vZC8qi4IgLQkI/
+ Oh2P3FoHIMyR1K0FN29NMhwdqmRPIa4NfNuxSZE6sPrWvMc4BiwafCeDRmHMZ4NFFCjPIRy8uJp
+ PLUV/b35qVcAqzFoqgMo133Dcna7ftqtNiqrgZDmLUykRe8DKVK7tW7eem20K0z1vJifLfHtP+i
+ aEzPUPMpKtmjZM7H5Qm/6uebJKQ8XJMUCUl4QuD0GWnfg==
 
-Researchers from ETH Zurich have discovered Branch Privilege Injection,
-a bug in hardware prediction-domain isolation whereby an attacker can
-cause predictions to be tagged with the wrong mode/privilege, and then
-use the incorrectly-tagged predictions to mount traditional Spectre-v2
-attacks.
+The aim of the [TrenchBoot] project is to provide an implementation of
+DRTM that is generic enough to cover various use cases:
+ - Intel TXT and AMD SKINIT on x86 CPUs
+ - legacy and UEFI boot
+ - TPM1.2 and TPM2.0
+ - (in the future) DRTM on Arm CPUs
 
-For more details, see:
-https://comsec.ethz.ch/bprc
-https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-01247.html
+DRTM is a version of a measured launch that starts on request rather
+than at the start of a boot cycle.  One of its advantages is in not
+including the firmware in the chain of trust.
 
-Intel are releasing microcode to address as part of IPU 2025.2.  There
-are no software mitigations available.
+Xen already supports DRTM via [tboot] which targets Intel TXT only.
+tboot employs encapsulates some of the DRTM details within itself while
+with TrenchBoot Xen (or Linux) is meant to be a self-contained payload
+for a TrenchBoot-enabled bootloader (think GRUB).  The one exception is
+that UEFI case requires calling back into bootloader to initiate DRTM,
+which is necessary to give Xen a chance of querying all the information
+it needs from the firmware before performing DRTM start.
 
-https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files/releases/tag/microcode-20250512
+From reading the above tboot might seem like a more abstracted, but the
+reality is that the payload needs to have DRTM-specific knowledge either
+way.  TrenchBoot in principle allows coming up with independent
+implementations of bootloaders and payloads that are compatible with
+each other.
 
-~Andrew, on behalf of the Xen Security Team.
+The "x86/boot: choose AP stack based on APIC ID" patch is shared with
+[Parallelize AP bring-up] series which is required here because Intel
+TXT always releases all APs simultaneously.  The rest of the patches are
+unique.
+
+This version of the patches corresponds to this branch:
+    https://github.com/TrenchBoot/xen/pull/new/aem-staging-2025-05-12-v2
+
+With the help from Andrew Cooper v2 passes all CI tests:
+    https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1815190030
+
+-----
+
+[TrenchBoot]: https://trenchboot.org/
+[tboot]: https://sourceforge.net/p/tboot/wiki/Home/
+[Parallelize AP bring-up]: https://lore.kernel.org/xen-devel/cover.1699982111.git.krystian.hebel@3mdeb.com/
+[v1]: https://lore.kernel.org/xen-devel/cover.1745172094.git.sergii.dmytruk@3mdeb.com/
+
+-----
+
+Changes in v2:
+ - using dashes instead of underscores in the names of new files
+ - dropping of an extra sha256 implementation
+ - rewriting sha1 implementation to be in line with already present
+   sha256 implementation (simplifying it and getting rid of macros)
+ - correct placement of new lines in Makefile
+ - add header guards to all new files
+ - use correct names for header guards in new files
+ - update license of xen/include/xen/slr-table.h
+ - changed fixmlehdr to search for header within 8 instead of 4 KiB file
+   prefix
+ - don't print DRTM-related capabilities when resuming from S3
+ - forbade S3 in case of Secure Launch
+ - fixed an issue with resuming from S3 caused by inappropriate use of
+   __initdata
+ - added a new section to MAINTAINERS
+ - improved commit messages
+ - fixed MISRA C violations:
+   * shadowing of e820 global
+   * missing U literal suffixes
+   * use of ull literal suffix
+   * excluded fixmlehdr from analysis (similar to other build tools)
+   * use of 0 instead of NULL in one place
+   * provided declarations for some definitions
+   * marked asm-invoked functions with `asmlinkage`
+
+-----
+
+Kacper Stojek (2):
+  x86/boot: add MLE header and Secure Launch entry point
+  xen/arch/x86: reserve TXT memory during Slaunch
+
+Krystian Hebel (7):
+  x86/include/asm/intel-txt.h: constants and accessors for TXT registers
+    and heap
+  x86/boot/slaunch-early: early TXT checks and boot data retrieval
+  x86/slaunch: restore boot MTRRs after Intel TXT DRTM
+  xen/lib: add implementation of SHA-1
+  x86/tpm.c: code for early hashing and extending PCRs (for TPM1.2)
+  x86/boot: choose AP stack based on APIC ID
+  x86/smpboot.c: TXT AP bringup
+
+Michał Żygowski (2):
+  x86/hvm: check for VMX in SMX if Slaunch is active
+  x86/cpu: report SMX, TXT and SKINIT capabilities
+
+Sergii Dmytruk (11):
+  include/xen/slr-table.h: Secure Launch Resource Table definitions
+  x86/boot/slaunch-early: implement early initialization
+  x86/mtrr: expose functions for pausing caching
+  x86/tpm.c: support extending PCRs of TPM2.0
+  x86/tpm.c: implement event log for TPM2.0
+  x86/slaunch: process DRTM policy
+  x86/acpi: disallow S3 on Secure Launch boot
+  x86/boot/slaunch-early: find MBI and SLRT on AMD
+  x86/slaunch: support AMD SKINIT
+  x86/slaunch: support EFI boot
+  MAINTAINERS: add a section for TrenchBoot Slaunch
+
+ .gitignore                                    |    1 +
+ MAINTAINERS                                   |   15 +
+ .../eclair_analysis/ECLAIR/out_of_scope.ecl   |    1 +
+ docs/hypervisor-guide/x86/how-xen-boots.rst   |    7 +
+ xen/arch/x86/Makefile                         |   12 +-
+ xen/arch/x86/acpi/power.c                     |    8 +
+ xen/arch/x86/boot/Makefile                    |   10 +-
+ xen/arch/x86/boot/head.S                      |  250 ++++
+ xen/arch/x86/boot/slaunch-early.c             |  105 ++
+ xen/arch/x86/boot/trampoline.S                |   40 +-
+ xen/arch/x86/boot/x86_64.S                    |   42 +-
+ xen/arch/x86/cpu/amd.c                        |   16 +
+ xen/arch/x86/cpu/cpu.h                        |    1 +
+ xen/arch/x86/cpu/hygon.c                      |    1 +
+ xen/arch/x86/cpu/intel.c                      |   46 +
+ xen/arch/x86/cpu/mtrr/generic.c               |   51 +-
+ xen/arch/x86/e820.c                           |    5 +
+ xen/arch/x86/efi/efi-boot.h                   |   88 +-
+ xen/arch/x86/efi/fixmlehdr.c                  |  127 ++
+ xen/arch/x86/hvm/vmx/vmcs.c                   |    3 +-
+ xen/arch/x86/include/asm/apicdef.h            |    4 +
+ xen/arch/x86/include/asm/intel-txt.h          |  457 +++++++
+ xen/arch/x86/include/asm/mm.h                 |    3 +
+ xen/arch/x86/include/asm/msr-index.h          |    3 +
+ xen/arch/x86/include/asm/mtrr.h               |    8 +
+ xen/arch/x86/include/asm/processor.h          |    1 +
+ xen/arch/x86/include/asm/slaunch.h            |   98 ++
+ xen/arch/x86/include/asm/tpm.h                |   19 +
+ xen/arch/x86/intel-txt.c                      |  188 +++
+ xen/arch/x86/setup.c                          |   32 +-
+ xen/arch/x86/slaunch.c                        |  465 ++++++++
+ xen/arch/x86/smpboot.c                        |   63 +
+ xen/arch/x86/tboot.c                          |   20 +-
+ xen/arch/x86/tpm.c                            | 1056 +++++++++++++++++
+ xen/common/efi/boot.c                         |    4 +
+ xen/common/efi/runtime.c                      |    1 +
+ xen/include/xen/efi.h                         |    1 +
+ xen/include/xen/sha1.h                        |   12 +
+ xen/include/xen/slr-table.h                   |  268 +++++
+ xen/lib/Makefile                              |    1 +
+ xen/lib/sha1.c                                |  218 ++++
+ 41 files changed, 3695 insertions(+), 56 deletions(-)
+ create mode 100644 xen/arch/x86/boot/slaunch-early.c
+ create mode 100644 xen/arch/x86/efi/fixmlehdr.c
+ create mode 100644 xen/arch/x86/include/asm/intel-txt.h
+ create mode 100644 xen/arch/x86/include/asm/slaunch.h
+ create mode 100644 xen/arch/x86/include/asm/tpm.h
+ create mode 100644 xen/arch/x86/intel-txt.c
+ create mode 100644 xen/arch/x86/slaunch.c
+ create mode 100644 xen/arch/x86/tpm.c
+ create mode 100644 xen/include/xen/sha1.h
+ create mode 100644 xen/include/xen/slr-table.h
+ create mode 100644 xen/lib/sha1.c
+
+
+base-commit: f6042f38e621525feff86bb101dc751d2d87cff8
+-- 
+2.49.0
+
 
