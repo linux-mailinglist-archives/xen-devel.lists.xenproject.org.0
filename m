@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B36EFAB6633
-	for <lists+xen-devel@lfdr.de>; Wed, 14 May 2025 10:40:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.984070.1370234 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31D27AB6649
+	for <lists+xen-devel@lfdr.de>; Wed, 14 May 2025 10:44:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.984085.1370251 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uF7f5-0004qT-Pi; Wed, 14 May 2025 08:40:23 +0000
+	id 1uF7jI-0005rn-DR; Wed, 14 May 2025 08:44:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 984070.1370234; Wed, 14 May 2025 08:40:23 +0000
+Received: by outflank-mailman (output) from mailman id 984085.1370251; Wed, 14 May 2025 08:44:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uF7f5-0004oZ-LP; Wed, 14 May 2025 08:40:23 +0000
-Received: by outflank-mailman (input) for mailman id 984070;
- Wed, 14 May 2025 08:40:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uF7f3-0004oS-LT
- for xen-devel@lists.xenproject.org; Wed, 14 May 2025 08:40:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uF7f3-008ICd-0a;
- Wed, 14 May 2025 08:40:20 +0000
-Received: from [2a02:8012:3a1:0:51a6:3d91:4273:769]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uF7f2-00H2xd-1D;
- Wed, 14 May 2025 08:40:20 +0000
+	id 1uF7jI-0005pF-Ag; Wed, 14 May 2025 08:44:44 +0000
+Received: by outflank-mailman (input) for mailman id 984085;
+ Wed, 14 May 2025 08:44:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VfaI=X6=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uF7jG-0005p9-Ma
+ for xen-devel@lists.xenproject.org; Wed, 14 May 2025 08:44:42 +0000
+Received: from fhigh-b1-smtp.messagingengine.com
+ (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ac249de2-309f-11f0-9ffb-bf95429c2676;
+ Wed, 14 May 2025 10:44:40 +0200 (CEST)
+Received: from phl-compute-06.internal (phl-compute-06.phl.internal
+ [10.202.2.46])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id CEA4E25401A7;
+ Wed, 14 May 2025 04:44:38 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Wed, 14 May 2025 04:44:38 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 14 May 2025 04:44:37 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,413 +45,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=8E3vtllW2E08wNN0soZYmkPmUal69SPq7QJ97EQJxhQ=; b=BLn6VnE9M6xMchFtfEgC6qSMHA
-	Yrl5VvGPVrv/KaoHP1UOmAXBiIwkh9HwG0K6bjtze7reoMDnQFB2H/tmrCEFqCJmNmkr3y2S9G6eM
-	PCs8ie/kKjTwNuVvpEjYOB0+/oYkgZ3/NCA2k4iVFYBi9ZsN99ufqdC+5+PvkW0iouTE=;
-Message-ID: <1e56c7e8-5302-4280-a48d-d1e958eeadc9@xen.org>
-Date: Wed, 14 May 2025 09:40:18 +0100
+X-Inumbo-ID: ac249de2-309f-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1747212278;
+	 x=1747298678; bh=PixPq2A5C5ojjRkw3+Yp0ohQCFr6NmwRCmKaQG1C4t4=; b=
+	Y7kWdbnOmCUDl9w+eKe/WPf9S1XHDHzKGkX1DWKroGV4NXu4IZAFvdt2zikYGQDB
+	JyGcSk/LJDDe3qIfAWh3Ak7r0wppsO0+UfY80hhxxuPBH28nEV7aka7YnkZQnlr/
+	Lp7IP5XhG/ShdzGiWYvSgyPRtpTNNIwgCVlH7vTRlE17LVxpg0SFxIGr1wX6Jf7G
+	SHeaAxq+vVEQ2Bycz+PGUbTuXmR8p794nljaXejfE0J9PU6rHLnCEHvkpoflYQBB
+	yuWCV3yeW85UnDs5jhZss6EBw8cAuaVAPLb3diZ543x7CfLgogQX8GODzWoNlD2/
+	AGStHdLTDBAPArXteZqrIg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1747212278; x=1747298678; bh=PixPq2A5C5ojjRkw3+Yp0ohQCFr6NmwRCmK
+	aQG1C4t4=; b=l5zala0AgaUiCdz4WSLEgUClJLbtinwpngAljiOmFSYGV+b2e34
+	u/OhltWvkIuPh0mEUekSA+6EdvYOueyId3AKBv3NmTb7hYIlx4YZ4k0swbmn2Dt8
+	ea7mWkvBZM5k7YkmhUfSQU6vIC/Pz3wMQwnJcU3PnlWkTUjpo0hX0eZdvUobDlw/
+	aoQEnYZSko7XYC2+eNX3hh6rs04tbk1iCwT0DdX5VYhtHkDMVu1HGpMyICyemYPO
+	LTn3Vn7x1H4R5L652l77Jfal0t7yrAkuUqoC7POKX3WDq/DRuHFJhbFvJTJ2ElJE
+	3IMWldeTjKE6QG4fDa09cR/n022HkaBqglQ==
+X-ME-Sender: <xms:9lckaPcfH6mQl_aLA5B7BIuNyncjwRJ0caPB0kzCgB4L7BLDOi8Yug>
+    <xme:9lckaFOiourAHJqh5FssYGWdn1iv7AgY1PzYrxUEtUTXAnbLsZ9Sy2jTUtahN4de-
+    gPjVi-lg1YG3g>
+X-ME-Received: <xmr:9lckaIgH-prP7Xnsz6GXrfV7OliefPvrNqikpuCOXUdR0YUTJQjNr3KqmCDbD1Yyi8GzZb0W-tKPZuhW-6UuemSXMtmLq5nJxxk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdeftdeiheegucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
+    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
+    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+    dpnhgspghrtghpthhtohepgedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgs
+    vghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopehrohhgvghrrdhprghusegtih
+    htrhhigidrtghomhdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhr
+    ihigrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprh
+    hojhgvtghtrdhorhhg
+X-ME-Proxy: <xmx:9lckaA_RfMVBus6SH4mnURFsbI1wY8kjAV2p5u0tvGGvwvYkO2DZRg>
+    <xmx:9lckaLtBEDKPJDUUIpGelaIPG9sGhWxHzgJTBFDq2TFfMBOFLF3Z5A>
+    <xmx:9lckaPGaRC8ybR6hdgcdwmFFCrUYEw59dgYaiIzW6vQXoUGZb4gbow>
+    <xmx:9lckaCMQNApWf3rvJNJDPkWHGinRe_QqpL73s2FlJGRJLyyJnokOFg>
+    <xmx:9lckaNEDiT9pRZNK6OhG-irjQYjD1d0XVDp5zc1NUxg3NwbuLVUdQzJ6>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 14 May 2025 10:44:34 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Assertion 'desc->arch.creator_domid == DOMID_INVALID' failed
+Message-ID: <aCRX899NrUI5OOJZ@mail-itl>
+References: <aCObaP4xs158L5tV@mail-itl>
+ <70e5eeee-f1fa-41b4-91eb-450edc0bcaca@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/6] arm/mpu: Provide and populate MPU C data
- structures
-Content-Language: en-GB
-To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250513084532.4059388-1-luca.fancellu@arm.com>
- <20250513084532.4059388-4-luca.fancellu@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20250513084532.4059388-4-luca.fancellu@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="4VF5uyez0qQDMClv"
+Content-Disposition: inline
+In-Reply-To: <70e5eeee-f1fa-41b4-91eb-450edc0bcaca@suse.com>
 
-Hi Luca,
 
-On 13/05/2025 09:45, Luca Fancellu wrote:
-> Provide some data structure in the C world to track the MPU
-> status, these structures will be filled at boot by the assembly
-> early code with the boot MPU regions and afterwards they will be
-> used at runtime.
-> 
-> Provide methods to update a bitmap created with DECLARE_BITMAP
-> from the assembly code for both Arm32 and Arm64.
-> 
-> Modify Arm64 assembly boot code to reset any unused MPU region,
-> initialise 'max_mpu_regions' with the number of supported MPU
-> regions and modify the common asm macro 'prepare_xen_region' to
-> load into xen_mpumap the MPU status and set/clear the bitmap
-> 'xen_mpumap_mask' used to track the enabled regions.
-> 
-> Provide a stub implementation for the pr_t type and few asm
-> macro for the Arm32 to prevent compilation break, they will
-> be implemented later.
-> 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> ---
-> v5 changes:
->   - changed variable name from 'max_xen_mpumap' to 'max_mpu_regions'
->   - code style fixes
->   - reverted back changes about parameter name of prepare_xen_region
->   - optimised address computation for xen_mpumap entries
->   - modified MAX_MPU_REGION_NR
-> v4 changes:
->   - new patch
-> ---
->   xen/arch/arm/arm64/mpu/head.S            | 13 +++++
->   xen/arch/arm/include/asm/arm32/mpu.h     | 25 +++++++++
->   xen/arch/arm/include/asm/bitmap-op.inc   | 67 ++++++++++++++++++++++++
->   xen/arch/arm/include/asm/mpu.h           |  5 ++
->   xen/arch/arm/include/asm/mpu/mm.h        |  7 +++
->   xen/arch/arm/include/asm/mpu/regions.inc | 49 +++++++++++++++++
->   xen/arch/arm/mpu/mm.c                    | 16 ++++++
->   7 files changed, 182 insertions(+)
->   create mode 100644 xen/arch/arm/include/asm/arm32/mpu.h
->   create mode 100644 xen/arch/arm/include/asm/bitmap-op.inc
-> 
-> diff --git a/xen/arch/arm/arm64/mpu/head.S b/xen/arch/arm/arm64/mpu/head.S
-> index 6d336cafbbaf..59ddc46526eb 100644
-> --- a/xen/arch/arm/arm64/mpu/head.S
-> +++ b/xen/arch/arm/arm64/mpu/head.S
-> @@ -40,6 +40,9 @@ FUNC(enable_boot_cpu_mm)
->       mrs   x5, MPUIR_EL2
->       and   x5, x5, #NUM_MPU_REGIONS_MASK
->   
-> +    ldr   x0, =max_mpu_regions
-> +    strb  w5, [x0]
+--4VF5uyez0qQDMClv
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 14 May 2025 10:44:34 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Assertion 'desc->arch.creator_domid == DOMID_INVALID' failed
 
-Below you are handling cache invalidation when writing to the bitmap. 
-But you don't do one here. Is this just an overlook?
+On Wed, May 14, 2025 at 09:09:08AM +0200, Jan Beulich wrote:
+> On 13.05.2025 21:20, Marek Marczykowski-G=C3=B3recki wrote:
+> > Hi,
+> >=20
+> > When debugging CI job on Linus' master branch, I added "console=3Dvga v=
+ga=3D,keep" and got PV dom0 crash Xen with:
+> >=20
+> > (XEN) [   40.870435] Assertion 'desc->arch.creator_domid =3D=3D DOMID_I=
+NVALID' failed at arch/x86/irq.c:294
+> > (XEN) [   40.886925] ----[ Xen-4.21-unstable  x86_64  debug=3Dy ubsan=
+=3Dy  Not tainted ]----
+> > (XEN) [   40.903356] CPU:    10
+> > (XEN) [   40.919824] RIP:    e008:[<ffff82d04059d2ed>] create_irq+0x272=
+/0x339
+> > (XEN) [   40.936267] RFLAGS: 0000000000010297   CONTEXT: hypervisor (d0=
+v13)
+> > (XEN) [   40.952709] rax: 00000000fffffff4   rbx: ffff830498007c00   rc=
+x: 0000000000001899
+>=20
+> There looks to be a -ENOMEM in %rax, so ...
+>=20
+> > (XEN) [   40.969147] rdx: ffff830498007c5e   rsi: 0000000000000002   rd=
+i: ffff83049830e398
+> > (XEN) [   40.985892] rbp: ffff830498307d18   rsp: ffff830498307ce8   r8=
+:  0000000000000000
+> > (XEN) [   41.003093] r9:  0000000000000000   r10: 0000000000000000   r1=
+1: 0000000000000000
+> > (XEN) [   41.020279] r12: 00000000fffffff4   r13: 000000000000007c   r1=
+4: ffffffffffffffff
+> > (XEN) [   41.037489] r15: 000000000000007c   cr0: 0000000080050033   cr=
+4: 0000000000b526e0
+> > (XEN) [   41.054699] cr3: 0000000492c34000   cr2: ffff8881001603f0
+> > (XEN) [   41.071904] fsb: 0000000000000000   gsb: ffff8882365ac000   gs=
+s: 0000000000000000
+> > (XEN) [   41.089116] ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e0=
+10   cs: e008
+> > (XEN) [   41.106320] Xen code around <ffff82d04059d2ed> (create_irq+0x2=
+72/0x339):
+> > (XEN) [   41.123521]  3f d9 ff e9 cc fe ff ff <0f> 0b 48 8d 3d 5a a0 29=
+ 00 e8 f4 3d d9 ff c6 43
+> > (XEN) [   41.140739] Xen stack trace from rsp=3Dffff830498307ce8:
+> > (XEN) [   41.157931]    000000ff00000001 ffff830497faa000 ffff830498307=
+e00 00000000ffffffff
+> > (XEN) [   41.175132]    0000000000010000 ffff830497faa160 ffff830498307=
+d70 ffff82d0405a6f85
+> > (XEN) [   41.192351]    00000000000002a0 ffff830498307e24 0000000000000=
+200 00000000ffffffff
+> > (XEN) [   41.209551]    ffff830497faa000 0000000000000000 ffff830497faa=
+168 0000000000010000
+> > (XEN) [   41.226753]    ffff830497faa160 ffff830498307de0 ffff82d0405c9=
+ea6 5f24a0ddbbeda194
+> > (XEN) [   41.244062]    ffff830498307e10 0000000000000000 0000000000000=
+001 ffff830498307e00
+> > (XEN) [   41.261387]    ffff830498307e24 ffff830498307e20 ffff830497faa=
+000 ffff830498307ef8
+> > (XEN) [   41.278730]    ffff830497faa000 ffff830497f5a000 ffffc9004002b=
+a78 ffff830498307e68
+> > (XEN) [   41.296052]    ffff82d0405cbd4f ffff82d04053fc3e ffffc9004002b=
+a78 00000000000000a0
+> > (XEN) [   41.313381]    00a0fb0000000001 0000000000000000 0000000000007=
+ff0 ffffffffffffffff
+> > (XEN) [   41.330708]    000000a000000000 0000000000000000 0000000000000=
+000 ffff830498307ef8
+> > (XEN) [   41.348026]    ffff830497f5a000 0000000000000021 0000000000000=
+000 ffffc9004002ba78
+> > (XEN) [   41.365357]    ffff830498307ee8 ffff82d0405427db ffff8881d6961=
+b40 0000000000000001
+> > (XEN) [   41.382680]    000000a000000000 000000000000000d 0000000000000=
+000 ffff830498307ee8
+> > (XEN) [   41.400003]    ffff82d0405e7bc2 ffff830497f5a000 0000000000000=
+000 ffff830497f5a000
+> > (XEN) [   41.417343]    0000000000000000 0000000000000000 ffff830498307=
+fff 0000000000000000
+> > (XEN) [   41.434674]    00007cfb67cf80e7 ffff82d0402012d3 ffff8881d6961=
+b40 ffff888100ef30c0
+> > (XEN) [   41.452010]    0000000000000001 0000000000000005 0000000000000=
+000 ffff888100ef3000
+> > (XEN) [   41.469342]    0000000000000202 0000000000000001 0000000000007=
+ff0 ffff8881d6961b40
+> > (XEN) [   41.486681]    0000000000000021 ffffffff8229d355 000000a000000=
+000 ffffc9004002ba78
+> > (XEN) [   41.504015] Xen call trace:
+> > (XEN) [   41.521314]    [<ffff82d04059d2ed>] R create_irq+0x272/0x339
+>=20
+> ... I'd expect the function calling init_one_irq_desc() to have caused th=
+is.
+> In which case, yes, the assertion is certainly valid to trigger (as it's
+> arch_init_one_irq_desc() which sets the field to the expected value, yet
+> that won't happen if one of the involved allocations fails). I'll make a
+> patch, but this raises the question of how you're running Xen, when
+> seemingly small allocations like the ones involved here end up failing.
 
-> +
->       /* x0: region sel */
->       mov   x0, xzr
->       /* Xen text section. */
-> @@ -74,6 +77,16 @@ FUNC(enable_boot_cpu_mm)
->       prepare_xen_region x0, x1, x2, x3, x4, x5, attr_prbar=REGION_DEVICE_PRBAR, attr_prlar=REGION_DEVICE_PRLAR
->   #endif
->   
-> +zero_mpu:
-> +    /* Reset remaining MPU regions */
-> +    cmp   x0, x5
-> +    beq   out_zero_mpu
-> +    mov   x1, #0
-> +    mov   x2, #1
-> +    prepare_xen_region x0, x1, x2, x3, x4, x5, attr_prlar=REGION_DISABLED_PRLAR
-> +    b     zero_mpu
-> +
-> +out_zero_mpu:
->       b    enable_mpu
->       ret
->   END(enable_boot_cpu_mm)
-> diff --git a/xen/arch/arm/include/asm/arm32/mpu.h b/xen/arch/arm/include/asm/arm32/mpu.h
-> new file mode 100644
-> index 000000000000..1bdae4c309dc
-> --- /dev/null
-> +++ b/xen/arch/arm/include/asm/arm32/mpu.h
-> @@ -0,0 +1,25 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#ifndef __ARM_ARM32_MPU_H__
-> +#define __ARM_ARM32_MPU_H__
-> +
-> +#ifndef __ASSEMBLY__
-> +
-> +/* MPU Protection Region */
-> +typedef struct {
-> +    uint32_t prbar;
-> +    uint32_t prlar;
-> +} pr_t;
-> +
-> +#endif /* __ASSEMBLY__ */
-> +
-> +#endif /* __ARM_ARM32_MPU_H__ */
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/arch/arm/include/asm/bitmap-op.inc b/xen/arch/arm/include/asm/bitmap-op.inc
-> new file mode 100644
-> index 000000000000..ea7c8abbf6f0
-> --- /dev/null
-> +++ b/xen/arch/arm/include/asm/bitmap-op.inc
-> @@ -0,0 +1,67 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +/*
-> + * Sets a bit in a bitmap declared by DECLARE_BITMAP, symbol name passed through
-> + * bitmap_symbol.
-> + *
-> + * bitmap_set_bit:      symbol of the bitmap declared by DECLARE_BITMAP
-> + * bit:                 bit number to be set in the bitmap
-> + * tmp1-tmp4:           temporary registers used for the computation
-> + *
-> + * Preserves bit.
-> + * Output:
-> + *  tmp1: Address of the word containing the changed bit.
+That's weird, there should be plenty of memory. Xen is started with
+dom0_mem=3D4G and it's a 16GB system.
 
-If the register is used for output, then I think it needs a better name.
-But looking at the code, it is not entirely clear how the output will be 
-used.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-> + * Clobbers: tmp1, tmp2, tmp3, tmp4.
-> + */
-> +.macro bitmap_set_bit bitmap_symbol, bit, tmp1, tmp2, tmp3, tmp4
- > +    adr_l   \tmp1, \bitmap_symbol> +    mov     \tmp2, 
-#(BYTES_PER_LONG - 1)
-> +    mvn     \tmp2, \tmp2
-> +    lsr     \tmp3, \bit, #3
-> +    and     \tmp2, \tmp3, \tmp2
-> +    add     \tmp1, \tmp1, \tmp2                 /* bitmap_symbol + (bit/BITS_PER_LONG)*BYTES_PER_LONG */
+--4VF5uyez0qQDMClv
+Content-Type: application/pgp-signature; name=signature.asc
 
-Style: missing some spaces.
+-----BEGIN PGP SIGNATURE-----
 
-But is the comment explaining the logic above? If so, I think I would 
-put it right at the beginning to make easier to understand the logic. I 
-would also consider to split in smaller comments on each line e.g.:
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmgkV/MACgkQ24/THMrX
+1ywF1wf8CMvCc6ajaKmjbmjMfgVz0xDXTJSoVFMQZJq90shTFLGmeE94tEG3c/yA
+ap5zcLd3sSI28igXS0ltPkx+JpKOjjenIU9w0C/M9ofdnmDw5jTpe8/cPjIbYFOi
+DuyGZKYYkrhLwBZ0cjZFKQ5pafcPqFqZ7iEtPFsKiwexPi1UWOxUS2njj+SCne/s
+9VSs92tMvnq5Y2sle9AMkJosKjAevpXndsFko9H0QUpP8TpPPeMdcEO2Z0/1sCoH
+ui/PCTxvszEHIDuNqhAooS6iwJVSqJmevDi+hbdQbxuwdANTDLekPeOcKR9QSnKN
+C6em0TSYS0P1jaz+UfGiZgDJVqreDQ==
+=Gcsr
+-----END PGP SIGNATURE-----
 
-* ... = ... + ...
-
-> +    and     \tmp2, \bit, #(BITS_PER_LONG - 1)   /* bit offset inside word */
-> +
-> +    ldr     \tmp3, [\tmp1]
-> +    mov     \tmp4, #1
-> +    lsl     \tmp4, \tmp4, \tmp2                 /* (1 << offset) */
-> +    orr     \tmp3, \tmp3, \tmp4                 /* set the bit */
-> +    str     \tmp3, [\tmp1]
-> +.endm
-> +
-> +/*
-> + * Clears a bit in a bitmap declared by DECLARE_BITMAP, symbol name passed
-> + * through bitmap_symbol.
-> + *
-> + * bitmap_set_bit:      symbol of the bitmap declared by DECLARE_BITMAP
-> + * bit:                 bit number to be set in the bitmap
-> + * tmp1-tmp4:           temporary registers used for the computation
-> + *
-> + * Preserves bit.
-> + * Output:
-> + *  tmp1: Address of the word containing the changed bit.
-> + * Clobbers: tmp1, tmp2, tmp3, tmp4.
-> + */
-> +.macro bitmap_clear_bit bitmap_symbol, bit, tmp1, tmp2, tmp3, tmp4
-> +    adr_l   \tmp1, \bitmap_symbol
-> +    mov     \tmp2, #(BYTES_PER_LONG - 1)
-> +    mvn     \tmp2, \tmp2
-> +    lsr     \tmp3, \bit, #3
-> +    and     \tmp2, \tmp3, \tmp2
-> +    add     \tmp1, \tmp1, \tmp2                 /* bitmap_symbol + (bit/BITS_PER_LONG)*BYTES_PER_LONG */
-> +    and     \tmp2, \bit, #(BITS_PER_LONG - 1)   /* bit offset inside word */
-> +
-> +    ldr     \tmp3, [\tmp1]
-> +    mov     \tmp4, #1
-> +    lsl     \tmp4, \tmp4, \tmp2                 /* (1 << offset) */
-> +    mvn     \tmp4, \tmp4                        /* ~(1 << offset) */
-> +    and     \tmp3, \tmp3, \tmp4                 /* clear the bit */
-> +    str     \tmp3, [\tmp1]
-> +.endm
-> +
-> +/*
-> + * Local variables:
-> + * mode: ASM
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
-> index bb83f5a5f580..fb93b8b19d24 100644
-> --- a/xen/arch/arm/include/asm/mpu.h
-> +++ b/xen/arch/arm/include/asm/mpu.h
-> @@ -8,6 +8,10 @@
->   
->   #if defined(CONFIG_ARM_64)
->   # include <asm/arm64/mpu.h>
-> +#elif defined(CONFIG_ARM_32)
-> +# include <asm/arm32/mpu.h>
-> +#else
-> +# error "unknown ARM variant"
->   #endif
->   
->   #define MPU_REGION_SHIFT  6
-> @@ -17,6 +21,7 @@
->   #define NUM_MPU_REGIONS_SHIFT   8
->   #define NUM_MPU_REGIONS         (_AC(1, UL) << NUM_MPU_REGIONS_SHIFT)
->   #define NUM_MPU_REGIONS_MASK    (NUM_MPU_REGIONS - 1)
-> +#define MAX_MPU_REGION_NR       NUM_MPU_REGIONS_MASK
->   
->   #endif /* __ARM_MPU_H__ */
->   
-> diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
-> index bfd840fa5d31..409b4dd53dc6 100644
-> --- a/xen/arch/arm/include/asm/mpu/mm.h
-> +++ b/xen/arch/arm/include/asm/mpu/mm.h
-> @@ -8,9 +8,16 @@
->   #include <xen/page-size.h>
->   #include <xen/types.h>
->   #include <asm/mm.h>
-> +#include <asm/mpu.h>
->   
->   extern struct page_info *frame_table;
->   
-> +extern uint8_t max_mpu_regions;
-> +
-> +extern DECLARE_BITMAP(xen_mpumap_mask, MAX_MPU_REGION_NR);
-> +
-> +extern pr_t xen_mpumap[MAX_MPU_REGION_NR];
-> +
->   #define virt_to_maddr(va) ((paddr_t)((vaddr_t)(va) & PADDR_MASK))
->   
->   #ifdef CONFIG_ARM_32
-> diff --git a/xen/arch/arm/include/asm/mpu/regions.inc b/xen/arch/arm/include/asm/mpu/regions.inc
-> index 47868a152662..ba38213ffff1 100644
-> --- a/xen/arch/arm/include/asm/mpu/regions.inc
-> +++ b/xen/arch/arm/include/asm/mpu/regions.inc
-> @@ -1,14 +1,42 @@
->   /* SPDX-License-Identifier: GPL-2.0-only */
->   
-> +#include <asm/bitmap-op.inc>
->   #include <asm/mpu.h>
->   #include <asm/sysregs.h>
->   
->   /* Backgroud region enable/disable */
->   #define SCTLR_ELx_BR    BIT(17, UL)
->   
-> +#define REGION_DISABLED_PRLAR   0x00    /* NS=0 ATTR=000 EN=0 */
->   #define REGION_NORMAL_PRLAR     0x0f    /* NS=0 ATTR=111 EN=1 */
->   #define REGION_DEVICE_PRLAR     0x09    /* NS=0 ATTR=100 EN=1 */
->   
-> +#define PRLAR_ELx_EN            0x1
-> +
-> +#ifdef CONFIG_ARM_64
-> +#define XEN_MPUMAP_ENTRY_SHIFT  0x4     /* 16 byte structure */
-> +
-> +.macro store_pair reg1, reg2, dst
-> +    stp \reg1, \reg2, [\dst]
-> +.endm
-> +
-> +.macro invalidate_dcache_one reg
-> +    dc ivac, \reg
-> +.endm
-> +
-> +#else
-> +#define XEN_MPUMAP_ENTRY_SHIFT  0x3     /* 8 byte structure */
-> +
-> +.macro store_pair reg1, reg2, dst
-> +    nop
-
-Can we use a function that will trigger a fault? So we will remember 
-this will needed to be updated. Maybe re-use the BUG_OPCODE?
-
-> +.endm
-> +
-> +.macro invalidate_dcache_one reg
-> +    nop
-
-Same here.
-
-> +.endm
- > +> +#endif
-> +
->   /*
->    * Macro to prepare and set a EL2 MPU memory region.
->    * We will also create an according MPU memory region entry, which
-> @@ -56,6 +84,27 @@
->       isb
->       WRITE_SYSREG_ASM(\prbar, PRBAR_EL2)
->       WRITE_SYSREG_ASM(\prlar, PRLAR_EL2)
-> +
-> +    /* Load pair into xen_mpumap and invalidate cache */
-
-To confirm my understanding, xen_mpumap is part of the loaded binary. So 
-we expect the bootloader to have clean the cache for us. Therefore, we
-only need to invalidate the entries afterwards. Is it correct?
-
-> +    adr_l \base, xen_mpumap
-> +    add   \base, \base, \sel, LSL #XEN_MPUMAP_ENTRY_SHIFT
-> +    store_pair \prbar, \prlar, \base
-
-I think you want a comment on top of pr_t to mention the structure
-will not changed and
-
-> +    invalidate_dcache_one \base
-
-This will invalidate a single line in the data cache. The size depends 
-on the HW, but typically it will be 64 - 128 bytes. Do we have any check
-that will confirm the data will fit in an cache line?
-
-> +
-> +    /* Set/clear xen_mpumap_mask bitmap */
-> +    tst   \prlar, #PRLAR_ELx_EN
-> +    bne   2f
-> +    /* Region is disabled, clear the bit in the bitmap */
-> +    bitmap_clear_bit xen_mpumap_mask, \sel, \base, \limit, \prbar, \prlar
-> +    b     3f
-> +
-> +2:
-> +    /* Region is enabled, set the bit in the bitmap */
-> +    bitmap_set_bit xen_mpumap_mask, \sel, \base, \limit, \prbar, \prlar
-> +
-> +3:
-> +    invalidate_dcache_one \base
-
-You want to a comment to explain what this invalidate does. AFAICT, this 
-is for the bitmap. But given the bitmap will be typically small, 
-wouldn't it better to do it in one go at the end?
-
-Same comment here.
-
-> +
->       dsb   sy
->       isb
->   
-> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-> index 07c8959f4ee9..ee035a54b942 100644
-> --- a/xen/arch/arm/mpu/mm.c
-> +++ b/xen/arch/arm/mpu/mm.c
-> @@ -7,9 +7,25 @@
->   #include <xen/mm.h>
->   #include <xen/sizes.h>
->   #include <xen/types.h>
-> +#include <asm/mpu.h>
->   
->   struct page_info *frame_table;
->   
-> +/* Maximum number of supported MPU memory regions by the EL2 MPU. */
-> +uint8_t __ro_after_init max_mpu_regions;
-> +
-> +/*
-> + * Bitmap xen_mpumap_mask is to record the usage of EL2 MPU memory regions.
-> + * Bit 0 represents MPU memory region 0, bit 1 represents MPU memory
-> + * region 1, ..., and so on.
-> + * If a MPU memory region gets enabled, set the according bit to 1.
-> + */
-> +DECLARE_BITMAP(xen_mpumap_mask, MAX_MPU_REGION_NR) \
-> +    __section(".data.page_aligned");
-
-Why does this need to be page_aligned?
-
-> +
-> +/* EL2 Xen MPU memory region mapping table. */
-> +pr_t __section(".data.page_aligned") xen_mpumap[MAX_MPU_REGION_NR];
-
-I guess for this one this is mandated by the HW?
-
-> +
->   static void __init __maybe_unused build_assertions(void)
->   {
->       /*
-
-Cheers,
-
--- 
-Julien Grall
-
+--4VF5uyez0qQDMClv--
 
